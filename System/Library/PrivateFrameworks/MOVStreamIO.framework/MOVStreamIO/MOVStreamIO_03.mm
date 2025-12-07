@@ -1,3 +1,772 @@
+uint64_t *std::unique_ptr<std::__tree_node<std::__value_type<std::string,anonymous namespace::MetadataRecordingData>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,anonymous namespace::MetadataRecordingData>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t *a1)
+{
+  v2 = *a1;
+  *a1 = 0;
+  if (v2)
+  {
+    if (*(a1 + 16) == 1)
+    {
+
+      if (*(v2 + 55) < 0)
+      {
+        operator delete(*(v2 + 32));
+      }
+    }
+
+    operator delete(v2);
+  }
+
+  return a1;
+}
+
+void MOVStreamHEVCLosslessEncoder::MOVStreamHEVCLosslessEncoder(MOVStreamHEVCLosslessEncoder *this)
+{
+  this->var2 = 0;
+  *&this->var9 = 0x800000000;
+  *&this->var12 = 0;
+  *&this->var3 = 0x2D000000500;
+  this->var5 = 30.0;
+  this->var6 = 0;
+  *&this->var0 = 0;
+  *&this->var7.var0 = xmmword_25792F680;
+  this->var7.var4 = 1.0;
+  *&this->var7.var5 = 257;
+}
+
+uint64_t MOVStreamHEVCLosslessEncoder::Open(uint64_t a1, uint64_t a2, uint64_t a3, int a4, char a5, const opaqueCMFormatDescription *a6, void (__cdecl *a7)(void *, void *, OSStatus, VTEncodeInfoFlags, CMSampleBufferRef), void *a8, double a9)
+{
+  v14 = a3;
+  v15 = a2;
+  v106 = *MEMORY[0x277D85DE8];
+  v96 = a1;
+  if (a2 < 64 || a3 <= 63)
+  {
+    v16 = +[MIOLog defaultLog];
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136315650;
+      *&buf[4] = "Frame size too small";
+      *&buf[12] = 2080;
+      *&buf[14] = "/Library/Caches/com.apple.xbs/Sources/MOVStreamIO/MOVStreamIO/VTEncoder/MOVStreamHEVCLosslessEncoder.mm";
+      *&buf[22] = 1024;
+      *&buf[24] = 109;
+      _os_log_impl(&dword_257883000, v16, OS_LOG_TYPE_ERROR, "Assert: %s - f: %s, l: %d\n", buf, 0x1Cu);
+    }
+
+    a1 = v96;
+  }
+
+  *(a1 + 24) = a9;
+  v17 = (a1 + 24);
+  *(a1 + 16) = v15;
+  *(a1 + 20) = v14;
+  *(a1 + 104) = 1752589105;
+  *(a1 + 1) = a5;
+  v95 = (a1 + 32);
+  if (*(a1 + 32))
+  {
+LABEL_7:
+    *(a1 + 108) = 0;
+    v18 = a4 - 1;
+    if ((a4 - 1) > 9)
+    {
+      v19 = 8;
+      v20 = 1;
+    }
+
+    else
+    {
+      v19 = dword_25792F690[v18];
+      v20 = dword_25792F6B8[v18];
+    }
+
+    *(a1 + 100) = v19;
+    v21 = (a1 + 100);
+    *(a1 + 48) = v20;
+    *(a1 + 64) = 1;
+    v22 = *(a1 + 8);
+    if (v22)
+    {
+      if (![v22 configureSessionOverride:*v95])
+      {
+        return 4294954394;
+      }
+
+      if (!+[MIOLog debugEnabled])
+      {
+        goto LABEL_17;
+      }
+
+      v23 = +[MIOLog defaultLog];
+      if (!os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+      {
+        goto LABEL_16;
+      }
+
+      *buf = 0;
+      v24 = "Custom video encoder configuration.";
+      goto LABEL_15;
+    }
+
+    if (+[MIOLog debugEnabled])
+    {
+      v38 = +[MIOLog defaultLog];
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_257883000, v38, OS_LOG_TYPE_DEBUG, "*-----------------------------------------------------------------------------*", buf, 2u);
+      }
+    }
+
+    v39 = *MEMORY[0x277CBECE8];
+    v40 = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberSInt32Type, (v96 + 44));
+    if (+[MIOLog debugEnabled])
+    {
+      v41 = +[MIOLog defaultLog];
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
+      {
+        v42 = *(v96 + 44);
+        *buf = 67109120;
+        *&buf[4] = v42;
+        _os_log_impl(&dword_257883000, v41, OS_LOG_TYPE_DEBUG, "Encoder Config >> kVTCompressionPropertyKey_Usage = %d", buf, 8u);
+      }
+    }
+
+    v43 = VTSessionSetProperty(*v95, *MEMORY[0x277CE2608], v40);
+    CFRelease(v40);
+    if (v43)
+    {
+      v44 = +[MIOLog defaultLog];
+      if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 67109890;
+        *&buf[4] = v43;
+        *&buf[8] = 2080;
+        *&buf[10] = "kVTCompressionPropertyKey_Usage failed";
+        *&buf[18] = 2080;
+        *&buf[20] = "/Library/Caches/com.apple.xbs/Sources/MOVStreamIO/MOVStreamIO/VTEncoder/MOVStreamHEVCLosslessEncoder.mm";
+        v104 = 1024;
+        v105 = 438;
+        _os_log_impl(&dword_257883000, v44, OS_LOG_TYPE_ERROR, "Assert: (%d) %s - f: %s, l: %d\n", buf, 0x22u);
+      }
+
+      goto LABEL_97;
+    }
+
+    v45 = *(v96 + 48);
+    if (v45 <= 121)
+    {
+      if (v45 <= 65)
+      {
+        switch(v45)
+        {
+          case 1:
+            v46 = @"HEVC_Main_AutoLevel";
+            goto LABEL_90;
+          case 2:
+            v46 = @"HEVC_Main10_AutoLevel";
+            goto LABEL_90;
+          case 3:
+            v46 = @"HEVC_MainStill_AutoLevel";
+            goto LABEL_90;
+        }
+
+LABEL_120:
+        v44 = [MIOLog defaultLog:outputCallbackRefCon];
+        if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+        {
+          v62 = *(v96 + 48);
+          *buf = 67109120;
+          *&buf[4] = v62;
+          _os_log_impl(&dword_257883000, v44, OS_LOG_TYPE_ERROR, "Profile passed unrecognized (%d). exit.", buf, 8u);
+        }
+
+        goto LABEL_97;
+      }
+
+      switch(v45)
+      {
+        case 'B':
+          v50 = MEMORY[0x277CE2918];
+          break;
+        case 'M':
+          v50 = MEMORY[0x277CE2988];
+          break;
+        case 'd':
+          v50 = MEMORY[0x277CE2938];
+          break;
+        default:
+          goto LABEL_120;
+      }
+    }
+
+    else if (v45 <= 1309)
+    {
+      switch(v45)
+      {
+        case 122:
+          v50 = MEMORY[0x277CE2928];
+          break;
+        case 244:
+          v50 = MEMORY[0x277CE2930];
+          break;
+        case 1308:
+          v46 = @"HEVC_Main444_AutoLevel";
+          goto LABEL_90;
+        default:
+          goto LABEL_120;
+      }
+    }
+
+    else
+    {
+      if (v45 <= 1311)
+      {
+        if (v45 == 1310)
+        {
+          v46 = @"HEVC_Main44410_AutoLevel";
+        }
+
+        else
+        {
+          v46 = @"HEVC_Monochrome12_AutoLevel";
+        }
+
+LABEL_90:
+        if ([MIOLog debugEnabled:outputCallbackRefCon])
+        {
+          v51 = +[MIOLog defaultLog];
+          if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
+          {
+            *buf = 138543362;
+            *&buf[4] = v46;
+            _os_log_impl(&dword_257883000, v51, OS_LOG_TYPE_DEBUG, "Encoder Config >> kVTCompressionPropertyKey_ProfileLevel = %{public}@", buf, 0xCu);
+          }
+        }
+
+        if (VTSessionSetProperty(*v95, *MEMORY[0x277CE25D8], v46))
+        {
+          v44 = +[MIOLog defaultLog];
+          if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+          {
+            *buf = 136315650;
+            *&buf[4] = "VTVideoEncoderSetProperty failed";
+            *&buf[12] = 2080;
+            *&buf[14] = "/Library/Caches/com.apple.xbs/Sources/MOVStreamIO/MOVStreamIO/VTEncoder/MOVStreamHEVCLosslessEncoder.mm";
+            *&buf[22] = 1024;
+            *&buf[24] = 511;
+            _os_log_impl(&dword_257883000, v44, OS_LOG_TYPE_ERROR, "Assert: %s - f: %s, l: %d\n", buf, 0x1Cu);
+          }
+        }
+
+        else
+        {
+          v53 = CFNumberCreate(v39, kCFNumberSInt32Type, (v96 + 52));
+          if (+[MIOLog debugEnabled])
+          {
+            v54 = +[MIOLog defaultLog];
+            if (os_log_type_enabled(v54, OS_LOG_TYPE_DEBUG))
+            {
+              v55 = *(v96 + 52);
+              *buf = 67109120;
+              *&buf[4] = v55;
+              _os_log_impl(&dword_257883000, v54, OS_LOG_TYPE_DEBUG, "Encoder Config >> kVTCompressionPropertyKey_Priority = %d", buf, 8u);
+            }
+          }
+
+          v56 = VTSessionSetProperty(*v95, *MEMORY[0x277CE25D0], v53);
+          CFRelease(v53);
+          if (v56)
+          {
+            if (!+[MIOLog debugEnabled])
+            {
+              return 2;
+            }
+
+            v44 = +[MIOLog defaultLog];
+            if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
+            {
+              *buf = 136315650;
+              *&buf[4] = "kVTCompressionPropertyKey_Priority failed";
+              *&buf[12] = 2080;
+              *&buf[14] = "/Library/Caches/com.apple.xbs/Sources/MOVStreamIO/MOVStreamIO/VTEncoder/MOVStreamHEVCLosslessEncoder.mm";
+              *&buf[22] = 1024;
+              *&buf[24] = 528;
+              _os_log_impl(&dword_257883000, v44, OS_LOG_TYPE_DEBUG, "Assert: %s - f: %s, l: %d\n", buf, 0x1Cu);
+            }
+          }
+
+          else
+          {
+            v57 = *MEMORY[0x277CBED28];
+            v58 = *MEMORY[0x277CBED10];
+            if (*(v96 + 67))
+            {
+              v59 = *MEMORY[0x277CBED28];
+            }
+
+            else
+            {
+              v59 = *MEMORY[0x277CBED10];
+            }
+
+            if (+[MIOLog debugEnabled])
+            {
+              v60 = +[MIOLog defaultLog];
+              if (os_log_type_enabled(v60, OS_LOG_TYPE_DEBUG))
+              {
+                v61 = *(v96 + 67);
+                *buf = 67109120;
+                *&buf[4] = v61;
+                _os_log_impl(&dword_257883000, v60, OS_LOG_TYPE_DEBUG, "Encoder Config >> kVTCompressionPropertyKey_AllowFrameReordering = %d", buf, 8u);
+              }
+            }
+
+            if (VTSessionSetProperty(*v95, *MEMORY[0x277CE2500], v59))
+            {
+              v44 = +[MIOLog defaultLog];
+              if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+              {
+                *buf = 136315650;
+                *&buf[4] = "VTVideoEncoderSetProperty failed";
+                *&buf[12] = 2080;
+                *&buf[14] = "/Library/Caches/com.apple.xbs/Sources/MOVStreamIO/MOVStreamIO/VTEncoder/MOVStreamHEVCLosslessEncoder.mm";
+                *&buf[22] = 1024;
+                *&buf[24] = 544;
+                _os_log_impl(&dword_257883000, v44, OS_LOG_TYPE_ERROR, "Assert: %s - f: %s, l: %d\n", buf, 0x1Cu);
+              }
+            }
+
+            else
+            {
+              v63 = CFNumberCreate(v39, kCFNumberDoubleType, (v96 + 56));
+              if (+[MIOLog debugEnabled])
+              {
+                v64 = +[MIOLog defaultLog];
+                if (os_log_type_enabled(v64, OS_LOG_TYPE_DEBUG))
+                {
+                  v65 = *(v96 + 56);
+                  *buf = 134217984;
+                  *&buf[4] = v65;
+                  _os_log_impl(&dword_257883000, v64, OS_LOG_TYPE_DEBUG, "Encoder Config >> kVTCompressionPropertyKey_MaxKeyFrameIntervalDuration = %f", buf, 0xCu);
+                }
+              }
+
+              v66 = VTSessionSetProperty(*v95, *MEMORY[0x277CE25A8], v63);
+              CFRelease(v63);
+              if (v66)
+              {
+                v44 = +[MIOLog defaultLog];
+                if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+                {
+                  *buf = 136315650;
+                  *&buf[4] = "VTVideoEncoderSetProperty kVTCompressionPropertyKey_MaxKeyFrameIntervalDuration failed";
+                  *&buf[12] = 2080;
+                  *&buf[14] = "/Library/Caches/com.apple.xbs/Sources/MOVStreamIO/MOVStreamIO/VTEncoder/MOVStreamHEVCLosslessEncoder.mm";
+                  *&buf[22] = 1024;
+                  *&buf[24] = 563;
+                  _os_log_impl(&dword_257883000, v44, OS_LOG_TYPE_ERROR, "Assert: %s - f: %s, l: %d\n", buf, 0x1Cu);
+                }
+              }
+
+              else
+              {
+                v67 = CFNumberCreate(v39, kCFNumberDoubleType, v17);
+                if (+[MIOLog debugEnabled])
+                {
+                  v68 = +[MIOLog defaultLog];
+                  if (os_log_type_enabled(v68, OS_LOG_TYPE_DEBUG))
+                  {
+                    v69 = *v17;
+                    *buf = 134217984;
+                    *&buf[4] = v69;
+                    _os_log_impl(&dword_257883000, v68, OS_LOG_TYPE_DEBUG, "Encoder Config >> kVTCompressionPropertyKey_ExpectedFrameRate = %f", buf, 0xCu);
+                  }
+                }
+
+                v70 = VTSessionSetProperty(*v95, *MEMORY[0x277CE2548], v67);
+                CFRelease(v67);
+                if (!v70)
+                {
+                  *valuePtr = 1.0;
+                  v71 = CFNumberCreate(v39, kCFNumberFloat32Type, valuePtr);
+                  if (+[MIOLog debugEnabled])
+                  {
+                    v72 = +[MIOLog defaultLog];
+                    if (os_log_type_enabled(v72, OS_LOG_TYPE_DEBUG))
+                    {
+                      *buf = 134217984;
+                      *&buf[4] = *valuePtr;
+                      _os_log_impl(&dword_257883000, v72, OS_LOG_TYPE_DEBUG, "Encoder Config >> kVTCompressionPropertyKey_Quality = %f", buf, 0xCu);
+                    }
+                  }
+
+                  v73 = VTSessionSetProperty(*v95, *MEMORY[0x277CE25E0], v71);
+                  CFRelease(v71);
+                  if (v73)
+                  {
+                    v74 = +[MIOLog defaultLog];
+                    if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
+                    {
+                      *buf = 136315650;
+                      *&buf[4] = "VTVideoEncoderSetProperty kVTCompressionPropertyKey_Quality failed";
+                      *&buf[12] = 2080;
+                      *&buf[14] = "/Library/Caches/com.apple.xbs/Sources/MOVStreamIO/MOVStreamIO/VTEncoder/MOVStreamHEVCLosslessEncoder.mm";
+                      *&buf[22] = 1024;
+                      *&buf[24] = 599;
+                      _os_log_impl(&dword_257883000, v74, OS_LOG_TYPE_ERROR, "Assert: %s - f: %s, l: %d\n", buf, 0x1Cu);
+                    }
+                  }
+
+                  else
+                  {
+                    if (*(v96 + 65))
+                    {
+                      v75 = v57;
+                    }
+
+                    else
+                    {
+                      v75 = v58;
+                    }
+
+                    if (*v96)
+                    {
+                      v76 = v58;
+                    }
+
+                    else
+                    {
+                      v76 = v75;
+                    }
+
+                    if (+[MIOLog debugEnabled])
+                    {
+                      v77 = +[MIOLog defaultLog];
+                      if (os_log_type_enabled(v77, OS_LOG_TYPE_DEBUG))
+                      {
+                        v78 = *(v96 + 65);
+                        *buf = 67109120;
+                        *&buf[4] = v78;
+                        _os_log_impl(&dword_257883000, v77, OS_LOG_TYPE_DEBUG, "Encoder Config >> kVTCompressionPropertyKey_RealTime = %d", buf, 8u);
+                      }
+                    }
+
+                    v79 = VTSessionSetProperty(*v95, *MEMORY[0x277CE25F0], v76);
+                    if (v79)
+                    {
+                      v74 = +[MIOLog defaultLog];
+                      if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
+                      {
+                        *buf = 67109890;
+                        *&buf[4] = v79;
+                        *&buf[8] = 2080;
+                        *&buf[10] = "VTVideoEncoderSetProperty kVTCompressionPropertyKey_RealTime failed";
+                        *&buf[18] = 2080;
+                        *&buf[20] = "/Library/Caches/com.apple.xbs/Sources/MOVStreamIO/MOVStreamIO/VTEncoder/MOVStreamHEVCLosslessEncoder.mm";
+                        v104 = 1024;
+                        v105 = 622;
+                        _os_log_impl(&dword_257883000, v74, OS_LOG_TYPE_ERROR, "Assert: (%d) %s - f: %s, l: %d\n", buf, 0x22u);
+                      }
+                    }
+
+                    else
+                    {
+                      if (*v96 != 1)
+                      {
+                        goto LABEL_194;
+                      }
+
+                      if (+[MIOLog debugEnabled])
+                      {
+                        v80 = +[MIOLog defaultLog];
+                        if (os_log_type_enabled(v80, OS_LOG_TYPE_DEBUG))
+                        {
+                          v81 = *(v96 + 65);
+                          *buf = 67109120;
+                          *&buf[4] = v81;
+                          _os_log_impl(&dword_257883000, v80, OS_LOG_TYPE_DEBUG, "Encoder Config >> kVTCompressionPropertyKey_MaximizePowerEfficiency = %d", buf, 8u);
+                        }
+                      }
+
+                      v82 = VTSessionSetProperty(*v95, *MEMORY[0x277CE25B0], v58);
+                      if (v82)
+                      {
+                        v74 = +[MIOLog defaultLog];
+                        if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
+                        {
+                          *buf = 67109890;
+                          *&buf[4] = v82;
+                          *&buf[8] = 2080;
+                          *&buf[10] = "VTVideoEncoderSetProperty kVTCompressionPropertyKey_MaximizePowerEfficiency failed";
+                          *&buf[18] = 2080;
+                          *&buf[20] = "/Library/Caches/com.apple.xbs/Sources/MOVStreamIO/MOVStreamIO/VTEncoder/MOVStreamHEVCLosslessEncoder.mm";
+                          v104 = 1024;
+                          v105 = 640;
+                          _os_log_impl(&dword_257883000, v74, OS_LOG_TYPE_ERROR, "Assert: (%d) %s - f: %s, l: %d\n", buf, 0x22u);
+                        }
+                      }
+
+                      else
+                      {
+LABEL_194:
+                        if (*(v96 + 66))
+                        {
+                          v83 = v57;
+                        }
+
+                        else
+                        {
+                          v83 = v58;
+                        }
+
+                        if (+[MIOLog debugEnabled])
+                        {
+                          v84 = +[MIOLog defaultLog];
+                          if (os_log_type_enabled(v84, OS_LOG_TYPE_DEBUG))
+                          {
+                            v85 = *(v96 + 66);
+                            *buf = 67109120;
+                            *&buf[4] = v85;
+                            _os_log_impl(&dword_257883000, v84, OS_LOG_TYPE_DEBUG, "Encoder Config >> my_kVTCompressionPropertyKey_DebugMetadataSEI2 = %d", buf, 8u);
+                          }
+                        }
+
+                        v86 = VTSessionSetProperty(*v95, @"DebugMetadataSEI", v83);
+                        if (v86)
+                        {
+                          v74 = +[MIOLog defaultLog];
+                          if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
+                          {
+                            *buf = 67109890;
+                            *&buf[4] = v86;
+                            *&buf[8] = 2080;
+                            *&buf[10] = "VTVideoEncoderSetProperty my_kVTCompressionPropertyKey_DebugMetadataSEI2 failed";
+                            *&buf[18] = 2080;
+                            *&buf[20] = "/Library/Caches/com.apple.xbs/Sources/MOVStreamIO/MOVStreamIO/VTEncoder/MOVStreamHEVCLosslessEncoder.mm";
+                            v104 = 1024;
+                            v105 = 655;
+                            _os_log_impl(&dword_257883000, v74, OS_LOG_TYPE_ERROR, "Assert: (%d) %s - f: %s, l: %d\n", buf, 0x22u);
+                          }
+                        }
+
+                        else
+                        {
+                          v87 = CFNumberCreate(v39, kCFNumberSInt32Type, v21);
+                          if (+[MIOLog debugEnabled])
+                          {
+                            v88 = +[MIOLog defaultLog];
+                            if (os_log_type_enabled(v88, OS_LOG_TYPE_DEBUG))
+                            {
+                              v89 = *v21;
+                              *buf = 67109120;
+                              *&buf[4] = v89;
+                              _os_log_impl(&dword_257883000, v88, OS_LOG_TYPE_DEBUG, "Encoder Config >> my_kVTCompressionPropertyKey_OutputBitDepth = %d", buf, 8u);
+                            }
+                          }
+
+                          v90 = VTSessionSetProperty(*v95, @"OutputBitDepth", v87);
+                          CFRelease(v87);
+                          if (!v90)
+                          {
+                            if (!+[MIOLog debugEnabled])
+                            {
+                              goto LABEL_17;
+                            }
+
+                            v23 = +[MIOLog defaultLog];
+                            if (!os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+                            {
+LABEL_16:
+
+LABEL_17:
+                              *buf = *MEMORY[0x277CBED10];
+                              if (VTSessionCopyProperty(*v95, *MEMORY[0x277CE2500], *MEMORY[0x277CBECE8], buf))
+                              {
+                                v25 = [MEMORY[0x277CCA9B8] writerWarningWithMessage:@"Cannot check AllowFrameReordering status of encoding session. Assuming disabled." code:0];
+                              }
+
+                              else
+                              {
+                                *(v96 + 109) = *buf == *MEMORY[0x277CBED28];
+                                if (+[MIOLog debugEnabled])
+                                {
+                                  v47 = +[MIOLog defaultLog];
+                                  if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
+                                  {
+                                    v48 = *(v96 + 109);
+                                    *valuePtr = 1.5047e-36;
+                                    v98 = v48;
+                                    _os_log_impl(&dword_257883000, v47, OS_LOG_TYPE_DEBUG, "AllowFrameReordering: %d", valuePtr, 8u);
+                                  }
+                                }
+
+                                CFRelease(*buf);
+                              }
+
+                              if (a6)
+                              {
+                                MOVStreamHEVCLosslessEncoder::propagateColorAttachments(v25, a6, *v95);
+                              }
+
+                              else if (+[MIOLog debugEnabled])
+                              {
+                                v49 = +[MIOLog defaultLog];
+                                if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
+                                {
+                                  *valuePtr = 0;
+                                  _os_log_impl(&dword_257883000, v49, OS_LOG_TYPE_DEBUG, "Missing format discription for VTCompressionSession.", valuePtr, 2u);
+                                }
+                              }
+
+                              return 0;
+                            }
+
+                            *buf = 0;
+                            v24 = "*-----------------------------------------------------------------------------*";
+LABEL_15:
+                            _os_log_impl(&dword_257883000, v23, OS_LOG_TYPE_DEBUG, v24, buf, 2u);
+                            goto LABEL_16;
+                          }
+
+                          v74 = +[MIOLog defaultLog];
+                          if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
+                          {
+                            *buf = 136315650;
+                            *&buf[4] = "VTVideoEncoderSetProperty my_kVTCompressionPropertyKey_OutputBitDepth failed";
+                            *&buf[12] = 2080;
+                            *&buf[14] = "/Library/Caches/com.apple.xbs/Sources/MOVStreamIO/MOVStreamIO/VTEncoder/MOVStreamHEVCLosslessEncoder.mm";
+                            *&buf[22] = 1024;
+                            *&buf[24] = 673;
+                            _os_log_impl(&dword_257883000, v74, OS_LOG_TYPE_ERROR, "Assert: %s - f: %s, l: %d\n", buf, 0x1Cu);
+                          }
+                        }
+                      }
+                    }
+                  }
+
+                  return 2;
+                }
+
+                v44 = +[MIOLog defaultLog];
+                if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+                {
+                  *buf = 136315650;
+                  *&buf[4] = "VTVideoEncoderSetProperty kVTCompressionPropertyKey_ExpectedFrameRate failed";
+                  *&buf[12] = 2080;
+                  *&buf[14] = "/Library/Caches/com.apple.xbs/Sources/MOVStreamIO/MOVStreamIO/VTEncoder/MOVStreamHEVCLosslessEncoder.mm";
+                  *&buf[22] = 1024;
+                  *&buf[24] = 581;
+                  _os_log_impl(&dword_257883000, v44, OS_LOG_TYPE_ERROR, "Assert: %s - f: %s, l: %d\n", buf, 0x1Cu);
+                }
+              }
+            }
+          }
+        }
+
+LABEL_97:
+
+        return 2;
+      }
+
+      if (v45 != 1312)
+      {
+        if (v45 == 1313)
+        {
+          v46 = @"HEVC_Monochrome10_AutoLevel";
+          goto LABEL_90;
+        }
+
+        goto LABEL_120;
+      }
+
+      v50 = MEMORY[0x277CE29C0];
+    }
+
+    v46 = *v50;
+    goto LABEL_90;
+  }
+
+  v26 = MEMORY[0x277CBEC38];
+  v27 = *MEMORY[0x277CE2BB0];
+  v101[0] = *MEMORY[0x277CE2BA8];
+  v101[1] = v27;
+  v102[0] = MEMORY[0x277CBEC38];
+  v102[1] = MEMORY[0x277CBEC38];
+  v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v102 forKeys:v101 count:2];
+  v29 = v96;
+  v30 = *(v96 + 8);
+  if (v30)
+  {
+    v31 = [v30 overrideVideoEncoderSpecification];
+    v32 = v31;
+    if (v31)
+    {
+      v33 = v31;
+
+      v28 = v33;
+      v29 = v96;
+    }
+
+    v34 = [*(v29 + 8) codecTypeOverride];
+    if (v34)
+    {
+      *(v29 + 104) = v34;
+    }
+
+    v29 = v96;
+  }
+
+  if (*(v29 + 1) != 1)
+  {
+    goto LABEL_29;
+  }
+
+  v35 = +[MIOLog defaultLog];
+  if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_257883000, v35, OS_LOG_TYPE_INFO, "VTCompressionSession: Enabling kVTCompressionSessionOption_AllowClientProcessEncode", buf, 2u);
+  }
+
+  v99 = *MEMORY[0x277CE2618];
+  v100 = v26;
+  compressionSessionOut = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v100 forKeys:&v99 count:1];
+  v93 = v95;
+  outputCallbackRefCon = a8;
+  v36 = VTCompressionSessionCreateWithOptions();
+
+  v29 = v96;
+  if ((*(v96 + 1) & 1) == 0)
+  {
+LABEL_29:
+    v36 = VTCompressionSessionCreate(*MEMORY[0x277CBECE8], v15, v14, *(v29 + 104), v28, 0, 0, a7, a8, v95);
+  }
+
+  if (!v36)
+  {
+
+    a1 = v96;
+    goto LABEL_7;
+  }
+
+  v37 = +[MIOLog defaultLog];
+  if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 67109890;
+    *&buf[4] = v36;
+    *&buf[8] = 2080;
+    *&buf[10] = "VTCompressionSessionCreate failed\n";
+    *&buf[18] = 2080;
+    *&buf[20] = "/Library/Caches/com.apple.xbs/Sources/MOVStreamIO/MOVStreamIO/VTEncoder/MOVStreamHEVCLosslessEncoder.mm";
+    v104 = 1024;
+    v105 = 191;
+    _os_log_impl(&dword_257883000, v37, OS_LOG_TYPE_ERROR, "Assert: (%d) %s - f: %s, l: %d\n", buf, 0x22u);
+  }
+
+  return v36;
+}
+
 uint64_t MOVStreamHEVCLosslessEncoder::propagateColorAttachments(MOVStreamHEVCLosslessEncoder *this, CMFormatDescriptionRef desc, OpaqueVTCompressionSession *a3)
 {
   Extensions = CMFormatDescriptionGetExtensions(desc);
@@ -144,19 +913,19 @@ void sub_2579044A8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_257908FE8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_257908FE8(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = MIOL010ToL010Stride16FrameProcessor;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
-void sub_257909F48(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_257909F48(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = MOVStreamReader;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -220,7 +989,7 @@ uint64_t unpack_buffer(uint64_t result, uint64_t a2, uint64_t *a3, int a4, doubl
           }
 
           a7 = vbsl_s8(vdup_n_s16(v20), vorr_s8(v18, v19), v18);
-          *(v9 + 8 * v13++) = *&a7;
+          *(v9 + 8 * v13++) = a7;
           v14 += 5;
         }
 
@@ -275,7 +1044,7 @@ uint64_t unpack_buffer(uint64_t result, uint64_t a2, uint64_t *a3, int a4, doubl
           }
 
           a7 = vbsl_s8(vdup_n_s16(v19), vsra_n_u16(v18, v16, 2uLL), v18);
-          *(v9 + 8 * v13++) = *&a7;
+          *(v9 + 8 * v13++) = a7;
           v14 += 5;
         }
 
@@ -472,14 +1241,14 @@ int16x8_t *conv_L010_to_q8q2(int16x8_t *result, int a2, unsigned __int8 *a3, int
   return result;
 }
 
-void sub_257911960(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_257911960(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = MIOrg3hToRGhAFrameProcessor;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
-void *std::vector<CMTime>::__assign_with_size[abi:ne200100]<CMTime*,CMTime*>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<CMTime>::__assign_with_size[abi:ne200100]<CMTime*,CMTime*>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v7 = result;
   v8 = result[2];
@@ -583,9 +1352,9 @@ double timerEnd(uint64_t a1)
   mach_timebase_info(&info);
   v2 = (v1 * info.numer / info.denom);
   v3 = v2 / 1000000.0;
-  if (atomic_load_explicit(&qword_27F8EBFE8, memory_order_acquire))
+  if (atomic_load_explicit(byte_27F8EBFE8, memory_order_acquire))
   {
-    if (atomic_load_explicit(&qword_27F8EBFF8, memory_order_acquire))
+    if (atomic_load_explicit(byte_27F8EBFF8, memory_order_acquire))
     {
       goto LABEL_3;
     }
@@ -609,7 +1378,7 @@ LABEL_12:
   }
 
   timerEnd(v2 / 1000000.0);
-  if ((atomic_load_explicit(&qword_27F8EBFF8, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_27F8EBFF8, memory_order_acquire) & 1) == 0)
   {
     goto LABEL_11;
   }
@@ -667,7 +1436,7 @@ LABEL_14:
   return v3;
 }
 
-unsigned __int16 *right_shift_uint16_buffer(unsigned __int16 *result, uint16x8_t *a2, unint64_t a3, char a4)
+uint16x8_t *right_shift_uint16_buffer(uint16x8_t *result, uint16x8_t *a2, unint64_t a3, char a4)
 {
   v4 = vdupq_n_s16(a4);
   v5 = result;
@@ -710,25 +1479,25 @@ unsigned __int16 *right_shift_uint16_buffer(unsigned __int16 *result, uint16x8_t
   v11 = (a3 >> 1) & 7;
   if (v11)
   {
-    a2->i16[0] = *result >> a4;
+    a2->i16[0] = result->u16[0] >> a4;
     if (v11 != 1)
     {
-      a2->i16[1] = result[1] >> a4;
+      a2->i16[1] = result->u16[1] >> a4;
       if (v11 != 2)
       {
-        a2->i16[2] = result[2] >> a4;
+        a2->i16[2] = result->u16[2] >> a4;
         if (v11 != 3)
         {
-          a2->i16[3] = result[3] >> a4;
+          a2->i16[3] = result->u16[3] >> a4;
           if (v11 != 4)
           {
-            a2->i16[4] = result[4] >> a4;
+            a2->i16[4] = result->u16[4] >> a4;
             if (v11 != 5)
             {
-              a2->i16[5] = result[5] >> a4;
+              a2->i16[5] = result->u16[5] >> a4;
               if (v11 != 6)
               {
-                a2->i16[6] = result[6] >> a4;
+                a2->i16[6] = result->u16[6] >> a4;
               }
             }
           }
@@ -740,7 +1509,7 @@ unsigned __int16 *right_shift_uint16_buffer(unsigned __int16 *result, uint16x8_t
   return result;
 }
 
-unsigned __int16 *left_shift_uint16_buffer(unsigned __int16 *result, uint16x8_t *a2, unint64_t a3, char a4)
+uint16x8_t *left_shift_uint16_buffer(uint16x8_t *result, uint16x8_t *a2, unint64_t a3, char a4)
 {
   v4 = vdupq_n_s16(a4);
   v5 = result;
@@ -781,25 +1550,25 @@ unsigned __int16 *left_shift_uint16_buffer(unsigned __int16 *result, uint16x8_t 
   v9 = (a3 >> 1) & 7;
   if (v9)
   {
-    a2->i16[0] = *result << a4;
+    a2->i16[0] = result->u16[0] << a4;
     if (v9 != 1)
     {
-      a2->i16[1] = result[1] << a4;
+      a2->i16[1] = result->u16[1] << a4;
       if (v9 != 2)
       {
-        a2->i16[2] = result[2] << a4;
+        a2->i16[2] = result->u16[2] << a4;
         if (v9 != 3)
         {
-          a2->i16[3] = result[3] << a4;
+          a2->i16[3] = result->u16[3] << a4;
           if (v9 != 4)
           {
-            a2->i16[4] = result[4] << a4;
+            a2->i16[4] = result->u16[4] << a4;
             if (v9 != 5)
             {
-              a2->i16[5] = result[5] << a4;
+              a2->i16[5] = result->u16[5] << a4;
               if (v9 != 6)
               {
-                a2->i16[6] = result[6] << a4;
+                a2->i16[6] = result->u16[6] << a4;
               }
             }
           }
@@ -2658,7 +3427,7 @@ uint64_t join_companded_bayer_buffer(uint64_t result, const unsigned __int8 *a2,
       if (a10)
       {
         v13 = 0;
-        v14 = &a5->u8[15];
+        v14 = &a5->i8[15];
         v15 = a4 + 7;
         v16 = a3 + 7;
         v17 = a2 + 7;
@@ -2735,7 +3504,7 @@ uint64_t join_companded_bayer_buffer(uint64_t result, const unsigned __int8 *a2,
       else
       {
         v38 = 0;
-        v39 = &a5->u8[15];
+        v39 = &a5->i8[15];
         v40 = a4 + 7;
         v41 = a3 + 7;
         v42 = a2 + 7;
@@ -2814,10 +3583,10 @@ uint64_t join_companded_bayer_buffer(uint64_t result, const unsigned __int8 *a2,
   return result;
 }
 
-void sub_25791A0A0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_25791A0A0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = MIOWriterStereoPixelBufferStreamInput;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -2863,38 +3632,38 @@ void sub_25791B4B8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_25791B7B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_25791B7B8(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = MOVStreamVideoEncoderInterface;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
-void sub_25791DA5C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_25791DA5C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = MIOCompandedRawBayerFrameProcessor;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
-void sub_25791DCDC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_25791DCDC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = MIOTimeRangeMetadataTrackReader;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
-void sub_25791F504(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_25791F504(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = MIOL016Raw14FrameProcessor;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
-void sub_25791FB64(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_25791FB64(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = MIOWriterPixelBufferStreamInput;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -3013,7 +3782,7 @@ LABEL_21:
   return v4;
 }
 
-double matrix_coefficients_from_nclc(unsigned int a1, double *a2, void *a3)
+double matrix_coefficients_from_nclc(uint64_t a1, double *a2, void *a3)
 {
   if (a1 >= 7)
   {
@@ -3198,14 +3967,15 @@ uint64_t std::__format_spec::__detail::__estimate_column_width_grapheme_clusteri
   return v9;
 }
 
-uint64_t std::__unicode::__extended_grapheme_cluster_view<char>::__consume[abi:ne200100](unsigned __int8 **a1, unsigned int *a2, _BYTE *a3)
+uint64_t std::__unicode::__extended_grapheme_cluster_view<char>::__consume[abi:ne200100](unsigned __int8 **a1, _DWORD *a2, _BYTE *a3)
 {
-  v5 = std::__unicode::__code_point_view<char>::__consume[abi:ne200100](a1) & 0x7FFFFFFF;
-  v6 = std::__extended_grapheme_custer_property_boundary::__get_property[abi:ne200100](v5);
-  v7 = v6;
-  result = std::__unicode::__extended_grapheme_cluster_break::__evaluate[abi:ne200100](a2, v5, v6);
-  *a2 = v5;
-  *a3 = v7;
+  v5 = std::__unicode::__code_point_view<char>::__consume[abi:ne200100](a1);
+  v6 = v5 & 0x7FFFFFFF;
+  v7 = std::__extended_grapheme_custer_property_boundary::__get_property[abi:ne200100](v5 & 0x7FFFFFFF);
+  v8 = v7;
+  result = std::__unicode::__extended_grapheme_cluster_break::__evaluate[abi:ne200100](a2, v6, v7);
+  *a2 = v6;
+  *a3 = v8;
   return result;
 }
 
@@ -3413,18 +4183,18 @@ void ZonePlate::render_444<PixelFormatTraits<875836534u>>()
 
 void timerEnd(double a1)
 {
-  if (__cxa_guard_acquire(&qword_27F8EBFE8))
+  if (__cxa_guard_acquire(byte_27F8EBFE8))
   {
     qword_27F8EBFE0 = *&a1;
-    __cxa_guard_release(&qword_27F8EBFE8);
+    __cxa_guard_release(byte_27F8EBFE8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27F8EBFF8))
+  if (__cxa_guard_acquire(byte_27F8EBFF8))
   {
     qword_27F8EBFF0 = *&a1;
-    __cxa_guard_release(&qword_27F8EBFF8);
+    __cxa_guard_release(byte_27F8EBFF8);
   }
 }
 
@@ -3588,7 +4358,7 @@ uint64_t VCPDecompressionSessionSetProperty_delayInitStub(double a1)
   return MEMORY[0x2821DF688]();
 }
 
-double __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> dlopenHelper_VideoProcessing(double a1)
+double dlopenHelper_VideoProcessing(double a1)
 {
   dlopen("/System/Library/PrivateFrameworks/VideoProcessing.framework/VideoProcessing", 0);
   atomic_store(1u, &dlopenHelperFlag_VideoProcessing);

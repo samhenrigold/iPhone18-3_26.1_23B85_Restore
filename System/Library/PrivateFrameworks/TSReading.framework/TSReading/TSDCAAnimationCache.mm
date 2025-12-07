@@ -182,7 +182,7 @@ LABEL_31:
   v36 = v207;
   if (v206)
   {
-    [(CAAnimation *)self->_animation duration];
+    objc_msgSend_duration(self->_animation);
     self->_cacheValuesCount = (ceil(v37 * 600.0) + 1.0);
   }
 
@@ -558,7 +558,7 @@ LABEL_123:
     }
 
 LABEL_121:
-    [v108 CATransform3DValue];
+    objc_msgSend_CATransform3DValue(v108);
   }
 
   *&self->_transformInitialValue.m31 = v213;
@@ -592,7 +592,7 @@ LABEL_121:
           v115 = [(CAAnimation *)self->_animation TSD_valueForKeyPath:@"transform" atTime:self animationCache:v114 * self->_animationDuration];
           if (v115)
           {
-            [v115 CATransform3DValue];
+            objc_msgSend_CATransform3DValue(v115);
           }
 
           else
@@ -1100,7 +1100,7 @@ LABEL_254:
   {
     v10->_layer = layer;
     v10->_animation = animation;
-    [animation duration];
+    objc_msgSend_duration(animation);
     v11->_animationDuration = v12;
     v11->_overrideInitialValuesDict = [values copy];
     [(TSDCAAnimationCache *)v11 p_setupAndCacheAnimationValues:animationValuesCopy verifyOnly:0];

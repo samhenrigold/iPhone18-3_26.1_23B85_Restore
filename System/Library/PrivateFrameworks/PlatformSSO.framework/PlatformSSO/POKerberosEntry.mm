@@ -139,7 +139,7 @@
 id __37__POKerberosEntry_dataRepresentation__block_invoke()
 {
   v0 = [MEMORY[0x277D3D1F0] errorWithCode:-1001 description:@"Failed to serialize kerberos entry."];
-  v1 = PO_LOG_POKerberosHelper();
+  v1 = PO_LOG_POKerberosHelper(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -238,7 +238,7 @@ LABEL_12:
 id __32__POKerberosEntry_initWithData___block_invoke(uint64_t a1)
 {
   v1 = [MEMORY[0x277D3D1F0] errorWithCode:-1001 underlyingError:*(a1 + 32) description:@"Failed to deserialize kerberos entry."];
-  v2 = PO_LOG_POKerberosHelper();
+  v2 = PO_LOG_POKerberosHelper(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();

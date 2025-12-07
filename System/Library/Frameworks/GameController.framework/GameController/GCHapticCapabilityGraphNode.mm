@@ -34,63 +34,63 @@
 
 - (id)jsonDictionaryRepresentation
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   array = [MEMORY[0x1E695DF70] array];
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   v5 = self->_children;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v28 objects:v33 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v27 objects:v32 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v29;
+    v8 = *v28;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v29 != v8)
+        if (*v28 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        label = [*(*(&v28 + 1) + 8 * i) label];
+        label = [*(*(&v27 + 1) + 8 * i) label];
         [array addObject:label];
       }
 
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v28 objects:v33 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v27 objects:v32 count:16];
     }
 
     while (v7);
   }
 
   array2 = [MEMORY[0x1E695DF70] array];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v12 = self->_actuators;
-  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v24 objects:v32 count:16];
+  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v23 objects:v31 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v25;
+    v15 = *v24;
     do
     {
       for (j = 0; j != v14; ++j)
       {
-        if (*v25 != v15)
+        if (*v24 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        label2 = [*(*(&v24 + 1) + 8 * j) label];
+        label2 = [*(*(&v23 + 1) + 8 * j) label];
         [array2 addObject:label2];
       }
 
-      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v24 objects:v32 count:16];
+      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v23 objects:v31 count:16];
     }
 
     while (v14);
@@ -119,10 +119,8 @@
     v21 = array2;
   }
 
-  [v20 setObject:v21 forKeyedSubscript:{v19, v24}];
+  [v20 setObject:v21 forKeyedSubscript:{v19, v23}];
 LABEL_20:
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }

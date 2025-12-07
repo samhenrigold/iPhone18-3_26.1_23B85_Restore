@@ -255,16 +255,17 @@ LABEL_8:
 {
   if (value < 0.0 || value > 1.0)
   {
-    if (CRLAccessibilityShouldPerformValidationChecks())
+    ShouldPerformValidationChecks = CRLAccessibilityShouldPerformValidationChecks(self, a2);
+    if (ShouldPerformValidationChecks)
     {
-      ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch();
-      if (__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"Hue value should be in range [0..1f], got %f", v6, v7, v8, v9, v10, *&value))
+      ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch(ShouldPerformValidationChecks);
+      if (__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"Hue value should be in range [0..1f], got %f", v7, v8, v9, v10, v11, *&value))
       {
         abort();
       }
     }
 
-    v11 = 0;
+    v12 = 0;
   }
 
   else
@@ -299,142 +300,142 @@ LABEL_8:
                               {
                                 if (value >= 0.958000004)
                                 {
-                                  v12 = +[NSBundle mainBundle];
-                                  v13 = v12;
+                                  v13 = +[NSBundle mainBundle];
+                                  v14 = v13;
                                   if (value >= 0.986000001)
                                   {
-                                    v14 = @"red";
+                                    v15 = @"red";
                                   }
 
                                   else
                                   {
-                                    v14 = @"pink red";
+                                    v15 = @"pink red";
                                   }
                                 }
 
                                 else
                                 {
-                                  v12 = +[NSBundle mainBundle];
-                                  v13 = v12;
-                                  v14 = @"pink";
+                                  v13 = +[NSBundle mainBundle];
+                                  v14 = v13;
+                                  v15 = @"pink";
                                 }
                               }
 
                               else
                               {
-                                v12 = +[NSBundle mainBundle];
-                                v13 = v12;
-                                v14 = @"magenta pink";
+                                v13 = +[NSBundle mainBundle];
+                                v14 = v13;
+                                v15 = @"magenta pink";
                               }
                             }
 
                             else
                             {
-                              v12 = +[NSBundle mainBundle];
-                              v13 = v12;
-                              v14 = @"magenta";
+                              v13 = +[NSBundle mainBundle];
+                              v14 = v13;
+                              v15 = @"magenta";
                             }
                           }
 
                           else
                           {
-                            v12 = +[NSBundle mainBundle];
-                            v13 = v12;
-                            v14 = @"purple";
+                            v13 = +[NSBundle mainBundle];
+                            v14 = v13;
+                            v15 = @"purple";
                           }
                         }
 
                         else
                         {
-                          v12 = +[NSBundle mainBundle];
-                          v13 = v12;
-                          v14 = @"blue";
+                          v13 = +[NSBundle mainBundle];
+                          v14 = v13;
+                          v15 = @"blue";
                         }
                       }
 
                       else
                       {
-                        v12 = +[NSBundle mainBundle];
-                        v13 = v12;
-                        v14 = @"cyan blue";
+                        v13 = +[NSBundle mainBundle];
+                        v14 = v13;
+                        v15 = @"cyan blue";
                       }
                     }
 
                     else
                     {
-                      v12 = +[NSBundle mainBundle];
-                      v13 = v12;
-                      v14 = @"cyan";
+                      v13 = +[NSBundle mainBundle];
+                      v14 = v13;
+                      v15 = @"cyan";
                     }
                   }
 
                   else
                   {
-                    v12 = +[NSBundle mainBundle];
-                    v13 = v12;
-                    v14 = @"blue green";
+                    v13 = +[NSBundle mainBundle];
+                    v14 = v13;
+                    v15 = @"blue green";
                   }
                 }
 
                 else
                 {
-                  v12 = +[NSBundle mainBundle];
-                  v13 = v12;
-                  v14 = @"green";
+                  v13 = +[NSBundle mainBundle];
+                  v14 = v13;
+                  v15 = @"green";
                 }
               }
 
               else
               {
-                v12 = +[NSBundle mainBundle];
-                v13 = v12;
-                v14 = @"yellow green";
+                v13 = +[NSBundle mainBundle];
+                v14 = v13;
+                v15 = @"yellow green";
               }
             }
 
             else
             {
-              v12 = +[NSBundle mainBundle];
-              v13 = v12;
-              v14 = @"yellow";
+              v13 = +[NSBundle mainBundle];
+              v14 = v13;
+              v15 = @"yellow";
             }
           }
 
           else
           {
-            v12 = +[NSBundle mainBundle];
-            v13 = v12;
-            v14 = @"yellow orange";
+            v13 = +[NSBundle mainBundle];
+            v14 = v13;
+            v15 = @"yellow orange";
           }
         }
 
         else
         {
-          v12 = +[NSBundle mainBundle];
-          v13 = v12;
-          v14 = @"orange";
+          v13 = +[NSBundle mainBundle];
+          v14 = v13;
+          v15 = @"orange";
         }
       }
 
       else
       {
-        v12 = +[NSBundle mainBundle];
-        v13 = v12;
-        v14 = @"red orange";
+        v13 = +[NSBundle mainBundle];
+        v14 = v13;
+        v15 = @"red orange";
       }
     }
 
     else
     {
-      v12 = +[NSBundle mainBundle];
-      v13 = v12;
-      v14 = @"red";
+      v13 = +[NSBundle mainBundle];
+      v14 = v13;
+      v15 = @"red";
     }
 
-    v11 = [v12 localizedStringForKey:v14 value:0 table:0];
+    v12 = [v13 localizedStringForKey:v15 value:0 table:0];
   }
 
-  return v11;
+  return v12;
 }
 
 + (id)crlaxOpacityDescriptionStringForAlphaComponent:(double)component

@@ -77,12 +77,11 @@ LABEL_7:
     v17 = 0;
     do
     {
-      v18 = *var1;
-      v19 = (*(self->_mapBlock + 2))();
-      if (v19)
+      v18 = (*(self->_mapBlock + 2))();
+      if (v18)
       {
-        objc_storeStrong(&self->_resultValues[v17], v19);
-        state->var1[v17++] = v19;
+        objc_storeStrong(&self->_resultValues[v17], v18);
+        state->var1[v17++] = v18;
       }
 
       ++var1;
@@ -100,17 +99,17 @@ LABEL_7:
 LABEL_23:
   if (v17 < self->_previousResultValuesCount)
   {
-    v20 = v17;
+    v19 = v17;
     do
     {
-      v21 = self->_resultValues;
-      v22 = v21[v20];
-      v21[v20] = 0;
+      v20 = self->_resultValues;
+      v21 = v20[v19];
+      v20[v19] = 0;
 
-      ++v20;
+      ++v19;
     }
 
-    while (v20 < self->_previousResultValuesCount);
+    while (v19 < self->_previousResultValuesCount);
   }
 
   self->_previousResultValuesCount = v17;

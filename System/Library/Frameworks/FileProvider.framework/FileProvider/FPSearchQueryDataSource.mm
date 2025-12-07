@@ -29,7 +29,7 @@
     v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"com.apple.FileProvider.ExtensionDataSource.queue (%p)", v11];
     uTF8String = [v12 UTF8String];
     v14 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-    v15 = FPDataSourceBaseQueue();
+    v15 = FPDataSourceBaseQueue(v14);
     v16 = dispatch_queue_create_with_target_V2(uTF8String, v14, v15);
     queue = v11->_queue;
     v11->_queue = v16;
@@ -143,9 +143,9 @@ LABEL_23:
 
 void __61__FPSearchQueryDataSource_initWithQueryDescriptor_predicate___block_invoke(id *a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   section = __fp_create_section();
-  v11 = section;
+  v10 = section;
   v3 = fp_current_or_default_log();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
@@ -153,18 +153,17 @@ void __61__FPSearchQueryDataSource_initWithQueryDescriptor_predicate___block_inv
     __61__FPSearchQueryDataSource_initWithQueryDescriptor_predicate___block_invoke_cold_1(v4, buf, section, v3);
   }
 
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __61__FPSearchQueryDataSource_initWithQueryDescriptor_predicate___block_invoke_25;
-  v7[3] = &unk_1E793DC70;
+  v6[0] = MEMORY[0x1E69E9820];
+  v6[1] = 3221225472;
+  v6[2] = __61__FPSearchQueryDataSource_initWithQueryDescriptor_predicate___block_invoke_25;
+  v6[3] = &unk_1E793DC70;
   v5 = a1[4];
-  v8 = a1[5];
-  v9 = a1[4];
-  v10 = a1[6];
-  [FPProviderDomain fetchProviderDomainWithID:v5 completionHandler:v7];
+  v7 = a1[5];
+  v8 = a1[4];
+  v9 = a1[6];
+  [FPProviderDomain fetchProviderDomainWithID:v5 completionHandler:v6];
 
-  __fp_leave_section_Debug(&v11);
-  v6 = *MEMORY[0x1E69E9840];
+  __fp_leave_section_Debug(&v10);
 }
 
 void __61__FPSearchQueryDataSource_initWithQueryDescriptor_predicate___block_invoke_25(uint64_t a1, void *a2)
@@ -386,17 +385,16 @@ uint64_t __39__FPSearchQueryDataSource_setDelegate___block_invoke(uint64_t a1)
 
 - (void)initWithQueryDescriptor:(char)a1 predicate:(NSObject *)a2 .cold.1(char a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = @"NO";
   if (a1)
   {
     v2 = @"YES";
   }
 
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_debug_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] Creating search query data source (is search on USB: %@)", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_debug_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] Creating search query data source (is search on USB: %@)", &v3, 0xCu);
 }
 
 - (void)initWithQueryDescriptor:(uint64_t)a1 predicate:(uint64_t)a2 .cold.2(uint64_t a1, uint64_t a2)
@@ -422,20 +420,18 @@ void __61__FPSearchQueryDataSource_initWithQueryDescriptor_predicate___block_inv
 
 void __61__FPSearchQueryDataSource_initWithQueryDescriptor_predicate___block_invoke_25_cold_1(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v1 = [*(a1 + 40) fp_obfuscatedProviderDomainID];
-  OUTLINED_FUNCTION_0_9(&dword_1AAAE1000, v2, v3, "[DEBUG] '%@' does not support server search", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_9(&dword_1AAAE1000, v2, v3, "[DEBUG] '%@' does not support server search", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 void __61__FPSearchQueryDataSource_initWithQueryDescriptor_predicate___block_invoke_25_cold_2(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v1 = [*(a1 + 40) fp_obfuscatedProviderDomainID];
-  OUTLINED_FUNCTION_0_9(&dword_1AAAE1000, v2, v3, "[DEBUG] '%@' supports server search", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_9(&dword_1AAAE1000, v2, v3, "[DEBUG] '%@' supports server search", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

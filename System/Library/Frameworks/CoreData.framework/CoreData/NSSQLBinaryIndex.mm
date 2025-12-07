@@ -7,7 +7,7 @@
 
 - (id)generateStatementsForStore:(id)store
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
   v6 = objc_autoreleasePoolPush();
   if (-[NSFetchIndexDescription _isMappedSinglePropertyIndex](-[NSSQLIndex indexDescription](self, "indexDescription")) && [objc_msgSend(-[NSArray firstObject](-[NSFetchIndexDescription elements](-[NSSQLIndex indexDescription](self "indexDescription")] == 4 && !-[NSFetchIndexDescription _isUnique](-[NSSQLIndex indexDescription](self, "indexDescription")))
@@ -28,13 +28,13 @@
       v8 = &stru_1EF3F1768;
     }
 
-    v43 = objc_msgSend(v7, "stringWithFormat:", @"CREATE %@INDEX IF NOT EXISTS Z_%@_%@ ON %@ ("), v8, -[NSSQLEntity name](-[NSSQLIndex sqlEntity](self, "sqlEntity"), "name"), -[NSFetchIndexDescription name](-[NSSQLIndex indexDescription](self, "indexDescription"), "name"), -[NSSQLEntity tableName](-[NSSQLIndex sqlEntity](self, "sqlEntity"), "tableName");
+    v42 = objc_msgSend_stringWithFormat_(v7, v8, [(NSSQLEntity *)[(NSSQLIndex *)self sqlEntity] name], [(NSFetchIndexDescription *)[(NSSQLIndex *)self indexDescription] name], [(NSSQLEntity *)[(NSSQLIndex *)self sqlEntity] tableName]);
+    v43 = 0u;
     v44 = 0u;
     v45 = 0u;
     v46 = 0u;
-    v47 = 0u;
     elements = [(NSFetchIndexDescription *)[(NSSQLIndex *)self indexDescription] elements];
-    v10 = [(NSArray *)elements countByEnumeratingWithState:&v44 objects:v48 count:16];
+    v10 = [(NSArray *)elements countByEnumeratingWithState:&v43 objects:v47 count:16];
     if (!v10)
     {
       goto LABEL_54;
@@ -42,20 +42,20 @@
 
     v11 = v10;
     selfCopy = self;
-    v41 = v6;
-    v42 = array;
+    v40 = v6;
+    v41 = array;
     v13 = 0;
-    v14 = *v45;
+    v14 = *v44;
     while (1)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v45 != v14)
+        if (*v44 != v14)
         {
           objc_enumerationMutation(elements);
         }
 
-        v16 = *(*(&v44 + 1) + 8 * i);
+        v16 = *(*(&v43 + 1) + 8 * i);
         v17 = objc_autoreleasePoolPush();
         property = [v16 property];
         _propertyType = [property _propertyType];
@@ -95,7 +95,7 @@ LABEL_30:
               columnName = [v27 columnName];
               if (v13)
               {
-                [v43 appendString:{@", "}];
+                [v42 appendString:{@", "}];
               }
 
               isAscending = [v16 isAscending];
@@ -105,7 +105,7 @@ LABEL_30:
                 v30 = @"ASC";
               }
 
-              [v43 appendFormat:@"%@ COLLATE BINARY %@", columnName, v30];
+              [v42 appendFormat:@"%@ COLLATE BINARY %@", columnName, v30];
               v13 = 1;
               goto LABEL_47;
             }
@@ -192,16 +192,16 @@ LABEL_47:
         objc_autoreleasePoolPop(v17);
       }
 
-      v11 = [(NSArray *)elements countByEnumeratingWithState:&v44 objects:v48 count:16];
+      v11 = [(NSArray *)elements countByEnumeratingWithState:&v43 objects:v47 count:16];
       if (!v11)
       {
-        v6 = v41;
-        array = v42;
+        v6 = v40;
+        array = v41;
         if (v13)
         {
-          [v43 appendString:@""]);
-          v36 = [[NSSQLiteStatement alloc] initWithEntity:[(NSSQLIndex *)selfCopy sqlEntity] sqlString:v43];
-          [v42 addObject:v36];
+          [v42 appendString:@""]);
+          v36 = [[NSSQLiteStatement alloc] initWithEntity:[(NSSQLIndex *)selfCopy sqlEntity] sqlString:v42];
+          [v41 addObject:v36];
           goto LABEL_53;
         }
 
@@ -222,17 +222,14 @@ LABEL_53:
 
 LABEL_54:
   objc_autoreleasePoolPop(v6);
-  v39 = *MEMORY[0x1E69E9840];
   return array;
 }
 
 - (id)dropStatementsForStore:(id)store
 {
-  v5[1] = *MEMORY[0x1E69E9840];
-  v5[0] = -[NSSQLiteStatement initWithEntity:sqlString:]([NSSQLiteStatement alloc], "initWithEntity:sqlString:", -[NSSQLIndex sqlEntity](self, "sqlEntity"), [MEMORY[0x1E696AD60] stringWithFormat:@"DROP INDEX IF EXISTS Z_%@_%@", -[NSSQLEntity name](-[NSSQLIndex sqlEntity](self, "sqlEntity", store), "name"), -[NSFetchIndexDescription name](-[NSSQLIndex indexDescription](self, "indexDescription"), "name")]);
-  result = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  v4[1] = *MEMORY[0x1E69E9840];
+  v4[0] = [[NSSQLiteStatement alloc] initWithEntity:[(NSSQLIndex *)self sqlEntity] sqlString:objc_msgSend_stringWithFormat_(MEMORY[0x1E696AD60], [(NSSQLEntity *)[(NSSQLIndex *)self sqlEntity] name], [(NSFetchIndexDescription *)[(NSSQLIndex *)self indexDescription] name])];
+  return [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:1];
 }
 
 @end

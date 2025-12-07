@@ -20,9 +20,9 @@ LABEL_22:
 
   if (v4 && configuration)
   {
-    v5 = [configuration isEqual:v4];
+    isEqual = objc_msgSend_isEqual_(configuration);
 
-    if (v5)
+    if (isEqual)
     {
       return;
     }
@@ -132,8 +132,8 @@ LABEL_9:
       v19 = 0;
     }
 
-    v21 = [v16 isEqualToString:v19];
-    if ((v21 & 1) == 0)
+    isEqualToString = objc_msgSend_isEqualToString_(v16);
+    if ((isEqualToString & 1) == 0)
     {
       goto LABEL_9;
     }
@@ -152,7 +152,7 @@ LABEL_9:
   layer2 = [(UIView *)self layer];
   [layer2 setShadowRadius:20.0];
 
-  v5 = +[UIColor blackColor];
+  v5 = objc_msgSend_blackColor(UIColor);
   cGColor = [v5 CGColor];
   layer3 = [(UIView *)self layer];
   [layer3 setShadowColor:cGColor];

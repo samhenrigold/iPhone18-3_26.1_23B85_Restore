@@ -22,11 +22,10 @@
 
 - (void)service:(id)service devicesChanged:(id)changed
 {
-  v4 = *(&self->super.isa + OBJC_IVAR____TtC16ReplicatorEngine21ConcreteIDSDependency__devicesChanged);
   selfCopy = self;
 
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECDE4F58, &unk_1DEF95DB0);
-  sub_1DEE1B548(&qword_1ECDE2D08, &qword_1ECDE4F58, &unk_1DEF95DB0);
+  sub_1DEE1B548(&qword_1ECDE2D08, &qword_1ECDE4F58, &unk_1DEF95DB0, MEMORY[0x1E695BF80]);
   sub_1DEF8D5A8();
 }
 

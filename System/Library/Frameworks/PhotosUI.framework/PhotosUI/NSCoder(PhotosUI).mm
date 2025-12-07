@@ -8,16 +8,13 @@
 {
   v4 = a3;
   [self decodeRectForKey:v4];
-  x = v11.origin.x;
-  if (CGRectEqualToRect(v11, *MEMORY[0x1E695F058]))
+  x = v8.origin.x;
+  if (CGRectEqualToRect(v8, *MEMORY[0x1E695F058]))
   {
     v6 = [self decodeObjectOfClass:objc_opt_class() forKey:v4];
     if ([v6 isEqualToString:{@"{{inf, inf}, {0, 0}}"}])
     {
       x = *MEMORY[0x1E695F050];
-      v7 = *(MEMORY[0x1E695F050] + 8);
-      v8 = *(MEMORY[0x1E695F050] + 16);
-      v9 = *(MEMORY[0x1E695F050] + 24);
     }
   }
 

@@ -3,7 +3,7 @@
 
 @implementation NSOrderedSet
 
-void __116__NSOrderedSet_WFThreeWayMerging__wf_orderedSetByMergingOrderedSet_withOrderedSet_baseOrderedSet_elementComparator___block_invoke_3(uint64_t a1, void *a2, void *a3)
+void __116__NSOrderedSet_WFThreeWayMerging__wf_orderedSetByMergingOrderedSet_withOrderedSet_baseOrderedSet_elementComparator___block_invoke_3(void *a1, void *a2, void *a3)
 {
   v17 = a2;
   v5 = a3;
@@ -18,7 +18,7 @@ void __116__NSOrderedSet_WFThreeWayMerging__wf_orderedSetByMergingOrderedSet_wit
         v8 = v17;
         while (1)
         {
-          v9 = *(a1 + 48);
+          v9 = a1[6];
           v10 = [v8 objectAtIndex:v6];
           LODWORD(v9) = (*(v9 + 16))(v9, v10);
 
@@ -53,7 +53,7 @@ LABEL_10:
           break;
         }
 
-        v14 = *(a1 + 48);
+        v14 = a1[6];
         v15 = [v17 objectAtIndex:v6];
         LOBYTE(v14) = (*(v14 + 16))(v14, v15);
 
@@ -63,21 +63,21 @@ LABEL_10:
       while ((v14 & 1) != 0);
       if (v6 == [v17 count])
       {
-        [(WFThreeWayMergingObjectGraph *)*(a1 + 32) addStandaloneVertex:v12];
+        [(WFThreeWayMergingObjectGraph *)a1[4] addStandaloneVertex:v12];
 
         break;
       }
 
       v16 = [v17 objectAtIndex:v6];
-      if (WFOrderedSetContainsPath(*(a1 + 40), v12, v16, *(a1 + 56)) && !WFOrderedSetContainsPath(v5, v12, v16, *(a1 + 56)))
+      if (WFOrderedSetContainsPath(a1[5], v12, v16, a1[7]) && !WFOrderedSetContainsPath(v5, v12, v16, a1[7]))
       {
-        [(WFThreeWayMergingObjectGraph *)*(a1 + 32) addStandaloneVertex:v12];
-        [(WFThreeWayMergingObjectGraph *)*(a1 + 32) addStandaloneVertex:v16];
+        [(WFThreeWayMergingObjectGraph *)a1[4] addStandaloneVertex:v12];
+        [(WFThreeWayMergingObjectGraph *)a1[4] addStandaloneVertex:v16];
       }
 
       else
       {
-        [(WFThreeWayMergingObjectGraph *)*(a1 + 32) addEdgeFromVertex:v12 toVertex:v16];
+        [(WFThreeWayMergingObjectGraph *)a1[4] addEdgeFromVertex:v12 toVertex:v16];
       }
 
       objc_autoreleasePoolPop(v7);
@@ -95,21 +95,21 @@ LABEL_23:
 
 void __116__NSOrderedSet_WFThreeWayMerging__wf_orderedSetByMergingOrderedSet_withOrderedSet_baseOrderedSet_elementComparator___block_invoke_4(uint64_t a1, void *a2)
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 32);
   v5 = *(a1 + 40);
-  v54[0] = MEMORY[0x1E69E9820];
-  v54[1] = 3221225472;
-  v55 = __116__NSOrderedSet_WFThreeWayMerging__wf_orderedSetByMergingOrderedSet_withOrderedSet_baseOrderedSet_elementComparator___block_invoke_5;
-  v56 = &unk_1E837B1B0;
+  v53[0] = MEMORY[0x1E69E9820];
+  v53[1] = 3221225472;
+  v54 = __116__NSOrderedSet_WFThreeWayMerging__wf_orderedSetByMergingOrderedSet_withOrderedSet_baseOrderedSet_elementComparator___block_invoke_5;
+  v55 = &unk_1E837B1B0;
   v6 = *(a1 + 56);
-  v57 = *(a1 + 48);
+  v56 = *(a1 + 48);
   v7 = v3;
   v8 = v4;
-  v53 = v5;
+  v52 = v5;
   v9 = v6;
-  v10 = v54;
+  v10 = v53;
   if (v7)
   {
     if (v8)
@@ -120,9 +120,9 @@ void __116__NSOrderedSet_WFThreeWayMerging__wf_orderedSetByMergingOrderedSet_wit
 
   else
   {
-    v38 = [MEMORY[0x1E696AAA8] currentHandler];
-    v39 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void WFEnumerateConnectedComponentVertexes(NSOrderedSet * _Nonnull __strong, NSOrderedSet * _Nonnull __strong, NSOrderedSet * _Nonnull __strong, NSComparator  _Nonnull __strong, void (^ _Nonnull __strong)(id<NSObject>  _Nonnull __strong))"}];
-    [v38 handleFailureInFunction:v39 file:@"NSOrderedSet+WFThreeWayMerging.m" lineNumber:217 description:{@"Invalid parameter not satisfying: %@", @"componentVertexes"}];
+    v37 = [MEMORY[0x1E696AAA8] currentHandler];
+    v38 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void WFEnumerateConnectedComponentVertexes(NSOrderedSet * _Nonnull __strong, NSOrderedSet * _Nonnull __strong, NSOrderedSet * _Nonnull __strong, NSComparator  _Nonnull __strong, void (^ _Nonnull __strong)(id<NSObject>  _Nonnull __strong))"}];
+    [v37 handleFailureInFunction:v38 file:@"NSOrderedSet+WFThreeWayMerging.m" lineNumber:217 description:{@"Invalid parameter not satisfying: %@", @"componentVertexes"}];
 
     if (v8)
     {
@@ -130,12 +130,12 @@ void __116__NSOrderedSet_WFThreeWayMerging__wf_orderedSetByMergingOrderedSet_wit
     }
   }
 
-  v40 = [MEMORY[0x1E696AAA8] currentHandler];
-  v41 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void WFEnumerateConnectedComponentVertexes(NSOrderedSet * _Nonnull __strong, NSOrderedSet * _Nonnull __strong, NSOrderedSet * _Nonnull __strong, NSComparator  _Nonnull __strong, void (^ _Nonnull __strong)(id<NSObject>  _Nonnull __strong))"}];
-  [v40 handleFailureInFunction:v41 file:@"NSOrderedSet+WFThreeWayMerging.m" lineNumber:218 description:{@"Invalid parameter not satisfying: %@", @"firstOrderedSet"}];
+  v39 = [MEMORY[0x1E696AAA8] currentHandler];
+  v40 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void WFEnumerateConnectedComponentVertexes(NSOrderedSet * _Nonnull __strong, NSOrderedSet * _Nonnull __strong, NSOrderedSet * _Nonnull __strong, NSComparator  _Nonnull __strong, void (^ _Nonnull __strong)(id<NSObject>  _Nonnull __strong))"}];
+  [v39 handleFailureInFunction:v40 file:@"NSOrderedSet+WFThreeWayMerging.m" lineNumber:218 description:{@"Invalid parameter not satisfying: %@", @"firstOrderedSet"}];
 
 LABEL_3:
-  if (v53)
+  if (v52)
   {
     if (v9)
     {
@@ -145,9 +145,9 @@ LABEL_3:
 
   else
   {
-    v42 = [MEMORY[0x1E696AAA8] currentHandler];
-    v43 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void WFEnumerateConnectedComponentVertexes(NSOrderedSet * _Nonnull __strong, NSOrderedSet * _Nonnull __strong, NSOrderedSet * _Nonnull __strong, NSComparator  _Nonnull __strong, void (^ _Nonnull __strong)(id<NSObject>  _Nonnull __strong))"}];
-    [v42 handleFailureInFunction:v43 file:@"NSOrderedSet+WFThreeWayMerging.m" lineNumber:219 description:{@"Invalid parameter not satisfying: %@", @"secondOrderedSet"}];
+    v41 = [MEMORY[0x1E696AAA8] currentHandler];
+    v42 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void WFEnumerateConnectedComponentVertexes(NSOrderedSet * _Nonnull __strong, NSOrderedSet * _Nonnull __strong, NSOrderedSet * _Nonnull __strong, NSComparator  _Nonnull __strong, void (^ _Nonnull __strong)(id<NSObject>  _Nonnull __strong))"}];
+    [v41 handleFailureInFunction:v42 file:@"NSOrderedSet+WFThreeWayMerging.m" lineNumber:219 description:{@"Invalid parameter not satisfying: %@", @"secondOrderedSet"}];
 
     if (v9)
     {
@@ -155,48 +155,48 @@ LABEL_3:
     }
   }
 
-  v44 = [MEMORY[0x1E696AAA8] currentHandler];
-  v45 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void WFEnumerateConnectedComponentVertexes(NSOrderedSet * _Nonnull __strong, NSOrderedSet * _Nonnull __strong, NSOrderedSet * _Nonnull __strong, NSComparator  _Nonnull __strong, void (^ _Nonnull __strong)(id<NSObject>  _Nonnull __strong))"}];
-  [v44 handleFailureInFunction:v45 file:@"NSOrderedSet+WFThreeWayMerging.m" lineNumber:220 description:{@"Invalid parameter not satisfying: %@", @"comparator"}];
+  v43 = [MEMORY[0x1E696AAA8] currentHandler];
+  v44 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void WFEnumerateConnectedComponentVertexes(NSOrderedSet * _Nonnull __strong, NSOrderedSet * _Nonnull __strong, NSOrderedSet * _Nonnull __strong, NSComparator  _Nonnull __strong, void (^ _Nonnull __strong)(id<NSObject>  _Nonnull __strong))"}];
+  [v43 handleFailureInFunction:v44 file:@"NSOrderedSet+WFThreeWayMerging.m" lineNumber:220 description:{@"Invalid parameter not satisfying: %@", @"comparator"}];
 
 LABEL_5:
   if ([v7 count] == 1)
   {
     v11 = [v7 firstObject];
-    v55(v10, v11);
+    v54(v10, v11);
   }
 
   else
   {
-    v60 = 0u;
-    v61 = 0u;
-    v58 = 0u;
     v59 = 0u;
+    v60 = 0u;
+    v57 = 0u;
+    v58 = 0u;
     v12 = v7;
-    v13 = [v12 countByEnumeratingWithState:&v58 objects:v62 count:16];
-    v49 = v8;
+    v13 = [v12 countByEnumeratingWithState:&v57 objects:v61 count:16];
+    v48 = v8;
     if (v13)
     {
       v14 = v13;
       obj = v12;
+      v50 = 0;
+      v45 = v10;
+      v46 = v9;
+      v47 = v7;
       v51 = 0;
-      v46 = v10;
-      v47 = v9;
-      v48 = v7;
-      v52 = 0;
-      v15 = *v59;
+      v15 = *v58;
       v16 = 0x7FFFFFFFFFFFFFFFLL;
       v17 = 0x7FFFFFFFFFFFFFFFLL;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v59 != v15)
+          if (*v58 != v15)
           {
             objc_enumerationMutation(obj);
           }
 
-          v19 = *(*(&v58 + 1) + 8 * i);
+          v19 = *(*(&v57 + 1) + 8 * i);
           v20 = objc_autoreleasePoolPush();
           v21 = [v8 indexOfObject:v19];
           if (v21 != 0x7FFFFFFFFFFFFFFFLL && v21 < v16)
@@ -205,70 +205,70 @@ LABEL_5:
             v24 = v19;
 
             v16 = v23;
-            v52 = v24;
-            v8 = v49;
+            v51 = v24;
+            v8 = v48;
           }
 
-          v25 = [v53 indexOfObject:v19];
+          v25 = [v52 indexOfObject:v19];
           if (v25 != 0x7FFFFFFFFFFFFFFFLL && v25 < v17)
           {
             v27 = v25;
             v28 = v19;
 
-            v51 = v28;
+            v50 = v28;
             v17 = v27;
           }
 
           objc_autoreleasePoolPop(v20);
         }
 
-        v14 = [obj countByEnumeratingWithState:&v58 objects:v62 count:16];
+        v14 = [obj countByEnumeratingWithState:&v57 objects:v61 count:16];
       }
 
       while (v14);
       v29 = obj;
 
-      if (v52 && v51)
+      if (v51 && v50)
       {
-        v9 = v47;
-        if (v47[2](v47, v52, v51) == -1)
-        {
-          v30 = v52;
-        }
-
-        else
+        v9 = v46;
+        if (v46[2](v46, v51, v50) == -1)
         {
           v30 = v51;
         }
 
-        v7 = v48;
+        else
+        {
+          v30 = v50;
+        }
+
+        v7 = v47;
       }
 
       else
       {
-        if (v52)
-        {
-          v30 = v52;
-        }
-
-        else
+        if (v51)
         {
           v30 = v51;
         }
 
-        v7 = v48;
-        v9 = v47;
+        else
+        {
+          v30 = v50;
+        }
+
+        v7 = v47;
+        v9 = v46;
       }
 
-      v10 = v46;
+      v10 = v45;
     }
 
     else
     {
 
       v30 = 0;
+      v50 = 0;
       v51 = 0;
-      v52 = 0;
       v29 = v12;
     }
 
@@ -280,7 +280,7 @@ LABEL_5:
       v34 = objc_autoreleasePoolPush();
       [v29 objectAtIndexedSubscript:v33];
       v36 = v35 = v29;
-      v55(v10, v36);
+      v54(v10, v36);
 
       v29 = v35;
       if (v33 + 1 == [v35 count])
@@ -298,11 +298,9 @@ LABEL_5:
 
     while (v33 != v32);
 
-    v8 = v49;
-    v11 = v52;
+    v8 = v48;
+    v11 = v51;
   }
-
-  v37 = *MEMORY[0x1E69E9840];
 }
 
 @end

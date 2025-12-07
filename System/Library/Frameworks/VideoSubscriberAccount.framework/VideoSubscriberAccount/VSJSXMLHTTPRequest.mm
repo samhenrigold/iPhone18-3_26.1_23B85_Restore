@@ -76,7 +76,7 @@
 {
   v20 = *MEMORY[0x277D85DE8];
   sendCopy = send;
-  v5 = VSDefaultLogObject();
+  v5 = VSDefaultLogObject(sendCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
@@ -131,8 +131,7 @@
     [(VSJSXMLHTTPRequest *)self setSessionTask:v11];
     [v11 resume];
     [(VSJSXMLHTTPRequest *)self setRequestSent:1];
-    [(VSJSXMLHTTPRequest *)self setReadyState:3];
-    v12 = VSDefaultLogObject();
+    v12 = VSDefaultLogObject([(VSJSXMLHTTPRequest *)self setReadyState:3]);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
@@ -159,7 +158,7 @@ void __27__VSJSXMLHTTPRequest_send___block_invoke(uint64_t a1, void *a2, void *a
   v7 = a2;
   v8 = a3;
   v9 = a4;
-  v10 = VSDefaultLogObject();
+  v10 = VSDefaultLogObject(v9);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v20 = 138412546;
@@ -386,7 +385,7 @@ void __53__VSJSXMLHTTPRequest__cancelCurrentRequestAndNotify___block_invoke(uint
   nameCopy = name;
   eventNameCopy = eventName;
   infoCopy = info;
-  v11 = VSDefaultLogObject();
+  v11 = VSDefaultLogObject(infoCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
@@ -415,7 +414,7 @@ void __53__VSJSXMLHTTPRequest__cancelCurrentRequestAndNotify___block_invoke(uint
 
 void __61__VSJSXMLHTTPRequest__notifyWithFunctionName_eventName_info___block_invoke(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   v5 = WeakRetained;
@@ -428,29 +427,29 @@ void __61__VSJSXMLHTTPRequest__notifyWithFunctionName_eventName_info___block_inv
 
     if (!v8)
     {
-      [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"The thisValue parameter must not be nil."];
+      v9 = [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"The thisValue parameter must not be nil."];
     }
 
-    v9 = VSDefaultLogObject();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = VSDefaultLogObject(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = *(a1 + 48);
-      v11 = *(a1 + 32);
+      v11 = *(a1 + 48);
+      v12 = *(a1 + 32);
       *buf = 138412546;
-      v19 = v10;
-      v20 = 2112;
-      v21 = v11;
-      _os_log_impl(&dword_23AB8E000, v9, OS_LOG_TYPE_DEFAULT, "Will invoke method %@ for event with name %@", buf, 0x16u);
+      v20 = v11;
+      v21 = 2112;
+      v22 = v12;
+      _os_log_impl(&dword_23AB8E000, v10, OS_LOG_TYPE_DEFAULT, "Will invoke method %@ for event with name %@", buf, 0x16u);
     }
 
-    v12 = [v8 objectForKeyedSubscript:*(a1 + 48)];
-    v13 = v12;
-    if (v12 && ([v12 isNull] & 1) == 0 && (objc_msgSend(v13, "isUndefined") & 1) == 0)
+    v13 = [v8 objectForKeyedSubscript:*(a1 + 48)];
+    v14 = v13;
+    if (v13 && ([v13 isNull] & 1) == 0 && (objc_msgSend(v14, "isUndefined") & 1) == 0)
     {
-      v14 = *(a1 + 48);
-      v17 = *(a1 + 40);
-      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
-      v16 = [v8 invokeMethod:v14 withArguments:v15];
+      v15 = *(a1 + 48);
+      v18 = *(a1 + 40);
+      v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:1];
+      v17 = [v8 invokeMethod:v15 withArguments:v16];
     }
   }
 }

@@ -38,9 +38,9 @@
   {
     if (!storageCopy)
     {
-      TSUSetCrashReporterInfo();
+      TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Cannot initialize with a nil storage.", "[TSWPLayoutManager initWithStorage:owner:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPLayoutManager.mm", 82);
       v41 = MEMORY[0x277D81150];
-      v43 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v42, "[TSWPLayoutManager initWithStorage:owner:]", "[TSWPLayoutManager initWithStorage:owner:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPLayoutManager.mm", 82);
+      v43 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v42, "[TSWPLayoutManager initWithStorage:owner:]");
       v45 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v44, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPLayoutManager.mm");
       objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v41, v46, v43, v45, 82, 1, "Cannot initialize with a nil storage.");
 

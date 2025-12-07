@@ -66,8 +66,8 @@ LABEL_13:
 
 void ___CPSAKAuthorizationRequestFromASAuthorizationAppleIDRequest_block_invoke_cold_1()
 {
-  dlerror();
-  abort_report_np();
+  v0 = dlerror();
+  abort_report_np("%s", v0);
   __getASAuthorizationPasswordRequestClass_block_invoke_cold_1();
 }
 

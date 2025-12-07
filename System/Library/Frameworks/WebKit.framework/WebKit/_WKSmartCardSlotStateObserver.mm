@@ -49,27 +49,27 @@
     if (v9 == 4)
     {
       makeSmartCard = [object makeSmartCard];
-      v11 = makeSmartCard;
+      v12 = makeSmartCard;
       if (makeSmartCard)
       {
-        v12 = makeSmartCard;
+        v13 = makeSmartCard;
       }
 
-      v13 = self->m_service.m_impl.m_ptr;
-      if (v13)
+      v14 = self->m_service.m_impl.m_ptr;
+      if (v14)
       {
-        atomic_fetch_add(v13, 1u);
+        add = atomic_fetch_add(v14, 1u);
       }
 
-      v14 = WTF::fastMalloc(0x18);
-      *v14 = &unk_1F110B920;
-      v14[1] = v13;
-      v14[2] = v11;
-      v15 = v14;
+      v15 = WTF::fastMalloc(add, 0x18);
+      *v15 = &unk_1F110B920;
+      v15[1] = v14;
+      v15[2] = v12;
+      v16 = v15;
       WTF::callOnMainRunLoop();
-      if (v15)
+      if (v16)
       {
-        (*(*v15 + 8))(v15);
+        (*(*v16 + 8))(v16);
       }
     }
 

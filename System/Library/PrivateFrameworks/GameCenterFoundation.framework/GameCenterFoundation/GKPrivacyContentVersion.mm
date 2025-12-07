@@ -36,7 +36,7 @@
   return currentGamesPrivacyNoticeVersion_result;
 }
 
-uint64_t __41__GKPrivacyContentVersion_currentVersion__block_invoke(uint64_t a1)
+void *__41__GKPrivacyContentVersion_currentVersion__block_invoke(uint64_t a1)
 {
   v1 = *(a1 + 32);
   v5 = 0;
@@ -63,7 +63,7 @@ uint64_t __41__GKPrivacyContentVersion_currentVersion__block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t __59__GKPrivacyContentVersion_currentGamesPrivacyNoticeVersion__block_invoke(uint64_t a1)
+void *__59__GKPrivacyContentVersion_currentGamesPrivacyNoticeVersion__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) versionForIdentifier:@"com.apple.onboarding.games"];
   currentGamesPrivacyNoticeVersion_result = result;

@@ -2,6 +2,7 @@
 - (BOOL)canShareInflectionWithApps;
 - (COSInflectionSelector)initWithInternationalController:(id)controller;
 - (id)currentInflection;
+- (void)setCanShareInflectionWithApps:(BOOL)apps;
 - (void)setInflection:(id)inflection;
 @end
 
@@ -122,6 +123,28 @@
   v22 = [NSArray arrayWithObjects:&v24 count:1];
   v23 = [NSSet setWithArray:v22];
   [syncManager2 synchronizeNanoDomain:domain2 keys:v23];
+}
+
+- (void)setCanShareInflectionWithApps:(BOOL)apps
+{
+  appsCopy = apps;
+  gizmoProtectedMorphologyDomain = [(COSInflectionSelector *)self gizmoProtectedMorphologyDomain];
+  v6 = [NSNumber numberWithBool:appsCopy];
+  [gizmoProtectedMorphologyDomain setObject:v6 forKey:@"AppleUserMorphologyAllowThirdPartyAccess"];
+
+  gizmoProtectedMorphologyDomain2 = [(COSInflectionSelector *)self gizmoProtectedMorphologyDomain];
+  synchronize = [gizmoProtectedMorphologyDomain2 synchronize];
+
+  syncManager = [(COSInflectionSelector *)self syncManager];
+  gizmoProtectedMorphologyDomain3 = [(COSInflectionSelector *)self gizmoProtectedMorphologyDomain];
+  domain = [gizmoProtectedMorphologyDomain3 domain];
+  v15 = @"AppleUserMorphologyAllowThirdPartyAccess";
+  v12 = [NSArray arrayWithObjects:&v15 count:1];
+  v13 = [NSSet setWithArray:v12];
+  [syncManager synchronizeNanoDomain:domain keys:v13];
+
+  currentInflection = [(COSInflectionSelector *)self currentInflection];
+  [(COSInflectionSelector *)self setInflection:currentInflection];
 }
 
 @end

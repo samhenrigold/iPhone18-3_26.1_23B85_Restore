@@ -97,7 +97,7 @@
 
 - (id)openFileInDocumentDebugInbox:(id)inbox forApplicationWithBundleIdentifier:(id)identifier withAnnotation:(id)annotation
 {
-  v50[3] = *MEMORY[0x277D85DE8];
+  v49[3] = *MEMORY[0x277D85DE8];
   inboxCopy = inbox;
   identifierCopy = identifier;
   annotationCopy = annotation;
@@ -114,13 +114,13 @@
   if (([identifierCopy isEqualToString:@"com.apple.Playgrounds"] & 1) == 0)
   {
     [v10 invokeCompletionWithReturnValue:0 error:0];
-    v27 = v10;
+    v26 = v10;
     goto LABEL_14;
   }
 
-  v48 = 0;
-  v12 = [MEMORY[0x277CC1E70] bundleRecordWithBundleIdentifier:identifierCopy allowPlaceholder:1 error:&v48];
-  v13 = v48;
+  v47 = 0;
+  v12 = [MEMORY[0x277CC1E70] bundleRecordWithBundleIdentifier:identifierCopy allowPlaceholder:1 error:&v47];
+  v13 = v47;
   if (v12)
   {
     v14 = sub_247FD87C8(v12);
@@ -130,11 +130,11 @@
     v17 = sub_247FD882C(v16);
     if (!v16 || !v15 || !v17)
     {
-      v29 = sub_247FD7F9C(5);
+      v28 = sub_247FD7F9C(5);
 
-      [v10 invokeCompletionWithReturnValue:v29 error:v29];
-      v30 = v10;
-      v13 = v29;
+      [v10 invokeCompletionWithReturnValue:v28 error:v28];
+      v29 = v10;
+      v13 = v28;
 LABEL_27:
 
       goto LABEL_28;
@@ -143,57 +143,57 @@ LABEL_27:
     v18 = sub_247FD88A8(inboxCopy);
 
     v19 = [v16 URLByAppendingPathComponent:v18 isDirectory:0];
-    memset(&v47, 0, sizeof(v47));
+    memset(&v46, 0, sizeof(v46));
     path = [v19 path];
-    if (lstat([path fileSystemRepresentation], &v47))
+    if (lstat([path fileSystemRepresentation], &v46))
     {
     }
 
     else
     {
-      v31 = v47.st_mode & 0xF000;
+      v30 = v46.st_mode & 0xF000;
 
-      if (v31 == 0x4000 || v31 == 0x8000)
+      if (v30 == 0x4000 || v30 == 0x8000)
       {
-        v42 = v18;
+        v41 = v18;
         if (annotationCopy)
         {
-          v32 = [MEMORY[0x277CBEB38] dictionaryWithDictionary:annotationCopy];
+          v31 = [MEMORY[0x277CBEB38] dictionaryWithDictionary:annotationCopy];
         }
 
         else
         {
-          v32 = objc_opt_new();
+          v31 = objc_opt_new();
         }
 
-        v33 = MEMORY[0x277CBEC38];
-        v34 = v32;
-        v44 = v32;
-        [v32 setObject:MEMORY[0x277CBEC38] forKey:@"DTFileTransferServiceOriginatedKey"];
-        v35 = *MEMORY[0x277D0AC40];
-        v49[0] = *MEMORY[0x277D0AC58];
-        v49[1] = v35;
-        v50[0] = v33;
-        v50[1] = v19;
-        v49[2] = *MEMORY[0x277D0AC30];
-        v50[2] = v34;
-        v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v50 forKeys:v49 count:3];
+        v32 = MEMORY[0x277CBEC38];
+        v33 = v31;
+        v43 = v31;
+        [v31 setObject:MEMORY[0x277CBEC38] forKey:@"DTFileTransferServiceOriginatedKey"];
+        v34 = *MEMORY[0x277D0AC40];
+        v48[0] = *MEMORY[0x277D0AC58];
+        v48[1] = v34;
+        v49[0] = v32;
+        v49[1] = v19;
+        v48[2] = *MEMORY[0x277D0AC30];
+        v49[2] = v33;
+        v42 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v49 forKeys:v48 count:3];
         serviceWithDefaultShellEndpoint = [MEMORY[0x277D0AD78] serviceWithDefaultShellEndpoint];
         bundleIdentifier = [v12 bundleIdentifier];
-        [MEMORY[0x277D0AD60] optionsWithDictionary:v43];
-        v37 = v40 = v19;
-        v45[0] = MEMORY[0x277D85DD0];
-        v45[1] = 3221225472;
-        v45[2] = sub_247FD893C;
-        v45[3] = &unk_278EF3818;
-        v38 = v10;
-        v46 = v38;
-        [serviceWithDefaultShellEndpoint openApplication:bundleIdentifier withOptions:v37 completion:v45];
+        [MEMORY[0x277D0AD60] optionsWithDictionary:v42];
+        v36 = v39 = v19;
+        v44[0] = MEMORY[0x277D85DD0];
+        v44[1] = 3221225472;
+        v44[2] = sub_247FD893C;
+        v44[3] = &unk_278EF3818;
+        v37 = v10;
+        v45 = v37;
+        [serviceWithDefaultShellEndpoint openApplication:bundleIdentifier withOptions:v36 completion:v44];
 
-        v19 = v40;
-        v39 = v38;
+        v19 = v39;
+        v38 = v37;
 
-        v18 = v42;
+        v18 = v41;
         goto LABEL_26;
       }
     }
@@ -210,11 +210,10 @@ LABEL_26:
   }
 
   [v10 invokeCompletionWithReturnValue:v13 error:v13];
-  v28 = v10;
+  v27 = v10;
 LABEL_28:
 
 LABEL_14:
-  v25 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -226,7 +225,7 @@ LABEL_14:
   identifierCopy = identifier;
   filenameCopy = filename;
   v11 = objc_opt_new();
-  v12 = sub_247FD8D80();
+  v12 = sub_247FD8D80(v11);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
     *buf = 134218498;
@@ -249,47 +248,47 @@ LABEL_14:
     goto LABEL_16;
   }
 
-  if ([filenameCopy rangeOfString:@"/"] != 0x7FFFFFFFFFFFFFFFLL)
+  v14 = [filenameCopy rangeOfString:@"/"];
+  if (v14 != 0x7FFFFFFFFFFFFFFFLL)
   {
-    v30 = sub_247FD8D80();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    v31 = sub_247FD8D80(v14);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
       sub_24802F904(filenameCopy);
     }
 
 LABEL_16:
-    v19 = sub_247FD7F9C(1);
-    [v11 invokeCompletionWithReturnValue:0 error:v19];
-    v31 = v11;
+    v20 = sub_247FD7F9C(1);
+    [v11 invokeCompletionWithReturnValue:0 error:v20];
+    v32 = v11;
     goto LABEL_17;
   }
 
-  v14 = MEMORY[0x277CCACA8];
+  v15 = MEMORY[0x277CCACA8];
   uUID = [MEMORY[0x277CCAD78] UUID];
   uUIDString = [uUID UUIDString];
-  filenameCopy = [v14 stringWithFormat:@"%@-%@", uUIDString, filenameCopy];
+  filenameCopy = [v15 stringWithFormat:@"%@-%@", uUIDString, filenameCopy];
 
   v40 = 0;
-  v18 = [(DTFileTransferService *)self _beginTransferOfFileNamed:filenameCopy outError:&v40];
-  v19 = v40;
-  if (v18)
+  v19 = [(DTFileTransferService *)self _beginTransferOfFileNamed:filenameCopy outError:&v40];
+  v20 = v40;
+  if (v19)
   {
-    writeHandle = [v18 writeHandle];
+    writeHandle = [v19 writeHandle];
     [writeHandle writeData:dataCopy];
 
-    [v18 closeFileTransfer];
-    v21 = sub_247FD8D80();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+    v22 = sub_247FD8D80([v19 closeFileTransfer]);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
     {
-      destinationDirectoryURLToRemoveOnDealloc = [v18 destinationDirectoryURLToRemoveOnDealloc];
+      destinationDirectoryURLToRemoveOnDealloc = [v19 destinationDirectoryURLToRemoveOnDealloc];
       absoluteString = [destinationDirectoryURLToRemoveOnDealloc absoluteString];
       uTF8String2 = [absoluteString UTF8String];
       *buf = 136315138;
       *&buf[4] = uTF8String2;
-      _os_log_impl(&dword_247F67000, v21, OS_LOG_TYPE_INFO, "File transfer successfully staged. %s", buf, 0xCu);
+      _os_log_impl(&dword_247F67000, v22, OS_LOG_TYPE_INFO, "File transfer successfully staged. %s", buf, 0xCu);
     }
 
-    destinationURL = [v18 destinationURL];
+    destinationURL = [v19 destinationURL];
     path = [destinationURL path];
     sub_247FD8DC4([path fileSystemRepresentation]);
 
@@ -306,33 +305,31 @@ LABEL_16:
     block[3] = &unk_278EF3840;
     v39 = buf;
     block[4] = self;
-    v36 = v18;
+    v36 = v19;
     v37 = identifierCopy;
-    v28 = v11;
-    v38 = v28;
+    v29 = v11;
+    v38 = v29;
     dispatch_sync(coordinationQueue, block);
-    v29 = v28;
+    v30 = v29;
 
     _Block_object_dispose(buf, 8);
   }
 
   else
   {
-    [v11 invokeCompletionWithReturnValue:0 error:v19];
+    [v11 invokeCompletionWithReturnValue:0 error:v20];
     v34 = v11;
   }
 
   filenameCopy = filenameCopy;
 LABEL_17:
 
-  v32 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 - (BOOL)_fileTransfer:(id)transfer isValidForApplication:(id)application
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   applicationCopy = application;
   v6 = MEMORY[0x277CC1EB8];
   destinationURL = [transfer destinationURL];
@@ -344,24 +341,24 @@ LABEL_17:
   }
 
   [v8 availableClaimBindingsReturningError:0];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v9 = v20 = 0u;
-  v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v9 = v19 = 0u;
+  v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v10)
   {
-    v11 = *v18;
+    v11 = *v17;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(v9);
         }
 
-        bundleRecord = [*(*(&v17 + 1) + 8 * i) bundleRecord];
+        bundleRecord = [*(*(&v16 + 1) + 8 * i) bundleRecord];
         v14 = [bundleRecord isEqual:applicationCopy];
 
         if (v14)
@@ -371,7 +368,7 @@ LABEL_17:
         }
       }
 
-      v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v10)
       {
         continue;
@@ -383,7 +380,6 @@ LABEL_17:
 
 LABEL_13:
 
-  v15 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -586,40 +582,40 @@ LABEL_34:
 
 - (id)_moveFileTransfer:(id)transfer inDataContainerOfApplicationBundleIdentifier:(id)identifier withError:(id *)error
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   transferCopy = transfer;
   identifierCopy = identifier;
-  v38 = 0;
-  v9 = [MEMORY[0x277CC1E70] bundleRecordWithBundleIdentifier:identifierCopy allowPlaceholder:1 error:&v38];
-  v10 = v38;
+  v41 = 0;
+  v9 = [MEMORY[0x277CC1E70] bundleRecordWithBundleIdentifier:identifierCopy allowPlaceholder:1 error:&v41];
+  v10 = v41;
   if (!v9)
   {
-    v37 = v10;
-    v9 = [objc_alloc(MEMORY[0x277CC1E50]) initWithBundleIdentifier:identifierCopy error:&v37];
-    v11 = v37;
+    v40 = v10;
+    v9 = [objc_alloc(MEMORY[0x277CC1E50]) initWithBundleIdentifier:identifierCopy error:&v40];
+    v11 = v40;
 
     if (!v9)
     {
-      v32 = sub_247FD8D80();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+      v36 = sub_247FD8D80(v12);
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
       {
         sub_24802FB24(identifierCopy);
       }
 
       if (error)
       {
-        v33 = v11;
+        v37 = v11;
         v9 = 0;
-        v22 = 0;
-        v30 = 0;
+        v24 = 0;
+        v34 = 0;
         *error = v11;
       }
 
       else
       {
         v9 = 0;
-        v22 = 0;
-        v30 = 0;
+        v24 = 0;
+        v34 = 0;
       }
 
       v10 = v11;
@@ -630,96 +626,98 @@ LABEL_34:
   }
 
   dataContainerURL = [v9 dataContainerURL];
-  v13 = sub_247FD8D80();
-  v14 = v13;
+  v14 = sub_247FD8D80(dataContainerURL);
+  v15 = v14;
   if (!dataContainerURL)
   {
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       sub_24802FAA8(identifierCopy);
     }
 
     if (error)
     {
-      v31 = sub_247FD7F9C(6);
-      v22 = 0;
+      v35 = sub_247FD7F9C(6);
+      v24 = 0;
 LABEL_29:
-      v30 = 0;
-      *error = v31;
+      v34 = 0;
+      *error = v35;
       goto LABEL_42;
     }
 
-    v22 = 0;
+    v24 = 0;
 LABEL_31:
-    v30 = 0;
+    v34 = 0;
     goto LABEL_42;
   }
 
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
     path = [dataContainerURL path];
     uTF8String = [path UTF8String];
     *buf = 136315138;
-    v40 = uTF8String;
-    _os_log_impl(&dword_247F67000, v14, OS_LOG_TYPE_INFO, "Checking for container at: %s", buf, 0xCu);
+    v43 = uTF8String;
+    _os_log_impl(&dword_247F67000, v15, OS_LOG_TYPE_INFO, "Checking for container at: %s", buf, 0xCu);
   }
 
-  v17 = sub_247FD9704(dataContainerURL, 0);
-  v18 = sub_247FD8D80();
+  v18 = sub_247FD9704(dataContainerURL, 0);
   v19 = v18;
-  if (v17)
+  v20 = sub_247FD8D80(v18);
+  v21 = v20;
+  if (v19)
   {
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
     {
       path2 = [dataContainerURL path];
       uTF8String2 = [path2 UTF8String];
       *buf = 136315138;
-      v40 = uTF8String2;
-      _os_log_impl(&dword_247F67000, v19, OS_LOG_TYPE_INFO, "Data container exists at: %s", buf, 0xCu);
+      v43 = uTF8String2;
+      _os_log_impl(&dword_247F67000, v21, OS_LOG_TYPE_INFO, "Data container exists at: %s", buf, 0xCu);
     }
 
-    v22 = [dataContainerURL URLByAppendingPathComponent:@"/tmp"];
+    v24 = [dataContainerURL URLByAppendingPathComponent:@"/tmp"];
 
-    if (sub_247FD9704(v22, 0))
+    v25 = sub_247FD9704(v24, 0);
+    if (v25)
     {
-      v23 = sub_247FD8D80();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+      v26 = sub_247FD8D80(v25);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
       {
-        path3 = [v22 path];
+        path3 = [v24 path];
         uTF8String3 = [path3 UTF8String];
         *buf = 136315138;
-        v40 = uTF8String3;
-        _os_log_impl(&dword_247F67000, v23, OS_LOG_TYPE_INFO, "Temp directory exists: %s", buf, 0xCu);
+        v43 = uTF8String3;
+        _os_log_impl(&dword_247F67000, v26, OS_LOG_TYPE_INFO, "Temp directory exists: %s", buf, 0xCu);
       }
 
       destinationURL = [transferCopy destinationURL];
       lastPathComponent = [destinationURL lastPathComponent];
-      v28 = [v22 URLByAppendingPathComponent:lastPathComponent isDirectory:0];
+      v31 = [v24 URLByAppendingPathComponent:lastPathComponent isDirectory:0];
 
-      v29 = sub_247FD97BC(transferCopy, v28, 0);
+      v32 = sub_247FD97BC(transferCopy, v31, 0);
 
-      if (v29)
+      if (v32)
       {
-        v30 = v28;
+        v34 = v31;
       }
 
       else
       {
-        v34 = sub_247FD8D80();
-        if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+        v38 = sub_247FD8D80(v33);
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
         {
-          sub_24802FA64(v34);
+          sub_24802FA64(v38);
         }
 
         if (error)
         {
           sub_247FD7F9C(6);
-          *error = v30 = 0;
+          *error = v34 = 0;
         }
 
         else
         {
-          v30 = 0;
+          v34 = 0;
         }
       }
 
@@ -728,40 +726,38 @@ LABEL_31:
 
     if (error)
     {
-      v31 = sub_247FD7F9C(6);
+      v35 = sub_247FD7F9C(6);
       goto LABEL_29;
     }
 
     goto LABEL_31;
   }
 
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
   {
-    sub_24802FA20(v19);
+    sub_24802FA20(v21);
   }
 
   if (error)
   {
     sub_247FD7F9C(6);
-    *error = v30 = 0;
+    *error = v34 = 0;
   }
 
   else
   {
-    v30 = 0;
+    v34 = 0;
   }
 
-  v22 = dataContainerURL;
+  v24 = dataContainerURL;
 LABEL_42:
 
-  v35 = *MEMORY[0x277D85DE8];
-
-  return v30;
+  return v34;
 }
 
 - (BOOL)_unarchivePackageIfNecessary:(id)necessary
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   necessaryCopy = necessary;
   destinationURL = [necessaryCopy destinationURL];
   lastPathComponent = [destinationURL lastPathComponent];
@@ -801,18 +797,18 @@ LABEL_10:
   v16 = [destinationDirectoryURLToRemoveOnDealloc URLByAppendingPathComponent:uUIDString isDirectory:1];
 
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v50 = 0;
-  v18 = [defaultManager createDirectoryAtURL:v16 withIntermediateDirectories:1 attributes:0 error:&v50];
-  v19 = v50;
+  v49 = 0;
+  v18 = [defaultManager createDirectoryAtURL:v16 withIntermediateDirectories:1 attributes:0 error:&v49];
+  v19 = v49;
   v20 = v19;
   LOBYTE(v21) = 0;
   if (v18 && !v19)
   {
     v22 = MEMORY[0x277D036C0];
     destinationURL2 = [necessaryCopy destinationURL];
-    v49 = 0;
-    v24 = [v22 flatUnarchiveFileAtURL:destinationURL2 toURL:v16 error:&v49];
-    v25 = v49;
+    v48 = 0;
+    v24 = [v22 flatUnarchiveFileAtURL:destinationURL2 toURL:v16 error:&v48];
+    v25 = v48;
 
     if (v25)
     {
@@ -826,9 +822,9 @@ LABEL_10:
       pathExtension3 = [stringByDeletingPathExtension2 pathExtension];
 
       path = [v16 path];
-      v48 = 0;
-      v28 = [defaultManager subpathsOfDirectoryAtPath:path error:&v48];
-      v20 = v48;
+      v47 = 0;
+      v28 = [defaultManager subpathsOfDirectoryAtPath:path error:&v47];
+      v20 = v47;
 
       LOBYTE(v21) = 0;
       if (v28 && !v20)
@@ -836,40 +832,40 @@ LABEL_10:
         v29 = [MEMORY[0x277CCAC30] predicateWithFormat:@"NOT (SELF beginswith[c] '__MACOSX' OR SELF contains '/.' OR SELF beginswith '.')"];
         v30 = [v28 filteredArrayUsingPredicate:v29];
 
-        v46 = 0u;
-        v47 = 0u;
-        v44 = 0u;
         v45 = 0u;
+        v46 = 0u;
+        v43 = 0u;
+        v44 = 0u;
         v28 = v30;
-        v21 = [v28 countByEnumeratingWithState:&v44 objects:v51 count:16];
+        v21 = [v28 countByEnumeratingWithState:&v43 objects:v50 count:16];
         if (v21)
         {
-          v41 = uUIDString;
-          v42 = v16;
-          v40 = defaultManager;
-          v31 = *v45;
+          v40 = uUIDString;
+          v41 = v16;
+          v39 = defaultManager;
+          v31 = *v44;
           while (2)
           {
             v32 = v28;
             for (i = 0; i != v21; ++i)
             {
-              if (*v45 != v31)
+              if (*v44 != v31)
               {
                 objc_enumerationMutation(v32);
               }
 
-              v34 = *(*(&v44 + 1) + 8 * i);
+              v34 = *(*(&v43 + 1) + 8 * i);
               pathExtension4 = [v34 pathExtension];
               v36 = [pathExtension4 caseInsensitiveCompare:pathExtension3];
 
               if (!v36)
               {
-                v37 = [v42 URLByAppendingPathComponent:v34];
+                v37 = [v41 URLByAppendingPathComponent:v34];
                 [necessaryCopy setDestinationURL:v37];
 
                 LOBYTE(v21) = 1;
-                defaultManager = v40;
-                uUIDString = v41;
+                defaultManager = v39;
+                uUIDString = v40;
                 v25 = 0;
                 v28 = v32;
                 goto LABEL_23;
@@ -877,7 +873,7 @@ LABEL_10:
             }
 
             v28 = v32;
-            v21 = [v32 countByEnumeratingWithState:&v44 objects:v51 count:16];
+            v21 = [v32 countByEnumeratingWithState:&v43 objects:v50 count:16];
             if (v21)
             {
               continue;
@@ -886,18 +882,17 @@ LABEL_10:
             break;
           }
 
-          defaultManager = v40;
-          uUIDString = v41;
+          defaultManager = v39;
+          uUIDString = v40;
           v25 = 0;
 LABEL_23:
-          v16 = v42;
+          v16 = v41;
         }
       }
     }
   }
 
 LABEL_28:
-  v38 = *MEMORY[0x277D85DE8];
   return v21;
 }
 

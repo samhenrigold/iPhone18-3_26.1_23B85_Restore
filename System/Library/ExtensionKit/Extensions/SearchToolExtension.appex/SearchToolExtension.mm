@@ -47,7 +47,7 @@ uint64_t DoNotUseThisExtensionIntent.title.unsafeMutableAddressor()
 {
   if (one-time initialization token for title != -1)
   {
-    OUTLINED_FUNCTION_0();
+    OUTLINED_FUNCTION_0(&one-time initialization token for title);
   }
 
   v0 = type metadata accessor for LocalizedStringResource();
@@ -69,7 +69,7 @@ uint64_t static DoNotUseThisExtensionIntent.title.getter@<X0>(uint64_t a1@<X8>)
 {
   if (one-time initialization token for title != -1)
   {
-    OUTLINED_FUNCTION_0();
+    OUTLINED_FUNCTION_0(&one-time initialization token for title);
   }
 
   v2 = type metadata accessor for LocalizedStringResource();
@@ -82,7 +82,7 @@ uint64_t static DoNotUseThisExtensionIntent.title.setter(uint64_t a1)
 {
   if (one-time initialization token for title != -1)
   {
-    OUTLINED_FUNCTION_0();
+    OUTLINED_FUNCTION_0(&one-time initialization token for title);
   }
 
   v2 = type metadata accessor for LocalizedStringResource();
@@ -94,15 +94,15 @@ uint64_t static DoNotUseThisExtensionIntent.title.setter(uint64_t a1)
   return (*(v4 + 8))(a1, v2);
 }
 
-uint64_t (*static DoNotUseThisExtensionIntent.title.modify())()
+uint64_t (*static DoNotUseThisExtensionIntent.title.modify(uint64_t a1))(uint64_t a1)
 {
   if (one-time initialization token for title != -1)
   {
-    OUTLINED_FUNCTION_0();
+    OUTLINED_FUNCTION_0(&one-time initialization token for title);
   }
 
-  v0 = type metadata accessor for LocalizedStringResource();
-  __swift_project_value_buffer(v0, static DoNotUseThisExtensionIntent.title);
+  v1 = type metadata accessor for LocalizedStringResource();
+  __swift_project_value_buffer(v1, static DoNotUseThisExtensionIntent.title);
   swift_beginAccess();
   return static DoNotUseThisExtensionIntent.title.modify;
 }
@@ -148,7 +148,7 @@ uint64_t key path setter for static DoNotUseThisExtensionIntent.assistantOnly : 
 
 uint64_t DoNotUseThisExtensionIntent.perform()()
 {
-  v21 = v0;
+  v20 = v0;
   if (one-time initialization token for stextension != -1)
   {
     swift_once();
@@ -177,11 +177,11 @@ uint64_t DoNotUseThisExtensionIntent.perform()()
   {
     v9 = swift_slowAlloc();
     v10 = swift_slowAlloc();
-    v20 = v10;
+    v19 = v10;
     *v9 = 136315138;
     type metadata accessor for ToolDefinition();
     v11 = Array.description.getter();
-    v13 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v11, v12, &v20);
+    v13 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v11, v12, &v19);
 
     *(v9 + 4) = v13;
     _os_log_impl(&_mh_execute_header, v7, v8, "SearchToolExtension actions: %s", v9, 0xCu);
@@ -190,19 +190,18 @@ uint64_t DoNotUseThisExtensionIntent.perform()()
     OUTLINED_FUNCTION_1(v9);
   }
 
-  v14 = v0[4];
   type metadata accessor for ToolDefinition();
-  v15 = Array.description.getter();
-  v17 = v16;
+  v14 = Array.description.getter();
+  v16 = v15;
 
-  v0[2] = v15;
-  v0[3] = v17;
+  v0[2] = v14;
+  v0[3] = v16;
   lazy protocol witness table accessor for type String and conformance String();
   static IntentResult.result<A>(value:)();
 
-  v18 = v0[1];
+  v17 = v0[1];
 
-  return v18();
+  return v17();
 }
 
 uint64_t protocol witness for static AppIntent.title.getter in conformance DoNotUseThisExtensionIntent@<X0>(uint64_t a1@<X8>)
@@ -230,12 +229,11 @@ uint64_t protocol witness for AppIntent.perform() in conformance DoNotUseThisExt
 
 uint64_t protocol witness for AppIntent.perform() in conformance DoNotUseThisExtensionIntent()
 {
-  v1 = *(*v0 + 16);
-  v4 = *v0;
+  v3 = *v0;
 
-  v2 = *(v4 + 8);
+  v1 = *(v3 + 8);
 
-  return v2();
+  return v1();
 }
 
 uint64_t protocol witness for static PersistentlyIdentifiable.persistentIdentifier.getter in conformance DoNotUseThisExtensionIntent(uint64_t a1)
@@ -257,7 +255,7 @@ unint64_t lazy protocol witness table accessor for type String and conformance S
   return result;
 }
 
-uint64_t getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(uint64_t a1, unint64_t a2, uint64_t *a3)
+unint64_t getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(uint64_t a1, unint64_t a2, uint64_t *a3)
 {
 
   v6 = specialized _StringGuts._deconstructUTF8<A>(scratch:)(v11, 0, 0, 1, a1, a2);
@@ -350,16 +348,14 @@ LABEL_8:
 
 char *_StringGuts._allocateForDeconstruct()(uint64_t a1, unint64_t a2)
 {
-  v4 = specialized _copyCollectionToContiguousArray<A>(_:)(a1, a2);
+  v3 = specialized _copyCollectionToContiguousArray<A>(_:)(a1, a2);
   specialized Array.append<A>(contentsOf:)(&outlined read-only object #0 of _StringGuts._allocateForDeconstruct());
-  result = v4;
-  v3 = *(v4 + 2) - 1;
-  return result;
+  return v3;
 }
 
 char *specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, unint64_t a2)
 {
-  v4 = HIBYTE(a2) & 0xF;
+  v4 = (HIBYTE(a2) & 0xF);
   if ((a2 & 0x1000000000000000) != 0)
   {
     goto LABEL_19;
@@ -409,8 +405,8 @@ char *specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, unint64_t
       {
         if ((a1 & 0x1000000000000000) != 0)
         {
-          v8 = (a2 & 0xFFFFFFFFFFFFFFFLL) + 32;
-          v4 = a1 & 0xFFFFFFFFFFFFLL;
+          v8 = ((a2 & 0xFFFFFFFFFFFFFFFLL) + 32);
+          v4 = (a1 & 0xFFFFFFFFFFFFLL);
         }
 
         else
@@ -462,21 +458,20 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (!result || v5 > *(v3 + 24) >> 1)
   {
     if (v4 <= v5)
     {
-      v8 = v4 + v2;
+      v7 = v4 + v2;
     }
 
     else
     {
-      v8 = v4;
+      v7 = v4;
     }
 
-    result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, v8, 1, v3);
+    result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, v7, 1, v3);
     v3 = result;
   }
 
@@ -491,15 +486,15 @@ LABEL_16:
     goto LABEL_16;
   }
 
-  v9 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v9 < v2)
+  v8 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v8 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v9 + 32), (v6 + 32), v2);
+  memcpy((v3 + v8 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -508,12 +503,12 @@ LABEL_14:
     return result;
   }
 
-  v10 = *(v3 + 16);
-  v11 = __OFADD__(v10, v2);
-  v12 = v10 + v2;
-  if (!v11)
+  v9 = *(v3 + 16);
+  v10 = __OFADD__(v9, v2);
+  v11 = v9 + v2;
+  if (!v10)
   {
-    *(v3 + 16) = v12;
+    *(v3 + 16) = v11;
     goto LABEL_14;
   }
 
@@ -620,15 +615,17 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
   return v10;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_0(uint64_t *a1)
+uint64_t __swift_destroy_boxed_opaque_existential_0(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 unint64_t lazy protocol witness table accessor for type DoNotUseThisExtensionIntent and conformance DoNotUseThisExtensionIntent()
@@ -683,7 +680,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, 
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -704,7 +700,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -714,20 +709,17 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
 
 uint64_t *__swift_allocate_value_buffer(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;
 }
 
-uint64_t OUTLINED_FUNCTION_0()
+uint64_t OUTLINED_FUNCTION_0(uint64_t a1)
 {
 
   return swift_once();
@@ -777,11 +769,11 @@ uint64_t one-time initialization function for answerResolution()
   return Logger.init(subsystem:category:)();
 }
 
-uint64_t one-time initialization function for interface(uint64_t a1, uint64_t *a2)
+uint64_t one-time initialization function for interface(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4)
 {
-  v3 = type metadata accessor for Logger();
-  __swift_allocate_value_buffer(v3, a2);
-  __swift_project_value_buffer(v3, a2);
+  v5 = type metadata accessor for Logger();
+  __swift_allocate_value_buffer(v5, a2);
+  __swift_project_value_buffer(v5, a2);
   return Logger.init(subsystem:category:)();
 }
 
@@ -793,11 +785,10 @@ uint64_t one-time initialization function for server()
   return Logger.init(subsystem:category:)();
 }
 
-uint64_t one-time initialization function for searchSignposter(uint64_t a1, uint64_t *a2, void *a3, uint64_t a4)
+uint64_t one-time initialization function for searchSignposter(uint64_t a1, uint64_t *a2, void *a3, uint64_t a4, uint64_t a5)
 {
-  v7 = type metadata accessor for Logger();
-  v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
+  v8 = type metadata accessor for Logger();
+  v9 = *(v8 - 8);
   __chkstk_darwin();
   v11 = &v15 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   v12 = type metadata accessor for OSSignposter();
@@ -808,33 +799,33 @@ uint64_t one-time initialization function for searchSignposter(uint64_t a1, uint
     swift_once();
   }
 
-  v13 = __swift_project_value_buffer(v7, a4);
-  (*(v8 + 16))(v11, v13, v7);
+  v13 = __swift_project_value_buffer(v8, a4);
+  (*(v9 + 16))(v11, v13, v8);
   return OSSignposter.init(logger:)();
 }
 
-uint64_t Logging.stextension.unsafeMutableAddressor(void *a1, uint64_t (*a2)(void), uint64_t a3)
+uint64_t Logging.stextension.unsafeMutableAddressor(void *a1, uint64_t (*a2)(void), uint64_t a3, uint64_t a4)
 {
   if (*a1 != -1)
   {
     swift_once();
   }
 
-  v5 = a2(0);
+  v6 = a2(0);
 
-  return __swift_project_value_buffer(v5, a3);
+  return __swift_project_value_buffer(v6, a3);
 }
 
-uint64_t static Logging.interface.getter@<X0>(void *a1@<X0>, uint64_t (*a2)(void)@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+uint64_t static Logging.interface.getter@<X0>(void *a1@<X0>, uint64_t (*a2)(void)@<X1>, uint64_t a3@<X2>, uint64_t a5@<X8>)
 {
   if (*a1 != -1)
   {
     swift_once();
   }
 
-  v7 = a2(0);
-  v8 = __swift_project_value_buffer(v7, a3);
-  v9 = *(*(v7 - 8) + 16);
+  v8 = a2(0);
+  v9 = __swift_project_value_buffer(v8, a3);
+  v10 = *(*(v8 - 8) + 16);
 
-  return v9(a4, v8, v7);
+  return v10(a5, v9, v8);
 }

@@ -13,8 +13,7 @@
 {
   v4 = type metadata accessor for URL();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  __chkstk_darwin(v4);
+  __chkstk_darwin(v4, v6);
   v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
@@ -28,9 +27,8 @@
 {
   v9 = type metadata accessor for URL();
   v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v9);
-  v13 = &v18 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v9, v11);
+  v13 = &v32 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
   if (override)
   {
@@ -50,9 +48,11 @@
   }
 
   selfCopy = self;
-  sub_1003D4FA8(v13, override, author, v15);
+  sub_1003D4FA8(v13, override, author, &v15->super);
   (*(v10 + 8))(v13, v9);
 
+  v15, v17, v18, v19, v20, v21, v22, v23;
+  override, v24, v25, v26, v27, v28, v29, v30;
   return 1;
 }
 
@@ -60,17 +60,16 @@
 {
   v5 = type metadata accessor for URL();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  __chkstk_darwin(v5);
-  v9 = &v15[-((v8 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  __chkstk_darwin(v10);
-  v12 = &v15[-v11];
+  __chkstk_darwin(v5, v7);
+  v9 = &v16[-((v8 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  __chkstk_darwin(v10, v11);
+  v13 = &v16[-v12];
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
-  sub_1003D8F04(v12, v9);
-  v13 = *(v6 + 8);
-  v13(v9, v5);
-  v13(v12, v5);
+  sub_1003D8F04(v13, v9);
+  v14 = *(v6 + 8);
+  v14(v9, v5);
+  v14(v13, v5);
   return 1;
 }
 
@@ -78,24 +77,24 @@
 {
   v3 = type metadata accessor for URL();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  __chkstk_darwin(v3);
-  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v3, v5);
+  v7 = &v19 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
-  v8 = sub_1003D99E8();
+  v9 = sub_1003D99E8(v7, v8);
   (*(v4 + 8))(v7, v3);
-  if (v8)
+  if (v9)
   {
     sub_1000F5104(&unk_100938CB0, &unk_100796A70);
-    v9.super.isa = Array._bridgeToObjectiveC()().super.isa;
+    v10.super.isa = Array._bridgeToObjectiveC()().super.isa;
+    v9, v11, v12, v13, v14, v15, v16, v17;
   }
 
   else
   {
-    v9.super.isa = 0;
+    v10.super.isa = 0;
   }
 
-  return v9.super.isa;
+  return v10.super.isa;
 }
 
 - (_TtC7remindd47RDStagedLightweightCoreDataMigrationCoordinator)init
@@ -118,6 +117,7 @@
   }
 
   v4 = sub_1006B2A38(v3);
+  v3, v5, v6, v7, v8, v9, v10, v11;
 
   return v4;
 }

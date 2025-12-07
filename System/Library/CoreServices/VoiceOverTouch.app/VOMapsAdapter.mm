@@ -7,7 +7,7 @@
 
 + (void)describeMapsWithElements:(NSArray *)elements focusedElement:(VOTElement *)element completionHandler:(id)handler
 {
-  v9 = sub_100117630(&qword_1001FE868);
+  v9 = sub_100117630(&qword_1001FE868, &qword_10017E888);
   __chkstk_darwin(v9 - 8);
   v11 = &v19 - v10;
   v12 = _Block_copy(handler);

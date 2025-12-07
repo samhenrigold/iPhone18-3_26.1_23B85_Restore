@@ -37,46 +37,47 @@
   if (v6)
   {
     v7 = +[NSFileManager defaultManager];
-    v18 = 0;
-    v8 = [v7 removeItemAtPath:v6 error:&v18];
-    v9 = v18;
+    v22 = 0;
+    v8 = [v7 removeItemAtPath:v6 error:&v22];
+    v9 = v22;
+    v11 = v9;
     if ((v8 & 1) == 0)
     {
-      v10 = sub_100009E64();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v12 = sub_100009E64(v9, v10);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        sub_10000A964(v6, v10, v9);
+        sub_10000A964(v6, v12, v11);
       }
     }
 
-    v17 = v9;
-    v11 = [v7 createSymbolicLinkAtPath:v6 withDestinationPath:pathCopy error:&v17];
-    v12 = v17;
+    v21 = v11;
+    v13 = [v7 createSymbolicLinkAtPath:v6 withDestinationPath:pathCopy error:&v21];
+    v14 = v21;
 
-    if ((v11 & 1) == 0)
+    if ((v13 & 1) == 0)
     {
-      v13 = sub_100009E64();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v17 = sub_100009E64(v15, v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        v15 = v13;
-        safari_privacyPreservingDescription = [v12 safari_privacyPreservingDescription];
+        v19 = v17;
+        safari_privacyPreservingDescription = [v14 safari_privacyPreservingDescription];
         *buf = 138543874;
-        v20 = v6;
-        v21 = 2114;
-        v22 = pathCopy;
-        v23 = 2114;
-        v24 = safari_privacyPreservingDescription;
-        _os_log_error_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "Could not create sym link from %{public}@ to %{public}@: %{public}@", buf, 0x20u);
+        v24 = v6;
+        v25 = 2114;
+        v26 = pathCopy;
+        v27 = 2114;
+        v28 = safari_privacyPreservingDescription;
+        _os_log_error_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "Could not create sym link from %{public}@ to %{public}@: %{public}@", buf, 0x20u);
       }
     }
   }
 
   else
   {
-    v11 = 0;
+    v13 = 0;
   }
 
-  return v11;
+  return v13;
 }
 
 - (id)_fileNameForSuggestedName:(id)name

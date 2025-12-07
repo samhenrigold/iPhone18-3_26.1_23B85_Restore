@@ -69,7 +69,7 @@
 
 - (void)trigger
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v3 = +[RMLog debounceTimer];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
@@ -82,7 +82,7 @@
     }
 
     *buf = 138543362;
-    v26 = v6;
+    v25 = v6;
     _os_log_impl(&dword_1E1168000, v3, OS_LOG_TYPE_INFO, "Debounce triggered for %{public}@", buf, 0xCu);
   }
 
@@ -106,12 +106,12 @@
   }
 
   [(RMDebounceTimer *)self minimumInterval];
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __26__RMDebounceTimer_trigger__block_invoke;
-  v24[3] = &unk_1E8706038;
-  v24[4] = self;
-  v19 = [RMTimedDispatch timedDispatchAfterInterval:v24 completionBlock:?];
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __26__RMDebounceTimer_trigger__block_invoke;
+  v23[3] = &unk_1E8706038;
+  v23[4] = self;
+  v19 = [RMTimedDispatch timedDispatchAfterInterval:v23 completionBlock:?];
   [(RMDebounceTimer *)self setMinimumTimer:v19];
 
   maximumTimer = [(RMDebounceTimer *)self maximumTimer];
@@ -120,23 +120,21 @@
   if (v19)
   {
     [(RMDebounceTimer *)self maximumInterval];
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __26__RMDebounceTimer_trigger__block_invoke_11;
-    v23[3] = &unk_1E8706038;
-    v23[4] = self;
-    v21 = [RMTimedDispatch timedDispatchAfterInterval:v23 completionBlock:?];
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __26__RMDebounceTimer_trigger__block_invoke_11;
+    v22[3] = &unk_1E8706038;
+    v22[4] = self;
+    v21 = [RMTimedDispatch timedDispatchAfterInterval:v22 completionBlock:?];
     [(RMDebounceTimer *)self setMaximumTimer:v21];
   }
 
   objc_sync_exit(v7);
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __26__RMDebounceTimer_trigger__block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v2 = *(*(a1 + 32) + 8);
   objc_sync_enter(v2);
   v3 = [*(a1 + 32) minimumTimer];
@@ -148,7 +146,7 @@ void __26__RMDebounceTimer_trigger__block_invoke(uint64_t a1)
     {
       v5 = [*(a1 + 32) minimumTimer];
       v6 = [v5 timerID];
-      __26__RMDebounceTimer_trigger__block_invoke_cold_1(v6, v18, v4, v5);
+      __26__RMDebounceTimer_trigger__block_invoke_cold_1(v6, v17, v4, v5);
     }
 
     v7 = [*(a1 + 32) minimumTimer];
@@ -168,13 +166,11 @@ void __26__RMDebounceTimer_trigger__block_invoke(uint64_t a1)
   }
 
   objc_sync_exit(v2);
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __26__RMDebounceTimer_trigger__block_invoke_11(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v2 = *(*(a1 + 32) + 8);
   objc_sync_enter(v2);
   v3 = [*(a1 + 32) maximumTimer];
@@ -186,7 +182,7 @@ void __26__RMDebounceTimer_trigger__block_invoke_11(uint64_t a1)
     {
       v5 = [*(a1 + 32) maximumTimer];
       v6 = [v5 timerID];
-      __26__RMDebounceTimer_trigger__block_invoke_11_cold_1(v6, v18, v4, v5);
+      __26__RMDebounceTimer_trigger__block_invoke_11_cold_1(v6, v17, v4, v5);
     }
 
     v7 = [*(a1 + 32) maximumTimer];
@@ -206,13 +202,11 @@ void __26__RMDebounceTimer_trigger__block_invoke_11(uint64_t a1)
   }
 
   objc_sync_exit(v2);
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_timerDidFire
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = +[RMLog debounceTimer];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
@@ -224,9 +218,9 @@ void __26__RMDebounceTimer_trigger__block_invoke_11(uint64_t a1)
       v6 = identifier;
     }
 
-    v11 = 138543362;
-    v12 = v6;
-    _os_log_impl(&dword_1E1168000, v3, OS_LOG_TYPE_INFO, "Debounce fired for %{public}@", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = v6;
+    _os_log_impl(&dword_1E1168000, v3, OS_LOG_TYPE_INFO, "Debounce fired for %{public}@", &v10, 0xCu);
   }
 
   minimumTimer = [(RMDebounceTimer *)self minimumTimer];
@@ -239,8 +233,6 @@ void __26__RMDebounceTimer_trigger__block_invoke_11(uint64_t a1)
   [(RMDebounceTimer *)self setMaximumTimer:0];
   delegate = [(RMDebounceTimer *)self delegate];
   [delegate triggerAggregatingTimerAction];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (RMDebounceTimerDelegate)delegate

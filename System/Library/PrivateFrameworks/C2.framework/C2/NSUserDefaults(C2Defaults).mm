@@ -11,9 +11,9 @@
     +[NSUserDefaults(C2Defaults) c2DefaultsDomain];
   }
 
-  v1 = c2DefaultsDomain_c2DefaultsDomain;
+  v2 = c2DefaultsDomain_c2DefaultsDomain;
 
-  return v1;
+  return v2;
 }
 
 @end

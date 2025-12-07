@@ -4,6 +4,7 @@
 - (NPKLowPowerModeLocalDeviceMonitor)init;
 - (NPKLowPowerModeLocalDeviceMonitor)initWithNotificationCenter:(id)center;
 - (void)_lowPowerModeStateChanged:(id)changed;
+- (void)_sendLowPowerModeEnabled:(BOOL)enabled toObserver:(id)observer;
 - (void)_sendLowPowerModeEnabledStateToObservers:(BOOL)observers;
 - (void)registerObserver:(id)observer;
 - (void)unregisterObserver:(id)observer;
@@ -116,23 +117,23 @@ uint64_t __54__NPKLowPowerModeLocalDeviceMonitor_registerObserver___block_invoke
 {
   observersCopy = observers;
   v15 = *MEMORY[0x277D85DE8];
-  v5 = pk_General_log();
+  v5 = pk_General_log(self);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
   if (v6)
   {
-    v7 = pk_General_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = pk_General_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = @"disabled";
+      v9 = @"disabled";
       if (observersCopy)
       {
-        v8 = @"enabled";
+        v9 = @"enabled";
       }
 
       *buf = 138412290;
-      v14 = v8;
-      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: NPKLowPowerModeMonitor: Sending low power mode %@ state to observers.", buf, 0xCu);
+      v14 = v9;
+      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: NPKLowPowerModeMonitor: Sending low power mode %@ state to observers.", buf, 0xCu);
     }
   }
 
@@ -144,7 +145,37 @@ uint64_t __54__NPKLowPowerModeLocalDeviceMonitor_registerObserver___block_invoke
   v11[4] = self;
   v12 = observersCopy;
   [(NPKObserverManager *)observersManager enumerateObserversUsingBlock:v11];
-  v10 = *MEMORY[0x277D85DE8];
+}
+
+- (void)_sendLowPowerModeEnabled:(BOOL)enabled toObserver:(id)observer
+{
+  enabledCopy = enabled;
+  v17 = *MEMORY[0x277D85DE8];
+  observerCopy = observer;
+  dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
+  v8 = pk_General_log(v7);
+  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+
+  if (v9)
+  {
+    v11 = pk_General_log(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    {
+      v12 = @"disabled";
+      if (enabledCopy)
+      {
+        v12 = @"enabled";
+      }
+
+      v13 = 138412546;
+      v14 = v12;
+      v15 = 2112;
+      v16 = observerCopy;
+      _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Notice: NPKLowPowerModeMonitor: Sending low power mode %@ state to observer %@.", &v13, 0x16u);
+    }
+  }
+
+  [observerCopy lowPowerModeMonitor:self didUpdateLowPowerModeEnabled:enabledCopy];
 }
 
 @end

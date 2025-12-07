@@ -56,16 +56,18 @@
 - (void)setSelectedUltraIdentifier:(id)identifier;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)updateWorkoutInstallState:(BOOL)state;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation HPRFSessionTrackerAppSettingsController
 
 - (HPRFSessionTrackerAppSettingsController)init
 {
-  v36.receiver = self;
-  v36.super_class = HPRFSessionTrackerAppSettingsController;
-  v2 = [(HPRFSessionTrackerAppSettingsController *)&v36 init];
+  v34.receiver = self;
+  v34.super_class = HPRFSessionTrackerAppSettingsController;
+  v2 = [(HPRFSessionTrackerAppSettingsController *)&v34 init];
   if (v2)
   {
     DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
@@ -91,9 +93,9 @@
     v2->_isWorkoutAppInstalled = 0;
     v14 = +[ACXDeviceConnection sharedDeviceConnection];
     v15 = v2->_device;
-    v35 = 0;
-    [v14 getApplicationIsInstalled:&v2->_isWorkoutAppInstalled withBundleID:@"com.apple.SessionTrackerApp" onPairedDevice:v15 error:&v35];
-    v16 = v35;
+    v33 = 0;
+    [v14 getApplicationIsInstalled:&v2->_isWorkoutAppInstalled withBundleID:@"com.apple.SessionTrackerApp" onPairedDevice:v15 error:&v33];
+    v16 = v33;
 
     _HKInitializeLogging();
     v17 = HKLogWorkouts;
@@ -101,41 +103,39 @@
     {
       isWorkoutAppInstalled = v2->_isWorkoutAppInstalled;
       *buf = 67109378;
-      v38 = isWorkoutAppInstalled;
-      v39 = 2112;
-      v40 = v16;
+      v36 = isWorkoutAppInstalled;
+      v37 = 2112;
+      v38 = v16;
       _os_log_impl(&dword_0, v17, OS_LOG_TYPE_DEFAULT, "[HPRFSessionTrackerAppSettingsController] workout app installed : %{BOOL}d error: %@", buf, 0x12u);
     }
 
-    v19 = v2->_device;
-    v20 = FIUIHealthStoreForDevice();
+    v19 = FIUIHealthStoreForDevice();
     healthStore = v2->_healthStore;
-    v2->_healthStore = v20;
+    v2->_healthStore = v19;
 
-    v22 = [[_HKWheelchairUseCharacteristicCache alloc] initWithHealthStore:v2->_healthStore];
+    v21 = [[_HKWheelchairUseCharacteristicCache alloc] initWithHealthStore:v2->_healthStore];
     wheelchairUseCharacteristicCache = v2->_wheelchairUseCharacteristicCache;
-    v2->_wheelchairUseCharacteristicCache = v22;
+    v2->_wheelchairUseCharacteristicCache = v21;
 
     [(_HKWheelchairUseCharacteristicCache *)v2->_wheelchairUseCharacteristicCache addObserver:v2];
-    v24 = [objc_alloc(sub_BEFC()) initWithDelegate:v2];
+    v23 = [objc_alloc(sub_BEFC()) initWithDelegate:v2];
     expressGymKitAvailabilityManager = v2->_expressGymKitAvailabilityManager;
-    v2->_expressGymKitAvailabilityManager = v24;
+    v2->_expressGymKitAvailabilityManager = v23;
 
-    v26 = v2->_healthStore;
     v2->_activityMoveMode = FIActivityMoveModeWithHealthStore();
-    v27 = objc_alloc_init(SMAppDeletionManager);
+    v25 = objc_alloc_init(SMAppDeletionManager);
     appDeletionManager = v2->_appDeletionManager;
-    v2->_appDeletionManager = v27;
+    v2->_appDeletionManager = v25;
 
     [(SMAppDeletionManager *)v2->_appDeletionManager addObserver:v2];
-    v29 = +[ACXDeviceConnection sharedDeviceConnection];
-    [v29 addObserver:v2];
+    v27 = +[ACXDeviceConnection sharedDeviceConnection];
+    [v27 addObserver:v2];
 
-    v30 = [STASWorkoutVoiceAvailabilityProvider alloc];
-    v31 = objc_alloc_init(STASFitnessIntelligenceConnection);
-    v32 = [(STASWorkoutVoiceAvailabilityProvider *)v30 initWithConnection:v31];
+    v28 = [STASWorkoutVoiceAvailabilityProvider alloc];
+    v29 = objc_alloc_init(STASFitnessIntelligenceConnection);
+    v30 = [(STASWorkoutVoiceAvailabilityProvider *)v28 initWithConnection:v29];
     workoutVoiceAvailabilityProvider = v2->_workoutVoiceAvailabilityProvider;
-    v2->_workoutVoiceAvailabilityProvider = v32;
+    v2->_workoutVoiceAvailabilityProvider = v30;
   }
 
   return v2;
@@ -161,6 +161,42 @@
 
   v5 = +[NSNotificationCenter defaultCenter];
   [v5 addObserver:self selector:"_willEnterForeground" name:UIApplicationWillEnterForegroundNotification object:0];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = HPRFSessionTrackerAppSettingsController;
+  [(HPRFSessionTrackerAppSettingsController *)&v5 viewWillAppear:appear];
+  +[HPRFSessionTrackerAppSettingsNavigationDonation donateUserVisitForSessionTrackerAppSettings];
+  v4[0] = _NSConcreteStackBlock;
+  v4[1] = 3221225472;
+  v4[2] = sub_C1A0;
+  v4[3] = &unk_35268;
+  v4[4] = self;
+  [(HPRFSessionTrackerAppSettingsController *)self isSubscribedWithCompletion:v4];
+  [(HPRFSessionTrackerAppSettingsController *)self _refreshManagedConfigurationDataSources];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v8.receiver = self;
+  v8.super_class = HPRFSessionTrackerAppSettingsController;
+  [(HPRFSessionTrackerAppSettingsController *)&v8 viewDidAppear:appear];
+  if (!self->_device)
+  {
+    v4 = +[_HKBehavior sharedBehavior];
+    isAppleInternalInstall = [v4 isAppleInternalInstall];
+
+    if (isAppleInternalInstall)
+    {
+      v6 = [UIAlertController alertControllerWithTitle:@"Unexpected state!" message:@"Didn't get an active watch preferredStyle:this is unexpected and will lead to unexpected results. Please file a radar.", 1];
+      v7 = [UIAlertAction actionWithTitle:@"OK" style:0 handler:0];
+      [v6 addAction:v7];
+
+      [(HPRFSessionTrackerAppSettingsController *)self presentViewController:v6 animated:1 completion:0];
+    }
+  }
 }
 
 - (void)dealloc
@@ -324,80 +360,79 @@
   }
 
   v5 = [(HPRFSessionTrackerAppSettingsController *)self loadSpecifiersFromPlistName:@"SessionTrackerAppSettings" target:self];
+  v6 = FIActivityMoveModeWithHealthStore();
   healthStore = self->_healthStore;
-  v7 = FIActivityMoveModeWithHealthStore();
-  v8 = self->_healthStore;
-  v9 = [NSBundle bundleForClass:objc_opt_class()];
-  v10 = [v9 localizedStringForKey:@"HEALTH_SHARING_REQUIRED" value:&stru_35B68 table:@"SessionTrackerAppSettings-tinker"];
+  v8 = [NSBundle bundleForClass:objc_opt_class()];
+  v9 = [v8 localizedStringForKey:@"HEALTH_SHARING_REQUIRED" value:&stru_35B68 table:@"SessionTrackerAppSettings-tinker"];
 
-  if (v8)
+  if (healthStore)
   {
-    v11 = [v5 specifierForID:@"METRIC_VIEW_FOOTER_ID"];
-    [v5 removeObject:v11];
+    v10 = [v5 specifierForID:@"METRIC_VIEW_FOOTER_ID"];
+    [v5 removeObject:v10];
   }
 
   else
   {
-    v12 = [v5 specifierForID:@"METRIC_VIEW_ID"];
-    v13 = [NSNumber numberWithBool:0];
-    [v12 setProperty:v13 forKey:PSEnabledKey];
+    v11 = [v5 specifierForID:@"METRIC_VIEW_ID"];
+    v12 = [NSNumber numberWithBool:0];
+    [v11 setProperty:v12 forKey:PSEnabledKey];
 
-    v11 = [v5 specifierForID:@"METRIC_VIEW_FOOTER_ID"];
-    [v11 setProperty:v10 forKey:PSFooterTextGroupKey];
+    v10 = [v5 specifierForID:@"METRIC_VIEW_FOOTER_ID"];
+    [v10 setProperty:v9 forKey:PSFooterTextGroupKey];
   }
 
   device = self->_device;
-  v15 = &_s11SeymourCore12DependenciesC7resolve14failureHandlerxxycSg_tlF_ptr;
-  v16 = [[NSUUID alloc] initWithUUIDString:@"D5834418-F4A0-4C74-AA38-8ED5F7765BD1"];
-  LODWORD(device) = [(NRDevice *)device supportsCapability:v16];
+  v14 = &_s11SeymourCore12DependenciesC7resolve14failureHandlerxxycSg_tlF_ptr;
+  v15 = [[NSUUID alloc] initWithUUIDString:@"D5834418-F4A0-4C74-AA38-8ED5F7765BD1"];
+  LODWORD(device) = [(NRDevice *)device supportsCapability:v15];
 
-  v162 = v10;
+  v161 = v9;
   if (device)
   {
-    v17 = [v5 specifierForID:@"MIRROR_WORKOUTS_GROUP_ID"];
+    v16 = [v5 specifierForID:@"MIRROR_WORKOUTS_GROUP_ID"];
+    [v5 removeObject:v16];
+
+    v17 = [v5 specifierForID:@"MIRROR_WORKOUTS_ENABLED_LABEL_ID"];
     [v5 removeObject:v17];
 
-    v18 = [v5 specifierForID:@"MIRROR_WORKOUTS_ENABLED_LABEL_ID"];
-    [v5 removeObject:v18];
-
-    v19 = [v5 specifierForID:@"IPHONE_MIRRORING_LABEL_ID"];
-    v20 = [NSBundle bundleForClass:objc_opt_class()];
-    v21 = [v20 localizedStringForKey:@"IPHONE_MIRRORING_LABEL" value:&stru_35B68 table:@"SessionTrackerAppSettings-kahana"];
-    [v19 setName:v21];
+    v18 = [v5 specifierForID:@"IPHONE_MIRRORING_LABEL_ID"];
+    v19 = [NSBundle bundleForClass:objc_opt_class()];
+    v20 = [v19 localizedStringForKey:@"IPHONE_MIRRORING_LABEL" value:&stru_35B68 table:@"SessionTrackerAppSettings-kahana"];
+    [v18 setName:v20];
   }
 
   else
   {
-    v22 = [v5 specifierForID:@"IPHONE_MIRRORING_GROUP_ID"];
-    [v5 removeObject:v22];
+    v21 = [v5 specifierForID:@"IPHONE_MIRRORING_GROUP_ID"];
+    [v5 removeObject:v21];
 
-    v19 = [v5 specifierForID:@"IPHONE_MIRRORING_LABEL_ID"];
-    [v5 removeObject:v19];
+    v18 = [v5 specifierForID:@"IPHONE_MIRRORING_LABEL_ID"];
+    [v5 removeObject:v18];
   }
 
-  v23 = [v5 specifierForID:@"POWER_SAVING_MODE_GROUP_ID"];
-  [(HPRFSessionTrackerAppSettingsController *)self _addLearnMoreLowPowerModeTextToSpecifier:v23];
+  v22 = [v5 specifierForID:@"POWER_SAVING_MODE_GROUP_ID"];
+  [(HPRFSessionTrackerAppSettingsController *)self _addLearnMoreLowPowerModeTextToSpecifier:v22];
   createPowerSpecifiers = [(HPRFSessionTrackerAppSettingsController *)self createPowerSpecifiers];
-  v161 = v23;
+  v160 = v22;
   [v5 ps_insertObjectsFromArray:? afterObject:?];
-  v24 = self->_device;
-  v25 = [[NSUUID alloc] initWithUUIDString:@"66DE554B-3959-40C7-88B1-81E8481E3B84"];
-  v26 = [(NRDevice *)v24 supportsCapability:v25];
+  v23 = self->_device;
+  v24 = [[NSUUID alloc] initWithUUIDString:@"66DE554B-3959-40C7-88B1-81E8481E3B84"];
+  v25 = [(NRDevice *)v23 supportsCapability:v24];
 
-  v27 = self->_device;
-  v28 = [[NSUUID alloc] initWithUUIDString:@"D5834418-F4A0-4C74-AA38-8ED5F7765BD1"];
-  LODWORD(v27) = [(NRDevice *)v27 supportsCapability:v28];
+  v26 = self->_device;
+  v27 = [[NSUUID alloc] initWithUUIDString:@"D5834418-F4A0-4C74-AA38-8ED5F7765BD1"];
+  LODWORD(v26) = [(NRDevice *)v26 supportsCapability:v27];
 
-  if (v27)
+  if (v26)
   {
-    v29 = _os_feature_enabled_impl();
-    if (!v26)
+    v28 = _os_feature_enabled_impl();
+    if (!v25)
     {
       goto LABEL_13;
     }
 
 LABEL_12:
-    if (!v29)
+    if (!v28)
     {
       goto LABEL_14;
     }
@@ -405,98 +440,98 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  v29 = 0;
-  if (v26)
+  v28 = 0;
+  if (v25)
   {
     goto LABEL_12;
   }
 
 LABEL_13:
-  v30 = [v5 specifierForID:@"MUSIC_AUTOSTART_FOOTER_ID"];
+  v29 = [v5 specifierForID:@"MUSIC_AUTOSTART_FOOTER_ID"];
+  [v5 removeObject:v29];
+
+  v30 = [v5 specifierForID:@"MUSIC_AUTOSTART_TITLE_ID"];
   [v5 removeObject:v30];
 
-  v31 = [v5 specifierForID:@"MUSIC_AUTOSTART_TITLE_ID"];
-  [v5 removeObject:v31];
-
 LABEL_14:
-  v32 = self->_device;
-  v33 = [[NSUUID alloc] initWithUUIDString:@"97181DA3-0809-43D6-9559-3FDBC5629F62"];
-  v34 = [(NRDevice *)v32 supportsCapability:v33];
-  if (v7 == 2)
+  v31 = self->_device;
+  v32 = [[NSUUID alloc] initWithUUIDString:@"97181DA3-0809-43D6-9559-3FDBC5629F62"];
+  v33 = [(NRDevice *)v31 supportsCapability:v32];
+  if (v6 == 2)
   {
-    v35 = 0;
+    v34 = 0;
   }
 
   else
   {
-    v35 = v34;
+    v34 = v33;
   }
 
-  v36 = [v5 specifierForID:@"NFC_ENABLED_FOOTER_ID"];
-  if (v35)
+  v35 = [v5 specifierForID:@"NFC_ENABLED_FOOTER_ID"];
+  if (v34)
   {
-    [(HPRFSessionTrackerAppSettingsController *)self _addAboutTextToSpecifier:v36];
+    [(HPRFSessionTrackerAppSettingsController *)self _addAboutTextToSpecifier:v35];
   }
 
   else
   {
-    [v5 removeObject:v36];
+    [v5 removeObject:v35];
 
-    v36 = [v5 specifierForID:@"NFC_ENABLED_LABEL_ID"];
-    [v5 removeObject:v36];
+    v35 = [v5 specifierForID:@"NFC_ENABLED_LABEL_ID"];
+    [v5 removeObject:v35];
   }
 
-  v163 = [v5 specifierForID:@"AUTO_PAUSE_GROUP_ID"];
-  if (v163)
+  v162 = [v5 specifierForID:@"AUTO_PAUSE_GROUP_ID"];
+  if (v162)
   {
-    if (v7 == 2)
+    if (v6 == 2)
     {
-      v37 = FIUIBundle();
-      v38 = v37;
-      v39 = @"AUTO_PAUSE_ENABLED_FOOTER_FITNESS_JUNIOR";
-      v40 = @"Localizable-tinker";
+      v36 = FIUIBundle();
+      v37 = v36;
+      v38 = @"AUTO_PAUSE_ENABLED_FOOTER_FITNESS_JUNIOR";
+      v39 = @"Localizable-tinker";
     }
 
     else
     {
-      v37 = [NSBundle bundleForClass:objc_opt_class()];
-      v38 = v37;
-      if (v35)
+      v36 = [NSBundle bundleForClass:objc_opt_class()];
+      v37 = v36;
+      if (v34)
       {
-        v39 = @"AUTO_PAUSE_ENABLED_FOOTER";
+        v38 = @"AUTO_PAUSE_ENABLED_FOOTER";
       }
 
       else
       {
-        v39 = @"AUTO_PAUSE_ENABLED_FOOTER_WITHOUT_SPARTAN";
+        v38 = @"AUTO_PAUSE_ENABLED_FOOTER_WITHOUT_SPARTAN";
       }
 
-      v40 = @"SessionTrackerAppSettings";
+      v39 = @"SessionTrackerAppSettings";
     }
 
-    v41 = [v37 localizedStringForKey:v39 value:&stru_35B68 table:v40];
+    v40 = [v36 localizedStringForKey:v38 value:&stru_35B68 table:v39];
 
-    [v163 setProperty:v41 forKey:PSFooterTextGroupKey];
+    [v162 setProperty:v40 forKey:PSFooterTextGroupKey];
   }
 
   isWheelchairUser = [(_HKWheelchairUseCharacteristicCache *)self->_wheelchairUseCharacteristicCache isWheelchairUser];
-  if (!FIDeviceMeetsMinimumOSVersionGlory() || (isWheelchairUser & 1) != 0 || v7 == 2)
+  if (!FIDeviceMeetsMinimumOSVersionGlory() || (isWheelchairUser & 1) != 0 || v6 == 2)
   {
-    v43 = [v5 specifierForID:@"REMINDERS_GROUP"];
+    v42 = [v5 specifierForID:@"REMINDERS_GROUP"];
+    [v5 removeObject:v42];
+
+    v43 = [v5 specifierForID:@"AUTO_START_WORKOUT_NOTIFICATIONS_ENABLED_LABEL"];
     [v5 removeObject:v43];
 
-    v44 = [v5 specifierForID:@"AUTO_START_WORKOUT_NOTIFICATIONS_ENABLED_LABEL"];
+    v44 = [v5 specifierForID:@"RESUME_REMINDERS_ENABLED_LABEL"];
     [v5 removeObject:v44];
 
-    v45 = [v5 specifierForID:@"RESUME_REMINDERS_ENABLED_LABEL"];
+    v45 = [v5 specifierForID:@"END_REMINDERS_ENABLED_LABEL"];
     [v5 removeObject:v45];
-
-    v46 = [v5 specifierForID:@"END_REMINDERS_ENABLED_LABEL"];
-    [v5 removeObject:v46];
   }
 
-  v47 = +[NMSMediaPinningManager sharedManager];
-  workoutPlaylistID = [v47 workoutPlaylistID];
+  v46 = +[NMSMediaPinningManager sharedManager];
+  workoutPlaylistID = [v46 workoutPlaylistID];
 
   if (!workoutPlaylistID)
   {
@@ -504,223 +539,223 @@ LABEL_14:
     self->_selectedAlbumTitle = 0;
   }
 
-  if (v29 & 1 | !+[HPRFSessionTrackerMusicViewController didSelectWorkoutMusicPlaylist])
+  if (v28 & 1 | !+[HPRFSessionTrackerMusicViewController didSelectWorkoutMusicPlaylist])
   {
-    v50 = [v5 specifierForID:@"WORKOUT_MUSIC_SHUFFLE_GROUP_ID"];
+    v49 = [v5 specifierForID:@"WORKOUT_MUSIC_SHUFFLE_GROUP_ID"];
+    [v5 removeObject:v49];
+
+    v50 = [v5 specifierForID:@"WORKOUT_MUSIC_PLAY_FROM_BEGINNING_SETTING_ID"];
     [v5 removeObject:v50];
 
-    v51 = [v5 specifierForID:@"WORKOUT_MUSIC_PLAY_FROM_BEGINNING_SETTING_ID"];
+    v51 = [v5 specifierForID:@"WORKOUT_MUSIC_SHUFFLE_SETTING_ID"];
     [v5 removeObject:v51];
-
-    v52 = [v5 specifierForID:@"WORKOUT_MUSIC_SHUFFLE_SETTING_ID"];
-    [v5 removeObject:v52];
   }
 
   else
   {
     [(HPRFSessionTrackerAppSettingsController *)self _updateShuffleSelectionInSpecifiers:v5];
-    v52 = objc_alloc_init(MPModelLibraryRequest);
-    v53 = [MPModelSong kindWithVariants:1];
-    v171 = v53;
-    v54 = [NSArray arrayWithObjects:&v171 count:1];
-    v55 = [MPModelPlaylistEntry kindWithKinds:v54];
+    v51 = objc_alloc_init(MPModelLibraryRequest);
+    v52 = [MPModelSong kindWithVariants:1];
+    v170 = v52;
+    v53 = [NSArray arrayWithObjects:&v170 count:1];
+    v54 = [MPModelPlaylistEntry kindWithKinds:v53];
 
-    v56 = [MPModelPlaylist kindWithVariants:19 playlistEntryKind:v55 options:0];
-    [v52 setItemKind:v56];
+    v55 = [MPModelPlaylist kindWithVariants:19 playlistEntryKind:v54 options:0];
+    [v51 setItemKind:v55];
 
-    v170 = MPModelPropertyPlaylistName;
-    v57 = [NSArray arrayWithObjects:&v170 count:1];
-    v58 = [MPPropertySet propertySetWithProperties:v57];
-    [v52 setItemProperties:v58];
+    v169 = MPModelPropertyPlaylistName;
+    v56 = [NSArray arrayWithObjects:&v169 count:1];
+    v57 = [MPPropertySet propertySetWithProperties:v56];
+    [v51 setItemProperties:v57];
 
-    v59 = [NSSortDescriptor sortDescriptorWithKey:MPModelPropertyPlaylistLibraryAddedDate ascending:0];
-    v169 = v59;
-    v60 = [NSArray arrayWithObjects:&v169 count:1];
-    [v52 setItemSortDescriptors:v60];
+    v58 = [NSSortDescriptor sortDescriptorWithKey:MPModelPropertyPlaylistLibraryAddedDate ascending:0];
+    v168 = v58;
+    v59 = [NSArray arrayWithObjects:&v168 count:1];
+    [v51 setItemSortDescriptors:v59];
 
-    v15 = &_s11SeymourCore12DependenciesC7resolve14failureHandlerxxycSg_tlF_ptr;
-    v164[0] = _NSConcreteStackBlock;
-    v164[1] = 3221225472;
-    v164[2] = sub_E144;
-    v164[3] = &unk_352E0;
-    v165 = v5;
+    v14 = &_s11SeymourCore12DependenciesC7resolve14failureHandlerxxycSg_tlF_ptr;
+    v163[0] = _NSConcreteStackBlock;
+    v163[1] = 3221225472;
+    v163[2] = sub_E144;
+    v163[3] = &unk_352E0;
+    v164 = v5;
     selfCopy = self;
-    [v52 performWithResponseHandler:v164];
+    [v51 performWithResponseHandler:v163];
   }
 
   isSubscribed = self->_isSubscribed;
   _HKInitializeLogging();
-  v62 = HKLogWorkouts;
-  v63 = os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_DEFAULT);
+  v61 = HKLogWorkouts;
+  v62 = os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_DEFAULT);
   if (isSubscribed)
   {
-    v159 = v3;
-    if (v63)
+    v158 = v3;
+    if (v62)
     {
-      v64 = self->_isSubscribed;
+      v63 = self->_isSubscribed;
       *buf = 67109120;
-      v168 = v64;
-      _os_log_impl(&dword_0, v62, OS_LOG_TYPE_DEFAULT, "[HPRFSessionTrackerAppSettingsController] seymour settings should have been added: %d", buf, 8u);
+      v167 = v63;
+      _os_log_impl(&dword_0, v61, OS_LOG_TYPE_DEFAULT, "[HPRFSessionTrackerAppSettingsController] seymour settings should have been added: %d", buf, 8u);
     }
 
-    v65 = [v5 specifierForID:@"GUIDED_WORKOUT_PREFETCH_FOOTER_ID"];
-    v66 = [NSBundle bundleForClass:objc_opt_class()];
-    v158 = [v66 localizedStringForKey:@"GUIDED_WORKOUT_PREFETCH_FOOTER" value:&stru_35B68 table:@"SessionTrackerAppSettings-seymour"];
+    v64 = [v5 specifierForID:@"GUIDED_WORKOUT_PREFETCH_FOOTER_ID"];
+    v65 = [NSBundle bundleForClass:objc_opt_class()];
+    v157 = [v65 localizedStringForKey:@"GUIDED_WORKOUT_PREFETCH_FOOTER" value:&stru_35B68 table:@"SessionTrackerAppSettings-seymour"];
 
-    v155 = v65;
-    v67 = PSFooterTextGroupKey;
-    [v65 setProperty:v158 forKey:?];
-    v68 = [NSBundle bundleForClass:objc_opt_class()];
-    v157 = [v68 localizedStringForKey:@"GUIDED_WORKOUT_PREFETCH_TITLE" value:&stru_35B68 table:@"SessionTrackerAppSettings-seymour"];
+    v154 = v64;
+    v66 = PSFooterTextGroupKey;
+    [v64 setProperty:v157 forKey:?];
+    v67 = [NSBundle bundleForClass:objc_opt_class()];
+    v156 = [v67 localizedStringForKey:@"GUIDED_WORKOUT_PREFETCH_TITLE" value:&stru_35B68 table:@"SessionTrackerAppSettings-seymour"];
 
-    [v65 setName:v157];
-    v69 = [v5 specifierForID:@"GUIDED_WORKOUT_PREFETCH_LABEL_ID"];
-    v70 = [NSBundle bundleForClass:objc_opt_class()];
-    v156 = [v70 localizedStringForKey:@"GUIDED_WORKOUT_PREFETCH_LABEL" value:&stru_35B68 table:@"SessionTrackerAppSettings-seymour"];
+    [v64 setName:v156];
+    v68 = [v5 specifierForID:@"GUIDED_WORKOUT_PREFETCH_LABEL_ID"];
+    v69 = [NSBundle bundleForClass:objc_opt_class()];
+    v155 = [v69 localizedStringForKey:@"GUIDED_WORKOUT_PREFETCH_LABEL" value:&stru_35B68 table:@"SessionTrackerAppSettings-seymour"];
 
-    v154 = v69;
-    [v69 setName:v156];
-    v71 = PSAllowMultilineTitleKey;
-    [v69 setProperty:&__kCFBooleanTrue forKey:PSAllowMultilineTitleKey];
-    v153 = [v5 specifierForID:@"GUIDED_WORKOUT_MEDIA_MOMENTS_FOOTER"];
-    v72 = [NSBundle bundleForClass:objc_opt_class()];
-    v152 = [v72 localizedStringForKey:@"GUIDED_WORKOUT_MEDIA_MOMENTS_FOOTER" value:&stru_35B68 table:@"SessionTrackerAppSettings-seymour"];
+    v153 = v68;
+    [v68 setName:v155];
+    v70 = PSAllowMultilineTitleKey;
+    [v68 setProperty:&__kCFBooleanTrue forKey:PSAllowMultilineTitleKey];
+    v152 = [v5 specifierForID:@"GUIDED_WORKOUT_MEDIA_MOMENTS_FOOTER"];
+    v71 = [NSBundle bundleForClass:objc_opt_class()];
+    v151 = [v71 localizedStringForKey:@"GUIDED_WORKOUT_MEDIA_MOMENTS_FOOTER" value:&stru_35B68 table:@"SessionTrackerAppSettings-seymour"];
 
-    [v153 setProperty:v152 forKey:v67];
-    v73 = [v5 specifierForID:@"GUIDED_WORKOUT_MEDIA_MOMENTS_LABEL"];
-    v74 = [NSBundle bundleForClass:objc_opt_class()];
-    v150 = [v74 localizedStringForKey:@"GUIDED_WORKOUT_MEDIA_MOMENTS_LABEL" value:&stru_35B68 table:@"SessionTrackerAppSettings-seymour"];
+    [v152 setProperty:v151 forKey:v66];
+    v72 = [v5 specifierForID:@"GUIDED_WORKOUT_MEDIA_MOMENTS_LABEL"];
+    v73 = [NSBundle bundleForClass:objc_opt_class()];
+    v149 = [v73 localizedStringForKey:@"GUIDED_WORKOUT_MEDIA_MOMENTS_LABEL" value:&stru_35B68 table:@"SessionTrackerAppSettings-seymour"];
 
-    v151 = v73;
-    [v73 setName:v150];
-    v75 = v71;
-    v147 = v71;
-    [v73 setProperty:&__kCFBooleanTrue forKey:v71];
-    v76 = [v5 specifierForID:@"GUIDED_RUN_PREFETCH_FOOTER_ID"];
+    v150 = v72;
+    [v72 setName:v149];
+    v74 = v70;
+    v146 = v70;
+    [v72 setProperty:&__kCFBooleanTrue forKey:v70];
+    v75 = [v5 specifierForID:@"GUIDED_RUN_PREFETCH_FOOTER_ID"];
+    v76 = [NSBundle bundleForClass:objc_opt_class()];
+    v148 = [v76 localizedStringForKey:@"GUIDED_RUN_PREFETCH_FOOTER" value:&stru_35B68 table:@"SessionTrackerAppSettings-breeze"];
+
+    [v75 setProperty:v148 forKey:v66];
     v77 = [NSBundle bundleForClass:objc_opt_class()];
-    v149 = [v77 localizedStringForKey:@"GUIDED_RUN_PREFETCH_FOOTER" value:&stru_35B68 table:@"SessionTrackerAppSettings-breeze"];
+    v147 = [v77 localizedStringForKey:@"GUIDED_RUN_PREFETCH_TITLE" value:&stru_35B68 table:@"SessionTrackerAppSettings-breeze"];
 
-    [v76 setProperty:v149 forKey:v67];
-    v78 = [NSBundle bundleForClass:objc_opt_class()];
-    v148 = [v78 localizedStringForKey:@"GUIDED_RUN_PREFETCH_TITLE" value:&stru_35B68 table:@"SessionTrackerAppSettings-breeze"];
+    [v75 setName:v147];
+    v78 = [v5 specifierForID:@"GUIDED_RUN_PREFETCH_LABEL_ID"];
+    v79 = [NSBundle bundleForClass:objc_opt_class()];
+    v80 = [v79 localizedStringForKey:@"GUIDED_RUN_PREFETCH_LABEL" value:&stru_35B68 table:@"SessionTrackerAppSettings-breeze"];
 
-    [v76 setName:v148];
-    v79 = [v5 specifierForID:@"GUIDED_RUN_PREFETCH_LABEL_ID"];
-    v80 = [NSBundle bundleForClass:objc_opt_class()];
-    v81 = [v80 localizedStringForKey:@"GUIDED_RUN_PREFETCH_LABEL" value:&stru_35B68 table:@"SessionTrackerAppSettings-breeze"];
+    [v78 setName:v80];
+    [v78 setProperty:&__kCFBooleanTrue forKey:v74];
+    v81 = [v5 specifierForID:@"GUIDED_RUN_MEDIA_MOMENTS_FOOTER"];
+    v82 = [NSBundle bundleForClass:objc_opt_class()];
+    v83 = [v82 localizedStringForKey:@"GUIDED_RUN_MEDIA_MOMENTS_FOOTER" value:&stru_35B68 table:@"SessionTrackerAppSettings-breeze"];
 
-    [v79 setName:v81];
-    [v79 setProperty:&__kCFBooleanTrue forKey:v75];
-    v82 = [v5 specifierForID:@"GUIDED_RUN_MEDIA_MOMENTS_FOOTER"];
-    v83 = [NSBundle bundleForClass:objc_opt_class()];
-    v84 = [v83 localizedStringForKey:@"GUIDED_RUN_MEDIA_MOMENTS_FOOTER" value:&stru_35B68 table:@"SessionTrackerAppSettings-breeze"];
+    [v81 setProperty:v83 forKey:v66];
+    v84 = [v5 specifierForID:@"GUIDED_RUN_MEDIA_MOMENTS_LABEL"];
+    v85 = [NSBundle bundleForClass:objc_opt_class()];
+    v86 = [v85 localizedStringForKey:@"GUIDED_RUN_MEDIA_MOMENTS_LABEL" value:&stru_35B68 table:@"SessionTrackerAppSettings-breeze"];
 
-    [v82 setProperty:v84 forKey:v67];
-    v85 = [v5 specifierForID:@"GUIDED_RUN_MEDIA_MOMENTS_LABEL"];
-    v86 = [NSBundle bundleForClass:objc_opt_class()];
-    v87 = [v86 localizedStringForKey:@"GUIDED_RUN_MEDIA_MOMENTS_LABEL" value:&stru_35B68 table:@"SessionTrackerAppSettings-breeze"];
+    [v84 setName:v86];
+    [v84 setProperty:&__kCFBooleanTrue forKey:v146];
 
-    [v85 setName:v87];
-    [v85 setProperty:&__kCFBooleanTrue forKey:v147];
-
-    v88 = v155;
-    v3 = v159;
-    v15 = &_s11SeymourCore12DependenciesC7resolve14failureHandlerxxycSg_tlF_ptr;
+    v87 = v154;
+    v3 = v158;
+    v14 = &_s11SeymourCore12DependenciesC7resolve14failureHandlerxxycSg_tlF_ptr;
   }
 
   else
   {
-    if (v63)
+    if (v62)
     {
-      v89 = self->_isSubscribed;
+      v88 = self->_isSubscribed;
       *buf = 67109120;
-      v168 = v89;
-      _os_log_impl(&dword_0, v62, OS_LOG_TYPE_DEFAULT, "[HPRFSessionTrackerAppSettingsController] seymour settings should have been removed: %d", buf, 8u);
+      v167 = v88;
+      _os_log_impl(&dword_0, v61, OS_LOG_TYPE_DEFAULT, "[HPRFSessionTrackerAppSettingsController] seymour settings should have been removed: %d", buf, 8u);
     }
 
-    v90 = [v5 specifierForID:@"GUIDED_WORKOUT_PREFETCH_FOOTER_ID"];
+    v89 = [v5 specifierForID:@"GUIDED_WORKOUT_PREFETCH_FOOTER_ID"];
+    [v5 removeObject:v89];
+
+    v90 = [v5 specifierForID:@"GUIDED_WORKOUT_PREFETCH_LABEL_ID"];
     [v5 removeObject:v90];
 
-    v91 = [v5 specifierForID:@"GUIDED_WORKOUT_PREFETCH_LABEL_ID"];
+    v91 = [v5 specifierForID:@"GUIDED_WORKOUT_MEDIA_MOMENTS_FOOTER"];
     [v5 removeObject:v91];
 
-    v92 = [v5 specifierForID:@"GUIDED_WORKOUT_MEDIA_MOMENTS_FOOTER"];
+    v92 = [v5 specifierForID:@"GUIDED_WORKOUT_MEDIA_MOMENTS_LABEL"];
     [v5 removeObject:v92];
 
-    v93 = [v5 specifierForID:@"GUIDED_WORKOUT_MEDIA_MOMENTS_LABEL"];
+    v93 = [v5 specifierForID:@"GUIDED_RUN_PREFETCH_FOOTER_ID"];
     [v5 removeObject:v93];
 
-    v94 = [v5 specifierForID:@"GUIDED_RUN_PREFETCH_FOOTER_ID"];
+    v94 = [v5 specifierForID:@"GUIDED_RUN_PREFETCH_LABEL_ID"];
     [v5 removeObject:v94];
 
-    v95 = [v5 specifierForID:@"GUIDED_RUN_PREFETCH_LABEL_ID"];
+    v95 = [v5 specifierForID:@"GUIDED_RUN_MEDIA_MOMENTS_FOOTER"];
     [v5 removeObject:v95];
 
-    v96 = [v5 specifierForID:@"GUIDED_RUN_MEDIA_MOMENTS_FOOTER"];
-    [v5 removeObject:v96];
-
-    v88 = [v5 specifierForID:@"GUIDED_RUN_MEDIA_MOMENTS_LABEL"];
-    [v5 removeObject:v88];
+    v87 = [v5 specifierForID:@"GUIDED_RUN_MEDIA_MOMENTS_LABEL"];
+    [v5 removeObject:v87];
   }
 
   if (![(STASWorkoutVoiceAvailabilityProvider *)self->_workoutVoiceAvailabilityProvider isFeatureSupported])
   {
-    v97 = [v5 specifierForID:@"WORKOUT_VOICE_FEEDBACK_FOOTER"];
-    v98 = [NSBundle bundleForClass:objc_opt_class()];
-    v99 = [v98 localizedStringForKey:@"WORKOUT_VOICE_FEEDBACK_FOOTER_NO_WORKOUT_BUDDY" value:&stru_35B68 table:@"SessionTrackerAppSettings"];
-    [v97 setProperty:v99 forKey:PSFooterTextGroupKey];
+    v96 = [v5 specifierForID:@"WORKOUT_VOICE_FEEDBACK_FOOTER"];
+    v97 = [NSBundle bundleForClass:objc_opt_class()];
+    v98 = [v97 localizedStringForKey:@"WORKOUT_VOICE_FEEDBACK_FOOTER_NO_WORKOUT_BUDDY" value:&stru_35B68 table:@"SessionTrackerAppSettings"];
+    [v96 setProperty:v98 forKey:PSFooterTextGroupKey];
   }
 
-  v100 = self->_device;
-  v101 = [objc_alloc(v15[400]) initWithUUIDString:@"0D852855-E6CF-45FA-B786-B26BE87FF939"];
-  v102 = [(NRDevice *)v100 supportsCapability:v101];
+  v99 = self->_device;
+  v100 = [objc_alloc(v14[400]) initWithUUIDString:@"0D852855-E6CF-45FA-B786-B26BE87FF939"];
+  v101 = [(NRDevice *)v99 supportsCapability:v100];
 
-  if (self->_activityMoveMode == 2 || (v102 & 1) == 0)
+  if (self->_activityMoveMode == 2 || (v101 & 1) == 0)
   {
-    v103 = [v5 specifierForID:@"CYCLING_POWER_ZONES_GROUP"];
+    v102 = [v5 specifierForID:@"CYCLING_POWER_ZONES_GROUP"];
+    [v5 removeObject:v102];
+
+    v103 = [v5 specifierForID:@"CYCLING_POWER_ZONES_BUTTON"];
     [v5 removeObject:v103];
-
-    v104 = [v5 specifierForID:@"CYCLING_POWER_ZONES_BUTTON"];
-    [v5 removeObject:v104];
   }
 
-  if ((v102 & 1) == 0)
+  if ((v101 & 1) == 0)
   {
-    v105 = [v5 specifierForID:@"IPHONE_MIRRORING_GROUP_ID"];
+    v104 = [v5 specifierForID:@"IPHONE_MIRRORING_GROUP_ID"];
+    [v5 removeObject:v104];
+
+    v105 = [v5 specifierForID:@"IPHONE_MIRRORING_LABEL_ID"];
     [v5 removeObject:v105];
 
-    v106 = [v5 specifierForID:@"IPHONE_MIRRORING_LABEL_ID"];
+    v106 = [v5 specifierForID:@"ALERT_ON_WATCH_WHEN_MIRRORED_LABEL_ID"];
     [v5 removeObject:v106];
 
-    v107 = [v5 specifierForID:@"ALERT_ON_WATCH_WHEN_MIRRORED_LABEL_ID"];
+    v107 = [v5 specifierForID:@"ALERT_ON_WATCH_WHEN_MIRRORED_GROUP_ID"];
     [v5 removeObject:v107];
-
-    v108 = [v5 specifierForID:@"ALERT_ON_WATCH_WHEN_MIRRORED_GROUP_ID"];
-    [v5 removeObject:v108];
   }
 
-  if ((FIIsTinkerVegaOrFitnessJunior() & 1) != 0 || (v109 = self->_device, v110 = [objc_alloc(v15[400]) initWithUUIDString:@"210C1233-537B-4A1E-8EE0-253962851B43"], LOBYTE(v109) = -[NRDevice supportsCapability:](v109, "supportsCapability:", v110), v110, (v109 & 1) == 0))
+  if ((FIIsTinkerVegaOrFitnessJunior() & 1) != 0 || (v108 = self->_device, v109 = [objc_alloc(v14[400]) initWithUUIDString:@"210C1233-537B-4A1E-8EE0-253962851B43"], LOBYTE(v108) = -[NRDevice supportsCapability:](v108, "supportsCapability:", v109), v109, (v108 & 1) == 0))
   {
-    v111 = [v5 specifierForID:@"TRAINING_LOAD_ENABLED_LABEL_ID"];
+    v110 = [v5 specifierForID:@"TRAINING_LOAD_ENABLED_LABEL_ID"];
+    [v5 removeObject:v110];
+
+    v111 = [v5 specifierForID:@"TRAINING_LOAD_GROUP_ID"];
     [v5 removeObject:v111];
-
-    v112 = [v5 specifierForID:@"TRAINING_LOAD_GROUP_ID"];
-    [v5 removeObject:v112];
   }
 
-  if ((v102 & 1) == 0)
+  if ((v101 & 1) == 0)
   {
-    v113 = [v5 specifierForID:@"WorkoutConfirmEndGroup"];
-    [v5 removeObject:v113];
+    v112 = [v5 specifierForID:@"WorkoutConfirmEndGroup"];
+    [v5 removeObject:v112];
 
-    v114 = [v5 specifierForID:@"WorkoutConfirmEndSwitch"];
-    [v5 removeObject:v114];
+    v113 = [v5 specifierForID:@"WorkoutConfirmEndSwitch"];
+    [v5 removeObject:v113];
   }
 
   if (_os_feature_enabled_impl())
   {
-    v115 = +[IMSafetyMonitorCoordinator sharedCoordinator];
-    if ([v115 shouldDisallowBasedOnRegulatoryDomain])
+    v114 = +[IMSafetyMonitorCoordinator sharedCoordinator];
+    if ([v114 shouldDisallowBasedOnRegulatoryDomain])
     {
     }
 
@@ -735,25 +770,25 @@ LABEL_14:
     }
   }
 
-  v117 = [v5 specifierForID:@"WorkoutSafetyCheckInGroup"];
+  v116 = [v5 specifierForID:@"WorkoutSafetyCheckInGroup"];
+  [v5 removeObject:v116];
+
+  v117 = [v5 specifierForID:@"WorkoutSafetyCheckInSwitch"];
   [v5 removeObject:v117];
 
-  v118 = [v5 specifierForID:@"WorkoutSafetyCheckInSwitch"];
-  [v5 removeObject:v118];
-
 LABEL_61:
-  v119 = self->_device;
-  v120 = [objc_alloc(v15[400]) initWithUUIDString:@"A97647CC-89CB-4C3C-A144-18371D6DD41F"];
-  if (![(NRDevice *)v119 supportsCapability:v120])
+  v118 = self->_device;
+  v119 = [objc_alloc(v14[400]) initWithUUIDString:@"A97647CC-89CB-4C3C-A144-18371D6DD41F"];
+  if (![(NRDevice *)v118 supportsCapability:v119])
   {
 LABEL_66:
 
     goto LABEL_67;
   }
 
-  v121 = self->_device;
-  v122 = [objc_alloc(v15[400]) initWithUUIDString:@"0E581E21-36BA-4770-9408-0467585E8495"];
-  if (([(NRDevice *)v121 supportsCapability:v122]& 1) == 0)
+  v120 = self->_device;
+  v121 = [objc_alloc(v14[400]) initWithUUIDString:@"0E581E21-36BA-4770-9408-0467585E8495"];
+  if (([(NRDevice *)v120 supportsCapability:v121]& 1) == 0)
   {
 
     goto LABEL_66;
@@ -763,31 +798,31 @@ LABEL_66:
 
   if ((active & 1) == 0)
   {
-    v124 = [v5 specifierForID:@"WorkoutDoubleTapToScrollGroup"];
-    [(HPRFSessionTrackerAppSettingsController *)self _addGestureLinkToSpecifier:v124];
+    v123 = [v5 specifierForID:@"WorkoutDoubleTapToScrollGroup"];
+    [(HPRFSessionTrackerAppSettingsController *)self _addGestureLinkToSpecifier:v123];
     goto LABEL_68;
   }
 
 LABEL_67:
-  v125 = [v5 specifierForID:@"WorkoutDoubleTapToScrollGroup"];
-  [v5 removeObject:v125];
-
-  v124 = [v5 specifierForID:@"WorkoutDoubleTapToScrollSwitch"];
+  v124 = [v5 specifierForID:@"WorkoutDoubleTapToScrollGroup"];
   [v5 removeObject:v124];
+
+  v123 = [v5 specifierForID:@"WorkoutDoubleTapToScrollSwitch"];
+  [v5 removeObject:v123];
 LABEL_68:
 
-  v126 = [v5 specifierForID:@"PrecisionStartGroup"];
-  v127 = [v5 specifierForID:@"PrecisionStartSwitch"];
-  v128 = v127;
-  if (v126 && v127)
+  v125 = [v5 specifierForID:@"PrecisionStartGroup"];
+  v126 = [v5 specifierForID:@"PrecisionStartSwitch"];
+  v127 = v126;
+  if (v125 && v126)
   {
-    v129 = FIUIBundle();
-    v130 = [v129 localizedStringForKey:@"PRECISION_START_DESCRIPTION" value:&stru_35B68 table:@"Localizable"];
-    [v126 setProperty:v130 forKey:PSFooterTextGroupKey];
+    v128 = FIUIBundle();
+    v129 = [v128 localizedStringForKey:@"PRECISION_START_DESCRIPTION" value:&stru_35B68 table:@"Localizable"];
+    [v125 setProperty:v129 forKey:PSFooterTextGroupKey];
 
-    v131 = FIUIBundle();
-    v132 = [v131 localizedStringForKey:@"PRECISION_START" value:&stru_35B68 table:@"Localizable"];
-    [v128 setName:v132];
+    v130 = FIUIBundle();
+    v131 = [v130 localizedStringForKey:@"PRECISION_START" value:&stru_35B68 table:@"Localizable"];
+    [v127 setName:v131];
   }
 
   if ([(WOWorkoutConfigurationDataSourcesBridgedModel *)self->_configurationDataSourcesModel hasDataSources])
@@ -805,48 +840,48 @@ LABEL_68:
   else
   {
     localizedPaneTitle = [NSBundle bundleForClass:objc_opt_class()];
-    v135 = [localizedPaneTitle localizedStringForKey:@"PANE_TITLE_UNINSTALLED" value:&stru_35B68 table:@"SessionTrackerAppSettings"];
-    [(HPRFSessionTrackerAppSettingsController *)self setTitle:v135];
+    v134 = [localizedPaneTitle localizedStringForKey:@"PANE_TITLE_UNINSTALLED" value:&stru_35B68 table:@"SessionTrackerAppSettings"];
+    [(HPRFSessionTrackerAppSettingsController *)self setTitle:v134];
   }
 
   if (!self->_isWorkoutAppInstalled)
   {
-    v136 = [v5 count];
-    if (v136)
+    v135 = [v5 count];
+    if (v135)
     {
-      v137 = v136 - 1;
+      v136 = v135 - 1;
       do
       {
-        v138 = [v5 objectAtIndex:v137];
-        identifier = [v138 identifier];
-        v140 = [&off_38760 containsObject:identifier];
+        v137 = [v5 objectAtIndex:v136];
+        identifier = [v137 identifier];
+        v139 = [&off_38760 containsObject:identifier];
 
-        if ((v140 & 1) == 0)
+        if ((v139 & 1) == 0)
         {
-          [v5 removeObjectAtIndex:v137];
+          [v5 removeObjectAtIndex:v136];
         }
 
-        --v137;
+        --v136;
       }
 
-      while (v137 != -1);
+      while (v136 != -1);
     }
   }
 
-  v141 = self->_device;
-  v142 = [[NSUUID alloc] initWithUUIDString:@"622B6312-95FA-4F09-9148-69E286A9C31F"];
-  LOBYTE(v141) = [(NRDevice *)v141 supportsCapability:v142];
+  v140 = self->_device;
+  v141 = [[NSUUID alloc] initWithUUIDString:@"622B6312-95FA-4F09-9148-69E286A9C31F"];
+  LOBYTE(v140) = [(NRDevice *)v140 supportsCapability:v141];
 
-  if ((v141 & 1) == 0)
+  if ((v140 & 1) == 0)
   {
-    v143 = [v5 specifierForID:@"BacktrackGroup"];
-    [v5 removeObject:v143];
+    v142 = [v5 specifierForID:@"BacktrackGroup"];
+    [v5 removeObject:v142];
 
-    v144 = [v5 specifierForID:@"BacktrackSwitch"];
-    [v5 removeObject:v144];
+    v143 = [v5 specifierForID:@"BacktrackSwitch"];
+    [v5 removeObject:v143];
   }
 
-  v145 = *&self->BPSNotificationAppController_opaque[v3];
+  v144 = *&self->BPSNotificationAppController_opaque[v3];
   *&self->BPSNotificationAppController_opaque[v3] = v5;
 
   v4 = *&self->BPSNotificationAppController_opaque[v3];
@@ -1005,35 +1040,34 @@ LABEL_6:
 - (void)_addPreKincaidFooterTextToSpecifier:(id)specifier
 {
   specifierCopy = specifier;
-  healthStore = self->_healthStore;
-  v5 = FIActivityMoveModeWithHealthStore();
+  v4 = FIActivityMoveModeWithHealthStore();
   device = self->_device;
-  v7 = [[NSUUID alloc] initWithUUIDString:@"6AABB66B-8E1B-4CAB-8FC4-AC577BA0AFB0"];
-  v8 = [(NRDevice *)device supportsCapability:v7];
+  v6 = [[NSUUID alloc] initWithUUIDString:@"6AABB66B-8E1B-4CAB-8FC4-AC577BA0AFB0"];
+  v7 = [(NRDevice *)device supportsCapability:v6];
 
-  v9 = FIUIBundle();
-  v10 = [v9 localizedStringForKey:@"POWER_SAVING_MODE_FOOTER" value:&stru_35B68 table:@"Localizable"];
+  v8 = FIUIBundle();
+  v9 = [v8 localizedStringForKey:@"POWER_SAVING_MODE_FOOTER" value:&stru_35B68 table:@"Localizable"];
 
   isWheelchairUser = [(_HKWheelchairUseCharacteristicCache *)self->_wheelchairUseCharacteristicCache isWheelchairUser];
-  if (v8)
+  if (v7)
   {
-    v12 = FIUIBundle();
-    v13 = [v12 localizedStringForKey:@"POWER_SAVING_MODE_FOOTER_TRITIUM" value:&stru_35B68 table:@"Localizable-tritium"];
+    v11 = FIUIBundle();
+    v12 = [v11 localizedStringForKey:@"POWER_SAVING_MODE_FOOTER_TRITIUM" value:&stru_35B68 table:@"Localizable-tritium"];
 
-    v10 = v13;
+    v9 = v12;
   }
 
   if (isWheelchairUser)
   {
-    v14 = FIUIBundle();
-    v15 = [v14 localizedStringForKey:@"POWER_SAVING_MODE_FOOTER_WHEELCHAIR" value:&stru_35B68 table:@"Localizable"];
+    v13 = FIUIBundle();
+    v14 = [v13 localizedStringForKey:@"POWER_SAVING_MODE_FOOTER_WHEELCHAIR" value:&stru_35B68 table:@"Localizable"];
 
-    if (v8)
+    if (v7)
     {
-      v16 = @"POWER_SAVING_MODE_FOOTER_WHEELCHAIR_TRITIUM";
+      v15 = @"POWER_SAVING_MODE_FOOTER_WHEELCHAIR_TRITIUM";
 LABEL_9:
-      v18 = FIUIBundle();
-      v10 = [v18 localizedStringForKey:v16 value:&stru_35B68 table:@"Localizable-tritium"];
+      v17 = FIUIBundle();
+      v9 = [v17 localizedStringForKey:v15 value:&stru_35B68 table:@"Localizable-tritium"];
 
       goto LABEL_11;
     }
@@ -1041,43 +1075,43 @@ LABEL_9:
 
   else
   {
-    if (v5 != 2)
+    if (v4 != 2)
     {
       goto LABEL_11;
     }
 
-    v17 = FIUIBundle();
-    v15 = [v17 localizedStringForKey:@"POWER_SAVING_MODE_FOOTER_FITNESS_JUNIOR" value:&stru_35B68 table:@"Localizable-tinker"];
+    v16 = FIUIBundle();
+    v14 = [v16 localizedStringForKey:@"POWER_SAVING_MODE_FOOTER_FITNESS_JUNIOR" value:&stru_35B68 table:@"Localizable-tinker"];
 
-    if (v8)
+    if (v7)
     {
-      v16 = @"POWER_SAVING_MODE_FOOTER_FITNESS_WORKOUT_TRITIUM";
+      v15 = @"POWER_SAVING_MODE_FOOTER_FITNESS_WORKOUT_TRITIUM";
       goto LABEL_9;
     }
   }
 
-  v10 = v15;
+  v9 = v14;
 LABEL_11:
-  v19 = self->_device;
-  v20 = [[NSUUID alloc] initWithUUIDString:@"4AA3FF3B-3224-42E6-995E-481F49AE9260"];
-  LODWORD(v19) = [(NRDevice *)v19 supportsCapability:v20];
+  v18 = self->_device;
+  v19 = [[NSUUID alloc] initWithUUIDString:@"4AA3FF3B-3224-42E6-995E-481F49AE9260"];
+  LODWORD(v18) = [(NRDevice *)v18 supportsCapability:v19];
 
-  if (!v19)
+  if (!v18)
   {
     goto LABEL_22;
   }
 
   if (isWheelchairUser)
   {
-    v21 = FIUIBundle();
-    v22 = [v21 localizedStringForKey:@"POWER_SAVING_MODE_FOOTER_WHEELCHAIR_TELEPHONY" value:&stru_35B68 table:@"Localizable-Sashimi"];
+    v20 = FIUIBundle();
+    v21 = [v20 localizedStringForKey:@"POWER_SAVING_MODE_FOOTER_WHEELCHAIR_TELEPHONY" value:&stru_35B68 table:@"Localizable-Sashimi"];
 
-    if (v8)
+    if (v7)
     {
-      v23 = @"POWER_SAVING_MODE_FOOTER_WHEELCHAIR_TELEPHONY_TRITIUM";
+      v22 = @"POWER_SAVING_MODE_FOOTER_WHEELCHAIR_TELEPHONY_TRITIUM";
 LABEL_20:
-      v26 = FIUIBundle();
-      v10 = [v26 localizedStringForKey:v23 value:&stru_35B68 table:@"Localizable-tritium"];
+      v25 = FIUIBundle();
+      v9 = [v25 localizedStringForKey:v22 value:&stru_35B68 table:@"Localizable-tritium"];
 
       goto LABEL_22;
     }
@@ -1085,34 +1119,34 @@ LABEL_20:
 
   else
   {
-    v24 = FIUIBundle();
-    v25 = v24;
-    if (v5 == 2)
+    v23 = FIUIBundle();
+    v24 = v23;
+    if (v4 == 2)
     {
-      v22 = [v24 localizedStringForKey:@"POWER_SAVING_MODE_FOOTER_FITNESS_JUNIOR_TELEPHONY" value:&stru_35B68 table:@"Localizable-tinker"];
+      v21 = [v23 localizedStringForKey:@"POWER_SAVING_MODE_FOOTER_FITNESS_JUNIOR_TELEPHONY" value:&stru_35B68 table:@"Localizable-tinker"];
 
-      if (v8)
+      if (v7)
       {
-        v23 = @"POWER_SAVING_MODE_FOOTER_FITNESS_WORKOUT_TELEPHONY_TRITIUM";
+        v22 = @"POWER_SAVING_MODE_FOOTER_FITNESS_WORKOUT_TELEPHONY_TRITIUM";
         goto LABEL_20;
       }
     }
 
     else
     {
-      v22 = [v24 localizedStringForKey:@"POWER_SAVING_MODE_FOOTER_TELEPHONY" value:&stru_35B68 table:@"Localizable-Sashimi"];
+      v21 = [v23 localizedStringForKey:@"POWER_SAVING_MODE_FOOTER_TELEPHONY" value:&stru_35B68 table:@"Localizable-Sashimi"];
 
-      if (v8)
+      if (v7)
       {
-        v23 = @"POWER_SAVING_MODE_FOOTER_TELEPHONY_TRITIUM";
+        v22 = @"POWER_SAVING_MODE_FOOTER_TELEPHONY_TRITIUM";
         goto LABEL_20;
       }
     }
   }
 
-  v10 = v22;
+  v9 = v21;
 LABEL_22:
-  [specifierCopy setProperty:v10 forKey:PSFooterTextGroupKey];
+  [specifierCopy setProperty:v9 forKey:PSFooterTextGroupKey];
 }
 
 - (void)_showLearnMoreAboutLowPowerMode
@@ -1364,7 +1398,6 @@ LABEL_22:
 - (id)isStartRemindersEnabled:(id)enabled
 {
   FIIsActivePairedDeviceSatellitePaired();
-  healthStore = self->_healthStore;
   FIActivityMoveModeWithHealthStore();
   started = FIIsStartRemindersEnabled();
 
@@ -1374,20 +1407,18 @@ LABEL_22:
 - (id)isResumeRemindersEnabled:(id)enabled
 {
   FIIsActivePairedDeviceSatellitePaired();
-  healthStore = self->_healthStore;
   FIActivityMoveModeWithHealthStore();
-  v5 = FIIsResumeRemindersEnabled();
+  v3 = FIIsResumeRemindersEnabled();
 
-  return [NSNumber numberWithBool:v5];
+  return [NSNumber numberWithBool:v3];
 }
 
 - (id)isEndRemindersEnabled:(id)enabled
 {
-  healthStore = self->_healthStore;
   FIActivityMoveModeWithHealthStore();
-  v4 = FIIsEndRemindersEnabled();
+  v3 = FIIsEndRemindersEnabled();
 
-  return [NSNumber numberWithBool:v4];
+  return [NSNumber numberWithBool:v3];
 }
 
 - (id)isConfirmEndWorkoutEnabled

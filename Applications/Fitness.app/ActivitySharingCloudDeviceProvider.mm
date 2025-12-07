@@ -15,7 +15,7 @@
   *(&self->super.isa + OBJC_IVAR____TtC10FitnessApp34ActivitySharingCloudDeviceProvider_activitySharingCloudDevicesChangedToken) = -1;
   SecureCloudClient.init()();
   (*(v4 + 32))(self + OBJC_IVAR____TtC10FitnessApp34ActivitySharingCloudDeviceProvider_secureCloudClient, v6, v3);
-  v7 = type metadata accessor for ActivitySharingCloudDeviceProvider();
+  v7 = type metadata accessor for ActivitySharingCloudDeviceProvider(0);
   v9.receiver = self;
   v9.super_class = v7;
   return [(ActivitySharingCloudDeviceProvider *)&v9 init];
@@ -33,7 +33,7 @@
   }
 
   v6.receiver = selfCopy;
-  v6.super_class = type metadata accessor for ActivitySharingCloudDeviceProvider();
+  v6.super_class = type metadata accessor for ActivitySharingCloudDeviceProvider(0);
   [(ActivitySharingCloudDeviceProvider *)&v6 dealloc];
 }
 

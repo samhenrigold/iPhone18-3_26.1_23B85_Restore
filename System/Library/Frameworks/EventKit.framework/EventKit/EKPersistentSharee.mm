@@ -21,16 +21,14 @@
 
 void __45__EKPersistentSharee_defaultPropertiesToLoad__block_invoke()
 {
-  v4[3] = *MEMORY[0x1E69E9840];
+  v3[3] = *MEMORY[0x1E69E9840];
   v0 = *MEMORY[0x1E6992C78];
-  v4[0] = *MEMORY[0x1E6992B10];
-  v4[1] = v0;
-  v4[2] = *MEMORY[0x1E6992B08];
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:3];
+  v3[0] = *MEMORY[0x1E6992B10];
+  v3[1] = v0;
+  v3[2] = *MEMORY[0x1E6992B08];
+  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:3];
   v2 = defaultPropertiesToLoad_defaultPropertiesToLoad;
   defaultPropertiesToLoad_defaultPropertiesToLoad = v1;
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 + (id)relations

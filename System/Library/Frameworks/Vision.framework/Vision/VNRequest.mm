@@ -116,7 +116,7 @@
 {
   v2 = objc_opt_class();
 
-  return VNRequestClassFromClientSubclass(v2);
+  return VNRequestClassFromClientSubclass(v2, v3);
 }
 
 + (NSIndexSet)supportedPrivateRevisions
@@ -890,11 +890,11 @@ LABEL_11:
   return v14;
 }
 
-NSString *__64__VNRequest_validateImageBuffer_ofNonZeroWidth_andHeight_error___block_invoke()
+NSString *__64__VNRequest_validateImageBuffer_ofNonZeroWidth_andHeight_error___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
+  v2 = objc_opt_class();
 
-  return NSStringFromClass(v0);
+  return NSStringFromClass(v2);
 }
 
 - (void)setProcessingDevice:(id)device
@@ -1332,7 +1332,7 @@ LABEL_8:
             v33 = v18;
             if (v18)
             {
-              [v18 timingInfo];
+              objc_msgSend_timingInfo(v18);
             }
 
             else

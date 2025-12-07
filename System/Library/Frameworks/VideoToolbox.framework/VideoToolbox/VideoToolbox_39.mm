@@ -1748,7 +1748,7 @@ uint64_t vt_Copy_pf20ITU601_RGfA(uint64_t a1, uint64_t a2, void *a3, void *a4, u
   return 0;
 }
 
-vImage_Error vt_VImage_Setup_xf44_w30r(unint64_t a1, unint64_t a2, const __CFString *a3, uint64_t a4, uint64_t a5, uint8_t a6, uint64_t a7, vImage_YpCbCrToARGB **a8, uint64_t (**a9)(), uint64_t a10, void (**a11)(void **a1))
+vImage_Error vt_VImage_Setup_xf44_w30r(unint64_t a1, unint64_t a2, const __CFString *a3, uint64_t a4, uint64_t a5, uint8_t a6, uint64_t a7, vImage_YpCbCrToARGB **a8, void *a9, uint64_t a10, void (**a11)(void **a1))
 {
   v22 = 0uLL;
   v23 = 0;

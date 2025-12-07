@@ -179,7 +179,7 @@
     memset(v5, 0, sizeof(v5));
   }
 
-  sub_188A3F5FC(v5, &qword_1EA934050);
+  sub_188A3F5FC(v5, &qword_1EA934050, qword_18A64CA10);
   return 0;
 }
 
@@ -203,7 +203,7 @@
 
 - (CGSize)intrinsicContentSize
 {
-  signpost_c2_entryLock_start(-1.0, *(&self->super.super.super.super.isa + OBJC_IVAR____TtC5UIKit24NavigationBarContentView_resolvedHeight) + *(&self->super.super.super.super.isa + OBJC_IVAR____TtC5UIKit24NavigationBarContentView_resolvedExtension));
+  signpost_c2_entryLock_start();
   result.height = v3;
   result.width = v2;
   return result;

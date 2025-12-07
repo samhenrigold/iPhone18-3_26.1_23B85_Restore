@@ -68,7 +68,7 @@
 - (void)configureWithSession:(void *)session
 {
   selfCopy = self;
-  sub_2038();
+  sub_2038(session);
 }
 
 - (void)willStartTracingToFile:(void *)file
@@ -136,38 +136,36 @@
 
 - (BOOL)collectToFile:(void *)file startDate:(id)date endDate:(id)endDate error:(id *)error
 {
-  v28[1] = error;
+  v26[1] = error;
   selfCopy = self;
   fileCopy = file;
-  v31 = sub_9E68();
-  v6 = *(v31 - 8);
-  v7 = *(v6 + 64);
-  __chkstk_darwin(v31);
-  v9 = v28 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = sub_9F68();
-  v11 = *(v10 - 8);
-  v12 = v11[8];
-  v13 = __chkstk_darwin(v10);
-  v15 = v28 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = __chkstk_darwin(v13);
-  v18 = v28 - v17;
-  v19 = __chkstk_darwin(v16);
-  v21 = v28 - v20;
-  __chkstk_darwin(v19);
-  v23 = v28 - v22;
+  v29 = sub_9E68();
+  v6 = *(v29 - 8);
+  __chkstk_darwin(v29);
+  v8 = v26 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = sub_9F68();
+  v10 = *(v9 - 8);
+  v11 = __chkstk_darwin(v9);
+  v13 = v26 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = __chkstk_darwin(v11);
+  v16 = v26 - v15;
+  v17 = __chkstk_darwin(v14);
+  v19 = v26 - v18;
+  __chkstk_darwin(v17);
+  v21 = v26 - v20;
   sub_9F58();
   sub_9F58();
-  v24 = v11[2];
-  v24(v18, v23, v10);
-  v24(v15, v21, v10);
-  v25 = selfCopy;
+  v22 = *(v10 + 16);
+  v22(v16, v21, v9);
+  v22(v13, v19, v9);
+  v23 = selfCopy;
   sub_9E48();
-  sub_273C(fileCopy, v9);
+  sub_273C(fileCopy, v8);
 
-  (*(v6 + 8))(v9, v31);
-  v26 = v11[1];
-  v26(v21, v10);
-  v26(v23, v10);
+  (*(v6 + 8))(v8, v29);
+  v24 = *(v10 + 8);
+  v24(v19, v9);
+  v24(v21, v9);
   return 1;
 }
 

@@ -12,10 +12,10 @@
 - (id)osStatePropertyList;
 - (uint64_t)_displayIdentityForDisplayInfo:(uint64_t)info;
 - (uint64_t)_isFBSDisplayLayoutOnHomeScreen:(uint64_t)result;
-- (uint64_t)_isFBSDisplayLayoutOnLockScreen:(uint64_t)result;
-- (uint64_t)_parseFBSDisplayLayout:(uint64_t)result;
 - (uint64_t)_stopMonitoringDisplayWithIdentity:(uint64_t)result;
 - (void)_addLayoutObserver:(int)observer withImmediateCallback:;
+- (void)_isFBSDisplayLayoutOnLockScreen:(void *)result;
+- (void)_parseFBSDisplayLayout:(uint64_t)layout;
 - (void)_startMonitoringDisplayWithIdentity:(uint64_t)identity;
 - (void)_updateObserversWithLayout:(uint64_t)layout;
 - (void)dealloc;
@@ -158,11 +158,11 @@ FigCaptureDisplayLayoutMonitor *__70__FigCaptureDisplayLayoutMonitor_sharedConti
   return v7;
 }
 
-uint64_t __92__FigCaptureDisplayLayoutMonitor_initWithFBSDisplayLayoutMonitorCreateFunction_displayType___block_invoke(uint64_t a1, uint64_t a2, void *a3)
+void __92__FigCaptureDisplayLayoutMonitor_initWithFBSDisplayLayoutMonitorCreateFunction_displayType___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   Weak = objc_loadWeak((a1 + 32));
 
-  return [(FigCaptureDisplayLayoutMonitor *)Weak _parseFBSDisplayLayout:a3];
+  [(FigCaptureDisplayLayoutMonitor *)Weak _parseFBSDisplayLayout:a3];
 }
 
 - (void)dealloc
@@ -391,175 +391,166 @@ LABEL_12:
   return qword_1ED844F70;
 }
 
-- (uint64_t)_parseFBSDisplayLayout:(uint64_t)result
+- (void)_parseFBSDisplayLayout:(uint64_t)layout
 {
-  if (!result)
+  if (!layout)
   {
-    return result;
+    return;
   }
 
-  v3 = result;
+  layoutCopy = layout;
   array = [MEMORY[0x1E695DF70] array];
   array2 = [MEMORY[0x1E695DF70] array];
   array3 = [MEMORY[0x1E695DF70] array];
   array4 = [MEMORY[0x1E695DF70] array];
-  result = [MEMORY[0x1E695DF70] array];
-  v47 = result;
+  array5 = [MEMORY[0x1E695DF70] array];
   if (dword_1ED8440F0)
   {
-    v73 = 0;
-    v72 = 0;
+    v71[0] = 0;
+    v70 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     OUTLINED_FUNCTION_2_4();
-    result = fig_log_call_emit_and_clean_up_after_send_and_compose();
+    fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
   if (a2)
   {
-    v5 = *(v3 + 8);
+    v5 = *(layoutCopy + 8);
     if (!v5)
     {
-      result = [objc_msgSend(a2 "displayConfiguration")];
-      if (result)
+      if ([objc_msgSend(a2 "displayConfiguration")])
       {
         goto LABEL_13;
       }
 
-      v5 = *(v3 + 8);
+      v5 = *(layoutCopy + 8);
     }
 
     if (v5 == 1)
     {
-      result = [objc_msgSend(a2 "displayConfiguration")];
-      if (result)
+      if ([objc_msgSend(a2 "displayConfiguration")])
       {
         goto LABEL_13;
       }
 
-      v5 = *(v3 + 8);
+      v5 = *(layoutCopy + 8);
     }
 
-    if (v5 != 2)
+    if (v5 != 2 || ![objc_msgSend(a2 "displayConfiguration")])
     {
-      return result;
-    }
-
-    result = [objc_msgSend(a2 "displayConfiguration")];
-    if (!result)
-    {
-      return result;
+      return;
     }
   }
 
 LABEL_13:
-  v70 = 0u;
-  v71 = 0u;
   v68 = 0u;
   v69 = 0u;
+  v66 = 0u;
+  v67 = 0u;
   elements = [a2 elements];
-  v7 = [elements countByEnumeratingWithState:&v68 objects:v67 count:16];
-  v60 = v3;
+  v7 = [elements countByEnumeratingWithState:&v66 objects:v65 count:16];
+  v58 = layoutCopy;
   if (!v7)
   {
     level3 = 0;
 LABEL_25:
     FigSimpleMutexLock();
+    v61 = 0u;
+    v62 = 0u;
     v63 = 0u;
     v64 = 0u;
-    v65 = 0u;
-    v66 = 0u;
     elements2 = [a2 elements];
-    v17 = [elements2 countByEnumeratingWithState:&v63 objects:v62 count:16];
-    if (!v17)
+    v15 = [elements2 countByEnumeratingWithState:&v61 objects:v60 count:16];
+    if (!v15)
     {
       OUTLINED_FUNCTION_7_51();
       goto LABEL_64;
     }
 
-    v18 = v17;
+    v16 = v15;
     OUTLINED_FUNCTION_7_51();
-    v19 = *v64;
-    v55 = *MEMORY[0x1E699F8B0];
-    v53 = *MEMORY[0x1E699F8A8];
-    v52 = *MEMORY[0x1E699F8A0];
-    v51 = *MEMORY[0x1E699F898];
-    v50 = *MEMORY[0x1E69D43B8];
-    v49 = *MEMORY[0x1E69D4408];
-    v48 = *MEMORY[0x1E69D4418];
+    v17 = *v62;
+    v53 = *MEMORY[0x1E699F8B0];
+    v51 = *MEMORY[0x1E699F8A8];
+    v50 = *MEMORY[0x1E699F8A0];
+    v49 = *MEMORY[0x1E699F898];
+    v48 = *MEMORY[0x1E69D43B8];
+    v47 = *MEMORY[0x1E69D4408];
+    v46 = *MEMORY[0x1E69D4418];
     while (1)
     {
-      for (i = 0; i != v18; ++i)
+      for (i = 0; i != v16; ++i)
       {
-        if (*v64 != v19)
+        if (*v62 != v17)
         {
           objc_enumerationMutation(elements2);
         }
 
-        v21 = *(*(&v63 + 1) + 8 * i);
-        [v21 frame];
+        v19 = *(*(&v61 + 1) + 8 * i);
+        [v19 frame];
+        v21 = v20;
         v23 = v22;
         v25 = v24;
         v27 = v26;
-        v29 = v28;
         [a2 bounds];
-        v75.origin.x = v30;
-        v75.origin.y = v31;
-        v75.size.width = v32;
-        v75.size.height = v33;
-        v74.origin.x = v23;
-        v74.origin.y = v25;
-        v74.size.width = v27;
-        v74.size.height = v29;
-        v34 = CGRectEqualToRect(v74, v75);
-        if ([v21 isUIApplicationElement])
+        v73.origin.x = v28;
+        v73.origin.y = v29;
+        v73.size.width = v30;
+        v73.size.height = v31;
+        v72.origin.x = v21;
+        v72.origin.y = v23;
+        v72.size.width = v25;
+        v72.size.height = v27;
+        v32 = CGRectEqualToRect(v72, v73);
+        if ([v19 isUIApplicationElement])
         {
-          if ([v21 level] < level3)
+          if ([v19 level] < level3)
           {
-            bundleIdentifier = [v21 bundleIdentifier];
-            v36 = array3;
+            bundleIdentifier = [v19 bundleIdentifier];
+            v34 = array3;
 LABEL_34:
-            [v36 addObject:bundleIdentifier];
+            [v34 addObject:bundleIdentifier];
             continue;
           }
 
-          if ([v21 layoutRole] == 5)
+          if ([v19 layoutRole] == 5)
           {
-            if (([v21 sb_isStashedPIP] & 1) == 0)
+            if (([v19 sb_isStashedPIP] & 1) == 0)
             {
-              bundleIdentifier = [v21 bundleIdentifier];
-              v36 = v47;
+              bundleIdentifier = [v19 bundleIdentifier];
+              v34 = array5;
               goto LABEL_34;
             }
           }
 
           else
           {
-            if (([array containsObject:{objc_msgSend(v21, "bundleIdentifier")}] & 1) == 0 && (objc_msgSend(array2, "containsObject:", objc_msgSend(v21, "bundleIdentifier")) & 1) == 0)
+            if (([array containsObject:{objc_msgSend(v19, "bundleIdentifier")}] & 1) == 0 && (objc_msgSend(array2, "containsObject:", objc_msgSend(v19, "bundleIdentifier")) & 1) == 0)
             {
-              bundleIdentifier2 = [v21 bundleIdentifier];
-              if (v34)
+              bundleIdentifier2 = [v19 bundleIdentifier];
+              if (v32)
               {
-                v39 = array;
+                v37 = array;
               }
 
               else
               {
-                v39 = array2;
+                v37 = array2;
               }
 
-              [v39 addObject:bundleIdentifier2];
+              [v37 addObject:bundleIdentifier2];
             }
 
-            if ([v21 level] > level)
+            if ([v19 level] > level)
             {
-              level = [v21 level];
+              level = [v19 level];
             }
 
-            if ([v21 sb_isTransitioning])
+            if ([v19 sb_isTransitioning])
             {
-              bundleIdentifier = [v21 bundleIdentifier];
-              v36 = array4;
+              bundleIdentifier = [v19 bundleIdentifier];
+              v34 = array4;
               goto LABEL_34;
             }
           }
@@ -567,10 +558,10 @@ LABEL_34:
 
         else
         {
-          bundleIdentifier3 = [v21 bundleIdentifier];
+          bundleIdentifier3 = [v19 bundleIdentifier];
           if ([bundleIdentifier3 length])
           {
-            if (!v34)
+            if (!v32)
             {
               continue;
             }
@@ -578,98 +569,99 @@ LABEL_34:
 
           else
           {
-            bundleIdentifier3 = [v21 identifier];
-            if (!v34)
+            bundleIdentifier3 = [v19 identifier];
+            if (!v32)
             {
               continue;
             }
           }
 
-          if (!*(v60 + 56))
+          if (!*(v58 + 56))
           {
-            v61[0] = v55;
-            v61[1] = v53;
-            v61[2] = v52;
-            v61[3] = v51;
-            v61[4] = @"com.apple.CMViewSrvc";
-            v61[5] = v50;
-            v61[6] = v49;
-            v61[7] = v48;
-            v61[8] = @"SBControlCenterModuleTransientOverlayViewController";
-            v61[9] = 0x1F2185450;
-            v61[10] = 0x1F2185470;
-            *(v60 + 56) = [MEMORY[0x1E695DEC8] arrayWithObjects:v61 count:11];
+            v59[0] = v53;
+            v59[1] = v51;
+            v59[2] = v50;
+            v59[3] = v49;
+            v59[4] = @"com.apple.CMViewSrvc";
+            v59[5] = v48;
+            v59[6] = v47;
+            v59[7] = v46;
+            v59[8] = @"SBControlCenterModuleTransientOverlayViewController";
+            v59[9] = 0x1F2185450;
+            v59[10] = 0x1F2185470;
+            *(v58 + 56) = [MEMORY[0x1E695DEC8] arrayWithObjects:v59 count:11];
           }
 
           if ([bundleIdentifier3 hasPrefix:@"SUIS-ProximityReaderSceneUI-ProximityReader:"])
           {
-            v56 = 1;
+            v54 = 1;
           }
 
           else if ([bundleIdentifier3 hasPrefix:@"SUIS-ProximityReaderSceneUI-ProximityReaderIDVerifier:"])
           {
-            v45 = 1;
+            v43 = 1;
           }
 
-          else if ([*(v60 + 56) containsObject:bundleIdentifier3])
+          else if ([*(v58 + 56) containsObject:bundleIdentifier3])
           {
-            v44 |= [bundleIdentifier3 isEqualToString:v55];
+            v42 |= objc_msgSend_isEqualToString_(bundleIdentifier3);
           }
 
-          else if ([v21 level] >= level2)
+          else if ([v19 level] >= level2)
           {
-            v42 = bundleIdentifier3;
-            level2 = [v21 level];
+            v40 = bundleIdentifier3;
+            level2 = [v19 level];
           }
         }
       }
 
-      v18 = [elements2 countByEnumeratingWithState:&v63 objects:v62 count:16];
-      v3 = v60;
-      if (!v18)
+      v16 = [elements2 countByEnumeratingWithState:&v61 objects:v60 count:16];
+      layoutCopy = v58;
+      if (!v16)
       {
 LABEL_64:
-        if (level2 > level || (v56 & 1) != 0 || (v45 & 1) != 0)
+        if (level2 > level || (v54 & 1) != 0 || (v43 & 1) != 0)
         {
           [array3 addObjectsFromArray:array];
           [array3 addObjectsFromArray:array2];
-          [array3 addObjectsFromArray:v47];
+          [array3 addObjectsFromArray:array5];
           [array removeAllObjects];
           [array2 removeAllObjects];
-          [v47 removeAllObjects];
-          if (!((v42 == 0) | (v56 | v45) & 1))
+          [array5 removeAllObjects];
+          if (!((v40 == 0) | (v54 | v43) & 1))
           {
-            [array addObject:v42];
+            [array addObject:v40];
           }
         }
 
         [array count];
         [array2 count];
 
-        *(v3 + 48) = [[FigCaptureDisplayLayout alloc] _init];
-        [a2 timestamp];
+        *(layoutCopy + 48) = [[FigCaptureDisplayLayout alloc] _init];
+        objc_msgSend_timestamp(a2);
         [OUTLINED_FUNCTION_6_53() setTimestamp:?];
-        [*(v3 + 48) setDisplayType:*(v3 + 8)];
+        [*(layoutCopy + 48) setDisplayType:*(layoutCopy + 8)];
         [array arrayByAddingObjectsFromArray:array2];
         [OUTLINED_FUNCTION_6_53() setForegroundApps:?];
         [MEMORY[0x1E695DEC8] arrayWithArray:array3];
         [OUTLINED_FUNCTION_6_53() setObscuredApps:?];
         [MEMORY[0x1E695DEC8] arrayWithArray:array4];
         [OUTLINED_FUNCTION_6_53() setTransitioningApps:?];
-        [MEMORY[0x1E695DEC8] arrayWithArray:v47];
+        [MEMORY[0x1E695DEC8] arrayWithArray:array5];
         [OUTLINED_FUNCTION_6_53() setPipApps:?];
-        [*(v3 + 48) setOnHomeScreen:{-[FigCaptureDisplayLayoutMonitor _isFBSDisplayLayoutOnHomeScreen:](v3, a2)}];
-        [*(v3 + 48) setOnLockScreen:{-[FigCaptureDisplayLayoutMonitor _isFBSDisplayLayoutOnLockScreen:](v3, a2)}];
-        [*(v3 + 48) setSiriVisible:v44 & 1];
-        [*(v3 + 48) setPaymentServiceVisible:v56 & 1];
-        [*(v3 + 48) setPaymentServiceIDVerifierVisible:v45 & 1];
-        if (*(v3 + 8) == 2)
+        [*(layoutCopy + 48) setOnHomeScreen:{-[FigCaptureDisplayLayoutMonitor _isFBSDisplayLayoutOnHomeScreen:](layoutCopy, a2)}];
+        [*(layoutCopy + 48) setOnLockScreen:{-[FigCaptureDisplayLayoutMonitor _isFBSDisplayLayoutOnLockScreen:](layoutCopy, a2)}];
+        [*(layoutCopy + 48) setSiriVisible:v42 & 1];
+        [*(layoutCopy + 48) setPaymentServiceVisible:v54 & 1];
+        [*(layoutCopy + 48) setPaymentServiceIDVerifierVisible:v43 & 1];
+        if (*(layoutCopy + 8) == 2)
         {
-          *(v3 + 40) = a2 != 0;
+          *(layoutCopy + 40) = a2 != 0;
         }
 
-        [(FigCaptureDisplayLayoutMonitor *)v3 _updateObserversWithLayout:?];
-        return FigSimpleMutexUnlock();
+        [(FigCaptureDisplayLayoutMonitor *)layoutCopy _updateObserversWithLayout:?];
+        FigSimpleMutexUnlock();
+        return;
       }
     }
   }
@@ -677,46 +669,37 @@ LABEL_64:
   v8 = v7;
   level3 = 0;
   v10 = 0;
-  v11 = *v69;
-  v12 = *MEMORY[0x1E69D43B8];
-  v13 = *MEMORY[0x1E699F8A0];
+  v11 = *v67;
   do
   {
-    v14 = 0;
-    do
+    for (j = 0; j != v8; ++j)
     {
-      if (*v69 != v11)
+      if (*v67 != v11)
       {
         objc_enumerationMutation(elements);
       }
 
-      v15 = *(*(&v68 + 1) + 8 * v14);
-      if ([objc_msgSend(v15 "identifier")])
+      v13 = *(*(&v66 + 1) + 8 * j);
+      if (objc_msgSend_isEqualToString_([v13 identifier]))
       {
         v10 = 1;
       }
 
-      else if ([objc_msgSend(v15 "identifier")])
+      else if (objc_msgSend_isEqualToString_([v13 identifier]))
       {
-        level3 = [v15 level];
+        level3 = [v13 level];
       }
-
-      ++v14;
     }
 
-    while (v8 != v14);
-    result = [elements countByEnumeratingWithState:&v68 objects:v67 count:16];
-    v8 = result;
+    v8 = [elements countByEnumeratingWithState:&v66 objects:v65 count:16];
   }
 
-  while (result);
-  v3 = v60;
+  while (v8);
+  layoutCopy = v58;
   if ((v10 & 1) == 0)
   {
     goto LABEL_25;
   }
-
-  return result;
 }
 
 - (void)_addLayoutObserver:(int)observer withImmediateCallback:
@@ -750,29 +733,27 @@ LABEL_64:
       if (v5)
       {
         v6 = v5;
-        v7 = *v13;
-        v8 = *MEMORY[0x1E69D43D8];
-        v9 = *MEMORY[0x1E69D43D0];
+        v7 = *v11;
 LABEL_6:
-        v10 = 0;
+        v8 = 0;
         while (1)
         {
-          if (*v13 != v7)
+          if (*v11 != v7)
           {
             objc_enumerationMutation(v3);
           }
 
-          v11 = *(v12 + 8 * v10);
-          if (([objc_msgSend(v11 "identifier")] & 1) == 0)
+          v9 = *(v10 + 8 * v8);
+          if ((objc_msgSend_isEqualToString_([v9 identifier]) & 1) == 0)
           {
-            result = [objc_msgSend(v11 "identifier")];
+            result = objc_msgSend_isEqualToString_([v9 identifier]);
             if (!result)
             {
               break;
             }
           }
 
-          if (v6 == ++v10)
+          if (v6 == ++v8)
           {
             OUTLINED_FUNCTION_43();
             v6 = [v3 countByEnumeratingWithState:? objects:? count:?];
@@ -801,7 +782,7 @@ LABEL_6:
   return result;
 }
 
-- (uint64_t)_isFBSDisplayLayoutOnLockScreen:(uint64_t)result
+- (void)_isFBSDisplayLayoutOnLockScreen:(void *)result
 {
   if (result)
   {
@@ -814,30 +795,29 @@ LABEL_6:
       if (v4)
       {
         v5 = v4;
-        v6 = *v15;
-        v7 = *MEMORY[0x1E699F8A0];
-        v8 = 0x8000000000000000;
+        v6 = *v14;
+        v7 = 0x8000000000000000;
         level2 = 0x8000000000000000;
         do
         {
           for (i = 0; i != v5; ++i)
           {
-            if (*v15 != v6)
+            if (*v14 != v6)
             {
               objc_enumerationMutation(v2);
             }
 
-            v11 = *(v14 + 8 * i);
-            v12 = [objc_msgSend(v11 "identifier")];
-            level = [v11 level];
-            if (v12)
+            v10 = *(v13 + 8 * i);
+            isEqualToString = objc_msgSend_isEqualToString_([v10 identifier]);
+            level = [v10 level];
+            if (isEqualToString)
             {
-              v8 = level;
+              v7 = level;
             }
 
             else if (level > level2)
             {
-              level2 = [v11 level];
+              level2 = [v10 level];
             }
           }
 
@@ -850,11 +830,11 @@ LABEL_6:
 
       else
       {
-        v8 = 0x8000000000000000;
+        v7 = 0x8000000000000000;
         level2 = 0x8000000000000000;
       }
 
-      return v8 > level2;
+      return (v7 > level2);
     }
   }
 
@@ -920,21 +900,22 @@ LABEL_6:
     FigSimpleMutexCheckIsLockedOnThisThread();
     if (dword_1ED8440F0)
     {
-      v74 = 0;
-      v73 = 0;
+      v76 = 0;
+      v75[128] = 0;
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       v5 = os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-      if (OUTLINED_FUNCTION_5_24(v5))
+      v6 = OUTLINED_FUNCTION_5_24(v5);
+      if (v6)
       {
-        v67 = 136315650;
-        v68 = "[FigCaptureDisplayLayoutMonitor _updateObserversWithLayout:]";
-        v69 = 2114;
-        layoutCopy = layout;
+        v69 = 136315650;
+        v70 = "[FigCaptureDisplayLayoutMonitor _updateObserversWithLayout:]";
         v71 = 2114;
-        v72 = a2;
-        LODWORD(v32) = 32;
-        v30 = &v67;
-        OUTLINED_FUNCTION_5_0();
+        layoutCopy = layout;
+        v73 = 2114;
+        v74 = a2;
+        LODWORD(v35) = 32;
+        v33 = &v69;
+        OUTLINED_FUNCTION_5_0(v6, v7, v75, v8, &dword_1AC90E000);
       }
 
       OUTLINED_FUNCTION_2_4();
@@ -942,34 +923,34 @@ LABEL_6:
     }
 
     FigSimpleMutexLock();
-    v6 = [*(layout + 24) copy];
-    v7 = FigSimpleMutexUnlock();
-    v15 = OUTLINED_FUNCTION_17_0(v7, v8, v9, v10, v11, v12, v13, v14, v30, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60, v62, v64, 0);
-    if (v15)
+    v9 = [*(layout + 24) copy];
+    v10 = FigSimpleMutexUnlock();
+    v18 = OUTLINED_FUNCTION_17_0(v10, v11, v12, v13, v14, v15, v16, v17, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61, v63, v65, v67);
+    if (v18)
     {
-      v16 = v15;
-      v17 = MEMORY[0];
+      v19 = v18;
+      v20 = MEMORY[0];
       do
       {
-        for (i = 0; i != v16; ++i)
+        for (i = 0; i != v19; ++i)
         {
-          if (MEMORY[0] != v17)
+          if (MEMORY[0] != v20)
           {
-            objc_enumerationMutation(v6);
+            objc_enumerationMutation(v9);
           }
 
-          v19 = *(8 * i);
-          v20 = objc_autoreleasePoolPush();
-          referencedObject = [v19 referencedObject];
+          v22 = *(8 * i);
+          v23 = objc_autoreleasePoolPush();
+          referencedObject = [v22 referencedObject];
           [referencedObject layoutMonitor:layout didUpdateLayout:a2];
 
-          objc_autoreleasePoolPop(v20);
+          objc_autoreleasePoolPop(v23);
         }
 
-        v16 = OUTLINED_FUNCTION_17_0(v22, v23, v24, v25, v26, v27, v28, v29, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61, v63, v65, v66);
+        v19 = OUTLINED_FUNCTION_17_0(v25, v26, v27, v28, v29, v30, v31, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60, v62, v64, v66, v68);
       }
 
-      while (v16);
+      while (v19);
     }
   }
 }
@@ -1013,7 +994,10 @@ LABEL_6:
           continue;
         }
 
-        if ([objc_msgSend(a2 "identifier")])
+        v13 = [v4 configurationForIdentity:v11];
+        identifier = [a2 identifier];
+        [v13 hardwareIdentifier];
+        if (objc_msgSend_isEqualToString_(identifier))
         {
           goto LABEL_16;
         }
@@ -1042,21 +1026,21 @@ LABEL_16:
     if (OUTLINED_FUNCTION_5_24(v5))
     {
       OUTLINED_FUNCTION_2_78();
-      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_5_0(v6, v7, v15, v8, &dword_1AC90E000);
     }
 
     OUTLINED_FUNCTION_2_4();
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v6 = OUTLINED_FUNCTION_3_19();
-  v8 = [(FigCaptureDisplayLayoutMonitor *)v6 _displayIdentityForDisplayInfo:v7];
+  v9 = OUTLINED_FUNCTION_3_19();
+  v11 = [(FigCaptureDisplayLayoutMonitor *)v9 _displayIdentityForDisplayInfo:v10];
   if (self)
   {
     displayType = self->_displayType;
     if (displayType == 1)
     {
-      if (![v8 isExternal])
+      if (![v11 isExternal])
       {
         return;
       }
@@ -1064,11 +1048,11 @@ LABEL_16:
       goto LABEL_9;
     }
 
-    if (!displayType && ([v8 isMainDisplay] & 1) != 0)
+    if (!displayType && ([v11 isMainDisplay] & 1) != 0)
     {
 LABEL_9:
-      v10 = OUTLINED_FUNCTION_3_19();
-      [(FigCaptureDisplayLayoutMonitor *)v10 _startMonitoringDisplayWithIdentity:v11];
+      v13 = OUTLINED_FUNCTION_3_19();
+      [(FigCaptureDisplayLayoutMonitor *)v13 _startMonitoringDisplayWithIdentity:v14];
     }
   }
 }
@@ -1082,33 +1066,33 @@ LABEL_9:
     if (OUTLINED_FUNCTION_5_24(v5))
     {
       OUTLINED_FUNCTION_2_78();
-      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_5_0(v6, v7, v15, v8, &dword_1AC90E000);
     }
 
     OUTLINED_FUNCTION_2_4();
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v6 = OUTLINED_FUNCTION_3_19();
-  v8 = [(FigCaptureDisplayLayoutMonitor *)v6 _displayIdentityForDisplayInfo:v7];
+  v9 = OUTLINED_FUNCTION_3_19();
+  v11 = [(FigCaptureDisplayLayoutMonitor *)v9 _displayIdentityForDisplayInfo:v10];
   if (self)
   {
     displayType = self->_displayType;
     if (displayType == 1)
     {
-      if (![v8 isExternal])
+      if (![v11 isExternal])
       {
         return;
       }
     }
 
-    else if (displayType || ([v8 isMainDisplay] & 1) == 0)
+    else if (displayType || ([v11 isMainDisplay] & 1) == 0)
     {
       return;
     }
 
-    v10 = OUTLINED_FUNCTION_3_19();
-    [(FigCaptureDisplayLayoutMonitor *)v10 _stopMonitoringDisplayWithIdentity:v11];
+    v13 = OUTLINED_FUNCTION_3_19();
+    [(FigCaptureDisplayLayoutMonitor *)v13 _stopMonitoringDisplayWithIdentity:v14];
   }
 }
 

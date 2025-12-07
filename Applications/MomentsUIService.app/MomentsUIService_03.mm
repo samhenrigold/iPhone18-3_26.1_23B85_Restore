@@ -1,13 +1,561 @@
-unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC10Foundation4UUIDV_9MomentsUI13URLBasedAsset_pTt0g5Tf4g_n(uint64_t a1)
+unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSo26UIFontDescriptorFeatureKeya_SiTt0g5Tf4g_n(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDV_9MomentsUI13URLBasedAsset_ptMd);
+  v1 = *(a1 + 16);
+  if (v1)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySo26UIFontDescriptorFeatureKeyaSiGMd, &_ss18_DictionaryStorageCySo26UIFontDescriptorFeatureKeyaSiGMR);
+    v3 = static _DictionaryStorage.allocate(capacity:)();
+
+    for (i = (a1 + 40); ; i += 2)
+    {
+      v5 = *i;
+      v6 = *(i - 1);
+      result = specialized __RawDictionaryStorage.find<A>(_:)(v6);
+      if (v8)
+      {
+        break;
+      }
+
+      *(v3 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << result;
+      *(v3[6] + 8 * result) = v6;
+      *(v3[7] + 8 * result) = v5;
+      v9 = v3[2];
+      v10 = __OFADD__(v9, 1);
+      v11 = v9 + 1;
+      if (v10)
+      {
+        goto LABEL_10;
+      }
+
+      v3[2] = v11;
+      if (!--v1)
+      {
+
+        return v3;
+      }
+    }
+
+    __break(1u);
+LABEL_10:
+    __break(1u);
+  }
+
+  else
+  {
+    return &_swiftEmptyDictionarySingleton;
+  }
+
+  return result;
+}
+
+unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_ypTt0g5Tf4g_n(uint64_t a1)
+{
+  v1 = *(a1 + 16);
+  if (v1)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSypGMd, &_ss18_DictionaryStorageCySSypGMR);
+    v3 = static _DictionaryStorage.allocate(capacity:)();
+    v4 = a1 + 32;
+
+    while (1)
+    {
+      outlined init with copy of (String, Date?)(v4, &v13, &_sSS_yptMd, &_sSS_yptMR);
+      v5 = v13;
+      v6 = v14;
+      result = specialized __RawDictionaryStorage.find<A>(_:)(v13, v14);
+      if (v8)
+      {
+        break;
+      }
+
+      *(v3 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << result;
+      v9 = (v3[6] + 16 * result);
+      *v9 = v5;
+      v9[1] = v6;
+      result = outlined init with take of Any(&v15, (v3[7] + 32 * result));
+      v10 = v3[2];
+      v11 = __OFADD__(v10, 1);
+      v12 = v10 + 1;
+      if (v11)
+      {
+        goto LABEL_10;
+      }
+
+      v3[2] = v12;
+      v4 += 48;
+      if (!--v1)
+      {
+
+        return v3;
+      }
+    }
+
+    __break(1u);
+LABEL_10:
+    __break(1u);
+  }
+
+  else
+  {
+    return &_swiftEmptyDictionarySingleton;
+  }
+
+  return result;
+}
+
+unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC16MomentsUIService26MOSuggestionAssetAnalyticsC0F13TransferEventV0I6FieldsO_So0E10AssetsTypeaTt0g5Tf4g_n(uint64_t a1)
+{
+  v1 = *(a1 + 16);
+  if (v1)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy16MomentsUIService26MOSuggestionAssetAnalyticsC0F13TransferEventV0I6FieldsOSo0E10AssetsTypeaGMd, &_ss18_DictionaryStorageCy16MomentsUIService26MOSuggestionAssetAnalyticsC0F13TransferEventV0I6FieldsOSo0E10AssetsTypeaGMR);
+    v3 = static _DictionaryStorage.allocate(capacity:)();
+
+    for (i = (a1 + 40); ; i += 2)
+    {
+      v5 = *(i - 8);
+      v6 = *i;
+      result = specialized __RawDictionaryStorage.find<A>(_:)(v5);
+      if (v8)
+      {
+        break;
+      }
+
+      *(v3 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << result;
+      *(v3[6] + result) = v5;
+      *(v3[7] + 8 * result) = v6;
+      v9 = v3[2];
+      v10 = __OFADD__(v9, 1);
+      v11 = v9 + 1;
+      if (v10)
+      {
+        goto LABEL_10;
+      }
+
+      v3[2] = v11;
+      if (!--v1)
+      {
+
+        return v3;
+      }
+    }
+
+    __break(1u);
+LABEL_10:
+    __break(1u);
+  }
+
+  else
+  {
+    return &_swiftEmptyDictionarySingleton;
+  }
+
+  return result;
+}
+
+void *_sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC16MomentsUIService30MOSuggestionAssetVisualSubTypeO_SSTt0g5Tf4g_n(uint64_t a1)
+{
+  v1 = *(a1 + 16);
+  if (!v1)
+  {
+    return &_swiftEmptyDictionarySingleton;
+  }
+
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy16MomentsUIService30MOSuggestionAssetVisualSubTypeOSSGMd, &_ss18_DictionaryStorageCy16MomentsUIService30MOSuggestionAssetVisualSubTypeOSSGMR);
+  v3 = static _DictionaryStorage.allocate(capacity:)();
+  LOBYTE(v4) = *(a1 + 32);
+  v6 = *(a1 + 40);
+  v5 = *(a1 + 48);
+  v7 = specialized __RawDictionaryStorage.find<A>(_:)(v4);
+  if (v8)
+  {
+LABEL_7:
+    __break(1u);
+LABEL_8:
+
+    return v3;
+  }
+
+  v9 = v7;
+  result = v5;
+  v11 = (a1 + 72);
+  while (1)
+  {
+    *(v3 + ((v9 >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << v9;
+    *(v3[6] + v9) = v4;
+    v12 = (v3[7] + 16 * v9);
+    *v12 = v6;
+    v12[1] = result;
+    v13 = v3[2];
+    v14 = __OFADD__(v13, 1);
+    v15 = v13 + 1;
+    if (v14)
+    {
+      break;
+    }
+
+    v3[2] = v15;
+    if (!--v1)
+    {
+      goto LABEL_8;
+    }
+
+    v16 = v11 + 3;
+    v4 = *(v11 - 16);
+    v6 = *(v11 - 1);
+    v17 = *v11;
+
+    v9 = specialized __RawDictionaryStorage.find<A>(_:)(v4);
+    v11 = v16;
+    result = v17;
+    if (v18)
+    {
+      goto LABEL_7;
+    }
+  }
+
+  __break(1u);
+  return result;
+}
+
+unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC16MomentsUIService30MOSuggestionAssetVisualSubTypeO_So0e6AssetsI0aTt0g5Tf4g_n(uint64_t a1)
+{
+  v1 = *(a1 + 16);
+  if (!v1)
+  {
+    return &_swiftEmptyDictionarySingleton;
+  }
+
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy16MomentsUIService30MOSuggestionAssetVisualSubTypeOSo0e6AssetsI0aGMd, &_ss18_DictionaryStorageCy16MomentsUIService30MOSuggestionAssetVisualSubTypeOSo0e6AssetsI0aGMR);
+  v3 = static _DictionaryStorage.allocate(capacity:)();
+  LOBYTE(v4) = *(a1 + 32);
+  v5 = *(a1 + 40);
+  result = specialized __RawDictionaryStorage.find<A>(_:)(v4);
+  if (v7)
+  {
+LABEL_7:
+    __break(1u);
+LABEL_8:
+    v16 = v5;
+    return v3;
+  }
+
+  v8 = (a1 + 56);
+  while (1)
+  {
+    *(v3 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << result;
+    *(v3[6] + result) = v4;
+    *(v3[7] + 8 * result) = v5;
+    v9 = v3[2];
+    v10 = __OFADD__(v9, 1);
+    v11 = v9 + 1;
+    if (v10)
+    {
+      break;
+    }
+
+    v3[2] = v11;
+    if (!--v1)
+    {
+      goto LABEL_8;
+    }
+
+    v12 = v8 + 2;
+    v4 = *(v8 - 8);
+    v13 = *v8;
+    v14 = v5;
+    result = specialized __RawDictionaryStorage.find<A>(_:)(v4);
+    v8 = v12;
+    v5 = v13;
+    if (v15)
+    {
+      goto LABEL_7;
+    }
+  }
+
+  __break(1u);
+  return result;
+}
+
+unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSo15CIContextOptiona_ypTt0g5Tf4g_n(uint64_t a1)
+{
+  v1 = *(a1 + 16);
+  if (v1)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySo15CIContextOptionaypGMd, &_ss18_DictionaryStorageCySo15CIContextOptionaypGMR);
+    v3 = static _DictionaryStorage.allocate(capacity:)();
+    v4 = a1 + 32;
+
+    while (1)
+    {
+      outlined init with copy of (String, Date?)(v4, &v11, &_sSo15CIContextOptiona_yptMd, &_sSo15CIContextOptiona_yptMR);
+      v5 = v11;
+      result = specialized __RawDictionaryStorage.find<A>(_:)(v11);
+      if (v7)
+      {
+        break;
+      }
+
+      *(v3 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << result;
+      *(v3[6] + 8 * result) = v5;
+      result = outlined init with take of Any(&v12, (v3[7] + 32 * result));
+      v8 = v3[2];
+      v9 = __OFADD__(v8, 1);
+      v10 = v8 + 1;
+      if (v9)
+      {
+        goto LABEL_10;
+      }
+
+      v3[2] = v10;
+      v4 += 40;
+      if (!--v1)
+      {
+
+        return v3;
+      }
+    }
+
+    __break(1u);
+LABEL_10:
+    __break(1u);
+  }
+
+  else
+  {
+    return &_swiftEmptyDictionarySingleton;
+  }
+
+  return result;
+}
+
+unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC10Foundation4UUIDV_Sb_SbtTt0g5Tf4g_n(uint64_t a1)
+{
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDV_Sb_SbttMd, &_s10Foundation4UUIDV_Sb_SbttMR);
   v3 = *(v2 - 8);
-  __chkstk_darwin();
+  __chkstk_darwin(v2);
+  v5 = &v21 - v4;
+  v6 = *(a1 + 16);
+  if (v6)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation4UUIDVSb_SbtGMd, &_ss18_DictionaryStorageCy10Foundation4UUIDVSb_SbtGMR);
+    v7 = static _DictionaryStorage.allocate(capacity:)();
+    v8 = &v5[*(v2 + 48)];
+    v9 = a1 + ((*(v3 + 80) + 32) & ~*(v3 + 80));
+    v10 = *(v3 + 72);
+
+    while (1)
+    {
+      outlined init with copy of (String, Date?)(v9, v5, &_s10Foundation4UUIDV_Sb_SbttMd, &_s10Foundation4UUIDV_Sb_SbttMR);
+      result = specialized __RawDictionaryStorage.find<A>(_:)(v5);
+      if (v12)
+      {
+        break;
+      }
+
+      v13 = result;
+      *(v7 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << result;
+      v14 = v7[6];
+      v15 = type metadata accessor for UUID();
+      result = (*(*(v15 - 8) + 32))(v14 + *(*(v15 - 8) + 72) * v13, v5, v15);
+      v16 = (v7[7] + 2 * v13);
+      v17 = v8[1];
+      *v16 = *v8;
+      v16[1] = v17;
+      v18 = v7[2];
+      v19 = __OFADD__(v18, 1);
+      v20 = v18 + 1;
+      if (v19)
+      {
+        goto LABEL_10;
+      }
+
+      v7[2] = v20;
+      v9 += v10;
+      if (!--v6)
+      {
+
+        return v7;
+      }
+    }
+
+    __break(1u);
+LABEL_10:
+    __break(1u);
+  }
+
+  else
+  {
+    return &_swiftEmptyDictionarySingleton;
+  }
+
+  return result;
+}
+
+unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSo22MOSuggestionAssetsTypea_16MomentsUIService0c14AssetVisualSubE0OTt0g5Tf4g_n(uint64_t a1)
+{
+  v1 = *(a1 + 16);
+  if (v1)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySo22MOSuggestionAssetsTypea16MomentsUIService0c14AssetVisualSubE0OGMd, &_ss18_DictionaryStorageCySo22MOSuggestionAssetsTypea16MomentsUIService0c14AssetVisualSubE0OGMR);
+    v3 = static _DictionaryStorage.allocate(capacity:)();
+
+    for (i = (a1 + 40); ; i += 2)
+    {
+      v5 = *i;
+      v6 = *(i - 1);
+      result = specialized __RawDictionaryStorage.find<A>(_:)(v6);
+      if (v8)
+      {
+        break;
+      }
+
+      *(v3 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << result;
+      *(v3[6] + 8 * result) = v6;
+      *(v3[7] + result) = v5;
+      v9 = v3[2];
+      v10 = __OFADD__(v9, 1);
+      v11 = v9 + 1;
+      if (v10)
+      {
+        goto LABEL_10;
+      }
+
+      v3[2] = v11;
+      if (!--v1)
+      {
+
+        return v3;
+      }
+    }
+
+    __break(1u);
+LABEL_10:
+    __break(1u);
+  }
+
+  else
+  {
+    return &_swiftEmptyDictionarySingleton;
+  }
+
+  return result;
+}
+
+unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSo38UIApplicationOpenExternalURLOptionsKeya_ypTt0g5Tf4g_n(uint64_t a1)
+{
+  v1 = *(a1 + 16);
+  if (v1)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySo38UIApplicationOpenExternalURLOptionsKeyaypGMd, &_ss18_DictionaryStorageCySo38UIApplicationOpenExternalURLOptionsKeyaypGMR);
+    v3 = static _DictionaryStorage.allocate(capacity:)();
+    v4 = a1 + 32;
+
+    while (1)
+    {
+      outlined init with copy of (String, Date?)(v4, &v11, &_sSo38UIApplicationOpenExternalURLOptionsKeya_yptMd, &_sSo38UIApplicationOpenExternalURLOptionsKeya_yptMR);
+      v5 = v11;
+      result = specialized __RawDictionaryStorage.find<A>(_:)(v11);
+      if (v7)
+      {
+        break;
+      }
+
+      *(v3 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << result;
+      *(v3[6] + 8 * result) = v5;
+      result = outlined init with take of Any(&v12, (v3[7] + 32 * result));
+      v8 = v3[2];
+      v9 = __OFADD__(v8, 1);
+      v10 = v8 + 1;
+      if (v9)
+      {
+        goto LABEL_10;
+      }
+
+      v3[2] = v10;
+      v4 += 40;
+      if (!--v1)
+      {
+
+        return v3;
+      }
+    }
+
+    __break(1u);
+LABEL_10:
+    __break(1u);
+  }
+
+  else
+  {
+    return &_swiftEmptyDictionarySingleton;
+  }
+
+  return result;
+}
+
+unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSo28MOSuggestionAssetMetadataKeya_ypTt0g5Tf4g_n(uint64_t a1)
+{
+  v1 = *(a1 + 16);
+  if (v1)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySo28MOSuggestionAssetMetadataKeyaypGMd, &_ss18_DictionaryStorageCySo28MOSuggestionAssetMetadataKeyaypGMR);
+    v3 = static _DictionaryStorage.allocate(capacity:)();
+    v4 = a1 + 32;
+
+    while (1)
+    {
+      outlined init with copy of (String, Date?)(v4, &v11, &_sSo28MOSuggestionAssetMetadataKeya_yptMd, &_sSo28MOSuggestionAssetMetadataKeya_yptMR);
+      v5 = v11;
+      result = specialized __RawDictionaryStorage.find<A>(_:)(v11);
+      if (v7)
+      {
+        break;
+      }
+
+      *(v3 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << result;
+      *(v3[6] + 8 * result) = v5;
+      result = outlined init with take of Any(&v12, (v3[7] + 32 * result));
+      v8 = v3[2];
+      v9 = __OFADD__(v8, 1);
+      v10 = v8 + 1;
+      if (v9)
+      {
+        goto LABEL_10;
+      }
+
+      v3[2] = v10;
+      v4 += 40;
+      if (!--v1)
+      {
+
+        return v3;
+      }
+    }
+
+    __break(1u);
+LABEL_10:
+    __break(1u);
+  }
+
+  else
+  {
+    return &_swiftEmptyDictionarySingleton;
+  }
+
+  return result;
+}
+
+unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC10Foundation4UUIDV_16MomentsUIService19TaskProcessorWorker_pTt0g5Tf4g_n(uint64_t a1)
+{
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDV_16MomentsUIService19TaskProcessorWorker_ptMd, &_s10Foundation4UUIDV_16MomentsUIService19TaskProcessorWorker_ptMR);
+  v3 = *(v2 - 8);
+  __chkstk_darwin(v2);
   v5 = &v19 - v4;
   v6 = *(a1 + 16);
   if (v6)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation4UUIDV9MomentsUI13URLBasedAsset_pGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation4UUIDV16MomentsUIService19TaskProcessorWorker_pGMd, &_ss18_DictionaryStorageCy10Foundation4UUIDV16MomentsUIService19TaskProcessorWorker_pGMR);
     v7 = static _DictionaryStorage.allocate(capacity:)();
     v8 = *(v2 + 48);
     v9 = a1 + ((*(v3 + 80) + 32) & ~*(v3 + 80));
@@ -15,7 +563,7 @@ unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC10Foundation4UUIDV_9MomentsUI
 
     while (1)
     {
-      outlined init with copy of (String, Date?)(v9, v5, &_s10Foundation4UUIDV_9MomentsUI13URLBasedAsset_ptMd);
+      outlined init with copy of (String, Date?)(v9, v5, &_s10Foundation4UUIDV_16MomentsUIService19TaskProcessorWorker_ptMd, &_s10Foundation4UUIDV_16MomentsUIService19TaskProcessorWorker_ptMR);
       result = specialized __RawDictionaryStorage.find<A>(_:)(v5);
       if (v12)
       {
@@ -58,32 +606,190 @@ LABEL_10:
   return result;
 }
 
-unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_SDySSSe_SEpGTt0g5Tf4g_nTm(uint64_t a1, uint64_t *a2)
+unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_16MomentsUIService19TaskProcessorWorker_pyKcTt0g5Tf4g_n(uint64_t a1)
 {
-  v2 = *(a1 + 16);
-  if (v2)
+  v1 = *(a1 + 16);
+  if (v1)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(a2);
-    v4 = static _DictionaryStorage.allocate(capacity:)();
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS16MomentsUIService19TaskProcessorWorker_pyKcGMd, &_ss18_DictionaryStorageCySS16MomentsUIService19TaskProcessorWorker_pyKcGMR);
+    v3 = static _DictionaryStorage.allocate(capacity:)();
 
-    for (i = (a1 + 48); ; i += 3)
+    for (i = (a1 + 48); ; i += 2)
     {
-      v6 = *(i - 2);
-      v7 = *(i - 1);
-      v8 = *i;
+      v5 = *(i - 2);
+      v6 = *(i - 1);
+      v13 = *i;
 
-      result = specialized __RawDictionaryStorage.find<A>(_:)(v6, v7);
+      result = specialized __RawDictionaryStorage.find<A>(_:)(v5, v6);
+      if (v8)
+      {
+        break;
+      }
+
+      *(v3 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << result;
+      v9 = (v3[6] + 16 * result);
+      *v9 = v5;
+      v9[1] = v6;
+      *(v3[7] + 16 * result) = v13;
+      v10 = v3[2];
+      v11 = __OFADD__(v10, 1);
+      v12 = v10 + 1;
+      if (v11)
+      {
+        goto LABEL_10;
+      }
+
+      v3[2] = v12;
+      if (!--v1)
+      {
+
+        return v3;
+      }
+    }
+
+    __break(1u);
+LABEL_10:
+    __break(1u);
+  }
+
+  else
+  {
+    return &_swiftEmptyDictionarySingleton;
+  }
+
+  return result;
+}
+
+unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC16MomentsUIService25MOSuggestionAssetTileSizeO_12CoreGraphics7CGFloatVTt0g5Tf4g_n(uint64_t a1)
+{
+  v1 = *(a1 + 16);
+  if (v1)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy16MomentsUIService25MOSuggestionAssetTileSizeO12CoreGraphics7CGFloatVGMd, &_ss18_DictionaryStorageCy16MomentsUIService25MOSuggestionAssetTileSizeO12CoreGraphics7CGFloatVGMR);
+    v3 = static _DictionaryStorage.allocate(capacity:)();
+    for (i = (a1 + 40); ; i += 2)
+    {
+      v5 = *(i - 8);
+      v6 = *i;
+      result = specialized __RawDictionaryStorage.find<A>(_:)(v5);
+      if (v8)
+      {
+        break;
+      }
+
+      *(v3 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << result;
+      *(v3[6] + result) = v5;
+      *(v3[7] + 8 * result) = v6;
+      v9 = v3[2];
+      v10 = __OFADD__(v9, 1);
+      v11 = v9 + 1;
+      if (v10)
+      {
+        goto LABEL_10;
+      }
+
+      v3[2] = v11;
+      if (!--v1)
+      {
+        return v3;
+      }
+    }
+
+    __break(1u);
+LABEL_10:
+    __break(1u);
+  }
+
+  else
+  {
+    return &_swiftEmptyDictionarySingleton;
+  }
+
+  return result;
+}
+
+unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSo28MOSuggestionAssetMetadataKeya_ypSgTt0g5Tf4g_n(uint64_t a1)
+{
+  v1 = *(a1 + 16);
+  if (v1)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySo28MOSuggestionAssetMetadataKeyaypSgGMd, &_ss18_DictionaryStorageCySo28MOSuggestionAssetMetadataKeyaypSgGMR);
+    v3 = static _DictionaryStorage.allocate(capacity:)();
+    v4 = a1 + 32;
+
+    while (1)
+    {
+      outlined init with copy of (String, Date?)(v4, &v13, &_sSo28MOSuggestionAssetMetadataKeya_ypSgtMd, &_sSo28MOSuggestionAssetMetadataKeya_ypSgtMR);
+      v5 = v13;
+      result = specialized __RawDictionaryStorage.find<A>(_:)(v13);
+      if (v7)
+      {
+        break;
+      }
+
+      *(v3 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << result;
+      *(v3[6] + 8 * result) = v5;
+      v8 = (v3[7] + 32 * result);
+      v9 = v15;
+      *v8 = v14;
+      v8[1] = v9;
+      v10 = v3[2];
+      v11 = __OFADD__(v10, 1);
+      v12 = v10 + 1;
+      if (v11)
+      {
+        goto LABEL_10;
+      }
+
+      v3[2] = v12;
+      v4 += 40;
+      if (!--v1)
+      {
+
+        return v3;
+      }
+    }
+
+    __break(1u);
+LABEL_10:
+    __break(1u);
+  }
+
+  else
+  {
+    return &_swiftEmptyDictionarySingleton;
+  }
+
+  return result;
+}
+
+unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC16MomentsUIService19MOAssetAndMediaTypeV_SiTt0g5Tf4g_n(uint64_t a1)
+{
+  v1 = *(a1 + 16);
+  if (v1)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy16MomentsUIService19MOAssetAndMediaTypeVSiGMd, &_ss18_DictionaryStorageCy16MomentsUIService19MOAssetAndMediaTypeVSiGMR);
+    v3 = static _DictionaryStorage.allocate(capacity:)();
+
+    for (i = (a1 + 56); ; i += 4)
+    {
+      v5 = *(i - 2);
+      v6 = *(i - 8);
+      v7 = *i;
+      v8 = *(i - 3);
+      result = specialized __RawDictionaryStorage.find<A>(_:)(v8, v5, v6);
       if (v10)
       {
         break;
       }
 
-      *(v4 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << result;
-      v11 = (v4[6] + 16 * result);
-      *v11 = v6;
-      v11[1] = v7;
-      *(v4[7] + 8 * result) = v8;
-      v12 = v4[2];
+      *(v3 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << result;
+      v11 = v3[6] + 24 * result;
+      *v11 = v8;
+      *(v11 + 8) = v5;
+      *(v11 + 16) = v6;
+      *(v3[7] + 8 * result) = v7;
+      v12 = v3[2];
       v13 = __OFADD__(v12, 1);
       v14 = v12 + 1;
       if (v13)
@@ -91,11 +797,125 @@ unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_SDySSSe_SEpGTt0g5Tf4g_nTm(
         goto LABEL_10;
       }
 
-      v4[2] = v14;
-      if (!--v2)
+      v3[2] = v14;
+      if (!--v1)
       {
 
-        return v4;
+        return v3;
+      }
+    }
+
+    __break(1u);
+LABEL_10:
+    __break(1u);
+  }
+
+  else
+  {
+    return &_swiftEmptyDictionarySingleton;
+  }
+
+  return result;
+}
+
+unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC10Foundation4UUIDV_9MomentsUI13URLBasedAsset_pTt0g5Tf4g_n(uint64_t a1)
+{
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDV_9MomentsUI13URLBasedAsset_ptMd, &_s10Foundation4UUIDV_9MomentsUI13URLBasedAsset_ptMR);
+  v3 = *(v2 - 8);
+  __chkstk_darwin(v2);
+  v5 = &v19 - v4;
+  v6 = *(a1 + 16);
+  if (v6)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation4UUIDV9MomentsUI13URLBasedAsset_pGMd, &_ss18_DictionaryStorageCy10Foundation4UUIDV9MomentsUI13URLBasedAsset_pGMR);
+    v7 = static _DictionaryStorage.allocate(capacity:)();
+    v8 = *(v2 + 48);
+    v9 = a1 + ((*(v3 + 80) + 32) & ~*(v3 + 80));
+    v10 = *(v3 + 72);
+
+    while (1)
+    {
+      outlined init with copy of (String, Date?)(v9, v5, &_s10Foundation4UUIDV_9MomentsUI13URLBasedAsset_ptMd, &_s10Foundation4UUIDV_9MomentsUI13URLBasedAsset_ptMR);
+      result = specialized __RawDictionaryStorage.find<A>(_:)(v5);
+      if (v12)
+      {
+        break;
+      }
+
+      v13 = result;
+      *(v7 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << result;
+      v14 = v7[6];
+      v15 = type metadata accessor for UUID();
+      (*(*(v15 - 8) + 32))(v14 + *(*(v15 - 8) + 72) * v13, v5, v15);
+      result = outlined init with take of MOMusicPlaybackCoordinatorDelegate(&v5[v8], v7[7] + 40 * v13);
+      v16 = v7[2];
+      v17 = __OFADD__(v16, 1);
+      v18 = v16 + 1;
+      if (v17)
+      {
+        goto LABEL_10;
+      }
+
+      v7[2] = v18;
+      v9 += v10;
+      if (!--v6)
+      {
+
+        return v7;
+      }
+    }
+
+    __break(1u);
+LABEL_10:
+    __break(1u);
+  }
+
+  else
+  {
+    return &_swiftEmptyDictionarySingleton;
+  }
+
+  return result;
+}
+
+unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_SDySSSe_SEpGTt0g5Tf4g_nTm(uint64_t a1, uint64_t *a2, uint64_t *a3)
+{
+  v3 = *(a1 + 16);
+  if (v3)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameV2(a2, a3);
+    v5 = static _DictionaryStorage.allocate(capacity:)();
+
+    for (i = (a1 + 48); ; i += 3)
+    {
+      v7 = *(i - 2);
+      v8 = *(i - 1);
+      v9 = *i;
+
+      result = specialized __RawDictionaryStorage.find<A>(_:)(v7, v8);
+      if (v11)
+      {
+        break;
+      }
+
+      *(v5 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << result;
+      v12 = (v5[6] + 16 * result);
+      *v12 = v7;
+      v12[1] = v8;
+      *(v5[7] + 8 * result) = v9;
+      v13 = v5[2];
+      v14 = __OFADD__(v13, 1);
+      v15 = v13 + 1;
+      if (v14)
+      {
+        goto LABEL_10;
+      }
+
+      v5[2] = v15;
+      if (!--v3)
+      {
+
+        return v5;
       }
     }
 
@@ -114,14 +934,14 @@ LABEL_10:
 
 unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC10Foundation4UUIDV_16MomentsUIService28MOServerConnectionPropertiesCTt0g5Tf4g_n(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDV_16MomentsUIService28MOServerConnectionPropertiesCtMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDV_16MomentsUIService28MOServerConnectionPropertiesCtMd, &_s10Foundation4UUIDV_16MomentsUIService28MOServerConnectionPropertiesCtMR);
   v3 = *(v2 - 8);
-  __chkstk_darwin();
+  __chkstk_darwin(v2);
   v5 = &v19 - v4;
   v6 = *(a1 + 16);
   if (v6)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation4UUIDV16MomentsUIService28MOServerConnectionPropertiesCGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation4UUIDV16MomentsUIService28MOServerConnectionPropertiesCGMd, &_ss18_DictionaryStorageCy10Foundation4UUIDV16MomentsUIService28MOServerConnectionPropertiesCGMR);
     v7 = static _DictionaryStorage.allocate(capacity:)();
     v8 = *(v2 + 48);
     v9 = a1 + ((*(v3 + 80) + 32) & ~*(v3 + 80));
@@ -129,7 +949,7 @@ unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC10Foundation4UUIDV_16MomentsU
 
     while (1)
     {
-      outlined init with copy of (String, Date?)(v9, v5, &_s10Foundation4UUIDV_16MomentsUIService28MOServerConnectionPropertiesCtMd);
+      outlined init with copy of (String, Date?)(v9, v5, &_s10Foundation4UUIDV_16MomentsUIService28MOServerConnectionPropertiesCtMd, &_s10Foundation4UUIDV_16MomentsUIService28MOServerConnectionPropertiesCtMR);
       result = specialized __RawDictionaryStorage.find<A>(_:)(v5);
       if (v12)
       {
@@ -177,13 +997,13 @@ unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCs11AnyHashableV_ypTt0g5Tf4g_n
   v1 = *(a1 + 16);
   if (v1)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCys11AnyHashableVypGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCys11AnyHashableVypGMd, &_ss18_DictionaryStorageCys11AnyHashableVypGMR);
     v3 = static _DictionaryStorage.allocate(capacity:)();
     v4 = a1 + 32;
 
     while (1)
     {
-      outlined init with copy of (String, Date?)(v4, v13, &_ss11AnyHashableV_yptMd);
+      outlined init with copy of (String, Date?)(v4, v13, &_ss11AnyHashableV_yptMd, &_ss11AnyHashableV_yptMR);
       result = specialized __RawDictionaryStorage.find<A>(_:)(v13);
       if (v6)
       {
@@ -230,14 +1050,14 @@ LABEL_10:
 
 unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_10Foundation3URLVTt0g5Tf4g_n(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_10Foundation3URLVtMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_10Foundation3URLVtMd, &_sSS_10Foundation3URLVtMR);
   v3 = *(v2 - 8);
   __chkstk_darwin(v2);
   v5 = (&v22 - v4);
   v6 = *(a1 + 16);
   if (v6)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation3URLVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation3URLVGMd, &_ss18_DictionaryStorageCySS10Foundation3URLVGMR);
     v7 = static _DictionaryStorage.allocate(capacity:)();
     v8 = *(v2 + 48);
     v9 = a1 + ((*(v3 + 80) + 32) & ~*(v3 + 80));
@@ -245,7 +1065,7 @@ unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_10Foundation3URLVTt0g5Tf4g
 
     while (1)
     {
-      outlined init with copy of (String, Date?)(v9, v5, &_sSS_10Foundation3URLVtMd);
+      outlined init with copy of (String, Date?)(v9, v5, &_sSS_10Foundation3URLVtMd, &_sSS_10Foundation3URLVtMR);
       v11 = *v5;
       v12 = v5[1];
       result = specialized __RawDictionaryStorage.find<A>(_:)(*v5, v12);
@@ -297,7 +1117,7 @@ unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_SdTt0g5Tf4g_n(uint64_t a1)
   v1 = *(a1 + 16);
   if (v1)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSSdGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSSdGMd, &_ss18_DictionaryStorageCySSSdGMR);
     v3 = static _DictionaryStorage.allocate(capacity:)();
 
     for (i = (a1 + 48); ; i += 3)
@@ -351,7 +1171,7 @@ unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_SSSgTt0g5Tf4g_n(uint64_t a
   v1 = *(a1 + 16);
   if (v1)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCyS2SSgGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCyS2SSgGMd, &_ss18_DictionaryStorageCyS2SSgGMR);
     v3 = static _DictionaryStorage.allocate(capacity:)();
 
     for (i = (a1 + 56); ; i += 4)
@@ -405,14 +1225,14 @@ LABEL_10:
 
 unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_10Foundation4DateVSgTt0g5Tf4g_n(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_10Foundation4DateVSgtMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_10Foundation4DateVSgtMd, &_sSS_10Foundation4DateVSgtMR);
   v3 = *(v2 - 8);
   __chkstk_darwin(v2);
   v5 = (&v22 - v4);
   v6 = *(a1 + 16);
   if (v6)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation4DateVSgGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation4DateVSgGMd, &_ss18_DictionaryStorageCySS10Foundation4DateVSgGMR);
     v7 = static _DictionaryStorage.allocate(capacity:)();
     v8 = *(v2 + 48);
     v9 = a1 + ((*(v3 + 80) + 32) & ~*(v3 + 80));
@@ -420,7 +1240,7 @@ unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_10Foundation4DateVSgTt0g5T
 
     while (1)
     {
-      outlined init with copy of (String, Date?)(v9, v5, &_sSS_10Foundation4DateVSgtMd);
+      outlined init with copy of (String, Date?)(v9, v5, &_sSS_10Foundation4DateVSgtMd, &_sSS_10Foundation4DateVSgtMR);
       v12 = *v5;
       v11 = v5[1];
       result = specialized __RawDictionaryStorage.find<A>(_:)(*v5, v11);
@@ -435,7 +1255,7 @@ unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_10Foundation4DateVSgTt0g5T
       *v16 = v12;
       v16[1] = v11;
       v17 = v7[7];
-      v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd);
+      v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
       result = outlined init with take of Date?(v5 + v8, v17 + *(*(v18 - 8) + 72) * v15);
       v19 = v7[2];
       v20 = __OFADD__(v19, 1);
@@ -467,9 +1287,11 @@ LABEL_10:
   return result;
 }
 
-uint64_t partial apply for closure #1 in NotificationRealTimeCheckManager.shouldPostNotificationBasedOnCurrentCondition(significantLocationEnabled:)()
+double partial apply for closure #1 in NotificationRealTimeCheckManager.shouldPostNotificationBasedOnCurrentCondition(significantLocationEnabled:)()
 {
   specialized closure #1 in NotificationRealTimeCheckManager.shouldPostNotificationBasedOnCurrentCondition(significantLocationEnabled:)(v0);
+
+  return result;
 }
 
 uint64_t block_copy_helper_0(uint64_t a1, uint64_t a2)
@@ -684,7 +1506,7 @@ LABEL_20:
 
 uint64_t outlined init with take of Date?(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
@@ -706,10 +1528,10 @@ uint64_t _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRytSg_TG5TA(uin
   return _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRytSg_TG5(a1, v4);
 }
 
-uint64_t outlined assign with take of Date?(uint64_t a1, uint64_t a2, uint64_t *a3)
+uint64_t outlined assign with take of Date?(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(a3);
-  (*(*(v5 - 8) + 40))(a2, a1, v5);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
+  (*(*(v6 - 8) + 40))(a2, a1, v6);
   return a2;
 }
 
@@ -745,10 +1567,10 @@ uint64_t _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRSb_TG5TA_37(ui
   return _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRytSg_TG5(a1, v4);
 }
 
-uint64_t outlined init with copy of (String, Date?)(uint64_t a1, uint64_t a2, uint64_t *a3)
+uint64_t outlined init with copy of (String, Date?)(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(a3);
-  (*(*(v5 - 8) + 16))(a2, a1, v5);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
+  (*(*(v6 - 8) + 16))(a2, a1, v6);
   return a2;
 }
 
@@ -784,7 +1606,7 @@ uint64_t specialized closure #1 in NotificationRealTimeCheckManager.shouldPostNo
     v18[0] = v10;
     *v9 = 136315138;
     swift_beginAccess();
-    type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for NSObject);
+    type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for NSObject, NSObject_ptr);
 
     v11 = Dictionary.description.getter();
     v13 = v12;
@@ -810,7 +1632,7 @@ uint64_t specialized closure #1 in NotificationRealTimeCheckManager.shouldPostNo
 
 uint64_t sub_100045838()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySbs5NeverOGMd);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySbs5NeverOGMd, &_sScCySbs5NeverOGMR);
   v2 = *(v1 - 8);
   v3 = *(v2 + 80);
   v4 = (v3 + 16) & ~v3;
@@ -820,9 +1642,14 @@ uint64_t sub_100045838()
   return _swift_deallocObject(v0, v5 + 8, v3 | 7);
 }
 
-uint64_t partial apply for specialized closure #1 in Sequence<>.contains(_:)(void *a1)
+uint64_t partial apply for specialized closure #1 in Sequence<>.contains(_:)(uint64_t *a1)
 {
   return specialized closure #1 in Sequence<>.contains(_:)(a1, *(v1 + 16)) & 1;
+}
+
+{
+  type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for MOEventBundle, MOEventBundle_ptr);
+  return static NSObject.== infix(_:_:)() & 1;
 }
 
 {
@@ -840,7 +1667,7 @@ uint64_t partial apply for specialized closure #1 in Sequence<>.contains(_:)(voi
 
 uint64_t sub_100045928()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySbs5NeverOGMd);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySbs5NeverOGMd, &_sScCySbs5NeverOGMR);
   v2 = *(v1 - 8);
   v3 = *(v2 + 80);
   v4 = (v3 + 16) & ~v3;
@@ -853,7 +1680,7 @@ uint64_t sub_100045928()
 
 uint64_t partial apply for closure #1 in closure #1 in NotificationRealTimeCheckManager.isAtPlacesEligibleForJournaling(visit:)(uint64_t a1, uint64_t a2, uint64_t (*a3)(uint64_t, uint64_t, unint64_t, uint64_t, uint64_t))
 {
-  v6 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySbs5NeverOGMd) - 8);
+  v6 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySbs5NeverOGMd, &_sScCySbs5NeverOGMR) - 8);
   v7 = (*(v6 + 80) + 16) & ~*(v6 + 80);
   v8 = (*(v6 + 64) + v7 + 7) & 0xFFFFFFFFFFFFFFF8;
   v9 = *(v3 + v8);
@@ -877,7 +1704,7 @@ unint64_t lazy protocol witness table accessor for type Date and conformance Dat
 
 uint64_t sub_100045B28()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCy16MomentsUIService32NotificationRealTimeCheckManagerC18MotionActivityEnumOs5NeverOGMd);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCy16MomentsUIService32NotificationRealTimeCheckManagerC18MotionActivityEnumOs5NeverOGMd, &_sScCy16MomentsUIService32NotificationRealTimeCheckManagerC18MotionActivityEnumOs5NeverOGMR);
   v2 = *(v1 - 8);
   v3 = *(v2 + 80);
   v4 = (v3 + 32) & ~v3;
@@ -890,7 +1717,7 @@ uint64_t sub_100045B28()
 
 uint64_t partial apply for closure #1 in closure #1 in NotificationRealTimeCheckManager.isInSessionBasedOnMotion()(unint64_t a1, uint64_t a2)
 {
-  v5 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sScCy16MomentsUIService32NotificationRealTimeCheckManagerC18MotionActivityEnumOs5NeverOGMd) - 8);
+  v5 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sScCy16MomentsUIService32NotificationRealTimeCheckManagerC18MotionActivityEnumOs5NeverOGMd, &_sScCy16MomentsUIService32NotificationRealTimeCheckManagerC18MotionActivityEnumOs5NeverOGMR) - 8);
   v6 = *(v2 + 16);
   v7 = *(v2 + 24);
   v8 = v2 + ((*(v5 + 80) + 32) & ~*(v5 + 80));
@@ -903,7 +1730,7 @@ unint64_t lazy protocol witness table accessor for type NSNumber and conformance
   result = lazy protocol witness table cache variable for type NSNumber and conformance NSObject;
   if (!lazy protocol witness table cache variable for type NSNumber and conformance NSObject)
   {
-    type metadata accessor for UIApplication(255, &lazy cache variable for type metadata for NSNumber);
+    type metadata accessor for UIApplication(255, &lazy cache variable for type metadata for NSNumber, NSNumber_ptr);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type NSNumber and conformance NSObject);
   }
@@ -911,21 +1738,21 @@ unint64_t lazy protocol witness table accessor for type NSNumber and conformance
   return result;
 }
 
-uint64_t objectdestroy_73Tm(uint64_t *a1)
+uint64_t objectdestroy_73Tm(uint64_t *a1, uint64_t *a2)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(a1);
-  v3 = *(v2 - 8);
-  v4 = *(v3 + 80);
-  v5 = (v4 + 16) & ~v4;
-  v6 = *(v3 + 64);
-  (*(v3 + 8))(v1 + v5, v2);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(a1, a2);
+  v4 = *(v3 - 8);
+  v5 = *(v4 + 80);
+  v6 = (v5 + 16) & ~v5;
+  v7 = *(v4 + 64);
+  (*(v4 + 8))(v2 + v6, v3);
 
-  return _swift_deallocObject(v1, v5 + v6, v4 | 7);
+  return _swift_deallocObject(v2, v6 + v7, v5 | 7);
 }
 
-uint64_t partial apply for closure #1 in closure #1 in NotificationRealTimeCheckManager.isInWorkOutSessionBasedOnHealthKit()(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4, uint64_t (*a5)(uint64_t, uint64_t, uint64_t))
+uint64_t partial apply for closure #1 in closure #1 in NotificationRealTimeCheckManager.isInWorkOutSessionBasedOnHealthKit()(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t (*a5)(uint64_t, uint64_t, uint64_t))
 {
-  v8 = *(__swift_instantiateConcreteTypeFromMangledNameV2(a3) - 8);
+  v8 = *(__swift_instantiateConcreteTypeFromMangledNameV2(a3, a4) - 8);
   v9 = v5 + ((*(v8 + 80) + 16) & ~*(v8 + 80));
 
   return a5(a1, a2, v9);
@@ -933,29 +1760,29 @@ uint64_t partial apply for closure #1 in closure #1 in NotificationRealTimeCheck
 
 uint64_t one-time initialization function for assets(uint64_t a1)
 {
-  return one-time initialization function for shared(a1, static MOAngelLogger.assets);
+  return one-time initialization function for shared(a1, static MOAngelLogger.assets, 0x535445535341, 0xE600000000000000);
 }
 
 {
-  return one-time initialization function for assets(a1, static MOAngelSignposter.assets, &one-time initialization token for assets, static MOAngelLogger.assets);
+  return one-time initialization function for assets(a1, static MOAngelSignposter.assets, &one-time initialization token for assets, static MOAngelLogger.assets, one-time initialization function for assets);
 }
 
 uint64_t one-time initialization function for pullToRefresh(uint64_t a1)
 {
-  return one-time initialization function for shared(a1, static MOAngelLogger.pullToRefresh);
+  return one-time initialization function for shared(a1, static MOAngelLogger.pullToRefresh, 0x45524F544C4C5550, 0xED00004853455246);
 }
 
 {
-  return one-time initialization function for assets(a1, static MOAngelSignposter.pullToRefresh, &one-time initialization token for pullToRefresh, static MOAngelLogger.pullToRefresh);
+  return one-time initialization function for assets(a1, static MOAngelSignposter.pullToRefresh, &one-time initialization token for pullToRefresh, static MOAngelLogger.pullToRefresh, one-time initialization function for pullToRefresh);
 }
 
 uint64_t one-time initialization function for processing(uint64_t a1)
 {
-  return one-time initialization function for shared(a1, static MOAngelLogger.processing);
+  return one-time initialization function for shared(a1, static MOAngelLogger.processing, 0x49535345434F5250, 0xEA0000000000474ELL);
 }
 
 {
-  return one-time initialization function for assets(a1, static MOAngelSignposter.processing, &one-time initialization token for processing, static MOAngelLogger.processing);
+  return one-time initialization function for assets(a1, static MOAngelSignposter.processing, &one-time initialization token for processing, static MOAngelLogger.processing, one-time initialization function for processing);
 }
 
 uint64_t one-time initialization function for bundleProcessing()
@@ -968,83 +1795,83 @@ uint64_t one-time initialization function for bundleProcessing()
 
 uint64_t one-time initialization function for assetRendering(uint64_t a1)
 {
-  return one-time initialization function for shared(a1, static MOAngelLogger.assetRendering);
+  return one-time initialization function for shared(a1, static MOAngelLogger.assetRendering, 0x45525F5445535341, 0xEF474E495245444ELL);
 }
 
 {
-  return one-time initialization function for assets(a1, static MOAngelSignposter.assetRendering, &one-time initialization token for assetRendering, static MOAngelLogger.assetRendering);
+  return one-time initialization function for assets(a1, static MOAngelSignposter.assetRendering, &one-time initialization token for assetRendering, static MOAngelLogger.assetRendering, one-time initialization function for assetRendering);
 }
 
 uint64_t one-time initialization function for databaseOps(uint64_t a1)
 {
-  return one-time initialization function for shared(a1, static MOAngelLogger.databaseOps);
+  return one-time initialization function for shared(a1, static MOAngelLogger.databaseOps, 0x4553414241544144, 0xEC00000053504F5FLL);
 }
 
 {
-  return one-time initialization function for assets(a1, static MOAngelSignposter.databaseOps, &one-time initialization token for databaseOps, static MOAngelLogger.databaseOps);
+  return one-time initialization function for assets(a1, static MOAngelSignposter.databaseOps, &one-time initialization token for databaseOps, static MOAngelLogger.databaseOps, one-time initialization function for databaseOps);
 }
 
-uint64_t one-time initialization function for shared(uint64_t a1, uint64_t *a2)
+uint64_t one-time initialization function for shared(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4)
 {
-  v3 = type metadata accessor for Logger();
-  __swift_allocate_value_buffer(v3, a2);
-  __swift_project_value_buffer(v3, a2);
+  v5 = type metadata accessor for Logger();
+  __swift_allocate_value_buffer(v5, a2);
+  __swift_project_value_buffer(v5, a2);
   return Logger.init(subsystem:category:)();
 }
 
-uint64_t one-time initialization function for assets(uint64_t a1, uint64_t *a2, void *a3, uint64_t a4)
+uint64_t one-time initialization function for assets(uint64_t a1, uint64_t *a2, void *a3, uint64_t a4, uint64_t a5)
 {
-  v7 = type metadata accessor for Logger();
-  v8 = *(v7 - 8);
-  __chkstk_darwin(v7);
-  v10 = &v14 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = type metadata accessor for OSSignposter();
-  __swift_allocate_value_buffer(v11, a2);
-  __swift_project_value_buffer(v11, a2);
+  v8 = type metadata accessor for Logger();
+  v9 = *(v8 - 8);
+  __chkstk_darwin(v8);
+  v11 = &v15 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for OSSignposter();
+  __swift_allocate_value_buffer(v12, a2);
+  __swift_project_value_buffer(v12, a2);
   if (*a3 != -1)
   {
     swift_once();
   }
 
-  v12 = __swift_project_value_buffer(v7, a4);
-  (*(v8 + 16))(v10, v12, v7);
+  v13 = __swift_project_value_buffer(v8, a4);
+  (*(v9 + 16))(v11, v13, v8);
   return OSSignposter.init(logger:)();
 }
 
-uint64_t MOAngelLogger.shared.unsafeMutableAddressor(void *a1, uint64_t (*a2)(void), uint64_t a3)
+uint64_t MOAngelLogger.shared.unsafeMutableAddressor(void *a1, uint64_t (*a2)(void), uint64_t a3, uint64_t a4)
 {
   if (*a1 == -1)
   {
-    v4 = a2(0);
+    v5 = a2(0);
   }
 
   else
   {
     swift_once();
-    v4 = a2(0);
+    v5 = a2(0);
   }
 
-  return __swift_project_value_buffer(v4, a3);
+  return __swift_project_value_buffer(v5, a3);
 }
 
-uint64_t static MOAngelLogger.shared.getter@<X0>(void *a1@<X0>, uint64_t (*a2)(void)@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+uint64_t static MOAngelLogger.shared.getter@<X0>(void *a1@<X0>, uint64_t (*a2)(void)@<X1>, uint64_t a3@<X2>, uint64_t a5@<X8>)
 {
   if (*a1 == -1)
   {
-    v6 = a2(0);
+    v7 = a2(0);
   }
 
   else
   {
     swift_once();
-    v6 = a2(0);
+    v7 = a2(0);
   }
 
-  v7 = v6;
-  v8 = __swift_project_value_buffer(v6, a3);
-  v9 = *(*(v7 - 8) + 16);
+  v8 = v7;
+  v9 = __swift_project_value_buffer(v7, a3);
+  v10 = *(*(v8 - 8) + 16);
 
-  return v9(a4, v8, v7);
+  return v10(a5, v9, v8);
 }
 
 uint64_t *__swift_allocate_value_buffer(uint64_t a1, uint64_t *a2)
@@ -1196,11 +2023,11 @@ id MOSuggestionPickerPrivacyBadge.__allocating_init(effect:)(void *a1)
   return v3;
 }
 
-id MOSuggestionPickerPrivacyBadge.__deallocating_deinit()
+id MOSuggestionPickerPrivacyBadge.__deallocating_deinit(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for MOSuggestionPickerPrivacyBadge();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for MOSuggestionPickerPrivacyBadge();
+  return objc_msgSendSuper2(&v3, "dealloc");
 }
 
 char *specialized MOSuggestionPickerPrivacyBadge.init(frame:)()
@@ -1231,7 +2058,7 @@ char *specialized MOSuggestionPickerPrivacyBadge.init(frame:)()
 
   [v9 _setCornerRadius:6.0];
   v42 = objc_opt_self();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
   v14 = swift_allocObject();
   *(v14 + 16) = xmmword_1002A5170;
   v15 = [*&v9[v10] widthAnchor];
@@ -1326,12 +2153,12 @@ unint64_t type metadata accessor for NSLayoutConstraint()
   return result;
 }
 
-uint64_t MOSuggestionInterstitialListAssetViewModel.__allocating_init(contactAssets:bundleStartDate:bundleEndDate:)(unint64_t a1, unint64_t a2, unint64_t a3)
+void MOSuggestionInterstitialListAssetViewModel.__allocating_init(contactAssets:bundleStartDate:bundleEndDate:)(unint64_t a1, unint64_t a2, unint64_t a3)
 {
   v6 = type metadata accessor for MOSuggestionSheetAssetDateRange(0);
-  v107 = *(v6 - 8);
+  v108 = *(v6 - 8);
   v7 = __chkstk_darwin(v6);
-  v110 = &v89 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v111 = &v90 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v9 = (a1 >> 62);
   if (a1 >> 62)
   {
@@ -1343,28 +2170,28 @@ uint64_t MOSuggestionInterstitialListAssetViewModel.__allocating_init(contactAss
   {
 LABEL_67:
 
-    v83 = type metadata accessor for Date();
-    v84 = *(*(v83 - 8) + 8);
-    v84(a3, v83);
-    v84(a2, v83);
-    return 0;
+    v85 = type metadata accessor for Date();
+    v86 = *(*(v85 - 8) + 8);
+    v86(a3, v85);
+    v86(a2, v85);
+    return;
   }
 
 LABEL_3:
-  v112 = v9;
-  v113 = v7;
-  v103 = a3;
-  v104 = a2;
+  v113 = v9;
+  v114 = v7;
+  v104 = a3;
+  v105 = a2;
   rawValue = _swiftEmptyArrayStorage;
   specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v10, 0);
   a2 = 0;
   v11._rawValue = rawValue;
-  v116 = a1 & 0xC000000000000001;
+  v117 = a1 & 0xC000000000000001;
   a3 = &type metadata for String;
-  v115 = a1;
+  v116 = a1;
   do
   {
-    if (v116)
+    if (v117)
     {
       v12 = specialized _ArrayBuffer._getElementSlowPath(_:)();
     }
@@ -1379,11 +2206,11 @@ LABEL_3:
     v9 = static String._unconditionallyBridgeFromObjectiveC(_:)();
     v16 = v15;
 
-    v117 = v9;
-    v118 = v16;
-    v120 = 35;
-    v121 = 0xE100000000000000;
-    v114 = lazy protocol witness table accessor for type String and conformance String();
+    v118 = v9;
+    v119 = v16;
+    v121 = 35;
+    v122 = 0xE100000000000000;
+    v115 = lazy protocol witness table accessor for type String and conformance String();
     v17 = StringProtocol.components<A>(separatedBy:)();
 
     if (!v17[2])
@@ -1394,9 +2221,9 @@ LABEL_64:
 LABEL_65:
       __break(1u);
 LABEL_66:
-      v82 = v7;
+      v84 = v7;
       v10 = _CocoaArrayWrapper.endIndex.getter();
-      v7 = v82;
+      v7 = v84;
       if (v10 < 1)
       {
         goto LABEL_67;
@@ -1422,27 +2249,27 @@ LABEL_66:
     v22 = v11._rawValue + 16 * v21;
     *(v22 + 4) = v19;
     *(v22 + 5) = v18;
-    a1 = v115;
+    a1 = v116;
   }
 
   while (v10 != a2);
   v23 = String.init(combinedIdentifiersFrom:)(v11);
   countAndFlagsBits = v23._countAndFlagsBits;
   object = v23._object;
-  v108 = MOSuggestionAssetsTypeContactPhoto;
-  v122 = _swiftEmptyArrayStorage;
+  v109 = MOSuggestionAssetsTypeContactPhoto;
   v123 = _swiftEmptyArrayStorage;
+  v124 = _swiftEmptyArrayStorage;
   a2 = type metadata accessor for Date();
   v24 = *(a2 - 8);
   v25 = *(v24 + 16);
-  v26 = v110;
-  v25(v110, v104, a2);
-  v27 = v113[5];
-  v25(v26 + v27, v103, a2);
-  v93 = v24;
-  v94 = a2;
+  v26 = v111;
+  v25(v111, v105, a2);
+  v27 = v114[5];
+  v25(v26 + v27, v104, a2);
+  v94 = v24;
+  v95 = a2;
   (*(v24 + 56))(v26 + v27, 0, 1, a2);
-  if (v112)
+  if (v113)
   {
     v28 = _CocoaArrayWrapper.endIndex.getter();
   }
@@ -1452,28 +2279,28 @@ LABEL_66:
     v28 = *((a1 & 0xFFFFFFFFFFFFFF8) + 0x10);
   }
 
-  v9 = v108;
+  v9 = v109;
   if (v28)
   {
-    v111 = a1 & 0xFFFFFFFFFFFFFF8;
-    v7 = v108;
+    v112 = a1 & 0xFFFFFFFFFFFFFF8;
+    v7 = v109;
     a3 = 0;
-    v101 = xmmword_1002A48B0;
-    v91 = xmmword_1002A4A70;
+    v102 = xmmword_1002A48B0;
+    v92 = xmmword_1002A4A70;
     v29 = _swiftEmptyArrayStorage;
-    v109 = _swiftEmptyArrayStorage;
-    v102 = _swiftEmptyArrayStorage;
-    v113 = v28;
+    v110 = _swiftEmptyArrayStorage;
+    v103 = _swiftEmptyArrayStorage;
+    v114 = v28;
     while (1)
     {
-      if (v116)
+      if (v117)
       {
         v7 = specialized _ArrayBuffer._getElementSlowPath(_:)();
       }
 
       else
       {
-        if (a3 >= *(v111 + 16))
+        if (a3 >= *(v112 + 16))
         {
           goto LABEL_65;
         }
@@ -1532,25 +2359,26 @@ LABEL_66:
       v41 = swift_dynamicCastObjCClass();
       if (v41)
       {
-        v112 = v41;
+        v113 = v41;
         v42 = [v30 metadata];
         v43 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
 
-        v44 = specialized _dictionaryDownCastConditional<A, B, C, D>(_:)(v43);
+        specialized _dictionaryDownCastConditional<A, B, C, D>(_:)(v43);
+        v45 = v44;
 
-        if (!v44)
+        if (!v45)
         {
           goto LABEL_50;
         }
 
-        if (!*(v44 + 16) || (v45 = specialized __RawDictionaryStorage.find<A>(_:)(MOSuggestionAssetMetadataKeyContactName), (v46 & 1) == 0))
+        if (!*(v45 + 16) || (v46 = specialized __RawDictionaryStorage.find<A>(_:)(MOSuggestionAssetMetadataKeyContactName), (v47 & 1) == 0))
         {
           swift_unknownObjectRelease();
 
           goto LABEL_17;
         }
 
-        outlined init with copy of Any(*(v44 + 56) + 32 * v45, &v117);
+        outlined init with copy of Any(*(v45 + 56) + 32 * v46, &v118);
 
         if ((swift_dynamicCast() & 1) == 0)
         {
@@ -1561,8 +2389,8 @@ LABEL_51:
           goto LABEL_17;
         }
 
-        v105 = v121;
-        v106 = v120;
+        v106 = v122;
+        v107 = v121;
         type metadata accessor for MOSuggestionSheetImage();
         v9 = swift_allocObject();
         *(v9 + 5) = 0;
@@ -1572,15 +2400,15 @@ LABEL_51:
         *(v9 + 56) = 0u;
         v9[88] = 1;
         *(v9 + 12) = 0;
-        v102 = v9 + 96;
+        v103 = (v9 + 96);
         v9[104] = 1;
-        *(v9 + 2) = v112;
+        *(v9 + 2) = v113;
         swift_beginAccess();
         *(v9 + 3) = 0;
         swift_beginAccess();
         *(v9 + 4) = 0;
         swift_beginAccess();
-        v47 = *(v9 + 5);
+        v48 = *(v9 + 5);
         *(v9 + 5) = 0;
         swift_unknownObjectRetain();
 
@@ -1589,82 +2417,114 @@ LABEL_51:
         *(v9 + 72) = 0u;
         *(v9 + 56) = 0u;
         v9[88] = 1;
-        v48 = v102;
+        v49 = v103;
         swift_beginAccess();
-        *v48 = 0;
+        *v49 = 0.0;
         v9[104] = 1;
-        v49 = [v30 identifier];
+        v50 = [v30 identifier];
         v29 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-        v51 = v50;
+        v52 = v51;
 
-        v117 = v29;
-        v118 = v51;
-        v120 = 35;
-        v121 = 0xE100000000000000;
-        v52 = StringProtocol.components<A>(separatedBy:)();
+        v118 = v29;
+        v119 = v52;
+        v121 = 35;
+        v122 = 0xE100000000000000;
+        v53 = StringProtocol.components<A>(separatedBy:)();
 
-        if (!v52[2])
+        if (!v53[2])
         {
           __break(1u);
           goto LABEL_69;
         }
 
-        v53 = v52[5];
-        v102 = v52[4];
-        v99 = v53;
+        v54 = v53[5];
+        v103 = v53[4];
+        v100 = v54;
 
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy16MomentsUIService31MOSuggestionSheetAssetDateRangeVGMd);
-        v54 = (*(v107 + 80) + 32) & ~*(v107 + 80);
-        v55 = swift_allocObject();
-        v98 = v55;
-        *(v55 + 16) = v101;
-        outlined init with copy of MOSuggestionSheetAssetDateRange(v110, v55 + v54);
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy16MomentsUIService31MOSuggestionSheetAssetDateRangeVGMd, &_ss23_ContiguousArrayStorageCy16MomentsUIService31MOSuggestionSheetAssetDateRangeVGMR);
+        v55 = (*(v108 + 80) + 32) & ~*(v108 + 80);
         v56 = swift_allocObject();
-        v97 = v56;
-        *(v56 + 16) = v101;
-        v57 = v105;
-        *(v56 + 32) = v106;
-        *(v56 + 40) = v57;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
-        v58 = swift_allocObject();
-        v96 = v58;
-        *(v58 + 16) = v91;
-        *(v58 + 32) = v9;
-        type metadata accessor for MOSuggestionInterstitialListAssetViewModel();
+        v99 = v56;
+        *(v56 + 16) = v102;
+        outlined init with copy of MOSuggestionSheetAssetDateRange(v111, v56 + v55);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR);
+        v57 = swift_allocObject();
+        v98 = v57;
+        *(v57 + 16) = v102;
+        v58 = v106;
+        *(v57 + 32) = v107;
+        *(v57 + 40) = v58;
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
         v59 = swift_allocObject();
-        *(v59 + 32) = 0u;
-        *(v59 + 48) = 0u;
-        *(v59 + 64) = 0;
-        *(v59 + 16) = 0u;
-        *(v59 + 90) = 1;
-        v95 = OBJC_IVAR____TtC16MomentsUIService42MOSuggestionInterstitialListAssetViewModel_uniqueUUID;
+        v97 = v59;
+        *(v59 + 16) = v92;
+        *(v59 + 32) = v9;
+        type metadata accessor for MOSuggestionInterstitialListAssetViewModel(0);
+        v60 = swift_allocObject();
+        *(v60 + 32) = 0u;
+        *(v60 + 48) = 0u;
+        *(v60 + 64) = 0;
+        *(v60 + 16) = 0u;
+        *(v60 + 90) = 1;
+        v96 = OBJC_IVAR____TtC16MomentsUIService42MOSuggestionInterstitialListAssetViewModel_uniqueUUID;
 
-        v112 = v9;
+        v113 = v9;
 
         UUID.init()();
         swift_beginAccess();
-        *(v59 + 16) = 0;
+        *(v60 + 16) = 0;
 
         swift_beginAccess();
-        *(v59 + 24) = 0;
-        *(v59 + 32) = 0;
+        *(v60 + 24) = 0;
+        *(v60 + 32) = 0;
 
         swift_beginAccess();
-        *(v59 + 40) = v98;
+        *(v60 + 40) = v99;
 
         swift_beginAccess();
-        *(v59 + 48) = v97;
+        *(v60 + 48) = v98;
 
         swift_beginAccess();
-        *(v59 + 56) = v96;
+        *(v60 + 56) = v97;
 
-        *(v59 + 65) = 11;
-        v60 = v99;
-        *(v59 + 72) = v102;
-        *(v59 + 80) = v60;
-        *(v59 + 90) = 1;
-        *(v59 + 88) = 0;
+        *(v60 + 65) = 11;
+        v61 = v100;
+        *(v60 + 72) = v103;
+        *(v60 + 80) = v61;
+        *(v60 + 90) = 1;
+        *(v60 + 88) = 0;
+
+        specialized Array._makeUniqueAndReserveCapacityIfNotUnique()();
+        if (*((v124 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v124 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+        {
+          specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
+        }
+
+        specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
+        v103 = v124;
+        v62 = v110;
+        if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+        {
+          v62 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v62 + 2) + 1, 1, v62);
+        }
+
+        v64 = *(v62 + 2);
+        v63 = *(v62 + 3);
+        v66 = v106;
+        v65 = v107;
+        if (v64 >= v63 >> 1)
+        {
+          v68 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v63 > 1), v64 + 1, 1, v62);
+          v66 = v106;
+          v65 = v107;
+          v62 = v68;
+        }
+
+        *(v62 + 2) = v64 + 1;
+        v110 = v62;
+        v67 = &v62[2 * v64];
+        *(v67 + 4) = v65;
+        *(v67 + 5) = v66;
 
         specialized Array._makeUniqueAndReserveCapacityIfNotUnique()();
         if (*((v123 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v123 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
@@ -1673,43 +2533,11 @@ LABEL_51:
         }
 
         specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
-        v102 = v123;
-        v61 = v109;
-        if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-        {
-          v61 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v61 + 2) + 1, 1, v61);
-        }
-
-        v63 = *(v61 + 2);
-        v62 = *(v61 + 3);
-        v65 = v105;
-        v64 = v106;
-        if (v63 >= v62 >> 1)
-        {
-          v67 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v62 > 1), v63 + 1, 1, v61);
-          v65 = v105;
-          v64 = v106;
-          v61 = v67;
-        }
-
-        *(v61 + 2) = v63 + 1;
-        v109 = v61;
-        v66 = &v61[16 * v63];
-        *(v66 + 4) = v64;
-        *(v66 + 5) = v65;
-
-        specialized Array._makeUniqueAndReserveCapacityIfNotUnique()();
-        if (*((v122 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v122 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
-        {
-          specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
-        }
-
-        specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
 
         swift_unknownObjectRelease();
 
-        v29 = v122;
-        v9 = v108;
+        v29 = v123;
+        v9 = v109;
       }
 
       else
@@ -1720,8 +2548,8 @@ LABEL_51:
 
 LABEL_17:
       ++a3;
-      v35 = a1 == v113;
-      a1 = v115;
+      v35 = a1 == v114;
+      a1 = v116;
       if (v35)
       {
         goto LABEL_54;
@@ -1729,39 +2557,39 @@ LABEL_17:
     }
   }
 
-  v68 = v108;
+  v69 = v109;
   v29 = _swiftEmptyArrayStorage;
-  v109 = _swiftEmptyArrayStorage;
-  v102 = _swiftEmptyArrayStorage;
+  v110 = _swiftEmptyArrayStorage;
+  v103 = _swiftEmptyArrayStorage;
 LABEL_54:
 
-  if (!(v29 >> 62))
+  if (v29 >> 62)
   {
-    v69 = v104;
-    v70 = v102;
-    if (*((v29 & 0xFFFFFFFFFFFFFF8) + 0x10))
+LABEL_69:
+    v87 = _CocoaArrayWrapper.endIndex.getter();
+    v70 = v105;
+    v71 = v103;
+    if (v87)
     {
       goto LABEL_56;
     }
 
-    goto LABEL_70;
-  }
-
-LABEL_69:
-  v85 = _CocoaArrayWrapper.endIndex.getter();
-  v69 = v104;
-  v70 = v102;
-  if (!v85)
-  {
 LABEL_70:
 
-    v86 = v94;
-    v87 = *(v93 + 8);
-    v87(v103, v94);
-    v87(v69, v86);
-    outlined destroy of MOSuggestionSheetAssetDateRange(v110);
+    v88 = v95;
+    v89 = *(v94 + 8);
+    v89(v104, v95);
+    v89(v70, v88);
+    outlined destroy of MOSuggestionSheetAssetDateRange(v111);
 
-    return 0;
+    return;
+  }
+
+  v70 = v105;
+  v71 = v103;
+  if (!*((v29 & 0xFFFFFFFFFFFFFF8) + 0x10))
+  {
+    goto LABEL_70;
   }
 
 LABEL_56:
@@ -1769,8 +2597,8 @@ LABEL_56:
   {
     specialized _ArrayBuffer._getElementSlowPath(_:)();
 LABEL_59:
-    v71 = (*(v100 + 344))(countAndFlagsBits, object, 0, 0, 0, 0, 0, 0, 267);
-    if (v70 >> 62)
+    v72 = (*(v101 + 344))(countAndFlagsBits, object, 0, 0, 0, 0, 0, 0, 267);
+    if (v71 >> 62)
     {
       if (_CocoaArrayWrapper.endIndex.getter() < 2)
       {
@@ -1778,46 +2606,46 @@ LABEL_59:
       }
     }
 
-    else if (*((v70 & 0xFFFFFFFFFFFFFF8) + 0x10) < 2)
+    else if (*((v71 & 0xFFFFFFFFFFFFFF8) + 0x10) < 2)
     {
 LABEL_62:
 
-      v74 = MOSuggestionInterstitialListAssetViewModel._groupAssetTypeAndCountDescription(with:)(0);
-      v76 = v75;
+      v76 = MOSuggestionInterstitialListAssetViewModel._groupAssetTypeAndCountDescription(with:)(0);
+      v78 = v77;
       swift_beginAccess();
-      v71[3] = v74;
-      v71[4] = v76;
-
-      swift_beginAccess();
-      v71[6] = v109;
+      v72[3] = v76;
+      v72[4] = v78;
 
       swift_beginAccess();
-      v71[7] = v29;
+      v72[6] = v110;
 
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy16MomentsUIService31MOSuggestionSheetAssetDateRangeVGMd);
-      v77 = (*(v107 + 80) + 32) & ~*(v107 + 80);
-      v78 = swift_allocObject();
-      *(v78 + 16) = xmmword_1002A48B0;
-      v79 = v110;
-      outlined init with copy of MOSuggestionSheetAssetDateRange(v110, v78 + v77);
-
-      v80 = v94;
-      v81 = *(v93 + 8);
-      v81(v103, v94);
-      v81(v69, v80);
-      outlined destroy of MOSuggestionSheetAssetDateRange(v79);
       swift_beginAccess();
-      v71[5] = v78;
+      v72[7] = v29;
 
-      return v71;
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy16MomentsUIService31MOSuggestionSheetAssetDateRangeVGMd, &_ss23_ContiguousArrayStorageCy16MomentsUIService31MOSuggestionSheetAssetDateRangeVGMR);
+      v79 = (*(v108 + 80) + 32) & ~*(v108 + 80);
+      v80 = swift_allocObject();
+      *(v80 + 16) = xmmword_1002A48B0;
+      v81 = v111;
+      outlined init with copy of MOSuggestionSheetAssetDateRange(v111, v80 + v79);
+
+      v82 = v95;
+      v83 = *(v94 + 8);
+      v83(v104, v95);
+      v83(v70, v82);
+      outlined destroy of MOSuggestionSheetAssetDateRange(v81);
+      swift_beginAccess();
+      v72[5] = v80;
+
+      return;
     }
 
-    v117 = specialized Array._copyToContiguousArray()(v72);
-    specialized MutableCollection<>.sort(by:)(&v117);
+    v118 = specialized Array._copyToContiguousArray()(v74, v73);
+    specialized MutableCollection<>.sort(by:)(&v118);
 
-    v73 = v117;
+    v75 = v118;
     swift_beginAccess();
-    v71[2] = v73;
+    v72[2] = v75;
     goto LABEL_62;
   }
 
@@ -1830,7 +2658,6 @@ LABEL_62:
   __break(1u);
 
   __break(1u);
-  return result;
 }
 
 double MOSuggestionContactAssetView.mediumWidth.getter()
@@ -1853,7 +2680,7 @@ void MOSuggestionContactAssetView.mediumWidth.setter(double a1)
   *(v2 + 8) = 0;
 }
 
-void *(*MOSuggestionContactAssetView.mediumWidth.modify(uint64_t a1))(void *result)
+uint64_t (*MOSuggestionContactAssetView.mediumWidth.modify(uint64_t a1))()
 {
   *(a1 + 8) = v1;
   *a1 = MOSuggestionContactAssetView.mediumWidth.getter();
@@ -1866,6 +2693,13 @@ void *MOSuggestionContactAssetView.mediumWidth.modify(void *result)
   *v1 = *result;
   *(v1 + 8) = 0;
   return result;
+}
+
+void MOSuggestionContactAssetView.__allocating_init(image:name:contactFirstName:assignedTileSize:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+{
+  v7 = a6;
+  v13 = objc_allocWithZone(v6);
+  MOSuggestionContactAssetView.init(image:name:contactFirstName:assignedTileSize:)(a1, a2, a3, a4, a5, v7);
 }
 
 void MOSuggestionContactAssetView.init(image:name:contactFirstName:assignedTileSize:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unsigned __int8 a6)
@@ -2441,7 +3275,7 @@ uint64_t MOSuggestionSheetAssetGridView.isFullWidth.setter(char a1)
   return (*((swift_isaMask & *v1) + 0x1E0))();
 }
 
-void (*MOSuggestionSheetAssetGridView.isFullWidth.modify(uint64_t *a1))(void **a1, char a2)
+uint64_t (*MOSuggestionSheetAssetGridView.isFullWidth.modify(uint64_t *a1))()
 {
   if (&_swift_coroFrameAlloc)
   {
@@ -2461,7 +3295,7 @@ void (*MOSuggestionSheetAssetGridView.isFullWidth.modify(uint64_t *a1))(void **a
   return MOSuggestionSheetAssetGridView.isFullWidth.modify;
 }
 
-void MOSuggestionSheetAssetGridView.isFullWidth.modify(void **a1, char a2)
+void MOSuggestionSheetAssetGridView.isFullWidth.modify(void *a1, char a2)
 {
   v3 = *a1;
   swift_endAccess();
@@ -2513,7 +3347,7 @@ uint64_t MOSuggestionSheetAssetGridView.isFullHeight.setter(char a1)
   return (*((swift_isaMask & *v1) + 0x1E0))();
 }
 
-void (*MOSuggestionSheetAssetGridView.isFullHeight.modify(uint64_t *a1))(void **a1, char a2)
+uint64_t (*MOSuggestionSheetAssetGridView.isFullHeight.modify(uint64_t *a1))()
 {
   if (&_swift_coroFrameAlloc)
   {
@@ -2533,7 +3367,7 @@ void (*MOSuggestionSheetAssetGridView.isFullHeight.modify(uint64_t *a1))(void **
   return MOSuggestionSheetAssetGridView.isFullHeight.modify;
 }
 
-void MOSuggestionSheetAssetGridView.isFullHeight.modify(void **a1, char a2)
+void MOSuggestionSheetAssetGridView.isFullHeight.modify(void *a1, char a2)
 {
   v3 = *a1;
   swift_endAccess();
@@ -2565,11 +3399,11 @@ uint64_t key path setter for MOSuggestionSheetAssetGridView.assetViewModels : MO
   v3 = a1[1];
   v4 = a1[2];
   v5 = *((swift_isaMask & **a2) + 0x158);
-  outlined copy of MOWeakArray<MOSuggestionSheetAssetViewModel>?(*a1);
-  return v5(v2, v3, v4);
+  v6 = outlined copy of MOWeakArray<MOSuggestionSheetAssetViewModel>?(*a1, v3);
+  return v5(v2, v3, v4, v6);
 }
 
-uint64_t MOSuggestionSheetAssetGridView.assetViewModels.didset()
+void MOSuggestionSheetAssetGridView.assetViewModels.didset()
 {
   v1 = v0;
   v2 = OBJC_IVAR____TtC16MomentsUIService30MOSuggestionSheetAssetGridView_assetViewModels;
@@ -2577,102 +3411,107 @@ uint64_t MOSuggestionSheetAssetGridView.assetViewModels.didset()
   v4 = *(v1 + v2);
   if (!v4)
   {
-    return (*((swift_isaMask & *v1) + 0x1C0))(v3);
+    (*((swift_isaMask & *v1) + 0x1C0))(v3);
+    return;
   }
 
-  v6 = v4 & 0xFFFFFFFFFFFFFF8;
+  v5 = v4 & 0xFFFFFFFFFFFFFF8;
   if (v4 >> 62)
   {
     goto LABEL_21;
   }
 
-  v7 = *((v4 & 0xFFFFFFFFFFFFFF8) + 0x10);
-  if (!v7)
+  v6 = *((v4 & 0xFFFFFFFFFFFFFF8) + 0x10);
+  if (v6)
   {
-  }
-
 LABEL_4:
-  if ((v7 & 0x8000000000000000) == 0)
-  {
-    v8 = 0;
-    v19 = v4 & 0xC000000000000001;
-    v9 = v4 + 32;
-    while (1)
+    if ((v6 & 0x8000000000000000) == 0)
     {
-      if (v8 >= v7)
+      v7 = 0;
+      v18 = v4 & 0xC000000000000001;
+      v8 = v4 + 32;
+      while (1)
       {
-        if (__OFADD__(v8++, 1))
+        if (v7 >= v6)
         {
-          __break(1u);
-LABEL_19:
-          __break(1u);
-LABEL_20:
-          __break(1u);
-LABEL_21:
-          result = _CocoaArrayWrapper.endIndex.getter();
-          v7 = result;
-          if (!result)
+          if (__OFADD__(v7++, 1))
           {
+            __break(1u);
+LABEL_19:
+            __break(1u);
+LABEL_20:
+            __break(1u);
+LABEL_21:
+            v6 = _CocoaArrayWrapper.endIndex.getter();
+            if (!v6)
+            {
+              goto LABEL_22;
+            }
+
+            goto LABEL_4;
           }
-
-          goto LABEL_4;
-        }
-      }
-
-      else
-      {
-        if (v19)
-        {
-          v11 = specialized _ArrayBuffer._getElementSlowPath(_:)();
-          v4 = v11;
         }
 
         else
         {
-          if (v8 >= *(v6 + 16))
+          if (v18)
           {
-            goto LABEL_19;
+            v10 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+            v4 = v10;
           }
 
-          v4 = *(v9 + 8 * v8);
+          else
+          {
+            if (v7 >= *(v5 + 16))
+            {
+              goto LABEL_19;
+            }
+
+            v4 = *(v8 + 8 * v7);
+          }
+
+          v11 = (*(*v4 + 96))(v10);
+
+          ++v7;
+          if (v11)
+          {
+            v19[0] = (*(*v11 + 512))(v12);
+            v19[1] = v13;
+            v20[0] = 35;
+            v20[1] = 0xE100000000000000;
+            lazy protocol witness table accessor for type String and conformance String();
+            v4 = StringProtocol.components<A>(separatedBy:)();
+
+            if (!*(v4 + 16))
+            {
+              goto LABEL_20;
+            }
+
+            v14 = *(v4 + 32);
+            v15 = *(v4 + 40);
+
+            v16 = (*((swift_isaMask & *v1) + 0x178))(v19);
+            v4 = v17;
+            specialized Set._Variant.insert(_:)(v20, v14, v15);
+
+            v16(v19, 0);
+          }
         }
 
-        v12 = (*(*v4 + 96))(v11);
-
-        ++v8;
-        if (v12)
+        if (v7 == v6)
         {
-          v20[0] = (*(*v12 + 512))(v13);
-          v20[1] = v14;
-          v21[0] = 35;
-          v21[1] = 0xE100000000000000;
-          lazy protocol witness table accessor for type String and conformance String();
-          v4 = StringProtocol.components<A>(separatedBy:)();
-
-          if (!*(v4 + 16))
-          {
-            goto LABEL_20;
-          }
-
-          v15 = *(v4 + 32);
-          v16 = *(v4 + 40);
-
-          v17 = (*((swift_isaMask & *v1) + 0x178))(v20);
-          v4 = v18;
-          specialized Set._Variant.insert(_:)(v21, v15, v16);
-
-          v17(v20, 0);
+          goto LABEL_22;
         }
-      }
-
-      if (v8 == v7)
-      {
       }
     }
+
+    __break(1u);
   }
 
-  __break(1u);
-  return result;
+  else
+  {
+LABEL_22:
+  }
 }
 
 uint64_t MOSuggestionSheetAssetGridView.assetViewModels.getter()
@@ -2680,32 +3519,33 @@ uint64_t MOSuggestionSheetAssetGridView.assetViewModels.getter()
   v1 = (v0 + OBJC_IVAR____TtC16MomentsUIService30MOSuggestionSheetAssetGridView_assetViewModels);
   swift_beginAccess();
   v2 = *v1;
-  outlined copy of MOWeakArray<MOSuggestionSheetAssetViewModel>?(*v1);
+  outlined copy of MOWeakArray<MOSuggestionSheetAssetViewModel>?(*v1, v1[1]);
   return v2;
 }
 
-uint64_t outlined copy of MOWeakArray<MOSuggestionSheetAssetViewModel>?(uint64_t result)
+double outlined copy of MOWeakArray<MOSuggestionSheetAssetViewModel>?(uint64_t a1, uint64_t a2)
 {
-  if (result)
+  if (a1)
   {
   }
 
   return result;
 }
 
-uint64_t MOSuggestionSheetAssetGridView.assetViewModels.setter(uint64_t a1, uint64_t a2, uint64_t a3)
+void MOSuggestionSheetAssetGridView.assetViewModels.setter(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v7 = (v3 + OBJC_IVAR____TtC16MomentsUIService30MOSuggestionSheetAssetGridView_assetViewModels);
   swift_beginAccess();
   v8 = *v7;
+  v9 = v7[1];
   *v7 = a1;
   v7[1] = a2;
   v7[2] = a3;
-  outlined consume of MOWeakArray<MOSuggestionSheetAssetViewModel>?(v8);
-  return MOSuggestionSheetAssetGridView.assetViewModels.didset();
+  outlined consume of MOWeakArray<MOSuggestionSheetAssetViewModel>?(v8, v9);
+  MOSuggestionSheetAssetGridView.assetViewModels.didset();
 }
 
-uint64_t outlined consume of MOWeakArray<MOSuggestionSheetAssetViewModel>?(uint64_t result)
+uint64_t outlined consume of MOWeakArray<MOSuggestionSheetAssetViewModel>?(uint64_t result, uint64_t a2)
 {
   if (result)
   {
@@ -2714,20 +3554,25 @@ uint64_t outlined consume of MOWeakArray<MOSuggestionSheetAssetViewModel>?(uint6
   return result;
 }
 
-uint64_t (*MOSuggestionSheetAssetGridView.assetViewModels.modify(uint64_t a1))(uint64_t a1, char a2)
+void (*MOSuggestionSheetAssetGridView.assetViewModels.modify(uint64_t a1))(uint64_t a1, char a2)
 {
   *(a1 + 24) = v1;
   swift_beginAccess();
   return MOSuggestionSheetAssetGridView.assetViewModels.modify;
 }
 
-uint64_t MOSuggestionSheetAssetGridView.assetViewModels.modify(uint64_t a1, char a2)
+void MOSuggestionSheetAssetGridView.assetViewModels.modify(uint64_t a1, char a2)
 {
-  result = swift_endAccess();
+  swift_endAccess();
   if ((a2 & 1) == 0)
   {
-    return MOSuggestionSheetAssetGridView.assetViewModels.didset();
+    MOSuggestionSheetAssetGridView.assetViewModels.didset();
   }
+}
+
+double MOSuggestionSheetAssetGridView.selectedAssetIdentifiers.getter()
+{
+  swift_beginAccess();
 
   return result;
 }
@@ -2979,7 +3824,7 @@ Swift::Void __swiftcall MOSuggestionSheetAssetGridView.reload(index:)(Swift::Int
     }
 
     v7 = v6;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation9IndexPathVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation9IndexPathVGMd, _ss23_ContiguousArrayStorageCy10Foundation9IndexPathVGMR);
     type metadata accessor for IndexPath();
     *(swift_allocObject() + 16) = xmmword_1002A48B0;
     IndexPath.init(row:section:)();
@@ -3008,7 +3853,7 @@ Swift::Void __swiftcall MOSuggestionSheetAssetGridView.reload(index:)(Swift::Int
   }
 }
 
-void MOSuggestionSheetAssetGridView.reloadWith(assetViewModel:index:)(uint64_t a1, int64_t a2)
+void MOSuggestionSheetAssetGridView.reloadWith(assetViewModel:index:)(uint64_t a1, uint64_t a2)
 {
   v4 = (*((swift_isaMask & *v2) + 0x150))();
   if (v4 && (v4 >> 62 ? (v5 = _CocoaArrayWrapper.endIndex.getter()) : (v5 = *((v4 & 0xFFFFFFFFFFFFFF8) + 0x10)), , , v5 > a2))
@@ -3025,7 +3870,7 @@ void MOSuggestionSheetAssetGridView.reloadWith(assetViewModel:index:)(uint64_t a
     if (v10)
     {
       v11 = v10;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation9IndexPathVGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation9IndexPathVGMd, _ss23_ContiguousArrayStorageCy10Foundation9IndexPathVGMR);
       type metadata accessor for IndexPath();
       *(swift_allocObject() + 16) = xmmword_1002A48B0;
       IndexPath.init(row:section:)();
@@ -3055,11 +3900,11 @@ void MOSuggestionSheetAssetGridView.reloadWith(assetViewModel:index:)(uint64_t a
   }
 }
 
-uint64_t specialized MOWeakArray.subscript.setter(uint64_t result, unint64_t a2)
+void specialized MOWeakArray.subscript.setter(uint64_t a1, unint64_t a2)
 {
-  if (result)
+  if (a1)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s16MomentsUIService15MOWeakReferenceCyAA31MOSuggestionSheetAssetViewModelCGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s16MomentsUIService15MOWeakReferenceCyAA31MOSuggestionSheetAssetViewModelCGMd, &_s16MomentsUIService15MOWeakReferenceCyAA31MOSuggestionSheetAssetViewModelCGMR);
     v4 = swift_allocObject();
     swift_weakInit();
     swift_beginAccess();
@@ -3067,7 +3912,7 @@ uint64_t specialized MOWeakArray.subscript.setter(uint64_t result, unint64_t a2)
     v5 = *v2;
     if (!swift_isUniquelyReferenced_nonNull_bridgeObject() || v5 < 0 || (v5 & 0x4000000000000000) != 0)
     {
-      v5 = specialized _ArrayBuffer._consumeAndCreateNew()(v5);
+      v5 = specialized _ArrayBuffer._consumeAndCreateNew()();
     }
 
     if ((a2 & 0x8000000000000000) != 0)
@@ -3080,13 +3925,11 @@ uint64_t specialized MOWeakArray.subscript.setter(uint64_t result, unint64_t a2)
       *((v5 & 0xFFFFFFFFFFFFFF8) + 8 * a2 + 0x20) = v4;
 
       *v2 = v5;
-      return result;
+      return;
     }
 
     __break(1u);
   }
-
-  return result;
 }
 
 Swift::Void __swiftcall MOSuggestionSheetAssetGridView.updateGridLayout()()
@@ -3169,11 +4012,11 @@ Swift::Int __swiftcall MOSuggestionSheetAssetGridView.maxAssetCount()()
   return result;
 }
 
-id MOSuggestionSheetAssetGridView.__deallocating_deinit()
+id MOSuggestionSheetAssetGridView.__deallocating_deinit(uint64_t a1, uint64_t a2)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for MOSuggestionSheetAssetGridView();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v4.receiver = v2;
+  v4.super_class = type metadata accessor for MOSuggestionSheetAssetGridView();
+  return objc_msgSendSuper2(&v4, "dealloc");
 }
 
 Swift::Int __swiftcall MOSuggestionSheetAssetGridView.collectionView(_:numberOfItemsInSection:)(UICollectionView _, Swift::Int numberOfItemsInSection)
@@ -3213,11 +4056,11 @@ void MOSuggestionSheetAssetGridView.collectionView(_:didEndDisplaying:forItemAt:
   }
 }
 
-void *MOSuggestionSheetAssetGridView.collectionView(_:cellForItemAt:)(void *a1, NSObject *a2)
+void *MOSuggestionSheetAssetGridView.collectionView(_:cellForItemAt:)(uint64_t a1, NSObject *a2)
 {
   v3 = v2;
   v6 = type metadata accessor for IndexPath();
-  v7 = *(v6 - 8);
+  isa = v6[-1].isa;
   __chkstk_darwin(v6);
   v9 = &v67 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = String._bridgeToObjectiveC()();
@@ -3236,7 +4079,7 @@ void *MOSuggestionSheetAssetGridView.collectionView(_:cellForItemAt:)(void *a1, 
   v15 = IndexPath.item.getter();
   v10 = *((swift_isaMask & *v3) + 0x150);
   v16 = (v10)();
-  v72 = v7;
+  v72 = isa;
   if (v16)
   {
     if (v16 >> 62)
@@ -3267,12 +4110,13 @@ void *MOSuggestionSheetAssetGridView.collectionView(_:cellForItemAt:)(void *a1, 
   if (v18)
   {
     v11.super.isa = v18;
-    v7 = v19;
-    v20 = IndexPath.item.getter();
+    a1 = v19;
+    isa = v20;
+    v21 = IndexPath.item.getter();
     v12 = (v11.super.isa & 0xFFFFFFFFFFFFFF8);
     if (v11.super.isa >> 62)
     {
-      v68 = v20;
+      v68 = v21;
       v56 = _CocoaArrayWrapper.endIndex.getter();
       if ((v56 & 0x8000000000000000) == 0)
       {
@@ -3283,27 +4127,27 @@ void *MOSuggestionSheetAssetGridView.collectionView(_:cellForItemAt:)(void *a1, 
       goto LABEL_37;
     }
 
-    v21 = *((v11.super.isa & 0xFFFFFFFFFFFFFF8) + 0x10);
-    if ((v20 & 0x8000000000000000) == 0)
+    v22 = *((v11.super.isa & 0xFFFFFFFFFFFFFF8) + 0x10);
+    if ((v21 & 0x8000000000000000) == 0)
     {
       do
       {
-        if (v20 >= v21)
+        if (v21 >= v22)
         {
           break;
         }
 
-        v69 = v7;
+        v69 = isa;
         if ((v11.super.isa & 0xC000000000000001) != 0)
         {
 LABEL_37:
-          v23 = specialized _ArrayBuffer._getElementSlowPath(_:)();
-          v22 = v23;
+          v24 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+          v23 = v24;
         }
 
         else
         {
-          if (v20 >= v12[2])
+          if (v21 >= v12[2])
           {
             __break(1u);
 LABEL_39:
@@ -3311,53 +4155,54 @@ LABEL_39:
             goto LABEL_40;
           }
 
-          v22 = *(v11.super.isa + v20 + 4);
+          v23 = *(v11.super.isa + v21 + 4);
         }
 
-        v7 = (*(*v22 + 96))(v23);
+        isa = (*(*v23 + 96))(v24);
 
-        outlined consume of MOWeakArray<MOSuggestionSheetAssetViewModel>?(v11.super.isa);
-        v69 = v7;
-        if (!v7)
+        outlined consume of MOWeakArray<MOSuggestionSheetAssetViewModel>?(v11.super.isa, a1);
+        v69 = isa;
+        if (!isa)
         {
           goto LABEL_44;
         }
 
-        v24 = [v70 collectionViewLayout];
+        v25 = [v70 collectionViewLayout];
         v6 = a2;
-        isa = IndexPath._bridgeToObjectiveC()().super.isa;
-        v72 = v24;
-        a2 = [v24 layoutAttributesForItemAtIndexPath:isa];
+        v26 = IndexPath._bridgeToObjectiveC()().super.isa;
+        v72 = v25;
+        a2 = [(objc_class *)v25 layoutAttributesForItemAtIndexPath:v26];
 
         if (a2)
         {
           [a2 size];
-          v27 = v26;
+          v28 = v27;
           [a2 size];
-          v29 = v27 - v28;
+          v30 = v28 - v29;
         }
 
         else
         {
-          v29 = 0.0;
+          v30 = 0.0;
         }
 
         v10 = v71;
-        v30 = v69;
-        v31 = (*(*v69 + 808))(fabs(v29) < 5.0);
-        v32 = *((swift_isaMask & *v3) + 0x198);
+        v31 = v69;
+        v32 = (*(*v69 + 808))(fabs(v30) < 5.0);
+        v33 = *((swift_isaMask & *v3) + 0x198);
         v70 = ((swift_isaMask & *v3) + 408);
-        v68 = v32;
-        v33 = v32(v31);
-        (*((swift_isaMask & *v10) + 0x128))(v33 & 1);
-        v34 = *((swift_isaMask & *v10) + 0x110);
+        v68 = v33;
+        v34 = v33(v32);
+        (*((swift_isaMask & *v10) + 0x128))(v34 & 1);
+        a1 = (swift_isaMask & *v10) + 272;
+        v35 = *((swift_isaMask & *v10) + 0x110);
 
-        v36 = v34(v35);
-        v11.super.isa = (*((swift_isaMask & *v3) + 0x168))(v36);
-        v37 = (*(*v30 + 512))();
-        v9 = v38;
-        v73[0] = v37;
-        v73[1] = v38;
+        v37 = v35(v36);
+        v11.super.isa = (*((swift_isaMask & *v3) + 0x168))(v37);
+        v38 = (*(*v31 + 512))();
+        v9 = v39;
+        v73[0] = v38;
+        v73[1] = v39;
         v73[4] = 35;
         v73[5] = 0xE100000000000000;
         lazy protocol witness table accessor for type String and conformance String();
@@ -3368,14 +4213,14 @@ LABEL_39:
           goto LABEL_39;
         }
 
-        v39 = v12[4];
-        v40 = v12[5];
+        v40 = v12[4];
+        v41 = v12[5];
 
-        v41 = specialized Set.contains(_:)(v39, v40, v11.super.isa);
+        v42 = specialized Set.contains(_:)(v40, v41, v11.super.isa);
 
-        v42 = [v10 setSelected:v41 & 1];
-        v7 = *((swift_isaMask & *v3) + 0x120);
-        if ((v7)(v42))
+        v43 = [v10 setSelected:v42 & 1];
+        isa = *((swift_isaMask & *v3) + 0x120);
+        if ((isa)(v43))
         {
           v10 = 4;
         }
@@ -3385,29 +4230,29 @@ LABEL_39:
           v10 = 3;
         }
 
-        v43 = (v7)();
+        v44 = (isa)();
         v9 = (*((swift_isaMask & *v3) + 0x108))();
         if (IndexPath.row.getter() != v10)
         {
           goto LABEL_33;
         }
 
-        v44 = 4;
-        if (v43)
+        v45 = 4;
+        if (v44)
         {
-          v44 = 5;
+          v45 = 5;
         }
 
-        if (v9 <= v44)
+        if (v9 <= v45)
         {
           goto LABEL_33;
         }
 
         v12 = v3;
-        v45 = (v7)();
+        a1 = (isa)();
         v11.super.isa = &swift_isaMask;
         v46 = (*((swift_isaMask & *v3) + 0x108))();
-        if (v45)
+        if (a1)
         {
           v47 = v46 - 5;
           if (!__OFSUB__(v46, 5))
@@ -3442,14 +4287,14 @@ LABEL_41:
 
         __break(1u);
 LABEL_42:
-        v21 = v56;
-        v20 = v68;
+        v22 = v56;
+        v21 = v68;
       }
 
       while ((v68 & 0x8000000000000000) == 0);
     }
 
-    outlined consume of MOWeakArray<MOSuggestionSheetAssetViewModel>?(v11.super.isa);
+    outlined consume of MOWeakArray<MOSuggestionSheetAssetViewModel>?(v11.super.isa, a1);
   }
 
 LABEL_44:
@@ -3509,22 +4354,23 @@ LABEL_54:
   return v71;
 }
 
-uint64_t MOSuggestionSheetAssetGridView.collectionView(_:willDisplay:forItemAt:)(void *a1, void *a2)
+void MOSuggestionSheetAssetGridView.collectionView(_:willDisplay:forItemAt:)(void *a1, void *a2)
 {
   v4 = v2;
   v6 = *((swift_isaMask & *v2) + 0x150);
-  result = v6();
-  if (result)
+  v7 = v6();
+  if (v7)
   {
-    v9 = result;
-    v10 = v8;
-    v11 = IndexPath.item.getter();
-    v12 = (v9 & 0xFFFFFFFFFFFFFF8);
-    if (v9 >> 62)
+    v10 = v7;
+    v11 = v8;
+    v12 = v9;
+    v13 = IndexPath.item.getter();
+    v14 = (v10 & 0xFFFFFFFFFFFFFF8);
+    if (v10 >> 62)
     {
-      v26 = v11;
-      v21 = _CocoaArrayWrapper.endIndex.getter();
-      if ((v21 & 0x8000000000000000) == 0)
+      v27 = v13;
+      v22 = _CocoaArrayWrapper.endIndex.getter();
+      if ((v22 & 0x8000000000000000) == 0)
       {
         goto LABEL_28;
       }
@@ -3533,61 +4379,61 @@ uint64_t MOSuggestionSheetAssetGridView.collectionView(_:willDisplay:forItemAt:)
       goto LABEL_24;
     }
 
-    v13 = *((v9 & 0xFFFFFFFFFFFFFF8) + 0x10);
-    if ((v11 & 0x8000000000000000) == 0)
+    v15 = *((v10 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    if ((v13 & 0x8000000000000000) == 0)
     {
       do
       {
-        if (v11 >= v13)
+        if (v13 >= v15)
         {
           break;
         }
 
-        if ((v9 & 0xC000000000000001) != 0)
+        if ((v10 & 0xC000000000000001) != 0)
         {
 LABEL_24:
-          v15 = specialized _ArrayBuffer._getElementSlowPath(_:)();
-          v14 = v15;
+          v17 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+          v16 = v17;
         }
 
         else
         {
-          if (v11 >= v12[2])
+          if (v13 >= v14[2])
           {
             __break(1u);
             goto LABEL_26;
           }
 
-          v14 = *(v9 + 8 * v11 + 32);
+          v16 = *(v10 + 8 * v13 + 32);
         }
 
-        v16 = (*(*v14 + 96))(v15);
+        v18 = (*(*v16 + 96))(v17);
 
-        v17 = v9;
-        v9 = v16;
-        result = outlined consume of MOWeakArray<MOSuggestionSheetAssetViewModel>?(v17);
+        v19 = v10;
+        v10 = v18;
+        outlined consume of MOWeakArray<MOSuggestionSheetAssetViewModel>?(v19, v11);
         v3 = a1;
         a1 = &swift_isaMask;
-        if (!v9)
+        if (!v10)
         {
-          return result;
+          return;
         }
 
-        v10 = IndexPath.item.getter();
-        v18 = v6();
-        if (v18)
+        v12 = IndexPath.item.getter();
+        v20 = v6();
+        if (v20)
         {
-          if (!(v18 >> 62))
+          if (!(v20 >> 62))
           {
-            v19 = *((v18 & 0xFFFFFFFFFFFFFF8) + 0x10);
+            v11 = *((v20 & 0xFFFFFFFFFFFFFF8) + 0x10);
             goto LABEL_12;
           }
 
 LABEL_26:
-          v19 = _CocoaArrayWrapper.endIndex.getter();
+          v11 = _CocoaArrayWrapper.endIndex.getter();
 LABEL_12:
 
-          if (v10 >= v19)
+          if (v12 >= v11)
           {
             goto LABEL_19;
           }
@@ -3595,47 +4441,49 @@ LABEL_12:
           goto LABEL_13;
         }
 
-        if (v10 >= -1)
+        if (v12 >= -1)
         {
 LABEL_19:
+
+          return;
         }
 
 LABEL_13:
-        v4 = (*((*a1 & *v4) + 0x168))(v18);
-        (*(*v9 + 512))();
-        v10 = v20;
+        v4 = (*((*a1 & *v4) + 0x168))(v20);
+        (*(*v10 + 512))();
+        v12 = v21;
         lazy protocol witness table accessor for type String and conformance String();
-        v12 = StringProtocol.components<A>(separatedBy:)();
+        v14 = StringProtocol.components<A>(separatedBy:)();
 
-        if (v12[2])
+        if (v14[2])
         {
-          v22 = v12[4];
-          v23 = v12[5];
+          v23 = v14[4];
+          v24 = v14[5];
 
-          v24 = specialized Set.contains(_:)(v22, v23, v4);
+          v25 = specialized Set.contains(_:)(v23, v24, v4);
 
-          if (v24)
+          if (v25)
           {
             isa = IndexPath._bridgeToObjectiveC()().super.isa;
             [v3 selectItemAtIndexPath:isa animated:0 scrollPosition:1];
           }
 
-          [a2 setSelected:{v24 & 1, v26}];
+          [a2 setSelected:{v25 & 1, v27}];
+
+          return;
         }
 
         __break(1u);
 LABEL_28:
-        v13 = v21;
-        v11 = v26;
+        v15 = v22;
+        v13 = v27;
       }
 
-      while ((v26 & 0x8000000000000000) == 0);
+      while ((v27 & 0x8000000000000000) == 0);
     }
 
-    return outlined consume of MOWeakArray<MOSuggestionSheetAssetViewModel>?(v9);
+    outlined consume of MOWeakArray<MOSuggestionSheetAssetViewModel>?(v10, v11);
   }
-
-  return result;
 }
 
 uint64_t @objc MOSuggestionSheetAssetGridView.collectionView(_:didSelectItemAt:)(void *a1, uint64_t a2, void *a3, uint64_t a4, void (*a5)(char *))
@@ -3680,20 +4528,21 @@ void specialized MOSuggestionSheetAssetGridView.init(coder:)()
   __break(1u);
 }
 
-uint64_t specialized MOSuggestionSheetAssetGridView.collectionView(_:didSelectItemAt:)(uint64_t a1)
+void specialized MOSuggestionSheetAssetGridView.collectionView(_:didSelectItemAt:)(uint64_t a1)
 {
   v3 = v1;
-  result = (*((swift_isaMask & *v1) + 0x150))();
-  if (result)
+  v5 = (*((swift_isaMask & *v1) + 0x150))();
+  if (v5)
   {
-    v6 = result;
-    v7 = IndexPath.item.getter();
-    v8 = (v6 & 0xFFFFFFFFFFFFFF8);
-    if (v6 >> 62)
+    v7 = v5;
+    v8 = v6;
+    v9 = IndexPath.item.getter();
+    v10 = (v7 & 0xFFFFFFFFFFFFFF8);
+    if (v7 >> 62)
     {
-      a1 = v7;
-      v21 = _CocoaArrayWrapper.endIndex.getter();
-      if ((v21 & 0x8000000000000000) == 0)
+      a1 = v9;
+      v23 = _CocoaArrayWrapper.endIndex.getter();
+      if ((v23 & 0x8000000000000000) == 0)
       {
         goto LABEL_36;
       }
@@ -3702,26 +4551,26 @@ uint64_t specialized MOSuggestionSheetAssetGridView.collectionView(_:didSelectIt
       goto LABEL_31;
     }
 
-    v9 = *((v6 & 0xFFFFFFFFFFFFFF8) + 0x10);
-    if ((v7 & 0x8000000000000000) == 0)
+    v11 = *((v7 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    if ((v9 & 0x8000000000000000) == 0)
     {
       do
       {
-        if (v7 >= v9)
+        if (v9 >= v11)
         {
           break;
         }
 
-        if ((v6 & 0xC000000000000001) != 0)
+        if ((v7 & 0xC000000000000001) != 0)
         {
 LABEL_31:
-          v11 = specialized _ArrayBuffer._getElementSlowPath(_:)();
-          v10 = v11;
+          v13 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+          v12 = v13;
         }
 
         else
         {
-          if (v7 >= v8[2])
+          if (v9 >= v10[2])
           {
             __break(1u);
 LABEL_33:
@@ -3729,28 +4578,33 @@ LABEL_33:
             goto LABEL_21;
           }
 
-          v10 = *(v6 + 8 * v7 + 32);
+          v12 = *(v7 + 8 * v9 + 32);
         }
 
-        a1 = (*(*v10 + 96))(v11);
+        a1 = (*(*v12 + 96))(v13);
 
-        result = outlined consume of MOWeakArray<MOSuggestionSheetAssetViewModel>?(v6);
+        v14 = outlined consume of MOWeakArray<MOSuggestionSheetAssetViewModel>?(v7, v8);
         if (!a1)
         {
-          return result;
+          return;
         }
 
-        v12 = (*a1 + 512);
-        v2 = *v12;
-        v6 = v12;
-        if ((*v12)(result) == 0x6C6F686563616C70 && v13 == 0xEB00000000726564)
+        v8 = 0x6C6F686563616C70;
+        v15 = (*a1 + 512);
+        v2 = *v15;
+        v7 = v15;
+        if ((*v15)(v14) == 0x6C6F686563616C70 && v16 == 0xEB00000000726564)
         {
+
+          return;
         }
 
-        v15 = _stringCompareWithSmolCheck(_:_:expecting:)();
+        v18 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-        if (v15)
+        if (v18)
         {
+
+          return;
         }
 
         if (one-time initialization token for assets != -1)
@@ -3759,98 +4613,99 @@ LABEL_33:
         }
 
 LABEL_21:
-        v16 = type metadata accessor for Logger();
-        __swift_project_value_buffer(v16, static MOAngelLogger.assets);
+        v19 = type metadata accessor for Logger();
+        __swift_project_value_buffer(v19, static MOAngelLogger.assets);
 
-        v17 = Logger.logObject.getter();
-        v18 = static os_log_type_t.info.getter();
+        v20 = Logger.logObject.getter();
+        v21 = static os_log_type_t.info.getter();
 
-        if (os_log_type_enabled(v17, v18))
+        if (os_log_type_enabled(v20, v21))
         {
-          v34 = v18;
-          v19 = swift_slowAlloc();
-          v33 = swift_slowAlloc();
-          v35 = v33;
-          *v19 = 136315138;
-          v36 = v2();
-          v37 = v20;
-          v38 = 35;
-          v39 = 0xE100000000000000;
+          v36 = v21;
+          v8 = swift_slowAlloc();
+          v35 = swift_slowAlloc();
+          v37 = v35;
+          *v8 = 136315138;
+          v38 = v2();
+          v39 = v22;
+          v40 = 35;
+          v41 = 0xE100000000000000;
           lazy protocol witness table accessor for type String and conformance String();
-          v8 = StringProtocol.components<A>(separatedBy:)();
+          v10 = StringProtocol.components<A>(separatedBy:)();
 
-          if (!v8[2])
+          if (!v10[2])
           {
             goto LABEL_35;
           }
 
-          v22 = v8[4];
-          v23 = v8[5];
+          v24 = v10[4];
+          v25 = v10[5];
 
-          v24 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v22, v23, &v35);
+          v26 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v24, v25, &v37);
 
-          *(v19 + 4) = v24;
-          _os_log_impl(&_mh_execute_header, v17, v34, "[MOSuggestionSheetAssetGridView] selecting %s", v19, 0xCu);
-          __swift_destroy_boxed_opaque_existential_0(v33);
+          *(v8 + 4) = v26;
+          _os_log_impl(&_mh_execute_header, v20, v36, "[MOSuggestionSheetAssetGridView] selecting %s", v8, 0xCu);
+          __swift_destroy_boxed_opaque_existential_0(v35);
         }
 
-        v36 = v2();
-        v37 = v25;
-        v38 = 35;
-        v39 = 0xE100000000000000;
+        v38 = v2();
+        v39 = v27;
+        v40 = 35;
+        v41 = 0xE100000000000000;
         lazy protocol witness table accessor for type String and conformance String();
-        v2 = &v36;
-        v8 = StringProtocol.components<A>(separatedBy:)();
+        v2 = &v38;
+        v10 = StringProtocol.components<A>(separatedBy:)();
 
-        if (v8[2])
+        if (v10[2])
         {
-          v26 = v8[4];
-          v27 = v8[5];
+          v28 = v10[4];
+          v29 = v10[5];
 
-          v28 = (*((swift_isaMask & *v3) + 0x178))(&v36);
-          specialized Set._Variant.insert(_:)(&v38, v26, v27);
+          v30 = (*((swift_isaMask & *v3) + 0x178))(&v38);
+          specialized Set._Variant.insert(_:)(&v40, v28, v29);
 
-          v29 = v28(&v36, 0);
-          if ((*((swift_isaMask & *v3) + 0xF0))(v29))
+          v31 = v30(&v38, 0);
+          if ((*((swift_isaMask & *v3) + 0xF0))(v31))
           {
-            v31 = v30;
+            v33 = v32;
             ObjectType = swift_getObjectType();
-            (*(v31 + 8))(ObjectType, v31);
+            (*(v33 + 8))(ObjectType, v33);
             swift_unknownObjectRelease();
           }
+
+          return;
         }
 
         __break(1u);
 LABEL_35:
         __break(1u);
 LABEL_36:
-        v9 = v21;
-        v7 = a1;
+        v11 = v23;
+        v9 = a1;
       }
 
       while ((a1 & 0x8000000000000000) == 0);
     }
 
-    return outlined consume of MOWeakArray<MOSuggestionSheetAssetViewModel>?(v6);
+    outlined consume of MOWeakArray<MOSuggestionSheetAssetViewModel>?(v7, v8);
   }
-
-  return result;
 }
 
-uint64_t specialized MOSuggestionSheetAssetGridView.collectionView(_:didDeselectItemAt:)(unint64_t a1)
+void specialized MOSuggestionSheetAssetGridView.collectionView(_:didDeselectItemAt:)(unint64_t a1)
 {
   v3 = v1;
-  result = (*((swift_isaMask & *v1) + 0x150))();
-  if (result)
+  v5 = (*((swift_isaMask & *v1) + 0x150))();
+  if (v5)
   {
-    v6 = result;
-    v7 = IndexPath.item.getter();
-    v8 = (v6 & 0xFFFFFFFFFFFFFF8);
-    if (v6 >> 62)
+    v7 = v5;
+    v8 = v6;
+    v9 = IndexPath.item.getter();
+    v10 = (v7 & 0xFFFFFFFFFFFFFF8);
+    if (v7 >> 62)
     {
-      a1 = v7;
-      v16 = _CocoaArrayWrapper.endIndex.getter();
-      if ((v16 & 0x8000000000000000) == 0)
+      a1 = v9;
+      v17 = _CocoaArrayWrapper.endIndex.getter();
+      if ((v17 & 0x8000000000000000) == 0)
       {
         goto LABEL_26;
       }
@@ -3859,26 +4714,26 @@ uint64_t specialized MOSuggestionSheetAssetGridView.collectionView(_:didDeselect
       goto LABEL_21;
     }
 
-    v9 = *((v6 & 0xFFFFFFFFFFFFFF8) + 0x10);
-    if ((v7 & 0x8000000000000000) == 0)
+    v11 = *((v7 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    if ((v9 & 0x8000000000000000) == 0)
     {
       do
       {
-        if (v7 >= v9)
+        if (v9 >= v11)
         {
           break;
         }
 
-        if ((v6 & 0xC000000000000001) != 0)
+        if ((v7 & 0xC000000000000001) != 0)
         {
 LABEL_21:
-          v11 = specialized _ArrayBuffer._getElementSlowPath(_:)();
-          v10 = v11;
+          v13 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+          v12 = v13;
         }
 
         else
         {
-          if (v7 >= v8[2])
+          if (v9 >= v10[2])
           {
             __break(1u);
 LABEL_23:
@@ -3886,15 +4741,15 @@ LABEL_23:
             goto LABEL_10;
           }
 
-          v10 = *(v6 + 8 * v7 + 32);
+          v12 = *(v7 + 8 * v9 + 32);
         }
 
-        v2 = (*(*v10 + 96))(v11);
+        v2 = (*(*v12 + 96))(v13);
 
-        result = outlined consume of MOWeakArray<MOSuggestionSheetAssetViewModel>?(v6);
+        outlined consume of MOWeakArray<MOSuggestionSheetAssetViewModel>?(v7, v8);
         if (!v2)
         {
-          return result;
+          return;
         }
 
         if (one-time initialization token for assets != -1)
@@ -3903,85 +4758,85 @@ LABEL_23:
         }
 
 LABEL_10:
-        v12 = type metadata accessor for Logger();
-        __swift_project_value_buffer(v12, static MOAngelLogger.assets);
+        v14 = type metadata accessor for Logger();
+        __swift_project_value_buffer(v14, static MOAngelLogger.assets);
 
-        v13 = Logger.logObject.getter();
-        v14 = static os_log_type_t.info.getter();
+        v15 = Logger.logObject.getter();
+        v8 = static os_log_type_t.info.getter();
 
-        if (os_log_type_enabled(v13, v14))
+        if (os_log_type_enabled(v15, v8))
         {
-          v6 = swift_slowAlloc();
-          v28 = swift_slowAlloc();
-          v29 = v28;
-          *v6 = 136315138;
-          v30 = (*(*v2 + 512))();
-          v31 = v15;
-          v32 = 35;
-          v33 = 0xE100000000000000;
+          v7 = swift_slowAlloc();
+          v29 = swift_slowAlloc();
+          v30 = v29;
+          *v7 = 136315138;
+          v31 = (*(*v2 + 512))();
+          v32 = v16;
+          v33 = 35;
+          v34 = 0xE100000000000000;
           lazy protocol witness table accessor for type String and conformance String();
-          v8 = StringProtocol.components<A>(separatedBy:)();
+          v10 = StringProtocol.components<A>(separatedBy:)();
 
-          if (!v8[2])
+          if (!v10[2])
           {
             goto LABEL_25;
           }
 
-          v17 = v8[4];
-          v18 = v8[5];
+          v18 = v10[4];
+          v19 = v10[5];
 
-          v19 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v17, v18, &v29);
+          v20 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v18, v19, &v30);
 
-          *(v6 + 4) = v19;
-          _os_log_impl(&_mh_execute_header, v13, v14, "[MOSuggestionSheetAssetGridView] un-selecting %s", v6, 0xCu);
-          __swift_destroy_boxed_opaque_existential_0(v28);
+          *(v7 + 4) = v20;
+          _os_log_impl(&_mh_execute_header, v15, v8, "[MOSuggestionSheetAssetGridView] un-selecting %s", v7, 0xCu);
+          __swift_destroy_boxed_opaque_existential_0(v29);
         }
 
         else
         {
         }
 
-        v30 = (*(*v2 + 512))();
-        v31 = v20;
-        v32 = 35;
-        v33 = 0xE100000000000000;
+        v31 = (*(*v2 + 512))();
+        v32 = v21;
+        v33 = 35;
+        v34 = 0xE100000000000000;
         lazy protocol witness table accessor for type String and conformance String();
-        a1 = &v30;
-        v8 = StringProtocol.components<A>(separatedBy:)();
+        a1 = &v31;
+        v10 = StringProtocol.components<A>(separatedBy:)();
 
-        if (v8[2])
+        if (v10[2])
         {
-          v21 = v8[4];
-          v22 = v8[5];
+          v22 = v10[4];
+          v23 = v10[5];
 
-          v23 = (*((swift_isaMask & *v3) + 0x178))(&v30);
-          specialized Set._Variant.remove(_:)(v21, v22);
+          v24 = (*((swift_isaMask & *v3) + 0x178))(&v31);
+          specialized Set._Variant.remove(_:)(v22, v23);
 
-          v24 = v23(&v30, 0);
-          if ((*((swift_isaMask & *v3) + 0xF0))(v24))
+          v25 = v24(&v31, 0);
+          if ((*((swift_isaMask & *v3) + 0xF0))(v25))
           {
-            v26 = v25;
+            v27 = v26;
             ObjectType = swift_getObjectType();
-            (*(v26 + 8))(ObjectType, v26);
+            (*(v27 + 8))(ObjectType, v27);
             swift_unknownObjectRelease();
           }
+
+          return;
         }
 
         __break(1u);
 LABEL_25:
         __break(1u);
 LABEL_26:
-        v9 = v16;
-        v7 = a1;
+        v11 = v17;
+        v9 = a1;
       }
 
       while ((a1 & 0x8000000000000000) == 0);
     }
 
-    return outlined consume of MOWeakArray<MOSuggestionSheetAssetViewModel>?(v6);
+    outlined consume of MOWeakArray<MOSuggestionSheetAssetViewModel>?(v7, v8);
   }
-
-  return result;
 }
 
 uint64_t sub_10004EEFC@<X0>(void **a1@<X0>, uint64_t *a2@<X8>)
@@ -4007,9 +4862,9 @@ uint64_t sub_10004EFC0@<X0>(void **a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_10004F01C(uint64_t a1, void **a2)
+uint64_t sub_10004F01C(void *a1, void **a2)
 {
-  v2 = *(a1 + 8);
+  v2 = a1[1];
   v3 = *((swift_isaMask & **a2) + 0xF8);
   v4 = swift_unknownObjectRetain();
   return v3(v4, v2);
@@ -4052,7 +4907,7 @@ uint64_t sub_10004F350@<X0>(void **a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_10004F3B4(uint64_t a1, void **a2)
+uint64_t sub_10004F3B4(void *a1, void **a2)
 {
   v2 = *((swift_isaMask & **a2) + 0x170);
 
@@ -4529,7 +5384,7 @@ void MOSuggestionSheetOverflowView.overflowCount.didset()
   v11._countAndFlagsBits = 0xD000000000000014;
   NSLocalizedString(_:tableName:bundle:value:comment:)(v5, 0, v4, v6, v11);
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys7CVarArg_pGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys7CVarArg_pGMd, &_ss23_ContiguousArrayStorageCys7CVarArg_pGMR);
   v7 = swift_allocObject();
   *(v7 + 16) = xmmword_1002A48B0;
   v8 = OBJC_IVAR____TtC16MomentsUIService29MOSuggestionSheetOverflowView_overflowCount;
@@ -4848,11 +5703,13 @@ void (*MOSuggestionSheetInterstitialView.presentationDelegate.modify(uint64_t *a
   return MOSuggestionSheetAssetGridView.delegate.modify;
 }
 
-uint64_t MOSuggestionSheetInterstitialView.cellViewModel.setter(uint64_t a1)
+double MOSuggestionSheetInterstitialView.cellViewModel.setter(uint64_t a1)
 {
   v3 = OBJC_IVAR____TtC16MomentsUIService33MOSuggestionSheetInterstitialView_cellViewModel;
   swift_beginAccess();
   *(v1 + v3) = a1;
+
+  return result;
 }
 
 uint64_t MOSuggestionSheetInterstitialView.toggleListViewCarouselModeAccessibilityLabel.getter()
@@ -5080,13 +5937,13 @@ char *MOSuggestionSheetInterstitialView.__allocating_init(controller:cellViewMod
   v67.receiver = v11;
   v67.super_class = v63;
   v45 = objc_msgSendSuper2(&v67, "initWithNibName:bundle:", 0, 0);
-  v46 = *&v45[OBJC_IVAR____TtC16MomentsUIService33MOSuggestionSheetInterstitialView_assetCarouselView];
+  v46 = *(v45 + OBJC_IVAR____TtC16MomentsUIService33MOSuggestionSheetInterstitialView_assetCarouselView);
   v47 = *((swift_isaMask & *v46) + 0x198);
   v48 = v45;
   v49 = v46;
   v47(v45, &protocol witness table for MOSuggestionSheetInterstitialView);
 
-  v50 = *&v48[OBJC_IVAR____TtC16MomentsUIService33MOSuggestionSheetInterstitialView_assetListView];
+  v50 = *(v48 + OBJC_IVAR____TtC16MomentsUIService33MOSuggestionSheetInterstitialView_assetListView);
   v51 = *((swift_isaMask & *v50) + 0xF0);
   v52 = v48;
   v53 = v50;
@@ -5096,7 +5953,7 @@ char *MOSuggestionSheetInterstitialView.__allocating_init(controller:cellViewMod
   [v54 addObserver:v52 selector:"handleContentSizeChanged" name:UIContentSizeCategoryDidChangeNotification object:0];
 
   v55 = (*(*a2 + 176))();
-  v56 = &v52[OBJC_IVAR____TtC16MomentsUIService33MOSuggestionSheetInterstitialView_titleString];
+  v56 = (v52 + OBJC_IVAR____TtC16MomentsUIService33MOSuggestionSheetInterstitialView_titleString);
   *v56 = v55;
   v56[1] = v57;
 
@@ -5131,7 +5988,7 @@ void MOSuggestionSheetInterstitialView.viewWillTransition(to:with:)(void *a1, do
 
   [v3 setPreferredContentSize:{v8, a3}];
   v13.receiver = v3;
-  v13.super_class = type metadata accessor for MOSuggestionSheetInterstitialView();
+  v13.super_class = type metadata accessor for MOSuggestionSheetInterstitialView(0);
   objc_msgSendSuper2(&v13, "viewWillTransitionToSize:withTransitionCoordinator:", a1, a2, a3);
   v9 = swift_allocObject();
   swift_unknownObjectWeakInit();
@@ -5151,38 +6008,38 @@ void MOSuggestionSheetInterstitialView.viewWillTransition(to:with:)(void *a1, do
   _Block_release(v11);
 }
 
-void closure #1 in MOSuggestionSheetInterstitialView.viewWillTransition(to:with:)(double a1, double a2)
+void closure #1 in MOSuggestionSheetInterstitialView.viewWillTransition(to:with:)(double a1, double a2, uint64_t a3, uint64_t a4)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v5 = Strong;
+    v7 = Strong;
     MOSuggestionSheetInterstitialView.updateConstraints()();
-    v6 = OBJC_IVAR____TtC16MomentsUIService33MOSuggestionSheetInterstitialView_assetCarouselView;
-    v7 = *&v5[OBJC_IVAR____TtC16MomentsUIService33MOSuggestionSheetInterstitialView_assetCarouselView];
+    v8 = OBJC_IVAR____TtC16MomentsUIService33MOSuggestionSheetInterstitialView_assetCarouselView;
+    v9 = *&v7[OBJC_IVAR____TtC16MomentsUIService33MOSuggestionSheetInterstitialView_assetCarouselView];
     MOSuggestionInterstitialCarouselView.updateLayout()();
 
-    v8 = specialized static MOAngelRootViewController.isLandscape.getter();
-    v9 = *&static MOAngelRootViewController.LANDSCAPE_WIDTH;
-    if (!v8)
+    v10 = specialized static MOAngelRootViewController.isLandscape.getter();
+    v11 = *&static MOAngelRootViewController.LANDSCAPE_WIDTH;
+    if (!v10)
     {
-      v9 = a1;
+      v11 = a1;
     }
 
-    [v5 setPreferredContentSize:{v9, a2}];
+    [v7 setPreferredContentSize:{v11, a2}];
     MOSuggestionSheetInterstitialView.updateConstraints()();
-    v10 = *&v5[v6];
+    v12 = *&v7[v8];
     MOSuggestionInterstitialCarouselView.updateLayout()();
   }
 }
 
-uint64_t thunk for @escaping @callee_guaranteed (@guaranteed UIViewControllerTransitionCoordinatorContext) -> ()(uint64_t a1)
+uint64_t thunk for @escaping @callee_guaranteed (@guaranteed UIViewControllerTransitionCoordinatorContext) -> ()(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
+  v2 = *(a1 + 32);
 
-  v2 = swift_unknownObjectRetain();
-  v1(v2);
+  v3 = swift_unknownObjectRetain();
+  v2(v3);
 
   return swift_unknownObjectRelease();
 }
@@ -5246,7 +6103,7 @@ void MOSuggestionSheetInterstitialView.handlePortraitLayout()()
   v3 = *(v2 - 8);
   __chkstk_darwin(v2);
   v5 = &v45 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8UIButtonC5UIKitE13ConfigurationVSgMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8UIButtonC5UIKitE13ConfigurationVSgMd, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMR);
   v7 = __chkstk_darwin(v6 - 8);
   v9 = &v45 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = __chkstk_darwin(v7);
@@ -5258,7 +6115,7 @@ void MOSuggestionSheetInterstitialView.handlePortraitLayout()()
     v46 = v9;
     v15 = [v0 navigationItem];
     v16 = *(v14 + 16);
-    v17 = MOEventBundle._orderedAssetReferences()();
+    MOEventBundle._orderedAssetReferences()();
     v18 = v5;
     if (v17)
     {
@@ -5321,7 +6178,7 @@ LABEL_10:
 
   [v31 setActive:1];
   v32 = objc_opt_self();
-  type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for NSLayoutConstraint);
+  type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for NSLayoutConstraint, NSLayoutConstraint_ptr);
 
   isa = Array._bridgeToObjectiveC()().super.isa;
 
@@ -5386,7 +6243,7 @@ void MOSuggestionSheetInterstitialView.handleLandscapeLayout()()
   v3 = *(v2 - 8);
   __chkstk_darwin(v2);
   v5 = &v31 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8UIButtonC5UIKitE13ConfigurationVSgMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8UIButtonC5UIKitE13ConfigurationVSgMd, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMR);
   v7 = __chkstk_darwin(v6 - 8);
   v9 = &v31 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v7);
@@ -5402,7 +6259,7 @@ void MOSuggestionSheetInterstitialView.handleLandscapeLayout()()
 
   [v16 setActive:1];
   v17 = objc_opt_self();
-  type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for NSLayoutConstraint);
+  type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for NSLayoutConstraint, NSLayoutConstraint_ptr);
 
   isa = Array._bridgeToObjectiveC()().super.isa;
 
@@ -5505,7 +6362,7 @@ Swift::Void __swiftcall MOSuggestionSheetInterstitialView.setupViews()()
     [v12 addSubview:v6];
 
     v14 = v3[2];
-    v15 = MOEventBundle._orderedAssetReferences()();
+    MOEventBundle._orderedAssetReferences()();
     if (v15)
     {
       if (v15 >> 62)
@@ -5692,7 +6549,7 @@ LABEL_15:
 
                 [*&v1[v69] setActive:1];
                 [*&v1[v76] setActive:1];
-                __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+                __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
                 v78 = swift_allocObject();
                 *(v78 + 16) = xmmword_1002A5360;
                 v79 = [*&v1[v272] heightAnchor];
@@ -6119,7 +6976,7 @@ LABEL_87:
                         v260 = [v258 constraintEqualToAnchor:v259 constant:-10.0];
 
                         *(v224 + 104) = v260;
-                        type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for NSLayoutConstraint);
+                        type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for NSLayoutConstraint, NSLayoutConstraint_ptr);
                         isa = Array._bridgeToObjectiveC()().super.isa;
 
                         [v275 activateConstraints:isa];
@@ -6301,11 +7158,11 @@ void MOSuggestionSheetInterstitialView.setNavBar()()
     }
 
     v20 = *&v1[OBJC_IVAR____TtC16MomentsUIService33MOSuggestionSheetInterstitialView_navigationBar];
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
     v21 = swift_allocObject();
     *(v21 + 16) = xmmword_1002A4A70;
     *(v21 + 32) = [v1 navigationItem];
-    type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for UINavigationItem);
+    type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for UINavigationItem, UINavigationItem_ptr);
     isa = Array._bridgeToObjectiveC()().super.isa;
 
     [v20 setItems:isa animated:0];
@@ -6327,7 +7184,7 @@ Swift::Void __swiftcall MOSuggestionSheetInterstitialView.updateAssetTypes()()
   v5 = *(v4 - 8);
   __chkstk_darwin(v4);
   v7 = aBlock - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for OS_dispatch_queue);
+  type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for OS_dispatch_queue, OS_dispatch_queue_ptr);
   v8 = static OS_dispatch_queue.main.getter();
   v9 = swift_allocObject();
   swift_unknownObjectWeakInit();
@@ -6341,8 +7198,8 @@ Swift::Void __swiftcall MOSuggestionSheetInterstitialView.updateAssetTypes()()
 
   static DispatchQoS.unspecified.getter();
   aBlock[0] = _swiftEmptyArrayStorage;
-  _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_0(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, &type metadata accessor for DispatchWorkItemFlags);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd);
+  _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_0(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
   lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A]();
   dispatch thunk of SetAlgebra.init<A>(_:)();
   OS_dispatch_queue.async(group:qos:flags:execute:)();
@@ -6352,27 +7209,27 @@ Swift::Void __swiftcall MOSuggestionSheetInterstitialView.updateAssetTypes()()
   (*(v5 + 8))(v7, v4);
 }
 
-void closure #1 in MOSuggestionSheetInterstitialView.updateAssetTypes()()
+void closure #1 in MOSuggestionSheetInterstitialView.updateAssetTypes()(uint64_t a1)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = Strong;
-    v2 = objc_opt_self();
-    v3 = swift_allocObject();
-    *(v3 + 16) = v1;
+    v2 = Strong;
+    v3 = objc_opt_self();
+    v4 = swift_allocObject();
+    *(v4 + 16) = v2;
     aBlock[4] = partial apply for closure #1 in closure #1 in MOSuggestionSheetInterstitialView.updateAssetTypes();
-    aBlock[5] = v3;
+    aBlock[5] = v4;
     aBlock[0] = _NSConcreteStackBlock;
     aBlock[1] = 1107296256;
     aBlock[2] = thunk for @escaping @callee_guaranteed () -> ();
     aBlock[3] = &block_descriptor_93;
-    v4 = _Block_copy(aBlock);
-    v5 = v1;
+    v5 = _Block_copy(aBlock);
+    v6 = v2;
 
-    [v2 animateWithDuration:v4 animations:1.0];
-    _Block_release(v4);
+    [v3 animateWithDuration:v5 animations:1.0];
+    _Block_release(v5);
   }
 }
 
@@ -6435,7 +7292,7 @@ LABEL_12:
 Swift::Void __swiftcall MOSuggestionSheetInterstitialView.viewDidLoad()()
 {
   v4.receiver = v0;
-  v4.super_class = type metadata accessor for MOSuggestionSheetInterstitialView();
+  v4.super_class = type metadata accessor for MOSuggestionSheetInterstitialView(0);
   objc_msgSendSuper2(&v4, "viewDidLoad");
   v1 = [v0 view];
   if (v1)
@@ -6455,7 +7312,7 @@ Swift::Void __swiftcall MOSuggestionSheetInterstitialView.viewDidDisappear(_:)(S
 {
   v2 = v1;
   v34.receiver = v2;
-  v34.super_class = type metadata accessor for MOSuggestionSheetInterstitialView();
+  v34.super_class = type metadata accessor for MOSuggestionSheetInterstitialView(0);
   objc_msgSendSuper2(&v34, "viewDidDisappear:", a1);
   v4 = OBJC_IVAR____TtC16MomentsUIService33MOSuggestionSheetInterstitialView_assetCarouselView;
   v5 = *&v2[OBJC_IVAR____TtC16MomentsUIService33MOSuggestionSheetInterstitialView_assetCarouselView];
@@ -6498,7 +7355,7 @@ Swift::Void __swiftcall MOSuggestionSheetInterstitialView.viewDidDisappear(_:)(S
 
   v26 = v25;
   v27 = [v25 subviews];
-  type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for UIView);
+  type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for UIView, UIView_ptr);
   v28 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   if (v28 >> 62)
@@ -6557,14 +7414,14 @@ LABEL_11:
 id MOSuggestionSheetInterstitialView.viewDidAppear(_:)(char a1, SEL *a2)
 {
   v6.receiver = v2;
-  v6.super_class = type metadata accessor for MOSuggestionSheetInterstitialView();
+  v6.super_class = type metadata accessor for MOSuggestionSheetInterstitialView(0);
   return objc_msgSendSuper2(&v6, *a2, a1 & 1);
 }
 
 id @objc MOSuggestionSheetInterstitialView.viewDidAppear(_:)(void *a1, uint64_t a2, uint64_t a3, SEL *a4)
 {
   v7.receiver = a1;
-  v7.super_class = type metadata accessor for MOSuggestionSheetInterstitialView();
+  v7.super_class = type metadata accessor for MOSuggestionSheetInterstitialView(0);
   return objc_msgSendSuper2(&v7, *a4, a3);
 }
 
@@ -6680,58 +7537,58 @@ void MOSuggestionSheetInterstitialView.updateTitleLabelString()()
   }
 }
 
-void closure #1 in MOSuggestionSheetInterstitialView.handleLabelEditTap(_:)(uint64_t a1, void *a2)
+void closure #1 in MOSuggestionSheetInterstitialView.handleLabelEditTap(_:)(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = (*((swift_isaMask & *a2) + 0x60))();
-  v4 = v3;
-  v16[3] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSSSgMd);
+  v3 = (*((swift_isaMask & *a2) + 0x60))(a1);
+  v5 = v4;
+  v17[3] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSSSgMd, &_sSSSgMR);
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v7 = *(Strong + OBJC_IVAR____TtC16MomentsUIService33MOSuggestionSheetInterstitialView_titleString);
-    v6 = *(Strong + OBJC_IVAR____TtC16MomentsUIService33MOSuggestionSheetInterstitialView_titleString + 8);
-    v8 = Strong;
+    v8 = *(Strong + OBJC_IVAR____TtC16MomentsUIService33MOSuggestionSheetInterstitialView_titleString);
+    v7 = *(Strong + OBJC_IVAR____TtC16MomentsUIService33MOSuggestionSheetInterstitialView_titleString + 8);
+    v9 = Strong;
   }
 
   else
   {
+    v8 = 0;
     v7 = 0;
-    v6 = 0;
   }
 
-  v16[0] = v7;
-  v16[1] = v6;
-  v9 = SettingsCodable<>.isEqual(_:)();
-  __swift_destroy_boxed_opaque_existential_0(v16);
-  if (v9)
+  v17[0] = v8;
+  v17[1] = v7;
+  v10 = SettingsCodable<>.isEqual(_:)();
+  __swift_destroy_boxed_opaque_existential_0(v17);
+  if (v10)
   {
     goto LABEL_9;
   }
 
   swift_beginAccess();
-  v10 = swift_unknownObjectWeakLoadStrong();
-  if (v10)
+  v11 = swift_unknownObjectWeakLoadStrong();
+  if (v11)
   {
-    v11 = (v10 + OBJC_IVAR____TtC16MomentsUIService33MOSuggestionSheetInterstitialView_modifiedTitleString);
-    *v11 = v2;
-    v11[1] = v4;
-    v12 = v10;
+    v12 = (v11 + OBJC_IVAR____TtC16MomentsUIService33MOSuggestionSheetInterstitialView_modifiedTitleString);
+    *v12 = v3;
+    v12[1] = v5;
+    v13 = v11;
   }
 
   swift_beginAccess();
-  v13 = swift_unknownObjectWeakLoadStrong();
-  if (!v13)
+  v14 = swift_unknownObjectWeakLoadStrong();
+  if (!v14)
   {
 LABEL_9:
   }
 
   else
   {
-    v14 = v13;
-    v15 = (v13 + OBJC_IVAR____TtC16MomentsUIService33MOSuggestionSheetInterstitialView_titleString);
-    *v15 = v2;
-    v15[1] = v4;
+    v15 = v14;
+    v16 = (v14 + OBJC_IVAR____TtC16MomentsUIService33MOSuggestionSheetInterstitialView_titleString);
+    *v16 = v3;
+    v16[1] = v5;
 
     MOSuggestionSheetInterstitialView.updateTitleLabelString()();
   }
@@ -6765,62 +7622,62 @@ void MOSuggestionSheetInterstitialView.fetchAssetsForCarousel()()
   }
 }
 
-void closure #1 in MOSuggestionSheetInterstitialView.fetchAssetsForCarousel()(uint64_t *a1)
+void closure #1 in MOSuggestionSheetInterstitialView.fetchAssetsForCarousel()(uint64_t *a1, uint64_t a2)
 {
-  v2 = type metadata accessor for DispatchWorkItemFlags();
-  v3 = *(v2 - 8);
-  __chkstk_darwin(v2);
-  v5 = &v17 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = type metadata accessor for DispatchQoS();
-  v7 = *(v6 - 8);
-  __chkstk_darwin(v6);
-  v9 = &v17 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = type metadata accessor for DispatchWorkItemFlags();
+  v4 = *(v3 - 8);
+  __chkstk_darwin(v3);
+  v6 = &v18 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = type metadata accessor for DispatchQoS();
+  v8 = *(v7 - 8);
+  __chkstk_darwin(v7);
+  v10 = &v18 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    if (*(a1 + 16) == 1 || (v11 = *a1) == 0)
+    if (*(a1 + 16) == 1 || (v12 = *a1) == 0)
     {
     }
 
     else
     {
-      v12 = a1[1];
-      v13 = Strong;
-      type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for OS_dispatch_queue);
+      v13 = a1[1];
+      v14 = Strong;
+      type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for OS_dispatch_queue, OS_dispatch_queue_ptr);
 
-      v19 = static OS_dispatch_queue.main.getter();
-      v14 = swift_allocObject();
-      v14[2] = v13;
-      v14[3] = v11;
-      v14[4] = v12;
+      v20 = static OS_dispatch_queue.main.getter();
+      v15 = swift_allocObject();
+      v15[2] = v14;
+      v15[3] = v12;
+      v15[4] = v13;
       aBlock[4] = partial apply for closure #1 in closure #1 in MOSuggestionSheetInterstitialView.fetchAssetsForCarousel();
-      aBlock[5] = v14;
+      aBlock[5] = v15;
       aBlock[0] = _NSConcreteStackBlock;
       aBlock[1] = 1107296256;
       aBlock[2] = thunk for @escaping @callee_guaranteed () -> ();
       aBlock[3] = &block_descriptor_100;
-      v15 = _Block_copy(aBlock);
+      v16 = _Block_copy(aBlock);
 
-      v18 = v13;
+      v19 = v14;
 
       static DispatchQoS.unspecified.getter();
       aBlock[0] = _swiftEmptyArrayStorage;
-      _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_0(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, &type metadata accessor for DispatchWorkItemFlags);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd);
+      _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_0(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
       lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A]();
       dispatch thunk of SetAlgebra.init<A>(_:)();
-      v16 = v19;
+      v17 = v20;
       OS_dispatch_queue.async(group:qos:flags:execute:)();
-      _Block_release(v15);
+      _Block_release(v16);
 
-      (*(v3 + 8))(v5, v2);
-      (*(v7 + 8))(v9, v6);
+      (*(v4 + 8))(v6, v3);
+      (*(v8 + 8))(v10, v7);
     }
   }
 }
 
-void closure #1 in closure #1 in MOSuggestionSheetInterstitialView.fetchAssetsForCarousel()(uint64_t a1, uint64_t a2, uint64_t a3)
+void closure #1 in closure #1 in MOSuggestionSheetInterstitialView.fetchAssetsForCarousel()(uint64_t a1, uint64_t a2, unint64_t a3)
 {
   v5 = *(a1 + OBJC_IVAR____TtC16MomentsUIService33MOSuggestionSheetInterstitialView_assetCarouselView);
   MOSuggestionInterstitialCarouselView.reloadCell(_:index:)(a2, a3);
@@ -6867,7 +7724,7 @@ void closure #1 in MOSuggestionSheetInterstitialView.fetchAssetsForListView(comp
   v37 = v10;
   __chkstk_darwin(v10);
   v12 = &v29 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = type metadata accessor for MOSuggestionCollectionViewCellViewModel.MOSuggestionCollectionListViewAssetPlaceHolderSingleResult();
+  v13 = type metadata accessor for MOSuggestionCollectionViewCellViewModel.MOSuggestionCollectionListViewAssetPlaceHolderSingleResult(0);
   v14 = *(v13 - 8);
   v15 = *(v14 + 64);
   __chkstk_darwin(v13 - 8);
@@ -6884,7 +7741,7 @@ void closure #1 in MOSuggestionSheetInterstitialView.fetchAssetsForListView(comp
     else
     {
       v30 = *(a1 + 8);
-      type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for OS_dispatch_queue);
+      type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for OS_dispatch_queue, OS_dispatch_queue_ptr);
       v31 = static OS_dispatch_queue.main.getter();
       outlined init with copy of MOSuggestionCollectionViewCellViewModel.MOSuggestionCollectionListViewAssetPlaceHolderSingleResult(a1, &v29 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0));
       v19 = (*(v14 + 80) + 24) & ~*(v14 + 80);
@@ -6912,8 +7769,8 @@ void closure #1 in MOSuggestionSheetInterstitialView.fetchAssetsForListView(comp
 
       static DispatchQoS.unspecified.getter();
       aBlock[0] = _swiftEmptyArrayStorage;
-      _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_0(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, &type metadata accessor for DispatchWorkItemFlags);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd);
+      _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_0(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
       lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A]();
       dispatch thunk of SetAlgebra.init<A>(_:)();
       v28 = v31;
@@ -6940,7 +7797,7 @@ uint64_t closure #1 in closure #1 in MOSuggestionSheetInterstitialView.fetchAsse
   *v14 = v15;
   if (!result || v15 < 0 || (v15 & 0x4000000000000000) != 0)
   {
-    result = specialized _ArrayBuffer._consumeAndCreateNew()(v15);
+    result = specialized _ArrayBuffer._consumeAndCreateNew()();
     v15 = result;
     *v14 = result;
   }
@@ -7068,7 +7925,7 @@ uint64_t MOSuggestionSheetInterstitialView.showListView()()
   (*((swift_isaMask & *v7) + 0xD8))(v11);
 
   *(v1 + v8) = 1;
-  type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for OS_dispatch_queue);
+  type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for OS_dispatch_queue, OS_dispatch_queue_ptr);
   v16 = static OS_dispatch_queue.main.getter();
   v17 = swift_allocObject();
   swift_unknownObjectWeakInit();
@@ -7082,8 +7939,8 @@ uint64_t MOSuggestionSheetInterstitialView.showListView()()
 
   static DispatchQoS.unspecified.getter();
   aBlock[0] = _swiftEmptyArrayStorage;
-  _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_0(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, &type metadata accessor for DispatchWorkItemFlags);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd);
+  _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_0(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
   lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A]();
   v19 = v21;
   dispatch thunk of SetAlgebra.init<A>(_:)();
@@ -7094,83 +7951,83 @@ uint64_t MOSuggestionSheetInterstitialView.showListView()()
   return (*(v22 + 8))(v6, v23);
 }
 
-void closure #1 in MOSuggestionSheetInterstitialView.showListView()()
+void closure #1 in MOSuggestionSheetInterstitialView.showListView()(uint64_t a1)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = Strong;
-    v2 = OBJC_IVAR____TtC16MomentsUIService33MOSuggestionSheetInterstitialView_assetListView;
-    v3 = *(Strong + OBJC_IVAR____TtC16MomentsUIService33MOSuggestionSheetInterstitialView_assetListView);
+    v2 = Strong;
+    v3 = OBJC_IVAR____TtC16MomentsUIService33MOSuggestionSheetInterstitialView_assetListView;
+    v4 = *(Strong + OBJC_IVAR____TtC16MomentsUIService33MOSuggestionSheetInterstitialView_assetListView);
     MOSuggestionInterstitialExpandableListView.refreshCheckmarksState()();
 
-    [*&v1[OBJC_IVAR____TtC16MomentsUIService33MOSuggestionSheetInterstitialView_assetCarouselView] setHidden:1];
-    [*&v1[v2] setHidden:0];
-    [*&v1[OBJC_IVAR____TtC16MomentsUIService33MOSuggestionSheetInterstitialView_scrollView] setShowsVerticalScrollIndicator:1];
+    [*&v2[OBJC_IVAR____TtC16MomentsUIService33MOSuggestionSheetInterstitialView_assetCarouselView] setHidden:1];
+    [*&v2[v3] setHidden:0];
+    [*&v2[OBJC_IVAR____TtC16MomentsUIService33MOSuggestionSheetInterstitialView_scrollView] setShowsVerticalScrollIndicator:1];
     MOSuggestionSheetInterstitialView.didUpdateSelection()();
     MOSuggestionSheetInterstitialView.setNavBar()();
   }
 }
 
-void closure #1 in MOSuggestionSheetInterstitialView.didToggleListCarouselViewButton(carouselIndex:)()
+void closure #1 in MOSuggestionSheetInterstitialView.didToggleListCarouselViewButton(carouselIndex:)(uint64_t a1)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = Strong;
+    v2 = Strong;
     MOSuggestionSheetInterstitialView.showListView()();
     if (one-time initialization token for assets != -1)
     {
       swift_once();
     }
 
-    v2 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v2, static MOAngelLogger.assets);
-    v3 = v1;
-    v4 = Logger.logObject.getter();
-    v5 = static os_log_type_t.debug.getter();
+    v3 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v3, static MOAngelLogger.assets);
+    v4 = v2;
+    v5 = Logger.logObject.getter();
+    v6 = static os_log_type_t.debug.getter();
 
-    if (os_log_type_enabled(v4, v5))
+    if (os_log_type_enabled(v5, v6))
     {
-      v6 = swift_slowAlloc();
-      v21 = swift_slowAlloc();
-      *v6 = 136315394;
-      if (v3[OBJC_IVAR____TtC16MomentsUIService33MOSuggestionSheetInterstitialView_currentViewMode])
+      v7 = swift_slowAlloc();
+      v22 = swift_slowAlloc();
+      *v7 = 136315394;
+      if (v4[OBJC_IVAR____TtC16MomentsUIService33MOSuggestionSheetInterstitialView_currentViewMode])
       {
-        v7 = *&v3[OBJC_IVAR____TtC16MomentsUIService33MOSuggestionSheetInterstitialView_assetListView];
-        v8 = *((swift_isaMask & *v7) + 0xD0);
+        v8 = *&v4[OBJC_IVAR____TtC16MomentsUIService33MOSuggestionSheetInterstitialView_assetListView];
+        v9 = *((swift_isaMask & *v8) + 0xD0);
       }
 
       else
       {
-        v7 = *&v3[OBJC_IVAR____TtC16MomentsUIService33MOSuggestionSheetInterstitialView_assetCarouselView];
-        v8 = *((swift_isaMask & *v7) + 0x110);
+        v8 = *&v4[OBJC_IVAR____TtC16MomentsUIService33MOSuggestionSheetInterstitialView_assetCarouselView];
+        v9 = *((swift_isaMask & *v8) + 0x110);
       }
 
-      v9 = v7;
-      v8(v9);
+      v10 = v8;
+      v9(v10);
 
-      v10 = Set.debugDescription.getter();
-      v12 = v11;
+      v11 = Set.debugDescription.getter();
+      v13 = v12;
 
-      v13 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v10, v12, &v21);
+      v14 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v11, v13, &v22);
 
-      *(v6 + 4) = v13;
-      *(v6 + 12) = 2080;
-      v14 = *&v3[OBJC_IVAR____TtC16MomentsUIService33MOSuggestionSheetInterstitialView_assetListView];
-      v15 = *((swift_isaMask & *v14) + 0xD0);
-      v16 = v14;
-      v15(v16);
+      *(v7 + 4) = v14;
+      *(v7 + 12) = 2080;
+      v15 = *&v4[OBJC_IVAR____TtC16MomentsUIService33MOSuggestionSheetInterstitialView_assetListView];
+      v16 = *((swift_isaMask & *v15) + 0xD0);
+      v17 = v15;
+      v16(v17);
 
-      v17 = Set.debugDescription.getter();
-      v19 = v18;
+      v18 = Set.debugDescription.getter();
+      v20 = v19;
 
-      v20 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v17, v19, &v21);
+      v21 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v18, v20, &v22);
 
-      *(v6 + 14) = v20;
-      _os_log_impl(&_mh_execute_header, v4, v5, "[Interstitial] currentlySelected: %s, selectedList: %s", v6, 0x16u);
+      *(v7 + 14) = v21;
+      _os_log_impl(&_mh_execute_header, v5, v6, "[Interstitial] currentlySelected: %s, selectedList: %s", v7, 0x16u);
       swift_arrayDestroy();
     }
   }
@@ -7508,7 +8365,7 @@ id MOSuggestionSheetInterstitialView.__allocating_init(nibName:bundle:)(uint64_t
 id MOSuggestionSheetInterstitialView.__deallocating_deinit()
 {
   v2.receiver = v0;
-  v2.super_class = type metadata accessor for MOSuggestionSheetInterstitialView();
+  v2.super_class = type metadata accessor for MOSuggestionSheetInterstitialView(0);
   return objc_msgSendSuper2(&v2, "dealloc");
 }
 
@@ -7589,7 +8446,7 @@ uint64_t specialized Set._Variant.remove(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@
   __chkstk_darwin(v5);
   v8 = &v25 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   v9 = *v2;
-  _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_0(&lazy protocol witness table cache variable for type UUID and conformance UUID, &type metadata accessor for UUID);
+  _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_0(&lazy protocol witness table cache variable for type UUID and conformance UUID, &type metadata accessor for UUID, &protocol conformance descriptor for UUID);
   v31 = a1;
   v10 = dispatch thunk of Hashable._rawHashValue(seed:)();
   v11 = v9 + 56;
@@ -7610,7 +8467,7 @@ uint64_t specialized Set._Variant.remove(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@
     while (1)
     {
       v15(v8, *(v30 + 48) + v18 * v13, v5);
-      _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_0(&lazy protocol witness table cache variable for type UUID and conformance UUID, &type metadata accessor for UUID);
+      _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_0(&lazy protocol witness table cache variable for type UUID and conformance UUID, &type metadata accessor for UUID, &protocol conformance descriptor for UUID);
       v19 = dispatch thunk of static Equatable.== infix(_:_:)();
       (*(v16 - 8))(v8, v5);
       if (v19)
@@ -7660,7 +8517,7 @@ uint64_t specialized Set._Variant.remove(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@
   __chkstk_darwin(v5);
   v8 = &v25 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   v9 = *v2;
-  _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_0(&lazy protocol witness table cache variable for type CloudDevice.Capability and conformance CloudDevice.Capability, &type metadata accessor for CloudDevice.Capability);
+  _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_0(&lazy protocol witness table cache variable for type CloudDevice.Capability and conformance CloudDevice.Capability, &type metadata accessor for CloudDevice.Capability, &protocol conformance descriptor for CloudDevice.Capability);
   v31 = a1;
   v10 = dispatch thunk of Hashable._rawHashValue(seed:)();
   v11 = v9 + 56;
@@ -7681,7 +8538,7 @@ uint64_t specialized Set._Variant.remove(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@
     while (1)
     {
       v15(v8, *(v30 + 48) + v18 * v13, v5);
-      _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_0(&lazy protocol witness table cache variable for type CloudDevice.Capability and conformance CloudDevice.Capability, &type metadata accessor for CloudDevice.Capability);
+      _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_0(&lazy protocol witness table cache variable for type CloudDevice.Capability and conformance CloudDevice.Capability, &type metadata accessor for CloudDevice.Capability, &protocol conformance descriptor for CloudDevice.Capability);
       v19 = dispatch thunk of static Equatable.== infix(_:_:)();
       (*(v16 - 8))(v8, v5);
       if (v19)
@@ -7762,13 +8619,13 @@ uint64_t specialized Set._Variant.remove(_:)(uint64_t a1)
   return result;
 }
 
-unint64_t specialized _NativeSet._delete(at:)(unint64_t result)
+void specialized _NativeSet._delete(at:)(unint64_t a1)
 {
-  v2 = result;
+  v2 = a1;
   v3 = *v1;
   v4 = *v1 + 56;
   v5 = -1 << *(*v1 + 32);
-  v6 = (result + 1) & ~v5;
+  v6 = (a1 + 1) & ~v5;
   if (((1 << v6) & *(v4 + 8 * (v6 >> 6))) != 0)
   {
     v7 = ~v5;
@@ -7823,7 +8680,7 @@ LABEL_5:
 
   else
   {
-    *(v4 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8)) &= (-1 << result) - 1;
+    *(v4 + ((a1 >> 3) & 0x1FFFFFFFFFFFFFF8)) &= (-1 << a1) - 1;
   }
 
   v15 = *(v3 + 16);
@@ -7839,16 +8696,14 @@ LABEL_5:
     *(v3 + 16) = v17;
     ++*(v3 + 36);
   }
-
-  return result;
 }
 
 {
-  v2 = result;
+  v2 = a1;
   v3 = *v1;
   v4 = *v1 + 56;
   v5 = -1 << *(v3 + 32);
-  v6 = (result + 1) & ~v5;
+  v6 = (a1 + 1) & ~v5;
   if (((1 << v6) & *(v4 + 8 * (v6 >> 6))) != 0)
   {
     v7 = ~v5;
@@ -7892,7 +8747,7 @@ LABEL_16:
 
   else
   {
-    *(v4 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8)) &= (-1 << result) - 1;
+    *(v4 + ((a1 >> 3) & 0x1FFFFFFFFFFFFFF8)) &= (-1 << a1) - 1;
   }
 
   v16 = *(v3 + 16);
@@ -7908,89 +8763,87 @@ LABEL_16:
     *(v3 + 16) = v18;
     ++*(v3 + 36);
   }
-
-  return result;
 }
 
-uint64_t specialized _NativeSet._delete(at:)(int64_t a1, uint64_t (*a2)(void), unint64_t *a3, void (*a4)(uint64_t), uint64_t a5)
+void specialized _NativeSet._delete(at:)(int64_t a1, uint64_t (*a2)(void), unint64_t *a3, uint64_t (*a4)(uint64_t), uint64_t a5)
 {
-  v42 = a4;
-  v43 = a5;
-  v41 = a3;
+  v41 = a4;
+  v42 = a5;
+  v40 = a3;
   v7 = a2(0);
   v8 = *(v7 - 8);
-  result = __chkstk_darwin(v7);
-  v11 = &v37 - v10;
-  v12 = *v5;
-  v13 = *v5 + 56;
-  v14 = -1 << *(*v5 + 32);
-  v15 = (a1 + 1) & ~v14;
-  if (((1 << v15) & *(v13 + 8 * (v15 >> 6))) != 0)
+  __chkstk_darwin(v7);
+  v10 = &v36 - v9;
+  v11 = *v5;
+  v12 = *v5 + 56;
+  v13 = -1 << *(*v5 + 32);
+  v14 = (a1 + 1) & ~v13;
+  if (((1 << v14) & *(v12 + 8 * (v14 >> 6))) != 0)
   {
-    v16 = ~v14;
+    v15 = ~v13;
 
-    v17 = _HashTable.previousHole(before:)();
-    if ((*(v13 + 8 * (v15 >> 6)) & (1 << v15)) != 0)
+    v16 = _HashTable.previousHole(before:)();
+    if ((*(v12 + 8 * (v14 >> 6)) & (1 << v14)) != 0)
     {
-      v39 = (v17 + 1) & v16;
-      v38 = *(v8 + 16);
-      v44 = *(v8 + 72);
-      v40 = v8 + 16;
-      v18 = (v8 + 8);
-      v19 = v12;
-      v20 = v16;
+      v38 = (v16 + 1) & v15;
+      v37 = *(v8 + 16);
+      v43 = *(v8 + 72);
+      v39 = v8 + 16;
+      v17 = (v8 + 8);
+      v18 = v11;
+      v19 = v15;
       while (1)
       {
-        v21 = v13;
-        v22 = v44 * v15;
-        v23 = v20;
-        v38(v11, *(v19 + 48) + v44 * v15, v7);
-        v24 = v19;
-        _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_0(v41, v42);
-        v25 = dispatch thunk of Hashable._rawHashValue(seed:)();
-        (*v18)(v11, v7);
-        v20 = v23;
-        v26 = v25 & v23;
-        if (a1 >= v39)
+        v20 = v12;
+        v21 = v43 * v14;
+        v22 = v19;
+        v37(v10, *(v18 + 48) + v43 * v14, v7);
+        v23 = v18;
+        _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_0(v40, v41, v42);
+        v24 = dispatch thunk of Hashable._rawHashValue(seed:)();
+        (*v17)(v10, v7);
+        v19 = v22;
+        v25 = v24 & v22;
+        if (a1 >= v38)
         {
-          if (v26 < v39 || a1 < v26)
+          if (v25 < v38 || a1 < v25)
           {
 LABEL_4:
-            v19 = v24;
+            v18 = v23;
             goto LABEL_5;
           }
         }
 
-        else if (v26 < v39 && a1 < v26)
+        else if (v25 < v38 && a1 < v25)
         {
           goto LABEL_4;
         }
 
-        v19 = v24;
-        v29 = *(v24 + 48);
-        v30 = v44 * a1;
-        v31 = v29 + v44 * a1;
-        v32 = v29 + v22 + v44;
-        if (v44 * a1 < v22 || v31 >= v32)
+        v18 = v23;
+        v28 = *(v23 + 48);
+        v29 = v43 * a1;
+        v30 = v28 + v43 * a1;
+        v31 = v28 + v21 + v43;
+        if (v43 * a1 < v21 || v30 >= v31)
         {
           swift_arrayInitWithTakeFrontToBack();
 LABEL_24:
-          v20 = v23;
-          a1 = v15;
+          v19 = v22;
+          a1 = v14;
           goto LABEL_5;
         }
 
-        a1 = v15;
-        if (v30 != v22)
+        a1 = v14;
+        if (v29 != v21)
         {
           swift_arrayInitWithTakeBackToFront();
           goto LABEL_24;
         }
 
 LABEL_5:
-        v15 = (v15 + 1) & v20;
-        v13 = v21;
-        if (((*(v21 + ((v15 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v15) & 1) == 0)
+        v14 = (v14 + 1) & v19;
+        v12 = v20;
+        if (((*(v20 + ((v14 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v14) & 1) == 0)
         {
 
           goto LABEL_28;
@@ -7998,32 +8851,30 @@ LABEL_5:
       }
     }
 
-    v19 = v12;
+    v18 = v11;
 LABEL_28:
-    *(v13 + ((a1 >> 3) & 0x1FFFFFFFFFFFFFF8)) &= (-1 << a1) - 1;
+    *(v12 + ((a1 >> 3) & 0x1FFFFFFFFFFFFFF8)) &= (-1 << a1) - 1;
   }
 
   else
   {
-    *(v13 + ((a1 >> 3) & 0x1FFFFFFFFFFFFFF8)) &= (-1 << a1) - 1;
-    v19 = v12;
+    *(v12 + ((a1 >> 3) & 0x1FFFFFFFFFFFFFF8)) &= (-1 << a1) - 1;
+    v18 = v11;
   }
 
-  v34 = *(v19 + 16);
-  v35 = __OFSUB__(v34, 1);
-  v36 = v34 - 1;
-  if (v35)
+  v33 = *(v18 + 16);
+  v34 = __OFSUB__(v33, 1);
+  v35 = v33 - 1;
+  if (v34)
   {
     __break(1u);
   }
 
   else
   {
-    *(v19 + 16) = v36;
-    ++*(v19 + 36);
+    *(v18 + 16) = v35;
+    ++*(v18 + 36);
   }
-
-  return result;
 }
 
 id specialized static MOSuggestionSheetInterstitialView.makeJournalButton(publicUI:clientName:isSourceJournalComposer:)(int a1, uint64_t a2, uint64_t a3, int a4)
@@ -8032,7 +8883,7 @@ id specialized static MOSuggestionSheetInterstitialView.makeJournalButton(public
   v55 = a3;
   v53 = a2;
   v54 = a1;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8UIButtonC5UIKitE13ConfigurationVSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8UIButtonC5UIKitE13ConfigurationVSgMd, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMR);
   __chkstk_darwin(v4 - 8);
   v6 = &v52 - v5;
   v59 = type metadata accessor for UIButton.Configuration.Size();
@@ -8117,7 +8968,7 @@ id specialized static MOSuggestionSheetInterstitialView.makeJournalButton(public
     v39._object = 0xE000000000000000;
     NSLocalizedString(_:tableName:bundle:value:comment:)(v38, 0, v37, v39, v62);
 
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys7CVarArg_pGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys7CVarArg_pGMd, &_ss23_ContiguousArrayStorageCys7CVarArg_pGMR);
     v40 = swift_allocObject();
     *(v40 + 16) = xmmword_1002A48B0;
     *(v40 + 56) = &type metadata for String;
@@ -8174,7 +9025,7 @@ id specialized static MOSuggestionSheetInterstitialView.makeJournalButton(public
 
 id specialized static MOSuggestionSheetInterstitialView.makeQuickAddButton(publicUI:)(char a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8UIButtonC5UIKitE13ConfigurationVSgMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8UIButtonC5UIKitE13ConfigurationVSgMd, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMR);
   __chkstk_darwin(v2 - 8);
   v4 = &v25 - v3;
   v5 = type metadata accessor for UIButton.Configuration.Size();
@@ -8317,15 +9168,15 @@ char *specialized MOSuggestionSheetInterstitialView.init(controller:cellViewMode
   v42 = objc_allocWithZone(type metadata accessor for MOSuggestionInterstitialCarouselView());
   *&v9[OBJC_IVAR____TtC16MomentsUIService33MOSuggestionSheetInterstitialView_assetCarouselView] = MOSuggestionInterstitialCarouselView.init(controller:)(v41);
   v64.receiver = v9;
-  v64.super_class = type metadata accessor for MOSuggestionSheetInterstitialView();
+  v64.super_class = type metadata accessor for MOSuggestionSheetInterstitialView(0);
   v43 = objc_msgSendSuper2(&v64, "initWithNibName:bundle:", 0, 0);
-  v44 = *&v43[OBJC_IVAR____TtC16MomentsUIService33MOSuggestionSheetInterstitialView_assetCarouselView];
+  v44 = *(v43 + OBJC_IVAR____TtC16MomentsUIService33MOSuggestionSheetInterstitialView_assetCarouselView);
   v45 = *((swift_isaMask & *v44) + 0x198);
   v46 = v43;
   v47 = v44;
   v45(v43, &protocol witness table for MOSuggestionSheetInterstitialView);
 
-  v48 = *&v46[OBJC_IVAR____TtC16MomentsUIService33MOSuggestionSheetInterstitialView_assetListView];
+  v48 = *(v46 + OBJC_IVAR____TtC16MomentsUIService33MOSuggestionSheetInterstitialView_assetListView);
   v49 = *((swift_isaMask & *v48) + 0xF0);
   v50 = v46;
   v51 = v48;
@@ -8335,7 +9186,7 @@ char *specialized MOSuggestionSheetInterstitialView.init(controller:cellViewMode
   [v52 addObserver:v50 selector:"handleContentSizeChanged" name:UIContentSizeCategoryDidChangeNotification object:0];
 
   v53 = (*(*a2 + 176))();
-  v54 = &v50[OBJC_IVAR____TtC16MomentsUIService33MOSuggestionSheetInterstitialView_titleString];
+  v54 = (v50 + OBJC_IVAR____TtC16MomentsUIService33MOSuggestionSheetInterstitialView_titleString);
   *v54 = v53;
   v54[1] = v55;
 
@@ -8347,7 +9198,7 @@ char *specialized MOSuggestionSheetInterstitialView.init(controller:cellViewMode
   return v50;
 }
 
-uint64_t type metadata accessor for MOSuggestionSheetInterstitialView()
+uint64_t type metadata accessor for MOSuggestionSheetInterstitialView(uint64_t a1)
 {
   result = type metadata singleton initialization cache for MOSuggestionSheetInterstitialView;
   if (!type metadata singleton initialization cache for MOSuggestionSheetInterstitialView)
@@ -8427,34 +9278,34 @@ void specialized MOSuggestionSheetInterstitialView.init(coder:)()
   __break(1u);
 }
 
-void specialized MOSuggestionSheetInterstitialView.journalButtonTapped(_:)()
+double specialized MOSuggestionSheetInterstitialView.journalButtonTapped(_:)()
 {
   v1 = v0;
   v2 = (*((swift_isaMask & *v0) + 0x1C8))();
   if (v2)
   {
-    v3 = v2;
-    v4 = (*((swift_isaMask & *v0) + 0x138))();
-    if (v4)
+    v4 = v2;
+    v5 = (*((swift_isaMask & *v0) + 0x138))();
+    if (v5)
     {
-      v14 = v4;
-      v5 = (*((swift_isaMask & *v0) + 0x390))();
-      v6 = (*((swift_isaMask & *v0) + 0x3A0))(v5);
+      v15 = v5;
+      v6 = (*((swift_isaMask & *v0) + 0x390))();
+      v7 = (*((swift_isaMask & *v0) + 0x3A0))(v6);
       (*(v0 + OBJC_IVAR____TtC16MomentsUIService33MOSuggestionSheetInterstitialView_selectedSuggestion))(v0 + OBJC_IVAR____TtC16MomentsUIService33MOSuggestionSheetInterstitialView_indexPath, 0);
-      v7 = IndexPath.row.getter();
-      v8 = *(v1 + OBJC_IVAR____TtC16MomentsUIService33MOSuggestionSheetInterstitialView_modifiedTitleString);
-      v9 = *(v1 + OBJC_IVAR____TtC16MomentsUIService33MOSuggestionSheetInterstitialView_modifiedTitleString + 8);
-      v10 = *(*v3 + 528);
+      v8 = IndexPath.row.getter();
+      v9 = *(v1 + OBJC_IVAR____TtC16MomentsUIService33MOSuggestionSheetInterstitialView_modifiedTitleString);
+      v10 = *(v1 + OBJC_IVAR____TtC16MomentsUIService33MOSuggestionSheetInterstitialView_modifiedTitleString + 8);
+      v11 = *(*v4 + 528);
 
-      v10(v7, v8, v9, v6 & 1, v14);
+      v11(v8, v9, v10, v7 & 1, v15);
 
-      if ((*((swift_isaMask & *v14) + 0x1C0))())
+      if ((*((swift_isaMask & *v15) + 0x1C0))())
       {
         if ((*((swift_isaMask & *v1) + 0x150))())
         {
-          v12 = v11;
+          v13 = v12;
           ObjectType = swift_getObjectType();
-          (*(v12 + 16))(ObjectType, v12);
+          (*(v13 + 16))(ObjectType, v13);
           swift_unknownObjectRelease();
         }
 
@@ -8466,6 +9317,8 @@ void specialized MOSuggestionSheetInterstitialView.journalButtonTapped(_:)()
     {
     }
   }
+
+  return result;
 }
 
 void specialized MOSuggestionSheetInterstitialView.handleLabelEditTap(_:)()
@@ -8676,9 +9529,9 @@ uint64_t sub_10005D398@<X0>(void **a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_10005D3FC(uint64_t a1, void **a2)
+uint64_t sub_10005D3FC(void *a1, void **a2)
 {
-  v2 = *(a1 + 8);
+  v2 = a1[1];
   v3 = *((swift_isaMask & **a2) + 0x158);
   v4 = swift_unknownObjectRetain();
   return v3(v4, v2);
@@ -8860,10 +9713,10 @@ LABEL_20:
   return result;
 }
 
-uint64_t type metadata completion function for MOSuggestionSheetInterstitialView()
+uint64_t type metadata completion function for MOSuggestionSheetInterstitialView(uint64_t a1)
 {
   result = type metadata accessor for IndexPath();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     return swift_updateClassMetadata2();
   }
@@ -8879,1864 +9732,7 @@ uint64_t sub_10005D7E4()
 
 uint64_t outlined init with copy of MOSuggestionCollectionViewCellViewModel.MOSuggestionCollectionListViewAssetPlaceHolderSingleResult(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for MOSuggestionCollectionViewCellViewModel.MOSuggestionCollectionListViewAssetPlaceHolderSingleResult();
+  v4 = type metadata accessor for MOSuggestionCollectionViewCellViewModel.MOSuggestionCollectionListViewAssetPlaceHolderSingleResult(0);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
-}
-
-uint64_t sub_10005D89C()
-{
-  v1 = (type metadata accessor for MOSuggestionCollectionViewCellViewModel.MOSuggestionCollectionListViewAssetPlaceHolderSingleResult() - 8);
-  v2 = *(*v1 + 80);
-  v3 = (v2 + 24) & ~v2;
-  v4 = *(*v1 + 64);
-
-  v5 = v1[8];
-  v6 = type metadata accessor for UUID();
-  v7 = *(v6 - 8);
-  if (!(*(v7 + 48))(v0 + v3 + v5, 1, v6))
-  {
-    (*(v7 + 8))(v0 + v3 + v5, v6);
-  }
-
-  return _swift_deallocObject(v0, ((((((v4 + v3 + 7) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8) + 16, v2 | 7);
-}
-
-uint64_t outlined init with take of MOSuggestionCollectionViewCellViewModel.MOSuggestionCollectionListViewAssetPlaceHolderSingleResult(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for MOSuggestionCollectionViewCellViewModel.MOSuggestionCollectionListViewAssetPlaceHolderSingleResult();
-  (*(*(v4 - 8) + 32))(a2, a1, v4);
-  return a2;
-}
-
-uint64_t partial apply for closure #1 in closure #1 in MOSuggestionSheetInterstitialView.fetchAssetsForListView(completion:)()
-{
-  v1 = *(type metadata accessor for MOSuggestionCollectionViewCellViewModel.MOSuggestionCollectionListViewAssetPlaceHolderSingleResult() - 8);
-  v2 = (*(v1 + 80) + 24) & ~*(v1 + 80);
-  v3 = (*(v1 + 64) + v2 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v4 = (v3 + 15) & 0xFFFFFFFFFFFFFFF8;
-  v5 = *(v0 + v3);
-  v6 = *(v0 + 16);
-  v7 = *(v0 + v4);
-  v8 = *(v0 + ((v4 + 15) & 0xFFFFFFFFFFFFFFF8));
-
-  return closure #1 in closure #1 in MOSuggestionSheetInterstitialView.fetchAssetsForListView(completion:)(v6, (v0 + v2), v5, v7, v8);
-}
-
-uint64_t outlined init with copy of UIButton.Configuration?(uint64_t a1, uint64_t a2)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8UIButtonC5UIKitE13ConfigurationVSgMd);
-  (*(*(v4 - 8) + 16))(a2, a1, v4);
-  return a2;
-}
-
-uint64_t outlined destroy of UIButton.Configuration?(uint64_t a1)
-{
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8UIButtonC5UIKitE13ConfigurationVSgMd);
-  (*(*(v2 - 8) + 8))(a1, v2);
-  return a1;
-}
-
-uint64_t _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_0(unint64_t *a1, void (*a2)(uint64_t))
-{
-  result = *a1;
-  if (!result)
-  {
-    a2(255);
-    result = swift_getWitnessTable();
-    atomic_store(result, a1);
-  }
-
-  return result;
-}
-
-uint64_t sub_10005DC44()
-{
-
-  return _swift_deallocObject(v0, 24, 7);
-}
-
-uint64_t objectdestroy_83Tm(uint64_t a1)
-{
-
-  return _swift_deallocObject(v1, a1, 7);
-}
-
-uint64_t MOSuggestionSheetMosaicLayout.cachedAttributes.setter(uint64_t a1)
-{
-  v3 = OBJC_IVAR____TtC16MomentsUIService29MOSuggestionSheetMosaicLayout_cachedAttributes;
-  swift_beginAccess();
-  *(v1 + v3) = a1;
-}
-
-double MOSuggestionSheetMosaicLayout.contentBounds.getter()
-{
-  v1 = v0 + OBJC_IVAR____TtC16MomentsUIService29MOSuggestionSheetMosaicLayout_contentBounds;
-  swift_beginAccess();
-  return *v1;
-}
-
-uint64_t MOSuggestionSheetMosaicLayout.contentBounds.setter(double a1, double a2, double a3, double a4)
-{
-  v9 = (v4 + OBJC_IVAR____TtC16MomentsUIService29MOSuggestionSheetMosaicLayout_contentBounds);
-  result = swift_beginAccess();
-  *v9 = a1;
-  v9[1] = a2;
-  v9[2] = a3;
-  v9[3] = a4;
-  return result;
-}
-
-uint64_t MOSuggestionSheetMosaicLayout.isFullHeight.getter()
-{
-  v1 = OBJC_IVAR____TtC16MomentsUIService29MOSuggestionSheetMosaicLayout_isFullHeight;
-  swift_beginAccess();
-  return *(v0 + v1);
-}
-
-uint64_t MOSuggestionSheetMosaicLayout.isFullHeight.setter(char a1)
-{
-  v3 = OBJC_IVAR____TtC16MomentsUIService29MOSuggestionSheetMosaicLayout_isFullHeight;
-  result = swift_beginAccess();
-  *(v1 + v3) = a1;
-  return result;
-}
-
-uint64_t MOSuggestionSheetMosaicLayout.mosaicSegmentDelegate.setter(uint64_t a1, uint64_t a2)
-{
-  v4 = v2 + OBJC_IVAR____TtC16MomentsUIService29MOSuggestionSheetMosaicLayout_mosaicSegmentDelegate;
-  swift_beginAccess();
-  *(v4 + 8) = a2;
-  swift_unknownObjectWeakAssign();
-  return swift_unknownObjectRelease();
-}
-
-void (*MOSuggestionSheetMosaicLayout.mosaicSegmentDelegate.modify(uint64_t *a1))(uint64_t a1, char a2)
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v3 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v3 = malloc(0x38uLL);
-  }
-
-  v4 = v3;
-  *a1 = v3;
-  v5 = OBJC_IVAR____TtC16MomentsUIService29MOSuggestionSheetMosaicLayout_mosaicSegmentDelegate;
-  *(v3 + 40) = v1;
-  *(v3 + 48) = v5;
-  v6 = v1 + v5;
-  swift_beginAccess();
-  Strong = swift_unknownObjectWeakLoadStrong();
-  v8 = *(v6 + 8);
-  *(v4 + 24) = Strong;
-  *(v4 + 32) = v8;
-  return MOSuggestionSheetAssetGridView.delegate.modify;
-}
-
-Swift::Void __swiftcall MOSuggestionSheetMosaicLayout.prepare()()
-{
-  v1 = v0;
-  v462 = type metadata accessor for IndexPath();
-  v2 = *(v462 - 8);
-  __chkstk_darwin(v462);
-  v461 = &v436 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v4 = type metadata accessor for MOSuggestionSheetMosaicLayout();
-  v465.receiver = v0;
-  v465.super_class = v4;
-  objc_msgSendSuper2(&v465, "prepareLayout");
-  v5 = [v0 collectionView];
-  if (!v5)
-  {
-    return;
-  }
-
-  v6 = v5;
-  v7 = *((swift_isaMask & *v0) + 0xC0);
-  v8 = swift_unknownObjectRetain();
-  v7(v8, &protocol witness table for MOSuggestionSheetMosaicLayout);
-  v9 = (swift_isaMask & *v0) + 128;
-  v460 = *((swift_isaMask & *v0) + 0x80);
-  v459 = v9;
-  v10 = v460(&slice);
-  *v11 = _swiftEmptyArrayStorage;
-
-  v10(&slice, 0);
-  v12 = v6;
-  v13 = [v12 bounds];
-  v14 = (swift_isaMask & *v1) + 144;
-  v458 = *((swift_isaMask & *v1) + 0x90);
-  v457 = v14;
-  (v458)(v13, 0.0, 0.0);
-  v15 = [v12 numberOfItemsInSection:0];
-  [v12 bounds];
-  v17 = v16;
-
-  (*((swift_isaMask & *v1) + 0xD0))(v15, v17);
-  v454 = v15;
-  v19 = v15 - 1;
-  if (v15 < 1)
-  {
-    goto LABEL_195;
-  }
-
-  v20 = 0;
-  v452 = v18;
-  v448 = ceil(v18 * 0.5);
-  v21 = 0.0;
-  v453 = v17;
-  v449 = ceil(v17 * 0.5);
-  v22 = COERCE_DOUBLE(_swiftEmptyArrayStorage);
-  v456 = (v2 + 8);
-  v440 = xmmword_1002A48B0;
-  v23 = 0.0;
-  v24 = 0.0;
-  v25 = 0.0;
-  v451 = v12;
-  v450 = v19;
-  while (2)
-  {
-    switch(v19)
-    {
-      case 0:
-
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo6CGRectVGMd);
-        v22 = COERCE_DOUBLE(swift_allocObject());
-        *(*&v22 + 16) = v440;
-        *(*&v22 + 32) = 0;
-        *(*&v22 + 40) = 0;
-        v30 = v452;
-        *(*&v22 + 48) = v453;
-        *(*&v22 + 56) = v30;
-        goto LABEL_188;
-      case 1:
-
-        memset(&slice, 0, sizeof(slice));
-        memset(&remainder, 0, sizeof(remainder));
-        v480.origin.x = 0.0;
-        v480.origin.y = 0.0;
-        v147 = v453;
-        v480.size.width = v453;
-        v148 = v452;
-        v480.size.height = v452;
-        v149 = v449;
-        CGRectDivide(v480, &slice, &remainder, v449, CGRectMinXEdge);
-        v463.x = remainder.origin.y;
-        origin.width = remainder.size.height;
-        v150 = remainder.origin.x + 1.0;
-        v447.size.width = remainder.size.width + -1.0;
-        memset(&slice, 0, sizeof(slice));
-        memset(&remainder, 0, sizeof(remainder));
-        v481.origin.x = 0.0;
-        v481.origin.y = 0.0;
-        v481.size.width = v147;
-        v481.size.height = v148;
-        CGRectDivide(v481, &slice, &remainder, v149, CGRectMinXEdge);
-        v447.origin = slice.origin;
-        size = slice.size;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo6CGRectVGMd);
-        v22 = COERCE_DOUBLE(swift_allocObject());
-        v151 = size;
-        *(*&v22 + 16) = xmmword_1002A4A00;
-        *(*&v22 + 32) = v447.origin;
-        *(*&v22 + 48) = v151;
-        x = v463.x;
-        *(*&v22 + 64) = v150;
-        *(*&v22 + 72) = x;
-        width = origin.width;
-        *(*&v22 + 80) = v447.size.width;
-        *(*&v22 + 88) = width;
-        goto LABEL_188;
-      case 2:
-
-        memset(&slice, 0, sizeof(slice));
-        memset(&remainder, 0, sizeof(remainder));
-        v472.origin.x = 0.0;
-        v472.origin.y = 0.0;
-        v109 = v453;
-        v472.size.width = v453;
-        v110 = v452;
-        v472.size.height = v452;
-        v111 = v449;
-        CGRectDivide(v472, &slice, &remainder, v449, CGRectMinXEdge);
-        v447.size.width = remainder.origin.y;
-        height = remainder.size.height;
-        size.x = remainder.origin.x + 1.0;
-        v447.origin.x = remainder.size.width + -1.0;
-        memset(&slice, 0, sizeof(slice));
-        memset(&remainder, 0, sizeof(remainder));
-        v473.origin.x = 0.0;
-        v473.origin.y = 0.0;
-        v473.size.width = v109;
-        v473.size.height = v110;
-        CGRectDivide(v473, &slice, &remainder, v111, CGRectMinXEdge);
-        origin = slice.origin;
-        v463 = slice.size;
-        memset(&slice, 0, sizeof(slice));
-        memset(&remainder, 0, sizeof(remainder));
-        v474.origin.x = size.x;
-        v474.origin.y = v447.size.width;
-        v474.size.width = v447.origin.x;
-        v474.size.height = height;
-        CGRectDivide(v474, &slice, &remainder, ceil(height * 0.5), CGRectMinYEdge);
-        v113 = remainder.origin.x;
-        v114 = remainder.size.width;
-        v115 = remainder.origin.y + 1.0;
-        v116 = remainder.size.height + -1.0;
-        v447.size = slice.origin;
-        v447.origin = slice.size;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo6CGRectVGMd);
-        v22 = COERCE_DOUBLE(swift_allocObject());
-        v117 = origin;
-        *(*&v22 + 16) = xmmword_1002A55C0;
-        *(*&v22 + 32) = v117;
-        v118 = v447.origin;
-        *(*&v22 + 48) = v463;
-        *(*&v22 + 64) = v447.size;
-        *(*&v22 + 80) = v118;
-        *(*&v22 + 96) = v113;
-        *(*&v22 + 104) = v115;
-        *(*&v22 + 112) = v114;
-        *(*&v22 + 120) = v116;
-        goto LABEL_188;
-      case 3:
-
-        memset(&slice, 0, sizeof(slice));
-        memset(&remainder, 0, sizeof(remainder));
-        v475.origin.x = 0.0;
-        v475.origin.y = 0.0;
-        v119 = v453;
-        v475.size.width = v453;
-        v120 = v452;
-        v475.size.height = v452;
-        v121 = v449;
-        CGRectDivide(v475, &slice, &remainder, v449, CGRectMinXEdge);
-        v447.size.width = remainder.origin.y;
-        v122 = remainder.size.height;
-        size.x = remainder.origin.x + 1.0;
-        v447.origin.x = remainder.size.width + -1.0;
-        memset(&slice, 0, sizeof(slice));
-        memset(&remainder, 0, sizeof(remainder));
-        v476.origin.x = 0.0;
-        v476.origin.y = 0.0;
-        v476.size.width = v119;
-        v476.size.height = v120;
-        CGRectDivide(v476, &slice, &remainder, v121, CGRectMinXEdge);
-        v463 = slice.origin;
-        origin = slice.size;
-        memset(&slice, 0, sizeof(slice));
-        memset(&remainder, 0, sizeof(remainder));
-        v477.origin.x = size.x;
-        v477.origin.y = v447.size.width;
-        v477.size.width = v447.origin.x;
-        v477.size.height = v122;
-        CGRectDivide(v477, &slice, &remainder, ceil(v122 * 0.5), CGRectMinYEdge);
-        v478.origin.x = remainder.origin.x;
-        v478.size.width = remainder.size.width;
-        v478.origin.y = remainder.origin.y + 1.0;
-        v478.size.height = remainder.size.height + -1.0;
-        v123 = ceil(remainder.size.width * 0.5);
-        v447 = slice;
-        memset(&slice, 0, sizeof(slice));
-        memset(&remainder, 0, sizeof(remainder));
-        CGRectDivide(v478, &slice, &remainder, v123, CGRectMinXEdge);
-        y = remainder.origin.y;
-        v125 = remainder.size.height;
-        v126 = remainder.origin.x + 1.0;
-        v127 = remainder.size.width + -1.0;
-        size = slice.origin;
-        v445 = slice.size;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo6CGRectVGMd);
-        v22 = COERCE_DOUBLE(swift_allocObject());
-        v128 = v463;
-        *(*&v22 + 16) = xmmword_1002A48C0;
-        *(*&v22 + 32) = v128;
-        v129 = v447.origin;
-        *(*&v22 + 48) = origin;
-        *(*&v22 + 64) = v129;
-        v130 = v445;
-        *(*&v22 + 80) = v447.size;
-        *(*&v22 + 96) = size;
-        *(*&v22 + 112) = v130;
-        *(*&v22 + 128) = v126;
-        *(*&v22 + 136) = y;
-        *(*&v22 + 144) = v127;
-        *(*&v22 + 152) = v125;
-        goto LABEL_188;
-      case 4:
-
-        memset(&slice, 0, sizeof(slice));
-        memset(&remainder, 0, sizeof(remainder));
-        v469.origin.x = 0.0;
-        v469.origin.y = 0.0;
-        v469.size.width = v453;
-        v469.size.height = v452;
-        CGRectDivide(v469, &slice, &remainder, v449, CGRectMinXEdge);
-        v46 = remainder.origin.y;
-        v47 = remainder.size.height;
-        v48 = remainder.origin.x + 1.0;
-        v49 = remainder.size.width + -1.0;
-        v463 = slice.origin;
-        origin = slice.size;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo6CGRectVGMd);
-        v50 = swift_allocObject();
-        v51 = origin;
-        *(v50 + 16) = v440;
-        *(v50 + 32) = v463;
-        *(v50 + 48) = v51;
-        memset(&slice, 0, sizeof(slice));
-        memset(&remainder, 0, sizeof(remainder));
-        v52 = v48;
-        v51.width = v46;
-        v53 = v49;
-        v54 = v47;
-        CGRectDivide(*(&v51 - 8), &slice, &remainder, ceil(v49 * 0.5), CGRectMinXEdge);
-        v470 = slice;
-        v447.origin.x = remainder.origin.y;
-        v55 = remainder.size.height;
-        v439.x = remainder.origin.x + 1.0;
-        v445.width = remainder.size.width + -1.0;
-        v56 = ceil(slice.size.height * 0.5);
-        memset(&slice, 0, sizeof(slice));
-        memset(&remainder, 0, sizeof(remainder));
-        CGRectDivide(v470, &slice, &remainder, v56, CGRectMinYEdge);
-        v444.x = slice.origin.x;
-        v443.width = slice.origin.y;
-        v442.x = slice.size.width;
-        v441.width = slice.size.height;
-        v463.x = remainder.origin.x;
-        size.x = remainder.size.width;
-        v447.size.width = remainder.origin.y + 1.0;
-        origin.width = remainder.size.height + -1.0;
-        memset(&slice, 0, sizeof(slice));
-        memset(&remainder, 0, sizeof(remainder));
-        v471.origin.x = v439.x;
-        v471.origin.y = v447.origin.x;
-        v471.size.width = v445.width;
-        v471.size.height = v55;
-        CGRectDivide(v471, &slice, &remainder, ceil(v55 * 0.5), CGRectMinYEdge);
-        v58 = slice.origin.x;
-        v57 = slice.origin.y;
-        v59 = slice.size.width;
-        v436 = slice.size.height;
-        v445.width = remainder.origin.x;
-        v437 = remainder.size.width;
-        v60 = remainder.origin.y + 1.0;
-        v447.origin.x = remainder.size.height + -1.0;
-        v61 = swift_allocObject();
-        v62 = v443.width;
-        *(v61 + 32) = v444.x;
-        *(v61 + 40) = v62;
-        v63 = v441.width;
-        *(v61 + 48) = v442.x;
-        *(v61 + 56) = v63;
-        v438.width = v58;
-        *(v61 + 64) = v58;
-        *(v61 + 72) = v57;
-        v64 = v57;
-        v65 = v59;
-        *(v61 + 80) = v59;
-        v66 = v436;
-        v67 = v463.x;
-        *(v61 + 88) = v436;
-        *(v61 + 96) = v67;
-        v68 = size.x;
-        *(v61 + 104) = v447.size.width;
-        *(v61 + 112) = v68;
-        v69 = v437;
-        v70 = v445.width;
-        *(v61 + 120) = origin.width;
-        *(v61 + 128) = v70;
-        v439.x = v60;
-        *(v61 + 136) = v60;
-        *(v61 + 144) = v69;
-        v71 = v69;
-        *(v61 + 152) = v447.origin.x;
-        v22 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(1, 2, 1, v50));
-        *(*&v22 + 16) = 2;
-        v72 = v443.width;
-        *(*&v22 + 64) = v444.x;
-        *(*&v22 + 72) = v72;
-        v73 = v441.width;
-        *(*&v22 + 80) = v442.x;
-        *(*&v22 + 88) = v73;
-        v74 = *(*&v22 + 24);
-        if (v74 < 6)
-        {
-          v22 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v74 > 1), 3, 1, *&v22));
-          v74 = *(*&v22 + 24);
-        }
-
-        *(*&v22 + 16) = 3;
-        *(*&v22 + 96) = v438.width;
-        *(*&v22 + 104) = v64;
-        *(*&v22 + 112) = v65;
-        *(*&v22 + 120) = v66;
-        if (v74 <= 7)
-        {
-          v22 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v74 > 1), 4, 1, *&v22));
-          v74 = *(*&v22 + 24);
-        }
-
-        *(*&v22 + 16) = 4;
-        v75 = v447.size.width;
-        *(*&v22 + 128) = v463.x;
-        *(*&v22 + 136) = v75;
-        v76 = origin.width;
-        *(*&v22 + 144) = size.x;
-        *(*&v22 + 152) = v76;
-        if (v74 <= 9)
-        {
-          v22 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v74 > 1), 5, 1, *&v22));
-        }
-
-        *(*&v22 + 16) = 5;
-        v77 = v439.x;
-        *(*&v22 + 160) = v445.width;
-        *(*&v22 + 168) = v77;
-        v78 = v447.origin.x;
-        *(*&v22 + 176) = v71;
-        *(*&v22 + 184) = v78;
-        swift_setDeallocating();
-        swift_deallocClassInstance();
-        goto LABEL_188;
-      case 5:
-        memset(&slice, 0, sizeof(slice));
-        memset(&remainder, 0, sizeof(remainder));
-        v482.origin.x = 0.0;
-        v482.origin.y = 0.0;
-        v482.size.width = v453;
-        v482.size.height = v452;
-        CGRectDivide(v482, &slice, &remainder, v448, CGRectMinYEdge);
-        v154 = remainder.origin.x;
-        v155 = remainder.origin.y;
-        v156 = remainder.size.width;
-        v157 = remainder.size.height;
-        v158 = specialized MOSuggestionSheetMosaicLayout.firstRowRects(segmentFrame:)(slice.origin.x, slice.origin.y, slice.size.width, slice.size.height);
-        v159 = *(v158 + 2);
-        if (v159)
-        {
-          v160 = v158;
-          v161 = v20;
-          if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-          {
-            v22 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(*&v22 + 16) + 1, 1, *&v22));
-          }
-
-          v162 = *(*&v22 + 16);
-          v163 = 32 * v162;
-          v164 = (v160 + 48);
-          do
-          {
-            v165 = v164[-1];
-            v166 = *v164;
-            v167 = *(*&v22 + 24);
-            v168 = v162 + 1;
-            if (v162 >= v167 >> 1)
-            {
-              v463 = v164[-1];
-              origin = v166;
-              *&v170 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v167 > 1), v162 + 1, 1, *&v22));
-              v166 = origin;
-              v165 = v463;
-              v22 = *&v170;
-            }
-
-            *(*&v22 + 16) = v168;
-            v169 = (*&v22 + v163);
-            v169[2] = v165;
-            v169[3] = v166;
-            v163 += 32;
-            v164 += 2;
-            v162 = v168;
-            --v159;
-          }
-
-          while (v159);
-        }
-
-        else
-        {
-          v161 = v20;
-        }
-
-        if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-        {
-          v22 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(*&v22 + 16) + 1, 1, *&v22));
-        }
-
-        v350 = *(*&v22 + 16);
-        v349 = *(*&v22 + 24);
-        v20 = v161;
-        if (v350 >= v349 >> 1)
-        {
-          v22 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v349 > 1), v350 + 1, 1, *&v22));
-        }
-
-        *(*&v22 + 16) = v350 + 1;
-        v351 = (*&v22 + 32 * v350);
-        v351[4] = v154;
-        v351[5] = v155 + 1.0;
-        v351[6] = v156;
-        v351[7] = v157 + -1.0;
-        goto LABEL_188;
-      case 6:
-        memset(&slice, 0, sizeof(slice));
-        memset(&remainder, 0, sizeof(remainder));
-        v483.origin.x = 0.0;
-        v483.origin.y = 0.0;
-        v483.size.width = v453;
-        v483.size.height = v452;
-        CGRectDivide(v483, &slice, &remainder, v448, CGRectMinYEdge);
-        v171 = remainder.origin.x;
-        v172 = remainder.origin.y;
-        v173 = remainder.size.width;
-        v174 = remainder.size.height;
-        v175 = specialized MOSuggestionSheetMosaicLayout.firstRowRects(segmentFrame:)(slice.origin.x, slice.origin.y, slice.size.width, slice.size.height);
-        v176 = *(v175 + 2);
-        if (v176)
-        {
-          v177 = v175;
-          v137 = v20;
-          if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-          {
-            v22 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(*&v22 + 16) + 1, 1, *&v22));
-          }
-
-          v178 = *(*&v22 + 16);
-          v179 = 32 * v178;
-          v180 = (v177 + 48);
-          do
-          {
-            v181 = v180[-1];
-            v182 = *v180;
-            v183 = *(*&v22 + 24);
-            v184 = v178 + 1;
-            if (v178 >= v183 >> 1)
-            {
-              v463 = v180[-1];
-              origin = v182;
-              *&v186 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v183 > 1), v178 + 1, 1, *&v22));
-              v182 = origin;
-              v181 = v463;
-              v22 = *&v186;
-            }
-
-            *(*&v22 + 16) = v184;
-            v185 = (*&v22 + v179);
-            v185[2] = v181;
-            v185[3] = v182;
-            v179 += 32;
-            v180 += 2;
-            v178 = v184;
-            --v176;
-          }
-
-          while (v176);
-        }
-
-        else
-        {
-          v137 = v20;
-        }
-
-        memset(&slice, 0, sizeof(slice));
-        memset(&remainder, 0, sizeof(remainder));
-        v486.origin.x = v171;
-        v486.origin.y = v172 + 1.0;
-        v486.size.width = v173;
-        v486.size.height = v174 + -1.0;
-        CGRectDivide(v486, &slice, &remainder, ceil(v173 * 0.5), CGRectMinXEdge);
-        origin = slice.size;
-        v463 = slice.origin;
-        v352 = remainder.origin.x;
-        v353 = remainder.origin.y;
-        v355 = remainder.size.width;
-        v354 = remainder.size.height;
-        if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-        {
-          v22 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(*&v22 + 16) + 1, 1, *&v22));
-        }
-
-        v357 = *(*&v22 + 16);
-        v356 = *(*&v22 + 24);
-        v358 = v356 >> 1;
-        v359 = v357 + 1;
-        if (v356 >> 1 <= v357)
-        {
-          v22 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v356 > 1), v357 + 1, 1, *&v22));
-          v356 = *(*&v22 + 24);
-          v358 = v356 >> 1;
-        }
-
-        *(*&v22 + 16) = v359;
-        v360 = (*&v22 + 32 * v357);
-        v361 = origin;
-        v360[2] = v463;
-        v360[3] = v361;
-        if (v358 < (v357 + 2))
-        {
-          v22 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v356 > 1), v357 + 2, 1, *&v22));
-        }
-
-        *(*&v22 + 16) = v357 + 2;
-        v362 = (*&v22 + 32 * v359);
-        v362[4] = v352 + 1.0;
-        v362[5] = v353;
-        v362[6] = v355 + -1.0;
-        v362[7] = v354;
-        goto LABEL_187;
-      case 7:
-        memset(&slice, 0, sizeof(slice));
-        memset(&remainder, 0, sizeof(remainder));
-        v479.origin.x = 0.0;
-        v479.origin.y = 0.0;
-        v479.size.width = v453;
-        v479.size.height = v452;
-        CGRectDivide(v479, &slice, &remainder, v448, CGRectMinYEdge);
-        v463.x = remainder.origin.x;
-        v131 = remainder.origin.y;
-        v132 = remainder.size.width;
-        v133 = remainder.size.height;
-        v134 = specialized MOSuggestionSheetMosaicLayout.firstRowRects(segmentFrame:)(slice.origin.x, slice.origin.y, slice.size.width, slice.size.height);
-        v135 = *(v134 + 2);
-        if (v135)
-        {
-          v136 = v134;
-          v137 = v20;
-          if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-          {
-            v22 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(*&v22 + 16) + 1, 1, *&v22));
-          }
-
-          v138 = *(*&v22 + 16);
-          v139 = 32 * v138;
-          v140 = (v136 + 48);
-          do
-          {
-            v141 = v140[-1];
-            v142 = *v140;
-            v143 = *(*&v22 + 24);
-            v144 = v138 + 1;
-            if (v138 >= v143 >> 1)
-            {
-              origin = v140[-1];
-              v447.size = v142;
-              *&v146 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v143 > 1), v138 + 1, 1, *&v22));
-              v142 = v447.size;
-              v141 = origin;
-              v22 = *&v146;
-            }
-
-            *(*&v22 + 16) = v144;
-            v145 = (*&v22 + v139);
-            v145[2] = v141;
-            v145[3] = v142;
-            v139 += 32;
-            v140 += 2;
-            v138 = v144;
-            --v135;
-          }
-
-          while (v135);
-        }
-
-        else
-        {
-          v137 = v20;
-        }
-
-        memset(&slice, 0, sizeof(slice));
-        memset(&remainder, 0, sizeof(remainder));
-        v484.origin.x = v463.x;
-        v484.origin.y = v131 + 1.0;
-        v484.size.width = v132;
-        v484.size.height = v133 + -1.0;
-        CGRectDivide(v484, &slice, &remainder, ceil(v132 * 0.5), CGRectMinXEdge);
-        v485 = slice;
-        size.x = remainder.origin.x;
-        v447.size.width = remainder.origin.y;
-        v445.width = remainder.size.width;
-        v447.origin.x = remainder.size.height;
-        v330 = ceil(slice.size.height * 0.5);
-        memset(&slice, 0, sizeof(slice));
-        memset(&remainder, 0, sizeof(remainder));
-        CGRectDivide(v485, &slice, &remainder, v330, CGRectMinYEdge);
-        origin = slice.size;
-        v463 = slice.origin;
-        v331 = remainder.origin.x;
-        v332 = remainder.origin.y;
-        v333 = remainder.size.width;
-        v334 = remainder.size.height;
-        if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-        {
-          v22 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(*&v22 + 16) + 1, 1, *&v22));
-        }
-
-        v336 = *(*&v22 + 16);
-        v335 = *(*&v22 + 24);
-        v337 = v335 >> 1;
-        v338 = v336 + 1;
-        if (v335 >> 1 <= v336)
-        {
-          v22 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v335 > 1), v336 + 1, 1, *&v22));
-          v335 = *(*&v22 + 24);
-          v337 = v335 >> 1;
-        }
-
-        *(*&v22 + 16) = v338;
-        v339 = (*&v22 + 32 * v336);
-        v340 = origin;
-        v339[2] = v463;
-        v339[3] = v340;
-        v341 = v336 + 2;
-        if (v337 < (v336 + 2))
-        {
-          v22 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v335 > 1), v336 + 2, 1, *&v22));
-        }
-
-        *(*&v22 + 16) = v341;
-        v342 = (*&v22 + 32 * v338);
-        v342[4] = v331;
-        v342[5] = v332 + 1.0;
-        v342[6] = v333;
-        v342[7] = v334 + -1.0;
-        v343 = *(*&v22 + 24);
-        if ((v336 + 3) > (v343 >> 1))
-        {
-          v22 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v343 > 1), v336 + 3, 1, *&v22));
-        }
-
-        v344 = v447.size.width;
-        v345 = v447.origin.x;
-        v346 = size.x + 1.0;
-        v347 = v445.width + -1.0;
-        *(*&v22 + 16) = v336 + 3;
-        v348 = (*&v22 + 32 * v341);
-        v348[4] = v346;
-        v348[5] = v344;
-        v348[6] = v347;
-        v348[7] = v345;
-        goto LABEL_187;
-      case 8:
-        CGRect.dividedIntegral(fraction:from:)(CGRectMinYEdge, &slice, 0.5, 0.0, 0.0, v453, v452);
-        v202 = v467;
-        v203 = v468;
-        v204 = specialized MOSuggestionSheetMosaicLayout.firstRowRects(segmentFrame:)(slice.origin.x, slice.origin.y, slice.size.width, slice.size.height);
-        v205 = *(v204 + 2);
-        if (v205)
-        {
-          v206 = v204;
-          v137 = v20;
-          if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-          {
-            v22 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(*&v22 + 16) + 1, 1, *&v22));
-          }
-
-          v207 = *(*&v22 + 16);
-          v208 = 32 * v207;
-          v209 = (v206 + 48);
-          do
-          {
-            v210 = v209[-1];
-            v211 = *v209;
-            v212 = *(*&v22 + 24);
-            v213 = v207 + 1;
-            if (v207 >= v212 >> 1)
-            {
-              v463 = v209[-1];
-              origin = v211;
-              *&v215 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v212 > 1), v207 + 1, 1, *&v22));
-              v211 = origin;
-              v210 = v463;
-              v22 = *&v215;
-            }
-
-            *(*&v22 + 16) = v213;
-            v214 = (*&v22 + v208);
-            v214[2] = v210;
-            v214[3] = v211;
-            v208 += 32;
-            v209 += 2;
-            v207 = v213;
-            --v205;
-          }
-
-          while (v205);
-        }
-
-        else
-        {
-          v137 = v20;
-        }
-
-        CGRect.dividedIntegral(fraction:from:)(CGRectMinXEdge, &slice, 0.5, v202.width, v202.height, v203.x, v203.y);
-        v463 = v468;
-        origin = v467;
-        CGRect.dividedIntegral(fraction:from:)(CGRectMinYEdge, &slice, 0.5, slice.origin.x, slice.origin.y, slice.size.width, slice.size.height);
-        v443 = slice.size;
-        v444 = slice.origin;
-        CGRect.dividedIntegral(fraction:from:)(CGRectMinXEdge, &slice, 0.5, v467.width, v467.height, v468.x, v468.y);
-        v445 = slice.size;
-        size = slice.origin;
-        v447.origin = v468;
-        v447.size = v467;
-        if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-        {
-          v22 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(*&v22 + 16) + 1, 1, *&v22));
-        }
-
-        v398 = *(*&v22 + 16);
-        v397 = *(*&v22 + 24);
-        v399 = v397 >> 1;
-        v400 = v398 + 1;
-        if (v397 >> 1 <= v398)
-        {
-          v22 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v397 > 1), v398 + 1, 1, *&v22));
-          v397 = *(*&v22 + 24);
-          v399 = v397 >> 1;
-        }
-
-        *(*&v22 + 16) = v400;
-        v401 = (*&v22 + 32 * v398);
-        v402 = v443;
-        v401[2] = v444;
-        v401[3] = v402;
-        v403 = v398 + 2;
-        if (v399 < (v398 + 2))
-        {
-          v22 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v397 > 1), v398 + 2, 1, *&v22));
-        }
-
-        *(*&v22 + 16) = v403;
-        v404 = (*&v22 + 32 * v400);
-        v405 = v445;
-        v404[2] = size;
-        v404[3] = v405;
-        v406 = *(*&v22 + 24);
-        v407 = v398 + 3;
-        if ((v398 + 3) > (v406 >> 1))
-        {
-          v22 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v406 > 1), v398 + 3, 1, *&v22));
-        }
-
-        *(*&v22 + 16) = v407;
-        v408 = (*&v22 + 32 * v403);
-        v409 = v447.origin;
-        *(v408 + 2) = v447.size;
-        *(v408 + 3) = v409;
-        v410 = *(*&v22 + 24);
-        if ((v398 + 4) > (v410 >> 1))
-        {
-          v22 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v410 > 1), v398 + 4, 1, *&v22));
-        }
-
-        *(*&v22 + 16) = v398 + 4;
-        v411 = (*&v22 + 32 * v407);
-        v412 = v463;
-        v411[2] = origin;
-        v411[3] = v412;
-LABEL_187:
-        v20 = v137;
-        goto LABEL_188;
-      case 9:
-        CGRect.dividedIntegral(fraction:from:)(CGRectMinYEdge, &slice, 0.5, 0.0, 0.0, v453, v452);
-        v94 = v467;
-        v95 = v468;
-        v96 = specialized MOSuggestionSheetMosaicLayout.firstRowRects(segmentFrame:)(slice.origin.x, slice.origin.y, slice.size.width, slice.size.height);
-        v97 = *(v96 + 2);
-        if (v97)
-        {
-          v98 = v96;
-          v99 = v20;
-          if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-          {
-            v22 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(*&v22 + 16) + 1, 1, *&v22));
-          }
-
-          v100 = *(*&v22 + 16);
-          v101 = 32 * v100;
-          v102 = (v98 + 48);
-          do
-          {
-            v103 = v102[-1];
-            v104 = *v102;
-            v105 = *(*&v22 + 24);
-            v106 = v100 + 1;
-            if (v100 >= v105 >> 1)
-            {
-              v463 = v102[-1];
-              origin = v104;
-              *&v108 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v105 > 1), v100 + 1, 1, *&v22));
-              v104 = origin;
-              v103 = v463;
-              v22 = *&v108;
-            }
-
-            *(*&v22 + 16) = v106;
-            v107 = (*&v22 + v101);
-            v107[2] = v103;
-            v107[3] = v104;
-            v101 += 32;
-            v102 += 2;
-            v100 = v106;
-            --v97;
-          }
-
-          while (v97);
-        }
-
-        else
-        {
-          v99 = v20;
-        }
-
-        CGRect.dividedIntegral(fraction:from:)(CGRectMinXEdge, &slice, 0.5, v94.width, v94.height, v95.x, v95.y);
-        v443 = v468;
-        v444 = v467;
-        CGRect.dividedIntegral(fraction:from:)(CGRectMinXEdge, &slice, 0.5, slice.origin.x, slice.origin.y, slice.size.width, slice.size.height);
-        v302 = v467;
-        v303 = v468;
-        CGRect.dividedIntegral(fraction:from:)(CGRectMinYEdge, &slice, 0.5, slice.origin.x, slice.origin.y, slice.size.width, slice.size.height);
-        v447.origin = v468;
-        v447.size = v467;
-        v442 = slice.origin;
-        v441 = slice.size;
-        CGRect.dividedIntegral(fraction:from:)(CGRectMinYEdge, &slice, 0.5, v302.width, v302.height, v303.x, v303.y);
-        v445 = slice.size;
-        size = slice.origin;
-        v463 = v468;
-        origin = v467;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo6CGRectVGMd);
-        v304 = swift_allocObject();
-        v305 = v441;
-        *(v304 + 32) = v442;
-        *(v304 + 48) = v305;
-        v306 = v445;
-        *(v304 + 64) = size;
-        *(v304 + 80) = v306;
-        v307 = v447.origin;
-        *(v304 + 96) = v447.size;
-        *(v304 + 112) = v307;
-        v308 = v463;
-        *(v304 + 128) = origin;
-        *(v304 + 144) = v308;
-        if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-        {
-          v22 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(*&v22 + 16) + 1, 1, *&v22));
-        }
-
-        v309 = *(v304 + 32);
-        v310 = *(v304 + 48);
-        v312 = *(*&v22 + 16);
-        v311 = *(*&v22 + 24);
-        v313 = v311 >> 1;
-        v314 = v312 + 1;
-        if (v311 >> 1 <= v312)
-        {
-          v442 = *(v304 + 32);
-          v441 = v310;
-          *&v432 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v311 > 1), v312 + 1, 1, *&v22));
-          v310 = v441;
-          v309 = v442;
-          v22 = *&v432;
-          v311 = *(v432 + 3);
-          v313 = v311 >> 1;
-        }
-
-        *(*&v22 + 16) = v314;
-        v315 = (*&v22 + 32 * v312);
-        v315[2] = v309;
-        v315[3] = v310;
-        v316 = v312 + 2;
-        if (v313 < (v312 + 2))
-        {
-          v22 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v311 > 1), v312 + 2, 1, *&v22));
-        }
-
-        *(*&v22 + 16) = v316;
-        v317 = (*&v22 + 32 * v314);
-        v318 = v445;
-        v317[2] = size;
-        v317[3] = v318;
-        v319 = *(*&v22 + 24);
-        v320 = v312 + 3;
-        if ((v312 + 3) > (v319 >> 1))
-        {
-          v22 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v319 > 1), v312 + 3, 1, *&v22));
-        }
-
-        *(*&v22 + 16) = v320;
-        v321 = (*&v22 + 32 * v316);
-        v322 = v447.origin;
-        *(v321 + 2) = v447.size;
-        *(v321 + 3) = v322;
-        v323 = *(*&v22 + 24);
-        if ((v312 + 4) > (v323 >> 1))
-        {
-          v22 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v323 > 1), v312 + 4, 1, *&v22));
-        }
-
-        *(*&v22 + 16) = v312 + 4;
-        v324 = (*&v22 + 32 * v320);
-        v325 = v463;
-        v324[2] = origin;
-        v324[3] = v325;
-        swift_setDeallocating();
-        swift_deallocClassInstance();
-        v327 = *(*&v22 + 16);
-        v326 = *(*&v22 + 24);
-        if (v327 >= v326 >> 1)
-        {
-          v22 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v326 > 1), v327 + 1, 1, *&v22));
-        }
-
-        v20 = v99;
-        *(*&v22 + 16) = v327 + 1;
-        v328 = (*&v22 + 32 * v327);
-        v329 = v443;
-        v328[2] = v444;
-        v328[3] = v329;
-        goto LABEL_188;
-      case 10:
-        CGRect.dividedIntegral(fraction:from:)(CGRectMinYEdge, &slice, 0.5, 0.0, 0.0, v453, v452);
-        v187 = v467;
-        v188 = v468;
-        v189 = specialized MOSuggestionSheetMosaicLayout.firstRowRects(segmentFrame:)(slice.origin.x, slice.origin.y, slice.size.width, slice.size.height);
-        v190 = *(v189 + 2);
-        if (v190)
-        {
-          v191 = v189;
-          v192 = v20;
-          if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-          {
-            v22 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(*&v22 + 16) + 1, 1, *&v22));
-          }
-
-          v193 = *(*&v22 + 16);
-          v194 = 32 * v193;
-          v195 = (v191 + 48);
-          do
-          {
-            v196 = v195[-1];
-            v197 = *v195;
-            v198 = *(*&v22 + 24);
-            v199 = v193 + 1;
-            if (v193 >= v198 >> 1)
-            {
-              v463 = v195[-1];
-              origin = v197;
-              *&v201 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v198 > 1), v193 + 1, 1, *&v22));
-              v197 = origin;
-              v196 = v463;
-              v22 = *&v201;
-            }
-
-            *(*&v22 + 16) = v199;
-            v200 = (*&v22 + v194);
-            v200[2] = v196;
-            v200[3] = v197;
-            v194 += 32;
-            v195 += 2;
-            v193 = v199;
-            --v190;
-          }
-
-          while (v190);
-        }
-
-        else
-        {
-          v192 = v20;
-        }
-
-        CGRect.dividedIntegral(fraction:from:)(CGRectMinXEdge, &slice, 0.5, v187.width, v187.height, v188.x, v188.y);
-        v443.width = v467.height;
-        v444.x = v467.width;
-        v441.width = v468.y;
-        v442.x = v468.x;
-        CGRect.dividedIntegral(fraction:from:)(CGRectMinXEdge, &slice, 0.5, slice.origin.x, slice.origin.y, slice.size.width, slice.size.height);
-        v363 = v467;
-        v364 = v468;
-        CGRect.dividedIntegral(fraction:from:)(CGRectMinYEdge, &slice, 0.5, slice.origin.x, slice.origin.y, slice.size.width, slice.size.height);
-        v447.origin = v468;
-        v447.size = v467;
-        v439 = slice.origin;
-        v438 = slice.size;
-        CGRect.dividedIntegral(fraction:from:)(CGRectMinYEdge, &slice, 0.5, v363.width, v363.height, v364.x, v364.y);
-        v445 = slice.size;
-        size = slice.origin;
-        v463 = v468;
-        origin = v467;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo6CGRectVGMd);
-        v365 = swift_allocObject();
-        v366 = v438;
-        *(v365 + 32) = v439;
-        *(v365 + 48) = v366;
-        v367 = v445;
-        *(v365 + 64) = size;
-        *(v365 + 80) = v367;
-        v368 = v447.origin;
-        *(v365 + 96) = v447.size;
-        *(v365 + 112) = v368;
-        v369 = v463;
-        *(v365 + 128) = origin;
-        *(v365 + 144) = v369;
-        if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-        {
-          v22 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(*&v22 + 16) + 1, 1, *&v22));
-        }
-
-        v370 = *(v365 + 32);
-        v371 = *(v365 + 48);
-        v373 = *(*&v22 + 16);
-        v372 = *(*&v22 + 24);
-        v374 = v372 >> 1;
-        v375 = v373 + 1;
-        if (v372 >> 1 <= v373)
-        {
-          v439 = *(v365 + 32);
-          v438 = v371;
-          *&v433 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v372 > 1), v373 + 1, 1, *&v22));
-          v371 = v438;
-          v370 = v439;
-          v22 = *&v433;
-          v372 = *(v433 + 3);
-          v374 = v372 >> 1;
-        }
-
-        *(*&v22 + 16) = v375;
-        v376 = (*&v22 + 32 * v373);
-        v376[2] = v370;
-        v376[3] = v371;
-        v377 = v373 + 2;
-        if (v374 < (v373 + 2))
-        {
-          v22 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v372 > 1), v373 + 2, 1, *&v22));
-        }
-
-        *(*&v22 + 16) = v377;
-        v378 = (*&v22 + 32 * v375);
-        v379 = v445;
-        v378[2] = size;
-        v378[3] = v379;
-        v380 = *(*&v22 + 24);
-        v381 = v373 + 3;
-        if ((v373 + 3) > (v380 >> 1))
-        {
-          v22 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v380 > 1), v373 + 3, 1, *&v22));
-        }
-
-        *(*&v22 + 16) = v381;
-        v382 = (*&v22 + 32 * v377);
-        v383 = v447.origin;
-        *(v382 + 2) = v447.size;
-        *(v382 + 3) = v383;
-        v384 = *(*&v22 + 24);
-        if ((v373 + 4) > (v384 >> 1))
-        {
-          v22 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v384 > 1), v373 + 4, 1, *&v22));
-        }
-
-        *(*&v22 + 16) = v373 + 4;
-        v385 = (*&v22 + 32 * v381);
-        v386 = v463;
-        v385[2] = origin;
-        v385[3] = v386;
-        swift_setDeallocating();
-        swift_deallocClassInstance();
-        CGRect.dividedIntegral(fraction:from:)(CGRectMinYEdge, &slice, 0.5, v444.x, v443.width, v442.x, v441.width);
-        v387 = slice.origin;
-        v388 = slice.size;
-        v389 = v467;
-        v390 = v468;
-        v392 = *(*&v22 + 16);
-        v391 = *(*&v22 + 24);
-        v393 = v391 >> 1;
-        v394 = v392 + 1;
-        if (v391 >> 1 <= v392)
-        {
-          v463 = v467;
-          origin = v468;
-          v447.size = slice.origin;
-          v447.origin = slice.size;
-          *&v434 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v391 > 1), v392 + 1, 1, *&v22));
-          v388 = v447.origin;
-          v387 = v447.size;
-          v390 = origin;
-          v389 = v463;
-          v22 = *&v434;
-          v391 = *(v434 + 3);
-          v393 = v391 >> 1;
-        }
-
-        *(*&v22 + 16) = v394;
-        v395 = (*&v22 + 32 * v392);
-        v395[2] = v387;
-        v395[3] = v388;
-        if (v393 < (v392 + 2))
-        {
-          v463 = v389;
-          origin = v390;
-          *&v435 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v391 > 1), v392 + 2, 1, *&v22));
-          v390 = origin;
-          v389 = v463;
-          v22 = *&v435;
-        }
-
-        *(*&v22 + 16) = v392 + 2;
-        v396 = (*&v22 + 32 * v394);
-        v396[2] = v389;
-        v396[3] = v390;
-        v20 = v192;
-        goto LABEL_188;
-      case 11:
-        CGRect.dividedIntegral(fraction:from:)(CGRectMinYEdge, &slice, 0.5, 0.0, 0.0, v453, v452);
-        v31 = v467;
-        v32 = v468;
-        v33 = specialized MOSuggestionSheetMosaicLayout.firstRowRects(segmentFrame:)(slice.origin.x, slice.origin.y, slice.size.width, slice.size.height);
-        v34 = *(v33 + 2);
-        if (v34)
-        {
-          v35 = v33;
-          v36 = v20;
-          if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-          {
-            v22 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(*&v22 + 16) + 1, 1, *&v22));
-          }
-
-          v37 = *(*&v22 + 16);
-          v38 = 32 * v37;
-          v39 = (v35 + 48);
-          do
-          {
-            v40 = v39[-1];
-            v41 = *v39;
-            v42 = *(*&v22 + 24);
-            v43 = v37 + 1;
-            if (v37 >= v42 >> 1)
-            {
-              v463 = v39[-1];
-              origin = v41;
-              *&v45 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v42 > 1), v37 + 1, 1, *&v22));
-              v41 = origin;
-              v40 = v463;
-              v22 = *&v45;
-            }
-
-            *(*&v22 + 16) = v43;
-            v44 = (*&v22 + v38);
-            v44[2] = v40;
-            v44[3] = v41;
-            v38 += 32;
-            v39 += 2;
-            v37 = v43;
-            --v34;
-          }
-
-          while (v34);
-        }
-
-        else
-        {
-          v36 = v20;
-        }
-
-        CGRect.dividedIntegral(fraction:from:)(CGRectMinXEdge, &slice, 0.5, v31.width, v31.height, v32.x, v32.y);
-        v443.width = v467.height;
-        v444.x = v467.width;
-        v441.width = v468.y;
-        v442.x = v468.x;
-        CGRect.dividedIntegral(fraction:from:)(CGRectMinXEdge, &slice, 0.5, slice.origin.x, slice.origin.y, slice.size.width, slice.size.height);
-        v216 = v467;
-        v217 = v468;
-        CGRect.dividedIntegral(fraction:from:)(CGRectMinYEdge, &slice, 0.5, slice.origin.x, slice.origin.y, slice.size.width, slice.size.height);
-        v447.origin = v468;
-        v447.size = v467;
-        v439 = slice.origin;
-        v438 = slice.size;
-        CGRect.dividedIntegral(fraction:from:)(CGRectMinYEdge, &slice, 0.5, v216.width, v216.height, v217.x, v217.y);
-        v445 = slice.size;
-        size = slice.origin;
-        v463 = v468;
-        origin = v467;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo6CGRectVGMd);
-        v218 = swift_allocObject();
-        v219 = v438;
-        *(v218 + 32) = v439;
-        *(v218 + 48) = v219;
-        v220 = v445;
-        *(v218 + 64) = size;
-        *(v218 + 80) = v220;
-        v221 = v447.origin;
-        *(v218 + 96) = v447.size;
-        *(v218 + 112) = v221;
-        v222 = v463;
-        *(v218 + 128) = origin;
-        *(v218 + 144) = v222;
-        if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-        {
-          v22 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(*&v22 + 16) + 1, 1, *&v22));
-        }
-
-        v223 = *(v218 + 32);
-        v224 = *(v218 + 48);
-        v226 = *(*&v22 + 16);
-        v225 = *(*&v22 + 24);
-        v227 = v225 >> 1;
-        v228 = v226 + 1;
-        if (v225 >> 1 <= v226)
-        {
-          v439 = *(v218 + 32);
-          v438 = v224;
-          *&v424 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v225 > 1), v226 + 1, 1, *&v22));
-          v224 = v438;
-          v223 = v439;
-          v22 = *&v424;
-          v225 = *(v424 + 3);
-          v227 = v225 >> 1;
-        }
-
-        *(*&v22 + 16) = v228;
-        v229 = (*&v22 + 32 * v226);
-        v229[2] = v223;
-        v229[3] = v224;
-        v230 = v226 + 2;
-        if (v227 < (v226 + 2))
-        {
-          v22 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v225 > 1), v226 + 2, 1, *&v22));
-        }
-
-        *(*&v22 + 16) = v230;
-        v231 = (*&v22 + 32 * v228);
-        v232 = v445;
-        v231[2] = size;
-        v231[3] = v232;
-        v233 = *(*&v22 + 24);
-        v234 = v226 + 3;
-        if ((v226 + 3) > (v233 >> 1))
-        {
-          v22 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v233 > 1), v226 + 3, 1, *&v22));
-        }
-
-        *(*&v22 + 16) = v234;
-        v235 = (*&v22 + 32 * v230);
-        v236 = v447.origin;
-        *(v235 + 2) = v447.size;
-        *(v235 + 3) = v236;
-        v237 = *(*&v22 + 24);
-        if ((v226 + 4) > (v237 >> 1))
-        {
-          v22 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v237 > 1), v226 + 4, 1, *&v22));
-        }
-
-        *(*&v22 + 16) = v226 + 4;
-        v238 = (*&v22 + 32 * v234);
-        v239 = v463;
-        v238[2] = origin;
-        v238[3] = v239;
-        swift_setDeallocating();
-        swift_deallocClassInstance();
-        CGRect.dividedIntegral(fraction:from:)(CGRectMinYEdge, &slice, 0.5, v444.x, v443.width, v442.x, v441.width);
-        v463 = v468;
-        origin = v467;
-        CGRect.dividedIntegral(fraction:from:)(CGRectMinXEdge, &slice, 0.5, slice.origin.x, slice.origin.y, slice.size.width, slice.size.height);
-        v240 = slice.origin;
-        v241 = slice.size;
-        v242 = v467;
-        v243 = v468;
-        v245 = *(*&v22 + 16);
-        v244 = *(*&v22 + 24);
-        v246 = v244 >> 1;
-        v247 = v245 + 1;
-        if (v244 >> 1 <= v245)
-        {
-          v447.size = v467;
-          v447.origin = v468;
-          size = slice.origin;
-          v445 = slice.size;
-          *&v425 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v244 > 1), v245 + 1, 1, *&v22));
-          v241 = v445;
-          v240 = size;
-          v243 = v447.origin;
-          v242 = v447.size;
-          v22 = *&v425;
-          v244 = *(v425 + 3);
-          v246 = v244 >> 1;
-        }
-
-        *(*&v22 + 16) = v247;
-        v248 = (*&v22 + 32 * v245);
-        v248[2] = v240;
-        v248[3] = v241;
-        v249 = v245 + 2;
-        if (v246 < (v245 + 2))
-        {
-          v447.size = v242;
-          v447.origin = v243;
-          *&v426 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v244 > 1), v245 + 2, 1, *&v22));
-          v243 = v447.origin;
-          v242 = v447.size;
-          v22 = *&v426;
-        }
-
-        *(*&v22 + 16) = v249;
-        v250 = (*&v22 + 32 * v247);
-        v250[2] = v242;
-        v250[3] = v243;
-        v251 = *(*&v22 + 24);
-        if ((v245 + 3) > (v251 >> 1))
-        {
-          v22 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v251 > 1), v245 + 3, 1, *&v22));
-        }
-
-        *(*&v22 + 16) = v245 + 3;
-        v252 = (*&v22 + 32 * v249);
-        v253 = v463;
-        v252[2] = origin;
-        v252[3] = v253;
-        v20 = v36;
-        goto LABEL_188;
-      case 12:
-        CGRect.dividedIntegral(fraction:from:)(CGRectMinYEdge, &slice, 0.5, 0.0, 0.0, v453, v452);
-        v79 = v467;
-        v80 = v468;
-        v81 = specialized MOSuggestionSheetMosaicLayout.firstRowRects(segmentFrame:)(slice.origin.x, slice.origin.y, slice.size.width, slice.size.height);
-        v82 = *(v81 + 2);
-        if (v82)
-        {
-          v83 = v81;
-          v84 = v20;
-          if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-          {
-            v22 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(*&v22 + 16) + 1, 1, *&v22));
-          }
-
-          v85 = *(*&v22 + 16);
-          v86 = 32 * v85;
-          v87 = (v83 + 48);
-          do
-          {
-            v88 = v87[-1];
-            v89 = *v87;
-            v90 = *(*&v22 + 24);
-            v91 = v85 + 1;
-            if (v85 >= v90 >> 1)
-            {
-              v463 = v87[-1];
-              origin = v89;
-              *&v93 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v90 > 1), v85 + 1, 1, *&v22));
-              v89 = origin;
-              v88 = v463;
-              v22 = *&v93;
-            }
-
-            *(*&v22 + 16) = v91;
-            v92 = (*&v22 + v86);
-            v92[2] = v88;
-            v92[3] = v89;
-            v86 += 32;
-            v87 += 2;
-            v85 = v91;
-            --v82;
-          }
-
-          while (v82);
-        }
-
-        else
-        {
-          v84 = v20;
-        }
-
-        CGRect.dividedIntegral(fraction:from:)(CGRectMinXEdge, &slice, 0.5, v79.width, v79.height, v80.x, v80.y);
-        v443.width = v467.height;
-        v444.x = v467.width;
-        v441.width = v468.y;
-        v442.x = v468.x;
-        CGRect.dividedIntegral(fraction:from:)(CGRectMinXEdge, &slice, 0.5, slice.origin.x, slice.origin.y, slice.size.width, slice.size.height);
-        v254 = v467;
-        v255 = v468;
-        CGRect.dividedIntegral(fraction:from:)(CGRectMinYEdge, &slice, 0.5, slice.origin.x, slice.origin.y, slice.size.width, slice.size.height);
-        v447.origin = v468;
-        v447.size = v467;
-        v439 = slice.origin;
-        v438 = slice.size;
-        CGRect.dividedIntegral(fraction:from:)(CGRectMinYEdge, &slice, 0.5, v254.width, v254.height, v255.x, v255.y);
-        v445 = slice.size;
-        size = slice.origin;
-        v463 = v468;
-        origin = v467;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo6CGRectVGMd);
-        v256 = swift_allocObject();
-        v257 = v438;
-        *(v256 + 32) = v439;
-        *(v256 + 48) = v257;
-        v258 = v445;
-        *(v256 + 64) = size;
-        *(v256 + 80) = v258;
-        v259 = v447.origin;
-        *(v256 + 96) = v447.size;
-        *(v256 + 112) = v259;
-        v260 = v463;
-        *(v256 + 128) = origin;
-        *(v256 + 144) = v260;
-        if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-        {
-          v22 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(*&v22 + 16) + 1, 1, *&v22));
-        }
-
-        v261 = *(v256 + 32);
-        v262 = *(v256 + 48);
-        v264 = *(*&v22 + 16);
-        v263 = *(*&v22 + 24);
-        v265 = v263 >> 1;
-        v266 = v264 + 1;
-        if (v263 >> 1 <= v264)
-        {
-          v439 = *(v256 + 32);
-          v438 = v262;
-          *&v427 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v263 > 1), v264 + 1, 1, *&v22));
-          v262 = v438;
-          v261 = v439;
-          v22 = *&v427;
-          v263 = *(v427 + 3);
-          v265 = v263 >> 1;
-        }
-
-        *(*&v22 + 16) = v266;
-        v267 = (*&v22 + 32 * v264);
-        v267[2] = v261;
-        v267[3] = v262;
-        v268 = v264 + 2;
-        if (v265 < (v264 + 2))
-        {
-          v22 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v263 > 1), v264 + 2, 1, *&v22));
-        }
-
-        *(*&v22 + 16) = v268;
-        v269 = (*&v22 + 32 * v266);
-        v270 = v445;
-        v269[2] = size;
-        v269[3] = v270;
-        v271 = *(*&v22 + 24);
-        v272 = v264 + 3;
-        if ((v264 + 3) > (v271 >> 1))
-        {
-          v22 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v271 > 1), v264 + 3, 1, *&v22));
-        }
-
-        *(*&v22 + 16) = v272;
-        v273 = (*&v22 + 32 * v268);
-        v274 = v447.origin;
-        *(v273 + 2) = v447.size;
-        *(v273 + 3) = v274;
-        v275 = *(*&v22 + 24);
-        if ((v264 + 4) > (v275 >> 1))
-        {
-          v22 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v275 > 1), v264 + 4, 1, *&v22));
-        }
-
-        *(*&v22 + 16) = v264 + 4;
-        v276 = (*&v22 + 32 * v272);
-        v277 = v463;
-        v276[2] = origin;
-        v276[3] = v277;
-        swift_setDeallocating();
-        swift_deallocClassInstance();
-        CGRect.dividedIntegral(fraction:from:)(CGRectMinXEdge, &slice, 0.5, v444.x, v443.width, v442.x, v441.width);
-        v278 = v467;
-        v279 = v468;
-        CGRect.dividedIntegral(fraction:from:)(CGRectMinYEdge, &slice, 0.5, slice.origin.x, slice.origin.y, slice.size.width, slice.size.height);
-        v443 = slice.size;
-        v444 = slice.origin;
-        v447.origin = v468;
-        v447.size = v467;
-        CGRect.dividedIntegral(fraction:from:)(CGRectMinYEdge, &slice, 0.5, v278.width, v278.height, v279.x, v279.y);
-        v445 = slice.size;
-        size = slice.origin;
-        v463 = v468;
-        origin = v467;
-        v280 = swift_allocObject();
-        v281 = v443;
-        v282 = v444;
-        v283 = v445;
-        v284 = size;
-        v285 = v447.origin;
-        v286 = v447.size;
-        v287 = origin;
-        v288 = v463;
-        v280[2] = v444;
-        v280[3] = v281;
-        v280[4] = v284;
-        v280[5] = v283;
-        v280[6] = v286;
-        v280[7] = v285;
-        v280[8] = v287;
-        v280[9] = v288;
-        v290 = *(*&v22 + 16);
-        v289 = *(*&v22 + 24);
-        v291 = v289 >> 1;
-        v292 = v290 + 1;
-        if (v289 >> 1 <= v290)
-        {
-          *&v428 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v289 > 1), v290 + 1, 1, *&v22));
-          v281 = v443;
-          v282 = v444;
-          v283 = v445;
-          v284 = size;
-          v285 = v447.origin;
-          v286 = v447.size;
-          v287 = origin;
-          v288 = v463;
-          v22 = *&v428;
-          v289 = *(v428 + 3);
-          v291 = v289 >> 1;
-        }
-
-        *(*&v22 + 16) = v292;
-        v293 = (*&v22 + 32 * v290);
-        v293[2] = v282;
-        v293[3] = v281;
-        v294 = v290 + 2;
-        if (v291 < (v290 + 2))
-        {
-          *&v429 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v289 > 1), v290 + 2, 1, *&v22));
-          v283 = v445;
-          v284 = size;
-          v285 = v447.origin;
-          v286 = v447.size;
-          v287 = origin;
-          v288 = v463;
-          v22 = *&v429;
-        }
-
-        *(*&v22 + 16) = v294;
-        v295 = (*&v22 + 32 * v292);
-        v295[2] = v284;
-        v295[3] = v283;
-        v296 = *(*&v22 + 24);
-        v297 = v290 + 3;
-        if ((v290 + 3) > (v296 >> 1))
-        {
-          *&v430 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v296 > 1), v290 + 3, 1, *&v22));
-          v285 = v447.origin;
-          v286 = v447.size;
-          v287 = origin;
-          v288 = v463;
-          v22 = *&v430;
-        }
-
-        *(*&v22 + 16) = v297;
-        v298 = (*&v22 + 32 * v294);
-        v298[2] = v286;
-        v298[3] = v285;
-        v299 = *(*&v22 + 24);
-        v300 = v290 + 4;
-        if ((v290 + 4) > (v299 >> 1))
-        {
-          *&v431 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v299 > 1), v300, 1, *&v22));
-          v287 = origin;
-          v288 = v463;
-          v22 = *&v431;
-        }
-
-        *(*&v22 + 16) = v300;
-        v301 = (*&v22 + 32 * v297);
-        v301[2] = v287;
-        v301[3] = v288;
-        swift_setDeallocating();
-        swift_deallocClassInstance();
-        v20 = v84;
-LABEL_188:
-        v12 = *(*&v22 + 16);
-        origin.width = v22;
-        if (v12)
-        {
-          *&v463.x = objc_opt_self();
-          v413 = *((swift_isaMask & *v1) + 0x88);
-          v414 = (*&v22 + 56);
-          while (1)
-          {
-            v26 = *(v414 - 3);
-            v27 = *(v414 - 2);
-            v28 = *(v414 - 1);
-            v29 = *v414;
-            v415 = v461;
-            IndexPath.init(item:section:)();
-            isa = IndexPath._bridgeToObjectiveC()().super.isa;
-            v417 = v20;
-            v418 = [*&v463.x layoutAttributesForCellWithIndexPath:isa];
-
-            (*v456)(v415, v462);
-            [v418 setFrame:{v26, v27, v28, v29}];
-            v419 = v418;
-            v420 = v460(&slice);
-            v422 = v421;
-            specialized Array._makeUniqueAndReserveCapacityIfNotUnique()();
-            if (*((*v422 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((*v422 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
-            {
-              specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
-            }
-
-            specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
-            v423 = v420(&slice, 0);
-            v487.origin.x = v413(v423);
-            v489.origin.x = v21;
-            v489.origin.y = v23;
-            v489.size.width = v24;
-            v489.size.height = v25;
-            v488 = CGRectUnion(v487, v489);
-            v458(v488.origin, *&v488.origin.y, v488.size, *&v488.size.height);
-
-            if (v417 == 0x7FFFFFFFFFFFFFFFLL)
-            {
-              break;
-            }
-
-            v20 = v417 + 1;
-            v414 += 4;
-            v21 = v26;
-            v23 = v27;
-            v24 = v28;
-            v25 = v29;
-            if (!--v12)
-            {
-              goto LABEL_5;
-            }
-          }
-
-          __break(1u);
-LABEL_198:
-
-          return;
-        }
-
-        v26 = v21;
-        v27 = v23;
-        v28 = v24;
-        v29 = v25;
-LABEL_5:
-        v21 = v26;
-        v23 = v27;
-        v24 = v28;
-        v25 = v29;
-        v12 = v451;
-        v19 = v450;
-        v22 = origin.width;
-        if (v20 < v454)
-        {
-          continue;
-        }
-
-LABEL_195:
-
-        return;
-      default:
-        goto LABEL_198;
-    }
-  }
 }

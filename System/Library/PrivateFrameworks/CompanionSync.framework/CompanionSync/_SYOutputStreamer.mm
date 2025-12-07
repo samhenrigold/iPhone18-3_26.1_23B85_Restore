@@ -87,7 +87,7 @@
 
 - (void)writeData:(id)data completion:(id)completion
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   stream = self->_stream;
   dataCopy = data;
@@ -111,9 +111,9 @@
     block[1] = 3221225472;
     block[2] = __42___SYOutputStreamer_writeData_completion___block_invoke;
     block[3] = &unk_1E86CAA90;
-    v25 = completionCopy;
+    v24 = completionCopy;
     dispatch_async(callbackQueue, block);
-    v11 = v25;
+    v11 = v24;
 LABEL_13:
 
     goto LABEL_14;
@@ -135,21 +135,21 @@ LABEL_13:
       v16 = _SYObfuscate(streamError);
       *buf = 138543618;
       selfCopy2 = self;
-      v28 = 2114;
-      v29 = v16;
+      v27 = 2114;
+      v28 = v16;
       _os_log_impl(&dword_1DF835000, v14, OS_LOG_TYPE_DEFAULT, "Streamer %{public}@ writing to a stream in error state. Error = %{public}@", buf, 0x16u);
     }
 
     streamError2 = [(SYCompressedFileOutputStream *)self->_stream streamError];
     v18 = self->_callbackQueue;
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __42___SYOutputStreamer_writeData_completion___block_invoke_59;
-    v21[3] = &unk_1E86CAAB8;
-    v22 = streamError2;
-    v23 = completionCopy;
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __42___SYOutputStreamer_writeData_completion___block_invoke_59;
+    v20[3] = &unk_1E86CAAB8;
+    v21 = streamError2;
+    v22 = completionCopy;
     v11 = streamError2;
-    dispatch_async(v18, v21);
+    dispatch_async(v18, v20);
 
     goto LABEL_13;
   }
@@ -161,57 +161,54 @@ LABEL_14:
   [v19 setCallback:completionCopy];
   [(NSMutableArray *)self->_items addObject:v19];
   dispatch_source_merge_data(self->_source, 1uLL);
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_tryToSendData
 {
-  v13 = *MEMORY[0x1E69E9840];
   v2 = *self;
   v3 = a2;
   streamError = [v2 streamError];
   v5 = _SYObfuscate(streamError);
-  OUTLINED_FUNCTION_4_2(&dword_1DF835000, v6, v7, "Write to output stream failed, stream error=%{public}@.", v8, v9, v10, v11, 2u);
-
-  v12 = *MEMORY[0x1E69E9840];
+  LODWORD(v12) = 138543362;
+  *(&v12 + 4) = v5;
+  OUTLINED_FUNCTION_4_2(&dword_1DF835000, v6, v7, "Write to output stream failed, stream error=%{public}@.", v8, v9, v10, v11, v12, DWORD2(v12));
 }
 
 - (void)_completeAllItemsWithError:(id)error
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   errorCopy = error;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v5 = self->_items;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         callbackQueue = self->_callbackQueue;
-        v14[0] = MEMORY[0x1E69E9820];
-        v14[1] = 3221225472;
-        v14[2] = __48___SYOutputStreamer__completeAllItemsWithError___block_invoke;
-        v14[3] = &unk_1E86C9E90;
-        v14[4] = v10;
-        v15 = errorCopy;
-        dispatch_async(callbackQueue, v14);
+        v13[0] = MEMORY[0x1E69E9820];
+        v13[1] = 3221225472;
+        v13[2] = __48___SYOutputStreamer__completeAllItemsWithError___block_invoke;
+        v13[3] = &unk_1E86C9E90;
+        v13[4] = v10;
+        v14 = errorCopy;
+        dispatch_async(callbackQueue, v13);
       }
 
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
@@ -233,8 +230,6 @@ LABEL_14:
 
     dispatch_async(self->_callbackQueue, _getCompletionBlock);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)whenComplete:(id)complete

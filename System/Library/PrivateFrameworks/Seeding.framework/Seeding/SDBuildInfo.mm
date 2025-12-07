@@ -41,11 +41,10 @@ LABEL_8:
 
 + (void)isFeedbackAssistantAvailable
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
   selfCopy = self;
-  _os_log_error_impl(&dword_22E41E000, a2, OS_LOG_TYPE_ERROR, "Error checking FBA url scheme %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_22E41E000, a2, OS_LOG_TYPE_ERROR, "Error checking FBA url scheme %{public}@", &v2, 0xCu);
 }
 
 @end

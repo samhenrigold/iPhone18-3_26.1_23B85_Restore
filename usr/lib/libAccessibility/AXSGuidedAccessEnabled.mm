@@ -3,7 +3,7 @@
 
 @implementation AXSGuidedAccessEnabled
 
-uint64_t ___AXSGuidedAccessEnabled_block_invoke()
+void *___AXSGuidedAccessEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

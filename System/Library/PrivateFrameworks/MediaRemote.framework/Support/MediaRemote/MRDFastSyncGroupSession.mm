@@ -54,37 +54,32 @@
 
 - (NSString)identifier
 {
-  v2 = *(self + OBJC_IVAR___MRDFastSyncGroupSession_identifier);
-  v3 = *(self + OBJC_IVAR___MRDFastSyncGroupSession_identifier + 8);
 
-  v4 = String._bridgeToObjectiveC()();
+  v2 = String._bridgeToObjectiveC()();
 
-  return v4;
+  return v2;
 }
 
 + (id)createSessionWithNearbyGroup:(id)group asUser:(id)user delegate:(id)delegate
 {
-  v7 = *(group + OBJC_IVAR____TtC12mediaremoted14MRDNearbyGroup_nearbyGroup);
-  v8 = *((swift_isaMask & *group) + 0x68);
+  v7 = *((swift_isaMask & *group) + 0x68);
   groupCopy = group;
   userCopy = user;
   swift_unknownObjectRetain();
 
-  v12 = v8(v11);
-  v14 = v13;
+  v11 = v7(v10);
+  v13 = v12;
   type metadata accessor for RemoteControlActivity();
-  v15 = swift_allocObject();
-  *(v15 + 16) = v12;
-  *(v15 + 24) = v14;
-  v16 = sub_1001BC5A8(&qword_100522160, &unk_10044F580);
-  v17 = *(v16 + 48);
-  v18 = *(v16 + 52);
+  v14 = swift_allocObject();
+  *(v14 + 16) = v11;
+  *(v14 + 24) = v13;
+  sub_1001BC5A8(&qword_100522160, &unk_10044F580);
   swift_allocObject();
-  v19 = NearbyGroupSessionProvider.init(nearbyGroup:activity:)();
-  v20 = objc_allocWithZone(type metadata accessor for MRDFastSyncGroupSession());
-  v21 = sub_1001E7E74(1, userCopy, v19, delegate);
+  v15 = NearbyGroupSessionProvider.init(nearbyGroup:activity:)();
+  v16 = objc_allocWithZone(type metadata accessor for MRDFastSyncGroupSession());
+  v17 = sub_1001E7E74(1, userCopy, v15, delegate);
 
-  return v21;
+  return v17;
 }
 
 + (id)joinSessionWithNearbyGroup:(id)group asUser:(id)user hostSigningKey:(id)key delegate:(id)delegate
@@ -96,24 +91,21 @@
   v12 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
   sub_1001C4034(v12, v13);
 
-  v14 = *(groupCopy + OBJC_IVAR____TtC12mediaremoted14MRDNearbyGroup_nearbyGroup);
-  v15 = *((swift_isaMask & *groupCopy) + 0x68);
+  v14 = *((swift_isaMask & *groupCopy) + 0x68);
 
-  v17 = v15(v16);
-  v19 = v18;
+  v16 = v14(v15);
+  v18 = v17;
   type metadata accessor for RemoteControlActivity();
-  v20 = swift_allocObject();
-  *(v20 + 16) = v17;
-  *(v20 + 24) = v19;
-  v21 = sub_1001BC5A8(&qword_100522160, &unk_10044F580);
-  v22 = *(v21 + 48);
-  v23 = *(v21 + 52);
+  v19 = swift_allocObject();
+  *(v19 + 16) = v16;
+  *(v19 + 24) = v18;
+  sub_1001BC5A8(&qword_100522160, &unk_10044F580);
   swift_allocObject();
-  v24 = NearbyGroupSessionProvider.init(nearbyGroup:activity:)();
-  v25 = objc_allocWithZone(type metadata accessor for MRDFastSyncGroupSession());
-  v26 = sub_1001E7E74(0, userCopy, v24, delegate);
+  v20 = NearbyGroupSessionProvider.init(nearbyGroup:activity:)();
+  v21 = objc_allocWithZone(type metadata accessor for MRDFastSyncGroupSession());
+  v22 = sub_1001E7E74(0, userCopy, v20, delegate);
 
-  return v26;
+  return v22;
 }
 
 + (id)stateToString:(int64_t)string

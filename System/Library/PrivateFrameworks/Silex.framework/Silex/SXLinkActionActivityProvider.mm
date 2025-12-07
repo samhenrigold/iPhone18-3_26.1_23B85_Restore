@@ -44,7 +44,7 @@
 
   v10 = [[SXActionActivityGroup alloc] initWithTitle:absoluteString];
   v11 = [SXBlockActionActivity alloc];
-  v12 = SXBundle();
+  v12 = SXBundle(v11);
   v13 = [v12 localizedStringForKey:@"SXLinkActionOpen" value:&stru_1F532F6C0 table:0];
   v43[0] = MEMORY[0x1E69E9820];
   v43[1] = 3221225472;
@@ -64,7 +64,7 @@
     if (v18)
     {
       v19 = [SXBlockActionActivity alloc];
-      v20 = SXBundle();
+      v20 = SXBundle(v19);
       v21 = [v20 localizedStringForKey:@"Open In New Window" value:&stru_1F532F6C0 table:0];
       v42[0] = MEMORY[0x1E69E9820];
       v42[1] = 3221225472;
@@ -87,7 +87,7 @@
   if (v25)
   {
     v26 = [SXBlockActionActivity alloc];
-    v27 = SXBundle();
+    v27 = SXBundle(v26);
     v28 = [v27 localizedStringForKey:@"Open in Safari" value:&stru_1F532F6C0 table:0];
     v41[0] = MEMORY[0x1E69E9820];
     v41[1] = 3221225472;
@@ -105,7 +105,7 @@
   if (v32)
   {
     v33 = [SXPasteboardActionActivity alloc];
-    v34 = SXBundle();
+    v34 = SXBundle(v33);
     v35 = [v34 localizedStringForKey:@"Copy Link" value:&stru_1F532F6C0 table:0];
     generalPasteboard = [MEMORY[0x1E69DCD50] generalPasteboard];
     v37 = [actionCopy URL];

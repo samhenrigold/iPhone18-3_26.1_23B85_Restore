@@ -31,13 +31,12 @@
 
 void __65__ATXUserEducationSuggestionFocusModeSetupTrigger_sharedInstance__block_invoke(uint64_t a1)
 {
-  v2 = objc_autoreleasePoolPush();
-  v3 = *(a1 + 32);
-  v4 = objc_opt_new();
-  v5 = sharedInstance__pasExprOnceResult_42;
-  sharedInstance__pasExprOnceResult_42 = v4;
+  v1 = objc_autoreleasePoolPush();
+  v2 = objc_opt_new();
+  v3 = sharedInstance__pasExprOnceResult_42;
+  sharedInstance__pasExprOnceResult_42 = v2;
 
-  objc_autoreleasePoolPop(v2);
+  objc_autoreleasePoolPop(v1);
 }
 
 - (ATXUserEducationSuggestionFocusModeSetupTrigger)init
@@ -57,48 +56,47 @@ void __65__ATXUserEducationSuggestionFocusModeSetupTrigger_sharedInstance__block
     queue = v2->_queue;
     v2->_queue = v6;
 
-    v8 = __atxlog_handle_context_user_education_suggestions();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = __atxlog_handle_context_user_education_suggestions(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
       v24 = "[ATXUserEducationSuggestionFocusModeSetupTrigger init]";
-      _os_log_impl(&dword_2263AA000, v8, OS_LOG_TYPE_DEFAULT, "%s: Registering for real time inferred mode change events", buf, 0xCu);
+      _os_log_impl(&dword_2263AA000, v9, OS_LOG_TYPE_DEFAULT, "%s: Registering for real time inferred mode change events", buf, 0xCu);
     }
 
-    v9 = [objc_alloc(MEMORY[0x277CF1918]) initWithIdentifier:@"FocusModes.ATXUserEducationSuggestionFocusModeSetupServer" targetQueue:v2->_queue];
+    v10 = [objc_alloc(MEMORY[0x277CF1918]) initWithIdentifier:@"FocusModes.ATXUserEducationSuggestionFocusModeSetupServer" targetQueue:v2->_queue];
     inferredModeScheduler = v2->_inferredModeScheduler;
-    v2->_inferredModeScheduler = v9;
+    v2->_inferredModeScheduler = v10;
 
     objc_initWeak(buf, v2);
-    v11 = BiomeLibrary();
-    userFocus = [v11 UserFocus];
+    v12 = BiomeLibrary();
+    userFocus = [v12 UserFocus];
     inferredMode = [userFocus InferredMode];
 
     atx_DSLPublisher = [inferredMode atx_DSLPublisher];
-    v15 = [atx_DSLPublisher subscribeOn:v2->_inferredModeScheduler];
+    v16 = [atx_DSLPublisher subscribeOn:v2->_inferredModeScheduler];
     v20[0] = MEMORY[0x277D85DD0];
     v20[1] = 3221225472;
     v20[2] = __55__ATXUserEducationSuggestionFocusModeSetupTrigger_init__block_invoke_23;
     v20[3] = &unk_2785977D8;
     objc_copyWeak(&v21, buf);
-    v16 = [v15 sinkWithCompletion:&__block_literal_global_195 receiveInput:v20];
+    v17 = [v16 sinkWithCompletion:&__block_literal_global_195 receiveInput:v20];
     inferredModeStreamSink = v2->_inferredModeStreamSink;
-    v2->_inferredModeStreamSink = v16;
+    v2->_inferredModeStreamSink = v17;
 
     objc_destroyWeak(&v21);
     objc_destroyWeak(buf);
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 void __55__ATXUserEducationSuggestionFocusModeSetupTrigger_init__block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = [v2 state];
-  v4 = __atxlog_handle_context_user_education_suggestions();
+  v4 = __atxlog_handle_context_user_education_suggestions(v3);
   v5 = v4;
   if (v3)
   {
@@ -110,12 +108,10 @@ void __55__ATXUserEducationSuggestionFocusModeSetupTrigger_init__block_invoke(ui
 
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315138;
-    v8 = "[ATXUserEducationSuggestionFocusModeSetupTrigger init]_block_invoke";
-    _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_DEFAULT, "%s: ATXUserEducationSuggestionFocusModeSetupTrigger: Successfully completed listening to inferred mode change events for FocusModeSetupTrigger", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "[ATXUserEducationSuggestionFocusModeSetupTrigger init]_block_invoke";
+    _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_DEFAULT, "%s: ATXUserEducationSuggestionFocusModeSetupTrigger: Successfully completed listening to inferred mode change events for FocusModeSetupTrigger", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __55__ATXUserEducationSuggestionFocusModeSetupTrigger_init__block_invoke_23(uint64_t a1, void *a2)
@@ -154,34 +150,34 @@ void __55__ATXUserEducationSuggestionFocusModeSetupTrigger_init__block_invoke_23
 
 - (BOOL)modeIsEligibleForSetupPrediction:(unint64_t)prediction
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v4 = allModesForModeSetupPrediction();
-  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        if ([*(*(&v12 + 1) + 8 * i) unsignedIntegerValue] == prediction)
+        if ([*(*(&v11 + 1) + 8 * i) unsignedIntegerValue] == prediction)
         {
           v9 = 1;
           goto LABEL_11;
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v6)
       {
         continue;
@@ -194,7 +190,6 @@ void __55__ATXUserEducationSuggestionFocusModeSetupTrigger_init__block_invoke_23
   v9 = 0;
 LABEL_11:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -244,7 +239,7 @@ LABEL_11:
   v9 = [v8 sinkWithCompletion:v14 receiveInput:v13];
   if (*(v16[0] + 40))
   {
-    v10 = __atxlog_handle_context_user_education_suggestions();
+    v10 = __atxlog_handle_context_user_education_suggestions(v9);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [(ATXUserEducationSuggestionFocusModeSetupTrigger *)v16 modeHasPassedPastInferenceTest:v10];
@@ -313,41 +308,40 @@ void __82__ATXUserEducationSuggestionFocusModeSetupTrigger_modeHasPassedPastInfe
 
 - (void)processNewInferredModeEvent:(id)event
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   v5 = self->_observers;
   objc_sync_enter(v5);
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v6 = self->_observers;
-  v7 = [(NSHashTable *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v7 = [(NSHashTable *)v6 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v7)
   {
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        [*(*(&v11 + 1) + 8 * v9++) processNewInferredModeEvent:{eventCopy, v11}];
+        [*(*(&v10 + 1) + 8 * v9++) processNewInferredModeEvent:{eventCopy, v10}];
       }
 
       while (v7 != v9);
-      v7 = [(NSHashTable *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [(NSHashTable *)v6 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
 
   objc_sync_exit(v5);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerObserver:(id)observer
@@ -405,25 +399,22 @@ void __82__ATXUserEducationSuggestionFocusModeSetupTrigger_modeHasPassedPastInfe
 
 void __55__ATXUserEducationSuggestionFocusModeSetupTrigger_init__block_invoke_cold_1(void *a1, NSObject *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = [a1 error];
-  v5 = 136315394;
-  v6 = "[ATXUserEducationSuggestionFocusModeSetupTrigger init]_block_invoke";
-  v7 = 2112;
-  v8 = v3;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "%s: ATXUserEducationSuggestionFocusModeSetupTrigger: Error listening to inferred mode change events: %@", &v5, 0x16u);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 136315394;
+  v5 = "[ATXUserEducationSuggestionFocusModeSetupTrigger init]_block_invoke";
+  v6 = 2112;
+  v7 = v3;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "%s: ATXUserEducationSuggestionFocusModeSetupTrigger: Error listening to inferred mode change events: %@", &v4, 0x16u);
 }
 
 - (void)modeHasPassedPastInferenceTest:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *(*a1 + 40);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXUserEducationSuggestionFocusModeSetupTrigger: Could not fetch inferred mode stream with error: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXUserEducationSuggestionFocusModeSetupTrigger: Could not fetch inferred mode stream with error: %@", &v3, 0xCu);
 }
 
 @end

@@ -192,97 +192,95 @@
 
   if (v14)
   {
-    v15 = objc_alloc_init(MEMORY[0x277CBE428]);
-    [v15 setEntity:v14];
-    [v15 setReturnsObjectsAsFaults:0];
+    v16 = objc_alloc_init(MEMORY[0x277CBE428]);
+    [v16 setEntity:v14];
+    [v16 setReturnsObjectsAsFaults:0];
     if (predicateCopy)
     {
-      [v15 setPredicate:predicateCopy];
+      [v16 setPredicate:predicateCopy];
     }
 
     if (descriptorCopy)
     {
-      v16 = [MEMORY[0x277CBEA60] arrayWithObject:descriptorCopy];
-      [v15 setSortDescriptors:v16];
+      v17 = [MEMORY[0x277CBEA60] arrayWithObject:descriptorCopy];
+      [v16 setSortDescriptors:v17];
     }
 
-    v17 = MEMORY[0x277CCACA8];
+    v18 = MEMORY[0x277CCACA8];
     predicateFormat = [predicateCopy predicateFormat];
-    v19 = [descriptorCopy key];
-    v20 = [v17 stringWithFormat:@"%@:%@:%@%d", namedCopy, predicateFormat, v19, objc_msgSend(descriptorCopy, "ascending")];
+    v20 = [descriptorCopy key];
+    v21 = [v18 stringWithFormat:@"%@:%@:%@%d", namedCopy, predicateFormat, v20, objc_msgSend(descriptorCopy, "ascending")];
 
-    v21 = [(NSCache *)self->_cache objectForKey:v20];
-    if (!v21)
+    v22 = [(NSCache *)self->_cache objectForKey:v21];
+    if (!v22)
     {
       managedObjectContext2 = [(ACDDatabaseConnection *)self managedObjectContext];
       v40 = 0;
-      v21 = [managedObjectContext2 executeFetchRequest:v15 error:&v40];
-      v23 = v40;
+      v22 = [managedObjectContext2 executeFetchRequest:v16 error:&v40];
+      v24 = v40;
 
-      if (v21)
+      if (v22)
       {
-        v32 = v23;
-        v33 = v20;
+        v32 = v24;
+        v33 = v21;
         v34 = predicateCopy;
         v35 = namedCopy;
         v38 = 0u;
         v39 = 0u;
         v36 = 0u;
         v37 = 0u;
-        v21 = v21;
-        v24 = [v21 countByEnumeratingWithState:&v36 objects:v41 count:16];
-        if (v24)
+        v22 = v22;
+        v25 = [v22 countByEnumeratingWithState:&v36 objects:v41 count:16];
+        if (v25)
         {
-          v25 = v24;
-          v26 = *v37;
+          v26 = v25;
+          v27 = *v37;
           do
           {
-            for (i = 0; i != v25; ++i)
+            for (i = 0; i != v26; ++i)
             {
-              if (*v37 != v26)
+              if (*v37 != v27)
               {
-                objc_enumerationMutation(v21);
+                objc_enumerationMutation(v22);
               }
 
-              v28 = *(*(&v36 + 1) + 8 * i);
+              v29 = *(*(&v36 + 1) + 8 * i);
               managedObjectContext3 = [(ACDDatabaseConnection *)self managedObjectContext];
-              [managedObjectContext3 refreshObject:v28 mergeChanges:1];
+              [managedObjectContext3 refreshObject:v29 mergeChanges:1];
             }
 
-            v25 = [v21 countByEnumeratingWithState:&v36 objects:v41 count:16];
+            v26 = [v22 countByEnumeratingWithState:&v36 objects:v41 count:16];
           }
 
-          while (v25);
+          while (v26);
         }
 
-        v20 = v33;
-        [(NSCache *)self->_cache setObject:v21 forKey:v33];
+        v21 = v33;
+        [(NSCache *)self->_cache setObject:v22 forKey:v33];
         predicateCopy = v34;
         namedCopy = v35;
-        v23 = v32;
+        v24 = v32;
       }
 
       else
       {
-        [(ACDDatabaseConnection *)self _handleManagedObjectContextError:v23];
+        [(ACDDatabaseConnection *)self _handleManagedObjectContextError:v24];
       }
     }
   }
 
   else
   {
-    v15 = _ACDLogSystem();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = _ACDLogSystem(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [ACDDatabaseConnection fetchObjectsForEntityNamed:withPredicate:sortDescriptor:prefetchKeypaths:];
     }
 
-    v21 = 0;
+    v22 = 0;
   }
 
-  v30 = *MEMORY[0x277D85DE8];
-
-  return v21;
+  return v22;
 }
 
 - (id)objectForObjectURI:(id)i
@@ -316,19 +314,19 @@
   if (v7)
   {
     managedObjectContext2 = [(ACDDatabaseConnection *)self managedObjectContext];
-    v16 = 0;
-    v9 = [managedObjectContext2 existingObjectWithID:v7 error:&v16];
-    v10 = v16;
+    v17 = 0;
+    v9 = [managedObjectContext2 existingObjectWithID:v7 error:&v17];
+    v10 = v17;
 
     if (!v9)
     {
-      [(ACDDatabaseConnection *)self _handleManagedObjectContextError:v10];
+      v11 = [(ACDDatabaseConnection *)self _handleManagedObjectContextError:v10];
     }
 
     if (v10)
     {
-      v11 = _ACDLogSystem();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = _ACDLogSystem(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         [ACDDatabaseConnection existingObjectWithURI:];
       }
@@ -336,9 +334,9 @@
 
     managedObjectContext3 = [(ACDDatabaseConnection *)self managedObjectContext];
     deletedObjects = [managedObjectContext3 deletedObjects];
-    v14 = [deletedObjects containsObject:v9];
+    v15 = [deletedObjects containsObject:v9];
 
-    if (v14)
+    if (v15)
     {
 
       v9 = 0;
@@ -390,41 +388,42 @@
 
   if ([v9 count])
   {
-    if ([v9 count] >= 2)
+    v10 = [v9 count];
+    if (v10 >= 2)
     {
-      v10 = _ACDLogSystem();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = _ACDLogSystem(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        [(ACDDatabaseConnection *)keyCopy _accountPropertyWithKey:ownerCopy owner:v10];
+        [(ACDDatabaseConnection *)keyCopy _accountPropertyWithKey:ownerCopy owner:v11];
       }
 
       if ([v9 count] >= 2)
       {
-        v11 = 1;
+        v12 = 1;
         do
         {
-          v12 = [v9 objectAtIndexedSubscript:v11];
-          [(ACDDatabaseConnection *)self deleteObject:v12];
+          v13 = [v9 objectAtIndexedSubscript:v12];
+          [(ACDDatabaseConnection *)self deleteObject:v13];
 
-          v13 = [v9 objectAtIndexedSubscript:v11];
-          [ownerCopy removeCustomPropertiesObject:v13];
+          v14 = [v9 objectAtIndexedSubscript:v12];
+          [ownerCopy removeCustomPropertiesObject:v14];
 
-          ++v11;
+          ++v12;
         }
 
-        while ([v9 count] > v11);
+        while ([v9 count] > v12);
       }
     }
 
-    v14 = [v9 objectAtIndexedSubscript:0];
+    v15 = [v9 objectAtIndexedSubscript:0];
   }
 
   else
   {
-    v14 = 0;
+    v15 = 0;
   }
 
-  return v14;
+  return v15;
 }
 
 - (id)insertNewObjectForEntityForName:(id)name
@@ -509,19 +508,20 @@ LABEL_5:
   v14[0] = 0;
   v8 = [(NSManagedObjectContext *)managedObjectContext save:v14];
   v9 = v14[0];
+  v10 = v9;
   if (v9)
   {
-    v10 = _ACDLogSystem();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = _ACDLogSystem(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [ACDDatabaseConnection saveWithError:v9 rollbackOnFailure:v10];
+      [ACDDatabaseConnection saveWithError:v10 rollbackOnFailure:v11];
     }
 
-    [(ACDDatabaseConnection *)self _handleManagedObjectContextError:v9];
+    [(ACDDatabaseConnection *)self _handleManagedObjectContextError:v10];
     if (error)
     {
-      v11 = v9;
-      *error = v9;
+      v12 = v10;
+      *error = v10;
     }
 
     if (failureCopy)
@@ -532,7 +532,6 @@ LABEL_5:
 
   [(NSCache *)self->_cache removeAllObjects];
 
-  v12 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -589,32 +588,32 @@ void __81__ACDDatabaseConnection__setupManagedObjectContextWithPersistentStoreCo
 
 - (void)_traceDatabaseEvents
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = +[ACDEventLedger sharedLedger];
   _managedObjectContextModificationDescription = [(ACDDatabaseConnection *)self _managedObjectContextModificationDescription];
   [v3 recordEvent:_managedObjectContextModificationDescription];
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   deletedObjects = [(NSManagedObjectContext *)self->_managedObjectContext deletedObjects];
-  v6 = [deletedObjects countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v6 = [deletedObjects countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v23;
+    v8 = *v22;
     do
     {
       v9 = 0;
       do
       {
-        if (*v23 != v8)
+        if (*v22 != v8)
         {
           objc_enumerationMutation(deletedObjects);
         }
 
-        v10 = *(*(&v22 + 1) + 8 * v9);
+        v10 = *(*(&v21 + 1) + 8 * v9);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -644,13 +643,11 @@ void __81__ACDDatabaseConnection__setupManagedObjectContextWithPersistentStoreCo
       }
 
       while (v7 != v9);
-      v7 = [deletedObjects countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v7 = [deletedObjects countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v7);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_managedObjectContextModificationDescription
@@ -898,52 +895,24 @@ void __50__ACDDatabaseConnection__setupMemoryNotifications__block_invoke(uint64_
   [v0 handleFailureInMethod:@"version" object:? file:? lineNumber:? description:?];
 }
 
-- (void)fetchObjectsForEntityNamed:withPredicate:sortDescriptor:prefetchKeypaths:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_15(&dword_221D2F000, v0, v1, "Got nil entityDescription for %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)existingObjectWithURI:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_15(&dword_221D2F000, v0, v1, "[ACDDatabaseConnection existingObjectWithURI:] called with an invalid URI %@. ", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)existingObjectWithURI:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_15(&dword_221D2F000, v0, v1, "[ACDDatabaseConnection existingObjectWithURI:] failed to fetch managed object at %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)_accountPropertyWithKey:(NSObject *)a3 owner:.cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = [a2 objectID];
   v6 = [v5 URIRepresentation];
-  v8 = 138412546;
-  v9 = a1;
-  v10 = 2112;
-  v11 = v6;
-  _os_log_error_impl(&dword_221D2F000, a3, OS_LOG_TYPE_ERROR, "There are more than one account property with the key '%@' for object '%@'. Deleting duplicates...", &v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 138412546;
+  v8 = a1;
+  v9 = 2112;
+  v10 = v6;
+  _os_log_error_impl(&dword_221D2F000, a3, OS_LOG_TYPE_ERROR, "There are more than one account property with the key '%@' for object '%@'. Deleting duplicates...", &v7, 0x16u);
 }
 
 - (void)saveWithError:(void *)a1 rollbackOnFailure:(NSObject *)a2 .cold.1(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v3 = [a1 localizedDescription];
   OUTLINED_FUNCTION_4();
-  _os_log_error_impl(&dword_221D2F000, a2, OS_LOG_TYPE_ERROR, "Could not save context: %@", v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_221D2F000, a2, OS_LOG_TYPE_ERROR, "Could not save context: %@", v4, 0xCu);
 }
 
 - (void)_managedObjectContextDidSave:.cold.1()

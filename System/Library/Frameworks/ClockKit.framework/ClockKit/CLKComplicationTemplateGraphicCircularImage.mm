@@ -85,7 +85,7 @@ void __93__CLKComplicationTemplateGraphicCircularImage__enumerateFullColorImageP
   qword_27DE91AE0 = v3;
   [v5 setNewestAllowedSizeClass:&unk_284A34128];
   [v5 scaledValue:3 withOverride:42.0 forSizeClass:47.0];
-  _enumerateFullColorImageProviderKeysWithBlock___imageDiameter_1289 = v4;
+  _enumerateFullColorImageProviderKeysWithBlock___imageDiameter_1289[0] = v4;
 }
 
 @end

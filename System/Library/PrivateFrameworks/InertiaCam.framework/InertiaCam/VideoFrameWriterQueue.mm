@@ -224,7 +224,7 @@ LABEL_5:
             v6 = v5;
             inputAdaptor = self->inputAdaptor;
             pixelBuffer = [v5 pixelBuffer];
-            [v6 frameTime];
+            objc_msgSend_frameTime(v6);
             LOBYTE(inputAdaptor) = [(AVAssetWriterInputPixelBufferAdaptor *)inputAdaptor appendPixelBuffer:pixelBuffer withPresentationTime:v14];
             WeakRetained = objc_loadWeakRetained(&self->frameWriterUpdateCallback);
             [WeakRetained updateCallbackForFrameIndex:-[VideoFrameWriterQueue nextFrameIndex](self withPixelBuffer:{"nextFrameIndex"), objc_msgSend(v6, "pixelBuffer")}];

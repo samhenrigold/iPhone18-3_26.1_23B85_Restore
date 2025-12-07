@@ -8,45 +8,45 @@
 
 - (id)floatMatrixWithEntities:(id)entities progressReporter:(id)reporter error:(id *)error
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   entitiesCopy = entities;
   reporterCopy = reporter;
-  v35 = entitiesCopy;
+  v34 = entitiesCopy;
   if (![reporterCopy isCancelledWithProgress:0.0])
   {
     v10 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v51 = 0u;
     v52 = 0u;
     v53 = 0u;
     v54 = 0u;
-    v55 = 0u;
     v11 = entitiesCopy;
-    v12 = [v11 countByEnumeratingWithState:&v52 objects:v64 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v51 objects:v63 count:16];
     if (v12)
     {
-      v13 = *v53;
+      v13 = *v52;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v53 != v13)
+          if (*v52 != v13)
           {
             objc_enumerationMutation(v11);
           }
 
-          [v10 addObject:*(*(&v52 + 1) + 8 * i)];
+          [v10 addObject:*(*(&v51 + 1) + 8 * i)];
         }
 
-        v12 = [v11 countByEnumeratingWithState:&v52 objects:v64 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v51 objects:v63 count:16];
       }
 
       while (v12);
     }
 
-    v40 = [v10 count];
+    v39 = [v10 count];
     featureNames = [(MARelationCollectionFeatureExtractor *)self featureNames];
-    v38 = [featureNames count];
+    v37 = [featureNames count];
 
-    v16 = [(MAFloatMatrix *)MAMutableFloatMatrix zerosWithRows:v40 columns:v38];
+    v16 = [(MAFloatMatrix *)MAMutableFloatMatrix zerosWithRows:v39 columns:v37];
     firstObject = [v10 firstObject];
     graph = [firstObject graph];
 
@@ -60,48 +60,48 @@ LABEL_46:
     }
 
     *buf = 0;
-    *&v62 = buf;
-    *(&v62 + 1) = 0x2020000000;
-    v63 = 0;
+    *&v61 = buf;
+    *(&v61 + 1) = 0x2020000000;
+    v62 = 0;
+    v47 = 0u;
     v48 = 0u;
     v49 = 0u;
     v50 = 0u;
-    v51 = 0u;
     obj = v10;
-    v18 = [obj countByEnumeratingWithState:&v48 objects:v60 count:16];
+    v18 = [obj countByEnumeratingWithState:&v47 objects:v59 count:16];
     if (v18)
     {
       v20 = 0;
-      v39 = 0;
-      v42 = *v49;
+      v38 = 0;
+      v41 = *v48;
       v21 = MEMORY[0x277D86220];
       *&v19 = 67109378;
-      v33 = v19;
+      v32 = v19;
 LABEL_15:
-      v41 = v18;
+      v40 = v18;
       v22 = 0;
       while (1)
       {
-        if (*v49 != v42)
+        if (*v48 != v41)
         {
           objc_enumerationMutation(obj);
         }
 
-        v23 = [MANodeCollection nodesRelatedToNodes:*(*(&v48 + 1) + 8 * v22) withRelation:self->_relation, v33];
-        v43[0] = MEMORY[0x277D85DD0];
-        v43[1] = 3221225472;
-        v43[2] = __87__MARelationCollectionFeatureExtractor_floatMatrixWithEntities_progressReporter_error___block_invoke;
-        v43[3] = &unk_2797FDDC8;
-        v43[4] = self;
-        v45 = buf;
+        v23 = [MANodeCollection nodesRelatedToNodes:*(*(&v47 + 1) + 8 * v22) withRelation:self->_relation, v32];
+        v42[0] = MEMORY[0x277D85DD0];
+        v42[1] = 3221225472;
+        v42[2] = __87__MARelationCollectionFeatureExtractor_floatMatrixWithEntities_progressReporter_error___block_invoke;
+        v42[3] = &unk_2797FDDC8;
+        v42[4] = self;
+        v44 = buf;
         errorCopy = error;
         v16 = v16;
-        v44 = v16;
-        v47 = v20;
-        [v23 enumerateNodesUsingBlock:v43];
+        v43 = v16;
+        v46 = v20;
+        [v23 enumerateNodesUsingBlock:v42];
         if (*error)
         {
-          v24 = [(MAFloatMatrix *)MAMutableFloatMatrix zerosWithRows:v40 columns:v38];
+          v24 = [(MAFloatMatrix *)MAMutableFloatMatrix zerosWithRows:v39 columns:v37];
 
           v25 = 0;
           v26 = 6;
@@ -116,10 +116,10 @@ LABEL_15:
             {
               featureNameIndexCache = [(MARelationCollectionFeatureExtractor *)self featureNameIndexCache];
               v29 = [featureNameIndexCache indexOfLabel:self->_labelForEmptyRelation];
-              *(v62 + 24) = v29;
+              *(v61 + 24) = v29;
 
               v21 = MEMORY[0x277D86220];
-              if (*(v62 + 24) != 0x7FFFFFFFFFFFFFFFLL)
+              if (*(v61 + 24) != 0x7FFFFFFFFFFFFFFFLL)
               {
                 LODWORD(v30) = 1.0;
                 [v16 setFloat:v20 atRow:v30 column:?];
@@ -128,27 +128,27 @@ LABEL_15:
           }
 
           ++v20;
-          if ((v39 & 1) != 0 || [reporterCopy isCancelledWithProgress:v20 / v40])
+          if ((v38 & 1) != 0 || [reporterCopy isCancelledWithProgress:v20 / v39])
           {
             v27 = v21;
             v26 = 1;
             if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
             {
-              *v56 = v33;
-              v57 = 122;
-              v58 = 2080;
-              v59 = "/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/photoanalysis/PhotosGraph/Modules/Matisse/Framework/Learning/Feature Extraction/MARelationFeatureExtractor.m";
-              _os_log_impl(&dword_255870000, v27, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v56, 0x12u);
+              *v55 = v32;
+              v56 = 122;
+              v57 = 2080;
+              v58 = "/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/photoanalysis/PhotosGraph/Modules/Matisse/Framework/Learning/Feature Extraction/MARelationFeatureExtractor.m";
+              _os_log_impl(&dword_255870000, v27, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v55, 0x12u);
             }
 
             v25 = 0;
-            v39 = 1;
+            v38 = 1;
           }
 
           else
           {
             v26 = 0;
-            v39 = 0;
+            v38 = 0;
             v25 = 1;
           }
         }
@@ -160,9 +160,9 @@ LABEL_15:
 
         ++v22;
         v21 = MEMORY[0x277D86220];
-        if (v41 == v22)
+        if (v40 == v22)
         {
-          v18 = [obj countByEnumeratingWithState:&v48 objects:v60 count:16];
+          v18 = [obj countByEnumeratingWithState:&v47 objects:v59 count:16];
           if (v18)
           {
             goto LABEL_15;
@@ -178,7 +178,7 @@ LABEL_15:
       }
 
 LABEL_36:
-      if ((v39 & 1) == 0)
+      if ((v38 & 1) == 0)
       {
         goto LABEL_40;
       }
@@ -200,11 +200,11 @@ LABEL_45:
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
-      *v56 = 67109378;
-      v57 = 125;
-      v58 = 2080;
-      v59 = "/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/photoanalysis/PhotosGraph/Modules/Matisse/Framework/Learning/Feature Extraction/MARelationFeatureExtractor.m";
-      _os_log_impl(&dword_255870000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v56, 0x12u);
+      *v55 = 67109378;
+      v56 = 125;
+      v57 = 2080;
+      v58 = "/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/photoanalysis/PhotosGraph/Modules/Matisse/Framework/Learning/Feature Extraction/MARelationFeatureExtractor.m";
+      _os_log_impl(&dword_255870000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v55, 0x12u);
     }
 
 LABEL_43:
@@ -216,15 +216,13 @@ LABEL_43:
   {
     *buf = 67109378;
     *&buf[4] = 66;
-    LOWORD(v62) = 2080;
-    *(&v62 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/photoanalysis/PhotosGraph/Modules/Matisse/Framework/Learning/Feature Extraction/MARelationFeatureExtractor.m";
+    LOWORD(v61) = 2080;
+    *(&v61 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/photoanalysis/PhotosGraph/Modules/Matisse/Framework/Learning/Feature Extraction/MARelationFeatureExtractor.m";
     _os_log_impl(&dword_255870000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
   }
 
   v9 = 0;
 LABEL_47:
-
-  v31 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

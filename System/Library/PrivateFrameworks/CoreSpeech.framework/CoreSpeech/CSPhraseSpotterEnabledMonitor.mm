@@ -3,6 +3,7 @@
 - (BOOL)_checkPhraseSpotterEnabled;
 - (CSPhraseSpotterEnabledMonitor)init;
 - (void)_didReceivePhraseSpotterSettingChangedInQueue:(BOOL)queue;
+- (void)_notifyObserver:(id)observer withEnabled:(BOOL)enabled;
 - (void)_phraseSpotterEnabledDidChange;
 - (void)_startMonitoringWithQueue:(id)queue;
 - (void)_stopMonitoring;
@@ -63,6 +64,17 @@
   }
 
   return phraseSpotterEnabled;
+}
+
+- (void)_notifyObserver:(id)observer withEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  observerCopy = observer;
+  [(CSPhraseSpotterEnabledMonitor *)self notifyObserver:observerCopy];
+  if (objc_opt_respondsToSelector())
+  {
+    [observerCopy CSPhraseSpotterEnabledMonitor:self didReceiveEnabled:enabledCopy];
+  }
 }
 
 - (void)_didReceivePhraseSpotterSettingChangedInQueue:(BOOL)queue

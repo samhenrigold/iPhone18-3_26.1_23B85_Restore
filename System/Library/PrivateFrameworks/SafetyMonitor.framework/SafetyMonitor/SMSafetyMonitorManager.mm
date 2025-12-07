@@ -75,6 +75,7 @@
 - (void)onLocalSessionStateChanged:(id)changed withError:(id)error;
 - (void)onReceiverSafetyCacheChangeForSessionID:(id)d phoneCache:(id)cache watchCache:(id)watchCache;
 - (void)onReceiverSessionStatusChangeForSessionID:(id)d sessionStatus:(id)status;
+- (void)onSessionStateChanged:(id)changed forActiveDevice:(BOOL)device withError:(id)error;
 - (void)processStateForHeartbeat:(id)heartbeat forActiveDevice:(BOOL)device withError:(id)error;
 - (void)promptDestinationAnomalyVerificationWithContext:(id)context handler:(id)handler;
 - (void)promptRoundTripAnomalyVerificationWithContext:(id)context handler:(id)handler;
@@ -134,7 +135,7 @@
 
 - (id)_getConnection
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   xpcConnection = [(SMSafetyMonitorManager *)self xpcConnection];
 
   if (!xpcConnection)
@@ -142,18 +143,17 @@
     v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
-      v8 = objc_opt_class();
-      v9 = NSStringFromClass(v8);
-      v10 = 138412290;
-      v11 = v9;
-      _os_log_fault_impl(&dword_26455D000, v4, OS_LOG_TYPE_FAULT, "%@, xpcConnection is nil, create new connection", &v10, 0xCu);
+      v7 = objc_opt_class();
+      v8 = NSStringFromClass(v7);
+      v9 = 138412290;
+      v10 = v8;
+      _os_log_fault_impl(&dword_26455D000, v4, OS_LOG_TYPE_FAULT, "%@, xpcConnection is nil, create new connection", &v9, 0xCu);
     }
 
     [(SMSafetyMonitorManager *)self _createConnection];
   }
 
   xpcConnection2 = [(SMSafetyMonitorManager *)self xpcConnection];
-  v6 = *MEMORY[0x277D85DE8];
 
   return xpcConnection2;
 }
@@ -167,45 +167,45 @@ uint64_t __40__SMSafetyMonitorManager_defaultManager__block_invoke()
 
 - (SMSafetyMonitorManager)initWithRestorationIdentifier:(id)identifier
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
-  v30.receiver = self;
-  v30.super_class = SMSafetyMonitorManager;
-  v5 = [(SMSafetyMonitorManager *)&v30 init];
+  v29.receiver = self;
+  v29.super_class = SMSafetyMonitorManager;
+  v5 = [(SMSafetyMonitorManager *)&v29 init];
   if (v5)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      v25 = v5;
+      v24 = v5;
       callStackSymbols = [MEMORY[0x277CCACC8] callStackSymbols];
+      v25 = 0u;
       v26 = 0u;
       v27 = 0u;
       v28 = 0u;
-      v29 = 0u;
-      v7 = [callStackSymbols countByEnumeratingWithState:&v26 objects:v33 count:16];
+      v7 = [callStackSymbols countByEnumeratingWithState:&v25 objects:v32 count:16];
       if (v7)
       {
         v8 = v7;
-        v9 = *v27;
+        v9 = *v26;
         v10 = MEMORY[0x277D86220];
         do
         {
           v11 = 0;
           do
           {
-            if (*v27 != v9)
+            if (*v26 != v9)
             {
               objc_enumerationMutation(callStackSymbols);
             }
 
-            v12 = *(*(&v26 + 1) + 8 * v11);
+            v12 = *(*(&v25 + 1) + 8 * v11);
             if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
             {
               v13 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
               if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412290;
-                v32 = v12;
+                v31 = v12;
                 _os_log_debug_impl(&dword_26455D000, v13, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
               }
             }
@@ -214,13 +214,13 @@ uint64_t __40__SMSafetyMonitorManager_defaultManager__block_invoke()
           }
 
           while (v8 != v11);
-          v8 = [callStackSymbols countByEnumeratingWithState:&v26 objects:v33 count:16];
+          v8 = [callStackSymbols countByEnumeratingWithState:&v25 objects:v32 count:16];
         }
 
         while (v8);
       }
 
-      v5 = v25;
+      v5 = v24;
     }
 
     v14 = v5;
@@ -251,7 +251,6 @@ uint64_t __40__SMSafetyMonitorManager_defaultManager__block_invoke()
     [(SMSafetyMonitorManager *)v14 createConnection];
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -269,7 +268,7 @@ uint64_t __40__SMSafetyMonitorManager_defaultManager__block_invoke()
 
 - (void)_createConnection
 {
-  v188 = *MEMORY[0x277D85DE8];
+  v187 = *MEMORY[0x277D85DE8];
   xpcConnection = [(SMSafetyMonitorManager *)self xpcConnection];
   [xpcConnection invalidate];
 
@@ -511,20 +510,20 @@ uint64_t __40__SMSafetyMonitorManager_defaultManager__block_invoke()
 
     objc_initWeak(location, self);
     xpcConnection37 = [(SMSafetyMonitorManager *)self xpcConnection];
-    v183[0] = MEMORY[0x277D85DD0];
-    v183[1] = 3221225472;
-    v183[2] = __43__SMSafetyMonitorManager__createConnection__block_invoke;
-    v183[3] = &unk_279B65648;
-    objc_copyWeak(&v184, location);
-    [xpcConnection37 setInvalidationHandler:v183];
+    v182[0] = MEMORY[0x277D85DD0];
+    v182[1] = 3221225472;
+    v182[2] = __43__SMSafetyMonitorManager__createConnection__block_invoke;
+    v182[3] = &unk_279B65648;
+    objc_copyWeak(&v183, location);
+    [xpcConnection37 setInvalidationHandler:v182];
 
     xpcConnection38 = [(SMSafetyMonitorManager *)self xpcConnection];
-    v181[0] = MEMORY[0x277D85DD0];
-    v181[1] = 3221225472;
-    v181[2] = __43__SMSafetyMonitorManager__createConnection__block_invoke_331;
-    v181[3] = &unk_279B65648;
-    objc_copyWeak(&v182, location);
-    [xpcConnection38 setInterruptionHandler:v181];
+    v180[0] = MEMORY[0x277D85DD0];
+    v180[1] = 3221225472;
+    v180[2] = __43__SMSafetyMonitorManager__createConnection__block_invoke_331;
+    v180[3] = &unk_279B65648;
+    objc_copyWeak(&v181, location);
+    [xpcConnection38 setInterruptionHandler:v180];
 
     xpcConnection39 = [(SMSafetyMonitorManager *)self xpcConnection];
     [xpcConnection39 resume];
@@ -534,18 +533,18 @@ uint64_t __40__SMSafetyMonitorManager_defaultManager__block_invoke()
     if (restorationIdentifier)
     {
       xpcConnection40 = [(SMSafetyMonitorManager *)self xpcConnection];
-      v180[0] = MEMORY[0x277D85DD0];
-      v180[1] = 3221225472;
-      v180[2] = __43__SMSafetyMonitorManager__createConnection__block_invoke_333;
-      v180[3] = &__block_descriptor_40_e17_v16__0__NSError_8l;
-      v180[4] = a2;
-      v172 = [xpcConnection40 remoteObjectProxyWithErrorHandler:v180];
+      v179[0] = MEMORY[0x277D85DD0];
+      v179[1] = 3221225472;
+      v179[2] = __43__SMSafetyMonitorManager__createConnection__block_invoke_333;
+      v179[3] = &__block_descriptor_40_e17_v16__0__NSError_8l;
+      v179[4] = a2;
+      v172 = [xpcConnection40 remoteObjectProxyWithErrorHandler:v179];
       restorationIdentifier2 = [(SMSafetyMonitorManager *)self restorationIdentifier];
       [v172 setRestorationIdentifier:restorationIdentifier2];
     }
 
-    objc_destroyWeak(&v182);
-    objc_destroyWeak(&v184);
+    objc_destroyWeak(&v181);
+    objc_destroyWeak(&v183);
     objc_destroyWeak(location);
   }
 
@@ -554,18 +553,16 @@ uint64_t __40__SMSafetyMonitorManager_defaultManager__block_invoke()
     v174 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
     if (os_log_type_enabled(v174, OS_LOG_TYPE_DEBUG))
     {
-      v176 = objc_opt_class();
-      v177 = NSStringFromClass(v176);
+      v175 = objc_opt_class();
+      v176 = NSStringFromClass(v175);
       xpcConnection41 = [(SMSafetyMonitorManager *)self xpcConnection];
       *location = 138412546;
-      *&location[4] = v177;
-      v186 = 2112;
-      v187 = xpcConnection41;
+      *&location[4] = v176;
+      v185 = 2112;
+      v186 = xpcConnection41;
       _os_log_debug_impl(&dword_26455D000, v174, OS_LOG_TYPE_DEBUG, "%@, XPC Connection Created, %@", location, 0x16u);
     }
   }
-
-  v175 = *MEMORY[0x277D85DE8];
 }
 
 void __43__SMSafetyMonitorManager__createConnection__block_invoke(uint64_t a1)
@@ -586,24 +583,21 @@ void __43__SMSafetyMonitorManager__createConnection__block_invoke(uint64_t a1)
 
 uint64_t __43__SMSafetyMonitorManager__createConnection__block_invoke_2(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     v2 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
     {
-      v3 = *(a1 + 32);
-      v4 = objc_opt_class();
-      v5 = NSStringFromClass(v4);
-      v8 = 138412290;
-      v9 = v5;
-      _os_log_impl(&dword_26455D000, v2, OS_LOG_TYPE_INFO, "%@, xpc connection invalidated", &v8, 0xCu);
+      v3 = objc_opt_class();
+      v4 = NSStringFromClass(v3);
+      v6 = 138412290;
+      v7 = v4;
+      _os_log_impl(&dword_26455D000, v2, OS_LOG_TYPE_INFO, "%@, xpc connection invalidated", &v6, 0xCu);
     }
   }
 
-  result = [*(a1 + 32) setXpcConnection:0];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) setXpcConnection:0];
 }
 
 void __43__SMSafetyMonitorManager__createConnection__block_invoke_331(uint64_t a1)
@@ -624,37 +618,32 @@ void __43__SMSafetyMonitorManager__createConnection__block_invoke_331(uint64_t a
 
 void __43__SMSafetyMonitorManager__createConnection__block_invoke_2_332(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
-    v2 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v1 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
     {
-      v3 = *(a1 + 32);
-      v4 = objc_opt_class();
-      v5 = NSStringFromClass(v4);
-      v7 = 138412290;
-      v8 = v5;
-      _os_log_impl(&dword_26455D000, v2, OS_LOG_TYPE_INFO, "%@, xpc connection interrupted", &v7, 0xCu);
+      v2 = objc_opt_class();
+      v3 = NSStringFromClass(v2);
+      v4 = 138412290;
+      v5 = v3;
+      _os_log_impl(&dword_26455D000, v1, OS_LOG_TYPE_INFO, "%@, xpc connection interrupted", &v4, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __43__SMSafetyMonitorManager__createConnection__block_invoke_333(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v8 = SMErrorConnectionCreate(*(a1 + 32), @"%@", a3, a4, a5, a6, a7, a8, a2);
   v9 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v12 = v8;
+    v11 = v8;
     _os_log_error_impl(&dword_26455D000, v9, OS_LOG_TYPE_ERROR, "Error: %@", buf, 0xCu);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setUpMonitoring
@@ -705,14 +694,14 @@ void __43__SMSafetyMonitorManager__createConnection__block_invoke_333(uint64_t a
 
 - (void)handleDaemonStart
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     v3 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v8 = "[SMSafetyMonitorManager handleDaemonStart]";
+      v7 = "[SMSafetyMonitorManager handleDaemonStart]";
       _os_log_impl(&dword_26455D000, v3, OS_LOG_TYPE_INFO, "%s", buf, 0xCu);
     }
   }
@@ -724,13 +713,11 @@ void __43__SMSafetyMonitorManager__createConnection__block_invoke_333(uint64_t a
   block[3] = &unk_279B655F8;
   block[4] = self;
   dispatch_async(queue, block);
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __43__SMSafetyMonitorManager_handleDaemonStart__block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) xpcConnection];
 
   if (v2)
@@ -747,11 +734,11 @@ uint64_t __43__SMSafetyMonitorManager_handleDaemonStart__block_invoke(uint64_t a
           v5 = @"NO";
         }
 
-        v8 = 136315394;
-        v9 = "[SMSafetyMonitorManager handleDaemonStart]_block_invoke";
-        v10 = 2112;
-        v11 = v5;
-        _os_log_impl(&dword_26455D000, v3, OS_LOG_TYPE_INFO, "%s, xpc connection, %@", &v8, 0x16u);
+        v7 = 136315394;
+        v8 = "[SMSafetyMonitorManager handleDaemonStart]_block_invoke";
+        v9 = 2112;
+        v10 = v5;
+        _os_log_impl(&dword_26455D000, v3, OS_LOG_TYPE_INFO, "%s, xpc connection, %@", &v7, 0x16u);
       }
     }
   }
@@ -761,9 +748,7 @@ uint64_t __43__SMSafetyMonitorManager_handleDaemonStart__block_invoke(uint64_t a
     [*(a1 + 32) _createConnection];
   }
 
-  result = [*(a1 + 32) _setUpMonitoring];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _setUpMonitoring];
 }
 
 - (id)_proxyForServicingSelector:(SEL)selector asynchronous:(BOOL)asynchronous withErrorHandler:(id)handler
@@ -826,22 +811,21 @@ LABEL_13:
 
 void __83__SMSafetyMonitorManager__proxyForServicingSelector_asynchronous_withErrorHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = [*(a1 + 32) createSMProxyErrorWithSelector:*(a1 + 48) error:a2];
   v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v7 = *(a1 + 32);
-    v8 = objc_opt_class();
-    v9 = NSStringFromClass(v8);
-    v10 = NSStringFromSelector(*(a1 + 48));
-    v11 = 138412802;
-    v12 = v9;
+    v6 = objc_opt_class();
+    v7 = NSStringFromClass(v6);
+    v8 = NSStringFromSelector(*(a1 + 48));
+    v9 = 138412802;
+    v10 = v7;
+    v11 = 2112;
+    v12 = v8;
     v13 = 2112;
-    v14 = v10;
-    v15 = 2112;
-    v16 = v3;
-    _os_log_error_impl(&dword_26455D000, v4, OS_LOG_TYPE_ERROR, "%@, %@, Wrapped Proxy Error, %@", &v11, 0x20u);
+    v14 = v3;
+    _os_log_error_impl(&dword_26455D000, v4, OS_LOG_TYPE_ERROR, "%@, %@, Wrapped Proxy Error, %@", &v9, 0x20u);
   }
 
   v5 = *(a1 + 40);
@@ -849,13 +833,11 @@ void __83__SMSafetyMonitorManager__proxyForServicingSelector_asynchronous_withEr
   {
     (*(v5 + 16))(v5, v3);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)createSMProxyErrorWithSelector:(SEL)selector error:(id)error
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   errorCopy = error;
   domain = [errorCopy domain];
   v7 = *MEMORY[0x277CCA050];
@@ -884,15 +866,13 @@ void __83__SMSafetyMonitorManager__proxyForServicingSelector_asynchronous_withEr
   }
 
   v9 = MEMORY[0x277CCA9B8];
-  v17 = *MEMORY[0x277CCA450];
+  v16 = *MEMORY[0x277CCA450];
   v10 = MEMORY[0x277CCACA8];
   v11 = NSStringFromSelector(selector);
   errorCopy = [v10 stringWithFormat:@"connection failure while servicing %@, %@", v11, errorCopy];
-  v18[0] = errorCopy;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+  v17[0] = errorCopy;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
   v14 = [v9 errorWithDomain:@"SMErrorDomain" code:v8 userInfo:v13];
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -918,19 +898,19 @@ void __83__SMSafetyMonitorManager__proxyForServicingSelector_asynchronous_withEr
 
 void __95__SMSafetyMonitorManager_launchTaskWithSelector_remainingAttempts_proxyErrorHandler_taskBlock___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __95__SMSafetyMonitorManager_launchTaskWithSelector_remainingAttempts_proxyErrorHandler_taskBlock___block_invoke_2;
-  v8[3] = &unk_279B656B8;
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __95__SMSafetyMonitorManager_launchTaskWithSelector_remainingAttempts_proxyErrorHandler_taskBlock___block_invoke_2;
+  v7[3] = &unk_279B656B8;
   v3 = *(a1 + 56);
-  v11 = *(a1 + 64);
-  v12 = v3;
-  v8[4] = v2;
-  v9 = *(a1 + 40);
-  v10 = *(a1 + 48);
-  v4 = [v2 _proxyForServicingSelector:v3 withErrorHandler:v8];
+  v10 = *(a1 + 64);
+  v11 = v3;
+  v7[4] = v2;
+  v8 = *(a1 + 40);
+  v9 = *(a1 + 48);
+  v4 = [v2 _proxyForServicingSelector:v3 withErrorHandler:v7];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     v5 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
@@ -938,19 +918,17 @@ void __95__SMSafetyMonitorManager_launchTaskWithSelector_remainingAttempts_proxy
     {
       v6 = NSStringFromSelector(*(a1 + 56));
       *buf = 138412290;
-      v14 = v6;
+      v13 = v6;
       _os_log_impl(&dword_26455D000, v5, OS_LOG_TYPE_INFO, "SMSafetyMonitorManager, %@, running task block", buf, 0xCu);
     }
   }
 
   (*(*(a1 + 48) + 16))();
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __95__SMSafetyMonitorManager_launchTaskWithSelector_remainingAttempts_proxyErrorHandler_taskBlock___block_invoke_2(uint64_t a1, void *a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 domain];
   v5 = v4;
@@ -962,9 +940,9 @@ void __95__SMSafetyMonitorManager_launchTaskWithSelector_remainingAttempts_proxy
 
     else
     {
-      v8 = [v3 code];
+      v7 = [v3 code];
 
-      if (v8 != 21)
+      if (v7 != 21)
       {
         goto LABEL_3;
       }
@@ -972,19 +950,19 @@ void __95__SMSafetyMonitorManager_launchTaskWithSelector_remainingAttempts_proxy
 
     if (*(a1 + 56))
     {
-      v9 = [*(a1 + 32) queue];
+      v8 = [*(a1 + 32) queue];
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __95__SMSafetyMonitorManager_launchTaskWithSelector_remainingAttempts_proxyErrorHandler_taskBlock___block_invoke_3;
       block[3] = &unk_279B65690;
-      v10 = *(a1 + 56);
-      v19 = *(a1 + 64);
-      v20 = v10;
-      v11 = *(a1 + 40);
+      v9 = *(a1 + 56);
+      v17 = *(a1 + 64);
+      v18 = v9;
+      v10 = *(a1 + 40);
       block[4] = *(a1 + 32);
-      v17 = v11;
-      v18 = *(a1 + 48);
-      dispatch_async(v9, block);
+      v15 = v10;
+      v16 = *(a1 + 48);
+      dispatch_async(v8, block);
 
       goto LABEL_6;
     }
@@ -998,28 +976,25 @@ LABEL_3:
   v6 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    v12 = *(a1 + 32);
-    v13 = objc_opt_class();
-    v14 = NSStringFromClass(v13);
-    v15 = NSStringFromSelector(*(a1 + 64));
+    v11 = objc_opt_class();
+    v12 = NSStringFromClass(v11);
+    v13 = NSStringFromSelector(*(a1 + 64));
     *buf = 138412802;
-    v22 = v14;
+    v20 = v12;
+    v21 = 2112;
+    v22 = v13;
     v23 = 2112;
-    v24 = v15;
-    v25 = 2112;
-    v26 = v3;
+    v24 = v3;
     _os_log_error_impl(&dword_26455D000, v6, OS_LOG_TYPE_ERROR, "%@, %@, running proxy handler, %@", buf, 0x20u);
   }
 
   (*(*(a1 + 40) + 16))();
 LABEL_6:
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __95__SMSafetyMonitorManager_launchTaskWithSelector_remainingAttempts_proxyErrorHandler_taskBlock___block_invoke_3(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     v2 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
@@ -1027,36 +1002,34 @@ uint64_t __95__SMSafetyMonitorManager_launchTaskWithSelector_remainingAttempts_p
     {
       v3 = NSStringFromSelector(*(a1 + 56));
       v4 = *(a1 + 64) - 1;
-      v7 = 138412546;
-      v8 = v3;
-      v9 = 2048;
-      v10 = v4;
-      _os_log_impl(&dword_26455D000, v2, OS_LOG_TYPE_INFO, "SMSafetyMonitorManager retrying, %@, count, %lu", &v7, 0x16u);
+      v6 = 138412546;
+      v7 = v3;
+      v8 = 2048;
+      v9 = v4;
+      _os_log_impl(&dword_26455D000, v2, OS_LOG_TYPE_INFO, "SMSafetyMonitorManager retrying, %@, count, %lu", &v6, 0x16u);
     }
   }
 
-  result = [*(a1 + 32) launchTaskWithSelector:*(a1 + 56) remainingAttempts:*(a1 + 64) - 1 proxyErrorHandler:*(a1 + 40) taskBlock:*(a1 + 48)];
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) launchTaskWithSelector:*(a1 + 56) remainingAttempts:*(a1 + 64) - 1 proxyErrorHandler:*(a1 + 40) taskBlock:*(a1 + 48)];
 }
 
 - (void)initializeSessionWithConversation:(id)conversation completion:(id)completion
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   conversationCopy = conversation;
   completionCopy = completion;
   if (conversationCopy)
   {
-    v30 = 0;
-    v31 = &v30;
-    v32 = 0x2020000000;
+    v29 = 0;
+    v30 = &v29;
+    v31 = 0x2020000000;
     v9 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
     v10 = os_signpost_id_generate(v9);
 
-    v33 = v10;
+    v32 = v10;
     v11 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
     v12 = v11;
-    v13 = v31[3];
+    v13 = v30[3];
     if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
     {
       identifier = [conversationCopy identifier];
@@ -1070,32 +1043,32 @@ uint64_t __95__SMSafetyMonitorManager_launchTaskWithSelector_remainingAttempts_p
 
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v35 = 0x3032000000;
-    v36 = __Block_byref_object_copy__1;
-    v37 = __Block_byref_object_dispose__1;
-    v38 = [MEMORY[0x277CBEAA8] now];
+    v34 = 0x3032000000;
+    v35 = __Block_byref_object_copy__1;
+    v36 = __Block_byref_object_dispose__1;
+    v37 = [MEMORY[0x277CBEAA8] now];
     v18 = objc_alloc_init(SMHeartbeatTimer);
     [(SMSafetyMonitorManager *)self setHeartbeatTimer:v18];
 
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __71__SMSafetyMonitorManager_initializeSessionWithConversation_completion___block_invoke;
-    v27[3] = &unk_279B656E0;
-    v29 = &v30;
-    v28 = completionCopy;
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __71__SMSafetyMonitorManager_initializeSessionWithConversation_completion___block_invoke_355;
-    v21[3] = &unk_279B65730;
-    v25 = &v30;
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __71__SMSafetyMonitorManager_initializeSessionWithConversation_completion___block_invoke;
+    v26[3] = &unk_279B656E0;
+    v28 = &v29;
+    v27 = completionCopy;
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __71__SMSafetyMonitorManager_initializeSessionWithConversation_completion___block_invoke_355;
+    v20[3] = &unk_279B65730;
+    v24 = &v29;
     p_buf = &buf;
-    v22 = conversationCopy;
+    v21 = conversationCopy;
     selfCopy = self;
-    v24 = v28;
-    [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v27 taskBlock:v21];
+    v23 = v27;
+    [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v26 taskBlock:v20];
 
     _Block_object_dispose(&buf, 8);
-    _Block_object_dispose(&v30, 8);
+    _Block_object_dispose(&v29, 8);
   }
 
   else
@@ -1107,26 +1080,23 @@ uint64_t __95__SMSafetyMonitorManager_launchTaskWithSelector_remainingAttempts_p
       _os_log_error_impl(&dword_26455D000, v19, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: conversation", &buf, 2u);
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __71__SMSafetyMonitorManager_initializeSessionWithConversation_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v5 = v4;
   v6 = *(*(*(a1 + 40) + 8) + 24);
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
-    v8 = 134349056;
-    v9 = [v3 code];
-    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMInitializationSessionLatency", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v8, 0xCu);
+    v7 = 134349056;
+    v8 = [v3 code];
+    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMInitializationSessionLatency", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v7, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __71__SMSafetyMonitorManager_initializeSessionWithConversation_completion___block_invoke_355(uint64_t a1, void *a2)
@@ -1145,7 +1115,7 @@ void __71__SMSafetyMonitorManager_initializeSessionWithConversation_completion__
 
 void __71__SMSafetyMonitorManager_initializeSessionWithConversation_completion___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v7 = a5;
   v8 = a2;
   v9 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
@@ -1153,16 +1123,14 @@ void __71__SMSafetyMonitorManager_initializeSessionWithConversation_completion__
   v11 = *(*(*(a1 + 56) + 8) + 24);
   if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
   {
-    v14 = 134349056;
-    v15 = [v7 code];
-    _os_signpost_emit_with_name_impl(&dword_26455D000, v10, OS_SIGNPOST_INTERVAL_END, v11, "SMInitializationSessionLatency", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v14, 0xCu);
+    v13 = 134349056;
+    v14 = [v7 code];
+    _os_signpost_emit_with_name_impl(&dword_26455D000, v10, OS_SIGNPOST_INTERVAL_END, v11, "SMInitializationSessionLatency", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v13, 0xCu);
   }
 
   [*(*(*(a1 + 64) + 8) + 40) timeIntervalSinceNow];
   [*(a1 + 32) submitInitializationAnalyticsEventWithError:v7 conversation:*(a1 + 40) duration:-v12];
   (*(*(a1 + 48) + 16))();
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelInitializationWithCompletion:(id)completion
@@ -1216,20 +1184,19 @@ void __71__SMSafetyMonitorManager_initializeSessionWithConversation_completion__
 
 void __61__SMSafetyMonitorManager_cancelInitializationWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v5 = v4;
   v6 = *(*(*(a1 + 40) + 8) + 24);
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
-    v8 = 134349056;
-    v9 = [v3 code];
-    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMCancelInitializationSessionLatency", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v8, 0xCu);
+    v7 = 134349056;
+    v8 = [v3 code];
+    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMCancelInitializationSessionLatency", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v7, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __61__SMSafetyMonitorManager_cancelInitializationWithCompletion___block_invoke_358(uint64_t a1, void *a2)
@@ -1246,20 +1213,19 @@ void __61__SMSafetyMonitorManager_cancelInitializationWithCompletion___block_inv
 
 void __61__SMSafetyMonitorManager_cancelInitializationWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v5 = v4;
   v6 = *(*(*(a1 + 40) + 8) + 24);
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
-    v8 = 134349056;
-    v9 = [v3 code];
-    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMCancelInitializationSessionLatency", " enableTelemetry=YES {{error:%{public,signpost.telemetry:number1}ld}", &v8, 0xCu);
+    v7 = 134349056;
+    v8 = [v3 code];
+    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMCancelInitializationSessionLatency", " enableTelemetry=YES {{error:%{public,signpost.telemetry:number1}ld}", &v7, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelInitializationForSessionID:(id)d handler:(id)handler
@@ -1315,20 +1281,19 @@ void __61__SMSafetyMonitorManager_cancelInitializationWithCompletion___block_inv
 
 void __67__SMSafetyMonitorManager_cancelInitializationForSessionID_handler___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v5 = v4;
   v6 = *(*(*(a1 + 40) + 8) + 24);
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
-    v8 = 134349056;
-    v9 = [v3 code];
-    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMCancelInitializationSessionLatency", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v8, 0xCu);
+    v7 = 134349056;
+    v8 = [v3 code];
+    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMCancelInitializationSessionLatency", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v7, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __67__SMSafetyMonitorManager_cancelInitializationForSessionID_handler___block_invoke_359(uint64_t a1, void *a2)
@@ -1346,20 +1311,19 @@ void __67__SMSafetyMonitorManager_cancelInitializationForSessionID_handler___blo
 
 void __67__SMSafetyMonitorManager_cancelInitializationForSessionID_handler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v5 = v4;
   v6 = *(*(*(a1 + 40) + 8) + 24);
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
-    v8 = 134349056;
-    v9 = [v3 code];
-    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMCancelInitializationSessionLatency", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v8, 0xCu);
+    v7 = 134349056;
+    v8 = [v3 code];
+    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMCancelInitializationSessionLatency", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v7, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)endSessionForSessionID:(id)d reason:(unint64_t)reason completion:(id)completion
@@ -1416,20 +1380,19 @@ void __67__SMSafetyMonitorManager_cancelInitializationForSessionID_handler___blo
 
 void __67__SMSafetyMonitorManager_endSessionForSessionID_reason_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v5 = v4;
   v6 = *(*(*(a1 + 40) + 8) + 24);
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
-    v8 = 134349056;
-    v9 = [v3 code];
-    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMEndSessionLatency", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v8, 0xCu);
+    v7 = 134349056;
+    v8 = [v3 code];
+    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMEndSessionLatency", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v7, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __67__SMSafetyMonitorManager_endSessionForSessionID_reason_completion___block_invoke_360(uint64_t a1, void *a2)
@@ -1448,20 +1411,19 @@ void __67__SMSafetyMonitorManager_endSessionForSessionID_reason_completion___blo
 
 void __67__SMSafetyMonitorManager_endSessionForSessionID_reason_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v5 = v4;
   v6 = *(*(*(a1 + 40) + 8) + 24);
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
-    v8 = 134349056;
-    v9 = [v3 code];
-    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMEndSessionLatency", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v8, 0xCu);
+    v7 = 134349056;
+    v8 = [v3 code];
+    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMEndSessionLatency", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v7, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handoffSessionForSessionID:(id)d handler:(id)handler
@@ -1511,7 +1473,7 @@ void __61__SMSafetyMonitorManager_handoffSessionForSessionID_handler___block_inv
 
 - (void)modifySessionWithConfiguration:(id)configuration handler:(id)handler
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   handlerCopy = handler;
   if (!handlerCopy)
@@ -1519,8 +1481,8 @@ void __61__SMSafetyMonitorManager_handoffSessionForSessionID_handler___block_inv
     v17 = _rt_log_facility_get_os_log(RTLogFacilityGeneral);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      *v26 = 0;
-      _os_log_error_impl(&dword_26455D000, v17, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler", v26, 2u);
+      *v25 = 0;
+      _os_log_error_impl(&dword_26455D000, v17, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler", v25, 2u);
     }
 
     goto LABEL_12;
@@ -1531,8 +1493,8 @@ void __61__SMSafetyMonitorManager_handoffSessionForSessionID_handler___block_inv
     v17 = _rt_log_facility_get_os_log(RTLogFacilityGeneral);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      *v26 = 0;
-      _os_log_error_impl(&dword_26455D000, v17, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: configuration", v26, 2u);
+      *v25 = 0;
+      _os_log_error_impl(&dword_26455D000, v17, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: configuration", v25, 2u);
     }
 
 LABEL_12:
@@ -1540,63 +1502,60 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  *v26 = 0;
-  v27 = v26;
-  v28 = 0x2020000000;
+  *v25 = 0;
+  v26 = v25;
+  v27 = 0x2020000000;
   v9 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v10 = os_signpost_id_generate(v9);
 
-  v29 = v10;
+  v28 = v10;
   v11 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v12 = v11;
-  v13 = *(v27 + 3);
+  v13 = *(v26 + 3);
   if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
   {
     v14 = [configurationCopy description];
     v15 = v14;
     uTF8String = [v14 UTF8String];
     *buf = 136446210;
-    v31 = uTF8String;
+    v30 = uTF8String;
     _os_signpost_emit_with_name_impl(&dword_26455D000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v13, "SMModifySessionLatency", " enableTelemetry=YES {newConfiguration:%{public,signpost.telemetry:string1}s}", buf, 0xCu);
   }
 
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __65__SMSafetyMonitorManager_modifySessionWithConfiguration_handler___block_invoke;
-  v23[3] = &unk_279B656E0;
-  v25 = v26;
-  v24 = handlerCopy;
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __65__SMSafetyMonitorManager_modifySessionWithConfiguration_handler___block_invoke_361;
-  v19[3] = &unk_279B65908;
-  v20 = configurationCopy;
-  v22 = v26;
-  v21 = v24;
-  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v23 taskBlock:v19];
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __65__SMSafetyMonitorManager_modifySessionWithConfiguration_handler___block_invoke;
+  v22[3] = &unk_279B656E0;
+  v24 = v25;
+  v23 = handlerCopy;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __65__SMSafetyMonitorManager_modifySessionWithConfiguration_handler___block_invoke_361;
+  v18[3] = &unk_279B65908;
+  v19 = configurationCopy;
+  v21 = v25;
+  v20 = v23;
+  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v22 taskBlock:v18];
 
-  _Block_object_dispose(v26, 8);
+  _Block_object_dispose(v25, 8);
 LABEL_13:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __65__SMSafetyMonitorManager_modifySessionWithConfiguration_handler___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v5 = v4;
   v6 = *(*(*(a1 + 40) + 8) + 24);
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
-    v8 = 134349056;
-    v9 = [v3 code];
-    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMModifySessionLatency", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v8, 0xCu);
+    v7 = 134349056;
+    v8 = [v3 code];
+    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMModifySessionLatency", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v7, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __65__SMSafetyMonitorManager_modifySessionWithConfiguration_handler___block_invoke_361(uint64_t a1, void *a2)
@@ -1614,20 +1573,19 @@ void __65__SMSafetyMonitorManager_modifySessionWithConfiguration_handler___block
 
 void __65__SMSafetyMonitorManager_modifySessionWithConfiguration_handler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v5 = v4;
   v6 = *(*(*(a1 + 40) + 8) + 24);
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
-    v8 = 134349056;
-    v9 = [v3 code];
-    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMModifySessionLatency", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v8, 0xCu);
+    v7 = 134349056;
+    v8 = [v3 code];
+    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMModifySessionLatency", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v7, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendSafetyCacheForSessionID:(id)d handler:(id)handler
@@ -1672,20 +1630,19 @@ void __65__SMSafetyMonitorManager_modifySessionWithConfiguration_handler___block
 
 void __62__SMSafetyMonitorManager_sendSafetyCacheForSessionID_handler___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v5 = v4;
   v6 = *(*(*(a1 + 40) + 8) + 24);
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
-    v8 = 134349056;
-    v9 = [v3 code];
-    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMSendSafetyCache", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v8, 0xCu);
+    v7 = 134349056;
+    v8 = [v3 code];
+    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMSendSafetyCache", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v7, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __62__SMSafetyMonitorManager_sendSafetyCacheForSessionID_handler___block_invoke_362(uint64_t a1, void *a2)
@@ -1703,84 +1660,81 @@ void __62__SMSafetyMonitorManager_sendSafetyCacheForSessionID_handler___block_in
 
 void __62__SMSafetyMonitorManager_sendSafetyCacheForSessionID_handler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v5 = v4;
   v6 = *(*(*(a1 + 40) + 8) + 24);
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
-    v8 = 134349056;
-    v9 = [v3 code];
-    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMSendSafetyCache", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v8, 0xCu);
+    v7 = 134349056;
+    v8 = [v3 code];
+    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMSendSafetyCache", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v7, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startSessionWithConfiguration:(id)configuration completion:(id)completion
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   completionCopy = completion;
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x2020000000;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x2020000000;
   v9 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v10 = os_signpost_id_generate(v9);
 
-  v30 = v10;
+  v29 = v10;
   v11 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v12 = v11;
-  v13 = v28[3];
+  v13 = v27[3];
   if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
   {
     v14 = [configurationCopy description];
     v15 = v14;
     uTF8String = [v14 UTF8String];
     *buf = 136446210;
-    v32 = uTF8String;
+    v31 = uTF8String;
     _os_signpost_emit_with_name_impl(&dword_26455D000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v13, "SMStartSession", " enableTelemetry=YES {configuration:%{public,signpost.telemetry:string1}s}", buf, 0xCu);
   }
 
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __67__SMSafetyMonitorManager_startSessionWithConfiguration_completion___block_invoke;
-  v24[3] = &unk_279B656E0;
-  v26 = &v27;
-  v25 = completionCopy;
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __67__SMSafetyMonitorManager_startSessionWithConfiguration_completion___block_invoke_363;
-  v20[3] = &unk_279B65908;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __67__SMSafetyMonitorManager_startSessionWithConfiguration_completion___block_invoke;
+  v23[3] = &unk_279B656E0;
+  v25 = &v26;
+  v24 = completionCopy;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __67__SMSafetyMonitorManager_startSessionWithConfiguration_completion___block_invoke_363;
+  v19[3] = &unk_279B65908;
   v17 = configurationCopy;
-  v21 = v17;
-  v23 = &v27;
-  v18 = v25;
-  v22 = v18;
-  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v24 taskBlock:v20];
+  v20 = v17;
+  v22 = &v26;
+  v18 = v24;
+  v21 = v18;
+  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v23 taskBlock:v19];
 
-  _Block_object_dispose(&v27, 8);
-  v19 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v26, 8);
 }
 
 void __67__SMSafetyMonitorManager_startSessionWithConfiguration_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v5 = v4;
   v6 = *(*(*(a1 + 40) + 8) + 24);
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
-    v8 = 134349056;
-    v9 = [v3 code];
-    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMStartSession", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v8, 0xCu);
+    v7 = 134349056;
+    v8 = [v3 code];
+    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMStartSession", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v7, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __67__SMSafetyMonitorManager_startSessionWithConfiguration_completion___block_invoke_363(uint64_t a1, void *a2)
@@ -1798,37 +1752,36 @@ void __67__SMSafetyMonitorManager_startSessionWithConfiguration_completion___blo
 
 void __67__SMSafetyMonitorManager_startSessionWithConfiguration_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v5 = v4;
   v6 = *(*(*(a1 + 40) + 8) + 24);
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
-    v8 = 134349056;
-    v9 = [v3 code];
-    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMStartSession", " enableTelemetry=YES error:%{public,signpost.telemetry:number1}ld", &v8, 0xCu);
+    v7 = 134349056;
+    v8 = [v3 code];
+    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMStartSession", " enableTelemetry=YES error:%{public,signpost.telemetry:number1}ld", &v7, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)respondToTriggerPromptForSessionID:(id)d response:(int64_t)response handler:(id)handler
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   dCopy = d;
   handlerCopy = handler;
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x2020000000;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x2020000000;
   v11 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v12 = os_signpost_id_generate(v11);
 
-  v30 = v12;
+  v29 = v12;
   v13 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v14 = v13;
-  v15 = v28[3];
+  v15 = v27[3];
   if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
   {
     *buf = 134349056;
@@ -1836,44 +1789,42 @@ void __67__SMSafetyMonitorManager_startSessionWithConfiguration_completion___blo
     _os_signpost_emit_with_name_impl(&dword_26455D000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v15, "SMRespondToTriggerPrompt", " enableTelemetry=YES {response:%{public,signpost.telemetry:number1}ld}", buf, 0xCu);
   }
 
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __78__SMSafetyMonitorManager_respondToTriggerPromptForSessionID_response_handler___block_invoke;
-  v24[3] = &unk_279B656E0;
-  v26 = &v27;
-  v25 = handlerCopy;
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __78__SMSafetyMonitorManager_respondToTriggerPromptForSessionID_response_handler___block_invoke_364;
-  v19[3] = &unk_279B65780;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __78__SMSafetyMonitorManager_respondToTriggerPromptForSessionID_response_handler___block_invoke;
+  v23[3] = &unk_279B656E0;
+  v25 = &v26;
+  v24 = handlerCopy;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __78__SMSafetyMonitorManager_respondToTriggerPromptForSessionID_response_handler___block_invoke_364;
+  v18[3] = &unk_279B65780;
   v16 = dCopy;
-  v22 = &v27;
+  v21 = &v26;
   responseCopy2 = response;
-  v20 = v16;
-  v17 = v25;
-  v21 = v17;
-  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v24 taskBlock:v19];
+  v19 = v16;
+  v17 = v24;
+  v20 = v17;
+  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v23 taskBlock:v18];
 
-  _Block_object_dispose(&v27, 8);
-  v18 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v26, 8);
 }
 
 void __78__SMSafetyMonitorManager_respondToTriggerPromptForSessionID_response_handler___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v5 = v4;
   v6 = *(*(*(a1 + 40) + 8) + 24);
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
-    v8 = 134349056;
-    v9 = [v3 code];
-    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMRespondToTriggerPrompt", " enableTelemetry=YES {error:%{public,signpost.telemetry:number2}ld}", &v8, 0xCu);
+    v7 = 134349056;
+    v8 = [v3 code];
+    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMRespondToTriggerPrompt", " enableTelemetry=YES {error:%{public,signpost.telemetry:number2}ld}", &v7, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __78__SMSafetyMonitorManager_respondToTriggerPromptForSessionID_response_handler___block_invoke_364(uint64_t a1, void *a2)
@@ -1892,84 +1843,81 @@ void __78__SMSafetyMonitorManager_respondToTriggerPromptForSessionID_response_ha
 
 void __78__SMSafetyMonitorManager_respondToTriggerPromptForSessionID_response_handler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v5 = v4;
   v6 = *(*(*(a1 + 40) + 8) + 24);
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
-    v8 = 134349056;
-    v9 = [v3 code];
-    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMRespondToTriggerPrompt", " enableTelemetry=YES {error:%{public,signpost.telemetry:number2}ld}", &v8, 0xCu);
+    v7 = 134349056;
+    v8 = [v3 code];
+    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMRespondToTriggerPrompt", " enableTelemetry=YES {error:%{public,signpost.telemetry:number2}ld}", &v7, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)promptDestinationAnomalyVerificationWithContext:(id)context handler:(id)handler
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   handlerCopy = handler;
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x2020000000;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x2020000000;
   v9 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v10 = os_signpost_id_generate(v9);
 
-  v30 = v10;
+  v29 = v10;
   v11 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v12 = v11;
-  v13 = v28[3];
+  v13 = v27[3];
   if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
   {
     v14 = [contextCopy description];
     v15 = v14;
     uTF8String = [v14 UTF8String];
     *buf = 136446210;
-    v32 = uTF8String;
+    v31 = uTF8String;
     _os_signpost_emit_with_name_impl(&dword_26455D000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v13, "SMPromptDestinationAnomalyVerification", " enableTelemetry=YES {context:%{public,signpost.telemetry:string1}s}", buf, 0xCu);
   }
 
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __82__SMSafetyMonitorManager_promptDestinationAnomalyVerificationWithContext_handler___block_invoke;
-  v24[3] = &unk_279B656E0;
-  v26 = &v27;
-  v25 = handlerCopy;
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __82__SMSafetyMonitorManager_promptDestinationAnomalyVerificationWithContext_handler___block_invoke_365;
-  v20[3] = &unk_279B65908;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __82__SMSafetyMonitorManager_promptDestinationAnomalyVerificationWithContext_handler___block_invoke;
+  v23[3] = &unk_279B656E0;
+  v25 = &v26;
+  v24 = handlerCopy;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __82__SMSafetyMonitorManager_promptDestinationAnomalyVerificationWithContext_handler___block_invoke_365;
+  v19[3] = &unk_279B65908;
   v17 = contextCopy;
-  v21 = v17;
-  v23 = &v27;
-  v18 = v25;
-  v22 = v18;
-  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v24 taskBlock:v20];
+  v20 = v17;
+  v22 = &v26;
+  v18 = v24;
+  v21 = v18;
+  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v23 taskBlock:v19];
 
-  _Block_object_dispose(&v27, 8);
-  v19 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v26, 8);
 }
 
 void __82__SMSafetyMonitorManager_promptDestinationAnomalyVerificationWithContext_handler___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v5 = v4;
   v6 = *(*(*(a1 + 40) + 8) + 24);
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
-    v8 = 134349056;
-    v9 = [v3 code];
-    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMPromptDestinationAnomalyVerification", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v8, 0xCu);
+    v7 = 134349056;
+    v8 = [v3 code];
+    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMPromptDestinationAnomalyVerification", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v7, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __82__SMSafetyMonitorManager_promptDestinationAnomalyVerificationWithContext_handler___block_invoke_365(uint64_t a1, void *a2)
@@ -1987,20 +1935,19 @@ void __82__SMSafetyMonitorManager_promptDestinationAnomalyVerificationWithContex
 
 void __82__SMSafetyMonitorManager_promptDestinationAnomalyVerificationWithContext_handler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v5 = v4;
   v6 = *(*(*(a1 + 40) + 8) + 24);
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
-    v8 = 134349056;
-    v9 = [v3 code];
-    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMPromptDestinationAnomalyVerification", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v8, 0xCu);
+    v7 = 134349056;
+    v8 = [v3 code];
+    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMPromptDestinationAnomalyVerification", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v7, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)promptRoundTripAnomalyVerificationWithContext:(id)context handler:(id)handler
@@ -2036,66 +1983,64 @@ void __80__SMSafetyMonitorManager_promptRoundTripAnomalyVerificationWithContext_
 
 - (void)promptTimerEndedVerificationWithContext:(id)context handler:(id)handler
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   handlerCopy = handler;
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x2020000000;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x2020000000;
   v9 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v10 = os_signpost_id_generate(v9);
 
-  v30 = v10;
+  v29 = v10;
   v11 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v12 = v11;
-  v13 = v28[3];
+  v13 = v27[3];
   if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
   {
     v14 = [contextCopy description];
     v15 = v14;
     uTF8String = [v14 UTF8String];
     *buf = 136446210;
-    v32 = uTF8String;
+    v31 = uTF8String;
     _os_signpost_emit_with_name_impl(&dword_26455D000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v13, "SMPromptTimerEndedVerification", " enableTelemetry=YES {context:%{public,signpost.telemetry:string1}s}", buf, 0xCu);
   }
 
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __74__SMSafetyMonitorManager_promptTimerEndedVerificationWithContext_handler___block_invoke;
-  v24[3] = &unk_279B656E0;
-  v26 = &v27;
-  v25 = handlerCopy;
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __74__SMSafetyMonitorManager_promptTimerEndedVerificationWithContext_handler___block_invoke_366;
-  v20[3] = &unk_279B65908;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __74__SMSafetyMonitorManager_promptTimerEndedVerificationWithContext_handler___block_invoke;
+  v23[3] = &unk_279B656E0;
+  v25 = &v26;
+  v24 = handlerCopy;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __74__SMSafetyMonitorManager_promptTimerEndedVerificationWithContext_handler___block_invoke_366;
+  v19[3] = &unk_279B65908;
   v17 = contextCopy;
-  v21 = v17;
-  v23 = &v27;
-  v18 = v25;
-  v22 = v18;
-  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v24 taskBlock:v20];
+  v20 = v17;
+  v22 = &v26;
+  v18 = v24;
+  v21 = v18;
+  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v23 taskBlock:v19];
 
-  _Block_object_dispose(&v27, 8);
-  v19 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v26, 8);
 }
 
 void __74__SMSafetyMonitorManager_promptTimerEndedVerificationWithContext_handler___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v5 = v4;
   v6 = *(*(*(a1 + 40) + 8) + 24);
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
-    v8 = 134349056;
-    v9 = [v3 code];
-    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMPromptTimerEndedVerification", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v8, 0xCu);
+    v7 = 134349056;
+    v8 = [v3 code];
+    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMPromptTimerEndedVerification", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v7, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __74__SMSafetyMonitorManager_promptTimerEndedVerificationWithContext_handler___block_invoke_366(uint64_t a1, void *a2)
@@ -2113,20 +2058,19 @@ void __74__SMSafetyMonitorManager_promptTimerEndedVerificationWithContext_handle
 
 void __74__SMSafetyMonitorManager_promptTimerEndedVerificationWithContext_handler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v5 = v4;
   v6 = *(*(*(a1 + 40) + 8) + 24);
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
-    v8 = 134349056;
-    v9 = [v3 code];
-    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMPromptTimerEndedVerification", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v8, 0xCu);
+    v7 = 134349056;
+    v8 = [v3 code];
+    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMPromptTimerEndedVerification", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v7, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)promptSafeArrivalWithContext:(id)context handler:(id)handler
@@ -2151,7 +2095,7 @@ void __74__SMSafetyMonitorManager_promptTimerEndedVerificationWithContext_handle
 
 - (void)promptWorkoutAnomalyVerificationWithContext:(id)context handler:(id)handler
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   handlerCopy = handler;
   if (!handlerCopy)
@@ -2160,29 +2104,27 @@ void __74__SMSafetyMonitorManager_promptTimerEndedVerificationWithContext_handle
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v19 = "[SMSafetyMonitorManager promptWorkoutAnomalyVerificationWithContext:handler:]";
-      v20 = 1024;
-      v21 = 757;
+      v18 = "[SMSafetyMonitorManager promptWorkoutAnomalyVerificationWithContext:handler:]";
+      v19 = 1024;
+      v20 = 757;
       _os_log_error_impl(&dword_26455D000, v9, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", buf, 0x12u);
     }
   }
 
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __78__SMSafetyMonitorManager_promptWorkoutAnomalyVerificationWithContext_handler___block_invoke;
-  v16[3] = &unk_279B657A8;
-  v17 = handlerCopy;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __78__SMSafetyMonitorManager_promptWorkoutAnomalyVerificationWithContext_handler___block_invoke_2;
-  v13[3] = &unk_279B65C00;
-  v14 = contextCopy;
-  v15 = v17;
-  v10 = v17;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __78__SMSafetyMonitorManager_promptWorkoutAnomalyVerificationWithContext_handler___block_invoke;
+  v15[3] = &unk_279B657A8;
+  v16 = handlerCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __78__SMSafetyMonitorManager_promptWorkoutAnomalyVerificationWithContext_handler___block_invoke_2;
+  v12[3] = &unk_279B65C00;
+  v13 = contextCopy;
+  v14 = v16;
+  v10 = v16;
   v11 = contextCopy;
-  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v16 taskBlock:v13];
-
-  v12 = *MEMORY[0x277D85DE8];
+  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v15 taskBlock:v12];
 }
 
 void __78__SMSafetyMonitorManager_promptWorkoutAnomalyVerificationWithContext_handler___block_invoke_2(uint64_t a1, void *a2)
@@ -2231,7 +2173,7 @@ void __78__SMSafetyMonitorManager_promptWorkoutAnomalyVerificationWithContext_ha
 
 void __54__SMSafetyMonitorManager__startHeartbeatForSessionID___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
@@ -2239,17 +2181,15 @@ void __54__SMSafetyMonitorManager__startHeartbeatForSessionID___block_invoke(uin
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       v5 = *(a1 + 32);
-      v7 = 136315650;
-      v8 = "[SMSafetyMonitorManager _startHeartbeatForSessionID:]_block_invoke";
-      v9 = 2112;
-      v10 = v5;
-      v11 = 2112;
-      v12 = v3;
-      _os_log_impl(&dword_26455D000, v4, OS_LOG_TYPE_INFO, "%s, %@, error, %@", &v7, 0x20u);
+      v6 = 136315650;
+      v7 = "[SMSafetyMonitorManager _startHeartbeatForSessionID:]_block_invoke";
+      v8 = 2112;
+      v9 = v5;
+      v10 = 2112;
+      v11 = v3;
+      _os_log_impl(&dword_26455D000, v4, OS_LOG_TYPE_INFO, "%s, %@, error, %@", &v6, 0x20u);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stopHeartbeat
@@ -2260,22 +2200,20 @@ void __54__SMSafetyMonitorManager__startHeartbeatForSessionID___block_invoke(uin
 
 void __40__SMSafetyMonitorManager__stopHeartbeat__block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = a2;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     v3 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v5 = 136315394;
-      v6 = "[SMSafetyMonitorManager _stopHeartbeat]_block_invoke";
-      v7 = 2112;
-      v8 = v2;
-      _os_log_impl(&dword_26455D000, v3, OS_LOG_TYPE_INFO, "%s, error, %@", &v5, 0x16u);
+      v4 = 136315394;
+      v5 = "[SMSafetyMonitorManager _stopHeartbeat]_block_invoke";
+      v6 = 2112;
+      v7 = v2;
+      _os_log_impl(&dword_26455D000, v3, OS_LOG_TYPE_INFO, "%s, error, %@", &v4, 0x16u);
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processStateForHeartbeat:(id)heartbeat forActiveDevice:(BOOL)device withError:(id)error
@@ -2330,31 +2268,31 @@ void __77__SMSafetyMonitorManager_processStateForHeartbeat_forActiveDevice_withE
 
 - (void)fetchCurrentWorkoutSnapshotWithCompletion:(id)completion
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   if (!completionCopy)
   {
     v6 = _rt_log_facility_get_os_log(RTLogFacilityGeneral);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      *v23 = 136315394;
-      *&v23[4] = "[SMSafetyMonitorManager fetchCurrentWorkoutSnapshotWithCompletion:]";
-      *&v23[12] = 1024;
-      *&v23[14] = 819;
-      _os_log_error_impl(&dword_26455D000, v6, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", v23, 0x12u);
+      *v22 = 136315394;
+      *&v22[4] = "[SMSafetyMonitorManager fetchCurrentWorkoutSnapshotWithCompletion:]";
+      *&v22[12] = 1024;
+      *&v22[14] = 819;
+      _os_log_error_impl(&dword_26455D000, v6, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", v22, 0x12u);
     }
   }
 
-  *v23 = 0;
-  *&v23[8] = v23;
-  *&v23[16] = 0x2020000000;
+  *v22 = 0;
+  *&v22[8] = v22;
+  *&v22[16] = 0x2020000000;
   v7 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v8 = os_signpost_id_generate(v7);
 
-  v24 = v8;
+  v23 = v8;
   v9 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v10 = v9;
-  v11 = *(*&v23[8] + 24);
+  v11 = *(*&v22[8] + 24);
   if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
   {
     *buf = 0;
@@ -2367,42 +2305,41 @@ void __77__SMSafetyMonitorManager_processStateForHeartbeat_forActiveDevice_withE
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v22 = "[SMSafetyMonitorManager fetchCurrentWorkoutSnapshotWithCompletion:]";
+      v21 = "[SMSafetyMonitorManager fetchCurrentWorkoutSnapshotWithCompletion:]";
       _os_log_impl(&dword_26455D000, v12, OS_LOG_TYPE_INFO, "%s", buf, 0xCu);
     }
   }
 
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __68__SMSafetyMonitorManager_fetchCurrentWorkoutSnapshotWithCompletion___block_invoke;
-  v18[3] = &unk_279B656E0;
-  v20 = v23;
-  v19 = completionCopy;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __68__SMSafetyMonitorManager_fetchCurrentWorkoutSnapshotWithCompletion___block_invoke_369;
-  v15[3] = &unk_279B65758;
-  v17 = v23;
-  v13 = v19;
-  v16 = v13;
-  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v18 taskBlock:v15];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __68__SMSafetyMonitorManager_fetchCurrentWorkoutSnapshotWithCompletion___block_invoke;
+  v17[3] = &unk_279B656E0;
+  v19 = v22;
+  v18 = completionCopy;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __68__SMSafetyMonitorManager_fetchCurrentWorkoutSnapshotWithCompletion___block_invoke_369;
+  v14[3] = &unk_279B65758;
+  v16 = v22;
+  v13 = v18;
+  v15 = v13;
+  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v17 taskBlock:v14];
 
-  _Block_object_dispose(v23, 8);
-  v14 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v22, 8);
 }
 
 void __68__SMSafetyMonitorManager_fetchCurrentWorkoutSnapshotWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      v10 = 136315138;
-      v11 = "[SMSafetyMonitorManager fetchCurrentWorkoutSnapshotWithCompletion:]_block_invoke";
-      _os_log_impl(&dword_26455D000, v4, OS_LOG_TYPE_INFO, "%s, erroring immediately", &v10, 0xCu);
+      v9 = 136315138;
+      v10 = "[SMSafetyMonitorManager fetchCurrentWorkoutSnapshotWithCompletion:]_block_invoke";
+      _os_log_impl(&dword_26455D000, v4, OS_LOG_TYPE_INFO, "%s, erroring immediately", &v9, 0xCu);
     }
   }
 
@@ -2412,13 +2349,12 @@ void __68__SMSafetyMonitorManager_fetchCurrentWorkoutSnapshotWithCompletion___bl
   if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
   {
     v8 = [v3 code];
-    v10 = 134349056;
-    v11 = v8;
-    _os_signpost_emit_with_name_impl(&dword_26455D000, v6, OS_SIGNPOST_INTERVAL_END, v7, "SMFetchCurrentWorkoutSnapshot", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v10, 0xCu);
+    v9 = 134349056;
+    v10 = v8;
+    _os_signpost_emit_with_name_impl(&dword_26455D000, v6, OS_SIGNPOST_INTERVAL_END, v7, "SMFetchCurrentWorkoutSnapshot", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v9, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __68__SMSafetyMonitorManager_fetchCurrentWorkoutSnapshotWithCompletion___block_invoke_369(uint64_t a1, void *a2)
@@ -2435,7 +2371,7 @@ void __68__SMSafetyMonitorManager_fetchCurrentWorkoutSnapshotWithCompletion___bl
 
 void __68__SMSafetyMonitorManager_fetchCurrentWorkoutSnapshotWithCompletion___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = a2;
   v7 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
@@ -2443,18 +2379,17 @@ void __68__SMSafetyMonitorManager_fetchCurrentWorkoutSnapshotWithCompletion___bl
   v9 = *(*(*(a1 + 40) + 8) + 24);
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
-    v11 = 134349056;
-    v12 = [v5 code];
-    _os_signpost_emit_with_name_impl(&dword_26455D000, v8, OS_SIGNPOST_INTERVAL_END, v9, "SMFetchCurrentWorkoutSnapshot", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v11, 0xCu);
+    v10 = 134349056;
+    v11 = [v5 code];
+    _os_signpost_emit_with_name_impl(&dword_26455D000, v8, OS_SIGNPOST_INTERVAL_END, v9, "SMFetchCurrentWorkoutSnapshot", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v10, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchSOSReceiversWithCompletion:(id)completion
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
@@ -2465,58 +2400,54 @@ void __68__SMSafetyMonitorManager_fetchCurrentWorkoutSnapshotWithCompletion___bl
       v8 = NSStringFromClass(v7);
       v9 = NSStringFromSelector(a2);
       *buf = 138412546;
-      v18 = v8;
-      v19 = 2112;
-      v20 = v9;
+      v17 = v8;
+      v18 = 2112;
+      v19 = v9;
       _os_log_impl(&dword_26455D000, v6, OS_LOG_TYPE_INFO, "#SafetyCache,Initiator,%@,%@,fetching active session share recipients", buf, 0x16u);
     }
   }
 
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __58__SMSafetyMonitorManager_fetchSOSReceiversWithCompletion___block_invoke;
-  v14[3] = &unk_279B65AC0;
-  v14[4] = self;
-  v16 = a2;
-  v15 = completionCopy;
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __58__SMSafetyMonitorManager_fetchSOSReceiversWithCompletion___block_invoke_371;
-  v12[3] = &unk_279B65868;
-  v13 = v15;
-  v10 = v15;
-  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v14 taskBlock:v12];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __58__SMSafetyMonitorManager_fetchSOSReceiversWithCompletion___block_invoke;
+  v13[3] = &unk_279B65AC0;
+  v13[4] = self;
+  v15 = a2;
+  v14 = completionCopy;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __58__SMSafetyMonitorManager_fetchSOSReceiversWithCompletion___block_invoke_371;
+  v11[3] = &unk_279B65868;
+  v12 = v14;
+  v10 = v14;
+  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v13 taskBlock:v11];
 }
 
 void __58__SMSafetyMonitorManager_fetchSOSReceiversWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = objc_opt_class();
-    v8 = NSStringFromClass(v7);
-    v9 = NSStringFromSelector(*(a1 + 48));
-    v10 = 138412802;
-    v11 = v8;
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
+    v7 = NSStringFromSelector(*(a1 + 48));
+    v8 = 138412802;
+    v9 = v6;
+    v10 = 2112;
+    v11 = v7;
     v12 = 2112;
-    v13 = v9;
-    v14 = 2112;
-    v15 = v3;
-    _os_log_error_impl(&dword_26455D000, v4, OS_LOG_TYPE_ERROR, "%@,%@,failed to find proxy,error,%@", &v10, 0x20u);
+    v13 = v3;
+    _os_log_error_impl(&dword_26455D000, v4, OS_LOG_TYPE_ERROR, "%@,%@,failed to find proxy,error,%@", &v8, 0x20u);
   }
 
   (*(*(a1 + 40) + 16))();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchInitiatorSafetyCacheForSessionID:(id)d completion:(id)completion
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   dCopy = d;
   completionCopy = completion;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
@@ -2528,89 +2459,83 @@ void __58__SMSafetyMonitorManager_fetchSOSReceiversWithCompletion___block_invoke
       v11 = NSStringFromClass(v10);
       v12 = NSStringFromSelector(a2);
       *buf = 138412802;
-      v24 = dCopy;
-      v25 = 2112;
-      v26 = v11;
-      v27 = 2112;
-      v28 = v12;
+      v23 = dCopy;
+      v24 = 2112;
+      v25 = v11;
+      v26 = 2112;
+      v27 = v12;
       _os_log_impl(&dword_26455D000, v9, OS_LOG_TYPE_INFO, "#SafetyCache,Initiator,sessionID:%@,%@,%@,fetching initiator safety cache", buf, 0x20u);
     }
   }
 
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __75__SMSafetyMonitorManager_fetchInitiatorSafetyCacheForSessionID_completion___block_invoke;
-  v19[3] = &unk_279B65890;
-  v19[4] = self;
-  v22 = a2;
-  v21 = completionCopy;
-  v20 = dCopy;
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __75__SMSafetyMonitorManager_fetchInitiatorSafetyCacheForSessionID_completion___block_invoke_372;
-  v16[3] = &unk_279B65C00;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __75__SMSafetyMonitorManager_fetchInitiatorSafetyCacheForSessionID_completion___block_invoke;
+  v18[3] = &unk_279B65890;
+  v18[4] = self;
+  v21 = a2;
+  v20 = completionCopy;
+  v19 = dCopy;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __75__SMSafetyMonitorManager_fetchInitiatorSafetyCacheForSessionID_completion___block_invoke_372;
+  v15[3] = &unk_279B65C00;
+  v16 = v19;
   v17 = v20;
-  v18 = v21;
-  v13 = v21;
-  v14 = v20;
-  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v19 taskBlock:v16];
-
-  v15 = *MEMORY[0x277D85DE8];
+  v13 = v20;
+  v14 = v19;
+  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v18 taskBlock:v15];
 }
 
 void __75__SMSafetyMonitorManager_fetchInitiatorSafetyCacheForSessionID_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v7 = *(a1 + 32);
-    v8 = objc_opt_class();
-    v9 = NSStringFromClass(v8);
-    v10 = NSStringFromSelector(*(a1 + 56));
-    v11 = 138412802;
-    v12 = v9;
-    v13 = 2112;
-    v14 = v10;
-    v15 = 2112;
-    v16 = v3;
-    _os_log_error_impl(&dword_26455D000, v4, OS_LOG_TYPE_ERROR, "%@,%@,failed to find proxy,error,%@", &v11, 0x20u);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
+    v7 = NSStringFromSelector(*(a1 + 56));
+    v8 = 138412802;
+    v9 = v6;
+    v10 = 2112;
+    v11 = v7;
+    v12 = 2112;
+    v13 = v3;
+    _os_log_error_impl(&dword_26455D000, v4, OS_LOG_TYPE_ERROR, "%@,%@,failed to find proxy,error,%@", &v8, 0x20u);
   }
 
-  v5 = *(a1 + 40);
   (*(*(a1 + 48) + 16))();
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startMonitoringSessionStateWithHandler:(id)handler
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   if (!handlerCopy)
   {
     v6 = _rt_log_facility_get_os_log(RTLogFacilityGeneral);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      *v23 = 136315394;
-      *&v23[4] = "[SMSafetyMonitorManager startMonitoringSessionStateWithHandler:]";
-      *&v23[12] = 1024;
-      *&v23[14] = 871;
-      _os_log_error_impl(&dword_26455D000, v6, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", v23, 0x12u);
+      *v22 = 136315394;
+      *&v22[4] = "[SMSafetyMonitorManager startMonitoringSessionStateWithHandler:]";
+      *&v22[12] = 1024;
+      *&v22[14] = 871;
+      _os_log_error_impl(&dword_26455D000, v6, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", v22, 0x12u);
     }
   }
 
-  *v23 = 0;
-  *&v23[8] = v23;
-  *&v23[16] = 0x2020000000;
+  *v22 = 0;
+  *&v22[8] = v22;
+  *&v22[16] = 0x2020000000;
   v7 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v8 = os_signpost_id_generate(v7);
 
-  v24 = v8;
+  v23 = v8;
   v9 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v10 = v9;
-  v11 = *(*&v23[8] + 24);
+  v11 = *(*&v22[8] + 24);
   if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
   {
     *buf = 0;
@@ -2623,36 +2548,35 @@ void __75__SMSafetyMonitorManager_fetchInitiatorSafetyCacheForSessionID_completi
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v22 = "[SMSafetyMonitorManager startMonitoringSessionStateWithHandler:]";
+      v21 = "[SMSafetyMonitorManager startMonitoringSessionStateWithHandler:]";
       _os_log_impl(&dword_26455D000, v12, OS_LOG_TYPE_INFO, "%s", buf, 0xCu);
     }
   }
 
   [(SMSafetyMonitorManager *)self setSessionStateHandler:handlerCopy];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __65__SMSafetyMonitorManager_startMonitoringSessionStateWithHandler___block_invoke;
-  v18[3] = &unk_279B658B8;
-  v20 = v23;
-  v18[4] = self;
-  v19 = handlerCopy;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __65__SMSafetyMonitorManager_startMonitoringSessionStateWithHandler___block_invoke_373;
-  v15[3] = &unk_279B65908;
-  v17 = v23;
-  v13 = v19;
-  v15[4] = self;
-  v16 = v13;
-  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v18 taskBlock:v15];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __65__SMSafetyMonitorManager_startMonitoringSessionStateWithHandler___block_invoke;
+  v17[3] = &unk_279B658B8;
+  v19 = v22;
+  v17[4] = self;
+  v18 = handlerCopy;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __65__SMSafetyMonitorManager_startMonitoringSessionStateWithHandler___block_invoke_373;
+  v14[3] = &unk_279B65908;
+  v16 = v22;
+  v13 = v18;
+  v14[4] = self;
+  v15 = v13;
+  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v17 taskBlock:v14];
 
-  _Block_object_dispose(v23, 8);
-  v14 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v22, 8);
 }
 
 void __65__SMSafetyMonitorManager_startMonitoringSessionStateWithHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -2661,16 +2585,14 @@ void __65__SMSafetyMonitorManager_startMonitoringSessionStateWithHandler___block
     v6 = *(*(*(a1 + 48) + 8) + 24);
     if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
     {
-      v8 = 134349056;
-      v9 = [v3 code];
-      _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMStartMonitoringSession", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v8, 0xCu);
+      v7 = 134349056;
+      v8 = [v3 code];
+      _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMStartMonitoringSession", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v7, 0xCu);
     }
 
     (*(*(a1 + 40) + 16))();
     [*(a1 + 32) setSessionStateHandler:0];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __65__SMSafetyMonitorManager_startMonitoringSessionStateWithHandler___block_invoke_373(uint64_t a1, void *a2)
@@ -2688,7 +2610,7 @@ void __65__SMSafetyMonitorManager_startMonitoringSessionStateWithHandler___block
 
 void __65__SMSafetyMonitorManager_startMonitoringSessionStateWithHandler___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a4;
   v8 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
@@ -2697,11 +2619,11 @@ void __65__SMSafetyMonitorManager_startMonitoringSessionStateWithHandler___block
   if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
   {
     v11 = +[SMSessionManagerState convertSessionStateToString:](SMSessionManagerState, "convertSessionStateToString:", [v6 sessionState]);
-    v13 = 136446466;
-    v14 = [v11 UTF8String];
-    v15 = 2050;
-    v16 = [v7 code];
-    _os_signpost_emit_with_name_impl(&dword_26455D000, v9, OS_SIGNPOST_INTERVAL_END, v10, "SMStartMonitoringSession", " enableTelemetry=YES {state:%{public,signpost.telemetry:string1}s, error:%{public,signpost.telemetry:number1}ld}", &v13, 0x16u);
+    v12 = 136446466;
+    v13 = [v11 UTF8String];
+    v14 = 2050;
+    v15 = [v7 code];
+    _os_signpost_emit_with_name_impl(&dword_26455D000, v9, OS_SIGNPOST_INTERVAL_END, v10, "SMStartMonitoringSession", " enableTelemetry=YES {state:%{public,signpost.telemetry:string1}s, error:%{public,signpost.telemetry:number1}ld}", &v12, 0x16u);
   }
 
   (*(*(a1 + 40) + 16))();
@@ -2709,37 +2631,35 @@ void __65__SMSafetyMonitorManager_startMonitoringSessionStateWithHandler___block
   {
     [*(a1 + 32) setSessionStateHandler:0];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopMonitoringSessionStateWithHandler:(id)handler
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   if (!handlerCopy)
   {
     v6 = _rt_log_facility_get_os_log(RTLogFacilityGeneral);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      *v23 = 136315394;
-      *&v23[4] = "[SMSafetyMonitorManager stopMonitoringSessionStateWithHandler:]";
-      *&v23[12] = 1024;
-      *&v23[14] = 896;
-      _os_log_error_impl(&dword_26455D000, v6, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", v23, 0x12u);
+      *v22 = 136315394;
+      *&v22[4] = "[SMSafetyMonitorManager stopMonitoringSessionStateWithHandler:]";
+      *&v22[12] = 1024;
+      *&v22[14] = 896;
+      _os_log_error_impl(&dword_26455D000, v6, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", v22, 0x12u);
     }
   }
 
-  *v23 = 0;
-  *&v23[8] = v23;
-  *&v23[16] = 0x2020000000;
+  *v22 = 0;
+  *&v22[8] = v22;
+  *&v22[16] = 0x2020000000;
   v7 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v8 = os_signpost_id_generate(v7);
 
-  v24 = v8;
+  v23 = v8;
   v9 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v10 = v9;
-  v11 = *(*&v23[8] + 24);
+  v11 = *(*&v22[8] + 24);
   if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
   {
     *buf = 0;
@@ -2752,47 +2672,45 @@ void __65__SMSafetyMonitorManager_startMonitoringSessionStateWithHandler___block
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v22 = "[SMSafetyMonitorManager stopMonitoringSessionStateWithHandler:]";
+      v21 = "[SMSafetyMonitorManager stopMonitoringSessionStateWithHandler:]";
       _os_log_impl(&dword_26455D000, v12, OS_LOG_TYPE_INFO, "%s", buf, 0xCu);
     }
   }
 
   [(SMSafetyMonitorManager *)self setSessionStateHandler:0];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __64__SMSafetyMonitorManager_stopMonitoringSessionStateWithHandler___block_invoke;
-  v18[3] = &unk_279B656E0;
-  v20 = v23;
-  v19 = handlerCopy;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __64__SMSafetyMonitorManager_stopMonitoringSessionStateWithHandler___block_invoke_375;
-  v15[3] = &unk_279B65758;
-  v17 = v23;
-  v13 = v19;
-  v16 = v13;
-  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v18 taskBlock:v15];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __64__SMSafetyMonitorManager_stopMonitoringSessionStateWithHandler___block_invoke;
+  v17[3] = &unk_279B656E0;
+  v19 = v22;
+  v18 = handlerCopy;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __64__SMSafetyMonitorManager_stopMonitoringSessionStateWithHandler___block_invoke_375;
+  v14[3] = &unk_279B65758;
+  v16 = v22;
+  v13 = v18;
+  v15 = v13;
+  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v17 taskBlock:v14];
 
-  _Block_object_dispose(v23, 8);
-  v14 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v22, 8);
 }
 
 void __64__SMSafetyMonitorManager_stopMonitoringSessionStateWithHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v5 = v4;
   v6 = *(*(*(a1 + 40) + 8) + 24);
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
-    v8 = 134349056;
-    v9 = [v3 code];
-    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMStopMonitoringSession", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v8, 0xCu);
+    v7 = 134349056;
+    v8 = [v3 code];
+    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMStopMonitoringSession", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v7, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __64__SMSafetyMonitorManager_stopMonitoringSessionStateWithHandler___block_invoke_375(uint64_t a1, void *a2)
@@ -2809,90 +2727,87 @@ void __64__SMSafetyMonitorManager_stopMonitoringSessionStateWithHandler___block_
 
 void __64__SMSafetyMonitorManager_stopMonitoringSessionStateWithHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v5 = v4;
   v6 = *(*(*(a1 + 40) + 8) + 24);
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
-    v8 = 134349056;
-    v9 = [v3 code];
-    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMStopMonitoringSession", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v8, 0xCu);
+    v7 = 134349056;
+    v8 = [v3 code];
+    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMStopMonitoringSession", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v7, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchCurrentSessionStateWithCompletion:(id)completion
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   if (!completionCopy)
   {
     v6 = _rt_log_facility_get_os_log(RTLogFacilityGeneral);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      *v21 = 136315394;
-      *&v21[4] = "[SMSafetyMonitorManager fetchCurrentSessionStateWithCompletion:]";
-      *&v21[12] = 1024;
-      *&v21[14] = 920;
-      _os_log_error_impl(&dword_26455D000, v6, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", v21, 0x12u);
+      *v20 = 136315394;
+      *&v20[4] = "[SMSafetyMonitorManager fetchCurrentSessionStateWithCompletion:]";
+      *&v20[12] = 1024;
+      *&v20[14] = 920;
+      _os_log_error_impl(&dword_26455D000, v6, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", v20, 0x12u);
     }
   }
 
-  *v21 = 0;
-  *&v21[8] = v21;
-  *&v21[16] = 0x2020000000;
+  *v20 = 0;
+  *&v20[8] = v20;
+  *&v20[16] = 0x2020000000;
   v7 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v8 = os_signpost_id_generate(v7);
 
-  v22 = v8;
+  v21 = v8;
   v9 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v10 = v9;
-  v11 = *(*&v21[8] + 24);
+  v11 = *(*&v20[8] + 24);
   if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
   {
     *buf = 0;
     _os_signpost_emit_with_name_impl(&dword_26455D000, v10, OS_SIGNPOST_INTERVAL_BEGIN, v11, "SMFetchCurrentSessionState", " enableTelemetry=YES ", buf, 2u);
   }
 
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __65__SMSafetyMonitorManager_fetchCurrentSessionStateWithCompletion___block_invoke;
-  v17[3] = &unk_279B656E0;
-  v19 = v21;
-  v18 = completionCopy;
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __65__SMSafetyMonitorManager_fetchCurrentSessionStateWithCompletion___block_invoke_376;
-  v14[3] = &unk_279B65758;
-  v16 = v21;
-  v12 = v18;
-  v15 = v12;
-  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v17 taskBlock:v14];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __65__SMSafetyMonitorManager_fetchCurrentSessionStateWithCompletion___block_invoke;
+  v16[3] = &unk_279B656E0;
+  v18 = v20;
+  v17 = completionCopy;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __65__SMSafetyMonitorManager_fetchCurrentSessionStateWithCompletion___block_invoke_376;
+  v13[3] = &unk_279B65758;
+  v15 = v20;
+  v12 = v17;
+  v14 = v12;
+  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v16 taskBlock:v13];
 
-  _Block_object_dispose(v21, 8);
-  v13 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v20, 8);
 }
 
 void __65__SMSafetyMonitorManager_fetchCurrentSessionStateWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v5 = v4;
   v6 = *(*(*(a1 + 40) + 8) + 24);
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
-    v8 = 134349056;
-    v9 = [v3 code];
-    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMFetchCurrentSessionState", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v8, 0xCu);
+    v7 = 134349056;
+    v8 = [v3 code];
+    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMFetchCurrentSessionState", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v7, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __65__SMSafetyMonitorManager_fetchCurrentSessionStateWithCompletion___block_invoke_376(uint64_t a1, void *a2)
@@ -2909,7 +2824,7 @@ void __65__SMSafetyMonitorManager_fetchCurrentSessionStateWithCompletion___block
 
 void __65__SMSafetyMonitorManager_fetchCurrentSessionStateWithCompletion___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a4;
   v8 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
@@ -2918,85 +2833,103 @@ void __65__SMSafetyMonitorManager_fetchCurrentSessionStateWithCompletion___block
   if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
   {
     v11 = +[SMSessionManagerState convertSessionStateToString:](SMSessionManagerState, "convertSessionStateToString:", [v6 sessionState]);
-    v13 = 136446466;
-    v14 = [v11 UTF8String];
-    v15 = 2050;
-    v16 = [v7 code];
-    _os_signpost_emit_with_name_impl(&dword_26455D000, v9, OS_SIGNPOST_INTERVAL_END, v10, "SMFetchCurrentSessionState", " enableTelemetry=YES {state:%{public,signpost.telemetry:string1}s, error:%{public,signpost.telemetry:number1}ld}", &v13, 0x16u);
+    v12 = 136446466;
+    v13 = [v11 UTF8String];
+    v14 = 2050;
+    v15 = [v7 code];
+    _os_signpost_emit_with_name_impl(&dword_26455D000, v9, OS_SIGNPOST_INTERVAL_END, v10, "SMFetchCurrentSessionState", " enableTelemetry=YES {state:%{public,signpost.telemetry:string1}s, error:%{public,signpost.telemetry:number1}ld}", &v12, 0x16u);
   }
 
   (*(*(a1 + 32) + 16))();
-  v12 = *MEMORY[0x277D85DE8];
+}
+
+- (void)onSessionStateChanged:(id)changed forActiveDevice:(BOOL)device withError:(id)error
+{
+  deviceCopy = device;
+  changedCopy = changed;
+  errorCopy = error;
+  sessionStateHandler = [(SMSafetyMonitorManager *)self sessionStateHandler];
+
+  if (sessionStateHandler)
+  {
+    sessionStateHandler2 = [(SMSafetyMonitorManager *)self sessionStateHandler];
+    (sessionStateHandler2)[2](sessionStateHandler2, changedCopy, deviceCopy, errorCopy);
+  }
+
+  heartbeatTimer = [(SMSafetyMonitorManager *)self heartbeatTimer];
+
+  if (heartbeatTimer)
+  {
+    [(SMSafetyMonitorManager *)self processStateForHeartbeat:changedCopy forActiveDevice:deviceCopy withError:errorCopy];
+  }
 }
 
 - (void)fetchCurrentLocalSessionStateWithHandler:(id)handler
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   if (!handlerCopy)
   {
     v6 = _rt_log_facility_get_os_log(RTLogFacilityGeneral);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      *v21 = 136315394;
-      *&v21[4] = "[SMSafetyMonitorManager fetchCurrentLocalSessionStateWithHandler:]";
-      *&v21[12] = 1024;
-      *&v21[14] = 947;
-      _os_log_error_impl(&dword_26455D000, v6, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", v21, 0x12u);
+      *v20 = 136315394;
+      *&v20[4] = "[SMSafetyMonitorManager fetchCurrentLocalSessionStateWithHandler:]";
+      *&v20[12] = 1024;
+      *&v20[14] = 947;
+      _os_log_error_impl(&dword_26455D000, v6, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", v20, 0x12u);
     }
   }
 
-  *v21 = 0;
-  *&v21[8] = v21;
-  *&v21[16] = 0x2020000000;
+  *v20 = 0;
+  *&v20[8] = v20;
+  *&v20[16] = 0x2020000000;
   v7 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v8 = os_signpost_id_generate(v7);
 
-  v22 = v8;
+  v21 = v8;
   v9 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v10 = v9;
-  v11 = *(*&v21[8] + 24);
+  v11 = *(*&v20[8] + 24);
   if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
   {
     *buf = 0;
     _os_signpost_emit_with_name_impl(&dword_26455D000, v10, OS_SIGNPOST_INTERVAL_BEGIN, v11, "SMFetchCurrentLocalSessionState", " enableTelemetry=YES ", buf, 2u);
   }
 
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __67__SMSafetyMonitorManager_fetchCurrentLocalSessionStateWithHandler___block_invoke;
-  v17[3] = &unk_279B656E0;
-  v19 = v21;
-  v18 = handlerCopy;
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __67__SMSafetyMonitorManager_fetchCurrentLocalSessionStateWithHandler___block_invoke_377;
-  v14[3] = &unk_279B65758;
-  v16 = v21;
-  v12 = v18;
-  v15 = v12;
-  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v17 taskBlock:v14];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __67__SMSafetyMonitorManager_fetchCurrentLocalSessionStateWithHandler___block_invoke;
+  v16[3] = &unk_279B656E0;
+  v18 = v20;
+  v17 = handlerCopy;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __67__SMSafetyMonitorManager_fetchCurrentLocalSessionStateWithHandler___block_invoke_377;
+  v13[3] = &unk_279B65758;
+  v15 = v20;
+  v12 = v17;
+  v14 = v12;
+  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v16 taskBlock:v13];
 
-  _Block_object_dispose(v21, 8);
-  v13 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v20, 8);
 }
 
 void __67__SMSafetyMonitorManager_fetchCurrentLocalSessionStateWithHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v5 = v4;
   v6 = *(*(*(a1 + 40) + 8) + 24);
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
-    v8 = 134349056;
-    v9 = [v3 code];
-    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMFetchCurrentLocalSessionState", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v8, 0xCu);
+    v7 = 134349056;
+    v8 = [v3 code];
+    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMFetchCurrentLocalSessionState", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v7, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __67__SMSafetyMonitorManager_fetchCurrentLocalSessionStateWithHandler___block_invoke_377(uint64_t a1, void *a2)
@@ -3013,7 +2946,7 @@ void __67__SMSafetyMonitorManager_fetchCurrentLocalSessionStateWithHandler___blo
 
 void __67__SMSafetyMonitorManager_fetchCurrentLocalSessionStateWithHandler___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
@@ -3022,44 +2955,43 @@ void __67__SMSafetyMonitorManager_fetchCurrentLocalSessionStateWithHandler___blo
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
     v10 = [v5 description];
-    v12 = 136446466;
-    v13 = [v10 UTF8String];
-    v14 = 2050;
-    v15 = [v6 code];
-    _os_signpost_emit_with_name_impl(&dword_26455D000, v8, OS_SIGNPOST_INTERVAL_END, v9, "SMFetchCurrentLocalSessionState", " enableTelemetry=YES {state:%{public,signpost.telemetry:string1}s, error:%{public,signpost.telemetry:number1}ld}", &v12, 0x16u);
+    v11 = 136446466;
+    v12 = [v10 UTF8String];
+    v13 = 2050;
+    v14 = [v6 code];
+    _os_signpost_emit_with_name_impl(&dword_26455D000, v8, OS_SIGNPOST_INTERVAL_END, v9, "SMFetchCurrentLocalSessionState", " enableTelemetry=YES {state:%{public,signpost.telemetry:string1}s, error:%{public,signpost.telemetry:number1}ld}", &v11, 0x16u);
   }
 
   (*(*(a1 + 32) + 16))();
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startMonitoringLocalSessionStateWithHandler:(id)handler
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   if (!handlerCopy)
   {
     v6 = _rt_log_facility_get_os_log(RTLogFacilityGeneral);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      *v23 = 136315394;
-      *&v23[4] = "[SMSafetyMonitorManager startMonitoringLocalSessionStateWithHandler:]";
-      *&v23[12] = 1024;
-      *&v23[14] = 963;
-      _os_log_error_impl(&dword_26455D000, v6, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", v23, 0x12u);
+      *v22 = 136315394;
+      *&v22[4] = "[SMSafetyMonitorManager startMonitoringLocalSessionStateWithHandler:]";
+      *&v22[12] = 1024;
+      *&v22[14] = 963;
+      _os_log_error_impl(&dword_26455D000, v6, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", v22, 0x12u);
     }
   }
 
-  *v23 = 0;
-  *&v23[8] = v23;
-  *&v23[16] = 0x2020000000;
+  *v22 = 0;
+  *&v22[8] = v22;
+  *&v22[16] = 0x2020000000;
   v7 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v8 = os_signpost_id_generate(v7);
 
-  v24 = v8;
+  v23 = v8;
   v9 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v10 = v9;
-  v11 = *(*&v23[8] + 24);
+  v11 = *(*&v22[8] + 24);
   if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
   {
     *buf = 0;
@@ -3072,36 +3004,35 @@ void __67__SMSafetyMonitorManager_fetchCurrentLocalSessionStateWithHandler___blo
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v22 = "[SMSafetyMonitorManager startMonitoringLocalSessionStateWithHandler:]";
+      v21 = "[SMSafetyMonitorManager startMonitoringLocalSessionStateWithHandler:]";
       _os_log_impl(&dword_26455D000, v12, OS_LOG_TYPE_INFO, "%s", buf, 0xCu);
     }
   }
 
   [(SMSafetyMonitorManager *)self setLocalSessionStateHandler:handlerCopy];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __70__SMSafetyMonitorManager_startMonitoringLocalSessionStateWithHandler___block_invoke;
-  v18[3] = &unk_279B658B8;
-  v20 = v23;
-  v18[4] = self;
-  v19 = handlerCopy;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __70__SMSafetyMonitorManager_startMonitoringLocalSessionStateWithHandler___block_invoke_379;
-  v15[3] = &unk_279B65908;
-  v17 = v23;
-  v13 = v19;
-  v15[4] = self;
-  v16 = v13;
-  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v18 taskBlock:v15];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __70__SMSafetyMonitorManager_startMonitoringLocalSessionStateWithHandler___block_invoke;
+  v17[3] = &unk_279B658B8;
+  v19 = v22;
+  v17[4] = self;
+  v18 = handlerCopy;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __70__SMSafetyMonitorManager_startMonitoringLocalSessionStateWithHandler___block_invoke_379;
+  v14[3] = &unk_279B65908;
+  v16 = v22;
+  v13 = v18;
+  v14[4] = self;
+  v15 = v13;
+  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v17 taskBlock:v14];
 
-  _Block_object_dispose(v23, 8);
-  v14 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v22, 8);
 }
 
 void __70__SMSafetyMonitorManager_startMonitoringLocalSessionStateWithHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -3110,16 +3041,14 @@ void __70__SMSafetyMonitorManager_startMonitoringLocalSessionStateWithHandler___
     v6 = *(*(*(a1 + 48) + 8) + 24);
     if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
     {
-      v8 = 134349056;
-      v9 = [v3 code];
-      _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMStartLocalSessionStateMonitoring", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v8, 0xCu);
+      v7 = 134349056;
+      v8 = [v3 code];
+      _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMStartLocalSessionStateMonitoring", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v7, 0xCu);
     }
 
     (*(*(a1 + 40) + 16))();
     [*(a1 + 32) setLocalSessionStateHandler:0];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __70__SMSafetyMonitorManager_startMonitoringLocalSessionStateWithHandler___block_invoke_379(uint64_t a1, void *a2)
@@ -3137,7 +3066,7 @@ void __70__SMSafetyMonitorManager_startMonitoringLocalSessionStateWithHandler___
 
 void __70__SMSafetyMonitorManager_startMonitoringLocalSessionStateWithHandler___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
@@ -3146,11 +3075,11 @@ void __70__SMSafetyMonitorManager_startMonitoringLocalSessionStateWithHandler___
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
     v10 = [v5 description];
-    v12 = 136446466;
-    v13 = [v10 UTF8String];
-    v14 = 2050;
-    v15 = [v6 code];
-    _os_signpost_emit_with_name_impl(&dword_26455D000, v8, OS_SIGNPOST_INTERVAL_END, v9, "SMStartLocalSessionStateMonitoring", " enableTelemetry=YES {state:%{public,signpost.telemetry:string1}s, error:%{public,signpost.telemetry:number1}ld}", &v12, 0x16u);
+    v11 = 136446466;
+    v12 = [v10 UTF8String];
+    v13 = 2050;
+    v14 = [v6 code];
+    _os_signpost_emit_with_name_impl(&dword_26455D000, v8, OS_SIGNPOST_INTERVAL_END, v9, "SMStartLocalSessionStateMonitoring", " enableTelemetry=YES {state:%{public,signpost.telemetry:string1}s, error:%{public,signpost.telemetry:number1}ld}", &v11, 0x16u);
   }
 
   (*(*(a1 + 40) + 16))();
@@ -3158,37 +3087,35 @@ void __70__SMSafetyMonitorManager_startMonitoringLocalSessionStateWithHandler___
   {
     [*(a1 + 32) setLocalSessionStateHandler:0];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopMonitoringLocalSessionStateWithHandler:(id)handler
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   if (!handlerCopy)
   {
     v6 = _rt_log_facility_get_os_log(RTLogFacilityGeneral);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      *v23 = 136315394;
-      *&v23[4] = "[SMSafetyMonitorManager stopMonitoringLocalSessionStateWithHandler:]";
-      *&v23[12] = 1024;
-      *&v23[14] = 987;
-      _os_log_error_impl(&dword_26455D000, v6, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", v23, 0x12u);
+      *v22 = 136315394;
+      *&v22[4] = "[SMSafetyMonitorManager stopMonitoringLocalSessionStateWithHandler:]";
+      *&v22[12] = 1024;
+      *&v22[14] = 987;
+      _os_log_error_impl(&dword_26455D000, v6, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", v22, 0x12u);
     }
   }
 
-  *v23 = 0;
-  *&v23[8] = v23;
-  *&v23[16] = 0x2020000000;
+  *v22 = 0;
+  *&v22[8] = v22;
+  *&v22[16] = 0x2020000000;
   v7 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v8 = os_signpost_id_generate(v7);
 
-  v24 = v8;
+  v23 = v8;
   v9 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v10 = v9;
-  v11 = *(*&v23[8] + 24);
+  v11 = *(*&v22[8] + 24);
   if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
   {
     *buf = 0;
@@ -3201,47 +3128,45 @@ void __70__SMSafetyMonitorManager_startMonitoringLocalSessionStateWithHandler___
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v22 = "[SMSafetyMonitorManager stopMonitoringLocalSessionStateWithHandler:]";
+      v21 = "[SMSafetyMonitorManager stopMonitoringLocalSessionStateWithHandler:]";
       _os_log_impl(&dword_26455D000, v12, OS_LOG_TYPE_INFO, "%s", buf, 0xCu);
     }
   }
 
   [(SMSafetyMonitorManager *)self setLocalSessionStateHandler:0];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __69__SMSafetyMonitorManager_stopMonitoringLocalSessionStateWithHandler___block_invoke;
-  v18[3] = &unk_279B656E0;
-  v20 = v23;
-  v19 = handlerCopy;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __69__SMSafetyMonitorManager_stopMonitoringLocalSessionStateWithHandler___block_invoke_380;
-  v15[3] = &unk_279B65758;
-  v17 = v23;
-  v13 = v19;
-  v16 = v13;
-  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v18 taskBlock:v15];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __69__SMSafetyMonitorManager_stopMonitoringLocalSessionStateWithHandler___block_invoke;
+  v17[3] = &unk_279B656E0;
+  v19 = v22;
+  v18 = handlerCopy;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __69__SMSafetyMonitorManager_stopMonitoringLocalSessionStateWithHandler___block_invoke_380;
+  v14[3] = &unk_279B65758;
+  v16 = v22;
+  v13 = v18;
+  v15 = v13;
+  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v17 taskBlock:v14];
 
-  _Block_object_dispose(v23, 8);
-  v14 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v22, 8);
 }
 
 void __69__SMSafetyMonitorManager_stopMonitoringLocalSessionStateWithHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v5 = v4;
   v6 = *(*(*(a1 + 40) + 8) + 24);
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
-    v8 = 134349056;
-    v9 = [v3 code];
-    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMStopLocalSessionStateMonitoring", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v8, 0xCu);
+    v7 = 134349056;
+    v8 = [v3 code];
+    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMStopLocalSessionStateMonitoring", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v7, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __69__SMSafetyMonitorManager_stopMonitoringLocalSessionStateWithHandler___block_invoke_380(uint64_t a1, void *a2)
@@ -3258,20 +3183,19 @@ void __69__SMSafetyMonitorManager_stopMonitoringLocalSessionStateWithHandler___b
 
 void __69__SMSafetyMonitorManager_stopMonitoringLocalSessionStateWithHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v5 = v4;
   v6 = *(*(*(a1 + 40) + 8) + 24);
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
-    v8 = 134349056;
-    v9 = [v3 code];
-    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMStopLocalSessionStateMonitoring", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v8, 0xCu);
+    v7 = 134349056;
+    v8 = [v3 code];
+    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMStopLocalSessionStateMonitoring", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v7, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)onLocalSessionStateChanged:(id)changed withError:(id)error
@@ -3805,31 +3729,31 @@ void __76__SMSafetyMonitorManager_fetchTriggerDestinationStateWithSessionID_hand
 
 - (void)fetchMostLikelyReceiverHandlesWithHandler:(id)handler
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   if (!handlerCopy)
   {
     v6 = _rt_log_facility_get_os_log(RTLogFacilityGeneral);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      *v23 = 136315394;
-      *&v23[4] = "[SMSafetyMonitorManager fetchMostLikelyReceiverHandlesWithHandler:]";
-      *&v23[12] = 1024;
-      *&v23[14] = 1196;
-      _os_log_error_impl(&dword_26455D000, v6, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", v23, 0x12u);
+      *v22 = 136315394;
+      *&v22[4] = "[SMSafetyMonitorManager fetchMostLikelyReceiverHandlesWithHandler:]";
+      *&v22[12] = 1024;
+      *&v22[14] = 1196;
+      _os_log_error_impl(&dword_26455D000, v6, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", v22, 0x12u);
     }
   }
 
-  *v23 = 0;
-  *&v23[8] = v23;
-  *&v23[16] = 0x2020000000;
+  *v22 = 0;
+  *&v22[8] = v22;
+  *&v22[16] = 0x2020000000;
   v7 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v8 = os_signpost_id_generate(v7);
 
-  v24 = v8;
+  v23 = v8;
   v9 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v10 = v9;
-  v11 = *(*&v23[8] + 24);
+  v11 = *(*&v22[8] + 24);
   if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
   {
     *buf = 0;
@@ -3842,46 +3766,44 @@ void __76__SMSafetyMonitorManager_fetchTriggerDestinationStateWithSessionID_hand
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v22 = "[SMSafetyMonitorManager fetchMostLikelyReceiverHandlesWithHandler:]";
+      v21 = "[SMSafetyMonitorManager fetchMostLikelyReceiverHandlesWithHandler:]";
       _os_log_impl(&dword_26455D000, v12, OS_LOG_TYPE_INFO, "%s", buf, 0xCu);
     }
   }
 
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __68__SMSafetyMonitorManager_fetchMostLikelyReceiverHandlesWithHandler___block_invoke;
-  v18[3] = &unk_279B656E0;
-  v20 = v23;
-  v19 = handlerCopy;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __68__SMSafetyMonitorManager_fetchMostLikelyReceiverHandlesWithHandler___block_invoke_381;
-  v15[3] = &unk_279B65758;
-  v17 = v23;
-  v13 = v19;
-  v16 = v13;
-  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v18 taskBlock:v15];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __68__SMSafetyMonitorManager_fetchMostLikelyReceiverHandlesWithHandler___block_invoke;
+  v17[3] = &unk_279B656E0;
+  v19 = v22;
+  v18 = handlerCopy;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __68__SMSafetyMonitorManager_fetchMostLikelyReceiverHandlesWithHandler___block_invoke_381;
+  v14[3] = &unk_279B65758;
+  v16 = v22;
+  v13 = v18;
+  v15 = v13;
+  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v17 taskBlock:v14];
 
-  _Block_object_dispose(v23, 8);
-  v14 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v22, 8);
 }
 
 void __68__SMSafetyMonitorManager_fetchMostLikelyReceiverHandlesWithHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v5 = v4;
   v6 = *(*(*(a1 + 40) + 8) + 24);
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
-    v8 = 134349056;
-    v9 = [v3 code];
-    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMFetchMostLikelyReceiverHandles", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v8, 0xCu);
+    v7 = 134349056;
+    v8 = [v3 code];
+    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMFetchMostLikelyReceiverHandles", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v7, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __68__SMSafetyMonitorManager_fetchMostLikelyReceiverHandlesWithHandler___block_invoke_381(uint64_t a1, void *a2)
@@ -3898,7 +3820,7 @@ void __68__SMSafetyMonitorManager_fetchMostLikelyReceiverHandlesWithHandler___bl
 
 void __68__SMSafetyMonitorManager_fetchMostLikelyReceiverHandlesWithHandler___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = a2;
   v7 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
@@ -3906,18 +3828,17 @@ void __68__SMSafetyMonitorManager_fetchMostLikelyReceiverHandlesWithHandler___bl
   v9 = *(*(*(a1 + 40) + 8) + 24);
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
-    v11 = 134349056;
-    v12 = [v5 code];
-    _os_signpost_emit_with_name_impl(&dword_26455D000, v8, OS_SIGNPOST_INTERVAL_END, v9, "SMFetchMostLikelyReceiverHandles", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v11, 0xCu);
+    v10 = 134349056;
+    v11 = [v5 code];
+    _os_signpost_emit_with_name_impl(&dword_26455D000, v8, OS_SIGNPOST_INTERVAL_END, v9, "SMFetchMostLikelyReceiverHandles", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v10, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchMostLikelyReceiverHandlesWithOptions:(id)options handler:(id)handler
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   handlerCopy = handler;
   if (!handlerCopy)
@@ -3925,24 +3846,24 @@ void __68__SMSafetyMonitorManager_fetchMostLikelyReceiverHandlesWithHandler___bl
     v9 = _rt_log_facility_get_os_log(RTLogFacilityGeneral);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      *v28 = 136315394;
-      *&v28[4] = "[SMSafetyMonitorManager fetchMostLikelyReceiverHandlesWithOptions:handler:]";
-      *&v28[12] = 1024;
-      *&v28[14] = 1213;
-      _os_log_error_impl(&dword_26455D000, v9, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", v28, 0x12u);
+      *v27 = 136315394;
+      *&v27[4] = "[SMSafetyMonitorManager fetchMostLikelyReceiverHandlesWithOptions:handler:]";
+      *&v27[12] = 1024;
+      *&v27[14] = 1213;
+      _os_log_error_impl(&dword_26455D000, v9, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", v27, 0x12u);
     }
   }
 
-  *v28 = 0;
-  *&v28[8] = v28;
-  *&v28[16] = 0x2020000000;
+  *v27 = 0;
+  *&v27[8] = v27;
+  *&v27[16] = 0x2020000000;
   v10 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v11 = os_signpost_id_generate(v10);
 
-  v29 = v11;
+  v28 = v11;
   v12 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v13 = v12;
-  v14 = *(*&v28[8] + 24);
+  v14 = *(*&v27[8] + 24);
   if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
     *buf = 0;
@@ -3955,48 +3876,46 @@ void __68__SMSafetyMonitorManager_fetchMostLikelyReceiverHandlesWithHandler___bl
     if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v27 = "[SMSafetyMonitorManager fetchMostLikelyReceiverHandlesWithOptions:handler:]";
+      v26 = "[SMSafetyMonitorManager fetchMostLikelyReceiverHandlesWithOptions:handler:]";
       _os_log_impl(&dword_26455D000, v15, OS_LOG_TYPE_INFO, "%s", buf, 0xCu);
     }
   }
 
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __76__SMSafetyMonitorManager_fetchMostLikelyReceiverHandlesWithOptions_handler___block_invoke;
-  v23[3] = &unk_279B656E0;
-  v25 = v28;
-  v24 = handlerCopy;
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __76__SMSafetyMonitorManager_fetchMostLikelyReceiverHandlesWithOptions_handler___block_invoke_383;
-  v19[3] = &unk_279B65908;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __76__SMSafetyMonitorManager_fetchMostLikelyReceiverHandlesWithOptions_handler___block_invoke;
+  v22[3] = &unk_279B656E0;
+  v24 = v27;
+  v23 = handlerCopy;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __76__SMSafetyMonitorManager_fetchMostLikelyReceiverHandlesWithOptions_handler___block_invoke_383;
+  v18[3] = &unk_279B65908;
   v16 = optionsCopy;
-  v20 = v16;
-  v22 = v28;
-  v17 = v24;
-  v21 = v17;
-  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v23 taskBlock:v19];
+  v19 = v16;
+  v21 = v27;
+  v17 = v23;
+  v20 = v17;
+  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v22 taskBlock:v18];
 
-  _Block_object_dispose(v28, 8);
-  v18 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v27, 8);
 }
 
 void __76__SMSafetyMonitorManager_fetchMostLikelyReceiverHandlesWithOptions_handler___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v5 = v4;
   v6 = *(*(*(a1 + 40) + 8) + 24);
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
-    v8 = 134349056;
-    v9 = [v3 code];
-    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMFetchMostLikelyReceiverHandles", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v8, 0xCu);
+    v7 = 134349056;
+    v8 = [v3 code];
+    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMFetchMostLikelyReceiverHandles", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v7, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __76__SMSafetyMonitorManager_fetchMostLikelyReceiverHandlesWithOptions_handler___block_invoke_383(uint64_t a1, void *a2)
@@ -4014,7 +3933,7 @@ void __76__SMSafetyMonitorManager_fetchMostLikelyReceiverHandlesWithOptions_hand
 
 void __76__SMSafetyMonitorManager_fetchMostLikelyReceiverHandlesWithOptions_handler___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = a2;
   v7 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
@@ -4022,18 +3941,17 @@ void __76__SMSafetyMonitorManager_fetchMostLikelyReceiverHandlesWithOptions_hand
   v9 = *(*(*(a1 + 40) + 8) + 24);
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
-    v11 = 134349056;
-    v12 = [v5 code];
-    _os_signpost_emit_with_name_impl(&dword_26455D000, v8, OS_SIGNPOST_INTERVAL_END, v9, "SMFetchMostLikelyReceiverHandles", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v11, 0xCu);
+    v10 = 134349056;
+    v11 = [v5 code];
+    _os_signpost_emit_with_name_impl(&dword_26455D000, v8, OS_SIGNPOST_INTERVAL_END, v9, "SMFetchMostLikelyReceiverHandles", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v10, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchNumFavoriteRecipientsWithReceiverHandles:(id)handles handler:(id)handler
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   handlesCopy = handles;
   handlerCopy = handler;
   v9 = handlerCopy;
@@ -4051,9 +3969,9 @@ void __76__SMSafetyMonitorManager_fetchMostLikelyReceiverHandlesWithOptions_hand
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v21 = "[SMSafetyMonitorManager fetchNumFavoriteRecipientsWithReceiverHandles:handler:]";
-    v22 = 1024;
-    v23 = 1232;
+    v20 = "[SMSafetyMonitorManager fetchNumFavoriteRecipientsWithReceiverHandles:handler:]";
+    v21 = 1024;
+    v22 = 1232;
     _os_log_error_impl(&dword_26455D000, v10, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: receiverHandles (in %s:%d)", buf, 0x12u);
   }
 
@@ -4064,35 +3982,33 @@ LABEL_7:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v21 = "[SMSafetyMonitorManager fetchNumFavoriteRecipientsWithReceiverHandles:handler:]";
-      v22 = 1024;
-      v23 = 1233;
+      v20 = "[SMSafetyMonitorManager fetchNumFavoriteRecipientsWithReceiverHandles:handler:]";
+      v21 = 1024;
+      v22 = 1233;
       _os_log_error_impl(&dword_26455D000, v11, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", buf, 0x12u);
     }
   }
 
 LABEL_10:
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __80__SMSafetyMonitorManager_fetchNumFavoriteRecipientsWithReceiverHandles_handler___block_invoke;
-  v18[3] = &unk_279B657A8;
-  v19 = v9;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __80__SMSafetyMonitorManager_fetchNumFavoriteRecipientsWithReceiverHandles_handler___block_invoke_2;
-  v15[3] = &unk_279B65C00;
-  v16 = handlesCopy;
-  v17 = v19;
-  v12 = v19;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __80__SMSafetyMonitorManager_fetchNumFavoriteRecipientsWithReceiverHandles_handler___block_invoke;
+  v17[3] = &unk_279B657A8;
+  v18 = v9;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __80__SMSafetyMonitorManager_fetchNumFavoriteRecipientsWithReceiverHandles_handler___block_invoke_2;
+  v14[3] = &unk_279B65C00;
+  v15 = handlesCopy;
+  v16 = v18;
+  v12 = v18;
   v13 = handlesCopy;
-  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v18 taskBlock:v15];
-
-  v14 = *MEMORY[0x277D85DE8];
+  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v17 taskBlock:v14];
 }
 
 - (void)fetchNumEmergencyRecipientsWithReceiverHandles:(id)handles handler:(id)handler
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   handlesCopy = handles;
   handlerCopy = handler;
   v9 = handlerCopy;
@@ -4110,9 +4026,9 @@ LABEL_10:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v21 = "[SMSafetyMonitorManager fetchNumEmergencyRecipientsWithReceiverHandles:handler:]";
-    v22 = 1024;
-    v23 = 1245;
+    v20 = "[SMSafetyMonitorManager fetchNumEmergencyRecipientsWithReceiverHandles:handler:]";
+    v21 = 1024;
+    v22 = 1245;
     _os_log_error_impl(&dword_26455D000, v10, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: receiverHandles (in %s:%d)", buf, 0x12u);
   }
 
@@ -4123,35 +4039,33 @@ LABEL_7:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v21 = "[SMSafetyMonitorManager fetchNumEmergencyRecipientsWithReceiverHandles:handler:]";
-      v22 = 1024;
-      v23 = 1246;
+      v20 = "[SMSafetyMonitorManager fetchNumEmergencyRecipientsWithReceiverHandles:handler:]";
+      v21 = 1024;
+      v22 = 1246;
       _os_log_error_impl(&dword_26455D000, v11, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", buf, 0x12u);
     }
   }
 
 LABEL_10:
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __81__SMSafetyMonitorManager_fetchNumEmergencyRecipientsWithReceiverHandles_handler___block_invoke;
-  v18[3] = &unk_279B657A8;
-  v19 = v9;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __81__SMSafetyMonitorManager_fetchNumEmergencyRecipientsWithReceiverHandles_handler___block_invoke_2;
-  v15[3] = &unk_279B65C00;
-  v16 = handlesCopy;
-  v17 = v19;
-  v12 = v19;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __81__SMSafetyMonitorManager_fetchNumEmergencyRecipientsWithReceiverHandles_handler___block_invoke;
+  v17[3] = &unk_279B657A8;
+  v18 = v9;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __81__SMSafetyMonitorManager_fetchNumEmergencyRecipientsWithReceiverHandles_handler___block_invoke_2;
+  v14[3] = &unk_279B65C00;
+  v15 = handlesCopy;
+  v16 = v18;
+  v12 = v18;
   v13 = handlesCopy;
-  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v18 taskBlock:v15];
-
-  v14 = *MEMORY[0x277D85DE8];
+  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v17 taskBlock:v14];
 }
 
 - (void)fetchNumiCloudFamilyRecipientsWithReceiverHandles:(id)handles handler:(id)handler
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   handlesCopy = handles;
   handlerCopy = handler;
   v9 = handlerCopy;
@@ -4169,9 +4083,9 @@ LABEL_10:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v21 = "[SMSafetyMonitorManager fetchNumiCloudFamilyRecipientsWithReceiverHandles:handler:]";
-    v22 = 1024;
-    v23 = 1258;
+    v20 = "[SMSafetyMonitorManager fetchNumiCloudFamilyRecipientsWithReceiverHandles:handler:]";
+    v21 = 1024;
+    v22 = 1258;
     _os_log_error_impl(&dword_26455D000, v10, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: receiverHandles (in %s:%d)", buf, 0x12u);
   }
 
@@ -4182,59 +4096,57 @@ LABEL_7:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v21 = "[SMSafetyMonitorManager fetchNumiCloudFamilyRecipientsWithReceiverHandles:handler:]";
-      v22 = 1024;
-      v23 = 1259;
+      v20 = "[SMSafetyMonitorManager fetchNumiCloudFamilyRecipientsWithReceiverHandles:handler:]";
+      v21 = 1024;
+      v22 = 1259;
       _os_log_error_impl(&dword_26455D000, v11, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", buf, 0x12u);
     }
   }
 
 LABEL_10:
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __84__SMSafetyMonitorManager_fetchNumiCloudFamilyRecipientsWithReceiverHandles_handler___block_invoke;
-  v18[3] = &unk_279B657A8;
-  v19 = v9;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __84__SMSafetyMonitorManager_fetchNumiCloudFamilyRecipientsWithReceiverHandles_handler___block_invoke_2;
-  v15[3] = &unk_279B65C00;
-  v16 = handlesCopy;
-  v17 = v19;
-  v12 = v19;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __84__SMSafetyMonitorManager_fetchNumiCloudFamilyRecipientsWithReceiverHandles_handler___block_invoke;
+  v17[3] = &unk_279B657A8;
+  v18 = v9;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __84__SMSafetyMonitorManager_fetchNumiCloudFamilyRecipientsWithReceiverHandles_handler___block_invoke_2;
+  v14[3] = &unk_279B65C00;
+  v15 = handlesCopy;
+  v16 = v18;
+  v12 = v18;
   v13 = handlesCopy;
-  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v18 taskBlock:v15];
-
-  v14 = *MEMORY[0x277D85DE8];
+  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v17 taskBlock:v14];
 }
 
 - (void)fetchMostLikelySessionDestinationsWithHandler:(id)handler
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   if (!handlerCopy)
   {
     v6 = _rt_log_facility_get_os_log(RTLogFacilityGeneral);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      *v23 = 136315394;
-      *&v23[4] = "[SMSafetyMonitorManager fetchMostLikelySessionDestinationsWithHandler:]";
-      *&v23[12] = 1024;
-      *&v23[14] = 1270;
-      _os_log_error_impl(&dword_26455D000, v6, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", v23, 0x12u);
+      *v22 = 136315394;
+      *&v22[4] = "[SMSafetyMonitorManager fetchMostLikelySessionDestinationsWithHandler:]";
+      *&v22[12] = 1024;
+      *&v22[14] = 1270;
+      _os_log_error_impl(&dword_26455D000, v6, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", v22, 0x12u);
     }
   }
 
-  *v23 = 0;
-  *&v23[8] = v23;
-  *&v23[16] = 0x2020000000;
+  *v22 = 0;
+  *&v22[8] = v22;
+  *&v22[16] = 0x2020000000;
   v7 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v8 = os_signpost_id_generate(v7);
 
-  v24 = v8;
+  v23 = v8;
   v9 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v10 = v9;
-  v11 = *(*&v23[8] + 24);
+  v11 = *(*&v22[8] + 24);
   if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
   {
     *buf = 0;
@@ -4247,46 +4159,44 @@ LABEL_10:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v22 = "[SMSafetyMonitorManager fetchMostLikelySessionDestinationsWithHandler:]";
+      v21 = "[SMSafetyMonitorManager fetchMostLikelySessionDestinationsWithHandler:]";
       _os_log_impl(&dword_26455D000, v12, OS_LOG_TYPE_INFO, "%s", buf, 0xCu);
     }
   }
 
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __72__SMSafetyMonitorManager_fetchMostLikelySessionDestinationsWithHandler___block_invoke;
-  v18[3] = &unk_279B656E0;
-  v20 = v23;
-  v19 = handlerCopy;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __72__SMSafetyMonitorManager_fetchMostLikelySessionDestinationsWithHandler___block_invoke_384;
-  v15[3] = &unk_279B65758;
-  v17 = v23;
-  v13 = v19;
-  v16 = v13;
-  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v18 taskBlock:v15];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __72__SMSafetyMonitorManager_fetchMostLikelySessionDestinationsWithHandler___block_invoke;
+  v17[3] = &unk_279B656E0;
+  v19 = v22;
+  v18 = handlerCopy;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __72__SMSafetyMonitorManager_fetchMostLikelySessionDestinationsWithHandler___block_invoke_384;
+  v14[3] = &unk_279B65758;
+  v16 = v22;
+  v13 = v18;
+  v15 = v13;
+  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v17 taskBlock:v14];
 
-  _Block_object_dispose(v23, 8);
-  v14 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v22, 8);
 }
 
 void __72__SMSafetyMonitorManager_fetchMostLikelySessionDestinationsWithHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v5 = v4;
   v6 = *(*(*(a1 + 40) + 8) + 24);
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
-    v8 = 134349056;
-    v9 = [v3 code];
-    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMFetchMostLikelySessionDestinations", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v8, 0xCu);
+    v7 = 134349056;
+    v8 = [v3 code];
+    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMFetchMostLikelySessionDestinations", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v7, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __72__SMSafetyMonitorManager_fetchMostLikelySessionDestinationsWithHandler___block_invoke_384(uint64_t a1, void *a2)
@@ -4303,7 +4213,7 @@ void __72__SMSafetyMonitorManager_fetchMostLikelySessionDestinationsWithHandler_
 
 void __72__SMSafetyMonitorManager_fetchMostLikelySessionDestinationsWithHandler___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, void *a4, void *a5)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v8 = a5;
   v9 = a4;
   v10 = a2;
@@ -4312,13 +4222,12 @@ void __72__SMSafetyMonitorManager_fetchMostLikelySessionDestinationsWithHandler_
   v13 = *(*(*(a1 + 40) + 8) + 24);
   if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
   {
-    v15 = 134349056;
-    v16 = [v8 code];
-    _os_signpost_emit_with_name_impl(&dword_26455D000, v12, OS_SIGNPOST_INTERVAL_END, v13, "SMFetchMostLikelySessionDestinations", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v15, 0xCu);
+    v14 = 134349056;
+    v15 = [v8 code];
+    _os_signpost_emit_with_name_impl(&dword_26455D000, v12, OS_SIGNPOST_INTERVAL_END, v13, "SMFetchMostLikelySessionDestinations", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v14, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)showSuggestionsDetectionUIWithSuggestion:(id)suggestion handler:(id)handler
@@ -4474,26 +4383,24 @@ void __67__SMSafetyMonitorManager_sendIDSMessage_toConversation_completion___blo
 
 void __67__SMSafetyMonitorManager_sendIDSMessage_toConversation_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = objc_opt_class();
-    v8 = NSStringFromClass(v7);
-    v9 = NSStringFromSelector(*(a1 + 48));
-    v10 = 138412802;
-    v11 = v8;
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
+    v7 = NSStringFromSelector(*(a1 + 48));
+    v8 = 138412802;
+    v9 = v6;
+    v10 = 2112;
+    v11 = v7;
     v12 = 2112;
-    v13 = v9;
-    v14 = 2112;
-    v15 = v3;
-    _os_log_error_impl(&dword_26455D000, v4, OS_LOG_TYPE_ERROR, "%@,%@,failed to find proxy,error,%@", &v10, 0x20u);
+    v13 = v3;
+    _os_log_error_impl(&dword_26455D000, v4, OS_LOG_TYPE_ERROR, "%@,%@,failed to find proxy,error,%@", &v8, 0x20u);
   }
 
   (*(*(a1 + 40) + 16))();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendIDSMessageToMyDevices:(id)devices completion:(id)completion
@@ -4531,26 +4438,24 @@ void __63__SMSafetyMonitorManager_sendIDSMessageToMyDevices_completion___block_i
 
 void __63__SMSafetyMonitorManager_sendIDSMessageToMyDevices_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = objc_opt_class();
-    v8 = NSStringFromClass(v7);
-    v9 = NSStringFromSelector(*(a1 + 48));
-    v10 = 138412802;
-    v11 = v8;
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
+    v7 = NSStringFromSelector(*(a1 + 48));
+    v8 = 138412802;
+    v9 = v6;
+    v10 = 2112;
+    v11 = v7;
     v12 = 2112;
-    v13 = v9;
-    v14 = 2112;
-    v15 = v3;
-    _os_log_error_impl(&dword_26455D000, v4, OS_LOG_TYPE_ERROR, "%@,%@,failed to find proxy,error,%@", &v10, 0x20u);
+    v13 = v3;
+    _os_log_error_impl(&dword_26455D000, v4, OS_LOG_TYPE_ERROR, "%@,%@,failed to find proxy,error,%@", &v8, 0x20u);
   }
 
   (*(*(a1 + 40) + 16))();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendIDSMessageToPairedDevice:(id)device completion:(id)completion
@@ -4589,26 +4494,23 @@ void __66__SMSafetyMonitorManager_sendIDSMessageToPairedDevice_completion___bloc
 
 void __66__SMSafetyMonitorManager_sendIDSMessageToPairedDevice_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   (*(*(a1 + 40) + 16))();
   v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = objc_opt_class();
-    v8 = NSStringFromClass(v7);
-    v9 = NSStringFromSelector(*(a1 + 48));
-    v10 = 138412802;
-    v11 = v8;
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
+    v7 = NSStringFromSelector(*(a1 + 48));
+    v8 = 138412802;
+    v9 = v6;
+    v10 = 2112;
+    v11 = v7;
     v12 = 2112;
-    v13 = v9;
-    v14 = 2112;
-    v15 = v3;
-    _os_log_error_impl(&dword_26455D000, v4, OS_LOG_TYPE_ERROR, "%@,%@,failed to find proxy,error,%@", &v10, 0x20u);
+    v13 = v3;
+    _os_log_error_impl(&dword_26455D000, v4, OS_LOG_TYPE_ERROR, "%@,%@,failed to find proxy,error,%@", &v8, 0x20u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendIDSMessageToMyNearbyDevices:(id)devices completion:(id)completion
@@ -4647,26 +4549,23 @@ void __69__SMSafetyMonitorManager_sendIDSMessageToMyNearbyDevices_completion___b
 
 void __69__SMSafetyMonitorManager_sendIDSMessageToMyNearbyDevices_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   (*(*(a1 + 40) + 16))();
   v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = objc_opt_class();
-    v8 = NSStringFromClass(v7);
-    v9 = NSStringFromSelector(*(a1 + 48));
-    v10 = 138412802;
-    v11 = v8;
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
+    v7 = NSStringFromSelector(*(a1 + 48));
+    v8 = 138412802;
+    v9 = v6;
+    v10 = 2112;
+    v11 = v7;
     v12 = 2112;
-    v13 = v9;
-    v14 = 2112;
-    v15 = v3;
-    _os_log_error_impl(&dword_26455D000, v4, OS_LOG_TYPE_ERROR, "%@,%@,failed to find proxy,error,%@", &v10, 0x20u);
+    v13 = v3;
+    _os_log_error_impl(&dword_26455D000, v4, OS_LOG_TYPE_ERROR, "%@,%@,failed to find proxy,error,%@", &v8, 0x20u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendMadridMessage:(id)message associatedGUID:(id)d toConversation:(id)conversation summaryText:(id)text completion:(id)completion
@@ -4713,26 +4612,24 @@ void __97__SMSafetyMonitorManager_sendMadridMessage_associatedGUID_toConversatio
 
 void __97__SMSafetyMonitorManager_sendMadridMessage_associatedGUID_toConversation_summaryText_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = objc_opt_class();
-    v8 = NSStringFromClass(v7);
-    v9 = NSStringFromSelector(*(a1 + 48));
-    v10 = 138412802;
-    v11 = v8;
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
+    v7 = NSStringFromSelector(*(a1 + 48));
+    v8 = 138412802;
+    v9 = v6;
+    v10 = 2112;
+    v11 = v7;
     v12 = 2112;
-    v13 = v9;
-    v14 = 2112;
-    v15 = v3;
-    _os_log_error_impl(&dword_26455D000, v4, OS_LOG_TYPE_ERROR, "%@,%@,failed to find proxy,error,%@", &v10, 0x20u);
+    v13 = v3;
+    _os_log_error_impl(&dword_26455D000, v4, OS_LOG_TYPE_ERROR, "%@,%@,failed to find proxy,error,%@", &v8, 0x20u);
   }
 
   (*(*(a1 + 40) + 16))();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)scheduleMadridMessageSendForMessage:(id)message messageGUID:(id)d associatedGUID:(id)iD sendDate:(id)date toConversation:(id)conversation summaryText:(id)text completion:(id)completion
@@ -4785,26 +4682,24 @@ void __136__SMSafetyMonitorManager_scheduleMadridMessageSendForMessage_messageGU
 
 void __136__SMSafetyMonitorManager_scheduleMadridMessageSendForMessage_messageGUID_associatedGUID_sendDate_toConversation_summaryText_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = objc_opt_class();
-    v8 = NSStringFromClass(v7);
-    v9 = NSStringFromSelector(*(a1 + 48));
-    v10 = 138412802;
-    v11 = v8;
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
+    v7 = NSStringFromSelector(*(a1 + 48));
+    v8 = 138412802;
+    v9 = v6;
+    v10 = 2112;
+    v11 = v7;
     v12 = 2112;
-    v13 = v9;
-    v14 = 2112;
-    v15 = v3;
-    _os_log_error_impl(&dword_26455D000, v4, OS_LOG_TYPE_ERROR, "%@,%@,failed to find proxy,error,%@", &v10, 0x20u);
+    v13 = v3;
+    _os_log_error_impl(&dword_26455D000, v4, OS_LOG_TYPE_ERROR, "%@,%@,failed to find proxy,error,%@", &v8, 0x20u);
   }
 
   (*(*(a1 + 40) + 16))();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelMadridMessageSendForMessageGUID:(id)d toConversation:(id)conversation completion:(id)completion
@@ -4845,26 +4740,24 @@ void __90__SMSafetyMonitorManager_cancelMadridMessageSendForMessageGUID_toConver
 
 void __90__SMSafetyMonitorManager_cancelMadridMessageSendForMessageGUID_toConversation_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = objc_opt_class();
-    v8 = NSStringFromClass(v7);
-    v9 = NSStringFromSelector(*(a1 + 48));
-    v10 = 138412802;
-    v11 = v8;
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
+    v7 = NSStringFromSelector(*(a1 + 48));
+    v8 = 138412802;
+    v9 = v6;
+    v10 = 2112;
+    v11 = v7;
     v12 = 2112;
-    v13 = v9;
-    v14 = 2112;
-    v15 = v3;
-    _os_log_error_impl(&dword_26455D000, v4, OS_LOG_TYPE_ERROR, "%@,%@,failed to find proxy,error,%@", &v10, 0x20u);
+    v13 = v3;
+    _os_log_error_impl(&dword_26455D000, v4, OS_LOG_TYPE_ERROR, "%@,%@,failed to find proxy,error,%@", &v8, 0x20u);
   }
 
   (*(*(a1 + 40) + 16))();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)iMessageSendFor:(id)for guid:(id)guid successful:(BOOL)successful withError:(id)error
@@ -4894,25 +4787,22 @@ void __90__SMSafetyMonitorManager_cancelMadridMessageSendForMessageGUID_toConver
 
 void __68__SMSafetyMonitorManager_iMessageSendFor_guid_successful_withError___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = objc_opt_class();
-    v8 = NSStringFromClass(v7);
-    v9 = NSStringFromSelector(*(a1 + 40));
-    v10 = 138412802;
-    v11 = v8;
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
+    v7 = NSStringFromSelector(*(a1 + 40));
+    v8 = 138412802;
+    v9 = v6;
+    v10 = 2112;
+    v11 = v7;
     v12 = 2112;
-    v13 = v9;
-    v14 = 2112;
-    v15 = v3;
-    _os_log_error_impl(&dword_26455D000, v4, OS_LOG_TYPE_ERROR, "%@,%@,failed to find proxy,error,%@", &v10, 0x20u);
+    v13 = v3;
+    _os_log_error_impl(&dword_26455D000, v4, OS_LOG_TYPE_ERROR, "%@,%@,failed to find proxy,error,%@", &v8, 0x20u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)iMessageScheduledSendScheduledFor:(id)for guid:(id)guid successful:(BOOL)successful withError:(id)error
@@ -4942,25 +4832,22 @@ void __68__SMSafetyMonitorManager_iMessageSendFor_guid_successful_withError___bl
 
 void __86__SMSafetyMonitorManager_iMessageScheduledSendScheduledFor_guid_successful_withError___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = objc_opt_class();
-    v8 = NSStringFromClass(v7);
-    v9 = NSStringFromSelector(*(a1 + 40));
-    v10 = 138412802;
-    v11 = v8;
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
+    v7 = NSStringFromSelector(*(a1 + 40));
+    v8 = 138412802;
+    v9 = v6;
+    v10 = 2112;
+    v11 = v7;
     v12 = 2112;
-    v13 = v9;
-    v14 = 2112;
-    v15 = v3;
-    _os_log_error_impl(&dword_26455D000, v4, OS_LOG_TYPE_ERROR, "%@,%@,failed to find proxy,error,%@", &v10, 0x20u);
+    v13 = v3;
+    _os_log_error_impl(&dword_26455D000, v4, OS_LOG_TYPE_ERROR, "%@,%@,failed to find proxy,error,%@", &v8, 0x20u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)iMessageScheduledSendCancelFor:(id)for successful:(BOOL)successful withError:(id)error
@@ -4987,25 +4874,22 @@ void __86__SMSafetyMonitorManager_iMessageScheduledSendScheduledFor_guid_success
 
 void __78__SMSafetyMonitorManager_iMessageScheduledSendCancelFor_successful_withError___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = objc_opt_class();
-    v8 = NSStringFromClass(v7);
-    v9 = NSStringFromSelector(*(a1 + 40));
-    v10 = 138412802;
-    v11 = v8;
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
+    v7 = NSStringFromSelector(*(a1 + 40));
+    v8 = 138412802;
+    v9 = v6;
+    v10 = 2112;
+    v11 = v7;
     v12 = 2112;
-    v13 = v9;
-    v14 = 2112;
-    v15 = v3;
-    _os_log_error_impl(&dword_26455D000, v4, OS_LOG_TYPE_ERROR, "%@,%@,failed to find proxy,error,%@", &v10, 0x20u);
+    v13 = v3;
+    _os_log_error_impl(&dword_26455D000, v4, OS_LOG_TYPE_ERROR, "%@,%@,failed to find proxy,error,%@", &v8, 0x20u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)iMessageScheduledSendTriggeredFor:(id)for
@@ -5027,25 +4911,22 @@ void __78__SMSafetyMonitorManager_iMessageScheduledSendCancelFor_successful_with
 
 void __60__SMSafetyMonitorManager_iMessageScheduledSendTriggeredFor___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = objc_opt_class();
-    v8 = NSStringFromClass(v7);
-    v9 = NSStringFromSelector(*(a1 + 40));
-    v10 = 138412802;
-    v11 = v8;
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
+    v7 = NSStringFromSelector(*(a1 + 40));
+    v8 = 138412802;
+    v9 = v6;
+    v10 = 2112;
+    v11 = v7;
     v12 = 2112;
-    v13 = v9;
-    v14 = 2112;
-    v15 = v3;
-    _os_log_error_impl(&dword_26455D000, v4, OS_LOG_TYPE_ERROR, "%@,%@,failed to find proxy,error,%@", &v10, 0x20u);
+    v13 = v3;
+    _os_log_error_impl(&dword_26455D000, v4, OS_LOG_TYPE_ERROR, "%@,%@,failed to find proxy,error,%@", &v8, 0x20u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)iMessageReceived:(id)received fromHandle:(id)handle fromMe:(BOOL)me
@@ -5072,25 +4953,22 @@ void __60__SMSafetyMonitorManager_iMessageScheduledSendTriggeredFor___block_invo
 
 void __61__SMSafetyMonitorManager_iMessageReceived_fromHandle_fromMe___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = objc_opt_class();
-    v8 = NSStringFromClass(v7);
-    v9 = NSStringFromSelector(*(a1 + 40));
-    v10 = 138412802;
-    v11 = v8;
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
+    v7 = NSStringFromSelector(*(a1 + 40));
+    v8 = 138412802;
+    v9 = v6;
+    v10 = 2112;
+    v11 = v7;
     v12 = 2112;
-    v13 = v9;
-    v14 = 2112;
-    v15 = v3;
-    _os_log_error_impl(&dword_26455D000, v4, OS_LOG_TYPE_ERROR, "%@,%@,failed to find proxy,error,%@", &v10, 0x20u);
+    v13 = v3;
+    _os_log_error_impl(&dword_26455D000, v4, OS_LOG_TYPE_ERROR, "%@,%@,failed to find proxy,error,%@", &v8, 0x20u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)iMessageDeletedFor:(id)for
@@ -5112,25 +4990,22 @@ void __61__SMSafetyMonitorManager_iMessageReceived_fromHandle_fromMe___block_inv
 
 void __45__SMSafetyMonitorManager_iMessageDeletedFor___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = objc_opt_class();
-    v8 = NSStringFromClass(v7);
-    v9 = NSStringFromSelector(*(a1 + 40));
-    v10 = 138412802;
-    v11 = v8;
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
+    v7 = NSStringFromSelector(*(a1 + 40));
+    v8 = 138412802;
+    v9 = v6;
+    v10 = 2112;
+    v11 = v7;
     v12 = 2112;
-    v13 = v9;
-    v14 = 2112;
-    v15 = v3;
-    _os_log_error_impl(&dword_26455D000, v4, OS_LOG_TYPE_ERROR, "%@,%@,failed to find proxy,error,%@", &v10, 0x20u);
+    v13 = v3;
+    _os_log_error_impl(&dword_26455D000, v4, OS_LOG_TYPE_ERROR, "%@,%@,failed to find proxy,error,%@", &v8, 0x20u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)iMessageConversationDeletedFor:(id)for
@@ -5152,30 +5027,27 @@ void __45__SMSafetyMonitorManager_iMessageDeletedFor___block_invoke(uint64_t a1,
 
 void __57__SMSafetyMonitorManager_iMessageConversationDeletedFor___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = objc_opt_class();
-    v8 = NSStringFromClass(v7);
-    v9 = NSStringFromSelector(*(a1 + 40));
-    v10 = 138412802;
-    v11 = v8;
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
+    v7 = NSStringFromSelector(*(a1 + 40));
+    v8 = 138412802;
+    v9 = v6;
+    v10 = 2112;
+    v11 = v7;
     v12 = 2112;
-    v13 = v9;
-    v14 = 2112;
-    v15 = v3;
-    _os_log_error_impl(&dword_26455D000, v4, OS_LOG_TYPE_ERROR, "%@,%@,failed to find proxy,error,%@", &v10, 0x20u);
+    v13 = v3;
+    _os_log_error_impl(&dword_26455D000, v4, OS_LOG_TYPE_ERROR, "%@,%@,failed to find proxy,error,%@", &v8, 0x20u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)iMessageGroupMembershipChangedFor:(id)for
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   forCopy = for;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
@@ -5186,58 +5058,53 @@ void __57__SMSafetyMonitorManager_iMessageConversationDeletedFor___block_invoke(
       v8 = NSStringFromClass(v7);
       v9 = NSStringFromSelector(a2);
       *buf = 138412802;
-      v16 = v8;
-      v17 = 2112;
-      v18 = v9;
-      v19 = 2112;
-      v20 = forCopy;
+      v15 = v8;
+      v16 = 2112;
+      v17 = v9;
+      v18 = 2112;
+      v19 = forCopy;
       _os_log_impl(&dword_26455D000, v6, OS_LOG_TYPE_INFO, "%@,%@,groupID,%@", buf, 0x20u);
     }
   }
 
-  v13 = forCopy;
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __60__SMSafetyMonitorManager_iMessageGroupMembershipChangedFor___block_invoke;
-  v14[3] = &unk_279B65B38;
-  v14[4] = self;
-  v14[5] = a2;
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __60__SMSafetyMonitorManager_iMessageGroupMembershipChangedFor___block_invoke_393;
-  v12[3] = &unk_279B65BB0;
+  v12 = forCopy;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __60__SMSafetyMonitorManager_iMessageGroupMembershipChangedFor___block_invoke;
+  v13[3] = &unk_279B65B38;
+  v13[4] = self;
+  v13[5] = a2;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __60__SMSafetyMonitorManager_iMessageGroupMembershipChangedFor___block_invoke_393;
+  v11[3] = &unk_279B65BB0;
   v10 = forCopy;
-  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v14 taskBlock:v12];
-
-  v11 = *MEMORY[0x277D85DE8];
+  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v13 taskBlock:v11];
 }
 
 void __60__SMSafetyMonitorManager_iMessageGroupMembershipChangedFor___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = objc_opt_class();
-    v8 = NSStringFromClass(v7);
-    v9 = NSStringFromSelector(*(a1 + 40));
-    v10 = 138412802;
-    v11 = v8;
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
+    v7 = NSStringFromSelector(*(a1 + 40));
+    v8 = 138412802;
+    v9 = v6;
+    v10 = 2112;
+    v11 = v7;
     v12 = 2112;
-    v13 = v9;
-    v14 = 2112;
-    v15 = v3;
-    _os_log_error_impl(&dword_26455D000, v4, OS_LOG_TYPE_ERROR, "%@,%@,failed to find proxy,error,%@", &v10, 0x20u);
+    v13 = v3;
+    _os_log_error_impl(&dword_26455D000, v4, OS_LOG_TYPE_ERROR, "%@,%@,failed to find proxy,error,%@", &v8, 0x20u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)iMessageGroupDisplayNameChangedFor:(id)for
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   forCopy = for;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
@@ -5248,58 +5115,53 @@ void __60__SMSafetyMonitorManager_iMessageGroupMembershipChangedFor___block_invo
       v8 = NSStringFromClass(v7);
       v9 = NSStringFromSelector(a2);
       *buf = 138412802;
-      v16 = v8;
-      v17 = 2112;
-      v18 = v9;
-      v19 = 2112;
-      v20 = forCopy;
+      v15 = v8;
+      v16 = 2112;
+      v17 = v9;
+      v18 = 2112;
+      v19 = forCopy;
       _os_log_impl(&dword_26455D000, v6, OS_LOG_TYPE_INFO, "%@,%@,groupID,%@", buf, 0x20u);
     }
   }
 
-  v13 = forCopy;
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __61__SMSafetyMonitorManager_iMessageGroupDisplayNameChangedFor___block_invoke;
-  v14[3] = &unk_279B65B38;
-  v14[4] = self;
-  v14[5] = a2;
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __61__SMSafetyMonitorManager_iMessageGroupDisplayNameChangedFor___block_invoke_394;
-  v12[3] = &unk_279B65BB0;
+  v12 = forCopy;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __61__SMSafetyMonitorManager_iMessageGroupDisplayNameChangedFor___block_invoke;
+  v13[3] = &unk_279B65B38;
+  v13[4] = self;
+  v13[5] = a2;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __61__SMSafetyMonitorManager_iMessageGroupDisplayNameChangedFor___block_invoke_394;
+  v11[3] = &unk_279B65BB0;
   v10 = forCopy;
-  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v14 taskBlock:v12];
-
-  v11 = *MEMORY[0x277D85DE8];
+  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v13 taskBlock:v11];
 }
 
 void __61__SMSafetyMonitorManager_iMessageGroupDisplayNameChangedFor___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = objc_opt_class();
-    v8 = NSStringFromClass(v7);
-    v9 = NSStringFromSelector(*(a1 + 40));
-    v10 = 138412802;
-    v11 = v8;
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
+    v7 = NSStringFromSelector(*(a1 + 40));
+    v8 = 138412802;
+    v9 = v6;
+    v10 = 2112;
+    v11 = v7;
     v12 = 2112;
-    v13 = v9;
-    v14 = 2112;
-    v15 = v3;
-    _os_log_error_impl(&dword_26455D000, v4, OS_LOG_TYPE_ERROR, "%@,%@,failed to find proxy,error,%@", &v10, 0x20u);
+    v13 = v3;
+    _os_log_error_impl(&dword_26455D000, v4, OS_LOG_TYPE_ERROR, "%@,%@,failed to find proxy,error,%@", &v8, 0x20u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)iMessageGroupPhotoChangedFor:(id)for
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   forCopy = for;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
@@ -5310,58 +5172,53 @@ void __61__SMSafetyMonitorManager_iMessageGroupDisplayNameChangedFor___block_inv
       v8 = NSStringFromClass(v7);
       v9 = NSStringFromSelector(a2);
       *buf = 138412802;
-      v16 = v8;
-      v17 = 2112;
-      v18 = v9;
-      v19 = 2112;
-      v20 = forCopy;
+      v15 = v8;
+      v16 = 2112;
+      v17 = v9;
+      v18 = 2112;
+      v19 = forCopy;
       _os_log_impl(&dword_26455D000, v6, OS_LOG_TYPE_INFO, "%@,%@,groupID,%@", buf, 0x20u);
     }
   }
 
-  v13 = forCopy;
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __55__SMSafetyMonitorManager_iMessageGroupPhotoChangedFor___block_invoke;
-  v14[3] = &unk_279B65B38;
-  v14[4] = self;
-  v14[5] = a2;
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __55__SMSafetyMonitorManager_iMessageGroupPhotoChangedFor___block_invoke_395;
-  v12[3] = &unk_279B65BB0;
+  v12 = forCopy;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __55__SMSafetyMonitorManager_iMessageGroupPhotoChangedFor___block_invoke;
+  v13[3] = &unk_279B65B38;
+  v13[4] = self;
+  v13[5] = a2;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __55__SMSafetyMonitorManager_iMessageGroupPhotoChangedFor___block_invoke_395;
+  v11[3] = &unk_279B65BB0;
   v10 = forCopy;
-  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v14 taskBlock:v12];
-
-  v11 = *MEMORY[0x277D85DE8];
+  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v13 taskBlock:v11];
 }
 
 void __55__SMSafetyMonitorManager_iMessageGroupPhotoChangedFor___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = objc_opt_class();
-    v8 = NSStringFromClass(v7);
-    v9 = NSStringFromSelector(*(a1 + 40));
-    v10 = 138412802;
-    v11 = v8;
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
+    v7 = NSStringFromSelector(*(a1 + 40));
+    v8 = 138412802;
+    v9 = v6;
+    v10 = 2112;
+    v11 = v7;
     v12 = 2112;
-    v13 = v9;
-    v14 = 2112;
-    v15 = v3;
-    _os_log_error_impl(&dword_26455D000, v4, OS_LOG_TYPE_ERROR, "%@,%@,failed to find proxy,error,%@", &v10, 0x20u);
+    v13 = v3;
+    _os_log_error_impl(&dword_26455D000, v4, OS_LOG_TYPE_ERROR, "%@,%@,failed to find proxy,error,%@", &v8, 0x20u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)kickedFromIMessageGroupWith:(id)with
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   withCopy = with;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
@@ -5372,58 +5229,53 @@ void __55__SMSafetyMonitorManager_iMessageGroupPhotoChangedFor___block_invoke(ui
       v8 = NSStringFromClass(v7);
       v9 = NSStringFromSelector(a2);
       *buf = 138412802;
-      v16 = v8;
-      v17 = 2112;
-      v18 = v9;
-      v19 = 2112;
-      v20 = withCopy;
+      v15 = v8;
+      v16 = 2112;
+      v17 = v9;
+      v18 = 2112;
+      v19 = withCopy;
       _os_log_impl(&dword_26455D000, v6, OS_LOG_TYPE_INFO, "%@,%@,groupID,%@", buf, 0x20u);
     }
   }
 
-  v13 = withCopy;
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __54__SMSafetyMonitorManager_kickedFromIMessageGroupWith___block_invoke;
-  v14[3] = &unk_279B65B38;
-  v14[4] = self;
-  v14[5] = a2;
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __54__SMSafetyMonitorManager_kickedFromIMessageGroupWith___block_invoke_396;
-  v12[3] = &unk_279B65BB0;
+  v12 = withCopy;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __54__SMSafetyMonitorManager_kickedFromIMessageGroupWith___block_invoke;
+  v13[3] = &unk_279B65B38;
+  v13[4] = self;
+  v13[5] = a2;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __54__SMSafetyMonitorManager_kickedFromIMessageGroupWith___block_invoke_396;
+  v11[3] = &unk_279B65BB0;
   v10 = withCopy;
-  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v14 taskBlock:v12];
-
-  v11 = *MEMORY[0x277D85DE8];
+  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v13 taskBlock:v11];
 }
 
 void __54__SMSafetyMonitorManager_kickedFromIMessageGroupWith___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = objc_opt_class();
-    v8 = NSStringFromClass(v7);
-    v9 = NSStringFromSelector(*(a1 + 40));
-    v10 = 138412802;
-    v11 = v8;
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
+    v7 = NSStringFromSelector(*(a1 + 40));
+    v8 = 138412802;
+    v9 = v6;
+    v10 = 2112;
+    v11 = v7;
     v12 = 2112;
-    v13 = v9;
-    v14 = 2112;
-    v15 = v3;
-    _os_log_error_impl(&dword_26455D000, v4, OS_LOG_TYPE_ERROR, "%@,%@,failed to find proxy,error,%@", &v10, 0x20u);
+    v13 = v3;
+    _os_log_error_impl(&dword_26455D000, v4, OS_LOG_TYPE_ERROR, "%@,%@,failed to find proxy,error,%@", &v8, 0x20u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startMonitoringInitiatorSafetyCacheWithHandler:(id)handler
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   if (!handlerCopy)
   {
@@ -5431,9 +5283,9 @@ void __54__SMSafetyMonitorManager_kickedFromIMessageGroupWith___block_invoke(uin
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v15 = "[SMSafetyMonitorManager startMonitoringInitiatorSafetyCacheWithHandler:]";
-      v16 = 1024;
-      v17 = 1574;
+      v14 = "[SMSafetyMonitorManager startMonitoringInitiatorSafetyCacheWithHandler:]";
+      v15 = 1024;
+      v16 = 1574;
       _os_log_error_impl(&dword_26455D000, v6, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", buf, 0x12u);
     }
   }
@@ -5444,37 +5296,35 @@ void __54__SMSafetyMonitorManager_kickedFromIMessageGroupWith___block_invoke(uin
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v15 = "[SMSafetyMonitorManager startMonitoringInitiatorSafetyCacheWithHandler:]";
+      v14 = "[SMSafetyMonitorManager startMonitoringInitiatorSafetyCacheWithHandler:]";
       _os_log_impl(&dword_26455D000, v7, OS_LOG_TYPE_INFO, "%s", buf, 0xCu);
     }
   }
 
   [(SMSafetyMonitorManager *)self setInitiatorSafetyCacheHandler:handlerCopy];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __73__SMSafetyMonitorManager_startMonitoringInitiatorSafetyCacheWithHandler___block_invoke;
-  v12[3] = &unk_279B65538;
-  v12[4] = self;
-  v13 = handlerCopy;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __73__SMSafetyMonitorManager_startMonitoringInitiatorSafetyCacheWithHandler___block_invoke_2;
-  v10[3] = &unk_279B65C00;
-  v10[4] = self;
-  v11 = v13;
-  v8 = v13;
-  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v12 taskBlock:v10];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __73__SMSafetyMonitorManager_startMonitoringInitiatorSafetyCacheWithHandler___block_invoke;
+  v11[3] = &unk_279B65538;
+  v11[4] = self;
+  v12 = handlerCopy;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __73__SMSafetyMonitorManager_startMonitoringInitiatorSafetyCacheWithHandler___block_invoke_2;
+  v9[3] = &unk_279B65C00;
+  v9[4] = self;
+  v10 = v12;
+  v8 = v12;
+  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v11 taskBlock:v9];
 }
 
-uint64_t __73__SMSafetyMonitorManager_startMonitoringInitiatorSafetyCacheWithHandler___block_invoke(uint64_t result, uint64_t a2)
+void *__73__SMSafetyMonitorManager_startMonitoringInitiatorSafetyCacheWithHandler___block_invoke(void *result, uint64_t a2)
 {
   if (a2)
   {
     v2 = result;
-    (*(*(result + 40) + 16))();
-    v3 = *(v2 + 32);
+    (*(result[5] + 16))();
+    v3 = v2[4];
 
     return [v3 setInitiatorSafetyCacheHandler:0];
   }
@@ -5494,13 +5344,13 @@ void __73__SMSafetyMonitorManager_startMonitoringInitiatorSafetyCacheWithHandler
   [a2 startMonitoringInitiatorSafetyCacheWithHandler:v5];
 }
 
-uint64_t __73__SMSafetyMonitorManager_startMonitoringInitiatorSafetyCacheWithHandler___block_invoke_3(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+void *__73__SMSafetyMonitorManager_startMonitoringInitiatorSafetyCacheWithHandler___block_invoke_3(void *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
   if (a7)
   {
     v7 = result;
-    (*(*(result + 40) + 16))();
-    v8 = *(v7 + 32);
+    (*(result[5] + 16))();
+    v8 = v7[4];
 
     return [v8 setInitiatorSafetyCacheHandler:0];
   }
@@ -5510,7 +5360,7 @@ uint64_t __73__SMSafetyMonitorManager_startMonitoringInitiatorSafetyCacheWithHan
 
 - (void)stopMonitoringInitiatorSafetyCacheWithCompletion:(id)completion
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   if (!completionCopy)
   {
@@ -5518,33 +5368,31 @@ uint64_t __73__SMSafetyMonitorManager_startMonitoringInitiatorSafetyCacheWithHan
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v14 = "[SMSafetyMonitorManager stopMonitoringInitiatorSafetyCacheWithCompletion:]";
-      v15 = 1024;
-      v16 = 1597;
+      v13 = "[SMSafetyMonitorManager stopMonitoringInitiatorSafetyCacheWithCompletion:]";
+      v14 = 1024;
+      v15 = 1597;
       _os_log_error_impl(&dword_26455D000, v6, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: completion (in %s:%d)", buf, 0x12u);
     }
   }
 
   [(SMSafetyMonitorManager *)self setInitiatorSafetyCacheHandler:0];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __75__SMSafetyMonitorManager_stopMonitoringInitiatorSafetyCacheWithCompletion___block_invoke;
-  v11[3] = &unk_279B657A8;
-  v12 = completionCopy;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __75__SMSafetyMonitorManager_stopMonitoringInitiatorSafetyCacheWithCompletion___block_invoke_2;
-  v9[3] = &unk_279B65868;
-  v10 = v12;
-  v7 = v12;
-  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v11 taskBlock:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __75__SMSafetyMonitorManager_stopMonitoringInitiatorSafetyCacheWithCompletion___block_invoke;
+  v10[3] = &unk_279B657A8;
+  v11 = completionCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __75__SMSafetyMonitorManager_stopMonitoringInitiatorSafetyCacheWithCompletion___block_invoke_2;
+  v8[3] = &unk_279B65868;
+  v9 = v11;
+  v7 = v11;
+  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v10 taskBlock:v8];
 }
 
 - (void)onInitiatorSafetyCacheChangeForSessionID:(id)d phoneCache:(id)cache watchCache:(id)watchCache cacheExpiryDate:(id)date cacheReleaseDate:(id)releaseDate
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   dCopy = d;
   cacheCopy = cache;
   watchCacheCopy = watchCache;
@@ -5563,21 +5411,19 @@ uint64_t __73__SMSafetyMonitorManager_startMonitoringInitiatorSafetyCacheWithHan
         v21 = NSStringFromClass(v20);
         uUIDString = [dCopy UUIDString];
         v23 = NSStringFromSelector(a2);
-        v26 = 138412802;
-        v27 = v21;
-        v28 = 2112;
-        v29 = uUIDString;
-        v30 = 2112;
-        v31 = v23;
-        _os_log_impl(&dword_26455D000, v19, OS_LOG_TYPE_INFO, "#SafetyCache,Initiator,%@,sessionID:%@,%@,received safety cache update", &v26, 0x20u);
+        v25 = 138412802;
+        v26 = v21;
+        v27 = 2112;
+        v28 = uUIDString;
+        v29 = 2112;
+        v30 = v23;
+        _os_log_impl(&dword_26455D000, v19, OS_LOG_TYPE_INFO, "#SafetyCache,Initiator,%@,sessionID:%@,%@,received safety cache update", &v25, 0x20u);
       }
     }
 
     initiatorSafetyCacheHandler2 = [(SMSafetyMonitorManager *)self initiatorSafetyCacheHandler];
     (initiatorSafetyCacheHandler2)[2](initiatorSafetyCacheHandler2, dCopy, cacheCopy, watchCacheCopy, dateCopy, releaseDateCopy, 0);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchAllReceiverSessionStatusWithCompletion:(id)completion
@@ -5601,26 +5447,24 @@ uint64_t __73__SMSafetyMonitorManager_startMonitoringInitiatorSafetyCacheWithHan
 
 void __70__SMSafetyMonitorManager_fetchAllReceiverSessionStatusWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = objc_opt_class();
-    v8 = NSStringFromClass(v7);
-    v9 = NSStringFromSelector(*(a1 + 48));
-    v10 = 138412802;
-    v11 = v8;
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
+    v7 = NSStringFromSelector(*(a1 + 48));
+    v8 = 138412802;
+    v9 = v6;
+    v10 = 2112;
+    v11 = v7;
     v12 = 2112;
-    v13 = v9;
-    v14 = 2112;
-    v15 = v3;
-    _os_log_error_impl(&dword_26455D000, v4, OS_LOG_TYPE_ERROR, "%@,%@,failed to find proxy,error,%@", &v10, 0x20u);
+    v13 = v3;
+    _os_log_error_impl(&dword_26455D000, v4, OS_LOG_TYPE_ERROR, "%@,%@,failed to find proxy,error,%@", &v8, 0x20u);
   }
 
   (*(*(a1 + 40) + 16))();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchReceiverSessionStatusForSessionID:(id)d completion:(id)completion
@@ -5647,55 +5491,53 @@ void __70__SMSafetyMonitorManager_fetchAllReceiverSessionStatusWithCompletion___
 
 void __76__SMSafetyMonitorManager_fetchReceiverSessionStatusForSessionID_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = objc_opt_class();
-    v8 = NSStringFromClass(v7);
-    v9 = NSStringFromSelector(*(a1 + 48));
-    v10 = 138412802;
-    v11 = v8;
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
+    v7 = NSStringFromSelector(*(a1 + 48));
+    v8 = 138412802;
+    v9 = v6;
+    v10 = 2112;
+    v11 = v7;
     v12 = 2112;
-    v13 = v9;
-    v14 = 2112;
-    v15 = v3;
-    _os_log_error_impl(&dword_26455D000, v4, OS_LOG_TYPE_ERROR, "%@,%@,failed to find proxy,error,%@", &v10, 0x20u);
+    v13 = v3;
+    _os_log_error_impl(&dword_26455D000, v4, OS_LOG_TYPE_ERROR, "%@,%@,failed to find proxy,error,%@", &v8, 0x20u);
   }
 
   (*(*(a1 + 40) + 16))();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startMonitoringReceiverSessionStatusWithHandler:(id)handler
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   if (!handlerCopy)
   {
     v6 = _rt_log_facility_get_os_log(RTLogFacilityGeneral);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      *v23 = 136315394;
-      *&v23[4] = "[SMSafetyMonitorManager startMonitoringReceiverSessionStatusWithHandler:]";
-      *&v23[12] = 1024;
-      *&v23[14] = 1648;
-      _os_log_error_impl(&dword_26455D000, v6, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", v23, 0x12u);
+      *v22 = 136315394;
+      *&v22[4] = "[SMSafetyMonitorManager startMonitoringReceiverSessionStatusWithHandler:]";
+      *&v22[12] = 1024;
+      *&v22[14] = 1648;
+      _os_log_error_impl(&dword_26455D000, v6, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", v22, 0x12u);
     }
   }
 
-  *v23 = 0;
-  *&v23[8] = v23;
-  *&v23[16] = 0x2020000000;
+  *v22 = 0;
+  *&v22[8] = v22;
+  *&v22[16] = 0x2020000000;
   v7 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v8 = os_signpost_id_generate(v7);
 
-  v24 = v8;
+  v23 = v8;
   v9 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v10 = v9;
-  v11 = *(*&v23[8] + 24);
+  v11 = *(*&v22[8] + 24);
   if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
   {
     *buf = 0;
@@ -5708,45 +5550,44 @@ void __76__SMSafetyMonitorManager_fetchReceiverSessionStatusForSessionID_complet
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v22 = "[SMSafetyMonitorManager startMonitoringReceiverSessionStatusWithHandler:]";
+      v21 = "[SMSafetyMonitorManager startMonitoringReceiverSessionStatusWithHandler:]";
       _os_log_impl(&dword_26455D000, v12, OS_LOG_TYPE_INFO, "%s", buf, 0xCu);
     }
   }
 
   [(SMSafetyMonitorManager *)self setReceiverSessionStatusHandler:handlerCopy];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __74__SMSafetyMonitorManager_startMonitoringReceiverSessionStatusWithHandler___block_invoke;
-  v18[3] = &unk_279B658B8;
-  v20 = v23;
-  v18[4] = self;
-  v19 = handlerCopy;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __74__SMSafetyMonitorManager_startMonitoringReceiverSessionStatusWithHandler___block_invoke_400;
-  v15[3] = &unk_279B65908;
-  v17 = v23;
-  v13 = v19;
-  v15[4] = self;
-  v16 = v13;
-  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v18 taskBlock:v15];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __74__SMSafetyMonitorManager_startMonitoringReceiverSessionStatusWithHandler___block_invoke;
+  v17[3] = &unk_279B658B8;
+  v19 = v22;
+  v17[4] = self;
+  v18 = handlerCopy;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __74__SMSafetyMonitorManager_startMonitoringReceiverSessionStatusWithHandler___block_invoke_400;
+  v14[3] = &unk_279B65908;
+  v16 = v22;
+  v13 = v18;
+  v14[4] = self;
+  v15 = v13;
+  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v17 taskBlock:v14];
 
-  _Block_object_dispose(v23, 8);
-  v14 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v22, 8);
 }
 
 void __74__SMSafetyMonitorManager_startMonitoringReceiverSessionStatusWithHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v5 = v4;
   v6 = *(*(*(a1 + 48) + 8) + 24);
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
-    v8 = 134349056;
-    v9 = [v3 code];
-    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMStartMonitoringReceiverSessionStatus", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v8, 0xCu);
+    v7 = 134349056;
+    v8 = [v3 code];
+    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMStartMonitoringReceiverSessionStatus", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v7, 0xCu);
   }
 
   if (v3)
@@ -5754,8 +5595,6 @@ void __74__SMSafetyMonitorManager_startMonitoringReceiverSessionStatusWithHandle
     (*(*(a1 + 40) + 16))();
     [*(a1 + 32) setReceiverSessionStatusHandler:0];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __74__SMSafetyMonitorManager_startMonitoringReceiverSessionStatusWithHandler___block_invoke_400(uint64_t a1, void *a2)
@@ -5773,16 +5612,16 @@ void __74__SMSafetyMonitorManager_startMonitoringReceiverSessionStatusWithHandle
 
 void __74__SMSafetyMonitorManager_startMonitoringReceiverSessionStatusWithHandler___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = a4;
   v6 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v7 = v6;
   v8 = *(*(*(a1 + 48) + 8) + 24);
   if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
   {
-    v10 = 134349056;
-    v11 = [v5 code];
-    _os_signpost_emit_with_name_impl(&dword_26455D000, v7, OS_SIGNPOST_INTERVAL_END, v8, "SMStartMonitoringReceiverSessionStatus", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v10, 0xCu);
+    v9 = 134349056;
+    v10 = [v5 code];
+    _os_signpost_emit_with_name_impl(&dword_26455D000, v7, OS_SIGNPOST_INTERVAL_END, v8, "SMStartMonitoringReceiverSessionStatus", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v9, 0xCu);
   }
 
   if (v5)
@@ -5790,37 +5629,35 @@ void __74__SMSafetyMonitorManager_startMonitoringReceiverSessionStatusWithHandle
     (*(*(a1 + 40) + 16))();
     [*(a1 + 32) setReceiverSessionStatusHandler:0];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopMonitoringReceiverSessionStatusWithCompletion:(id)completion
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   if (!completionCopy)
   {
     v6 = _rt_log_facility_get_os_log(RTLogFacilityGeneral);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      *v21 = 136315394;
-      *&v21[4] = "[SMSafetyMonitorManager stopMonitoringReceiverSessionStatusWithCompletion:]";
-      *&v21[12] = 1024;
-      *&v21[14] = 1675;
-      _os_log_error_impl(&dword_26455D000, v6, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: completion (in %s:%d)", v21, 0x12u);
+      *v20 = 136315394;
+      *&v20[4] = "[SMSafetyMonitorManager stopMonitoringReceiverSessionStatusWithCompletion:]";
+      *&v20[12] = 1024;
+      *&v20[14] = 1675;
+      _os_log_error_impl(&dword_26455D000, v6, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: completion (in %s:%d)", v20, 0x12u);
     }
   }
 
-  *v21 = 0;
-  *&v21[8] = v21;
-  *&v21[16] = 0x2020000000;
+  *v20 = 0;
+  *&v20[8] = v20;
+  *&v20[16] = 0x2020000000;
   v7 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v8 = os_signpost_id_generate(v7);
 
-  v22 = v8;
+  v21 = v8;
   v9 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v10 = v9;
-  v11 = *(*&v21[8] + 24);
+  v11 = *(*&v20[8] + 24);
   if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
   {
     *buf = 0;
@@ -5828,41 +5665,39 @@ void __74__SMSafetyMonitorManager_startMonitoringReceiverSessionStatusWithHandle
   }
 
   [(SMSafetyMonitorManager *)self setReceiverSessionStatusHandler:0];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __76__SMSafetyMonitorManager_stopMonitoringReceiverSessionStatusWithCompletion___block_invoke;
-  v17[3] = &unk_279B656E0;
-  v19 = v21;
-  v18 = completionCopy;
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __76__SMSafetyMonitorManager_stopMonitoringReceiverSessionStatusWithCompletion___block_invoke_402;
-  v14[3] = &unk_279B65758;
-  v16 = v21;
-  v12 = v18;
-  v15 = v12;
-  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v17 taskBlock:v14];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __76__SMSafetyMonitorManager_stopMonitoringReceiverSessionStatusWithCompletion___block_invoke;
+  v16[3] = &unk_279B656E0;
+  v18 = v20;
+  v17 = completionCopy;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __76__SMSafetyMonitorManager_stopMonitoringReceiverSessionStatusWithCompletion___block_invoke_402;
+  v13[3] = &unk_279B65758;
+  v15 = v20;
+  v12 = v17;
+  v14 = v12;
+  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v16 taskBlock:v13];
 
-  _Block_object_dispose(v21, 8);
-  v13 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v20, 8);
 }
 
 void __76__SMSafetyMonitorManager_stopMonitoringReceiverSessionStatusWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v5 = v4;
   v6 = *(*(*(a1 + 40) + 8) + 24);
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
-    v8 = 134349056;
-    v9 = [v3 code];
-    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMStopMonitoringReceiverSessionStatus", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v8, 0xCu);
+    v7 = 134349056;
+    v8 = [v3 code];
+    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMStopMonitoringReceiverSessionStatus", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v7, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __76__SMSafetyMonitorManager_stopMonitoringReceiverSessionStatusWithCompletion___block_invoke_402(uint64_t a1, void *a2)
@@ -5879,20 +5714,19 @@ void __76__SMSafetyMonitorManager_stopMonitoringReceiverSessionStatusWithComplet
 
 void __76__SMSafetyMonitorManager_stopMonitoringReceiverSessionStatusWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v5 = v4;
   v6 = *(*(*(a1 + 40) + 8) + 24);
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
-    v8 = 134349056;
-    v9 = [v3 code];
-    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMStopMonitoringReceiverSessionStatus", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v8, 0xCu);
+    v7 = 134349056;
+    v8 = [v3 code];
+    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMStopMonitoringReceiverSessionStatus", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v7, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)onReceiverSessionStatusChangeForSessionID:(id)d sessionStatus:(id)status
@@ -5952,22 +5786,21 @@ void __76__SMSafetyMonitorManager_stopMonitoringReceiverSessionStatusWithComplet
 
 void __76__SMSafetyMonitorManager_userRequestedCacheDownloadForSessionID_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v10 = *(a1 + 32);
-    v11 = objc_opt_class();
-    v12 = NSStringFromClass(v11);
-    v13 = NSStringFromSelector(*(a1 + 56));
-    v14 = 138412802;
-    v15 = v12;
+    v9 = objc_opt_class();
+    v10 = NSStringFromClass(v9);
+    v11 = NSStringFromSelector(*(a1 + 56));
+    v12 = 138412802;
+    v13 = v10;
+    v14 = 2112;
+    v15 = v11;
     v16 = 2112;
-    v17 = v13;
-    v18 = 2112;
-    v19 = v3;
-    _os_log_error_impl(&dword_26455D000, v4, OS_LOG_TYPE_ERROR, "%@,%@,failed to find proxy,error,%@", &v14, 0x20u);
+    v17 = v3;
+    _os_log_error_impl(&dword_26455D000, v4, OS_LOG_TYPE_ERROR, "%@,%@,failed to find proxy,error,%@", &v12, 0x20u);
   }
 
   v5 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
@@ -5976,13 +5809,12 @@ void __76__SMSafetyMonitorManager_userRequestedCacheDownloadForSessionID_complet
   if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
   {
     v8 = [v3 code];
-    v14 = 134349056;
-    v15 = v8;
-    _os_signpost_emit_with_name_impl(&dword_26455D000, v6, OS_SIGNPOST_INTERVAL_END, v7, "SMUserRequestedCacheDownloadForSessionID", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v14, 0xCu);
+    v12 = 134349056;
+    v13 = v8;
+    _os_signpost_emit_with_name_impl(&dword_26455D000, v6, OS_SIGNPOST_INTERVAL_END, v7, "SMUserRequestedCacheDownloadForSessionID", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v12, 0xCu);
   }
 
   (*(*(a1 + 40) + 16))();
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __76__SMSafetyMonitorManager_userRequestedCacheDownloadForSessionID_completion___block_invoke_403(uint64_t a1, void *a2)
@@ -6000,20 +5832,19 @@ void __76__SMSafetyMonitorManager_userRequestedCacheDownloadForSessionID_complet
 
 void __76__SMSafetyMonitorManager_userRequestedCacheDownloadForSessionID_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v5 = v4;
   v6 = *(*(*(a1 + 40) + 8) + 24);
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
-    v8 = 134349056;
-    v9 = [v3 code];
-    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMUserRequestedCacheDownloadForSessionID", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v8, 0xCu);
+    v7 = 134349056;
+    v8 = [v3 code];
+    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMUserRequestedCacheDownloadForSessionID", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v7, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchReceiverSafetyCacheForSessionID:(id)d completion:(id)completion
@@ -6060,22 +5891,21 @@ void __76__SMSafetyMonitorManager_userRequestedCacheDownloadForSessionID_complet
 
 void __74__SMSafetyMonitorManager_fetchReceiverSafetyCacheForSessionID_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v10 = *(a1 + 32);
-    v11 = objc_opt_class();
-    v12 = NSStringFromClass(v11);
-    v13 = NSStringFromSelector(*(a1 + 56));
-    v14 = 138412802;
-    v15 = v12;
+    v9 = objc_opt_class();
+    v10 = NSStringFromClass(v9);
+    v11 = NSStringFromSelector(*(a1 + 56));
+    v12 = 138412802;
+    v13 = v10;
+    v14 = 2112;
+    v15 = v11;
     v16 = 2112;
-    v17 = v13;
-    v18 = 2112;
-    v19 = v3;
-    _os_log_error_impl(&dword_26455D000, v4, OS_LOG_TYPE_ERROR, "%@,%@,failed to find proxy,error,%@", &v14, 0x20u);
+    v17 = v3;
+    _os_log_error_impl(&dword_26455D000, v4, OS_LOG_TYPE_ERROR, "%@,%@,failed to find proxy,error,%@", &v12, 0x20u);
   }
 
   v5 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
@@ -6084,13 +5914,12 @@ void __74__SMSafetyMonitorManager_fetchReceiverSafetyCacheForSessionID_completio
   if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
   {
     v8 = [v3 code];
-    v14 = 134349056;
-    v15 = v8;
-    _os_signpost_emit_with_name_impl(&dword_26455D000, v6, OS_SIGNPOST_INTERVAL_END, v7, "SMFetchReceiverSafetyCache", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v14, 0xCu);
+    v12 = 134349056;
+    v13 = v8;
+    _os_signpost_emit_with_name_impl(&dword_26455D000, v6, OS_SIGNPOST_INTERVAL_END, v7, "SMFetchReceiverSafetyCache", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v12, 0xCu);
   }
 
   (*(*(a1 + 40) + 16))();
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __74__SMSafetyMonitorManager_fetchReceiverSafetyCacheForSessionID_completion___block_invoke_404(uint64_t a1, void *a2)
@@ -6108,7 +5937,7 @@ void __74__SMSafetyMonitorManager_fetchReceiverSafetyCacheForSessionID_completio
 
 void __74__SMSafetyMonitorManager_fetchReceiverSafetyCacheForSessionID_completion___block_invoke_2(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v7 = a4;
   v8 = a3;
   v9 = a2;
@@ -6127,44 +5956,43 @@ void __74__SMSafetyMonitorManager_fetchReceiverSafetyCacheForSessionID_completio
       v13 = @"NO";
     }
 
-    v15 = 136446466;
-    v16 = [(__CFString *)v13 UTF8String];
-    v17 = 2050;
-    v18 = [v7 code];
-    _os_signpost_emit_with_name_impl(&dword_26455D000, v11, OS_SIGNPOST_INTERVAL_END, v12, "SMFetchReceiverSafetyCache", " enableTelemetry=YES {phoneCacheAvailable:%{public,signpost.telemetry:string1}s, error:%{public,signpost.telemetry:number1}ld}", &v15, 0x16u);
+    v14 = 136446466;
+    v15 = [(__CFString *)v13 UTF8String];
+    v16 = 2050;
+    v17 = [v7 code];
+    _os_signpost_emit_with_name_impl(&dword_26455D000, v11, OS_SIGNPOST_INTERVAL_END, v12, "SMFetchReceiverSafetyCache", " enableTelemetry=YES {phoneCacheAvailable:%{public,signpost.telemetry:string1}s, error:%{public,signpost.telemetry:number1}ld}", &v14, 0x16u);
   }
 
   (*(*(a1 + 32) + 16))();
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startMonitoringReceiverSafetyCacheWithHandler:(id)handler
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   if (!handlerCopy)
   {
     v6 = _rt_log_facility_get_os_log(RTLogFacilityGeneral);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      *v23 = 136315394;
-      *&v23[4] = "[SMSafetyMonitorManager startMonitoringReceiverSafetyCacheWithHandler:]";
-      *&v23[12] = 1024;
-      *&v23[14] = 1740;
-      _os_log_error_impl(&dword_26455D000, v6, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", v23, 0x12u);
+      *v22 = 136315394;
+      *&v22[4] = "[SMSafetyMonitorManager startMonitoringReceiverSafetyCacheWithHandler:]";
+      *&v22[12] = 1024;
+      *&v22[14] = 1740;
+      _os_log_error_impl(&dword_26455D000, v6, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", v22, 0x12u);
     }
   }
 
-  *v23 = 0;
-  *&v23[8] = v23;
-  *&v23[16] = 0x2020000000;
+  *v22 = 0;
+  *&v22[8] = v22;
+  *&v22[16] = 0x2020000000;
   v7 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v8 = os_signpost_id_generate(v7);
 
-  v24 = v8;
+  v23 = v8;
   v9 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v10 = v9;
-  v11 = *(*&v23[8] + 24);
+  v11 = *(*&v22[8] + 24);
   if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
   {
     *buf = 0;
@@ -6177,45 +6005,44 @@ void __74__SMSafetyMonitorManager_fetchReceiverSafetyCacheForSessionID_completio
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v22 = "[SMSafetyMonitorManager startMonitoringReceiverSafetyCacheWithHandler:]";
+      v21 = "[SMSafetyMonitorManager startMonitoringReceiverSafetyCacheWithHandler:]";
       _os_log_impl(&dword_26455D000, v12, OS_LOG_TYPE_INFO, "%s", buf, 0xCu);
     }
   }
 
   [(SMSafetyMonitorManager *)self setReceiverSafetyCacheHandler:handlerCopy];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __72__SMSafetyMonitorManager_startMonitoringReceiverSafetyCacheWithHandler___block_invoke;
-  v18[3] = &unk_279B658B8;
-  v20 = v23;
-  v18[4] = self;
-  v19 = handlerCopy;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __72__SMSafetyMonitorManager_startMonitoringReceiverSafetyCacheWithHandler___block_invoke_406;
-  v15[3] = &unk_279B65908;
-  v17 = v23;
-  v13 = v19;
-  v15[4] = self;
-  v16 = v13;
-  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v18 taskBlock:v15];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __72__SMSafetyMonitorManager_startMonitoringReceiverSafetyCacheWithHandler___block_invoke;
+  v17[3] = &unk_279B658B8;
+  v19 = v22;
+  v17[4] = self;
+  v18 = handlerCopy;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __72__SMSafetyMonitorManager_startMonitoringReceiverSafetyCacheWithHandler___block_invoke_406;
+  v14[3] = &unk_279B65908;
+  v16 = v22;
+  v13 = v18;
+  v14[4] = self;
+  v15 = v13;
+  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v17 taskBlock:v14];
 
-  _Block_object_dispose(v23, 8);
-  v14 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v22, 8);
 }
 
 void __72__SMSafetyMonitorManager_startMonitoringReceiverSafetyCacheWithHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v5 = v4;
   v6 = *(*(*(a1 + 48) + 8) + 24);
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
-    v8 = 134349056;
-    v9 = [v3 code];
-    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMStartMonitoringReceiverSafetyCache", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v8, 0xCu);
+    v7 = 134349056;
+    v8 = [v3 code];
+    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMStartMonitoringReceiverSafetyCache", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v7, 0xCu);
   }
 
   if (v3)
@@ -6223,8 +6050,6 @@ void __72__SMSafetyMonitorManager_startMonitoringReceiverSafetyCacheWithHandler_
     (*(*(a1 + 40) + 16))();
     [*(a1 + 32) setReceiverSafetyCacheHandler:0];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __72__SMSafetyMonitorManager_startMonitoringReceiverSafetyCacheWithHandler___block_invoke_406(uint64_t a1, void *a2)
@@ -6242,7 +6067,7 @@ void __72__SMSafetyMonitorManager_startMonitoringReceiverSafetyCacheWithHandler_
 
 void __72__SMSafetyMonitorManager_startMonitoringReceiverSafetyCacheWithHandler___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v7 = a5;
   v8 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v9 = v8;
@@ -6259,11 +6084,11 @@ void __72__SMSafetyMonitorManager_startMonitoringReceiverSafetyCacheWithHandler_
       v11 = @"NO";
     }
 
-    v13 = 136446466;
-    v14 = [(__CFString *)v11 UTF8String];
-    v15 = 2050;
-    v16 = [v7 code];
-    _os_signpost_emit_with_name_impl(&dword_26455D000, v9, OS_SIGNPOST_INTERVAL_END, v10, "SMStartMonitoringReceiverSafetyCache", " enableTelemetry=YES {phoneCache:%{public,signpost.telemetry:string1}s, error:%{public,signpost.telemetry:number1}ld}", &v13, 0x16u);
+    v12 = 136446466;
+    v13 = [(__CFString *)v11 UTF8String];
+    v14 = 2050;
+    v15 = [v7 code];
+    _os_signpost_emit_with_name_impl(&dword_26455D000, v9, OS_SIGNPOST_INTERVAL_END, v10, "SMStartMonitoringReceiverSafetyCache", " enableTelemetry=YES {phoneCache:%{public,signpost.telemetry:string1}s, error:%{public,signpost.telemetry:number1}ld}", &v12, 0x16u);
   }
 
   if (v7)
@@ -6271,37 +6096,35 @@ void __72__SMSafetyMonitorManager_startMonitoringReceiverSafetyCacheWithHandler_
     (*(*(a1 + 40) + 16))();
     [*(a1 + 32) setReceiverSafetyCacheHandler:0];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopMonitoringReceiverSafetyCacheWithCompletion:(id)completion
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   if (!completionCopy)
   {
     v6 = _rt_log_facility_get_os_log(RTLogFacilityGeneral);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      *v21 = 136315394;
-      *&v21[4] = "[SMSafetyMonitorManager stopMonitoringReceiverSafetyCacheWithCompletion:]";
-      *&v21[12] = 1024;
-      *&v21[14] = 1767;
-      _os_log_error_impl(&dword_26455D000, v6, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: completion (in %s:%d)", v21, 0x12u);
+      *v20 = 136315394;
+      *&v20[4] = "[SMSafetyMonitorManager stopMonitoringReceiverSafetyCacheWithCompletion:]";
+      *&v20[12] = 1024;
+      *&v20[14] = 1767;
+      _os_log_error_impl(&dword_26455D000, v6, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: completion (in %s:%d)", v20, 0x12u);
     }
   }
 
-  *v21 = 0;
-  *&v21[8] = v21;
-  *&v21[16] = 0x2020000000;
+  *v20 = 0;
+  *&v20[8] = v20;
+  *&v20[16] = 0x2020000000;
   v7 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v8 = os_signpost_id_generate(v7);
 
-  v22 = v8;
+  v21 = v8;
   v9 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v10 = v9;
-  v11 = *(*&v21[8] + 24);
+  v11 = *(*&v20[8] + 24);
   if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
   {
     *buf = 0;
@@ -6309,41 +6132,39 @@ void __72__SMSafetyMonitorManager_startMonitoringReceiverSafetyCacheWithHandler_
   }
 
   [(SMSafetyMonitorManager *)self setReceiverSafetyCacheHandler:0];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __74__SMSafetyMonitorManager_stopMonitoringReceiverSafetyCacheWithCompletion___block_invoke;
-  v17[3] = &unk_279B656E0;
-  v19 = v21;
-  v18 = completionCopy;
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __74__SMSafetyMonitorManager_stopMonitoringReceiverSafetyCacheWithCompletion___block_invoke_408;
-  v14[3] = &unk_279B65758;
-  v16 = v21;
-  v12 = v18;
-  v15 = v12;
-  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v17 taskBlock:v14];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __74__SMSafetyMonitorManager_stopMonitoringReceiverSafetyCacheWithCompletion___block_invoke;
+  v16[3] = &unk_279B656E0;
+  v18 = v20;
+  v17 = completionCopy;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __74__SMSafetyMonitorManager_stopMonitoringReceiverSafetyCacheWithCompletion___block_invoke_408;
+  v13[3] = &unk_279B65758;
+  v15 = v20;
+  v12 = v17;
+  v14 = v12;
+  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v16 taskBlock:v13];
 
-  _Block_object_dispose(v21, 8);
-  v13 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v20, 8);
 }
 
 void __74__SMSafetyMonitorManager_stopMonitoringReceiverSafetyCacheWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v5 = v4;
   v6 = *(*(*(a1 + 40) + 8) + 24);
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
-    v8 = 134349056;
-    v9 = [v3 code];
-    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMStopMonitoringReceiverSafetyCache", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v8, 0xCu);
+    v7 = 134349056;
+    v8 = [v3 code];
+    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMStopMonitoringReceiverSafetyCache", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v7, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __74__SMSafetyMonitorManager_stopMonitoringReceiverSafetyCacheWithCompletion___block_invoke_408(uint64_t a1, void *a2)
@@ -6360,20 +6181,19 @@ void __74__SMSafetyMonitorManager_stopMonitoringReceiverSafetyCacheWithCompletio
 
 void __74__SMSafetyMonitorManager_stopMonitoringReceiverSafetyCacheWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v5 = v4;
   v6 = *(*(*(a1 + 40) + 8) + 24);
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
-    v8 = 134349056;
-    v9 = [v3 code];
-    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMStopMonitoringReceiverSafetyCache", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v8, 0xCu);
+    v7 = 134349056;
+    v8 = [v3 code];
+    _os_signpost_emit_with_name_impl(&dword_26455D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "SMStopMonitoringReceiverSafetyCache", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v7, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)onReceiverSafetyCacheChangeForSessionID:(id)d phoneCache:(id)cache watchCache:(id)watchCache
@@ -6392,7 +6212,7 @@ void __74__SMSafetyMonitorManager_stopMonitoringReceiverSafetyCacheWithCompletio
 
 - (void)detailsViewOpenedForSessionID:(id)d
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   dCopy = d;
   if (!dCopy)
   {
@@ -6400,56 +6220,51 @@ void __74__SMSafetyMonitorManager_stopMonitoringReceiverSafetyCacheWithCompletio
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v13 = "[SMSafetyMonitorManager detailsViewOpenedForSessionID:]";
-      v14 = 1024;
-      v15 = 1795;
+      v12 = "[SMSafetyMonitorManager detailsViewOpenedForSessionID:]";
+      v13 = 1024;
+      v14 = 1795;
       _os_log_error_impl(&dword_26455D000, v6, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: sessionID (in %s:%d)", buf, 0x12u);
     }
   }
 
-  v10 = dCopy;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __56__SMSafetyMonitorManager_detailsViewOpenedForSessionID___block_invoke;
-  v11[3] = &unk_279B65B38;
-  v11[4] = self;
-  v11[5] = a2;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __56__SMSafetyMonitorManager_detailsViewOpenedForSessionID___block_invoke_409;
-  v9[3] = &unk_279B65BB0;
+  v9 = dCopy;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __56__SMSafetyMonitorManager_detailsViewOpenedForSessionID___block_invoke;
+  v10[3] = &unk_279B65B38;
+  v10[4] = self;
+  v10[5] = a2;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __56__SMSafetyMonitorManager_detailsViewOpenedForSessionID___block_invoke_409;
+  v8[3] = &unk_279B65BB0;
   v7 = dCopy;
-  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v11 taskBlock:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v10 taskBlock:v8];
 }
 
 void __56__SMSafetyMonitorManager_detailsViewOpenedForSessionID___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = objc_opt_class();
-    v8 = NSStringFromClass(v7);
-    v9 = NSStringFromSelector(*(a1 + 40));
-    v10 = 138412802;
-    v11 = v8;
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
+    v7 = NSStringFromSelector(*(a1 + 40));
+    v8 = 138412802;
+    v9 = v6;
+    v10 = 2112;
+    v11 = v7;
     v12 = 2112;
-    v13 = v9;
-    v14 = 2112;
-    v15 = v3;
-    _os_log_error_impl(&dword_26455D000, v4, OS_LOG_TYPE_ERROR, "%@,%@,failed to find proxy,error,%@", &v10, 0x20u);
+    v13 = v3;
+    _os_log_error_impl(&dword_26455D000, v4, OS_LOG_TYPE_ERROR, "%@,%@,failed to find proxy,error,%@", &v8, 0x20u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)checkInitiatorEligibilityWithHandler:(id)handler
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   if (!handlerCopy)
   {
@@ -6457,27 +6272,25 @@ void __56__SMSafetyMonitorManager_detailsViewOpenedForSessionID___block_invoke(u
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v14 = "[SMSafetyMonitorManager checkInitiatorEligibilityWithHandler:]";
-      v15 = 1024;
-      v16 = 1808;
+      v13 = "[SMSafetyMonitorManager checkInitiatorEligibilityWithHandler:]";
+      v14 = 1024;
+      v15 = 1808;
       _os_log_error_impl(&dword_26455D000, v6, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", buf, 0x12u);
     }
   }
 
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __63__SMSafetyMonitorManager_checkInitiatorEligibilityWithHandler___block_invoke;
-  v11[3] = &unk_279B657A8;
-  v12 = handlerCopy;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __63__SMSafetyMonitorManager_checkInitiatorEligibilityWithHandler___block_invoke_2;
-  v9[3] = &unk_279B65868;
-  v10 = v12;
-  v7 = v12;
-  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v11 taskBlock:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __63__SMSafetyMonitorManager_checkInitiatorEligibilityWithHandler___block_invoke;
+  v10[3] = &unk_279B657A8;
+  v11 = handlerCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __63__SMSafetyMonitorManager_checkInitiatorEligibilityWithHandler___block_invoke_2;
+  v8[3] = &unk_279B65868;
+  v9 = v11;
+  v7 = v11;
+  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v10 taskBlock:v8];
 }
 
 void __63__SMSafetyMonitorManager_checkInitiatorEligibilityWithHandler___block_invoke_2(uint64_t a1, void *a2)
@@ -6492,7 +6305,7 @@ void __63__SMSafetyMonitorManager_checkInitiatorEligibilityWithHandler___block_i
 
 - (void)checkIMessageAccountEnabledWithHandler:(id)handler
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   if (!handlerCopy)
   {
@@ -6500,27 +6313,25 @@ void __63__SMSafetyMonitorManager_checkInitiatorEligibilityWithHandler___block_i
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v14 = "[SMSafetyMonitorManager checkIMessageAccountEnabledWithHandler:]";
-      v15 = 1024;
-      v16 = 1821;
+      v13 = "[SMSafetyMonitorManager checkIMessageAccountEnabledWithHandler:]";
+      v14 = 1024;
+      v15 = 1821;
       _os_log_error_impl(&dword_26455D000, v6, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", buf, 0x12u);
     }
   }
 
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __65__SMSafetyMonitorManager_checkIMessageAccountEnabledWithHandler___block_invoke;
-  v11[3] = &unk_279B657A8;
-  v12 = handlerCopy;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __65__SMSafetyMonitorManager_checkIMessageAccountEnabledWithHandler___block_invoke_2;
-  v9[3] = &unk_279B65868;
-  v10 = v12;
-  v7 = v12;
-  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v11 taskBlock:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __65__SMSafetyMonitorManager_checkIMessageAccountEnabledWithHandler___block_invoke;
+  v10[3] = &unk_279B657A8;
+  v11 = handlerCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __65__SMSafetyMonitorManager_checkIMessageAccountEnabledWithHandler___block_invoke_2;
+  v8[3] = &unk_279B65868;
+  v9 = v11;
+  v7 = v11;
+  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v10 taskBlock:v8];
 }
 
 void __65__SMSafetyMonitorManager_checkIMessageAccountEnabledWithHandler___block_invoke_2(uint64_t a1, void *a2)
@@ -6535,7 +6346,7 @@ void __65__SMSafetyMonitorManager_checkIMessageAccountEnabledWithHandler___block
 
 - (void)checkHasSimWithHandler:(id)handler
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   if (!handlerCopy)
   {
@@ -6543,27 +6354,25 @@ void __65__SMSafetyMonitorManager_checkIMessageAccountEnabledWithHandler___block
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v14 = "[SMSafetyMonitorManager checkHasSimWithHandler:]";
-      v15 = 1024;
-      v16 = 1834;
+      v13 = "[SMSafetyMonitorManager checkHasSimWithHandler:]";
+      v14 = 1024;
+      v15 = 1834;
       _os_log_error_impl(&dword_26455D000, v6, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", buf, 0x12u);
     }
   }
 
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __49__SMSafetyMonitorManager_checkHasSimWithHandler___block_invoke;
-  v11[3] = &unk_279B657A8;
-  v12 = handlerCopy;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __49__SMSafetyMonitorManager_checkHasSimWithHandler___block_invoke_2;
-  v9[3] = &unk_279B65868;
-  v10 = v12;
-  v7 = v12;
-  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v11 taskBlock:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __49__SMSafetyMonitorManager_checkHasSimWithHandler___block_invoke;
+  v10[3] = &unk_279B657A8;
+  v11 = handlerCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __49__SMSafetyMonitorManager_checkHasSimWithHandler___block_invoke_2;
+  v8[3] = &unk_279B65868;
+  v9 = v11;
+  v7 = v11;
+  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v10 taskBlock:v8];
 }
 
 void __49__SMSafetyMonitorManager_checkHasSimWithHandler___block_invoke_2(uint64_t a1, void *a2)
@@ -6578,7 +6387,7 @@ void __49__SMSafetyMonitorManager_checkHasSimWithHandler___block_invoke_2(uint64
 
 - (void)checkConversationEligibility:(id)eligibility handler:(id)handler
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   eligibilityCopy = eligibility;
   handlerCopy = handler;
   v9 = handlerCopy;
@@ -6596,9 +6405,9 @@ void __49__SMSafetyMonitorManager_checkHasSimWithHandler___block_invoke_2(uint64
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v21 = "[SMSafetyMonitorManager checkConversationEligibility:handler:]";
-    v22 = 1024;
-    v23 = 1847;
+    v20 = "[SMSafetyMonitorManager checkConversationEligibility:handler:]";
+    v21 = 1024;
+    v22 = 1847;
     _os_log_error_impl(&dword_26455D000, v10, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: conversation (in %s:%d)", buf, 0x12u);
   }
 
@@ -6609,30 +6418,28 @@ LABEL_7:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v21 = "[SMSafetyMonitorManager checkConversationEligibility:handler:]";
-      v22 = 1024;
-      v23 = 1848;
+      v20 = "[SMSafetyMonitorManager checkConversationEligibility:handler:]";
+      v21 = 1024;
+      v22 = 1848;
       _os_log_error_impl(&dword_26455D000, v11, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", buf, 0x12u);
     }
   }
 
 LABEL_10:
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __63__SMSafetyMonitorManager_checkConversationEligibility_handler___block_invoke;
-  v18[3] = &unk_279B657A8;
-  v19 = v9;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __63__SMSafetyMonitorManager_checkConversationEligibility_handler___block_invoke_2;
-  v15[3] = &unk_279B65C00;
-  v16 = eligibilityCopy;
-  v17 = v19;
-  v12 = v19;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __63__SMSafetyMonitorManager_checkConversationEligibility_handler___block_invoke;
+  v17[3] = &unk_279B657A8;
+  v18 = v9;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __63__SMSafetyMonitorManager_checkConversationEligibility_handler___block_invoke_2;
+  v14[3] = &unk_279B65C00;
+  v15 = eligibilityCopy;
+  v16 = v18;
+  v12 = v18;
   v13 = eligibilityCopy;
-  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v18 taskBlock:v15];
-
-  v14 = *MEMORY[0x277D85DE8];
+  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v17 taskBlock:v14];
 }
 
 void __63__SMSafetyMonitorManager_checkConversationEligibility_handler___block_invoke_2(uint64_t a1, void *a2)
@@ -6648,7 +6455,7 @@ void __63__SMSafetyMonitorManager_checkConversationEligibility_handler___block_i
 
 - (void)fetchDeviceConfigurationLowPowerModeWarningStateWithHandler:(id)handler
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   if (!handlerCopy)
   {
@@ -6656,27 +6463,25 @@ void __63__SMSafetyMonitorManager_checkConversationEligibility_handler___block_i
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v14 = "[SMSafetyMonitorManager fetchDeviceConfigurationLowPowerModeWarningStateWithHandler:]";
-      v15 = 1024;
-      v16 = 1861;
+      v13 = "[SMSafetyMonitorManager fetchDeviceConfigurationLowPowerModeWarningStateWithHandler:]";
+      v14 = 1024;
+      v15 = 1861;
       _os_log_error_impl(&dword_26455D000, v6, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", buf, 0x12u);
     }
   }
 
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __86__SMSafetyMonitorManager_fetchDeviceConfigurationLowPowerModeWarningStateWithHandler___block_invoke;
-  v11[3] = &unk_279B657A8;
-  v12 = handlerCopy;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __86__SMSafetyMonitorManager_fetchDeviceConfigurationLowPowerModeWarningStateWithHandler___block_invoke_2;
-  v9[3] = &unk_279B65868;
-  v10 = v12;
-  v7 = v12;
-  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v11 taskBlock:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __86__SMSafetyMonitorManager_fetchDeviceConfigurationLowPowerModeWarningStateWithHandler___block_invoke;
+  v10[3] = &unk_279B657A8;
+  v11 = handlerCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __86__SMSafetyMonitorManager_fetchDeviceConfigurationLowPowerModeWarningStateWithHandler___block_invoke_2;
+  v8[3] = &unk_279B65868;
+  v9 = v11;
+  v7 = v11;
+  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v10 taskBlock:v8];
 }
 
 void __86__SMSafetyMonitorManager_fetchDeviceConfigurationLowPowerModeWarningStateWithHandler___block_invoke_2(uint64_t a1, void *a2)
@@ -6691,7 +6496,7 @@ void __86__SMSafetyMonitorManager_fetchDeviceConfigurationLowPowerModeWarningSta
 
 - (void)checkEligibilityOfDestination:(id)destination completionHandler:(id)handler
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   destinationCopy = destination;
   handlerCopy = handler;
   v9 = handlerCopy;
@@ -6709,9 +6514,9 @@ void __86__SMSafetyMonitorManager_fetchDeviceConfigurationLowPowerModeWarningSta
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v22 = "[SMSafetyMonitorManager checkEligibilityOfDestination:completionHandler:]";
-    v23 = 1024;
-    v24 = 1878;
+    v21 = "[SMSafetyMonitorManager checkEligibilityOfDestination:completionHandler:]";
+    v22 = 1024;
+    v23 = 1878;
     _os_log_error_impl(&dword_26455D000, v10, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: destinationLocation (in %s:%d)", buf, 0x12u);
   }
 
@@ -6722,59 +6527,54 @@ LABEL_7:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v22 = "[SMSafetyMonitorManager checkEligibilityOfDestination:completionHandler:]";
-      v23 = 1024;
-      v24 = 1879;
+      v21 = "[SMSafetyMonitorManager checkEligibilityOfDestination:completionHandler:]";
+      v22 = 1024;
+      v23 = 1879;
       _os_log_error_impl(&dword_26455D000, v11, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", buf, 0x12u);
     }
   }
 
 LABEL_10:
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __74__SMSafetyMonitorManager_checkEligibilityOfDestination_completionHandler___block_invoke;
-  v18[3] = &unk_279B65538;
-  v20 = v9;
-  v19 = destinationCopy;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __74__SMSafetyMonitorManager_checkEligibilityOfDestination_completionHandler___block_invoke_412;
-  v15[3] = &unk_279B65C00;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __74__SMSafetyMonitorManager_checkEligibilityOfDestination_completionHandler___block_invoke;
+  v17[3] = &unk_279B65538;
+  v19 = v9;
+  v18 = destinationCopy;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __74__SMSafetyMonitorManager_checkEligibilityOfDestination_completionHandler___block_invoke_412;
+  v14[3] = &unk_279B65C00;
+  v15 = v18;
   v16 = v19;
-  v17 = v20;
-  v12 = v20;
-  v13 = v19;
-  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v18 taskBlock:v15];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = v19;
+  v13 = v18;
+  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v17 taskBlock:v14];
 }
 
 void __74__SMSafetyMonitorManager_checkEligibilityOfDestination_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
     v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v7 = 136315394;
-      v8 = "[SMSafetyMonitorManager checkEligibilityOfDestination:completionHandler:]_block_invoke";
-      v9 = 2112;
-      v10 = v3;
-      _os_log_error_impl(&dword_26455D000, v4, OS_LOG_TYPE_ERROR, "%s, failed to find proxy, error, %@", &v7, 0x16u);
+      v5 = 136315394;
+      v6 = "[SMSafetyMonitorManager checkEligibilityOfDestination:completionHandler:]_block_invoke";
+      v7 = 2112;
+      v8 = v3;
+      _os_log_error_impl(&dword_26455D000, v4, OS_LOG_TYPE_ERROR, "%s, failed to find proxy, error, %@", &v5, 0x16u);
     }
 
-    v5 = *(a1 + 32);
     (*(*(a1 + 40) + 16))();
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)calculateDistanceToDestination:(id)destination completionHandler:(id)handler
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   destinationCopy = destination;
   handlerCopy = handler;
   v9 = handlerCopy;
@@ -6792,9 +6592,9 @@ void __74__SMSafetyMonitorManager_checkEligibilityOfDestination_completionHandle
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v22 = "[SMSafetyMonitorManager calculateDistanceToDestination:completionHandler:]";
-    v23 = 1024;
-    v24 = 1897;
+    v21 = "[SMSafetyMonitorManager calculateDistanceToDestination:completionHandler:]";
+    v22 = 1024;
+    v23 = 1897;
     _os_log_error_impl(&dword_26455D000, v10, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: destinationLocation (in %s:%d)", buf, 0x12u);
   }
 
@@ -6805,59 +6605,54 @@ LABEL_7:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v22 = "[SMSafetyMonitorManager calculateDistanceToDestination:completionHandler:]";
-      v23 = 1024;
-      v24 = 1898;
+      v21 = "[SMSafetyMonitorManager calculateDistanceToDestination:completionHandler:]";
+      v22 = 1024;
+      v23 = 1898;
       _os_log_error_impl(&dword_26455D000, v11, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", buf, 0x12u);
     }
   }
 
 LABEL_10:
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __75__SMSafetyMonitorManager_calculateDistanceToDestination_completionHandler___block_invoke;
-  v18[3] = &unk_279B65538;
-  v20 = v9;
-  v19 = destinationCopy;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __75__SMSafetyMonitorManager_calculateDistanceToDestination_completionHandler___block_invoke_413;
-  v15[3] = &unk_279B65C00;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __75__SMSafetyMonitorManager_calculateDistanceToDestination_completionHandler___block_invoke;
+  v17[3] = &unk_279B65538;
+  v19 = v9;
+  v18 = destinationCopy;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __75__SMSafetyMonitorManager_calculateDistanceToDestination_completionHandler___block_invoke_413;
+  v14[3] = &unk_279B65C00;
+  v15 = v18;
   v16 = v19;
-  v17 = v20;
-  v12 = v20;
-  v13 = v19;
-  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v18 taskBlock:v15];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = v19;
+  v13 = v18;
+  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v17 taskBlock:v14];
 }
 
 void __75__SMSafetyMonitorManager_calculateDistanceToDestination_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
     v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v7 = 136315394;
-      v8 = "[SMSafetyMonitorManager calculateDistanceToDestination:completionHandler:]_block_invoke";
-      v9 = 2112;
-      v10 = v3;
-      _os_log_error_impl(&dword_26455D000, v4, OS_LOG_TYPE_ERROR, "%s, failed to find proxy, error, %@", &v7, 0x16u);
+      v5 = 136315394;
+      v6 = "[SMSafetyMonitorManager calculateDistanceToDestination:completionHandler:]_block_invoke";
+      v7 = 2112;
+      v8 = v3;
+      _os_log_error_impl(&dword_26455D000, v4, OS_LOG_TYPE_ERROR, "%s, failed to find proxy, error, %@", &v5, 0x16u);
     }
 
-    v5 = *(a1 + 32);
     (*(*(a1 + 40) + 16))(1.79769313e308);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)estimateEtaToDestination:(id)destination transportType:(unint64_t)type completionHandler:(id)handler
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   destinationCopy = destination;
   handlerCopy = handler;
   if (!destinationCopy)
@@ -6865,11 +6660,11 @@ void __75__SMSafetyMonitorManager_calculateDistanceToDestination_completionHandl
     v11 = _rt_log_facility_get_os_log(RTLogFacilityGeneral);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      *v35 = 136315394;
-      *&v35[4] = "[SMSafetyMonitorManager estimateEtaToDestination:transportType:completionHandler:]";
-      *&v35[12] = 1024;
-      *&v35[14] = 1917;
-      _os_log_error_impl(&dword_26455D000, v11, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: destinationLocation (in %s:%d)", v35, 0x12u);
+      *v34 = 136315394;
+      *&v34[4] = "[SMSafetyMonitorManager estimateEtaToDestination:transportType:completionHandler:]";
+      *&v34[12] = 1024;
+      *&v34[14] = 1917;
+      _os_log_error_impl(&dword_26455D000, v11, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: destinationLocation (in %s:%d)", v34, 0x12u);
     }
   }
 
@@ -6878,11 +6673,11 @@ void __75__SMSafetyMonitorManager_calculateDistanceToDestination_completionHandl
     v12 = _rt_log_facility_get_os_log(RTLogFacilityGeneral);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      *v35 = 136315394;
-      *&v35[4] = "[SMSafetyMonitorManager estimateEtaToDestination:transportType:completionHandler:]";
-      *&v35[12] = 1024;
-      *&v35[14] = 1918;
-      _os_log_error_impl(&dword_26455D000, v12, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: transportType (in %s:%d)", v35, 0x12u);
+      *v34 = 136315394;
+      *&v34[4] = "[SMSafetyMonitorManager estimateEtaToDestination:transportType:completionHandler:]";
+      *&v34[12] = 1024;
+      *&v34[14] = 1918;
+      _os_log_error_impl(&dword_26455D000, v12, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: transportType (in %s:%d)", v34, 0x12u);
     }
   }
 
@@ -6891,24 +6686,24 @@ void __75__SMSafetyMonitorManager_calculateDistanceToDestination_completionHandl
     v13 = _rt_log_facility_get_os_log(RTLogFacilityGeneral);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      *v35 = 136315394;
-      *&v35[4] = "[SMSafetyMonitorManager estimateEtaToDestination:transportType:completionHandler:]";
-      *&v35[12] = 1024;
-      *&v35[14] = 1919;
-      _os_log_error_impl(&dword_26455D000, v13, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", v35, 0x12u);
+      *v34 = 136315394;
+      *&v34[4] = "[SMSafetyMonitorManager estimateEtaToDestination:transportType:completionHandler:]";
+      *&v34[12] = 1024;
+      *&v34[14] = 1919;
+      _os_log_error_impl(&dword_26455D000, v13, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handler (in %s:%d)", v34, 0x12u);
     }
   }
 
-  *v35 = 0;
-  *&v35[8] = v35;
-  *&v35[16] = 0x2020000000;
+  *v34 = 0;
+  *&v34[8] = v34;
+  *&v34[16] = 0x2020000000;
   v14 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v15 = os_signpost_id_generate(v14);
 
-  v36 = v15;
+  v35 = v15;
   v16 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
   v17 = v16;
-  v18 = *(*&v35[8] + 24);
+  v18 = *(*&v34[8] + 24);
   if (v18 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
   {
     *buf = 0;
@@ -6921,68 +6716,63 @@ void __75__SMSafetyMonitorManager_calculateDistanceToDestination_completionHandl
     if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v34 = "[SMSafetyMonitorManager estimateEtaToDestination:transportType:completionHandler:]";
+      v33 = "[SMSafetyMonitorManager estimateEtaToDestination:transportType:completionHandler:]";
       _os_log_impl(&dword_26455D000, v19, OS_LOG_TYPE_INFO, "%s", buf, 0xCu);
     }
   }
 
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __83__SMSafetyMonitorManager_estimateEtaToDestination_transportType_completionHandler___block_invoke;
-  v28[3] = &unk_279B65CF0;
-  v31 = v35;
-  v30 = handlerCopy;
-  v29 = destinationCopy;
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __83__SMSafetyMonitorManager_estimateEtaToDestination_transportType_completionHandler___block_invoke;
+  v27[3] = &unk_279B65CF0;
+  v30 = v34;
+  v29 = handlerCopy;
+  v28 = destinationCopy;
   typeCopy = type;
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __83__SMSafetyMonitorManager_estimateEtaToDestination_transportType_completionHandler___block_invoke_414;
-  v23[3] = &unk_279B65780;
-  v20 = v29;
-  v26 = v35;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __83__SMSafetyMonitorManager_estimateEtaToDestination_transportType_completionHandler___block_invoke_414;
+  v22[3] = &unk_279B65780;
+  v20 = v28;
+  v25 = v34;
   typeCopy2 = type;
-  v24 = v20;
-  v21 = v30;
-  v25 = v21;
-  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v28 taskBlock:v23];
+  v23 = v20;
+  v21 = v29;
+  v24 = v21;
+  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:v27 taskBlock:v22];
 
-  _Block_object_dispose(v35, 8);
-  v22 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v34, 8);
 }
 
-void __83__SMSafetyMonitorManager_estimateEtaToDestination_transportType_completionHandler___block_invoke(void *a1, void *a2)
+void __83__SMSafetyMonitorManager_estimateEtaToDestination_transportType_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
     v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v12 = 136315394;
-      v13 = "[SMSafetyMonitorManager estimateEtaToDestination:transportType:completionHandler:]_block_invoke";
-      v14 = 2112;
-      v15 = v3;
-      _os_log_error_impl(&dword_26455D000, v4, OS_LOG_TYPE_ERROR, "%s, failed to find proxy, error, %@", &v12, 0x16u);
+      v9 = 136315394;
+      v10 = "[SMSafetyMonitorManager estimateEtaToDestination:transportType:completionHandler:]_block_invoke";
+      v11 = 2112;
+      v12 = v3;
+      _os_log_error_impl(&dword_26455D000, v4, OS_LOG_TYPE_ERROR, "%s, failed to find proxy, error, %@", &v9, 0x16u);
     }
 
     v5 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
     v6 = v5;
-    v7 = *(*(a1[6] + 8) + 24);
+    v7 = *(*(*(a1 + 48) + 8) + 24);
     if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
     {
       v8 = [v3 code];
-      v12 = 134349056;
-      v13 = v8;
-      _os_signpost_emit_with_name_impl(&dword_26455D000, v6, OS_SIGNPOST_INTERVAL_END, v7, "SMEstimateETAToDestination", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v12, 0xCu);
+      v9 = 134349056;
+      v10 = v8;
+      _os_signpost_emit_with_name_impl(&dword_26455D000, v6, OS_SIGNPOST_INTERVAL_END, v7, "SMEstimateETAToDestination", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v9, 0xCu);
     }
 
-    v9 = a1[4];
-    v10 = a1[7];
-    (*(a1[5] + 16))(-1.0, -1.0);
+    (*(*(a1 + 40) + 16))(-1.0, -1.0);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __83__SMSafetyMonitorManager_estimateEtaToDestination_transportType_completionHandler___block_invoke_414(uint64_t a1, void *a2)
@@ -7001,7 +6791,7 @@ void __83__SMSafetyMonitorManager_estimateEtaToDestination_transportType_complet
 
 void __83__SMSafetyMonitorManager_estimateEtaToDestination_transportType_completionHandler___block_invoke_2(uint64_t a1, void *a2, double a3, double a4, uint64_t a5, void *a6)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v10 = a6;
   v11 = a2;
   v12 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
@@ -7009,18 +6799,17 @@ void __83__SMSafetyMonitorManager_estimateEtaToDestination_transportType_complet
   v14 = *(*(*(a1 + 40) + 8) + 24);
   if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
-    v16 = 134349056;
-    v17 = [v10 code];
-    _os_signpost_emit_with_name_impl(&dword_26455D000, v13, OS_SIGNPOST_INTERVAL_END, v14, "SMEstimateETAToDestination", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v16, 0xCu);
+    v15 = 134349056;
+    v16 = [v10 code];
+    _os_signpost_emit_with_name_impl(&dword_26455D000, v13, OS_SIGNPOST_INTERVAL_END, v14, "SMEstimateETAToDestination", " enableTelemetry=YES {error:%{public,signpost.telemetry:number1}ld}", &v15, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))(a3, a4);
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)prepareUserInfoForNotificationContent:(id)content initiatorHandle:(id)handle messageUrl:(id)url
 {
-  v87[1] = *MEMORY[0x277D85DE8];
+  v86[1] = *MEMORY[0x277D85DE8];
   contentCopy = content;
   handleCopy = handle;
   urlCopy = url;
@@ -7039,8 +6828,8 @@ void __83__SMSafetyMonitorManager_estimateEtaToDestination_transportType_complet
     {
       *buf = 136315394;
       *&buf[4] = "[SMSafetyMonitorManager prepareUserInfoForNotificationContent:initiatorHandle:messageUrl:]";
-      v81 = 1024;
-      LODWORD(v82) = 1946;
+      v80 = 1024;
+      LODWORD(v81) = 1946;
       _os_log_error_impl(&dword_26455D000, v12, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: initiatorHandle (in %s:%d)", buf, 0x12u);
     }
 
@@ -7061,8 +6850,8 @@ LABEL_3:
   {
     *buf = 136315394;
     *&buf[4] = "[SMSafetyMonitorManager prepareUserInfoForNotificationContent:initiatorHandle:messageUrl:]";
-    v81 = 1024;
-    LODWORD(v82) = 1947;
+    v80 = 1024;
+    LODWORD(v81) = 1947;
     _os_log_error_impl(&dword_26455D000, v13, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: content (in %s:%d)", buf, 0x12u);
   }
 
@@ -7074,8 +6863,8 @@ LABEL_11:
     {
       *buf = 136315394;
       *&buf[4] = "[SMSafetyMonitorManager prepareUserInfoForNotificationContent:initiatorHandle:messageUrl:]";
-      v81 = 1024;
-      LODWORD(v82) = 1948;
+      v80 = 1024;
+      LODWORD(v81) = 1948;
       _os_log_error_impl(&dword_26455D000, v14, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: messageUrl (in %s:%d)", buf, 0x12u);
     }
   }
@@ -7097,8 +6886,8 @@ LABEL_14:
         v24 = NSStringFromSelector(a2);
         *buf = 138412546;
         *&buf[4] = v23;
-        v81 = 2112;
-        v82 = v24;
+        v80 = 2112;
+        v81 = v24;
         _os_log_impl(&dword_26455D000, v20, OS_LOG_TYPE_DEFAULT, "#NotificationDeliveryRequest,%@,%@, Session ended due to SafetyCheck, suppress notification", buf, 0x16u);
       }
 
@@ -7114,8 +6903,8 @@ LABEL_14:
         v27 = NSStringFromSelector(a2);
         *buf = 138412546;
         *&buf[4] = v26;
-        v81 = 2112;
-        v82 = v27;
+        v80 = 2112;
+        v81 = v27;
         _os_log_impl(&dword_26455D000, v20, OS_LOG_TYPE_DEFAULT, "#NotificationDeliveryRequest,%@,%@, Session ended due to unhandled reason, use default delivery mechanism", buf, 0x16u);
       }
 
@@ -7140,8 +6929,8 @@ LABEL_28:
     v30 = NSStringFromSelector(a2);
     *buf = 138412546;
     *&buf[4] = v29;
-    v81 = 2112;
-    v82 = v30;
+    v80 = 2112;
+    v81 = v30;
     _os_log_impl(&dword_26455D000, v17, OS_LOG_TYPE_DEFAULT, "#NotificationDeliveryRequest,%@,%@, Not a trigger message, use default delivery mechanism", buf, 0x16u);
     goto LABEL_44;
   }
@@ -7165,8 +6954,8 @@ LABEL_28:
       v39 = NSStringFromSelector(a2);
       *buf = 138412546;
       *&buf[4] = v38;
-      v81 = 2112;
-      v82 = v39;
+      v80 = 2112;
+      v81 = v39;
       v40 = "#NotificationDeliveryRequest,%@,%@, User opted out of Critical Alerst, falling back to Notify Anyway + Time Sensitive";
 LABEL_39:
       _os_log_impl(&dword_26455D000, v32, OS_LOG_TYPE_DEFAULT, v40, buf, 0x16u);
@@ -7186,8 +6975,8 @@ LABEL_39:
         v35 = NSStringFromSelector(a2);
         *buf = 138412546;
         *&buf[4] = v34;
-        v81 = 2112;
-        v82 = v35;
+        v80 = 2112;
+        v81 = v35;
         _os_log_impl(&dword_26455D000, v32, OS_LOG_TYPE_DEFAULT, "#NotificationDeliveryRequest,%@,%@, User opted in for Critical Alert", buf, 0x16u);
       }
 
@@ -7203,8 +6992,8 @@ LABEL_39:
       v39 = NSStringFromSelector(a2);
       *buf = 138412546;
       *&buf[4] = v38;
-      v81 = 2112;
-      v82 = v39;
+      v80 = 2112;
+      v81 = v39;
       v40 = "#NotificationDeliveryRequest,%@,%@, Couldn't look up the the SafetyMonitorUsesCriticalAlertsKey in UserDefaults. Perhaps user isn't on-boarded yet!";
       goto LABEL_39;
     }
@@ -7222,53 +7011,53 @@ LABEL_42:
     v42 = objc_opt_class();
     v30 = NSStringFromClass(v42);
     NSStringFromSelector(a2);
-    v43 = v72 = v18;
+    v43 = v71 = v18;
     [contentCopy contentType];
-    v74 = handleCopy;
+    v73 = handleCopy;
     selfCopy = self;
     v45 = a2;
     v47 = v46 = v15;
     *buf = 138413058;
     *&buf[4] = v30;
-    v81 = 2112;
-    v82 = v43;
-    v83 = 2112;
-    v84 = contentCopy;
-    v85 = 2112;
-    v86 = v47;
+    v80 = 2112;
+    v81 = v43;
+    v82 = 2112;
+    v83 = contentCopy;
+    v84 = 2112;
+    v85 = v47;
     _os_log_impl(&dword_26455D000, v29, OS_LOG_TYPE_DEFAULT, "#NotificationDeliveryRequest,%@,%@, content, %@, contentType, %@", buf, 0x2Au);
 
     v15 = v46;
     a2 = v45;
     self = selfCopy;
-    handleCopy = v74;
+    handleCopy = v73;
 
-    v18 = v72;
+    v18 = v71;
 LABEL_44:
   }
 
 LABEL_46:
   v48 = dispatch_semaphore_create(0);
-  v76[0] = MEMORY[0x277D85DD0];
-  v76[1] = 3221225472;
-  v76[2] = __91__SMSafetyMonitorManager_prepareUserInfoForNotificationContent_initiatorHandle_messageUrl___block_invoke;
-  v76[3] = &unk_279B65D40;
-  v76[4] = self;
-  v79 = a2;
+  v75[0] = MEMORY[0x277D85DD0];
+  v75[1] = 3221225472;
+  v75[2] = __91__SMSafetyMonitorManager_prepareUserInfoForNotificationContent_initiatorHandle_messageUrl___block_invoke;
+  v75[3] = &unk_279B65D40;
+  v75[4] = self;
+  v78 = a2;
   v49 = contentCopy;
-  v77 = v49;
+  v76 = v49;
   v50 = v48;
-  v78 = v50;
-  [SMReceiverNotificationUtilities prepareNotificationBodyFromMessage:v15 completionHandler:v76];
+  v77 = v50;
+  [SMReceiverNotificationUtilities prepareNotificationBodyFromMessage:v15 completionHandler:v75];
   v51 = v50;
   v52 = [MEMORY[0x277CBEAA8] now];
   v53 = dispatch_time(0, 60000000000);
   if (dispatch_semaphore_wait(v51, v53))
   {
-    v71 = urlCopy;
-    v73 = v18;
-    v70 = v15;
-    v75 = handleCopy;
+    v70 = urlCopy;
+    v72 = v18;
+    v69 = v15;
+    v74 = handleCopy;
     v54 = [MEMORY[0x277CBEAA8] now];
     [v54 timeIntervalSinceDate:v52];
     v56 = v55;
@@ -7288,28 +7077,27 @@ LABEL_46:
 
     v63 = MEMORY[0x277CCA9B8];
     v64 = *MEMORY[0x277D01448];
-    v87[0] = *MEMORY[0x277CCA450];
+    v86[0] = *MEMORY[0x277CCA450];
     *buf = @"semaphore wait timeout";
-    v65 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:v87 count:1];
+    v65 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:v86 count:1];
     v66 = [v63 errorWithDomain:v64 code:15 userInfo:v65];
 
-    v18 = v73;
-    handleCopy = v75;
-    v15 = v70;
-    urlCopy = v71;
+    v18 = v72;
+    handleCopy = v74;
+    v15 = v69;
+    urlCopy = v70;
     if (v66)
     {
       v67 = v66;
     }
   }
 
-  v68 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
 void __91__SMSafetyMonitorManager_prepareUserInfoForNotificationContent_initiatorHandle_messageUrl___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -7317,17 +7105,16 @@ void __91__SMSafetyMonitorManager_prepareUserInfoForNotificationContent_initiato
     v7 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v9 = *(a1 + 32);
-      v10 = objc_opt_class();
-      v11 = NSStringFromClass(v10);
-      v12 = NSStringFromSelector(*(a1 + 56));
-      v13 = 138412802;
-      v14 = v11;
+      v8 = objc_opt_class();
+      v9 = NSStringFromClass(v8);
+      v10 = NSStringFromSelector(*(a1 + 56));
+      v11 = 138412802;
+      v12 = v9;
+      v13 = 2112;
+      v14 = v10;
       v15 = 2112;
-      v16 = v12;
-      v17 = 2112;
-      v18 = v6;
-      _os_log_error_impl(&dword_26455D000, v7, OS_LOG_TYPE_ERROR, "#NotificationDeliveryRequest,Receiver,%@,%@, error while fetching notification body: %@", &v13, 0x20u);
+      v16 = v6;
+      _os_log_error_impl(&dword_26455D000, v7, OS_LOG_TYPE_ERROR, "#NotificationDeliveryRequest,Receiver,%@,%@, error while fetching notification body: %@", &v11, 0x20u);
     }
   }
 
@@ -7342,15 +7129,13 @@ void __91__SMSafetyMonitorManager_prepareUserInfoForNotificationContent_initiato
     v7 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v13) = 0;
-      _os_log_error_impl(&dword_26455D000, v7, OS_LOG_TYPE_ERROR, "#NotificationDeliveryRequest,Receiver, notification body is empty", &v13, 2u);
+      LOWORD(v11) = 0;
+      _os_log_error_impl(&dword_26455D000, v7, OS_LOG_TYPE_ERROR, "#NotificationDeliveryRequest,Receiver, notification body is empty", &v11, 2u);
     }
   }
 
 LABEL_7:
   dispatch_semaphore_signal(*(a1 + 48));
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)respondToNotificationWithIdentifier:(id)identifier sessionIdentifier:(id)sessionIdentifier actionIdentifier:(id)actionIdentifier handler:(id)handler
@@ -7392,7 +7177,7 @@ void __105__SMSafetyMonitorManager_respondToNotificationWithIdentifier_sessionId
 
 - (BOOL)shouldDropMessage:(id)message from:(id)from fromMe:(BOOL)me
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   fromCopy = from;
   v10 = fromCopy;
@@ -7409,11 +7194,11 @@ void __105__SMSafetyMonitorManager_respondToNotificationWithIdentifier_sessionId
   v11 = _rt_log_facility_get_os_log(RTLogFacilityGeneral);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
-    v44 = 136315394;
-    v45 = "[SMSafetyMonitorManager shouldDropMessage:from:fromMe:]";
-    v46 = 1024;
-    LODWORD(v47) = 2045;
-    _os_log_error_impl(&dword_26455D000, v11, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: messageUrl (in %s:%d)", &v44, 0x12u);
+    v43 = 136315394;
+    v44 = "[SMSafetyMonitorManager shouldDropMessage:from:fromMe:]";
+    v45 = 1024;
+    LODWORD(v46) = 2045;
+    _os_log_error_impl(&dword_26455D000, v11, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: messageUrl (in %s:%d)", &v43, 0x12u);
   }
 
   if (!v10)
@@ -7422,11 +7207,11 @@ LABEL_7:
     v12 = _rt_log_facility_get_os_log(RTLogFacilityGeneral);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v44 = 136315394;
-      v45 = "[SMSafetyMonitorManager shouldDropMessage:from:fromMe:]";
-      v46 = 1024;
-      LODWORD(v47) = 2046;
-      _os_log_error_impl(&dword_26455D000, v12, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: from (in %s:%d)", &v44, 0x12u);
+      v43 = 136315394;
+      v44 = "[SMSafetyMonitorManager shouldDropMessage:from:fromMe:]";
+      v45 = 1024;
+      LODWORD(v46) = 2046;
+      _os_log_error_impl(&dword_26455D000, v12, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: from (in %s:%d)", &v43, 0x12u);
     }
   }
 
@@ -7441,17 +7226,17 @@ LABEL_10:
       v22 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
       if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
-        v43 = objc_opt_class();
-        v24 = NSStringFromClass(v43);
+        v42 = objc_opt_class();
+        v24 = NSStringFromClass(v42);
         v25 = NSStringFromSelector(a2);
-        v44 = 138413058;
-        v45 = v24;
-        v46 = 2112;
-        v47 = v25;
-        v48 = 2112;
-        v49 = *&v10;
-        v50 = 2112;
-        v51 = messageCopy;
+        v43 = 138413058;
+        v44 = v24;
+        v45 = 2112;
+        v46 = v25;
+        v47 = 2112;
+        v48 = *&v10;
+        v49 = 2112;
+        v50 = messageCopy;
         v26 = "%@,%@,received message from %@ could not be converted to SMMessage,messageUrl,%@";
         v27 = v22;
         v28 = 42;
@@ -7485,17 +7270,17 @@ LABEL_29:
             v23 = objc_opt_class();
             v24 = NSStringFromClass(v23);
             v25 = NSStringFromSelector(a2);
-            v44 = 138412802;
-            v45 = v24;
-            v46 = 2112;
-            v47 = v25;
-            v48 = 2048;
-            v49 = fabs(v20);
+            v43 = 138412802;
+            v44 = v24;
+            v45 = 2112;
+            v46 = v25;
+            v47 = 2048;
+            v48 = fabs(v20);
             v26 = "%@,%@,schedule send message time cross-check failed,arrived early by %lf seconds,drop message";
             v27 = v22;
             v28 = 32;
 LABEL_34:
-            _os_log_error_impl(&dword_26455D000, v27, OS_LOG_TYPE_ERROR, v26, &v44, v28);
+            _os_log_error_impl(&dword_26455D000, v27, OS_LOG_TYPE_ERROR, v26, &v43, v28);
 
             goto LABEL_21;
           }
@@ -7505,15 +7290,15 @@ LABEL_34:
 
         if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
         {
-          v39 = objc_opt_class();
-          v31 = NSStringFromClass(v39);
+          v38 = objc_opt_class();
+          v31 = NSStringFromClass(v38);
           v32 = NSStringFromSelector(a2);
-          v44 = 138412802;
-          v45 = v31;
-          v46 = 2112;
-          v47 = v32;
-          v48 = 2048;
-          v49 = v20;
+          v43 = 138412802;
+          v44 = v31;
+          v45 = 2112;
+          v46 = v32;
+          v47 = 2048;
+          v48 = v20;
           v33 = "%@,%@,schedule send message time cross-check passed,time difference is %lf seconds";
           v35 = v22;
           v36 = 32;
@@ -7534,10 +7319,10 @@ LABEL_28:
       v34 = objc_opt_class();
       v31 = NSStringFromClass(v34);
       v32 = NSStringFromSelector(a2);
-      v44 = 138412546;
-      v45 = v31;
-      v46 = 2112;
-      v47 = v32;
+      v43 = 138412546;
+      v44 = v31;
+      v45 = 2112;
+      v46 = v32;
       v33 = "%@,%@,message is valid non-Scheduled-Send Key Release message";
     }
 
@@ -7552,17 +7337,17 @@ LABEL_28:
       v30 = objc_opt_class();
       v31 = NSStringFromClass(v30);
       v32 = NSStringFromSelector(a2);
-      v44 = 138412546;
-      v45 = v31;
-      v46 = 2112;
-      v47 = v32;
+      v43 = 138412546;
+      v44 = v31;
+      v45 = 2112;
+      v46 = v32;
       v33 = "%@,%@,message is valid and not a Key Release message";
     }
 
     v35 = v22;
     v36 = 22;
 LABEL_27:
-    _os_log_impl(&dword_26455D000, v35, OS_LOG_TYPE_DEFAULT, v33, &v44, v36);
+    _os_log_impl(&dword_26455D000, v35, OS_LOG_TYPE_DEFAULT, v33, &v43, v36);
 
     goto LABEL_28;
   }
@@ -7570,39 +7355,38 @@ LABEL_27:
   v15 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
-    v40 = objc_opt_class();
-    v41 = NSStringFromClass(v40);
-    v42 = NSStringFromSelector(a2);
-    v44 = 138412802;
-    v45 = v41;
-    v46 = 2112;
-    v47 = v42;
-    v48 = 1024;
-    LODWORD(v49) = v13;
-    _os_log_error_impl(&dword_26455D000, v15, OS_LOG_TYPE_ERROR, "%@,%@,message type (%d) is either unrecognized or not expected as an iMessage", &v44, 0x1Cu);
+    v39 = objc_opt_class();
+    v40 = NSStringFromClass(v39);
+    v41 = NSStringFromSelector(a2);
+    v43 = 138412802;
+    v44 = v40;
+    v45 = 2112;
+    v46 = v41;
+    v47 = 1024;
+    LODWORD(v48) = v13;
+    _os_log_error_impl(&dword_26455D000, v15, OS_LOG_TYPE_ERROR, "%@,%@,message type (%d) is either unrecognized or not expected as an iMessage", &v43, 0x1Cu);
   }
 
   v29 = 1;
 LABEL_30:
 
-  v37 = *MEMORY[0x277D85DE8];
   return v29;
 }
 
 - (double)requestTimeFromTimed
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   TMGetReferenceTime();
   v3 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v12 = objc_opt_class();
-    v13 = NSStringFromClass(v12);
-    v14 = NSStringFromSelector(a2);
+    v11 = objc_opt_class();
+    v12 = NSStringFromClass(v11);
+    v13 = NSStringFromSelector(a2);
     *buf = 138412546;
-    v17 = v13;
-    v18 = 2112;
-    v19 = v14;
+    v16 = v12;
+    v17 = 2112;
+    v18 = v13;
     _os_log_error_impl(&dword_26455D000, v3, OS_LOG_TYPE_ERROR, "%@,%@,TMGetReferenceTime returned invalid time, using time from CFAbsoluteTimeGetCurrent", buf, 0x16u);
   }
 
@@ -7618,106 +7402,98 @@ LABEL_30:
       v8 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:Current];
       stringFromDate = [v8 stringFromDate];
       *buf = 138413058;
-      v17 = v6;
-      v18 = 2112;
-      v19 = v7;
-      v20 = 2112;
-      v21 = stringFromDate;
-      v22 = 2048;
-      v23 = 0;
+      v16 = v6;
+      v17 = 2112;
+      v18 = v7;
+      v19 = 2112;
+      v20 = stringFromDate;
+      v21 = 2048;
+      v22 = 0;
       _os_log_impl(&dword_26455D000, v4, OS_LOG_TYPE_INFO, "%@,%@,referenceTime:%@,referenceTimeUnc:%f", buf, 0x2Au);
     }
   }
 
-  result = Current;
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return Current;
 }
 
 - (void)respondedToCheckInRemindersTipWithResponse:(int64_t)response
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     v6 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v10 = "[SMSafetyMonitorManager respondedToCheckInRemindersTipWithResponse:]";
+      v9 = "[SMSafetyMonitorManager respondedToCheckInRemindersTipWithResponse:]";
       _os_log_impl(&dword_26455D000, v6, OS_LOG_TYPE_INFO, "%s", buf, 0xCu);
     }
   }
 
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __69__SMSafetyMonitorManager_respondedToCheckInRemindersTipWithResponse___block_invoke_423;
-  v8[3] = &__block_descriptor_40_e8_v16__0_8l;
-  v8[4] = response;
-  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:&__block_literal_global_422 taskBlock:v8];
-  v7 = *MEMORY[0x277D85DE8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __69__SMSafetyMonitorManager_respondedToCheckInRemindersTipWithResponse___block_invoke_423;
+  v7[3] = &__block_descriptor_40_e8_v16__0_8l;
+  v7[4] = response;
+  [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:&__block_literal_global_422 taskBlock:v7];
 }
 
 void __69__SMSafetyMonitorManager_respondedToCheckInRemindersTipWithResponse___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = a2;
   if (v2)
   {
     v3 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v5 = 136315394;
-      v6 = "[SMSafetyMonitorManager respondedToCheckInRemindersTipWithResponse:]_block_invoke";
-      v7 = 2112;
-      v8 = v2;
-      _os_log_error_impl(&dword_26455D000, v3, OS_LOG_TYPE_ERROR, "%s, failed to find proxy, error, %@", &v5, 0x16u);
+      v4 = 136315394;
+      v5 = "[SMSafetyMonitorManager respondedToCheckInRemindersTipWithResponse:]_block_invoke";
+      v6 = 2112;
+      v7 = v2;
+      _os_log_error_impl(&dword_26455D000, v3, OS_LOG_TYPE_ERROR, "%s, failed to find proxy, error, %@", &v4, 0x16u);
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startCheckInRemindersTipMetricsCollection
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      v6 = 136315138;
-      v7 = "[SMSafetyMonitorManager startCheckInRemindersTipMetricsCollection]";
-      _os_log_impl(&dword_26455D000, v4, OS_LOG_TYPE_INFO, "%s", &v6, 0xCu);
+      v5 = 136315138;
+      v6 = "[SMSafetyMonitorManager startCheckInRemindersTipMetricsCollection]";
+      _os_log_impl(&dword_26455D000, v4, OS_LOG_TYPE_INFO, "%s", &v5, 0xCu);
     }
   }
 
   [(SMSafetyMonitorManager *)self launchTaskWithSelector:a2 remainingAttempts:3 proxyErrorHandler:&__block_literal_global_426 taskBlock:&__block_literal_global_429];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __67__SMSafetyMonitorManager_startCheckInRemindersTipMetricsCollection__block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = a2;
   if (v2)
   {
     v3 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v5 = 136315394;
-      v6 = "[SMSafetyMonitorManager startCheckInRemindersTipMetricsCollection]_block_invoke";
-      v7 = 2112;
-      v8 = v2;
-      _os_log_error_impl(&dword_26455D000, v3, OS_LOG_TYPE_ERROR, "%s, failed to find proxy, error, %@", &v5, 0x16u);
+      v4 = 136315394;
+      v5 = "[SMSafetyMonitorManager startCheckInRemindersTipMetricsCollection]_block_invoke";
+      v6 = 2112;
+      v7 = v2;
+      _os_log_error_impl(&dword_26455D000, v3, OS_LOG_TYPE_ERROR, "%s, failed to find proxy, error, %@", &v4, 0x16u);
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)submitInitializationAnalyticsEventWithError:(id)error conversation:(id)conversation duration:(double)duration
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   conversationCopy = conversation;
   v9 = objc_opt_new();
@@ -7749,19 +7525,17 @@ void __67__SMSafetyMonitorManager_startCheckInRemindersTipMetricsCollection__blo
     v16 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
-      v18 = 136315650;
-      v19 = "[SMSafetyMonitorManager submitInitializationAnalyticsEventWithError:conversation:duration:]";
-      v20 = 2112;
-      v21 = @"com.apple.SafetyMonitor.initiator.initializationResult";
-      v22 = 2112;
-      v23 = v9;
-      _os_log_impl(&dword_26455D000, v16, OS_LOG_TYPE_INFO, "%s, event name, %@, event, %@", &v18, 0x20u);
+      v17 = 136315650;
+      v18 = "[SMSafetyMonitorManager submitInitializationAnalyticsEventWithError:conversation:duration:]";
+      v19 = 2112;
+      v20 = @"com.apple.SafetyMonitor.initiator.initializationResult";
+      v21 = 2112;
+      v22 = v9;
+      _os_log_impl(&dword_26455D000, v16, OS_LOG_TYPE_INFO, "%s, event name, %@, event, %@", &v17, 0x20u);
     }
   }
 
   AnalyticsSendEvent();
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 @end

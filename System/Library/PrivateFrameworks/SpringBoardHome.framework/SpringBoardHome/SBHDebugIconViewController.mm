@@ -68,7 +68,7 @@
 - (CGRect)visibleBounds
 {
   view = [(SBHDebugIconViewController *)self view];
-  [view bounds];
+  objc_msgSend_bounds(view);
   v4 = v3;
   v6 = v5;
   v8 = v7;

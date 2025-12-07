@@ -83,7 +83,7 @@ __CFString *sub_2770440D8(unsigned int a1)
   }
 }
 
-__CFString *sub_2770440FC(unsigned int a1)
+__CFString *sub_2770440FC(int a1)
 {
   if (a1 <= 0xFFFFFFFC)
   {
@@ -199,9 +199,11 @@ uint64_t sub_2770443AC()
 
 uint64_t sub_2770445E0()
 {
-  qword_280A63A28 = [MEMORY[0x277CCA900] characterSetWithCharactersInString:@"−﹣－﹢＋"];
+  v0 = [MEMORY[0x277CCA900] characterSetWithCharactersInString:@"−﹣－﹢＋"];
+  v1 = qword_280A63A28;
+  qword_280A63A28 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 void sub_277044EF8(uint64_t a1, void *a2)
@@ -246,9 +248,9 @@ id sub_27704630C(void *a1, void *a2, void *a3)
   return v9;
 }
 
-void sub_277046AA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_277046AA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -359,7 +361,7 @@ void *TSUProtocolCast(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
       while (1)
       {
         v11 = v14++;
-        if (([v9 conformsToProtocol:{*v11, v13}] & 1) == 0)
+        if (([v9 conformsToProtocol:{*v11, a4, a5, a6, a7, a8, v13}] & 1) == 0)
         {
           break;
         }
@@ -389,7 +391,7 @@ void *TSUCheckedProtocolCast(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, ui
       while (1)
       {
         v11 = v16++;
-        if (([v9 conformsToProtocol:*v11] & 1) == 0)
+        if (([v9 conformsToProtocol:{*v11, a4, a5, a6, a7, a8}] & 1) == 0)
         {
           break;
         }
@@ -2509,11 +2511,11 @@ id sub_27704C100(void *a1, uint64_t a2, unint64_t a3)
   return v4;
 }
 
-void sub_27704C238(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_27704C238(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 64), 8);
+  _Block_object_dispose((v16 - 64), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2592,9 +2594,9 @@ id sub_27704C2CC(void *a1, double a2, double a3, uint64_t a4, void *a5)
   return v11;
 }
 
-void sub_27704C4F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_27704C4F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2863,7 +2865,7 @@ id sub_27704CB0C(uint64_t a1, uint64_t a2, unsigned __int8 *a3, uint64_t a4)
   return v10;
 }
 
-BOOL sub_27704CBC0()
+BOOL sub_27704CBC0(uint64_t a1, uint64_t a2)
 {
   if (qword_280A63A50 != -1)
   {
@@ -3367,10 +3369,10 @@ LABEL_4:
     goto LABEL_5;
   }
 
-  if ([a1 isEqualToString:@"\\\"])
+  if ([a1 isEqualToString:@"\\\""])
   {
-    v8 = [@"\" stringByAppendingPathExtension:v4];
-    v9 = [@"\" stringByAppendingString:v8];
+    v8 = [@"\"" stringByAppendingPathExtension:v4];
+    v9 = [@"\"" stringByAppendingString:v8];
   }
 
   else
@@ -3418,7 +3420,7 @@ id sub_27704DFE0(uint64_t a1, uint64_t a2, void *a3)
   return v9;
 }
 
-uint64_t sub_27704E09C(void *a1, uint64_t a2, void *a3, uint64_t a4, void *a5)
+char *sub_27704E09C(void *a1, uint64_t a2, void *a3, uint64_t a4, void *a5)
 {
   v8 = a3;
   v9 = v8;
@@ -3737,9 +3739,11 @@ uint64_t sub_27704E82C(void *a1)
 
 uint64_t sub_27704E888()
 {
-  qword_280A63A70 = [MEMORY[0x277CCA900] characterSetWithCharactersInString:@"ـ‑-‐–—"];
+  v0 = [MEMORY[0x277CCA900] characterSetWithCharactersInString:@"ـ‑-‐–—"];
+  v1 = qword_280A63A70;
+  qword_280A63A70 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 uint64_t sub_27704E8D0(void *a1)
@@ -3756,9 +3760,11 @@ uint64_t sub_27704E8D0(void *a1)
 
 uint64_t sub_27704E92C()
 {
-  qword_280A63A80 = [MEMORY[0x277CCA900] characterSetWithCharactersInString:@"'’‘‚“”„«»‹›」「』『"];
+  v0 = [MEMORY[0x277CCA900] characterSetWithCharactersInString:@"'’‘‚“”„«»‹›」「』『"];
+  v1 = qword_280A63A80;
+  qword_280A63A80 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 id sub_27704E974(void *a1)
@@ -3883,7 +3889,7 @@ LABEL_31:
           }
 
           v10 = v4;
-          v11 = @"\\"";
+          v11 = @"\";
         }
       }
 
@@ -3893,7 +3899,7 @@ LABEL_31:
         {
           case 0x5C:
             v10 = v4;
-            v11 = @"\\\";
+            v11 = @"\\\"";
             break;
           case 0x2028:
             v10 = v4;
@@ -3928,7 +3934,7 @@ void sub_27704ECF0()
   v1 = qword_280A63A88;
   qword_280A63A88 = v0;
 
-  [qword_280A63A88 addCharactersInString:@"\"];
+  [qword_280A63A88 addCharactersInString:@"\""];
   v3 = 539566120;
   v2 = [objc_alloc(MEMORY[0x277CCACA8]) initWithCharacters:&v3 length:2];
   [qword_280A63A88 addCharactersInString:v2];
@@ -4133,7 +4139,7 @@ BOOL sub_27704F134(void *a1)
   }
 
   v5 = v4;
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v4);
   v7 = (v15 - ((v6 + 17) & 0xFFFFFFFFFFFFFFF0));
   [v3 getCharacters:v7 range:{0, v5}];
   v8 = 0;
@@ -4221,9 +4227,11 @@ LABEL_18:
 
 uint64_t sub_27704F434()
 {
-  TSUDefaultCat_log_t = TSULogCreateCategory("TSUDefaultCat");
+  v0 = TSULogCreateCategory("TSUDefaultCat");
+  v1 = TSUDefaultCat_log_t;
+  TSUDefaultCat_log_t = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 id sub_27704F478(uint64_t a1)
@@ -6219,7 +6227,7 @@ __int128 *TSUIndexSet::rangeAtIndex(TSUIndexSet *this, unint64_t a2)
     [TSUAssertionHandler handleFailureInFunction:v4 file:v5 lineNumber:587 isFatal:0 description:"Index %ld out of range bounds [0...%ld]", a2, v3];
 
     +[TSUAssertionHandler logBacktraceThrottled];
-    if ((atomic_load_explicit(qword_280A63AC0, memory_order_acquire) & 1) == 0)
+    if ((atomic_load_explicit(byte_280A63AC0, memory_order_acquire) & 1) == 0)
     {
       sub_277112ED4();
     }
@@ -6596,7 +6604,7 @@ void TSUIndexSet::enumerateIndexesInRange(TSUIndexSet *a1, int64_t *a2, void *a3
 
     v12 = *(a1->_multipleRanges + 1);
 LABEL_13:
-    p_singleRange = a1->_multipleRanges + 16 * *(a1->_multipleRanges + 3) + 64;
+    p_singleRange = (a1->_multipleRanges + 16 * *(a1->_multipleRanges + 3) + 64);
     v11 = v12;
     if (v12)
     {
@@ -6621,13 +6629,13 @@ LABEL_17:
     v14 = 0;
     while (1)
     {
-      v15 = (p_singleRange + 16 * v14);
-      v16 = *v15;
-      if (*v15 <= 0x7FFFFFFF)
+      v15 = &p_singleRange[v14];
+      begin = v15->_begin;
+      if (v15->_begin <= 0x7FFFFFFF)
       {
-        v17 = v15[1];
-        v18 = v17 > 0x7FFFFFFF || v17 - v16 == -1;
-        if (!v18 && v17 >= v16)
+        end = v15->_end;
+        v18 = end > 0x7FFFFFFF || end - begin == -1;
+        if (!v18 && end >= begin)
         {
           break;
         }
@@ -6640,19 +6648,19 @@ LABEL_31:
       }
     }
 
-    v20 = v17 + 1;
+    v20 = end + 1;
     while (1)
     {
-      if (v16 >= v6 && v8 >= v16)
+      if (begin >= v6 && v8 >= begin)
       {
-        v5[2](v5, v16, &v23);
+        v5[2](v5, begin, &v23);
         if (v23)
         {
           break;
         }
       }
 
-      if (v20 == ++v16)
+      if (v20 == ++begin)
       {
         goto LABEL_31;
       }
@@ -6774,7 +6782,7 @@ LABEL_13:
     v11 = *(a1->_multipleRanges + 1);
   }
 
-  p_singleRange = a1->_multipleRanges + 16 * *(a1->_multipleRanges + 3) + 64;
+  p_singleRange = (a1->_multipleRanges + 16 * *(a1->_multipleRanges + 3) + 64);
   v10 = v11;
 LABEL_14:
   if (v9 == 0x80000000)
@@ -6790,42 +6798,42 @@ LABEL_14:
   v14 = v10 - v13;
   if (v10 > v13)
   {
-    v15 = (p_singleRange + 16 * v13);
+    v15 = &p_singleRange[v13];
     do
     {
       v22 = *v15;
-      v16 = v22;
+      begin = v22._begin;
       v17 = a2[1];
-      if (v22 > v17)
+      if (v22._begin > v17)
       {
         break;
       }
 
-      if (v22 <= 0x7FFFFFFF)
+      if (v22._begin <= 0x7FFFFFFF)
       {
-        v18 = *(&v22 + 1);
-        if (*(&v22 + 1) <= 0x7FFFFFFF && *(&v22 + 1) - v22 != -1)
+        end = v22._end;
+        if (v22._end <= 0x7FFFFFFF && v22._end - v22._begin != -1)
         {
-          if (v22 <= *a2)
+          if (v22._begin <= *a2)
           {
-            v16 = *a2;
+            begin = *a2;
           }
 
-          if (v17 < *(&v22 + 1))
+          if (v17 < v22._end)
           {
-            v18 = a2[1];
+            end = a2[1];
           }
 
-          v20 = v17 < 0x80000000 && v16 <= v18;
+          v20 = v17 < 0x80000000 && begin <= end;
           if (!v20)
           {
-            v16 = 0x80000000;
-            v18 = 0x80000000;
+            begin = 0x80000000;
+            end = 0x80000000;
           }
 
-          *&v22 = v16;
-          *(&v22 + 1) = v18;
-          if (v20 && v16 <= 0x7FFFFFFF)
+          v22._begin = begin;
+          v22._end = end;
+          if (v20 && begin <= 0x7FFFFFFF)
           {
             v5[2](v5, &v22, &v23);
             if (v23)
@@ -7689,7 +7697,7 @@ id TSUIndexSet::asNSIndexSet(TSUIndexSet *this)
   return v2;
 }
 
-void sub_277053224(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_277053224(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -8176,7 +8184,7 @@ TSUIndexSet *TSUIndexSet::indexSetFromArray@<X0>(TSUIndexSet *this@<X0>, uint64_
   return this;
 }
 
-void TSUIndexSet::combinationsOfIndexesChoosing(TSUIndexSet *this@<X0>, char *a2@<X1>, uint64_t *a3@<X8>)
+void TSUIndexSet::combinationsOfIndexesChoosing(TSUIndexSet *this@<X0>, TSUIndexSet *a2@<X1>, uint64_t *a3@<X8>)
 {
   v25 = *MEMORY[0x277D85DE8];
   *a3 = 0;
@@ -8205,7 +8213,7 @@ void TSUIndexSet::combinationsOfIndexesChoosing(TSUIndexSet *this@<X0>, char *a2
       v21 = vdupq_n_s64(1uLL);
       while (1)
       {
-        v10 = (a2 - 1);
+        v10 = &a2[-1]._multipleRanges + 7;
         while (1)
         {
           v11 = *(&v24 + v10);
@@ -8226,9 +8234,9 @@ void TSUIndexSet::combinationsOfIndexesChoosing(TSUIndexSet *this@<X0>, char *a2
         *(&v24 + v10) = v11 + 1;
         if (v10 + 1 < a2)
         {
-          v14 = &a2[-v10] & 0xFFFFFFFFFFFFFFFELL;
+          v14 = (a2 - v10) & 0xFFFFFFFFFFFFFFFELL;
           v15 = vaddq_s64(vdupq_n_s64(v13), xmmword_277133A30);
-          v16 = vdupq_n_s64(&a2[~v10 - 1]);
+          v16 = vdupq_n_s64(a2 + ~v10 - 1);
           v17 = &v24._singleRange._end + v10;
           v18 = 2;
           do
@@ -8392,9 +8400,9 @@ uint64_t sub_277054628(uint64_t *a1, uint64_t a2)
   return v15;
 }
 
-void sub_277054740(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_277054740(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   sub_277054870(va);
   _Unwind_Resume(a1);
 }
@@ -8968,7 +8976,7 @@ LABEL_35:
 
           else if (v228 > 19)
           {
-            v230 = qword_280A5D960[2 * (v228 - 20)];
+            v230 = *&xmmword_280A5D960[(v228 - 20)];
             return (v230 * v11) | ((HIDWORD(v230) * v11 + v230 * HIDWORD(v11) + ((v230 * v11) >> 32)) << 32);
           }
 
@@ -9047,7 +9055,7 @@ LABEL_35:
 
         else if (v82 > 19)
         {
-          v186 = qword_280A5D960[2 * (v82 - 20)];
+          v186 = *&xmmword_280A5D960[(v82 - 20)];
           return (v186 * v8) | ((HIDWORD(v186) * v8 + v186 * HIDWORD(v8) + ((v186 * v8) >> 32)) << 32);
         }
 
@@ -9231,8 +9239,8 @@ LABEL_35:
 
       if (v34 > 20)
       {
-        v187 = &qword_280A5D960[2 * (v34 - 21)];
-        if (v9 != v187[1])
+        v187 = &xmmword_280A5D960[v34 - 21];
+        if (v9 != *(v187 + 1))
         {
           goto LABEL_284;
         }
@@ -9281,13 +9289,13 @@ LABEL_35:
 
         else
         {
-          v189 = qword_280A5D960[2 * (15 - v34)];
+          v189 = *&xmmword_280A5D960[15 - v34];
           v190 = HIDWORD(v189);
           v191 = v189 * HIDWORD(v22);
           v192 = v189 * v22;
           v193 = HIDWORD(v189) * v22 + v191 + HIDWORD(v192);
           v194 = v192 | (v193 << 32);
-          v195 = qword_280A5D960[2 * (15 - v34) + 1] * v22 + v190 * HIDWORD(v22) + HIDWORD(v191) + HIDWORD(v193);
+          v195 = *(&xmmword_280A5D960[15 - v34] + 1) * v22 + v190 * HIDWORD(v22) + HIDWORD(v191) + HIDWORD(v193);
         }
 
         v417 = (v44 - 2);
@@ -10383,8 +10391,8 @@ LABEL_466:
 
     else
     {
-      v65 = qword_280A5D960[2 * v64];
-      v66 = qword_280A5D960[2 * v64 + 1] * v22;
+      v65 = *&xmmword_280A5D960[v64];
+      v66 = *(&xmmword_280A5D960[v64] + 1) * v22;
       v67 = v22;
       v68 = HIDWORD(v65);
       v69 = v65 * HIDWORD(v22);
@@ -10726,8 +10734,8 @@ LABEL_768:
 
     else
     {
-      v75 = qword_280A5D960[2 * v74];
-      v76 = qword_280A5D960[2 * v74 + 1] * v22;
+      v75 = *&xmmword_280A5D960[v74];
+      v76 = *(&xmmword_280A5D960[v74] + 1) * v22;
       v77 = v22;
       v78 = HIDWORD(v75);
       v79 = v75 * HIDWORD(v22);
@@ -10795,8 +10803,8 @@ LABEL_768:
 
     else
     {
-      v50 = qword_280A5D960[2 * v49];
-      v51 = qword_280A5D960[2 * v49 + 1] * v22;
+      v50 = *&xmmword_280A5D960[v49];
+      v51 = *(&xmmword_280A5D960[v49] + 1) * v22;
       v52 = v22;
       v53 = HIDWORD(v50);
       v54 = v50 * HIDWORD(v22);
@@ -11119,11 +11127,11 @@ LABEL_804:
 
     else
     {
-      v92 = &qword_280A5D960[2 * (v91 - 20)];
+      v92 = &xmmword_280A5D960[v91 - 20];
       v93 = *v92 * HIDWORD(v22);
       v94 = HIDWORD(*v92) * v22 + v93 + ((*v92 * v22) >> 32);
       v95 = (*v92 * v22) | (v94 << 32);
-      v96 = v92[1] * v22 + HIDWORD(*v92) * HIDWORD(v22) + HIDWORD(v93) + HIDWORD(v94);
+      v96 = *(v92 + 1) * v22 + HIDWORD(*v92) * HIDWORD(v22) + HIDWORD(v93) + HIDWORD(v94);
     }
 
     v108 = v90 + 20;

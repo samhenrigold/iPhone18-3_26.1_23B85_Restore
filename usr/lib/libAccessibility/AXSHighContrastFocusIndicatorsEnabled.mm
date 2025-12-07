@@ -3,7 +3,7 @@
 
 @implementation AXSHighContrastFocusIndicatorsEnabled
 
-uint64_t ___AXSHighContrastFocusIndicatorsEnabled_block_invoke()
+void *___AXSHighContrastFocusIndicatorsEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

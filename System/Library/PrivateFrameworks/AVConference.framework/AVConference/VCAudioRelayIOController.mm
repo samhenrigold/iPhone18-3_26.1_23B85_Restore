@@ -248,7 +248,7 @@ void __46__VCAudioRelayIOController_sharedInstanceNull__block_invoke()
 
 - (void)waitIdleForClient:(id)client
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   if (([client direction] & 2) == 0)
   {
     goto LABEL_17;
@@ -269,21 +269,21 @@ void __46__VCAudioRelayIOController_sharedInstanceNull__block_invoke()
       v8 = *MEMORY[0x1E6986650];
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
-        *v25 = 136316162;
-        *&v25[4] = v7;
-        *&v25[12] = 2080;
-        *&v25[14] = "[VCAudioRelayIOController waitIdleForClient:]";
-        *&v25[22] = 1024;
-        LODWORD(v26) = 359;
-        WORD2(v26) = 2048;
-        *(&v26 + 6) = client;
-        HIWORD(v26) = 2048;
+        *v27 = 136316162;
+        *&v27[4] = v7;
+        *&v27[12] = 2080;
+        *&v27[14] = "[VCAudioRelayIOController waitIdleForClient:]";
+        *&v27[22] = 1024;
+        LODWORD(v28) = 359;
+        WORD2(v28) = 2048;
+        *(&v28 + 6) = client;
+        HIWORD(v28) = 2048;
         selfCopy2 = [client sinkIO];
         v9 = " [%s] %s:%d Sink run lock semaphore was not signaled! client=%p sinkIO=%p";
         v10 = v8;
         v11 = 48;
 LABEL_14:
-        _os_log_impl(&dword_1DB56E000, v10, OS_LOG_TYPE_DEFAULT, v9, v25, v11);
+        _os_log_impl(&dword_1DB56E000, v10, OS_LOG_TYPE_DEFAULT, v9, v27, v11);
       }
     }
   }
@@ -306,20 +306,20 @@ LABEL_14:
       v13 = *MEMORY[0x1E6986650];
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
-        *v25 = 136316674;
-        *&v25[4] = v12;
-        *&v25[12] = 2080;
-        *&v25[14] = "[VCAudioRelayIOController waitIdleForClient:]";
-        *&v25[22] = 1024;
-        LODWORD(v26) = 359;
-        WORD2(v26) = 2112;
-        *(&v26 + 6) = v6;
-        HIWORD(v26) = 2048;
+        *v27 = 136316674;
+        *&v27[4] = v12;
+        *&v27[12] = 2080;
+        *&v27[14] = "[VCAudioRelayIOController waitIdleForClient:]";
+        *&v27[22] = 1024;
+        LODWORD(v28) = 359;
+        WORD2(v28) = 2112;
+        *(&v28 + 6) = v6;
+        HIWORD(v28) = 2048;
         selfCopy2 = self;
-        *v28 = 2048;
-        *&v28[2] = client;
-        *&v28[10] = 2048;
-        *&v28[12] = [client sinkIO];
+        *v30 = 2048;
+        *&v30[2] = client;
+        *&v30[10] = 2048;
+        *&v30[12] = [client sinkIO];
         v9 = " [%s] %s:%d %@(%p) Sink run lock semaphore was not signaled! client=%p sinkIO=%p";
         v10 = v13;
         v11 = 68;
@@ -329,7 +329,7 @@ LABEL_14:
   }
 
   os_unfair_lock_lock(&self->_sinkData.clientIOListLock);
-  _VCAudioRelayIOController_ProcessEventQueue(&self->_sinkData);
+  _VCAudioRelayIOController_ProcessEventQueue(&self->_sinkData, v14);
   os_unfair_lock_unlock(&self->_sinkData.clientIOListLock);
   if (VRTraceIsInternalOSInstalled())
   {
@@ -342,8 +342,8 @@ LABEL_17:
     return;
   }
 
-  v14 = dispatch_time(0, 1000000000);
-  if (!dispatch_semaphore_wait(*([client sourceIO] + 16), v14))
+  v15 = dispatch_time(0, 1000000000);
+  if (!dispatch_semaphore_wait(*([client sourceIO] + 16), v15))
   {
     dispatch_semaphore_signal(*([client sourceIO] + 16));
     return;
@@ -356,39 +356,39 @@ LABEL_17:
       goto LABEL_31;
     }
 
-    v16 = VRTraceErrorLogLevelToCSTR();
-    v17 = *MEMORY[0x1E6986650];
+    v17 = VRTraceErrorLogLevelToCSTR();
+    v18 = *MEMORY[0x1E6986650];
     if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_31;
     }
 
     sourceIO = [client sourceIO];
-    *v25 = 136316162;
-    *&v25[4] = v16;
-    *&v25[12] = 2080;
-    *&v25[14] = "[VCAudioRelayIOController waitIdleForClient:]";
-    *&v25[22] = 1024;
-    LODWORD(v26) = 374;
-    WORD2(v26) = 2048;
-    *(&v26 + 6) = client;
-    HIWORD(v26) = 2048;
+    *v27 = 136316162;
+    *&v27[4] = v17;
+    *&v27[12] = 2080;
+    *&v27[14] = "[VCAudioRelayIOController waitIdleForClient:]";
+    *&v27[22] = 1024;
+    LODWORD(v28) = 374;
+    WORD2(v28) = 2048;
+    *(&v28 + 6) = client;
+    HIWORD(v28) = 2048;
     selfCopy2 = sourceIO;
-    v19 = " [%s] %s:%d Source run lock semaphore was not signaled! client=%p sourceIO=%p";
-    v20 = v17;
-    v21 = 48;
+    v20 = " [%s] %s:%d Source run lock semaphore was not signaled! client=%p sourceIO=%p";
+    v21 = v18;
+    v22 = 48;
   }
 
   else
   {
     if (objc_opt_respondsToSelector())
     {
-      v15 = [(VCAudioRelayIOController *)self performSelector:sel_logPrefix];
+      v16 = [(VCAudioRelayIOController *)self performSelector:sel_logPrefix];
     }
 
     else
     {
-      v15 = &stru_1F570E008;
+      v16 = &stru_1F570E008;
     }
 
     if (VRTraceGetErrorLogLevelForModule() < 5)
@@ -396,37 +396,37 @@ LABEL_17:
       goto LABEL_31;
     }
 
-    v22 = VRTraceErrorLogLevelToCSTR();
-    v23 = *MEMORY[0x1E6986650];
+    v23 = VRTraceErrorLogLevelToCSTR();
+    v24 = *MEMORY[0x1E6986650];
     if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_31;
     }
 
     sourceIO2 = [client sourceIO];
-    *v25 = 136316674;
-    *&v25[4] = v22;
-    *&v25[12] = 2080;
-    *&v25[14] = "[VCAudioRelayIOController waitIdleForClient:]";
-    *&v25[22] = 1024;
-    LODWORD(v26) = 374;
-    WORD2(v26) = 2112;
-    *(&v26 + 6) = v15;
-    HIWORD(v26) = 2048;
+    *v27 = 136316674;
+    *&v27[4] = v23;
+    *&v27[12] = 2080;
+    *&v27[14] = "[VCAudioRelayIOController waitIdleForClient:]";
+    *&v27[22] = 1024;
+    LODWORD(v28) = 374;
+    WORD2(v28) = 2112;
+    *(&v28 + 6) = v16;
+    HIWORD(v28) = 2048;
     selfCopy2 = self;
-    *v28 = 2048;
-    *&v28[2] = client;
-    *&v28[10] = 2048;
-    *&v28[12] = sourceIO2;
-    v19 = " [%s] %s:%d %@(%p) Source run lock semaphore was not signaled! client=%p sourceIO=%p";
-    v20 = v23;
-    v21 = 68;
+    *v30 = 2048;
+    *&v30[2] = client;
+    *&v30[10] = 2048;
+    *&v30[12] = sourceIO2;
+    v20 = " [%s] %s:%d %@(%p) Source run lock semaphore was not signaled! client=%p sourceIO=%p";
+    v21 = v24;
+    v22 = 68;
   }
 
-  _os_log_impl(&dword_1DB56E000, v20, OS_LOG_TYPE_DEFAULT, v19, v25, v21);
+  _os_log_impl(&dword_1DB56E000, v21, OS_LOG_TYPE_DEFAULT, v20, v27, v22);
 LABEL_31:
   os_unfair_lock_lock(&self->_sourceData.clientIOListLock);
-  _VCAudioRelayIOController_ProcessEventQueue(&self->_sourceData);
+  _VCAudioRelayIOController_ProcessEventQueue(&self->_sourceData, v26);
   os_unfair_lock_unlock(&self->_sourceData.clientIOListLock);
   if (VRTraceIsInternalOSInstalled())
   {
@@ -730,7 +730,7 @@ LABEL_19:
   return v11[0] == 0;
 }
 
-uint64_t __41__VCAudioRelayIOController_startRelayIO___block_invoke(uint64_t a1)
+void *__41__VCAudioRelayIOController_startRelayIO___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = *(v2 + 48);
@@ -764,7 +764,7 @@ uint64_t __41__VCAudioRelayIOController_startRelayIO___block_invoke(uint64_t a1)
 - (id)newRelayIOWithCompletionHandler:(id)handler
 {
   v5 = objc_alloc_init(VCAudioRelayIO);
-  [(VCAudioRelayIO *)v5 setClientFormat:[(VCAudioRelayIOControllerSettings *)self->_currentSettings audioFormat]];
+  [(VCAudioRelayIO *)v5 setClientFormat:objc_msgSend_audioFormat(self->_currentSettings)];
   [(VCAudioRelayIO *)v5 setMicCallback:VCAudioRelayIOController_PushAudioSamples];
   [(VCAudioRelayIO *)v5 setMicCallbackContext:&self->_sinkData];
   [(VCAudioRelayIO *)v5 setSpeakerCallback:VCAudioRelayIOController_PullAudioSamples];
@@ -926,14 +926,14 @@ LABEL_12:
 - (BOOL)handleTransitionPrepareToStarting
 {
   v22 = *MEMORY[0x1E69E9840];
-  audioFormat = [(VCAudioRelayIOControllerSettings *)self->_currentSettings audioFormat];
-  samplesPerFrame = audioFormat->samplesPerFrame;
-  v5 = *&audioFormat->format.mSampleRate;
-  v6 = *&audioFormat->format.mBytesPerPacket;
-  *&v16.mBitsPerChannel = *&audioFormat->format.mBitsPerChannel;
+  v3 = objc_msgSend_audioFormat(self->_currentSettings, a2);
+  v4 = *(v3 + 40);
+  v5 = *v3;
+  v6 = *(v3 + 16);
+  *&v16.mBitsPerChannel = *(v3 + 32);
   *&v16.mSampleRate = v5;
   *&v16.mBytesPerPacket = v6;
-  if (!VCAudioBufferList_Allocate(&v16, samplesPerFrame, &self->_sourceData.secondarySampleBuffer))
+  if (!VCAudioBufferList_Allocate(&v16, v4, &self->_sourceData.secondarySampleBuffer))
   {
     [VCAudioRelayIOController handleTransitionPrepareToStarting];
 LABEL_23:
@@ -970,7 +970,7 @@ LABEL_23:
     while (v9);
   }
 
-  v12 = VCAudioLimiter_Allocate(audioFormat);
+  v12 = VCAudioLimiter_Allocate(v3);
   self->_sourceData.audioLimiter = v12;
   if (!v12)
   {
@@ -1127,9 +1127,11 @@ LABEL_5:
 
 - (BOOL)stateStartingWithControllerSettings:(id)settings client:(id)client newState:(unsigned int *)state
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   *state = 3;
-  if (!memcmp(-[VCAudioRelayIOControllerSettings audioFormat](self->_currentSettings, "audioFormat"), [settings audioFormat], 0x28uLL) && -[NSMutableArray count](self->_allClients, "count"))
+  v9 = objc_msgSend_audioFormat(self->_currentSettings, a2);
+  v10 = objc_msgSend_audioFormat(settings);
+  if (!memcmp(v9, v10, 0x28uLL) && [(NSMutableArray *)self->_allClients count])
   {
     [(VCAudioRelayIOController *)self addStartingClient:client controllerSettings:settings];
   }
@@ -1149,20 +1151,20 @@ LABEL_5:
 
     if (VRTraceGetErrorLogLevelForModule() >= 7)
     {
-      v10 = VRTraceErrorLogLevelToCSTR();
-      v11 = *MEMORY[0x1E6986650];
+      v12 = VRTraceErrorLogLevelToCSTR();
+      v13 = *MEMORY[0x1E6986650];
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
-        v12 = self->_relayIOType == 0;
-        v14 = 136315906;
-        v15 = v10;
-        v16 = 2080;
-        v17 = "[VCAudioRelayIOController stateStartingWithControllerSettings:client:newState:]";
-        v18 = 1024;
-        v19 = 695;
+        v14 = self->_relayIOType == 0;
+        v16 = 136315906;
+        v17 = v12;
+        v18 = 2080;
+        v19 = "[VCAudioRelayIOController stateStartingWithControllerSettings:client:newState:]";
         v20 = 1024;
-        v21 = v12;
-        _os_log_impl(&dword_1DB56E000, v11, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Client facing:%d relay stopped", &v14, 0x22u);
+        v21 = 695;
+        v22 = 1024;
+        v23 = v14;
+        _os_log_impl(&dword_1DB56E000, v13, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Client facing:%d relay stopped", &v16, 0x22u);
       }
     }
 
@@ -1182,37 +1184,39 @@ LABEL_5:
 
 - (BOOL)stateRunningWithControllerSettings:(id)settings client:(id)client newState:(unsigned int *)state
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   *state = 4;
-  if (!memcmp(-[VCAudioRelayIOControllerSettings audioFormat](self->_currentSettings, "audioFormat"), [settings audioFormat], 0x28uLL) && -[NSMutableArray count](self->_allClients, "count"))
+  v9 = objc_msgSend_audioFormat(self->_currentSettings, a2);
+  v10 = objc_msgSend_audioFormat(settings);
+  if (!memcmp(v9, v10, 0x28uLL) && [(NSMutableArray *)self->_allClients count])
   {
     [(VCAudioRelayIOController *)self addStartingClient:client controllerSettings:settings];
+    v20 = 0u;
+    v21 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v16 = 0u;
-    v17 = 0u;
     startingIOClients = self->_startingIOClients;
-    v10 = [(NSMutableArray *)startingIOClients countByEnumeratingWithState:&v16 objects:v15 count:16];
-    if (v10)
+    v12 = [(NSMutableArray *)startingIOClients countByEnumeratingWithState:&v18 objects:v17 count:16];
+    if (v12)
     {
-      v11 = v10;
-      v12 = *v17;
+      v13 = v12;
+      v14 = *v19;
       do
       {
-        for (i = 0; i != v11; ++i)
+        for (i = 0; i != v13; ++i)
         {
-          if (*v17 != v12)
+          if (*v19 != v14)
           {
             objc_enumerationMutation(startingIOClients);
           }
 
-          [objc_msgSend(*(*(&v16 + 1) + 8 * i) "delegate")];
+          [objc_msgSend(*(*(&v18 + 1) + 8 * i) "delegate")];
         }
 
-        v11 = [(NSMutableArray *)startingIOClients countByEnumeratingWithState:&v16 objects:v15 count:16];
+        v13 = [(NSMutableArray *)startingIOClients countByEnumeratingWithState:&v18 objects:v17 count:16];
       }
 
-      while (v11);
+      while (v13);
     }
 
     [(NSMutableArray *)self->_startingIOClients removeAllObjects];
@@ -1453,69 +1457,71 @@ LABEL_34:
 
 - (void)processEventQueue:(AudioEventQueue_t *)queue clientList:(id)list
 {
-  v19 = *MEMORY[0x1E69E9840];
-  v17 = 0;
-  v18 = 0;
+  v21 = *MEMORY[0x1E69E9840];
+  v19 = 0;
+  v20 = 0;
   v6 = 0.0;
-  if (VRTraceIsInternalOSInstalled())
+  IsInternalOSInstalled = VRTraceIsInternalOSInstalled();
+  if (IsInternalOSInstalled)
   {
-    v6 = micro();
+    v6 = micro(IsInternalOSInstalled, v8);
   }
 
-  v7 = VCAudioEventQueue_Dequeue(queue, &v17);
-  for (i = 0; v7; ++i)
+  v9 = VCAudioEventQueue_Dequeue(queue, &v19);
+  for (i = 0; v9; i = (i + 1))
   {
-    v16 = v18;
-    if (v18)
+    v18 = v20;
+    if (v20)
     {
-      if (v17 == 2)
+      if (v19 == 2)
       {
-        [list removeObject:v18];
+        [list removeObject:v20];
         goto LABEL_9;
       }
 
-      if (v17 == 1)
+      if (v19 == 1)
       {
-        [list addObject:v18];
+        [list addObject:v20];
 LABEL_9:
       }
     }
 
-    LODWORD(v17) = 0;
-    v18 = 0;
-    v7 = VCAudioEventQueue_Dequeue(queue, &v17);
+    LODWORD(v19) = 0;
+    v20 = 0;
+    v9 = VCAudioEventQueue_Dequeue(queue, &v19);
   }
 
-  LogProfileTimeOverLimit(v6, v7, v8, v9, v10, v11, v12, v13, v14, "[VCAudioRelayIOController processEventQueue:clientList:]");
+  LogProfileTimeOverLimit(v6, v9, v10, v11, v12, v13, v14, v15, v16, "[VCAudioRelayIOController processEventQueue:clientList:]", i);
 }
 
 - (void)flushEventQueue:(opaqueCMSimpleQueue *)queue
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v4 = 0.0;
-  if (VRTraceIsInternalOSInstalled())
+  IsInternalOSInstalled = VRTraceIsInternalOSInstalled();
+  if (IsInternalOSInstalled)
   {
-    v4 = micro();
+    v4 = micro(IsInternalOSInstalled, v6);
   }
 
-  v5 = objc_opt_new();
-  v6 = CMSimpleQueueDequeue(queue);
-  v18[0] = v6;
-  for (i = 0; v6; v18[0] = v6)
+  v7 = objc_opt_new();
+  v8 = CMSimpleQueueDequeue(queue);
+  v20 = v8;
+  for (i = 0; v8; v20 = v8)
   {
-    v8 = [MEMORY[0x1E696B098] valueWithPointer:v6[1]];
-    v9 = [v5 containsObject:v8];
-    if ((v9 & 1) == 0)
+    v10 = [MEMORY[0x1E696B098] valueWithPointer:v8[1]];
+    v11 = [v7 containsObject:v10];
+    if ((v11 & 1) == 0)
     {
-      [v5 addObject:v8];
+      [v7 addObject:v10];
     }
 
-    VCAudioIOControllerIOState_ReleaseAudioEvent(v18, v9 ^ 1);
-    ++i;
-    v6 = CMSimpleQueueDequeue(queue);
+    VCAudioIOControllerIOState_ReleaseAudioEvent(&v20, v11 ^ 1);
+    i = (i + 1);
+    v8 = CMSimpleQueueDequeue(queue);
   }
 
-  LogProfileTimeOverLimit(v4, v10, v11, v12, v13, v14, v15, v16, v17, "[VCAudioRelayIOController flushEventQueue:]");
+  LogProfileTimeOverLimit(v4, v12, v13, v14, v15, v16, v17, v18, v19, "[VCAudioRelayIOController flushEventQueue:]", i, v20, v21);
 }
 
 - (void)startClient:(id)client
@@ -1534,7 +1540,7 @@ LABEL_9:
   }
 }
 
-uint64_t __40__VCAudioRelayIOController_startClient___block_invoke(uint64_t a1)
+void *__40__VCAudioRelayIOController_startClient___block_invoke(uint64_t a1)
 {
   if ([*(a1 + 32) addClient:*(a1 + 40)])
   {
@@ -1609,7 +1615,7 @@ uint64_t __39__VCAudioRelayIOController_stopClient___block_invoke(uint64_t a1)
   dispatch_async(dispatchQueue, v6);
 }
 
-uint64_t __51__VCAudioRelayIOController_didUpdateBasebandCodec___block_invoke(uint64_t a1)
+void *__51__VCAudioRelayIOController_didUpdateBasebandCodec___block_invoke(uint64_t a1)
 {
   v12 = *MEMORY[0x1E69E9840];
   v10 = 0u;
@@ -1632,7 +1638,8 @@ uint64_t __51__VCAudioRelayIOController_didUpdateBasebandCodec___block_invoke(ui
           objc_enumerationMutation(v2);
         }
 
-        [objc_msgSend(*(*(&v8 + 1) + 8 * v6++) "delegate")];
+        [objc_msgSend(*(*(&v8 + 1) + 8 * v6) "delegate")];
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);
@@ -1676,7 +1683,7 @@ uint64_t __51__VCAudioRelayIOController_didUpdateBasebandCodec___block_invoke(ui
       OUTLINED_FUNCTION_2_5();
       OUTLINED_FUNCTION_6();
       OUTLINED_FUNCTION_3_8();
-      OUTLINED_FUNCTION_1_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/VCAudioRelayIOController.m:%d: Failed to create the audio limiter", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_1_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/VCAudioRelayIOController.m:%d: Failed to create the audio limiter", v2, v3, v4, v5);
     }
   }
 }

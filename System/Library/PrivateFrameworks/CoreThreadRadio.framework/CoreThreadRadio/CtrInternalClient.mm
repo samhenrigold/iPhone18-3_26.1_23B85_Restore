@@ -4,9 +4,7 @@
 - (Result)getProperty:(Result *__return_ptr)retstr output:;
 - (Result)get_device_data_diag:(Result *__return_ptr)retstr;
 - (Result)join:(Result *__return_ptr)retstr;
-- (Result)joiner:(Result *__return_ptr)retstr;
 - (Result)scan:(Result *__return_ptr)retstr;
-- (Result)send_diagnostics_req:(Result *__return_ptr)retstr;
 - (Result)send_ping_node:(Result *__return_ptr)retstr;
 - (Result)setProperty:(Result *__return_ptr)retstr property_val:;
 - (Result)trm_get_ot_data:(Result *__return_ptr)retstr output:;
@@ -22,15 +20,15 @@
 
 - (id)init:(const char *)init
 {
-  v9.receiver = self;
-  v9.super_class = CtrInternalClient;
-  v4 = [(CtrInternalClient *)&v9 init];
-  v5 = v4;
-  if (v4)
+  v8.receiver = self;
+  v8.super_class = CtrInternalClient;
+  v3 = [(CtrInternalClient *)&v8 init];
+  v4 = v3;
+  if (v3)
   {
-    [(CtrInternalClient *)v4 createClient:init];
-    cntrl = v5->ctrInternalClientPtr.__cntrl_;
-    v5->ctrInternalClientPtr = v8;
+    objc_msgSend_createClient_(v3);
+    cntrl = v4->ctrInternalClientPtr.__cntrl_;
+    v4->ctrInternalClientPtr = v7;
     if (cntrl)
     {
       if (!atomic_fetch_add(&cntrl->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
@@ -41,7 +39,7 @@
     }
   }
 
-  return v5;
+  return v4;
 }
 
 - (void)setEventHandler:()basic_string<char InternalClientEventBlock:()std:(std::allocator<char>> *)std :char_traits<char> dqueue:
@@ -141,18 +139,17 @@
 
 - (Result)form:(Result *__return_ptr)retstr
 {
-  v3 = *(v1 + 8);
-  v4 = *(v2 + 80);
-  v8[4] = *(v2 + 64);
-  v8[5] = v4;
-  v9 = *(v2 + 96);
-  v5 = *(v2 + 16);
-  v8[0] = *v2;
-  v8[1] = v5;
-  v6 = *(v2 + 48);
-  v8[2] = *(v2 + 32);
-  v8[3] = v6;
-  InternalClient::form(v8, retstr);
+  v2 = *(v1 + 80);
+  v6[4] = *(v1 + 64);
+  v6[5] = v2;
+  v7 = *(v1 + 96);
+  v3 = *(v1 + 16);
+  v6[0] = *v1;
+  v6[1] = v3;
+  v4 = *(v1 + 48);
+  v6[2] = *(v1 + 32);
+  v6[3] = v4;
+  InternalClient::form(v6, retstr);
   return result;
 }
 
@@ -165,27 +162,6 @@
   v6[2] = *(v2 + 32);
   v7 = *(v2 + 48);
   InternalClient::join(v3, v6);
-}
-
-- (Result)joiner:(Result *__return_ptr)retstr
-{
-  v3 = *(v1 + 8);
-  v7 = v2[2];
-  v8 = v2[3];
-  v9 = *(v2 + 8);
-  v5 = *v2;
-  v6 = v2[1];
-  InternalClient::joiner(retstr);
-  return result;
-}
-
-- (Result)send_diagnostics_req:(Result *__return_ptr)retstr
-{
-  v3 = *(v1 + 8);
-  v5 = *v2;
-  v6 = v2[1];
-  v7 = *(v2 + 8);
-  InternalClient::send_diagnostics_req();
 }
 
 - (Result)send_ping_node:(Result *__return_ptr)retstr

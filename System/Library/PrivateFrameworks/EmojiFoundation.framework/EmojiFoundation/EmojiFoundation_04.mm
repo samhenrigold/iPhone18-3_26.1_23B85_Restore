@@ -1,10 +1,10 @@
-uint64_t r_Suffix_Verb_Step2a(uint64_t a1)
+uint64_t r_Suffix_Verb_Step2a(void *a1)
 {
-  *(a1 + 24) = *(a1 + 8);
+  *(a1 + 6) = *(a1 + 2);
   result = find_among_b(a1, &a_18_1, 11);
   if (result)
   {
-    *(a1 + 20) = *(a1 + 8);
+    *(a1 + 5) = *(a1 + 2);
     if (result > 2)
     {
       if (result == 3 || result == 4)
@@ -159,18 +159,18 @@ uint64_t r_Suffix_Noun_Step2c1(uint64_t a1)
   }
 }
 
-uint64_t r_Prefix_Step3b_Noun(uint64_t a1)
+uint64_t r_Prefix_Step3b_Noun(void *a1)
 {
-  v2 = *(a1 + 8);
+  v2 = *(a1 + 2);
   if (eq_s(a1, 4, &s_60_11))
   {
     return 0;
   }
 
-  *(a1 + 8) = v2;
-  *(a1 + 20) = v2;
+  *(a1 + 2) = v2;
+  *(a1 + 5) = v2;
   v3 = v2 + 1;
-  if (v3 >= *(a1 + 12))
+  if (v3 >= *(a1 + 3))
   {
     return 0;
   }
@@ -187,7 +187,7 @@ uint64_t r_Prefix_Step3b_Noun(uint64_t a1)
     return result;
   }
 
-  *(a1 + 24) = *(a1 + 8);
+  *(a1 + 6) = *(a1 + 2);
   if (result == 3)
   {
     if (len_utf8(*a1) < 4)
@@ -236,13 +236,13 @@ LABEL_16:
   return result;
 }
 
-uint64_t r_Prefix_Step3_Verb(uint64_t a1)
+uint64_t r_Prefix_Step3_Verb(void *a1)
 {
-  *(a1 + 20) = *(a1 + 8);
+  *(a1 + 5) = *(a1 + 2);
   result = find_among(a1, &a_8_6, 4);
   if (result)
   {
-    *(a1 + 24) = *(a1 + 8);
+    *(a1 + 6) = *(a1 + 2);
     if (result > 2)
     {
       if (result == 3)
@@ -721,11 +721,11 @@ uint64_t skip_utf8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
   return 0xFFFFFFFFLL;
 }
 
-uint64_t in_grouping_U(uint64_t a1, uint64_t a2, int a3, signed int a4, int a5)
+uint64_t in_grouping_U(uint64_t *a1, uint64_t a2, int a3, int a4, int a5)
 {
   v10 = *a1;
-  v12 = *(a1 + 8);
-  v11 = *(a1 + 12);
+  v12 = *(a1 + 2);
+  v11 = *(a1 + 3);
   while (1)
   {
     v14 = 0;
@@ -741,7 +741,7 @@ uint64_t in_grouping_U(uint64_t a1, uint64_t a2, int a3, signed int a4, int a5)
     }
 
     v12 += result;
-    *(a1 + 8) = v12;
+    *(a1 + 2) = v12;
     if (!a5)
     {
       return 0;
@@ -796,11 +796,11 @@ uint64_t get_utf8(uint64_t a1, int a2, int a3, unsigned int *a4)
   return result;
 }
 
-uint64_t in_grouping_b_U(uint64_t a1, uint64_t a2, int a3, signed int a4, int a5)
+uint64_t in_grouping_b_U(uint64_t *a1, uint64_t a2, int a3, int a4, int a5)
 {
   v10 = *a1;
-  v11 = *(a1 + 16);
-  v12 = *(a1 + 8);
+  v11 = *(a1 + 4);
+  v12 = *(a1 + 2);
   while (1)
   {
     v14 = 0;
@@ -816,7 +816,7 @@ uint64_t in_grouping_b_U(uint64_t a1, uint64_t a2, int a3, signed int a4, int a5
     }
 
     v12 -= result;
-    *(a1 + 8) = v12;
+    *(a1 + 2) = v12;
     if (!a5)
     {
       return 0;
@@ -2386,8 +2386,9 @@ LABEL_84:
   return result;
 }
 
-void *SN_create_env(int a1, int a2, int a3)
+void *SN_create_env(uint64_t a1, int a2, int a3)
 {
+  v5 = a1;
   v6 = malloc_type_calloc(1uLL, 0x38uLL, 0x1090040893BA05AuLL);
   if (!v6)
   {
@@ -2401,21 +2402,21 @@ void *SN_create_env(int a1, int a2, int a3)
     goto LABEL_13;
   }
 
-  if (!a1)
+  if (!v5)
   {
     goto LABEL_9;
   }
 
-  v8 = malloc_type_calloc(a1, 8uLL, 0x10040436913F5uLL);
+  v8 = malloc_type_calloc(v5, 8uLL, 0x10040436913F5uLL);
   v6[4] = v8;
   if (!v8)
   {
 LABEL_13:
-    SN_close_env(v6, a1);
+    SN_close_env(v6, v5);
     return 0;
   }
 
-  if (a1 >= 1)
+  if (v5 >= 1)
   {
     v9 = 0;
     do
@@ -2429,7 +2430,7 @@ LABEL_13:
       v9 += 8;
     }
 
-    while (8 * a1 != v9);
+    while (8 * v5 != v9);
   }
 
 LABEL_9:
@@ -2456,7 +2457,7 @@ LABEL_9:
   return v6;
 }
 
-void SN_close_env(uint64_t a1, int a2)
+void SN_close_env(uint64_t a1, unsigned int a2)
 {
   if (a1)
   {
@@ -4744,7 +4745,7 @@ uint64_t r_mark_DA(uint64_t a1)
   return result;
 }
 
-uint64_t r_mark_yU(uint64_t a1)
+uint64_t r_mark_yU(uint64_t *a1)
 {
   if (!r_check_vowel_harmony(a1) || in_grouping_b_U(a1, &g_U, 105, 305, 0))
   {
@@ -5735,17 +5736,17 @@ LABEL_16:
   return 0;
 }
 
-BOOL r_shortv_0(_DWORD *a1)
+BOOL r_shortv_0(uint64_t a1)
 {
-  v3 = a1[2];
-  v2 = a1[3];
+  v3 = *(a1 + 8);
+  v2 = *(a1 + 12);
   if (!out_grouping_b_U(a1, &g_v_WXY_0, 89, 121, 0) && !in_grouping_b_U(a1, &g_v_14, 97, 121, 0) && !out_grouping_b_U(a1, &g_v_14, 97, 121, 0))
   {
     return 1;
   }
 
-  a1[2] = v3 - v2 + a1[3];
-  return !out_grouping_b_U(a1, &g_v_14, 97, 121, 0) && !in_grouping_b_U(a1, &g_v_14, 97, 121, 0) && a1[2] <= a1[4];
+  *(a1 + 8) = v3 - v2 + *(a1 + 12);
+  return !out_grouping_b_U(a1, &g_v_14, 97, 121, 0) && !in_grouping_b_U(a1, &g_v_14, 97, 121, 0) && *(a1 + 8) <= *(a1 + 16);
 }
 
 uint64_t catalan_UTF_8_stem(uint64_t a1)
@@ -6478,47 +6479,47 @@ LABEL_40:
 
 void CEM::AdaptationDatabaseController::getSharedAdaptationDatabaseCache()
 {
-  if (__cxa_guard_acquire(&_MergedGlobals))
+  if (__cxa_guard_acquire(_MergedGlobals))
   {
     unk_1ED6F39B0 = 0u;
     unk_1ED6F39A0 = 0u;
     dword_1ED6F39C0 = 1065353216;
 
-    __cxa_guard_release(&_MergedGlobals);
+    __cxa_guard_release(_MergedGlobals);
   }
 }
 
 void std::__function::__func<CEM::AdaptationDatabaseController::enumerateStringAndStringId(std::function<void ()(std::string_view,unsigned int)>)::$_0,std::allocator<CEM::AdaptationDatabaseController::enumerateStringAndStringId(std::function<void ()(std::string_view,unsigned int)>)::$_0>,void ()(std::map<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>> const&)>::operator()()
 {
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1AF04E000, v0, v1, "Could not extract uint32_t from std::variant<T> column value map. enumerateStringAndStringId(...);", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0(&dword_1AF04E000, v0, v1, "Could not extract uint32_t from std::variant<T> column value map. enumerateStringAndStringId(...);", v2, v3, v4, v5);
 }
 
 {
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1AF04E000, v0, v1, "Could not extract std::string from std::variant<T> column value map. enumerateStringAndStringId(...);", v2, v3, v4, v5, v6);
-}
-
-{
-  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_0(&dword_1AF04E000, v0, v1, "Could not extract std::string from std::variant<T> column value map. enumerateStringAndStringId(...);", v2, v3, v4, v5);
 }
 
 {
   OUTLINED_FUNCTION_1();
 }
 
-void log_emoji_string_lookup_error_cold_1()
+{
+  OUTLINED_FUNCTION_1();
+}
+
+void log_emoji_string_lookup_error_cold_1(uint64_t a1)
 {
   CEMEmojiLocaleDataGetLocaleIdentifier();
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_1AF04E000, v0, v1, "Could not get an emoji string for document ID '%{public}d' and for locale: '%{public}@'", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_1_0(&dword_1AF04E000, v1, v2, "Could not get an emoji string for document ID '%{public}d' and for locale: '%{public}@'", v3, v4, v5, v6);
 }
 
-void log_emoji_token_creation_error_cold_1()
+void log_emoji_token_creation_error_cold_1(uint64_t a1)
 {
   CEMEmojiLocaleDataGetLocaleIdentifier();
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_1AF04E000, v0, v1, "Could not create an emoji using document ID '%{public}d' and for locale: '%{public}@'", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_1_0(&dword_1AF04E000, v1, v2, "Could not create an emoji using document ID '%{public}d' and for locale: '%{public}@'", v3, v4, v5, v6);
 }
 
 void CEM::Statement::prepare(uint64_t a1, sqlite3 **a2, NSObject *a3)

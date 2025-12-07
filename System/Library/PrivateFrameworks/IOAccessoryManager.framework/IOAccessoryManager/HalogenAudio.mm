@@ -170,12 +170,13 @@
 - (BOOL)stopAudioUnit
 {
   v2 = AudioOutputUnitStop(self->_audioComponentInst);
+  v3 = v2;
   if (v2)
   {
-    [HalogenAudio stopAudioUnit];
+    [(HalogenAudio *)v2 stopAudioUnit];
   }
 
-  return v2 == 0;
+  return v3 == 0;
 }
 
 - (void)initAudioWithParameters:(void *)a1 nInputChannels:nOutputChannels:sampleRate:bitDepth:inputFrameSizeInBytes:outputFrameSizeInBytes:.cold.1(void *a1)
@@ -200,13 +201,12 @@
 
 - (void)stopAudioUnit
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    OUTLINED_FUNCTION_0_0(&dword_2548F1000, MEMORY[0x277D86220], v0, "HalogenAudio:AudioUnitStop() failed (status = 0x%x)", v1, v2, v3, v4, 0);
+    LODWORD(v7) = 67109120;
+    HIDWORD(v7) = self;
+    OUTLINED_FUNCTION_0_0(&dword_2548F1000, MEMORY[0x277D86220], v2, "HalogenAudio:AudioUnitStop() failed (status = 0x%x)", v3, v4, v5, v6, v7);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

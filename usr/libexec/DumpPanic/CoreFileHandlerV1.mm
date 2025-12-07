@@ -1,5 +1,6 @@
 @interface CoreFileHandlerV1
 - (BOOL)getCorefileLogInfo:(unint64_t *)info :(unint64_t *)a4 :(unsigned int *)a5;
+- (CoreFileHandlerV1)initWithCoreFilePath:(char *)path :(BOOL)a4 :(id)a5;
 - (const)getCoreDumpNameWithIndex:(unint64_t)index;
 - (id)getCorefileZeroRanges;
 - (void)getCoreDumpInfoWithIndex:(unint64_t)index :(unint64_t *)a4 :(unint64_t *)a5 :(unsigned int *)a6;
@@ -141,6 +142,24 @@ LABEL_9:
   [v3 addObject:v11];
 
   return v3;
+}
+
+- (CoreFileHandlerV1)initWithCoreFilePath:(char *)path :(BOOL)a4 :(id)a5
+{
+  v5 = [(CoreFileHandler *)self initWithCoreFilePath:path];
+  if (v5)
+  {
+    v6 = qword_100042AF8;
+    if (os_log_type_enabled(qword_100042AF8, OS_LOG_TYPE_DEFAULT))
+    {
+      num_files = v5->_corefileHeader.num_files;
+      v9 = 134217984;
+      v10 = num_files;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "opened corefile, header indicates %llu files present", &v9, 0xCu);
+    }
+  }
+
+  return v5;
 }
 
 @end

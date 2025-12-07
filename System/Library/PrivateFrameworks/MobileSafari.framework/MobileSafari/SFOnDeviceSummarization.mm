@@ -54,9 +54,10 @@
 
 - (void)summarizeArticleText:(id)text
 {
-  sub_18BC20BD8();
+  v4 = sub_18BC20BD8();
+  v6 = v5;
   selfCopy = self;
-  sub_18BBC0B10();
+  sub_18BBC0B10(v4, v6);
 }
 
 @end

@@ -1,10 +1,12 @@
 @interface MTLIOAccelBuffer
+- (MTLIOAccelBuffer)initWithDevice:(id)device iosurface:(__IOSurface *)iosurface args:(IOAccelNewResourceArgs *)args argsSize:(unsigned int)size;
 - (MTLIOAccelBuffer)initWithDevice:(id)device pointer:(void *)pointer length:(unint64_t)length options:(unint64_t)options sysMemSize:(unint64_t)size vidMemSize:(unint64_t)memSize gpuAddress:(unint64_t)address args:(IOAccelNewResourceArgs *)self0 argsSize:(unsigned int)self1 deallocator:(id)aBlock;
 - (MTLIOAccelBuffer)initWithHeap:(id)heap resource:(id)resource offset:(unint64_t)offset length:(unint64_t)length;
 - (MTLIOAccelBuffer)initWithMasterBuffer:(id)buffer heapIndex:(signed __int16)index bufferIndex:(signed __int16)bufferIndex bufferOffset:(unint64_t)offset length:(unint64_t)length args:(IOAccelNewResourceArgs *)args argsSize:(unsigned int)size;
 - (__CFArray)copyAnnotations;
 - (id)formattedDescription:(unint64_t)description;
 - (id)newLinearTextureWithDescriptor:(id)descriptor offset:(unint64_t)offset bytesPerRow:(unint64_t)row bytesPerImage:(unint64_t)image;
+- (int)setOwnerWithIdentity:(unsigned int)identity;
 - (unint64_t)allocatedSize;
 - (void)dealloc;
 @end
@@ -13,43 +15,42 @@
 
 - (id)formattedDescription:(unint64_t)description
 {
-  v13[21] = *MEMORY[0x1E69E9840];
+  v12[21] = *MEMORY[0x1E69E9840];
   v4 = [@"\n" stringByPaddingToLength:description + 4 withString:@" " startingAtIndex:0];
   retainedLabel = [(MTLIOAccelResource *)self retainedLabel];
   v6 = MEMORY[0x1E696AEC0];
-  v12.receiver = self;
-  v12.super_class = MTLIOAccelBuffer;
-  v7 = [(MTLIOAccelBuffer *)&v12 description];
-  v13[0] = v4;
-  v13[1] = @"label =";
+  v11.receiver = self;
+  v11.super_class = MTLIOAccelBuffer;
+  v7 = [(MTLIOAccelBuffer *)&v11 description];
+  v12[0] = v4;
+  v12[1] = @"label =";
   v8 = @"<none>";
   if (retainedLabel)
   {
     v8 = retainedLabel;
   }
 
-  v13[2] = v8;
-  v13[3] = v4;
-  v13[4] = @"length =";
-  v13[5] = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:self->_length];
-  v13[6] = v4;
-  v13[7] = @"cpuCacheMode =";
-  v13[8] = MTLCPUCacheModeString(*&self->super._anon_50[112]);
-  v13[9] = v4;
-  v13[10] = @"storageMode =";
-  v13[11] = MTLStorageModeString(*&self->super._anon_50[104]);
-  v13[12] = v4;
-  v13[13] = @"hazardTrackingMode =";
-  v13[14] = MTLHazardTrackingModeString([(MTLIOAccelResource *)self hazardTrackingMode]);
-  v13[15] = v4;
-  v13[16] = @"resourceOptions =";
-  v13[17] = MTLResourceOptionsString([(MTLIOAccelResource *)self resourceOptions]);
-  v13[18] = v4;
-  v13[19] = @"purgeableState =";
-  v13[20] = MTLPurgeableStateString(*&self->super._anon_50[128]);
-  v9 = [v6 stringWithFormat:@"%@%@", v7, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v13, 21), "componentsJoinedByString:", @" "];
+  v12[2] = v8;
+  v12[3] = v4;
+  v12[4] = @"length =";
+  v12[5] = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:self->_length];
+  v12[6] = v4;
+  v12[7] = @"cpuCacheMode =";
+  v12[8] = MTLCPUCacheModeString(*&self->super._anon_50[112]);
+  v12[9] = v4;
+  v12[10] = @"storageMode =";
+  v12[11] = MTLStorageModeString(*&self->super._anon_50[104]);
+  v12[12] = v4;
+  v12[13] = @"hazardTrackingMode =";
+  v12[14] = MTLHazardTrackingModeString([(MTLIOAccelResource *)self hazardTrackingMode]);
+  v12[15] = v4;
+  v12[16] = @"resourceOptions =";
+  v12[17] = MTLResourceOptionsString([(MTLIOAccelResource *)self resourceOptions]);
+  v12[18] = v4;
+  v12[19] = @"purgeableState =";
+  v12[20] = MTLPurgeableStateString(*&self->super._anon_50[128]);
+  v9 = [v6 stringWithFormat:@"%@%@", v7, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v12, 21), "componentsJoinedByString:", @" "];
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -89,8 +90,8 @@
   {
     if ((options & 0xF0) == 0x20)
     {
-      v27 = @"storageModePrivate incompatible with ...WithBytes variant of newBuffer";
-      v28 = 121;
+      v26 = @"storageModePrivate incompatible with ...WithBytes variant of newBuffer";
+      v27 = 121;
     }
 
     else
@@ -100,11 +101,11 @@
         goto LABEL_4;
       }
 
-      v27 = @"storageModeMemoryless incompatible with ...WithBytes variant of newBuffer";
-      v28 = 123;
+      v26 = @"storageModeMemoryless incompatible with ...WithBytes variant of newBuffer";
+      v27 = 123;
     }
 
-    MTLReportFailure(0, "[MTLIOAccelBuffer initWithDevice:pointer:length:options:sysMemSize:vidMemSize:gpuAddress:args:argsSize:deallocator:]", v28, v27, length, options, size, memSize, v29);
+    MTLReportFailure(0, "[MTLIOAccelBuffer initWithDevice:pointer:length:options:sysMemSize:vidMemSize:gpuAddress:args:argsSize:deallocator:]", v27, v26, length, options, size, memSize, v28);
   }
 
 LABEL_4:
@@ -197,7 +198,6 @@ LABEL_4:
       if (**MEMORY[0x1E69A8488])
       {
         [device deviceRef];
-        v25 = *&v19->super._anon_50[48];
         [device registryID];
         IOAccelDeviceTraceEvent();
       }
@@ -235,10 +235,7 @@ LABEL_4:
     if (**MEMORY[0x1E69A8488])
     {
       [*&v11->super._anon_50[32] deviceRef];
-      v12 = *&v11->super._anon_50[48];
-      v13 = vshlq_u64(*&v11->super._anon_50[104], xmmword_185DE1E20);
       [*&v11->super._anon_50[32] registryID];
-      v14 = *(*(*&v11->super._anon_50[160] + 56) + 128);
       IOAccelDeviceTraceEvent();
     }
   }
@@ -260,51 +257,83 @@ LABEL_4:
   *&args->var0.var16.var3.var2[1] = 0u;
   *&args->var0.var8 = 0u;
   *&args->var0.var14 = 0u;
-  v9 = buffer + 32;
-  v10 = *(*(buffer + 19) + 260);
-  args->var0.var0 = v10 | 0x80;
+  v9 = *(*(buffer + 19) + 260);
+  args->var0.var0 = v9 | 0x80;
   *&args->var0.var2 = 65537;
   args->var0.var4 = 1;
-  if ((v10 & 0x40) != 0)
+  if ((v9 & 0x40) != 0)
   {
-    v12 = 0;
-    v11 = *(buffer + 9) & 0xFFFFFFFFFFFFFFLL;
-    args->var0.var6 = v11;
+    v11 = 0;
+    v10 = *(buffer + 9) & 0xFFFFFFFFFFFFFFLL;
+    args->var0.var6 = v10;
   }
 
   else
   {
-    v11 = 0;
+    v10 = 0;
     args->var0.var6 = 0;
-    v12 = *(buffer + 43);
+    v11 = *(buffer + 43);
   }
 
-  args->var0.var7 = v12;
+  args->var0.var7 = v11;
   *&args->var0.var8 = 16777473;
   args->var0.var16.var0.var0 = *(buffer + 21) + offset;
   args->var0.var16.var0.var1 = *(buffer + 21);
-  args->var0.var16.var0.var2 = v11;
-  args->var0.var16.var0.var3 = v12;
+  args->var0.var16.var0.var2 = v10;
+  args->var0.var16.var0.var3 = v11;
   args->var0.var16.var0.var4 = *(*(buffer + 19) + 256);
   args->var0.var12 = 2048;
-  v13 = -[MTLIOAccelResource initWithDevice:options:args:argsSize:](self, "initWithDevice:options:args:argsSize:", [buffer device], *(buffer + 22), args, size);
-  v14 = v13;
-  if (v13)
+  v12 = -[MTLIOAccelResource initWithDevice:options:args:argsSize:](self, "initWithDevice:options:args:argsSize:", [buffer device], *(buffer + 22), args, size);
+  v13 = v12;
+  if (v12)
   {
-    p_res = &v13->super._res;
-    v13->super._anon_50[136] = 0;
+    p_res = &v12->super._res;
+    v12->super._anon_50[136] = 0;
     if (**MEMORY[0x1E69A8488])
     {
-      [*&v13->super._anon_50[32] deviceRef];
-      v16 = p_res[2].vendor.reserved[0];
-      v17 = vshlq_u64(*&p_res[3].vendor.reserved[1], xmmword_185DE1E20);
+      [*&v12->super._anon_50[32] deviceRef];
       [(__IOSurface *)p_res[1].info.iosurface registryID];
-      v18 = *(v9 + 12);
       IOAccelDeviceTraceEvent();
     }
   }
 
-  return v14;
+  return v13;
+}
+
+- (MTLIOAccelBuffer)initWithDevice:(id)device iosurface:(__IOSurface *)iosurface args:(IOAccelNewResourceArgs *)args argsSize:(unsigned int)size
+{
+  v6 = *&size;
+  *&args->var0.var0 = 0u;
+  *&args->var0.var6 = 0u;
+  *(&args->var0.var16.var3 + 4) = 0;
+  *&args->var0.var16.var0.var0 = 0u;
+  *&args->var0.var16.var3.var2[1] = 0u;
+  *&args->var0.var8 = 0u;
+  *&args->var0.var14 = 0u;
+  *&args->var0.var0 = 130;
+  *&args->var0.var2 = 65537;
+  args->var0.var4 = 1;
+  args->var0.var6 = 0;
+  args->var0.var7 = 0;
+  *&args->var0.var8 = 16777473;
+  args->var0.var16.var1.var0 = IOSurfaceGetID(iosurface);
+  args->var0.var16.var1.var1 = 0;
+  args->var0.var16.var0.var1 = 0;
+  v11 = [(MTLIOAccelResource *)self initWithDevice:device options:0 args:args argsSize:v6];
+  if (v11)
+  {
+    CFRetain(iosurface);
+    v11->_iosurface = iosurface;
+    v11->_length = IOSurfaceGetAllocSize(iosurface);
+    if (**MEMORY[0x1E69A8488])
+    {
+      [device deviceRef];
+      [device registryID];
+      IOAccelDeviceTraceEvent();
+    }
+  }
+
+  return v11;
 }
 
 - (void)dealloc
@@ -382,6 +411,25 @@ LABEL_4:
   while ((v12 & 1) != 0);
   CFRelease(Mutable);
   return v8;
+}
+
+- (int)setOwnerWithIdentity:(unsigned int)identity
+{
+  if (self->_iosurface)
+  {
+    iosurface = self->_iosurface;
+
+    return MEMORY[0x1EEDC89F0](iosurface, *&identity, 4, 0);
+  }
+
+  else
+  {
+    v8 = v3;
+    v9 = v4;
+    v7.receiver = self;
+    v7.super_class = MTLIOAccelBuffer;
+    return [(MTLIOAccelResource *)&v7 setOwnerWithIdentity:*&identity];
+  }
 }
 
 @end

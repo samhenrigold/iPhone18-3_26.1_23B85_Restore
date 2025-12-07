@@ -1,6 +1,7 @@
 @interface MCServerSideHacks
 + (id)mergeArray:(id)array withArray:(id)withArray;
 + (id)sharedHacks;
++ (void)setAllowHacksToCallExternalComponents:(BOOL)components;
 - (BOOL)_anyBoolRestrictionChangedInSet:(id)set oldRestrictions:(id)restrictions newRestrictions:(id)newRestrictions;
 - (BOOL)applyEffectiveSettings:(id)settings toSettings:(id)toSettings withOldRestrictions:(id)restrictions newRestrictions:(id)newRestrictions;
 - (id)recomputeAccountVPNAssociations;
@@ -16,6 +17,14 @@
 @end
 
 @implementation MCServerSideHacks
+
++ (void)setAllowHacksToCallExternalComponents:(BOOL)components
+{
+  componentsCopy = components;
+  byte_100136660 = components;
+  v4 = +[MCActivationUtilities sharedInstance];
+  [v4 setIsReady:componentsCopy];
+}
 
 + (id)sharedHacks
 {
@@ -650,23 +659,12 @@ LABEL_72:
   settingsCopy = settings;
   toSettingsCopy = toSettings;
   v11 = MCFeaturePasscodeLockGraceTime;
-  if (![MCRestrictionManager restrictedValue:MCFeaturePasscodeLockGraceTime changedBetweenOldRestrictions:restrictions andNewRestrictions:newRestrictions])
-  {
-    goto LABEL_3;
-  }
-
-  v12 = [MCRestrictionManager valueSettingForFeature:v11 withUserSettingDictionary:settingsCopy];
-  unsignedLongValue = [v12 unsignedLongValue];
-
-  v14 = [MCRestrictionManager valueSettingForFeature:v11 withUserSettingDictionary:toSettingsCopy];
-  unsignedLongValue2 = [v14 unsignedLongValue];
-
-  if (unsignedLongValue != unsignedLongValue2)
+  if (+[MCRestrictionManager restrictedValue:changedBetweenOldRestrictions:andNewRestrictions:](MCRestrictionManager, "restrictedValue:changedBetweenOldRestrictions:andNewRestrictions:", MCFeaturePasscodeLockGraceTime, restrictions, newRestrictions) && (+[MCRestrictionManager valueSettingForFeature:withUserSettingDictionary:](MCRestrictionManager, "valueSettingForFeature:withUserSettingDictionary:", v11, settingsCopy), v12 = objc_claimAutoreleasedReturnValue(), v13 = [v12 unsignedLongValue], v12, +[MCRestrictionManager valueSettingForFeature:withUserSettingDictionary:](MCRestrictionManager, "valueSettingForFeature:withUserSettingDictionary:", v11, toSettingsCopy), v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v14, "unsignedLongValue"), v14, v13 != v15))
   {
     v26 = MCRestrictedValueKey;
     v24 = v11;
     v22 = MCRestrictedValueValueKey;
-    v17 = [NSNumber numberWithUnsignedInteger:unsignedLongValue];
+    v17 = [NSNumber numberWithUnsignedInteger:v13];
     v23 = v17;
     v16 = 1;
     v18 = [NSDictionary dictionaryWithObjects:&v23 forKeys:&v22 count:1];
@@ -680,7 +678,6 @@ LABEL_72:
 
   else
   {
-LABEL_3:
     v16 = 0;
   }
 
@@ -697,429 +694,411 @@ LABEL_3:
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "Recomputing app options.", buf, 2u);
   }
 
-  v86 = +[MCManifest sharedManifest];
-  allInstalledProfileIdentifiers = [v86 allInstalledProfileIdentifiers];
+  v82 = +[MCManifest sharedManifest];
+  allInstalledProfileIdentifiers = [v82 allInstalledProfileIdentifiers];
   v6 = +[NSMutableDictionary dictionary];
-  v83 = +[NSMutableDictionary dictionary];
-  v133 = 0u;
-  v134 = 0u;
-  v135 = 0u;
-  v136 = 0u;
+  v79 = +[NSMutableDictionary dictionary];
+  v129 = 0u;
+  v130 = 0u;
+  v131 = 0u;
+  v132 = 0u;
   obj = allInstalledProfileIdentifiers;
-  v87 = [obj countByEnumeratingWithState:&v133 objects:v145 count:16];
-  if (v87)
+  v83 = [obj countByEnumeratingWithState:&v129 objects:v141 count:16];
+  if (v83)
   {
-    v7 = *v134;
+    v7 = *v130;
     v8 = kMCAppWhitelistIdentifierKey;
-    v9 = &MCRestrictedBoolValueKey_ptr;
-    v10 = &MCRestrictedBoolValueKey_ptr;
-    v84 = *v134;
+    v80 = *v130;
     do
     {
-      v11 = 0;
+      v9 = 0;
       do
       {
-        if (*v134 != v7)
+        if (*v130 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v90 = v11;
-        v12 = *(*(&v133 + 1) + 8 * v11);
+        v86 = v9;
+        v10 = *(*(&v129 + 1) + 8 * v9);
         context = objc_autoreleasePoolPush();
-        v13 = [v86 installedProfileWithIdentifier:v12];
-        v14 = v9[47];
+        v11 = [v82 installedProfileWithIdentifier:v10];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v15 = +[NSMutableDictionary dictionary];
-          v129 = 0u;
-          v130 = 0u;
-          v131 = 0u;
-          v132 = 0u;
-          v88 = v13;
-          payloads = [v13 payloads];
-          v16 = [payloads countByEnumeratingWithState:&v129 objects:v144 count:16];
-          if (v16)
+          v12 = +[NSMutableDictionary dictionary];
+          v125 = 0u;
+          v126 = 0u;
+          v127 = 0u;
+          v128 = 0u;
+          v84 = v11;
+          payloads = [v11 payloads];
+          v13 = [payloads countByEnumeratingWithState:&v125 objects:v140 count:16];
+          if (v13)
           {
-            v17 = v16;
-            v18 = *v130;
-            v91 = *v130;
-            v95 = v15;
+            v14 = v13;
+            v15 = *v126;
+            v87 = *v126;
+            v91 = v12;
             do
             {
-              v19 = 0;
-              v99 = v17;
+              v16 = 0;
+              v95 = v14;
               do
               {
-                if (*v130 != v18)
+                if (*v126 != v15)
                 {
                   objc_enumerationMutation(payloads);
                 }
 
-                v20 = *(*(&v129 + 1) + 8 * v19);
-                v21 = v10[37];
+                v17 = *(*(&v125 + 1) + 8 * v16);
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  whitelistedAppsAndOptions = [v20 whitelistedAppsAndOptions];
+                  whitelistedAppsAndOptions = [v17 whitelistedAppsAndOptions];
                   if (whitelistedAppsAndOptions)
                   {
-                    uUID = [v20 UUID];
-                    [v15 setObject:whitelistedAppsAndOptions forKey:uUID];
+                    uUID = [v17 UUID];
+                    [v12 setObject:whitelistedAppsAndOptions forKey:uUID];
 
-                    v127 = 0u;
-                    v128 = 0u;
-                    v125 = 0u;
-                    v126 = 0u;
-                    v24 = whitelistedAppsAndOptions;
-                    v25 = [v24 countByEnumeratingWithState:&v125 objects:v143 count:16];
-                    if (v25)
+                    v123 = 0u;
+                    v124 = 0u;
+                    v121 = 0u;
+                    v122 = 0u;
+                    v20 = whitelistedAppsAndOptions;
+                    v21 = [v20 countByEnumeratingWithState:&v121 objects:v139 count:16];
+                    if (v21)
                     {
-                      v26 = v25;
-                      v27 = *v126;
+                      v22 = v21;
+                      v23 = *v122;
                       do
                       {
-                        for (i = 0; i != v26; i = i + 1)
+                        for (i = 0; i != v22; i = i + 1)
                         {
-                          if (*v126 != v27)
+                          if (*v122 != v23)
                           {
-                            objc_enumerationMutation(v24);
+                            objc_enumerationMutation(v20);
                           }
 
-                          v29 = *(*(&v125 + 1) + 8 * i);
-                          v30 = [v29 objectForKey:v8];
-                          if (v30)
+                          v25 = *(*(&v121 + 1) + 8 * i);
+                          v26 = [v25 objectForKey:v8];
+                          if (v26)
                           {
-                            [v6 setObject:v29 forKey:v30];
+                            [v6 setObject:v25 forKey:v26];
                           }
                         }
 
-                        v26 = [v24 countByEnumeratingWithState:&v125 objects:v143 count:16];
+                        v22 = [v20 countByEnumeratingWithState:&v121 objects:v139 count:16];
                       }
 
-                      while (v26);
+                      while (v22);
                     }
 
-                    v10 = &MCRestrictedBoolValueKey_ptr;
-                    v18 = v91;
-                    v15 = v95;
-                    v17 = v99;
+                    v15 = v87;
+                    v12 = v91;
+                    v14 = v95;
                   }
                 }
 
-                v19 = v19 + 1;
+                v16 = v16 + 1;
               }
 
-              while (v19 != v17);
-              v17 = [payloads countByEnumeratingWithState:&v129 objects:v144 count:16];
+              while (v16 != v14);
+              v14 = [payloads countByEnumeratingWithState:&v125 objects:v140 count:16];
             }
 
-            while (v17);
+            while (v14);
           }
 
-          if ([v15 count])
+          if ([v12 count])
           {
-            identifier = [v88 identifier];
-            [v83 setObject:v15 forKey:identifier];
+            identifier = [v84 identifier];
+            [v79 setObject:v12 forKey:identifier];
           }
 
-          v7 = v84;
-          v9 = &MCRestrictedBoolValueKey_ptr;
-          v13 = v88;
+          v7 = v80;
+          v11 = v84;
         }
 
         objc_autoreleasePoolPop(context);
-        v11 = v90 + 1;
+        v9 = v86 + 1;
       }
 
-      while ((v90 + 1) != v87);
-      v87 = [obj countByEnumeratingWithState:&v133 objects:v145 count:16];
+      while ((v86 + 1) != v83);
+      v83 = [obj countByEnumeratingWithState:&v129 objects:v141 count:16];
     }
 
-    while (v87);
+    while (v83);
   }
 
   +[MCRestrictionManagerWriter sharedManager];
-  v121 = 0u;
-  v122 = 0u;
-  v123 = 0u;
-  v104 = v124 = 0u;
-  memberQueueUserClientRestrictions = [v104 memberQueueUserClientRestrictions];
-  v100 = [memberQueueUserClientRestrictions countByEnumeratingWithState:&v121 objects:v142 count:16];
-  if (v100)
+  v117 = 0u;
+  v118 = 0u;
+  v119 = 0u;
+  v100 = v120 = 0u;
+  memberQueueUserClientRestrictions = [v100 memberQueueUserClientRestrictions];
+  v96 = [memberQueueUserClientRestrictions countByEnumeratingWithState:&v117 objects:v138 count:16];
+  if (v96)
   {
-    v96 = *v122;
-    v32 = kMCAppWhitelistIdentifierKey;
+    v92 = *v118;
+    v28 = kMCAppWhitelistIdentifierKey;
     do
     {
-      for (j = 0; j != v100; j = j + 1)
+      for (j = 0; j != v96; j = j + 1)
       {
-        if (*v122 != v96)
+        if (*v118 != v92)
         {
           objc_enumerationMutation(memberQueueUserClientRestrictions);
         }
 
-        v34 = [v104 memberQueueAppsAndOptionsForClientUUID:*(*(&v121 + 1) + 8 * j)];
-        v35 = v34;
-        if (v34)
+        v30 = [v100 memberQueueAppsAndOptionsForClientUUID:*(*(&v117 + 1) + 8 * j)];
+        v31 = v30;
+        if (v30)
         {
-          v119 = 0u;
-          v120 = 0u;
-          v117 = 0u;
-          v118 = 0u;
-          v36 = [v34 countByEnumeratingWithState:&v117 objects:v141 count:16];
-          if (v36)
+          v115 = 0u;
+          v116 = 0u;
+          v113 = 0u;
+          v114 = 0u;
+          v32 = [v30 countByEnumeratingWithState:&v113 objects:v137 count:16];
+          if (v32)
           {
-            v37 = v36;
-            v38 = *v118;
+            v33 = v32;
+            v34 = *v114;
             do
             {
-              for (k = 0; k != v37; k = k + 1)
+              for (k = 0; k != v33; k = k + 1)
               {
-                if (*v118 != v38)
+                if (*v114 != v34)
                 {
-                  objc_enumerationMutation(v35);
+                  objc_enumerationMutation(v31);
                 }
 
-                v40 = *(*(&v117 + 1) + 8 * k);
-                v41 = [v40 objectForKey:v32];
-                if (v41)
+                v36 = *(*(&v113 + 1) + 8 * k);
+                v37 = [v36 objectForKey:v28];
+                if (v37)
                 {
-                  v42 = [v6 objectForKeyedSubscript:v41];
+                  v38 = [v6 objectForKeyedSubscript:v37];
 
-                  if (!v42)
+                  if (!v38)
                   {
-                    [v6 setObject:v40 forKey:v41];
+                    [v6 setObject:v36 forKey:v37];
                   }
                 }
               }
 
-              v37 = [v35 countByEnumeratingWithState:&v117 objects:v141 count:16];
+              v33 = [v31 countByEnumeratingWithState:&v113 objects:v137 count:16];
             }
 
-            while (v37);
+            while (v33);
           }
         }
       }
 
-      v100 = [memberQueueUserClientRestrictions countByEnumeratingWithState:&v121 objects:v142 count:16];
+      v96 = [memberQueueUserClientRestrictions countByEnumeratingWithState:&v117 objects:v138 count:16];
     }
 
-    while (v100);
+    while (v96);
   }
 
-  v115 = 0u;
-  v116 = 0u;
-  v113 = 0u;
-  v114 = 0u;
-  memberQueueSystemClientRestrictions = [v104 memberQueueSystemClientRestrictions];
-  v101 = [memberQueueSystemClientRestrictions countByEnumeratingWithState:&v113 objects:v140 count:16];
-  if (v101)
+  v111 = 0u;
+  v112 = 0u;
+  v109 = 0u;
+  v110 = 0u;
+  memberQueueSystemClientRestrictions = [v100 memberQueueSystemClientRestrictions];
+  v97 = [memberQueueSystemClientRestrictions countByEnumeratingWithState:&v109 objects:v136 count:16];
+  if (v97)
   {
-    v97 = *v114;
-    v43 = kMCAppWhitelistIdentifierKey;
+    v93 = *v110;
+    v39 = kMCAppWhitelistIdentifierKey;
     do
     {
-      for (m = 0; m != v101; m = m + 1)
+      for (m = 0; m != v97; m = m + 1)
       {
-        if (*v114 != v97)
+        if (*v110 != v93)
         {
           objc_enumerationMutation(memberQueueSystemClientRestrictions);
         }
 
-        v45 = [v104 memberQueueAppsAndOptionsForClientUUID:*(*(&v113 + 1) + 8 * m)];
-        v46 = v45;
-        if (v45)
+        v41 = [v100 memberQueueAppsAndOptionsForClientUUID:*(*(&v109 + 1) + 8 * m)];
+        v42 = v41;
+        if (v41)
         {
-          v111 = 0u;
-          v112 = 0u;
-          v109 = 0u;
-          v110 = 0u;
-          v47 = [v45 countByEnumeratingWithState:&v109 objects:v139 count:16];
-          if (v47)
+          v107 = 0u;
+          v108 = 0u;
+          v105 = 0u;
+          v106 = 0u;
+          v43 = [v41 countByEnumeratingWithState:&v105 objects:v135 count:16];
+          if (v43)
           {
-            v48 = v47;
-            v49 = *v110;
+            v44 = v43;
+            v45 = *v106;
             do
             {
-              for (n = 0; n != v48; n = n + 1)
+              for (n = 0; n != v44; n = n + 1)
               {
-                if (*v110 != v49)
+                if (*v106 != v45)
                 {
-                  objc_enumerationMutation(v46);
+                  objc_enumerationMutation(v42);
                 }
 
-                v51 = *(*(&v109 + 1) + 8 * n);
-                v52 = [v51 objectForKey:v43];
-                if (v52)
+                v47 = *(*(&v105 + 1) + 8 * n);
+                v48 = [v47 objectForKey:v39];
+                if (v48)
                 {
-                  v53 = [v6 objectForKeyedSubscript:v52];
+                  v49 = [v6 objectForKeyedSubscript:v48];
 
-                  if (!v53)
+                  if (!v49)
                   {
-                    [v6 setObject:v51 forKey:v52];
+                    [v6 setObject:v47 forKey:v48];
                   }
                 }
               }
 
-              v48 = [v46 countByEnumeratingWithState:&v109 objects:v139 count:16];
+              v44 = [v42 countByEnumeratingWithState:&v105 objects:v135 count:16];
             }
 
-            while (v48);
+            while (v44);
           }
         }
       }
 
-      v101 = [memberQueueSystemClientRestrictions countByEnumeratingWithState:&v113 objects:v140 count:16];
+      v97 = [memberQueueSystemClientRestrictions countByEnumeratingWithState:&v109 objects:v136 count:16];
     }
 
-    while (v101);
+    while (v97);
   }
 
-  v54 = +[NSFileManager defaultManager];
-  v55 = [v6 count];
-  v56 = MCSystemAppOptionsByBundleIDFilePath();
-  v57 = v83;
-  if (v55)
+  v50 = +[NSFileManager defaultManager];
+  v51 = [v6 count];
+  v52 = MCSystemAppOptionsByBundleIDFilePath();
+  v53 = v79;
+  if (v51)
   {
-    [v6 writeToFile:v56 atomically:1];
-  }
-
-  else
-  {
-    [v54 removeItemAtPath:v56 error:0];
-  }
-
-  v58 = [v83 count];
-  v59 = MCSystemAppWhitelistByProfileFilePath();
-  if (v58)
-  {
-    [v83 writeToFile:v59 atomically:1];
+    [v6 writeToFile:v52 atomically:1];
   }
 
   else
   {
-    [v54 removeItemAtPath:v59 error:0];
-
-    v59 = MCSystemEffectiveAppWhitelistFilePath();
-    [v54 removeItemAtPath:v59 error:0];
+    [v50 removeItemAtPath:v52 error:0];
   }
 
-  v60 = MCSystemEffectiveAppWhitelistFilePath();
-  v61 = [NSData dataWithContentsOfFile:v60];
-
-  if (v61)
+  v54 = [v79 count];
+  v55 = MCSystemAppWhitelistByProfileFilePath();
+  if (v54)
   {
-    v62 = [NSPropertyListSerialization MCSafePropertyListWithData:v61 options:0 format:0 error:0];
+    [v79 writeToFile:v55 atomically:1];
   }
 
   else
   {
-    v62 = 0;
+    [v50 removeItemAtPath:v55 error:0];
+
+    v55 = MCSystemEffectiveAppWhitelistFilePath();
+    [v50 removeItemAtPath:v55 error:0];
+  }
+
+  v56 = MCSystemEffectiveAppWhitelistFilePath();
+  v57 = [NSData dataWithContentsOfFile:v56];
+
+  if (v57)
+  {
+    v58 = [NSPropertyListSerialization MCSafePropertyListWithData:v57 options:0 format:0 error:0];
+  }
+
+  else
+  {
+    v58 = 0;
   }
 
   if ([v6 count])
   {
-    v63 = [MCRestrictionManager intersectedValuesSettingForFeature:MCFeatureAppLockBundleIDs withUserSettingDectionary:settingsCopy];
-    if ([v63 count])
+    v59 = [MCRestrictionManager intersectedValuesSettingForFeature:MCFeatureAppLockBundleIDs withUserSettingDectionary:settingsCopy];
+    if ([v59 count])
     {
-      v94 = v62;
-      v98 = v61;
-      v102 = v54;
-      v64 = [NSSet setWithArray:v63];
-      v65 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [v63 count]);
-      v105 = 0u;
-      v106 = 0u;
-      v107 = 0u;
-      v108 = 0u;
-      v66 = v6;
-      v67 = [v66 countByEnumeratingWithState:&v105 objects:v138 count:16];
-      if (v67)
+      v90 = v58;
+      v94 = v57;
+      v98 = v50;
+      v60 = [NSSet setWithArray:v59];
+      v61 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [v59 count]);
+      v101 = 0u;
+      v102 = 0u;
+      v103 = 0u;
+      v104 = 0u;
+      v62 = v6;
+      v63 = [v62 countByEnumeratingWithState:&v101 objects:v134 count:16];
+      if (v63)
       {
-        v68 = v67;
-        v69 = *v106;
+        v64 = v63;
+        v65 = *v102;
         do
         {
-          for (ii = 0; ii != v68; ii = ii + 1)
+          for (ii = 0; ii != v64; ii = ii + 1)
           {
-            if (*v106 != v69)
+            if (*v102 != v65)
             {
-              objc_enumerationMutation(v66);
+              objc_enumerationMutation(v62);
             }
 
-            v71 = *(*(&v105 + 1) + 8 * ii);
-            v72 = [v66 objectForKey:v71];
-            if ([v64 containsObject:v71])
+            v67 = *(*(&v101 + 1) + 8 * ii);
+            v68 = [v62 objectForKey:v67];
+            if ([v60 containsObject:v67])
             {
-              [v65 addObject:v72];
+              [v61 addObject:v68];
             }
           }
 
-          v68 = [v66 countByEnumeratingWithState:&v105 objects:v138 count:16];
+          v64 = [v62 countByEnumeratingWithState:&v101 objects:v134 count:16];
         }
 
-        while (v68);
+        while (v64);
       }
 
-      if ([v65 count])
+      if ([v61 count])
       {
-        v73 = MCSystemEffectiveAppWhitelistFilePath();
-        v74 = 1;
-        [v65 writeToFile:v73 atomically:1];
+        v69 = MCSystemEffectiveAppWhitelistFilePath();
+        v70 = 1;
+        [v61 writeToFile:v69 atomically:1];
 
-        v57 = v83;
-        v61 = v98;
-        v54 = v102;
-        v62 = v94;
+        v53 = v79;
+        v57 = v94;
+        v50 = v98;
+        v58 = v90;
         goto LABEL_97;
       }
 
-      v57 = v83;
-      v61 = v98;
-      v54 = v102;
-      v62 = v94;
+      v53 = v79;
+      v57 = v94;
+      v50 = v98;
+      v58 = v90;
     }
 
     else
     {
-      v65 = 0;
+      v61 = 0;
     }
   }
 
   else
   {
-    v65 = 0;
+    v61 = 0;
   }
 
-  v63 = MCSystemEffectiveAppWhitelistFilePath();
-  [v54 removeItemAtPath:v63 error:0];
-  v74 = 0;
+  v59 = MCSystemEffectiveAppWhitelistFilePath();
+  [v50 removeItemAtPath:v59 error:0];
+  v70 = 0;
 LABEL_97:
 
-  if (v81)
+  if (v77)
   {
-    v75 = v74 ^ 1;
-    if (!v62)
+    v71 = v70 ^ 1;
+    if (!v58)
     {
-      v75 = 0;
+      v71 = 0;
     }
 
-    if (v75)
+    if ((v71 & 1) != 0 || (v72 = v58, +[NSSet setWithArray:](NSSet, "setWithArray:", v58), v73 = objc_claimAutoreleasedReturnValue(), +[NSSet setWithArray:](NSSet, "setWithArray:", v61), v74 = objc_claimAutoreleasedReturnValue(), v75 = [v73 isEqualToSet:v74], v74, v58 = v72, v73, (v75 & 1) == 0))
     {
-      goto LABEL_102;
-    }
-
-    v76 = v62;
-    v77 = [NSSet setWithArray:v62];
-    v78 = [NSSet setWithArray:v65];
-    v79 = [v77 isEqualToSet:v78];
-
-    v62 = v76;
-    if ((v79 & 1) == 0)
-    {
-LABEL_102:
-      *v81 = 1;
+      *v77 = 1;
     }
   }
 }
@@ -1157,75 +1136,73 @@ LABEL_102:
 
 - (id)recomputeAccountVPNAssociations
 {
-  v45 = +[NSMutableDictionary dictionary];
+  v43 = +[NSMutableDictionary dictionary];
   v2 = +[MCManifest sharedManifest];
   [v2 allInstalledProfileIdentifiers];
+  v50 = 0u;
+  v51 = 0u;
   v52 = 0u;
-  v53 = 0u;
-  v54 = 0u;
-  obj = v55 = 0u;
-  v3 = [obj countByEnumeratingWithState:&v52 objects:v57 count:16];
+  obj = v53 = 0u;
+  v3 = [obj countByEnumeratingWithState:&v50 objects:v55 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = &MCRestrictedBoolValueKey_ptr;
-    v6 = *v53;
-    v7 = @"Credential";
-    v36 = *v53;
-    v37 = v2;
+    v5 = *v51;
+    v6 = @"Credential";
+    v34 = *v51;
+    v35 = v2;
     do
     {
-      v8 = 0;
-      v38 = v4;
+      v7 = 0;
+      v36 = v4;
       do
       {
-        if (*v53 != v6)
+        if (*v51 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v52 + 1) + 8 * v8);
-        v10 = objc_autoreleasePoolPush();
-        v11 = [v2 installedProfileWithIdentifier:v9];
-        v12 = v5[47];
+        v8 = *(*(&v50 + 1) + 8 * v7);
+        v9 = objc_autoreleasePoolPush();
+        v10 = [v2 installedProfileWithIdentifier:v8];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v41 = v10;
-          v42 = v8;
-          v50 = 0u;
-          v51 = 0u;
+          v39 = v9;
+          v40 = v7;
           v48 = 0u;
           v49 = 0u;
-          v40 = v11;
-          payloads = [v11 payloads];
-          v13 = [payloads countByEnumeratingWithState:&v48 objects:v56 count:16];
-          if (v13)
+          v46 = 0u;
+          v47 = 0u;
+          v38 = v10;
+          payloads = [v10 payloads];
+          v11 = [payloads countByEnumeratingWithState:&v46 objects:v54 count:16];
+          if (v11)
           {
-            v14 = v13;
-            v15 = *v49;
-            v43 = *v49;
+            v12 = v11;
+            v13 = *v47;
+            v41 = *v47;
             do
             {
-              v16 = 0;
-              v44 = v14;
+              v14 = 0;
+              v42 = v12;
               do
               {
-                if (*v49 != v15)
+                if (*v47 != v13)
                 {
                   objc_enumerationMutation(payloads);
                 }
 
-                v17 = *(*(&v48 + 1) + 8 * v16);
-                if ([v17 conformsToProtocol:v7[124].data])
+                v15 = *(*(&v46 + 1) + 8 * v14);
+                if ([v15 conformsToProtocol:v6[124].data])
                 {
-                  v18 = v17;
-                  vPNUUID = [v18 VPNUUID];
+                  v16 = v15;
+                  vPNUUID = [v16 VPNUUID];
                   if (vPNUUID)
                   {
                     if (objc_opt_respondsToSelector())
                     {
-                      mailAccountIdentifiers = [v18 mailAccountIdentifiers];
+                      mailAccountIdentifiers = [v16 mailAccountIdentifiers];
                     }
 
                     else
@@ -1235,7 +1212,7 @@ LABEL_102:
 
                     if (objc_opt_respondsToSelector())
                     {
-                      contactsAccountIdentifiers = [v18 contactsAccountIdentifiers];
+                      contactsAccountIdentifiers = [v16 contactsAccountIdentifiers];
                     }
 
                     else
@@ -1245,7 +1222,7 @@ LABEL_102:
 
                     if (objc_opt_respondsToSelector())
                     {
-                      calendarAccountIdentifiers = [v18 calendarAccountIdentifiers];
+                      calendarAccountIdentifiers = [v16 calendarAccountIdentifiers];
                     }
 
                     else
@@ -1255,84 +1232,83 @@ LABEL_102:
 
                     if ([mailAccountIdentifiers count] || objc_msgSend(contactsAccountIdentifiers, "count") || objc_msgSend(calendarAccountIdentifiers, "count"))
                     {
-                      v23 = [v45 objectForKeyedSubscript:vPNUUID];
-                      if (!v23)
+                      v21 = [v43 objectForKeyedSubscript:vPNUUID];
+                      if (!v21)
                       {
-                        v23 = objc_opt_new();
-                        [v45 setObject:v23 forKeyedSubscript:vPNUUID];
+                        v21 = objc_opt_new();
+                        [v43 setObject:v21 forKeyedSubscript:vPNUUID];
                       }
 
-                      mailAccountIdentifiers2 = [v23 mailAccountIdentifiers];
-                      v25 = [MCServerSideHacks mergeArray:mailAccountIdentifiers2 withArray:mailAccountIdentifiers];
-                      [v23 setMailAccountIdentifiers:v25];
+                      mailAccountIdentifiers2 = [v21 mailAccountIdentifiers];
+                      v23 = [MCServerSideHacks mergeArray:mailAccountIdentifiers2 withArray:mailAccountIdentifiers];
+                      [v21 setMailAccountIdentifiers:v23];
 
-                      contactsAccountIdentifiers2 = [v23 contactsAccountIdentifiers];
-                      v27 = [MCServerSideHacks mergeArray:contactsAccountIdentifiers2 withArray:contactsAccountIdentifiers];
-                      [v23 setContactsAccountIdentifiers:v27];
+                      contactsAccountIdentifiers2 = [v21 contactsAccountIdentifiers];
+                      v25 = [MCServerSideHacks mergeArray:contactsAccountIdentifiers2 withArray:contactsAccountIdentifiers];
+                      [v21 setContactsAccountIdentifiers:v25];
 
-                      calendarAccountIdentifiers2 = [v23 calendarAccountIdentifiers];
-                      v29 = [MCServerSideHacks mergeArray:calendarAccountIdentifiers2 withArray:calendarAccountIdentifiers];
-                      [v23 setCalendarAccountIdentifiers:v29];
+                      calendarAccountIdentifiers2 = [v21 calendarAccountIdentifiers];
+                      v27 = [MCServerSideHacks mergeArray:calendarAccountIdentifiers2 withArray:calendarAccountIdentifiers];
+                      [v21 setCalendarAccountIdentifiers:v27];
 
-                      v7 = @"Credential";
-                      v15 = v43;
-                      v14 = v44;
+                      v6 = @"Credential";
+                      v13 = v41;
+                      v12 = v42;
                     }
                   }
                 }
 
-                v16 = v16 + 1;
+                v14 = v14 + 1;
               }
 
-              while (v14 != v16);
-              v14 = [payloads countByEnumeratingWithState:&v48 objects:v56 count:16];
+              while (v12 != v14);
+              v12 = [payloads countByEnumeratingWithState:&v46 objects:v54 count:16];
             }
 
-            while (v14);
+            while (v12);
           }
 
-          v2 = v37;
-          v4 = v38;
-          v5 = &MCRestrictedBoolValueKey_ptr;
-          v6 = v36;
-          v10 = v41;
-          v8 = v42;
-          v11 = v40;
+          v2 = v35;
+          v4 = v36;
+          v5 = v34;
+          v9 = v39;
+          v7 = v40;
+          v10 = v38;
         }
 
-        objc_autoreleasePoolPop(v10);
-        v8 = v8 + 1;
+        objc_autoreleasePoolPop(v9);
+        v7 = v7 + 1;
       }
 
-      while (v8 != v4);
-      v4 = [obj countByEnumeratingWithState:&v52 objects:v57 count:16];
+      while (v7 != v4);
+      v4 = [obj countByEnumeratingWithState:&v50 objects:v55 count:16];
     }
 
     while (v4);
   }
 
-  v30 = MCNEProfileIngestionHandlerClassForPayload();
-  [v30 loadConfigurationsForceReloadFromDisk];
-  if ([v30 updateAccountIdentifiers:v45])
+  v28 = MCNEProfileIngestionHandlerClassForPayload();
+  [v28 loadConfigurationsForceReloadFromDisk];
+  if ([v28 updateAccountIdentifiers:v43])
   {
-    v31 = 0;
+    v29 = 0;
   }
 
   else
   {
-    v32 = MCVPNErrorDomain;
-    v33 = MCErrorArray();
-    v31 = [NSError MCErrorWithDomain:v32 code:15004 descriptionArray:v33 errorType:MCErrorTypeFatal, 0];
+    v30 = MCVPNErrorDomain;
+    v31 = MCErrorArray();
+    v29 = [NSError MCErrorWithDomain:v30 code:15004 descriptionArray:v31 errorType:MCErrorTypeFatal, 0];
 
-    v34 = _MCLogObjects[0];
+    v32 = _MCLogObjects[0];
     if (os_log_type_enabled(_MCLogObjects[0], OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_ERROR, "recomputeAccountVPNAssociations failed to update associations.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_ERROR, "recomputeAccountVPNAssociations failed to update associations.", buf, 2u);
     }
   }
 
-  return v31;
+  return v29;
 }
 
 + (id)mergeArray:(id)array withArray:(id)withArray
@@ -1448,10 +1424,9 @@ LABEL_7:
   {
     v127 = *v155;
     v27 = kMCWCFAddressKey;
-    v28 = &MCRestrictedBoolValueKey_ptr;
     do
     {
-      v29 = 0;
+      v28 = 0;
       do
       {
         if (*v155 != v127)
@@ -1459,87 +1434,85 @@ LABEL_7:
           objc_enumerationMutation(obj);
         }
 
-        v133 = v29;
-        v30 = *(*(&v154 + 1) + 8 * v29);
-        v31 = +[MCManifest sharedManifest];
-        v32 = [v31 installedProfileWithIdentifier:v30];
+        v133 = v28;
+        v29 = *(*(&v154 + 1) + 8 * v28);
+        v30 = +[MCManifest sharedManifest];
+        v31 = [v30 installedProfileWithIdentifier:v29];
 
         v152 = 0u;
         v153 = 0u;
         v150 = 0u;
         v151 = 0u;
-        v131 = v32;
-        payloads = [v32 payloads];
-        v33 = [payloads countByEnumeratingWithState:&v150 objects:v167 count:16];
-        if (v33)
+        v131 = v31;
+        payloads = [v31 payloads];
+        v32 = [payloads countByEnumeratingWithState:&v150 objects:v167 count:16];
+        if (v32)
         {
-          v34 = v33;
-          v35 = *v151;
+          v33 = v32;
+          v34 = *v151;
           v135 = *v151;
           do
           {
-            v36 = 0;
-            v137 = v34;
+            v35 = 0;
+            v137 = v33;
             do
             {
-              if (*v151 != v35)
+              if (*v151 != v34)
               {
                 objc_enumerationMutation(payloads);
               }
 
-              v37 = *(*(&v150 + 1) + 8 * v36);
-              v38 = objc_autoreleasePoolPush();
-              v39 = v28[95];
+              v36 = *(*(&v150 + 1) + 8 * v35);
+              v37 = objc_autoreleasePoolPush();
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                allowListBookmarks = [v37 allowListBookmarks];
+                allowListBookmarks = [v36 allowListBookmarks];
                 v146 = 0u;
                 v147 = 0u;
                 v148 = 0u;
                 v149 = 0u;
-                v41 = [allowListBookmarks countByEnumeratingWithState:&v146 objects:v166 count:16];
-                if (v41)
+                v39 = [allowListBookmarks countByEnumeratingWithState:&v146 objects:v166 count:16];
+                if (v39)
                 {
-                  v42 = v41;
-                  v43 = *v147;
+                  v40 = v39;
+                  v41 = *v147;
                   do
                   {
-                    for (j = 0; j != v42; j = j + 1)
+                    for (j = 0; j != v40; j = j + 1)
                     {
-                      if (*v147 != v43)
+                      if (*v147 != v41)
                       {
                         objc_enumerationMutation(allowListBookmarks);
                       }
 
-                      v45 = *(*(&v146 + 1) + 8 * j);
-                      v46 = [v45 objectForKeyedSubscript:v27];
-                      [v14 setObject:v45 forKeyedSubscript:v46];
+                      v43 = *(*(&v146 + 1) + 8 * j);
+                      v44 = [v43 objectForKeyedSubscript:v27];
+                      [v14 setObject:v43 forKeyedSubscript:v44];
                     }
 
-                    v42 = [allowListBookmarks countByEnumeratingWithState:&v146 objects:v166 count:16];
+                    v40 = [allowListBookmarks countByEnumeratingWithState:&v146 objects:v166 count:16];
                   }
 
-                  while (v42);
+                  while (v40);
                 }
 
-                v28 = &MCRestrictedBoolValueKey_ptr;
-                v35 = v135;
-                v34 = v137;
+                v34 = v135;
+                v33 = v137;
               }
 
-              objc_autoreleasePoolPop(v38);
-              v36 = v36 + 1;
+              objc_autoreleasePoolPop(v37);
+              v35 = v35 + 1;
             }
 
-            while (v36 != v34);
-            v34 = [payloads countByEnumeratingWithState:&v150 objects:v167 count:16];
+            while (v35 != v33);
+            v33 = [payloads countByEnumeratingWithState:&v150 objects:v167 count:16];
           }
 
-          while (v34);
+          while (v33);
         }
 
-        v29 = v133 + 1;
+        v28 = v133 + 1;
       }
 
       while ((v133 + 1) != v129);
@@ -1549,40 +1522,40 @@ LABEL_7:
     while (v129);
   }
 
-  v47 = [MCRestrictionManager intersectedValuesSettingForFeature:MCFeatureWebContentFilterWhitelistedBookmarks withUserSettingDectionary:v125];
+  v45 = [MCRestrictionManager intersectedValuesSettingForFeature:MCFeatureWebContentFilterWhitelistedBookmarks withUserSettingDectionary:v125];
   v134 = MCFeatureWebContentFilterWhitelistedURLs;
-  v48 = [MCRestrictionManager intersectedValuesSettingForFeature:"intersectedValuesSettingForFeature:withUserSettingDectionary:" withUserSettingDectionary:?];
-  v49 = [v48 count];
-  if (v49 == [v47 count] && objc_msgSend(v48, "count"))
+  v46 = [MCRestrictionManager intersectedValuesSettingForFeature:"intersectedValuesSettingForFeature:withUserSettingDectionary:" withUserSettingDectionary:?];
+  v47 = [v46 count];
+  if (v47 == [v45 count] && objc_msgSend(v46, "count"))
   {
-    v50 = 0;
-    v51 = kMCWCFAddressKey;
-    v52 = kMCWCFPageTitleKey;
+    v48 = 0;
+    v49 = kMCWCFAddressKey;
+    v50 = kMCWCFPageTitleKey;
     do
     {
-      v53 = [v48 objectAtIndexedSubscript:v50];
-      v165[0] = v53;
-      v164[0] = v51;
-      v164[1] = v52;
-      v54 = [v47 objectAtIndexedSubscript:v50];
-      v165[1] = v54;
-      v55 = [NSDictionary dictionaryWithObjects:v165 forKeys:v164 count:2];
-      [v14 setObject:v55 forKeyedSubscript:v53];
+      v51 = [v46 objectAtIndexedSubscript:v48];
+      v165[0] = v51;
+      v164[0] = v49;
+      v164[1] = v50;
+      v52 = [v45 objectAtIndexedSubscript:v48];
+      v165[1] = v52;
+      v53 = [NSDictionary dictionaryWithObjects:v165 forKeys:v164 count:2];
+      [v14 setObject:v53 forKeyedSubscript:v51];
 
-      ++v50;
+      ++v48;
     }
 
-    while (v50 < [v48 count]);
+    while (v48 < [v46 count]);
   }
 
-  v132 = v47;
+  v132 = v45;
   v141 = +[NSMutableDictionary dictionary];
-  v57 = v124;
-  v56 = v125;
+  v55 = v124;
+  v54 = v125;
   if ((+[DMCMultiUserModeUtilities isSharediPad]& 1) == 0)
   {
-    v58 = +[MOWebContentSettingsGroup blockedByFilterMetadata];
-    responsibleClients = [v58 responsibleClients];
+    v56 = +[MOWebContentSettingsGroup blockedByFilterMetadata];
+    responsibleClients = [v56 responsibleClients];
 
     if ([responsibleClients count] != 1 || (objc_msgSend(responsibleClients, "containsObject:", @"com.apple.ScreenTime") & 1) == 0)
     {
@@ -1590,109 +1563,109 @@ LABEL_7:
     }
   }
 
-  v60 = [MCRestrictionManager BOOLSettingForFeature:MCFeatureWebContentFilterAutoForced withUserSettingDictionary:v125];
-  v61 = [NSNumber numberWithBool:v60 == 1];
-  [v141 setObject:v61 forKeyedSubscript:@"useContentFilter"];
+  v58 = [MCRestrictionManager BOOLSettingForFeature:MCFeatureWebContentFilterAutoForced withUserSettingDictionary:v125];
+  v59 = [NSNumber numberWithBool:v58 == 1];
+  [v141 setObject:v59 forKeyedSubscript:@"useContentFilter"];
 
-  v62 = [MCRestrictionManager intersectedValuesSettingForFeature:MCFeatureWebContentFilterAutoPermittedURLs withUserSettingDectionary:v125];
-  v136 = v62;
-  if (v62)
+  v60 = [MCRestrictionManager intersectedValuesSettingForFeature:MCFeatureWebContentFilterAutoPermittedURLs withUserSettingDectionary:v125];
+  v136 = v60;
+  if (v60)
   {
-    v63 = v62;
+    v61 = v60;
   }
 
   else
   {
-    v63 = &__NSArray0__struct;
+    v61 = &__NSArray0__struct;
   }
 
-  [v141 setObject:v63 forKeyedSubscript:@"filterWhitelist"];
-  v138 = v60;
-  if (v48)
+  [v141 setObject:v61 forKeyedSubscript:@"filterWhitelist"];
+  v138 = v58;
+  if (v46)
   {
-    v64 = [MCRestrictionManager intersectedValuesSettingForFeature:v134 withUserSettingDectionary:v125];
-    v65 = [NSSet setWithArray:v64];
+    v62 = [MCRestrictionManager intersectedValuesSettingForFeature:v134 withUserSettingDectionary:v125];
+    v63 = [NSSet setWithArray:v62];
 
     allKeys = [v14 allKeys];
-    v67 = [NSMutableSet setWithArray:allKeys];
+    v65 = [NSMutableSet setWithArray:allKeys];
 
-    [v67 intersectSet:v65];
-    v68 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [v67 count]);
+    [v65 intersectSet:v63];
+    v66 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [v65 count]);
     v142 = 0u;
     v143 = 0u;
     v144 = 0u;
     v145 = 0u;
-    v69 = v67;
-    v70 = [v69 countByEnumeratingWithState:&v142 objects:v163 count:16];
-    if (v70)
+    v67 = v65;
+    v68 = [v67 countByEnumeratingWithState:&v142 objects:v163 count:16];
+    if (v68)
     {
-      v71 = v70;
-      v72 = *v143;
+      v69 = v68;
+      v70 = *v143;
       do
       {
-        for (k = 0; k != v71; k = k + 1)
+        for (k = 0; k != v69; k = k + 1)
         {
-          if (*v143 != v72)
+          if (*v143 != v70)
           {
-            objc_enumerationMutation(v69);
+            objc_enumerationMutation(v67);
           }
 
-          v74 = [v14 objectForKeyedSubscript:*(*(&v142 + 1) + 8 * k)];
-          [v68 addObject:v74];
+          v72 = [v14 objectForKeyedSubscript:*(*(&v142 + 1) + 8 * k)];
+          [v66 addObject:v72];
         }
 
-        v71 = [v69 countByEnumeratingWithState:&v142 objects:v163 count:16];
+        v69 = [v67 countByEnumeratingWithState:&v142 objects:v163 count:16];
       }
 
-      while (v71);
+      while (v69);
     }
 
-    [v141 setObject:v68 forKeyedSubscript:@"siteWhitelist"];
-    v57 = v124;
-    v56 = v125;
-    v60 = v138;
+    [v141 setObject:v66 forKeyedSubscript:@"siteWhitelist"];
+    v55 = v124;
+    v54 = v125;
+    v58 = v138;
   }
 
-  v75 = [NSNumber numberWithBool:v48 != 0];
-  [v141 setObject:v75 forKeyedSubscript:@"whitelistEnabled"];
+  v73 = [NSNumber numberWithBool:v46 != 0];
+  [v141 setObject:v73 forKeyedSubscript:@"whitelistEnabled"];
 
-  v76 = [MCRestrictionManager unionValuesSettingForFeature:MCFeatureWebContentFilterBlacklistedURLs withUserSettingDictionary:v56];
-  v77 = v76;
-  v78 = &__NSArray0__struct;
-  if (v76)
+  v74 = [MCRestrictionManager unionValuesSettingForFeature:MCFeatureWebContentFilterBlacklistedURLs withUserSettingDictionary:v54];
+  v75 = v74;
+  v76 = &__NSArray0__struct;
+  if (v74)
   {
-    v78 = v76;
+    v76 = v74;
   }
 
-  v79 = v78;
+  v77 = v76;
 
-  v80 = [v79 count];
-  v81 = v48 | v80;
-  v82 = v136 | v80;
-  v130 = v79;
-  [v141 setObject:v79 forKeyedSubscript:@"filterBlacklist"];
-  v83 = [NSNumber numberWithBool:v82 != 0];
-  [v141 setObject:v83 forKeyedSubscript:@"useContentFilterOverrides"];
+  v78 = [v77 count];
+  v79 = v46 | v78;
+  v80 = v136 | v78;
+  v130 = v77;
+  [v141 setObject:v77 forKeyedSubscript:@"filterBlacklist"];
+  v81 = [NSNumber numberWithBool:v80 != 0];
+  [v141 setObject:v81 forKeyedSubscript:@"useContentFilterOverrides"];
 
-  v84 = v60 == 1;
-  v85 = v60 == 1;
-  v86 = v84 || v81 != 0;
-  v87 = [NSNumber numberWithBool:v86];
-  [v141 setObject:v87 forKeyedSubscript:@"restrictWeb"];
+  v82 = v58 == 1;
+  v83 = v58 == 1;
+  v84 = v82 || v79 != 0;
+  v85 = [NSNumber numberWithBool:v84];
+  [v141 setObject:v85 forKeyedSubscript:@"restrictWeb"];
 
-  v88 = [v57 objectForKeyedSubscript:@"whitelistEnabled"];
-  v89 = (v48 != 0) ^ [v88 BOOLValue];
+  v86 = [v55 objectForKeyedSubscript:@"whitelistEnabled"];
+  v87 = (v46 != 0) ^ [v86 BOOLValue];
 
-  v90 = [v57 objectForKeyedSubscript:@"useContentFilter"];
-  LODWORD(v88) = v85 ^ [v90 BOOLValue];
+  v88 = [v55 objectForKeyedSubscript:@"useContentFilter"];
+  v89 = v83 ^ [v88 BOOLValue];
 
-  v91 = [v57 objectForKeyedSubscript:@"restrictWeb"];
-  LODWORD(v90) = v86 ^ [v91 BOOLValue];
+  v90 = [v55 objectForKeyedSubscript:@"restrictWeb"];
+  v91 = v84 ^ [v90 BOOLValue];
 
-  v119 = v89 | v88 | v90;
+  v119 = v87 | v89 | v91;
   if (v119)
   {
-    sub_10009AAE4();
+    sub_10009AAE4(v89, v138 == 1, v91, v84, v87, v46 != 0);
   }
 
   v92 = [v141 objectForKeyedSubscript:@"filterWhitelist"];
@@ -1709,7 +1682,7 @@ LABEL_7:
 
   v139 = v94;
 
-  v95 = [v57 objectForKeyedSubscript:@"filterWhitelist"];
+  v95 = [v55 objectForKeyedSubscript:@"filterWhitelist"];
   v96 = v95;
   if (v95)
   {
@@ -1737,7 +1710,7 @@ LABEL_7:
 
   v102 = v101;
 
-  v103 = [v57 objectForKeyedSubscript:@"filterBlacklist"];
+  v103 = [v55 objectForKeyedSubscript:@"filterBlacklist"];
   v104 = v103;
   if (v103)
   {
@@ -1765,7 +1738,7 @@ LABEL_7:
 
   v110 = v109;
 
-  v111 = [v57 objectForKeyedSubscript:@"siteWhitelist"];
+  v111 = [v55 objectForKeyedSubscript:@"siteWhitelist"];
   v112 = v111;
   if (v111)
   {
@@ -1785,10 +1758,7 @@ LABEL_7:
   v117 = [v110 isEqualToArray:v114];
   if (!v115 || !v116 || (v117 & 1) == 0)
   {
-    [v139 count];
-    [v102 count];
-    [v110 count];
-    sub_10009A8CC();
+    sub_10009A8CC(v115 ^ 1, [v139 count], v116 ^ 1, objc_msgSend(v102, "count"), v117 ^ 1, objc_msgSend(v110, "count"));
   }
 
   if (changedDetectedCopy)

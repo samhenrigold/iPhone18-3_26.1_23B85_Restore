@@ -29,53 +29,53 @@
 - (_STPeerProviderContext)initWithConfiguration:(id)configuration
 {
   configurationCopy = configuration;
-  v10.receiver = self;
-  v10.super_class = _STPeerProviderContext;
-  v5 = [(_STPeerProviderContext *)&v10 init];
-  v6 = v5;
+  v11.receiver = self;
+  v11.super_class = _STPeerProviderContext;
+  v5 = [(_STPeerProviderContext *)&v11 init];
+  v7 = v5;
   if (v5)
   {
     [(_STPeerProviderContext *)v5 setType:1];
-    [(_STPeerProviderContext *)v6 setConfiguration:configurationCopy];
-    v7 = v6;
+    [(_STPeerProviderContext *)v7 setConfiguration:configurationCopy];
+    v8 = v7;
   }
 
   else
   {
-    v8 = _LTOSLogSTMultiprocess();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _LTOSLogSTMultiprocess(0, v6);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [(_STPeerProviderContext *)configurationCopy initWithConfiguration:v8];
+      [(_STPeerProviderContext *)configurationCopy initWithConfiguration:v9];
     }
   }
 
-  return v6;
+  return v7;
 }
 
 - (_STPeerProviderContext)initWithIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v10.receiver = self;
-  v10.super_class = _STPeerProviderContext;
-  v5 = [(_STPeerProviderContext *)&v10 init];
-  v6 = v5;
+  v11.receiver = self;
+  v11.super_class = _STPeerProviderContext;
+  v5 = [(_STPeerProviderContext *)&v11 init];
+  v7 = v5;
   if (v5)
   {
     [(_STPeerProviderContext *)v5 setType:2];
-    [(_STPeerProviderContext *)v6 setIdentifier:identifierCopy];
-    v7 = v6;
+    [(_STPeerProviderContext *)v7 setIdentifier:identifierCopy];
+    v8 = v7;
   }
 
   else
   {
-    v8 = _LTOSLogSTMultiprocess();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _LTOSLogSTMultiprocess(0, v6);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [(_STPeerProviderContext *)identifierCopy initWithIdentifier:v8];
+      [(_STPeerProviderContext *)identifierCopy initWithIdentifier:v9];
     }
   }
 
-  return v6;
+  return v7;
 }
 
 - (id)description
@@ -111,20 +111,18 @@ LABEL_7:
 
 - (void)initWithConfiguration:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_26B5BC000, a2, OS_LOG_TYPE_ERROR, "Failed to super init _STPeerProviderContext with configuration: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_26B5BC000, a2, OS_LOG_TYPE_ERROR, "Failed to super init _STPeerProviderContext with configuration: %{public}@", &v2, 0xCu);
 }
 
 - (void)initWithIdentifier:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_26B5BC000, a2, OS_LOG_TYPE_ERROR, "Failed to super init _STPeerProviderContext with identifier: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_26B5BC000, a2, OS_LOG_TYPE_ERROR, "Failed to super init _STPeerProviderContext with identifier: %{public}@", &v2, 0xCu);
 }
 
 @end

@@ -160,102 +160,104 @@
 {
   addressCopy = address;
   codeCopy = code;
-  if ([addressCopy destinationIdIsPhoneNumber])
+  destinationIdIsPhoneNumber = [addressCopy destinationIdIsPhoneNumber];
+  if (destinationIdIsPhoneNumber)
   {
-    v8 = sub_100004778();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_100004778(destinationIdIsPhoneNumber);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "sourceAddress is phone number, continuing", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "sourceAddress is phone number, continuing", buf, 2u);
     }
 
     contactStore = [(CSDIncomingCallFilter *)self contactStore];
-    v42 = CNContactPhoneNumbersKey;
-    v10 = [NSArray arrayWithObjects:&v42 count:1];
-    v11 = [contactStore contactForDestinationId:addressCopy keysToFetch:v10];
+    v47 = CNContactPhoneNumbersKey;
+    v11 = [NSArray arrayWithObjects:&v47 count:1];
+    v12 = [contactStore contactForDestinationId:addressCopy keysToFetch:v11];
 
-    v12 = sub_100004778();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = sub_100004778(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v41 = v11;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "contact=%@", buf, 0xCu);
+      v46 = v12;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "contact=%@", buf, 0xCu);
     }
 
-    if (v11)
+    if (v12)
     {
-      v13 = 1;
+      v15 = 1;
 LABEL_38:
 
       goto LABEL_39;
     }
 
-    v14 = [addressCopy copy];
+    v16 = [addressCopy copy];
     callDirectoryStore = [(CSDIncomingCallFilter *)self callDirectoryStore];
 
     if (callDirectoryStore)
     {
-      v16 = [(CSDIncomingCallFilter *)self _callDirectoryPhoneNumberVariantsForSourceAddress:addressCopy countryCode:codeCopy];
-      v17 = sub_100004778();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v18 = [(CSDIncomingCallFilter *)self _callDirectoryPhoneNumberVariantsForSourceAddress:addressCopy countryCode:codeCopy];
+      v19 = sub_100004778(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v41 = v16;
-        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "phoneNumberVariants: %@", buf, 0xCu);
+        v46 = v18;
+        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "phoneNumberVariants: %@", buf, 0xCu);
       }
 
-      if ([v16 count])
+      if ([v18 count])
       {
-        v38 = 0;
-        v33 = [(CSDIncomingCallFilter *)self callDirectoryExtensionsAllowCallFromPhoneNumbers:v16 error:&v38];
-        v18 = v38;
-        if (v18)
+        v43 = 0;
+        v38 = [(CSDIncomingCallFilter *)self callDirectoryExtensionsAllowCallFromPhoneNumbers:v18 error:&v43];
+        v20 = v43;
+        v21 = v20;
+        if (v20)
         {
-          v19 = sub_100004778();
-          if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+          v22 = sub_100004778(v20);
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
           {
             sub_1004790E0();
           }
         }
 
-        v32 = v18;
-        v36 = 0u;
-        v37 = 0u;
-        v34 = 0u;
-        v35 = 0u;
-        v20 = v16;
-        v21 = [v20 countByEnumeratingWithState:&v34 objects:v39 count:16];
-        if (v21)
+        v37 = v21;
+        v41 = 0u;
+        v42 = 0u;
+        v39 = 0u;
+        v40 = 0u;
+        v23 = v18;
+        v24 = [v23 countByEnumeratingWithState:&v39 objects:v44 count:16];
+        if (v24)
         {
-          v22 = v21;
-          v23 = *v35;
+          v25 = v24;
+          v26 = *v40;
           do
           {
-            for (i = 0; i != v22; i = i + 1)
+            for (i = 0; i != v25; i = i + 1)
             {
-              if (*v35 != v23)
+              if (*v40 != v26)
               {
-                objc_enumerationMutation(v20);
+                objc_enumerationMutation(v23);
               }
 
-              v25 = *(*(&v34 + 1) + 8 * i);
-              v26 = [v25 length];
-              if (v26 > [addressCopy length])
+              v28 = *(*(&v39 + 1) + 8 * i);
+              v29 = [v28 length];
+              if (v29 > [addressCopy length])
               {
-                v27 = [v25 copy];
+                v30 = [v28 copy];
 
-                v14 = v27;
+                v16 = v30;
               }
             }
 
-            v22 = [v20 countByEnumeratingWithState:&v34 objects:v39 count:16];
+            v25 = [v23 countByEnumeratingWithState:&v39 objects:v44 count:16];
           }
 
-          while (v22);
+          while (v25);
         }
 
-        v11 = 0;
-        if (!v33)
+        v12 = 0;
+        if (!v38)
         {
           goto LABEL_34;
         }
@@ -273,40 +275,41 @@ LABEL_38:
       goto LABEL_33;
     }
 
-    v29 = sub_100004778();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+    v34 = sub_100004778(v33);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v41 = v14;
-      _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "callDirectory allowed call, checking live blocking info using qualifiedNumber: %@", buf, 0xCu);
+      v46 = v16;
+      _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "callDirectory allowed call, checking live blocking info using qualifiedNumber: %@", buf, 0xCu);
     }
 
-    if ([(CSDIncomingCallFilter *)self liveLookupExtensionsAllowCallFromHandle:v14])
+    v31 = [(CSDIncomingCallFilter *)self liveLookupExtensionsAllowCallFromHandle:v16];
+    if (v31)
     {
 LABEL_33:
-      v13 = 1;
+      v15 = 1;
 LABEL_37:
 
       goto LABEL_38;
     }
 
 LABEL_34:
-    v30 = sub_100004778();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+    v35 = sub_100004778(v31);
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v41 = addressCopy;
-      _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "Disallowing call from source address %@ since blocked by call directory or live caller id lookup", buf, 0xCu);
+      v46 = addressCopy;
+      _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "Disallowing call from source address %@ since blocked by call directory or live caller id lookup", buf, 0xCu);
     }
 
-    v13 = 0;
+    v15 = 0;
     goto LABEL_37;
   }
 
-  v13 = 1;
+  v15 = 1;
 LABEL_39:
 
-  return v13;
+  return v15;
 }
 
 - (BOOL)callDirectoryExtensionsAllowCallFromPhoneNumbers:(id)numbers error:(id *)error
@@ -328,55 +331,56 @@ LABEL_39:
     goto LABEL_8;
   }
 
-  v6 = sub_100004778();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100004778(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138412290;
-    v13 = handleCopy;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Checking live blocking info using handle: %@", &v12, 0xCu);
+    v14 = 138412290;
+    v15 = handleCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Checking live blocking info using handle: %@", &v14, 0xCu);
   }
 
   callDirectoryManager2 = [(CSDIncomingCallFilter *)self callDirectoryManager];
-  v8 = [callDirectoryManager2 fetchLiveBlockingInfoForHandle:handleCopy];
+  v9 = [callDirectoryManager2 fetchLiveBlockingInfoForHandle:handleCopy];
 
-  if (v8)
+  if (v9)
   {
-    v9 = sub_100004778();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v11 = sub_100004778(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 138412290;
-      v13 = handleCopy;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Disallowing call from source address %@ since blocked by live caller id lookup", &v12, 0xCu);
+      v14 = 138412290;
+      v15 = handleCopy;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Disallowing call from source address %@ since blocked by live caller id lookup", &v14, 0xCu);
     }
 
-    v10 = 0;
+    v12 = 0;
   }
 
   else
   {
 LABEL_8:
-    v10 = 1;
+    v12 = 1;
   }
 
-  return v10;
+  return v12;
 }
 
 - (BOOL)systemAllowsCallsFromSourceAddress:(id)address providerIdentifier:(id)identifier
 {
   addressCopy = address;
   v7 = [(CSDIncomingCallFilter *)self _doNotDisturbAllowsCallFromSourceAddress:addressCopy providerIdentifier:identifier];
-  if (!v7)
+  v8 = v7;
+  if ((v7 & 1) == 0)
   {
-    v8 = sub_100004778();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_100004778(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412290;
-      v11 = addressCopy;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Disallowing call with sourceAddress %@ since _doNotDisturbAllowsCallFromSourceAddress returned NO", &v10, 0xCu);
+      v11 = 138412290;
+      v12 = addressCopy;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Disallowing call with sourceAddress %@ since _doNotDisturbAllowsCallFromSourceAddress returned NO", &v11, 0xCu);
     }
   }
 
-  return v7;
+  return v8;
 }
 
 - (id)blockedByExtension:(id)extension
@@ -387,22 +391,22 @@ LABEL_8:
   {
 LABEL_13:
     callDirectoryManager = [(CSDIncomingCallFilter *)self callDirectoryManager];
-    if (callDirectoryManager && (v18 = callDirectoryManager, v19 = [extensionCopy destinationIdIsPhoneNumber], v18, v19))
+    if (callDirectoryManager && (v20 = callDirectoryManager, v21 = [extensionCopy destinationIdIsPhoneNumber], v20, v21))
     {
-      v20 = sub_100004778();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      v23 = sub_100004778(v22);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "callDirectory allowed call, checking live blocking info", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "callDirectory allowed call, checking live blocking info", buf, 2u);
       }
 
       callDirectoryManager2 = [(CSDIncomingCallFilter *)self callDirectoryManager];
-      v14 = [callDirectoryManager2 firstEnabledLiveBlockingExtensionIdentifierForPhoneNumber:extensionCopy];
+      v15 = [callDirectoryManager2 firstEnabledLiveBlockingExtensionIdentifierForPhoneNumber:extensionCopy];
     }
 
     else
     {
-      v14 = 0;
+      v15 = 0;
     }
 
     goto LABEL_19;
@@ -412,12 +416,12 @@ LABEL_13:
   networkCountryCode = [dataSource networkCountryCode];
   v10 = [(CSDIncomingCallFilter *)self _callDirectoryPhoneNumberVariantsForSourceAddress:extensionCopy countryCode:networkCountryCode];
 
-  v11 = sub_100004778();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = sub_100004778(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v25 = v10;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "phoneNumberVariants: %@", buf, 0xCu);
+    v28 = v10;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "phoneNumberVariants: %@", buf, 0xCu);
   }
 
   if (![v10 count])
@@ -427,28 +431,28 @@ LABEL_13:
   }
 
   callDirectoryStore2 = [(CSDIncomingCallFilter *)self callDirectoryStore];
-  v13 = [v10 objectAtIndexedSubscript:0];
-  v23 = 0;
-  v14 = [callDirectoryStore2 firstEnabledBlockingExtensionIdentifierForPhoneNumber:v13 error:&v23];
-  v15 = v23;
+  v14 = [v10 objectAtIndexedSubscript:0];
+  v26 = 0;
+  v15 = [callDirectoryStore2 firstEnabledBlockingExtensionIdentifierForPhoneNumber:v14 error:&v26];
+  v16 = v26;
 
-  if (v15)
+  if (v16)
   {
-    v16 = sub_100004778();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v18 = sub_100004778(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       sub_1004790E0();
     }
   }
 
-  if (!v14)
+  if (!v15)
   {
     goto LABEL_13;
   }
 
 LABEL_19:
 
-  return v14;
+  return v15;
 }
 
 - (id)_callDirectoryPhoneNumberVariantsForSourceAddress:(id)address countryCode:(id)code

@@ -40,11 +40,11 @@
   }
 
   v7 = v6;
-  [(PXStoryAutoEditMomentRecipe *)self incomingTransition];
+  objc_msgSend_incomingTransition(self);
   v8 = PXStoryAutoEditClipTransitionInfoDescription(v13);
-  [(PXStoryAutoEditMomentRecipe *)self innerTransition];
+  objc_msgSend_innerTransition(self);
   v9 = PXStoryAutoEditClipTransitionInfoDescription(v13);
-  [(PXStoryAutoEditMomentRecipe *)self motion];
+  objc_msgSend_motion(self);
   v10 = PXStoryAutoEditClipMotionInfoDescription(v13);
   v11 = [v3 stringWithFormat:@"<%@: %p type:%@, incoming:%@, inner:%@, motion:%@", v4, self, v7, v8, v9, v10];;
 

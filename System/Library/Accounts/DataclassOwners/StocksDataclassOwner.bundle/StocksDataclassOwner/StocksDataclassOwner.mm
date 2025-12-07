@@ -1,13 +1,13 @@
-id sub_1348()
+id sub_1348(uint64_t a1, uint64_t a2)
 {
-  v2.receiver = v0;
-  v2.super_class = swift_getObjectType();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v4.receiver = v2;
+  v4.super_class = swift_getObjectType();
+  return objc_msgSendSuper2(&v4, "dealloc");
 }
 
-Class sub_1468(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void))
+Class sub_1468(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(uint64_t, uint64_t, uint64_t, uint64_t))
 {
-  if (a5())
+  if (a5(a1, a2, a3, a4))
   {
     v5.super.isa = sub_2300().super.isa;
   }
@@ -20,15 +20,15 @@ Class sub_1468(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5
   return v5.super.isa;
 }
 
-void sub_1574()
+void sub_1574(uint64_t a1)
 {
   if (!qword_8518)
   {
     type metadata accessor for Dataclass(255);
-    v0 = sub_2330();
-    if (!v1)
+    v1 = sub_2330();
+    if (!v2)
     {
-      atomic_store(v0, &qword_8518);
+      atomic_store(v1, &qword_8518);
     }
   }
 }
@@ -47,7 +47,7 @@ uint64_t sub_1674(uint64_t a1, id *a2)
   return v3 & 1;
 }
 
-uint64_t sub_16F4@<X0>(void *a1@<X8>)
+uint64_t sub_16F4@<X0>(uint64_t *a1@<X8>)
 {
   sub_22D0();
   v2 = sub_22A0();
@@ -56,77 +56,69 @@ uint64_t sub_16F4@<X0>(void *a1@<X8>)
   return result;
 }
 
-uint64_t sub_1738@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+uint64_t sub_1738@<X0>(uint64_t *a2@<X8>)
 {
-  v3 = *a1;
-  v4 = a1[1];
-  v5 = sub_22A0();
+  v3 = sub_22A0();
 
-  *a2 = v5;
+  *a2 = v3;
   return result;
 }
 
 uint64_t sub_1780@<X0>(uint64_t *a1@<X8>)
 {
-  v3 = *v1;
   result = sub_22D0();
   *a1 = result;
-  a1[1] = v5;
+  a1[1] = v3;
   return result;
 }
 
 uint64_t sub_17AC(uint64_t a1)
 {
-  v2 = sub_2220(&qword_8550);
-  v3 = sub_2220(&qword_8558);
+  v2 = sub_2220(&qword_8550, &unk_301C);
+  v3 = sub_2220(&qword_8558, &unk_2FC4);
 
   return _SwiftNewtypeWrapper<>._toCustomAnyHashable()(a1, v2, v3, &protocol witness table for String);
 }
 
 uint64_t sub_1844()
 {
-  v1 = *v0;
   sub_22D0();
-  v2 = sub_22F0();
+  v0 = sub_22F0();
 
-  return v2;
+  return v0;
 }
 
-uint64_t sub_1880()
+uint64_t sub_1880(uint64_t a1)
 {
-  v1 = *v0;
   sub_22D0();
   sub_22E0();
 }
 
-Swift::Int sub_18D4()
+Swift::Int sub_18D4(uint64_t a1)
 {
-  v1 = *v0;
   sub_22D0();
   sub_2350();
   sub_22E0();
-  v2 = sub_2360();
+  v1 = sub_2360();
 
-  return v2;
+  return v1;
 }
 
-uint64_t sub_1948(uint64_t *a1, uint64_t *a2)
+uint64_t sub_1948(void *a1, uint64_t *a2)
 {
-  v2 = *a1;
-  v3 = *a2;
-  v4 = sub_22D0();
-  v6 = v5;
-  if (v4 == sub_22D0() && v6 == v7)
+  v2 = sub_22D0();
+  v4 = v3;
+  if (v2 == sub_22D0() && v4 == v5)
   {
-    v9 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v9 = sub_2340();
+    v7 = sub_2340();
   }
 
-  return v9 & 1;
+  return v7 & 1;
 }
 
 void sub_19D0()
@@ -372,7 +364,7 @@ unint64_t sub_216C()
   return result;
 }
 
-uint64_t sub_2220(unint64_t *a1)
+uint64_t sub_2220(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)

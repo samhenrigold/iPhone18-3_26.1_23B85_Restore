@@ -8,12 +8,10 @@
 
 - (id)sampleTypes
 {
-  v6[1] = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
   headphoneAudioExposureEventType = [MEMORY[0x277CCD0C0] headphoneAudioExposureEventType];
-  v6[0] = headphoneAudioExposureEventType;
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v5[0] = headphoneAudioExposureEventType;
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
 
   return v3;
 }

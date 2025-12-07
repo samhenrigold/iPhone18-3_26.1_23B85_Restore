@@ -19,14 +19,12 @@
     v19 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
     {
-      v22 = objc_msgSend_identifier(v18, v20, v21);
+      v23 = objc_msgSend_identifier(v18, v20, v21, v22);
       v24 = 138412290;
-      v25 = v22;
+      v25 = v23;
       _os_log_impl(&dword_1B7AD5000, v19, OS_LOG_TYPE_INFO, "Message highlight indexer updating SearchableItem with identifier %@", &v24, 0xCu);
     }
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 @end

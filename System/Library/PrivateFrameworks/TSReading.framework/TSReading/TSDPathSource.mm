@@ -52,7 +52,7 @@
   bezierPathWithoutFlips = [(TSDPathSource *)self bezierPathWithoutFlips];
   if (self)
   {
-    [(TSDPathSource *)self pathFlipTransform];
+    objc_msgSend_pathFlipTransform(self);
   }
 
   else

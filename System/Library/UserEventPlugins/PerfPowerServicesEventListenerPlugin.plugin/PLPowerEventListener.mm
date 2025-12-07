@@ -7,6 +7,7 @@
 + (BOOL)supportsLPM;
 + (id)valueForMobileGestaltCapability:(id)capability;
 - (BOOL)registerForIOMFBNotifications;
+- (BOOL)registerForIOService:(unsigned int)service withCallback:(void *)callback;
 - (BOOL)setupBacklightService;
 - (PLPowerEventListener)initWithQueue:(id)queue;
 - (id)getCurrentSupplementalDataForInterface:(char *)interface;
@@ -14,6 +15,7 @@
 - (void)LPMStatusChanged:(id)changed;
 - (void)backlight:(id)backlight didCompleteUpdateToState:(int64_t)state forEvent:(id)event;
 - (void)batteryStatusChanged:(id)changed;
+- (void)bucketize:(unsigned int)bucketize;
 - (void)dealloc;
 - (void)logAggdNetstatsForInterface:(char *)interface WithCurrStats:(if_packet_stats *)stats WithPrevStats:(if_packet_stats *)prevStats;
 - (void)logBrightnessBuckets;
@@ -799,6 +801,43 @@ LABEL_16:
   [(NSNotificationCenter *)v5 postNotificationName:@"PLLPMStatusDidChangeNotification" object:self userInfo:v4];
 }
 
+- (void)bucketize:(unsigned int)bucketize
+{
+  if (minBright == -1 || maxBright == -1)
+  {
+    if ((byte_13C30 & 1) == 0)
+    {
+      NSLog(&cfstr_BucketizeError.isa, a2, *&bucketize, minBright, maxBright);
+      byte_13C30 = 1;
+    }
+  }
+
+  else if ((dword_13998 & bucketize) != 0xFFFFFFFF)
+  {
+    Bucket = makeBucket(bucketize, dword_13998);
+    v6 = Bucket;
+    v7 = dword_13998;
+    if (dword_13998 == -1)
+    {
+      dword_13998 = Bucket;
+      qword_13BD0[Bucket] = +[NSDate date];
+      v7 = dword_13998;
+    }
+
+    if (bucketize == -1 || v6 != v7)
+    {
+      [qword_13BD0[v7] timeIntervalSinceNow];
+      v9 = fabs(v8);
+      v10 = dword_13998;
+      bucketSeconds[dword_13998] = v9 + bucketSeconds[dword_13998];
+      *&qword_13CC0 = v9 + *&qword_13CC0;
+
+      qword_13BD0[v6] = +[NSDate date];
+      dword_13998 = v6;
+    }
+  }
+}
+
 - (void)logBrightnessBuckets
 {
   os_unfair_lock_lock(&self->_loggingLock);
@@ -822,10 +861,24 @@ LABEL_16:
   unk_13CB0 = 0u;
   xmmword_13C80 = 0u;
   unk_13C90 = 0u;
-  bucketSeconds = 0u;
+  *bucketSeconds = 0u;
   *algn_13C70 = 0u;
 
   os_unfair_lock_unlock(&self->_loggingLock);
+}
+
+- (BOOL)registerForIOService:(unsigned int)service withCallback:(void *)callback
+{
+  v4 = *&service;
+  self->notificationRef = 0;
+  v5 = IOServiceAddInterestNotification(self->ioNotifyPort, service, "IOGeneralInterest", callback, self, &self->notificationRef);
+  v6 = v5;
+  if (v5)
+  {
+    NSLog(&cfstr_ErrorCallingIo_1.isa, v4, v5);
+  }
+
+  return v6 == 0;
 }
 
 - (void)backlight:(id)backlight didCompleteUpdateToState:(int64_t)state forEvent:(id)event

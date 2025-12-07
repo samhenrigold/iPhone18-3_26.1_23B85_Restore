@@ -307,7 +307,7 @@ void __89__PKPaymentHeroImage_downloadImageForPreferredLanguages_scale_fileDownl
     v11 = [v6 SHA1Hash];
     v12 = [v11 hexEncoding];
 
-    if ([v12 isEqualToString:v8])
+    if (objc_msgSend_isEqualToString_(v12))
     {
       PKCacheFile(v6, v12);
       v13 = PKLogFacilityTypeGetObject(7uLL);

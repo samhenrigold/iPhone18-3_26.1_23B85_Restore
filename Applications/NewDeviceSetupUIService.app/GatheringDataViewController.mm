@@ -29,7 +29,7 @@
 
   selfCopy = self;
   sub_100005F20(animated, v6, v7);
-  sub_10000617C(v6);
+  sub_10000617C(v6, v7);
 }
 
 - (_TtC23NewDeviceSetupUIService27GatheringDataViewController)initWithContentView:(id)view

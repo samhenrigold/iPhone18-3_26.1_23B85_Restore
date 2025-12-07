@@ -78,17 +78,23 @@
 - (void)removeObserver:(id)observer
 {
   observerCopy = observer;
+  v5 = observerCopy;
   if (observerCopy)
   {
+    v7 = observerCopy;
     [(NSHashTable *)self->_observers removeObject:observerCopy];
-    if (![(NSHashTable *)self->_observers count])
+    observerCopy = [(NSHashTable *)self->_observers count];
+    v5 = v7;
+    if (!observerCopy)
     {
       observers = self->_observers;
       self->_observers = 0;
+
+      v5 = v7;
     }
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](observerCopy, v5);
 }
 
 - (id)createShieldUIViewController
@@ -117,13 +123,13 @@
 
 - (void)requestUnshielding
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v3 = LCSLogExtension();
+  v16 = *MEMORY[0x277D85DE8];
+  v3 = LCSLogExtension(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     succinctDescription = [(LCSExtensionAppProtectionAssistant *)self succinctDescription];
     *buf = 138543362;
-    v16 = succinctDescription;
+    v15 = succinctDescription;
     _os_log_impl(&dword_256175000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ will request unshielding", buf, 0xCu);
   }
 
@@ -137,78 +143,74 @@
   objc_initWeak(buf, self);
   mEMORY[0x277CEBE98] = [MEMORY[0x277CEBE98] sharedGuard];
   appProtectionExtension = self->_appProtectionExtension;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __56__LCSExtensionAppProtectionAssistant_requestUnshielding__block_invoke;
-  v13[3] = &unk_279824C70;
-  v13[4] = self;
-  objc_copyWeak(&v14, buf);
-  [mEMORY[0x277CEBE98] authenticateForExtension:appProtectionExtension reasonDescription:v9 completion:v13];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __56__LCSExtensionAppProtectionAssistant_requestUnshielding__block_invoke;
+  v12[3] = &unk_279824C70;
+  v12[4] = self;
+  objc_copyWeak(&v13, buf);
+  [mEMORY[0x277CEBE98] authenticateForExtension:appProtectionExtension reasonDescription:v9 completion:v12];
 
-  objc_destroyWeak(&v14);
+  objc_destroyWeak(&v13);
   objc_destroyWeak(buf);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __56__LCSExtensionAppProtectionAssistant_requestUnshielding__block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a3;
-  v6 = LCSLogExtension();
+  v6 = LCSLogExtension(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = [*(a1 + 32) succinctDescription];
     *buf = 138412802;
-    v13 = v7;
-    v14 = 1024;
-    v15 = a2;
-    v16 = 2114;
-    v17 = v5;
+    v12 = v7;
+    v13 = 1024;
+    v14 = a2;
+    v15 = 2114;
+    v16 = v5;
     _os_log_impl(&dword_256175000, v6, OS_LOG_TYPE_DEFAULT, "authenticateForSubject: %@ with success: %{BOOL}u error: %{public}@", buf, 0x1Cu);
   }
 
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __56__LCSExtensionAppProtectionAssistant_requestUnshielding__block_invoke_13;
-  v9[3] = &unk_279824C48;
-  objc_copyWeak(&v10, (a1 + 40));
-  v11 = a2;
-  dispatch_async(MEMORY[0x277D85CD0], v9);
-  objc_destroyWeak(&v10);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __56__LCSExtensionAppProtectionAssistant_requestUnshielding__block_invoke_13;
+  v8[3] = &unk_279824C48;
+  objc_copyWeak(&v9, (a1 + 40));
+  v10 = a2;
+  dispatch_async(MEMORY[0x277D85CD0], v8);
+  objc_destroyWeak(&v9);
 }
 
 void __56__LCSExtensionAppProtectionAssistant_requestUnshielding__block_invoke_13(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = WeakRetained;
   if (WeakRetained && *(a1 + 40) == 1)
   {
     *(WeakRetained + 8) = 0;
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
     v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
     v4 = [WeakRetained[4] allObjects];
-    v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v12;
+      v7 = *v11;
       do
       {
         v8 = 0;
         do
         {
-          if (*v12 != v7)
+          if (*v11 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = *(*(&v11 + 1) + 8 * v8);
+          v9 = *(*(&v10 + 1) + 8 * v8);
           if (objc_opt_respondsToSelector())
           {
             [v9 extensionAppProtectionAssistantShouldShieldDidChange:v3];
@@ -218,92 +220,88 @@ void __56__LCSExtensionAppProtectionAssistant_requestUnshielding__block_invoke_1
         }
 
         while (v6 != v8);
-        v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
       }
 
       while (v6);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)appProtectionSubjectsChanged:(id)changed forSubscription:(id)subscription
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
-  v6 = [changedCopy countByEnumeratingWithState:&v25 objects:v30 count:16];
+  v6 = [changedCopy countByEnumeratingWithState:&v24 objects:v29 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v26;
-    v19 = *v26;
-    v20 = changedCopy;
+    v8 = *v25;
+    v18 = *v25;
+    v19 = changedCopy;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v26 != v8)
+        if (*v25 != v8)
         {
           objc_enumerationMutation(changedCopy);
         }
 
-        v10 = *(*(&v25 + 1) + 8 * i);
-        if ([v10 isEqual:{self->_appProtectionExtension, v19, v20}])
+        v10 = *(*(&v24 + 1) + 8 * i);
+        if ([v10 isEqual:{self->_appProtectionExtension, v18, v19}])
         {
           isEffectivelyLocked = [v10 isEffectivelyLocked];
           if (self->_shouldShield != isEffectivelyLocked)
           {
             self->_shouldShield = isEffectivelyLocked;
+            v20 = 0u;
             v21 = 0u;
             v22 = 0u;
             v23 = 0u;
-            v24 = 0u;
             allObjects = [(NSHashTable *)self->_observers allObjects];
-            v13 = [allObjects countByEnumeratingWithState:&v21 objects:v29 count:16];
+            v13 = [allObjects countByEnumeratingWithState:&v20 objects:v28 count:16];
             if (v13)
             {
               v14 = v13;
-              v15 = *v22;
+              v15 = *v21;
               do
               {
                 for (j = 0; j != v14; ++j)
                 {
-                  if (*v22 != v15)
+                  if (*v21 != v15)
                   {
                     objc_enumerationMutation(allObjects);
                   }
 
-                  v17 = *(*(&v21 + 1) + 8 * j);
+                  v17 = *(*(&v20 + 1) + 8 * j);
                   if (objc_opt_respondsToSelector())
                   {
                     [v17 extensionAppProtectionAssistantShouldShieldDidChange:self];
                   }
                 }
 
-                v14 = [allObjects countByEnumeratingWithState:&v21 objects:v29 count:16];
+                v14 = [allObjects countByEnumeratingWithState:&v20 objects:v28 count:16];
               }
 
               while (v14);
             }
 
-            v8 = v19;
-            changedCopy = v20;
+            v8 = v18;
+            changedCopy = v19;
           }
         }
       }
 
-      v7 = [changedCopy countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v7 = [changedCopy countByEnumeratingWithState:&v24 objects:v29 count:16];
     }
 
     while (v7);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)succinctDescription

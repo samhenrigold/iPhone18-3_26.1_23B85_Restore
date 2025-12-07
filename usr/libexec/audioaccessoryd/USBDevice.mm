@@ -6,15 +6,11 @@
 
 - (id)description
 {
-  color = self->_color;
-  pairingMode = self->_pairingMode;
-  usbModel = self->_usbModel;
-  pid = self->_pid;
-  btAddress = self->_btAddress;
-  usbName = self->_usbName;
-  NSAppendPrintF();
+  v4 = 0;
+  NSAppendPrintF(&v4, "USBDevice btAddress %@ name %@ model %@ pid %@ color %@ pairingMode %@", self->_btAddress, self->_usbName, self->_usbModel, self->_pid, self->_color, self->_pairingMode);
+  v2 = v4;
 
-  return 0;
+  return v2;
 }
 
 @end

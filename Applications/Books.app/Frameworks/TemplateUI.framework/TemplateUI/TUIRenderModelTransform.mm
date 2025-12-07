@@ -455,10 +455,10 @@
       goto LABEL_23;
     }
 
-    [(TUIRenderModelTransform *)self transform];
+    objc_msgSend_transform(self);
     if (v10)
     {
-      [v10 transform];
+      objc_msgSend_transform(v10);
     }
 
     else
@@ -507,7 +507,7 @@
     {
       refId3 = [(TUIRenderModelTransform *)self refId];
       refId4 = [v10 refId];
-      if (![refId3 isEqualToString:refId4])
+      if (!objc_msgSend_isEqualToString_(refId3))
       {
 
         v9 = 0;
@@ -532,7 +532,7 @@
     {
       refInstance3 = [(TUIRenderModelTransform *)self refInstance];
       refInstance4 = [v10 refInstance];
-      v35 = [refInstance3 isEqualToString:refInstance4];
+      v35 = objc_msgSend_isEqualToString_(refInstance3);
 
       if (refId != refId2)
       {

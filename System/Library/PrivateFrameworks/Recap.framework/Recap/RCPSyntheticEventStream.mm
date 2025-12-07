@@ -262,103 +262,107 @@
 - (void)_finalizeHomeButtonEvents
 {
   selfCopy = self;
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __52__RCPSyntheticEventStream__finalizeHomeButtonEvents__block_invoke_2;
-  v29[3] = &unk_279AF1148;
-  v29[4] = self;
-  v3 = MEMORY[0x266715C00](v29, a2);
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = __52__RCPSyntheticEventStream__finalizeHomeButtonEvents__block_invoke_2;
+  v32[3] = &unk_279AF1148;
+  v32[4] = self;
+  v3 = MEMORY[0x266715C00](v32, a2);
   environment = [(RCPEventStream *)selfCopy environment];
-  v20 = [environment machAbsoluteTimeForTimeInterval:0.25];
+  v23 = [environment machAbsoluteTimeForTimeInterval:0.25];
 
   environment2 = [(RCPEventStream *)selfCopy environment];
-  v24 = [environment2 machAbsoluteTimeForTimeInterval:0.38];
+  v27 = [environment2 machAbsoluteTimeForTimeInterval:0.38];
 
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __52__RCPSyntheticEventStream__finalizeHomeButtonEvents__block_invoke_3;
-  v28[3] = &unk_279AF1148;
-  v28[4] = selfCopy;
-  v6 = MEMORY[0x266715C00](v28);
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __52__RCPSyntheticEventStream__finalizeHomeButtonEvents__block_invoke_3;
+  v31[3] = &unk_279AF1148;
+  v31[4] = selfCopy;
+  v6 = MEMORY[0x266715C00](v31);
+  v7 = 24;
   if (![(NSMutableArray *)selfCopy->_processingEventBuffer count])
   {
-    goto LABEL_39;
+    goto LABEL_40;
   }
 
-  v26 = 0;
-  v27 = 0;
-  v7 = 0;
-  v25 = 0;
+  v29 = 0;
+  v30 = 0;
   v8 = 0;
+  v28 = 0;
   v9 = 0;
-  v22 = v3;
-  v23 = v6;
-  v21 = selfCopy;
-  v10 = 1;
+  v10 = 0;
+  v25 = v3;
+  v26 = v6;
+  v24 = selfCopy;
+  v11 = 1;
   do
   {
-    v11 = [(NSMutableArray *)selfCopy->_processingEventBuffer objectAtIndexedSubscript:v9];
-    [v11 hidEvent];
+    v12 = v7;
+    v13 = [*(&selfCopy->super.super.isa + v7) objectAtIndexedSubscript:v10];
+    hidEvent = [v13 hidEvent];
     TimeStamp = IOHIDEventGetTimeStamp();
-    v13 = TimeStamp;
-    v14 = v27;
-    if (v27)
+    v16 = TimeStamp;
+    v17 = v30;
+    if (v30)
     {
-      if ((v10 & (v8 == 0)) != 0)
+      if ((v11 & (v9 == 0)) != 0)
       {
         goto LABEL_12;
       }
 
-      if (TimeStamp > v27)
+      if (TimeStamp > v30)
       {
         goto LABEL_10;
       }
     }
 
-    else if (!v8)
+    else if (!v9)
     {
       goto LABEL_12;
     }
 
-    if (v8 && TimeStamp > v8)
+    if (v9 && TimeStamp > v9)
     {
 LABEL_10:
-      if (v10)
+      if (v11)
       {
-        v15 = v26;
+        v18 = v29;
+        v7 = v12;
       }
 
       else
       {
-        if (v27 >= v8)
+        v7 = v12;
+        if (v30 >= v9)
         {
-          v16 = v8;
+          v19 = v9;
         }
 
         else
         {
-          v16 = v27;
+          v19 = v30;
         }
 
-        v9 = (v3)[2](v3, selfCopy->_processingEventBuffer, v9, v16, v7, v25 & 1);
-        v7 = 0;
-        v14 = 0;
-        v15 = v26;
-      }
-
-      v10 = 1;
-      v27 = v14;
-      if (v8 && v13 > v8)
-      {
-        v9 = v23[2](v23, selfCopy->_processingEventBuffer, v9, v8, v15, 1);
+        v10 = v3[2](v3, *(&selfCopy->super.super.isa + v12), v10, v19, v8, v28 & 1);
         v8 = 0;
+        v17 = 0;
+        v18 = v29;
       }
 
-      goto LABEL_34;
+      v11 = 1;
+      v30 = v17;
+      if (v9 && v16 > v9)
+      {
+        v10 = (*(v26 + 2))(v26, *(&selfCopy->super.super.isa + v7), v10, v9, v18, 1);
+        v9 = 0;
+      }
+
+      goto LABEL_35;
     }
 
 LABEL_12:
-    if (!__52__RCPSyntheticEventStream__finalizeHomeButtonEvents__block_invoke())
+    if (!__52__RCPSyntheticEventStream__finalizeHomeButtonEvents__block_invoke(TimeStamp, hidEvent))
     {
       goto LABEL_33;
     }
@@ -366,83 +370,86 @@ LABEL_12:
     if (!IOHIDEventGetIntegerValue())
     {
       IOHIDEventSetIntegerValue();
-      v8 = 0;
-      v25 = 0;
-      v17 = v7 <= 2;
-      if (v7 > 2)
+      v9 = 0;
+      v28 = 0;
+      v20 = v8 <= 2;
+      if (v8 > 2)
       {
-        v7 = 0;
+        v8 = 0;
       }
 
-      v18 = v27;
-      if (v17)
+      v21 = v30;
+      if (v20)
       {
-        v18 = v13 + v20;
+        v21 = v16 + v23;
       }
 
-      v27 = v18;
-      goto LABEL_33;
+      v30 = v21;
+LABEL_33:
+      v7 = v12;
+LABEL_34:
+      ++v10;
+      goto LABEL_35;
     }
 
-    if (!v7)
+    if (!v8)
     {
       IOHIDEventSetPhase();
-      v10 = 0;
+      v11 = 0;
     }
 
-    v8 = v13 + v24;
+    v9 = v16 + v27;
     IOHIDEventSetIntegerValue();
-    v26 = v7 + 1;
-    if (v7 < 2)
+    v29 = v8 + 1;
+    if (v8 < 2)
     {
-      v25 = 1;
-      ++v7;
-      selfCopy = v21;
-      v3 = v22;
+      v28 = 1;
+      ++v8;
+      selfCopy = v24;
+      v3 = v25;
       goto LABEL_33;
     }
 
-    if (v10)
+    v7 = v12;
+    if (v11)
     {
-      v25 = 1;
-      v10 = 1;
-      ++v7;
-      selfCopy = v21;
-      v3 = v22;
-LABEL_33:
-      ++v9;
+      v28 = 1;
+      v11 = 1;
+      ++v8;
+      selfCopy = v24;
+      v3 = v25;
       goto LABEL_34;
     }
 
-    selfCopy = v21;
-    v25 = 1;
-    v3 = v22;
-    v9 = (v22)[2](v22, v21->_processingEventBuffer, v9 + 1, v13, v7 + 1, 1);
-    v27 = 0;
-    v10 = 1;
-    ++v7;
-LABEL_34:
+    selfCopy = v24;
+    v28 = 1;
+    v3 = v25;
+    v10 = v25[2](v25, *(&v24->super.super.isa + v12), v10 + 1, v16, v8 + 1, 1);
+    v30 = 0;
+    v11 = 1;
+    ++v8;
+LABEL_35:
   }
 
-  while (v9 < [(NSMutableArray *)selfCopy->_processingEventBuffer count]);
-  v19 = (v27 == 0) | v10;
-  v6 = v23;
-  if ((v19 & 1) == 0)
+  while (v10 < [*(&selfCopy->super.super.isa + v7) count]);
+  v22 = (v30 == 0) | v11;
+  v6 = v26;
+  if ((v22 & 1) == 0)
   {
-    (v3[2])(v3, selfCopy->_processingEventBuffer, v9);
+    (v3[2])(v3, *(&selfCopy->super.super.isa + v7), v10);
   }
 
-LABEL_39:
+LABEL_40:
 }
 
-BOOL __52__RCPSyntheticEventStream__finalizeHomeButtonEvents__block_invoke()
+BOOL __52__RCPSyntheticEventStream__finalizeHomeButtonEvents__block_invoke(uint64_t a1, uint64_t a2)
 {
   result = 0;
   if (IOHIDEventGetType() == 3)
   {
     IntegerValue = IOHIDEventGetIntegerValue();
-    v1 = IOHIDEventGetIntegerValue();
-    if (IntegerValue == 12 && v1 == 64)
+    v3 = IOHIDEventGetIntegerValue();
+    if (IntegerValue == 12 && v3 == 64)
     {
       return 1;
     }
@@ -1218,7 +1225,7 @@ void __47__RCPSyntheticEventStream_setSenderProperties___block_invoke(uint64_t a
 - (void)touchDown:(CGPoint)down touchCount:(unint64_t)count pressure:(double)pressure radius:(double)radius
 {
   v15[1] = *MEMORY[0x277D85DE8];
-  v6 = MEMORY[0x28223BE20](self, a2, down, *&down.y, *&pressure, *&radius);
+  v8 = MEMORY[0x28223BE20](self, a2, down, *&down.y, *&pressure, *&radius);
   if (v12)
   {
     v13 = 0;
@@ -2021,11 +2028,11 @@ void __47__RCPSyntheticEventStream_setSenderProperties___block_invoke(uint64_t a
   return v8;
 }
 
-uint64_t __61__RCPSyntheticEventStream__splitStringIntoArrayOfCharacters___block_invoke(uint64_t result, uint64_t a2)
+id *__61__RCPSyntheticEventStream__splitStringIntoArrayOfCharacters___block_invoke(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) addObject:a2];
+    return [result[4] addObject:a2];
   }
 
   return result;
@@ -3293,7 +3300,7 @@ LABEL_17:
   __break(0);
 }
 
-- (uint64_t)pointerDiscreteScroll:(double)a3 duration:(double)a4 frequency:(double)a5 .cold.1(void *a1, uint64_t a2, double a3, double a4, double a5)
+- (void)pointerDiscreteScroll:(double)a3 duration:(double)a4 frequency:(double)a5 .cold.1(void *a1, uint64_t a2, double a3, double a4, double a5)
 {
   v10 = 0;
   v11 = *MEMORY[0x277CBF348];

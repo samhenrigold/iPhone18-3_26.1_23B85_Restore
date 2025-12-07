@@ -118,35 +118,33 @@
 
 + (void)mt_deleteDonationsForAlarm:()MTAlarmIntent completion:
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = a4;
   v7 = @"com.apple.mobiletimer";
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x2050000000;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x2050000000;
   v8 = getCSSearchableIndexClass_softClass;
-  v18 = getCSSearchableIndexClass_softClass;
+  v17 = getCSSearchableIndexClass_softClass;
   if (!getCSSearchableIndexClass_softClass)
   {
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __getCSSearchableIndexClass_block_invoke;
-    v14[3] = &unk_1E7B0C600;
-    v14[4] = &v15;
-    __getCSSearchableIndexClass_block_invoke(v14);
-    v8 = v16[3];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __getCSSearchableIndexClass_block_invoke;
+    v13[3] = &unk_1E7B0C600;
+    v13[4] = &v14;
+    __getCSSearchableIndexClass_block_invoke(v13);
+    v8 = v15[3];
   }
 
   v9 = v8;
-  _Block_object_dispose(&v15, 8);
+  _Block_object_dispose(&v14, 8);
   defaultSearchableIndex = [v8 defaultSearchableIndex];
   alarmIDString = [v5 alarmIDString];
-  v19[0] = alarmIDString;
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
+  v18[0] = alarmIDString;
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
   [defaultSearchableIndex deleteInteractionsWithGroupIdentifiers:v12 bundleID:v7 protectionClass:0 completionHandler:v6];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -44,7 +44,7 @@
 
 - (void)postLocalSecretChangeFollowUp
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   contextForOfflinePasscodeChange = [MEMORY[0x277CFD4D8] contextForOfflinePasscodeChange];
   [contextForOfflinePasscodeChange setAltDSID:self->_altDSID];
   [contextForOfflinePasscodeChange setTelemetryFlowID:self->telemetryFlowID];
@@ -52,22 +52,20 @@
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     altDSID = [contextForOfflinePasscodeChange altDSID];
-    v8 = 141558274;
-    v9 = 1752392040;
-    v10 = 2112;
-    v11 = altDSID;
-    _os_log_impl(&dword_24510B000, v4, OS_LOG_TYPE_DEFAULT, "postLocalSecretChangeFollowUp: altDSID:%{mask.hash}@", &v8, 0x16u);
+    v7 = 141558274;
+    v8 = 1752392040;
+    v9 = 2112;
+    v10 = altDSID;
+    _os_log_impl(&dword_24510B000, v4, OS_LOG_TYPE_DEFAULT, "postLocalSecretChangeFollowUp: altDSID:%{mask.hash}@", &v7, 0x16u);
   }
 
   v6 = +[CDPDFollowUpController sharedInstance];
   [v6 postFollowUpItemForContext:contextForOfflinePasscodeChange error:0];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteLocalSecretChangeFollowUp
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   contextForOfflinePasscodeChange = [MEMORY[0x277CFD4D8] contextForOfflinePasscodeChange];
   [contextForOfflinePasscodeChange setAltDSID:self->_altDSID];
   [contextForOfflinePasscodeChange setTelemetryFlowID:self->telemetryFlowID];
@@ -75,22 +73,20 @@
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     altDSID = [contextForOfflinePasscodeChange altDSID];
-    v8 = 141558274;
-    v9 = 1752392040;
-    v10 = 2112;
-    v11 = altDSID;
-    _os_log_impl(&dword_24510B000, v4, OS_LOG_TYPE_DEFAULT, "deleteLocalSecretChangeFollowUp: altDSID:%{mask.hash}@", &v8, 0x16u);
+    v7 = 141558274;
+    v8 = 1752392040;
+    v9 = 2112;
+    v10 = altDSID;
+    _os_log_impl(&dword_24510B000, v4, OS_LOG_TYPE_DEFAULT, "deleteLocalSecretChangeFollowUp: altDSID:%{mask.hash}@", &v7, 0x16u);
   }
 
   v6 = +[CDPDFollowUpController sharedInstance];
   [v6 clearFollowUpWithContext:contextForOfflinePasscodeChange error:0];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)postConfirmExistingSecretFollowUp
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   contextForConfirmExistingSecret = [MEMORY[0x277CFD4D8] contextForConfirmExistingSecret];
   [contextForConfirmExistingSecret setAltDSID:self->_altDSID];
   [contextForConfirmExistingSecret setTelemetryFlowID:self->telemetryFlowID];
@@ -98,22 +94,20 @@
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     altDSID = [contextForConfirmExistingSecret altDSID];
-    v8 = 141558274;
-    v9 = 1752392040;
-    v10 = 2112;
-    v11 = altDSID;
-    _os_log_impl(&dword_24510B000, v4, OS_LOG_TYPE_DEFAULT, "postConfirmExistingSecretFollowUp: altDSID:%{mask.hash}@", &v8, 0x16u);
+    v7 = 141558274;
+    v8 = 1752392040;
+    v9 = 2112;
+    v10 = altDSID;
+    _os_log_impl(&dword_24510B000, v4, OS_LOG_TYPE_DEFAULT, "postConfirmExistingSecretFollowUp: altDSID:%{mask.hash}@", &v7, 0x16u);
   }
 
   v6 = +[CDPDFollowUpController sharedInstance];
   [v6 postFollowUpItemForContext:contextForConfirmExistingSecret error:0];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteConfirmExistingSecretFollowUp
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   contextForConfirmExistingSecret = [MEMORY[0x277CFD4D8] contextForConfirmExistingSecret];
   [contextForConfirmExistingSecret setAltDSID:self->_altDSID];
   [contextForConfirmExistingSecret setTelemetryFlowID:self->telemetryFlowID];
@@ -121,17 +115,15 @@
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     altDSID = [contextForConfirmExistingSecret altDSID];
-    v8 = 141558274;
-    v9 = 1752392040;
-    v10 = 2112;
-    v11 = altDSID;
-    _os_log_impl(&dword_24510B000, v4, OS_LOG_TYPE_DEFAULT, "deleteConfirmExistingSecretFollowUp: altDSID:%{mask.hash}@", &v8, 0x16u);
+    v7 = 141558274;
+    v8 = 1752392040;
+    v9 = 2112;
+    v10 = altDSID;
+    _os_log_impl(&dword_24510B000, v4, OS_LOG_TYPE_DEFAULT, "deleteConfirmExistingSecretFollowUp: altDSID:%{mask.hash}@", &v7, 0x16u);
   }
 
   v6 = +[CDPDFollowUpController sharedInstance];
   [v6 clearFollowUpWithContext:contextForConfirmExistingSecret error:0];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteCreatePasscodeFollowUp

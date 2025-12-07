@@ -10,34 +10,34 @@
 
 - (id)_accessibilitySupplementaryFooterViews
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
   _axGetFooterSectionView = [(SearchUICombinedCardSectionsViewAccessibility *)self _axGetFooterSectionView];
   v4 = _axGetFooterSectionView;
   if (_axGetFooterSectionView)
   {
     _accessibilitySupplementaryFooterViews = [_axGetFooterSectionView _accessibilityFindSubviewDescendantsPassingTest:&__block_literal_global_8];
+    v11 = 0u;
     v12 = 0u;
     v13 = 0u;
     v14 = 0u;
-    v15 = 0u;
-    v6 = [_accessibilitySupplementaryFooterViews countByEnumeratingWithState:&v12 objects:v17 count:16];
+    v6 = [_accessibilitySupplementaryFooterViews countByEnumeratingWithState:&v11 objects:v16 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v13;
+      v8 = *v12;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v13 != v8)
+          if (*v12 != v8)
           {
             objc_enumerationMutation(_accessibilitySupplementaryFooterViews);
           }
 
-          [(SearchUICombinedCardSectionsViewAccessibility *)self _axSetInfoOnButton:*(*(&v12 + 1) + 8 * i)];
+          [(SearchUICombinedCardSectionsViewAccessibility *)self _axSetInfoOnButton:*(*(&v11 + 1) + 8 * i)];
         }
 
-        v7 = [_accessibilitySupplementaryFooterViews countByEnumeratingWithState:&v12 objects:v17 count:16];
+        v7 = [_accessibilitySupplementaryFooterViews countByEnumeratingWithState:&v11 objects:v16 count:16];
       }
 
       while (v7);
@@ -46,12 +46,10 @@
 
   else
   {
-    v16.receiver = self;
-    v16.super_class = SearchUICombinedCardSectionsViewAccessibility;
-    _accessibilitySupplementaryFooterViews = [(SearchUICombinedCardSectionsViewAccessibility *)&v16 _accessibilitySupplementaryFooterViews];
+    v15.receiver = self;
+    v15.super_class = SearchUICombinedCardSectionsViewAccessibility;
+    _accessibilitySupplementaryFooterViews = [(SearchUICombinedCardSectionsViewAccessibility *)&v15 _accessibilitySupplementaryFooterViews];
   }
-
-  v10 = *MEMORY[0x29EDCA608];
 
   return _accessibilitySupplementaryFooterViews;
 }
@@ -75,17 +73,17 @@ uint64_t __87__SearchUICombinedCardSectionsViewAccessibility__accessibilitySuppl
 
 - (id)accessibilityLabel
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
   v2 = [(SearchUICombinedCardSectionsViewAccessibility *)self safeArrayForKey:@"visibleArrangedSubviews"];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v14;
+    v5 = *v13;
     v6 = &stru_2A22CFF00;
     do
     {
@@ -93,13 +91,13 @@ uint64_t __87__SearchUICombinedCardSectionsViewAccessibility__accessibilitySuppl
       v8 = v6;
       do
       {
-        if (*v14 != v5)
+        if (*v13 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        accessibilityLabel = [*(*(&v13 + 1) + 8 * v7) accessibilityLabel];
-        v12 = @"__AXStringForVariablesSentinel";
+        accessibilityLabel = [*(*(&v12 + 1) + 8 * v7) accessibilityLabel];
+        v11 = @"__AXStringForVariablesSentinel";
         v6 = __AXStringForVariables();
 
         ++v7;
@@ -107,7 +105,7 @@ uint64_t __87__SearchUICombinedCardSectionsViewAccessibility__accessibilitySuppl
       }
 
       while (v4 != v7);
-      v4 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:{16, accessibilityLabel, @"__AXStringForVariablesSentinel"}];
+      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:{16, accessibilityLabel, @"__AXStringForVariablesSentinel"}];
     }
 
     while (v4);
@@ -117,25 +115,23 @@ uint64_t __87__SearchUICombinedCardSectionsViewAccessibility__accessibilitySuppl
   {
     v6 = &stru_2A22CFF00;
   }
-
-  v9 = *MEMORY[0x29EDCA608];
 
   return v6;
 }
 
 - (id)accessibilityValue
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
   v2 = [(SearchUICombinedCardSectionsViewAccessibility *)self safeArrayForKey:@"visibleArrangedSubviews"];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v14;
+    v5 = *v13;
     v6 = &stru_2A22CFF00;
     do
     {
@@ -143,13 +139,13 @@ uint64_t __87__SearchUICombinedCardSectionsViewAccessibility__accessibilitySuppl
       v8 = v6;
       do
       {
-        if (*v14 != v5)
+        if (*v13 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        accessibilityValue = [*(*(&v13 + 1) + 8 * v7) accessibilityValue];
-        v12 = @"__AXStringForVariablesSentinel";
+        accessibilityValue = [*(*(&v12 + 1) + 8 * v7) accessibilityValue];
+        v11 = @"__AXStringForVariablesSentinel";
         v6 = __AXStringForVariables();
 
         ++v7;
@@ -157,7 +153,7 @@ uint64_t __87__SearchUICombinedCardSectionsViewAccessibility__accessibilitySuppl
       }
 
       while (v4 != v7);
-      v4 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:{16, accessibilityValue, @"__AXStringForVariablesSentinel"}];
+      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:{16, accessibilityValue, @"__AXStringForVariablesSentinel"}];
     }
 
     while (v4);
@@ -168,34 +164,32 @@ uint64_t __87__SearchUICombinedCardSectionsViewAccessibility__accessibilitySuppl
     v6 = &stru_2A22CFF00;
   }
 
-  v9 = *MEMORY[0x29EDCA608];
-
   return v6;
 }
 
 - (id)_axGetFooterSectionView
 {
-  v16 = *MEMORY[0x29EDCA608];
+  v15 = *MEMORY[0x29EDCA608];
   [(SearchUICombinedCardSectionsViewAccessibility *)self safeArrayForKey:@"visibleArrangedSubviews"];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v2 = v14 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v2 = v13 = 0u;
+  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v11;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v11 + 1) + 8 * i);
+        v7 = *(*(&v10 + 1) + 8 * i);
         NSClassFromString(&cfstr_Searchuiattrib.isa);
         if (objc_opt_isKindOfClass())
         {
@@ -204,7 +198,7 @@ uint64_t __87__SearchUICombinedCardSectionsViewAccessibility__accessibilitySuppl
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v4)
       {
         continue;
@@ -216,8 +210,6 @@ uint64_t __87__SearchUICombinedCardSectionsViewAccessibility__accessibilitySuppl
 
   v8 = 0;
 LABEL_11:
-
-  v9 = *MEMORY[0x29EDCA608];
 
   return v8;
 }

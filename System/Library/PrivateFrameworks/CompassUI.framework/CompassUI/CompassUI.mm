@@ -35,11 +35,11 @@ void CGPointRoundToPixel()
   }
 }
 
-void sub_243D6BF14()
+void sub_243D6BF14(uint64_t a1, const char *a2, uint64_t a3)
 {
-  v1 = [MEMORY[0x277D759A0] mainScreen];
-  [v1 scale];
-  qword_27EDBA4A8 = v0;
+  v6 = objc_msgSend_mainScreen(MEMORY[0x277D759A0], a2, a3);
+  objc_msgSend_scale(v6, v3, v4);
+  qword_27EDBA4A8 = v5;
 }
 
 double ConvertDecimalDegreesToDMS(uint64_t *a1, void *a2, double *a3, double a4)
@@ -70,205 +70,216 @@ double ConvertDecimalDegreesToDMS(uint64_t *a1, void *a2, double *a3, double a4)
   return result;
 }
 
-void ConvertDegreeSignToString(void *a1, int a2, double a3)
+void ConvertDegreeSignToString(void *a1, const char *a2, double a3, uint64_t a4)
 {
   if (a1)
   {
-    v5 = (a3 * 3600.0);
-    v6 = [MEMORY[0x277CCA8D8] mainBundle];
-    v7 = v6;
-    if (a2)
+    v4 = a2;
+    v6 = (a3 * 3600.0);
+    v7 = objc_msgSend_mainBundle(MEMORY[0x277CCA8D8], a2, a4);
+    v9 = v7;
+    if (v4)
     {
-      if (v5 < 0)
+      if (v6 < 0)
       {
-        v8 = @"cW";
-        v9 = @"W";
+        objc_msgSend_localizedStringForKey_value_table_(v7, v8, @"cW", @"W", 0);
       }
 
       else
       {
-        v8 = @"cE";
-        v9 = @"E";
+        objc_msgSend_localizedStringForKey_value_table_(v7, v8, @"cE", @"E", 0);
       }
     }
 
-    else if (v5 < 0)
+    else if (v6 < 0)
     {
-      v8 = @"cS";
-      v9 = @"S";
+      objc_msgSend_localizedStringForKey_value_table_(v7, v8, @"cS", @"S", 0);
     }
 
     else
     {
-      v8 = @"cN";
-      v9 = @"N";
+      objc_msgSend_localizedStringForKey_value_table_(v7, v8, @"cN", @"N", 0);
     }
-
-    v11 = [v6 localizedStringForKey:v8 value:v9 table:0];
+    v11 = ;
 
     v10 = v11;
     *a1 = v10;
   }
 }
 
-id CreateCoordinateComponentString(int a1, double a2, double a3)
+id CreateCoordinateComponentString(const char *a1, double a2, double a3, uint64_t a4, uint64_t a5)
 {
   if (a1)
   {
     a2 = a3;
   }
 
-  v3 = fabs((a2 - a2) * 60.0);
-  v4 = v3;
-  v5 = (v3 - v3) * 60.0;
+  v5 = fabs((a2 - a2) * 60.0);
+  v6 = v5;
+  v7 = (v5 - v5) * 60.0;
   if (a2 >= 0)
   {
-    v6 = a2;
+    v8 = a2;
   }
 
   else
   {
-    v6 = -a2;
+    v8 = -a2;
   }
 
-  v21 = 0;
-  ConvertDegreeSignToString(&v21, a1, a2);
-  v7 = v21;
-  v8 = MEMORY[0x277CCABB8];
-  v9 = [MEMORY[0x277CCABB0] numberWithInteger:v6];
-  v10 = [v8 localizedStringFromNumber:v9 numberStyle:0];
+  v31 = 0;
+  ConvertDegreeSignToString(&v31, a1, a2, a5);
+  v9 = v31;
+  v10 = MEMORY[0x277CCABB8];
+  v12 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], v11, v8);
+  v14 = objc_msgSend_localizedStringFromNumber_numberStyle_(v10, v13, v12, 0);
 
-  v11 = MEMORY[0x277CCABB8];
-  v12 = [MEMORY[0x277CCABB0] numberWithInteger:v4];
-  v13 = [v11 localizedStringFromNumber:v12 numberStyle:0];
+  v15 = MEMORY[0x277CCABB8];
+  v17 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], v16, v6);
+  v19 = objc_msgSend_localizedStringFromNumber_numberStyle_(v15, v18, v17, 0);
 
-  v14 = MEMORY[0x277CCABB8];
-  v15 = [MEMORY[0x277CCABB0] numberWithDouble:v5];
-  v16 = [v14 localizedStringFromNumber:v15 numberStyle:0];
+  v20 = MEMORY[0x277CCABB8];
+  v23 = objc_msgSend_numberWithDouble_(MEMORY[0x277CCABB0], v21, v22, v7);
+  v25 = objc_msgSend_localizedStringFromNumber_numberStyle_(v20, v24, v23, 0);
 
-  v17 = objc_alloc(MEMORY[0x277CCACA8]);
-  v18 = WebLocalizedString();
-  v19 = [v17 initWithFormat:v18, v10, v13, v16, v7, 0];
+  v26 = objc_alloc(MEMORY[0x277CCACA8]);
+  v27 = WebLocalizedString(0, "%1$@°%2$@′%3$@″ %4$@");
+  v29 = objc_msgSend_initWithFormat_(v26, v28, v27, v14, v19, v25, v9, 0);
 
-  return v19;
+  return v29;
 }
 
-uint64_t StringWithLocationDirection()
+uint64_t StringWithLocationDirection(double a1, uint64_t a2, const char *a3, uint64_t a4)
 {
-  v0 = qword_27EDBA518;
+  v5 = qword_27EDBA518;
   if (!qword_27EDBA518)
   {
-    v1 = objc_alloc(MEMORY[0x277CBEA60]);
-    v2 = WebLocalizedString();
-    v3 = WebLocalizedString();
-    v4 = WebLocalizedString();
-    v5 = WebLocalizedString();
-    v6 = WebLocalizedString();
-    v7 = WebLocalizedString();
-    v8 = WebLocalizedString();
-    v9 = WebLocalizedString();
-    v10 = [v1 initWithObjects:{v2, v3, v4, v5, v6, v7, v8, v9, 0}];
-    v11 = qword_27EDBA518;
-    qword_27EDBA518 = v10;
+    v6 = objc_alloc(MEMORY[0x277CBEA60]);
+    v7 = WebLocalizedString(0, "N");
+    v8 = WebLocalizedString(0, "NE");
+    v9 = WebLocalizedString(0, "E");
+    v10 = WebLocalizedString(0, "SE");
+    v11 = WebLocalizedString(0, "S");
+    v12 = WebLocalizedString(0, "SW");
+    v13 = WebLocalizedString(0, "W");
+    v14 = WebLocalizedString(0, "NW");
+    v16 = objc_msgSend_initWithObjects_(v6, v15, v7, v8, v9, v10, v11, v12, v13, v14, 0);
+    v17 = qword_27EDBA518;
+    qword_27EDBA518 = v16;
 
-    v0 = qword_27EDBA518;
+    v5 = qword_27EDBA518;
   }
 
-  [v0 count];
-  v12 = qword_27EDBA518;
+  v18 = fmax(a1, 0.0);
+  if (v18 > 360.0)
+  {
+    v18 = 360.0;
+  }
 
-  return MEMORY[0x2821F9670](v12, sel_objectAtIndex_);
+  v19 = v18 / 360.0;
+  v20 = objc_msgSend_count(v5, a3, a4);
+  v21 = llround(v19 * v20) % v20;
+  if (((v20 | v21) & 0x8000000000000000) == 0)
+  {
+    v22 = v21;
+  }
+
+  else
+  {
+    v22 = 0;
+  }
+
+  v23 = qword_27EDBA518;
+
+  return MEMORY[0x2821F9670](v23, sel_objectAtIndex_, v22);
 }
 
-id sharedHeadingFormatter()
+id sharedHeadingFormatter(uint64_t a1, const char *a2, uint64_t a3)
 {
-  v0 = [MEMORY[0x277CCACC8] currentThread];
-  v1 = [v0 threadDictionary];
-  v2 = [v1 objectForKey:@"CompassHeadingFormatterKey"];
+  v3 = objc_msgSend_currentThread(MEMORY[0x277CCACC8], a2, a3);
+  v6 = objc_msgSend_threadDictionary(v3, v4, v5);
+  v8 = objc_msgSend_objectForKey_(v6, v7, @"CompassHeadingFormatterKey");
 
-  if (!v2)
+  if (!v8)
   {
-    v2 = objc_alloc_init(MEMORY[0x277CCABB8]);
-    [v2 setNumberStyle:0];
-    v3 = [MEMORY[0x277CBEAF8] autoupdatingCurrentLocale];
-    [v2 setLocale:v3];
+    v8 = objc_alloc_init(MEMORY[0x277CCABB8]);
+    objc_msgSend_setNumberStyle_(v8, v9, 0);
+    v12 = objc_msgSend_autoupdatingCurrentLocale(MEMORY[0x277CBEAF8], v10, v11);
+    objc_msgSend_setLocale_(v8, v13, v12);
 
-    [v2 setNegativePrefix:@"−"];
-    v4 = [MEMORY[0x277CCACC8] currentThread];
-    v5 = [v4 threadDictionary];
-    [v5 setObject:v2 forKey:@"CompassHeadingFormatterKey"];
+    objc_msgSend_setNegativePrefix_(v8, v14, @"−");
+    v17 = objc_msgSend_currentThread(MEMORY[0x277CCACC8], v15, v16);
+    v20 = objc_msgSend_threadDictionary(v17, v18, v19);
+    objc_msgSend_setObject_forKey_(v20, v21, v8, @"CompassHeadingFormatterKey");
   }
 
-  return v2;
+  return v8;
 }
 
 id compassThinFont70G2()
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v26[1] = *MEMORY[0x277D85DE8];
   UIFontForLanguage = CTFontCreateUIFontForLanguage(kCTFontMenuItemFontType|0x80, 70.0, 0);
   CopyOfSystemUIFontWithGrade = CTFontCreateCopyOfSystemUIFontWithGrade();
-  v2 = [CopyOfSystemUIFontWithGrade fontDescriptor];
+  v4 = objc_msgSend_fontDescriptor(CopyOfSystemUIFontWithGrade, v2, v3);
   CFRelease(UIFontForLanguage);
   CFRelease(CopyOfSystemUIFontWithGrade);
-  v18 = *MEMORY[0x277D74338];
-  v4 = *MEMORY[0x277D74388];
-  v15[0] = *MEMORY[0x277D74398];
-  v3 = v15[0];
-  v15[1] = v4;
-  v16[0] = &unk_2856FC218;
-  v16[1] = &unk_2856FC230;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
-  v17[0] = v5;
-  v13[0] = v3;
-  v13[1] = v4;
-  v14[0] = &unk_2856FC248;
-  v14[1] = &unk_2856FC230;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
-  v17[1] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
-  v19[0] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
-  v9 = [v2 fontDescriptorByAddingAttributes:v8];
+  v25 = *MEMORY[0x277D74338];
+  v6 = *MEMORY[0x277D74388];
+  v22[0] = *MEMORY[0x277D74398];
+  v5 = v22[0];
+  v22[1] = v6;
+  v23[0] = &unk_2856FC218;
+  v23[1] = &unk_2856FC230;
+  v8 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v7, v23, v22, 2);
+  v24[0] = v8;
+  v20[0] = v5;
+  v20[1] = v6;
+  v21[0] = &unk_2856FC248;
+  v21[1] = &unk_2856FC230;
+  v10 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v9, v21, v20, 2);
+  v24[1] = v10;
+  v12 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v11, v24, 2);
+  v26[0] = v12;
+  v14 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v13, v26, &v25, 1);
+  v16 = objc_msgSend_fontDescriptorByAddingAttributes_(v4, v15, v14);
 
-  v10 = [MEMORY[0x277D74300] fontWithDescriptor:v9 size:70.0];
+  v18 = objc_msgSend_fontWithDescriptor_size_(MEMORY[0x277D74300], v17, v16, 70.0);
 
-  v11 = *MEMORY[0x277D85DE8];
-
-  return v10;
+  return v18;
 }
 
-id compassMediumFont20()
+id compassMediumFont20(uint64_t a1, const char *a2)
 {
-  v0 = *MEMORY[0x277D76A28];
-  v1 = MEMORY[0x277D74300];
-  v2 = [MEMORY[0x277D74300] preferredFontForTextStyle:*MEMORY[0x277D76A28]];
-  [v2 pointSize];
-  v3 = *MEMORY[0x277D74410];
-  v4 = [v1 systemFontOfSize:? weight:?];
+  v2 = *MEMORY[0x277D76A28];
+  v3 = MEMORY[0x277D74300];
+  v4 = objc_msgSend_preferredFontForTextStyle_(MEMORY[0x277D74300], a2, *MEMORY[0x277D76A28]);
+  objc_msgSend_pointSize(v4, v5, v6);
+  v9 = objc_msgSend_systemFontOfSize_weight_(v3, v7, v8);
 
-  v5 = [v4 _fontScaledLikeTextStyle:v0 maximumPointSize:0 compatibleWithTraitCollection:0 forIB:26.0];
+  v11 = objc_msgSend__fontScaledLikeTextStyle_maximumPointSize_compatibleWithTraitCollection_forIB_(v9, v10, v2, 0, 0, 26.0);
 
-  return v5;
+  return v11;
 }
 
-id sub_243D6C7D8(void *a1)
+id sub_243D6C7D8(void *a1, const char *a2, uint64_t a3)
 {
-  v2 = [a1 layer];
-  v3 = [v2 presentationLayer];
+  v4 = objc_msgSend_layer(a1, a2, a3);
+  v7 = objc_msgSend_presentationLayer(v4, v5, v6);
 
-  if (v3)
+  if (v7)
   {
-    v4 = v3;
+    v10 = v7;
   }
 
   else
   {
-    v4 = [a1 layer];
+    v10 = objc_msgSend_layer(a1, v8, v9);
   }
 
-  v5 = v4;
+  v11 = v10;
 
-  return v5;
+  return v11;
 }
 
 double sub_243D6C858(double a1, uint64_t a2, uint64_t a3, uint64_t *a4, void *a5, double *a6)
@@ -299,24 +310,24 @@ double sub_243D6C858(double a1, uint64_t a2, uint64_t a3, uint64_t *a4, void *a5
   return result;
 }
 
-void sub_243D6DB38()
+void sub_243D6DB38(uint64_t a1, const char *a2, uint64_t a3)
 {
-  v0 = [MEMORY[0x277CBEBD0] standardUserDefaults];
-  v3 = [v0 objectForKey:@"CalibrationMultiplier"];
+  v3 = objc_msgSend_standardUserDefaults(MEMORY[0x277CBEBD0], a2, a3);
+  v9 = objc_msgSend_objectForKey_(v3, v4, @"CalibrationMultiplier");
 
-  v1 = v3;
-  if (v3)
+  v7 = v9;
+  if (v9)
   {
-    [v3 doubleValue];
-    v1 = v3;
+    objc_msgSend_doubleValue(v9, v5, v6);
+    v7 = v9;
   }
 
   else
   {
-    v2 = 0;
+    v8 = 0;
   }
 
-  qword_27EDBA520 = v2;
+  qword_27EDBA520 = v8;
 }
 
 void sub_243D6F3AC(uint64_t a1)
@@ -324,11 +335,11 @@ void sub_243D6F3AC(uint64_t a1)
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
-    v4 = WeakRetained;
+    v8 = WeakRetained;
     v3 = fmod(*(a1 + 40) + *(a1 + 48), 360.0);
-    [v4 showTicAtAngle:v3 withCredit:1.0];
-    [v4[130] setAngle:v3 * 3.14159265 / 180.0];
-    WeakRetained = v4;
+    objc_msgSend_showTicAtAngle_withCredit_(v8, v4, v5, v3, 1.0);
+    objc_msgSend_setAngle_(v8[130], v6, v7, v3 * 3.14159265 / 180.0);
+    WeakRetained = v8;
   }
 }
 

@@ -83,7 +83,7 @@
   v24 = 0u;
   if (caption)
   {
-    [(AVCaption *)caption timeRange];
+    objc_msgSend_timeRange(caption);
   }
 
   cf = 0;
@@ -98,7 +98,7 @@
   v10 = *(*(CMBaseObjectGetVTable() + 16) + 8);
   if (!v10)
   {
-    v11 = -12782;
+    v11 = 4294954514;
     if (outError)
     {
       goto LABEL_6;

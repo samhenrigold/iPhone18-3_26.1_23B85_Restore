@@ -78,36 +78,7 @@
 {
   metadataCopy = metadata;
   v5 = metadataCopy;
-  if (!metadataCopy)
-  {
-    goto LABEL_9;
-  }
-
-  v6 = self->_titlesAndParticipants == 0;
-  titlesAndParticipants = [metadataCopy titlesAndParticipants];
-  v8 = titlesAndParticipants != 0;
-
-  if (v6 == v8)
-  {
-    goto LABEL_9;
-  }
-
-  titlesAndParticipants = self->_titlesAndParticipants;
-  if (titlesAndParticipants)
-  {
-    titlesAndParticipants2 = [v5 titlesAndParticipants];
-    v11 = [(NSDictionary *)titlesAndParticipants isEqual:titlesAndParticipants2];
-
-    if (!v11)
-    {
-      goto LABEL_9;
-    }
-  }
-
-  [v5 earliestStartTime];
-  earliestStartTime = self->_earliestStartTime;
-  [v5 earliestStartTime];
-  if (earliestStartTime == v13 && (eventCount = self->_eventCount, eventCount == [v5 eventCount]))
+  if (metadataCopy && (v6 = self->_titlesAndParticipants == 0, [metadataCopy titlesAndParticipants], v7 = objc_claimAutoreleasedReturnValue(), v8 = v7 != 0, v7, v6 != v8) && ((titlesAndParticipants = self->_titlesAndParticipants) == 0 || (objc_msgSend(v5, "titlesAndParticipants"), v10 = objc_claimAutoreleasedReturnValue(), v11 = -[NSDictionary isEqual:](titlesAndParticipants, "isEqual:", v10), v10, v11)) && (objc_msgSend(v5, "earliestStartTime", self->_earliestStartTime), (earliestStartTime = self->_earliestStartTime, objc_msgSend(v5, "earliestStartTime"), earliestStartTime == v13) && (eventCount = self->_eventCount, eventCount == objc_msgSend(v5, "eventCount"))))
   {
     eventHasAlarmCount = self->_eventHasAlarmCount;
     v16 = eventHasAlarmCount == [v5 eventHasAlarmCount];
@@ -115,7 +86,6 @@
 
   else
   {
-LABEL_9:
     v16 = 0;
   }
 

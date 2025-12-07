@@ -82,15 +82,15 @@
 
 - (SKIAnnounceNotificationDirectInvocationPayload)initWithCoder:(id)coder
 {
-  v24[2] = *MEMORY[0x277D85DE8];
+  v23[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v4 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"notification"];
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"appBundleId"];
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"appBundleIdOfLastAnnouncement"];
   v7 = MEMORY[0x277CBEB98];
-  v24[0] = objc_opt_class();
-  v24[1] = objc_opt_class();
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
+  v23[0] = objc_opt_class();
+  v23[1] = objc_opt_class();
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
   v9 = [v7 setWithArray:v8];
   v10 = [coderCopy decodeObjectOfClasses:v9 forKey:@"summaries"];
 
@@ -106,11 +106,10 @@
   v17 = v16;
   v18 = [coderCopy decodeBoolForKey:@"isBobbleCapableAnnouncement"];
 
-  BYTE1(v22) = v18;
-  LOBYTE(v22) = v13;
-  v19 = [(SKIAnnounceNotificationDirectInvocationPayload *)self initWithNotification:v4 appBundleId:v5 appBundleIdOfLastAnnouncement:v6 synchronousBurstIndex:unsignedIntegerValue isSameTypeAsLastAnnouncement:v15 timeSinceLastAnnouncement:integerValue announcementPlatform:v17 isMediaPlaying:v22 isBobbleCapableAnnouncement:v10 summaries:?];
+  BYTE1(v21) = v18;
+  LOBYTE(v21) = v13;
+  v19 = [(SKIAnnounceNotificationDirectInvocationPayload *)self initWithNotification:v4 appBundleId:v5 appBundleIdOfLastAnnouncement:v6 synchronousBurstIndex:unsignedIntegerValue isSameTypeAsLastAnnouncement:v15 timeSinceLastAnnouncement:integerValue announcementPlatform:v17 isMediaPlaying:v21 isBobbleCapableAnnouncement:v10 summaries:?];
 
-  v20 = *MEMORY[0x277D85DE8];
   return v19;
 }
 

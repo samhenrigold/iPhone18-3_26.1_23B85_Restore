@@ -7,6 +7,7 @@
 - (id)getName;
 - (id)getSimpleName;
 - (int)getModifiers;
+- (void)collectMethods:(id)methods publicOnly:(BOOL)only;
 - (void)dealloc;
 @end
 
@@ -84,6 +85,44 @@
 
   modifiers = [getMetadata modifiers];
   return (JavaLangReflectModifier_interfaceModifiers() | 0x200) & modifiers;
+}
+
+- (void)collectMethods:(id)methods publicOnly:(BOOL)only
+{
+  v6 = [(IOSClass *)self getMetadata:methods];
+  outCount = 0;
+  v7 = protocol_copyMethodDescriptionList(self->protocol_, 1, 1, &outCount);
+  v8 = v7;
+  if (outCount)
+  {
+    v9 = 0;
+    p_name = &v7->name;
+    do
+    {
+      v11 = *p_name;
+      v12 = NSStringFromSelector(*p_name);
+      if (![methods objectForKey:v12])
+      {
+        v13 = [v6 findMethodMetadata:v12];
+        v14 = v13;
+        if (!v6 || v13)
+        {
+          v15 = JreSignatureOrNull(p_name);
+          if (v15)
+          {
+            [methods setObject:+[JavaLangReflectMethod methodWithMethodSignature:selector:class:isStatic:metadata:](JavaLangReflectMethod forKey:{"methodWithMethodSignature:selector:class:isStatic:metadata:", v15, v11, self, 0, v14), v12}];
+          }
+        }
+      }
+
+      ++v9;
+      p_name += 2;
+    }
+
+    while (v9 < outCount);
+  }
+
+  free(v8);
 }
 
 - (id)findMethodWithTranslatedName:(id)name checkSupertypes:(BOOL)supertypes
@@ -213,7 +252,7 @@ LABEL_9:
     {
       outCount = 0;
       v4 = protocol_copyProtocolList(self->protocol_, &outCount);
-      explicit = IOSClass_NewInterfacesFromProtocolList(v4);
+      explicit = IOSClass_NewInterfacesFromProtocolList(v4, outCount);
       atomic_store(explicit, &self->interfaces_);
       free(v4);
     }

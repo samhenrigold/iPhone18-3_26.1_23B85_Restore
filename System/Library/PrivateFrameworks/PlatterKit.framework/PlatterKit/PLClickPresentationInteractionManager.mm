@@ -41,7 +41,7 @@
   if (v3 == self)
   {
 
-    PLRegisterPlatterKitLogging();
+    PLRegisterPlatterKitLogging(v4, v5);
   }
 }
 
@@ -724,7 +724,7 @@ void __110__PLClickPresentationInteractionManager_clickPresentationInteraction_p
     _os_log_impl(&dword_21FDE2000, v7, OS_LOG_TYPE_DEFAULT, "Asked to dismiss presented content with trigger '%{public}@'", v11, 0xCu);
   }
 
-  v8 = [(PLClickPresentationInteractionManager *)self dismissIfPossible:0, *v11];
+  v8 = [(PLClickPresentationInteractionManager *)self dismissIfPossible:0, *v11, *&v11[8]];
   clickPresentationInteractionManagerDelegateFlags = self->_clickPresentationInteractionManagerDelegateFlags;
   if (v8)
   {

@@ -44,7 +44,7 @@
   v11 = v16;
   v12 = v17;
   *&v13.__r_.__value_.__l.__data_ = v18;
-  [(DEExecutor *)self getContext:&v11];
+  objc_msgSend_getContext_(self);
   if (v14)
   {
     siri::dialogengine::RequestInfo::RequestInfo(&v11, (v14 + 8));

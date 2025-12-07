@@ -1,6 +1,7 @@
 @interface ASDDSPStream
 - (ASDDSPGraph)hardwareDSP;
 - (ASDDSPStream)initWithDirection:(unsigned int)direction withPlugin:(id)plugin;
+- (ASDDSPStream)initWithOwningDevice:(id)device underlyingStreams:(id)streams direction:(unsigned int)direction plugin:(id)plugin;
 - (BOOL)_allocateStreamingResources;
 - (BOOL)addClientDSP:(id)p withKey:(unint64_t)key;
 - (BOOL)addHardwareDSP:(id)p;
@@ -12,6 +13,7 @@
 - (id).cxx_construct;
 - (id)_hardwareDSP;
 - (id)clientDSPForClient:(unsigned int)client;
+- (id)diagnosticDescriptionWithIndent:(id)indent walkTree:(BOOL)tree;
 - (id)processOutputBlock;
 - (id)readInputBlock;
 - (id)readIsolatedInputBlock;
@@ -35,6 +37,7 @@
 - (void)resumeProcessing;
 - (void)setBypassMode:(BOOL)mode;
 - (void)setGraphAudioValidationMode:(int64_t)mode;
+- (void)setIsActive:(BOOL)active;
 - (void)setUnderlyingStreams:(id)streams;
 - (void)sleepForNumberOfSamples:(unint64_t)samples;
 - (void)startStream;
@@ -265,31 +268,31 @@ LABEL_18:
 
 - (void)doSetUnderlyingStreams:(id)streams
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   streamsCopy = streams;
   objc_storeStrong(&self->_underlyingStreams, streams);
   self->_underlyingInputStreamCount = 0;
   self->_underlyingOutputStreamCount = 0;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v5 = self->_underlyingStreams;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
-    v7 = *v17;
+    v7 = *v16;
     do
     {
       v8 = 0;
       do
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        direction = [*(*(&v16 + 1) + 8 * v8) direction];
+        direction = [*(*(&v15 + 1) + 8 * v8) direction];
         p_underlyingInputStreamCount = &self->_underlyingInputStreamCount;
         if (direction == 1869968496)
         {
@@ -309,13 +312,58 @@ LABEL_18:
       }
 
       while (v6 != v8);
-      v6 = [(NSArray *)v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [(NSArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v6);
   }
+}
 
-  v13 = *MEMORY[0x277D85DE8];
+- (ASDDSPStream)initWithOwningDevice:(id)device underlyingStreams:(id)streams direction:(unsigned int)direction plugin:(id)plugin
+{
+  v7 = *&direction;
+  deviceCopy = device;
+  streamsCopy = streams;
+  pluginCopy = plugin;
+  if (DSPGraph::ABIVersion(pluginCopy) != 4)
+  {
+    currentHandler = [MEMORY[0x277CCA890] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"ASDDSPStream.mm" lineNumber:261 description:@"DSPGraph ABI runtime/compile-time mismatch"];
+  }
+
+  v30.receiver = self;
+  v30.super_class = ASDDSPStream;
+  v14 = [(ASDStream *)&v30 initWithDirection:v7 withPlugin:pluginCopy];
+  v15 = v14;
+  if (v14)
+  {
+    mHUPSource = v14->mHUPSource;
+    v14->mHUPSource = 0;
+
+    objc_storeWeak(&v15->_owningDevice, deviceCopy);
+    [(ASDDSPStream *)v15 doSetUnderlyingStreams:streamsCopy];
+    v15->_ioReferenceCount = 0;
+    [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    bundleIdentifier = [objc_claimAutoreleasedReturnValue() bundleIdentifier];
+    v18 = MEMORY[0x277CCACA8];
+    streamName = [(ASDStream *)v15 streamName];
+    v20 = [v18 stringWithFormat:@"%@.dspStream.%@.dspQueue", bundleIdentifier, streamName];
+    v21 = dispatch_queue_create([v20 UTF8String], 0);
+    dspQueue = v15->_dspQueue;
+    v15->_dspQueue = v21;
+
+    v23 = MEMORY[0x277CCACA8];
+    streamName2 = [(ASDStream *)v15 streamName];
+    v25 = [v23 stringWithFormat:@"%@.dspStream.%@.propertyQueue", bundleIdentifier, streamName2];
+    v26 = dispatch_queue_create([v25 UTF8String], 0);
+    propertyQueue = v15->_propertyQueue;
+    v15->_propertyQueue = v26;
+
+    [(ASDDSPStream *)v15 _updateMaximumFramesPerIOCycle];
+    operator new();
+  }
+
+  return 0;
 }
 
 void __72__ASDDSPStream_initWithOwningDevice_underlyingStreams_direction_plugin___block_invoke(uint64_t a1)
@@ -421,43 +469,43 @@ uint64_t __44__ASDDSPStream_setGraphAudioValidationMode___block_invoke(uint64_t 
 
 uint64_t __27__ASDDSPStream_startStream__block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _hardwareDSP];
 
   if (!v2)
   {
-    v9 = [MEMORY[0x277CCA890] currentHandler];
-    [v9 handleFailureInMethod:*(a1 + 40) object:*(a1 + 32) file:@"ASDDSPStream.mm" lineNumber:348 description:@"DSPStreams must have hardware DSP"];
+    v8 = [MEMORY[0x277CCA890] currentHandler];
+    [v8 handleFailureInMethod:*(a1 + 40) object:*(a1 + 32) file:@"ASDDSPStream.mm" lineNumber:348 description:@"DSPStreams must have hardware DSP"];
   }
 
   result = *(a1 + 32);
   if (!*(result + 392))
   {
     [result _updateMaximumFramesPerIOCycle];
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
     v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
     v4 = *(*(a1 + 32) + 376);
-    v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v5)
     {
-      v6 = *v12;
+      v6 = *v11;
       do
       {
         v7 = 0;
         do
         {
-          if (*v12 != v6)
+          if (*v11 != v6)
           {
             objc_enumerationMutation(v4);
           }
 
-          [*(*(&v11 + 1) + 8 * v7++) startStream];
+          [*(*(&v10 + 1) + 8 * v7++) startStream];
         }
 
         while (v5 != v7);
-        v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
       }
 
       while (v5);
@@ -465,8 +513,8 @@ uint64_t __27__ASDDSPStream_startStream__block_invoke(uint64_t a1)
 
     if (([*(a1 + 32) _allocateStreamingResources] & 1) == 0)
     {
-      v10 = [MEMORY[0x277CCA890] currentHandler];
-      [v10 handleFailureInMethod:*(a1 + 40) object:*(a1 + 32) file:@"ASDDSPStream.mm" lineNumber:360 description:@"Couldn't allocate streaming resources"];
+      v9 = [MEMORY[0x277CCA890] currentHandler];
+      [v9 handleFailureInMethod:*(a1 + 40) object:*(a1 + 32) file:@"ASDDSPStream.mm" lineNumber:360 description:@"Couldn't allocate streaming resources"];
     }
 
     ++*(*(a1 + 32) + 392);
@@ -474,7 +522,6 @@ uint64_t __27__ASDDSPStream_startStream__block_invoke(uint64_t a1)
   }
 
   *(result + 408) = 1;
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -501,11 +548,11 @@ uint64_t __27__ASDDSPStream_startStream__block_invoke(uint64_t a1)
   dispatch_sync(dspQueue, block);
 }
 
-uint64_t __26__ASDDSPStream_stopStream__block_invoke(uint64_t result)
+void *__26__ASDDSPStream_stopStream__block_invoke(void *result)
 {
-  v19 = *MEMORY[0x277D85DE8];
-  *(*(result + 32) + 408) = 0;
-  v1 = *(result + 32);
+  v18 = *MEMORY[0x277D85DE8];
+  *(result[4] + 408) = 0;
+  v1 = result[4];
   v2 = *(v1 + 392);
   v3 = v2 < 1;
   v4 = v2 - 1;
@@ -513,7 +560,7 @@ uint64_t __26__ASDDSPStream_stopStream__block_invoke(uint64_t result)
   {
     v5 = result;
     *(v1 + 392) = v4;
-    v6 = *(result + 32);
+    v6 = result[4];
     if (!*(v6 + 392))
     {
       v7 = v6 + 296;
@@ -527,158 +574,153 @@ uint64_t __26__ASDDSPStream_stopStream__block_invoke(uint64_t result)
         }
 
         while (v8 != v7);
-        v6 = *(v5 + 32);
+        v6 = v5[4];
       }
 
-      v16 = 0u;
-      v17 = 0u;
-      v14 = 0u;
       v15 = 0u;
+      v16 = 0u;
+      v13 = 0u;
+      v14 = 0u;
       v9 = *(v6 + 376);
-      v10 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v10)
       {
-        v11 = *v15;
+        v11 = *v14;
         do
         {
           v12 = 0;
           do
           {
-            if (*v15 != v11)
+            if (*v14 != v11)
             {
               objc_enumerationMutation(v9);
             }
 
-            [*(*(&v14 + 1) + 8 * v12++) stopStream];
+            [*(*(&v13 + 1) + 8 * v12++) stopStream];
           }
 
           while (v10 != v12);
-          v10 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
+          v10 = [v9 countByEnumeratingWithState:&v13 objects:v17 count:16];
         }
 
         while (v10);
       }
 
-      result = [*(v5 + 32) _deallocateStreamingResources];
+      return [v5[4] _deallocateStreamingResources];
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (BOOL)_allocateStreamingResources
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v5[0] = MEMORY[0x277D85DD0];
-  v5[1] = 3221225472;
-  v5[2] = __43__ASDDSPStream__allocateStreamingResources__block_invoke;
-  v5[3] = &unk_278CE3AD0;
-  v5[4] = self;
-  v6 = &unk_2853444C8;
-  v7 = 0;
-  v8 = &v6;
-  v2 = ASDDSP::exceptionBarrier<BOOL({block_pointer} {__strong})(void)>(v5);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](&v6);
-  v3 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
+  v4[0] = MEMORY[0x277D85DD0];
+  v4[1] = 3221225472;
+  v4[2] = __43__ASDDSPStream__allocateStreamingResources__block_invoke;
+  v4[3] = &unk_278CE3AD0;
+  v4[4] = self;
+  v5 = &unk_2853444C8;
+  v6 = 0;
+  v7 = &v5;
+  v2 = ASDDSP::exceptionBarrier<BOOL({block_pointer} {__strong})(void)>(v4);
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](&v5);
   return v2;
 }
 
 void __43__ASDDSPStream__allocateStreamingResources__block_invoke(uint64_t a1)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) physicalFormat];
   v3 = v2;
   if (v2)
   {
-    [v2 audioStreamBasicDescription];
+    objc_msgSend_audioStreamBasicDescription(v2);
   }
 
   else
   {
-    memset(&v26, 0, sizeof(v26));
+    memset(&v24, 0, sizeof(v24));
   }
 
-  CAStreamBasicDescription::CAStreamBasicDescription(v27, &v26);
+  CAStreamBasicDescription::CAStreamBasicDescription(v25, &v24);
 
+  v21 = 0;
+  v22 = 0;
   v23 = 0;
-  v24 = 0;
-  v25 = 0;
+  v17 = 0u;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v22 = 0u;
   v4 = *(*(a1 + 32) + 376);
-  v5 = [v4 countByEnumeratingWithState:&v19 objects:v28 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v17 objects:v26 count:16];
   if (v5)
   {
-    v6 = *v20;
+    v6 = *v18;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v20 != v6)
+        if (*v18 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = *(*(&v19 + 1) + 8 * i);
-        v18 = [v8 direction];
+        v8 = *(*(&v17 + 1) + 8 * i);
+        v16 = [v8 direction];
         v9 = [v8 physicalFormat];
         v10 = v9;
         if (v9)
         {
-          [v9 audioStreamBasicDescription];
+          objc_msgSend_audioStreamBasicDescription(v9);
         }
 
         else
         {
-          memset(&v26, 0, sizeof(v26));
+          memset(&v24, 0, sizeof(v24));
         }
 
-        v17 = [v8 readInputBlock];
-        v16 = [v8 writeMixBlock];
-        v15 = [v8 readIsolatedInputBlock];
-        v11 = v24;
-        if (v24 >= v25)
+        v15 = [v8 readInputBlock];
+        v14 = [v8 writeMixBlock];
+        v13 = [v8 readIsolatedInputBlock];
+        v11 = v22;
+        if (v22 >= v23)
         {
-          v12 = std::vector<ASDDSPStreamHelper::DSPStream>::__emplace_back_slow_path<ASDStreamDirection,AudioStreamBasicDescription,int({block_pointer} {__strong})(unsigned int,AudioServerPlugInIOCycleInfo const*,void *,void *,unsigned int),int({block_pointer} {__strong})(unsigned int,AudioServerPlugInIOCycleInfo const*,void *,void *,unsigned int),int({block_pointer} {__strong})(unsigned long long,unsigned int,AudioServerPlugInIOCycleInfo const*)>(&v23, &v18, &v26, &v17, &v16, &v15);
+          v12 = std::vector<ASDDSPStreamHelper::DSPStream>::__emplace_back_slow_path<ASDStreamDirection,AudioStreamBasicDescription,int({block_pointer} {__strong})(unsigned int,AudioServerPlugInIOCycleInfo const*,void *,void *,unsigned int),int({block_pointer} {__strong})(unsigned int,AudioServerPlugInIOCycleInfo const*,void *,void *,unsigned int),int({block_pointer} {__strong})(unsigned long long,unsigned int,AudioServerPlugInIOCycleInfo const*)>(&v21, &v16, &v24, &v15, &v14, &v13);
         }
 
         else
         {
-          std::vector<ASDDSPStreamHelper::DSPStream>::__construct_one_at_end[abi:ne200100]<ASDStreamDirection,AudioStreamBasicDescription,int({block_pointer} {__strong})(unsigned int,AudioServerPlugInIOCycleInfo const*,void *,void *,unsigned int),int({block_pointer} {__strong})(unsigned int,AudioServerPlugInIOCycleInfo const*,void *,void *,unsigned int),int({block_pointer} {__strong})(unsigned long long,unsigned int,AudioServerPlugInIOCycleInfo const*)>(&v23, &v18, &v26, &v17, &v16, &v15);
+          std::vector<ASDDSPStreamHelper::DSPStream>::__construct_one_at_end[abi:ne200100]<ASDStreamDirection,AudioStreamBasicDescription,int({block_pointer} {__strong})(unsigned int,AudioServerPlugInIOCycleInfo const*,void *,void *,unsigned int),int({block_pointer} {__strong})(unsigned int,AudioServerPlugInIOCycleInfo const*,void *,void *,unsigned int),int({block_pointer} {__strong})(unsigned long long,unsigned int,AudioServerPlugInIOCycleInfo const*)>(&v21, &v16, &v24, &v15, &v14, &v13);
           v12 = v11 + 80;
         }
 
-        v24 = v12;
+        v22 = v12;
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v19 objects:v28 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v17 objects:v26 count:16];
     }
 
     while (v5);
   }
 
-  v13 = *(a1 + 32);
-  v14 = v13[40];
-  [v13 direction];
+  [*(a1 + 32) direction];
   operator new();
 }
 
 - (void)_deallocateStreamingResources
 {
-  v4[4] = *MEMORY[0x277D85DE8];
-  v3[0] = MEMORY[0x277D85DD0];
-  v3[1] = 3221225472;
-  v3[2] = __45__ASDDSPStream__deallocateStreamingResources__block_invoke;
-  v3[3] = &unk_278CE39D0;
-  v3[4] = self;
-  v4[0] = &unk_285344558;
-  v4[3] = v4;
-  ASDDSP::exceptionBarrier<void({block_pointer} {__strong})(void)>(v3);
-  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v4);
-  v2 = *MEMORY[0x277D85DE8];
+  v3[4] = *MEMORY[0x277D85DE8];
+  v2[0] = MEMORY[0x277D85DD0];
+  v2[1] = 3221225472;
+  v2[2] = __45__ASDDSPStream__deallocateStreamingResources__block_invoke;
+  v2[3] = &unk_278CE39D0;
+  v2[4] = self;
+  v3[0] = &unk_285344558;
+  v3[3] = v3;
+  ASDDSP::exceptionBarrier<void({block_pointer} {__strong})(void)>(v2);
+  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v3);
 }
 
 ASDDSPStreamHelper *__45__ASDDSPStream__deallocateStreamingResources__block_invoke(uint64_t a1)
@@ -706,85 +748,80 @@ ASDDSPStreamHelper *__45__ASDDSPStream__deallocateStreamingResources__block_invo
 
 - (void)_allocateStreamingResourcesForGraphHelper:(void *)helper
 {
-  v5[4] = *MEMORY[0x277D85DE8];
+  v4[4] = *MEMORY[0x277D85DE8];
   if (!helper)
   {
     [ASDDSPStream _allocateStreamingResourcesForGraphHelper:];
   }
 
-  v4[0] = MEMORY[0x277D85DD0];
-  v4[1] = 3221225472;
-  v4[2] = __58__ASDDSPStream__allocateStreamingResourcesForGraphHelper___block_invoke;
-  v4[3] = &unk_278CE3C60;
-  v4[4] = self;
-  v4[5] = helper;
-  v5[0] = &unk_285344558;
-  v5[3] = v5;
-  ASDDSP::exceptionBarrier<void({block_pointer} {__strong})(void)>(v4);
-  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v5);
-  v3 = *MEMORY[0x277D85DE8];
+  v3[0] = MEMORY[0x277D85DD0];
+  v3[1] = 3221225472;
+  v3[2] = __58__ASDDSPStream__allocateStreamingResourcesForGraphHelper___block_invoke;
+  v3[3] = &unk_278CE3C60;
+  v3[4] = self;
+  v3[5] = helper;
+  v4[0] = &unk_285344558;
+  v4[3] = v4;
+  ASDDSP::exceptionBarrier<void({block_pointer} {__strong})(void)>(v3);
+  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v4);
 }
 
 void __58__ASDDSPStream__allocateStreamingResourcesForGraphHelper___block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  *&v26 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 40);
   v3 = *(*(a1 + 32) + 288);
   if (*(v2 + 32) == -1)
   {
     v11 = ASDDSPStreamHelper::dspInStreamFormats(v3);
     v12 = ASDDSPStreamHelper::dspOutStreamFormats(*(*(a1 + 32) + 288));
-    [*(a1 + 32) maximumFramesPerIOCycle];
-    [*(a1 + 32) keepGraphInitialized];
-    v13 = *MEMORY[0x277D85DE8];
+    v13 = [*(a1 + 32) maximumFramesPerIOCycle];
+    v14 = [*(a1 + 32) keepGraphInitialized];
 
-    ASDDSPGraphHelper::allocateStreamingResources(v2, v11, v12);
+    ASDDSPGraphHelper::allocateStreamingResources(v2, v11, v12, v13, v14);
   }
 
   else
   {
-    v4 = ASDDSPStreamHelper::dspFormat(v3);
-    v5 = *(a1 + 40);
-    v6 = *v4;
-    v7 = *(v4 + 16);
-    v24 = *(v4 + 32);
-    v23[0] = v6;
-    v23[1] = v7;
-    v18 = 0;
+    ASDDSPStreamHelper::dspFormat(v3);
+    v5 = v4;
+    v6 = *(a1 + 40);
+    v7 = *v4;
+    v8 = *(v4 + 16);
+    v25 = *(v4 + 32);
+    v24[0] = v7;
+    v24[1] = v8;
     v19 = 0;
-    v17 = 0;
-    std::vector<CAStreamBasicDescription>::__init_with_size[abi:ne200100]<CAStreamBasicDescription const*,CAStreamBasicDescription const*>(&v17, v23, &v25, 1uLL);
-    v8 = *v4;
-    v9 = *(v4 + 16);
-    v21 = *(v4 + 32);
-    v20[0] = v8;
-    v20[1] = v9;
-    v15 = 0;
+    v20 = 0;
+    v18 = 0;
+    std::vector<CAStreamBasicDescription>::__init_with_size[abi:ne200100]<CAStreamBasicDescription const*,CAStreamBasicDescription const*>(&v18, v24, &v26, 1uLL);
+    v9 = *v5;
+    v10 = *(v5 + 16);
+    v22 = *(v5 + 32);
+    v21[0] = v9;
+    v21[1] = v10;
     v16 = 0;
+    v17 = 0;
     __p = 0;
-    std::vector<CAStreamBasicDescription>::__init_with_size[abi:ne200100]<CAStreamBasicDescription const*,CAStreamBasicDescription const*>(&__p, v20, &v22, 1uLL);
-    [*(a1 + 32) maximumFramesPerIOCycle];
-    [*(a1 + 32) keepGraphInitialized];
-    ASDDSPGraphHelper::allocateStreamingResources(v5, &v17, &__p);
+    std::vector<CAStreamBasicDescription>::__init_with_size[abi:ne200100]<CAStreamBasicDescription const*,CAStreamBasicDescription const*>(&__p, v21, &v23, 1uLL);
+    ASDDSPGraphHelper::allocateStreamingResources(v6, &v18, &__p, [*(a1 + 32) maximumFramesPerIOCycle], objc_msgSend(*(a1 + 32), "keepGraphInitialized"));
     if (__p)
     {
-      v15 = __p;
+      v16 = __p;
       operator delete(__p);
     }
 
-    if (v17)
+    if (v18)
     {
-      v18 = v17;
-      operator delete(v17);
+      v19 = v18;
+      operator delete(v18);
     }
-
-    v10 = *MEMORY[0x277D85DE8];
   }
 }
 
 - (BOOL)enableBasicDSPCaptureOnGraph:(id)graph withLevel:(id)level andDebugType:(int64_t)type andMode:(int64_t)mode
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   levelCopy = level;
   if (!levelCopy)
@@ -812,31 +849,31 @@ void __58__ASDDSPStream__allocateStreamingResourcesForGraphHelper___block_invoke
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v27 = __Block_byref_object_copy_;
-    v28 = __Block_byref_object_dispose_;
-    v29 = objc_opt_new();
+    v26 = __Block_byref_object_copy_;
+    v27 = __Block_byref_object_dispose_;
+    v28 = objc_opt_new();
     inputs = [graphCopy inputs];
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __76__ASDDSPStream_enableBasicDSPCaptureOnGraph_withLevel_andDebugType_andMode___block_invoke;
-    v23[3] = &unk_278CE3C88;
-    v23[4] = buf;
-    [inputs enumerateObjectsUsingBlock:v23];
-
-    outputs = [graphCopy outputs];
     v22[0] = MEMORY[0x277D85DD0];
     v22[1] = 3221225472;
-    v22[2] = __76__ASDDSPStream_enableBasicDSPCaptureOnGraph_withLevel_andDebugType_andMode___block_invoke_2;
+    v22[2] = __76__ASDDSPStream_enableBasicDSPCaptureOnGraph_withLevel_andDebugType_andMode___block_invoke;
     v22[3] = &unk_278CE3C88;
     v22[4] = buf;
-    [outputs enumerateObjectsUsingBlock:v22];
+    [inputs enumerateObjectsUsingBlock:v22];
+
+    outputs = [graphCopy outputs];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __76__ASDDSPStream_enableBasicDSPCaptureOnGraph_withLevel_andDebugType_andMode___block_invoke_2;
+    v21[3] = &unk_278CE3C88;
+    v21[4] = buf;
+    [outputs enumerateObjectsUsingBlock:v21];
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       v15 = *(*&buf[8] + 40);
-      *v24 = 138412290;
-      v25 = v15;
-      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Enabling basic DSP Capture on dsp graph box names:%@", v24, 0xCu);
+      *v23 = 138412290;
+      v24 = v15;
+      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Enabling basic DSP Capture on dsp graph box names:%@", v23, 0xCu);
     }
 
     v16 = [ASDDSPGraphUtilities startRecordingBoxes:*(*&buf[8] + 40) inGraph:graphCopy fromStream:self toDirectory:self->_DSPCaptureDirectory withType:type andMode:mode error:0];
@@ -886,7 +923,6 @@ LABEL_20:
   v18 = 1;
 LABEL_21:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -906,7 +942,7 @@ void __76__ASDDSPStream_enableBasicDSPCaptureOnGraph_withLevel_andDebugType_andM
 
 - (void)enableDSPCaptureByType:(int64_t)type withGraph:(id)graph
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   if (type)
   {
@@ -922,16 +958,16 @@ void __76__ASDDSPStream_enableBasicDSPCaptureOnGraph_withLevel_andDebugType_andM
       v9 = [(NSUserDefaults *)self->_defaults dictionaryForKey:@"EnableDSPCaptureOnPluginDevice"];
       v10 = [v9 valueForKey:@"PluginDevice"];
       v11 = [v9 valueForKey:@"Level"];
-      v35 = [v9 valueForKey:@"Boxes"];
+      v34 = [v9 valueForKey:@"Boxes"];
       v12 = [(ASDDSPStream *)self getAudioDebugTypeWithDict:v9];
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         WeakRetained = objc_loadWeakRetained(&self->_owningDevice);
         deviceUID = [WeakRetained deviceUID];
         *buf = 138412546;
-        v38 = deviceUID;
-        v39 = 2112;
-        v40 = v10;
+        v37 = deviceUID;
+        v38 = 2112;
+        v39 = v10;
         _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "OwningDeviceUID: %@, tagetPluginDeviceUID: %@", buf, 0x16u);
       }
 
@@ -945,9 +981,9 @@ void __76__ASDDSPStream_enableBasicDSPCaptureOnGraph_withLevel_andDebugType_andM
         {
           name = [graphCopy name];
           *buf = 138412546;
-          v38 = name;
-          v39 = 2112;
-          v40 = v10;
+          v37 = name;
+          v38 = 2112;
+          v39 = v10;
           _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Enabling DSP capture on dsp graph: %@ within Plugin Device: %@", buf, 0x16u);
         }
 
@@ -958,7 +994,7 @@ void __76__ASDDSPStream_enableBasicDSPCaptureOnGraph_withLevel_andDebugType_andM
 
         else
         {
-          v19 = [ASDDSPGraphUtilities startRecordingBoxes:v35 inGraph:graphCopy fromStream:self toDirectory:self->_DSPCaptureDirectory withType:v12 error:0];
+          v19 = [ASDDSPGraphUtilities startRecordingBoxes:v34 inGraph:graphCopy fromStream:self toDirectory:self->_DSPCaptureDirectory withType:v12 error:0];
         }
 
         if (v19)
@@ -967,7 +1003,7 @@ void __76__ASDDSPStream_enableBasicDSPCaptureOnGraph_withLevel_andDebugType_andM
           {
             name2 = [graphCopy name];
             *buf = 138412290;
-            v38 = name2;
+            v37 = name2;
             _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Successfully enabled DSP Capture on dsp graph: %@", buf, 0xCu);
           }
         }
@@ -975,7 +1011,7 @@ void __76__ASDDSPStream_enableBasicDSPCaptureOnGraph_withLevel_andDebugType_andM
         else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
           name3 = [graphCopy name];
-          [ASDDSPStream enableBasicDSPCaptureOnGraph:name3 withLevel:v36 andDebugType:? andMode:?];
+          [ASDDSPStream enableBasicDSPCaptureOnGraph:name3 withLevel:v35 andDebugType:? andMode:?];
         }
       }
     }
@@ -991,9 +1027,9 @@ void __76__ASDDSPStream_enableBasicDSPCaptureOnGraph_withLevel_andDebugType_andM
       {
         name4 = [graphCopy name];
         *buf = 138412546;
-        v38 = name4;
-        v39 = 2112;
-        v40 = v23;
+        v37 = name4;
+        v38 = 2112;
+        v39 = v23;
         _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "DSP graph name: %@, targetGraphName: %@", buf, 0x16u);
       }
 
@@ -1006,7 +1042,7 @@ void __76__ASDDSPStream_enableBasicDSPCaptureOnGraph_withLevel_andDebugType_andM
         {
           name6 = [graphCopy name];
           *buf = 138412290;
-          v38 = name6;
+          v37 = name6;
           _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Enabling DSP Capture on dsp graph: %@", buf, 0xCu);
         }
 
@@ -1026,7 +1062,7 @@ void __76__ASDDSPStream_enableBasicDSPCaptureOnGraph_withLevel_andDebugType_andM
           {
             name7 = [graphCopy name];
             *buf = 138412290;
-            v38 = name7;
+            v37 = name7;
             _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Successfully enabled DSP Capture on dsp graph: %@", buf, 0xCu);
           }
         }
@@ -1044,24 +1080,20 @@ void __76__ASDDSPStream_enableBasicDSPCaptureOnGraph_withLevel_andDebugType_andM
   {
     [ASDDSPGraphUtilities stopRecordingBoxesInGraph:graphCopy];
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enableDSPFileInjectionOnGraph:(id)graph withFormat:(id)format
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   formatCopy = format;
-  v11[0] = formatCopy;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+  v10[0] = formatCopy;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
   if (![ASDDSPGraphUtilities startInjectingBoxes:v7 inGraph:graphCopy error:0]&& os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     name = [graphCopy name];
-    [(ASDDSPStream *)name enableDSPFileInjectionOnGraph:formatCopy withFormat:v10];
+    [(ASDDSPStream *)name enableDSPFileInjectionOnGraph:formatCopy withFormat:v9];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)addClientDSP:(id)p withKey:(unint64_t)key
@@ -1106,29 +1138,27 @@ void __76__ASDDSPStream_enableBasicDSPCaptureOnGraph_withLevel_andDebugType_andM
 
 void __37__ASDDSPStream_addClientDSP_withKey___block_invoke(void *a1)
 {
-  v10[4] = *MEMORY[0x277D85DE8];
-  v6[0] = MEMORY[0x277D85DD0];
-  v6[1] = 3221225472;
-  v6[2] = __37__ASDDSPStream_addClientDSP_withKey___block_invoke_2;
-  v6[3] = &unk_278CE3CB0;
+  v9[4] = *MEMORY[0x277D85DE8];
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = __37__ASDDSPStream_addClientDSP_withKey___block_invoke_2;
+  v5[3] = &unk_278CE3CB0;
   v2 = a1[5];
-  v6[4] = a1[4];
+  v5[4] = a1[4];
   v3 = v2;
   v4 = a1[7];
-  v8 = a1[6];
-  v9 = v4;
-  v7 = v3;
-  v10[0] = &unk_285344558;
-  v10[3] = v10;
-  ASDDSP::exceptionBarrier<void({block_pointer} {__strong})(void)>(v6);
-  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v10);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v7 = a1[6];
+  v8 = v4;
+  v6 = v3;
+  v9[0] = &unk_285344558;
+  v9[3] = v9;
+  ASDDSP::exceptionBarrier<void({block_pointer} {__strong})(void)>(v5);
+  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v9);
 }
 
 void __37__ASDDSPStream_addClientDSP_withKey___block_invoke_2(uint64_t a1)
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) graphStructureIsValid:*(a1 + 40) clientID:*(a1 + 56)];
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 280));
   [WeakRetained samplingRate];
@@ -1177,19 +1207,19 @@ void __37__ASDDSPStream_addClientDSP_withKey___block_invoke_2(uint64_t a1)
         v13 = *(a1 + 40);
         if (v13)
         {
-          [v13 graph];
+          objc_msgSend_graph(v13);
         }
 
         else
         {
-          v40 = 0;
-          v41 = 0;
+          v38 = 0;
+          v39 = 0;
         }
 
-        ASDDSPGraphHelper::ASDDSPGraphHelper(buf, &v40, *(a1 + 56));
-        if (v41)
+        ASDDSPGraphHelper::ASDDSPGraphHelper(buf, &v38, *(a1 + 56));
+        if (v39)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v41);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v39);
         }
 
         [*(a1 + 32) enableDSPCaptureByType:*(*(a1 + 32) + 344) withGraph:*(a1 + 40)];
@@ -1233,9 +1263,9 @@ void __37__ASDDSPStream_addClientDSP_withKey___block_invoke_2(uint64_t a1)
             atomic_fetch_add(v32, 0xFFFFFFFF);
             caulk::concurrent::guarded_lookup_hash_table<unsigned long long,ASDDSPGraphHelper *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned long long>>::remove(*(*(a1 + 32) + 320), *(a1 + 56));
             v34 = *(a1 + 32) + 296;
-            v42[0] = v42;
-            v42[1] = v42;
-            v42[2] = 0;
+            v40[0] = v40;
+            v40[1] = v40;
+            v40[2] = 0;
             v35 = *(v34 + 8);
             if (v35 != v34)
             {
@@ -1249,7 +1279,7 @@ void __37__ASDDSPStream_addClientDSP_withKey___block_invoke_2(uint64_t a1)
                     v36 = v36[1];
                   }
 
-                  std::list<ASDDSPGraphHelper>::splice(v42, v42, v34, v35, v36);
+                  std::list<ASDDSPGraphHelper>::splice(v40, v40, v34, v35, v36);
                   if (v36 != v34)
                   {
                     v36 = v36[1];
@@ -1262,9 +1292,8 @@ void __37__ASDDSPStream_addClientDSP_withKey___block_invoke_2(uint64_t a1)
               while (v36 != v34);
             }
 
-            std::__list_imp<ASDDSPGraphHelper>::clear(v42);
+            std::__list_imp<ASDDSPGraphHelper>::clear(v40);
 LABEL_42:
-            v38 = *(a1 + 32);
             operator new();
           }
 
@@ -1287,12 +1316,12 @@ LABEL_42:
         *&buf[4] = v14;
         *&buf[12] = 2048;
         *&buf[14] = v15;
-        v44 = 2048;
-        v45 = v16;
-        v46[0] = 2048;
-        *&v46[1] = v18;
-        v46[5] = 2048;
-        v47 = v19;
+        v42 = 2048;
+        v43 = v16;
+        v44[0] = 2048;
+        *&v44[1] = v18;
+        v44[5] = 2048;
+        v45 = v19;
         _os_log_error_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%@ graph structure isn't valid. numGraphInputs = %ld, numGraphOutputs = %ld, numUnderlyingInputStreams = %ld, numUnderlyingOutputStreams = %ld", buf, 0x34u);
       }
     }
@@ -1302,8 +1331,6 @@ LABEL_42:
   {
     __37__ASDDSPStream_addClientDSP_withKey___block_invoke_2_cold_3();
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)removeClientDSPwithKey:(unint64_t)key
@@ -1328,7 +1355,7 @@ LABEL_42:
 
 void __39__ASDDSPStream_removeClientDSPwithKey___block_invoke(void *a1)
 {
-  v18[4] = *MEMORY[0x277D85DE8];
+  v17[4] = *MEMORY[0x277D85DE8];
   v2 = *(a1[4] + 320);
   v3 = a1[6];
   v4 = (v2 + 16);
@@ -1355,26 +1382,26 @@ LABEL_18:
   v8 = a1[4];
   if (*(v8 + 408) == 1)
   {
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __39__ASDDSPStream_removeClientDSPwithKey___block_invoke_2;
-    v14[3] = &__block_descriptor_48_e5_v8__0l;
-    v14[4] = v7;
-    v15 = 1;
-    v16[0] = *v17;
-    *(v16 + 3) = *&v17[3];
-    v18[0] = &unk_285344558;
-    v18[3] = v18;
-    ASDDSP::exceptionBarrier<void({block_pointer} {__strong})(void)>(v14);
-    std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v18);
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __39__ASDDSPStream_removeClientDSPwithKey___block_invoke_2;
+    v13[3] = &__block_descriptor_48_e5_v8__0l;
+    v13[4] = v7;
+    v14 = 1;
+    v15[0] = *v16;
+    *(v15 + 3) = *&v16[3];
+    v17[0] = &unk_285344558;
+    v17[3] = v17;
+    ASDDSP::exceptionBarrier<void({block_pointer} {__strong})(void)>(v13);
+    std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v17);
     v8 = a1[4];
   }
 
   caulk::concurrent::guarded_lookup_hash_table<unsigned long long,ASDDSPGraphHelper *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned long long>>::remove(*(v8 + 320), a1[6]);
   v9 = a1[4] + 296;
-  v18[0] = v18;
-  v18[1] = v18;
-  v18[2] = 0;
+  v17[0] = v17;
+  v17[1] = v17;
+  v17[2] = 0;
   v10 = *(v9 + 8);
   if (v10 != v9)
   {
@@ -1388,7 +1415,7 @@ LABEL_18:
           v11 = v11[1];
         }
 
-        std::list<ASDDSPGraphHelper>::splice(v18, v18, v9, v10, v11);
+        std::list<ASDDSPGraphHelper>::splice(v17, v17, v9, v10, v11);
         if (v11 != v9)
         {
           v11 = v11[1];
@@ -1401,10 +1428,9 @@ LABEL_18:
     while (v11 != v9);
   }
 
-  std::__list_imp<ASDDSPGraphHelper>::clear(v18);
+  std::__list_imp<ASDDSPGraphHelper>::clear(v17);
 LABEL_19:
   *(*(a1[5] + 8) + 24) = 1;
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)graphStructureIsValid:(id)valid clientID:(unint64_t)d
@@ -1523,7 +1549,7 @@ LABEL_16:
   return v3;
 }
 
-uint64_t __39__ASDDSPStream_maximumFramesPerIOCycle__block_invoke(uint64_t a1)
+void *__39__ASDDSPStream_maximumFramesPerIOCycle__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _updateMaximumFramesPerIOCycle];
   *(*(*(a1 + 40) + 8) + 24) = *(*(a1 + 32) + 360);
@@ -1532,34 +1558,34 @@ uint64_t __39__ASDDSPStream_maximumFramesPerIOCycle__block_invoke(uint64_t a1)
 
 - (void)_updateLatency
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   v3 = self->_underlyingStreams;
   latency = 0;
-  v5 = [(NSArray *)v3 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v5 = [(NSArray *)v3 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v5)
   {
-    v6 = *v27;
+    v6 = *v26;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v27 != v6)
+        if (*v26 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v26 + 1) + 8 * i);
+        v8 = *(*(&v25 + 1) + 8 * i);
         if ([v8 latency] > latency)
         {
           latency = [v8 latency];
         }
       }
 
-      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v5);
@@ -1569,7 +1595,7 @@ uint64_t __39__ASDDSPStream_maximumFramesPerIOCycle__block_invoke(uint64_t a1)
   next = self->_graphHelpers.__end_.__next_;
   if (next != &self->_graphHelpers)
   {
-    v17 = 0;
+    v16 = 0;
     v11 = 0;
     while (1)
     {
@@ -1580,33 +1606,33 @@ uint64_t __39__ASDDSPStream_maximumFramesPerIOCycle__block_invoke(uint64_t a1)
       }
 
       stateDumpHandler = next->super.super._stateDumpHandler;
-      v24 = next->super.super._customPropertyQueue;
-      v25 = stateDumpHandler;
+      v23 = next->super.super._customPropertyQueue;
+      v24 = stateDumpHandler;
       if (stateDumpHandler)
       {
         atomic_fetch_add_explicit(&stateDumpHandler->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
       v14 = *(customPropertyQueue + 762);
-      v18 = *(customPropertyQueue + 761);
+      v17 = *(customPropertyQueue + 761);
       DSPGraph::Graph::configure(customPropertyQueue);
-      DSPGraph::Graph::initialize(v24);
+      DSPGraph::Graph::initialize(v23);
       if (next->super.super._plugin == -1)
       {
-        for (j = 0; j < DSPGraph::Graph::numOutputs(v24); ++j)
+        for (j = 0; j < DSPGraph::Graph::numOutputs(v23); ++j)
         {
-          v21[0] = MEMORY[0x277D85DD0];
-          v21[1] = 3221225472;
-          v21[2] = __30__ASDDSPStream__updateLatency__block_invoke;
-          v21[3] = &__block_descriptor_48_e5_I8__0l;
-          v21[4] = &v24;
-          v22 = j;
-          v23 = v11;
-          v31 = &unk_285344480;
-          v32 = 0;
-          v33 = &v31;
-          v11 = ASDDSP::exceptionBarrier<unsigned int({block_pointer} {__strong})(void)>(v21);
-          std::__function::__value_func<unsigned int ()(void)>::~__value_func[abi:ne200100](&v31);
+          v20[0] = MEMORY[0x277D85DD0];
+          v20[1] = 3221225472;
+          v20[2] = __30__ASDDSPStream__updateLatency__block_invoke;
+          v20[3] = &__block_descriptor_48_e5_I8__0l;
+          v20[4] = &v23;
+          v21 = j;
+          v22 = v11;
+          v30 = &unk_285344480;
+          v31 = 0;
+          v32 = &v30;
+          v11 = ASDDSP::exceptionBarrier<unsigned int({block_pointer} {__strong})(void)>(v20);
+          std::__function::__value_func<unsigned int ()(void)>::~__value_func[abi:ne200100](&v30);
         }
 
         p_graphHelpers = &self->_graphHelpers;
@@ -1618,33 +1644,33 @@ uint64_t __39__ASDDSPStream_maximumFramesPerIOCycle__block_invoke(uint64_t a1)
 
       else
       {
-        v19[0] = MEMORY[0x277D85DD0];
-        v19[1] = 3221225472;
-        v19[2] = __30__ASDDSPStream__updateLatency__block_invoke_2;
-        v19[3] = &__block_descriptor_44_e5_I8__0l;
-        v19[4] = &v24;
-        v20 = v17;
-        v31 = &unk_285344480;
-        v32 = 0;
-        v33 = &v31;
-        v17 = ASDDSP::exceptionBarrier<unsigned int({block_pointer} {__strong})(void)>(v19);
-        std::__function::__value_func<unsigned int ()(void)>::~__value_func[abi:ne200100](&v31);
+        v18[0] = MEMORY[0x277D85DD0];
+        v18[1] = 3221225472;
+        v18[2] = __30__ASDDSPStream__updateLatency__block_invoke_2;
+        v18[3] = &__block_descriptor_44_e5_I8__0l;
+        v18[4] = &v23;
+        v19 = v16;
+        v30 = &unk_285344480;
+        v31 = 0;
+        v32 = &v30;
+        v16 = ASDDSP::exceptionBarrier<unsigned int({block_pointer} {__strong})(void)>(v18);
+        std::__function::__value_func<unsigned int ()(void)>::~__value_func[abi:ne200100](&v30);
         if (v14)
         {
           goto LABEL_23;
         }
       }
 
-      DSPGraph::Graph::uninitialize(v24);
+      DSPGraph::Graph::uninitialize(v23);
 LABEL_23:
-      if ((v18 & 1) == 0)
+      if ((v17 & 1) == 0)
       {
-        DSPGraph::Graph::unconfigure(v24);
+        DSPGraph::Graph::unconfigure(v23);
       }
 
-      if (v25)
+      if (v24)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v25);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v24);
       }
 
       next = next->super.super._customProperties;
@@ -1656,24 +1682,21 @@ LABEL_23:
   }
 
   v11 = 0;
-  v17 = 0;
+  v16 = 0;
 LABEL_30:
-  [(ASDStream *)self setLatency:v11 + latency + v17, self];
-  v16 = *MEMORY[0x277D85DE8];
+  [(ASDStream *)self setLatency:v11 + latency + v16, self];
 }
 
 uint64_t __30__ASDDSPStream__updateLatency__block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 40);
-  v3 = DSPGraph::Graph::out(**(a1 + 32));
-  v4 = DSPGraph::Box::totalLatencyInSamples(v3);
+  v2 = DSPGraph::Graph::out(**(a1 + 32));
+  v3 = DSPGraph::Box::totalLatencyInSamples(v2);
   result = *(a1 + 44);
-  if (v4 > result)
+  if (v3 > result)
   {
-    v6 = *(a1 + 40);
-    v7 = DSPGraph::Graph::out(**(a1 + 32));
+    v5 = DSPGraph::Graph::out(**(a1 + 32));
 
-    return DSPGraph::Box::totalLatencyInSamples(v7);
+    return DSPGraph::Box::totalLatencyInSamples(v5);
   }
 
   return result;
@@ -1764,28 +1787,24 @@ uint64_t __30__ASDDSPStream__updateLatency__block_invoke_2(uint64_t a1)
 
 uint64_t __27__ASDDSPStream_hardwareDSP__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _hardwareDSP];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) _hardwareDSP];
 
   return MEMORY[0x2821F96F8]();
 }
 
 - (id)_hardwareDSP
 {
-  v6[4] = *MEMORY[0x277D85DE8];
-  v5[0] = MEMORY[0x277D85DD0];
-  v5[1] = 3221225472;
-  v5[2] = __28__ASDDSPStream__hardwareDSP__block_invoke;
-  v5[3] = &unk_278CE3D88;
-  v5[4] = self;
-  v6[0] = &unk_285344510;
-  v6[1] = 0;
-  v6[3] = v6;
-  v2 = ASDDSP::exceptionBarrier<objc_object *({block_pointer} {__strong})(void)>(v5);
-  std::__function::__value_func<objc_object * ()(void)>::~__value_func[abi:ne200100](v6);
-  v3 = *MEMORY[0x277D85DE8];
+  v5[4] = *MEMORY[0x277D85DE8];
+  v4[0] = MEMORY[0x277D85DD0];
+  v4[1] = 3221225472;
+  v4[2] = __28__ASDDSPStream__hardwareDSP__block_invoke;
+  v4[3] = &unk_278CE3D88;
+  v4[4] = self;
+  v5[0] = &unk_285344510;
+  v5[1] = 0;
+  v5[3] = v5;
+  v2 = ASDDSP::exceptionBarrier<objc_object *({block_pointer} {__strong})(void)>(v4);
+  std::__function::__value_func<objc_object * ()(void)>::~__value_func[abi:ne200100](v5);
 
   return v2;
 }
@@ -1869,19 +1888,17 @@ LABEL_12:
 
 uint64_t __35__ASDDSPStream_clientDSPForClient___block_invoke(uint64_t a1)
 {
-  v6[4] = *MEMORY[0x277D85DE8];
-  v3[0] = MEMORY[0x277D85DD0];
-  v3[1] = 3221225472;
-  v3[2] = __35__ASDDSPStream_clientDSPForClient___block_invoke_2;
-  v3[3] = &unk_278CE3DB0;
-  v5 = *(a1 + 48);
-  v4 = *(a1 + 32);
-  v6[0] = &unk_285344558;
-  v6[3] = v6;
-  ASDDSP::exceptionBarrier<void({block_pointer} {__strong})(void)>(v3);
-  result = std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v6);
-  v2 = *MEMORY[0x277D85DE8];
-  return result;
+  v5[4] = *MEMORY[0x277D85DE8];
+  v2[0] = MEMORY[0x277D85DD0];
+  v2[1] = 3221225472;
+  v2[2] = __35__ASDDSPStream_clientDSPForClient___block_invoke_2;
+  v2[3] = &unk_278CE3DB0;
+  v4 = *(a1 + 48);
+  v3 = *(a1 + 32);
+  v5[0] = &unk_285344558;
+  v5[3] = v5;
+  ASDDSP::exceptionBarrier<void({block_pointer} {__strong})(void)>(v2);
+  return std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v5);
 }
 
 void __35__ASDDSPStream_clientDSPForClient___block_invoke_2(uint64_t a1)
@@ -1948,15 +1965,15 @@ void __35__ASDDSPStream_clientDSPForClient___block_invoke_2(uint64_t a1)
   return v2;
 }
 
-uint64_t __30__ASDDSPStream_readInputBlock__block_invoke(uint64_t a1, unsigned int a2, const AudioServerPlugInIOCycleInfo *a3, void *a4, void *a5)
+uint64_t __30__ASDDSPStream_readInputBlock__block_invoke(uint64_t a1, uint64_t a2, const AudioServerPlugInIOCycleInfo *a3, void *a4, void *a5, unsigned int a6)
 {
-  v6 = **(*(*(a1 + 32) + 8) + 24);
-  if (!v6)
+  v7 = **(*(*(a1 + 32) + 8) + 24);
+  if (!v7)
   {
     __30__ASDDSPStream_readInputBlock__block_invoke_cold_1();
   }
 
-  return ASDDSPStreamHelper::readInput(v6, a2, a3, a4, a5);
+  return ASDDSPStreamHelper::readInput(v7, a2, a3, a4, a5);
 }
 
 - (id)readIsolatedInputBlock
@@ -2004,7 +2021,7 @@ uint64_t __38__ASDDSPStream_readIsolatedInputBlock__block_invoke(uint64_t a1, ui
   return v2;
 }
 
-uint64_t __34__ASDDSPStream_processOutputBlock__block_invoke(uint64_t a1, int a2, const AudioServerPlugInIOCycleInfo *a3, void *a4, void *a5, unsigned int a6)
+uint64_t __34__ASDDSPStream_processOutputBlock__block_invoke(uint64_t a1, uint64_t a2, const AudioServerPlugInIOCycleInfo *a3, void *a4, void *a5, unsigned int a6)
 {
   v7 = **(*(*(a1 + 32) + 8) + 24);
   if (!v7)
@@ -2032,15 +2049,88 @@ uint64_t __34__ASDDSPStream_processOutputBlock__block_invoke(uint64_t a1, int a2
   return v2;
 }
 
-uint64_t __29__ASDDSPStream_writeMixBlock__block_invoke(uint64_t a1, unsigned int a2, const AudioServerPlugInIOCycleInfo *a3, void *a4, void *a5)
+uint64_t __29__ASDDSPStream_writeMixBlock__block_invoke(uint64_t a1, uint64_t a2, const AudioServerPlugInIOCycleInfo *a3, void *a4, void *a5, unsigned int a6)
 {
-  v6 = **(*(*(a1 + 32) + 8) + 24);
-  if (!v6)
+  v7 = **(*(*(a1 + 32) + 8) + 24);
+  if (!v7)
   {
     __29__ASDDSPStream_writeMixBlock__block_invoke_cold_1();
   }
 
-  return ASDDSPStreamHelper::writeMix(v6, a2, a3, a4, a5);
+  return ASDDSPStreamHelper::writeMix(v7, a2, a3, a4, a5);
+}
+
+- (id)diagnosticDescriptionWithIndent:(id)indent walkTree:(BOOL)tree
+{
+  treeCopy = tree;
+  v26 = *MEMORY[0x277D85DE8];
+  indentCopy = indent;
+  v24.receiver = self;
+  v24.super_class = ASDDSPStream;
+  v7 = [(ASDStream *)&v24 diagnosticDescriptionWithIndent:indentCopy walkTree:treeCopy];
+  [v7 appendFormat:@"%@|    DSP Configuration:\n", indentCopy];
+  v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  currentDSPConfiguration = [(ASDDSPStream *)self currentDSPConfiguration];
+  hardwareDSP = [currentDSPConfiguration hardwareDSP];
+  dspItems = [hardwareDSP dspItems];
+
+  v11 = [dspItems countByEnumeratingWithState:&v20 objects:v25 count:16];
+  if (v11)
+  {
+    v12 = *v21;
+    do
+    {
+      for (i = 0; i != v11; ++i)
+      {
+        if (*v21 != v12)
+        {
+          objc_enumerationMutation(dspItems);
+        }
+
+        v14 = *(*(&v20 + 1) + 8 * i);
+        objc_opt_class();
+        if (objc_opt_isKindOfClass())
+        {
+          path = [v14 path];
+          v16 = path;
+          [v7 appendFormat:@"%@|         - Graph: %s\n", indentCopy, objc_msgSend(path, "UTF8String")];
+        }
+
+        else
+        {
+          objc_opt_class();
+          if (objc_opt_isKindOfClass())
+          {
+            path = [v14 path];
+            v17 = path;
+            [v7 appendFormat:@"%@|         - Strip: %s\n", indentCopy, objc_msgSend(path, "UTF8String")];
+          }
+
+          else
+          {
+            objc_opt_class();
+            if ((objc_opt_isKindOfClass() & 1) == 0)
+            {
+              continue;
+            }
+
+            path = [v14 path];
+            v18 = path;
+            [v7 appendFormat:@"%@|         - Property strip: %s\n", indentCopy, objc_msgSend(path, "UTF8String")];
+          }
+        }
+      }
+
+      v11 = [dspItems countByEnumeratingWithState:&v20 objects:v25 count:16];
+    }
+
+    while (v11);
+  }
+
+  return v7;
 }
 
 - (void)dealloc
@@ -2066,6 +2156,44 @@ uint64_t __29__ASDDSPStream_writeMixBlock__block_invoke(uint64_t a1, unsigned in
   {
     ASDDSPStreamHelper::setBypassGraphMode(ptr, mode);
   }
+}
+
+- (void)setIsActive:(BOOL)active
+{
+  activeCopy = active;
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  underlyingStreams = [(ASDDSPStream *)self underlyingStreams];
+  v6 = [underlyingStreams countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v6)
+  {
+    v7 = *v11;
+    do
+    {
+      v8 = 0;
+      do
+      {
+        if (*v11 != v7)
+        {
+          objc_enumerationMutation(underlyingStreams);
+        }
+
+        [*(*(&v10 + 1) + 8 * v8++) setIsActive:activeCopy];
+      }
+
+      while (v6 != v8);
+      v6 = [underlyingStreams countByEnumeratingWithState:&v10 objects:v14 count:16];
+    }
+
+    while (v6);
+  }
+
+  v9.receiver = self;
+  v9.super_class = ASDDSPStream;
+  [(ASDStream *)&v9 setIsActive:activeCopy];
 }
 
 - (id).cxx_construct

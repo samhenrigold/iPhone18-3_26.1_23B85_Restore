@@ -410,9 +410,11 @@ LABEL_23:
   x = rect.origin.x;
   [(PHChangeRequest *)self didMutate];
   self->_didSetGazeRect = 1;
-  self->_gazeRectString = [MEMORY[0x1E69BE3D0] stringFromGazeRect:{x, y, width, height}];
+  v8 = [MEMORY[0x1E69BE3D0] stringFromGazeRect:{x, y, width, height}];
+  gazeRectString = self->_gazeRectString;
+  self->_gazeRectString = v8;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v8, gazeRectString);
 }
 
 - (void)setFaceprint:(id)faceprint
@@ -558,7 +560,7 @@ LABEL_23:
           v29 = v28;
           [v24 startTime];
           v31 = v30;
-          [v24 duration];
+          objc_msgSend_duration(v24);
           v33 = v32;
           thumbnailIdentifier = [v24 thumbnailIdentifier];
           v35 = [v25 insertIntoManagedObjectContext:managedObjectContext type:type value:value score:thumbnailIdentifier startTime:v29 duration:v31 thumbnailIdentifier:v33];

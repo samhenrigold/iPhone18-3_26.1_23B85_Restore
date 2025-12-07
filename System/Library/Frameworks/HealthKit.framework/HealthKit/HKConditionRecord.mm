@@ -2,6 +2,7 @@
 + (id)_newConditionRecordWithType:(id)type note:(id)note enteredInError:(BOOL)error modifiedDate:(id)date originIdentifier:(id)identifier locale:(id)locale extractionVersion:(int64_t)version device:(id)self0 metadata:(id)self1 sortDate:(id)self2 country:(id)self3 state:(unint64_t)self4 conditionCodingCollection:(id)self5 categoriesCodingCollections:(id)self6 asserter:(id)self7 abatement:(id)self8 onset:(id)self9 recordedDate:(id)recordedDate clinicalStatusCoding:(id)coding verificationStatusCoding:(id)statusCoding severityCodingCollection:(id)codingCollection bodySitesCodingCollections:(id)codingCollections config:(id)config;
 + (id)cachedConceptRelationshipKeyPaths;
 + (id)conditionRecordWithType:(id)type note:(id)note enteredInError:(BOOL)error modifiedDate:(id)date originIdentifier:(id)identifier locale:(id)locale extractionVersion:(int64_t)version device:(id)self0 metadata:(id)self1 country:(id)self2 state:(unint64_t)self3 conditionCodingCollection:(id)self4 categoriesCodingCollections:(id)self5 asserter:(id)self6 abatement:(id)self7 onset:(id)self8 recordedDate:(id)self9 clinicalStatusCoding:(id)coding verificationStatusCoding:(id)statusCoding severityCodingCollection:(id)codingCollection bodySitesCodingCollections:(id)codingCollections;
++ (id)conditionRecordWithType:(id)type note:(id)note enteredInError:(BOOL)error modifiedDate:(id)date originIdentifier:(id)identifier locale:(id)locale extractionVersion:(int64_t)version device:(id)self0 metadata:(id)self1 sortDate:(id)self2 country:(id)self3 state:(unint64_t)self4 conditionCodingCollection:(id)self5 categoriesCodingCollections:(id)self6 asserter:(id)self7 abatement:(id)self8 onset:(id)self9 recordedDate:(id)recordedDate clinicalStatusCoding:(id)coding verificationStatusCoding:(id)statusCoding severityCodingCollection:(id)codingCollection bodySitesCodingCollections:(id)codingCollections;
 + (id)defaultDisplayString;
 + (id)indexableConceptKeyPaths;
 - (BOOL)applyConcepts:(id)concepts forKeyPath:(id)path error:(id *)error;
@@ -142,7 +143,7 @@ LABEL_7:
 
 - (id)codingsForKeyPath:(id)path error:(id *)error
 {
-  v30[1] = *MEMORY[0x1E69E9840];
+  v29[1] = *MEMORY[0x1E69E9840];
   pathCopy = path;
   v7 = [HKConceptIndexUtilities firstComponentForKeyPath:pathCopy error:error];
   v8 = v7;
@@ -156,9 +157,9 @@ LABEL_7:
   {
     conditionCodingCollection = [(HKConditionRecord *)self conditionCodingCollection];
     v10 = [HKIndexableObject indexableObjectWithObject:conditionCodingCollection];
-    v30[0] = v10;
+    v29[0] = v10;
     v11 = MEMORY[0x1E695DEC8];
-    v12 = v30;
+    v12 = v29;
 LABEL_4:
     v13 = [v11 arrayWithObjects:v12 count:1];
 
@@ -185,9 +186,9 @@ LABEL_16:
       clinicalStatusCoding2 = [(HKConditionRecord *)self clinicalStatusCoding];
       v17 = [HKMedicalCodingCollection collectionWithCoding:clinicalStatusCoding2];
       v18 = [HKIndexableObject indexableObjectWithObject:v17];
-      v29 = v18;
+      v28 = v18;
       v19 = MEMORY[0x1E695DEC8];
-      v20 = &v29;
+      v20 = &v28;
 LABEL_15:
       v13 = [v19 arrayWithObjects:v20 count:1];
 
@@ -206,9 +207,9 @@ LABEL_15:
       clinicalStatusCoding2 = [(HKConditionRecord *)self verificationStatusCoding];
       v17 = [HKMedicalCodingCollection collectionWithCoding:clinicalStatusCoding2];
       v18 = [HKIndexableObject indexableObjectWithObject:v17];
-      v28 = v18;
+      v27 = v18;
       v19 = MEMORY[0x1E695DEC8];
-      v20 = &v28;
+      v20 = &v27;
       goto LABEL_15;
     }
 
@@ -223,9 +224,9 @@ LABEL_15:
     {
       conditionCodingCollection = [(HKConditionRecord *)self severityCodingCollection];
       v10 = [HKIndexableObject indexableObjectWithObject:conditionCodingCollection];
-      v27 = v10;
+      v26 = v10;
       v11 = MEMORY[0x1E695DEC8];
-      v12 = &v27;
+      v12 = &v26;
       goto LABEL_4;
     }
 
@@ -247,12 +248,10 @@ LABEL_26:
     goto LABEL_26;
   }
 
-  v26.receiver = self;
-  v26.super_class = HKConditionRecord;
-  v13 = [(HKMedicalRecord *)&v26 codingsForKeyPath:pathCopy error:error];
+  v25.receiver = self;
+  v25.super_class = HKConditionRecord;
+  v13 = [(HKMedicalRecord *)&v25 codingsForKeyPath:pathCopy error:error];
 LABEL_17:
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -387,6 +386,13 @@ LABEL_11:
   return error;
 }
 
++ (id)conditionRecordWithType:(id)type note:(id)note enteredInError:(BOOL)error modifiedDate:(id)date originIdentifier:(id)identifier locale:(id)locale extractionVersion:(int64_t)version device:(id)self0 metadata:(id)self1 sortDate:(id)self2 country:(id)self3 state:(unint64_t)self4 conditionCodingCollection:(id)self5 categoriesCodingCollections:(id)self6 asserter:(id)self7 abatement:(id)self8 onset:(id)self9 recordedDate:(id)recordedDate clinicalStatusCoding:(id)coding verificationStatusCoding:(id)statusCoding severityCodingCollection:(id)codingCollection bodySitesCodingCollections:(id)codingCollections
+{
+  v24 = [self _newConditionRecordWithType:type note:note enteredInError:error modifiedDate:date originIdentifier:identifier locale:locale extractionVersion:version device:device metadata:metadata sortDate:sortDate country:country state:state conditionCodingCollection:collection categoriesCodingCollections:collections asserter:asserter abatement:abatement onset:onset recordedDate:recordedDate clinicalStatusCoding:coding verificationStatusCoding:statusCoding severityCodingCollection:codingCollection bodySitesCodingCollections:codingCollections config:0];
+
+  return v24;
+}
+
 + (id)_newConditionRecordWithType:(id)type note:(id)note enteredInError:(BOOL)error modifiedDate:(id)date originIdentifier:(id)identifier locale:(id)locale extractionVersion:(int64_t)version device:(id)self0 metadata:(id)self1 sortDate:(id)self2 country:(id)self3 state:(unint64_t)self4 conditionCodingCollection:(id)self5 categoriesCodingCollections:(id)self6 asserter:(id)self7 abatement:(id)self8 onset:(id)self9 recordedDate:(id)recordedDate clinicalStatusCoding:(id)coding verificationStatusCoding:(id)statusCoding severityCodingCollection:(id)codingCollection bodySitesCodingCollections:(id)codingCollections config:(id)config
 {
   errorCopy = error;
@@ -509,14 +515,12 @@ void __360__HKConditionRecord__newConditionRecordWithType_note_enteredInError_mo
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  v11.receiver = self;
-  v11.super_class = HKConditionRecord;
-  v6 = [(HKSample *)&v11 description];
-  conditionCodingCollection = self->_conditionCodingCollection;
-  severityCodingCollection = self->_severityCodingCollection;
-  v9 = [v3 stringWithFormat:@"<%@:%p super=%@conditionCodingCollection = %@categoriesCodingCollections = %@asserter = %@abatement = %@onset = %@recordedDate = %@clinicalStatusCoding = %@verificationStatusCoding = %@severityCodingCollection = %@bodySitesCodingCollections = %@>", v5, self, v6, conditionCodingCollection, self->_categoriesCodingCollections, self->_asserter, self->_abatement, self->_onset, self->_recordedDate, self->_clinicalStatusCoding, self->_verificationStatusCoding, severityCodingCollection, self->_bodySitesCodingCollections];
+  v9.receiver = self;
+  v9.super_class = HKConditionRecord;
+  v6 = [(HKSample *)&v9 description];
+  v7 = [v3 stringWithFormat:@"<%@:%p super=%@conditionCodingCollection = %@categoriesCodingCollections = %@asserter = %@abatement = %@onset = %@recordedDate = %@clinicalStatusCoding = %@verificationStatusCoding = %@severityCodingCollection = %@bodySitesCodingCollections = %@>", v5, self, v6, self->_conditionCodingCollection, self->_categoriesCodingCollections, self->_asserter, self->_abatement, self->_onset, self->_recordedDate, self->_clinicalStatusCoding, self->_verificationStatusCoding, self->_severityCodingCollection, self->_bodySitesCodingCollections];
 
-  return v9;
+  return v7;
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -1279,17 +1283,17 @@ LABEL_86:
   conditionCopy = condition;
   if (!conditionCopy)
   {
-    _HKInitializeLogging();
-    v5 = HKLogHealthRecords;
+    _HKInitializeLogging(0, v4);
+    v6 = HKLogHealthRecords;
     if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_FAULT))
     {
-      [HKConditionRecord _setCondition:v5];
+      [HKConditionRecord _setCondition:v6];
     }
   }
 
-  v6 = [conditionCopy copy];
+  v7 = [conditionCopy copy];
   condition = self->_condition;
-  self->_condition = v6;
+  self->_condition = v7;
 }
 
 - (NSArray)categories
@@ -1314,17 +1318,17 @@ LABEL_86:
   categoriesCopy = categories;
   if (!categoriesCopy)
   {
-    _HKInitializeLogging();
-    v5 = HKLogHealthRecords;
+    _HKInitializeLogging(0, v4);
+    v6 = HKLogHealthRecords;
     if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_FAULT))
     {
-      [HKConditionRecord _setCategories:v5];
+      [HKConditionRecord _setCategories:v6];
     }
   }
 
-  v6 = [categoriesCopy copy];
+  v7 = [categoriesCopy copy];
   categories = self->_categories;
-  self->_categories = v6;
+  self->_categories = v7;
 }
 
 - (HKConcept)clinicalStatus

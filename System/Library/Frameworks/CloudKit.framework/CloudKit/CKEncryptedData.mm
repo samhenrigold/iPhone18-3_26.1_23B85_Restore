@@ -7,6 +7,7 @@
 - (CKEncryptedData)initWithData:(id)data;
 - (CKEncryptedData)initWithEncryptedData:(id)data;
 - (CKEncryptedData)initWithValue:(id)value;
+- (id)CKDescriptionPropertiesWithPublic:(BOOL)public private:(BOOL)private shouldExpand:(BOOL)expand;
 - (id)CKPropertiesDescription;
 - (id)copyWithZone:(_NSZone *)zone;
 - (unint64_t)hash;
@@ -394,6 +395,71 @@ LABEL_15:
   }
 
   objc_autoreleasePoolPop(v4);
+}
+
+- (id)CKDescriptionPropertiesWithPublic:(BOOL)public private:(BOOL)private shouldExpand:(BOOL)expand
+{
+  v50[4] = *MEMORY[0x1E69E9840];
+  if (private)
+  {
+    if (expand)
+    {
+      v50[0] = @"encrypteddata";
+      v49[0] = @"type";
+      v49[1] = @"length";
+      v6 = MEMORY[0x1E696AD98];
+      v7 = objc_msgSend_data(self, a2, public);
+      v10 = objc_msgSend_length(v7, v8, v9);
+      v12 = objc_msgSend_numberWithUnsignedInteger_(v6, v11, v10);
+      v50[1] = v12;
+      v49[2] = @"elength";
+      v13 = MEMORY[0x1E696AD98];
+      v16 = objc_msgSend_encryptedData(self, v14, v15);
+      v19 = objc_msgSend_length(v16, v17, v18);
+      v21 = objc_msgSend_numberWithUnsignedInteger_(v13, v20, v19);
+      v50[2] = v21;
+      v49[3] = @"data";
+      v24 = objc_msgSend_data(self, v22, v23);
+      v26 = objc_msgSend_base64EncodedStringWithOptions_(v24, v25, 32);
+      v50[3] = v26;
+      v28 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v27, v50, v49, 4);
+    }
+
+    else
+    {
+      v29 = objc_msgSend_data(self, a2, public);
+
+      if (v29)
+      {
+        v47 = @"length";
+        v32 = MEMORY[0x1E696AD98];
+        v7 = objc_msgSend_data(self, v30, v31);
+        v35 = objc_msgSend_length(v7, v33, v34);
+        v12 = objc_msgSend_numberWithUnsignedInteger_(v32, v36, v35);
+        v48 = v12;
+        objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v37, &v48, &v47, 1);
+      }
+
+      else
+      {
+        v45 = @"encryptedLength";
+        v38 = MEMORY[0x1E696AD98];
+        v7 = objc_msgSend_encryptedData(self, v30, v31);
+        v41 = objc_msgSend_length(v7, v39, v40);
+        v12 = objc_msgSend_numberWithUnsignedInteger_(v38, v42, v41);
+        v46 = v12;
+        objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v43, &v46, &v45, 1);
+      }
+      v28 = ;
+    }
+  }
+
+  else
+  {
+    v28 = MEMORY[0x1E695E0F8];
+  }
+
+  return v28;
 }
 
 @end

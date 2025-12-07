@@ -3,10 +3,10 @@
 - (CGAffineTransform)_makeTransformForPointerInteractionVisible:(int)visible;
 - (id)initWithTool:(void *)tool;
 - (id)pointerInteraction:(id)interaction regionForRequest:(id)request defaultRegion:(id)region;
-- (uint64_t)resetPointerInteractionTransform;
 - (void)_updateUI;
 - (void)pointerInteraction:(id)interaction willEnterRegion:(id)region animator:(id)animator;
 - (void)pointerInteraction:(id)interaction willExitRegion:(id)region animator:(id)animator;
+- (void)resetPointerInteractionTransform;
 - (void)setDragging:(uint64_t)dragging;
 - (void)setSelected:(int)selected animated:(void *)animated completion:;
 - (void)setTool:(uint64_t)tool;
@@ -266,7 +266,7 @@
   }
 }
 
-- (uint64_t)resetPointerInteractionTransform
+- (void)resetPointerInteractionTransform
 {
   if (result)
   {
@@ -316,7 +316,7 @@ uint64_t __63__PKSqueezePaletteDrawingTool_resetPointerInteractionTransform__blo
     *&v3->a = 0u;
     *&v3->c = 0u;
     *&v3->tx = 0u;
-    [a2 transform];
+    objc_msgSend_transform(a2);
     v10 = sin(v8);
     return CGAffineTransformTranslate(v3, &v11, 0.0, v10 * v9);
   }

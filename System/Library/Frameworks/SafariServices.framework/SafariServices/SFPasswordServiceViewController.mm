@@ -11,30 +11,30 @@
   window = [view window];
   [window setTintColor:sf_safariAccentColor];
 
-  [(SFPasswordServiceViewController *)self _hostAuditToken];
+  objc_msgSend__hostAuditToken(self);
   v6 = WBSApplicationIdentifierFromAuditToken();
   applicationIdentifier = self->_applicationIdentifier;
   self->_applicationIdentifier = v6;
 
-  v8 = self->_applicationIdentifier;
-  if (v8)
+  v9 = self->_applicationIdentifier;
+  if (v9)
   {
-    if (![(NSString *)v8 length])
+    if (![(NSString *)v9 length])
     {
-      v9 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v11 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(0, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        [(SFPasswordServiceViewController *)v9 _willAppearInRemoteViewController];
+        [(SFPasswordServiceViewController *)v11 _willAppearInRemoteViewController];
       }
     }
   }
 
   else
   {
-    v10 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(0, v8);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      [(SFPasswordServiceViewController *)v10 _willAppearInRemoteViewController];
+      [(SFPasswordServiceViewController *)v12 _willAppearInRemoteViewController];
     }
   }
 }

@@ -44,7 +44,7 @@
     if (visible)
     {
       self->_time = time;
-      [(TUIVisibilityOptions *)self->_options duration];
+      objc_msgSend_duration(self->_options, a2);
       if (v7 == 0.0 && !self->_computedVisible)
       {
         self->_computedVisible = 1;
@@ -68,7 +68,7 @@ LABEL_9:
   if (self->_visible && !self->_computedVisible)
   {
     time = self->_time;
-    [(TUIVisibilityOptions *)self->_options duration];
+    objc_msgSend_duration(self->_options, a2);
     if (time + v6 <= time)
     {
       self->_computedVisible = 1;

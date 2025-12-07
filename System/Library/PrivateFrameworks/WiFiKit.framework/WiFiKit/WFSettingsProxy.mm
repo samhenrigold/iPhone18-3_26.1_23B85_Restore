@@ -148,14 +148,13 @@ LABEL_8:
 
 + (id)defaultProxyConfiguration
 {
-  v7[2] = *MEMORY[0x277D85DE8];
+  v6[2] = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CE17B0];
-  v6[0] = *MEMORY[0x277CE17A8];
-  v6[1] = v2;
-  v7[0] = &unk_288304F78;
-  v7[1] = &unk_288304BD0;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
-  v4 = *MEMORY[0x277D85DE8];
+  v5[0] = *MEMORY[0x277CE17A8];
+  v5[1] = v2;
+  v6[0] = &unk_288304F78;
+  v6[1] = &unk_288304BD0;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
 
   return v3;
 }
@@ -166,9 +165,9 @@ LABEL_8:
   portCopy = port;
   usernameCopy = username;
   passwordCopy = password;
-  v27.receiver = self;
-  v27.super_class = WFSettingsProxy;
-  v14 = [(WFSettingsProxy *)&v27 init];
+  v23.receiver = self;
+  v23.super_class = WFSettingsProxy;
+  v14 = [(WFSettingsProxy *)&v23 init];
   if (!v14)
   {
     goto LABEL_13;
@@ -189,9 +188,7 @@ LABEL_8:
   if (portCopy)
   {
     v17 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(portCopy, "integerValue")}];
-    v18 = *MEMORY[0x277CE17C0];
     [OUTLINED_FUNCTION_0_10() setObject:? forKey:?];
-    v19 = *MEMORY[0x277CE17D8];
     [OUTLINED_FUNCTION_0_10() setObject:? forKey:?];
   }
 
@@ -203,9 +200,9 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  v20 = [passwordCopy length];
-  v14->_authenticated = v20 != 0;
-  if (v20)
+  v18 = [passwordCopy length];
+  v14->_authenticated = v18 != 0;
+  if (v18)
   {
     goto LABEL_9;
   }
@@ -217,14 +214,12 @@ LABEL_10:
     [(NSDictionary *)v16 setObject:usernameCopy forKey:@"HTTPProxyUsername"];
   }
 
-  v21 = *MEMORY[0x277CE17B8];
   [OUTLINED_FUNCTION_0_10() setObject:? forKey:?];
-  v22 = *MEMORY[0x277CE17D0];
   [OUTLINED_FUNCTION_0_10() setObject:? forKey:?];
   objc_storeStrong(&v14->_password, password);
   items = v14->_items;
   v14->_items = v16;
-  v24 = v16;
+  v20 = v16;
 
 LABEL_13:
   return v14;

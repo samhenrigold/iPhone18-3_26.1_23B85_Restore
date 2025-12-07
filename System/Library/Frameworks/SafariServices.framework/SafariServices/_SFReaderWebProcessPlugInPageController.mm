@@ -216,8 +216,8 @@
   ptr = self->_readerJSController.__ptr_;
   if (ptr)
   {
-    ptr = SafariServices::WebProcessPlugInReaderJSController::printingMailingFrame(ptr);
-    v2 = vars8;
+    ptr = SafariServices::WebProcessPlugInReaderJSController::printingMailingFrame(ptr, a2, v2, v3, v4, v5);
+    v6 = vars8;
   }
 
   return ptr;

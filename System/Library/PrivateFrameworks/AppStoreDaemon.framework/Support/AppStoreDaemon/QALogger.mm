@@ -10,7 +10,7 @@
 
 + (void)serializeLedgerWithCompletionHandler:(id)handler
 {
-  v5 = sub_100085D40(&qword_10059C3E0);
+  v5 = sub_100085D40(&qword_10059C3E0, &qword_1004344C0);
   __chkstk_darwin(v5 - 8);
   v7 = &v13 - v6;
   v8 = _Block_copy(handler);
@@ -36,7 +36,7 @@
 {
   parallelCopy = parallel;
   deltaCopy = delta;
-  v12 = sub_100085D40(&qword_10059CE90);
+  v12 = sub_100085D40(&qword_10059CE90, &unk_100436180);
   __chkstk_darwin(v12 - 8);
   v14 = &v20 - v13;
   if (url)
@@ -66,7 +66,7 @@
   keyCopy = key;
   sub_10019CB90(v14, v17, variant, deltaCopy, parallelCopy, key);
 
-  sub_100005518(v14, &qword_10059CE90);
+  sub_100005518(v14, &qword_10059CE90, &unk_100436180);
 }
 
 + (void)linearDownloadWithLogKey:(id)key totalDuration:(double)duration throughputAvg:(double)avg throughputMin:(double)min throughputMax:(double)max

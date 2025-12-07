@@ -4568,7 +4568,7 @@ __n128 std::__optional_storage_base<std::vector<BOOL>,false>::__assign_from[abi:
   return result;
 }
 
-void clsp::telemetry::utils::PrintBoolVector(uint64_t a1, uint64_t *a2, unint64_t a3)
+void clsp::telemetry::utils::PrintBoolVector(void *a1, uint64_t *a2, unint64_t a3)
 {
   v5 = a2;
   v6 = 0;
@@ -4856,7 +4856,7 @@ void *cpms::controllers::Power<float,cpms::smoothers::Exponential,clsp::AttackRe
   return result;
 }
 
-void clsp::telemetry::utils::PrintBoolVector_impl<std::__bit_iterator<std::vector<BOOL>,true,0ul>,std::__bit_iterator<std::vector<BOOL>,true,0ul>>(uint64_t a1, uint64_t **a2, void *a3)
+void clsp::telemetry::utils::PrintBoolVector_impl<std::__bit_iterator<std::vector<BOOL>,true,0ul>,std::__bit_iterator<std::vector<BOOL>,true,0ul>>(void *a1, uint64_t **a2, void *a3)
 {
   v4 = a3[1];
   v5 = v4 - 1;
@@ -4913,7 +4913,7 @@ void clsp::telemetry::utils::PrintBoolVector_impl<std::__bit_iterator<std::vecto
 
     v15 = std::string::insert(&v20, 0, v13, v14);
     v16 = *&v15->__r_.__value_.__l.__data_;
-    *(a1 + 16) = *(&v15->__r_.__value_.__l + 2);
+    a1[2] = *(&v15->__r_.__value_.__l + 2);
     *a1 = v16;
     v15->__r_.__value_.__l.__size_ = 0;
     v15->__r_.__value_.__r.__words[2] = 0;
@@ -4935,7 +4935,7 @@ void sub_1DDF25F54(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void clsp::telemetry::utils::PrintBoolVector_impl<std::__bit_iterator<std::vector<BOOL>,true,0ul>,std::__bit_iterator<std::vector<BOOL>,true,0ul>&>(uint64_t a1, uint64_t **a2, void *a3)
+void clsp::telemetry::utils::PrintBoolVector_impl<std::__bit_iterator<std::vector<BOOL>,true,0ul>,std::__bit_iterator<std::vector<BOOL>,true,0ul>&>(void *a1, uint64_t **a2, void *a3)
 {
   v4 = a3[1];
   v5 = v4 - 1;
@@ -4992,7 +4992,7 @@ void clsp::telemetry::utils::PrintBoolVector_impl<std::__bit_iterator<std::vecto
 
     v15 = std::string::insert(&v20, 0, v13, v14);
     v16 = *&v15->__r_.__value_.__l.__data_;
-    *(a1 + 16) = *(&v15->__r_.__value_.__l + 2);
+    a1[2] = *(&v15->__r_.__value_.__l + 2);
     *a1 = v16;
     v15->__r_.__value_.__l.__size_ = 0;
     v15->__r_.__value_.__r.__words[2] = 0;

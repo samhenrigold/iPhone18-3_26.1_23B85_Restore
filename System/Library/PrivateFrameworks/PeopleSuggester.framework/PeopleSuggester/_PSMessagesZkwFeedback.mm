@@ -66,28 +66,28 @@
 
 - (unint64_t)indexOfEngagedSuggestionForChatGuidEngaged
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   chatGuidEngaged = [(_PSMessagesZkwFeedback *)self chatGuidEngaged];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   suggestions = [(_PSMessagesZkwFeedback *)self suggestions];
-  v5 = [suggestions countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [suggestions countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(suggestions);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * i);
+        v9 = *(*(&v15 + 1) + 8 * i);
         conversationIdentifier = [v9 conversationIdentifier];
         v11 = [conversationIdentifier isEqualToString:chatGuidEngaged];
 
@@ -100,7 +100,7 @@
         }
       }
 
-      v6 = [suggestions countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [suggestions countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v6)
       {
         continue;
@@ -113,7 +113,6 @@
   v12 = 0x7FFFFFFFFFFFFFFFLL;
 LABEL_11:
 
-  v14 = *MEMORY[0x1E69E9840];
   return v12;
 }
 

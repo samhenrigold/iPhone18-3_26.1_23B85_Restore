@@ -394,7 +394,7 @@ LABEL_34:
     while (v33);
   }
 
-  std::vector<unsigned char>::vector[abi:ne200100](&v81, v32);
+  std::vector<unsigned char>::vector[abi:ne200100](&v81, v32, kBackgroundLabel);
   if (v32 >= 2)
   {
     v38 = (__p + 8);

@@ -1,4 +1,4 @@
-uint64_t sub_858()
+uint64_t sub_858(unsigned __int8 a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   result = sub_8EC();
   if (result)
@@ -244,21 +244,21 @@ uint64_t sub_DC8(void *a1)
   return v2;
 }
 
-void sub_E24()
+void sub_E24(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   qword_4690 = 0;
-  v0 = dispatch_queue_create("USBEthernetSharing", 0);
-  qword_4690 = v0;
-  if (v0)
+  v9 = dispatch_queue_create("USBEthernetSharing", 0);
+  qword_4690 = v9;
+  if (v9)
   {
 
-    dispatch_async(v0, &stru_43D8);
+    dispatch_async(v9, &stru_43D8);
   }
 
   else
   {
 
-    sub_858();
+    sub_858(0, "USBEthernetSharing dispatch_queue_create failed", v10, v11, v12, v13, v14, v15, a9);
   }
 }
 
@@ -266,132 +266,170 @@ void sub_E9C(id a1)
 {
   if (!qword_46B0)
   {
-    v11 = SCPreferencesCreate(kCFAllocatorDefault, @"com.apple.sc.networking.usbethernet", @"com.apple.USBEthernet.logging.plist");
-    qword_46B0 = v11;
-    if (!v11)
+    v47 = SCPreferencesCreate(kCFAllocatorDefault, @"com.apple.sc.networking.usbethernet", @"com.apple.USBEthernet.logging.plist");
+    qword_46B0 = v47;
+    if (!v47)
     {
-      v12 = SCError();
-      SCErrorString(v12);
-LABEL_32:
-      sub_858();
-      return;
+      v55 = SCError();
+      v70 = SCErrorString(v55);
+      v46 = "SCPreferencesCreate() failed: %s";
+      goto LABEL_36;
     }
 
-    if (!SCPreferencesSetCallback(v11, sub_1330, 0) || !SCPreferencesSetDispatchQueue(qword_46B0, qword_4690))
+    if (SCPreferencesSetCallback(v47, sub_1330, 0))
     {
-      v13 = SCError();
-      SCErrorString(v13);
-      sub_858();
-      CFRelease(qword_46B0);
-      qword_46B0 = 0;
-      return;
-    }
-
-    sub_1330(qword_46B0, 3);
-  }
-
-  if (_NETRBClientCreate())
-  {
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
-    v17 = 0u;
-    *cStr = 0u;
-    v15 = 0u;
-    if ((_NETRBClientGetDynamicStoreKey() & 1) == 0 || (qword_46A0 = CFStringCreateWithCString(kCFAllocatorDefault, cStr, 0x8000100u)) == 0)
-    {
-      sub_858();
-      _NETRBClientDestroy();
-      return;
-    }
-
-    qword_46A8 = SCDynamicStoreKeyCreateNetworkGlobalEntity(kCFAllocatorDefault, kSCDynamicStoreDomainSetup, kSCEntNetIPv4);
-    if (!qword_46A8)
-    {
-      goto LABEL_32;
-    }
-
-    _NETRBClientDestroy();
-    v1 = getprogname();
-    v2 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s-%s", v1, "usbeth_setup_sc_notifications", *cStr, *&cStr[8], v15, v16, v17, v18, v19, v20, v21, v22, v23, v24, v25, v26, v27, v28, v29);
-    v3 = SCDynamicStoreCreate(kCFAllocatorDefault, v2, sub_1414, 0);
-    qword_4688 = v3;
-    if (v2)
-    {
-      CFRelease(v2);
-      v3 = qword_4688;
-    }
-
-    if (v3)
-    {
-      SCDynamicStoreSetDispatchQueue(v3, qword_4690);
-      Mutable = CFArrayCreateMutable(kCFAllocatorDefault, 0, &kCFTypeArrayCallBacks);
-      qword_46B8 = Mutable;
-      if (Mutable)
+      if (SCPreferencesSetDispatchQueue(qword_46B0, qword_4690))
       {
-        CFArrayAppendValue(Mutable, qword_46A0);
-        CFArrayAppendValue(qword_46B8, qword_46A8);
-        v5 = SCDynamicStoreSetNotificationKeys(qword_4688, qword_46B8, 0);
-        sub_1414(v5, qword_46B8);
+        sub_1330(qword_46B0, 3, v48, v49, v50, v51, v52, v53);
+        goto LABEL_2;
       }
-    }
 
-    v6 = kLockdownNotificationTrustedHostAttached;
-    v7 = sub_1750(kLockdownNotificationTrustedHostAttached);
-    if (notify_register_dispatch(v7, &dword_56D4, qword_4690, &stru_4438) || (v6 = kLockdownNotificationHostAttached, v8 = sub_1750(kLockdownNotificationHostAttached), notify_register_dispatch(v8, &dword_56D4, qword_4690, &stru_4478)) || (v6 = kLockdownNotificationHostDetached, v9 = sub_1750(kLockdownNotificationHostDetached), notify_register_dispatch(v9, &dword_56D8, qword_4690, &stru_44B8)))
-    {
-      sub_1750(v6);
-      sub_858();
+      v63 = SCError();
+      v72 = SCErrorString(v63);
+      sub_858(0, "SCPreferencesSetDispatchQueue() failed: %s", v64, v65, v66, v67, v68, v69, v72);
     }
 
     else
     {
-      sub_21D4();
+      v56 = SCError();
+      v71 = SCErrorString(v56);
+      sub_858(0, "SCPreferencesSetCallback() failed: %s", v57, v58, v59, v60, v61, v62, v71);
     }
 
-    if (IOMasterPort(0, &dword_56DC))
-    {
-      goto LABEL_32;
-    }
-
-    if (!dword_56DC)
-    {
-      goto LABEL_32;
-    }
-
-    qword_56E0 = IONotificationPortCreate(dword_56DC);
-    IONotificationPortSetDispatchQueue(qword_56E0, qword_4690);
-    v10 = IOServiceMatching("IOEthernetInterface");
-    if (!v10 || IOServiceAddMatchingNotification(qword_56E0, "IOServiceMatched", v10, sub_22DC, 0, &dword_56E8))
-    {
-      goto LABEL_32;
-    }
-
-    sub_22DC(0, dword_56E8);
+    CFRelease(qword_46B0);
+    qword_46B0 = 0;
+    return;
   }
 
-  else
+LABEL_2:
+  if (_NETRBClientCreate())
   {
+    v87 = 0u;
+    v88 = 0u;
+    v85 = 0u;
+    v86 = 0u;
+    v83 = 0u;
+    v84 = 0u;
+    v81 = 0u;
+    v82 = 0u;
+    v79 = 0u;
+    v80 = 0u;
+    v77 = 0u;
+    v78 = 0u;
+    v75 = 0u;
+    v76 = 0u;
+    *cStr = 0u;
+    v74 = 0u;
+    if (_NETRBClientGetDynamicStoreKey())
+    {
+      v13 = CFStringCreateWithCString(kCFAllocatorDefault, cStr, 0x8000100u);
+      qword_46A0 = v13;
+      if (v13)
+      {
+        NetworkGlobalEntity = SCDynamicStoreKeyCreateNetworkGlobalEntity(kCFAllocatorDefault, kSCDynamicStoreDomainSetup, kSCEntNetIPv4);
+        qword_46A8 = NetworkGlobalEntity;
+        if (!NetworkGlobalEntity)
+        {
+          v46 = "SCDynamicStoreKeyCreateNetworkGlobalEntity failed";
+LABEL_37:
+          sub_858(NetworkGlobalEntity, v46, v15, v16, v17, v18, v19, v20, v70);
+          return;
+        }
 
-    sub_858();
+        _NETRBClientDestroy();
+        v70 = getprogname();
+        v21 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s-%s");
+        v22 = SCDynamicStoreCreate(kCFAllocatorDefault, v21, sub_1414, 0);
+        qword_4688 = v22;
+        if (v21)
+        {
+          CFRelease(v21);
+          v22 = qword_4688;
+        }
+
+        if (v22)
+        {
+          SCDynamicStoreSetDispatchQueue(v22, qword_4690);
+          Mutable = CFArrayCreateMutable(kCFAllocatorDefault, 0, &kCFTypeArrayCallBacks);
+          qword_46B8 = Mutable;
+          if (Mutable)
+          {
+            CFArrayAppendValue(Mutable, qword_46A0);
+            CFArrayAppendValue(qword_46B8, qword_46A8);
+            v24 = SCDynamicStoreSetNotificationKeys(qword_4688, qword_46B8, 0);
+            sub_1414(v24, qword_46B8);
+          }
+        }
+
+        v25 = kLockdownNotificationTrustedHostAttached;
+        v26 = sub_1750(kLockdownNotificationTrustedHostAttached);
+        if (notify_register_dispatch(v26, &dword_56D4, qword_4690, &stru_4438) || (v25 = kLockdownNotificationHostAttached, v27 = sub_1750(kLockdownNotificationHostAttached), notify_register_dispatch(v27, &dword_56D4, qword_4690, &stru_4478)) || (v25 = kLockdownNotificationHostDetached, v28 = sub_1750(kLockdownNotificationHostDetached), v29 = notify_register_dispatch(v28, &dword_56D8, qword_4690, &stru_44B8), v29))
+        {
+          v37 = sub_1750(v25);
+          sub_858(0, "Failed to setup notification for %s: %d", v38, v39, v40, v41, v42, v43, v37);
+        }
+
+        else
+        {
+          sub_21D4(v29, v30, v31, v32, v33, v34, v35, v36);
+        }
+
+        v44 = IOMasterPort(0, &dword_56DC);
+        if (v44 || !dword_56DC)
+        {
+          v70 = v44;
+          v46 = "Couldn't create a master IOKit Port(%08x)";
+        }
+
+        else
+        {
+          qword_56E0 = IONotificationPortCreate(dword_56DC);
+          IONotificationPortSetDispatchQueue(qword_56E0, qword_4690);
+          NetworkGlobalEntity = IOServiceMatching("IOEthernetInterface");
+          if (!NetworkGlobalEntity)
+          {
+            v46 = "Can't create a service matching dictionary";
+            goto LABEL_37;
+          }
+
+          v45 = IOServiceAddMatchingNotification(qword_56E0, "IOServiceMatched", NetworkGlobalEntity, sub_22DC, 0, &dword_56E8);
+          if (!v45)
+          {
+            sub_22DC(0, dword_56E8);
+            return;
+          }
+
+          v70 = v45;
+          v46 = "IOServiceAddMatchingNotification failed: 0x%x";
+        }
+
+LABEL_36:
+        LOBYTE(NetworkGlobalEntity) = 0;
+        goto LABEL_37;
+      }
+
+      v54 = "CFStringCreateWithCString failed";
+    }
+
+    else
+    {
+      v54 = "_NETRBClientGetDynamicStoreKey failed";
+      LOBYTE(v13) = 0;
+    }
+
+    sub_858(v13, v54, v7, v8, v9, v10, v11, v12, v70);
+    _NETRBClientDestroy();
+    return;
   }
+
+  sub_858(0, "_NETRBClientCreate failed", v1, v2, v3, v4, v5, v6, v90);
 }
 
-void sub_1330(const __SCPreferences *a1, char a2)
+void sub_1330(const __SCPreferences *a1, char a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if ((a2 & 2) != 0)
   {
-    sub_858();
+    sub_858(1u, "logging preferences changed", a3, a4, a5, a6, a7, a8, v19);
     Value = SCPreferencesGetValue(a1, @"USBEthernetLogging");
     if (Value)
     {
@@ -411,7 +449,13 @@ void sub_1330(const __SCPreferences *a1, char a2)
     {
       usbethVerboseLogging = Value;
       sub_8EC();
-      sub_858();
+      v18 = "enabled";
+      if (!Value)
+      {
+        v18 = "disabled";
+      }
+
+      sub_858(1u, "verbose mode %s", v12, v13, v14, v15, v16, v17, v18);
     }
 
     SCPreferencesSynchronize(a1);
@@ -430,29 +474,29 @@ void sub_1414(int a1, CFArrayRef theArray)
     do
     {
       ValueAtIndex = CFArrayGetValueAtIndex(theArray, v5);
-      sub_1750(ValueAtIndex);
-      sub_858();
+      v9 = sub_1750(ValueAtIndex);
+      sub_858(2u, v6, v10, v11, v12, v13, v14, v15, v9);
       if (CFEqual(ValueAtIndex, qword_46A0))
       {
         byte_56C4 = 0;
-        v9 = SCDynamicStoreCopyValue(qword_4688, qword_46A0);
-        if (v9)
+        v16 = SCDynamicStoreCopyValue(qword_4688, qword_46A0);
+        if (v16)
         {
-          v10 = v9;
-          v11 = CFGetTypeID(v9);
-          if (v11 == CFDictionaryGetTypeID())
+          v23 = v16;
+          v24 = CFGetTypeID(v16);
+          if (v24 == CFDictionaryGetTypeID())
           {
-            v12 = v6;
-            Value = CFDictionaryGetValue(v10, @"State");
-            v21 = CFDictionaryGetValue(v10, @"Reason");
+            v25 = v6;
+            Value = CFDictionaryGetValue(v23, @"State");
+            v71 = CFDictionaryGetValue(v23, @"Reason");
             valuePtr = 0;
             if (Value)
             {
-              v14 = v7;
-              v15 = CFGetTypeID(Value);
-              v16 = v15 == CFNumberGetTypeID();
-              v7 = v14;
-              if (v16)
+              v27 = v7;
+              v28 = CFGetTypeID(Value);
+              v29 = v28 == CFNumberGetTypeID();
+              v7 = v27;
+              if (v29)
               {
                 if (CFNumberGetValue(Value, kCFNumberSInt32Type, &valuePtr + 4))
                 {
@@ -461,30 +505,36 @@ void sub_1414(int a1, CFArrayRef theArray)
                     Mutable = CFDictionaryCreateMutable(kCFAllocatorDefault, 1, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
                     if (Mutable)
                     {
-                      v18 = Mutable;
+                      v37 = Mutable;
                       CFDictionaryAddValue(Mutable, @"IgnoreUntrustedList", kCFBooleanTrue);
-                      sub_858();
+                      sub_858(2u, "requesting/querying host pairing, ignore untrusted list", v38, v39, v40, v41, v42, v43, v70);
                       is_host_trusted = lockdown_is_host_trusted();
-                      CFRelease(v18);
+                      CFRelease(v37);
                       if (byte_56C5 != is_host_trusted)
                       {
                         byte_56C5 = is_host_trusted;
-                        sub_858();
+                        v51 = "not trusted";
+                        if (is_host_trusted)
+                        {
+                          v51 = "trusted";
+                        }
+
+                        sub_858(1u, "Host is %s", v45, v46, v47, v48, v49, v50, v51);
                       }
 
-                      v7 = v14;
+                      v7 = v27;
                     }
 
                     else
                     {
-                      sub_858();
+                      sub_858(0, "CFDictionaryCreateMutable() failed", v31, v32, v33, v34, v35, v36, v70);
                     }
                   }
 
-                  if (v21)
+                  if (v71)
                   {
-                    v20 = CFGetTypeID(v21);
-                    if (v20 == CFNumberGetTypeID() && CFNumberGetValue(v21, kCFNumberSInt32Type, &valuePtr) && HIDWORD(valuePtr) == 1023 && ((valuePtr & 0xFFFFFFFD) == 0 || dword_4680 == 1022))
+                    v60 = CFGetTypeID(v71);
+                    if (v60 == CFNumberGetTypeID() && CFNumberGetValue(v71, kCFNumberSInt32Type, &valuePtr) && HIDWORD(valuePtr) == 1023 && ((valuePtr & 0xFFFFFFFD) == 0 || dword_4680 == 1022))
                     {
                       byte_56C4 = 1;
                     }
@@ -495,19 +545,29 @@ void sub_1414(int a1, CFArrayRef theArray)
               }
             }
 
-            v6 = v12;
+            v6 = v25;
           }
 
-          CFRelease(v10);
+          CFRelease(v23);
         }
 
-        sub_858();
-        sub_18C8();
+        v61 = "TRUE";
+        if (!byte_56C4)
+        {
+          v61 = "FALSE";
+        }
+
+        v62 = sub_858(2u, "enabled=%s", v17, v18, v19, v20, v21, v22, v61);
+        sub_18C8(v62, v63, v64, v65, v66, v67, v68, v69);
       }
 
-      else if (CFEqual(ValueAtIndex, v7[213]))
+      else
       {
-        sub_1F70();
+        v52 = CFEqual(ValueAtIndex, v7[213]);
+        if (v52)
+        {
+          sub_1F70(v52, v53, v54, v55, v56, v57, v58, v59, v70);
+        }
       }
 
       ++v5;
@@ -613,10 +673,10 @@ LABEL_24:
   }
 }
 
-void sub_18C8()
+void sub_18C8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  sub_1BC0();
-  v0 = qword_56C8;
+  sub_1BC0(a1, a2, a3, a4, a5, a6, a7, a8);
+  v8 = qword_56C8;
   if (!qword_56C8)
   {
     return;
@@ -624,95 +684,120 @@ void sub_18C8()
 
   while (1)
   {
-    sub_1750(*(v0 + 24));
-    *(v0 + 32);
-    *(v0 + 33);
-    sub_858();
-    if (*(v0 + 32) != 1 || (byte_56C4 & 1) == 0 && (dword_4680 != 1023 || *(v0 + 33) != 1) || byte_56C5 != 1)
+    v9 = sub_1750(*(v8 + 24));
+    sub_858(2u, "%s, attached %s, sharing enabled %s, MIS state %d, sharing trigger %s, trusted %s", v10, v11, v12, v13, v14, v15, v9);
+    if (*(v8 + 32) != 1 || (byte_56C4 & 1) == 0 && (dword_4680 != 1023 || *(v8 + 33) != 1) || byte_56C5 != 1)
     {
-      sub_1D78(v0);
+      sub_1D78(v8, v16, v17, v18, v19, v20, v21, v22, v48);
       goto LABEL_17;
     }
 
-    if (*(v0 + 33) == 1)
+    if (*(v8 + 33) == 1)
     {
-      *(v0 + 33) = 0;
+      *(v8 + 33) = 0;
     }
 
-    if (*(v0 + 34))
+    if (*(v8 + 34))
     {
       goto LABEL_17;
     }
 
     *buffer = 0;
-    v10 = 0;
-    sub_1750(*(v0 + 24));
-    sub_858();
-    if (!CFStringGetCString(*(v0 + 24), buffer, 16, 0x8000100u) || (v1 = _NETRBClientCreate(), (*(v0 + 40) = v1) == 0))
+    v52 = 0;
+    v23 = sub_1750(*(v8 + 24));
+    sub_858(2u, "enabling sharing on %s", v24, v25, v26, v27, v28, v29, v23);
+    LODWORD(v30) = CFStringGetCString(*(v8 + 24), buffer, 16, 0x8000100u);
+    if (!v30)
     {
-      sub_858();
+      v46 = "CFStringGetCString failed";
+LABEL_21:
+      sub_858(v30, v46, v31, v32, v33, v34, v35, v36, v49);
       return;
     }
 
-    sub_858();
-    v2 = *(v0 + 40);
+    v30 = _NETRBClientCreate();
+    *(v8 + 40) = v30;
+    if (!v30)
+    {
+      v46 = "_NETRBClientCreate failed";
+      goto LABEL_21;
+    }
+
+    sub_858(2u, "Created sharing handle", v31, v32, v33, v34, v35, v36, v49);
     if ((_NETRBClientIsAllowedMoreHost() & 1) == 0)
     {
-      goto LABEL_23;
+      v47 = "_NETRBClientIsAllowedMoreHost claims maximum tethered host limit has been reached";
+      goto LABEL_25;
     }
 
-    v3 = xpc_dictionary_create(0, 0, 0);
-    if (!v3)
+    v43 = xpc_dictionary_create(0, 0, 0);
+    if (!v43)
     {
-      goto LABEL_23;
+      v47 = "xpc_dictionary_create failed";
+      goto LABEL_26;
     }
 
-    v4 = v3;
-    xpc_dictionary_set_uint64(v3, netrbClientDeviceType, 5uLL);
-    xpc_dictionary_set_string(v4, netrbClientInterfaceName, buffer);
-    v5 = *(v0 + 40);
+    v44 = v43;
+    xpc_dictionary_set_uint64(v43, netrbClientDeviceType, 5uLL);
+    xpc_dictionary_set_string(v44, netrbClientInterfaceName, buffer);
     started = _NETRBClientStartService();
-    xpc_release(v4);
+    xpc_release(v44);
     if ((started & 1) == 0)
     {
       break;
     }
 
-    *(v0 + 34) = 1;
+    *(v8 + 34) = 1;
 LABEL_17:
-    v0 = *v0;
-    if (!v0)
+    v8 = *v8;
+    if (!v8)
     {
       return;
     }
   }
 
-  v8 = *(v0 + 40);
-LABEL_23:
-  sub_858();
-  v7 = *(v0 + 40);
+  v50 = *(v8 + 40);
+  v47 = "_NETRBClientStartService(%p, %s) failed";
+LABEL_25:
+  LOBYTE(v43) = 0;
+LABEL_26:
+  sub_858(v43, v47, v37, v38, v39, v40, v41, v42, v50);
   _NETRBClientDestroy();
-  *(v0 + 40) = 0;
+  *(v8 + 40) = 0;
 }
 
-void sub_1BC0()
+void sub_1BC0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v0 = (dword_4680 == 1023) | byte_56D1 & 1;
-  if (byte_56D0 != v0)
+  v8 = (dword_4680 == 1023) | byte_56D1 & 1;
+  if (byte_56D0 != v8)
   {
-    sub_858();
-    if (v0)
+    v9 = "disabling";
+    if ((dword_4680 == 1023) | byte_56D1 & 1)
     {
-      IOUSBDeviceConfigurationAddInterface("AppleUSBEthernet");
+      v9 = "enabling";
+    }
+
+    sub_858(2u, "%s usb ethernet configuration", a3, a4, a5, a6, a7, a8, v9);
+    if (v8)
+    {
+      v10 = IOUSBDeviceConfigurationAddInterface("AppleUSBEthernet");
+      v17 = "IOUSBDeviceConfigurationAddInterface(kIOUSBDeviceInterfaceTypeEthernet) %s";
     }
 
     else
     {
-      IOUSBDeviceConfigurationRemoveInterface("AppleUSBEthernet");
+      v10 = IOUSBDeviceConfigurationRemoveInterface("AppleUSBEthernet");
+      v17 = "IOUSBDeviceConfigurationRemoveInterface(kIOUSBDeviceInterfaceTypeEthernet) %s";
     }
 
-    sub_858();
-    byte_56D0 = v0;
+    v18 = "failed";
+    if (v10)
+    {
+      v18 = "succeeded";
+    }
+
+    sub_858(1u, v17, v11, v12, v13, v14, v15, v16, v18);
+    byte_56D0 = v8;
   }
 }
 
@@ -726,15 +811,13 @@ uint64_t sub_1C90(uint64_t a1, int a2, xpc_object_t object)
       if (xpc_get_type(object) == &_xpc_type_dictionary)
       {
         uint64 = xpc_dictionary_get_uint64(object, netrbClientNotificationKey);
-        sub_1750(*(v4 + 24));
+        v6 = sub_1750(*(v4 + 24));
         if (uint64 == 5002)
         {
-          sub_858();
-          v6 = *(v4 + 40);
+          sub_858(2u, "Started sharing over %s", v7, v8, v9, v10, v11, v12, v6);
           if ((_NETRBClientAddHost() & 1) == 0)
           {
-            v8 = *(v4 + 40);
-            sub_858();
+            sub_858(0, "_NETRBClientAddHost(%p) failed", v13, v14, v15, v16, v17, v18, *(v4 + 40));
           }
 
           sub_1E24(v4);
@@ -742,8 +825,8 @@ uint64_t sub_1C90(uint64_t a1, int a2, xpc_object_t object)
 
         else
         {
-          sub_858();
-          sub_1D78(v4);
+          sub_858(0, "Sharing over %s failed", v7, v8, v9, v10, v11, v12, v6);
+          sub_1D78(v4, v19, v20, v21, v22, v23, v24, v25, v27);
         }
       }
     }
@@ -752,24 +835,22 @@ uint64_t sub_1C90(uint64_t a1, int a2, xpc_object_t object)
   return 0;
 }
 
-uint64_t sub_1D78(uint64_t result)
+uint64_t sub_1D78(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   if (*(result + 34) == 1)
   {
-    v2 = result;
-    sub_1750(*(result + 24));
-    sub_858();
-    *(v2 + 34) = 0;
-    sub_1E24(v2);
-    v3 = *(v2 + 40);
+    v10 = result;
+    v11 = sub_1750(*(result + 24));
+    sub_858(2u, "disabling sharing on %s", v12, v13, v14, v15, v16, v17, v11);
+    *(v10 + 34) = 0;
+    sub_1E24(v10);
     _NETRBClientStopService();
-    sub_1750(*(v2 + 24));
-    sub_858();
-    v4 = *(v2 + 40);
+    v18 = sub_1750(*(v10 + 24));
+    sub_858(2u, "Stopped sharing %s", v19, v20, v21, v22, v23, v24, v18);
     _NETRBClientDestroy();
-    *(v2 + 40) = 0;
+    *(v10 + 40) = 0;
 
-    return sub_858();
+    return sub_858(2u, "Destroyed sharing session", v25, v26, v27, v28, v29, v30, a9);
   }
 
   return result;
@@ -791,30 +872,54 @@ uint64_t sub_1E24(uint64_t result)
   v3 = v2 & 1;
   if (*(result + 35) != v3)
   {
-    sub_1750(*(result + 24));
-    sub_858();
-    valuePtr = v3;
-    v4 = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt32Type, &valuePtr);
-    if (v4 && (v5 = v4, v6 = IORegistryEntrySetCFProperty(*(v1 + 8), @"LinkStatus", v4), CFRelease(v5), !v6))
+    if (v2)
     {
-      *(v1 + 35) = v3;
-      sub_1750(*(v1 + 24));
+      v4 = "enabling";
     }
 
     else
     {
-      sub_1750(*(v1 + 24));
+      v4 = "disabling";
     }
 
-    return sub_858();
+    sub_1750(*(result + 24));
+    sub_858(2u, "%s link on %s", v5, v6, v7, v8, v9, v10, v4);
+    valuePtr = v3;
+    v11 = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt32Type, &valuePtr);
+    if (v11)
+    {
+      v12 = v11;
+      v13 = IORegistryEntrySetCFProperty(*(v1 + 8), @"LinkStatus", v11);
+      CFRelease(v12);
+      if (!v13)
+      {
+        *(v1 + 35) = v3;
+        v22 = sub_1750(*(v1 + 24));
+        v20 = "Updated link status on %s to %s";
+        v21 = 2;
+        return sub_858(v21, v20, v14, v15, v16, v17, v18, v19, v22);
+      }
+
+      v22 = sub_1750(*(v1 + 24));
+      v20 = "IORegistryEntrySetCFProperty for %s failed: 0x%x";
+    }
+
+    else
+    {
+      v22 = sub_1750(*(v1 + 24));
+      v20 = "failed to update link state for %s";
+    }
+
+    v21 = 0;
+    return sub_858(v21, v20, v14, v15, v16, v17, v18, v19, v22);
   }
 
   return result;
 }
 
-void sub_1F70()
+void sub_1F70(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  v0 = qword_56C8;
+  v9 = qword_56C8;
   if (!qword_56C8)
   {
     return;
@@ -822,56 +927,56 @@ void sub_1F70()
 
   do
   {
-    *(v0 + 36) = 0;
-    v0 = *v0;
+    *(v9 + 36) = 0;
+    v9 = *v9;
   }
 
-  while (v0);
-  v1 = open("/Library/Preferences/SystemConfiguration/rtether.plist", 0);
-  if (v1 == -1)
+  while (v9);
+  v10 = open("/Library/Preferences/SystemConfiguration/rtether.plist", 0, a3, a4, a5, a6, a7, a8);
+  if (v10 == -1)
   {
-    sub_858();
+    v43 = sub_858(2u, "Missing rtether.plist", v11, v12, v13, v14, v15, v16, v52);
     byte_56D1 = 0;
 LABEL_23:
 
-    sub_1BC0();
+    sub_1BC0(v43, v44, v45, v46, v47, v48, v49, v50);
     return;
   }
 
-  v2 = v1;
-  sub_858();
-  close(v2);
+  v17 = v10;
+  sub_858(2u, "Found rtether.plist", v11, v12, v13, v14, v15, v16, v52);
+  close(v17);
   byte_56D1 = 0;
-  v3 = usbeth_copy_active_services_entity(kSCEntNetInterface);
-  if (v3)
+  v18 = usbeth_copy_active_services_entity(kSCEntNetInterface);
+  if (v18)
   {
-    v4 = v3;
-    Count = CFArrayGetCount(v3);
+    v25 = v18;
+    Count = CFArrayGetCount(v18);
     if (Count >= 1)
     {
-      v6 = Count;
-      for (i = 0; i != v6; ++i)
+      v27 = Count;
+      for (i = 0; i != v27; ++i)
       {
-        ValueAtIndex = CFArrayGetValueAtIndex(v4, i);
+        ValueAtIndex = CFArrayGetValueAtIndex(v25, i);
         if (ValueAtIndex)
         {
-          v9 = ValueAtIndex;
-          v10 = CFGetTypeID(ValueAtIndex);
-          if (v10 == CFDictionaryGetTypeID())
+          v30 = ValueAtIndex;
+          v31 = CFGetTypeID(ValueAtIndex);
+          if (v31 == CFDictionaryGetTypeID())
           {
-            Value = CFDictionaryGetValue(v9, kSCPropNetInterfaceDeviceName);
+            Value = CFDictionaryGetValue(v30, kSCPropNetInterfaceDeviceName);
             if (Value)
             {
-              v12 = Value;
-              v13 = CFGetTypeID(Value);
-              if (v13 == CFStringGetTypeID())
+              v33 = Value;
+              v34 = CFGetTypeID(Value);
+              if (v34 == CFStringGetTypeID())
               {
                 for (j = qword_56C8; j; j = *j)
                 {
-                  if (CFEqual(*(j + 24), v12))
+                  if (CFEqual(*(j + 24), v33))
                   {
-                    sub_1750(*(j + 24));
-                    sub_858();
+                    v36 = sub_1750(*(j + 24));
+                    sub_858(2u, "enabling reverse tether on %s", v37, v38, v39, v40, v41, v42, v36);
                     *(j + 36) = 1;
                   }
                 }
@@ -882,7 +987,7 @@ LABEL_23:
       }
     }
 
-    CFRelease(v4);
+    CFRelease(v25);
     for (k = qword_56C8; k; k = *k)
     {
       if (*(k + 36) == 1)
@@ -890,27 +995,27 @@ LABEL_23:
         byte_56D1 = 1;
       }
 
-      sub_1E24(k);
+      v43 = sub_1E24(k);
     }
 
     goto LABEL_23;
   }
 
-  sub_858();
+  sub_858(2u, "couldn't copy active services", v19, v20, v21, v22, v23, v24, a9);
 }
 
 void sub_21A0(id a1, int a2)
 {
-  sub_858();
+  v8 = sub_858(2u, "trusted host attached", v2, v3, v4, v5, v6, v7, vars0);
 
-  sub_21D4();
+  sub_21D4(v8, v9, v10, v11, v12, v13, v14, v15);
 }
 
-void sub_21D4()
+void sub_21D4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (byte_56C4 == 1)
   {
-    sub_858();
+    sub_858(2u, "requesting/querying host pairing", a3, a4, a5, a6, a7, a8, v18);
     is_host_trusted = lockdown_is_host_trusted();
   }
 
@@ -922,16 +1027,22 @@ void sub_21D4()
   if (byte_56C5 != is_host_trusted)
   {
     byte_56C5 = is_host_trusted;
-    sub_858();
-    sub_18C8();
+    v9 = "not trusted";
+    if (is_host_trusted)
+    {
+      v9 = "trusted";
+    }
+
+    v10 = sub_858(2u, "Host is %s", a3, a4, a5, a6, a7, a8, v9);
+    sub_18C8(v10, v11, v12, v13, v14, v15, v16, v17);
   }
 }
 
 void sub_22A8(id a1, int a2)
 {
-  sub_858();
+  v8 = sub_858(2u, "host is attached", v2, v3, v4, v5, v6, v7, vars0);
 
-  sub_21D4();
+  sub_21D4(v8, v9, v10, v11, v12, v13, v14, v15);
 }
 
 uint64_t sub_22DC(int a1, io_iterator_t iterator)
@@ -939,110 +1050,129 @@ uint64_t sub_22DC(int a1, io_iterator_t iterator)
   result = IOIteratorNext(iterator);
   if (result)
   {
-    v4 = result;
+    v10 = result;
     do
     {
-      sub_858();
+      sub_858(2u, "handling interface 0x%x", v4, v5, v6, v7, v8, v9, v10);
       parent = 0;
-      if (IORegistryEntryGetParentEntry(v4, "IOService", &parent))
+      ParentEntry = IORegistryEntryGetParentEntry(v10, "IOService", &parent);
+      if (ParentEntry)
       {
-        IOObjectRelease(v4);
+        v12 = ParentEntry;
+        IOObjectRelease(v10);
+        v74 = v12;
+        v19 = 0;
+        v20 = "IORegistryEntryGetParentEntry failed: 0x%x";
       }
 
       else
       {
         if (!IOObjectConformsTo(parent, "AppleUSBEthernetDevice"))
         {
-          IOObjectRelease(v4);
+          IOObjectRelease(v10);
           IOObjectRelease(parent);
           goto LABEL_6;
         }
 
-        v5 = IORegistryEntrySearchCFProperty(v4, "IOService", @"BSD Name", kCFAllocatorDefault, 0);
-        if (v5)
+        v21 = IORegistryEntrySearchCFProperty(v10, "IOService", @"BSD Name", kCFAllocatorDefault, 0);
+        if (v21)
         {
-          v6 = v5;
-          v7 = &qword_56C8;
+          v22 = v21;
+          v23 = &qword_56C8;
           while (1)
           {
-            v7 = *v7;
-            if (!v7)
+            v23 = *v23;
+            if (!v23)
             {
               break;
             }
 
-            if (IOObjectIsEqualTo(parent, *(v7 + 2)))
+            if (IOObjectIsEqualTo(parent, *(v23 + 2)))
             {
-              IOObjectRelease(v4);
+              IOObjectRelease(v10);
               IOObjectRelease(parent);
-              CFRelease(v6);
+              CFRelease(v22);
               goto LABEL_6;
             }
           }
 
-          sub_1750(v6);
-          sub_858();
-          v8 = malloc_type_malloc(0x30uLL, 0x10600409D779101uLL);
-          if (v8)
+          v24 = sub_1750(v22);
+          sub_858(1u, "found matching device with bsd name %s", v25, v26, v27, v28, v29, v30, v24);
+          v31 = malloc_type_malloc(0x30uLL, 0x10600409D779101uLL);
+          if (v31)
           {
-            v9 = v8;
-            *(v8 + 7) = 0u;
-            v8[11] = 0;
-            *(v8 + 3) = 0u;
-            v10 = parent;
-            v8[2] = parent;
-            v8[4] = v4;
-            *(v8 + 3) = v6;
-            *v8 = qword_56C8;
-            qword_56C8 = v8;
-            if (IOServiceAddInterestNotification(qword_56E0, v10, "IOGeneralInterest", sub_25FC, v8, v8 + 3))
+            v32 = v31;
+            *(v31 + 7) = 0u;
+            v31[11] = 0;
+            *(v31 + 3) = 0u;
+            v33 = parent;
+            v31[2] = parent;
+            v31[4] = v10;
+            *(v31 + 3) = v22;
+            *v31 = qword_56C8;
+            qword_56C8 = v31;
+            v34 = IOServiceAddInterestNotification(qword_56E0, v33, "IOGeneralInterest", sub_25FC, v31, v31 + 3);
+            if (v34)
             {
-              sub_858();
-              sub_2678(v9);
+              sub_858(0, "IOServiceAddInterestNotification failed: 0x%x", v35, v36, v37, v38, v39, v40, v34);
+              sub_2678(v32);
             }
 
             else
             {
               valuePtr = 0;
-              v11 = IORegistryEntrySearchCFProperty(v9[2], "IOService", @"HostAttached", kCFAllocatorDefault, 0);
-              if (v11)
+              v41 = IORegistryEntrySearchCFProperty(v32[2], "IOService", @"HostAttached", kCFAllocatorDefault, 0);
+              if (v41 && (v42 = v41, v43 = CFGetTypeID(v41), v43 == CFNumberGetTypeID()) && CFNumberGetValue(v42, kCFNumberSInt32Type, &valuePtr))
               {
-                v12 = v11;
-                v13 = CFGetTypeID(v11);
-                if (v13 == CFNumberGetTypeID())
+                v44 = valuePtr == 0;
+                *(v32 + 32) = valuePtr != 0;
+                if (v44)
                 {
-                  if (CFNumberGetValue(v12, kCFNumberSInt32Type, &valuePtr))
-                  {
-                    *(v9 + 32) = valuePtr != 0;
-                  }
+                  v45 = "Detached";
                 }
+
+                else
+                {
+                  v45 = "Attached";
+                }
+
+                sub_1750(*(v32 + 3));
+                v52 = sub_858(1u, "Host is %s on %s", v46, v47, v48, v49, v50, v51, v45);
               }
 
-              sub_1750(*(v9 + 3));
-              sub_858();
-              sub_18C8();
-              sub_1F70();
+              else
+              {
+                v76 = sub_1750(*(v32 + 3));
+                v52 = sub_858(0, "counldn't determine attached state for %s", v60, v61, v62, v63, v64, v65, v76);
+              }
+
+              sub_18C8(v52, v53, v54, v55, v56, v57, v58, v59);
+              sub_1F70(v66, v67, v68, v69, v70, v71, v72, v73, v75);
             }
 
             goto LABEL_6;
           }
 
-          IOObjectRelease(v4);
+          IOObjectRelease(v10);
           IOObjectRelease(parent);
-          CFRelease(v6);
+          CFRelease(v22);
+          v19 = 0;
+          v20 = "out of memory";
         }
 
         else
         {
-          IOObjectRelease(v4);
+          IOObjectRelease(v10);
           IOObjectRelease(parent);
+          v19 = 1;
+          v20 = "found matching device without bsd name";
         }
       }
 
-      sub_858();
+      sub_858(v19, v20, v13, v14, v15, v16, v17, v18, v74);
 LABEL_6:
       result = IOIteratorNext(iterator);
-      v4 = result;
+      v10 = result;
     }
 
     while (result);
@@ -1113,36 +1243,35 @@ void sub_2678(uint64_t *a1)
   free(a1);
 }
 
-void sub_2710(uint64_t a1)
+void sub_2710(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  v2 = *(a1 + 32);
-  v4 = *(a1 + 48);
-  v5 = *(a1 + 40);
-  sub_858();
-  v3 = *(a1 + 48);
-  if (v3 == -536870896)
+  v10 = *(a1 + 32);
+  sub_858(2u, "Message: 0x%x, %p", a3, a4, a5, a6, a7, a8, *(a1 + 48));
+  v17 = *(a1 + 48);
+  if (v17 == -536870896)
   {
-    sub_1750(*(v2 + 24));
-    sub_858();
-    *(v2 + 32) = 0;
-    sub_18C8();
-    sub_2678(v2);
+    v35 = sub_1750(*(v10 + 24));
+    v42 = sub_858(2u, "kIOMessageServiceIsTerminated for %s", v36, v37, v38, v39, v40, v41, v35);
+    *(v10 + 32) = 0;
+    sub_18C8(v42, v43, v44, v45, v46, v47, v48, v49);
+    sub_2678(v10);
   }
 
   else
   {
-    if (v3 != -469794303)
+    if (v17 != -469794303)
     {
       return;
     }
 
-    *(v2 + 32) = *(a1 + 40) != 0;
-    sub_858();
-    *(v2 + 33) = 1;
-    sub_18C8();
+    v18 = *(a1 + 40);
+    *(v10 + 32) = v18 != 0;
+    v19 = sub_858(2u, "kAppleUSBEthernet_Enabled: %p", v11, v12, v13, v14, v15, v16, v18);
+    *(v10 + 33) = 1;
+    sub_18C8(v19, v20, v21, v22, v23, v24, v25, v26);
   }
 
-  sub_1F70();
+  sub_1F70(v27, v28, v29, v30, v31, v32, v33, v34, a9);
 }
 
 const char *IOUSBDeviceConfigurationAddInterface(const char *result)

@@ -6,6 +6,7 @@
 - (NSURL)URL;
 - (SWHighlight)initWithCSSearchableItem:(id)item error:(id *)error;
 - (SWHighlight)initWithCSSearchableItemUniqueIdentifier:(id)identifier error:(id *)error;
+- (SWHighlight)initWithCSSearchableItemUniqueIdentifier:(id)identifier forType:(unsigned __int8)type error:(id *)error;
 - (SWHighlight)initWithCoder:(id)coder;
 - (SWHighlight)initWithSLHighlight:(id)highlight;
 - (id)attributions;
@@ -77,29 +78,29 @@
 
 + (id)highlightsForSLHighlights:(id)highlights
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   highlightsCopy = highlights;
   array = [MEMORY[0x1E695DF70] array];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v5 = highlightsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v18;
+    v8 = *v17;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * i);
+        v10 = *(*(&v16 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -109,21 +110,20 @@
         else
         {
           v12 = [SWHighlight alloc];
-          v11 = [(SWHighlight *)v12 initWithSLHighlight:v10, v17];
+          v11 = [(SWHighlight *)v12 initWithSLHighlight:v10, v16];
         }
 
         v13 = v11;
-        [array addObject:{v11, v17}];
+        [array addObject:{v11, v16}];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v7);
   }
 
   v14 = [array copy];
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -157,6 +157,27 @@
   if (v8)
   {
     self = [(SWHighlight *)self initWithSLHighlight:v8];
+    selfCopy = self;
+  }
+
+  else
+  {
+    selfCopy = 0;
+  }
+
+  return selfCopy;
+}
+
+- (SWHighlight)initWithCSSearchableItemUniqueIdentifier:(id)identifier forType:(unsigned __int8)type error:(id *)error
+{
+  typeCopy = type;
+  v8 = MEMORY[0x1E69D3810];
+  identifierCopy = identifier;
+  v10 = [[v8 alloc] initWithCSSearchableItemUniqueIdentifier:identifierCopy forContentType:+[SWHighlight highlightContentTypeForType:](SWHighlight error:{"highlightContentTypeForType:", typeCopy), error}];
+
+  if (v10)
+  {
+    self = [(SWHighlight *)self initWithSLHighlight:v10];
     selfCopy = self;
   }
 
@@ -342,7 +363,7 @@ void __60__SWHighlight_replyContextMenuWithPresentingViewController___block_invo
 
 - (id)hideContextMenu
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   slHighlight = [(SWHighlight *)self slHighlight];
   attributions = [slHighlight attributions];
   v5 = [attributions count];
@@ -351,35 +372,35 @@ void __60__SWHighlight_replyContextMenuWithPresentingViewController___block_invo
   {
     v6 = objc_alloc_init(SWHighlightContextMenu);
     array = [MEMORY[0x1E695DF70] array];
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
     slHighlight2 = [(SWHighlight *)self slHighlight];
     attributions2 = [slHighlight2 attributions];
 
-    v10 = [attributions2 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v10 = [attributions2 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v24;
+      v12 = *v23;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v24 != v12)
+          if (*v23 != v12)
           {
             objc_enumerationMutation(attributions2);
           }
 
-          uniqueIdentifier = [*(*(&v23 + 1) + 8 * i) uniqueIdentifier];
+          uniqueIdentifier = [*(*(&v22 + 1) + 8 * i) uniqueIdentifier];
           if ([uniqueIdentifier length])
           {
             [array addObject:uniqueIdentifier];
           }
         }
 
-        v11 = [attributions2 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v11 = [attributions2 countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
       while (v11);
@@ -389,7 +410,7 @@ void __60__SWHighlight_replyContextMenuWithPresentingViewController___block_invo
     aBlock[1] = 3221225472;
     aBlock[2] = __30__SWHighlight_hideContextMenu__block_invoke;
     aBlock[3] = &unk_1E7FDDC38;
-    v22 = array;
+    v21 = array;
     v15 = array;
     v16 = _Block_copy(aBlock);
     v17 = SWFrameworkBundle();
@@ -411,39 +432,37 @@ void __60__SWHighlight_replyContextMenuWithPresentingViewController___block_invo
     v6 = 0;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
-
   return v6;
 }
 
 void __30__SWHighlight_hideContextMenu__block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v1 = *(a1 + 32);
-  v2 = [v1 countByEnumeratingWithState:&v10 objects:v16 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v9 objects:v15 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v11;
+    v4 = *v10;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v11 != v4)
+        if (*v10 != v4)
         {
           objc_enumerationMutation(v1);
         }
 
-        v6 = *(*(&v10 + 1) + 8 * i);
+        v6 = *(*(&v9 + 1) + 8 * i);
         v7 = SWFrameworkLogHandle();
         if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v15 = v6;
+          v14 = v6;
           _os_log_impl(&dword_1BBC06000, v7, OS_LOG_TYPE_INFO, "[SWHighlight] hideContextMenu invoked. Sending remove action for message guid: %@", buf, 0xCu);
         }
 
@@ -454,13 +473,11 @@ void __30__SWHighlight_hideContextMenu__block_invoke(uint64_t a1)
         }
       }
 
-      v3 = [v1 countByEnumeratingWithState:&v10 objects:v16 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v9 objects:v15 count:16];
     }
 
     while (v3);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -1,6 +1,7 @@
 @interface FCUICustomModeViewCell
 - (FCUICustomModeViewCell)initWithFrame:(CGRect)frame;
 - (void)layoutSubviews;
+- (void)setSelected:(BOOL)selected;
 @end
 
 @implementation FCUICustomModeViewCell
@@ -155,6 +156,19 @@
   imageBackgroundView = self->_imageBackgroundView;
   [(UIView *)imageBackgroundView frame];
   [(UIView *)imageBackgroundView _setCornerRadius:v10 * 0.5];
+}
+
+- (void)setSelected:(BOOL)selected
+{
+  selectedCopy = selected;
+  isSelected = [(FCUICustomModeViewCell *)self isSelected];
+  v6.receiver = self;
+  v6.super_class = FCUICustomModeViewCell;
+  [(FCUICustomModeViewCell *)&v6 setSelected:selectedCopy];
+  if (isSelected != selectedCopy)
+  {
+    [(FCUICustomModeViewCell *)self setNeedsLayout];
+  }
 }
 
 @end

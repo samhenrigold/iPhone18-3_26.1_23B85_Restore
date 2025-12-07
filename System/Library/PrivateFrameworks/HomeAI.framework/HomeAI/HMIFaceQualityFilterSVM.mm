@@ -18,19 +18,19 @@
     goto LABEL_5;
   }
 
-  v11 = [MEMORY[0x277CBEBC0] fileURLWithPath:pathCopy];
+  v11 = [MEMORY[0x277CBEBC0] fileURLWithPath:?];
   v23 = 0;
-  v12 = [MEMORY[0x277CBFF20] modelWithContentsOfURL:v11 error:&v23];
+  v12 = [MEMORY[0x277CBFF20] modelWithContentsOfURL:? error:?];
   v13 = v23;
   mlModel = v10->_mlModel;
   v10->_mlModel = v12;
 
   if (v10->_mlModel)
   {
-    v15 = [MEMORY[0x277CBEBC0] fileURLWithPath:scalerPathCopy];
+    v15 = [MEMORY[0x277CBEBC0] fileURLWithPath:?];
 
     v22 = v13;
-    v16 = [MEMORY[0x277CBFF20] modelWithContentsOfURL:v15 error:&v22];
+    v16 = [MEMORY[0x277CBFF20] modelWithContentsOfURL:? error:?];
     v17 = v22;
 
     scalerModel = v10->_scalerModel;
@@ -65,118 +65,109 @@ LABEL_10:
 - (BOOL)predict:(id)predict output:(double *)output error:(id *)error
 {
   predictCopy = predict;
-  v9 = [predictCopy objectAtIndexedSubscript:2];
+  v9 = [predictCopy objectAtIndexedSubscript:?];
   [v9 doubleValue];
-  v11 = fabs(v10);
 
-  v12 = [MEMORY[0x277CCABB0] numberWithDouble:v11];
-  [predictCopy setObject:v12 atIndexedSubscript:2];
+  v10 = [MEMORY[0x277CCABB0] numberWithDouble:?];
+  [predictCopy setObject:? atIndexedSubscript:?];
 
-  v13 = [predictCopy objectAtIndexedSubscript:3];
-  [v13 doubleValue];
-  v15 = v14;
+  v11 = [predictCopy objectAtIndexedSubscript:?];
+  [v11 doubleValue];
 
-  v16 = 100000.0;
-  if (v15 <= 100000.0)
-  {
-    v16 = v15;
-  }
+  v12 = [MEMORY[0x277CCABB0] numberWithDouble:?];
+  [predictCopy setObject:? atIndexedSubscript:?];
 
-  v17 = [MEMORY[0x277CCABB0] numberWithDouble:v16];
-  [predictCopy setObject:v17 atIndexedSubscript:3];
-
-  v18 = [HMIFaceQualityFilterModelInput alloc];
-  v19 = +[HMIFaceQualityFilterSVM dataScalerInputName];
-  v20 = [(HMIFaceQualityFilterModelInput *)v18 initWithInput:predictCopy inputName:v19];
+  v13 = [HMIFaceQualityFilterModelInput alloc];
+  v14 = +[HMIFaceQualityFilterSVM dataScalerInputName];
+  v15 = [HMIFaceQualityFilterModelInput initWithInput:v13 inputName:"initWithInput:inputName:"];
 
   scalerModel = [(HMIFaceQualityFilterSVM *)self scalerModel];
-  v52 = 0;
-  v22 = [scalerModel predictionFromFeatures:v20 error:&v52];
-  v23 = v52;
+  v17 = [scalerModel predictionFromFeatures:? error:?];
+  v18 = 0;
 
-  if (!v22 || v23)
+  if (!v17 || v18)
   {
-    v39 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1019 underlyingError:v23];
-    v40 = v39;
+    v34 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? underlyingError:?];
+    v35 = v34;
     if (error)
     {
-      v41 = v39;
-      *error = v40;
+      v36 = v34;
+      *error = v35;
     }
 
-    HMIErrorLog(self, v40);
+    HMIErrorLog(self, v35);
 
-    v42 = v23;
-    v33 = 0;
-    *error = v23;
+    v37 = v18;
+    v28 = 0;
+    *error = v18;
   }
 
   else
   {
     outputCopy = output;
-    v24 = +[HMIFaceQualityFilterSVM dataScalerOutputName];
-    v25 = [v22 featureValueForName:v24];
+    v19 = +[HMIFaceQualityFilterSVM dataScalerOutputName];
+    v20 = [v17 featureValueForName:?];
 
-    v50 = v25;
-    multiArrayValue = [v25 multiArrayValue];
-    v27 = [HMIFaceQualityFilterModelInput alloc];
-    v28 = +[HMIFaceQualityFilterSVM svmInputName];
-    v49 = multiArrayValue;
-    v29 = [(HMIFaceQualityFilterModelInput *)v27 initWithInput:multiArrayValue inputName:v28];
+    v45 = v20;
+    multiArrayValue = [v20 multiArrayValue];
+    v22 = [HMIFaceQualityFilterModelInput alloc];
+    v23 = +[HMIFaceQualityFilterSVM svmInputName];
+    v44 = multiArrayValue;
+    v24 = [HMIFaceQualityFilterModelInput initWithInput:v22 inputName:"initWithInput:inputName:"];
 
     mlModel = [(HMIFaceQualityFilterSVM *)self mlModel];
-    v51 = 0;
-    v31 = [mlModel predictionFromFeatures:v29 error:&v51];
-    v23 = v51;
+    v26 = [mlModel predictionFromFeatures:? error:?];
+    v18 = 0;
 
-    if (v31)
+    if (v26)
     {
-      v32 = v23 == 0;
+      v27 = v18 == 0;
     }
 
     else
     {
-      v32 = 0;
+      v27 = 0;
     }
 
-    v33 = v32;
-    if (v32)
+    v28 = v27;
+    if (v27)
     {
-      v34 = +[HMIFaceQualityFilterSVM svmOutputName];
-      v35 = [v31 featureValueForName:v34];
-      dictionaryValue = [v35 dictionaryValue];
+      v29 = +[HMIFaceQualityFilterSVM svmOutputName];
+      v30 = [v26 featureValueForName:?];
+      dictionaryValue = [v30 dictionaryValue];
 
-      v37 = [dictionaryValue objectForKeyedSubscript:&unk_284074FE8];
-      [v37 doubleValue];
-      *outputCopy = v38;
+      v32 = [dictionaryValue objectForKeyedSubscript:?];
+      [v32 doubleValue];
+      *outputCopy = v33;
     }
 
     else
     {
-      v43 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1019 underlyingError:v23];
-      v44 = v43;
+      v38 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? underlyingError:?];
+      v39 = v38;
       if (error)
       {
-        v45 = v43;
-        *error = v44;
+        v40 = v38;
+        *error = v39;
       }
 
-      HMIErrorLog(self, v44);
+      HMIErrorLog(self, v39);
 
-      v46 = v23;
-      *error = v23;
+      v41 = v18;
+      *error = v18;
     }
   }
 
-  return v33;
+  return v28;
 }
 
 + (id)modelPathForResource:(id)resource
 {
   v3 = MEMORY[0x277CCA8D8];
   resourceCopy = resource;
-  v5 = [v3 bundleForClass:objc_opt_class()];
-  v6 = [v5 pathForResource:resourceCopy ofType:@"mlmodelc"];
+  objc_opt_class();
+  v5 = [v3 bundleForClass:?];
+  v6 = [v5 pathForResource:? ofType:?];
 
   return v6;
 }

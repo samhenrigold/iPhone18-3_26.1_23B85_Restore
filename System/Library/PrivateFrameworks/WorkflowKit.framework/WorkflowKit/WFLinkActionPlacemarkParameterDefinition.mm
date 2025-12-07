@@ -104,7 +104,7 @@
 
 - (id)parameterStateFromLinkValue:(id)value
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   value = [value value];
   if (value)
   {
@@ -138,26 +138,24 @@
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       valueType2 = [(WFLinkActionParameterDefinition *)self valueType];
-      v17 = 136315650;
-      v18 = "[WFLinkActionPlacemarkParameterDefinition parameterStateFromLinkValue:]";
-      v19 = 2114;
-      v20 = value;
-      v21 = 2114;
-      v22 = valueType2;
+      v16 = 136315650;
+      v17 = "[WFLinkActionPlacemarkParameterDefinition parameterStateFromLinkValue:]";
+      v18 = 2114;
+      v19 = value;
+      v20 = 2114;
+      v21 = valueType2;
     }
   }
 
   v12 = 0;
 LABEL_11:
 
-  v15 = *MEMORY[0x1E69E9840];
-
   return v12;
 }
 
 - (void)getLinkValueFromProcessedParameterValue:(id)value parameterState:(id)state permissionRequestor:(id)requestor runningFromToolKit:(BOOL)kit action:(id)action parameterKey:(id)key completionHandler:(id)handler
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   valueCopy = value;
   stateCopy = state;
   requestorCopy = requestor;
@@ -184,31 +182,31 @@ LABEL_11:
 
     if (v22)
     {
-      v30[0] = MEMORY[0x1E69E9820];
-      v30[1] = 3221225472;
-      v30[2] = __176__WFLinkActionPlacemarkParameterDefinition_getLinkValueFromProcessedParameterValue_parameterState_permissionRequestor_runningFromToolKit_action_parameterKey_completionHandler___block_invoke;
-      v30[3] = &unk_1E837AF20;
-      v30[4] = self;
-      v31 = v20;
-      v32 = 0;
-      v33 = &v32;
-      v34 = 0x2050000000;
+      v29[0] = MEMORY[0x1E69E9820];
+      v29[1] = 3221225472;
+      v29[2] = __176__WFLinkActionPlacemarkParameterDefinition_getLinkValueFromProcessedParameterValue_parameterState_permissionRequestor_runningFromToolKit_action_parameterKey_completionHandler___block_invoke;
+      v29[3] = &unk_1E837AF20;
+      v29[4] = self;
+      v30 = v20;
+      v31 = 0;
+      v32 = &v31;
+      v33 = 0x2050000000;
       v25 = getCLPlacemarkClass_softClass;
-      v35 = getCLPlacemarkClass_softClass;
+      v34 = getCLPlacemarkClass_softClass;
       if (!getCLPlacemarkClass_softClass)
       {
         *buf = MEMORY[0x1E69E9820];
         *&buf[8] = 3221225472;
         *&buf[16] = __getCLPlacemarkClass_block_invoke;
-        v37 = &unk_1E837FAC0;
-        v38 = &v32;
+        v36 = &unk_1E837FAC0;
+        v37 = &v31;
         __getCLPlacemarkClass_block_invoke(buf);
-        v25 = v33[3];
+        v25 = v32[3];
       }
 
       v26 = v25;
-      _Block_object_dispose(&v32, 8);
-      [v21 getObjectRepresentation:v30 forClass:v25];
+      _Block_object_dispose(&v31, 8);
+      [v21 getObjectRepresentation:v29 forClass:v25];
     }
 
     else
@@ -232,8 +230,6 @@ LABEL_11:
   {
     (*(handlerCopy + 2))(handlerCopy, 0, 0);
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 void __176__WFLinkActionPlacemarkParameterDefinition_getLinkValueFromProcessedParameterValue_parameterState_permissionRequestor_runningFromToolKit_action_parameterKey_completionHandler___block_invoke(uint64_t a1, void *a2)

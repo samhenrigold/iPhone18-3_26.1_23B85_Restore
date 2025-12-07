@@ -113,7 +113,7 @@ uint64_t __38__HLPURLSessionHandler_sharedInstance__block_invoke()
 
 - (void)sessionTask:(id)task willPerformHTTPRedirection:(id)redirection newRequest:(id)request completionHandler:(id)handler
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   redirectionCopy = redirection;
   requestCopy = request;
@@ -125,9 +125,9 @@ uint64_t __38__HLPURLSessionHandler_sharedInstance__block_invoke()
     {
       v19 = [requestCopy URL];
       absoluteString = [v19 absoluteString];
-      v24 = 138412290;
-      v25 = absoluteString;
-      _os_log_impl(&dword_2522BC000, v18, OS_LOG_TYPE_DEFAULT, "Rejecting off-site redirect: %@", &v24, 0xCu);
+      v23 = 138412290;
+      v24 = absoluteString;
+      _os_log_impl(&dword_2522BC000, v18, OS_LOG_TYPE_DEFAULT, "Rejecting off-site redirect: %@", &v23, 0xCu);
     }
 
     v21 = [MEMORY[0x277CBEBC0] URLWithString:@"about:blank"];
@@ -145,8 +145,6 @@ uint64_t __38__HLPURLSessionHandler_sharedInstance__block_invoke()
 
     handlerCopy[2](handlerCopy, requestCopy);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (id)processJSONFormattedDataForCDSError:(id)error
@@ -399,7 +397,7 @@ uint64_t __73__HLPURLSessionHandler_sessionTask_didReceiveResponse_completionHan
 
 - (void)sessionTask:(id)task didCompleteWithError:(id)error
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   errorCopy = error;
   task = [taskCopy task];
@@ -461,7 +459,7 @@ uint64_t __73__HLPURLSessionHandler_sessionTask_didReceiveResponse_completionHan
               {
                 v29 = [originalRequest URL];
                 *buf = 138412290;
-                v50 = v29;
+                v49 = v29;
                 _os_log_impl(&dword_2522BC000, v28, OS_LOG_TYPE_DEFAULT, "Using cache data for request: %@", buf, 0xCu);
               }
 
@@ -510,15 +508,15 @@ LABEL_37:
 
     if ([dataTaskData length])
     {
-      v45 = dataTaskData;
+      v44 = dataTaskData;
       dataType = [taskCopy dataType];
       dataError = [taskCopy dataError];
 
       if (!dataError || dataType == 1)
       {
         dataType2 = [taskCopy dataType];
-        v43 = [(HLPURLSessionHandler *)self cacheControllerForDataType:dataType2];
-        v37 = [v43 formattedDataWithData:v45];
+        v42 = [(HLPURLSessionHandler *)self cacheControllerForDataType:dataType2];
+        v37 = [v42 formattedDataWithData:v44];
         if (dataType == 1)
         {
           v38 = [(HLPURLSessionHandler *)self processJSONFormattedDataForCDSError:v37];
@@ -532,7 +530,7 @@ LABEL_37:
           if (objc_opt_isKindOfClass())
           {
             identifier = [taskCopy identifier];
-            [v43 addInMemoryCacheForImage:v37 identifier:identifier cost:{objc_msgSend(v45, "length")}];
+            [v42 addInMemoryCacheForImage:v37 identifier:identifier cost:{objc_msgSend(v44, "length")}];
           }
         }
 
@@ -542,7 +540,7 @@ LABEL_37:
         }
       }
 
-      dataTaskData = v45;
+      dataTaskData = v44;
     }
 
     goto LABEL_37;
@@ -553,18 +551,16 @@ LABEL_38:
   block[1] = 3221225472;
   block[2] = __57__HLPURLSessionHandler_sessionTask_didCompleteWithError___block_invoke;
   block[3] = &unk_279706F08;
-  v47 = errorCopy;
-  v48 = task;
+  v46 = errorCopy;
+  v47 = task;
   v40 = task;
   v41 = errorCopy;
   dispatch_async(MEMORY[0x277D85CD0], block);
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 void __57__HLPURLSessionHandler_sessionTask_didCompleteWithError___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2)
   {
@@ -577,24 +573,21 @@ void __57__HLPURLSessionHandler_sessionTask_didCompleteWithError___block_invoke(
         v5 = [v4 URL];
         v6 = *(a1 + 32);
         *buf = 138412546;
-        v12 = v5;
-        v13 = 2112;
-        v14 = v6;
+        v10 = v5;
+        v11 = 2112;
+        v12 = v6;
         _os_log_impl(&dword_2522BC000, v3, OS_LOG_TYPE_DEFAULT, "URLSession %@ failed with error, %@", buf, 0x16u);
       }
 
       v7 = +[HLPReachabilityManager defaultManager];
       [v7 startNotifier];
     }
-
-    v8 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v10 = +[HLPReachabilityManager defaultManager];
-    [v10 stopNotifier];
-    v9 = *MEMORY[0x277D85DE8];
+    v8 = +[HLPReachabilityManager defaultManager];
+    [v8 stopNotifier];
   }
 }
 
@@ -757,46 +750,41 @@ void __74__HLPURLSessionHandler_sessionTask_didReceiveChallenge_completionHandle
 
 - (void)sessionTask:(NSObject *)a3 willPerformHTTPRedirection:newRequest:completionHandler:.cold.1(void *a1, void *a2, NSObject *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = [a1 URL];
   v6 = [v5 absoluteURL];
   v7 = [a2 URL];
   v8 = [v7 absoluteString];
-  v10 = 138412546;
-  v11 = v6;
-  v12 = 2112;
-  v13 = v8;
-  _os_log_debug_impl(&dword_2522BC000, a3, OS_LOG_TYPE_DEBUG, "willPerform HTTP Redirect. Original: %@. Redirected: %@", &v10, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  v9 = 138412546;
+  v10 = v6;
+  v11 = 2112;
+  v12 = v8;
+  _os_log_debug_impl(&dword_2522BC000, a3, OS_LOG_TYPE_DEBUG, "willPerform HTTP Redirect. Original: %@. Redirected: %@", &v9, 0x16u);
 }
 
 - (void)sessionTask:(uint64_t)a1 didFinishDownloadingToURL:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = @"Fail to save ";
   if (a1)
   {
     v2 = @"Saved";
   }
 
-  v4 = 138412546;
-  v5 = v2;
-  v6 = 2112;
-  v7 = a1;
-  _os_log_debug_impl(&dword_2522BC000, a2, OS_LOG_TYPE_DEBUG, "%@ %@. ", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = v2;
+  v5 = 2112;
+  v6 = a1;
+  _os_log_debug_impl(&dword_2522BC000, a2, OS_LOG_TYPE_DEBUG, "%@ %@. ", &v3, 0x16u);
 }
 
 - (void)sessionTask:(void *)a1 didReceiveResponse:(NSObject *)a2 completionHandler:.cold.1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 identifier];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_debug_impl(&dword_2522BC000, a2, OS_LOG_TYPE_DEBUG, "Data cache Last-Modified did not change, cancel request and use cache %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_debug_impl(&dword_2522BC000, a2, OS_LOG_TYPE_DEBUG, "Data cache Last-Modified did not change, cancel request and use cache %@", &v4, 0xCu);
 }
 
 @end

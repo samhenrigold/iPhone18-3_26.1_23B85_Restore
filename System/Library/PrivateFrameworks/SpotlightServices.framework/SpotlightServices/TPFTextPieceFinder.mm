@@ -120,56 +120,56 @@ LABEL_11:
 
 - (id)createPiecesWithTargets:(id)targets
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   targetsCopy = targets;
   array = [MEMORY[0x1E695DF70] array];
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   v6 = targetsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v30 objects:v34 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v31;
+    v9 = *v30;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v31 != v9)
+        if (*v30 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [(TPFTextPieceFinder *)self findLocationsOfTarget:*(*(&v30 + 1) + 8 * i)];
+        v11 = [(TPFTextPieceFinder *)self findLocationsOfTarget:*(*(&v29 + 1) + 8 * i)];
         [array addObjectsFromArray:v11];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v29 objects:v33 count:16];
     }
 
     while (v8);
   }
 
-  if ([array count])
+  if (objc_msgSend_count(array))
   {
     array2 = [MEMORY[0x1E695DF70] array];
     whitespaceAndNewlineCharacterSet = [MEMORY[0x1E696AB08] whitespaceAndNewlineCharacterSet];
     originalFullText = [(TPFTextPieceFinder *)self originalFullText];
     originalFullText2 = [(TPFTextPieceFinder *)self originalFullText];
     v16 = [originalFullText2 length];
-    v22 = MEMORY[0x1E69E9820];
-    v23 = 3221225472;
-    v24 = __46__TPFTextPieceFinder_createPiecesWithTargets___block_invoke;
-    v25 = &unk_1E8596678;
-    v26 = array2;
+    v21 = MEMORY[0x1E69E9820];
+    v22 = 3221225472;
+    v23 = __46__TPFTextPieceFinder_createPiecesWithTargets___block_invoke;
+    v24 = &unk_1E8596678;
+    v25 = array2;
     selfCopy = self;
-    v28 = array;
-    v29 = whitespaceAndNewlineCharacterSet;
+    v27 = array;
+    v28 = whitespaceAndNewlineCharacterSet;
     v17 = whitespaceAndNewlineCharacterSet;
     v18 = array2;
-    [originalFullText enumerateSubstringsInRange:0 options:v16 usingBlock:{3, &v22}];
+    [originalFullText enumerateSubstringsInRange:0 options:v16 usingBlock:{3, &v21}];
 
     v19 = [v18 copy];
   }
@@ -179,15 +179,13 @@ LABEL_11:
     v19 = 0;
   }
 
-  v20 = *MEMORY[0x1E69E9840];
-
   return v19;
 }
 
-void __46__TPFTextPieceFinder_createPiecesWithTargets___block_invoke(id *a1, uint64_t a2, NSUInteger a3, uint64_t a4, uint64_t a5, uint64_t a6, _BYTE *a7)
+void __46__TPFTextPieceFinder_createPiecesWithTargets___block_invoke(void **a1, const char *a2, NSUInteger a3, uint64_t a4, uint64_t a5, uint64_t a6, _BYTE *a7)
 {
-  v48 = *MEMORY[0x1E69E9840];
-  v10 = [a1[4] count];
+  v47 = *MEMORY[0x1E69E9840];
+  v10 = objc_msgSend_count(a1[4], a2, a3, a4, a5, a6);
   if (v10 >= [a1[5] maxNumCandidates])
   {
     *a7 = 1;
@@ -204,47 +202,37 @@ void __46__TPFTextPieceFinder_createPiecesWithTargets___block_invoke(id *a1, uin
       v12 = v13;
     }
 
+    v41 = 0u;
     v42 = 0u;
     v43 = 0u;
     v44 = 0u;
-    v45 = 0u;
     v14 = a1[6];
-    v15 = [v14 countByEnumeratingWithState:&v42 objects:v47 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v41 objects:v46 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v43;
+      v17 = *v42;
       while (2)
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v43 != v17)
+          if (*v42 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          v51.location = [*(*(&v42 + 1) + 8 * i) rangeValue];
-          v51.length = v19;
-          v49.location = a3;
-          v49.length = v12;
-          if (NSIntersectionRange(v49, v51).length)
+          v50.location = [*(*(&v41 + 1) + 8 * i) rangeValue];
+          v50.length = v19;
+          v48.location = a3;
+          v48.length = v12;
+          if (NSIntersectionRange(v48, v50).length)
           {
 
             v20 = [a1[5] originalFullText];
             v14 = [v20 substringWithRange:{a3, v12}];
 
-            if (v12 < [a1[5] maxLength])
+            if (v12 < [a1[5] maxLength] || (v21 = v12 + a3, objc_msgSend(a1[5], "originalFullText"), v22 = objc_claimAutoreleasedReturnValue(), v23 = objc_msgSend(v22, "length"), v22, v21 >= v23) || (objc_msgSend(a1[5], "originalFullText"), v24 = objc_claimAutoreleasedReturnValue(), v25 = objc_msgSend(v24, "characterAtIndex:", v21), v24, (objc_msgSend(a1[7], "characterIsMember:", v25) & 1) != 0) || (v26 = objc_msgSend(v14, "rangeOfCharacterFromSet:options:", a1[7], 4), v26 == 0x7FFFFFFFFFFFFFFFLL))
             {
-              goto LABEL_18;
-            }
-
-            v21 = v12 + a3;
-            v22 = [a1[5] originalFullText];
-            v23 = [v22 length];
-
-            if (v21 >= v23 || ([a1[5] originalFullText], v24 = objc_claimAutoreleasedReturnValue(), v25 = objc_msgSend(v24, "characterAtIndex:", v21), v24, (objc_msgSend(a1[7], "characterIsMember:", v25) & 1) != 0) || (v26 = objc_msgSend(v14, "rangeOfCharacterFromSet:options:", a1[7], 4), v26 == 0x7FFFFFFFFFFFFFFFLL))
-            {
-LABEL_18:
               v27 = v14;
             }
 
@@ -258,30 +246,30 @@ LABEL_18:
             if ([v29 length])
             {
               v30 = [v29 length];
+              v37 = 0u;
               v38 = 0u;
               v39 = 0u;
               v40 = 0u;
-              v41 = 0u;
               v31 = a1[6];
-              v32 = [v31 countByEnumeratingWithState:&v38 objects:v46 count:16];
+              v32 = [v31 countByEnumeratingWithState:&v37 objects:v45 count:16];
               if (v32)
               {
                 v33 = v32;
-                v34 = *v39;
+                v34 = *v38;
                 while (2)
                 {
                   for (j = 0; j != v33; ++j)
                   {
-                    if (*v39 != v34)
+                    if (*v38 != v34)
                     {
                       objc_enumerationMutation(v31);
                     }
 
-                    v52.location = [*(*(&v38 + 1) + 8 * j) rangeValue];
-                    v52.length = v36;
-                    v50.location = a3;
-                    v50.length = v30;
-                    if (NSIntersectionRange(v50, v52).length)
+                    v51.location = [*(*(&v37 + 1) + 8 * j) rangeValue];
+                    v51.length = v36;
+                    v49.location = a3;
+                    v49.length = v30;
+                    if (NSIntersectionRange(v49, v51).length)
                     {
 
                       [a1[4] addObject:v29];
@@ -289,7 +277,7 @@ LABEL_18:
                     }
                   }
 
-                  v33 = [v31 countByEnumeratingWithState:&v38 objects:v46 count:16];
+                  v33 = [v31 countByEnumeratingWithState:&v37 objects:v45 count:16];
                   if (v33)
                   {
                     continue;
@@ -306,7 +294,7 @@ LABEL_30:
           }
         }
 
-        v16 = [v14 countByEnumeratingWithState:&v42 objects:v47 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v41 objects:v46 count:16];
         if (v16)
         {
           continue;
@@ -318,8 +306,6 @@ LABEL_30:
 
 LABEL_31:
   }
-
-  v37 = *MEMORY[0x1E69E9840];
 }
 
 @end

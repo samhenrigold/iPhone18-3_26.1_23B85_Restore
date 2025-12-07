@@ -27,78 +27,79 @@
   v5 = delegateCopy;
   if (!delegateCopy)
   {
-    v10 = sub_100063A54();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = sub_100063A54(0);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      sub_1000E8F38(v10);
+      sub_1000E8F38(v12);
     }
 
     goto LABEL_14;
   }
 
-  if (([delegateCopy conformsToProtocol:&OBJC_PROTOCOL___MSDDemoUpdateStatusDelegate] & 1) == 0)
+  v6 = [delegateCopy conformsToProtocol:&OBJC_PROTOCOL___MSDDemoUpdateStatusDelegate];
+  if ((v6 & 1) == 0)
   {
-    v10 = sub_100063A54();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = sub_100063A54(v6);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      sub_1000E8EF4(v10);
+      sub_1000E8EF4(v12);
     }
 
 LABEL_14:
-    v8 = 0;
+    v9 = 0;
 LABEL_8:
 
     goto LABEL_9;
   }
 
   delegates = [(MSDDemoUpdateStatusHub *)self delegates];
-  v7 = [delegates containsObject:v5];
+  v8 = [delegates containsObject:v5];
 
-  if ((v7 & 1) == 0)
+  if ((v8 & 1) == 0)
   {
     delegates2 = [(MSDDemoUpdateStatusHub *)self delegates];
     [delegates2 addObject:v5];
 
-    v10 = sub_100063A54();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v12 = sub_100063A54(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       delegates3 = [(MSDDemoUpdateStatusHub *)self delegates];
-      v13 = 136315394;
-      v14 = "[MSDDemoUpdateStatusHub registerDemoUpdateStatusDelegate:]";
-      v15 = 2048;
-      v16 = [delegates3 count];
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%s: Registed 1 delegate, delegate count = %tu", &v13, 0x16u);
+      v15 = 136315394;
+      v16 = "[MSDDemoUpdateStatusHub registerDemoUpdateStatusDelegate:]";
+      v17 = 2048;
+      v18 = [delegates3 count];
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%s: Registed 1 delegate, delegate count = %tu", &v15, 0x16u);
     }
 
-    v8 = 1;
+    v9 = 1;
     goto LABEL_8;
   }
 
-  v8 = 1;
+  v9 = 1;
 LABEL_9:
 
-  return v8;
+  return v9;
 }
 
 - (void)demoUpdateProgress:(int64_t)progress
 {
   selfCopy = self;
-  objc_sync_enter(selfCopy);
-  v5 = sub_100063A54();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v5 = objc_sync_enter(selfCopy);
+  v6 = sub_100063A54(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
     progressCopy = progress;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "demoUpdateProgress: %td", buf, 0xCu);
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "demoUpdateProgress: %td", buf, 0xCu);
   }
 
   delegates = [(MSDDemoUpdateStatusHub *)selfCopy delegates];
-  v7[0] = _NSConcreteStackBlock;
-  v7[1] = 3221225472;
-  v7[2] = sub_1000B2E40;
-  v7[3] = &unk_10016C3D8;
-  v7[4] = progress;
-  [delegates enumerateObjectsUsingBlock:v7];
+  v8[0] = _NSConcreteStackBlock;
+  v8[1] = 3221225472;
+  v8[2] = sub_1000B2E40;
+  v8[3] = &unk_10016C3D8;
+  v8[4] = progress;
+  [delegates enumerateObjectsUsingBlock:v8];
 
   objc_sync_exit(selfCopy);
 }
@@ -107,22 +108,22 @@ LABEL_9:
 {
   completedCopy = completed;
   selfCopy = self;
-  objc_sync_enter(selfCopy);
-  v6 = sub_100063A54();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v6 = objc_sync_enter(selfCopy);
+  v7 = sub_100063A54(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "demoUpdateCompleted.", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "demoUpdateCompleted.", buf, 2u);
   }
 
   delegates = [(MSDDemoUpdateStatusHub *)selfCopy delegates];
-  v9[0] = _NSConcreteStackBlock;
-  v9[1] = 3221225472;
-  v9[2] = sub_1000B2F98;
-  v9[3] = &unk_10016C400;
-  v8 = completedCopy;
-  v10 = v8;
-  [delegates enumerateObjectsUsingBlock:v9];
+  v10[0] = _NSConcreteStackBlock;
+  v10[1] = 3221225472;
+  v10[2] = sub_1000B2F98;
+  v10[3] = &unk_10016C400;
+  v9 = completedCopy;
+  v11 = v9;
+  [delegates enumerateObjectsUsingBlock:v10];
 
   objc_sync_exit(selfCopy);
 }
@@ -159,15 +160,15 @@ LABEL_9:
     delegates = [(MSDDemoUpdateStatusHub *)self delegates];
     [delegates removeObject:v5];
 
-    v7 = sub_100063A54();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100063A54(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       delegates2 = [(MSDDemoUpdateStatusHub *)self delegates];
-      v9 = 136315394;
-      v10 = "[MSDDemoUpdateStatusHub unregisterDemoUpdateStatusDelegate:]";
-      v11 = 2048;
-      v12 = [delegates2 count];
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%s: Unregisted 1 delegate, delegate count = %tu", &v9, 0x16u);
+      v10 = 136315394;
+      v11 = "[MSDDemoUpdateStatusHub unregisterDemoUpdateStatusDelegate:]";
+      v12 = 2048;
+      v13 = [delegates2 count];
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%s: Unregisted 1 delegate, delegate count = %tu", &v10, 0x16u);
     }
   }
 }

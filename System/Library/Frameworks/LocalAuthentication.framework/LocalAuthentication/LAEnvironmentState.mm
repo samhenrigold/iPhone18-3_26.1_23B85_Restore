@@ -10,11 +10,11 @@
 
 - (LAEnvironmentState)initWithCoreState:(id)state
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   stateCopy = state;
-  v34.receiver = self;
-  v34.super_class = LAEnvironmentState;
-  v6 = [(LAEnvironmentState *)&v34 init];
+  v33.receiver = self;
+  v33.super_class = LAEnvironmentState;
+  v6 = [(LAEnvironmentState *)&v33 init];
   v7 = v6;
   if (v6)
   {
@@ -45,28 +45,28 @@
     companions = v7->_companions;
     v7->_companions = v17;
 
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
     v31 = 0u;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
     companions = [stateCopy companions];
-    v20 = [companions countByEnumeratingWithState:&v30 objects:v35 count:16];
+    v20 = [companions countByEnumeratingWithState:&v29 objects:v34 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v31;
+      v22 = *v30;
       do
       {
         v23 = 0;
         do
         {
-          if (*v31 != v22)
+          if (*v30 != v22)
           {
             objc_enumerationMutation(companions);
           }
 
           v24 = v7->_companions;
-          v25 = [[LAEnvironmentMechanismCompanion alloc] initWithCoreMechanism:*(*(&v30 + 1) + 8 * v23)];
+          v25 = [[LAEnvironmentMechanismCompanion alloc] initWithCoreMechanism:*(*(&v29 + 1) + 8 * v23)];
           v26 = [(NSArray *)v24 arrayByAddingObject:v25];
           v27 = v7->_companions;
           v7->_companions = v26;
@@ -75,14 +75,13 @@
         }
 
         while (v21 != v23);
-        v21 = [companions countByEnumeratingWithState:&v30 objects:v35 count:16];
+        v21 = [companions countByEnumeratingWithState:&v29 objects:v34 count:16];
       }
 
       while (v21);
     }
   }
 
-  v28 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

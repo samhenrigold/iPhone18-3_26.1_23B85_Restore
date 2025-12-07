@@ -18,13 +18,13 @@
 - (NSArray)sourcePeople
 {
   swift_beginAccess();
-  sub_1A3C52C70(0, &qword_1EB1265C0);
+  sub_1A3C52C70(0, &qword_1EB1265C0, 0x1E6978980);
   _s12PhotosUICore13SpriteBuilderV11buildEither5firstSayAA0C13Configuration_pGAG_tFZ_0();
 }
 
 - (void)setSourcePeople:(id)people
 {
-  sub_1A3C52C70(0, &qword_1EB1265C0);
+  sub_1A3C52C70(0, &qword_1EB1265C0, 0x1E6978980);
   v4 = sub_1A524CA34();
   v5 = OBJC_IVAR___PXMovePersonActionPerformer_sourcePeople;
   swift_beginAccess();
@@ -116,9 +116,9 @@
   v6 = sub_1A524C674();
   v8 = v7;
   type metadata accessor for PXActionParameterKey();
-  sub_1A3C38278(&unk_1EB1356B0);
-  sub_1A524C3E4();
-  return sub_1A3FF3BB8(v6, v8, reference);
+  sub_1A3C38278(&unk_1EB1356B0, &unk_1A5377DC0);
+  v9 = sub_1A524C3E4();
+  return sub_1A3FF3BB8(v6, v8, reference, v9);
 }
 
 @end

@@ -1,10 +1,10 @@
-void sub_23F143298(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22)
+void sub_23F143298(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22)
 {
   v23 = a22;
   a22 = 0;
   if (v23)
   {
-    (*(*v23 + 8))(v23);
+    (*(*v23 + 8))(v23, a2, a3, a4, a5, a6, a7, a8);
   }
 
   sub_23F133F30(&a12);
@@ -19,31 +19,31 @@ void sub_23F144214(int a1, uint64_t *a2, uint64_t a3)
       sub_23F3033AC("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/FormatAlgorithm.h", 523, &unk_23F3091D6, 0, "Runtime format not in given Formats list", 0x28uLL, sub_23F303DA4);
       abort();
     case 1:
-      v771 = &unk_28517DD38;
-      sub_23F08C868(a3, &v772);
+      v711 = &unk_28517DD38;
+      sub_23F08C868(a3, &v712);
       v4 = *a2;
-      v5 = v775;
-      v6 = v772;
-      if (!v772)
+      v5 = v715;
+      v6 = v712;
+      if (!v712)
       {
         goto LABEL_957;
       }
 
-      v7 = v773;
-      if (v773)
+      v7 = v713;
+      if (v713)
       {
-        atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
         if (!atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
         {
           (v7->__on_zero_shared)(v7);
           std::__shared_weak_count::__release_weak(v7);
         }
 
-        v6 = v772;
-        v8 = v773;
-        if (v773)
+        v6 = v712;
+        v8 = v713;
+        if (v713)
         {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
           if (!atomic_fetch_add(&v8->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
             v9 = v6;
@@ -54,64 +54,64 @@ void sub_23F144214(int a1, uint64_t *a2, uint64_t a3)
         }
       }
 
-      if (v780 == 1)
+      if (v720 == 1)
       {
-        (*(*v6 + 96))(&v785);
+        (*(*v6 + 96))(&v725);
       }
 
       else
       {
 LABEL_957:
-        v785 = 0;
+        v725 = 0;
       }
 
-      if (v775)
+      if (v715)
       {
-        v579 = v776;
-        if (v776)
+        v551 = v716;
+        if (v716)
         {
-          v580 = v778;
-          v581 = v774;
-          if (v779 == 1 && v774)
+          v552 = v718;
+          v553 = v714;
+          if (v719 == 1 && v714)
           {
-            v582 = v772;
-            v583 = v773;
-            if (v773)
+            v554 = v712;
+            v555 = v713;
+            if (v713)
             {
-              atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
-              if (!atomic_fetch_add(&v583->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+              atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
+              if (!atomic_fetch_add(&v555->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
               {
-                v584 = v582;
-                (v583->__on_zero_shared)(v583);
-                std::__shared_weak_count::__release_weak(v583);
-                v582 = v584;
+                v556 = v554;
+                (v555->__on_zero_shared)(v555);
+                std::__shared_weak_count::__release_weak(v555);
+                v554 = v556;
               }
             }
 
-            (*(*v582 + 88))(v582, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
-            v581 = v774;
+            (*(*v554 + 88))(v554, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
+            v553 = v714;
           }
 
-          v585 = v579 - 1;
-          if (v585)
+          v557 = v551 - 1;
+          if (v557)
           {
-            for (i = 0; i != v585; ++i)
+            for (i = 0; i != v557; ++i)
             {
-              v587 = *(v4 + 24);
-              if (*(v587 + 40) == 1)
+              v559 = *(v4 + 24);
+              if (*(v559 + 40) == 1)
               {
-                v786 = (v587 + 16);
+                v726 = (v559 + 16);
                 if (v5)
                 {
-                  v588 = v5;
-                  v589 = v581;
+                  v560 = v5;
+                  v561 = v553;
                   do
                   {
-                    sub_23F2FC63C(&v786, v589++);
-                    --v588;
+                    sub_23F2FC63C(&v726, v561++);
+                    --v560;
                   }
 
-                  while (v588);
+                  while (v560);
                 }
               }
 
@@ -119,60 +119,59 @@ LABEL_957:
               {
                 for (j = 0; j != v5; ++j)
                 {
-                  v591 = *(v581 + j);
-                  if (v591 < 0)
+                  v563 = *(v553 + j);
+                  if (v563 < 0)
                   {
-                    LOBYTE(v786) = -52;
-                    BYTE1(v786) = v591;
+                    LOBYTE(v726) = -52;
+                    BYTE1(v726) = v563;
                   }
 
                   else
                   {
-                    LOBYTE(v786) = *(v581 + j);
+                    LOBYTE(v726) = *(v553 + j);
                   }
 
-                  v592 = *(v587 + 8);
                   std::ostream::write();
                 }
               }
 
-              v581 = (v581 + v580);
+              v553 = (v553 + v552);
             }
           }
 
-          v786 = v581;
-          v787 = v5;
-          sub_23F2F787C(v4, &v786);
+          v726 = v553;
+          v727 = v5;
+          sub_23F2F787C(v4, &v726);
         }
       }
 
       goto LABEL_1329;
     case 2:
-      v771 = &unk_28517DFB0;
-      sub_23F08DA84(a3, &v772);
+      v711 = &unk_28517DFB0;
+      sub_23F08DA84(a3, &v712);
       v44 = *a2;
-      v162 = v775;
-      v163 = v772;
-      if (!v772)
+      v162 = v715;
+      v163 = v712;
+      if (!v712)
       {
         goto LABEL_944;
       }
 
-      v164 = v773;
-      if (v773)
+      v164 = v713;
+      if (v713)
       {
-        atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
         if (!atomic_fetch_add(&v164->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
         {
           (v164->__on_zero_shared)(v164);
           std::__shared_weak_count::__release_weak(v164);
         }
 
-        v163 = v772;
-        v165 = v773;
-        if (v773)
+        v163 = v712;
+        v165 = v713;
+        if (v713)
         {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
           if (!atomic_fetch_add(&v165->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
             v166 = v163;
@@ -183,882 +182,37 @@ LABEL_957:
         }
       }
 
-      if (v780 == 1)
+      if (v720 == 1)
       {
-        (*(*v163 + 96))(&v785);
+        (*(*v163 + 96))(&v725);
       }
 
       else
       {
 LABEL_944:
-        v785 = 0;
+        v725 = 0;
       }
 
-      if (!v775)
+      if (!v715)
       {
         goto LABEL_1329;
       }
 
-      v572 = v776;
-      if (!v776)
+      v544 = v716;
+      if (!v716)
       {
         goto LABEL_1329;
       }
 
-      v573 = v778;
-      v310 = v774;
-      if (v779 == 1 && v774)
+      v545 = v718;
+      v302 = v714;
+      if (v719 == 1 && v714)
       {
-        v574 = v772;
-        v575 = v773;
-        if (v773)
+        v546 = v712;
+        v547 = v713;
+        if (v713)
         {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
-          if (!atomic_fetch_add(&v575->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-          {
-            v576 = v574;
-            (v575->__on_zero_shared)(v575);
-            std::__shared_weak_count::__release_weak(v575);
-            v574 = v576;
-          }
-        }
-
-        (*(*v574 + 88))(v574, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
-        v310 = v774;
-      }
-
-      v577 = v572 - 1;
-      if (v577)
-      {
-        v578 = 2 * v573;
-        do
-        {
-          v786 = v310;
-          v787 = v162;
-          sub_23F2F7948(v44, &v786);
-          v310 = (v310 + v578);
-          --v577;
-        }
-
-        while (v577);
-      }
-
-      goto LABEL_1101;
-    case 3:
-      v771 = &unk_285181F28;
-      sub_23F12B4EC(a3, &v772);
-      v156 = *a2;
-      v157 = v775;
-      v158 = v772;
-      if (!v772)
-      {
-        goto LABEL_921;
-      }
-
-      v159 = v773;
-      if (v773)
-      {
-        atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
-        if (!atomic_fetch_add(&v159->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-        {
-          (v159->__on_zero_shared)(v159);
-          std::__shared_weak_count::__release_weak(v159);
-        }
-
-        v158 = v772;
-        v160 = v773;
-        if (v773)
-        {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
-          if (!atomic_fetch_add(&v160->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-          {
-            v161 = v158;
-            (v160->__on_zero_shared)(v160);
-            std::__shared_weak_count::__release_weak(v160);
-            v158 = v161;
-          }
-        }
-      }
-
-      if (v780 == 1)
-      {
-        (*(*v158 + 96))(&v785);
-      }
-
-      else
-      {
-LABEL_921:
-        v785 = 0;
-      }
-
-      if (!v775)
-      {
-        goto LABEL_1329;
-      }
-
-      v558 = v776;
-      if (!v776)
-      {
-        goto LABEL_1329;
-      }
-
-      v559 = v778;
-      v560 = v774;
-      if (v779 == 1 && v774)
-      {
-        v561 = v772;
-        v562 = v773;
-        if (v773)
-        {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
-          if (!atomic_fetch_add(&v562->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-          {
-            v563 = v561;
-            (v562->__on_zero_shared)(v562);
-            std::__shared_weak_count::__release_weak(v562);
-            v561 = v563;
-          }
-        }
-
-        (*(*v561 + 88))(v561, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
-        v560 = v774;
-      }
-
-      v564 = v558 - 1;
-      if (!v564)
-      {
-        goto LABEL_1265;
-      }
-
-      if (v157)
-      {
-        v565 = 0;
-        v566 = 2 * v559;
-        do
-        {
-          for (k = 0; k != v157; ++k)
-          {
-            v568 = v560[k];
-            v770 = v560[k];
-            v569 = *(v156 + 24);
-            if (*(v569 + 40) == 1)
-            {
-              v786 = (v569 + 16);
-              sub_23F2FCB5C(&v786, &v770);
-            }
-
-            else if (v568 > 0x7F)
-            {
-              if (v568 > 0xFF)
-              {
-                LOBYTE(v786) = -51;
-                *(&v786 + 1) = __rev16(v568);
-              }
-
-              else
-              {
-                LOBYTE(v786) = -52;
-                BYTE1(v786) = v568;
-              }
-
-              v571 = *(v569 + 8);
-              std::ostream::write();
-            }
-
-            else
-            {
-              LOBYTE(v786) = v568;
-              v570 = *(v569 + 8);
-              std::ostream::write();
-            }
-          }
-
-          v560 = (v560 + v566);
-          ++v565;
-        }
-
-        while (v565 != v564);
-LABEL_1265:
-        if (v157)
-        {
-          v743 = 2 * v157;
-          do
-          {
-            v744 = *v560;
-            v770 = *v560;
-            v745 = *(v156 + 24);
-            if (*(v745 + 40) == 1)
-            {
-              v786 = (v745 + 16);
-              sub_23F2FCB5C(&v786, &v770);
-            }
-
-            else if (v744 > 0x7F)
-            {
-              if (v744 > 0xFF)
-              {
-                LOBYTE(v786) = -51;
-                *(&v786 + 1) = __rev16(v744);
-              }
-
-              else
-              {
-                LOBYTE(v786) = -52;
-                BYTE1(v786) = v744;
-              }
-
-              v747 = *(v745 + 8);
-              std::ostream::write();
-            }
-
-            else
-            {
-              LOBYTE(v786) = v744;
-              v746 = *(v745 + 8);
-              std::ostream::write();
-            }
-
-            ++v560;
-            v743 -= 2;
-          }
-
-          while (v743);
-        }
-      }
-
-      goto LABEL_1329;
-    case 4:
-      v771 = &unk_285182020;
-      sub_23F12BBC8(a3, &v772);
-      v55 = *a2;
-      v99 = v775;
-      v100 = v772;
-      if (!v772)
-      {
-        goto LABEL_690;
-      }
-
-      v101 = v773;
-      if (v773)
-      {
-        atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
-        if (!atomic_fetch_add(&v101->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-        {
-          (v101->__on_zero_shared)(v101);
-          std::__shared_weak_count::__release_weak(v101);
-        }
-
-        v100 = v772;
-        v102 = v773;
-        if (v773)
-        {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
-          if (!atomic_fetch_add(&v102->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-          {
-            v103 = v100;
-            (v102->__on_zero_shared)(v102);
-            std::__shared_weak_count::__release_weak(v102);
-            v100 = v103;
-          }
-        }
-      }
-
-      if (v780 == 1)
-      {
-        (*(*v100 + 96))(&v785);
-      }
-
-      else
-      {
-LABEL_690:
-        v785 = 0;
-      }
-
-      if (!v775)
-      {
-        goto LABEL_1329;
-      }
-
-      v417 = v776;
-      if (!v776)
-      {
-        goto LABEL_1329;
-      }
-
-      v418 = v778;
-      v331 = v774;
-      if (v779 == 1 && v774)
-      {
-        v419 = v772;
-        v420 = v773;
-        if (v773)
-        {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
-          if (!atomic_fetch_add(&v420->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-          {
-            v421 = v419;
-            (v420->__on_zero_shared)(v420);
-            std::__shared_weak_count::__release_weak(v420);
-            v419 = v421;
-          }
-        }
-
-        (*(*v419 + 88))(v419, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
-        v331 = v774;
-      }
-
-      v422 = v417 - 1;
-      if (v422)
-      {
-        v423 = 0;
-        v424 = 4 * v418;
-        do
-        {
-          v425 = *(v55 + 24);
-          if (*(v425 + 40) == 1)
-          {
-            v786 = (v425 + 16);
-            if (v99)
-            {
-              v426 = 4 * v99;
-              v427 = v331;
-              do
-              {
-                sub_23F2FE06C(&v770, &v786, v427++);
-                v426 -= 4;
-              }
-
-              while (v426);
-            }
-          }
-
-          else if (v99)
-          {
-            v428 = 0;
-            do
-            {
-              v429 = *(v331 + v428);
-              LOBYTE(v786) = -54;
-              *(&v786 + 1) = bswap32(v429);
-              v430 = *(v425 + 8);
-              std::ostream::write();
-              v428 += 4;
-            }
-
-            while (4 * v99 != v428);
-          }
-
-          v331 = (v331 + v424);
-          ++v423;
-        }
-
-        while (v423 != v422);
-      }
-
-      goto LABEL_1199;
-    case 5:
-      v771 = &unk_285182118;
-      sub_23F12C2A4(a3, &v772);
-      v22 = *a2;
-      v141 = v782;
-      v142 = v772;
-      if (!v772)
-      {
-        goto LABEL_853;
-      }
-
-      v143 = v773;
-      if (v773)
-      {
-        atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
-        if (!atomic_fetch_add(&v143->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-        {
-          (v143->__on_zero_shared)(v143);
-          std::__shared_weak_count::__release_weak(v143);
-        }
-
-        v142 = v772;
-        v144 = v773;
-        if (v773)
-        {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
-          if (!atomic_fetch_add(&v144->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-          {
-            v145 = v142;
-            (v144->__on_zero_shared)(v144);
-            std::__shared_weak_count::__release_weak(v144);
-            v142 = v145;
-          }
-        }
-      }
-
-      if (v784 == 1)
-      {
-        (*(*v142 + 96))(&v785);
-      }
-
-      else
-      {
-LABEL_853:
-        v785 = 0;
-      }
-
-      if (!v775)
-      {
-        goto LABEL_1329;
-      }
-
-      if (!v776)
-      {
-        goto LABEL_1329;
-      }
-
-      v517 = v777;
-      if (!v777)
-      {
-        goto LABEL_1329;
-      }
-
-      v518 = v781;
-      v252 = v774;
-      if (v783 == 1 && v774)
-      {
-        v519 = v772;
-        v520 = v773;
-        if (v773)
-        {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
-          if (!atomic_fetch_add(&v520->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-          {
-            v521 = v519;
-            (v520->__on_zero_shared)(v520);
-            std::__shared_weak_count::__release_weak(v520);
-            v519 = v521;
-          }
-        }
-
-        (*(*v519 + 88))(v519, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
-        v252 = v774;
-      }
-
-      v256 = (2 * v141);
-      v522 = v517 - 1;
-      if (v522)
-      {
-        for (m = 0; m != v522; ++m)
-        {
-          v524 = *(v22 + 24);
-          if (*(v524 + 40) == 1)
-          {
-            v786 = (v524 + 16);
-            if (v256)
-            {
-              v525 = v256;
-              v526 = v252;
-              do
-              {
-                sub_23F2FC63C(&v786, v526++);
-                --v525;
-              }
-
-              while (v525);
-            }
-          }
-
-          else if (v256)
-          {
-            for (n = 0; n != v256; ++n)
-            {
-              v528 = *(v252 + n);
-              if (v528 < 0)
-              {
-                LOBYTE(v786) = -52;
-                BYTE1(v786) = v528;
-              }
-
-              else
-              {
-                LOBYTE(v786) = *(v252 + n);
-              }
-
-              v529 = *(v524 + 8);
-              std::ostream::write();
-            }
-          }
-
-          v252 = (v252 + v518);
-        }
-      }
-
-      goto LABEL_1198;
-    case 6:
-      v771 = &unk_285182210;
-      sub_23F12CA10(a3, &v772);
-      v44 = *a2;
-      v94 = v782;
-      v95 = v772;
-      if (!v772)
-      {
-        goto LABEL_676;
-      }
-
-      v96 = v773;
-      if (v773)
-      {
-        atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
-        if (!atomic_fetch_add(&v96->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-        {
-          (v96->__on_zero_shared)(v96);
-          std::__shared_weak_count::__release_weak(v96);
-        }
-
-        v95 = v772;
-        v97 = v773;
-        if (v773)
-        {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
-          if (!atomic_fetch_add(&v97->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-          {
-            v98 = v95;
-            (v97->__on_zero_shared)(v97);
-            std::__shared_weak_count::__release_weak(v97);
-            v95 = v98;
-          }
-        }
-      }
-
-      if (v784 == 1)
-      {
-        (*(*v95 + 96))(&v785);
-      }
-
-      else
-      {
-LABEL_676:
-        v785 = 0;
-      }
-
-      if (!v775)
-      {
-        goto LABEL_1329;
-      }
-
-      if (!v776)
-      {
-        goto LABEL_1329;
-      }
-
-      v410 = v777;
-      if (!v777)
-      {
-        goto LABEL_1329;
-      }
-
-      v411 = v781;
-      v310 = v774;
-      if (v783 == 1 && v774)
-      {
-        v412 = v772;
-        v413 = v773;
-        if (v773)
-        {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
-          if (!atomic_fetch_add(&v413->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-          {
-            v414 = v412;
-            (v413->__on_zero_shared)(v413);
-            std::__shared_weak_count::__release_weak(v413);
-            v412 = v414;
-          }
-        }
-
-        (*(*v412 + 88))(v412, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
-        v310 = v774;
-      }
-
-      v162 = (2 * v94);
-      v415 = v410 - 1;
-      if (v415)
-      {
-        v416 = 2 * v411;
-        do
-        {
-          v786 = v310;
-          v787 = v162;
-          sub_23F2F7948(v44, &v786);
-          v310 = (v310 + v416);
-          --v415;
-        }
-
-        while (v415);
-      }
-
-      goto LABEL_1101;
-    case 7:
-      v771 = &unk_285182308;
-      sub_23F12D180(a3, &v772);
-      v66 = *a2;
-      v67 = v782;
-      v68 = v772;
-      if (!v772)
-      {
-        goto LABEL_576;
-      }
-
-      v69 = v773;
-      if (v773)
-      {
-        atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
-        if (!atomic_fetch_add(&v69->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-        {
-          (v69->__on_zero_shared)(v69);
-          std::__shared_weak_count::__release_weak(v69);
-        }
-
-        v68 = v772;
-        v70 = v773;
-        if (v773)
-        {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
-          if (!atomic_fetch_add(&v70->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-          {
-            v71 = v68;
-            (v70->__on_zero_shared)(v70);
-            std::__shared_weak_count::__release_weak(v70);
-            v68 = v71;
-          }
-        }
-      }
-
-      if (v784 == 1)
-      {
-        (*(*v68 + 96))(&v785);
-      }
-
-      else
-      {
-LABEL_576:
-        v785 = 0;
-      }
-
-      if (!v775)
-      {
-        goto LABEL_1329;
-      }
-
-      if (!v776)
-      {
-        goto LABEL_1329;
-      }
-
-      v351 = v777;
-      if (!v777)
-      {
-        goto LABEL_1329;
-      }
-
-      v352 = v781;
-      v353 = v774;
-      if (v783 == 1 && v774)
-      {
-        v354 = v772;
-        v355 = v773;
-        if (v773)
-        {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
-          if (!atomic_fetch_add(&v355->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-          {
-            v356 = v354;
-            (v355->__on_zero_shared)(v355);
-            std::__shared_weak_count::__release_weak(v355);
-            v354 = v356;
-          }
-        }
-
-        (*(*v354 + 88))(v354, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
-        v353 = v774;
-      }
-
-      v357 = (2 * v67);
-      v358 = v351 - 1;
-      if (!v358)
-      {
-        goto LABEL_1221;
-      }
-
-      if (v357)
-      {
-        v359 = 0;
-        v360 = 2 * v352;
-        do
-        {
-          v361 = 0;
-          do
-          {
-            v362 = v353[v361];
-            v770 = v353[v361];
-            v363 = *(v66 + 24);
-            if (*(v363 + 40) == 1)
-            {
-              v786 = (v363 + 16);
-              sub_23F2FCB5C(&v786, &v770);
-            }
-
-            else if (v362 > 0x7F)
-            {
-              if (v362 > 0xFF)
-              {
-                LOBYTE(v786) = -51;
-                *(&v786 + 1) = __rev16(v362);
-              }
-
-              else
-              {
-                LOBYTE(v786) = -52;
-                BYTE1(v786) = v362;
-              }
-
-              v365 = *(v363 + 8);
-              std::ostream::write();
-            }
-
-            else
-            {
-              LOBYTE(v786) = v362;
-              v364 = *(v363 + 8);
-              std::ostream::write();
-            }
-
-            ++v361;
-          }
-
-          while (v357 != v361);
-          v353 = (v353 + v360);
-          ++v359;
-        }
-
-        while (v359 != v358);
-LABEL_1221:
-        if (v357)
-        {
-          v723 = 2 * v357;
-          do
-          {
-            v724 = *v353;
-            v770 = *v353;
-            v725 = *(v66 + 24);
-            if (*(v725 + 40) == 1)
-            {
-              v786 = (v725 + 16);
-              sub_23F2FCB5C(&v786, &v770);
-            }
-
-            else if (v724 > 0x7F)
-            {
-              if (v724 > 0xFF)
-              {
-                LOBYTE(v786) = -51;
-                *(&v786 + 1) = __rev16(v724);
-              }
-
-              else
-              {
-                LOBYTE(v786) = -52;
-                BYTE1(v786) = v724;
-              }
-
-              v727 = *(v725 + 8);
-              std::ostream::write();
-            }
-
-            else
-            {
-              LOBYTE(v786) = v724;
-              v726 = *(v725 + 8);
-              std::ostream::write();
-            }
-
-            ++v353;
-            v723 -= 2;
-          }
-
-          while (v723);
-        }
-      }
-
-      goto LABEL_1329;
-    case 8:
-      v771 = &unk_285182400;
-      sub_23F12D8F0(a3, &v772);
-      v55 = *a2;
-      v151 = v782;
-      v152 = v772;
-      if (!v772)
-      {
-        goto LABEL_899;
-      }
-
-      v153 = v773;
-      if (v773)
-      {
-        atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
-        if (!atomic_fetch_add(&v153->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-        {
-          (v153->__on_zero_shared)(v153);
-          std::__shared_weak_count::__release_weak(v153);
-        }
-
-        v152 = v772;
-        v154 = v773;
-        if (v773)
-        {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
-          if (!atomic_fetch_add(&v154->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-          {
-            v155 = v152;
-            (v154->__on_zero_shared)(v154);
-            std::__shared_weak_count::__release_weak(v154);
-            v152 = v155;
-          }
-        }
-      }
-
-      if (v784 == 1)
-      {
-        (*(*v152 + 96))(&v785);
-      }
-
-      else
-      {
-LABEL_899:
-        v785 = 0;
-      }
-
-      if (!v775)
-      {
-        goto LABEL_1329;
-      }
-
-      if (!v776)
-      {
-        goto LABEL_1329;
-      }
-
-      v544 = v777;
-      if (!v777)
-      {
-        goto LABEL_1329;
-      }
-
-      v545 = v781;
-      v331 = v774;
-      if (v783 == 1 && v774)
-      {
-        v546 = v772;
-        v547 = v773;
-        if (v773)
-        {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
           if (!atomic_fetch_add(&v547->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
             v548 = v546;
@@ -1069,85 +223,919 @@ LABEL_899:
         }
 
         (*(*v546 + 88))(v546, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
-        v331 = v774;
+        v302 = v714;
       }
 
-      v99 = (2 * v151);
       v549 = v544 - 1;
       if (v549)
       {
-        v550 = 0;
-        v551 = 4 * v545;
+        v550 = 2 * v545;
         do
         {
-          v552 = *(v55 + 24);
-          if (*(v552 + 40) == 1)
+          v726 = v302;
+          v727 = v162;
+          sub_23F2F7948(v44, &v726);
+          v302 = (v302 + v550);
+          --v549;
+        }
+
+        while (v549);
+      }
+
+      goto LABEL_1101;
+    case 3:
+      v711 = &unk_285181F28;
+      sub_23F12B4EC(a3, &v712);
+      v156 = *a2;
+      v157 = v715;
+      v158 = v712;
+      if (!v712)
+      {
+        goto LABEL_921;
+      }
+
+      v159 = v713;
+      if (v713)
+      {
+        atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
+        if (!atomic_fetch_add(&v159->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+        {
+          (v159->__on_zero_shared)(v159);
+          std::__shared_weak_count::__release_weak(v159);
+        }
+
+        v158 = v712;
+        v160 = v713;
+        if (v713)
+        {
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
+          if (!atomic_fetch_add(&v160->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
-            v786 = (v552 + 16);
-            if (v99)
+            v161 = v158;
+            (v160->__on_zero_shared)(v160);
+            std::__shared_weak_count::__release_weak(v160);
+            v158 = v161;
+          }
+        }
+      }
+
+      if (v720 == 1)
+      {
+        (*(*v158 + 96))(&v725);
+      }
+
+      else
+      {
+LABEL_921:
+        v725 = 0;
+      }
+
+      if (!v715)
+      {
+        goto LABEL_1329;
+      }
+
+      v532 = v716;
+      if (!v716)
+      {
+        goto LABEL_1329;
+      }
+
+      v533 = v718;
+      v534 = v714;
+      if (v719 == 1 && v714)
+      {
+        v535 = v712;
+        v536 = v713;
+        if (v713)
+        {
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
+          if (!atomic_fetch_add(&v536->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          {
+            v537 = v535;
+            (v536->__on_zero_shared)(v536);
+            std::__shared_weak_count::__release_weak(v536);
+            v535 = v537;
+          }
+        }
+
+        (*(*v535 + 88))(v535, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
+        v534 = v714;
+      }
+
+      v538 = v532 - 1;
+      if (!v538)
+      {
+        goto LABEL_1265;
+      }
+
+      if (v157)
+      {
+        v539 = 0;
+        v540 = 2 * v533;
+        do
+        {
+          for (k = 0; k != v157; ++k)
+          {
+            v542 = v534[k];
+            v710 = v534[k];
+            v543 = *(v156 + 24);
+            if (*(v543 + 40) == 1)
             {
-              v553 = 4 * v99;
-              v554 = v331;
-              do
+              v726 = (v543 + 16);
+              sub_23F2FCB5C(&v726, &v710);
+            }
+
+            else if (v542 > 0x7F)
+            {
+              if (v542 > 0xFF)
               {
-                sub_23F2FE06C(&v770, &v786, v554++);
-                v553 -= 4;
+                LOBYTE(v726) = -51;
+                *(&v726 + 1) = __rev16(v542);
               }
 
-              while (v553);
+              else
+              {
+                LOBYTE(v726) = -52;
+                BYTE1(v726) = v542;
+              }
+
+              std::ostream::write();
+            }
+
+            else
+            {
+              LOBYTE(v726) = v542;
+              std::ostream::write();
+            }
+          }
+
+          v534 = (v534 + v540);
+          ++v539;
+        }
+
+        while (v539 != v538);
+LABEL_1265:
+        if (v157)
+        {
+          v693 = 2 * v157;
+          do
+          {
+            v694 = *v534;
+            v710 = *v534;
+            v695 = *(v156 + 24);
+            if (*(v695 + 40) == 1)
+            {
+              v726 = (v695 + 16);
+              sub_23F2FCB5C(&v726, &v710);
+            }
+
+            else if (v694 > 0x7F)
+            {
+              if (v694 > 0xFF)
+              {
+                LOBYTE(v726) = -51;
+                *(&v726 + 1) = __rev16(v694);
+              }
+
+              else
+              {
+                LOBYTE(v726) = -52;
+                BYTE1(v726) = v694;
+              }
+
+              std::ostream::write();
+            }
+
+            else
+            {
+              LOBYTE(v726) = v694;
+              std::ostream::write();
+            }
+
+            ++v534;
+            v693 -= 2;
+          }
+
+          while (v693);
+        }
+      }
+
+      goto LABEL_1329;
+    case 4:
+      v711 = &unk_285182020;
+      sub_23F12BBC8(a3, &v712);
+      v55 = *a2;
+      v99 = v715;
+      v100 = v712;
+      if (!v712)
+      {
+        goto LABEL_690;
+      }
+
+      v101 = v713;
+      if (v713)
+      {
+        atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
+        if (!atomic_fetch_add(&v101->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+        {
+          (v101->__on_zero_shared)(v101);
+          std::__shared_weak_count::__release_weak(v101);
+        }
+
+        v100 = v712;
+        v102 = v713;
+        if (v713)
+        {
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
+          if (!atomic_fetch_add(&v102->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          {
+            v103 = v100;
+            (v102->__on_zero_shared)(v102);
+            std::__shared_weak_count::__release_weak(v102);
+            v100 = v103;
+          }
+        }
+      }
+
+      if (v720 == 1)
+      {
+        (*(*v100 + 96))(&v725);
+      }
+
+      else
+      {
+LABEL_690:
+        v725 = 0;
+      }
+
+      if (!v715)
+      {
+        goto LABEL_1329;
+      }
+
+      v401 = v716;
+      if (!v716)
+      {
+        goto LABEL_1329;
+      }
+
+      v402 = v718;
+      v322 = v714;
+      if (v719 == 1 && v714)
+      {
+        v403 = v712;
+        v404 = v713;
+        if (v713)
+        {
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
+          if (!atomic_fetch_add(&v404->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          {
+            v405 = v403;
+            (v404->__on_zero_shared)(v404);
+            std::__shared_weak_count::__release_weak(v404);
+            v403 = v405;
+          }
+        }
+
+        (*(*v403 + 88))(v403, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
+        v322 = v714;
+      }
+
+      v406 = v401 - 1;
+      if (v406)
+      {
+        v407 = 0;
+        v408 = 4 * v402;
+        do
+        {
+          v409 = *(v55 + 24);
+          if (*(v409 + 40) == 1)
+          {
+            v726 = (v409 + 16);
+            if (v99)
+            {
+              v410 = 4 * v99;
+              v411 = v322;
+              do
+              {
+                sub_23F2FE06C(&v710, &v726, v411++);
+                v410 -= 4;
+              }
+
+              while (v410);
             }
           }
 
           else if (v99)
           {
-            v555 = 0;
+            v412 = 0;
             do
             {
-              v556 = *(v331 + v555);
-              LOBYTE(v786) = -54;
-              *(&v786 + 1) = bswap32(v556);
-              v557 = *(v552 + 8);
+              v413 = *(v322 + v412);
+              LOBYTE(v726) = -54;
+              *(&v726 + 1) = bswap32(v413);
               std::ostream::write();
-              v555 += 4;
+              v412 += 4;
             }
 
-            while (4 * v99 != v555);
+            while (4 * v99 != v412);
           }
 
-          v331 = (v331 + v551);
-          ++v550;
+          v322 = (v322 + v408);
+          ++v407;
         }
 
-        while (v550 != v549);
+        while (v407 != v406);
+      }
+
+      goto LABEL_1199;
+    case 5:
+      v711 = &unk_285182118;
+      sub_23F12C2A4(a3, &v712);
+      v22 = *a2;
+      v141 = v722;
+      v142 = v712;
+      if (!v712)
+      {
+        goto LABEL_853;
+      }
+
+      v143 = v713;
+      if (v713)
+      {
+        atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
+        if (!atomic_fetch_add(&v143->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+        {
+          (v143->__on_zero_shared)(v143);
+          std::__shared_weak_count::__release_weak(v143);
+        }
+
+        v142 = v712;
+        v144 = v713;
+        if (v713)
+        {
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
+          if (!atomic_fetch_add(&v144->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          {
+            v145 = v142;
+            (v144->__on_zero_shared)(v144);
+            std::__shared_weak_count::__release_weak(v144);
+            v142 = v145;
+          }
+        }
+      }
+
+      if (v724 == 1)
+      {
+        (*(*v142 + 96))(&v725);
+      }
+
+      else
+      {
+LABEL_853:
+        v725 = 0;
+      }
+
+      if (!v715)
+      {
+        goto LABEL_1329;
+      }
+
+      if (!v716)
+      {
+        goto LABEL_1329;
+      }
+
+      v494 = v717;
+      if (!v717)
+      {
+        goto LABEL_1329;
+      }
+
+      v495 = v721;
+      v248 = v714;
+      if (v723 == 1 && v714)
+      {
+        v496 = v712;
+        v497 = v713;
+        if (v713)
+        {
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
+          if (!atomic_fetch_add(&v497->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          {
+            v498 = v496;
+            (v497->__on_zero_shared)(v497);
+            std::__shared_weak_count::__release_weak(v497);
+            v496 = v498;
+          }
+        }
+
+        (*(*v496 + 88))(v496, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
+        v248 = v714;
+      }
+
+      v252 = (2 * v141);
+      v499 = v494 - 1;
+      if (v499)
+      {
+        for (m = 0; m != v499; ++m)
+        {
+          v501 = *(v22 + 24);
+          if (*(v501 + 40) == 1)
+          {
+            v726 = (v501 + 16);
+            if (v252)
+            {
+              v502 = v252;
+              v503 = v248;
+              do
+              {
+                sub_23F2FC63C(&v726, v503++);
+                --v502;
+              }
+
+              while (v502);
+            }
+          }
+
+          else if (v252)
+          {
+            for (n = 0; n != v252; ++n)
+            {
+              v505 = *(v248 + n);
+              if (v505 < 0)
+              {
+                LOBYTE(v726) = -52;
+                BYTE1(v726) = v505;
+              }
+
+              else
+              {
+                LOBYTE(v726) = *(v248 + n);
+              }
+
+              std::ostream::write();
+            }
+          }
+
+          v248 = (v248 + v495);
+        }
+      }
+
+      goto LABEL_1198;
+    case 6:
+      v711 = &unk_285182210;
+      sub_23F12CA10(a3, &v712);
+      v44 = *a2;
+      v94 = v722;
+      v95 = v712;
+      if (!v712)
+      {
+        goto LABEL_676;
+      }
+
+      v96 = v713;
+      if (v713)
+      {
+        atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
+        if (!atomic_fetch_add(&v96->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+        {
+          (v96->__on_zero_shared)(v96);
+          std::__shared_weak_count::__release_weak(v96);
+        }
+
+        v95 = v712;
+        v97 = v713;
+        if (v713)
+        {
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
+          if (!atomic_fetch_add(&v97->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          {
+            v98 = v95;
+            (v97->__on_zero_shared)(v97);
+            std::__shared_weak_count::__release_weak(v97);
+            v95 = v98;
+          }
+        }
+      }
+
+      if (v724 == 1)
+      {
+        (*(*v95 + 96))(&v725);
+      }
+
+      else
+      {
+LABEL_676:
+        v725 = 0;
+      }
+
+      if (!v715)
+      {
+        goto LABEL_1329;
+      }
+
+      if (!v716)
+      {
+        goto LABEL_1329;
+      }
+
+      v394 = v717;
+      if (!v717)
+      {
+        goto LABEL_1329;
+      }
+
+      v395 = v721;
+      v302 = v714;
+      if (v723 == 1 && v714)
+      {
+        v396 = v712;
+        v397 = v713;
+        if (v713)
+        {
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
+          if (!atomic_fetch_add(&v397->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          {
+            v398 = v396;
+            (v397->__on_zero_shared)(v397);
+            std::__shared_weak_count::__release_weak(v397);
+            v396 = v398;
+          }
+        }
+
+        (*(*v396 + 88))(v396, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
+        v302 = v714;
+      }
+
+      v162 = (2 * v94);
+      v399 = v394 - 1;
+      if (v399)
+      {
+        v400 = 2 * v395;
+        do
+        {
+          v726 = v302;
+          v727 = v162;
+          sub_23F2F7948(v44, &v726);
+          v302 = (v302 + v400);
+          --v399;
+        }
+
+        while (v399);
+      }
+
+      goto LABEL_1101;
+    case 7:
+      v711 = &unk_285182308;
+      sub_23F12D180(a3, &v712);
+      v66 = *a2;
+      v67 = v722;
+      v68 = v712;
+      if (!v712)
+      {
+        goto LABEL_576;
+      }
+
+      v69 = v713;
+      if (v713)
+      {
+        atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
+        if (!atomic_fetch_add(&v69->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+        {
+          (v69->__on_zero_shared)(v69);
+          std::__shared_weak_count::__release_weak(v69);
+        }
+
+        v68 = v712;
+        v70 = v713;
+        if (v713)
+        {
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
+          if (!atomic_fetch_add(&v70->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          {
+            v71 = v68;
+            (v70->__on_zero_shared)(v70);
+            std::__shared_weak_count::__release_weak(v70);
+            v68 = v71;
+          }
+        }
+      }
+
+      if (v724 == 1)
+      {
+        (*(*v68 + 96))(&v725);
+      }
+
+      else
+      {
+LABEL_576:
+        v725 = 0;
+      }
+
+      if (!v715)
+      {
+        goto LABEL_1329;
+      }
+
+      if (!v716)
+      {
+        goto LABEL_1329;
+      }
+
+      v341 = v717;
+      if (!v717)
+      {
+        goto LABEL_1329;
+      }
+
+      v342 = v721;
+      v343 = v714;
+      if (v723 == 1 && v714)
+      {
+        v344 = v712;
+        v345 = v713;
+        if (v713)
+        {
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
+          if (!atomic_fetch_add(&v345->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          {
+            v346 = v344;
+            (v345->__on_zero_shared)(v345);
+            std::__shared_weak_count::__release_weak(v345);
+            v344 = v346;
+          }
+        }
+
+        (*(*v344 + 88))(v344, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
+        v343 = v714;
+      }
+
+      v347 = (2 * v67);
+      v348 = v341 - 1;
+      if (!v348)
+      {
+        goto LABEL_1221;
+      }
+
+      if (v347)
+      {
+        v349 = 0;
+        v350 = 2 * v342;
+        do
+        {
+          v351 = 0;
+          do
+          {
+            v352 = v343[v351];
+            v710 = v343[v351];
+            v353 = *(v66 + 24);
+            if (*(v353 + 40) == 1)
+            {
+              v726 = (v353 + 16);
+              sub_23F2FCB5C(&v726, &v710);
+            }
+
+            else if (v352 > 0x7F)
+            {
+              if (v352 > 0xFF)
+              {
+                LOBYTE(v726) = -51;
+                *(&v726 + 1) = __rev16(v352);
+              }
+
+              else
+              {
+                LOBYTE(v726) = -52;
+                BYTE1(v726) = v352;
+              }
+
+              std::ostream::write();
+            }
+
+            else
+            {
+              LOBYTE(v726) = v352;
+              std::ostream::write();
+            }
+
+            ++v351;
+          }
+
+          while (v347 != v351);
+          v343 = (v343 + v350);
+          ++v349;
+        }
+
+        while (v349 != v348);
+LABEL_1221:
+        if (v347)
+        {
+          v681 = 2 * v347;
+          do
+          {
+            v682 = *v343;
+            v710 = *v343;
+            v683 = *(v66 + 24);
+            if (*(v683 + 40) == 1)
+            {
+              v726 = (v683 + 16);
+              sub_23F2FCB5C(&v726, &v710);
+            }
+
+            else if (v682 > 0x7F)
+            {
+              if (v682 > 0xFF)
+              {
+                LOBYTE(v726) = -51;
+                *(&v726 + 1) = __rev16(v682);
+              }
+
+              else
+              {
+                LOBYTE(v726) = -52;
+                BYTE1(v726) = v682;
+              }
+
+              std::ostream::write();
+            }
+
+            else
+            {
+              LOBYTE(v726) = v682;
+              std::ostream::write();
+            }
+
+            ++v343;
+            v681 -= 2;
+          }
+
+          while (v681);
+        }
+      }
+
+      goto LABEL_1329;
+    case 8:
+      v711 = &unk_285182400;
+      sub_23F12D8F0(a3, &v712);
+      v55 = *a2;
+      v151 = v722;
+      v152 = v712;
+      if (!v712)
+      {
+        goto LABEL_899;
+      }
+
+      v153 = v713;
+      if (v713)
+      {
+        atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
+        if (!atomic_fetch_add(&v153->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+        {
+          (v153->__on_zero_shared)(v153);
+          std::__shared_weak_count::__release_weak(v153);
+        }
+
+        v152 = v712;
+        v154 = v713;
+        if (v713)
+        {
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
+          if (!atomic_fetch_add(&v154->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          {
+            v155 = v152;
+            (v154->__on_zero_shared)(v154);
+            std::__shared_weak_count::__release_weak(v154);
+            v152 = v155;
+          }
+        }
+      }
+
+      if (v724 == 1)
+      {
+        (*(*v152 + 96))(&v725);
+      }
+
+      else
+      {
+LABEL_899:
+        v725 = 0;
+      }
+
+      if (!v715)
+      {
+        goto LABEL_1329;
+      }
+
+      if (!v716)
+      {
+        goto LABEL_1329;
+      }
+
+      v519 = v717;
+      if (!v717)
+      {
+        goto LABEL_1329;
+      }
+
+      v520 = v721;
+      v322 = v714;
+      if (v723 == 1 && v714)
+      {
+        v521 = v712;
+        v522 = v713;
+        if (v713)
+        {
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
+          if (!atomic_fetch_add(&v522->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          {
+            v523 = v521;
+            (v522->__on_zero_shared)(v522);
+            std::__shared_weak_count::__release_weak(v522);
+            v521 = v523;
+          }
+        }
+
+        (*(*v521 + 88))(v521, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
+        v322 = v714;
+      }
+
+      v99 = (2 * v151);
+      v524 = v519 - 1;
+      if (v524)
+      {
+        v525 = 0;
+        v526 = 4 * v520;
+        do
+        {
+          v527 = *(v55 + 24);
+          if (*(v527 + 40) == 1)
+          {
+            v726 = (v527 + 16);
+            if (v99)
+            {
+              v528 = 4 * v99;
+              v529 = v322;
+              do
+              {
+                sub_23F2FE06C(&v710, &v726, v529++);
+                v528 -= 4;
+              }
+
+              while (v528);
+            }
+          }
+
+          else if (v99)
+          {
+            v530 = 0;
+            do
+            {
+              v531 = *(v322 + v530);
+              LOBYTE(v726) = -54;
+              *(&v726 + 1) = bswap32(v531);
+              std::ostream::write();
+              v530 += 4;
+            }
+
+            while (4 * v99 != v530);
+          }
+
+          v322 = (v322 + v526);
+          ++v525;
+        }
+
+        while (v525 != v524);
       }
 
       goto LABEL_1199;
     case 9:
-      v771 = &unk_2851824F8;
-      sub_23F12E060(a3, &v772);
+      v711 = &unk_2851824F8;
+      sub_23F12E060(a3, &v712);
       v135 = *a2;
-      v136 = v782;
-      v137 = v772;
-      if (!v772)
+      v136 = v722;
+      v137 = v712;
+      if (!v712)
       {
         goto LABEL_829;
       }
 
-      v138 = v773;
-      if (v773)
+      v138 = v713;
+      if (v713)
       {
-        atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
         if (!atomic_fetch_add(&v138->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
         {
           (v138->__on_zero_shared)(v138);
           std::__shared_weak_count::__release_weak(v138);
         }
 
-        v137 = v772;
-        v139 = v773;
-        if (v773)
+        v137 = v712;
+        v139 = v713;
+        if (v713)
         {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
           if (!atomic_fetch_add(&v139->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
             v140 = v137;
@@ -1158,135 +1146,134 @@ LABEL_899:
         }
       }
 
-      if (v784 == 1)
+      if (v724 == 1)
       {
-        (*(*v137 + 96))(&v785);
+        (*(*v137 + 96))(&v725);
       }
 
       else
       {
 LABEL_829:
-        v785 = 0;
+        v725 = 0;
       }
 
-      if (!v775)
+      if (!v715)
       {
         goto LABEL_1329;
       }
 
-      if (!v776)
+      if (!v716)
       {
         goto LABEL_1329;
       }
 
-      v502 = v777;
-      if (!v777)
+      v480 = v717;
+      if (!v717)
       {
         goto LABEL_1329;
       }
 
-      v503 = v781;
-      v504 = v774;
-      if (v783 == 1 && v774)
+      v481 = v721;
+      v482 = v714;
+      if (v723 == 1 && v714)
       {
-        v505 = v772;
-        v506 = v773;
-        if (v773)
+        v483 = v712;
+        v484 = v713;
+        if (v713)
         {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
-          if (!atomic_fetch_add(&v506->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
+          if (!atomic_fetch_add(&v484->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
-            v507 = v505;
-            (v506->__on_zero_shared)(v506);
-            std::__shared_weak_count::__release_weak(v506);
-            v505 = v507;
+            v485 = v483;
+            (v484->__on_zero_shared)(v484);
+            std::__shared_weak_count::__release_weak(v484);
+            v483 = v485;
           }
         }
 
-        (*(*v505 + 88))(v505, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
-        v504 = v774;
+        (*(*v483 + 88))(v483, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
+        v482 = v714;
       }
 
-      v508 = (3 * v136);
-      v509 = v502 - 1;
-      if (v509)
+      v486 = (3 * v136);
+      v487 = v480 - 1;
+      if (v487)
       {
-        for (ii = 0; ii != v509; ++ii)
+        for (ii = 0; ii != v487; ++ii)
         {
-          v511 = *(v135 + 24);
-          if (*(v511 + 40) == 1)
+          v489 = *(v135 + 24);
+          if (*(v489 + 40) == 1)
           {
-            v786 = (v511 + 16);
+            v726 = (v489 + 16);
             if (v136)
             {
-              v512 = (3 * v136);
-              v513 = v504;
+              v490 = (3 * v136);
+              v491 = v482;
               do
               {
-                sub_23F2FC63C(&v786, v513++);
-                --v512;
+                sub_23F2FC63C(&v726, v491++);
+                --v490;
               }
 
-              while (v512);
+              while (v490);
             }
           }
 
           else if (v136)
           {
-            v514 = 0;
+            v492 = 0;
             do
             {
-              v515 = *(v504 + v514);
-              if (v515 < 0)
+              v493 = *(v482 + v492);
+              if (v493 < 0)
               {
-                LOBYTE(v786) = -52;
-                BYTE1(v786) = v515;
+                LOBYTE(v726) = -52;
+                BYTE1(v726) = v493;
               }
 
               else
               {
-                LOBYTE(v786) = *(v504 + v514);
+                LOBYTE(v726) = *(v482 + v492);
               }
 
-              v516 = *(v511 + 8);
               std::ostream::write();
-              ++v514;
+              ++v492;
             }
 
-            while (v508 != v514);
+            while (v486 != v492);
           }
 
-          v504 = (v504 + v503);
+          v482 = (v482 + v481);
         }
       }
 
       goto LABEL_1209;
     case 10:
-      v771 = &unk_2851825F0;
-      sub_23F12E7CC(a3, &v772);
+      v711 = &unk_2851825F0;
+      sub_23F12E7CC(a3, &v712);
       v44 = *a2;
-      v178 = v782;
-      v179 = v772;
-      if (!v772)
+      v178 = v722;
+      v179 = v712;
+      if (!v712)
       {
         goto LABEL_1028;
       }
 
-      v180 = v773;
-      if (v773)
+      v180 = v713;
+      if (v713)
       {
-        atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
         if (!atomic_fetch_add(&v180->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
         {
           (v180->__on_zero_shared)(v180);
           std::__shared_weak_count::__release_weak(v180);
         }
 
-        v179 = v772;
-        v181 = v773;
-        if (v773)
+        v179 = v712;
+        v181 = v713;
+        if (v713)
         {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
           if (!atomic_fetch_add(&v181->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
             v182 = v179;
@@ -1297,99 +1284,99 @@ LABEL_829:
         }
       }
 
-      if (v784 == 1)
+      if (v724 == 1)
       {
-        (*(*v179 + 96))(&v785);
+        (*(*v179 + 96))(&v725);
       }
 
       else
       {
 LABEL_1028:
-        v785 = 0;
+        v725 = 0;
       }
 
-      if (!v775)
+      if (!v715)
       {
         goto LABEL_1329;
       }
 
-      if (!v776)
+      if (!v716)
       {
         goto LABEL_1329;
       }
 
-      v621 = v777;
-      if (!v777)
+      v589 = v717;
+      if (!v717)
       {
         goto LABEL_1329;
       }
 
-      v622 = v781;
-      v310 = v774;
-      if (v783 == 1 && v774)
+      v590 = v721;
+      v302 = v714;
+      if (v723 == 1 && v714)
       {
-        v623 = v772;
-        v624 = v773;
-        if (v773)
+        v591 = v712;
+        v592 = v713;
+        if (v713)
         {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
-          if (!atomic_fetch_add(&v624->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
+          if (!atomic_fetch_add(&v592->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
-            v625 = v623;
-            (v624->__on_zero_shared)(v624);
-            std::__shared_weak_count::__release_weak(v624);
-            v623 = v625;
+            v593 = v591;
+            (v592->__on_zero_shared)(v592);
+            std::__shared_weak_count::__release_weak(v592);
+            v591 = v593;
           }
         }
 
-        (*(*v623 + 88))(v623, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
-        v310 = v774;
+        (*(*v591 + 88))(v591, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
+        v302 = v714;
       }
 
       v162 = (3 * v178);
-      v626 = v621 - 1;
-      if (v626)
+      v594 = v589 - 1;
+      if (v594)
       {
-        v627 = 2 * v622;
+        v595 = 2 * v590;
         do
         {
-          v786 = v310;
-          v787 = v162;
-          sub_23F2F7948(v44, &v786);
-          v310 = (v310 + v627);
-          --v626;
+          v726 = v302;
+          v727 = v162;
+          sub_23F2F7948(v44, &v726);
+          v302 = (v302 + v595);
+          --v594;
         }
 
-        while (v626);
+        while (v594);
       }
 
       goto LABEL_1101;
     case 11:
-      v771 = &unk_2851826E8;
-      sub_23F12EF3C(a3, &v772);
+      v711 = &unk_2851826E8;
+      sub_23F12EF3C(a3, &v712);
       v172 = *a2;
-      v173 = v782;
-      v174 = v772;
-      if (!v772)
+      v173 = v722;
+      v174 = v712;
+      if (!v712)
       {
         goto LABEL_1004;
       }
 
-      v175 = v773;
-      if (v773)
+      v175 = v713;
+      if (v713)
       {
-        atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
         if (!atomic_fetch_add(&v175->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
         {
           (v175->__on_zero_shared)(v175);
           std::__shared_weak_count::__release_weak(v175);
         }
 
-        v174 = v772;
-        v176 = v773;
-        if (v773)
+        v174 = v712;
+        v176 = v713;
+        if (v713)
         {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
           if (!atomic_fetch_add(&v176->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
             v177 = v174;
@@ -1400,190 +1387,186 @@ LABEL_1028:
         }
       }
 
-      if (v784 == 1)
+      if (v724 == 1)
       {
-        (*(*v174 + 96))(&v785);
+        (*(*v174 + 96))(&v725);
       }
 
       else
       {
 LABEL_1004:
-        v785 = 0;
+        v725 = 0;
       }
 
-      if (!v775)
+      if (!v715)
       {
         goto LABEL_1329;
       }
 
-      if (!v776)
+      if (!v716)
       {
         goto LABEL_1329;
       }
 
-      v606 = v777;
-      if (!v777)
+      v576 = v717;
+      if (!v717)
       {
         goto LABEL_1329;
       }
 
-      v607 = v781;
-      v608 = v774;
-      if (v783 == 1 && v774)
+      v577 = v721;
+      v578 = v714;
+      if (v723 == 1 && v714)
       {
-        v609 = v772;
-        v610 = v773;
-        if (v773)
+        v579 = v712;
+        v580 = v713;
+        if (v713)
         {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
-          if (!atomic_fetch_add(&v610->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
+          if (!atomic_fetch_add(&v580->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
-            v611 = v609;
-            (v610->__on_zero_shared)(v610);
-            std::__shared_weak_count::__release_weak(v610);
-            v609 = v611;
+            v581 = v579;
+            (v580->__on_zero_shared)(v580);
+            std::__shared_weak_count::__release_weak(v580);
+            v579 = v581;
           }
         }
 
-        (*(*v609 + 88))(v609, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
-        v608 = v774;
+        (*(*v579 + 88))(v579, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
+        v578 = v714;
       }
 
-      v612 = (3 * v173);
-      v613 = v606 - 1;
-      if (!v613)
+      v582 = (3 * v173);
+      v583 = v576 - 1;
+      if (!v583)
       {
         goto LABEL_1306;
       }
 
       if (v173)
       {
-        v614 = 0;
-        v615 = 2 * v607;
+        v584 = 0;
+        v585 = 2 * v577;
         do
         {
-          v616 = 0;
+          v586 = 0;
           do
           {
-            v617 = v608[v616];
-            v770 = v608[v616];
-            v618 = *(v172 + 24);
-            if (*(v618 + 40) == 1)
+            v587 = v578[v586];
+            v710 = v578[v586];
+            v588 = *(v172 + 24);
+            if (*(v588 + 40) == 1)
             {
-              v786 = (v618 + 16);
-              sub_23F2FCB5C(&v786, &v770);
+              v726 = (v588 + 16);
+              sub_23F2FCB5C(&v726, &v710);
             }
 
-            else if (v617 > 0x7F)
+            else if (v587 > 0x7F)
             {
-              if (v617 > 0xFF)
+              if (v587 > 0xFF)
               {
-                LOBYTE(v786) = -51;
-                *(&v786 + 1) = __rev16(v617);
+                LOBYTE(v726) = -51;
+                *(&v726 + 1) = __rev16(v587);
               }
 
               else
               {
-                LOBYTE(v786) = -52;
-                BYTE1(v786) = v617;
+                LOBYTE(v726) = -52;
+                BYTE1(v726) = v587;
               }
 
-              v620 = *(v618 + 8);
               std::ostream::write();
             }
 
             else
             {
-              LOBYTE(v786) = v617;
-              v619 = *(v618 + 8);
+              LOBYTE(v726) = v587;
               std::ostream::write();
             }
 
-            ++v616;
+            ++v586;
           }
 
-          while (3 * v173 != v616);
-          v608 = (v608 + v615);
-          ++v614;
+          while (3 * v173 != v586);
+          v578 = (v578 + v585);
+          ++v584;
         }
 
-        while (v614 != v613);
-        v612 = (3 * v173);
+        while (v584 != v583);
+        v582 = (3 * v173);
 LABEL_1306:
         if (v173)
         {
-          v758 = 2 * v612;
+          v702 = 2 * v582;
           do
           {
-            v759 = *v608;
-            v770 = *v608;
-            v760 = *(v172 + 24);
-            if (*(v760 + 40) == 1)
+            v703 = *v578;
+            v710 = *v578;
+            v704 = *(v172 + 24);
+            if (*(v704 + 40) == 1)
             {
-              v786 = (v760 + 16);
-              sub_23F2FCB5C(&v786, &v770);
+              v726 = (v704 + 16);
+              sub_23F2FCB5C(&v726, &v710);
             }
 
-            else if (v759 > 0x7F)
+            else if (v703 > 0x7F)
             {
-              if (v759 > 0xFF)
+              if (v703 > 0xFF)
               {
-                LOBYTE(v786) = -51;
-                *(&v786 + 1) = __rev16(v759);
+                LOBYTE(v726) = -51;
+                *(&v726 + 1) = __rev16(v703);
               }
 
               else
               {
-                LOBYTE(v786) = -52;
-                BYTE1(v786) = v759;
+                LOBYTE(v726) = -52;
+                BYTE1(v726) = v703;
               }
 
-              v762 = *(v760 + 8);
               std::ostream::write();
             }
 
             else
             {
-              LOBYTE(v786) = v759;
-              v761 = *(v760 + 8);
+              LOBYTE(v726) = v703;
               std::ostream::write();
             }
 
-            ++v608;
-            v758 -= 2;
+            ++v578;
+            v702 -= 2;
           }
 
-          while (v758);
+          while (v702);
         }
       }
 
       goto LABEL_1329;
     case 12:
-      v771 = &unk_2851827E0;
-      sub_23F12F6AC(a3, &v772);
+      v711 = &unk_2851827E0;
+      sub_23F12F6AC(a3, &v712);
       v28 = *a2;
-      v29 = v782;
-      v30 = v772;
-      if (!v772)
+      v29 = v722;
+      v30 = v712;
+      if (!v712)
       {
         goto LABEL_434;
       }
 
-      v31 = v773;
-      if (v773)
+      v31 = v713;
+      if (v713)
       {
-        atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
         if (!atomic_fetch_add(&v31->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
         {
           (v31->__on_zero_shared)(v31);
           std::__shared_weak_count::__release_weak(v31);
         }
 
-        v30 = v772;
-        v32 = v773;
-        if (v773)
+        v30 = v712;
+        v32 = v713;
+        if (v713)
         {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
           if (!atomic_fetch_add(&v32->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
             v33 = v30;
@@ -1594,132 +1577,131 @@ LABEL_1306:
         }
       }
 
-      if (v784 == 1)
+      if (v724 == 1)
       {
-        (*(*v30 + 96))(&v785);
+        (*(*v30 + 96))(&v725);
       }
 
       else
       {
 LABEL_434:
-        v785 = 0;
+        v725 = 0;
       }
 
-      if (!v775)
+      if (!v715)
       {
         goto LABEL_1329;
       }
 
-      if (!v776)
+      if (!v716)
       {
         goto LABEL_1329;
       }
 
-      v265 = v777;
-      if (!v777)
+      v260 = v717;
+      if (!v717)
       {
         goto LABEL_1329;
       }
 
-      v266 = v781;
-      v267 = v774;
-      if (v783 == 1 && v774)
+      v261 = v721;
+      v262 = v714;
+      if (v723 == 1 && v714)
       {
-        v268 = v772;
-        v269 = v773;
-        if (v773)
+        v263 = v712;
+        v264 = v713;
+        if (v713)
         {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
-          if (!atomic_fetch_add(&v269->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
+          if (!atomic_fetch_add(&v264->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
-            v270 = v268;
-            (v269->__on_zero_shared)(v269);
-            std::__shared_weak_count::__release_weak(v269);
-            v268 = v270;
+            v265 = v263;
+            (v264->__on_zero_shared)(v264);
+            std::__shared_weak_count::__release_weak(v264);
+            v263 = v265;
           }
         }
 
-        (*(*v268 + 88))(v268, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
-        v267 = v774;
+        (*(*v263 + 88))(v263, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
+        v262 = v714;
       }
 
-      v271 = (3 * v29);
-      v272 = v265 - 1;
-      if (v272)
+      v266 = (3 * v29);
+      v267 = v260 - 1;
+      if (v267)
       {
-        v273 = 0;
-        v274 = 4 * v266;
+        v268 = 0;
+        v269 = 4 * v261;
         do
         {
-          v275 = *(v28 + 24);
-          if (*(v275 + 40) == 1)
+          v270 = *(v28 + 24);
+          if (*(v270 + 40) == 1)
           {
-            v786 = (v275 + 16);
+            v726 = (v270 + 16);
             if (v29)
             {
-              v276 = 4 * (3 * v29);
-              v277 = v267;
+              v271 = 4 * (3 * v29);
+              v272 = v262;
               do
               {
-                sub_23F2FE06C(&v770, &v786, v277++);
-                v276 -= 4;
+                sub_23F2FE06C(&v710, &v726, v272++);
+                v271 -= 4;
               }
 
-              while (v276);
+              while (v271);
             }
           }
 
           else if (v29)
           {
-            v278 = 0;
+            v273 = 0;
             do
             {
-              v279 = *(v267 + v278);
-              LOBYTE(v786) = -54;
-              *(&v786 + 1) = bswap32(v279);
-              v280 = *(v275 + 8);
+              v274 = *(v262 + v273);
+              LOBYTE(v726) = -54;
+              *(&v726 + 1) = bswap32(v274);
               std::ostream::write();
-              v278 += 4;
+              v273 += 4;
             }
 
-            while (4 * (3 * v29) != v278);
+            while (4 * (3 * v29) != v273);
           }
 
-          v267 = (v267 + v274);
-          ++v273;
+          v262 = (v262 + v269);
+          ++v268;
         }
 
-        while (v273 != v272);
-        v271 = (3 * v29);
+        while (v268 != v267);
+        v266 = (3 * v29);
       }
 
       goto LABEL_1292;
     case 13:
-      v771 = &unk_2851828D8;
-      sub_23F12FE1C(a3, &v772);
+      v711 = &unk_2851828D8;
+      sub_23F12FE1C(a3, &v712);
       v22 = *a2;
-      v50 = v782;
-      v51 = v772;
-      if (!v772)
+      v50 = v722;
+      v51 = v712;
+      if (!v712)
       {
         goto LABEL_516;
       }
 
-      v52 = v773;
-      if (v773)
+      v52 = v713;
+      if (v713)
       {
-        atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
         if (!atomic_fetch_add(&v52->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
         {
           (v52->__on_zero_shared)(v52);
           std::__shared_weak_count::__release_weak(v52);
         }
 
-        v51 = v772;
-        v53 = v773;
-        if (v773)
+        v51 = v712;
+        v53 = v713;
+        if (v713)
         {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
           if (!atomic_fetch_add(&v53->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
             v54 = v51;
@@ -1730,131 +1712,130 @@ LABEL_434:
         }
       }
 
-      if (v784 == 1)
+      if (v724 == 1)
       {
-        (*(*v51 + 96))(&v785);
+        (*(*v51 + 96))(&v725);
       }
 
       else
       {
 LABEL_516:
-        v785 = 0;
+        v725 = 0;
       }
 
-      if (!v775)
+      if (!v715)
       {
         goto LABEL_1329;
       }
 
-      if (!v776)
+      if (!v716)
       {
         goto LABEL_1329;
       }
 
-      v316 = v777;
-      if (!v777)
+      v308 = v717;
+      if (!v717)
       {
         goto LABEL_1329;
       }
 
-      v317 = v781;
-      v252 = v774;
-      if (v783 == 1 && v774)
+      v309 = v721;
+      v248 = v714;
+      if (v723 == 1 && v714)
       {
-        v318 = v772;
-        v319 = v773;
-        if (v773)
+        v310 = v712;
+        v311 = v713;
+        if (v713)
         {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
-          if (!atomic_fetch_add(&v319->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
+          if (!atomic_fetch_add(&v311->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
-            v320 = v318;
-            (v319->__on_zero_shared)(v319);
-            std::__shared_weak_count::__release_weak(v319);
-            v318 = v320;
+            v312 = v310;
+            (v311->__on_zero_shared)(v311);
+            std::__shared_weak_count::__release_weak(v311);
+            v310 = v312;
           }
         }
 
-        (*(*v318 + 88))(v318, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
-        v252 = v774;
+        (*(*v310 + 88))(v310, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
+        v248 = v714;
       }
 
-      v256 = (4 * v50);
-      v321 = v316 - 1;
-      if (v321)
+      v252 = (4 * v50);
+      v313 = v308 - 1;
+      if (v313)
       {
-        for (jj = 0; jj != v321; ++jj)
+        for (jj = 0; jj != v313; ++jj)
         {
-          v323 = *(v22 + 24);
-          if (*(v323 + 40) == 1)
+          v315 = *(v22 + 24);
+          if (*(v315 + 40) == 1)
           {
-            v786 = (v323 + 16);
-            if (v256)
+            v726 = (v315 + 16);
+            if (v252)
             {
-              v324 = v256;
-              v325 = v252;
+              v316 = v252;
+              v317 = v248;
               do
               {
-                sub_23F2FC63C(&v786, v325++);
-                --v324;
+                sub_23F2FC63C(&v726, v317++);
+                --v316;
               }
 
-              while (v324);
+              while (v316);
             }
           }
 
-          else if (v256)
+          else if (v252)
           {
-            for (kk = 0; kk != v256; ++kk)
+            for (kk = 0; kk != v252; ++kk)
             {
-              v327 = *(v252 + kk);
-              if (v327 < 0)
+              v319 = *(v248 + kk);
+              if (v319 < 0)
               {
-                LOBYTE(v786) = -52;
-                BYTE1(v786) = v327;
+                LOBYTE(v726) = -52;
+                BYTE1(v726) = v319;
               }
 
               else
               {
-                LOBYTE(v786) = *(v252 + kk);
+                LOBYTE(v726) = *(v248 + kk);
               }
 
-              v328 = *(v323 + 8);
               std::ostream::write();
             }
           }
 
-          v252 = (v252 + v317);
+          v248 = (v248 + v309);
         }
       }
 
       goto LABEL_1198;
     case 14:
-      v771 = &unk_2851829D0;
-      sub_23F130588(a3, &v772);
+      v711 = &unk_2851829D0;
+      sub_23F130588(a3, &v712);
       v44 = *a2;
-      v45 = v782;
-      v46 = v772;
-      if (!v772)
+      v45 = v722;
+      v46 = v712;
+      if (!v712)
       {
         goto LABEL_502;
       }
 
-      v47 = v773;
-      if (v773)
+      v47 = v713;
+      if (v713)
       {
-        atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
         if (!atomic_fetch_add(&v47->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
         {
           (v47->__on_zero_shared)(v47);
           std::__shared_weak_count::__release_weak(v47);
         }
 
-        v46 = v772;
-        v48 = v773;
-        if (v773)
+        v46 = v712;
+        v48 = v713;
+        if (v713)
         {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
           if (!atomic_fetch_add(&v48->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
             v49 = v46;
@@ -1865,99 +1846,99 @@ LABEL_516:
         }
       }
 
-      if (v784 == 1)
+      if (v724 == 1)
       {
-        (*(*v46 + 96))(&v785);
+        (*(*v46 + 96))(&v725);
       }
 
       else
       {
 LABEL_502:
-        v785 = 0;
+        v725 = 0;
       }
 
-      if (!v775)
+      if (!v715)
       {
         goto LABEL_1329;
       }
 
-      if (!v776)
+      if (!v716)
       {
         goto LABEL_1329;
       }
 
-      v308 = v777;
-      if (!v777)
+      v300 = v717;
+      if (!v717)
       {
         goto LABEL_1329;
       }
 
-      v309 = v781;
-      v310 = v774;
-      if (v783 == 1 && v774)
+      v301 = v721;
+      v302 = v714;
+      if (v723 == 1 && v714)
       {
-        v311 = v772;
-        v312 = v773;
-        if (v773)
+        v303 = v712;
+        v304 = v713;
+        if (v713)
         {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
-          if (!atomic_fetch_add(&v312->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
+          if (!atomic_fetch_add(&v304->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
-            v313 = v311;
-            (v312->__on_zero_shared)(v312);
-            std::__shared_weak_count::__release_weak(v312);
-            v311 = v313;
+            v305 = v303;
+            (v304->__on_zero_shared)(v304);
+            std::__shared_weak_count::__release_weak(v304);
+            v303 = v305;
           }
         }
 
-        (*(*v311 + 88))(v311, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
-        v310 = v774;
+        (*(*v303 + 88))(v303, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
+        v302 = v714;
       }
 
       v162 = (4 * v45);
-      v314 = v308 - 1;
-      if (v314)
+      v306 = v300 - 1;
+      if (v306)
       {
-        v315 = 2 * v309;
+        v307 = 2 * v301;
         do
         {
-          v786 = v310;
-          v787 = v162;
-          sub_23F2F7948(v44, &v786);
-          v310 = (v310 + v315);
-          --v314;
+          v726 = v302;
+          v727 = v162;
+          sub_23F2F7948(v44, &v726);
+          v302 = (v302 + v307);
+          --v306;
         }
 
-        while (v314);
+        while (v306);
       }
 
       goto LABEL_1101;
     case 15:
-      v771 = &unk_285182AC8;
-      sub_23F130CF8(a3, &v772);
+      v711 = &unk_285182AC8;
+      sub_23F130CF8(a3, &v712);
       v198 = *a2;
-      v199 = v782;
-      v200 = v772;
-      if (!v772)
+      v199 = v722;
+      v200 = v712;
+      if (!v712)
       {
         goto LABEL_1102;
       }
 
-      v201 = v773;
-      if (v773)
+      v201 = v713;
+      if (v713)
       {
-        atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
         if (!atomic_fetch_add(&v201->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
         {
           (v201->__on_zero_shared)(v201);
           std::__shared_weak_count::__release_weak(v201);
         }
 
-        v200 = v772;
-        v202 = v773;
-        if (v773)
+        v200 = v712;
+        v202 = v713;
+        if (v713)
         {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
           if (!atomic_fetch_add(&v202->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
             v203 = v200;
@@ -1968,189 +1949,185 @@ LABEL_502:
         }
       }
 
-      if (v784 == 1)
+      if (v724 == 1)
       {
-        (*(*v200 + 96))(&v785);
+        (*(*v200 + 96))(&v725);
       }
 
       else
       {
 LABEL_1102:
-        v785 = 0;
+        v725 = 0;
       }
 
-      if (!v775)
+      if (!v715)
       {
         goto LABEL_1329;
       }
 
-      if (!v776)
+      if (!v716)
       {
         goto LABEL_1329;
       }
 
-      v662 = v777;
-      if (!v777)
+      v628 = v717;
+      if (!v717)
       {
         goto LABEL_1329;
       }
 
-      v663 = v781;
-      v664 = v774;
-      if (v783 == 1 && v774)
+      v629 = v721;
+      v630 = v714;
+      if (v723 == 1 && v714)
       {
-        v665 = v772;
-        v666 = v773;
-        if (v773)
+        v631 = v712;
+        v632 = v713;
+        if (v713)
         {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
-          if (!atomic_fetch_add(&v666->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
+          if (!atomic_fetch_add(&v632->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
-            v667 = v665;
-            (v666->__on_zero_shared)(v666);
-            std::__shared_weak_count::__release_weak(v666);
-            v665 = v667;
+            v633 = v631;
+            (v632->__on_zero_shared)(v632);
+            std::__shared_weak_count::__release_weak(v632);
+            v631 = v633;
           }
         }
 
-        (*(*v665 + 88))(v665, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
-        v664 = v774;
+        (*(*v631 + 88))(v631, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
+        v630 = v714;
       }
 
-      v668 = (4 * v199);
-      v669 = v662 - 1;
-      if (!v669)
+      v634 = (4 * v199);
+      v635 = v628 - 1;
+      if (!v635)
       {
         goto LABEL_1276;
       }
 
-      if (v668)
+      if (v634)
       {
-        v670 = 0;
-        v671 = 2 * v663;
+        v636 = 0;
+        v637 = 2 * v629;
         do
         {
-          v672 = 0;
+          v638 = 0;
           do
           {
-            v673 = v664[v672];
-            v770 = v664[v672];
-            v674 = *(v198 + 24);
-            if (*(v674 + 40) == 1)
+            v639 = v630[v638];
+            v710 = v630[v638];
+            v640 = *(v198 + 24);
+            if (*(v640 + 40) == 1)
             {
-              v786 = (v674 + 16);
-              sub_23F2FCB5C(&v786, &v770);
+              v726 = (v640 + 16);
+              sub_23F2FCB5C(&v726, &v710);
             }
 
-            else if (v673 > 0x7F)
+            else if (v639 > 0x7F)
             {
-              if (v673 > 0xFF)
+              if (v639 > 0xFF)
               {
-                LOBYTE(v786) = -51;
-                *(&v786 + 1) = __rev16(v673);
+                LOBYTE(v726) = -51;
+                *(&v726 + 1) = __rev16(v639);
               }
 
               else
               {
-                LOBYTE(v786) = -52;
-                BYTE1(v786) = v673;
+                LOBYTE(v726) = -52;
+                BYTE1(v726) = v639;
               }
 
-              v676 = *(v674 + 8);
               std::ostream::write();
             }
 
             else
             {
-              LOBYTE(v786) = v673;
-              v675 = *(v674 + 8);
+              LOBYTE(v726) = v639;
               std::ostream::write();
             }
 
-            ++v672;
+            ++v638;
           }
 
-          while (v668 != v672);
-          v664 = (v664 + v671);
-          ++v670;
+          while (v634 != v638);
+          v630 = (v630 + v637);
+          ++v636;
         }
 
-        while (v670 != v669);
+        while (v636 != v635);
 LABEL_1276:
-        if (v668)
+        if (v634)
         {
-          v748 = 2 * v668;
+          v696 = 2 * v634;
           do
           {
-            v749 = *v664;
-            v770 = *v664;
-            v750 = *(v198 + 24);
-            if (*(v750 + 40) == 1)
+            v697 = *v630;
+            v710 = *v630;
+            v698 = *(v198 + 24);
+            if (*(v698 + 40) == 1)
             {
-              v786 = (v750 + 16);
-              sub_23F2FCB5C(&v786, &v770);
+              v726 = (v698 + 16);
+              sub_23F2FCB5C(&v726, &v710);
             }
 
-            else if (v749 > 0x7F)
+            else if (v697 > 0x7F)
             {
-              if (v749 > 0xFF)
+              if (v697 > 0xFF)
               {
-                LOBYTE(v786) = -51;
-                *(&v786 + 1) = __rev16(v749);
+                LOBYTE(v726) = -51;
+                *(&v726 + 1) = __rev16(v697);
               }
 
               else
               {
-                LOBYTE(v786) = -52;
-                BYTE1(v786) = v749;
+                LOBYTE(v726) = -52;
+                BYTE1(v726) = v697;
               }
 
-              v752 = *(v750 + 8);
               std::ostream::write();
             }
 
             else
             {
-              LOBYTE(v786) = v749;
-              v751 = *(v750 + 8);
+              LOBYTE(v726) = v697;
               std::ostream::write();
             }
 
-            ++v664;
-            v748 -= 2;
+            ++v630;
+            v696 -= 2;
           }
 
-          while (v748);
+          while (v696);
         }
       }
 
       goto LABEL_1329;
     case 16:
-      v771 = &unk_285182BC0;
-      sub_23F131468(a3, &v772);
+      v711 = &unk_285182BC0;
+      sub_23F131468(a3, &v712);
       v55 = *a2;
-      v146 = v782;
-      v147 = v772;
-      if (!v772)
+      v146 = v722;
+      v147 = v712;
+      if (!v712)
       {
         goto LABEL_877;
       }
 
-      v148 = v773;
-      if (v773)
+      v148 = v713;
+      if (v713)
       {
-        atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
         if (!atomic_fetch_add(&v148->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
         {
           (v148->__on_zero_shared)(v148);
           std::__shared_weak_count::__release_weak(v148);
         }
 
-        v147 = v772;
-        v149 = v773;
-        if (v773)
+        v147 = v712;
+        v149 = v713;
+        if (v713)
         {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
           if (!atomic_fetch_add(&v149->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
             v150 = v147;
@@ -2161,131 +2138,130 @@ LABEL_1276:
         }
       }
 
-      if (v784 == 1)
+      if (v724 == 1)
       {
-        (*(*v147 + 96))(&v785);
+        (*(*v147 + 96))(&v725);
       }
 
       else
       {
 LABEL_877:
-        v785 = 0;
+        v725 = 0;
       }
 
-      if (!v775)
+      if (!v715)
       {
         goto LABEL_1329;
       }
 
-      if (!v776)
+      if (!v716)
       {
         goto LABEL_1329;
       }
 
-      v530 = v777;
-      if (!v777)
+      v506 = v717;
+      if (!v717)
       {
         goto LABEL_1329;
       }
 
-      v531 = v781;
-      v331 = v774;
-      if (v783 == 1 && v774)
+      v507 = v721;
+      v322 = v714;
+      if (v723 == 1 && v714)
       {
-        v532 = v772;
-        v533 = v773;
-        if (v773)
+        v508 = v712;
+        v509 = v713;
+        if (v713)
         {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
-          if (!atomic_fetch_add(&v533->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
+          if (!atomic_fetch_add(&v509->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
-            v534 = v532;
-            (v533->__on_zero_shared)(v533);
-            std::__shared_weak_count::__release_weak(v533);
-            v532 = v534;
+            v510 = v508;
+            (v509->__on_zero_shared)(v509);
+            std::__shared_weak_count::__release_weak(v509);
+            v508 = v510;
           }
         }
 
-        (*(*v532 + 88))(v532, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
-        v331 = v774;
+        (*(*v508 + 88))(v508, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
+        v322 = v714;
       }
 
       v99 = (4 * v146);
-      v535 = v530 - 1;
-      if (v535)
+      v511 = v506 - 1;
+      if (v511)
       {
-        v536 = 0;
-        v537 = 4 * v531;
+        v512 = 0;
+        v513 = 4 * v507;
         do
         {
-          v538 = *(v55 + 24);
-          if (*(v538 + 40) == 1)
+          v514 = *(v55 + 24);
+          if (*(v514 + 40) == 1)
           {
-            v786 = (v538 + 16);
+            v726 = (v514 + 16);
             if (v99)
             {
-              v539 = 4 * v99;
-              v540 = v331;
+              v515 = 4 * v99;
+              v516 = v322;
               do
               {
-                sub_23F2FE06C(&v770, &v786, v540++);
-                v539 -= 4;
+                sub_23F2FE06C(&v710, &v726, v516++);
+                v515 -= 4;
               }
 
-              while (v539);
+              while (v515);
             }
           }
 
           else if (v99)
           {
-            v541 = 0;
+            v517 = 0;
             do
             {
-              v542 = *(v331 + v541);
-              LOBYTE(v786) = -54;
-              *(&v786 + 1) = bswap32(v542);
-              v543 = *(v538 + 8);
+              v518 = *(v322 + v517);
+              LOBYTE(v726) = -54;
+              *(&v726 + 1) = bswap32(v518);
               std::ostream::write();
-              v541 += 4;
+              v517 += 4;
             }
 
-            while (4 * v99 != v541);
+            while (4 * v99 != v517);
           }
 
-          v331 = (v331 + v537);
-          ++v536;
+          v322 = (v322 + v513);
+          ++v512;
         }
 
-        while (v536 != v535);
+        while (v512 != v511);
       }
 
       goto LABEL_1199;
     case 17:
-      v771 = &unk_285182CB8;
-      sub_23F131BD8(a3, &v772);
+      v711 = &unk_285182CB8;
+      sub_23F131BD8(a3, &v712);
       v135 = *a2;
-      v204 = v782;
-      v205 = v772;
-      if (!v772)
+      v204 = v722;
+      v205 = v712;
+      if (!v712)
       {
         goto LABEL_1126;
       }
 
-      v206 = v773;
-      if (v773)
+      v206 = v713;
+      if (v713)
       {
-        atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
         if (!atomic_fetch_add(&v206->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
         {
           (v206->__on_zero_shared)(v206);
           std::__shared_weak_count::__release_weak(v206);
         }
 
-        v205 = v772;
-        v207 = v773;
-        if (v773)
+        v205 = v712;
+        v207 = v713;
+        if (v713)
         {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
           if (!atomic_fetch_add(&v207->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
             v208 = v205;
@@ -2296,478 +2272,42 @@ LABEL_877:
         }
       }
 
-      if (v784 == 1)
+      if (v724 == 1)
       {
-        (*(*v205 + 96))(&v785);
+        (*(*v205 + 96))(&v725);
       }
 
       else
       {
 LABEL_1126:
-        v785 = 0;
+        v725 = 0;
       }
 
-      if (!v775)
+      if (!v715)
       {
         goto LABEL_1329;
       }
 
-      if (!v776)
+      if (!v716)
       {
         goto LABEL_1329;
       }
 
-      v677 = v777;
-      if (!v777)
+      v641 = v717;
+      if (!v717)
       {
         goto LABEL_1329;
       }
 
-      v678 = v781;
-      v504 = v774;
-      if (v783 == 1 && v774)
+      v642 = v721;
+      v482 = v714;
+      if (v723 == 1 && v714)
       {
-        v679 = v772;
-        v680 = v773;
-        if (v773)
+        v643 = v712;
+        v644 = v713;
+        if (v713)
         {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
-          if (!atomic_fetch_add(&v680->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-          {
-            v681 = v679;
-            (v680->__on_zero_shared)(v680);
-            std::__shared_weak_count::__release_weak(v680);
-            v679 = v681;
-          }
-        }
-
-        (*(*v679 + 88))(v679, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
-        v504 = v774;
-      }
-
-      v508 = (3 * v204);
-      v682 = v677 - 1;
-      if (v682)
-      {
-        for (mm = 0; mm != v682; ++mm)
-        {
-          v684 = *(v135 + 24);
-          if (*(v684 + 40) == 1)
-          {
-            v786 = (v684 + 16);
-            if (v204)
-            {
-              v685 = (3 * v204);
-              v686 = v504;
-              do
-              {
-                sub_23F2FC63C(&v786, v686++);
-                --v685;
-              }
-
-              while (v685);
-            }
-          }
-
-          else if (v204)
-          {
-            v687 = 0;
-            do
-            {
-              v688 = *(v504 + v687);
-              if (v688 < 0)
-              {
-                LOBYTE(v786) = -52;
-                BYTE1(v786) = v688;
-              }
-
-              else
-              {
-                LOBYTE(v786) = *(v504 + v687);
-              }
-
-              v689 = *(v684 + 8);
-              std::ostream::write();
-              ++v687;
-            }
-
-            while (v508 != v687);
-          }
-
-          v504 = (v504 + v678);
-        }
-      }
-
-      goto LABEL_1209;
-    case 18:
-      v771 = &unk_285182DB0;
-      sub_23F132344(a3, &v772);
-      v44 = *a2;
-      v61 = v782;
-      v62 = v772;
-      if (!v772)
-      {
-        goto LABEL_562;
-      }
-
-      v63 = v773;
-      if (v773)
-      {
-        atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
-        if (!atomic_fetch_add(&v63->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-        {
-          (v63->__on_zero_shared)(v63);
-          std::__shared_weak_count::__release_weak(v63);
-        }
-
-        v62 = v772;
-        v64 = v773;
-        if (v773)
-        {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
-          if (!atomic_fetch_add(&v64->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-          {
-            v65 = v62;
-            (v64->__on_zero_shared)(v64);
-            std::__shared_weak_count::__release_weak(v64);
-            v62 = v65;
-          }
-        }
-      }
-
-      if (v784 == 1)
-      {
-        (*(*v62 + 96))(&v785);
-      }
-
-      else
-      {
-LABEL_562:
-        v785 = 0;
-      }
-
-      if (!v775)
-      {
-        goto LABEL_1329;
-      }
-
-      if (!v776)
-      {
-        goto LABEL_1329;
-      }
-
-      v344 = v777;
-      if (!v777)
-      {
-        goto LABEL_1329;
-      }
-
-      v345 = v781;
-      v310 = v774;
-      if (v783 == 1 && v774)
-      {
-        v346 = v772;
-        v347 = v773;
-        if (v773)
-        {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
-          if (!atomic_fetch_add(&v347->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-          {
-            v348 = v346;
-            (v347->__on_zero_shared)(v347);
-            std::__shared_weak_count::__release_weak(v347);
-            v346 = v348;
-          }
-        }
-
-        (*(*v346 + 88))(v346, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
-        v310 = v774;
-      }
-
-      v162 = (3 * v61);
-      v349 = v344 - 1;
-      if (v349)
-      {
-        v350 = 2 * v345;
-        do
-        {
-          v786 = v310;
-          v787 = v162;
-          sub_23F2F7948(v44, &v786);
-          v310 = (v310 + v350);
-          --v349;
-        }
-
-        while (v349);
-      }
-
-      goto LABEL_1101;
-    case 19:
-      v771 = &unk_285182EA8;
-      sub_23F132AB4(a3, &v772);
-      v16 = *a2;
-      v17 = v782;
-      v18 = v772;
-      if (!v772)
-      {
-        goto LABEL_386;
-      }
-
-      v19 = v773;
-      if (v773)
-      {
-        atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
-        if (!atomic_fetch_add(&v19->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-        {
-          (v19->__on_zero_shared)(v19);
-          std::__shared_weak_count::__release_weak(v19);
-        }
-
-        v18 = v772;
-        v20 = v773;
-        if (v773)
-        {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
-          if (!atomic_fetch_add(&v20->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-          {
-            v21 = v18;
-            (v20->__on_zero_shared)(v20);
-            std::__shared_weak_count::__release_weak(v20);
-            v18 = v21;
-          }
-        }
-      }
-
-      if (v784 == 1)
-      {
-        (*(*v18 + 96))(&v785);
-      }
-
-      else
-      {
-LABEL_386:
-        v785 = 0;
-      }
-
-      if (!v775)
-      {
-        goto LABEL_1329;
-      }
-
-      if (!v776)
-      {
-        goto LABEL_1329;
-      }
-
-      v235 = v777;
-      if (!v777)
-      {
-        goto LABEL_1329;
-      }
-
-      v236 = v781;
-      v237 = v774;
-      if (v783 == 1 && v774)
-      {
-        v238 = v772;
-        v239 = v773;
-        if (v773)
-        {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
-          if (!atomic_fetch_add(&v239->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-          {
-            v240 = v238;
-            (v239->__on_zero_shared)(v239);
-            std::__shared_weak_count::__release_weak(v239);
-            v238 = v240;
-          }
-        }
-
-        (*(*v238 + 88))(v238, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
-        v237 = v774;
-      }
-
-      v241 = (3 * v17);
-      v242 = v235 - 1;
-      if (!v242)
-      {
-        goto LABEL_1294;
-      }
-
-      if (v17)
-      {
-        v243 = 0;
-        v244 = 2 * v236;
-        do
-        {
-          v245 = 0;
-          do
-          {
-            v246 = v237[v245];
-            v770 = v237[v245];
-            v247 = *(v16 + 24);
-            if (*(v247 + 40) == 1)
-            {
-              v786 = (v247 + 16);
-              sub_23F2FCB5C(&v786, &v770);
-            }
-
-            else if (v246 > 0x7F)
-            {
-              if (v246 > 0xFF)
-              {
-                LOBYTE(v786) = -51;
-                *(&v786 + 1) = __rev16(v246);
-              }
-
-              else
-              {
-                LOBYTE(v786) = -52;
-                BYTE1(v786) = v246;
-              }
-
-              v249 = *(v247 + 8);
-              std::ostream::write();
-            }
-
-            else
-            {
-              LOBYTE(v786) = v246;
-              v248 = *(v247 + 8);
-              std::ostream::write();
-            }
-
-            ++v245;
-          }
-
-          while (3 * v17 != v245);
-          v237 = (v237 + v244);
-          ++v243;
-        }
-
-        while (v243 != v242);
-        v241 = (3 * v17);
-LABEL_1294:
-        if (v17)
-        {
-          v753 = 2 * v241;
-          do
-          {
-            v754 = *v237;
-            v770 = *v237;
-            v755 = *(v16 + 24);
-            if (*(v755 + 40) == 1)
-            {
-              v786 = (v755 + 16);
-              sub_23F2FCB5C(&v786, &v770);
-            }
-
-            else if (v754 > 0x7F)
-            {
-              if (v754 > 0xFF)
-              {
-                LOBYTE(v786) = -51;
-                *(&v786 + 1) = __rev16(v754);
-              }
-
-              else
-              {
-                LOBYTE(v786) = -52;
-                BYTE1(v786) = v754;
-              }
-
-              v757 = *(v755 + 8);
-              std::ostream::write();
-            }
-
-            else
-            {
-              LOBYTE(v786) = v754;
-              v756 = *(v755 + 8);
-              std::ostream::write();
-            }
-
-            ++v237;
-            v753 -= 2;
-          }
-
-          while (v753);
-        }
-      }
-
-      goto LABEL_1329;
-    case 20:
-      v771 = &unk_285182FA0;
-      sub_23F133224(a3, &v772);
-      v28 = *a2;
-      v188 = v782;
-      v189 = v772;
-      if (!v772)
-      {
-        goto LABEL_1066;
-      }
-
-      v190 = v773;
-      if (v773)
-      {
-        atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
-        if (!atomic_fetch_add(&v190->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-        {
-          (v190->__on_zero_shared)(v190);
-          std::__shared_weak_count::__release_weak(v190);
-        }
-
-        v189 = v772;
-        v191 = v773;
-        if (v773)
-        {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
-          if (!atomic_fetch_add(&v191->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-          {
-            v192 = v189;
-            (v191->__on_zero_shared)(v191);
-            std::__shared_weak_count::__release_weak(v191);
-            v189 = v192;
-          }
-        }
-      }
-
-      if (v784 == 1)
-      {
-        (*(*v189 + 96))(&v785);
-      }
-
-      else
-      {
-LABEL_1066:
-        v785 = 0;
-      }
-
-      if (!v775)
-      {
-        goto LABEL_1329;
-      }
-
-      if (!v776)
-      {
-        goto LABEL_1329;
-      }
-
-      v641 = v777;
-      if (!v777)
-      {
-        goto LABEL_1329;
-      }
-
-      v642 = v781;
-      v267 = v774;
-      if (v783 == 1 && v774)
-      {
-        v643 = v772;
-        v644 = v773;
-        if (v773)
-        {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
           if (!atomic_fetch_add(&v644->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
             v645 = v643;
@@ -2778,86 +2318,516 @@ LABEL_1066:
         }
 
         (*(*v643 + 88))(v643, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
-        v267 = v774;
+        v482 = v714;
       }
 
-      v271 = (3 * v188);
+      v486 = (3 * v204);
       v646 = v641 - 1;
       if (v646)
       {
-        v647 = 0;
-        v648 = 4 * v642;
-        do
+        for (mm = 0; mm != v646; ++mm)
         {
-          v649 = *(v28 + 24);
-          if (*(v649 + 40) == 1)
+          v648 = *(v135 + 24);
+          if (*(v648 + 40) == 1)
           {
-            v786 = (v649 + 16);
-            if (v188)
+            v726 = (v648 + 16);
+            if (v204)
             {
-              v650 = 4 * (3 * v188);
-              v651 = v267;
+              v649 = (3 * v204);
+              v650 = v482;
               do
               {
-                sub_23F2FE06C(&v770, &v786, v651++);
-                v650 -= 4;
+                sub_23F2FC63C(&v726, v650++);
+                --v649;
               }
 
-              while (v650);
+              while (v649);
+            }
+          }
+
+          else if (v204)
+          {
+            v651 = 0;
+            do
+            {
+              v652 = *(v482 + v651);
+              if (v652 < 0)
+              {
+                LOBYTE(v726) = -52;
+                BYTE1(v726) = v652;
+              }
+
+              else
+              {
+                LOBYTE(v726) = *(v482 + v651);
+              }
+
+              std::ostream::write();
+              ++v651;
+            }
+
+            while (v486 != v651);
+          }
+
+          v482 = (v482 + v642);
+        }
+      }
+
+      goto LABEL_1209;
+    case 18:
+      v711 = &unk_285182DB0;
+      sub_23F132344(a3, &v712);
+      v44 = *a2;
+      v61 = v722;
+      v62 = v712;
+      if (!v712)
+      {
+        goto LABEL_562;
+      }
+
+      v63 = v713;
+      if (v713)
+      {
+        atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
+        if (!atomic_fetch_add(&v63->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+        {
+          (v63->__on_zero_shared)(v63);
+          std::__shared_weak_count::__release_weak(v63);
+        }
+
+        v62 = v712;
+        v64 = v713;
+        if (v713)
+        {
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
+          if (!atomic_fetch_add(&v64->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          {
+            v65 = v62;
+            (v64->__on_zero_shared)(v64);
+            std::__shared_weak_count::__release_weak(v64);
+            v62 = v65;
+          }
+        }
+      }
+
+      if (v724 == 1)
+      {
+        (*(*v62 + 96))(&v725);
+      }
+
+      else
+      {
+LABEL_562:
+        v725 = 0;
+      }
+
+      if (!v715)
+      {
+        goto LABEL_1329;
+      }
+
+      if (!v716)
+      {
+        goto LABEL_1329;
+      }
+
+      v334 = v717;
+      if (!v717)
+      {
+        goto LABEL_1329;
+      }
+
+      v335 = v721;
+      v302 = v714;
+      if (v723 == 1 && v714)
+      {
+        v336 = v712;
+        v337 = v713;
+        if (v713)
+        {
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
+          if (!atomic_fetch_add(&v337->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          {
+            v338 = v336;
+            (v337->__on_zero_shared)(v337);
+            std::__shared_weak_count::__release_weak(v337);
+            v336 = v338;
+          }
+        }
+
+        (*(*v336 + 88))(v336, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
+        v302 = v714;
+      }
+
+      v162 = (3 * v61);
+      v339 = v334 - 1;
+      if (v339)
+      {
+        v340 = 2 * v335;
+        do
+        {
+          v726 = v302;
+          v727 = v162;
+          sub_23F2F7948(v44, &v726);
+          v302 = (v302 + v340);
+          --v339;
+        }
+
+        while (v339);
+      }
+
+      goto LABEL_1101;
+    case 19:
+      v711 = &unk_285182EA8;
+      sub_23F132AB4(a3, &v712);
+      v16 = *a2;
+      v17 = v722;
+      v18 = v712;
+      if (!v712)
+      {
+        goto LABEL_386;
+      }
+
+      v19 = v713;
+      if (v713)
+      {
+        atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
+        if (!atomic_fetch_add(&v19->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+        {
+          (v19->__on_zero_shared)(v19);
+          std::__shared_weak_count::__release_weak(v19);
+        }
+
+        v18 = v712;
+        v20 = v713;
+        if (v713)
+        {
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
+          if (!atomic_fetch_add(&v20->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          {
+            v21 = v18;
+            (v20->__on_zero_shared)(v20);
+            std::__shared_weak_count::__release_weak(v20);
+            v18 = v21;
+          }
+        }
+      }
+
+      if (v724 == 1)
+      {
+        (*(*v18 + 96))(&v725);
+      }
+
+      else
+      {
+LABEL_386:
+        v725 = 0;
+      }
+
+      if (!v715)
+      {
+        goto LABEL_1329;
+      }
+
+      if (!v716)
+      {
+        goto LABEL_1329;
+      }
+
+      v233 = v717;
+      if (!v717)
+      {
+        goto LABEL_1329;
+      }
+
+      v234 = v721;
+      v235 = v714;
+      if (v723 == 1 && v714)
+      {
+        v236 = v712;
+        v237 = v713;
+        if (v713)
+        {
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
+          if (!atomic_fetch_add(&v237->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          {
+            v238 = v236;
+            (v237->__on_zero_shared)(v237);
+            std::__shared_weak_count::__release_weak(v237);
+            v236 = v238;
+          }
+        }
+
+        (*(*v236 + 88))(v236, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
+        v235 = v714;
+      }
+
+      v239 = (3 * v17);
+      v240 = v233 - 1;
+      if (!v240)
+      {
+        goto LABEL_1294;
+      }
+
+      if (v17)
+      {
+        v241 = 0;
+        v242 = 2 * v234;
+        do
+        {
+          v243 = 0;
+          do
+          {
+            v244 = v235[v243];
+            v710 = v235[v243];
+            v245 = *(v16 + 24);
+            if (*(v245 + 40) == 1)
+            {
+              v726 = (v245 + 16);
+              sub_23F2FCB5C(&v726, &v710);
+            }
+
+            else if (v244 > 0x7F)
+            {
+              if (v244 > 0xFF)
+              {
+                LOBYTE(v726) = -51;
+                *(&v726 + 1) = __rev16(v244);
+              }
+
+              else
+              {
+                LOBYTE(v726) = -52;
+                BYTE1(v726) = v244;
+              }
+
+              std::ostream::write();
+            }
+
+            else
+            {
+              LOBYTE(v726) = v244;
+              std::ostream::write();
+            }
+
+            ++v243;
+          }
+
+          while (3 * v17 != v243);
+          v235 = (v235 + v242);
+          ++v241;
+        }
+
+        while (v241 != v240);
+        v239 = (3 * v17);
+LABEL_1294:
+        if (v17)
+        {
+          v699 = 2 * v239;
+          do
+          {
+            v700 = *v235;
+            v710 = *v235;
+            v701 = *(v16 + 24);
+            if (*(v701 + 40) == 1)
+            {
+              v726 = (v701 + 16);
+              sub_23F2FCB5C(&v726, &v710);
+            }
+
+            else if (v700 > 0x7F)
+            {
+              if (v700 > 0xFF)
+              {
+                LOBYTE(v726) = -51;
+                *(&v726 + 1) = __rev16(v700);
+              }
+
+              else
+              {
+                LOBYTE(v726) = -52;
+                BYTE1(v726) = v700;
+              }
+
+              std::ostream::write();
+            }
+
+            else
+            {
+              LOBYTE(v726) = v700;
+              std::ostream::write();
+            }
+
+            ++v235;
+            v699 -= 2;
+          }
+
+          while (v699);
+        }
+      }
+
+      goto LABEL_1329;
+    case 20:
+      v711 = &unk_285182FA0;
+      sub_23F133224(a3, &v712);
+      v28 = *a2;
+      v188 = v722;
+      v189 = v712;
+      if (!v712)
+      {
+        goto LABEL_1066;
+      }
+
+      v190 = v713;
+      if (v713)
+      {
+        atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
+        if (!atomic_fetch_add(&v190->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+        {
+          (v190->__on_zero_shared)(v190);
+          std::__shared_weak_count::__release_weak(v190);
+        }
+
+        v189 = v712;
+        v191 = v713;
+        if (v713)
+        {
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
+          if (!atomic_fetch_add(&v191->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          {
+            v192 = v189;
+            (v191->__on_zero_shared)(v191);
+            std::__shared_weak_count::__release_weak(v191);
+            v189 = v192;
+          }
+        }
+      }
+
+      if (v724 == 1)
+      {
+        (*(*v189 + 96))(&v725);
+      }
+
+      else
+      {
+LABEL_1066:
+        v725 = 0;
+      }
+
+      if (!v715)
+      {
+        goto LABEL_1329;
+      }
+
+      if (!v716)
+      {
+        goto LABEL_1329;
+      }
+
+      v608 = v717;
+      if (!v717)
+      {
+        goto LABEL_1329;
+      }
+
+      v609 = v721;
+      v262 = v714;
+      if (v723 == 1 && v714)
+      {
+        v610 = v712;
+        v611 = v713;
+        if (v713)
+        {
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
+          if (!atomic_fetch_add(&v611->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          {
+            v612 = v610;
+            (v611->__on_zero_shared)(v611);
+            std::__shared_weak_count::__release_weak(v611);
+            v610 = v612;
+          }
+        }
+
+        (*(*v610 + 88))(v610, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
+        v262 = v714;
+      }
+
+      v266 = (3 * v188);
+      v613 = v608 - 1;
+      if (v613)
+      {
+        v614 = 0;
+        v615 = 4 * v609;
+        do
+        {
+          v616 = *(v28 + 24);
+          if (*(v616 + 40) == 1)
+          {
+            v726 = (v616 + 16);
+            if (v188)
+            {
+              v617 = 4 * (3 * v188);
+              v618 = v262;
+              do
+              {
+                sub_23F2FE06C(&v710, &v726, v618++);
+                v617 -= 4;
+              }
+
+              while (v617);
             }
           }
 
           else if (v188)
           {
-            v652 = 0;
+            v619 = 0;
             do
             {
-              v653 = *(v267 + v652);
-              LOBYTE(v786) = -54;
-              *(&v786 + 1) = bswap32(v653);
-              v654 = *(v649 + 8);
+              v620 = *(v262 + v619);
+              LOBYTE(v726) = -54;
+              *(&v726 + 1) = bswap32(v620);
               std::ostream::write();
-              v652 += 4;
+              v619 += 4;
             }
 
-            while (4 * (3 * v188) != v652);
+            while (4 * (3 * v188) != v619);
           }
 
-          v267 = (v267 + v648);
-          ++v647;
+          v262 = (v262 + v615);
+          ++v614;
         }
 
-        while (v647 != v646);
-        v271 = (3 * v188);
+        while (v614 != v613);
+        v266 = (3 * v188);
       }
 
       goto LABEL_1292;
     case 21:
-      v771 = &unk_28517E0A8;
-      sub_23F08E4D4(a3, &v772);
+      v711 = &unk_28517E0A8;
+      sub_23F08E4D4(a3, &v712);
       v135 = *a2;
-      v215 = v782;
-      v216 = v772;
-      if (!v772)
+      v215 = v722;
+      v216 = v712;
+      if (!v712)
       {
         goto LABEL_1174;
       }
 
-      v217 = v773;
-      if (v773)
+      v217 = v713;
+      if (v713)
       {
-        atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
         if (!atomic_fetch_add(&v217->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
         {
           (v217->__on_zero_shared)(v217);
           std::__shared_weak_count::__release_weak(v217);
         }
 
-        v216 = v772;
-        v218 = v773;
-        if (v773)
+        v216 = v712;
+        v218 = v713;
+        if (v713)
         {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
           if (!atomic_fetch_add(&v218->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
             v219 = v216;
@@ -2868,139 +2838,138 @@ LABEL_1066:
         }
       }
 
-      if (v784 == 1)
+      if (v724 == 1)
       {
-        (*(*v216 + 96))(&v785);
+        (*(*v216 + 96))(&v725);
       }
 
       else
       {
 LABEL_1174:
-        v785 = 0;
+        v725 = 0;
       }
 
-      if (!v775)
+      if (!v715)
       {
         goto LABEL_1329;
       }
 
-      if (!v776)
+      if (!v716)
       {
         goto LABEL_1329;
       }
 
-      v705 = v777;
-      if (!v777)
+      v666 = v717;
+      if (!v717)
       {
         goto LABEL_1329;
       }
 
-      v706 = v781;
-      v504 = v774;
-      if (v783 == 1 && v774)
+      v667 = v721;
+      v482 = v714;
+      if (v723 == 1 && v714)
       {
-        v707 = v772;
-        v708 = v773;
-        if (v773)
+        v668 = v712;
+        v669 = v713;
+        if (v713)
         {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
-          if (!atomic_fetch_add(&v708->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
+          if (!atomic_fetch_add(&v669->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
-            v709 = v707;
-            (v708->__on_zero_shared)(v708);
-            std::__shared_weak_count::__release_weak(v708);
-            v707 = v709;
+            v670 = v668;
+            (v669->__on_zero_shared)(v669);
+            std::__shared_weak_count::__release_weak(v669);
+            v668 = v670;
           }
         }
 
-        (*(*v707 + 88))(v707, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
-        v504 = v774;
+        (*(*v668 + 88))(v668, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
+        v482 = v714;
       }
 
-      v508 = (3 * v215);
-      v710 = v705 - 1;
-      if (v710)
+      v486 = (3 * v215);
+      v671 = v666 - 1;
+      if (v671)
       {
-        for (nn = 0; nn != v710; ++nn)
+        for (nn = 0; nn != v671; ++nn)
         {
-          v712 = *(v135 + 24);
-          if (*(v712 + 40) == 1)
+          v673 = *(v135 + 24);
+          if (*(v673 + 40) == 1)
           {
-            v786 = (v712 + 16);
+            v726 = (v673 + 16);
             if (v215)
             {
-              v713 = (3 * v215);
-              v714 = v504;
+              v674 = (3 * v215);
+              v675 = v482;
               do
               {
-                sub_23F2FC63C(&v786, v714++);
-                --v713;
+                sub_23F2FC63C(&v726, v675++);
+                --v674;
               }
 
-              while (v713);
+              while (v674);
             }
           }
 
           else if (v215)
           {
-            v715 = 0;
+            v676 = 0;
             do
             {
-              v716 = *(v504 + v715);
-              if (v716 < 0)
+              v677 = *(v482 + v676);
+              if (v677 < 0)
               {
-                LOBYTE(v786) = -52;
-                BYTE1(v786) = v716;
+                LOBYTE(v726) = -52;
+                BYTE1(v726) = v677;
               }
 
               else
               {
-                LOBYTE(v786) = *(v504 + v715);
+                LOBYTE(v726) = *(v482 + v676);
               }
 
-              v717 = *(v712 + 8);
               std::ostream::write();
-              ++v715;
+              ++v676;
             }
 
-            while (v508 != v715);
+            while (v486 != v676);
           }
 
-          v504 = (v504 + v706);
+          v482 = (v482 + v667);
         }
       }
 
 LABEL_1209:
-      v786 = v504;
-      v787 = v508;
-      sub_23F2F787C(v135, &v786);
+      v726 = v482;
+      v727 = v486;
+      sub_23F2F787C(v135, &v726);
       goto LABEL_1329;
     case 22:
-      v771 = &unk_285183098;
-      sub_23F133994(a3, &v772);
+      v711 = &unk_285183098;
+      sub_23F133994(a3, &v712);
       v44 = *a2;
-      v78 = v782;
-      v79 = v772;
-      if (!v772)
+      v78 = v722;
+      v79 = v712;
+      if (!v712)
       {
         goto LABEL_624;
       }
 
-      v80 = v773;
-      if (v773)
+      v80 = v713;
+      if (v713)
       {
-        atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
         if (!atomic_fetch_add(&v80->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
         {
           (v80->__on_zero_shared)(v80);
           std::__shared_weak_count::__release_weak(v80);
         }
 
-        v79 = v772;
-        v81 = v773;
-        if (v773)
+        v79 = v712;
+        v81 = v713;
+        if (v713)
         {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
           if (!atomic_fetch_add(&v81->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
             v82 = v79;
@@ -3011,99 +2980,99 @@ LABEL_1209:
         }
       }
 
-      if (v784 == 1)
+      if (v724 == 1)
       {
-        (*(*v79 + 96))(&v785);
+        (*(*v79 + 96))(&v725);
       }
 
       else
       {
 LABEL_624:
-        v785 = 0;
+        v725 = 0;
       }
 
-      if (!v775)
+      if (!v715)
       {
         goto LABEL_1329;
       }
 
-      if (!v776)
+      if (!v716)
       {
         goto LABEL_1329;
       }
 
-      v381 = v777;
-      if (!v777)
+      v367 = v717;
+      if (!v717)
       {
         goto LABEL_1329;
       }
 
-      v382 = v781;
-      v310 = v774;
-      if (v783 == 1 && v774)
+      v368 = v721;
+      v302 = v714;
+      if (v723 == 1 && v714)
       {
-        v383 = v772;
-        v384 = v773;
-        if (v773)
+        v369 = v712;
+        v370 = v713;
+        if (v713)
         {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
-          if (!atomic_fetch_add(&v384->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
+          if (!atomic_fetch_add(&v370->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
-            v385 = v383;
-            (v384->__on_zero_shared)(v384);
-            std::__shared_weak_count::__release_weak(v384);
-            v383 = v385;
+            v371 = v369;
+            (v370->__on_zero_shared)(v370);
+            std::__shared_weak_count::__release_weak(v370);
+            v369 = v371;
           }
         }
 
-        (*(*v383 + 88))(v383, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
-        v310 = v774;
+        (*(*v369 + 88))(v369, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
+        v302 = v714;
       }
 
       v162 = (3 * v78);
-      v386 = v381 - 1;
-      if (v386)
+      v372 = v367 - 1;
+      if (v372)
       {
-        v387 = 2 * v382;
+        v373 = 2 * v368;
         do
         {
-          v786 = v310;
-          v787 = v162;
-          sub_23F2F7948(v44, &v786);
-          v310 = (v310 + v387);
-          --v386;
+          v726 = v302;
+          v727 = v162;
+          sub_23F2F7948(v44, &v726);
+          v302 = (v302 + v373);
+          --v372;
         }
 
-        while (v386);
+        while (v372);
       }
 
       goto LABEL_1101;
     case 23:
-      v771 = &unk_285183190;
-      sub_23F134104(a3, &v772);
+      v711 = &unk_285183190;
+      sub_23F134104(a3, &v712);
       v209 = *a2;
-      v210 = v782;
-      v211 = v772;
-      if (!v772)
+      v210 = v722;
+      v211 = v712;
+      if (!v712)
       {
         goto LABEL_1150;
       }
 
-      v212 = v773;
-      if (v773)
+      v212 = v713;
+      if (v713)
       {
-        atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
         if (!atomic_fetch_add(&v212->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
         {
           (v212->__on_zero_shared)(v212);
           std::__shared_weak_count::__release_weak(v212);
         }
 
-        v211 = v772;
-        v213 = v773;
-        if (v773)
+        v211 = v712;
+        v213 = v713;
+        if (v713)
         {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
           if (!atomic_fetch_add(&v213->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
             v214 = v211;
@@ -3114,190 +3083,186 @@ LABEL_624:
         }
       }
 
-      if (v784 == 1)
+      if (v724 == 1)
       {
-        (*(*v211 + 96))(&v785);
+        (*(*v211 + 96))(&v725);
       }
 
       else
       {
 LABEL_1150:
-        v785 = 0;
+        v725 = 0;
       }
 
-      if (!v775)
+      if (!v715)
       {
         goto LABEL_1329;
       }
 
-      if (!v776)
+      if (!v716)
       {
         goto LABEL_1329;
       }
 
-      v690 = v777;
-      if (!v777)
+      v653 = v717;
+      if (!v717)
       {
         goto LABEL_1329;
       }
 
-      v691 = v781;
-      v692 = v774;
-      if (v783 == 1 && v774)
+      v654 = v721;
+      v655 = v714;
+      if (v723 == 1 && v714)
       {
-        v693 = v772;
-        v694 = v773;
-        if (v773)
+        v656 = v712;
+        v657 = v713;
+        if (v713)
         {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
-          if (!atomic_fetch_add(&v694->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
+          if (!atomic_fetch_add(&v657->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
-            v695 = v693;
-            (v694->__on_zero_shared)(v694);
-            std::__shared_weak_count::__release_weak(v694);
-            v693 = v695;
+            v658 = v656;
+            (v657->__on_zero_shared)(v657);
+            std::__shared_weak_count::__release_weak(v657);
+            v656 = v658;
           }
         }
 
-        (*(*v693 + 88))(v693, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
-        v692 = v774;
+        (*(*v656 + 88))(v656, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
+        v655 = v714;
       }
 
-      v696 = (3 * v210);
-      v697 = v690 - 1;
-      if (!v697)
+      v659 = (3 * v210);
+      v660 = v653 - 1;
+      if (!v660)
       {
         goto LABEL_1318;
       }
 
       if (v210)
       {
-        v698 = 0;
-        v699 = 2 * v691;
+        v661 = 0;
+        v662 = 2 * v654;
         do
         {
-          v700 = 0;
+          v663 = 0;
           do
           {
-            v701 = v692[v700];
-            v770 = v692[v700];
-            v702 = *(v209 + 24);
-            if (*(v702 + 40) == 1)
+            v664 = v655[v663];
+            v710 = v655[v663];
+            v665 = *(v209 + 24);
+            if (*(v665 + 40) == 1)
             {
-              v786 = (v702 + 16);
-              sub_23F2FCB5C(&v786, &v770);
+              v726 = (v665 + 16);
+              sub_23F2FCB5C(&v726, &v710);
             }
 
-            else if (v701 > 0x7F)
+            else if (v664 > 0x7F)
             {
-              if (v701 > 0xFF)
+              if (v664 > 0xFF)
               {
-                LOBYTE(v786) = -51;
-                *(&v786 + 1) = __rev16(v701);
+                LOBYTE(v726) = -51;
+                *(&v726 + 1) = __rev16(v664);
               }
 
               else
               {
-                LOBYTE(v786) = -52;
-                BYTE1(v786) = v701;
+                LOBYTE(v726) = -52;
+                BYTE1(v726) = v664;
               }
 
-              v704 = *(v702 + 8);
               std::ostream::write();
             }
 
             else
             {
-              LOBYTE(v786) = v701;
-              v703 = *(v702 + 8);
+              LOBYTE(v726) = v664;
               std::ostream::write();
             }
 
-            ++v700;
+            ++v663;
           }
 
-          while (3 * v210 != v700);
-          v692 = (v692 + v699);
-          ++v698;
+          while (3 * v210 != v663);
+          v655 = (v655 + v662);
+          ++v661;
         }
 
-        while (v698 != v697);
-        v696 = (3 * v210);
+        while (v661 != v660);
+        v659 = (3 * v210);
 LABEL_1318:
         if (v210)
         {
-          v763 = 2 * v696;
+          v705 = 2 * v659;
           do
           {
-            v764 = *v692;
-            v770 = *v692;
-            v765 = *(v209 + 24);
-            if (*(v765 + 40) == 1)
+            v706 = *v655;
+            v710 = *v655;
+            v707 = *(v209 + 24);
+            if (*(v707 + 40) == 1)
             {
-              v786 = (v765 + 16);
-              sub_23F2FCB5C(&v786, &v770);
+              v726 = (v707 + 16);
+              sub_23F2FCB5C(&v726, &v710);
             }
 
-            else if (v764 > 0x7F)
+            else if (v706 > 0x7F)
             {
-              if (v764 > 0xFF)
+              if (v706 > 0xFF)
               {
-                LOBYTE(v786) = -51;
-                *(&v786 + 1) = __rev16(v764);
+                LOBYTE(v726) = -51;
+                *(&v726 + 1) = __rev16(v706);
               }
 
               else
               {
-                LOBYTE(v786) = -52;
-                BYTE1(v786) = v764;
+                LOBYTE(v726) = -52;
+                BYTE1(v726) = v706;
               }
 
-              v767 = *(v765 + 8);
               std::ostream::write();
             }
 
             else
             {
-              LOBYTE(v786) = v764;
-              v766 = *(v765 + 8);
+              LOBYTE(v726) = v706;
               std::ostream::write();
             }
 
-            ++v692;
-            v763 -= 2;
+            ++v655;
+            v705 -= 2;
           }
 
-          while (v763);
+          while (v705);
         }
       }
 
       goto LABEL_1329;
     case 24:
-      v771 = &unk_285183288;
-      sub_23F134874(a3, &v772);
+      v711 = &unk_285183288;
+      sub_23F134874(a3, &v712);
       v28 = *a2;
-      v39 = v782;
-      v40 = v772;
-      if (!v772)
+      v39 = v722;
+      v40 = v712;
+      if (!v712)
       {
         goto LABEL_480;
       }
 
-      v41 = v773;
-      if (v773)
+      v41 = v713;
+      if (v713)
       {
-        atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
         if (!atomic_fetch_add(&v41->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
         {
           (v41->__on_zero_shared)(v41);
           std::__shared_weak_count::__release_weak(v41);
         }
 
-        v40 = v772;
-        v42 = v773;
-        if (v773)
+        v40 = v712;
+        v42 = v713;
+        if (v713)
         {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
           if (!atomic_fetch_add(&v42->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
             v43 = v40;
@@ -3308,136 +3273,135 @@ LABEL_1318:
         }
       }
 
-      if (v784 == 1)
+      if (v724 == 1)
       {
-        (*(*v40 + 96))(&v785);
+        (*(*v40 + 96))(&v725);
       }
 
       else
       {
 LABEL_480:
-        v785 = 0;
+        v725 = 0;
       }
 
-      if (!v775)
+      if (!v715)
       {
         goto LABEL_1329;
       }
 
-      if (!v776)
+      if (!v716)
       {
         goto LABEL_1329;
       }
 
-      v294 = v777;
-      if (!v777)
+      v287 = v717;
+      if (!v717)
       {
         goto LABEL_1329;
       }
 
-      v295 = v781;
-      v267 = v774;
-      if (v783 == 1 && v774)
+      v288 = v721;
+      v262 = v714;
+      if (v723 == 1 && v714)
       {
-        v296 = v772;
-        v297 = v773;
-        if (v773)
+        v289 = v712;
+        v290 = v713;
+        if (v713)
         {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
-          if (!atomic_fetch_add(&v297->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
+          if (!atomic_fetch_add(&v290->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
-            v298 = v296;
-            (v297->__on_zero_shared)(v297);
-            std::__shared_weak_count::__release_weak(v297);
-            v296 = v298;
+            v291 = v289;
+            (v290->__on_zero_shared)(v290);
+            std::__shared_weak_count::__release_weak(v290);
+            v289 = v291;
           }
         }
 
-        (*(*v296 + 88))(v296, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
-        v267 = v774;
+        (*(*v289 + 88))(v289, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
+        v262 = v714;
       }
 
-      v271 = (3 * v39);
-      v299 = v294 - 1;
-      if (v299)
+      v266 = (3 * v39);
+      v292 = v287 - 1;
+      if (v292)
       {
-        v300 = 0;
-        v301 = 4 * v295;
+        v293 = 0;
+        v294 = 4 * v288;
         do
         {
-          v302 = *(v28 + 24);
-          if (*(v302 + 40) == 1)
+          v295 = *(v28 + 24);
+          if (*(v295 + 40) == 1)
           {
-            v786 = (v302 + 16);
+            v726 = (v295 + 16);
             if (v39)
             {
-              v303 = 4 * (3 * v39);
-              v304 = v267;
+              v296 = 4 * (3 * v39);
+              v297 = v262;
               do
               {
-                sub_23F2FE06C(&v770, &v786, v304++);
-                v303 -= 4;
+                sub_23F2FE06C(&v710, &v726, v297++);
+                v296 -= 4;
               }
 
-              while (v303);
+              while (v296);
             }
           }
 
           else if (v39)
           {
-            v305 = 0;
+            v298 = 0;
             do
             {
-              v306 = *(v267 + v305);
-              LOBYTE(v786) = -54;
-              *(&v786 + 1) = bswap32(v306);
-              v307 = *(v302 + 8);
+              v299 = *(v262 + v298);
+              LOBYTE(v726) = -54;
+              *(&v726 + 1) = bswap32(v299);
               std::ostream::write();
-              v305 += 4;
+              v298 += 4;
             }
 
-            while (4 * (3 * v39) != v305);
+            while (4 * (3 * v39) != v298);
           }
 
-          v267 = (v267 + v301);
-          ++v300;
+          v262 = (v262 + v294);
+          ++v293;
         }
 
-        while (v300 != v299);
-        v271 = (3 * v39);
+        while (v293 != v292);
+        v266 = (3 * v39);
       }
 
 LABEL_1292:
-      v786 = v267;
-      v787 = v271;
-      sub_23F2F7A44(v28, &v786);
+      v726 = v262;
+      v727 = v266;
+      sub_23F2F7A44(v28, &v726);
       goto LABEL_1329;
     case 25:
-      v771 = &unk_285183380;
-      sub_23F134FE4(a3, &v772);
+      v711 = &unk_285183380;
+      sub_23F134FE4(a3, &v712);
       v22 = *a2;
-      v23 = v782;
-      v24 = v772;
-      if (!v772)
+      v23 = v722;
+      v24 = v712;
+      if (!v712)
       {
         goto LABEL_410;
       }
 
-      v25 = v773;
-      if (v773)
+      v25 = v713;
+      if (v713)
       {
-        atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
         if (!atomic_fetch_add(&v25->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
         {
           (v25->__on_zero_shared)(v25);
           std::__shared_weak_count::__release_weak(v25);
         }
 
-        v24 = v772;
-        v26 = v773;
-        if (v773)
+        v24 = v712;
+        v26 = v713;
+        if (v713)
         {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
           if (!atomic_fetch_add(&v26->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
             v27 = v24;
@@ -3448,131 +3412,130 @@ LABEL_1292:
         }
       }
 
-      if (v784 == 1)
+      if (v724 == 1)
       {
-        (*(*v24 + 96))(&v785);
+        (*(*v24 + 96))(&v725);
       }
 
       else
       {
 LABEL_410:
-        v785 = 0;
+        v725 = 0;
       }
 
-      if (!v775)
+      if (!v715)
       {
         goto LABEL_1329;
       }
 
-      if (!v776)
+      if (!v716)
       {
         goto LABEL_1329;
       }
 
-      v250 = v777;
-      if (!v777)
+      v246 = v717;
+      if (!v717)
       {
         goto LABEL_1329;
       }
 
-      v251 = v781;
-      v252 = v774;
-      if (v783 == 1 && v774)
+      v247 = v721;
+      v248 = v714;
+      if (v723 == 1 && v714)
       {
-        v253 = v772;
-        v254 = v773;
-        if (v773)
+        v249 = v712;
+        v250 = v713;
+        if (v713)
         {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
-          if (!atomic_fetch_add(&v254->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
+          if (!atomic_fetch_add(&v250->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
-            v255 = v253;
-            (v254->__on_zero_shared)(v254);
-            std::__shared_weak_count::__release_weak(v254);
-            v253 = v255;
+            v251 = v249;
+            (v250->__on_zero_shared)(v250);
+            std::__shared_weak_count::__release_weak(v250);
+            v249 = v251;
           }
         }
 
-        (*(*v253 + 88))(v253, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
-        v252 = v774;
+        (*(*v249 + 88))(v249, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
+        v248 = v714;
       }
 
-      v256 = (4 * v23);
-      v257 = v250 - 1;
-      if (v257)
+      v252 = (4 * v23);
+      v253 = v246 - 1;
+      if (v253)
       {
-        for (i1 = 0; i1 != v257; ++i1)
+        for (i1 = 0; i1 != v253; ++i1)
         {
-          v259 = *(v22 + 24);
-          if (*(v259 + 40) == 1)
+          v255 = *(v22 + 24);
+          if (*(v255 + 40) == 1)
           {
-            v786 = (v259 + 16);
-            if (v256)
+            v726 = (v255 + 16);
+            if (v252)
             {
-              v260 = v256;
-              v261 = v252;
+              v256 = v252;
+              v257 = v248;
               do
               {
-                sub_23F2FC63C(&v786, v261++);
-                --v260;
+                sub_23F2FC63C(&v726, v257++);
+                --v256;
               }
 
-              while (v260);
+              while (v256);
             }
           }
 
-          else if (v256)
+          else if (v252)
           {
-            for (i2 = 0; i2 != v256; ++i2)
+            for (i2 = 0; i2 != v252; ++i2)
             {
-              v263 = *(v252 + i2);
-              if (v263 < 0)
+              v259 = *(v248 + i2);
+              if (v259 < 0)
               {
-                LOBYTE(v786) = -52;
-                BYTE1(v786) = v263;
+                LOBYTE(v726) = -52;
+                BYTE1(v726) = v259;
               }
 
               else
               {
-                LOBYTE(v786) = *(v252 + i2);
+                LOBYTE(v726) = *(v248 + i2);
               }
 
-              v264 = *(v259 + 8);
               std::ostream::write();
             }
           }
 
-          v252 = (v252 + v251);
+          v248 = (v248 + v247);
         }
       }
 
       goto LABEL_1198;
     case 26:
-      v771 = &unk_285183478;
-      sub_23F135750(a3, &v772);
+      v711 = &unk_285183478;
+      sub_23F135750(a3, &v712);
       v44 = *a2;
-      v83 = v782;
-      v84 = v772;
-      if (!v772)
+      v83 = v722;
+      v84 = v712;
+      if (!v712)
       {
         goto LABEL_638;
       }
 
-      v85 = v773;
-      if (v773)
+      v85 = v713;
+      if (v713)
       {
-        atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
         if (!atomic_fetch_add(&v85->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
         {
           (v85->__on_zero_shared)(v85);
           std::__shared_weak_count::__release_weak(v85);
         }
 
-        v84 = v772;
-        v86 = v773;
-        if (v773)
+        v84 = v712;
+        v86 = v713;
+        if (v713)
         {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
           if (!atomic_fetch_add(&v86->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
             v87 = v84;
@@ -3583,99 +3546,99 @@ LABEL_410:
         }
       }
 
-      if (v784 == 1)
+      if (v724 == 1)
       {
-        (*(*v84 + 96))(&v785);
+        (*(*v84 + 96))(&v725);
       }
 
       else
       {
 LABEL_638:
-        v785 = 0;
+        v725 = 0;
       }
 
-      if (!v775)
+      if (!v715)
       {
         goto LABEL_1329;
       }
 
-      if (!v776)
+      if (!v716)
       {
         goto LABEL_1329;
       }
 
-      v388 = v777;
-      if (!v777)
+      v374 = v717;
+      if (!v717)
       {
         goto LABEL_1329;
       }
 
-      v389 = v781;
-      v310 = v774;
-      if (v783 == 1 && v774)
+      v375 = v721;
+      v302 = v714;
+      if (v723 == 1 && v714)
       {
-        v390 = v772;
-        v391 = v773;
-        if (v773)
+        v376 = v712;
+        v377 = v713;
+        if (v713)
         {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
-          if (!atomic_fetch_add(&v391->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
+          if (!atomic_fetch_add(&v377->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
-            v392 = v390;
-            (v391->__on_zero_shared)(v391);
-            std::__shared_weak_count::__release_weak(v391);
-            v390 = v392;
+            v378 = v376;
+            (v377->__on_zero_shared)(v377);
+            std::__shared_weak_count::__release_weak(v377);
+            v376 = v378;
           }
         }
 
-        (*(*v390 + 88))(v390, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
-        v310 = v774;
+        (*(*v376 + 88))(v376, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
+        v302 = v714;
       }
 
       v162 = (4 * v83);
-      v393 = v388 - 1;
-      if (v393)
+      v379 = v374 - 1;
+      if (v379)
       {
-        v394 = 2 * v389;
+        v380 = 2 * v375;
         do
         {
-          v786 = v310;
-          v787 = v162;
-          sub_23F2F7948(v44, &v786);
-          v310 = (v310 + v394);
-          --v393;
+          v726 = v302;
+          v727 = v162;
+          sub_23F2F7948(v44, &v726);
+          v302 = (v302 + v380);
+          --v379;
         }
 
-        while (v393);
+        while (v379);
       }
 
       goto LABEL_1101;
     case 27:
-      v771 = &unk_285183570;
-      sub_23F135EC0(a3, &v772);
+      v711 = &unk_285183570;
+      sub_23F135EC0(a3, &v712);
       v10 = *a2;
-      v11 = v782;
-      v12 = v772;
-      if (!v772)
+      v11 = v722;
+      v12 = v712;
+      if (!v712)
       {
         goto LABEL_362;
       }
 
-      v13 = v773;
-      if (v773)
+      v13 = v713;
+      if (v713)
       {
-        atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
         if (!atomic_fetch_add(&v13->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
         {
           (v13->__on_zero_shared)(v13);
           std::__shared_weak_count::__release_weak(v13);
         }
 
-        v12 = v772;
-        v14 = v773;
-        if (v773)
+        v12 = v712;
+        v14 = v713;
+        if (v713)
         {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
           if (!atomic_fetch_add(&v14->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
             v15 = v12;
@@ -3686,42 +3649,42 @@ LABEL_638:
         }
       }
 
-      if (v784 == 1)
+      if (v724 == 1)
       {
-        (*(*v12 + 96))(&v785);
+        (*(*v12 + 96))(&v725);
       }
 
       else
       {
 LABEL_362:
-        v785 = 0;
+        v725 = 0;
       }
 
-      if (!v775)
+      if (!v715)
       {
         goto LABEL_1329;
       }
 
-      if (!v776)
+      if (!v716)
       {
         goto LABEL_1329;
       }
 
-      v220 = v777;
-      if (!v777)
+      v220 = v717;
+      if (!v717)
       {
         goto LABEL_1329;
       }
 
-      v221 = v781;
-      v222 = v774;
-      if (v783 == 1 && v774)
+      v221 = v721;
+      v222 = v714;
+      if (v723 == 1 && v714)
       {
-        v223 = v772;
-        v224 = v773;
-        if (v773)
+        v223 = v712;
+        v224 = v713;
+        if (v713)
         {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
           if (!atomic_fetch_add(&v224->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
             v225 = v223;
@@ -3732,7 +3695,7 @@ LABEL_362:
         }
 
         (*(*v223 + 88))(v223, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
-        v222 = v774;
+        v222 = v714;
       }
 
       v226 = (4 * v11);
@@ -3752,36 +3715,34 @@ LABEL_362:
           do
           {
             v231 = v222[v230];
-            v770 = v222[v230];
+            v710 = v222[v230];
             v232 = *(v10 + 24);
             if (*(v232 + 40) == 1)
             {
-              v786 = (v232 + 16);
-              sub_23F2FCB5C(&v786, &v770);
+              v726 = (v232 + 16);
+              sub_23F2FCB5C(&v726, &v710);
             }
 
             else if (v231 > 0x7F)
             {
               if (v231 > 0xFF)
               {
-                LOBYTE(v786) = -51;
-                *(&v786 + 1) = __rev16(v231);
+                LOBYTE(v726) = -51;
+                *(&v726 + 1) = __rev16(v231);
               }
 
               else
               {
-                LOBYTE(v786) = -52;
-                BYTE1(v786) = v231;
+                LOBYTE(v726) = -52;
+                BYTE1(v726) = v231;
               }
 
-              v234 = *(v232 + 8);
               std::ostream::write();
             }
 
             else
             {
-              LOBYTE(v786) = v231;
-              v233 = *(v232 + 8);
+              LOBYTE(v726) = v231;
               std::ostream::write();
             }
 
@@ -3797,78 +3758,76 @@ LABEL_362:
 LABEL_1210:
         if (v226)
         {
-          v718 = 2 * v226;
+          v678 = 2 * v226;
           do
           {
-            v719 = *v222;
-            v770 = *v222;
-            v720 = *(v10 + 24);
-            if (*(v720 + 40) == 1)
+            v679 = *v222;
+            v710 = *v222;
+            v680 = *(v10 + 24);
+            if (*(v680 + 40) == 1)
             {
-              v786 = (v720 + 16);
-              sub_23F2FCB5C(&v786, &v770);
+              v726 = (v680 + 16);
+              sub_23F2FCB5C(&v726, &v710);
             }
 
-            else if (v719 > 0x7F)
+            else if (v679 > 0x7F)
             {
-              if (v719 > 0xFF)
+              if (v679 > 0xFF)
               {
-                LOBYTE(v786) = -51;
-                *(&v786 + 1) = __rev16(v719);
+                LOBYTE(v726) = -51;
+                *(&v726 + 1) = __rev16(v679);
               }
 
               else
               {
-                LOBYTE(v786) = -52;
-                BYTE1(v786) = v719;
+                LOBYTE(v726) = -52;
+                BYTE1(v726) = v679;
               }
 
-              v722 = *(v720 + 8);
               std::ostream::write();
             }
 
             else
             {
-              LOBYTE(v786) = v719;
-              v721 = *(v720 + 8);
+              LOBYTE(v726) = v679;
               std::ostream::write();
             }
 
             ++v222;
-            v718 -= 2;
+            v678 -= 2;
           }
 
-          while (v718);
+          while (v678);
         }
       }
 
       goto LABEL_1329;
     case 28:
-      v771 = &unk_285183668;
-      sub_23F136630(a3, &v772);
+      v711 = &unk_285183668;
+      sub_23F136630(a3, &v712);
       v55 = *a2;
-      v104 = v782;
-      v105 = v772;
-      if (!v772)
+      v104 = v722;
+      v105 = v712;
+      if (!v712)
       {
         goto LABEL_711;
       }
 
-      v106 = v773;
-      if (v773)
+      v106 = v713;
+      if (v713)
       {
-        atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
         if (!atomic_fetch_add(&v106->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
         {
           (v106->__on_zero_shared)(v106);
           std::__shared_weak_count::__release_weak(v106);
         }
 
-        v105 = v772;
-        v107 = v773;
-        if (v773)
+        v105 = v712;
+        v107 = v713;
+        if (v713)
         {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
           if (!atomic_fetch_add(&v107->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
             v108 = v105;
@@ -3879,131 +3838,130 @@ LABEL_1210:
         }
       }
 
-      if (v784 == 1)
+      if (v724 == 1)
       {
-        (*(*v105 + 96))(&v785);
+        (*(*v105 + 96))(&v725);
       }
 
       else
       {
 LABEL_711:
-        v785 = 0;
+        v725 = 0;
       }
 
-      if (!v775)
+      if (!v715)
       {
         goto LABEL_1329;
       }
 
-      if (!v776)
+      if (!v716)
       {
         goto LABEL_1329;
       }
 
-      v431 = v777;
-      if (!v777)
+      v414 = v717;
+      if (!v717)
       {
         goto LABEL_1329;
       }
 
-      v432 = v781;
-      v331 = v774;
-      if (v783 == 1 && v774)
+      v415 = v721;
+      v322 = v714;
+      if (v723 == 1 && v714)
       {
-        v433 = v772;
-        v434 = v773;
-        if (v773)
+        v416 = v712;
+        v417 = v713;
+        if (v713)
         {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
-          if (!atomic_fetch_add(&v434->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
+          if (!atomic_fetch_add(&v417->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
-            v435 = v433;
-            (v434->__on_zero_shared)(v434);
-            std::__shared_weak_count::__release_weak(v434);
-            v433 = v435;
+            v418 = v416;
+            (v417->__on_zero_shared)(v417);
+            std::__shared_weak_count::__release_weak(v417);
+            v416 = v418;
           }
         }
 
-        (*(*v433 + 88))(v433, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
-        v331 = v774;
+        (*(*v416 + 88))(v416, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
+        v322 = v714;
       }
 
       v99 = (4 * v104);
-      v436 = v431 - 1;
-      if (v436)
+      v419 = v414 - 1;
+      if (v419)
       {
-        v437 = 0;
-        v438 = 4 * v432;
+        v420 = 0;
+        v421 = 4 * v415;
         do
         {
-          v439 = *(v55 + 24);
-          if (*(v439 + 40) == 1)
+          v422 = *(v55 + 24);
+          if (*(v422 + 40) == 1)
           {
-            v786 = (v439 + 16);
+            v726 = (v422 + 16);
             if (v99)
             {
-              v440 = 4 * v99;
-              v441 = v331;
+              v423 = 4 * v99;
+              v424 = v322;
               do
               {
-                sub_23F2FE06C(&v770, &v786, v441++);
-                v440 -= 4;
+                sub_23F2FE06C(&v710, &v726, v424++);
+                v423 -= 4;
               }
 
-              while (v440);
+              while (v423);
             }
           }
 
           else if (v99)
           {
-            v442 = 0;
+            v425 = 0;
             do
             {
-              v443 = *(v331 + v442);
-              LOBYTE(v786) = -54;
-              *(&v786 + 1) = bswap32(v443);
-              v444 = *(v439 + 8);
+              v426 = *(v322 + v425);
+              LOBYTE(v726) = -54;
+              *(&v726 + 1) = bswap32(v426);
               std::ostream::write();
-              v442 += 4;
+              v425 += 4;
             }
 
-            while (4 * v99 != v442);
+            while (4 * v99 != v425);
           }
 
-          v331 = (v331 + v438);
-          ++v437;
+          v322 = (v322 + v421);
+          ++v420;
         }
 
-        while (v437 != v436);
+        while (v420 != v419);
       }
 
       goto LABEL_1199;
     case 29:
-      v771 = &unk_285183760;
-      sub_23F136DA0(a3, &v772);
+      v711 = &unk_285183760;
+      sub_23F136DA0(a3, &v712);
       v22 = *a2;
-      v34 = v782;
-      v35 = v772;
-      if (!v772)
+      v34 = v722;
+      v35 = v712;
+      if (!v712)
       {
         goto LABEL_456;
       }
 
-      v36 = v773;
-      if (v773)
+      v36 = v713;
+      if (v713)
       {
-        atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
         if (!atomic_fetch_add(&v36->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
         {
           (v36->__on_zero_shared)(v36);
           std::__shared_weak_count::__release_weak(v36);
         }
 
-        v35 = v772;
-        v37 = v773;
-        if (v773)
+        v35 = v712;
+        v37 = v713;
+        if (v713)
         {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
           if (!atomic_fetch_add(&v37->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
             v38 = v35;
@@ -4014,131 +3972,130 @@ LABEL_711:
         }
       }
 
-      if (v784 == 1)
+      if (v724 == 1)
       {
-        (*(*v35 + 96))(&v785);
+        (*(*v35 + 96))(&v725);
       }
 
       else
       {
 LABEL_456:
-        v785 = 0;
+        v725 = 0;
       }
 
-      if (!v775)
+      if (!v715)
       {
         goto LABEL_1329;
       }
 
-      if (!v776)
+      if (!v716)
       {
         goto LABEL_1329;
       }
 
-      v281 = v777;
-      if (!v777)
+      v275 = v717;
+      if (!v717)
       {
         goto LABEL_1329;
       }
 
-      v282 = v781;
-      v252 = v774;
-      if (v783 == 1 && v774)
+      v276 = v721;
+      v248 = v714;
+      if (v723 == 1 && v714)
       {
-        v283 = v772;
-        v284 = v773;
-        if (v773)
+        v277 = v712;
+        v278 = v713;
+        if (v713)
         {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
-          if (!atomic_fetch_add(&v284->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
+          if (!atomic_fetch_add(&v278->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
-            v285 = v283;
-            (v284->__on_zero_shared)(v284);
-            std::__shared_weak_count::__release_weak(v284);
-            v283 = v285;
+            v279 = v277;
+            (v278->__on_zero_shared)(v278);
+            std::__shared_weak_count::__release_weak(v278);
+            v277 = v279;
           }
         }
 
-        (*(*v283 + 88))(v283, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
-        v252 = v774;
+        (*(*v277 + 88))(v277, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
+        v248 = v714;
       }
 
-      v256 = (4 * v34);
-      v286 = v281 - 1;
-      if (v286)
+      v252 = (4 * v34);
+      v280 = v275 - 1;
+      if (v280)
       {
-        for (i3 = 0; i3 != v286; ++i3)
+        for (i3 = 0; i3 != v280; ++i3)
         {
-          v288 = *(v22 + 24);
-          if (*(v288 + 40) == 1)
+          v282 = *(v22 + 24);
+          if (*(v282 + 40) == 1)
           {
-            v786 = (v288 + 16);
-            if (v256)
+            v726 = (v282 + 16);
+            if (v252)
             {
-              v289 = v256;
-              v290 = v252;
+              v283 = v252;
+              v284 = v248;
               do
               {
-                sub_23F2FC63C(&v786, v290++);
-                --v289;
+                sub_23F2FC63C(&v726, v284++);
+                --v283;
               }
 
-              while (v289);
+              while (v283);
             }
           }
 
-          else if (v256)
+          else if (v252)
           {
-            for (i4 = 0; i4 != v256; ++i4)
+            for (i4 = 0; i4 != v252; ++i4)
             {
-              v292 = *(v252 + i4);
-              if (v292 < 0)
+              v286 = *(v248 + i4);
+              if (v286 < 0)
               {
-                LOBYTE(v786) = -52;
-                BYTE1(v786) = v292;
+                LOBYTE(v726) = -52;
+                BYTE1(v726) = v286;
               }
 
               else
               {
-                LOBYTE(v786) = *(v252 + i4);
+                LOBYTE(v726) = *(v248 + i4);
               }
 
-              v293 = *(v288 + 8);
               std::ostream::write();
             }
           }
 
-          v252 = (v252 + v282);
+          v248 = (v248 + v276);
         }
       }
 
       goto LABEL_1198;
     case 30:
-      v771 = &unk_285183858;
-      sub_23F13750C(a3, &v772);
+      v711 = &unk_285183858;
+      sub_23F13750C(a3, &v712);
       v44 = *a2;
-      v120 = v782;
-      v121 = v772;
-      if (!v772)
+      v120 = v722;
+      v121 = v712;
+      if (!v712)
       {
         goto LABEL_779;
       }
 
-      v122 = v773;
-      if (v773)
+      v122 = v713;
+      if (v713)
       {
-        atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
         if (!atomic_fetch_add(&v122->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
         {
           (v122->__on_zero_shared)(v122);
           std::__shared_weak_count::__release_weak(v122);
         }
 
-        v121 = v772;
-        v123 = v773;
-        if (v773)
+        v121 = v712;
+        v123 = v713;
+        if (v713)
         {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
           if (!atomic_fetch_add(&v123->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
             v124 = v121;
@@ -4149,99 +4106,99 @@ LABEL_456:
         }
       }
 
-      if (v784 == 1)
+      if (v724 == 1)
       {
-        (*(*v121 + 96))(&v785);
+        (*(*v121 + 96))(&v725);
       }
 
       else
       {
 LABEL_779:
-        v785 = 0;
+        v725 = 0;
       }
 
-      if (!v775)
+      if (!v715)
       {
         goto LABEL_1329;
       }
 
-      if (!v776)
+      if (!v716)
       {
         goto LABEL_1329;
       }
 
-      v474 = v777;
-      if (!v777)
+      v453 = v717;
+      if (!v717)
       {
         goto LABEL_1329;
       }
 
-      v475 = v781;
-      v310 = v774;
-      if (v783 == 1 && v774)
+      v454 = v721;
+      v302 = v714;
+      if (v723 == 1 && v714)
       {
-        v476 = v772;
-        v477 = v773;
-        if (v773)
+        v455 = v712;
+        v456 = v713;
+        if (v713)
         {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
-          if (!atomic_fetch_add(&v477->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
+          if (!atomic_fetch_add(&v456->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
-            v478 = v476;
-            (v477->__on_zero_shared)(v477);
-            std::__shared_weak_count::__release_weak(v477);
-            v476 = v478;
+            v457 = v455;
+            (v456->__on_zero_shared)(v456);
+            std::__shared_weak_count::__release_weak(v456);
+            v455 = v457;
           }
         }
 
-        (*(*v476 + 88))(v476, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
-        v310 = v774;
+        (*(*v455 + 88))(v455, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
+        v302 = v714;
       }
 
       v162 = (4 * v120);
-      v479 = v474 - 1;
-      if (v479)
+      v458 = v453 - 1;
+      if (v458)
       {
-        v480 = 2 * v475;
+        v459 = 2 * v454;
         do
         {
-          v786 = v310;
-          v787 = v162;
-          sub_23F2F7948(v44, &v786);
-          v310 = (v310 + v480);
-          --v479;
+          v726 = v302;
+          v727 = v162;
+          sub_23F2F7948(v44, &v726);
+          v302 = (v302 + v459);
+          --v458;
         }
 
-        while (v479);
+        while (v458);
       }
 
       goto LABEL_1101;
     case 31:
-      v771 = &unk_285183950;
-      sub_23F137C7C(a3, &v772);
+      v711 = &unk_285183950;
+      sub_23F137C7C(a3, &v712);
       v88 = *a2;
-      v89 = v782;
-      v90 = v772;
-      if (!v772)
+      v89 = v722;
+      v90 = v712;
+      if (!v712)
       {
         goto LABEL_652;
       }
 
-      v91 = v773;
-      if (v773)
+      v91 = v713;
+      if (v713)
       {
-        atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
         if (!atomic_fetch_add(&v91->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
         {
           (v91->__on_zero_shared)(v91);
           std::__shared_weak_count::__release_weak(v91);
         }
 
-        v90 = v772;
-        v92 = v773;
-        if (v773)
+        v90 = v712;
+        v92 = v713;
+        if (v713)
         {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
           if (!atomic_fetch_add(&v92->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
             v93 = v90;
@@ -4252,189 +4209,185 @@ LABEL_779:
         }
       }
 
-      if (v784 == 1)
+      if (v724 == 1)
       {
-        (*(*v90 + 96))(&v785);
+        (*(*v90 + 96))(&v725);
       }
 
       else
       {
 LABEL_652:
-        v785 = 0;
+        v725 = 0;
       }
 
-      if (!v775)
+      if (!v715)
       {
         goto LABEL_1329;
       }
 
-      if (!v776)
+      if (!v716)
       {
         goto LABEL_1329;
       }
 
-      v395 = v777;
-      if (!v777)
+      v381 = v717;
+      if (!v717)
       {
         goto LABEL_1329;
       }
 
-      v396 = v781;
-      v397 = v774;
-      if (v783 == 1 && v774)
+      v382 = v721;
+      v383 = v714;
+      if (v723 == 1 && v714)
       {
-        v398 = v772;
-        v399 = v773;
-        if (v773)
+        v384 = v712;
+        v385 = v713;
+        if (v713)
         {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
-          if (!atomic_fetch_add(&v399->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
+          if (!atomic_fetch_add(&v385->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
-            v400 = v398;
-            (v399->__on_zero_shared)(v399);
-            std::__shared_weak_count::__release_weak(v399);
-            v398 = v400;
+            v386 = v384;
+            (v385->__on_zero_shared)(v385);
+            std::__shared_weak_count::__release_weak(v385);
+            v384 = v386;
           }
         }
 
-        (*(*v398 + 88))(v398, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
-        v397 = v774;
+        (*(*v384 + 88))(v384, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
+        v383 = v714;
       }
 
-      v401 = (4 * v89);
-      v402 = v395 - 1;
-      if (!v402)
+      v387 = (4 * v89);
+      v388 = v381 - 1;
+      if (!v388)
       {
         goto LABEL_1243;
       }
 
-      if (v401)
+      if (v387)
       {
-        v403 = 0;
-        v404 = 2 * v396;
+        v389 = 0;
+        v390 = 2 * v382;
         do
         {
-          v405 = 0;
+          v391 = 0;
           do
           {
-            v406 = v397[v405];
-            v770 = v397[v405];
-            v407 = *(v88 + 24);
-            if (*(v407 + 40) == 1)
+            v392 = v383[v391];
+            v710 = v383[v391];
+            v393 = *(v88 + 24);
+            if (*(v393 + 40) == 1)
             {
-              v786 = (v407 + 16);
-              sub_23F2FCB5C(&v786, &v770);
+              v726 = (v393 + 16);
+              sub_23F2FCB5C(&v726, &v710);
             }
 
-            else if (v406 > 0x7F)
+            else if (v392 > 0x7F)
             {
-              if (v406 > 0xFF)
+              if (v392 > 0xFF)
               {
-                LOBYTE(v786) = -51;
-                *(&v786 + 1) = __rev16(v406);
+                LOBYTE(v726) = -51;
+                *(&v726 + 1) = __rev16(v392);
               }
 
               else
               {
-                LOBYTE(v786) = -52;
-                BYTE1(v786) = v406;
+                LOBYTE(v726) = -52;
+                BYTE1(v726) = v392;
               }
 
-              v409 = *(v407 + 8);
               std::ostream::write();
             }
 
             else
             {
-              LOBYTE(v786) = v406;
-              v408 = *(v407 + 8);
+              LOBYTE(v726) = v392;
               std::ostream::write();
             }
 
-            ++v405;
+            ++v391;
           }
 
-          while (v401 != v405);
-          v397 = (v397 + v404);
-          ++v403;
+          while (v387 != v391);
+          v383 = (v383 + v390);
+          ++v389;
         }
 
-        while (v403 != v402);
+        while (v389 != v388);
 LABEL_1243:
-        if (v401)
+        if (v387)
         {
-          v733 = 2 * v401;
+          v687 = 2 * v387;
           do
           {
-            v734 = *v397;
-            v770 = *v397;
-            v735 = *(v88 + 24);
-            if (*(v735 + 40) == 1)
+            v688 = *v383;
+            v710 = *v383;
+            v689 = *(v88 + 24);
+            if (*(v689 + 40) == 1)
             {
-              v786 = (v735 + 16);
-              sub_23F2FCB5C(&v786, &v770);
+              v726 = (v689 + 16);
+              sub_23F2FCB5C(&v726, &v710);
             }
 
-            else if (v734 > 0x7F)
+            else if (v688 > 0x7F)
             {
-              if (v734 > 0xFF)
+              if (v688 > 0xFF)
               {
-                LOBYTE(v786) = -51;
-                *(&v786 + 1) = __rev16(v734);
+                LOBYTE(v726) = -51;
+                *(&v726 + 1) = __rev16(v688);
               }
 
               else
               {
-                LOBYTE(v786) = -52;
-                BYTE1(v786) = v734;
+                LOBYTE(v726) = -52;
+                BYTE1(v726) = v688;
               }
 
-              v737 = *(v735 + 8);
               std::ostream::write();
             }
 
             else
             {
-              LOBYTE(v786) = v734;
-              v736 = *(v735 + 8);
+              LOBYTE(v726) = v688;
               std::ostream::write();
             }
 
-            ++v397;
-            v733 -= 2;
+            ++v383;
+            v687 -= 2;
           }
 
-          while (v733);
+          while (v687);
         }
       }
 
       goto LABEL_1329;
     case 32:
-      v771 = &unk_285183A48;
-      sub_23F1383EC(a3, &v772);
+      v711 = &unk_285183A48;
+      sub_23F1383EC(a3, &v712);
       v55 = *a2;
-      v130 = v782;
-      v131 = v772;
-      if (!v772)
+      v130 = v722;
+      v131 = v712;
+      if (!v712)
       {
         goto LABEL_807;
       }
 
-      v132 = v773;
-      if (v773)
+      v132 = v713;
+      if (v713)
       {
-        atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
         if (!atomic_fetch_add(&v132->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
         {
           (v132->__on_zero_shared)(v132);
           std::__shared_weak_count::__release_weak(v132);
         }
 
-        v131 = v772;
-        v133 = v773;
-        if (v773)
+        v131 = v712;
+        v133 = v713;
+        if (v713)
         {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
           if (!atomic_fetch_add(&v133->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
             v134 = v131;
@@ -4445,131 +4398,130 @@ LABEL_1243:
         }
       }
 
-      if (v784 == 1)
+      if (v724 == 1)
       {
-        (*(*v131 + 96))(&v785);
+        (*(*v131 + 96))(&v725);
       }
 
       else
       {
 LABEL_807:
-        v785 = 0;
+        v725 = 0;
       }
 
-      if (!v775)
+      if (!v715)
       {
         goto LABEL_1329;
       }
 
-      if (!v776)
+      if (!v716)
       {
         goto LABEL_1329;
       }
 
-      v488 = v777;
-      if (!v777)
+      v467 = v717;
+      if (!v717)
       {
         goto LABEL_1329;
       }
 
-      v489 = v781;
-      v331 = v774;
-      if (v783 == 1 && v774)
+      v468 = v721;
+      v322 = v714;
+      if (v723 == 1 && v714)
       {
-        v490 = v772;
-        v491 = v773;
-        if (v773)
+        v469 = v712;
+        v470 = v713;
+        if (v713)
         {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
-          if (!atomic_fetch_add(&v491->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
+          if (!atomic_fetch_add(&v470->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
-            v492 = v490;
-            (v491->__on_zero_shared)(v491);
-            std::__shared_weak_count::__release_weak(v491);
-            v490 = v492;
+            v471 = v469;
+            (v470->__on_zero_shared)(v470);
+            std::__shared_weak_count::__release_weak(v470);
+            v469 = v471;
           }
         }
 
-        (*(*v490 + 88))(v490, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
-        v331 = v774;
+        (*(*v469 + 88))(v469, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
+        v322 = v714;
       }
 
       v99 = (4 * v130);
-      v493 = v488 - 1;
-      if (v493)
+      v472 = v467 - 1;
+      if (v472)
       {
-        v494 = 0;
-        v495 = 4 * v489;
+        v473 = 0;
+        v474 = 4 * v468;
         do
         {
-          v496 = *(v55 + 24);
-          if (*(v496 + 40) == 1)
+          v475 = *(v55 + 24);
+          if (*(v475 + 40) == 1)
           {
-            v786 = (v496 + 16);
+            v726 = (v475 + 16);
             if (v99)
             {
-              v497 = 4 * v99;
-              v498 = v331;
+              v476 = 4 * v99;
+              v477 = v322;
               do
               {
-                sub_23F2FE06C(&v770, &v786, v498++);
-                v497 -= 4;
+                sub_23F2FE06C(&v710, &v726, v477++);
+                v476 -= 4;
               }
 
-              while (v497);
+              while (v476);
             }
           }
 
           else if (v99)
           {
-            v499 = 0;
+            v478 = 0;
             do
             {
-              v500 = *(v331 + v499);
-              LOBYTE(v786) = -54;
-              *(&v786 + 1) = bswap32(v500);
-              v501 = *(v496 + 8);
+              v479 = *(v322 + v478);
+              LOBYTE(v726) = -54;
+              *(&v726 + 1) = bswap32(v479);
               std::ostream::write();
-              v499 += 4;
+              v478 += 4;
             }
 
-            while (4 * v99 != v499);
+            while (4 * v99 != v478);
           }
 
-          v331 = (v331 + v495);
-          ++v494;
+          v322 = (v322 + v474);
+          ++v473;
         }
 
-        while (v494 != v493);
+        while (v473 != v472);
       }
 
       goto LABEL_1199;
     case 33:
-      v771 = &unk_285183B40;
-      sub_23F138B5C(a3, &v772);
+      v711 = &unk_285183B40;
+      sub_23F138B5C(a3, &v712);
       v22 = *a2;
-      v183 = v782;
-      v184 = v772;
-      if (!v772)
+      v183 = v722;
+      v184 = v712;
+      if (!v712)
       {
         goto LABEL_1042;
       }
 
-      v185 = v773;
-      if (v773)
+      v185 = v713;
+      if (v713)
       {
-        atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
         if (!atomic_fetch_add(&v185->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
         {
           (v185->__on_zero_shared)(v185);
           std::__shared_weak_count::__release_weak(v185);
         }
 
-        v184 = v772;
-        v186 = v773;
-        if (v773)
+        v184 = v712;
+        v186 = v713;
+        if (v713)
         {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
           if (!atomic_fetch_add(&v186->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
             v187 = v184;
@@ -4580,131 +4532,130 @@ LABEL_807:
         }
       }
 
-      if (v784 == 1)
+      if (v724 == 1)
       {
-        (*(*v184 + 96))(&v785);
+        (*(*v184 + 96))(&v725);
       }
 
       else
       {
 LABEL_1042:
-        v785 = 0;
+        v725 = 0;
       }
 
-      if (!v775)
+      if (!v715)
       {
         goto LABEL_1329;
       }
 
-      if (!v776)
+      if (!v716)
       {
         goto LABEL_1329;
       }
 
-      v628 = v777;
-      if (!v777)
+      v596 = v717;
+      if (!v717)
       {
         goto LABEL_1329;
       }
 
-      v629 = v781;
-      v252 = v774;
-      if (v783 == 1 && v774)
+      v597 = v721;
+      v248 = v714;
+      if (v723 == 1 && v714)
       {
-        v630 = v772;
-        v631 = v773;
-        if (v773)
+        v598 = v712;
+        v599 = v713;
+        if (v713)
         {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
-          if (!atomic_fetch_add(&v631->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
+          if (!atomic_fetch_add(&v599->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
-            v632 = v630;
-            (v631->__on_zero_shared)(v631);
-            std::__shared_weak_count::__release_weak(v631);
-            v630 = v632;
+            v600 = v598;
+            (v599->__on_zero_shared)(v599);
+            std::__shared_weak_count::__release_weak(v599);
+            v598 = v600;
           }
         }
 
-        (*(*v630 + 88))(v630, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
-        v252 = v774;
+        (*(*v598 + 88))(v598, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
+        v248 = v714;
       }
 
-      v256 = (4 * v183);
-      v633 = v628 - 1;
-      if (v633)
+      v252 = (4 * v183);
+      v601 = v596 - 1;
+      if (v601)
       {
-        for (i5 = 0; i5 != v633; ++i5)
+        for (i5 = 0; i5 != v601; ++i5)
         {
-          v635 = *(v22 + 24);
-          if (*(v635 + 40) == 1)
+          v603 = *(v22 + 24);
+          if (*(v603 + 40) == 1)
           {
-            v786 = (v635 + 16);
-            if (v256)
+            v726 = (v603 + 16);
+            if (v252)
             {
-              v636 = v256;
-              v637 = v252;
+              v604 = v252;
+              v605 = v248;
               do
               {
-                sub_23F2FC63C(&v786, v637++);
-                --v636;
+                sub_23F2FC63C(&v726, v605++);
+                --v604;
               }
 
-              while (v636);
+              while (v604);
             }
           }
 
-          else if (v256)
+          else if (v252)
           {
-            for (i6 = 0; i6 != v256; ++i6)
+            for (i6 = 0; i6 != v252; ++i6)
             {
-              v639 = *(v252 + i6);
-              if (v639 < 0)
+              v607 = *(v248 + i6);
+              if (v607 < 0)
               {
-                LOBYTE(v786) = -52;
-                BYTE1(v786) = v639;
+                LOBYTE(v726) = -52;
+                BYTE1(v726) = v607;
               }
 
               else
               {
-                LOBYTE(v786) = *(v252 + i6);
+                LOBYTE(v726) = *(v248 + i6);
               }
 
-              v640 = *(v635 + 8);
               std::ostream::write();
             }
           }
 
-          v252 = (v252 + v629);
+          v248 = (v248 + v597);
         }
       }
 
       goto LABEL_1198;
     case 34:
-      v771 = &unk_285183C38;
-      sub_23F1392C8(a3, &v772);
+      v711 = &unk_285183C38;
+      sub_23F1392C8(a3, &v712);
       v44 = *a2;
-      v125 = v782;
-      v126 = v772;
-      if (!v772)
+      v125 = v722;
+      v126 = v712;
+      if (!v712)
       {
         goto LABEL_793;
       }
 
-      v127 = v773;
-      if (v773)
+      v127 = v713;
+      if (v713)
       {
-        atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
         if (!atomic_fetch_add(&v127->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
         {
           (v127->__on_zero_shared)(v127);
           std::__shared_weak_count::__release_weak(v127);
         }
 
-        v126 = v772;
-        v128 = v773;
-        if (v773)
+        v126 = v712;
+        v128 = v713;
+        if (v713)
         {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
           if (!atomic_fetch_add(&v128->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
             v129 = v126;
@@ -4715,145 +4666,42 @@ LABEL_1042:
         }
       }
 
-      if (v784 == 1)
+      if (v724 == 1)
       {
-        (*(*v126 + 96))(&v785);
+        (*(*v126 + 96))(&v725);
       }
 
       else
       {
 LABEL_793:
-        v785 = 0;
+        v725 = 0;
       }
 
-      if (!v775)
+      if (!v715)
       {
         goto LABEL_1329;
       }
 
-      if (!v776)
+      if (!v716)
       {
         goto LABEL_1329;
       }
 
-      v481 = v777;
-      if (!v777)
+      v460 = v717;
+      if (!v717)
       {
         goto LABEL_1329;
       }
 
-      v482 = v781;
-      v310 = v774;
-      if (v783 == 1 && v774)
+      v461 = v721;
+      v302 = v714;
+      if (v723 == 1 && v714)
       {
-        v483 = v772;
-        v484 = v773;
-        if (v773)
+        v462 = v712;
+        v463 = v713;
+        if (v713)
         {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
-          if (!atomic_fetch_add(&v484->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-          {
-            v485 = v483;
-            (v484->__on_zero_shared)(v484);
-            std::__shared_weak_count::__release_weak(v484);
-            v483 = v485;
-          }
-        }
-
-        (*(*v483 + 88))(v483, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
-        v310 = v774;
-      }
-
-      v162 = (4 * v125);
-      v486 = v481 - 1;
-      if (v486)
-      {
-        v487 = 2 * v482;
-        do
-        {
-          v786 = v310;
-          v787 = v162;
-          sub_23F2F7948(v44, &v786);
-          v310 = (v310 + v487);
-          --v486;
-        }
-
-        while (v486);
-      }
-
-      goto LABEL_1101;
-    case 35:
-      v771 = &unk_285183D30;
-      sub_23F139A38(a3, &v772);
-      v114 = *a2;
-      v115 = v782;
-      v116 = v772;
-      if (!v772)
-      {
-        goto LABEL_755;
-      }
-
-      v117 = v773;
-      if (v773)
-      {
-        atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
-        if (!atomic_fetch_add(&v117->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-        {
-          (v117->__on_zero_shared)(v117);
-          std::__shared_weak_count::__release_weak(v117);
-        }
-
-        v116 = v772;
-        v118 = v773;
-        if (v773)
-        {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
-          if (!atomic_fetch_add(&v118->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-          {
-            v119 = v116;
-            (v118->__on_zero_shared)(v118);
-            std::__shared_weak_count::__release_weak(v118);
-            v116 = v119;
-          }
-        }
-      }
-
-      if (v784 == 1)
-      {
-        (*(*v116 + 96))(&v785);
-      }
-
-      else
-      {
-LABEL_755:
-        v785 = 0;
-      }
-
-      if (!v775)
-      {
-        goto LABEL_1329;
-      }
-
-      if (!v776)
-      {
-        goto LABEL_1329;
-      }
-
-      v459 = v777;
-      if (!v777)
-      {
-        goto LABEL_1329;
-      }
-
-      v460 = v781;
-      v461 = v774;
-      if (v783 == 1 && v774)
-      {
-        v462 = v772;
-        v463 = v773;
-        if (v773)
-        {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
           if (!atomic_fetch_add(&v463->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
             v464 = v462;
@@ -4864,143 +4712,242 @@ LABEL_755:
         }
 
         (*(*v462 + 88))(v462, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
-        v461 = v774;
+        v302 = v714;
       }
 
-      v465 = (4 * v115);
-      v466 = v459 - 1;
-      if (!v466)
+      v162 = (4 * v125);
+      v465 = v460 - 1;
+      if (v465)
+      {
+        v466 = 2 * v461;
+        do
+        {
+          v726 = v302;
+          v727 = v162;
+          sub_23F2F7948(v44, &v726);
+          v302 = (v302 + v466);
+          --v465;
+        }
+
+        while (v465);
+      }
+
+      goto LABEL_1101;
+    case 35:
+      v711 = &unk_285183D30;
+      sub_23F139A38(a3, &v712);
+      v114 = *a2;
+      v115 = v722;
+      v116 = v712;
+      if (!v712)
+      {
+        goto LABEL_755;
+      }
+
+      v117 = v713;
+      if (v713)
+      {
+        atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
+        if (!atomic_fetch_add(&v117->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+        {
+          (v117->__on_zero_shared)(v117);
+          std::__shared_weak_count::__release_weak(v117);
+        }
+
+        v116 = v712;
+        v118 = v713;
+        if (v713)
+        {
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
+          if (!atomic_fetch_add(&v118->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          {
+            v119 = v116;
+            (v118->__on_zero_shared)(v118);
+            std::__shared_weak_count::__release_weak(v118);
+            v116 = v119;
+          }
+        }
+      }
+
+      if (v724 == 1)
+      {
+        (*(*v116 + 96))(&v725);
+      }
+
+      else
+      {
+LABEL_755:
+        v725 = 0;
+      }
+
+      if (!v715)
+      {
+        goto LABEL_1329;
+      }
+
+      if (!v716)
+      {
+        goto LABEL_1329;
+      }
+
+      v440 = v717;
+      if (!v717)
+      {
+        goto LABEL_1329;
+      }
+
+      v441 = v721;
+      v442 = v714;
+      if (v723 == 1 && v714)
+      {
+        v443 = v712;
+        v444 = v713;
+        if (v713)
+        {
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
+          if (!atomic_fetch_add(&v444->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          {
+            v445 = v443;
+            (v444->__on_zero_shared)(v444);
+            std::__shared_weak_count::__release_weak(v444);
+            v443 = v445;
+          }
+        }
+
+        (*(*v443 + 88))(v443, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
+        v442 = v714;
+      }
+
+      v446 = (4 * v115);
+      v447 = v440 - 1;
+      if (!v447)
       {
         goto LABEL_1254;
       }
 
-      if (v465)
+      if (v446)
       {
-        v467 = 0;
-        v468 = 2 * v460;
+        v448 = 0;
+        v449 = 2 * v441;
         do
         {
-          v469 = 0;
+          v450 = 0;
           do
           {
-            v470 = v461[v469];
-            v770 = v461[v469];
-            v471 = *(v114 + 24);
-            if (*(v471 + 40) == 1)
+            v451 = v442[v450];
+            v710 = v442[v450];
+            v452 = *(v114 + 24);
+            if (*(v452 + 40) == 1)
             {
-              v786 = (v471 + 16);
-              sub_23F2FCB5C(&v786, &v770);
+              v726 = (v452 + 16);
+              sub_23F2FCB5C(&v726, &v710);
             }
 
-            else if (v470 > 0x7F)
+            else if (v451 > 0x7F)
             {
-              if (v470 > 0xFF)
+              if (v451 > 0xFF)
               {
-                LOBYTE(v786) = -51;
-                *(&v786 + 1) = __rev16(v470);
+                LOBYTE(v726) = -51;
+                *(&v726 + 1) = __rev16(v451);
               }
 
               else
               {
-                LOBYTE(v786) = -52;
-                BYTE1(v786) = v470;
+                LOBYTE(v726) = -52;
+                BYTE1(v726) = v451;
               }
 
-              v473 = *(v471 + 8);
               std::ostream::write();
             }
 
             else
             {
-              LOBYTE(v786) = v470;
-              v472 = *(v471 + 8);
+              LOBYTE(v726) = v451;
               std::ostream::write();
             }
 
-            ++v469;
+            ++v450;
           }
 
-          while (v465 != v469);
-          v461 = (v461 + v468);
-          ++v467;
+          while (v446 != v450);
+          v442 = (v442 + v449);
+          ++v448;
         }
 
-        while (v467 != v466);
+        while (v448 != v447);
 LABEL_1254:
-        if (v465)
+        if (v446)
         {
-          v738 = 2 * v465;
+          v690 = 2 * v446;
           do
           {
-            v739 = *v461;
-            v770 = *v461;
-            v740 = *(v114 + 24);
-            if (*(v740 + 40) == 1)
+            v691 = *v442;
+            v710 = *v442;
+            v692 = *(v114 + 24);
+            if (*(v692 + 40) == 1)
             {
-              v786 = (v740 + 16);
-              sub_23F2FCB5C(&v786, &v770);
+              v726 = (v692 + 16);
+              sub_23F2FCB5C(&v726, &v710);
             }
 
-            else if (v739 > 0x7F)
+            else if (v691 > 0x7F)
             {
-              if (v739 > 0xFF)
+              if (v691 > 0xFF)
               {
-                LOBYTE(v786) = -51;
-                *(&v786 + 1) = __rev16(v739);
+                LOBYTE(v726) = -51;
+                *(&v726 + 1) = __rev16(v691);
               }
 
               else
               {
-                LOBYTE(v786) = -52;
-                BYTE1(v786) = v739;
+                LOBYTE(v726) = -52;
+                BYTE1(v726) = v691;
               }
 
-              v742 = *(v740 + 8);
               std::ostream::write();
             }
 
             else
             {
-              LOBYTE(v786) = v739;
-              v741 = *(v740 + 8);
+              LOBYTE(v726) = v691;
               std::ostream::write();
             }
 
-            ++v461;
-            v738 -= 2;
+            ++v442;
+            v690 -= 2;
           }
 
-          while (v738);
+          while (v690);
         }
       }
 
       goto LABEL_1329;
     case 36:
-      v771 = &unk_285183E28;
-      sub_23F13A1A8(a3, &v772);
+      v711 = &unk_285183E28;
+      sub_23F13A1A8(a3, &v712);
       v55 = *a2;
-      v109 = v782;
-      v110 = v772;
-      if (!v772)
+      v109 = v722;
+      v110 = v712;
+      if (!v712)
       {
         goto LABEL_733;
       }
 
-      v111 = v773;
-      if (v773)
+      v111 = v713;
+      if (v713)
       {
-        atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
         if (!atomic_fetch_add(&v111->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
         {
           (v111->__on_zero_shared)(v111);
           std::__shared_weak_count::__release_weak(v111);
         }
 
-        v110 = v772;
-        v112 = v773;
-        if (v773)
+        v110 = v712;
+        v112 = v713;
+        if (v713)
         {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
           if (!atomic_fetch_add(&v112->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
             v113 = v110;
@@ -5011,131 +4958,130 @@ LABEL_1254:
         }
       }
 
-      if (v784 == 1)
+      if (v724 == 1)
       {
-        (*(*v110 + 96))(&v785);
+        (*(*v110 + 96))(&v725);
       }
 
       else
       {
 LABEL_733:
-        v785 = 0;
+        v725 = 0;
       }
 
-      if (!v775)
+      if (!v715)
       {
         goto LABEL_1329;
       }
 
-      if (!v776)
+      if (!v716)
       {
         goto LABEL_1329;
       }
 
-      v445 = v777;
-      if (!v777)
+      v427 = v717;
+      if (!v717)
       {
         goto LABEL_1329;
       }
 
-      v446 = v781;
-      v331 = v774;
-      if (v783 == 1 && v774)
+      v428 = v721;
+      v322 = v714;
+      if (v723 == 1 && v714)
       {
-        v447 = v772;
-        v448 = v773;
-        if (v773)
+        v429 = v712;
+        v430 = v713;
+        if (v713)
         {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
-          if (!atomic_fetch_add(&v448->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
+          if (!atomic_fetch_add(&v430->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
-            v449 = v447;
-            (v448->__on_zero_shared)(v448);
-            std::__shared_weak_count::__release_weak(v448);
-            v447 = v449;
+            v431 = v429;
+            (v430->__on_zero_shared)(v430);
+            std::__shared_weak_count::__release_weak(v430);
+            v429 = v431;
           }
         }
 
-        (*(*v447 + 88))(v447, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
-        v331 = v774;
+        (*(*v429 + 88))(v429, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
+        v322 = v714;
       }
 
       v99 = (4 * v109);
-      v450 = v445 - 1;
-      if (v450)
+      v432 = v427 - 1;
+      if (v432)
       {
-        v451 = 0;
-        v452 = 4 * v446;
+        v433 = 0;
+        v434 = 4 * v428;
         do
         {
-          v453 = *(v55 + 24);
-          if (*(v453 + 40) == 1)
+          v435 = *(v55 + 24);
+          if (*(v435 + 40) == 1)
           {
-            v786 = (v453 + 16);
+            v726 = (v435 + 16);
             if (v99)
             {
-              v454 = 4 * v99;
-              v455 = v331;
+              v436 = 4 * v99;
+              v437 = v322;
               do
               {
-                sub_23F2FE06C(&v770, &v786, v455++);
-                v454 -= 4;
+                sub_23F2FE06C(&v710, &v726, v437++);
+                v436 -= 4;
               }
 
-              while (v454);
+              while (v436);
             }
           }
 
           else if (v99)
           {
-            v456 = 0;
+            v438 = 0;
             do
             {
-              v457 = *(v331 + v456);
-              LOBYTE(v786) = -54;
-              *(&v786 + 1) = bswap32(v457);
-              v458 = *(v453 + 8);
+              v439 = *(v322 + v438);
+              LOBYTE(v726) = -54;
+              *(&v726 + 1) = bswap32(v439);
               std::ostream::write();
-              v456 += 4;
+              v438 += 4;
             }
 
-            while (4 * v99 != v456);
+            while (4 * v99 != v438);
           }
 
-          v331 = (v331 + v452);
-          ++v451;
+          v322 = (v322 + v434);
+          ++v433;
         }
 
-        while (v451 != v450);
+        while (v433 != v432);
       }
 
       goto LABEL_1199;
     case 37:
-      v771 = &unk_285183F20;
-      sub_23F13A918(a3, &v772);
+      v711 = &unk_285183F20;
+      sub_23F13A918(a3, &v712);
       v22 = *a2;
-      v167 = v782;
-      v168 = v772;
-      if (!v772)
+      v167 = v722;
+      v168 = v712;
+      if (!v712)
       {
         goto LABEL_980;
       }
 
-      v169 = v773;
-      if (v773)
+      v169 = v713;
+      if (v713)
       {
-        atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
         if (!atomic_fetch_add(&v169->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
         {
           (v169->__on_zero_shared)(v169);
           std::__shared_weak_count::__release_weak(v169);
         }
 
-        v168 = v772;
-        v170 = v773;
-        if (v773)
+        v168 = v712;
+        v170 = v713;
+        if (v713)
         {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
           if (!atomic_fetch_add(&v170->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
             v171 = v168;
@@ -5146,135 +5092,134 @@ LABEL_733:
         }
       }
 
-      if (v784 == 1)
+      if (v724 == 1)
       {
-        (*(*v168 + 96))(&v785);
+        (*(*v168 + 96))(&v725);
       }
 
       else
       {
 LABEL_980:
-        v785 = 0;
+        v725 = 0;
       }
 
-      if (!v775)
+      if (!v715)
       {
         goto LABEL_1329;
       }
 
-      if (!v776)
+      if (!v716)
       {
         goto LABEL_1329;
       }
 
-      v593 = v777;
-      if (!v777)
+      v564 = v717;
+      if (!v717)
       {
         goto LABEL_1329;
       }
 
-      v594 = v781;
-      v252 = v774;
-      if (v783 == 1 && v774)
+      v565 = v721;
+      v248 = v714;
+      if (v723 == 1 && v714)
       {
-        v595 = v772;
-        v596 = v773;
-        if (v773)
+        v566 = v712;
+        v567 = v713;
+        if (v713)
         {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
-          if (!atomic_fetch_add(&v596->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
+          if (!atomic_fetch_add(&v567->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
-            v597 = v595;
-            (v596->__on_zero_shared)(v596);
-            std::__shared_weak_count::__release_weak(v596);
-            v595 = v597;
+            v568 = v566;
+            (v567->__on_zero_shared)(v567);
+            std::__shared_weak_count::__release_weak(v567);
+            v566 = v568;
           }
         }
 
-        (*(*v595 + 88))(v595, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
-        v252 = v774;
+        (*(*v566 + 88))(v566, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
+        v248 = v714;
       }
 
-      v256 = (4 * v167);
-      v598 = v593 - 1;
-      if (v598)
+      v252 = (4 * v167);
+      v569 = v564 - 1;
+      if (v569)
       {
-        for (i7 = 0; i7 != v598; ++i7)
+        for (i7 = 0; i7 != v569; ++i7)
         {
-          v600 = *(v22 + 24);
-          if (*(v600 + 40) == 1)
+          v571 = *(v22 + 24);
+          if (*(v571 + 40) == 1)
           {
-            v786 = (v600 + 16);
-            if (v256)
+            v726 = (v571 + 16);
+            if (v252)
             {
-              v601 = v256;
-              v602 = v252;
+              v572 = v252;
+              v573 = v248;
               do
               {
-                sub_23F2FC63C(&v786, v602++);
-                --v601;
+                sub_23F2FC63C(&v726, v573++);
+                --v572;
               }
 
-              while (v601);
+              while (v572);
             }
           }
 
-          else if (v256)
+          else if (v252)
           {
-            for (i8 = 0; i8 != v256; ++i8)
+            for (i8 = 0; i8 != v252; ++i8)
             {
-              v604 = *(v252 + i8);
-              if (v604 < 0)
+              v575 = *(v248 + i8);
+              if (v575 < 0)
               {
-                LOBYTE(v786) = -52;
-                BYTE1(v786) = v604;
+                LOBYTE(v726) = -52;
+                BYTE1(v726) = v575;
               }
 
               else
               {
-                LOBYTE(v786) = *(v252 + i8);
+                LOBYTE(v726) = *(v248 + i8);
               }
 
-              v605 = *(v600 + 8);
               std::ostream::write();
             }
           }
 
-          v252 = (v252 + v594);
+          v248 = (v248 + v565);
         }
       }
 
 LABEL_1198:
-      v786 = v252;
-      v787 = v256;
-      sub_23F2F787C(v22, &v786);
+      v726 = v248;
+      v727 = v252;
+      sub_23F2F787C(v22, &v726);
       goto LABEL_1329;
     case 38:
-      v771 = &unk_285184018;
-      sub_23F13B084(a3, &v772);
+      v711 = &unk_285184018;
+      sub_23F13B084(a3, &v712);
       v44 = *a2;
-      v193 = v782;
-      v194 = v772;
-      if (!v772)
+      v193 = v722;
+      v194 = v712;
+      if (!v712)
       {
         goto LABEL_1088;
       }
 
-      v195 = v773;
-      if (v773)
+      v195 = v713;
+      if (v713)
       {
-        atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
         if (!atomic_fetch_add(&v195->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
         {
           (v195->__on_zero_shared)(v195);
           std::__shared_weak_count::__release_weak(v195);
         }
 
-        v194 = v772;
-        v196 = v773;
-        if (v773)
+        v194 = v712;
+        v196 = v713;
+        if (v713)
         {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
           if (!atomic_fetch_add(&v196->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
             v197 = v194;
@@ -5285,103 +5230,103 @@ LABEL_1198:
         }
       }
 
-      if (v784 == 1)
+      if (v724 == 1)
       {
-        (*(*v194 + 96))(&v785);
+        (*(*v194 + 96))(&v725);
       }
 
       else
       {
 LABEL_1088:
-        v785 = 0;
+        v725 = 0;
       }
 
-      if (!v775)
+      if (!v715)
       {
         goto LABEL_1329;
       }
 
-      if (!v776)
+      if (!v716)
       {
         goto LABEL_1329;
       }
 
-      v655 = v777;
-      if (!v777)
+      v621 = v717;
+      if (!v717)
       {
         goto LABEL_1329;
       }
 
-      v656 = v781;
-      v310 = v774;
-      if (v783 == 1 && v774)
+      v622 = v721;
+      v302 = v714;
+      if (v723 == 1 && v714)
       {
-        v657 = v772;
-        v658 = v773;
-        if (v773)
+        v623 = v712;
+        v624 = v713;
+        if (v713)
         {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
-          if (!atomic_fetch_add(&v658->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
+          if (!atomic_fetch_add(&v624->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
-            v659 = v657;
-            (v658->__on_zero_shared)(v658);
-            std::__shared_weak_count::__release_weak(v658);
-            v657 = v659;
+            v625 = v623;
+            (v624->__on_zero_shared)(v624);
+            std::__shared_weak_count::__release_weak(v624);
+            v623 = v625;
           }
         }
 
-        (*(*v657 + 88))(v657, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
-        v310 = v774;
+        (*(*v623 + 88))(v623, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
+        v302 = v714;
       }
 
       v162 = (4 * v193);
-      v660 = v655 - 1;
-      if (v660)
+      v626 = v621 - 1;
+      if (v626)
       {
-        v661 = 2 * v656;
+        v627 = 2 * v622;
         do
         {
-          v786 = v310;
-          v787 = v162;
-          sub_23F2F7948(v44, &v786);
-          v310 = (v310 + v661);
-          --v660;
+          v726 = v302;
+          v727 = v162;
+          sub_23F2F7948(v44, &v726);
+          v302 = (v302 + v627);
+          --v626;
         }
 
-        while (v660);
+        while (v626);
       }
 
 LABEL_1101:
-      v786 = v310;
-      v787 = v162;
-      sub_23F2F7948(v44, &v786);
+      v726 = v302;
+      v727 = v162;
+      sub_23F2F7948(v44, &v726);
       goto LABEL_1329;
     case 39:
-      v771 = &unk_285184110;
-      sub_23F13B7F4(a3, &v772);
+      v711 = &unk_285184110;
+      sub_23F13B7F4(a3, &v712);
       v72 = *a2;
-      v73 = v782;
-      v74 = v772;
-      if (!v772)
+      v73 = v722;
+      v74 = v712;
+      if (!v712)
       {
         goto LABEL_600;
       }
 
-      v75 = v773;
-      if (v773)
+      v75 = v713;
+      if (v713)
       {
-        atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
         if (!atomic_fetch_add(&v75->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
         {
           (v75->__on_zero_shared)(v75);
           std::__shared_weak_count::__release_weak(v75);
         }
 
-        v74 = v772;
-        v76 = v773;
-        if (v773)
+        v74 = v712;
+        v76 = v713;
+        if (v713)
         {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
           if (!atomic_fetch_add(&v76->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
             v77 = v74;
@@ -5392,207 +5337,203 @@ LABEL_1101:
         }
       }
 
-      if (v784 == 1)
+      if (v724 == 1)
       {
-        (*(*v74 + 96))(&v785);
+        (*(*v74 + 96))(&v725);
       }
 
       else
       {
 LABEL_600:
-        v785 = 0;
+        v725 = 0;
       }
 
-      if (!v775)
+      if (!v715)
       {
         goto LABEL_1329;
       }
 
-      if (!v776)
+      if (!v716)
       {
         goto LABEL_1329;
       }
 
-      v366 = v777;
-      if (!v777)
+      v354 = v717;
+      if (!v717)
       {
         goto LABEL_1329;
       }
 
-      v367 = v781;
-      v368 = v774;
-      if (v783 == 1 && v774)
+      v355 = v721;
+      v356 = v714;
+      if (v723 == 1 && v714)
       {
-        v369 = v772;
-        v370 = v773;
-        if (v773)
+        v357 = v712;
+        v358 = v713;
+        if (v713)
         {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
-          if (!atomic_fetch_add(&v370->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
+          if (!atomic_fetch_add(&v358->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
-            v371 = v369;
-            (v370->__on_zero_shared)(v370);
-            std::__shared_weak_count::__release_weak(v370);
-            v369 = v371;
+            v359 = v357;
+            (v358->__on_zero_shared)(v358);
+            std::__shared_weak_count::__release_weak(v358);
+            v357 = v359;
           }
         }
 
-        (*(*v369 + 88))(v369, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
-        v368 = v774;
+        (*(*v357 + 88))(v357, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
+        v356 = v714;
       }
 
-      v372 = (4 * v73);
-      v373 = v366 - 1;
-      if (!v373)
+      v360 = (4 * v73);
+      v361 = v354 - 1;
+      if (!v361)
       {
         goto LABEL_1232;
       }
 
-      if (v372)
+      if (v360)
       {
-        v374 = 0;
-        v375 = 2 * v367;
+        v362 = 0;
+        v363 = 2 * v355;
         do
         {
-          v376 = 0;
+          v364 = 0;
           do
           {
-            v377 = v368[v376];
-            v770 = v368[v376];
-            v378 = *(v72 + 24);
-            if (*(v378 + 40) == 1)
+            v365 = v356[v364];
+            v710 = v356[v364];
+            v366 = *(v72 + 24);
+            if (*(v366 + 40) == 1)
             {
-              v786 = (v378 + 16);
-              sub_23F2FCB5C(&v786, &v770);
+              v726 = (v366 + 16);
+              sub_23F2FCB5C(&v726, &v710);
             }
 
-            else if (v377 > 0x7F)
+            else if (v365 > 0x7F)
             {
-              if (v377 > 0xFF)
+              if (v365 > 0xFF)
               {
-                LOBYTE(v786) = -51;
-                *(&v786 + 1) = __rev16(v377);
+                LOBYTE(v726) = -51;
+                *(&v726 + 1) = __rev16(v365);
               }
 
               else
               {
-                LOBYTE(v786) = -52;
-                BYTE1(v786) = v377;
+                LOBYTE(v726) = -52;
+                BYTE1(v726) = v365;
               }
 
-              v380 = *(v378 + 8);
               std::ostream::write();
             }
 
             else
             {
-              LOBYTE(v786) = v377;
-              v379 = *(v378 + 8);
+              LOBYTE(v726) = v365;
               std::ostream::write();
             }
 
-            ++v376;
+            ++v364;
           }
 
-          while (v372 != v376);
-          v368 = (v368 + v375);
-          ++v374;
+          while (v360 != v364);
+          v356 = (v356 + v363);
+          ++v362;
         }
 
-        while (v374 != v373);
+        while (v362 != v361);
 LABEL_1232:
-        if (v372)
+        if (v360)
         {
-          v728 = 2 * v372;
+          v684 = 2 * v360;
           do
           {
-            v729 = *v368;
-            v770 = *v368;
-            v730 = *(v72 + 24);
-            if (*(v730 + 40) == 1)
+            v685 = *v356;
+            v710 = *v356;
+            v686 = *(v72 + 24);
+            if (*(v686 + 40) == 1)
             {
-              v786 = (v730 + 16);
-              sub_23F2FCB5C(&v786, &v770);
+              v726 = (v686 + 16);
+              sub_23F2FCB5C(&v726, &v710);
             }
 
-            else if (v729 > 0x7F)
+            else if (v685 > 0x7F)
             {
-              if (v729 > 0xFF)
+              if (v685 > 0xFF)
               {
-                LOBYTE(v786) = -51;
-                *(&v786 + 1) = __rev16(v729);
+                LOBYTE(v726) = -51;
+                *(&v726 + 1) = __rev16(v685);
               }
 
               else
               {
-                LOBYTE(v786) = -52;
-                BYTE1(v786) = v729;
+                LOBYTE(v726) = -52;
+                BYTE1(v726) = v685;
               }
 
-              v732 = *(v730 + 8);
               std::ostream::write();
             }
 
             else
             {
-              LOBYTE(v786) = v729;
-              v731 = *(v730 + 8);
+              LOBYTE(v726) = v685;
               std::ostream::write();
             }
 
-            ++v368;
-            v728 -= 2;
+            ++v356;
+            v684 -= 2;
           }
 
-          while (v728);
+          while (v684);
         }
       }
 
 LABEL_1329:
-      v768 = v785;
-      v785 = 0;
-      if (v768)
+      v708 = v725;
+      v725 = 0;
+      if (v708)
       {
-        (*(*v768 + 8))(v768);
+        (*(*v708 + 8))(v708);
       }
 
-      v769 = v773;
-      if (v773)
+      v709 = v713;
+      if (v713)
       {
-        if (!atomic_fetch_add(&v773->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+        if (!atomic_fetch_add(&v713->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
         {
-          (v769->__on_zero_shared)(v769);
-          std::__shared_weak_count::__release_weak(v769);
+          (v709->__on_zero_shared)(v709);
+          std::__shared_weak_count::__release_weak(v709);
         }
       }
 
       return;
     case 40:
-      v771 = &unk_285184208;
-      sub_23F13BF64(a3, &v772);
+      v711 = &unk_285184208;
+      sub_23F13BF64(a3, &v712);
       v55 = *a2;
-      v56 = v782;
-      v57 = v772;
-      if (!v772)
+      v56 = v722;
+      v57 = v712;
+      if (!v712)
       {
         goto LABEL_540;
       }
 
-      v58 = v773;
-      if (v773)
+      v58 = v713;
+      if (v713)
       {
-        atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
         if (!atomic_fetch_add(&v58->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
         {
           (v58->__on_zero_shared)(v58);
           std::__shared_weak_count::__release_weak(v58);
         }
 
-        v57 = v772;
-        v59 = v773;
-        if (v773)
+        v57 = v712;
+        v59 = v713;
+        if (v713)
         {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
           if (!atomic_fetch_add(&v59->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
             v60 = v57;
@@ -5603,121 +5544,120 @@ LABEL_1329:
         }
       }
 
-      if (v784 == 1)
+      if (v724 == 1)
       {
-        (*(*v57 + 96))(&v785);
+        (*(*v57 + 96))(&v725);
       }
 
       else
       {
 LABEL_540:
-        v785 = 0;
+        v725 = 0;
       }
 
-      if (!v775)
+      if (!v715)
       {
         goto LABEL_1329;
       }
 
-      if (!v776)
+      if (!v716)
       {
         goto LABEL_1329;
       }
 
-      v329 = v777;
-      if (!v777)
+      v320 = v717;
+      if (!v717)
       {
         goto LABEL_1329;
       }
 
-      v330 = v781;
-      v331 = v774;
-      if (v783 == 1 && v774)
+      v321 = v721;
+      v322 = v714;
+      if (v723 == 1 && v714)
       {
-        v332 = v772;
-        v333 = v773;
-        if (v773)
+        v323 = v712;
+        v324 = v713;
+        if (v713)
         {
-          atomic_fetch_add_explicit(&v773->__shared_owners_, 1uLL, memory_order_relaxed);
-          if (!atomic_fetch_add(&v333->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          atomic_fetch_add_explicit(&v713->__shared_owners_, 1uLL, memory_order_relaxed);
+          if (!atomic_fetch_add(&v324->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
-            v334 = v332;
-            (v333->__on_zero_shared)(v333);
-            std::__shared_weak_count::__release_weak(v333);
-            v332 = v334;
+            v325 = v323;
+            (v324->__on_zero_shared)(v324);
+            std::__shared_weak_count::__release_weak(v324);
+            v323 = v325;
           }
         }
 
-        (*(*v332 + 88))(v332, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
-        v331 = v774;
+        (*(*v323 + 88))(v323, 0, "/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/ImageView.h:1299");
+        v322 = v714;
       }
 
       v99 = (4 * v56);
-      v335 = v329 - 1;
-      if (v335)
+      v326 = v320 - 1;
+      if (v326)
       {
-        v336 = 0;
-        v337 = 4 * v330;
+        v327 = 0;
+        v328 = 4 * v321;
         do
         {
-          v338 = *(v55 + 24);
-          if (*(v338 + 40) == 1)
+          v329 = *(v55 + 24);
+          if (*(v329 + 40) == 1)
           {
-            v786 = (v338 + 16);
+            v726 = (v329 + 16);
             if (v99)
             {
-              v339 = 4 * v99;
-              v340 = v331;
+              v330 = 4 * v99;
+              v331 = v322;
               do
               {
-                sub_23F2FE06C(&v770, &v786, v340++);
-                v339 -= 4;
+                sub_23F2FE06C(&v710, &v726, v331++);
+                v330 -= 4;
               }
 
-              while (v339);
+              while (v330);
             }
           }
 
           else if (v99)
           {
-            v341 = 0;
+            v332 = 0;
             do
             {
-              v342 = *(v331 + v341);
-              LOBYTE(v786) = -54;
-              *(&v786 + 1) = bswap32(v342);
-              v343 = *(v338 + 8);
+              v333 = *(v322 + v332);
+              LOBYTE(v726) = -54;
+              *(&v726 + 1) = bswap32(v333);
               std::ostream::write();
-              v341 += 4;
+              v332 += 4;
             }
 
-            while (4 * v99 != v341);
+            while (4 * v99 != v332);
           }
 
-          v331 = (v331 + v337);
-          ++v336;
+          v322 = (v322 + v328);
+          ++v327;
         }
 
-        while (v336 != v335);
+        while (v327 != v326);
       }
 
 LABEL_1199:
-      v786 = v331;
-      v787 = v99;
-      sub_23F2F7A44(v55, &v786);
+      v726 = v322;
+      v727 = v99;
+      sub_23F2F7A44(v55, &v726);
       goto LABEL_1329;
     default:
       return;
   }
 }
 
-void sub_23F14AFAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22)
+void sub_23F14AFAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22)
 {
   v23 = a22;
   a22 = 0;
   if (v23)
   {
-    (*(*v23 + 8))(v23);
+    (*(*v23 + 8))(v23, a2, a3, a4, a5, a6, a7, a8);
   }
 
   sub_23F133F30(&a12);
@@ -5985,7 +5925,7 @@ LABEL_835:
               v703 = v472;
               v704 = v149;
               sub_23F2E8824(v148, &v703);
-              v472 = (v472 + v477);
+              v472 += v477;
               --v476;
             }
 
@@ -6081,7 +6021,7 @@ LABEL_642:
               v703 = v364;
               v704 = v93;
               sub_23F2E8C48(v92, &v703);
-              v364 = (v364 + v369);
+              v364 += v369;
               --v368;
             }
 
@@ -6187,7 +6127,7 @@ LABEL_780:
                 sub_23F2E7154(v10, &v703);
               }
 
-              v441 = (v441 + v440 + v440 * (v439 - 2));
+              v441 += v440 + v440 * (v439 - 2);
               do
               {
                 sub_23F07903C(v10 + 48, (v10 + 40));
@@ -6331,7 +6271,7 @@ LABEL_627:
                 v627 = *(v10 + 56);
                 *(v10 + 40) = *(v627 - 8);
                 *(v10 + 56) = v627 - 8;
-                v357 = (v357 + v626);
+                v357 += v626;
                 --v361;
               }
 
@@ -6452,7 +6392,7 @@ LABEL_537:
                   v315 = v62;
                   do
                   {
-                    v703 = &v308[v314];
+                    v703 = v308 + 2 * v314;
                     v704 = 2;
                     sub_23F2E8824(v10, &v703);
                     v314 += v306;
@@ -6468,7 +6408,7 @@ LABEL_537:
                     *(v10 + 88) = 0;
                   }
 
-                  v308 += v307;
+                  v308 += 2 * v307;
                 }
               }
 
@@ -6487,7 +6427,7 @@ LABEL_537:
                   v610 = *(v10 + 56);
                   *(v10 + 40) = *(v610 - 8);
                   *(v10 + 56) = v610 - 8;
-                  v308 = (v308 + v609);
+                  v308 += v609;
                   --v312;
                 }
 
@@ -6501,7 +6441,7 @@ LABEL_537:
               v611 = 0;
               do
               {
-                v703 = &v308[v611];
+                v703 = v308 + 2 * v611;
                 v704 = 2;
                 sub_23F2E8824(v10, &v703);
                 v611 += v306;
@@ -6617,7 +6557,7 @@ LABEL_815:
                   v468 = v143;
                   do
                   {
-                    v703 = &v461[2 * v467];
+                    v703 = v461 + 4 * v467;
                     v704 = 2;
                     sub_23F2E8C48(v10, &v703);
                     v467 += v459;
@@ -6633,7 +6573,7 @@ LABEL_815:
                     *(v10 + 88) = 0;
                   }
 
-                  v461 += 2 * v460;
+                  v461 += 4 * v460;
                 }
               }
 
@@ -6652,7 +6592,7 @@ LABEL_815:
                   v657 = *(v10 + 56);
                   *(v10 + 40) = *(v657 - 8);
                   *(v10 + 56) = v657 - 8;
-                  v461 = (v461 + v656);
+                  v461 += v656;
                   --v465;
                 }
 
@@ -6666,7 +6606,7 @@ LABEL_815:
               v658 = 0;
               do
               {
-                v703 = &v461[2 * v658];
+                v703 = v461 + 4 * v658;
                 v704 = 2;
                 sub_23F2E8C48(v10, &v703);
                 v658 += v459;
@@ -6780,7 +6720,7 @@ LABEL_765:
                 sub_23F2E7154(v10, &v703);
               }
 
-              v434 = (v434 + v433 + v433 * (v432 - 2));
+              v434 += v433 + v433 * (v432 - 2);
               do
               {
                 sub_23F07903C(v10 + 48, (v10 + 40));
@@ -6924,7 +6864,7 @@ LABEL_907:
                 v666 = *(v10 + 56);
                 *(v10 + 40) = *(v666 - 8);
                 *(v10 + 56) = v666 - 8;
-                v509 = (v509 + v665);
+                v509 += v665;
                 --v513;
               }
 
@@ -7045,7 +6985,7 @@ LABEL_887:
                   v505 = v165;
                   do
                   {
-                    v703 = &v498[v504];
+                    v703 = v498 + 2 * v504;
                     v704 = 3;
                     sub_23F2E8824(v10, &v703);
                     v504 += v496;
@@ -7061,7 +7001,7 @@ LABEL_887:
                     *(v10 + 88) = 0;
                   }
 
-                  v498 += v497;
+                  v498 += 2 * v497;
                 }
               }
 
@@ -7080,7 +7020,7 @@ LABEL_887:
                   v662 = *(v10 + 56);
                   *(v10 + 40) = *(v662 - 8);
                   *(v10 + 56) = v662 - 8;
-                  v498 = (v498 + v661);
+                  v498 += v661;
                   --v502;
                 }
 
@@ -7094,7 +7034,7 @@ LABEL_887:
               v663 = 0;
               do
               {
-                v703 = &v498[v663];
+                v703 = v498 + 2 * v663;
                 v704 = 3;
                 sub_23F2E8824(v10, &v703);
                 v663 += v496;
@@ -7210,7 +7150,7 @@ LABEL_417:
                   v251 = v26;
                   do
                   {
-                    v703 = &v244[2 * v250];
+                    v703 = v244 + 4 * v250;
                     v704 = 3;
                     sub_23F2E8C48(v10, &v703);
                     v250 += v242;
@@ -7226,7 +7166,7 @@ LABEL_417:
                     *(v10 + 88) = 0;
                   }
 
-                  v244 += 2 * v243;
+                  v244 += 4 * v243;
                 }
               }
 
@@ -7245,7 +7185,7 @@ LABEL_417:
                   v589 = *(v10 + 56);
                   *(v10 + 40) = *(v589 - 8);
                   *(v10 + 56) = v589 - 8;
-                  v244 = (v244 + v588);
+                  v244 += v588;
                   --v248;
                 }
 
@@ -7259,7 +7199,7 @@ LABEL_417:
               v590 = 0;
               do
               {
-                v703 = &v244[2 * v590];
+                v703 = v244 + 4 * v590;
                 v704 = 3;
                 sub_23F2E8C48(v10, &v703);
                 v590 += v242;
@@ -7373,7 +7313,7 @@ LABEL_487:
                 sub_23F2E7154(v10, &v703);
               }
 
-              v281 = (v281 + v280 + v280 * (v279 - 2));
+              v281 += v280 + v280 * (v279 - 2);
               do
               {
                 sub_23F07903C(v10 + 48, (v10 + 40));
@@ -7517,7 +7457,7 @@ LABEL_472:
                 v599 = *(v10 + 56);
                 *(v10 + 40) = *(v599 - 8);
                 *(v10 + 56) = v599 - 8;
-                v274 = (v274 + v598);
+                v274 += v598;
                 --v278;
               }
 
@@ -7638,7 +7578,7 @@ LABEL_972:
                   v550 = v190;
                   do
                   {
-                    v703 = &v543[v549];
+                    v703 = v543 + 2 * v549;
                     v704 = 4;
                     sub_23F2E8824(v10, &v703);
                     v549 += v541;
@@ -7654,7 +7594,7 @@ LABEL_972:
                     *(v10 + 88) = 0;
                   }
 
-                  v543 += v542;
+                  v543 += 2 * v542;
                 }
               }
 
@@ -7673,7 +7613,7 @@ LABEL_972:
                   v677 = *(v10 + 56);
                   *(v10 + 40) = *(v677 - 8);
                   *(v10 + 56) = v677 - 8;
-                  v543 = (v543 + v676);
+                  v543 += v676;
                   --v547;
                 }
 
@@ -7687,7 +7627,7 @@ LABEL_972:
               v678 = 0;
               do
               {
-                v703 = &v543[v678];
+                v703 = v543 + 2 * v678;
                 v704 = 4;
                 sub_23F2E8824(v10, &v703);
                 v678 += v541;
@@ -7803,7 +7743,7 @@ LABEL_795:
                   v456 = v138;
                   do
                   {
-                    v703 = &v449[2 * v455];
+                    v703 = v449 + 4 * v455;
                     v704 = 4;
                     sub_23F2E8C48(v10, &v703);
                     v455 += v447;
@@ -7819,7 +7759,7 @@ LABEL_795:
                     *(v10 + 88) = 0;
                   }
 
-                  v449 += 2 * v448;
+                  v449 += 4 * v448;
                 }
               }
 
@@ -7838,7 +7778,7 @@ LABEL_795:
                   v653 = *(v10 + 56);
                   *(v10 + 40) = *(v653 - 8);
                   *(v10 + 56) = v653 - 8;
-                  v449 = (v449 + v652);
+                  v449 += v652;
                   --v453;
                 }
 
@@ -7852,7 +7792,7 @@ LABEL_795:
               v654 = 0;
               do
               {
-                v703 = &v449[2 * v654];
+                v703 = v449 + 4 * v654;
                 v704 = 4;
                 sub_23F2E8C48(v10, &v703);
                 v654 += v447;
@@ -7966,7 +7906,7 @@ LABEL_992:
                 sub_23F2E7154(v10, &v703);
               }
 
-              v554 = (v554 + v553 + v553 * (v552 - 2));
+              v554 += v553 + v553 * (v552 - 2);
               do
               {
                 sub_23F07903C(v10 + 48, (v10 + 40));
@@ -8110,7 +8050,7 @@ LABEL_522:
                 v607 = *(v10 + 56);
                 *(v10 + 40) = *(v607 - 8);
                 *(v10 + 56) = v607 - 8;
-                v300 = (v300 + v606);
+                v300 += v606;
                 --v304;
               }
 
@@ -8231,7 +8171,7 @@ LABEL_382:
                   v232 = v16;
                   do
                   {
-                    v703 = &v225[v231];
+                    v703 = v225 + 2 * v231;
                     v704 = 3;
                     sub_23F2E8824(v10, &v703);
                     v231 += v223;
@@ -8247,7 +8187,7 @@ LABEL_382:
                     *(v10 + 88) = 0;
                   }
 
-                  v225 += v224;
+                  v225 += 2 * v224;
                 }
               }
 
@@ -8266,7 +8206,7 @@ LABEL_382:
                   v583 = *(v10 + 56);
                   *(v10 + 40) = *(v583 - 8);
                   *(v10 + 56) = v583 - 8;
-                  v225 = (v225 + v582);
+                  v225 += v582;
                   --v229;
                 }
 
@@ -8280,7 +8220,7 @@ LABEL_382:
               v584 = 0;
               do
               {
-                v703 = &v225[v584];
+                v703 = v225 + 2 * v584;
                 v704 = 3;
                 sub_23F2E8824(v10, &v703);
                 v584 += v223;
@@ -8396,7 +8336,7 @@ LABEL_937:
                   v531 = v180;
                   do
                   {
-                    v703 = &v524[2 * v530];
+                    v703 = v524 + 4 * v530;
                     v704 = 3;
                     sub_23F2E8C48(v10, &v703);
                     v530 += v522;
@@ -8412,7 +8352,7 @@ LABEL_937:
                     *(v10 + 88) = 0;
                   }
 
-                  v524 += 2 * v523;
+                  v524 += 4 * v523;
                 }
               }
 
@@ -8431,7 +8371,7 @@ LABEL_937:
                   v670 = *(v10 + 56);
                   *(v10 + 40) = *(v670 - 8);
                   *(v10 + 56) = v670 - 8;
-                  v524 = (v524 + v669);
+                  v524 += v669;
                   --v528;
                 }
 
@@ -8445,7 +8385,7 @@ LABEL_937:
               v671 = 0;
               do
               {
-                v703 = &v524[2 * v671];
+                v703 = v524 + 4 * v671;
                 v704 = 3;
                 sub_23F2E8C48(v10, &v703);
                 v671 += v522;
@@ -8559,7 +8499,7 @@ LABEL_1027:
                 sub_23F2E7154(v10, &v703);
               }
 
-              v573 = (v573 + v572 + v572 * (v571 - 2));
+              v573 += v572 + v572 * (v571 - 2);
               do
               {
                 sub_23F07903C(v10 + 48, (v10 + 40));
@@ -8703,7 +8643,7 @@ LABEL_577:
                 v617 = *(v10 + 56);
                 *(v10 + 40) = *(v617 - 8);
                 *(v10 + 56) = v617 - 8;
-                v331 = (v331 + v616);
+                v331 += v616;
                 --v335;
               }
 
@@ -8824,7 +8764,7 @@ LABEL_1007:
                   v569 = v200;
                   do
                   {
-                    v703 = &v562[v568];
+                    v703 = v562 + 2 * v568;
                     v704 = 3;
                     sub_23F2E8824(v10, &v703);
                     v568 += v560;
@@ -8840,7 +8780,7 @@ LABEL_1007:
                     *(v10 + 88) = 0;
                   }
 
-                  v562 += v561;
+                  v562 += 2 * v561;
                 }
               }
 
@@ -8859,7 +8799,7 @@ LABEL_1007:
                   v685 = *(v10 + 56);
                   *(v10 + 40) = *(v685 - 8);
                   *(v10 + 56) = v685 - 8;
-                  v562 = (v562 + v684);
+                  v562 += v684;
                   --v566;
                 }
 
@@ -8873,7 +8813,7 @@ LABEL_1007:
               v686 = 0;
               do
               {
-                v703 = &v562[v686];
+                v703 = v562 + 2 * v686;
                 v704 = 3;
                 sub_23F2E8824(v10, &v703);
                 v686 += v560;
@@ -8989,7 +8929,7 @@ LABEL_452:
                   v270 = v36;
                   do
                   {
-                    v703 = &v263[2 * v269];
+                    v703 = v263 + 4 * v269;
                     v704 = 3;
                     sub_23F2E8C48(v10, &v703);
                     v269 += v261;
@@ -9005,7 +8945,7 @@ LABEL_452:
                     *(v10 + 88) = 0;
                   }
 
-                  v263 += 2 * v262;
+                  v263 += 4 * v262;
                 }
               }
 
@@ -9024,7 +8964,7 @@ LABEL_452:
                   v595 = *(v10 + 56);
                   *(v10 + 40) = *(v595 - 8);
                   *(v10 + 56) = v595 - 8;
-                  v263 = (v263 + v594);
+                  v263 += v594;
                   --v267;
                 }
 
@@ -9038,7 +8978,7 @@ LABEL_452:
               v596 = 0;
               do
               {
-                v703 = &v263[2 * v596];
+                v703 = v263 + 4 * v596;
                 v704 = 3;
                 sub_23F2E8C48(v10, &v703);
                 v596 += v261;
@@ -9152,7 +9092,7 @@ LABEL_402:
                 sub_23F2E7154(v10, &v703);
               }
 
-              v236 = (v236 + v235 + v235 * (v234 - 2));
+              v236 += v235 + v235 * (v234 - 2);
               do
               {
                 sub_23F07903C(v10 + 48, (v10 + 40));
@@ -9296,7 +9236,7 @@ LABEL_592:
                 v620 = *(v10 + 56);
                 *(v10 + 40) = *(v620 - 8);
                 *(v10 + 56) = v620 - 8;
-                v338 = (v338 + v619);
+                v338 += v619;
                 --v342;
               }
 
@@ -9417,7 +9357,7 @@ LABEL_362:
                   v220 = v11;
                   do
                   {
-                    v703 = &v213[v219];
+                    v703 = v213 + 2 * v219;
                     v704 = 4;
                     sub_23F2E8824(v10, &v703);
                     v219 += v211;
@@ -9433,7 +9373,7 @@ LABEL_362:
                     *(v10 + 88) = 0;
                   }
 
-                  v213 += v212;
+                  v213 += 2 * v212;
                 }
               }
 
@@ -9452,7 +9392,7 @@ LABEL_362:
                   v579 = *(v10 + 56);
                   *(v10 + 40) = *(v579 - 8);
                   *(v10 + 56) = v579 - 8;
-                  v213 = (v213 + v578);
+                  v213 += v578;
                   --v217;
                 }
 
@@ -9466,7 +9406,7 @@ LABEL_362:
               v580 = 0;
               do
               {
-                v703 = &v213[v580];
+                v703 = v213 + 2 * v580;
                 v704 = 4;
                 sub_23F2E8824(v10, &v703);
                 v580 += v211;
@@ -9582,7 +9522,7 @@ LABEL_655:
                   v380 = v98;
                   do
                   {
-                    v703 = &v373[2 * v379];
+                    v703 = v373 + 4 * v379;
                     v704 = 4;
                     sub_23F2E8C48(v10, &v703);
                     v379 += v371;
@@ -9598,7 +9538,7 @@ LABEL_655:
                     *(v10 + 88) = 0;
                   }
 
-                  v373 += 2 * v372;
+                  v373 += 4 * v372;
                 }
               }
 
@@ -9617,7 +9557,7 @@ LABEL_655:
                   v630 = *(v10 + 56);
                   *(v10 + 40) = *(v630 - 8);
                   *(v10 + 56) = v630 - 8;
-                  v373 = (v373 + v629);
+                  v373 += v629;
                   --v377;
                 }
 
@@ -9631,7 +9571,7 @@ LABEL_655:
               v631 = 0;
               do
               {
-                v703 = &v373[2 * v631];
+                v703 = v373 + 4 * v631;
                 v704 = 4;
                 sub_23F2E8C48(v10, &v703);
                 v631 += v371;
@@ -9745,7 +9685,7 @@ LABEL_437:
                 sub_23F2E7154(v10, &v703);
               }
 
-              v255 = (v255 + v254 + v254 * (v253 - 2));
+              v255 += v254 + v254 * (v253 - 2);
               do
               {
                 sub_23F07903C(v10 + 48, (v10 + 40));
@@ -9889,7 +9829,7 @@ LABEL_715:
                 v640 = *(v10 + 56);
                 *(v10 + 40) = *(v640 - 8);
                 *(v10 + 56) = v640 - 8;
-                v408 = (v408 + v639);
+                v408 += v639;
                 --v412;
               }
 
@@ -10010,7 +9950,7 @@ LABEL_607:
                   v353 = v82;
                   do
                   {
-                    v703 = &v346[v352];
+                    v703 = v346 + 2 * v352;
                     v704 = 4;
                     sub_23F2E8824(v10, &v703);
                     v352 += v344;
@@ -10026,7 +9966,7 @@ LABEL_607:
                     *(v10 + 88) = 0;
                   }
 
-                  v346 += v345;
+                  v346 += 2 * v345;
                 }
               }
 
@@ -10045,7 +9985,7 @@ LABEL_607:
                   v623 = *(v10 + 56);
                   *(v10 + 40) = *(v623 - 8);
                   *(v10 + 56) = v623 - 8;
-                  v346 = (v346 + v622);
+                  v346 += v622;
                   --v350;
                 }
 
@@ -10059,7 +9999,7 @@ LABEL_607:
               v624 = 0;
               do
               {
-                v703 = &v346[v624];
+                v703 = v346 + 2 * v624;
                 v704 = 4;
                 sub_23F2E8824(v10, &v703);
                 v624 += v344;
@@ -10175,7 +10115,7 @@ LABEL_745:
                   v430 = v123;
                   do
                   {
-                    v703 = &v423[2 * v429];
+                    v703 = v423 + 4 * v429;
                     v704 = 4;
                     sub_23F2E8C48(v10, &v703);
                     v429 += v421;
@@ -10191,7 +10131,7 @@ LABEL_745:
                     *(v10 + 88) = 0;
                   }
 
-                  v423 += 2 * v422;
+                  v423 += 4 * v422;
                 }
               }
 
@@ -10210,7 +10150,7 @@ LABEL_745:
                   v645 = *(v10 + 56);
                   *(v10 + 40) = *(v645 - 8);
                   *(v10 + 56) = v645 - 8;
-                  v423 = (v423 + v644);
+                  v423 += v644;
                   --v427;
                 }
 
@@ -10224,7 +10164,7 @@ LABEL_745:
               v646 = 0;
               do
               {
-                v703 = &v423[2 * v646];
+                v703 = v423 + 4 * v646;
                 v704 = 4;
                 sub_23F2E8C48(v10, &v703);
                 v646 += v421;
@@ -10348,7 +10288,7 @@ LABEL_922:
           sub_23F2E7154(v51, &v703);
         }
 
-        v516 = (v516 + v515 + v515 * (v514 - 2));
+        v516 += v515 + v515 * (v514 - 2);
         do
         {
           sub_23F07903C(v51 + 48, (v51 + 40));
@@ -10490,7 +10430,7 @@ LABEL_730:
           v643 = *(v51 + 56);
           *(v51 + 40) = *(v643 - 8);
           *(v51 + 56) = v643 - 8;
-          v415 = (v415 + v642);
+          v415 += v642;
           --v419;
         }
 
@@ -10609,7 +10549,7 @@ LABEL_695:
             v404 = v108;
             do
             {
-              v703 = &v397[v403];
+              v703 = v397 + 2 * v403;
               v704 = 4;
               sub_23F2E8824(v51, &v703);
               v403 += v395;
@@ -10625,7 +10565,7 @@ LABEL_695:
               *(v51 + 88) = 0;
             }
 
-            v397 += v396;
+            v397 += 2 * v396;
           }
         }
 
@@ -10644,7 +10584,7 @@ LABEL_695:
             v637 = *(v51 + 56);
             *(v51 + 40) = *(v637 - 8);
             *(v51 + 56) = v637 - 8;
-            v397 = (v397 + v636);
+            v397 += v636;
             --v401;
           }
 
@@ -10658,7 +10598,7 @@ LABEL_695:
         v638 = 0;
         do
         {
-          v703 = &v397[v638];
+          v703 = v397 + 2 * v638;
           v704 = 4;
           sub_23F2E8824(v51, &v703);
           v638 += v395;
@@ -10772,7 +10712,7 @@ LABEL_675:
             v392 = v103;
             do
             {
-              v703 = &v385[2 * v391];
+              v703 = v385 + 4 * v391;
               v704 = 4;
               sub_23F2E8C48(v51, &v703);
               v391 += v383;
@@ -10788,7 +10728,7 @@ LABEL_675:
               *(v51 + 88) = 0;
             }
 
-            v385 += 2 * v384;
+            v385 += 4 * v384;
           }
         }
 
@@ -10807,7 +10747,7 @@ LABEL_675:
             v634 = *(v51 + 56);
             *(v51 + 40) = *(v634 - 8);
             *(v51 + 56) = v634 - 8;
-            v385 = (v385 + v633);
+            v385 += v633;
             --v389;
           }
 
@@ -10821,7 +10761,7 @@ LABEL_675:
         v635 = 0;
         do
         {
-          v703 = &v385[2 * v635];
+          v703 = v385 + 4 * v635;
           v704 = 4;
           sub_23F2E8C48(v51, &v703);
           v635 += v383;
@@ -10933,7 +10873,7 @@ LABEL_872:
           sub_23F2E7154(v51, &v703);
         }
 
-        v490 = (v490 + v489 + v489 * (v488 - 2));
+        v490 += v489 + v489 * (v488 - 2);
         do
         {
           sub_23F07903C(v51 + 48, (v51 + 40));
@@ -11075,7 +11015,7 @@ LABEL_957:
           v674 = *(v51 + 56);
           *(v51 + 40) = *(v674 - 8);
           *(v51 + 56) = v674 - 8;
-          v535 = (v535 + v673);
+          v535 += v673;
           --v539;
         }
 
@@ -11194,7 +11134,7 @@ LABEL_557:
             v327 = v67;
             do
             {
-              v703 = &v320[v326];
+              v703 = v320 + 2 * v326;
               v704 = 4;
               sub_23F2E8824(v51, &v703);
               v326 += v318;
@@ -11210,7 +11150,7 @@ LABEL_557:
               *(v51 + 88) = 0;
             }
 
-            v320 += v319;
+            v320 += 2 * v319;
           }
         }
 
@@ -11229,7 +11169,7 @@ LABEL_557:
             v614 = *(v51 + 56);
             *(v51 + 40) = *(v614 - 8);
             *(v51 + 56) = v614 - 8;
-            v320 = (v320 + v613);
+            v320 += v613;
             --v324;
           }
 
@@ -11243,7 +11183,7 @@ LABEL_557:
         v615 = 0;
         do
         {
-          v703 = &v320[v615];
+          v703 = v320 + 2 * v615;
           v704 = 4;
           sub_23F2E8824(v51, &v703);
           v615 += v318;
@@ -11357,7 +11297,7 @@ LABEL_502:
             v296 = v52;
             do
             {
-              v703 = &v289[2 * v295];
+              v703 = v289 + 4 * v295;
               v704 = 4;
               sub_23F2E8C48(v51, &v703);
               v295 += v287;
@@ -11373,7 +11313,7 @@ LABEL_502:
               *(v51 + 88) = 0;
             }
 
-            v289 += 2 * v288;
+            v289 += 4 * v288;
           }
         }
 
@@ -11392,7 +11332,7 @@ LABEL_502:
             v604 = *(v51 + 56);
             *(v51 + 40) = *(v604 - 8);
             *(v51 + 56) = v604 - 8;
-            v289 = (v289 + v603);
+            v289 += v603;
             --v293;
           }
 
@@ -11406,7 +11346,7 @@ LABEL_502:
         v605 = 0;
         do
         {
-          v703 = &v289[2 * v605];
+          v703 = v289 + 4 * v605;
           v704 = 4;
           sub_23F2E8C48(v51, &v703);
           v605 += v287;

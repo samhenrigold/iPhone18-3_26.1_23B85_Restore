@@ -140,9 +140,9 @@ LABEL_25:
 
               else
               {
-                v18 = [uniqueIdentifier isEqualToString:v15];
+                isEqualToString = objc_msgSend_isEqualToString_(uniqueIdentifier);
 
-                if (v18)
+                if (isEqualToString)
                 {
                   goto LABEL_25;
                 }

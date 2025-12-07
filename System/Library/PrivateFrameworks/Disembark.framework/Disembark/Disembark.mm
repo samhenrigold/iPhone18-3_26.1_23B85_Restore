@@ -1,11 +1,11 @@
-id _DKLogSystem()
+id _DKLogSystem(uint64_t a1)
 {
   if (_DKLogSystem_onceToken != -1)
   {
     _DKLogSystem_cold_1();
   }
 
-  v1 = _DKLogSystem_log;
+  v2 = _DKLogSystem_log;
 
-  return v1;
+  return v2;
 }

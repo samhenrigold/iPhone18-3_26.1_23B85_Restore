@@ -57,8 +57,8 @@ LABEL_3:
           {
             if (dword_1EB3859D8)
             {
-              v16 = 0;
-              v15 = 0;
+              v24 = 0;
+              v23 = OS_LOG_TYPE_DEFAULT;
               os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
               os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
               fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -71,14 +71,36 @@ LABEL_3:
 
       if (dword_1EB3859D8)
       {
-        v16 = 0;
-        v15 = 0;
+        v24 = 0;
+        v23 = OS_LOG_TYPE_DEFAULT;
         v11 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-        os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+        v12 = v24;
+        v13 = v23;
+        if (os_log_type_enabled(v11, v23))
+        {
+          v14 = v12;
+        }
+
+        else
+        {
+          v14 = v12 & 0xFFFFFFFE;
+        }
+
+        if (v14)
+        {
+          v16 = 136315650;
+          v17 = "+[AVCaptureExternalDisplayConfigurator registerConfigurator:withDisplayIdentifier:]";
+          v18 = 2114;
+          configuratorCopy = configurator;
+          v20 = 2112;
+          identifierCopy = identifier;
+          _os_log_send_and_compose_impl(v14, 0, v22, 128, &dword_1A917C000, v11, v13, "<<<< AVCaptureExternalPreviewLayerConfigurator >>>> %s: %{public}@ Register for display %@", &v16, 32);
+        }
+
         fig_log_call_emit_and_clean_up_after_send_and_compose();
       }
 
-      [registerConfigurator_withDisplayIdentifier__configuratorRegistry setObject:*(configurator + 1) forKey:{identifier, v13, v14}];
+      [registerConfigurator_withDisplayIdentifier__configuratorRegistry setObject:*(configurator + 1) forKey:identifier];
       objc_sync_exit(v6);
       return;
     }
@@ -86,8 +108,10 @@ LABEL_3:
 
   if (dword_1EB3859D8)
   {
-    v12 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+    v24 = 0;
+    v23 = OS_LOG_TYPE_DEFAULT;
+    v15 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 }
@@ -161,13 +185,13 @@ LABEL_8:
                 fig_log_call_emit_and_clean_up_after_send_and_compose();
               }
 
-              [(AVCaptureExternalDisplayConfigurator *)v9 _displayConfigurationChangedMonitorConfigure:v17];
+              [(AVCaptureExternalDisplayConfigurator *)v9 _displayConfigurationChangedMonitorConfigure];
               [(AVCaptureExternalDisplayConfigurator *)v9 _deviceColorspaceChangeMonitorConfigure];
               [(AVCaptureExternalDisplayConfigurator *)v9 _deviceFramerateChangedMonitorConfigure];
               v9->_active = 1;
-              v15 = [[AVCaptureVisibilityHelperLayer alloc] initWithDelegate:v9];
-              v9->_observationLayer = v15;
-              [layer addSublayer:v15];
+              v17 = [[AVCaptureVisibilityHelperLayer alloc] initWithDelegate:v9];
+              v9->_observationLayer = v17;
+              [layer addSublayer:v17];
               if ([layer context])
               {
                 queue = v9->_queue;
@@ -210,7 +234,7 @@ LABEL_8:
 
   v13 = [v11 exceptionWithName:v12 reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
 
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v14, v15))
   {
     objc_exception_throw(v13);
   }
@@ -223,20 +247,20 @@ LABEL_8:
 {
   if (dword_1EB3859D8)
   {
-    v9 = 0;
-    v8 = 0;
+    v7 = 0;
+    v6 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
   configuratorWeakReference = self->_configuratorWeakReference;
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __46__AVCaptureExternalDisplayConfigurator__setup__block_invoke;
-  v7[3] = &unk_1E786EDC8;
-  v7[4] = configuratorWeakReference;
-  [(AVCaptureExternalDisplayConfigurator *)self _getConfigurationWithCompletion:v7, v5, v6];
+  v5[0] = MEMORY[0x1E69E9820];
+  v5[1] = 3221225472;
+  v5[2] = __46__AVCaptureExternalDisplayConfigurator__setup__block_invoke;
+  v5[3] = &unk_1E786EDC8;
+  v5[4] = configuratorWeakReference;
+  [(AVCaptureExternalDisplayConfigurator *)self _getConfigurationWithCompletion:v5];
 }
 
 void *__46__AVCaptureExternalDisplayConfigurator__setup__block_invoke(uint64_t a1, void *a2)
@@ -244,7 +268,6 @@ void *__46__AVCaptureExternalDisplayConfigurator__setup__block_invoke(uint64_t a
   result = [*(a1 + 32) referencedObject];
   if (!result)
   {
-LABEL_8:
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     return fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -258,7 +281,9 @@ LABEL_8:
       return result;
     }
 
-    goto LABEL_8;
+    v6 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+    return fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
   [result registerSelfForDisplay:{objc_msgSend(a2, "hardwareIdentifier")}];
@@ -270,14 +295,14 @@ LABEL_8:
 {
   if (dword_1EB3859D8)
   {
-    v10 = 0;
-    v9 = 0;
+    v8 = 0;
+    v7 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  [(AVCaptureExternalDisplayConfigurator *)self _deviceColorspaceChangeMonitorTeardown:v6];
+  [(AVCaptureExternalDisplayConfigurator *)self _deviceColorspaceChangeMonitorTeardown];
   [(AVCaptureExternalDisplayConfigurator *)self _deviceFramerateChangedMonitorTeardown];
   [(AVCaptureExternalDisplayConfigurator *)self _displayConfigurationChangedMonitorTeardown];
   configurationBlock = self->_configurationBlock;
@@ -301,23 +326,23 @@ LABEL_8:
   [(AVCaptureExternalDisplayConfigurator *)self _makeInActive];
   [(AVCaptureVisibilityHelperLayer *)self->_observationLayer removeFromSuperlayer];
 
-  v8.receiver = self;
-  v8.super_class = AVCaptureExternalDisplayConfigurator;
-  [(AVCaptureExternalDisplayConfigurator *)&v8 dealloc];
+  v6.receiver = self;
+  v6.super_class = AVCaptureExternalDisplayConfigurator;
+  [(AVCaptureExternalDisplayConfigurator *)&v6 dealloc];
 }
 
 - (void)_deviceColorspaceChangeMonitorConfigure
 {
   if (dword_1EB3859D8)
   {
-    v7 = 0;
-    v6 = 0;
+    v5 = 0;
+    v4 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  if ([(AVCaptureExternalDisplayConfiguration *)self->_configuration bypassColorSpaceConversion:v4])
+  if ([(AVCaptureExternalDisplayConfiguration *)self->_configuration bypassColorSpaceConversion])
   {
     if (![(AVCaptureExternalDisplayConfigurator *)self observingDeviceColorspace])
     {
@@ -331,14 +356,14 @@ LABEL_8:
 {
   if (dword_1EB3859D8)
   {
-    v7 = 0;
-    v6 = 0;
+    v5 = 0;
+    v4 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  if ([(AVCaptureExternalDisplayConfigurator *)self observingDeviceColorspace:v4])
+  if ([(AVCaptureExternalDisplayConfigurator *)self observingDeviceColorspace])
   {
     [(AVCaptureDevice *)[(AVCaptureExternalDisplayConfigurator *)self device] removeObserver:self forKeyPath:@"activeColorSpace"];
     [(AVCaptureExternalDisplayConfigurator *)self setObservingDeviceColorspace:0];
@@ -349,42 +374,42 @@ LABEL_8:
 {
   if (dword_1EB3859D8)
   {
-    v7 = 0;
-    v6 = 0;
+    v5 = 0;
+    v4 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  [objc_msgSend(MEMORY[0x1E696AD88] defaultCenter];
+  [objc_msgSend(MEMORY[0x1E696AD88] "defaultCenter")];
 }
 
 - (void)_displayConfigurationChangedMonitorTeardown
 {
   if (dword_1EB3859D8)
   {
-    v7 = 0;
-    v6 = 0;
+    v5 = 0;
+    v4 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  [objc_msgSend(MEMORY[0x1E696AD88] defaultCenter];
+  [objc_msgSend(MEMORY[0x1E696AD88] "defaultCenter")];
 }
 
 - (void)_deviceFramerateChangedMonitorConfigure
 {
   if (dword_1EB3859D8)
   {
-    v7 = 0;
-    v6 = 0;
+    v5 = 0;
+    v4 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  if ([(AVCaptureExternalDisplayConfiguration *)self->_configuration shouldMatchFrameRate:v4])
+  if ([(AVCaptureExternalDisplayConfiguration *)self->_configuration shouldMatchFrameRate])
   {
     if (![(AVCaptureExternalDisplayConfigurator *)self observingDeviceFramerate])
     {
@@ -398,14 +423,14 @@ LABEL_8:
 {
   if (dword_1EB3859D8)
   {
-    v7 = 0;
-    v6 = 0;
+    v5 = 0;
+    v4 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  if ([(AVCaptureExternalDisplayConfigurator *)self observingDeviceFramerate:v4])
+  if ([(AVCaptureExternalDisplayConfigurator *)self observingDeviceFramerate])
   {
     [(AVCaptureDevice *)[(AVCaptureExternalDisplayConfigurator *)self device] removeObserver:self forKeyPath:@"activeVideoMinFrameDuration"];
     [(AVCaptureExternalDisplayConfigurator *)self setObservingDeviceFramerate:0];
@@ -432,8 +457,8 @@ uint64_t __87__AVCaptureExternalDisplayConfigurator_observeValueForKeyPath_ofObj
   v2 = [*(a1 + 32) referencedObject];
   if (!v2)
   {
-    v11 = 0;
-    v10 = 0;
+    v9 = 0;
+    v8 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     return fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -448,8 +473,8 @@ uint64_t __87__AVCaptureExternalDisplayConfigurator_observeValueForKeyPath_ofObj
 
   if (dword_1EB3859D8)
   {
-    v11 = 0;
-    v10 = 0;
+    v9 = 0;
+    v8 = 0;
     v5 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
     result = fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -496,6 +521,8 @@ uint64_t __87__AVCaptureExternalDisplayConfigurator_observeValueForKeyPath_ofObj
 
   else if (dword_1EB3859D8)
   {
+    v8 = 0;
+    v7 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -519,6 +546,8 @@ uint64_t __63__AVCaptureExternalDisplayConfigurator_registerSelfForDisplay___blo
 
   else
   {
+    v7 = 0;
+    v6 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     return fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -550,6 +579,8 @@ uint64_t __61__AVCaptureExternalDisplayConfigurator_dispatchConfiguration__block
 
   else
   {
+    v5 = 0;
+    v4 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     return fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -577,8 +608,8 @@ uint64_t __61__AVCaptureExternalDisplayConfigurator_dispatchConfiguration__block
     }
 
 LABEL_7:
-    v19 = 0;
-    v18 = OS_LOG_TYPE_DEFAULT;
+    v21 = 0;
+    v20 = OS_LOG_TYPE_DEFAULT;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -595,42 +626,43 @@ LABEL_7:
   self->_configurationBlock = v5;
   if (dword_1EB3859D8)
   {
-    v19 = 0;
-    v18 = OS_LOG_TYPE_DEFAULT;
+    v21 = 0;
+    v20 = OS_LOG_TYPE_DEFAULT;
     v6 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    v7 = v19;
-    if (os_log_type_enabled(v6, v18))
+    v7 = v21;
+    v8 = v20;
+    if (os_log_type_enabled(v6, v20))
     {
-      v8 = v7;
+      v9 = v7;
     }
 
     else
     {
-      v8 = v7 & 0xFFFFFFFE;
+      v9 = v7 & 0xFFFFFFFE;
     }
 
-    if (v8)
+    if (v9)
     {
       configurationBlock = self->_configurationBlock;
-      v12 = 136315650;
-      v13 = "[AVCaptureExternalDisplayConfigurator _dispatchConfiguration]";
-      v14 = 2114;
+      v13 = 136315650;
+      v14 = "[AVCaptureExternalDisplayConfigurator _dispatchConfiguration]";
+      v15 = 2114;
       selfCopy = self;
-      v16 = 2114;
-      v17 = configurationBlock;
-      _os_log_send_and_compose_impl();
+      v17 = 2114;
+      v18[0] = configurationBlock;
+      _os_log_send_and_compose_impl(v9, 0, v19, 128, &dword_1A917C000, v6, v8, "<<<< AVCaptureExternalPreviewLayerConfigurator >>>> %s: %{public}@ scheduled _configurationBlock=%{public}@", &v13, 32);
     }
 
     fig_log_call_emit_and_clean_up_after_send_and_compose();
-    v10 = self->_configurationBlock;
+    v11 = self->_configurationBlock;
   }
 
   else
   {
-    v10 = v5;
+    v11 = v5;
   }
 
-  dispatch_async(self->_queue, v10);
+  dispatch_async(self->_queue, v11);
 }
 
 uint64_t __62__AVCaptureExternalDisplayConfigurator__dispatchConfiguration__block_invoke(uint64_t a1)
@@ -654,6 +686,8 @@ uint64_t __62__AVCaptureExternalDisplayConfigurator__dispatchConfiguration__bloc
 
   else
   {
+    v5 = 0;
+    v4 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     return fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -695,6 +729,8 @@ uint64_t __65__AVCaptureExternalDisplayConfigurator__configureExternalDisplay__b
   if (v1)
   {
     v2 = v1;
+    v7 = 0;
+    v6 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -703,6 +739,8 @@ uint64_t __65__AVCaptureExternalDisplayConfigurator__configureExternalDisplay__b
 
   else
   {
+    v7 = 0;
+    v6 = 0;
     v4 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
     return fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -712,25 +750,25 @@ uint64_t __65__AVCaptureExternalDisplayConfigurator__configureExternalDisplay__b
 - (void)externalDisplayConfigurationChangedNotification:(id)notification
 {
   userInfo = [notification userInfo];
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x2020000000;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x2020000000;
   v5 = getUISSDisplayConfigurationAffectedContextIDsKeySymbolLoc_ptr;
-  v21 = getUISSDisplayConfigurationAffectedContextIDsKeySymbolLoc_ptr;
+  v19 = getUISSDisplayConfigurationAffectedContextIDsKeySymbolLoc_ptr;
   if (!getUISSDisplayConfigurationAffectedContextIDsKeySymbolLoc_ptr)
   {
-    v14[5] = MEMORY[0x1E69E9820];
-    v14[6] = 3221225472;
-    v14[7] = __getUISSDisplayConfigurationAffectedContextIDsKeySymbolLoc_block_invoke;
-    v14[8] = &unk_1E786EC30;
-    v15 = &v18;
+    v12[5] = MEMORY[0x1E69E9820];
+    v12[6] = 3221225472;
+    v12[7] = __getUISSDisplayConfigurationAffectedContextIDsKeySymbolLoc_block_invoke;
+    v12[8] = &unk_1E786EC30;
+    v13 = &v16;
     v6 = UIKitServicesLibrary_0();
-    v19[3] = dlsym(v6, "UISSDisplayConfigurationAffectedContextIDsKey");
-    getUISSDisplayConfigurationAffectedContextIDsKeySymbolLoc_ptr = *(v15[1] + 24);
-    v5 = v19[3];
+    v17[3] = dlsym(v6, "UISSDisplayConfigurationAffectedContextIDsKey");
+    getUISSDisplayConfigurationAffectedContextIDsKeySymbolLoc_ptr = *(v13[1] + 24);
+    v5 = v17[3];
   }
 
-  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(&v16, 8);
   if (!v5)
   {
     [AVCaptureExternalDisplayConfigurator externalDisplayConfigurationChangedNotification:];
@@ -742,24 +780,26 @@ uint64_t __65__AVCaptureExternalDisplayConfigurator__configureExternalDisplay__b
   {
     if (dword_1EB3859D8)
     {
-      v17 = 0;
-      v16 = 0;
+      v15 = 0;
+      v14 = 0;
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
     configuratorWeakReference = self->_configuratorWeakReference;
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __88__AVCaptureExternalDisplayConfigurator_externalDisplayConfigurationChangedNotification___block_invoke;
-    v14[3] = &unk_1E786EDC8;
-    v14[4] = configuratorWeakReference;
-    [(AVCaptureExternalDisplayConfigurator *)self _getConfigurationWithCompletion:v14, v12, v13];
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __88__AVCaptureExternalDisplayConfigurator_externalDisplayConfigurationChangedNotification___block_invoke;
+    v12[3] = &unk_1E786EDC8;
+    v12[4] = configuratorWeakReference;
+    [(AVCaptureExternalDisplayConfigurator *)self _getConfigurationWithCompletion:v12];
   }
 
   else if (dword_1EB3859D8)
   {
+    v15 = 0;
+    v14 = 0;
     v10 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -783,6 +823,8 @@ void __88__AVCaptureExternalDisplayConfigurator_externalDisplayConfigurationChan
 
   else
   {
+    v9 = 0;
+    v8 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -797,8 +839,8 @@ uint64_t __88__AVCaptureExternalDisplayConfigurator_externalDisplayConfiguration
     v3 = v2;
     if (dword_1EB3859D8)
     {
-      v11 = 0;
-      v10 = 0;
+      v9 = 0;
+      v8 = 0;
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -816,8 +858,8 @@ uint64_t __88__AVCaptureExternalDisplayConfigurator_externalDisplayConfiguration
 
   else
   {
-    v11 = 0;
-    v10 = 0;
+    v9 = 0;
+    v8 = 0;
     v5 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
     return fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -899,7 +941,7 @@ uint64_t __72__AVCaptureExternalDisplayConfigurator__getConfigurationWithComplet
     self->_configurationTimeoutBlock = 0;
   }
 
-  if ([(AVCaptureExternalDisplayConfigurator *)self retryConfiguration:v9])
+  if ([(AVCaptureExternalDisplayConfigurator *)self retryConfiguration])
   {
     [(AVCaptureExternalDisplayConfigurator *)self _dispatchConfiguration];
   }
@@ -910,26 +952,27 @@ uint64_t __72__AVCaptureExternalDisplayConfigurator__getConfigurationWithComplet
     v17 = OS_LOG_TYPE_DEFAULT;
     v5 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     v6 = v18;
+    v7 = v17;
     if (os_log_type_enabled(v5, v17))
     {
-      v7 = v6;
+      v8 = v6;
     }
 
     else
     {
-      v7 = v6 & 0xFFFFFFFE;
+      v8 = v6 & 0xFFFFFFFE;
     }
 
-    if (v7)
+    if (v8)
     {
       externalDisplayAndCaptureDeviceSynchronized = [(AVCaptureExternalDisplayConfigurator *)self externalDisplayAndCaptureDeviceSynchronized];
-      v11 = 136315650;
-      v12 = "[AVCaptureExternalDisplayConfigurator _externalDisplayConfigurationChangedHandler]";
-      v13 = 2114;
+      v10 = 136315650;
+      v11 = "[AVCaptureExternalDisplayConfigurator _externalDisplayConfigurationChangedHandler]";
+      v12 = 2114;
       selfCopy = self;
-      v15 = 1026;
-      v16 = externalDisplayAndCaptureDeviceSynchronized;
-      _os_log_send_and_compose_impl();
+      v14 = 1026;
+      v15 = externalDisplayAndCaptureDeviceSynchronized;
+      _os_log_send_and_compose_impl(v8, 0, v16, 128, &dword_1A917C000, v5, v7, "<<<< AVCaptureExternalPreviewLayerConfigurator >>>> %s: %{public}@ External configuration Synchronized=%{public}d", &v10, 28);
     }
 
     fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -941,7 +984,7 @@ uint64_t __72__AVCaptureExternalDisplayConfigurator__getConfigurationWithComplet
   device = [(AVCaptureExternalDisplayConfigurator *)self device];
   if (device)
   {
-    [(AVCaptureDevice *)device activeVideoMinFrameDuration];
+    objc_msgSend_activeVideoMinFrameDuration(device);
     v4 = v13;
   }
 
@@ -956,7 +999,7 @@ uint64_t __72__AVCaptureExternalDisplayConfigurator__getConfigurationWithComplet
   device2 = [(AVCaptureExternalDisplayConfigurator *)self device];
   if (device2)
   {
-    [(AVCaptureDevice *)device2 activeVideoMinFrameDuration];
+    objc_msgSend_activeVideoMinFrameDuration(device2);
     v6 = v9;
   }
 
@@ -1007,20 +1050,20 @@ uint64_t __75__AVCaptureExternalDisplayConfigurator__configureExternalDisplayCol
     v2 = v1;
     if (dword_1EB3859D8)
     {
-      v9 = 0;
-      v8 = 0;
+      v7 = 0;
+      v6 = 0;
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    return [objc_msgSend(v2 previewLayer];
+    return [objc_msgSend(v2 "previewLayer")];
   }
 
   else
   {
-    v9 = 0;
-    v8 = 0;
+    v7 = 0;
+    v6 = 0;
     v4 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
     return fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -1038,50 +1081,50 @@ uint64_t __75__AVCaptureExternalDisplayConfigurator__configureExternalDisplayCol
       device = [(AVCaptureExternalDisplayConfigurator *)self device];
       if (device)
       {
-        [(AVCaptureDevice *)device activeVideoMinFrameDuration];
-        v6 = v21;
+        objc_msgSend_activeVideoMinFrameDuration(device);
+        v6 = v22;
       }
 
       else
       {
-        v20 = 0;
         v21 = 0;
-        v6 = 0.0;
         v22 = 0;
+        v6 = 0.0;
+        v23 = 0;
       }
 
       device2 = [(AVCaptureExternalDisplayConfigurator *)self device];
       if (device2)
       {
-        [(AVCaptureDevice *)device2 activeVideoMinFrameDuration];
-        v8 = v17;
+        objc_msgSend_activeVideoMinFrameDuration(device2);
+        v8 = v18;
       }
 
       else
       {
-        v17 = 0;
         v18 = 0;
-        v8 = 0.0;
         v19 = 0;
+        v8 = 0.0;
+        v20 = 0;
       }
 
-      v13[0] = 0;
-      v13[1] = v13;
-      v13[2] = 0x3052000000;
-      v13[3] = __Block_byref_object_copy__1;
-      v13[4] = __Block_byref_object_dispose__1;
-      v13[5] = getFBSMutableDisplayConfigurationRequestClass_softClass;
+      v14[0] = 0;
+      v14[1] = v14;
+      v14[2] = 0x3052000000;
+      v14[3] = __Block_byref_object_copy__1;
+      v14[4] = __Block_byref_object_dispose__1;
+      v14[5] = getFBSMutableDisplayConfigurationRequestClass_softClass;
       if (!getFBSMutableDisplayConfigurationRequestClass_softClass)
       {
-        *v23 = MEMORY[0x1E69E9820];
-        *&v23[8] = 3221225472;
-        *&v23[16] = __getFBSMutableDisplayConfigurationRequestClass_block_invoke;
-        v24 = &unk_1E786EC30;
-        v25 = v13;
-        __getFBSMutableDisplayConfigurationRequestClass_block_invoke(v23);
+        *v24 = MEMORY[0x1E69E9820];
+        *&v24[8] = 3221225472;
+        *&v24[16] = __getFBSMutableDisplayConfigurationRequestClass_block_invoke;
+        v25 = &unk_1E786EC30;
+        v26 = v14;
+        __getFBSMutableDisplayConfigurationRequestClass_block_invoke(v24);
       }
 
-      _Block_object_dispose(v13, 8);
+      _Block_object_dispose(v14, 8);
       v9 = objc_opt_new();
       [v9 setRefreshRate:round(v6 / v8 * 1000.0) / 1000.0];
       [v9 setOverscanCompensation:0];
@@ -1105,29 +1148,30 @@ uint64_t __75__AVCaptureExternalDisplayConfigurator__configureExternalDisplayCol
       dispatch_async(MEMORY[0x1E69E96A0], block);
       if (dword_1EB3859D8)
       {
-        v15 = 0;
+        v16 = 0;
         type = OS_LOG_TYPE_DEFAULT;
         os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-        v11 = v15;
+        v11 = v16;
+        v12 = type;
         if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
         {
-          v12 = v11;
+          v13 = v11;
         }
 
         else
         {
-          v12 = v11 & 0xFFFFFFFE;
+          v13 = v11 & 0xFFFFFFFE;
         }
 
-        if (v12)
+        if (v13)
         {
-          *v23 = 136315650;
-          *&v23[4] = "[AVCaptureExternalDisplayConfigurator _configureExternalDisplayFrameRate]";
-          *&v23[12] = 2114;
-          *&v23[14] = self;
-          *&v23[22] = 2112;
-          v24 = v9;
-          _os_log_send_and_compose_impl();
+          *v24 = 136315650;
+          *&v24[4] = "[AVCaptureExternalDisplayConfigurator _configureExternalDisplayFrameRate]";
+          *&v24[12] = 2114;
+          *&v24[14] = self;
+          *&v24[22] = 2112;
+          v25 = v9;
+          _os_log_send_and_compose_impl(v13, 0, v14, 128, &dword_1A917C000, os_log_and_send_and_compose_flags_and_os_log_type, v12, "<<<< AVCaptureExternalPreviewLayerConfigurator >>>> %s: %{public}@ made config request:%@", v24, 32);
         }
 
         fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -1166,14 +1210,14 @@ uint64_t __74__AVCaptureExternalDisplayConfigurator__configureExternalDisplayFra
 {
   if (dword_1EB3859D8)
   {
-    v7 = 0;
-    v6 = 0;
+    v5 = 0;
+    v4 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  [(AVCaptureExternalDisplayConfigurator *)self setActive:0, v4, v5];
+  [(AVCaptureExternalDisplayConfigurator *)self setActive:0];
 }
 
 - (void)stop
@@ -1199,6 +1243,8 @@ uint64_t __44__AVCaptureExternalDisplayConfigurator_stop__block_invoke(uint64_t 
 
   else
   {
+    v5 = 0;
+    v4 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     return fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -1243,6 +1289,8 @@ uint64_t __86__AVCaptureExternalDisplayConfigurator_externalDisplayLayerObserver
 
   else
   {
+    v7 = 0;
+    v6 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     return fig_log_call_emit_and_clean_up_after_send_and_compose();

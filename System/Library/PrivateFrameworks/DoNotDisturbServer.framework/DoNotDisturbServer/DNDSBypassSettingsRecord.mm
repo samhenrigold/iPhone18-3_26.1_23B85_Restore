@@ -1,6 +1,7 @@
 @interface DNDSBypassSettingsRecord
 + (id)_recordWithEncodedInfo:(id)info error:(id *)error;
 + (id)newWithDictionaryRepresentation:(id)representation context:(id)context;
++ (id)recordForLegacyPrivilegedSenderType:(unint64_t)type legacyAddressBookID:(int)d;
 - (BOOL)isEqual:(id)equal;
 - (NSString)description;
 - (id)_initWithImmediateBypassEventSourceType:(id)type immediateBypassCNGroupIdentifier:(id)identifier repeatEventSourceBehaviorEnabledSetting:(id)setting;
@@ -313,6 +314,86 @@ LABEL_38:
   }
 
   return v10;
+}
+
++ (id)recordForLegacyPrivilegedSenderType:(unint64_t)type legacyAddressBookID:(int)d
+{
+  v4 = *&d;
+  typeCopy = type;
+  v6 = objc_alloc_init(DNDSMutableBypassSettingsRecord);
+  if ((typeCopy & 0x10) != 0)
+  {
+    identifier = 0;
+    v8 = 1;
+  }
+
+  else if (typeCopy)
+  {
+    identifier = 0;
+    v8 = 3;
+  }
+
+  else if ((typeCopy & 4) != 0)
+  {
+    identifier = 0;
+    v8 = 4;
+  }
+
+  else if ((typeCopy & 2) != 0)
+  {
+    if (v4 == -1)
+    {
+      identifier = 0;
+      v13 = 2;
+    }
+
+    else
+    {
+      v9 = [MEMORY[0x277CBDB10] predicateForiOSLegacyIdentifier:v4];
+      v10 = objc_alloc_init(MEMORY[0x277CBDAB8]);
+      [v10 requestAccessForEntityType:0 completionHandler:&__block_literal_global_26];
+      v11 = [v10 groupsMatchingPredicate:v9 error:0];
+      firstObject = [v11 firstObject];
+      identifier = [firstObject identifier];
+
+      v13 = 5;
+    }
+
+    if (identifier)
+    {
+      v8 = v13;
+    }
+
+    else
+    {
+      v8 = 0;
+    }
+  }
+
+  else
+  {
+    identifier = 0;
+    v8 = 2;
+  }
+
+  if ((typeCopy & 8) != 0)
+  {
+    v14 = 2;
+  }
+
+  else
+  {
+    v14 = 1;
+  }
+
+  v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v8];
+  [(DNDSMutableBypassSettingsRecord *)v6 setImmediateBypassEventSourceType:v15];
+
+  [(DNDSMutableBypassSettingsRecord *)v6 setImmediateBypassCNGroupIdentifier:identifier];
+  v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v14];
+  [(DNDSMutableBypassSettingsRecord *)v6 setRepeatEventSourceBehaviorEnabledSetting:v16];
+
+  return v6;
 }
 
 - (unint64_t)legacyPrivilegedSenderType

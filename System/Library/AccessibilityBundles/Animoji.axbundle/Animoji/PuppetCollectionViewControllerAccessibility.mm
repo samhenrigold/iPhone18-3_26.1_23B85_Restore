@@ -68,7 +68,7 @@
   return v8;
 }
 
-uint64_t __85__PuppetCollectionViewControllerAccessibility_collectionView_cellForItemAtIndexPath___block_invoke(uint64_t a1)
+void *__85__PuppetCollectionViewControllerAccessibility_collectionView_cellForItemAtIndexPath___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) recordIndexForIndexPath:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;

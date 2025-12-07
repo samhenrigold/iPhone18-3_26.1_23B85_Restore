@@ -104,7 +104,7 @@
   {
   }
 
-  sub_21D0CF7E0(&v11, &qword_27CE5C690);
+  sub_21D0CF7E0(&v11, &qword_27CE5C690, &unk_21DC11AB0);
 }
 
 - (void)toggleItalics:(id)italics
@@ -142,7 +142,7 @@
   {
   }
 
-  sub_21D0CF7E0(&v11, &qword_27CE5C690);
+  sub_21D0CF7E0(&v11, &qword_27CE5C690, &unk_21DC11AB0);
 }
 
 - (void)toggleUnderline:(id)underline
@@ -180,7 +180,7 @@
   {
   }
 
-  sub_21D0CF7E0(&v11, &qword_27CE5C690);
+  sub_21D0CF7E0(&v11, &qword_27CE5C690, &unk_21DC11AB0);
 }
 
 - (BOOL)canPerformAction:(SEL)action withSender:(id)sender
@@ -201,7 +201,7 @@
 
   v8 = sub_21D6C7D64(action, v10);
 
-  sub_21D0CF7E0(v10, &qword_27CE5C690);
+  sub_21D0CF7E0(v10, &qword_27CE5C690, &unk_21DC11AB0);
   return v8 & 1;
 }
 
@@ -241,12 +241,12 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_21D6C85A0();
+  sub_21D6C85A0(selfCopy);
 }
 
 - (void)pressesBegan:(id)began withEvent:(id)event
 {
-  sub_21D0D8CF0(0, &unk_27CE60080);
+  sub_21D0D8CF0(0, &unk_27CE60080, 0x277D758B8);
   sub_21D6AEE84();
   v6 = sub_21DBFAAAC();
   selfCopy = self;
@@ -358,7 +358,7 @@ LABEL_8:
   {
   }
 
-  sub_21D0CF7E0(&v11, &qword_27CE5C690);
+  sub_21D0CF7E0(&v11, &qword_27CE5C690, &unk_21DC11AB0);
 }
 
 @end

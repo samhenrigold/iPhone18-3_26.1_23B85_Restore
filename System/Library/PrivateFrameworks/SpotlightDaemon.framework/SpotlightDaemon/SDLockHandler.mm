@@ -16,37 +16,37 @@
 {
   v12 = *MEMORY[0x277D85DE8];
   v2 = MKBGetDeviceLockState();
-  v3 = logForCSLogCategoryIndex();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+  v3 = v2;
+  v4 = logForCSLogCategoryIndex(v2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    if (v2 > 7)
+    if (v3 > 7)
     {
-      v4 = "unknown";
+      v5 = "unknown";
     }
 
     else
     {
-      v4 = getMobileKeyBagStateCStr_sKeyBagStates[v2];
+      v5 = getMobileKeyBagStateCStr_sKeyBagStates[v3];
     }
 
     v9[0] = 67109378;
-    v9[1] = v2;
+    v9[1] = v3;
     v10 = 2080;
-    v11 = v4;
-    _os_log_impl(&dword_231A35000, v3, OS_LOG_TYPE_INFO, "[LOCK] MKBGetDeviceLockState returned ret:%d %s", v9, 0x12u);
+    v11 = v5;
+    _os_log_impl(&dword_231A35000, v4, OS_LOG_TYPE_INFO, "[LOCK] MKBGetDeviceLockState returned ret:%d %s", v9, 0x12u);
   }
 
-  v6 = v2 == 3 || v2 == 0;
+  v7 = v3 == 3 || v3 == 0;
 
-  v7 = *MEMORY[0x277D85DE8];
-  return v6;
+  return v7;
 }
 
 - (void)handleFirstUnlock
 {
   if ((atomic_exchange(&self->_didFirstUnlockSinceBoot, 1u) & 1) == 0)
   {
-    v2 = logForCSLogCategoryIndex();
+    v2 = logForCSLogCategoryIndex(self);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       *v3 = 0;
@@ -84,16 +84,18 @@
 
 uint64_t __52__SDLockHandler_setLockHandlerWithDelegate_options___block_invoke(uint64_t a1)
 {
-  sSDLockHandler = [[SDLockHandler alloc] initWithDelegate:*(a1 + 32) options:*(a1 + 40)];
+  v1 = [[SDLockHandler alloc] initWithDelegate:*(a1 + 32) options:*(a1 + 40)];
+  v2 = sSDLockHandler;
+  sSDLockHandler = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 - (void)handleMigrationComplete
 {
   if ((atomic_exchange(&self->_didMigrationComplete, 1u) & 1) == 0)
   {
-    v3 = logForCSLogCategoryIndex();
+    v3 = logForCSLogCategoryIndex(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -120,26 +122,25 @@ uint64_t __52__SDLockHandler_setLockHandlerWithDelegate_options___block_invoke(u
 
 uint64_t __40__SDLockHandler_handleMigrationComplete__block_invoke_2(uint64_t result)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (*(*(result + 32) + 44) != -1)
   {
     v1 = result;
-    v2 = logForCSLogCategoryIndex();
+    v2 = logForCSLogCategoryIndex(result);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       v3 = *(*(v1 + 32) + 44);
-      v5[0] = 67109378;
-      v5[1] = v3;
-      v6 = 2080;
-      v7 = "com.apple.springboard.homescreenunlocked";
-      _os_log_impl(&dword_231A35000, v2, OS_LOG_TYPE_DEFAULT, "[LOCK] cancel token %d %s", v5, 0x12u);
+      v4[0] = 67109378;
+      v4[1] = v3;
+      v5 = 2080;
+      v6 = "com.apple.springboard.homescreenunlocked";
+      _os_log_impl(&dword_231A35000, v2, OS_LOG_TYPE_DEFAULT, "[LOCK] cancel token %d %s", v4, 0x12u);
     }
 
     result = notify_cancel(*(*(v1 + 32) + 44));
     *(*(v1 + 32) + 44) = -1;
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -147,7 +148,7 @@ uint64_t __40__SDLockHandler_handleMigrationComplete__block_invoke_2(uint64_t re
 {
   if ((atomic_exchange(&self->_didFirstUnlockInHomeScreen, 1u) & 1) == 0)
   {
-    v3 = logForCSLogCategoryIndex();
+    v3 = logForCSLogCategoryIndex(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *v4 = 0;
@@ -160,6 +161,7 @@ uint64_t __40__SDLockHandler_handleMigrationComplete__block_invoke_2(uint64_t re
 
 - (void)handleFirstUnlockInSpringBoard
 {
+  selfCopy = self;
   v3 = atomic_load(&self->_didMigrationComplete);
   if ((v3 & 1) == 0)
   {
@@ -168,24 +170,24 @@ uint64_t __40__SDLockHandler_handleMigrationComplete__block_invoke_2(uint64_t re
       return;
     }
 
-    [(SDLockHandler *)self handleMigrationComplete];
+    self = [(SDLockHandler *)selfCopy handleMigrationComplete];
   }
 
-  if ((atomic_exchange(&self->_didFirstUnlockInSpringBoard, 1u) & 1) == 0)
+  if ((atomic_exchange(&selfCopy->_didFirstUnlockInSpringBoard, 1u) & 1) == 0)
   {
-    v4 = logForCSLogCategoryIndex();
+    v4 = logForCSLogCategoryIndex(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
       _os_log_impl(&dword_231A35000, v4, OS_LOG_TYPE_DEFAULT, "[LOCK] SpringBoard first unlock", buf, 2u);
     }
 
-    indexQueue = [(SDLockHandlerDelegate *)self->_delegate indexQueue];
+    indexQueue = [(SDLockHandlerDelegate *)selfCopy->_delegate indexQueue];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __47__SDLockHandler_handleFirstUnlockInSpringBoard__block_invoke;
     block[3] = &unk_278934050;
-    block[4] = self;
+    block[4] = selfCopy;
     dispatch_async(indexQueue, block);
   }
 }
@@ -205,37 +207,36 @@ void __47__SDLockHandler_handleFirstUnlockInSpringBoard__block_invoke(uint64_t a
 
 uint64_t __47__SDLockHandler_handleFirstUnlockInSpringBoard__block_invoke_2(uint64_t result)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (*(*(result + 32) + 48) != -1)
   {
     v1 = result;
-    v2 = logForCSLogCategoryIndex();
+    v2 = logForCSLogCategoryIndex(result);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       v3 = *(*(v1 + 32) + 48);
       v4 = *MEMORY[0x277D67770];
-      v6[0] = 67109378;
-      v6[1] = v3;
-      v7 = 2080;
-      v8 = v4;
-      _os_log_impl(&dword_231A35000, v2, OS_LOG_TYPE_DEFAULT, "[LOCK] cancel token %d %s", v6, 0x12u);
+      v5[0] = 67109378;
+      v5[1] = v3;
+      v6 = 2080;
+      v7 = v4;
+      _os_log_impl(&dword_231A35000, v2, OS_LOG_TYPE_DEFAULT, "[LOCK] cancel token %d %s", v5, 0x12u);
     }
 
     result = notify_cancel(*(*(v1 + 32) + 48));
     *(*(v1 + 32) + 48) = -1;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (SDLockHandler)initWithDelegate:(id)delegate options:(unint64_t)options
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
-  v49.receiver = self;
-  v49.super_class = SDLockHandler;
-  v8 = [(SDLockHandler *)&v49 init];
+  v51.receiver = self;
+  v51.super_class = SDLockHandler;
+  v8 = [(SDLockHandler *)&v51 init];
   v9 = v8;
   if (v8)
   {
@@ -273,62 +274,69 @@ uint64_t __47__SDLockHandler_handleFirstUnlockInSpringBoard__block_invoke_2(uint
       else
       {
         check = 0;
-        if (!notify_check(out_token, &check) && check && !notify_get_state(out_token, &state64))
+        if (!notify_check(out_token, &check))
         {
-          v18 = logForCSLogCategoryIndex();
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+          if (check)
           {
-            *buf = 67109634;
-            v54 = out_token;
-            v55 = 2080;
-            v56 = v16;
-            v57 = 2048;
-            v58 = state64;
-            _os_log_impl(&dword_231A35000, v18, OS_LOG_TYPE_DEFAULT, "[LOCK] check %d %s %lu", buf, 0x1Cu);
+            state = notify_get_state(out_token, &state64);
+            if (!state)
+            {
+              v19 = logForCSLogCategoryIndex(state);
+              if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+              {
+                *buf = 67109634;
+                v56 = out_token;
+                v57 = 2080;
+                v58 = v16;
+                v59 = 2048;
+                v60 = state64;
+                _os_log_impl(&dword_231A35000, v19, OS_LOG_TYPE_DEFAULT, "[LOCK] check %d %s %lu", buf, 0x1Cu);
+              }
+            }
           }
         }
 
         notify_cancel(out_token);
         v17 = 0;
-        v19 = 0;
+        v20 = 0;
         if (!state64)
         {
 LABEL_32:
-          v31 = v9->_notificationQueue;
-          v43[0] = MEMORY[0x277D85DD0];
-          v43[1] = 3221225472;
-          v43[2] = __42__SDLockHandler_initWithDelegate_options___block_invoke_8;
-          v43[3] = &unk_2789343D8;
-          v32 = v9;
-          v44 = v32;
-          v33 = notify_register_dispatch("com.apple.mobile.keybagd.lock_status", &v9->_notifyTokenKeybagLockStateNotifyToken, v31, v43);
-          v34 = logForCSLogCategoryIndex();
-          v35 = v34;
-          if (v33)
+          v34 = v9->_notificationQueue;
+          v45[0] = MEMORY[0x277D85DD0];
+          v45[1] = 3221225472;
+          v45[2] = __42__SDLockHandler_initWithDelegate_options___block_invoke_8;
+          v45[3] = &unk_2789343D8;
+          v35 = v9;
+          v46 = v35;
+          v36 = notify_register_dispatch("com.apple.mobile.keybagd.lock_status", &v9->_notifyTokenKeybagLockStateNotifyToken, v34, v45);
+          v37 = v36;
+          v38 = logForCSLogCategoryIndex(v36);
+          v39 = v38;
+          if (v37)
           {
-            if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
             {
               [SDLockHandler initWithDelegate:options:];
             }
           }
 
-          else if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+          else if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
           {
             notifyTokenKeybagLockStateNotifyToken = v9->_notifyTokenKeybagLockStateNotifyToken;
             *buf = 67109378;
-            v54 = notifyTokenKeybagLockStateNotifyToken;
-            v55 = 2080;
-            v56 = "com.apple.mobile.keybagd.lock_status";
-            _os_log_impl(&dword_231A35000, v35, OS_LOG_TYPE_DEFAULT, "[LOCK] token %d %s", buf, 0x12u);
+            v56 = notifyTokenKeybagLockStateNotifyToken;
+            v57 = 2080;
+            v58 = "com.apple.mobile.keybagd.lock_status";
+            _os_log_impl(&dword_231A35000, v39, OS_LOG_TYPE_DEFAULT, "[LOCK] token %d %s", buf, 0x12u);
           }
 
-          v37 = v9->_notificationQueue;
-          v38 = v32;
-          v39 = AKSEventsRegister();
-          v38->_aksEvent = v39;
-          if (v39)
+          v41 = v35;
+          v42 = AKSEventsRegister();
+          v41->_aksEvent = v42;
+          if (v42)
           {
-            if (v19)
+            if (v20)
             {
 LABEL_40:
 
@@ -338,19 +346,19 @@ LABEL_40:
 
           else
           {
-            v42 = logForCSLogCategoryIndex();
-            if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+            v44 = logForCSLogCategoryIndex(0);
+            if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
             {
-              [SDLockHandler initWithDelegate:v42 options:?];
+              [SDLockHandler initWithDelegate:v44 options:?];
             }
 
-            if (v19)
+            if (v20)
             {
               goto LABEL_40;
             }
           }
 
-          [(SDLockHandler *)v38 handleFirstUnlockInSpringBoard];
+          [(SDLockHandler *)v41 handleFirstUnlockInSpringBoard];
           goto LABEL_40;
         }
       }
@@ -362,83 +370,84 @@ LABEL_40:
       v17 = 1;
     }
 
-    v20 = v9->_notificationQueue;
+    v21 = v9->_notificationQueue;
     handler[0] = MEMORY[0x277D85DD0];
     handler[1] = 3221225472;
     handler[2] = __42__SDLockHandler_initWithDelegate_options___block_invoke;
     handler[3] = &unk_2789343D8;
-    v21 = v9;
-    v48 = v21;
-    v22 = notify_register_dispatch(v16, &v9->_notifyTokenSBLockState, v20, handler);
-    v23 = logForCSLogCategoryIndex();
+    v22 = v9;
+    v50 = v22;
+    v23 = notify_register_dispatch(v16, &v9->_notifyTokenSBLockState, v21, handler);
     v24 = v23;
-    if (v22)
+    v25 = logForCSLogCategoryIndex(v23);
+    v26 = v25;
+    if (v24)
     {
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
-        [(SDLockHandler *)v16 initWithDelegate:v22 options:v24];
+        [(SDLockHandler *)v16 initWithDelegate:v24 options:v26];
       }
     }
 
-    else if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    else if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
       notifyTokenSBLockState = v9->_notifyTokenSBLockState;
       *buf = 67109378;
-      v54 = notifyTokenSBLockState;
-      v55 = 2080;
-      v56 = v16;
-      _os_log_impl(&dword_231A35000, v24, OS_LOG_TYPE_DEFAULT, "[LOCK] token %d %s", buf, 0x12u);
+      v56 = notifyTokenSBLockState;
+      v57 = 2080;
+      v58 = v16;
+      _os_log_impl(&dword_231A35000, v26, OS_LOG_TYPE_DEFAULT, "[LOCK] token %d %s", buf, 0x12u);
     }
 
     if (v17)
     {
-      v26 = v9->_notificationQueue;
-      v45[0] = MEMORY[0x277D85DD0];
-      v45[1] = 3221225472;
-      v45[2] = __42__SDLockHandler_initWithDelegate_options___block_invoke_6;
-      v45[3] = &unk_2789343D8;
-      v46 = v21;
-      v27 = notify_register_dispatch("com.apple.springboard.homescreenunlocked", &v9->_notifyTokenSBHomescreenUnlocked, v26, v45);
-      v28 = logForCSLogCategoryIndex();
-      v29 = v28;
-      if (v27)
+      v28 = v9->_notificationQueue;
+      v47[0] = MEMORY[0x277D85DD0];
+      v47[1] = 3221225472;
+      v47[2] = __42__SDLockHandler_initWithDelegate_options___block_invoke_6;
+      v47[3] = &unk_2789343D8;
+      v48 = v22;
+      v29 = notify_register_dispatch("com.apple.springboard.homescreenunlocked", &v9->_notifyTokenSBHomescreenUnlocked, v28, v47);
+      v30 = v29;
+      v31 = logForCSLogCategoryIndex(v29);
+      v32 = v31;
+      if (v30)
       {
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
         {
           [SDLockHandler initWithDelegate:options:];
         }
       }
 
-      else if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+      else if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
       {
         notifyTokenSBHomescreenUnlocked = v9->_notifyTokenSBHomescreenUnlocked;
         *buf = 67109378;
-        v54 = notifyTokenSBHomescreenUnlocked;
-        v55 = 2080;
-        v56 = "com.apple.springboard.homescreenunlocked";
-        _os_log_impl(&dword_231A35000, v29, OS_LOG_TYPE_DEFAULT, "[LOCK] token %d %s", buf, 0x12u);
+        v56 = notifyTokenSBHomescreenUnlocked;
+        v57 = 2080;
+        v58 = "com.apple.springboard.homescreenunlocked";
+        _os_log_impl(&dword_231A35000, v32, OS_LOG_TYPE_DEFAULT, "[LOCK] token %d %s", buf, 0x12u);
       }
     }
 
-    v19 = 1;
+    v20 = 1;
     goto LABEL_32;
   }
 
 LABEL_41:
 
-  v40 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 void __42__SDLockHandler_initWithDelegate_options___block_invoke(uint64_t a1, int token)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   state64 = 0;
   state = notify_get_state(token, &state64);
   if (state)
   {
     v4 = state;
-    v5 = logForCSLogCategoryIndex();
+    v5 = logForCSLogCategoryIndex(state);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __42__SDLockHandler_initWithDelegate_options___block_invoke_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
@@ -448,7 +457,7 @@ void __42__SDLockHandler_initWithDelegate_options___block_invoke(uint64_t a1, in
   else
   {
     v12 = state64;
-    v13 = logForCSLogCategoryIndex();
+    v13 = logForCSLogCategoryIndex(state);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       v14 = "NO";
@@ -458,7 +467,7 @@ void __42__SDLockHandler_initWithDelegate_options___block_invoke(uint64_t a1, in
       }
 
       *buf = 136315138;
-      v18 = v14;
+      v17 = v14;
       _os_log_impl(&dword_231A35000, v13, OS_LOG_TYPE_DEFAULT, "[LOCK] SpringBoard unlocked: %s", buf, 0xCu);
     }
 
@@ -467,18 +476,17 @@ void __42__SDLockHandler_initWithDelegate_options___block_invoke(uint64_t a1, in
       [*(a1 + 32) handleFirstUnlockInSpringBoard];
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __42__SDLockHandler_initWithDelegate_options___block_invoke_6(uint64_t a1, int token)
 {
   v11 = *MEMORY[0x277D85DE8];
   state64 = 0;
-  if (notify_get_state(token, &state64))
+  state = notify_get_state(token, &state64);
+  if (state)
   {
-    v3 = logForCSLogCategoryIndex();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = logForCSLogCategoryIndex(state);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __42__SDLockHandler_initWithDelegate_options___block_invoke_6_cold_1();
     }
@@ -486,28 +494,26 @@ void __42__SDLockHandler_initWithDelegate_options___block_invoke_6(uint64_t a1, 
 
   else
   {
-    v4 = state64;
-    v5 = logForCSLogCategoryIndex();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v5 = state64;
+    v6 = logForCSLogCategoryIndex(state);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = "NO";
-      if (v4 == 1)
+      v7 = "NO";
+      if (v5 == 1)
       {
-        v6 = "YES";
+        v7 = "YES";
       }
 
       *buf = 136315138;
-      v10 = v6;
-      _os_log_impl(&dword_231A35000, v5, OS_LOG_TYPE_DEFAULT, "[LOCK] Home Screen: %s", buf, 0xCu);
+      v10 = v7;
+      _os_log_impl(&dword_231A35000, v6, OS_LOG_TYPE_DEFAULT, "[LOCK] Home Screen: %s", buf, 0xCu);
     }
 
-    if (v4 == 1)
+    if (v5 == 1)
     {
       [*(a1 + 32) handleFirstUnlockHomeScreen];
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __42__SDLockHandler_initWithDelegate_options___block_invoke_8(uint64_t a1)
@@ -517,158 +523,155 @@ void __42__SDLockHandler_initWithDelegate_options___block_invoke_8(uint64_t a1)
   v25[0] = *MEMORY[0x277CBED28];
   v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
   v3 = MKBGetDeviceLockState();
-  v4 = logForCSLogCategoryIndex();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v4 = v3;
+  v5 = logForCSLogCategoryIndex(v3);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    if (v3 > 7)
+    if (v4 > 7)
     {
-      v5 = "unknown";
+      v6 = "unknown";
     }
 
     else
     {
-      v5 = getMobileKeyBagStateCStr_sKeyBagStates[v3];
+      v6 = getMobileKeyBagStateCStr_sKeyBagStates[v4];
     }
 
     *buf = 67109378;
-    v21 = v3;
+    v21 = v4;
     v22 = 2080;
-    v23 = v5;
-    _os_log_impl(&dword_231A35000, v4, OS_LOG_TYPE_DEFAULT, "[LOCK] Device state changed: %d %s", buf, 0x12u);
+    v23 = v6;
+    _os_log_impl(&dword_231A35000, v5, OS_LOG_TYPE_DEFAULT, "[LOCK] Device state changed: %d %s", buf, 0x12u);
   }
 
-  if (v3 > 7 || ((1 << v3) & 0xC9) == 0)
+  if (v4 > 7 || ((1 << v4) & 0xC9) == 0)
   {
-    v7 = 0;
+    v8 = 0;
   }
 
   else
   {
     [*(a1 + 32) handleFirstUnlock];
-    v7 = 1;
+    v8 = 1;
   }
 
-  v8 = qos_class_self();
-  v9 = dispatch_get_global_queue(v8, 0);
+  v9 = qos_class_self();
+  v10 = dispatch_get_global_queue(v9, 0);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __42__SDLockHandler_initWithDelegate_options___block_invoke_11;
   block[3] = &unk_278934400;
   v18 = *(a1 + 32);
-  v19 = v7;
-  dispatch_async(v9, block);
+  v19 = v8;
+  dispatch_async(v10, block);
 
-  v10 = [*(*(a1 + 32) + 8) indexQueue];
+  v11 = [*(*(a1 + 32) + 8) indexQueue];
   v13[0] = MEMORY[0x277D85DD0];
   v13[1] = 3221225472;
   v13[2] = __42__SDLockHandler_initWithDelegate_options___block_invoke_2;
   v13[3] = &unk_278934428;
   v14 = v2;
-  v16 = v3;
+  v16 = v4;
   v15 = *(a1 + 32);
-  v11 = v2;
-  dispatch_async(v10, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  v12 = v2;
+  dispatch_async(v11, v13);
 }
 
-void __42__SDLockHandler_initWithDelegate_options___block_invoke_2(uint64_t a1)
+void __42__SDLockHandler_initWithDelegate_options___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   v21 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
   v3 = MKBGetDeviceLockState();
-  v4 = *(a1 + 48);
-  v5 = logForCSLogCategoryIndex();
-  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
-  if (v3 == v4)
+  v4 = v3;
+  v5 = *(a1 + 48);
+  v6 = logForCSLogCategoryIndex(v3);
+  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+  if (v4 == v5)
   {
-    if (!v6)
+    if (!v7)
     {
       goto LABEL_16;
     }
 
-    if (v3 > 7)
+    if (v4 > 7)
     {
-      v7 = "unknown";
+      v8 = "unknown";
     }
 
     else
     {
-      v7 = getMobileKeyBagStateCStr_sKeyBagStates[v3];
+      v8 = getMobileKeyBagStateCStr_sKeyBagStates[v4];
     }
 
     v15 = 67109378;
-    v16 = v3;
+    v16 = v4;
     v17 = 2080;
-    *v18 = v7;
-    v10 = "[LOCK] Device state %d %s";
-    v11 = v5;
-    v12 = 18;
+    *v18 = v8;
+    v11 = "[LOCK] Device state %d %s";
+    v12 = v6;
+    v13 = 18;
   }
 
   else
   {
-    if (!v6)
+    if (!v7)
     {
       goto LABEL_16;
     }
 
-    v8 = *(a1 + 48);
-    if (v8 > 7)
+    v9 = *(a1 + 48);
+    if (v9 > 7)
     {
-      v9 = "unknown";
+      v10 = "unknown";
     }
 
     else
     {
-      v9 = getMobileKeyBagStateCStr_sKeyBagStates[v8];
+      v10 = getMobileKeyBagStateCStr_sKeyBagStates[v9];
     }
 
-    if (v3 > 7)
+    if (v4 > 7)
     {
-      v13 = "unknown";
+      v14 = "unknown";
     }
 
     else
     {
-      v13 = getMobileKeyBagStateCStr_sKeyBagStates[v3];
+      v14 = getMobileKeyBagStateCStr_sKeyBagStates[v4];
     }
 
     v15 = 67109890;
-    v16 = v8;
+    v16 = v9;
     v17 = 1024;
-    *v18 = v3;
+    *v18 = v4;
     *&v18[4] = 2080;
-    *&v18[6] = v9;
+    *&v18[6] = v10;
     v19 = 2080;
-    v20 = v13;
-    v10 = "[LOCK] Device state:(%d/%d) (%s/%s)";
-    v11 = v5;
-    v12 = 34;
+    v20 = v14;
+    v11 = "[LOCK] Device state:(%d/%d) (%s/%s)";
+    v12 = v6;
+    v13 = 34;
   }
 
-  _os_log_impl(&dword_231A35000, v11, OS_LOG_TYPE_DEFAULT, v10, &v15, v12);
+  _os_log_impl(&dword_231A35000, v12, OS_LOG_TYPE_DEFAULT, v11, &v15, v13);
 LABEL_16:
 
-  if (v3 <= 7)
+  if (v4 <= 7)
   {
-    if (((1 << v3) & 0xC9) != 0)
+    if (((1 << v4) & 0xC9) != 0)
     {
       [*(*(a1 + 40) + 8) unlocked];
     }
 
-    else if (v3 == 1)
+    else if (v4 == 1)
     {
       [*(*(a1 + 40) + 8) locked];
     }
 
-    else if (v3 == 2)
+    else if (v4 == 2)
     {
       [*(*(a1 + 40) + 8) locking];
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __42__SDLockHandler_initWithDelegate_options___block_invoke_12(uint64_t a1, int a2, CFDictionaryRef theDict)
@@ -683,13 +686,14 @@ void __42__SDLockHandler_initWithDelegate_options___block_invoke_12(uint64_t a1,
       v7 = CFGetTypeID(value[0]);
       if (v7 == CFBooleanGetTypeID())
       {
-        if (CFBooleanGetValue(value[0]))
+        v8 = CFBooleanGetValue(value[0]);
+        if (v8)
         {
-          v8 = logForCSLogCategoryIndex();
-          if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+          v9 = logForCSLogCategoryIndex(v8);
+          if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_231A35000, v8, OS_LOG_TYPE_DEFAULT, "Received Cx expiring notification", buf, 2u);
+            _os_log_impl(&dword_231A35000, v9, OS_LOG_TYPE_DEFAULT, "Received Cx expiring notification", buf, 2u);
           }
 
           [*(*(a1 + 32) + 8) lockingCx];
@@ -699,17 +703,16 @@ void __42__SDLockHandler_initWithDelegate_options___block_invoke_12(uint64_t a1,
 
     if (CFDictionaryGetValueIfPresent(theDict, *MEMORY[0x277CEE038], value))
     {
-      v9 = CFGetTypeID(value[0]);
-      if (v9 == CFBooleanGetTypeID())
+      v10 = CFGetTypeID(value[0]);
+      if (v10 == CFBooleanGetTypeID())
       {
         if (CFBooleanGetValue(value[0]))
         {
-          [*(*(a1 + 32) + 8) lockedCx];
-          v10 = logForCSLogCategoryIndex();
-          if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+          v11 = logForCSLogCategoryIndex([*(*(a1 + 32) + 8) lockedCx]);
+          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
           {
-            *v11 = 0;
-            _os_log_impl(&dword_231A35000, v10, OS_LOG_TYPE_DEFAULT, "Received Cx expired notification", v11, 2u);
+            *v12 = 0;
+            _os_log_impl(&dword_231A35000, v11, OS_LOG_TYPE_DEFAULT, "Received Cx expired notification", v12, 2u);
           }
         }
       }
@@ -721,7 +724,7 @@ void __42__SDLockHandler_initWithDelegate_options___block_invoke_12(uint64_t a1,
 {
   if ((atomic_exchange(&self->_didStart, 1u) & 1) == 0)
   {
-    v3 = logForCSLogCategoryIndex();
+    v3 = logForCSLogCategoryIndex(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *v4 = 0;
@@ -734,45 +737,21 @@ void __42__SDLockHandler_initWithDelegate_options___block_invoke_12(uint64_t a1,
 
 - (void)initWithDelegate:(os_log_t)log options:.cold.1(uint64_t a1, int a2, os_log_t log)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 67109378;
-  v4[1] = a2;
-  v5 = 2080;
-  v6 = a1;
-  _os_log_error_impl(&dword_231A35000, log, OS_LOG_TYPE_ERROR, "Error %u setting up notification handler for %s", v4, 0x12u);
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWithDelegate:options:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_1(&dword_231A35000, v0, v1, "Error %u setting up notification handler for %s", v2, v3, v4, v5, v7);
   v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWithDelegate:options:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_1(&dword_231A35000, v0, v1, "Error %u setting up notification handler for %s", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 67109378;
+  v3[1] = a2;
+  v4 = 2080;
+  v5 = a1;
+  _os_log_error_impl(&dword_231A35000, log, OS_LOG_TYPE_ERROR, "Error %u setting up notification handler for %s", v3, 0x12u);
 }
 
 void __42__SDLockHandler_initWithDelegate_options___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = *MEMORY[0x277D67770];
-  OUTLINED_FUNCTION_1_1(&dword_231A35000, a2, a3, "Error %u getting state for %s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-void __42__SDLockHandler_initWithDelegate_options___block_invoke_6_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_1(&dword_231A35000, v0, v1, "Error %u getting state for %s", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 67109378;
+  HIDWORD(v8) = a1;
+  LOWORD(v9) = 2080;
+  *(&v9 + 2) = *MEMORY[0x277D67770];
+  OUTLINED_FUNCTION_1_1(&dword_231A35000, a2, a3, "Error %u getting state for %s", a5, a6, a7, a8, v8, v9, WORD4(v9), *MEMORY[0x277D85DE8]);
 }
 
 @end

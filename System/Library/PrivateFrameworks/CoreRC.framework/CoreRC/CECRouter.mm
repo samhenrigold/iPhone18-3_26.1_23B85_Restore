@@ -1,5 +1,6 @@
 @interface CECRouter
 + (id)routerWithSinkInterface:(id)interface;
+- (BOOL)interface:(id)interface sendFrame:(CECFrame *)frame withRetryCount:(unsigned __int8)count error:(id *)error;
 - (BOOL)interface:(id)interface setAddressMask:(unsigned __int16)mask error:(id *)error;
 - (BOOL)interface:(id)interface setSnoopingMode:(BOOL)mode error:(id *)error;
 - (CECRouter)initWithSinkInterface:(id)interface;
@@ -58,31 +59,31 @@
 
 - (BOOL)interface:(id)interface setAddressMask:(unsigned __int16)mask error:(id *)error
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   interfaces = self->_interfaces;
-  v8 = [(NSMutableSet *)interfaces countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [(NSMutableSet *)interfaces countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
     v10 = 0;
-    v11 = *v16;
+    v11 = *v15;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v16 != v11)
+        if (*v15 != v11)
         {
           objc_enumerationMutation(interfaces);
         }
 
-        v10 |= [*(*(&v15 + 1) + 8 * i) addressMask];
+        v10 |= [*(*(&v14 + 1) + 8 * i) addressMask];
       }
 
-      v9 = [(NSMutableSet *)interfaces countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [(NSMutableSet *)interfaces countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v9);
@@ -93,38 +94,36 @@
     LOWORD(v10) = 0;
   }
 
-  result = [(CECInterface *)self->_sinkInterface setAddressMask:v10 error:error];
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
+  return [(CECInterface *)self->_sinkInterface setAddressMask:v10 error:error];
 }
 
 - (BOOL)interface:(id)interface setSnoopingMode:(BOOL)mode error:(id *)error
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   interfaces = self->_interfaces;
-  v8 = [(NSMutableSet *)interfaces countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [(NSMutableSet *)interfaces countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
     v10 = 0;
-    v11 = *v16;
+    v11 = *v15;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v16 != v11)
+        if (*v15 != v11)
         {
           objc_enumerationMutation(interfaces);
         }
 
-        v10 |= [*(*(&v15 + 1) + 8 * i) snoopingMode];
+        v10 |= [*(*(&v14 + 1) + 8 * i) snoopingMode];
       }
 
-      v9 = [(NSMutableSet *)interfaces countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [(NSMutableSet *)interfaces countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v9);
@@ -135,17 +134,84 @@
     LOBYTE(v10) = 0;
   }
 
-  result = [(CECInterface *)self->_sinkInterface setSnoopingMode:v10 & 1 error:error];
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
+  return [(CECInterface *)self->_sinkInterface setSnoopingMode:v10 & 1 error:error];
+}
+
+- (BOOL)interface:(id)interface sendFrame:(CECFrame *)frame withRetryCount:(unsigned __int8)count error:(id *)error
+{
+  v33 = *MEMORY[0x277D85DE8];
+  v9 = frame->blocks[0];
+  sinkInterface = self->_sinkInterface;
+  v32 = *frame;
+  v11 = [(CECInterface *)sinkInterface sendFrame:&v32 withRetryCount:count error:error];
+  v27 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  obj = self->_interfaces;
+  v12 = [(NSMutableSet *)obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+  if (v12)
+  {
+    v13 = v12;
+    v25 = v11;
+    v14 = 0;
+    v15 = 1 << (v9 & 0xF);
+    v16 = *v28;
+    do
+    {
+      for (i = 0; i != v13; ++i)
+      {
+        if (*v28 != v16)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v18 = *(*(&v27 + 1) + 8 * i);
+        snoopingMode = [v18 snoopingMode];
+        v20 = [v18 addressMask] & v15;
+        if (v20)
+        {
+          v21 = 1;
+        }
+
+        else
+        {
+          v21 = snoopingMode;
+        }
+
+        if (v18 != interface && v21 != 0)
+        {
+          v32 = *frame;
+          [v18 receivedFrame:&v32];
+        }
+
+        if (v20)
+        {
+          ++v14;
+        }
+      }
+
+      v13 = [(NSMutableSet *)obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+    }
+
+    while (v13);
+    v23 = v14 != 0;
+    v11 = v25;
+  }
+
+  else
+  {
+    v23 = 0;
+  }
+
+  return v11 || v23;
 }
 
 - (void)interface:(id)interface receivedFrame:(CECFrame *)frame
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v5 = *frame;
-  [(CECRouter *)self interface:interface sendFrame:&v5 withRetryCount:0 error:0];
-  v4 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
+  v4 = *frame;
+  [(CECRouter *)self interface:interface sendFrame:&v4 withRetryCount:0 error:0];
 }
 
 @end

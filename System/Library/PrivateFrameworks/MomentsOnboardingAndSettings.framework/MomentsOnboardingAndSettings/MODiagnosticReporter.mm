@@ -22,11 +22,11 @@
   [manager getDiagnosticReporterConfiguration:v3];
 }
 
-uint64_t __74__MODiagnosticReporter_MOCore__configureWithOnboardingAndSettingsManager___block_invoke(uint64_t result, uint64_t a2, uint64_t a3)
+id *__74__MODiagnosticReporter_MOCore__configureWithOnboardingAndSettingsManager___block_invoke(id *result, uint64_t a2, uint64_t a3)
 {
   if (!a3)
   {
-    return [*(result + 32) _configureFromDictionary:a2];
+    return [result[4] _configureFromDictionary:a2];
   }
 
   return result;
@@ -81,7 +81,7 @@ uint64_t __39__MODiagnosticReporter_defaultReporter__block_invoke()
 
 - (void)_notificationHandlerWithNotificationRef:(__CFUserNotification *)ref andOptionFlags:(unint64_t)flags
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   p_notification = &self->_notification;
   if (self->_notification != ref)
   {
@@ -96,9 +96,9 @@ uint64_t __39__MODiagnosticReporter_defaultReporter__block_invoke()
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:flags];
-    v14 = 138412290;
-    v15 = v9;
-    _os_log_impl(&dword_25A200000, v8, OS_LOG_TYPE_DEFAULT, "Received response flags %@", &v14, 0xCu);
+    v13 = 138412290;
+    v14 = v9;
+    _os_log_impl(&dword_25A200000, v8, OS_LOG_TYPE_DEFAULT, "Received response flags %@", &v13, 0xCu);
   }
 
   if ((flags & 3) != 0)
@@ -122,13 +122,11 @@ uint64_t __39__MODiagnosticReporter_defaultReporter__block_invoke()
   p_notification[1] = 0;
   v12 = self->_notificationAcceptanceCallback;
   self->_notificationAcceptanceCallback = 0;
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)showUserNotificationWithTitle:(id)title message:(id)message cancelButtonTitle:(id)buttonTitle acceptButtonTitle:(id)acceptButtonTitle withAcceptanceBlock:(id)block
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   if (!self->_notification)
   {
@@ -137,7 +135,7 @@ uint64_t __39__MODiagnosticReporter_defaultReporter__block_invoke()
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v25 = v14;
+      v24 = v14;
       _os_log_impl(&dword_25A200000, v15, OS_LOG_TYPE_DEFAULT, "Prompting diagnostic report notification with alert parameters %@", buf, 0xCu);
     }
 
@@ -175,7 +173,7 @@ LABEL_15:
       v22 = _mo_log_facility_get_os_log(MOLogFacilityDiagnosticReporter);
       if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
-        [MODiagnosticReporter showUserNotificationWithTitle:buf message:? cancelButtonTitle:? acceptButtonTitle:? withAcceptanceBlock:?];
+        [MODiagnosticReporter showUserNotificationWithTitle:message:cancelButtonTitle:acceptButtonTitle:withAcceptanceBlock:];
       }
     }
 
@@ -190,13 +188,11 @@ LABEL_15:
 
   self->_lastResult = 2;
 LABEL_16:
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reportIncident:(id)incident subtype:(id)subtype context:(id)context
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   incidentCopy = incident;
   subtypeCopy = subtype;
   contextCopy = context;
@@ -255,9 +251,9 @@ LABEL_21:
             if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412546;
-              v38 = subtypeCopy;
-              v39 = 2112;
-              v40 = contextCopy;
+              v37 = subtypeCopy;
+              v38 = 2112;
+              v39 = contextCopy;
               _os_log_impl(&dword_25A200000, v18, OS_LOG_TYPE_DEFAULT, "MODiagnosticReporter reporting incident [subtype=%@,context=%@]", buf, 0x16u);
             }
 
@@ -277,15 +273,15 @@ LABEL_21:
             v22 = [MEMORY[0x277CCACA8] stringWithFormat:v19, processName];
             contextCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"%@\nSubtype: %@\nContext: %@", v22, subtypeCopy, contextCopy];
 
-            v33[0] = MEMORY[0x277D85DD0];
-            v33[1] = 3221225472;
-            v33[2] = __55__MODiagnosticReporter_reportIncident_subtype_context___block_invoke;
-            v33[3] = &unk_27991EFB0;
-            v33[4] = selfCopy;
-            v34 = incidentCopy;
-            v35 = subtypeCopy;
-            v36 = contextCopy;
-            [(MODiagnosticReporter *)selfCopy showUserNotificationWithTitle:@"Issue Detected" message:contextCopy cancelButtonTitle:@"Cancel" acceptButtonTitle:@"Accept" withAcceptanceBlock:v33];
+            v32[0] = MEMORY[0x277D85DD0];
+            v32[1] = 3221225472;
+            v32[2] = __55__MODiagnosticReporter_reportIncident_subtype_context___block_invoke;
+            v32[3] = &unk_27991EFB0;
+            v32[4] = selfCopy;
+            v33 = incidentCopy;
+            v34 = subtypeCopy;
+            v35 = contextCopy;
+            [(MODiagnosticReporter *)selfCopy showUserNotificationWithTitle:@"Issue Detected" message:contextCopy cancelButtonTitle:@"Cancel" acceptButtonTitle:@"Accept" withAcceptanceBlock:v32];
 
             selfCopy = contextCopy;
           }
@@ -295,24 +291,24 @@ LABEL_21:
             v24 = _mo_log_facility_get_os_log(MOLogFacilityDiagnosticReporter);
             if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
             {
-              v31 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:selfCopy->_lastResult];
-              v32 = [MEMORY[0x277CCABB0] numberWithDouble:selfCopy->_timeOfLastIncident];
-              v27 = [MEMORY[0x277CCABB0] numberWithDouble:v15];
-              v28 = [MEMORY[0x277CCABB0] numberWithDouble:selfCopy->_refractoryPeriodAfterAcceptance];
-              v29 = [MEMORY[0x277CCABB0] numberWithDouble:selfCopy->_refractoryPeriodAfterRejection];
-              v30 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_onboardingStatus];
+              v30 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:selfCopy->_lastResult];
+              v31 = [MEMORY[0x277CCABB0] numberWithDouble:selfCopy->_timeOfLastIncident];
+              v26 = [MEMORY[0x277CCABB0] numberWithDouble:v15];
+              v27 = [MEMORY[0x277CCABB0] numberWithDouble:selfCopy->_refractoryPeriodAfterAcceptance];
+              v28 = [MEMORY[0x277CCABB0] numberWithDouble:selfCopy->_refractoryPeriodAfterRejection];
+              v29 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_onboardingStatus];
               *buf = 138413570;
-              v38 = v31;
-              v39 = 2112;
-              v40 = v32;
-              v41 = 2112;
-              v42 = v27;
-              v43 = 2112;
-              v44 = v28;
-              v45 = 2112;
-              v46 = v29;
-              v47 = 2112;
-              v48 = v30;
+              v37 = v30;
+              v38 = 2112;
+              v39 = v31;
+              v40 = 2112;
+              v41 = v26;
+              v42 = 2112;
+              v43 = v27;
+              v44 = 2112;
+              v45 = v28;
+              v46 = 2112;
+              v47 = v29;
               _os_log_debug_impl(&dword_25A200000, v24, OS_LOG_TYPE_DEBUG, "MODiagnosticReporter states [_lastResult=%@, _timeOfLastIncident=%@, interval=%@, _refractoryPeriodAfterAcceptance=%@, _refractoryPeriodAfterRejection=%@, _onboardingStatus=%@]", buf, 0x3Eu);
             }
 
@@ -346,13 +342,11 @@ LABEL_21:
       }
     }
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reportIncidentAfterUserConsent:(id)consent subtype:(id)subtype context:(id)context
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v8 = MEMORY[0x277CCACA8];
   v9 = MEMORY[0x277CCAC38];
   contextCopy = context;
@@ -376,14 +370,12 @@ LABEL_21:
   {
     absoluteString = [v22 absoluteString];
     *buf = 138412290;
-    v28 = absoluteString;
+    v27 = absoluteString;
     _os_log_impl(&dword_25A200000, v23, OS_LOG_TYPE_DEFAULT, "Triggering tap to radar with url [%@]", buf, 0xCu);
   }
 
   defaultWorkspace = [MEMORY[0x277CC1E80] defaultWorkspace];
   [defaultWorkspace openURL:v22 configuration:0 completionHandler:&__block_literal_global_98];
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __71__MODiagnosticReporter_reportIncidentAfterUserConsent_subtype_context___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -500,15 +492,6 @@ void __71__MODiagnosticReporter_reportIncidentAfterUserConsent_subtype_context__
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-- (void)showUserNotificationWithTitle:(int *)a1 message:cancelButtonTitle:acceptButtonTitle:withAcceptanceBlock:.cold.3(int *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *a1;
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)reportIncident:subtype:context:.cold.3()
 {
   OUTLINED_FUNCTION_4();
@@ -516,21 +499,12 @@ void __71__MODiagnosticReporter_reportIncidentAfterUserConsent_subtype_context__
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __71__MODiagnosticReporter_reportIncidentAfterUserConsent_subtype_context___block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 - (void)_configureFromDictionary:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_25A200000, a2, OS_LOG_TYPE_DEBUG, "Received configuration %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_25A200000, a2, OS_LOG_TYPE_DEBUG, "Received configuration %@", &v2, 0xCu);
 }
 
 @end

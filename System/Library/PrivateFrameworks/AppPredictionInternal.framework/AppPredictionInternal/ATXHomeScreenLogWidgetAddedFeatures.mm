@@ -5,6 +5,8 @@
 - (void)_pickIndexForNegativeExampleFromGalleryItems;
 - (void)_populateFeaturesForAddedWidget;
 - (void)_populateFeaturesForNegativeExample;
+- (void)_populateHomeScreenConfigFeaturesForWidgetBundleId:(id)id widgetKind:(id)kind parentAppBundleId:(id)bundleId widgetWasAdded:(BOOL)added;
+- (void)_populateParentAppFeaturesForParentAppBundleId:(id)id widgetWasAdded:(BOOL)added;
 - (void)_sendToCoreAnalytics;
 - (void)logWidgetAddedFeaturesInCoreAnalytics;
 @end
@@ -34,19 +36,17 @@
 
 - (void)_sendToCoreAnalytics
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v3 = __atxlog_handle_home_screen();
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = __atxlog_handle_home_screen(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     widgetAddedFeatures = self->_widgetAddedFeatures;
-    v7 = 138412290;
-    v8 = widgetAddedFeatures;
-    _os_log_impl(&dword_2263AA000, v3, OS_LOG_TYPE_INFO, "ATXHomeScreenLogWidgetAddedFeatures: Widget added features: %@", &v7, 0xCu);
+    v5 = 138412290;
+    v6 = widgetAddedFeatures;
+    _os_log_impl(&dword_2263AA000, v3, OS_LOG_TYPE_INFO, "ATXHomeScreenLogWidgetAddedFeatures: Widget added features: %@", &v5, 0xCu);
   }
 
-  v5 = self->_widgetAddedFeatures;
   AnalyticsSendEvent();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_populateFeaturesForAddedWidget
@@ -182,57 +182,314 @@ LABEL_7:
   }
 }
 
+- (void)_populateParentAppFeaturesForParentAppBundleId:(id)id widgetWasAdded:(BOOL)added
+{
+  addedCopy = added;
+  v78[1] = *MEMORY[0x277D85DE8];
+  if (id)
+  {
+    idCopy = id;
+    v75 = +[_ATXAppInfoManager sharedInstance];
+    v76 = +[_ATXAppLaunchHistogramManager sharedInstance];
+    v7 = [v76 histogramForLaunchType:0];
+    v74 = [v76 categoricalHistogramForLaunchType:32];
+    v8 = [MEMORY[0x277CEB3B8] genreForBundle:idCopy];
+    widgetAddedFeatures = self->_widgetAddedFeatures;
+    v10 = [(ATXHomeScreenLogWidgetAddedFeatures *)self _key:@"parentAppGenreIdFor" byAppendingStringIndicatingIfWidgetWasAdded:addedCopy];
+    [(NSMutableDictionary *)widgetAddedFeatures setObject:v8 forKeyedSubscript:v10];
+
+    v11 = MEMORY[0x277CCABB0];
+    v12 = [v75 lastLaunchDateForBundleId:idCopy];
+    [v12 timeIntervalSinceNow];
+    v13 = [v11 numberWithDouble:?];
+    v14 = self->_widgetAddedFeatures;
+    v15 = [(ATXHomeScreenLogWidgetAddedFeatures *)self _key:@"secondsSinceLastParentAppLaunchFor" byAppendingStringIndicatingIfWidgetWasAdded:addedCopy];
+    [(NSMutableDictionary *)v14 setObject:v13 forKeyedSubscript:v15];
+
+    v16 = MEMORY[0x277CCABB0];
+    v78[0] = idCopy;
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v78 count:1];
+    [v7 totalLaunchesForBundleIds:v17];
+    v18 = [v16 numberWithDouble:?];
+    v19 = self->_widgetAddedFeatures;
+    v20 = [(ATXHomeScreenLogWidgetAddedFeatures *)self _key:@"parentAppTotalDecayedLaunchesFor" byAppendingStringIndicatingIfWidgetWasAdded:addedCopy];
+    [(NSMutableDictionary *)v19 setObject:v18 forKeyedSubscript:v20];
+
+    v21 = MEMORY[0x277CCABB0];
+    v73 = v7;
+    [v7 overallLaunchPopularityForBundleId:idCopy];
+    v22 = [v21 numberWithDouble:?];
+    v23 = self->_widgetAddedFeatures;
+    v24 = [(ATXHomeScreenLogWidgetAddedFeatures *)self _key:@"parentAppRelativeLaunchPopularityFor" byAppendingStringIndicatingIfWidgetWasAdded:addedCopy];
+    [(NSMutableDictionary *)v23 setObject:v22 forKeyedSubscript:v24];
+
+    v25 = MEMORY[0x277CCABB0];
+    [v7 entropyForBundleId:idCopy];
+    v26 = [v25 numberWithDouble:?];
+    v27 = self->_widgetAddedFeatures;
+    v28 = [(ATXHomeScreenLogWidgetAddedFeatures *)self _key:@"parentAppEntropyFor" byAppendingStringIndicatingIfWidgetWasAdded:addedCopy];
+    [(NSMutableDictionary *)v27 setObject:v26 forKeyedSubscript:v28];
+
+    currentNotificationSettingsCenter = [MEMORY[0x277D77F68] currentNotificationSettingsCenter];
+    v29 = [currentNotificationSettingsCenter notificationSourceWithIdentifier:idCopy];
+    v30 = MEMORY[0x277CCABB0];
+    sourceSettings = [v29 sourceSettings];
+    notificationSettings = [sourceSettings notificationSettings];
+    v33 = [v30 numberWithInteger:{objc_msgSend(notificationSettings, "authorizationStatus")}];
+    v34 = self->_widgetAddedFeatures;
+    v35 = [(ATXHomeScreenLogWidgetAddedFeatures *)self _key:@"parentAppNotificationsAreAuthorizedFor" byAppendingStringIndicatingIfWidgetWasAdded:addedCopy];
+    [(NSMutableDictionary *)v34 setObject:v33 forKeyedSubscript:v35];
+
+    v36 = MEMORY[0x277CCABB0];
+    [v74 totalLaunchesForBundleId:idCopy category:@"r"];
+    v37 = [v36 numberWithDouble:?];
+    v38 = self->_widgetAddedFeatures;
+    v39 = [(ATXHomeScreenLogWidgetAddedFeatures *)self _key:@"parentAppNotificationsReceivedFor" byAppendingStringIndicatingIfWidgetWasAdded:addedCopy];
+    [(NSMutableDictionary *)v38 setObject:v37 forKeyedSubscript:v39];
+
+    v40 = MEMORY[0x277CCABB0];
+    [v74 totalLaunchesForBundleId:idCopy category:@"e"];
+    v41 = [v40 numberWithDouble:?];
+    v42 = self->_widgetAddedFeatures;
+    v43 = [(ATXHomeScreenLogWidgetAddedFeatures *)self _key:@"parentAppNotificationsEngagedFor" byAppendingStringIndicatingIfWidgetWasAdded:addedCopy];
+    [(NSMutableDictionary *)v42 setObject:v41 forKeyedSubscript:v43];
+
+    v44 = MEMORY[0x277CCABB0];
+    [v74 totalLaunchesForBundleId:idCopy category:@"c"];
+    v45 = [v44 numberWithDouble:?];
+    v46 = self->_widgetAddedFeatures;
+    v47 = [(ATXHomeScreenLogWidgetAddedFeatures *)self _key:@"parentAppNotificationsClearedFor" byAppendingStringIndicatingIfWidgetWasAdded:addedCopy];
+    [(NSMutableDictionary *)v46 setObject:v45 forKeyedSubscript:v47];
+
+    v48 = MEMORY[0x277CCABB0];
+    [v74 totalLaunchesForBundleId:idCopy category:@"i"];
+    v49 = [v48 numberWithDouble:?];
+    v50 = self->_widgetAddedFeatures;
+    v51 = [(ATXHomeScreenLogWidgetAddedFeatures *)self _key:@"parentAppNotificationsClearedFor" byAppendingStringIndicatingIfWidgetWasAdded:addedCopy];
+    [(NSMutableDictionary *)v50 setObject:v49 forKeyedSubscript:v51];
+  }
+
+  else
+  {
+    v52 = self->_widgetAddedFeatures;
+    v53 = 0;
+    v54 = [(ATXHomeScreenLogWidgetAddedFeatures *)self _key:@"parentAppGenreIdFor" byAppendingStringIndicatingIfWidgetWasAdded:addedCopy];
+    [(NSMutableDictionary *)v52 setObject:@"Not applicable" forKeyedSubscript:v54];
+
+    v55 = self->_widgetAddedFeatures;
+    v56 = [(ATXHomeScreenLogWidgetAddedFeatures *)self _key:@"secondsSinceLastParentAppLaunchFor" byAppendingStringIndicatingIfWidgetWasAdded:addedCopy];
+    [(NSMutableDictionary *)v55 setObject:&unk_283A56030 forKeyedSubscript:v56];
+
+    v57 = self->_widgetAddedFeatures;
+    v58 = [(ATXHomeScreenLogWidgetAddedFeatures *)self _key:@"parentAppTotalDecayedLaunchesFor" byAppendingStringIndicatingIfWidgetWasAdded:addedCopy];
+    [(NSMutableDictionary *)v57 setObject:&unk_283A56030 forKeyedSubscript:v58];
+
+    v59 = self->_widgetAddedFeatures;
+    v60 = [(ATXHomeScreenLogWidgetAddedFeatures *)self _key:@"parentAppRelativeLaunchPopularityFor" byAppendingStringIndicatingIfWidgetWasAdded:addedCopy];
+    [(NSMutableDictionary *)v59 setObject:&unk_283A56030 forKeyedSubscript:v60];
+
+    v61 = self->_widgetAddedFeatures;
+    v62 = [(ATXHomeScreenLogWidgetAddedFeatures *)self _key:@"parentAppEntropyFor" byAppendingStringIndicatingIfWidgetWasAdded:addedCopy];
+    [(NSMutableDictionary *)v61 setObject:&unk_283A56030 forKeyedSubscript:v62];
+
+    v63 = self->_widgetAddedFeatures;
+    v64 = [(ATXHomeScreenLogWidgetAddedFeatures *)self _key:@"parentAppNotificationsAreAuthorizedFor" byAppendingStringIndicatingIfWidgetWasAdded:addedCopy];
+    [(NSMutableDictionary *)v63 setObject:&unk_283A56030 forKeyedSubscript:v64];
+
+    v65 = self->_widgetAddedFeatures;
+    v66 = [(ATXHomeScreenLogWidgetAddedFeatures *)self _key:@"parentAppNotificationsReceivedFor" byAppendingStringIndicatingIfWidgetWasAdded:addedCopy];
+    [(NSMutableDictionary *)v65 setObject:&unk_283A56030 forKeyedSubscript:v66];
+
+    v67 = self->_widgetAddedFeatures;
+    v68 = [(ATXHomeScreenLogWidgetAddedFeatures *)self _key:@"parentAppNotificationsEngagedFor" byAppendingStringIndicatingIfWidgetWasAdded:addedCopy];
+    [(NSMutableDictionary *)v67 setObject:&unk_283A56030 forKeyedSubscript:v68];
+
+    v69 = self->_widgetAddedFeatures;
+    v70 = [(ATXHomeScreenLogWidgetAddedFeatures *)self _key:@"parentAppNotificationsIgnoredFor" byAppendingStringIndicatingIfWidgetWasAdded:addedCopy];
+    [(NSMutableDictionary *)v69 setObject:&unk_283A56030 forKeyedSubscript:v70];
+
+    v71 = self->_widgetAddedFeatures;
+    v77 = [(ATXHomeScreenLogWidgetAddedFeatures *)self _key:@"parentAppNotificationsClearedFor" byAppendingStringIndicatingIfWidgetWasAdded:addedCopy];
+    [(NSMutableDictionary *)v71 setObject:&unk_283A56030 forKeyedSubscript:?];
+  }
+}
+
+- (void)_populateHomeScreenConfigFeaturesForWidgetBundleId:(id)id widgetKind:(id)kind parentAppBundleId:(id)bundleId widgetWasAdded:(BOOL)added
+{
+  addedCopy = added;
+  v57 = *MEMORY[0x277D85DE8];
+  idCopy = id;
+  kindCopy = kind;
+  widgetAddedFeatures = self->_widgetAddedFeatures;
+  v12 = [(ATXHomeScreenLogWidgetAddedFeatures *)self _key:@"widgetIsAlreadyAddedOnTodayPageFor" byAppendingStringIndicatingIfWidgetWasAdded:addedCopy];
+  [(NSMutableDictionary *)widgetAddedFeatures setObject:&unk_283A56030 forKeyedSubscript:v12];
+
+  v13 = self->_widgetAddedFeatures;
+  v14 = [(ATXHomeScreenLogWidgetAddedFeatures *)self _key:@"widgetIsAlreadyAddedOnHomeScreenFor" byAppendingStringIndicatingIfWidgetWasAdded:addedCopy];
+  [(NSMutableDictionary *)v13 setObject:&unk_283A56030 forKeyedSubscript:v14];
+
+  v15 = self->_widgetAddedFeatures;
+  v16 = [(ATXHomeScreenLogWidgetAddedFeatures *)self _key:@"widgetFromParentAppBundleIdIsAlreadyAddedOnTodayPageFor" byAppendingStringIndicatingIfWidgetWasAdded:addedCopy];
+  [(NSMutableDictionary *)v15 setObject:&unk_283A56030 forKeyedSubscript:v16];
+
+  v17 = self->_widgetAddedFeatures;
+  v18 = [(ATXHomeScreenLogWidgetAddedFeatures *)self _key:@"widgetFromParentAppBundleIdIsAlreadyAddedOnHomeScreenFor" byAppendingStringIndicatingIfWidgetWasAdded:addedCopy];
+  [(NSMutableDictionary *)v17 setObject:&unk_283A56030 forKeyedSubscript:v18];
+
+  v19 = self->_widgetAddedFeatures;
+  v20 = [(ATXHomeScreenLogWidgetAddedFeatures *)self _key:@"parentAppIsOnDockFor" byAppendingStringIndicatingIfWidgetWasAdded:addedCopy];
+  [(NSMutableDictionary *)v19 setObject:&unk_283A56030 forKeyedSubscript:v20];
+
+  v21 = objc_opt_new();
+  v53 = 0;
+  v22 = [v21 loadHomeScreenAndTodayPageConfigurationsWithError:&v53];
+  v23 = v53;
+  v24 = v23;
+  if (v22)
+  {
+    v49[0] = MEMORY[0x277D85DD0];
+    v49[1] = 3221225472;
+    v49[2] = __134__ATXHomeScreenLogWidgetAddedFeatures__populateHomeScreenConfigFeaturesForWidgetBundleId_widgetKind_parentAppBundleId_widgetWasAdded___block_invoke;
+    v49[3] = &unk_27859C0A0;
+    v49[4] = self;
+    v50 = idCopy;
+    v51 = kindCopy;
+    v52 = addedCopy;
+    [v22 enumerateObjectsUsingBlock:v49];
+    v48 = v24;
+    v25 = [v21 loadDockAppListWithError:&v48];
+    v26 = v48;
+
+    if (v25)
+    {
+      v46 = 0u;
+      v47 = 0u;
+      v44 = 0u;
+      v45 = 0u;
+      v43 = v25;
+      v28 = v25;
+      v29 = [v28 countByEnumeratingWithState:&v44 objects:v54 count:16];
+      if (v29)
+      {
+        v30 = v29;
+        v38 = v26;
+        v39 = v22;
+        v40 = v21;
+        v41 = kindCopy;
+        v42 = idCopy;
+        v31 = *v45;
+        do
+        {
+          for (i = 0; i != v30; ++i)
+          {
+            if (*v45 != v31)
+            {
+              objc_enumerationMutation(v28);
+            }
+
+            v33 = *(*(&v44 + 1) + 8 * i);
+            v34 = [(ATXHomeScreenEvent *)self->_hsEvent appBundleId:v38];
+            LODWORD(v33) = [v33 isEqualToString:v34];
+
+            if (v33)
+            {
+              v35 = self->_widgetAddedFeatures;
+              v36 = [(ATXHomeScreenLogWidgetAddedFeatures *)self _key:@"parentAppIsOnDockFor" byAppendingStringIndicatingIfWidgetWasAdded:addedCopy];
+              [(NSMutableDictionary *)v35 setObject:&unk_283A56048 forKeyedSubscript:v36];
+            }
+          }
+
+          v30 = [v28 countByEnumeratingWithState:&v44 objects:v54 count:16];
+        }
+
+        while (v30);
+        kindCopy = v41;
+        idCopy = v42;
+        v22 = v39;
+        v21 = v40;
+        v26 = v38;
+      }
+
+      v25 = v43;
+    }
+
+    else
+    {
+      v28 = __atxlog_handle_home_screen(v27);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138412290;
+        v56 = v26;
+        _os_log_impl(&dword_2263AA000, v28, OS_LOG_TYPE_DEFAULT, "ATXHomeScreenLogWidgetAddedFeatures: failed to fetch apps on dock with error: %@", buf, 0xCu);
+      }
+    }
+  }
+
+  else
+  {
+    v37 = __atxlog_handle_home_screen(v23);
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412290;
+      v56 = v24;
+      _os_log_impl(&dword_2263AA000, v37, OS_LOG_TYPE_DEFAULT, "ATXHomeScreenLogWidgetAddedFeatures: failed to fetch home screen config with error: %@", buf, 0xCu);
+    }
+
+    v26 = v24;
+  }
+}
+
 void __134__ATXHomeScreenLogWidgetAddedFeatures__populateHomeScreenConfigFeaturesForWidgetBundleId_widgetKind_parentAppBundleId_widgetWasAdded___block_invoke(uint64_t a1, void *a2)
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   v3 = a2;
   ATXStackLocationForPageAndIndex();
+  v45 = 0u;
   v46 = 0u;
   v47 = 0u;
   v48 = 0u;
-  v49 = 0u;
   v4 = [v3 stacks];
-  v37 = v3;
+  v36 = v3;
   v5 = [v3 panels];
   v6 = [v4 arrayByAddingObjectsFromArray:v5];
 
   obj = v6;
-  v40 = [v6 countByEnumeratingWithState:&v46 objects:v51 count:16];
-  if (v40)
+  v39 = [v6 countByEnumeratingWithState:&v45 objects:v50 count:16];
+  if (v39)
   {
-    v39 = *v47;
+    v38 = *v46;
     do
     {
       v7 = 0;
       do
       {
-        if (*v47 != v39)
+        if (*v46 != v38)
         {
           objc_enumerationMutation(obj);
         }
 
-        v41 = v7;
-        v8 = *(*(&v46 + 1) + 8 * v7);
+        v40 = v7;
+        v8 = *(*(&v45 + 1) + 8 * v7);
+        v41 = 0u;
         v42 = 0u;
         v43 = 0u;
         v44 = 0u;
-        v45 = 0u;
         v9 = [v8 widgets];
-        v10 = [v9 countByEnumeratingWithState:&v42 objects:v50 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v41 objects:v49 count:16];
         if (v10)
         {
           v11 = v10;
-          v12 = *v43;
+          v12 = *v42;
           do
           {
             for (i = 0; i != v11; ++i)
             {
-              if (*v43 != v12)
+              if (*v42 != v12)
               {
                 objc_enumerationMutation(v9);
               }
 
-              v14 = *(*(&v42 + 1) + 8 * i);
+              v14 = *(*(&v41 + 1) + 8 * i);
               v15 = [v14 widgetUniqueId];
               v16 = [*(*(a1 + 32) + 16) widgetUniqueId];
               v17 = [v15 isEqualToString:v16];
@@ -286,23 +543,21 @@ LABEL_22:
               }
             }
 
-            v11 = [v9 countByEnumeratingWithState:&v42 objects:v50 count:16];
+            v11 = [v9 countByEnumeratingWithState:&v41 objects:v49 count:16];
           }
 
           while (v11);
         }
 
-        v7 = v41 + 1;
+        v7 = v40 + 1;
       }
 
-      while (v41 + 1 != v40);
-      v40 = [obj countByEnumeratingWithState:&v46 objects:v51 count:16];
+      while (v40 + 1 != v39);
+      v39 = [obj countByEnumeratingWithState:&v45 objects:v50 count:16];
     }
 
-    while (v40);
+    while (v39);
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_pickIndexForNegativeExampleFromGalleryItems
@@ -319,7 +574,7 @@ LABEL_22:
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) != 0 && self->_rankOfWidgetInGallery - 1 != v6)
       {
-        v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v6];
+        v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v6];
 
         goto LABEL_14;
       }
@@ -328,8 +583,8 @@ LABEL_22:
     }
 
     while (v5);
-    v8 = __atxlog_handle_home_screen();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+    v9 = __atxlog_handle_home_screen(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
       [(ATXHomeScreenLogWidgetAddedFeatures *)v4 _pickIndexForNegativeExampleFromGalleryItems];
     }
@@ -337,17 +592,17 @@ LABEL_22:
 
   else
   {
-    v9 = __atxlog_handle_home_screen();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+    v10 = __atxlog_handle_home_screen(0);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
-      [(ATXHomeScreenLogWidgetAddedFeatures *)v9 _pickIndexForNegativeExampleFromGalleryItems];
+      [(ATXHomeScreenLogWidgetAddedFeatures *)v10 _pickIndexForNegativeExampleFromGalleryItems];
     }
   }
 
-  v10 = 0;
+  v11 = 0;
 LABEL_14:
 
-  return v10;
+  return v11;
 }
 
 - (id)_key:(id)_key byAppendingStringIndicatingIfWidgetWasAdded:(BOOL)added
@@ -369,32 +624,30 @@ LABEL_14:
 
 - (void)logWidgetAddedFeaturesInCoreAnalytics
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v3 = __atxlog_handle_home_screen();
+  v10 = *MEMORY[0x277D85DE8];
+  v3 = __atxlog_handle_home_screen(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     widgetBundleId = [(ATXHomeScreenEvent *)self->_hsEvent widgetBundleId];
     rankOfWidgetInGallery = self->_rankOfWidgetInGallery;
-    v7 = 138412546;
-    v8 = widgetBundleId;
-    v9 = 2048;
-    v10 = rankOfWidgetInGallery;
-    _os_log_impl(&dword_2263AA000, v3, OS_LOG_TYPE_DEFAULT, "ATXHomeScreenLogWidgetAddedFeatures: logging new widget added: %@, rank in gallery: %lu", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = widgetBundleId;
+    v8 = 2048;
+    v9 = rankOfWidgetInGallery;
+    _os_log_impl(&dword_2263AA000, v3, OS_LOG_TYPE_DEFAULT, "ATXHomeScreenLogWidgetAddedFeatures: logging new widget added: %@, rank in gallery: %lu", &v6, 0x16u);
   }
 
   [(ATXHomeScreenLogWidgetAddedFeatures *)self _populateFeaturesForAddedWidget];
   [(ATXHomeScreenLogWidgetAddedFeatures *)self _populateFeaturesForNegativeExample];
   [(ATXHomeScreenLogWidgetAddedFeatures *)self _sendToCoreAnalytics];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_pickIndexForNegativeExampleFromGalleryItems
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
   selfCopy = self;
-  _os_log_fault_impl(&dword_2263AA000, a2, OS_LOG_TYPE_FAULT, "ATXHomeScreenLogWidgetAddedFeatures: Unable to find a negative example with negExampleIndexUpperBound: %lu", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_2263AA000, a2, OS_LOG_TYPE_FAULT, "ATXHomeScreenLogWidgetAddedFeatures: Unable to find a negative example with negExampleIndexUpperBound: %lu", &v2, 0xCu);
 }
 
 @end

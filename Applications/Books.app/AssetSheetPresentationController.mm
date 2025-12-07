@@ -28,8 +28,9 @@
 
 - (void)presentationTransitionDidEnd:(BOOL)end
 {
+  endCopy = end;
   selfCopy = self;
-  sub_10075CF70(end);
+  sub_10075CF70(endCopy);
 }
 
 - (void)dismissalTransitionWillBegin
@@ -45,8 +46,9 @@
 
 - (void)dismissalTransitionDidEnd:(BOOL)end
 {
+  endCopy = end;
   selfCopy = self;
-  sub_10075D1F4(end);
+  sub_10075D1F4(endCopy);
 }
 
 @end

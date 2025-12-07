@@ -38,31 +38,31 @@
 
 - (MACFormatter)init
 {
-  v4 = objc_msgSend_macAddressSet(MACFormatter, a2, v2);
-  v18.receiver = self;
-  v18.super_class = MACFormatter;
-  v6 = [(APFormatter *)&v18 initWithCharacterSet:v4 withMaxLength:17];
-  if (v6)
+  v5 = objc_msgSend_macAddressSet(MACFormatter, a2, v2, v3);
+  v25.receiver = self;
+  v25.super_class = MACFormatter;
+  v8 = [(APFormatter *)&v25 initWithCharacterSet:v5 withMaxLength:17];
+  if (v8)
   {
-    v7 = objc_msgSend_characterSetWithCharactersInString_(MEMORY[0x277CCA900], v5, qword_27E383178);
-    objc_msgSend_setPossibleSeparators_(v6, v8, v7);
-    v11 = objc_msgSend_possibleSeparators(v6, v9, v10);
-    v14 = objc_msgSend_invertedSet(v11, v12, v13);
-    objc_msgSend_setPossibleSeparatorsInvertedSet_(v6, v15, v14);
-    objc_msgSend_setUserPreferredSeparator_(v6, v16, @":");
+    v9 = objc_msgSend_characterSetWithCharactersInString_(MEMORY[0x277CCA900], v6, qword_27E383178, v7);
+    objc_msgSend_setPossibleSeparators_(v8, v10, v9, v11);
+    v15 = objc_msgSend_possibleSeparators(v8, v12, v13, v14);
+    v19 = objc_msgSend_invertedSet(v15, v16, v17, v18);
+    objc_msgSend_setPossibleSeparatorsInvertedSet_(v8, v20, v19, v21);
+    objc_msgSend_setUserPreferredSeparator_(v8, v22, @":", v23);
   }
 
-  return v6;
+  return v8;
 }
 
 - (void)dealloc
 {
-  objc_msgSend_setPossibleSeparators_(self, a2, 0);
-  objc_msgSend_setPossibleSeparatorsInvertedSet_(self, v3, 0);
-  objc_msgSend_setUserPreferredSeparator_(self, v4, 0);
-  v5.receiver = self;
-  v5.super_class = MACFormatter;
-  [(APFormatter *)&v5 dealloc];
+  objc_msgSend_setPossibleSeparators_(self, a2, 0, v2);
+  objc_msgSend_setPossibleSeparatorsInvertedSet_(self, v4, 0, v5);
+  objc_msgSend_setUserPreferredSeparator_(self, v6, 0, v7);
+  v8.receiver = self;
+  v8.super_class = MACFormatter;
+  [(APFormatter *)&v8 dealloc];
 }
 
 + (BOOL)parseMACAddress:(const char *)address intoHexString:(char *)string
@@ -129,33 +129,33 @@
 
 - (void)removeMACAddressSeparatorsFromString:(id)string
 {
-  v4 = objc_msgSend_scannerWithString_(MEMORY[0x277CCAC80], a2, string);
-  v6 = objc_msgSend_characterSetWithCharactersInString_(MEMORY[0x277CCA900], v5, qword_27E383178);
-  v9 = objc_msgSend_invertedSet(v6, v7, v8);
-  objc_msgSend_setScanLocation_(v4, v10, 0);
-  if (objc_msgSend_scanCharactersFromSet_intoString_(v4, v11, v9, 0))
+  v5 = objc_msgSend_scannerWithString_(MEMORY[0x277CCAC80], a2, string, v3);
+  v8 = objc_msgSend_characterSetWithCharactersInString_(MEMORY[0x277CCA900], v6, qword_27E383178, v7);
+  v12 = objc_msgSend_invertedSet(v8, v9, v10, v11);
+  objc_msgSend_setScanLocation_(v5, v13, 0, v14);
+  if (objc_msgSend_scanCharactersFromSet_intoString_(v5, v15, v12, 0))
   {
-    v14 = 0;
+    v19 = 0;
     do
     {
-      if ((objc_msgSend_isAtEnd(v4, v12, v13) & 1) == 0)
+      if ((objc_msgSend_isAtEnd(v5, v16, v17, v18) & 1) == 0)
       {
-        v14 = objc_msgSend_scanLocation(v4, v15, v16);
-        objc_msgSend_deleteCharactersInRange_(string, v17, v14, 1);
+        v19 = objc_msgSend_scanLocation(v5, v20, v21, v22);
+        objc_msgSend_deleteCharactersInRange_(string, v23, v19, 1);
       }
 
-      v4 = objc_msgSend_scannerWithString_(MEMORY[0x277CCAC80], v15, string);
-      v20 = objc_msgSend_length(string, v18, v19);
-      v22 = v14;
-      if (v14 > v20)
+      v5 = objc_msgSend_scannerWithString_(MEMORY[0x277CCAC80], v20, string, v22);
+      v27 = objc_msgSend_length(string, v24, v25, v26);
+      v30 = v19;
+      if (v19 > v27)
       {
-        v22 = objc_msgSend_length(string, v21, v14);
+        v30 = objc_msgSend_length(string, v28, v19, v29);
       }
 
-      objc_msgSend_setScanLocation_(v4, v21, v22);
+      objc_msgSend_setScanLocation_(v5, v28, v30, v29);
     }
 
-    while (objc_msgSend_scanCharactersFromSet_intoString_(v4, v23, v9, 0) && !objc_msgSend_isAtEnd(v4, v24, v25));
+    while (objc_msgSend_scanCharactersFromSet_intoString_(v5, v31, v12, 0) && !objc_msgSend_isAtEnd(v5, v32, v33, v34));
   }
 }
 
@@ -170,11 +170,11 @@
   stringCopy = string;
   if (length <= v15)
   {
-    v23 = objc_msgSend_substringWithRange_(v12, v13, location, v16 - location);
-    if (objc_msgSend_length(v23, v24, v25) == 1 && objc_msgSend_rangeOfString_(qword_27E383178, v20, v23) != 0x7FFFFFFFFFFFFFFFLL && v20 == 1)
+    v25 = objc_msgSend_substringWithRange_(v12, v13, location, v16 - location);
+    if (objc_msgSend_length(v25, v26, v27, v28) == 1 && objc_msgSend_rangeOfString_(qword_27E383178, v21, v25, v23) != 0x7FFFFFFFFFFFFFFFLL && v21 == 1)
     {
-      objc_msgSend_setUserPreferredSeparator_(self, v20, v23);
-      v22 = 0;
+      objc_msgSend_setUserPreferredSeparator_(self, v21, v25, v23);
+      v24 = 0;
       goto LABEL_10;
     }
 
@@ -182,162 +182,162 @@
   }
 
   v17 = objc_msgSend_substringWithRange_(string, v13, location, length - v15);
-  if (objc_msgSend_length(v17, v18, v19) != 1)
+  if (objc_msgSend_length(v17, v18, v19, v20) != 1)
   {
 LABEL_9:
-    v22 = 1;
+    v24 = 1;
     goto LABEL_10;
   }
 
-  v22 = objc_msgSend_rangeOfString_(qword_27E383178, v20, v17) == 0x7FFFFFFFFFFFFFFFLL;
+  v24 = objc_msgSend_rangeOfString_(qword_27E383178, v21, v17, v23) == 0x7FFFFFFFFFFFFFFFLL;
 LABEL_10:
   maxLength = self->super._maxLength;
   if (maxLength)
   {
-    v28 = v16 < maxLength || v22;
-    if ((v28 & 1) == 0)
+    v31 = v16 < maxLength || v24;
+    if ((v31 & 1) == 0)
     {
       goto LABEL_52;
     }
 
-    if (objc_msgSend_length(*valid, v20, v21) > self->super._maxLength)
+    if (objc_msgSend_length(*valid, v21, v22, v23) > self->super._maxLength)
     {
-      v29 = objc_msgSend_mutableCopy(*valid, v20, v21);
-      objc_msgSend_removeMACAddressSeparatorsFromString_(self, v30, v29);
-      if (objc_msgSend_length(v29, v31, v32) >= 0xD)
+      v32 = objc_msgSend_mutableCopy(*valid, v21, v22, v23);
+      objc_msgSend_removeMACAddressSeparatorsFromString_(self, v33, v32, v34);
+      if (objc_msgSend_length(v32, v35, v36, v37) >= 0xD)
       {
         goto LABEL_52;
       }
     }
   }
 
-  if (objc_msgSend_characterSet(self, v20, v21, stringCopy))
+  if (objc_msgSend_characterSet(self, v21, v22, v23, stringCopy))
   {
-    v34 = objc_msgSend_scannerWithString_(MEMORY[0x277CCAC80], v20, *valid);
-    v36 = objc_msgSend_characterSetWithCharactersInString_(MEMORY[0x277CCA900], v35, @"\n");
-    objc_msgSend_setCharactersToBeSkipped_(v34, v37, v36);
-    v40 = objc_msgSend_characterSet(self, v38, v39);
-    objc_msgSend_scanCharactersFromSet_intoString_(v34, v41, v40, 0);
-    if ((objc_msgSend_isAtEnd(v34, v42, v43) & 1) == 0)
+    v39 = objc_msgSend_scannerWithString_(MEMORY[0x277CCAC80], v21, *valid, v23);
+    v42 = objc_msgSend_characterSetWithCharactersInString_(MEMORY[0x277CCA900], v40, @"\n", v41);
+    objc_msgSend_setCharactersToBeSkipped_(v39, v43, v42, v44);
+    v48 = objc_msgSend_characterSet(self, v45, v46, v47);
+    objc_msgSend_scanCharactersFromSet_intoString_(v39, v49, v48, 0);
+    if ((objc_msgSend_isAtEnd(v39, v50, v51, v52) & 1) == 0)
     {
       goto LABEL_52;
     }
   }
 
-  if (objc_msgSend_characterSet(self, v20, v33))
+  if (objc_msgSend_characterSet(self, v21, v38, v23))
   {
-    v45 = *valid;
-    v46 = objc_msgSend_invertedCharacterSet(self, v20, v44);
-    objc_msgSend_rangeOfCharacterFromSet_(v45, v47, v46);
-    if (v20)
+    v54 = *valid;
+    v55 = objc_msgSend_invertedCharacterSet(self, v21, v53, v23);
+    objc_msgSend_rangeOfCharacterFromSet_(v54, v56, v55, v57);
+    if (v21)
     {
       goto LABEL_52;
     }
   }
 
-  v48 = length > v15 || v22;
-  if (v48)
+  v58 = length > v15 || v24;
+  if (v58)
   {
     if (length <= 1)
     {
-      v49 = objc_msgSend_length(stringCopy, v20, v44);
-      if (v49 > objc_msgSend_length(v14, v50, v51) && 0xAAAAAAAAAAAAAAABLL * location - 0x5555555555555555 <= 0x5555555555555555)
+      v59 = objc_msgSend_length(stringCopy, v21, v53, v23);
+      if (v59 > objc_msgSend_length(v14, v60, v61, v62) && 0xAAAAAAAAAAAAAAABLL * location - 0x5555555555555555 <= 0x5555555555555555)
       {
-        objc_msgSend_deleteCharactersInRange_(v14, v20, location - 1, length);
+        objc_msgSend_deleteCharactersInRange_(v14, v21, location - 1, length);
         --range->location;
         range->length = 0;
       }
     }
 
-    v52 = objc_msgSend_scannerWithString_(MEMORY[0x277CCAC80], v20, v14);
-    objc_msgSend_setScanLocation_(v52, v53, 0);
-    v56 = objc_msgSend_possibleSeparatorsInvertedSet(self, v54, v55);
-    objc_msgSend_scanCharactersFromSet_intoString_(v52, v57, v56, 0);
+    v63 = objc_msgSend_scannerWithString_(MEMORY[0x277CCAC80], v21, v14, v23);
+    objc_msgSend_setScanLocation_(v63, v64, 0, v65);
+    v69 = objc_msgSend_possibleSeparatorsInvertedSet(self, v66, v67, v68);
+    objc_msgSend_scanCharactersFromSet_intoString_(v63, v70, v69, 0);
     do
     {
-      if (!objc_msgSend_isAtEnd(v52, v58, v59) || objc_msgSend_hasSuffix_(v14, v60, @" "))
+      if (!objc_msgSend_isAtEnd(v63, v71, v72, v73) || objc_msgSend_hasSuffix_(v14, v74, @" ", v76))
       {
-        v16 = objc_msgSend_scanLocation(v52, v60, v61);
-        objc_msgSend_deleteCharactersInRange_(v14, v62, v16, 1);
+        v16 = objc_msgSend_scanLocation(v63, v74, v75, v76);
+        objc_msgSend_deleteCharactersInRange_(v14, v77, v16, 1);
         --range->location;
       }
 
-      v52 = objc_msgSend_scannerWithString_(MEMORY[0x277CCAC80], v60, v14);
-      v65 = objc_msgSend_length(v14, v63, v64);
-      v67 = v16;
-      if (v16 > v65)
+      v63 = objc_msgSend_scannerWithString_(MEMORY[0x277CCAC80], v74, v14, v76);
+      v81 = objc_msgSend_length(v14, v78, v79, v80);
+      v84 = v16;
+      if (v16 > v81)
       {
-        v67 = objc_msgSend_length(v14, v66, v16);
+        v84 = objc_msgSend_length(v14, v82, v16, v83);
       }
 
-      objc_msgSend_setScanLocation_(v52, v66, v67);
-      v70 = objc_msgSend_possibleSeparatorsInvertedSet(self, v68, v69);
-      objc_msgSend_scanCharactersFromSet_intoString_(v52, v71, v70, 0);
+      objc_msgSend_setScanLocation_(v63, v82, v84, v83);
+      v88 = objc_msgSend_possibleSeparatorsInvertedSet(self, v85, v86, v87);
+      objc_msgSend_scanCharactersFromSet_intoString_(v63, v89, v88, 0);
     }
 
-    while (!objc_msgSend_isAtEnd(v52, v72, v73) || (objc_msgSend_hasSuffix_(v14, v58, @" ") & 1) != 0);
-    if (objc_msgSend_length(v14, v58, v59) >= 2)
+    while (!objc_msgSend_isAtEnd(v63, v90, v91, v92) || (objc_msgSend_hasSuffix_(v14, v71, @" ", v73) & 1) != 0);
+    if (objc_msgSend_length(v14, v71, v72, v73) >= 2)
     {
-      v76 = 2;
+      v96 = 2;
       do
       {
-        if (v76 >= self->super._maxLength)
+        if (v96 >= self->super._maxLength)
         {
           break;
         }
 
-        v77 = objc_msgSend_userPreferredSeparator(self, v74, v75);
-        objc_msgSend_insertString_atIndex_(v14, v78, v77, v76);
+        v97 = objc_msgSend_userPreferredSeparator(self, v93, v94, v95);
+        objc_msgSend_insertString_atIndex_(v14, v98, v97, v96);
         ++range->location;
-        v76 += 3;
+        v96 += 3;
       }
 
-      while (v76 <= objc_msgSend_length(v14, v79, v80));
+      while (v96 <= objc_msgSend_length(v14, v99, v100, v101));
     }
 
     *valid = v14;
     return 1;
   }
 
-  v81 = v16;
+  v102 = v16;
   if (v16 % 3 != 2)
   {
     if (v16 % 3 == 1)
     {
-      v81 = v16 + 1;
+      v102 = v16 + 1;
     }
 
     else
     {
-      v81 = v16 - 1;
+      v102 = v16 - 1;
     }
   }
 
-  v82 = (v16 + 1) % 3;
-  if (v82 == 2)
+  v103 = (v16 + 1) % 3;
+  if (v103 == 2)
   {
 LABEL_52:
-    v84 = objc_msgSend_stringWithString_(MEMORY[0x277CCAB68], v20, stringCopy, stringCopy);
+    v105 = objc_msgSend_stringWithString_(MEMORY[0x277CCAB68], v21, stringCopy, v23, stringCopy);
     result = 0;
-    *valid = v84;
+    *valid = v105;
     range->location = location;
     range->length = length;
     return result;
   }
 
-  if (v82)
+  if (v103)
   {
     return 1;
   }
 
   if (v16 == self->super._maxLength - 1)
   {
-    objc_msgSend_deleteCharactersInRange_(v14, v20, v16 - 1, 1);
+    objc_msgSend_deleteCharactersInRange_(v14, v21, v16 - 1, 1);
     --range->location;
     range->length = 0;
   }
 
-  objc_msgSend_insertString_atIndex_(v14, v20, @"0", v81 - 2);
+  objc_msgSend_insertString_atIndex_(v14, v21, @"0", v102 - 2);
   result = 0;
   ++range->location;
   *valid = v14;
@@ -398,10 +398,10 @@ LABEL_52:
 + (id)macAddressSet
 {
   v2 = objc_alloc_init(MEMORY[0x277CCAB50]);
-  objc_msgSend_addCharactersInString_(v2, v3, @"abcdefABCDEF");
-  objc_msgSend_addCharactersInString_(v2, v4, qword_27E383178);
-  v7 = objc_msgSend_decimalDigitCharacterSet(MEMORY[0x277CCA900], v5, v6);
-  objc_msgSend_formUnionWithCharacterSet_(v2, v8, v7);
+  objc_msgSend_addCharactersInString_(v2, v3, @"abcdefABCDEF", v4);
+  objc_msgSend_addCharactersInString_(v2, v5, qword_27E383178, v6);
+  v10 = objc_msgSend_decimalDigitCharacterSet(MEMORY[0x277CCA900], v7, v8, v9);
+  objc_msgSend_formUnionWithCharacterSet_(v2, v11, v10, v12);
 
   return v2;
 }

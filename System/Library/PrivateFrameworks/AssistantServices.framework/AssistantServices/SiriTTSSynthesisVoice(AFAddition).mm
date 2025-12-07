@@ -1,9 +1,9 @@
 @interface SiriTTSSynthesisVoice(AFAddition)
+- (char)AFVoiceGender;
 - (id)SAVoiceGender;
 - (id)SAVoiceQuality;
 - (id)SAVoiceType;
 - (uint64_t)AFVoiceFootprint;
-- (uint64_t)AFVoiceGender;
 - (void)updateWithTargetVoice:()AFAddition;
 @end
 
@@ -77,7 +77,7 @@
   }
 }
 
-- (uint64_t)AFVoiceGender
+- (char)AFVoiceGender
 {
   result = [self gender];
   if ((result - 1) >= 3)
@@ -97,37 +97,23 @@
   language = [v4 language];
 
   language2 = [self language];
-  v8 = [language isEqualToString:language2];
+  isEqualToString = objc_msgSend_isEqualToString_(language);
 
-  if ((v8 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     [self setLanguage:language];
   }
 
   v9 = lowercaseString;
-  if (!lowercaseString)
-  {
-    goto LABEL_5;
-  }
-
-  name2 = [self name];
-  lowercaseString2 = [name2 lowercaseString];
-  v12 = [lowercaseString isEqualToString:lowercaseString2];
-
-  v9 = lowercaseString;
-  if ((v12 & 1) == 0)
+  if (lowercaseString && ([self name], v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "lowercaseString"), v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend_isEqualToString_(lowercaseString), v11, v10, v9 = lowercaseString, (v12 & 1) == 0))
   {
     [self setName:lowercaseString];
   }
 
-  else
+  else if (isEqualToString)
   {
-LABEL_5:
-    if (v8)
-    {
-      [self setName:v9];
-      goto LABEL_9;
-    }
+    [self setName:v9];
+    goto LABEL_9;
   }
 
   [self setFootprint:1];

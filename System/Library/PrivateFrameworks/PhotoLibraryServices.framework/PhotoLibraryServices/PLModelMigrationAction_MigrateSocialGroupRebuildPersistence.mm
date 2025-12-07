@@ -9,14 +9,14 @@
 
 - (int64_t)persistSocialGroupDirectoryJournalInContext:(id)context progress:(id)progress
 {
-  v94 = *MEMORY[0x1E69E9840];
+  v96 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   progressCopy = progress;
   [(PLModelMigrationAction_MigrateSocialGroupRebuildPersistence *)self deleteGraphNodeSocialGroupDirectoryJournal];
   [progressCopy setCompletedUnitCount:{objc_msgSend(progressCopy, "completedUnitCount") + 1}];
   v8 = [PLDirectoryJournal alloc];
   pathManager = [(PLModelMigrationActionCore *)self pathManager];
-  v49 = [(PLDirectoryJournal *)v8 initWithPathManager:pathManager payloadClass:objc_opt_class()];
+  v51 = [(PLDirectoryJournal *)v8 initWithPathManager:pathManager payloadClass:objc_opt_class()];
 
   v10 = MEMORY[0x1E695D5E0];
   v11 = +[PLGraphNode entityName];
@@ -26,20 +26,22 @@
   [v12 setPredicate:v13];
 
   [v12 setFetchBatchSize:100];
-  v57 = 0;
-  v14 = [contextCopy executeFetchRequest:v12 error:&v57];
-  v15 = v57;
+  v59 = 0;
+  v14 = [contextCopy executeFetchRequest:v12 error:&v59];
+  v15 = v59;
   if (!v14)
   {
-    v36 = PLMigrationGetLog();
-    v37 = os_log_type_enabled(v36, OS_LOG_TYPE_ERROR);
+    v37 = PLMigrationGetLog();
+    v38 = os_log_type_enabled(v37, OS_LOG_TYPE_ERROR);
 
-    if (v37)
+    if (v38)
     {
       logger = [(PLModelMigrationActionCore *)self logger];
 
       if (logger)
       {
+        v93 = 0u;
+        v94 = 0u;
         v91 = 0u;
         v92 = 0u;
         v89 = 0u;
@@ -68,86 +70,92 @@
         v68 = 0u;
         v65 = 0u;
         v66 = 0u;
-        v63 = 0u;
-        v64 = 0u;
         memset(buf, 0, sizeof(buf));
-        v39 = PLMigrationGetLog();
-        os_log_type_enabled(v39, OS_LOG_TYPE_ERROR);
-        v58 = 138412290;
-        v59 = v15;
-        LODWORD(v44) = 12;
-        v40 = _os_log_send_and_compose_impl();
-
-        v41 = [(PLModelMigrationActionCore *)self logger:&v58];
-        [v41 logWithMessage:v40 fromCodeLocation:"PLModelMigrationActions_18000.m" type:{895, 16}];
-
-        if (v40 != buf)
+        v40 = PLMigrationGetLog();
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
         {
-          free(v40);
+          v41 = 3;
+        }
+
+        else
+        {
+          v41 = 2;
+        }
+
+        v60 = 138412290;
+        v61 = v15;
+        v42 = _os_log_send_and_compose_impl(v41, 0, buf, 512, &dword_19BF1F000, v40, 16, "persistSocialGroupDirectoryJournalInContext fetch request failed: %@", &v60, 12);
+
+        logger2 = [(PLModelMigrationActionCore *)self logger];
+        [logger2 logWithMessage:v42 fromCodeLocation:"PLModelMigrationActions_18000.m" type:{895, 16}];
+
+        if (v42 != buf)
+        {
+          free(v42);
         }
 
         v17 = 1;
-        goto LABEL_33;
+        goto LABEL_39;
       }
 
-      v42 = PLMigrationGetLog();
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+      v44 = PLMigrationGetLog();
+      if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
         *&buf[4] = v15;
-        _os_log_impl(&dword_19BF1F000, v42, OS_LOG_TYPE_ERROR, "persistSocialGroupDirectoryJournalInContext fetch request failed: %@", buf, 0xCu);
+        _os_log_impl(&dword_19BF1F000, v44, OS_LOG_TYPE_ERROR, "persistSocialGroupDirectoryJournalInContext fetch request failed: %@", buf, 0xCu);
       }
     }
 
     v17 = 1;
-    goto LABEL_33;
+    goto LABEL_39;
   }
 
-  v16 = [MEMORY[0x1E696AE38] discreteProgressWithTotalUnitCount:{objc_msgSend(v14, "count")}];
+  v16 = [MEMORY[0x1E696AE38] discreteProgressWithTotalUnitCount:objc_msgSend_count(v14)];
   v17 = 1;
   [progressCopy addChild:v16 withPendingUnitCount:1];
+  v57 = 0u;
+  v58 = 0u;
   v55 = 0u;
   v56 = 0u;
-  v53 = 0u;
-  v54 = 0u;
   obj = v14;
-  v18 = [obj countByEnumeratingWithState:&v53 objects:v93 count:16];
+  v18 = [obj countByEnumeratingWithState:&v55 objects:v95 count:16];
   if (v18)
   {
     v19 = v18;
-    v45 = v14;
-    v46 = v12;
-    v47 = progressCopy;
-    v48 = contextCopy;
-    v20 = *v54;
-    v21 = v49;
+    v47 = v14;
+    v48 = v12;
+    v49 = progressCopy;
+    v50 = contextCopy;
+    v20 = *v56;
+    v21 = v51;
     while (2)
     {
       for (i = 0; i != v19; ++i)
       {
-        if (*v54 != v20)
+        if (*v56 != v20)
         {
           objc_enumerationMutation(obj);
         }
 
-        v23 = *(*(&v53 + 1) + 8 * i);
-        v52 = v15;
-        v24 = [(PLModelMigrationActionCore *)self isCancelledWithError:&v52];
-        v25 = v52;
+        v23 = *(*(&v55 + 1) + 8 * i);
+        v54 = v15;
+        v24 = [(PLModelMigrationActionCore *)self isCancelledWithError:&v54];
+        v25 = v54;
 
         if (v24)
         {
-          progressCopy = v47;
-          contextCopy = v48;
-          v14 = v45;
-          v12 = v46;
+          progressCopy = v49;
+          contextCopy = v50;
+          v14 = v47;
+          v12 = v48;
           v17 = 2;
-          goto LABEL_28;
+          goto LABEL_34;
         }
 
-        v51 = v25;
-        v26 = [(PLDirectoryJournal *)v21 persistManagedObject:v23 error:&v51];
-        v15 = v51;
+        v53 = v25;
+        v26 = [(PLDirectoryJournal *)v21 persistManagedObject:v23 error:&v53];
+        v15 = v53;
 
         if (v26)
         {
@@ -161,10 +169,12 @@
 
           if (v28)
           {
-            logger2 = [(PLModelMigrationActionCore *)self logger];
+            logger3 = [(PLModelMigrationActionCore *)self logger];
 
-            if (logger2)
+            if (logger3)
             {
+              v93 = 0u;
+              v94 = 0u;
               v91 = 0u;
               v92 = 0u;
               v89 = 0u;
@@ -193,48 +203,55 @@
               v68 = 0u;
               v65 = 0u;
               v66 = 0u;
-              v63 = 0u;
-              v64 = 0u;
               memset(buf, 0, sizeof(buf));
               v30 = PLMigrationGetLog();
-              os_log_type_enabled(v30, OS_LOG_TYPE_ERROR);
-              uuid = [v23 uuid];
-              v58 = 138543618;
-              v59 = uuid;
-              v60 = 2112;
-              v61 = v15;
-              LODWORD(v44) = 22;
-              v32 = _os_log_send_and_compose_impl();
-
-              v33 = [(PLModelMigrationActionCore *)self logger:&v58];
-              [v33 logWithMessage:v32 fromCodeLocation:"PLModelMigrationActions_18000.m" type:{889, 16}];
-
-              if (v32 != buf)
+              if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
               {
-                free(v32);
+                v31 = 3;
               }
 
-              v21 = v49;
+              else
+              {
+                v31 = 2;
+              }
+
+              uuid = [v23 uuid];
+              v60 = 138543618;
+              v61 = uuid;
+              v62 = 2112;
+              v63 = v15;
+              LODWORD(v46) = 22;
+              v33 = _os_log_send_and_compose_impl(v31, 0, buf, 512, &dword_19BF1F000, v30, 16, "PLDirectoryJournal: persistManagedObject of node %{public}@ failed: %@", &v60, v46);
+
+              logger4 = [(PLModelMigrationActionCore *)self logger];
+              [logger4 logWithMessage:v33 fromCodeLocation:"PLModelMigrationActions_18000.m" type:{889, 16}];
+
+              if (v33 != buf)
+              {
+                free(v33);
+              }
+
+              v21 = v51;
             }
 
             else
             {
-              v34 = PLMigrationGetLog();
-              if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+              v35 = PLMigrationGetLog();
+              if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
               {
                 uuid2 = [v23 uuid];
                 *buf = 138543618;
                 *&buf[4] = uuid2;
                 *&buf[12] = 2112;
                 *&buf[14] = v15;
-                _os_log_impl(&dword_19BF1F000, v34, OS_LOG_TYPE_ERROR, "PLDirectoryJournal: persistManagedObject of node %{public}@ failed: %@", buf, 0x16u);
+                _os_log_impl(&dword_19BF1F000, v35, OS_LOG_TYPE_ERROR, "PLDirectoryJournal: persistManagedObject of node %{public}@ failed: %@", buf, 0x16u);
               }
             }
           }
         }
       }
 
-      v19 = [obj countByEnumeratingWithState:&v53 objects:v93 count:16];
+      v19 = [obj countByEnumeratingWithState:&v55 objects:v95 count:16];
       if (v19)
       {
         continue;
@@ -245,10 +262,10 @@
 
     v25 = v15;
     v17 = 1;
-    progressCopy = v47;
-    contextCopy = v48;
-    v14 = v45;
-    v12 = v46;
+    progressCopy = v49;
+    contextCopy = v50;
+    v14 = v47;
+    v12 = v48;
   }
 
   else
@@ -256,17 +273,17 @@
     v25 = v15;
   }
 
-LABEL_28:
+LABEL_34:
 
   v15 = v25;
-LABEL_33:
+LABEL_39:
 
   return v17;
 }
 
 - (void)deleteGraphNodeSocialGroupDirectoryJournal
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_class();
   v4 = PLMigrationGetLog();
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
@@ -277,6 +294,8 @@ LABEL_33:
 
     if (logger)
     {
+      v60 = 0u;
+      v61 = 0u;
       v58 = 0u;
       v59 = 0u;
       v56 = 0u;
@@ -299,64 +318,72 @@ LABEL_33:
       v41 = 0u;
       v38 = 0u;
       v39 = 0u;
-      v36 = 0u;
       v37 = 0u;
       v35 = 0u;
+      v36 = 0u;
       v33 = 0u;
       v34 = 0u;
       v31 = 0u;
       v32 = 0u;
-      v29 = 0u;
-      v30 = 0u;
       *buf = 0u;
       v7 = PLMigrationGetLog();
-      os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
-      v8 = NSStringFromClass(v3);
-      v26 = 138543362;
-      v27 = v8;
-      LODWORD(v24) = 12;
-      v9 = _os_log_send_and_compose_impl();
-
-      v10 = [(PLModelMigrationActionCore *)self logger:&v26];
-      [v10 logWithMessage:v9 fromCodeLocation:"PLModelMigrationActions_18000.m" type:{860, 0}];
-
-      if (v9 != buf)
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        free(v9);
+        v8 = 3;
+      }
+
+      else
+      {
+        v8 = 2;
+      }
+
+      v9 = NSStringFromClass(v3);
+      v28 = 138543362;
+      v29 = v9;
+      v10 = _os_log_send_and_compose_impl(v8, 0, buf, 512, &dword_19BF1F000, v7, 0, "Deleting existing directory journal payloads for payload class %{public}@", &v28, 12);
+
+      logger2 = [(PLModelMigrationActionCore *)self logger];
+      [logger2 logWithMessage:v10 fromCodeLocation:"PLModelMigrationActions_18000.m" type:{860, 0}];
+
+      if (v10 != buf)
+      {
+        free(v10);
       }
     }
 
     else
     {
-      v11 = PLMigrationGetLog();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v12 = PLMigrationGetLog();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = NSStringFromClass(v3);
+        v13 = NSStringFromClass(v3);
         *buf = 138543362;
-        *&buf[4] = v12;
-        _os_log_impl(&dword_19BF1F000, v11, OS_LOG_TYPE_DEFAULT, "Deleting existing directory journal payloads for payload class %{public}@", buf, 0xCu);
+        *&buf[4] = v13;
+        _os_log_impl(&dword_19BF1F000, v12, OS_LOG_TYPE_DEFAULT, "Deleting existing directory journal payloads for payload class %{public}@", buf, 0xCu);
       }
     }
   }
 
-  v13 = [PLDirectoryJournal alloc];
+  v14 = [PLDirectoryJournal alloc];
   pathManager = [(PLModelMigrationActionCore *)self pathManager];
-  v15 = [(PLDirectoryJournal *)v13 initWithPathManager:pathManager payloadClass:v3];
+  v16 = [(PLDirectoryJournal *)v14 initWithPathManager:pathManager payloadClass:v3];
 
-  v25 = 0;
-  LOBYTE(pathManager) = [(PLDirectoryJournal *)v15 removeAllPersistenceFilesWithError:&v25];
-  v16 = v25;
+  v27 = 0;
+  LOBYTE(pathManager) = [(PLDirectoryJournal *)v16 removeAllPersistenceFilesWithError:&v27];
+  v17 = v27;
   if ((pathManager & 1) == 0)
   {
-    v17 = PLMigrationGetLog();
-    v18 = os_log_type_enabled(v17, OS_LOG_TYPE_ERROR);
+    v18 = PLMigrationGetLog();
+    v19 = os_log_type_enabled(v18, OS_LOG_TYPE_ERROR);
 
-    if (v18)
+    if (v19)
     {
-      logger2 = [(PLModelMigrationActionCore *)self logger];
+      logger3 = [(PLModelMigrationActionCore *)self logger];
 
-      if (logger2)
+      if (logger3)
       {
+        v60 = 0u;
+        v61 = 0u;
         v58 = 0u;
         v59 = 0u;
         v56 = 0u;
@@ -379,40 +406,47 @@ LABEL_33:
         v41 = 0u;
         v38 = 0u;
         v39 = 0u;
-        v36 = 0u;
         v37 = 0u;
         v35 = 0u;
+        v36 = 0u;
         v33 = 0u;
         v34 = 0u;
         v31 = 0u;
         v32 = 0u;
-        v29 = 0u;
-        v30 = 0u;
         *buf = 0u;
-        v20 = PLMigrationGetLog();
-        os_log_type_enabled(v20, OS_LOG_TYPE_ERROR);
-        v26 = 138412290;
-        v27 = v16;
-        LODWORD(v24) = 12;
-        v21 = _os_log_send_and_compose_impl();
-
-        v22 = [(PLModelMigrationActionCore *)self logger:&v26];
-        [v22 logWithMessage:v21 fromCodeLocation:"PLModelMigrationActions_18000.m" type:{864, 16}];
-
-        if (v21 != buf)
+        v21 = PLMigrationGetLog();
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
         {
-          free(v21);
+          v22 = 3;
+        }
+
+        else
+        {
+          v22 = 2;
+        }
+
+        v28 = 138412290;
+        v29 = v17;
+        LODWORD(v26) = 12;
+        v23 = _os_log_send_and_compose_impl(v22, 0, buf, 512, &dword_19BF1F000, v21, 16, "PLDirectoryJournal: removeAllPersistenceFilesWithError failed: %@", &v28, v26);
+
+        logger4 = [(PLModelMigrationActionCore *)self logger];
+        [logger4 logWithMessage:v23 fromCodeLocation:"PLModelMigrationActions_18000.m" type:{864, 16}];
+
+        if (v23 != buf)
+        {
+          free(v23);
         }
       }
 
       else
       {
-        v23 = PLMigrationGetLog();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+        v25 = PLMigrationGetLog();
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          *&buf[4] = v16;
-          _os_log_impl(&dword_19BF1F000, v23, OS_LOG_TYPE_ERROR, "PLDirectoryJournal: removeAllPersistenceFilesWithError failed: %@", buf, 0xCu);
+          *&buf[4] = v17;
+          _os_log_impl(&dword_19BF1F000, v25, OS_LOG_TYPE_ERROR, "PLDirectoryJournal: removeAllPersistenceFilesWithError failed: %@", buf, 0xCu);
         }
       }
     }
@@ -421,7 +455,7 @@ LABEL_33:
 
 - (void)deleteGraphNodeSocialGroupJournal
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_class();
   pathManager = [(PLModelMigrationActionCore *)self pathManager];
   v5 = [PLRebuildJournalManager baseURLFromPathManager:pathManager];
@@ -435,6 +469,8 @@ LABEL_33:
 
     if (logger)
     {
+      v61 = 0u;
+      v62 = 0u;
       v59 = 0u;
       v60 = 0u;
       v57 = 0u;
@@ -457,62 +493,70 @@ LABEL_33:
       v42 = 0u;
       v39 = 0u;
       v40 = 0u;
-      v37 = 0u;
       v38 = 0u;
       v36 = 0u;
+      v37 = 0u;
       v34 = 0u;
       v35 = 0u;
       v32 = 0u;
       v33 = 0u;
-      v30 = 0u;
-      v31 = 0u;
       *buf = 0u;
       v9 = PLMigrationGetLog();
-      os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
-      v10 = NSStringFromClass(v3);
-      v27 = 138543362;
-      v28 = v10;
-      LODWORD(v25) = 12;
-      v11 = _os_log_send_and_compose_impl();
-
-      v12 = [(PLModelMigrationActionCore *)self logger:&v27];
-      [v12 logWithMessage:v11 fromCodeLocation:"PLModelMigrationActions_18000.m" type:{848, 0}];
-
-      if (v11 != buf)
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        free(v11);
+        v10 = 3;
+      }
+
+      else
+      {
+        v10 = 2;
+      }
+
+      v11 = NSStringFromClass(v3);
+      v29 = 138543362;
+      v30 = v11;
+      v12 = _os_log_send_and_compose_impl(v10, 0, buf, 512, &dword_19BF1F000, v9, 0, "Deleting existing journals for payload class %{public}@", &v29, 12);
+
+      logger2 = [(PLModelMigrationActionCore *)self logger];
+      [logger2 logWithMessage:v12 fromCodeLocation:"PLModelMigrationActions_18000.m" type:{848, 0}];
+
+      if (v12 != buf)
+      {
+        free(v12);
       }
     }
 
     else
     {
-      v13 = PLMigrationGetLog();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v14 = PLMigrationGetLog();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = NSStringFromClass(v3);
+        v15 = NSStringFromClass(v3);
         *buf = 138543362;
-        *&buf[4] = v14;
-        _os_log_impl(&dword_19BF1F000, v13, OS_LOG_TYPE_DEFAULT, "Deleting existing journals for payload class %{public}@", buf, 0xCu);
+        *&buf[4] = v15;
+        _os_log_impl(&dword_19BF1F000, v14, OS_LOG_TYPE_DEFAULT, "Deleting existing journals for payload class %{public}@", buf, 0xCu);
       }
     }
   }
 
-  v15 = [[PLJournal alloc] initWithBaseURL:v5 payloadClass:v3];
-  [(PLJournal *)v15 removeMetadata];
-  v26 = 0;
-  v16 = [(PLJournal *)v15 removeJournalFilesWithError:&v26];
-  v17 = v26;
-  if (!v16)
+  v16 = [[PLJournal alloc] initWithBaseURL:v5 payloadClass:v3];
+  [(PLJournal *)v16 removeMetadata];
+  v28 = 0;
+  v17 = [(PLJournal *)v16 removeJournalFilesWithError:&v28];
+  v18 = v28;
+  if (!v17)
   {
-    v18 = PLMigrationGetLog();
-    v19 = os_log_type_enabled(v18, OS_LOG_TYPE_ERROR);
+    v19 = PLMigrationGetLog();
+    v20 = os_log_type_enabled(v19, OS_LOG_TYPE_ERROR);
 
-    if (v19)
+    if (v20)
     {
-      logger2 = [(PLModelMigrationActionCore *)self logger];
+      logger3 = [(PLModelMigrationActionCore *)self logger];
 
-      if (logger2)
+      if (logger3)
       {
+        v61 = 0u;
+        v62 = 0u;
         v59 = 0u;
         v60 = 0u;
         v57 = 0u;
@@ -535,40 +579,47 @@ LABEL_33:
         v42 = 0u;
         v39 = 0u;
         v40 = 0u;
-        v37 = 0u;
         v38 = 0u;
         v36 = 0u;
+        v37 = 0u;
         v34 = 0u;
         v35 = 0u;
         v32 = 0u;
         v33 = 0u;
-        v30 = 0u;
-        v31 = 0u;
         *buf = 0u;
-        v21 = PLMigrationGetLog();
-        os_log_type_enabled(v21, OS_LOG_TYPE_ERROR);
-        v27 = 138412290;
-        v28 = v17;
-        LODWORD(v25) = 12;
-        v22 = _os_log_send_and_compose_impl();
-
-        v23 = [(PLModelMigrationActionCore *)self logger:&v27];
-        [v23 logWithMessage:v22 fromCodeLocation:"PLModelMigrationActions_18000.m" type:{853, 16}];
-
-        if (v22 != buf)
+        v22 = PLMigrationGetLog();
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
-          free(v22);
+          v23 = 3;
+        }
+
+        else
+        {
+          v23 = 2;
+        }
+
+        v29 = 138412290;
+        v30 = v18;
+        LODWORD(v27) = 12;
+        v24 = _os_log_send_and_compose_impl(v23, 0, buf, 512, &dword_19BF1F000, v22, 16, "PLJournal: removeJournalFilesWithError failed: %@", &v29, v27);
+
+        logger4 = [(PLModelMigrationActionCore *)self logger];
+        [logger4 logWithMessage:v24 fromCodeLocation:"PLModelMigrationActions_18000.m" type:{853, 16}];
+
+        if (v24 != buf)
+        {
+          free(v24);
         }
       }
 
       else
       {
-        v24 = PLMigrationGetLog();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+        v26 = PLMigrationGetLog();
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          *&buf[4] = v17;
-          _os_log_impl(&dword_19BF1F000, v24, OS_LOG_TYPE_ERROR, "PLJournal: removeJournalFilesWithError failed: %@", buf, 0xCu);
+          *&buf[4] = v18;
+          _os_log_impl(&dword_19BF1F000, v26, OS_LOG_TYPE_ERROR, "PLJournal: removeJournalFilesWithError failed: %@", buf, 0xCu);
         }
       }
     }

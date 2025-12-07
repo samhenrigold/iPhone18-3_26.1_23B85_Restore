@@ -292,15 +292,14 @@
 
 + (id)ageRangeResponseDisplayNames
 {
-  v6[3] = *MEMORY[0x1E69E9840];
-  v5[0] = &unk_1F2F3B8E0;
-  v5[1] = &unk_1F2F3B8F8;
-  v6[0] = @"Unknown";
-  v6[1] = @"Shared";
-  v5[2] = &unk_1F2F3B910;
-  v6[2] = @"Not Shared";
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:3];
-  v3 = *MEMORY[0x1E69E9840];
+  v5[3] = *MEMORY[0x1E69E9840];
+  v4[0] = &unk_1F2F3B8E0;
+  v4[1] = &unk_1F2F3B8F8;
+  v5[0] = @"Unknown";
+  v5[1] = @"Shared";
+  v4[2] = &unk_1F2F3B910;
+  v5[2] = @"Not Shared";
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:v4 count:3];
 
   return v2;
 }
@@ -316,13 +315,12 @@
 
 + (id)ageRangeResponseTypeDisplayNames
 {
-  v6[2] = *MEMORY[0x1E69E9840];
-  v5[0] = &unk_1F2F3B928;
-  v5[1] = &unk_1F2F3B940;
-  v6[0] = @"Automatic";
-  v6[1] = @"Interactive";
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:2];
-  v3 = *MEMORY[0x1E69E9840];
+  v5[2] = *MEMORY[0x1E69E9840];
+  v4[0] = &unk_1F2F3B928;
+  v4[1] = &unk_1F2F3B940;
+  v5[0] = @"Automatic";
+  v5[1] = @"Interactive";
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:v4 count:2];
 
   return v2;
 }
@@ -338,15 +336,14 @@
 
 + (id)ageRangeValidationLevelDisplayNames
 {
-  v6[3] = *MEMORY[0x1E69E9840];
-  v5[0] = &unk_1F2F3B958;
-  v5[1] = &unk_1F2F3B970;
-  v6[0] = @"Unknown";
-  v6[1] = @"SelfAttested";
-  v5[2] = &unk_1F2F3B988;
-  v6[2] = @"GuardianAttested";
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:3];
-  v3 = *MEMORY[0x1E69E9840];
+  v5[3] = *MEMORY[0x1E69E9840];
+  v4[0] = &unk_1F2F3B958;
+  v4[1] = &unk_1F2F3B970;
+  v5[0] = @"Unknown";
+  v5[1] = @"SelfAttested";
+  v4[2] = &unk_1F2F3B988;
+  v5[2] = @"GuardianAttested";
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:v4 count:3];
 
   return v2;
 }

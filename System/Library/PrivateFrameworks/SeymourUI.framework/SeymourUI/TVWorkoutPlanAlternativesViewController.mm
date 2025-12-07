@@ -42,11 +42,11 @@
   v5.super_class = swift_getObjectType();
   v4 = v5.receiver;
   [(TVWorkoutPlanAlternativesViewController *)&v5 viewDidAppear:appearCopy];
-  type metadata accessor for TVWorkoutPlanAlternativesPageDataProvider();
-  sub_20B8001B8(&qword_27C766058, type metadata accessor for TVWorkoutPlanAlternativesPageDataProvider);
+  type metadata accessor for TVWorkoutPlanAlternativesPageDataProvider(0);
+  sub_20B8001B8(&qword_27C766058, type metadata accessor for TVWorkoutPlanAlternativesPageDataProvider, &unk_20C16C258);
   sub_20C138C54();
-  sub_20B8001B8(&qword_27C766060, type metadata accessor for TVWorkoutPlanAlternativesViewController);
-  sub_20B8001B8(&unk_27C766068, type metadata accessor for TVWorkoutPlanAlternativesViewController);
+  sub_20B8001B8(&qword_27C766060, type metadata accessor for TVWorkoutPlanAlternativesViewController, &protocol conformance descriptor for TVWorkoutPlanAlternativesViewController);
+  sub_20B8001B8(&unk_27C766068, type metadata accessor for TVWorkoutPlanAlternativesViewController, &protocol conformance descriptor for TVWorkoutPlanAlternativesViewController);
   sub_20C139364();
 }
 
@@ -63,8 +63,8 @@
   v5.super_class = swift_getObjectType();
   v4 = v5.receiver;
   [(TVWorkoutPlanAlternativesViewController *)&v5 viewDidDisappear:disappearCopy];
-  sub_20B8001B8(&qword_27C766060, type metadata accessor for TVWorkoutPlanAlternativesViewController);
-  sub_20B8001B8(&unk_27C766068, type metadata accessor for TVWorkoutPlanAlternativesViewController);
+  sub_20B8001B8(&qword_27C766060, type metadata accessor for TVWorkoutPlanAlternativesViewController, &protocol conformance descriptor for TVWorkoutPlanAlternativesViewController);
+  sub_20B8001B8(&unk_27C766068, type metadata accessor for TVWorkoutPlanAlternativesViewController, &protocol conformance descriptor for TVWorkoutPlanAlternativesViewController);
   sub_20C139374();
 }
 

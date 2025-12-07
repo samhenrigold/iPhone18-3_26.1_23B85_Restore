@@ -160,9 +160,7 @@
   keychainCircleProxy = self->_keychainCircleProxy;
   self->_keychainCircleProxy = v3;
 
-  v5 = [[CDPTTSUChannel alloc] initWithContext:self->_context];
-  secureChannelProxy = self->_secureChannelProxy;
-  self->_secureChannelProxy = v5;
+  self->_secureChannelProxy = [[CDPTTSUChannel alloc] initWithContext:self->_context];
 
   MEMORY[0x2821F96F8]();
 }
@@ -191,11 +189,10 @@
 
 - (void)initialize:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_24510B000, a2, OS_LOG_TYPE_ERROR, "Failed to initialize a channel %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_24510B000, a2, OS_LOG_TYPE_ERROR, "Failed to initialize a channel %@", &v2, 0xCu);
 }
 
 @end

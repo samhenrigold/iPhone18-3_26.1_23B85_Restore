@@ -93,23 +93,18 @@
 - (BOOL)canSerializeWithStrategy:(id)strategy
 {
   strategyCopy = strategy;
-  value = self->_value;
   objc_opt_class();
-  isKindOfClass = objc_opt_isKindOfClass();
-  v7 = self->_value;
-  if (isKindOfClass)
+  if (objc_opt_isKindOfClass())
   {
-    v8 = [strategyCopy canSerializeString:self->_value];
+    v5 = [strategyCopy canSerializeString:self->_value];
   }
 
   else
   {
     objc_opt_class();
-    v9 = objc_opt_isKindOfClass();
-    v10 = self->_value;
-    if (v9)
+    if (objc_opt_isKindOfClass())
     {
-      v8 = [strategyCopy canSerializeArray:self->_value];
+      v5 = [strategyCopy canSerializeArray:self->_value];
     }
 
     else
@@ -117,18 +112,18 @@
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        v11 = 0;
+        v6 = 0;
         goto LABEL_8;
       }
 
-      v8 = [strategyCopy canSerializeData:self->_value];
+      v5 = [strategyCopy canSerializeData:self->_value];
     }
   }
 
-  v11 = v8;
+  v6 = v5;
 LABEL_8:
 
-  return v11;
+  return v6;
 }
 
 - (void)serializeValueWithStrategy:(id)strategy

@@ -1,133 +1,3 @@
-void FrameInfoNotifyFunc(uint64_t a1, uint64_t a2, uint64_t *a3, unsigned int a4)
-{
-  if (a4 > 1)
-  {
-    v7 = a3[1];
-    v25 = *a3;
-    if (*a3 < 0)
-    {
-      v8 = *a3 & 0x7FFFFFFF;
-    }
-
-    else
-    {
-      v8 = *a3;
-    }
-
-    v9 = *MEMORY[0x277CBECE8];
-    theDict = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-    if (theDict)
-    {
-      v24 = v7;
-      if (v8)
-      {
-        v10 = 0;
-        v11 = 0;
-        v12 = a3 + 2;
-        v26 = a4 - 2;
-        do
-        {
-          v13 = 1 << v10;
-          v14 = ((1 << v10) & v8) == 0;
-          v15 = 1 << v10 < v8 && ((1 << v10) & v8) == 0;
-          if (v15)
-          {
-            do
-            {
-              ++v10;
-              v16 = v8 & (2 * v13);
-              v13 *= 2;
-              v14 = v16 == 0;
-            }
-
-            while (v13 < v8 && !v16);
-          }
-
-          if (v14)
-          {
-            break;
-          }
-
-          v17 = CFStringCreateWithCString(v9, *(*(a1 + 2032) + 8 * v10), 0x600u);
-          if (v11 >= v26)
-          {
-            v19 = 0;
-          }
-
-          else
-          {
-            v18 = v11 + 1;
-            v19 = v12[v11];
-            if ((v25 & 0x80000000) != 0)
-            {
-              v11 += 2;
-              v19 |= v12[v18] << 32;
-            }
-
-            else
-            {
-              ++v11;
-            }
-          }
-
-          valuePtr = adjust_ni_timestamp(a1, *(*(a1 + 2032) + 8 * v10), v19);
-          v20 = CFNumberCreate(v9, kCFNumberLongLongType, &valuePtr);
-          v21 = v20;
-          if (v17)
-          {
-            v22 = v20 == 0;
-          }
-
-          else
-          {
-            v22 = 1;
-          }
-
-          if (v22)
-          {
-            CFRelease(theDict);
-            if (v17)
-            {
-              CFRelease(v17);
-            }
-
-            if (v21)
-            {
-              v23 = v21;
-              goto LABEL_31;
-            }
-
-            return;
-          }
-
-          CFDictionarySetValue(theDict, v17, v20);
-          CFRelease(v21);
-          CFRelease(v17);
-          v15 = v13 == v8;
-          v8 ^= v13;
-        }
-
-        while (!v15);
-      }
-
-      if (*(a1 + 3512) == 1)
-      {
-        kdebug_trace();
-      }
-
-      (*(a1 + 1768))(a1, v24, theDict, *(a1 + 1712));
-      v23 = theDict;
-LABEL_31:
-      CFRelease(v23);
-    }
-  }
-
-  else
-  {
-    syslog(3, "IOMFB: FrameInfoNotifyFunc dropped notification, numArgs is %u, expected %u", a4, 2);
-  }
-}
-
 void IOMobileFramebufferCRCNotifyFunc(uint64_t a1, uint64_t a2, unsigned int *a3, int a4)
 {
   if (a4 == 3)
@@ -209,11 +79,11 @@ IONotificationPort *IOMobileFramebufferHdcpNotifyFunc(uint64_t a1, uint64_t a2, 
   return result;
 }
 
-void *get_vsh_update_status(void *result)
+const __CFNumber *get_vsh_update_status(const __CFNumber *result)
 {
   if (result)
   {
-    v1 = result[278];
+    v1 = *(result + 278);
     if (v1)
     {
       result = v1();
@@ -448,7 +318,6 @@ CFDictionaryRef virt_CreateStatistics(uint64_t a1, const __CFAllocator *a2)
   v4 = CFDictionaryCreate(a2, keys, &values, 2, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   CFRelease(values);
   CFRelease(cf);
-  v5 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -476,7 +345,7 @@ uint64_t IOMobileFramebufferVirtualDisplayVSyncNotificationFunc(uint64_t a1, uin
   }
 
   v10 = *(a4 + 1896);
-  v7 = (*(a4 + 2992))(a4);
+  v7 = (*(a4 + 2992))(a4, a2);
   v8 = *(a4 + 1840);
 
   return v10(a4, a1, v7, a3, v8);

@@ -9,10 +9,10 @@
 
 - (NSArray)items
 {
-  options = [(CarFocusOrderSequence *)self options];
-  if (options)
+  v3 = objc_msgSend_options(self, a2);
+  if (v3)
   {
-    v4 = options;
+    v4 = v3;
   }
 
   else
@@ -54,7 +54,7 @@ LABEL_11:
 
 - (BOOL)flipForRHD
 {
-  if (([(CarFocusOrderSequence *)self options]& 4) == 0)
+  if ((objc_msgSend_options(self, a2) & 4) == 0)
   {
     return 0;
   }

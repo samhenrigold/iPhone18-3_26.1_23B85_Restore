@@ -181,13 +181,13 @@
 
         if (action != 100)
         {
-          goto LABEL_67;
+          goto LABEL_68;
         }
 
         v6 = &AXSSSwitchActionActivate;
       }
 
-      goto LABEL_66;
+      goto LABEL_67;
     }
 
     if (action > 200)
@@ -220,7 +220,7 @@
         v6 = &AXSSSwitchActionVolumeUp;
       }
 
-      goto LABEL_66;
+      goto LABEL_67;
     }
 
     if (action > 108)
@@ -228,29 +228,30 @@
       if (action == 109)
       {
         v5 = @"selectandresumeautoscanning";
-        goto LABEL_67;
+        goto LABEL_68;
       }
 
       if (action != 200)
       {
-        goto LABEL_67;
+        goto LABEL_68;
       }
 
       v6 = &AXSSSwitchActionAppSwitcher;
-      goto LABEL_66;
+      goto LABEL_67;
     }
 
     if (action != 107)
     {
-LABEL_31:
-      _AXLogWithFacility();
-      goto LABEL_32;
+      v7 = @"Apple Watch Mirroring is not supported for inter-device communication";
+LABEL_32:
+      _AXLogWithFacility(0, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, v7);
+      goto LABEL_33;
     }
 
     v6 = &AXSSSwitchActionSiriShortcutsMenu;
-LABEL_66:
+LABEL_67:
     v5 = *v6;
-    goto LABEL_67;
+    goto LABEL_68;
   }
 
   if (action > 299)
@@ -280,7 +281,7 @@ LABEL_66:
         v6 = &AXSSSwitchActionATVMenu;
       }
 
-      goto LABEL_66;
+      goto LABEL_67;
     }
 
     if (action <= 305)
@@ -295,7 +296,7 @@ LABEL_66:
         v6 = &AXSSSwitchActionATVArrowDown;
       }
 
-      goto LABEL_66;
+      goto LABEL_67;
     }
 
     switch(action)
@@ -307,12 +308,13 @@ LABEL_66:
         v6 = &AXSSSwitchActionATVArrowRight;
         break;
       case 400:
-        goto LABEL_31;
+        v7 = @"Active Hold and Drag is not supported for inter-device communication";
+        goto LABEL_32;
       default:
-        goto LABEL_67;
+        goto LABEL_68;
     }
 
-    goto LABEL_66;
+    goto LABEL_67;
   }
 
   if (action <= 208)
@@ -332,27 +334,27 @@ LABEL_66:
       v6 = &AXSSSwitchActionTripleClick;
     }
 
-    goto LABEL_66;
+    goto LABEL_67;
   }
 
   if ((action - 210) < 5)
   {
 LABEL_5:
-    v8 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [identifierCopy action]);
-    _AXLogWithFacility();
+    v9 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [identifierCopy action]);
+    _AXLogWithFacility(0, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"unhandled action: %@");
 
-LABEL_32:
+LABEL_33:
     v5 = 0;
-    goto LABEL_67;
+    goto LABEL_68;
   }
 
   if (action == 209)
   {
     v6 = &AXSSSwitchActionControlCenter;
-    goto LABEL_66;
+    goto LABEL_67;
   }
 
-LABEL_67:
+LABEL_68:
 
   return v5;
 }

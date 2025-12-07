@@ -318,10 +318,11 @@ void sub_100003F64(uint64_t a1, void *a2, uint64_t a3)
   }
 }
 
-void sub_1000073EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_1000073EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
+  va_start(va, a30);
   _Block_object_dispose(&a27, 8);
-  _Block_object_dispose(&a31, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -415,6 +416,13 @@ void sub_1000075EC(uint64_t a1, uint64_t a2, void *a3)
 
     os_unfair_lock_unlock(v6 + 8);
   }
+}
+
+void sub_100008558(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
+{
+  va_start(va, a34);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 uint64_t sub_1000085B4(uint64_t result, uint64_t a2)
@@ -636,9 +644,9 @@ void sub_10000B384(uint64_t a1, void *a2, void *a3, void *a4, uint64_t a5)
   _Block_object_dispose(v25, 8);
 }
 
-void sub_10000B5EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10000B5EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -672,9 +680,9 @@ void sub_10000B610(uint64_t a1, void *a2, void *a3, uint64_t a4, uint64_t a5)
   _Block_object_dispose(v15, 8);
 }
 
-void sub_10000B760(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10000B760(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1073,9 +1081,9 @@ void sub_10000E2EC(uint64_t a1, void *a2, void *a3)
   *(*(*(a1 + 32) + 8) + 24) += [v5 count];
 }
 
-void sub_100010508(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100010508(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1301,11 +1309,11 @@ void sub_1000129F0(id a1)
   _objc_release_x1();
 }
 
-void sub_100013394(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, char a54, uint64_t a55, uint64_t a56, uint64_t a57, char a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_100013394(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   _Block_object_dispose(&a54, 8);
   _Block_object_dispose(&a58, 8);
-  _Block_object_dispose(&a69, 8);
+  _Block_object_dispose(&a65, 8);
   _Block_object_dispose(&STACK[0x200], 8);
   _Unwind_Resume(a1);
 }
@@ -1960,34 +1968,33 @@ void sub_100017EF0(id a1, NSNumber *a2, unint64_t a3, BOOL *a4)
 void sub_100018210(id *a1)
 {
   v2 = +[ESProfiler sharedProfiler];
-  v3 = a1[4];
   ++*(a1[5] + 39);
-  v4 = [NSNumber numberWithUnsignedInteger:?];
+  v3 = [NSNumber numberWithUnsignedInteger:?];
   setEARPackageResultCandidateId();
 
-  v5 = a1[4];
-  v6 = *(a1[5] + 18);
-  v7 = [qword_100061690 count] != 0;
+  v4 = a1[4];
+  v5 = *(a1[5] + 18);
+  v6 = [qword_100061690 count] != 0;
   WeakRetained = objc_loadWeakRetained(a1[5] + 1);
-  v9 = [WeakRetained modelInfo];
-  v10 = [CESRUtilities afSpeechPackageForEARPackage:v5 processedAudioDuration:v7 speechProfileUsed:v9 recognizerModelInfo:0 isVoiceCommandCandidatePackage:v6];
+  v8 = [WeakRetained modelInfo];
+  v9 = [CESRUtilities afSpeechPackageForEARPackage:v4 processedAudioDuration:v6 speechProfileUsed:v8 recognizerModelInfo:0 isVoiceCommandCandidatePackage:v5];
 
-  v11 = [CESRUtilities AFSpeechInfoPackageForEARSpeechRecognitionResultPackage:a1[4]];
-  v12 = [CESRUtilities hasRecognizedAnythingInAFSpeechPackage:v10];
-  if (v12)
+  v10 = [CESRUtilities AFSpeechInfoPackageForEARSpeechRecognitionResultPackage:a1[4]];
+  v11 = [CESRUtilities hasRecognizedAnythingInAFSpeechPackage:v9];
+  if (v11)
   {
-    v13 = a1[5];
-    v14 = v13[13];
+    v12 = a1[5];
+    v13 = v12[13];
+    if (v13)
+    {
+      [v13 markRecognition];
+      v12 = a1[5];
+    }
+
+    v14 = v12[14];
     if (v14)
     {
       [v14 markRecognition];
-      v13 = a1[5];
-    }
-
-    v15 = v13[14];
-    if (v15)
-    {
-      [v15 markRecognition];
     }
 
     if (qword_1000616B0)
@@ -2001,198 +2008,198 @@ void sub_100018210(id *a1)
     }
   }
 
-  v16 = objc_loadWeakRetained(a1[5] + 1);
-  v17 = [v16 concatenateUtterances];
+  v15 = objc_loadWeakRetained(a1[5] + 1);
+  v16 = [v15 concatenateUtterances];
 
-  if (v17)
+  if (v16)
   {
-    objc_storeStrong(a1[5] + 5, v10);
-    objc_storeStrong(a1[5] + 6, v11);
+    objc_storeStrong(a1[5] + 5, v9);
+    objc_storeStrong(a1[5] + 6, v10);
   }
 
   else
   {
-    if ([v10 recognitionPaused])
+    if ([v9 recognitionPaused])
     {
-      v18 = [a1[5] dummyResultPackage:v10];
+      v17 = [a1[5] dummyResultPackage:v9];
 
-      v10 = v18;
+      v9 = v17;
     }
 
-    if ([a1[6] enableVoiceCommands] && (objc_msgSend(a1[5], "_delegate"), v19 = objc_claimAutoreleasedReturnValue(), v20 = objc_opt_respondsToSelector(), v19, (v20 & 1) != 0))
+    if ([a1[6] enableVoiceCommands] && (objc_msgSend(a1[5], "_delegate"), v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_opt_respondsToSelector(), v18, (v19 & 1) != 0))
     {
-      v21 = [a1[5] _delegate];
-      [v21 speechServiceDidRecognizePackage:v10 withMetadata:v11];
+      v20 = [a1[5] _delegate];
+      [v20 speechServiceDidRecognizePackage:v9 withMetadata:v10];
 
-      v22 = AFSiriLogContextSpeech;
+      v21 = AFSiriLogContextSpeech;
       if (os_log_type_enabled(AFSiriLogContextSpeech, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v99 = "[ESConnection speechRecognizer:didRecognizeFinalResultPackage:]_block_invoke";
-        v100 = 2112;
-        v101 = v11;
-        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_INFO, "%s AFSpeechInfo Package %@", buf, 0x16u);
+        v98 = "[ESConnection speechRecognizer:didRecognizeFinalResultPackage:]_block_invoke";
+        v99 = 2112;
+        v100 = v10;
+        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, "%s AFSpeechInfo Package %@", buf, 0x16u);
       }
     }
 
     else
     {
-      v23 = [a1[5] _delegate];
-      [v23 speechServiceDidRecognizePackage:v10];
+      v22 = [a1[5] _delegate];
+      [v22 speechServiceDidRecognizePackage:v9];
     }
   }
 
-  if ((v12 & +[CESRUtilities isTaskDictationSpecific:](CESRUtilities, "isTaskDictationSpecific:", *(a1[5] + 38))) == 1 && ([a1[6] detectUtterances] && !objc_msgSend(a1[6], "concatenateUtterances") || objc_msgSend(a1[4], "isFinal")))
+  if ((v11 & +[CESRUtilities isTaskDictationSpecific:](CESRUtilities, "isTaskDictationSpecific:", *(a1[5] + 38))) == 1 && ([a1[6] detectUtterances] && !objc_msgSend(a1[6], "concatenateUtterances") || objc_msgSend(a1[4], "isFinal")))
   {
-    v94 = v12;
-    v95 = v11;
-    v25 = a1[4];
-    v24 = a1[5];
-    v26 = v24[43];
-    v27 = v24[41];
-    v28 = [NSNumber numberWithUnsignedLongLong:mach_absolute_time()];
-    [v2 logFinalResultGeneratedWithEARPackage:v25 firstSeenPartialResultTokens:v26 partialResultOffset:v27 timeInTicks:v28];
+    v93 = v11;
+    v94 = v10;
+    v24 = a1[4];
+    v23 = a1[5];
+    v25 = v23[43];
+    v26 = v23[41];
+    v27 = [NSNumber numberWithUnsignedLongLong:mach_absolute_time()];
+    [v2 logFinalResultGeneratedWithEARPackage:v24 firstSeenPartialResultTokens:v25 partialResultOffset:v26 timeInTicks:v27];
 
-    v29 = [*(a1[5] + 42) count];
-    v30 = [a1[4] correctPartialResultIndexList];
-    v31 = [v30 count];
+    v28 = [*(a1[5] + 42) count];
+    v29 = [a1[4] correctPartialResultIndexList];
+    v30 = [v29 count];
 
-    if (v31 && v29)
+    if (v30 && v28)
     {
-      v32 = [a1[4] correctPartialResultIndexList];
-      v33 = [v32 count];
+      v31 = [a1[4] correctPartialResultIndexList];
+      v32 = [v31 count];
 
-      if (v33 < 1)
+      if (v32 < 1)
       {
-        v77 = &stru_100055AC8;
+        v76 = &stru_100055AC8;
       }
 
       else
       {
-        v93 = v2;
+        v92 = v2;
+        v33 = 0;
         v34 = 0;
-        v35 = 0;
-        v36 = &stru_100055AC8;
-        v37 = 0.0;
-        v38 = 1.79769313e308;
-        v39 = 0.0;
-        v96 = v29;
+        v35 = &stru_100055AC8;
+        v36 = 0.0;
+        v37 = 1.79769313e308;
+        v38 = 0.0;
+        v95 = v28;
         do
         {
-          v40 = [a1[4] correctPartialResultIndexList];
-          v41 = [v40 objectAtIndex:v34];
-          v42 = [v41 unsignedIntValue];
+          v39 = [a1[4] correctPartialResultIndexList];
+          v40 = [v39 objectAtIndex:v33];
+          v41 = [v40 unsignedIntValue];
 
-          if (v29 > v42)
+          if (v28 > v41)
           {
-            v97 = v35;
-            v43 = v42;
-            v44 = [a1[4] preITNRecognition];
-            v45 = [v44 oneBest];
-            v46 = [v45 objectAtIndex:v34];
-            [v46 silenceStart];
-            v48 = v47;
+            v96 = v34;
+            v42 = v41;
+            v43 = [a1[4] preITNRecognition];
+            v44 = [v43 oneBest];
+            v45 = [v44 objectAtIndex:v33];
+            [v45 silenceStart];
+            v47 = v46;
             [a1[4] utteranceStart];
-            v50 = v48 + v49;
+            v49 = v47 + v48;
 
-            v51 = [*(a1[5] + 42) objectAtIndex:v43];
-            [v51 doubleValue];
-            v53 = v52;
+            v50 = [*(a1[5] + 42) objectAtIndex:v42];
+            [v50 doubleValue];
+            v52 = v51;
 
-            v54 = *(a1[5] + 19);
-            v55 = [a1[4] preITNRecognition];
-            v56 = [v55 oneBest];
-            v57 = [v56 objectAtIndex:v34];
-            v58 = [v57 tokenName];
+            v53 = *(a1[5] + 19);
+            v54 = [a1[4] preITNRecognition];
+            v55 = [v54 oneBest];
+            v56 = [v55 objectAtIndex:v33];
+            v57 = [v56 tokenName];
 
-            v59 = [*(a1[5] + 24) unsignedLongLongValue];
-            *&v60 = v50;
-            v61 = [CESRUtilities secondsToHostTime:v60];
-            v62 = [*(a1[5] + 42) objectAtIndex:v43];
-            [v62 doubleValue];
-            *&v63 = v63;
-            v64 = [CESRUtilities secondsToHostTime:v63];
+            v58 = [*(a1[5] + 24) unsignedLongLongValue];
+            *&v59 = v49;
+            v60 = [CESRUtilities secondsToHostTime:v59];
+            v61 = [*(a1[5] + 42) objectAtIndex:v42];
+            [v61 doubleValue];
+            *&v62 = v62;
+            v63 = [CESRUtilities secondsToHostTime:v62];
 
-            v65 = [CESRUtilities machAbsoluteTimeToMachContinuousTime:&v59[v61]];
-            v66 = [CESRUtilities machAbsoluteTimeToMachContinuousTime:v64];
-            if (v66 >= v65)
+            v64 = [CESRUtilities machAbsoluteTimeToMachContinuousTime:&v58[v60]];
+            v65 = [CESRUtilities machAbsoluteTimeToMachContinuousTime:v63];
+            if (v65 >= v64)
             {
-              v67 = v66;
-              v68 = os_signpost_id_generate(AFSiriLogContextSpeech);
-              v69 = AFSiriLogContextSpeech;
-              v70 = v69;
-              if (v68 - 1 > 0xFFFFFFFFFFFFFFFDLL)
+              v66 = v65;
+              v67 = os_signpost_id_generate(AFSiriLogContextSpeech);
+              v68 = AFSiriLogContextSpeech;
+              v69 = v68;
+              if (v67 - 1 > 0xFFFFFFFFFFFFFFFDLL)
               {
 
-                v72 = AFSiriLogContextSpeech;
+                v71 = AFSiriLogContextSpeech;
               }
 
               else
               {
-                if (os_signpost_enabled(v69))
+                if (os_signpost_enabled(v68))
                 {
-                  v71 = [v58 UTF8String];
+                  v70 = [v57 UTF8String];
                   *buf = 134349314;
-                  v99 = v65;
-                  v100 = 2080;
-                  v101 = v71;
-                  _os_signpost_emit_with_name_impl(&_mh_execute_header, v70, OS_SIGNPOST_INTERVAL_BEGIN, v68, "ES: Time to Word", "%{public, signpost.description:begin_time}llu %s", buf, 0x16u);
+                  v98 = v64;
+                  v99 = 2080;
+                  v100 = v70;
+                  _os_signpost_emit_with_name_impl(&_mh_execute_header, v69, OS_SIGNPOST_INTERVAL_BEGIN, v67, "ES: Time to Word", "%{public, signpost.description:begin_time}llu %s", buf, 0x16u);
                 }
 
-                v72 = AFSiriLogContextSpeech;
-                if (os_signpost_enabled(v72))
+                v71 = AFSiriLogContextSpeech;
+                if (os_signpost_enabled(v71))
                 {
                   *buf = 134349056;
-                  v99 = v67;
-                  _os_signpost_emit_with_name_impl(&_mh_execute_header, v72, OS_SIGNPOST_INTERVAL_END, v68, "ES: Time to Word", "%{public, signpost.description:end_time}llu", buf, 0xCu);
+                  v98 = v66;
+                  _os_signpost_emit_with_name_impl(&_mh_execute_header, v71, OS_SIGNPOST_INTERVAL_END, v67, "ES: Time to Word", "%{public, signpost.description:end_time}llu", buf, 0xCu);
                 }
               }
             }
 
-            v35 = v97 + 1;
-            v73 = v53 - (v50 + v54);
-            v74 = [NSString stringWithFormat:@"%@ %@:%f, ", v36, v58, *&v73];
+            v34 = v96 + 1;
+            v72 = v52 - (v49 + v53);
+            v73 = [NSString stringWithFormat:@"%@ %@:%f, ", v35, v57, *&v72];
 
-            v37 = v37 + v73;
-            if (v39 < v73)
+            v36 = v36 + v72;
+            if (v38 < v72)
             {
-              v39 = v73;
+              v38 = v72;
             }
 
-            if (v38 >= v73)
+            if (v37 >= v72)
             {
-              v38 = v73;
+              v37 = v72;
             }
 
-            v36 = v74;
-            v29 = v96;
+            v35 = v73;
+            v28 = v95;
           }
 
-          ++v34;
-          v75 = [a1[4] correctPartialResultIndexList];
-          v76 = [v75 count];
+          ++v33;
+          v74 = [a1[4] correctPartialResultIndexList];
+          v75 = [v74 count];
         }
 
-        while (v34 < v76);
-        if (v35 <= 0)
+        while (v33 < v75);
+        if (v34 <= 0)
         {
-          v77 = v36;
-          v2 = v93;
+          v76 = v35;
+          v2 = v92;
         }
 
         else
         {
-          v77 = [NSString stringWithFormat:@"%@ TTAW:%f MEAN:%f, MAX:%f, MIN:%f ", v36, *&v37, v37 / v35, *&v39, *&v38];
+          v76 = [NSString stringWithFormat:@"%@ TTAW:%f MEAN:%f, MAX:%f, MIN:%f ", v35, *&v36, v36 / v34, *&v38, *&v37];
 
-          v78 = os_signpost_id_generate(AFSiriLogContextSpeech);
-          v79 = AFSiriLogContextSpeech;
-          v80 = v79;
-          v2 = v93;
-          if (v78 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v79))
+          v77 = os_signpost_id_generate(AFSiriLogContextSpeech);
+          v78 = AFSiriLogContextSpeech;
+          v79 = v78;
+          v2 = v92;
+          if (v77 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v78))
           {
             *buf = 138412290;
-            v99 = v77;
-            _os_signpost_emit_with_name_impl(&_mh_execute_header, v80, OS_SIGNPOST_EVENT, v78, "ES: TTAW", "Partially Recognized Results: %@", buf, 0xCu);
+            v98 = v76;
+            _os_signpost_emit_with_name_impl(&_mh_execute_header, v79, OS_SIGNPOST_EVENT, v77, "ES: TTAW", "Partially Recognized Results: %@", buf, 0xCu);
           }
         }
       }
@@ -2201,36 +2208,36 @@ void sub_100018210(id *a1)
     [*(a1[5] + 43) removeAllObjects];
     *(a1[5] + 41) += *(a1[5] + 40);
     *(a1[5] + 40) = 0;
-    v11 = v95;
-    v12 = v94;
+    v10 = v94;
+    v11 = v93;
   }
 
-  if ((([*(a1[5] + 38) isEqualToString:CoreEmbeddedSpeechRecognizerTaskSearchOrMessaging] & 1) != 0 || objc_msgSend(*(a1[5] + 38), "isEqualToString:", CoreEmbeddedSpeechRecognizerTaskSiriDictation)) && ((objc_msgSend(v10, "isFinal") | v12 ^ 1) & 1) == 0)
+  if ((([*(a1[5] + 38) isEqualToString:CoreEmbeddedSpeechRecognizerTaskSearchOrMessaging] & 1) != 0 || objc_msgSend(*(a1[5] + 38), "isEqualToString:", CoreEmbeddedSpeechRecognizerTaskSiriDictation)) && ((objc_msgSend(v9, "isFinal") | v11 ^ 1) & 1) == 0)
   {
-    v81 = a1[4];
-    v82 = [NSNumber numberWithUnsignedLongLong:mach_absolute_time()];
-    [v2 logPackageGeneratedAndRecognitionResultTier1WithEARPackage:v81 loggableSharedUserId:0 timeInTicks:v82];
+    v80 = a1[4];
+    v81 = [NSNumber numberWithUnsignedLongLong:mach_absolute_time()];
+    [v2 logPackageGeneratedAndRecognitionResultTier1WithEARPackage:v80 loggableSharedUserId:0 timeInTicks:v81];
   }
 
-  v83 = [a1[4] preITNRecognition];
-  v84 = [v83 oneBest];
-  v85 = [v84 lastObject];
+  v82 = [a1[4] preITNRecognition];
+  v83 = [v82 oneBest];
+  v84 = [v83 lastObject];
 
-  if (v85 && ([a1[4] isFinal] & 1) == 0)
+  if (v84 && ([a1[4] isFinal] & 1) == 0)
   {
-    v86 = a1[5];
-    [v85 silenceStart];
-    *&v87 = v87;
-    v88 = [v86 _packetReadyUpstreamTimestampsFromAudioTime:v87];
-    [v2 logFinalAudioPacketContainingSpeechReadyUpstreamWithTimeInTicks:v88 loggableSharedUserId:0 earPackage:a1[4]];
-    v89 = v11;
-    v90 = objc_loadWeakRetained(a1[5] + 2);
-    [v85 silenceStart];
-    *&v91 = v91;
-    v92 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [v90 packetArrivalTimestampFromAudioTime:v91]);
+    v85 = a1[5];
+    [v84 silenceStart];
+    *&v86 = v86;
+    v87 = [v85 _packetReadyUpstreamTimestampsFromAudioTime:v86];
+    [v2 logFinalAudioPacketContainingSpeechReadyUpstreamWithTimeInTicks:v87 loggableSharedUserId:0 earPackage:a1[4]];
+    v88 = v10;
+    v89 = objc_loadWeakRetained(a1[5] + 2);
+    [v84 silenceStart];
+    *&v90 = v90;
+    v91 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [v89 packetArrivalTimestampFromAudioTime:v90]);
 
-    v11 = v89;
-    [v2 logFinalAudioPacketContainingSpeechReceivedWithTimeInTicks:v92 loggableSharedUserId:0 earPackage:a1[4]];
+    v10 = v88;
+    [v2 logFinalAudioPacketContainingSpeechReceivedWithTimeInTicks:v91 loggableSharedUserId:0 earPackage:a1[4]];
   }
 }
 
@@ -2782,16 +2789,16 @@ id sub_10001ABC0(uint64_t a1)
   }
 }
 
-void sub_10001B194(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10001B194(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_10001BCBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_10001BCBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2900,9 +2907,9 @@ void sub_10001C510(uint64_t a1)
   _Block_object_dispose(&v7, 8);
 }
 
-void sub_10001C614(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10001C614(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4268,7 +4275,7 @@ LABEL_178:
                                           [v175 addObject:v195];
 
                                           v196 = [v192 tokenName];
-                                          v197 = [v196 rangeOfString:@"\"] == 0x7FFFFFFFFFFFFFFFLL;
+                                          v197 = [v196 rangeOfString:@"\""] == 0x7FFFFFFFFFFFFFFFLL;
 
                                           if (!v197)
                                           {
@@ -4878,7 +4885,6 @@ void sub_100020C10(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint
       objc_end_catch();
     }
 
-    v69 = STACK[0x230];
     JUMPOUT(0x1000209DCLL);
   }
 
@@ -4912,10 +4918,7 @@ void *sub_100021144(void *result)
 
 uint64_t sub_100021240(uint64_t a1)
 {
-  v2 = [*(a1 + 32) personalizedLMWithTask:@"Dictation" applicationName:@"com.apple.MobileSMS" recognizer:*(*(*(a1 + 48) + 8) + 40) weightOut:*(*(a1 + 56) + 8) + 24 ageOut:*(*(a1 + 64) + 8) + 24];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) personalizedLMWithTask:@"Dictation" applicationName:@"com.apple.MobileSMS" recognizer:*(*(*(a1 + 48) + 8) + 40) weightOut:*(*(a1 + 56) + 8) + 24 ageOut:*(*(a1 + 64) + 8) + 24];
 
   return _objc_release_x1();
 }
@@ -5251,62 +5254,62 @@ id sub_100021704(void *a1, void *a2, int a3)
 
 void sub_1000223C0(void *a1)
 {
-  v149 = 0;
-  v150 = &v149;
-  v151 = 0x3032000000;
-  v152 = sub_10001BCF8;
-  v153 = sub_10001BD08;
-  v154 = 0;
+  v146 = 0;
+  v147 = &v146;
+  v148 = 0x3032000000;
+  v149 = sub_10001BCF8;
+  v150 = sub_10001BD08;
+  v151 = 0;
   v2 = [[SFEntitledAssetConfig alloc] initWithLanguage:a1[4] task:0];
-  v143 = 0;
-  v144 = &v143;
-  v145 = 0x3032000000;
-  v146 = sub_10001BCF8;
-  v147 = sub_10001BD08;
-  v148 = 0;
+  v140 = 0;
+  v141 = &v140;
+  v142 = 0x3032000000;
+  v143 = sub_10001BCF8;
+  v144 = sub_10001BD08;
+  v145 = 0;
   v3 = qword_100061620;
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_10002370C;
   block[3] = &unk_100055278;
-  v141 = &v143;
+  v138 = &v140;
   v4 = v2;
   v5 = a1[5];
-  v99 = v4;
-  v139 = v4;
-  v140 = v5;
-  v142 = &v149;
+  v96 = v4;
+  v136 = v4;
+  v137 = v5;
+  v139 = &v146;
   dispatch_sync(v3, block);
-  if (v144[5])
+  if (v141[5])
   {
-    v108 = a1;
+    v105 = a1;
     v6 = +[ESAssetManager sharedInstance];
-    v7 = (v150 + 5);
-    obj = v150[5];
-    v98 = [v6 installedQuasarModelPathForAssetConfig:v99 error:&obj];
+    v7 = (v147 + 5);
+    obj = v147[5];
+    v95 = [v6 installedQuasarModelPathForAssetConfig:v96 error:&obj];
     objc_storeStrong(v7, obj);
 
-    v8 = [[_EARQuasarTokenizer alloc] initWithModelRoot:v98];
+    v8 = [[_EARQuasarTokenizer alloc] initWithModelRoot:v95];
     if (v8)
     {
-      v100 = +[NSMutableArray array];
-      *v172 = 0;
-      *&v172[8] = v172;
-      *&v172[16] = 0x3032000000;
-      v173 = sub_10001BCF8;
-      v174 = sub_10001BD08;
-      v175 = 0;
-      v9 = v108[5];
-      v10 = [v108[4] stringByReplacingOccurrencesOfString:@"-" withString:@"_"];
-      v136[0] = _NSConcreteStackBlock;
-      v136[1] = 3221225472;
-      v136[2] = sub_100023790;
-      v136[3] = &unk_1000552A0;
-      v136[4] = v172;
-      [v9 readProfileAndUserDataWithLanguage:v10 allowOverride:0 completion:v136];
+      v97 = +[NSMutableArray array];
+      *v169 = 0;
+      *&v169[8] = v169;
+      *&v169[16] = 0x3032000000;
+      v170 = sub_10001BCF8;
+      v171 = sub_10001BD08;
+      v172 = 0;
+      v9 = v105[5];
+      v10 = [v105[4] stringByReplacingOccurrencesOfString:@"-" withString:@"_"];
+      v133[0] = _NSConcreteStackBlock;
+      v133[1] = 3221225472;
+      v133[2] = sub_100023790;
+      v133[3] = &unk_1000552A0;
+      v133[4] = v169;
+      [v9 readProfileAndUserDataWithLanguage:v10 allowOverride:0 completion:v133];
 
-      v11 = *&v172[8];
-      if (*(*&v172[8] + 40))
+      v11 = *&v169[8];
+      if (*(*&v169[8] + 40))
       {
         goto LABEL_9;
       }
@@ -5319,18 +5322,18 @@ void sub_1000223C0(void *a1)
         _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "%s Failed to load old type of speech profile. Trying new type.", buf, 0xCu);
       }
 
-      v13 = [CESRUtilities speechProfilePathsWithLanguage:v108[4]];
+      v13 = [CESRUtilities speechProfilePathsWithLanguage:v105[4]];
       if ([v13 count] == 1)
       {
         v14 = [NSData alloc];
         v15 = [v13 firstObject];
         v16 = [v14 initWithContentsOfFile:v15 options:0 error:0];
-        v17 = *(*&v172[8] + 40);
-        *(*&v172[8] + 40) = v16;
+        v17 = *(*&v169[8] + 40);
+        *(*&v169[8] + 40) = v16;
       }
 
-      v11 = *&v172[8];
-      if (*(*&v172[8] + 40))
+      v11 = *&v169[8];
+      if (*(*&v169[8] + 40))
       {
 LABEL_9:
         v18 = AFSiriLogContextFides;
@@ -5344,61 +5347,61 @@ LABEL_9:
           _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "%s Loaded speech profile: %lu bytes", buf, 0x16u);
         }
 
-        v20 = v108;
+        v20 = v105;
       }
 
       else
       {
-        v88 = AFSiriLogContextFides;
-        v20 = v108;
+        v85 = AFSiriLogContextFides;
+        v20 = v105;
         if (os_log_type_enabled(AFSiriLogContextFides, OS_LOG_TYPE_INFO))
         {
           *buf = 136315138;
           *&buf[4] = "[ESConnection runCorrectedTextEvaluationWithAudioDatas:recordDatas:language:samplingRate:caseSensitive:skipLME:wordSenseAccessListSet:completion:]_block_invoke";
-          _os_log_impl(&_mh_execute_header, v88, OS_LOG_TYPE_INFO, "%s Unable to load speech profile", buf, 0xCu);
+          _os_log_impl(&_mh_execute_header, v85, OS_LOG_TYPE_INFO, "%s Unable to load speech profile", buf, 0xCu);
         }
       }
 
-      v134 = 0u;
-      v135 = 0u;
+      v131 = 0u;
       v132 = 0u;
-      v133 = 0u;
-      v101 = v20[6];
-      v21 = [v101 countByEnumeratingWithState:&v132 objects:v171 count:16];
+      v129 = 0u;
+      v130 = 0u;
+      v98 = v20[6];
+      v21 = [v98 countByEnumeratingWithState:&v129 objects:v168 count:16];
       if (!v21)
       {
 LABEL_81:
 
-        v155[0] = @"modelVersion";
-        v75 = [v144[5] modelInfo];
+        v152[0] = @"modelVersion";
+        v75 = [v141[5] modelInfo];
         v76 = [v75 version];
-        v155[1] = @"results";
-        v156[0] = v76;
-        v156[1] = v100;
-        v101 = [NSDictionary dictionaryWithObjects:v156 forKeys:v155 count:2];
+        v152[1] = @"results";
+        v153[0] = v76;
+        v153[1] = v97;
+        v98 = [NSDictionary dictionaryWithObjects:v153 forKeys:v152 count:2];
 
-        (*(v108[9] + 16))();
+        (*(v105[9] + 16))();
         goto LABEL_89;
       }
 
-      v102 = *v133;
+      v99 = *v130;
 LABEL_14:
-      v107 = 0;
+      v104 = 0;
       while (1)
       {
-        if (*v133 != v102)
+        if (*v130 != v99)
         {
-          objc_enumerationMutation(v101);
+          objc_enumerationMutation(v98);
         }
 
-        v22 = *(*(&v132 + 1) + 8 * v107);
-        if ([v108[5] _invalidated])
+        v22 = *(*(&v129 + 1) + 8 * v104);
+        if ([v105[5] _invalidated])
         {
           break;
         }
 
-        v23 = [v108[6] objectForKeyedSubscript:v22];
-        v109 = [CESRFidesASRRecord recordFromData:v23];
+        v23 = [v105[6] objectForKeyedSubscript:v22];
+        v106 = [CESRFidesASRRecord recordFromData:v23];
 
         v24 = AFSiriLogContextFides;
         if (os_log_type_enabled(AFSiriLogContextFides, OS_LOG_TYPE_INFO))
@@ -5406,58 +5409,58 @@ LABEL_14:
           *buf = 136315394;
           *&buf[4] = "[ESConnection runCorrectedTextEvaluationWithAudioDatas:recordDatas:language:samplingRate:caseSensitive:skipLME:wordSenseAccessListSet:completion:]_block_invoke";
           *&buf[12] = 2112;
-          *&buf[14] = v109;
+          *&buf[14] = v106;
           _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_INFO, "%s Examining localSpeechDESRecord: %@", buf, 0x16u);
         }
 
-        if (v109)
+        if (v106)
         {
-          v104 = [v108[7] objectForKeyedSubscript:v22];
-          if (v104)
+          v101 = [v105[7] objectForKeyedSubscript:v22];
+          if (v101)
           {
-            v105 = objc_opt_new();
-            v106 = [v109 recognizedText];
-            v25 = [v109 correctedText];
-            v103 = [v8 tokenize:v25];
+            v102 = objc_opt_new();
+            v103 = [v106 recognizedText];
+            v25 = [v106 correctedText];
+            v100 = [v8 tokenize:v25];
 
-            if (v106 && [v106 count] && v103 && objc_msgSend(v103, "count"))
+            if (v103 && [v103 count] && v100 && objc_msgSend(v100, "count"))
             {
-              v26 = [v109 task];
+              v26 = [v106 task];
               *buf = 0;
               *&buf[8] = buf;
               *&buf[16] = 0x3032000000;
-              v166 = sub_10001BCF8;
-              v167 = sub_10001BD08;
-              v168 = 0;
+              v163 = sub_10001BCF8;
+              v164 = sub_10001BD08;
+              v165 = 0;
               v27 = qword_100061620;
-              v123[0] = _NSConcreteStackBlock;
-              v123[1] = 3221225472;
-              v123[2] = sub_1000237A0;
-              v123[3] = &unk_100055228;
-              v128 = buf;
-              v129 = &v143;
-              v124 = v108[7];
-              v125 = v22;
-              v130 = v172;
-              v126 = v108[4];
+              v120[0] = _NSConcreteStackBlock;
+              v120[1] = 3221225472;
+              v120[2] = sub_1000237A0;
+              v120[3] = &unk_100055228;
+              v125 = buf;
+              v126 = &v140;
+              v121 = v105[7];
+              v122 = v22;
+              v127 = v169;
+              v123 = v105[4];
               v28 = v26;
-              v29 = v108[10];
-              v97 = v28;
-              v127 = v28;
-              v131 = v29;
-              dispatch_sync(v27, v123);
+              v29 = v105[10];
+              v94 = v28;
+              v124 = v28;
+              v128 = v29;
+              dispatch_sync(v27, v120);
               v30 = AFSiriLogContextFides;
               if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
               {
                 v31 = *(*&buf[8] + 40);
                 v32 = [v31 count];
-                *v159 = 136315650;
-                v160 = "[ESConnection runCorrectedTextEvaluationWithAudioDatas:recordDatas:language:samplingRate:caseSensitive:skipLME:wordSenseAccessListSet:completion:]_block_invoke_2";
-                v161 = 2112;
-                v162 = v31;
-                v163 = 2048;
-                v164 = v32;
-                _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_INFO, "%s Recognition result %@, %lu", v159, 0x20u);
+                *v156 = 136315650;
+                v157 = "[ESConnection runCorrectedTextEvaluationWithAudioDatas:recordDatas:language:samplingRate:caseSensitive:skipLME:wordSenseAccessListSet:completion:]_block_invoke_2";
+                v158 = 2112;
+                v159 = v31;
+                v160 = 2048;
+                v161 = v32;
+                _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_INFO, "%s Recognition result %@, %lu", v156, 0x20u);
               }
 
               v33 = objc_opt_new();
@@ -5465,53 +5468,53 @@ LABEL_14:
               if (v34 && [v34 count])
               {
                 v35 = [*(*&buf[8] + 40) firstObject];
-                v122 = 0u;
-                v120 = 0u;
-                v121 = 0u;
                 v119 = 0u;
-                v95 = v35;
+                v117 = 0u;
+                v118 = 0u;
+                v116 = 0u;
+                v92 = v35;
                 v36 = [v35 preITNTokens];
-                v37 = [v36 countByEnumeratingWithState:&v119 objects:v158 count:16];
+                v37 = [v36 countByEnumeratingWithState:&v116 objects:v155 count:16];
                 if (v37)
                 {
-                  v38 = *v120;
-                  v110 = v36;
+                  v38 = *v117;
+                  v107 = v36;
                   do
                   {
                     for (i = 0; i != v37; i = i + 1)
                     {
-                      if (*v120 != v38)
+                      if (*v117 != v38)
                       {
-                        objc_enumerationMutation(v110);
+                        objc_enumerationMutation(v107);
                       }
 
-                      v40 = [*(*(&v119 + 1) + 8 * i) tokenName];
+                      v40 = [*(*(&v116 + 1) + 8 * i) tokenName];
                       v41 = [v40 componentsSeparatedByString:@" "];
 
                       v42 = v21;
                       v43 = v8;
-                      v117 = 0u;
-                      v118 = 0u;
+                      v114 = 0u;
                       v115 = 0u;
-                      v116 = 0u;
+                      v112 = 0u;
+                      v113 = 0u;
                       v44 = v41;
-                      v45 = [v44 countByEnumeratingWithState:&v115 objects:v157 count:16];
+                      v45 = [v44 countByEnumeratingWithState:&v112 objects:v154 count:16];
                       if (v45)
                       {
-                        v46 = *v116;
+                        v46 = *v113;
                         do
                         {
                           for (j = 0; j != v45; j = j + 1)
                           {
-                            if (*v116 != v46)
+                            if (*v113 != v46)
                             {
                               objc_enumerationMutation(v44);
                             }
 
-                            [v33 addObject:*(*(&v115 + 1) + 8 * j)];
+                            [v33 addObject:*(*(&v112 + 1) + 8 * j)];
                           }
 
-                          v45 = [v44 countByEnumeratingWithState:&v115 objects:v157 count:16];
+                          v45 = [v44 countByEnumeratingWithState:&v112 objects:v154 count:16];
                         }
 
                         while (v45);
@@ -5521,53 +5524,53 @@ LABEL_14:
                       v21 = v42;
                     }
 
-                    v36 = v110;
-                    v37 = [v110 countByEnumeratingWithState:&v119 objects:v158 count:16];
+                    v36 = v107;
+                    v37 = [v107 countByEnumeratingWithState:&v116 objects:v155 count:16];
                   }
 
                   while (v37);
                 }
 
-                v48 = *(v108 + 88) ^ 1;
-                v49 = sub_100021704(v33, v106, v48 & 1);
+                v48 = *(v105 + 88) ^ 1;
+                v49 = sub_100021704(v33, v103, v48 & 1);
                 v50 = AFSiriLogContextFides;
                 if (os_log_type_enabled(AFSiriLogContextFides, OS_LOG_TYPE_INFO))
                 {
-                  *v159 = 136315394;
-                  v160 = "[ESConnection runCorrectedTextEvaluationWithAudioDatas:recordDatas:language:samplingRate:caseSensitive:skipLME:wordSenseAccessListSet:completion:]_block_invoke";
-                  v161 = 2112;
-                  v162 = v49;
-                  _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_INFO, "%s Edit distance between tts ASR and original ASR %@", v159, 0x16u);
+                  *v156 = 136315394;
+                  v157 = "[ESConnection runCorrectedTextEvaluationWithAudioDatas:recordDatas:language:samplingRate:caseSensitive:skipLME:wordSenseAccessListSet:completion:]_block_invoke";
+                  v158 = 2112;
+                  v159 = v49;
+                  _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_INFO, "%s Edit distance between tts ASR and original ASR %@", v156, 0x16u);
                 }
 
-                v113 = 0;
-                v114 = 0;
-                v51 = sub_100023834(v103, v106, v48 & 1, &v114, &v113);
-                v52 = v114;
-                v92 = v52;
-                v93 = v113;
-                v91 = v51;
+                v110 = 0;
+                v111 = 0;
+                v51 = sub_100023834(v100, v103, v48 & 1, &v111, &v110);
+                v52 = v111;
+                v89 = v52;
+                v90 = v110;
+                v88 = v51;
                 if (v51 == -1)
                 {
-                  [v100 addObject:v105];
+                  [v97 addObject:v102];
                 }
 
                 else
                 {
-                  v94 = [v52 mutableCopy];
-                  v111 = [v93 mutableCopy];
-                  if (*(v108 + 89) == 1)
+                  v91 = [v52 mutableCopy];
+                  v108 = [v90 mutableCopy];
+                  if (*(v105 + 89) == 1)
                   {
-                    v112 = 0;
-                    v96 = [NSRegularExpression regularExpressionWithPattern:@"\\\\\\S+$" options:0 error:&v112];
-                    v90 = v112;
-                    v53 = [v111 count];
+                    v109 = 0;
+                    v93 = [NSRegularExpression regularExpressionWithPattern:@"\\\\\\S+$" options:0 error:&v109];
+                    v87 = v109;
+                    v53 = [v108 count];
                     if ((v53 - 1) >= 0)
                     {
                       while (1)
                       {
-                        v54 = [v111 objectAtIndexedSubscript:--v53];
-                        v55 = [v96 firstMatchInString:v54 options:0 range:{0, objc_msgSend(v54, "length")}];
+                        v54 = [v108 objectAtIndexedSubscript:--v53];
+                        v55 = [v93 firstMatchInString:v54 options:0 range:{0, objc_msgSend(v54, "length")}];
                         v56 = v55;
                         if (v55)
                         {
@@ -5584,7 +5587,7 @@ LABEL_62:
 
                       v57 = [v55 range];
                       v59 = [v54 substringWithRange:{v57, v58}];
-                      v60 = v108[8];
+                      v60 = v105[8];
                       v61 = v59;
                       v62 = v60;
                       v63 = v62;
@@ -5627,8 +5630,8 @@ LABEL_55:
 
                       if (v64 && v64 != @"PERSONALINFO")
                       {
-                        [v94 removeObjectAtIndex:v53];
-                        [v111 removeObjectAtIndex:v53];
+                        [v91 removeObjectAtIndex:v53];
+                        [v108 removeObjectAtIndex:v53];
                       }
 
                       goto LABEL_62;
@@ -5640,40 +5643,40 @@ LABEL_63:
                   v66 = AFSiriLogContextFides;
                   if (os_log_type_enabled(AFSiriLogContextFides, OS_LOG_TYPE_INFO))
                   {
-                    *v159 = 136315650;
-                    v160 = "[ESConnection runCorrectedTextEvaluationWithAudioDatas:recordDatas:language:samplingRate:caseSensitive:skipLME:wordSenseAccessListSet:completion:]_block_invoke";
-                    v161 = 2112;
-                    v162 = v94;
-                    v163 = 2112;
-                    v164 = v111;
-                    _os_log_impl(&_mh_execute_header, v66, OS_LOG_TYPE_INFO, "%s correctedOutput: %@, recognizedOutput %@", v159, 0x20u);
+                    *v156 = 136315650;
+                    v157 = "[ESConnection runCorrectedTextEvaluationWithAudioDatas:recordDatas:language:samplingRate:caseSensitive:skipLME:wordSenseAccessListSet:completion:]_block_invoke";
+                    v158 = 2112;
+                    v159 = v91;
+                    v160 = 2112;
+                    v161 = v108;
+                    _os_log_impl(&_mh_execute_header, v66, OS_LOG_TYPE_INFO, "%s correctedOutput: %@, recognizedOutput %@", v156, 0x20u);
                   }
 
-                  [v105 setValue:v94 forKey:@"correctedOutput"];
-                  [v105 setValue:v111 forKey:@"recognizedOutput"];
-                  v67 = [NSNumber numberWithInteger:v91];
-                  [v105 setValue:v67 forKey:@"editDistanceRecognizedCorrected"];
+                  [v102 setValue:v91 forKey:@"correctedOutput"];
+                  [v102 setValue:v108 forKey:@"recognizedOutput"];
+                  v67 = [NSNumber numberWithInteger:v88];
+                  [v102 setValue:v67 forKey:@"editDistanceRecognizedCorrected"];
 
                   v68 = [v49 objectForKeyedSubscript:@"EditDistance"];
-                  [v105 setValue:v68 forKey:@"editDistanceRecognizedTTSASR"];
+                  [v102 setValue:v68 forKey:@"editDistanceRecognizedTTSASR"];
 
-                  [v109 timestamp];
+                  [v106 timestamp];
                   v69 = [NSNumber numberWithDouble:?];
-                  [v105 setValue:v69 forKey:@"timestamp"];
+                  [v102 setValue:v69 forKey:@"timestamp"];
 
-                  v70 = [v109 interactionIdentifier];
-                  [v105 setValue:v70 forKey:@"interactionId"];
+                  v70 = [v106 interactionIdentifier];
+                  [v102 setValue:v70 forKey:@"interactionId"];
 
-                  v71 = [v109 asrSelfComponentIdentifier];
-                  [v105 setValue:v71 forKey:@"asrSelfComponentIdentifier"];
+                  v71 = [v106 asrSelfComponentIdentifier];
+                  [v102 setValue:v71 forKey:@"asrSelfComponentIdentifier"];
 
-                  [v100 addObject:v105];
+                  [v97 addObject:v102];
                 }
               }
 
               else
               {
-                [v100 addObject:v105];
+                [v97 addObject:v102];
               }
 
               _Block_object_dispose(buf, 8);
@@ -5681,7 +5684,7 @@ LABEL_63:
 
             else
             {
-              [v100 addObject:v105];
+              [v97 addObject:v102];
             }
           }
 
@@ -5710,9 +5713,9 @@ LABEL_63:
           }
         }
 
-        if (++v107 == v21)
+        if (++v104 == v21)
         {
-          v74 = [v101 countByEnumeratingWithState:&v132 objects:v171 count:16];
+          v74 = [v98 countByEnumeratingWithState:&v129 objects:v168 count:16];
           v21 = v74;
           if (!v74)
           {
@@ -5723,62 +5726,59 @@ LABEL_63:
         }
       }
 
-      v83 = AFSiriLogContextFides;
+      v81 = AFSiriLogContextFides;
       if (os_log_type_enabled(AFSiriLogContextFides, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
         *&buf[4] = "[ESConnection runCorrectedTextEvaluationWithAudioDatas:recordDatas:language:samplingRate:caseSensitive:skipLME:wordSenseAccessListSet:completion:]_block_invoke";
-        _os_log_impl(&_mh_execute_header, v83, OS_LOG_TYPE_INFO, "%s Interrupted corrected text evaluation redecoding", buf, 0xCu);
+        _os_log_impl(&_mh_execute_header, v81, OS_LOG_TYPE_INFO, "%s Interrupted corrected text evaluation redecoding", buf, 0xCu);
       }
 
-      v169 = NSLocalizedDescriptionKey;
-      v170 = @"Interrupted corrected text evaluation during speech recognition";
-      v84 = [NSDictionary dictionaryWithObjects:&v170 forKeys:&v169 count:1];
-      v85 = [NSError errorWithDomain:kAFAssistantErrorDomain code:1503 userInfo:v84];
-      v86 = v150[5];
-      v150[5] = v85;
+      v166 = NSLocalizedDescriptionKey;
+      v167 = @"Interrupted corrected text evaluation during speech recognition";
+      v82 = [NSDictionary dictionaryWithObjects:&v167 forKeys:&v166 count:1];
+      v83 = [NSError errorWithDomain:kAFAssistantErrorDomain code:1503 userInfo:v82];
+      v84 = v147[5];
+      v147[5] = v83;
 
-      v87 = v150[5];
-      (*(v108[9] + 16))();
+      (*(v105[9] + 16))();
 LABEL_89:
 
-      _Block_object_dispose(v172, 8);
+      _Block_object_dispose(v169, 8);
     }
 
     else
     {
-      v78 = AFSiriLogContextFides;
+      v77 = AFSiriLogContextFides;
       if (os_log_type_enabled(AFSiriLogContextFides, OS_LOG_TYPE_ERROR))
       {
-        v89 = v108[4];
-        *v172 = 136315394;
-        *&v172[4] = "[ESConnection runCorrectedTextEvaluationWithAudioDatas:recordDatas:language:samplingRate:caseSensitive:skipLME:wordSenseAccessListSet:completion:]_block_invoke";
-        *&v172[12] = 2112;
-        *&v172[14] = v89;
-        _os_log_error_impl(&_mh_execute_header, v78, OS_LOG_TYPE_ERROR, "%s No tokenizer for %@", v172, 0x16u);
+        v86 = v105[4];
+        *v169 = 136315394;
+        *&v169[4] = "[ESConnection runCorrectedTextEvaluationWithAudioDatas:recordDatas:language:samplingRate:caseSensitive:skipLME:wordSenseAccessListSet:completion:]_block_invoke";
+        *&v169[12] = 2112;
+        *&v169[14] = v86;
+        _os_log_error_impl(&_mh_execute_header, v77, OS_LOG_TYPE_ERROR, "%s No tokenizer for %@", v169, 0x16u);
       }
 
-      v100 = [NSString stringWithFormat:@"No tokenizer for %@", v108[4]];
-      v176 = NSLocalizedDescriptionKey;
-      v177 = v100;
-      v79 = [NSDictionary dictionaryWithObjects:&v177 forKeys:&v176 count:1];
-      v80 = [NSError errorWithDomain:kAFAssistantErrorDomain code:600 userInfo:v79];
-      v81 = v150[5];
-      v150[5] = v80;
+      v97 = [NSString stringWithFormat:@"No tokenizer for %@", v105[4]];
+      v173 = NSLocalizedDescriptionKey;
+      v174 = v97;
+      v78 = [NSDictionary dictionaryWithObjects:&v174 forKeys:&v173 count:1];
+      v79 = [NSError errorWithDomain:kAFAssistantErrorDomain code:600 userInfo:v78];
+      v80 = v147[5];
+      v147[5] = v79;
 
-      v82 = v150[5];
-      (*(v108[9] + 16))();
+      (*(v105[9] + 16))();
     }
   }
 
   else
   {
-    v77 = v150[5];
     (*(a1[9] + 16))();
   }
 
-  _Block_object_dispose(&v143, 8);
-  _Block_object_dispose(&v149, 8);
+  _Block_object_dispose(&v140, 8);
+  _Block_object_dispose(&v146, 8);
 }
 
 void sub_100023624(_Unwind_Exception *a1)
@@ -6095,52 +6095,52 @@ void sub_100023E78(id a1)
 
 void sub_100023FC0(uint64_t a1)
 {
-  v81 = 0;
-  v82 = &v81;
-  v83 = 0x3032000000;
-  v84 = sub_10001BCF8;
-  v85 = sub_10001BD08;
-  v86 = 0;
+  v79 = 0;
+  v80 = &v79;
+  v81 = 0x3032000000;
+  v82 = sub_10001BCF8;
+  v83 = sub_10001BD08;
+  v84 = 0;
   v2 = [[SFEntitledAssetConfig alloc] initWithLanguage:*(a1 + 32) task:*(a1 + 40)];
-  v42 = a1;
-  v75 = 0;
-  v76 = &v75;
-  v77 = 0x3032000000;
-  v78 = sub_10001BCF8;
-  v79 = sub_10001BD08;
-  v80 = 0;
+  v40 = a1;
+  v73 = 0;
+  v74 = &v73;
+  v75 = 0x3032000000;
+  v76 = sub_10001BCF8;
+  v77 = sub_10001BD08;
+  v78 = 0;
   v3 = qword_100061620;
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_100024884;
   block[3] = &unk_100055200;
-  v73 = &v75;
-  v34 = v2;
-  v72 = v34;
-  v74 = &v81;
+  v71 = &v73;
+  v32 = v2;
+  v70 = v32;
+  v72 = &v79;
   dispatch_sync(v3, block);
-  if (v76[5])
+  if (v74[5])
   {
-    v37 = objc_alloc_init(NSMutableDictionary);
-    v65 = 0;
-    v66 = &v65;
-    v67 = 0x3032000000;
-    v68 = sub_10001BCF8;
-    v69 = sub_10001BD08;
-    v70 = 0;
-    v35 = [CESRUtilities speechProfilePathsWithLanguage:*(v42 + 32)];
-    if ([v35 count] == 1)
+    v35 = objc_alloc_init(NSMutableDictionary);
+    v63 = 0;
+    v64 = &v63;
+    v65 = 0x3032000000;
+    v66 = sub_10001BCF8;
+    v67 = sub_10001BD08;
+    v68 = 0;
+    v33 = [CESRUtilities speechProfilePathsWithLanguage:*(v40 + 32)];
+    if ([v33 count] == 1)
     {
       v4 = [NSData alloc];
-      v5 = [v35 firstObject];
+      v5 = [v33 firstObject];
       v6 = [v4 initWithContentsOfFile:v5 options:0 error:0];
-      v7 = v66[5];
-      v66[5] = v6;
+      v7 = v64[5];
+      v64[5] = v6;
     }
 
-    v8 = v66;
+    v8 = v64;
     v9 = AFSiriLogContextFides;
-    if (v66[5])
+    if (v64[5])
     {
       v10 = AFSiriLogContextFides;
       if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
@@ -6161,156 +6161,154 @@ void sub_100023FC0(uint64_t a1)
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "%s Unable to load speech profile", buf, 0xCu);
     }
 
-    v63 = 0u;
-    v64 = 0u;
     v61 = 0u;
     v62 = 0u;
-    obj = *(v42 + 48);
-    v38 = [obj countByEnumeratingWithState:&v61 objects:v95 count:16];
-    if (v38)
+    v59 = 0u;
+    v60 = 0u;
+    obj = *(v40 + 48);
+    v36 = [obj countByEnumeratingWithState:&v59 objects:v93 count:16];
+    if (v36)
     {
-      v39 = *v62;
+      v37 = *v60;
       while (2)
       {
-        v41 = 0;
+        v39 = 0;
         do
         {
-          if (*v62 != v39)
+          if (*v60 != v37)
           {
             objc_enumerationMutation(obj);
           }
 
-          v40 = *(*(&v61 + 1) + 8 * v41);
-          if ([*(v42 + 56) _invalidated])
+          v38 = *(*(&v59 + 1) + 8 * v39);
+          if ([*(v40 + 56) _invalidated])
           {
-            v29 = AFSiriLogContextFides;
+            v28 = AFSiriLogContextFides;
             if (os_log_type_enabled(AFSiriLogContextFides, OS_LOG_TYPE_INFO))
             {
               *buf = 136315138;
               *&buf[4] = "[ESConnection redecodeWithAudioDatas:language:task:samplingRate:completion:]_block_invoke";
-              _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_INFO, "%s Interrupted corrected text evaluation redecoding", buf, 0xCu);
+              _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_INFO, "%s Interrupted corrected text evaluation redecoding", buf, 0xCu);
             }
 
-            v93 = NSLocalizedDescriptionKey;
-            v94 = @"Interrupted corrected text redecoding during speech recognition";
-            v30 = [NSDictionary dictionaryWithObjects:&v94 forKeys:&v93 count:1];
-            v31 = [NSError errorWithDomain:kAFAssistantErrorDomain code:1101 userInfo:v30];
-            v32 = v82[5];
-            v82[5] = v31;
+            v91 = NSLocalizedDescriptionKey;
+            v92 = @"Interrupted corrected text redecoding during speech recognition";
+            v29 = [NSDictionary dictionaryWithObjects:&v92 forKeys:&v91 count:1];
+            v30 = [NSError errorWithDomain:kAFAssistantErrorDomain code:1101 userInfo:v29];
+            v31 = v80[5];
+            v80[5] = v30;
 
-            v33 = v82[5];
-            (*(*(v42 + 64) + 16))();
-
+            (*(*(v40 + 64) + 16))();
             goto LABEL_45;
           }
 
           *buf = 0;
           *&buf[8] = buf;
           *&buf[16] = 0x3032000000;
-          v90 = sub_10001BCF8;
-          v91 = sub_10001BD08;
-          v92 = 0;
-          v13 = qword_100061620;
-          v52[0] = _NSConcreteStackBlock;
-          v52[1] = 3221225472;
-          v52[2] = sub_100024908;
-          v52[3] = &unk_100055228;
-          v57 = buf;
-          v58 = &v75;
-          v53 = *(v42 + 48);
-          v54 = v40;
-          v59 = &v65;
-          v55 = *(v42 + 32);
-          v14 = *(v42 + 40);
-          v15 = *(v42 + 72);
-          v56 = v14;
-          v60 = v15;
-          dispatch_sync(v13, v52);
-          v43 = objc_alloc_init(NSMutableArray);
-          v16 = *(*&buf[8] + 40);
-          if (v16 && [v16 count])
+          v88 = sub_10001BCF8;
+          v89 = sub_10001BD08;
+          v90 = 0;
+          v12 = qword_100061620;
+          v50[0] = _NSConcreteStackBlock;
+          v50[1] = 3221225472;
+          v50[2] = sub_100024908;
+          v50[3] = &unk_100055228;
+          v55 = buf;
+          v56 = &v73;
+          v51 = *(v40 + 48);
+          v52 = v38;
+          v57 = &v63;
+          v53 = *(v40 + 32);
+          v13 = *(v40 + 40);
+          v14 = *(v40 + 72);
+          v54 = v13;
+          v58 = v14;
+          dispatch_sync(v12, v50);
+          v41 = objc_alloc_init(NSMutableArray);
+          v15 = *(*&buf[8] + 40);
+          if (v15 && [v15 count])
           {
-            v50 = 0u;
-            v51 = 0u;
             v48 = 0u;
             v49 = 0u;
-            v17 = *(*&buf[8] + 40);
-            v18 = [v17 countByEnumeratingWithState:&v48 objects:v88 count:16];
-            if (v18)
+            v46 = 0u;
+            v47 = 0u;
+            v16 = *(*&buf[8] + 40);
+            v17 = [v16 countByEnumeratingWithState:&v46 objects:v86 count:16];
+            if (v17)
             {
-              v19 = *v49;
+              v18 = *v47;
               do
               {
-                v20 = 0;
+                v19 = 0;
                 do
                 {
-                  if (*v49 != v19)
+                  if (*v47 != v18)
                   {
-                    objc_enumerationMutation(v17);
+                    objc_enumerationMutation(v16);
                   }
 
-                  v21 = *(*(&v48 + 1) + 8 * v20);
-                  v22 = objc_alloc_init(NSMutableArray);
-                  v46 = 0u;
-                  v47 = 0u;
+                  v20 = *(*(&v46 + 1) + 8 * v19);
+                  v21 = objc_alloc_init(NSMutableArray);
                   v44 = 0u;
                   v45 = 0u;
-                  v23 = [v21 preITNTokens];
-                  v24 = [v23 countByEnumeratingWithState:&v44 objects:v87 count:16];
-                  if (v24)
+                  v42 = 0u;
+                  v43 = 0u;
+                  v22 = [v20 preITNTokens];
+                  v23 = [v22 countByEnumeratingWithState:&v42 objects:v85 count:16];
+                  if (v23)
                   {
-                    v25 = *v45;
+                    v24 = *v43;
                     do
                     {
-                      v26 = 0;
+                      v25 = 0;
                       do
                       {
-                        if (*v45 != v25)
+                        if (*v43 != v24)
                         {
-                          objc_enumerationMutation(v23);
+                          objc_enumerationMutation(v22);
                         }
 
-                        v27 = [*(*(&v44 + 1) + 8 * v26) tokenName];
-                        [v22 addObject:v27];
+                        v26 = [*(*(&v42 + 1) + 8 * v25) tokenName];
+                        [v21 addObject:v26];
 
-                        v26 = v26 + 1;
+                        v25 = v25 + 1;
                       }
 
-                      while (v24 != v26);
-                      v24 = [v23 countByEnumeratingWithState:&v44 objects:v87 count:16];
+                      while (v23 != v25);
+                      v23 = [v22 countByEnumeratingWithState:&v42 objects:v85 count:16];
                     }
 
-                    while (v24);
+                    while (v23);
                   }
 
-                  if ([v22 count])
+                  if ([v21 count])
                   {
-                    [v43 addObject:v22];
+                    [v41 addObject:v21];
                   }
 
-                  v20 = v20 + 1;
+                  v19 = v19 + 1;
                 }
 
-                while (v20 != v18);
-                v18 = [v17 countByEnumeratingWithState:&v48 objects:v88 count:16];
+                while (v19 != v17);
+                v17 = [v16 countByEnumeratingWithState:&v46 objects:v86 count:16];
               }
 
-              while (v18);
+              while (v17);
             }
           }
 
-          if ([v43 count])
+          if ([v41 count])
           {
-            [v37 setObject:v43 forKeyedSubscript:v40];
+            [v35 setObject:v41 forKeyedSubscript:v38];
           }
 
           _Block_object_dispose(buf, 8);
-          v41 = v41 + 1;
+          v39 = v39 + 1;
         }
 
-        while (v41 != v38);
-        v38 = [obj countByEnumeratingWithState:&v61 objects:v95 count:16];
-        if (v38)
+        while (v39 != v36);
+        v36 = [obj countByEnumeratingWithState:&v59 objects:v93 count:16];
+        if (v36)
         {
           continue;
         }
@@ -6319,25 +6317,24 @@ void sub_100023FC0(uint64_t a1)
       }
     }
 
-    v28 = *(v42 + 64);
-    if (v28)
+    v27 = *(v40 + 64);
+    if (v27)
     {
-      (*(v28 + 16))(v28, v37, 0);
+      (*(v27 + 16))(v27, v35, 0);
     }
 
 LABEL_45:
 
-    _Block_object_dispose(&v65, 8);
+    _Block_object_dispose(&v63, 8);
   }
 
   else
   {
-    v12 = v82[5];
-    (*(*(v42 + 64) + 16))();
+    (*(*(v40 + 64) + 16))();
   }
 
-  _Block_object_dispose(&v75, 8);
-  _Block_object_dispose(&v81, 8);
+  _Block_object_dispose(&v73, 8);
+  _Block_object_dispose(&v79, 8);
 }
 
 void sub_1000247F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, char a60)
@@ -6399,9 +6396,9 @@ id sub_100024DFC(uint64_t a1)
   return [*(a1 + 32) resetCacheWithCompletion:*(a1 + 40)];
 }
 
-void sub_10002535C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_10002535C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6410,113 +6407,111 @@ void sub_100025388(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
   v7 = a2;
   v8 = a3;
-  v9 = &AFAnalyticsEventCreateCurrent_ptr;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v64 = 0u;
-    v65 = 0u;
     v62 = 0u;
     v63 = 0u;
-    v10 = v8;
-    v11 = [v10 countByEnumeratingWithState:&v62 objects:v71 count:16];
-    if (v11)
+    v60 = 0u;
+    v61 = 0u;
+    v9 = v8;
+    v10 = [v9 countByEnumeratingWithState:&v60 objects:v69 count:16];
+    if (v10)
     {
-      v12 = v11;
-      v13 = &AFAnalyticsEventCreateCurrent_ptr;
-      v14 = *v63;
-      v56 = v8;
-      v57 = v7;
-      v54 = a1;
-      v55 = a4;
-      v53 = v10;
-      v50 = *v63;
+      v11 = v10;
+      v12 = &AFAnalyticsEventCreateCurrent_ptr;
+      v13 = *v61;
+      v54 = v8;
+      v55 = v7;
+      v52 = a1;
+      v53 = a4;
+      v51 = v9;
+      v48 = *v61;
       while (2)
       {
-        v15 = 0;
-        v51 = v12;
+        v14 = 0;
+        v49 = v11;
         do
         {
-          if (*v63 != v14)
+          if (*v61 != v13)
           {
-            objc_enumerationMutation(v10);
+            objc_enumerationMutation(v9);
           }
 
-          v52 = v15;
-          v16 = *(*(&v62 + 1) + 8 * v15);
-          v17 = v9[351];
+          v50 = v14;
+          v15 = *(*(&v60 + 1) + 8 * v14);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
-            v44 = kAFAssistantErrorDomain;
-            v69 = NSLocalizedFailureReasonErrorKey;
-            v45 = [NSString stringWithFormat:@"Not an array: %@", v16];
-            v70 = v45;
-            v46 = [NSDictionary dictionaryWithObjects:&v70 forKeys:&v69 count:1];
-            v47 = [NSError errorWithDomain:v44 code:1102 userInfo:v46];
-            v48 = *(*(a1 + 40) + 8);
-            v49 = *(v48 + 40);
-            *(v48 + 40) = v47;
+            v42 = kAFAssistantErrorDomain;
+            v67 = NSLocalizedFailureReasonErrorKey;
+            v43 = [NSString stringWithFormat:@"Not an array: %@", v15];
+            v68 = v43;
+            v44 = [NSDictionary dictionaryWithObjects:&v68 forKeys:&v67 count:1];
+            v45 = [NSError errorWithDomain:v42 code:1102 userInfo:v44];
+            v46 = *(*(a1 + 40) + 8);
+            v47 = *(v46 + 40);
+            *(v46 + 40) = v45;
 
             *a4 = 1;
             goto LABEL_21;
           }
 
-          v18 = [v13[356] array];
+          v16 = [v12[356] array];
+          v56 = 0u;
+          v57 = 0u;
           v58 = 0u;
           v59 = 0u;
-          v60 = 0u;
-          v61 = 0u;
-          v19 = v16;
-          v20 = [v19 countByEnumeratingWithState:&v58 objects:v68 count:16];
-          if (v20)
+          v17 = v15;
+          v18 = [v17 countByEnumeratingWithState:&v56 objects:v66 count:16];
+          if (v18)
           {
-            v21 = v20;
-            v22 = *v59;
+            v19 = v18;
+            v20 = *v57;
             while (2)
             {
-              for (i = 0; i != v21; i = i + 1)
+              for (i = 0; i != v19; i = i + 1)
               {
-                if (*v59 != v22)
+                if (*v57 != v20)
                 {
-                  objc_enumerationMutation(v19);
+                  objc_enumerationMutation(v17);
                 }
 
-                v24 = *(*(&v58 + 1) + 8 * i);
+                v22 = *(*(&v56 + 1) + 8 * i);
                 objc_opt_class();
                 if ((objc_opt_isKindOfClass() & 1) == 0)
                 {
-                  v38 = kAFAssistantErrorDomain;
-                  v66 = NSLocalizedFailureReasonErrorKey;
-                  v39 = [NSString stringWithFormat:@"Not a dictionary: %@", v19];
-                  v67 = v39;
-                  v40 = [NSDictionary dictionaryWithObjects:&v67 forKeys:&v66 count:1];
-                  v41 = [NSError errorWithDomain:v38 code:1102 userInfo:v40];
-                  v42 = *(*(v54 + 40) + 8);
-                  v43 = *(v42 + 40);
-                  *(v42 + 40) = v41;
+                  v36 = kAFAssistantErrorDomain;
+                  v64 = NSLocalizedFailureReasonErrorKey;
+                  v37 = [NSString stringWithFormat:@"Not a dictionary: %@", v17];
+                  v65 = v37;
+                  v38 = [NSDictionary dictionaryWithObjects:&v65 forKeys:&v64 count:1];
+                  v39 = [NSError errorWithDomain:v36 code:1102 userInfo:v38];
+                  v40 = *(*(v52 + 40) + 8);
+                  v41 = *(v40 + 40);
+                  *(v40 + 40) = v39;
 
-                  *v55 = 1;
-                  v8 = v56;
-                  v7 = v57;
-                  v10 = v53;
+                  *v53 = 1;
+                  v8 = v54;
+                  v7 = v55;
+                  v9 = v51;
                   goto LABEL_21;
                 }
 
-                v25 = [v24 objectForKey:@"orth"];
-                v26 = [v24 objectForKey:@"prons"];
-                v27 = [NSSet setWithArray:v26];
+                v23 = [v22 objectForKey:@"orth"];
+                v24 = [v22 objectForKey:@"prons"];
+                v25 = [NSSet setWithArray:v24];
 
-                v28 = [v24 objectForKey:@"tag"];
-                v29 = [v24 objectForKey:@"freq"];
-                v30 = [v29 integerValue];
+                v26 = [v22 objectForKey:@"tag"];
+                v27 = [v22 objectForKey:@"freq"];
+                v28 = [v27 integerValue];
 
-                v31 = [[_EARWordPart alloc] initWithOrthography:v25 pronunciations:v27 tagName:v28 frequency:v30];
-                [v18 addObject:v31];
+                v29 = [[_EARWordPart alloc] initWithOrthography:v23 pronunciations:v25 tagName:v26 frequency:v28];
+                [v16 addObject:v29];
               }
 
-              v21 = [v19 countByEnumeratingWithState:&v58 objects:v68 count:16];
-              if (v21)
+              v19 = [v17 countByEnumeratingWithState:&v56 objects:v66 count:16];
+              if (v19)
               {
                 continue;
               }
@@ -6525,22 +6520,21 @@ void sub_100025388(uint64_t a1, void *a2, void *a3, _BYTE *a4)
             }
           }
 
-          a1 = v54;
-          v7 = v57;
-          [*(v54 + 32) addWordWithParts:v18 templateName:v57];
+          a1 = v52;
+          v7 = v55;
+          [*(v52 + 32) addWordWithParts:v16 templateName:v55];
 
-          v15 = v52 + 1;
-          a4 = v55;
-          v8 = v56;
-          v10 = v53;
-          v9 = &AFAnalyticsEventCreateCurrent_ptr;
-          v13 = &AFAnalyticsEventCreateCurrent_ptr;
-          v14 = v50;
+          v14 = v50 + 1;
+          a4 = v53;
+          v8 = v54;
+          v9 = v51;
+          v12 = &AFAnalyticsEventCreateCurrent_ptr;
+          v13 = v48;
         }
 
-        while ((v52 + 1) != v51);
-        v12 = [v53 countByEnumeratingWithState:&v62 objects:v71 count:16];
-        if (v12)
+        while ((v50 + 1) != v49);
+        v11 = [v51 countByEnumeratingWithState:&v60 objects:v69 count:16];
+        if (v11)
         {
           continue;
         }
@@ -6554,15 +6548,15 @@ LABEL_21:
 
   else
   {
-    v32 = kAFAssistantErrorDomain;
-    v72 = NSLocalizedFailureReasonErrorKey;
-    v33 = [NSString stringWithFormat:@"Not an array: %@", v8];
-    v73 = v33;
-    v34 = [NSDictionary dictionaryWithObjects:&v73 forKeys:&v72 count:1];
-    v35 = [NSError errorWithDomain:v32 code:1102 userInfo:v34];
-    v36 = *(*(a1 + 40) + 8);
-    v37 = *(v36 + 40);
-    *(v36 + 40) = v35;
+    v30 = kAFAssistantErrorDomain;
+    v70 = NSLocalizedFailureReasonErrorKey;
+    v31 = [NSString stringWithFormat:@"Not an array: %@", v8];
+    v71 = v31;
+    v32 = [NSDictionary dictionaryWithObjects:&v71 forKeys:&v70 count:1];
+    v33 = [NSError errorWithDomain:v30 code:1102 userInfo:v32];
+    v34 = *(*(a1 + 40) + 8);
+    v35 = *(v34 + 40);
+    *(v34 + 40) = v33;
 
     *a4 = 1;
   }
@@ -6580,9 +6574,9 @@ void sub_100025D4C(id a1)
   [v1 handlePostInstallSubscriptions];
 }
 
-void sub_100026210(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100026210(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6996,9 +6990,9 @@ LABEL_22:
   return v15;
 }
 
-void sub_10002A6C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_10002A6C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7131,21 +7125,21 @@ void sub_10002ABB8(void *a1, void *a2, void *a3, _BYTE *a4)
   v7 = a2;
   v8 = a3;
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0 || (v9 = a1[6], (objc_opt_isKindOfClass() & 1) == 0))
+  if ((objc_opt_isKindOfClass() & 1) == 0 || (objc_opt_isKindOfClass() & 1) == 0)
   {
-    v10 = AFSiriLogContextSpeech;
+    v9 = AFSiriLogContextSpeech;
     if (os_log_type_enabled(AFSiriLogContextSpeech, OS_LOG_TYPE_ERROR))
     {
-      v11 = a1[4];
-      v12 = 136315906;
-      v13 = "ReplacementDictionaryForAssetConfig_block_invoke";
-      v14 = 2112;
-      v15 = v11;
-      v16 = 2112;
-      v17 = v7;
-      v18 = 2112;
-      v19 = v8;
-      _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "%s %@ contains bogus key/value pair: %@ => %@", &v12, 0x2Au);
+      v10 = a1[4];
+      v11 = 136315906;
+      v12 = "ReplacementDictionaryForAssetConfig_block_invoke";
+      v13 = 2112;
+      v14 = v10;
+      v15 = 2112;
+      v16 = v7;
+      v17 = 2112;
+      v18 = v8;
+      _os_log_error_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "%s %@ contains bogus key/value pair: %@ => %@", &v11, 0x2Au);
     }
 
     *a4 = 1;

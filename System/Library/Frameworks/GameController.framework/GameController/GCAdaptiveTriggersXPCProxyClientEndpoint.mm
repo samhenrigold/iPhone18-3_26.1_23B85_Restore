@@ -17,41 +17,42 @@
 {
   identifierCopy = identifier;
   statusesCopy = statuses;
-  v20.receiver = self;
-  v20.super_class = GCAdaptiveTriggersXPCProxyClientEndpoint;
-  v8 = [(GCAdaptiveTriggersXPCProxyClientEndpoint *)&v20 init];
+  v22.receiver = self;
+  v22.super_class = GCAdaptiveTriggersXPCProxyClientEndpoint;
+  v8 = [(GCAdaptiveTriggersXPCProxyClientEndpoint *)&v22 init];
+  v10 = v8;
   if (v8)
   {
-    if (gc_isInternalBuild())
+    if (gc_isInternalBuild(v8, v9))
     {
-      [GCAdaptiveTriggersXPCProxyClientEndpoint initWithIdentifier:initialStatuses:];
+      [GCAdaptiveTriggersXPCProxyClientEndpoint initWithIdentifier:identifierCopy initialStatuses:?];
     }
 
-    v9 = [identifierCopy copyWithZone:0];
-    identifier = v8->_identifier;
-    v8->_identifier = v9;
+    v11 = [identifierCopy copyWithZone:0];
+    identifier = v10->_identifier;
+    v10->_identifier = v11;
 
     initOff = [[GCDeviceAdaptiveTriggersPayload alloc] initOff];
-    leftTrigger = v8->_leftTrigger;
-    v8->_leftTrigger = initOff;
+    leftTrigger = v10->_leftTrigger;
+    v10->_leftTrigger = initOff;
 
     initOff2 = [[GCDeviceAdaptiveTriggersPayload alloc] initOff];
-    rightTrigger = v8->_rightTrigger;
-    v8->_rightTrigger = initOff2;
+    rightTrigger = v10->_rightTrigger;
+    v10->_rightTrigger = initOff2;
 
     if ([statusesCopy count] >= 2)
     {
-      v15 = [statusesCopy objectAtIndexedSubscript:0];
-      leftStatus = v8->_leftStatus;
-      v8->_leftStatus = v15;
+      v17 = [statusesCopy objectAtIndexedSubscript:0];
+      leftStatus = v10->_leftStatus;
+      v10->_leftStatus = v17;
 
-      v17 = [statusesCopy objectAtIndexedSubscript:1];
-      rightStatus = v8->_rightStatus;
-      v8->_rightStatus = v17;
+      v19 = [statusesCopy objectAtIndexedSubscript:1];
+      rightStatus = v10->_rightStatus;
+      v10->_rightStatus = v19;
     }
   }
 
-  return v8;
+  return v10;
 }
 
 - (GCAdaptiveTriggersXPCProxyClientEndpoint)init
@@ -66,13 +67,13 @@
   endpointCopy = endpoint;
   connectionCopy = connection;
   objc_initWeak(&location, self);
-  v15 = MEMORY[0x1E69E9820];
-  v16 = 3221225472;
-  v17 = __73__GCAdaptiveTriggersXPCProxyClientEndpoint_setRemoteEndpoint_connection___block_invoke;
-  v18 = &unk_1E8418D18;
-  objc_copyWeak(&v19, &location);
-  v9 = _Block_copy(&v15);
-  v10 = [connectionCopy addInterruptionHandler:{v9, v15, v16, v17, v18}];
+  v18 = MEMORY[0x1E69E9820];
+  v19 = 3221225472;
+  v20 = __73__GCAdaptiveTriggersXPCProxyClientEndpoint_setRemoteEndpoint_connection___block_invoke;
+  v21 = &unk_1E8418D18;
+  objc_copyWeak(&v22, &location);
+  v9 = _Block_copy(&v18);
+  v10 = [connectionCopy addInterruptionHandler:{v9, v18, v19, v20, v21}];
   connectionInterruptionRegistration = self->_connectionInterruptionRegistration;
   self->_connectionInterruptionRegistration = v10;
 
@@ -81,36 +82,38 @@
   self->_connectionInvalidationRegistration = v12;
 
   objc_storeStrong(&self->_serverEndpoint, endpoint);
-  if (gc_isInternalBuild())
+  isInternalBuild = gc_isInternalBuild(v14, v15);
+  if (isInternalBuild)
   {
-    v14 = getGCLogger();
-    [GCAdaptiveTriggersXPCProxyClientEndpoint setRemoteEndpoint:v14 connection:?];
+    v17 = getGCLogger(isInternalBuild);
+    [GCAdaptiveTriggersXPCProxyClientEndpoint setRemoteEndpoint:v17 connection:?];
   }
 
   [(GCAdaptiveTriggersXPCProxyClientEndpoint *)self refreshStatuses];
 
-  objc_destroyWeak(&v19);
+  objc_destroyWeak(&v22);
   objc_destroyWeak(&location);
 }
 
 void __73__GCAdaptiveTriggersXPCProxyClientEndpoint_setRemoteEndpoint_connection___block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v3 = WeakRetained;
   if (WeakRetained)
   {
-    if (gc_isInternalBuild())
+    if (gc_isInternalBuild(WeakRetained, v2))
     {
-      __64__GCBatteryXPCProxyClientEndpoint_setRemoteEndpoint_connection___block_invoke_cold_1();
+      __64__GCBatteryXPCProxyClientEndpoint_setRemoteEndpoint_connection___block_invoke_cold_1(v3);
     }
 
-    v2 = WeakRetained[4];
-    WeakRetained[4] = 0;
+    v4 = v3[4];
+    v3[4] = 0;
 
-    v3 = WeakRetained[3];
-    WeakRetained[3] = 0;
+    v5 = v3[3];
+    v3[3] = 0;
 
-    v4 = WeakRetained[2];
-    WeakRetained[2] = 0;
+    v6 = v3[2];
+    v3[2] = 0;
   }
 }
 
@@ -131,18 +134,18 @@ void __73__GCAdaptiveTriggersXPCProxyClientEndpoint_setRemoteEndpoint_connection
 - (void)_remoteEndpointHasSetStatuses:(id)statuses
 {
   statusesCopy = statuses;
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(statusesCopy, v5))
   {
-    [GCAdaptiveTriggersXPCProxyClientEndpoint _remoteEndpointHasSetStatuses:];
+    [GCAdaptiveTriggersXPCProxyClientEndpoint _remoteEndpointHasSetStatuses:statusesCopy];
   }
 
   if ([statusesCopy count] >= 2)
   {
-    v5 = [statusesCopy objectAtIndexedSubscript:0];
-    [(GCAdaptiveTriggersXPCProxyClientEndpoint *)self setLeftStatus:v5];
+    v6 = [statusesCopy objectAtIndexedSubscript:0];
+    [(GCAdaptiveTriggersXPCProxyClientEndpoint *)self setLeftStatus:v6];
 
-    v6 = [statusesCopy objectAtIndexedSubscript:1];
-    [(GCAdaptiveTriggersXPCProxyClientEndpoint *)self setRightStatus:v6];
+    v7 = [statusesCopy objectAtIndexedSubscript:1];
+    [(GCAdaptiveTriggersXPCProxyClientEndpoint *)self setRightStatus:v7];
   }
 }
 
@@ -159,11 +162,12 @@ void __73__GCAdaptiveTriggersXPCProxyClientEndpoint_setRemoteEndpoint_connection
   _os_activity_initiate(&dword_1D2CD5000, "(Adaptive Trigger XPC Proxy Client Endpoint) New Statuses", OS_ACTIVITY_FLAG_DEFAULT, v6);
 }
 
-uint64_t __56__GCAdaptiveTriggersXPCProxyClientEndpoint_newStatuses___block_invoke(uint64_t a1)
+uint64_t __56__GCAdaptiveTriggersXPCProxyClientEndpoint_newStatuses___block_invoke(uint64_t a1, uint64_t a2)
 {
-  if (gc_isInternalBuild())
+  isInternalBuild = gc_isInternalBuild(a1, a2);
+  if (isInternalBuild)
   {
-    __56__GCAdaptiveTriggersXPCProxyClientEndpoint_newStatuses___block_invoke_cold_1();
+    __56__GCAdaptiveTriggersXPCProxyClientEndpoint_newStatuses___block_invoke_cold_1(isInternalBuild);
   }
 
   return [*(a1 + 32) _remoteEndpointHasSetStatuses:*(a1 + 40)];
@@ -179,21 +183,22 @@ uint64_t __56__GCAdaptiveTriggersXPCProxyClientEndpoint_newStatuses___block_invo
   _os_activity_initiate(&dword_1D2CD5000, "(Adaptive Trigger XPC Proxy Client Endpoint) Refresh Statuses", OS_ACTIVITY_FLAG_DEFAULT, activity_block);
 }
 
-uint64_t __59__GCAdaptiveTriggersXPCProxyClientEndpoint_refreshStatuses__block_invoke(uint64_t a1)
+uint64_t __59__GCAdaptiveTriggersXPCProxyClientEndpoint_refreshStatuses__block_invoke(uint64_t a1, uint64_t a2)
 {
-  if (gc_isInternalBuild())
+  isInternalBuild = gc_isInternalBuild(a1, a2);
+  if (isInternalBuild)
   {
-    __59__GCAdaptiveTriggersXPCProxyClientEndpoint_refreshStatuses__block_invoke_cold_1();
+    __59__GCAdaptiveTriggersXPCProxyClientEndpoint_refreshStatuses__block_invoke_cold_1(isInternalBuild);
   }
 
-  v2 = *(a1 + 32);
-  v3 = *(v2 + 16);
-  v5[0] = MEMORY[0x1E69E9820];
-  v5[1] = 3221225472;
-  v5[2] = __59__GCAdaptiveTriggersXPCProxyClientEndpoint_refreshStatuses__block_invoke_86;
-  v5[3] = &unk_1E841ABD8;
-  v5[4] = v2;
-  return [v3 fetchStatusesWithReply:v5];
+  v4 = *(a1 + 32);
+  v5 = *(v4 + 16);
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __59__GCAdaptiveTriggersXPCProxyClientEndpoint_refreshStatuses__block_invoke_86;
+  v7[3] = &unk_1E841ABD8;
+  v7[4] = v4;
+  return [v5 fetchStatusesWithReply:v7];
 }
 
 - (void)invalidateConnection
@@ -228,63 +233,54 @@ void __64__GCAdaptiveTriggersXPCProxyClientEndpoint_invalidateConnection__block_
   (*(reply + 2))(replyCopy, identifier);
 }
 
-- (void)initWithIdentifier:initialStatuses:.cold.1()
+- (void)initWithIdentifier:(uint64_t)a1 initialStatuses:.cold.1(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_11(v1))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_11(v2))
   {
     OUTLINED_FUNCTION_8();
     OUTLINED_FUNCTION_1_0();
-    _os_log_impl(v2, v3, OS_LOG_TYPE_INFO, v4, v5, 0xCu);
+    _os_log_impl(v3, v4, OS_LOG_TYPE_INFO, v5, v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setRemoteEndpoint:(NSObject *)a1 connection:.cold.1(NSObject *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(a1, OS_LOG_TYPE_DEBUG))
   {
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_0_0(&dword_1D2CD5000, v3, v4, "Server connection established for %@", v5, v6, v7, v8, v9);
+    OUTLINED_FUNCTION_0_0(&dword_1D2CD5000, v2, v3, "Server connection established for %@", v4, v5, v6, v7);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
-- (void)_remoteEndpointHasSetStatuses:.cold.1()
+- (void)_remoteEndpointHasSetStatuses:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_11(v1))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_11(v2))
   {
     OUTLINED_FUNCTION_8();
     OUTLINED_FUNCTION_1_0();
-    _os_log_impl(v2, v3, OS_LOG_TYPE_INFO, v4, v5, 0xCu);
-  }
-
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __56__GCAdaptiveTriggersXPCProxyClientEndpoint_newStatuses___block_invoke_cold_1()
-{
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_11(v1))
-  {
-    OUTLINED_FUNCTION_1_0();
-    _os_log_impl(v2, v3, OS_LOG_TYPE_INFO, v4, v5, 2u);
+    _os_log_impl(v3, v4, OS_LOG_TYPE_INFO, v5, v6, 0xCu);
   }
 }
 
-void __59__GCAdaptiveTriggersXPCProxyClientEndpoint_refreshStatuses__block_invoke_cold_1()
+void __56__GCAdaptiveTriggersXPCProxyClientEndpoint_newStatuses___block_invoke_cold_1(uint64_t a1)
 {
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_11(v1))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_11(v2))
   {
     OUTLINED_FUNCTION_1_0();
-    _os_log_impl(v2, v3, OS_LOG_TYPE_INFO, v4, v5, 2u);
+    _os_log_impl(v3, v4, OS_LOG_TYPE_INFO, v5, v6, 2u);
+  }
+}
+
+void __59__GCAdaptiveTriggersXPCProxyClientEndpoint_refreshStatuses__block_invoke_cold_1(uint64_t a1)
+{
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_11(v2))
+  {
+    OUTLINED_FUNCTION_1_0();
+    _os_log_impl(v3, v4, OS_LOG_TYPE_INFO, v5, v6, 2u);
   }
 }
 

@@ -155,16 +155,16 @@ LABEL_23:
 
 - (id)descriptionDictionary
 {
-  v17[5] = *MEMORY[0x277D85DE8];
-  v16[0] = @"EventType";
+  v16[5] = *MEMORY[0x277D85DE8];
+  v15[0] = @"EventType";
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  v17[0] = v5;
-  v16[1] = @"uuid";
+  v16[0] = v5;
+  v15[1] = @"uuid";
   uuid = [(TAAISFetchSuccess *)self uuid];
   uUIDString = [uuid UUIDString];
-  v17[1] = uUIDString;
-  v16[2] = @"info";
+  v16[1] = uUIDString;
+  v15[2] = @"info";
   info = [(TAAISFetchSuccess *)self info];
   if (info)
   {
@@ -177,21 +177,19 @@ LABEL_23:
     descriptionDictionary = &stru_287F632C0;
   }
 
-  v17[2] = descriptionDictionary;
-  v16[3] = @"type";
+  v16[2] = descriptionDictionary;
+  v15[3] = @"type";
   v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[TAAISFetchSuccess successType](self, "successType")}];
-  v17[3] = v10;
-  v16[4] = @"date";
+  v16[3] = v10;
+  v15[4] = @"date";
   date = [(TAAISFetchSuccess *)self date];
   getDateString = [date getDateString];
-  v17[4] = getDateString;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:5];
+  v16[4] = getDateString;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:5];
 
   if (info)
   {
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

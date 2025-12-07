@@ -74,18 +74,18 @@
   inSegmentCopy = inSegment;
   if (segmentCopy)
   {
-    [segmentCopy segmentInfo];
+    objc_msgSend_segmentInfo(segmentCopy);
   }
 
   if (inSegmentCopy)
   {
-    [inSegmentCopy segmentInfo];
+    objc_msgSend_segmentInfo(inSegmentCopy);
   }
 
   PXAxisTransposed();
 }
 
-uint64_t __120__PXStoryTransitionProducer__wipeTransitionsForOrderOutSegment_orderInSegment_viewportSize_dividerWidth_transitionInfo___block_invoke(uint64_t a1, char a2, int a3)
+uint64_t __120__PXStoryTransitionProducer__wipeTransitionsForOrderOutSegment_orderInSegment_viewportSize_dividerWidth_transitionInfo___block_invoke(uint64_t a1, uint64_t a2, int a3)
 {
   if (!a3)
   {
@@ -170,9 +170,9 @@ void __120__PXStoryTransitionProducer__wipeTransitionsForOrderOutSegment_orderIn
   [v9 addClipLayout:v12 configurationBlock:v13];
 }
 
-uint64_t __120__PXStoryTransitionProducer__wipeTransitionsForOrderOutSegment_orderInSegment_viewportSize_dividerWidth_transitionInfo___block_invoke_35(uint64_t result, uint64_t a2, _OWORD *a3)
+void __120__PXStoryTransitionProducer__wipeTransitionsForOrderOutSegment_orderInSegment_viewportSize_dividerWidth_transitionInfo___block_invoke_35(uint64_t a1, uint64_t a2, _OWORD *a3)
 {
-  v3 = *(result + 800);
+  v3 = *(a1 + 800);
   switch(v3)
   {
     case 2:
@@ -180,7 +180,7 @@ uint64_t __120__PXStoryTransitionProducer__wipeTransitionsForOrderOutSegment_ord
     case 1:
       PXRectWithSizeAlignedToRectEdgesWithPadding();
     case 0:
-      *(a2 + 80) = *(result + 832) + *(result + 840);
+      *(a2 + 80) = *(a1 + 832) + *(a1 + 840);
       *(a2 + 64) = 0;
       *(a2 + 72) = 0;
       *(a2 + 32) = 0u;
@@ -203,7 +203,6 @@ uint64_t __120__PXStoryTransitionProducer__wipeTransitionsForOrderOutSegment_ord
   a3[1] = v5;
   *a2 = v4;
   *(a2 + 16) = v5;
-  return result;
 }
 
 __n128 __120__PXStoryTransitionProducer__wipeTransitionsForOrderOutSegment_orderInSegment_viewportSize_dividerWidth_transitionInfo___block_invoke_33(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -311,22 +310,22 @@ __n128 __120__PXStoryTransitionProducer__wipeTransitionsForOrderOutSegment_order
   return result;
 }
 
-uint64_t __120__PXStoryTransitionProducer__wipeTransitionsForOrderOutSegment_orderInSegment_viewportSize_dividerWidth_transitionInfo___block_invoke_19(uint64_t result, _OWORD *a2, uint64_t a3)
+double *__120__PXStoryTransitionProducer__wipeTransitionsForOrderOutSegment_orderInSegment_viewportSize_dividerWidth_transitionInfo___block_invoke_19(double *result, _OWORD *a2, uint64_t a3)
 {
-  v3 = *(result + 40);
-  v4 = *(result + 88);
+  v3 = *(result + 5);
+  v4 = *(result + 11);
   v5 = v3 == 2;
   if (v3 == 2)
   {
-    v6 = 64;
+    v6 = 8;
   }
 
   else
   {
-    v6 = 72;
+    v6 = 9;
   }
 
-  v7 = *(result + v6) + *(result + 80);
+  v7 = result[v6] + result[10];
   if (v5)
   {
     *(a3 + 32) = 0;
@@ -381,7 +380,7 @@ uint64_t __120__PXStoryTransitionProducer__wipeTransitionsForOrderOutSegment_ord
   a2[5] = 0u;
   a2[2] = 0u;
   a2[3] = 0u;
-  v8 = *(result + 104);
+  v8 = *(result + 13);
   if (v8 == 1)
   {
     PXStoryRectOuterBounds();
@@ -529,7 +528,7 @@ void __120__PXStoryTransitionProducer__wipeTransitionsForOrderOutSegment_orderIn
   *a2 = CGRectOffset(*(a1 + 824), v7, v8);
 }
 
-uint64_t __120__PXStoryTransitionProducer__wipeTransitionsForOrderOutSegment_orderInSegment_viewportSize_dividerWidth_transitionInfo___block_invoke_10(uint64_t result, _OWORD *a2, uint64_t a3)
+void __120__PXStoryTransitionProducer__wipeTransitionsForOrderOutSegment_orderInSegment_viewportSize_dividerWidth_transitionInfo___block_invoke_10(uint64_t a1, _OWORD *a2, uint64_t a3)
 {
   a2[6] = 0u;
   a2[7] = 0u;
@@ -538,7 +537,7 @@ uint64_t __120__PXStoryTransitionProducer__wipeTransitionsForOrderOutSegment_ord
   a2[2] = 0u;
   a2[3] = 0u;
   v3 = 64;
-  if (*(result + 32) == 2)
+  if (*(a1 + 32) == 2)
   {
     v3 = 56;
     v4 = 0.0;
@@ -546,13 +545,13 @@ uint64_t __120__PXStoryTransitionProducer__wipeTransitionsForOrderOutSegment_ord
 
   else
   {
-    v4 = (*(result + 64) + *(result + 72)) * 0.5;
+    v4 = (*(a1 + 64) + *(a1 + 72)) * 0.5;
   }
 
-  v5 = vdup_n_s32(*(result + 32) == 2);
-  if (*(result + 32) == 2)
+  v5 = vdup_n_s32(*(a1 + 32) == 2);
+  if (*(a1 + 32) == 2)
   {
-    v6 = (*(result + v3) + *(result + 72)) * 0.5;
+    v6 = (*(a1 + v3) + *(a1 + 72)) * 0.5;
   }
 
   else
@@ -562,7 +561,7 @@ uint64_t __120__PXStoryTransitionProducer__wipeTransitionsForOrderOutSegment_ord
 
   v7.i64[0] = v5.u32[0];
   v7.i64[1] = v5.u32[1];
-  *&v8 = (*(result + v3) + *(result + 72)) * 0.5;
+  *&v8 = (*(a1 + v3) + *(a1 + 72)) * 0.5;
   v9 = vcltzq_s64(vshlq_n_s64(v7, 0x3FuLL));
   *(a3 + 32) = vbicq_s8(v8, v9);
   *(a3 + 48) = v4;
@@ -571,22 +570,19 @@ uint64_t __120__PXStoryTransitionProducer__wipeTransitionsForOrderOutSegment_ord
   *(a3 + 80) = 0uLL;
   *(a3 + 96) = 0uLL;
   *(a3 + 112) = 0uLL;
-  if (*(result + 88) == 1)
+  if (*(a1 + 88) == 1)
   {
     PXStoryRectOuterBounds();
   }
-
-  return result;
 }
 
-uint64_t __120__PXStoryTransitionProducer__wipeTransitionsForOrderOutSegment_orderInSegment_viewportSize_dividerWidth_transitionInfo___block_invoke_8(uint64_t result, _OWORD *a2, _OWORD *a3)
+void __120__PXStoryTransitionProducer__wipeTransitionsForOrderOutSegment_orderInSegment_viewportSize_dividerWidth_transitionInfo___block_invoke_8(void *a1, _OWORD *a2, _OWORD *a3, uint64_t a4, uint64_t a5)
 {
-  v3 = *(result + 48);
-  if (v3 == 1)
+  v5 = a1[6];
+  if (v5 == 1)
   {
-    v4 = result;
-    (*(*(result + 32) + 16))();
-    if (*(v4 + 808) == 2)
+    (*(a1[4] + 16))();
+    if (a1[101] == 2)
     {
       PXStoryRectOuterBounds();
     }
@@ -594,24 +590,22 @@ uint64_t __120__PXStoryTransitionProducer__wipeTransitionsForOrderOutSegment_ord
     PXStoryRectOuterBounds();
   }
 
-  if (v3 == 4)
+  if (v5 == 4)
   {
-    v5 = *MEMORY[0x1E695F058];
-    v6 = *(MEMORY[0x1E695F058] + 16);
+    v7 = *MEMORY[0x1E695F058];
+    v8 = *(MEMORY[0x1E695F058] + 16);
     *a3 = *MEMORY[0x1E695F058];
-    a3[1] = v6;
-    *a2 = v5;
-    a2[1] = v6;
+    a3[1] = v8;
+    *a2 = v7;
+    a2[1] = v8;
   }
-
-  return result;
 }
 
-uint64_t __120__PXStoryTransitionProducer__wipeTransitionsForOrderOutSegment_orderInSegment_viewportSize_dividerWidth_transitionInfo___block_invoke_6(uint64_t result)
+double *__120__PXStoryTransitionProducer__wipeTransitionsForOrderOutSegment_orderInSegment_viewportSize_dividerWidth_transitionInfo___block_invoke_6(double *result, uint64_t a2, uint64_t a3)
 {
-  if (*(result + 48) == 1)
+  if (*(result + 6) == 1)
   {
-    if (*(result + 848) == 2)
+    if (*(result + 106) == 2)
     {
       PXStoryRectOuterBounds();
     }
@@ -622,11 +616,11 @@ uint64_t __120__PXStoryTransitionProducer__wipeTransitionsForOrderOutSegment_ord
   return result;
 }
 
-uint64_t __120__PXStoryTransitionProducer__wipeTransitionsForOrderOutSegment_orderInSegment_viewportSize_dividerWidth_transitionInfo___block_invoke_4(uint64_t result)
+double *__120__PXStoryTransitionProducer__wipeTransitionsForOrderOutSegment_orderInSegment_viewportSize_dividerWidth_transitionInfo___block_invoke_4(double *result, uint64_t a2)
 {
-  if (*(result + 48) == 1)
+  if (*(result + 6) == 1)
   {
-    if (*(result + 848) == 2)
+    if (*(result + 106) == 2)
     {
       PXStoryRectOuterBounds();
     }
@@ -637,14 +631,13 @@ uint64_t __120__PXStoryTransitionProducer__wipeTransitionsForOrderOutSegment_ord
   return result;
 }
 
-uint64_t __120__PXStoryTransitionProducer__wipeTransitionsForOrderOutSegment_orderInSegment_viewportSize_dividerWidth_transitionInfo___block_invoke_2(uint64_t result, _OWORD *a2, _OWORD *a3)
+void __120__PXStoryTransitionProducer__wipeTransitionsForOrderOutSegment_orderInSegment_viewportSize_dividerWidth_transitionInfo___block_invoke_2(void *a1, _OWORD *a2, _OWORD *a3, uint64_t a4, uint64_t a5)
 {
-  v3 = *(result + 48);
-  if (v3 == 1)
+  v5 = a1[6];
+  if (v5 == 1)
   {
-    v4 = result;
-    (*(*(result + 32) + 16))();
-    if (*(v4 + 808) == 2)
+    (*(a1[4] + 16))();
+    if (a1[101] == 2)
     {
       PXStoryRectOuterBounds();
     }
@@ -652,17 +645,15 @@ uint64_t __120__PXStoryTransitionProducer__wipeTransitionsForOrderOutSegment_ord
     PXStoryRectOuterBounds();
   }
 
-  if (v3 == 4)
+  if (v5 == 4)
   {
-    v5 = *MEMORY[0x1E695F058];
-    v6 = *(MEMORY[0x1E695F058] + 16);
+    v7 = *MEMORY[0x1E695F058];
+    v8 = *(MEMORY[0x1E695F058] + 16);
     *a3 = *MEMORY[0x1E695F058];
-    a3[1] = v6;
-    *a2 = v5;
-    a2[1] = v6;
+    a3[1] = v8;
+    *a2 = v7;
+    a2[1] = v8;
   }
-
-  return result;
 }
 
 - (void)_recordFallbackToCutTransitionBetweenSegmentWithIdentifier:(int64_t)identifier andSegmentWithIdentifier:(int64_t)withIdentifier reason:(id)reason
@@ -708,7 +699,7 @@ uint64_t __120__PXStoryTransitionProducer__wipeTransitionsForOrderOutSegment_ord
   v92 = 0u;
   if (timeline)
   {
-    [timeline infoForSegmentWithIdentifier:segmentTransitionInfo];
+    objc_msgSend_infoForSegmentWithIdentifier_(timeline);
     v90 = 0;
     v88 = 0u;
     v89 = 0u;
@@ -722,7 +713,7 @@ uint64_t __120__PXStoryTransitionProducer__wipeTransitionsForOrderOutSegment_ord
     v81 = 0u;
     v78 = 0u;
     v79 = 0u;
-    [timeline infoForSegmentWithIdentifier:v8];
+    objc_msgSend_infoForSegmentWithIdentifier_(timeline);
     fallbackTransitionKind = v94[0];
   }
 
@@ -939,12 +930,10 @@ void __58__PXStoryTransitionProducer_transitionsWithConfiguration___block_invoke
 {
   kindCopy = kind;
   timelineCopy = timeline;
-  v10 = timelineCopy;
+  v8 = timelineCopy;
   if (kindCopy >= 2)
   {
-    v50 = 0;
-    v48 = 0u;
-    v49 = 0u;
+    v48 = 0;
     v46 = 0u;
     v47 = 0u;
     v44 = 0u;
@@ -955,12 +944,12 @@ void __58__PXStoryTransitionProducer_transitionsWithConfiguration___block_invoke
     v41 = 0u;
     v38 = 0u;
     v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
     if (timelineCopy)
     {
-      [timelineCopy infoForSegmentWithIdentifier:identifier];
-      v37 = 0;
-      v36 = 0u;
-      v35 = 0u;
+      objc_msgSend_infoForSegmentWithIdentifier_(timelineCopy);
+      v35 = 0;
       v34 = 0u;
       v33 = 0u;
       v32 = 0u;
@@ -971,18 +960,18 @@ void __58__PXStoryTransitionProducer_transitionsWithConfiguration___block_invoke
       v27 = 0u;
       v26 = 0u;
       v25 = 0u;
-      [v10 infoForSegmentWithIdentifier:segmentIdentifier];
-      v12 = *(&v38 + 1);
-      v13 = *(&v40 + 1);
-      v14 = v40;
+      v24 = 0u;
+      v23 = 0u;
+      objc_msgSend_infoForSegmentWithIdentifier_(v8);
+      v10 = *(&v36 + 1);
+      v11 = *(&v38 + 1);
+      v12 = v38;
     }
 
     else
     {
-      v13 = 0;
-      v12 = 0;
-      v36 = 0uLL;
-      v35 = 0uLL;
+      v11 = 0;
+      v10 = 0;
       v34 = 0uLL;
       v33 = 0uLL;
       v32 = 0uLL;
@@ -993,31 +982,33 @@ void __58__PXStoryTransitionProducer_transitionsWithConfiguration___block_invoke
       v27 = 0uLL;
       v26 = 0uLL;
       v25 = 0uLL;
-      v14 = 0;
-      v37 = 0;
+      v24 = 0uLL;
+      v23 = 0uLL;
+      v12 = 0;
+      v35 = 0;
     }
 
-    v24 = v39;
-    v17 = v26;
-    v19 = 0;
+    v22 = v37;
+    v15 = v24;
+    v17 = 0;
+    v18 = v10;
+    v19 = v37;
     v20 = v12;
-    v21 = v39;
-    v22 = v14;
-    v23 = v13;
+    v21 = v11;
+    v14 = 0;
     v16 = 0;
-    v18 = 0;
-    v11 = [PXStoryTransitionProducer isSupportedTransitionWithKind:kindCopy betweenSegmentWithClipComposition:&v20 andSegmentWithClipComposition:&v16];
+    v9 = [PXStoryTransitionProducer isSupportedTransitionWithKind:kindCopy betweenSegmentWithClipComposition:&v18 andSegmentWithClipComposition:&v14];
   }
 
   else
   {
-    v11 = 1;
+    v9 = 1;
   }
 
-  return v11;
+  return v9;
 }
 
-void __112__PXStoryTransitionProducer_isSupportedTransitionWithKind_fromSegmentIdentifier_toSegmentIdentifier_inTimeline___block_invoke_2(uint64_t a1, uint64_t a2)
+void __112__PXStoryTransitionProducer_isSupportedTransitionWithKind_fromSegmentIdentifier_toSegmentIdentifier_inTimeline___block_invoke_2(uint64_t a1, const char *a2)
 {
   v3[0] = 0;
   v3[1] = v3;
@@ -1026,18 +1017,18 @@ void __112__PXStoryTransitionProducer_isSupportedTransitionWithKind_fromSegmentI
   v2 = *(a1 + 32);
   if (v2)
   {
-    [v2 timeRangeForSegmentWithIdentifier:a2];
+    objc_msgSend_timeRangeForSegmentWithIdentifier_(v2, a2, a2);
   }
 
   PXAxisTransposed();
 }
 
-void __112__PXStoryTransitionProducer_isSupportedTransitionWithKind_fromSegmentIdentifier_toSegmentIdentifier_inTimeline___block_invoke(uint64_t a1, _OWORD *a2)
+void __112__PXStoryTransitionProducer_isSupportedTransitionWithKind_fromSegmentIdentifier_toSegmentIdentifier_inTimeline___block_invoke(CGFloat a1, uint64_t a2, _OWORD *a3, uint64_t a4, uint64_t a5)
 {
-  v2 = a2[1];
-  *&v3.a = *a2;
-  *&v3.c = v2;
-  *&v3.tx = a2[2];
+  v5 = a3[1];
+  *&v6.a = *a3;
+  *&v6.c = v5;
+  *&v6.tx = a3[2];
   PXStoryRectOuterBounds();
 }
 
@@ -1142,7 +1133,7 @@ void __53__PXStoryTransitionProducer_supportedTransitionKinds__block_invoke()
 
   if (kindCopy == 8)
   {
-    PXFloatApproximatelyEqualToFloat();
+    PXFloatApproximatelyEqualToFloat(composition->var3);
   }
 
   if (kindCopy == 2)

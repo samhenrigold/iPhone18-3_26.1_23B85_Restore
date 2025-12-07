@@ -770,7 +770,7 @@ LABEL_22:
           -[CRLCanvasShapeRenderable setPath:](self->mHUDRenderable, "setPath:", [v21 CGPath]);
           [v21 bounds];
           [(CRLCanvasRenderable *)self->mHUDRenderable setBounds:?];
-          [(CRLCanvasRenderable *)self->mHUDRenderable setAnchorPoint:v74];
+          [(CRLCanvasRenderable *)self->mHUDRenderable setAnchorPoint:v74.x, v74.y];
           if ((sub_1001228B4() & 1) == 0)
           {
             [(CRLCanvasRenderable *)self->mHUDRenderable setPosition:self->mTargetPoint.x, self->mTargetPoint.y];
@@ -1028,7 +1028,7 @@ LABEL_22:
         -[CRLCanvasShapeRenderable setPath:](self->mHUDRenderable, "setPath:", [v18 CGPath]);
         [v18 bounds];
         [(CRLCanvasRenderable *)self->mHUDRenderable setBounds:?];
-        [(CRLCanvasRenderable *)self->mHUDRenderable setAnchorPoint:v123];
+        [(CRLCanvasRenderable *)self->mHUDRenderable setAnchorPoint:v123.x, v123.y];
         if ((sub_1001228B4() & 1) == 0)
         {
           [(CRLCanvasRenderable *)self->mHUDRenderable setPosition:self->mTargetPoint.x, self->mTargetPoint.y];

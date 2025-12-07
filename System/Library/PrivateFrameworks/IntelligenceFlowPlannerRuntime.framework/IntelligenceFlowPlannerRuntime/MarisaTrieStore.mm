@@ -47,19 +47,18 @@
 
 - (id)reverseLookupRow:(int)row
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v12 = 0u;
-  v13 = 0u;
+  v13 = *MEMORY[0x277D85DE8];
   v11 = 0u;
-  marisa::Agent::Agent(&v11);
-  marisa::Agent::set_query(&v11);
-  marisa::Trie::reverse_lookup(&self->trie, &v11);
-  v4 = *(&v12 + 1);
-  v5 = v13;
+  v12 = 0u;
+  v10 = 0u;
+  marisa::Agent::Agent(&v10);
+  marisa::Agent::set_query(&v10);
+  marisa::Trie::reverse_lookup(&self->trie, &v10);
+  v4 = *(&v11 + 1);
+  v5 = v12;
   v6 = objc_alloc(MEMORY[0x277CCACA8]);
   v8 = objc_msgSend_initWithBytes_length_encoding_(v6, v7, v4, v5, 4);
-  marisa::Agent::~Agent(&v11);
-  v9 = *MEMORY[0x277D85DE8];
+  marisa::Agent::~Agent(&v10);
 
   return v8;
 }
@@ -126,29 +125,29 @@
 
 - (void)lookupKey:(id)key resultBlock:(id)block
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   blockCopy = block;
-  v33 = 0u;
-  v34 = 0u;
   v32 = 0u;
-  marisa::Agent::Agent(&v32);
+  v33 = 0u;
+  v31 = 0u;
+  marisa::Agent::Agent(&v31);
   v9 = objc_msgSend_dataUsingEncoding_(keyCopy, v8, 4);
-  v31 = objc_msgSend_mutableCopy(v9, v10, v11);
+  v30 = objc_msgSend_mutableCopy(v9, v10, v11);
 
-  if (v31)
+  if (v30)
   {
-    v14 = objc_msgSend_length(v31, v12, v13);
+    v14 = objc_msgSend_length(v30, v12, v13);
     *buf = 255;
-    objc_msgSend_appendBytes_length_(v31, v15, buf, 2);
-    v16 = v31;
-    v19 = objc_msgSend_bytes(v31, v17, v18);
-    marisa::Agent::set_query(&v32, v19);
-    while (marisa::Trie::predictive_search(&self->trie, &v32))
+    objc_msgSend_appendBytes_length_(v30, v15, buf, 2);
+    v16 = v30;
+    v19 = objc_msgSend_bytes(v30, v17, v18);
+    marisa::Agent::set_query(&v31, v19);
+    while (marisa::Trie::predictive_search(&self->trie, &v31))
     {
-      v20 = *(&v33 + 1);
-      v21 = v34;
-      v22 = DWORD1(v34);
+      v20 = *(&v32 + 1);
+      v21 = v33;
+      v22 = DWORD1(v33);
       v23 = objc_autoreleasePoolPush();
       v25 = objc_msgSend_dataWithBytes_length_(MEMORY[0x277CBEA90], v24, v20 + v14 + 1, ~v14 + v21);
       blockCopy[2](blockCopy, v25, v22);
@@ -164,7 +163,7 @@
     if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v36 = keyCopy;
+      v35 = keyCopy;
       _os_log_error_impl(&dword_22C366000, v29, OS_LOG_TYPE_ERROR, "Unable to convert NSString to UTF8 NSData. String is:%@", buf, 0xCu);
     }
 
@@ -172,8 +171,7 @@
     objc_autoreleasePoolPop(v26);
   }
 
-  marisa::Agent::~Agent(&v32);
-  v30 = *MEMORY[0x277D85DE8];
+  marisa::Agent::~Agent(&v31);
 }
 
 - (BOOL)lookupRow:(id)row outIdx:(int64_t *)idx
@@ -204,40 +202,40 @@
 
 - (void)enumerateAllRowsWithBlock:(id)block
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   blockCopy = block;
-  v16 = 0u;
-  v17 = 0u;
   v15 = 0u;
-  marisa::Agent::Agent(&v15);
+  v16 = 0u;
+  v14 = 0u;
+  marisa::Agent::Agent(&v14);
   v5 = 0;
   *&v6 = 138543362;
-  v14 = v6;
+  v13 = v6;
   while (v5 < marisa::Trie::size(&self->trie))
   {
-    marisa::Agent::set_query(&v15);
-    marisa::Trie::reverse_lookup(&self->trie, &v15);
-    v7 = *(&v16 + 1);
-    v9 = v17;
-    v8 = DWORD1(v17);
+    marisa::Agent::set_query(&v14);
+    marisa::Trie::reverse_lookup(&self->trie, &v14);
+    v7 = *(&v15 + 1);
+    v9 = v16;
+    v8 = DWORD1(v16);
     v10 = objc_autoreleasePoolPush();
     __p[0] = 0;
     __p[1] = 0;
-    v19 = 0;
+    v18 = 0;
     sub_22C8FED7C(__p, v7, v9);
-    if (v19 >= 0)
+    if (v18 >= 0)
     {
-      objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, __p, v14);
+      objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, __p, v13);
     }
 
     else
     {
-      objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, __p[0], v14);
+      objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, __p[0], v13);
     }
     v12 = ;
     blockCopy[2](blockCopy, v12, v8);
 
-    if (SHIBYTE(v19) < 0)
+    if (SHIBYTE(v18) < 0)
     {
       operator delete(__p[0]);
     }
@@ -246,50 +244,48 @@
     ++v5;
   }
 
-  marisa::Agent::~Agent(&v15);
-
-  v13 = *MEMORY[0x277D85DE8];
+  marisa::Agent::~Agent(&v14);
 }
 
 - (void)enumerateAllEntriesWithBlock:(id)block
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   *__s = 0u;
-  v21 = 0u;
-  v19 = 0u;
-  marisa::Agent::Agent(&v19);
+  v20 = 0u;
+  v18 = 0u;
+  marisa::Agent::Agent(&v18);
   v5 = 0;
   *&v6 = 138543362;
-  v18 = v6;
+  v17 = v6;
   while (v5 < marisa::Trie::size(&self->trie))
   {
-    marisa::Agent::set_query(&v19);
-    marisa::Trie::reverse_lookup(&self->trie, &v19);
+    marisa::Agent::set_query(&v18);
+    marisa::Trie::reverse_lookup(&self->trie, &v18);
     v7 = __s[1];
-    v8 = v21;
-    v9 = DWORD1(v21);
+    v8 = v20;
+    v9 = DWORD1(v20);
     v10 = strchr(__s[1], -1);
     v11 = objc_autoreleasePoolPush();
     v12 = v10 - v7;
     __p[0] = 0;
     __p[1] = 0;
-    v23 = 0;
+    v22 = 0;
     sub_22C8FED7C(__p, v7, v10 - v7);
-    if (v23 >= 0)
+    if (v22 >= 0)
     {
-      objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, __p, v18);
+      objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, __p, v17);
     }
 
     else
     {
-      objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, __p[0], v18);
+      objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, __p[0], v17);
     }
     v14 = ;
     v16 = objc_msgSend_dataWithBytes_length_(MEMORY[0x277CBEA90], v15, &v7[v12 + 1], ~v12 + v8);
     blockCopy[2](blockCopy, v14, v16, v9);
 
-    if (SHIBYTE(v23) < 0)
+    if (SHIBYTE(v22) < 0)
     {
       operator delete(__p[0]);
     }
@@ -298,9 +294,7 @@
     ++v5;
   }
 
-  marisa::Agent::~Agent(&v19);
-
-  v17 = *MEMORY[0x277D85DE8];
+  marisa::Agent::~Agent(&v18);
 }
 
 - (void)writeToURL:(id)l
@@ -387,7 +381,7 @@
 
 - (MarisaTrieStore)initWithURL:(id)l
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   lCopy = l;
   v7 = objc_msgSend_defaultManager(MEMORY[0x277CCAA00], v5, v6);
   v10 = objc_msgSend_path(lCopy, v8, v9);
@@ -395,9 +389,9 @@
 
   if (v12)
   {
-    v37.receiver = self;
-    v37.super_class = MarisaTrieStore;
-    v17 = [(MarisaTrieStore *)&v37 init];
+    v36.receiver = self;
+    v36.super_class = MarisaTrieStore;
+    v17 = [(MarisaTrieStore *)&v36 init];
     if (v17)
     {
       v18 = objc_msgSend_path(lCopy, v15, v16);
@@ -411,9 +405,9 @@
         v28 = objc_msgSend_lastPathComponent(lCopy, v26, v27);
         v29 = marisa::Trie::num_keys(&v17->trie);
         *buf = 138412546;
-        v39 = v28;
-        v40 = 2048;
-        v41 = v29;
+        v38 = v28;
+        v39 = 2048;
+        v40 = v29;
         _os_log_impl(&dword_22C366000, v25, OS_LOG_TYPE_INFO, "MarisaTrieStore %@ loaded {count: %lu}", buf, 0x16u);
       }
     }
@@ -427,16 +421,15 @@
     v31 = objc_msgSend_logContext(MarisaTrieStore, v13, v14);
     if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
-      v36 = objc_msgSend_path(lCopy, v32, v33);
+      v35 = objc_msgSend_path(lCopy, v32, v33);
       *buf = 138412290;
-      v39 = v36;
+      v38 = v35;
       _os_log_error_impl(&dword_22C366000, v31, OS_LOG_TYPE_ERROR, "Unable to locate marisa trie {path: %@}", buf, 0xCu);
     }
 
     selfCopy = 0;
   }
 
-  v34 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

@@ -1,1469 +1,3 @@
-void sub_2599D47CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24, uint64_t a25, uint64_t a26, void *a27, uint64_t a28, uint64_t a29, void *a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, std::__shared_weak_count *a35, void *a36, uint64_t a37, uint64_t a38, void *a39, std::__shared_weak_count *a40, uint64_t a41, void *a42, uint64_t a43, int a44, __int16 a45, char a46, char a47, void *a48, uint64_t a49, uint64_t a50, void *a51, uint64_t a52, uint64_t a53, void *a54, uint64_t a55, uint64_t a56, void *a57, uint64_t a58, uint64_t a59, void *a60, uint64_t a61, uint64_t a62, void *a63)
-{
-  if (a24 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (a40)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a40);
-  }
-
-  if (a35)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a35);
-  }
-
-  if (v71)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v71);
-  }
-
-  if (a47 < 0)
-  {
-    operator delete(a42);
-  }
-
-  if (a48)
-  {
-    operator delete(a48);
-  }
-
-  if (a51)
-  {
-    operator delete(a51);
-  }
-
-  if (a54)
-  {
-    operator delete(a54);
-  }
-
-  if (a57)
-  {
-    operator delete(a57);
-  }
-
-  if (a60)
-  {
-    operator delete(a60);
-  }
-
-  if (a63)
-  {
-    operator delete(a63);
-  }
-
-  if (a71 < 0)
-  {
-    operator delete(a66);
-  }
-
-  if (*(v72 - 225) < 0)
-  {
-    operator delete(*(v72 - 248));
-  }
-
-  MEMORY[0x259CA8F00](v72 - 200);
-  MEMORY[0x259CA8F00](v72 - 128);
-  _Unwind_Resume(a1);
-}
-
-void *std::shared_ptr<MIL::IRNamedValueType>::operator=[abi:ne200100]<MIL::IRNamedValueType,std::default_delete<MIL::IRNamedValueType>,0>(void *a1, uint64_t *a2)
-{
-  std::shared_ptr<MIL::IRNamedValueType>::shared_ptr[abi:ne200100]<MIL::IRNamedValueType,std::default_delete<MIL::IRNamedValueType>,0>(&v6, a2);
-  v3 = a1[1];
-  v4 = v6;
-  *&v6 = *a1;
-  *(&v6 + 1) = v3;
-  *a1 = v4;
-  if (v3)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
-  }
-
-  return a1;
-}
-
-uint64_t *std::shared_ptr<MIL::IRNamedValueType>::shared_ptr[abi:ne200100]<MIL::IRNamedValueType,std::default_delete<MIL::IRNamedValueType>,0>(uint64_t *result, uint64_t *a2)
-{
-  v2 = *a2;
-  *result = *a2;
-  if (v2)
-  {
-    operator new();
-  }
-
-  result[1] = 0;
-  *a2 = 0;
-  return result;
-}
-
-uint64_t std::__tree<std::__value_type<std::string,MIL::IRValueType const*>,std::__map_value_compare<std::string,std::__value_type<std::string,MIL::IRValueType const*>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,MIL::IRValueType const*>>>::__count_unique<std::string>(uint64_t a1, const void **a2)
-{
-  v2 = *(a1 + 8);
-  if (v2)
-  {
-    v3 = *(a2 + 23);
-    if (v3 >= 0)
-    {
-      v4 = *(a2 + 23);
-    }
-
-    else
-    {
-      v4 = a2[1];
-    }
-
-    if (v3 >= 0)
-    {
-      v5 = a2;
-    }
-
-    else
-    {
-      v5 = *a2;
-    }
-
-    v6 = 1;
-    do
-    {
-      v7 = *(v2 + 55);
-      if (v7 >= 0)
-      {
-        v8 = *(v2 + 55);
-      }
-
-      else
-      {
-        v8 = v2[5];
-      }
-
-      if (v7 >= 0)
-      {
-        v9 = (v2 + 4);
-      }
-
-      else
-      {
-        v9 = v2[4];
-      }
-
-      if (v8 >= v4)
-      {
-        v10 = v4;
-      }
-
-      else
-      {
-        v10 = v8;
-      }
-
-      v11 = memcmp(v5, v9, v10);
-      v12 = v4 < v8;
-      if (v11)
-      {
-        v12 = v11 < 0;
-      }
-
-      if (!v12)
-      {
-        v13 = memcmp(v9, v5, v10);
-        v14 = v8 < v4;
-        if (v13)
-        {
-          v14 = v13 < 0;
-        }
-
-        if (!v14)
-        {
-          return v6;
-        }
-
-        ++v2;
-      }
-
-      v2 = *v2;
-    }
-
-    while (v2);
-  }
-
-  return 0;
-}
-
-void ANEMachineIR::Validators::ParsePeReduceParamValues(uint64_t *a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X3>, MIL::ValidationResult *a4@<X8>)
-{
-  v31 = 0;
-  v32 = 0;
-  v33 = 0;
-  if (ANEMachineIR::Utils::TryGetStaticTensorShape(a2, &v31))
-  {
-    std::string::basic_string[abi:ne200100]<0>(v24, "reduction");
-    std::string::basic_string[abi:ne200100]<0>(&v23, "mean");
-    ParameterValue = MIL::IROperation::TryGetParameterValue();
-    if (ParameterValue && (*(*ParameterValue + 40))(ParameterValue) && (v8 = MEMORY[0x259CA93D0]()) != 0)
-    {
-      if (*(v8 + 23) < 0)
-      {
-        std::string::__init_copy_ctor_external(&v26, *v8, *(v8 + 8));
-      }
-
-      else
-      {
-        v9 = *v8;
-        v26.__r_.__value_.__r.__words[2] = *(v8 + 16);
-        *&v26.__r_.__value_.__l.__data_ = v9;
-      }
-    }
-
-    else
-    {
-      v26 = v23;
-      memset(&v23, 0, sizeof(v23));
-    }
-
-    if (*(a3 + 24) == 1)
-    {
-      if (*(a3 + 23) < 0)
-      {
-        operator delete(*a3);
-      }
-
-      *a3 = v26;
-      *(&v26.__r_.__value_.__s + 23) = 0;
-      v26.__r_.__value_.__s.__data_[0] = 0;
-    }
-
-    else
-    {
-      *a3 = v26;
-      memset(&v26, 0, sizeof(v26));
-      *(a3 + 24) = 1;
-    }
-
-    if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v23.__r_.__value_.__l.__data_);
-    }
-
-    if (v25 < 0)
-    {
-      operator delete(v24[0]);
-    }
-
-    std::string::basic_string[abi:ne200100]<0>(&v26, "reduction_scale");
-    v11 = MIL::IROperation::TryGetParameterValue();
-    v12 = 1.0;
-    if (v11)
-    {
-      if ((*(*v11 + 40))(v11))
-      {
-        v13 = MEMORY[0x259CA9400]();
-        if (v13)
-        {
-          v12 = *v13;
-        }
-      }
-    }
-
-    *(a3 + 64) = v12;
-    *(a3 + 68) = 1;
-    if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v26.__r_.__value_.__l.__data_);
-    }
-
-    std::string::basic_string[abi:ne200100]<0>(&v26, "reduction_epsilon");
-    v14 = MIL::IROperation::TryGetParameterValue();
-    v15 = 0;
-    if (v14)
-    {
-      if ((*(*v14 + 40))(v14))
-      {
-        v16 = MEMORY[0x259CA9400]();
-        if (v16)
-        {
-          v15 = *v16;
-        }
-      }
-    }
-
-    *(a3 + 72) = v15;
-    *(a3 + 76) = 1;
-    if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v26.__r_.__value_.__l.__data_);
-    }
-
-    v17 = (v32 - v31) >> 3;
-    switch(v17)
-    {
-      case 3:
-        std::string::basic_string[abi:ne200100]<0>(v24, "reduction_axes");
-        LOBYTE(v18) = 1;
-        v21 = 0;
-        v22 = 0;
-        v20 = 0;
-        std::vector<signed char>::__init_with_size[abi:ne200100]<signed char const*,signed char const*>(&v20, &v18, &v18 + 1, 1);
-        MIL::ANEMachineIR::GetScalarOrVectorOrDefault<signed char>(&v20, &v26);
-        std::optional<std::vector<MIL::Fp16>>::operator=[abi:ne200100]<std::vector<MIL::Fp16>,void>(a3 + 32, &v26);
-        break;
-      case 4:
-        std::string::basic_string[abi:ne200100]<0>(v24, "reduction_axes");
-        v18 = 513;
-        v21 = 0;
-        v22 = 0;
-        v20 = 0;
-        std::vector<signed char>::__init_with_size[abi:ne200100]<signed char const*,signed char const*>(&v20, &v18, &v19, 2);
-        MIL::ANEMachineIR::GetScalarOrVectorOrDefault<signed char>(&v20, &v26);
-        std::optional<std::vector<MIL::Fp16>>::operator=[abi:ne200100]<std::vector<MIL::Fp16>,void>(a3 + 32, &v26);
-        break;
-      case 5:
-        std::string::basic_string[abi:ne200100]<0>(v24, "reduction_axes");
-        v18 = 513;
-        v19 = 3;
-        v21 = 0;
-        v22 = 0;
-        v20 = 0;
-        std::vector<signed char>::__init_with_size[abi:ne200100]<signed char const*,signed char const*>(&v20, &v18, &v20, 3);
-        MIL::ANEMachineIR::GetScalarOrVectorOrDefault<signed char>(&v20, &v26);
-        std::optional<std::vector<MIL::Fp16>>::operator=[abi:ne200100]<std::vector<MIL::Fp16>,void>(a3 + 32, &v26);
-        break;
-      default:
-        std::string::basic_string[abi:ne200100]<0>(v24, "reduction_axes");
-        v20 = 0;
-        v21 = 0;
-        v22 = 0;
-        MIL::ANEMachineIR::GetScalarOrVectorOrDefault<signed char>(&v20, &v26);
-        std::optional<std::vector<MIL::Fp16>>::operator=[abi:ne200100]<std::vector<MIL::Fp16>,void>(a3 + 32, &v26);
-        break;
-    }
-
-    if (v26.__r_.__value_.__r.__words[0])
-    {
-      v26.__r_.__value_.__l.__size_ = v26.__r_.__value_.__r.__words[0];
-      operator delete(v26.__r_.__value_.__l.__data_);
-    }
-
-    if (v20)
-    {
-      v21 = v20;
-      operator delete(v20);
-    }
-
-    if (v25 < 0)
-    {
-      operator delete(v24[0]);
-    }
-
-    MIL::ValidationResult::ValidationResult(a4);
-  }
-
-  else
-  {
-    v10 = a1[1];
-    v29 = *a1;
-    v30 = v10;
-    if (v10)
-    {
-      atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    std::string::basic_string[abi:ne200100]<0>(__p, "inputs must have static shape.");
-    MEMORY[0x259CA8EE0](a4, &v29, 309, __p);
-    if (v28 < 0)
-    {
-      operator delete(__p[0]);
-    }
-
-    if (v30)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v30);
-    }
-  }
-
-  if (v31)
-  {
-    v32 = v31;
-    operator delete(v31);
-  }
-}
-
-void sub_2599D5170(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, void *a19, uint64_t a20, int a21, __int16 a22, char a23, char a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30, uint64_t a31, void *a32, uint64_t a33, int a34, __int16 a35, char a36, char a37)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  if (a10)
-  {
-    operator delete(a10);
-  }
-
-  if (a24 < 0)
-  {
-    operator delete(a19);
-  }
-
-  v39 = *(v37 + 16);
-  if (v39)
-  {
-    *(v37 + 24) = v39;
-    operator delete(v39);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void MIL::ANEMachineIR::GetScalarOrVectorOrDefault<signed char>(uint64_t *a1@<X2>, void *a2@<X8>)
-{
-  ParameterValue = MIL::IROperation::TryGetParameterValue();
-  if (ParameterValue)
-  {
-    if ((*(*ParameterValue + 40))(ParameterValue) && (v5 = MEMORY[0x259CA93E0]()) != 0)
-    {
-      LOBYTE(Data) = *v5;
-      a2[1] = 0;
-      a2[2] = 0;
-      *a2 = 0;
-      std::vector<signed char>::__init_with_size[abi:ne200100]<signed char const*,signed char const*>(a2, &Data, &Data + 1, 1);
-    }
-
-    else
-    {
-      v6 = MIL::IROperation::GetParameterValue();
-      v7 = MIL::IRValue::AsTensor(v6);
-      v8 = (*(*v7 + 32))(v7);
-      ANEMachineIR::Utils::GetStaticTensorShape(v8, v9, &Data);
-      if (v27 == Data)
-      {
-        std::vector<unsigned long long>::__throw_out_of_range[abi:ne200100]();
-      }
-
-      v10 = *Data;
-      v27 = Data;
-      operator delete(Data);
-      Data = MIL::IRTensorValue::GetDataView<signed char>();
-      v27 = v11;
-      a2[1] = 0;
-      a2[2] = 0;
-      *a2 = 0;
-      std::vector<unsigned char>::reserve(a2, v10);
-      if (v10)
-      {
-        for (i = 0; i != v10; ++i)
-        {
-          v13 = MIL::Util::Span<signed char const,18446744073709551615ul>::operator[](&Data, i);
-          v15 = a2[1];
-          v14 = a2[2];
-          if (v15 >= v14)
-          {
-            v17 = *a2;
-            v18 = &v15[-*a2];
-            v19 = (v18 + 1);
-            if ((v18 + 1) < 0)
-            {
-              std::vector<MIL::Fp16>::__throw_length_error[abi:ne200100]();
-            }
-
-            v20 = v14 - v17;
-            if (2 * v20 > v19)
-            {
-              v19 = 2 * v20;
-            }
-
-            if (v20 >= 0x3FFFFFFFFFFFFFFFLL)
-            {
-              v21 = 0x7FFFFFFFFFFFFFFFLL;
-            }
-
-            else
-            {
-              v21 = v19;
-            }
-
-            if (v21)
-            {
-              operator new();
-            }
-
-            v22 = &v15[-*a2];
-            *v18 = *v13;
-            v16 = v18 + 1;
-            memcpy(0, v17, v22);
-            *a2 = 0;
-            a2[1] = v18 + 1;
-            a2[2] = 0;
-            if (v17)
-            {
-              operator delete(v17);
-            }
-          }
-
-          else
-          {
-            *v15 = *v13;
-            v16 = v15 + 1;
-          }
-
-          a2[1] = v16;
-        }
-      }
-    }
-  }
-
-  else
-  {
-    *a2 = 0;
-    a2[1] = 0;
-    a2[2] = 0;
-    v23 = *a1;
-    v24 = a1[1];
-    v25 = v24 - *a1;
-
-    std::vector<signed char>::__init_with_size[abi:ne200100]<signed char *,signed char *>(a2, v23, v24, v25);
-  }
-}
-
-void sub_2599D54D4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11)
-{
-  v13 = *v11;
-  if (*v11)
-  {
-    *(v11 + 8) = v13;
-    operator delete(v13);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void ANEMachineIR::Validators::ValidatePeReduce(uint64_t *a1@<X0>, ANEMachineIR::Utils *a2@<X2>, uint64_t a3@<X3>, uint64_t a4@<X4>, MIL::ValidationResult *a5@<X8>)
-{
-  v10 = (*(*a2 + 96))(a2);
-  if (v10[1] - *v10 <= 0x10uLL)
-  {
-    v11 = a1[1];
-    v126 = *a1;
-    v127 = v11;
-    if (v11)
-    {
-      atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    std::string::basic_string[abi:ne200100]<0>(__p, "Input rank must be >= 3");
-    MEMORY[0x259CA8EE0](a5, &v126, 319, __p);
-    if (v125 < 0)
-    {
-      operator delete(__p[0]);
-    }
-
-    v12 = v127;
-    if (!v127)
-    {
-      return;
-    }
-
-    goto LABEL_114;
-  }
-
-  if (*(a4 + 56) != 1)
-  {
-    goto LABEL_95;
-  }
-
-  v13 = (*(*a2 + 96))(a2);
-  v14 = v13[1] - *v13;
-  ANEMachineIR::Utils::GetStaticTensorShape(a2, v15, &v122);
-  v16 = *(a4 + 32);
-  v17 = *(a4 + 40);
-  v18 = *(a4 + 32);
-  v19 = v17 - v18;
-  if (v17 == v18)
-  {
-    goto LABEL_69;
-  }
-
-  v20 = 0;
-  if (v19 <= 1)
-  {
-    v21 = 1;
-  }
-
-  else
-  {
-    v21 = v17 - v18;
-  }
-
-  v22 = 1;
-  v23 = 1;
-LABEL_14:
-  v24 = v20;
-  do
-  {
-    v20 = v24 + 1;
-    if (v19 > v24 + 1)
-    {
-      v25 = v18[v24];
-      v26 = v22;
-      while (v25 != v18[v26])
-      {
-        if (v19 <= ++v26)
-        {
-          goto LABEL_19;
-        }
-      }
-
-      v23 = 0;
-      ++v22;
-      goto LABEL_14;
-    }
-
-LABEL_19:
-    ++v22;
-    v24 = v20;
-  }
-
-  while (v20 != v21);
-  if ((v23 & 1) == 0)
-  {
-    v37 = a1[1];
-    *&v135 = *a1;
-    *(&v135 + 1) = v37;
-    if (v37)
-    {
-      atomic_fetch_add_explicit((v37 + 8), 1uLL, memory_order_relaxed);
-    }
-
-    std::string::basic_string[abi:ne200100]<0>(&v139, "PE reduce: duplicated axes not allowed.");
-    MEMORY[0x259CA8EE0](a5, &v135, 319, &v139);
-    goto LABEL_87;
-  }
-
-  LOBYTE(v19) = 0;
-  v27 = 0;
-  v28 = v123 - v122;
-  do
-  {
-    v29 = *v18;
-    if (v14 == 32)
-    {
-      if (v29 == 3)
-      {
-        if (v28 < 0x19)
-        {
-          goto LABEL_241;
-        }
-
-        v30 = *(v122 + 3);
-      }
-
-      else if (v29 == 1)
-      {
-        if (v28 < 9)
-        {
-          goto LABEL_241;
-        }
-
-        v30 = *(v122 + 1);
-      }
-
-      else
-      {
-        if (*v18)
-        {
-          goto LABEL_40;
-        }
-
-        if (v123 == v122)
-        {
-          goto LABEL_241;
-        }
-
-        v30 = *v122;
-      }
-
-      if (v30 == 1)
-      {
-LABEL_40:
-        LOBYTE(v31) = 0;
-        goto LABEL_52;
-      }
-
-      LOBYTE(v31) = 0;
-      ++v27;
-    }
-
-    else
-    {
-      if (v14 != 40)
-      {
-        goto LABEL_40;
-      }
-
-      LOBYTE(v31) = 1;
-      if (*v18 > 1u)
-      {
-        if (v29 == 2)
-        {
-          if (v28 < 0x11)
-          {
-            goto LABEL_241;
-          }
-
-          v31 = *(v122 + 2);
-        }
-
-        else
-        {
-          if (v29 != 4)
-          {
-            goto LABEL_52;
-          }
-
-          if (v28 < 0x21)
-          {
-            goto LABEL_241;
-          }
-
-          v31 = *(v122 + 4);
-        }
-      }
-
-      else if (*v18)
-      {
-        if (v28 < 9)
-        {
-          goto LABEL_241;
-        }
-
-        v31 = *(v122 + 1);
-      }
-
-      else
-      {
-        if (v123 == v122)
-        {
-          goto LABEL_241;
-        }
-
-        v31 = *v122;
-      }
-
-      if (v31 != 1)
-      {
-        ++v27;
-        LOBYTE(v31) = 1;
-      }
-    }
-
-LABEL_52:
-    v33 = v14 == 24 && v29 == 1;
-    if (v14 == 32 && v29 == 2)
-    {
-      v33 = 1;
-    }
-
-    LOBYTE(v19) = v33 | v31 & (v29 == 3) | v19;
-    ++v18;
-  }
-
-  while (v18 != v17);
-  if (v27 >= 3)
-  {
-    v35 = a1[1];
-    *&v135 = *a1;
-    *(&v135 + 1) = v35;
-    if (v35)
-    {
-      atomic_fetch_add_explicit((v35 + 8), 1uLL, memory_order_relaxed);
-    }
-
-    std::string::basic_string[abi:ne200100]<0>(&v139, "PE reduce: for N/D/H/C dims, reduce up to 2 dims is allowed.");
-    MEMORY[0x259CA8EE0](a5, &v135, 319, &v139);
-    goto LABEL_87;
-  }
-
-LABEL_69:
-  if (v14 == 24 && (v19 & 1) == 0)
-  {
-    if ((v123 - v122) >= 9)
-    {
-      v36 = *(v122 + 1);
-      goto LABEL_82;
-    }
-
-LABEL_241:
-    std::vector<unsigned long long>::__throw_out_of_range[abi:ne200100]();
-  }
-
-  if ((v14 != 32) | v19 & 1)
-  {
-    if (!((v14 != 40) | v19 & 1))
-    {
-      if ((v123 - v122) <= 0x18)
-      {
-        goto LABEL_241;
-      }
-
-      v36 = *(v122 + 3);
-      goto LABEL_82;
-    }
-
-    goto LABEL_83;
-  }
-
-  if ((v123 - v122) < 0x11)
-  {
-    goto LABEL_241;
-  }
-
-  v36 = *(v122 + 2);
-LABEL_82:
-  if (v36 == 1)
-  {
-LABEL_83:
-    MIL::ValidationResult::ValidationResult(a5);
-    goto LABEL_91;
-  }
-
-  v38 = a1[1];
-  *&v135 = *a1;
-  *(&v135 + 1) = v38;
-  if (v38)
-  {
-    atomic_fetch_add_explicit((v38 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  std::string::basic_string[abi:ne200100]<0>(&v139, "PE reduce: for W dim, if its input dim size is not 1, it should be reduced (W should appear in reduction_axis).");
-  MEMORY[0x259CA8EE0](a5, &v135, 319, &v139);
-LABEL_87:
-  if (v141 < 0)
-  {
-    operator delete(v139);
-  }
-
-  if (*(&v135 + 1))
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](*(&v135 + 1));
-  }
-
-LABEL_91:
-  if (v122)
-  {
-    v123 = v122;
-    operator delete(v122);
-  }
-
-  if (!MIL::ValidationResult::IsGood(a5))
-  {
-    return;
-  }
-
-  MEMORY[0x259CA8F00](a5);
-LABEL_95:
-  if (*(a4 + 24) == 1)
-  {
-    v39 = *(a4 + 23);
-    if (v39 < 0)
-    {
-      if (*(a4 + 8) != 4)
-      {
-        goto LABEL_102;
-      }
-
-      v40 = *a4;
-    }
-
-    else
-    {
-      v40 = a4;
-      if (v39 != 4)
-      {
-LABEL_102:
-        v41 = a1[1];
-        v120 = *a1;
-        v121 = v41;
-        if (v41)
-        {
-          atomic_fetch_add_explicit(&v41->__shared_owners_, 1uLL, memory_order_relaxed);
-        }
-
-        std::string::basic_string[abi:ne200100]<0>(v118, "Only mean reduction is supported at the moment.");
-        MEMORY[0x259CA8EE0](a5, &v120, 319, v118);
-        if (v119 < 0)
-        {
-          operator delete(v118[0]);
-        }
-
-        v12 = v121;
-        if (!v121)
-        {
-          return;
-        }
-
-LABEL_114:
-        std::__shared_weak_count::__release_shared[abi:ne200100](v12);
-        return;
-      }
-    }
-
-    if (*v40 != 1851876717)
-    {
-      goto LABEL_102;
-    }
-  }
-
-  if (*(a4 + 104) != 1)
-  {
-    v111 = 0;
-    v112 = 0;
-    v113 = 0;
-    if (ANEMachineIR::Utils::TryGetStaticTensorShape(a2, &v111))
-    {
-      v104 = 0;
-      v105 = 0;
-      v106 = 0;
-      if (ANEMachineIR::Utils::TryGetStaticTensorShape(a3, &v104))
-      {
-        __src = 0;
-        v129 = 0;
-        v130 = 0;
-        v44 = v111;
-        v43 = v112;
-        v45 = v112 - v111;
-        v46 = (v112 - v111) >> 3;
-        v48 = *(a4 + 32);
-        v47 = *(a4 + 40);
-        std::vector<unsigned long long>::reserve(&__src, v46);
-        std::vector<BOOL>::vector(&v139, v46);
-        if (v43 != v44)
-        {
-          v49 = 0;
-          v50 = v139;
-          if (v46 <= 1)
-          {
-            v51 = 1;
-          }
-
-          else
-          {
-            v51 = v46;
-          }
-
-          do
-          {
-            if (v140 <= v49)
-            {
-              std::vector<unsigned long long>::__throw_out_of_range[abi:ne200100]();
-            }
-
-            *&v50[(v49 >> 3) & 0x1FFFFFFFFFFFFFF8] &= ~(1 << v49);
-            ++v49;
-          }
-
-          while (v51 != v49);
-        }
-
-        if (v47 == v48)
-        {
-          if (v46 >= 3)
-          {
-            if (v140 <= 1)
-            {
-              std::vector<unsigned long long>::__throw_out_of_range[abi:ne200100]();
-            }
-
-            v59 = v139;
-            v60 = *v139;
-            *v139 |= 2uLL;
-            if (v45 != 24)
-            {
-              if (v140 <= 2)
-              {
-                std::vector<unsigned long long>::__throw_out_of_range[abi:ne200100]();
-              }
-
-              *v59 = v60 | 6;
-              if (v45 == 40)
-              {
-                if (v140 <= 3)
-                {
-                  std::vector<unsigned long long>::__throw_out_of_range[abi:ne200100]();
-                }
-
-                *v59 = v60 | 0xE;
-              }
-            }
-          }
-        }
-
-        else
-        {
-          v52 = v47 - v48;
-          v53 = *(a4 + 32);
-          v54 = *(a4 + 40) - v53;
-          v55 = v139;
-          if ((v47 - v48) <= 1)
-          {
-            v52 = 1;
-          }
-
-          do
-          {
-            if (!v54)
-            {
-              std::vector<unsigned long long>::__throw_out_of_range[abi:ne200100]();
-            }
-
-            v56 = *v53;
-            if (v140 <= v56)
-            {
-              std::vector<unsigned long long>::__throw_out_of_range[abi:ne200100]();
-            }
-
-            *&v55[(v56 >> 3) & 0x1FFFFFFFFFFFFFF8] |= 1 << v56;
-            ++v53;
-            --v54;
-            --v52;
-          }
-
-          while (v52);
-        }
-
-        v129 = __src;
-        std::vector<unsigned long long>::reserve(&__src, v46);
-        if (v43 != v44)
-        {
-          v61 = 0;
-          if (v46 <= 1)
-          {
-            v46 = 1;
-          }
-
-          while (1)
-          {
-            if (v140 <= v61)
-            {
-              std::vector<unsigned long long>::__throw_out_of_range[abi:ne200100]();
-            }
-
-            if ((*&v139[(v61 >> 3) & 0x1FFFFFFFFFFFFFF8] >> v61))
-            {
-              v62 = v129;
-              if (v129 >= v130)
-              {
-                v65 = __src;
-                v66 = v129 - __src;
-                v67 = (v129 - __src) >> 3;
-                v68 = v67 + 1;
-                if ((v67 + 1) >> 61)
-                {
-                  std::vector<MIL::Fp16>::__throw_length_error[abi:ne200100]();
-                }
-
-                v69 = v130 - __src;
-                if ((v130 - __src) >> 2 > v68)
-                {
-                  v68 = v69 >> 2;
-                }
-
-                if (v69 >= 0x7FFFFFFFFFFFFFF8)
-                {
-                  v70 = 0x1FFFFFFFFFFFFFFFLL;
-                }
-
-                else
-                {
-                  v70 = v68;
-                }
-
-                if (v70)
-                {
-                  std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long long>>(&__src, v70);
-                }
-
-                v75 = (8 * v67);
-                v76 = 0;
-                *v75 = 1;
-                v63 = (v75 + 1);
-LABEL_178:
-                memcpy(v76, v65, v66);
-                v78 = __src;
-                __src = v76;
-                v129 = v63;
-                v130 = 0;
-                if (v78)
-                {
-                  operator delete(v78);
-                }
-
-                goto LABEL_180;
-              }
-
-              *v129 = 1;
-              v63 = v62 + 8;
-            }
-
-            else
-            {
-              if (v61 >= (v112 - v111) >> 3)
-              {
-                std::vector<unsigned long long>::__throw_out_of_range[abi:ne200100]();
-              }
-
-              v64 = v129;
-              if (v129 >= v130)
-              {
-                v65 = __src;
-                v66 = v129 - __src;
-                v71 = (v129 - __src) >> 3;
-                v72 = v71 + 1;
-                if ((v71 + 1) >> 61)
-                {
-                  std::vector<MIL::Fp16>::__throw_length_error[abi:ne200100]();
-                }
-
-                v73 = v130 - __src;
-                if ((v130 - __src) >> 2 > v72)
-                {
-                  v72 = v73 >> 2;
-                }
-
-                if (v73 >= 0x7FFFFFFFFFFFFFF8)
-                {
-                  v74 = 0x1FFFFFFFFFFFFFFFLL;
-                }
-
-                else
-                {
-                  v74 = v72;
-                }
-
-                if (v74)
-                {
-                  std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long long>>(&__src, v74);
-                }
-
-                v77 = (8 * v71);
-                v76 = &v77[-((v129 - __src) >> 3)];
-                *v77 = *(v111 + v61);
-                v63 = (v77 + 1);
-                goto LABEL_178;
-              }
-
-              *v129 = *(v111 + v61);
-              v63 = v64 + 8;
-            }
-
-LABEL_180:
-            v129 = v63;
-            if (v46 == ++v61)
-            {
-              goto LABEL_183;
-            }
-          }
-        }
-
-        v63 = v129;
-LABEL_183:
-        v79 = __src;
-        v80 = v63 - __src;
-        if (v63 - __src == v112 - v111)
-        {
-          MIL::ValidationResult::ValidationResult(a5);
-        }
-
-        else
-        {
-          v81 = a1[1];
-          v137 = *a1;
-          v138 = v81;
-          if (v81)
-          {
-            atomic_fetch_add_explicit(&v81->__shared_owners_, 1uLL, memory_order_relaxed);
-            v80 = v129 - v79;
-          }
-
-          std::to_string(&v132, v80 >> 3);
-          v82 = std::string::insert(&v132, 0, "Output rank ");
-          v83 = *&v82->__r_.__value_.__l.__data_;
-          v133.__r_.__value_.__r.__words[2] = v82->__r_.__value_.__r.__words[2];
-          *&v133.__r_.__value_.__l.__data_ = v83;
-          v82->__r_.__value_.__l.__size_ = 0;
-          v82->__r_.__value_.__r.__words[2] = 0;
-          v82->__r_.__value_.__r.__words[0] = 0;
-          v84 = std::string::append(&v133, " does not match rank of input tensor of shape ");
-          v85 = *&v84->__r_.__value_.__l.__data_;
-          v134.__r_.__value_.__r.__words[2] = v84->__r_.__value_.__r.__words[2];
-          *&v134.__r_.__value_.__l.__data_ = v85;
-          v84->__r_.__value_.__l.__size_ = 0;
-          v84->__r_.__value_.__r.__words[2] = 0;
-          v84->__r_.__value_.__r.__words[0] = 0;
-          std::to_string(&v131, (v112 - v111) >> 3);
-          if ((v131.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-          {
-            v86 = &v131;
-          }
-
-          else
-          {
-            v86 = v131.__r_.__value_.__r.__words[0];
-          }
-
-          if ((v131.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-          {
-            size = HIBYTE(v131.__r_.__value_.__r.__words[2]);
-          }
-
-          else
-          {
-            size = v131.__r_.__value_.__l.__size_;
-          }
-
-          v88 = std::string::append(&v134, v86, size);
-          v89 = *&v88->__r_.__value_.__l.__data_;
-          v136 = v88->__r_.__value_.__r.__words[2];
-          v135 = v89;
-          v88->__r_.__value_.__l.__size_ = 0;
-          v88->__r_.__value_.__r.__words[2] = 0;
-          v88->__r_.__value_.__r.__words[0] = 0;
-          MEMORY[0x259CA8EE0](a5, &v137, 313, &v135);
-          if (SHIBYTE(v136) < 0)
-          {
-            operator delete(v135);
-          }
-
-          if (SHIBYTE(v131.__r_.__value_.__r.__words[2]) < 0)
-          {
-            operator delete(v131.__r_.__value_.__l.__data_);
-          }
-
-          if (SHIBYTE(v134.__r_.__value_.__r.__words[2]) < 0)
-          {
-            operator delete(v134.__r_.__value_.__l.__data_);
-          }
-
-          if (SHIBYTE(v133.__r_.__value_.__r.__words[2]) < 0)
-          {
-            operator delete(v133.__r_.__value_.__l.__data_);
-          }
-
-          if (SHIBYTE(v132.__r_.__value_.__r.__words[2]) < 0)
-          {
-            operator delete(v132.__r_.__value_.__l.__data_);
-          }
-
-          if (v138)
-          {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v138);
-          }
-        }
-
-        if (v139)
-        {
-          operator delete(v139);
-        }
-
-        if (MIL::ValidationResult::IsGood(a5))
-        {
-          MEMORY[0x259CA8F00](a5);
-          if (v129 - __src == v105 - v104 && !memcmp(__src, v104, v129 - __src))
-          {
-            MIL::ValidationResult::ValidationResult(a5);
-          }
-
-          else
-          {
-            ANEMachineIR::Utils::ShapeString(&v104);
-            ANEMachineIR::Utils::ShapeString(&__src);
-            v90 = a1[1];
-            v137 = *a1;
-            v138 = v90;
-            if (v90)
-            {
-              atomic_fetch_add_explicit(&v90->__shared_owners_, 1uLL, memory_order_relaxed);
-            }
-
-            std::operator+<char>();
-            v91 = std::string::append(&v131, " does not match inferred shape ");
-            v92 = *&v91->__r_.__value_.__l.__data_;
-            v132.__r_.__value_.__r.__words[2] = v91->__r_.__value_.__r.__words[2];
-            *&v132.__r_.__value_.__l.__data_ = v92;
-            v91->__r_.__value_.__l.__size_ = 0;
-            v91->__r_.__value_.__r.__words[2] = 0;
-            v91->__r_.__value_.__r.__words[0] = 0;
-            if (v136 >= 0)
-            {
-              v93 = &v135;
-            }
-
-            else
-            {
-              v93 = v135;
-            }
-
-            if (v136 >= 0)
-            {
-              v94 = HIBYTE(v136);
-            }
-
-            else
-            {
-              v94 = *(&v135 + 1);
-            }
-
-            v95 = std::string::append(&v132, v93, v94);
-            v96 = *&v95->__r_.__value_.__l.__data_;
-            v133.__r_.__value_.__r.__words[2] = v95->__r_.__value_.__r.__words[2];
-            *&v133.__r_.__value_.__l.__data_ = v96;
-            v95->__r_.__value_.__l.__size_ = 0;
-            v95->__r_.__value_.__r.__words[2] = 0;
-            v95->__r_.__value_.__r.__words[0] = 0;
-            v97 = std::string::append(&v133, ".");
-            v98 = *&v97->__r_.__value_.__l.__data_;
-            v134.__r_.__value_.__r.__words[2] = v97->__r_.__value_.__r.__words[2];
-            *&v134.__r_.__value_.__l.__data_ = v98;
-            v97->__r_.__value_.__l.__size_ = 0;
-            v97->__r_.__value_.__r.__words[2] = 0;
-            v97->__r_.__value_.__r.__words[0] = 0;
-            MEMORY[0x259CA8EE0](a5, &v137, 313, &v134);
-            if (SHIBYTE(v134.__r_.__value_.__r.__words[2]) < 0)
-            {
-              operator delete(v134.__r_.__value_.__l.__data_);
-            }
-
-            if (SHIBYTE(v133.__r_.__value_.__r.__words[2]) < 0)
-            {
-              operator delete(v133.__r_.__value_.__l.__data_);
-            }
-
-            if (SHIBYTE(v132.__r_.__value_.__r.__words[2]) < 0)
-            {
-              operator delete(v132.__r_.__value_.__l.__data_);
-            }
-
-            if (SHIBYTE(v131.__r_.__value_.__r.__words[2]) < 0)
-            {
-              operator delete(v131.__r_.__value_.__l.__data_);
-            }
-
-            if (v138)
-            {
-              std::__shared_weak_count::__release_shared[abi:ne200100](v138);
-            }
-
-            if (SHIBYTE(v136) < 0)
-            {
-              operator delete(v135);
-            }
-
-            if (v141 < 0)
-            {
-              operator delete(v139);
-            }
-          }
-        }
-
-        if (__src)
-        {
-          v129 = __src;
-          operator delete(__src);
-        }
-
-        if (MIL::ValidationResult::IsGood(a5))
-        {
-          v99 = MEMORY[0x259CA8F00](a5);
-          MIL::ValidationResult::ValidationResult(v99);
-        }
-      }
-
-      else
-      {
-        v58 = a1[1];
-        v102 = *a1;
-        v103 = v58;
-        if (v58)
-        {
-          atomic_fetch_add_explicit(&v58->__shared_owners_, 1uLL, memory_order_relaxed);
-        }
-
-        std::string::basic_string[abi:ne200100]<0>(v100, "outputs must have static shape.");
-        MEMORY[0x259CA8EE0](a5, &v102, 313, v100);
-        if (v101 < 0)
-        {
-          operator delete(v100[0]);
-        }
-
-        if (v103)
-        {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v103);
-        }
-      }
-
-      if (v104)
-      {
-        v105 = v104;
-        operator delete(v104);
-      }
-    }
-
-    else
-    {
-      v57 = a1[1];
-      v109 = *a1;
-      v110 = v57;
-      if (v57)
-      {
-        atomic_fetch_add_explicit(&v57->__shared_owners_, 1uLL, memory_order_relaxed);
-      }
-
-      std::string::basic_string[abi:ne200100]<0>(v107, "inputs must have static shape.");
-      MEMORY[0x259CA8EE0](a5, &v109, 309, v107);
-      if (v108 < 0)
-      {
-        operator delete(v107[0]);
-      }
-
-      if (v110)
-      {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v110);
-      }
-    }
-
-    if (v111)
-    {
-      v112 = v111;
-      operator delete(v111);
-    }
-
-    return;
-  }
-
-  v42 = a1[1];
-  v116 = *a1;
-  v117 = v42;
-  if (v42)
-  {
-    atomic_fetch_add_explicit(&v42->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  std::string::basic_string[abi:ne200100]<0>(v114, "reduction_post_processing is not supported at the moment.");
-  MEMORY[0x259CA8EE0](a5, &v116, 319, v114);
-  if (v115 < 0)
-  {
-    operator delete(v114[0]);
-  }
-
-  v12 = v117;
-  if (v117)
-  {
-    goto LABEL_114;
-  }
-}
-
 void sub_2599D61E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, uint64_t a24, void *a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, void *a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, void *a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, void *__p)
 {
   v45 = *(v43 - 112);
@@ -1584,20 +118,20 @@ void sub_2599D6758(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<BOOL>::vector(void *result, uint64_t a2)
+uint64_t *std::vector<BOOL>::vector(uint64_t *a1, uint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<BOOL>::__vallocate[abi:ne200100](result, a2);
+    std::vector<BOOL>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
-void std::vector<BOOL>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<BOOL>::__vallocate[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -1653,7 +187,7 @@ void std::__fill_n_BOOL[abi:ne200100]<false,std::vector<BOOL>>(uint64_t a1, unin
   }
 }
 
-uint64_t std::vector<signed char>::__init_with_size[abi:ne200100]<signed char const*,signed char const*>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<signed char>::__init_with_size[abi:ne200100]<signed char const*,signed char const*>(uint64_t *result, char *a2, char *a3, uint64_t a4)
 {
   if (a4)
   {
@@ -1680,15 +214,15 @@ void MilTranslator::OpTranslator::TranslateConst(MilTranslator::OpTranslator *th
   if (!(*(*a2 + 144))(a2))
   {
     Attributes = MIL::IRObject::GetAttributes(a2);
-    std::unordered_map<std::string,std::shared_ptr<MIL::IRValue const>>::unordered_map(&v51, Attributes);
-    std::string::basic_string[abi:ne200100]<0>(&v50, "val");
-    v10 = std::__hash_table<std::__hash_value_type<std::string,std::pair<std::string,std::array<unsigned char,5ul>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::pair<std::string,std::array<unsigned char,5ul>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::pair<std::string,std::array<unsigned char,5ul>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::pair<std::string,std::array<unsigned char,5ul>>>>>::find<std::string>(&v51, &v50.__r_.__value_.__l.__data_);
-    if (SHIBYTE(v50.__r_.__value_.__r.__words[2]) < 0)
+    std::unordered_map<std::string,std::shared_ptr<MIL::IRValue const>>::unordered_map(&v50, Attributes);
+    std::string::basic_string[abi:ne200100]<0>(&v49, "val");
+    v10 = std::__hash_table<std::__hash_value_type<std::string,std::pair<std::string,std::array<unsigned char,5ul>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::pair<std::string,std::array<unsigned char,5ul>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::pair<std::string,std::array<unsigned char,5ul>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::pair<std::string,std::array<unsigned char,5ul>>>>>::find<std::string>(&v50, &v49);
+    if (SHIBYTE(v49.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v50.__r_.__value_.__l.__data_);
+      operator delete(v49.__r_.__value_.__l.__data_);
     }
 
-    if (v52 == 1 && v10)
+    if (v51 == 1 && v10)
     {
       v11 = (*(*v10[5] + 40))(v10[5]);
       if (v11)
@@ -1699,82 +233,81 @@ void MilTranslator::OpTranslator::TranslateConst(MilTranslator::OpTranslator *th
         {
           std::string::basic_string[abi:ne200100]<0>(&__p, "const");
           MilTranslator::OpTranslator::AddOperation(this);
-          if (v44 < 0)
+          if (v43 < 0)
           {
             operator delete(__p);
           }
 
-          (*(*a2 + 200))(&v50, a2);
-          if (v50.__r_.__value_.__l.__size_ == v50.__r_.__value_.__r.__words[0])
+          (*(*a2 + 200))(&v49, a2);
+          if (v49.__r_.__value_.__l.__size_ == v49.__r_.__value_.__r.__words[0])
           {
             std::vector<unsigned long long>::__throw_out_of_range[abi:ne200100]();
           }
 
-          if (*(v50.__r_.__value_.__r.__words[0] + 23) < 0)
+          if (*(v49.__r_.__value_.__r.__words[0] + 23) < 0)
           {
-            std::string::__init_copy_ctor_external(&v41, *v50.__r_.__value_.__l.__data_, *(v50.__r_.__value_.__r.__words[0] + 8));
+            std::string::__init_copy_ctor_external(&v40, *v49.__r_.__value_.__l.__data_, *(v49.__r_.__value_.__r.__words[0] + 8));
           }
 
           else
           {
-            v15 = *v50.__r_.__value_.__l.__data_;
-            v41.__r_.__value_.__r.__words[2] = *(v50.__r_.__value_.__r.__words[0] + 16);
-            *&v41.__r_.__value_.__l.__data_ = v15;
+            v15 = *v49.__r_.__value_.__l.__data_;
+            v40.__r_.__value_.__r.__words[2] = *(v49.__r_.__value_.__r.__words[0] + 16);
+            *&v40.__r_.__value_.__l.__data_ = v15;
           }
 
           MIL::IROperation::GetOutputType(a2);
           MIL::Builder::OperationBuilder::AddOutput();
-          if (v42)
+          if (v41)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v42);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v41);
           }
 
-          if (SHIBYTE(v41.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v40.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v41.__r_.__value_.__l.__data_);
+            operator delete(v40.__r_.__value_.__l.__data_);
           }
 
-          v48.__r_.__value_.__r.__words[0] = &v50;
-          std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v48);
+          v47.__r_.__value_.__r.__words[0] = &v49;
+          std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v47);
           if (*(v10 + 39) < 0)
           {
-            std::string::__init_copy_ctor_external(&v39, v10[2], v10[3]);
+            std::string::__init_copy_ctor_external(&v38, v10[2], v10[3]);
           }
 
           else
           {
-            v39 = *(v10 + 2);
+            v38 = *(v10 + 2);
           }
 
           v32 = v10[6];
-          v37 = v10[5];
-          v38 = v32;
+          v37 = v32;
           if (v32)
           {
             atomic_fetch_add_explicit(&v32->__shared_owners_, 1uLL, memory_order_relaxed);
           }
 
           MIL::Builder::OperationBuilder::SetAttribute();
-          if (v40)
+          if (v39)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v40);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v39);
           }
 
-          if (v38)
+          if (v37)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v38);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v37);
           }
 
-          if (SHIBYTE(v39.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v38.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v39.__r_.__value_.__l.__data_);
+            operator delete(v38.__r_.__value_.__l.__data_);
           }
 
           *a3 = 0;
           std::string::basic_string[abi:ne200100]<0>((a3 + 8), &unk_259A4D977);
-          if (v49.__r_.__value_.__l.__size_)
+          if (v48.__r_.__value_.__l.__size_)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v49.__r_.__value_.__l.__size_);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v48.__r_.__value_.__l.__size_);
           }
 
           goto LABEL_58;
@@ -1783,22 +316,22 @@ void MilTranslator::OpTranslator::TranslateConst(MilTranslator::OpTranslator *th
         *a3 = 4;
         v33 = a3 + 8;
         Location = MIL::IRObject::GetLocation(a2);
-        (*(*Location + 24))(&v50);
-        v35 = std::string::insert(&v50, 0, "DTypes not compatible with live tensors are not implemented in ANEFlow const. Violation at ");
+        (*(*Location + 24))(&v49);
+        v35 = std::string::insert(&v49, 0, "DTypes not compatible with live tensors are not implemented in ANEFlow const. Violation at ");
         v36 = *&v35->__r_.__value_.__l.__data_;
         *(v33 + 16) = *(&v35->__r_.__value_.__l + 2);
         *v33 = v36;
         v35->__r_.__value_.__l.__size_ = 0;
         v35->__r_.__value_.__r.__words[2] = 0;
         v35->__r_.__value_.__r.__words[0] = 0;
-        if ((SHIBYTE(v50.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+        if ((SHIBYTE(v49.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
         {
 LABEL_58:
-          std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRParameter>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRParameter>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRParameter>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRParameter>>>>::~__hash_table(&v51);
+          std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRParameter>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRParameter>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRParameter>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRParameter>>>>::~__hash_table(&v50);
           return;
         }
 
-        v31 = v50.__r_.__value_.__r.__words[0];
+        v31 = v49.__r_.__value_.__r.__words[0];
 LABEL_38:
         operator delete(v31);
         goto LABEL_58;
@@ -1806,41 +339,41 @@ LABEL_38:
 
       *a3 = 4;
       v16 = a3 + 8;
-      std::string::basic_string[abi:ne200100]<0>(&v48, "val");
-      v24 = std::string::insert(&v48, 0, "Only tensors are handled for const attribute ");
+      std::string::basic_string[abi:ne200100]<0>(&v47, "val");
+      v24 = std::string::insert(&v47, 0, "Only tensors are handled for const attribute ");
       v25 = *&v24->__r_.__value_.__l.__data_;
-      v49.__r_.__value_.__r.__words[2] = v24->__r_.__value_.__r.__words[2];
-      *&v49.__r_.__value_.__l.__data_ = v25;
+      v48.__r_.__value_.__r.__words[2] = v24->__r_.__value_.__r.__words[2];
+      *&v48.__r_.__value_.__l.__data_ = v25;
       v24->__r_.__value_.__l.__size_ = 0;
       v24->__r_.__value_.__r.__words[2] = 0;
       v24->__r_.__value_.__r.__words[0] = 0;
-      v26 = std::string::append(&v49, ". Violated at ");
+      v26 = std::string::append(&v48, ". Violated at ");
       v27 = *&v26->__r_.__value_.__l.__data_;
-      v50.__r_.__value_.__r.__words[2] = v26->__r_.__value_.__r.__words[2];
-      *&v50.__r_.__value_.__l.__data_ = v27;
+      v49.__r_.__value_.__r.__words[2] = v26->__r_.__value_.__r.__words[2];
+      *&v49.__r_.__value_.__l.__data_ = v27;
       v26->__r_.__value_.__l.__size_ = 0;
       v26->__r_.__value_.__r.__words[2] = 0;
       v26->__r_.__value_.__r.__words[0] = 0;
       v28 = MIL::IRObject::GetLocation(a2);
-      (*(*v28 + 24))(&v45);
-      if ((v47 & 0x80u) == 0)
+      (*(*v28 + 24))(&v44);
+      if ((v46 & 0x80u) == 0)
       {
-        v22 = &v45;
+        v22 = &v44;
       }
 
       else
       {
-        v22 = v45;
+        v22 = v44;
       }
 
-      if ((v47 & 0x80u) == 0)
-      {
-        v23 = v47;
-      }
-
-      else
+      if ((v46 & 0x80u) == 0)
       {
         v23 = v46;
+      }
+
+      else
+      {
+        v23 = v45;
       }
     }
 
@@ -1848,59 +381,54 @@ LABEL_38:
     {
       *a3 = 4;
       v16 = a3 + 8;
-      std::string::basic_string[abi:ne200100]<0>(&v48, "val");
-      v17 = std::string::insert(&v48, 0, "Const expected to have exactly one bound attribute named ");
+      std::string::basic_string[abi:ne200100]<0>(&v47, "val");
+      v17 = std::string::insert(&v47, 0, "Const expected to have exactly one bound attribute named ");
       v18 = *&v17->__r_.__value_.__l.__data_;
-      v49.__r_.__value_.__r.__words[2] = v17->__r_.__value_.__r.__words[2];
-      *&v49.__r_.__value_.__l.__data_ = v18;
+      v48.__r_.__value_.__r.__words[2] = v17->__r_.__value_.__r.__words[2];
+      *&v48.__r_.__value_.__l.__data_ = v18;
       v17->__r_.__value_.__l.__size_ = 0;
       v17->__r_.__value_.__r.__words[2] = 0;
       v17->__r_.__value_.__r.__words[0] = 0;
-      v19 = std::string::append(&v49, ". Violated at ");
+      v19 = std::string::append(&v48, ". Violated at ");
       v20 = *&v19->__r_.__value_.__l.__data_;
-      v50.__r_.__value_.__r.__words[2] = v19->__r_.__value_.__r.__words[2];
-      *&v50.__r_.__value_.__l.__data_ = v20;
+      v49.__r_.__value_.__r.__words[2] = v19->__r_.__value_.__r.__words[2];
+      *&v49.__r_.__value_.__l.__data_ = v20;
       v19->__r_.__value_.__l.__size_ = 0;
       v19->__r_.__value_.__r.__words[2] = 0;
       v19->__r_.__value_.__r.__words[0] = 0;
       v21 = MIL::IRObject::GetLocation(a2);
-      (*(*v21 + 24))(&v45);
-      if ((v47 & 0x80u) == 0)
+      (*(*v21 + 24))(&v44);
+      if ((v46 & 0x80u) == 0)
       {
-        v22 = &v45;
+        v22 = &v44;
       }
 
       else
       {
-        v22 = v45;
+        v22 = v44;
       }
 
-      if ((v47 & 0x80u) == 0)
-      {
-        v23 = v47;
-      }
-
-      else
+      if ((v46 & 0x80u) == 0)
       {
         v23 = v46;
       }
+
+      else
+      {
+        v23 = v45;
+      }
     }
 
-    v29 = std::string::append(&v50, v22, v23);
+    v29 = std::string::append(&v49, v22, v23);
     v30 = *&v29->__r_.__value_.__l.__data_;
     *(v16 + 16) = *(&v29->__r_.__value_.__l + 2);
     *v16 = v30;
     v29->__r_.__value_.__l.__size_ = 0;
     v29->__r_.__value_.__r.__words[2] = 0;
     v29->__r_.__value_.__r.__words[0] = 0;
-    if (v47 < 0)
+    if (v46 < 0)
     {
-      operator delete(v45);
-    }
-
-    if (SHIBYTE(v50.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v50.__r_.__value_.__l.__data_);
+      operator delete(v44);
     }
 
     if (SHIBYTE(v49.__r_.__value_.__r.__words[2]) < 0)
@@ -1908,28 +436,33 @@ LABEL_38:
       operator delete(v49.__r_.__value_.__l.__data_);
     }
 
-    if ((SHIBYTE(v48.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+    if (SHIBYTE(v48.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v48.__r_.__value_.__l.__data_);
+    }
+
+    if ((SHIBYTE(v47.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
       goto LABEL_58;
     }
 
-    v31 = v48.__r_.__value_.__r.__words[0];
+    v31 = v47.__r_.__value_.__r.__words[0];
     goto LABEL_38;
   }
 
   *a3 = 4;
   v6 = MIL::IRObject::GetLocation(a2);
-  (*(*v6 + 24))(&v51);
-  v7 = std::string::insert(&v51, 0, "Const not expected to have bound parameters. Violated at ");
+  (*(*v6 + 24))(&v50);
+  v7 = std::string::insert(&v50, 0, "Const not expected to have bound parameters. Violated at ");
   v8 = *&v7->__r_.__value_.__l.__data_;
   *(a3 + 24) = *(&v7->__r_.__value_.__l + 2);
   *(a3 + 8) = v8;
   v7->__r_.__value_.__l.__size_ = 0;
   v7->__r_.__value_.__r.__words[2] = 0;
   v7->__r_.__value_.__r.__words[0] = 0;
-  if (SHIBYTE(v51.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v50.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v51.__r_.__value_.__l.__data_);
+    operator delete(v50.__r_.__value_.__l.__data_);
   }
 }
 
@@ -1962,41 +495,41 @@ uint64_t std::unordered_map<std::string,std::shared_ptr<MIL::IRValue const>>::un
   std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRParameter>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRParameter>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRParameter>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRParameter>>>>::__rehash<true>(a1, *(a2 + 8));
   for (i = *(a2 + 16); i; i = *i)
   {
-    std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::shared_ptr<MIL::IRValue const>> const&>(a1, i + 2);
+    std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::shared_ptr<MIL::IRValue const>> const&>(a1, i + 2, (i + 2));
   }
 
   return a1;
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::shared_ptr<MIL::IRValue const>> const&>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::shared_ptr<MIL::IRValue const>> const&>(void *a1, uint64_t *a2, uint64_t a3)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__construct_node_hash<std::pair<std::string const,std::shared_ptr<MIL::IRValue const>> const&>();
@@ -2004,49 +537,49 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v12 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
-void sub_2599D7350(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2599D7350(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRParameter>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRParameter>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -2076,7 +609,7 @@ std::string *std::pair<std::string const,std::shared_ptr<MIL::IRValue const>>::p
   return this;
 }
 
-_BYTE *MIL::ANEMachineIR::Interpreter::ReshapeCpu::Run@<X0>(MIL::IROperation *a1@<X1>, void *a2@<X2>, uint64_t a3@<X8>)
+void *MIL::ANEMachineIR::Interpreter::ReshapeCpu::Run@<X0>(MIL::IROperation *a1@<X1>, void *a2@<X2>, uint64_t a3@<X8>)
 {
   std::string::basic_string[abi:ne200100]<0>(&__src, "x");
   v55 = a2;
@@ -2429,7 +962,7 @@ unint64_t MIL::Util::Span<signed char const,18446744073709551615ul>::At(void *a1
 
 void MIL::ANEMachineIR::Interpreter::PeAvgPoolCpu::Run(MIL::IROperation *a1@<X1>, void *a2@<X2>, uint64_t a3@<X8>)
 {
-  v138 = *MEMORY[0x277D85DE8];
+  v137 = *MEMORY[0x277D85DE8];
   v6 = (*(*a1 + 56))(a1);
   v7 = *(v6 + 23);
   if (v7 < 0)
@@ -2452,18 +985,18 @@ void MIL::ANEMachineIR::Interpreter::PeAvgPoolCpu::Run(MIL::IROperation *a1@<X1>
 LABEL_10:
     *a3 = 1;
     v9 = a3 + 8;
-    std::string::basic_string[abi:ne200100]<0>(&v126, "pe_avg_pool");
-    v10 = std::string::insert(&v126, 0, "Expected '");
+    std::string::basic_string[abi:ne200100]<0>(&v125, "pe_avg_pool");
+    v10 = std::string::insert(&v125, 0, "Expected '");
     v11 = *&v10->__r_.__value_.__l.__data_;
-    v137.__r_.__value_.__r.__words[2] = v10->__r_.__value_.__r.__words[2];
-    *&v137.__r_.__value_.__l.__data_ = v11;
+    v136.__r_.__value_.__r.__words[2] = v10->__r_.__value_.__r.__words[2];
+    *&v136.__r_.__value_.__l.__data_ = v11;
     v10->__r_.__value_.__l.__size_ = 0;
     v10->__r_.__value_.__r.__words[2] = 0;
     v10->__r_.__value_.__r.__words[0] = 0;
-    v12 = std::string::append(&v137, "' op. Got ");
+    v12 = std::string::append(&v136, "' op. Got ");
     v13 = *&v12->__r_.__value_.__l.__data_;
-    v114.__r_.__value_.__r.__words[2] = v12->__r_.__value_.__r.__words[2];
-    *&v114.__r_.__value_.__l.__data_ = v13;
+    v113.__r_.__value_.__r.__words[2] = v12->__r_.__value_.__r.__words[2];
+    *&v113.__r_.__value_.__l.__data_ = v13;
     v12->__r_.__value_.__l.__size_ = 0;
     v12->__r_.__value_.__r.__words[2] = 0;
     v12->__r_.__value_.__r.__words[0] = 0;
@@ -2489,550 +1022,545 @@ LABEL_10:
       v17 = *(v14 + 8);
     }
 
-    v18 = std::string::append(&v114, v16, v17);
+    v18 = std::string::append(&v113, v16, v17);
     v19 = *&v18->__r_.__value_.__l.__data_;
     *(v9 + 16) = *(&v18->__r_.__value_.__l + 2);
     *v9 = v19;
     v18->__r_.__value_.__l.__size_ = 0;
     v18->__r_.__value_.__r.__words[2] = 0;
     v18->__r_.__value_.__r.__words[0] = 0;
-    if (SHIBYTE(v114.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v113.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v114.__r_.__value_.__l.__data_);
+      operator delete(v113.__r_.__value_.__l.__data_);
     }
 
-    if (SHIBYTE(v137.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v136.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v137.__r_.__value_.__l.__data_);
+      operator delete(v136.__r_.__value_.__l.__data_);
     }
 
-    if (SHIBYTE(v126.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v125.__r_.__value_.__r.__words[2]) < 0)
     {
-      v20 = v126.__r_.__value_.__r.__words[0];
+      v20 = v125.__r_.__value_.__r.__words[0];
 LABEL_22:
       operator delete(v20);
-      goto LABEL_23;
+      return;
     }
 
-    goto LABEL_23;
+    return;
   }
 
-  std::string::basic_string[abi:ne200100]<0>(&v114, "x");
-  InterpretedTensorValue = MIL::ANEMachineIR::Interpreter::TryGetInterpretedTensorValue(a2, a1, &v114);
-  v23 = InterpretedTensorValue;
-  if ((SHIBYTE(v114.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+  std::string::basic_string[abi:ne200100]<0>(&v113, "x");
+  InterpretedTensorValue = MIL::ANEMachineIR::Interpreter::TryGetInterpretedTensorValue(a2, a1, &v113);
+  v22 = InterpretedTensorValue;
+  if (SHIBYTE(v113.__r_.__value_.__r.__words[2]) < 0)
   {
-    if (InterpretedTensorValue)
+    operator delete(v113.__r_.__value_.__l.__data_);
+    if (v22)
     {
-      goto LABEL_26;
-    }
-
-LABEL_62:
-    *a3 = 2;
-    std::string::basic_string[abi:ne200100]<0>(&v114, "x");
-    v61 = std::string::insert(&v114, 0, "No value for ");
-    v62 = *&v61->__r_.__value_.__l.__data_;
-    *(a3 + 24) = *(&v61->__r_.__value_.__l + 2);
-    *(a3 + 8) = v62;
-    v61->__r_.__value_.__l.__size_ = 0;
-    v61->__r_.__value_.__r.__words[2] = 0;
-    v61->__r_.__value_.__r.__words[0] = 0;
-    if ((SHIBYTE(v114.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-    {
-      goto LABEL_23;
-    }
-
-    v20 = v114.__r_.__value_.__r.__words[0];
-    goto LABEL_22;
-  }
-
-  operator delete(v114.__r_.__value_.__l.__data_);
-  if (!v23)
-  {
-    goto LABEL_62;
-  }
-
 LABEL_26:
-  std::string::basic_string[abi:ne200100]<0>(&v114, "kernel_sizes");
-  ParameterValue = MIL::IROperation::GetParameterValue();
-  MIL::IRValue::AsTensor(ParameterValue);
-  Data = MIL::IRTensorValue::GetDataView<int>();
-  v125 = v25;
-  if (SHIBYTE(v114.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v114.__r_.__value_.__l.__data_);
-    v25 = v125;
-  }
-
-  std::vector<int>::vector[abi:ne200100](&v126, v25);
-  if (v126.__r_.__value_.__l.__size_ != v126.__r_.__value_.__r.__words[0])
-  {
-    v26 = 0;
-    do
-    {
-      v27 = MIL::Util::Span<int const,18446744073709551615ul>::At(&Data, v26);
-      v28 = v126.__r_.__value_.__r.__words[0];
-      *(v126.__r_.__value_.__r.__words[0] + 4 * v26++) = *v27;
-    }
-
-    while (v26 < (v126.__r_.__value_.__l.__size_ - v28) >> 2);
-  }
-
-  std::string::basic_string[abi:ne200100]<0>(&v114, "strides");
-  v29 = MIL::IROperation::GetParameterValue();
-  MIL::IRValue::AsTensor(v29);
-  v122 = MIL::IRTensorValue::GetDataView<int>();
-  v123 = v30;
-  if (SHIBYTE(v114.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v114.__r_.__value_.__l.__data_);
-    v30 = v123;
-  }
-
-  std::vector<int>::vector[abi:ne200100](&v120, v30);
-  if (v121 != v120)
-  {
-    v31 = 0;
-    do
-    {
-      v32 = MIL::Util::Span<int const,18446744073709551615ul>::At(&v122, v31);
-      v33 = v120;
-      *(v120 + v31++) = *v32;
-    }
-
-    while (v31 < (v121 - v33) >> 2);
-  }
-
-  v34 = std::string::basic_string[abi:ne200100]<0>(&v114, "post_scale");
-  v110 = MIL::Fp16::FromFloat(v34, 1.0);
-  v35 = MIL::IROperation::TryGetParameterValue();
-  if (v35)
-  {
-    if ((*(*v35 + 40))(v35))
-    {
-      v36 = MEMORY[0x259CA93C0]();
-      if (v36)
+      std::string::basic_string[abi:ne200100]<0>(&v113, "kernel_sizes");
+      ParameterValue = MIL::IROperation::GetParameterValue();
+      MIL::IRValue::AsTensor(ParameterValue);
+      Data = MIL::IRTensorValue::GetDataView<int>();
+      v124 = v24;
+      if (SHIBYTE(v113.__r_.__value_.__r.__words[2]) < 0)
       {
-        v110 = *v36;
+        operator delete(v113.__r_.__value_.__l.__data_);
+        v24 = v124;
       }
-    }
-  }
 
-  if (SHIBYTE(v114.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v114.__r_.__value_.__l.__data_);
-  }
-
-  std::string::basic_string[abi:ne200100]<0>(&v114, "custom_pads");
-  v37 = MIL::IROperation::TryGetParameterValue();
-  if (SHIBYTE(v114.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v114.__r_.__value_.__l.__data_);
-  }
-
-  std::string::basic_string[abi:ne200100]<0>(&v114, "include_pads");
-  v38 = MIL::IROperation::TryGetParameterValue();
-  if (v38 && (*(*v38 + 40))(v38) && (v39 = MEMORY[0x259CA93F0]()) != 0)
-  {
-    v107 = *v39;
-  }
-
-  else
-  {
-    v107 = 0;
-  }
-
-  if (SHIBYTE(v114.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v114.__r_.__value_.__l.__data_);
-  }
-
-  std::string::basic_string[abi:ne200100]<0>(&v114, "pre_relu");
-  v40 = MIL::IROperation::TryGetParameterValue();
-  if (v40 && (*(*v40 + 40))(v40) && (v41 = MEMORY[0x259CA93F0]()) != 0)
-  {
-    v105 = *v41;
-  }
-
-  else
-  {
-    v105 = 0;
-  }
-
-  if (SHIBYTE(v114.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v114.__r_.__value_.__l.__data_);
-  }
-
-  v42 = (*(*v23 + 32))(v23);
-  v43 = (*(*v42 + 88))(v42);
-  OutputType = MIL::IROperation::GetOutputType(a1);
-  v45 = MIL::IRValueType::AsTensorType(OutputType);
-  v109 = (*(*v45 + 88))(v45);
-  v46 = MIL::IROperation::GetOutputType(a1);
-  v47 = MIL::IRValueType::AsTensorType(v46);
-  v106 = (*(*v47 + 16))(v47);
-  v48 = (*(*v23 + 32))(v23);
-  ANEMachineIR::Utils::GetStaticTensorShape(v48, v49, &v118);
-  v108 = a2;
-  v50 = MIL::IROperation::GetOutputType(a1);
-  v51 = MIL::IRValueType::AsTensorType(v50);
-  ANEMachineIR::Utils::GetStaticTensorShape(v51, v52, v117);
-  v53 = v43;
-  if (v37)
-  {
-    v55 = v118;
-    v54 = v119;
-    MIL::IRValue::AsTensor(v37);
-    v56 = MIL::IRTensorValue::GetDataView<int>();
-    v57 = (v54 - v55) >> 3;
-    v58 = v57 - 2;
-    v114.__r_.__value_.__r.__words[0] = v56;
-    v114.__r_.__value_.__l.__size_ = v59;
-    if (v57 == 5)
-    {
-      v37 = *MIL::Util::Span<int const,18446744073709551615ul>::At(&v114, 0);
-      v60 = *MIL::Util::Span<int const,18446744073709551615ul>::At(&v114, 1uLL);
-    }
-
-    else
-    {
-      if (v58 <= 1)
+      std::vector<int>::vector[abi:ne200100](&v125, v24);
+      if (v125.__r_.__value_.__l.__size_ != v125.__r_.__value_.__r.__words[0])
       {
-        v37 = 0;
-        v60 = 0;
+        v25 = 0;
+        do
+        {
+          v26 = MIL::Util::Span<int const,18446744073709551615ul>::At(&Data, v25);
+          v27 = v125.__r_.__value_.__r.__words[0];
+          *(v125.__r_.__value_.__r.__words[0] + 4 * v25++) = *v26;
+        }
+
+        while (v25 < (v125.__r_.__value_.__l.__size_ - v27) >> 2);
+      }
+
+      std::string::basic_string[abi:ne200100]<0>(&v113, "strides");
+      v28 = MIL::IROperation::GetParameterValue();
+      MIL::IRValue::AsTensor(v28);
+      v121 = MIL::IRTensorValue::GetDataView<int>();
+      v122 = v29;
+      if (SHIBYTE(v113.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v113.__r_.__value_.__l.__data_);
+        v29 = v122;
+      }
+
+      std::vector<int>::vector[abi:ne200100](&v119, v29);
+      if (v120 != v119)
+      {
+        v30 = 0;
+        do
+        {
+          v31 = MIL::Util::Span<int const,18446744073709551615ul>::At(&v121, v30);
+          v32 = v119;
+          *(v119 + v30++) = *v31;
+        }
+
+        while (v30 < (v120 - v32) >> 2);
+      }
+
+      v33 = std::string::basic_string[abi:ne200100]<0>(&v113, "post_scale");
+      v109 = MIL::Fp16::FromFloat(v33, 1.0);
+      v34 = MIL::IROperation::TryGetParameterValue();
+      if (v34)
+      {
+        if ((*(*v34 + 40))(v34))
+        {
+          v35 = MEMORY[0x259CA93C0]();
+          if (v35)
+          {
+            v109 = *v35;
+          }
+        }
+      }
+
+      if (SHIBYTE(v113.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v113.__r_.__value_.__l.__data_);
+      }
+
+      std::string::basic_string[abi:ne200100]<0>(&v113, "custom_pads");
+      v36 = MIL::IROperation::TryGetParameterValue();
+      if (SHIBYTE(v113.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v113.__r_.__value_.__l.__data_);
+      }
+
+      std::string::basic_string[abi:ne200100]<0>(&v113, "include_pads");
+      v37 = MIL::IROperation::TryGetParameterValue();
+      if (v37 && (*(*v37 + 40))(v37) && (v38 = MEMORY[0x259CA93F0]()) != 0)
+      {
+        v106 = *v38;
+      }
+
+      else
+      {
+        v106 = 0;
+      }
+
+      if (SHIBYTE(v113.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v113.__r_.__value_.__l.__data_);
+      }
+
+      std::string::basic_string[abi:ne200100]<0>(&v113, "pre_relu");
+      v39 = MIL::IROperation::TryGetParameterValue();
+      if (v39 && (*(*v39 + 40))(v39) && (v40 = MEMORY[0x259CA93F0]()) != 0)
+      {
+        v104 = *v40;
+      }
+
+      else
+      {
+        v104 = 0;
+      }
+
+      if (SHIBYTE(v113.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v113.__r_.__value_.__l.__data_);
+      }
+
+      v41 = (*(*v22 + 32))(v22);
+      v42 = (*(*v41 + 88))(v41);
+      OutputType = MIL::IROperation::GetOutputType(a1);
+      v44 = MIL::IRValueType::AsTensorType(OutputType);
+      v108 = (*(*v44 + 88))(v44);
+      v45 = MIL::IROperation::GetOutputType(a1);
+      v46 = MIL::IRValueType::AsTensorType(v45);
+      v105 = (*(*v46 + 16))(v46);
+      v47 = (*(*v22 + 32))(v22);
+      ANEMachineIR::Utils::GetStaticTensorShape(&v117, v47, v48);
+      v107 = a2;
+      v49 = MIL::IROperation::GetOutputType(a1);
+      v50 = MIL::IRValueType::AsTensorType(v49);
+      ANEMachineIR::Utils::GetStaticTensorShape(v116, v50, v51);
+      v52 = v42;
+      if (!v36)
+      {
+        v62 = 0;
+        v63 = 0;
+        v64 = 0;
         v65 = 0;
-        v66 = 0;
-        v67 = 2 * v58;
-        goto LABEL_69;
-      }
-
-      v37 = 0;
-      v60 = 0;
-    }
-
-    v67 = 2 * v58;
-    v66 = *MIL::Util::Span<int const,18446744073709551615ul>::At(&v114, v67 - 4);
-    v65 = *MIL::Util::Span<int const,18446744073709551615ul>::At(&v114, v67 - 3);
-LABEL_69:
-    v64 = *MIL::Util::Span<int const,18446744073709551615ul>::At(&v114, v67 - 2);
-    v63 = *MIL::Util::Span<int const,18446744073709551615ul>::At(&v114, v67 - 1);
-    goto LABEL_70;
-  }
-
-  v63 = 0;
-  v64 = 0;
-  v65 = 0;
-  v66 = 0;
-  v60 = 0;
+        v59 = 0;
 LABEL_70:
-  v116[0] = v37;
-  v116[1] = v60;
-  v116[2] = v66;
-  v116[3] = v65;
-  v116[4] = v64;
-  v116[5] = v63;
-  if (v37 || v60 || v66 || v65 || v64 || v63)
-  {
-    *a3 = 3;
-    std::string::basic_string[abi:ne200100]<0>((a3 + 8), "Unimplemented pad: rdar://84906152");
-    goto LABEL_133;
-  }
+        v115[0] = v36;
+        v115[1] = v59;
+        v115[2] = v65;
+        v115[3] = v64;
+        v115[4] = v63;
+        v115[5] = v62;
+        if (v36 || v59 || v65 || v64 || v63 || v62)
+        {
+          *a3 = 3;
+          std::string::basic_string[abi:ne200100]<0>((a3 + 8), "Unimplemented pad: rdar://84906152");
+          goto LABEL_133;
+        }
 
-  *&v114.__r_.__value_.__r.__words[1] = 0uLL;
-  v115 = 0;
-  MIL::ANEMachineIR::Interpreter::GetCpuNeActivationFunction(a1, &v114, &v137);
-  if (LODWORD(v114.__r_.__value_.__l.__data_))
-  {
-    *a3 = v114.__r_.__value_.__l.__data_;
-    *(a3 + 8) = *&v114.__r_.__value_.__r.__words[1];
-    *(a3 + 24) = v115;
-    *&v114.__r_.__value_.__r.__words[1] = 0uLL;
-    v115 = 0;
-    goto LABEL_131;
-  }
+        *&v113.__r_.__value_.__r.__words[1] = 0uLL;
+        v114 = 0;
+        MIL::ANEMachineIR::Interpreter::GetCpuNeActivationFunction(a1, &v113, &v136);
+        if (LODWORD(v113.__r_.__value_.__l.__data_))
+        {
+          *a3 = v113.__r_.__value_.__l.__data_;
+          *(a3 + 8) = *&v113.__r_.__value_.__r.__words[1];
+          *(a3 + 24) = v114;
+          *&v113.__r_.__value_.__r.__words[1] = 0uLL;
+          v114 = 0;
+          goto LABEL_131;
+        }
 
-  switch(v53)
-  {
-    case 14:
-      switch(v109)
-      {
-        case 14:
-          v97 = MIL::IRTensorValue::GetDataView<unsigned char>();
-          std::__function::__value_func<float ()(float)>::__value_func[abi:ne200100](v132, &v137);
-          std::__function::__value_func<float ()(float)>::~__value_func[abi:ne200100](v132);
-          (*(*a1 + 200))(&v111, a1);
-          v98 = v111;
-          if (v112 == v111)
-          {
-            std::vector<unsigned long long>::__throw_out_of_range[abi:ne200100]();
-          }
+        switch(v52)
+        {
+          case 14:
+            switch(v108)
+            {
+              case 14:
+                v96 = MIL::IRTensorValue::GetDataView<unsigned char>();
+                std::__function::__value_func<float ()(float)>::__value_func[abi:ne200100](v131, &v136);
+                std::__function::__value_func<float ()(float)>::~__value_func[abi:ne200100](v131);
+                (*(*a1 + 200))(&v110, a1);
+                v97 = v110;
+                if (v111 == v110)
+                {
+                  std::vector<unsigned long long>::__throw_out_of_range[abi:ne200100]();
+                }
 
-          v99 = MIL::IROperation::GetOutputType(a1);
-          MIL::IRValueType::AsTensorType(v99);
-          MIL::IRTensorValueType::MakeUInt8Value();
-          MIL::ANEMachineIR::Interpreter::ComputedValueStore::InsertValue(v108, v98, &v127);
-          v100 = v127;
-          v127 = 0;
-          if (v100)
-          {
-            (*(*v100 + 1))(v100);
-          }
+                v98 = MIL::IROperation::GetOutputType(a1);
+                MIL::IRValueType::AsTensorType(v98);
+                MIL::IRTensorValueType::MakeUInt8Value();
+                MIL::ANEMachineIR::Interpreter::ComputedValueStore::InsertValue(v107, v97, &v126);
+                v99 = v126;
+                v126 = 0;
+                if (v99)
+                {
+                  (*(*v99 + 1))(v99);
+                }
 
-          goto LABEL_129;
-        case 9:
-          v89 = MIL::IRTensorValue::GetDataView<unsigned char>();
-          std::__function::__value_func<float ()(float)>::__value_func[abi:ne200100](v131, &v137);
-          std::__function::__value_func<float ()(float)>::~__value_func[abi:ne200100](v131);
-          (*(*a1 + 200))(&v111, a1);
-          v90 = v111;
-          if (v112 == v111)
-          {
-            std::vector<unsigned long long>::__throw_out_of_range[abi:ne200100]();
-          }
+                goto LABEL_129;
+              case 9:
+                v88 = MIL::IRTensorValue::GetDataView<unsigned char>();
+                std::__function::__value_func<float ()(float)>::__value_func[abi:ne200100](v130, &v136);
+                std::__function::__value_func<float ()(float)>::~__value_func[abi:ne200100](v130);
+                (*(*a1 + 200))(&v110, a1);
+                v89 = v110;
+                if (v111 == v110)
+                {
+                  std::vector<unsigned long long>::__throw_out_of_range[abi:ne200100]();
+                }
 
-          v91 = MIL::IROperation::GetOutputType(a1);
-          MIL::IRValueType::AsTensorType(v91);
-          MIL::IRTensorValueType::MakeInt8Value();
-          MIL::ANEMachineIR::Interpreter::ComputedValueStore::InsertValue(v108, v90, &v127);
-          v92 = v127;
-          v127 = 0;
-          if (v92)
-          {
-            (*(*v92 + 1))(v92);
-          }
+                v90 = MIL::IROperation::GetOutputType(a1);
+                MIL::IRValueType::AsTensorType(v90);
+                MIL::IRTensorValueType::MakeInt8Value();
+                MIL::ANEMachineIR::Interpreter::ComputedValueStore::InsertValue(v107, v89, &v126);
+                v91 = v126;
+                v126 = 0;
+                if (v91)
+                {
+                  (*(*v91 + 1))(v91);
+                }
 
-          goto LABEL_129;
-        case 4:
-          v76 = MIL::IRTensorValue::GetDataView<unsigned char>();
-          std::__function::__value_func<float ()(float)>::__value_func[abi:ne200100](v133, &v137);
-          std::__function::__value_func<float ()(float)>::~__value_func[abi:ne200100](v133);
-          (*(*a1 + 200))(&v111, a1);
-          v77 = v111;
-          if (v112 == v111)
-          {
-            std::vector<unsigned long long>::__throw_out_of_range[abi:ne200100]();
-          }
+                goto LABEL_129;
+              case 4:
+                v75 = MIL::IRTensorValue::GetDataView<unsigned char>();
+                std::__function::__value_func<float ()(float)>::__value_func[abi:ne200100](v132, &v136);
+                std::__function::__value_func<float ()(float)>::~__value_func[abi:ne200100](v132);
+                (*(*a1 + 200))(&v110, a1);
+                v76 = v110;
+                if (v111 == v110)
+                {
+                  std::vector<unsigned long long>::__throw_out_of_range[abi:ne200100]();
+                }
 
-          v78 = MIL::IROperation::GetOutputType(a1);
-          MIL::IRValueType::AsTensorType(v78);
-          MIL::IRTensorValueType::MakeFloat16Value();
-          MIL::ANEMachineIR::Interpreter::ComputedValueStore::InsertValue(v108, v77, &v127);
-          v79 = v127;
-          v127 = 0;
-          if (v79)
-          {
-            (*(*v79 + 1))(v79);
-          }
+                v77 = MIL::IROperation::GetOutputType(a1);
+                MIL::IRValueType::AsTensorType(v77);
+                MIL::IRTensorValueType::MakeFloat16Value();
+                MIL::ANEMachineIR::Interpreter::ComputedValueStore::InsertValue(v107, v76, &v126);
+                v78 = v126;
+                v126 = 0;
+                if (v78)
+                {
+                  (*(*v78 + 1))(v78);
+                }
 
-          goto LABEL_129;
-      }
+                goto LABEL_129;
+            }
 
-LABEL_104:
-      v80 = "Unimplemented output dtype";
-      goto LABEL_105;
-    case 9:
-      switch(v109)
-      {
-        case 14:
-          v85 = MIL::IRTensorValue::GetDataView<signed char>();
-          std::__function::__value_func<float ()(float)>::__value_func[abi:ne200100](v129, &v137);
-          std::__function::__value_func<float ()(float)>::~__value_func[abi:ne200100](v129);
-          (*(*a1 + 200))(&v111, a1);
-          v86 = v111;
-          if (v112 == v111)
-          {
-            std::vector<unsigned long long>::__throw_out_of_range[abi:ne200100]();
-          }
+            break;
+          case 9:
+            switch(v108)
+            {
+              case 14:
+                v84 = MIL::IRTensorValue::GetDataView<signed char>();
+                std::__function::__value_func<float ()(float)>::__value_func[abi:ne200100](v128, &v136);
+                std::__function::__value_func<float ()(float)>::~__value_func[abi:ne200100](v128);
+                (*(*a1 + 200))(&v110, a1);
+                v85 = v110;
+                if (v111 == v110)
+                {
+                  std::vector<unsigned long long>::__throw_out_of_range[abi:ne200100]();
+                }
 
-          v87 = MIL::IROperation::GetOutputType(a1);
-          MIL::IRValueType::AsTensorType(v87);
-          MIL::IRTensorValueType::MakeUInt8Value();
-          MIL::ANEMachineIR::Interpreter::ComputedValueStore::InsertValue(v108, v86, &v127);
-          v88 = v127;
-          v127 = 0;
-          if (v88)
-          {
-            (*(*v88 + 1))(v88);
-          }
+                v86 = MIL::IROperation::GetOutputType(a1);
+                MIL::IRValueType::AsTensorType(v86);
+                MIL::IRTensorValueType::MakeUInt8Value();
+                MIL::ANEMachineIR::Interpreter::ComputedValueStore::InsertValue(v107, v85, &v126);
+                v87 = v126;
+                v126 = 0;
+                if (v87)
+                {
+                  (*(*v87 + 1))(v87);
+                }
 
-          goto LABEL_129;
-        case 9:
-          v81 = MIL::IRTensorValue::GetDataView<signed char>();
-          std::__function::__value_func<float ()(float)>::__value_func[abi:ne200100](v128, &v137);
-          std::__function::__value_func<float ()(float)>::~__value_func[abi:ne200100](v128);
-          (*(*a1 + 200))(&v111, a1);
-          v82 = v111;
-          if (v112 == v111)
-          {
-            std::vector<unsigned long long>::__throw_out_of_range[abi:ne200100]();
-          }
+                goto LABEL_129;
+              case 9:
+                v80 = MIL::IRTensorValue::GetDataView<signed char>();
+                std::__function::__value_func<float ()(float)>::__value_func[abi:ne200100](v127, &v136);
+                std::__function::__value_func<float ()(float)>::~__value_func[abi:ne200100](v127);
+                (*(*a1 + 200))(&v110, a1);
+                v81 = v110;
+                if (v111 == v110)
+                {
+                  std::vector<unsigned long long>::__throw_out_of_range[abi:ne200100]();
+                }
 
-          v83 = MIL::IROperation::GetOutputType(a1);
-          MIL::IRValueType::AsTensorType(v83);
-          MIL::IRTensorValueType::MakeInt8Value();
-          MIL::ANEMachineIR::Interpreter::ComputedValueStore::InsertValue(v108, v82, &v127);
-          v84 = v127;
-          v127 = 0;
-          if (v84)
-          {
-            (*(*v84 + 1))(v84);
-          }
+                v82 = MIL::IROperation::GetOutputType(a1);
+                MIL::IRValueType::AsTensorType(v82);
+                MIL::IRTensorValueType::MakeInt8Value();
+                MIL::ANEMachineIR::Interpreter::ComputedValueStore::InsertValue(v107, v81, &v126);
+                v83 = v126;
+                v126 = 0;
+                if (v83)
+                {
+                  (*(*v83 + 1))(v83);
+                }
 
-          goto LABEL_129;
-        case 4:
-          v72 = MIL::IRTensorValue::GetDataView<signed char>();
-          std::__function::__value_func<float ()(float)>::__value_func[abi:ne200100](v130, &v137);
-          std::__function::__value_func<float ()(float)>::~__value_func[abi:ne200100](v130);
-          (*(*a1 + 200))(&v111, a1);
-          v73 = v111;
-          if (v112 == v111)
-          {
-            std::vector<unsigned long long>::__throw_out_of_range[abi:ne200100]();
-          }
+                goto LABEL_129;
+              case 4:
+                v71 = MIL::IRTensorValue::GetDataView<signed char>();
+                std::__function::__value_func<float ()(float)>::__value_func[abi:ne200100](v129, &v136);
+                std::__function::__value_func<float ()(float)>::~__value_func[abi:ne200100](v129);
+                (*(*a1 + 200))(&v110, a1);
+                v72 = v110;
+                if (v111 == v110)
+                {
+                  std::vector<unsigned long long>::__throw_out_of_range[abi:ne200100]();
+                }
 
-          v74 = MIL::IROperation::GetOutputType(a1);
-          MIL::IRValueType::AsTensorType(v74);
-          MIL::IRTensorValueType::MakeFloat16Value();
-          MIL::ANEMachineIR::Interpreter::ComputedValueStore::InsertValue(v108, v73, &v127);
-          v75 = v127;
-          v127 = 0;
-          if (v75)
-          {
-            (*(*v75 + 1))(v75);
-          }
+                v73 = MIL::IROperation::GetOutputType(a1);
+                MIL::IRValueType::AsTensorType(v73);
+                MIL::IRTensorValueType::MakeFloat16Value();
+                MIL::ANEMachineIR::Interpreter::ComputedValueStore::InsertValue(v107, v72, &v126);
+                v74 = v126;
+                v126 = 0;
+                if (v74)
+                {
+                  (*(*v74 + 1))(v74);
+                }
 
-          goto LABEL_129;
-      }
+                goto LABEL_129;
+            }
 
-      goto LABEL_104;
-    case 4:
-      switch(v109)
-      {
-        case 14:
-          v101 = MIL::IRTensorValue::GetDataView<MIL::Fp16>();
-          std::__function::__value_func<float ()(float)>::__value_func[abi:ne200100](v135, &v137);
-          std::__function::__value_func<float ()(float)>::~__value_func[abi:ne200100](v135);
-          (*(*a1 + 200))(&v111, a1);
-          v102 = v111;
-          if (v112 == v111)
-          {
-            std::vector<unsigned long long>::__throw_out_of_range[abi:ne200100]();
-          }
+            break;
+          case 4:
+            switch(v108)
+            {
+              case 14:
+                v100 = MIL::IRTensorValue::GetDataView<MIL::Fp16>();
+                std::__function::__value_func<float ()(float)>::__value_func[abi:ne200100](v134, &v136);
+                std::__function::__value_func<float ()(float)>::~__value_func[abi:ne200100](v134);
+                (*(*a1 + 200))(&v110, a1);
+                v101 = v110;
+                if (v111 == v110)
+                {
+                  std::vector<unsigned long long>::__throw_out_of_range[abi:ne200100]();
+                }
 
-          v103 = MIL::IROperation::GetOutputType(a1);
-          MIL::IRValueType::AsTensorType(v103);
-          MIL::IRTensorValueType::MakeUInt8Value();
-          MIL::ANEMachineIR::Interpreter::ComputedValueStore::InsertValue(v108, v102, &v127);
-          v104 = v127;
-          v127 = 0;
-          if (v104)
-          {
-            (*(*v104 + 1))(v104);
-          }
+                v102 = MIL::IROperation::GetOutputType(a1);
+                MIL::IRValueType::AsTensorType(v102);
+                MIL::IRTensorValueType::MakeUInt8Value();
+                MIL::ANEMachineIR::Interpreter::ComputedValueStore::InsertValue(v107, v101, &v126);
+                v103 = v126;
+                v126 = 0;
+                if (v103)
+                {
+                  (*(*v103 + 1))(v103);
+                }
 
-          goto LABEL_129;
-        case 9:
-          v93 = MIL::IRTensorValue::GetDataView<MIL::Fp16>();
-          std::__function::__value_func<float ()(float)>::__value_func[abi:ne200100](v134, &v137);
-          std::__function::__value_func<float ()(float)>::~__value_func[abi:ne200100](v134);
-          (*(*a1 + 200))(&v111, a1);
-          v94 = v111;
-          if (v112 == v111)
-          {
-            std::vector<unsigned long long>::__throw_out_of_range[abi:ne200100]();
-          }
+                goto LABEL_129;
+              case 9:
+                v92 = MIL::IRTensorValue::GetDataView<MIL::Fp16>();
+                std::__function::__value_func<float ()(float)>::__value_func[abi:ne200100](v133, &v136);
+                std::__function::__value_func<float ()(float)>::~__value_func[abi:ne200100](v133);
+                (*(*a1 + 200))(&v110, a1);
+                v93 = v110;
+                if (v111 == v110)
+                {
+                  std::vector<unsigned long long>::__throw_out_of_range[abi:ne200100]();
+                }
 
-          v95 = MIL::IROperation::GetOutputType(a1);
-          MIL::IRValueType::AsTensorType(v95);
-          MIL::IRTensorValueType::MakeInt8Value();
-          MIL::ANEMachineIR::Interpreter::ComputedValueStore::InsertValue(v108, v94, &v127);
-          v96 = v127;
-          v127 = 0;
-          if (v96)
-          {
-            (*(*v96 + 1))(v96);
-          }
+                v94 = MIL::IROperation::GetOutputType(a1);
+                MIL::IRValueType::AsTensorType(v94);
+                MIL::IRTensorValueType::MakeInt8Value();
+                MIL::ANEMachineIR::Interpreter::ComputedValueStore::InsertValue(v107, v93, &v126);
+                v95 = v126;
+                v126 = 0;
+                if (v95)
+                {
+                  (*(*v95 + 1))(v95);
+                }
 
-          goto LABEL_129;
-        case 4:
-          v68 = MIL::IRTensorValue::GetDataView<MIL::Fp16>();
-          std::__function::__value_func<float ()(float)>::__value_func[abi:ne200100](v136, &v137);
-          std::__function::__value_func<float ()(float)>::~__value_func[abi:ne200100](v136);
-          (*(*a1 + 200))(&v111, a1);
-          v69 = v111;
-          if (v112 == v111)
-          {
-            std::vector<unsigned long long>::__throw_out_of_range[abi:ne200100]();
-          }
+                goto LABEL_129;
+              case 4:
+                v67 = MIL::IRTensorValue::GetDataView<MIL::Fp16>();
+                std::__function::__value_func<float ()(float)>::__value_func[abi:ne200100](v135, &v136);
+                std::__function::__value_func<float ()(float)>::~__value_func[abi:ne200100](v135);
+                (*(*a1 + 200))(&v110, a1);
+                v68 = v110;
+                if (v111 == v110)
+                {
+                  std::vector<unsigned long long>::__throw_out_of_range[abi:ne200100]();
+                }
 
-          v70 = MIL::IROperation::GetOutputType(a1);
-          MIL::IRValueType::AsTensorType(v70);
-          MIL::IRTensorValueType::MakeFloat16Value();
-          MIL::ANEMachineIR::Interpreter::ComputedValueStore::InsertValue(v108, v69, &v127);
-          v71 = v127;
-          v127 = 0;
-          if (v71)
-          {
-            (*(*v71 + 1))(v71);
-          }
+                v69 = MIL::IROperation::GetOutputType(a1);
+                MIL::IRValueType::AsTensorType(v69);
+                MIL::IRTensorValueType::MakeFloat16Value();
+                MIL::ANEMachineIR::Interpreter::ComputedValueStore::InsertValue(v107, v68, &v126);
+                v70 = v126;
+                v126 = 0;
+                if (v70)
+                {
+                  (*(*v70 + 1))(v70);
+                }
 
 LABEL_129:
-          v127 = &v111;
-          std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v127);
-          *a3 = 0;
-          std::string::basic_string[abi:ne200100]<0>((a3 + 8), &unk_259A4D977);
-          if (__p[0])
-          {
-            __p[1] = __p[0];
-            operator delete(__p[0]);
-          }
+                v126 = &v110;
+                std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v126);
+                *a3 = 0;
+                std::string::basic_string[abi:ne200100]<0>((a3 + 8), &unk_259A4D977);
+                if (__p[0])
+                {
+                  __p[1] = __p[0];
+                  operator delete(__p[0]);
+                }
 
-          goto LABEL_131;
-      }
+                goto LABEL_131;
+            }
 
-      goto LABEL_104;
-  }
-
-  v80 = "Unimplemented input dtype";
+            break;
+          default:
+            v79 = "Unimplemented input dtype";
 LABEL_105:
-  *a3 = 3;
-  std::string::basic_string[abi:ne200100]<0>((a3 + 8), v80);
+            *a3 = 3;
+            std::string::basic_string[abi:ne200100]<0>((a3 + 8), v79);
 LABEL_131:
-  std::__function::__value_func<float ()(float)>::~__value_func[abi:ne200100](&v137);
-  if (SHIBYTE(v115) < 0)
-  {
-    operator delete(v114.__r_.__value_.__l.__size_);
-  }
+            std::__function::__value_func<float ()(float)>::~__value_func[abi:ne200100](&v136);
+            if (SHIBYTE(v114) < 0)
+            {
+              operator delete(v113.__r_.__value_.__l.__size_);
+            }
 
 LABEL_133:
-  if (v117[0])
-  {
-    v117[1] = v117[0];
-    operator delete(v117[0]);
+            if (v116[0])
+            {
+              v116[1] = v116[0];
+              operator delete(v116[0]);
+            }
+
+            if (v117)
+            {
+              v118 = v117;
+              operator delete(v117);
+            }
+
+            if (v119)
+            {
+              v120 = v119;
+              operator delete(v119);
+            }
+
+            v20 = v125.__r_.__value_.__r.__words[0];
+            if (v125.__r_.__value_.__r.__words[0])
+            {
+              v125.__r_.__value_.__l.__size_ = v125.__r_.__value_.__r.__words[0];
+              goto LABEL_22;
+            }
+
+            return;
+        }
+
+        v79 = "Unimplemented output dtype";
+        goto LABEL_105;
+      }
+
+      v54 = v117;
+      v53 = v118;
+      MIL::IRValue::AsTensor(v36);
+      v55 = MIL::IRTensorValue::GetDataView<int>();
+      v56 = (v53 - v54) >> 3;
+      v57 = v56 - 2;
+      v113.__r_.__value_.__r.__words[0] = v55;
+      v113.__r_.__value_.__l.__size_ = v58;
+      if (v56 == 5)
+      {
+        v36 = *MIL::Util::Span<int const,18446744073709551615ul>::At(&v113, 0);
+        v59 = *MIL::Util::Span<int const,18446744073709551615ul>::At(&v113, 1uLL);
+      }
+
+      else
+      {
+        if (v57 <= 1)
+        {
+          v36 = 0;
+          v59 = 0;
+          v64 = 0;
+          v65 = 0;
+          v66 = 2 * v57;
+          goto LABEL_69;
+        }
+
+        v36 = 0;
+        v59 = 0;
+      }
+
+      v66 = 2 * v57;
+      v65 = *MIL::Util::Span<int const,18446744073709551615ul>::At(&v113, v66 - 4);
+      v64 = *MIL::Util::Span<int const,18446744073709551615ul>::At(&v113, v66 - 3);
+LABEL_69:
+      v63 = *MIL::Util::Span<int const,18446744073709551615ul>::At(&v113, v66 - 2);
+      v62 = *MIL::Util::Span<int const,18446744073709551615ul>::At(&v113, v66 - 1);
+      goto LABEL_70;
+    }
   }
 
-  if (v118)
+  else if (InterpretedTensorValue)
   {
-    v119 = v118;
-    operator delete(v118);
+    goto LABEL_26;
   }
 
-  if (v120)
+  *a3 = 2;
+  std::string::basic_string[abi:ne200100]<0>(&v113, "x");
+  v60 = std::string::insert(&v113, 0, "No value for ");
+  v61 = *&v60->__r_.__value_.__l.__data_;
+  *(a3 + 24) = *(&v60->__r_.__value_.__l + 2);
+  *(a3 + 8) = v61;
+  v60->__r_.__value_.__l.__size_ = 0;
+  v60->__r_.__value_.__r.__words[2] = 0;
+  v60->__r_.__value_.__r.__words[0] = 0;
+  if (SHIBYTE(v113.__r_.__value_.__r.__words[2]) < 0)
   {
-    v121 = v120;
-    operator delete(v120);
-  }
-
-  v20 = v126.__r_.__value_.__r.__words[0];
-  if (v126.__r_.__value_.__r.__words[0])
-  {
-    v126.__r_.__value_.__l.__size_ = v126.__r_.__value_.__r.__words[0];
+    v20 = v113.__r_.__value_.__r.__words[0];
     goto LABEL_22;
   }
-
-LABEL_23:
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2599D8F64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *__p, uint64_t a21, uint64_t a22, void *a23, void *a24, uint64_t a25, int a26, __int16 a27, char a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, void *a33, uint64_t a34, uint64_t a35, void *a36, uint64_t a37, uint64_t a38, void *a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, void *a46)
@@ -3071,21 +1599,21 @@ void sub_2599D8F64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<MIL::Fp16,MIL::Fp16>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t *a3@<X2>, uint64_t *a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, __int16 a8@<W7>, void *a9@<X8>, char a10, char a11, uint64_t a12)
+void MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<MIL::Fp16,MIL::Fp16>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, __int16 a8@<W7>, void *a9@<X8>, char a10, char a11, uint64_t a12)
 {
-  v125 = *MEMORY[0x277D85DE8];
-  v119 = a8;
+  v124 = *MEMORY[0x277D85DE8];
+  v118 = a8;
   a9[1] = 0;
   a9[2] = 0;
   *a9 = 0;
   std::vector<MIL::Fp16>::resize(a9, a2);
   v17 = *a3;
-  v18 = a3[1];
+  v18 = *(a3 + 8);
   v19 = v18 - *a3;
-  if (v19 != a4[1] - *a4)
+  if (v19 != *(a4 + 8) - *a4)
   {
-    v88 = "x_rank == o_shape.size()";
-    v89 = 64;
+    v87 = "x_rank == o_shape.size()";
+    v88 = 64;
     goto LABEL_81;
   }
 
@@ -3094,18 +1622,18 @@ void MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<MI
   v22 = *a5;
   if (v21 != (*(a5 + 8) - *a5) >> 2)
   {
-    v88 = "kernel_sizes.size() == num_spatial_dims";
-    v89 = 65;
+    v87 = "kernel_sizes.size() == num_spatial_dims";
+    v88 = 65;
     goto LABEL_81;
   }
 
   v23 = *a6;
   if (v21 != (*(a6 + 8) - *a6) >> 2)
   {
-    v88 = "strides.size() == num_spatial_dims";
-    v89 = 66;
+    v87 = "strides.size() == num_spatial_dims";
+    v88 = 66;
 LABEL_81:
-    __assert_rtn("ComputeValueAvgPool", "PePoolCpu.cpp", v89, v88);
+    __assert_rtn("ComputeValueAvgPool", "PePoolCpu.cpp", v88, v87);
   }
 
   if (v21 == 3)
@@ -3116,23 +1644,23 @@ LABEL_81:
       {
         v24 = 4 * v20 - 12;
         v25 = (v23 + v24);
-        v94 = v23[v20 - 4];
+        v93 = v23[v20 - 4];
         v26 = (v22 + v24);
         v27 = v22[v20 - 4];
         goto LABEL_11;
       }
 
-      v90 = "sz == 1";
-      v91 = 77;
+      v89 = "sz == 1";
+      v90 = 77;
     }
 
     else
     {
-      v90 = "kd == 1";
-      v91 = 76;
+      v89 = "kd == 1";
+      v90 = 76;
     }
 
-    __assert_rtn("ComputeValueAvgPool", "PePoolCpu.cpp", v91, v90);
+    __assert_rtn("ComputeValueAvgPool", "PePoolCpu.cpp", v90, v89);
   }
 
   v28 = 4 * v20;
@@ -3142,7 +1670,7 @@ LABEL_81:
     v26 = (v22 + v30);
     v25 = (v23 + v30);
     v27 = 1;
-    v94 = 1;
+    v93 = 1;
   }
 
   else
@@ -3150,64 +1678,64 @@ LABEL_81:
     v27 = v22[v20 - 4];
     v29 = v28 - 12;
     v26 = (v22 + v29);
-    v94 = v23[v20 - 4];
+    v93 = v23[v20 - 4];
     v25 = (v23 + v29);
   }
 
 LABEL_11:
-  v96 = *v25;
+  v95 = *v25;
   v31 = *v26;
+  v115 = 0;
   v116 = 0;
   v117 = 0;
-  v118 = 0;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&v116, v17, v18, v20);
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&v115, v17, v18, v20);
   __p = 0;
+  v113 = 0;
   v114 = 0;
-  v115 = 0;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&__p, *a4, a4[1], (a4[1] - *a4) >> 3);
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&__p, *a4, *(a4 + 8), (*(a4 + 8) - *a4) >> 3);
   if (v20 == 3)
   {
     __src = vdupq_n_s64(1uLL);
-    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&v116, v116 + 8, __src.i8, v123, 2);
+    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&v115, v115 + 8, __src.i8, v122, 2);
     __src = vdupq_n_s64(1uLL);
-    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&__p, __p + 8, __src.i8, v123, 2);
+    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&__p, __p + 8, __src.i8, v122, 2);
   }
 
   else if (v20 == 4)
   {
     __src.i64[0] = 1;
-    std::vector<unsigned long long>::insert(&v116, v116 + 8, &__src);
+    std::vector<unsigned long long>::insert(&v115, v115 + 8, &__src);
     __src.i64[0] = 1;
     std::vector<unsigned long long>::insert(&__p, __p + 8, &__src);
   }
 
   v32 = *__p;
   v33 = *(__p + 1);
-  v95 = *(__p + 2);
-  v97 = *(__p + 3);
-  v100 = *(__p + 4);
-  v102 = *(v116 + 2);
-  v106 = *(v116 + 3);
-  v121[0] = &unk_286AB2120;
-  v121[3] = v121;
+  v94 = *(__p + 2);
+  v96 = *(__p + 3);
+  v99 = *(__p + 4);
+  v101 = *(v115 + 2);
+  v105 = *(v115 + 3);
+  v120[0] = &unk_286AB2120;
+  v120[3] = v120;
   if (a11)
   {
     __src.i64[0] = &unk_286AB21A0;
     p_src = &__src;
-    std::__function::__value_func<MIL::Fp16 ()(MIL::Fp16)>::swap[abi:ne200100](&__src, v121);
+    std::__function::__value_func<MIL::Fp16 ()(MIL::Fp16)>::swap[abi:ne200100](&__src, v120);
     std::__function::__value_func<MIL::Fp16 ()(MIL::Fp16)>::~__value_func[abi:ne200100](&__src);
   }
 
-  MIL::Fp16::GetFloat(&v119);
-  LODWORD(v111) = v34;
-  std::vector<float>::vector[abi:ne200100](&__src, v100);
+  MIL::Fp16::GetFloat(&v118);
+  LODWORD(v110) = v34;
+  std::vector<float>::vector[abi:ne200100](__src.i64, v99, &v110);
   if (v32)
   {
-    v108 = 0;
-    v103 = v31;
-    v104 = v27;
-    v92 = v32;
-    v93 = v33;
+    v107 = 0;
+    v102 = v31;
+    v103 = v27;
+    v91 = v32;
+    v92 = v33;
     do
     {
       if (!v33)
@@ -3218,32 +1746,32 @@ LABEL_11:
       v35 = 0;
       do
       {
-        if (!v95)
+        if (!v94)
         {
           goto LABEL_69;
         }
 
-        for (i = 0; i != v95; ++i)
+        for (i = 0; i != v94; ++i)
         {
-          if (!v97)
+          if (!v96)
           {
             continue;
           }
 
-          v101 = 0;
-          v36 = i * v94;
-          v105 = 0;
+          v100 = 0;
+          v36 = i * v93;
+          v104 = 0;
           do
           {
-            if (!v100)
+            if (!v99)
             {
               goto LABEL_67;
             }
 
-            for (j = 0; j != v100; ++j)
+            for (j = 0; j != v99; ++j)
             {
-              v112 = 0.0;
-              v111 = xmmword_259A4D02C;
+              v111 = 0.0;
+              v110 = xmmword_259A4D02C;
               if (!v27)
               {
                 v39 = 0;
@@ -3256,25 +1784,25 @@ LABEL_11:
               do
               {
                 v40 = v38 + v36;
-                if ((a10 & 1) == 0 && (v40 < *(a7 + 8) || v40 >= v102 - *(a7 + 12)))
+                if ((a10 & 1) == 0 && (v40 < *(a7 + 8) || v40 >= v101 - *(a7 + 12)))
                 {
                   goto LABEL_53;
                 }
 
-                v110 = 0.0;
-                *v109 = xmmword_259A4D02C;
+                v109 = 0.0;
+                *v108 = xmmword_259A4D02C;
                 if (v31)
                 {
                   v41 = v31;
                   v42 = a7;
-                  v43 = v109;
-                  v44 = v105;
+                  v43 = v108;
+                  v44 = v104;
                   v45 = v41;
                   do
                   {
-                    if ((a10 & 1) != 0 || v44 >= *(v42 + 16) && v44 < v106 - *(v42 + 20))
+                    if ((a10 & 1) != 0 || v44 >= *(v42 + 16) && v44 < v105 - *(v42 + 20))
                     {
-                      LOWORD(__e) = std::function<MIL::Fp16 ()(MIL::Fp16)>::operator()(v121, *(a1 + 2 * Index));
+                      LOWORD(__e) = std::function<MIL::Fp16 ()(MIL::Fp16)>::operator()(v120, *(a1 + 2 * Index));
                       MIL::Fp16::GetFloat(&__e);
                       v48 = v47 * *(__src.i64[0] + 4 * j);
                       v49 = 0.0;
@@ -3296,13 +1824,13 @@ LABEL_11:
                   }
 
                   while (v45);
-                  v52 = *v109 + *&v109[1];
+                  v52 = *v108 + *&v108[1];
                   v53 = 0.0;
                   a7 = v42;
-                  v31 = v103;
-                  v27 = v104;
-                  v36 = i * v94;
-                  if ((*v109 + *&v109[1]) == 0.0)
+                  v31 = v102;
+                  v27 = v103;
+                  v36 = i * v93;
+                  if ((*v108 + *&v108[1]) == 0.0)
                   {
                     goto LABEL_46;
                   }
@@ -3320,18 +1848,18 @@ LABEL_11:
 LABEL_46:
                 v56 = 0.0;
                 v57 = 0.0;
-                if ((v53 + *&v109[2]) != 0.0)
+                if ((v53 + *&v108[2]) != 0.0)
                 {
                   __e = 0;
-                  v58 = frexp((v53 + *&v109[2]), &__e);
+                  v58 = frexp((v53 + *&v108[2]), &__e);
                   v59 = ldexp(v58, 11);
                   v57 = ldexp(round(v59), __e - 11);
                 }
 
-                if ((*&v109[3] + v110) != 0.0)
+                if ((*&v108[3] + v109) != 0.0)
                 {
                   __e = 0;
-                  v60 = frexp((*&v109[3] + v110), &__e);
+                  v60 = frexp((*&v108[3] + v109), &__e);
                   v61 = ldexp(v60, 11);
                   v56 = ldexp(round(v61), __e - 11);
                 }
@@ -3345,61 +1873,61 @@ LABEL_46:
                   v62 = ldexp(round(v64), __e - 11);
                 }
 
-                *(&v111 + v38) = v62;
+                *(&v110 + v38) = v62;
 LABEL_53:
                 ++v38;
               }
 
               while (v38 != v27);
-              v65 = *&v111 + *(&v111 + 1);
+              v65 = *&v110 + *(&v110 + 1);
               v66 = 0.0;
-              if ((*&v111 + *(&v111 + 1)) != 0.0)
+              if ((*&v110 + *(&v110 + 1)) != 0.0)
               {
 LABEL_57:
-                v109[0] = 0;
-                v67 = frexp(v65, v109);
+                v108[0] = 0;
+                v67 = frexp(v65, v108);
                 v68 = ldexp(v67, 11);
-                v66 = ldexp(round(v68), v109[0] - 11);
+                v66 = ldexp(round(v68), v108[0] - 11);
               }
 
               v69 = 0.0;
               v70 = 0.0;
-              if ((v66 + *(&v111 + 2)) != 0.0)
+              if ((v66 + *(&v110 + 2)) != 0.0)
               {
-                v109[0] = 0;
-                v71 = frexp((v66 + *(&v111 + 2)), v109);
+                v108[0] = 0;
+                v71 = frexp((v66 + *(&v110 + 2)), v108);
                 v72 = ldexp(v71, 11);
-                v70 = ldexp(round(v72), v109[0] - 11);
+                v70 = ldexp(round(v72), v108[0] - 11);
               }
 
-              if ((*(&v111 + 3) + v112) != 0.0)
+              if ((*(&v110 + 3) + v111) != 0.0)
               {
-                v109[0] = 0;
-                v73 = frexp((*(&v111 + 3) + v112), v109);
+                v108[0] = 0;
+                v73 = frexp((*(&v110 + 3) + v111), v108);
                 v74 = ldexp(v73, 11);
-                v69 = ldexp(round(v74), v109[0] - 11);
+                v69 = ldexp(round(v74), v108[0] - 11);
               }
 
               v75 = v70 + v69;
               v76 = 0.0;
               if (v75 != 0.0)
               {
-                v109[0] = 0;
-                v77 = frexp(v75, v109);
+                v108[0] = 0;
+                v77 = frexp(v75, v108);
                 v78 = ldexp(v77, 11);
-                v76 = ldexp(round(v78), v109[0] - 11);
+                v76 = ldexp(round(v78), v108[0] - 11);
               }
 
-              LOWORD(v109[0]) = MIL::ANEMachineIR::Interpreter::RecipTableRaw[v39];
-              MIL::Fp16::GetFloat(v109);
+              LOWORD(v108[0]) = MIL::ANEMachineIR::Interpreter::RecipTableRaw[v39];
+              MIL::Fp16::GetFloat(v108);
               v80 = v76 * v79;
               v81 = 0.0;
               if (v80 != 0.0)
               {
-                v109[0] = 0;
-                v82 = frexp(v80, v109);
+                v108[0] = 0;
+                v82 = frexp(v80, v108);
                 v83 = ldexp(v82, 11);
-                v81 = ldexp(round(v83), v109[0] - 11);
+                v81 = ldexp(round(v83), v108[0] - 11);
               }
 
               v84 = std::function<float ()(float)>::operator()(a12, v81);
@@ -3407,24 +1935,24 @@ LABEL_57:
             }
 
 LABEL_67:
-            v105 += v96;
-            ++v101;
+            v104 += v95;
+            ++v100;
           }
 
-          while (v101 != v97);
+          while (v100 != v96);
         }
 
 LABEL_69:
         ++v35;
-        v33 = v93;
+        v33 = v92;
       }
 
-      while (v35 != v93);
+      while (v35 != v92);
 LABEL_70:
-      ++v108;
+      ++v107;
     }
 
-    while (v108 != v92);
+    while (v107 != v91);
   }
 
   if (__src.i64[0])
@@ -3433,20 +1961,18 @@ LABEL_70:
     operator delete(__src.i64[0]);
   }
 
-  std::__function::__value_func<MIL::Fp16 ()(MIL::Fp16)>::~__value_func[abi:ne200100](v121);
+  std::__function::__value_func<MIL::Fp16 ()(MIL::Fp16)>::~__value_func[abi:ne200100](v120);
   if (__p)
   {
-    v114 = __p;
+    v113 = __p;
     operator delete(__p);
   }
 
-  if (v116)
+  if (v115)
   {
-    v117 = v116;
-    operator delete(v116);
+    v116 = v115;
+    operator delete(v115);
   }
-
-  v87 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2599D9B40(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, void *__p, uint64_t a39)
@@ -3473,45 +1999,45 @@ void sub_2599D9B40(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<unsigned char,MIL::Fp16>(uint64_t a1@<X0>, size_t a2@<X1>, uint64_t *a3@<X2>, uint64_t *a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, __int16 a8@<W7>, uint64_t a9@<X8>, char a10, char a11, uint64_t a12)
+void MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<unsigned char,MIL::Fp16>(char **__return_ptr a1@<X8>, uint64_t a2@<X0>, size_t a3@<X1>, uint64_t a4@<X2>, uint64_t a5@<X3>, uint64_t a6@<X4>, uint64_t a7@<X5>, uint64_t a8@<X6>, __int16 a9@<W7>, char a10, char a11, uint64_t a12)
 {
-  v124 = *MEMORY[0x277D85DE8];
-  v118 = a8;
-  *(a9 + 8) = 0;
-  *(a9 + 16) = 0;
-  *a9 = 0;
-  if (a2)
+  v123 = *MEMORY[0x277D85DE8];
+  v117 = a9;
+  a1[1] = 0;
+  a1[2] = 0;
+  *a1 = 0;
+  if (a3)
   {
-    std::vector<unsigned char>::__append(a9, a2);
+    std::vector<unsigned char>::__append(a1, a3);
   }
 
-  v17 = *a3;
-  v18 = a3[1];
-  v19 = v18 - *a3;
-  if (v19 != a4[1] - *a4)
+  v17 = *a4;
+  v18 = *(a4 + 8);
+  v19 = v18 - *a4;
+  if (v19 != *(a5 + 8) - *a5)
   {
-    v87 = "x_rank == o_shape.size()";
-    v88 = 64;
+    v86 = "x_rank == o_shape.size()";
+    v87 = 64;
     goto LABEL_90;
   }
 
   v20 = v19 >> 3;
   v21 = (v19 >> 3) - 2;
-  v22 = *a5;
-  if (v21 != (*(a5 + 8) - *a5) >> 2)
+  v22 = *a6;
+  if (v21 != (*(a6 + 8) - *a6) >> 2)
   {
-    v87 = "kernel_sizes.size() == num_spatial_dims";
-    v88 = 65;
+    v86 = "kernel_sizes.size() == num_spatial_dims";
+    v87 = 65;
     goto LABEL_90;
   }
 
-  v23 = *a6;
-  if (v21 != (*(a6 + 8) - *a6) >> 2)
+  v23 = *a7;
+  if (v21 != (*(a7 + 8) - *a7) >> 2)
   {
-    v87 = "strides.size() == num_spatial_dims";
-    v88 = 66;
+    v86 = "strides.size() == num_spatial_dims";
+    v87 = 66;
 LABEL_90:
-    __assert_rtn("ComputeValueAvgPool", "PePoolCpu.cpp", v88, v87);
+    __assert_rtn("ComputeValueAvgPool", "PePoolCpu.cpp", v87, v86);
   }
 
   if (v21 == 3)
@@ -3522,23 +2048,23 @@ LABEL_90:
       {
         v24 = 4 * v20 - 12;
         v25 = (v23 + v24);
-        v93 = v23[v20 - 4];
+        v92 = v23[v20 - 4];
         v26 = (v22 + v24);
         v27 = v22[v20 - 4];
         goto LABEL_13;
       }
 
-      v89 = "sz == 1";
-      v90 = 77;
+      v88 = "sz == 1";
+      v89 = 77;
     }
 
     else
     {
-      v89 = "kd == 1";
-      v90 = 76;
+      v88 = "kd == 1";
+      v89 = 76;
     }
 
-    __assert_rtn("ComputeValueAvgPool", "PePoolCpu.cpp", v90, v89);
+    __assert_rtn("ComputeValueAvgPool", "PePoolCpu.cpp", v89, v88);
   }
 
   v28 = 4 * v20;
@@ -3548,7 +2074,7 @@ LABEL_90:
     v26 = (v22 + v30);
     v25 = (v23 + v30);
     v27 = 1;
-    v93 = 1;
+    v92 = 1;
   }
 
   else
@@ -3556,64 +2082,64 @@ LABEL_90:
     v27 = v22[v20 - 4];
     v29 = v28 - 12;
     v26 = (v22 + v29);
-    v93 = v23[v20 - 4];
+    v92 = v23[v20 - 4];
     v25 = (v23 + v29);
   }
 
 LABEL_13:
-  v95 = *v25;
+  v94 = *v25;
   v31 = *v26;
+  v114 = 0;
   v115 = 0;
   v116 = 0;
-  v117 = 0;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&v115, v17, v18, v20);
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&v114, v17, v18, v20);
   __p = 0;
+  v112 = 0;
   v113 = 0;
-  v114 = 0;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&__p, *a4, a4[1], (a4[1] - *a4) >> 3);
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&__p, *a5, *(a5 + 8), (*(a5 + 8) - *a5) >> 3);
   if (v20 == 3)
   {
     __src = vdupq_n_s64(1uLL);
-    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&v115, v115 + 8, __src.i8, v122, 2);
+    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&v114, v114 + 8, __src.i8, v121, 2);
     __src = vdupq_n_s64(1uLL);
-    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&__p, __p + 8, __src.i8, v122, 2);
+    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&__p, __p + 8, __src.i8, v121, 2);
   }
 
   else if (v20 == 4)
   {
     __src.i64[0] = 1;
-    std::vector<unsigned long long>::insert(&v115, v115 + 8, &__src);
+    std::vector<unsigned long long>::insert(&v114, v114 + 8, &__src);
     __src.i64[0] = 1;
     std::vector<unsigned long long>::insert(&__p, __p + 8, &__src);
   }
 
   v32 = *__p;
   v33 = *(__p + 1);
-  v94 = *(__p + 2);
-  v96 = *(__p + 3);
-  v99 = *(__p + 4);
-  v101 = *(v115 + 2);
-  v105 = *(v115 + 3);
-  v120[0] = &unk_286AB2220;
-  v120[3] = v120;
+  v93 = *(__p + 2);
+  v95 = *(__p + 3);
+  v98 = *(__p + 4);
+  v100 = *(v114 + 2);
+  v104 = *(v114 + 3);
+  v119[0] = &unk_286AB2220;
+  v119[3] = v119;
   if (a11)
   {
     __src.i64[0] = &unk_286AB22A0;
     p_src = &__src;
-    std::__function::__value_func<MIL::Fp16 ()(MIL::Fp16)>::swap[abi:ne200100](&__src, v120);
+    std::__function::__value_func<MIL::Fp16 ()(MIL::Fp16)>::swap[abi:ne200100](&__src, v119);
     std::__function::__value_func<MIL::Fp16 ()(MIL::Fp16)>::~__value_func[abi:ne200100](&__src);
   }
 
-  MIL::Fp16::GetFloat(&v118);
-  LODWORD(v110) = v34;
-  std::vector<float>::vector[abi:ne200100](&__src, v99);
+  MIL::Fp16::GetFloat(&v117);
+  LODWORD(v109) = v34;
+  std::vector<float>::vector[abi:ne200100](__src.i64, v98, &v109);
   if (v32)
   {
-    v107 = 0;
-    v102 = v31;
-    v103 = v27;
-    v91 = v32;
-    v92 = v33;
+    v106 = 0;
+    v101 = v31;
+    v102 = v27;
+    v90 = v32;
+    v91 = v33;
     do
     {
       if (!v33)
@@ -3624,32 +2150,32 @@ LABEL_13:
       v35 = 0;
       do
       {
-        if (!v94)
+        if (!v93)
         {
           goto LABEL_78;
         }
 
-        for (i = 0; i != v94; ++i)
+        for (i = 0; i != v93; ++i)
         {
-          if (!v96)
+          if (!v95)
           {
             continue;
           }
 
-          v100 = 0;
-          v36 = i * v93;
-          v104 = 0;
+          v99 = 0;
+          v36 = i * v92;
+          v103 = 0;
           do
           {
-            if (!v99)
+            if (!v98)
             {
               goto LABEL_76;
             }
 
-            for (j = 0; j != v99; ++j)
+            for (j = 0; j != v98; ++j)
             {
-              v111 = 0.0;
-              v110 = xmmword_259A4D02C;
+              v110 = 0.0;
+              v109 = xmmword_259A4D02C;
               if (!v27)
               {
                 v39 = 0;
@@ -3662,24 +2188,24 @@ LABEL_13:
               do
               {
                 v40 = v38 + v36;
-                if ((a10 & 1) == 0 && (v40 < *(a7 + 8) || v40 >= v101 - *(a7 + 12)))
+                if ((a10 & 1) == 0 && (v40 < *(a8 + 8) || v40 >= v100 - *(a8 + 12)))
                 {
                   goto LABEL_55;
                 }
 
-                v109 = 0.0;
-                *v108 = xmmword_259A4D02C;
+                v108 = 0.0;
+                *v107 = xmmword_259A4D02C;
                 if (v31)
                 {
                   v41 = v31;
-                  v42 = a7;
-                  v43 = v108;
-                  v44 = v104;
+                  v42 = a8;
+                  v43 = v107;
+                  v44 = v103;
                   do
                   {
-                    if ((a10 & 1) != 0 || v44 >= *(v42 + 16) && v44 < v105 - *(v42 + 20))
+                    if ((a10 & 1) != 0 || v44 >= *(v42 + 16) && v44 < v104 - *(v42 + 20))
                     {
-                      LOWORD(__e) = std::function<MIL::Fp16 ()(MIL::Fp16)>::operator()(v120, *(a1 + 2 * Index));
+                      LOWORD(__e) = std::function<MIL::Fp16 ()(MIL::Fp16)>::operator()(v119, *(a2 + 2 * Index));
                       MIL::Fp16::GetFloat(&__e);
                       v47 = v46 * *(__src.i64[0] + 4 * j);
                       v48 = 0.0;
@@ -3701,13 +2227,13 @@ LABEL_13:
                   }
 
                   while (v41);
-                  v51 = *v108 + *&v108[1];
+                  v51 = *v107 + *&v107[1];
                   v52 = 0.0;
-                  a7 = v42;
-                  v31 = v102;
-                  v27 = v103;
-                  v36 = i * v93;
-                  if ((*v108 + *&v108[1]) == 0.0)
+                  a8 = v42;
+                  v31 = v101;
+                  v27 = v102;
+                  v36 = i * v92;
+                  if ((*v107 + *&v107[1]) == 0.0)
                   {
                     goto LABEL_48;
                   }
@@ -3725,18 +2251,18 @@ LABEL_13:
 LABEL_48:
                 v55 = 0.0;
                 v56 = 0.0;
-                if ((v52 + *&v108[2]) != 0.0)
+                if ((v52 + *&v107[2]) != 0.0)
                 {
                   __e = 0;
-                  v57 = frexp((v52 + *&v108[2]), &__e);
+                  v57 = frexp((v52 + *&v107[2]), &__e);
                   v58 = ldexp(v57, 11);
                   v56 = ldexp(round(v58), __e - 11);
                 }
 
-                if ((*&v108[3] + v109) != 0.0)
+                if ((*&v107[3] + v108) != 0.0)
                 {
                   __e = 0;
-                  v59 = frexp((*&v108[3] + v109), &__e);
+                  v59 = frexp((*&v107[3] + v108), &__e);
                   v60 = ldexp(v59, 11);
                   v55 = ldexp(round(v60), __e - 11);
                 }
@@ -3750,61 +2276,61 @@ LABEL_48:
                   v61 = ldexp(round(v63), __e - 11);
                 }
 
-                *(&v110 + v38) = v61;
+                *(&v109 + v38) = v61;
 LABEL_55:
                 ++v38;
               }
 
               while (v38 != v27);
-              v64 = *&v110 + *(&v110 + 1);
+              v64 = *&v109 + *(&v109 + 1);
               v65 = 0.0;
-              if ((*&v110 + *(&v110 + 1)) != 0.0)
+              if ((*&v109 + *(&v109 + 1)) != 0.0)
               {
 LABEL_59:
-                v108[0] = 0;
-                v66 = frexp(v64, v108);
+                v107[0] = 0;
+                v66 = frexp(v64, v107);
                 v67 = ldexp(v66, 11);
-                v65 = ldexp(round(v67), v108[0] - 11);
+                v65 = ldexp(round(v67), v107[0] - 11);
               }
 
               v68 = 0.0;
               v69 = 0.0;
-              if ((v65 + *(&v110 + 2)) != 0.0)
+              if ((v65 + *(&v109 + 2)) != 0.0)
               {
-                v108[0] = 0;
-                v70 = frexp((v65 + *(&v110 + 2)), v108);
+                v107[0] = 0;
+                v70 = frexp((v65 + *(&v109 + 2)), v107);
                 v71 = ldexp(v70, 11);
-                v69 = ldexp(round(v71), v108[0] - 11);
+                v69 = ldexp(round(v71), v107[0] - 11);
               }
 
-              if ((*(&v110 + 3) + v111) != 0.0)
+              if ((*(&v109 + 3) + v110) != 0.0)
               {
-                v108[0] = 0;
-                v72 = frexp((*(&v110 + 3) + v111), v108);
+                v107[0] = 0;
+                v72 = frexp((*(&v109 + 3) + v110), v107);
                 v73 = ldexp(v72, 11);
-                v68 = ldexp(round(v73), v108[0] - 11);
+                v68 = ldexp(round(v73), v107[0] - 11);
               }
 
               v74 = v69 + v68;
               v75 = 0.0;
               if (v74 != 0.0)
               {
-                v108[0] = 0;
-                v76 = frexp(v74, v108);
+                v107[0] = 0;
+                v76 = frexp(v74, v107);
                 v77 = ldexp(v76, 11);
-                v75 = ldexp(round(v77), v108[0] - 11);
+                v75 = ldexp(round(v77), v107[0] - 11);
               }
 
-              LOWORD(v108[0]) = MIL::ANEMachineIR::Interpreter::RecipTableRaw[v39];
-              MIL::Fp16::GetFloat(v108);
+              LOWORD(v107[0]) = MIL::ANEMachineIR::Interpreter::RecipTableRaw[v39];
+              MIL::Fp16::GetFloat(v107);
               v79 = v75 * v78;
               v80 = 0.0;
               if (v79 != 0.0)
               {
-                v108[0] = 0;
-                v81 = frexp(v79, v108);
+                v107[0] = 0;
+                v81 = frexp(v79, v107);
                 v82 = ldexp(v81, 11);
-                v80 = ldexp(round(v82), v108[0] - 11);
+                v80 = ldexp(round(v82), v107[0] - 11);
               }
 
               std::function<float ()(float)>::operator()(a12, v80);
@@ -3831,24 +2357,24 @@ LABEL_59:
             }
 
 LABEL_76:
-            v104 += v95;
-            ++v100;
+            v103 += v94;
+            ++v99;
           }
 
-          while (v100 != v96);
+          while (v99 != v95);
         }
 
 LABEL_78:
         ++v35;
-        v33 = v92;
+        v33 = v91;
       }
 
-      while (v35 != v92);
+      while (v35 != v91);
 LABEL_79:
-      ++v107;
+      ++v106;
     }
 
-    while (v107 != v91);
+    while (v106 != v90);
   }
 
   if (__src.i64[0])
@@ -3857,20 +2383,18 @@ LABEL_79:
     operator delete(__src.i64[0]);
   }
 
-  std::__function::__value_func<MIL::Fp16 ()(MIL::Fp16)>::~__value_func[abi:ne200100](v120);
+  std::__function::__value_func<MIL::Fp16 ()(MIL::Fp16)>::~__value_func[abi:ne200100](v119);
   if (__p)
   {
-    v113 = __p;
+    v112 = __p;
     operator delete(__p);
   }
 
-  if (v115)
+  if (v114)
   {
-    v116 = v115;
-    operator delete(v115);
+    v115 = v114;
+    operator delete(v114);
   }
-
-  v86 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2599DA480(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, void *__p, uint64_t a39)
@@ -3897,45 +2421,45 @@ void sub_2599DA480(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<signed char,MIL::Fp16>(uint64_t a1@<X0>, size_t a2@<X1>, uint64_t *a3@<X2>, uint64_t *a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, __int16 a8@<W7>, uint64_t a9@<X8>, char a10, char a11, uint64_t a12)
+void MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<signed char,MIL::Fp16>(char **__return_ptr a1@<X8>, uint64_t a2@<X0>, size_t a3@<X1>, uint64_t a4@<X2>, uint64_t a5@<X3>, uint64_t a6@<X4>, uint64_t a7@<X5>, uint64_t a8@<X6>, __int16 a9@<W7>, char a10, char a11, uint64_t a12)
 {
-  v124 = *MEMORY[0x277D85DE8];
-  v118 = a8;
-  *(a9 + 8) = 0;
-  *(a9 + 16) = 0;
-  *a9 = 0;
-  if (a2)
+  v123 = *MEMORY[0x277D85DE8];
+  v117 = a9;
+  a1[1] = 0;
+  a1[2] = 0;
+  *a1 = 0;
+  if (a3)
   {
-    std::vector<unsigned char>::__append(a9, a2);
+    std::vector<unsigned char>::__append(a1, a3);
   }
 
-  v17 = *a3;
-  v18 = a3[1];
-  v19 = v18 - *a3;
-  if (v19 != a4[1] - *a4)
+  v17 = *a4;
+  v18 = *(a4 + 8);
+  v19 = v18 - *a4;
+  if (v19 != *(a5 + 8) - *a5)
   {
-    v87 = "x_rank == o_shape.size()";
-    v88 = 64;
+    v86 = "x_rank == o_shape.size()";
+    v87 = 64;
     goto LABEL_92;
   }
 
   v20 = v19 >> 3;
   v21 = (v19 >> 3) - 2;
-  v22 = *a5;
-  if (v21 != (*(a5 + 8) - *a5) >> 2)
+  v22 = *a6;
+  if (v21 != (*(a6 + 8) - *a6) >> 2)
   {
-    v87 = "kernel_sizes.size() == num_spatial_dims";
-    v88 = 65;
+    v86 = "kernel_sizes.size() == num_spatial_dims";
+    v87 = 65;
     goto LABEL_92;
   }
 
-  v23 = *a6;
-  if (v21 != (*(a6 + 8) - *a6) >> 2)
+  v23 = *a7;
+  if (v21 != (*(a7 + 8) - *a7) >> 2)
   {
-    v87 = "strides.size() == num_spatial_dims";
-    v88 = 66;
+    v86 = "strides.size() == num_spatial_dims";
+    v87 = 66;
 LABEL_92:
-    __assert_rtn("ComputeValueAvgPool", "PePoolCpu.cpp", v88, v87);
+    __assert_rtn("ComputeValueAvgPool", "PePoolCpu.cpp", v87, v86);
   }
 
   if (v21 == 3)
@@ -3946,23 +2470,23 @@ LABEL_92:
       {
         v24 = 4 * v20 - 12;
         v25 = (v23 + v24);
-        v93 = v23[v20 - 4];
+        v92 = v23[v20 - 4];
         v26 = (v22 + v24);
         v27 = v22[v20 - 4];
         goto LABEL_13;
       }
 
-      v89 = "sz == 1";
-      v90 = 77;
+      v88 = "sz == 1";
+      v89 = 77;
     }
 
     else
     {
-      v89 = "kd == 1";
-      v90 = 76;
+      v88 = "kd == 1";
+      v89 = 76;
     }
 
-    __assert_rtn("ComputeValueAvgPool", "PePoolCpu.cpp", v90, v89);
+    __assert_rtn("ComputeValueAvgPool", "PePoolCpu.cpp", v89, v88);
   }
 
   v28 = 4 * v20;
@@ -3972,7 +2496,7 @@ LABEL_92:
     v26 = (v22 + v30);
     v25 = (v23 + v30);
     v27 = 1;
-    v93 = 1;
+    v92 = 1;
   }
 
   else
@@ -3980,64 +2504,64 @@ LABEL_92:
     v27 = v22[v20 - 4];
     v29 = v28 - 12;
     v26 = (v22 + v29);
-    v93 = v23[v20 - 4];
+    v92 = v23[v20 - 4];
     v25 = (v23 + v29);
   }
 
 LABEL_13:
-  v95 = *v25;
+  v94 = *v25;
   v31 = *v26;
+  v114 = 0;
   v115 = 0;
   v116 = 0;
-  v117 = 0;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&v115, v17, v18, v20);
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&v114, v17, v18, v20);
   __p = 0;
+  v112 = 0;
   v113 = 0;
-  v114 = 0;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&__p, *a4, a4[1], (a4[1] - *a4) >> 3);
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&__p, *a5, *(a5 + 8), (*(a5 + 8) - *a5) >> 3);
   if (v20 == 3)
   {
     __src = vdupq_n_s64(1uLL);
-    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&v115, v115 + 8, __src.i8, v122, 2);
+    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&v114, v114 + 8, __src.i8, v121, 2);
     __src = vdupq_n_s64(1uLL);
-    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&__p, __p + 8, __src.i8, v122, 2);
+    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&__p, __p + 8, __src.i8, v121, 2);
   }
 
   else if (v20 == 4)
   {
     __src.i64[0] = 1;
-    std::vector<unsigned long long>::insert(&v115, v115 + 8, &__src);
+    std::vector<unsigned long long>::insert(&v114, v114 + 8, &__src);
     __src.i64[0] = 1;
     std::vector<unsigned long long>::insert(&__p, __p + 8, &__src);
   }
 
   v32 = *__p;
   v33 = *(__p + 1);
-  v94 = *(__p + 2);
-  v96 = *(__p + 3);
-  v99 = *(__p + 4);
-  v101 = *(v115 + 2);
-  v105 = *(v115 + 3);
-  v120[0] = &unk_286AB2320;
-  v120[3] = v120;
+  v93 = *(__p + 2);
+  v95 = *(__p + 3);
+  v98 = *(__p + 4);
+  v100 = *(v114 + 2);
+  v104 = *(v114 + 3);
+  v119[0] = &unk_286AB2320;
+  v119[3] = v119;
   if (a11)
   {
     __src.i64[0] = &unk_286AB23A0;
     p_src = &__src;
-    std::__function::__value_func<MIL::Fp16 ()(MIL::Fp16)>::swap[abi:ne200100](&__src, v120);
+    std::__function::__value_func<MIL::Fp16 ()(MIL::Fp16)>::swap[abi:ne200100](&__src, v119);
     std::__function::__value_func<MIL::Fp16 ()(MIL::Fp16)>::~__value_func[abi:ne200100](&__src);
   }
 
-  MIL::Fp16::GetFloat(&v118);
-  LODWORD(v110) = v34;
-  std::vector<float>::vector[abi:ne200100](&__src, v99);
+  MIL::Fp16::GetFloat(&v117);
+  LODWORD(v109) = v34;
+  std::vector<float>::vector[abi:ne200100](__src.i64, v98, &v109);
   if (v32)
   {
-    v107 = 0;
-    v102 = v31;
-    v103 = v27;
-    v91 = v32;
-    v92 = v33;
+    v106 = 0;
+    v101 = v31;
+    v102 = v27;
+    v90 = v32;
+    v91 = v33;
     do
     {
       if (!v33)
@@ -4048,32 +2572,32 @@ LABEL_13:
       v35 = 0;
       do
       {
-        if (!v94)
+        if (!v93)
         {
           goto LABEL_80;
         }
 
-        for (i = 0; i != v94; ++i)
+        for (i = 0; i != v93; ++i)
         {
-          if (!v96)
+          if (!v95)
           {
             continue;
           }
 
-          v100 = 0;
-          v36 = i * v93;
-          v104 = 0;
+          v99 = 0;
+          v36 = i * v92;
+          v103 = 0;
           do
           {
-            if (!v99)
+            if (!v98)
             {
               goto LABEL_78;
             }
 
-            for (j = 0; j != v99; ++j)
+            for (j = 0; j != v98; ++j)
             {
-              v111 = 0.0;
-              v110 = xmmword_259A4D02C;
+              v110 = 0.0;
+              v109 = xmmword_259A4D02C;
               if (!v27)
               {
                 v39 = 0;
@@ -4086,24 +2610,24 @@ LABEL_13:
               do
               {
                 v40 = v38 + v36;
-                if ((a10 & 1) == 0 && (v40 < *(a7 + 8) || v40 >= v101 - *(a7 + 12)))
+                if ((a10 & 1) == 0 && (v40 < *(a8 + 8) || v40 >= v100 - *(a8 + 12)))
                 {
                   goto LABEL_55;
                 }
 
-                v109 = 0.0;
-                *v108 = xmmword_259A4D02C;
+                v108 = 0.0;
+                *v107 = xmmword_259A4D02C;
                 if (v31)
                 {
                   v41 = v31;
-                  v42 = a7;
-                  v43 = v108;
-                  v44 = v104;
+                  v42 = a8;
+                  v43 = v107;
+                  v44 = v103;
                   do
                   {
-                    if ((a10 & 1) != 0 || v44 >= *(v42 + 16) && v44 < v105 - *(v42 + 20))
+                    if ((a10 & 1) != 0 || v44 >= *(v42 + 16) && v44 < v104 - *(v42 + 20))
                     {
-                      LOWORD(__e) = std::function<MIL::Fp16 ()(MIL::Fp16)>::operator()(v120, *(a1 + 2 * Index));
+                      LOWORD(__e) = std::function<MIL::Fp16 ()(MIL::Fp16)>::operator()(v119, *(a2 + 2 * Index));
                       MIL::Fp16::GetFloat(&__e);
                       v47 = v46 * *(__src.i64[0] + 4 * j);
                       v48 = 0.0;
@@ -4125,13 +2649,13 @@ LABEL_13:
                   }
 
                   while (v41);
-                  v51 = *v108 + *&v108[1];
+                  v51 = *v107 + *&v107[1];
                   v52 = 0.0;
-                  a7 = v42;
-                  v31 = v102;
-                  v27 = v103;
-                  v36 = i * v93;
-                  if ((*v108 + *&v108[1]) == 0.0)
+                  a8 = v42;
+                  v31 = v101;
+                  v27 = v102;
+                  v36 = i * v92;
+                  if ((*v107 + *&v107[1]) == 0.0)
                   {
                     goto LABEL_48;
                   }
@@ -4149,18 +2673,18 @@ LABEL_13:
 LABEL_48:
                 v55 = 0.0;
                 v56 = 0.0;
-                if ((v52 + *&v108[2]) != 0.0)
+                if ((v52 + *&v107[2]) != 0.0)
                 {
                   __e = 0;
-                  v57 = frexp((v52 + *&v108[2]), &__e);
+                  v57 = frexp((v52 + *&v107[2]), &__e);
                   v58 = ldexp(v57, 11);
                   v56 = ldexp(round(v58), __e - 11);
                 }
 
-                if ((*&v108[3] + v109) != 0.0)
+                if ((*&v107[3] + v108) != 0.0)
                 {
                   __e = 0;
-                  v59 = frexp((*&v108[3] + v109), &__e);
+                  v59 = frexp((*&v107[3] + v108), &__e);
                   v60 = ldexp(v59, 11);
                   v55 = ldexp(round(v60), __e - 11);
                 }
@@ -4174,61 +2698,61 @@ LABEL_48:
                   v61 = ldexp(round(v63), __e - 11);
                 }
 
-                *(&v110 + v38) = v61;
+                *(&v109 + v38) = v61;
 LABEL_55:
                 ++v38;
               }
 
               while (v38 != v27);
-              v64 = *&v110 + *(&v110 + 1);
+              v64 = *&v109 + *(&v109 + 1);
               v65 = 0.0;
-              if ((*&v110 + *(&v110 + 1)) != 0.0)
+              if ((*&v109 + *(&v109 + 1)) != 0.0)
               {
 LABEL_59:
-                v108[0] = 0;
-                v66 = frexp(v64, v108);
+                v107[0] = 0;
+                v66 = frexp(v64, v107);
                 v67 = ldexp(v66, 11);
-                v65 = ldexp(round(v67), v108[0] - 11);
+                v65 = ldexp(round(v67), v107[0] - 11);
               }
 
               v68 = 0.0;
               v69 = 0.0;
-              if ((v65 + *(&v110 + 2)) != 0.0)
+              if ((v65 + *(&v109 + 2)) != 0.0)
               {
-                v108[0] = 0;
-                v70 = frexp((v65 + *(&v110 + 2)), v108);
+                v107[0] = 0;
+                v70 = frexp((v65 + *(&v109 + 2)), v107);
                 v71 = ldexp(v70, 11);
-                v69 = ldexp(round(v71), v108[0] - 11);
+                v69 = ldexp(round(v71), v107[0] - 11);
               }
 
-              if ((*(&v110 + 3) + v111) != 0.0)
+              if ((*(&v109 + 3) + v110) != 0.0)
               {
-                v108[0] = 0;
-                v72 = frexp((*(&v110 + 3) + v111), v108);
+                v107[0] = 0;
+                v72 = frexp((*(&v109 + 3) + v110), v107);
                 v73 = ldexp(v72, 11);
-                v68 = ldexp(round(v73), v108[0] - 11);
+                v68 = ldexp(round(v73), v107[0] - 11);
               }
 
               v74 = v69 + v68;
               v75 = 0.0;
               if (v74 != 0.0)
               {
-                v108[0] = 0;
-                v76 = frexp(v74, v108);
+                v107[0] = 0;
+                v76 = frexp(v74, v107);
                 v77 = ldexp(v76, 11);
-                v75 = ldexp(round(v77), v108[0] - 11);
+                v75 = ldexp(round(v77), v107[0] - 11);
               }
 
-              LOWORD(v108[0]) = MIL::ANEMachineIR::Interpreter::RecipTableRaw[v39];
-              MIL::Fp16::GetFloat(v108);
+              LOWORD(v107[0]) = MIL::ANEMachineIR::Interpreter::RecipTableRaw[v39];
+              MIL::Fp16::GetFloat(v107);
               v79 = v75 * v78;
               v80 = 0.0;
               if (v79 != 0.0)
               {
-                v108[0] = 0;
-                v81 = frexp(v79, v108);
+                v107[0] = 0;
+                v81 = frexp(v79, v107);
                 v82 = ldexp(v81, 11);
-                v80 = ldexp(round(v82), v108[0] - 11);
+                v80 = ldexp(round(v82), v107[0] - 11);
               }
 
               std::function<float ()(float)>::operator()(a12, v80);
@@ -4263,24 +2787,24 @@ LABEL_59:
             }
 
 LABEL_78:
-            v104 += v95;
-            ++v100;
+            v103 += v94;
+            ++v99;
           }
 
-          while (v100 != v96);
+          while (v99 != v95);
         }
 
 LABEL_80:
         ++v35;
-        v33 = v92;
+        v33 = v91;
       }
 
-      while (v35 != v92);
+      while (v35 != v91);
 LABEL_81:
-      ++v107;
+      ++v106;
     }
 
-    while (v107 != v91);
+    while (v106 != v90);
   }
 
   if (__src.i64[0])
@@ -4289,20 +2813,18 @@ LABEL_81:
     operator delete(__src.i64[0]);
   }
 
-  std::__function::__value_func<MIL::Fp16 ()(MIL::Fp16)>::~__value_func[abi:ne200100](v120);
+  std::__function::__value_func<MIL::Fp16 ()(MIL::Fp16)>::~__value_func[abi:ne200100](v119);
   if (__p)
   {
-    v113 = __p;
+    v112 = __p;
     operator delete(__p);
   }
 
-  if (v115)
+  if (v114)
   {
-    v116 = v115;
-    operator delete(v115);
+    v115 = v114;
+    operator delete(v114);
   }
-
-  v86 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2599DADC4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, void *__p, uint64_t a39)
@@ -4329,21 +2851,21 @@ void sub_2599DADC4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<MIL::Fp16,unsigned char>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t *a3@<X2>, uint64_t *a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, __int16 a8@<W7>, void *a9@<X8>, char a10, uint64_t a11)
+void MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<MIL::Fp16,unsigned char>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, __int16 a8@<W7>, void *a9@<X8>, char a10, uint64_t a11)
 {
-  v124 = *MEMORY[0x277D85DE8];
-  v119 = a8;
+  v123 = *MEMORY[0x277D85DE8];
+  v118 = a8;
   a9[1] = 0;
   a9[2] = 0;
   *a9 = 0;
   std::vector<MIL::Fp16>::resize(a9, a2);
   v16 = *a3;
-  v17 = a3[1];
+  v17 = *(a3 + 8);
   v18 = v17 - *a3;
-  if (v18 != a4[1] - *a4)
+  if (v18 != *(a4 + 8) - *a4)
   {
-    v87 = "x_rank == o_shape.size()";
-    v88 = 64;
+    v86 = "x_rank == o_shape.size()";
+    v87 = 64;
     goto LABEL_79;
   }
 
@@ -4352,18 +2874,18 @@ void MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<MI
   v21 = *a5;
   if (v20 != (*(a5 + 8) - *a5) >> 2)
   {
-    v87 = "kernel_sizes.size() == num_spatial_dims";
-    v88 = 65;
+    v86 = "kernel_sizes.size() == num_spatial_dims";
+    v87 = 65;
     goto LABEL_79;
   }
 
   v22 = *a6;
   if (v20 != (*(a6 + 8) - *a6) >> 2)
   {
-    v87 = "strides.size() == num_spatial_dims";
-    v88 = 66;
+    v86 = "strides.size() == num_spatial_dims";
+    v87 = 66;
 LABEL_79:
-    __assert_rtn("ComputeValueAvgPool", "PePoolCpu.cpp", v88, v87);
+    __assert_rtn("ComputeValueAvgPool", "PePoolCpu.cpp", v87, v86);
   }
 
   if (v20 == 3)
@@ -4374,23 +2896,23 @@ LABEL_79:
       {
         v23 = 4 * v19 - 12;
         v24 = (v22 + v23);
-        v93 = v22[v19 - 4];
+        v92 = v22[v19 - 4];
         v25 = (v21 + v23);
         v26 = v21[v19 - 4];
         goto LABEL_11;
       }
 
-      v89 = "sz == 1";
-      v90 = 77;
+      v88 = "sz == 1";
+      v89 = 77;
     }
 
     else
     {
-      v89 = "kd == 1";
-      v90 = 76;
+      v88 = "kd == 1";
+      v89 = 76;
     }
 
-    __assert_rtn("ComputeValueAvgPool", "PePoolCpu.cpp", v90, v89);
+    __assert_rtn("ComputeValueAvgPool", "PePoolCpu.cpp", v89, v88);
   }
 
   if (v20 <= 1)
@@ -4399,7 +2921,7 @@ LABEL_79:
     v25 = (v21 + v28);
     v24 = (v22 + v28);
     v26 = 1;
-    v93 = 1;
+    v92 = 1;
   }
 
   else
@@ -4407,57 +2929,57 @@ LABEL_79:
     v26 = v21[v19 - 4];
     v27 = 4 * v19 - 12;
     v25 = (v21 + v27);
-    v93 = v22[v19 - 4];
+    v92 = v22[v19 - 4];
     v24 = (v22 + v27);
   }
 
 LABEL_11:
-  v95 = *v24;
+  v94 = *v24;
   v29 = *v25;
+  v115 = 0;
   v116 = 0;
   v117 = 0;
-  v118 = 0;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&v116, v16, v17, v19);
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&v115, v16, v17, v19);
+  v112 = 0;
   v113 = 0;
   v114 = 0;
-  v115 = 0;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&v113, *a4, a4[1], (a4[1] - *a4) >> 3);
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&v112, *a4, *(a4 + 8), (*(a4 + 8) - *a4) >> 3);
   if (v19 == 3)
   {
     __src = vdupq_n_s64(1uLL);
-    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&v116, v116 + 8, __src.i8, v122, 2);
+    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&v115, v115 + 8, __src.i8, v121, 2);
     __src = vdupq_n_s64(1uLL);
-    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&v113, v113 + 8, __src.i8, v122, 2);
+    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&v112, v112 + 8, __src.i8, v121, 2);
   }
 
   else if (v19 == 4)
   {
     __src.i64[0] = 1;
-    std::vector<unsigned long long>::insert(&v116, v116 + 8, &__src);
+    std::vector<unsigned long long>::insert(&v115, v115 + 8, &__src);
     __src.i64[0] = 1;
-    std::vector<unsigned long long>::insert(&v113, v113 + 8, &__src);
+    std::vector<unsigned long long>::insert(&v112, v112 + 8, &__src);
   }
 
-  v30 = *v113;
-  v31 = *(v113 + 1);
-  v94 = *(v113 + 2);
-  v96 = *(v113 + 3);
-  v32 = *(v113 + 4);
-  v101 = *(v116 + 2);
-  v105 = *(v116 + 3);
+  v30 = *v112;
+  v31 = *(v112 + 1);
+  v93 = *(v112 + 2);
+  v95 = *(v112 + 3);
+  v32 = *(v112 + 4);
+  v100 = *(v115 + 2);
+  v104 = *(v115 + 3);
   __src.i64[0] = &unk_286AB2420;
   p_src = &__src;
-  MIL::Fp16::GetFloat(&v119);
-  LODWORD(v110) = v33;
-  std::vector<float>::vector[abi:ne200100](v112, v32);
+  MIL::Fp16::GetFloat(&v118);
+  LODWORD(v109) = v33;
+  std::vector<float>::vector[abi:ne200100](v111, v32, &v109);
   if (v30)
   {
-    v107 = 0;
-    v102 = v29;
-    v103 = v26;
-    v91 = v30;
-    v92 = v31;
-    v97 = v32;
+    v106 = 0;
+    v101 = v29;
+    v102 = v26;
+    v90 = v30;
+    v91 = v31;
+    v96 = v32;
     do
     {
       if (!v31)
@@ -4468,21 +2990,21 @@ LABEL_11:
       v34 = 0;
       do
       {
-        if (!v94)
+        if (!v93)
         {
           goto LABEL_67;
         }
 
-        for (i = 0; i != v94; ++i)
+        for (i = 0; i != v93; ++i)
         {
-          if (!v96)
+          if (!v95)
           {
             continue;
           }
 
-          v100 = 0;
-          v35 = i * v93;
-          v104 = 0;
+          v99 = 0;
+          v35 = i * v92;
+          v103 = 0;
           do
           {
             if (!v32)
@@ -4492,8 +3014,8 @@ LABEL_11:
 
             for (j = 0; j != v32; ++j)
             {
-              v111 = 0.0;
-              v110 = xmmword_259A4D02C;
+              v110 = 0.0;
+              v109 = xmmword_259A4D02C;
               if (!v26)
               {
                 v38 = 0;
@@ -4506,26 +3028,26 @@ LABEL_11:
               do
               {
                 v39 = v37 + v35;
-                if ((a10 & 1) == 0 && (v39 < *(a7 + 8) || v39 >= v101 - *(a7 + 12)))
+                if ((a10 & 1) == 0 && (v39 < *(a7 + 8) || v39 >= v100 - *(a7 + 12)))
                 {
                   goto LABEL_51;
                 }
 
-                v109 = 0.0;
-                *v108 = xmmword_259A4D02C;
+                v108 = 0.0;
+                *v107 = xmmword_259A4D02C;
                 if (v29)
                 {
                   v40 = v29;
                   v41 = a7;
-                  v42 = v108;
-                  v43 = v104;
+                  v42 = v107;
+                  v43 = v103;
                   v44 = v40;
                   do
                   {
-                    if ((a10 & 1) != 0 || v43 >= *(v41 + 16) && v43 < v105 - *(v41 + 20))
+                    if ((a10 & 1) != 0 || v43 >= *(v41 + 16) && v43 < v104 - *(v41 + 20))
                     {
                       v46 = std::function<unsigned char ()(unsigned char)>::operator()(&__src, *(a1 + Index));
-                      v47 = *(v112[0] + j) * v46;
+                      v47 = *(v111[0] + j) * v46;
                       v48 = 0.0;
                       if (v47 != 0.0)
                       {
@@ -4545,13 +3067,13 @@ LABEL_11:
                   }
 
                   while (v44);
-                  v51 = *v108 + *&v108[1];
+                  v51 = *v107 + *&v107[1];
                   v52 = 0.0;
                   a7 = v41;
-                  v29 = v102;
-                  v26 = v103;
-                  v35 = i * v93;
-                  if ((*v108 + *&v108[1]) == 0.0)
+                  v29 = v101;
+                  v26 = v102;
+                  v35 = i * v92;
+                  if ((*v107 + *&v107[1]) == 0.0)
                   {
                     goto LABEL_44;
                   }
@@ -4569,18 +3091,18 @@ LABEL_11:
 LABEL_44:
                 v55 = 0.0;
                 v56 = 0.0;
-                if ((v52 + *&v108[2]) != 0.0)
+                if ((v52 + *&v107[2]) != 0.0)
                 {
                   __e = 0;
-                  v57 = frexp((v52 + *&v108[2]), &__e);
+                  v57 = frexp((v52 + *&v107[2]), &__e);
                   v58 = ldexp(v57, 11);
                   v56 = ldexp(round(v58), __e - 11);
                 }
 
-                if ((*&v108[3] + v109) != 0.0)
+                if ((*&v107[3] + v108) != 0.0)
                 {
                   __e = 0;
-                  v59 = frexp((*&v108[3] + v109), &__e);
+                  v59 = frexp((*&v107[3] + v108), &__e);
                   v60 = ldexp(v59, 11);
                   v55 = ldexp(round(v60), __e - 11);
                 }
@@ -4594,62 +3116,62 @@ LABEL_44:
                   v61 = ldexp(round(v63), __e - 11);
                 }
 
-                *(&v110 + v37) = v61;
+                *(&v109 + v37) = v61;
 LABEL_51:
                 ++v37;
               }
 
               while (v37 != v26);
-              v64 = *&v110 + *(&v110 + 1);
+              v64 = *&v109 + *(&v109 + 1);
               v65 = 0.0;
-              v32 = v97;
-              if ((*&v110 + *(&v110 + 1)) != 0.0)
+              v32 = v96;
+              if ((*&v109 + *(&v109 + 1)) != 0.0)
               {
 LABEL_55:
-                v108[0] = 0;
-                v66 = frexp(v64, v108);
+                v107[0] = 0;
+                v66 = frexp(v64, v107);
                 v67 = ldexp(v66, 11);
-                v65 = ldexp(round(v67), v108[0] - 11);
+                v65 = ldexp(round(v67), v107[0] - 11);
               }
 
               v68 = 0.0;
               v69 = 0.0;
-              if ((v65 + *(&v110 + 2)) != 0.0)
+              if ((v65 + *(&v109 + 2)) != 0.0)
               {
-                v108[0] = 0;
-                v70 = frexp((v65 + *(&v110 + 2)), v108);
+                v107[0] = 0;
+                v70 = frexp((v65 + *(&v109 + 2)), v107);
                 v71 = ldexp(v70, 11);
-                v69 = ldexp(round(v71), v108[0] - 11);
+                v69 = ldexp(round(v71), v107[0] - 11);
               }
 
-              if ((*(&v110 + 3) + v111) != 0.0)
+              if ((*(&v109 + 3) + v110) != 0.0)
               {
-                v108[0] = 0;
-                v72 = frexp((*(&v110 + 3) + v111), v108);
+                v107[0] = 0;
+                v72 = frexp((*(&v109 + 3) + v110), v107);
                 v73 = ldexp(v72, 11);
-                v68 = ldexp(round(v73), v108[0] - 11);
+                v68 = ldexp(round(v73), v107[0] - 11);
               }
 
               v74 = v69 + v68;
               v75 = 0.0;
               if (v74 != 0.0)
               {
-                v108[0] = 0;
-                v76 = frexp(v74, v108);
+                v107[0] = 0;
+                v76 = frexp(v74, v107);
                 v77 = ldexp(v76, 11);
-                v75 = ldexp(round(v77), v108[0] - 11);
+                v75 = ldexp(round(v77), v107[0] - 11);
               }
 
-              LOWORD(v108[0]) = MIL::ANEMachineIR::Interpreter::RecipTableRaw[v38];
-              MIL::Fp16::GetFloat(v108);
+              LOWORD(v107[0]) = MIL::ANEMachineIR::Interpreter::RecipTableRaw[v38];
+              MIL::Fp16::GetFloat(v107);
               v79 = v75 * v78;
               v80 = 0.0;
               if (v79 != 0.0)
               {
-                v108[0] = 0;
-                v81 = frexp(v79, v108);
+                v107[0] = 0;
+                v81 = frexp(v79, v107);
                 v82 = ldexp(v81, 11);
-                v80 = ldexp(round(v82), v108[0] - 11);
+                v80 = ldexp(round(v82), v107[0] - 11);
               }
 
               v83 = std::function<float ()(float)>::operator()(a11, v80);
@@ -4657,46 +3179,44 @@ LABEL_55:
             }
 
 LABEL_65:
-            v104 += v95;
-            ++v100;
+            v103 += v94;
+            ++v99;
           }
 
-          while (v100 != v96);
+          while (v99 != v95);
         }
 
 LABEL_67:
         ++v34;
-        v31 = v92;
+        v31 = v91;
       }
 
-      while (v34 != v92);
+      while (v34 != v91);
 LABEL_68:
-      ++v107;
+      ++v106;
     }
 
-    while (v107 != v91);
+    while (v106 != v90);
   }
 
-  if (v112[0])
+  if (v111[0])
   {
-    v112[1] = v112[0];
-    operator delete(v112[0]);
+    v111[1] = v111[0];
+    operator delete(v111[0]);
   }
 
   std::__function::__value_func<unsigned char ()(unsigned char)>::~__value_func[abi:ne200100](&__src);
-  if (v113)
+  if (v112)
   {
-    v114 = v113;
-    operator delete(v113);
+    v113 = v112;
+    operator delete(v112);
   }
 
-  if (v116)
+  if (v115)
   {
-    v117 = v116;
-    operator delete(v116);
+    v116 = v115;
+    operator delete(v115);
   }
-
-  v86 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2599DB674(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17)
@@ -4725,45 +3245,45 @@ void sub_2599DB674(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<unsigned char,unsigned char>(uint64_t a1@<X0>, size_t a2@<X1>, uint64_t *a3@<X2>, uint64_t *a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, __int16 a8@<W7>, uint64_t a9@<X8>, char a10, uint64_t a11)
+void MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<unsigned char,unsigned char>(char **__return_ptr a1@<X8>, uint64_t a2@<X0>, size_t a3@<X1>, uint64_t a4@<X2>, uint64_t a5@<X3>, uint64_t a6@<X4>, uint64_t a7@<X5>, uint64_t a8@<X6>, __int16 a9@<W7>, char a10, uint64_t a11)
 {
-  v124 = *MEMORY[0x277D85DE8];
-  v119 = a8;
-  *(a9 + 8) = 0;
-  *(a9 + 16) = 0;
-  *a9 = 0;
-  if (a2)
+  v123 = *MEMORY[0x277D85DE8];
+  v118 = a9;
+  a1[1] = 0;
+  a1[2] = 0;
+  *a1 = 0;
+  if (a3)
   {
-    std::vector<unsigned char>::__append(a9, a2);
+    std::vector<unsigned char>::__append(a1, a3);
   }
 
-  v16 = *a3;
-  v17 = a3[1];
-  v18 = v17 - *a3;
-  if (v18 != a4[1] - *a4)
+  v16 = *a4;
+  v17 = *(a4 + 8);
+  v18 = v17 - *a4;
+  if (v18 != *(a5 + 8) - *a5)
   {
-    v87 = "x_rank == o_shape.size()";
-    v88 = 64;
+    v86 = "x_rank == o_shape.size()";
+    v87 = 64;
     goto LABEL_88;
   }
 
   v19 = v18 >> 3;
   v20 = (v18 >> 3) - 2;
-  v21 = *a5;
-  if (v20 != (*(a5 + 8) - *a5) >> 2)
+  v21 = *a6;
+  if (v20 != (*(a6 + 8) - *a6) >> 2)
   {
-    v87 = "kernel_sizes.size() == num_spatial_dims";
-    v88 = 65;
+    v86 = "kernel_sizes.size() == num_spatial_dims";
+    v87 = 65;
     goto LABEL_88;
   }
 
-  v22 = *a6;
-  if (v20 != (*(a6 + 8) - *a6) >> 2)
+  v22 = *a7;
+  if (v20 != (*(a7 + 8) - *a7) >> 2)
   {
-    v87 = "strides.size() == num_spatial_dims";
-    v88 = 66;
+    v86 = "strides.size() == num_spatial_dims";
+    v87 = 66;
 LABEL_88:
-    __assert_rtn("ComputeValueAvgPool", "PePoolCpu.cpp", v88, v87);
+    __assert_rtn("ComputeValueAvgPool", "PePoolCpu.cpp", v87, v86);
   }
 
   if (v20 == 3)
@@ -4774,23 +3294,23 @@ LABEL_88:
       {
         v23 = 4 * v19 - 12;
         v24 = (v22 + v23);
-        v93 = v22[v19 - 4];
+        v92 = v22[v19 - 4];
         v25 = (v21 + v23);
         v26 = v21[v19 - 4];
         goto LABEL_13;
       }
 
-      v89 = "sz == 1";
-      v90 = 77;
+      v88 = "sz == 1";
+      v89 = 77;
     }
 
     else
     {
-      v89 = "kd == 1";
-      v90 = 76;
+      v88 = "kd == 1";
+      v89 = 76;
     }
 
-    __assert_rtn("ComputeValueAvgPool", "PePoolCpu.cpp", v90, v89);
+    __assert_rtn("ComputeValueAvgPool", "PePoolCpu.cpp", v89, v88);
   }
 
   v27 = 4 * v19;
@@ -4800,7 +3320,7 @@ LABEL_88:
     v25 = (v21 + v29);
     v24 = (v22 + v29);
     v26 = 1;
-    v93 = 1;
+    v92 = 1;
   }
 
   else
@@ -4808,57 +3328,57 @@ LABEL_88:
     v26 = v21[v19 - 4];
     v28 = v27 - 12;
     v25 = (v21 + v28);
-    v93 = v22[v19 - 4];
+    v92 = v22[v19 - 4];
     v24 = (v22 + v28);
   }
 
 LABEL_13:
-  v95 = *v24;
+  v94 = *v24;
   v30 = *v25;
+  v115 = 0;
   v116 = 0;
   v117 = 0;
-  v118 = 0;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&v116, v16, v17, v19);
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&v115, v16, v17, v19);
+  v112 = 0;
   v113 = 0;
   v114 = 0;
-  v115 = 0;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&v113, *a4, a4[1], (a4[1] - *a4) >> 3);
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&v112, *a5, *(a5 + 8), (*(a5 + 8) - *a5) >> 3);
   if (v19 == 3)
   {
     __src = vdupq_n_s64(1uLL);
-    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&v116, v116 + 8, __src.i8, v122, 2);
+    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&v115, v115 + 8, __src.i8, v121, 2);
     __src = vdupq_n_s64(1uLL);
-    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&v113, v113 + 8, __src.i8, v122, 2);
+    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&v112, v112 + 8, __src.i8, v121, 2);
   }
 
   else if (v19 == 4)
   {
     __src.i64[0] = 1;
-    std::vector<unsigned long long>::insert(&v116, v116 + 8, &__src);
+    std::vector<unsigned long long>::insert(&v115, v115 + 8, &__src);
     __src.i64[0] = 1;
-    std::vector<unsigned long long>::insert(&v113, v113 + 8, &__src);
+    std::vector<unsigned long long>::insert(&v112, v112 + 8, &__src);
   }
 
-  v31 = *v113;
-  v32 = *(v113 + 1);
-  v94 = *(v113 + 2);
-  v96 = *(v113 + 3);
-  v33 = *(v113 + 4);
-  v101 = *(v116 + 2);
-  v105 = *(v116 + 3);
+  v31 = *v112;
+  v32 = *(v112 + 1);
+  v93 = *(v112 + 2);
+  v95 = *(v112 + 3);
+  v33 = *(v112 + 4);
+  v100 = *(v115 + 2);
+  v104 = *(v115 + 3);
   __src.i64[0] = &unk_286AB24A0;
   p_src = &__src;
-  MIL::Fp16::GetFloat(&v119);
-  LODWORD(v110) = v34;
-  std::vector<float>::vector[abi:ne200100](v112, v33);
+  MIL::Fp16::GetFloat(&v118);
+  LODWORD(v109) = v34;
+  std::vector<float>::vector[abi:ne200100](v111, v33, &v109);
   if (v31)
   {
-    v107 = 0;
-    v102 = v30;
-    v103 = v26;
-    v91 = v31;
-    v92 = v32;
-    v97 = v33;
+    v106 = 0;
+    v101 = v30;
+    v102 = v26;
+    v90 = v31;
+    v91 = v32;
+    v96 = v33;
     do
     {
       if (!v32)
@@ -4869,21 +3389,21 @@ LABEL_13:
       v35 = 0;
       do
       {
-        if (!v94)
+        if (!v93)
         {
           goto LABEL_76;
         }
 
-        for (i = 0; i != v94; ++i)
+        for (i = 0; i != v93; ++i)
         {
-          if (!v96)
+          if (!v95)
           {
             continue;
           }
 
-          v100 = 0;
-          v36 = i * v93;
-          v104 = 0;
+          v99 = 0;
+          v36 = i * v92;
+          v103 = 0;
           do
           {
             if (!v33)
@@ -4893,8 +3413,8 @@ LABEL_13:
 
             for (j = 0; j != v33; ++j)
             {
-              v111 = 0.0;
-              v110 = xmmword_259A4D02C;
+              v110 = 0.0;
+              v109 = xmmword_259A4D02C;
               if (!v26)
               {
                 v39 = 0;
@@ -4907,25 +3427,25 @@ LABEL_13:
               do
               {
                 v40 = v38 + v36;
-                if ((a10 & 1) == 0 && (v40 < *(a7 + 8) || v40 >= v101 - *(a7 + 12)))
+                if ((a10 & 1) == 0 && (v40 < *(a8 + 8) || v40 >= v100 - *(a8 + 12)))
                 {
                   goto LABEL_53;
                 }
 
-                v109 = 0.0;
-                *v108 = xmmword_259A4D02C;
+                v108 = 0.0;
+                *v107 = xmmword_259A4D02C;
                 if (v30)
                 {
                   v41 = v30;
-                  v42 = a7;
-                  v43 = v108;
-                  v44 = v104;
+                  v42 = a8;
+                  v43 = v107;
+                  v44 = v103;
                   do
                   {
-                    if ((a10 & 1) != 0 || v44 >= *(v42 + 16) && v44 < v105 - *(v42 + 20))
+                    if ((a10 & 1) != 0 || v44 >= *(v42 + 16) && v44 < v104 - *(v42 + 20))
                     {
-                      v46 = std::function<unsigned char ()(unsigned char)>::operator()(&__src, *(a1 + Index));
-                      v47 = *(v112[0] + j) * v46;
+                      v46 = std::function<unsigned char ()(unsigned char)>::operator()(&__src, *(a2 + Index));
+                      v47 = *(v111[0] + j) * v46;
                       v48 = 0.0;
                       if (v47 != 0.0)
                       {
@@ -4945,13 +3465,13 @@ LABEL_13:
                   }
 
                   while (v41);
-                  v51 = *v108 + *&v108[1];
+                  v51 = *v107 + *&v107[1];
                   v52 = 0.0;
-                  a7 = v42;
-                  v30 = v102;
-                  v26 = v103;
-                  v36 = i * v93;
-                  if ((*v108 + *&v108[1]) == 0.0)
+                  a8 = v42;
+                  v30 = v101;
+                  v26 = v102;
+                  v36 = i * v92;
+                  if ((*v107 + *&v107[1]) == 0.0)
                   {
                     goto LABEL_46;
                   }
@@ -4969,18 +3489,18 @@ LABEL_13:
 LABEL_46:
                 v55 = 0.0;
                 v56 = 0.0;
-                if ((v52 + *&v108[2]) != 0.0)
+                if ((v52 + *&v107[2]) != 0.0)
                 {
                   __e = 0;
-                  v57 = frexp((v52 + *&v108[2]), &__e);
+                  v57 = frexp((v52 + *&v107[2]), &__e);
                   v58 = ldexp(v57, 11);
                   v56 = ldexp(round(v58), __e - 11);
                 }
 
-                if ((*&v108[3] + v109) != 0.0)
+                if ((*&v107[3] + v108) != 0.0)
                 {
                   __e = 0;
-                  v59 = frexp((*&v108[3] + v109), &__e);
+                  v59 = frexp((*&v107[3] + v108), &__e);
                   v60 = ldexp(v59, 11);
                   v55 = ldexp(round(v60), __e - 11);
                 }
@@ -4994,62 +3514,62 @@ LABEL_46:
                   v61 = ldexp(round(v63), __e - 11);
                 }
 
-                *(&v110 + v38) = v61;
+                *(&v109 + v38) = v61;
 LABEL_53:
                 ++v38;
               }
 
               while (v38 != v26);
-              v64 = *&v110 + *(&v110 + 1);
+              v64 = *&v109 + *(&v109 + 1);
               v65 = 0.0;
-              v33 = v97;
-              if ((*&v110 + *(&v110 + 1)) != 0.0)
+              v33 = v96;
+              if ((*&v109 + *(&v109 + 1)) != 0.0)
               {
 LABEL_57:
-                v108[0] = 0;
-                v66 = frexp(v64, v108);
+                v107[0] = 0;
+                v66 = frexp(v64, v107);
                 v67 = ldexp(v66, 11);
-                v65 = ldexp(round(v67), v108[0] - 11);
+                v65 = ldexp(round(v67), v107[0] - 11);
               }
 
               v68 = 0.0;
               v69 = 0.0;
-              if ((v65 + *(&v110 + 2)) != 0.0)
+              if ((v65 + *(&v109 + 2)) != 0.0)
               {
-                v108[0] = 0;
-                v70 = frexp((v65 + *(&v110 + 2)), v108);
+                v107[0] = 0;
+                v70 = frexp((v65 + *(&v109 + 2)), v107);
                 v71 = ldexp(v70, 11);
-                v69 = ldexp(round(v71), v108[0] - 11);
+                v69 = ldexp(round(v71), v107[0] - 11);
               }
 
-              if ((*(&v110 + 3) + v111) != 0.0)
+              if ((*(&v109 + 3) + v110) != 0.0)
               {
-                v108[0] = 0;
-                v72 = frexp((*(&v110 + 3) + v111), v108);
+                v107[0] = 0;
+                v72 = frexp((*(&v109 + 3) + v110), v107);
                 v73 = ldexp(v72, 11);
-                v68 = ldexp(round(v73), v108[0] - 11);
+                v68 = ldexp(round(v73), v107[0] - 11);
               }
 
               v74 = v69 + v68;
               v75 = 0.0;
               if (v74 != 0.0)
               {
-                v108[0] = 0;
-                v76 = frexp(v74, v108);
+                v107[0] = 0;
+                v76 = frexp(v74, v107);
                 v77 = ldexp(v76, 11);
-                v75 = ldexp(round(v77), v108[0] - 11);
+                v75 = ldexp(round(v77), v107[0] - 11);
               }
 
-              LOWORD(v108[0]) = MIL::ANEMachineIR::Interpreter::RecipTableRaw[v39];
-              MIL::Fp16::GetFloat(v108);
+              LOWORD(v107[0]) = MIL::ANEMachineIR::Interpreter::RecipTableRaw[v39];
+              MIL::Fp16::GetFloat(v107);
               v79 = v75 * v78;
               v80 = 0.0;
               if (v79 != 0.0)
               {
-                v108[0] = 0;
-                v81 = frexp(v79, v108);
+                v107[0] = 0;
+                v81 = frexp(v79, v107);
                 v82 = ldexp(v81, 11);
-                v80 = ldexp(round(v82), v108[0] - 11);
+                v80 = ldexp(round(v82), v107[0] - 11);
               }
 
               std::function<float ()(float)>::operator()(a11, v80);
@@ -5076,46 +3596,44 @@ LABEL_57:
             }
 
 LABEL_74:
-            v104 += v95;
-            ++v100;
+            v103 += v94;
+            ++v99;
           }
 
-          while (v100 != v96);
+          while (v99 != v95);
         }
 
 LABEL_76:
         ++v35;
-        v32 = v92;
+        v32 = v91;
       }
 
-      while (v35 != v92);
+      while (v35 != v91);
 LABEL_77:
-      ++v107;
+      ++v106;
     }
 
-    while (v107 != v91);
+    while (v106 != v90);
   }
 
-  if (v112[0])
+  if (v111[0])
   {
-    v112[1] = v112[0];
-    operator delete(v112[0]);
+    v111[1] = v111[0];
+    operator delete(v111[0]);
   }
 
   std::__function::__value_func<unsigned char ()(unsigned char)>::~__value_func[abi:ne200100](&__src);
-  if (v113)
+  if (v112)
   {
-    v114 = v113;
-    operator delete(v113);
+    v113 = v112;
+    operator delete(v112);
   }
 
-  if (v116)
+  if (v115)
   {
-    v117 = v116;
-    operator delete(v116);
+    v116 = v115;
+    operator delete(v115);
   }
-
-  v86 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2599DBF64(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17)
@@ -5144,45 +3662,45 @@ void sub_2599DBF64(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<signed char,unsigned char>(uint64_t a1@<X0>, size_t a2@<X1>, uint64_t *a3@<X2>, uint64_t *a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, __int16 a8@<W7>, uint64_t a9@<X8>, char a10, uint64_t a11)
+void MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<signed char,unsigned char>(char **__return_ptr a1@<X8>, uint64_t a2@<X0>, size_t a3@<X1>, uint64_t a4@<X2>, uint64_t a5@<X3>, uint64_t a6@<X4>, uint64_t a7@<X5>, uint64_t a8@<X6>, __int16 a9@<W7>, char a10, uint64_t a11)
 {
-  v124 = *MEMORY[0x277D85DE8];
-  v119 = a8;
-  *(a9 + 8) = 0;
-  *(a9 + 16) = 0;
-  *a9 = 0;
-  if (a2)
+  v123 = *MEMORY[0x277D85DE8];
+  v118 = a9;
+  a1[1] = 0;
+  a1[2] = 0;
+  *a1 = 0;
+  if (a3)
   {
-    std::vector<unsigned char>::__append(a9, a2);
+    std::vector<unsigned char>::__append(a1, a3);
   }
 
-  v16 = *a3;
-  v17 = a3[1];
-  v18 = v17 - *a3;
-  if (v18 != a4[1] - *a4)
+  v16 = *a4;
+  v17 = *(a4 + 8);
+  v18 = v17 - *a4;
+  if (v18 != *(a5 + 8) - *a5)
   {
-    v87 = "x_rank == o_shape.size()";
-    v88 = 64;
+    v86 = "x_rank == o_shape.size()";
+    v87 = 64;
     goto LABEL_90;
   }
 
   v19 = v18 >> 3;
   v20 = (v18 >> 3) - 2;
-  v21 = *a5;
-  if (v20 != (*(a5 + 8) - *a5) >> 2)
+  v21 = *a6;
+  if (v20 != (*(a6 + 8) - *a6) >> 2)
   {
-    v87 = "kernel_sizes.size() == num_spatial_dims";
-    v88 = 65;
+    v86 = "kernel_sizes.size() == num_spatial_dims";
+    v87 = 65;
     goto LABEL_90;
   }
 
-  v22 = *a6;
-  if (v20 != (*(a6 + 8) - *a6) >> 2)
+  v22 = *a7;
+  if (v20 != (*(a7 + 8) - *a7) >> 2)
   {
-    v87 = "strides.size() == num_spatial_dims";
-    v88 = 66;
+    v86 = "strides.size() == num_spatial_dims";
+    v87 = 66;
 LABEL_90:
-    __assert_rtn("ComputeValueAvgPool", "PePoolCpu.cpp", v88, v87);
+    __assert_rtn("ComputeValueAvgPool", "PePoolCpu.cpp", v87, v86);
   }
 
   if (v20 == 3)
@@ -5193,23 +3711,23 @@ LABEL_90:
       {
         v23 = 4 * v19 - 12;
         v24 = (v22 + v23);
-        v93 = v22[v19 - 4];
+        v92 = v22[v19 - 4];
         v25 = (v21 + v23);
         v26 = v21[v19 - 4];
         goto LABEL_13;
       }
 
-      v89 = "sz == 1";
-      v90 = 77;
+      v88 = "sz == 1";
+      v89 = 77;
     }
 
     else
     {
-      v89 = "kd == 1";
-      v90 = 76;
+      v88 = "kd == 1";
+      v89 = 76;
     }
 
-    __assert_rtn("ComputeValueAvgPool", "PePoolCpu.cpp", v90, v89);
+    __assert_rtn("ComputeValueAvgPool", "PePoolCpu.cpp", v89, v88);
   }
 
   v27 = 4 * v19;
@@ -5219,7 +3737,7 @@ LABEL_90:
     v25 = (v21 + v29);
     v24 = (v22 + v29);
     v26 = 1;
-    v93 = 1;
+    v92 = 1;
   }
 
   else
@@ -5227,57 +3745,57 @@ LABEL_90:
     v26 = v21[v19 - 4];
     v28 = v27 - 12;
     v25 = (v21 + v28);
-    v93 = v22[v19 - 4];
+    v92 = v22[v19 - 4];
     v24 = (v22 + v28);
   }
 
 LABEL_13:
-  v95 = *v24;
+  v94 = *v24;
   v30 = *v25;
+  v115 = 0;
   v116 = 0;
   v117 = 0;
-  v118 = 0;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&v116, v16, v17, v19);
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&v115, v16, v17, v19);
+  v112 = 0;
   v113 = 0;
   v114 = 0;
-  v115 = 0;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&v113, *a4, a4[1], (a4[1] - *a4) >> 3);
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&v112, *a5, *(a5 + 8), (*(a5 + 8) - *a5) >> 3);
   if (v19 == 3)
   {
     __src = vdupq_n_s64(1uLL);
-    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&v116, v116 + 8, __src.i8, v122, 2);
+    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&v115, v115 + 8, __src.i8, v121, 2);
     __src = vdupq_n_s64(1uLL);
-    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&v113, v113 + 8, __src.i8, v122, 2);
+    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&v112, v112 + 8, __src.i8, v121, 2);
   }
 
   else if (v19 == 4)
   {
     __src.i64[0] = 1;
-    std::vector<unsigned long long>::insert(&v116, v116 + 8, &__src);
+    std::vector<unsigned long long>::insert(&v115, v115 + 8, &__src);
     __src.i64[0] = 1;
-    std::vector<unsigned long long>::insert(&v113, v113 + 8, &__src);
+    std::vector<unsigned long long>::insert(&v112, v112 + 8, &__src);
   }
 
-  v31 = *v113;
-  v32 = *(v113 + 1);
-  v94 = *(v113 + 2);
-  v96 = *(v113 + 3);
-  v33 = *(v113 + 4);
-  v101 = *(v116 + 2);
-  v105 = *(v116 + 3);
+  v31 = *v112;
+  v32 = *(v112 + 1);
+  v93 = *(v112 + 2);
+  v95 = *(v112 + 3);
+  v33 = *(v112 + 4);
+  v100 = *(v115 + 2);
+  v104 = *(v115 + 3);
   __src.i64[0] = &unk_286AB2520;
   p_src = &__src;
-  MIL::Fp16::GetFloat(&v119);
-  LODWORD(v110) = v34;
-  std::vector<float>::vector[abi:ne200100](v112, v33);
+  MIL::Fp16::GetFloat(&v118);
+  LODWORD(v109) = v34;
+  std::vector<float>::vector[abi:ne200100](v111, v33, &v109);
   if (v31)
   {
-    v107 = 0;
-    v102 = v30;
-    v103 = v26;
-    v91 = v31;
-    v92 = v32;
-    v97 = v33;
+    v106 = 0;
+    v101 = v30;
+    v102 = v26;
+    v90 = v31;
+    v91 = v32;
+    v96 = v33;
     do
     {
       if (!v32)
@@ -5288,21 +3806,21 @@ LABEL_13:
       v35 = 0;
       do
       {
-        if (!v94)
+        if (!v93)
         {
           goto LABEL_78;
         }
 
-        for (i = 0; i != v94; ++i)
+        for (i = 0; i != v93; ++i)
         {
-          if (!v96)
+          if (!v95)
           {
             continue;
           }
 
-          v100 = 0;
-          v36 = i * v93;
-          v104 = 0;
+          v99 = 0;
+          v36 = i * v92;
+          v103 = 0;
           do
           {
             if (!v33)
@@ -5312,8 +3830,8 @@ LABEL_13:
 
             for (j = 0; j != v33; ++j)
             {
-              v111 = 0.0;
-              v110 = xmmword_259A4D02C;
+              v110 = 0.0;
+              v109 = xmmword_259A4D02C;
               if (!v26)
               {
                 v39 = 0;
@@ -5326,25 +3844,25 @@ LABEL_13:
               do
               {
                 v40 = v38 + v36;
-                if ((a10 & 1) == 0 && (v40 < *(a7 + 8) || v40 >= v101 - *(a7 + 12)))
+                if ((a10 & 1) == 0 && (v40 < *(a8 + 8) || v40 >= v100 - *(a8 + 12)))
                 {
                   goto LABEL_53;
                 }
 
-                v109 = 0.0;
-                *v108 = xmmword_259A4D02C;
+                v108 = 0.0;
+                *v107 = xmmword_259A4D02C;
                 if (v30)
                 {
                   v41 = v30;
-                  v42 = a7;
-                  v43 = v108;
-                  v44 = v104;
+                  v42 = a8;
+                  v43 = v107;
+                  v44 = v103;
                   do
                   {
-                    if ((a10 & 1) != 0 || v44 >= *(v42 + 16) && v44 < v105 - *(v42 + 20))
+                    if ((a10 & 1) != 0 || v44 >= *(v42 + 16) && v44 < v104 - *(v42 + 20))
                     {
-                      v46 = std::function<unsigned char ()(unsigned char)>::operator()(&__src, *(a1 + Index));
-                      v47 = *(v112[0] + j) * v46;
+                      v46 = std::function<unsigned char ()(unsigned char)>::operator()(&__src, *(a2 + Index));
+                      v47 = *(v111[0] + j) * v46;
                       v48 = 0.0;
                       if (v47 != 0.0)
                       {
@@ -5364,13 +3882,13 @@ LABEL_13:
                   }
 
                   while (v41);
-                  v51 = *v108 + *&v108[1];
+                  v51 = *v107 + *&v107[1];
                   v52 = 0.0;
-                  a7 = v42;
-                  v30 = v102;
-                  v26 = v103;
-                  v36 = i * v93;
-                  if ((*v108 + *&v108[1]) == 0.0)
+                  a8 = v42;
+                  v30 = v101;
+                  v26 = v102;
+                  v36 = i * v92;
+                  if ((*v107 + *&v107[1]) == 0.0)
                   {
                     goto LABEL_46;
                   }
@@ -5388,18 +3906,18 @@ LABEL_13:
 LABEL_46:
                 v55 = 0.0;
                 v56 = 0.0;
-                if ((v52 + *&v108[2]) != 0.0)
+                if ((v52 + *&v107[2]) != 0.0)
                 {
                   __e = 0;
-                  v57 = frexp((v52 + *&v108[2]), &__e);
+                  v57 = frexp((v52 + *&v107[2]), &__e);
                   v58 = ldexp(v57, 11);
                   v56 = ldexp(round(v58), __e - 11);
                 }
 
-                if ((*&v108[3] + v109) != 0.0)
+                if ((*&v107[3] + v108) != 0.0)
                 {
                   __e = 0;
-                  v59 = frexp((*&v108[3] + v109), &__e);
+                  v59 = frexp((*&v107[3] + v108), &__e);
                   v60 = ldexp(v59, 11);
                   v55 = ldexp(round(v60), __e - 11);
                 }
@@ -5413,62 +3931,62 @@ LABEL_46:
                   v61 = ldexp(round(v63), __e - 11);
                 }
 
-                *(&v110 + v38) = v61;
+                *(&v109 + v38) = v61;
 LABEL_53:
                 ++v38;
               }
 
               while (v38 != v26);
-              v64 = *&v110 + *(&v110 + 1);
+              v64 = *&v109 + *(&v109 + 1);
               v65 = 0.0;
-              v33 = v97;
-              if ((*&v110 + *(&v110 + 1)) != 0.0)
+              v33 = v96;
+              if ((*&v109 + *(&v109 + 1)) != 0.0)
               {
 LABEL_57:
-                v108[0] = 0;
-                v66 = frexp(v64, v108);
+                v107[0] = 0;
+                v66 = frexp(v64, v107);
                 v67 = ldexp(v66, 11);
-                v65 = ldexp(round(v67), v108[0] - 11);
+                v65 = ldexp(round(v67), v107[0] - 11);
               }
 
               v68 = 0.0;
               v69 = 0.0;
-              if ((v65 + *(&v110 + 2)) != 0.0)
+              if ((v65 + *(&v109 + 2)) != 0.0)
               {
-                v108[0] = 0;
-                v70 = frexp((v65 + *(&v110 + 2)), v108);
+                v107[0] = 0;
+                v70 = frexp((v65 + *(&v109 + 2)), v107);
                 v71 = ldexp(v70, 11);
-                v69 = ldexp(round(v71), v108[0] - 11);
+                v69 = ldexp(round(v71), v107[0] - 11);
               }
 
-              if ((*(&v110 + 3) + v111) != 0.0)
+              if ((*(&v109 + 3) + v110) != 0.0)
               {
-                v108[0] = 0;
-                v72 = frexp((*(&v110 + 3) + v111), v108);
+                v107[0] = 0;
+                v72 = frexp((*(&v109 + 3) + v110), v107);
                 v73 = ldexp(v72, 11);
-                v68 = ldexp(round(v73), v108[0] - 11);
+                v68 = ldexp(round(v73), v107[0] - 11);
               }
 
               v74 = v69 + v68;
               v75 = 0.0;
               if (v74 != 0.0)
               {
-                v108[0] = 0;
-                v76 = frexp(v74, v108);
+                v107[0] = 0;
+                v76 = frexp(v74, v107);
                 v77 = ldexp(v76, 11);
-                v75 = ldexp(round(v77), v108[0] - 11);
+                v75 = ldexp(round(v77), v107[0] - 11);
               }
 
-              LOWORD(v108[0]) = MIL::ANEMachineIR::Interpreter::RecipTableRaw[v39];
-              MIL::Fp16::GetFloat(v108);
+              LOWORD(v107[0]) = MIL::ANEMachineIR::Interpreter::RecipTableRaw[v39];
+              MIL::Fp16::GetFloat(v107);
               v79 = v75 * v78;
               v80 = 0.0;
               if (v79 != 0.0)
               {
-                v108[0] = 0;
-                v81 = frexp(v79, v108);
+                v107[0] = 0;
+                v81 = frexp(v79, v107);
                 v82 = ldexp(v81, 11);
-                v80 = ldexp(round(v82), v108[0] - 11);
+                v80 = ldexp(round(v82), v107[0] - 11);
               }
 
               std::function<float ()(float)>::operator()(a11, v80);
@@ -5503,46 +4021,44 @@ LABEL_57:
             }
 
 LABEL_76:
-            v104 += v95;
-            ++v100;
+            v103 += v94;
+            ++v99;
           }
 
-          while (v100 != v96);
+          while (v99 != v95);
         }
 
 LABEL_78:
         ++v35;
-        v32 = v92;
+        v32 = v91;
       }
 
-      while (v35 != v92);
+      while (v35 != v91);
 LABEL_79:
-      ++v107;
+      ++v106;
     }
 
-    while (v107 != v91);
+    while (v106 != v90);
   }
 
-  if (v112[0])
+  if (v111[0])
   {
-    v112[1] = v112[0];
-    operator delete(v112[0]);
+    v111[1] = v111[0];
+    operator delete(v111[0]);
   }
 
   std::__function::__value_func<unsigned char ()(unsigned char)>::~__value_func[abi:ne200100](&__src);
-  if (v113)
+  if (v112)
   {
-    v114 = v113;
-    operator delete(v113);
+    v113 = v112;
+    operator delete(v112);
   }
 
-  if (v116)
+  if (v115)
   {
-    v117 = v116;
-    operator delete(v116);
+    v116 = v115;
+    operator delete(v115);
   }
-
-  v86 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2599DC858(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17)
@@ -5571,21 +4087,21 @@ void sub_2599DC858(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<MIL::Fp16,signed char>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t *a3@<X2>, uint64_t *a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, __int16 a8@<W7>, void *a9@<X8>, char a10, char a11, uint64_t a12)
+void MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<MIL::Fp16,signed char>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, __int16 a8@<W7>, void *a9@<X8>, char a10, char a11, uint64_t a12)
 {
-  v124 = *MEMORY[0x277D85DE8];
-  v118 = a8;
+  v123 = *MEMORY[0x277D85DE8];
+  v117 = a8;
   a9[1] = 0;
   a9[2] = 0;
   *a9 = 0;
   std::vector<MIL::Fp16>::resize(a9, a2);
   v17 = *a3;
-  v18 = a3[1];
+  v18 = *(a3 + 8);
   v19 = v18 - *a3;
-  if (v19 != a4[1] - *a4)
+  if (v19 != *(a4 + 8) - *a4)
   {
-    v87 = "x_rank == o_shape.size()";
-    v88 = 64;
+    v86 = "x_rank == o_shape.size()";
+    v87 = 64;
     goto LABEL_81;
   }
 
@@ -5594,18 +4110,18 @@ void MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<MI
   v22 = *a5;
   if (v21 != (*(a5 + 8) - *a5) >> 2)
   {
-    v87 = "kernel_sizes.size() == num_spatial_dims";
-    v88 = 65;
+    v86 = "kernel_sizes.size() == num_spatial_dims";
+    v87 = 65;
     goto LABEL_81;
   }
 
   v23 = *a6;
   if (v21 != (*(a6 + 8) - *a6) >> 2)
   {
-    v87 = "strides.size() == num_spatial_dims";
-    v88 = 66;
+    v86 = "strides.size() == num_spatial_dims";
+    v87 = 66;
 LABEL_81:
-    __assert_rtn("ComputeValueAvgPool", "PePoolCpu.cpp", v88, v87);
+    __assert_rtn("ComputeValueAvgPool", "PePoolCpu.cpp", v87, v86);
   }
 
   if (v21 == 3)
@@ -5616,23 +4132,23 @@ LABEL_81:
       {
         v24 = 4 * v20 - 12;
         v25 = (v23 + v24);
-        v93 = v23[v20 - 4];
+        v92 = v23[v20 - 4];
         v26 = (v22 + v24);
         v27 = v22[v20 - 4];
         goto LABEL_11;
       }
 
-      v89 = "sz == 1";
-      v90 = 77;
+      v88 = "sz == 1";
+      v89 = 77;
     }
 
     else
     {
-      v89 = "kd == 1";
-      v90 = 76;
+      v88 = "kd == 1";
+      v89 = 76;
     }
 
-    __assert_rtn("ComputeValueAvgPool", "PePoolCpu.cpp", v90, v89);
+    __assert_rtn("ComputeValueAvgPool", "PePoolCpu.cpp", v89, v88);
   }
 
   if (v21 <= 1)
@@ -5641,7 +4157,7 @@ LABEL_81:
     v26 = (v22 + v29);
     v25 = (v23 + v29);
     v27 = 1;
-    v93 = 1;
+    v92 = 1;
   }
 
   else
@@ -5649,64 +4165,64 @@ LABEL_81:
     v27 = v22[v20 - 4];
     v28 = 4 * v20 - 12;
     v26 = (v22 + v28);
-    v93 = v23[v20 - 4];
+    v92 = v23[v20 - 4];
     v25 = (v23 + v28);
   }
 
 LABEL_11:
-  v95 = *v25;
+  v94 = *v25;
   v30 = *v26;
+  v114 = 0;
   v115 = 0;
   v116 = 0;
-  v117 = 0;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&v115, v17, v18, v20);
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&v114, v17, v18, v20);
   __p = 0;
+  v112 = 0;
   v113 = 0;
-  v114 = 0;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&__p, *a4, a4[1], (a4[1] - *a4) >> 3);
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&__p, *a4, *(a4 + 8), (*(a4 + 8) - *a4) >> 3);
   if (v20 == 3)
   {
     __src = vdupq_n_s64(1uLL);
-    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&v115, v115 + 8, __src.i8, v122, 2);
+    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&v114, v114 + 8, __src.i8, v121, 2);
     __src = vdupq_n_s64(1uLL);
-    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&__p, __p + 8, __src.i8, v122, 2);
+    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&__p, __p + 8, __src.i8, v121, 2);
   }
 
   else if (v20 == 4)
   {
     __src.i64[0] = 1;
-    std::vector<unsigned long long>::insert(&v115, v115 + 8, &__src);
+    std::vector<unsigned long long>::insert(&v114, v114 + 8, &__src);
     __src.i64[0] = 1;
     std::vector<unsigned long long>::insert(&__p, __p + 8, &__src);
   }
 
   v31 = *__p;
   v32 = *(__p + 1);
-  v94 = *(__p + 2);
-  v96 = *(__p + 3);
-  v99 = *(__p + 4);
-  v101 = *(v115 + 2);
-  v105 = *(v115 + 3);
-  v120[0] = &unk_286AB25A0;
-  v120[3] = v120;
+  v93 = *(__p + 2);
+  v95 = *(__p + 3);
+  v98 = *(__p + 4);
+  v100 = *(v114 + 2);
+  v104 = *(v114 + 3);
+  v119[0] = &unk_286AB25A0;
+  v119[3] = v119;
   if (a11)
   {
     __src.i64[0] = &unk_286AB2620;
     p_src = &__src;
-    std::__function::__value_func<signed char ()(signed char)>::swap[abi:ne200100](&__src, v120);
+    std::__function::__value_func<signed char ()(signed char)>::swap[abi:ne200100](&__src, v119);
     std::__function::__value_func<signed char ()(signed char)>::~__value_func[abi:ne200100](&__src);
   }
 
-  MIL::Fp16::GetFloat(&v118);
-  LODWORD(v110) = v33;
-  std::vector<float>::vector[abi:ne200100](&__src, v99);
+  MIL::Fp16::GetFloat(&v117);
+  LODWORD(v109) = v33;
+  std::vector<float>::vector[abi:ne200100](__src.i64, v98, &v109);
   if (v31)
   {
-    v107 = 0;
-    v102 = v30;
-    v103 = v27;
-    v91 = v31;
-    v92 = v32;
+    v106 = 0;
+    v101 = v30;
+    v102 = v27;
+    v90 = v31;
+    v91 = v32;
     do
     {
       if (!v32)
@@ -5717,32 +4233,32 @@ LABEL_11:
       v34 = 0;
       do
       {
-        if (!v94)
+        if (!v93)
         {
           goto LABEL_69;
         }
 
-        for (i = 0; i != v94; ++i)
+        for (i = 0; i != v93; ++i)
         {
-          if (!v96)
+          if (!v95)
           {
             continue;
           }
 
-          v100 = 0;
-          v35 = i * v93;
-          v104 = 0;
+          v99 = 0;
+          v35 = i * v92;
+          v103 = 0;
           do
           {
-            if (!v99)
+            if (!v98)
             {
               goto LABEL_67;
             }
 
-            for (j = 0; j != v99; ++j)
+            for (j = 0; j != v98; ++j)
             {
-              v111 = 0.0;
-              v110 = xmmword_259A4D02C;
+              v110 = 0.0;
+              v109 = xmmword_259A4D02C;
               if (!v27)
               {
                 v38 = 0;
@@ -5755,25 +4271,25 @@ LABEL_11:
               do
               {
                 v39 = v37 + v35;
-                if ((a10 & 1) == 0 && (v39 < *(a7 + 8) || v39 >= v101 - *(a7 + 12)))
+                if ((a10 & 1) == 0 && (v39 < *(a7 + 8) || v39 >= v100 - *(a7 + 12)))
                 {
                   goto LABEL_53;
                 }
 
-                v109 = 0.0;
-                *v108 = xmmword_259A4D02C;
+                v108 = 0.0;
+                *v107 = xmmword_259A4D02C;
                 if (v30)
                 {
                   v40 = v30;
                   v41 = a7;
-                  v42 = v108;
-                  v43 = v104;
+                  v42 = v107;
+                  v43 = v103;
                   v44 = v40;
                   do
                   {
-                    if ((a10 & 1) != 0 || v43 >= *(v41 + 16) && v43 < v105 - *(v41 + 20))
+                    if ((a10 & 1) != 0 || v43 >= *(v41 + 16) && v43 < v104 - *(v41 + 20))
                     {
-                      v46 = std::function<signed char ()(signed char)>::operator()(v120, *(a1 + Index));
+                      v46 = std::function<signed char ()(signed char)>::operator()(v119, *(a1 + Index));
                       v47 = *(__src.i64[0] + 4 * j) * v46;
                       v48 = 0.0;
                       if (v47 != 0.0)
@@ -5794,13 +4310,13 @@ LABEL_11:
                   }
 
                   while (v44);
-                  v51 = *v108 + *&v108[1];
+                  v51 = *v107 + *&v107[1];
                   v52 = 0.0;
                   a7 = v41;
-                  v30 = v102;
-                  v27 = v103;
-                  v35 = i * v93;
-                  if ((*v108 + *&v108[1]) == 0.0)
+                  v30 = v101;
+                  v27 = v102;
+                  v35 = i * v92;
+                  if ((*v107 + *&v107[1]) == 0.0)
                   {
                     goto LABEL_46;
                   }
@@ -5818,18 +4334,18 @@ LABEL_11:
 LABEL_46:
                 v55 = 0.0;
                 v56 = 0.0;
-                if ((v52 + *&v108[2]) != 0.0)
+                if ((v52 + *&v107[2]) != 0.0)
                 {
                   __e = 0;
-                  v57 = frexp((v52 + *&v108[2]), &__e);
+                  v57 = frexp((v52 + *&v107[2]), &__e);
                   v58 = ldexp(v57, 11);
                   v56 = ldexp(round(v58), __e - 11);
                 }
 
-                if ((*&v108[3] + v109) != 0.0)
+                if ((*&v107[3] + v108) != 0.0)
                 {
                   __e = 0;
-                  v59 = frexp((*&v108[3] + v109), &__e);
+                  v59 = frexp((*&v107[3] + v108), &__e);
                   v60 = ldexp(v59, 11);
                   v55 = ldexp(round(v60), __e - 11);
                 }
@@ -5843,61 +4359,61 @@ LABEL_46:
                   v61 = ldexp(round(v63), __e - 11);
                 }
 
-                *(&v110 + v37) = v61;
+                *(&v109 + v37) = v61;
 LABEL_53:
                 ++v37;
               }
 
               while (v37 != v27);
-              v64 = *&v110 + *(&v110 + 1);
+              v64 = *&v109 + *(&v109 + 1);
               v65 = 0.0;
-              if ((*&v110 + *(&v110 + 1)) != 0.0)
+              if ((*&v109 + *(&v109 + 1)) != 0.0)
               {
 LABEL_57:
-                v108[0] = 0;
-                v66 = frexp(v64, v108);
+                v107[0] = 0;
+                v66 = frexp(v64, v107);
                 v67 = ldexp(v66, 11);
-                v65 = ldexp(round(v67), v108[0] - 11);
+                v65 = ldexp(round(v67), v107[0] - 11);
               }
 
               v68 = 0.0;
               v69 = 0.0;
-              if ((v65 + *(&v110 + 2)) != 0.0)
+              if ((v65 + *(&v109 + 2)) != 0.0)
               {
-                v108[0] = 0;
-                v70 = frexp((v65 + *(&v110 + 2)), v108);
+                v107[0] = 0;
+                v70 = frexp((v65 + *(&v109 + 2)), v107);
                 v71 = ldexp(v70, 11);
-                v69 = ldexp(round(v71), v108[0] - 11);
+                v69 = ldexp(round(v71), v107[0] - 11);
               }
 
-              if ((*(&v110 + 3) + v111) != 0.0)
+              if ((*(&v109 + 3) + v110) != 0.0)
               {
-                v108[0] = 0;
-                v72 = frexp((*(&v110 + 3) + v111), v108);
+                v107[0] = 0;
+                v72 = frexp((*(&v109 + 3) + v110), v107);
                 v73 = ldexp(v72, 11);
-                v68 = ldexp(round(v73), v108[0] - 11);
+                v68 = ldexp(round(v73), v107[0] - 11);
               }
 
               v74 = v69 + v68;
               v75 = 0.0;
               if (v74 != 0.0)
               {
-                v108[0] = 0;
-                v76 = frexp(v74, v108);
+                v107[0] = 0;
+                v76 = frexp(v74, v107);
                 v77 = ldexp(v76, 11);
-                v75 = ldexp(round(v77), v108[0] - 11);
+                v75 = ldexp(round(v77), v107[0] - 11);
               }
 
-              LOWORD(v108[0]) = MIL::ANEMachineIR::Interpreter::RecipTableRaw[v38];
-              MIL::Fp16::GetFloat(v108);
+              LOWORD(v107[0]) = MIL::ANEMachineIR::Interpreter::RecipTableRaw[v38];
+              MIL::Fp16::GetFloat(v107);
               v79 = v75 * v78;
               v80 = 0.0;
               if (v79 != 0.0)
               {
-                v108[0] = 0;
-                v81 = frexp(v79, v108);
+                v107[0] = 0;
+                v81 = frexp(v79, v107);
                 v82 = ldexp(v81, 11);
-                v80 = ldexp(round(v82), v108[0] - 11);
+                v80 = ldexp(round(v82), v107[0] - 11);
               }
 
               v83 = std::function<float ()(float)>::operator()(a12, v80);
@@ -5905,24 +4421,24 @@ LABEL_57:
             }
 
 LABEL_67:
-            v104 += v95;
-            ++v100;
+            v103 += v94;
+            ++v99;
           }
 
-          while (v100 != v96);
+          while (v99 != v95);
         }
 
 LABEL_69:
         ++v34;
-        v32 = v92;
+        v32 = v91;
       }
 
-      while (v34 != v92);
+      while (v34 != v91);
 LABEL_70:
-      ++v107;
+      ++v106;
     }
 
-    while (v107 != v91);
+    while (v106 != v90);
   }
 
   if (__src.i64[0])
@@ -5931,20 +4447,18 @@ LABEL_70:
     operator delete(__src.i64[0]);
   }
 
-  std::__function::__value_func<signed char ()(signed char)>::~__value_func[abi:ne200100](v120);
+  std::__function::__value_func<signed char ()(signed char)>::~__value_func[abi:ne200100](v119);
   if (__p)
   {
-    v113 = __p;
+    v112 = __p;
     operator delete(__p);
   }
 
-  if (v115)
+  if (v114)
   {
-    v116 = v115;
-    operator delete(v115);
+    v115 = v114;
+    operator delete(v114);
   }
-
-  v86 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2599DD150(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, void *__p, uint64_t a39)
@@ -5971,45 +4485,45 @@ void sub_2599DD150(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<unsigned char,signed char>(uint64_t a1@<X0>, size_t a2@<X1>, uint64_t *a3@<X2>, uint64_t *a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, __int16 a8@<W7>, uint64_t a9@<X8>, char a10, char a11, uint64_t a12)
+void MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<unsigned char,signed char>(char **__return_ptr a1@<X8>, uint64_t a2@<X0>, size_t a3@<X1>, uint64_t a4@<X2>, uint64_t a5@<X3>, uint64_t a6@<X4>, uint64_t a7@<X5>, uint64_t a8@<X6>, __int16 a9@<W7>, char a10, char a11, uint64_t a12)
 {
-  v124 = *MEMORY[0x277D85DE8];
-  v118 = a8;
-  *(a9 + 8) = 0;
-  *(a9 + 16) = 0;
-  *a9 = 0;
-  if (a2)
+  v123 = *MEMORY[0x277D85DE8];
+  v117 = a9;
+  a1[1] = 0;
+  a1[2] = 0;
+  *a1 = 0;
+  if (a3)
   {
-    std::vector<unsigned char>::__append(a9, a2);
+    std::vector<unsigned char>::__append(a1, a3);
   }
 
-  v17 = *a3;
-  v18 = a3[1];
-  v19 = v18 - *a3;
-  if (v19 != a4[1] - *a4)
+  v17 = *a4;
+  v18 = *(a4 + 8);
+  v19 = v18 - *a4;
+  if (v19 != *(a5 + 8) - *a5)
   {
-    v87 = "x_rank == o_shape.size()";
-    v88 = 64;
+    v86 = "x_rank == o_shape.size()";
+    v87 = 64;
     goto LABEL_90;
   }
 
   v20 = v19 >> 3;
   v21 = (v19 >> 3) - 2;
-  v22 = *a5;
-  if (v21 != (*(a5 + 8) - *a5) >> 2)
+  v22 = *a6;
+  if (v21 != (*(a6 + 8) - *a6) >> 2)
   {
-    v87 = "kernel_sizes.size() == num_spatial_dims";
-    v88 = 65;
+    v86 = "kernel_sizes.size() == num_spatial_dims";
+    v87 = 65;
     goto LABEL_90;
   }
 
-  v23 = *a6;
-  if (v21 != (*(a6 + 8) - *a6) >> 2)
+  v23 = *a7;
+  if (v21 != (*(a7 + 8) - *a7) >> 2)
   {
-    v87 = "strides.size() == num_spatial_dims";
-    v88 = 66;
+    v86 = "strides.size() == num_spatial_dims";
+    v87 = 66;
 LABEL_90:
-    __assert_rtn("ComputeValueAvgPool", "PePoolCpu.cpp", v88, v87);
+    __assert_rtn("ComputeValueAvgPool", "PePoolCpu.cpp", v87, v86);
   }
 
   if (v21 == 3)
@@ -6020,23 +4534,23 @@ LABEL_90:
       {
         v24 = 4 * v20 - 12;
         v25 = (v23 + v24);
-        v93 = v23[v20 - 4];
+        v92 = v23[v20 - 4];
         v26 = (v22 + v24);
         v27 = v22[v20 - 4];
         goto LABEL_13;
       }
 
-      v89 = "sz == 1";
-      v90 = 77;
+      v88 = "sz == 1";
+      v89 = 77;
     }
 
     else
     {
-      v89 = "kd == 1";
-      v90 = 76;
+      v88 = "kd == 1";
+      v89 = 76;
     }
 
-    __assert_rtn("ComputeValueAvgPool", "PePoolCpu.cpp", v90, v89);
+    __assert_rtn("ComputeValueAvgPool", "PePoolCpu.cpp", v89, v88);
   }
 
   v28 = 4 * v20;
@@ -6046,7 +4560,7 @@ LABEL_90:
     v26 = (v22 + v30);
     v25 = (v23 + v30);
     v27 = 1;
-    v93 = 1;
+    v92 = 1;
   }
 
   else
@@ -6054,64 +4568,64 @@ LABEL_90:
     v27 = v22[v20 - 4];
     v29 = v28 - 12;
     v26 = (v22 + v29);
-    v93 = v23[v20 - 4];
+    v92 = v23[v20 - 4];
     v25 = (v23 + v29);
   }
 
 LABEL_13:
-  v95 = *v25;
+  v94 = *v25;
   v31 = *v26;
+  v114 = 0;
   v115 = 0;
   v116 = 0;
-  v117 = 0;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&v115, v17, v18, v20);
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&v114, v17, v18, v20);
   __p = 0;
+  v112 = 0;
   v113 = 0;
-  v114 = 0;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&__p, *a4, a4[1], (a4[1] - *a4) >> 3);
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&__p, *a5, *(a5 + 8), (*(a5 + 8) - *a5) >> 3);
   if (v20 == 3)
   {
     __src = vdupq_n_s64(1uLL);
-    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&v115, v115 + 8, __src.i8, v122, 2);
+    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&v114, v114 + 8, __src.i8, v121, 2);
     __src = vdupq_n_s64(1uLL);
-    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&__p, __p + 8, __src.i8, v122, 2);
+    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&__p, __p + 8, __src.i8, v121, 2);
   }
 
   else if (v20 == 4)
   {
     __src.i64[0] = 1;
-    std::vector<unsigned long long>::insert(&v115, v115 + 8, &__src);
+    std::vector<unsigned long long>::insert(&v114, v114 + 8, &__src);
     __src.i64[0] = 1;
     std::vector<unsigned long long>::insert(&__p, __p + 8, &__src);
   }
 
   v32 = *__p;
   v33 = *(__p + 1);
-  v94 = *(__p + 2);
-  v96 = *(__p + 3);
-  v99 = *(__p + 4);
-  v101 = *(v115 + 2);
-  v105 = *(v115 + 3);
-  v120[0] = &unk_286AB26A0;
-  v120[3] = v120;
+  v93 = *(__p + 2);
+  v95 = *(__p + 3);
+  v98 = *(__p + 4);
+  v100 = *(v114 + 2);
+  v104 = *(v114 + 3);
+  v119[0] = &unk_286AB26A0;
+  v119[3] = v119;
   if (a11)
   {
     __src.i64[0] = &unk_286AB2720;
     p_src = &__src;
-    std::__function::__value_func<signed char ()(signed char)>::swap[abi:ne200100](&__src, v120);
+    std::__function::__value_func<signed char ()(signed char)>::swap[abi:ne200100](&__src, v119);
     std::__function::__value_func<signed char ()(signed char)>::~__value_func[abi:ne200100](&__src);
   }
 
-  MIL::Fp16::GetFloat(&v118);
-  LODWORD(v110) = v34;
-  std::vector<float>::vector[abi:ne200100](&__src, v99);
+  MIL::Fp16::GetFloat(&v117);
+  LODWORD(v109) = v34;
+  std::vector<float>::vector[abi:ne200100](__src.i64, v98, &v109);
   if (v32)
   {
-    v107 = 0;
-    v102 = v31;
-    v103 = v27;
-    v91 = v32;
-    v92 = v33;
+    v106 = 0;
+    v101 = v31;
+    v102 = v27;
+    v90 = v32;
+    v91 = v33;
     do
     {
       if (!v33)
@@ -6122,32 +4636,32 @@ LABEL_13:
       v35 = 0;
       do
       {
-        if (!v94)
+        if (!v93)
         {
           goto LABEL_78;
         }
 
-        for (i = 0; i != v94; ++i)
+        for (i = 0; i != v93; ++i)
         {
-          if (!v96)
+          if (!v95)
           {
             continue;
           }
 
-          v100 = 0;
-          v36 = i * v93;
-          v104 = 0;
+          v99 = 0;
+          v36 = i * v92;
+          v103 = 0;
           do
           {
-            if (!v99)
+            if (!v98)
             {
               goto LABEL_76;
             }
 
-            for (j = 0; j != v99; ++j)
+            for (j = 0; j != v98; ++j)
             {
-              v111 = 0.0;
-              v110 = xmmword_259A4D02C;
+              v110 = 0.0;
+              v109 = xmmword_259A4D02C;
               if (!v27)
               {
                 v39 = 0;
@@ -6160,24 +4674,24 @@ LABEL_13:
               do
               {
                 v40 = v38 + v36;
-                if ((a10 & 1) == 0 && (v40 < *(a7 + 8) || v40 >= v101 - *(a7 + 12)))
+                if ((a10 & 1) == 0 && (v40 < *(a8 + 8) || v40 >= v100 - *(a8 + 12)))
                 {
                   goto LABEL_55;
                 }
 
-                v109 = 0.0;
-                *v108 = xmmword_259A4D02C;
+                v108 = 0.0;
+                *v107 = xmmword_259A4D02C;
                 if (v31)
                 {
                   v41 = v31;
-                  v42 = a7;
-                  v43 = v108;
-                  v44 = v104;
+                  v42 = a8;
+                  v43 = v107;
+                  v44 = v103;
                   do
                   {
-                    if ((a10 & 1) != 0 || v44 >= *(v42 + 16) && v44 < v105 - *(v42 + 20))
+                    if ((a10 & 1) != 0 || v44 >= *(v42 + 16) && v44 < v104 - *(v42 + 20))
                     {
-                      v46 = std::function<signed char ()(signed char)>::operator()(v120, *(a1 + Index));
+                      v46 = std::function<signed char ()(signed char)>::operator()(v119, *(a2 + Index));
                       v47 = *(__src.i64[0] + 4 * j) * v46;
                       v48 = 0.0;
                       if (v47 != 0.0)
@@ -6198,13 +4712,13 @@ LABEL_13:
                   }
 
                   while (v41);
-                  v51 = *v108 + *&v108[1];
+                  v51 = *v107 + *&v107[1];
                   v52 = 0.0;
-                  a7 = v42;
-                  v31 = v102;
-                  v27 = v103;
-                  v36 = i * v93;
-                  if ((*v108 + *&v108[1]) == 0.0)
+                  a8 = v42;
+                  v31 = v101;
+                  v27 = v102;
+                  v36 = i * v92;
+                  if ((*v107 + *&v107[1]) == 0.0)
                   {
                     goto LABEL_48;
                   }
@@ -6222,18 +4736,18 @@ LABEL_13:
 LABEL_48:
                 v55 = 0.0;
                 v56 = 0.0;
-                if ((v52 + *&v108[2]) != 0.0)
+                if ((v52 + *&v107[2]) != 0.0)
                 {
                   __e = 0;
-                  v57 = frexp((v52 + *&v108[2]), &__e);
+                  v57 = frexp((v52 + *&v107[2]), &__e);
                   v58 = ldexp(v57, 11);
                   v56 = ldexp(round(v58), __e - 11);
                 }
 
-                if ((*&v108[3] + v109) != 0.0)
+                if ((*&v107[3] + v108) != 0.0)
                 {
                   __e = 0;
-                  v59 = frexp((*&v108[3] + v109), &__e);
+                  v59 = frexp((*&v107[3] + v108), &__e);
                   v60 = ldexp(v59, 11);
                   v55 = ldexp(round(v60), __e - 11);
                 }
@@ -6247,61 +4761,61 @@ LABEL_48:
                   v61 = ldexp(round(v63), __e - 11);
                 }
 
-                *(&v110 + v38) = v61;
+                *(&v109 + v38) = v61;
 LABEL_55:
                 ++v38;
               }
 
               while (v38 != v27);
-              v64 = *&v110 + *(&v110 + 1);
+              v64 = *&v109 + *(&v109 + 1);
               v65 = 0.0;
-              if ((*&v110 + *(&v110 + 1)) != 0.0)
+              if ((*&v109 + *(&v109 + 1)) != 0.0)
               {
 LABEL_59:
-                v108[0] = 0;
-                v66 = frexp(v64, v108);
+                v107[0] = 0;
+                v66 = frexp(v64, v107);
                 v67 = ldexp(v66, 11);
-                v65 = ldexp(round(v67), v108[0] - 11);
+                v65 = ldexp(round(v67), v107[0] - 11);
               }
 
               v68 = 0.0;
               v69 = 0.0;
-              if ((v65 + *(&v110 + 2)) != 0.0)
+              if ((v65 + *(&v109 + 2)) != 0.0)
               {
-                v108[0] = 0;
-                v70 = frexp((v65 + *(&v110 + 2)), v108);
+                v107[0] = 0;
+                v70 = frexp((v65 + *(&v109 + 2)), v107);
                 v71 = ldexp(v70, 11);
-                v69 = ldexp(round(v71), v108[0] - 11);
+                v69 = ldexp(round(v71), v107[0] - 11);
               }
 
-              if ((*(&v110 + 3) + v111) != 0.0)
+              if ((*(&v109 + 3) + v110) != 0.0)
               {
-                v108[0] = 0;
-                v72 = frexp((*(&v110 + 3) + v111), v108);
+                v107[0] = 0;
+                v72 = frexp((*(&v109 + 3) + v110), v107);
                 v73 = ldexp(v72, 11);
-                v68 = ldexp(round(v73), v108[0] - 11);
+                v68 = ldexp(round(v73), v107[0] - 11);
               }
 
               v74 = v69 + v68;
               v75 = 0.0;
               if (v74 != 0.0)
               {
-                v108[0] = 0;
-                v76 = frexp(v74, v108);
+                v107[0] = 0;
+                v76 = frexp(v74, v107);
                 v77 = ldexp(v76, 11);
-                v75 = ldexp(round(v77), v108[0] - 11);
+                v75 = ldexp(round(v77), v107[0] - 11);
               }
 
-              LOWORD(v108[0]) = MIL::ANEMachineIR::Interpreter::RecipTableRaw[v39];
-              MIL::Fp16::GetFloat(v108);
+              LOWORD(v107[0]) = MIL::ANEMachineIR::Interpreter::RecipTableRaw[v39];
+              MIL::Fp16::GetFloat(v107);
               v79 = v75 * v78;
               v80 = 0.0;
               if (v79 != 0.0)
               {
-                v108[0] = 0;
-                v81 = frexp(v79, v108);
+                v107[0] = 0;
+                v81 = frexp(v79, v107);
                 v82 = ldexp(v81, 11);
-                v80 = ldexp(round(v82), v108[0] - 11);
+                v80 = ldexp(round(v82), v107[0] - 11);
               }
 
               std::function<float ()(float)>::operator()(a12, v80);
@@ -6328,24 +4842,24 @@ LABEL_59:
             }
 
 LABEL_76:
-            v104 += v95;
-            ++v100;
+            v103 += v94;
+            ++v99;
           }
 
-          while (v100 != v96);
+          while (v99 != v95);
         }
 
 LABEL_78:
         ++v35;
-        v33 = v92;
+        v33 = v91;
       }
 
-      while (v35 != v92);
+      while (v35 != v91);
 LABEL_79:
-      ++v107;
+      ++v106;
     }
 
-    while (v107 != v91);
+    while (v106 != v90);
   }
 
   if (__src.i64[0])
@@ -6354,20 +4868,18 @@ LABEL_79:
     operator delete(__src.i64[0]);
   }
 
-  std::__function::__value_func<signed char ()(signed char)>::~__value_func[abi:ne200100](v120);
+  std::__function::__value_func<signed char ()(signed char)>::~__value_func[abi:ne200100](v119);
   if (__p)
   {
-    v113 = __p;
+    v112 = __p;
     operator delete(__p);
   }
 
-  if (v115)
+  if (v114)
   {
-    v116 = v115;
-    operator delete(v115);
+    v115 = v114;
+    operator delete(v114);
   }
-
-  v86 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2599DDA88(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, void *__p, uint64_t a39)
@@ -6394,45 +4906,45 @@ void sub_2599DDA88(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<signed char,signed char>(uint64_t a1@<X0>, size_t a2@<X1>, uint64_t *a3@<X2>, uint64_t *a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, __int16 a8@<W7>, uint64_t a9@<X8>, char a10, char a11, uint64_t a12)
+void MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<signed char,signed char>(char **__return_ptr a1@<X8>, uint64_t a2@<X0>, size_t a3@<X1>, uint64_t a4@<X2>, uint64_t a5@<X3>, uint64_t a6@<X4>, uint64_t a7@<X5>, uint64_t a8@<X6>, __int16 a9@<W7>, char a10, char a11, uint64_t a12)
 {
-  v124 = *MEMORY[0x277D85DE8];
-  v118 = a8;
-  *(a9 + 8) = 0;
-  *(a9 + 16) = 0;
-  *a9 = 0;
-  if (a2)
+  v123 = *MEMORY[0x277D85DE8];
+  v117 = a9;
+  a1[1] = 0;
+  a1[2] = 0;
+  *a1 = 0;
+  if (a3)
   {
-    std::vector<unsigned char>::__append(a9, a2);
+    std::vector<unsigned char>::__append(a1, a3);
   }
 
-  v17 = *a3;
-  v18 = a3[1];
-  v19 = v18 - *a3;
-  if (v19 != a4[1] - *a4)
+  v17 = *a4;
+  v18 = *(a4 + 8);
+  v19 = v18 - *a4;
+  if (v19 != *(a5 + 8) - *a5)
   {
-    v87 = "x_rank == o_shape.size()";
-    v88 = 64;
+    v86 = "x_rank == o_shape.size()";
+    v87 = 64;
     goto LABEL_92;
   }
 
   v20 = v19 >> 3;
   v21 = (v19 >> 3) - 2;
-  v22 = *a5;
-  if (v21 != (*(a5 + 8) - *a5) >> 2)
+  v22 = *a6;
+  if (v21 != (*(a6 + 8) - *a6) >> 2)
   {
-    v87 = "kernel_sizes.size() == num_spatial_dims";
-    v88 = 65;
+    v86 = "kernel_sizes.size() == num_spatial_dims";
+    v87 = 65;
     goto LABEL_92;
   }
 
-  v23 = *a6;
-  if (v21 != (*(a6 + 8) - *a6) >> 2)
+  v23 = *a7;
+  if (v21 != (*(a7 + 8) - *a7) >> 2)
   {
-    v87 = "strides.size() == num_spatial_dims";
-    v88 = 66;
+    v86 = "strides.size() == num_spatial_dims";
+    v87 = 66;
 LABEL_92:
-    __assert_rtn("ComputeValueAvgPool", "PePoolCpu.cpp", v88, v87);
+    __assert_rtn("ComputeValueAvgPool", "PePoolCpu.cpp", v87, v86);
   }
 
   if (v21 == 3)
@@ -6443,23 +4955,23 @@ LABEL_92:
       {
         v24 = 4 * v20 - 12;
         v25 = (v23 + v24);
-        v93 = v23[v20 - 4];
+        v92 = v23[v20 - 4];
         v26 = (v22 + v24);
         v27 = v22[v20 - 4];
         goto LABEL_13;
       }
 
-      v89 = "sz == 1";
-      v90 = 77;
+      v88 = "sz == 1";
+      v89 = 77;
     }
 
     else
     {
-      v89 = "kd == 1";
-      v90 = 76;
+      v88 = "kd == 1";
+      v89 = 76;
     }
 
-    __assert_rtn("ComputeValueAvgPool", "PePoolCpu.cpp", v90, v89);
+    __assert_rtn("ComputeValueAvgPool", "PePoolCpu.cpp", v89, v88);
   }
 
   v28 = 4 * v20;
@@ -6469,7 +4981,7 @@ LABEL_92:
     v26 = (v22 + v30);
     v25 = (v23 + v30);
     v27 = 1;
-    v93 = 1;
+    v92 = 1;
   }
 
   else
@@ -6477,64 +4989,64 @@ LABEL_92:
     v27 = v22[v20 - 4];
     v29 = v28 - 12;
     v26 = (v22 + v29);
-    v93 = v23[v20 - 4];
+    v92 = v23[v20 - 4];
     v25 = (v23 + v29);
   }
 
 LABEL_13:
-  v95 = *v25;
+  v94 = *v25;
   v31 = *v26;
+  v114 = 0;
   v115 = 0;
   v116 = 0;
-  v117 = 0;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&v115, v17, v18, v20);
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&v114, v17, v18, v20);
   __p = 0;
+  v112 = 0;
   v113 = 0;
-  v114 = 0;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&__p, *a4, a4[1], (a4[1] - *a4) >> 3);
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&__p, *a5, *(a5 + 8), (*(a5 + 8) - *a5) >> 3);
   if (v20 == 3)
   {
     __src = vdupq_n_s64(1uLL);
-    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&v115, v115 + 8, __src.i8, v122, 2);
+    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&v114, v114 + 8, __src.i8, v121, 2);
     __src = vdupq_n_s64(1uLL);
-    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&__p, __p + 8, __src.i8, v122, 2);
+    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&__p, __p + 8, __src.i8, v121, 2);
   }
 
   else if (v20 == 4)
   {
     __src.i64[0] = 1;
-    std::vector<unsigned long long>::insert(&v115, v115 + 8, &__src);
+    std::vector<unsigned long long>::insert(&v114, v114 + 8, &__src);
     __src.i64[0] = 1;
     std::vector<unsigned long long>::insert(&__p, __p + 8, &__src);
   }
 
   v32 = *__p;
   v33 = *(__p + 1);
-  v94 = *(__p + 2);
-  v96 = *(__p + 3);
-  v99 = *(__p + 4);
-  v101 = *(v115 + 2);
-  v105 = *(v115 + 3);
-  v120[0] = &unk_286AB27A0;
-  v120[3] = v120;
+  v93 = *(__p + 2);
+  v95 = *(__p + 3);
+  v98 = *(__p + 4);
+  v100 = *(v114 + 2);
+  v104 = *(v114 + 3);
+  v119[0] = &unk_286AB27A0;
+  v119[3] = v119;
   if (a11)
   {
     __src.i64[0] = &unk_286AB2820;
     p_src = &__src;
-    std::__function::__value_func<signed char ()(signed char)>::swap[abi:ne200100](&__src, v120);
+    std::__function::__value_func<signed char ()(signed char)>::swap[abi:ne200100](&__src, v119);
     std::__function::__value_func<signed char ()(signed char)>::~__value_func[abi:ne200100](&__src);
   }
 
-  MIL::Fp16::GetFloat(&v118);
-  LODWORD(v110) = v34;
-  std::vector<float>::vector[abi:ne200100](&__src, v99);
+  MIL::Fp16::GetFloat(&v117);
+  LODWORD(v109) = v34;
+  std::vector<float>::vector[abi:ne200100](__src.i64, v98, &v109);
   if (v32)
   {
-    v107 = 0;
-    v102 = v31;
-    v103 = v27;
-    v91 = v32;
-    v92 = v33;
+    v106 = 0;
+    v101 = v31;
+    v102 = v27;
+    v90 = v32;
+    v91 = v33;
     do
     {
       if (!v33)
@@ -6545,32 +5057,32 @@ LABEL_13:
       v35 = 0;
       do
       {
-        if (!v94)
+        if (!v93)
         {
           goto LABEL_80;
         }
 
-        for (i = 0; i != v94; ++i)
+        for (i = 0; i != v93; ++i)
         {
-          if (!v96)
+          if (!v95)
           {
             continue;
           }
 
-          v100 = 0;
-          v36 = i * v93;
-          v104 = 0;
+          v99 = 0;
+          v36 = i * v92;
+          v103 = 0;
           do
           {
-            if (!v99)
+            if (!v98)
             {
               goto LABEL_78;
             }
 
-            for (j = 0; j != v99; ++j)
+            for (j = 0; j != v98; ++j)
             {
-              v111 = 0.0;
-              v110 = xmmword_259A4D02C;
+              v110 = 0.0;
+              v109 = xmmword_259A4D02C;
               if (!v27)
               {
                 v39 = 0;
@@ -6583,24 +5095,24 @@ LABEL_13:
               do
               {
                 v40 = v38 + v36;
-                if ((a10 & 1) == 0 && (v40 < *(a7 + 8) || v40 >= v101 - *(a7 + 12)))
+                if ((a10 & 1) == 0 && (v40 < *(a8 + 8) || v40 >= v100 - *(a8 + 12)))
                 {
                   goto LABEL_55;
                 }
 
-                v109 = 0.0;
-                *v108 = xmmword_259A4D02C;
+                v108 = 0.0;
+                *v107 = xmmword_259A4D02C;
                 if (v31)
                 {
                   v41 = v31;
-                  v42 = a7;
-                  v43 = v108;
-                  v44 = v104;
+                  v42 = a8;
+                  v43 = v107;
+                  v44 = v103;
                   do
                   {
-                    if ((a10 & 1) != 0 || v44 >= *(v42 + 16) && v44 < v105 - *(v42 + 20))
+                    if ((a10 & 1) != 0 || v44 >= *(v42 + 16) && v44 < v104 - *(v42 + 20))
                     {
-                      v46 = std::function<signed char ()(signed char)>::operator()(v120, *(a1 + Index));
+                      v46 = std::function<signed char ()(signed char)>::operator()(v119, *(a2 + Index));
                       v47 = *(__src.i64[0] + 4 * j) * v46;
                       v48 = 0.0;
                       if (v47 != 0.0)
@@ -6621,13 +5133,13 @@ LABEL_13:
                   }
 
                   while (v41);
-                  v51 = *v108 + *&v108[1];
+                  v51 = *v107 + *&v107[1];
                   v52 = 0.0;
-                  a7 = v42;
-                  v31 = v102;
-                  v27 = v103;
-                  v36 = i * v93;
-                  if ((*v108 + *&v108[1]) == 0.0)
+                  a8 = v42;
+                  v31 = v101;
+                  v27 = v102;
+                  v36 = i * v92;
+                  if ((*v107 + *&v107[1]) == 0.0)
                   {
                     goto LABEL_48;
                   }
@@ -6645,18 +5157,18 @@ LABEL_13:
 LABEL_48:
                 v55 = 0.0;
                 v56 = 0.0;
-                if ((v52 + *&v108[2]) != 0.0)
+                if ((v52 + *&v107[2]) != 0.0)
                 {
                   __e = 0;
-                  v57 = frexp((v52 + *&v108[2]), &__e);
+                  v57 = frexp((v52 + *&v107[2]), &__e);
                   v58 = ldexp(v57, 11);
                   v56 = ldexp(round(v58), __e - 11);
                 }
 
-                if ((*&v108[3] + v109) != 0.0)
+                if ((*&v107[3] + v108) != 0.0)
                 {
                   __e = 0;
-                  v59 = frexp((*&v108[3] + v109), &__e);
+                  v59 = frexp((*&v107[3] + v108), &__e);
                   v60 = ldexp(v59, 11);
                   v55 = ldexp(round(v60), __e - 11);
                 }
@@ -6670,61 +5182,61 @@ LABEL_48:
                   v61 = ldexp(round(v63), __e - 11);
                 }
 
-                *(&v110 + v38) = v61;
+                *(&v109 + v38) = v61;
 LABEL_55:
                 ++v38;
               }
 
               while (v38 != v27);
-              v64 = *&v110 + *(&v110 + 1);
+              v64 = *&v109 + *(&v109 + 1);
               v65 = 0.0;
-              if ((*&v110 + *(&v110 + 1)) != 0.0)
+              if ((*&v109 + *(&v109 + 1)) != 0.0)
               {
 LABEL_59:
-                v108[0] = 0;
-                v66 = frexp(v64, v108);
+                v107[0] = 0;
+                v66 = frexp(v64, v107);
                 v67 = ldexp(v66, 11);
-                v65 = ldexp(round(v67), v108[0] - 11);
+                v65 = ldexp(round(v67), v107[0] - 11);
               }
 
               v68 = 0.0;
               v69 = 0.0;
-              if ((v65 + *(&v110 + 2)) != 0.0)
+              if ((v65 + *(&v109 + 2)) != 0.0)
               {
-                v108[0] = 0;
-                v70 = frexp((v65 + *(&v110 + 2)), v108);
+                v107[0] = 0;
+                v70 = frexp((v65 + *(&v109 + 2)), v107);
                 v71 = ldexp(v70, 11);
-                v69 = ldexp(round(v71), v108[0] - 11);
+                v69 = ldexp(round(v71), v107[0] - 11);
               }
 
-              if ((*(&v110 + 3) + v111) != 0.0)
+              if ((*(&v109 + 3) + v110) != 0.0)
               {
-                v108[0] = 0;
-                v72 = frexp((*(&v110 + 3) + v111), v108);
+                v107[0] = 0;
+                v72 = frexp((*(&v109 + 3) + v110), v107);
                 v73 = ldexp(v72, 11);
-                v68 = ldexp(round(v73), v108[0] - 11);
+                v68 = ldexp(round(v73), v107[0] - 11);
               }
 
               v74 = v69 + v68;
               v75 = 0.0;
               if (v74 != 0.0)
               {
-                v108[0] = 0;
-                v76 = frexp(v74, v108);
+                v107[0] = 0;
+                v76 = frexp(v74, v107);
                 v77 = ldexp(v76, 11);
-                v75 = ldexp(round(v77), v108[0] - 11);
+                v75 = ldexp(round(v77), v107[0] - 11);
               }
 
-              LOWORD(v108[0]) = MIL::ANEMachineIR::Interpreter::RecipTableRaw[v39];
-              MIL::Fp16::GetFloat(v108);
+              LOWORD(v107[0]) = MIL::ANEMachineIR::Interpreter::RecipTableRaw[v39];
+              MIL::Fp16::GetFloat(v107);
               v79 = v75 * v78;
               v80 = 0.0;
               if (v79 != 0.0)
               {
-                v108[0] = 0;
-                v81 = frexp(v79, v108);
+                v107[0] = 0;
+                v81 = frexp(v79, v107);
                 v82 = ldexp(v81, 11);
-                v80 = ldexp(round(v82), v108[0] - 11);
+                v80 = ldexp(round(v82), v107[0] - 11);
               }
 
               std::function<float ()(float)>::operator()(a12, v80);
@@ -6759,24 +5271,24 @@ LABEL_59:
             }
 
 LABEL_78:
-            v104 += v95;
-            ++v100;
+            v103 += v94;
+            ++v99;
           }
 
-          while (v100 != v96);
+          while (v99 != v95);
         }
 
 LABEL_80:
         ++v35;
-        v33 = v92;
+        v33 = v91;
       }
 
-      while (v35 != v92);
+      while (v35 != v91);
 LABEL_81:
-      ++v107;
+      ++v106;
     }
 
-    while (v107 != v91);
+    while (v106 != v90);
   }
 
   if (__src.i64[0])
@@ -6785,20 +5297,18 @@ LABEL_81:
     operator delete(__src.i64[0]);
   }
 
-  std::__function::__value_func<signed char ()(signed char)>::~__value_func[abi:ne200100](v120);
+  std::__function::__value_func<signed char ()(signed char)>::~__value_func[abi:ne200100](v119);
   if (__p)
   {
-    v113 = __p;
+    v112 = __p;
     operator delete(__p);
   }
 
-  if (v115)
+  if (v114)
   {
-    v116 = v115;
-    operator delete(v115);
+    v115 = v114;
+    operator delete(v114);
   }
-
-  v86 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2599DE3C4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, void *__p, uint64_t a39)
@@ -7065,21 +5575,21 @@ void sub_2599DF9E0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueMinMaxPool<MIL::Fp16,MIL::Fp16>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t *a3@<X2>, uint64_t *a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, __int16 a7@<W6>, uint64_t a8@<X7>, void *a9@<X8>, char a10)
+void MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueMinMaxPool<MIL::Fp16,MIL::Fp16>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, __int16 a7@<W6>, uint64_t a8@<X7>, void *a9@<X8>, char a10)
 {
-  v85 = *MEMORY[0x277D85DE8];
-  v81 = a7;
+  v84 = *MEMORY[0x277D85DE8];
+  v80 = a7;
   a9[1] = 0;
   a9[2] = 0;
   *a9 = 0;
   std::vector<MIL::Fp16>::resize(a9, a2);
   v14 = *a3;
-  v15 = a3[1];
+  v15 = *(a3 + 8);
   v16 = v15 - *a3;
-  if (v16 != a4[1] - *a4)
+  if (v16 != *(a4 + 8) - *a4)
   {
-    v56 = "x_rank == o_shape.size()";
-    v57 = 189;
+    v55 = "x_rank == o_shape.size()";
+    v56 = 189;
     goto LABEL_60;
   }
 
@@ -7088,18 +5598,18 @@ void MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueMinMaxPool
   v19 = *a5;
   if (v18 != (*(a5 + 8) - *a5) >> 2)
   {
-    v56 = "kernel_sizes.size() == num_spatial_dims";
-    v57 = 190;
+    v55 = "kernel_sizes.size() == num_spatial_dims";
+    v56 = 190;
     goto LABEL_60;
   }
 
   v20 = *a6;
   if (v18 != (*(a6 + 8) - *a6) >> 2)
   {
-    v56 = "strides.size() == num_spatial_dims";
-    v57 = 191;
+    v55 = "strides.size() == num_spatial_dims";
+    v56 = 191;
 LABEL_60:
-    __assert_rtn("ComputeValueMinMaxPool", "PePoolCpu.cpp", v57, v56);
+    __assert_rtn("ComputeValueMinMaxPool", "PePoolCpu.cpp", v56, v55);
   }
 
   if (v18 == 3)
@@ -7110,23 +5620,23 @@ LABEL_60:
       {
         v21 = 4 * v17 - 12;
         v22 = (v20 + v21);
-        v62 = v20[v17 - 4];
+        v61 = v20[v17 - 4];
         v23 = (v19 + v21);
-        v73 = v19[v17 - 4];
+        v72 = v19[v17 - 4];
         goto LABEL_11;
       }
 
-      v58 = "sz == 1";
-      v59 = 202;
+      v57 = "sz == 1";
+      v58 = 202;
     }
 
     else
     {
-      v58 = "kd == 1";
-      v59 = 201;
+      v57 = "kd == 1";
+      v58 = 201;
     }
 
-    __assert_rtn("ComputeValueMinMaxPool", "PePoolCpu.cpp", v59, v58);
+    __assert_rtn("ComputeValueMinMaxPool", "PePoolCpu.cpp", v58, v57);
   }
 
   v24 = 4 * v17;
@@ -7135,62 +5645,62 @@ LABEL_60:
     v26 = v24 - 12;
     v23 = (v19 + v26);
     v22 = (v20 + v26);
-    v73 = 1;
-    v62 = 1;
+    v72 = 1;
+    v61 = 1;
   }
 
   else
   {
-    v73 = v19[v17 - 4];
+    v72 = v19[v17 - 4];
     v25 = v24 - 12;
     v23 = (v19 + v25);
-    v62 = v20[v17 - 4];
+    v61 = v20[v17 - 4];
     v22 = (v20 + v25);
   }
 
 LABEL_11:
-  v64 = *v22;
+  v63 = *v22;
   v27 = *v23;
+  v77 = 0;
   v78 = 0;
   v79 = 0;
-  v80 = 0;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&v78, v14, v15, v17);
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&v77, v14, v15, v17);
   __p = 0;
+  v75 = 0;
   v76 = 0;
-  v77 = 0;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&__p, *a4, a4[1], (a4[1] - *a4) >> 3);
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&__p, *a4, *(a4 + 8), (*(a4 + 8) - *a4) >> 3);
   if (v17 == 3)
   {
     __src = vdupq_n_s64(1uLL);
-    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&v78, v78 + 8, __src.i8, v84, 2);
+    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&v77, v77 + 8, __src.i8, v83, 2);
     __src = vdupq_n_s64(1uLL);
-    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&__p, __p + 8, __src.i8, v84, 2);
+    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&__p, __p + 8, __src.i8, v83, 2);
   }
 
   else if (v17 == 4)
   {
     __src.i64[0] = 1;
-    std::vector<unsigned long long>::insert(&v78, v78 + 8, &__src);
+    std::vector<unsigned long long>::insert(&v77, v77 + 8, &__src);
     __src.i64[0] = 1;
     std::vector<unsigned long long>::insert(&__p, __p + 8, &__src);
   }
 
   v28 = *__p;
   v29 = *(__p + 1);
-  v63 = *(__p + 2);
-  v65 = *(__p + 3);
+  v62 = *(__p + 2);
+  v64 = *(__p + 3);
   v30 = *(__p + 4);
-  MIL::Fp16::GetFloat(&v81);
+  MIL::Fp16::GetFloat(&v80);
   __e = v31;
-  std::vector<float>::vector[abi:ne200100](&__src, v30);
+  std::vector<float>::vector[abi:ne200100](__src.i64, v30, &__e);
   if (v28)
   {
     v32 = v30;
     v33 = 0;
-    v72 = v27;
-    v60 = v28;
-    v61 = v29;
-    v66 = v32;
+    v71 = v27;
+    v59 = v28;
+    v60 = v29;
+    v65 = v32;
     do
     {
       if (v29)
@@ -7198,14 +5708,14 @@ LABEL_11:
         v34 = 0;
         do
         {
-          if (v63)
+          if (v62)
           {
-            for (i = 0; i != v63; ++i)
+            for (i = 0; i != v62; ++i)
             {
-              if (v65)
+              if (v64)
               {
+                v69 = 0;
                 v70 = 0;
-                v71 = 0;
                 do
                 {
                   if (v32)
@@ -7213,15 +5723,15 @@ LABEL_11:
                     v35 = 0;
                     do
                     {
-                      if (v73)
+                      if (v72)
                       {
                         v36 = 0;
-                        for (j = 0; j != v73; ++j)
+                        for (j = 0; j != v72; ++j)
                         {
                           if (v27)
                           {
                             v38 = 0;
-                            v39 = v71;
+                            v39 = v70;
                             do
                             {
                               if (v38 | j)
@@ -7278,7 +5788,7 @@ LABEL_11:
                           }
 
                           v36 = v40;
-                          v27 = v72;
+                          v27 = v71;
                         }
                       }
 
@@ -7301,32 +5811,32 @@ LABEL_11:
 
                       v52 = std::function<float ()(float)>::operator()(a8, v49);
                       v54 = MIL::Fp16::FromFloat(v52, v53);
-                      v32 = v66;
+                      v32 = v65;
                     }
 
-                    while (v35 != v66);
+                    while (v35 != v65);
                   }
 
-                  ++v70;
-                  v71 += v64;
+                  ++v69;
+                  v70 += v63;
                 }
 
-                while (v70 != v65);
+                while (v69 != v64);
               }
             }
           }
 
           ++v34;
-          v29 = v61;
+          v29 = v60;
         }
 
-        while (v34 != v61);
+        while (v34 != v60);
       }
 
       ++v33;
     }
 
-    while (v33 != v60);
+    while (v33 != v59);
   }
 
   if (__src.i64[0])
@@ -7337,17 +5847,15 @@ LABEL_11:
 
   if (__p)
   {
-    v76 = __p;
+    v75 = __p;
     operator delete(__p);
   }
 
-  if (v78)
+  if (v77)
   {
-    v79 = v78;
-    operator delete(v78);
+    v78 = v77;
+    operator delete(v77);
   }
-
-  v55 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2599DFFD0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *__p, uint64_t a27, uint64_t a28, void *a29, uint64_t a30)
@@ -7372,46 +5880,46 @@ void sub_2599DFFD0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueMinMaxPool<unsigned char,MIL::Fp16>(uint64_t a1@<X0>, size_t a2@<X1>, uint64_t *a3@<X2>, uint64_t *a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, __int16 a7@<W6>, uint64_t a8@<X7>, uint64_t a9@<X8>, char a10)
+void MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueMinMaxPool<unsigned char,MIL::Fp16>(char **__return_ptr a1@<X8>, uint64_t a2@<X0>, size_t a3@<X1>, uint64_t a4@<X2>, uint64_t a5@<X3>, uint64_t a6@<X4>, uint64_t a7@<X5>, __int16 a8@<W6>, uint64_t a9@<X7>, char a10)
 {
-  v86 = *MEMORY[0x277D85DE8];
-  v82 = a7;
-  *(a9 + 8) = 0;
-  *(a9 + 16) = 0;
-  *a9 = 0;
-  if (a2)
+  v85 = *MEMORY[0x277D85DE8];
+  v81 = a8;
+  a1[1] = 0;
+  a1[2] = 0;
+  *a1 = 0;
+  if (a3)
   {
-    std::vector<unsigned char>::__append(a9, a2);
+    std::vector<unsigned char>::__append(a1, a3);
   }
 
-  v69 = a9;
-  v15 = *a3;
-  v16 = a3[1];
-  v17 = v16 - *a3;
-  if (v17 != a4[1] - *a4)
+  v68 = a1;
+  v15 = *a4;
+  v16 = *(a4 + 8);
+  v17 = v16 - *a4;
+  if (v17 != *(a5 + 8) - *a5)
   {
-    v57 = "x_rank == o_shape.size()";
-    v58 = 189;
+    v56 = "x_rank == o_shape.size()";
+    v57 = 189;
     goto LABEL_69;
   }
 
   v18 = v17 >> 3;
   v19 = (v17 >> 3) - 2;
-  v20 = *a5;
-  if (v19 != (*(a5 + 8) - *a5) >> 2)
+  v20 = *a6;
+  if (v19 != (*(a6 + 8) - *a6) >> 2)
   {
-    v57 = "kernel_sizes.size() == num_spatial_dims";
-    v58 = 190;
+    v56 = "kernel_sizes.size() == num_spatial_dims";
+    v57 = 190;
     goto LABEL_69;
   }
 
-  v21 = *a6;
-  if (v19 != (*(a6 + 8) - *a6) >> 2)
+  v21 = *a7;
+  if (v19 != (*(a7 + 8) - *a7) >> 2)
   {
-    v57 = "strides.size() == num_spatial_dims";
-    v58 = 191;
+    v56 = "strides.size() == num_spatial_dims";
+    v57 = 191;
 LABEL_69:
-    __assert_rtn("ComputeValueMinMaxPool", "PePoolCpu.cpp", v58, v57);
+    __assert_rtn("ComputeValueMinMaxPool", "PePoolCpu.cpp", v57, v56);
   }
 
   if (v19 == 3)
@@ -7422,23 +5930,23 @@ LABEL_69:
       {
         v22 = 4 * v18 - 12;
         v23 = (v21 + v22);
-        v63 = v21[v18 - 4];
+        v62 = v21[v18 - 4];
         v24 = (v20 + v22);
-        v74 = v20[v18 - 4];
+        v73 = v20[v18 - 4];
         goto LABEL_13;
       }
 
-      v59 = "sz == 1";
-      v60 = 202;
+      v58 = "sz == 1";
+      v59 = 202;
     }
 
     else
     {
-      v59 = "kd == 1";
-      v60 = 201;
+      v58 = "kd == 1";
+      v59 = 201;
     }
 
-    __assert_rtn("ComputeValueMinMaxPool", "PePoolCpu.cpp", v60, v59);
+    __assert_rtn("ComputeValueMinMaxPool", "PePoolCpu.cpp", v59, v58);
   }
 
   v25 = 4 * v18;
@@ -7447,62 +5955,62 @@ LABEL_69:
     v27 = v25 - 12;
     v24 = (v20 + v27);
     v23 = (v21 + v27);
-    v74 = 1;
-    v63 = 1;
+    v73 = 1;
+    v62 = 1;
   }
 
   else
   {
-    v74 = v20[v18 - 4];
+    v73 = v20[v18 - 4];
     v26 = v25 - 12;
     v24 = (v20 + v26);
-    v63 = v21[v18 - 4];
+    v62 = v21[v18 - 4];
     v23 = (v21 + v26);
   }
 
 LABEL_13:
-  v65 = *v23;
+  v64 = *v23;
   v28 = *v24;
+  v78 = 0;
   v79 = 0;
   v80 = 0;
-  v81 = 0;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&v79, v15, v16, v18);
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&v78, v15, v16, v18);
   __p = 0;
+  v76 = 0;
   v77 = 0;
-  v78 = 0;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&__p, *a4, a4[1], (a4[1] - *a4) >> 3);
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&__p, *a5, *(a5 + 8), (*(a5 + 8) - *a5) >> 3);
   if (v18 == 3)
   {
     __src = vdupq_n_s64(1uLL);
-    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&v79, v79 + 8, __src.i8, v85, 2);
+    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&v78, v78 + 8, __src.i8, v84, 2);
     __src = vdupq_n_s64(1uLL);
-    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&__p, __p + 8, __src.i8, v85, 2);
+    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&__p, __p + 8, __src.i8, v84, 2);
   }
 
   else if (v18 == 4)
   {
     __src.i64[0] = 1;
-    std::vector<unsigned long long>::insert(&v79, v79 + 8, &__src);
+    std::vector<unsigned long long>::insert(&v78, v78 + 8, &__src);
     __src.i64[0] = 1;
     std::vector<unsigned long long>::insert(&__p, __p + 8, &__src);
   }
 
   v29 = *__p;
   v30 = *(__p + 1);
-  v64 = *(__p + 2);
-  v66 = *(__p + 3);
+  v63 = *(__p + 2);
+  v65 = *(__p + 3);
   v31 = *(__p + 4);
-  MIL::Fp16::GetFloat(&v82);
+  MIL::Fp16::GetFloat(&v81);
   __e = v32;
-  std::vector<float>::vector[abi:ne200100](&__src, v31);
+  std::vector<float>::vector[abi:ne200100](__src.i64, v31, &__e);
   if (v29)
   {
     v33 = v31;
     v34 = 0;
-    v73 = v28;
-    v61 = v29;
-    v62 = v30;
-    v67 = v33;
+    v72 = v28;
+    v60 = v29;
+    v61 = v30;
+    v66 = v33;
     do
     {
       if (v30)
@@ -7510,14 +6018,14 @@ LABEL_13:
         v35 = 0;
         do
         {
-          if (v64)
+          if (v63)
           {
-            for (i = 0; i != v64; ++i)
+            for (i = 0; i != v63; ++i)
             {
-              if (v66)
+              if (v65)
               {
+                v70 = 0;
                 v71 = 0;
-                v72 = 0;
                 do
                 {
                   if (v33)
@@ -7525,7 +6033,7 @@ LABEL_13:
                     v36 = 0;
                     do
                     {
-                      if (v74)
+                      if (v73)
                       {
                         v37 = 0;
                         v38 = 0;
@@ -7534,7 +6042,7 @@ LABEL_13:
                           if (v28)
                           {
                             v39 = 0;
-                            v40 = v72;
+                            v40 = v71;
                             do
                             {
                               if (v39 | v37)
@@ -7592,10 +6100,10 @@ LABEL_13:
 
                           ++v37;
                           v38 = v41;
-                          v28 = v73;
+                          v28 = v72;
                         }
 
-                        while (v37 != v74);
+                        while (v37 != v73);
                       }
 
                       else
@@ -7615,7 +6123,7 @@ LABEL_13:
                         v50 = ldexp(round(v52), __e - 11);
                       }
 
-                      std::function<float ()(float)>::operator()(a8, v50);
+                      std::function<float ()(float)>::operator()(a9, v50);
                       if (v53 == INFINITY)
                       {
                         LOBYTE(v54) = -1;
@@ -7637,32 +6145,32 @@ LABEL_13:
                         v54 = v55 & ~(v55 >> 31);
                       }
 
-                      v33 = v67;
+                      v33 = v66;
                     }
 
-                    while (v36 != v67);
+                    while (v36 != v66);
                   }
 
-                  ++v71;
-                  v72 += v65;
+                  ++v70;
+                  v71 += v64;
                 }
 
-                while (v71 != v66);
+                while (v70 != v65);
               }
             }
           }
 
           ++v35;
-          v30 = v62;
+          v30 = v61;
         }
 
-        while (v35 != v62);
+        while (v35 != v61);
       }
 
       ++v34;
     }
 
-    while (v34 != v61);
+    while (v34 != v60);
   }
 
   if (__src.i64[0])
@@ -7673,17 +6181,15 @@ LABEL_13:
 
   if (__p)
   {
-    v77 = __p;
+    v76 = __p;
     operator delete(__p);
   }
 
-  if (v79)
+  if (v78)
   {
-    v80 = v79;
-    operator delete(v79);
+    v79 = v78;
+    operator delete(v78);
   }
-
-  v56 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2599E060C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *__p, uint64_t a27, uint64_t a28, void *a29, uint64_t a30)
@@ -7708,46 +6214,46 @@ void sub_2599E060C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueMinMaxPool<signed char,MIL::Fp16>(uint64_t a1@<X0>, size_t a2@<X1>, uint64_t *a3@<X2>, uint64_t *a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, __int16 a7@<W6>, uint64_t a8@<X7>, uint64_t a9@<X8>, char a10)
+void MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueMinMaxPool<signed char,MIL::Fp16>(char **__return_ptr a1@<X8>, uint64_t a2@<X0>, size_t a3@<X1>, uint64_t a4@<X2>, uint64_t a5@<X3>, uint64_t a6@<X4>, uint64_t a7@<X5>, __int16 a8@<W6>, uint64_t a9@<X7>, char a10)
 {
-  v86 = *MEMORY[0x277D85DE8];
-  v82 = a7;
-  *(a9 + 8) = 0;
-  *(a9 + 16) = 0;
-  *a9 = 0;
-  if (a2)
+  v85 = *MEMORY[0x277D85DE8];
+  v81 = a8;
+  a1[1] = 0;
+  a1[2] = 0;
+  *a1 = 0;
+  if (a3)
   {
-    std::vector<unsigned char>::__append(a9, a2);
+    std::vector<unsigned char>::__append(a1, a3);
   }
 
-  v69 = a9;
-  v15 = *a3;
-  v16 = a3[1];
-  v17 = v16 - *a3;
-  if (v17 != a4[1] - *a4)
+  v68 = a1;
+  v15 = *a4;
+  v16 = *(a4 + 8);
+  v17 = v16 - *a4;
+  if (v17 != *(a5 + 8) - *a5)
   {
-    v57 = "x_rank == o_shape.size()";
-    v58 = 189;
+    v56 = "x_rank == o_shape.size()";
+    v57 = 189;
     goto LABEL_71;
   }
 
   v18 = v17 >> 3;
   v19 = (v17 >> 3) - 2;
-  v20 = *a5;
-  if (v19 != (*(a5 + 8) - *a5) >> 2)
+  v20 = *a6;
+  if (v19 != (*(a6 + 8) - *a6) >> 2)
   {
-    v57 = "kernel_sizes.size() == num_spatial_dims";
-    v58 = 190;
+    v56 = "kernel_sizes.size() == num_spatial_dims";
+    v57 = 190;
     goto LABEL_71;
   }
 
-  v21 = *a6;
-  if (v19 != (*(a6 + 8) - *a6) >> 2)
+  v21 = *a7;
+  if (v19 != (*(a7 + 8) - *a7) >> 2)
   {
-    v57 = "strides.size() == num_spatial_dims";
-    v58 = 191;
+    v56 = "strides.size() == num_spatial_dims";
+    v57 = 191;
 LABEL_71:
-    __assert_rtn("ComputeValueMinMaxPool", "PePoolCpu.cpp", v58, v57);
+    __assert_rtn("ComputeValueMinMaxPool", "PePoolCpu.cpp", v57, v56);
   }
 
   if (v19 == 3)
@@ -7758,23 +6264,23 @@ LABEL_71:
       {
         v22 = 4 * v18 - 12;
         v23 = (v21 + v22);
-        v63 = v21[v18 - 4];
+        v62 = v21[v18 - 4];
         v24 = (v20 + v22);
-        v74 = v20[v18 - 4];
+        v73 = v20[v18 - 4];
         goto LABEL_13;
       }
 
-      v59 = "sz == 1";
-      v60 = 202;
+      v58 = "sz == 1";
+      v59 = 202;
     }
 
     else
     {
-      v59 = "kd == 1";
-      v60 = 201;
+      v58 = "kd == 1";
+      v59 = 201;
     }
 
-    __assert_rtn("ComputeValueMinMaxPool", "PePoolCpu.cpp", v60, v59);
+    __assert_rtn("ComputeValueMinMaxPool", "PePoolCpu.cpp", v59, v58);
   }
 
   v25 = 4 * v18;
@@ -7783,62 +6289,62 @@ LABEL_71:
     v27 = v25 - 12;
     v24 = (v20 + v27);
     v23 = (v21 + v27);
-    v74 = 1;
-    v63 = 1;
+    v73 = 1;
+    v62 = 1;
   }
 
   else
   {
-    v74 = v20[v18 - 4];
+    v73 = v20[v18 - 4];
     v26 = v25 - 12;
     v24 = (v20 + v26);
-    v63 = v21[v18 - 4];
+    v62 = v21[v18 - 4];
     v23 = (v21 + v26);
   }
 
 LABEL_13:
-  v65 = *v23;
+  v64 = *v23;
   v28 = *v24;
+  v78 = 0;
   v79 = 0;
   v80 = 0;
-  v81 = 0;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&v79, v15, v16, v18);
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&v78, v15, v16, v18);
   __p = 0;
+  v76 = 0;
   v77 = 0;
-  v78 = 0;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&__p, *a4, a4[1], (a4[1] - *a4) >> 3);
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&__p, *a5, *(a5 + 8), (*(a5 + 8) - *a5) >> 3);
   if (v18 == 3)
   {
     __src = vdupq_n_s64(1uLL);
-    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&v79, v79 + 8, __src.i8, v85, 2);
+    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&v78, v78 + 8, __src.i8, v84, 2);
     __src = vdupq_n_s64(1uLL);
-    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&__p, __p + 8, __src.i8, v85, 2);
+    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&__p, __p + 8, __src.i8, v84, 2);
   }
 
   else if (v18 == 4)
   {
     __src.i64[0] = 1;
-    std::vector<unsigned long long>::insert(&v79, v79 + 8, &__src);
+    std::vector<unsigned long long>::insert(&v78, v78 + 8, &__src);
     __src.i64[0] = 1;
     std::vector<unsigned long long>::insert(&__p, __p + 8, &__src);
   }
 
   v29 = *__p;
   v30 = *(__p + 1);
-  v64 = *(__p + 2);
-  v66 = *(__p + 3);
+  v63 = *(__p + 2);
+  v65 = *(__p + 3);
   v31 = *(__p + 4);
-  MIL::Fp16::GetFloat(&v82);
+  MIL::Fp16::GetFloat(&v81);
   __e = v32;
-  std::vector<float>::vector[abi:ne200100](&__src, v31);
+  std::vector<float>::vector[abi:ne200100](__src.i64, v31, &__e);
   if (v29)
   {
     v33 = v31;
     v34 = 0;
-    v73 = v28;
-    v61 = v29;
-    v62 = v30;
-    v67 = v33;
+    v72 = v28;
+    v60 = v29;
+    v61 = v30;
+    v66 = v33;
     do
     {
       if (v30)
@@ -7846,14 +6352,14 @@ LABEL_13:
         v35 = 0;
         do
         {
-          if (v64)
+          if (v63)
           {
-            for (i = 0; i != v64; ++i)
+            for (i = 0; i != v63; ++i)
             {
-              if (v66)
+              if (v65)
               {
+                v70 = 0;
                 v71 = 0;
-                v72 = 0;
                 do
                 {
                   if (v33)
@@ -7861,7 +6367,7 @@ LABEL_13:
                     v36 = 0;
                     do
                     {
-                      if (v74)
+                      if (v73)
                       {
                         v37 = 0;
                         v38 = 0;
@@ -7870,7 +6376,7 @@ LABEL_13:
                           if (v28)
                           {
                             v39 = 0;
-                            v40 = v72;
+                            v40 = v71;
                             do
                             {
                               if (v39 | v37)
@@ -7928,10 +6434,10 @@ LABEL_13:
 
                           ++v37;
                           v38 = v41;
-                          v28 = v73;
+                          v28 = v72;
                         }
 
-                        while (v37 != v74);
+                        while (v37 != v73);
                       }
 
                       else
@@ -7951,7 +6457,7 @@ LABEL_13:
                         v50 = ldexp(round(v52), __e - 11);
                       }
 
-                      std::function<float ()(float)>::operator()(a8, v50);
+                      std::function<float ()(float)>::operator()(a9, v50);
                       if (v53 == INFINITY)
                       {
                         v54 = 127;
@@ -7981,32 +6487,32 @@ LABEL_13:
                         }
                       }
 
-                      v33 = v67;
+                      v33 = v66;
                     }
 
-                    while (v36 != v67);
+                    while (v36 != v66);
                   }
 
-                  ++v71;
-                  v72 += v65;
+                  ++v70;
+                  v71 += v64;
                 }
 
-                while (v71 != v66);
+                while (v70 != v65);
               }
             }
           }
 
           ++v35;
-          v30 = v62;
+          v30 = v61;
         }
 
-        while (v35 != v62);
+        while (v35 != v61);
       }
 
       ++v34;
     }
 
-    while (v34 != v61);
+    while (v34 != v60);
   }
 
   if (__src.i64[0])
@@ -8017,17 +6523,15 @@ LABEL_13:
 
   if (__p)
   {
-    v77 = __p;
+    v76 = __p;
     operator delete(__p);
   }
 
-  if (v79)
+  if (v78)
   {
-    v80 = v79;
-    operator delete(v79);
+    v79 = v78;
+    operator delete(v78);
   }
-
-  v56 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2599E0C54(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *__p, uint64_t a27, uint64_t a28, void *a29, uint64_t a30)
@@ -8052,21 +6556,21 @@ void sub_2599E0C54(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueMinMaxPool<MIL::Fp16,unsigned char>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t *a3@<X2>, uint64_t *a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, __int16 a7@<W6>, uint64_t a8@<X7>, void *a9@<X8>, char a10)
+void MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueMinMaxPool<MIL::Fp16,unsigned char>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, __int16 a7@<W6>, uint64_t a8@<X7>, void *a9@<X8>, char a10)
 {
-  v77 = *MEMORY[0x277D85DE8];
-  v73 = a7;
+  v76 = *MEMORY[0x277D85DE8];
+  v72 = a7;
   a9[1] = 0;
   a9[2] = 0;
   *a9 = 0;
   std::vector<MIL::Fp16>::resize(a9, a2);
   v14 = *a3;
-  v15 = a3[1];
+  v15 = *(a3 + 8);
   v16 = v15 - *a3;
-  if (v16 != a4[1] - *a4)
+  if (v16 != *(a4 + 8) - *a4)
   {
-    v48 = "x_rank == o_shape.size()";
-    v49 = 189;
+    v47 = "x_rank == o_shape.size()";
+    v48 = 189;
     goto LABEL_55;
   }
 
@@ -8075,18 +6579,18 @@ void MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueMinMaxPool
   v19 = *a5;
   if (v18 != (*(a5 + 8) - *a5) >> 2)
   {
-    v48 = "kernel_sizes.size() == num_spatial_dims";
-    v49 = 190;
+    v47 = "kernel_sizes.size() == num_spatial_dims";
+    v48 = 190;
     goto LABEL_55;
   }
 
   v20 = *a6;
   if (v18 != (*(a6 + 8) - *a6) >> 2)
   {
-    v48 = "strides.size() == num_spatial_dims";
-    v49 = 191;
+    v47 = "strides.size() == num_spatial_dims";
+    v48 = 191;
 LABEL_55:
-    __assert_rtn("ComputeValueMinMaxPool", "PePoolCpu.cpp", v49, v48);
+    __assert_rtn("ComputeValueMinMaxPool", "PePoolCpu.cpp", v48, v47);
   }
 
   if (v18 == 3)
@@ -8097,23 +6601,23 @@ LABEL_55:
       {
         v21 = 4 * v17 - 12;
         v22 = (v20 + v21);
-        v54 = v20[v17 - 4];
+        v53 = v20[v17 - 4];
         v23 = (v19 + v21);
-        v65 = v19[v17 - 4];
+        v64 = v19[v17 - 4];
         goto LABEL_11;
       }
 
-      v50 = "sz == 1";
-      v51 = 202;
+      v49 = "sz == 1";
+      v50 = 202;
     }
 
     else
     {
-      v50 = "kd == 1";
-      v51 = 201;
+      v49 = "kd == 1";
+      v50 = 201;
     }
 
-    __assert_rtn("ComputeValueMinMaxPool", "PePoolCpu.cpp", v51, v50);
+    __assert_rtn("ComputeValueMinMaxPool", "PePoolCpu.cpp", v50, v49);
   }
 
   if (v18 <= 1)
@@ -8121,61 +6625,61 @@ LABEL_55:
     v25 = 4 * v17 - 12;
     v23 = (v19 + v25);
     v22 = (v20 + v25);
-    v65 = 1;
-    v54 = 1;
+    v64 = 1;
+    v53 = 1;
   }
 
   else
   {
-    v65 = v19[v17 - 4];
+    v64 = v19[v17 - 4];
     v24 = 4 * v17 - 12;
     v23 = (v19 + v24);
-    v54 = v20[v17 - 4];
+    v53 = v20[v17 - 4];
     v22 = (v20 + v24);
   }
 
 LABEL_11:
-  v56 = *v22;
+  v55 = *v22;
   v26 = *v23;
+  v69 = 0;
   v70 = 0;
   v71 = 0;
-  v72 = 0;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&v70, v14, v15, v17);
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&v69, v14, v15, v17);
   __p = 0;
+  v67 = 0;
   v68 = 0;
-  v69 = 0;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&__p, *a4, a4[1], (a4[1] - *a4) >> 3);
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&__p, *a4, *(a4 + 8), (*(a4 + 8) - *a4) >> 3);
   if (v17 == 3)
   {
     __src = vdupq_n_s64(1uLL);
-    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&v70, v70 + 8, __src.i8, v76, 2);
+    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&v69, v69 + 8, __src.i8, v75, 2);
     __src = vdupq_n_s64(1uLL);
-    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&__p, __p + 8, __src.i8, v76, 2);
+    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&__p, __p + 8, __src.i8, v75, 2);
   }
 
   else if (v17 == 4)
   {
     __src.i64[0] = 1;
-    std::vector<unsigned long long>::insert(&v70, v70 + 8, &__src);
+    std::vector<unsigned long long>::insert(&v69, v69 + 8, &__src);
     __src.i64[0] = 1;
     std::vector<unsigned long long>::insert(&__p, __p + 8, &__src);
   }
 
   v27 = *__p;
   v28 = *(__p + 1);
-  v55 = *(__p + 2);
-  v57 = *(__p + 3);
+  v54 = *(__p + 2);
+  v56 = *(__p + 3);
   v29 = *(__p + 4);
-  MIL::Fp16::GetFloat(&v73);
+  MIL::Fp16::GetFloat(&v72);
   __e = v30;
-  std::vector<float>::vector[abi:ne200100](&__src, v29);
+  std::vector<float>::vector[abi:ne200100](__src.i64, v29, &__e);
   if (v27)
   {
     v31 = 0;
-    v64 = v26;
-    v52 = v27;
-    v53 = v28;
-    v58 = v29;
+    v63 = v26;
+    v51 = v27;
+    v52 = v28;
+    v57 = v29;
     do
     {
       if (v28)
@@ -8183,14 +6687,14 @@ LABEL_11:
         v32 = 0;
         do
         {
-          if (v55)
+          if (v54)
           {
-            for (i = 0; i != v55; ++i)
+            for (i = 0; i != v54; ++i)
             {
-              if (v57)
+              if (v56)
               {
-                v63 = 0;
-                for (j = 0; j != v57; ++j)
+                v62 = 0;
+                for (j = 0; j != v56; ++j)
                 {
                   if (v29)
                   {
@@ -8198,7 +6702,7 @@ LABEL_11:
                     do
                     {
                       v34 = a10 - 1;
-                      if (v65)
+                      if (v64)
                       {
                         v35 = 0;
                         v34 = a10 - 1;
@@ -8207,7 +6711,7 @@ LABEL_11:
                           if (v26)
                           {
                             v36 = 0;
-                            v37 = v63;
+                            v37 = v62;
                             do
                             {
                               v39 = *(a1 + Index);
@@ -8241,10 +6745,10 @@ LABEL_11:
                           }
 
                           ++v35;
-                          v26 = v64;
+                          v26 = v63;
                         }
 
-                        while (v35 != v65);
+                        while (v35 != v64);
                       }
 
                       v40 = *(__src.i64[0] + 4 * v33) * v34;
@@ -8258,30 +6762,30 @@ LABEL_11:
                       }
 
                       v44 = std::function<float ()(float)>::operator()(a8, v41);
-                      v29 = v58;
+                      v29 = v57;
                       v46 = MIL::Fp16::FromFloat(v44, v45);
                     }
 
-                    while (v33 != v58);
+                    while (v33 != v57);
                   }
 
-                  v63 += v56;
+                  v62 += v55;
                 }
               }
             }
           }
 
           ++v32;
-          v28 = v53;
+          v28 = v52;
         }
 
-        while (v32 != v53);
+        while (v32 != v52);
       }
 
       ++v31;
     }
 
-    while (v31 != v52);
+    while (v31 != v51);
   }
 
   if (__src.i64[0])
@@ -8292,17 +6796,15 @@ LABEL_11:
 
   if (__p)
   {
-    v68 = __p;
+    v67 = __p;
     operator delete(__p);
   }
 
-  if (v70)
+  if (v69)
   {
-    v71 = v70;
-    operator delete(v70);
+    v70 = v69;
+    operator delete(v69);
   }
-
-  v47 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2599E11FC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *__p, uint64_t a27, uint64_t a28, void *a29, uint64_t a30)
@@ -8327,45 +6829,45 @@ void sub_2599E11FC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueMinMaxPool<unsigned char,unsigned char>(uint64_t a1@<X0>, size_t a2@<X1>, uint64_t *a3@<X2>, uint64_t *a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, __int16 a7@<W6>, uint64_t a8@<X7>, uint64_t a9@<X8>, char a10)
+void MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueMinMaxPool<unsigned char,unsigned char>(char **__return_ptr a1@<X8>, uint64_t a2@<X0>, size_t a3@<X1>, uint64_t a4@<X2>, uint64_t a5@<X3>, uint64_t a6@<X4>, uint64_t a7@<X5>, __int16 a8@<W6>, uint64_t a9@<X7>, char a10)
 {
-  v78 = *MEMORY[0x277D85DE8];
-  v74 = a7;
-  *(a9 + 8) = 0;
-  *(a9 + 16) = 0;
-  *a9 = 0;
-  if (a2)
+  v77 = *MEMORY[0x277D85DE8];
+  v73 = a8;
+  a1[1] = 0;
+  a1[2] = 0;
+  *a1 = 0;
+  if (a3)
   {
-    std::vector<unsigned char>::__append(a9, a2);
+    std::vector<unsigned char>::__append(a1, a3);
   }
 
-  v14 = *a3;
-  v15 = a3[1];
-  v16 = v15 - *a3;
-  if (v16 != a4[1] - *a4)
+  v14 = *a4;
+  v15 = *(a4 + 8);
+  v16 = v15 - *a4;
+  if (v16 != *(a5 + 8) - *a5)
   {
-    v49 = "x_rank == o_shape.size()";
-    v50 = 189;
+    v48 = "x_rank == o_shape.size()";
+    v49 = 189;
     goto LABEL_64;
   }
 
   v17 = v16 >> 3;
   v18 = (v16 >> 3) - 2;
-  v19 = *a5;
-  if (v18 != (*(a5 + 8) - *a5) >> 2)
+  v19 = *a6;
+  if (v18 != (*(a6 + 8) - *a6) >> 2)
   {
-    v49 = "kernel_sizes.size() == num_spatial_dims";
-    v50 = 190;
+    v48 = "kernel_sizes.size() == num_spatial_dims";
+    v49 = 190;
     goto LABEL_64;
   }
 
-  v20 = *a6;
-  if (v18 != (*(a6 + 8) - *a6) >> 2)
+  v20 = *a7;
+  if (v18 != (*(a7 + 8) - *a7) >> 2)
   {
-    v49 = "strides.size() == num_spatial_dims";
-    v50 = 191;
+    v48 = "strides.size() == num_spatial_dims";
+    v49 = 191;
 LABEL_64:
-    __assert_rtn("ComputeValueMinMaxPool", "PePoolCpu.cpp", v50, v49);
+    __assert_rtn("ComputeValueMinMaxPool", "PePoolCpu.cpp", v49, v48);
   }
 
   if (v18 == 3)
@@ -8376,23 +6878,23 @@ LABEL_64:
       {
         v21 = 4 * v17 - 12;
         v22 = (v20 + v21);
-        v55 = v20[v17 - 4];
+        v54 = v20[v17 - 4];
         v23 = (v19 + v21);
-        v66 = v19[v17 - 4];
+        v65 = v19[v17 - 4];
         goto LABEL_13;
       }
 
-      v51 = "sz == 1";
-      v52 = 202;
+      v50 = "sz == 1";
+      v51 = 202;
     }
 
     else
     {
-      v51 = "kd == 1";
-      v52 = 201;
+      v50 = "kd == 1";
+      v51 = 201;
     }
 
-    __assert_rtn("ComputeValueMinMaxPool", "PePoolCpu.cpp", v52, v51);
+    __assert_rtn("ComputeValueMinMaxPool", "PePoolCpu.cpp", v51, v50);
   }
 
   v24 = 4 * v17;
@@ -8401,61 +6903,61 @@ LABEL_64:
     v26 = v24 - 12;
     v23 = (v19 + v26);
     v22 = (v20 + v26);
-    v66 = 1;
-    v55 = 1;
+    v65 = 1;
+    v54 = 1;
   }
 
   else
   {
-    v66 = v19[v17 - 4];
+    v65 = v19[v17 - 4];
     v25 = v24 - 12;
     v23 = (v19 + v25);
-    v55 = v20[v17 - 4];
+    v54 = v20[v17 - 4];
     v22 = (v20 + v25);
   }
 
 LABEL_13:
-  v57 = *v22;
+  v56 = *v22;
   v27 = *v23;
+  v70 = 0;
   v71 = 0;
   v72 = 0;
-  v73 = 0;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&v71, v14, v15, v17);
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&v70, v14, v15, v17);
   __p = 0;
+  v68 = 0;
   v69 = 0;
-  v70 = 0;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&__p, *a4, a4[1], (a4[1] - *a4) >> 3);
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&__p, *a5, *(a5 + 8), (*(a5 + 8) - *a5) >> 3);
   if (v17 == 3)
   {
     __src = vdupq_n_s64(1uLL);
-    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&v71, v71 + 8, __src.i8, v77, 2);
+    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&v70, v70 + 8, __src.i8, v76, 2);
     __src = vdupq_n_s64(1uLL);
-    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&__p, __p + 8, __src.i8, v77, 2);
+    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&__p, __p + 8, __src.i8, v76, 2);
   }
 
   else if (v17 == 4)
   {
     __src.i64[0] = 1;
-    std::vector<unsigned long long>::insert(&v71, v71 + 8, &__src);
+    std::vector<unsigned long long>::insert(&v70, v70 + 8, &__src);
     __src.i64[0] = 1;
     std::vector<unsigned long long>::insert(&__p, __p + 8, &__src);
   }
 
   v28 = *__p;
   v29 = *(__p + 1);
-  v56 = *(__p + 2);
-  v58 = *(__p + 3);
+  v55 = *(__p + 2);
+  v57 = *(__p + 3);
   v30 = *(__p + 4);
-  MIL::Fp16::GetFloat(&v74);
+  MIL::Fp16::GetFloat(&v73);
   __e = v31;
-  std::vector<float>::vector[abi:ne200100](&__src, v30);
+  std::vector<float>::vector[abi:ne200100](__src.i64, v30, &__e);
   if (v28)
   {
     v32 = 0;
-    v65 = v27;
-    v53 = v28;
-    v54 = v29;
-    v59 = v30;
+    v64 = v27;
+    v52 = v28;
+    v53 = v29;
+    v58 = v30;
     do
     {
       if (v29)
@@ -8463,14 +6965,14 @@ LABEL_13:
         v33 = 0;
         do
         {
-          if (v56)
+          if (v55)
           {
-            for (i = 0; i != v56; ++i)
+            for (i = 0; i != v55; ++i)
             {
-              if (v58)
+              if (v57)
               {
-                v64 = 0;
-                for (j = 0; j != v58; ++j)
+                v63 = 0;
+                for (j = 0; j != v57; ++j)
                 {
                   if (v30)
                   {
@@ -8478,7 +6980,7 @@ LABEL_13:
                     do
                     {
                       v35 = a10 - 1;
-                      if (v66)
+                      if (v65)
                       {
                         v36 = 0;
                         v35 = a10 - 1;
@@ -8487,29 +6989,29 @@ LABEL_13:
                           if (v27)
                           {
                             v37 = 0;
-                            v38 = v64;
+                            v38 = v63;
                             do
                             {
-                              v40 = *(a1 + Index);
+                              v40 = *(a2 + Index);
                               if (v37 | v36)
                               {
                                 if (a10)
                                 {
                                   if (v35 <= v40)
                                   {
-                                    v35 = *(a1 + Index);
+                                    v35 = *(a2 + Index);
                                   }
                                 }
 
                                 else if (v35 >= v40)
                                 {
-                                  v35 = *(a1 + Index);
+                                  v35 = *(a2 + Index);
                                 }
                               }
 
                               else
                               {
-                                v35 = *(a1 + Index);
+                                v35 = *(a2 + Index);
                               }
 
                               ++v37;
@@ -8521,10 +7023,10 @@ LABEL_13:
                           }
 
                           ++v36;
-                          v27 = v65;
+                          v27 = v64;
                         }
 
-                        while (v36 != v66);
+                        while (v36 != v65);
                       }
 
                       v41 = *(__src.i64[0] + 4 * v34) * v35;
@@ -8537,8 +7039,8 @@ LABEL_13:
                         v42 = ldexp(round(v44), __e - 11);
                       }
 
-                      std::function<float ()(float)>::operator()(a8, v42);
-                      v30 = v59;
+                      std::function<float ()(float)>::operator()(a9, v42);
+                      v30 = v58;
                       if (v45 == INFINITY)
                       {
                         LOBYTE(v46) = -1;
@@ -8561,26 +7063,26 @@ LABEL_13:
                       }
                     }
 
-                    while (v34 != v59);
+                    while (v34 != v58);
                   }
 
-                  v64 += v57;
+                  v63 += v56;
                 }
               }
             }
           }
 
           ++v33;
-          v29 = v54;
+          v29 = v53;
         }
 
-        while (v33 != v54);
+        while (v33 != v53);
       }
 
       ++v32;
     }
 
-    while (v32 != v53);
+    while (v32 != v52);
   }
 
   if (__src.i64[0])
@@ -8591,17 +7093,15 @@ LABEL_13:
 
   if (__p)
   {
-    v69 = __p;
+    v68 = __p;
     operator delete(__p);
   }
 
-  if (v71)
+  if (v70)
   {
-    v72 = v71;
-    operator delete(v71);
+    v71 = v70;
+    operator delete(v70);
   }
-
-  v48 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2599E17CC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *__p, uint64_t a27, uint64_t a28, void *a29, uint64_t a30)
@@ -8626,45 +7126,45 @@ void sub_2599E17CC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueMinMaxPool<signed char,unsigned char>(uint64_t a1@<X0>, size_t a2@<X1>, uint64_t *a3@<X2>, uint64_t *a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, __int16 a7@<W6>, uint64_t a8@<X7>, uint64_t a9@<X8>, char a10)
+void MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueMinMaxPool<signed char,unsigned char>(char **__return_ptr a1@<X8>, uint64_t a2@<X0>, size_t a3@<X1>, uint64_t a4@<X2>, uint64_t a5@<X3>, uint64_t a6@<X4>, uint64_t a7@<X5>, __int16 a8@<W6>, uint64_t a9@<X7>, char a10)
 {
-  v78 = *MEMORY[0x277D85DE8];
-  v74 = a7;
-  *(a9 + 8) = 0;
-  *(a9 + 16) = 0;
-  *a9 = 0;
-  if (a2)
+  v77 = *MEMORY[0x277D85DE8];
+  v73 = a8;
+  a1[1] = 0;
+  a1[2] = 0;
+  *a1 = 0;
+  if (a3)
   {
-    std::vector<unsigned char>::__append(a9, a2);
+    std::vector<unsigned char>::__append(a1, a3);
   }
 
-  v14 = *a3;
-  v15 = a3[1];
-  v16 = v15 - *a3;
-  if (v16 != a4[1] - *a4)
+  v14 = *a4;
+  v15 = *(a4 + 8);
+  v16 = v15 - *a4;
+  if (v16 != *(a5 + 8) - *a5)
   {
-    v49 = "x_rank == o_shape.size()";
-    v50 = 189;
+    v48 = "x_rank == o_shape.size()";
+    v49 = 189;
     goto LABEL_66;
   }
 
   v17 = v16 >> 3;
   v18 = (v16 >> 3) - 2;
-  v19 = *a5;
-  if (v18 != (*(a5 + 8) - *a5) >> 2)
+  v19 = *a6;
+  if (v18 != (*(a6 + 8) - *a6) >> 2)
   {
-    v49 = "kernel_sizes.size() == num_spatial_dims";
-    v50 = 190;
+    v48 = "kernel_sizes.size() == num_spatial_dims";
+    v49 = 190;
     goto LABEL_66;
   }
 
-  v20 = *a6;
-  if (v18 != (*(a6 + 8) - *a6) >> 2)
+  v20 = *a7;
+  if (v18 != (*(a7 + 8) - *a7) >> 2)
   {
-    v49 = "strides.size() == num_spatial_dims";
-    v50 = 191;
+    v48 = "strides.size() == num_spatial_dims";
+    v49 = 191;
 LABEL_66:
-    __assert_rtn("ComputeValueMinMaxPool", "PePoolCpu.cpp", v50, v49);
+    __assert_rtn("ComputeValueMinMaxPool", "PePoolCpu.cpp", v49, v48);
   }
 
   if (v18 == 3)
@@ -8675,23 +7175,23 @@ LABEL_66:
       {
         v21 = 4 * v17 - 12;
         v22 = (v20 + v21);
-        v55 = v20[v17 - 4];
+        v54 = v20[v17 - 4];
         v23 = (v19 + v21);
-        v66 = v19[v17 - 4];
+        v65 = v19[v17 - 4];
         goto LABEL_13;
       }
 
-      v51 = "sz == 1";
-      v52 = 202;
+      v50 = "sz == 1";
+      v51 = 202;
     }
 
     else
     {
-      v51 = "kd == 1";
-      v52 = 201;
+      v50 = "kd == 1";
+      v51 = 201;
     }
 
-    __assert_rtn("ComputeValueMinMaxPool", "PePoolCpu.cpp", v52, v51);
+    __assert_rtn("ComputeValueMinMaxPool", "PePoolCpu.cpp", v51, v50);
   }
 
   v24 = 4 * v17;
@@ -8700,61 +7200,61 @@ LABEL_66:
     v26 = v24 - 12;
     v23 = (v19 + v26);
     v22 = (v20 + v26);
-    v66 = 1;
-    v55 = 1;
+    v65 = 1;
+    v54 = 1;
   }
 
   else
   {
-    v66 = v19[v17 - 4];
+    v65 = v19[v17 - 4];
     v25 = v24 - 12;
     v23 = (v19 + v25);
-    v55 = v20[v17 - 4];
+    v54 = v20[v17 - 4];
     v22 = (v20 + v25);
   }
 
 LABEL_13:
-  v57 = *v22;
+  v56 = *v22;
   v27 = *v23;
+  v70 = 0;
   v71 = 0;
   v72 = 0;
-  v73 = 0;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&v71, v14, v15, v17);
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&v70, v14, v15, v17);
   __p = 0;
+  v68 = 0;
   v69 = 0;
-  v70 = 0;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&__p, *a4, a4[1], (a4[1] - *a4) >> 3);
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&__p, *a5, *(a5 + 8), (*(a5 + 8) - *a5) >> 3);
   if (v17 == 3)
   {
     __src = vdupq_n_s64(1uLL);
-    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&v71, v71 + 8, __src.i8, v77, 2);
+    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&v70, v70 + 8, __src.i8, v76, 2);
     __src = vdupq_n_s64(1uLL);
-    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&__p, __p + 8, __src.i8, v77, 2);
+    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&__p, __p + 8, __src.i8, v76, 2);
   }
 
   else if (v17 == 4)
   {
     __src.i64[0] = 1;
-    std::vector<unsigned long long>::insert(&v71, v71 + 8, &__src);
+    std::vector<unsigned long long>::insert(&v70, v70 + 8, &__src);
     __src.i64[0] = 1;
     std::vector<unsigned long long>::insert(&__p, __p + 8, &__src);
   }
 
   v28 = *__p;
   v29 = *(__p + 1);
-  v56 = *(__p + 2);
-  v58 = *(__p + 3);
+  v55 = *(__p + 2);
+  v57 = *(__p + 3);
   v30 = *(__p + 4);
-  MIL::Fp16::GetFloat(&v74);
+  MIL::Fp16::GetFloat(&v73);
   __e = v31;
-  std::vector<float>::vector[abi:ne200100](&__src, v30);
+  std::vector<float>::vector[abi:ne200100](__src.i64, v30, &__e);
   if (v28)
   {
     v32 = 0;
-    v65 = v27;
-    v53 = v28;
-    v54 = v29;
-    v59 = v30;
+    v64 = v27;
+    v52 = v28;
+    v53 = v29;
+    v58 = v30;
     do
     {
       if (v29)
@@ -8762,14 +7262,14 @@ LABEL_13:
         v33 = 0;
         do
         {
-          if (v56)
+          if (v55)
           {
-            for (i = 0; i != v56; ++i)
+            for (i = 0; i != v55; ++i)
             {
-              if (v58)
+              if (v57)
               {
-                v64 = 0;
-                for (j = 0; j != v58; ++j)
+                v63 = 0;
+                for (j = 0; j != v57; ++j)
                 {
                   if (v30)
                   {
@@ -8777,7 +7277,7 @@ LABEL_13:
                     do
                     {
                       v35 = a10 - 1;
-                      if (v66)
+                      if (v65)
                       {
                         v36 = 0;
                         v35 = a10 - 1;
@@ -8786,29 +7286,29 @@ LABEL_13:
                           if (v27)
                           {
                             v37 = 0;
-                            v38 = v64;
+                            v38 = v63;
                             do
                             {
-                              v40 = *(a1 + Index);
+                              v40 = *(a2 + Index);
                               if (v37 | v36)
                               {
                                 if (a10)
                                 {
                                   if (v35 <= v40)
                                   {
-                                    v35 = *(a1 + Index);
+                                    v35 = *(a2 + Index);
                                   }
                                 }
 
                                 else if (v35 >= v40)
                                 {
-                                  v35 = *(a1 + Index);
+                                  v35 = *(a2 + Index);
                                 }
                               }
 
                               else
                               {
-                                v35 = *(a1 + Index);
+                                v35 = *(a2 + Index);
                               }
 
                               ++v37;
@@ -8820,10 +7320,10 @@ LABEL_13:
                           }
 
                           ++v36;
-                          v27 = v65;
+                          v27 = v64;
                         }
 
-                        while (v36 != v66);
+                        while (v36 != v65);
                       }
 
                       v41 = *(__src.i64[0] + 4 * v34) * v35;
@@ -8836,8 +7336,8 @@ LABEL_13:
                         v42 = ldexp(round(v44), __e - 11);
                       }
 
-                      std::function<float ()(float)>::operator()(a8, v42);
-                      v30 = v59;
+                      std::function<float ()(float)>::operator()(a9, v42);
+                      v30 = v58;
                       if (v45 == INFINITY)
                       {
                         v46 = 127;
@@ -8868,26 +7368,26 @@ LABEL_13:
                       }
                     }
 
-                    while (v34 != v59);
+                    while (v34 != v58);
                   }
 
-                  v64 += v57;
+                  v63 += v56;
                 }
               }
             }
           }
 
           ++v33;
-          v29 = v54;
+          v29 = v53;
         }
 
-        while (v33 != v54);
+        while (v33 != v53);
       }
 
       ++v32;
     }
 
-    while (v32 != v53);
+    while (v32 != v52);
   }
 
   if (__src.i64[0])
@@ -8898,17 +7398,15 @@ LABEL_13:
 
   if (__p)
   {
-    v69 = __p;
+    v68 = __p;
     operator delete(__p);
   }
 
-  if (v71)
+  if (v70)
   {
-    v72 = v71;
-    operator delete(v71);
+    v71 = v70;
+    operator delete(v70);
   }
-
-  v48 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2599E1DA4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *__p, uint64_t a27, uint64_t a28, void *a29, uint64_t a30)
@@ -8933,21 +7431,21 @@ void sub_2599E1DA4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueMinMaxPool<MIL::Fp16,signed char>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t *a3@<X2>, uint64_t *a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, __int16 a7@<W6>, uint64_t a8@<X7>, void *a9@<X8>, char a10)
+void MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueMinMaxPool<MIL::Fp16,signed char>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, __int16 a7@<W6>, uint64_t a8@<X7>, void *a9@<X8>, char a10)
 {
-  v80 = *MEMORY[0x277D85DE8];
-  v76 = a7;
+  v78 = *MEMORY[0x277D85DE8];
+  v74 = a7;
   a9[1] = 0;
   a9[2] = 0;
   *a9 = 0;
   std::vector<MIL::Fp16>::resize(a9, a2);
   v14 = *a3;
-  v15 = a3[1];
+  v15 = *(a3 + 8);
   v16 = v15 - *a3;
-  if (v16 != a4[1] - *a4)
+  if (v16 != *(a4 + 8) - *a4)
   {
-    v50 = "x_rank == o_shape.size()";
-    v51 = 189;
+    v48 = "x_rank == o_shape.size()";
+    v49 = 189;
     goto LABEL_58;
   }
 
@@ -8956,18 +7454,18 @@ void MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueMinMaxPool
   v19 = *a5;
   if (v18 != (*(a5 + 8) - *a5) >> 2)
   {
-    v50 = "kernel_sizes.size() == num_spatial_dims";
-    v51 = 190;
+    v48 = "kernel_sizes.size() == num_spatial_dims";
+    v49 = 190;
     goto LABEL_58;
   }
 
   v20 = *a6;
   if (v18 != (*(a6 + 8) - *a6) >> 2)
   {
-    v50 = "strides.size() == num_spatial_dims";
-    v51 = 191;
+    v48 = "strides.size() == num_spatial_dims";
+    v49 = 191;
 LABEL_58:
-    __assert_rtn("ComputeValueMinMaxPool", "PePoolCpu.cpp", v51, v50);
+    __assert_rtn("ComputeValueMinMaxPool", "PePoolCpu.cpp", v49, v48);
   }
 
   if (v18 == 3)
@@ -8978,23 +7476,23 @@ LABEL_58:
       {
         v21 = 4 * v17 - 12;
         v22 = (v20 + v21);
-        v56 = v20[v17 - 4];
+        v54 = v20[v17 - 4];
         v23 = (v19 + v21);
-        v68 = v19[v17 - 4];
+        v66 = v19[v17 - 4];
         goto LABEL_11;
       }
 
-      v52 = "sz == 1";
-      v53 = 202;
+      v50 = "sz == 1";
+      v51 = 202;
     }
 
     else
     {
-      v52 = "kd == 1";
-      v53 = 201;
+      v50 = "kd == 1";
+      v51 = 201;
     }
 
-    __assert_rtn("ComputeValueMinMaxPool", "PePoolCpu.cpp", v53, v52);
+    __assert_rtn("ComputeValueMinMaxPool", "PePoolCpu.cpp", v51, v50);
   }
 
   if (v18 <= 1)
@@ -9002,54 +7500,54 @@ LABEL_58:
     v25 = 4 * v17 - 12;
     v23 = (v19 + v25);
     v22 = (v20 + v25);
-    v68 = 1;
-    v56 = 1;
+    v66 = 1;
+    v54 = 1;
   }
 
   else
   {
-    v68 = v19[v17 - 4];
+    v66 = v19[v17 - 4];
     v24 = 4 * v17 - 12;
     v23 = (v19 + v24);
-    v56 = v20[v17 - 4];
+    v54 = v20[v17 - 4];
     v22 = (v20 + v24);
   }
 
 LABEL_11:
-  v58 = *v22;
+  v56 = *v22;
   v26 = *v23;
-  v73 = 0;
-  v74 = 0;
-  v75 = 0;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&v73, v14, v15, v17);
-  __p = 0;
   v71 = 0;
   v72 = 0;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&__p, *a4, a4[1], (a4[1] - *a4) >> 3);
+  v73 = 0;
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&v71, v14, v15, v17);
+  __p = 0;
+  v69 = 0;
+  v70 = 0;
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&__p, *a4, *(a4 + 8), (*(a4 + 8) - *a4) >> 3);
   if (v17 == 3)
   {
     __src = vdupq_n_s64(1uLL);
-    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&v73, v73 + 8, __src.i8, v79, 2);
+    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&v71, v71 + 8, __src.i8, v77, 2);
     __src = vdupq_n_s64(1uLL);
-    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&__p, __p + 8, __src.i8, v79, 2);
+    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&__p, __p + 8, __src.i8, v77, 2);
   }
 
   else if (v17 == 4)
   {
     __src.i64[0] = 1;
-    std::vector<unsigned long long>::insert(&v73, v73 + 8, &__src);
+    std::vector<unsigned long long>::insert(&v71, v71 + 8, &__src);
     __src.i64[0] = 1;
     std::vector<unsigned long long>::insert(&__p, __p + 8, &__src);
   }
 
   v27 = *__p;
   v28 = *(__p + 1);
-  v57 = *(__p + 2);
-  v59 = *(__p + 3);
+  v55 = *(__p + 2);
+  v57 = *(__p + 3);
   v29 = *(__p + 4);
-  MIL::Fp16::GetFloat(&v76);
+  MIL::Fp16::GetFloat(&v74);
   __e = v30;
-  std::vector<float>::vector[abi:ne200100](&__src, v29);
+  std::vector<float>::vector[abi:ne200100](__src.i64, v29, &__e);
   if (v27)
   {
     v31 = 0;
@@ -9063,11 +7561,11 @@ LABEL_11:
       v32 = 127;
     }
 
-    v65 = v32;
-    v67 = v26;
-    v54 = v27;
-    v55 = v28;
-    v60 = v29;
+    v63 = v32;
+    v65 = v26;
+    v52 = v27;
+    v53 = v28;
+    v58 = v29;
     do
     {
       if (v28)
@@ -9075,37 +7573,36 @@ LABEL_11:
         v33 = 0;
         do
         {
-          if (v57)
+          if (v55)
           {
-            for (i = 0; i != v57; ++i)
+            for (i = 0; i != v55; ++i)
             {
-              if (v59)
+              if (v57)
               {
-                v66 = 0;
-                for (j = 0; j != v59; ++j)
+                v64 = 0;
+                for (j = 0; j != v57; ++j)
                 {
                   if (v29)
                   {
                     v34 = 0;
                     do
                     {
-                      v35 = v65;
-                      if (v68)
+                      v35 = v63;
+                      if (v66)
                       {
                         v36 = 0;
-                        v35 = v65;
+                        v35 = v63;
                         do
                         {
                           if (v26)
                           {
                             v37 = 0;
-                            v38 = v66;
+                            v38 = v64;
                             do
                             {
                               v40 = *(a1 + Index);
                               if (v37 | v36)
                               {
-                                v41 = *(a1 + Index);
                                 if (a10)
                                 {
                                   if (v35 <= v40)
@@ -9134,47 +7631,47 @@ LABEL_11:
                           }
 
                           ++v36;
-                          v26 = v67;
+                          v26 = v65;
                         }
 
-                        while (v36 != v68);
+                        while (v36 != v66);
                       }
 
-                      v42 = *(__src.i64[0] + 4 * v34) * v35;
-                      v43 = 0.0;
-                      if (v42 != 0.0)
+                      v41 = *(__src.i64[0] + 4 * v34) * v35;
+                      v42 = 0.0;
+                      if (v41 != 0.0)
                       {
                         __e = 0;
-                        v44 = frexp(v42, &__e);
-                        v45 = ldexp(v44, 11);
-                        v43 = ldexp(round(v45), __e - 11);
+                        v43 = frexp(v41, &__e);
+                        v44 = ldexp(v43, 11);
+                        v42 = ldexp(round(v44), __e - 11);
                       }
 
-                      v46 = std::function<float ()(float)>::operator()(a8, v43);
-                      v29 = v60;
-                      v48 = MIL::Fp16::FromFloat(v46, v47);
+                      v45 = std::function<float ()(float)>::operator()(a8, v42);
+                      v29 = v58;
+                      v47 = MIL::Fp16::FromFloat(v45, v46);
                     }
 
-                    while (v34 != v60);
+                    while (v34 != v58);
                   }
 
-                  v66 += v58;
+                  v64 += v56;
                 }
               }
             }
           }
 
           ++v33;
-          v28 = v55;
+          v28 = v53;
         }
 
-        while (v33 != v55);
+        while (v33 != v53);
       }
 
       ++v31;
     }
 
-    while (v31 != v54);
+    while (v31 != v52);
   }
 
   if (__src.i64[0])
@@ -9185,17 +7682,15 @@ LABEL_11:
 
   if (__p)
   {
-    v71 = __p;
+    v69 = __p;
     operator delete(__p);
   }
 
-  if (v73)
+  if (v71)
   {
-    v74 = v73;
-    operator delete(v73);
+    v72 = v71;
+    operator delete(v71);
   }
-
-  v49 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2599E2340(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *__p, uint64_t a27, uint64_t a28, void *a29, uint64_t a30)
@@ -9220,45 +7715,45 @@ void sub_2599E2340(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueMinMaxPool<unsigned char,signed char>(uint64_t a1@<X0>, size_t a2@<X1>, uint64_t *a3@<X2>, uint64_t *a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, __int16 a7@<W6>, uint64_t a8@<X7>, uint64_t a9@<X8>, char a10)
+void MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueMinMaxPool<unsigned char,signed char>(char **__return_ptr a1@<X8>, uint64_t a2@<X0>, size_t a3@<X1>, uint64_t a4@<X2>, uint64_t a5@<X3>, uint64_t a6@<X4>, uint64_t a7@<X5>, __int16 a8@<W6>, uint64_t a9@<X7>, char a10)
 {
-  v81 = *MEMORY[0x277D85DE8];
-  v77 = a7;
-  *(a9 + 8) = 0;
-  *(a9 + 16) = 0;
-  *a9 = 0;
-  if (a2)
+  v79 = *MEMORY[0x277D85DE8];
+  v75 = a8;
+  a1[1] = 0;
+  a1[2] = 0;
+  *a1 = 0;
+  if (a3)
   {
-    std::vector<unsigned char>::__append(a9, a2);
+    std::vector<unsigned char>::__append(a1, a3);
   }
 
-  v14 = *a3;
-  v15 = a3[1];
-  v16 = v15 - *a3;
-  if (v16 != a4[1] - *a4)
+  v14 = *a4;
+  v15 = *(a4 + 8);
+  v16 = v15 - *a4;
+  if (v16 != *(a5 + 8) - *a5)
   {
-    v51 = "x_rank == o_shape.size()";
-    v52 = 189;
+    v49 = "x_rank == o_shape.size()";
+    v50 = 189;
     goto LABEL_67;
   }
 
   v17 = v16 >> 3;
   v18 = (v16 >> 3) - 2;
-  v19 = *a5;
-  if (v18 != (*(a5 + 8) - *a5) >> 2)
+  v19 = *a6;
+  if (v18 != (*(a6 + 8) - *a6) >> 2)
   {
-    v51 = "kernel_sizes.size() == num_spatial_dims";
-    v52 = 190;
+    v49 = "kernel_sizes.size() == num_spatial_dims";
+    v50 = 190;
     goto LABEL_67;
   }
 
-  v20 = *a6;
-  if (v18 != (*(a6 + 8) - *a6) >> 2)
+  v20 = *a7;
+  if (v18 != (*(a7 + 8) - *a7) >> 2)
   {
-    v51 = "strides.size() == num_spatial_dims";
-    v52 = 191;
+    v49 = "strides.size() == num_spatial_dims";
+    v50 = 191;
 LABEL_67:
-    __assert_rtn("ComputeValueMinMaxPool", "PePoolCpu.cpp", v52, v51);
+    __assert_rtn("ComputeValueMinMaxPool", "PePoolCpu.cpp", v50, v49);
   }
 
   if (v18 == 3)
@@ -9269,23 +7764,23 @@ LABEL_67:
       {
         v21 = 4 * v17 - 12;
         v22 = (v20 + v21);
-        v57 = v20[v17 - 4];
+        v55 = v20[v17 - 4];
         v23 = (v19 + v21);
-        v69 = v19[v17 - 4];
+        v67 = v19[v17 - 4];
         goto LABEL_13;
       }
 
-      v53 = "sz == 1";
-      v54 = 202;
+      v51 = "sz == 1";
+      v52 = 202;
     }
 
     else
     {
-      v53 = "kd == 1";
-      v54 = 201;
+      v51 = "kd == 1";
+      v52 = 201;
     }
 
-    __assert_rtn("ComputeValueMinMaxPool", "PePoolCpu.cpp", v54, v53);
+    __assert_rtn("ComputeValueMinMaxPool", "PePoolCpu.cpp", v52, v51);
   }
 
   v24 = 4 * v17;
@@ -9294,54 +7789,54 @@ LABEL_67:
     v26 = v24 - 12;
     v23 = (v19 + v26);
     v22 = (v20 + v26);
-    v69 = 1;
-    v57 = 1;
+    v67 = 1;
+    v55 = 1;
   }
 
   else
   {
-    v69 = v19[v17 - 4];
+    v67 = v19[v17 - 4];
     v25 = v24 - 12;
     v23 = (v19 + v25);
-    v57 = v20[v17 - 4];
+    v55 = v20[v17 - 4];
     v22 = (v20 + v25);
   }
 
 LABEL_13:
-  v59 = *v22;
+  v57 = *v22;
   v27 = *v23;
-  v74 = 0;
-  v75 = 0;
-  v76 = 0;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&v74, v14, v15, v17);
-  __p = 0;
   v72 = 0;
   v73 = 0;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&__p, *a4, a4[1], (a4[1] - *a4) >> 3);
+  v74 = 0;
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&v72, v14, v15, v17);
+  __p = 0;
+  v70 = 0;
+  v71 = 0;
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&__p, *a5, *(a5 + 8), (*(a5 + 8) - *a5) >> 3);
   if (v17 == 3)
   {
     __src = vdupq_n_s64(1uLL);
-    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&v74, v74 + 8, __src.i8, v80, 2);
+    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&v72, v72 + 8, __src.i8, v78, 2);
     __src = vdupq_n_s64(1uLL);
-    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&__p, __p + 8, __src.i8, v80, 2);
+    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&__p, __p + 8, __src.i8, v78, 2);
   }
 
   else if (v17 == 4)
   {
     __src.i64[0] = 1;
-    std::vector<unsigned long long>::insert(&v74, v74 + 8, &__src);
+    std::vector<unsigned long long>::insert(&v72, v72 + 8, &__src);
     __src.i64[0] = 1;
     std::vector<unsigned long long>::insert(&__p, __p + 8, &__src);
   }
 
   v28 = *__p;
   v29 = *(__p + 1);
-  v58 = *(__p + 2);
-  v60 = *(__p + 3);
+  v56 = *(__p + 2);
+  v58 = *(__p + 3);
   v30 = *(__p + 4);
-  MIL::Fp16::GetFloat(&v77);
+  MIL::Fp16::GetFloat(&v75);
   __e = v31;
-  std::vector<float>::vector[abi:ne200100](&__src, v30);
+  std::vector<float>::vector[abi:ne200100](__src.i64, v30, &__e);
   if (v28)
   {
     v32 = 0;
@@ -9355,11 +7850,11 @@ LABEL_13:
       v33 = 127;
     }
 
-    v66 = v33;
-    v68 = v27;
-    v55 = v28;
-    v56 = v29;
-    v61 = v30;
+    v64 = v33;
+    v66 = v27;
+    v53 = v28;
+    v54 = v29;
+    v59 = v30;
     do
     {
       if (v29)
@@ -9367,54 +7862,53 @@ LABEL_13:
         v34 = 0;
         do
         {
-          if (v58)
+          if (v56)
           {
-            for (i = 0; i != v58; ++i)
+            for (i = 0; i != v56; ++i)
             {
-              if (v60)
+              if (v58)
               {
-                v67 = 0;
-                for (j = 0; j != v60; ++j)
+                v65 = 0;
+                for (j = 0; j != v58; ++j)
                 {
                   if (v30)
                   {
                     v35 = 0;
                     do
                     {
-                      v36 = v66;
-                      if (v69)
+                      v36 = v64;
+                      if (v67)
                       {
                         v37 = 0;
-                        v36 = v66;
+                        v36 = v64;
                         do
                         {
                           if (v27)
                           {
                             v38 = 0;
-                            v39 = v67;
+                            v39 = v65;
                             do
                             {
-                              v41 = *(a1 + Index);
+                              v41 = *(a2 + Index);
                               if (v38 | v37)
                               {
-                                v42 = *(a1 + Index);
                                 if (a10)
                                 {
                                   if (v36 <= v41)
                                   {
-                                    v36 = *(a1 + Index);
+                                    v36 = *(a2 + Index);
                                   }
                                 }
 
                                 else if (v36 > v41)
                                 {
-                                  v36 = *(a1 + Index);
+                                  v36 = *(a2 + Index);
                                 }
                               }
 
                               else
                               {
-                                v36 = *(a1 + Index);
+                                v36 = *(a2 + Index);
                               }
 
                               ++v38;
@@ -9426,66 +7920,66 @@ LABEL_13:
                           }
 
                           ++v37;
-                          v27 = v68;
+                          v27 = v66;
                         }
 
-                        while (v37 != v69);
+                        while (v37 != v67);
                       }
 
-                      v43 = *(__src.i64[0] + 4 * v35) * v36;
-                      v44 = 0.0;
-                      if (v43 != 0.0)
+                      v42 = *(__src.i64[0] + 4 * v35) * v36;
+                      v43 = 0.0;
+                      if (v42 != 0.0)
                       {
                         __e = 0;
-                        v45 = frexp(v43, &__e);
-                        v46 = ldexp(v45, 11);
-                        v44 = ldexp(round(v46), __e - 11);
+                        v44 = frexp(v42, &__e);
+                        v45 = ldexp(v44, 11);
+                        v43 = ldexp(round(v45), __e - 11);
                       }
 
-                      std::function<float ()(float)>::operator()(a8, v44);
-                      v30 = v61;
-                      if (v47 == INFINITY)
+                      std::function<float ()(float)>::operator()(a9, v43);
+                      v30 = v59;
+                      if (v46 == INFINITY)
                       {
-                        LOBYTE(v48) = -1;
+                        LOBYTE(v47) = -1;
                       }
 
-                      else if (v47 == -INFINITY)
+                      else if (v46 == -INFINITY)
                       {
-                        LOBYTE(v48) = 0;
+                        LOBYTE(v47) = 0;
                       }
 
                       else
                       {
-                        v49 = llroundf(v47);
-                        if (v49 >= 255)
+                        v48 = llroundf(v46);
+                        if (v48 >= 255)
                         {
-                          v49 = 255;
+                          v48 = 255;
                         }
 
-                        v48 = v49 & ~(v49 >> 31);
+                        v47 = v48 & ~(v48 >> 31);
                       }
                     }
 
-                    while (v35 != v61);
+                    while (v35 != v59);
                   }
 
-                  v67 += v59;
+                  v65 += v57;
                 }
               }
             }
           }
 
           ++v34;
-          v29 = v56;
+          v29 = v54;
         }
 
-        while (v34 != v56);
+        while (v34 != v54);
       }
 
       ++v32;
     }
 
-    while (v32 != v55);
+    while (v32 != v53);
   }
 
   if (__src.i64[0])
@@ -9496,17 +7990,15 @@ LABEL_13:
 
   if (__p)
   {
-    v72 = __p;
+    v70 = __p;
     operator delete(__p);
   }
 
-  if (v74)
+  if (v72)
   {
-    v75 = v74;
-    operator delete(v74);
+    v73 = v72;
+    operator delete(v72);
   }
-
-  v50 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2599E291C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *__p, uint64_t a27, uint64_t a28, void *a29, uint64_t a30)
@@ -9531,45 +8023,45 @@ void sub_2599E291C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueMinMaxPool<signed char,signed char>(uint64_t a1@<X0>, size_t a2@<X1>, uint64_t *a3@<X2>, uint64_t *a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, __int16 a7@<W6>, uint64_t a8@<X7>, uint64_t a9@<X8>, char a10)
+void MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueMinMaxPool<signed char,signed char>(char **__return_ptr a1@<X8>, uint64_t a2@<X0>, size_t a3@<X1>, uint64_t a4@<X2>, uint64_t a5@<X3>, uint64_t a6@<X4>, uint64_t a7@<X5>, __int16 a8@<W6>, uint64_t a9@<X7>, char a10)
 {
-  v81 = *MEMORY[0x277D85DE8];
-  v77 = a7;
-  *(a9 + 8) = 0;
-  *(a9 + 16) = 0;
-  *a9 = 0;
-  if (a2)
+  v79 = *MEMORY[0x277D85DE8];
+  v75 = a8;
+  a1[1] = 0;
+  a1[2] = 0;
+  *a1 = 0;
+  if (a3)
   {
-    std::vector<unsigned char>::__append(a9, a2);
+    std::vector<unsigned char>::__append(a1, a3);
   }
 
-  v14 = *a3;
-  v15 = a3[1];
-  v16 = v15 - *a3;
-  if (v16 != a4[1] - *a4)
+  v14 = *a4;
+  v15 = *(a4 + 8);
+  v16 = v15 - *a4;
+  if (v16 != *(a5 + 8) - *a5)
   {
-    v51 = "x_rank == o_shape.size()";
-    v52 = 189;
+    v49 = "x_rank == o_shape.size()";
+    v50 = 189;
     goto LABEL_69;
   }
 
   v17 = v16 >> 3;
   v18 = (v16 >> 3) - 2;
-  v19 = *a5;
-  if (v18 != (*(a5 + 8) - *a5) >> 2)
+  v19 = *a6;
+  if (v18 != (*(a6 + 8) - *a6) >> 2)
   {
-    v51 = "kernel_sizes.size() == num_spatial_dims";
-    v52 = 190;
+    v49 = "kernel_sizes.size() == num_spatial_dims";
+    v50 = 190;
     goto LABEL_69;
   }
 
-  v20 = *a6;
-  if (v18 != (*(a6 + 8) - *a6) >> 2)
+  v20 = *a7;
+  if (v18 != (*(a7 + 8) - *a7) >> 2)
   {
-    v51 = "strides.size() == num_spatial_dims";
-    v52 = 191;
+    v49 = "strides.size() == num_spatial_dims";
+    v50 = 191;
 LABEL_69:
-    __assert_rtn("ComputeValueMinMaxPool", "PePoolCpu.cpp", v52, v51);
+    __assert_rtn("ComputeValueMinMaxPool", "PePoolCpu.cpp", v50, v49);
   }
 
   if (v18 == 3)
@@ -9580,23 +8072,23 @@ LABEL_69:
       {
         v21 = 4 * v17 - 12;
         v22 = (v20 + v21);
-        v57 = v20[v17 - 4];
+        v55 = v20[v17 - 4];
         v23 = (v19 + v21);
-        v69 = v19[v17 - 4];
+        v67 = v19[v17 - 4];
         goto LABEL_13;
       }
 
-      v53 = "sz == 1";
-      v54 = 202;
+      v51 = "sz == 1";
+      v52 = 202;
     }
 
     else
     {
-      v53 = "kd == 1";
-      v54 = 201;
+      v51 = "kd == 1";
+      v52 = 201;
     }
 
-    __assert_rtn("ComputeValueMinMaxPool", "PePoolCpu.cpp", v54, v53);
+    __assert_rtn("ComputeValueMinMaxPool", "PePoolCpu.cpp", v52, v51);
   }
 
   v24 = 4 * v17;
@@ -9605,54 +8097,54 @@ LABEL_69:
     v26 = v24 - 12;
     v23 = (v19 + v26);
     v22 = (v20 + v26);
-    v69 = 1;
-    v57 = 1;
+    v67 = 1;
+    v55 = 1;
   }
 
   else
   {
-    v69 = v19[v17 - 4];
+    v67 = v19[v17 - 4];
     v25 = v24 - 12;
     v23 = (v19 + v25);
-    v57 = v20[v17 - 4];
+    v55 = v20[v17 - 4];
     v22 = (v20 + v25);
   }
 
 LABEL_13:
-  v59 = *v22;
+  v57 = *v22;
   v27 = *v23;
-  v74 = 0;
-  v75 = 0;
-  v76 = 0;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&v74, v14, v15, v17);
-  __p = 0;
   v72 = 0;
   v73 = 0;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&__p, *a4, a4[1], (a4[1] - *a4) >> 3);
+  v74 = 0;
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&v72, v14, v15, v17);
+  __p = 0;
+  v70 = 0;
+  v71 = 0;
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&__p, *a5, *(a5 + 8), (*(a5 + 8) - *a5) >> 3);
   if (v17 == 3)
   {
     __src = vdupq_n_s64(1uLL);
-    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&v74, v74 + 8, __src.i8, v80, 2);
+    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&v72, v72 + 8, __src.i8, v78, 2);
     __src = vdupq_n_s64(1uLL);
-    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&__p, __p + 8, __src.i8, v80, 2);
+    std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(&__p, __p + 8, __src.i8, v78, 2);
   }
 
   else if (v17 == 4)
   {
     __src.i64[0] = 1;
-    std::vector<unsigned long long>::insert(&v74, v74 + 8, &__src);
+    std::vector<unsigned long long>::insert(&v72, v72 + 8, &__src);
     __src.i64[0] = 1;
     std::vector<unsigned long long>::insert(&__p, __p + 8, &__src);
   }
 
   v28 = *__p;
   v29 = *(__p + 1);
-  v58 = *(__p + 2);
-  v60 = *(__p + 3);
+  v56 = *(__p + 2);
+  v58 = *(__p + 3);
   v30 = *(__p + 4);
-  MIL::Fp16::GetFloat(&v77);
+  MIL::Fp16::GetFloat(&v75);
   __e = v31;
-  std::vector<float>::vector[abi:ne200100](&__src, v30);
+  std::vector<float>::vector[abi:ne200100](__src.i64, v30, &__e);
   if (v28)
   {
     v32 = 0;
@@ -9666,11 +8158,11 @@ LABEL_13:
       v33 = 127;
     }
 
-    v66 = v33;
-    v68 = v27;
-    v55 = v28;
-    v56 = v29;
-    v61 = v30;
+    v64 = v33;
+    v66 = v27;
+    v53 = v28;
+    v54 = v29;
+    v59 = v30;
     do
     {
       if (v29)
@@ -9678,54 +8170,53 @@ LABEL_13:
         v34 = 0;
         do
         {
-          if (v58)
+          if (v56)
           {
-            for (i = 0; i != v58; ++i)
+            for (i = 0; i != v56; ++i)
             {
-              if (v60)
+              if (v58)
               {
-                v67 = 0;
-                for (j = 0; j != v60; ++j)
+                v65 = 0;
+                for (j = 0; j != v58; ++j)
                 {
                   if (v30)
                   {
                     v35 = 0;
                     do
                     {
-                      v36 = v66;
-                      if (v69)
+                      v36 = v64;
+                      if (v67)
                       {
                         v37 = 0;
-                        v36 = v66;
+                        v36 = v64;
                         do
                         {
                           if (v27)
                           {
                             v38 = 0;
-                            v39 = v67;
+                            v39 = v65;
                             do
                             {
-                              v41 = *(a1 + Index);
+                              v41 = *(a2 + Index);
                               if (v38 | v37)
                               {
-                                v42 = *(a1 + Index);
                                 if (a10)
                                 {
                                   if (v36 <= v41)
                                   {
-                                    v36 = *(a1 + Index);
+                                    v36 = *(a2 + Index);
                                   }
                                 }
 
                                 else if (v36 > v41)
                                 {
-                                  v36 = *(a1 + Index);
+                                  v36 = *(a2 + Index);
                                 }
                               }
 
                               else
                               {
-                                v36 = *(a1 + Index);
+                                v36 = *(a2 + Index);
                               }
 
                               ++v38;
@@ -9737,74 +8228,74 @@ LABEL_13:
                           }
 
                           ++v37;
-                          v27 = v68;
+                          v27 = v66;
                         }
 
-                        while (v37 != v69);
+                        while (v37 != v67);
                       }
 
-                      v43 = *(__src.i64[0] + 4 * v35) * v36;
-                      v44 = 0.0;
-                      if (v43 != 0.0)
+                      v42 = *(__src.i64[0] + 4 * v35) * v36;
+                      v43 = 0.0;
+                      if (v42 != 0.0)
                       {
                         __e = 0;
-                        v45 = frexp(v43, &__e);
-                        v46 = ldexp(v45, 11);
-                        v44 = ldexp(round(v46), __e - 11);
+                        v44 = frexp(v42, &__e);
+                        v45 = ldexp(v44, 11);
+                        v43 = ldexp(round(v45), __e - 11);
                       }
 
-                      std::function<float ()(float)>::operator()(a8, v44);
-                      v30 = v61;
-                      if (v47 == INFINITY)
+                      std::function<float ()(float)>::operator()(a9, v43);
+                      v30 = v59;
+                      if (v46 == INFINITY)
                       {
-                        v48 = 127;
+                        v47 = 127;
                       }
 
-                      else if (v47 == -INFINITY)
+                      else if (v46 == -INFINITY)
                       {
-                        v48 = 0x80;
+                        v47 = 0x80;
                       }
 
                       else
                       {
-                        v49 = llroundf(v47);
-                        if (v49 >= 127)
+                        v48 = llroundf(v46);
+                        if (v48 >= 127)
                         {
-                          v49 = 127;
+                          v48 = 127;
                         }
 
-                        if (v49 <= -128)
+                        if (v48 <= -128)
                         {
-                          v48 = 0x80;
+                          v47 = 0x80;
                         }
 
                         else
                         {
-                          v48 = v49;
+                          v47 = v48;
                         }
                       }
                     }
 
-                    while (v35 != v61);
+                    while (v35 != v59);
                   }
 
-                  v67 += v59;
+                  v65 += v57;
                 }
               }
             }
           }
 
           ++v34;
-          v29 = v56;
+          v29 = v54;
         }
 
-        while (v34 != v56);
+        while (v34 != v54);
       }
 
       ++v32;
     }
 
-    while (v32 != v55);
+    while (v32 != v53);
   }
 
   if (__src.i64[0])
@@ -9815,17 +8306,15 @@ LABEL_13:
 
   if (__p)
   {
-    v72 = __p;
+    v70 = __p;
     operator delete(__p);
   }
 
-  if (v74)
+  if (v72)
   {
-    v75 = v74;
-    operator delete(v74);
+    v73 = v72;
+    operator delete(v72);
   }
-
-  v50 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2599E2F00(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *__p, uint64_t a27, uint64_t a28, void *a29, uint64_t a30)
@@ -9850,17 +8339,17 @@ void sub_2599E2F00(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<float>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<float>::vector[abi:ne200100](uint64_t *a1, unint64_t a2, __int32 *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<int>::__vallocate[abi:ne200100](result, a2);
+    std::vector<int>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_2599E30C0(_Unwind_Exception *exception_object)
@@ -9884,5 +8373,2347 @@ uint64_t std::__function::__func<std::vector<MIL::Fp16> MIL::ANEMachineIR::Inter
   else
   {
     return 0;
+  }
+}
+
+uint64_t std::__function::__func<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<MIL::Fp16,MIL::Fp16>(MIL::Fp16 const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(MIL::Fp16)#2},std::allocator<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<MIL::Fp16,MIL::Fp16>(MIL::Fp16 const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(MIL::Fp16)#2}>,MIL::Fp16 ()(MIL::Fp16)>::operator()(uint64_t a1, __int16 *a2)
+{
+  v5 = *a2;
+  Float = MIL::Fp16::GetFloat(&v5);
+  if (v3 < 0.0)
+  {
+    v3 = 0.0;
+  }
+
+  return MIL::Fp16::FromFloat(Float, v3);
+}
+
+uint64_t std::__function::__func<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<MIL::Fp16,MIL::Fp16>(MIL::Fp16 const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(MIL::Fp16)#2},std::allocator<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<MIL::Fp16,MIL::Fp16>(MIL::Fp16 const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(MIL::Fp16)#2}>,MIL::Fp16 ()(MIL::Fp16)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t std::__function::__func<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<unsigned char,MIL::Fp16>(MIL::Fp16 const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(MIL::Fp16)#1},std::allocator<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<unsigned char,MIL::Fp16>(MIL::Fp16 const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(MIL::Fp16)#1}>,MIL::Fp16 ()(MIL::Fp16)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t std::__function::__func<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<unsigned char,MIL::Fp16>(MIL::Fp16 const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(MIL::Fp16)#2},std::allocator<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<unsigned char,MIL::Fp16>(MIL::Fp16 const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(MIL::Fp16)#2}>,MIL::Fp16 ()(MIL::Fp16)>::operator()(uint64_t a1, __int16 *a2)
+{
+  v5 = *a2;
+  Float = MIL::Fp16::GetFloat(&v5);
+  if (v3 < 0.0)
+  {
+    v3 = 0.0;
+  }
+
+  return MIL::Fp16::FromFloat(Float, v3);
+}
+
+uint64_t std::__function::__func<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<unsigned char,MIL::Fp16>(MIL::Fp16 const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(MIL::Fp16)#2},std::allocator<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<unsigned char,MIL::Fp16>(MIL::Fp16 const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(MIL::Fp16)#2}>,MIL::Fp16 ()(MIL::Fp16)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t std::__function::__func<std::vector<signed char> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<signed char,MIL::Fp16>(MIL::Fp16 const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(MIL::Fp16)#1},std::allocator<std::vector<signed char> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<signed char,MIL::Fp16>(MIL::Fp16 const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(MIL::Fp16)#1}>,MIL::Fp16 ()(MIL::Fp16)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t std::__function::__func<std::vector<signed char> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<signed char,MIL::Fp16>(MIL::Fp16 const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(MIL::Fp16)#2},std::allocator<std::vector<signed char> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<signed char,MIL::Fp16>(MIL::Fp16 const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(MIL::Fp16)#2}>,MIL::Fp16 ()(MIL::Fp16)>::operator()(uint64_t a1, __int16 *a2)
+{
+  v5 = *a2;
+  Float = MIL::Fp16::GetFloat(&v5);
+  if (v3 < 0.0)
+  {
+    v3 = 0.0;
+  }
+
+  return MIL::Fp16::FromFloat(Float, v3);
+}
+
+uint64_t std::__function::__func<std::vector<signed char> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<signed char,MIL::Fp16>(MIL::Fp16 const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(MIL::Fp16)#2},std::allocator<std::vector<signed char> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<signed char,MIL::Fp16>(MIL::Fp16 const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(MIL::Fp16)#2}>,MIL::Fp16 ()(MIL::Fp16)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t std::__function::__func<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<MIL::Fp16,unsigned char>(unsigned char const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(unsigned char)#1},std::allocator<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<MIL::Fp16,unsigned char>(unsigned char const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(unsigned char)#1}>,unsigned char ()(unsigned char)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t std::__function::__func<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<unsigned char,unsigned char>(unsigned char const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(unsigned char)#1},std::allocator<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<unsigned char,unsigned char>(unsigned char const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(unsigned char)#1}>,unsigned char ()(unsigned char)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t std::__function::__func<std::vector<signed char> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<signed char,unsigned char>(unsigned char const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(unsigned char)#1},std::allocator<std::vector<signed char> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<signed char,unsigned char>(unsigned char const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(unsigned char)#1}>,unsigned char ()(unsigned char)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t std::__function::__func<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<MIL::Fp16,signed char>(signed char const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(signed char)#1},std::allocator<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<MIL::Fp16,signed char>(signed char const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(signed char)#1}>,signed char ()(signed char)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t std::__function::__func<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<MIL::Fp16,signed char>(signed char const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(signed char)#2},std::allocator<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<MIL::Fp16,signed char>(signed char const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(signed char)#2}>,signed char ()(signed char)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t std::__function::__func<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<unsigned char,signed char>(signed char const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(signed char)#1},std::allocator<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<unsigned char,signed char>(signed char const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(signed char)#1}>,signed char ()(signed char)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t std::__function::__func<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<unsigned char,signed char>(signed char const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(signed char)#2},std::allocator<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<unsigned char,signed char>(signed char const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(signed char)#2}>,signed char ()(signed char)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t std::__function::__func<std::vector<signed char> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<signed char,signed char>(signed char const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(signed char)#1},std::allocator<std::vector<signed char> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<signed char,signed char>(signed char const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(signed char)#1}>,signed char ()(signed char)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t std::__function::__func<std::vector<signed char> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<signed char,signed char>(signed char const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(signed char)#2},std::allocator<std::vector<signed char> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<signed char,signed char>(signed char const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(signed char)#2}>,signed char ()(signed char)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+void ANEMachineIR::H2020::BasePeElementWiseBinary::Make()
+{
+  v5 = *MEMORY[0x277D85DE8];
+  v4 = 0;
+  operator new();
+}
+
+void sub_2599E597C(_Unwind_Exception *a1)
+{
+  v4 = *(v2 - 104);
+  *(v2 - 104) = 0;
+  if (v4)
+  {
+    (*(*v4 + 8))(v4);
+  }
+
+  v5 = *v1;
+  *v1 = 0;
+  if (v5)
+  {
+    (*(*v5 + 8))(v5);
+  }
+
+  std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v2 - 80), 0);
+  std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&STACK[0x310], 0);
+  _Unwind_Resume(a1);
+}
+
+void ANEMachineIR::H2020::PeAdd::Make(MIL::IRUnknownDimension *a1, void *a2)
+{
+  v3[4] = *MEMORY[0x277D85DE8];
+  a2[1] = 0;
+  a2[2] = 0;
+  *a2 = 0;
+  v3[0] = &unk_286AADC48;
+  v3[1] = ANEMachineIR::H2020::Validators::ValidatePeAdd;
+  v3[3] = v3;
+  ANEMachineIR::H2020::BasePeElementWiseBinary::Make();
+}
+
+void sub_2599E6340(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
+{
+  std::__function::__value_func<MIL::ValidationResult ()(MIL::IROperation const&)>::~__value_func[abi:ne200100](&a15);
+  if (a14 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void ANEMachineIR::H2020::PeAddAbs::Make(MIL::IRUnknownDimension *a1, void *a2)
+{
+  v3[4] = *MEMORY[0x277D85DE8];
+  a2[1] = 0;
+  a2[2] = 0;
+  *a2 = 0;
+  v3[0] = &unk_286AADC48;
+  v3[1] = ANEMachineIR::H2020::Validators::ValidatePeAddAbs;
+  v3[3] = v3;
+  ANEMachineIR::H2020::BasePeElementWiseBinary::Make();
+}
+
+void sub_2599E6420(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
+{
+  std::__function::__value_func<MIL::ValidationResult ()(MIL::IROperation const&)>::~__value_func[abi:ne200100](&a15);
+  if (a14 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void ANEMachineIR::H2020::PeAddMul::Make(MIL::IRUnknownDimension *a1, void *a2)
+{
+  v3[4] = *MEMORY[0x277D85DE8];
+  a2[1] = 0;
+  a2[2] = 0;
+  *a2 = 0;
+  v3[0] = &unk_286AADC48;
+  v3[1] = ANEMachineIR::H2020::Validators::ValidatePeAddMul;
+  v3[3] = v3;
+  ANEMachineIR::H2020::BasePeElementWiseBinary::Make();
+}
+
+void sub_2599E6500(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
+{
+  std::__function::__value_func<MIL::ValidationResult ()(MIL::IROperation const&)>::~__value_func[abi:ne200100](&a15);
+  if (a14 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void ANEMachineIR::H2020::PeAddSquare::Make(MIL::IRUnknownDimension *a1, void *a2)
+{
+  v3[4] = *MEMORY[0x277D85DE8];
+  a2[1] = 0;
+  a2[2] = 0;
+  *a2 = 0;
+  v3[0] = &unk_286AADC48;
+  v3[1] = ANEMachineIR::H2020::Validators::ValidatePeAddSquare;
+  v3[3] = v3;
+  ANEMachineIR::H2020::BasePeElementWiseBinary::Make();
+}
+
+void sub_2599E65E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
+{
+  std::__function::__value_func<MIL::ValidationResult ()(MIL::IROperation const&)>::~__value_func[abi:ne200100](&a15);
+  if (a14 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void ANEMachineIR::H2020::PeEqual::Make(MIL::IRUnknownDimension *a1, void *a2)
+{
+  v3[4] = *MEMORY[0x277D85DE8];
+  a2[1] = 0;
+  a2[2] = 0;
+  *a2 = 0;
+  v3[0] = &unk_286AADC48;
+  v3[1] = ANEMachineIR::H2020::Validators::ValidatePeEqual;
+  v3[3] = v3;
+  ANEMachineIR::H2020::BasePeElementWiseBinary::Make();
+}
+
+void sub_2599E66C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
+{
+  std::__function::__value_func<MIL::ValidationResult ()(MIL::IROperation const&)>::~__value_func[abi:ne200100](&a15);
+  if (a14 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void ANEMachineIR::H2020::PeGreater::Make(MIL::IRUnknownDimension *a1, void *a2)
+{
+  v3[4] = *MEMORY[0x277D85DE8];
+  a2[1] = 0;
+  a2[2] = 0;
+  *a2 = 0;
+  v3[0] = &unk_286AADC48;
+  v3[1] = ANEMachineIR::H2020::Validators::ValidatePeGreater;
+  v3[3] = v3;
+  ANEMachineIR::H2020::BasePeElementWiseBinary::Make();
+}
+
+void sub_2599E67A0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
+{
+  std::__function::__value_func<MIL::ValidationResult ()(MIL::IROperation const&)>::~__value_func[abi:ne200100](&a15);
+  if (a14 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void ANEMachineIR::H2020::PeGreaterEqual::Make(MIL::IRUnknownDimension *a1, void *a2)
+{
+  v3[4] = *MEMORY[0x277D85DE8];
+  a2[1] = 0;
+  a2[2] = 0;
+  *a2 = 0;
+  v3[0] = &unk_286AADC48;
+  v3[1] = ANEMachineIR::H2020::Validators::ValidatePeGreaterEqual;
+  v3[3] = v3;
+  ANEMachineIR::H2020::BasePeElementWiseBinary::Make();
+}
+
+void sub_2599E6880(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
+{
+  std::__function::__value_func<MIL::ValidationResult ()(MIL::IROperation const&)>::~__value_func[abi:ne200100](&a15);
+  if (a14 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void ANEMachineIR::H2020::PeLess::Make(MIL::IRUnknownDimension *a1, void *a2)
+{
+  v3[4] = *MEMORY[0x277D85DE8];
+  a2[1] = 0;
+  a2[2] = 0;
+  *a2 = 0;
+  v3[0] = &unk_286AADC48;
+  v3[1] = ANEMachineIR::H2020::Validators::ValidatePeLess;
+  v3[3] = v3;
+  ANEMachineIR::H2020::BasePeElementWiseBinary::Make();
+}
+
+void sub_2599E6960(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
+{
+  std::__function::__value_func<MIL::ValidationResult ()(MIL::IROperation const&)>::~__value_func[abi:ne200100](&a15);
+  if (a14 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void ANEMachineIR::H2020::PeLessEqual::Make(MIL::IRUnknownDimension *a1, void *a2)
+{
+  v3[4] = *MEMORY[0x277D85DE8];
+  a2[1] = 0;
+  a2[2] = 0;
+  *a2 = 0;
+  v3[0] = &unk_286AADC48;
+  v3[1] = ANEMachineIR::H2020::Validators::ValidatePeLessEqual;
+  v3[3] = v3;
+  ANEMachineIR::H2020::BasePeElementWiseBinary::Make();
+}
+
+void sub_2599E6A40(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
+{
+  std::__function::__value_func<MIL::ValidationResult ()(MIL::IROperation const&)>::~__value_func[abi:ne200100](&a15);
+  if (a14 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void ANEMachineIR::H2020::PeMaximum::Make(MIL::IRUnknownDimension *a1, void *a2)
+{
+  v3[4] = *MEMORY[0x277D85DE8];
+  a2[1] = 0;
+  a2[2] = 0;
+  *a2 = 0;
+  v3[0] = &unk_286AADC48;
+  v3[1] = ANEMachineIR::H2020::Validators::ValidatePeMaximum;
+  v3[3] = v3;
+  ANEMachineIR::H2020::BasePeElementWiseBinary::Make();
+}
+
+void sub_2599E6B20(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
+{
+  std::__function::__value_func<MIL::ValidationResult ()(MIL::IROperation const&)>::~__value_func[abi:ne200100](&a15);
+  if (a14 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void ANEMachineIR::H2020::PeMinimum::Make(MIL::IRUnknownDimension *a1, void *a2)
+{
+  v3[4] = *MEMORY[0x277D85DE8];
+  a2[1] = 0;
+  a2[2] = 0;
+  *a2 = 0;
+  v3[0] = &unk_286AADC48;
+  v3[1] = ANEMachineIR::H2020::Validators::ValidatePeMinimum;
+  v3[3] = v3;
+  ANEMachineIR::H2020::BasePeElementWiseBinary::Make();
+}
+
+void sub_2599E6C00(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
+{
+  std::__function::__value_func<MIL::ValidationResult ()(MIL::IROperation const&)>::~__value_func[abi:ne200100](&a15);
+  if (a14 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void ANEMachineIR::H2020::PeMul::Make(MIL::IRUnknownDimension *a1, void *a2)
+{
+  v3[4] = *MEMORY[0x277D85DE8];
+  a2[1] = 0;
+  a2[2] = 0;
+  *a2 = 0;
+  v3[0] = &unk_286AADC48;
+  v3[1] = ANEMachineIR::H2020::Validators::ValidatePeMul;
+  v3[3] = v3;
+  ANEMachineIR::H2020::BasePeElementWiseBinary::Make();
+}
+
+void sub_2599E6CE0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
+{
+  std::__function::__value_func<MIL::ValidationResult ()(MIL::IROperation const&)>::~__value_func[abi:ne200100](&a15);
+  if (a14 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void ANEMachineIR::H2020::PeNotEqual::Make(MIL::IRUnknownDimension *a1, void *a2)
+{
+  v3[4] = *MEMORY[0x277D85DE8];
+  a2[1] = 0;
+  a2[2] = 0;
+  *a2 = 0;
+  v3[0] = &unk_286AADC48;
+  v3[1] = ANEMachineIR::H2020::Validators::ValidatePeNotEqual;
+  v3[3] = v3;
+  ANEMachineIR::H2020::BasePeElementWiseBinary::Make();
+}
+
+void sub_2599E6DC0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
+{
+  std::__function::__value_func<MIL::ValidationResult ()(MIL::IROperation const&)>::~__value_func[abi:ne200100](&a15);
+  if (a14 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void ANEMachineIR::H2020::BasePeElementWiseUnary::Make()
+{
+  v5 = *MEMORY[0x277D85DE8];
+  v4 = 0;
+  operator new();
+}
+
+void sub_2599E8388(_Unwind_Exception *a1)
+{
+  v4 = *(v2 - 104);
+  *(v2 - 104) = 0;
+  if (v4)
+  {
+    (*(*v4 + 8))(v4);
+  }
+
+  v5 = *v1;
+  *v1 = 0;
+  if (v5)
+  {
+    (*(*v5 + 8))(v5);
+  }
+
+  std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v2 - 80), 0);
+  std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&STACK[0x260], 0);
+  _Unwind_Resume(a1);
+}
+
+void ANEMachineIR::H2020::PeAbs::Make(MIL::IRUnknownDimension *a1, void *a2)
+{
+  v3[4] = *MEMORY[0x277D85DE8];
+  a2[1] = 0;
+  a2[2] = 0;
+  *a2 = 0;
+  v3[0] = &unk_286AADC48;
+  v3[1] = ANEMachineIR::H2020::Validators::ValidatePeAbs;
+  v3[3] = v3;
+  ANEMachineIR::H2020::BasePeElementWiseUnary::Make();
+}
+
+void sub_2599E8BB4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
+{
+  std::__function::__value_func<MIL::ValidationResult ()(MIL::IROperation const&)>::~__value_func[abi:ne200100](&a15);
+  if (a14 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void ANEMachineIR::H2020::PeSquare::Make(MIL::IRUnknownDimension *a1, void *a2)
+{
+  v3[4] = *MEMORY[0x277D85DE8];
+  a2[1] = 0;
+  a2[2] = 0;
+  *a2 = 0;
+  v3[0] = &unk_286AADC48;
+  v3[1] = ANEMachineIR::H2020::Validators::ValidatePeSquare;
+  v3[3] = v3;
+  ANEMachineIR::H2020::BasePeElementWiseUnary::Make();
+}
+
+void sub_2599E8C94(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
+{
+  std::__function::__value_func<MIL::ValidationResult ()(MIL::IROperation const&)>::~__value_func[abi:ne200100](&a15);
+  if (a14 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void ANEMachineIR::H2020::NeActivation::Make()
+{
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
+  operator new();
+}
+
+void sub_2599E9980(_Unwind_Exception *a1)
+{
+  v4 = *(v2 - 80);
+  *(v2 - 80) = 0;
+  if (v4)
+  {
+    (*(*v4 + 8))(v4);
+  }
+
+  v5 = *v1;
+  *v1 = 0;
+  if (v5)
+  {
+    (*(*v5 + 8))(v5);
+  }
+
+  std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v2 - 112), 0);
+  std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v2 - 216), 0);
+  _Unwind_Resume(a1);
+}
+
+void ANEMachineIR::H2020::NeAdd::Make()
+{
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
+  operator new();
+}
+
+void sub_2599EB26C(_Unwind_Exception *a1)
+{
+  v4 = *(v2 - 80);
+  *(v2 - 80) = 0;
+  if (v4)
+  {
+    (*(*v4 + 8))(v4);
+  }
+
+  v5 = *v1;
+  *v1 = 0;
+  if (v5)
+  {
+    (*(*v5 + 8))(v5);
+  }
+
+  std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v2 - 112), 0);
+  std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v2 - 216), 0);
+  _Unwind_Resume(a1);
+}
+
+void ANEMachineIR::H2020::NeMaximum::Make()
+{
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
+  operator new();
+}
+
+void sub_2599EC93C(_Unwind_Exception *a1)
+{
+  v4 = *(v2 - 80);
+  *(v2 - 80) = 0;
+  if (v4)
+  {
+    (*(*v4 + 8))(v4);
+  }
+
+  v5 = *v1;
+  *v1 = 0;
+  if (v5)
+  {
+    (*(*v5 + 8))(v5);
+  }
+
+  std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v2 - 112), 0);
+  std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v2 - 216), 0);
+  _Unwind_Resume(a1);
+}
+
+void ANEMachineIR::H2020::NeMinimum::Make()
+{
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
+  operator new();
+}
+
+void sub_2599EDF1C(_Unwind_Exception *a1)
+{
+  v4 = *(v2 - 80);
+  *(v2 - 80) = 0;
+  if (v4)
+  {
+    (*(*v4 + 8))(v4);
+  }
+
+  v5 = *v1;
+  *v1 = 0;
+  if (v5)
+  {
+    (*(*v5 + 8))(v5);
+  }
+
+  std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v2 - 112), 0);
+  std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v2 - 216), 0);
+  _Unwind_Resume(a1);
+}
+
+void ANEMachineIR::H2020::NeMul::Make()
+{
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
+  operator new();
+}
+
+void sub_2599EF790(_Unwind_Exception *a1)
+{
+  v4 = *(v2 - 80);
+  *(v2 - 80) = 0;
+  if (v4)
+  {
+    (*(*v4 + 8))(v4);
+  }
+
+  v5 = *v1;
+  *v1 = 0;
+  if (v5)
+  {
+    (*(*v5 + 8))(v5);
+  }
+
+  std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v2 - 112), 0);
+  std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v2 - 216), 0);
+  _Unwind_Resume(a1);
+}
+
+void ANEMachineIR::H2020::NeSquare::Make()
+{
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
+  operator new();
+}
+
+void sub_2599F0CF4(_Unwind_Exception *a1)
+{
+  v4 = *(v2 - 80);
+  *(v2 - 80) = 0;
+  if (v4)
+  {
+    (*(*v4 + 8))(v4);
+  }
+
+  v5 = *v1;
+  *v1 = 0;
+  if (v5)
+  {
+    (*(*v5 + 8))(v5);
+  }
+
+  std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v2 - 112), 0);
+  std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v2 - 216), 0);
+  _Unwind_Resume(a1);
+}
+
+void MilTranslator::Passes::FuseConvScale::Match(uint64_t a1@<X1>, uint64_t *a2@<X8>)
+{
+  v66 = *MEMORY[0x277D85DE8];
+  MIL::Builder::BlockBuilder::GetOperations(&v57, *a1);
+  v4 = v57;
+  v5 = v58;
+  if (v57 == v58)
+  {
+LABEL_12:
+    __p = &v57;
+    std::vector<std::shared_ptr<MIL::IRParameter>>::__destroy_vector::operator()[abi:ne200100](&__p);
+    v10 = 0;
+LABEL_13:
+    *a2 = 0;
+    a2[1] = 0;
+    a2[2] = 0;
+    if (!v10)
+    {
+      return;
+    }
+
+    goto LABEL_14;
+  }
+
+  while (1)
+  {
+    Operator = MIL::Builder::OperationBuilder::GetOperator(*v4);
+    v7 = (*(*Operator + 16))(Operator);
+    v8 = *(v7 + 23);
+    if (v8 < 0)
+    {
+      break;
+    }
+
+    if (v8 == 7)
+    {
+      goto LABEL_7;
+    }
+
+LABEL_11:
+    v4 += 16;
+    if (v4 == v5)
+    {
+      goto LABEL_12;
+    }
+  }
+
+  if (*(v7 + 8) != 7)
+  {
+    goto LABEL_11;
+  }
+
+  v7 = *v7;
+LABEL_7:
+  if (*v7 != 1667196270 || *(v7 + 3) != 1986948963)
+  {
+    goto LABEL_11;
+  }
+
+  v11 = *v4;
+  v10 = *(v4 + 1);
+  if (v10)
+  {
+    atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  __p = &v57;
+  std::vector<std::shared_ptr<MIL::IRParameter>>::__destroy_vector::operator()[abi:ne200100](&__p);
+  if (!v11)
+  {
+    goto LABEL_13;
+  }
+
+  MIL::Builder::OperationBuilder::GetChildOperations(&v57, v11);
+  if (v60 != 1 || (MIL::Builder::OperationBuilder::GetBlocks(&__p, v11), v12 = __p, v13 = v63, p_p = &__p, std::vector<std::shared_ptr<MIL::IRParameter>>::__destroy_vector::operator()[abi:ne200100](&p_p), v12 != v13))
+  {
+    *a2 = 0;
+    a2[1] = 0;
+    a2[2] = 0;
+    goto LABEL_22;
+  }
+
+  v15 = *(v59 + 16);
+  v14 = *(v59 + 24);
+  if (v14)
+  {
+    atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  v16 = MIL::Builder::OperationBuilder::GetOperator(v15);
+  v17 = (*(*v16 + 16))(v16);
+  v18 = *(v17 + 23);
+  if (v18 < 0)
+  {
+    if (*(v17 + 8) != 6)
+    {
+      goto LABEL_35;
+    }
+
+    v17 = *v17;
+  }
+
+  else if (v18 != 6)
+  {
+    goto LABEL_35;
+  }
+
+  if (*v17 != 1834968430 || *(v17 + 4) != 27765)
+  {
+LABEL_35:
+    v20 = MIL::Builder::OperationBuilder::GetOperator(v15);
+    v21 = (*(*v20 + 16))(v20);
+    v22 = *(v21 + 23);
+    if (v22 < 0)
+    {
+      if (*(v21 + 8) != 6)
+      {
+        goto LABEL_84;
+      }
+
+      v21 = *v21;
+    }
+
+    else if (v22 != 6)
+    {
+      goto LABEL_84;
+    }
+
+    if (*v21 != 1834968432 || *(v21 + 4) != 27765)
+    {
+LABEL_84:
+      *a2 = 0;
+      a2[1] = 0;
+      a2[2] = 0;
+      goto LABEL_85;
+    }
+  }
+
+  std::string::basic_string[abi:ne200100]<0>(&__p, "x");
+  ArgumentForParameter = MIL::Builder::OperationBuilder::GetArgumentForParameter();
+  if (SHIBYTE(v64) < 0)
+  {
+    operator delete(__p);
+  }
+
+  std::string::basic_string[abi:ne200100]<0>(&__p, "y");
+  v25 = MIL::Builder::OperationBuilder::GetArgumentForParameter();
+  if (SHIBYTE(v64) < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (ArgumentForParameter != MIL::Builder::OperationBuilder::GetOutput(v11) && v25 != MIL::Builder::OperationBuilder::GetOutput(v11))
+  {
+    goto LABEL_84;
+  }
+
+  Output = MIL::Builder::OperationBuilder::GetOutput(v11);
+  v27 = (ArgumentForParameter == Output ? v25 : ArgumentForParameter);
+  Value = MIL::Builder::Variable::TryGetValue(v27);
+  if (!Value)
+  {
+    goto LABEL_84;
+  }
+
+  v29 = (ArgumentForParameter == Output ? ArgumentForParameter : v25);
+  Type = MIL::Builder::Variable::TryGetType(v29);
+  if (!Type)
+  {
+    goto LABEL_84;
+  }
+
+  v31 = MIL::IRValueType::AsTensorType(Type);
+  v32 = (*(*Value + 32))(Value);
+  v33 = (*(*v32 + 24))(v32);
+  if (!v31)
+  {
+    goto LABEL_84;
+  }
+
+  v34 = v33;
+  if (!v33)
+  {
+    goto LABEL_84;
+  }
+
+  v35 = (*(*v31 + 96))(v31);
+  v36 = (*(*v34 + 96))(v34);
+  v37 = *v36;
+  v38 = v36[1];
+  if (*v36 != v38)
+  {
+    v39 = v35[1];
+    if (v39 == *v35)
+    {
+      goto LABEL_96;
+    }
+
+    if (*(v39 - 8) != *(v38 - 8))
+    {
+      goto LABEL_84;
+    }
+
+    v40 = v38 - v37;
+    if (v40 != 8)
+    {
+      v41 = 0;
+      v42 = v40 >> 3;
+      while (v42 > v41)
+      {
+        v43 = MIL::IRDimension::AsConstant(*(v37 + 8 * v41));
+        if ((*(*v43 + 48))(v43) != 1)
+        {
+          goto LABEL_84;
+        }
+
+        ++v41;
+        v37 = *v36;
+        v42 = (v36[1] - *v36) >> 3;
+        if (v41 >= v42 - 1)
+        {
+          goto LABEL_69;
+        }
+      }
+
+LABEL_96:
+      std::vector<unsigned long long>::__throw_out_of_range[abi:ne200100]();
+    }
+  }
+
+LABEL_69:
+  v44 = MIL::Builder::OperationBuilder::GetOutput(v11);
+  v45 = MIL::Builder::Variable::TryGetType(v44);
+  if (v45)
+  {
+    v46 = MIL::IRValueType::AsTensorType(v45);
+    if ((*(*v46 + 88))(v46) != 4)
+    {
+      goto LABEL_84;
+    }
+  }
+
+  v55 = v11;
+  v56 = v10;
+  if (v10)
+  {
+    atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  std::string::basic_string[abi:ne200100]<0>(&__p, "post_scale");
+  v47 = ANEMachineIR::Utils::TryGetArgumentForParameter(&v55, &__p);
+  if (SHIBYTE(v64) < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (v56)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v56);
+  }
+
+  if (v47 && !MIL::Builder::Variable::TryGetType(v47))
+  {
+    goto LABEL_84;
+  }
+
+  v48 = *(a1 + 8);
+  v53 = *a1;
+  v54 = v48;
+  if (v48)
+  {
+    atomic_fetch_add_explicit(&v48->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  OutputName = MIL::Builder::OperationBuilder::GetOutputName(v15);
+  IsBlockOutput = ANEMachineIR::Utils::IsBlockOutput(&v53, OutputName);
+  if (v54)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v54);
+  }
+
+  if (IsBlockOutput)
+  {
+    goto LABEL_84;
+  }
+
+  __p = v11;
+  v63 = v10;
+  if (v10)
+  {
+    atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  v64 = v15;
+  v65 = v14;
+  if (v14)
+  {
+    atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  *a2 = 0;
+  a2[1] = 0;
+  a2[2] = 0;
+  std::vector<std::shared_ptr<MIL::Builder::OperationBuilder>>::__init_with_size[abi:ne200100]<std::shared_ptr<MIL::Builder::OperationBuilder> const*,std::shared_ptr<MIL::Builder::OperationBuilder> const*>(a2, &__p, &v66, 2uLL);
+  for (i = 24; i != -8; i -= 16)
+  {
+    v52 = *(&__p + i);
+    if (v52)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v52);
+    }
+  }
+
+LABEL_85:
+  if (v14)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v14);
+  }
+
+LABEL_22:
+  std::__hash_table<std::shared_ptr<MIL::Builder::OperationBuilder>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::allocator<std::shared_ptr<MIL::Builder::OperationBuilder>>>::~__hash_table(&v57);
+  if (v10)
+  {
+LABEL_14:
+    std::__shared_weak_count::__release_shared[abi:ne200100](v10);
+  }
+}
+
+void sub_2599F1804(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *__p, uint64_t a21, int a22, __int16 a23, char a24, char a25)
+{
+  v29 = 24;
+  while (1)
+  {
+    v30 = *(v27 + v29);
+    if (v30)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v30);
+    }
+
+    v29 -= 16;
+    if (v29 == -8)
+    {
+      if (v26)
+      {
+        std::__shared_weak_count::__release_shared[abi:ne200100](v26);
+      }
+
+      std::__hash_table<std::shared_ptr<MIL::Builder::OperationBuilder>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::allocator<std::shared_ptr<MIL::Builder::OperationBuilder>>>::~__hash_table(&a14);
+      if (v25)
+      {
+        std::__shared_weak_count::__release_shared[abi:ne200100](v25);
+      }
+
+      _Unwind_Resume(a1);
+    }
+  }
+}
+
+void MilTranslator::Passes::FuseConvScale::Replace(MIL::Builder::OperationBuilder ***a3@<X2>, uint64_t a4@<X8>)
+{
+  v5 = *a3;
+  if (a3[1] - *a3 == 32)
+  {
+    v130 = a4;
+    v7 = *v5;
+    v6 = *(v5 + 1);
+    if (v6)
+    {
+      atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+      v5 = *a3;
+      if ((a3[1] - *a3) <= 0x10)
+      {
+        std::vector<unsigned long long>::__throw_out_of_range[abi:ne200100]();
+      }
+    }
+
+    v8 = *(v5 + 3);
+    v131 = *(v5 + 2);
+    if (v8)
+    {
+      atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    v129 = v8;
+    std::string::basic_string[abi:ne200100]<0>(&v222, "ne_conv");
+    v214 = v131;
+    v215 = v129;
+    if (v129)
+    {
+      atomic_fetch_add_explicit(&v129->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    MIL::Builder::BlockBuilder::AddOperation();
+    if (v215)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v215);
+    }
+
+    if (SHIBYTE(v222.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v222.__r_.__value_.__l.__data_);
+    }
+
+    std::string::basic_string[abi:ne200100]<0>(&__p, "x");
+    std::string::basic_string[abi:ne200100]<0>(&v222, "x");
+    ArgumentForParameter = MIL::Builder::OperationBuilder::GetArgumentForParameter();
+    Name = MIL::Builder::Variable::GetName(ArgumentForParameter);
+    if (*(Name + 23) < 0)
+    {
+      std::string::__init_copy_ctor_external(&v210, *Name, *(Name + 8));
+    }
+
+    else
+    {
+      v11 = *Name;
+      v210.__r_.__value_.__r.__words[2] = *(Name + 16);
+      *&v210.__r_.__value_.__l.__data_ = v11;
+    }
+
+    MIL::Builder::OperationBuilder::AddInput();
+    if (v213)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v213);
+    }
+
+    if (SHIBYTE(v210.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v210.__r_.__value_.__l.__data_);
+    }
+
+    if (SHIBYTE(v222.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v222.__r_.__value_.__l.__data_);
+    }
+
+    if (v212 < 0)
+    {
+      operator delete(__p);
+    }
+
+    v14 = std::string::basic_string[abi:ne200100]<0>(&v222, "dense_kernel");
+    v208 = v7;
+    v209 = v6;
+    if (v6)
+    {
+      atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    v206 = v216;
+    v207 = v217;
+    if (v217)
+    {
+      atomic_fetch_add_explicit(&v217->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    ANEMachineIR::Utils::TryCopyOpInput(v14, &v208, &v206);
+    if (v207)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v207);
+    }
+
+    if (v209)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v209);
+    }
+
+    if (SHIBYTE(v222.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v222.__r_.__value_.__l.__data_);
+    }
+
+    v15 = std::string::basic_string[abi:ne200100]<0>(&v222, "strides");
+    v204 = v7;
+    v205 = v6;
+    if (v6)
+    {
+      atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    v202 = v216;
+    v203 = v217;
+    if (v217)
+    {
+      atomic_fetch_add_explicit(&v217->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    ANEMachineIR::Utils::TryCopyOpInput(v15, &v204, &v202);
+    if (v203)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v203);
+    }
+
+    if (v205)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v205);
+    }
+
+    if (SHIBYTE(v222.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v222.__r_.__value_.__l.__data_);
+    }
+
+    v16 = std::string::basic_string[abi:ne200100]<0>(&v222, "pad_mode");
+    v200 = v7;
+    v201 = v6;
+    if (v6)
+    {
+      atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    v198 = v216;
+    v199 = v217;
+    if (v217)
+    {
+      atomic_fetch_add_explicit(&v217->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    ANEMachineIR::Utils::TryCopyOpInput(v16, &v200, &v198);
+    if (v199)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v199);
+    }
+
+    if (v201)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v201);
+    }
+
+    if (SHIBYTE(v222.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v222.__r_.__value_.__l.__data_);
+    }
+
+    v17 = std::string::basic_string[abi:ne200100]<0>(&v222, "pad");
+    v196 = v7;
+    v197 = v6;
+    if (v6)
+    {
+      atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    v194 = v216;
+    v195 = v217;
+    if (v217)
+    {
+      atomic_fetch_add_explicit(&v217->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    ANEMachineIR::Utils::TryCopyOpInput(v17, &v196, &v194);
+    if (v195)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v195);
+    }
+
+    if (v197)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v197);
+    }
+
+    if (SHIBYTE(v222.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v222.__r_.__value_.__l.__data_);
+    }
+
+    v18 = std::string::basic_string[abi:ne200100]<0>(&v222, "dilations");
+    v192 = v7;
+    v193 = v6;
+    if (v6)
+    {
+      atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    v190 = v216;
+    v191 = v217;
+    if (v217)
+    {
+      atomic_fetch_add_explicit(&v217->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    ANEMachineIR::Utils::TryCopyOpInput(v18, &v192, &v190);
+    if (v191)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v191);
+    }
+
+    if (v193)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v193);
+    }
+
+    if (SHIBYTE(v222.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v222.__r_.__value_.__l.__data_);
+    }
+
+    v19 = std::string::basic_string[abi:ne200100]<0>(&v222, "num_groups");
+    v188 = v7;
+    v189 = v6;
+    if (v6)
+    {
+      atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    v186 = v216;
+    v187 = v217;
+    if (v217)
+    {
+      atomic_fetch_add_explicit(&v217->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    ANEMachineIR::Utils::TryCopyOpInput(v19, &v188, &v186);
+    if (v187)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v187);
+    }
+
+    if (v189)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v189);
+    }
+
+    if (SHIBYTE(v222.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v222.__r_.__value_.__l.__data_);
+    }
+
+    v20 = std::string::basic_string[abi:ne200100]<0>(&v222, "group_kernel_reuse");
+    v184 = v7;
+    v185 = v6;
+    if (v6)
+    {
+      atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    v182 = v216;
+    v183 = v217;
+    if (v217)
+    {
+      atomic_fetch_add_explicit(&v217->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    ANEMachineIR::Utils::TryCopyOpInput(v20, &v184, &v182);
+    if (v183)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v183);
+    }
+
+    if (v185)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v185);
+    }
+
+    if (SHIBYTE(v222.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v222.__r_.__value_.__l.__data_);
+    }
+
+    v21 = std::string::basic_string[abi:ne200100]<0>(&v222, "bias");
+    v180 = v7;
+    v181 = v6;
+    if (v6)
+    {
+      atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    v178 = v216;
+    v179 = v217;
+    if (v217)
+    {
+      atomic_fetch_add_explicit(&v217->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    ANEMachineIR::Utils::TryCopyOpInput(v21, &v180, &v178);
+    if (v179)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v179);
+    }
+
+    if (v181)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v181);
+    }
+
+    if (SHIBYTE(v222.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v222.__r_.__value_.__l.__data_);
+    }
+
+    v22 = std::string::basic_string[abi:ne200100]<0>(&v222, "acc_left_shift");
+    v176 = v7;
+    v177 = v6;
+    if (v6)
+    {
+      atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    v174 = v216;
+    v175 = v217;
+    if (v217)
+    {
+      atomic_fetch_add_explicit(&v217->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    ANEMachineIR::Utils::TryCopyOpInput(v22, &v176, &v174);
+    if (v175)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v175);
+    }
+
+    if (v177)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v177);
+    }
+
+    if (SHIBYTE(v222.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v222.__r_.__value_.__l.__data_);
+    }
+
+    v23 = std::string::basic_string[abi:ne200100]<0>(&v222, "acc_bias_shift");
+    v172 = v7;
+    v173 = v6;
+    if (v6)
+    {
+      atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    v170 = v216;
+    v171 = v217;
+    if (v217)
+    {
+      atomic_fetch_add_explicit(&v217->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    ANEMachineIR::Utils::TryCopyOpInput(v23, &v172, &v170);
+    if (v171)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v171);
+    }
+
+    if (v173)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v173);
+    }
+
+    if (SHIBYTE(v222.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v222.__r_.__value_.__l.__data_);
+    }
+
+    v24 = std::string::basic_string[abi:ne200100]<0>(&v222, "post_right_shift");
+    v168 = v7;
+    v169 = v6;
+    if (v6)
+    {
+      atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    v166 = v216;
+    v167 = v217;
+    if (v217)
+    {
+      atomic_fetch_add_explicit(&v217->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    ANEMachineIR::Utils::TryCopyOpInput(v24, &v168, &v166);
+    if (v167)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v167);
+    }
+
+    if (v169)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v169);
+    }
+
+    if (SHIBYTE(v222.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v222.__r_.__value_.__l.__data_);
+    }
+
+    v25 = std::string::basic_string[abi:ne200100]<0>(&v222, "transposed");
+    v164 = v7;
+    v165 = v6;
+    if (v6)
+    {
+      atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    v162 = v216;
+    v163 = v217;
+    if (v217)
+    {
+      atomic_fetch_add_explicit(&v217->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    ANEMachineIR::Utils::TryCopyOpInput(v25, &v164, &v162);
+    if (v163)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v163);
+    }
+
+    if (v165)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v165);
+    }
+
+    if (SHIBYTE(v222.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v222.__r_.__value_.__l.__data_);
+    }
+
+    v26 = std::string::basic_string[abi:ne200100]<0>(&v222, "pre_relu");
+    v160 = v7;
+    v161 = v6;
+    if (v6)
+    {
+      atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    v158 = v216;
+    v159 = v217;
+    if (v217)
+    {
+      atomic_fetch_add_explicit(&v217->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    ANEMachineIR::Utils::TryCopyOpInput(v26, &v160, &v158);
+    if (v159)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v159);
+    }
+
+    if (v161)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v161);
+    }
+
+    if (SHIBYTE(v222.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v222.__r_.__value_.__l.__data_);
+    }
+
+    v27 = std::string::basic_string[abi:ne200100]<0>(&v222, "alternative_format_kernel_coefficients");
+    v156 = v7;
+    v157 = v6;
+    if (v6)
+    {
+      atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    v154 = v216;
+    v155 = v217;
+    if (v217)
+    {
+      atomic_fetch_add_explicit(&v217->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    ANEMachineIR::Utils::TryCopyOpInput(v27, &v156, &v154);
+    if (v155)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v155);
+    }
+
+    if (v157)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v157);
+    }
+
+    if (SHIBYTE(v222.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v222.__r_.__value_.__l.__data_);
+    }
+
+    v28 = std::string::basic_string[abi:ne200100]<0>(&v222, "sparse_mask");
+    v152 = v7;
+    v153 = v6;
+    if (v6)
+    {
+      atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    v150 = v216;
+    v151 = v217;
+    if (v217)
+    {
+      atomic_fetch_add_explicit(&v217->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    ANEMachineIR::Utils::TryCopyOpInput(v28, &v152, &v150);
+    if (v151)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v151);
+    }
+
+    if (v153)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v153);
+    }
+
+    if (SHIBYTE(v222.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v222.__r_.__value_.__l.__data_);
+    }
+
+    v29 = std::string::basic_string[abi:ne200100]<0>(&v222, "sparse_num_nonzero");
+    v148 = v7;
+    v149 = v6;
+    if (v6)
+    {
+      atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    v146 = v216;
+    v147 = v217;
+    if (v217)
+    {
+      atomic_fetch_add_explicit(&v217->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    ANEMachineIR::Utils::TryCopyOpInput(v29, &v148, &v146);
+    if (v147)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v147);
+    }
+
+    if (v149)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v149);
+    }
+
+    if (SHIBYTE(v222.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v222.__r_.__value_.__l.__data_);
+    }
+
+    v30 = std::string::basic_string[abi:ne200100]<0>(&v222, "sparse_num_nonzero_per_filter");
+    v144 = v7;
+    v145 = v6;
+    if (v6)
+    {
+      atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    v142 = v216;
+    v143 = v217;
+    if (v217)
+    {
+      atomic_fetch_add_explicit(&v217->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    ANEMachineIR::Utils::TryCopyOpInput(v30, &v144, &v142);
+    if (v143)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v143);
+    }
+
+    if (v145)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v145);
+    }
+
+    if (SHIBYTE(v222.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v222.__r_.__value_.__l.__data_);
+    }
+
+    v31 = std::string::basic_string[abi:ne200100]<0>(&v222, "palette_table");
+    v140 = v7;
+    v141 = v6;
+    if (v6)
+    {
+      atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    v138 = v216;
+    v139 = v217;
+    if (v217)
+    {
+      atomic_fetch_add_explicit(&v217->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    ANEMachineIR::Utils::TryCopyOpInput(v31, &v140, &v138);
+    if (v139)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v139);
+    }
+
+    if (v141)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v141);
+    }
+
+    if (SHIBYTE(v222.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v222.__r_.__value_.__l.__data_);
+    }
+
+    std::string::basic_string[abi:ne200100]<0>(&v222, "x");
+    v32 = MIL::Builder::OperationBuilder::GetArgumentForParameter();
+    if (SHIBYTE(v222.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v222.__r_.__value_.__l.__data_);
+    }
+
+    std::string::basic_string[abi:ne200100]<0>(&v222, "y");
+    v33 = MIL::Builder::OperationBuilder::GetArgumentForParameter();
+    if (SHIBYTE(v222.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v222.__r_.__value_.__l.__data_);
+    }
+
+    if (v32 == MIL::Builder::OperationBuilder::GetOutput(v7))
+    {
+      v34 = v33;
+    }
+
+    else
+    {
+      v34 = v32;
+    }
+
+    Value = MIL::Builder::Variable::GetValue(v34);
+    v36 = MIL::IRValue::AsTensor(Value);
+    v136 = v7;
+    v137 = v6;
+    if (v6)
+    {
+      atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    std::string::basic_string[abi:ne200100]<0>(&v222, "post_scale");
+    v37 = ANEMachineIR::Utils::TryGetArgumentForParameter(&v136, &v222);
+    if (SHIBYTE(v222.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v222.__r_.__value_.__l.__data_);
+    }
+
+    if (v137)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v137);
+    }
+
+    memset(&v222, 0, sizeof(v222));
+    if (v37)
+    {
+      Type = MIL::Builder::Variable::TryGetType(v37);
+      v39 = MIL::IRValueType::AsTensorType(Type);
+      if (MIL::IRTensorValueType::IsScalar(v39))
+      {
+        LOWORD(__src.__r_.__value_.__l.__data_) = MIL::Builder::Variable::GetScalarValue<MIL::Fp16>();
+        std::vector<MIL::Fp16>::__assign_with_size[abi:ne200100]<MIL::Fp16 const*,MIL::Fp16 const*>(&v222.__r_.__value_.__l.__data_, &__src, &__src.__r_.__value_.__s.__data_[2], 1uLL);
+      }
+
+      else
+      {
+        v42 = (*(*Type + 16))(Type);
+        std::vector<MIL::Fp16>::reserve(&v222, v42);
+        v43 = MIL::Builder::Variable::GetValue(v37);
+        MIL::IRValue::AsTensor(v43);
+        v44 = 0;
+        __src.__r_.__value_.__r.__words[0] = MIL::IRTensorValue::GetDataView<MIL::Fp16>();
+        __src.__r_.__value_.__l.__size_ = v45;
+        while (v44 < (*(*Type + 16))(Type))
+        {
+          v46 = MIL::Util::Span<MIL::Fp16 const,18446744073709551615ul>::At(&__src, v44);
+          size = v222.__r_.__value_.__l.__size_;
+          if (v222.__r_.__value_.__l.__size_ >= v222.__r_.__value_.__r.__words[2])
+          {
+            v49 = v222.__r_.__value_.__r.__words[0];
+            v50 = v222.__r_.__value_.__l.__size_ - v222.__r_.__value_.__r.__words[0];
+            v51 = (v222.__r_.__value_.__l.__size_ - v222.__r_.__value_.__r.__words[0]) >> 1;
+            if (v51 <= -2)
+            {
+              std::vector<MIL::Fp16>::__throw_length_error[abi:ne200100]();
+            }
+
+            if (v222.__r_.__value_.__r.__words[2] - v222.__r_.__value_.__r.__words[0] <= v51 + 1)
+            {
+              v52 = v51 + 1;
+            }
+
+            else
+            {
+              v52 = v222.__r_.__value_.__r.__words[2] - v222.__r_.__value_.__r.__words[0];
+            }
+
+            if (v222.__r_.__value_.__r.__words[2] - v222.__r_.__value_.__r.__words[0] >= 0x7FFFFFFFFFFFFFFELL)
+            {
+              v53 = 0x7FFFFFFFFFFFFFFFLL;
+            }
+
+            else
+            {
+              v53 = v52;
+            }
+
+            if (v53)
+            {
+              std::__allocate_at_least[abi:ne200100]<std::allocator<MIL::Fp16>>(&v222, v53);
+            }
+
+            v54 = (2 * v51);
+            v55 = &v54[-((v222.__r_.__value_.__l.__size_ - v222.__r_.__value_.__r.__words[0]) >> 1)];
+            *v54 = *v46;
+            v48 = (v54 + 1);
+            memcpy(v55, v49, v50);
+            v56 = v222.__r_.__value_.__r.__words[0];
+            v222.__r_.__value_.__r.__words[0] = v55;
+            *&v222.__r_.__value_.__r.__words[1] = v48;
+            if (v56)
+            {
+              operator delete(v56);
+            }
+          }
+
+          else
+          {
+            *v222.__r_.__value_.__l.__size_ = *v46;
+            v48 = size + 2;
+          }
+
+          v222.__r_.__value_.__l.__size_ = v48;
+          ++v44;
+        }
+      }
+    }
+
+    else
+    {
+      v40 = (*(*v36 + 32))(v36);
+      IsScalar = MIL::IRTensorValueType::IsScalar(v40);
+      if (IsScalar)
+      {
+        LOWORD(__src.__r_.__value_.__l.__data_) = MIL::Fp16::FromFloat(IsScalar, 1.0);
+        std::vector<MIL::Fp16>::__assign_with_size[abi:ne200100]<MIL::Fp16 const*,MIL::Fp16 const*>(&v222.__r_.__value_.__l.__data_, &__src, &__src.__r_.__value_.__s.__data_[2], 1uLL);
+      }
+
+      else
+      {
+        v57 = MIL::IRValue::AsTensor(v36);
+        v58 = (*(*v57 + 32))(v57);
+        v59 = (*(*v58 + 16))(v58);
+        std::vector<MIL::Fp16>::reserve(&v222, v59);
+        for (; v59; --v59)
+        {
+          v60 = MIL::Fp16::FromFloat(v60, 1.0);
+          v61 = v222.__r_.__value_.__l.__size_;
+          if (v222.__r_.__value_.__l.__size_ >= v222.__r_.__value_.__r.__words[2])
+          {
+            v63 = v222.__r_.__value_.__r.__words[0];
+            v64 = v222.__r_.__value_.__l.__size_ - v222.__r_.__value_.__r.__words[0];
+            v65 = (v222.__r_.__value_.__l.__size_ - v222.__r_.__value_.__r.__words[0]) >> 1;
+            if (v65 <= -2)
+            {
+              std::vector<MIL::Fp16>::__throw_length_error[abi:ne200100]();
+            }
+
+            if (v222.__r_.__value_.__r.__words[2] - v222.__r_.__value_.__r.__words[0] <= v65 + 1)
+            {
+              v66 = v65 + 1;
+            }
+
+            else
+            {
+              v66 = v222.__r_.__value_.__r.__words[2] - v222.__r_.__value_.__r.__words[0];
+            }
+
+            if (v222.__r_.__value_.__r.__words[2] - v222.__r_.__value_.__r.__words[0] >= 0x7FFFFFFFFFFFFFFELL)
+            {
+              v67 = 0x7FFFFFFFFFFFFFFFLL;
+            }
+
+            else
+            {
+              v67 = v66;
+            }
+
+            if (v67)
+            {
+              std::__allocate_at_least[abi:ne200100]<std::allocator<MIL::Fp16>>(&v222, v67);
+            }
+
+            v68 = (2 * v65);
+            v69 = &v68[-((v222.__r_.__value_.__l.__size_ - v222.__r_.__value_.__r.__words[0]) >> 1)];
+            *v68 = v60;
+            v62 = (v68 + 1);
+            memcpy(v69, v63, v64);
+            v60 = v222.__r_.__value_.__r.__words[0];
+            v222.__r_.__value_.__r.__words[0] = v69;
+            *&v222.__r_.__value_.__r.__words[1] = v62;
+            if (v60)
+            {
+              operator delete(v60);
+            }
+          }
+
+          else
+          {
+            *v222.__r_.__value_.__l.__size_ = v60;
+            v62 = v61 + 2;
+          }
+
+          v222.__r_.__value_.__l.__size_ = v62;
+        }
+      }
+    }
+
+    v70 = (*(*v36 + 32))(v36);
+    v71 = (*(*v70 + 88))(v70);
+    switch(v71)
+    {
+      case 14:
+        v82 = (*(*v36 + 32))(v36);
+        if (!MIL::IRTensorValueType::IsScalar(v82))
+        {
+          Data = MIL::IRTensorValue::GetDataView<unsigned char>();
+          v221 = v109;
+          if (v109)
+          {
+            v110 = 0;
+            v111 = 0;
+            v112 = v222.__r_.__value_.__r.__words[0];
+            do
+            {
+              if (v111 >= (v222.__r_.__value_.__l.__size_ - v112) >> 1)
+              {
+                std::vector<unsigned long long>::__throw_out_of_range[abi:ne200100]();
+              }
+
+              MIL::Fp16::GetFloat((v112 + v110));
+              v114 = v113;
+              v115 = MIL::Util::Span<unsigned char const,18446744073709551615ul>::At(&Data, v111);
+              LOBYTE(v116) = *v115;
+              v117 = MIL::Fp16::FromFloat(v115, v114 * v116);
+              v112 = v222.__r_.__value_.__r.__words[0];
+              *(v222.__r_.__value_.__r.__words[0] + 2 * v111++) = v117;
+              v110 += 2;
+            }
+
+            while (v111 < v221);
+          }
+
+          goto LABEL_337;
+        }
+
+        v83 = MEMORY[0x259CA9410](v36);
+        std::string::basic_string[abi:ne200100]<0>(&__src, "post_scale");
+        if (v222.__r_.__value_.__l.__size_ == v222.__r_.__value_.__r.__words[0])
+        {
+          std::vector<unsigned long long>::__throw_out_of_range[abi:ne200100]();
+        }
+
+        Float = MIL::Fp16::GetFloat(v222.__r_.__value_.__l.__data_);
+        LOBYTE(v85) = *v83;
+        MIL::Fp16::FromFloat(Float, v86 * v85);
+        MIL::Builder::OperationBuilder::AddInputFloat16();
+        break;
+      case 9:
+        v78 = (*(*v36 + 32))(v36);
+        if (!MIL::IRTensorValueType::IsScalar(v78))
+        {
+          Data = MIL::IRTensorValue::GetDataView<signed char>();
+          v221 = v101;
+          if (v101)
+          {
+            v102 = 0;
+            v103 = 0;
+            v104 = v222.__r_.__value_.__r.__words[0];
+            do
+            {
+              if (v103 >= (v222.__r_.__value_.__l.__size_ - v104) >> 1)
+              {
+                std::vector<unsigned long long>::__throw_out_of_range[abi:ne200100]();
+              }
+
+              MIL::Fp16::GetFloat((v104 + v102));
+              v106 = v105;
+              v107 = MIL::Util::Span<signed char const,18446744073709551615ul>::At(&Data, v103);
+              v108 = MIL::Fp16::FromFloat(v107, v106 * *v107);
+              v104 = v222.__r_.__value_.__r.__words[0];
+              *(v222.__r_.__value_.__r.__words[0] + 2 * v103++) = v108;
+              v102 += 2;
+            }
+
+            while (v103 < v221);
+          }
+
+          goto LABEL_337;
+        }
+
+        v79 = MEMORY[0x259CA93E0](v36);
+        std::string::basic_string[abi:ne200100]<0>(&__src, "post_scale");
+        if (v222.__r_.__value_.__l.__size_ == v222.__r_.__value_.__r.__words[0])
+        {
+          std::vector<unsigned long long>::__throw_out_of_range[abi:ne200100]();
+        }
+
+        v80 = MIL::Fp16::GetFloat(v222.__r_.__value_.__l.__data_);
+        MIL::Fp16::FromFloat(v80, v81 * *v79);
+        MIL::Builder::OperationBuilder::AddInputFloat16();
+        break;
+      case 4:
+        v72 = (*(*v36 + 32))(v36);
+        if (MIL::IRTensorValueType::IsScalar(v72))
+        {
+          v73 = MEMORY[0x259CA93C0](v36);
+          std::string::basic_string[abi:ne200100]<0>(&__src, "post_scale");
+          if (v222.__r_.__value_.__l.__size_ == v222.__r_.__value_.__r.__words[0])
+          {
+            std::vector<unsigned long long>::__throw_out_of_range[abi:ne200100]();
+          }
+
+          MIL::Fp16::GetFloat(v222.__r_.__value_.__l.__data_);
+          v75 = v74;
+          v76 = MIL::Fp16::GetFloat(v73);
+          MIL::Fp16::FromFloat(v76, v75 * v77);
+          MIL::Builder::OperationBuilder::AddInputFloat16();
+          break;
+        }
+
+        Data = MIL::IRTensorValue::GetDataView<MIL::Fp16>();
+        v221 = v118;
+        if (v118)
+        {
+          v119 = 0;
+          v120 = 0;
+          v121 = v222.__r_.__value_.__r.__words[0];
+          do
+          {
+            if (v120 >= (v222.__r_.__value_.__l.__size_ - v121) >> 1)
+            {
+              std::vector<unsigned long long>::__throw_out_of_range[abi:ne200100]();
+            }
+
+            MIL::Fp16::GetFloat((v121 + v119));
+            v123 = v122;
+            v124 = MIL::Util::Span<MIL::Fp16 const,18446744073709551615ul>::At(&Data, v120);
+            v125 = MIL::Fp16::GetFloat(v124);
+            v127 = MIL::Fp16::FromFloat(v125, v123 * v126);
+            v121 = v222.__r_.__value_.__r.__words[0];
+            *(v222.__r_.__value_.__r.__words[0] + 2 * v120++) = v127;
+            v119 += 2;
+          }
+
+          while (v120 < v221);
+        }
+
+LABEL_337:
+        std::string::basic_string[abi:ne200100]<0>(&__src, "post_scale");
+        MIL::Builder::OperationBuilder::AddInputFloat16();
+        v87 = v218;
+        if (!v218)
+        {
+          goto LABEL_268;
+        }
+
+        goto LABEL_267;
+      default:
+        v89 = "Unsupported scale data type, must be one of [fp16, int8, uint8]";
+        v88 = 11;
+LABEL_272:
+        *v130 = v88;
+        v90 = (v130 + 8);
+        std::string::basic_string[abi:ne200100]<0>((v130 + 8), v89);
+        if (v222.__r_.__value_.__r.__words[0])
+        {
+          v222.__r_.__value_.__l.__size_ = v222.__r_.__value_.__r.__words[0];
+          operator delete(v222.__r_.__value_.__l.__data_);
+        }
+
+        if (!*v130)
+        {
+          if (*(v130 + 31) < 0)
+          {
+            operator delete(*v90);
+          }
+
+          Output = MIL::Builder::OperationBuilder::GetOutput(v131);
+          v92 = MIL::Builder::Variable::GetName(Output);
+          if (*(v92 + 23) < 0)
+          {
+            std::string::__init_copy_ctor_external(&v222, *v92, *(v92 + 8));
+          }
+
+          else
+          {
+            v93 = *v92;
+            v222.__r_.__value_.__r.__words[2] = *(v92 + 16);
+            *&v222.__r_.__value_.__l.__data_ = v93;
+          }
+
+          if ((v222.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          {
+            v94 = HIBYTE(v222.__r_.__value_.__r.__words[2]);
+          }
+
+          else
+          {
+            v94 = v222.__r_.__value_.__l.__size_;
+          }
+
+          std::string::basic_string[abi:ne200100](&__src, v94 + 6);
+          if ((__src.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          {
+            p_src = &__src;
+          }
+
+          else
+          {
+            p_src = __src.__r_.__value_.__r.__words[0];
+          }
+
+          if (v94)
+          {
+            if ((v222.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+            {
+              v96 = &v222;
+            }
+
+            else
+            {
+              v96 = v222.__r_.__value_.__r.__words[0];
+            }
+
+            memmove(p_src, v96, v94);
+          }
+
+          strcpy(p_src + v94, "_fused");
+          if (SHIBYTE(__src.__r_.__value_.__r.__words[2]) < 0)
+          {
+            std::string::__init_copy_ctor_external(&v134, __src.__r_.__value_.__l.__data_, __src.__r_.__value_.__l.__size_);
+          }
+
+          else
+          {
+            v134 = __src;
+          }
+
+          v97 = MIL::Builder::OperationBuilder::GetOutput(v131);
+          MIL::Builder::Variable::TryGetType(v97);
+          MIL::Builder::OperationBuilder::AddOutput();
+          if (v135)
+          {
+            std::__shared_weak_count::__release_shared[abi:ne200100](v135);
+          }
+
+          if (SHIBYTE(v134.__r_.__value_.__r.__words[2]) < 0)
+          {
+            operator delete(v134.__r_.__value_.__l.__data_);
+          }
+
+          if (SHIBYTE(__src.__r_.__value_.__r.__words[2]) < 0)
+          {
+            std::string::__init_copy_ctor_external(&v133, __src.__r_.__value_.__l.__data_, __src.__r_.__value_.__l.__size_);
+          }
+
+          else
+          {
+            v133 = __src;
+          }
+
+          MIL::Builder::BlockBuilder::ReplaceUsesOfInputVariable();
+          if (SHIBYTE(v133.__r_.__value_.__r.__words[2]) < 0)
+          {
+            operator delete(v133.__r_.__value_.__l.__data_);
+          }
+
+          v98 = *a3;
+          v99 = a3[1];
+          if (*a3 != v99)
+          {
+            do
+            {
+              v100 = *(v98 + 1);
+              if (v100)
+              {
+                atomic_fetch_add_explicit(&v100->__shared_owners_, 1uLL, memory_order_relaxed);
+                v132 = v100;
+                atomic_fetch_add_explicit(&v100->__shared_owners_, 1uLL, memory_order_relaxed);
+              }
+
+              else
+              {
+                v132 = 0;
+              }
+
+              MIL::Builder::BlockBuilder::RemoveOperation();
+              if (v132)
+              {
+                std::__shared_weak_count::__release_shared[abi:ne200100](v132);
+              }
+
+              if (v100)
+              {
+                std::__shared_weak_count::__release_shared[abi:ne200100](v100);
+              }
+
+              v98 += 16;
+            }
+
+            while (v98 != v99);
+          }
+
+          *v130 = 0;
+          std::string::basic_string[abi:ne200100]<0>(v90, &unk_259A4D977);
+          if (SHIBYTE(__src.__r_.__value_.__r.__words[2]) < 0)
+          {
+            operator delete(__src.__r_.__value_.__l.__data_);
+          }
+
+          if (SHIBYTE(v222.__r_.__value_.__r.__words[2]) < 0)
+          {
+            operator delete(v222.__r_.__value_.__l.__data_);
+          }
+        }
+
+        if (v217)
+        {
+          std::__shared_weak_count::__release_shared[abi:ne200100](v217);
+        }
+
+        if (v129)
+        {
+          std::__shared_weak_count::__release_shared[abi:ne200100](v129);
+        }
+
+        if (v6)
+        {
+          std::__shared_weak_count::__release_shared[abi:ne200100](v6);
+        }
+
+        return;
+    }
+
+    v87 = v221;
+    if (!v221)
+    {
+LABEL_268:
+      if (SHIBYTE(__src.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(__src.__r_.__value_.__l.__data_);
+      }
+
+      v88 = 0;
+      v89 = &unk_259A4D977;
+      goto LABEL_272;
+    }
+
+LABEL_267:
+    std::__shared_weak_count::__release_shared[abi:ne200100](v87);
+    goto LABEL_268;
+  }
+
+  *a4 = 14;
+  std::operator+<char>();
+  v12 = std::string::append(&v222, "'s pattern");
+  v13 = *&v12->__r_.__value_.__l.__data_;
+  *(a4 + 24) = *(&v12->__r_.__value_.__l + 2);
+  *(a4 + 8) = v13;
+  v12->__r_.__value_.__l.__size_ = 0;
+  v12->__r_.__value_.__r.__words[2] = 0;
+  v12->__r_.__value_.__r.__words[0] = 0;
+  if (SHIBYTE(v222.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v222.__r_.__value_.__l.__data_);
   }
 }

@@ -37,16 +37,14 @@
 
 + (id)allPreferenceSelectorsAsStrings
 {
-  v9[1] = *MEMORY[0x1E69E9840];
-  v8.receiver = self;
-  v8.super_class = &OBJC_METACLASS___CLFMusicSettings_GeneratedCode;
-  v2 = objc_msgSendSuper2(&v8, sel_allPreferenceSelectorsAsStrings);
+  v8[1] = *MEMORY[0x1E69E9840];
+  v7.receiver = self;
+  v7.super_class = &OBJC_METACLASS___CLFMusicSettings_GeneratedCode;
+  v2 = objc_msgSendSuper2(&v7, sel_allPreferenceSelectorsAsStrings);
   v3 = NSStringFromSelector(sel_selectedPlaylists);
-  v9[0] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
+  v8[0] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
   v5 = [v2 arrayByAddingObjectsFromArray:v4];
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

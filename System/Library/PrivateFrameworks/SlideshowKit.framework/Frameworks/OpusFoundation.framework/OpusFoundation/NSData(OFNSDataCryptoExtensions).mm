@@ -164,7 +164,7 @@
 
   while (v8);
   v9 = [MEMORY[0x277CBEA90] dataWithBytes:v11 length:16];
-  [v7 appendData:{objc_msgSend(v9, "AES128EncryptWithPassword:", a4, *v11)}];
+  [v7 appendData:{objc_msgSend(v9, "AES128EncryptWithPassword:", a4, *v11, *&v11[8])}];
   return [v7 isEqualToData:a3];
 }
 

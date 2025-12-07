@@ -52,7 +52,7 @@
 
 - (void)setIdentityProviders:(id)providers
 {
-  v87[1] = *MEMORY[0x277D85DE8];
+  v86[1] = *MEMORY[0x277D85DE8];
   providersCopy = providers;
   selfCopy = self;
   objc_storeStrong(&self->_identityProviders, providers);
@@ -60,13 +60,13 @@
   v7 = [providersCopy mutableCopy];
   v8 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"rankForSorting" ascending:1];
   v9 = [MEMORY[0x277CCA9C0] expressionForKeyPath:@"rankForSorting"];
-  v55 = [MEMORY[0x277CCA9C0] expressionForConstantValue:0];
-  v56 = v9;
-  v54 = [MEMORY[0x277CCA918] predicateWithLeftExpression:v9 rightExpression:? modifier:? type:? options:?];
+  v54 = [MEMORY[0x277CCA9C0] expressionForConstantValue:0];
+  v55 = v9;
+  v53 = [MEMORY[0x277CCA918] predicateWithLeftExpression:v9 rightExpression:? modifier:? type:? options:?];
   [v7 filterUsingPredicate:?];
-  v57 = v8;
-  v87[0] = v8;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v87 count:1];
+  v56 = v8;
+  v86[0] = v8;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v86 count:1];
   [v7 sortUsingDescriptors:v10];
 
   if ([v7 count])
@@ -81,13 +81,13 @@
   {
     v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v7, "count")}];
     *buf = 138412546;
-    v84 = v13;
-    v85 = 2112;
-    v86 = v7;
+    v83 = v13;
+    v84 = 2112;
+    v85 = v7;
     _os_log_impl(&dword_270DD4000, v12, OS_LOG_TYPE_DEFAULT, "Found %@ featured providers: %@", buf, 0x16u);
   }
 
-  v60 = providersCopy;
+  v59 = providersCopy;
   v14 = [providersCopy mutableCopy];
   v15 = [v14 count];
   if (v15 < [(VSIdentityProviderTableViewDataSource *)self _minimumProviderCountForIndexes])
@@ -95,9 +95,9 @@
     [v14 removeObjectsInArray:v7];
   }
 
-  v58 = v7;
-  v59 = v6;
-  v53 = [v14 count];
+  v57 = v7;
+  v58 = v6;
+  v52 = [v14 count];
   currentCollation = [MEMORY[0x277D75700] currentCollation];
   v17 = objc_alloc_init(MEMORY[0x277CBEB18]);
   sectionIndexTitles = [currentCollation sectionIndexTitles];
@@ -119,108 +119,108 @@
     while (v20 < v23);
   }
 
+  v75 = 0u;
   v76 = 0u;
   v77 = 0u;
   v78 = 0u;
-  v79 = 0u;
   v24 = v14;
-  v25 = [v24 countByEnumeratingWithState:&v76 objects:v82 count:16];
+  v25 = [v24 countByEnumeratingWithState:&v75 objects:v81 count:16];
   if (v25)
   {
     v26 = v25;
-    v27 = *v77;
+    v27 = *v76;
     do
     {
       for (i = 0; i != v26; ++i)
       {
-        if (*v77 != v27)
+        if (*v76 != v27)
         {
           objc_enumerationMutation(v24);
         }
 
-        v29 = *(*(&v76 + 1) + 8 * i);
+        v29 = *(*(&v75 + 1) + 8 * i);
         v30 = [v17 objectAtIndex:{objc_msgSend(currentCollation, "sectionForObject:collationStringSelector:", v29, sel_nameForSorting)}];
         [v30 addObject:v29];
       }
 
-      v26 = [v24 countByEnumeratingWithState:&v76 objects:v82 count:16];
+      v26 = [v24 countByEnumeratingWithState:&v75 objects:v81 count:16];
     }
 
     while (v26);
   }
 
   v31 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v71 = 0u;
   v72 = 0u;
   v73 = 0u;
   v74 = 0u;
-  v75 = 0u;
   v32 = v17;
-  v33 = [v32 countByEnumeratingWithState:&v72 objects:v81 count:16];
+  v33 = [v32 countByEnumeratingWithState:&v71 objects:v80 count:16];
   if (v33)
   {
     v34 = v33;
-    v35 = *v73;
+    v35 = *v72;
     do
     {
       for (j = 0; j != v34; ++j)
       {
-        if (*v73 != v35)
+        if (*v72 != v35)
         {
           objc_enumerationMutation(v32);
         }
 
-        v37 = [currentCollation sortedArrayFromArray:*(*(&v72 + 1) + 8 * j) collationStringSelector:sel_nameForSorting];
+        v37 = [currentCollation sortedArrayFromArray:*(*(&v71 + 1) + 8 * j) collationStringSelector:sel_nameForSorting];
         [v31 addObject:v37];
       }
 
-      v34 = [v32 countByEnumeratingWithState:&v72 objects:v81 count:16];
+      v34 = [v32 countByEnumeratingWithState:&v71 objects:v80 count:16];
     }
 
     while (v34);
   }
 
   v38 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v39 = [v59 count];
+  v39 = [v58 count];
   sectionIndexTitles3 = [currentCollation sectionIndexTitles];
-  v66[0] = MEMORY[0x277D85DD0];
-  v66[1] = 3221225472;
-  v66[2] = __62__VSIdentityProviderTableViewDataSource_setIdentityProviders___block_invoke;
-  v66[3] = &unk_279E1AA40;
+  v65[0] = MEMORY[0x277D85DD0];
+  v65[1] = 3221225472;
+  v65[2] = __62__VSIdentityProviderTableViewDataSource_setIdentityProviders___block_invoke;
+  v65[3] = &unk_279E1AA40;
   v41 = currentCollation;
-  v67 = v41;
+  v66 = v41;
   v42 = v31;
-  v68 = v42;
-  v70 = v53;
-  v71 = v39;
+  v67 = v42;
+  v69 = v52;
+  v70 = v39;
   v43 = v38;
-  v69 = v43;
-  [sectionIndexTitles3 enumerateObjectsUsingBlock:v66];
+  v68 = v43;
+  [sectionIndexTitles3 enumerateObjectsUsingBlock:v65];
 
   [(VSIdentityProviderTableViewDataSource *)self setDestinationsBySectionIndexTitle:v43];
   v44 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v61 = 0u;
   v62 = 0u;
   v63 = 0u;
   v64 = 0u;
-  v65 = 0u;
   v45 = v42;
-  v46 = [v45 countByEnumeratingWithState:&v62 objects:v80 count:16];
+  v46 = [v45 countByEnumeratingWithState:&v61 objects:v79 count:16];
   if (v46)
   {
     v47 = v46;
-    v48 = *v63;
+    v48 = *v62;
     do
     {
       for (k = 0; k != v47; ++k)
       {
-        if (*v63 != v48)
+        if (*v62 != v48)
         {
           objc_enumerationMutation(v45);
         }
 
-        [v44 addObjectsFromArray:*(*(&v62 + 1) + 8 * k)];
+        [v44 addObjectsFromArray:*(*(&v61 + 1) + 8 * k)];
       }
 
-      v47 = [v45 countByEnumeratingWithState:&v62 objects:v80 count:16];
+      v47 = [v45 countByEnumeratingWithState:&v61 objects:v79 count:16];
     }
 
     while (v47);
@@ -228,12 +228,10 @@
 
   v50 = objc_alloc_init(VSIdentityProviderSection);
   [(VSIdentityProviderSection *)v50 setIdentityProviders:v44];
-  [v59 addObject:v50];
-  [(VSIdentityProviderTableViewDataSource *)selfCopy setProviderSections:v59];
+  [v58 addObject:v50];
+  [(VSIdentityProviderTableViewDataSource *)selfCopy setProviderSections:v58];
   tableView = [(VSIdentityProviderTableViewDataSource *)selfCopy tableView];
   [tableView reloadData];
-
-  v52 = *MEMORY[0x277D85DE8];
 }
 
 void __62__VSIdentityProviderTableViewDataSource_setIdentityProviders___block_invoke(uint64_t a1, void *a2, uint64_t a3)
@@ -272,32 +270,32 @@ void __62__VSIdentityProviderTableViewDataSource_setIdentityProviders___block_in
 
 - (void)setTvProviderSupportedStorefronts:(id)storefronts
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   storefrontsCopy = storefronts;
   objc_storeStrong(&self->_tvProviderSupportedStorefronts, storefronts);
   v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v9 = storefrontsCopy;
-  v10 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v21;
+    v12 = *v20;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v21 != v12)
+        if (*v20 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v20 + 1) + 8 * i);
+        v14 = *(*(&v19 + 1) + 8 * i);
         if ([v14 isFeatured])
         {
           v15 = v6;
@@ -311,7 +309,7 @@ void __62__VSIdentityProviderTableViewDataSource_setIdentityProviders___block_in
         [v15 addObject:v14];
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v11);
@@ -330,8 +328,6 @@ void __62__VSIdentityProviderTableViewDataSource_setIdentityProviders___block_in
   [(VSIdentityProviderTableViewDataSource *)self setStorefrontSections:v8];
   tableView = [(VSIdentityProviderTableViewDataSource *)self tableView];
   [tableView reloadData];
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setTableView:(id)view
@@ -401,51 +397,51 @@ void __62__VSIdentityProviderTableViewDataSource_setIdentityProviders___block_in
 
 - (id)preferredIndexPathForIdentityProviderWithName:(id)name
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   nameCopy = name;
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   obj = [(VSIdentityProviderTableViewDataSource *)self providerSections];
-  v23 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
-  if (v23)
+  v22 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
+  if (v22)
   {
     v5 = 0;
-    v22 = *v31;
+    v21 = *v30;
     do
     {
-      for (i = 0; i != v23; ++i)
+      for (i = 0; i != v22; ++i)
       {
-        v25 = v5;
-        if (*v31 != v22)
+        v24 = v5;
+        if (*v30 != v21)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v30 + 1) + 8 * i);
+        v7 = *(*(&v29 + 1) + 8 * i);
+        v25 = 0u;
         v26 = 0u;
         v27 = 0u;
         v28 = 0u;
-        v29 = 0u;
         identityProviders = [v7 identityProviders];
-        v9 = [identityProviders countByEnumeratingWithState:&v26 objects:v34 count:16];
+        v9 = [identityProviders countByEnumeratingWithState:&v25 objects:v33 count:16];
         if (v9)
         {
           v10 = v9;
           v11 = 0;
-          v12 = *v27;
+          v12 = *v26;
 LABEL_8:
           v13 = 0;
-          v24 = v11 + v10;
+          v23 = v11 + v10;
           while (1)
           {
-            if (*v27 != v12)
+            if (*v26 != v12)
             {
               objc_enumerationMutation(identityProviders);
             }
 
-            displayName = [*(*(&v26 + 1) + 8 * v13) displayName];
+            displayName = [*(*(&v25 + 1) + 8 * v13) displayName];
             object = [displayName object];
             v16 = [object isEqualToString:nameCopy];
 
@@ -457,8 +453,8 @@ LABEL_8:
             ++v11;
             if (v10 == ++v13)
             {
-              v10 = [identityProviders countByEnumeratingWithState:&v26 objects:v34 count:16];
-              v11 = v24;
+              v10 = [identityProviders countByEnumeratingWithState:&v25 objects:v33 count:16];
+              v11 = v23;
               if (v10)
               {
                 goto LABEL_8;
@@ -468,8 +464,8 @@ LABEL_8:
             }
           }
 
-          v17 = v25;
-          v18 = [MEMORY[0x277CCAA70] indexPathForRow:v11 inSection:v25];
+          v17 = v24;
+          v18 = [MEMORY[0x277CCAA70] indexPathForRow:v11 inSection:v24];
 
           if (v18)
           {
@@ -481,22 +477,20 @@ LABEL_8:
         {
 LABEL_14:
 
-          v17 = v25;
+          v17 = v24;
         }
 
         v5 = v17 + 1;
       }
 
-      v23 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
+      v22 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
     }
 
-    while (v23);
+    while (v22);
   }
 
   v18 = 0;
 LABEL_19:
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -678,17 +672,17 @@ LABEL_4:
 
 - (id)tableView:(id)view indexPathForSectionIndexTitle:(id)title atIndex:(int64_t)index
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   titleCopy = title;
   v8 = VSDefaultLogObject();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = [MEMORY[0x277CCABB0] numberWithInteger:index];
-    v15 = 138412546;
-    v16 = titleCopy;
-    v17 = 2112;
-    v18 = v9;
-    _os_log_impl(&dword_270DD4000, v8, OS_LOG_TYPE_DEFAULT, "Requesting index path for title %@ at index %@", &v15, 0x16u);
+    v14 = 138412546;
+    v15 = titleCopy;
+    v16 = 2112;
+    v17 = v9;
+    _os_log_impl(&dword_270DD4000, v8, OS_LOG_TYPE_DEFAULT, "Requesting index path for title %@ at index %@", &v14, 0x16u);
   }
 
   if ([titleCopy isEqualToString:*MEMORY[0x277D76F40]])
@@ -706,12 +700,10 @@ LABEL_4:
   v12 = VSDefaultLogObject();
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 138412290;
-    v16 = v10;
-    _os_log_impl(&dword_270DD4000, v12, OS_LOG_TYPE_DEFAULT, "Returning index path %@", &v15, 0xCu);
+    v14 = 138412290;
+    v15 = v10;
+    _os_log_impl(&dword_270DD4000, v12, OS_LOG_TYPE_DEFAULT, "Returning index path %@", &v14, 0xCu);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

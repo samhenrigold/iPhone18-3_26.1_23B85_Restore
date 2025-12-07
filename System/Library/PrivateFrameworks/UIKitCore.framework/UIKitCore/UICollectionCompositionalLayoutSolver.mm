@@ -64,7 +64,7 @@ void __96___UICollectionCompositionalLayoutSolver_updatePinnedSectionSupplementa
       v14 = v13;
       if (v13)
       {
-        v13 = v13[2];
+        v13 = *(v13 + 2);
       }
 
       v15 = [v13 _extensionBehavior];
@@ -87,7 +87,7 @@ void __96___UICollectionCompositionalLayoutSolver_updatePinnedSectionSupplementa
       v24 = v23;
       if (v23)
       {
-        v23 = v23[2];
+        v23 = *(v23 + 2);
       }
 
       v25 = [v23 _extensionBehavior];
@@ -323,7 +323,7 @@ void __96___UICollectionCompositionalLayoutSolver_updatePinnedSectionSupplementa
   v3 = [*(a1 + 32) sectionSupplementaryFrameForIndex:a2];
   if (v3)
   {
-    v4 = *(v3 + 16);
+    v4 = v3[2];
   }
 
   else
@@ -412,10 +412,10 @@ void __96___UICollectionCompositionalLayoutSolver_updatePinnedSectionSupplementa
   [*(a1 + 40) addInvalidatedSupplementaryForKind:v10 indexPath:v8];
   if (v21)
   {
-    v13 = *(v21 + 10);
-    v12 = *(v21 + 11);
-    v14 = *(v21 + 12);
-    v15 = *(v21 + 13);
+    v13 = v21[10];
+    v12 = v21[11];
+    v14 = v21[12];
+    v15 = v21[13];
   }
 
   else
@@ -818,40 +818,40 @@ void __89___UICollectionCompositionalLayoutSolver_mutatedVisibleItemsForElements
 
 void __95___UICollectionCompositionalLayoutSolver_resolveSolutionForUpdate_container_ignoreEmptyUpdate___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = [*(a1 + 32) initialSectionIndexForFinalSectionIndex:?];
-  if (v6 != 0x7FFFFFFFFFFFFFFFLL)
+  v5 = [*(a1 + 32) initialSectionIndexForFinalSectionIndex:?];
+  if (v5 != 0x7FFFFFFFFFFFFFFFLL)
   {
-    v7 = v6;
-    if (v6 < *(a1 + 56))
+    v6 = v5;
+    if (v5 < *(a1 + 56))
     {
-      v8 = *(a1 + 40);
-      if (v8)
+      v7 = *(a1 + 40);
+      if (v7)
       {
-        v9 = *(v8 + 184);
+        v8 = *(v7 + 184);
       }
 
       else
       {
-        v9 = 0;
+        v8 = 0;
       }
 
-      v10 = [v9 objectAtIndexedSubscript:v7];
-      v15 = v10;
-      if (v10)
+      v9 = [v8 objectAtIndexedSubscript:v6];
+      v14 = v9;
+      if (v9)
       {
-        v11 = *(v10 + 16);
-        v12 = v11;
-        if (v11 && ([v11 isEqual:a2] & 1) == 0)
+        v10 = *(v9 + 16);
+        v11 = v10;
+        if (v10 && (objc_msgSend_isEqual_(v10) & 1) == 0)
         {
-          v13 = *(a1 + 48);
-          v14 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:a3];
-          [v13 removeObjectForKey:v14];
+          v12 = *(a1 + 48);
+          v13 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:a3];
+          [v12 removeObjectForKey:v13];
         }
       }
 
       else
       {
-        v12 = 0;
+        v11 = 0;
       }
     }
   }
@@ -934,7 +934,7 @@ LABEL_48:
 
   if ([v26 isEstimated])
   {
-    v42 = [(_UICollectionPreferredSize *)v13 preferredSizeForOriginalSize:v15 fittingSize:v17 layoutSize:_UICollectionPreferredSize, v26];
+    v42 = [_UICollectionPreferredSize preferredSizeForOriginalSize:v26 fittingSize:v13 layoutSize:v15, v17];
     v44 = v43;
     ShouldRespectPreferredSizeOnEstimatedAxisOnly = _UICollectionViewCompositionalLayoutShouldRespectPreferredSizeOnEstimatedAxisOnly();
     if (ShouldRespectPreferredSizeOnEstimatedAxisOnly)
@@ -1059,9 +1059,9 @@ LABEL_49:
     goto LABEL_38;
   }
 
-  v87 = [v60 isEqual:v61];
+  isEqual = objc_msgSend_isEqual_(v60);
 
-  if ((v87 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_38:
     v68 = *(a1 + 40);
@@ -1281,7 +1281,7 @@ void __108___UICollectionCompositionalLayoutSolver_resolveForInvalidatedPreferre
   }
 }
 
-void __108___UICollectionCompositionalLayoutSolver_resolveForInvalidatedPreferredAttributes_scrollOffset_visibleRect___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
+void __108___UICollectionCompositionalLayoutSolver_resolveForInvalidatedPreferredAttributes_scrollOffset_visibleRect___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
   v5 = [a2 integerValue];
   v6 = *(a1 + 32);
@@ -1367,12 +1367,12 @@ void __108___UICollectionCompositionalLayoutSolver_resolveForInvalidatedPreferre
     v32 = *(a1 + 80);
     v31 = *(a1 + 88);
     a3 = [a3 copy];
-    *(a3 + 32) = v32;
-    *(a3 + 40) = v31;
-    *(a3 + 48) = v30;
-    *(a3 + 56) = y - v15;
-    *(a3 + 64) = v25;
-    *(a3 + 72) = v26;
+    *(a3 + 4) = v32;
+    *(a3 + 5) = v31;
+    *(a3 + 6) = v30;
+    *(a3 + 7) = y - v15;
+    *(a3 + 8) = v25;
+    *(a3 + 9) = v26;
   }
 
   v33 = [v9 resolveWithParameters:a3 preferredSizes:v11];
@@ -1702,40 +1702,40 @@ void __76___UICollectionCompositionalLayoutSolver__attributesQueryInfosForQueryR
 
 void __72___UICollectionCompositionalLayoutSolver__solveRetainingPreferredSizes___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = *(a1 + 32);
-  if (v6)
+  v5 = *(a1 + 32);
+  if (v5)
   {
-    v7 = *(v6 + 184);
+    v6 = *(v5 + 184);
   }
 
   else
   {
-    v7 = 0;
+    v6 = 0;
   }
 
-  v8 = [v7 objectAtIndexedSubscript:a3];
-  v9 = v8;
-  if (*(a1 + 48) == 1 && v8 != 0)
+  v7 = [v6 objectAtIndexedSubscript:a3];
+  v8 = v7;
+  if (*(a1 + 48) == 1 && v7 != 0)
   {
-    v11 = *(v8 + 104);
-    if (v11)
+    v10 = *(v7 + 104);
+    if (v10)
     {
-      v19 = v8;
-      v12 = [*(v11 + 16) count];
-      v9 = v19;
-      if (v12 || (v13 = [*(v11 + 24) count], v9 = v19, v13))
+      v18 = v7;
+      v11 = [*(v10 + 16) count];
+      v8 = v18;
+      if (v11 || (v12 = [*(v10 + 24) count], v8 = v18, v12))
       {
-        v14 = v9[2];
-        if ([v14 isEqual:a2])
+        v13 = v8[2];
+        if (objc_msgSend_isEqual_(v13))
         {
-          v15 = v19[13];
-          v16 = [(_UICollectionPreferredSizes *)v15 copyByDirtyingPreferredSizes];
-          v17 = *(a1 + 40);
-          v18 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:a3];
-          [v17 setObject:v16 forKeyedSubscript:v18];
+          v14 = v18[13];
+          v15 = [(_UICollectionPreferredSizes *)v14 copyByDirtyingPreferredSizes];
+          v16 = *(a1 + 40);
+          v17 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:a3];
+          [v16 setObject:v15 forKeyedSubscript:v17];
         }
 
-        v9 = v19;
+        v8 = v18;
       }
     }
   }

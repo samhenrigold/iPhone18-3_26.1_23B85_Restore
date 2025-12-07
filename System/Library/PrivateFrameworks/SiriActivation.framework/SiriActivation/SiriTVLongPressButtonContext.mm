@@ -109,14 +109,13 @@
 
 - (void)isPTTEligible
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = *(self + 49);
-  v4 = 136315394;
-  v5 = "[SiriTVLongPressButtonContext isPTTEligible]";
-  v6 = 1024;
-  v7 = v2;
-  _os_log_debug_impl(&dword_1C8137000, a2, OS_LOG_TYPE_DEBUG, "%s #ptt Overriding PTT eligibility from %d to true", &v4, 0x12u);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 136315394;
+  v4 = "[SiriTVLongPressButtonContext isPTTEligible]";
+  v5 = 1024;
+  v6 = v2;
+  _os_log_debug_impl(&dword_1C8137000, a2, OS_LOG_TYPE_DEBUG, "%s #ptt Overriding PTT eligibility from %d to true", &v3, 0x12u);
 }
 
 @end

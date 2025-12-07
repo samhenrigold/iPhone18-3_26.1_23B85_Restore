@@ -93,61 +93,61 @@
 
 - (void)_configureObserver
 {
-  objc_initWeak(&location, self);
-  v3 = objc_alloc_init(off_10051EB60());
-  [(MRDProximityLockScreenRoutingProvider *)self setObserver:v3];
+  inited = objc_initWeak(&location, self);
+  v4 = objc_alloc_init(off_10051EB60(inited));
+  [(MRDProximityLockScreenRoutingProvider *)self setObserver:v4];
 
   queue = [(MRDProximityLockScreenRoutingProvider *)self queue];
   observer = [(MRDProximityLockScreenRoutingProvider *)self observer];
   [observer setDispatchQueue:queue];
 
-  v6 = _MRLogForCategory();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = _MRLogForCategory();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     observer2 = [(MRDProximityLockScreenRoutingProvider *)self observer];
     *buf = 138412546;
-    v22 = observer2;
-    v23 = 2048;
+    v23 = observer2;
+    v24 = 2048;
     selfCopy = self;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "[ProximityProvider] configuring observer: %@ (%p)", buf, 0x16u);
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "[ProximityProvider] configuring observer: %@ (%p)", buf, 0x16u);
   }
 
-  v18[0] = _NSConcreteStackBlock;
-  v18[1] = 3221225472;
-  v18[2] = sub_1000630FC;
-  v18[3] = &unk_1004B7D28;
-  objc_copyWeak(&v19, &location);
+  v19[0] = _NSConcreteStackBlock;
+  v19[1] = 3221225472;
+  v19[2] = sub_1000630FC;
+  v19[3] = &unk_1004B7D28;
+  objc_copyWeak(&v20, &location);
   observer3 = [(MRDProximityLockScreenRoutingProvider *)self observer];
-  [observer3 setDeviceLost:v18];
+  [observer3 setDeviceLost:v19];
 
-  v16[0] = _NSConcreteStackBlock;
-  v16[1] = 3221225472;
-  v16[2] = sub_100063258;
-  v16[3] = &unk_1004B7D28;
-  objc_copyWeak(&v17, &location);
+  v17[0] = _NSConcreteStackBlock;
+  v17[1] = 3221225472;
+  v17[2] = sub_100063258;
+  v17[3] = &unk_1004B7D28;
+  objc_copyWeak(&v18, &location);
   observer4 = [(MRDProximityLockScreenRoutingProvider *)self observer];
-  [observer4 setDeviceUpdated:v16];
+  [observer4 setDeviceUpdated:v17];
 
-  v14[0] = _NSConcreteStackBlock;
-  v14[1] = 3221225472;
-  v14[2] = sub_1000633CC;
-  v14[3] = &unk_1004B7D50;
-  objc_copyWeak(&v15, &location);
+  v15[0] = _NSConcreteStackBlock;
+  v15[1] = 3221225472;
+  v15[2] = sub_1000633CC;
+  v15[3] = &unk_1004B7D50;
+  objc_copyWeak(&v16, &location);
   observer5 = [(MRDProximityLockScreenRoutingProvider *)self observer];
-  [observer5 setInvalidationHandler:v14];
+  [observer5 setInvalidationHandler:v15];
 
   observer6 = [(MRDProximityLockScreenRoutingProvider *)self observer];
-  v12[0] = _NSConcreteStackBlock;
-  v12[1] = 3221225472;
-  v12[2] = sub_100063450;
-  v12[3] = &unk_1004B7D50;
-  objc_copyWeak(&v13, &location);
-  [observer6 activateWithCompletion:v12];
+  v13[0] = _NSConcreteStackBlock;
+  v13[1] = 3221225472;
+  v13[2] = sub_100063450;
+  v13[3] = &unk_1004B7D50;
+  objc_copyWeak(&v14, &location);
+  [observer6 activateWithCompletion:v13];
 
-  objc_destroyWeak(&v13);
-  objc_destroyWeak(&v15);
-  objc_destroyWeak(&v17);
-  objc_destroyWeak(&v19);
+  objc_destroyWeak(&v14);
+  objc_destroyWeak(&v16);
+  objc_destroyWeak(&v18);
+  objc_destroyWeak(&v20);
   objc_destroyWeak(&location);
 }
 

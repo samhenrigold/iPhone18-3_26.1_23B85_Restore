@@ -25,7 +25,7 @@
   v2 = v7.receiver;
   [(LemonadeDetailsNavigationController *)&v7 viewDidLoad];
   v3 = objc_opt_self();
-  sub_1A3C52C70(0, &qword_1EB126A10);
+  sub_1A3C52C70(0, &qword_1EB126A10, off_1E771E328);
   sharedInstance = [swift_getObjCClassFromMetadata() sharedInstance];
   [sharedInstance simulatedDetailsViewLoadingDelay];
   v6 = v5;

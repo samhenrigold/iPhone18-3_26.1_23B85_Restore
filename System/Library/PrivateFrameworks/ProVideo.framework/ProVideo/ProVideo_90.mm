@@ -120,7 +120,7 @@ OZChannelFolder *OZFootageLayer::removeDescendant(OZFootageLayer *this, OZSceneN
   return OZChannelFolder::removeDescendant((this + 56), v9);
 }
 
-uint64_t OZFootageLayer::writeBody(unsigned int **this, PCSerializerWriteStream *a2, uint64_t a3, int a4, uint64_t a5)
+uint64_t OZFootageLayer::writeBody(unsigned int **this, PCSerializerWriteStream *a2, uint64_t a3, _BOOL4 a4, uint64_t a5)
 {
   if (a4)
   {
@@ -176,19 +176,19 @@ uint64_t OZFootageLayer::writeBody(unsigned int **this, PCSerializerWriteStream 
   return OZSceneNode::writeBody(this, a2, a3, a4, a5);
 }
 
-void sub_26017E2B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_26017E2B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va1, a6);
-  va_start(va, a6);
-  v7 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
+  va_start(va1, a11);
+  va_start(va, a11);
   v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
   v14 = va_arg(va1, void);
   v15 = va_arg(va1, void);
   v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   std::__hash_table<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::__unordered_map_hasher<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::hash<OZSceneNode *>,std::equal_to<OZSceneNode *>,true>,std::__unordered_map_equal<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::equal_to<OZSceneNode *>,std::hash<OZSceneNode *>,true>,std::allocator<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>>>::~__hash_table(va);
   std::__hash_table<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::__unordered_map_hasher<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::hash<OZSceneNode *>,std::equal_to<OZSceneNode *>,true>,std::__unordered_map_equal<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::equal_to<OZSceneNode *>,std::hash<OZSceneNode *>,true>,std::allocator<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>>>::~__hash_table(va1);
   _Unwind_Resume(a1);
@@ -208,7 +208,7 @@ uint64_t non-virtual thunk toOZFootageLayer::parseBegin(OZFootageLayer *this, PC
   return 1;
 }
 
-uint64_t OZFootageLayer::parseElement(OZFootageLayer *this, PCSerializerReadStream *a2, PCStreamElement *a3)
+uint64_t OZFootageLayer::parseElement(const void **this, PCSerializerReadStream *a2, PCStreamElement *a3)
 {
   PCSharedCount::PCSharedCount(&v13);
   *v12 = 0;
@@ -299,9 +299,9 @@ void sub_26017E784(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-HGNode *OZLiCachingImageSource::getHelium@<X0>(OZLiCachingImageSource *this@<X0>, LiRenderParameters **a2@<X1>, HGBitmapLoader **a3@<X8>)
+HGNode *OZLiCachingImageSource::getHelium@<X0>(OZLiCachingImageSource *this@<X0>, LiRenderParameters **a2@<X1>, uint64_t *a3@<X8>)
 {
-  v57 = 0;
+  v61 = 0;
   HeliumRenderer = LiAgent::getHeliumRenderer(a2);
   v7 = (*(*HeliumRenderer + 128))(HeliumRenderer, 43);
   v8 = *(this + 2);
@@ -310,60 +310,60 @@ HGNode *OZLiCachingImageSource::getHelium@<X0>(OZLiCachingImageSource *this@<X0>
     goto LABEL_38;
   }
 
-  LiAgent::getHelium(a2, v8, a3);
+  LiAgent::getHelium(a3, a2, v8);
   v9 = *a3;
-  if (v57 != *a3)
+  if (v61 != *a3)
   {
-    v57 = *a3;
+    v61 = *a3;
     if (v9)
     {
       (*(*v9 + 16))(v9);
     }
   }
 
-  LiAgent::getROI(a2, &v56);
+  LiAgent::getROI(&v60, a2);
   v10 = HGObject::operator new(0x1A0uLL);
   HGCrop::HGCrop(v10);
-  (*(*v10 + 96))(v10, 0, v56, SDWORD1(v56), (DWORD2(v56) + v56), (HIDWORD(v56) + DWORD1(v56)));
-  (*(*v10 + 120))(v10, 0, v57);
-  v11 = v57;
-  if (v57 != v10)
+  (*(*v10 + 96))(v10, 0, v60, SDWORD1(v60), (DWORD2(v60) + v60), (HIDWORD(v60) + DWORD1(v60)));
+  (*(*v10 + 120))(v10, 0, v61);
+  v11 = v61;
+  if (v61 != v10)
   {
-    if (v57)
+    if (v61)
     {
-      (*(*v57 + 24))(v57);
+      (*(*v61 + 24))(v61);
     }
 
-    v57 = v10;
+    v61 = v10;
     (*(*v10 + 16))(v10);
-    v11 = v57;
+    v11 = v61;
   }
 
-  *&v55.var0 = HGRenderer::GetDOD(HeliumRenderer, v11);
-  *&v55.var2 = v12;
-  HGRect::Init(&v54, -1, -1, 1, 1);
-  HGRect::Grow(&v55, v54);
-  v52 = 0;
-  if (HGRectIsNull(*&v55.var0, *&v55.var2))
+  *&v59.var0 = HGRenderer::GetDOD(HeliumRenderer, v11);
+  *&v59.var2 = v12;
+  HGRect::Init(&v58, -1, -1, 1, 1);
+  HGRect::Grow(&v59, v58);
+  v56 = 0;
+  if (HGRectIsNull(*&v59.var0, *&v59.var2))
   {
     v13 = -1;
   }
 
   else
   {
-    v52 = vmax_s32(*&v55.var0, vdup_n_s32(0xC0000001));
-    v13 = vsub_s32(vmin_s32(*&v55.var2, vdup_n_s32(0x3FFFFFFEu)), v52);
+    v56 = vmax_s32(*&v59.var0, vdup_n_s32(0xC0000001));
+    v13 = vsub_s32(vmin_s32(*&v59.var2, vdup_n_s32(0x3FFFFFFEu)), v56);
   }
 
-  v53 = v13;
+  v57 = v13;
   WorkingColorSpace = OZRenderParams::getWorkingColorSpace(this + 1);
   if (v7 != 1)
   {
-    PGHelium::renderNodeToTexture(HeliumRenderer, &v57, &v52, *(this + 93), WorkingColorSpace, (this + 1348));
+    PGHelium::renderNodeToTexture(HeliumRenderer, &v61, &v56, *(this + 93), WorkingColorSpace, (this + 1348));
   }
 
-  v48 = a3;
-  v16 = HGRectMake4i(v52.u32[0], v52.u32[1], v53.i32[0] + v52.i32[0], v53.i32[1] + v52.i32[1]);
+  v52 = a3;
+  v16 = HGRectMake4i(v56.i32[0], v56.i32[1], v57.i32[0] + v56.i32[0], v57.i32[1] + v56.i32[1]);
   v18 = v17;
   Format = PGHelium::makeFormat(*(this + 93));
   isRenderForHDR_Deprecated = OZRenderParams::isRenderForHDR_Deprecated((this + 32));
@@ -383,69 +383,69 @@ HGNode *OZLiCachingImageSource::getHelium@<X0>(OZLiCachingImageSource *this@<X0>
   v24 = HGObject::operator new(0x320uLL);
   HGColorConform::HGColorConform(v24);
   HGColorConform::SetOutputPixelFormat(v24, Format, 0);
-  (*(*v24 + 120))(v24, 0, v57);
-  if (v57 != v24)
+  (*(*v24 + 120))(v24, 0, v61);
+  if (v61 != v24)
   {
-    if (v57)
+    if (v61)
     {
-      (*(*v57 + 24))(v57);
+      (*(*v61 + 24))(v61);
     }
 
-    v57 = v24;
+    v61 = v24;
     (*(*v24 + 16))(v24);
   }
 
   DstAlphaFactor = HGGLBlendingInfo::GetDstAlphaFactor((this + 1348));
   BitsPerChannel = PCBitDepth::getBitsPerChannel(DstAlphaFactor);
-  v27 = PGHelium::convertBitsPerChannel(4, BitsPerChannel, 0);
-  RendererMutexLocker::RendererMutexLocker(&v50, v15);
-  LiHelium::setUpGLRenderer(v15, v27);
-  (*(*v15 + 64))(v15, v22, v57);
-  RendererMutexLocker::~RendererMutexLocker(&v50);
+  v29 = PGHelium::convertBitsPerChannel(4, BitsPerChannel, 0, v27, v28);
+  RendererMutexLocker::RendererMutexLocker(&v54, v15);
+  LiHelium::setUpGLRenderer(v15, v29);
+  (*(*v15 + 64))(v15, v22, v61);
+  RendererMutexLocker::~RendererMutexLocker(&v54);
   if ((*(*v15 + 128))(v15, 13))
   {
     (*(*v24 + 24))(v24);
-    a3 = v48;
+    a3 = v52;
     if (v22)
     {
       (*(*v22 + 24))(v22);
     }
 
-    v29 = 0;
+    v31 = 0;
     LOBYTE(v22) = 1;
   }
 
   else
   {
-    MetalTexture = HGGPURenderer::GetMetalTexture(v15, v22, v28);
-    v31 = MetalTexture;
-    v32 = *(this + 182);
-    v49 = MetalTexture;
+    MetalTexture = HGGPURenderer::GetMetalTexture(v15, v22, v30);
+    v33 = MetalTexture;
+    v34 = *(this + 182);
+    v53 = MetalTexture;
     if (MetalTexture)
     {
       (*(*MetalTexture + 16))(MetalTexture);
     }
 
-    OZElement::setCachedMetalTexture(v32, &v49);
-    if (v49)
+    OZElement::setCachedMetalTexture(v34, &v53);
+    if (v53)
     {
-      (*(*v49 + 24))(v49);
+      (*(*v53 + 24))(v53);
     }
 
-    if (v31)
+    if (v33)
     {
-      (*(*v31 + 24))(v31);
+      (*(*v33 + 24))(v33);
     }
 
     (*(*v24 + 24))(v24);
-    a3 = v48;
+    a3 = v52;
     if (v22)
     {
       (*(*v22 + 24))(v22);
       LOBYTE(v22) = 0;
     }
 
-    v29 = 1;
+    v31 = 1;
   }
 
   (*(*v10 + 24))(v10);
@@ -454,97 +454,97 @@ HGNode *OZLiCachingImageSource::getHelium@<X0>(OZLiCachingImageSource *this@<X0>
     (*(**a3 + 24))(*a3);
   }
 
-  if (v29)
+  if (v31)
   {
 LABEL_38:
     if (v7 == 1)
     {
-      OZElement::cachedMetalTexture(*(this + 182), &v50);
-      v33 = v50;
-      v34 = HGObject::operator new(0x1F0uLL);
-      HGBitmapLoader::HGBitmapLoader(v34, v33);
-      *a3 = v34;
-      if (v50)
+      OZElement::cachedMetalTexture(*(this + 182), &v54);
+      v35 = v54;
+      v36 = HGObject::operator new(0x1F0uLL);
+      HGBitmapLoader::HGBitmapLoader(v36, v35);
+      *a3 = v36;
+      if (v54)
       {
-        (*(*v50 + 24))(v50);
+        (*(*v54 + 24))(v54);
       }
     }
 
     else
     {
-      OZElement::cachedTexture(*(this + 182), &v50);
-      if (v50)
+      OZElement::cachedTexture(*(this + 182), &v54);
+      if (v54)
       {
-        v35 = PGHelium::convertBitsPerChannel(*(v50 + 40), *(v50 + 36), 0);
-        v56 = xmmword_26084A5D0;
-        PGTexture::getTexCoords(v50, &v56);
-        v36 = a3;
-        v37 = HGRectMake4i(*&v56, *(&v56 + 1), *(&v56 + 2) + *&v56, *(&v56 + 3) + *(&v56 + 1));
-        v39 = v38;
-        Name = ProGL::TextureHandle::getName((v50 + 64));
-        v41 = HGObject::operator new(0xC8uLL);
-        HGGLTexture::HGGLTexture(v41, v37, v39, v35, HeliumRenderer, Name, 1);
-        v42 = HGObject::operator new(0x20uLL);
+        v39 = PGHelium::convertBitsPerChannel(*(v54 + 40), *(v54 + 36), 0, v37, v38);
+        v60 = xmmword_26084A5D0;
+        PGTexture::getTexCoords(v54, &v60);
+        v40 = a3;
+        v41 = HGRectMake4i(*&v60, *(&v60 + 1), *(&v60 + 2) + *&v60, *(&v60 + 3) + *(&v60 + 1));
         v43 = v42;
-        a3 = v36;
-        v44 = v50;
-        v45 = v51;
-        if (v51)
+        Name = ProGL::TextureHandle::getName((v54 + 64));
+        v45 = HGObject::operator new(0xC8uLL);
+        HGGLTexture::HGGLTexture(v45, v41, v43, v39, HeliumRenderer, Name, 1);
+        v46 = HGObject::operator new(0x20uLL);
+        v47 = v46;
+        a3 = v40;
+        v48 = v54;
+        v49 = v55;
+        if (v55)
         {
-          atomic_fetch_add_explicit(&v51->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v55->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        HGObject::HGObject(v42);
-        *v43 = &unk_287296578;
-        *(v43 + 2) = v44;
-        *(v43 + 3) = v45;
-        if (v45)
+        HGObject::HGObject(v46);
+        *v47 = &unk_287296578;
+        *(v47 + 2) = v48;
+        *(v47 + 3) = v49;
+        if (v49)
         {
-          atomic_fetch_add_explicit(&v45->__shared_owners_, 1uLL, memory_order_relaxed);
-          std::__shared_weak_count::__release_shared[abi:ne200100](v45);
+          atomic_fetch_add_explicit(&v49->__shared_owners_, 1uLL, memory_order_relaxed);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v49);
         }
 
-        HGBitmap::SetStorage(v41, v43);
-        v46 = HGObject::operator new(0x1F0uLL);
-        HGBitmapLoader::HGBitmapLoader(v46, v41);
-        if (v57 == v46)
+        HGBitmap::SetStorage(v45, v47);
+        v50 = HGObject::operator new(0x1F0uLL);
+        HGBitmapLoader::HGBitmapLoader(v50, v45);
+        if (v61 == v50)
         {
-          if (v46)
+          if (v50)
           {
-            (*(*v46 + 24))(v46);
+            (*(*v50 + 24))(v50);
           }
         }
 
         else
         {
-          if (v57)
+          if (v61)
           {
-            (*(*v57 + 24))(v57);
+            (*(*v61 + 24))(v61);
           }
 
-          v57 = v46;
+          v61 = v50;
         }
 
-        (*(*v43 + 24))(v43);
-        if (v41)
+        (*(*v47 + 24))(v47);
+        if (v45)
         {
-          (*(*v41 + 24))(v41);
+          (*(*v45 + 24))(v45);
         }
       }
 
-      *a3 = v57;
-      v57 = 0;
-      if (v51)
+      *a3 = v61;
+      v61 = 0;
+      if (v55)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v51);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v55);
       }
     }
   }
 
-  result = v57;
-  if (v57)
+  result = v61;
+  if (v61)
   {
-    return (*(*v57 + 24))(v57);
+    return (*(*v61 + 24))(v61);
   }
 
   return result;
@@ -552,7 +552,7 @@ LABEL_38:
 
 void sub_26017F144(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10)
 {
-  (*(*v13 + 24))(v13);
+  (*(*v13 + 24))(v13, a2, a3, a4, a5, a6, a7, a8);
   (*(*v12 + 24))(v12);
   if (v11)
   {
@@ -749,7 +749,7 @@ void OZChannelSceneNode::OZChannelSceneNode(OZChannelSceneNode *this, const PCSt
   *(this + 32) = 0;
 }
 
-void OZChannelSceneNode::OZChannelSceneNode(OZChannelSceneNode *this, const OZChannelSceneNode *a2, OZChannelFolder *a3)
+void OZChannelSceneNode::OZChannelSceneNode(OZChannelSceneNode *this, const OZTimeMarkerSet **a2, OZChannelFolder *a3)
 {
   OZChannelObjectRoot::OZChannelObjectRoot(this, a2, a3);
   *v3 = &unk_2872965C8;
@@ -870,7 +870,7 @@ void OZMsgTracerLogFxPlugUsage(OZObjectManipulator *this)
 
       v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"%d", v5];
       Identifier = CFBundleGetIdentifier(MainBundle);
-      OZFxPlugSharedBase::getPluginUUID(v3, &v13);
+      OZFxPlugSharedBase::getPluginUUID(&v13, v3);
       v12.var0 = 0;
       PCString::set(&v12, v9);
       PCURL::PCURL(&v11, Identifier);
@@ -881,7 +881,7 @@ void OZMsgTracerLogFxPlugUsage(OZObjectManipulator *this)
 
     else
     {
-      OZFxPlugSharedBase::getDisplayName(v2, &v13);
+      OZFxPlugSharedBase::getDisplayName(&v13, v2);
       v8 = PCString::createCStr(&v13);
       PCString::~PCString(&v13);
       free(v8);
@@ -968,11 +968,11 @@ double OZSimulationCurveNode::solveNode(OZSimulationCurveNode *this, OZCurveNode
   return *&v5;
 }
 
-double OZSimulationCurveNode::solveNode(OZSimulationCurveNode *this, const CMTime *a2, double a3, double a4)
+double OZSimulationCurveNode::solveNode(uint64_t this, const CMTime *a2, double a3, double a4)
 {
-  if ((a2->flags & 1) != 0 && (v4 = *(this + 1), *(v4 + 208) == 1) && (*(v4 + 372) & 1) == 0)
+  if ((a2->flags & 1) != 0 && (v4 = *(this + 8), *(v4 + 208) == 1) && (*(v4 + 372) & 1) == 0)
   {
-    return OZObjectSimulator::getStateElement(*(this + 1), a2, *(this + 4));
+    return OZObjectSimulator::getStateElement(*(this + 8), a2, *(this + 16));
   }
 
   else
@@ -1053,7 +1053,7 @@ void OZObjectSimulator::~OZObjectSimulator(OZObjectSimulator *this)
   if (*(this + 264) == 1)
   {
     v2 = (*(**(this + 1) + 272))(*(this + 1));
-    OZDocument::removeCPPObserver(*(v2 + 1584));
+    OZDocument::removeCPPObserver(*(v2 + 1584), this);
     *(this + 264) = 0;
     OZScene::removeSimulator(v2, this);
   }
@@ -1120,8 +1120,8 @@ uint64_t OZObjectSimulator::flushCache(OZObjectSimulator *this, int a2)
     if (v10)
     {
       v11 = (*(*v10 + 640))(v10);
-      std::list<OZSimulationBehavior *>::list(&v14, v11 + 224);
-      for (i = *(&v14 + 1); i != &v14; i = *(i + 8))
+      std::list<OZSimulationBehavior *>::list(&v14.value, v11 + 224);
+      for (i = *&v14.timescale; i != &v14; i = *(i + 8))
       {
         (*(**(i + 16) + 712))(*(i + 16));
       }
@@ -1131,18 +1131,17 @@ uint64_t OZObjectSimulator::flushCache(OZObjectSimulator *this, int a2)
     }
 
     *(this + 208) = OZObjectSimulator::calcAnythingToSimulate(this);
-    OZObjectSimulator::getFirstSimTime(this, &v14);
+    OZObjectSimulator::getFirstSimTime(&v14, this);
     *(this + 212) = v14;
-    *(this + 228) = v15;
     *(this + 372) = 0;
   }
 
   return PCMutex::unlock((this + 136));
 }
 
-void sub_260180B54(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_260180B54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__list_imp<unsigned int>::clear(va);
   _Unwind_Resume(a1);
 }
@@ -1176,11 +1175,11 @@ LABEL_3:
     v22 = v23;
     v6 = (*(*v5 + 272))(v5);
     v7 = *(v6 + 1584);
-    v8 = (v6 + 920);
+    v8 = v6 + 920;
     do
     {
       v9 = v8;
-      v8 = v8->var6;
+      v8 = *(v8 + 48);
     }
 
     while (v8);
@@ -1209,7 +1208,7 @@ LABEL_3:
           if (v16)
           {
             LODWORD(v20) = *(v16 + 80);
-            std::__tree<unsigned int>::__emplace_unique_key_args<unsigned int,unsigned int const&>(&v22, &v20);
+            std::__tree<unsigned int>::__emplace_unique_key_args<unsigned int,unsigned int const&>(&v22, &v20, &v20);
             v18 = *((*(*v17 + 664))(v17) + 8);
             v20 = xmmword_2603473B0;
             if (OZFactory::isKindOfClass(v18, &v20))
@@ -1429,9 +1428,9 @@ LABEL_66:
   return 1;
 }
 
-void sub_2601812F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2601812F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__list_imp<unsigned int>::clear(va);
   _Unwind_Resume(a1);
 }
@@ -1539,38 +1538,38 @@ LABEL_32:
   return v16 != 0;
 }
 
-void sub_2601816E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_2601816E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va1, a5);
-  va_start(va, a5);
-  v6 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v10 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
+  v13 = va_arg(va1, void);
   std::__list_imp<unsigned int>::clear(va);
   std::__list_imp<unsigned int>::clear(va1);
   _Unwind_Resume(a1);
 }
 
-uint64_t OZObjectSimulator::didAddToScene(uint64_t this, OZScene *a2)
+void *OZObjectSimulator::didAddToScene(void *this, OZScene *a2)
 {
-  if ((*(this + 264) & 1) == 0)
+  if ((this[33] & 1) == 0)
   {
-    v3 = this;
+    v4 = this;
     OZDocument::addCPPObserver(*(a2 + 198), this, 1000);
-    *(v3 + 264) = 1;
+    *(v4 + 264) = 1;
 
-    OZScene::addSimulator();
+    OZScene::addSimulator(a2, v4);
   }
 
   return this;
 }
 
-void *OZObjectSimulator::willRemoveFromScene(void *this, OZScene *a2)
+_BYTE *OZObjectSimulator::willRemoveFromScene(_BYTE *this, OZScene *a2)
 {
-  if (*(this + 264) == 1)
+  if (this[264] == 1)
   {
     v4 = this;
-    OZDocument::removeCPPObserver(*(a2 + 198));
+    OZDocument::removeCPPObserver(*(a2 + 198), this);
     *(v4 + 264) = 0;
 
     return OZScene::removeSimulator(a2, v4);
@@ -1579,16 +1578,16 @@ void *OZObjectSimulator::willRemoveFromScene(void *this, OZScene *a2)
   return this;
 }
 
-void *OZObjectSimulator::getFirstSimTime@<X0>(OZObjectSimulator *this@<X0>, uint64_t a2@<X8>)
+uint64_t *OZObjectSimulator::getFirstSimTime@<X0>(CMTime *__return_ptr a1@<X8>, OZObjectSimulator *this@<X0>)
 {
   v4 = (*(**(this + 1) + 1008))(*(this + 1));
   v5 = (*(**(this + 1) + 640))();
   std::list<OZSimulationBehavior *>::list(&v18, v5 + 224);
-  *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a1->value = 0;
+  *&a1->timescale = 0;
+  a1->epoch = 0;
   (*(**(this + 1) + 1128))(&v16);
-  *a2 = v16;
+  *a1 = v16;
   v6 = v19;
   if (v19 != &v18)
   {
@@ -1606,14 +1605,14 @@ void *OZObjectSimulator::getFirstSimTime@<X0>(OZObjectSimulator *this@<X0>, uint
             {
               (*(*v8 + 608))(&v16, v8);
               time1 = v16;
-              time2 = *a2;
+              time2 = *a1;
               if (CMTimeCompare(&time1, &time2) < 0)
               {
                 time1 = v17;
                 time2 = *v7;
                 if (CMTimeCompare(&time1, &time2) >= 1)
                 {
-                  *a2 = v16;
+                  *a1 = v16;
                 }
               }
             }
@@ -1653,14 +1652,14 @@ void *OZObjectSimulator::getFirstSimTime@<X0>(OZObjectSimulator *this@<X0>, uint
                     {
                       (*(*v14 + 608))(&v16, v14);
                       time1 = v16;
-                      time2 = *a2;
+                      time2 = *a1;
                       if (CMTimeCompare(&time1, &time2) < 0)
                       {
                         time1 = v17;
                         time2 = *v10;
                         if (CMTimeCompare(&time1, &time2) >= 1)
                         {
-                          *a2 = v16;
+                          *a1 = v16;
                         }
                       }
                     }
@@ -1681,9 +1680,9 @@ void *OZObjectSimulator::getFirstSimTime@<X0>(OZObjectSimulator *this@<X0>, uint
   return std::__list_imp<unsigned int>::clear(&v18);
 }
 
-void sub_260181C38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_260181C38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   std::__list_imp<unsigned int>::clear(va);
   _Unwind_Resume(a1);
 }
@@ -1776,9 +1775,9 @@ LABEL_26:
   return 0;
 }
 
-void sub_260181F64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_260181F64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__list_imp<unsigned int>::clear(va);
   _Unwind_Resume(a1);
 }
@@ -1925,9 +1924,9 @@ LABEL_48:
   return v16;
 }
 
-void sub_260182410(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_260182410(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__list_imp<unsigned int>::clear(va);
   _Unwind_Resume(a1);
 }
@@ -2027,7 +2026,7 @@ LABEL_27:
             v23 = *(v13 - 1) + 4096;
           }
 
-          std::__tree<std::pair<OZObjectSimulator *,CMTime>>::__emplace_unique_key_args<std::pair<OZObjectSimulator *,CMTime>,std::pair<OZObjectSimulator *,CMTime> const&>(v22, v23 - 32);
+          std::__tree<std::pair<OZObjectSimulator *,CMTime>>::__emplace_unique_key_args<std::pair<OZObjectSimulator *,CMTime>,std::pair<OZObjectSimulator *,CMTime> const&>(v22, v23 - 32, (v23 - 32));
           v17 = *v13;
           if (v14 == *v13)
           {
@@ -2058,7 +2057,7 @@ LABEL_27:
   }
 }
 
-__n128 std::deque<std::pair<OZObjectSimulator *,CMTime>>::push_back(void *a1, uint64_t a2)
+__n128 std::deque<std::pair<OZObjectSimulator *,CMTime>>::push_back(unint64_t *a1, uint64_t a2)
 {
   v4 = a1[2];
   v5 = a1[1];
@@ -2099,11 +2098,11 @@ void SimRecursionSentry::~SimRecursionSentry(SimRecursionSentry *this)
   std::deque<std::pair<OZObjectSimulator *,CMTime>>::__maybe_remove_back_spare[abi:ne200100](v1 + 1, 1);
 }
 
-void OZObjectSimulator::getState(OZObjectSimulator *this, CMTime *a2, OZSimulationState *a3)
+void OZObjectSimulator::getState(OZObjectSimulator *this, CMTime *a2, __n128 *a3)
 {
   v6 = (*(**(this + 1) + 272))(*(this + 1));
   memset(&v17, 0, sizeof(v17));
-  OZSceneSettings::getFrameDuration((v6 + 336), &v17);
+  OZSceneSettings::getFrameDuration(&v17, (v6 + 336));
   SimRecursionSentry::SimRecursionSentry(&v16, this, a2);
   if (*(v16 + 5) == 1)
   {
@@ -2130,18 +2129,18 @@ void OZObjectSimulator::getState(OZObjectSimulator *this, CMTime *a2, OZSimulati
     }
 
     *a3 = v9;
-    *(a3 + 2) = v10;
+    a3[1].n128_u64[0] = v10;
     if (&v9 != a3)
     {
-      *(a3 + 3) = v11;
-      *(a3 + 2) = v12;
-      *(a3 + 6) = *v13;
+      a3[1].n128_u64[1] = v11;
+      a3[2] = v12;
+      a3[3].n128_u64[0] = *v13;
     }
 
     *(a3 + 168) = *&v13[120];
     *(a3 + 184) = *&v13[136];
     *(a3 + 200) = v14;
-    *(a3 + 27) = v15;
+    a3[13].n128_u64[1] = v15;
     *(a3 + 104) = *&v13[56];
     *(a3 + 120) = *&v13[72];
     *(a3 + 136) = *&v13[88];
@@ -2161,7 +2160,7 @@ double OZObjectSimulator::getCachedState(OZObjectSimulator *this, CMTime *a2, CM
   {
     *(this + 208) = OZObjectSimulator::calcAnythingToSimulate(this);
     *(this + 372) = 0;
-    OZObjectSimulator::getFirstSimTime(this, &time1);
+    OZObjectSimulator::getFirstSimTime(&time1, this);
     *(this + 212) = time1;
     *(this + 266) = 0;
   }
@@ -2351,7 +2350,7 @@ LABEL_39:
   if ((CMTimeCompare(&time1, &time2) & 0x80000000) == 0)
   {
     OZObjectSimulator::accumInitialValues(this, a4);
-    OZObjectSimulator::cacheState(this, a4, a3);
+    OZObjectSimulator::cacheState(this, a4, a3, 0);
   }
 
   v33 = *&a2->value;
@@ -2483,61 +2482,61 @@ LABEL_25:
   return std::__list_imp<unsigned int>::clear(&v27);
 }
 
-void sub_260183654(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_260183654(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   std::__list_imp<unsigned int>::clear(va);
   _Unwind_Resume(a1);
 }
 
-void OZObjectSimulator::cacheState(OZObjectSimulator *this, OZSimulationState *a2, const CMTime *a3)
+void OZObjectSimulator::cacheState(OZObjectSimulator *this, OZSimulationState *a2, CMTime *a3, int a4)
 {
   PCMutex::lock((this + 136));
-  v5 = this + 16;
-  for (i = *(this + 3); i != v5; i = i[1])
+  v6 = this + 16;
+  for (i = *(this + 3); i != v6; i = i[1])
   {
-    v13 = *(i[2] + 176);
+    v14 = *(i[2] + 176);
     time2 = *(a2 + 176);
-    if (!CMTimeCompare(&v13, &time2))
+    if (!CMTimeCompare(&v14, &time2))
     {
-      v11 = i[1];
-      v12 = *i;
-      *(v12 + 8) = v11;
-      *v11 = v12;
+      v12 = i[1];
+      v13 = *i;
+      *(v13 + 8) = v12;
+      *v12 = v13;
       --*(this + 4);
       operator delete(i);
       operator new();
     }
   }
 
-  v7 = *(this + 4);
-  if (v7 >= 9)
+  v8 = *(this + 4);
+  if (v8 >= 9)
   {
-    v8 = *v5;
-    if (*(*v5 + 16))
+    v9 = *v6;
+    if (*(*v6 + 16))
     {
-      MEMORY[0x2666E9F00](*(*v5 + 16), 0x1000C405DF52C91);
-      v8 = *(this + 2);
-      v7 = *(this + 4);
+      MEMORY[0x2666E9F00](*(*v6 + 16), 0x1000C405DF52C91);
+      v9 = *(this + 2);
+      v8 = *(this + 4);
     }
 
-    v10 = *v8;
-    v9 = v8[1];
-    *(v10 + 8) = v9;
-    *v9 = v10;
-    *(this + 4) = v7 - 1;
-    operator delete(v8);
+    v11 = *v9;
+    v10 = v9[1];
+    *(v11 + 8) = v10;
+    *v10 = v11;
+    *(this + 4) = v8 - 1;
+    operator delete(v9);
   }
 
   operator new();
 }
 
-void *std::list<BOOL *>::remove(uint64_t a1, void *a2)
+void *std::list<BOOL *>::remove(void *a1, void *a2)
 {
   v10[0] = v10;
   v10[1] = v10;
   v10[2] = 0;
-  v2 = *(a1 + 8);
+  v2 = a1[1];
   if (v2 != a1)
   {
     do
@@ -2584,9 +2583,9 @@ void *std::list<BOOL *>::remove(uint64_t a1, void *a2)
   return std::__list_imp<unsigned int>::clear(v10);
 }
 
-void sub_260183CA4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_260183CA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__list_imp<unsigned int>::clear(va);
   _Unwind_Resume(a1);
 }
@@ -2594,7 +2593,7 @@ void sub_260183CA4(_Unwind_Exception *a1, uint64_t a2, ...)
 double OZObjectSimulator::getStateElement(OZObjectSimulator *this, const CMTime *a2, int a3)
 {
   memset(&v23, 0, sizeof(v23));
-  OZChannelObjectRootBase::getTimeOffset((*(this + 1) + 56), &v21);
+  OZChannelObjectRootBase::getTimeOffset(&v21, (*(this + 1) + 56));
   v7 = *a2;
   *&v24.value = v21;
   v24.epoch = v22;
@@ -2637,37 +2636,37 @@ double OZObjectSimulator::getProperyFromState(OZObjectSimulator *this, const CMT
 
     else
     {
-      v23.var7.var0[1][2] = 1.0;
-      v23.var7.var0[0][1] = 1.0;
-      v23.var3 = 1.0;
-      v23.var0.var0 = 0x3FF0000000000000;
-      memset(&v23.var0.var1, 0, 32);
-      memset(&v23.var4, 0, 32);
-      memset(&v23.var7.var0[0][2], 0, 32);
-      PCMatrix44Tmpl<double>::setRotationFromQuaternion(&v23, a4 + 3);
-      memset(v18, 0, sizeof(v18));
-      v19 = 4;
-      v20 = 0u;
-      v21 = 0u;
-      v22 = 0;
-      Transformation = PCMatrix44Tmpl<double>::getTransformation(&v23.var0.var0, v18);
-      _pcCheckGetTransformation(Transformation, "/Library/Caches/com.apple.xbs/Sources/MotioniOS/Ozone/Behaviors/OZObjectSimulator.cpp", 705, v12, v13, v14, v15, v16);
+      v18.var7.var0[1][2] = 1.0;
+      v18.var7.var0[0][1] = 1.0;
+      v18.var3 = 1.0;
+      v18.var0.var0 = 0x3FF0000000000000;
+      memset(&v18.var0.var1, 0, 32);
+      memset(&v18.var4, 0, 32);
+      memset(&v18.var7.var0[0][2], 0, 32);
+      PCMatrix44Tmpl<double>::setRotationFromQuaternion(&v18, a4 + 3);
+      memset(v13, 0, sizeof(v13));
+      v14 = 4;
+      v15 = 0u;
+      v16 = 0u;
+      v17 = 0;
+      Transformation = PCMatrix44Tmpl<double>::getTransformation(&v18.var0.var0, v13);
+      _pcCheckGetTransformation(Transformation, "/Library/Caches/com.apple.xbs/Sources/MotioniOS/Ozone/Behaviors/OZObjectSimulator.cpp", 705);
       if (a3 == 7)
       {
-        v17 = &v20;
+        v12 = &v15;
       }
 
       else if (a3 == 9)
       {
-        v17 = &v21;
+        v12 = &v16;
       }
 
       else
       {
-        v17 = (&v20 + 8);
+        v12 = (&v15 + 8);
       }
 
-      return *v17;
+      return *v12;
     }
   }
 
@@ -2699,11 +2698,11 @@ double OZObjectSimulator::getProperyFromState(OZObjectSimulator *this, const CMT
       if (v9)
       {
         v10 = v9;
-        OZRenderState::OZRenderState(&v23);
-        *&v23.var0.var0 = *&a2->value;
-        v23.var0.var3 = a2->epoch;
-        v23.var8 = 0;
-        (*(*v10 + 1248))(v10, a4 + 200, &v23);
+        OZRenderState::OZRenderState(&v18);
+        *&v18.var0.var0 = *&a2->value;
+        v18.var0.var3 = a2->epoch;
+        v18.var8 = 0;
+        (*(*v10 + 1248))(v10, a4 + 200, &v18);
       }
     }
 
@@ -2732,7 +2731,7 @@ void *OZObjectSimulator::getInitialPosition(OZObjectSimulator *this, OZSimulatio
   v5 = (*(**(this + 1) + 1008))();
   v6 = (*(**(this + 1) + 272))();
   memset(&v20, 0, sizeof(v20));
-  OZSceneSettings::getFrameDuration((v6 + 336), &v20);
+  OZSceneSettings::getFrameDuration(&v20, (v6 + 336));
   memset(&v19, 0, sizeof(v19));
   operator*(&v20, &v19, 0.001);
   std::list<OZSimulationBehavior *>::list(&v17, v4 + 224);
@@ -2770,9 +2769,9 @@ void *OZObjectSimulator::getInitialPosition(OZObjectSimulator *this, OZSimulatio
   return std::__list_imp<unsigned int>::clear(&v17);
 }
 
-void sub_260184384(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_260184384(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::__list_imp<unsigned int>::clear(va);
   _Unwind_Resume(a1);
 }
@@ -2783,7 +2782,7 @@ void *OZObjectSimulator::accumInitialValues(OZObjectSimulator *this, OZSimulatio
   v5 = (*(**(this + 1) + 1008))();
   v6 = (*(**(this + 1) + 272))();
   memset(&v28, 0, sizeof(v28));
-  OZSceneSettings::getFrameDuration((v6 + 336), &v28);
+  OZSceneSettings::getFrameDuration(&v28, (v6 + 336));
   memset(&v27, 0, sizeof(v27));
   operator*(&v28, &v27, 0.001);
   std::list<OZSimulationBehavior *>::list(&v25, v4 + 224);
@@ -2847,7 +2846,7 @@ LABEL_15:
       {
         if (v14)
         {
-          std::list<OZSimulationBehavior *>::list(&v29, v14 + 224);
+          std::list<OZSimulationBehavior *>::list(&v29.value, v14 + 224);
           for (j = *&v29.timescale; j != &v29; j = *(j + 8))
           {
             v16 = *(j + 16);
@@ -2888,9 +2887,9 @@ LABEL_15:
   return std::__list_imp<unsigned int>::clear(&v25);
 }
 
-void sub_260184A40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_260184A40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::__list_imp<unsigned int>::clear(va);
   _Unwind_Resume(a1);
 }
@@ -2925,7 +2924,7 @@ void OZObjectSimulator::midPointSolve(OZObjectSimulator *this, OZSimulationState
   OZSimulationState::stepFrom(a3, a2, v12, a4, a5);
 }
 
-void *OZObjectSimulator::getBehaviors(uint64_t a1, uint64_t a2, unsigned __int8 a3, int a4)
+void *OZObjectSimulator::getBehaviors(uint64_t a1, uint64_t *a2, unsigned __int8 a3, int a4)
 {
   v6 = (*(**(a1 + 8) + 640))(*(a1 + 8));
   v7 = (*(**(a1 + 8) + 1008))();
@@ -2966,14 +2965,14 @@ void *OZObjectSimulator::getBehaviors(uint64_t a1, uint64_t a2, unsigned __int8 
   return std::__list_imp<unsigned int>::clear(&v19);
 }
 
-void sub_260184EF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_260184EF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::__list_imp<unsigned int>::clear(va);
   _Unwind_Resume(a1);
 }
 
-void *OZObjectSimulator::getAllVisibleBehaviors(uint64_t a1, uint64_t a2, int a3)
+void *OZObjectSimulator::getAllVisibleBehaviors(uint64_t a1, uint64_t *a2, int a3)
 {
   v5 = (*(**(a1 + 8) + 640))(*(a1 + 8));
   v6 = (*(**(a1 + 8) + 1008))();
@@ -3079,9 +3078,9 @@ LABEL_40:
   return std::__list_imp<unsigned int>::clear(&v19);
 }
 
-void sub_2601853E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2601853E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__list_imp<unsigned int>::clear(va);
   _Unwind_Resume(a1);
 }
@@ -3097,63 +3096,65 @@ uint64_t OZObjectSimulator::dirty(OZObjectSimulator *this)
   return PCMutex::unlock((this + 272));
 }
 
-void *OZObjectSimulator::calcStaticHash(uint64_t a1, void *lpsrc, uint64_t a3)
+void *OZObjectSimulator::calcStaticHash(uint64_t a1, void *lpsrc, uint64_t **a3)
 {
-  if (!v5)
+  if (!v6)
   {
     __cxa_bad_cast();
   }
 
-  v6 = v5;
-  v16 = *PCHashWriteStream::getHash(v5)->i8;
-  (*(*v6 + 40))(v6);
-  v13 = &v13;
-  v14 = &v13;
-  v15 = 0;
-  OZObjectSimulator::getBehaviors(a1, &v13, 1u, 1);
-  v7 = v14;
-  if (v14 != &v13)
+  v7 = v6;
+  v18 = *PCHashWriteStream::getHash(v6)->i8;
+  (*(*v7 + 40))(v7);
+  v15 = &v15;
+  v16 = &v15;
+  v17 = 0;
+  OZObjectSimulator::getBehaviors(a1, &v15, 1u, 1);
+  v8 = v16;
+  if (v16 != &v15)
   {
     while (1)
     {
-      v8 = v7[2];
-      v9 = (*(*v8 + 320))(v8);
-      if ((*(*v8 + 672))(v8))
+      v9 = v8[2];
+      v10 = (*(*v9 + 320))(v9);
+      if ((*(*v9 + 672))(v9))
       {
         break;
       }
 
-      if (v9)
+      if (v10)
       {
-        v10 = OZObjectManipulator::isInObjectList(v9 + 16, a3);
+        v11 = (v10 + 16);
+        v12 = OZObjectManipulator::isInObjectList(v10 + 16, a3);
 LABEL_7:
-        if (!v10)
+        if (!v12)
         {
-          OZObjectManipulator::getStaticHash();
+          OZObjectManipulator::getStaticHash(v11, lpsrc, a3);
         }
       }
 
-      v7 = v7[1];
-      if (v7 == &v13)
+      v8 = v8[1];
+      if (v8 == &v15)
       {
         goto LABEL_10;
       }
     }
 
-    v10 = OZObjectManipulator::isInObjectList(v8 + 16, a3);
+    v11 = v9 + 1;
+    v12 = OZObjectManipulator::isInObjectList(v11, a3);
     goto LABEL_7;
   }
 
 LABEL_10:
-  Hash = PCHashWriteStream::getHash(v6);
-  PCHash128::operator+=(&v16, Hash);
-  PCHashWriteStream::setHash(v6, &v16);
-  return std::__list_imp<unsigned int>::clear(&v13);
+  Hash = PCHashWriteStream::getHash(v7);
+  PCHash128::operator+=(&v18, Hash);
+  PCHashWriteStream::setHash(v7, &v18);
+  return std::__list_imp<unsigned int>::clear(&v15);
 }
 
-void sub_260185660(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_260185660(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__list_imp<unsigned int>::clear(va);
   _Unwind_Resume(a1);
 }
@@ -3162,7 +3163,7 @@ uint64_t OZObjectSimulator::shouldAccumInitialValue(uint64_t a1, uint64_t a2, ui
 {
   v9 = (*(**(a1 + 8) + 272))(*(a1 + 8));
   memset(&v14, 0, sizeof(v14));
-  OZSceneSettings::getFrameDuration((v9 + 336), &v14);
+  OZSceneSettings::getFrameDuration(&v14, (v9 + 336));
   memset(&v13, 0, sizeof(v13));
   operator*(&v14, &v13, 0.001);
   if ((*(*a2 + 672))(a2) || a3 && a4)
@@ -3176,39 +3177,39 @@ uint64_t OZObjectSimulator::shouldAccumInitialValue(uint64_t a1, uint64_t a2, ui
   return a3;
 }
 
-void *OZObjectSimulator::getAccumForcesList(uint64_t a1, CMTime *a2)
+void *OZObjectSimulator::getAccumForcesList(uint64_t a1, CMTime *a2, uint64_t *a3)
 {
-  v4 = (*(**(a1 + 8) + 1008))(*(a1 + 8));
-  v5 = (*(**(a1 + 8) + 272))();
+  v5 = (*(**(a1 + 8) + 1008))(*(a1 + 8));
+  v6 = (*(**(a1 + 8) + 272))();
+  memset(&v28, 0, sizeof(v28));
+  OZSceneSettings::getFrameDuration(&v28, (v6 + 336));
   memset(&v27, 0, sizeof(v27));
-  OZSceneSettings::getFrameDuration((v5 + 336), &v27);
-  memset(&v26, 0, sizeof(v26));
-  operator*(&v27, &v26, 0.001);
-  v20 = (*(**(a1 + 8) + 640))();
-  std::list<OZSimulationBehavior *>::list(&v24, v20 + 224);
-  v6 = *(a1 + 8);
+  operator*(&v28, &v27, 0.001);
+  v21 = (*(**(a1 + 8) + 640))();
+  std::list<OZSimulationBehavior *>::list(&v25, v21 + 224);
+  v7 = *(a1 + 8);
   time1 = *a2;
-  v7 = (*(*(v6 + 16) + 104))();
-  v8 = *(a1 + 8);
+  v8 = (*(*(v7 + 16) + 104))();
+  v9 = *(a1 + 8);
   time1 = *a2;
-  time2 = v26;
-  v9 = PC_CMTimeSaferSubtract(&time1, &time2, v23);
-  v21 = (*(*(v8 + 16) + 104))(v8 + 16, v23, 0, 1, 1, v9);
-  for (i = v25; i != &v24; i = i[1])
+  time2 = v27;
+  v10 = PC_CMTimeSaferSubtract(&time1, &time2, v24);
+  v22 = (*(*(v9 + 16) + 104))(v9 + 16, v24, 0, 1, 1, v10);
+  for (i = v26; i != &v25; i = i[1])
   {
-    v11 = i[2];
+    v12 = i[2];
     {
       time1 = *a2;
-      if ((*(*v11 + 296))(v11, &time1, 0, 1, 1))
+      if ((*(*v12 + 296))(v12, &time1, 0, 1, 1))
       {
         time1 = *a2;
         time2 = *(a1 + 212);
-        if (CMTimeCompare(&time1, &time2) >= 1 && OZObjectSimulator::shouldAccumInitialValue(a1, v11, v7, v21, a2))
+        if (CMTimeCompare(&time1, &time2) >= 1 && OZObjectSimulator::shouldAccumInitialValue(a1, v12, v8, v22, a2))
         {
           operator new();
         }
 
-        if ((v7 & 1) != 0 || (*(*v11 + 672))(v11))
+        if ((v8 & 1) != 0 || (*(*v12 + 672))(v12))
         {
           operator new();
         }
@@ -3216,41 +3217,41 @@ void *OZObjectSimulator::getAccumForcesList(uint64_t a1, CMTime *a2)
     }
   }
 
-  v22 = v7;
-  if ((v4 & 1) == 0 && (*(*(a1 + 8) + 1024) & 8) == 0)
+  v23 = v8;
+  if ((v5 & 1) == 0 && (*(*(a1 + 8) + 1024) & 8) == 0)
   {
-    for (j = *(v20 + 48); j; j = *(j + 48))
+    for (j = *(v21 + 48); j; j = *(j + 48))
     {
       if ((*(j + 57) & 0x20) != 0)
       {
-        if (v13)
+        if (v14)
         {
-          v14 = (v13 + 28);
-          for (k = v13[29]; k != v14; k = *(k + 8))
+          v15 = (v14 + 28);
+          for (k = v14[29]; k != v15; k = *(k + 8))
           {
-            v16 = *(k + 16);
+            v17 = *(k + 16);
             {
-              v17 = *(a1 + 8);
-              if (v17 != OZSimulationBehavior::getTransformNode(v16) && ((*(*v16 + 656))(v16) & 1) == 0)
+              v18 = *(a1 + 8);
+              if (v18 != OZSimulationBehavior::getTransformNode(v17) && ((*(*v17 + 656))(v17) & 1) == 0)
               {
                 time1 = *a2;
-                if ((*(*v16 + 296))(v16, &time1, 0, 1, 1))
+                if ((*(*v17 + 296))(v17, &time1, 0, 1, 1))
                 {
-                  if (*(v16 + 20) >= *(a1 + 368))
+                  if (*(v17 + 20) >= *(a1 + 368))
                   {
                     time1 = *a2;
                     time2 = *(a1 + 212);
-                    v18 = v22;
+                    v19 = v23;
                     if (CMTimeCompare(&time1, &time2) >= 1)
                     {
-                      v18 = v22;
-                      if (OZObjectSimulator::shouldAccumInitialValue(a1, v16, v22, v21, a2))
+                      v19 = v23;
+                      if (OZObjectSimulator::shouldAccumInitialValue(a1, v17, v23, v22, a2))
                       {
                         operator new();
                       }
                     }
 
-                    if ((v18 & 1) != 0 || (*(*v16 + 672))(v16))
+                    if ((v19 & 1) != 0 || (*(*v17 + 672))(v17))
                     {
                       operator new();
                     }
@@ -3264,12 +3265,12 @@ void *OZObjectSimulator::getAccumForcesList(uint64_t a1, CMTime *a2)
     }
   }
 
-  return std::__list_imp<unsigned int>::clear(&v24);
+  return std::__list_imp<unsigned int>::clear(&v25);
 }
 
-void sub_260185EA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_260185EA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::__list_imp<unsigned int>::clear(va);
   _Unwind_Resume(a1);
 }
@@ -3279,7 +3280,7 @@ void *OZObjectSimulator::accumForces(OZObjectSimulator *this, OZSimulationState 
   v6 = &v6;
   v7 = &v6;
   v8 = 0;
-  OZObjectSimulator::getAccumForcesList(this, (a2 + 176));
+  OZObjectSimulator::getAccumForcesList(this, (a2 + 176), &v6);
   for (i = v7; i != &v6; i = i[1])
   {
     v3 = *i[2];
@@ -3299,9 +3300,9 @@ void *OZObjectSimulator::accumForces(OZObjectSimulator *this, OZSimulationState 
   return std::__list_imp<unsigned int>::clear(&v6);
 }
 
-void sub_260185F98(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_260185F98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__list_imp<unsigned int>::clear(va);
   _Unwind_Resume(a1);
 }
@@ -3365,15 +3366,15 @@ uint64_t std::less<std::pair<OZObjectSimulator *,CMTime>>::operator()[abi:ne2001
   return CMTimeCompare(&time1, &v6) >> 31;
 }
 
-uint64_t std::__tree<std::pair<OZObjectSimulator *,CMTime>>::__emplace_unique_key_args<std::pair<OZObjectSimulator *,CMTime>,std::pair<OZObjectSimulator *,CMTime> const&>(uint64_t a1, uint64_t a2)
+uint64_t std::__tree<std::pair<OZObjectSimulator *,CMTime>>::__emplace_unique_key_args<std::pair<OZObjectSimulator *,CMTime>,std::pair<OZObjectSimulator *,CMTime> const&>(uint64_t **a1, uint64_t a2, _OWORD *a3)
 {
-  v2 = *std::__tree<std::pair<OZObjectSimulator *,CMTime>>::__find_equal<std::pair<OZObjectSimulator *,CMTime>>(a1, &v4, a2);
-  if (!v2)
+  v3 = *std::__tree<std::pair<OZObjectSimulator *,CMTime>>::__find_equal<std::pair<OZObjectSimulator *,CMTime>>(a1, &v5, a2);
+  if (!v3)
   {
     operator new();
   }
 
-  return v2;
+  return v3;
 }
 
 void *std::__tree<std::pair<OZObjectSimulator *,CMTime>>::__find_equal<std::pair<OZObjectSimulator *,CMTime>>(uint64_t a1, void *a2, uint64_t a3)
@@ -3480,19 +3481,19 @@ LABEL_9:
   return std::__split_buffer<unsigned long *>::~__split_buffer(a1);
 }
 
-void *std::deque<std::pair<OZObjectSimulator *,CMTime>>::__add_back_capacity(void *a1)
+void std::deque<std::pair<OZObjectSimulator *,CMTime>>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x80;
   v3 = v1 - 128;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -3500,25 +3501,25 @@ void *std::deque<std::pair<OZObjectSimulator *,CMTime>>::__add_back_capacity(voi
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::__allocate_at_least[abi:ne200100]<std::allocator<HGRef<HGBitmap>>>(a1, v9);
+    v10 = a1;
+    std::__allocate_at_least[abi:ne200100]<std::allocator<HGRef<HGBitmap>>>(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<PVLoadedEffectItem *>::emplace_back<PVLoadedEffectItem *>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<PVLoadedEffectItem *>::emplace_back<PVLoadedEffectItem *>(a1, &v9);
 }
 
 void sub_260186470(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -3590,7 +3591,7 @@ uint64_t *std::list<OZSimulationBehavior *>::__assign_with_sentinel[abi:ne200100
   }
 }
 
-uint64_t std::list<OZSimulationBehavior *>::__insert_with_sentinel[abi:ne200100]<std::__list_const_iterator<OZSimulationBehavior *,void *>,std::__list_const_iterator<OZSimulationBehavior *,void *>>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::list<OZSimulationBehavior *>::__insert_with_sentinel[abi:ne200100]<std::__list_const_iterator<OZSimulationBehavior *,void *>,std::__list_const_iterator<OZSimulationBehavior *,void *>>(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4)
 {
   if (a3 != a4)
   {
@@ -3956,7 +3957,7 @@ uint64_t OZLight::parseEnd(OZLight *this, PCSerializerReadStream *a2)
     {
       if (OZChannel::hasKeypoints((this + 7888)))
       {
-        OZChannel::getKeyframes((this + 7888), 0, &v16);
+        OZChannel::getKeyframes(&v16, (this + 7888), 0);
         v5 = v16;
         if (v17 != v16)
         {
@@ -4032,10 +4033,10 @@ void sub_260187DD8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-CGColorSpace **OZLight::buildLiLight@<X0>(OZLight *this@<X0>, const OZRenderState *a2@<X1>, uint64_t a3@<X8>)
+CGColorSpace **OZLight::buildLiLight@<X0>(void *__return_ptr a1@<X8>, OZLight *this@<X0>, const OZRenderState *a3@<X1>)
 {
-  LiLight::LiLight(a3);
-  OZRenderState::OZRenderState(&v65, a2);
+  LiLight::LiLight(a1);
+  OZRenderState::OZRenderState(&v65, a3);
   var0 = v65.var0;
   v6 = *(this + 822);
   v7 = *(this + 823);
@@ -4065,16 +4066,16 @@ CGColorSpace **OZLight::buildLiLight@<X0>(OZLight *this@<X0>, const OZRenderStat
   v12 = v57;
   v42 = v52;
   v43 = *&v58;
-  *(a3 + 568) = *(this + 20);
+  *(a1 + 142) = *(this + 20);
   (*(*this + 288))(&v50, this);
   CGColorSpace = FxColorDescription::getCGColorSpace(&v50);
-  if ((a3 + 760) != &v52)
+  if (a1 + 95 != &v52)
   {
-    for (i = 0; i != 128; i += 32)
+    for (i = 0; i != 16; i += 4)
     {
-      v15 = (a3 + 760 + i);
-      v16 = *(&v53 + i + 8);
-      *v15 = *(&v52 + i);
+      v15 = &a1[i + 95];
+      v16 = *(&v53 + i * 8 + 8);
+      *v15 = *(&v52 + i * 8);
       v15[1] = v16;
     }
   }
@@ -4087,11 +4088,11 @@ CGColorSpace **OZLight::buildLiLight@<X0>(OZLight *this@<X0>, const OZRenderStat
   v20 = v6 * v42 + v7 * v9 + v8 * v45;
   v21 = v6 * v10 + v7 * v11 + v17;
   v22 = v18 + v19;
-  *(a3 + 608) = *&v47.value;
+  *(a1 + 38) = *&v47.value;
   PCCFRef<CGColorSpace *>::~PCCFRef(&v48.var0.var1[1]);
-  *(a3 + 624) = v20;
-  *(a3 + 632) = v21;
-  *(a3 + 640) = v22;
+  *(a1 + 78) = v20;
+  *(a1 + 79) = v21;
+  *(a1 + 80) = v22;
   memset(v49, 0, sizeof(v49));
   (*(*this + 1320))(this, v49, &v65, 1);
   ValueAsInt = OZChannel::getValueAsInt((this + 6624), &var0, 0.0);
@@ -4114,35 +4115,35 @@ CGColorSpace **OZLight::buildLiLight@<X0>(OZLight *this@<X0>, const OZRenderStat
     }
   }
 
-  *(a3 + 688) = v25;
-  *(a3 + 656) = ValueAsInt;
+  *(a1 + 86) = v25;
+  *(a1 + 164) = ValueAsInt;
   OZChannel::getValueAsDouble((this + 7888), &var0, 0.0);
-  *(a3 + 648) = v29;
-  *(a3 + 680) = v63;
-  *(a3 + 664) = v62;
+  a1[81] = v29;
+  a1[85] = v63;
+  *(a1 + 83) = v62;
   OZChannel::getValueAsDouble((this + 8472), &var0, 0.0);
-  *(a3 + 696) = v30;
+  a1[87] = v30;
   OZChannel::getValueAsDouble((this + 8624), &var0, 0.0);
-  *(a3 + 704) = v31;
-  *(a3 + 712) = 0;
+  a1[88] = v31;
+  a1[89] = 0;
   OZChannel::getValueAsDouble((this + 8040), &var0, 0.0);
-  *(a3 + 600) = v32;
+  a1[75] = v32;
   v47 = var0;
-  OZLight::buildAttenuation(this, &v47, &v48);
-  *(a3 + 576) = *&v48.var0.var0;
-  *(a3 + 592) = v48.var0.var1[1];
+  OZLight::buildAttenuation(&v48.var0.var0, this, &v47);
+  *(a1 + 36) = *&v48.var0.var0;
+  a1[74] = *&v48.var0.var1[1];
   *&v48.var0.var0 = *&var0.value;
   *&v48.var0.var1[1] = var0.epoch;
-  *(a3 + 720) = (*(*(this + 2) + 104))(this + 16, &v48, 1, 1, 1);
+  *(a1 + 720) = (*(*(this + 2) + 104))(this + 16, &v48, 1, 1, 1);
   v33 = OZFolderLightShadow::opacity((this + 8776));
   OZChannel::getValueAsDouble(v33, &var0, 0.0);
   v35 = v34;
-  *(a3 + 721) = OZFolderLightShadow::hasShadows((this + 8776), &var0);
+  *(a1 + 721) = OZFolderLightShadow::hasShadows((this + 8776), &var0);
   v36 = OZFolderLightShadow::softness((this + 8776));
   OZChannel::getValueAsDouble(v36, &var0, 0.0);
-  *(a3 + 744) = v37;
+  a1[93] = v37;
   v38 = OZFolderLightShadow::uniformSoftness((this + 8776));
-  *(a3 + 752) = OZChannel::getValueAsInt(v38, &var0, 0.0) != 0;
+  *(a1 + 752) = OZChannel::getValueAsInt(v38, &var0, 0.0) != 0;
   PCColor::PCColor(&v48);
   v39 = OZFolderLightShadow::color((this + 8776));
   (*(*v39 + 824))(v39, &var0, &v48, 0.0);
@@ -4150,7 +4151,7 @@ CGColorSpace **OZLight::buildLiLight@<X0>(OZLight *this@<X0>, const OZRenderStat
   *&v40 = v35;
   v47.flags = v40;
   PCWorkingColor::operator=(&v46, &v47);
-  *(a3 + 724) = v46;
+  *(a1 + 724) = v46;
   PCCFRef<CGColorSpace *>::~PCCFRef(&v47.epoch);
   PCCFRef<CGColorSpace *>::~PCCFRef(&v48.var1._obj);
   PCCFRef<CGColorSpace *>::~PCCFRef(&v50._pcColorDesc._colorSpaceRef._obj);
@@ -4167,9 +4168,9 @@ void sub_26018835C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void OZLight::buildAttenuation(OZLight *this@<X0>, CMTime *a2@<X1>, uint64_t a3@<X8>)
+void OZLight::buildAttenuation(double *__return_ptr a1@<X8>, OZLight *this@<X0>, CMTime *a3@<X1>)
 {
-  OZChannel::getValueAsDouble((this + 0x2000), a2, 0.0);
+  OZChannel::getValueAsDouble((this + 0x2000), a3, 0.0);
   v6 = v5 * *(this + 820);
   if (v5 <= 0.2)
   {
@@ -4181,9 +4182,9 @@ void OZLight::buildAttenuation(OZLight *this@<X0>, CMTime *a2@<X1>, uint64_t a3@
     v7 = v6 * (v6 * 0.125) + (v5 + -0.2) * *(this + 821) * 0.5;
   }
 
-  *a3 = 0x3FF0000000000000;
-  *(a3 + 8) = v6 * 0.5;
-  *(a3 + 16) = v7;
+  *a1 = 1.0;
+  a1[1] = v6 * 0.5;
+  a1[2] = v7;
 }
 
 uint64_t OZLight::render(OZLight *this, OZRenderParams *a2)
@@ -4214,9 +4215,9 @@ int64x2_t non-virtual thunk toOZLight::getBounds(uint64_t a1, int64x2_t *a2)
   return result;
 }
 
-void OZLight::drawGeometry(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void OZLight::drawGeometry()
 {
-  PCPrint("File %s, line %d should not have been reached:\n\t", a2, a3, a4, a5, a6, a7, a8, "/Library/Caches/com.apple.xbs/Sources/MotioniOS/Ozone/CompositorObject/OZLight.cpp");
+  PCPrint("File %s, line %d should not have been reached:\n\t", "/Library/Caches/com.apple.xbs/Sources/MotioniOS/Ozone/CompositorObject/OZLight.cpp", 662);
 
   pcAbortImpl();
 }
@@ -4336,7 +4337,7 @@ CGColorSpace *OZLight::getWorkingColorDescription@<X0>(OZLight *this@<X0>, uint6
   else
   {
 
-    return OZSceneNode::getWorkingColorDescription(this, a2);
+    return OZSceneNode::getWorkingColorDescription(this, v4, a2);
   }
 
   return result;
@@ -4407,7 +4408,7 @@ void OZLight::~OZLight(OZLight *this)
   OZChannel::~OZChannel((this + 8040));
   OZChannel::~OZChannel((this + 7888));
   OZChannelColorNoAlpha::~OZChannelColorNoAlpha((this + 6880));
-  OZChannelEnum::~OZChannelEnum((this + 6624));
+  OZChannelEnum::~OZChannelEnum(this + 828);
   OZChannelBase::setRangeName(v2, v3);
 
   OZTransformNode::~OZTransformNode(this);
@@ -4474,28 +4475,28 @@ void OZSimulationBehavior::OZSimulationBehavior(OZSimulationBehavior *this, OZSi
   v3[6] = &unk_287297B00;
 }
 
-void non-virtual thunk toOZSimulationBehavior::~OZSimulationBehavior(OZSimulationBehavior *this)
+void non-virtual thunk toOZSimulationBehavior::~OZSimulationBehavior(PCString *this)
 {
-  OZBehavior::~OZBehavior((this - 16));
+  OZBehavior::~OZBehavior(this - 2);
 }
 
 {
-  OZBehavior::~OZBehavior((this - 48));
+  OZBehavior::~OZBehavior(this - 6);
 }
 
 {
-  OZBehavior::~OZBehavior((this - 16));
+  OZBehavior::~OZBehavior(this - 2);
 
   JUMPOUT(0x2666E9F00);
 }
 
 {
-  OZBehavior::~OZBehavior((this - 48));
+  OZBehavior::~OZBehavior(this - 6);
 
   JUMPOUT(0x2666E9F00);
 }
 
-void OZSimulationBehavior::~OZSimulationBehavior(OZSimulationBehavior *this)
+void OZSimulationBehavior::~OZSimulationBehavior(PCString *this)
 {
   OZBehavior::~OZBehavior(this);
 
@@ -4729,7 +4730,7 @@ uint64_t OZChannelMaterialMapScale_Factory::getInstance(OZChannelMaterialMapScal
 void OZChannelMaterialMapScale::OZChannelMaterialMapScale(OZChannelMaterialMapScale *this, double a2, double a3, const PCString *a4, OZChannelFolder *a5, unsigned int a6, int a7)
 {
   Instance = OZChannelMaterialMapScale_Factory::getInstance(this);
-  OZChannelScale::OZChannelScale(this, a2, a3, Instance, a4, a5, a6, a7, 2, 0, 0);
+  OZChannelScale::OZChannelScale(this, a2, a3, Instance, a4, a5, a6, a7, 2u, 0, 0);
   *this = &unk_287297B70;
   *(this + 2) = &unk_287297EC8;
   PCURL::PCURL(&v15, @"Material Map Scale Scale With Font Size");
@@ -4797,7 +4798,7 @@ void sub_260189B50(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void OZChannelMaterialMapScale::copy(OZChannelMaterialMapScale *this, const OZChannelBase *a2, char a3)
+void OZChannelMaterialMapScale::copy(OZChannelMaterialMapScale *this, const OZChannelBase *a2, BOOL a3)
 {
   v4 = a2;
   OZChannel2D::copy(this, a2, a3);
@@ -4846,8 +4847,8 @@ void OZRenderManager::~OZRenderManager(OZRenderManager *this, const PCString *a2
   v3 = *(this + 1);
   if (v3)
   {
-    v4 = OZChannelBase::setRangeName(v3, a2);
-    MEMORY[0x2666E9F00](v4, 0xC400A2AC0F1);
+    OZChannelBase::setRangeName(v3, a2);
+    MEMORY[0x2666E9F00]();
   }
 
   *(this + 1) = 0;
@@ -4885,14 +4886,14 @@ uint64_t OZFootage::openByReplacingSubPath(PCString *a1, PCString *this, PCStrin
       CFRelease(v11);
       CFRelease(v12);
       CFRelease(v13);
-      PCURL::~PCURL(&v16);
+      PCURL::~PCURL(&v16.var0);
     }
   }
 
   return a4;
 }
 
-uint64_t OZFootage::openURL(PCString *this, const __CFURL **a2, int a3, int a4)
+uint64_t OZFootage::openURL(PCString *this, CFURLRef *a2, int a3, int a4)
 {
   Instance = PMMediaManager::getInstance(this);
   v13 = 0;
@@ -4931,13 +4932,13 @@ uint64_t OZFootage::openURL(PCString *this, const __CFURL **a2, int a3, int a4)
 
 void OZFootage::getCacheHashKey(OZFootage *this, PMClip *a2, const CMTime *a3, const CMTime *a4, const PMFrameRequest *a5, const OZRenderParams *a6, const PMLayerDescription *a7)
 {
-  v7 = MEMORY[0x28223BE20](this);
-  v9 = v8;
-  v11 = v10;
-  v13 = v12;
-  v15 = v14;
-  v17 = v16;
-  v18 = v7;
+  MEMORY[0x28223BE20](this, a2, a3, a4, a5);
+  v8 = v7;
+  v10 = v9;
+  v12 = v11;
+  v14 = v13;
+  v16 = v15;
+  v18 = v17;
   v20 = v19;
   v45[520] = *MEMORY[0x277D85DE8];
   PCHashWriteStream::PCHashWriteStream(v45);
@@ -4948,10 +4949,10 @@ void OZFootage::getCacheHashKey(OZFootage *this, PMClip *a2, const CMTime *a3, c
     PCString::~PCString(&v37);
   }
 
-  __src = *v15;
+  __src = *v14;
   memset(&v42, 0, sizeof(v42));
-  OZFootage::getFrameDuration(v18, &v42);
-  if (*(v13 + 108))
+  OZFootage::getFrameDuration(&v42, v18);
+  if (*(v12 + 108))
   {
     operator*(&__src, 2, &v39);
     v37 = v39;
@@ -4970,15 +4971,15 @@ void OZFootage::getCacheHashKey(OZFootage *this, PMClip *a2, const CMTime *a3, c
   __src = v41;
   PCHashWriteStream::writeValue(v45, *(v18 + 384));
   PCHashWriteStream::writeValue(v45, &__src);
-  PCHashWriteStream::writeValue(v45, *(v13 + 92));
-  PCHashWriteStream::writeValue(v45, *(v13 + 96));
-  AlphaType = PMFrameRequest::getAlphaType(v13);
+  PCHashWriteStream::writeValue(v45, *(v12 + 92));
+  PCHashWriteStream::writeValue(v45, *(v12 + 96));
+  AlphaType = PMFrameRequest::getAlphaType(v12);
   PCHashWriteStream::writeValue(v45, AlphaType);
-  AlphaInvert = PMFrameRequest::getAlphaInvert(v13);
+  AlphaInvert = PMFrameRequest::getAlphaInvert(v12);
   PCHashWriteStream::writeValue(v45, AlphaInvert);
-  PCHashWriteStream::writeValue(v45, *(v13 + 104));
-  PCHashWriteStream::writeValue(v45, *(v13 + 108));
-  PCHashWriteStream::writeValue(v45, *(v13 + 136));
+  PCHashWriteStream::writeValue(v45, *(v12 + 104));
+  PCHashWriteStream::writeValue(v45, *(v12 + 108));
+  PCHashWriteStream::writeValue(v45, *(v12 + 136));
   if ((((*v18)[179].var0)(v18) & 1) == 0)
   {
     v23 = v18[1009];
@@ -4987,7 +4988,7 @@ void OZFootage::getCacheHashKey(OZFootage *this, PMClip *a2, const CMTime *a3, c
       if (LOBYTE(v23[51].var0) == 1)
       {
         v24 = 0;
-        v25 = v13 + 16;
+        v25 = v12 + 16;
         do
         {
           for (i = 0; i != 24; i += 8)
@@ -5004,7 +5005,7 @@ void OZFootage::getCacheHashKey(OZFootage *this, PMClip *a2, const CMTime *a3, c
     }
   }
 
-  OZRenderParams::getResolution(v11, &v37);
+  OZRenderParams::getResolution(&v37, v10);
   v27 = *&v37.timescale;
   PCHashWriteStream::writeValue(v45, *&v37.value);
   PCHashWriteStream::writeValue(v45, v27);
@@ -5015,10 +5016,10 @@ void OZFootage::getCacheHashKey(OZFootage *this, PMClip *a2, const CMTime *a3, c
     {
       if (LOBYTE(v28[51].var0) == 1)
       {
-        PCHashWriteStream::writeValue(v45, *v13);
-        PCHashWriteStream::writeValue(v45, *(v13 + 4));
-        PCHashWriteStream::writeValue(v45, *(v13 + 8));
-        PCHashWriteStream::writeValue(v45, *(v13 + 12));
+        PCHashWriteStream::writeValue(v45, *v12);
+        PCHashWriteStream::writeValue(v45, *(v12 + 4));
+        PCHashWriteStream::writeValue(v45, *(v12 + 8));
+        PCHashWriteStream::writeValue(v45, *(v12 + 12));
       }
     }
   }
@@ -5040,9 +5041,9 @@ void OZFootage::getCacheHashKey(OZFootage *this, PMClip *a2, const CMTime *a3, c
   PCHashWriteStream::writeValue(v45, v33);
   v34 = v18[1009];
   v35 = LODWORD(v34[36].var0) <= 0x1000 && HIDWORD(v34[36].var0) <= 0x1000;
-  if (*(v17 + 451) == 1)
+  if (*(v16 + 451) == 1)
   {
-    v36 = PCPixelFormat::isFloat(*(v9 + 20)) & v35;
+    v36 = PCPixelFormat::isFloat(*(v8 + 20)) & v35;
   }
 
   else
@@ -5056,26 +5057,27 @@ void OZFootage::getCacheHashKey(OZFootage *this, PMClip *a2, const CMTime *a3, c
   PCHashWriteStream::~PCHashWriteStream(v45);
 }
 
-void sub_26018ABA0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34)
+void sub_26018ABA0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, ...)
 {
+  va_start(va, a33);
   PCString::~PCString(&a9);
-  PCHashWriteStream::~PCHashWriteStream(&a34);
+  PCHashWriteStream::~PCHashWriteStream(va);
   _Unwind_Resume(a1);
 }
 
-void OZFootage::getFrameDuration(OZFootage *this@<X0>, CMTime *a2@<X8>)
+void OZFootage::getFrameDuration(CMTime *__return_ptr a1@<X8>, OZFootage *this@<X0>)
 {
   PCSharedMutex::lock_shared((this + 8080));
   if (((*(*this + 1432))(this) & 1) != 0 || (v4 = *(this + 1009)) == 0)
   {
-    CMTimeMake(a2, 1, 30);
+    CMTimeMake(a1, 1, 30);
   }
 
   else
   {
     v5 = *(v4 + 320);
-    a2->epoch = *(v4 + 336);
-    *&a2->value = v5;
+    a1->epoch = *(v4 + 336);
+    *&a1->value = v5;
   }
 
   PCSharedMutex::unlock_shared((this + 8080));
@@ -5444,9 +5446,9 @@ void OZFootage::OZFootage(OZFootage *this, OZFootage *a2, char a3)
   *(this + 532) = _Q0;
 }
 
-void sub_26018C594(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, OZChannel *a10, OZChannel *a11, OZChannel *a12, OZChannel *a13, OZChannel *a14, OZChannel *a15, OZChannelBase *a16)
+void sub_26018C594(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, OZChannel *a10, OZChannel *a11, OZChannel *a12, OZChannel *a13, OZChannel *a14, OZChannel *a15, OZChannelBase *a16)
 {
-  MEMORY[0x2666E9F00](v21, 0x10F0C40713A2EEALL);
+  MEMORY[0x2666E9F00](v21, 0x10F0C40713A2EEALL, a3, a4, a5, a6, a7, a8);
   v25 = *(v16 + 8464);
   if (v25)
   {
@@ -5547,14 +5549,14 @@ void OZFootage::~OZFootage(OZFootage *this)
   OZChannel::~OZChannel((this + 4520));
   OZChannelBool::~OZChannelBool((this + 4368));
   OZChannelBool::~OZChannelBool((this + 4216));
-  OZChannelEnum::~OZChannelEnum((this + 3960));
+  OZChannelEnum::~OZChannelEnum(this + 495);
   OZChannel::~OZChannel((this + 3808));
-  OZChannelEnum::~OZChannelEnum((this + 3552));
-  OZChannelEnum::~OZChannelEnum((this + 3296));
+  OZChannelEnum::~OZChannelEnum(this + 444);
+  OZChannelEnum::~OZChannelEnum(this + 412);
   OZChannel::~OZChannel((this + 3144));
   OZChannelBool::~OZChannelBool((this + 2992));
   OZChannelColorNoAlpha::~OZChannelColorNoAlpha((this + 1984));
-  OZChannelEnum::~OZChannelEnum((this + 1728));
+  OZChannelEnum::~OZChannelEnum(this + 216);
   OZChannelFolder::~OZChannelFolder((this + 1600));
   OZChannelBase::setRangeName(v2, v7);
 
@@ -5687,7 +5689,7 @@ void OZFootage::operator=(uint64_t a1, uint64_t a2)
     (*(*v15 + 24))(v15);
   }
 
-  PCImage::getColorSpace((v6 + 8368), &v15);
+  PCImage::getColorSpace(&v15, (v6 + 8368));
   PCImage::setColorSpace(a1 + 8368, &v15);
   PCCFRef<CGColorSpace *>::~PCCFRef(&v15);
   *(a1 + 8448) = 0xBFF0000000000000;
@@ -5820,22 +5822,22 @@ uint64_t OZFootage::numAudioTracks(OZFootage *this)
   }
 }
 
-PCURL *OZFootage::getURL@<X0>(const PCString *this@<X0>, PCURL *a2@<X8>)
+void OZFootage::getURL(PCString *this@<X0>, PCURL *a2@<X8>)
 {
   if (BYTE1(this[195].var0) == 1)
   {
-    return PCURL::PCURL(a2, this + 196, 0);
+    PCURL::PCURL(a2, this + 196, 0);
   }
 
   else
   {
-    return PCURL::PCURL(a2, &this[1009].var0[38].info);
+    PCURL::PCURL(a2, &this[1009].var0[38].info);
   }
 }
 
-void OZFootage::getFilename(const __CFURL ***this@<X0>, PCSharedCount *a2@<X8>)
+void OZFootage::getFilename(PMClip **this@<X0>, PCSharedCount *a2@<X8>)
 {
-  if (((*this)[179])(this))
+  if ((*(*this + 179))(this))
   {
 
     OZSceneNodeFile::getFilename(this, a2);
@@ -5849,9 +5851,9 @@ void OZFootage::getFilename(const __CFURL ***this@<X0>, PCSharedCount *a2@<X8>)
   }
 }
 
-void OZFootage::getShortFilename(CFURLRef **this@<X0>, PCSharedCount *a2@<X8>)
+void OZFootage::getShortFilename(PMClip **this@<X0>, PCSharedCount *a2@<X8>)
 {
-  if (((*this)[179])(this))
+  if ((*(*this + 179))(this))
   {
 
     OZSceneNodeFile::getShortFilename(this, a2);
@@ -5865,9 +5867,9 @@ void OZFootage::getShortFilename(CFURLRef **this@<X0>, PCSharedCount *a2@<X8>)
   }
 }
 
-void OZFootage::getExtension(const __CFURL ***this@<X0>, PCSharedCount *a2@<X8>)
+void OZFootage::getExtension(PMClip **this@<X0>, PCSharedCount *a2@<X8>)
 {
-  if (((*this)[179])(this))
+  if ((*(*this + 179))(this))
   {
 
     OZSceneNodeFile::getExtension(this, a2);
@@ -5881,9 +5883,9 @@ void OZFootage::getExtension(const __CFURL ***this@<X0>, PCSharedCount *a2@<X8>)
   }
 }
 
-void OZFootage::getAsFileSystemString(const PCString **this@<X0>, PCSharedCount *a2@<X8>)
+void OZFootage::getAsFileSystemString(PMClip **this@<X0>, PCSharedCount *a2@<X8>)
 {
-  if (((*this)[179].var0)(this))
+  if ((*(*this + 179))(this))
   {
 
     OZSceneNodeFile::getAsFileSystemString(this, a2);
@@ -5997,7 +5999,7 @@ void OZFootage::setClip(OZFootage *this, PMClip *a2, int a3, int a4, uint64_t a5
   DisplayFrameRate = *(v15 + 360);
   PCURL::PCURL(&__dst, (v15 + 1224));
   isSequence = PCURL::isSequence(&__dst);
-  PCURL::~PCURL(&__dst);
+  PCURL::~PCURL(&__dst.var0);
   if (isSequence)
   {
     if ((*(*this + 272))(this))
@@ -6207,11 +6209,11 @@ BOOL OZFootage::openMedia(OZFootage *this)
     goto LABEL_25;
   }
 
-  PCURL::PCURL(v40, v3);
+  PCURL::PCURL(&v40, v3);
   PCURL::PCURL(&v39, 0);
-  v4 = PCURL::PCURL(v38, v40);
+  PCURL::PCURL(&v38, &v40);
   isDefaultDropZoneFootageForType = OZImageElement::isDefaultDropZoneFootageForType(v4, 0);
-  PCURL::~PCURL(v38);
+  PCURL::~PCURL(&v38);
   if (isDefaultDropZoneFootageForType)
   {
     OZImageElement::defaultDropZoneFootageForType(0, &v37);
@@ -6220,9 +6222,9 @@ BOOL OZFootage::openMedia(OZFootage *this)
 
   else
   {
-    v7 = PCURL::PCURL(v36, v40);
+    PCURL::PCURL(&v36, &v40);
     v8 = OZImageElement::isDefaultDropZoneFootageForType(v7, 3u);
-    PCURL::~PCURL(v36);
+    PCURL::~PCURL(&v36);
     if (v8)
     {
       OZImageElement::defaultDropZoneFootageForType(3u, &v37);
@@ -6231,9 +6233,9 @@ BOOL OZFootage::openMedia(OZFootage *this)
 
     else
     {
-      v9 = PCURL::PCURL(v35, v40);
+      PCURL::PCURL(&v35, &v40);
       v10 = OZImageElement::isDefaultDropZoneFootageForType(v9, 3u);
-      PCURL::~PCURL(v35);
+      PCURL::~PCURL(&v35);
       if (v10)
       {
         OZImageElement::defaultDropZoneFootageForType(3u, &v37);
@@ -6242,7 +6244,7 @@ BOOL OZFootage::openMedia(OZFootage *this)
 
       else
       {
-        PCURL::PCURL(&v34, v40);
+        PCURL::PCURL(&v34, &v40);
         v11 = OZImageElement::isDefaultDropZoneFootageForType(&v34, 1u);
         PCURL::~PCURL(&v34);
         if (v11)
@@ -6253,7 +6255,7 @@ BOOL OZFootage::openMedia(OZFootage *this)
 
         else
         {
-          PCURL::PCURL(&v33, v40);
+          PCURL::PCURL(&v33, &v40);
           v12 = OZImageElement::isDefaultDropZoneFootageForType(&v33, 2u);
           PCURL::~PCURL(&v33);
           if (!v12)
@@ -6276,7 +6278,7 @@ BOOL OZFootage::openMedia(OZFootage *this)
               v19 = OZPreferenceManager::Instance(v18);
               OZPreferenceManager::getContentPath(v19, &v31);
               v20 = PCString::size(&v37);
-              PCString::substr(&v32, (v20 + v15), v17 - (v20 + v15), &v29.var0);
+              PCString::substr(&v29.var0, &v32, (v20 + v15), v17 - (v20 + v15));
               PCString::PCString(&v30, &v31);
               PCString::append(&v30, &v29);
               PCString::set(&v32, &v30);
@@ -6297,13 +6299,13 @@ BOOL OZFootage::openMedia(OZFootage *this)
                   PCString::~PCString(&v28);
                   PCURL::PCURL(&v28, &v32, 0);
                   v6 = OZFootage::openURL(this, &v28, 0, 1);
-                  PCURL::~PCURL(&v28);
+                  PCURL::~PCURL(&v28.var0);
                 }
 
                 PCString::~PCString(&v29);
               }
 
-              PCURL::~PCURL(&v30);
+              PCURL::~PCURL(&v30.var0);
               PCString::~PCString(&v31);
             }
 
@@ -6324,7 +6326,7 @@ BOOL OZFootage::openMedia(OZFootage *this)
     }
   }
 
-  PCURL::~PCURL(&v37);
+  PCURL::~PCURL(&v37.var0);
   if (*(this + 1540) == 1 && (*(this + 8320) & 1) == 0)
   {
     LODWORD(v6) = 0;
@@ -6364,7 +6366,7 @@ LABEL_20:
 
 LABEL_24:
   PCURL::~PCURL(&v39);
-  PCURL::~PCURL(v40);
+  PCURL::~PCURL(&v40);
 LABEL_25:
   if ((*(*this + 1432))(this))
   {
@@ -6385,9 +6387,9 @@ LABEL_25:
 
 void sub_26018E578(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, PCString a10, char a11, PCString a12, PCString a13, PCString a14, PCString a15, PCString a16, PCString a17, PCString a18, __int16 a19, char a20, char a21, int a22, __int16 a23, char a24, char a25)
 {
-  PCURL::~PCURL(&a14);
+  PCURL::~PCURL(&a14.var0);
   PCString::~PCString(&a15);
-  PCURL::~PCURL(&a16);
+  PCURL::~PCURL(&a16.var0);
   PCString::~PCString(&a17);
   PCString::~PCString(&a18);
   PCString::~PCString((v25 - 64));
@@ -6518,7 +6520,7 @@ double OZFootage::didFinishLoadingIntoScene(OZFootage *this)
       v7 = 0uLL;
       v8 = 0;
       v3 = (*(*this + 272))(this);
-      OZSceneSettings::getFrameDuration((v3 + 336), &v7);
+      OZSceneSettings::getFrameDuration(&v7, (v3 + 336));
       v4 = *(this + 1032);
       *&v5.value = v7;
       v5.epoch = v8;
@@ -6531,7 +6533,7 @@ double OZFootage::didFinishLoadingIntoScene(OZFootage *this)
   return result;
 }
 
-void OZFootage::didAddToScene(OZFootage *this, OZScene *a2, double a3)
+void OZFootage::didAddToScene(OZFootage *this, OZScene *a2, __n128 a3)
 {
   v5 = *(this + 1009);
   if (!v5)
@@ -6544,7 +6546,7 @@ void OZFootage::didAddToScene(OZFootage *this, OZScene *a2, double a3)
     goto LABEL_7;
   }
 
-  if ((!*v5 || (*(*v5 + 336))(v5)) && (*(*this + 1376))(this) >= 2)
+  if ((!*v5 || (*(*v5 + 336))(v5, a3.n128_f64[0])) && (*(*this + 1376))(this, a3) >= 2)
   {
     v5 = *(this + 1009);
 LABEL_7:
@@ -6572,9 +6574,9 @@ LABEL_11:
       goto LABEL_16;
     }
 
-    LODWORD(a3) = *(v7 + 344);
+    a3.n128_u32[0] = *(v7 + 344);
     v8 = *(a2 + 46);
-    v9 = *&a3 / *(v7 + 360);
+    v9 = a3.n128_u64[0] / *(v7 + 360);
     PMClip::setFrameRate(v7, v8);
     *(*(this + 1009) + 344) = (v9 * v8);
     (*(*this + 1304))(this, 0, v8);
@@ -6584,13 +6586,14 @@ LABEL_11:
   if (v7)
   {
 LABEL_16:
-    if (*(v7 + 416) > 0.0)
+    a3.n128_u64[0] = *(v7 + 416);
+    if (a3.n128_f64[0] > 0.0)
     {
       goto LABEL_21;
     }
   }
 
-  if ((*(*this + 272))(this))
+  if ((*(*this + 272))(this, a3))
   {
     v10 = (*(*this + 272))(this);
     if (*(v10 + 344) == *(this + 2074) && *(v10 + 348) == *(this + 2075))
@@ -6611,7 +6614,7 @@ LABEL_21:
   v16[1].var0 = 0;
   v17 = 0;
   v11 = (*(*this + 272))(this);
-  FrameDuration = OZSceneSettings::getFrameDuration((v11 + 336), v16);
+  FrameDuration = OZSceneSettings::getFrameDuration(v16, (v11 + 336));
   if ((*(*this + 272))(this, FrameDuration))
   {
     if (*(this + 2066) == 1)
@@ -6777,10 +6780,10 @@ LABEL_7:
   PCString::~PCString(&v34);
 }
 
-void sub_26018F268(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_26018F268(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
-  PCString::~PCString(v14 + 5);
+  va_start(va, a21);
+  PCString::~PCString(v21 + 5);
   PCString::~PCString(va);
   _Unwind_Resume(a1);
 }
@@ -6912,7 +6915,7 @@ LABEL_17:
     Instance = PMMediaManager::getInstance(VideoDescription);
     (*(*this + 1232))(&v10, this);
     Reader = PMMediaManager::findReader(Instance, &v10);
-    PCURL::~PCURL(&v10);
+    PCURL::~PCURL(&v10.var0);
     if (Reader)
     {
       if ((*(Reader + 248))(Reader) == 1346651680)
@@ -6954,19 +6957,19 @@ void sub_26018F728(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void OZFootage::getFormatName(OZFootage *this@<X0>, PCSharedCount *a2@<X8>)
+void OZFootage::getFormatName(PCSharedCount *__return_ptr a1@<X8>, OZFootage *this@<X0>)
 {
   if ((*(*this + 1432))(this))
   {
 
-    PCSharedCount::PCSharedCount(a2);
+    PCSharedCount::PCSharedCount(a1);
   }
 
   else
   {
     v4 = *(this + 1009);
 
-    PMClip::getFormatName(v4, a2);
+    PMClip::getFormatName(v4, a1);
   }
 }
 
@@ -7042,9 +7045,9 @@ uint64_t OZFootage::getPages(OZFootage *this)
   }
 }
 
-void OZFootage::getLayerName(PMClip **this@<X0>, unsigned int a2@<W1>, PCURL *a3@<X8>)
+void OZFootage::getLayerName(unsigned int (***this)(PMClip **)@<X0>, unsigned int a2@<W1>, PCURL *a3@<X8>)
 {
-  if ((*(*this + 179))(this))
+  if ((*this)[179](this))
   {
 
     PCURL::PCURL(a3, @"Missing file");
@@ -7175,50 +7178,50 @@ double OZFootage::getFrameRate(OZFootage *this)
 
 CMTime *anonymous namespace::doubleFrameRateToFig@<X0>(double a1@<D0>, CMTime *a2@<X8>)
 {
-  v3 = 6144000;
-  v4 = 256256;
-  v5 = vcvtmd_s64_f64(a1 + 0.5 + 0.0000001);
-  v6 = a1 - v5;
-  v7 = v6 >= 0.0;
-  if (v6 <= -0.1)
+  v2 = 6144000;
+  v3 = 256256;
+  v4 = vcvtmd_s64_f64(a1 + 0.5 + 0.0000001);
+  v5 = a1 - v4;
+  v6 = v5 >= 0.0;
+  if (v5 <= -0.1)
   {
-    v7 = 1;
+    v6 = 1;
   }
 
-  if (v5 != 30 || v7)
+  if (v4 != 30 || v6)
   {
-    v8 = !v7;
-    if (v5 != 24 || !v8)
+    v7 = !v6;
+    if (v4 != 24 || !v7)
     {
-      if (v5 != 60)
+      if (v4 != 60)
       {
-        v8 = 0;
+        v7 = 0;
       }
 
-      if (v8)
+      if (v7)
       {
-        v3 = 15360000;
+        v2 = 15360000;
       }
 
       else
       {
-        v3 = v5 << 8;
-        v4 = 256;
+        v2 = v4 << 8;
+        v3 = 256;
       }
     }
   }
 
   else
   {
-    v3 = 7680000;
+    v2 = 7680000;
   }
 
-  return CMTimeMake(a2, v3, v4);
+  return CMTimeMake(a2, v2, v3);
 }
 
-uint64_t OZFootage::getDynamicRangeType(PMClip **this)
+uint64_t OZFootage::getDynamicRangeType(uint64_t (***this)(PMClip **))
 {
-  if ((*(*this + 179))(this))
+  if ((*this)[179](this))
   {
     return *(this + 2078);
   }
@@ -7371,10 +7374,10 @@ LABEL_7:
   PCString::~PCString(&v23);
 }
 
-void sub_260190328(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_260190328(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
-  PCString::~PCString(v14 + 5);
+  va_start(va, a21);
+  PCString::~PCString(v21 + 5);
   PCString::~PCString(va);
   _Unwind_Resume(a1);
 }
@@ -7409,7 +7412,7 @@ double OZFootage::getFootageTime(OZFootage *this, const CMTime *a2, CMTime *a3)
   v20 = *(this + 208);
   v19 = *(this + 232);
   memset(&v18, 0, sizeof(v18));
-  OZFootage::getFrameDuration(this, &v18);
+  OZFootage::getFrameDuration(&v18, this);
   v17 = *a2;
   time1 = *a2;
   time2 = v19;
@@ -7589,7 +7592,7 @@ LABEL_34:
   return v21 & 1;
 }
 
-void sub_260190A50(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10)
+void sub_260190A50(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, const void *a10)
 {
   PCURL::~PCURL(&a9);
   PCURL::~PCURL(&a10);
@@ -7619,7 +7622,7 @@ void OZFootage::adjustDurationForChangedFrameRate(OZFootage *this, int a2)
   if (v4 || OZApplication::getCurrentDoc(theApp) && (v4 = *(OZApplication::getCurrentDoc(theApp) + 3)) != 0)
   {
     memset(&v33, 0, sizeof(v33));
-    OZSceneSettings::getFrameDuration((v4 + 336), &v33);
+    OZSceneSettings::getFrameDuration(&v33, (v4 + 336));
     memset(&v32, 0, sizeof(v32));
     OZFootage::getDuration(this, &v32);
     if ((*(*this + 1376))(this) == 1)
@@ -7815,7 +7818,7 @@ uint64_t OZFootage::prepareFrameRequest(OZFootage *this, const OZRenderParams *a
     }
 
     v14 = (*(*this + 272))(this);
-    OZSceneSettings::getFrameDuration((v14 + 336), &v20);
+    OZSceneSettings::getFrameDuration(&v20, (v14 + 336));
     *(a3 + 7) = v20;
     *(a3 + 16) = v21;
     *(a3 + 145) = *(a2 + 202);
@@ -7843,14 +7846,14 @@ uint64_t OZFootage::prepareFrameRequest(OZFootage *this, const OZRenderParams *a
   return v8;
 }
 
-void sub_2601913B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_2601913B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   PCString::~PCString(va);
   _Unwind_Resume(a1);
 }
 
-CGColorSpace **OZFootage::getHeliumGraph@<X0>(void *a1@<X0>, uint64_t a2@<X1>, const void *a3@<X2>, FxColorDescription *a4@<X3>, double *a5@<X4>, HGBitmapLoader **a6@<X8>)
+CGColorSpace **OZFootage::getHeliumGraph@<X0>(OZFootage *a1@<X0>, uint64_t a2@<X1>, const void *a3@<X2>, FxColorDescription *a4@<X3>, double *a5@<X4>, HGNode **a6@<X8>)
 {
   v30 = xmmword_260343AA0;
   v31 = 1.0;
@@ -7886,7 +7889,7 @@ CGColorSpace **OZFootage::getHeliumGraph@<X0>(void *a1@<X0>, uint64_t a2@<X1>, c
   v60 = _Q0;
   v42 = *(a2 + 360);
   v17 = (*(*a1 + 272))();
-  OZSceneSettings::getFrameDuration((v17 + 336), &v27);
+  OZSceneSettings::getFrameDuration(&v27, (v17 + 336));
   v44 = v27;
   v45 = v28;
   v26 = 0.0;
@@ -7894,7 +7897,7 @@ CGColorSpace **OZFootage::getHeliumGraph@<X0>(void *a1@<X0>, uint64_t a2@<X1>, c
   (*(*a1 + 1576))(a1, &v27, &v26, a2, &v30);
   if (((*(*a1 + 1432))(a1) & 1) == 0)
   {
-    v18 = a1[1009];
+    v18 = *(a1 + 1009);
     if (v18)
     {
       if (*(v18 + 408) == 1)
@@ -7947,12 +7950,12 @@ void sub_26019169C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void OZFootage::getHeliumGraph(uint64_t a1@<X0>, const OZRenderParams *a2@<X1>, uint64_t a3@<X2>, const void *a4@<X3>, FxColorDescription *a5@<X4>, double *a6@<X5>, void *a7@<X6>, HGBitmapLoader **a8@<X8>)
+void OZFootage::getHeliumGraph(OZFootage *a1@<X0>, FxColorDescription *a2@<X1>, uint64_t a3@<X2>, const void *a4@<X3>, FxColorDescription *a5@<X4>, double *a6@<X5>, void *a7@<X6>, HGNode **a8@<X8>)
 {
   *a7 = 0;
   if ((*(*a1 + 1432))(a1))
   {
-    if ((*(a1 + 8319) & 1) != 0 || (OZPlaybackEngine::OZPlaybackEngine(v18, 1), OZPlaybackEngine::operator==(a2 + 235, v18)))
+    if ((*(a1 + 8319) & 1) != 0 || (OZPlaybackEngine::OZPlaybackEngine(v18, 1), OZPlaybackEngine::operator==(&a2[29]._pcColorDesc._toneMapMethod, v18)))
     {
       v16 = HGObject::operator new(0x1A0uLL);
       HGNode::HGNode(v16);
@@ -7985,18 +7988,18 @@ void OZFootage::getHeliumGraph(uint64_t a1@<X0>, const OZRenderParams *a2@<X1>, 
   }
 }
 
-void sub_260191830(_Unwind_Exception *a1, uint64_t a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
+void sub_260191830(_Unwind_Exception *a1, uint64_t a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
 {
-  va_start(va1, a24);
-  va_start(va, a24);
-  v26 = va_arg(va1, CGColorSpace *);
-  HGObject::operator delete(v24);
+  va_start(va1, a31);
+  va_start(va, a31);
+  v33 = va_arg(va1, CGColorSpace *);
+  HGObject::operator delete(v31);
   PCCFRef<CGColorSpace *>::~PCCFRef(va1);
   PCCFRef<CGColorSpace *>::~PCCFRef(va);
   _Unwind_Resume(a1);
 }
 
-void OZFootage::getHeliumGraphInternal(uint64_t a1@<X0>, const OZRenderParams *a2@<X1>, uint64_t a3@<X2>, const void *a4@<X3>, FxColorDescription *a5@<X4>, double *a6@<X5>, void *a7@<X6>, HGBitmapLoader **a8@<X8>)
+void OZFootage::getHeliumGraphInternal(uint64_t a1@<X0>, FxColorDescription *a2@<X1>, uint64_t a3@<X2>, const void *a4@<X3>, FxColorDescription *a5@<X4>, double *a6@<X5>, void *a7@<X6>, HGNode **a8@<X8>)
 {
   *a7 = 0;
   if (!(*(*a1 + 1432))(a1))
@@ -8008,27 +8011,27 @@ void OZFootage::getHeliumGraphInternal(uint64_t a1@<X0>, const OZRenderParams *a
       PMClip::open(v17);
     }
 
-    PMLayerDescription::PMLayerDescription(v79);
-    if (PMClip::getLayerDescription(*(a1 + 8072), v79, *(a3 + 92)) == 7)
+    PMLayerDescription::PMLayerDescription(v78);
+    if (PMClip::getLayerDescription(*(a1 + 8072), v78, *(a3 + 92)) == 7)
     {
       OZFootage::getPlaceHolderHeliumGraph(a1, a2, a4, a5, a6, a8);
 LABEL_45:
-      PCString::~PCString(&v80);
+      PCString::~PCString(&v79);
       PCSharedMutex::unlock_shared((a1 + 8080));
       return;
     }
 
-    v78 = *a2;
-    PMFrameRequest::PMFrameRequest(v73, a3);
-    v70 = 0;
+    pcColorDesc = a2->_pcColorDesc;
+    PMFrameRequest::PMFrameRequest(v72, a3);
     v69 = 0;
-    OZFootage::getClipBitmapInfo(a1, a2, v79, &v78, v73, &v72, &v71, v68, &v70 + 1, &v70, &v69);
-    OZRenderParams::getResolution(a2, &v64);
-    v67 = 0;
-    v75 = a4;
+    v68 = 0;
+    OZFootage::getClipBitmapInfo(a1, a2, v78, &pcColorDesc, v72, &v71, &v70, v67, &v69 + 1, &v69, &v68);
+    OZRenderParams::getResolution(&v63, a2);
+    v66 = 0;
+    v74 = a4;
     v18 = *(a1 + 8072);
-    OZFootage::getFrameDuration(a1, &v64);
-    Frame = PMClip::getFrame(v18, &v78, &v64, v73, a5, &v67, a6);
+    OZFootage::getFrameDuration(&v63, a1);
+    Frame = PMClip::getFrame(v18, &pcColorDesc, &v63, v72, a5, &v66, a6);
     v20 = *a6;
     v22 = a6[4];
     v21 = a6[5];
@@ -8039,13 +8042,13 @@ LABEL_45:
     }
 
     v57 = v23;
-    v24.i64[0] = v71.u32[0];
-    v24.i64[1] = v71.u32[1];
+    v24.i64[0] = v70.u32[0];
+    v24.i64[1] = v70.u32[1];
     v59 = vcvtq_f64_u64(v24);
-    if (v70 != 1)
+    if (v69 != 1)
     {
 LABEL_29:
-      if (HIBYTE(v70) == 1)
+      if (HIBYTE(v69) == 1)
       {
         v40.f64[0] = sqrt(v20 * v20 + v22 * v22);
         v40.f64[1] = v57;
@@ -8054,37 +8057,36 @@ LABEL_29:
 
         v58 = vmulq_f64(v41, _Q1);
         v60 = v41;
-        v46.i64[0] = v68[0];
-        v46.i64[1] = v68[3];
+        v46.i64[0] = v67[0];
+        v46.i64[1] = v67[3];
         v47 = vaddq_f64(v58, vdivq_f64(vcvtq_f64_s64(v46), v40));
-        v46.i64[0] = v68[1];
-        v46.i64[1] = v68[2];
-        v64 = v47;
-        v65 = vsubq_f64(vsubq_f64(vaddq_f64(v41, v58), vdivq_f64(vcvtq_f64_s64(v46), v40)), v47);
+        v46.i64[0] = v67[1];
+        v46.i64[1] = v67[2];
+        v63 = v47;
+        v64 = vsubq_f64(vsubq_f64(vaddq_f64(v41, v58), vdivq_f64(vcvtq_f64_s64(v46), v40)), v47);
         v48 = HGObject::operator new(0x1A0uLL);
         HGCrop::HGCrop(v48);
-        v61 = 0.0;
-        v62 = 0.0;
+        v61 = 0uLL;
         __asm { FMOV            V0.2D, #-1.0 }
 
-        v63 = _Q0;
-        if (PCMatrix44Tmpl<double>::transformRect<double>(a6, v64.n128_f64, &v61))
+        v62 = _Q0;
+        if (PCMatrix44Tmpl<double>::transformRect<double>(a6, v63.n128_f64, &v61))
         {
-          v51 = HGRectMake4i(vcvtmd_s64_f64(v61 + 0.5 + 0.0000001), vcvtmd_s64_f64(v62 + 0.5 + 0.0000001), vcvtmd_s64_f64(v61 + *&v63 + 0.5 + 0.0000001), vcvtmd_s64_f64(v62 + *(&v63 + 1) + 0.5 + 0.0000001));
+          v51 = HGRectMake4i(vcvtmd_s64_f64(*&v61 + 0.5 + 0.0000001), vcvtmd_s64_f64(*(&v61 + 1) + 0.5 + 0.0000001), vcvtmd_s64_f64(*&v61 + *&v62 + 0.5 + 0.0000001), vcvtmd_s64_f64(*(&v61 + 1) + *(&v62 + 1) + 0.5 + 0.0000001));
           (*(*v48 + 96))(v48, 0, v51, SHIDWORD(v51), v52, v53);
-          (*(*v48 + 120))(v48, 0, v67);
-          if (v67 != v48)
+          (*(*v48 + 120))(v48, 0, v66);
+          if (v66 != v48)
           {
-            if (v67)
+            if (v66)
             {
-              (*(*v67 + 24))();
+              (*(*v66 + 24))();
             }
 
-            v67 = v48;
+            v66 = v48;
             (*(*v48 + 16))(v48);
           }
 
-          v50.n128_f64[0] = PCMatrix44Tmpl<double>::rightTranslate(a6, v64.n128_f64[0] + v65.f64[0] * 0.5 - (v58.f64[0] + 0.5 * v60.f64[0]), v64.n128_f64[1] + v65.f64[1] * 0.5 - (v58.f64[1] + vmuld_lane_f64(0.5, v60, 1)), 0.0);
+          v50.n128_f64[0] = PCMatrix44Tmpl<double>::rightTranslate(a6, v63.n128_f64[0] + v64.f64[0] * 0.5 - (v58.f64[0] + 0.5 * v60.f64[0]), v63.n128_f64[1] + v64.f64[1] * 0.5 - (v58.f64[1] + vmuld_lane_f64(0.5, v60, 1)), 0.0);
           goto LABEL_37;
         }
 
@@ -8110,39 +8112,39 @@ LABEL_37:
         v56 = HGObject::operator new(0x1A0uLL);
         HGNode::HGNode(v56);
         *a8 = v56;
-        if (v67)
+        if (v66)
         {
-          (*(*v67 + 24))(v67);
+          (*(*v66 + 24))(v66);
         }
       }
 
       else
       {
-        *a8 = v67;
+        *a8 = v66;
       }
 
-      PCCFRef<CGColorSpace *>::~PCCFRef(&v77);
       PCCFRef<CGColorSpace *>::~PCCFRef(&v76);
+      PCCFRef<CGColorSpace *>::~PCCFRef(&v75);
       goto LABEL_45;
     }
 
-    PMLayerDescription::PMLayerDescription(&v64);
-    if (PMClip::getLayerDescription(*(a1 + 8072), &v64, v74))
+    PMLayerDescription::PMLayerDescription(&v63);
+    if (PMClip::getLayerDescription(*(a1 + 8072), &v63, v73))
     {
       v25 = *(a1 + 8072);
       LODWORD(v9) = *(v25 + 288);
       LODWORD(v8) = *(v25 + 292);
-      v61 = 0.0;
+      *&v61 = 0;
       (*(**(*(a1 + 4632) + 8) + 256))(*(*(a1 + 4632) + 8), &v61);
       v26 = v8;
       v27 = v59.f64[0] / v9;
-      _NF = v61 < v9;
+      _NF = *&v61 < v9;
       v29 = v59.f64[1] / v26;
       if (!_NF)
       {
-        v61 = 0.0;
+        *&v61 = 0;
         (*(**(*(a1 + 4784) + 8) + 256))(*(*(a1 + 4784) + 8), &v61);
-        if (v61 >= v26)
+        if (*&v61 >= v26)
         {
 LABEL_26:
           v36 = 1.0 / v27;
@@ -8152,7 +8154,7 @@ LABEL_26:
 LABEL_27:
           PCMatrix44Tmpl<double>::rightScale(v38, v36, v39, v37);
 LABEL_28:
-          PCString::~PCString(&v66);
+          PCString::~PCString(&v65);
           goto LABEL_29;
         }
       }
@@ -8160,44 +8162,44 @@ LABEL_28:
 
     else
     {
-      v30 = v64.n128_u32[2];
-      if (v64.n128_i32[2] < 1)
+      v30 = v63.n128_u32[2];
+      if (v63.n128_i32[2] < 1)
       {
         goto LABEL_28;
       }
 
-      v31 = v64.n128_u32[3];
-      if (v64.n128_i32[3] < 1)
+      v31 = v63.n128_u32[3];
+      if (v63.n128_i32[3] < 1)
       {
         goto LABEL_28;
       }
 
-      v61 = 0.0;
+      *&v61 = 0;
       (*(**(*(a1 + 4632) + 8) + 256))(*(*(a1 + 4632) + 8), &v61);
       v32.n128_f64[0] = v30;
       v33.n128_u64[1] = *&v59.f64[1];
       v27 = v59.f64[0] / v30;
-      v33.n128_f64[0] = v61;
+      v33.n128_u64[0] = v61;
       v29 = v59.f64[1] / v31;
-      if (v61 >= v30)
+      if (*&v61 >= v30)
       {
-        v61 = 0.0;
+        *&v61 = 0;
         (*(**(*(a1 + 4784) + 8) + 256))(*(*(a1 + 4784) + 8), &v61, v32.n128_f64[0], v33.n128_f64[0]);
-        v32.n128_f64[0] = v61;
-        if (v61 >= v31)
+        v32.n128_u64[0] = v61;
+        if (*&v61 >= v31)
         {
           goto LABEL_26;
         }
       }
 
-      v61 = 0.0;
+      *&v61 = 0;
       (*(**(*(a1 + 4632) + 8) + 256))(*(*(a1 + 4632) + 8), &v61, v32, v33);
-      v34 = v61;
-      if (v61 != v59.f64[0])
+      v34 = *&v61;
+      if (*&v61 != v59.f64[0])
       {
-        v61 = 0.0;
+        *&v61 = 0;
         (*(**(*(a1 + 4784) + 8) + 256))(*(*(a1 + 4784) + 8), &v61, v34);
-        if (v61 != v59.f64[1])
+        if (*&v61 != v59.f64[1])
         {
           goto LABEL_26;
         }
@@ -8239,7 +8241,7 @@ void sub_260192058(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void OZFootage::getPlaceHolderHeliumGraph(void *a1@<X0>, const OZRenderParams *a2@<X1>, const void *a3@<X3>, FxColorDescription *a4@<X4>, uint64_t a5@<X5>, HGBitmapLoader **a6@<X8>)
+void OZFootage::getPlaceHolderHeliumGraph(void *a1@<X0>, FxColorDescription *a2@<X1>, const void *a3@<X3>, FxColorDescription *a4@<X4>, uint64_t a5@<X5>, HGBitmapLoader **a6@<X8>)
 {
   FxColorDescription::setDynamicRange(a4, 0);
   *(a5 + 120) = 0x3FF0000000000000;
@@ -8275,7 +8277,7 @@ void OZFootage::getPlaceHolderHeliumGraph(void *a1@<X0>, const OZRenderParams *a
   else
   {
     v19 = FxColorDescription::getCGColorSpace(a4);
-    OZFootage::getPlaceHolderBitmap(a1, a2, v19, &v26);
+    OZFootage::getPlaceHolderBitmap(&v26, a1, a2, v19);
     v20 = v26;
     v21 = PCImage::getCGColorSpace(v26);
     FxColorDescription::setCGColorSpace(a4, v21);
@@ -8352,7 +8354,7 @@ void OZFootage::getClipBitmapInfo(uint64_t a1, OZRenderParams *a2, int32x2_t *a3
   }
 
 LABEL_13:
-  OZRenderParams::getResolution(a2, &v34);
+  OZRenderParams::getResolution(&v34, a2);
   if (v34.n128_f64[0] != 1.0 || v34.n128_f64[1] != 1.0)
   {
     *a10 = 1;
@@ -8395,27 +8397,27 @@ LABEL_13:
   }
 }
 
-unint64_t OZFootage::estimateRenderMemory(uint64_t a1)
+unint64_t OZFootage::estimateRenderMemory(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v1 = MEMORY[0x28223BE20](a1);
-  v3 = v2;
-  v5 = v4;
-  v7 = v6;
-  v8 = v1;
-  v40 = *MEMORY[0x277D85DE8];
-  Resolution = OZRenderParams::getResolution(v4, &v39);
-  v11 = *&v39.value;
-  v10 = *&v39.timescale;
-  if (((*(*v8 + 1432))(v8, Resolution) & 1) != 0 || !*(v8 + 8072))
+  MEMORY[0x28223BE20](a1, a2, a3, a4, a5);
+  v6 = v5;
+  v8 = v7;
+  v10 = v9;
+  v12 = v11;
+  v46 = *MEMORY[0x277D85DE8];
+  Resolution = OZRenderParams::getResolution(&v45, v7);
+  v15 = *&v45.value;
+  v14 = *&v45.timescale;
+  if (((*(*v12 + 1432))(v12, Resolution) & 1) != 0 || !*(v12 + 8072))
   {
-    PCWorkingColorVector::PCWorkingColorVector(&v39);
-    if (v7 + 8 == std::__tree<std::__value_type<PCHash128,BOOL>,std::__map_value_compare<PCHash128,std::__value_type<PCHash128,BOOL>,std::less<PCHash128>,true>,std::allocator<std::__value_type<PCHash128,BOOL>>>::find<PCHash128>(v7, &v39))
+    PCWorkingColorVector::PCWorkingColorVector(&v45);
+    if (v10 + 1 == std::__tree<std::__value_type<PCHash128,BOOL>,std::__map_value_compare<PCHash128,std::__value_type<PCHash128,BOOL>,std::less<PCHash128>,true>,std::allocator<std::__value_type<PCHash128,BOOL>>>::find<PCHash128>(v10, &v45))
     {
-      std::__tree<PCHash128>::__emplace_unique_key_args<PCHash128,PCHash128 const&>(v7, &v39);
-      *&v13 = ceil(v10 * *(v8 + 8300));
-      v14 = ceil(v11 * *(v8 + 8296)) * *&v13;
-      LODWORD(v13) = *(v5 + 84);
-      return (v14 * v13 * (*(v5 + 83) >> 3));
+      std::__tree<PCHash128>::__emplace_unique_key_args<PCHash128,PCHash128 const&>(v10, &v45, &v45);
+      *&v19 = ceil(v14 * *(v12 + 8300));
+      v20 = ceil(v15 * *(v12 + 8296)) * *&v19;
+      LODWORD(v19) = *(v8 + 84);
+      return (v20 * v19 * (*(v8 + 83) >> 3));
     }
 
     else
@@ -8426,167 +8428,146 @@ unint64_t OZFootage::estimateRenderMemory(uint64_t a1)
 
   else
   {
-    PMLayerDescription::PMLayerDescription(v37);
-    if (PMClip::getLayerDescription(*(v8 + 8072), v37, *(v3 + 92)) == 7)
+    PMLayerDescription::PMLayerDescription(v43);
+    if (PMClip::getLayerDescription(*(v12 + 8072), v43, *(v6 + 92)) == 7)
     {
-      PCWorkingColorVector::PCWorkingColorVector(&v39);
-      if (v7 + 8 == std::__tree<std::__value_type<PCHash128,BOOL>,std::__map_value_compare<PCHash128,std::__value_type<PCHash128,BOOL>,std::less<PCHash128>,true>,std::allocator<std::__value_type<PCHash128,BOOL>>>::find<PCHash128>(v7, &v39))
+      PCWorkingColorVector::PCWorkingColorVector(&v45);
+      if (v10 + 1 == std::__tree<std::__value_type<PCHash128,BOOL>,std::__map_value_compare<PCHash128,std::__value_type<PCHash128,BOOL>,std::less<PCHash128>,true>,std::allocator<std::__value_type<PCHash128,BOOL>>>::find<PCHash128>(v10, &v45))
       {
-        std::__tree<PCHash128>::__emplace_unique_key_args<PCHash128,PCHash128 const&>(v7, &v39);
-        *&v19 = ceil(v10 * *(v8 + 8300));
-        v20 = ceil(v11 * *(v8 + 8296)) * *&v19;
-        LODWORD(v19) = *(v5 + 84);
-        v12 = (v20 * v19 * (*(v5 + 83) >> 3));
+        std::__tree<PCHash128>::__emplace_unique_key_args<PCHash128,PCHash128 const&>(v10, &v45, &v45);
+        *&v25 = ceil(v14 * *(v12 + 8300));
+        v26 = ceil(v15 * *(v12 + 8296)) * *&v25;
+        LODWORD(v25) = *(v8 + 84);
+        v17 = (v26 * v25 * (*(v8 + 83) >> 3));
       }
 
       else
       {
-        v12 = 0;
+        v17 = 0;
       }
     }
 
     else
     {
-      v39 = *v5;
-      OZFootage::getFootageTime(v8, &v39, &v36);
-      PMFrameRequest::PMFrameRequest(v33, v3);
-      v28 = 0;
-      OZFootage::getClipBitmapInfo(v8, v5, v37, &v36, v33, v32, &v31, v27, &v30, &v29, &v28);
-      v15 = v32[0];
-      v16 = v32[1];
-      v25 = 0uLL;
-      v26 = 0;
-      OZSceneSettings::getFrameDuration((*(v8 + 968) + 336), &v25);
-      if (*(v5 + 123))
+      v45 = *v8;
+      OZFootage::getFootageTime(v12, &v45, &v42);
+      PMFrameRequest::PMFrameRequest(v39, v6);
+      v34 = 0;
+      OZFootage::getClipBitmapInfo(v12, v8, v43, &v42, v39, v38, &v37, v33, &v36, &v35, &v34);
+      v21 = v38[0];
+      v22 = v38[1];
+      v31 = 0uLL;
+      v32 = 0;
+      OZSceneSettings::getFrameDuration(&v31, (*(v12 + 968) + 336));
+      if (*(v8 + 123))
       {
-        v25.n128_i64[0] /= 2;
+        v31.n128_i64[0] /= 2;
       }
 
-      OZFootage::getCacheHashKey(v8, *(v8 + 8072), &v36, v17, v33, v5, v37);
-      PCHashWriteStream::PCHashWriteStream(&v39);
-      PCHashWriteStream::writeValue(&v39, v8);
-      Hash = PCHashWriteStream::getHash(&v39);
-      PCHash128::operator+=(v24, Hash);
-      if (v7 + 8 == std::__tree<std::__value_type<PCHash128,BOOL>,std::__map_value_compare<PCHash128,std::__value_type<PCHash128,BOOL>,std::less<PCHash128>,true>,std::allocator<std::__value_type<PCHash128,BOOL>>>::find<PCHash128>(v7, v24))
+      OZFootage::getCacheHashKey(v12, *(v12 + 8072), &v42, v23, v39, v8, v43);
+      PCHashWriteStream::PCHashWriteStream(&v45);
+      PCHashWriteStream::writeValue(&v45, v12);
+      Hash = PCHashWriteStream::getHash(&v45);
+      PCHash128::operator+=(&v30, Hash);
+      if (v10 + 1 == std::__tree<std::__value_type<PCHash128,BOOL>,std::__map_value_compare<PCHash128,std::__value_type<PCHash128,BOOL>,std::less<PCHash128>,true>,std::allocator<std::__value_type<PCHash128,BOOL>>>::find<PCHash128>(v10, &v30))
       {
-        std::__tree<PCHash128>::__emplace_unique_key_args<PCHash128,PCHash128 const&>(v7, v24);
-        v21 = vcvtpd_u64_f64(v10 * v16) * vcvtpd_u64_f64(v11 * v15);
-        if ((v28 - 10) > 6)
+        std::__tree<PCHash128>::__emplace_unique_key_args<PCHash128,PCHash128 const&>(v10, &v30, &v30);
+        v27 = vcvtpd_u64_f64(v14 * v22) * vcvtpd_u64_f64(v15 * v21);
+        if ((v34 - 10) > 6)
         {
-          v22 = 4;
+          v28 = 4;
         }
 
         else
         {
-          v22 = *&asc_2608526C8[4 * (v28 - 10)];
+          v28 = *&asc_2608526C8[4 * (v34 - 10)];
         }
 
-        v12 = v21 * v22;
+        v17 = v27 * v28;
       }
 
       else
       {
-        v12 = 0;
+        v17 = 0;
       }
 
-      PCHashWriteStream::~PCHashWriteStream(&v39);
-      PCCFRef<CGColorSpace *>::~PCCFRef(&v35);
-      PCCFRef<CGColorSpace *>::~PCCFRef(&v34);
+      PCHashWriteStream::~PCHashWriteStream(&v45);
+      PCCFRef<CGColorSpace *>::~PCCFRef(&v41);
+      PCCFRef<CGColorSpace *>::~PCCFRef(&v40);
     }
 
-    PCString::~PCString(&v38);
+    PCString::~PCString(&v44);
   }
 
-  return v12;
+  return v17;
 }
 
-void sub_2601929FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, CGColorSpace *a45, CGColorSpace *a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, PCString a62, char a63)
+void sub_2601929FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, CGColorSpace *a45, CGColorSpace *a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, PCString a62, ...)
 {
-  PCHashWriteStream::~PCHashWriteStream(&a63);
+  va_start(va, a62);
+  PCHashWriteStream::~PCHashWriteStream(va);
   PCCFRef<CGColorSpace *>::~PCCFRef(&a46);
   PCCFRef<CGColorSpace *>::~PCCFRef(&a45);
   PCString::~PCString(&a62);
   _Unwind_Resume(a1);
 }
 
-void anonymous namespace::missingFootageHash(_anonymous_namespace_ *this, PCHash128 *a2, OZFootage *a3, double a4, double a5)
+void anonymous namespace::missingFootageHash(_anonymous_namespace_ *this, PCHash128 *a2, OZFootage *a3, uint64_t a4, uint64_t a5, double a6, double a7)
 {
-  v5 = MEMORY[0x28223BE20](this);
-  v7 = v6;
+  v7 = MEMORY[0x28223BE20](this, a2, a3, a4, a5).n128_u64[0];
   v9 = v8;
-  v11 = v10;
-  v13 = v12;
-  v15 = v14;
-  v16 = v5;
-  v17[520] = *MEMORY[0x277D85DE8];
-  PCHashWriteStream::PCHashWriteStream(v17);
-  PCHashWriteStream::writeValue(v17, v15);
-  PCHashWriteStream::writeValue(v17, v13);
-  PCHashWriteStream::writeValue(v17, v11);
-  PCHashWriteStream::writeValue(v17, v9);
-  PCHashWriteStream::writeValue(v17, v7);
-  *v16 = *PCHashWriteStream::getHash(v17)->i8;
-  PCHashWriteStream::~PCHashWriteStream(v17);
+  v10 = *&v7;
+  v12 = v11;
+  v14 = v13;
+  v16 = v15;
+  v18 = v17;
+  v19[520] = *MEMORY[0x277D85DE8];
+  PCHashWriteStream::PCHashWriteStream(v19);
+  PCHashWriteStream::writeValue(v19, v16);
+  PCHashWriteStream::writeValue(v19, v14);
+  PCHashWriteStream::writeValue(v19, v12);
+  PCHashWriteStream::writeValue(v19, v10);
+  PCHashWriteStream::writeValue(v19, v9);
+  *v18 = *PCHashWriteStream::getHash(v19)->i8;
+  PCHashWriteStream::~PCHashWriteStream(v19);
 }
 
-uint64_t OZFootage::getPlaceHolderBitmap@<X0>(OZFootage *this@<X0>, const OZRenderParams *a2@<X1>, CGColorSpace *WorkingColorSpace@<X3>, void *a4@<X8>)
+uint64_t *OZFootage::getPlaceHolderBitmap@<X0>(uint64_t *__return_ptr a1@<X8>, OZFootage *this@<X0>, FxColorDescription *a3@<X1>, CGColorSpace *WorkingColorSpace@<X3>)
 {
-  v9 = (this + 8184);
-  v15 = this + 8184;
+  v8 = (this + 8184);
   PCMutex::lock((this + 8184));
-  v16 = 1;
-  v10 = *(this + 1041);
-  if (!v10 || *(this + 1043) != 1.0 || *(this + 1044) != 1.0)
+  v9 = *(this + 1041);
+  if (!v9 || *(this + 1043) != 1.0 || *(this + 1044) != 1.0)
   {
-    if (*(this + 1037))
-    {
-      v11 = *(this + 2074);
-    }
-
-    else
-    {
-      v11 = *(a2 + 81);
-    }
-
-    if (*(this + 1037))
-    {
-      v12 = *(this + 2075);
-    }
-
-    else
-    {
-      v12 = *(a2 + 82);
-    }
-
     if (!WorkingColorSpace)
     {
-      WorkingColorSpace = OZRenderParams::getWorkingColorSpace(a2);
+      OZRenderParams::getWorkingColorSpace(a3);
     }
 
-    createPlaceHolderBitmap(v11, v12, 1.0, 1.0, WorkingColorSpace);
+    createPlaceHolderBitmap();
   }
 
-  v13 = *(this + 1042);
-  *a4 = v10;
-  a4[1] = v13;
-  if (v13)
+  v10 = *(this + 1042);
+  *a1 = v9;
+  a1[1] = v10;
+  if (v10)
   {
-    atomic_fetch_add_explicit((v13 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v10 + 8), 1uLL, memory_order_relaxed);
   }
 
-  return PCMutex::unlock(v9);
+  return PCMutex::unlock(v8);
 }
 
-void sub_260192CF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_260192CF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   PCLockSentry<PCMutex>::~PCLockSentry(va);
   _Unwind_Resume(a1);
 }
 
-void OZFootage::setupPlaceHolderMetalTexture(OZFootage *this, const OZRenderParams *a2, const PMFrameRequest *a3, CGColorSpace *a4, HGGPURenderer *a5)
+void OZFootage::setupPlaceHolderMetalTexture(OZFootage *this, FxColorDescription *a2, const PMFrameRequest *a3, CGColorSpace *a4, HGGPURenderer *a5)
 {
-  OZFootage::getPlaceHolderBitmap(this, a2, a4, &v22);
+  OZFootage::getPlaceHolderBitmap(&v22, this, a2, a4);
   v20[1] = (this + 8184);
   PCMutex::lock((this + 8184));
   v21 = 1;
@@ -8626,14 +8607,14 @@ void OZFootage::setupPlaceHolderMetalTexture(OZFootage *this, const OZRenderPara
   }
 }
 
-void sub_260192FA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14)
+void sub_260192FA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14)
 {
   if (a10)
   {
-    (*(*a10 + 24))(a10);
+    (*(*a10 + 24))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
-  (*(*v14 + 24))(v14);
+  (*(*v14 + 24))(v14, a2, a3, a4, a5, a6, a7, a8);
   PCLockSentry<PCMutex>::~PCLockSentry(&a11);
   if (a14)
   {
@@ -8667,21 +8648,21 @@ void sub_260193570(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void OZFootage::getErrorHeliumGraph(_anonymous_namespace_ *a1, uint64_t a2, FxColorDescription *a3)
+void OZFootage::getErrorHeliumGraph(_anonymous_namespace_ *a1, const void *a2, FxColorDescription *a3)
 {
   FxColorDescription::setDynamicRange(a3, 0);
   if (!FxColorDescription::getCGColorSpace(a3))
   {
-    v5 = PCColorSpaceCache::cgRec709Linear(0);
-    FxColorDescription::setCGColorSpace(a3, v5);
+    v7 = PCColorSpaceCache::cgRec709Linear(0, v6);
+    FxColorDescription::setCGColorSpace(a3, v7);
   }
 
-  CGColorSpace = FxColorDescription::getCGColorSpace(a3);
+  FxColorDescription::getCGColorSpace(a3);
   if (*(a1 + 80) == 1)
   {
   }
 
-  OZFootage::getErrorImage(a1, CGColorSpace, v7);
+  OZFootage::getErrorImage(a1);
 }
 
 void sub_260193708(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14)
@@ -8716,12 +8697,12 @@ uint64_t OZFootage::reloadResources(OZFootage *this, PGContext *a2)
   return PCMutex::unlock((this + 8184));
 }
 
-void sub_2601937E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2601937E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
-  if (a3)
+  va_start(va, a5);
+  if (a5)
   {
-    (*(*a3 + 24))(a3);
+    (*(*a5 + 24))(a5, a2, a3);
   }
 
   PCLockSentry<PCMutex>::~PCLockSentry(va);
@@ -8759,7 +8740,7 @@ uint64_t OZFootage::updateMissingFile(OZFootage *this)
   return 0;
 }
 
-uint64_t OZFootage::writeBody(OZFootage *this, PCSerializerWriteStream *a2, unsigned int a3, int a4, unsigned int a5)
+uint64_t OZFootage::writeBody(OZFootage *this, PCSerializerWriteStream *a2, unsigned int a3, _BOOL4 a4, unsigned int a5)
 {
   v7 = OZFootage::isInUseByUnreplacedDropZonesOnly(this, 0);
   if ((*(*this + 272))(this))
@@ -8935,7 +8916,7 @@ LABEL_35:
         (*(*a2 + 24))(a2);
         PCString::~PCString(&v70);
         PCString::~PCString(&v71);
-        PCURL::~PCURL(&v72);
+        PCURL::~PCURL(&v72.var0);
         PCString::~PCString(&v73);
       }
     }
@@ -9099,7 +9080,7 @@ LABEL_74:
   if (v55)
   {
     v66 = *(this + 344);
-    OZSceneSettings::getFrameDuration((v55 + 336), &v65);
+    OZSceneSettings::getFrameDuration(&v65, (v55 + 336));
     SampleNumber = PC_CMTimeGetSampleNumber(&v66, &v65);
     (*(*a2 + 16))(a2, 6);
     (*(*a2 + 72))(a2, SampleNumber);
@@ -9118,7 +9099,7 @@ LABEL_74:
 void sub_26019499C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, PCString a14, uint64_t a15, uint64_t a16, PCString a17, uint64_t a18, uint64_t a19, char a20, int a21, __int16 a22, char a23, char a24, int a25, __int16 a26, char a27, char a28, PCString a29, PCString a30, PCString a31, PCString a32, PCString a33)
 {
   PCString::~PCString(&a30);
-  PCURL::~PCURL(&a31);
+  PCURL::~PCURL(&a31.var0);
   PCString::~PCString(&a32);
   PCString::~PCString(&a33);
   PCString::~PCString(&a14);
@@ -9236,7 +9217,7 @@ LABEL_13:
         v14 = PCURL::getSequenceEnd(&v21) - SequenceStart + 1;
       }
 
-      PCURL::~PCURL(&v21);
+      PCURL::~PCURL(&v21.var0);
       v15 = v14;
     }
 
@@ -9745,4 +9726,11 @@ uint64_t OZFootage::setRate(OZFootage *this, const OZRenderParams *a2, PMFrameRe
   PCCFRef<CGColorSpace *>::~PCCFRef(&v14);
   PCCFRef<CGColorSpace *>::~PCCFRef(&v13);
   return v7;
+}
+
+void sub_2601960EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, CGColorSpace *a34, CGColorSpace *a35)
+{
+  PCCFRef<CGColorSpace *>::~PCCFRef(&a35);
+  PCCFRef<CGColorSpace *>::~PCCFRef(&a34);
+  _Unwind_Resume(a1);
 }

@@ -17,7 +17,7 @@ void sub_1000015E8(uint64_t a1, void *a2)
   v3 = a2;
   if (!v3)
   {
-    v4 = sub_100001670();
+    v4 = sub_100001670(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_100005CC4(a1);
@@ -32,16 +32,16 @@ void sub_1000015E8(uint64_t a1, void *a2)
   dispatch_group_leave(*(a1 + 40));
 }
 
-id sub_100001670()
+id sub_100001670(uint64_t a1)
 {
   if (qword_1000121E0 != -1)
   {
     sub_100005D50();
   }
 
-  v1 = qword_1000121D8;
+  v2 = qword_1000121D8;
 
-  return v1;
+  return v2;
 }
 
 void sub_1000016B4(uint64_t a1, void *a2)
@@ -49,7 +49,7 @@ void sub_1000016B4(uint64_t a1, void *a2)
   v3 = a2;
   if (!v3)
   {
-    v4 = sub_100001670();
+    v4 = sub_100001670(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_100005D64(a1);
@@ -99,15 +99,16 @@ void sub_100001CAC(id a1)
   _objc_release_x1();
 }
 
-void sub_100001CF0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100001CF0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void sub_100001ED0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100001ED0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -116,7 +117,7 @@ __n128 sub_100001EE8(uint64_t a1, void *a2)
 {
   if (a2)
   {
-    [a2 CGAffineTransformValue];
+    objc_msgSend_CGAffineTransformValue(a2);
   }
 
   else
@@ -184,30 +185,30 @@ void sub_100002AE0(id a1)
   _objc_release_x1();
 }
 
-id CSSAllRoles()
+id CSSAllRoles(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_new();
-  v6 = v0;
-  v1 = objc_opt_new();
-  v7 = v1;
   v2 = objc_opt_new();
   v8 = v2;
-  v3 = [NSArray arrayWithObjects:&v6 count:3];
-  v4 = [NSSet setWithArray:v3, v6, v7];
+  v3 = objc_opt_new();
+  v9 = v3;
+  v4 = objc_opt_new();
+  v10 = v4;
+  v5 = [NSArray arrayWithObjects:&v8 count:3];
+  v6 = [NSSet setWithArray:v5, v8, v9];
 
-  return v4;
+  return v6;
 }
 
-id sub_100003634()
+id sub_100003634(uint64_t a1)
 {
   if (qword_100012200 != -1)
   {
     sub_100005F30();
   }
 
-  v1 = qword_1000121F8;
+  v2 = qword_1000121F8;
 
-  return v1;
+  return v2;
 }
 
 void sub_100003678(__IOSurface *a1)
@@ -227,10 +228,11 @@ void sub_100003894(id a1)
   _objc_release_x1();
 }
 
-void sub_1000038D8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000038D8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 id sub_100003F0C(uint64_t a1, void *a2)
@@ -364,13 +366,17 @@ void sub_100005AC4(id a1)
 void sub_100005CC4(uint64_t a1)
 {
   v1 = [*(a1 + 32) bundleIdentifier];
-  sub_100001CF0(&_mh_execute_header, v2, v3, "Got back nil full size icon data for %{public}@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = v1;
+  sub_100001CF0(&_mh_execute_header, v2, v3, "Got back nil full size icon data for %{public}@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 void sub_100005D64(uint64_t a1)
 {
   v1 = [*(a1 + 32) bundleIdentifier];
-  sub_100001CF0(&_mh_execute_header, v2, v3, "Got back nil badge icon data for %{public}@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = v1;
+  sub_100001CF0(&_mh_execute_header, v2, v3, "Got back nil badge icon data for %{public}@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 void sub_100005DF0(const char *a1, uint64_t a2)

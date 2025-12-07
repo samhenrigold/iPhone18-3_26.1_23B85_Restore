@@ -6,7 +6,7 @@
 
 + (void)snapshotWithDomain:(id)domain type:(id)type subType:(id)subType context:(id)context triggerThresholdValues:(id)values events:(id)events completion:(id)completion
 {
-  v39[2] = *MEMORY[0x1E69E9840];
+  v38[2] = *MEMORY[0x1E69E9840];
   domainCopy = domain;
   typeCopy = type;
   subTypeCopy = subType;
@@ -24,81 +24,79 @@
       *&buf[12] = 2112;
       *&buf[14] = subTypeCopy;
       *&buf[22] = 2112;
-      v38 = contextCopy;
-      LOWORD(v39[0]) = 2112;
-      *(v39 + 2) = valuesCopy;
+      v37 = contextCopy;
+      LOWORD(v38[0]) = 2112;
+      *(v38 + 2) = valuesCopy;
       _os_log_impl(&dword_1AC81F000, v20, OS_LOG_TYPE_DEFAULT, "SymptomDiagnosticReporter starting to report a snapshot with type:%@ subType:%@ context:%@ thresholdValues:%@", buf, 0x2Au);
     }
 
-    v33 = 0;
-    v34 = &v33;
-    v35 = 0x2050000000;
+    v32 = 0;
+    v33 = &v32;
+    v34 = 0x2050000000;
     v21 = getSDRDiagnosticReporterClass_softClass;
-    v36 = getSDRDiagnosticReporterClass_softClass;
+    v35 = getSDRDiagnosticReporterClass_softClass;
     if (!getSDRDiagnosticReporterClass_softClass)
     {
       *buf = MEMORY[0x1E69E9820];
       *&buf[8] = 3221225472;
       *&buf[16] = __getSDRDiagnosticReporterClass_block_invoke;
-      v38 = &unk_1E79828C0;
-      v39[0] = &v33;
+      v37 = &unk_1E79828C0;
+      v38[0] = &v32;
       __getSDRDiagnosticReporterClass_block_invoke(buf);
-      v21 = v34[3];
+      v21 = v33[3];
     }
 
     v22 = v21;
-    _Block_object_dispose(&v33, 8);
+    _Block_object_dispose(&v32, 8);
     v23 = objc_alloc_init(v21);
     processInfo = [MEMORY[0x1E696AE30] processInfo];
     processName = [processInfo processName];
 
     v26 = [v23 signatureWithDomain:domainCopy type:typeCopy subType:subTypeCopy subtypeContext:contextCopy detectedProcess:processName triggerThresholdValues:valuesCopy];
     v27 = _MSVTransformStateValue(eventsCopy);
-    v31[0] = MEMORY[0x1E69E9820];
-    v31[1] = 3221225472;
-    v31[2] = __102__MSVAutoBugCapture_snapshotWithDomain_type_subType_context_triggerThresholdValues_events_completion___block_invoke;
-    v31[3] = &unk_1E7982590;
-    v32 = completionCopy;
-    [v23 snapshotWithSignature:v26 delay:v27 events:0 payload:MEMORY[0x1E695E0F8] actions:v31 reply:0.0];
+    v30[0] = MEMORY[0x1E69E9820];
+    v30[1] = 3221225472;
+    v30[2] = __102__MSVAutoBugCapture_snapshotWithDomain_type_subType_context_triggerThresholdValues_events_completion___block_invoke;
+    v30[3] = &unk_1E7982590;
+    v31 = completionCopy;
+    [v23 snapshotWithSignature:v26 delay:v27 events:0 payload:MEMORY[0x1E695E0F8] actions:v30 reply:0.0];
   }
 
   else if (completionCopy)
   {
     completionCopy[2](completionCopy);
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 void __102__MSVAutoBugCapture_snapshotWithDomain_type_subType_context_triggerThresholdValues_events_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v65 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v58 = 0;
-  v59 = &v58;
-  v60 = 0x2020000000;
+  v57 = 0;
+  v58 = &v57;
+  v59 = 0x2020000000;
   v4 = getkSymptomDiagnosticReplySuccessSymbolLoc_ptr;
-  v61 = getkSymptomDiagnosticReplySuccessSymbolLoc_ptr;
+  v60 = getkSymptomDiagnosticReplySuccessSymbolLoc_ptr;
   if (!getkSymptomDiagnosticReplySuccessSymbolLoc_ptr)
   {
     *buf = MEMORY[0x1E69E9820];
     *&buf[8] = 3221225472;
     *&buf[16] = __getkSymptomDiagnosticReplySuccessSymbolLoc_block_invoke;
-    v63 = &unk_1E79828C0;
-    v64 = &v58;
+    v62 = &unk_1E79828C0;
+    v63 = &v57;
     v5 = SymptomDiagnosticReporterLibrary();
     v6 = dlsym(v5, "kSymptomDiagnosticReplySuccess");
-    *(v64[1] + 24) = v6;
-    getkSymptomDiagnosticReplySuccessSymbolLoc_ptr = *(v64[1] + 24);
-    v4 = v59[3];
+    *(v63[1] + 24) = v6;
+    getkSymptomDiagnosticReplySuccessSymbolLoc_ptr = *(v63[1] + 24);
+    v4 = v58[3];
   }
 
-  _Block_object_dispose(&v58, 8);
+  _Block_object_dispose(&v57, 8);
   if (!v4)
   {
-    v42 = [MEMORY[0x1E696AAA8] currentHandler];
-    v43 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getkSymptomDiagnosticReplySuccess(void)"];
-    [v42 handleFailureInFunction:v43 file:@"MSVAutoBugCapture.m" lineNumber:33 description:{@"%s", dlerror()}];
+    v41 = [MEMORY[0x1E696AAA8] currentHandler];
+    v42 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getkSymptomDiagnosticReplySuccess(void)"];
+    [v41 handleFailureInFunction:v42 file:@"MSVAutoBugCapture.m" lineNumber:33 description:{@"%s", dlerror()}];
 
     goto LABEL_49;
   }
@@ -108,26 +106,26 @@ void __102__MSVAutoBugCapture_snapshotWithDomain_type_subType_context_triggerThr
 
   if (v8)
   {
-    v58 = 0;
-    v59 = &v58;
-    v60 = 0x2020000000;
+    v57 = 0;
+    v58 = &v57;
+    v59 = 0x2020000000;
     v9 = getkSymptomDiagnosticReplySessionIDSymbolLoc_ptr;
-    v61 = getkSymptomDiagnosticReplySessionIDSymbolLoc_ptr;
+    v60 = getkSymptomDiagnosticReplySessionIDSymbolLoc_ptr;
     if (!getkSymptomDiagnosticReplySessionIDSymbolLoc_ptr)
     {
       *buf = MEMORY[0x1E69E9820];
       *&buf[8] = 3221225472;
       *&buf[16] = __getkSymptomDiagnosticReplySessionIDSymbolLoc_block_invoke;
-      v63 = &unk_1E79828C0;
-      v64 = &v58;
+      v62 = &unk_1E79828C0;
+      v63 = &v57;
       v10 = SymptomDiagnosticReporterLibrary();
       v11 = dlsym(v10, "kSymptomDiagnosticReplySessionID");
-      *(v64[1] + 24) = v11;
-      getkSymptomDiagnosticReplySessionIDSymbolLoc_ptr = *(v64[1] + 24);
-      v9 = v59[3];
+      *(v63[1] + 24) = v11;
+      getkSymptomDiagnosticReplySessionIDSymbolLoc_ptr = *(v63[1] + 24);
+      v9 = v58[3];
     }
 
-    _Block_object_dispose(&v58, 8);
+    _Block_object_dispose(&v57, 8);
     if (v9)
     {
       v12 = *v9;
@@ -148,39 +146,39 @@ void __102__MSVAutoBugCapture_snapshotWithDomain_type_subType_context_triggerThr
       goto LABEL_35;
     }
 
-    v44 = [MEMORY[0x1E696AAA8] currentHandler];
-    v45 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getkSymptomDiagnosticReplySessionID(void)"];
-    [v44 handleFailureInFunction:v45 file:@"MSVAutoBugCapture.m" lineNumber:34 description:{@"%s", dlerror()}];
+    v43 = [MEMORY[0x1E696AAA8] currentHandler];
+    v44 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getkSymptomDiagnosticReplySessionID(void)"];
+    [v43 handleFailureInFunction:v44 file:@"MSVAutoBugCapture.m" lineNumber:34 description:{@"%s", dlerror()}];
 
 LABEL_49:
     __break(1u);
   }
 
-  v58 = 0;
-  v59 = &v58;
-  v60 = 0x2020000000;
+  v57 = 0;
+  v58 = &v57;
+  v59 = 0x2020000000;
   v19 = getkSymptomDiagnosticReplyReasonSymbolLoc_ptr;
-  v61 = getkSymptomDiagnosticReplyReasonSymbolLoc_ptr;
+  v60 = getkSymptomDiagnosticReplyReasonSymbolLoc_ptr;
   if (!getkSymptomDiagnosticReplyReasonSymbolLoc_ptr)
   {
     *buf = MEMORY[0x1E69E9820];
     *&buf[8] = 3221225472;
     *&buf[16] = __getkSymptomDiagnosticReplyReasonSymbolLoc_block_invoke;
-    v63 = &unk_1E79828C0;
-    v64 = &v58;
+    v62 = &unk_1E79828C0;
+    v63 = &v57;
     v20 = SymptomDiagnosticReporterLibrary();
     v21 = dlsym(v20, "kSymptomDiagnosticReplyReason");
-    *(v64[1] + 24) = v21;
-    getkSymptomDiagnosticReplyReasonSymbolLoc_ptr = *(v64[1] + 24);
-    v19 = v59[3];
+    *(v63[1] + 24) = v21;
+    getkSymptomDiagnosticReplyReasonSymbolLoc_ptr = *(v63[1] + 24);
+    v19 = v58[3];
   }
 
-  _Block_object_dispose(&v58, 8);
+  _Block_object_dispose(&v57, 8);
   if (!v19)
   {
-    v46 = [MEMORY[0x1E696AAA8] currentHandler];
-    v47 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getkSymptomDiagnosticReplyReason(void)"];
-    [v46 handleFailureInFunction:v47 file:@"MSVAutoBugCapture.m" lineNumber:35 description:{@"%s", dlerror()}];
+    v45 = [MEMORY[0x1E696AAA8] currentHandler];
+    v46 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getkSymptomDiagnosticReplyReason(void)"];
+    [v45 handleFailureInFunction:v46 file:@"MSVAutoBugCapture.m" lineNumber:35 description:{@"%s", dlerror()}];
 
     goto LABEL_49;
   }
@@ -188,31 +186,31 @@ LABEL_49:
   v22 = [v3 objectForKeyedSubscript:*v19];
   v23 = [v22 intValue];
 
-  v58 = 0;
-  v59 = &v58;
-  v60 = 0x2020000000;
+  v57 = 0;
+  v58 = &v57;
+  v59 = 0x2020000000;
   v24 = getkSymptomDiagnosticReplyReasonStringSymbolLoc_ptr;
-  v61 = getkSymptomDiagnosticReplyReasonStringSymbolLoc_ptr;
+  v60 = getkSymptomDiagnosticReplyReasonStringSymbolLoc_ptr;
   if (!getkSymptomDiagnosticReplyReasonStringSymbolLoc_ptr)
   {
     *buf = MEMORY[0x1E69E9820];
     *&buf[8] = 3221225472;
     *&buf[16] = __getkSymptomDiagnosticReplyReasonStringSymbolLoc_block_invoke;
-    v63 = &unk_1E79828C0;
-    v64 = &v58;
+    v62 = &unk_1E79828C0;
+    v63 = &v57;
     v25 = SymptomDiagnosticReporterLibrary();
     v26 = dlsym(v25, "kSymptomDiagnosticReplyReasonString");
-    *(v64[1] + 24) = v26;
-    getkSymptomDiagnosticReplyReasonStringSymbolLoc_ptr = *(v64[1] + 24);
-    v24 = v59[3];
+    *(v63[1] + 24) = v26;
+    getkSymptomDiagnosticReplyReasonStringSymbolLoc_ptr = *(v63[1] + 24);
+    v24 = v58[3];
   }
 
-  _Block_object_dispose(&v58, 8);
+  _Block_object_dispose(&v57, 8);
   if (!v24)
   {
-    v48 = [MEMORY[0x1E696AAA8] currentHandler];
-    v49 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getkSymptomDiagnosticReplyReasonString(void)"];
-    [v48 handleFailureInFunction:v49 file:@"MSVAutoBugCapture.m" lineNumber:36 description:{@"%s", dlerror()}];
+    v47 = [MEMORY[0x1E696AAA8] currentHandler];
+    v48 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getkSymptomDiagnosticReplyReasonString(void)"];
+    [v47 handleFailureInFunction:v48 file:@"MSVAutoBugCapture.m" lineNumber:36 description:{@"%s", dlerror()}];
 
     goto LABEL_49;
   }
@@ -220,31 +218,31 @@ LABEL_49:
   v27 = *v24;
   v13 = [v3 objectForKeyedSubscript:v27];
 
-  v58 = 0;
-  v59 = &v58;
-  v60 = 0x2020000000;
+  v57 = 0;
+  v58 = &v57;
+  v59 = 0x2020000000;
   v28 = getkSymptomDiagnosticErrorDisabledSymbolLoc_ptr;
-  v61 = getkSymptomDiagnosticErrorDisabledSymbolLoc_ptr;
+  v60 = getkSymptomDiagnosticErrorDisabledSymbolLoc_ptr;
   if (!getkSymptomDiagnosticErrorDisabledSymbolLoc_ptr)
   {
     *buf = MEMORY[0x1E69E9820];
     *&buf[8] = 3221225472;
     *&buf[16] = __getkSymptomDiagnosticErrorDisabledSymbolLoc_block_invoke;
-    v63 = &unk_1E79828C0;
-    v64 = &v58;
+    v62 = &unk_1E79828C0;
+    v63 = &v57;
     v29 = SymptomDiagnosticReporterLibrary();
     v30 = dlsym(v29, "kSymptomDiagnosticErrorDisabled");
-    *(v64[1] + 24) = v30;
-    getkSymptomDiagnosticErrorDisabledSymbolLoc_ptr = *(v64[1] + 24);
-    v28 = v59[3];
+    *(v63[1] + 24) = v30;
+    getkSymptomDiagnosticErrorDisabledSymbolLoc_ptr = *(v63[1] + 24);
+    v28 = v58[3];
   }
 
-  _Block_object_dispose(&v58, 8);
+  _Block_object_dispose(&v57, 8);
   if (!v28)
   {
-    v50 = [MEMORY[0x1E696AAA8] currentHandler];
-    v51 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"int getkSymptomDiagnosticErrorDisabled(void)"];
-    [v50 handleFailureInFunction:v51 file:@"MSVAutoBugCapture.m" lineNumber:38 description:{@"%s", dlerror()}];
+    v49 = [MEMORY[0x1E696AAA8] currentHandler];
+    v50 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"int getkSymptomDiagnosticErrorDisabled(void)"];
+    [v49 handleFailureInFunction:v50 file:@"MSVAutoBugCapture.m" lineNumber:38 description:{@"%s", dlerror()}];
 
     goto LABEL_49;
   }
@@ -254,31 +252,31 @@ LABEL_49:
     goto LABEL_32;
   }
 
-  v58 = 0;
-  v59 = &v58;
-  v60 = 0x2020000000;
+  v57 = 0;
+  v58 = &v57;
+  v59 = 0x2020000000;
   v31 = getkSymptomDiagnosticErrorHourlyLimitExceededSymbolLoc_ptr;
-  v61 = getkSymptomDiagnosticErrorHourlyLimitExceededSymbolLoc_ptr;
+  v60 = getkSymptomDiagnosticErrorHourlyLimitExceededSymbolLoc_ptr;
   if (!getkSymptomDiagnosticErrorHourlyLimitExceededSymbolLoc_ptr)
   {
     *buf = MEMORY[0x1E69E9820];
     *&buf[8] = 3221225472;
     *&buf[16] = __getkSymptomDiagnosticErrorHourlyLimitExceededSymbolLoc_block_invoke;
-    v63 = &unk_1E79828C0;
-    v64 = &v58;
+    v62 = &unk_1E79828C0;
+    v63 = &v57;
     v32 = SymptomDiagnosticReporterLibrary();
     v33 = dlsym(v32, "kSymptomDiagnosticErrorHourlyLimitExceeded");
-    *(v64[1] + 24) = v33;
-    getkSymptomDiagnosticErrorHourlyLimitExceededSymbolLoc_ptr = *(v64[1] + 24);
-    v31 = v59[3];
+    *(v63[1] + 24) = v33;
+    getkSymptomDiagnosticErrorHourlyLimitExceededSymbolLoc_ptr = *(v63[1] + 24);
+    v31 = v58[3];
   }
 
-  _Block_object_dispose(&v58, 8);
+  _Block_object_dispose(&v57, 8);
   if (!v31)
   {
-    v52 = [MEMORY[0x1E696AAA8] currentHandler];
-    v53 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"int getkSymptomDiagnosticErrorHourlyLimitExceeded(void)"];
-    [v52 handleFailureInFunction:v53 file:@"MSVAutoBugCapture.m" lineNumber:39 description:{@"%s", dlerror()}];
+    v51 = [MEMORY[0x1E696AAA8] currentHandler];
+    v52 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"int getkSymptomDiagnosticErrorHourlyLimitExceeded(void)"];
+    [v51 handleFailureInFunction:v52 file:@"MSVAutoBugCapture.m" lineNumber:39 description:{@"%s", dlerror()}];
 
     goto LABEL_49;
   }
@@ -288,31 +286,31 @@ LABEL_49:
     goto LABEL_32;
   }
 
-  v58 = 0;
-  v59 = &v58;
-  v60 = 0x2020000000;
+  v57 = 0;
+  v58 = &v57;
+  v59 = 0x2020000000;
   v34 = getkSymptomDiagnosticErrorDailyLimitExceededSymbolLoc_ptr;
-  v61 = getkSymptomDiagnosticErrorDailyLimitExceededSymbolLoc_ptr;
+  v60 = getkSymptomDiagnosticErrorDailyLimitExceededSymbolLoc_ptr;
   if (!getkSymptomDiagnosticErrorDailyLimitExceededSymbolLoc_ptr)
   {
     *buf = MEMORY[0x1E69E9820];
     *&buf[8] = 3221225472;
     *&buf[16] = __getkSymptomDiagnosticErrorDailyLimitExceededSymbolLoc_block_invoke;
-    v63 = &unk_1E79828C0;
-    v64 = &v58;
+    v62 = &unk_1E79828C0;
+    v63 = &v57;
     v35 = SymptomDiagnosticReporterLibrary();
     v36 = dlsym(v35, "kSymptomDiagnosticErrorDailyLimitExceeded");
-    *(v64[1] + 24) = v36;
-    getkSymptomDiagnosticErrorDailyLimitExceededSymbolLoc_ptr = *(v64[1] + 24);
-    v34 = v59[3];
+    *(v63[1] + 24) = v36;
+    getkSymptomDiagnosticErrorDailyLimitExceededSymbolLoc_ptr = *(v63[1] + 24);
+    v34 = v58[3];
   }
 
-  _Block_object_dispose(&v58, 8);
+  _Block_object_dispose(&v57, 8);
   if (!v34)
   {
-    v54 = [MEMORY[0x1E696AAA8] currentHandler];
-    v55 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"int getkSymptomDiagnosticErrorDailyLimitExceeded(void)"];
-    [v54 handleFailureInFunction:v55 file:@"MSVAutoBugCapture.m" lineNumber:40 description:{@"%s", dlerror()}];
+    v53 = [MEMORY[0x1E696AAA8] currentHandler];
+    v54 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"int getkSymptomDiagnosticErrorDailyLimitExceeded(void)"];
+    [v53 handleFailureInFunction:v54 file:@"MSVAutoBugCapture.m" lineNumber:40 description:{@"%s", dlerror()}];
 
     goto LABEL_49;
   }
@@ -322,31 +320,31 @@ LABEL_49:
     goto LABEL_32;
   }
 
-  v58 = 0;
-  v59 = &v58;
-  v60 = 0x2020000000;
+  v57 = 0;
+  v58 = &v57;
+  v59 = 0x2020000000;
   v37 = getkSymptomDiagnosticErrorRandomizedSuppressionSymbolLoc_ptr;
-  v61 = getkSymptomDiagnosticErrorRandomizedSuppressionSymbolLoc_ptr;
+  v60 = getkSymptomDiagnosticErrorRandomizedSuppressionSymbolLoc_ptr;
   if (!getkSymptomDiagnosticErrorRandomizedSuppressionSymbolLoc_ptr)
   {
     *buf = MEMORY[0x1E69E9820];
     *&buf[8] = 3221225472;
     *&buf[16] = __getkSymptomDiagnosticErrorRandomizedSuppressionSymbolLoc_block_invoke;
-    v63 = &unk_1E79828C0;
-    v64 = &v58;
+    v62 = &unk_1E79828C0;
+    v63 = &v57;
     v38 = SymptomDiagnosticReporterLibrary();
     v39 = dlsym(v38, "kSymptomDiagnosticErrorRandomizedSuppression");
-    *(v64[1] + 24) = v39;
-    getkSymptomDiagnosticErrorRandomizedSuppressionSymbolLoc_ptr = *(v64[1] + 24);
-    v37 = v59[3];
+    *(v63[1] + 24) = v39;
+    getkSymptomDiagnosticErrorRandomizedSuppressionSymbolLoc_ptr = *(v63[1] + 24);
+    v37 = v58[3];
   }
 
-  _Block_object_dispose(&v58, 8);
+  _Block_object_dispose(&v57, 8);
   if (!v37)
   {
-    v56 = [MEMORY[0x1E696AAA8] currentHandler];
-    v57 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"int getkSymptomDiagnosticErrorRandomizedSuppression(void)"];
-    [v56 handleFailureInFunction:v57 file:@"MSVAutoBugCapture.m" lineNumber:41 description:{@"%s", dlerror()}];
+    v55 = [MEMORY[0x1E696AAA8] currentHandler];
+    v56 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"int getkSymptomDiagnosticErrorRandomizedSuppression(void)"];
+    [v55 handleFailureInFunction:v56 file:@"MSVAutoBugCapture.m" lineNumber:41 description:{@"%s", dlerror()}];
 
     goto LABEL_49;
   }
@@ -393,8 +391,6 @@ LABEL_36:
   {
     (*(v40 + 16))();
   }
-
-  v41 = *MEMORY[0x1E69E9840];
 }
 
 @end

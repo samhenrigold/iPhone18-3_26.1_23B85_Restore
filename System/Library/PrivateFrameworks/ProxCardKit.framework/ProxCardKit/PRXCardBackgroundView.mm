@@ -13,7 +13,7 @@
   width = frame.size.width;
   y = frame.origin.y;
   x = frame.origin.x;
-  v11 = PRXCardContainerDefaultLayoutMargins();
+  v11 = PRXCardContainerDefaultLayoutMargins(self);
 
   return [(PRXCardBackgroundView *)self initWithFrame:x containerLayoutMargins:y, width, height, v11, v8, v9, v10];
 }

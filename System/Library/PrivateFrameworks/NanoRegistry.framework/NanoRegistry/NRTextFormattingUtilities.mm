@@ -8,17 +8,17 @@
 
 + (id)prefixLinesWithString:(id)string withText:(id)text
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   textCopy = text;
   stringCopy = string;
   v7 = objc_opt_new();
   context = objc_autoreleasePoolPush();
-  v28 = textCopy;
+  v27 = textCopy;
   v8 = [textCopy componentsSeparatedByString:@"\n"];
   v9 = [stringCopy stringByAppendingString:@" "];
 
   v10 = [v9 length] >> 3;
-  v29 = v9;
+  v28 = v9;
   if (([v9 length] & 7) != 0)
   {
     v11 = v10 + 1;
@@ -30,33 +30,33 @@
   }
 
   v12 = [&stru_1F5B7BE00 stringByPaddingToLength:v11 withString:@"\t" startingAtIndex:0];
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   v13 = v8;
-  v14 = [v13 countByEnumeratingWithState:&v30 objects:v34 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v31;
+    v16 = *v30;
     v17 = 1;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v31 != v16)
+        if (*v30 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v19 = *(*(&v30 + 1) + 8 * i);
+        v19 = *(*(&v29 + 1) + 8 * i);
         v20 = objc_autoreleasePoolPush();
         if ([v19 length])
         {
           if (v17)
           {
-            v21 = v29;
+            v21 = v28;
           }
 
           else
@@ -74,7 +74,7 @@
         objc_autoreleasePoolPop(v20);
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v29 objects:v33 count:16];
     }
 
     while (v15);
@@ -95,7 +95,6 @@
   }
 
   objc_autoreleasePoolPop(context);
-  v25 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -157,27 +156,27 @@ uint64_t __43__NRTextFormattingUtilities_dateFormatter___block_invoke_2(uint64_t
 
 + (id)nameCounter:(id)counter
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   counterCopy = counter;
-  v4 = [counterCopy countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v4 = [counterCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v21;
+    v6 = *v20;
 LABEL_3:
     v7 = 0;
     while (1)
     {
-      if (*v21 != v6)
+      if (*v20 != v6)
       {
         objc_enumerationMutation(counterCopy);
       }
 
-      v8 = *(*(&v20 + 1) + 8 * v7);
+      v8 = *(*(&v19 + 1) + 8 * v7);
       v9 = [v8 componentsSeparatedByString:@" "];
       v10 = [v9 mutableCopy];
 
@@ -197,7 +196,7 @@ LABEL_3:
 
         v15 = [v10 componentsJoinedByString:@" "];
 
-        v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ %ld", v15, v13, v20];
+        v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ %ld", v15, v13, v19];
         v8 = v15;
       }
 
@@ -209,7 +208,7 @@ LABEL_3:
 
       if (v5 == ++v7)
       {
-        v5 = [counterCopy countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v5 = [counterCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
         if (v5)
         {
           goto LABEL_3;
@@ -225,8 +224,6 @@ LABEL_3:
 LABEL_12:
     v16 = @"unknown";
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v16;
 }

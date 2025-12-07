@@ -4,6 +4,7 @@
 - (BOOL)backupEnabled;
 - (BOOL)backupsDisabledFromAnotherDevice;
 - (BOOL)canRestoreSystemFiles;
+- (BOOL)fetchSnapshotsWithOperationTracker:(id)tracker retry:(BOOL)retry error:(id *)error;
 - (BOOL)pinSnapshot:(id)snapshot error:(id *)error;
 - (BOOL)requiresFullBackupForAccount:(id)account;
 - (BOOL)shouldDeleteDevice;
@@ -174,7 +175,7 @@
     v10 = 2112;
     selfCopy = self;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "=ck-device= Setting backupEnabled=%s into the device record %@", buf, 0x16u);
-    _MBLog();
+    _MBLog(@"I ", "=ck-device= Setting backupEnabled=%s into the device record %@", v6, self);
   }
 
   selfCopy2 = self;
@@ -236,7 +237,7 @@
         *buf = 138412290;
         v21 = v10;
         _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "=ck-device= Error enumerating snapshot IDs: %@", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"E ", "=ck-device= Error enumerating snapshot IDs: %@", v10);
       }
     }
 
@@ -253,7 +254,7 @@
       {
         *buf = 0;
         _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "=ck-device= Cache is out of date (snapshot list does not match)", buf, 2u);
-        _MBLog();
+        _MBLog(@"Df", "=ck-device= Cache is out of date (snapshot list does not match)");
       }
     }
 
@@ -291,7 +292,7 @@ LABEL_12:
     {
       *v13 = 0;
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "=ck-device= Attempted to add a snapshot without committing a pending snapshot", v13, 2u);
-      _MBLog();
+      _MBLog(@"E ", "=ck-device= Attempted to add a snapshot without committing a pending snapshot");
     }
 
     if (error)
@@ -325,15 +326,13 @@ LABEL_12:
       pendingSnapshotRecordID = self->_pendingSnapshotRecordID;
       deviceUUID = self->_deviceUUID;
       *buf = 138543874;
-      v19 = pendingSnapshotRecordID;
-      v20 = 1024;
-      v21 = changesCopy;
-      v22 = 2114;
-      v23 = deviceUUID;
+      v17 = pendingSnapshotRecordID;
+      v18 = 1024;
+      v19 = changesCopy;
+      v20 = 2114;
+      v21 = deviceUUID;
       _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "=ck-device= Removing the pending snapshot %{public}@ (%d) on %{public}@", buf, 0x1Cu);
-      v16 = self->_deviceUUID;
-      v15 = self->_pendingSnapshotRecordID;
-      _MBLog();
+      _MBLog(@"Df", "=ck-device= Removing the pending snapshot %{public}@ (%d) on %{public}@", self->_pendingSnapshotRecordID, changesCopy, self->_deviceUUID);
     }
   }
 
@@ -352,12 +351,12 @@ LABEL_12:
   if (changesCopy)
   {
     cache2 = [(MBCKModel *)self cache];
-    v17[0] = _NSConcreteStackBlock;
-    v17[1] = 3221225472;
-    v17[2] = sub_1000E3E04;
-    v17[3] = &unk_1003BC8B8;
-    v17[4] = self;
-    v13 = [cache2 performInTransaction:v17];
+    v15[0] = _NSConcreteStackBlock;
+    v15[1] = 3221225472;
+    v15[2] = sub_1000E3E04;
+    v15[3] = &unk_1003BC8B8;
+    v15[4] = self;
+    v13 = [cache2 performInTransaction:v15];
 
     if (v13)
     {
@@ -365,9 +364,9 @@ LABEL_12:
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v19 = v13;
+        v17 = v13;
         _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "=ck-device= Failed to rebuild FileChanges table: %@", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"E ", "=ck-device= Failed to rebuild FileChanges table: %@", v13);
       }
     }
   }
@@ -389,16 +388,20 @@ LABEL_12:
   snapshotRefs = [(MBCKDevice *)self snapshotRefs];
   v4 = [snapshotRefs count];
 
-  if (v4)
+  result = 0;
+  if (!v4)
   {
-    return 0;
+    cache = [(MBCKModel *)self cache];
+    deviceUUID = [(MBCKDevice *)self deviceUUID];
+    v8 = [cache fetchMostRecentSnapshotForDevice:deviceUUID error:0];
+
+    if (v8)
+    {
+      return 1;
+    }
   }
 
-  cache = [(MBCKModel *)self cache];
-  deviceUUID = [(MBCKDevice *)self deviceUUID];
-  v8 = [cache fetchMostRecentSnapshotForDevice:deviceUUID error:0];
-
-  return v8 != 0;
+  return result;
 }
 
 - (BOOL)shouldDeleteDevice
@@ -433,7 +436,7 @@ LABEL_12:
   {
     *v11 = 0;
     _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "=ck-device= Mismatched valance: snapshots, snapshotCommitDates.  Forcing full backup", v11, 2u);
-    _MBLog();
+    _MBLog(@"E ", "=ck-device= Mismatched valance: snapshots, snapshotCommitDates.  Forcing full backup");
   }
 
   return 1;
@@ -458,12 +461,12 @@ LABEL_12:
   if (!v6)
   {
     self->_requiresFullBackup |= 1uLL;
-    v9 = MBGetDefaultLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v10 = MBGetDefaultLog();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "=ck-device= Performing full backup because of user preference override", buf, 2u);
-      _MBLog();
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "=ck-device= Performing full backup because of user preference override", buf, 2u);
+      _MBLog(@"I ", "=ck-device= Performing full backup because of user preference override");
     }
 
 LABEL_11:
@@ -475,16 +478,16 @@ LABEL_11:
   serverRequestedFullBackup = [(MBCKDevice *)self serverRequestedFullBackup];
   if (serverRequestedFullBackup)
   {
-    v9 = MBGetDefaultLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v10 = MBGetDefaultLog();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v8 = [NSNumber numberWithInteger:self->_requiresFullBackup];
       *buf = 138412290;
       v15 = v8;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "=ck-device= Performing full backup because server requested it: %@", buf, 0xCu);
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "=ck-device= Performing full backup because server requested it: %@", buf, 0xCu);
 
-      v12 = [NSNumber numberWithInteger:self->_requiresFullBackup];
-      _MBLog();
+      v9 = [NSNumber numberWithInteger:self->_requiresFullBackup];
+      _MBLog(@"I ", "=ck-device= Performing full backup because server requested it: %@", v9);
     }
 
     goto LABEL_11;
@@ -592,6 +595,36 @@ LABEL_11:
   dispatch_async(v10, v13);
 }
 
+- (BOOL)fetchSnapshotsWithOperationTracker:(id)tracker retry:(BOOL)retry error:(id *)error
+{
+  retryCopy = retry;
+  trackerCopy = tracker;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = sub_1000E5020;
+  v19 = sub_1000E5030;
+  v20 = 0;
+  v12[0] = _NSConcreteStackBlock;
+  v12[1] = 3221225472;
+  v12[2] = sub_1000E5038;
+  v12[3] = &unk_1003BC160;
+  v14 = &v15;
+  v9 = dispatch_semaphore_create(0);
+  v13 = v9;
+  [(MBCKDevice *)self fetchSnapshotsWithOperationTracker:trackerCopy retry:retryCopy completion:v12];
+  MBSemaphoreWaitForever();
+  if (error)
+  {
+    *error = v16[5];
+  }
+
+  v10 = v16[5] == 0;
+
+  _Block_object_dispose(&v15, 8);
+  return v10;
+}
+
 - (BOOL)pinSnapshot:(id)snapshot error:(id *)error
 {
   snapshotCopy = snapshot;
@@ -664,7 +697,7 @@ LABEL_11:
         *buf = 138412290;
         v7 = latestGMSnapshot;
         _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "=ck-device= Pinned snapshot: %@", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"Df", "=ck-device= Pinned snapshot: %@", latestGMSnapshot);
       }
     }
   }
@@ -687,7 +720,7 @@ LABEL_11:
         *buf = 138412290;
         v12 = latestGMSnapshot;
         _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "=ck-device= Unpinned snapshot: %@", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"Df", "=ck-device= Unpinned snapshot: %@", latestGMSnapshot);
       }
     }
 
@@ -756,57 +789,56 @@ LABEL_11:
       _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "=ck-device= Adding pending snapshot record %{public}@ to %{public}@", buf, 0x16u);
 
       recordID2 = [(MBCKModel *)v12 recordID];
-      v22 = startBatchSave;
-      _MBLog();
+      _MBLog(@"Df", "=ck-device= Adding pending snapshot record %{public}@ to %{public}@", recordID2, startBatchSave);
     }
 
     recordRepresentation = [(MBCKSnapshot *)v12 recordRepresentation];
-    v31[0] = _NSConcreteStackBlock;
-    v31[1] = 3221225472;
-    v31[2] = sub_1000E5A14;
-    v31[3] = &unk_1003BE4C0;
-    v32 = v12;
-    v33 = recordRepresentation;
-    v34 = v10;
-    v16 = recordRepresentation;
-    [startBatchSave saveRecord:v16 delegate:self completion:v31];
+    v30[0] = _NSConcreteStackBlock;
+    v30[1] = 3221225472;
+    v30[2] = sub_1000E5A14;
+    v30[3] = &unk_1003BE4C0;
+    v31 = v12;
+    v32 = recordRepresentation;
+    v33 = v10;
+    v17 = recordRepresentation;
+    [startBatchSave saveRecord:v17 delegate:self completion:v30];
   }
 
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v36 = sub_1000E5020;
-  v37 = sub_1000E5030;
-  v38 = [(MBCKDevice *)self recordRepresentation:recordID2];
-  v17 = *(*&buf[8] + 40);
-  v28[0] = _NSConcreteStackBlock;
-  v28[1] = 3221225472;
-  v28[2] = sub_1000E5CB0;
-  v28[3] = &unk_1003BD748;
-  v30 = buf;
-  v18 = v10;
-  v29 = v18;
-  [startBatchSave saveRecord:v17 delegate:self completion:v28];
-  v23[0] = _NSConcreteStackBlock;
-  v23[1] = 3221225472;
-  v23[2] = sub_1000E5ECC;
-  v23[3] = &unk_1003BE4E8;
-  v19 = v18;
-  v24 = v19;
+  v35 = sub_1000E5020;
+  v36 = sub_1000E5030;
+  recordRepresentation2 = [(MBCKDevice *)self recordRepresentation];
+  v18 = *(*&buf[8] + 40);
+  v27[0] = _NSConcreteStackBlock;
+  v27[1] = 3221225472;
+  v27[2] = sub_1000E5CB0;
+  v27[3] = &unk_1003BD748;
+  v29 = buf;
+  v19 = v10;
+  v28 = v19;
+  [startBatchSave saveRecord:v18 delegate:self completion:v27];
+  v22[0] = _NSConcreteStackBlock;
+  v22[1] = 3221225472;
+  v22[2] = sub_1000E5ECC;
+  v22[3] = &unk_1003BE4E8;
+  v20 = v19;
+  v23 = v20;
   selfCopy = self;
-  v27 = buf;
-  v20 = v8;
-  v26 = v20;
-  [trackerCopy finishBatchSave:startBatchSave completion:v23];
+  v26 = buf;
+  v21 = v8;
+  v25 = v21;
+  [trackerCopy finishBatchSave:startBatchSave completion:v22];
 
   _Block_object_dispose(buf, 8);
 }
 
 - (id)recordRepresentation
 {
-  v78.receiver = self;
-  v78.super_class = MBCKDevice;
-  recordRepresentation = [(MBCKModel *)&v78 recordRepresentation];
+  v77.receiver = self;
+  v77.super_class = MBCKDevice;
+  recordRepresentation = [(MBCKModel *)&v77 recordRepresentation];
   v4 = objc_alloc_init(NSMutableArray);
   v5 = objc_alloc_init(NSMutableArray);
   snapshotRefs = [(MBCKDevice *)self snapshotRefs];
@@ -829,10 +861,9 @@ LABEL_11:
       {
         pendingSnapshotRecordID = self->_pendingSnapshotRecordID;
         *buf = 138412290;
-        *v80 = pendingSnapshotRecordID;
+        *v79 = pendingSnapshotRecordID;
         _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "=ck-device= Detecting duplicate snapshot: %@, marking as committed", buf, 0xCu);
-        p_isa = self->_pendingSnapshotRecordID;
-        _MBLog();
+        _MBLog(@"E ", "=ck-device= Detecting duplicate snapshot: %@, marking as committed", self->_pendingSnapshotRecordID);
       }
 
       cache = [(MBCKModel *)self cache];
@@ -864,7 +895,7 @@ LABEL_11:
   if (!v18)
   {
 LABEL_11:
-    [recordRepresentation setObject:0 forKeyedSubscript:{@"pendingSnapshotID", p_isa}];
+    [recordRepresentation setObject:0 forKeyedSubscript:@"pendingSnapshotID"];
     [recordRepresentation setObject:0 forKeyedSubscript:@"pendingSnapshotQuotaReserved"];
     [recordRepresentation setObject:0 forKeyedSubscript:@"pendingSnapshotBackupType"];
     [recordRepresentation setObject:0 forKeyedSubscript:@"pendingSnapshotBackupPolicy"];
@@ -873,9 +904,9 @@ LABEL_11:
     if (MBIsInternalInstall())
     {
       cache3 = [(MBCKModel *)self cache];
-      v77 = 0;
-      v24 = [cache3 sizeOfSnapshot:v8 error:&v77];
-      allObjects = v77;
+      v76 = 0;
+      v24 = [cache3 sizeOfSnapshot:v8 error:&v76];
+      allObjects = v76;
 
       if (!v24 && allObjects)
       {
@@ -883,10 +914,9 @@ LABEL_11:
         if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          *v80 = allObjects;
+          *v79 = allObjects;
           _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_ERROR, "=ck-device= Failed to fetch the size of the snapshot from cache: %@", buf, 0xCu);
-          p_isa = &allObjects->isa;
-          _MBLog();
+          _MBLog(@"E ", "=ck-device= Failed to fetch the size of the snapshot from cache: %@", allObjects);
         }
       }
 
@@ -895,13 +925,11 @@ LABEL_11:
       {
         pendingSnapshotQuotaReserved = [(MBCKDevice *)self pendingSnapshotQuotaReserved];
         *buf = 134218240;
-        *v80 = v24;
-        *&v80[8] = 2048;
-        *&v80[10] = pendingSnapshotQuotaReserved;
+        *v79 = v24;
+        *&v79[8] = 2048;
+        *&v79[10] = pendingSnapshotQuotaReserved;
         _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "=ck-device= Snapshot sealed, size:%llu, pendingSnapshotQuotaReserved:%llu", buf, 0x16u);
-        p_isa = v24;
-        pendingSnapshotQuotaReserved2 = [(MBCKDevice *)self pendingSnapshotQuotaReserved];
-        _MBLog();
+        _MBLog(@"Df", "=ck-device= Snapshot sealed, size:%llu, pendingSnapshotQuotaReserved:%llu", v24, [(MBCKDevice *)self pendingSnapshotQuotaReserved]);
       }
     }
 
@@ -910,12 +938,11 @@ LABEL_11:
       allObjects = MBGetDefaultLog();
       if (os_log_type_enabled(allObjects, OS_LOG_TYPE_DEFAULT))
       {
-        pendingSnapshotQuotaReserved3 = [(MBCKDevice *)self pendingSnapshotQuotaReserved];
+        pendingSnapshotQuotaReserved2 = [(MBCKDevice *)self pendingSnapshotQuotaReserved];
         *buf = 134217984;
-        *v80 = pendingSnapshotQuotaReserved3;
+        *v79 = pendingSnapshotQuotaReserved2;
         _os_log_impl(&_mh_execute_header, allObjects, OS_LOG_TYPE_DEFAULT, "=ck-device= Snapshot sealed, pendingSnapshotQuotaReserved:%llu", buf, 0xCu);
-        p_isa = [(MBCKDevice *)self pendingSnapshotQuotaReserved];
-        _MBLog();
+        _MBLog(@"Df", "=ck-device= Snapshot sealed, pendingSnapshotQuotaReserved:%llu", [(MBCKDevice *)self pendingSnapshotQuotaReserved]);
       }
     }
 
@@ -972,11 +999,11 @@ LABEL_27:
     v37 = v36 = v5;
     v38 = [recordRepresentation objectForKeyedSubscript:@"pendingSnapshotQuotaReserved"];
     *buf = 67109634;
-    *v80 = resumingSnapshot;
-    *&v80[4] = 2114;
-    *&v80[6] = v37;
-    *&v80[14] = 2114;
-    *&v80[16] = v38;
+    *v79 = resumingSnapshot;
+    *&v79[4] = 2114;
+    *&v79[6] = v37;
+    *&v79[14] = 2114;
+    *&v79[16] = v38;
     _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "=ck-device= resumingSnapshot:%d, pendingSnapshotID:%{public}@, pendingSnapshotQuotaReserved:%{public}@", buf, 0x1Cu);
 
     v5 = v36;
@@ -984,10 +1011,8 @@ LABEL_27:
     v8 = v34;
     resumingSnapshot2 = [(MBCKDevice *)self resumingSnapshot];
     v40 = [recordRepresentation objectForKeyedSubscript:@"pendingSnapshotID"];
-    [recordRepresentation objectForKeyedSubscript:@"pendingSnapshotQuotaReserved"];
-    v76 = pendingSnapshotQuotaReserved2 = v40;
-    p_isa = resumingSnapshot2;
-    _MBLog();
+    v41 = [recordRepresentation objectForKeyedSubscript:@"pendingSnapshotQuotaReserved"];
+    _MBLog(@"Df", "=ck-device= resumingSnapshot:%d, pendingSnapshotID:%{public}@, pendingSnapshotQuotaReserved:%{public}@", resumingSnapshot2, v40, v41);
   }
 
   pinnedSnapshotRefs = [(MBCKDevice *)self pinnedSnapshotRefs];
@@ -1029,15 +1054,15 @@ LABEL_27:
   [recordRepresentation setObject:assetIDPrefix forKeyedSubscript:@"deviceIdPrefix"];
 
   deviceUUID = self->_deviceUUID;
-  v56 = MBDeviceUUID();
-  LODWORD(deviceUUID) = [(NSString *)deviceUUID isEqualToString:v56];
+  v57 = MBDeviceUUID();
+  LODWORD(deviceUUID) = [(NSString *)deviceUUID isEqualToString:v57];
 
   if (deviceUUID)
   {
-    v57 = MBMarketingName();
-    if (v57)
+    v58 = MBMarketingName();
+    if (v58)
     {
-      [recordRepresentation setObject:v57 forKeyedSubscript:@"marketingName"];
+      [recordRepresentation setObject:v58 forKeyedSubscript:@"marketingName"];
     }
 
     else
@@ -1057,8 +1082,8 @@ LABEL_27:
     serialNumber = [(MBCKDevice *)self serialNumber];
   }
 
-  v61 = serialNumber;
-  [recordRepresentation setObject:serialNumber forKeyedSubscript:{@"serialNumber", p_isa, pendingSnapshotQuotaReserved2, v76}];
+  v62 = serialNumber;
+  [recordRepresentation setObject:serialNumber forKeyedSubscript:@"serialNumber"];
 
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -1068,45 +1093,45 @@ LABEL_27:
 
   if (hasBackupEnabledState)
   {
-    v65 = [NSNumber numberWithBool:backupEnabled];
-    [recordRepresentation setObject:v65 forKeyedSubscript:@"backupEnabled"];
+    v66 = [NSNumber numberWithBool:backupEnabled];
+    [recordRepresentation setObject:v66 forKeyedSubscript:@"backupEnabled"];
   }
 
   deviceName = [(MBCKDevice *)selfCopy deviceName];
   [recordRepresentation setObject:deviceName forKeyedSubscript:@"deviceName"];
 
-  v67 = objc_opt_new();
+  v68 = objc_opt_new();
   if (![(MBCKModel *)selfCopy isPersistedToServer])
   {
-    v68 = MBDeviceUDID_Legacy();
-    [v67 setObject:v68 forKeyedSubscript:@"deviceUDID"];
+    v69 = MBDeviceUDID_Legacy();
+    [v68 setObject:v69 forKeyedSubscript:@"deviceUDID"];
   }
 
   if (selfCopy->_pendingSnapshotRecordID && ![(MBCKDevice *)selfCopy resumingSnapshot])
   {
-    v69 = [NSNumber numberWithInteger:[(MBCKDevice *)selfCopy backupReason]];
-    [v67 setObject:v69 forKeyedSubscript:@"backupReason"];
+    v70 = [NSNumber numberWithInteger:[(MBCKDevice *)selfCopy backupReason]];
+    [v68 setObject:v70 forKeyedSubscript:@"backupReason"];
   }
 
-  if ([v67 count])
+  if ([v68 count])
   {
-    [recordRepresentation setPluginFields:v67];
+    [recordRepresentation setPluginFields:v68];
   }
 
-  v70 = MBGetDefaultLog();
-  if (os_log_type_enabled(v70, OS_LOG_TYPE_INFO))
+  v71 = MBGetDefaultLog();
+  if (os_log_type_enabled(v71, OS_LOG_TYPE_INFO))
   {
-    v71 = objc_opt_class();
+    v72 = objc_opt_class();
     *buf = 138543618;
-    *v80 = v71;
-    *&v80[8] = 2112;
-    *&v80[10] = recordRepresentation;
-    _os_log_impl(&_mh_execute_header, v70, OS_LOG_TYPE_INFO, "=ck-device= %{public}@ record representation: %@", buf, 0x16u);
-    objc_opt_class();
-    _MBLog();
+    *v79 = v72;
+    *&v79[8] = 2112;
+    *&v79[10] = recordRepresentation;
+    _os_log_impl(&_mh_execute_header, v71, OS_LOG_TYPE_INFO, "=ck-device= %{public}@ record representation: %@", buf, 0x16u);
+    v73 = objc_opt_class();
+    _MBLog(@"I ", "=ck-device= %{public}@ record representation: %@", v73, recordRepresentation);
   }
 
-  v72 = recordRepresentation;
+  v74 = recordRepresentation;
   return recordRepresentation;
 }
 
@@ -1178,8 +1203,8 @@ LABEL_27:
   assetIDPrefix = self->_assetIDPrefix;
   self->_assetIDPrefix = v32;
 
-  v84 = [recordCopy objectForKeyedSubscript:@"domainHMACsToRepair"];
-  if (v84)
+  v83 = [recordCopy objectForKeyedSubscript:@"domainHMACsToRepair"];
+  if (v83)
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
@@ -1188,176 +1213,174 @@ LABEL_27:
       if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
       {
         v35 = self->_deviceUUID;
-        v36 = [v84 sortedArrayUsingSelector:"compare:"];
+        v36 = [v83 sortedArrayUsingSelector:"compare:"];
         v37 = [v36 componentsJoinedByString:{@", "}];
         *buf = 138412546;
-        v94 = v35;
-        v95 = 2112;
-        v96 = v37;
+        v93 = v35;
+        v94 = 2112;
+        v95 = v37;
         _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_INFO, "=ck-device= =domain repair= Found domainHMACsToRepair for %@ record: %@", buf, 0x16u);
 
         v38 = self->_deviceUUID;
-        v39 = [v84 sortedArrayUsingSelector:"compare:"];
-        [v39 componentsJoinedByString:{@", "}];
-        v83 = v82 = v38;
-        _MBLog();
+        v39 = [v83 sortedArrayUsingSelector:"compare:"];
+        v40 = [v39 componentsJoinedByString:{@", "}];
+        _MBLog(@"I ", "=ck-device= =domain repair= Found domainHMACsToRepair for %@ record: %@", v38, v40);
       }
 
-      v40 = objc_opt_new();
-      v90 = 0u;
-      v91 = 0u;
-      v88 = 0u;
+      v41 = objc_opt_new();
       v89 = 0u;
-      v41 = v84;
-      v42 = [v41 countByEnumeratingWithState:&v88 objects:v92 count:16];
-      if (v42)
+      v90 = 0u;
+      v87 = 0u;
+      v88 = 0u;
+      v42 = v83;
+      v43 = [v42 countByEnumeratingWithState:&v87 objects:v91 count:16];
+      if (v43)
       {
-        v43 = *v89;
+        v44 = *v88;
         do
         {
-          for (i = 0; i != v42; i = i + 1)
+          for (i = 0; i != v43; i = i + 1)
           {
-            if (*v89 != v43)
+            if (*v88 != v44)
             {
-              objc_enumerationMutation(v41);
+              objc_enumerationMutation(v42);
             }
 
-            v45 = *(*(&v88 + 1) + 8 * i);
+            v46 = *(*(&v87 + 1) + 8 * i);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              [(NSSet *)v40 addObject:v45];
+              [(NSSet *)v41 addObject:v46];
             }
 
             else
             {
-              v46 = MBGetDefaultLog();
-              if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+              v47 = MBGetDefaultLog();
+              if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                v94 = v45;
-                _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_ERROR, "=ck-device= Could not parse domain hmac to repair: %@", buf, 0xCu);
-                v82 = v45;
-                _MBLog();
+                v93 = v46;
+                _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_ERROR, "=ck-device= Could not parse domain hmac to repair: %@", buf, 0xCu);
+                _MBLog(@"E ", "=ck-device= Could not parse domain hmac to repair: %@", v46);
               }
             }
           }
 
-          v42 = [v41 countByEnumeratingWithState:&v88 objects:v92 count:16];
+          v43 = [v42 countByEnumeratingWithState:&v87 objects:v91 count:16];
         }
 
-        while (v42);
+        while (v43);
       }
 
       domainHMACsToRepair = self->_domainHMACsToRepair;
-      self->_domainHMACsToRepair = v40;
+      self->_domainHMACsToRepair = v41;
     }
   }
 
-  v48 = MBDeviceCoverGlassColor();
-  v49 = self->_deviceCoverGlassColor;
-  self->_deviceCoverGlassColor = v48;
+  v49 = MBDeviceCoverGlassColor();
+  v50 = self->_deviceCoverGlassColor;
+  self->_deviceCoverGlassColor = v49;
 
-  v50 = MBDeviceHousingColor();
-  v51 = self->_deviceHousingColor;
-  self->_deviceHousingColor = v50;
+  v51 = MBDeviceHousingColor();
+  v52 = self->_deviceHousingColor;
+  self->_deviceHousingColor = v51;
 
-  v52 = MBDeviceBackingColor();
-  v53 = self->_deviceBackingColor;
-  self->_deviceBackingColor = v52;
+  v53 = MBDeviceBackingColor();
+  v54 = self->_deviceBackingColor;
+  self->_deviceBackingColor = v53;
 
-  v54 = [recordCopy objectForKeyedSubscript:@"pendingSnapshotID"];
+  v55 = [recordCopy objectForKeyedSubscript:@"pendingSnapshotID"];
   pendingSnapshotRecordID = self->_pendingSnapshotRecordID;
-  self->_pendingSnapshotRecordID = v54;
+  self->_pendingSnapshotRecordID = v55;
 
-  v56 = [recordCopy objectForKeyedSubscript:@"pendingSnapshotQuotaReserved"];
-  self->_pendingSnapshotQuotaReserved = [v56 longLongValue];
+  v57 = [recordCopy objectForKeyedSubscript:@"pendingSnapshotQuotaReserved"];
+  self->_pendingSnapshotQuotaReserved = [v57 longLongValue];
 
-  v57 = [recordCopy objectForKeyedSubscript:@"pendingSnapshotBackupType"];
-  self->_pendingSnapshotType = [v57 integerValue];
+  v58 = [recordCopy objectForKeyedSubscript:@"pendingSnapshotBackupType"];
+  self->_pendingSnapshotType = [v58 integerValue];
 
-  v58 = [recordCopy objectForKeyedSubscript:@"pendingSnapshotBackupPolicy"];
-  self->_pendingSnapshotBackupPolicy = [v58 integerValue];
+  v59 = [recordCopy objectForKeyedSubscript:@"pendingSnapshotBackupPolicy"];
+  self->_pendingSnapshotBackupPolicy = [v59 integerValue];
 
-  v59 = [recordCopy objectForKeyedSubscript:@"pendingSnapshotFormat"];
-  self->_pendingSnapshotFormat = [v59 integerValue];
+  v60 = [recordCopy objectForKeyedSubscript:@"pendingSnapshotFormat"];
+  self->_pendingSnapshotFormat = [v60 integerValue];
 
-  v60 = [recordCopy objectForKeyedSubscript:@"pendingSnapshotBuildVersion"];
+  v61 = [recordCopy objectForKeyedSubscript:@"pendingSnapshotBuildVersion"];
   pendingSnapshotBuildVersion = self->_pendingSnapshotBuildVersion;
-  self->_pendingSnapshotBuildVersion = v60;
+  self->_pendingSnapshotBuildVersion = v61;
 
-  v62 = [recordCopy objectForKeyedSubscript:@"snapshots"];
+  v63 = [recordCopy objectForKeyedSubscript:@"snapshots"];
   snapshotRefs = self->_snapshotRefs;
-  self->_snapshotRefs = v62;
+  self->_snapshotRefs = v63;
 
-  v64 = [recordCopy objectForKeyedSubscript:@"snapshotCommittedDates"];
+  v65 = [recordCopy objectForKeyedSubscript:@"snapshotCommittedDates"];
   snapshotCommitDates = self->_snapshotCommitDates;
-  self->_snapshotCommitDates = v64;
+  self->_snapshotCommitDates = v65;
 
-  v66 = [recordCopy objectForKeyedSubscript:@"pinnedSnapshots"];
-  v67 = v66;
-  if (v66)
+  v67 = [recordCopy objectForKeyedSubscript:@"pinnedSnapshots"];
+  v68 = v67;
+  if (v67)
   {
-    v68 = v66;
+    v69 = v67;
   }
 
   else
   {
-    v68 = &__NSArray0__struct;
+    v69 = &__NSArray0__struct;
   }
 
-  v69 = [NSMutableSet setWithArray:v68, v82, v83];
+  v70 = [NSMutableSet setWithArray:v69];
   pinnedSnapshotRefs = self->_pinnedSnapshotRefs;
-  self->_pinnedSnapshotRefs = v69;
+  self->_pinnedSnapshotRefs = v70;
 
-  v71 = [recordCopy objectForKeyedSubscript:@"lastGMSnapshot"];
+  v72 = [recordCopy objectForKeyedSubscript:@"lastGMSnapshot"];
   latestGMSnapshot = self->_latestGMSnapshot;
-  self->_latestGMSnapshot = v71;
+  self->_latestGMSnapshot = v72;
 
-  v73 = [recordCopy objectForKeyedSubscript:@"requiresFullBackup"];
+  v74 = [recordCopy objectForKeyedSubscript:@"requiresFullBackup"];
 
-  if (v73)
+  if (v74)
   {
-    v74 = [recordCopy objectForKeyedSubscript:@"requiresFullBackup"];
-    self->_requiresFullBackup = [v74 integerValue];
+    v75 = [recordCopy objectForKeyedSubscript:@"requiresFullBackup"];
+    self->_requiresFullBackup = [v75 integerValue];
   }
 
-  v75 = [recordCopy objectForKeyedSubscript:@"backupEnabled"];
+  v76 = [recordCopy objectForKeyedSubscript:@"backupEnabled"];
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  if (v75)
+  if (v76)
   {
-    selfCopy->_backupEnabled = [v75 BOOLValue];
-    v77 = 1;
+    selfCopy->_backupEnabled = [v76 BOOLValue];
+    v78 = 1;
   }
 
   else
   {
-    v77 = 0;
+    v78 = 0;
     selfCopy->_backupEnabled = 0;
   }
 
-  selfCopy->_hasBackupEnabledState = v77;
+  selfCopy->_hasBackupEnabledState = v78;
   objc_sync_exit(selfCopy);
 
   selfCopy->_hasFetchedSnapshots = 0;
-  v78 = [recordCopy objectForKeyedSubscript:@"keybags"];
+  v79 = [recordCopy objectForKeyedSubscript:@"keybags"];
   keybagManager = selfCopy->_keybagManager;
   if (keybagManager)
   {
-    [(MBCKKeyBagManager *)keybagManager mergeKeybagRefs:v78];
+    [(MBCKKeyBagManager *)keybagManager mergeKeybagRefs:v79];
   }
 
   else
   {
-    v80 = [[MBCKKeyBagManager alloc] initWithDevice:selfCopy keybagRefs:v78];
-    v81 = selfCopy->_keybagManager;
-    selfCopy->_keybagManager = v80;
+    v81 = [[MBCKKeyBagManager alloc] initWithDevice:selfCopy keybagRefs:v79];
+    v82 = selfCopy->_keybagManager;
+    selfCopy->_keybagManager = v81;
   }
 
-  v87.receiver = selfCopy;
-  v87.super_class = MBCKDevice;
-  [(MBCKModel *)&v87 refreshWithRecord:recordCopy];
+  v86.receiver = selfCopy;
+  v86.super_class = MBCKDevice;
+  [(MBCKModel *)&v86 refreshWithRecord:recordCopy];
 }
 
 - (void)handleSaveComplete:(id)complete withError:(id)error completion:(id)completion
@@ -1394,64 +1417,62 @@ LABEL_27:
       _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "=ck-device= Not merging with the server record since there's a pending snapshot: %{public}@", buf, 0xCu);
 
       snapshotID2 = [(MBCKSnapshot *)v13 snapshotID];
-      _MBLog();
+      _MBLog(@"Df", "=ck-device= Not merging with the server record since there's a pending snapshot: %{public}@", snapshotID2);
     }
 
     recordRepresentation = recordCopy;
     goto LABEL_17;
   }
 
-  v17 = self->_domainHMACsToRepair;
-  if (v17)
+  v18 = self->_domainHMACsToRepair;
+  if (v18)
   {
     p_super = MBGetDefaultLog();
     if (os_log_type_enabled(p_super, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v31 = [(NSSet *)v17 count];
+      v31 = [(NSSet *)v18 count];
       _os_log_impl(&_mh_execute_header, p_super, OS_LOG_TYPE_DEFAULT, "=ck-device= Not handling merge conflict with server record because the local device record has %lu domain hmacs to repair", buf, 0xCu);
-      [(NSSet *)v17 count];
-      _MBLog();
+      _MBLog(@"Df", "=ck-device= Not handling merge conflict with server record because the local device record has %lu domain hmacs to repair", [(NSSet *)v18 count]);
     }
   }
 
   else
   {
     [(MBCKDevice *)self refreshWithRecord:recordCopy];
-    v19 = self->_domainHMACsToRepair;
-    if (!v19)
+    v20 = self->_domainHMACsToRepair;
+    if (!v20)
     {
-      v22 = [originalRecordCopy objectForKeyedSubscript:@"pendingSnapshotID"];
+      v23 = [originalRecordCopy objectForKeyedSubscript:@"pendingSnapshotID"];
       pendingSnapshotRecordID = self->_pendingSnapshotRecordID;
-      self->_pendingSnapshotRecordID = v22;
+      self->_pendingSnapshotRecordID = v23;
 
-      v24 = [originalRecordCopy objectForKeyedSubscript:@"pendingSnapshotQuotaReserved"];
-      self->_pendingSnapshotQuotaReserved = [v24 longLongValue];
+      v25 = [originalRecordCopy objectForKeyedSubscript:@"pendingSnapshotQuotaReserved"];
+      self->_pendingSnapshotQuotaReserved = [v25 longLongValue];
 
-      v25 = [originalRecordCopy objectForKeyedSubscript:@"pendingSnapshotBackupType"];
-      self->_pendingSnapshotType = [v25 integerValue];
+      v26 = [originalRecordCopy objectForKeyedSubscript:@"pendingSnapshotBackupType"];
+      self->_pendingSnapshotType = [v26 integerValue];
 
-      v26 = [originalRecordCopy objectForKeyedSubscript:@"pendingSnapshotBackupPolicy"];
-      self->_pendingSnapshotBackupPolicy = [v26 integerValue];
+      v27 = [originalRecordCopy objectForKeyedSubscript:@"pendingSnapshotBackupPolicy"];
+      self->_pendingSnapshotBackupPolicy = [v27 integerValue];
 
-      v27 = [originalRecordCopy objectForKeyedSubscript:@"deviceIdPrefix"];
+      v28 = [originalRecordCopy objectForKeyedSubscript:@"deviceIdPrefix"];
       assetIDPrefix = self->_assetIDPrefix;
-      self->_assetIDPrefix = v27;
+      self->_assetIDPrefix = v28;
 
       recordRepresentation = [(MBCKDevice *)self recordRepresentation];
       p_super = 0;
       goto LABEL_16;
     }
 
-    p_super = &v19->super;
-    v20 = MBGetDefaultLog();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    p_super = &v20->super;
+    v21 = MBGetDefaultLog();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
       v31 = [p_super count];
-      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "=ck-device= Not handling merge conflict with server record because the refreshed device record has %lu domain hmacs to repair", buf, 0xCu);
-      [p_super count];
-      _MBLog();
+      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "=ck-device= Not handling merge conflict with server record because the refreshed device record has %lu domain hmacs to repair", buf, 0xCu);
+      _MBLog(@"Df", "=ck-device= Not handling merge conflict with server record because the refreshed device record has %lu domain hmacs to repair", [p_super count]);
     }
   }
 
@@ -1653,34 +1674,33 @@ LABEL_18:
   if (v7 == 0x7FFFFFFFFFFFFFFFLL)
   {
     v8 = 0;
-    goto LABEL_10;
   }
 
-  v9 = [snapshots subarrayWithRange:{0, v7 + 1}];
-  v8 = MBGetLatestDomainRecordReferencesFromSnapshots(v9);
-  v10 = [v8 count];
-  v11 = MBGetDefaultLog();
-  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
-  if (v10)
+  else
   {
-    if (v12)
+    v9 = [snapshots subarrayWithRange:{0, v7 + 1}];
+    v8 = MBGetLatestDomainRecordReferencesFromSnapshots(v9);
+    v10 = [v8 count];
+    v11 = MBGetDefaultLog();
+    v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+    if (v10)
     {
-      *buf = 134217984;
-      v17 = v10;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "=ck-device= =sync= Synchronizing file lists: %ld references", buf, 0xCu);
-LABEL_8:
-      _MBLog();
+      if (v12)
+      {
+        *buf = 134217984;
+        v17 = v10;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "=ck-device= =sync= Synchronizing file lists: %ld references", buf, 0xCu);
+        _MBLog(@"Df", "=ck-device= =sync= Synchronizing file lists: %ld references");
+      }
+    }
+
+    else if (v12)
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "=ck-device= =sync= No snapshot to domain references to synchronize", buf, 2u);
+      _MBLog(@"Df", "=ck-device= =sync= No snapshot to domain references to synchronize");
     }
   }
-
-  else if (v12)
-  {
-    *buf = 0;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "=ck-device= =sync= No snapshot to domain references to synchronize", buf, 2u);
-    goto LABEL_8;
-  }
-
-LABEL_10:
 
   return v8;
 }
@@ -1713,7 +1733,7 @@ LABEL_10:
       *buf = 138412290;
       v29 = v16;
       _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "=ck-device= =sync= Error synchronizing file lists for commitID: %@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "=ck-device= =sync= Error synchronizing file lists for commitID: %@", v16);
     }
   }
 
@@ -1728,7 +1748,7 @@ LABEL_10:
       v30 = 2112;
       v31 = v16;
       _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "=ck-device= No snapshot found with deviceUUID:%@ commitID:%@", buf, 0x16u);
-      _MBLog();
+      _MBLog(@"E ", "=ck-device= No snapshot found with deviceUUID:%@ commitID:%@", deviceUUID, v16);
     }
 
     if (error)
@@ -1768,7 +1788,7 @@ LABEL_14:
       v29 = 2112;
       v30 = v16;
       _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "=ck-device= No snapshot found with deviceUUID:%@ snapshotUUID:%@", buf, 0x16u);
-      _MBLog();
+      _MBLog(@"E ", "=ck-device= No snapshot found with deviceUUID:%@ snapshotUUID:%@", deviceUUID, v16);
     }
 
     if (error)
@@ -1792,7 +1812,7 @@ LABEL_14:
         *buf = 138412290;
         v28 = v16;
         _os_log_impl(&_mh_execute_header, deviceUUID, OS_LOG_TYPE_ERROR, "=ck-device= =sync= Error synchronizing file lists for snapshotUUID: %@", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"E ", "=ck-device= =sync= Error synchronizing file lists for snapshotUUID: %@", v16);
       }
 
 LABEL_11:

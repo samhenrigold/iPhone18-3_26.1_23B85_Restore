@@ -28,25 +28,26 @@
 + (id)reachabilityWithHostName:(id)name
 {
   nameCopy = name;
-  v6 = SCNetworkReachabilityCreateWithName(0, [name UTF8String]);
-  if (v6)
+  v8 = objc_msgSend_UTF8String(name, v6, v7);
+  v9 = SCNetworkReachabilityCreateWithName(0, v8);
+  if (v9)
   {
-    v7 = v6;
-    v6 = objc_alloc_init(self);
-    if (v6)
+    v10 = v9;
+    v9 = objc_alloc_init(self);
+    if (v9)
     {
-      *(v6 + 2) = v7;
-      *(v6 + 8) = 0;
+      *(v9 + 2) = v10;
+      *(v9 + 8) = 0;
     }
 
     else
     {
-      CFRelease(v7);
-      v6 = 0;
+      CFRelease(v10);
+      v9 = 0;
     }
   }
 
-  return v6;
+  return v9;
 }
 
 + (id)reachabilityWithAddress:(const sockaddr_in *)address
@@ -74,34 +75,31 @@
 
 + (id)reachabilityForInternetConnection
 {
-  v5[2] = *MEMORY[0x1E69E9840];
-  v5[1] = 0;
-  v5[0] = 528;
-  v2 = [self reachabilityWithAddress:v5];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[2] = *MEMORY[0x1E69E9840];
+  v4[1] = 0;
+  v4[0] = 528;
+  v2 = objc_msgSend_reachabilityWithAddress_(self, a2, v4);
 
   return v2;
 }
 
 + (id)reachabilityForLocalWiFi
 {
-  v5[2] = *MEMORY[0x1E69E9840];
-  v5[1] = 0;
-  v5[0] = 0xFEA900000210;
-  v2 = [self reachabilityWithAddress:v5];
+  v4[2] = *MEMORY[0x1E69E9840];
+  v4[1] = 0;
+  v4[0] = 0xFEA900000210;
+  v2 = objc_msgSend_reachabilityWithAddress_(self, a2, v4);
   if (v2)
   {
     v2[8] = 1;
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
 
 - (int64_t)networkStatusForFlags:(unsigned int)flags
 {
-  sub_1B232A6A0(flags, "networkStatusForFlags");
+  sub_1B232A6A0(flags, "networkStatusForFlags", *&flags);
   if ((flags & 2) == 0)
   {
     return 0;
@@ -153,7 +151,7 @@
   if (!reachabilityRef)
   {
     sub_1B2331AAC();
-    reachabilityRef = v6;
+    reachabilityRef = v7;
   }
 
   flags = -1431655766;
@@ -164,10 +162,10 @@
 
   if (self->localWiFiRef)
   {
-    return [(CUTReachability *)self localWiFiStatusForFlags:flags];
+    return objc_msgSend_localWiFiStatusForFlags_(self, v4, flags);
   }
 
-  return [(CUTReachability *)self networkStatusForFlags:flags];
+  return objc_msgSend_networkStatusForFlags_(self, v4, flags);
 }
 
 @end

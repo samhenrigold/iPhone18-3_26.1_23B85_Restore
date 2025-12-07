@@ -4,6 +4,7 @@
 + (void)AggAccDetach:(id)detach WithManufacturer:(id)manufacturer AndConnectionTime:(unint64_t)time;
 + (void)PowerlogAccAttach:(id)attach;
 + (void)PowerlogAccDetach:(id)detach AndConnectionTime:(unint64_t)time;
++ (void)PowerlogEASession:(id)session forAccessory:(id)accessory forProtocolID:(unsigned __int8)d forPortType:(unsigned __int8)type isSessionOpen:(BOOL)open;
 @end
 
 @implementation IAPDataLogger
@@ -148,6 +149,115 @@
   time = [NSNumber numberWithLong:v14.tv_sec - time];
   [v7 setObject:time forKey:IAPAppAccessoryUsageTimeInSecsKey];
   [v7 setObject:&__kCFBooleanFalse forKey:IAPAppAccessoryConnectedKey];
+  PLLogRegisteredEvent();
+}
+
++ (void)PowerlogEASession:(id)session forAccessory:(id)accessory forProtocolID:(unsigned __int8)d forPortType:(unsigned __int8)type isSessionOpen:(BOOL)open
+{
+  openCopy = open;
+  typeCopy = type;
+  dCopy = d;
+  v12 = objc_alloc_init(NSMutableDictionary);
+  if (session)
+  {
+    sessionCopy = session;
+  }
+
+  else
+  {
+    sessionCopy = @"Unknown process";
+  }
+
+  v32 = v12;
+  [v12 setObject:sessionCopy forKey:IAPEASessionAppBundleIDKey];
+  v14 = [accessory objectForKey:IAPAppAccessoryProtocolsKey];
+  keyEnumerator = [v14 keyEnumerator];
+  while (1)
+  {
+    nextObject = [keyEnumerator nextObject];
+    if (!nextObject)
+    {
+      break;
+    }
+
+    v17 = nextObject;
+    if ([objc_msgSend(v14 objectForKey:{nextObject), "isEqualToNumber:", +[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", dCopy)}])
+    {
+      [v32 setObject:v17 forKey:IAPEASessionProtocolKey];
+      v18 = [NSString stringWithString:v17];
+      goto LABEL_9;
+    }
+  }
+
+  v18 = 0;
+LABEL_9:
+  [v32 setObject:objc_msgSend(accessory forKey:{"objectForKey:", IAPAppAccessoryNameKey), IAPAppAccessoryNameKey}];
+  v19 = [NSNumber numberWithUnsignedInt:typeCopy];
+  [v32 setObject:v19 forKey:IAPAccessoryPortTypeKey];
+  if (!openCopy)
+  {
+    [v32 setObject:&__kCFBooleanFalse forKey:IAPEASessionIsSessionOpenKey];
+    v26 = [accessory objectForKey:IAPEASessionOpenedTimesKey];
+    if (v26)
+    {
+      v27 = v18 == 0;
+    }
+
+    else
+    {
+      v27 = 1;
+    }
+
+    if (v27)
+    {
+      goto LABEL_21;
+    }
+
+    v28 = v26;
+    v33.tv_sec = 0xAAAAAAAAAAAAAAAALL;
+    *&v33.tv_usec = 0xAAAAAAAAAAAAAAAALL;
+    gettimeofday(&v33, 0);
+    tv_sec = v33.tv_sec;
+    v30 = [objc_msgSend(v28 objectForKey:{v18), "longValue"}];
+    if (__OFSUB__(tv_sec, v30))
+    {
+      __break(0x5515u);
+      return;
+    }
+
+    v23 = [NSNumber numberWithLong:tv_sec - v30];
+    v25 = IAPEASessionUsageTimeInSecsKey;
+    v24 = v32;
+LABEL_20:
+    [v24 setObject:v23 forKey:v25];
+    goto LABEL_21;
+  }
+
+  [v32 setObject:&__kCFBooleanTrue forKey:IAPEASessionIsSessionOpenKey];
+  if (accessory && v18)
+  {
+    v33.tv_sec = 0xAAAAAAAAAAAAAAAALL;
+    *&v33.tv_usec = 0xAAAAAAAAAAAAAAAALL;
+    gettimeofday(&v33, 0);
+    v20 = IAPEASessionOpenedTimesKey;
+    v21 = [accessory objectForKey:IAPEASessionOpenedTimesKey];
+    if (!v21)
+    {
+      v31 = objc_alloc_init(NSMutableDictionary);
+      [v31 setObject:+[NSNumber numberWithLong:](NSNumber forKey:{"numberWithLong:", v33.tv_sec), v18}];
+      [accessory setObject:v31 forKey:v20];
+
+      goto LABEL_21;
+    }
+
+    v22 = v21;
+    v23 = [NSNumber numberWithLong:v33.tv_sec];
+    v24 = v22;
+    v25 = v18;
+    goto LABEL_20;
+  }
+
+LABEL_21:
   PLLogRegisteredEvent();
 }
 

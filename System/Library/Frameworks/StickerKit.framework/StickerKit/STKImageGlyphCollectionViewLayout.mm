@@ -43,7 +43,7 @@
   sub_19A6FBE70(&v8);
   os_unfair_lock_unlock(v5 + 4);
 
-  sub_19A5F5028(0, &qword_1EAFCA440);
+  sub_19A5F5028(0, &qword_1EAFCA440, 0x1E69DC858);
   v6 = sub_19A7AB234();
 
   return v6;
@@ -164,7 +164,7 @@ LABEL_5:
   }
 
   v15 = *&v13[OBJC_IVAR____TtC10StickerKit23ImageGlyphLayoutSection_lock];
-  v16 = MEMORY[0x1EEE9AC00](0);
+  MEMORY[0x1EEE9AC00](0);
   *(&v19 - 2) = v13;
   MEMORY[0x1EEE9AC00](v16);
   *(&v19 - 2) = sub_19A62C654;
@@ -186,16 +186,16 @@ LABEL_7:
   x = position.x;
   v7 = sub_19A7A9094();
   v8 = *(v7 - 8);
-  v9 = MEMORY[0x1EEE9AC00](v7);
-  v11 = &v18 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v9);
+  MEMORY[0x1EEE9AC00](v7);
+  v10 = &v18 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v11);
   v13 = &v18 - v12;
   sub_19A7A9024();
   selfCopy = self;
-  sub_19A726FA4(x, y);
+  sub_19A726FA4(v10, x, y);
 
   v15 = *(v8 + 8);
-  v15(v11, v7);
+  v15(v10, v7);
   v16 = sub_19A7A9014();
   v15(v13, v7);
 
@@ -263,12 +263,12 @@ LABEL_7:
 - (void)prepareLayout
 {
   selfCopy = self;
-  sub_19A7277DC();
+  sub_19A7277DC(selfCopy);
 }
 
 - (void)prepareForCollectionViewUpdates:(id)updates
 {
-  sub_19A5F5028(0, &qword_1EAFCF1C0);
+  sub_19A5F5028(0, &qword_1EAFCF1C0, 0x1E69DC880);
   v4 = sub_19A7AB254();
   selfCopy = self;
   sub_19A7278F8(v4);
@@ -277,7 +277,7 @@ LABEL_7:
 - (void)finalizeCollectionViewUpdates
 {
   selfCopy = self;
-  sub_19A728300();
+  sub_19A728300(selfCopy);
 }
 
 - (id)paginationOriginForCurrentOffset:(CGPoint)offset
@@ -286,7 +286,7 @@ LABEL_7:
   x = offset.x;
   selfCopy = self;
   v6 = sub_19A725FAC();
-  v7 = sub_19A6D75E4(x, y);
+  v7 = COERCE_DOUBLE(sub_19A6D75E4(x, y));
   v9 = v8;
   v11 = v10;
 
@@ -297,7 +297,7 @@ LABEL_7:
 
   else
   {
-    v12 = [objc_opt_self() itk:*&v7 valueWithPoint:v9];
+    v12 = [objc_opt_self() itk:v7 valueWithPoint:v9];
   }
 
   return v12;

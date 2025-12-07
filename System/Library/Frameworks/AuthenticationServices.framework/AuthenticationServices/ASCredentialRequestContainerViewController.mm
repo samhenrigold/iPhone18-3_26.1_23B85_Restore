@@ -11,6 +11,8 @@
 - (void)preferredContentSizeDidChangeForChildContentContainer:(id)container;
 - (void)setPaneDelegate:(id)delegate;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation ASCredentialRequestContainerViewController
@@ -45,10 +47,10 @@
 
 - (void)viewDidLoad
 {
-  v53[4] = *MEMORY[0x1E69E9840];
-  v52.receiver = self;
-  v52.super_class = ASCredentialRequestContainerViewController;
-  [(ASCredentialRequestContainerViewController *)&v52 viewDidLoad];
+  v52[4] = *MEMORY[0x1E69E9840];
+  v51.receiver = self;
+  v51.super_class = ASCredentialRequestContainerViewController;
+  [(ASCredentialRequestContainerViewController *)&v51 viewDidLoad];
   [(ASCredentialRequestContainerViewController *)self addChildViewController:self->_rootViewController];
   v3 = objc_alloc_init(MEMORY[0x1E69DD818]);
   view = [(UIViewController *)self->_rootViewController view];
@@ -102,10 +104,10 @@
     topAnchor = [view10 topAnchor];
     view11 = [(ASCredentialRequestContainerViewController *)self view];
     bottomAnchor = [view11 bottomAnchor];
-    v51 = [topAnchor constraintEqualToAnchor:bottomAnchor];
+    v50 = [topAnchor constraintEqualToAnchor:bottomAnchor];
 
     LODWORD(v26) = 1144750080;
-    [v51 setPriority:v26];
+    [v50 setPriority:v26];
     view12 = [(UIViewController *)self->_rootViewController view];
     heightAnchor = [view12 heightAnchor];
     [(UIViewController *)self->_rootViewController preferredContentSize];
@@ -121,26 +123,48 @@
     sheetPresentedConstraint = self->_sheetPresentedConstraint;
     self->_sheetPresentedConstraint = v36;
 
-    v48 = MEMORY[0x1E696ACD8];
+    v47 = MEMORY[0x1E696ACD8];
     view15 = [(UIViewController *)self->_rootViewController view];
     leadingAnchor = [view15 leadingAnchor];
     view16 = [(ASCredentialRequestContainerViewController *)self view];
     leadingAnchor2 = [view16 leadingAnchor];
     v40 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-    v53[0] = v40;
+    v52[0] = v40;
     view17 = [(UIViewController *)self->_rootViewController view];
     trailingAnchor = [view17 trailingAnchor];
     view18 = [(ASCredentialRequestContainerViewController *)self view];
     trailingAnchor2 = [view18 trailingAnchor];
     v45 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-    v53[1] = v45;
-    v53[2] = v51;
-    v53[3] = self->_sheetHeightConstraint;
-    v46 = [MEMORY[0x1E695DEC8] arrayWithObjects:v53 count:4];
-    [v48 activateConstraints:v46];
+    v52[1] = v45;
+    v52[2] = v50;
+    v52[3] = self->_sheetHeightConstraint;
+    v46 = [MEMORY[0x1E695DEC8] arrayWithObjects:v52 count:4];
+    [v47 activateConstraints:v46];
   }
+}
 
-  v47 = *MEMORY[0x1E69E9840];
+- (void)viewWillAppear:(BOOL)appear
+{
+  v8.receiver = self;
+  v8.super_class = ASCredentialRequestContainerViewController;
+  [(ASCredentialRequestContainerViewController *)&v8 viewWillAppear:appear];
+  if (([MEMORY[0x1E698E020] isPad] & 1) == 0)
+  {
+    if ([(ASCredentialRequestContainerViewController *)self isBeingPresented])
+    {
+      clearColor = [MEMORY[0x1E69DC888] clearColor];
+      view = [(ASCredentialRequestContainerViewController *)self view];
+      [view setBackgroundColor:clearColor];
+
+      transitionCoordinator = [(ASCredentialRequestContainerViewController *)self transitionCoordinator];
+      v7[0] = MEMORY[0x1E69E9820];
+      v7[1] = 3221225472;
+      v7[2] = __61__ASCredentialRequestContainerViewController_viewWillAppear___block_invoke;
+      v7[3] = &unk_1E7AF8C58;
+      v7[4] = self;
+      [transitionCoordinator animateAlongsideTransition:v7 completion:0];
+    }
+  }
 }
 
 void __61__ASCredentialRequestContainerViewController_viewWillAppear___block_invoke(uint64_t a1)
@@ -152,6 +176,26 @@ void __61__ASCredentialRequestContainerViewController_viewWillAppear___block_inv
   v4 = [MEMORY[0x1E69DC888] colorWithWhite:0.0 alpha:0.600000024];
   v3 = [*(a1 + 32) view];
   [v3 setBackgroundColor:v4];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v6.receiver = self;
+  v6.super_class = ASCredentialRequestContainerViewController;
+  [(ASCredentialRequestContainerViewController *)&v6 viewWillDisappear:disappear];
+  if (([MEMORY[0x1E698E020] isPad] & 1) == 0)
+  {
+    if ([(ASCredentialRequestContainerViewController *)self isBeingDismissed])
+    {
+      transitionCoordinator = [(ASCredentialRequestContainerViewController *)self transitionCoordinator];
+      v5[0] = MEMORY[0x1E69E9820];
+      v5[1] = 3221225472;
+      v5[2] = __64__ASCredentialRequestContainerViewController_viewWillDisappear___block_invoke;
+      v5[3] = &unk_1E7AF8C58;
+      v5[4] = self;
+      [transitionCoordinator animateAlongsideTransition:v5 completion:0];
+    }
+  }
 }
 
 void __64__ASCredentialRequestContainerViewController_viewWillDisappear___block_invoke(uint64_t a1)

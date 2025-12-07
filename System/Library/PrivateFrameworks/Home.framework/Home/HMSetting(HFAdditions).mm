@@ -7,12 +7,12 @@
 
 - (id)hf_debugValueDescription
 {
-  v2 = objc_opt_class();
+  v3 = objc_opt_class();
   value = [self value];
   keyPath = [self keyPath];
-  v5 = [v2 hf_debugDescriptionForValue:value keyPath:keyPath];
+  v6 = [v3 hf_debugDescriptionForValue:value keyPath:keyPath];
 
-  return v5;
+  return v6;
 }
 
 + (id)hf_debugDescriptionForValue:()HFAdditions keyPath:

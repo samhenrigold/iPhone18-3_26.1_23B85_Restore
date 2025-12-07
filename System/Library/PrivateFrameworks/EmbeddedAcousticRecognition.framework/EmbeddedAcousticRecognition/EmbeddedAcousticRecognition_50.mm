@@ -1024,18 +1024,18 @@ void kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::PropagateFnc(ui
   v7 = a1;
   v8 = *(a2 + 20);
   v9 = *(a1 + 96);
-  v133 = (v8 / v9);
+  v131 = (v8 / v9);
   if (kaldi::g_kaldi_verbose_level >= 3)
   {
-    kaldi::KaldiVlogMessage::KaldiVlogMessage(&v164, 3);
-    v10 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v164, "Running forward propagation for batch size = ", 45);
+    kaldi::KaldiVlogMessage::KaldiVlogMessage(&v162, 3);
+    v10 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v162, "Running forward propagation for batch size = ", 45);
     v11 = MEMORY[0x1B8C84C00](v10, v8);
     v12 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, ", which contains ", 17);
-    v13 = MEMORY[0x1B8C84C00](v12, v133);
+    v13 = MEMORY[0x1B8C84C00](v12, v131);
     v14 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v13, " frames each from ", 18);
     v15 = MEMORY[0x1B8C84C00](v14, v9);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v15, " utterances.", 12);
-    kaldi::KaldiVlogMessage::~KaldiVlogMessage(&v164);
+    kaldi::KaldiVlogMessage::~KaldiVlogMessage(&v162);
   }
 
   v16 = *(a3 + 32);
@@ -1044,410 +1044,408 @@ void kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::PropagateFnc(ui
   v17 = *(v7 + 104);
   if (*(v7 + 112) == v17 || *(v17 + 32 * a4 + 16) < 1)
   {
-    v128 = 0;
+    v126 = 0;
   }
 
   else
   {
     v18 = (*(v7 + 128) + 48 * a4);
     v18[4] = v16;
-    v128 = 1;
+    v126 = 1;
     kaldi::CuMatrix<float>::Resize(v18, v9, *(*(v7 + 8) + 48 * a4 + 16), 1, 0);
   }
 
   v19 = *(v7 + 248) + 48 * a4;
-  v134 = *(v7 + 344) + 48 * a4;
+  v132 = *(v7 + 344) + 48 * a4;
   v20 = kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::InputWeights(v7);
   LODWORD(v21) = 1.0;
   kaldi::CuMatrixBase<float>::AddMatMat<short>(v19, a2, 111, v20, 112, v21, 0.0);
   v22 = kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::Bias(v7);
-  kaldi::CuMatrixBase<float>::AddVecToRows(v19, v22, 1.0, 1.0);
-  if (v133 >= 1)
+  v23.n128_u32[0] = 1.0;
+  kaldi::CuMatrixBase<float>::AddVecToRows(v19, v22, v23, 1.0);
+  if (v131 >= 1)
   {
-    v23 = 0;
     v24 = 0;
     v25 = 0;
-    v129 = v7 + 12;
-    v131 = 4 * v9;
-    v132 = v9;
-    v127 = -v9;
-    v136 = v9;
-    v130 = v7;
+    v26 = 0;
+    v127 = v7 + 12;
+    v129 = 4 * v9;
+    v130 = v9;
+    v125 = -v9;
+    v134 = v9;
+    v128 = v7;
     do
     {
-      v26 = *(v19 + 24);
-      v27 = *(v19 + 8) + 4 * (v26 * v23);
-      v28 = *(v19 + 28) - v26 * v23;
-      v29 = *(v19 + 32);
-      DWORD2(v165) = *(v7 + 176);
-      HIDWORD(v165) = v9;
-      *&v166 = __PAIR64__(v28, v26);
-      *(&v166 + 1) = v29;
-      *&v165 = v27;
-      v164.__locale_ = &unk_1F2CFA908;
-      v30 = *(v19 + 8) + 4 * (v26 * v23) + 4 * DWORD2(v165);
-      v31 = *(v19 + 28) - DWORD2(v165) - v26 * v23;
-      *(&v162 + 1) = __PAIR64__(v9, DWORD2(v165));
-      *&v163 = __PAIR64__(v31, v26);
-      *(&v163 + 1) = v29;
-      v161 = &unk_1F2CFA908;
-      *&v162 = v30;
-      v32 = *(v19 + 24);
-      v33 = *(v19 + 8) + 4 * (v32 * v23) + 12 * DWORD2(v165);
-      LODWORD(v30) = *(v19 + 28) - 3 * DWORD2(v165) - v32 * v23;
-      v34 = *(v19 + 32);
-      *(&v159 + 1) = __PAIR64__(v9, DWORD2(v165));
-      *&v160 = __PAIR64__(v30, v32);
-      *(&v160 + 1) = v34;
-      v158 = &unk_1F2CFA908;
-      *&v159 = v33;
-      v35 = *(v7 + 272) + 48 * a4;
-      LODWORD(v33) = *(v35 + 16);
-      LODWORD(v34) = *(v35 + 24);
-      v36 = *(v35 + 8) + 4 * v34 * v23;
-      LODWORD(v29) = *(v35 + 28) - v34 * v23;
-      v37 = *(v35 + 32);
-      *(&v156 + 1) = __PAIR64__(v9, v33);
-      *&v157 = __PAIR64__(v29, v34);
-      *(&v157 + 1) = v37;
-      v155 = &unk_1F2CFA908;
-      *&v156 = v36;
-      v154 = 0u;
-      v153 = 0u;
-      v152 = &unk_1F2CFA908;
+      v27 = *(v19 + 24);
+      v28 = *(v19 + 8) + 4 * (v27 * v24);
+      v29 = *(v19 + 28) - v27 * v24;
+      v30 = *(v19 + 32);
+      DWORD2(v163) = *(v7 + 176);
+      HIDWORD(v163) = v9;
+      *&v164 = __PAIR64__(v29, v27);
+      *(&v164 + 1) = v30;
+      *&v163 = v28;
+      v162.__locale_ = &unk_1F2CFA908;
+      v31 = *(v19 + 8) + 4 * (v27 * v24) + 4 * DWORD2(v163);
+      v32 = *(v19 + 28) - DWORD2(v163) - v27 * v24;
+      *(&v160 + 1) = __PAIR64__(v9, DWORD2(v163));
+      *&v161 = __PAIR64__(v32, v27);
+      *(&v161 + 1) = v30;
+      v159 = &unk_1F2CFA908;
+      *&v160 = v31;
+      v33 = *(v19 + 24);
+      v34 = *(v19 + 8) + 4 * (v33 * v24) + 12 * DWORD2(v163);
+      LODWORD(v31) = *(v19 + 28) - 3 * DWORD2(v163) - v33 * v24;
+      v35 = *(v19 + 32);
+      *(&v157 + 1) = __PAIR64__(v9, DWORD2(v163));
+      *&v158 = __PAIR64__(v31, v33);
+      *(&v158 + 1) = v35;
+      v156 = &unk_1F2CFA908;
+      *&v157 = v34;
+      v36 = *(v7 + 272) + 48 * a4;
+      LODWORD(v34) = *(v36 + 16);
+      LODWORD(v35) = *(v36 + 24);
+      v37 = *(v36 + 8) + 4 * v35 * v24;
+      LODWORD(v30) = *(v36 + 28) - v35 * v24;
+      v38 = *(v36 + 32);
+      *(&v154 + 1) = __PAIR64__(v9, v34);
+      *&v155 = __PAIR64__(v30, v35);
+      *(&v155 + 1) = v38;
+      v153 = &unk_1F2CFA908;
+      *&v154 = v37;
+      v152 = 0u;
       v151 = 0u;
-      v150 = 0u;
-      v149 = &unk_1F2CFA908;
-      v135 = v25;
-      if (v25)
+      v150 = &unk_1F2CFA908;
+      v149 = 0u;
+      v148 = 0u;
+      v147 = &unk_1F2CFA908;
+      v133 = v26;
+      if (v26)
       {
-        if (v128)
+        if (v126)
         {
-          v38 = a4;
+          v39 = a4;
           kaldi::CuMatrixBase<float>::SetZero(*(v7 + 128) + 48 * a4);
-          v39 = *(v7 + 128) + 48 * a4;
-          v40 = *(v39 + 8);
-          v41 = *(v39 + 20);
-          v42 = *(v39 + 24);
-          v43 = *(v39 + 28);
-          v44 = *(v39 + 32);
-          DWORD2(v147) = *(v7 + 176);
-          *&v150 = v40;
-          *(&v150 + 1) = __PAIR64__(v41, DWORD2(v147));
-          *&v151 = __PAIR64__(v43, v42);
-          *(&v151 + 1) = v44;
-          v146 = &unk_1F2CFA908;
-          v148 = 0u;
-          v147 = 0u;
-          quasar::Bitmap::~Bitmap(&v146);
-          v45 = *(v7 + 272) + 48 * a4;
-          v46 = *(v45 + 16);
-          v47 = *(v45 + 24);
-          v48 = *(v45 + 8) + 4 * (v47 * (v127 + v23));
-          v49 = *(v45 + 28) - v47 * (v127 + v23);
-          v50 = *(v45 + 32);
-          *(&v147 + 1) = __PAIR64__(v9, v46);
-          *&v148 = __PAIR64__(v49, v47);
-          *(&v148 + 1) = v50;
-          v146 = &unk_1F2CFA908;
-          *&v147 = v48;
-          v51 = *(v7 + 104) + 32 * a4;
-          *(&v144 + 1) = 0;
-          v143 = &unk_1F2CFCA48;
-          *&v144 = *(v51 + 8) + v24;
-          DWORD2(v144) = v9;
-          *&v145 = *(v51 + 24);
-          kaldi::CuMatrixBase<float>::CopySelectedRows(&v149, &v146, &v143, 1);
-          v146 = &unk_1F2CFA908;
-          v147 = 0u;
-          v148 = 0u;
-          quasar::Bitmap::~Bitmap(&v146);
-          v52 = *(v7 + 128) + 48 * a4;
-          v53 = *(v7 + 176);
-          v54 = *(v52 + 20);
-          v55 = *(v52 + 24);
-          v56 = *(v52 + 8) + 4 * v53;
-          LODWORD(v53) = *(v52 + 28) - v53;
-          v57 = *(v52 + 32);
-          DWORD2(v147) = *(v129 + *(*v7 - 24));
-          *&v153 = v56;
-          *(&v153 + 1) = __PAIR64__(v54, DWORD2(v147));
-          *&v154 = __PAIR64__(v53, v55);
-          *(&v154 + 1) = v57;
-          v146 = &unk_1F2CFA908;
-          v148 = 0u;
-          v147 = 0u;
-          quasar::Bitmap::~Bitmap(&v146);
-          v58 = *(v134 + 24);
-          v59 = *(v134 + 8) + 4 * (v58 * (v127 + v23));
-          v60 = *(v134 + 28) - v58 * (v127 + v23);
-          v61 = *(v134 + 32);
-          DWORD2(v147) = *(v134 + 16);
-          HIDWORD(v147) = v9;
-          *&v148 = __PAIR64__(v60, v58);
-          *(&v148 + 1) = v61;
-          v146 = &unk_1F2CFA908;
-          *&v147 = v59;
-          v62 = *(v7 + 104) + 32 * a4;
-          *(&v144 + 1) = 0;
-          v143 = &unk_1F2CFCA48;
-          *&v144 = *(v62 + 8) + v24;
-          DWORD2(v144) = v9;
-          *&v145 = *(v62 + 24);
-          kaldi::CuMatrixBase<float>::CopySelectedRows(&v152, &v146, &v143, 1);
-          v146 = &unk_1F2CFA908;
-          v147 = 0u;
-          v148 = 0u;
-          quasar::Bitmap::~Bitmap(&v146);
-          LODWORD(v9) = v136;
+          v40 = *(v7 + 128) + 48 * a4;
+          v41 = *(v40 + 8);
+          v42 = *(v40 + 20);
+          v43 = *(v40 + 24);
+          v44 = *(v40 + 28);
+          v45 = *(v40 + 32);
+          DWORD2(v145) = *(v7 + 176);
+          *&v148 = v41;
+          *(&v148 + 1) = __PAIR64__(v42, DWORD2(v145));
+          *&v149 = __PAIR64__(v44, v43);
+          *(&v149 + 1) = v45;
+          v144 = &unk_1F2CFA908;
+          v146 = 0u;
+          v145 = 0u;
+          quasar::Bitmap::~Bitmap(&v144);
+          v46 = *(v7 + 272) + 48 * a4;
+          v47 = *(v46 + 16);
+          v48 = *(v46 + 24);
+          v49 = *(v46 + 8) + 4 * (v48 * (v125 + v24));
+          v50 = *(v46 + 28) - v48 * (v125 + v24);
+          v51 = *(v46 + 32);
+          *(&v145 + 1) = __PAIR64__(v9, v47);
+          *&v146 = __PAIR64__(v50, v48);
+          *(&v146 + 1) = v51;
+          v144 = &unk_1F2CFA908;
+          *&v145 = v49;
+          v52 = *(v7 + 104) + 32 * a4;
+          *(&v142 + 1) = 0;
+          v141 = &unk_1F2CFCA48;
+          *&v142 = *(v52 + 8) + v25;
+          DWORD2(v142) = v9;
+          *&v143 = *(v52 + 24);
+          kaldi::CuMatrixBase<float>::CopySelectedRows(&v147, &v144, &v141, 1);
+          v144 = &unk_1F2CFA908;
+          v145 = 0u;
+          v146 = 0u;
+          quasar::Bitmap::~Bitmap(&v144);
+          v53 = *(v7 + 128) + 48 * a4;
+          v54 = *(v7 + 176);
+          v55 = *(v53 + 20);
+          v56 = *(v53 + 24);
+          v57 = *(v53 + 8) + 4 * v54;
+          LODWORD(v54) = *(v53 + 28) - v54;
+          v58 = *(v53 + 32);
+          DWORD2(v145) = *(v127 + *(*v7 - 24));
+          *&v151 = v57;
+          *(&v151 + 1) = __PAIR64__(v55, DWORD2(v145));
+          *&v152 = __PAIR64__(v54, v56);
+          *(&v152 + 1) = v58;
+          v144 = &unk_1F2CFA908;
+          v146 = 0u;
+          v145 = 0u;
+          quasar::Bitmap::~Bitmap(&v144);
+          v59 = *(v132 + 24);
+          v60 = *(v132 + 8) + 4 * (v59 * (v125 + v24));
+          v61 = *(v132 + 28) - v59 * (v125 + v24);
+          v62 = *(v132 + 32);
+          DWORD2(v145) = *(v132 + 16);
+          HIDWORD(v145) = v9;
+          *&v146 = __PAIR64__(v61, v59);
+          *(&v146 + 1) = v62;
+          v144 = &unk_1F2CFA908;
+          *&v145 = v60;
+          v63 = *(v7 + 104) + 32 * a4;
+          *(&v142 + 1) = 0;
+          v141 = &unk_1F2CFCA48;
+          *&v142 = *(v63 + 8) + v25;
+          DWORD2(v142) = v9;
+          *&v143 = *(v63 + 24);
+          kaldi::CuMatrixBase<float>::CopySelectedRows(&v150, &v144, &v141, 1);
+          v144 = &unk_1F2CFA908;
+          v145 = 0u;
+          v146 = 0u;
+          quasar::Bitmap::~Bitmap(&v144);
+          LODWORD(v9) = v134;
         }
 
         else
         {
-          v75 = *(v134 + 16);
-          v76 = *(v134 + 24);
-          v77 = *(v134 + 28) - v76 * (v127 + v23);
-          v78 = *(v134 + 32);
-          *&v153 = *(v134 + 8) + 4 * (v76 * (v127 + v23));
-          *(&v153 + 1) = __PAIR64__(v9, v75);
-          *&v154 = __PAIR64__(v77, v76);
-          *(&v154 + 1) = v78;
-          v146 = &unk_1F2CFA908;
-          v147 = 0uLL;
-          v148 = 0uLL;
-          quasar::Bitmap::~Bitmap(&v146);
-          v38 = a4;
-          v79 = *(v7 + 272) + 48 * a4;
-          v80 = *(v79 + 16);
-          v81 = *(v79 + 24);
-          v82 = *(v79 + 8) + 4 * (v81 * (v127 + v23));
-          v83 = *(v79 + 28) - v81 * (v127 + v23);
-          v84 = *(v79 + 32);
-          *&v150 = v82;
-          *(&v150 + 1) = __PAIR64__(v9, v80);
-          *&v151 = __PAIR64__(v83, v81);
-          *(&v151 + 1) = v84;
-          v146 = &unk_1F2CFA908;
-          v148 = 0u;
-          v147 = 0u;
-          quasar::Bitmap::~Bitmap(&v146);
+          v76 = *(v132 + 16);
+          v77 = *(v132 + 24);
+          v78 = *(v132 + 28) - v77 * (v125 + v24);
+          v79 = *(v132 + 32);
+          *&v151 = *(v132 + 8) + 4 * (v77 * (v125 + v24));
+          *(&v151 + 1) = __PAIR64__(v9, v76);
+          *&v152 = __PAIR64__(v78, v77);
+          *(&v152 + 1) = v79;
+          v144 = &unk_1F2CFA908;
+          v145 = 0uLL;
+          v146 = 0uLL;
+          quasar::Bitmap::~Bitmap(&v144);
+          v39 = a4;
+          v80 = *(v7 + 272) + 48 * a4;
+          v81 = *(v80 + 16);
+          v82 = *(v80 + 24);
+          v83 = *(v80 + 8) + 4 * (v82 * (v125 + v24));
+          v84 = *(v80 + 28) - v82 * (v125 + v24);
+          v85 = *(v80 + 32);
+          *&v148 = v83;
+          *(&v148 + 1) = __PAIR64__(v9, v81);
+          *&v149 = __PAIR64__(v84, v82);
+          *(&v149 + 1) = v85;
+          v144 = &unk_1F2CFA908;
+          v146 = 0u;
+          v145 = 0u;
+          quasar::Bitmap::~Bitmap(&v144);
         }
       }
 
       else
       {
-        v63 = *(v7 + 8) + 48 * a4;
-        v64 = *(v63 + 20);
-        v65 = *(v63 + 24);
-        v66 = *(v63 + 8) + 4 * DWORD2(v165);
-        v67 = *(v63 + 28) - DWORD2(v165);
-        v68 = *(v63 + 32);
-        DWORD2(v147) = *(v129 + *(*v7 - 24));
-        *&v153 = v66;
-        *(&v153 + 1) = __PAIR64__(v64, DWORD2(v147));
-        *&v154 = __PAIR64__(v67, v65);
-        *(&v154 + 1) = v68;
-        v146 = &unk_1F2CFA908;
-        v148 = 0uLL;
-        v147 = 0uLL;
-        quasar::Bitmap::~Bitmap(&v146);
-        v69 = *(v7 + 8) + 48 * a4;
-        v70 = *(v69 + 8);
-        v71 = *(v69 + 20);
-        v72 = *(v69 + 24);
-        v73 = *(v69 + 28);
-        v74 = *(v69 + 32);
-        DWORD2(v147) = *(v7 + 176);
-        *&v150 = v70;
-        *(&v150 + 1) = __PAIR64__(v71, DWORD2(v147));
-        *&v151 = __PAIR64__(v73, v72);
-        *(&v151 + 1) = v74;
-        v146 = &unk_1F2CFA908;
-        v148 = 0u;
-        v147 = 0u;
-        quasar::Bitmap::~Bitmap(&v146);
-        v38 = a4;
+        v64 = *(v7 + 8) + 48 * a4;
+        v65 = *(v64 + 20);
+        v66 = *(v64 + 24);
+        v67 = *(v64 + 8) + 4 * DWORD2(v163);
+        v68 = *(v64 + 28) - DWORD2(v163);
+        v69 = *(v64 + 32);
+        DWORD2(v145) = *(v127 + *(*v7 - 24));
+        *&v151 = v67;
+        *(&v151 + 1) = __PAIR64__(v65, DWORD2(v145));
+        *&v152 = __PAIR64__(v68, v66);
+        *(&v152 + 1) = v69;
+        v144 = &unk_1F2CFA908;
+        v146 = 0uLL;
+        v145 = 0uLL;
+        quasar::Bitmap::~Bitmap(&v144);
+        v70 = *(v7 + 8) + 48 * a4;
+        v71 = *(v70 + 8);
+        v72 = *(v70 + 20);
+        v73 = *(v70 + 24);
+        v74 = *(v70 + 28);
+        v75 = *(v70 + 32);
+        DWORD2(v145) = *(v7 + 176);
+        *&v148 = v71;
+        *(&v148 + 1) = __PAIR64__(v72, DWORD2(v145));
+        *&v149 = __PAIR64__(v74, v73);
+        *(&v149 + 1) = v75;
+        v144 = &unk_1F2CFA908;
+        v146 = 0u;
+        v145 = 0u;
+        quasar::Bitmap::~Bitmap(&v144);
+        v39 = a4;
       }
 
-      v85 = *(v19 + 24);
-      v86 = *(v19 + 8) + 4 * (v85 * v23);
-      v87 = *(v19 + 28) - v85 * v23;
-      v88 = *(v19 + 32);
-      DWORD2(v147) = *(v19 + 16);
-      HIDWORD(v147) = v9;
-      *&v148 = __PAIR64__(v87, v85);
-      *(&v148 + 1) = v88;
-      v146 = &unk_1F2CFA908;
-      *&v147 = v86;
-      v89 = kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::RecurrentWeights(v7);
-      LODWORD(v90) = 1.0;
-      kaldi::CuMatrixBase<float>::AddMatMat<short>(&v146, &v152, 111, v89, 112, v90, 1.0);
-      v146 = &unk_1F2CFA908;
-      v147 = 0u;
-      v148 = 0u;
-      quasar::Bitmap::~Bitmap(&v146);
+      v86 = *(v19 + 24);
+      v87 = *(v19 + 8) + 4 * (v86 * v24);
+      v88 = *(v19 + 28) - v86 * v24;
+      v89 = *(v19 + 32);
+      DWORD2(v145) = *(v19 + 16);
+      HIDWORD(v145) = v9;
+      *&v146 = __PAIR64__(v88, v86);
+      *(&v146 + 1) = v89;
+      v144 = &unk_1F2CFA908;
+      *&v145 = v87;
+      v90 = kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::RecurrentWeights(v7);
+      LODWORD(v91) = 1.0;
+      kaldi::CuMatrixBase<float>::AddMatMat<short>(&v144, &v150, 111, v90, 112, v91, 1.0);
+      v144 = &unk_1F2CFA908;
+      v145 = 0u;
+      v146 = 0u;
+      quasar::Bitmap::~Bitmap(&v144);
       if (*(v7 + 208) == 1)
       {
-        v91 = kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::PeepholeWeights(v7);
-        v92 = *(v91 + 16);
-        v93 = *(v91 + 32);
-        *&v147 = *(v91 + 8);
-        v146 = &unk_1F2CFCA48;
-        *(&v147 + 1) = v92;
-        *&v148 = v93;
-        LODWORD(v94) = 1.0;
-        kaldi::CuMatrixBase<float>::AddMatDiagVec(&v164, &v149, 111, &v146, v94, 1.0);
+        v92 = kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::PeepholeWeights(v7);
+        v93 = *(v92 + 16);
+        v94 = *(v92 + 32);
+        *&v145 = *(v92 + 8);
+        v144 = &unk_1F2CFCA48;
+        *(&v145 + 1) = v93;
+        *&v146 = v94;
+        kaldi::CuMatrixBase<float>::AddMatDiagVec(&v162, &v147, 111, &v144, 1.0, 1.0);
         v95 = kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::PeepholeWeights(v7);
         v96 = *(v95 + 16);
         v97 = *(v95 + 32);
-        *&v147 = *(v95 + 8) + 4 * *(v95 + 24);
-        v146 = &unk_1F2CFCA48;
-        *(&v147 + 1) = v96;
-        *&v148 = v97;
-        LODWORD(v98) = 1.0;
-        kaldi::CuMatrixBase<float>::AddMatDiagVec(&v161, &v149, 111, &v146, v98, 1.0);
+        *&v145 = *(v95 + 8) + 4 * *(v95 + 24);
+        v144 = &unk_1F2CFCA48;
+        *(&v145 + 1) = v96;
+        *&v146 = v97;
+        kaldi::CuMatrixBase<float>::AddMatDiagVec(&v159, &v147, 111, &v144, 1.0, 1.0);
       }
 
-      kaldi::CuMatrixBase<float>::Sigmoid(&v164, &v164);
-      kaldi::CuMatrixBase<float>::Sigmoid(&v161, &v161);
-      kaldi::CuMatrixBase<float>::ApplyTanh(&v158);
-      kaldi::CuMatrixBase<float>::AddMatEwpMat(&v155, &v164, 111, &v158, 111, 1.0, 0.0);
-      kaldi::CuMatrixBase<float>::AddMatEwpMat(&v155, &v161, 111, &v149, 111, 1.0, 1.0);
-      v99 = *(v7 + 476);
-      if (v99 > 0.0)
+      kaldi::CuMatrixBase<float>::Sigmoid(&v162, &v162);
+      kaldi::CuMatrixBase<float>::Sigmoid(&v159, &v159);
+      kaldi::CuMatrixBase<float>::ApplyTanh(&v156);
+      kaldi::CuMatrixBase<float>::AddMatEwpMat(&v153, &v162, 111, &v156, 111, 1.0, 0.0);
+      kaldi::CuMatrixBase<float>::AddMatEwpMat(&v153, &v159, 111, &v147, 111, 1.0, 1.0);
+      v98 = *(v7 + 476);
+      if (v98 > 0.0)
       {
-        kaldi::CuMatrixBase<float>::ApplyCeiling(&v155, v99);
-        kaldi::CuMatrixBase<float>::ApplyFloor(&v155, -*(v7 + 476));
+        kaldi::CuMatrixBase<float>::ApplyCeiling(&v153, v98);
+        kaldi::CuMatrixBase<float>::ApplyFloor(&v153, -*(v7 + 476));
       }
 
-      v100 = *(v7 + 176);
-      v101 = *(v19 + 24);
-      v102 = *(v19 + 8) + 4 * (v101 * v23) + 8 * v100;
-      v103 = *(v19 + 28) - (v101 * v23 + 2 * v100);
-      v104 = *(v19 + 32);
-      DWORD2(v147) = *(v7 + 176);
-      HIDWORD(v147) = v9;
-      *&v148 = __PAIR64__(v103, v101);
-      *(&v148 + 1) = v104;
-      v146 = &unk_1F2CFA908;
-      *&v147 = v102;
+      v99 = *(v7 + 176);
+      v100 = *(v19 + 24);
+      v101 = *(v19 + 8) + 4 * (v100 * v24) + 8 * v99;
+      v102 = *(v19 + 28) - (v100 * v24 + 2 * v99);
+      v103 = *(v19 + 32);
+      DWORD2(v145) = *(v7 + 176);
+      HIDWORD(v145) = v9;
+      *&v146 = __PAIR64__(v102, v100);
+      *(&v146 + 1) = v103;
+      v144 = &unk_1F2CFA908;
+      *&v145 = v101;
       if (*(v7 + 208) == 1)
       {
-        v105 = kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::PeepholeWeights(v7);
-        v106 = *(v105 + 16);
-        v107 = *(v105 + 32);
-        *&v144 = *(v105 + 8) + 8 * *(v105 + 24);
-        v143 = &unk_1F2CFCA48;
-        *(&v144 + 1) = v106;
-        *&v145 = v107;
-        LODWORD(v108) = 1.0;
-        kaldi::CuMatrixBase<float>::AddMatDiagVec(&v146, &v155, 111, &v143, v108, 1.0);
+        v104 = kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::PeepholeWeights(v7);
+        v105 = *(v104 + 16);
+        v106 = *(v104 + 32);
+        *&v142 = *(v104 + 8) + 8 * *(v104 + 24);
+        v141 = &unk_1F2CFCA48;
+        *(&v142 + 1) = v105;
+        *&v143 = v106;
+        kaldi::CuMatrixBase<float>::AddMatDiagVec(&v144, &v153, 111, &v141, 1.0, 1.0);
       }
 
-      kaldi::CuMatrixBase<float>::Sigmoid(&v146, &v146);
-      v109 = *(v7 + 296) + 48 * v38;
-      v110 = *(v109 + 16);
-      v111 = *(v109 + 24);
-      v112 = *(v109 + 8) + 4 * (v111 * v23);
-      v113 = *(v109 + 28) - v111 * v23;
-      v114 = *(v109 + 32);
-      *(&v144 + 1) = __PAIR64__(v136, v110);
-      *&v145 = __PAIR64__(v113, v111);
-      *(&v145 + 1) = v114;
-      v143 = &unk_1F2CFA908;
-      *&v144 = v112;
-      kaldi::CuMatrixBase<float>::Tanh(&v143, &v155);
-      v115 = *(v7 + 320) + 48 * v38;
-      v116 = *(v115 + 16);
-      v117 = *(v115 + 24);
-      v118 = *(v115 + 8) + 4 * (v117 * v23);
-      v119 = *(v115 + 28) - v117 * v23;
-      v120 = *(v115 + 32);
-      *(&v141 + 1) = __PAIR64__(v136, v116);
-      *&v142 = __PAIR64__(v119, v117);
-      *(&v142 + 1) = v120;
-      v140 = &unk_1F2CFA908;
-      *&v141 = v118;
-      kaldi::CuMatrixBase<float>::AddMatEwpMat(&v140, &v146, 111, &v143, 111, 1.0, 0.0);
-      v121 = *(v134 + 24);
-      v122 = *(v134 + 8) + 4 * (v121 * v23);
-      v123 = *(v134 + 28) - v121 * v23;
-      v124 = *(v134 + 32);
+      kaldi::CuMatrixBase<float>::Sigmoid(&v144, &v144);
+      v107 = *(v7 + 296) + 48 * v39;
+      v108 = *(v107 + 16);
+      v109 = *(v107 + 24);
+      v110 = *(v107 + 8) + 4 * (v109 * v24);
+      v111 = *(v107 + 28) - v109 * v24;
+      v112 = *(v107 + 32);
+      *(&v142 + 1) = __PAIR64__(v134, v108);
+      *&v143 = __PAIR64__(v111, v109);
+      *(&v143 + 1) = v112;
+      v141 = &unk_1F2CFA908;
+      *&v142 = v110;
+      kaldi::CuMatrixBase<float>::Tanh(&v141, &v153);
+      v113 = *(v7 + 320) + 48 * v39;
+      v114 = *(v113 + 16);
+      v115 = *(v113 + 24);
+      v116 = *(v113 + 8) + 4 * (v115 * v24);
+      v117 = *(v113 + 28) - v115 * v24;
+      v118 = *(v113 + 32);
+      *(&v139 + 1) = __PAIR64__(v134, v114);
+      *&v140 = __PAIR64__(v117, v115);
+      *(&v140 + 1) = v118;
+      v138 = &unk_1F2CFA908;
+      *&v139 = v116;
+      kaldi::CuMatrixBase<float>::AddMatEwpMat(&v138, &v144, 111, &v141, 111, 1.0, 0.0);
+      v119 = *(v132 + 24);
+      v120 = *(v132 + 8) + 4 * (v119 * v24);
+      v121 = *(v132 + 28) - v119 * v24;
+      v122 = *(v132 + 32);
       if (*(v7 + 224) == 1)
       {
-        DWORD2(v138) = *(v134 + 16);
-        HIDWORD(v138) = v136;
-        *&v139 = __PAIR64__(v123, v121);
-        *(&v139 + 1) = v124;
-        v137 = &unk_1F2CFA908;
-        *&v138 = v122;
-        v125 = kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::ProjectionWeights(v7);
-        LODWORD(v126) = 1.0;
-        kaldi::CuMatrixBase<float>::AddMatMat<short>(&v137, &v140, 111, v125, 112, v126, 0.0);
+        DWORD2(v136) = *(v132 + 16);
+        HIDWORD(v136) = v134;
+        *&v137 = __PAIR64__(v121, v119);
+        *(&v137 + 1) = v122;
+        v135 = &unk_1F2CFA908;
+        *&v136 = v120;
+        v123 = kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::ProjectionWeights(v7);
+        LODWORD(v124) = 1.0;
+        kaldi::CuMatrixBase<float>::AddMatMat<short>(&v135, &v138, 111, v123, 112, v124, 0.0);
       }
 
       else
       {
-        DWORD2(v138) = *(v134 + 16);
-        HIDWORD(v138) = v136;
-        *&v139 = __PAIR64__(v123, v121);
-        *(&v139 + 1) = v124;
-        v137 = &unk_1F2CFA908;
-        *&v138 = v122;
-        kaldi::CuMatrixBase<float>::CopyFromMat<float>(&v137, &v140, 111);
+        DWORD2(v136) = *(v132 + 16);
+        HIDWORD(v136) = v134;
+        *&v137 = __PAIR64__(v121, v119);
+        *(&v137 + 1) = v122;
+        v135 = &unk_1F2CFA908;
+        *&v136 = v120;
+        kaldi::CuMatrixBase<float>::CopyFromMat<float>(&v135, &v138, 111);
       }
 
-      v137 = &unk_1F2CFA908;
-      v138 = 0u;
+      v135 = &unk_1F2CFA908;
+      v136 = 0u;
+      v137 = 0u;
+      quasar::Bitmap::~Bitmap(&v135);
+      v138 = &unk_1F2CFA908;
       v139 = 0u;
-      quasar::Bitmap::~Bitmap(&v137);
-      v140 = &unk_1F2CFA908;
-      v141 = 0u;
+      v140 = 0u;
+      quasar::Bitmap::~Bitmap(&v138);
+      v141 = &unk_1F2CFA908;
       v142 = 0u;
-      quasar::Bitmap::~Bitmap(&v140);
-      v143 = &unk_1F2CFA908;
-      v144 = 0u;
+      v143 = 0u;
+      quasar::Bitmap::~Bitmap(&v141);
+      v144 = &unk_1F2CFA908;
       v145 = 0u;
-      quasar::Bitmap::~Bitmap(&v143);
-      v146 = &unk_1F2CFA908;
-      v147 = 0u;
+      v146 = 0u;
+      quasar::Bitmap::~Bitmap(&v144);
+      v147 = &unk_1F2CFA908;
       v148 = 0u;
-      quasar::Bitmap::~Bitmap(&v146);
-      v149 = &unk_1F2CFA908;
-      v150 = 0u;
+      v149 = 0u;
+      quasar::Bitmap::~Bitmap(&v147);
+      v150 = &unk_1F2CFA908;
       v151 = 0u;
-      quasar::Bitmap::~Bitmap(&v149);
-      v152 = &unk_1F2CFA908;
-      v153 = 0u;
+      v152 = 0u;
+      quasar::Bitmap::~Bitmap(&v150);
+      v153 = &unk_1F2CFA908;
       v154 = 0u;
-      quasar::Bitmap::~Bitmap(&v152);
-      v155 = &unk_1F2CFA908;
-      v156 = 0u;
+      v155 = 0u;
+      quasar::Bitmap::~Bitmap(&v153);
+      v156 = &unk_1F2CFA908;
       v157 = 0u;
-      quasar::Bitmap::~Bitmap(&v155);
-      v158 = &unk_1F2CFA908;
-      v159 = 0u;
+      v158 = 0u;
+      quasar::Bitmap::~Bitmap(&v156);
+      v159 = &unk_1F2CFA908;
       v160 = 0u;
-      quasar::Bitmap::~Bitmap(&v158);
-      v161 = &unk_1F2CFA908;
-      v162 = 0u;
+      v161 = 0u;
+      quasar::Bitmap::~Bitmap(&v159);
+      v162.__locale_ = &unk_1F2CFA908;
       v163 = 0u;
-      quasar::Bitmap::~Bitmap(&v161);
-      v164.__locale_ = &unk_1F2CFA908;
-      v165 = 0u;
-      v166 = 0u;
-      quasar::Bitmap::~Bitmap(&v164);
-      v25 = v135 + 1;
-      v24 += v131;
-      v23 += v132;
-      LODWORD(v9) = v136;
-      v7 = v130;
+      v164 = 0u;
+      quasar::Bitmap::~Bitmap(&v162);
+      v26 = v133 + 1;
+      v25 += v129;
+      v24 += v130;
+      LODWORD(v9) = v134;
+      v7 = v128;
     }
 
-    while (v133 != v135 + 1);
+    while (v131 != v133 + 1);
   }
 
-  kaldi::CuMatrixBase<float>::CopyFromMat<float>(a3, v134, 111);
+  kaldi::CuMatrixBase<float>::CopyFromMat<float>(a3, v132, 111);
   kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::SaveLastState(v7, a4);
 }
 
@@ -1475,9 +1473,9 @@ void kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::AllocateForward
   *(*(a1 + 344) + 48 * a2 + 32) = a4;
 }
 
-void sub_1B53DD894(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B53DD894(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   kaldi::KaldiVlogMessage::~KaldiVlogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -1584,25 +1582,24 @@ void kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::PropagateFnc(vo
   kaldi::CuVectorBase<float>::AddMatVec<short>();
 }
 
-void sub_1B53DDD18()
+void sub_1B53DDD18(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *a25, uint64_t a26, uint64_t a27, uint64_t a28, void *a29, uint64_t a30, uint64_t a31, uint64_t a32, void *a33, uint64_t a34, uint64_t a35, uint64_t a36)
 {
-  kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::Bias(v0);
-  LODWORD(v2) = 1.0;
-  kaldi::CuVectorBase<float>::AddVec(v2, 1.0);
-  v3 = *(v0 + 176);
-  v4 = *(v1 - 72);
-  v5 = *(v1 - 56);
-  *(v1 - 152) = v5;
-  *(v1 - 144) = &unk_1F2CFCA48;
-  *(v1 - 136) = v4;
-  *(v1 - 128) = 0;
-  *(v1 - 128) = v3;
-  *(v1 - 120) = v5;
-  *(v1 - 176) = &unk_1F2CFCA48;
-  *(v1 - 168) = v4 + 4 * v3;
-  *(v1 - 160) = 0;
-  *(v1 - 160) = v3;
-  kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::RecurrentWeights(v0);
+  v38 = kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::Bias(v36);
+  kaldi::CuVectorBase<float>::AddVec(v37 - 80, v38, 1.0, 1.0);
+  v39 = *(v36 + 176);
+  v40 = *(v37 - 72);
+  v41 = *(v37 - 56);
+  *(v37 - 152) = v41;
+  *(v37 - 144) = &unk_1F2CFCA48;
+  *(v37 - 136) = v40;
+  *(v37 - 128) = 0;
+  *(v37 - 128) = v39;
+  *(v37 - 120) = v41;
+  *(v37 - 176) = &unk_1F2CFCA48;
+  *(v37 - 168) = v40 + 4 * v39;
+  *(v37 - 160) = 0;
+  *(v37 - 160) = v39;
+  kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::RecurrentWeights(v36);
   kaldi::CuVectorBase<float>::AddMatVec<short>();
 }
 
@@ -1637,18 +1634,18 @@ void kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::BackpropagateFn
   kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::EnsureTrainingBuffers(a1);
   if (kaldi::g_kaldi_verbose_level >= 3)
   {
-    kaldi::KaldiVlogMessage::KaldiVlogMessage(&v191, 3);
-    v11 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v191, "Running backward propagation for batch size = ", 46);
+    kaldi::KaldiVlogMessage::KaldiVlogMessage(&v188, 3);
+    v11 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v188, "Running backward propagation for batch size = ", 46);
     v12 = MEMORY[0x1B8C84C00](v11, v9);
     v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, ", which contains ", 17);
     v14 = MEMORY[0x1B8C84C00](v13, (v9 / v10));
     v15 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v14, " frames each from ", 18);
     v16 = MEMORY[0x1B8C84C00](v15, v10);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v16, " utterances.", 12);
-    kaldi::KaldiVlogMessage::~KaldiVlogMessage(&v191);
+    kaldi::KaldiVlogMessage::~KaldiVlogMessage(&v188);
   }
 
-  v133 = a5;
+  v130 = a5;
   if (a5)
   {
     v17 = a5;
@@ -1665,14 +1662,14 @@ void kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::BackpropagateFn
   v20 = 3 * a6;
   v21 = *(a1 + 248) + 48 * a6;
   v22 = *(a1 + 440) + 16 * v20;
-  v134 = (*(a1 + 368) + 16 * v20);
-  v144 = *(a1 + 416);
+  v131 = (*(a1 + 368) + 16 * v20);
+  v141 = *(a1 + 416);
   v23 = *(a1 + 104);
-  v140 = v19;
-  v142 = (v9 / v10);
+  v137 = v19;
+  v139 = (v9 / v10);
   if (*(a1 + 112) == v23 || *(v23 + 32 * v19 + 16) < 1)
   {
-    v139 = 0;
+    v136 = 0;
     v24 = a1;
   }
 
@@ -1681,514 +1678,515 @@ void kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::BackpropagateFn
     v24 = a1;
     v25 = (*(a1 + 128) + 48 * v19);
     v25[4] = v18;
-    v139 = 1;
+    v136 = 1;
     kaldi::CuMatrix<float>::Resize(v25, v10, *(v22 + 16), 1, 0);
   }
 
-  kaldi::CuMatrixBase<float>::CopyFromMat<float>(v134, a4, 111);
+  kaldi::CuMatrixBase<float>::CopyFromMat<float>(v131, a4, 111);
   v26 = *(v24 + 176);
   v27 = *(v21 + 20);
   v28 = *(v21 + 24);
   v29 = *(v21 + 28);
   v30 = *(v21 + 32);
-  *&v192 = *(v21 + 8);
-  *(&v192 + 1) = __PAIR64__(v27, v26);
-  *&v193 = __PAIR64__(v29, v28);
-  *(&v193 + 1) = v30;
-  v191.__locale_ = &unk_1F2CFA908;
-  *&v189 = v192 + 4 * v26;
+  *&v189 = *(v21 + 8);
   *(&v189 + 1) = __PAIR64__(v27, v26);
-  LODWORD(v190) = v28;
-  DWORD1(v190) = v29 - v26;
+  *&v190 = __PAIR64__(v29, v28);
   *(&v190 + 1) = v30;
-  v188 = &unk_1F2CFA908;
+  v188.__locale_ = &unk_1F2CFA908;
+  *&v186 = v189 + 4 * v26;
+  *(&v186 + 1) = __PAIR64__(v27, v26);
+  LODWORD(v187) = v28;
+  DWORD1(v187) = v29 - v26;
+  *(&v187 + 1) = v30;
+  v185 = &unk_1F2CFA908;
   v31 = *(v21 + 20);
   v32 = *(v21 + 24);
   v33 = *(v21 + 28) - 2 * v26;
   v34 = *(v21 + 32);
-  *&v186 = *(v21 + 8) + 8 * v26;
-  *(&v186 + 1) = __PAIR64__(v31, v26);
-  *&v187 = __PAIR64__(v33, v32);
-  *(&v187 + 1) = v34;
-  v185 = &unk_1F2CFA908;
-  v35 = *(v21 + 28) - 3 * v26;
-  *&v183 = *(v21 + 8) + 12 * v26;
+  *&v183 = *(v21 + 8) + 8 * v26;
   *(&v183 + 1) = __PAIR64__(v31, v26);
-  *&v184 = __PAIR64__(v35, v32);
+  *&v184 = __PAIR64__(v33, v32);
   *(&v184 + 1) = v34;
   v182 = &unk_1F2CFA908;
+  v35 = *(v21 + 28) - 3 * v26;
+  *&v180 = *(v21 + 8) + 12 * v26;
+  *(&v180 + 1) = __PAIR64__(v31, v26);
+  *&v181 = __PAIR64__(v35, v32);
+  *(&v181 + 1) = v34;
+  v179 = &unk_1F2CFA908;
   v36 = *(v22 + 20);
   v37 = *(v22 + 24);
   v38 = *(v22 + 28);
   v39 = *(v22 + 32);
-  *&v180 = *(v22 + 8);
-  *(&v180 + 1) = __PAIR64__(v36, v26);
-  *&v181 = __PAIR64__(v38, v37);
-  *(&v181 + 1) = v39;
-  v179 = &unk_1F2CFA908;
-  *&v177 = v180 + 4 * v26;
+  *&v177 = *(v22 + 8);
   *(&v177 + 1) = __PAIR64__(v36, v26);
-  LODWORD(v178) = v37;
-  DWORD1(v178) = v38 - v26;
+  *&v178 = __PAIR64__(v38, v37);
   *(&v178 + 1) = v39;
   v176 = &unk_1F2CFA908;
+  *&v174 = v177 + 4 * v26;
+  *(&v174 + 1) = __PAIR64__(v36, v26);
+  LODWORD(v175) = v37;
+  DWORD1(v175) = v38 - v26;
+  *(&v175 + 1) = v39;
+  v173 = &unk_1F2CFA908;
   v40 = *(v22 + 20);
   v41 = *(v22 + 24);
   v42 = *(v22 + 28) - 2 * v26;
   v43 = *(v22 + 32);
-  *&v174 = *(v22 + 8) + 8 * v26;
-  *(&v174 + 1) = __PAIR64__(v40, v26);
-  *&v175 = __PAIR64__(v42, v41);
-  *(&v175 + 1) = v43;
-  v173 = &unk_1F2CFA908;
-  v44 = *(v22 + 28) - 3 * v26;
-  *&v171 = *(v22 + 8) + 12 * v26;
+  *&v171 = *(v22 + 8) + 8 * v26;
   *(&v171 + 1) = __PAIR64__(v40, v26);
-  *&v172 = __PAIR64__(v44, v41);
+  *&v172 = __PAIR64__(v42, v41);
   *(&v172 + 1) = v43;
   v170 = &unk_1F2CFA908;
-  kaldi::CuMatrixBase<float>::DiffSigmoid(&v179, &v191, &v182);
-  *&v169[0] = v177 + 4 * v178 * v10;
-  DWORD2(v169[0]) = DWORD2(v177);
-  HIDWORD(v169[0]) = v9 - v10;
-  LODWORD(v169[1]) = v178;
-  DWORD1(v169[1]) = DWORD1(v178) - v178 * v10;
-  *(&v169[1] + 1) = *(&v178 + 1);
-  v168 = &unk_1F2CFA908;
-  *&v166 = v189 + 4 * v190 * v10;
-  DWORD2(v166) = DWORD2(v189);
-  HIDWORD(v166) = v9 - v10;
-  LODWORD(v167) = v190;
-  DWORD1(v167) = DWORD1(v190) - v190 * v10;
-  *(&v167 + 1) = *(&v190 + 1);
+  v44 = *(v22 + 28) - 3 * v26;
+  *&v168 = *(v22 + 8) + 12 * v26;
+  *(&v168 + 1) = __PAIR64__(v40, v26);
+  *&v169 = __PAIR64__(v44, v41);
+  *(&v169 + 1) = v43;
+  v167 = &unk_1F2CFA908;
+  kaldi::CuMatrixBase<float>::DiffSigmoid(&v176, &v188, &v179);
+  *&v166[0] = v174 + 4 * v175 * v10;
+  DWORD2(v166[0]) = DWORD2(v174);
+  HIDWORD(v166[0]) = v9 - v10;
+  LODWORD(v166[1]) = v175;
+  DWORD1(v166[1]) = DWORD1(v175) - v175 * v10;
+  *(&v166[1] + 1) = *(&v175 + 1);
   v165 = &unk_1F2CFA908;
-  v45 = *(v24 + 272) + 48 * v140;
+  *&v163 = v186 + 4 * v187 * v10;
+  DWORD2(v163) = DWORD2(v186);
+  HIDWORD(v163) = v9 - v10;
+  LODWORD(v164) = v187;
+  DWORD1(v164) = DWORD1(v187) - v187 * v10;
+  *(&v164 + 1) = *(&v187 + 1);
+  v162 = &unk_1F2CFA908;
+  v45 = *(v24 + 272) + 48 * v137;
   v46 = *(v45 + 16);
   v47 = *(v45 + 32);
-  *&v163 = *(v45 + 8);
-  DWORD2(v163) = v46;
-  HIDWORD(v163) = v9 - v10;
-  *&v164 = *(v45 + 24);
-  *(&v164 + 1) = v47;
-  v162 = &unk_1F2CFA908;
-  kaldi::CuMatrixBase<float>::DiffSigmoid(&v168, &v165, &v162);
+  *&v160 = *(v45 + 8);
+  DWORD2(v160) = v46;
+  HIDWORD(v160) = v9 - v10;
+  *&v161 = *(v45 + 24);
+  *(&v161 + 1) = v47;
+  v159 = &unk_1F2CFA908;
+  kaldi::CuMatrixBase<float>::DiffSigmoid(&v165, &v162, &v159);
+  v159 = &unk_1F2CFA908;
+  v160 = 0u;
+  v161 = 0u;
+  quasar::Bitmap::~Bitmap(&v159);
   v162 = &unk_1F2CFA908;
   v163 = 0u;
   v164 = 0u;
   quasar::Bitmap::~Bitmap(&v162);
   v165 = &unk_1F2CFA908;
-  v166 = 0u;
-  v167 = 0u;
+  memset(v166, 0, sizeof(v166));
   quasar::Bitmap::~Bitmap(&v165);
-  v168 = &unk_1F2CFA908;
-  memset(v169, 0, sizeof(v169));
-  quasar::Bitmap::~Bitmap(&v168);
-  *&v169[0] = v177;
-  *(&v169[0] + 1) = __PAIR64__(v10, DWORD2(v177));
-  v169[1] = v178;
-  v168 = &unk_1F2CFA908;
-  kaldi::CuMatrixBase<float>::SetZero(&v168);
-  v168 = &unk_1F2CFA908;
-  memset(v169, 0, sizeof(v169));
-  quasar::Bitmap::~Bitmap(&v168);
-  v48 = v140;
+  *&v166[0] = v174;
+  *(&v166[0] + 1) = __PAIR64__(v10, DWORD2(v174));
+  v166[1] = v175;
+  v165 = &unk_1F2CFA908;
+  kaldi::CuMatrixBase<float>::SetZero(&v165);
+  v165 = &unk_1F2CFA908;
+  memset(v166, 0, sizeof(v166));
+  quasar::Bitmap::~Bitmap(&v165);
+  v48 = v137;
   v49 = a1;
-  v136 = v22;
-  if (v139)
+  v133 = v22;
+  if (v136)
   {
-    v50 = *(a1 + 128) + 48 * v140;
+    v50 = *(a1 + 128) + 48 * v137;
     v51 = *(a1 + 176);
     v52 = *(v50 + 28);
     v53 = *(v50 + 32);
-    *&v169[0] = *(v50 + 8);
-    DWORD2(v169[0]) = v51;
-    *(v169 + 12) = *(v50 + 20);
-    DWORD1(v169[1]) = v52;
-    *(&v169[1] + 1) = v53;
-    v168 = &unk_1F2CFA908;
-    kaldi::CuMatrixBase<float>::SetZero(&v168);
-    v54 = v142 - 1;
+    *&v166[0] = *(v50 + 8);
+    DWORD2(v166[0]) = v51;
+    *(v166 + 12) = *(v50 + 20);
+    DWORD1(v166[1]) = v52;
+    *(&v166[1] + 1) = v53;
+    v165 = &unk_1F2CFA908;
+    kaldi::CuMatrixBase<float>::SetZero(&v165);
+    v54 = v139 - 1;
     v55 = v10;
     v56 = 4 * v10;
     do
     {
-      *(&v166 + 1) = __PAIR64__(v10, DWORD2(v177));
-      LODWORD(v167) = v178;
-      DWORD1(v167) = DWORD1(v178) - v178 * v55;
-      *(&v167 + 1) = *(&v178 + 1);
-      *&v166 = v177 + 4 * v178 * v55;
-      v165 = &unk_1F2CFA908;
-      v57 = *(a1 + 104) + 32 * v140;
-      *(&v163 + 1) = 0;
-      v162 = &unk_1F2CFCA48;
-      *&v163 = *(v57 + 8) + v56;
-      DWORD2(v163) = v10;
-      *&v164 = *(v57 + 24);
-      kaldi::CuMatrixBase<float>::CopySelectedRows(&v165, &v168, &v162, 0);
-      v165 = &unk_1F2CFA908;
-      v166 = 0u;
-      v167 = 0u;
-      quasar::Bitmap::~Bitmap(&v165);
+      *(&v163 + 1) = __PAIR64__(v10, DWORD2(v174));
+      LODWORD(v164) = v175;
+      DWORD1(v164) = DWORD1(v175) - v175 * v55;
+      *(&v164 + 1) = *(&v175 + 1);
+      *&v163 = v174 + 4 * v175 * v55;
+      v162 = &unk_1F2CFA908;
+      v57 = *(a1 + 104) + 32 * v137;
+      *(&v160 + 1) = 0;
+      v159 = &unk_1F2CFCA48;
+      *&v160 = *(v57 + 8) + v56;
+      DWORD2(v160) = v10;
+      *&v161 = *(v57 + 24);
+      kaldi::CuMatrixBase<float>::CopySelectedRows(&v162, &v165, &v159, 0);
+      v162 = &unk_1F2CFA908;
+      v163 = 0u;
+      v164 = 0u;
+      quasar::Bitmap::~Bitmap(&v162);
       v56 += 4 * v10;
       v55 += v10;
       --v54;
     }
 
     while (v54);
-    v168 = &unk_1F2CFA908;
-    memset(v169, 0, sizeof(v169));
-    quasar::Bitmap::~Bitmap(&v168);
-    v48 = v140;
+    v165 = &unk_1F2CFA908;
+    memset(v166, 0, sizeof(v166));
+    quasar::Bitmap::~Bitmap(&v165);
+    v48 = v137;
     v49 = a1;
   }
 
-  kaldi::CuMatrixBase<float>::DiffSigmoid(&v173, &v185, *(v49 + 296) + 48 * v48);
-  kaldi::CuMatrixBase<float>::DiffTanh(&v170, &v182, &v191);
-  v58 = v144 + 16 * v20;
-  kaldi::CuMatrixBase<float>::DiffTanh(v58, *(v49 + 296) + 48 * v48, &v185);
+  kaldi::CuMatrixBase<float>::DiffSigmoid(&v170, &v182, *(v49 + 296) + 48 * v48);
+  kaldi::CuMatrixBase<float>::DiffTanh(&v167, &v179, &v188);
+  v58 = v141 + 16 * v20;
+  kaldi::CuMatrixBase<float>::DiffTanh(v58, *(v49 + 296) + 48 * v48, &v182);
   v59 = 0;
-  v138 = v10 * (v142 - 1);
-  v143 = 0;
-  v145 = (v142 - 1);
-  v137 = 4 * (v10 + v10 * v145);
-  v135 = v10 * v142;
-  v60 = v134;
+  v135 = v10 * (v139 - 1);
+  v140 = 0;
+  v142 = (v139 - 1);
+  v134 = 4 * (v10 + v10 * v142);
+  v132 = v10 * v139;
+  v60 = v131;
   do
   {
-    v61 = v138 + v59;
+    v61 = v135 + v59;
     v62 = v60[6];
-    v63 = *(v60 + 1) + 4 * v62 * (v138 + v59);
-    v64 = v60[7] - v62 * (v138 + v59);
+    v63 = *(v60 + 1) + 4 * v62 * (v135 + v59);
+    v64 = v60[7] - v62 * (v135 + v59);
     v65 = *(v60 + 4);
-    DWORD2(v169[0]) = v60[4];
-    HIDWORD(v169[0]) = v10;
-    *&v169[1] = __PAIR64__(v64, v62);
-    *(&v169[1] + 1) = v65;
-    *&v169[0] = v63;
-    v168 = &unk_1F2CFA908;
+    DWORD2(v166[0]) = v60[4];
+    HIDWORD(v166[0]) = v10;
+    *&v166[1] = __PAIR64__(v64, v62);
+    *(&v166[1] + 1) = v65;
+    *&v166[0] = v63;
+    v165 = &unk_1F2CFA908;
     v66 = *(v49 + 392) + 48 * v48;
     LODWORD(v63) = *(v66 + 16);
     v67 = *(v66 + 24);
-    v68 = v67 * (v138 + v59);
+    v68 = v67 * (v135 + v59);
     v69 = *(v66 + 8) + 4 * v68;
     LODWORD(v65) = *(v66 + 28) - v68;
     v70 = *(v66 + 32);
-    *(&v166 + 1) = __PAIR64__(v10, v63);
-    *&v167 = __PAIR64__(v65, v67);
-    *(&v167 + 1) = v70;
-    *&v166 = v69;
-    v165 = &unk_1F2CFA908;
+    *(&v163 + 1) = __PAIR64__(v10, v63);
+    *&v164 = __PAIR64__(v65, v67);
+    *(&v164 + 1) = v70;
+    *&v163 = v69;
+    v162 = &unk_1F2CFA908;
     if (*(v49 + 224) == 1)
     {
       v71 = kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::ProjectionWeights(v49);
       LODWORD(v72) = 1.0;
-      kaldi::CuMatrixBase<float>::AddMatMat<short>(&v165, &v168, 111, v71, 111, v72, 0.0);
+      kaldi::CuMatrixBase<float>::AddMatMat<short>(&v162, &v165, 111, v71, 111, v72, 0.0);
     }
 
     else
     {
-      kaldi::CuMatrixBase<float>::CopyFromMat<float>(&v165, &v168, 111);
+      kaldi::CuMatrixBase<float>::CopyFromMat<float>(&v162, &v165, 111);
     }
 
-    *&v163 = v174 + 4 * v175 * v61;
-    *(&v163 + 1) = __PAIR64__(v10, DWORD2(v174));
-    LODWORD(v164) = v175;
-    DWORD1(v164) = DWORD1(v175) - v175 * v61;
-    *(&v164 + 1) = *(&v175 + 1);
-    v162 = &unk_1F2CFA908;
-    kaldi::CuMatrixBase<float>::MulElements(&v162, &v165);
+    *&v160 = v171 + 4 * v172 * v61;
+    *(&v160 + 1) = __PAIR64__(v10, DWORD2(v171));
+    LODWORD(v161) = v172;
+    DWORD1(v161) = DWORD1(v172) - v172 * v61;
+    *(&v161 + 1) = *(&v172 + 1);
+    v159 = &unk_1F2CFA908;
+    kaldi::CuMatrixBase<float>::MulElements(&v159, &v162);
     v73 = *(v58 + 24);
     v74 = *(v58 + 8) + 4 * (v73 * v61);
     v75 = *(v58 + 28) - v73 * v61;
     v76 = *(v58 + 32);
-    DWORD2(v160) = *(v58 + 16);
-    HIDWORD(v160) = v10;
-    *&v161 = __PAIR64__(v75, v73);
-    *(&v161 + 1) = v76;
-    v159 = &unk_1F2CFA908;
-    *&v160 = v74;
-    kaldi::CuMatrixBase<float>::MulElements(&v159, &v165);
+    DWORD2(v157) = *(v58 + 16);
+    HIDWORD(v157) = v10;
+    *&v158 = __PAIR64__(v75, v73);
+    *(&v158 + 1) = v76;
+    v156 = &unk_1F2CFA908;
+    *&v157 = v74;
+    kaldi::CuMatrixBase<float>::MulElements(&v156, &v162);
     if (*(v49 + 208) == 1)
     {
       v77 = kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::PeepholeWeights(v49);
       v78 = *(v77 + 16);
       v79 = *(v77 + 32);
-      v158[0] = *(v77 + 8) + 8 * *(v77 + 24);
-      v157 = &unk_1F2CFCA48;
-      v158[1] = v78;
-      v158[2] = v79;
-      LODWORD(v80) = 1.0;
-      kaldi::CuMatrixBase<float>::AddMatDiagVec(&v159, &v162, 111, &v157, v80, 1.0);
+      v155[0] = *(v77 + 8) + 8 * *(v77 + 24);
+      v154 = &unk_1F2CFCA48;
+      v155[1] = v78;
+      v155[2] = v79;
+      kaldi::CuMatrixBase<float>::AddMatDiagVec(&v156, &v159, 111, &v154, 1.0, 1.0);
     }
 
-    if (v145 < v142 - 1)
+    if (v142 < v139 - 1)
     {
-      v81 = v135 + v59;
-      v82 = *(v58 + 24);
-      v83 = *(v58 + 8) + 4 * (v82 * (v135 + v59));
-      v84 = *(v58 + 28) - v82 * (v135 + v59);
-      v85 = *(v58 + 32);
-      LODWORD(v158[1]) = *(v58 + 16);
-      HIDWORD(v158[1]) = v10;
-      v158[2] = __PAIR64__(v84, v82);
-      v158[3] = v85;
-      v157 = &unk_1F2CFA908;
-      v158[0] = v83;
-      v156[0] = v189 + 4 * v190 * (v135 + v59);
-      v156[1] = __PAIR64__(v10, DWORD2(v189));
-      LODWORD(v156[2]) = v190;
-      HIDWORD(v156[2]) = DWORD1(v190) - v190 * (v135 + v59);
-      v156[3] = *(&v190 + 1);
-      v155 = &unk_1F2CFA908;
-      if (v139)
+      v80 = v132 + v59;
+      v81 = *(v58 + 24);
+      v82 = *(v58 + 8) + 4 * (v81 * (v132 + v59));
+      v83 = *(v58 + 28) - v81 * (v132 + v59);
+      v84 = *(v58 + 32);
+      LODWORD(v155[1]) = *(v58 + 16);
+      HIDWORD(v155[1]) = v10;
+      v155[2] = __PAIR64__(v83, v81);
+      v155[3] = v84;
+      v154 = &unk_1F2CFA908;
+      v155[0] = v82;
+      v153[0] = v186 + 4 * v187 * (v132 + v59);
+      v153[1] = __PAIR64__(v10, DWORD2(v186));
+      LODWORD(v153[2]) = v187;
+      HIDWORD(v153[2]) = DWORD1(v187) - v187 * (v132 + v59);
+      v153[3] = *(&v187 + 1);
+      v152 = &unk_1F2CFA908;
+      if (v136)
       {
-        v86 = *(v49 + 128) + 48 * v140;
-        v87 = *(v49 + 176);
-        v88 = *(v86 + 28);
-        v89 = *(v86 + 32);
-        v154[0] = *(v86 + 8);
-        LODWORD(v154[1]) = v87;
-        *(&v154[1] + 4) = *(v86 + 20);
-        HIDWORD(v154[2]) = v88;
-        v154[3] = v89;
-        v153 = &unk_1F2CFA908;
-        kaldi::CuMatrixBase<float>::SetZero(&v153);
-        v90 = *(v49 + 104) + 32 * v140;
-        v152[1] = 0;
-        v151 = &unk_1F2CFCA48;
-        v152[0] = *(v90 + 8) + v137 + v143;
-        LODWORD(v152[1]) = v10;
-        v152[2] = *(v90 + 24);
-        kaldi::CuMatrixBase<float>::CopySelectedRows(&v153, &v157, &v151, 1);
-        *&v158[1] = *&v154[1];
-        v158[0] = v154[0];
-        v158[3] = v154[3];
-        v91 = *(v49 + 128) + 48 * v140;
-        v92 = *(v49 + 176);
-        v93 = *(v91 + 28) - v92;
-        v94 = *(v91 + 32);
-        v152[0] = *(v91 + 8) + 4 * v92;
-        LODWORD(v152[1]) = v92;
-        *(&v152[1] + 4) = *(v91 + 20);
-        HIDWORD(v152[2]) = v93;
-        v152[3] = v94;
-        v151 = &unk_1F2CFA908;
-        kaldi::CuMatrixBase<float>::SetZero(&v151);
-        v95 = *(v49 + 104) + 32 * v140;
-        v150[2] = 0;
-        v150[0] = &unk_1F2CFCA48;
-        v150[1] = *(v95 + 8) + v137 + v143;
-        LODWORD(v150[2]) = v10;
-        v150[3] = *(v95 + 24);
-        kaldi::CuMatrixBase<float>::CopySelectedRows(&v151, &v155, v150, 1);
-        v156[0] = v152[0];
-        *&v156[1] = *&v152[1];
-        v156[3] = v152[3];
-        v151 = &unk_1F2CFA908;
-        memset(v152, 0, sizeof(v152));
-        quasar::Bitmap::~Bitmap(&v151);
-        v153 = &unk_1F2CFA908;
-        memset(v154, 0, sizeof(v154));
-        quasar::Bitmap::~Bitmap(&v153);
+        v85 = *(v49 + 128) + 48 * v137;
+        v86 = *(v49 + 176);
+        v87 = *(v85 + 28);
+        v88 = *(v85 + 32);
+        v151[0] = *(v85 + 8);
+        LODWORD(v151[1]) = v86;
+        *(&v151[1] + 4) = *(v85 + 20);
+        HIDWORD(v151[2]) = v87;
+        v151[3] = v88;
+        v150 = &unk_1F2CFA908;
+        kaldi::CuMatrixBase<float>::SetZero(&v150);
+        v89 = *(v49 + 104) + 32 * v137;
+        v149[1] = 0;
+        v148 = &unk_1F2CFCA48;
+        v149[0] = *(v89 + 8) + v134 + v140;
+        LODWORD(v149[1]) = v10;
+        v149[2] = *(v89 + 24);
+        kaldi::CuMatrixBase<float>::CopySelectedRows(&v150, &v154, &v148, 1);
+        *&v155[1] = *&v151[1];
+        v155[0] = v151[0];
+        v155[3] = v151[3];
+        v90 = *(v49 + 128) + 48 * v137;
+        v91 = *(v49 + 176);
+        v92 = *(v90 + 28) - v91;
+        v93 = *(v90 + 32);
+        v149[0] = *(v90 + 8) + 4 * v91;
+        LODWORD(v149[1]) = v91;
+        *(&v149[1] + 4) = *(v90 + 20);
+        HIDWORD(v149[2]) = v92;
+        v149[3] = v93;
+        v148 = &unk_1F2CFA908;
+        kaldi::CuMatrixBase<float>::SetZero(&v148);
+        v94 = *(v49 + 104) + 32 * v137;
+        v147[2] = 0;
+        v147[0] = &unk_1F2CFCA48;
+        v147[1] = *(v94 + 8) + v134 + v140;
+        LODWORD(v147[2]) = v10;
+        v147[3] = *(v94 + 24);
+        kaldi::CuMatrixBase<float>::CopySelectedRows(&v148, &v152, v147, 1);
+        v153[0] = v149[0];
+        *&v153[1] = *&v149[1];
+        v153[3] = v149[3];
+        v148 = &unk_1F2CFA908;
+        memset(v149, 0, sizeof(v149));
+        quasar::Bitmap::~Bitmap(&v148);
+        v150 = &unk_1F2CFA908;
+        memset(v151, 0, sizeof(v151));
+        quasar::Bitmap::~Bitmap(&v150);
         v49 = a1;
-        v60 = v134;
+        v60 = v131;
       }
 
       if (*(v49 + 208) == 1)
       {
-        v154[0] = v177 + 4 * v178 * v81;
-        v154[1] = __PAIR64__(v10, DWORD2(v177));
-        LODWORD(v154[2]) = v178;
-        HIDWORD(v154[2]) = DWORD1(v178) - v178 * v81;
-        v154[3] = *(&v178 + 1);
-        v152[1] = __PAIR64__(v10, DWORD2(v180));
-        LODWORD(v152[2]) = v181;
-        HIDWORD(v152[2]) = DWORD1(v181) - v181 * v81;
-        v152[3] = *(&v181 + 1);
-        v153 = &unk_1F2CFA908;
-        v151 = &unk_1F2CFA908;
-        v152[0] = v180 + 4 * v181 * v81;
-        if (v139)
+        v151[0] = v174 + 4 * v175 * v80;
+        v151[1] = __PAIR64__(v10, DWORD2(v174));
+        LODWORD(v151[2]) = v175;
+        HIDWORD(v151[2]) = DWORD1(v175) - v175 * v80;
+        v151[3] = *(&v175 + 1);
+        v149[1] = __PAIR64__(v10, DWORD2(v177));
+        LODWORD(v149[2]) = v178;
+        HIDWORD(v149[2]) = DWORD1(v178) - v178 * v80;
+        v149[3] = *(&v178 + 1);
+        v150 = &unk_1F2CFA908;
+        v148 = &unk_1F2CFA908;
+        v149[0] = v177 + 4 * v178 * v80;
+        if (v136)
         {
-          v96 = *(a1 + 128) + 48 * v140;
-          v97 = *(a1 + 176);
-          v98 = *(v96 + 28) - 2 * v97;
-          v99 = *(v96 + 32);
-          v150[1] = *(v96 + 8) + 8 * v97;
-          LODWORD(v150[2]) = v97;
-          *(&v150[2] + 4) = *(v96 + 20);
-          HIDWORD(v150[3]) = v98;
-          v150[4] = v99;
-          v150[0] = &unk_1F2CFA908;
-          kaldi::CuMatrixBase<float>::SetZero(v150);
-          v100 = *(a1 + 104) + 32 * v140;
-          v149[2] = 0;
-          v149[0] = &unk_1F2CFCA48;
-          v149[1] = *(v100 + 8) + v137 + v143;
-          LODWORD(v149[2]) = v10;
-          v149[3] = *(v100 + 24);
-          kaldi::CuMatrixBase<float>::CopySelectedRows(v150, &v153, v149, 1);
-          *&v154[1] = *&v150[2];
-          v154[0] = v150[1];
-          v154[3] = v150[4];
-          v101 = *(a1 + 128) + 48 * v140;
-          v102 = *(a1 + 176);
-          v103 = *(v101 + 28) - 3 * v102;
-          v104 = *(v101 + 32);
-          v149[1] = *(v101 + 8) + 12 * v102;
-          LODWORD(v149[2]) = v102;
-          *(&v149[2] + 4) = *(v101 + 20);
-          HIDWORD(v149[3]) = v103;
-          v149[4] = v104;
-          v149[0] = &unk_1F2CFA908;
-          kaldi::CuMatrixBase<float>::SetZero(v149);
-          v105 = *(a1 + 104) + 32 * v140;
-          v147 = 0;
+          v95 = *(a1 + 128) + 48 * v137;
+          v96 = *(a1 + 176);
+          v97 = *(v95 + 28) - 2 * v96;
+          v98 = *(v95 + 32);
+          v147[1] = *(v95 + 8) + 8 * v96;
+          LODWORD(v147[2]) = v96;
+          *(&v147[2] + 4) = *(v95 + 20);
+          HIDWORD(v147[3]) = v97;
+          v147[4] = v98;
+          v147[0] = &unk_1F2CFA908;
+          kaldi::CuMatrixBase<float>::SetZero(v147);
+          v99 = *(a1 + 104) + 32 * v137;
+          v146[2] = 0;
           v146[0] = &unk_1F2CFCA48;
-          v146[1] = *(v105 + 8) + v137 + v143;
-          LODWORD(v147) = v10;
-          v148 = *(v105 + 24);
-          kaldi::CuMatrixBase<float>::CopySelectedRows(v149, &v151, v146, 1);
-          v152[0] = v149[1];
-          *&v152[1] = *&v149[2];
-          v152[3] = v149[4];
-          v149[0] = &unk_1F2CFA908;
-          memset(&v149[1], 0, 32);
-          quasar::Bitmap::~Bitmap(v149);
-          v150[0] = &unk_1F2CFA908;
-          memset(&v150[1], 0, 32);
-          quasar::Bitmap::~Bitmap(v150);
-          v60 = v134;
+          v146[1] = *(v99 + 8) + v134 + v140;
+          LODWORD(v146[2]) = v10;
+          v146[3] = *(v99 + 24);
+          kaldi::CuMatrixBase<float>::CopySelectedRows(v147, &v150, v146, 1);
+          *&v151[1] = *&v147[2];
+          v151[0] = v147[1];
+          v151[3] = v147[4];
+          v100 = *(a1 + 128) + 48 * v137;
+          v101 = *(a1 + 176);
+          v102 = *(v100 + 28) - 3 * v101;
+          v103 = *(v100 + 32);
+          v146[1] = *(v100 + 8) + 12 * v101;
+          LODWORD(v146[2]) = v101;
+          *(&v146[2] + 4) = *(v100 + 20);
+          HIDWORD(v146[3]) = v102;
+          v146[4] = v103;
+          v146[0] = &unk_1F2CFA908;
+          kaldi::CuMatrixBase<float>::SetZero(v146);
+          v104 = *(a1 + 104) + 32 * v137;
+          v144 = 0;
+          v143[0] = &unk_1F2CFCA48;
+          v143[1] = *(v104 + 8) + v134 + v140;
+          LODWORD(v144) = v10;
+          v145 = *(v104 + 24);
+          kaldi::CuMatrixBase<float>::CopySelectedRows(v146, &v148, v143, 1);
+          v149[0] = v146[1];
+          *&v149[1] = *&v146[2];
+          v149[3] = v146[4];
+          v146[0] = &unk_1F2CFA908;
+          memset(&v146[1], 0, 32);
+          quasar::Bitmap::~Bitmap(v146);
+          v147[0] = &unk_1F2CFA908;
+          memset(&v147[1], 0, 32);
+          quasar::Bitmap::~Bitmap(v147);
+          v60 = v131;
         }
 
-        v106 = kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::PeepholeWeights(a1);
-        v107 = *(v106 + 16);
-        v108 = *(v106 + 32);
-        v150[1] = *(v106 + 8) + 4 * *(v106 + 24);
-        v150[0] = &unk_1F2CFCA48;
-        v150[2] = v107;
-        v150[3] = v108;
-        LODWORD(v109) = 1.0;
-        kaldi::CuMatrixBase<float>::AddMatDiagVec(&v159, &v153, 111, v150, v109, 1.0);
-        v110 = kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::PeepholeWeights(a1);
-        v111 = *(v110 + 16);
-        v112 = *(v110 + 32);
-        v150[1] = *(v110 + 8);
-        v150[0] = &unk_1F2CFCA48;
-        v150[2] = v111;
-        v150[3] = v112;
-        LODWORD(v113) = 1.0;
-        kaldi::CuMatrixBase<float>::AddMatDiagVec(&v159, &v151, 111, v150, v113, 1.0);
-        v151 = &unk_1F2CFA908;
-        memset(v152, 0, sizeof(v152));
-        quasar::Bitmap::~Bitmap(&v151);
-        v153 = &unk_1F2CFA908;
-        memset(v154, 0, sizeof(v154));
-        quasar::Bitmap::~Bitmap(&v153);
+        v105 = kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::PeepholeWeights(a1);
+        v106 = *(v105 + 16);
+        v107 = *(v105 + 32);
+        v147[1] = *(v105 + 8) + 4 * *(v105 + 24);
+        v147[0] = &unk_1F2CFCA48;
+        v147[2] = v106;
+        v147[3] = v107;
+        kaldi::CuMatrixBase<float>::AddMatDiagVec(&v156, &v150, 111, v147, 1.0, 1.0);
+        v108 = kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::PeepholeWeights(a1);
+        v109 = *(v108 + 16);
+        v110 = *(v108 + 32);
+        v147[1] = *(v108 + 8);
+        v147[0] = &unk_1F2CFCA48;
+        v147[2] = v109;
+        v147[3] = v110;
+        kaldi::CuMatrixBase<float>::AddMatDiagVec(&v156, &v148, 111, v147, 1.0, 1.0);
+        v148 = &unk_1F2CFA908;
+        memset(v149, 0, sizeof(v149));
+        quasar::Bitmap::~Bitmap(&v148);
+        v150 = &unk_1F2CFA908;
+        memset(v151, 0, sizeof(v151));
+        quasar::Bitmap::~Bitmap(&v150);
         v49 = a1;
       }
 
-      kaldi::CuMatrixBase<float>::AddMatEwpMat(&v159, &v157, 111, &v155, 111, 1.0, 1.0);
-      v155 = &unk_1F2CFA908;
-      memset(v156, 0, sizeof(v156));
-      quasar::Bitmap::~Bitmap(&v155);
-      v157 = &unk_1F2CFA908;
-      memset(v158, 0, sizeof(v158));
-      quasar::Bitmap::~Bitmap(&v157);
-      v48 = v140;
+      kaldi::CuMatrixBase<float>::AddMatEwpMat(&v156, &v154, 111, &v152, 111, 1.0, 1.0);
+      v152 = &unk_1F2CFA908;
+      memset(v153, 0, sizeof(v153));
+      quasar::Bitmap::~Bitmap(&v152);
+      v154 = &unk_1F2CFA908;
+      memset(v155, 0, sizeof(v155));
+      quasar::Bitmap::~Bitmap(&v154);
+      v48 = v137;
     }
 
-    v158[1] = __PAIR64__(v10, DWORD2(v180));
-    LODWORD(v158[2]) = v181;
-    HIDWORD(v158[2]) = DWORD1(v181) - v181 * v61;
-    v158[3] = *(&v181 + 1);
-    v157 = &unk_1F2CFA908;
-    v158[0] = v180 + 4 * v181 * v61;
-    kaldi::CuMatrixBase<float>::MulElements(&v157, &v159);
-    v157 = &unk_1F2CFA908;
-    memset(v158, 0, sizeof(v158));
-    quasar::Bitmap::~Bitmap(&v157);
-    v158[1] = __PAIR64__(v10, DWORD2(v171));
-    LODWORD(v158[2]) = v172;
-    HIDWORD(v158[2]) = DWORD1(v172) - v172 * v61;
-    v158[3] = *(&v172 + 1);
-    v157 = &unk_1F2CFA908;
-    v158[0] = v171 + 4 * v172 * v61;
-    kaldi::CuMatrixBase<float>::MulElements(&v157, &v159);
-    v157 = &unk_1F2CFA908;
-    memset(v158, 0, sizeof(v158));
-    quasar::Bitmap::~Bitmap(&v157);
-    if (v145)
+    v155[1] = __PAIR64__(v10, DWORD2(v177));
+    LODWORD(v155[2]) = v178;
+    HIDWORD(v155[2]) = DWORD1(v178) - v178 * v61;
+    v155[3] = *(&v178 + 1);
+    v154 = &unk_1F2CFA908;
+    v155[0] = v177 + 4 * v178 * v61;
+    kaldi::CuMatrixBase<float>::MulElements(&v154, &v156);
+    v154 = &unk_1F2CFA908;
+    memset(v155, 0, sizeof(v155));
+    quasar::Bitmap::~Bitmap(&v154);
+    v155[1] = __PAIR64__(v10, DWORD2(v168));
+    LODWORD(v155[2]) = v169;
+    HIDWORD(v155[2]) = DWORD1(v169) - v169 * v61;
+    v155[3] = *(&v169 + 1);
+    v154 = &unk_1F2CFA908;
+    v155[0] = v168 + 4 * v169 * v61;
+    kaldi::CuMatrixBase<float>::MulElements(&v154, &v156);
+    v154 = &unk_1F2CFA908;
+    memset(v155, 0, sizeof(v155));
+    quasar::Bitmap::~Bitmap(&v154);
+    if (v142)
     {
-      v158[1] = __PAIR64__(v10, DWORD2(v177));
-      LODWORD(v158[2]) = v178;
-      HIDWORD(v158[2]) = DWORD1(v178) - v178 * v61;
-      v158[3] = *(&v178 + 1);
-      v157 = &unk_1F2CFA908;
-      v158[0] = v177 + 4 * v178 * v61;
-      kaldi::CuMatrixBase<float>::MulElements(&v157, &v159);
-      v157 = &unk_1F2CFA908;
-      memset(v158, 0, sizeof(v158));
-      quasar::Bitmap::~Bitmap(&v157);
-      v114 = *(v136 + 16);
-      v115 = *(v136 + 24);
-      v116 = *(v136 + 8) + 4 * (v115 * v61);
-      v117 = *(v136 + 28) - v115 * v61;
-      v118 = *(v136 + 32);
-      v158[1] = __PAIR64__(v10, v114);
-      v158[2] = __PAIR64__(v117, v115);
-      v158[3] = v118;
-      v157 = &unk_1F2CFA908;
-      v158[0] = v116;
-      if (v139)
+      v155[1] = __PAIR64__(v10, DWORD2(v174));
+      LODWORD(v155[2]) = v175;
+      HIDWORD(v155[2]) = DWORD1(v175) - v175 * v61;
+      v155[3] = *(&v175 + 1);
+      v154 = &unk_1F2CFA908;
+      v155[0] = v174 + 4 * v175 * v61;
+      kaldi::CuMatrixBase<float>::MulElements(&v154, &v156);
+      v154 = &unk_1F2CFA908;
+      memset(v155, 0, sizeof(v155));
+      quasar::Bitmap::~Bitmap(&v154);
+      v111 = *(v133 + 16);
+      v112 = *(v133 + 24);
+      v113 = *(v133 + 8) + 4 * (v112 * v61);
+      v114 = *(v133 + 28) - v112 * v61;
+      v115 = *(v133 + 32);
+      v155[1] = __PAIR64__(v10, v111);
+      v155[2] = __PAIR64__(v114, v112);
+      v155[3] = v115;
+      v154 = &unk_1F2CFA908;
+      v155[0] = v113;
+      if (v136)
       {
-        v119 = *(v49 + 128) + 48 * v48;
-        v120 = *(v119 + 28);
-        v121 = *(v119 + 32);
-        v156[0] = *(v119 + 8);
-        LODWORD(v156[1]) = v114;
-        *(&v156[1] + 4) = *(v119 + 20);
-        HIDWORD(v156[2]) = v120;
-        v156[3] = v121;
-        v155 = &unk_1F2CFA908;
-        kaldi::CuMatrixBase<float>::SetZero(&v155);
-        v122 = *(v49 + 104) + 32 * v48;
-        v154[1] = 0;
-        v153 = &unk_1F2CFCA48;
-        v154[0] = *(v122 + 8) + 4 * v10 * (v142 - 1) + v143;
-        LODWORD(v154[1]) = v10;
-        v154[2] = *(v122 + 24);
-        kaldi::CuMatrixBase<float>::CopySelectedRows(&v155, &v157, &v153, 1);
-        *&v158[1] = *&v156[1];
-        v158[0] = v156[0];
-        v158[3] = v156[3];
-        v155 = &unk_1F2CFA908;
-        memset(v156, 0, sizeof(v156));
-        quasar::Bitmap::~Bitmap(&v155);
+        v116 = *(v49 + 128) + 48 * v48;
+        v117 = *(v116 + 28);
+        v118 = *(v116 + 32);
+        v153[0] = *(v116 + 8);
+        LODWORD(v153[1]) = v111;
+        *(&v153[1] + 4) = *(v116 + 20);
+        HIDWORD(v153[2]) = v117;
+        v153[3] = v118;
+        v152 = &unk_1F2CFA908;
+        kaldi::CuMatrixBase<float>::SetZero(&v152);
+        v119 = *(v49 + 104) + 32 * v48;
+        v151[1] = 0;
+        v150 = &unk_1F2CFCA48;
+        v151[0] = *(v119 + 8) + 4 * v10 * (v139 - 1) + v140;
+        LODWORD(v151[1]) = v10;
+        v151[2] = *(v119 + 24);
+        kaldi::CuMatrixBase<float>::CopySelectedRows(&v152, &v154, &v150, 1);
+        *&v155[1] = *&v153[1];
+        v155[0] = v153[0];
+        v155[3] = v153[3];
+        v152 = &unk_1F2CFA908;
+        memset(v153, 0, sizeof(v153));
+        quasar::Bitmap::~Bitmap(&v152);
       }
 
-      v123 = v60[6];
-      v124 = v123 * (v10 * (v142 - 2) + v59);
-      v125 = *(v60 + 1) + 4 * v124;
-      v126 = v60[7] - v124;
-      v127 = *(v60 + 4);
-      LODWORD(v156[1]) = v60[4];
-      HIDWORD(v156[1]) = v10;
-      v156[2] = __PAIR64__(v126, v123);
-      v156[3] = v127;
-      v155 = &unk_1F2CFA908;
-      v156[0] = v125;
-      v128 = kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::RecurrentWeights(v49);
-      LODWORD(v129) = 1.0;
-      kaldi::CuMatrixBase<float>::AddMatMat<short>(&v155, &v157, 111, v128, 111, v129, 1.0);
-      v155 = &unk_1F2CFA908;
-      memset(v156, 0, sizeof(v156));
-      quasar::Bitmap::~Bitmap(&v155);
-      v157 = &unk_1F2CFA908;
-      memset(v158, 0, sizeof(v158));
-      quasar::Bitmap::~Bitmap(&v157);
+      v120 = v60[6];
+      v121 = v120 * (v10 * (v139 - 2) + v59);
+      v122 = *(v60 + 1) + 4 * v121;
+      v123 = v60[7] - v121;
+      v124 = *(v60 + 4);
+      LODWORD(v153[1]) = v60[4];
+      HIDWORD(v153[1]) = v10;
+      v153[2] = __PAIR64__(v123, v120);
+      v153[3] = v124;
+      v152 = &unk_1F2CFA908;
+      v153[0] = v122;
+      v125 = kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::RecurrentWeights(v49);
+      LODWORD(v126) = 1.0;
+      kaldi::CuMatrixBase<float>::AddMatMat<short>(&v152, &v154, 111, v125, 111, v126, 1.0);
+      v152 = &unk_1F2CFA908;
+      memset(v153, 0, sizeof(v153));
+      quasar::Bitmap::~Bitmap(&v152);
+      v154 = &unk_1F2CFA908;
+      memset(v155, 0, sizeof(v155));
+      quasar::Bitmap::~Bitmap(&v154);
     }
 
+    v156 = &unk_1F2CFA908;
+    v157 = 0u;
+    v158 = 0u;
+    quasar::Bitmap::~Bitmap(&v156);
     v159 = &unk_1F2CFA908;
     v160 = 0u;
     v161 = 0u;
@@ -2198,26 +2196,26 @@ void kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::BackpropagateFn
     v164 = 0u;
     quasar::Bitmap::~Bitmap(&v162);
     v165 = &unk_1F2CFA908;
-    v166 = 0u;
-    v167 = 0u;
+    memset(v166, 0, sizeof(v166));
     quasar::Bitmap::~Bitmap(&v165);
-    v168 = &unk_1F2CFA908;
-    memset(v169, 0, sizeof(v169));
-    quasar::Bitmap::~Bitmap(&v168);
-    v130 = v145;
-    v143 -= 4 * v10;
-    --v145;
+    v127 = v142;
+    v140 -= 4 * v10;
+    --v142;
     v59 -= v10;
   }
 
-  while (v130 > 0);
-  if (v133)
+  while (v127 > 0);
+  if (v130)
   {
-    v131 = kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::InputWeights(v49);
-    LODWORD(v132) = 1.0;
-    kaldi::CuMatrixBase<float>::AddMatMat<short>(v133, v136, 111, v131, 111, v132, 0.0);
+    v128 = kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::InputWeights(v49);
+    LODWORD(v129) = 1.0;
+    kaldi::CuMatrixBase<float>::AddMatMat<short>(v130, v133, 111, v128, 111, v129, 0.0);
   }
 
+  v167 = &unk_1F2CFA908;
+  v168 = 0u;
+  v169 = 0u;
+  quasar::Bitmap::~Bitmap(&v167);
   v170 = &unk_1F2CFA908;
   v171 = 0u;
   v172 = 0u;
@@ -2242,14 +2240,10 @@ void kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::BackpropagateFn
   v186 = 0u;
   v187 = 0u;
   quasar::Bitmap::~Bitmap(&v185);
-  v188 = &unk_1F2CFA908;
+  v188.__locale_ = &unk_1F2CFA908;
   v189 = 0u;
   v190 = 0u;
   quasar::Bitmap::~Bitmap(&v188);
-  v191.__locale_ = &unk_1F2CFA908;
-  v192 = 0u;
-  v193 = 0u;
-  quasar::Bitmap::~Bitmap(&v191);
 }
 
 void sub_1B53DFA04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, unint64_t a10, unint64_t a11, unint64_t a12, unint64_t a13, unint64_t a14, unint64_t a15, unint64_t a16, unint64_t a17)
@@ -2315,9 +2309,9 @@ void kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::AllocateBackwar
   *(*(a1 + 440) + 48 * a2 + 32) = a4;
 }
 
-void sub_1B53DFF8C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B53DFF8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   kaldi::KaldiVlogMessage::~KaldiVlogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -2414,7 +2408,7 @@ void kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::AccumGradients(
   v60 = 0u;
   quasar::Bitmap::~Bitmap(&v58);
   v34 = kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::BiasGradient(a1, a5);
-  kaldi::CuVectorBase<float>::AddRowSumMat(v34, v17);
+  kaldi::CuVectorBase<float>::AddRowSumMat(v34, v17, 1.0, v18);
   if (*(a1 + 208) == 1)
   {
     v35 = kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::PeepholeWeightsGradient(a1, a5);
@@ -2835,34 +2829,34 @@ void *virtual thunk tokaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>
   return result;
 }
 
-void kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::NormalizeGradients(uint64_t a1, unsigned int a2, float a3)
+void kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::NormalizeGradients(uint64_t result, int a2, float a3)
 {
   v4 = a3;
-  v6 = *(a1 + 156);
+  v6 = *(result + 156);
   if (v6 == 1)
   {
     if (a3 > 0.0)
     {
-      if (*(a1 + 84) == 1)
+      if (*(result + 84) == 1)
       {
-        v4 = *(*(a1 + 480) + 4 * a2) * a3;
+        v4 = *(*(result + 480) + 4 * a2) * a3;
       }
 
-      v14 = kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::InputWeightsGradient(a1, a2);
+      v14 = kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::InputWeightsGradient(result, a2);
       kaldi::nnet1::UpdatableComponent::ClipGradient(v14, v4);
-      v15 = kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::RecurrentWeightsGradient(a1, a2);
+      v15 = kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::RecurrentWeightsGradient(result, a2);
       kaldi::nnet1::UpdatableComponent::ClipGradient(v15, v4);
-      v16 = kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::BiasGradient(a1, a2);
+      v16 = kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::BiasGradient(result, a2);
       kaldi::nnet1::UpdatableComponent::ClipGradient(v16, v4);
-      if (*(a1 + 208) == 1)
+      if (*(result + 208) == 1)
       {
-        v17 = kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::PeepholeWeightsGradient(a1, a2);
+        v17 = kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::PeepholeWeightsGradient(result, a2);
         kaldi::nnet1::UpdatableComponent::ClipGradient(v17, v4);
       }
 
-      if (*(a1 + 224) == 1)
+      if (*(result + 224) == 1)
       {
-        v18 = kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::ProjectionWeightsGradient(a1, a2);
+        v18 = kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::ProjectionWeightsGradient(result, a2);
 
         kaldi::nnet1::UpdatableComponent::ClipGradient(v18, v4);
       }
@@ -2873,22 +2867,22 @@ void kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::NormalizeGradie
   {
     if (a3 >= 0.0 && a3 <= 1.0)
     {
-      v8 = kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::InputWeightsGradient(a1, a2);
-      kaldi::nnet1::UpdatableComponent::RmspropGradient(v8, *(a1 + 656) + 48 * a2, v4);
-      v9 = kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::RecurrentWeightsGradient(a1, a2);
-      kaldi::nnet1::UpdatableComponent::RmspropGradient(v9, *(a1 + 680) + 48 * a2, v4);
-      v10 = kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::BiasGradient(a1, a2);
-      kaldi::nnet1::UpdatableComponent::RmspropGradient(v10, *(a1 + 728) + 32 * a2, v4);
-      if (*(a1 + 208) == 1)
+      v8 = kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::InputWeightsGradient(result, a2);
+      kaldi::nnet1::UpdatableComponent::RmspropGradient(v8, *(result + 656) + 48 * a2, v4);
+      v9 = kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::RecurrentWeightsGradient(result, a2);
+      kaldi::nnet1::UpdatableComponent::RmspropGradient(v9, *(result + 680) + 48 * a2, v4);
+      v10 = kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::BiasGradient(result, a2);
+      kaldi::nnet1::UpdatableComponent::RmspropGradient(v10, *(result + 728) + 32 * a2, v4);
+      if (*(result + 208) == 1)
       {
-        v11 = kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::PeepholeWeightsGradient(a1, a2);
-        kaldi::nnet1::UpdatableComponent::RmspropGradient(v11, *(a1 + 704) + 48 * a2, v4);
+        v11 = kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::PeepholeWeightsGradient(result, a2);
+        kaldi::nnet1::UpdatableComponent::RmspropGradient(v11, *(result + 704) + 48 * a2, v4);
       }
 
-      if (*(a1 + 224) == 1)
+      if (*(result + 224) == 1)
       {
-        v12 = kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::ProjectionWeightsGradient(a1, a2);
-        v13 = *(a1 + 752) + 48 * a2;
+        v12 = kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::ProjectionWeightsGradient(result, a2);
+        v13 = *(result + 752) + 48 * a2;
 
         kaldi::nnet1::UpdatableComponent::RmspropGradient(v12, v13, v4);
       }
@@ -2898,27 +2892,27 @@ void kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::NormalizeGradie
   else if (a3 > 0.0 && v6 == 2)
   {
     v20 = a2;
-    if (*(a1 + 84))
+    if (*(result + 84))
     {
-      v4 = *(*(a1 + 480) + 4 * a2) * a3;
+      v4 = *(*(result + 480) + 4 * a2) * a3;
     }
 
-    v21 = kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::InputWeightsGradient(a1, a2);
-    kaldi::nnet1::UpdatableComponent::LimitL2NormGradient(v21, (*(a1 + 656) + 48 * v20), v4);
-    v22 = kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::RecurrentWeightsGradient(a1, a2);
-    kaldi::nnet1::UpdatableComponent::LimitL2NormGradient(v22, (*(a1 + 680) + 48 * v20), v4);
-    v23 = kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::BiasGradient(a1, a2);
-    kaldi::nnet1::UpdatableComponent::LimitL2NormGradient(v23, (*(a1 + 728) + 32 * v20), v4);
-    if (*(a1 + 208) == 1)
+    v21 = kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::InputWeightsGradient(result, a2);
+    kaldi::nnet1::UpdatableComponent::LimitL2NormGradient(v21, (*(result + 656) + 48 * v20), v4);
+    v22 = kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::RecurrentWeightsGradient(result, a2);
+    kaldi::nnet1::UpdatableComponent::LimitL2NormGradient(v22, (*(result + 680) + 48 * v20), v4);
+    v23 = kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::BiasGradient(result, a2);
+    kaldi::nnet1::UpdatableComponent::LimitL2NormGradient(v23, (*(result + 728) + 32 * v20), v4);
+    if (*(result + 208) == 1)
     {
-      v24 = kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::PeepholeWeightsGradient(a1, a2);
-      kaldi::nnet1::UpdatableComponent::LimitL2NormGradient(v24, (*(a1 + 704) + 48 * v20), v4);
+      v24 = kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::PeepholeWeightsGradient(result, a2);
+      kaldi::nnet1::UpdatableComponent::LimitL2NormGradient(v24, (*(result + 704) + 48 * v20), v4);
     }
 
-    if (*(a1 + 224) == 1)
+    if (*(result + 224) == 1)
     {
-      v25 = kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::ProjectionWeightsGradient(a1, a2);
-      v26 = (*(a1 + 752) + 48 * v20);
+      v25 = kaldi::nnet1::LstmComponent<kaldi::QuantizedMatrix<short>>::ProjectionWeightsGradient(result, a2);
+      v26 = (*(result + 752) + 48 * v20);
 
       kaldi::nnet1::UpdatableComponent::LimitL2NormGradient(v25, v26, v4);
     }
@@ -3188,10 +3182,10 @@ LABEL_12:
   return result;
 }
 
-void kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::UpdateWeights(uint64_t a1, uint64_t a2, int a3)
+void kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::UpdateWeights(uint64_t *a1, uint64_t a2, int a3)
 {
-  v6 = *(a1 + 64);
-  v7 = *(a1 + 68);
+  v6 = *(a1 + 16);
+  v7 = *(a1 + 17);
   v8 = a1 + *(*a1 - 24);
   v9 = *(v8 + 72);
   v10 = *(v8 + 76);
@@ -3232,13 +3226,13 @@ void kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::UpdateWeights(uint
   *(kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::RecurrentWeightsGradient(a1, v12) + 32) = a2;
   *(kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::BiasGradient(a1, v12) + 24) = a2;
   v14 = v12;
-  *(*(a1 + 656) + 48 * v12 + 32) = a2;
-  *(*(a1 + 680) + 48 * v12 + 32) = a2;
-  *(*(a1 + 728) + 32 * v12 + 24) = a2;
+  *(a1[82] + 48 * v12 + 32) = a2;
+  *(a1[85] + 48 * v12 + 32) = a2;
+  *(a1[91] + 32 * v12 + 24) = a2;
   if (*(a1 + 208) == 1)
   {
     *(kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::PeepholeWeightsGradient(a1, v12) + 32) = a2;
-    *(*(a1 + 704) + 48 * v12 + 32) = a2;
+    *(a1[88] + 48 * v12 + 32) = a2;
   }
 
   if (*(a1 + 224) == 1)
@@ -3247,8 +3241,8 @@ void kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::UpdateWeights(uint
     *(kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::ProjectionWeightsGradient(a1, v12) + 32) = a2;
   }
 
-  v15 = a1 + 80;
-  if (v12 == *(a1 + 80))
+  v15 = a1 + 10;
+  if (v12 == *(a1 + 20))
   {
     v16 = kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::InputWeightsGradient(a1, v12);
     kaldi::CuMatrixBase<float>::SetZero(v16);
@@ -3280,22 +3274,21 @@ void kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::UpdateWeights(uint
         v25 = kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::RecurrentWeightsGradient(a1, v14);
         v26 = kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::RecurrentWeightsGradient(a1, v22);
         kaldi::CuMatrixBase<float>::AddMat(v25, v26, 111, 1.0, 1.0);
-        kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::BiasGradient(a1, v14);
-        kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::BiasGradient(a1, v22);
-        LODWORD(v27) = 1.0;
-        kaldi::CuVectorBase<float>::AddVec(v27, 1.0);
+        v27 = kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::BiasGradient(a1, v14);
+        v28 = kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::BiasGradient(a1, v22);
+        kaldi::CuVectorBase<float>::AddVec(v27, v28, 1.0, 1.0);
         if (*(a1 + 208) == 1)
         {
-          v28 = kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::PeepholeWeightsGradient(a1, v14);
-          v29 = kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::PeepholeWeightsGradient(a1, v22);
-          kaldi::CuMatrixBase<float>::AddMat(v28, v29, 111, 1.0, 1.0);
+          v29 = kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::PeepholeWeightsGradient(a1, v14);
+          v30 = kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::PeepholeWeightsGradient(a1, v22);
+          kaldi::CuMatrixBase<float>::AddMat(v29, v30, 111, 1.0, 1.0);
         }
 
         if (*(a1 + 224) == 1)
         {
-          v30 = kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::ProjectionWeightsGradient(a1, v14);
-          v31 = kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::ProjectionWeightsGradient(a1, v22);
-          kaldi::CuMatrixBase<float>::AddMat(v30, v31, 111, 1.0, 1.0);
+          v31 = kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::ProjectionWeightsGradient(a1, v14);
+          v32 = kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::ProjectionWeightsGradient(a1, v22);
+          kaldi::CuMatrixBase<float>::AddMat(v31, v32, 111, 1.0, 1.0);
         }
 
         ++v22;
@@ -3305,22 +3298,22 @@ void kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::UpdateWeights(uint
       while (v22 < *(v15 + *(*a1 - 24)));
     }
 
-    v32 = *(a1 + 480);
-    v32[v14] = 0;
+    v33 = a1[60];
+    v33[v14] = 0;
     if (v14 >= 1)
     {
-      v33 = 0;
-      v34 = v14;
-      v35 = v32;
+      v34 = 0;
+      v35 = v14;
+      v36 = v33;
       do
       {
-        v36 = *v35++;
-        v33 += v36;
-        v32[v14] = v33;
-        --v34;
+        v37 = *v36++;
+        v34 += v37;
+        v33[v14] = v34;
+        --v35;
       }
 
-      while (v34);
+      while (v35);
     }
   }
 
@@ -3329,73 +3322,72 @@ void kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::UpdateWeights(uint
     v21 = *a1;
   }
 
-  v37 = a1 + *(v21 - 24);
-  v38 = *(v37 + 56);
-  if (*(v37 + 84) == 1)
+  v38 = a1 + *(v21 - 24);
+  v39 = *(v38 + 56);
+  if (*(v38 + 84) == 1)
   {
-    *v13.i32 = *(*(a1 + 480) + 4 * v14);
-    v38 = v38 / *v13.i32;
+    *v13.i32 = *(a1[60] + 4 * v14);
+    v39 = v39 / *v13.i32;
   }
 
-  v39 = *(a1 + 504);
-  if (v14 >= (*(a1 + 512) - v39) >> 2)
+  v40 = a1[63];
+  if (v14 >= (a1[64] - v40) >> 2)
   {
-    LODWORD(v67[0]) = 2143289344;
-    std::vector<float>::resize((a1 + 504), v14 + 1, v67, v13);
-    v39 = *(a1 + 504);
+    LODWORD(v69[0]) = 2143289344;
+    std::vector<float>::resize(a1 + 63, v14 + 1, v69, v13);
+    v40 = a1[63];
   }
 
-  *(v39 + 4 * v14) = v38;
-  if (*(a1 + 152) >= 0.0)
+  *(v40 + 4 * v14) = v39;
+  if (*(a1 + 38) >= 0.0)
   {
     (*(*a1 + 360))(a1, v14);
   }
 
   if (v6 != 0.0)
   {
-    v40 = kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::InputWeights(a1);
-    v41 = -(v38 * v6);
-    v42 = v41 * *(*(a1 + 480) + 4 * v14);
-    v43 = kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::InputWeights(a1);
-    kaldi::CuMatrixBase<float>::AddMat(v40, v43, 111, v42, 1.0);
-    v44 = kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::RecurrentWeights(a1);
-    v45 = v41 * *(*(a1 + 480) + 4 * v14);
-    v46 = kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::RecurrentWeights(a1);
-    kaldi::CuMatrixBase<float>::AddMat(v44, v46, 111, v45, 1.0);
-    kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::Bias(a1);
-    kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::Bias(a1);
-    *&v47 = v41;
-    kaldi::CuVectorBase<float>::AddVec(v47, 1.0);
+    v41 = kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::InputWeights(a1);
+    v42 = -(v39 * v6);
+    v43 = v42 * *(a1[60] + 4 * v14);
+    v44 = kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::InputWeights(a1);
+    kaldi::CuMatrixBase<float>::AddMat(v41, v44, 111, v43, 1.0);
+    v45 = kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::RecurrentWeights(a1);
+    v46 = v42 * *(a1[60] + 4 * v14);
+    v47 = kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::RecurrentWeights(a1);
+    kaldi::CuMatrixBase<float>::AddMat(v45, v47, 111, v46, 1.0);
+    v48 = kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::Bias(a1);
+    v49 = kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::Bias(a1);
+    kaldi::CuVectorBase<float>::AddVec(v48, v49, v42, 1.0);
     if (*(a1 + 208) == 1)
     {
-      v48 = kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::PeepholeWeights(a1);
-      v49 = v41 * *(*(a1 + 480) + 4 * v14);
       v50 = kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::PeepholeWeights(a1);
-      kaldi::CuMatrixBase<float>::AddMat(v48, v50, 111, v49, 1.0);
+      v51 = v42 * *(a1[60] + 4 * v14);
+      v52 = kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::PeepholeWeights(a1);
+      kaldi::CuMatrixBase<float>::AddMat(v50, v52, 111, v51, 1.0);
     }
 
     if (*(a1 + 224) == 1)
     {
-      v51 = kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::ProjectionWeights(a1);
-      v52 = v41 * *(*(a1 + 480) + 4 * v14);
       v53 = kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::ProjectionWeights(a1);
-      kaldi::CuMatrixBase<float>::AddMat(v51, v53, 111, v52, 1.0);
+      v54 = v42 * *(a1[60] + 4 * v14);
+      v55 = kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::ProjectionWeights(a1);
+      kaldi::CuMatrixBase<float>::AddMat(v53, v55, 111, v54, 1.0);
     }
   }
 
   if (v7 != 0.0)
   {
-    v54 = kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::InputWeights(a1);
-    v55 = kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::InputWeightsGradient(a1, v14);
-    kaldi::cu::RegularizeL1<float>(v54, v55, (v7 * v38) * *(*(a1 + 480) + 4 * v14), v38);
-    v56 = kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::RecurrentWeights(a1);
-    v57 = kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::RecurrentWeightsGradient(a1, v14);
-    kaldi::cu::RegularizeL1<float>(v56, v57, (v7 * v38) * *(*(a1 + 480) + 4 * v14), v38);
+    v56 = kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::InputWeights(a1);
+    v57 = kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::InputWeightsGradient(a1, v14);
+    kaldi::cu::RegularizeL1<float>(v56, v57, (v7 * v39) * *(a1[60] + 4 * v14), v39);
+    v58 = kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::RecurrentWeights(a1);
+    v59 = kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::RecurrentWeightsGradient(a1, v14);
+    kaldi::cu::RegularizeL1<float>(v58, v59, (v7 * v39) * *(a1[60] + 4 * v14), v39);
     if (*(a1 + 224) == 1)
     {
-      v58 = kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::ProjectionWeights(a1);
-      v59 = kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::ProjectionWeightsGradient(a1, v14);
-      kaldi::cu::RegularizeL1<float>(v58, v59, (v7 * v38) * *(*(a1 + 480) + 4 * v14), v38);
+      v60 = kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::ProjectionWeights(a1);
+      v61 = kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::ProjectionWeightsGradient(a1, v14);
+      kaldi::cu::RegularizeL1<float>(v60, v61, (v7 * v39) * *(a1[60] + 4 * v14), v39);
     }
   }
 
@@ -3403,77 +3395,77 @@ void kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::UpdateWeights(uint
   {
     if (*(a1 + *(*a1 - 24) + 80) >= 2)
     {
-      kaldi::KaldiWarnMessage::KaldiWarnMessage(v67);
-      std::operator<<[abi:ne200100]<std::char_traits<char>>(v67, "the multi batch gradient quantization does not work yet");
-      kaldi::KaldiErrorMessage::~KaldiErrorMessage(v67);
+      kaldi::KaldiWarnMessage::KaldiWarnMessage(v69);
+      std::operator<<[abi:ne200100]<std::char_traits<char>>(v69, "the multi batch gradient quantization does not work yet");
+      kaldi::KaldiErrorMessage::~KaldiErrorMessage(v69);
     }
 
-    if (*(a1 + 784) == *(a1 + 776))
+    if (a1[98] == a1[97])
     {
-      kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::InitResidualAggregator(a1, (a1 + 776));
+      kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::InitResidualAggregator(a1, a1 + 97);
     }
 
-    kaldi::nnet1::QuantizerResidualAggregator::Quantize((a1 + 776), v10, v9);
+    kaldi::nnet1::QuantizerResidualAggregator::Quantize((a1 + 97), v10, v9);
   }
 
-  kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::ApplyCorr(a1, v14, v38);
-  if (*(a1 + 472) > 0.0)
+  kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::ApplyCorr(a1, v14, v39);
+  if (*(a1 + 118) > 0.0)
   {
-    v60 = kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::InputWeights(a1);
-    kaldi::CuMatrixBase<float>::ApplyMaxNorm(v60, 1);
-    v61 = kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::RecurrentWeights(a1);
-    kaldi::CuMatrixBase<float>::ApplyMaxNorm(v61, 1);
-    v62 = kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::Bias(a1);
-    kaldi::CuVectorBase<float>::ApplyMaxNorm(v62, *(a1 + 472));
+    v62 = kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::InputWeights(a1);
+    kaldi::CuMatrixBase<float>::ApplyMaxNorm(v62, 1, *(a1 + 118));
+    v63 = kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::RecurrentWeights(a1);
+    kaldi::CuMatrixBase<float>::ApplyMaxNorm(v63, 1, *(a1 + 118));
+    v64 = kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::Bias(a1);
+    kaldi::CuVectorBase<float>::ApplyMaxNorm(v64, *(a1 + 118));
     if (*(a1 + 208) == 1)
     {
-      v63 = kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::PeepholeWeights(a1);
-      kaldi::CuMatrixBase<float>::ApplyMaxNorm(v63, 1);
+      v65 = kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::PeepholeWeights(a1);
+      kaldi::CuMatrixBase<float>::ApplyMaxNorm(v65, 1, *(a1 + 118));
     }
 
     if (*(a1 + 224) == 1)
     {
-      v64 = kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::ProjectionWeights(a1);
-      kaldi::CuMatrixBase<float>::ApplyMaxNorm(v64, 1);
+      v66 = kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::ProjectionWeights(a1);
+      kaldi::CuMatrixBase<float>::ApplyMaxNorm(v66, 1, *(a1 + 118));
     }
   }
 
-  v65 = *(a1 + 480);
+  v67 = a1[60];
   if (v14 == *(a1 + *(*a1 - 24) + 80))
   {
-    v66 = *(a1 + 488);
-    if (v65 != v66)
+    v68 = a1[61];
+    if (v67 != v68)
     {
-      bzero(v65, v66 - v65);
+      bzero(v67, v68 - v67);
     }
   }
 
   else
   {
-    *&v65[4 * v14] = 0;
+    *&v67[4 * v14] = 0;
   }
 }
 
-void kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::VectorizeWeightsCorrs(void *a1)
+void kaldi::nnet1::LstmComponent<kaldi::CuMatrixBase<float>>::VectorizeWeightsCorrs(void *a1, uint64_t a2, uint64_t a3, void *a4)
 {
   if (*(a1 + *(*a1 - 24) + 16) != 1)
   {
     if ((kaldi::g_kaldi_verbose_level & 0x80000000) == 0)
     {
-      kaldi::KaldiWarnMessage::KaldiWarnMessage(&v1);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v1, "Performing  vectorization of lstm component", 43);
-      kaldi::KaldiLogMessage::~KaldiLogMessage(&v1);
+      kaldi::KaldiWarnMessage::KaldiWarnMessage(&v4);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v4, "Performing  vectorization of lstm component", 43);
+      kaldi::KaldiLogMessage::~KaldiLogMessage(&v4);
     }
 
     kaldi::CuSubMatrix<float>::CopyDataAndReplaceWithCuSub();
   }
 
-  kaldi::KaldiWarnMessage::KaldiWarnMessage(&v1);
-  std::operator<<[abi:ne200100]<std::char_traits<char>>(&v1, "Weights are already vectorized");
-  kaldi::KaldiErrorMessage::~KaldiErrorMessage(&v1);
+  kaldi::KaldiWarnMessage::KaldiWarnMessage(&v4);
+  std::operator<<[abi:ne200100]<std::char_traits<char>>(&v4, "Weights are already vectorized");
+  kaldi::KaldiErrorMessage::~KaldiErrorMessage(&v4);
 }
 
-uint64_t std::vector<kaldi::CuVector<float>>::__init_with_size[abi:ne200100]<kaldi::CuVector<float>*,kaldi::CuVector<float>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<kaldi::CuVector<float>>::__init_with_size[abi:ne200100]<kaldi::CuVector<float>*,kaldi::CuVector<float>*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -3490,7 +3482,7 @@ void sub_1B53E3858(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<kaldi::CuVector<float>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<kaldi::CuVector<float>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 59))
   {
@@ -3530,17 +3522,17 @@ void sub_1B53E3914(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<std::unique_ptr<kaldi::CuVectorBase<float>>>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<std::unique_ptr<kaldi::CuVectorBase<float>>>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<kaldi::CuWorkspace *>::__vallocate[abi:ne200100](result, a2);
+    std::vector<kaldi::CuWorkspace *>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void std::vector<std::unique_ptr<kaldi::CuVectorBase<float>>>::__destroy_vector::operator()[abi:ne200100](void ***a1)
@@ -3773,7 +3765,7 @@ void quasar::Decodable::init(quasar::Decodable *this, quasar::SystemConfig *a2)
     }
 
     (**this)(this, a2);
-    quasar::SystemConfig::readPtree(a2, this + 8);
+    quasar::SystemConfig::readPtree(a2, this + 1, 0, 0);
   }
 
   v30 = 0u;
@@ -3855,45 +3847,45 @@ void quasar::Decodable::~Decodable(void **this)
   }
 }
 
-uint64_t quasar::Decodable::createDecodable(quasar::Decodable *this, kaldi::OnlineFeatureMatrix *a2)
+void quasar::Decodable::createDecodable(quasar::Decodable *this, kaldi::OnlineFeatureMatrix *a2)
 {
   if (*(this + 26) != 1)
   {
-    memset(v10, 0, sizeof(v10));
-    kaldi::KaldiWarnMessage::KaldiWarnMessage(v10);
-    v4 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, "Must first call init() for ", 27);
-    v5 = *(this + 31);
-    if (v5 >= 0)
+    memset(v9, 0, sizeof(v9));
+    kaldi::KaldiWarnMessage::KaldiWarnMessage(v9);
+    v3 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, "Must first call init() for ", 27);
+    v4 = *(this + 31);
+    if (v4 >= 0)
     {
-      v6 = this + 8;
+      v5 = this + 8;
     }
 
     else
     {
-      v6 = *(this + 1);
+      v5 = *(this + 1);
     }
 
-    if (v5 >= 0)
+    if (v4 >= 0)
     {
-      v7 = *(this + 31);
+      v6 = *(this + 31);
     }
 
     else
     {
-      v7 = *(this + 2);
+      v6 = *(this + 2);
     }
 
-    v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, v6, v7);
-    std::operator<<[abi:ne200100]<std::char_traits<char>>(v8, " before calling createDecodable().");
-    quasar::QuasarExceptionMessage::~QuasarExceptionMessage(v10);
+    v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v3, v5, v6);
+    std::operator<<[abi:ne200100]<std::char_traits<char>>(v7, " before calling createDecodable().");
+    quasar::QuasarExceptionMessage::~QuasarExceptionMessage(v9);
   }
 
   v2 = *(*this + 16);
 
-  return v2();
+  v2();
 }
 
-void quasar::Decodable::createDecodable(std::string *this@<X0>, void *a2@<X8>)
+void quasar::Decodable::createDecodable(uint64_t *__return_ptr a1@<X8>, std::string *this@<X0>)
 {
   if (quasar::gLogLevel >= 5)
   {
@@ -3963,8 +3955,8 @@ void quasar::Decodable::createDecodable(std::string *this@<X0>, void *a2@<X8>)
     *v41 = v40;
   }
 
-  *a2 = 0;
-  a2[1] = 0;
+  *a1 = 0;
+  a1[1] = 0;
   if ((v41[23] & 0x80) != 0)
   {
     if (*&v41[8] != 13 || (**v41 == 0x732D78697274616DLL ? (v10 = *(*v41 + 5) == 0x64656C6163732D78) : (v10 = 0), !v10))
@@ -4327,7 +4319,7 @@ uint64_t quasar::OnlineDecodableMatrixScaledDecodable::finishInit(quasar::Online
     quasar::QuasarDebugMessage::~QuasarDebugMessage(&v7);
   }
 
-  std::ifstream::basic_ifstream(&v7);
+  std::ifstream::basic_ifstream(&v7, this + 14, 8);
   kaldi::ReadIntegerVector<int>(&v7, 0, (this + 136), 0, 0, 0, 0);
   if (quasar::gLogLevel >= 5)
   {
@@ -4401,13 +4393,13 @@ void quasar::OnlineDecodableMatrixScaledDecodable::~OnlineDecodableMatrixScaledD
   JUMPOUT(0x1B8C85350);
 }
 
-uint64_t kaldi::OnlineDecodableMatrixScaled::OnlineDecodableMatrixScaled(uint64_t a1, uint64_t *a2, uint64_t a3, float a4)
+uint64_t kaldi::OnlineDecodableMatrixScaled::OnlineDecodableMatrixScaled(uint64_t a1, uint64_t a2, uint64_t a3, float a4)
 {
   *a1 = &unk_1F2D2EA90;
   *(a1 + 16) = 0;
   *(a1 + 24) = 0;
   *(a1 + 8) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 8, *a2, a2[1], (a2[1] - *a2) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 8), *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 2);
   *(a1 + 32) = a4;
   *(a1 + 40) = a3;
   *(a1 + 48) = *(a3 + 24);
@@ -4482,7 +4474,7 @@ void std::__shared_ptr_emplace<quasar::OnlineDecodableMatrixScaledMappedDecodabl
   JUMPOUT(0x1B8C85350);
 }
 
-uint64_t quasar::OnlineDecodableMatrixScaledMappedDecodable::registerParams(quasar::OnlineDecodableMatrixScaledMappedDecodable *this, const void **a2)
+uint64_t quasar::OnlineDecodableMatrixScaledMappedDecodable::registerParams(quasar::OnlineDecodableMatrixScaledMappedDecodable *this, quasar::SystemConfig *a2)
 {
   std::operator+<char>();
   v4 = std::string::append(&v7, "");
@@ -4617,12 +4609,12 @@ void sub_1B53E564C(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a
   JUMPOUT(0x1B53E5644);
 }
 
-void quasar::OnlineDecodableMatrixScaledMappedDecodable::finishInit(const void **this, quasar::ModelLoader *a2)
+void quasar::OnlineDecodableMatrixScaledMappedDecodable::finishInit(quasar::OnlineDecodableMatrixScaledMappedDecodable *this, quasar::ModelLoader *a2)
 {
   quasar::ModelLoader::readTransitionModel(a2, this + 10, 1, v6);
   v3 = v6[0];
   v6[0] = 0uLL;
-  v4 = this[5];
+  v4 = *(this + 5);
   *(this + 2) = v3;
   if (v4)
   {
@@ -4643,7 +4635,7 @@ void quasar::OnlineDecodableMatrixScaledMappedDecodable::finishInit(const void *
 
   if ((*(this + 135) & 0x8000000000000000) != 0)
   {
-    if (!this[15])
+    if (!*(this + 15))
     {
       return;
     }
@@ -4655,9 +4647,9 @@ void quasar::OnlineDecodableMatrixScaledMappedDecodable::finishInit(const void *
   {
 LABEL_10:
     *&v6[0] = 0;
-    kaldi::Input::OpenInternal(v6, (this + 14), 0, 0);
-    v5 = kaldi::Input::Stream(v6);
-    kaldi::Vector<float>::Read((this + 17), v5, 0, 0);
+    kaldi::Input::OpenInternal(v6, this + 112, 0, 0);
+    kaldi::Input::Stream(v6);
+    kaldi::Vector<float>::Read(this + 17, v5, 0, 0);
     kaldi::Input::Close(v6);
     kaldi::Input::~Input(v6);
   }
@@ -4730,9 +4722,9 @@ void std::allocator<kaldi::OnlineDecodableMatrixScaledMapped>::construct[abi:ne2
   kaldi::Vector<float>::Destroy(v16);
 }
 
-void sub_1B53E5C18(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B53E5C18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   kaldi::Vector<float>::Destroy(va);
   _Unwind_Resume(a1);
 }
@@ -4800,7 +4792,7 @@ void std::__shared_ptr_emplace<quasar::OnlineDecodableMatrixScaledMappedTmDecoda
   JUMPOUT(0x1B8C85350);
 }
 
-uint64_t quasar::OnlineDecodableMatrixScaledMappedTmDecodable::registerParams(quasar::OnlineDecodableMatrixScaledMappedTmDecodable *this, const void **a2)
+uint64_t quasar::OnlineDecodableMatrixScaledMappedTmDecodable::registerParams(quasar::OnlineDecodableMatrixScaledMappedTmDecodable *this, quasar::SystemConfig *a2)
 {
   std::operator+<char>();
   v4 = std::string::append(&v7, "");
@@ -4881,12 +4873,12 @@ void sub_1B53E6154(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void quasar::OnlineDecodableMatrixScaledMappedTmDecodable::finishInit(const void **this, quasar::ModelLoader *a2)
+void quasar::OnlineDecodableMatrixScaledMappedTmDecodable::finishInit(quasar::OnlineDecodableMatrixScaledMappedTmDecodable *this, quasar::ModelLoader *a2)
 {
   quasar::ModelLoader::readTransitionModel(a2, this + 10, 1, v5);
   v3 = v5[0];
   v5[0] = 0uLL;
-  v4 = this[5];
+  v4 = *(this + 5);
   *(this + 2) = v3;
   if (v4)
   {
@@ -4953,9 +4945,9 @@ kaldi::OnlineDecodableMatrixScaledMappedTm *kaldi::OnlineDecodableMatrixScaledMa
   return this;
 }
 
-void sub_1B53E65D8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B53E65D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   kaldi::Vector<float>::Destroy(va);
   _Unwind_Resume(a1);
 }
@@ -5143,7 +5135,7 @@ void sub_1B53E6C38(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t quasar::OnlineDecodableNnet1LazyDecodable::registerParams(quasar::OnlineDecodableNnet1LazyDecodable *this, const void **a2)
+uint64_t quasar::OnlineDecodableNnet1LazyDecodable::registerParams(quasar::OnlineDecodableNnet1LazyDecodable *this, quasar::SystemConfig *a2)
 {
   std::operator+<char>();
   v4 = std::string::append(&v7, "");
@@ -5483,17 +5475,17 @@ void quasar::OnlineDecodableNnet1LazyDecodable::finishInit(quasar::OnlineDecodab
   v42 = 0;
   LOBYTE(__p[0]) = 0;
   BYTE8(v23) = 0;
-  quasar::ModelLoader::readNeuralNetwork(a2, this + 17, v4, 1, 1, &v41, __p, &v39);
-  v5 = v39;
-  v39 = 0uLL;
+  quasar::ModelLoader::readNeuralNetwork(a2, this + 17, v4, 1, 1, &v41, __p, &v39[0].__r_.__value_.__l.__data_);
+  v5 = *&v39[0].__r_.__value_.__l.__data_;
+  *&v39[0].__r_.__value_.__l.__data_ = 0uLL;
   v6 = *(this + 101);
   *(this + 50) = v5;
   if (v6)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v6);
-    if (*(&v39 + 1))
+    if (v39[0].__r_.__value_.__l.__size_)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v39 + 1));
+      std::__shared_weak_count::__release_shared[abi:ne200100](v39[0].__r_.__value_.__l.__size_);
     }
   }
 
@@ -5517,9 +5509,9 @@ void quasar::OnlineDecodableNnet1LazyDecodable::finishInit(quasar::OnlineDecodab
       }
 
 LABEL_17:
-      fst::FstReadOptions::FstReadOptions(&v39, this + 160, 0, 0, 0);
+      fst::FstReadOptions::FstReadOptions(v39);
       v40 = 2;
-      kaldi::nnet1::Nnet::ReadMapped(this + 424, &v39);
+      kaldi::nnet1::Nnet::ReadMapped(this + 53, v39);
     }
 
     if (*(this + 21))
@@ -5661,17 +5653,17 @@ LABEL_21:
   v21 = 0;
   LOBYTE(__p[0]) = 0;
   BYTE8(v23) = 0;
-  quasar::ModelLoader::readNeuralNetwork(a2, this + 25, 0, 0, 1, &v20, __p, &v39);
-  v14 = v39;
-  v39 = 0uLL;
+  quasar::ModelLoader::readNeuralNetwork(a2, this + 25, 0, 0, 1, &v20, __p, &v39[0].__r_.__value_.__l.__data_);
+  v14 = *&v39[0].__r_.__value_.__l.__data_;
+  *&v39[0].__r_.__value_.__l.__data_ = 0uLL;
   v15 = *(this + 103);
   *(this + 51) = v14;
   if (v15)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v15);
-    if (*(&v39 + 1))
+    if (v39[0].__r_.__value_.__l.__size_)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v39 + 1));
+      std::__shared_weak_count::__release_shared[abi:ne200100](v39[0].__r_.__value_.__l.__size_);
     }
   }
 
@@ -5762,43 +5754,43 @@ void sub_1B53E7DCC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void quasar::OnlineDecodableNnet1LazyDecodable::createDecodableImpl(quasar::OnlineDecodableNnet1LazyDecodable *this, kaldi::OnlineFeatureMatrix *a2)
 {
-  v20 = 0;
-  v4 = *(this + 223);
-  if (v4 < 0)
-  {
-    v4 = *(this + 26);
-  }
-
-  if (v4)
-  {
-    v20 = *(this + 102);
-  }
-
-  v18 = 0;
-  v19 = 0;
-  v5 = *(this + 255);
+  v23 = 0;
+  v5 = *(this + 223);
   if (v5 < 0)
   {
-    v5 = *(this + 30);
+    v5 = *(this + 26);
   }
 
   if (v5)
   {
-    v6 = *(this + 104);
-    v18 = *(this + 51);
-    v19 = v6;
+    v23 = *(this + 102);
   }
 
-  v17 = 0;
-  v7 = *(this + 183);
-  if (v7 < 0)
+  v21 = 0;
+  v22 = 0;
+  v6 = *(this + 255);
+  if (v6 < 0)
   {
-    v7 = *(this + 21);
+    v6 = *(this + 30);
   }
 
-  if (v7)
+  if (v6)
   {
-    v17 = this + 424;
+    v7 = *(this + 104);
+    v21 = *(this + 51);
+    v22 = v7;
+  }
+
+  v20 = 0;
+  v8 = *(this + 183);
+  if (v8 < 0)
+  {
+    v8 = *(this + 21);
+  }
+
+  if (v8)
+  {
+    v20 = this + 424;
   }
 
   if ((*(this + 327) & 0x8000000000000000) != 0)
@@ -5812,22 +5804,24 @@ void quasar::OnlineDecodableNnet1LazyDecodable::createDecodableImpl(quasar::Onli
   else if (!*(this + 327))
   {
 LABEL_18:
-    v16 = *(this + 100);
-    v12 = *(this + 49);
-    v14 = a2;
-    v15 = v12;
-    std::allocate_shared[abi:ne200100]<kaldi::OnlineDecodableNnet1Lazy,std::allocator<kaldi::OnlineDecodableNnet1Lazy>,kaldi::TransitionModel &,kaldi::nnet1::Nnet *&,kaldi::InferenceNetItf *,kaldi::nnet1::PdfPrior *,kaldi::OnlineFeatureMatrix *,int &,float &,int &,BOOL &,BOOL &,float &,kaldi::InferenceNetItf *&,kaldi::nnet1::PdfPrior *&,kaldi::InferenceNetItf *&,BOOL &,float &,float &,std::string &,0>();
+    v14 = *(this + 4);
+    v19 = *(this + 100);
+    v15 = *(this + 49);
+    v17 = a2;
+    v18 = v15;
+    std::allocate_shared[abi:ne200100]<kaldi::OnlineDecodableNnet1Lazy,std::allocator<kaldi::OnlineDecodableNnet1Lazy>,kaldi::TransitionModel &,kaldi::nnet1::Nnet *&,kaldi::InferenceNetItf *,kaldi::nnet1::PdfPrior *,kaldi::OnlineFeatureMatrix *,int &,float &,int &,BOOL &,BOOL &,float &,kaldi::InferenceNetItf *&,kaldi::nnet1::PdfPrior *&,kaldi::InferenceNetItf *&,BOOL &,float &,float &,std::string &,0>(&v24, v14, &v20, &v19, &v18, &v17, this + 184, this + 260, this + 264, this + 256, this + 224, this + 48, &v23, &v21, &v22, this + 872, this + 268, this + 272, this + 280);
   }
 
-  LOBYTE(v15) = 0;
-  v8 = kaldi::Input::Input(&v16, this + 304, &v15);
-  v9 = kaldi::Input::Stream(v8);
-  std::ios_base::getloc((v9 + *(*v9 - 24)));
-  v10 = std::locale::use_facet(v13, MEMORY[0x1E69E5318]);
-  v11 = (v10->__vftable[2].~facet_0)(v10, 10);
-  std::locale::~locale(v13);
-  std::getline[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v9, this + 280, v11);
-  kaldi::Input::~Input(&v16);
+  LOBYTE(v18) = 0;
+  kaldi::Input::Input(&v19, this + 304);
+  kaldi::Input::Stream(v9);
+  v11 = v10;
+  std::ios_base::getloc((v10 + *(*v10 - 24)));
+  v12 = std::locale::use_facet(v16, MEMORY[0x1E69E5318]);
+  v13 = (v12->__vftable[2].~facet_0)(v12, 10);
+  std::locale::~locale(v16);
+  std::getline[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v11, this + 280, v13);
+  kaldi::Input::~Input(&v19);
   goto LABEL_18;
 }
 
@@ -5990,7 +5984,7 @@ void std::__shared_ptr_emplace<kaldi::nnet1::PdfPrior>::~__shared_ptr_emplace(st
   JUMPOUT(0x1B8C85350);
 }
 
-void *std::__shared_ptr_emplace<kaldi::OnlineDecodableNnet1Lazy>::__shared_ptr_emplace[abi:ne200100]<kaldi::TransitionModel &,kaldi::nnet1::Nnet *&,kaldi::InferenceNetItf *,kaldi::nnet1::PdfPrior *,kaldi::OnlineFeatureMatrix *,int &,float &,int &,BOOL &,BOOL &,float &,kaldi::InferenceNetItf *&,kaldi::nnet1::PdfPrior *&,kaldi::InferenceNetItf *&,BOOL &,float &,float &,std::string &,std::allocator<kaldi::OnlineDecodableNnet1Lazy>,0>(void *a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, unsigned int *a7, float *a8, int *a9, char *a10, char *a11, float *a12, uint64_t *a13, uint64_t *a14, uint64_t *a15, char *a16, float *a17, float *a18, uint64_t a19)
+void *std::__shared_ptr_emplace<kaldi::OnlineDecodableNnet1Lazy>::__shared_ptr_emplace[abi:ne200100]<kaldi::TransitionModel &,kaldi::nnet1::Nnet *&,kaldi::InferenceNetItf *,kaldi::nnet1::PdfPrior *,kaldi::OnlineFeatureMatrix *,int &,float &,int &,BOOL &,BOOL &,float &,kaldi::InferenceNetItf *&,kaldi::nnet1::PdfPrior *&,kaldi::InferenceNetItf *&,BOOL &,float &,float &,std::string &,std::allocator<kaldi::OnlineDecodableNnet1Lazy>,0>(void *a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, unsigned int *a7, float *a8, unsigned int *a9, char *a10, char *a11, float *a12, uint64_t *a13, uint64_t *a14, uint64_t *a15, char *a16, float *a17, float *a18, uint64_t a19)
 {
   a1[1] = 0;
   a1[2] = 0;
@@ -6007,7 +6001,7 @@ void std::__shared_ptr_emplace<kaldi::OnlineDecodableNnet1Lazy>::~__shared_ptr_e
   JUMPOUT(0x1B8C85350);
 }
 
-void std::allocator<kaldi::OnlineDecodableNnet1Lazy>::construct[abi:ne200100]<kaldi::OnlineDecodableNnet1Lazy,kaldi::TransitionModel &,kaldi::nnet1::Nnet *&,kaldi::InferenceNetItf *,kaldi::nnet1::PdfPrior *,kaldi::OnlineFeatureMatrix *,int &,float &,int &,BOOL &,BOOL &,float &,kaldi::InferenceNetItf *&,kaldi::nnet1::PdfPrior *&,kaldi::InferenceNetItf *&,BOOL &,float &,float &,std::string &>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7, unsigned int *a8, float *a9, int *a10, char *a11, char *a12, float *a13, uint64_t *a14, uint64_t *a15, uint64_t *a16, char *a17, float *a18, float *a19, uint64_t a20)
+void std::allocator<kaldi::OnlineDecodableNnet1Lazy>::construct[abi:ne200100]<kaldi::OnlineDecodableNnet1Lazy,kaldi::TransitionModel &,kaldi::nnet1::Nnet *&,kaldi::InferenceNetItf *,kaldi::nnet1::PdfPrior *,kaldi::OnlineFeatureMatrix *,int &,float &,int &,BOOL &,BOOL &,float &,kaldi::InferenceNetItf *&,kaldi::nnet1::PdfPrior *&,kaldi::InferenceNetItf *&,BOOL &,float &,float &,std::string &>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7, unsigned int *a8, float *a9, unsigned int *a10, char *a11, char *a12, float *a13, uint64_t *a14, uint64_t *a15, uint64_t *a16, char *a17, float *a18, float *a19, uint64_t a20)
 {
   v20 = a2;
   v21 = *a4;
@@ -6233,7 +6227,7 @@ uint64_t kaldi::OnlineDecodableNnet1Lazy::OnlineDecodableNnet1Lazy(uint64_t a1, 
   *(a1 + 568) = v41[0].__locale_;
   *(a1 + 576) = v41[1];
   *(a1 + 584) = v42;
-  std::vector<BOOL>::operator=(a1 + 592, &v43);
+  std::vector<BOOL>::operator=((a1 + 592), &v43);
   if ((a1 + 568) != v41)
   {
     std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>((a1 + 616), __p, v45, (v45 - __p) >> 2);
@@ -6290,7 +6284,7 @@ void quasar::GlobalPDecTranslatorFactory::~GlobalPDecTranslatorFactory(quasar::G
 {
   *this = &unk_1F2D10EC8;
   std::__tree<std::__value_type<std::tuple<std::string,std::string,std::string>,std::__list_iterator<std::pair<std::tuple<std::string,std::string,std::string>,std::shared_ptr<quasar::PDecTranslator>>,void *>>,std::__map_value_compare<std::tuple<std::string,std::string,std::string>,std::__value_type<std::tuple<std::string,std::string,std::string>,std::__list_iterator<std::pair<std::tuple<std::string,std::string,std::string>,std::shared_ptr<quasar::PDecTranslator>>,void *>>,std::less<std::tuple<std::string,std::string,std::string>>,true>,std::allocator<std::__value_type<std::tuple<std::string,std::string,std::string>,std::__list_iterator<std::pair<std::tuple<std::string,std::string,std::string>,std::shared_ptr<quasar::PDecTranslator>>,void *>>>>::destroy(this + 1680, *(this + 211));
-  std::__list_imp<std::pair<std::tuple<std::string,std::string,std::string>,std::shared_ptr<quasar::PDecTranslator>>>::clear(this + 1656);
+  std::__list_imp<std::pair<std::tuple<std::string,std::string,std::string>,std::shared_ptr<quasar::PDecTranslator>>>::clear(this + 207);
   v2 = *(this + 206);
   if (v2)
   {
@@ -6391,14 +6385,14 @@ void quasar::GlobalPDecTranslatorFactory::createTranslator(uint64_t a1@<X0>, __i
 {
   if ((*(*a1 + 32))(a1))
   {
-    _ZNSt3__112__tuple_implINS_15__tuple_indicesIJLm0ELm1ELm2EEEEJNS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEES8_S8_EEC2B8ne200100IJLm0ELm1ELm2EEJS8_S8_S8_EJEJEJRKS8_SC_SC_EEENS1_IJXspT_EEEENS_13__tuple_typesIJDpT0_EEENS1_IJXspT1_EEEENSE_IJDpT2_EEEDpOT3_(&v21, a2, a3, a4);
-    v10 = std::__tree<std::__value_type<std::tuple<std::string,std::string,std::string>,std::__list_iterator<std::pair<std::tuple<std::string,std::string,std::string>,std::shared_ptr<quasar::PDecTranslator>>,void *>>,std::__map_value_compare<std::tuple<std::string,std::string,std::string>,std::__value_type<std::tuple<std::string,std::string,std::string>,std::__list_iterator<std::pair<std::tuple<std::string,std::string,std::string>,std::shared_ptr<quasar::PDecTranslator>>,void *>>,std::less<std::tuple<std::string,std::string,std::string>>,true>,std::allocator<std::__value_type<std::tuple<std::string,std::string,std::string>,std::__list_iterator<std::pair<std::tuple<std::string,std::string,std::string>,std::shared_ptr<quasar::PDecTranslator>>,void *>>>>::find<std::tuple<std::string,std::string,std::string>>(a1 + 1680, &v21);
+    _ZNSt3__112__tuple_implINS_15__tuple_indicesIJLm0ELm1ELm2EEEEJNS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEES8_S8_EEC2B8ne200100IJLm0ELm1ELm2EEJS8_S8_S8_EJEJEJRKS8_SC_SC_EEENS1_IJXspT_EEEENS_13__tuple_typesIJDpT0_EEENS1_IJXspT1_EEEENSE_IJDpT2_EEEDpOT3_(&v24, a2, a3, a4);
+    v10 = std::__tree<std::__value_type<std::tuple<std::string,std::string,std::string>,std::__list_iterator<std::pair<std::tuple<std::string,std::string,std::string>,std::shared_ptr<quasar::PDecTranslator>>,void *>>,std::__map_value_compare<std::tuple<std::string,std::string,std::string>,std::__value_type<std::tuple<std::string,std::string,std::string>,std::__list_iterator<std::pair<std::tuple<std::string,std::string,std::string>,std::shared_ptr<quasar::PDecTranslator>>,void *>>,std::less<std::tuple<std::string,std::string,std::string>>,true>,std::allocator<std::__value_type<std::tuple<std::string,std::string,std::string>,std::__list_iterator<std::pair<std::tuple<std::string,std::string,std::string>,std::shared_ptr<quasar::PDecTranslator>>,void *>>>>::find<std::tuple<std::string,std::string,std::string>>(a1 + 1680, &v24.__r_.__value_.__l.__data_);
     if (a1 + 1688 == v10)
     {
       v17 = *(a1 + 1672);
       if (v17 && v17 == *(a1 + 1568))
       {
-        std::__tree<std::__value_type<std::tuple<std::string,std::string,std::string>,std::__list_iterator<std::pair<std::tuple<std::string,std::string,std::string>,std::shared_ptr<quasar::PDecTranslator>>,void *>>,std::__map_value_compare<std::tuple<std::string,std::string,std::string>,std::__value_type<std::tuple<std::string,std::string,std::string>,std::__list_iterator<std::pair<std::tuple<std::string,std::string,std::string>,std::shared_ptr<quasar::PDecTranslator>>,void *>>,std::less<std::tuple<std::string,std::string,std::string>>,true>,std::allocator<std::__value_type<std::tuple<std::string,std::string,std::string>,std::__list_iterator<std::pair<std::tuple<std::string,std::string,std::string>,std::shared_ptr<quasar::PDecTranslator>>,void *>>>>::__erase_unique<std::tuple<std::string,std::string,std::string>>((a1 + 1680), *(a1 + 1656) + 16);
+        std::__tree<std::__value_type<std::tuple<std::string,std::string,std::string>,std::__list_iterator<std::pair<std::tuple<std::string,std::string,std::string>,std::shared_ptr<quasar::PDecTranslator>>,void *>>,std::__map_value_compare<std::tuple<std::string,std::string,std::string>,std::__value_type<std::tuple<std::string,std::string,std::string>,std::__list_iterator<std::pair<std::tuple<std::string,std::string,std::string>,std::shared_ptr<quasar::PDecTranslator>>,void *>>,std::less<std::tuple<std::string,std::string,std::string>>,true>,std::allocator<std::__value_type<std::tuple<std::string,std::string,std::string>,std::__list_iterator<std::pair<std::tuple<std::string,std::string,std::string>,std::shared_ptr<quasar::PDecTranslator>>,void *>>>>::__erase_unique<std::tuple<std::string,std::string,std::string>>((a1 + 1680), (*(a1 + 1656) + 16));
         v18 = *(a1 + 1656);
         v20 = *v18;
         v19 = *(v18 + 1);
@@ -6408,8 +6402,10 @@ void quasar::GlobalPDecTranslatorFactory::createTranslator(uint64_t a1@<X0>, __i
         std::__list_imp<std::pair<std::tuple<std::string,std::string,std::string>,std::shared_ptr<quasar::PDecTranslator>>>::__delete_node[abi:ne200100](a1 + 1656, v18);
       }
 
-      v26[0].__r_.__value_.__r.__words[0] = a1 + 1576;
-      std::allocate_shared[abi:ne200100]<quasar::PDecTranslator,std::allocator<quasar::PDecTranslator>,quasar::SystemConfig &,std::string const&,std::string const&,std::string const&,std::map<std::vector<std::string>,std::weak_ptr<kaldi::quasar::TranslationEngine<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>>>> *,std::unordered_map<std::string,std::weak_ptr<kaldi::quasar::PhraseBook>> *,decltype(nullptr),BOOL &,std::shared_ptr<quasar::ContextProvider> &,0>();
+      v29[0].__locale_ = (a1 + 1576);
+      v21 = 0;
+      v22 = a1 + 1600;
+      std::allocate_shared[abi:ne200100]<quasar::PDecTranslator,std::allocator<quasar::PDecTranslator>,quasar::SystemConfig &,std::string const&,std::string const&,std::string const&,std::map<std::vector<std::string>,std::weak_ptr<kaldi::quasar::TranslationEngine<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>>>> *,std::unordered_map<std::string,std::weak_ptr<kaldi::quasar::PhraseBook>> *,decltype(nullptr),BOOL &,std::shared_ptr<quasar::ContextProvider> &,0>(&v44, a1 + 8, a4, a2, a3, v29, &v22, &v21, a1 + 1572, a1 + 1640);
     }
 
     v11 = *(v10 + 104);
@@ -6429,8 +6425,8 @@ void quasar::GlobalPDecTranslatorFactory::createTranslator(uint64_t a1@<X0>, __i
         v11[1] = v12;
       }
 
-      v26[0].__r_.__value_.__r.__words[0] = &v21;
-      *(std::__tree<std::__value_type<std::tuple<std::string,std::string,std::string>,std::__list_iterator<std::pair<std::tuple<std::string,std::string,std::string>,std::shared_ptr<quasar::PDecTranslator>>,void *>>,std::__map_value_compare<std::tuple<std::string,std::string,std::string>,std::__value_type<std::tuple<std::string,std::string,std::string>,std::__list_iterator<std::pair<std::tuple<std::string,std::string,std::string>,std::shared_ptr<quasar::PDecTranslator>>,void *>>,std::less<std::tuple<std::string,std::string,std::string>>,true>,std::allocator<std::__value_type<std::tuple<std::string,std::string,std::string>,std::__list_iterator<std::pair<std::tuple<std::string,std::string,std::string>,std::shared_ptr<quasar::PDecTranslator>>,void *>>>>::__emplace_unique_key_args<std::tuple<std::string,std::string,std::string>,std::piecewise_construct_t const&,std::tuple<std::tuple<std::string,std::string,std::string> const&>,std::tuple<>>(a1 + 1680, &v21) + 104) = v11;
+      v29[0].__locale_ = &v24;
+      std::__tree<std::__value_type<std::tuple<std::string,std::string,std::string>,std::__list_iterator<std::pair<std::tuple<std::string,std::string,std::string>,std::shared_ptr<quasar::PDecTranslator>>,void *>>,std::__map_value_compare<std::tuple<std::string,std::string,std::string>,std::__value_type<std::tuple<std::string,std::string,std::string>,std::__list_iterator<std::pair<std::tuple<std::string,std::string,std::string>,std::shared_ptr<quasar::PDecTranslator>>,void *>>,std::less<std::tuple<std::string,std::string,std::string>>,true>,std::allocator<std::__value_type<std::tuple<std::string,std::string,std::string>,std::__list_iterator<std::pair<std::tuple<std::string,std::string,std::string>,std::shared_ptr<quasar::PDecTranslator>>,void *>>>>::__emplace_unique_key_args<std::tuple<std::string,std::string,std::string>,std::piecewise_construct_t const&,std::tuple<std::tuple<std::string,std::string,std::string> const&>,std::tuple<>>((a1 + 1680), &v24.__r_.__value_.__l.__data_, &std::piecewise_construct, v29, &v23)[13] = v11;
     }
 
     v16 = v11[12];
@@ -6441,19 +6437,19 @@ void quasar::GlobalPDecTranslatorFactory::createTranslator(uint64_t a1@<X0>, __i
       atomic_fetch_add_explicit((v16 + 8), 1uLL, memory_order_relaxed);
     }
 
-    if (v25 < 0)
+    if (v28 < 0)
     {
-      operator delete(v24);
+      operator delete(v27);
     }
 
-    if (v23 < 0)
+    if (v26 < 0)
     {
-      operator delete(v22);
+      operator delete(v25);
     }
 
-    if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v21.__r_.__value_.__l.__data_);
+      operator delete(v24.__r_.__value_.__l.__data_);
     }
   }
 
@@ -6461,24 +6457,24 @@ void quasar::GlobalPDecTranslatorFactory::createTranslator(uint64_t a1@<X0>, __i
   {
     if (quasar::gLogLevel >= 1)
     {
-      v39 = 0u;
+      v42 = 0u;
+      v43 = 0u;
       v40 = 0u;
-      v37 = 0u;
+      v41 = 0u;
       v38 = 0u;
-      v35 = 0u;
+      v39 = 0u;
       v36 = 0u;
-      v33 = 0u;
+      v37 = 0u;
       v34 = 0u;
-      v31 = 0u;
+      v35 = 0u;
       v32 = 0u;
-      v29 = 0u;
-      v30 = 0u;
+      v33 = 0u;
       *__p = 0u;
-      v28 = 0u;
-      memset(v26, 0, sizeof(v26));
-      kaldi::KaldiWarnMessage::KaldiWarnMessage(v26);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v26, "Given task and language pair combination is not supported", 57);
-      quasar::QuasarErrorMessage::~QuasarErrorMessage(v26);
+      v31 = 0u;
+      memset(v29, 0, sizeof(v29));
+      kaldi::KaldiWarnMessage::KaldiWarnMessage(v29);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v29, "Given task and language pair combination is not supported", 57);
+      quasar::QuasarErrorMessage::~QuasarErrorMessage(v29);
     }
 
     *a5 = 0;
@@ -6486,40 +6482,40 @@ void quasar::GlobalPDecTranslatorFactory::createTranslator(uint64_t a1@<X0>, __i
   }
 }
 
-void sub_1B53E9620(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, std::__shared_weak_count *a7, uint64_t a8, ...)
+void sub_1B53E9620(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, std::__shared_weak_count *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
-  if (a7)
+  va_start(va, a15);
+  if (a14)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a7);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a14);
   }
 
   std::pair<std::string const,quasar::TranslationPairSetting>::~pair(va);
   _Unwind_Resume(a1);
 }
 
-unint64_t quasar::GlobalPDecTranslatorFactory::engineType@<X0>(_BYTE *a1@<X8>)
+unint64_t quasar::GlobalPDecTranslatorFactory::engineType@<X0>(void *a1@<X8>)
 {
-  v3 = quasar::PDecTranslator::ENGINE_TYPE;
+  v2 = quasar::PDecTranslator::ENGINE_TYPE;
   result = strlen(quasar::PDecTranslator::ENGINE_TYPE);
   if (result >= 0x7FFFFFFFFFFFFFF8)
   {
     std::string::__throw_length_error[abi:ne200100]();
   }
 
-  v5 = result;
+  v4 = result;
   if (result >= 0x17)
   {
     operator new();
   }
 
-  a1[23] = result;
+  *(a1 + 23) = result;
   if (result)
   {
-    result = memmove(a1, v3, result);
+    result = memmove(a1, v2, result);
   }
 
-  a1[v5] = 0;
+  *(a1 + v4) = 0;
   return result;
 }
 
@@ -6540,11 +6536,11 @@ uint64_t quasar::GlobalPDecTranslatorFactory::isLanguagePairSupported(uint64_t a
 
   else
   {
-    TranslationModelInfo = quasar::SystemConfig::getTranslationModelInfo((a1 + 8));
-    v11 = *(TranslationModelInfo + 24);
-    v12 = (TranslationModelInfo + 32);
+    quasar::SystemConfig::getTranslationModelInfo((a1 + 8));
+    v11 = *(v10 + 24);
+    v12 = (v10 + 32);
     v13 = 1;
-    if (v11 != (TranslationModelInfo + 32))
+    if (v11 != (v10 + 32))
     {
       do
       {
@@ -6706,10 +6702,10 @@ LABEL_39:
     }
 
     memset(&v30, 0, sizeof(v30));
-    TranslationModelInfo = quasar::SystemConfig::getTranslationModelInfo((a1 + 8));
-    v14 = *(TranslationModelInfo + 24);
-    v15 = (TranslationModelInfo + 32);
-    if (v14 != (TranslationModelInfo + 32))
+    quasar::SystemConfig::getTranslationModelInfo((a1 + 8));
+    v14 = *(v13 + 24);
+    v15 = (v13 + 32);
+    if (v14 != (v13 + 32))
     {
       size = v30.__r_.__value_.__l.__size_;
       do
@@ -6805,7 +6801,7 @@ LABEL_36:
     quasar::SystemConfig::SystemConfig(&v35, (a1 + 8), 1, 1);
     memset(&v30, 0, sizeof(v30));
     std::vector<quasar::SystemConfig>::__init_with_size[abi:ne200100]<quasar::SystemConfig const*,quasar::SystemConfig const*>(&v30, &v35, &v52, 1uLL);
-    quasar::TranslatorCompiler::TranslatorCompiler(&v24);
+    quasar::TranslatorCompiler::TranslatorCompiler(&v24, &v30);
     v21 = &v30;
     std::vector<quasar::SystemConfig>::__destroy_vector::operator()[abi:ne200100](&v21);
     quasar::SystemConfig::~SystemConfig(&v35);
@@ -6820,9 +6816,9 @@ LABEL_36:
   return isCompileRequired;
 }
 
-void quasar::GlobalPDecTranslatorFactory::preload(_DWORD *a1, uint64_t a2, uint64_t a3, const void ***a4)
+void quasar::GlobalPDecTranslatorFactory::preload(_DWORD *a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  TranslationModelInfo = quasar::SystemConfig::getTranslationModelInfo((a1 + 2));
+  quasar::SystemConfig::getTranslationModelInfo((a1 + 2));
   if (a4[2])
   {
     v9 = a4;
@@ -6830,13 +6826,13 @@ void quasar::GlobalPDecTranslatorFactory::preload(_DWORD *a1, uint64_t a2, uint6
 
   else
   {
-    v9 = (TranslationModelInfo + 24);
+    v9 = (v8 + 24);
   }
 
   v10 = *v9;
   v37 = v9 + 1;
-  v38 = TranslationModelInfo;
-  if (*v9 == (v9 + 1))
+  v38 = v8;
+  if (*v9 == v9 + 1)
   {
     return;
   }
@@ -7055,20 +7051,20 @@ LABEL_47:
   while (v35 != v37);
 }
 
-void std::__list_imp<std::pair<std::tuple<std::string,std::string,std::string>,std::shared_ptr<quasar::PDecTranslator>>>::clear(char *a1)
+void std::__list_imp<std::pair<std::tuple<std::string,std::string,std::string>,std::shared_ptr<quasar::PDecTranslator>>>::clear(uint64_t *result)
 {
-  if (*(a1 + 2))
+  if (result[2])
   {
-    v2 = *(a1 + 1);
-    v3 = *(*a1 + 8);
+    v2 = result[1];
+    v3 = *(*result + 8);
     v4 = *v2;
     *(v4 + 8) = v3;
     *v3 = v4;
-    *(a1 + 2) = 0;
-    while (v2 != a1)
+    result[2] = 0;
+    while (v2 != result)
     {
-      v5 = *(v2 + 1);
-      std::__list_imp<std::pair<std::tuple<std::string,std::string,std::string>,std::shared_ptr<quasar::PDecTranslator>>>::__delete_node[abi:ne200100](a1, v2);
+      v5 = *(v2 + 8);
+      std::__list_imp<std::pair<std::tuple<std::string,std::string,std::string>,std::shared_ptr<quasar::PDecTranslator>>>::__delete_node[abi:ne200100](result, v2);
       v2 = v5;
     }
   }
@@ -7344,7 +7340,7 @@ void std::__tree<std::__value_type<std::string,std::unique_ptr<kaldi::quasar::TM
   }
 }
 
-uint64_t std::__tree<std::__value_type<std::tuple<std::string,std::string,std::string>,std::__list_iterator<std::pair<std::tuple<std::string,std::string,std::string>,std::shared_ptr<quasar::PDecTranslator>>,void *>>,std::__map_value_compare<std::tuple<std::string,std::string,std::string>,std::__value_type<std::tuple<std::string,std::string,std::string>,std::__list_iterator<std::pair<std::tuple<std::string,std::string,std::string>,std::shared_ptr<quasar::PDecTranslator>>,void *>>,std::less<std::tuple<std::string,std::string,std::string>>,true>,std::allocator<std::__value_type<std::tuple<std::string,std::string,std::string>,std::__list_iterator<std::pair<std::tuple<std::string,std::string,std::string>,std::shared_ptr<quasar::PDecTranslator>>,void *>>>>::find<std::tuple<std::string,std::string,std::string>>(uint64_t a1, uint64_t a2)
+uint64_t std::__tree<std::__value_type<std::tuple<std::string,std::string,std::string>,std::__list_iterator<std::pair<std::tuple<std::string,std::string,std::string>,std::shared_ptr<quasar::PDecTranslator>>,void *>>,std::__map_value_compare<std::tuple<std::string,std::string,std::string>,std::__value_type<std::tuple<std::string,std::string,std::string>,std::__list_iterator<std::pair<std::tuple<std::string,std::string,std::string>,std::shared_ptr<quasar::PDecTranslator>>,void *>>,std::less<std::tuple<std::string,std::string,std::string>>,true>,std::allocator<std::__value_type<std::tuple<std::string,std::string,std::string>,std::__list_iterator<std::pair<std::tuple<std::string,std::string,std::string>,std::shared_ptr<quasar::PDecTranslator>>,void *>>>>::find<std::tuple<std::string,std::string,std::string>>(uint64_t a1, const void **a2)
 {
   v2 = a1 + 8;
   v3 = *(a1 + 8);
@@ -7356,7 +7352,7 @@ uint64_t std::__tree<std::__value_type<std::tuple<std::string,std::string,std::s
   v5 = a1 + 8;
   do
   {
-    v6 = std::__tuple_less<3ul>::operator()[abi:ne200100]<std::tuple<std::string,std::string,std::string>,std::tuple<std::string,std::string,std::string>>(&v9, v3 + 32, a2);
+    v6 = std::__tuple_less<3ul>::operator()[abi:ne200100]<std::tuple<std::string,std::string,std::string>,std::tuple<std::string,std::string,std::string>>(&v9, (v3 + 32), a2);
     if (v6)
     {
       v7 = 8;
@@ -7376,7 +7372,7 @@ uint64_t std::__tree<std::__value_type<std::tuple<std::string,std::string,std::s
   }
 
   while (v3);
-  if (v5 == v2 || std::__tuple_less<3ul>::operator()[abi:ne200100]<std::tuple<std::string,std::string,std::string>,std::tuple<std::string,std::string,std::string>>(&v10, a2, v5 + 32))
+  if (v5 == v2 || std::__tuple_less<3ul>::operator()[abi:ne200100]<std::tuple<std::string,std::string,std::string>,std::tuple<std::string,std::string,std::string>>(&v10, a2, (v5 + 32)))
   {
     return v2;
   }
@@ -7384,7 +7380,7 @@ uint64_t std::__tree<std::__value_type<std::tuple<std::string,std::string,std::s
   return v5;
 }
 
-BOOL std::__tuple_less<3ul>::operator()[abi:ne200100]<std::tuple<std::string,std::string,std::string>,std::tuple<std::string,std::string,std::string>>(uint64_t a1, uint64_t a2, uint64_t a3)
+BOOL std::__tuple_less<3ul>::operator()[abi:ne200100]<std::tuple<std::string,std::string,std::string>,std::tuple<std::string,std::string,std::string>>(uint64_t a1, const void **a2, const void **a3)
 {
   v5 = *(a3 + 23);
   v6 = *(a2 + 23);
@@ -7395,7 +7391,7 @@ BOOL std::__tuple_less<3ul>::operator()[abi:ne200100]<std::tuple<std::string,std
 
   else
   {
-    v7 = *(a2 + 8);
+    v7 = a2[1];
   }
 
   if (v6 >= 0)
@@ -7415,7 +7411,7 @@ BOOL std::__tuple_less<3ul>::operator()[abi:ne200100]<std::tuple<std::string,std
 
   else
   {
-    v9 = *(a3 + 8);
+    v9 = a3[1];
   }
 
   if (v5 >= 0)
@@ -7608,9 +7604,9 @@ BOOL std::__tuple_less<1ul>::operator()[abi:ne200100]<std::tuple<std::string,std
   }
 }
 
-uint64_t std::__tree<std::__value_type<std::tuple<std::string,std::string,std::string>,std::__list_iterator<std::pair<std::tuple<std::string,std::string,std::string>,std::shared_ptr<quasar::PDecTranslator>>,void *>>,std::__map_value_compare<std::tuple<std::string,std::string,std::string>,std::__value_type<std::tuple<std::string,std::string,std::string>,std::__list_iterator<std::pair<std::tuple<std::string,std::string,std::string>,std::shared_ptr<quasar::PDecTranslator>>,void *>>,std::less<std::tuple<std::string,std::string,std::string>>,true>,std::allocator<std::__value_type<std::tuple<std::string,std::string,std::string>,std::__list_iterator<std::pair<std::tuple<std::string,std::string,std::string>,std::shared_ptr<quasar::PDecTranslator>>,void *>>>>::__emplace_unique_key_args<std::tuple<std::string,std::string,std::string>,std::piecewise_construct_t const&,std::tuple<std::tuple<std::string,std::string,std::string> const&>,std::tuple<>>(uint64_t a1, uint64_t a2)
+void *std::__tree<std::__value_type<std::tuple<std::string,std::string,std::string>,std::__list_iterator<std::pair<std::tuple<std::string,std::string,std::string>,std::shared_ptr<quasar::PDecTranslator>>,void *>>,std::__map_value_compare<std::tuple<std::string,std::string,std::string>,std::__value_type<std::tuple<std::string,std::string,std::string>,std::__list_iterator<std::pair<std::tuple<std::string,std::string,std::string>,std::shared_ptr<quasar::PDecTranslator>>,void *>>,std::less<std::tuple<std::string,std::string,std::string>>,true>,std::allocator<std::__value_type<std::tuple<std::string,std::string,std::string>,std::__list_iterator<std::pair<std::tuple<std::string,std::string,std::string>,std::shared_ptr<quasar::PDecTranslator>>,void *>>>>::__emplace_unique_key_args<std::tuple<std::string,std::string,std::string>,std::piecewise_construct_t const&,std::tuple<std::tuple<std::string,std::string,std::string> const&>,std::tuple<>>(uint64_t **a1, const void **a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  result = *std::__tree<std::__value_type<std::tuple<std::string,std::string,std::string>,std::__list_iterator<std::pair<std::tuple<std::string,std::string,std::string>,std::shared_ptr<quasar::PDecTranslator>>,void *>>,std::__map_value_compare<std::tuple<std::string,std::string,std::string>,std::__value_type<std::tuple<std::string,std::string,std::string>,std::__list_iterator<std::pair<std::tuple<std::string,std::string,std::string>,std::shared_ptr<quasar::PDecTranslator>>,void *>>,std::less<std::tuple<std::string,std::string,std::string>>,true>,std::allocator<std::__value_type<std::tuple<std::string,std::string,std::string>,std::__list_iterator<std::pair<std::tuple<std::string,std::string,std::string>,std::shared_ptr<quasar::PDecTranslator>>,void *>>>>::__find_equal<std::tuple<std::string,std::string,std::string>>(a1, &v3, a2);
+  result = *std::__tree<std::__value_type<std::tuple<std::string,std::string,std::string>,std::__list_iterator<std::pair<std::tuple<std::string,std::string,std::string>,std::shared_ptr<quasar::PDecTranslator>>,void *>>,std::__map_value_compare<std::tuple<std::string,std::string,std::string>,std::__value_type<std::tuple<std::string,std::string,std::string>,std::__list_iterator<std::pair<std::tuple<std::string,std::string,std::string>,std::shared_ptr<quasar::PDecTranslator>>,void *>>,std::less<std::tuple<std::string,std::string,std::string>>,true>,std::allocator<std::__value_type<std::tuple<std::string,std::string,std::string>,std::__list_iterator<std::pair<std::tuple<std::string,std::string,std::string>,std::shared_ptr<quasar::PDecTranslator>>,void *>>>>::__find_equal<std::tuple<std::string,std::string,std::string>>(a1, &v6, a2);
   if (!result)
   {
     std::__tree<std::__value_type<std::tuple<std::string,std::string,std::string>,std::__list_iterator<std::pair<std::tuple<std::string,std::string,std::string>,std::shared_ptr<quasar::PDecTranslator>>,void *>>,std::__map_value_compare<std::tuple<std::string,std::string,std::string>,std::__value_type<std::tuple<std::string,std::string,std::string>,std::__list_iterator<std::pair<std::tuple<std::string,std::string,std::string>,std::shared_ptr<quasar::PDecTranslator>>,void *>>,std::less<std::tuple<std::string,std::string,std::string>>,true>,std::allocator<std::__value_type<std::tuple<std::string,std::string,std::string>,std::__list_iterator<std::pair<std::tuple<std::string,std::string,std::string>,std::shared_ptr<quasar::PDecTranslator>>,void *>>>>::__construct_node<std::piecewise_construct_t const&,std::tuple<std::tuple<std::string,std::string,std::string> const&>,std::tuple<>>();
@@ -7619,7 +7615,7 @@ uint64_t std::__tree<std::__value_type<std::tuple<std::string,std::string,std::s
   return result;
 }
 
-void *std::__tree<std::__value_type<std::tuple<std::string,std::string,std::string>,std::__list_iterator<std::pair<std::tuple<std::string,std::string,std::string>,std::shared_ptr<quasar::PDecTranslator>>,void *>>,std::__map_value_compare<std::tuple<std::string,std::string,std::string>,std::__value_type<std::tuple<std::string,std::string,std::string>,std::__list_iterator<std::pair<std::tuple<std::string,std::string,std::string>,std::shared_ptr<quasar::PDecTranslator>>,void *>>,std::less<std::tuple<std::string,std::string,std::string>>,true>,std::allocator<std::__value_type<std::tuple<std::string,std::string,std::string>,std::__list_iterator<std::pair<std::tuple<std::string,std::string,std::string>,std::shared_ptr<quasar::PDecTranslator>>,void *>>>>::__find_equal<std::tuple<std::string,std::string,std::string>>(uint64_t a1, void *a2, uint64_t a3)
+const void **std::__tree<std::__value_type<std::tuple<std::string,std::string,std::string>,std::__list_iterator<std::pair<std::tuple<std::string,std::string,std::string>,std::shared_ptr<quasar::PDecTranslator>>,void *>>,std::__map_value_compare<std::tuple<std::string,std::string,std::string>,std::__value_type<std::tuple<std::string,std::string,std::string>,std::__list_iterator<std::pair<std::tuple<std::string,std::string,std::string>,std::shared_ptr<quasar::PDecTranslator>>,void *>>,std::less<std::tuple<std::string,std::string,std::string>>,true>,std::allocator<std::__value_type<std::tuple<std::string,std::string,std::string>,std::__list_iterator<std::pair<std::tuple<std::string,std::string,std::string>,std::shared_ptr<quasar::PDecTranslator>>,void *>>>>::__find_equal<std::tuple<std::string,std::string,std::string>>(uint64_t a1, const void ***a2, const void **a3)
 {
   v5 = (a1 + 8);
   v4 = *(a1 + 8);
@@ -7630,7 +7626,7 @@ void *std::__tree<std::__value_type<std::tuple<std::string,std::string,std::stri
       while (1)
       {
         v7 = v4;
-        if (!std::__tuple_less<3ul>::operator()[abi:ne200100]<std::tuple<std::string,std::string,std::string>,std::tuple<std::string,std::string,std::string>>(&v9, a3, (v4 + 4)))
+        if (!std::__tuple_less<3ul>::operator()[abi:ne200100]<std::tuple<std::string,std::string,std::string>,std::tuple<std::string,std::string,std::string>>(&v9, a3, v4 + 4))
         {
           break;
         }
@@ -7643,7 +7639,7 @@ void *std::__tree<std::__value_type<std::tuple<std::string,std::string,std::stri
         }
       }
 
-      if (!std::__tuple_less<3ul>::operator()[abi:ne200100]<std::tuple<std::string,std::string,std::string>,std::tuple<std::string,std::string,std::string>>(&v10, (v7 + 4), a3))
+      if (!std::__tuple_less<3ul>::operator()[abi:ne200100]<std::tuple<std::string,std::string,std::string>,std::tuple<std::string,std::string,std::string>>(&v10, v7 + 4, a3))
       {
         break;
       }
@@ -7686,7 +7682,7 @@ void std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_ty
   }
 }
 
-uint64_t std::__tree<std::__value_type<std::tuple<std::string,std::string,std::string>,std::__list_iterator<std::pair<std::tuple<std::string,std::string,std::string>,std::shared_ptr<quasar::PDecTranslator>>,void *>>,std::__map_value_compare<std::tuple<std::string,std::string,std::string>,std::__value_type<std::tuple<std::string,std::string,std::string>,std::__list_iterator<std::pair<std::tuple<std::string,std::string,std::string>,std::shared_ptr<quasar::PDecTranslator>>,void *>>,std::less<std::tuple<std::string,std::string,std::string>>,true>,std::allocator<std::__value_type<std::tuple<std::string,std::string,std::string>,std::__list_iterator<std::pair<std::tuple<std::string,std::string,std::string>,std::shared_ptr<quasar::PDecTranslator>>,void *>>>>::__erase_unique<std::tuple<std::string,std::string,std::string>>(uint64_t **a1, uint64_t a2)
+uint64_t std::__tree<std::__value_type<std::tuple<std::string,std::string,std::string>,std::__list_iterator<std::pair<std::tuple<std::string,std::string,std::string>,std::shared_ptr<quasar::PDecTranslator>>,void *>>,std::__map_value_compare<std::tuple<std::string,std::string,std::string>,std::__value_type<std::tuple<std::string,std::string,std::string>,std::__list_iterator<std::pair<std::tuple<std::string,std::string,std::string>,std::shared_ptr<quasar::PDecTranslator>>,void *>>,std::less<std::tuple<std::string,std::string,std::string>>,true>,std::allocator<std::__value_type<std::tuple<std::string,std::string,std::string>,std::__list_iterator<std::pair<std::tuple<std::string,std::string,std::string>,std::shared_ptr<quasar::PDecTranslator>>,void *>>>>::__erase_unique<std::tuple<std::string,std::string,std::string>>(uint64_t **a1, const void **a2)
 {
   v3 = std::__tree<std::__value_type<std::tuple<std::string,std::string,std::string>,std::__list_iterator<std::pair<std::tuple<std::string,std::string,std::string>,std::shared_ptr<quasar::PDecTranslator>>,void *>>,std::__map_value_compare<std::tuple<std::string,std::string,std::string>,std::__value_type<std::tuple<std::string,std::string,std::string>,std::__list_iterator<std::pair<std::tuple<std::string,std::string,std::string>,std::shared_ptr<quasar::PDecTranslator>>,void *>>,std::less<std::tuple<std::string,std::string,std::string>>,true>,std::allocator<std::__value_type<std::tuple<std::string,std::string,std::string>,std::__list_iterator<std::pair<std::tuple<std::string,std::string,std::string>,std::shared_ptr<quasar::PDecTranslator>>,void *>>>>::find<std::tuple<std::string,std::string,std::string>>(a1, a2);
   if (a1 + 1 == v3)
@@ -7706,7 +7702,7 @@ uint64_t *std::__tree<std::__value_type<std::tuple<std::string,std::string,std::
   return v4;
 }
 
-void std::__shared_ptr_emplace<quasar::PDecTranslator>::__shared_ptr_emplace[abi:ne200100]<quasar::SystemConfig &,std::string const&,std::string const&,std::string const&,std::map<std::vector<std::string>,std::weak_ptr<kaldi::quasar::TranslationEngine<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>>>> *,std::unordered_map<std::string,std::weak_ptr<kaldi::quasar::PhraseBook>> *,decltype(nullptr),BOOL &,std::shared_ptr<quasar::ContextProvider> &,std::allocator<quasar::PDecTranslator>,0>(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+void std::__shared_ptr_emplace<quasar::PDecTranslator>::__shared_ptr_emplace[abi:ne200100]<quasar::SystemConfig &,std::string const&,std::string const&,std::string const&,std::map<std::vector<std::string>,std::weak_ptr<kaldi::quasar::TranslationEngine<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>>>> *,std::unordered_map<std::string,std::weak_ptr<kaldi::quasar::PhraseBook>> *,decltype(nullptr),BOOL &,std::shared_ptr<quasar::ContextProvider> &,std::allocator<quasar::PDecTranslator>,0>(void *a1, quasar::SystemConfig *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t *a6, uint64_t *a7, uint64_t a8, char *a9, uint64_t *a10)
 {
   a1[1] = 0;
   a1[2] = 0;
@@ -7714,15 +7710,20 @@ void std::__shared_ptr_emplace<quasar::PDecTranslator>::__shared_ptr_emplace[abi
   std::allocator<quasar::PDecTranslator>::construct[abi:ne200100]<quasar::PDecTranslator,quasar::SystemConfig &,std::string const&,std::string const&,std::string const&,std::map<std::vector<std::string>,std::weak_ptr<kaldi::quasar::TranslationEngine<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>>>> *,std::unordered_map<std::string,std::weak_ptr<kaldi::quasar::PhraseBook>> *,decltype(nullptr),BOOL &,std::shared_ptr<quasar::ContextProvider> &>(&v10, (a1 + 3), a2, a3, a4, a5, a6, a7, a8, a9, a10);
 }
 
-void std::allocator<quasar::PDecTranslator>::construct[abi:ne200100]<quasar::PDecTranslator,quasar::SystemConfig &,std::string const&,std::string const&,std::string const&,std::map<std::vector<std::string>,std::weak_ptr<kaldi::quasar::TranslationEngine<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>>>> *,std::unordered_map<std::string,std::weak_ptr<kaldi::quasar::PhraseBook>> *,decltype(nullptr),BOOL &,std::shared_ptr<quasar::ContextProvider> &>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
+void std::allocator<quasar::PDecTranslator>::construct[abi:ne200100]<quasar::PDecTranslator,quasar::SystemConfig &,std::string const&,std::string const&,std::string const&,std::map<std::vector<std::string>,std::weak_ptr<kaldi::quasar::TranslationEngine<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>>>> *,std::unordered_map<std::string,std::weak_ptr<kaldi::quasar::PhraseBook>> *,decltype(nullptr),BOOL &,std::shared_ptr<quasar::ContextProvider> &>(uint64_t a1, uint64_t a2, quasar::SystemConfig *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t *a7, uint64_t *a8, uint64_t a9, char *a10, uint64_t *a11)
 {
-  v11 = *(a11 + 8);
-  if (v11)
+  v12 = *a7;
+  v13 = *a8;
+  v14 = *a10;
+  v15 = a11[1];
+  v16[0] = *a11;
+  v16[1] = v15;
+  if (v15)
   {
-    atomic_fetch_add_explicit((v11 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v15 + 8), 1uLL, memory_order_relaxed);
   }
 
-  quasar::PDecTranslator::PDecTranslator(a2);
+  quasar::PDecTranslator::PDecTranslator(a2, a3, a4, a5, a6, v12, v13, 0, v14, v16);
 }
 
 void sub_1B53EAEDC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, std::__shared_weak_count *a12)
@@ -7735,7 +7736,7 @@ void sub_1B53EAEDC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<quasar::SystemConfig>::__init_with_size[abi:ne200100]<quasar::SystemConfig const*,quasar::SystemConfig const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<quasar::SystemConfig>::__init_with_size[abi:ne200100]<quasar::SystemConfig const*,quasar::SystemConfig const*>(uint64_t *result, quasar::SystemConfig *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7752,7 +7753,7 @@ void sub_1B53EAF5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<quasar::SystemConfig>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<quasar::SystemConfig>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x2A02A02A02A02BLL)
   {
@@ -7792,7 +7793,7 @@ void sub_1B53EB034(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<std::tuple<std::string,std::string,std::string>>::__init_with_size[abi:ne200100]<std::tuple<std::string,std::string,std::string> const*,std::tuple<std::string,std::string,std::string> const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::tuple<std::string,std::string,std::string>>::__init_with_size[abi:ne200100]<std::tuple<std::string,std::string,std::string> const*,std::tuple<std::string,std::string,std::string> const*>(uint64_t *result, int a2, int a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7802,7 +7803,7 @@ uint64_t std::vector<std::tuple<std::string,std::string,std::string>>::__init_wi
   return result;
 }
 
-void sub_1B53EB0B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
+void sub_1B53EB0B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   *(v9 + 8) = v10;
   std::vector<std::tuple<std::string,std::string,std::string>>::__destroy_vector::operator()[abi:ne200100](&a9);
@@ -7888,7 +7889,7 @@ void std::vector<std::tuple<std::string,std::string,std::string>>::__base_destru
   *(a1 + 8) = a2;
 }
 
-uint64_t std::vector<std::tuple<std::string,std::string,std::string>>::__emplace_back_slow_path<std::string const&,std::string const&,std::string const&>(uint64_t a1, __int128 *a2, __int128 *a3, __int128 *a4)
+std::string *std::vector<std::tuple<std::string,std::string,std::string>>::__emplace_back_slow_path<std::string const&,std::string const&,std::string const&>(uint64_t a1, __int128 *a2, __int128 *a3, __int128 *a4)
 {
   v4 = 0x8E38E38E38E38E39 * ((*(a1 + 8) - *a1) >> 3);
   v5 = v4 + 1;
@@ -7936,12 +7937,12 @@ uint64_t std::vector<std::tuple<std::string,std::string,std::string>>::__emplace
   v14 = v11;
   v15 = v11;
   std::__split_buffer<std::tuple<std::string,std::string,std::string>>::~__split_buffer(&v14);
-  return 72 * v4 + 72;
+  return (72 * v4 + 72);
 }
 
-void sub_1B53EB3EC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B53EB3EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::tuple<std::string,std::string,std::string>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -8160,24 +8161,26 @@ LABEL_42:
   return 0;
 }
 
-uint64_t fst::DeterminizeLatticePruned<fst::LatticeWeightTpl<float>,int>(uint64_t a1, uint64_t a2)
+uint64_t fst::DeterminizeLatticePruned<fst::LatticeWeightTpl<float>,int>(void *a1, uint64_t a2, __int128 *a3, double a4)
 {
-  v4 = (*(*a1 + 112))(a1);
-  (*(*a2 + 280))(a2, v4);
-  v5 = (*(*a1 + 120))(a1);
-  (*(*a2 + 288))(a2, v5);
+  v9[43] = *MEMORY[0x1E69E9840];
+  v6 = (*(*a1 + 112))(a1);
+  (*(*a2 + 280))(a2, v6);
+  v7 = (*(*a1 + 120))(a1);
+  (*(*a2 + 288))(a2, v7);
   if ((*(*a1 + 160))(a1))
   {
-    fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>>>>::VectorFst();
+    fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>>>>::VectorFst(v9);
   }
 
   (*(*a2 + 224))(a2);
   return 1;
 }
 
-void sub_1B53EB93C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46)
+void sub_1B53EB93C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, ...)
 {
-  fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::~LatticeDeterminizerPruned(&a46);
+  va_start(va, a45);
+  fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::~LatticeDeterminizerPruned(va);
   fst::ImplToFst<fst::VectorFstImpl<fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>>>>,fst::MutableFst<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>>>::~ImplToFst(&a44);
   _Unwind_Resume(a1);
 }
@@ -8294,9 +8297,9 @@ LABEL_21:
   return v25 == v26;
 }
 
-void sub_1B53EBC28(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B53EBC28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   kaldi::KaldiVlogMessage::~KaldiVlogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -8651,24 +8654,26 @@ void sub_1B53EBF50(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t fst::DeterminizeLatticePruned<fst::LatticeWeightTpl<float>>(uint64_t a1, uint64_t a2)
+uint64_t fst::DeterminizeLatticePruned<fst::LatticeWeightTpl<float>>(void *a1, uint64_t a2, __int128 *a3, double a4)
 {
-  v4 = (*(*a1 + 112))(a1);
-  (*(*a2 + 280))(a2, v4);
-  v5 = (*(*a1 + 120))(a1);
-  (*(*a2 + 288))(a2, v5);
+  v9[43] = *MEMORY[0x1E69E9840];
+  v6 = (*(*a1 + 112))(a1);
+  (*(*a2 + 280))(a2, v6);
+  v7 = (*(*a1 + 120))(a1);
+  (*(*a2 + 288))(a2, v7);
   if ((*(*a1 + 160))(a1))
   {
-    fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>>>>::VectorFst();
+    fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>>>>::VectorFst(v9);
   }
 
   (*(*a2 + 224))(a2);
   return 1;
 }
 
-void sub_1B53EC30C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48)
+void sub_1B53EC30C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, ...)
 {
-  fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::~LatticeDeterminizerPruned(&a48);
+  va_start(va, a47);
+  fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::~LatticeDeterminizerPruned(va);
   fst::ImplToFst<fst::VectorFstImpl<fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>>>>,fst::MutableFst<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>>>::~ImplToFst(&a46);
   _Unwind_Resume(a1);
 }
@@ -8683,79 +8688,79 @@ void sub_1B53EC7CC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t fst::DeterminizeLatticePhonePruned<fst::LatticeWeightTpl<float>,int>(kaldi::TransitionModel *a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
+uint64_t fst::DeterminizeLatticePhonePruned<fst::LatticeWeightTpl<float>,int>(kaldi::TransitionModel *a1, void *a2, uint64_t a3, uint64_t a4, int a5, double a6)
 {
   if ((a5 & 0x100) == 0 && (a5 & 1) == 0)
   {
     if (kaldi::g_kaldi_verbose_level >= -1)
     {
-      kaldi::KaldiWarnMessage::KaldiWarnMessage(&v15);
-      v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v15, "Both --phone-determinize and --word-determinize are set to ", 59);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, "false, copying lattice without determinization.", 47);
-      kaldi::KaldiWarnMessage::~KaldiWarnMessage(&v15);
+      kaldi::KaldiWarnMessage::KaldiWarnMessage(&v17);
+      v11 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v17, "Both --phone-determinize and --word-determinize are set to ", 59);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, "false, copying lattice without determinization.", 47);
+      kaldi::KaldiWarnMessage::~KaldiWarnMessage(&v17);
     }
 
-    fst::ConvertLattice<fst::LatticeWeightTpl<float>,int>();
+    fst::ConvertLattice<fst::LatticeWeightTpl<float>,int>(a2, a3, 0);
   }
 
-  *(&v17 + 1) = -1;
-  v18 = 0x3F000000FFFFFFFFLL;
-  *&v17 = a4;
+  *(&v19 + 1) = -1;
+  v20 = 0x3F000000FFFFFFFFLL;
+  *&v19 = a4;
   if (a5)
   {
     if (kaldi::g_kaldi_verbose_level >= 1)
     {
-      kaldi::KaldiVlogMessage::KaldiVlogMessage(&v15, 1);
-      v10 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v15, "Doing first pass of determinization on phone + word ", 52);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, "lattices.", 9);
-      kaldi::KaldiVlogMessage::~KaldiVlogMessage(&v15);
+      kaldi::KaldiVlogMessage::KaldiVlogMessage(&v17, 1);
+      v12 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v17, "Doing first pass of determinization on phone + word ", 52);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, "lattices.", 9);
+      kaldi::KaldiVlogMessage::~KaldiVlogMessage(&v17);
     }
 
-    fst::DeterminizeLatticePhonePrunedFirstPass<fst::LatticeWeightTpl<float>,int>(a1, a2);
+    fst::DeterminizeLatticePhonePrunedFirstPass<fst::LatticeWeightTpl<float>,int>(a6, a1, a2, &v19);
   }
 
-  v11 = 1;
+  v13 = 1;
   if ((a5 & 0x100) != 0)
   {
     if (kaldi::g_kaldi_verbose_level >= 1)
     {
-      kaldi::KaldiVlogMessage::KaldiVlogMessage(&v15, 1);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v15, "Doing second pass of determinization on word lattices.", 54);
-      kaldi::KaldiVlogMessage::~KaldiVlogMessage(&v15);
+      kaldi::KaldiVlogMessage::KaldiVlogMessage(&v17, 1);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v17, "Doing second pass of determinization on word lattices.", 54);
+      kaldi::KaldiVlogMessage::~KaldiVlogMessage(&v17);
     }
 
-    v15 = v17;
-    v16 = v18;
-    v11 = fst::DeterminizeLatticePruned<fst::LatticeWeightTpl<float>,int>(a2, a3) & 1;
+    v17 = v19;
+    v18 = v20;
+    v13 = fst::DeterminizeLatticePruned<fst::LatticeWeightTpl<float>,int>(a2, a3, &v17, a6) & 1;
   }
 
   if ((a5 & 0x10000) != 0)
   {
     if (kaldi::g_kaldi_verbose_level >= 1)
     {
-      kaldi::KaldiVlogMessage::KaldiVlogMessage(&v15, 1);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v15, "Pushing and minimizing on word lattices.", 40);
-      kaldi::KaldiVlogMessage::~KaldiVlogMessage(&v15);
+      kaldi::KaldiVlogMessage::KaldiVlogMessage(&v17, 1);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v17, "Pushing and minimizing on word lattices.", 40);
+      kaldi::KaldiVlogMessage::~KaldiVlogMessage(&v17);
     }
 
-    v12 = fst::PushCompactLatticeStrings<fst::LatticeWeightTpl<float>,int>(a3);
-    v13 = fst::PushCompactLatticeWeights<fst::LatticeWeightTpl<float>,int>(a3);
-    return fst::MinimizeCompactLattice<fst::LatticeWeightTpl<float>,int>(a3, 0.00097656) & v13 & v12 & v11;
+    v14 = fst::PushCompactLatticeStrings<fst::LatticeWeightTpl<float>,int>(a3);
+    v15 = fst::PushCompactLatticeWeights<fst::LatticeWeightTpl<float>,int>(a3);
+    return fst::MinimizeCompactLattice<fst::LatticeWeightTpl<float>,int>(a3, 0.00097656) & v15 & v14 & v13;
   }
 
-  return v11;
+  return v13;
 }
 
-void fst::DeterminizeLatticePhonePrunedWrapper(kaldi::TransitionModel *a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
+void fst::DeterminizeLatticePhonePrunedWrapper(kaldi::TransitionModel *a1, void *a2, uint64_t a3, uint64_t a4, int a5, double a6)
 {
   fst::Invert<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>>(a2);
   if (!(*(*a2 + 64))(a2, 0x4000000000, 1))
   {
-    fst::TopSort<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>>();
+    fst::TopSort<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>>(a2);
   }
 
   fst::ArcSort<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>,fst::ILabelCompare<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>>>(a2);
-  fst::DeterminizeLatticePhonePruned<fst::LatticeWeightTpl<float>,int>(a1, a2, a3, a4, a5);
+  fst::DeterminizeLatticePhonePruned<fst::LatticeWeightTpl<float>,int>(a1, a2, a3, a4, a5, a6);
   fst::Connect<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>(a3);
 }
 
@@ -9169,7 +9174,7 @@ uint64_t std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,fst::LatticeDetermi
   return result;
 }
 
-uint64_t fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::InitializeDeterminization(uint64_t a1)
+void fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::InitializeDeterminization(uint64_t a1)
 {
   (*(**(a1 + 32) + 64))(*(a1 + 32), 0x4000000000, 1);
   fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::ComputeBackwardWeight(a1);
@@ -9180,10 +9185,10 @@ uint64_t fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::Initi
     std::__hash_table<std::__hash_value_type<std::string,std::variant<kaldi::quasar::ShortlistDataInManyFiles::NotLoadedShortListDataOnDisk,std::shared_ptr<kaldi::quasar::ShortlistDataOnDisk>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<kaldi::quasar::ShortlistDataInManyFiles::NotLoadedShortListDataOnDisk,std::shared_ptr<kaldi::quasar::ShortlistDataOnDisk>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<kaldi::quasar::ShortlistDataInManyFiles::NotLoadedShortListDataOnDisk,std::shared_ptr<kaldi::quasar::ShortlistDataOnDisk>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<kaldi::quasar::ShortlistDataInManyFiles::NotLoadedShortListDataOnDisk,std::shared_ptr<kaldi::quasar::ShortlistDataOnDisk>>>>>::__rehash<true>(a1 + 160, v2);
   }
 
-  result = (*(**(a1 + 32) + 24))(*(a1 + 32));
-  if (result != -1)
+  v3 = (*(**(a1 + 32) + 24))(*(a1 + 32));
+  if (v3 != -1)
   {
-    v4 = result;
+    v4 = v3;
     std::vector<fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::Element,std::allocator<fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::Element>>::vector[abi:ne200100](&__p, 1uLL);
     v5 = __p;
     *__p = v4;
@@ -9193,8 +9198,6 @@ uint64_t fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::Initi
     fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::ConvertToMinimal(a1, &__p);
     operator new();
   }
-
-  return result;
 }
 
 void sub_1B53ED5E0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13)
@@ -9277,28 +9280,28 @@ uint64_t fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::Check
   return 0;
 }
 
-void sub_1B53ED880(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B53ED880(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   kaldi::KaldiVlogMessage::~KaldiVlogMessage(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::ProcessTransition(uint64_t a1, int a2, __int32 a3, uint64_t *a4)
+uint64_t fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::ProcessTransition(uint64_t a1, int a2, __int32 a3, std::locale::__imp *a4)
 {
   v4 = a4;
   v8 = *(*(*a1 + 8 * a2) + 48);
   v15 = 0;
   fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::NormalizeSubset(a1, a4, &v14, &v15);
   v13 = 0;
-  LODWORD(v4) = fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::InitialToStateId(a1, v4, v10, &v13, v8 + v14.f32[0] + v14.f32[1]);
-  v15 = fst::LatticeStringRepository<int>::Concatenate(a1 + 280, *&v15, v13);
-  v14 = vadd_f32(v14, v10[0]);
-  v10[0].i32[0] = a3;
+  LODWORD(v4) = fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::InitialToStateId(a1, v4, &v10, &v13, v8 + v14.f32[0] + v14.f32[1]);
+  v15 = fst::LatticeStringRepository<int>::Concatenate((a1 + 280), v15, v13);
+  v14 = vadd_f32(v14, *&v10);
+  LODWORD(v10) = a3;
   v11 = v4;
-  v10[1] = v15;
+  *(&v10 + 1) = v15;
   v12 = v14;
-  result = std::vector<fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::TempArc,std::allocator<fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::TempArc>>::push_back[abi:ne200100]((*(*a1 + 8 * a2) + 24), v10);
+  result = std::vector<fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::TempArc,std::allocator<fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::TempArc>>::push_back[abi:ne200100]((*(*a1 + 8 * a2) + 24), &v10);
   ++*(a1 + 24);
   return result;
 }
@@ -9319,15 +9322,15 @@ void fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::ComputeBa
     v5 = v4--;
     v6 = *(a1 + 40);
     (*(**(a1 + 32) + 32))(v13);
-    *(v6 + 8 * v4) = *v13 + *(v13 + 1);
+    *(v6 + 8 * v4) = *&v13[0].__locale_ + *(&v13[0].__locale_ + 1);
     v7 = *(a1 + 32);
     v15 = 0;
     (*(*v7 + 136))(v7, v4, v13);
     while (1)
     {
-      if (!v13[0])
+      if (!v13[0].__locale_)
       {
-        if (v15 >= v13[2])
+        if (v15 >= v13[2].__locale_)
         {
           goto LABEL_17;
         }
@@ -9335,43 +9338,43 @@ void fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::ComputeBa
         goto LABEL_9;
       }
 
-      if ((*(*v13[0] + 24))(v13[0]))
+      if ((*(*v13[0].__locale_ + 24))(v13[0].__locale_))
       {
         break;
       }
 
-      if (v13[0])
+      if (v13[0].__locale_)
       {
-        v8 = (*(*v13[0] + 32))();
-        v9 = v13[0];
+        v8 = (*(*v13[0].__locale_ + 32))();
+        locale = v13[0].__locale_;
         goto LABEL_10;
       }
 
 LABEL_9:
-      v9 = 0;
-      v8 = v13[1] + 20 * v15;
+      locale = 0;
+      v8 = (v13[1].__locale_ + 20 * v15);
 LABEL_10:
-      v10 = *(v8 + 8) + *(v8 + 12) + *(*(a1 + 40) + 8 * *(v8 + 16));
+      v10 = v8[2] + v8[3] + *(*(a1 + 40) + 8 * *(v8 + 4));
       if (v10 >= *(v6 + 8 * v4))
       {
         v10 = *(v6 + 8 * v4);
       }
 
       *(v6 + 8 * v4) = v10;
-      if (v9)
+      if (locale)
       {
-        (*(*v9 + 40))(v9);
+        (*(*locale + 40))(locale);
       }
 
       else
       {
-        ++v15;
+        v15 = (v15 + 1);
       }
     }
 
-    if (v13[0])
+    if (v13[0].__locale_)
     {
-      (*(*v13[0] + 8))();
+      (*(*v13[0].__locale_ + 8))();
       continue;
     }
 
@@ -9415,7 +9418,7 @@ uint64_t fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::Epsil
       *v47 = *v7;
       *&v47[8] = *v7;
       v48 = *(v7 + 16);
-      std::__hash_table<std::__hash_value_type<int,fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::Element>,std::__unordered_map_hasher<int,std::__hash_value_type<int,fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::Element>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::Element>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::Element>>>::__emplace_unique_key_args<int,std::pair<int const,fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::Element> const&>(&v52, v47);
+      std::__hash_table<std::__hash_value_type<int,fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::Element>,std::__unordered_map_hasher<int,std::__hash_value_type<int,fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::Element>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::Element>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::Element>>>::__emplace_unique_key_args<int,std::pair<int const,fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::Element> const&>(&v52, v47, v47);
       ++v6;
       v4 = *a2;
       v5 += 24;
@@ -9488,8 +9491,8 @@ uint64_t fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::Epsil
     if (v14)
     {
       *v47 = &v50;
-      v19 = std::__hash_table<std::__hash_value_type<int,fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::Element>,std::__unordered_map_hasher<int,std::__hash_value_type<int,fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::Element>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::Element>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::Element>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v52, &v50);
-      if (*(v19 + 6) != v50 || v19[4] != *(&v50 + 1) || (v20 = *(v19 + 11), *v47 = *(v19 + 10), LODWORD(v45) = v20, v57 = *(&v51 + 1), LODWORD(v56[0]) = v51, *v47 != *&v51) || *&v45 != v57)
+      v19 = std::__hash_table<std::__hash_value_type<int,fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::Element>,std::__unordered_map_hasher<int,std::__hash_value_type<int,fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::Element>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::Element>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::Element>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v52, &v50, &std::piecewise_construct, v47);
+      if (*(v19 + 6) != v50 || v19[4] != *(&v50 + 1) || (v20 = *(v19 + 11), *v47 = *(v19 + 10), LODWORD(v45) = v20, v57 = v51.f32[1], LODWORD(v56) = v51.i32[0], *v47 != v51.f32[0]) || *&v45 != v57)
       {
         v14 = 1;
         goto LABEL_58;
@@ -9556,10 +9559,10 @@ LABEL_30:
         v27.i32[0] = v25[2];
         v28 = v25[3];
         LODWORD(v45) = v27.i32[0];
-        LODWORD(v56[0]) = v28;
+        LODWORD(v56) = v28;
         v57 = INFINITY;
         v55 = INFINITY;
-        if (v27.f32[0] != INFINITY || v56[0] != v55)
+        if (v27.f32[0] != INFINITY || *&v56 != v55)
         {
           LODWORD(v45) = v25[4];
           v27.i32[1] = v28;
@@ -9588,7 +9591,7 @@ LABEL_30:
                 v39 = *(&v50 + 1);
                 if (v38)
                 {
-                  v39 = fst::LatticeStringRepository<int>::Successor(a1 + 280, *(&v50 + 1), v38);
+                  v39 = fst::LatticeStringRepository<int>::Successor((a1 + 280), *(&v50 + 1), v38);
                 }
 
                 *(&v45 + 1) = v39;
@@ -9599,14 +9602,14 @@ LABEL_39:
                   v34 = *(&v50 + 1);
                   if (v33)
                   {
-                    v34 = fst::LatticeStringRepository<int>::Successor(a1 + 280, *(&v50 + 1), v33);
+                    v34 = fst::LatticeStringRepository<int>::Successor((a1 + 280), *(&v50 + 1), v33);
                   }
 
                   *(&v45 + 1) = v34;
                   v30[4] = v34;
                   v30[5] = v46;
                   std::vector<fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::Element,std::allocator<fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::Element>>::push_back[abi:ne200100](&v58, &v45);
-                  std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,std::greater<fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::Element> &,std::__wrap_iter<fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::Element*>>(v58, v59, v56, 0xAAAAAAAAAAAAAAABLL * ((v59 - v58) >> 3));
+                  std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,std::greater<fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::Element> &,std::__wrap_iter<fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::Element*>>(v58, v59, &v56, 0xAAAAAAAAAAAAAAABLL * ((v59 - v58) >> 3));
                   v14 = 1;
                 }
               }
@@ -9619,16 +9622,16 @@ LABEL_39:
             v36 = *(&v50 + 1);
             if (v35)
             {
-              v36 = fst::LatticeStringRepository<int>::Successor(a1 + 280, *(&v50 + 1), v35);
+              v36 = fst::LatticeStringRepository<int>::Successor((a1 + 280), *(&v50 + 1), v35);
             }
 
             *(&v45 + 1) = v36;
-            *v56 = &v45;
-            v37 = std::__hash_table<std::__hash_value_type<int,fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::Element>,std::__unordered_map_hasher<int,std::__hash_value_type<int,fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::Element>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::Element>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::Element>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v52, &v45);
+            v56 = &v45;
+            v37 = std::__hash_table<std::__hash_value_type<int,fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::Element>,std::__unordered_map_hasher<int,std::__hash_value_type<int,fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::Element>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::Element>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::Element>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v52, &v45, &std::piecewise_construct, &v56);
             *(v37 + 3) = v45;
             v37[5] = v46;
             std::vector<fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::Element,std::allocator<fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::Element>>::push_back[abi:ne200100](&v58, &v45);
-            std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,std::greater<fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::Element> &,std::__wrap_iter<fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::Element*>>(v58, v59, v56, 0xAAAAAAAAAAAAAAABLL * ((v59 - v58) >> 3));
+            std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,std::greater<fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::Element> &,std::__wrap_iter<fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::Element*>>(v58, v59, &v56, 0xAAAAAAAAAAAAAAABLL * ((v59 - v58) >> 3));
           }
         }
       }
@@ -9709,7 +9712,7 @@ void sub_1B53EE3CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a13)
   {
-    (*(*a13 + 8))(a13);
+    (*(*a13 + 8))(a13, a2, a3, a4, a5, a6, a7, a8);
   }
 
   else if (a16)
@@ -9769,7 +9772,7 @@ void *fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::ProcessF
   {
     result = (*(*v5[4] + 32))(&v13);
     v8 = vadd_f32(v3[2], v13);
-    v10[0] = v8;
+    *&v10 = v8;
     v9 = v3[1];
     v17 = v8.f32[1];
     v13.i32[0] = v8.i32[0];
@@ -9782,10 +9785,10 @@ void *fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::ProcessF
         goto LABEL_8;
       }
 
-      result = fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::Compare(v5, v10, v9, &v14, v6);
+      result = fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::Compare(v5, &v10, v9, &v14, v6);
       if (result == 1)
       {
-        v8 = v10[0];
+        v8 = v10;
 LABEL_8:
         v14 = v8;
         v7 = 1;
@@ -9803,20 +9806,20 @@ LABEL_10:
   while (v3 != v4);
   if ((v7 & 1) != 0 && *(v2 + 48) + v14.f32[0] + v14.f32[1] <= *(v5 + 9))
   {
-    LODWORD(v10[0]) = 0;
+    LODWORD(v10) = 0;
     v11 = -1;
-    v10[1] = v6;
+    *(&v10 + 1) = v6;
     v12 = v14;
-    result = std::vector<fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::TempArc,std::allocator<fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::TempArc>>::push_back[abi:ne200100]((v2 + 24), v10);
+    result = std::vector<fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::TempArc,std::allocator<fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::TempArc>>::push_back[abi:ne200100]((v2 + 24), &v10);
     ++*(v5 + 6);
   }
 
   return result;
 }
 
-void fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::ProcessTransitions(void *a1, int a2)
+void fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::ProcessTransitions(uint64_t a1, int a2)
 {
-  v3 = a1 + 29;
+  v3 = (a1 + 232);
   v4 = *(*a1 + 8 * a2);
   v5 = *v4;
   v6 = v4[1];
@@ -9827,7 +9830,7 @@ void fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::ProcessTr
 
   do
   {
-    v7 = a1[4];
+    v7 = *(a1 + 32);
     v8 = v5->u32[0];
     v22 = 0;
     (*(*v7 + 136))(v7, v8, v20);
@@ -9877,7 +9880,7 @@ LABEL_9:
           v14 = v5[1];
           if (v13)
           {
-            v14 = fst::LatticeStringRepository<int>::Successor((a1 + 35), v14, v13);
+            v14 = fst::LatticeStringRepository<int>::Successor((a1 + 280), v14, v13);
           }
 
           v25 = v14;
@@ -9914,8 +9917,8 @@ LABEL_22:
 
   while (v5 != v6);
 LABEL_23:
-  v15 = a1[29];
-  v16 = a1[30];
+  v15 = *(a1 + 232);
+  v16 = *(a1 + 240);
   v17 = 126 - 2 * __clz((v16 - v15) >> 5);
   if (v16 == v15)
   {
@@ -9928,11 +9931,11 @@ LABEL_23:
   }
 
   std::__introsort<std::_ClassicAlgPolicy,fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::PairComparator &,std::pair<int,fst::LatticeDeterminizerPruned<fst::LatticeWeightTpl<float>,int>::Element> *,false>(v15, v16, v20, v18, 1);
-  v19 = a1[29];
-  if (v19 != a1[30])
+  v19 = *(a1 + 232);
+  if (v19 != *(a1 + 240))
   {
     operator new();
   }
 
-  a1[30] = v19;
+  *(a1 + 240) = v19;
 }

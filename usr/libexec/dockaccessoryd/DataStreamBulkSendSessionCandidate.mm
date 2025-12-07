@@ -2,6 +2,7 @@
 - (DataStreamBulkSendProtocol)bulkSendProtocol;
 - (DataStreamBulkSendSessionCandidate)initWithProtocol:(id)protocol requestHeader:(id)header metadata:(id)metadata;
 - (void)acceptBulkSendSessionOnQueue:(id)queue callback:(id)callback;
+- (void)rejectBulkSendSessionWithStatus:(unsigned __int16)status;
 @end
 
 @implementation DataStreamBulkSendSessionCandidate
@@ -35,6 +36,13 @@
   queueCopy = queue;
   bulkSendProtocol = [(DataStreamBulkSendSessionCandidate *)self bulkSendProtocol];
   [bulkSendProtocol asyncBulkSendSessionCandidate:self didAcceptOnQueue:queueCopy callback:callbackCopy];
+}
+
+- (void)rejectBulkSendSessionWithStatus:(unsigned __int16)status
+{
+  statusCopy = status;
+  bulkSendProtocol = [(DataStreamBulkSendSessionCandidate *)self bulkSendProtocol];
+  [bulkSendProtocol asyncBulkSendSessionCandidate:self didRejectWithStatus:statusCopy];
 }
 
 - (DataStreamBulkSendProtocol)bulkSendProtocol

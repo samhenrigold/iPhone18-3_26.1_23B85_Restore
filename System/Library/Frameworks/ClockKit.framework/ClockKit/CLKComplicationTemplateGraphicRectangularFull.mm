@@ -83,7 +83,7 @@ void __95__CLKComplicationTemplateGraphicRectangularFull__enumerateFullColorImag
   v4 = [CLKDeviceMetrics metricsWithDevice:a2 identitySizeClass:2];
   qword_27DE91D20 = __95__CLKComplicationTemplateGraphicRectangularFull__enumerateFullColorImageProviderKeysWithBlock___block_invoke_4(v4, v4);
   unk_27DE91D28 = v2;
-  _enumerateFullColorImageProviderKeysWithBlock___imageSize_1574 = __95__CLKComplicationTemplateGraphicRectangularFull__enumerateFullColorImageProviderKeysWithBlock___block_invoke_4([v4 setNewestAllowedSizeClass:&unk_284A34128], v4);
+  _enumerateFullColorImageProviderKeysWithBlock___imageSize_1574[0] = __95__CLKComplicationTemplateGraphicRectangularFull__enumerateFullColorImageProviderKeysWithBlock___block_invoke_4([v4 setNewestAllowedSizeClass:&unk_284A34128], v4);
   *algn_27DE91D18 = v3;
 }
 

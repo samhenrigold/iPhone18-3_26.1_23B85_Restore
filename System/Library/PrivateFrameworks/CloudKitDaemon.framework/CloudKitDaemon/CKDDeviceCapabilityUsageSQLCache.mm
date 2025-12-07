@@ -48,11 +48,11 @@
 
 + (id)deviceCapabilityUsageSQLCacheForTesting:(id)testing
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   testingCopy = testing;
-  v15 = 0;
-  v6 = objc_msgSend_newInMemoryDatabase_(MEMORY[0x277CBC658], v5, &v15);
-  v7 = v15;
+  v14 = 0;
+  v6 = objc_msgSend_newInMemoryDatabase_(MEMORY[0x277CBC658], v5, &v14);
+  v7 = v14;
   v9 = v7;
   if (v6)
   {
@@ -80,27 +80,25 @@
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v17 = testingCopy;
-      v18 = 2112;
-      v19 = v9;
+      v16 = testingCopy;
+      v17 = 2112;
+      v18 = v9;
       _os_log_error_impl(&dword_22506F000, v11, OS_LOG_TYPE_ERROR, "Failed to create Device Capability Cache for containerID %@, error: %@", buf, 0x16u);
     }
 
     v12 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
 + (id)deviceCapabilityUsageSQLCacheForTesting:(id)testing withDatabase:(id)database
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   testingCopy = testing;
-  v15 = 0;
-  v7 = objc_msgSend_tableGroupInDatabase_withName_error_(CKDDeviceCapabilityUsageSQLCache, v6, database, @"Test CKDDeviceCapabilityUsageSQLCache", &v15);
-  v8 = v15;
+  v14 = 0;
+  v7 = objc_msgSend_tableGroupInDatabase_withName_error_(CKDDeviceCapabilityUsageSQLCache, v6, database, @"Test CKDDeviceCapabilityUsageSQLCache", &v14);
+  v8 = v14;
   v10 = v8;
   if (v7)
   {
@@ -128,21 +126,19 @@
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v17 = testingCopy;
-      v18 = 2112;
-      v19 = v10;
+      v16 = testingCopy;
+      v17 = 2112;
+      v18 = v10;
       _os_log_error_impl(&dword_22506F000, v12, OS_LOG_TYPE_ERROR, "Failed to create Device Capability Cache for containerID %@, error: %@", buf, 0x16u);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 + (id)deviceCapabilityUsageSQLCacheForContainer:(id)container
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   containerCopy = container;
   v6 = objc_msgSend_containerID(containerCopy, v4, v5);
   v9 = objc_msgSend_directoryContext(containerCopy, v7, v8);
@@ -152,9 +148,9 @@
   v16 = objc_msgSend_path(v12, v14, v15);
   v19 = objc_msgSend_deviceContext(containerCopy, v17, v18);
   v22 = objc_msgSend_deviceScopedDatabase(v19, v20, v21);
-  v40 = 0;
-  v24 = objc_msgSend_databaseInDirectory_registryDatabase_options_error_(v13, v23, v16, v22, 0, &v40);
-  v25 = v40;
+  v39 = 0;
+  v24 = objc_msgSend_databaseInDirectory_registryDatabase_options_error_(v13, v23, v16, v22, 0, &v39);
+  v25 = v39;
 
   if (!v24 || v25)
   {
@@ -167,9 +163,9 @@
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v42 = v6;
-      v43 = 2112;
-      v44 = v25;
+      v41 = v6;
+      v42 = 2112;
+      v43 = v25;
       _os_log_error_impl(&dword_22506F000, v35, OS_LOG_TYPE_ERROR, "Failed to create Device Capability Cache for containerID %@: %@", buf, 0x16u);
     }
 
@@ -179,9 +175,9 @@
   else
   {
     v27 = objc_msgSend__groupNameForContainer_(CKDDeviceCapabilityUsageSQLCache, v26, containerCopy);
-    v39 = 0;
-    v29 = objc_msgSend_tableGroupInDatabase_withName_error_(CKDDeviceCapabilityUsageSQLCache, v28, v24, v27, &v39);
-    v30 = v39;
+    v38 = 0;
+    v29 = objc_msgSend_tableGroupInDatabase_withName_error_(CKDDeviceCapabilityUsageSQLCache, v28, v24, v27, &v38);
+    v30 = v38;
     v25 = v30;
     if (!v29 || v30)
     {
@@ -194,9 +190,9 @@
       if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v42 = v6;
-        v43 = 2112;
-        v44 = v25;
+        v41 = v6;
+        v42 = 2112;
+        v43 = v25;
         _os_log_error_impl(&dword_22506F000, v36, OS_LOG_TYPE_ERROR, "Failed to create Device Capability Cache for containerID %@: %@", buf, 0x16u);
       }
     }
@@ -208,18 +204,16 @@
     }
   }
 
-  v37 = *MEMORY[0x277D85DE8];
-
   return v29;
 }
 
 - (BOOL)deleteAllUsageEntriesWithError:(id *)error
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = objc_msgSend_usageTable(self, a2, error);
-  v11 = 0;
-  objc_msgSend_deleteAllEntries_(v4, v5, &v11);
-  v6 = v11;
+  v10 = 0;
+  objc_msgSend_deleteAllEntries_(v4, v5, &v10);
+  v6 = v10;
 
   if (v6)
   {
@@ -232,7 +226,7 @@
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v13 = v6;
+      v12 = v6;
       _os_log_error_impl(&dword_22506F000, v7, OS_LOG_TYPE_ERROR, "Failed to delete all usage entries in SQL cache: %@", buf, 0xCu);
       if (!error)
       {
@@ -252,7 +246,6 @@ LABEL_6:
 
 LABEL_7:
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6 == 0;
 }
 
@@ -536,11 +529,11 @@ LABEL_7:
 
 - (BOOL)deleteLastSentCapabilitiesAndUsageEntryWithError:(id *)error
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = objc_msgSend_lastSentTable(self, a2, error);
-  v11 = 0;
-  objc_msgSend_deleteAllEntries_(v4, v5, &v11);
-  v6 = v11;
+  v10 = 0;
+  objc_msgSend_deleteAllEntries_(v4, v5, &v10);
+  v6 = v10;
 
   if (v6)
   {
@@ -553,7 +546,7 @@ LABEL_7:
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v13 = v6;
+      v12 = v6;
       _os_log_error_impl(&dword_22506F000, v7, OS_LOG_TYPE_ERROR, "Failed to delete last sent capabilities and usage entry in LastSentCapabilitiesAndUsageTable: %@", buf, 0xCu);
       if (!error)
       {
@@ -573,7 +566,6 @@ LABEL_6:
 
 LABEL_7:
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6 == 0;
 }
 

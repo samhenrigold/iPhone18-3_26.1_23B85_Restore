@@ -152,8 +152,8 @@
 + (uint64_t)isTypeSelectSupported
 {
   objc_opt_self();
-  v0 = +[UIDevice currentDevice];
-  _isHardwareKeyboardAvailable = [v0 _isHardwareKeyboardAvailable];
+  v1 = +[UIDevice currentDevice];
+  _isHardwareKeyboardAvailable = [v1 _isHardwareKeyboardAvailable];
 
   return _isHardwareKeyboardAvailable;
 }
@@ -277,9 +277,9 @@
     goto LABEL_8;
   }
 
-  v8 = [(NSString *)v9 isEqual:v7];
+  isEqual = objc_msgSend_isEqual_(v9);
 
-  if ((v8 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     objc_storeStrong(&self->_currentInput, changed);
@@ -314,7 +314,7 @@ LABEL_16:
     [*(animated + 16) setEnabled:1];
     if (delegate)
     {
-      [delegate _metadataForTypeSelectInteraction:animated];
+      objc_msgSend__metadataForTypeSelectInteraction_(delegate);
       v7 = v24;
       v8 = v25;
       v9 = v26;

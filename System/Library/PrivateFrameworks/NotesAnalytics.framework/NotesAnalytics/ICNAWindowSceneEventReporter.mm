@@ -55,41 +55,38 @@
 
 - (void)startWindowSceneEventDurationTracking
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   [(ICNAEventReporter *)self startTimedEventOfType:objc_opt_class()];
   v3 = [ICASWindowSceneData alloc];
   saltedInstrumentationID = [(ICNAWindowSceneEventReporter *)self saltedInstrumentationID];
   v5 = [(ICASWindowSceneData *)v3 initWithWindowSceneID:saltedInstrumentationID];
 
   v6 = +[ICNAController sharedController];
-  v10[0] = v5;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+  v9[0] = v5;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
   subTracker = [(ICNAEventReporter *)self subTracker];
   [v6 pushDataObjects:v7 unique:1 onlyOnce:0 subTracker:subTracker];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)submitWindowSceneEvent
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v3 = [ICASWindowSceneData alloc];
   saltedInstrumentationID = [(ICNAWindowSceneEventReporter *)self saltedInstrumentationID];
   v5 = [(ICASWindowSceneData *)v3 initWithWindowSceneID:saltedInstrumentationID];
 
   v6 = +[ICNAController sharedController];
-  v10[0] = v5;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+  v9[0] = v5;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
   subTracker = [(ICNAEventReporter *)self subTracker];
   [v6 pushDataObjects:v7 unique:1 onlyOnce:1 subTracker:subTracker];
 
   [(ICNAEventReporter *)self submitTimedEventOfTypeIfPossible:objc_opt_class()];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)submitWindowSceneResizeEventIfNecessaryWithWindowScene:(id)scene forceSubmit:(BOOL)submit
 {
-  v26[2] = *MEMORY[0x277D85DE8];
+  v25[2] = *MEMORY[0x277D85DE8];
   sceneCopy = scene;
   [objc_opt_class() areaOfWindowScene:sceneCopy];
   v8 = v7;
@@ -110,16 +107,14 @@
 
     v21 = +[ICNAController sharedController];
     v22 = objc_opt_class();
-    v26[0] = v17;
-    v26[1] = v20;
-    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
+    v25[0] = v17;
+    v25[1] = v20;
+    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
     subTracker = [(ICNAEventReporter *)self subTracker];
     [v21 submitEventOfType:v22 pushThenPopDataObjects:v23 subTracker:subTracker];
 
     [(ICNAWindowSceneEventReporter *)self setPreviousArea:v8];
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 @end

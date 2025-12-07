@@ -61,7 +61,7 @@
 
 void __37__CPLEngineMultiscopeSyncTask_launch__block_invoke(uint64_t a1, void *a2)
 {
-  v70 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 error];
 
@@ -103,27 +103,27 @@ LABEL_36:
     v22 = *(v21 + 152);
     *(v21 + 152) = v20;
 
-    v58 = [*(a1 + 32) shouldSkipScopesWithMissingTransportScope];
+    v55 = [*(a1 + 32) shouldSkipScopesWithMissingTransportScope];
+    v59 = 0u;
+    v60 = 0u;
+    v61 = 0u;
     v62 = 0u;
-    v63 = 0u;
-    v64 = 0u;
-    v65 = 0u;
     v23 = [*(a1 + 32) enumerateScopesForTaskInTransaction:v3];
-    v24 = [v23 countByEnumeratingWithState:&v62 objects:v66 count:16];
+    v24 = [v23 countByEnumeratingWithState:&v59 objects:v63 count:16];
     if (v24)
     {
       v25 = v24;
-      v26 = *v63;
+      v26 = *v60;
 LABEL_6:
       v27 = 0;
       while (1)
       {
-        if (*v63 != v26)
+        if (*v60 != v26)
         {
           objc_enumerationMutation(v23);
         }
 
-        v28 = *(*(&v62 + 1) + 8 * v27);
+        v28 = *(*(&v59 + 1) + 8 * v27);
         if ([*(a1 + 32) isCancelled])
         {
           goto LABEL_20;
@@ -148,7 +148,7 @@ LABEL_6:
           break;
         }
 
-        if ((v58 & 1) == 0)
+        if ((v55 & 1) == 0)
         {
           goto LABEL_16;
         }
@@ -158,7 +158,7 @@ LABEL_17:
 LABEL_18:
         if (v25 == ++v27)
         {
-          v25 = [v23 countByEnumeratingWithState:&v62 objects:v66 count:16];
+          v25 = [v23 countByEnumeratingWithState:&v59 objects:v63 count:16];
           if (v25)
           {
             goto LABEL_6;
@@ -181,22 +181,22 @@ LABEL_20:
     if (v33)
     {
       v35 = *(v34 + 88);
-      v36 = v61;
-      v61[0] = MEMORY[0x1E69E9820];
-      v61[1] = 3221225472;
-      v61[2] = __37__CPLEngineMultiscopeSyncTask_launch__block_invoke_2;
-      v61[3] = &unk_1E861A940;
-      v61[4] = v34;
+      v36 = v58;
+      v58[0] = MEMORY[0x1E69E9820];
+      v58[1] = 3221225472;
+      v58[2] = __37__CPLEngineMultiscopeSyncTask_launch__block_invoke_2;
+      v58[3] = &unk_1E861A940;
+      v58[4] = v34;
 LABEL_35:
-      v55 = v36;
+      v53 = v36;
       *buf = MEMORY[0x1E69E9820];
       *&buf[8] = 3221225472;
       *&buf[16] = __cpl_dispatch_async_block_invoke_15717;
-      v68 = &unk_1E861B4E0;
-      v69 = v55;
+      v65 = &unk_1E861B4E0;
+      v66 = v53;
       v6 = v35;
-      v56 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, buf);
-      dispatch_async(v6, v56);
+      v54 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, buf);
+      dispatch_async(v6, v54);
 
       goto LABEL_36;
     }
@@ -206,12 +206,12 @@ LABEL_35:
     if (!v39)
     {
       v35 = *(v40 + 88);
-      v36 = v59;
-      v59[0] = MEMORY[0x1E69E9820];
-      v59[1] = 3221225472;
-      v59[2] = __37__CPLEngineMultiscopeSyncTask_launch__block_invoke_2_121;
-      v59[3] = &unk_1E861A940;
-      v59[4] = v40;
+      v36 = v56;
+      v56[0] = MEMORY[0x1E69E9820];
+      v56[1] = 3221225472;
+      v56[2] = __37__CPLEngineMultiscopeSyncTask_launch__block_invoke_2_121;
+      v56[3] = &unk_1E861A940;
+      v56[4] = v40;
       goto LABEL_35;
     }
 
@@ -222,23 +222,22 @@ LABEL_35:
         v41 = __CPLTaskOSLogDomain_15620();
         if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
         {
-          v42 = *(a1 + 32);
-          v43 = objc_opt_class();
-          v44 = *(*(a1 + 32) + 112);
-          v45 = v43;
-          v46 = [v44 count];
-          v47 = [*(*(a1 + 32) + 120) count];
+          v42 = objc_opt_class();
+          v43 = *(*(a1 + 32) + 112);
+          v44 = v42;
+          v45 = [v43 count];
+          v46 = [*(*(a1 + 32) + 120) count];
           *buf = 138412802;
-          *&buf[4] = v43;
+          *&buf[4] = v42;
           *&buf[12] = 2048;
-          *&buf[14] = v46;
+          *&buf[14] = v45;
           *&buf[22] = 2048;
-          v68 = v47;
-          v48 = "Launching %@ for %ld scopes (ignored %ld)";
-          v49 = v41;
-          v50 = 32;
+          v65 = v46;
+          v47 = "Launching %@ for %ld scopes (ignored %ld)";
+          v48 = v41;
+          v49 = 32;
 LABEL_32:
-          _os_log_impl(&dword_1DC05A000, v49, OS_LOG_TYPE_DEFAULT, v48, buf, v50);
+          _os_log_impl(&dword_1DC05A000, v48, OS_LOG_TYPE_DEFAULT, v47, buf, v49);
 
           goto LABEL_33;
         }
@@ -252,18 +251,17 @@ LABEL_32:
       v41 = __CPLTaskOSLogDomain_15620();
       if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
       {
-        v51 = *(a1 + 32);
-        v52 = objc_opt_class();
-        v53 = *(*(a1 + 32) + 112);
-        v45 = v52;
-        v54 = [v53 count];
+        v50 = objc_opt_class();
+        v51 = *(*(a1 + 32) + 112);
+        v44 = v50;
+        v52 = [v51 count];
         *buf = 138412546;
-        *&buf[4] = v52;
+        *&buf[4] = v50;
         *&buf[12] = 2048;
-        *&buf[14] = v54;
-        v48 = "Launching %@ for %ld scopes";
-        v49 = v41;
-        v50 = 22;
+        *&buf[14] = v52;
+        v47 = "Launching %@ for %ld scopes";
+        v48 = v41;
+        v49 = 22;
         goto LABEL_32;
       }
 
@@ -273,12 +271,12 @@ LABEL_33:
     }
 
     v35 = *(v40 + 88);
-    v36 = v60;
-    v60[0] = MEMORY[0x1E69E9820];
-    v60[1] = 3221225472;
-    v60[2] = __37__CPLEngineMultiscopeSyncTask_launch__block_invoke_120;
-    v60[3] = &unk_1E861A940;
-    v60[4] = v40;
+    v36 = v57;
+    v57[0] = MEMORY[0x1E69E9820];
+    v57[1] = 3221225472;
+    v57[2] = __37__CPLEngineMultiscopeSyncTask_launch__block_invoke_120;
+    v57[3] = &unk_1E861A940;
+    v57[4] = v40;
     goto LABEL_35;
   }
 
@@ -287,7 +285,6 @@ LABEL_33:
   [v37 taskDidFinishWithError:v38];
 
 LABEL_37:
-  v57 = *MEMORY[0x1E69E9840];
 }
 
 - (id)phaseDescription
@@ -370,20 +367,20 @@ LABEL_7:
 
 - (void)task:(id)task didFinishWithError:(id)error
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   taskCopy = task;
   errorCopy = error;
-  v35[0] = MEMORY[0x1E69E9820];
-  v35[1] = 3221225472;
-  v35[2] = __55__CPLEngineMultiscopeSyncTask_task_didFinishWithError___block_invoke;
-  v35[3] = &unk_1E861B330;
-  v35[4] = self;
+  v34[0] = MEMORY[0x1E69E9820];
+  v34[1] = 3221225472;
+  v34[2] = __55__CPLEngineMultiscopeSyncTask_task_didFinishWithError___block_invoke;
+  v34[3] = &unk_1E861B330;
+  v34[4] = self;
   v9 = taskCopy;
-  v36 = v9;
-  v38 = a2;
+  v35 = v9;
+  v37 = a2;
   v10 = errorCopy;
-  v37 = v10;
-  v11 = MEMORY[0x1E128EBA0](v35);
+  v36 = v10;
+  v11 = MEMORY[0x1E128EBA0](v34);
   domain = [v10 domain];
   v13 = [domain isEqualToString:@"CloudPhotoLibraryErrorDomain"];
 
@@ -411,7 +408,7 @@ LABEL_17:
         _currentScope = [(CPLEngineMultiscopeSyncTask *)self _currentScope];
         scopeIdentifier = [_currentScope scopeIdentifier];
         *buf = 138412290;
-        v40 = scopeIdentifier;
+        v39 = scopeIdentifier;
         _os_log_impl(&dword_1DC05A000, v25, OS_LOG_TYPE_DEFAULT, "Detected some feature has been disabled while processing %@ - will update disabled features", buf, 0xCu);
       }
     }
@@ -451,23 +448,22 @@ LABEL_16:
 
   [session requestSyncStateAtEndOfSyncSession:v22 reschedule:0];
 
-  v32[0] = MEMORY[0x1E69E9820];
-  v32[1] = 3221225472;
-  v32[2] = __55__CPLEngineMultiscopeSyncTask_task_didFinishWithError___block_invoke_134;
-  v32[3] = &unk_1E86205B8;
-  v33 = scopesForTask;
+  v31[0] = MEMORY[0x1E69E9820];
+  v31[1] = 3221225472;
+  v31[2] = __55__CPLEngineMultiscopeSyncTask_task_didFinishWithError___block_invoke_134;
+  v31[3] = &unk_1E86205B8;
+  v32 = scopesForTask;
   selfCopy = self;
-  v30[0] = MEMORY[0x1E69E9820];
-  v30[1] = 3221225472;
-  v30[2] = __55__CPLEngineMultiscopeSyncTask_task_didFinishWithError___block_invoke_137;
-  v30[3] = &unk_1E86205B8;
-  v30[4] = self;
-  v31 = v10;
+  v29[0] = MEMORY[0x1E69E9820];
+  v29[1] = 3221225472;
+  v29[2] = __55__CPLEngineMultiscopeSyncTask_task_didFinishWithError___block_invoke_137;
+  v29[3] = &unk_1E86205B8;
+  v29[4] = self;
+  v30 = v10;
   v23 = scopesForTask;
-  v24 = [scheduler performWriteTransactionWithBlock:v32 completionHandler:v30];
+  v24 = [scheduler performWriteTransactionWithBlock:v31 completionHandler:v29];
 
 LABEL_18:
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 void __55__CPLEngineMultiscopeSyncTask_task_didFinishWithError___block_invoke(uint64_t a1)
@@ -510,7 +506,7 @@ void __55__CPLEngineMultiscopeSyncTask_task_didFinishWithError___block_invoke_13
 
 void __55__CPLEngineMultiscopeSyncTask_task_didFinishWithError___block_invoke_137(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 error];
 
@@ -522,9 +518,9 @@ void __55__CPLEngineMultiscopeSyncTask_task_didFinishWithError___block_invoke_13
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         v6 = [v3 error];
-        v10 = 138412290;
-        v11 = v6;
-        _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_ERROR, "Failed to mark scopes as needing update: %@", &v10, 0xCu);
+        v9 = 138412290;
+        v10 = v6;
+        _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_ERROR, "Failed to mark scopes as needing update: %@", &v9, 0xCu);
       }
     }
 
@@ -537,51 +533,49 @@ void __55__CPLEngineMultiscopeSyncTask_task_didFinishWithError___block_invoke_13
   {
     [*(a1 + 32) taskDidFinishWithError:*(a1 + 40)];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __55__CPLEngineMultiscopeSyncTask_task_didFinishWithError___block_invoke_2_135(uint64_t a1, void *a2)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v20 objects:v26 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v19 objects:v25 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v21;
+    v8 = *v20;
     while (2)
     {
       v9 = 0;
       v10 = v7;
       do
       {
-        if (*v21 != v8)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v11 = *(*(&v20 + 1) + 8 * v9);
+        v11 = *(*(&v19 + 1) + 8 * v9);
         if ((_CPLSilentLogging & 1) == 0)
         {
           v12 = __CPLTaskOSLogDomain_15620();
           if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v25 = v11;
+            v24 = v11;
             _os_log_impl(&dword_1DC05A000, v12, OS_LOG_TYPE_DEFAULT, "%@ will need to be updated from the transport", buf, 0xCu);
           }
         }
 
         v13 = *(*(a1 + 40) + 160);
-        v19 = v10;
-        v14 = [v13 setScopeNeedsUpdateFromTransport:v11 error:&v19];
-        v7 = v19;
+        v18 = v10;
+        v14 = [v13 setScopeNeedsUpdateFromTransport:v11 error:&v18];
+        v7 = v18;
 
         if (!v14)
         {
@@ -606,7 +600,7 @@ uint64_t __55__CPLEngineMultiscopeSyncTask_task_didFinishWithError___block_invok
       }
 
       while (v6 != v9);
-      v6 = [v4 countByEnumeratingWithState:&v20 objects:v26 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v19 objects:v25 count:16];
       if (v6)
       {
         continue;
@@ -624,13 +618,12 @@ uint64_t __55__CPLEngineMultiscopeSyncTask_task_didFinishWithError___block_invok
   v16 = 1;
 LABEL_19:
 
-  v17 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
 uint64_t __55__CPLEngineMultiscopeSyncTask_task_didFinishWithError___block_invoke_2(uint64_t a1)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) withThroughputReporter:&__block_literal_global_127];
   v2 = *(a1 + 40);
   v3 = [*(a1 + 32) _currentTask];
@@ -639,30 +632,30 @@ uint64_t __55__CPLEngineMultiscopeSyncTask_task_didFinishWithError___block_invok
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v11 = __CPLTaskOSLogDomain_15620();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v9 = __CPLTaskOSLogDomain_15620();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        v13 = *(a1 + 32);
-        v12 = *(a1 + 40);
-        v14 = NSStringFromSelector(*(a1 + 56));
+        v11 = *(a1 + 32);
+        v10 = *(a1 + 40);
+        v12 = NSStringFromSelector(*(a1 + 56));
         *buf = 138412802;
-        v23 = v12;
+        v21 = v10;
+        v22 = 2112;
+        v23 = v11;
         v24 = 2112;
-        v25 = v13;
-        v26 = 2112;
-        v27 = v14;
-        _os_log_impl(&dword_1DC05A000, v11, OS_LOG_TYPE_ERROR, "Unknown %@ called [%@ %@]", buf, 0x20u);
+        v25 = v12;
+        _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_ERROR, "Unknown %@ called [%@ %@]", buf, 0x20u);
       }
     }
 
-    v15 = [MEMORY[0x1E696AAA8] currentHandler];
-    v16 = *(a1 + 56);
-    v17 = *(a1 + 32);
-    v18 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLEngineSyncTask.m"];
-    v20 = *(a1 + 32);
-    v19 = *(a1 + 40);
-    v21 = NSStringFromSelector(*(a1 + 56));
-    [v15 handleFailureInMethod:v16 object:v17 file:v18 lineNumber:414 description:{@"Unknown %@ called -[%@ %@]", v19, v20, v21}];
+    v13 = [MEMORY[0x1E696AAA8] currentHandler];
+    v14 = *(a1 + 56);
+    v15 = *(a1 + 32);
+    v16 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLEngineSyncTask.m"];
+    v18 = *(a1 + 32);
+    v17 = *(a1 + 40);
+    v19 = NSStringFromSelector(*(a1 + 56));
+    [v13 handleFailureInMethod:v14 object:v15 file:v16 lineNumber:414 description:{@"Unknown %@ called -[%@ %@]", v17, v18, v19}];
 
     abort();
   }
@@ -670,17 +663,15 @@ uint64_t __55__CPLEngineMultiscopeSyncTask_task_didFinishWithError___block_invok
   v4 = *(a1 + 48);
   if (v4 && ([*(a1 + 32) shouldContinueAfterError:v4 fromTask:*(a1 + 40)] & 1) == 0)
   {
-    v8 = *(a1 + 32);
-    v9 = *(a1 + 48);
-    v10 = *MEMORY[0x1E69E9840];
+    v7 = *(a1 + 32);
+    v8 = *(a1 + 48);
 
-    return [v8 taskDidFinishWithError:v9];
+    return [v7 taskDidFinishWithError:v8];
   }
 
   else
   {
     v5 = *(a1 + 32);
-    v6 = *MEMORY[0x1E69E9840];
 
     return [v5 _launchTaskForNextScope];
   }
@@ -772,7 +763,7 @@ void __37__CPLEngineMultiscopeSyncTask_launch__block_invoke_2(uint64_t a1)
 
 - (void)_launchTaskForNextScope
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_queue);
   session = [(CPLEngineSyncTask *)self session];
   shouldDefer = [session shouldDefer];
@@ -794,59 +785,62 @@ void __37__CPLEngineMultiscopeSyncTask_launch__block_invoke_2(uint64_t a1)
     [(CPLEngineMultiscopeSyncTask *)self _setCurrentTask:0];
     v7 = +[CPLErrors sessionHasBeenDeferredError];
     [(CPLEngineSyncTask *)self taskDidFinishWithError:v7];
-
-LABEL_19:
-    v19 = *MEMORY[0x1E69E9840];
-    return;
   }
 
-  if (![(CPLEngineSyncTask *)self isCancelled])
+  else if ([(CPLEngineSyncTask *)self isCancelled])
+  {
+    [(CPLEngineMultiscopeSyncTask *)self _setCurrentTask:0];
+    v18 = +[CPLErrors operationCancelledError];
+    [(CPLEngineSyncTask *)self taskDidFinishWithError:v18];
+  }
+
+  else
   {
     firstObject = [(NSMutableArray *)self->_coveredScopes firstObject];
-    v10 = firstObject;
+    v9 = firstObject;
     if (firstObject)
     {
       scopeIdentifier = [firstObject scopeIdentifier];
-      v12 = [(NSMutableDictionary *)self->_transportScopes objectForKeyedSubscript:scopeIdentifier];
+      v11 = [(NSMutableDictionary *)self->_transportScopes objectForKeyedSubscript:scopeIdentifier];
       [(NSMutableArray *)self->_coveredScopes removeObjectAtIndex:0];
       [(NSMutableDictionary *)self->_transportScopes removeObjectForKey:scopeIdentifier];
       session2 = [(CPLEngineSyncTask *)self session];
-      v14 = [(CPLEngineMultiscopeSyncTask *)self newScopedTaskWithScope:v10 session:session2 transportScope:v12 clientCacheIdentifier:self->_clientCacheIdentifier];
+      v13 = [(CPLEngineMultiscopeSyncTask *)self newScopedTaskWithScope:v9 session:session2 transportScope:v11 clientCacheIdentifier:self->_clientCacheIdentifier];
 
-      [v14 setForeground:{-[CPLEngineSyncTask foreground](self, "foreground")}];
-      [v14 setForceSync:{-[CPLEngineSyncTask forceSync](self, "forceSync")}];
+      [v13 setForeground:{-[CPLEngineSyncTask foreground](self, "foreground")}];
+      [v13 setForceSync:{-[CPLEngineSyncTask forceSync](self, "forceSync")}];
       transportUserIdentifier = [(CPLEngineSyncTask *)self transportUserIdentifier];
-      [v14 setTransportUserIdentifier:transportUserIdentifier];
+      [v13 setTransportUserIdentifier:transportUserIdentifier];
 
-      [(CPLEngineMultiscopeSyncTask *)self _setCurrentTask:v14];
-      [v14 setDelegate:self];
+      [(CPLEngineMultiscopeSyncTask *)self _setCurrentTask:v13];
+      [v13 setDelegate:self];
       *&buf = 0;
       *(&buf + 1) = &buf;
-      v25 = 0x3032000000;
-      v26 = __Block_byref_object_copy__15731;
-      v27 = __Block_byref_object_dispose__15732;
-      v28 = 0;
-      scopeType = [v10 scopeType];
+      v23 = 0x3032000000;
+      v24 = __Block_byref_object_copy__15731;
+      v25 = __Block_byref_object_dispose__15732;
+      v26 = 0;
+      scopeType = [v9 scopeType];
       if (scopeType == 1 && ([scopeIdentifier hasPrefix:@"PrimarySync"] & 1) != 0)
       {
-        v17 = @"system-library";
+        v16 = @"system-library";
       }
 
       else
       {
-        v17 = [CPLScopeChange descriptionForScopeType:scopeType];
+        v16 = [CPLScopeChange descriptionForScopeType:scopeType];
       }
 
-      v21[0] = MEMORY[0x1E69E9820];
-      v21[1] = 3221225472;
-      v21[2] = __54__CPLEngineMultiscopeSyncTask__launchTaskForNextScope__block_invoke;
-      v21[3] = &unk_1E861E240;
+      v19[0] = MEMORY[0x1E69E9820];
+      v19[1] = 3221225472;
+      v19[2] = __54__CPLEngineMultiscopeSyncTask__launchTaskForNextScope__block_invoke;
+      v19[3] = &unk_1E861E240;
       p_buf = &buf;
-      v18 = v17;
-      v22 = v18;
-      [(CPLEngineSyncTask *)self withThroughputReporter:v21];
-      [v14 setThroughputReporter:*(*(&buf + 1) + 40)];
-      [v14 launch];
+      v17 = v16;
+      v20 = v17;
+      [(CPLEngineSyncTask *)self withThroughputReporter:v19];
+      [v13 setThroughputReporter:*(*(&buf + 1) + 40)];
+      [v13 launch];
 
       _Block_object_dispose(&buf, 8);
     }
@@ -856,14 +850,7 @@ LABEL_19:
       [(CPLEngineMultiscopeSyncTask *)self _setCurrentTask:0];
       [(CPLEngineSyncTask *)self taskDidFinishWithError:0];
     }
-
-    goto LABEL_19;
   }
-
-  [(CPLEngineMultiscopeSyncTask *)self _setCurrentTask:0];
-  v20 = +[CPLErrors operationCancelledError];
-  [(CPLEngineSyncTask *)self taskDidFinishWithError:v20];
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __54__CPLEngineMultiscopeSyncTask__launchTaskForNextScope__block_invoke(uint64_t a1, void *a2)

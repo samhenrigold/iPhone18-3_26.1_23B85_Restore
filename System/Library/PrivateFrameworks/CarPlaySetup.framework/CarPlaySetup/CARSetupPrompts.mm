@@ -16,7 +16,7 @@
 
 + (id)bluetoothConfirmationPromptForVehicleName:(id)name numericCode:(id)code responseHandler:(id)handler
 {
-  v61[4] = *MEMORY[0x277D85DE8];
+  v60[4] = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   v7 = MEMORY[0x277D43330];
   codeCopy = code;
@@ -37,73 +37,71 @@
   v16 = [objc_alloc(MEMORY[0x277CCAB48]) initWithString:codeCopy];
 
   v17 = [v16 length];
-  v54 = [MEMORY[0x277D74300] monospacedDigitSystemFontOfSize:36.0 weight:*MEMORY[0x277D74418]];
-  [v16 addAttribute:*MEMORY[0x277D740A8] value:v54 range:{0, v17}];
-  v52 = v16;
+  v53 = [MEMORY[0x277D74300] monospacedDigitSystemFontOfSize:36.0 weight:*MEMORY[0x277D74418]];
+  [v16 addAttribute:*MEMORY[0x277D740A8] value:v53 range:{0, v17}];
+  v51 = v16;
   [v16 addAttribute:*MEMORY[0x277D740D0] value:&unk_2855A45A8 range:{0, v17}];
-  v53 = objc_alloc_init(MEMORY[0x277D74240]);
-  [v53 setAlignment:1];
-  [v16 addAttribute:*MEMORY[0x277D74118] value:v53 range:{0, v17}];
+  v52 = objc_alloc_init(MEMORY[0x277D74240]);
+  [v52 setAlignment:1];
+  [v16 addAttribute:*MEMORY[0x277D74118] value:v52 range:{0, v17}];
   v18 = objc_alloc_init(MEMORY[0x277D756B8]);
   [v18 setAttributedText:v16];
   [v18 setTranslatesAutoresizingMaskIntoConstraints:0];
-  v50 = v10;
+  v49 = v10;
   contentView = [v10 contentView];
   [contentView addSubview:v18];
 
   contentView2 = [v10 contentView];
   mainContentGuide = [contentView2 mainContentGuide];
 
-  v45 = MEMORY[0x277CCAAD0];
+  v44 = MEMORY[0x277CCAAD0];
   topAnchor = [v18 topAnchor];
   topAnchor2 = [mainContentGuide topAnchor];
-  v47 = [topAnchor constraintEqualToSystemSpacingBelowAnchor:topAnchor2 multiplier:1.0];
-  v61[0] = v47;
+  v46 = [topAnchor constraintEqualToSystemSpacingBelowAnchor:topAnchor2 multiplier:1.0];
+  v60[0] = v46;
   bottomAnchor = [mainContentGuide bottomAnchor];
   bottomAnchor2 = [v18 bottomAnchor];
   v23 = [bottomAnchor constraintEqualToSystemSpacingBelowAnchor:bottomAnchor2 multiplier:1.0];
-  v61[1] = v23;
+  v60[1] = v23;
   centerXAnchor = [v18 centerXAnchor];
-  v51 = mainContentGuide;
+  v50 = mainContentGuide;
   centerXAnchor2 = [mainContentGuide centerXAnchor];
   v26 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-  v61[2] = v26;
+  v60[2] = v26;
   widthAnchor = [v18 widthAnchor];
   widthAnchor2 = [mainContentGuide widthAnchor];
   v29 = [widthAnchor constraintEqualToAnchor:widthAnchor2];
-  v61[3] = v29;
-  v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v61 count:4];
-  [v45 activateConstraints:v30];
+  v60[3] = v29;
+  v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v60 count:4];
+  [v44 activateConstraints:v30];
 
   v31 = MEMORY[0x277D432F0];
   v32 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v33 = [v32 localizedStringForKey:@"BLUETOOTH_PAIRING_CARD_PAIR" value:&stru_2855A1F50 table:@"Localizable"];
 
-  v59[0] = MEMORY[0x277D85DD0];
-  v59[1] = 3221225472;
-  v59[2] = __89__CARSetupPrompts_bluetoothConfirmationPromptForVehicleName_numericCode_responseHandler___block_invoke;
-  v59[3] = &unk_278D8F580;
+  v58[0] = MEMORY[0x277D85DD0];
+  v58[1] = 3221225472;
+  v58[2] = __89__CARSetupPrompts_bluetoothConfirmationPromptForVehicleName_numericCode_responseHandler___block_invoke;
+  v58[3] = &unk_278D8F580;
   v34 = handlerCopy;
-  v60 = v34;
-  v35 = [v31 actionWithTitle:v33 style:0 handler:v59];
-  v36 = [v50 addAction:v35];
+  v59 = v34;
+  v35 = [v31 actionWithTitle:v33 style:0 handler:v58];
+  v36 = [v49 addAction:v35];
 
   v37 = MEMORY[0x277D432F0];
   v38 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v39 = [v38 localizedStringForKey:@"BLUETOOTH_PAIRING_CARD_CANCEL" value:&stru_2855A1F50 table:@"Localizable"];
 
-  v57[0] = MEMORY[0x277D85DD0];
-  v57[1] = 3221225472;
-  v57[2] = __89__CARSetupPrompts_bluetoothConfirmationPromptForVehicleName_numericCode_responseHandler___block_invoke_2;
-  v57[3] = &unk_278D8F580;
-  v58 = v34;
+  v56[0] = MEMORY[0x277D85DD0];
+  v56[1] = 3221225472;
+  v56[2] = __89__CARSetupPrompts_bluetoothConfirmationPromptForVehicleName_numericCode_responseHandler___block_invoke_2;
+  v56[3] = &unk_278D8F580;
+  v57 = v34;
   v40 = v34;
-  v41 = [v37 actionWithTitle:v39 style:1 handler:v57];
-  v42 = [v50 addAction:v41];
+  v41 = [v37 actionWithTitle:v39 style:1 handler:v56];
+  v42 = [v49 addAction:v41];
 
-  v43 = *MEMORY[0x277D85DE8];
-
-  return v50;
+  return v49;
 }
 
 uint64_t __89__CARSetupPrompts_bluetoothConfirmationPromptForVehicleName_numericCode_responseHandler___block_invoke(uint64_t a1)
@@ -271,7 +269,7 @@ uint64_t __81__CARSetupPrompts_bluetoothFailedPromptForVehicleName_isTimeout_res
 
 + (id)waitingOnMessagingPrompt
 {
-  v23[3] = *MEMORY[0x277D85DE8];
+  v22[3] = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277D43330]);
   v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v4 = [v3 localizedStringForKey:@"BLUETOOTH_PAIRING_CARD_TITLE" value:&stru_2855A1F50 table:@"Localizable"];
@@ -283,30 +281,29 @@ uint64_t __81__CARSetupPrompts_bluetoothFailedPromptForVehicleName_isTimeout_res
   contentView = [v2 contentView];
   [contentView addSubview:v5];
 
-  v19 = v2;
+  v18 = v2;
   contentView2 = [v2 contentView];
   mainContentGuide = [contentView2 mainContentGuide];
 
-  v20 = MEMORY[0x277CCAAD0];
+  v19 = MEMORY[0x277CCAAD0];
   topAnchor = [v5 topAnchor];
   topAnchor2 = [mainContentGuide topAnchor];
   v9 = [topAnchor constraintEqualToSystemSpacingBelowAnchor:topAnchor2 multiplier:1.0];
-  v23[0] = v9;
+  v22[0] = v9;
   bottomAnchor = [mainContentGuide bottomAnchor];
   bottomAnchor2 = [v5 bottomAnchor];
   v12 = [bottomAnchor constraintEqualToSystemSpacingBelowAnchor:bottomAnchor2 multiplier:1.0];
-  v23[1] = v12;
+  v22[1] = v12;
   centerXAnchor = [v5 centerXAnchor];
   centerXAnchor2 = [mainContentGuide centerXAnchor];
   v15 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-  v23[2] = v15;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:3];
-  [v20 activateConstraints:v16];
+  v22[2] = v15;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:3];
+  [v19 activateConstraints:v16];
 
   [v5 startAnimating];
-  v17 = *MEMORY[0x277D85DE8];
 
-  return v19;
+  return v18;
 }
 
 + (id)allowWhileLockedPromptForVehicleName:(id)name responseHandler:(id)handler

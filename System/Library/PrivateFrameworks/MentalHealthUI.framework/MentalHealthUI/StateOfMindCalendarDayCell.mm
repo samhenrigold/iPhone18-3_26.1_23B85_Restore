@@ -13,7 +13,7 @@
   x = frame.origin.x;
   ObjectType = swift_getObjectType();
   v9 = OBJC_IVAR____TtC14MentalHealthUI26StateOfMindCalendarDayCell_day;
-  v10 = type metadata accessor for StateOfMindCalendarDay();
+  v10 = type metadata accessor for StateOfMindCalendarDay(0);
   (*(*(v10 - 8) + 56))(self + v9, 1, 1, v10);
   v14.receiver = self;
   v14.super_class = ObjectType;
@@ -28,7 +28,7 @@
 - (_TtC14MentalHealthUI26StateOfMindCalendarDayCell)initWithCoder:(id)coder
 {
   v4 = OBJC_IVAR____TtC14MentalHealthUI26StateOfMindCalendarDayCell_day;
-  v5 = type metadata accessor for StateOfMindCalendarDay();
+  v5 = type metadata accessor for StateOfMindCalendarDay(0);
   (*(*(v5 - 8) + 56))(self + v4, 1, 1, v5);
   result = sub_258B03294();
   __break(1u);

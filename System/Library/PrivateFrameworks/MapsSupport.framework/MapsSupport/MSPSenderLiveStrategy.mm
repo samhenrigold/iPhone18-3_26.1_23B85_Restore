@@ -35,44 +35,43 @@
 
 - (void)addParticipants:(id)participants
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   participantsCopy = participants;
-  v15.receiver = self;
-  v15.super_class = MSPSenderLiveStrategy;
-  [(MSPSenderIDSStrategy *)&v15 addParticipants:participantsCopy];
+  v14.receiver = self;
+  v14.super_class = MSPSenderLiveStrategy;
+  [(MSPSenderIDSStrategy *)&v14 addParticipants:participantsCopy];
   [(NSMutableSet *)self->_participantsNeedingRoute addObjectsFromArray:participantsCopy];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v5 = participantsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v11 objects:v16 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v10 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [(MSPSenderLiveStrategy *)self _recordTokenForHandle:*(*(&v11 + 1) + 8 * v9++), v11];
+        [(MSPSenderLiveStrategy *)self _recordTokenForHandle:*(*(&v10 + 1) + 8 * v9++), v10];
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v11 objects:v16 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v10 objects:v15 count:16];
     }
 
     while (v7);
   }
 
   [(MSPSenderLiveStrategy *)self _sendInitialRouteIfNeeded];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_recordTokenForHandle:(id)handle
@@ -89,18 +88,19 @@
     if ((v8 & 1) == 0)
     {
       v9 = [(NSMutableDictionary *)self->_tokensByHandle objectForKeyedSubscript:v7];
+      v10 = v9;
       if (!v9)
       {
-        v9 = objc_alloc_init(MEMORY[0x277CBEB58]);
-        [(NSMutableDictionary *)self->_tokensByHandle setObject:v9 forKeyedSubscript:v7];
+        v10 = objc_alloc_init(MEMORY[0x277CBEB58]);
+        v9 = [(NSMutableDictionary *)self->_tokensByHandle setObject:v10 forKeyedSubscript:v7];
       }
 
-      v10 = MSPGetSharedTripLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+      v11 = MSPGetSharedTripLog(v9);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
-        v11 = MEMORY[0x277CCACA8];
+        v12 = MEMORY[0x277CCACA8];
         selfCopy = self;
-        selfCopy = [v11 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy];
+        selfCopy = [v12 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy];
 
         *buf = 138543875;
         v16 = selfCopy;
@@ -108,50 +108,46 @@
         v18 = v6;
         v19 = 2113;
         v20 = v7;
-        _os_log_impl(&dword_25813A000, v10, OS_LOG_TYPE_INFO, "[%{public}@] adding token %{private}@ for %{private}@", buf, 0x20u);
+        _os_log_impl(&dword_25813A000, v11, OS_LOG_TYPE_INFO, "[%{public}@] adding token %{private}@ for %{private}@", buf, 0x20u);
       }
 
-      [v9 addObject:v6];
+      [v10 addObject:v6];
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeParticipants:(id)participants
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   participantsCopy = participants;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v5 = [participantsCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [participantsCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(participantsCopy);
         }
 
-        [(MSPSenderLiveStrategy *)self removeParticipant:*(*(&v10 + 1) + 8 * v8++) forReason:0];
+        [(MSPSenderLiveStrategy *)self removeParticipant:*(*(&v9 + 1) + 8 * v8++) forReason:0];
       }
 
       while (v6 != v8);
-      v6 = [participantsCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [participantsCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)removeParticipant:(id)participant forReason:(unint64_t)reason
@@ -190,14 +186,14 @@
   {
     v7 = [(NSMutableDictionary *)self->_tokensByHandle objectForKeyedSubscript:v5];
     v8 = v7;
-    if (v7 && [v7 containsObject:tokenCopy])
+    if (v7 && (v9 = [v7 containsObject:tokenCopy], v9))
     {
-      v9 = MSPGetSharedTripLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+      v10 = MSPGetSharedTripLog(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
-        v10 = MEMORY[0x277CCACA8];
+        v11 = MEMORY[0x277CCACA8];
         selfCopy = self;
-        selfCopy = [v10 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy];
+        selfCopy = [v11 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy];
 
         *buf = 138543875;
         v20 = selfCopy;
@@ -205,25 +201,25 @@
         v22 = tokenCopy;
         v23 = 2113;
         v24 = v5;
-        _os_log_impl(&dword_25813A000, v9, OS_LOG_TYPE_INFO, "[%{public}@] removing token %{private}@ for %{private}@", buf, 0x20u);
+        _os_log_impl(&dword_25813A000, v10, OS_LOG_TYPE_INFO, "[%{public}@] removing token %{private}@ for %{private}@", buf, 0x20u);
       }
 
       [v8 removeObject:tokenCopy];
       [(NSMutableSet *)self->_participantsNeedingRoute removeObject:tokenCopy];
       if (![v8 count])
       {
-        v13 = MSPGetSharedTripLog();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+        v14 = MSPGetSharedTripLog(0);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
         {
-          v14 = MEMORY[0x277CCACA8];
+          v15 = MEMORY[0x277CCACA8];
           selfCopy2 = self;
-          selfCopy2 = [v14 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy2];
+          selfCopy2 = [v15 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy2];
 
           *buf = 138543619;
           v20 = selfCopy2;
           v21 = 2113;
           v22 = v5;
-          _os_log_impl(&dword_25813A000, v13, OS_LOG_TYPE_INFO, "[%{public}@] clearing token storage for %{private}@", buf, 0x16u);
+          _os_log_impl(&dword_25813A000, v14, OS_LOG_TYPE_INFO, "[%{public}@] clearing token storage for %{private}@", buf, 0x16u);
         }
 
         [(NSMutableDictionary *)self->_tokensByHandle setObject:0 forKeyedSubscript:v5];
@@ -243,7 +239,6 @@
     v6 = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -257,39 +252,40 @@
     if (v5)
     {
       v6 = [(NSMutableDictionary *)self->_tokensByHandle objectForKeyedSubscript:v5];
-      v7 = v6 != 0;
+      v7 = v6;
+      v8 = v6 != 0;
       if (v6)
       {
-        v8 = MSPGetSharedTripLog();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+        v9 = MSPGetSharedTripLog(v6);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
         {
-          v9 = MEMORY[0x277CCACA8];
+          v10 = MEMORY[0x277CCACA8];
           selfCopy = self;
-          selfCopy = [v9 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy];
+          selfCopy = [v10 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy];
 
           *buf = 138543619;
           v18 = selfCopy;
           v19 = 2113;
           v20 = v5;
-          _os_log_impl(&dword_25813A000, v8, OS_LOG_TYPE_INFO, "[%{public}@] removing all tokens for %{private}@", buf, 0x16u);
+          _os_log_impl(&dword_25813A000, v9, OS_LOG_TYPE_INFO, "[%{public}@] removing all tokens for %{private}@", buf, 0x16u);
         }
 
-        [(NSMutableSet *)self->_participantsNeedingRoute minusSet:v6];
+        [(NSMutableSet *)self->_participantsNeedingRoute minusSet:v7];
         [(NSMutableDictionary *)self->_tokensByHandle setObject:0 forKeyedSubscript:v5];
-        v7 = 1;
+        v8 = 1;
       }
     }
 
     else
     {
-      v6 = MSPGetSharedTripLog();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+      v7 = MSPGetSharedTripLog(0);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
       {
         if (self)
         {
-          v12 = MEMORY[0x277CCACA8];
+          v13 = MEMORY[0x277CCACA8];
           selfCopy2 = self;
-          selfCopy2 = [v12 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy2];
+          selfCopy2 = [v13 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy2];
         }
 
         else
@@ -301,20 +297,19 @@
         v18 = selfCopy2;
         v19 = 2113;
         v20 = participantCopy;
-        _os_log_impl(&dword_25813A000, v6, OS_LOG_TYPE_FAULT, "[%{public}@] unable to get handle from participant %{private}@", buf, 0x16u);
+        _os_log_impl(&dword_25813A000, v7, OS_LOG_TYPE_FAULT, "[%{public}@] unable to get handle from participant %{private}@", buf, 0x16u);
       }
 
-      v7 = 0;
+      v8 = 0;
     }
   }
 
   else
   {
-    v7 = 0;
+    v8 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-  return v7;
+  return v8;
 }
 
 - (void)_setState:(id)state
@@ -327,121 +322,121 @@
 
 - (void)_sendInitialRouteIfNeeded
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   if ([(NSMutableSet *)self->super.super._participants count]&& [(NSMutableSet *)self->_participantsNeedingRoute count]&& [(GEOSharedNavState *)self->super.super._state hasRouteInfo])
   {
     v3 = [(GEOSharedNavState *)self->super.super._state copy];
     v4 = [objc_opt_class() _validateState:v3 forEvent:5];
-    v5 = MSPGetSharedTripLog();
-    v6 = v5;
-    if (v4)
+    v5 = v4;
+    v6 = MSPGetSharedTripLog(v4);
+    v7 = v6;
+    if (v5)
     {
-      v36 = v3;
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+      v37 = v3;
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
-        v7 = MEMORY[0x277CCACA8];
+        v8 = MEMORY[0x277CCACA8];
         selfCopy = self;
-        selfCopy = [v7 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy];
+        selfCopy = [v8 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy];
 
         participantsNeedingRoute = self->_participantsNeedingRoute;
-        v11 = selfCopy;
-        v12 = [(NSMutableSet *)participantsNeedingRoute count];
-        v13 = self->_participantsNeedingRoute;
+        v12 = selfCopy;
+        v13 = [(NSMutableSet *)participantsNeedingRoute count];
+        v14 = self->_participantsNeedingRoute;
 
         *buf = 138543874;
-        v43 = selfCopy;
-        v44 = 2048;
-        v45 = v12;
-        v46 = 2112;
-        v47 = v13;
-        _os_log_impl(&dword_25813A000, v6, OS_LOG_TYPE_INFO, "[%{public}@] Need to send route to %lu participants: %@", buf, 0x20u);
+        v44 = selfCopy;
+        v45 = 2048;
+        v46 = v13;
+        v47 = 2112;
+        v48 = v14;
+        _os_log_impl(&dword_25813A000, v7, OS_LOG_TYPE_INFO, "[%{public}@] Need to send route to %lu participants: %@", buf, 0x20u);
       }
 
-      v6 = [objc_alloc(MEMORY[0x277CBEB58]) initWithCapacity:{-[NSMutableSet count](self->_participantsNeedingRoute, "count")}];
-      v37 = 0u;
+      v7 = [objc_alloc(MEMORY[0x277CBEB58]) initWithCapacity:{-[NSMutableSet count](self->_participantsNeedingRoute, "count")}];
       v38 = 0u;
       v39 = 0u;
       v40 = 0u;
-      v14 = self->_participantsNeedingRoute;
-      v15 = [(NSMutableSet *)v14 countByEnumeratingWithState:&v37 objects:v41 count:16];
-      if (v15)
+      v41 = 0u;
+      v15 = self->_participantsNeedingRoute;
+      v16 = [(NSMutableSet *)v15 countByEnumeratingWithState:&v38 objects:v42 count:16];
+      if (v16)
       {
-        v16 = v15;
-        v17 = *v38;
+        v17 = v16;
+        v18 = *v39;
         do
         {
-          for (i = 0; i != v16; ++i)
+          for (i = 0; i != v17; ++i)
           {
-            if (*v38 != v17)
+            if (*v39 != v18)
             {
-              objc_enumerationMutation(v14);
+              objc_enumerationMutation(v15);
             }
 
-            v19 = *(*(&v37 + 1) + 8 * i);
+            v20 = *(*(&v38 + 1) + 8 * i);
             capabilitiesByParticipant = [(MSPSenderIDSStrategy *)self capabilitiesByParticipant];
-            v21 = [capabilitiesByParticipant objectForKeyedSubscript:v19];
-            v22 = [v21 count];
+            v22 = [capabilitiesByParticipant objectForKeyedSubscript:v20];
+            v23 = [v22 count];
 
-            if (v22)
+            if (v23)
             {
-              [v6 addObject:v19];
+              [v7 addObject:v20];
             }
           }
 
-          v16 = [(NSMutableSet *)v14 countByEnumeratingWithState:&v37 objects:v41 count:16];
+          v17 = [(NSMutableSet *)v15 countByEnumeratingWithState:&v38 objects:v42 count:16];
         }
 
-        while (v16);
+        while (v17);
       }
 
-      v23 = [v6 count];
-      v3 = v36;
-      if (v23 != [(NSMutableSet *)self->_participantsNeedingRoute count])
+      v24 = [v7 count];
+      v25 = [(NSMutableSet *)self->_participantsNeedingRoute count];
+      v3 = v37;
+      if (v24 != v25)
       {
-        v24 = MSPGetSharedTripLog();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+        v26 = MSPGetSharedTripLog(v25);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
         {
-          v25 = MEMORY[0x277CCACA8];
+          v27 = MEMORY[0x277CCACA8];
           selfCopy2 = self;
-          selfCopy2 = [v25 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy2];
+          selfCopy2 = [v27 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy2];
 
-          v28 = selfCopy2;
-          v29 = [v6 count];
-          v30 = [(NSMutableSet *)self->_participantsNeedingRoute count];
+          v30 = selfCopy2;
+          v31 = [v7 count];
+          v32 = [(NSMutableSet *)self->_participantsNeedingRoute count];
 
           *buf = 138543874;
-          v43 = selfCopy2;
-          v44 = 2048;
-          v45 = v29;
-          v46 = 2048;
-          v47 = v30;
-          _os_log_impl(&dword_25813A000, v24, OS_LOG_TYPE_INFO, "[%{public}@] only %lu/%lu participants are currently reachable for route", buf, 0x20u);
+          v44 = selfCopy2;
+          v45 = 2048;
+          v46 = v31;
+          v47 = 2048;
+          v48 = v32;
+          _os_log_impl(&dword_25813A000, v26, OS_LOG_TYPE_INFO, "[%{public}@] only %lu/%lu participants are currently reachable for route", buf, 0x20u);
         }
       }
 
-      if ([v6 count])
+      if ([v7 count])
       {
-        [(NSMutableSet *)self->_participantsNeedingRoute minusSet:v6];
-        [(MSPSenderIDSStrategy *)self _sendRouteUpdate:v36 to:v6];
+        [(NSMutableSet *)self->_participantsNeedingRoute minusSet:v7];
+        [(MSPSenderIDSStrategy *)self _sendRouteUpdate:v37 to:v7];
       }
     }
 
-    else if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    else if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v31 = MEMORY[0x277CCACA8];
+      v33 = MEMORY[0x277CCACA8];
       selfCopy3 = self;
-      selfCopy3 = [v31 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy3];
+      selfCopy3 = [v33 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy3];
 
-      v34 = [(NSMutableSet *)self->_participantsNeedingRoute count];
+      v36 = [(NSMutableSet *)self->_participantsNeedingRoute count];
       *buf = 138543618;
-      v43 = selfCopy3;
-      v44 = 2048;
-      v45 = v34;
-      _os_log_impl(&dword_25813A000, v6, OS_LOG_TYPE_ERROR, "[%{public}@] Need to send route to %lu participants, but state doesn't have routeInfo", buf, 0x16u);
+      v44 = selfCopy3;
+      v45 = 2048;
+      v46 = v36;
+      _os_log_impl(&dword_25813A000, v7, OS_LOG_TYPE_ERROR, "[%{public}@] Need to send route to %lu participants, but state doesn't have routeInfo", buf, 0x16u);
     }
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didFetchCapabilitiesForParticipants:(id)participants

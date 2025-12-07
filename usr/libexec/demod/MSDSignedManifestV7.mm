@@ -248,8 +248,8 @@
 
   if (!v9)
   {
-    v12 = sub_100063A54();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = sub_100063A54(v10);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       sub_1000C78D8();
     }
@@ -257,28 +257,28 @@
     goto LABEL_12;
   }
 
-  v10 = [v9 objectForKey:@"RealSize"];
-  if (v10)
+  v11 = [v9 objectForKey:@"RealSize"];
+  if (v11)
   {
     goto LABEL_6;
   }
 
-  v11 = [v9 objectForKey:@"Size"];
-  v12 = v11;
-  if (!v11)
+  v12 = [v9 objectForKey:@"Size"];
+  v13 = v12;
+  if (!v12)
   {
-    sub_1000C7834();
+    sub_1000C7834(sizeCopy);
 LABEL_12:
-    v10 = 0;
+    v11 = 0;
     goto LABEL_5;
   }
 
-  v10 = [NSNumber numberWithUnsignedLongLong:2 * [v11 unsignedLongLongValue]];
+  v11 = [NSNumber numberWithUnsignedLongLong:2 * [v12 unsignedLongLongValue]];
 LABEL_5:
 
 LABEL_6:
 
-  return v10;
+  return v11;
 }
 
 - (id)getStandAlonePackageFileSize:(id)size
@@ -309,8 +309,8 @@ LABEL_6:
 
   if (!v9)
   {
-    v12 = sub_100063A54();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = sub_100063A54(v10);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       sub_1000C79F8();
     }
@@ -318,28 +318,28 @@ LABEL_6:
     goto LABEL_12;
   }
 
-  v10 = [v9 objectForKey:@"RealSize"];
-  if (v10)
+  v11 = [v9 objectForKey:@"RealSize"];
+  if (v11)
   {
     goto LABEL_6;
   }
 
-  v11 = [v9 objectForKey:@"Size"];
-  v12 = v11;
-  if (!v11)
+  v12 = [v9 objectForKey:@"Size"];
+  v13 = v12;
+  if (!v12)
   {
-    sub_1000C7954();
+    sub_1000C7954(sizeCopy);
 LABEL_12:
-    v10 = 0;
+    v11 = 0;
     goto LABEL_5;
   }
 
-  v10 = [NSNumber numberWithUnsignedLongLong:2 * [v11 unsignedLongLongValue]];
+  v11 = [NSNumber numberWithUnsignedLongLong:2 * [v12 unsignedLongLongValue]];
 LABEL_5:
 
 LABEL_6:
 
-  return v10;
+  return v11;
 }
 
 - (id)getDataComponentRealSizeFromSection:(id)section forIdentifier:(id)identifier
@@ -411,7 +411,7 @@ LABEL_6:
 
   else
   {
-    sub_1000C7A74();
+    sub_1000C7A74(sectionCopy);
     v22 = 0;
   }
 
@@ -422,18 +422,18 @@ LABEL_6:
 {
   length = manifest.length;
   location = manifest.location;
-  v6 = sub_100063A54();
+  v6 = sub_100063A54(self);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v25.location = location;
-    v25.length = length;
-    v7 = NSStringFromRange(v25);
+    v26.location = location;
+    v26.length = length;
+    v7 = NSStringFromRange(v26);
     *buf = 138543362;
-    v23 = v7;
+    v24 = v7;
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Merging manifest item %{public}@", buf, 0xCu);
   }
 
-  v21 = +[NSMutableDictionary dictionary];
+  v22 = +[NSMutableDictionary dictionary];
   installationOrder = [(MSDSignedManifest *)self installationOrder];
   if (location < location + length)
   {
@@ -451,31 +451,31 @@ LABEL_6:
         v15 = +[MSDPlatform sharedInstance];
         watchOS = [v15 watchOS];
 
-        v17 = sub_100063A54();
-        v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
+        v18 = sub_100063A54(v17);
+        v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
         if (!watchOS)
         {
-          if (v18)
+          if (v19)
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "System container backup only allowed on Watch devices.", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "System container backup only allowed on Watch devices.", buf, 2u);
           }
 
           goto LABEL_13;
         }
 
-        if (v18)
+        if (v19)
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "System container backup found. Start restoring UUID paths...", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "System container backup found. Start restoring UUID paths...", buf, 2u);
         }
 
-        v19 = [NSString restoreSystemContainerUUIDPathsInDict:v14];
+        v20 = [NSString restoreSystemContainerUUIDPathsInDict:v14];
 
-        v14 = v19;
+        v14 = v20;
       }
 
-      [v21 addEntriesFromDictionary:v14];
+      [v22 addEntriesFromDictionary:v14];
 LABEL_13:
 
       ++location;
@@ -485,7 +485,7 @@ LABEL_13:
     while (length);
   }
 
-  return v21;
+  return v22;
 }
 
 - (BOOL)hasSystemContainerBackupInRange:(_NSRange)range
@@ -558,47 +558,47 @@ LABEL_13:
 
   if (v6)
   {
-    v7 = [v6 objectForKey:@"Manifest"];
-    v8 = [v7 objectForKey:@"Info"];
+    v8 = [v6 objectForKey:@"Manifest"];
+    v9 = [v8 objectForKey:@"Info"];
 
-    v9 = [v8 objectForKey:@"CFBundleShortVersionString"];
-    v10 = sub_100063A54();
-    v11 = v10;
-    if (v9)
+    v10 = [v9 objectForKey:@"CFBundleShortVersionString"];
+    v11 = sub_100063A54(v10);
+    v12 = v11;
+    if (v10)
     {
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = 136315650;
-        v14 = "[MSDSignedManifestV7 getComponentVersion:]";
-        v15 = 2114;
-        v16 = versionCopy;
-        v17 = 2114;
-        v18 = v9;
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%s - appName:%{public}@ componentVersion:%{public}@", &v13, 0x20u);
+        v14 = 136315650;
+        v15 = "[MSDSignedManifestV7 getComponentVersion:]";
+        v16 = 2114;
+        v17 = versionCopy;
+        v18 = 2114;
+        v19 = v10;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%s - appName:%{public}@ componentVersion:%{public}@", &v14, 0x20u);
       }
 
-      v9 = v9;
-      v8 = v9;
+      v10 = v10;
+      v9 = v10;
     }
 
     else
     {
-      sub_1000C7B2C(v10);
+      sub_1000C7B2C(v11);
     }
   }
 
   else
   {
-    v8 = sub_100063A54();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = sub_100063A54(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_1000C7BD0();
     }
 
-    v9 = 0;
+    v10 = 0;
   }
 
-  return v9;
+  return v10;
 }
 
 - (id)getAppManifest:(id)manifest
@@ -621,47 +621,47 @@ LABEL_13:
 
   if (v6)
   {
-    v7 = [v6 objectForKey:@"Manifest"];
-    v8 = [v7 objectForKey:@"Info"];
+    v8 = [v6 objectForKey:@"Manifest"];
+    v9 = [v8 objectForKey:@"Info"];
 
-    v9 = [v8 objectForKey:@"Version"];
-    v10 = sub_100063A54();
-    v11 = v10;
-    if (v9)
+    v10 = [v9 objectForKey:@"Version"];
+    v11 = sub_100063A54(v10);
+    v12 = v11;
+    if (v10)
     {
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = 136315650;
-        v14 = "[MSDSignedManifestV7 getStandAlonePackageVersion:]";
-        v15 = 2114;
-        v16 = versionCopy;
-        v17 = 2114;
-        v18 = v9;
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%s - pkgName:%{public}@ pkgVersion:%{public}@", &v13, 0x20u);
+        v14 = 136315650;
+        v15 = "[MSDSignedManifestV7 getStandAlonePackageVersion:]";
+        v16 = 2114;
+        v17 = versionCopy;
+        v18 = 2114;
+        v19 = v10;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%s - pkgName:%{public}@ pkgVersion:%{public}@", &v14, 0x20u);
       }
 
-      v9 = v9;
-      v8 = v9;
+      v10 = v10;
+      v9 = v10;
     }
 
     else
     {
-      sub_1000C7C4C(v10);
+      sub_1000C7C4C(v11);
     }
   }
 
   else
   {
-    v8 = sub_100063A54();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = sub_100063A54(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_1000C7CF0();
     }
 
-    v9 = 0;
+    v10 = 0;
   }
 
-  return v9;
+  return v10;
 }
 
 - (id)getStandAlonePackageList
@@ -699,102 +699,100 @@ LABEL_13:
   if (v6)
   {
     v7 = v6;
-    v8 = &IDSSendMessageOptionFireAndForgetKey_ptr;
-    v9 = *v46;
+    v8 = *v46;
     v39 = payload;
     v35 = *v46;
     selfCopy = self;
     do
     {
-      v10 = 0;
+      v9 = 0;
       do
       {
-        if (*v46 != v9)
+        if (*v46 != v8)
         {
           objc_enumerationMutation(payload);
         }
 
-        v11 = *(*(&v45 + 1) + 8 * v10);
-        v12 = [(MSDSignedManifest *)self payload:v35];
-        v13 = [v12 objectForKey:v11];
-        v14 = v8[148];
+        v10 = *(*(&v45 + 1) + 8 * v9);
+        v11 = [(MSDSignedManifest *)self payload:v35];
+        v12 = [v11 objectForKey:v10];
         objc_opt_class();
-        if (objc_opt_isKindOfClass() & 1) == 0 || ([v11 isEqualToString:@"Info"] & 1) != 0 || (objc_msgSend(v11, "isEqualToString:", @"InstallationOrder"))
+        if (objc_opt_isKindOfClass() & 1) == 0 || ([v10 isEqualToString:@"Info"] & 1) != 0 || (objc_msgSend(v10, "isEqualToString:", @"InstallationOrder"))
         {
           goto LABEL_11;
         }
 
-        v15 = [v11 isEqualToString:@"Certificates"];
+        v13 = [v10 isEqualToString:@"Certificates"];
 
-        if ((v15 & 1) == 0)
+        if ((v13 & 1) == 0)
         {
           payload2 = [(MSDSignedManifest *)self payload];
-          v38 = v11;
-          v17 = [payload2 objectForKey:v11];
+          v38 = v10;
+          v15 = [payload2 objectForKey:v10];
 
           v43 = 0u;
           v44 = 0u;
           v41 = 0u;
           v42 = 0u;
-          v13 = v17;
-          v18 = [v13 countByEnumeratingWithState:&v41 objects:v57 count:16];
-          if (!v18)
+          v12 = v15;
+          v16 = [v12 countByEnumeratingWithState:&v41 objects:v57 count:16];
+          if (!v16)
           {
-            v12 = v13;
+            v11 = v12;
             goto LABEL_11;
           }
 
-          v19 = v18;
+          v17 = v16;
           v37 = v7;
-          v20 = *v42;
+          v18 = *v42;
 LABEL_17:
-          v21 = 0;
+          v19 = 0;
           while (1)
           {
-            if (*v42 != v20)
+            if (*v42 != v18)
             {
-              objc_enumerationMutation(v13);
+              objc_enumerationMutation(v12);
             }
 
-            v22 = *(*(&v41 + 1) + 8 * v21);
-            v23 = [v13 objectForKey:v22];
-            v24 = @"Manifest";
-            v25 = [v23 objectForKey:@"Manifest"];
+            v20 = *(*(&v41 + 1) + 8 * v19);
+            v21 = [v12 objectForKey:v20];
+            v22 = @"Manifest";
+            v23 = [v21 objectForKey:@"Manifest"];
 
-            if (!v25)
+            if (!v23)
             {
-              v24 = @"Settings";
-              v26 = [v23 objectForKey:@"Settings"];
+              v22 = @"Settings";
+              v24 = [v21 objectForKey:@"Settings"];
 
-              if (!v26)
+              if (!v24)
               {
                 break;
               }
             }
 
-            v27 = [v23 objectForKey:v24];
-            v28 = [v27 objectForKey:@"Info"];
+            v26 = [v21 objectForKey:v22];
+            v27 = [v26 objectForKey:@"Info"];
 
-            if (!v28)
+            if (!v27)
             {
               break;
             }
 
-            v29 = [v28 objectForKey:@"PlatformType"];
-            v30 = [platformType isEqualToString:v29];
+            v28 = [v27 objectForKey:@"PlatformType"];
+            v29 = [platformType isEqualToString:v28];
 
-            if ((v30 & 1) == 0)
+            if ((v29 & 1) == 0)
             {
-              v33 = sub_100063A54();
+              v33 = sub_100063A54(v30);
               if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
               {
-                v34 = [v28 objectForKey:@"PlatformType"];
+                v34 = [v27 objectForKey:@"PlatformType"];
                 *buf = 138544130;
                 v50 = v34;
                 v51 = 2114;
                 v52 = platformType;
                 v53 = 2114;
-                v54 = v22;
+                v54 = v20;
                 v55 = 2114;
                 v56 = v38;
                 _os_log_error_impl(&_mh_execute_header, v33, OS_LOG_TYPE_ERROR, "PlatformType (%{public}@) in the manifest does not match the one that we are running on (%{public}@) for item: %{public}@ under component: %{public}@", buf, 0x2Au);
@@ -807,19 +805,18 @@ LABEL_32:
               goto LABEL_33;
             }
 
-            if (v19 == ++v21)
+            if (v17 == ++v19)
             {
-              v19 = [v13 countByEnumeratingWithState:&v41 objects:v57 count:16];
-              if (v19)
+              v17 = [v12 countByEnumeratingWithState:&v41 objects:v57 count:16];
+              if (v17)
               {
                 goto LABEL_17;
               }
 
-              v12 = v13;
+              v11 = v12;
               payload = v39;
-              v9 = v35;
+              v8 = v35;
               self = selfCopy;
-              v8 = &IDSSendMessageOptionFireAndForgetKey_ptr;
               v7 = v37;
 LABEL_11:
 
@@ -827,20 +824,20 @@ LABEL_11:
             }
           }
 
-          v28 = sub_100063A54();
-          if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+          v27 = sub_100063A54(v25);
+          if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
           {
-            sub_1000C7D6C(v22, v38, v28);
+            sub_1000C7D6C(v20, v38, v27);
           }
 
           goto LABEL_32;
         }
 
 LABEL_12:
-        v10 = v10 + 1;
+        v9 = v9 + 1;
       }
 
-      while (v10 != v7);
+      while (v9 != v7);
       v31 = [payload countByEnumeratingWithState:&v45 objects:v58 count:16];
       v7 = v31;
     }
@@ -865,7 +862,7 @@ LABEL_33:
 
   else
   {
-    sub_1000C7DEC();
+    sub_1000C7DEC(0);
     v6 = 0;
   }
 
@@ -1002,7 +999,7 @@ LABEL_33:
 
   else
   {
-    sub_1000C7E88();
+    sub_1000C7E88(v6);
     v8 = 0;
   }
 
@@ -1182,7 +1179,7 @@ LABEL_8:
 
   else
   {
-    sub_1000C7F38();
+    sub_1000C7F38(0);
   }
 
 LABEL_5:
@@ -1408,347 +1405,361 @@ LABEL_5:
 {
   dataCopy = data;
   v5 = objc_opt_new();
-  v96.receiver = self;
-  v96.super_class = MSDSignedManifestV7;
-  v6 = [(MSDSignedManifestV7 *)&v96 init];
+  v109.receiver = self;
+  v109.super_class = MSDSignedManifestV7;
+  v6 = [(MSDSignedManifestV7 *)&v109 init];
   if (!v6)
   {
-    v7 = 0;
-    v13 = 0;
-    v14 = 0;
+    v8 = 0;
+    v16 = 0;
+    v17 = 0;
     goto LABEL_12;
   }
 
-  v7 = [dataCopy objectForKey:@"Info"];
-  if (!v7 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+  isKindOfClass = [dataCopy objectForKey:@"Info"];
+  v8 = isKindOfClass;
+  if (!isKindOfClass || (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) == 0))
   {
-    v8 = sub_100063A54();
-    if (!os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = sub_100063A54(isKindOfClass);
+    if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
 LABEL_94:
-      v13 = 0;
-      v14 = 0;
+      v16 = 0;
+      v17 = 0;
       goto LABEL_95;
     }
 
     sub_1000159EC();
-    v34 = "%s: No Info section or in wrong format.";
+    v47 = "%s: No Info section or in wrong format.";
 LABEL_57:
-    _os_log_error_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, v34, buf, 0xCu);
+    _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, v47, buf, 0xCu);
     goto LABEL_94;
   }
 
   if (+[MSDPlatform iOSHub])
   {
-    v8 = [v7 objectForKey:@"Product"];
-    if (!v8 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+    v9 = [v8 objectForKey:@"Product"];
+    v10 = v9;
+    if (!v9 || (objc_opt_class(), v9 = objc_opt_isKindOfClass(), (v9 & 1) == 0))
     {
-      v37 = sub_100063A54();
-      if (sub_1000083A0(v37))
+      v50 = sub_100063A54(v9);
+      if (sub_1000083A0(v50))
       {
         sub_1000159EC();
-        sub_1000159CC(&_mh_execute_header, v69, v70, "%s: No Product section or in wrong format.", v71, v72, v73, v74, v81, log, v84, v86, v88, v90, v92, v94, v96.receiver, v96.super_class, buf[0]);
+        sub_1000159CC(&_mh_execute_header, v82, v83, "%s: No Product section or in wrong format.", v84, v85, v86, v87, v94, log, v97, v99, v101, v103, v105, v107, v109.receiver, v109.super_class);
       }
 
       goto LABEL_94;
     }
 
-    v9 = +[MSDPlatform sharedInstance];
-    [v9 setPlatformWithManifestProductList:v8];
+    v11 = +[MSDPlatform sharedInstance];
+    [v11 setPlatformWithManifestProductList:v10];
 
-    v10 = NSClassFromString(@"MSDHubTestConfiguration");
-    if (v10)
+    v12 = NSClassFromString(@"MSDHubTestConfiguration");
+    if (v12)
     {
-      sharedInstance = [(objc_class *)v10 sharedInstance];
-      if ((objc_opt_respondsToSelector() & 1) != 0 && ([sharedInstance shouldRunManifestRigorousTest] & 1) == 0)
+      sharedInstance = [(objc_class *)v12 sharedInstance];
+      if ((objc_opt_respondsToSelector() & 1) != 0 && (v14 = [sharedInstance shouldRunManifestRigorousTest], (v14 & 1) == 0))
       {
-        v16 = sub_100063A54();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+        v19 = sub_100063A54(v14);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
           sub_1000159EC();
-          _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "%s - Will not run rigorous testing on iOS hub.", buf, 0xCu);
+          _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "%s - Will not run rigorous testing on iOS hub.", buf, 0xCu);
         }
 
-        v12 = &__kCFBooleanFalse;
+        v15 = &__kCFBooleanFalse;
       }
 
       else
       {
-        v12 = 0;
+        v15 = 0;
       }
     }
 
     else
     {
-      v12 = 0;
+      v15 = 0;
     }
   }
 
   else
   {
-    v12 = 0;
+    v15 = 0;
   }
 
   manifestVerifier = [(MSDSignedManifest *)v6 manifestVerifier];
 
   if (!manifestVerifier)
   {
-    v18 = +[MSDDemoManifestCheck sharedInstance];
-    [(MSDSignedManifest *)v6 setManifestVerifier:v18];
+    v21 = +[MSDDemoManifestCheck sharedInstance];
+    [(MSDSignedManifest *)v6 setManifestVerifier:v21];
 
     manifestVerifier2 = [(MSDSignedManifest *)v6 manifestVerifier];
 
     if (!manifestVerifier2)
     {
-      v8 = sub_100063A54();
-      if (!os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v10 = sub_100063A54(v23);
+      if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_94;
       }
 
       sub_1000159EC();
-      v34 = "%s - Could not initialize manifestVerifier\n";
+      v47 = "%s - Could not initialize manifestVerifier\n";
       goto LABEL_57;
     }
   }
 
-  v14 = [dataCopy objectForKey:@"Version"];
-  if (v12)
+  v17 = [dataCopy objectForKey:@"Version"];
+  if (v15)
   {
-    [v5 setObject:v12 forKey:@"RigorousTestingOverride"];
+    [v5 setObject:v15 forKey:@"RigorousTestingOverride"];
   }
 
   manifestVerifier3 = [(MSDSignedManifest *)v6 manifestVerifier];
   getDataSectionKeys = [(MSDSignedManifestV7 *)v6 getDataSectionKeys];
-  v8 = [manifestVerifier3 verifyManifestSignature:dataCopy forDataSectionKeys:getDataSectionKeys withOptions:v5];
+  v10 = [manifestVerifier3 verifyManifestSignature:dataCopy forDataSectionKeys:getDataSectionKeys withOptions:v5];
 
-  if (v8)
+  if (v10)
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    v26 = objc_opt_isKindOfClass();
+    if (v26)
     {
-      v95 = v14;
-      v22 = [v8 objectForKey:@"InstallationOrder"];
-      if (!v22 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+      v108 = v17;
+      v27 = [v10 objectForKey:@"InstallationOrder"];
+      v28 = v27;
+      if (!v27 || (objc_opt_class(), v27 = objc_opt_isKindOfClass(), (v27 & 1) == 0))
       {
-        v35 = sub_100063A54();
-        if (sub_1000083A0(v35))
+        v48 = sub_100063A54(v27);
+        if (sub_1000083A0(v48))
         {
           sub_1000159EC();
-          sub_1000159CC(&_mh_execute_header, v57, v58, "%s: InstallationOrder section in wrong format.", v59, v60, v61, v62, v81, log, v84, v86, v88, v90, v92, v95, v96.receiver, v96.super_class, buf[0]);
+          sub_1000159CC(&_mh_execute_header, v70, v71, "%s: InstallationOrder section in wrong format.", v72, v73, v74, v75, v94, log, v97, v99, v101, v103, v105, v108, v109.receiver, v109.super_class);
         }
 
-        v13 = 0;
-        v15 = 0;
+        v16 = 0;
+        v18 = 0;
         goto LABEL_52;
       }
 
-      v91 = v7;
-      v23 = [v22 objectForKey:@"CriticalComponents"];
-      v24 = v23;
-      if (v23)
+      v104 = v8;
+      v29 = [v28 objectForKey:@"CriticalComponents"];
+      v30 = v29;
+      if (v29)
       {
-        v25 = [v23 count];
+        v31 = [v29 count];
       }
 
       else
       {
-        v25 = 0;
+        v31 = 0;
       }
 
-      v26 = [v22 objectForKey:@"Components"];
-      v27 = v26;
-      v93 = v5;
-      if (v26)
+      v32 = [v28 objectForKey:@"Components"];
+      v33 = v32;
+      v106 = v5;
+      if (v32)
       {
-        v25 = &v25[[v26 count]];
+        v31 = &v31[[v32 count]];
       }
 
-      v28 = [v8 objectForKey:@"BackupData"];
-      if (!v28 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+      v34 = [v10 objectForKey:@"BackupData"];
+      v35 = v34;
+      if (!v34 || (objc_opt_class(), v34 = objc_opt_isKindOfClass(), (v34 & 1) == 0))
       {
-        v36 = sub_100063A54();
-        if (sub_1000083A0(v36))
+        v49 = sub_100063A54(v34);
+        if (sub_1000083A0(v49))
         {
           sub_1000159EC();
-          sub_1000159CC(&_mh_execute_header, v63, v64, "%s: no BackupData section or in wrong format.", v65, v66, v67, v68, v81, log, v84, v86, v88, v91, v93, v95, v96.receiver, v96.super_class, buf[0]);
+          sub_1000159CC(&_mh_execute_header, v76, v77, "%s: no BackupData section or in wrong format.", v78, v79, v80, v81, v94, log, v97, v99, v101, v104, v106, v108, v109.receiver, v109.super_class);
         }
 
-        v13 = 0;
+        v16 = 0;
         goto LABEL_84;
       }
 
-      v29 = [v28 count];
-      v13 = [v8 objectForKey:@"Apps"];
-      v89 = v27;
-      if (v13)
+      v36 = [v35 count];
+      v16 = [v10 objectForKey:@"Apps"];
+      v102 = v33;
+      if (v16)
       {
         objc_opt_class();
-        if ((objc_opt_isKindOfClass() & 1) == 0)
+        v37 = objc_opt_isKindOfClass();
+        if ((v37 & 1) == 0)
         {
-          v40 = sub_100063A54();
-          if (sub_1000083A0(v40))
+          v53 = sub_100063A54(v37);
+          if (sub_1000083A0(v53))
           {
-            v98 = "[MSDSignedManifestV7 initWithManifestData:]";
-            sub_1000159CC(&_mh_execute_header, v41, v42, "%s: Apps section in wrong format.", v43, v44, v45, v46, v81, log, v84, v86, v27, v91, v93, v95, v96.receiver, v96.super_class, 2u);
+            *buf = 136315138;
+            v111 = "[MSDSignedManifestV7 initWithManifestData:]";
+            sub_1000159CC(&_mh_execute_header, v54, v55, "%s: Apps section in wrong format.", v56, v57, v58, v59, v94, log, v97, v99, v33, v104, v106, v108, v109.receiver, v109.super_class);
           }
 
 LABEL_83:
 LABEL_84:
-          v15 = 0;
+          v18 = 0;
 LABEL_92:
-          v7 = v91;
-          v5 = v93;
+          v8 = v104;
+          v5 = v106;
 LABEL_52:
-          v14 = v95;
+          v17 = v108;
 LABEL_53:
 
           goto LABEL_54;
         }
 
-        v29 = &v29[[v13 count]];
+        v36 = &v36[[v16 count]];
       }
 
-      v30 = [v8 objectForKey:@"SystemApps"];
-      v87 = v24;
-      if (!v30)
+      v38 = [v10 objectForKey:@"SystemApps"];
+      v100 = v30;
+      if (!v38)
       {
         goto LABEL_42;
       }
 
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      v39 = objc_opt_isKindOfClass();
+      if (v39)
       {
-        if ([v30 count])
+        if ([v38 count])
         {
-          ++v29;
+          ++v36;
         }
 
 LABEL_42:
-        v31 = [v8 objectForKey:@"Packages"];
-        v85 = dataCopy;
-        if (v31)
+        v40 = [v10 objectForKey:@"Packages"];
+        v98 = dataCopy;
+        if (v40)
         {
           objc_opt_class();
-          if ((objc_opt_isKindOfClass() & 1) == 0)
+          v41 = objc_opt_isKindOfClass();
+          if ((v41 & 1) == 0)
           {
-            v54 = dataCopy;
-            v55 = sub_100063A54();
-            if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
+            v67 = dataCopy;
+            v68 = sub_100063A54(v41);
+            if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
             {
               *buf = 136315138;
-              v98 = "[MSDSignedManifestV7 initWithManifestData:]";
-              _os_log_error_impl(&_mh_execute_header, v55, OS_LOG_TYPE_ERROR, "%s - Packages section in wrong format.", buf, 0xCu);
+              v111 = "[MSDSignedManifestV7 initWithManifestData:]";
+              _os_log_error_impl(&_mh_execute_header, v68, OS_LOG_TYPE_ERROR, "%s - Packages section in wrong format.", buf, 0xCu);
             }
 
-            v15 = 0;
-            dataCopy = v54;
+            v18 = 0;
+            dataCopy = v67;
             goto LABEL_92;
           }
 
-          v29 = &v29[[v31 count]];
+          v36 = &v36[[v40 count]];
         }
 
-        v32 = [v8 objectForKey:@"ConfigurationProfiles"];
-        if (v32)
+        v42 = [v10 objectForKey:@"ConfigurationProfiles"];
+        v43 = v42;
+        if (v42)
         {
           objc_opt_class();
-          if ((objc_opt_isKindOfClass() & 1) == 0)
+          v44 = objc_opt_isKindOfClass();
+          if ((v44 & 1) == 0)
           {
-            v56 = sub_100063A54();
-            if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
+            v69 = sub_100063A54(v44);
+            if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
             {
               *buf = 136315138;
-              v98 = "[MSDSignedManifestV7 initWithManifestData:]";
-              _os_log_error_impl(&_mh_execute_header, v56, OS_LOG_TYPE_ERROR, "%s - ConfigurationProfiles section in wrong format.", buf, 0xCu);
+              v111 = "[MSDSignedManifestV7 initWithManifestData:]";
+              _os_log_error_impl(&_mh_execute_header, v69, OS_LOG_TYPE_ERROR, "%s - ConfigurationProfiles section in wrong format.", buf, 0xCu);
             }
 
 LABEL_91:
-            v15 = 0;
-            dataCopy = v85;
+            v18 = 0;
+            dataCopy = v98;
             goto LABEL_92;
           }
 
-          v29 = &v29[[v32 count]];
+          v42 = [v43 count];
+          v36 += v42;
         }
 
-        if (v25 == v29)
+        if (v31 == v36)
         {
           [(MSDSignedManifest *)v6 setSigningKey:@"MultipleContentSignings"];
-          [(MSDSignedManifest *)v6 setPayload:v8];
-          if ([(MSDSignedManifestV7 *)v6 checkPlatformTypeForAllComponents])
+          [(MSDSignedManifest *)v6 setPayload:v10];
+          checkPlatformTypeForAllComponents = [(MSDSignedManifestV7 *)v6 checkPlatformTypeForAllComponents];
+          if (checkPlatformTypeForAllComponents)
           {
             [(MSDSignedManifestV7 *)v6 parseNonContainerizedContentRootSet];
             [(MSDSignedManifest *)v6 parseInstallationOrder];
-            v7 = v91;
-            [(MSDSignedManifest *)v6 parseBundleID:v91];
+            v8 = v104;
+            [(MSDSignedManifest *)v6 parseBundleID:v104];
             [(MSDSignedManifestV7 *)v6 parseLocaleCode];
             [MSDSignedManifest setSignedManifest:v6];
-            v15 = v6;
+            v18 = v6;
           }
 
           else
           {
-            v39 = sub_100063A54();
-            v7 = v91;
-            if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+            v52 = sub_100063A54(checkPlatformTypeForAllComponents);
+            v8 = v104;
+            if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
             {
               *buf = 0;
-              _os_log_error_impl(&_mh_execute_header, v39, OS_LOG_TYPE_ERROR, "One or more components have an invalid platformType", buf, 2u);
+              _os_log_error_impl(&_mh_execute_header, v52, OS_LOG_TYPE_ERROR, "One or more components have an invalid platformType", buf, 2u);
             }
 
-            v15 = 0;
+            v18 = 0;
           }
 
-          dataCopy = v85;
-          v5 = v93;
+          dataCopy = v98;
+          v5 = v106;
           goto LABEL_52;
         }
 
-        loga = sub_100063A54();
+        loga = sub_100063A54(v42);
         if (os_log_type_enabled(loga, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315650;
-          v98 = "[MSDSignedManifestV7 initWithManifestData:]";
-          v99 = 2048;
-          v100 = v25;
-          v101 = 2048;
-          v102 = v29;
+          v111 = "[MSDSignedManifestV7 initWithManifestData:]";
+          v112 = 2048;
+          v113 = v31;
+          v114 = 2048;
+          v115 = v36;
           _os_log_error_impl(&_mh_execute_header, loga, OS_LOG_TYPE_ERROR, "%s - InstallationOrder count (%lu) doesn't match number of components in manifest (%lu)", buf, 0x20u);
         }
 
         goto LABEL_91;
       }
 
-      v47 = sub_100063A54();
-      if (sub_1000083A0(v47))
+      v60 = sub_100063A54(v39);
+      if (sub_1000083A0(v60))
       {
-        v98 = "[MSDSignedManifestV7 initWithManifestData:]";
-        sub_1000159CC(&_mh_execute_header, v48, v49, "%s: SystemApps section in wrong format.", v50, v51, v52, v53, v81, log, v84, v24, v89, v91, v93, v95, v96.receiver, v96.super_class, 2u);
+        *buf = 136315138;
+        v111 = "[MSDSignedManifestV7 initWithManifestData:]";
+        sub_1000159CC(&_mh_execute_header, v61, v62, "%s: SystemApps section in wrong format.", v63, v64, v65, v66, v94, log, v97, v30, v102, v104, v106, v108, v109.receiver, v109.super_class);
       }
 
       goto LABEL_83;
     }
 
-    v38 = sub_100063A54();
-    if (sub_1000083A0(v38))
+    v51 = sub_100063A54(v26);
+    if (sub_1000083A0(v51))
     {
       sub_1000159EC();
-      sub_1000159CC(&_mh_execute_header, v75, v76, "%s: payload format not correct.", v77, v78, v79, v80, v81, log, v84, v86, v88, v90, v92, v94, v96.receiver, v96.super_class, buf[0]);
+      sub_1000159CC(&_mh_execute_header, v88, v89, "%s: payload format not correct.", v90, v91, v92, v93, v94, log, v97, v99, v101, v103, v105, v107, v109.receiver, v109.super_class);
     }
 
-    v13 = 0;
+    v16 = 0;
 LABEL_95:
-    v15 = 0;
+    v18 = 0;
     goto LABEL_53;
   }
 
-  v13 = 0;
+  v16 = 0;
 LABEL_12:
-  v15 = 0;
+  v18 = 0;
 LABEL_54:
 
-  return v15;
+  return v18;
 }
 
 @end

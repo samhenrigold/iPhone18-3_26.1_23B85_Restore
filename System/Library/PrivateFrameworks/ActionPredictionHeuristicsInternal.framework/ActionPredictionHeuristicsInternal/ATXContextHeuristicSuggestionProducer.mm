@@ -52,12 +52,12 @@
 
 + (id)suggestionWithExecutableSpecification:(id)specification title:(id)title subtitle:(id)subtitle predictionReasons:(unint64_t)reasons localizedReason:(id)reason score:(double)score
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   subtitleCopy = subtitle;
   titleCopy = title;
   specificationCopy = specification;
-  v17 = __atxlog_handle_context_heuristic();
+  v17 = __atxlog_handle_context_heuristic(specificationCopy);
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
@@ -79,8 +79,6 @@
   _clientModelSpectForContextHeuristics = [self _clientModelSpectForContextHeuristics];
   v28 = [v26 initWithClientModelSpecification:_clientModelSpectForContextHeuristics executableSpecification:v23 uiSpecification:v24 scoreSpecification:v25];
 
-  v29 = *MEMORY[0x277D85DE8];
-
   return v28;
 }
 
@@ -97,21 +95,21 @@
 
 + (id)_suggestionWithSpotlightAction:(id)action predictionReasons:(unint64_t)reasons localizedReason:(id)reason score:(double)score uiSpec:(id)spec dateInterval:(id)interval
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   actionCopy = action;
   reasonCopy = reason;
   specCopy = spec;
   intervalCopy = interval;
-  v18 = __atxlog_handle_context_heuristic();
+  v18 = __atxlog_handle_context_heuristic(intervalCopy);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     v19 = [reasonCopy hash];
     actionDescription = [actionCopy actionDescription];
-    v29 = 134218242;
-    v30 = v19;
-    v31 = 2112;
-    v32 = actionDescription;
-    _os_log_impl(&dword_23E3EA000, v18, OS_LOG_TYPE_DEFAULT, "ATXProactiveSuggestion: suggestionWithSpotlightAction reason.hash:%lu description:%@", &v29, 0x16u);
+    v28 = 134218242;
+    v29 = v19;
+    v30 = 2112;
+    v31 = actionDescription;
+    _os_log_impl(&dword_23E3EA000, v18, OS_LOG_TYPE_DEFAULT, "ATXProactiveSuggestion: suggestionWithSpotlightAction reason.hash:%lu description:%@", &v28, 0x16u);
   }
 
   v21 = [self _executableSpecForSpotlightAction:actionCopy];
@@ -126,27 +124,25 @@
   _clientModelSpectForContextHeuristics = [self _clientModelSpectForContextHeuristics];
   v26 = [v24 initWithClientModelSpecification:_clientModelSpectForContextHeuristics executableSpecification:v21 uiSpecification:specCopy scoreSpecification:v23];
 
-  v27 = *MEMORY[0x277D85DE8];
-
   return v26;
 }
 
 + (id)suggestionWithShortcutAction:(id)action predictionReasons:(unint64_t)reasons localizedReason:(id)reason title:(id)title subtitle:(id)subtitle score:(double)score dateInterval:(id)interval
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   actionCopy = action;
   reasonCopy = reason;
   titleCopy = title;
   subtitleCopy = subtitle;
   intervalCopy = interval;
-  v18 = __atxlog_handle_context_heuristic();
+  v18 = __atxlog_handle_context_heuristic(intervalCopy);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     contextualAction = [actionCopy contextualAction];
     *buf = 134218242;
     reasonsCopy = reasons;
-    v40 = 2112;
-    v41 = contextualAction;
+    v39 = 2112;
+    v40 = contextualAction;
     _os_log_impl(&dword_23E3EA000, v18, OS_LOG_TYPE_DEFAULT, "ATXProactiveSuggestion: suggestionWithShortcutAction predictionReasons:%llu shortcutsAction.contextualAction:%@", buf, 0x16u);
   }
 
@@ -169,18 +165,16 @@
   _clientModelSpectForContextHeuristics = [self _clientModelSpectForContextHeuristics];
   v31 = [v29 initWithClientModelSpecification:_clientModelSpectForContextHeuristics executableSpecification:v25 uiSpecification:v27 scoreSpecification:v28];
 
-  v32 = *MEMORY[0x277D85DE8];
-
   return v31;
 }
 
 + (id)suggestionWithAction:(id)action predictionReasons:(unint64_t)reasons localizedReason:(id)reason score:(double)score dateInterval:(id)interval
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   intervalCopy = interval;
   reasonCopy = reason;
   actionCopy = action;
-  v15 = __atxlog_handle_context_heuristic();
+  v15 = __atxlog_handle_context_heuristic(actionCopy);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
@@ -207,8 +201,6 @@
   v28 = objc_alloc(MEMORY[0x277D42068]);
   _clientModelSpectForContextHeuristics = [self _clientModelSpectForContextHeuristics];
   v30 = [v28 initWithClientModelSpecification:_clientModelSpectForContextHeuristics executableSpecification:v23 uiSpecification:v26 scoreSpecification:v27];
-
-  v31 = *MEMORY[0x277D85DE8];
 
   return v30;
 }
@@ -253,7 +245,7 @@
 
 + (id)suggestionForDNDWithTitle:(id)title eventUniqueID:(id)d identifier:(id)identifier until:(id)until score:(double)score predictionReasons:(unint64_t)reasons localizedReason:(id)reason validFromStartDate:(id)self0 validToEndDate:(id)self1 dateInterval:(id)self2
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   titleCopy = title;
   dCopy = d;
   untilCopy = until;
@@ -261,24 +253,24 @@
   endDateCopy = endDate;
   dateCopy = date;
   reasonCopy = reason;
-  v23 = __atxlog_handle_context_heuristic();
+  v23 = __atxlog_handle_context_heuristic(reasonCopy);
   if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446978;
-    v41 = "+[ATXContextHeuristicSuggestionProducer suggestionForDNDWithTitle:eventUniqueID:identifier:until:score:predictionReasons:localizedReason:validFromStartDate:validToEndDate:dateInterval:]";
-    v42 = 2048;
-    v43 = [titleCopy hash];
-    v44 = 2112;
-    v45 = dCopy;
-    v46 = 2112;
-    v47 = untilCopy;
+    v40 = "+[ATXContextHeuristicSuggestionProducer suggestionForDNDWithTitle:eventUniqueID:identifier:until:score:predictionReasons:localizedReason:validFromStartDate:validToEndDate:dateInterval:]";
+    v41 = 2048;
+    v42 = [titleCopy hash];
+    v43 = 2112;
+    v44 = dCopy;
+    v45 = 2112;
+    v46 = untilCopy;
     _os_log_impl(&dword_23E3EA000, v23, OS_LOG_TYPE_DEFAULT, "%{public}s title.hash:%lu eventUniqueID:%@, until:%@", buf, 0x2Au);
   }
 
   [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v36 = dCopy;
-  v24 = v37 = titleCopy;
-  v35 = untilCopy;
+  v35 = dCopy;
+  v24 = v36 = titleCopy;
+  v34 = untilCopy;
   v25 = [v24 localizedStringForKey:@"SUGGESTION_DND_TITLE" value:&stru_2850AD368 table:0];
   v26 = objc_alloc(MEMORY[0x277D7A190]);
   v27 = [v26 initWithIdentifier:*MEMORY[0x277D7A7C8] name:v25 symbolName:@"moon.fill" colorName:@"systemIndigoColor"];
@@ -288,8 +280,6 @@
 
   v31 = [objc_alloc(MEMORY[0x277CEB820]) initWithContextualAction:v28 criteria:v30];
   v32 = [self suggestionWithShortcutAction:v31 predictionReasons:reasons localizedReason:reasonCopy title:v29 subtitle:0 score:intervalCopy dateInterval:score];
-
-  v33 = *MEMORY[0x277D85DE8];
 
   return v32;
 }
@@ -301,7 +291,7 @@
   reasonCopy = reason;
   criteriaCopy = criteria;
   intervalCopy = interval;
-  v17 = __atxlog_handle_context_heuristic();
+  v17 = __atxlog_handle_context_heuristic(intervalCopy);
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -312,69 +302,68 @@
   v18 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v19 = [v18 localizedStringForKey:@"SUGGESTION_JOIN_TITLE" value:&stru_2850AD368 table:0];
   v20 = [self _bundleIDWithURL:lCopy];
-  if ([v20 isEqualToString:@"com.apple.mobilephone"] && objc_msgSend(MEMORY[0x277D42590], "isiPad"))
+  v21 = [v20 isEqualToString:@"com.apple.mobilephone"];
+  if (v21 && (v21 = [MEMORY[0x277D42590] isiPad], v21))
   {
-    v21 = __atxlog_handle_context_heuristic();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v22 = __atxlog_handle_context_heuristic(v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_23E3EA000, v21, OS_LOG_TYPE_DEFAULT, "suggestionForConferenceWithURL: no Phone application on iPad. Skipping suggestion", buf, 2u);
+      _os_log_impl(&dword_23E3EA000, v22, OS_LOG_TYPE_DEFAULT, "suggestionForConferenceWithURL: no Phone application on iPad. Skipping suggestion", buf, 2u);
     }
 
-    v22 = 0;
-    v23 = reasonCopy;
+    v23 = 0;
+    v24 = reasonCopy;
   }
 
   else
   {
-    v24 = __atxlog_handle_context_heuristic();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    v25 = __atxlog_handle_context_heuristic(v21);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
       [lCopy absoluteString];
-      v26 = v25 = reasons;
+      v27 = v26 = reasons;
       *buf = 138412802;
-      v33 = v26;
+      v33 = v27;
       v34 = 2112;
       v35 = v20;
       v36 = 2112;
       v37 = v19;
-      _os_log_impl(&dword_23E3EA000, v24, OS_LOG_TYPE_DEFAULT, "[[WFOpenURLContextualAction alloc] initWithURL:%@ bundleIdentifier:%@ actionTitle:%@", buf, 0x20u);
+      _os_log_impl(&dword_23E3EA000, v25, OS_LOG_TYPE_DEFAULT, "[[WFOpenURLContextualAction alloc] initWithURL:%@ bundleIdentifier:%@ actionTitle:%@", buf, 0x20u);
 
-      reasons = v25;
+      reasons = v26;
     }
 
-    v21 = [objc_alloc(MEMORY[0x277D7A078]) initWithURL:lCopy bundleIdentifier:v20 actionTitle:v19];
-    v27 = [objc_alloc(MEMORY[0x277CEB820]) initWithContextualAction:v21 criteria:criteriaCopy];
+    v22 = [objc_alloc(MEMORY[0x277D7A078]) initWithURL:lCopy bundleIdentifier:v20 actionTitle:v19];
+    v28 = [objc_alloc(MEMORY[0x277CEB820]) initWithContextualAction:v22 criteria:criteriaCopy];
     selfCopy = self;
-    v23 = reasonCopy;
-    v22 = [selfCopy suggestionWithShortcutAction:v27 predictionReasons:reasons localizedReason:reasonCopy title:0 subtitle:0 score:intervalCopy dateInterval:score];
+    v24 = reasonCopy;
+    v23 = [selfCopy suggestionWithShortcutAction:v28 predictionReasons:reasons localizedReason:reasonCopy title:0 subtitle:0 score:intervalCopy dateInterval:score];
   }
 
-  v29 = *MEMORY[0x277D85DE8];
-
-  return v22;
+  return v23;
 }
 
 + (id)suggestionWithURL:(id)l actionTitle:(id)title subtitle:(id)subtitle bundleID:(id)d score:(double)score predictionReasons:(unint64_t)reasons criteria:(id)criteria dateInterval:(id)self0
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   lCopy = l;
   titleCopy = title;
   dCopy = d;
   intervalCopy = interval;
   criteriaCopy = criteria;
   subtitleCopy = subtitle;
-  v23 = __atxlog_handle_context_heuristic();
+  v23 = __atxlog_handle_context_heuristic(subtitleCopy);
   if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
     absoluteString = [lCopy absoluteString];
-    v30 = 138412802;
-    v31 = absoluteString;
-    v32 = 2112;
-    v33 = dCopy;
-    v34 = 2112;
-    v35 = titleCopy;
-    _os_log_impl(&dword_23E3EA000, v23, OS_LOG_TYPE_DEFAULT, "[[WFOpenURLContextualAction alloc] initWithURL:%@ bundleIdentifier:%@ actionTitle:%@", &v30, 0x20u);
+    v29 = 138412802;
+    v30 = absoluteString;
+    v31 = 2112;
+    v32 = dCopy;
+    v33 = 2112;
+    v34 = titleCopy;
+    _os_log_impl(&dword_23E3EA000, v23, OS_LOG_TYPE_DEFAULT, "[[WFOpenURLContextualAction alloc] initWithURL:%@ bundleIdentifier:%@ actionTitle:%@", &v29, 0x20u);
   }
 
   v25 = [objc_alloc(MEMORY[0x277D7A078]) initWithURL:lCopy bundleIdentifier:dCopy actionTitle:titleCopy];
@@ -382,26 +371,24 @@
 
   v27 = [self suggestionWithShortcutAction:v26 predictionReasons:reasons localizedReason:0 title:0 subtitle:subtitleCopy score:intervalCopy dateInterval:score];
 
-  v28 = *MEMORY[0x277D85DE8];
-
   return v27;
 }
 
 + (id)_bundleIDWithURL:(id)l
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   lCopy = l;
   v4 = objc_autoreleasePoolPush();
   if (lCopy)
   {
-    v16 = 0;
-    v5 = [MEMORY[0x277CC1E48] appLinksWithURL:lCopy limit:1 error:&v16];
-    v6 = v16;
-    v7 = __atxlog_handle_context_heuristic();
+    v15 = 0;
+    v5 = [MEMORY[0x277CC1E48] appLinksWithURL:lCopy limit:1 error:&v15];
+    v6 = v15;
+    v7 = __atxlog_handle_context_heuristic(v6);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v18 = v5;
+      v17 = v5;
       _os_log_impl(&dword_23E3EA000, v7, OS_LOG_TYPE_DEFAULT, "ATXProactiveSuggestion: appLinksWithURL links:%@", buf, 0xCu);
     }
 
@@ -409,11 +396,11 @@
     {
       firstObject = [v5 firstObject];
       targetApplicationRecord = [firstObject targetApplicationRecord];
-      v10 = __atxlog_handle_context_heuristic();
+      v10 = __atxlog_handle_context_heuristic(targetApplicationRecord);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v18 = targetApplicationRecord;
+        v17 = targetApplicationRecord;
         _os_log_impl(&dword_23E3EA000, v10, OS_LOG_TYPE_DEFAULT, "ATXProactiveSuggestion: appLinksWithURL record:%@", buf, 0xCu);
       }
 
@@ -427,7 +414,7 @@
 
     else
     {
-      firstObject = __atxlog_handle_context_heuristic();
+      firstObject = __atxlog_handle_context_heuristic(0);
       if (os_log_type_enabled(firstObject, OS_LOG_TYPE_ERROR))
       {
         [(ATXContextHeuristicSuggestionProducer *)v6 _bundleIDWithURL:firstObject];
@@ -447,7 +434,6 @@
   }
 
   objc_autoreleasePoolPop(v4);
-  v14 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -470,45 +456,41 @@
 
 + (id)_uiSpecWithTitle:(id)title subtitle:(id)subtitle predictionReason:(id)reason shouldClearOnEngagement:(BOOL)engagement predictionReasons:(unint64_t)reasons dateInterval:(id)interval
 {
-  v27[1] = *MEMORY[0x277D85DE8];
+  v26[1] = *MEMORY[0x277D85DE8];
   v13 = MEMORY[0x277D42088];
   intervalCopy = interval;
   reasonCopy = reason;
   subtitleCopy = subtitle;
   titleCopy = title;
   v18 = [[v13 alloc] initWithApplicableSuggestionLayout:5];
-  v27[0] = v18;
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:1];
+  v26[0] = v18;
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:1];
 
   v20 = objc_alloc(MEMORY[0x277D420A0]);
   startDate = [intervalCopy startDate];
   endDate = [intervalCopy endDate];
 
-  BYTE1(v26) = engagement;
-  LOBYTE(v26) = 1;
-  v23 = [v20 initWithTitle:titleCopy subtitle:subtitleCopy predictionReason:reasonCopy preferredLayoutConfigs:v19 allowedOnLockscreen:0 allowedOnHomeScreen:0 allowedOnSpotlight:v26 shouldClearOnEngagement:reasons predictionReasons:startDate contextStartDate:endDate contextEndDate:?];
-
-  v24 = *MEMORY[0x277D85DE8];
+  BYTE1(v25) = engagement;
+  LOBYTE(v25) = 1;
+  v23 = [v20 initWithTitle:titleCopy subtitle:subtitleCopy predictionReason:reasonCopy preferredLayoutConfigs:v19 allowedOnLockscreen:0 allowedOnHomeScreen:0 allowedOnSpotlight:v25 shouldClearOnEngagement:reasons predictionReasons:startDate contextStartDate:endDate contextEndDate:?];
 
   return v23;
 }
 
 + (id)_dummyUiSpecWithTitle:(id)title subtitle:(id)subtitle predictionReason:(id)reason shouldClearOnEngagement:(BOOL)engagement predictionReasons:(unint64_t)reasons
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   v11 = MEMORY[0x277D42088];
   reasonCopy = reason;
   subtitleCopy = subtitle;
   titleCopy = title;
   v15 = [[v11 alloc] initWithApplicableSuggestionLayout:5];
-  v21[0] = v15;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
+  v20[0] = v15;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
 
-  BYTE1(v20) = engagement;
-  LOBYTE(v20) = 0;
-  v17 = [objc_alloc(MEMORY[0x277D420A0]) initWithTitle:titleCopy subtitle:subtitleCopy predictionReason:reasonCopy preferredLayoutConfigs:v16 allowedOnLockscreen:0 allowedOnHomeScreen:0 allowedOnSpotlight:v20 shouldClearOnEngagement:reasons predictionReasons:?];
-
-  v18 = *MEMORY[0x277D85DE8];
+  BYTE1(v19) = engagement;
+  LOBYTE(v19) = 0;
+  v17 = [objc_alloc(MEMORY[0x277D420A0]) initWithTitle:titleCopy subtitle:subtitleCopy predictionReason:reasonCopy preferredLayoutConfigs:v16 allowedOnLockscreen:0 allowedOnHomeScreen:0 allowedOnSpotlight:v19 shouldClearOnEngagement:reasons predictionReasons:?];
 
   return v17;
 }
@@ -631,11 +613,10 @@ LABEL_6:
 
 + (void)_bundleIDWithURL:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_23E3EA000, a2, OS_LOG_TYPE_ERROR, "ATXProactiveSuggestion: LSAppLink error:%@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_23E3EA000, a2, OS_LOG_TYPE_ERROR, "ATXProactiveSuggestion: LSAppLink error:%@", &v2, 0xCu);
 }
 
 + (void)_mediaWithName:(uint64_t)a3 type:(uint64_t)a4 adamIdentifier:umcIdentifier:predictionReasons:localizedReason:score:expirationDate:.cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)

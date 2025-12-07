@@ -105,44 +105,42 @@
 
 - (id)coreAnalyticsDictionary
 {
-  v20[8] = *MEMORY[0x277D85DE8];
-  v19[0] = @"rejectedNotificationAverageHandleTime";
+  v19[8] = *MEMORY[0x277D85DE8];
+  v18[0] = @"rejectedNotificationAverageHandleTime";
   v3 = MEMORY[0x277CCABB0];
   [(ATXNotificationHandleSummaryMetrics *)self rejectedNotificationAverageHandleTime];
   v4 = [v3 numberWithDouble:?];
-  v20[0] = v4;
-  v19[1] = @"acceptedNotificationAverageHandleTime";
+  v19[0] = v4;
+  v18[1] = @"acceptedNotificationAverageHandleTime";
   v5 = MEMORY[0x277CCABB0];
   [(ATXNotificationHandleSummaryMetrics *)self acceptedNotificationAverageHandleTime];
   v6 = [v5 numberWithDouble:?];
-  v20[1] = v6;
-  v19[2] = @"rejectedNotificationCount";
+  v19[1] = v6;
+  v18[2] = @"rejectedNotificationCount";
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[ATXNotificationHandleSummaryMetrics rejectedNotificationCount](self, "rejectedNotificationCount")}];
-  v20[2] = v7;
-  v19[3] = @"acceptedNotificationCount";
+  v19[2] = v7;
+  v18[3] = @"acceptedNotificationCount";
   v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[ATXNotificationHandleSummaryMetrics acceptedNotificationCount](self, "acceptedNotificationCount")}];
-  v20[3] = v8;
-  v19[4] = @"notificationsReceivedCount";
+  v19[3] = v8;
+  v18[4] = @"notificationsReceivedCount";
   v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[ATXNotificationHandleSummaryMetrics notificationsReceivedCount](self, "notificationsReceivedCount")}];
-  v20[4] = v9;
-  v19[5] = @"rejectedNotificationsPercentage";
+  v19[4] = v9;
+  v18[5] = @"rejectedNotificationsPercentage";
   v10 = MEMORY[0x277CCABB0];
   [(ATXNotificationHandleSummaryMetrics *)self rejectedNotificationsPercentage];
   v11 = [v10 numberWithDouble:?];
-  v20[5] = v11;
-  v19[6] = @"acceptedNotificationsPercentage";
+  v19[5] = v11;
+  v18[6] = @"acceptedNotificationsPercentage";
   v12 = MEMORY[0x277CCABB0];
   [(ATXNotificationHandleSummaryMetrics *)self acceptedNotificationsPercentage];
   v13 = [v12 numberWithDouble:?];
-  v20[6] = v13;
-  v19[7] = @"unhandledNotificationsPercentage";
+  v19[6] = v13;
+  v18[7] = @"unhandledNotificationsPercentage";
   v14 = MEMORY[0x277CCABB0];
   [(ATXNotificationHandleSummaryMetrics *)self unhandledNotificationsPercentage];
   v15 = [v14 numberWithDouble:?];
-  v20[7] = v15;
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:8];
-
-  v17 = *MEMORY[0x277D85DE8];
+  v19[7] = v15;
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:8];
 
   return v16;
 }

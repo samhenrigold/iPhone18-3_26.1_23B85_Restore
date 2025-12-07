@@ -262,9 +262,9 @@ LABEL_13:
 LABEL_16:
 
 LABEL_17:
-  [layoutCopy computedTransformedSize];
+  objc_msgSend_computedTransformedSize(layoutCopy);
   [(TUIRenderModelLayer *)v11 setSize:TUISizeRoundedForScale(v25, v26, self->_contentsScale)];
-  v27 = [layoutCopy box];
+  v27 = objc_msgSend_box(layoutCopy);
   identifier = [v27 identifier];
   [(TUIRenderModelLayer *)v11 setIdentifier:identifier];
 

@@ -418,11 +418,11 @@ void __97__VCPProtoLivePhotoHumanActionClassificationResult_LegacyConversion__re
     [dictionary setObject:faceId forKeyedSubscript:@"faceIdentifier"];
   }
 
-  timeRange = [(VCPProtoLivePhotoHumanActionClassificationResult *)self timeRange];
-  v15 = timeRange;
-  if (timeRange)
+  v14 = objc_msgSend_timeRange(self);
+  v15 = v14;
+  if (v14)
   {
-    [timeRange timeRangeValue];
+    objc_msgSend_timeRangeValue(v14);
   }
 
   else

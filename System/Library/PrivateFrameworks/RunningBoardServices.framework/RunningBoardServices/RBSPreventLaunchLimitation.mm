@@ -22,10 +22,9 @@
 {
   v3 = objc_alloc(MEMORY[0x1E696AEC0]);
   v4 = [objc_opt_class() description];
-  predicate = self->_predicate;
-  v6 = [v3 initWithFormat:@"<%@| %@ allow:%@>", v4, predicate, self->_allow];
+  v5 = [v3 initWithFormat:@"<%@| %@ allow:%@>", v4, self->_predicate, self->_allow];
 
-  return v6;
+  return v5;
 }
 
 - (void)encodeWithRBSXPCCoder:(id)coder

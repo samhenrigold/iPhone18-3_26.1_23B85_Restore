@@ -31,7 +31,7 @@
   v3 = objc_alloc(MEMORY[0x1E696AD60]);
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  [(PXStoryBaseTimeline *)self timeRange];
+  objc_msgSend_timeRange(self);
   v6 = PXStoryTimeRangeDescription(v11);
   [(PXStoryBaseTimeline *)self size];
   v7 = NSStringFromCGSize(v12);
@@ -42,7 +42,7 @@
   v10[1] = v10;
   v10[2] = 0x2020000000;
   v10[3] = 0;
-  [(PXStoryBaseTimeline *)self timeRange];
+  objc_msgSend_timeRange(self);
   [(PXStoryBaseTimeline *)self size];
   PXRectWithOriginAndSize();
 }
@@ -259,7 +259,7 @@ uint64_t __58__PXStoryBaseTimeline_segmentIdentifiersInTimeRange_rect___block_in
       v14 = *a4;
       a4 += 25;
       v13 = v14;
-      [*(v12 + 32) frameForSegmentWithIdentifier:{v14, v19, v20, v21, v22, v23, v24}];
+      [*(v12 + 4) frameForSegmentWithIdentifier:{v14, v19, v20, v21, v22, v23, v24}];
       v25.origin.x = v15;
       v25.origin.y = v16;
       v25.size.width = v17;
@@ -267,7 +267,7 @@ uint64_t __58__PXStoryBaseTimeline_segmentIdentifiersInTimeRange_rect___block_in
       result = CGRectIntersectsRect(*(v12 + 48), v25);
       if (result)
       {
-        result = [*(v12 + 40) addIndex:v13];
+        result = [*(v12 + 5) addIndex:v13];
       }
 
       --v11;
@@ -388,7 +388,7 @@ uint64_t __58__PXStoryBaseTimeline_segmentIdentifiersInTimeRange_rect___block_in
   v38 = 0u;
   v26 = &unk_1A561E057;
   v39 = 0;
-  [(PXStoryBaseTimeline *)self timeRange];
+  objc_msgSend_timeRange(self, a2);
   v21[0] = MEMORY[0x1E69E9820];
   v21[1] = 3221225472;
   v21[2] = __69__PXStoryBaseTimeline__findSegmentMatchingIdentifier_timeRange_info___block_invoke;
@@ -543,7 +543,7 @@ __n128 __69__PXStoryBaseTimeline__findSegmentMatchingIdentifier_timeRange_info__
   return v5 & 1;
 }
 
-uint64_t __58__PXStoryBaseTimeline_containsAllSegmentsWithIdentifiers___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
+void *__58__PXStoryBaseTimeline_containsAllSegmentsWithIdentifiers___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   result = [*(a1 + 32) containsSegmentWithIdentifier:a2];
   if ((result & 1) == 0)
@@ -570,49 +570,49 @@ void __63__PXStoryBaseTimeline_identifierOfFirstSegmentContainingAsset___block_i
 {
   if (a2 >= 1)
   {
-    v29 = v7;
-    v30 = v6;
-    v31 = v4;
-    v32 = v5;
+    v28 = v7;
+    v29 = v6;
+    v30 = v4;
+    v31 = v5;
     v11 = 0;
     v12 = 0uLL;
     do
     {
-      v27 = v12;
-      v28 = v12;
       v26 = v12;
+      v27 = v12;
+      v25 = v12;
       v13 = *(a1 + 32);
-      v14 = [v13 identifierForSegmentAtIndex:v11];
+      [v13 identifierForSegmentAtIndex:v11];
       if (v13)
       {
-        [v13 timeRangeForSegmentWithIdentifier:v14];
+        objc_msgSend_timeRangeForSegmentWithIdentifier_(v13);
       }
 
       else
       {
-        v27 = 0u;
-        v28 = 0u;
         v26 = 0u;
+        v27 = 0u;
+        v25 = 0u;
       }
 
-      v15 = *(a1 + 32);
-      v20[0] = MEMORY[0x1E69E9820];
-      v20[1] = 3221225472;
-      v20[2] = __63__PXStoryBaseTimeline_identifierOfFirstSegmentContainingAsset___block_invoke_2;
-      v20[3] = &unk_1E7735600;
-      v16 = *(a1 + 88);
-      v20[4] = v15;
-      v23 = v16;
-      v17 = *(a1 + 40);
-      v18 = *(a1 + 48);
+      v14 = *(a1 + 32);
+      v19[0] = MEMORY[0x1E69E9820];
+      v19[1] = 3221225472;
+      v19[2] = __63__PXStoryBaseTimeline_identifierOfFirstSegmentContainingAsset___block_invoke_2;
+      v19[3] = &unk_1E7735600;
+      v15 = *(a1 + 88);
+      v19[4] = v14;
+      v22 = v15;
+      v16 = *(a1 + 40);
+      v17 = *(a1 + 48);
+      v20 = v16;
       v21 = v17;
-      v22 = v18;
-      v24 = a4;
-      v25 = v11;
-      v19[0] = v26;
-      v19[1] = v27;
-      v19[2] = v28;
-      [v15 enumerateClipsInTimeRange:v19 rect:v20 usingBlock:{*(a1 + 56), *(a1 + 64), *(a1 + 72), *(a1 + 80)}];
+      v23 = a4;
+      v24 = v11;
+      v18[0] = v25;
+      v18[1] = v26;
+      v18[2] = v27;
+      [v14 enumerateClipsInTimeRange:v18 rect:v19 usingBlock:{*(a1 + 56), *(a1 + 64), *(a1 + 72), *(a1 + 80)}];
 
       ++v11;
       v12 = 0uLL;
@@ -639,7 +639,7 @@ LABEL_6:
     }
   }
 
-  v10 = [*(a1 + 32) clipWithIdentifier:*(i - 1)];
+  v10 = [*(a1 + 32) clipWithIdentifier:{*(i - 1), a4}];
   v15 = [v10 resource];
 
   v11 = [v15 px_storyResourceDisplayAsset];
@@ -664,7 +664,7 @@ LABEL_6:
   v19 = *offset;
   if (v9 >= [(PXStoryBaseTimeline *)self numberOfSegments]- 1)
   {
-    [(PXStoryBaseTimeline *)self timeRangeForSegmentWithIdentifier:identifierCopy];
+    objc_msgSend_timeRangeForSegmentWithIdentifier_(self);
     v19 = v13;
   }
 
@@ -672,7 +672,7 @@ LABEL_6:
   {
     v10 = [(PXStoryBaseTimeline *)self identifierForSegmentAtIndex:v9 + 1];
     v11 = [(PXStoryBaseTimeline *)self indexOfSegmentWithIdentifier:identifierCopy]+ 1;
-    [(PXStoryBaseTimeline *)self timeRangeForSegmentWithIdentifier:v10];
+    objc_msgSend_timeRangeForSegmentWithIdentifier_(self);
     *&v18.value = v16;
     v18.epoch = v17;
     identifierCopy = v10;
@@ -691,7 +691,7 @@ LABEL_6:
         time2 = v18;
         CMTimeSubtract(&v19, &time1, &time2);
         identifierCopy = [(PXStoryBaseTimeline *)self identifierForSegmentAtIndex:++v11];
-        [(PXStoryBaseTimeline *)self timeRangeForSegmentWithIdentifier:identifierCopy];
+        objc_msgSend_timeRangeForSegmentWithIdentifier_(self);
         *&v18.value = v14;
         v18.epoch = v15;
       }
@@ -717,7 +717,7 @@ LABEL_6:
   v9[1] = v9;
   v9[2] = 0x2020000000;
   v9[3] = 0;
-  [(PXStoryBaseTimeline *)self timeRange];
+  objc_msgSend_timeRange(self, a2);
   v7[0] = MEMORY[0x1E69E9820];
   v7[1] = 3221225472;
   v7[2] = __52__PXStoryBaseTimeline_indexOfSegmentWithIdentifier___block_invoke;
@@ -771,7 +771,7 @@ void *__52__PXStoryBaseTimeline_indexOfSegmentWithIdentifier___block_invoke(void
   v9[1] = v9;
   v9[2] = 0x2020000000;
   v9[3] = 0;
-  [(PXStoryBaseTimeline *)self timeRange];
+  objc_msgSend_timeRange(self, a2);
   v7[0] = MEMORY[0x1E69E9820];
   v7[1] = 3221225472;
   v7[2] = __51__PXStoryBaseTimeline_identifierForSegmentAtIndex___block_invoke;
@@ -879,7 +879,7 @@ void *__51__PXStoryBaseTimeline_identifierForSegmentAtIndex___block_invoke(void 
   v6[1] = v6;
   v6[2] = 0x2020000000;
   v7 = identifier == 0;
-  [(PXStoryBaseTimeline *)self timeRange];
+  objc_msgSend_timeRange(self, a2, kind);
   [(PXStoryBaseTimeline *)self size];
   PXRectWithOriginAndSize();
 }
@@ -908,7 +908,7 @@ void __64__PXStoryBaseTimeline_clipWithResourceKind_afterClipIdentifier___block_
       }
     }
 
-    v9 = [*(a1 + 32) clipWithIdentifier:*a5];
+    v9 = [*(a1 + 32) clipWithIdentifier:{*a5, a4}];
     v10 = *(*(a1 + 48) + 8);
     v11 = *(v10 + 40);
     *(v10 + 40) = v9;
@@ -934,7 +934,7 @@ void __64__PXStoryBaseTimeline_clipWithResourceKind_afterClipIdentifier___block_
   v5[1] = v5;
   v5[2] = 0x2020000000;
   v5[3] = 0;
-  [(PXStoryBaseTimeline *)self timeRange];
+  objc_msgSend_timeRange(self, a2);
   [(PXStoryBaseTimeline *)self size];
   PXRectWithOriginAndSize();
 }

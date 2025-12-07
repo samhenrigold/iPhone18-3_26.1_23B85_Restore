@@ -36,33 +36,8 @@
       v5 = equalCopy;
       v6 = v5;
       name = self->_name;
-      if (name)
+      if (name && ([(MADataFrame *)v5 name], v8 = objc_claimAutoreleasedReturnValue(), v9 = [(NSString *)name isEqual:v8], v8, !v9) || (rowIndexCache = self->_rowIndexCache) != 0 && ([(MADataFrame *)v6 rowIndexCache], v11 = objc_claimAutoreleasedReturnValue(), v12 = [(MAIndexCache *)rowIndexCache isEqual:v11], v11, !v12) || (columnIndexCache = self->_columnIndexCache) != 0 && ([(MADataFrame *)v6 columnIndexCache], v14 = objc_claimAutoreleasedReturnValue(), v15 = [(MAIndexCache *)columnIndexCache isEqual:v14], v14, !v15))
       {
-        name = [(MADataFrame *)v5 name];
-        v9 = [(NSString *)name isEqual:name];
-
-        if (!v9)
-        {
-          goto LABEL_12;
-        }
-      }
-
-      rowIndexCache = self->_rowIndexCache;
-      if (rowIndexCache)
-      {
-        rowIndexCache = [(MADataFrame *)v6 rowIndexCache];
-        v12 = [(MAIndexCache *)rowIndexCache isEqual:rowIndexCache];
-
-        if (!v12)
-        {
-          goto LABEL_12;
-        }
-      }
-
-      columnIndexCache = self->_columnIndexCache;
-      if (columnIndexCache && ([(MADataFrame *)v6 columnIndexCache], v14 = objc_claimAutoreleasedReturnValue(), v15 = [(MAIndexCache *)columnIndexCache isEqual:v14], v14, !v15))
-      {
-LABEL_12:
         v18 = 0;
       }
 
@@ -85,7 +60,7 @@ LABEL_12:
 
 - (id)csvString
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   rowIndexCache = self->_rowIndexCache;
   columnIndexCache = self->_columnIndexCache;
   string = [MEMORY[0x277CCAB68] string];
@@ -97,29 +72,29 @@ LABEL_12:
       [string appendString:@"Index"];
     }
 
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     labels = [(MAIndexCache *)self->_columnIndexCache labels];
-    v8 = [labels countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v8 = [labels countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v20;
+      v10 = *v19;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v20 != v10)
+          if (*v19 != v10)
           {
             objc_enumerationMutation(labels);
           }
 
-          [v6 appendFormat:@", %@", *(*(&v19 + 1) + 8 * i)];
+          [v6 appendFormat:@", %@", *(*(&v18 + 1) + 8 * i)];
         }
 
-        v9 = [labels countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v9 = [labels countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v9);
@@ -159,8 +134,6 @@ LABEL_12:
 
     while (v12 < [(MAFloatMatrix *)self->_matrix rows]);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -322,21 +295,8 @@ LABEL_6:
   cacheCopy = cache;
   indexCacheCopy = indexCache;
   matrixCopy = matrix;
-  if (cacheCopy)
+  if (cacheCopy && ([cacheCopy labels], v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v14, "count"), v16 = objc_msgSend(matrixCopy, "rows"), v14, v15 != v16) || indexCacheCopy && (objc_msgSend(indexCacheCopy, "labels"), v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v17, "count"), v19 = objc_msgSend(matrixCopy, "columns"), v17, v18 != v19))
   {
-    labels = [cacheCopy labels];
-    v15 = [labels count];
-    rows = [matrixCopy rows];
-
-    if (v15 != rows)
-    {
-      goto LABEL_8;
-    }
-  }
-
-  if (indexCacheCopy && ([indexCacheCopy labels], v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v17, "count"), v19 = objc_msgSend(matrixCopy, "columns"), v17, v18 != v19))
-  {
-LABEL_8:
     selfCopy = 0;
   }
 

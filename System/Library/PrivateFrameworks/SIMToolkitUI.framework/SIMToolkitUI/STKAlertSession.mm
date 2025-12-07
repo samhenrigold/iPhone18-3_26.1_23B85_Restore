@@ -15,7 +15,7 @@
 
 - (STKAlertSession)initWithLogger:(id)logger responseProvider:(id)provider options:(id)options sound:(id)sound
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   loggerCopy = logger;
   providerCopy = provider;
   optionsCopy = options;
@@ -40,9 +40,9 @@ LABEL_9:
   }
 
 LABEL_4:
-  v21.receiver = self;
-  v21.super_class = STKAlertSession;
-  v16 = [(STKAlertSession *)&v21 init];
+  v20.receiver = self;
+  v20.super_class = STKAlertSession;
+  v16 = [(STKAlertSession *)&v20 init];
   v17 = v16;
   if (v16)
   {
@@ -55,12 +55,11 @@ LABEL_4:
     if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v23 = v17;
+      v22 = v17;
       _os_log_impl(&dword_262BB4000, logger, OS_LOG_TYPE_DEFAULT, "Session <%p> - Created", buf, 0xCu);
     }
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
@@ -112,8 +111,8 @@ LABEL_4:
 
 void __55__STKAlertSession_presentRemoteAlertHandle_withAction___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v3 = a1 + 32;
+  v14 = *MEMORY[0x277D85DE8];
+  v3 = (a1 + 32);
   v2 = *(a1 + 32);
   if (*(v2 + 41))
   {
@@ -140,7 +139,7 @@ void __55__STKAlertSession_presentRemoteAlertHandle_withAction___block_invoke(ui
       block[1] = 3221225472;
       block[2] = __55__STKAlertSession_presentRemoteAlertHandle_withAction___block_invoke_88;
       block[3] = &unk_279B4C428;
-      v13 = v7;
+      v12 = v7;
       dispatch_async(v8, block);
     }
   }
@@ -167,8 +166,6 @@ void __55__STKAlertSession_presentRemoteAlertHandle_withAction___block_invoke(ui
 
     [*(*v3 + 24) activateWithContext:0];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)hasSentResponse
@@ -189,7 +186,7 @@ void __55__STKAlertSession_presentRemoteAlertHandle_withAction___block_invoke(ui
   return v2;
 }
 
-uint64_t __34__STKAlertSession_hasSentResponse__block_invoke(uint64_t a1)
+void *__34__STKAlertSession_hasSentResponse__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 16) hasSentResponse];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -208,7 +205,7 @@ uint64_t __34__STKAlertSession_hasSentResponse__block_invoke(uint64_t a1)
 
 void __29__STKAlertSession_invalidate__block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   if ((*(v1 + 41) & 1) == 0)
   {
@@ -217,7 +214,7 @@ void __29__STKAlertSession_invalidate__block_invoke(uint64_t a1)
     {
       v4 = *(a1 + 32);
       *buf = 134217984;
-      v14 = v4;
+      v13 = v4;
       _os_log_impl(&dword_262BB4000, v3, OS_LOG_TYPE_DEFAULT, "Session <%p> - Invalidated", buf, 0xCu);
     }
 
@@ -240,12 +237,10 @@ void __29__STKAlertSession_invalidate__block_invoke(uint64_t a1)
     block[1] = 3221225472;
     block[2] = __29__STKAlertSession_invalidate__block_invoke_89;
     block[3] = &unk_279B4C428;
-    v12 = v5;
+    v11 = v5;
     v9 = v5;
     dispatch_async(v8, block);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendResponse:(int64_t)response
@@ -273,10 +268,10 @@ void __29__STKAlertSession_invalidate__block_invoke(uint64_t a1)
   _STKWithLock(self, v8);
 }
 
-uint64_t __49__STKAlertSession_sendResponse_withStringResult___block_invoke(uint64_t result)
+void *__49__STKAlertSession_sendResponse_withStringResult___block_invoke(void *result)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v1 = *(result + 32);
+  v15 = *MEMORY[0x277D85DE8];
+  v1 = result[4];
   if ((*(v1 + 41) & 1) == 0)
   {
     v2 = result;
@@ -288,19 +283,18 @@ uint64_t __49__STKAlertSession_sendResponse_withStringResult___block_invoke(uint
       v6 = v3;
       v7 = NSStringFromSTKSessionResponseType(v5);
       v8 = *(v2[4] + 16);
-      v10 = 134218498;
-      v11 = v4;
-      v12 = 2114;
-      v13 = v7;
-      v14 = 2112;
-      v15 = v8;
-      _os_log_impl(&dword_262BB4000, v6, OS_LOG_TYPE_DEFAULT, "Session <%p> - Sending response with type: %{public}@ - string result: <redacted> (responsProvider: %@)", &v10, 0x20u);
+      v9 = 134218498;
+      v10 = v4;
+      v11 = 2114;
+      v12 = v7;
+      v13 = 2112;
+      v14 = v8;
+      _os_log_impl(&dword_262BB4000, v6, OS_LOG_TYPE_DEFAULT, "Session <%p> - Sending response with type: %{public}@ - string result: <redacted> (responsProvider: %@)", &v9, 0x20u);
     }
 
-    result = [*(v2[4] + 16) sendResponse:v2[6] withStringResult:v2[5]];
+    return [*(v2[4] + 16) sendResponse:v2[6] withStringResult:v2[5]];
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -312,7 +306,7 @@ uint64_t __49__STKAlertSession_sendResponse_withStringResult___block_invoke(uint
 
 - (void)_lock_sendResponse:(int64_t)response
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   os_unfair_lock_assert_owner(&self->_lock);
   if (!self->_invalidated)
   {
@@ -321,17 +315,15 @@ uint64_t __49__STKAlertSession_sendResponse_withStringResult___block_invoke(uint
     {
       v6 = logger;
       v7 = NSStringFromSTKSessionResponseType(response);
-      v9 = 134218242;
+      v8 = 134218242;
       selfCopy = self;
-      v11 = 2114;
-      v12 = v7;
-      _os_log_impl(&dword_262BB4000, v6, OS_LOG_TYPE_DEFAULT, "Session <%p> - Sending response with type: %{public}@", &v9, 0x16u);
+      v10 = 2114;
+      v11 = v7;
+      _os_log_impl(&dword_262BB4000, v6, OS_LOG_TYPE_DEFAULT, "Session <%p> - Sending response with type: %{public}@", &v8, 0x16u);
     }
 
     [(STKAlertSessionResponseProvider *)self->_responseProvider sendResponse:response];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithLogger:responseProvider:options:sound:.cold.1()

@@ -328,8 +328,8 @@
     iCRIconLayer = [v17 ICRIconLayer];
   }
 
-  v22 = SBHIconServicesOptionsForImageOptions(collection);
-  SBHIconServicesAddDebugLayerOverlayWithTraitCollection(iCRIconLayer, infoCopy, v22, v14, v13, v12, v11);
+  SBHIconServicesOptionsForImageOptions(collection);
+  SBHIconServicesAddDebugLayerOverlayWithTraitCollection();
 
   return iCRIconLayer;
 }
@@ -362,7 +362,7 @@
 - (id)folderTitleOptionsForIcon:(id)icon
 {
   v7[1] = *MEMORY[0x1E69E9840];
-  v3 = SBHBundle();
+  v3 = SBHBundle(self);
   v4 = [v3 localizedStringForKey:@"BOOKMARK_FOLDER_NAME" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
 
   v7[0] = v4;
@@ -373,7 +373,7 @@
 
 - (void)_cleanupAppClipIfNecessary
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   if ([(SBHBookmark *)self isAppClip])
   {
     appClip = [(SBHBookmark *)self appClip];
@@ -383,47 +383,47 @@
 
     if (appClipMetadata)
     {
-      v21 = 0u;
+      v24 = 0u;
+      v25 = 0u;
       v22 = 0u;
-      v19 = 0u;
-      v20 = 0u;
+      v23 = 0u;
       appClips = [MEMORY[0x1E69DD2B8] appClips];
-      v8 = [appClips countByEnumeratingWithState:&v19 objects:v27 count:16];
-      if (v8)
+      v9 = [appClips countByEnumeratingWithState:&v22 objects:v30 count:16];
+      if (v9)
       {
-        v9 = *v20;
+        v10 = *v23;
         while (2)
         {
-          v10 = 0;
+          v11 = 0;
           do
           {
-            if (*v20 != v9)
+            if (*v23 != v10)
             {
               objc_enumerationMutation(appClips);
             }
 
-            applicationBundleIdentifier2 = [*(*(&v19 + 1) + 8 * v10) applicationBundleIdentifier];
-            v12 = [applicationBundleIdentifier2 isEqualToString:applicationBundleIdentifier];
+            applicationBundleIdentifier2 = [*(*(&v22 + 1) + 8 * v11) applicationBundleIdentifier];
+            v13 = [applicationBundleIdentifier2 isEqualToString:applicationBundleIdentifier];
 
-            if (v12)
+            if (v13)
             {
-              v16 = SBLogCommon();
-              if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+              v19 = SBLogCommon(v14);
+              if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
               {
                 LODWORD(buf) = 138412290;
                 *(&buf + 4) = applicationBundleIdentifier;
-                _os_log_impl(&dword_1BEB18000, v16, OS_LOG_TYPE_DEFAULT, "Bailing on cleanup of app clip '%@'; appclip in use by other UIWebClip", &buf, 0xCu);
+                _os_log_impl(&dword_1BEB18000, v19, OS_LOG_TYPE_DEFAULT, "Bailing on cleanup of app clip '%@'; appclip in use by other UIWebClip", &buf, 0xCu);
               }
 
               goto LABEL_21;
             }
 
-            ++v10;
+            ++v11;
           }
 
-          while (v8 != v10);
-          v8 = [appClips countByEnumeratingWithState:&v19 objects:v27 count:16];
-          if (v8)
+          while (v9 != v11);
+          v9 = [appClips countByEnumeratingWithState:&v22 objects:v30 count:16];
+          if (v9)
           {
             continue;
           }
@@ -432,44 +432,44 @@
         }
       }
 
-      v13 = SBLogCommon();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v16 = SBLogCommon(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         LODWORD(buf) = 138412290;
         *(&buf + 4) = applicationBundleIdentifier;
-        _os_log_impl(&dword_1BEB18000, v13, OS_LOG_TYPE_DEFAULT, "Starting cleanup of app clip '%@'", &buf, 0xCu);
+        _os_log_impl(&dword_1BEB18000, v16, OS_LOG_TYPE_DEFAULT, "Starting cleanup of app clip '%@'", &buf, 0xCu);
       }
 
-      v23 = 0;
-      v24 = &v23;
-      v25 = 0x2050000000;
-      v14 = getIXAppInstallCoordinatorClass_softClass;
-      v26 = getIXAppInstallCoordinatorClass_softClass;
+      v26 = 0;
+      v27 = &v26;
+      v28 = 0x2050000000;
+      v17 = getIXAppInstallCoordinatorClass_softClass;
+      v29 = getIXAppInstallCoordinatorClass_softClass;
       if (!getIXAppInstallCoordinatorClass_softClass)
       {
         *&buf = MEMORY[0x1E69E9820];
         *(&buf + 1) = 3221225472;
-        v29 = __getIXAppInstallCoordinatorClass_block_invoke;
-        v30 = &unk_1E8089848;
-        v31 = &v23;
+        v32 = __getIXAppInstallCoordinatorClass_block_invoke;
+        v33 = &unk_1E8089848;
+        v34 = &v26;
         __getIXAppInstallCoordinatorClass_block_invoke(&buf);
-        v14 = v24[3];
+        v17 = v27[3];
       }
 
-      v15 = v14;
-      _Block_object_dispose(&v23, 8);
-      v17[0] = MEMORY[0x1E69E9820];
-      v17[1] = 3221225472;
-      v17[2] = __41__SBHBookmark__cleanupAppClipIfNecessary__block_invoke;
-      v17[3] = &unk_1E808C058;
-      v18 = applicationBundleIdentifier;
-      [v14 uninstallAppWithBundleID:v18 requestUserConfirmation:0 completion:v17];
-      appClips = v18;
+      v18 = v17;
+      _Block_object_dispose(&v26, 8);
+      v20[0] = MEMORY[0x1E69E9820];
+      v20[1] = 3221225472;
+      v20[2] = __41__SBHBookmark__cleanupAppClipIfNecessary__block_invoke;
+      v20[3] = &unk_1E808C058;
+      v21 = applicationBundleIdentifier;
+      [v17 uninstallAppWithBundleID:v21 requestUserConfirmation:0 completion:v20];
+      appClips = v21;
     }
 
     else
     {
-      appClips = SBLogCommon();
+      appClips = SBLogCommon(v7);
       if (os_log_type_enabled(appClips, OS_LOG_TYPE_DEFAULT))
       {
         LODWORD(buf) = 138412290;
@@ -485,12 +485,13 @@ LABEL_21:
 void __41__SBHBookmark__cleanupAppClipIfNecessary__block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = SBLogCommon();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = SBLogCommon(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __41__SBHBookmark__cleanupAppClipIfNecessary__block_invoke_cold_1(a1, v3, v4);
+      __41__SBHBookmark__cleanupAppClipIfNecessary__block_invoke_cold_1(a1, v4, v5);
     }
   }
 }

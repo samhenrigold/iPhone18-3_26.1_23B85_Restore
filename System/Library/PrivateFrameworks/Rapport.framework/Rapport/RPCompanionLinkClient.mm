@@ -28,10 +28,12 @@
 - (void)_startNWActivity:(unsigned int)activity options:(id)options result:(id)result;
 - (void)activateWithCompletion:(id)completion;
 - (void)companionLinkAuthCompleted:(id)completed;
+- (void)companionLinkChangedDevice:(id)device changes:(unsigned int)changes;
 - (void)companionLinkFoundDevice:(id)device;
 - (void)companionLinkHandleDisconnect;
 - (void)companionLinkLocalDeviceUpdated:(id)updated;
 - (void)companionLinkLostDevice:(id)device;
+- (void)companionLinkPromptForPasswordType:(int)type flags:(unsigned int)flags throttleSeconds:(int)seconds;
 - (void)companionLinkReceivedEventID:(id)d event:(id)event options:(id)options;
 - (void)companionLinkReceivedRequestID:(id)d request:(id)request options:(id)options responseHandler:(id)handler;
 - (void)companionLinkUpdateClientState:(id)state;
@@ -74,169 +76,225 @@
 
 - (id)description
 {
-  controlFlags = self->_controlFlags;
-  flags = self->_flags;
-  clientID = self->_clientID;
-  NSAppendPrintF();
-  v3 = 0;
+  v59 = 0;
+  NSAppendPrintF(&v59, "CLinkClient, CID 0x%X, FL %#{flags}, CF %#ll{flags}", self->_clientID, self->_flags, &unk_1B6F2D2E0, self->_controlFlags, &unk_1B6F2D388);
+  v3 = v59;
   v4 = v3;
   appID = self->_appID;
   if (appID)
   {
-    v39 = v3;
-    clientID = appID;
-    NSAppendPrintF();
-    v6 = v39;
-
-    v4 = v6;
-  }
-
-  if (self->_bleClientUseCase)
-  {
-    clientID = self->_bleClientUseCase;
-    NSAppendPrintF();
-    v7 = v4;
+    v58 = v3;
+    v6 = appID;
+    NSAppendPrintF(&v58, ", AppID '%@'", v6);
+    v7 = v58;
 
     v4 = v7;
   }
 
-  if (self->_useCase)
+  bleClientUseCase = self->_bleClientUseCase;
+  if (bleClientUseCase)
   {
-    clientID = self->_useCase;
-    NSAppendPrintF();
-    v8 = v4;
+    v57 = v4;
+    NSAppendPrintF(&v57, ", BLEUseCase %d", bleClientUseCase);
+    v9 = v57;
 
-    v4 = v8;
+    v4 = v9;
+  }
+
+  useCase = self->_useCase;
+  if (useCase)
+  {
+    v56 = v4;
+    NSAppendPrintF(&v56, ", CBUseCase 0x%x", useCase);
+    v11 = v56;
+
+    v4 = v11;
   }
 
   cloudServiceID = self->_cloudServiceID;
   if (cloudServiceID)
   {
-    clientID = cloudServiceID;
-    NSAppendPrintF();
-    v10 = v4;
+    v55 = v4;
+    v13 = cloudServiceID;
+    NSAppendPrintF(&v55, ", ClSI '%@'", v13);
+    v14 = v55;
 
-    v4 = v10;
+    v4 = v14;
   }
 
-  if (self->_rssiThreshold)
+  rssiThreshold = self->_rssiThreshold;
+  if (rssiThreshold)
   {
-    clientID = self->_rssiThreshold;
-    NSAppendPrintF();
-    v11 = v4;
+    v54 = v4;
+    NSAppendPrintF(&v54, ", RSSIThreshold %ld", rssiThreshold);
+    v16 = v54;
 
-    v4 = v11;
+    v4 = v16;
   }
 
   serviceType = self->_serviceType;
   if (serviceType)
   {
-    clientID = serviceType;
-    NSAppendPrintF();
-    v13 = v4;
+    v53 = v4;
+    v18 = serviceType;
+    NSAppendPrintF(&v53, ", ST '%@'", v18);
+    v19 = v53;
 
-    v4 = v13;
+    v4 = v19;
   }
 
   allowedMACAddresses = self->_allowedMACAddresses;
   if (allowedMACAddresses)
   {
-    v15 = allowedMACAddresses;
-    [(NSArray *)v15 count:clientID];
-    NSAppendPrintF();
-    v16 = v4;
+    v52 = v4;
+    v21 = allowedMACAddresses;
+    NSAppendPrintF(&v52, ", Number of MACAddrs %d", [(NSArray *)v21 count]);
+    v22 = v52;
 
-    v4 = v16;
+    v4 = v22;
   }
 
   passwordType = self->_passwordType;
   if (passwordType)
   {
-    if (passwordType <= 0xB)
+    v51 = v4;
+    if (passwordType > 0xB)
     {
-      v18 = off_1E7C93818[passwordType - 1];
+      v24 = "?";
     }
 
-    NSAppendPrintF();
-    v19 = v4;
+    else
+    {
+      v24 = off_1E7C93818[passwordType - 1];
+    }
 
-    v4 = v19;
+    NSAppendPrintF(&v51, ", PWType %s", v24);
+    v25 = v51;
+
+    v4 = v25;
   }
 
   pairingInfo = self->_pairingInfo;
   if (pairingInfo)
   {
-    v21 = pairingInfo;
-    [(NSData *)v21 length];
-    NSAppendPrintF();
-    v22 = v4;
+    v50 = v4;
+    v27 = pairingInfo;
+    NSAppendPrintF(&v50, ", Pairing %d", [(NSData *)v27 length]);
+    v28 = v50;
 
-    v4 = v22;
+    v4 = v28;
   }
 
   pairSetupACL = self->_pairSetupACL;
   if (pairSetupACL)
   {
-    v34 = pairSetupACL;
-    NSAppendPrintF();
-    v24 = v4;
+    v49 = v4;
+    v30 = pairSetupACL;
+    NSAppendPrintF(&v49, ", PSACL %@", v30);
+    v31 = v49;
 
-    v4 = v24;
+    v4 = v31;
   }
 
   if (self->_usingOnDemandConnection)
   {
-    NSAppendPrintF();
-    v25 = v4;
+    v48 = v4;
+    NSAppendPrintF(&v48, ", OnD");
+    v32 = v48;
 
-    v4 = v25;
+    v4 = v32;
   }
 
-  self->_destinationDevice;
-  NSAppendPrintF();
-  v26 = v4;
-
-  if (self->_bleScreenOffRescanInterval)
+  v47 = v4;
+  destinationDevice = self->_destinationDevice;
+  if (!destinationDevice)
   {
-    bleScreenOffRescanInterval = self->_bleScreenOffRescanInterval;
-    NSAppendPrintF();
-    v27 = v26;
-
-    v26 = v27;
+    destinationDevice = @"No device";
   }
 
-  if (self->_bleScreenOffScanRate)
+  NSAppendPrintF(&v47, ", %@", destinationDevice);
+  v34 = v47;
+
+  bleScreenOffRescanInterval = self->_bleScreenOffRescanInterval;
+  if (bleScreenOffRescanInterval)
   {
-    NSAppendPrintF();
-    v29 = v26;
+    v46 = v34;
+    NSAppendPrintF(&v46, ", BLEScreenOffRescanInterval %d", bleScreenOffRescanInterval);
+    v36 = v46;
 
-    v26 = v29;
+    v34 = v36;
   }
 
+  bleScreenOffScanRate = self->_bleScreenOffScanRate;
+  if (bleScreenOffScanRate)
+  {
+    v45 = v34;
+    if (bleScreenOffScanRate <= 29)
+    {
+      if (bleScreenOffScanRate == 10)
+      {
+        v38 = "Background";
+        goto LABEL_43;
+      }
+
+      if (bleScreenOffScanRate == 20)
+      {
+        v38 = "Normal";
+        goto LABEL_43;
+      }
+    }
+
+    else
+    {
+      switch(bleScreenOffScanRate)
+      {
+        case 30:
+          v38 = "HighNormal";
+          goto LABEL_43;
+        case 40:
+          v38 = "High";
+          goto LABEL_43;
+        case 50:
+          v38 = "Aggressive";
+LABEL_43:
+          NSAppendPrintF(&v45, ", bleScreenOffScanRate %s", v38);
+          v39 = v45;
+
+          v34 = v39;
+          goto LABEL_44;
+      }
+    }
+
+    v38 = "?";
+    goto LABEL_43;
+  }
+
+LABEL_44:
   deviceFilter = self->_deviceFilter;
   if (deviceFilter)
   {
-    v36 = deviceFilter;
-    NSAppendPrintF();
-    v31 = v26;
+    v44 = v34;
+    v41 = deviceFilter;
+    NSAppendPrintF(&v44, ", deviceFilter %@", v41);
+    v42 = v44;
 
-    v26 = v31;
+    v34 = v42;
   }
 
-  return v26;
+  return v34;
 }
 
 - (id)_ensureXPCStarted
 {
   if (self->_daemonCnx)
   {
-    v2 = 0;
+    v8 = 0;
     goto LABEL_16;
   }
 
   if (self->_invalidateCalled)
   {
-    v2 = RPErrorF();
+    v8 = RPErrorF(4294896148, "RPCompanionLinkClient has already been invalidated", v2, v3, v4, v5, v6, v7, v23[0]);
     goto LABEL_16;
   }
 
@@ -245,47 +303,52 @@
   aBlock[2] = __42__RPCompanionLinkClient__ensureXPCStarted__block_invoke;
   aBlock[3] = &unk_1E7C92CE8;
   aBlock[4] = self;
-  v4 = _Block_copy(aBlock);
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __42__RPCompanionLinkClient__ensureXPCStarted__block_invoke_2;
-  v9[3] = &unk_1E7C92CE8;
-  v9[4] = self;
-  v5 = _Block_copy(v9);
+  v10 = _Block_copy(aBlock);
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __42__RPCompanionLinkClient__ensureXPCStarted__block_invoke_2;
+  v23[3] = &unk_1E7C92CE8;
+  v23[4] = self;
+  v11 = _Block_copy(v23);
   if ([(RPSignedInUserProvider *)self->_userProvider supportsMultipleUsers]&& self->_targetUserSession)
   {
-    if (![(RPSignedInUserProvider *)self->_userProvider signedInUserID])
+    signedInUserID = [(RPSignedInUserProvider *)self->_userProvider signedInUserID];
+    if (!signedInUserID)
     {
       if (gLogCategory_CLinkClient <= 50 && (gLogCategory_CLinkClient != -1 || _LogCategory_Initialize()))
       {
         [RPCompanionLinkClient _ensureXPCStarted];
       }
 
-      v2 = RPErrorF();
+      v8 = RPErrorF(4294960590, "No user logged in", v13, v14, v15, v16, v17, v18, v23[0]);
       goto LABEL_15;
     }
 
-    if (gLogCategory_CLinkClient <= 30 && (gLogCategory_CLinkClient != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_CLinkClient <= 30)
     {
-      [RPCompanionLinkClient _ensureXPCStarted];
+      v19 = signedInUserID;
+      if (gLogCategory_CLinkClient != -1 || _LogCategory_Initialize())
+      {
+        [(RPCompanionLinkClient *)v19 _ensureXPCStarted];
+      }
     }
   }
 
-  v6 = [(RPCompanionLinkClient *)self _connectionWithClient:self queue:self->_dispatchQueue userProvider:self->_userProvider interruptionHandler:v4 invalidationHandler:v5];
+  v20 = [(RPCompanionLinkClient *)self _connectionWithClient:self queue:self->_dispatchQueue userProvider:self->_userProvider interruptionHandler:v10 invalidationHandler:v11];
   daemonCnx = self->_daemonCnx;
-  self->_daemonCnx = v6;
+  self->_daemonCnx = v20;
 
   if (gLogCategory_CLinkClient <= 10 && (gLogCategory_CLinkClient != -1 || _LogCategory_Initialize()))
   {
     [RPCompanionLinkClient _ensureXPCStarted];
   }
 
-  v2 = 0;
+  v8 = 0;
 LABEL_15:
 
 LABEL_16:
 
-  return v2;
+  return v8;
 }
 
 - (NSArray)activeDevices
@@ -308,10 +371,10 @@ LABEL_16:
   return allValues;
 }
 
-uint64_t __35__RPCompanionLinkClient_invalidate__block_invoke(uint64_t result)
+void *__35__RPCompanionLinkClient_invalidate__block_invoke(void *result)
 {
-  v2 = (result + 32);
-  v1 = *(result + 32);
+  v2 = result + 4;
+  v1 = result[4];
   if ((*(v1 + 64) & 1) == 0)
   {
     *(v1 + 64) = 1;
@@ -403,7 +466,7 @@ uint64_t __35__RPCompanionLinkClient_invalidate__block_invoke(uint64_t result)
       self->_invalidateDone = 1;
       if (gLogCategory_CLinkClient <= 30 && (gLogCategory_CLinkClient != -1 || _LogCategory_Initialize()))
       {
-        [RPCompanionLinkClient _invalidated];
+        [(RPCompanionLinkClient *)self _invalidated];
       }
     }
   }
@@ -979,24 +1042,24 @@ LABEL_14:
 
 void __60__RPCompanionLinkClient__activateWithCompletion_reactivate___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x1E69E9840];
-  v19 = a2;
+  v25 = *MEMORY[0x1E69E9840];
+  v18 = a2;
   v5 = (a1 + 32);
-  v18 = a3;
-  v20 = [*(a1 + 32) _clientError:?];
-  if (v20)
+  v17 = a3;
+  v19 = [*(a1 + 32) _clientError:?];
+  if (v19)
   {
     if (*(a1 + 48) == 1)
     {
       if (gLogCategory_CLinkClient <= 60 && (gLogCategory_CLinkClient != -1 || _LogCategory_Initialize()))
       {
-        __60__RPCompanionLinkClient__activateWithCompletion_reactivate___block_invoke_2_cold_2();
+        __60__RPCompanionLinkClient__activateWithCompletion_reactivate___block_invoke_2_cold_2(v19);
       }
     }
 
     else if (gLogCategory_CLinkClient <= 60 && (gLogCategory_CLinkClient != -1 || _LogCategory_Initialize()))
     {
-      __60__RPCompanionLinkClient__activateWithCompletion_reactivate___block_invoke_2_cold_1();
+      __60__RPCompanionLinkClient__activateWithCompletion_reactivate___block_invoke_2_cold_1(v19);
     }
   }
 
@@ -1004,25 +1067,25 @@ void __60__RPCompanionLinkClient__activateWithCompletion_reactivate___block_invo
   {
     obj = *v5;
     objc_sync_enter(obj);
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
-    v6 = v19;
-    v7 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v6 = v18;
+    v7 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v7)
     {
-      v8 = *v22;
+      v8 = *v21;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v22 != v8)
+          if (*v21 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          v10 = *(*(&v21 + 1) + 8 * i);
+          v10 = *(*(&v20 + 1) + 8 * i);
           v11 = [v10 identifier];
           if (v11 || ([v10 publicIdentifier], (v11 = objc_claimAutoreleasedReturnValue()) != 0))
           {
@@ -1044,7 +1107,7 @@ void __60__RPCompanionLinkClient__activateWithCompletion_reactivate___block_invo
           }
         }
 
-        v7 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v7);
@@ -1068,10 +1131,8 @@ void __60__RPCompanionLinkClient__activateWithCompletion_reactivate___block_invo
   v15 = *(a1 + 40);
   if (v15)
   {
-    (*(v15 + 16))(v15, v20);
+    (*(v15 + 16))(v15, v19);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_XPCConnectionWithMachServiceName:(id)name options:(unint64_t)options
@@ -1089,24 +1150,23 @@ void __60__RPCompanionLinkClient__activateWithCompletion_reactivate___block_invo
   v5 = errorCopy;
   if (errorCopy)
   {
-    v6 = errorCopy;
+    v12 = errorCopy;
     if ([errorCopy code] == 4099)
     {
-      v6 = v5;
+      v12 = v5;
       if (self->_invalidateCalled)
       {
-        clientID = self->_clientID;
-        v6 = RPErrorF();
+        v12 = RPErrorF(4294896148, "CompanionLink was already invalidated by client CID 0x%X\n", v6, v7, v8, v9, v10, v11, self->_clientID);
       }
     }
   }
 
   else
   {
-    v6 = 0;
+    v12 = 0;
   }
 
-  return v6;
+  return v12;
 }
 
 - (id)_connectionWithClient:(id)client queue:(id)queue userProvider:(id)provider interruptionHandler:(id)handler invalidationHandler:(id)invalidationHandler
@@ -1234,7 +1294,7 @@ void __50__RPCompanionLinkClient__invokeBlockActivateSafe___block_invoke(uint64_
 
   if (gLogCategory_CLinkClient <= 30 && (gLogCategory_CLinkClient != -1 || _LogCategory_Initialize()))
   {
-    [RPCompanionLinkClient activateAssertionID:destinationID:options:completion:];
+    [RPCompanionLinkClient activateAssertionID:v12 destinationID:? options:? completion:?];
   }
 
   dispatchQueue = self->_dispatchQueue;
@@ -1315,56 +1375,63 @@ void __46__RPCompanionLinkClient__invalidateAssertion___block_invoke(uint64_t a1
 
 - (void)_reregisterAssertions
 {
-  v19 = *MEMORY[0x1E69E9840];
-  if ([(NSMutableSet *)self->_assertions count]&& gLogCategory_CLinkClient <= 30 && (gLogCategory_CLinkClient != -1 || _LogCategory_Initialize()))
+  v21 = *MEMORY[0x1E69E9840];
+  v3 = [(NSMutableSet *)self->_assertions count];
+  if (v3)
   {
-    [RPCompanionLinkClient _reregisterAssertions];
+    if (gLogCategory_CLinkClient <= 30)
+    {
+      if (gLogCategory_CLinkClient != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        [(RPCompanionLinkClient *)v3 _reregisterAssertions];
+      }
+    }
   }
 
+  v18 = 0u;
+  v19 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v14 = 0u;
-  v15 = 0u;
-  v3 = self->_assertions;
-  v4 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
-  if (v4)
+  v6 = self->_assertions;
+  v7 = [(NSMutableSet *)v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  if (v7)
   {
-    v5 = v4;
-    v6 = *v15;
+    v8 = v7;
+    v9 = *v17;
     while (2)
     {
-      for (i = 0; i != v5; ++i)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v6)
+        if (*v17 != v9)
         {
-          objc_enumerationMutation(v3);
+          objc_enumerationMutation(v6);
         }
 
-        v8 = *(*(&v14 + 1) + 8 * i);
+        v11 = *(*(&v16 + 1) + 8 * i);
         _ensureXPCStarted = [(RPCompanionLinkClient *)self _ensureXPCStarted];
         if (_ensureXPCStarted)
         {
-          v11 = _ensureXPCStarted;
+          v14 = _ensureXPCStarted;
           if (gLogCategory_CLinkClient <= 90 && (gLogCategory_CLinkClient != -1 || _LogCategory_Initialize()))
           {
-            [RPCompanionLinkClient _reregisterAssertions];
+            [(RPCompanionLinkClient *)v14 _reregisterAssertions];
           }
 
           goto LABEL_18;
         }
 
         remoteObjectProxy = [(RPDaemonConnection *)self->_daemonCnx remoteObjectProxy];
-        v13[0] = MEMORY[0x1E69E9820];
-        v13[1] = 3221225472;
-        v13[2] = __46__RPCompanionLinkClient__reregisterAssertions__block_invoke;
-        v13[3] = &unk_1E7C92D10;
-        v13[4] = self;
-        v13[5] = v8;
-        [remoteObjectProxy companionLinkActivateAssertion:v8 completion:v13];
+        v15[0] = MEMORY[0x1E69E9820];
+        v15[1] = 3221225472;
+        v15[2] = __46__RPCompanionLinkClient__reregisterAssertions__block_invoke;
+        v15[3] = &unk_1E7C92D10;
+        v15[4] = self;
+        v15[5] = v11;
+        [remoteObjectProxy companionLinkActivateAssertion:v11 completion:v15];
       }
 
-      v5 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
-      if (v5)
+      v8 = [(NSMutableSet *)v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      if (v8)
       {
         continue;
       }
@@ -1374,8 +1441,6 @@ void __46__RPCompanionLinkClient__invalidateAssertion___block_invoke(uint64_t a1
   }
 
 LABEL_18:
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __46__RPCompanionLinkClient__reregisterAssertions__block_invoke(uint64_t a1, uint64_t a2)
@@ -1387,7 +1452,7 @@ void __46__RPCompanionLinkClient__reregisterAssertions__block_invoke(uint64_t a1
     v6 = v3;
     if (gLogCategory_CLinkClient != -1 || (v5 = _LogCategory_Initialize(), v4 = v6, v5))
     {
-      __46__RPCompanionLinkClient__reregisterAssertions__block_invoke_cold_1(a1);
+      __46__RPCompanionLinkClient__reregisterAssertions__block_invoke_cold_1(a1, v6);
       v4 = v6;
     }
   }
@@ -1413,20 +1478,58 @@ void __37__RPCompanionLinkClient_tryPassword___block_invoke(uint64_t a1)
   [v2 companionLinkTryPassword:*(a1 + 40)];
 }
 
+- (void)companionLinkPromptForPasswordType:(int)type flags:(unsigned int)flags throttleSeconds:(int)seconds
+{
+  v5 = *&seconds;
+  v6 = *&flags;
+  dispatch_assert_queue_V2(self->_dispatchQueue);
+  if (self->_invalidateCalled)
+  {
+    return;
+  }
+
+  v9 = _Block_copy(self->_promptForPasswordHandler);
+  v11 = v9;
+  if (v9)
+  {
+    self->_passwordTypeActual = type;
+    v12 = v9;
+    (*(v9 + 16))(v9, v6, v5);
+LABEL_4:
+    v11 = v12;
+    goto LABEL_8;
+  }
+
+  if (gLogCategory_CLinkClient <= 90)
+  {
+    v12 = 0;
+    if (gLogCategory_CLinkClient != -1 || (v9 = _LogCategory_Initialize(), v11 = 0, v9))
+    {
+      [RPCompanionLinkClient companionLinkPromptForPasswordType:v9 flags:v11 throttleSeconds:v10];
+      goto LABEL_4;
+    }
+  }
+
+LABEL_8:
+}
+
 - (void)companionLinkAuthCompleted:(id)completed
 {
   completedCopy = completed;
   dispatch_assert_queue_V2(self->_dispatchQueue);
   v4 = _Block_copy(self->_authCompletionHandler);
-  v5 = v4;
+  v7 = v4;
   if (v4)
   {
-    (*(v4 + 2))(v4, completedCopy);
+    (*(v4 + 16))(v4, completedCopy);
   }
 
-  else if (gLogCategory_CLinkClient <= 90 && (gLogCategory_CLinkClient != -1 || _LogCategory_Initialize()))
+  else if (gLogCategory_CLinkClient <= 90)
   {
-    [RPCompanionLinkClient companionLinkAuthCompleted:];
+    if (gLogCategory_CLinkClient != -1 || (v4 = _LogCategory_Initialize(), v4))
+    {
+      [(RPCompanionLinkClient *)v4 companionLinkAuthCompleted:v5, v6];
+    }
   }
 }
 
@@ -1498,12 +1601,13 @@ void __48__RPCompanionLinkClient_activePersonalCompanion__block_invoke(uint64_t 
       goto LABEL_15;
     }
 
-    if (selfCopy->_appID && gLogCategory_CLinkClient <= 40)
+    appID = selfCopy->_appID;
+    if (appID && gLogCategory_CLinkClient <= 40)
     {
       if (gLogCategory_CLinkClient != -1)
       {
 LABEL_12:
-        LogPrintF();
+        LogPrintF(&gLogCategory_CLinkClient, "[RPCompanionLinkClient companionLinkFoundDevice:]", 40, "No device found handler for appID %@", appID);
         goto LABEL_15;
       }
 
@@ -1554,6 +1658,45 @@ LABEL_15:
 LABEL_7:
 }
 
+- (void)companionLinkChangedDevice:(id)device changes:(unsigned int)changes
+{
+  v4 = *&changes;
+  deviceCopy = device;
+  dispatch_assert_queue_V2(self->_dispatchQueue);
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  identifier = [deviceCopy identifier];
+  if (!identifier)
+  {
+    identifier = [deviceCopy publicIdentifier];
+    if (!identifier)
+    {
+      objc_sync_exit(selfCopy);
+
+      goto LABEL_8;
+    }
+  }
+
+  [(NSMutableDictionary *)selfCopy->_deviceDictionary setObject:deviceCopy forKeyedSubscript:identifier];
+  v8 = objc_autoreleasePoolPush();
+  if ((selfCopy->_controlFlags & 0x4000000000000) == 0)
+  {
+    [deviceCopy setSiriInfo:0];
+  }
+
+  objc_autoreleasePoolPop(v8);
+
+  objc_sync_exit(selfCopy);
+  deviceChangedHandler = selfCopy->_deviceChangedHandler;
+  v10 = deviceCopy;
+  if (deviceChangedHandler)
+  {
+    deviceChangedHandler[2](deviceChangedHandler, deviceCopy, v4);
+LABEL_8:
+    v10 = deviceCopy;
+  }
+}
+
 - (void)companionLinkLocalDeviceUpdated:(id)updated
 {
   updatedCopy = updated;
@@ -1577,61 +1720,62 @@ LABEL_7:
 
 - (void)_lostAllDevices
 {
-  v19 = *MEMORY[0x1E69E9840];
-  if (gLogCategory_CLinkClient <= 30 && (gLogCategory_CLinkClient != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  v18 = *MEMORY[0x1E69E9840];
+  if (gLogCategory_CLinkClient <= 30)
   {
-    [RPCompanionLinkClient _lostAllDevices];
+    if (gLogCategory_CLinkClient != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      [(RPCompanionLinkClient *)self _lostAllDevices];
+    }
   }
 
-  deviceLostHandler = self->_deviceLostHandler;
-  obj = self;
+  deviceLostHandler = selfCopy->_deviceLostHandler;
+  obj = selfCopy;
   objc_sync_enter(obj);
-  deviceDictionary = obj->_deviceDictionary;
+  v5 = obj[6];
   if (deviceLostHandler)
   {
-    allValues = [(NSMutableDictionary *)deviceDictionary allValues];
-    [(NSMutableDictionary *)obj->_deviceDictionary removeAllObjects];
+    allValues = [v5 allValues];
+    [obj[6] removeAllObjects];
     objc_sync_exit(obj);
 
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
-    v6 = allValues;
-    v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
-    if (v7)
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
+    v7 = allValues;
+    v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    if (v8)
     {
-      v8 = *v15;
+      v9 = *v14;
       do
       {
-        for (i = 0; i != v7; ++i)
+        for (i = 0; i != v8; ++i)
         {
-          if (*v15 != v8)
+          if (*v14 != v9)
           {
-            objc_enumerationMutation(v6);
+            objc_enumerationMutation(v7);
           }
 
-          v10 = self->_deviceLostHandler;
-          if (v10)
+          v11 = selfCopy->_deviceLostHandler;
+          if (v11)
           {
-            v10[2](v10, *(*(&v14 + 1) + 8 * i));
+            v11[2](v11, *(*(&v13 + 1) + 8 * i));
           }
         }
 
-        v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
-      while (v7);
+      while (v8);
     }
-
-    v11 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    [(NSMutableDictionary *)deviceDictionary removeAllObjects];
+    [v5 removeAllObjects];
     objc_sync_exit(obj);
-    v12 = *MEMORY[0x1E69E9840];
   }
 }
 
@@ -1995,7 +2139,7 @@ LABEL_16:
   {
     if (gLogCategory_CLinkClient <= 90 && (gLogCategory_CLinkClient != -1 || _LogCategory_Initialize()))
     {
-      [RPCompanionLinkClient _registerEventID:options:reregister:];
+      [RPCompanionLinkClient _registerEventID:_ensureXPCStarted options:? reregister:?];
     }
   }
 
@@ -2029,12 +2173,12 @@ void __61__RPCompanionLinkClient__registerEventID_options_reregister___block_inv
   {
     if (gLogCategory_CLinkClient <= 60)
     {
-      if (gLogCategory_CLinkClient != -1 || (v8 = v3, v4 = _LogCategory_Initialize(), v3 = v8, v4))
+      if (gLogCategory_CLinkClient != -1 || (v8 = v3, v5 = _LogCategory_Initialize(), v3 = v8, v5))
       {
-LABEL_7:
+        v4 = "### Re-registerEventID '%@' XPC error: %{error}\n";
+LABEL_8:
         v7 = v3;
-        v6 = *(a1 + 40);
-        LogPrintF();
+        LogPrintF(&gLogCategory_CLinkClient, "[RPCompanionLinkClient _registerEventID:options:reregister:]_block_invoke", 60, v4, *(a1 + 40), v3);
         v3 = v7;
       }
     }
@@ -2042,17 +2186,10 @@ LABEL_7:
 
   else if (gLogCategory_CLinkClient <= 60)
   {
-    if (gLogCategory_CLinkClient != -1)
+    if (gLogCategory_CLinkClient != -1 || (v9 = v3, v6 = _LogCategory_Initialize(), v3 = v9, v6))
     {
-      goto LABEL_7;
-    }
-
-    v9 = v3;
-    v5 = _LogCategory_Initialize();
-    v3 = v9;
-    if (v5)
-    {
-      goto LABEL_7;
+      v4 = "### RegisterEventID '%@' XPC error: %{error}\n";
+      goto LABEL_8;
     }
   }
 }
@@ -2066,25 +2203,19 @@ void __61__RPCompanionLinkClient__registerEventID_options_reregister___block_inv
     v5 = [v4 _clientError:v3];
     if (*(a1 + 48) == 1)
     {
-      if (gLogCategory_CLinkClient > 60 || gLogCategory_CLinkClient == -1 && !_LogCategory_Initialize())
+      if (gLogCategory_CLinkClient <= 60 && (gLogCategory_CLinkClient != -1 || _LogCategory_Initialize()))
       {
-        goto LABEL_14;
+        LogPrintF(&gLogCategory_CLinkClient, "[RPCompanionLinkClient _registerEventID:options:reregister:]_block_invoke_2", 60, "### Re-registerEventID '%@' error: %{error}\n", *(a1 + 40), v5);
       }
     }
 
-    else if (gLogCategory_CLinkClient > 60 || gLogCategory_CLinkClient == -1 && !_LogCategory_Initialize())
+    else if (gLogCategory_CLinkClient <= 60 && (gLogCategory_CLinkClient != -1 || _LogCategory_Initialize()))
     {
-      goto LABEL_14;
+      LogPrintF(&gLogCategory_CLinkClient, "[RPCompanionLinkClient _registerEventID:options:reregister:]_block_invoke_2", 60, "### RegisterEventID '%@' error: %{error}\n", *(a1 + 40), v5);
     }
-
-    v7 = *(a1 + 40);
-    LogPrintF();
-LABEL_14:
-
-    goto LABEL_15;
   }
 
-  if (v4[48])
+  else if (v4[48])
   {
     v6 = v4[34];
     block[0] = MEMORY[0x1E69E9820];
@@ -2092,27 +2223,32 @@ LABEL_14:
     block[2] = __61__RPCompanionLinkClient__registerEventID_options_reregister___block_invoke_3;
     block[3] = &unk_1E7C92D80;
     block[4] = v4;
-    v9 = *(a1 + 40);
+    v8 = *(a1 + 40);
     dispatch_async(v6, block);
   }
-
-LABEL_15:
 }
 
 - (void)_reregisterEvents
 {
-  if ([(NSMutableDictionary *)self->_eventRegistrations count]&& gLogCategory_CLinkClient <= 30 && (gLogCategory_CLinkClient != -1 || _LogCategory_Initialize()))
+  v3 = [(NSMutableDictionary *)self->_eventRegistrations count];
+  if (v3)
   {
-    [RPCompanionLinkClient _reregisterEvents];
+    if (gLogCategory_CLinkClient <= 30)
+    {
+      if (gLogCategory_CLinkClient != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        [(RPCompanionLinkClient *)v3 _reregisterEvents];
+      }
+    }
   }
 
   eventRegistrations = self->_eventRegistrations;
-  v4[0] = MEMORY[0x1E69E9820];
-  v4[1] = 3221225472;
-  v4[2] = __42__RPCompanionLinkClient__reregisterEvents__block_invoke;
-  v4[3] = &unk_1E7C93618;
-  v4[4] = self;
-  [(NSMutableDictionary *)eventRegistrations enumerateKeysAndObjectsUsingBlock:v4];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __42__RPCompanionLinkClient__reregisterEvents__block_invoke;
+  v7[3] = &unk_1E7C93618;
+  v7[4] = self;
+  [(NSMutableDictionary *)eventRegistrations enumerateKeysAndObjectsUsingBlock:v7];
 }
 
 void __42__RPCompanionLinkClient__reregisterEvents__block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -2152,7 +2288,7 @@ void __43__RPCompanionLinkClient_deregisterEventID___block_invoke(uint64_t a1)
   {
     if (gLogCategory_CLinkClient <= 90 && (gLogCategory_CLinkClient != -1 || _LogCategory_Initialize()))
     {
-      __43__RPCompanionLinkClient_deregisterEventID___block_invoke_cold_2();
+      __43__RPCompanionLinkClient_deregisterEventID___block_invoke_cold_2(v2);
     }
   }
 
@@ -2184,12 +2320,11 @@ void __43__RPCompanionLinkClient_deregisterEventID___block_invoke_2(uint64_t a1,
   v4 = v3;
   if (gLogCategory_CLinkClient <= 60)
   {
-    v7 = v3;
-    if (gLogCategory_CLinkClient != -1 || (v5 = _LogCategory_Initialize(), v4 = v7, v5))
+    v6 = v3;
+    if (gLogCategory_CLinkClient != -1 || (v5 = _LogCategory_Initialize(), v4 = v6, v5))
     {
-      v6 = *(a1 + 40);
-      LogPrintF();
-      v4 = v7;
+      LogPrintF(&gLogCategory_CLinkClient, "[RPCompanionLinkClient deregisterEventID:]_block_invoke_2", 60, "### DeregisterEventID '%@' XPC error: %{error}\n", *(a1 + 40), v4);
+      v4 = v6;
     }
   }
 }
@@ -2202,12 +2337,11 @@ void __43__RPCompanionLinkClient_deregisterEventID___block_invoke_3(uint64_t a1,
     v4 = v3;
     if (gLogCategory_CLinkClient <= 60)
     {
-      v7 = v3;
-      if (gLogCategory_CLinkClient != -1 || (v5 = _LogCategory_Initialize(), v4 = v7, v5))
+      v6 = v3;
+      if (gLogCategory_CLinkClient != -1 || (v5 = _LogCategory_Initialize(), v4 = v6, v5))
       {
-        v6 = *(a1 + 40);
-        LogPrintF();
-        v4 = v7;
+        LogPrintF(&gLogCategory_CLinkClient, "[RPCompanionLinkClient deregisterEventID:]_block_invoke_3", 60, "### DeregisterEventID '%@' error: %{error}\n", *(a1 + 40), v4);
+        v4 = v6;
       }
     }
   }
@@ -2220,55 +2354,63 @@ void __43__RPCompanionLinkClient_deregisterEventID___block_invoke_3(uint64_t a1,
   iDCopy = iD;
   optionsCopy = options;
   completionCopy = completion;
+  v45 = 0;
+  v46 = &v45;
+  v47 = 0x3032000000;
+  v48 = __Block_byref_object_copy__0;
+  v49 = __Block_byref_object_dispose__0;
+  v50 = 0;
+  v39 = 0;
+  v40 = &v39;
+  v41 = 0x3032000000;
+  v42 = __Block_byref_object_copy__0;
+  v43 = __Block_byref_object_dispose__0;
   v44 = 0;
-  v45 = &v44;
-  v46 = 0x3032000000;
-  v47 = __Block_byref_object_copy__0;
-  v48 = __Block_byref_object_dispose__0;
-  v49 = 0;
-  v38 = 0;
-  v39 = &v38;
-  v40 = 0x3032000000;
-  v41 = __Block_byref_object_copy__0;
-  v42 = __Block_byref_object_dispose__0;
-  v43 = 0;
-  v37[0] = MEMORY[0x1E69E9820];
-  v37[1] = 3221225472;
-  v37[2] = __76__RPCompanionLinkClient_sendEventID_event_destinationID_options_completion___block_invoke;
-  v37[3] = &unk_1E7C93640;
-  v37[4] = &v44;
-  v37[5] = &v38;
-  [(RPCompanionLinkClient *)self _startNWActivity:1 options:optionsCopy result:v37];
-  v17 = [RPNWActivityUtils tokenForActivity:v45[5]];
-  v18 = [v39[5] valueForKey:@"highPriority"];
-  [v18 BOOLValue];
+  v38[0] = MEMORY[0x1E69E9820];
+  v38[1] = 3221225472;
+  v38[2] = __76__RPCompanionLinkClient_sendEventID_event_destinationID_options_completion___block_invoke;
+  v38[3] = &unk_1E7C93640;
+  v38[4] = &v45;
+  v38[5] = &v39;
+  [(RPCompanionLinkClient *)self _startNWActivity:1 options:optionsCopy result:v38];
+  v17 = [RPNWActivityUtils tokenForActivity:v46[5]];
+  v18 = [v40[5] valueForKey:@"highPriority"];
+  bOOLValue = [v18 BOOLValue];
 
-  v19 = v39[5];
+  if (bOOLValue)
+  {
+    v20 = "at high priority";
+  }
+
+  else
+  {
+    v20 = "";
+  }
+
   if (!CFDictionaryGetInt64())
   {
-    v20 = dCopy;
-    if ([v20 isEqual:@"HIDRelay"] & 1) != 0 || (objc_msgSend(v20, "isEqual:", @"synchSetupStateFromStereoCounterpart") & 1) != 0 || (objc_msgSend(v20, "isEqual:", @"_hidT") & 1) != 0 || (objc_msgSend(v20, "isEqual:", @"_laData"))
+    v21 = dCopy;
+    if ([v21 isEqual:@"HIDRelay"] & 1) != 0 || (objc_msgSend(v21, "isEqual:", @"synchSetupStateFromStereoCounterpart") & 1) != 0 || (objc_msgSend(v21, "isEqual:", @"_hidT") & 1) != 0 || (objc_msgSend(v21, "isEqual:", @"_laData"))
     {
     }
 
     else
     {
-      v28 = [v20 isEqual:@"_siA"];
+      v29 = [v21 isEqual:@"_siA"];
 
-      if (!v28)
+      if (!v29)
       {
-        v21 = 30;
-        goto LABEL_8;
+        v22 = 30;
+        goto LABEL_11;
       }
     }
   }
 
-  v21 = 10;
-LABEL_8:
-  if (v21 >= gLogCategory_CLinkClient && (gLogCategory_CLinkClient != -1 || _LogCategory_Initialize()))
+  v22 = 10;
+LABEL_11:
+  if (v22 >= gLogCategory_CLinkClient && (gLogCategory_CLinkClient != -1 || _LogCategory_Initialize()))
   {
-    [eventCopy count];
-    LogPrintF();
+    LogPrintF(&gLogCategory_CLinkClient, "-[RPCompanionLinkClient sendEventID:event:destinationID:options:completion:]", v22, "SendEventID '%@', %d keys, to %@ %s\n", dCopy, [eventCopy count], iDCopy, v20);
   }
 
   dispatchQueue = self->_dispatchQueue;
@@ -2277,22 +2419,22 @@ LABEL_8:
   block[2] = __76__RPCompanionLinkClient_sendEventID_event_destinationID_options_completion___block_invoke_2;
   block[3] = &unk_1E7C93690;
   block[4] = self;
-  v30 = dCopy;
-  v31 = iDCopy;
-  v32 = eventCopy;
-  v35 = &v44;
-  v36 = &v38;
-  v33 = v17;
-  v34 = completionCopy;
-  v23 = v17;
-  v24 = eventCopy;
-  v25 = iDCopy;
-  v26 = dCopy;
-  v27 = completionCopy;
+  v31 = dCopy;
+  v32 = iDCopy;
+  v33 = eventCopy;
+  v36 = &v45;
+  v37 = &v39;
+  v34 = v17;
+  v35 = completionCopy;
+  v24 = v17;
+  v25 = eventCopy;
+  v26 = iDCopy;
+  v27 = dCopy;
+  v28 = completionCopy;
   dispatch_async(dispatchQueue, block);
 
-  _Block_object_dispose(&v38, 8);
-  _Block_object_dispose(&v44, 8);
+  _Block_object_dispose(&v39, 8);
+  _Block_object_dispose(&v45, 8);
 }
 
 void __76__RPCompanionLinkClient_sendEventID_event_destinationID_options_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -2365,7 +2507,7 @@ void __76__RPCompanionLinkClient_sendEventID_event_destinationID_options_complet
   {
     if (gLogCategory_CLinkClient != -1 || (v4 = _LogCategory_Initialize(), v3 = v6, v4))
     {
-      __76__RPCompanionLinkClient_sendEventID_event_destinationID_options_completion___block_invoke_3_cold_1(a1);
+      __76__RPCompanionLinkClient_sendEventID_event_destinationID_options_completion___block_invoke_3_cold_1();
       v3 = v6;
     }
   }
@@ -2381,16 +2523,16 @@ void __76__RPCompanionLinkClient_sendEventID_event_destinationID_options_complet
 void __76__RPCompanionLinkClient_sendEventID_event_destinationID_options_completion___block_invoke_4(uint64_t a1, uint64_t a2)
 {
   v3 = [*(a1 + 32) _clientError:a2];
-  v9 = v3;
+  v8 = v3;
   if (v3)
   {
     v4 = v3;
     if (gLogCategory_CLinkClient <= 60)
     {
-      if (gLogCategory_CLinkClient != -1 || (v5 = _LogCategory_Initialize(), v4 = v9, v5))
+      if (gLogCategory_CLinkClient != -1 || (v5 = _LogCategory_Initialize(), v4 = v8, v5))
       {
-        __76__RPCompanionLinkClient_sendEventID_event_destinationID_options_completion___block_invoke_4_cold_1(a1);
-        v4 = v9;
+        __76__RPCompanionLinkClient_sendEventID_event_destinationID_options_completion___block_invoke_4_cold_1();
+        v4 = v8;
       }
     }
 
@@ -2399,16 +2541,15 @@ void __76__RPCompanionLinkClient_sendEventID_event_destinationID_options_complet
 
   else
   {
-    v6 = *(*(*(a1 + 64) + 8) + 40);
     nw_activity_complete_with_reason();
   }
 
-  v7 = *(a1 + 56);
-  v8 = v9;
-  if (v7)
+  v6 = *(a1 + 56);
+  v7 = v8;
+  if (v6)
   {
-    (*(v7 + 16))(v7, v9);
-    v8 = v9;
+    (*(v6 + 16))(v6, v8);
+    v7 = v8;
   }
 }
 
@@ -2522,7 +2663,7 @@ LABEL_16:
   {
     if (gLogCategory_CLinkClient <= 90 && (gLogCategory_CLinkClient != -1 || _LogCategory_Initialize()))
     {
-      [RPCompanionLinkClient _registerRequestID:options:reregister:];
+      [RPCompanionLinkClient _registerRequestID:_ensureXPCStarted options:? reregister:?];
     }
   }
 
@@ -2556,12 +2697,12 @@ void __63__RPCompanionLinkClient__registerRequestID_options_reregister___block_i
   {
     if (gLogCategory_CLinkClient <= 60)
     {
-      if (gLogCategory_CLinkClient != -1 || (v8 = v3, v4 = _LogCategory_Initialize(), v3 = v8, v4))
+      if (gLogCategory_CLinkClient != -1 || (v8 = v3, v5 = _LogCategory_Initialize(), v3 = v8, v5))
       {
-LABEL_7:
+        v4 = "### Re-registerRequestID '%@' XPC error: %{error}\n";
+LABEL_8:
         v7 = v3;
-        v6 = *(a1 + 40);
-        LogPrintF();
+        LogPrintF(&gLogCategory_CLinkClient, "[RPCompanionLinkClient _registerRequestID:options:reregister:]_block_invoke", 60, v4, *(a1 + 40), v3);
         v3 = v7;
       }
     }
@@ -2569,17 +2710,10 @@ LABEL_7:
 
   else if (gLogCategory_CLinkClient <= 60)
   {
-    if (gLogCategory_CLinkClient != -1)
+    if (gLogCategory_CLinkClient != -1 || (v9 = v3, v6 = _LogCategory_Initialize(), v3 = v9, v6))
     {
-      goto LABEL_7;
-    }
-
-    v9 = v3;
-    v5 = _LogCategory_Initialize();
-    v3 = v9;
-    if (v5)
-    {
-      goto LABEL_7;
+      v4 = "### RegisterRequestID '%@' XPC error: %{error}\n";
+      goto LABEL_8;
     }
   }
 }
@@ -2593,25 +2727,19 @@ void __63__RPCompanionLinkClient__registerRequestID_options_reregister___block_i
     v5 = [v4 _clientError:v3];
     if (*(a1 + 48) == 1)
     {
-      if (gLogCategory_CLinkClient > 60 || gLogCategory_CLinkClient == -1 && !_LogCategory_Initialize())
+      if (gLogCategory_CLinkClient <= 60 && (gLogCategory_CLinkClient != -1 || _LogCategory_Initialize()))
       {
-        goto LABEL_14;
+        LogPrintF(&gLogCategory_CLinkClient, "[RPCompanionLinkClient _registerRequestID:options:reregister:]_block_invoke_2", 60, "### Re-registerRequestID '%@' error: %{error}\n", *(a1 + 40), v5);
       }
     }
 
-    else if (gLogCategory_CLinkClient > 60 || gLogCategory_CLinkClient == -1 && !_LogCategory_Initialize())
+    else if (gLogCategory_CLinkClient <= 60 && (gLogCategory_CLinkClient != -1 || _LogCategory_Initialize()))
     {
-      goto LABEL_14;
+      LogPrintF(&gLogCategory_CLinkClient, "[RPCompanionLinkClient _registerRequestID:options:reregister:]_block_invoke_2", 60, "### RegisterRequestID '%@' error: %{error}\n", *(a1 + 40), v5);
     }
-
-    v7 = *(a1 + 40);
-    LogPrintF();
-LABEL_14:
-
-    goto LABEL_15;
   }
 
-  if (v4[47])
+  else if (v4[47])
   {
     v6 = v4[34];
     block[0] = MEMORY[0x1E69E9820];
@@ -2619,27 +2747,32 @@ LABEL_14:
     block[2] = __63__RPCompanionLinkClient__registerRequestID_options_reregister___block_invoke_3;
     block[3] = &unk_1E7C92D80;
     block[4] = v4;
-    v9 = *(a1 + 40);
+    v8 = *(a1 + 40);
     dispatch_async(v6, block);
   }
-
-LABEL_15:
 }
 
 - (void)_reregisterRequests
 {
-  if ([(NSMutableDictionary *)self->_requestRegistrations count]&& gLogCategory_CLinkClient <= 30 && (gLogCategory_CLinkClient != -1 || _LogCategory_Initialize()))
+  v3 = [(NSMutableDictionary *)self->_requestRegistrations count];
+  if (v3)
   {
-    [RPCompanionLinkClient _reregisterRequests];
+    if (gLogCategory_CLinkClient <= 30)
+    {
+      if (gLogCategory_CLinkClient != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        [(RPCompanionLinkClient *)v3 _reregisterRequests];
+      }
+    }
   }
 
   requestRegistrations = self->_requestRegistrations;
-  v4[0] = MEMORY[0x1E69E9820];
-  v4[1] = 3221225472;
-  v4[2] = __44__RPCompanionLinkClient__reregisterRequests__block_invoke;
-  v4[3] = &unk_1E7C936B8;
-  v4[4] = self;
-  [(NSMutableDictionary *)requestRegistrations enumerateKeysAndObjectsUsingBlock:v4];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __44__RPCompanionLinkClient__reregisterRequests__block_invoke;
+  v7[3] = &unk_1E7C936B8;
+  v7[4] = self;
+  [(NSMutableDictionary *)requestRegistrations enumerateKeysAndObjectsUsingBlock:v7];
 }
 
 void __44__RPCompanionLinkClient__reregisterRequests__block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -2679,7 +2812,7 @@ void __45__RPCompanionLinkClient_deregisterRequestID___block_invoke(uint64_t a1)
   {
     if (gLogCategory_CLinkClient <= 90 && (gLogCategory_CLinkClient != -1 || _LogCategory_Initialize()))
     {
-      __45__RPCompanionLinkClient_deregisterRequestID___block_invoke_cold_2();
+      __45__RPCompanionLinkClient_deregisterRequestID___block_invoke_cold_2(v2);
     }
   }
 
@@ -2711,12 +2844,11 @@ void __45__RPCompanionLinkClient_deregisterRequestID___block_invoke_2(uint64_t a
   v4 = v3;
   if (gLogCategory_CLinkClient <= 60)
   {
-    v7 = v3;
-    if (gLogCategory_CLinkClient != -1 || (v5 = _LogCategory_Initialize(), v4 = v7, v5))
+    v6 = v3;
+    if (gLogCategory_CLinkClient != -1 || (v5 = _LogCategory_Initialize(), v4 = v6, v5))
     {
-      v6 = *(a1 + 40);
-      LogPrintF();
-      v4 = v7;
+      LogPrintF(&gLogCategory_CLinkClient, "[RPCompanionLinkClient deregisterRequestID:]_block_invoke_2", 60, "### DeregisterRequestID '%@' XPC error: %{error}\n", *(a1 + 40), v4);
+      v4 = v6;
     }
   }
 }
@@ -2729,12 +2861,11 @@ void __45__RPCompanionLinkClient_deregisterRequestID___block_invoke_3(uint64_t a
   {
     if (gLogCategory_CLinkClient <= 60)
     {
-      v7 = v3;
-      if (gLogCategory_CLinkClient != -1 || (v5 = _LogCategory_Initialize(), v4 = v7, v5))
+      v6 = v3;
+      if (gLogCategory_CLinkClient != -1 || (v5 = _LogCategory_Initialize(), v4 = v6, v5))
       {
-        v6 = *(a1 + 40);
-        LogPrintF();
-        v4 = v7;
+        LogPrintF(&gLogCategory_CLinkClient, "[RPCompanionLinkClient deregisterRequestID:]_block_invoke_3", 60, "### DeregisterRequestID '%@' error: %{error}\n", *(a1 + 40), v4);
+        v4 = v6;
       }
     }
   }
@@ -2808,84 +2939,93 @@ void __85__RPCompanionLinkClient_sendRequestID_request_destinationID_options_res
 void __85__RPCompanionLinkClient_sendRequestID_request_destinationID_options_responseHandler___block_invoke_2(uint64_t a1)
 {
   v2 = [*(*(*(a1 + 80) + 8) + 40) valueForKey:@"highPriority"];
-  [v2 BOOLValue];
+  v3 = [v2 BOOLValue];
 
-  v3 = *(*(*(a1 + 80) + 8) + 40);
-  Int64 = CFDictionaryGetInt64();
-  v5 = *(a1 + 32);
-  v6 = v5;
-  if (Int64)
+  if (v3)
   {
-    v7 = 10;
-  }
-
-  else if ([v5 isEqual:@"_ftSm"])
-  {
-    v7 = 9;
+    v4 = "at high priority";
   }
 
   else
   {
-    v7 = 9;
-    if (([v6 isEqual:@"_ftLg"] & 1) == 0)
+    v4 = "";
+  }
+
+  Int64 = CFDictionaryGetInt64();
+  v6 = *(a1 + 32);
+  v7 = v6;
+  if (Int64)
+  {
+    v8 = 10;
+  }
+
+  else if ([v6 isEqual:@"_ftSm"])
+  {
+    v8 = 9;
+  }
+
+  else
+  {
+    v8 = 9;
+    if (([v7 isEqual:@"_ftLg"] & 1) == 0)
     {
-      if ([v6 isEqual:@"_ftRs"])
+      if ([v7 isEqual:@"_ftRs"])
       {
-        v7 = 9;
+        v8 = 9;
       }
 
       else
       {
-        v7 = 30;
+        v8 = 30;
       }
     }
   }
 
-  if (v7 >= gLogCategory_CLinkClient && (gLogCategory_CLinkClient != -1 || _LogCategory_Initialize()))
+  if (v8 >= gLogCategory_CLinkClient && (gLogCategory_CLinkClient != -1 || _LogCategory_Initialize()))
   {
-    __85__RPCompanionLinkClient_sendRequestID_request_destinationID_options_responseHandler___block_invoke_2_cold_1((a1 + 32), a1);
+    __85__RPCompanionLinkClient_sendRequestID_request_destinationID_options_responseHandler___block_invoke_2_cold_1((a1 + 32), a1, v8, v4);
   }
 
-  v8 = [*(a1 + 56) _ensureXPCStarted];
-  if (v8)
+  v9 = [*(a1 + 56) _ensureXPCStarted];
+  if (v9)
   {
-    [RPNWActivityUtils failActivity:*(*(*(a1 + 88) + 8) + 40) error:v8];
+    [RPNWActivityUtils failActivity:*(*(*(a1 + 88) + 8) + 40) error:v9];
     (*(*(a1 + 72) + 16))();
   }
 
   else
   {
-    v9 = *(a1 + 56);
-    v10 = *(v9 + 40);
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __85__RPCompanionLinkClient_sendRequestID_request_destinationID_options_responseHandler___block_invoke_3;
-    v26[3] = &unk_1E7C93668;
-    v26[4] = v9;
-    v27 = *(a1 + 32);
-    v11 = *(a1 + 48);
-    v12 = *(a1 + 88);
-    v28 = v11;
-    v30 = v12;
-    v29 = *(a1 + 72);
-    v13 = [v10 remoteObjectProxyWithErrorHandler:v26];
-    v14 = *(a1 + 32);
-    v15 = *(a1 + 40);
-    v16 = *(*(*(a1 + 80) + 8) + 40);
-    v17 = *(a1 + 64);
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __85__RPCompanionLinkClient_sendRequestID_request_destinationID_options_responseHandler___block_invoke_4;
-    v21[3] = &unk_1E7C936E0;
-    v18 = *(a1 + 48);
-    v21[4] = *(a1 + 56);
-    v22 = v14;
+    v10 = *(a1 + 56);
+    v11 = *(v10 + 40);
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = __85__RPCompanionLinkClient_sendRequestID_request_destinationID_options_responseHandler___block_invoke_3;
+    v27[3] = &unk_1E7C93668;
+    v27[4] = v10;
+    v28 = *(a1 + 32);
+    v12 = *(a1 + 48);
+    v13 = *(a1 + 88);
+    v29 = v12;
+    v31 = v13;
+    v30 = *(a1 + 72);
+    v14 = [v11 remoteObjectProxyWithErrorHandler:v27];
+    v15 = *(a1 + 32);
+    v16 = *(a1 + 40);
+    v17 = *(*(*(a1 + 80) + 8) + 40);
+    v18 = *(a1 + 64);
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __85__RPCompanionLinkClient_sendRequestID_request_destinationID_options_responseHandler___block_invoke_4;
+    v22[3] = &unk_1E7C936E0;
     v19 = *(a1 + 48);
-    v20 = *(a1 + 88);
-    v23 = v19;
-    v25 = v20;
-    v24 = *(a1 + 72);
-    [v13 companionLinkSendRequestID:v22 request:v15 destinationID:v18 options:v16 nwActivityToken:v17 responseHandler:v21];
+    v22[4] = *(a1 + 56);
+    v23 = v15;
+    v20 = *(a1 + 48);
+    v21 = *(a1 + 88);
+    v24 = v20;
+    v26 = v21;
+    v25 = *(a1 + 72);
+    [v14 companionLinkSendRequestID:v23 request:v16 destinationID:v19 options:v17 nwActivityToken:v18 responseHandler:v22];
   }
 }
 
@@ -2897,7 +3037,7 @@ void __85__RPCompanionLinkClient_sendRequestID_request_destinationID_options_res
   {
     if (gLogCategory_CLinkClient != -1 || (v4 = _LogCategory_Initialize(), v3 = v5, v4))
     {
-      __85__RPCompanionLinkClient_sendRequestID_request_destinationID_options_responseHandler___block_invoke_3_cold_1(a1);
+      __85__RPCompanionLinkClient_sendRequestID_request_destinationID_options_responseHandler___block_invoke_3_cold_1();
       v3 = v5;
     }
   }
@@ -2912,16 +3052,16 @@ void __85__RPCompanionLinkClient_sendRequestID_request_destinationID_options_res
   v8 = a3;
   v9 = a2;
   v10 = [v7 _clientError:a4];
-  v14 = v10;
+  v13 = v10;
   if (v10)
   {
     v11 = v10;
     if (gLogCategory_CLinkClient <= 60)
     {
-      if (gLogCategory_CLinkClient != -1 || (v12 = _LogCategory_Initialize(), v11 = v14, v12))
+      if (gLogCategory_CLinkClient != -1 || (v12 = _LogCategory_Initialize(), v11 = v13, v12))
       {
-        __85__RPCompanionLinkClient_sendRequestID_request_destinationID_options_responseHandler___block_invoke_4_cold_1(a1);
-        v11 = v14;
+        __85__RPCompanionLinkClient_sendRequestID_request_destinationID_options_responseHandler___block_invoke_4_cold_1();
+        v11 = v13;
       }
     }
 
@@ -2930,7 +3070,6 @@ void __85__RPCompanionLinkClient_sendRequestID_request_destinationID_options_res
 
   else
   {
-    v13 = *(*(a1[8] + 8) + 40);
     nw_activity_complete_with_reason();
   }
 
@@ -2950,21 +3089,21 @@ void __85__RPCompanionLinkClient_sendRequestID_request_destinationID_options_res
 
   if (handler)
   {
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __88__RPCompanionLinkClient_companionLinkReceivedRequestID_request_options_responseHandler___block_invoke;
-    v18[3] = &unk_1E7C93758;
-    v18[4] = self;
-    v19 = dCopy;
-    v21 = Int64 != 0;
-    v20 = handlerCopy;
-    (handler)[2](handler, requestCopy, optionsCopy, v18);
+    v24[0] = MEMORY[0x1E69E9820];
+    v24[1] = 3221225472;
+    v24[2] = __88__RPCompanionLinkClient_companionLinkReceivedRequestID_request_options_responseHandler___block_invoke;
+    v24[3] = &unk_1E7C93758;
+    v24[4] = self;
+    v25 = dCopy;
+    v27 = Int64 != 0;
+    v26 = handlerCopy;
+    (handler)[2](handler, requestCopy, optionsCopy, v24);
   }
 
   else
   {
-    v17 = RPErrorF();
-    (*(handlerCopy + 2))(handlerCopy, 0, 0, v17);
+    v23 = RPErrorF(4294960582, "No registered handler", v17, v18, v19, v20, v21, v22, v24[0]);
+    (*(handlerCopy + 2))(handlerCopy, 0, 0, v23);
   }
 }
 
@@ -3027,15 +3166,12 @@ uint64_t __88__RPCompanionLinkClient_companionLinkReceivedRequestID_request_opti
 
   if (v6 >= gLogCategory_CLinkClient && (gLogCategory_CLinkClient != -1 || _LogCategory_Initialize()))
   {
-    __88__RPCompanionLinkClient_companionLinkReceivedRequestID_request_options_responseHandler___block_invoke_2_cold_1(v2, a1);
+    __88__RPCompanionLinkClient_companionLinkReceivedRequestID_request_options_responseHandler___block_invoke_2_cold_1(v2, a1, v6);
   }
 
-  v7 = *(a1 + 40);
-  v8 = *(a1 + 48);
-  v9 = *(a1 + 56);
-  v10 = *(*(a1 + 64) + 16);
+  v7 = *(*(a1 + 64) + 16);
 
-  return v10();
+  return v7();
 }
 
 - (void)companionLinkHandleDisconnect
@@ -3062,23 +3198,21 @@ void __54__RPCompanionLinkClient_companionLinkHandleDisconnect__block_invoke(uin
 
 - (void)launchAppWithBundleID:(id)d destinationID:(id)iD completion:(id)completion
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v17 = @"_bundleID";
-  v18[0] = d;
+  v16 = @"_bundleID";
+  v17[0] = d;
   v9 = MEMORY[0x1E695DF20];
   iDCopy = iD;
   dCopy = d;
-  v12 = [v9 dictionaryWithObjects:v18 forKeys:&v17 count:1];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __72__RPCompanionLinkClient_launchAppWithBundleID_destinationID_completion___block_invoke;
-  v15[3] = &unk_1E7C93780;
-  v16 = completionCopy;
+  v12 = [v9 dictionaryWithObjects:v17 forKeys:&v16 count:1];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __72__RPCompanionLinkClient_launchAppWithBundleID_destinationID_completion___block_invoke;
+  v14[3] = &unk_1E7C93780;
+  v15 = completionCopy;
   v13 = completionCopy;
-  [(RPCompanionLinkClient *)self sendRequestID:@"_launchApp" request:v12 destinationID:iDCopy options:0 responseHandler:v15];
-
-  v14 = *MEMORY[0x1E69E9840];
+  [(RPCompanionLinkClient *)self sendRequestID:@"_launchApp" request:v12 destinationID:iDCopy options:0 responseHandler:v14];
 }
 
 uint64_t __72__RPCompanionLinkClient_launchAppWithBundleID_destinationID_completion___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -3094,23 +3228,21 @@ uint64_t __72__RPCompanionLinkClient_launchAppWithBundleID_destinationID_complet
 
 - (void)launchAppWithURL:(id)l destinationID:(id)d completion:(id)completion
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v16 = @"_urlS";
+  v15 = @"_urlS";
   dCopy = d;
   absoluteString = [l absoluteString];
-  v17[0] = absoluteString;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+  v16[0] = absoluteString;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
 
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __67__RPCompanionLinkClient_launchAppWithURL_destinationID_completion___block_invoke;
-  v14[3] = &unk_1E7C93780;
-  v15 = completionCopy;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __67__RPCompanionLinkClient_launchAppWithURL_destinationID_completion___block_invoke;
+  v13[3] = &unk_1E7C93780;
+  v14 = completionCopy;
   v12 = completionCopy;
-  [(RPCompanionLinkClient *)self sendRequestID:@"_launchApp" request:v11 destinationID:dCopy options:0 responseHandler:v14];
-
-  v13 = *MEMORY[0x1E69E9840];
+  [(RPCompanionLinkClient *)self sendRequestID:@"_launchApp" request:v11 destinationID:dCopy options:0 responseHandler:v13];
 }
 
 uint64_t __67__RPCompanionLinkClient_launchAppWithURL_destinationID_completion___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -3156,92 +3288,695 @@ void __78__RPCompanionLinkClient_triggerEnhancedDiscoveryForReason_useCase_compl
 
     if (gLogCategory_CLinkClient > 30)
     {
-      goto LABEL_18;
+      goto LABEL_225;
     }
 
     if (gLogCategory_CLinkClient == -1)
     {
       if (!_LogCategory_Initialize())
       {
-LABEL_18:
+LABEL_225:
         v8 = *(a1 + 32);
         v7 = *(a1 + 40);
         v9 = *(v8 + 40);
-        v16[0] = MEMORY[0x1E69E9820];
-        v16[1] = 3221225472;
-        v16[2] = __78__RPCompanionLinkClient_triggerEnhancedDiscoveryForReason_useCase_completion___block_invoke_2;
-        v16[3] = &unk_1E7C937A8;
-        v16[4] = v8;
-        v17 = v7;
-        v18 = *(a1 + 48);
-        v10 = [v9 remoteObjectProxyWithErrorHandler:v16];
-        v13[0] = MEMORY[0x1E69E9820];
-        v13[1] = 3221225472;
-        v13[2] = __78__RPCompanionLinkClient_triggerEnhancedDiscoveryForReason_useCase_completion___block_invoke_3;
-        v13[3] = &unk_1E7C937A8;
+        v15[0] = MEMORY[0x1E69E9820];
+        v15[1] = 3221225472;
+        v15[2] = __78__RPCompanionLinkClient_triggerEnhancedDiscoveryForReason_useCase_completion___block_invoke_2;
+        v15[3] = &unk_1E7C937A8;
+        v15[4] = v8;
+        v16 = v7;
+        v17 = *(a1 + 48);
+        v10 = [v9 remoteObjectProxyWithErrorHandler:v15];
+        v12[0] = MEMORY[0x1E69E9820];
+        v12[1] = 3221225472;
+        v12[2] = __78__RPCompanionLinkClient_triggerEnhancedDiscoveryForReason_useCase_completion___block_invoke_3;
+        v12[3] = &unk_1E7C937A8;
         v11 = *(a1 + 40);
-        v13[4] = *(a1 + 32);
-        v14 = v11;
-        v15 = *(a1 + 48);
-        [v10 companionLinkTriggerEnhancedDiscovery:v14 useCase:v5 completion:v13];
+        v12[4] = *(a1 + 32);
+        v13 = v11;
+        v14 = *(a1 + 48);
+        [v10 companionLinkTriggerEnhancedDiscovery:v13 useCase:v5 completion:v12];
 
-        goto LABEL_19;
+        goto LABEL_226;
       }
 
       LODWORD(v4) = *(a1 + 56);
     }
 
-    v6 = *(a1 + 40);
     if (v4 < 0x20000)
     {
-      switch(v4)
+      if (v4 <= 0x20000)
       {
-        case 65536:
-        case 65537:
-        case 65538:
-        case 65539:
-        case 65540:
-        case 65541:
-        case 65542:
-        case 65543:
-        case 65544:
-        case 65545:
-        case 65546:
-        case 65547:
-        case 65548:
-        case 65549:
-        case 65550:
-        case 65551:
-        case 65552:
-        case 65553:
-        case 65554:
-        case 65555:
-        case 65556:
-        case 65557:
-        case 65558:
-        case 65559:
-        case 65560:
-        case 65561:
-        case 65562:
-        case 65563:
-        case 65564:
-        case 65565:
-        case 65566:
-        case 65567:
-          break;
-        default:
-          JUMPOUT(0);
+        switch(v4)
+        {
+          case 65536:
+            v6 = "FindMyAction";
+            break;
+          case 65537:
+            v6 = "FindMyBackground";
+            break;
+          case 65538:
+            v6 = "FindMyActionHELE";
+            break;
+          case 65539:
+            v6 = "FindMyBackgroundHELE";
+            break;
+          case 65540:
+            v6 = "FindMyActionTransient";
+            break;
+          case 65541:
+            v6 = "FindMyBackgroundTransient";
+            break;
+          case 65542:
+            v6 = "FindMyActionHELETransient";
+            break;
+          case 65543:
+            v6 = "FindMyBackgroundHELETransient";
+            break;
+          case 65544:
+            v6 = "FindMyNotOptedIn";
+            break;
+          case 65545:
+            v6 = "FindMyOptedIn";
+            break;
+          case 65546:
+            v6 = "FindMySepAlertsEnabled";
+            break;
+          case 65547:
+            v6 = "FindMyTemporaryAggressiveLegacy";
+            break;
+          case 65548:
+            v6 = "FindMyTemporaryLongAggressive";
+            break;
+          case 65549:
+            v6 = "FindMyBTFindingUserInitiated";
+            break;
+          case 65550:
+            v6 = "FindMyHELE";
+            break;
+          case 65551:
+            v6 = "FindMyBeaconOnDemand";
+            break;
+          case 65552:
+            v6 = "FindMyWildTimedScan";
+            break;
+          case 65553:
+            v6 = "FindMyBackgroundLeechScan";
+            break;
+          case 65554:
+            v6 = "FindMySnifferMode";
+            break;
+          case 65555:
+            v6 = "FindMyUnpair";
+            break;
+          case 65556:
+            v6 = "FindMyUnpairHELE";
+            break;
+          case 65557:
+            v6 = "FindMyPlaySound";
+            break;
+          case 65558:
+            v6 = "FindMyPlaySoundHELE";
+            break;
+          case 65559:
+            v6 = "FindMyNotOptedInBeepOnMoveWaking";
+            break;
+          case 65560:
+            v6 = "FindMyUTTransient";
+            break;
+          case 65561:
+            v6 = "FindMyUTHELETransient";
+            break;
+          case 65562:
+            v6 = "FindMyActionExtendedRange";
+            break;
+          case 65563:
+            v6 = "FindMyActionExtendedRangeLE2M";
+            break;
+          case 65564:
+            v6 = "FindMyActionExtendedRangeTransient";
+            break;
+          case 65565:
+            v6 = "FindMyPlaySoundExtendedRange";
+            break;
+          case 65566:
+            v6 = "FindMyPair";
+            break;
+          case 65567:
+            v6 = "FindMyTemporaryAggressiveLegacyExtendedRange";
+            break;
+          default:
+            JUMPOUT(0);
+        }
+      }
+
+      else
+      {
+        v6 = "Unspecified";
+        switch(v4)
+        {
+          case 0:
+            goto LABEL_224;
+          case 1:
+            v6 = "HealthKit";
+            break;
+          case 2:
+            v6 = "HomeKit";
+            break;
+          case 3:
+            v6 = "FindMyObjectConnection";
+            break;
+          case 4:
+            v6 = "FindMyObjectConnectionTransient";
+            break;
+          case 5:
+            v6 = "MIDI";
+            break;
+          case 6:
+            v6 = "Continuity";
+            break;
+          case 7:
+            v6 = "InstantHotSpot";
+            break;
+          case 8:
+            v6 = "NearBy";
+            break;
+          case 9:
+            v6 = "Sharing";
+            break;
+          case 10:
+            v6 = "HearingSupport";
+            break;
+          case 11:
+            v6 = "Magnet";
+            break;
+          case 12:
+            v6 = "HID";
+            break;
+          case 13:
+            v6 = "LEA";
+            break;
+          case 14:
+            v6 = "External";
+            break;
+          case 15:
+            v6 = "ExternalMedical";
+            break;
+          case 16:
+            v6 = "ExternalLock";
+            break;
+          case 17:
+            v6 = "ExternalWatch";
+            break;
+          case 18:
+            v6 = "SmartRouting";
+            break;
+          case 19:
+            v6 = "DigitalID";
+            break;
+          case 20:
+            v6 = "DigitalKey";
+            break;
+          case 21:
+            v6 = "DigitalCarKey";
+            break;
+          case 22:
+            v6 = "HeySiri";
+            break;
+          case 23:
+            v6 = "ThirdPartyApp";
+            break;
+          case 24:
+            v6 = "CNJ";
+            break;
+          default:
+            switch(v4)
+            {
+              case 256:
+                v6 = "DevicePresenceDetection";
+                break;
+              case 257:
+                v6 = "AudioBox";
+                break;
+              case 258:
+                v6 = "SIMTransfer";
+                break;
+              case 259:
+                v6 = "ProximityScreenOnLeechScan";
+                break;
+              case 260:
+                v6 = "MacMigrate";
+                break;
+              case 263:
+                v6 = "HIDUARTService";
+                break;
+              case 264:
+                v6 = "AccessibilitySwitchControlPairing";
+                break;
+              case 265:
+                v6 = "BaseBandFastConnect";
+                break;
+              case 266:
+                v6 = "SafetyAlerts";
+                break;
+              case 267:
+                v6 = "LECarPlay";
+                break;
+              case 268:
+                v6 = "TCCBluetooth";
+                break;
+              case 269:
+                v6 = "AOPBufferLeech";
+                break;
+              case 270:
+                v6 = "HighPriorityScanWiFi";
+                break;
+              default:
+                goto LABEL_223;
+            }
+
+            break;
+        }
+      }
+
+      goto LABEL_224;
+    }
+
+    if (v4 > 0x80000)
+    {
+      if (v4 < 0x100000)
+      {
+        if (v4 <= 851968)
+        {
+          if (v4 >= 655360)
+          {
+            if (v4 <= 720896)
+            {
+              if (v4 == 655360)
+              {
+                v6 = "AccessDigitalHomeKey";
+                goto LABEL_224;
+              }
+
+              if (v4 == 720896)
+              {
+                v6 = "SoftwareUpdateBTWake";
+                goto LABEL_224;
+              }
+            }
+
+            else
+            {
+              switch(v4)
+              {
+                case 0xB0001:
+                  v6 = "SofrwareUpdateOutboxControllerAuth";
+                  goto LABEL_224;
+                case 0xC0000:
+                  v6 = "ProxControlDeviceClose";
+                  goto LABEL_224;
+                case 0xD0000:
+                  v6 = "DCTProtocolTelephony";
+                  goto LABEL_224;
+              }
+            }
+          }
+
+          else
+          {
+            if (v4 <= 524290)
+            {
+              if (v4 == 524289)
+              {
+                v6 = "ADPDBuffer";
+              }
+
+              else
+              {
+                v6 = "MicroLocation";
+              }
+
+              goto LABEL_224;
+            }
+
+            switch(v4)
+            {
+              case 0x80003:
+                v6 = "MicroLocationLeech";
+                goto LABEL_224;
+              case 0x90000:
+                v6 = "FindNearbyRemote";
+                goto LABEL_224;
+              case 0x90001:
+                v6 = "FindNearbyPencil";
+                goto LABEL_224;
+            }
+          }
+        }
+
+        else if (v4 <= 983041)
+        {
+          if (v4 <= 917504)
+          {
+            if (v4 == 851969)
+            {
+              v6 = "DCTProtocolDataAndTelephony";
+              goto LABEL_224;
+            }
+
+            if (v4 == 917504)
+            {
+              v6 = "NearbyFaceTime";
+              goto LABEL_224;
+            }
+          }
+
+          else
+          {
+            switch(v4)
+            {
+              case 0xE0001:
+                v6 = "NearbyFaceTimeData";
+                goto LABEL_224;
+              case 0xF0000:
+                v6 = "SOSBeaconPartA";
+                goto LABEL_224;
+              case 0xF0001:
+                v6 = "SOSBeaconPartB";
+                goto LABEL_224;
+            }
+          }
+        }
+
+        else
+        {
+          if (v4 <= 983044)
+          {
+            if (v4 == 983042)
+            {
+              v6 = "SOSBeaconPrecisionFindResponse";
+            }
+
+            else if (v4 == 983043)
+            {
+              v6 = "SOSBeaconPrecisionFindRequest";
+            }
+
+            else
+            {
+              v6 = "SOSBeaconScan";
+            }
+
+            goto LABEL_224;
+          }
+
+          switch(v4)
+          {
+            case 0xF0005:
+              v6 = "SOSBeaconActivateScan";
+              goto LABEL_224;
+            case 0xF0006:
+              v6 = "SOSBeaconActivateAdvA";
+              goto LABEL_224;
+            case 0xF0007:
+              v6 = "SOSBeaconActivateAdvB";
+              goto LABEL_224;
+          }
+        }
+      }
+
+      else
+      {
+        if (v4 > 2147418111)
+        {
+          switch(v4)
+          {
+            case 2147418112:
+              v6 = "InternalTestNoLockScan";
+              break;
+            case 2147418113:
+              v6 = "InternalTestNoScreenOffScan";
+              break;
+            case 2147418114:
+              v6 = "InternalTestScanWithNoDups";
+              break;
+            case 2147418115:
+              v6 = "InternalTestScanWithDups";
+              break;
+            case 2147418116:
+              v6 = "InternalTestScanFor20Seconds";
+              break;
+            case 2147418117:
+              v6 = "InternalTestActiveScan";
+              break;
+            case 2147418118:
+              v6 = "InternalTestUUIDScan";
+              break;
+            case 2147418119:
+              v6 = "InternalTestScanFor10ClockSeconds";
+              break;
+            case 2147418120:
+              v6 = "InternalTestScanBoost";
+              break;
+            case 2147418121:
+              v6 = "InternalTestDiscoveryScanWithMRC";
+              break;
+            case 2147418122:
+              v6 = "InternalTestAdvWithHigherPower";
+              break;
+            case 2147418123:
+              v6 = "InternalTestScanLowDutyCycleMCOnly";
+              break;
+            case 2147418124:
+              v6 = "InternalTestUUIDScanWithMinRSSI";
+              break;
+            case 2147418125:
+              v6 = "InternalTestUUIDScanWithMinRSSIMediumLow";
+              break;
+            case 2147418126:
+              v6 = "InternalTestAdvWithHigherPowerServiceDataConnectable";
+              break;
+            case 2147418127:
+              v6 = "InternalTestAdvWithHigherPowerServiceDataNonConnectable";
+              break;
+            case 2147418128:
+              v6 = "InternalTestAdvWithHigherPowerServiceDataS2";
+              break;
+            case 2147418129:
+              v6 = "InternalTestAdvWithHigherPowerServiceDataS8";
+              break;
+            case 2147418130:
+              v6 = "InternalTestDiscoveryScanCodedPHY";
+              break;
+            default:
+              goto LABEL_223;
+          }
+
+          goto LABEL_224;
+        }
+
+        switch(v4)
+        {
+          case 0x100000:
+            v6 = "DOS";
+            goto LABEL_224;
+          case 0x100001:
+            v6 = "DOD";
+            goto LABEL_224;
+          case 0x110000:
+            v6 = "ProximityServiceDeviceSetup";
+            goto LABEL_224;
+        }
       }
     }
 
-    v12 = *(a1 + 40);
-    LogPrintF();
-    goto LABEL_18;
+    else
+    {
+      if (v4 < 196608)
+      {
+        switch(v4)
+        {
+          case 131072:
+            v6 = "SharingDefault";
+            break;
+          case 131073:
+            v6 = "SharingPhoneAutoUnlock";
+            break;
+          case 131074:
+            v6 = "SharingSiriWatchAuth";
+            break;
+          case 131075:
+            v6 = "SharingMacAutoUnlock";
+            break;
+          case 131076:
+            v6 = "SharingEDTScreenOn";
+            break;
+          case 131077:
+            v6 = "SharingEDTWiFiDisabled";
+            break;
+          case 131078:
+            v6 = "SharingEDTWombatEligibleAsDefaultCamera";
+            break;
+          case 131079:
+            v6 = "SharingEDTWombatCameraPicker";
+            break;
+          case 131080:
+            v6 = "SharingWombatBackground";
+            break;
+          case 131081:
+            v6 = "SharingUniversalControl";
+            break;
+          case 131082:
+            v6 = "SharingPeopleProximity";
+            break;
+          case 131083:
+            v6 = "SharingEDTEnsembleOpenDisplayPrefs";
+            break;
+          case 131084:
+            v6 = "SharingEDTNearbydMotionStopped";
+            break;
+          case 131085:
+            v6 = "SharingDoubleBoostGenericScan";
+            break;
+          case 131086:
+            v6 = "SharingEDTIncomingAdvertisement ";
+            break;
+          case 131087:
+            v6 = "SharingEDTWombatStreamStart";
+            break;
+          case 131088:
+            v6 = "SharingOYAutoUnlock";
+            break;
+          case 131090:
+            v6 = "SharingAirDrop";
+            break;
+          case 131091:
+            v6 = "SharingNearbyInvitationHost";
+            break;
+          case 131092:
+            v6 = "SharingNearbyInvitationParticipant";
+            break;
+          case 131093:
+            v6 = "SharingAirDropAskToAirDrop";
+            break;
+          case 131094:
+            v6 = "SharingAirDropTempIdentity";
+            break;
+          case 131095:
+            v6 = "SharingAirDropNeedsCLink";
+            break;
+          case 131096:
+            v6 = "SharingRemoteWidgetUpdate";
+            break;
+          case 131097:
+            v6 = "SharingCountryCodeUpdate";
+            break;
+          case 131098:
+            v6 = "SharingMacPhoneAutoUnlock";
+            break;
+          case 131099:
+            v6 = "SharingVisionProDiscovery";
+            break;
+          case 131100:
+            v6 = "SharingVisionProStateChange";
+            break;
+          case 131101:
+            v6 = "SharingContinuityScreen";
+            break;
+          case 131102:
+            v6 = "SharingEDTRemoteDisplay";
+            break;
+          case 131103:
+            v6 = "SharingHomePodSetup";
+            break;
+          default:
+            goto LABEL_223;
+        }
+
+        goto LABEL_224;
+      }
+
+      if (v4 > 393218)
+      {
+        if (v4 > 458752)
+        {
+          switch(v4)
+          {
+            case 0x70001:
+              v6 = "PrecisionFindingFindee";
+              goto LABEL_224;
+            case 0x70002:
+              v6 = "SpatialHandoffHome";
+              goto LABEL_224;
+            case 0x80000:
+              v6 = "ADPD";
+              goto LABEL_224;
+          }
+        }
+
+        else
+        {
+          switch(v4)
+          {
+            case 0x60003:
+              v6 = "AppleIDSignIn";
+              goto LABEL_224;
+            case 0x60004:
+              v6 = "AppleIDSignInSettings";
+              goto LABEL_224;
+            case 0x70000:
+              v6 = "PrecisionFindingFinder";
+              goto LABEL_224;
+          }
+        }
+      }
+
+      else
+      {
+        if (v4 >= 393216)
+        {
+          if (v4 == 393216)
+          {
+            v6 = "CaptiveNetworkJoin";
+          }
+
+          else if (v4 == 393217)
+          {
+            v6 = "UseCaseSIMTransfer";
+          }
+
+          else
+          {
+            v6 = "MacSetup";
+          }
+
+          goto LABEL_224;
+        }
+
+        switch(v4)
+        {
+          case 0x30000:
+            v6 = "DigitalIDTSA";
+            goto LABEL_224;
+          case 0x40000:
+            v6 = "DigitalCarKeyThirdParty";
+            goto LABEL_224;
+          case 0x50000:
+            v6 = "RapportThirdParty";
+LABEL_224:
+            goto LABEL_225;
+        }
+      }
+    }
+
+LABEL_223:
+    v6 = "?";
+    goto LABEL_224;
   }
 
   if (gLogCategory_CLinkClient <= 90 && (gLogCategory_CLinkClient != -1 || _LogCategory_Initialize()))
   {
-    __78__RPCompanionLinkClient_triggerEnhancedDiscoveryForReason_useCase_completion___block_invoke_cold_1();
+    __78__RPCompanionLinkClient_triggerEnhancedDiscoveryForReason_useCase_completion___block_invoke_cold_1(v2);
   }
 
   v3 = *(a1 + 48);
@@ -3250,22 +3985,21 @@ LABEL_18:
     (*(v3 + 16))(v3, v2);
   }
 
-LABEL_19:
+LABEL_226:
 }
 
 void __78__RPCompanionLinkClient_triggerEnhancedDiscoveryForReason_useCase_completion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   v3 = [*(a1 + 32) _clientError:a2];
-  v7 = v3;
+  v6 = v3;
   if (v3)
   {
     if (gLogCategory_CLinkClient <= 60)
     {
-      if (gLogCategory_CLinkClient != -1 || (v4 = _LogCategory_Initialize(), v3 = v7, v4))
+      if (gLogCategory_CLinkClient != -1 || (v4 = _LogCategory_Initialize(), v3 = v6, v4))
       {
-        v6 = *(a1 + 40);
-        LogPrintF();
-        v3 = v7;
+        LogPrintF(&gLogCategory_CLinkClient, "[RPCompanionLinkClient triggerEnhancedDiscoveryForReason:useCase:completion:]_block_invoke_2", 60, "### Trigger enhanced discovery '%@' XPC error: %{error}\n", *(a1 + 40), v3);
+        v3 = v6;
       }
     }
   }
@@ -3273,24 +4007,23 @@ void __78__RPCompanionLinkClient_triggerEnhancedDiscoveryForReason_useCase_compl
   v5 = *(a1 + 48);
   if (v5)
   {
-    (*(v5 + 16))(v5, v7);
-    v3 = v7;
+    (*(v5 + 16))(v5, v6);
+    v3 = v6;
   }
 }
 
 void __78__RPCompanionLinkClient_triggerEnhancedDiscoveryForReason_useCase_completion___block_invoke_3(uint64_t a1, uint64_t a2)
 {
   v3 = [*(a1 + 32) _clientError:a2];
-  v7 = v3;
+  v6 = v3;
   if (v3)
   {
     if (gLogCategory_CLinkClient <= 60)
     {
-      if (gLogCategory_CLinkClient != -1 || (v4 = _LogCategory_Initialize(), v3 = v7, v4))
+      if (gLogCategory_CLinkClient != -1 || (v4 = _LogCategory_Initialize(), v3 = v6, v4))
       {
-        v6 = *(a1 + 40);
-        LogPrintF();
-        v3 = v7;
+        LogPrintF(&gLogCategory_CLinkClient, "[RPCompanionLinkClient triggerEnhancedDiscoveryForReason:useCase:completion:]_block_invoke_3", 60, "### Trigger enhanced discovery '%@' error: %{error}\n", *(a1 + 40), v3);
+        v3 = v6;
       }
     }
   }
@@ -3298,8 +4031,8 @@ void __78__RPCompanionLinkClient_triggerEnhancedDiscoveryForReason_useCase_compl
   v5 = *(a1 + 48);
   if (v5)
   {
-    (*(v5 + 16))(v5, v7);
-    v3 = v7;
+    (*(v5 + 16))(v5, v6);
+    v3 = v6;
   }
 }
 
@@ -3327,7 +4060,7 @@ void __75__RPCompanionLinkClient_createDeviceToEndpointMappingForDevice_completi
   {
     if (gLogCategory_CLinkClient <= 90 && (gLogCategory_CLinkClient != -1 || _LogCategory_Initialize()))
     {
-      __75__RPCompanionLinkClient_createDeviceToEndpointMappingForDevice_completion___block_invoke_cold_1();
+      __75__RPCompanionLinkClient_createDeviceToEndpointMappingForDevice_completion___block_invoke_cold_1(v2);
     }
 
     v3 = a1[6];
@@ -3365,17 +4098,23 @@ void __75__RPCompanionLinkClient_createDeviceToEndpointMappingForDevice_completi
 
 uint64_t __75__RPCompanionLinkClient_createDeviceToEndpointMappingForDevice_completion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v6 = [*(a1 + 32) _clientError:a2];
-  if (v6 && gLogCategory_CLinkClient <= 60 && (gLogCategory_CLinkClient != -1 || _LogCategory_Initialize()))
-  {
-    v5 = *(a1 + 40);
-    LogPrintF();
-  }
-
-  v3 = *(a1 + 48);
+  v3 = [*(a1 + 32) _clientError:a2];
+  v7 = v3;
   if (v3)
   {
-    (*(v3 + 16))(v3, 0, v6);
+    if (gLogCategory_CLinkClient <= 60)
+    {
+      if (gLogCategory_CLinkClient != -1 || (v4 = _LogCategory_Initialize(), v3 = v7, v4))
+      {
+        LogPrintF(&gLogCategory_CLinkClient, "[RPCompanionLinkClient createDeviceToEndpointMappingForDevice:completion:]_block_invoke_2", 60, "### Create device to endpoint mapping '%@' XPC error: %{error}\n", *(a1 + 40), v3);
+      }
+    }
+  }
+
+  v5 = *(a1 + 48);
+  if (v5)
+  {
+    (*(v5 + 16))(v5, 0, v7);
   }
 
   return MEMORY[0x1EEE66BE0]();
@@ -3383,18 +4122,17 @@ uint64_t __75__RPCompanionLinkClient_createDeviceToEndpointMappingForDevice_comp
 
 void __75__RPCompanionLinkClient_createDeviceToEndpointMappingForDevice_completion___block_invoke_3(uint64_t a1, void *a2, uint64_t a3)
 {
-  v8 = a2;
+  v7 = a2;
   v5 = [*(a1 + 32) _clientError:a3];
   if (v5 && gLogCategory_CLinkClient <= 60 && (gLogCategory_CLinkClient != -1 || _LogCategory_Initialize()))
   {
-    v7 = *(a1 + 40);
-    LogPrintF();
+    LogPrintF(&gLogCategory_CLinkClient, "[RPCompanionLinkClient createDeviceToEndpointMappingForDevice:completion:]_block_invoke_3", 60, "### Create device to endpoint mapping '%@'<->'%@' error: %{error}\n", *(a1 + 40), v7, v5);
   }
 
   v6 = *(a1 + 48);
   if (v6)
   {
-    (*(v6 + 16))(v6, v8, v5);
+    (*(v6 + 16))(v6, v7, v5);
   }
 }
 
@@ -3420,7 +4158,7 @@ void __72__RPCompanionLinkClient_setLocalDeviceAsContextCollectorWithCompletion_
   {
     if (gLogCategory_CLinkClient <= 90 && (gLogCategory_CLinkClient != -1 || _LogCategory_Initialize()))
     {
-      __72__RPCompanionLinkClient_setLocalDeviceAsContextCollectorWithCompletion___block_invoke_cold_1();
+      __72__RPCompanionLinkClient_setLocalDeviceAsContextCollectorWithCompletion___block_invoke_cold_1(v3);
     }
 
     v4 = *(a1 + 40);
@@ -3468,7 +4206,7 @@ void __72__RPCompanionLinkClient_setLocalDeviceAsContextCollectorWithCompletion_
     {
       if (gLogCategory_CLinkClient != -1 || (v4 = _LogCategory_Initialize(), v3 = v6, v4))
       {
-        __72__RPCompanionLinkClient_setLocalDeviceAsContextCollectorWithCompletion___block_invoke_2_cold_1();
+        __72__RPCompanionLinkClient_setLocalDeviceAsContextCollectorWithCompletion___block_invoke_2_cold_1(v3);
         v3 = v6;
       }
     }
@@ -3492,7 +4230,7 @@ void __72__RPCompanionLinkClient_setLocalDeviceAsContextCollectorWithCompletion_
     {
       if (gLogCategory_CLinkClient != -1 || (v4 = _LogCategory_Initialize(), v3 = v6, v4))
       {
-        __72__RPCompanionLinkClient_setLocalDeviceAsContextCollectorWithCompletion___block_invoke_3_cold_1();
+        __72__RPCompanionLinkClient_setLocalDeviceAsContextCollectorWithCompletion___block_invoke_3_cold_1(v3);
         v3 = v6;
       }
     }
@@ -3528,7 +4266,7 @@ void __75__RPCompanionLinkClient_removeLocalDeviceAsContextCollectorWithCompleti
   {
     if (gLogCategory_CLinkClient <= 90 && (gLogCategory_CLinkClient != -1 || _LogCategory_Initialize()))
     {
-      __75__RPCompanionLinkClient_removeLocalDeviceAsContextCollectorWithCompletion___block_invoke_cold_1();
+      __75__RPCompanionLinkClient_removeLocalDeviceAsContextCollectorWithCompletion___block_invoke_cold_1(v3);
     }
 
     v4 = *(a1 + 40);
@@ -3576,7 +4314,7 @@ void __75__RPCompanionLinkClient_removeLocalDeviceAsContextCollectorWithCompleti
     {
       if (gLogCategory_CLinkClient != -1 || (v4 = _LogCategory_Initialize(), v3 = v6, v4))
       {
-        __75__RPCompanionLinkClient_removeLocalDeviceAsContextCollectorWithCompletion___block_invoke_2_cold_1();
+        __75__RPCompanionLinkClient_removeLocalDeviceAsContextCollectorWithCompletion___block_invoke_2_cold_1(v3);
         v3 = v6;
       }
     }
@@ -3600,7 +4338,7 @@ void __75__RPCompanionLinkClient_removeLocalDeviceAsContextCollectorWithCompleti
     {
       if (gLogCategory_CLinkClient != -1 || (v4 = _LogCategory_Initialize(), v3 = v6, v4))
       {
-        __75__RPCompanionLinkClient_removeLocalDeviceAsContextCollectorWithCompletion___block_invoke_3_cold_1();
+        __75__RPCompanionLinkClient_removeLocalDeviceAsContextCollectorWithCompletion___block_invoke_3_cold_1(v3);
         v3 = v6;
       }
     }
@@ -3701,7 +4439,7 @@ LABEL_16:
   {
     if (gLogCategory_CLinkClient <= 90 && (gLogCategory_CLinkClient != -1 || _LogCategory_Initialize()))
     {
-      [RPCompanionLinkClient _registerProfileID:reregister:completion:];
+      [RPCompanionLinkClient _registerProfileID:_ensureXPCStarted reregister:? completion:?];
     }
   }
 
@@ -3734,76 +4472,62 @@ LABEL_16:
 void __66__RPCompanionLinkClient__registerProfileID_reregister_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
   v3 = [*(a1 + 32) _clientError:a2];
-  v8 = v3;
+  v7 = v3;
   if (*(a1 + 56) == 1)
   {
     if (gLogCategory_CLinkClient <= 60)
     {
-      if (gLogCategory_CLinkClient != -1 || (v4 = _LogCategory_Initialize(), v3 = v8, v4))
+      if (gLogCategory_CLinkClient != -1 || (v4 = _LogCategory_Initialize(), v3 = v7, v4))
       {
-LABEL_7:
-        v7 = *(a1 + 40);
-        LogPrintF();
-        v3 = v8;
+        LogPrintF(&gLogCategory_CLinkClient, "[RPCompanionLinkClient _registerProfileID:reregister:completion:]_block_invoke", 60, "### Re-registerProfileID '%@' XPC error: %{error}\n", *(a1 + 40), v3);
+LABEL_8:
+        v3 = v7;
       }
     }
   }
 
   else if (gLogCategory_CLinkClient <= 60)
   {
-    if (gLogCategory_CLinkClient != -1)
+    if (gLogCategory_CLinkClient != -1 || (v5 = _LogCategory_Initialize(), v3 = v7, v5))
     {
-      goto LABEL_7;
-    }
-
-    v5 = _LogCategory_Initialize();
-    v3 = v8;
-    if (v5)
-    {
-      goto LABEL_7;
+      LogPrintF(&gLogCategory_CLinkClient, "[RPCompanionLinkClient _registerProfileID:reregister:completion:]_block_invoke", 60, "### RegisterProfileID '%@' XPC error: %{error}\n", *(a1 + 40), v3);
+      goto LABEL_8;
     }
   }
 
   v6 = *(a1 + 48);
   if (v6)
   {
-    (*(v6 + 16))(v6, v8);
-    v3 = v8;
+    (*(v6 + 16))(v6, v7);
+    v3 = v7;
   }
 }
 
 void __66__RPCompanionLinkClient__registerProfileID_reregister_completion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   v3 = [*(a1 + 32) _clientError:a2];
-  v8 = v3;
+  v7 = v3;
   if (v3)
   {
     if (*(a1 + 56) == 1)
     {
       if (gLogCategory_CLinkClient <= 60)
       {
-        if (gLogCategory_CLinkClient != -1 || (v4 = _LogCategory_Initialize(), v3 = v8, v4))
+        if (gLogCategory_CLinkClient != -1 || (v4 = _LogCategory_Initialize(), v3 = v7, v4))
         {
-LABEL_8:
-          v7 = *(a1 + 40);
-          LogPrintF();
-          v3 = v8;
+          LogPrintF(&gLogCategory_CLinkClient, "[RPCompanionLinkClient _registerProfileID:reregister:completion:]_block_invoke_2", 60, "### Re-registerProfileID '%@' error: %{error}\n", *(a1 + 40), v3);
+LABEL_9:
+          v3 = v7;
         }
       }
     }
 
     else if (gLogCategory_CLinkClient <= 60)
     {
-      if (gLogCategory_CLinkClient != -1)
+      if (gLogCategory_CLinkClient != -1 || (v5 = _LogCategory_Initialize(), v3 = v7, v5))
       {
-        goto LABEL_8;
-      }
-
-      v5 = _LogCategory_Initialize();
-      v3 = v8;
-      if (v5)
-      {
-        goto LABEL_8;
+        LogPrintF(&gLogCategory_CLinkClient, "[RPCompanionLinkClient _registerProfileID:reregister:completion:]_block_invoke_2", 60, "### RegisterProfileID '%@' error: %{error}\n", *(a1 + 40), v3);
+        goto LABEL_9;
       }
     }
   }
@@ -3811,48 +4535,53 @@ LABEL_8:
   v6 = *(a1 + 48);
   if (v6)
   {
-    (*(v6 + 16))(v6, v8);
-    v3 = v8;
+    (*(v6 + 16))(v6, v7);
+    v3 = v7;
   }
 }
 
 - (void)_reregisterProfileIDs
 {
-  v14 = *MEMORY[0x1E69E9840];
-  if ([(NSMutableOrderedSet *)self->_registeredProfileIDs count]&& gLogCategory_CLinkClient <= 30 && (gLogCategory_CLinkClient != -1 || _LogCategory_Initialize()))
+  v16 = *MEMORY[0x1E69E9840];
+  v3 = [(NSMutableOrderedSet *)self->_registeredProfileIDs count];
+  if (v3)
   {
-    [RPCompanionLinkClient _reregisterProfileIDs];
+    if (gLogCategory_CLinkClient <= 30)
+    {
+      if (gLogCategory_CLinkClient != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        [(RPCompanionLinkClient *)v3 _reregisterProfileIDs];
+      }
+    }
   }
 
+  v13 = 0u;
+  v14 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v9 = 0u;
-  v10 = 0u;
-  v3 = self->_registeredProfileIDs;
-  v4 = [(NSMutableOrderedSet *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
-  if (v4)
+  v6 = self->_registeredProfileIDs;
+  v7 = [(NSMutableOrderedSet *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v7)
   {
-    v5 = v4;
-    v6 = *v10;
+    v8 = v7;
+    v9 = *v12;
     do
     {
-      for (i = 0; i != v5; ++i)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v10 != v6)
+        if (*v12 != v9)
         {
-          objc_enumerationMutation(v3);
+          objc_enumerationMutation(v6);
         }
 
-        [(RPCompanionLinkClient *)self _registerProfileID:*(*(&v9 + 1) + 8 * i) reregister:1 completion:0, v9];
+        [(RPCompanionLinkClient *)self _registerProfileID:*(*(&v11 + 1) + 8 * i) reregister:1 completion:0, v11];
       }
 
-      v5 = [(NSMutableOrderedSet *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v8 = [(NSMutableOrderedSet *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v5);
+    while (v8);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deregisterProfileID:(id)d completion:(id)completion
@@ -3918,38 +4647,36 @@ void __56__RPCompanionLinkClient_deregisterProfileID_completion___block_invoke(u
 void __56__RPCompanionLinkClient_deregisterProfileID_completion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   v3 = [*(a1 + 32) _clientError:a2];
-  v7 = v3;
+  v6 = v3;
   if (gLogCategory_CLinkClient <= 60)
   {
-    if (gLogCategory_CLinkClient != -1 || (v4 = _LogCategory_Initialize(), v3 = v7, v4))
+    if (gLogCategory_CLinkClient != -1 || (v4 = _LogCategory_Initialize(), v3 = v6, v4))
     {
-      v6 = *(a1 + 40);
-      LogPrintF();
-      v3 = v7;
+      LogPrintF(&gLogCategory_CLinkClient, "[RPCompanionLinkClient deregisterProfileID:completion:]_block_invoke_2", 60, "### DeregisterProfileID '%@' XPC error: %{error}\n", *(a1 + 40), v3);
+      v3 = v6;
     }
   }
 
   v5 = *(a1 + 48);
   if (v5)
   {
-    (*(v5 + 16))(v5, v7);
-    v3 = v7;
+    (*(v5 + 16))(v5, v6);
+    v3 = v6;
   }
 }
 
 void __56__RPCompanionLinkClient_deregisterProfileID_completion___block_invoke_3(uint64_t a1, uint64_t a2)
 {
   v3 = [*(a1 + 32) _clientError:a2];
-  v7 = v3;
+  v6 = v3;
   if (v3)
   {
     if (gLogCategory_CLinkClient <= 60)
     {
-      if (gLogCategory_CLinkClient != -1 || (v4 = _LogCategory_Initialize(), v3 = v7, v4))
+      if (gLogCategory_CLinkClient != -1 || (v4 = _LogCategory_Initialize(), v3 = v6, v4))
       {
-        v6 = *(a1 + 40);
-        LogPrintF();
-        v3 = v7;
+        LogPrintF(&gLogCategory_CLinkClient, "[RPCompanionLinkClient deregisterProfileID:completion:]_block_invoke_3", 60, "### DeregisterProfileID '%@' error: %{error}\n", *(a1 + 40), v3);
+        v3 = v6;
       }
     }
   }
@@ -3957,42 +4684,55 @@ void __56__RPCompanionLinkClient_deregisterProfileID_completion___block_invoke_3
   v5 = *(a1 + 48);
   if (v5)
   {
-    (*(v5 + 16))(v5, v7);
-    v3 = v7;
+    (*(v5 + 16))(v5, v6);
+    v3 = v6;
   }
 }
 
-void __46__RPCompanionLinkClient__reregisterAssertions__block_invoke_cold_1(uint64_t a1)
+- (uint64_t)_activateWithCompletion:(uint64_t)a1 reactivate:.cold.1(uint64_t a1)
 {
-  v1 = [*(a1 + 40) assertionID];
-  LogPrintF();
+  if (*(a1 + 108))
+  {
+    v1 = @"(TargetUserSession)";
+  }
+
+  else
+  {
+    v1 = a1;
+  }
+
+  return LogPrintF(&gLogCategory_CLinkClient, "[RPCompanionLinkClient _activateWithCompletion:reactivate:]", 30, "Activate %@\n", v1);
 }
 
-uint64_t __85__RPCompanionLinkClient_sendRequestID_request_destinationID_options_responseHandler___block_invoke_2_cold_1(uint64_t *a1, uint64_t a2)
+- (uint64_t)_activateWithCompletion:(uint64_t)a1 reactivate:.cold.2(uint64_t a1)
 {
-  v3 = *a1;
-  [*(a2 + 40) count];
-  v5 = *(a2 + 48);
-  return LogPrintF();
+  if (*(a1 + 108))
+  {
+    v1 = @"(TargetUserSession)";
+  }
+
+  else
+  {
+    v1 = a1;
+  }
+
+  return LogPrintF(&gLogCategory_CLinkClient, "[RPCompanionLinkClient _activateWithCompletion:reactivate:]", 30, "Re-activate %@\n", v1);
 }
 
-uint64_t __88__RPCompanionLinkClient_companionLinkReceivedRequestID_request_options_responseHandler___block_invoke_2_cold_1(uint64_t *a1, uint64_t a2)
+void __46__RPCompanionLinkClient__reregisterAssertions__block_invoke_cold_1(uint64_t a1, uint64_t a2)
 {
-  v3 = *a1;
-  [*(a2 + 40) count];
-  return LogPrintF();
+  v3 = [*(a1 + 40) assertionID];
+  LogPrintF(&gLogCategory_CLinkClient, "[RPCompanionLinkClient _reregisterAssertions]_block_invoke", 60, "### Re-register assertionID '%@' failed: %{error}\n", v3, a2);
 }
 
 void __72__RPCompanionLinkClient_setLocalDeviceAsContextCollectorWithCompletion___block_invoke_cold_2(uint64_t a1)
 {
   v1 = [*(*a1 + 344) idsDeviceIdentifier];
-  LogPrintF();
 }
 
 void __75__RPCompanionLinkClient_removeLocalDeviceAsContextCollectorWithCompletion___block_invoke_cold_2(uint64_t a1)
 {
   v1 = [*(*a1 + 344) idsDeviceIdentifier];
-  LogPrintF();
 }
 
 @end

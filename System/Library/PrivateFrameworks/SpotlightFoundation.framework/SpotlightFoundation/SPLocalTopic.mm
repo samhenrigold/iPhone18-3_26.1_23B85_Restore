@@ -4,11 +4,14 @@
 + (id)localTopicWithContactName:(id)name emails:(id)emails phones:(id)phones detailText:(id)text;
 + (id)localTopicWithDictionaryResult:(id)result;
 + (id)localTopicWithTitle:(id)title;
++ (id)localTopicWithTitle:(id)title type:(int)type score:(id)score;
++ (id)localTopicWithTitle:(id)title type:(int)type score:(id)score isCached:(BOOL)cached;
 + (id)localTopicWithTopicIdentifier:(id)identifier;
 + (id)proactiveTopicWithIdentifier:(id)identifier bundleIdentifier:(id)bundleIdentifier protectionClass:(id)class detailText:(id)text;
 - (SPLocalTopic)initWithContactName:(id)name contactIdentifier:(id)identifier detailText:(id)text;
 - (SPLocalTopic)initWithContactName:(id)name emails:(id)emails phones:(id)phones detailText:(id)text;
 - (SPLocalTopic)initWithDictionaryResult:(id)result;
+- (SPLocalTopic)initWithTitle:(id)title type:(int)type score:(id)score isCached:(BOOL)cached;
 - (SPLocalTopic)initWithTopicIdentifier:(id)identifier;
 @end
 
@@ -60,6 +63,27 @@
   return v7;
 }
 
++ (id)localTopicWithTitle:(id)title type:(int)type score:(id)score isCached:(BOOL)cached
+{
+  cachedCopy = cached;
+  v7 = *&type;
+  scoreCopy = score;
+  titleCopy = title;
+  v11 = [[SPLocalTopic alloc] initWithTitle:titleCopy type:v7 score:scoreCopy isCached:cachedCopy];
+
+  return v11;
+}
+
++ (id)localTopicWithTitle:(id)title type:(int)type score:(id)score
+{
+  v5 = *&type;
+  scoreCopy = score;
+  titleCopy = title;
+  v9 = [[SPLocalTopic alloc] initWithTitle:titleCopy type:v5 score:scoreCopy isCached:0];
+
+  return v9;
+}
+
 + (id)localTopicWithTitle:(id)title
 {
   titleCopy = title;
@@ -107,6 +131,16 @@
   v13 = [(SFLocalTopic *)&v15 initWithIdentifier:v11];
 
   return v13;
+}
+
+- (SPLocalTopic)initWithTitle:(id)title type:(int)type score:(id)score isCached:(BOOL)cached
+{
+  v7 = topicIdentifierWithTitleAndType(title, *&type, cached);
+  v10.receiver = self;
+  v10.super_class = SPLocalTopic;
+  v8 = [(SFLocalTopic *)&v10 initWithIdentifier:v7];
+
+  return v8;
 }
 
 - (SPLocalTopic)initWithDictionaryResult:(id)result

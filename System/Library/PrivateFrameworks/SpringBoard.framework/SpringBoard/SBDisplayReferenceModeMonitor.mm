@@ -74,7 +74,7 @@
   pathCopy = path;
   objectCopy = object;
   changeCopy = change;
-  if ([(NSMutableSet *)self->_observedDisplays containsObject:objectCopy])
+  if (objc_msgSend_containsObject_(self->_observedDisplays))
   {
     v13 = objectCopy;
     if ([(SBDisplayReferenceModeMonitor *)self _shouldNotifyObserversOfReferenceModeStatusChangeForDisplay:v13])
@@ -99,7 +99,7 @@
 
 uint64_t __80__SBDisplayReferenceModeMonitor_observeValueForKeyPath_ofObject_change_context___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  [a2 displayReferenceModeStatusDidChangeForDisplayWithConfiguration:? newStatus:?];
+  [a2 displayReferenceModeStatusDidChangeForDisplayWithConfiguration:a3 newStatus:?];
   v6 = *(a1 + 32);
   v7 = *(a1 + 40);
 
@@ -450,7 +450,7 @@ LABEL_14:
     observedDisplays = self->_observedDisplays;
   }
 
-  if (([(NSMutableSet *)observedDisplays containsObject:neededCopy]& 1) == 0)
+  if ((objc_msgSend_containsObject_(observedDisplays, neededCopy, neededCopy) & 1) == 0)
   {
     [(NSMutableSet *)self->_observedDisplays addObject:v8];
     [v8 addObserver:self forKeyPath:@"isReference" options:0 context:0];
@@ -462,7 +462,7 @@ LABEL_14:
 - (void)_stopObservingDisplay:(id)display
 {
   displayCopy = display;
-  v4 = [(NSMutableSet *)self->_observedDisplays containsObject:displayCopy];
+  v4 = objc_msgSend_containsObject_(self->_observedDisplays);
   [(SBDisplayReferenceModeMonitor *)self _setConfig:0 forDisplay:displayCopy];
   [(SBDisplayReferenceModeMonitor *)self _removeCachedStatusForDisplay:displayCopy];
   [(NSMutableSet *)self->_observedDisplays removeObject:displayCopy];

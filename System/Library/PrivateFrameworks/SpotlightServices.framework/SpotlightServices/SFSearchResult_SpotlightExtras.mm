@@ -1,9 +1,11 @@
 @interface SFSearchResult_SpotlightExtras
 + (void)initialize;
 - (BOOL)isSafariTopHitForQuery:(id)query;
+- (NSData)suggestionsFeedbackData;
 - (SFSearchResult_SpotlightExtras)init;
 - (SFSearchResult_SpotlightExtras)initWithCoder:(id)coder;
 - (SFSearchResult_SpotlightExtras)initWithIdentifier:(id)identifier bundleIdentifier:(id)bundleIdentifier protectionClass:(id)class attributeKeys:(id)keys attributeValues:(id)values type:(int)type completion:(id)completion;
+- (SFSearchResult_SpotlightExtras)initWithIdentifier:(id)identifier bundleIdentifier:(id)bundleIdentifier protectionClass:(id)class attributes:(id)attributes type:(int)type completion:(id)completion;
 - (SFSearchResult_SpotlightExtras)initWithResult:(id)result;
 - (SFSearchResult_SpotlightExtras)initWithResult:(id)result groupId:(id)id;
 - (UTType)uniformContentType;
@@ -14,7 +16,6 @@
 - (id)ttrDescription;
 - (id)urlValueForAttribute:(id)attribute;
 - (id)valueForAttribute:(id)attribute withType:(Class)type;
-- (uint64_t)score;
 - (void)clearBackendData;
 - (void)encodeWithCoder:(id)coder;
 - (void)setContentType:(id)type;
@@ -266,8 +267,8 @@
   valuesCopy = values;
   completionCopy = completion;
   v17 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v18 = [keysCopy count];
-  if (v18 == [valuesCopy count] && v18)
+  v18 = objc_msgSend_count(keysCopy);
+  if (v18 == objc_msgSend_count(valuesCopy) && v18)
   {
     for (i = 0; i != v18; ++i)
     {
@@ -284,6 +285,52 @@
   selfCopy = [(SFSearchResult_SpotlightExtras *)selfCopy initWithIdentifier:identifierCopy bundleIdentifier:bundleIdentifierCopy protectionClass:classCopy attributes:v17 type:type completion:completionCopy, selfCopy];
 
   return selfCopy;
+}
+
+- (SFSearchResult_SpotlightExtras)initWithIdentifier:(id)identifier bundleIdentifier:(id)bundleIdentifier protectionClass:(id)class attributes:(id)attributes type:(int)type completion:(id)completion
+{
+  v9 = *&type;
+  identifierCopy = identifier;
+  bundleIdentifierCopy = bundleIdentifier;
+  classCopy = class;
+  attributesCopy = attributes;
+  completionCopy = completion;
+  v30.receiver = self;
+  v30.super_class = SFSearchResult_SpotlightExtras;
+  v19 = [(SFSearchResult_SpotlightExtras *)&v30 init];
+  v20 = v19;
+  if (v19)
+  {
+    [(SFSearchResult_SpotlightExtras *)v19 setIdentifier:identifierCopy];
+    [(SFSearchResult_SpotlightExtras *)v20 setResultBundleId:bundleIdentifierCopy];
+    [(SFSearchResult_SpotlightExtras *)v20 setSectionBundleIdentifier:bundleIdentifierCopy];
+    [(SFSearchResult_SpotlightExtras *)v20 setApplicationBundleIdentifier:bundleIdentifierCopy];
+    [(SFSearchResult_SpotlightExtras *)v20 setType:v9];
+    [(SFSearchResult_SpotlightExtras *)v20 setCompletion:completionCopy];
+    [(SFSearchResult_SpotlightExtras *)v20 setProtectionClass:classCopy];
+    [(SFSearchResult_SpotlightExtras *)v20 setBackendData:attributesCopy];
+    v21 = [(SFSearchResult_SpotlightExtras *)v20 valueForAttribute:*MEMORY[0x1E6963EA0] withType:objc_opt_class()];
+    [(SFSearchResult_SpotlightExtras *)v20 setContentType:v21];
+
+    v22 = [(SFSearchResult_SpotlightExtras *)v20 valueForAttribute:*MEMORY[0x1E6963EA8] withType:objc_opt_class()];
+    [(SFSearchResult_SpotlightExtras *)v20 setContentTypeTree:v22];
+
+    v23 = [(SFSearchResult_SpotlightExtras *)v20 valueForAttribute:*MEMORY[0x1E6964338] withType:objc_opt_class()];
+    [(SFSearchResult_SpotlightExtras *)v20 setFileProviderIdentifier:v23];
+
+    v24 = [(SFSearchResult_SpotlightExtras *)v20 valueForAttribute:*MEMORY[0x1E6964328] withType:objc_opt_class()];
+    [(SFSearchResult_SpotlightExtras *)v20 setFileProviderDomainIdentifier:v24];
+
+    v25 = [(SFSearchResult_SpotlightExtras *)v20 valueForAttribute:*MEMORY[0x1E6964A20] withType:objc_opt_class()];
+    relatedAppIdentifier = v20->_relatedAppIdentifier;
+    v20->_relatedAppIdentifier = v25;
+
+    v27 = [(SFSearchResult_SpotlightExtras *)v20 valueForAttribute:*MEMORY[0x1E6964A98] withType:objc_opt_class()];
+    displayOrder = v20->_displayOrder;
+    v20->_displayOrder = v27;
+  }
+
+  return v20;
 }
 
 - (id)debugDescription
@@ -440,7 +487,7 @@ LABEL_5:
     identifier2 = [(SFSearchResult_SpotlightExtras *)self identifier];
     sectionBundleIdentifier = [identifier2 componentsSeparatedByString:@"-"];
 
-    if ([sectionBundleIdentifier count] == 3)
+    if (objc_msgSend_count(sectionBundleIdentifier) == 3)
     {
       v7 = MEMORY[0x1E696AEC0];
       v8 = [sectionBundleIdentifier objectAtIndexedSubscript:1];
@@ -461,7 +508,7 @@ LABEL_7:
 
 - (id)urlValueForAttribute:(id)attribute
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   attributeCopy = attribute;
   v5 = [(SFSearchResult_SpotlightExtras *)self valueForAttribute:attributeCopy withType:objc_opt_class()];
   if (!v5)
@@ -473,9 +520,9 @@ LABEL_7:
       v7 = SSGeneralLog();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
-        v10 = 138412290;
-        v11 = attributeCopy;
-        _os_log_impl(&dword_1D9F69000, v7, OS_LOG_TYPE_INFO, "%@ found to be NSString instead of NSURL. Converting to NSURL.", &v10, 0xCu);
+        v9 = 138412290;
+        v10 = attributeCopy;
+        _os_log_impl(&dword_1D9F69000, v7, OS_LOG_TYPE_INFO, "%@ found to be NSString instead of NSURL. Converting to NSURL.", &v9, 0xCu);
       }
     }
 
@@ -485,14 +532,12 @@ LABEL_7:
     }
   }
 
-  v8 = *MEMORY[0x1E69E9840];
-
   return v5;
 }
 
 - (id)fullAttributeSet
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   backendData = [(SFSearchResult_SpotlightExtras *)self backendData];
   if (!backendData)
   {
@@ -520,40 +565,38 @@ LABEL_5:
     contentType = [(SFSearchResult_SpotlightExtras *)self contentType];
     backendData2 = [v10 initWithItemContentType:contentType];
 
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     backendData3 = [(SFSearchResult_SpotlightExtras *)self backendData];
-    v13 = [backendData3 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v13 = [backendData3 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v23;
+      v15 = *v22;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v23 != v15)
+          if (*v22 != v15)
           {
             objc_enumerationMutation(backendData3);
           }
 
-          v17 = *(*(&v22 + 1) + 8 * i);
+          v17 = *(*(&v21 + 1) + 8 * i);
           backendData4 = [(SFSearchResult_SpotlightExtras *)self backendData];
           v19 = [backendData4 objectForKey:v17];
 
           [backendData2 setAttribute:v19 forKey:v17];
         }
 
-        v14 = [backendData3 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v14 = [backendData3 countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v14);
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return backendData2;
 }
@@ -1194,6 +1237,65 @@ LABEL_16:
   return v8;
 }
 
+- (NSData)suggestionsFeedbackData
+{
+  v27 = *MEMORY[0x1E69E9840];
+  dictionary = [MEMORY[0x1E695DF90] dictionary];
+  serverFeatures = [(SFSearchResult_SpotlightExtras *)self serverFeatures];
+  v5 = serverFeatures;
+  if (serverFeatures)
+  {
+    v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
+    v6 = serverFeatures;
+    v7 = [v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    if (v7)
+    {
+      v8 = *v23;
+      do
+      {
+        for (i = 0; i != v7; ++i)
+        {
+          if (*v23 != v8)
+          {
+            objc_enumerationMutation(v6);
+          }
+
+          v10 = *(*(&v22 + 1) + 8 * i);
+          v11 = [v6 objectForKeyedSubscript:{v10, v22}];
+          [v11 doubleValue];
+          v13 = SSRoundDouble(4, v12);
+          [dictionary setValue:v13 forKey:v10];
+        }
+
+        v7 = [v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      }
+
+      while (v7);
+    }
+  }
+
+  v14 = SSRoundDouble(4, [(SFSearchResult_SpotlightExtras *)self type]);
+  [dictionary setValue:v14 forKey:@"type"];
+
+  score = [(SFSearchResult_SpotlightExtras *)self score];
+  v16 = SSRoundDouble(4, *&score);
+  [dictionary setValue:v16 forKey:@"score"];
+
+  completion = [(SFSearchResult_SpotlightExtras *)self completion];
+  v18 = SSRoundDouble(4, [completion length]);
+  [dictionary setValue:v18 forKey:@"slen"];
+
+  v19 = SSRoundUInt64(1uLL);
+  [dictionary setValue:v19 forKey:@"extras"];
+
+  v20 = [MEMORY[0x1E696ACB0] dataWithJSONObject:dictionary options:2 error:0];
+
+  return v20;
+}
+
 - (id)valueForAttribute:(id)attribute withType:(Class)type
 {
   attributeCopy = attribute;
@@ -1232,14 +1334,6 @@ LABEL_5:
   v15 = v14;
 
   return v14;
-}
-
-- (uint64_t)score
-{
-  v1 = self + 1040;
-  result = *(self + 1040);
-  v3 = *(v1 + 8);
-  return result;
 }
 
 @end

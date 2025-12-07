@@ -8,7 +8,7 @@
 
 - (void)documentPicker:(id)picker didPickDocumentsAtURLs:(id)ls
 {
-  v5 = sub_1005B981C(&qword_1019FA6B0);
+  v5 = sub_1005B981C(&qword_1019FA6B0, &qword_101473130);
   __chkstk_darwin(v5);
   v7 = &v13 - v6;
   v8 = type metadata accessor for URL();
@@ -32,12 +32,12 @@
   swift_storeEnumTagMultiPayload();
   sub_1006C4B10(v7);
 
-  sub_10000CAAC(v7, &qword_1019FA6B0);
+  sub_10000CAAC(v7, &qword_1019FA6B0, &qword_101473130);
 }
 
 - (void)documentPickerWasCancelled:(id)cancelled
 {
-  v4 = sub_1005B981C(&qword_1019FA6B0);
+  v4 = sub_1005B981C(&qword_1019FA6B0, &qword_101473130);
   __chkstk_darwin(v4);
   v6 = &v9 - v5;
   v7 = type metadata accessor for URL();
@@ -46,19 +46,19 @@
   selfCopy = self;
   sub_1006C4B10(v6);
 
-  sub_10000CAAC(v6, &qword_1019FA6B0);
+  sub_10000CAAC(v6, &qword_1019FA6B0, &qword_101473130);
 }
 
 - (_TtC8Freeform37CRLQAImportFileDocumentPickerDelegate)init
 {
   v3 = OBJC_IVAR____TtC8Freeform37CRLQAImportFileDocumentPickerDelegate_result;
-  v4 = sub_1005B981C(&qword_1019FA6B0);
+  v4 = sub_1005B981C(&qword_1019FA6B0, &qword_101473130);
   (*(*(v4 - 8) + 56))(self + v3, 1, 1, v4);
   v5 = OBJC_IVAR____TtC8Freeform37CRLQAImportFileDocumentPickerDelegate_continuation;
-  v6 = sub_1005B981C(&unk_1019FA6C0);
+  v6 = sub_1005B981C(&unk_1019FA6C0, &unk_101473138);
   (*(*(v6 - 8) + 56))(self + v5, 1, 1, v6);
   v8.receiver = self;
-  v8.super_class = type metadata accessor for CRLQAImportFileDocumentPickerDelegate();
+  v8.super_class = type metadata accessor for CRLQAImportFileDocumentPickerDelegate(0);
   return [(CRLQAImportFileDocumentPickerDelegate *)&v8 init];
 }
 

@@ -65,7 +65,7 @@
 
 - (FCSubscription)initWithSubscriptionID:(id)d tagID:(id)iD groupID:(id)groupID dateAdded:(id)added subscriptionType:(unint64_t)type order:(id)order origin:(unint64_t)origin notificationsEnabled:(BOOL)self0 zone:(unint64_t)self1
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   dCopy = d;
   obj = iD;
   iDCopy = iD;
@@ -74,15 +74,15 @@
   orderCopy = order;
   if (!dCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v31 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "subscriptionID != nil"];
+    v30 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "subscriptionID != nil"];
     *buf = 136315906;
-    v37 = "[FCSubscription initWithSubscriptionID:tagID:groupID:dateAdded:subscriptionType:order:origin:notificationsEnabled:zone:]";
-    v38 = 2080;
-    v39 = "FCSubscription.m";
-    v40 = 1024;
-    v41 = 89;
-    v42 = 2114;
-    v43 = v31;
+    v36 = "[FCSubscription initWithSubscriptionID:tagID:groupID:dateAdded:subscriptionType:order:origin:notificationsEnabled:zone:]";
+    v37 = 2080;
+    v38 = "FCSubscription.m";
+    v39 = 1024;
+    v40 = 89;
+    v41 = 2114;
+    v42 = v30;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (iDCopy)
@@ -98,36 +98,36 @@
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v32 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "tagID != nil"];
+    v31 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "tagID != nil"];
     *buf = 136315906;
-    v37 = "[FCSubscription initWithSubscriptionID:tagID:groupID:dateAdded:subscriptionType:order:origin:notificationsEnabled:zone:]";
-    v38 = 2080;
-    v39 = "FCSubscription.m";
-    v40 = 1024;
-    v41 = 90;
-    v42 = 2114;
-    v43 = v32;
+    v36 = "[FCSubscription initWithSubscriptionID:tagID:groupID:dateAdded:subscriptionType:order:origin:notificationsEnabled:zone:]";
+    v37 = 2080;
+    v38 = "FCSubscription.m";
+    v39 = 1024;
+    v40 = 90;
+    v41 = 2114;
+    v42 = v31;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_6:
   if (!addedCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v33 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "dateAdded != nil"];
+    v32 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "dateAdded != nil"];
     *buf = 136315906;
-    v37 = "[FCSubscription initWithSubscriptionID:tagID:groupID:dateAdded:subscriptionType:order:origin:notificationsEnabled:zone:]";
-    v38 = 2080;
-    v39 = "FCSubscription.m";
-    v40 = 1024;
-    v41 = 91;
-    v42 = 2114;
-    v43 = v33;
+    v36 = "[FCSubscription initWithSubscriptionID:tagID:groupID:dateAdded:subscriptionType:order:origin:notificationsEnabled:zone:]";
+    v37 = 2080;
+    v38 = "FCSubscription.m";
+    v39 = 1024;
+    v40 = 91;
+    v41 = 2114;
+    v42 = v32;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v35.receiver = self;
-  v35.super_class = FCSubscription;
-  v23 = [(FCSubscription *)&v35 init];
+  v34.receiver = self;
+  v34.super_class = FCSubscription;
+  v23 = [(FCSubscription *)&v34 init];
   v24 = v23;
   if (v23)
   {
@@ -157,13 +157,12 @@ LABEL_6:
     }
   }
 
-  v29 = *MEMORY[0x1E69E9840];
   return v24;
 }
 
 - (FCSubscription)initWithSubscriptionID:(id)d url:(id)url title:(id)title pollingURL:(id)l dateAdded:(id)added
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   dCopy = d;
   urlCopy = url;
   titleCopy = title;
@@ -171,15 +170,15 @@ LABEL_6:
   addedCopy = added;
   if (!dCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v24 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "subscriptionID != nil"];
+    v23 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "subscriptionID != nil"];
     *buf = 136315906;
-    v28 = "[FCSubscription initWithSubscriptionID:url:title:pollingURL:dateAdded:]";
-    v29 = 2080;
-    v30 = "FCSubscription.m";
-    v31 = 1024;
-    v32 = 117;
-    v33 = 2114;
-    v34 = v24;
+    v27 = "[FCSubscription initWithSubscriptionID:url:title:pollingURL:dateAdded:]";
+    v28 = 2080;
+    v29 = "FCSubscription.m";
+    v30 = 1024;
+    v31 = 117;
+    v32 = 2114;
+    v33 = v23;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (addedCopy)
@@ -195,22 +194,22 @@ LABEL_6:
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v25 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "dateAdded != nil"];
+    v24 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "dateAdded != nil"];
     *buf = 136315906;
-    v28 = "[FCSubscription initWithSubscriptionID:url:title:pollingURL:dateAdded:]";
-    v29 = 2080;
-    v30 = "FCSubscription.m";
-    v31 = 1024;
-    v32 = 118;
-    v33 = 2114;
-    v34 = v25;
+    v27 = "[FCSubscription initWithSubscriptionID:url:title:pollingURL:dateAdded:]";
+    v28 = 2080;
+    v29 = "FCSubscription.m";
+    v30 = 1024;
+    v31 = 118;
+    v32 = 2114;
+    v33 = v24;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_6:
-  v26.receiver = self;
-  v26.super_class = FCSubscription;
-  v18 = [(FCSubscription *)&v26 init];
+  v25.receiver = self;
+  v25.super_class = FCSubscription;
+  v18 = [(FCSubscription *)&v25 init];
   v19 = v18;
   if (v18)
   {
@@ -233,7 +232,6 @@ LABEL_6:
     }
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
@@ -283,7 +281,7 @@ LABEL_6:
 
 - (id)asCKRecord
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   if ([(FCSubscription *)self isDeprecated])
   {
     v3 = 0;
@@ -350,15 +348,15 @@ LABEL_6:
         }
 
         tagID2 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"unrecognized subscription type"];
-        v21 = 136315906;
-        v22 = "[FCSubscription asCKRecord]";
-        v23 = 2080;
-        v24 = "FCSubscription.m";
-        v25 = 1024;
-        v26 = 275;
-        v27 = 2114;
-        v28 = tagID2;
-        _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v21, 0x26u);
+        v20 = 136315906;
+        v21 = "[FCSubscription asCKRecord]";
+        v22 = 2080;
+        v23 = "FCSubscription.m";
+        v24 = 1024;
+        v25 = 275;
+        v26 = 2114;
+        v27 = tagID2;
+        _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v20, 0x26u);
         goto LABEL_20;
       }
 
@@ -391,7 +389,6 @@ LABEL_20:
 LABEL_21:
 
 LABEL_22:
-  v19 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -435,19 +432,19 @@ uint64_t __28__FCSubscription_asCKRecord__block_invoke()
 
 - (id)copyWithOrder:(id)order
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   orderCopy = order;
   if ([(FCSubscription *)self subscriptionType]&& os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"expected equality between %s and %s", "self.subscriptionType", "FCSubscriptionTypeTag"];
+    v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"expected equality between %s and %s", "self.subscriptionType", "FCSubscriptionTypeTag"];
     *buf = 136315906;
-    v18 = "[FCSubscription copyWithOrder:]";
-    v19 = 2080;
-    v20 = "FCSubscription.m";
-    v21 = 1024;
-    v22 = 303;
-    v23 = 2114;
-    v24 = v15;
+    v17 = "[FCSubscription copyWithOrder:]";
+    v18 = 2080;
+    v19 = "FCSubscription.m";
+    v20 = 1024;
+    v21 = 303;
+    v22 = 2114;
+    v23 = v14;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
@@ -458,10 +455,9 @@ uint64_t __28__FCSubscription_asCKRecord__block_invoke()
   dateAdded = [(FCSubscription *)self dateAdded];
   subscriptionType = [(FCSubscription *)self subscriptionType];
   subscriptionOrigin = [(FCSubscription *)self subscriptionOrigin];
-  LOBYTE(v16) = [(FCSubscription *)self notificationsEnabled];
-  v12 = [v5 initWithSubscriptionID:subscriptionID tagID:tagID groupID:groupID dateAdded:dateAdded subscriptionType:subscriptionType order:orderCopy origin:subscriptionOrigin notificationsEnabled:v16 zone:{-[FCSubscription zone](self, "zone")}];
+  LOBYTE(v15) = [(FCSubscription *)self notificationsEnabled];
+  v12 = [v5 initWithSubscriptionID:subscriptionID tagID:tagID groupID:groupID dateAdded:dateAdded subscriptionType:subscriptionType order:orderCopy origin:subscriptionOrigin notificationsEnabled:v15 zone:{-[FCSubscription zone](self, "zone")}];
 
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -532,7 +528,7 @@ LABEL_13:
 
 - (id)dictionaryRepresentation
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if ([(FCSubscription *)self isTypeTag]|| [(FCSubscription *)self isTypeMutedTag]|| [(FCSubscription *)self isTypeAutoFavoriteTag]|| [(FCSubscription *)self isTypeGroupableTag]|| [(FCSubscription *)self isTypeIgnoredTag])
   {
@@ -574,16 +570,16 @@ LABEL_9:
 
   else if ([(FCSubscription *)self isTypePending])
   {
-    v17 = [(FCSubscription *)self url];
+    v16 = [(FCSubscription *)self url];
 
-    if (v17)
+    if (v16)
     {
-      v18 = [(FCSubscription *)self url];
-      absoluteString = [v18 absoluteString];
+      v17 = [(FCSubscription *)self url];
+      absoluteString = [v17 absoluteString];
       [dictionary setObject:absoluteString forKey:@"url"];
 
-      v20 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[FCSubscription subscriptionType](self, "subscriptionType")}];
-      [dictionary setObject:v20 forKey:@"subscriptionType"];
+      v19 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[FCSubscription subscriptionType](self, "subscriptionType")}];
+      [dictionary setObject:v19 forKey:@"subscriptionType"];
 
       dateAdded2 = [(FCSubscription *)self dateAdded];
       [dictionary setObject:dateAdded2 forKey:@"dateAdded"];
@@ -612,21 +608,19 @@ LABEL_9:
   else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     groupID2 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Case not implemented"];
-    v26 = 136315906;
-    v27 = "[FCSubscription(SubscriptionList) dictionaryRepresentation]";
-    v28 = 2080;
-    v29 = "FCSubscriptionList.m";
-    v30 = 1024;
-    v31 = 1515;
-    v32 = 2114;
-    v33 = groupID2;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v26, 0x26u);
+    v25 = 136315906;
+    v26 = "[FCSubscription(SubscriptionList) dictionaryRepresentation]";
+    v27 = 2080;
+    v28 = "FCSubscriptionList.m";
+    v29 = 1024;
+    v30 = 1515;
+    v31 = 2114;
+    v32 = groupID2;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v25, 0x26u);
     goto LABEL_9;
   }
 
   v14 = [dictionary copy];
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }

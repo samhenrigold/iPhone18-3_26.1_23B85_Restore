@@ -48,7 +48,7 @@
         }
 
         v15 = *(*(&v32 + 1) + 8 * i);
-        v16 = [(NSDictionary *)self->_dataProvidersByType objectForKey:v15];
+        v16 = objc_msgSend_objectForKey_(self->_dataProvidersByType);
         if (v16)
         {
           dispatch_group_enter(v7);
@@ -85,7 +85,7 @@
 - (id)_sessionWithDeviceIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v5 = [(NSMutableDictionary *)self->_sessionsByDeviceIdentifier objectForKey:identifierCopy];
+  v5 = objc_msgSend_objectForKey_(self->_sessionsByDeviceIdentifier);
   if (!v5)
   {
     v6 = AFSiriLogContextDaemon;

@@ -9,12 +9,12 @@
 - (BOOL)mergeUpdateFromPeerDeviceUUID:(id)d deviceSite:(id)site relayedDeviceSites:(id)sites mergeableDelta:(id)delta;
 - (CCSetVersionedMergeable)initWithSet:(id)set readAccess:(id)access donateServiceProvider:(id)provider mergeableDeltasFileURL:(id)l;
 - (id)localDeviceSiteAddingExpirationDate:(id)date;
+- (id)mergeableDeltaAfterStateVector:(id)vector atomBatchVersion:(unsigned __int8)version options:(unsigned __int16)options;
 - (id)mergeableDeltasForMetadata:(id)metadata atomBatchVersion:(unsigned __int8)version error:(id *)error;
 - (id)relayedDeviceSitesExcludingRequestingDeviceUUID:(id)d;
 - (id)stateVector;
 - (id)storedActiveDeviceSiteWithDeviceUUID:(id)d;
 - (void)hasNoPresentContent;
-- (void)stateVector;
 @end
 
 @implementation CCSetVersionedMergeable
@@ -62,6 +62,43 @@
   return v16;
 }
 
+- (id)mergeableDeltaAfterStateVector:(id)vector atomBatchVersion:(unsigned __int8)version options:(unsigned __int16)options
+{
+  versionCopy = version;
+  v25 = *MEMORY[0x1E69E9840];
+  vectorCopy = vector;
+  if (!vectorCopy)
+  {
+    vectorCopy = objc_opt_new();
+  }
+
+  stateVector = [(CCSetVersionedMergeable *)self stateVector];
+  v9 = [vectorCopy mutableCopy];
+  clockVector = [stateVector clockVector];
+  [v9 intersectVector:clockVector];
+
+  v11 = __biome_log_for_category();
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  {
+    v17 = [(CCSetVersionedMergeable *)self description];
+    *buf = 138412802;
+    v20 = vectorCopy;
+    v21 = 2112;
+    v22 = v9;
+    v23 = 2112;
+    v24 = v17;
+    _os_log_debug_impl(&dword_1DA444000, v11, OS_LOG_TYPE_DEBUG, "remote stateVector %@, interestected stateVector %@, %@", buf, 0x20u);
+  }
+
+  v12 = [objc_alloc(MEMORY[0x1E695B998]) initWithPreviousStateVector:v9 currentStateVector:stateVector];
+  v13 = [objc_alloc(MEMORY[0x1E695B990]) initWithVectors:v12];
+  v18 = 0;
+  v14 = [(CCSetVersionedMergeable *)self mergeableDeltasForMetadata:v13 atomBatchVersion:versionCopy error:&v18];
+  firstObject = [v14 firstObject];
+
+  return firstObject;
+}
+
 - (BOOL)mergeUpdateFromPeerDeviceUUID:(id)d deviceSite:(id)site relayedDeviceSites:(id)sites mergeableDelta:(id)delta
 {
   siteCopy = site;
@@ -87,34 +124,34 @@
 
 - (BOOL)_donateRemoteUpdateWithType:(unsigned __int8)type fromPeerDeviceUUID:(id)d peerDeviceSite:(id)site relayedDeviceSites:(id)sites mergeableDelta:(id)delta
 {
-  v66 = *MEMORY[0x1E69E9840];
+  v65 = *MEMORY[0x1E69E9840];
   dCopy = d;
   siteCopy = site;
   sitesCopy = sites;
   deltaCopy = delta;
   v14 = dispatch_semaphore_create(0);
-  v56 = 0;
-  v57 = &v56;
-  v58 = 0x2020000000;
-  v59 = 0;
-  v52[0] = MEMORY[0x1E69E9820];
-  v52[1] = 3221225472;
-  v52[2] = __123__CCSetVersionedMergeable__donateRemoteUpdateWithType_fromPeerDeviceUUID_peerDeviceSite_relayedDeviceSites_mergeableDelta___block_invoke;
-  v52[3] = &unk_1E85C2F90;
-  v55 = &v56;
+  v55 = 0;
+  v56 = &v55;
+  v57 = 0x2020000000;
+  v58 = 0;
+  v51[0] = MEMORY[0x1E69E9820];
+  v51[1] = 3221225472;
+  v51[2] = __123__CCSetVersionedMergeable__donateRemoteUpdateWithType_fromPeerDeviceUUID_peerDeviceSite_relayedDeviceSites_mergeableDelta___block_invoke;
+  v51[3] = &unk_1E85C2F90;
+  v54 = &v55;
   v15 = deltaCopy;
-  v53 = v15;
+  v52 = v15;
   v16 = v14;
-  v54 = v16;
-  v17 = MEMORY[0x1DA74EA40](v52);
+  v53 = v16;
+  v17 = MEMORY[0x1DA74EA40](v51);
   v18 = __biome_log_for_category();
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     v19 = CCRemoteUpdateTypeDescription();
     *buf = 138412546;
-    v61 = v19;
-    v62 = 2112;
-    v63 = dCopy;
+    v60 = v19;
+    v61 = 2112;
+    v62 = dCopy;
     _os_log_impl(&dword_1DA444000, v18, OS_LOG_TYPE_DEFAULT, "Requesting donation for remote update (%@) from deviceUUID: %@", buf, 0x16u);
   }
 
@@ -123,21 +160,21 @@
   itemType = [(CCSet *)self->_set itemType];
   descriptors = [(CCSet *)self->_set descriptors];
   donateServiceProvider = self->_donateServiceProvider;
-  v46[0] = MEMORY[0x1E69E9820];
-  v46[1] = 3221225472;
-  v46[2] = __123__CCSetVersionedMergeable__donateRemoteUpdateWithType_fromPeerDeviceUUID_peerDeviceSite_relayedDeviceSites_mergeableDelta___block_invoke_10;
-  v46[3] = &unk_1E85C2FB8;
-  v46[4] = self;
-  v43 = v17;
-  v50 = v43;
+  v45[0] = MEMORY[0x1E69E9820];
+  v45[1] = 3221225472;
+  v45[2] = __123__CCSetVersionedMergeable__donateRemoteUpdateWithType_fromPeerDeviceUUID_peerDeviceSite_relayedDeviceSites_mergeableDelta___block_invoke_10;
+  v45[3] = &unk_1E85C2FB8;
+  v45[4] = self;
+  v42 = v17;
+  v49 = v42;
   v25 = dCopy;
-  v47 = v25;
+  v46 = v25;
   typeCopy = type;
   v26 = v15;
-  v48 = v26;
-  v42 = v20;
-  v49 = v42;
-  [v21 remoteCRDTSetDonationWithItemType:itemType descriptors:descriptors serviceProvider:donateServiceProvider completion:v46];
+  v47 = v26;
+  v41 = v20;
+  v48 = v41;
+  [v21 remoteCRDTSetDonationWithItemType:itemType descriptors:descriptors serviceProvider:donateServiceProvider completion:v45];
 
   v27 = dispatch_time(0, 240000000000);
   if (dispatch_semaphore_wait(v16, v27))
@@ -156,7 +193,7 @@
     v37 = __biome_log_for_category();
     if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
     {
-      if (*(v57 + 24))
+      if (*(v56 + 24))
       {
         v38 = @"succeeded";
       }
@@ -168,19 +205,18 @@
 
       set = self->_set;
       *buf = 138412802;
-      v61 = v38;
-      v62 = 2112;
-      v63 = set;
-      v64 = 2112;
-      v65 = v25;
+      v60 = v38;
+      v61 = 2112;
+      v62 = set;
+      v63 = 2112;
+      v64 = v25;
       _os_log_impl(&dword_1DA444000, v37, OS_LOG_TYPE_DEFAULT, "Remote CRDT donation %@ for set %@ from deviceUUID: %@", buf, 0x20u);
     }
 
-    v36 = *(v57 + 24);
+    v36 = *(v56 + 24);
   }
 
-  _Block_object_dispose(&v56, 8);
-  v40 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v55, 8);
   return v36 & 1;
 }
 
@@ -218,7 +254,7 @@ void __123__CCSetVersionedMergeable__donateRemoteUpdateWithType_fromPeerDeviceUU
     v7 = __biome_log_for_category();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __123__CCSetVersionedMergeable__donateRemoteUpdateWithType_fromPeerDeviceUUID_peerDeviceSite_relayedDeviceSites_mergeableDelta___block_invoke_10_cold_1(a1);
+      __123__CCSetVersionedMergeable__donateRemoteUpdateWithType_fromPeerDeviceUUID_peerDeviceSite_relayedDeviceSites_mergeableDelta___block_invoke_10_cold_1();
     }
 
     goto LABEL_11;
@@ -239,7 +275,7 @@ LABEL_11:
     v10 = __biome_log_for_category();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      __123__CCSetVersionedMergeable__donateRemoteUpdateWithType_fromPeerDeviceUUID_peerDeviceSite_relayedDeviceSites_mergeableDelta___block_invoke_10_cold_2(a1);
+      __123__CCSetVersionedMergeable__donateRemoteUpdateWithType_fromPeerDeviceUUID_peerDeviceSite_relayedDeviceSites_mergeableDelta___block_invoke_10_cold_2();
     }
   }
 
@@ -250,27 +286,27 @@ LABEL_12:
 
 - (BOOL)mergeDeltas:(id)deltas error:(id *)error
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   deltasCopy = deltas;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v5 = [deltasCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [deltasCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     while (1)
     {
-      if (*v11 != v7)
+      if (*v10 != v7)
       {
         objc_enumerationMutation(deltasCopy);
       }
 
       if (!--v6)
       {
-        v6 = [deltasCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+        v6 = [deltasCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
         if (!v6)
         {
           break;
@@ -279,14 +315,13 @@ LABEL_12:
     }
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
 - (id)mergeableDeltasForMetadata:(id)metadata atomBatchVersion:(unsigned __int8)version error:(id *)error
 {
   versionCopy = version;
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   metadataCopy = metadata;
   vectors = [metadataCopy vectors];
   contents = [vectors contents];
@@ -298,29 +333,29 @@ LABEL_12:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v54 = metadataCopy;
+      v53 = metadataCopy;
       _os_log_impl(&dword_1DA444000, v11, OS_LOG_TYPE_DEFAULT, "Mergeable deltas contents vector is empty %@", buf, 0xCu);
     }
   }
 
-  v51 = 0;
-  v12 = [(CCSetVersionedMergeable *)self _loadCachedDeviceMapping:&v51];
-  v13 = v51;
+  v50 = 0;
+  v12 = [(CCSetVersionedMergeable *)self _loadCachedDeviceMapping:&v50];
+  v13 = v50;
   if (v12)
   {
-    v43 = versionCopy;
+    v42 = versionCopy;
     encodedDescriptors = [(CCSet *)self->_set encodedDescriptors];
     v15 = objc_alloc(MEMORY[0x1E695B9A0]);
     v16 = MEMORY[0x1E696AEC0];
     v17 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:{-[CCSet itemType](self->_set, "itemType")}];
-    v45 = encodedDescriptors;
+    v44 = encodedDescriptors;
     v18 = [v16 stringWithFormat:@"(%@, %@)", v17, encodedDescriptors];
     v19 = [v15 initWithName:v18];
 
     v20 = objc_alloc(MEMORY[0x1E6994940]);
     LOBYTE(v17) = objc_opt_respondsToSelector();
 
-    v44 = v19;
+    v43 = v19;
     if (v17)
     {
       mergeableDeltasFileURL = self->_mergeableDeltasFileURL;
@@ -331,7 +366,7 @@ LABEL_12:
       v26 = [v22 stringWithFormat:@"%@-%@.batch", v23, uUIDString];
       v27 = [(NSURL *)mergeableDeltasFileURL URLByAppendingPathComponent:v26];
 
-      v28 = [objc_alloc(MEMORY[0x1E6994940]) initWriterWithMergeableValueID:v19 metadata:metadataCopy formatVersion:v43 fileURL:v27 error:0];
+      v28 = [objc_alloc(MEMORY[0x1E6994940]) initWriterWithMergeableValueID:v19 metadata:metadataCopy formatVersion:v42 fileURL:v27 error:0];
     }
 
     else
@@ -343,26 +378,26 @@ LABEL_12:
     vectors2 = [metadataCopy vectors];
     contents2 = [vectors2 contents];
     cachedDeviceMapping = self->_cachedDeviceMapping;
-    v50 = v13;
-    v48[0] = MEMORY[0x1E69E9820];
-    v48[1] = 3221225472;
-    v48[2] = __77__CCSetVersionedMergeable_mergeableDeltasForMetadata_atomBatchVersion_error___block_invoke;
-    v48[3] = &unk_1E85C3008;
-    v48[4] = self;
+    v49 = v13;
+    v47[0] = MEMORY[0x1E69E9820];
+    v47[1] = 3221225472;
+    v47[2] = __77__CCSetVersionedMergeable_mergeableDeltasForMetadata_atomBatchVersion_error___block_invoke;
+    v47[3] = &unk_1E85C3008;
+    v47[4] = self;
     v35 = v28;
-    v49 = v35;
-    [(CCDatabaseSetStateReader *)stateReader enumerateProvenanceRecordsForStateVector:contents2 withType:0 selectAtomsInState:1 skipOverAtomsInState:2 deviceMapping:cachedDeviceMapping error:&v50 usingBlock:v48];
-    v36 = v50;
+    v48 = v35;
+    [(CCDatabaseSetStateReader *)stateReader enumerateProvenanceRecordsForStateVector:contents2 withType:0 selectAtomsInState:1 skipOverAtomsInState:2 deviceMapping:cachedDeviceMapping error:&v49 usingBlock:v47];
+    v36 = v49;
 
-    v47 = v36;
-    [v35 finishWritingWithError:&v47];
-    v13 = v47;
+    v46 = v36;
+    [v35 finishWritingWithError:&v46];
+    v13 = v46;
 
     if (v35)
     {
-      v46 = 0;
-      v37 = [objc_alloc(MEMORY[0x1E695B988]) initWithAtomBatch:v35 error:&v46];
-      v38 = v46;
+      v45 = 0;
+      v37 = [objc_alloc(MEMORY[0x1E695B988]) initWithAtomBatch:v35 error:&v45];
+      v38 = v45;
       if (v38)
       {
         v39 = __biome_log_for_category();
@@ -377,8 +412,8 @@ LABEL_12:
 
       else
       {
-        v52 = v37;
-        v30 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v52 count:1];
+        v51 = v37;
+        v30 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v51 count:1];
       }
     }
 
@@ -407,14 +442,12 @@ LABEL_12:
     v30 = 0;
   }
 
-  v41 = *MEMORY[0x1E69E9840];
-
   return v30;
 }
 
 void __77__CCSetVersionedMergeable_mergeableDeltasForMetadata_atomBatchVersion_error___block_invoke(uint64_t a1, void *a2)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(*(a1 + 32) + 32);
   v5 = [v3 deviceRowId];
@@ -428,35 +461,33 @@ void __77__CCSetVersionedMergeable_mergeableDeltasForMetadata_atomBatchVersion_e
   v11 = __biome_log_for_category();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    v17 = [v3 contentHash];
-    v18 = MEMORY[0x1E696AD98];
-    v19 = [v10 content];
-    v20 = [v18 numberWithUnsignedInteger:{objc_msgSend(v19, "length")}];
+    v16 = [v3 contentHash];
+    v17 = MEMORY[0x1E696AD98];
+    v18 = [v10 content];
+    v19 = [v17 numberWithUnsignedInteger:{objc_msgSend(v18, "length")}];
     *buf = 138413058;
-    v26 = v6;
-    v27 = 2112;
-    v28 = v7;
-    v29 = 2112;
-    v30 = v17;
-    v31 = 2112;
-    v32 = v20;
+    v25 = v6;
+    v26 = 2112;
+    v27 = v7;
+    v28 = 2112;
+    v29 = v16;
+    v30 = 2112;
+    v31 = v19;
     _os_log_debug_impl(&dword_1DA444000, v11, OS_LOG_TYPE_DEBUG, "appending atom with dot %@::%@ contentHash %@ size %@", buf, 0x2Au);
   }
 
   v12 = *(a1 + 40);
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __77__CCSetVersionedMergeable_mergeableDeltasForMetadata_atomBatchVersion_error___block_invoke_31;
-  v21[3] = &unk_1E85C2FE0;
-  v22 = v6;
-  v23 = v7;
-  v24 = v10;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __77__CCSetVersionedMergeable_mergeableDeltasForMetadata_atomBatchVersion_error___block_invoke_31;
+  v20[3] = &unk_1E85C2FE0;
+  v21 = v6;
+  v22 = v7;
+  v23 = v10;
   v13 = v10;
   v14 = v7;
   v15 = v6;
-  [v12 appendAtomWithBlock:v21];
-
-  v16 = *MEMORY[0x1E69E9840];
+  [v12 appendAtomWithBlock:v20];
 }
 
 void __77__CCSetVersionedMergeable_mergeableDeltasForMetadata_atomBatchVersion_error___block_invoke_31(id *a1, void *a2)
@@ -478,19 +509,19 @@ void __77__CCSetVersionedMergeable_mergeableDeltasForMetadata_atomBatchVersion_e
 
 - (id)stateVector
 {
-  v27 = *MEMORY[0x1E69E9840];
-  v20 = 0;
-  v3 = [(CCSetVersionedMergeable *)self _loadCachedDeviceMapping:&v20];
-  v4 = v20;
+  v26 = *MEMORY[0x1E69E9840];
+  v19 = 0;
+  v3 = [(CCSetVersionedMergeable *)self _loadCachedDeviceMapping:&v19];
+  v4 = v19;
   if (v3)
   {
     stateReader = self->_stateReader;
     cachedDeviceMapping = self->_cachedDeviceMapping;
-    v18 = v4;
-    v19 = 0;
-    v7 = [(CCDatabaseSetStateReader *)stateReader constructStateVectorsFromDatabaseWithDeviceMapping:cachedDeviceMapping outContent:&v19 outMetaContent:0 error:&v18];
-    emptyStateVector2 = v19;
-    v9 = v18;
+    v17 = v4;
+    v18 = 0;
+    v7 = [(CCDatabaseSetStateReader *)stateReader constructStateVectorsFromDatabaseWithDeviceMapping:cachedDeviceMapping outContent:&v18 outMetaContent:0 error:&v17];
+    emptyStateVector2 = v18;
+    v9 = v17;
 
     v10 = __biome_log_for_category();
     v11 = v10;
@@ -501,11 +532,11 @@ void __77__CCSetVersionedMergeable_mergeableDeltasForMetadata_atomBatchVersion_e
         set = self->_set;
         v13 = self->_cachedDeviceMapping;
         *buf = 138412802;
-        v22 = set;
-        v23 = 2112;
-        v24 = emptyStateVector2;
-        v25 = 2112;
-        v26 = v13;
+        v21 = set;
+        v22 = 2112;
+        v23 = emptyStateVector2;
+        v24 = 2112;
+        v25 = v13;
         _os_log_impl(&dword_1DA444000, v11, OS_LOG_TYPE_DEFAULT, "Constructed content state vector from database for set: %@: %@ with device mapping: %@", buf, 0x20u);
       }
 
@@ -537,8 +568,6 @@ void __77__CCSetVersionedMergeable_mergeableDeltasForMetadata_atomBatchVersion_e
     emptyStateVector2 = [objc_opt_class() emptyStateVector];
   }
 
-  v16 = *MEMORY[0x1E69E9840];
-
   return emptyStateVector2;
 }
 
@@ -569,35 +598,35 @@ void __77__CCSetVersionedMergeable_mergeableDeltasForMetadata_atomBatchVersion_e
 
 - (id)relayedDeviceSitesExcludingRequestingDeviceUUID:(id)d
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   dCopy = d;
-  v24 = 0;
-  v5 = [(CCSetVersionedMergeable *)self _loadCachedDeviceMapping:&v24];
-  v6 = v24;
+  v23 = 0;
+  v5 = [(CCSetVersionedMergeable *)self _loadCachedDeviceMapping:&v23];
+  v6 = v23;
   if (v5)
   {
     v7 = objc_opt_new();
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
     allActiveDeviceSites = [(CCDatabaseDeviceMapping *)self->_cachedDeviceMapping allActiveDeviceSites];
-    v9 = [allActiveDeviceSites countByEnumeratingWithState:&v20 objects:v25 count:16];
+    v9 = [allActiveDeviceSites countByEnumeratingWithState:&v19 objects:v24 count:16];
     if (v9)
     {
       v10 = v9;
-      v19 = v6;
-      v11 = *v21;
+      v18 = v6;
+      v11 = *v20;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v21 != v11)
+          if (*v20 != v11)
           {
             objc_enumerationMutation(allActiveDeviceSites);
           }
 
-          v13 = *(*(&v20 + 1) + 8 * i);
+          v13 = *(*(&v19 + 1) + 8 * i);
           device = [v13 device];
           if (([device options] & 1) == 0)
           {
@@ -611,11 +640,11 @@ void __77__CCSetVersionedMergeable_mergeableDeltasForMetadata_atomBatchVersion_e
           }
         }
 
-        v10 = [allActiveDeviceSites countByEnumeratingWithState:&v20 objects:v25 count:16];
+        v10 = [allActiveDeviceSites countByEnumeratingWithState:&v19 objects:v24 count:16];
       }
 
       while (v10);
-      v6 = v19;
+      v6 = v18;
     }
   }
 
@@ -629,8 +658,6 @@ void __77__CCSetVersionedMergeable_mergeableDeltasForMetadata_atomBatchVersion_e
 
     v7 = MEMORY[0x1E695E0F0];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -764,119 +791,65 @@ LABEL_15:
 
 - (void)mergeUpdateFromPeerDeviceUUID:deviceSite:relayedDeviceSites:mergeableDelta:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_12();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_donateRemoteUpdateWithType:(uint64_t)a3 fromPeerDeviceUUID:(uint64_t)a4 peerDeviceSite:(uint64_t)a5 relayedDeviceSites:(uint64_t)a6 mergeableDelta:(uint64_t)a7 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_0(&dword_1DA444000, a1, a3, "Timed out waiting for asynchronous donate operation. timeout=%@ seconds", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = &unk_1F55F5AC8;
+  OUTLINED_FUNCTION_2_0(&dword_1DA444000, a1, a3, "Timed out waiting for asynchronous donate operation. timeout=%@ seconds", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __123__CCSetVersionedMergeable__donateRemoteUpdateWithType_fromPeerDeviceUUID_peerDeviceSite_relayedDeviceSites_mergeableDelta___block_invoke_cold_1(id *a1, uint64_t a2, NSObject *a3)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v5 = [*a1 fileURL];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2_1();
-  v8 = a2;
-  _os_log_error_impl(&dword_1DA444000, a3, OS_LOG_TYPE_ERROR, "Failed to delete mergeable delta at URL %@ with error %@", v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v7 = a2;
+  _os_log_error_impl(&dword_1DA444000, a3, OS_LOG_TYPE_ERROR, "Failed to delete mergeable delta at URL %@ with error %@", v6, 0x16u);
 }
 
-void __123__CCSetVersionedMergeable__donateRemoteUpdateWithType_fromPeerDeviceUUID_peerDeviceSite_relayedDeviceSites_mergeableDelta___block_invoke_10_cold_1(uint64_t a1)
+void __123__CCSetVersionedMergeable__donateRemoteUpdateWithType_fromPeerDeviceUUID_peerDeviceSite_relayedDeviceSites_mergeableDelta___block_invoke_10_cold_1()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *(*(a1 + 32) + 8);
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_12();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __123__CCSetVersionedMergeable__donateRemoteUpdateWithType_fromPeerDeviceUUID_peerDeviceSite_relayedDeviceSites_mergeableDelta___block_invoke_10_cold_2(uint64_t a1)
+void __123__CCSetVersionedMergeable__donateRemoteUpdateWithType_fromPeerDeviceUUID_peerDeviceSite_relayedDeviceSites_mergeableDelta___block_invoke_10_cold_2()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *(*(a1 + 32) + 8);
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_12();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)mergeableDeltasForMetadata:atomBatchVersion:error:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_2_0(&dword_1DA444000, v0, v1, "Cannot construct mergeable deltas without device mapping: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 - (void)mergeableDeltasForMetadata:atomBatchVersion:error:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_12();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)mergeableDeltasForMetadata:atomBatchVersion:error:.cold.3()
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v3 = 138412546;
-  v4 = 0;
+  v5 = *MEMORY[0x1E69E9840];
+  v2 = 138412546;
+  v3 = 0;
   OUTLINED_FUNCTION_2_1();
-  v5 = v0;
-  _os_log_error_impl(&dword_1DA444000, v1, OS_LOG_TYPE_ERROR, "failed to finish writing atom batch %@ with error %@", &v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)stateVector
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_2_0(&dword_1DA444000, v0, v1, "Failed to construct content state vector: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)relayedDeviceSitesExcludingRequestingDeviceUUID:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_2_0(&dword_1DA444000, v0, v1, "Skipping related device site resolution after device mapping failed: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)localDeviceSiteAddingExpirationDate:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_2_0(&dword_1DA444000, v0, v1, "Cannot resolve local device site without device mapping: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)storedActiveDeviceSiteWithDeviceUUID:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_2_0(&dword_1DA444000, v0, v1, "Cannot resolve device site without device mapping: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  v4 = v0;
+  _os_log_error_impl(&dword_1DA444000, v1, OS_LOG_TYPE_ERROR, "failed to finish writing atom batch %@ with error %@", &v2, 0x16u);
 }
 
 - (void)hasNoPresentContent
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = HIDWORD(*self);
-  OUTLINED_FUNCTION_2_0(&dword_1DA444000, a2, a3, "Failed to resolve local device rowId from mapping: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *self;
+  OUTLINED_FUNCTION_2_0(&dword_1DA444000, a2, a3, "Failed to resolve local device rowId from mapping: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

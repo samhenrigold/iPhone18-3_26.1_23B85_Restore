@@ -129,7 +129,7 @@
 
 - (id)debugDescription
 {
-  v23[14] = *MEMORY[0x1E69E9840];
+  v22[14] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
@@ -140,52 +140,51 @@
   v8 = WFDefaultLocalizedLabelForContentOperator();
   [v7 appendFormat:@"\t%@: %@ (%ld)\n", @"comparisonOperator", v8, -[WFRowTemplateValue comparisonOperator](self, "comparisonOperator")];
 
-  v23[0] = @"contentPropertyName";
-  v23[1] = @"contentItemClass";
-  v23[2] = @"removable";
-  v23[3] = @"enumeration";
-  v23[4] = @"string";
-  v23[5] = @"BOOLean";
-  v23[6] = @"number";
-  v23[7] = @"phone";
-  v23[8] = @"email";
-  v23[9] = @"calendarUnit";
-  v23[10] = @"byteCountUnit";
-  v23[11] = @"measurementUnit";
-  v23[12] = @"date";
-  v23[13] = @"anotherDate";
-  [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:14];
+  v22[0] = @"contentPropertyName";
+  v22[1] = @"contentItemClass";
+  v22[2] = @"removable";
+  v22[3] = @"enumeration";
+  v22[4] = @"string";
+  v22[5] = @"BOOLean";
+  v22[6] = @"number";
+  v22[7] = @"phone";
+  v22[8] = @"email";
+  v22[9] = @"calendarUnit";
+  v22[10] = @"byteCountUnit";
+  v22[11] = @"measurementUnit";
+  v22[12] = @"date";
+  v22[13] = @"anotherDate";
+  [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:14];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v9 = v21 = 0u;
-  v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v9 = v20 = 0u;
+  v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v19;
+    v12 = *v18;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v19 != v12)
+        if (*v18 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v18 + 1) + 8 * i);
+        v14 = *(*(&v17 + 1) + 8 * i);
         v15 = [(WFRowTemplateValue *)self valueForKey:v14];
         [v7 appendFormat:@"\t%@: %@\n", v14, v15];
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v11);
   }
 
   [v7 appendString:@"}>"];
-  v16 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

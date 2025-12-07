@@ -11,7 +11,7 @@
   if (options)
   {
     type metadata accessor for LaunchOptionsKey(0);
-    sub_10000CD38(&qword_100021CA0, type metadata accessor for LaunchOptionsKey);
+    sub_10000CD38(&qword_100021CA0, type metadata accessor for LaunchOptionsKey, &unk_10001489C);
     static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
@@ -37,99 +37,98 @@
 {
   v0 = type metadata accessor for Logger();
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
-  v4 = __chkstk_darwin(v0, v3);
-  v6 = &v36 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v4, v7);
-  v9 = &v36 - v8;
+  v3 = __chkstk_darwin(v0, v2);
+  v5 = &v35 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v3, v6);
+  v8 = &v35 - v7;
   static Logger.angel.getter();
-  v10._countAndFlagsBits = 0x29286E69616DLL;
-  v11._object = 0x8000000100017DC0;
-  v11._countAndFlagsBits = 0xD000000000000062;
-  v10._object = 0xE600000000000000;
-  Logger.debugMarker(_:file:line:function:)(0, v11, 46, v10);
-  v39 = *(v1 + 8);
-  v39(v9, v0);
+  v9._countAndFlagsBits = 0x29286E69616DLL;
+  v10._object = 0x8000000100017DC0;
+  v10._countAndFlagsBits = 0xD000000000000062;
+  v9._object = 0xE600000000000000;
+  Logger.debugMarker(_:file:line:function:)(0, v10, 46, v9);
+  v38 = *(v1 + 8);
+  v38(v8, v0);
   type metadata accessor for AngelServer();
-  v12 = static AngelServer.sharedInstance.getter();
+  v11 = static AngelServer.sharedInstance.getter();
   AngelServer.startUp()();
 
-  v13 = type metadata accessor for LiveActivityDisplayingVendor();
-  v14 = swift_allocObject();
-  v41[3] = v13;
-  v41[4] = sub_10000CD38(&unk_100021D40, type metadata accessor for LiveActivityDisplayingVendor);
-  v41[0] = v14;
-  v15 = static AngelServer.sharedInstance.getter();
+  v12 = type metadata accessor for LiveActivityDisplayingVendor();
+  v13 = swift_allocObject();
+  v40[3] = v12;
+  v40[4] = sub_10000CD38(&unk_100021D40, type metadata accessor for LiveActivityDisplayingVendor, &unk_100014BB0);
+  v40[0] = v13;
+  v14 = static AngelServer.sharedInstance.getter();
   AngelServer.provideLiveActivityVendor(_:)();
 
-  v16 = objc_opt_self();
+  v15 = objc_opt_self();
   static RunningBoardServiceSpecification.serviceDomain.getter();
-  v17 = String._bridgeToObjectiveC()();
+  v16 = String._bridgeToObjectiveC()();
 
-  v18 = [v16 activateManualDomain:v17];
+  v17 = [v15 activateManualDomain:v16];
 
   type metadata accessor for AppDelegate();
   ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
-  v20 = NSStringFromClass(ObjCClassFromMetadata);
-  if (!v20)
+  v19 = NSStringFromClass(ObjCClassFromMetadata);
+  if (!v19)
   {
     static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v20 = String._bridgeToObjectiveC()();
+    v19 = String._bridgeToObjectiveC()();
   }
 
-  v21 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v23 = v22;
+  v20 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v22 = v21;
   type metadata accessor for Application();
-  v24 = swift_getObjCClassFromMetadata();
-  v25 = NSStringFromClass(v24);
-  if (!v25)
+  v23 = swift_getObjCClassFromMetadata();
+  v24 = NSStringFromClass(v23);
+  if (!v24)
   {
     static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v25 = String._bridgeToObjectiveC()();
+    v24 = String._bridgeToObjectiveC()();
   }
 
   static Logger.angel.getter();
 
-  v26 = Logger.logObject.getter();
-  v27 = static os_log_type_t.debug.getter();
+  v25 = Logger.logObject.getter();
+  v26 = static os_log_type_t.debug.getter();
 
-  if (os_log_type_enabled(v26, v27))
+  if (os_log_type_enabled(v25, v26))
   {
-    v28 = swift_slowAlloc();
-    v37 = v0;
-    v29 = v28;
-    v30 = swift_slowAlloc();
-    v38 = v18;
-    v31 = v30;
-    v40 = v30;
-    *v29 = 136446210;
-    v32 = sub_100007624(v21, v23, &v40);
+    v27 = swift_slowAlloc();
+    v36 = v0;
+    v28 = v27;
+    v29 = swift_slowAlloc();
+    v37 = v17;
+    v30 = v29;
+    v39 = v29;
+    *v28 = 136446210;
+    v31 = sub_100007624(v20, v22, &v39);
 
-    *(v29 + 4) = v32;
-    _os_log_impl(&_mh_execute_header, v26, v27, "appDelegateClassString: %{public}s", v29, 0xCu);
-    sub_1000043B8(v31);
+    *(v28 + 4) = v31;
+    _os_log_impl(&_mh_execute_header, v25, v26, "appDelegateClassString: %{public}s", v28, 0xCu);
+    sub_1000043B8(v30);
 
-    v39(v6, v37);
-    v18 = v38;
+    v38(v5, v36);
+    v17 = v37;
   }
 
   else
   {
 
-    v39(v6, v0);
+    v38(v5, v0);
   }
 
-  v33 = static CommandLine.argc.getter();
-  v34 = static CommandLine.unsafeArgv.getter();
-  UIApplicationMain(v33, v34, v25, v20);
+  v32 = static CommandLine.argc.getter();
+  v33 = static CommandLine.unsafeArgv.getter();
+  UIApplicationMain(v32, v33, v24, v19);
 
-  if (v18)
+  if (v17)
   {
-    [v18 invalidate];
+    [v17 invalidate];
     swift_unknownObjectRelease();
   }
 
-  return sub_1000043B8(v41);
+  return sub_1000043B8(v40);
 }
 
 @end

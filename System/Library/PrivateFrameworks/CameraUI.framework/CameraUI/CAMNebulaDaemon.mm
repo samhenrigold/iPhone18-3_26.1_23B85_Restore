@@ -168,7 +168,7 @@ LABEL_10:
   v37 = 0u;
   if (connectionCopy)
   {
-    [connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy);
   }
 
   v35 = 0;

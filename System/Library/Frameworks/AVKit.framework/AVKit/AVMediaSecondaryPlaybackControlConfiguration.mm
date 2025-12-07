@@ -18,7 +18,7 @@
   v4 = objc_alloc_init(AVMediaSecondaryPlaybackControlConfiguration);
   [(AVMediaSecondaryPlaybackControlConfiguration *)v4 setType:[(AVMediaSecondaryPlaybackControlConfiguration *)self type]];
   [(AVMediaSecondaryPlaybackControlConfiguration *)v4 setEnabled:[(AVMediaSecondaryPlaybackControlConfiguration *)self isEnabled]];
-  [(AVMediaSecondaryPlaybackControlConfiguration *)self skipInterval];
+  objc_msgSend_skipInterval(self);
   [(AVMediaSecondaryPlaybackControlConfiguration *)v4 setSkipInterval:v6];
   return v4;
 }

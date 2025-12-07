@@ -2,6 +2,7 @@
 + (NSSet)allowedTypes;
 + (NSSet)deeplyProblematicObjectTypes;
 + (NSSet)internalAllowedTypes;
++ (id)_saveToLocalStoreWithReason:(id)reason homeManager:(id)manager shouldIncrementGenerationCounter:(BOOL)counter backingStore:(id)store;
 + (id)cdlsActiveBackingStores;
 + (id)cdlsBackingStoreForHomeManagerWithError:(id *)error;
 + (id)cdlsBackingStoreWithHandle:(id)handle error:(id *)error;
@@ -26,12 +27,14 @@
 - (id)createBackingStoreLogAddTransactionOperationWithTransaction:(id)transaction;
 - (id)createBackingStoreOperation;
 - (id)createHomeObjectLookupWithHome:(id)home;
+- (id)dataForPersistentStoreIncrementingGeneration:(BOOL)generation reason:(id)reason;
 - (id)localBackingStore;
 - (id)logIdentifier;
 - (id)transaction:(id)transaction options:(id)options;
 - (void)_cdlsReplayAllModelsStartingAt:(id)at fromContext:(id)context isInitialGraphLoad:(BOOL)load;
 - (void)cdlsCommit:(id)commit run:(BOOL)run save:(BOOL)save coreDataBlock:(id)block completionHandler:(id)handler;
 - (void)cdlsReplayAllModelsStartingAt:(id)at isInitialGraphLoad:(BOOL)load;
+- (void)commit:(id)commit run:(BOOL)run save:(BOOL)save archiveInline:(BOOL)inline coreDataBlock:(id)block completionHandler:(id)handler;
 - (void)dmKickClients;
 - (void)handleCoreDataDidSaveNotification:(id)notification;
 - (void)handleCoreDataDidSaveNotification:(id)notification sourceContext:(id)context;
@@ -91,23 +94,23 @@
 
 void __81__HMDBackingStore_CoreData__cdlsCommit_run_save_coreDataBlock_completionHandler___block_invoke(uint64_t a1)
 {
-  v82 = *MEMORY[0x277D85DE8];
-  v74 = 0;
-  v75 = &v74;
-  v76 = 0x2020000000;
-  v77 = 0;
-  v68 = 0;
-  v69 = &v68;
-  v70 = 0x3032000000;
-  v71 = __Block_byref_object_copy__49687;
-  v72 = __Block_byref_object_dispose__49688;
+  v81 = *MEMORY[0x277D85DE8];
   v73 = 0;
-  v62 = 0;
-  v63 = &v62;
-  v64 = 0x3032000000;
-  v65 = __Block_byref_object_copy__49687;
-  v66 = __Block_byref_object_dispose__49688;
+  v74 = &v73;
+  v75 = 0x2020000000;
+  v76 = 0;
   v67 = 0;
+  v68 = &v67;
+  v69 = 0x3032000000;
+  v70 = __Block_byref_object_copy__49687;
+  v71 = __Block_byref_object_dispose__49688;
+  v72 = 0;
+  v61 = 0;
+  v62 = &v61;
+  v63 = 0x3032000000;
+  v64 = __Block_byref_object_copy__49687;
+  v65 = __Block_byref_object_dispose__49688;
+  v66 = 0;
   v2 = [*(a1 + 32) context];
   v3 = [v2 managedObjectContext];
 
@@ -123,31 +126,31 @@ void __81__HMDBackingStore_CoreData__cdlsCommit_run_save_coreDataBlock_completio
   v8 = v7;
 
   v9 = [*(a1 + 40) objects];
-  v53[0] = MEMORY[0x277D85DD0];
-  v53[1] = 3221225472;
-  v53[2] = __81__HMDBackingStore_CoreData__cdlsCommit_run_save_coreDataBlock_completionHandler___block_invoke_2;
-  v53[3] = &unk_2786736B0;
-  v59 = &v68;
+  v52[0] = MEMORY[0x277D85DD0];
+  v52[1] = 3221225472;
+  v52[2] = __81__HMDBackingStore_CoreData__cdlsCommit_run_save_coreDataBlock_completionHandler___block_invoke_2;
+  v52[3] = &unk_2786736B0;
+  v58 = &v67;
   v10 = *(a1 + 48);
-  v60 = &v74;
+  v59 = &v73;
   v11 = *(a1 + 32);
-  v54 = v10;
-  v55 = v11;
+  v53 = v10;
+  v54 = v11;
   v12 = v8;
-  v56 = v12;
-  v57 = *(a1 + 56);
-  v61 = &v62;
+  v55 = v12;
+  v56 = *(a1 + 56);
+  v60 = &v61;
   v13 = v3;
-  v58 = v13;
-  [v9 hmf_enumerateWithAutoreleasePoolUsingBlock:v53];
+  v57 = v13;
+  [v9 hmf_enumerateWithAutoreleasePoolUsingBlock:v52];
 
-  if (v63[5])
+  if (v62[5])
   {
     v14 = _Block_copy(*(a1 + 64));
     v15 = v14;
     if (v14)
     {
-      (*(v14 + 2))(v14, v13, v63[5], 0);
+      (*(v14 + 2))(v14, v13, v62[5], 0);
     }
 
     v16 = [*(a1 + 32) context];
@@ -157,37 +160,37 @@ void __81__HMDBackingStore_CoreData__cdlsCommit_run_save_coreDataBlock_completio
     v18 = v17;
     if (v17)
     {
-      (*(v17 + 2))(v17, v63[5]);
+      (*(v17 + 2))(v17, v62[5]);
     }
   }
 
   else
   {
     v19 = [*(a1 + 40) objects];
-    v50[0] = MEMORY[0x277D85DD0];
-    v50[1] = 3221225472;
-    v50[2] = __81__HMDBackingStore_CoreData__cdlsCommit_run_save_coreDataBlock_completionHandler___block_invoke_52;
-    v50[3] = &unk_2786736D8;
-    v50[4] = *(a1 + 32);
+    v49[0] = MEMORY[0x277D85DD0];
+    v49[1] = 3221225472;
+    v49[2] = __81__HMDBackingStore_CoreData__cdlsCommit_run_save_coreDataBlock_completionHandler___block_invoke_52;
+    v49[3] = &unk_2786736D8;
+    v49[4] = *(a1 + 32);
     v20 = v13;
-    v51 = v20;
-    v52 = &v62;
-    [v19 hmf_enumerateWithAutoreleasePoolUsingBlock:v50];
+    v50 = v20;
+    v51 = &v61;
+    [v19 hmf_enumerateWithAutoreleasePoolUsingBlock:v49];
 
-    v21 = v63[5] == 0;
+    v21 = v62[5] == 0;
     v22 = _Block_copy(*(a1 + 64));
     v23 = v22;
     if (v21)
     {
       if (v22)
       {
-        v27 = (v63 + 5);
-        obj = v63[5];
+        v27 = (v62 + 5);
+        obj = v62[5];
         (*(v22 + 2))(v22, v20, 0, &obj);
         objc_storeStrong(v27, obj);
       }
 
-      if (v63[5])
+      if (v62[5])
       {
         v28 = [*(a1 + 32) context];
         [v28 rollback];
@@ -196,7 +199,7 @@ void __81__HMDBackingStore_CoreData__cdlsCommit_run_save_coreDataBlock_completio
         v26 = v29;
         if (v29)
         {
-          (*(v29 + 2))(v29, v63[5]);
+          (*(v29 + 2))(v29, v62[5]);
         }
       }
 
@@ -209,28 +212,28 @@ void __81__HMDBackingStore_CoreData__cdlsCommit_run_save_coreDataBlock_completio
         if (v31)
         {
           v32 = [v30 clientIdentifier];
-          v33 = v69[5];
-          v69[5] = v32;
+          v33 = v68[5];
+          v68[5] = v32;
         }
 
         else
         {
-          v34 = v69;
-          v35 = v69[5];
+          v34 = v68;
+          v35 = v68[5];
           v33 = v34[5];
           v34[5] = v35;
         }
 
         v36 = [v30 cdTransactionAuthor];
-        v37 = v69[5];
-        v38 = *(v75 + 24);
-        v39 = (v63 + 5);
-        v48 = v63[5];
-        [v20 hmd_saveWithTransactionAuthor:v36 clientIdentifier:v37 allowQoSEscalation:v38 error:&v48];
-        objc_storeStrong(v39, v48);
+        v37 = v68[5];
+        v38 = *(v74 + 24);
+        v39 = (v62 + 5);
+        v47 = v62[5];
+        [v20 hmd_saveWithTransactionAuthor:v36 clientIdentifier:v37 allowQoSEscalation:v38 error:&v47];
+        objc_storeStrong(v39, v47);
         [v20 reset];
         removeDictionaryEntry(v26, @"HMD.v4txn", *(a1 + 40));
-        if (v63[5])
+        if (v62[5])
         {
           v40 = objc_autoreleasePoolPush();
           v41 = *(a1 + 32);
@@ -238,11 +241,11 @@ void __81__HMDBackingStore_CoreData__cdlsCommit_run_save_coreDataBlock_completio
           if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
           {
             v43 = HMFGetLogIdentifier();
-            v44 = v63[5];
+            v44 = v62[5];
             *buf = 138543618;
-            v79 = v43;
-            v80 = 2112;
-            v81 = v44;
+            v78 = v43;
+            v79 = 2112;
+            v80 = v44;
             _os_log_impl(&dword_229538000, v42, OS_LOG_TYPE_ERROR, "%{public}@Context save failed: %@", buf, 0x16u);
           }
 
@@ -252,7 +255,7 @@ void __81__HMDBackingStore_CoreData__cdlsCommit_run_save_coreDataBlock_completio
         v45 = _Block_copy(*(a1 + 72));
         if (v45)
         {
-          v46 = HMDSanitizeCoreDataError(v63[5]);
+          v46 = HMDSanitizeCoreDataError(v62[5]);
           v45[2](v45, v46);
         }
       }
@@ -262,7 +265,7 @@ void __81__HMDBackingStore_CoreData__cdlsCommit_run_save_coreDataBlock_completio
     {
       if (v22)
       {
-        (*(v22 + 2))(v22, v20, v63[5], 0);
+        (*(v22 + 2))(v22, v20, v62[5], 0);
       }
 
       v24 = [*(a1 + 32) context];
@@ -272,21 +275,20 @@ void __81__HMDBackingStore_CoreData__cdlsCommit_run_save_coreDataBlock_completio
       v26 = v25;
       if (v25)
       {
-        (*(v25 + 2))(v25, v63[5]);
+        (*(v25 + 2))(v25, v62[5]);
       }
     }
   }
 
-  _Block_object_dispose(&v62, 8);
-  _Block_object_dispose(&v68, 8);
+  _Block_object_dispose(&v61, 8);
+  _Block_object_dispose(&v67, 8);
 
-  _Block_object_dispose(&v74, 8);
-  v47 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v73, 8);
 }
 
 void __81__HMDBackingStore_CoreData__cdlsCommit_run_save_coreDataBlock_completionHandler___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v79 = *MEMORY[0x277D85DE8];
+  v78 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = [(__CFString *)v5 message];
   v7 = v6;
@@ -318,10 +320,10 @@ void __81__HMDBackingStore_CoreData__cdlsCommit_run_save_coreDataBlock_completio
   v12 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v64 = v10;
-    v63 = HMFGetLogIdentifier();
-    v62 = [(__CFString *)v5 change];
-    v13 = [v62 objectChangeType];
+    v63 = v10;
+    v62 = HMFGetLogIdentifier();
+    v61 = [(__CFString *)v5 change];
+    v13 = [v61 objectChangeType];
     if ((v13 - 1) > 2)
     {
       v14 = @"unknown";
@@ -333,7 +335,7 @@ void __81__HMDBackingStore_CoreData__cdlsCommit_run_save_coreDataBlock_completio
     }
 
     v21 = v14;
-    v66 = v7;
+    v65 = v7;
     v22 = [v7 name];
     v23 = v22;
     if (!v22)
@@ -344,17 +346,17 @@ void __81__HMDBackingStore_CoreData__cdlsCommit_run_save_coreDataBlock_completio
     v24 = [(__CFString *)v5 change];
     v25 = [v24 debugString:1];
     *buf = 138544130;
-    v72 = v63;
-    v73 = 2112;
-    v74 = v21;
-    v75 = 2112;
-    v76 = v23;
-    v77 = 2112;
-    v78 = v25;
+    v71 = v62;
+    v72 = 2112;
+    v73 = v21;
+    v74 = 2112;
+    v75 = v23;
+    v76 = 2112;
+    v77 = v25;
     _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@COREDATA LEGACY PROCESSING: %@ (%@)\n%@", buf, 0x2Au);
 
-    v7 = v66;
-    v10 = v64;
+    v7 = v65;
+    v10 = v63;
   }
 
   objc_autoreleasePoolPop(v10);
@@ -385,7 +387,7 @@ void __81__HMDBackingStore_CoreData__cdlsCommit_run_save_coreDataBlock_completio
         goto LABEL_29;
       }
 
-      v68 = v9;
+      v67 = v9;
       v39 = objc_autoreleasePoolPush();
       v54 = *(a1 + 40);
       v55 = HMFGetOSLogHandle();
@@ -397,18 +399,18 @@ void __81__HMDBackingStore_CoreData__cdlsCommit_run_save_coreDataBlock_completio
         v59 = [(__CFString *)v5 change];
         v60 = [v59 uuid];
         *buf = 138543874;
-        v72 = v56;
-        v73 = 2112;
-        v74 = v58;
-        v75 = 2112;
-        v76 = v60;
+        v71 = v56;
+        v72 = 2112;
+        v73 = v58;
+        v74 = 2112;
+        v75 = v60;
         _os_log_impl(&dword_229538000, v55, OS_LOG_TYPE_DEFAULT, "%{public}@Fetch succeeded for %@.%@ but no managed object actually found", buf, 0x20u);
       }
     }
 
     else
     {
-      v68 = v9;
+      v67 = v9;
       v39 = objc_autoreleasePoolPush();
       v40 = *(a1 + 40);
       v41 = HMFGetOSLogHandle();
@@ -416,34 +418,34 @@ void __81__HMDBackingStore_CoreData__cdlsCommit_run_save_coreDataBlock_completio
       {
         v42 = HMFGetLogIdentifier();
         [(__CFString *)v5 change];
-        v43 = v67 = v7;
+        v43 = v66 = v7;
         v44 = [v43 bsoType];
         v45 = [(__CFString *)v5 change];
         v46 = [v45 uuid];
         v47 = *(*(*(a1 + 88) + 8) + 40);
         *buf = 138544130;
-        v72 = v42;
-        v73 = 2112;
-        v74 = v44;
-        v75 = 2112;
-        v76 = v46;
-        v77 = 2112;
-        v78 = v47;
+        v71 = v42;
+        v72 = 2112;
+        v73 = v44;
+        v74 = 2112;
+        v75 = v46;
+        v76 = 2112;
+        v77 = v47;
         _os_log_impl(&dword_229538000, v41, OS_LOG_TYPE_ERROR, "%{public}@Unable to find %@.%@ for deletion: %@", buf, 0x2Au);
 
-        v7 = v67;
+        v7 = v66;
       }
     }
 
     objc_autoreleasePoolPop(v39);
-    v9 = v68;
+    v9 = v67;
     goto LABEL_29;
   }
 
   v37 = *(a1 + 64);
-  v69 = v29;
-  v38 = [v9 cd_currentManagedObjectInContext:v37 error:&v69];
-  objc_storeStrong(v30, v69);
+  v68 = v29;
+  v38 = [v9 cd_currentManagedObjectInContext:v37 error:&v68];
+  objc_storeStrong(v30, v68);
   if (v38)
   {
   }
@@ -459,11 +461,11 @@ void __81__HMDBackingStore_CoreData__cdlsCommit_run_save_coreDataBlock_completio
       v52 = HMFGetLogIdentifier();
       v53 = *(*(*(a1 + 88) + 8) + 40);
       *buf = 138543874;
-      v72 = v52;
-      v73 = 2112;
-      v74 = v5;
-      v75 = 2112;
-      v76 = v53;
+      v71 = v52;
+      v72 = 2112;
+      v73 = v5;
+      v74 = 2112;
+      v75 = v53;
       _os_log_impl(&dword_229538000, v51, OS_LOG_TYPE_ERROR, "%{public}@Unable to find current managed object for %@: %@", buf, 0x20u);
     }
 
@@ -473,13 +475,11 @@ void __81__HMDBackingStore_CoreData__cdlsCommit_run_save_coreDataBlock_completio
   }
 
 LABEL_29:
-
-  v61 = *MEMORY[0x277D85DE8];
 }
 
 void __81__HMDBackingStore_CoreData__cdlsCommit_run_save_coreDataBlock_completionHandler___block_invoke_52(uint64_t a1, void *a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 change];
   v5 = [v4 objectChangeType];
@@ -512,11 +512,11 @@ LABEL_9:
         v15 = [v3 change];
         v16 = *(*(*(a1 + 48) + 8) + 40);
         *buf = 138543874;
-        v22 = v14;
-        v23 = 2112;
-        v24 = v15;
-        v25 = 2112;
-        v26 = v16;
+        v21 = v14;
+        v22 = 2112;
+        v23 = v15;
+        v24 = 2112;
+        v25 = v16;
         _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Unable to update managed object for %@: %@", buf, 0x20u);
       }
     }
@@ -531,9 +531,9 @@ LABEL_9:
         v17 = HMFGetLogIdentifier();
         v18 = [v3 change];
         *buf = 138543618;
-        v22 = v17;
-        v23 = 2112;
-        v24 = v18;
+        v21 = v17;
+        v22 = 2112;
+        v23 = v18;
         _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Got a %@ but don't know how to represent it as a NSManagedObject", buf, 0x16u);
       }
     }
@@ -543,28 +543,26 @@ LABEL_9:
   }
 
 LABEL_10:
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_cdlsReplayAllModelsStartingAt:(id)at fromContext:(id)context isInitialGraphLoad:(BOOL)load
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   atCopy = at;
   contextCopy = context;
   [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
   v11 = v10;
   uuid = [atCopy uuid];
-  v55 = 0;
-  v13 = [HMDBackingStore cdlsFetchManagedObjectWithUUID:uuid ofModelType:objc_opt_class() error:&v55];
-  v14 = COERCE_DOUBLE(v55);
+  v54 = 0;
+  v13 = [HMDBackingStore cdlsFetchManagedObjectWithUUID:uuid ofModelType:objc_opt_class() error:&v54];
+  v14 = COERCE_DOUBLE(v54);
 
   if (v13)
   {
     v15 = HMDCastIfManagedObjectBSORepresentable(v13);
-    v54 = v14;
-    v16 = [v15 hmd_modelsWithChangeType:0 detached:0 error:&v54];
-    v48 = COERCE_DOUBLE(*&v54);
+    v53 = v14;
+    v16 = [v15 hmd_modelsWithChangeType:0 detached:0 error:&v53];
+    v47 = COERCE_DOUBLE(*&v53);
 
     v17 = objc_autoreleasePoolPush();
     selfCopy = self;
@@ -572,15 +570,15 @@ LABEL_10:
     v20 = v19;
     if (v16)
     {
-      v45 = v15;
+      v44 = v15;
       if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         v21 = HMFGetLogIdentifier();
         v22 = objc_opt_class();
         *buf = 138543618;
-        v57 = v21;
-        v58 = 2112;
-        v59 = v22;
+        v56 = v21;
+        v57 = 2112;
+        v58 = v22;
         v23 = v22;
         _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_DEFAULT, "%{public}@Begin replaying models from CoreData: %@", buf, 0x16u);
       }
@@ -597,7 +595,7 @@ LABEL_10:
         +[HMDBackingStoreTransactionOptions defaultCloudOptions];
       }
       v31 = ;
-      v47 = v13;
+      v46 = v13;
       v32 = 0;
       if ([v16 count])
       {
@@ -606,18 +604,18 @@ LABEL_10:
         {
           dictionary = [MEMORY[0x277CBEB38] dictionary];
           array = [MEMORY[0x277CBEB18] array];
-          v49[0] = MEMORY[0x277D85DD0];
-          v49[1] = 3221225472;
-          v49[2] = __91__HMDBackingStore_CoreData___cdlsReplayAllModelsStartingAt_fromContext_isInitialGraphLoad___block_invoke;
-          v49[3] = &unk_278673688;
-          v49[4] = selfCopy;
-          v50 = v24;
-          v51 = dictionary;
-          v52 = contextCopy;
+          v48[0] = MEMORY[0x277D85DD0];
+          v48[1] = 3221225472;
+          v48[2] = __91__HMDBackingStore_CoreData___cdlsReplayAllModelsStartingAt_fromContext_isInitialGraphLoad___block_invoke;
+          v48[3] = &unk_278673688;
+          v48[4] = selfCopy;
+          v49 = v24;
+          v50 = dictionary;
+          v51 = contextCopy;
           v36 = array;
-          v53 = v36;
+          v52 = v36;
           v37 = dictionary;
-          [v33 hmf_enumerateWithAutoreleasePoolUsingBlock:v49];
+          [v33 hmf_enumerateWithAutoreleasePoolUsingBlock:v48];
           v38 = __dependencySort(v37);
           __lookup(selfCopy, v38, v31);
           v32 += [v38 count];
@@ -637,34 +635,34 @@ LABEL_10:
         v42 = HMFGetLogIdentifier();
         [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
         *buf = 138543874;
-        v57 = v42;
-        v58 = 2048;
-        v59 = v32;
-        v60 = 2048;
-        v61 = v43 - v11;
+        v56 = v42;
+        v57 = 2048;
+        v58 = v32;
+        v59 = 2048;
+        v60 = v43 - v11;
         _os_log_impl(&dword_229538000, v41, OS_LOG_TYPE_DEFAULT, "%{public}@Replayed %zd models from CoreData in %.3lf seconds", buf, 0x20u);
       }
 
       objc_autoreleasePoolPop(v39);
       [(HMDBackingStore *)v40 dmKickClients];
 
-      v15 = v46;
-      v13 = v47;
-      v29 = v48;
+      v15 = v45;
+      v13 = v46;
+      v29 = v47;
     }
 
     else
     {
-      v29 = v48;
+      v29 = v47;
       if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         v30 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v57 = v30;
-        v58 = 2112;
-        v59 = v13;
-        v60 = 2112;
-        v61 = v48;
+        v56 = v30;
+        v57 = 2112;
+        v58 = v13;
+        v59 = 2112;
+        v60 = v47;
         _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_ERROR, "%{public}@Unable to decode managed object %@ into model objects: %@", buf, 0x20u);
       }
 
@@ -683,23 +681,21 @@ LABEL_10:
     {
       v28 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v57 = v28;
-      v58 = 2112;
-      v59 = atCopy;
-      v60 = 2112;
-      v61 = v14;
+      v56 = v28;
+      v57 = 2112;
+      v58 = atCopy;
+      v59 = 2112;
+      v60 = v14;
       _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_ERROR, "%{public}@Unable to find root model to start replay at %@: %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v25);
   }
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 void __91__HMDBackingStore_CoreData___cdlsReplayAllModelsStartingAt_fromContext_isInitialGraphLoad___block_invoke(uint64_t a1, void *a2)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -711,13 +707,13 @@ void __91__HMDBackingStore_CoreData___cdlsReplayAllModelsStartingAt_fromContext_
     v9 = [v3 uuid];
     v10 = [v3 parentUUID];
     *buf = 138544130;
-    v30 = v7;
-    v31 = 2112;
-    v32 = v8;
-    v33 = 2112;
-    v34 = v9;
-    v35 = 2112;
-    v36 = v10;
+    v29 = v7;
+    v30 = 2112;
+    v31 = v8;
+    v32 = 2112;
+    v33 = v9;
+    v34 = 2112;
+    v35 = v10;
     _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_DEBUG, "%{public}@COREDATA: Replaying %@.%@.%@", buf, 0x2Au);
   }
 
@@ -735,9 +731,9 @@ void __91__HMDBackingStore_CoreData___cdlsReplayAllModelsStartingAt_fromContext_
   v16 = HMDCastIfModelCDRepresentable(v3);
   v17 = *(a1 + 40);
   v18 = *(a1 + 56);
-  v28 = 0;
-  v19 = [v16 cd_childrenExcluding:v17 fromContext:v18 error:&v28];
-  v20 = v28;
+  v27 = 0;
+  v19 = [v16 cd_childrenExcluding:v17 fromContext:v18 error:&v27];
+  v20 = v27;
 
   if (v19)
   {
@@ -755,18 +751,16 @@ void __91__HMDBackingStore_CoreData___cdlsReplayAllModelsStartingAt_fromContext_
     {
       v26 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v30 = v26;
-      v31 = 2112;
-      v32 = v3;
-      v33 = 2112;
-      v34 = v20;
+      v29 = v26;
+      v30 = 2112;
+      v31 = v3;
+      v32 = 2112;
+      v33 = v20;
       _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_ERROR, "%{public}@Unable to fetch children of %@: %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v23);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cdlsReplayAllModelsStartingAt:(id)at isInitialGraphLoad:(BOOL)load
@@ -788,12 +782,10 @@ void __91__HMDBackingStore_CoreData___cdlsReplayAllModelsStartingAt_fromContext_
 
 void __78__HMDBackingStore_CoreData__cdlsReplayAllModelsStartingAt_isInitialGraphLoad___block_invoke(uint64_t a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
-  v5 = [*(a1 + 48) managedObjectContext];
-  [v2 _cdlsReplayAllModelsStartingAt:v3 fromContext:v5 isInitialGraphLoad:*(a1 + 56)];
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = [*(a1 + 48) managedObjectContext];
+  [v2 _cdlsReplayAllModelsStartingAt:v3 fromContext:v4 isInitialGraphLoad:*(a1 + 56)];
 }
 
 - (id)cdlsFetchObjectWithUUID:(id)d ofModelType:(Class)type error:(id *)error
@@ -848,18 +840,17 @@ void __71__HMDBackingStore_CoreData__cdlsFetchObjectWithUUID_ofModelType_error__
 
 - (void)dmKickClients
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   home = [(HMDBackingStore *)self home];
   homeManager = [home homeManager];
   if (homeManager)
   {
-    v16 = homeManager;
+    v14 = homeManager;
 
-    v5 = v16;
+    v5 = v14;
 LABEL_4:
-    v18 = v5;
+    v16 = v5;
     [v5 dmKickClients];
-    v6 = *MEMORY[0x277D85DE8];
 
     return;
   }
@@ -872,32 +863,31 @@ LABEL_4:
     goto LABEL_4;
   }
 
-  v7 = objc_autoreleasePoolPush();
+  v6 = objc_autoreleasePoolPush();
   selfCopy = self;
-  v9 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+  v8 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
-    v10 = HMFGetLogIdentifier();
+    v9 = HMFGetLogIdentifier();
     context = [(HMDBackingStore *)selfCopy context];
     name = [context name];
     context2 = [(HMDBackingStore *)selfCopy context];
     transactionAuthor = [context2 transactionAuthor];
     *buf = 138543874;
-    v20 = v10;
+    v18 = v9;
+    v19 = 2112;
+    v20 = name;
     v21 = 2112;
-    v22 = name;
-    v23 = 2112;
-    v24 = transactionAuthor;
-    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Warning: HMDBackingStore with context %@.%@ does not have a homeManager", buf, 0x20u);
+    v22 = transactionAuthor;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Warning: HMDBackingStore with context %@.%@ does not have a homeManager", buf, 0x20u);
   }
 
-  objc_autoreleasePoolPop(v7);
-  v15 = *MEMORY[0x277D85DE8];
+  objc_autoreleasePoolPop(v6);
 }
 
 - (void)handleCoreDataDidSaveNotification:(id)notification sourceContext:(id)context
 {
-  v120 = *MEMORY[0x277D85DE8];
+  v119 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   contextCopy = context;
   userInfo = [notificationCopy userInfo];
@@ -913,7 +903,7 @@ LABEL_4:
     v9 = 0;
   }
 
-  v84 = v9;
+  v83 = v9;
 
   v10 = [userInfo objectForKeyedSubscript:*MEMORY[0x277CBE188]];
   objc_opt_class();
@@ -945,13 +935,13 @@ LABEL_4:
 
   userInfo2 = [contextCopy userInfo];
   [userInfo2 objectForKeyedSubscript:@"HMD.deletes"];
-  v86 = v85 = userInfo2;
+  v85 = v84 = userInfo2;
   [userInfo2 removeObjectForKey:@"HMD.deletes"];
-  if ([v12 count] || objc_msgSend(v84, "count") || objc_msgSend(v15, "count") || objc_msgSend(v86, "count"))
+  if ([v12 count] || objc_msgSend(v83, "count") || objc_msgSend(v15, "count") || objc_msgSend(v85, "count"))
   {
-    v82 = userInfo;
-    v83 = v12;
-    v80 = v15;
+    v81 = userInfo;
+    v82 = v12;
+    v79 = v15;
     [contextCopy name];
     v18 = v17 = contextCopy;
     transactionAuthor = [contextCopy transactionAuthor];
@@ -965,55 +955,55 @@ LABEL_4:
     homeManager = [(HMDBackingStore *)self homeManager];
     metricsManager = [homeManager metricsManager];
     logEventSubmitter = [metricsManager logEventSubmitter];
-    v79 = v24;
+    v78 = v24;
     [logEventSubmitter submitLogEvent:v24];
 
     selfCopy = self;
     context = [(HMDBackingStore *)self context];
     managedObjectContext = [context managedObjectContext];
 
-    v81 = v17;
+    v80 = v17;
     if (![v17 isEqual:managedObjectContext])
     {
       context2 = [(HMDBackingStore *)self context];
-      v92[0] = MEMORY[0x277D85DD0];
-      v92[1] = 3221225472;
-      v92[2] = __77__HMDBackingStore_CoreData__handleCoreDataDidSaveNotification_sourceContext___block_invoke;
-      v92[3] = &unk_278673638;
-      v92[4] = self;
-      v93 = v18;
-      v94 = v20;
-      v95 = managedObjectContext;
-      v96 = notificationCopy;
-      v57 = v84;
-      v97 = v84;
-      v12 = v83;
-      v98 = v83;
-      v15 = v80;
-      v99 = v80;
-      v100 = v86;
-      v101 = type;
-      [context2 performBlock:v92];
+      v91[0] = MEMORY[0x277D85DD0];
+      v91[1] = 3221225472;
+      v91[2] = __77__HMDBackingStore_CoreData__handleCoreDataDidSaveNotification_sourceContext___block_invoke;
+      v91[3] = &unk_278673638;
+      v91[4] = self;
+      v92 = v18;
+      v93 = v20;
+      v94 = managedObjectContext;
+      v95 = notificationCopy;
+      v57 = v83;
+      v96 = v83;
+      v12 = v82;
+      v97 = v82;
+      v15 = v79;
+      v98 = v79;
+      v99 = v85;
+      v100 = type;
+      [context2 performBlock:v91];
 
-      userInfo = v82;
+      userInfo = v81;
 LABEL_45:
 
-      v67 = v85;
-      contextCopy = v81;
+      v67 = v84;
+      contextCopy = v80;
       goto LABEL_46;
     }
 
-    v78 = managedObjectContext;
-    v31 = [v85 objectForKeyedSubscript:@"HMD.v4txn"];
-    v12 = v83;
+    v77 = managedObjectContext;
+    v31 = [v84 objectForKeyedSubscript:@"HMD.v4txn"];
+    v12 = v82;
     if (v31)
     {
-      [v85 removeObjectForKey:@"HMD.v4txn"];
+      [v84 removeObjectForKey:@"HMD.v4txn"];
     }
 
     objects = [v31 objects];
-    v33 = v86;
-    userInfo = v82;
+    v33 = v85;
+    userInfo = v81;
     if (self)
     {
       if ([objects count] || objc_msgSend(v33, "count"))
@@ -1022,41 +1012,41 @@ LABEL_45:
         {
           if ([objects count])
           {
-            v76 = v31;
-            v77 = notificationCopy;
+            v75 = v31;
+            v76 = notificationCopy;
             v34 = v33;
-            v89 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v33, "count") + objc_msgSend(objects, "count")}];
-            [v89 addObjectsFromArray:objects];
+            v88 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v33, "count") + objc_msgSend(objects, "count")}];
+            [v88 addObjectsFromArray:objects];
             v35 = MEMORY[0x277CBEB98];
-            v75 = objects;
+            v74 = objects;
             v36 = [objects na_map:&__block_literal_global_11_49731];
             v37 = [v35 setWithArray:v36];
 
             v38 = v37;
-            v104 = 0u;
-            v105 = 0u;
-            v102 = 0u;
             v103 = 0u;
-            v74 = v34;
+            v104 = 0u;
+            v101 = 0u;
+            v102 = 0u;
+            v73 = v34;
             v39 = v34;
             selfCopy3 = self;
-            v91 = [v39 countByEnumeratingWithState:&v102 objects:v112 count:16];
-            if (v91)
+            v90 = [v39 countByEnumeratingWithState:&v101 objects:v111 count:16];
+            if (v90)
             {
-              v90 = *v103;
-              v87 = v39;
+              v89 = *v102;
+              v86 = v39;
               do
               {
-                for (i = 0; i != v91; ++i)
+                for (i = 0; i != v90; ++i)
                 {
                   v42 = v20;
                   v43 = v18;
-                  if (*v103 != v90)
+                  if (*v102 != v89)
                   {
                     objc_enumerationMutation(v39);
                   }
 
-                  v44 = *(*(&v102 + 1) + 8 * i);
+                  v44 = *(*(&v101 + 1) + 8 * i);
                   change = [v44 change];
                   uuid = [change uuid];
                   v47 = [v38 containsObject:uuid];
@@ -1072,15 +1062,15 @@ LABEL_45:
                       v52 = v51 = v38;
                       uuid2 = [change uuid];
                       *buf = 138543874;
-                      v107 = v52;
-                      v108 = 2112;
-                      v109 = change;
-                      v110 = 2112;
-                      v111 = uuid2;
+                      v106 = v52;
+                      v107 = 2112;
+                      v108 = change;
+                      v109 = 2112;
+                      v110 = uuid2;
                       _os_log_impl(&dword_229538000, v50, OS_LOG_TYPE_DEBUG, "%{public}@Skipping merging transaction item for change %@/%@ as one already exists", buf, 0x20u);
 
                       v38 = v51;
-                      v39 = v87;
+                      v39 = v86;
                       selfCopy3 = self;
                     }
 
@@ -1089,29 +1079,29 @@ LABEL_45:
 
                   else
                   {
-                    [v89 addObject:v44];
+                    [v88 addObject:v44];
                   }
 
                   v18 = v43;
                   v20 = v42;
                 }
 
-                v91 = [v39 countByEnumeratingWithState:&v102 objects:v112 count:16];
+                v90 = [v39 countByEnumeratingWithState:&v101 objects:v111 count:16];
               }
 
-              while (v91);
+              while (v90);
             }
 
-            v54 = [v89 copy];
+            v54 = objc_msgSend_copy(v88);
             v55 = v38;
             selfCopy = v54;
 
-            v31 = v76;
-            notificationCopy = v77;
-            userInfo = v82;
-            v12 = v83;
-            v33 = v74;
-            objects = v75;
+            v31 = v75;
+            notificationCopy = v76;
+            userInfo = v81;
+            v12 = v82;
+            v33 = v73;
+            objects = v74;
             goto LABEL_40;
           }
 
@@ -1142,61 +1132,59 @@ LABEL_40:
       HMFGetLogIdentifier();
       v63 = v62 = v31;
       v64 = "legacy";
-      *v112 = 138544130;
-      v114 = 2080;
-      v113 = v63;
+      *v111 = 138544130;
+      v113 = 2080;
+      v112 = v63;
       if (!v62)
       {
         v64 = "native";
       }
 
-      v115 = v64;
-      v116 = 2112;
-      v117 = v18;
-      v118 = 2112;
-      v119 = v20;
-      _os_log_impl(&dword_229538000, v61, OS_LOG_TYPE_INFO, "%{public}@Processing %s Core Data save from this backing store's context: %@ / %@", v112, 0x2Au);
+      v114 = v64;
+      v115 = 2112;
+      v116 = v18;
+      v117 = 2112;
+      v118 = v20;
+      _os_log_impl(&dword_229538000, v61, OS_LOG_TYPE_INFO, "%{public}@Processing %s Core Data save from this backing store's context: %@ / %@", v111, 0x2Au);
 
       v31 = v62;
-      v12 = v83;
+      v12 = v82;
     }
 
     objc_autoreleasePoolPop(v59);
     options = [v31 options];
     v66 = selfCopy4;
-    v57 = v84;
-    __broadcastChanges(v66, v84, v12, v80, selfCopy, options);
+    v57 = v83;
+    __broadcastChanges(v66, v83, v12, v79, selfCopy, options);
 
-    v15 = v80;
-    managedObjectContext = v78;
+    v15 = v79;
+    managedObjectContext = v77;
     goto LABEL_45;
   }
 
-  v69 = objc_autoreleasePoolPush();
+  v68 = objc_autoreleasePoolPush();
   selfCopy5 = self;
-  v71 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v71, OS_LOG_TYPE_DEBUG))
+  v70 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v70, OS_LOG_TYPE_DEBUG))
   {
     HMFGetLogIdentifier();
-    v73 = v72 = v15;
-    *v112 = 138543362;
-    v113 = v73;
-    _os_log_impl(&dword_229538000, v71, OS_LOG_TYPE_DEBUG, "%{public}@No changes actually saved, skipping further processing", v112, 0xCu);
+    v72 = v71 = v15;
+    *v111 = 138543362;
+    v112 = v72;
+    _os_log_impl(&dword_229538000, v70, OS_LOG_TYPE_DEBUG, "%{public}@No changes actually saved, skipping further processing", v111, 0xCu);
 
-    v15 = v72;
+    v15 = v71;
   }
 
-  objc_autoreleasePoolPop(v69);
-  v57 = v84;
-  v67 = v85;
+  objc_autoreleasePoolPop(v68);
+  v57 = v83;
+  v67 = v84;
 LABEL_46:
-
-  v68 = *MEMORY[0x277D85DE8];
 }
 
 void __77__HMDBackingStore_CoreData__handleCoreDataDidSaveNotification_sourceContext___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -1205,13 +1193,13 @@ void __77__HMDBackingStore_CoreData__handleCoreDataDidSaveNotification_sourceCon
     v5 = HMFGetLogIdentifier();
     v6 = *(a1 + 40);
     v7 = *(a1 + 48);
-    v15 = 138543874;
-    v16 = v5;
-    v17 = 2112;
-    v18 = v6;
-    v19 = 2112;
-    v20 = v7;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Processing Core Data save from a different context: %@ / %@", &v15, 0x20u);
+    v14 = 138543874;
+    v15 = v5;
+    v16 = 2112;
+    v17 = v6;
+    v18 = 2112;
+    v19 = v7;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Processing Core Data save from a different context: %@ / %@", &v14, 0x20u);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -1228,8 +1216,6 @@ void __77__HMDBackingStore_CoreData__handleCoreDataDidSaveNotification_sourceCon
   }
 
   __broadcastChanges(v8, v9, v10, v11, v13, a1);
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 id __62__HMDBackingStore_CoreData____mergeLegacyChanges_intoDeletes___block_invoke(uint64_t a1, void *a2)
@@ -1338,7 +1324,7 @@ id __62__HMDBackingStore_CoreData____mergeLegacyChanges_intoDeletes___block_invo
       v15 = v13;
       [v12 hmf_enumerateWithAutoreleasePoolUsingBlock:location];
 
-      v16 = [v15 copy];
+      v16 = objc_msgSend_copy(v15);
       [userInfo setObject:v16 forKeyedSubscript:@"HMD.deletes"];
       objc_initWeak(location, v7);
       v18[0] = MEMORY[0x277D85DD0];
@@ -1377,33 +1363,33 @@ void __64__HMDBackingStore_CoreData__handleCoreDataWillSaveNotification___block_
 
 + (id)cdlsFetchManagedObjectsWithUUIDStrings:(id)strings ofManagedObjectType:(Class)type
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   stringsCopy = strings;
   if ([stringsCopy count])
   {
     aClass = type;
     v6 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(stringsCopy, "count")}];
+    v34 = 0u;
     v35 = 0u;
     v36 = 0u;
     v37 = 0u;
-    v38 = 0u;
     obj = stringsCopy;
-    v7 = [obj countByEnumeratingWithState:&v35 objects:v46 count:16];
-    v31 = v6;
+    v7 = [obj countByEnumeratingWithState:&v34 objects:v45 count:16];
+    v30 = v6;
     if (v7)
     {
       v8 = v7;
-      v9 = *v36;
+      v9 = *v35;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v36 != v9)
+          if (*v35 != v9)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v35 + 1) + 8 * i);
+          v11 = *(*(&v34 + 1) + 8 * i);
           v12 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:v11];
           if (v12)
           {
@@ -1419,19 +1405,19 @@ void __64__HMDBackingStore_CoreData__handleCoreDataWillSaveNotification___block_
             {
               v16 = HMFGetLogIdentifier();
               *buf = 138543618;
-              v40 = v16;
-              v41 = 2112;
-              v42 = v11;
+              v39 = v16;
+              v40 = 2112;
+              v41 = v11;
               _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Invalid UUID string '%@'", buf, 0x16u);
 
-              v6 = v31;
+              v6 = v30;
             }
 
             objc_autoreleasePoolPop(v13);
           }
         }
 
-        v8 = [obj countByEnumeratingWithState:&v35 objects:v46 count:16];
+        v8 = [obj countByEnumeratingWithState:&v34 objects:v45 count:16];
       }
 
       while (v8);
@@ -1443,13 +1429,13 @@ void __64__HMDBackingStore_CoreData__handleCoreDataWillSaveNotification___block_
       v18 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K IN %@", @"modelID", v6];
       [fetchRequest setPredicate:v18];
 
-      v45 = @"modelID";
-      v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v45 count:1];
+      v44 = @"modelID";
+      v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v44 count:1];
       [fetchRequest setPropertiesToFetch:v19];
 
-      v34 = 0;
-      v20 = [fetchRequest execute:&v34];
-      v21 = v34;
+      v33 = 0;
+      v20 = [fetchRequest execute:&v33];
+      v21 = v33;
       if (v20)
       {
         v22 = [MEMORY[0x277CBEB98] setWithArray:v20];
@@ -1465,17 +1451,17 @@ void __64__HMDBackingStore_CoreData__handleCoreDataWillSaveNotification___block_
           v26 = HMFGetLogIdentifier();
           v27 = NSStringFromClass(aClass);
           *buf = 138543874;
-          v40 = v26;
-          v41 = 2112;
-          v42 = v27;
-          v43 = 2112;
-          v44 = v21;
+          v39 = v26;
+          v40 = 2112;
+          v41 = v27;
+          v42 = 2112;
+          v43 = v21;
           _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_ERROR, "%{public}@Fetch of %@ models failed: %@", buf, 0x20u);
         }
 
         objc_autoreleasePoolPop(v23);
         v22 = 0;
-        v6 = v31;
+        v6 = v30;
       }
     }
 
@@ -1490,58 +1476,54 @@ void __64__HMDBackingStore_CoreData__handleCoreDataWillSaveNotification___block_
     v22 = [MEMORY[0x277CBEB98] set];
   }
 
-  v28 = *MEMORY[0x277D85DE8];
-
   return v22;
 }
 
 + (id)cdlsModelIDStringsForManagedObjects:(id)objects
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   objectsCopy = objects;
   v4 = [objectsCopy count];
   if (v4)
   {
     v5 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:v4];
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
     v6 = objectsCopy;
-    v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v17;
+      v9 = *v16;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v17 != v9)
+          if (*v16 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          modelID = [*(*(&v16 + 1) + 8 * i) modelID];
+          modelID = [*(*(&v15 + 1) + 8 * i) modelID];
           uUIDString = [modelID UUIDString];
           [v5 addObject:uUIDString];
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v8);
     }
 
-    v13 = [v5 copy];
+    v13 = objc_msgSend_copy(v5);
   }
 
   else
   {
     v13 = MEMORY[0x277CBEBF8];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -1574,7 +1556,7 @@ void __64__HMDBackingStore_CoreData__handleCoreDataWillSaveNotification___block_
 
 + (id)cdlsFetchManagedObjectWithUUID:(id)d ofManagedObjectType:(Class)type error:(id *)error
 {
-  v35[1] = *MEMORY[0x277D85DE8];
+  v34[1] = *MEMORY[0x277D85DE8];
   dCopy = d;
   if (([(objc_class *)type isSubclassOfClass:objc_opt_class()]& 1) == 0)
   {
@@ -1584,9 +1566,9 @@ void __64__HMDBackingStore_CoreData__handleCoreDataWillSaveNotification___block_
 
   fetchRequest = [(objc_class *)type fetchRequest];
   v10 = +[HMDBackingStoreModelObject fetchByModelID];
-  v34 = @"MODELID";
-  v35[0] = dCopy;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:&v34 count:1];
+  v33 = @"MODELID";
+  v34[0] = dCopy;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:&v33 count:1];
   v12 = [v10 predicateWithSubstitutionVariables:v11];
   [fetchRequest setPredicate:v12];
 
@@ -1618,22 +1600,20 @@ LABEL_14:
     v21 = HMFGetLogIdentifier();
     v22 = NSStringFromClass(type);
     v23 = *error;
-    v26 = 138544130;
-    v27 = v21;
-    v28 = 2112;
-    v29 = v22;
-    v30 = 2112;
-    v31 = dCopy;
-    v32 = 2112;
-    v33 = v23;
-    _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_ERROR, "%{public}@Fetch of model %@.%@ failed: %@", &v26, 0x2Au);
+    v25 = 138544130;
+    v26 = v21;
+    v27 = 2112;
+    v28 = v22;
+    v29 = 2112;
+    v30 = dCopy;
+    v31 = 2112;
+    v32 = v23;
+    _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_ERROR, "%{public}@Fetch of model %@.%@ failed: %@", &v25, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v18);
   v16 = 0;
 LABEL_10:
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -1718,9 +1698,19 @@ void __52__HMDBackingStore_CoreData__cdlsActiveBackingStores__block_invoke()
 {
   systemStore = [MEMORY[0x277CFEC78] systemStore];
   activeControllerPairingIdentifier = [systemStore activeControllerPairingIdentifier];
-  v4 = [activeControllerPairingIdentifier copy];
+  v4 = objc_msgSend_copy(activeControllerPairingIdentifier);
 
   return v4;
+}
+
+- (id)dataForPersistentStoreIncrementingGeneration:(BOOL)generation reason:(id)reason
+{
+  generationCopy = generation;
+  reasonCopy = reason;
+  homeManager = [(HMDBackingStore *)self homeManager];
+  v8 = [homeManager _dataForPersistentStoreIncrementingGeneration:generationCopy reason:reasonCopy];
+
+  return v8;
 }
 
 - (id)createHomeObjectLookupWithHome:(id)home
@@ -1801,6 +1791,260 @@ LABEL_4:
   uUIDString = [uuid UUIDString];
 
   return uUIDString;
+}
+
+- (void)commit:(id)commit run:(BOOL)run save:(BOOL)save archiveInline:(BOOL)inline coreDataBlock:(id)block completionHandler:(id)handler
+{
+  saveCopy = save;
+  runCopy = run;
+  v84 = *MEMORY[0x277D85DE8];
+  commitCopy = commit;
+  blockCopy = block;
+  handlerCopy = handler;
+  if ([commitCopy committed])
+  {
+    v16 = objc_autoreleasePoolPush();
+    selfCopy = self;
+    v18 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    {
+      v19 = HMFGetLogIdentifier();
+      options = [commitCopy options];
+      *buf = 138543618;
+      v79 = v19;
+      v80 = 2112;
+      v81 = options;
+      _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@double-committing a transaction probably indicates a bad state (ignoring this commit) for %@.", buf, 0x16u);
+    }
+
+    objc_autoreleasePoolPop(v16);
+    goto LABEL_30;
+  }
+
+  [commitCopy setCommitted:1];
+  objects = [commitCopy objects];
+  hmf_isEmpty = [objects hmf_isEmpty];
+
+  if (!hmf_isEmpty)
+  {
+    options2 = [commitCopy options];
+    source = [options2 source];
+
+    v32 = source & 0xFFFFFFFFFFFFFFFELL;
+    if (commit_run_save_archiveInline_coreDataBlock_completionHandler___hmf_once_t4 != -1)
+    {
+      dispatch_once(&commit_run_save_archiveInline_coreDataBlock_completionHandler___hmf_once_t4, &__block_literal_global_90);
+    }
+
+    v70 = commit_run_save_archiveInline_coreDataBlock_completionHandler___hmf_once_v5;
+    home = [(HMDBackingStore *)self home];
+    objects2 = [commitCopy objects];
+    v75[0] = MEMORY[0x277D85DD0];
+    v75[1] = 3221225472;
+    v75[2] = __81__HMDBackingStore_commit_run_save_archiveInline_coreDataBlock_completionHandler___block_invoke_2;
+    v75[3] = &unk_278684240;
+    v35 = home;
+    v76 = v35;
+    v36 = [objects2 na_any:v75];
+
+    if (v32 == 2)
+    {
+      goto LABEL_28;
+    }
+
+    if (!v35)
+    {
+      goto LABEL_28;
+    }
+
+    administratorHandler = [v35 administratorHandler];
+    shouldRelayMessages = [administratorHandler shouldRelayMessages];
+
+    if (!shouldRelayMessages)
+    {
+      goto LABEL_28;
+    }
+
+    v69 = v35;
+    options3 = [commitCopy options];
+    label = [options3 label];
+    v41 = [v70 containsObject:label];
+
+    if (v41)
+    {
+      v42 = objc_autoreleasePoolPush();
+      selfCopy2 = self;
+      v44 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
+      {
+        HMFGetLogIdentifier();
+        v45 = v68 = v42;
+        options4 = [commitCopy options];
+        label2 = [options4 label];
+        *buf = 138543618;
+        v79 = v45;
+        v80 = 2112;
+        v81 = label2;
+        v48 = "%{public}@Transaction '%@' is temporarily allowed even while not the designated writer";
+        v49 = v44;
+        v50 = OS_LOG_TYPE_DEBUG;
+LABEL_26:
+        _os_log_impl(&dword_229538000, v49, v50, v48, buf, 0x16u);
+
+        v42 = v68;
+      }
+
+LABEL_27:
+      v35 = v69;
+
+      objc_autoreleasePoolPop(v42);
+LABEL_28:
+      [(HMDBackingStore *)self cdlsCommit:commitCopy run:runCopy save:saveCopy coreDataBlock:blockCopy completionHandler:handlerCopy];
+LABEL_29:
+
+      goto LABEL_30;
+    }
+
+    if (v36)
+    {
+      v42 = objc_autoreleasePoolPush();
+      selfCopy3 = self;
+      v44 = HMFGetOSLogHandle();
+      if (!os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
+      {
+        goto LABEL_27;
+      }
+
+      HMFGetLogIdentifier();
+      v45 = v68 = v42;
+      options4 = [commitCopy options];
+      label2 = [options4 label];
+      *buf = 138543618;
+      v79 = v45;
+      v80 = 2112;
+      v81 = label2;
+      v48 = "%{public}@Transaction '%@' is allowed even while not the designated writer because it is an allowed local fallback";
+    }
+
+    else
+    {
+      options5 = [commitCopy options];
+      cdTransactionAuthor = [options5 cdTransactionAuthor];
+
+      v42 = objc_autoreleasePoolPush();
+      selfCopy4 = self;
+      v55 = HMFGetOSLogHandle();
+      v44 = v55;
+      if (cdTransactionAuthor != 10)
+      {
+        v35 = v69;
+        if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
+        {
+          v56 = HMFGetLogIdentifier();
+          [commitCopy options];
+          v58 = v57 = v42;
+          enabledResidents = [v69 enabledResidents];
+          v60 = [enabledResidents na_map:&__block_literal_global_101];
+          *buf = 138543874;
+          v79 = v56;
+          v80 = 2112;
+          v81 = v58;
+          v82 = 2114;
+          v83 = v60;
+          _os_log_impl(&dword_229538000, v44, OS_LOG_TYPE_ERROR, "%{public}@Rejecting transaction commit while not designated writer: %@, residents: %{public}@", buf, 0x20u);
+
+          v35 = v69;
+          v42 = v57;
+        }
+
+        objc_autoreleasePoolPop(v42);
+        v61 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
+        if (handlerCopy)
+        {
+          handlerCopy[2](handlerCopy, v61);
+        }
+
+        else
+        {
+          v73 = 0u;
+          v74 = 0u;
+          v71 = 0u;
+          v72 = 0u;
+          objects3 = [commitCopy objects];
+          v63 = [objects3 countByEnumeratingWithState:&v71 objects:v77 count:16];
+          if (v63)
+          {
+            v64 = v63;
+            v65 = *v72;
+            do
+            {
+              for (i = 0; i != v64; ++i)
+              {
+                if (*v72 != v65)
+                {
+                  objc_enumerationMutation(objects3);
+                }
+
+                message = [*(*(&v71 + 1) + 8 * i) message];
+                [message respondWithError:v61];
+              }
+
+              v64 = [objects3 countByEnumeratingWithState:&v71 objects:v77 count:16];
+            }
+
+            while (v64);
+          }
+
+          v35 = v69;
+        }
+
+        goto LABEL_29;
+      }
+
+      if (!os_log_type_enabled(v55, OS_LOG_TYPE_INFO))
+      {
+        goto LABEL_27;
+      }
+
+      HMFGetLogIdentifier();
+      v45 = v68 = v42;
+      options4 = [commitCopy options];
+      label2 = [options4 label];
+      *buf = 138543618;
+      v79 = v45;
+      v80 = 2112;
+      v81 = label2;
+      v48 = "%{public}@Transaction '%@' is allowed even while not the designated writer because it is a force push";
+    }
+
+    v49 = v44;
+    v50 = OS_LOG_TYPE_INFO;
+    goto LABEL_26;
+  }
+
+  v23 = objc_autoreleasePoolPush();
+  selfCopy5 = self;
+  v25 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+  {
+    v26 = HMFGetLogIdentifier();
+    options6 = [commitCopy options];
+    *buf = 138543618;
+    v79 = v26;
+    v80 = 2112;
+    v81 = options6;
+    _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_DEFAULT, "%{public}@Rejecting empty transaction: %@", buf, 0x16u);
+  }
+
+  objc_autoreleasePoolPop(v23);
+  v28 = _Block_copy(handlerCopy);
+  if (v28)
+  {
+    v29 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
+    v28[2](v28, v29);
+  }
+
+LABEL_30:
 }
 
 uint64_t __81__HMDBackingStore_commit_run_save_archiveInline_coreDataBlock_completionHandler___block_invoke_2(uint64_t a1, void *a2)
@@ -1931,6 +2175,210 @@ LABEL_8:
   return v15;
 }
 
++ (id)_saveToLocalStoreWithReason:(id)reason homeManager:(id)manager shouldIncrementGenerationCounter:(BOOL)counter backingStore:(id)store
+{
+  counterCopy = counter;
+  v78 = *MEMORY[0x277D85DE8];
+  reasonCopy = reason;
+  managerCopy = manager;
+  storeCopy = store;
+  isWatch();
+  v13 = objc_autoreleasePoolPush();
+  selfCopy = self;
+  v15 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+  {
+    v16 = HMFGetLogIdentifier();
+    *buf = 138543362;
+    v73 = v16;
+    _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Running HMDBackingStoreSaveToPersistentStore operation to save.", buf, 0xCu);
+  }
+
+  objc_autoreleasePoolPop(v13);
+  systemStore = [MEMORY[0x277CFEC78] systemStore];
+  activeControllerPairingIdentifier = [systemStore activeControllerPairingIdentifier];
+  v19 = objc_msgSend_copy(activeControllerPairingIdentifier);
+
+  if (v19)
+  {
+    v20 = reasonCopy;
+    if (storeCopy)
+    {
+      WeakRetained = objc_loadWeakRetained(storeCopy + 10);
+      activeControllerKeyUsername = [WeakRetained activeControllerKeyUsername];
+
+      if (activeControllerKeyUsername)
+      {
+        v68 = managerCopy;
+        v69 = activeControllerKeyUsername;
+        v67 = v20;
+        v23 = v20;
+        v24 = objc_loadWeakRetained(storeCopy + 10);
+        v25 = objc_autoreleasePoolPush();
+        v66 = v23;
+        v26 = [v24 dataForPersistentStoreIncrementingGeneration:counterCopy reason:v23];
+        v27 = v26;
+        if (v26 && [v26 length])
+        {
+          v64 = v24;
+          v28 = objc_autoreleasePoolPush();
+          v29 = storeCopy;
+          v30 = HMFGetOSLogHandle();
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+          {
+            HMFGetLogIdentifier();
+            v31 = v63 = v28;
+            v32 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v27, "length")}];
+            *buf = 138543874;
+            v73 = v31;
+            v74 = 2112;
+            v75 = v69;
+            v76 = 2112;
+            v77 = v32;
+            _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_DEFAULT, "%{public}@Controller User Name : [%@], Saving home data size: %@", buf, 0x20u);
+
+            v28 = v63;
+          }
+
+          objc_autoreleasePoolPop(v28);
+          local = [v29 local];
+          v70 = 0;
+          [local _insertArchive:v27 identifier:@"homedata" controllerUserName:v69 error:&v70];
+          v34 = v70;
+
+          objc_autoreleasePoolPop(v25);
+          managerCopy = v68;
+          v24 = v64;
+          if (!v34)
+          {
+            if ((v29[1] & 1) == 0)
+            {
+              v35 = objc_autoreleasePoolPush();
+              v36 = v29;
+              v37 = HMFGetOSLogHandle();
+              if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+              {
+                v38 = HMFGetLogIdentifier();
+                *buf = 138543362;
+                v73 = v38;
+                _os_log_impl(&dword_229538000, v37, OS_LOG_TYPE_DEFAULT, "%{public}@Will attempt to remove legacy archive", buf, 0xCu);
+              }
+
+              objc_autoreleasePoolPop(v35);
+              homeManager = [v36 homeManager];
+              v71 = 0;
+              v40 = [homeManager _removeLegacyHomeArchive:&v71];
+              v41 = v71;
+
+              if (v40)
+              {
+                *(v36 + 8) = 1;
+              }
+
+              else
+              {
+                v60 = objc_autoreleasePoolPush();
+                v61 = HMFGetOSLogHandle();
+                if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
+                {
+                  v62 = HMFGetLogIdentifier();
+                  *buf = 138543618;
+                  v73 = v62;
+                  v74 = 2112;
+                  v75 = v41;
+                  _os_log_impl(&dword_229538000, v61, OS_LOG_TYPE_ERROR, "%{public}@Unable to remove home data error:%@", buf, 0x16u);
+                }
+
+                objc_autoreleasePoolPop(v60);
+              }
+
+              v24 = v64;
+            }
+
+            v34 = 0;
+          }
+        }
+
+        else
+        {
+          v46 = objc_autoreleasePoolPush();
+          v47 = storeCopy;
+          v48 = HMFGetOSLogHandle();
+          if (os_log_type_enabled(v48, OS_LOG_TYPE_INFO))
+          {
+            HMFGetLogIdentifier();
+            v65 = v19;
+            v49 = activeControllerKeyUsername;
+            v50 = reasonCopy;
+            v51 = v25;
+            v53 = v52 = v24;
+            *buf = 138543362;
+            v73 = v53;
+            _os_log_impl(&dword_229538000, v48, OS_LOG_TYPE_INFO, "%{public}@No home data to save.", buf, 0xCu);
+
+            v24 = v52;
+            v25 = v51;
+            reasonCopy = v50;
+            activeControllerKeyUsername = v49;
+            v19 = v65;
+          }
+
+          objc_autoreleasePoolPop(v46);
+          objc_autoreleasePoolPop(v25);
+          v34 = 0;
+          managerCopy = v68;
+        }
+
+        v20 = v67;
+      }
+
+      else
+      {
+        v54 = objc_autoreleasePoolPush();
+        v55 = storeCopy;
+        v56 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
+        {
+          HMFGetLogIdentifier();
+          v58 = v57 = v20;
+          *buf = 138543362;
+          v73 = v58;
+          _os_log_impl(&dword_229538000, v56, OS_LOG_TYPE_ERROR, "%{public}@Could not find controller key when trying to save home archive", buf, 0xCu);
+
+          v20 = v57;
+        }
+
+        objc_autoreleasePoolPop(v54);
+        v34 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
+      }
+    }
+
+    else
+    {
+      v34 = 0;
+    }
+  }
+
+  else
+  {
+    v42 = objc_autoreleasePoolPush();
+    v43 = selfCopy;
+    v44 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+    {
+      v45 = HMFGetLogIdentifier();
+      *buf = 138543362;
+      v73 = v45;
+      _os_log_impl(&dword_229538000, v44, OS_LOG_TYPE_ERROR, "%{public}@Could not find controller key when trying to run transaction", buf, 0xCu);
+    }
+
+    objc_autoreleasePoolPop(v42);
+    v34 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
+  }
+
+  return v34;
+}
+
 + (void)saveToPersistentStoreWithReason:(id)reason homeManager:(id)manager shouldIncrementGenerationCounter:(BOOL)counter backingStore:(id)store completionHandler:(id)handler
 {
   reasonCopy = reason;
@@ -1956,23 +2404,21 @@ LABEL_8:
 
 void __127__HMDBackingStore_saveToPersistentStoreWithReason_homeManager_shouldIncrementGenerationCounter_backingStore_completionHandler___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 64);
-  v3 = [objc_opt_class() _saveToLocalStoreWithReason:*(a1 + 32) homeManager:*(a1 + 40) shouldIncrementGenerationCounter:*(a1 + 72) backingStore:*(a1 + 48)];
-  v4 = *(a1 + 56);
-  if (v4)
+  v2 = [objc_opt_class() _saveToLocalStoreWithReason:*(a1 + 32) homeManager:*(a1 + 40) shouldIncrementGenerationCounter:*(a1 + 72) backingStore:*(a1 + 48)];
+  v3 = *(a1 + 56);
+  if (v3)
   {
-    v5 = v3;
-    (*(v4 + 16))();
-    v3 = v5;
+    v4 = v2;
+    (*(v3 + 16))();
+    v2 = v4;
   }
 }
 
 void __30__HMDBackingStore_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v11_242031;
-  logCategory__hmf_once_v11_242031 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v11_242031;
+  logCategory__hmf_once_v11_242031 = v0;
 }
 
 + (NSSet)internalAllowedTypes
@@ -2011,21 +2457,19 @@ void __39__HMDBackingStore_internalAllowedTypes__block_invoke()
 
 void __47__HMDBackingStore_deeplyProblematicObjectTypes__block_invoke()
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEB98];
+  v4 = objc_opt_class();
   v5 = objc_opt_class();
   v6 = objc_opt_class();
   v7 = objc_opt_class();
   v8 = objc_opt_class();
   v9 = objc_opt_class();
   v10 = objc_opt_class();
-  v11 = objc_opt_class();
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:&v5 count:7];
-  v2 = [v0 setWithArray:{v1, v5, v6, v7, v8, v9, v10}];
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:&v4 count:7];
+  v2 = [v0 setWithArray:{v1, v4, v5, v6, v7, v8, v9}];
   v3 = deeplyProblematicObjectTypes__neverAllowedTypes;
   deeplyProblematicObjectTypes__neverAllowedTypes = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 + (NSSet)allowedTypes
@@ -2042,21 +2486,19 @@ void __47__HMDBackingStore_deeplyProblematicObjectTypes__block_invoke()
 
 void __31__HMDBackingStore_allowedTypes__block_invoke()
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEB98];
+  v4 = objc_opt_class();
   v5 = objc_opt_class();
   v6 = objc_opt_class();
   v7 = objc_opt_class();
   v8 = objc_opt_class();
   v9 = objc_opt_class();
   v10 = objc_opt_class();
-  v11 = objc_opt_class();
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:&v5 count:7];
-  v2 = [v0 setWithArray:{v1, v5, v6, v7, v8, v9, v10}];
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:&v4 count:7];
+  v2 = [v0 setWithArray:{v1, v4, v5, v6, v7, v8, v9}];
   v3 = allowedTypes__allowedTypes_242051;
   allowedTypes__allowedTypes_242051 = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 @end

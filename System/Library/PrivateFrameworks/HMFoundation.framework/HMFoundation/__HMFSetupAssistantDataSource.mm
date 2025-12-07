@@ -16,7 +16,7 @@
   if (v2)
   {
     v4 = v2;
-    if (SetupAssistantLibraryCore())
+    if (SetupAssistantLibraryCore(0))
     {
       DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
       BYSetupAssistantFinishedDarwinNotification = getBYSetupAssistantFinishedDarwinNotification();
@@ -30,7 +30,7 @@
 - (void)dealloc
 {
   selfCopy = self;
-  if (SetupAssistantLibraryCore())
+  if (SetupAssistantLibraryCore(0))
   {
     DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
     BYSetupAssistantFinishedDarwinNotification = getBYSetupAssistantFinishedDarwinNotification();
@@ -44,29 +44,29 @@
 
 - (BOOL)isMigrating
 {
-  v2 = SetupAssistantLibraryCore();
+  v2 = SetupAssistantLibraryCore(0);
   if (v2)
   {
-    v7 = 0;
-    v8 = &v7;
-    v9 = 0x2020000000;
+    v8 = 0;
+    v9 = &v8;
+    v10 = 0x2020000000;
     v3 = getBYSetupAssistantNeedsToRunSymbolLoc_ptr;
-    v10 = getBYSetupAssistantNeedsToRunSymbolLoc_ptr;
+    v11 = getBYSetupAssistantNeedsToRunSymbolLoc_ptr;
     if (!getBYSetupAssistantNeedsToRunSymbolLoc_ptr)
     {
       v4 = SetupAssistantLibrary();
-      v8[3] = dlsym(v4, "BYSetupAssistantNeedsToRun");
-      getBYSetupAssistantNeedsToRunSymbolLoc_ptr = v8[3];
-      v3 = v8[3];
+      v9[3] = dlsym(v4, "BYSetupAssistantNeedsToRun");
+      getBYSetupAssistantNeedsToRunSymbolLoc_ptr = v9[3];
+      v3 = v9[3];
     }
 
-    _Block_object_dispose(&v7, 8);
+    _Block_object_dispose(&v8, 8);
     if (!v3)
     {
-      dlerror();
-      v5 = abort_report_np();
-      _Block_object_dispose(&v7, 8);
-      _Unwind_Resume(v5);
+      v5 = dlerror();
+      v6 = abort_report_np("%s", v5);
+      _Block_object_dispose(&v8, 8);
+      _Unwind_Resume(v6);
     }
 
     LOBYTE(v2) = v3();

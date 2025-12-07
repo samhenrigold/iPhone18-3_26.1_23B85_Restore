@@ -101,7 +101,7 @@
 
 - (id)getSuggestionsWithPredictionContext:(id)context
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   if (!self->_isEnabled)
   {
@@ -112,16 +112,16 @@
     {
       if (v15)
       {
-        LOWORD(v22) = 0;
+        LOWORD(v21) = 0;
         v16 = "ZKW unstructured calendar model disabled. Not generating suggestions.";
 LABEL_15:
-        _os_log_impl(&dword_1B5ED1000, v5, OS_LOG_TYPE_DEFAULT, v16, &v22, 2u);
+        _os_log_impl(&dword_1B5ED1000, v5, OS_LOG_TYPE_DEFAULT, v16, &v21, 2u);
       }
     }
 
     else if (v15)
     {
-      LOWORD(v22) = 0;
+      LOWORD(v21) = 0;
       v16 = "ZKW unstructured reminders model disabled. Not generating suggestions.";
       goto LABEL_15;
     }
@@ -138,8 +138,8 @@ LABEL_15:
     v17 = +[_PSLogging suggestionSignpost];
     if (os_signpost_enabled(v17))
     {
-      LOWORD(v22) = 0;
-      _os_signpost_emit_with_name_impl(&dword_1B5ED1000, v17, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "_PSUnstructuredRemindersModelTotalTime", " enableTelemetry=YES ", &v22, 2u);
+      LOWORD(v21) = 0;
+      _os_signpost_emit_with_name_impl(&dword_1B5ED1000, v17, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "_PSUnstructuredRemindersModelTotalTime", " enableTelemetry=YES ", &v21, 2u);
     }
 
     *&v18 = self->_priorScoreThreshold;
@@ -147,8 +147,8 @@ LABEL_15:
     v19 = +[_PSLogging suggestionSignpost];
     if (os_signpost_enabled(v19))
     {
-      LOWORD(v22) = 0;
-      _os_signpost_emit_with_name_impl(&dword_1B5ED1000, v19, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "_PSUnstructuredRemindersModelTotalTime", &unk_1B5FD970D, &v22, 2u);
+      LOWORD(v21) = 0;
+      _os_signpost_emit_with_name_impl(&dword_1B5ED1000, v19, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "_PSUnstructuredRemindersModelTotalTime", &unk_1B5FD970D, &v21, 2u);
     }
 
     v12 = +[_PSLogging generalChannel];
@@ -157,8 +157,8 @@ LABEL_15:
       goto LABEL_27;
     }
 
-    v22 = 138412290;
-    v23 = v10;
+    v21 = 138412290;
+    v22 = v10;
     v13 = "ZKW unstructured reminders suggestions: %@";
     goto LABEL_23;
   }
@@ -178,8 +178,8 @@ LABEL_15:
   v8 = +[_PSLogging suggestionSignpost];
   if (os_signpost_enabled(v8))
   {
-    LOWORD(v22) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1B5ED1000, v8, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "_PSUnstructuredCalendarModelTotalTime", " enableTelemetry=YES ", &v22, 2u);
+    LOWORD(v21) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1B5ED1000, v8, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "_PSUnstructuredCalendarModelTotalTime", " enableTelemetry=YES ", &v21, 2u);
   }
 
   *&v9 = self->_priorScoreThreshold;
@@ -187,31 +187,30 @@ LABEL_15:
   v11 = +[_PSLogging suggestionSignpost];
   if (os_signpost_enabled(v11))
   {
-    LOWORD(v22) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1B5ED1000, v11, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "_PSUnstructuredCalendarModelTotalTime", &unk_1B5FD970D, &v22, 2u);
+    LOWORD(v21) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1B5ED1000, v11, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "_PSUnstructuredCalendarModelTotalTime", &unk_1B5FD970D, &v21, 2u);
   }
 
   v12 = +[_PSLogging generalChannel];
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v22 = 138412290;
-    v23 = v10;
+    v21 = 138412290;
+    v22 = v10;
     v13 = "ZKW unstructured calendar suggestions: %@";
 LABEL_23:
-    _os_log_impl(&dword_1B5ED1000, v12, OS_LOG_TYPE_DEFAULT, v13, &v22, 0xCu);
+    _os_log_impl(&dword_1B5ED1000, v12, OS_LOG_TYPE_DEFAULT, v13, &v21, 0xCu);
   }
 
 LABEL_27:
 
 LABEL_28:
-  v20 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 - (void)suggestionsForInteractionSuggestionRequest:(id)request clientModelId:(id)id reply:(id)reply
 {
-  v78 = *MEMORY[0x1E69E9840];
+  v77 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   idCopy = id;
   replyCopy = reply;
@@ -250,28 +249,28 @@ LABEL_28:
   {
     v10 = 31;
 LABEL_13:
-    v73 = 0;
-    v74 = &v73;
-    v75 = 0x2050000000;
+    v72 = 0;
+    v73 = &v72;
+    v74 = 0x2050000000;
     v11 = getATXProactiveSuggestionClientModelClass_softClass_0;
-    v76 = getATXProactiveSuggestionClientModelClass_softClass_0;
+    v75 = getATXProactiveSuggestionClientModelClass_softClass_0;
     if (!getATXProactiveSuggestionClientModelClass_softClass_0)
     {
-      v68 = MEMORY[0x1E69E9820];
-      v69 = 3221225472;
-      v70 = __getATXProactiveSuggestionClientModelClass_block_invoke_0;
-      v71 = &unk_1E7C23BF0;
-      v72 = &v73;
+      v67 = MEMORY[0x1E69E9820];
+      v68 = 3221225472;
+      v69 = __getATXProactiveSuggestionClientModelClass_block_invoke_0;
+      v70 = &unk_1E7C23BF0;
+      v71 = &v72;
       ProactiveSuggestionClientModelLibraryCore_0();
-      v74[3] = objc_getClass("ATXProactiveSuggestionClientModel");
-      getATXProactiveSuggestionClientModelClass_softClass_0 = *(v72[1] + 24);
-      v11 = v74[3];
+      v73[3] = objc_getClass("ATXProactiveSuggestionClientModel");
+      getATXProactiveSuggestionClientModelClass_softClass_0 = *(v71[1] + 24);
+      v11 = v73[3];
     }
 
     v12 = v11;
-    _Block_object_dispose(&v73, 8);
-    v50 = [v11 clientModelIdFromClientModelType:v10];
-    v13 = [v50 isEqualToString:{idCopy, v50}];
+    _Block_object_dispose(&v72, 8);
+    v49 = [v11 clientModelIdFromClientModelType:v10];
+    v13 = [v49 isEqualToString:{idCopy, v49}];
     goto LABEL_17;
   }
 
@@ -280,96 +279,96 @@ LABEL_17:
   if (v13)
   {
     v14 = [(_PSSuggestionFromTextPredictorDelegateWrapper *)self getSuggestionsWithPredictionContext:psPredictionContext];
-    v57 = objc_opt_new();
-    v66 = 0u;
-    v67 = 0u;
-    v64 = 0u;
+    v56 = objc_opt_new();
     v65 = 0u;
+    v66 = 0u;
+    v63 = 0u;
+    v64 = 0u;
     obj = v14;
-    v60 = [obj countByEnumeratingWithState:&v64 objects:v77 count:16];
-    if (v60)
+    v59 = [obj countByEnumeratingWithState:&v63 objects:v76 count:16];
+    if (v59)
     {
-      v56 = *v65;
+      v55 = *v64;
       do
       {
-        for (i = 0; i != v60; ++i)
+        for (i = 0; i != v59; ++i)
         {
-          if (*v65 != v56)
+          if (*v64 != v55)
           {
             objc_enumerationMutation(obj);
           }
 
-          v16 = *(*(&v64 + 1) + 8 * i);
-          v73 = 0;
-          v74 = &v73;
-          v75 = 0x2050000000;
+          v16 = *(*(&v63 + 1) + 8 * i);
+          v72 = 0;
+          v73 = &v72;
+          v74 = 0x2050000000;
           v17 = getATXProactiveSuggestionClientModelSpecificationClass_softClass_0;
-          v76 = getATXProactiveSuggestionClientModelSpecificationClass_softClass_0;
+          v75 = getATXProactiveSuggestionClientModelSpecificationClass_softClass_0;
           if (!getATXProactiveSuggestionClientModelSpecificationClass_softClass_0)
           {
-            v68 = MEMORY[0x1E69E9820];
-            v69 = 3221225472;
-            v70 = __getATXProactiveSuggestionClientModelSpecificationClass_block_invoke_0;
-            v71 = &unk_1E7C23BF0;
-            v72 = &v73;
+            v67 = MEMORY[0x1E69E9820];
+            v68 = 3221225472;
+            v69 = __getATXProactiveSuggestionClientModelSpecificationClass_block_invoke_0;
+            v70 = &unk_1E7C23BF0;
+            v71 = &v72;
             ProactiveSuggestionClientModelLibraryCore_0();
             Class = objc_getClass("ATXProactiveSuggestionClientModelSpecification");
-            *(v72[1] + 24) = Class;
-            getATXProactiveSuggestionClientModelSpecificationClass_softClass_0 = *(v72[1] + 24);
-            v17 = v74[3];
+            *(v71[1] + 24) = Class;
+            getATXProactiveSuggestionClientModelSpecificationClass_softClass_0 = *(v71[1] + 24);
+            v17 = v73[3];
           }
 
           v19 = v17;
-          _Block_object_dispose(&v73, 8);
+          _Block_object_dispose(&v72, 8);
           v20 = [[v17 alloc] initWithClientModelId:idCopy clientModelVersion:@"1.0" engagementResetPolicy:0];
-          v73 = 0;
-          v74 = &v73;
-          v75 = 0x2050000000;
+          v72 = 0;
+          v73 = &v72;
+          v74 = 0x2050000000;
           v21 = getATXProactiveSuggestionExecutableSpecificationClass_softClass_0;
-          v76 = getATXProactiveSuggestionExecutableSpecificationClass_softClass_0;
+          v75 = getATXProactiveSuggestionExecutableSpecificationClass_softClass_0;
           if (!getATXProactiveSuggestionExecutableSpecificationClass_softClass_0)
           {
-            v68 = MEMORY[0x1E69E9820];
-            v69 = 3221225472;
-            v70 = __getATXProactiveSuggestionExecutableSpecificationClass_block_invoke_0;
-            v71 = &unk_1E7C23BF0;
-            v72 = &v73;
+            v67 = MEMORY[0x1E69E9820];
+            v68 = 3221225472;
+            v69 = __getATXProactiveSuggestionExecutableSpecificationClass_block_invoke_0;
+            v70 = &unk_1E7C23BF0;
+            v71 = &v72;
             ProactiveSuggestionClientModelLibraryCore_0();
             v22 = objc_getClass("ATXProactiveSuggestionExecutableSpecification");
-            *(v72[1] + 24) = v22;
-            getATXProactiveSuggestionExecutableSpecificationClass_softClass_0 = *(v72[1] + 24);
-            v21 = v74[3];
+            *(v71[1] + 24) = v22;
+            getATXProactiveSuggestionExecutableSpecificationClass_softClass_0 = *(v71[1] + 24);
+            v21 = v73[3];
           }
 
           v23 = v21;
-          _Block_object_dispose(&v73, 8);
+          _Block_object_dispose(&v72, 8);
           v24 = [v21 alloc];
           v25 = [v16 description];
           v26 = objc_opt_new();
           uUIDString = [v26 UUIDString];
           v28 = [v24 initWithExecutableObject:v16 executableDescription:v25 executableIdentifier:uUIDString suggestionExecutableType:6];
 
-          v73 = 0;
-          v74 = &v73;
-          v75 = 0x2050000000;
+          v72 = 0;
+          v73 = &v72;
+          v74 = 0x2050000000;
           v29 = getATXProactiveSuggestionUISpecificationClass_softClass_0;
-          v76 = getATXProactiveSuggestionUISpecificationClass_softClass_0;
+          v75 = getATXProactiveSuggestionUISpecificationClass_softClass_0;
           if (!getATXProactiveSuggestionUISpecificationClass_softClass_0)
           {
-            v68 = MEMORY[0x1E69E9820];
-            v69 = 3221225472;
-            v70 = __getATXProactiveSuggestionUISpecificationClass_block_invoke_0;
-            v71 = &unk_1E7C23BF0;
-            v72 = &v73;
+            v67 = MEMORY[0x1E69E9820];
+            v68 = 3221225472;
+            v69 = __getATXProactiveSuggestionUISpecificationClass_block_invoke_0;
+            v70 = &unk_1E7C23BF0;
+            v71 = &v72;
             ProactiveSuggestionClientModelLibraryCore_0();
             v30 = objc_getClass("ATXProactiveSuggestionUISpecification");
-            *(v72[1] + 24) = v30;
-            getATXProactiveSuggestionUISpecificationClass_softClass_0 = *(v72[1] + 24);
-            v29 = v74[3];
+            *(v71[1] + 24) = v30;
+            getATXProactiveSuggestionUISpecificationClass_softClass_0 = *(v71[1] + 24);
+            v29 = v73[3];
           }
 
           v31 = v29;
-          _Block_object_dispose(&v73, 8);
+          _Block_object_dispose(&v72, 8);
           v32 = [v29 alloc];
           groupName = [v16 groupName];
           v34 = groupName;
@@ -381,27 +380,27 @@ LABEL_17:
             v34 = handle;
           }
 
-          v73 = 0;
-          v74 = &v73;
-          v75 = 0x2050000000;
+          v72 = 0;
+          v73 = &v72;
+          v74 = 0x2050000000;
           v35 = getATXProactiveSuggestionLayoutConfigClass_softClass_0;
-          v76 = getATXProactiveSuggestionLayoutConfigClass_softClass_0;
+          v75 = getATXProactiveSuggestionLayoutConfigClass_softClass_0;
           if (!getATXProactiveSuggestionLayoutConfigClass_softClass_0)
           {
-            v68 = MEMORY[0x1E69E9820];
-            v69 = 3221225472;
-            v70 = __getATXProactiveSuggestionLayoutConfigClass_block_invoke_0;
-            v71 = &unk_1E7C23BF0;
-            v72 = &v73;
+            v67 = MEMORY[0x1E69E9820];
+            v68 = 3221225472;
+            v69 = __getATXProactiveSuggestionLayoutConfigClass_block_invoke_0;
+            v70 = &unk_1E7C23BF0;
+            v71 = &v72;
             ProactiveSuggestionClientModelLibraryCore_0();
             v36 = objc_getClass("ATXProactiveSuggestionLayoutConfig");
-            *(v72[1] + 24) = v36;
-            getATXProactiveSuggestionLayoutConfigClass_softClass_0 = *(v72[1] + 24);
-            v35 = v74[3];
+            *(v71[1] + 24) = v36;
+            getATXProactiveSuggestionLayoutConfigClass_softClass_0 = *(v71[1] + 24);
+            v35 = v73[3];
           }
 
           v37 = v35;
-          _Block_object_dispose(&v73, 8);
+          _Block_object_dispose(&v72, 8);
           v38 = [v35 layoutConfigurationsForLayoutOptions:2];
           v39 = [v32 initWithTitle:v34 subtitle:0 preferredLayoutConfigs:v38 allowedOnLockscreen:1 allowedOnHomeScreen:1 allowedOnSpotlight:1];
 
@@ -409,105 +408,100 @@ LABEL_17:
           {
           }
 
-          v73 = 0;
-          v74 = &v73;
-          v75 = 0x2050000000;
+          v72 = 0;
+          v73 = &v72;
+          v74 = 0x2050000000;
           v40 = getATXProactiveSuggestionScoreSpecificationClass_softClass_0;
-          v76 = getATXProactiveSuggestionScoreSpecificationClass_softClass_0;
+          v75 = getATXProactiveSuggestionScoreSpecificationClass_softClass_0;
           if (!getATXProactiveSuggestionScoreSpecificationClass_softClass_0)
           {
-            v68 = MEMORY[0x1E69E9820];
-            v69 = 3221225472;
-            v70 = __getATXProactiveSuggestionScoreSpecificationClass_block_invoke_0;
-            v71 = &unk_1E7C23BF0;
-            v72 = &v73;
+            v67 = MEMORY[0x1E69E9820];
+            v68 = 3221225472;
+            v69 = __getATXProactiveSuggestionScoreSpecificationClass_block_invoke_0;
+            v70 = &unk_1E7C23BF0;
+            v71 = &v72;
             ProactiveSuggestionClientModelLibraryCore_0();
             v41 = objc_getClass("ATXProactiveSuggestionScoreSpecification");
-            *(v72[1] + 24) = v41;
-            getATXProactiveSuggestionScoreSpecificationClass_softClass_0 = *(v72[1] + 24);
-            v40 = v74[3];
+            *(v71[1] + 24) = v41;
+            getATXProactiveSuggestionScoreSpecificationClass_softClass_0 = *(v71[1] + 24);
+            v40 = v73[3];
           }
 
           v42 = v40;
-          _Block_object_dispose(&v73, 8);
+          _Block_object_dispose(&v72, 8);
           v43 = [[v40 alloc] initWithRawScore:self->_defaultConfidenceCategory suggestedConfidenceCategory:90.0];
-          v73 = 0;
-          v74 = &v73;
-          v75 = 0x2050000000;
+          v72 = 0;
+          v73 = &v72;
+          v74 = 0x2050000000;
           v44 = getATXProactiveSuggestionClass_softClass_0;
-          v76 = getATXProactiveSuggestionClass_softClass_0;
+          v75 = getATXProactiveSuggestionClass_softClass_0;
           if (!getATXProactiveSuggestionClass_softClass_0)
           {
-            v68 = MEMORY[0x1E69E9820];
-            v69 = 3221225472;
-            v70 = __getATXProactiveSuggestionClass_block_invoke_0;
-            v71 = &unk_1E7C23BF0;
-            v72 = &v73;
+            v67 = MEMORY[0x1E69E9820];
+            v68 = 3221225472;
+            v69 = __getATXProactiveSuggestionClass_block_invoke_0;
+            v70 = &unk_1E7C23BF0;
+            v71 = &v72;
             ProactiveSuggestionClientModelLibraryCore_0();
             v45 = objc_getClass("ATXProactiveSuggestion");
-            *(v72[1] + 24) = v45;
-            getATXProactiveSuggestionClass_softClass_0 = *(v72[1] + 24);
-            v44 = v74[3];
+            *(v71[1] + 24) = v45;
+            getATXProactiveSuggestionClass_softClass_0 = *(v71[1] + 24);
+            v44 = v73[3];
           }
 
           v46 = v44;
-          _Block_object_dispose(&v73, 8);
+          _Block_object_dispose(&v72, 8);
           v47 = [[v44 alloc] initWithClientModelSpecification:v20 executableSpecification:v28 uiSpecification:v39 scoreSpecification:v43];
-          [v57 addObject:v47];
+          [v56 addObject:v47];
         }
 
-        v60 = [obj countByEnumeratingWithState:&v64 objects:v77 count:16];
+        v59 = [obj countByEnumeratingWithState:&v63 objects:v76 count:16];
       }
 
-      while (v60);
+      while (v59);
     }
 
-    v48 = [objc_alloc(getATXSuggestionRequestResponseClass_0()) initWithSuggestions:v57 feedbackMetadata:0 originalRequest:requestCopy responseCode:2 error:0];
+    v48 = [objc_alloc(getATXSuggestionRequestResponseClass_0()) initWithSuggestions:v56 feedbackMetadata:0 originalRequest:requestCopy responseCode:2 error:0];
     replyCopy[2](replyCopy, v48);
   }
 
   else
   {
-    obj = [_PSZkwUtils clientModelMismatchErrorResponseForRequest:requestCopy requestedClientModelId:idCopy actualClientModelId:v51];
+    obj = [_PSZkwUtils clientModelMismatchErrorResponseForRequest:requestCopy requestedClientModelId:idCopy actualClientModelId:v50];
     replyCopy[2](replyCopy, obj);
   }
 
 LABEL_44:
-  v49 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getSuggestionsWithPredictionContext:(uint64_t *)a1 .cold.1(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v4 = 134217984;
-  v5 = v2;
-  _os_log_error_impl(&dword_1B5ED1000, a2, OS_LOG_TYPE_ERROR, "Unknown ZKW unstructured reminders delegate type: %ld", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 134217984;
+  v4 = v2;
+  _os_log_error_impl(&dword_1B5ED1000, a2, OS_LOG_TYPE_ERROR, "Unknown ZKW unstructured reminders delegate type: %ld", &v3, 0xCu);
 }
 
 - (void)suggestionsForInteractionSuggestionRequest:(uint64_t)a1 clientModelId:(uint64_t)a2 reply:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *(a2 + 8);
-  v5 = 138412546;
-  v6 = a1;
-  v7 = 2048;
-  v8 = v3;
-  _os_log_debug_impl(&dword_1B5ED1000, log, OS_LOG_TYPE_DEBUG, "Unstructured text model delegate call %@ for delegate type %ld", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412546;
+  v5 = a1;
+  v6 = 2048;
+  v7 = v3;
+  _os_log_debug_impl(&dword_1B5ED1000, log, OS_LOG_TYPE_DEBUG, "Unstructured text model delegate call %@ for delegate type %ld", &v4, 0x16u);
 }
 
 - (void)suggestionsForInteractionSuggestionRequest:(uint64_t)a1 clientModelId:(NSObject *)a2 reply:.cold.2(uint64_t a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
-  v6 = 138412290;
-  v7 = v4;
-  _os_log_error_impl(&dword_1B5ED1000, a2, OS_LOG_TYPE_ERROR, "Encountered context of unknown class: %@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 138412290;
+  v6 = v4;
+  _os_log_error_impl(&dword_1B5ED1000, a2, OS_LOG_TYPE_ERROR, "Encountered context of unknown class: %@", &v5, 0xCu);
 }
 
 @end

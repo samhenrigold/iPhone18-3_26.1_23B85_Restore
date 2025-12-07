@@ -1,4 +1,5 @@
 @interface BRCListDirectoryContentsOperation
+- (BRCListDirectoryContentsOperation)initWithItemID:(id)d sessionContext:(id)context zone:(id)zone isUserWaiting:(BOOL)waiting rescheduleApplyBlock:(id)block;
 - (void)_cursorWasUpdated:(id)updated subResourcesOp:(id)op;
 - (void)_scheduleQueryOp;
 - (void)_waitForFlushAndRescheduleApplyIfNecessaryWithError:(id)error;
@@ -15,7 +16,7 @@
 
 void __53__BRCListDirectoryContentsOperation__scheduleQueryOp__block_invoke_75(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = brc_bread_crumbs();
   v3 = brc_default_log();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
@@ -58,26 +59,21 @@ LABEL_4:
   {
     v6 = [*(a1 + 32) debugItemIDString];
     *buf = 138412546;
-    v13 = v6;
-    v14 = 2112;
-    v15 = v4;
+    v12 = v6;
+    v13 = 2112;
+    v14 = v4;
     _os_log_impl(&dword_223E7A000, v5, OS_LOG_TYPE_DEFAULT, "[WARNING] Not trying to promote %@ to a normal directory%@", buf, 0x16u);
   }
 
 LABEL_10:
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __53__BRCListDirectoryContentsOperation__scheduleQueryOp__block_invoke_75_cold_1(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [*(a1 + 32) debugItemIDString];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __53__BRCListDirectoryContentsOperation__scheduleQueryOp__block_invoke_3(uint64_t a1)
@@ -158,10 +154,67 @@ LABEL_5:
 
 - (void)_scheduleQueryOp
 {
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] list query is already completed.  Just finishing it %@%@");
-  v2 = *MEMORY[0x277D85DE8];
+  *v3 = 138412546;
+  *&v3[4] = *(*self + 40);
+  *&v3[12] = 2112;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_4(&dword_223E7A000, a2, a3, "[DEBUG] Dropping list directory database because of a token fetch error - %@%@", *v3, *&v3[8], *&v3[16], *MEMORY[0x277D85DE8]);
+}
+
+- (BRCListDirectoryContentsOperation)initWithItemID:(id)d sessionContext:(id)context zone:(id)zone isUserWaiting:(BOOL)waiting rescheduleApplyBlock:(id)block
+{
+  waitingCopy = waiting;
+  dCopy = d;
+  zoneCopy = zone;
+  blockCopy = block;
+  contextCopy = context;
+  debugItemIDString = [dCopy debugItemIDString];
+  v18 = [@"list-dir/" stringByAppendingString:debugItemIDString];
+
+  metadataSyncContext = [zoneCopy metadataSyncContext];
+  v35.receiver = self;
+  v35.super_class = BRCListDirectoryContentsOperation;
+  v20 = [(_BRCOperation *)&v35 initWithName:v18 syncContext:metadataSyncContext sessionContext:contextCopy];
+
+  if (v20)
+  {
+    [(_BRCOperation *)v20 setNonDiscretionary:waitingCopy];
+    objc_storeStrong(&v20->_serverZone, zone);
+    objc_storeStrong(&v20->_itemID, d);
+    v21 = [dCopy directoryStructureRecordIDInZone:zoneCopy];
+    recordID = v20->_recordID;
+    v20->_recordID = v21;
+
+    mangledID = [zoneCopy mangledID];
+    v24 = [BRCUserDefaults defaultsForMangledID:mangledID];
+
+    v20->_batchSize = [v24 maxRecordCountWhenListingDirChanges];
+    weakObjectsHashTable = [MEMORY[0x277CCAA50] weakObjectsHashTable];
+    delegates = v20->_delegates;
+    v20->_delegates = weakObjectsHashTable;
+
+    br_listDirectoryContents = [MEMORY[0x277CBC4F8] br_listDirectoryContents];
+    [(_BRCOperation *)v20 setGroup:br_listDirectoryContents];
+
+    v28 = objc_opt_new();
+    preFlushListCompletionBlocks = v20->_preFlushListCompletionBlocks;
+    v20->_preFlushListCompletionBlocks = v28;
+
+    v30 = objc_opt_new();
+    listCompletionBlocks = v20->_listCompletionBlocks;
+    v20->_listCompletionBlocks = v30;
+
+    v32 = MEMORY[0x22AA4A310](blockCopy);
+    rescheduleApplyBlock = v20->_rescheduleApplyBlock;
+    v20->_rescheduleApplyBlock = v32;
+
+    if (waitingCopy)
+    {
+      [(BRCListDirectoryContentsOperation *)v20 setQueuePriority:8];
+    }
+  }
+
+  return v20;
 }
 
 - (void)beginObservingChangesWithDelegate:(id)delegate
@@ -198,34 +251,34 @@ LABEL_5:
 
 - (void)cancelToBeReplacedByOperation:(id)operation
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   operationCopy = operation;
   if (operationCopy)
   {
     selfCopy = self;
     objc_sync_enter(selfCopy);
+    v41 = 0u;
     v42 = 0u;
     v43 = 0u;
     v44 = 0u;
-    v45 = 0u;
     dependencies = [(BRCListDirectoryContentsOperation *)selfCopy dependencies];
-    v7 = [dependencies countByEnumeratingWithState:&v42 objects:v49 count:16];
+    v7 = [dependencies countByEnumeratingWithState:&v41 objects:v48 count:16];
     if (v7)
     {
-      v8 = *v43;
+      v8 = *v42;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v43 != v8)
+          if (*v42 != v8)
           {
             objc_enumerationMutation(dependencies);
           }
 
-          [operationCopy addDependency:*(*(&v42 + 1) + 8 * i)];
+          [operationCopy addDependency:*(*(&v41 + 1) + 8 * i)];
         }
 
-        v7 = [dependencies countByEnumeratingWithState:&v42 objects:v49 count:16];
+        v7 = [dependencies countByEnumeratingWithState:&v41 objects:v48 count:16];
       }
 
       while (v7);
@@ -244,30 +297,30 @@ LABEL_5:
     selfCopy->_preFlushListCompletionBlocks = 0;
 
     objc_sync_exit(selfCopy);
-    v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
     v39 = 0u;
+    v40 = 0u;
+    v37 = 0u;
+    v38 = 0u;
     v16 = v10;
-    v17 = [(NSHashTable *)v16 countByEnumeratingWithState:&v38 objects:v48 count:16];
+    v17 = [(NSHashTable *)v16 countByEnumeratingWithState:&v37 objects:v47 count:16];
     if (v17)
     {
-      v18 = *v39;
+      v18 = *v38;
       do
       {
         for (j = 0; j != v17; ++j)
         {
-          if (*v39 != v18)
+          if (*v38 != v18)
           {
             objc_enumerationMutation(v16);
           }
 
-          v20 = *(*(&v38 + 1) + 8 * j);
+          v20 = *(*(&v37 + 1) + 8 * j);
           [operationCopy beginObservingChangesWithDelegate:v20];
           [v20 listOperation:selfCopy wasReplacedByOperation:operationCopy];
         }
 
-        v17 = [(NSHashTable *)v16 countByEnumeratingWithState:&v38 objects:v48 count:16];
+        v17 = [(NSHashTable *)v16 countByEnumeratingWithState:&v37 objects:v47 count:16];
       }
 
       while (v17);
@@ -278,55 +331,55 @@ LABEL_5:
       [operationCopy beginObservingChangesWithDelegate:0];
     }
 
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
     v35 = 0u;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
     v21 = v12;
-    v22 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v34 objects:v47 count:16];
+    v22 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v33 objects:v46 count:16];
     if (v22)
     {
-      v23 = *v35;
+      v23 = *v34;
       do
       {
         for (k = 0; k != v22; ++k)
         {
-          if (*v35 != v23)
+          if (*v34 != v23)
           {
             objc_enumerationMutation(v21);
           }
 
-          [operationCopy addDirectoryListCompletionBlock:*(*(&v34 + 1) + 8 * k)];
+          [operationCopy addDirectoryListCompletionBlock:*(*(&v33 + 1) + 8 * k)];
         }
 
-        v22 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v34 objects:v47 count:16];
+        v22 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v33 objects:v46 count:16];
       }
 
       while (v22);
     }
 
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
     v31 = 0u;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
     v25 = v13;
-    v26 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v30 objects:v46 count:16];
+    v26 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v29 objects:v45 count:16];
     if (v26)
     {
-      v27 = *v31;
+      v27 = *v30;
       do
       {
         for (m = 0; m != v26; ++m)
         {
-          if (*v31 != v27)
+          if (*v30 != v27)
           {
             objc_enumerationMutation(v25);
           }
 
-          [operationCopy addPreFlushDirectoryListCompletionBlock:{*(*(&v30 + 1) + 8 * m), v30}];
+          [operationCopy addPreFlushDirectoryListCompletionBlock:{*(*(&v29 + 1) + 8 * m), v29}];
         }
 
-        v26 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v30 objects:v46 count:16];
+        v26 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v29 objects:v45 count:16];
       }
 
       while (v26);
@@ -343,13 +396,11 @@ LABEL_5:
   {
     [(_BRCOperation *)self cancel];
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_cursorWasUpdated:(id)updated subResourcesOp:(id)op
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   updatedCopy = updated;
   opCopy = op;
   error = [opCopy error];
@@ -361,13 +412,13 @@ LABEL_5:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
       name = [(BRCListDirectoryContentsOperation *)self name];
-      v20 = 138412802;
-      v21 = name;
-      v22 = 2112;
-      v23 = updatedCopy;
-      v24 = 2112;
-      v25 = v11;
-      _os_log_debug_impl(&dword_223E7A000, v12, OS_LOG_TYPE_DEBUG, "[DEBUG] %@ finished listing batch with cursor %@%@", &v20, 0x20u);
+      v19 = 138412802;
+      v20 = name;
+      v21 = 2112;
+      v22 = updatedCopy;
+      v23 = 2112;
+      v24 = v11;
+      _os_log_debug_impl(&dword_223E7A000, v12, OS_LOG_TYPE_DEBUG, "[DEBUG] %@ finished listing batch with cursor %@%@", &v19, 0x20u);
     }
 
     if (([opCopy saveRecordsWithQueryCursor:updatedCopy] & 1) == 0)
@@ -387,8 +438,6 @@ LABEL_5:
       }
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __70__BRCListDirectoryContentsOperation__cursorWasUpdated_subResourcesOp___block_invoke(uint64_t a1, void *a2)
@@ -484,7 +533,7 @@ void __53__BRCListDirectoryContentsOperation__scheduleQueryOp__block_invoke_104(
 
 void __53__BRCListDirectoryContentsOperation__scheduleQueryOp__block_invoke_2_108(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -492,19 +541,19 @@ void __53__BRCListDirectoryContentsOperation__scheduleQueryOp__block_invoke_2_10
   v11 = brc_default_log();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    v16 = [*(*(a1 + 32) + 528) debugDescription];
-    v17 = [v8 recordType];
-    v18 = 138413314;
-    v19 = v16;
-    v20 = 2112;
-    v21 = v7;
-    v22 = 2112;
-    v23 = v17;
-    v24 = 2112;
-    v25 = v9;
-    v26 = 2112;
-    v27 = v10;
-    _os_log_debug_impl(&dword_223E7A000, v11, OS_LOG_TYPE_DEBUG, "[DEBUG] Listing directory contents of %@: Got record: ID [%@] Type [%@], error %@%@", &v18, 0x34u);
+    v15 = [*(*(a1 + 32) + 528) debugDescription];
+    v16 = [v8 recordType];
+    v17 = 138413314;
+    v18 = v15;
+    v19 = 2112;
+    v20 = v7;
+    v21 = 2112;
+    v22 = v16;
+    v23 = 2112;
+    v24 = v9;
+    v25 = 2112;
+    v26 = v10;
+    _os_log_debug_impl(&dword_223E7A000, v11, OS_LOG_TYPE_DEBUG, "[DEBUG] Listing directory contents of %@: Got record: ID [%@] Type [%@], error %@%@", &v17, 0x34u);
   }
 
   if (v8)
@@ -519,8 +568,6 @@ void __53__BRCListDirectoryContentsOperation__scheduleQueryOp__block_invoke_2_10
     v14 = [v7 recordName];
     [v13 reportProblemWithType:12 recordName:v14];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __53__BRCListDirectoryContentsOperation__scheduleQueryOp__block_invoke_2_112(uint64_t a1, void *a2, void *a3)
@@ -609,7 +656,7 @@ uint64_t __89__BRCListDirectoryContentsOperation__waitForFlushAndRescheduleApply
 
 void __89__BRCListDirectoryContentsOperation__waitForFlushAndRescheduleApplyIfNecessaryWithError___block_invoke_3(uint64_t a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   objc_sync_enter(v2);
   v3 = *(*(a1 + 32) + 576);
@@ -623,76 +670,73 @@ void __89__BRCListDirectoryContentsOperation__waitForFlushAndRescheduleApplyIfNe
   *(v7 + 576) = 0;
 
   objc_sync_exit(v2);
-  v28 = 0u;
-  v29 = 0u;
+  v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v9 = v4;
-  v10 = [v9 countByEnumeratingWithState:&v26 objects:v31 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v23 objects:v28 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v27;
+    v12 = *v24;
     do
     {
       v13 = 0;
       do
       {
-        if (*v27 != v12)
+        if (*v24 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(a1 + 40);
-        (*(*(*(&v26 + 1) + 8 * v13++) + 16))();
+        (*(*(*(&v23 + 1) + 8 * v13++) + 16))();
       }
 
       while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v23 objects:v28 count:16];
     }
 
     while (v11);
   }
 
-  v24 = 0u;
-  v25 = 0u;
+  v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  v15 = v3;
-  v16 = [v15 countByEnumeratingWithState:&v22 objects:v30 count:16];
-  if (v16)
+  v19 = 0u;
+  v20 = 0u;
+  v14 = v3;
+  v15 = [v14 countByEnumeratingWithState:&v19 objects:v27 count:16];
+  if (v15)
   {
-    v17 = v16;
-    v18 = *v23;
+    v16 = v15;
+    v17 = *v20;
     do
     {
-      v19 = 0;
+      v18 = 0;
       do
       {
-        if (*v23 != v18)
+        if (*v20 != v17)
         {
-          objc_enumerationMutation(v15);
+          objc_enumerationMutation(v14);
         }
 
-        v20 = *(a1 + 40);
-        (*(*(*(&v22 + 1) + 8 * v19) + 16))(*(*(&v22 + 1) + 8 * v19));
-        ++v19;
+        (*(*(*(&v19 + 1) + 8 * v18) + 16))(*(*(&v19 + 1) + 8 * v18));
+        ++v18;
       }
 
-      while (v17 != v19);
-      v17 = [v15 countByEnumeratingWithState:&v22 objects:v30 count:16];
+      while (v16 != v18);
+      v16 = [v14 countByEnumeratingWithState:&v19 objects:v27 count:16];
     }
 
-    while (v17);
+    while (v16);
   }
 
   [*(a1 + 48) scheduleSyncUp];
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)finishWithResult:(id)result error:(id)error
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   resultCopy = result;
   errorCopy = error;
   if (!errorCopy && [(_BRCOperation *)self nonDiscretionary])
@@ -736,17 +780,17 @@ void __89__BRCListDirectoryContentsOperation__waitForFlushAndRescheduleApplyIfNe
     block[2] = __60__BRCListDirectoryContentsOperation_finishWithResult_error___block_invoke;
     block[3] = &unk_2784FF478;
     block[4] = self;
-    v33 = clientReadWriteDatabaseFacade;
+    v32 = clientReadWriteDatabaseFacade;
     userInfo = clientReadWriteDatabaseFacade;
     dispatch_sync(serialQueue, block);
 
     sessionContext = self->super.super._sessionContext;
-    v31[0] = MEMORY[0x277D85DD0];
-    v31[1] = 3221225472;
-    v31[2] = __60__BRCListDirectoryContentsOperation_finishWithResult_error___block_invoke_2;
-    v31[3] = &unk_2784FFF58;
-    v31[4] = self;
-    [(BRCSessionContext *)sessionContext performSyncOnServerReadWriteDatabaseSerialQueue:v31];
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v30[2] = __60__BRCListDirectoryContentsOperation_finishWithResult_error___block_invoke_2;
+    v30[3] = &unk_2784FFF58;
+    v30[4] = self;
+    [(BRCSessionContext *)sessionContext performSyncOnServerReadWriteDatabaseSerialQueue:v30];
 
     errorCopy = 0;
   }
@@ -756,44 +800,43 @@ void __89__BRCListDirectoryContentsOperation__waitForFlushAndRescheduleApplyIfNe
   }
 
 LABEL_13:
-  v30.receiver = self;
-  v30.super_class = BRCListDirectoryContentsOperation;
-  [(_BRCOperation *)&v30 finishWithResult:resultCopy error:errorCopy];
+  v29.receiver = self;
+  v29.super_class = BRCListDirectoryContentsOperation;
+  [(_BRCOperation *)&v29 finishWithResult:resultCopy error:errorCopy];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v20 = [(NSMutableArray *)selfCopy->_preFlushListCompletionBlocks copy];
   [(NSMutableArray *)selfCopy->_preFlushListCompletionBlocks removeAllObjects];
   objc_sync_exit(selfCopy);
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v21 = v20;
-  v22 = [v21 countByEnumeratingWithState:&v26 objects:v34 count:16];
+  v22 = [v21 countByEnumeratingWithState:&v25 objects:v33 count:16];
   if (v22)
   {
-    v23 = *v27;
+    v23 = *v26;
     do
     {
       for (i = 0; i != v22; ++i)
       {
-        if (*v27 != v23)
+        if (*v26 != v23)
         {
           objc_enumerationMutation(v21);
         }
 
-        (*(*(*(&v26 + 1) + 8 * i) + 16))(*(*(&v26 + 1) + 8 * i));
+        (*(*(*(&v25 + 1) + 8 * i) + 16))(*(*(&v25 + 1) + 8 * i));
       }
 
-      v22 = [v21 countByEnumeratingWithState:&v26 objects:v34 count:16];
+      v22 = [v21 countByEnumeratingWithState:&v25 objects:v33 count:16];
     }
 
     while (v22);
   }
 
-  [(BRCListDirectoryContentsOperation *)selfCopy _waitForFlushAndRescheduleApplyIfNecessaryWithError:errorCopy, v26];
-  v25 = *MEMORY[0x277D85DE8];
+  [(BRCListDirectoryContentsOperation *)selfCopy _waitForFlushAndRescheduleApplyIfNecessaryWithError:errorCopy, v25];
 }
 
 void __60__BRCListDirectoryContentsOperation_finishWithResult_error___block_invoke(uint64_t a1)
@@ -901,40 +944,32 @@ void __77__BRCListDirectoryContentsOperation_addPreFlushDirectoryListCompletionB
 
 void __53__BRCListDirectoryContentsOperation__scheduleQueryOp__block_invoke_2_103_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_223E7A000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] Fetching the root as well of this share accept fault%@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_223E7A000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] Fetching the root as well of this share accept fault%@", &v2, 0xCu);
 }
 
 void __53__BRCListDirectoryContentsOperation__scheduleQueryOp__block_invoke_3_cold_1()
 {
-  v9 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
   v1 = brc_default_log();
   if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v2, v3, "[CRIT] Assertion failed: !continuationCursor%@", v4, v5, v6, v7, 2u);
+    LODWORD(v8) = 138412290;
+    *(&v8 + 4) = v0;
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v2, v3, "[CRIT] Assertion failed: !continuationCursor%@", v4, v5, v6, v7, v8, DWORD2(v8));
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-- (void)finishWithResult:(uint64_t)a1 error:.cold.1(uint64_t a1)
+- (void)finishWithResult:(id *)a1 error:.cold.1(id *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v2 = [*(a1 + 528) debugDescription];
+  v2 = [a1[66] debugDescription];
   [a1 executionTimeInSec];
-  v9 = *(a1 + 552);
-  v10 = *(a1 + 560);
-  v11 = *(a1 + 568);
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x3Eu);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

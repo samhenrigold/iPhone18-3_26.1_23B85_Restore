@@ -69,16 +69,16 @@
 
 - (ENEntity)initWithCoder:(id)coder
 {
-  v21[2] = *MEMORY[0x277D85DE8];
+  v20[2] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEB98];
   coderCopy = coder;
-  v21[0] = objc_opt_class();
-  v21[1] = objc_opt_class();
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
+  v20[0] = objc_opt_class();
+  v20[1] = objc_opt_class();
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
   v6 = [v3 setWithArray:v5];
 
-  v19 = v6;
-  v18 = [coderCopy decodeObjectOfClasses:v6 forKey:@"agc"];
+  v18 = v6;
+  v17 = [coderCopy decodeObjectOfClasses:v6 forKey:@"agc"];
   v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"agh"];
   v8 = [coderCopy decodeObjectOfClasses:v6 forKey:@"aghc"];
   v9 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"agn"];
@@ -88,8 +88,7 @@
   v13 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"reg"];
   v14 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"rgn"];
 
-  v15 = [(ENEntity *)self initWithBundleID:v12 agencyColor:v18 agencyHeaderStyle:v7 agencyHeaderTextColor:v8 localizedAgencyName:v9 localizedAgencyImageURL:v11 localizedAgencyTurndownMessage:v10 localizedRegionName:v14 region:v13];
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = [(ENEntity *)self initWithBundleID:v12 agencyColor:v17 agencyHeaderStyle:v7 agencyHeaderTextColor:v8 localizedAgencyName:v9 localizedAgencyImageURL:v11 localizedAgencyTurndownMessage:v10 localizedRegionName:v14 region:v13];
   return v15;
 }
 

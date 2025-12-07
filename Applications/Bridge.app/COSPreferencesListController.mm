@@ -570,7 +570,7 @@ LABEL_12:
 LABEL_11:
 
   systemAppSpecifiers2 = [(COSPreferencesListController *)self systemAppSpecifiers];
-  [systemAppSpecifiers2 removeObject:v6];
+  objc_msgSend_removeObject_(systemAppSpecifiers2);
 }
 
 - (PSController)categoryController

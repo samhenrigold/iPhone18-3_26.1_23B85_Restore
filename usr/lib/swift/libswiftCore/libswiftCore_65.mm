@@ -1,13 +1,13 @@
 uint64_t dispatch thunk of KeyedEncodingContainerProtocol.encodeIfPresent(_:forKey:)(uint64_t a1, uint64_t a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  return (*(a6 + 256))(a1, a2, a3 & 1);
+  return (*(a6 + 256))(a1, a2, a3 & 1, a4, a5);
 }
 
 {
-  return (*(a6 + 304))(a1, a2, a3 & 1);
+  return (*(a6 + 304))(a1, a2, a3 & 1, a4, a5);
 }
 
-atomic_ullong **__swift_initWithCopy_strong(atomic_ullong **a1, atomic_ullong **a2)
+uint64_t *__swift_initWithCopy_strong(uint64_t *a1, uint64_t *a2)
 {
   v3 = *a2;
   *a1 = *a2;
@@ -15,7 +15,7 @@ atomic_ullong **__swift_initWithCopy_strong(atomic_ullong **a1, atomic_ullong **
   return a1;
 }
 
-uint64_t *__swift_assignWithCopy_strong(uint64_t *a1, atomic_ullong **a2)
+uint64_t *__swift_assignWithCopy_strong(uint64_t *a1, uint64_t *a2)
 {
   v3 = *a2;
   v4 = *a1;
@@ -35,532 +35,534 @@ uint64_t *__swift_assignWithTake_strong(uint64_t *a1, uint64_t *a2)
 
 uint64_t dispatch thunk of KeyedDecodingContainerProtocol.decode(_:forKey:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  return (*(a3 + 56))() & 1;
+  return (*(a3 + 56))(a1, a2) & 1;
 }
 
 {
-  return (*(a3 + 64))();
+  return (*(a3 + 64))(a1, a2);
 }
 
 {
-  return (*(a3 + 72))();
+  return (*(a3 + 72))(a1, a2);
 }
 
 {
-  return (*(a3 + 80))();
+  return (*(a3 + 80))(a1, a2);
 }
 
 {
-  return (*(a3 + 88))();
+  return (*(a3 + 88))(a1, a2);
 }
 
 {
-  return (*(a3 + 96))();
+  return (*(a3 + 96))(a1, a2);
 }
 
 {
-  return (*(a3 + 104))();
+  return (*(a3 + 104))(a1, a2);
 }
 
 {
-  return (*(a3 + 112))();
+  return (*(a3 + 112))(a1, a2);
 }
 
 {
-  return (*(a3 + 120))();
+  return (*(a3 + 120))(a1, a2);
 }
 
 {
-  return (*(a3 + 128))();
+  return (*(a3 + 128))(a1, a2);
 }
 
 {
-  return (*(a3 + 136))();
+  return (*(a3 + 136))(a1, a2);
 }
 
 {
-  return (*(a3 + 144))();
+  return (*(a3 + 144))(a1, a2);
 }
 
 {
-  return (*(a3 + 152))();
+  return (*(a3 + 152))(a1, a2);
 }
 
 {
-  return (*(a3 + 160))();
+  return (*(a3 + 160))(a1, a2);
 }
 
 {
-  return (*(a3 + 168))();
+  return (*(a3 + 168))(a1, a2);
 }
 
 {
-  return (*(a3 + 176))();
+  return (*(a3 + 176))(a1, a2);
 }
 
 uint64_t dispatch thunk of KeyedDecodingContainerProtocol.decodeIfPresent(_:forKey:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  return (*(a3 + 192))();
+  return (*(a3 + 192))(a1, a2);
 }
 
 {
-  return (*(a3 + 200))();
+  return (*(a3 + 200))(a1, a2);
 }
 
 {
-  return (*(a3 + 208))();
+  return (*(a3 + 208))(a1, a2);
 }
 
 {
-  v3 = (*(a3 + 216))();
+  return (*(a3 + 224))(a1, a2);
+}
+
+{
+  return (*(a3 + 232))(a1, a2) & 0x1FF;
+}
+
+{
+  return (*(a3 + 240))(a1, a2) & 0x1FFFF;
+}
+
+{
+  return (*(a3 + 256))(a1, a2);
+}
+
+{
+  return (*(a3 + 264))(a1, a2);
+}
+
+{
+  return (*(a3 + 272))(a1, a2);
+}
+
+{
+  return (*(a3 + 280))(a1, a2) & 0x1FF;
+}
+
+{
+  return (*(a3 + 288))(a1, a2) & 0x1FFFF;
+}
+
+{
+  return (*(a3 + 304))(a1, a2);
+}
+
+{
+  return (*(a3 + 312))(a1, a2);
+}
+
+unint64_t dispatch thunk of KeyedDecodingContainerProtocol.decodeIfPresent(_:forKey:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v3 = (*(a3 + 216))(a1, a2);
   return v3 | ((HIDWORD(v3) & 1) << 32);
 }
 
 {
-  return (*(a3 + 224))();
-}
-
-{
-  return (*(a3 + 232))() & 0x1FF;
-}
-
-{
-  return (*(a3 + 240))() & 0x1FFFF;
-}
-
-{
-  v3 = (*(a3 + 248))();
+  v3 = (*(a3 + 248))(a1, a2);
   return v3 | ((HIDWORD(v3) & 1) << 32);
 }
 
 {
-  return (*(a3 + 256))();
-}
-
-{
-  return (*(a3 + 264))();
-}
-
-{
-  return (*(a3 + 272))();
-}
-
-{
-  return (*(a3 + 280))() & 0x1FF;
-}
-
-{
-  return (*(a3 + 288))() & 0x1FFFF;
-}
-
-{
-  v3 = (*(a3 + 296))();
+  v3 = (*(a3 + 296))(a1, a2);
   return v3 | ((HIDWORD(v3) & 1) << 32);
-}
-
-{
-  return (*(a3 + 304))();
-}
-
-{
-  return (*(a3 + 312))();
 }
 
 uint64_t dispatch thunk of UnkeyedEncodingContainer.encode(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  return (*(a3 + 32))();
+  return (*(a3 + 32))(a1, a2);
 }
 
 {
-  return (*(a3 + 64))();
+  return (*(a3 + 64))(a1, a2);
 }
 
 {
-  return (*(a3 + 72))();
+  return (*(a3 + 72))(a1, a2);
 }
 
 {
-  return (*(a3 + 80))();
+  return (*(a3 + 80))(a1, a2);
 }
 
 {
-  return (*(a3 + 88))();
+  return (*(a3 + 88))(a1, a2);
 }
 
 {
-  return (*(a3 + 96))();
+  return (*(a3 + 96))(a1, a2);
 }
 
 {
-  return (*(a3 + 112))();
+  return (*(a3 + 112))(a1, a2);
 }
 
 {
-  return (*(a3 + 120))();
+  return (*(a3 + 120))(a1, a2);
 }
 
 {
-  return (*(a3 + 128))();
+  return (*(a3 + 128))(a1, a2);
 }
 
 {
-  return (*(a3 + 136))();
+  return (*(a3 + 136))(a1, a2);
 }
 
 {
-  return (*(a3 + 144))();
+  return (*(a3 + 144))(a1, a2);
 }
 
 uint64_t dispatch thunk of UnkeyedEncodingContainer.encode(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  return (*(a4 + 40))();
+  return (*(a4 + 40))(a1, a2, a3);
 }
 
 {
-  return (*(a4 + 104))();
+  return (*(a4 + 104))(a1, a2, a3);
 }
 
 {
-  return (*(a4 + 152))();
+  return (*(a4 + 152))(a1, a2, a3);
 }
 
 uint64_t dispatch thunk of UnkeyedEncodingContainer.encode(_:)(uint64_t a1, uint64_t a2)
 {
-  return (*(a2 + 48))();
+  return (*(a2 + 48))(a1);
 }
 
 {
-  return (*(a2 + 56))();
+  return (*(a2 + 56))(a1);
 }
 
 uint64_t dispatch thunk of UnkeyedEncodingContainer.encode<A>(contentsOf:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  return (*(a5 + 176))();
+  return (*(a5 + 176))(a1, a2, a3, a4);
 }
 
 {
-  return (*(a5 + 184))();
+  return (*(a5 + 184))(a1, a2, a3, a4);
 }
 
 {
-  return (*(a5 + 192))();
+  return (*(a5 + 192))(a1, a2, a3, a4);
 }
 
 {
-  return (*(a5 + 200))();
+  return (*(a5 + 200))(a1, a2, a3, a4);
 }
 
 {
-  return (*(a5 + 208))();
+  return (*(a5 + 208))(a1, a2, a3, a4);
 }
 
 {
-  return (*(a5 + 216))();
+  return (*(a5 + 216))(a1, a2, a3, a4);
 }
 
 {
-  return (*(a5 + 224))();
+  return (*(a5 + 224))(a1, a2, a3, a4);
 }
 
 {
-  return (*(a5 + 232))();
+  return (*(a5 + 232))(a1, a2, a3, a4);
 }
 
 {
-  return (*(a5 + 240))();
+  return (*(a5 + 240))(a1, a2, a3, a4);
 }
 
 {
-  return (*(a5 + 248))();
+  return (*(a5 + 248))(a1, a2, a3, a4);
 }
 
 {
-  return (*(a5 + 256))();
+  return (*(a5 + 256))(a1, a2, a3, a4);
 }
 
 {
-  return (*(a5 + 264))();
+  return (*(a5 + 264))(a1, a2, a3, a4);
 }
 
 {
-  return (*(a5 + 272))();
+  return (*(a5 + 272))(a1, a2, a3, a4);
 }
 
 {
-  return (*(a5 + 280))();
+  return (*(a5 + 280))(a1, a2, a3, a4);
 }
 
 {
-  return (*(a5 + 288))();
+  return (*(a5 + 288))(a1, a2, a3, a4);
 }
 
 {
-  return (*(a5 + 296))();
+  return (*(a5 + 296))(a1, a2, a3, a4);
 }
 
 uint64_t dispatch thunk of UnkeyedDecodingContainer.decode(_:)(uint64_t a1, uint64_t a2)
 {
-  return (*(a2 + 48))() & 1;
+  return (*(a2 + 48))(a1) & 1;
 }
 
 {
-  return (*(a2 + 56))();
+  return (*(a2 + 56))(a1);
 }
 
 {
-  return (*(a2 + 64))();
+  return (*(a2 + 64))(a1);
 }
 
 {
-  return (*(a2 + 72))();
+  return (*(a2 + 72))(a1);
 }
 
 {
-  return (*(a2 + 80))();
+  return (*(a2 + 80))(a1);
 }
 
 {
-  return (*(a2 + 88))();
+  return (*(a2 + 88))(a1);
 }
 
 {
-  return (*(a2 + 96))();
+  return (*(a2 + 96))(a1);
 }
 
 {
-  return (*(a2 + 104))();
+  return (*(a2 + 104))(a1);
 }
 
 {
-  return (*(a2 + 112))();
+  return (*(a2 + 112))(a1);
 }
 
 {
-  return (*(a2 + 120))();
+  return (*(a2 + 120))(a1);
 }
 
 {
-  return (*(a2 + 128))();
+  return (*(a2 + 128))(a1);
 }
 
 {
-  return (*(a2 + 136))();
+  return (*(a2 + 136))(a1);
 }
 
 {
-  return (*(a2 + 144))();
+  return (*(a2 + 144))(a1);
 }
 
 {
-  return (*(a2 + 152))();
+  return (*(a2 + 152))(a1);
 }
 
 {
-  return (*(a2 + 160))();
+  return (*(a2 + 160))(a1);
 }
 
 {
-  return (*(a2 + 168))();
+  return (*(a2 + 168))(a1);
 }
 
 uint64_t dispatch thunk of UnkeyedDecodingContainer.decodeIfPresent(_:)(uint64_t a1, uint64_t a2)
 {
-  return (*(a2 + 184))();
+  return (*(a2 + 184))(a1);
 }
 
 {
-  return (*(a2 + 192))();
+  return (*(a2 + 192))(a1);
 }
 
 {
-  return (*(a2 + 200))();
+  return (*(a2 + 200))(a1);
 }
 
 {
-  v2 = (*(a2 + 208))();
+  return (*(a2 + 216))(a1);
+}
+
+{
+  return (*(a2 + 224))(a1) & 0x1FF;
+}
+
+{
+  return (*(a2 + 232))(a1) & 0x1FFFF;
+}
+
+{
+  return (*(a2 + 248))(a1);
+}
+
+{
+  return (*(a2 + 256))(a1);
+}
+
+{
+  return (*(a2 + 264))(a1);
+}
+
+{
+  return (*(a2 + 272))(a1) & 0x1FF;
+}
+
+{
+  return (*(a2 + 280))(a1) & 0x1FFFF;
+}
+
+{
+  return (*(a2 + 296))(a1);
+}
+
+{
+  return (*(a2 + 304))(a1);
+}
+
+unint64_t dispatch thunk of UnkeyedDecodingContainer.decodeIfPresent(_:)(uint64_t a1, uint64_t a2)
+{
+  v2 = (*(a2 + 208))(a1);
   return v2 | ((HIDWORD(v2) & 1) << 32);
 }
 
 {
-  return (*(a2 + 216))();
-}
-
-{
-  return (*(a2 + 224))() & 0x1FF;
-}
-
-{
-  return (*(a2 + 232))() & 0x1FFFF;
-}
-
-{
-  v2 = (*(a2 + 240))();
+  v2 = (*(a2 + 240))(a1);
   return v2 | ((HIDWORD(v2) & 1) << 32);
 }
 
 {
-  return (*(a2 + 248))();
-}
-
-{
-  return (*(a2 + 256))();
-}
-
-{
-  return (*(a2 + 264))();
-}
-
-{
-  return (*(a2 + 272))() & 0x1FF;
-}
-
-{
-  return (*(a2 + 280))() & 0x1FFFF;
-}
-
-{
-  v2 = (*(a2 + 288))();
+  v2 = (*(a2 + 288))(a1);
   return v2 | ((HIDWORD(v2) & 1) << 32);
-}
-
-{
-  return (*(a2 + 296))();
-}
-
-{
-  return (*(a2 + 304))();
 }
 
 uint64_t dispatch thunk of SingleValueEncodingContainer.encode(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  return (*(a3 + 24))();
+  return (*(a3 + 24))(a1, a2);
 }
 
 {
-  return (*(a3 + 56))();
+  return (*(a3 + 56))(a1, a2);
 }
 
 {
-  return (*(a3 + 64))();
+  return (*(a3 + 64))(a1, a2);
 }
 
 {
-  return (*(a3 + 72))();
+  return (*(a3 + 72))(a1, a2);
 }
 
 {
-  return (*(a3 + 80))();
+  return (*(a3 + 80))(a1, a2);
 }
 
 {
-  return (*(a3 + 88))();
+  return (*(a3 + 88))(a1, a2);
 }
 
 {
-  return (*(a3 + 104))();
+  return (*(a3 + 104))(a1, a2);
 }
 
 {
-  return (*(a3 + 112))();
+  return (*(a3 + 112))(a1, a2);
 }
 
 {
-  return (*(a3 + 120))();
+  return (*(a3 + 120))(a1, a2);
 }
 
 {
-  return (*(a3 + 128))();
+  return (*(a3 + 128))(a1, a2);
 }
 
 {
-  return (*(a3 + 136))();
+  return (*(a3 + 136))(a1, a2);
 }
 
 uint64_t dispatch thunk of SingleValueEncodingContainer.encode(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  return (*(a4 + 32))();
+  return (*(a4 + 32))(a1, a2, a3);
 }
 
 {
-  return (*(a4 + 96))();
+  return (*(a4 + 96))(a1, a2, a3);
 }
 
 {
-  return (*(a4 + 144))();
+  return (*(a4 + 144))(a1, a2, a3);
 }
 
 uint64_t dispatch thunk of SingleValueEncodingContainer.encode(_:)(uint64_t a1, uint64_t a2)
 {
-  return (*(a2 + 40))();
+  return (*(a2 + 40))(a1);
 }
 
 {
-  return (*(a2 + 48))();
+  return (*(a2 + 48))(a1);
 }
 
 uint64_t dispatch thunk of SingleValueDecodingContainer.decode(_:)(uint64_t a1, uint64_t a2)
 {
-  return (*(a2 + 24))() & 1;
+  return (*(a2 + 24))(a1) & 1;
 }
 
 {
-  return (*(a2 + 32))();
+  return (*(a2 + 32))(a1);
 }
 
 {
-  return (*(a2 + 40))();
+  return (*(a2 + 40))(a1);
 }
 
 {
-  return (*(a2 + 48))();
+  return (*(a2 + 48))(a1);
 }
 
 {
-  return (*(a2 + 56))();
+  return (*(a2 + 56))(a1);
 }
 
 {
-  return (*(a2 + 64))();
+  return (*(a2 + 64))(a1);
 }
 
 {
-  return (*(a2 + 72))();
+  return (*(a2 + 72))(a1);
 }
 
 {
-  return (*(a2 + 80))();
+  return (*(a2 + 80))(a1);
 }
 
 {
-  return (*(a2 + 88))();
+  return (*(a2 + 88))(a1);
 }
 
 {
-  return (*(a2 + 96))();
+  return (*(a2 + 96))(a1);
 }
 
 {
-  return (*(a2 + 104))();
+  return (*(a2 + 104))(a1);
 }
 
 {
-  return (*(a2 + 112))();
+  return (*(a2 + 112))(a1);
 }
 
 {
-  return (*(a2 + 120))();
+  return (*(a2 + 120))(a1);
 }
 
 {
-  return (*(a2 + 128))();
+  return (*(a2 + 128))(a1);
 }
 
 {
-  return (*(a2 + 136))();
+  return (*(a2 + 136))(a1);
 }
 
 {
-  return (*(a2 + 144))();
+  return (*(a2 + 144))(a1);
 }
 
 void destroy for EncodingError(uint64_t *a1)
@@ -592,7 +594,7 @@ void *initializeWithCopy for EncodingError(void *a1, void *a2)
   return a1;
 }
 
-uint64_t *assignWithCopy for EncodingError(uint64_t *a1, void *a2)
+uint64_t *assignWithCopy for EncodingError(uint64_t *a1, uint64_t *a2)
 {
   __swift_assign_boxed_opaque_existential_0(a1, a2);
   v4 = a2[4];
@@ -614,12 +616,12 @@ uint64_t *assignWithCopy for EncodingError(uint64_t *a1, void *a2)
   return a1;
 }
 
-uint64_t *__swift_assign_boxed_opaque_existential_0(uint64_t *result, uint64_t a2)
+uint64_t *__swift_assign_boxed_opaque_existential_0(uint64_t *result, uint64_t *a2)
 {
   if (result != a2)
   {
     v2 = result[3];
-    v3 = *(a2 + 24);
+    v3 = a2[3];
     if (v2 == v3)
     {
       v10 = *(v2 - 8);
@@ -1246,13 +1248,13 @@ unint64_t *assignWithTake for EncodingError.Context(unint64_t *a1, uint64_t a2)
   return a1;
 }
 
-uint64_t type metadata completion function for _KeyedEncodingContainerBox(uint64_t a1)
+void *type metadata completion function for _KeyedEncodingContainerBox(uint64_t **a1)
 {
-  result = swift_checkMetadataState(319, *(a1 + 416));
+  result = swift_checkMetadataState(319, a1[52]);
   if (v3 <= 0x3F)
   {
-    v4 = *(result - 8) + 64;
-    result = swift_initClassMetadata2(a1, 0, 1, &v4, a1 + 432);
+    v4 = *(result - 1) + 64;
+    result = swift_initClassMetadata2(a1, 0, 1, &v4, (a1 + 54));
     if (!result)
     {
       return 0;
@@ -1262,13 +1264,13 @@ uint64_t type metadata completion function for _KeyedEncodingContainerBox(uint64
   return result;
 }
 
-uint64_t type metadata completion function for _KeyedDecodingContainerBox(uint64_t a1)
+void *type metadata completion function for _KeyedDecodingContainerBox(uint64_t **a1)
 {
-  result = swift_checkMetadataState(319, *(a1 + 424));
+  result = swift_checkMetadataState(319, a1[53]);
   if (v3 <= 0x3F)
   {
-    v4 = *(result - 8) + 64;
-    result = swift_initClassMetadata2(a1, 0, 1, &v4, a1 + 440);
+    v4 = *(result - 1) + 64;
+    result = swift_initClassMetadata2(a1, 0, 1, &v4, (a1 + 55));
     if (!result)
     {
       return 0;
@@ -1278,18 +1280,18 @@ uint64_t type metadata completion function for _KeyedDecodingContainerBox(uint64
   return result;
 }
 
-unint64_t type metadata completion function for IndexingIterator(uint64_t a1)
+uint64_t *type metadata completion function for IndexingIterator(uint64_t a1)
 {
   v2 = swift_checkMetadataState(319, *(a1 + 16));
   v3 = v2;
   if (v4 <= 0x3F)
   {
-    v8[0] = *(v2 - 8) + 64;
+    v8[0] = *(v2 - 1) + 64;
     swift_getAssociatedTypeWitness(319, *(a1 + 24), v2, &protocol requirements base descriptor for Collection, associated type descriptor for Collection.Index);
     v3 = v5;
     if (v6 <= 0x3F)
     {
-      v8[1] = *(v5 - 8) + 64;
+      v8[1] = *(v5 - 1) + 64;
       swift_initStructMetadata(a1, 0, 2uLL, v8, a1 + 32);
       return 0;
     }
@@ -1298,10 +1300,10 @@ unint64_t type metadata completion function for IndexingIterator(uint64_t a1)
   return v3;
 }
 
-atomic_ullong **initializeBufferWithCopyOfBuffer for IndexingIterator(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+uint64_t *initializeBufferWithCopyOfBuffer for IndexingIterator(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   v5 = *(a3 + 16);
-  v6 = *(v5 - 8);
+  v6 = *(v5 - 1);
   v7 = *(v6 + 64);
   swift_getAssociatedTypeWitness(0, *(a3 + 24), v5, &protocol requirements base descriptor for Collection, associated type descriptor for Collection.Index);
   v9 = *(v8 - 8);
@@ -1330,7 +1332,7 @@ atomic_ullong **initializeBufferWithCopyOfBuffer for IndexingIterator(atomic_ull
 uint64_t destroy for IndexingIterator(uint64_t a1, uint64_t a2)
 {
   v4 = *(a2 + 16);
-  v5 = *(v4 - 8) + 8;
+  v5 = *(v4 - 1) + 8;
   (*v5)(a1, v4);
   v6 = *(v5 + 56) + a1;
   swift_getAssociatedTypeWitness(0, *(a2 + 24), v4, &protocol requirements base descriptor for Collection, associated type descriptor for Collection.Index);
@@ -1345,7 +1347,7 @@ uint64_t destroy for IndexingIterator(uint64_t a1, uint64_t a2)
 uint64_t initializeWithCopy for IndexingIterator(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6 = *(a3 + 16);
-  v7 = *(v6 - 8) + 16;
+  v7 = *(v6 - 1) + 16;
   (*v7)(a1, a2, v6);
   v8 = *(v7 + 48);
   swift_getAssociatedTypeWitness(0, *(a3 + 24), v6, &protocol requirements base descriptor for Collection, associated type descriptor for Collection.Index);
@@ -1357,7 +1359,7 @@ uint64_t initializeWithCopy for IndexingIterator(uint64_t a1, uint64_t a2, uint6
 uint64_t assignWithCopy for IndexingIterator(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6 = *(a3 + 16);
-  v7 = *(v6 - 8) + 24;
+  v7 = *(v6 - 1) + 24;
   (*v7)(a1, a2, v6);
   v8 = *(v7 + 40);
   swift_getAssociatedTypeWitness(0, *(a3 + 24), v6, &protocol requirements base descriptor for Collection, associated type descriptor for Collection.Index);
@@ -1369,7 +1371,7 @@ uint64_t assignWithCopy for IndexingIterator(uint64_t a1, uint64_t a2, uint64_t 
 uint64_t initializeWithTake for IndexingIterator(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6 = *(a3 + 16);
-  v7 = *(v6 - 8) + 32;
+  v7 = *(v6 - 1) + 32;
   (*v7)(a1, a2, v6);
   v8 = *(v7 + 32);
   swift_getAssociatedTypeWitness(0, *(a3 + 24), v6, &protocol requirements base descriptor for Collection, associated type descriptor for Collection.Index);
@@ -1381,7 +1383,7 @@ uint64_t initializeWithTake for IndexingIterator(uint64_t a1, uint64_t a2, uint6
 uint64_t assignWithTake for IndexingIterator(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6 = *(a3 + 16);
-  v7 = *(v6 - 8) + 40;
+  v7 = *(v6 - 1) + 40;
   (*v7)(a1, a2, v6);
   v8 = *(v7 + 24);
   swift_getAssociatedTypeWitness(0, *(a3 + 24), v6, &protocol requirements base descriptor for Collection, associated type descriptor for Collection.Index);
@@ -1393,7 +1395,7 @@ uint64_t assignWithTake for IndexingIterator(uint64_t a1, uint64_t a2, uint64_t 
 uint64_t getEnumTagSinglePayload for IndexingIterator(unsigned __int16 *a1, unsigned int a2, uint64_t a3)
 {
   v5 = *(a3 + 16);
-  v6 = *(v5 - 8);
+  v6 = *(v5 - 1);
   v7 = *(v6 + 84);
   swift_getAssociatedTypeWitness(0, *(a3 + 24), v5, &protocol requirements base descriptor for Collection, associated type descriptor for Collection.Index);
   v9 = *(v8 - 8);
@@ -1532,7 +1534,7 @@ LABEL_14:
 void storeEnumTagSinglePayload for IndexingIterator(_BYTE *a1, uint64_t a2, unsigned int a3, uint64_t a4)
 {
   v7 = *(a4 + 16);
-  v8 = *(v7 - 8);
+  v8 = *(v7 - 1);
   v25 = v8;
   v9 = *(v8 + 84);
   swift_getAssociatedTypeWitness(0, *(a4 + 24), v7, &protocol requirements base descriptor for Collection, associated type descriptor for Collection.Index);
@@ -1717,15 +1719,15 @@ LABEL_31:
 
 uint64_t dispatch thunk of Collection._failEarlyRangeCheck(_:bounds:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  return (*(a4 + 160))();
+  return (*(a4 + 160))(a1, a2, a3);
 }
 
 {
-  return (*(a4 + 168))();
+  return (*(a4 + 168))(a1, a2, a3);
 }
 
 {
-  return (*(a4 + 176))();
+  return (*(a4 + 176))(a1, a2, a3);
 }
 
 uint64_t initializeBufferWithCopyOfBuffer for _UnsafePartiallyInitializedContiguousArrayBuffer(uint64_t a1, uint64_t a2)
@@ -1737,15 +1739,15 @@ uint64_t initializeBufferWithCopyOfBuffer for _UnsafePartiallyInitializedContigu
   return a1;
 }
 
-uint64_t *assignWithCopy for _UnsafePartiallyInitializedContiguousArrayBuffer(uint64_t *a1, uint64_t a2)
+uint64_t *assignWithCopy for _UnsafePartiallyInitializedContiguousArrayBuffer(uint64_t *a1, uint64_t *a2)
 {
   v4 = *a2;
   v5 = *a1;
   *a1 = *a2;
   v4;
   v5;
-  a1[1] = *(a2 + 8);
-  a1[2] = *(a2 + 16);
+  a1[1] = a2[1];
+  a1[2] = a2[2];
   return a1;
 }
 
@@ -1765,12 +1767,12 @@ uint64_t *assignWithTake for _UnsafePartiallyInitializedContiguousArrayBuffer(ui
   return a1;
 }
 
-atomic_ullong *initializeBufferWithCopyOfBuffer for Dictionary.Keys.Iterator(atomic_ullong **a1, atomic_ullong **a2)
+uint64_t initializeBufferWithCopyOfBuffer for Dictionary.Keys.Iterator(uint64_t *a1, uint64_t *a2)
 {
   v2 = *a2;
   *a1 = *a2;
   v2;
-  return v2 + 2;
+  return v2 + 16;
 }
 
 __n128 __swift_memcpy40_8(uint64_t a1, uint64_t a2)
@@ -1791,7 +1793,7 @@ __n128 __swift_memcpy17_8(__n128 *a1, __n128 *a2)
   return result;
 }
 
-swift *type metadata completion function for _SwiftDictionaryNSEnumerator(uint64_t a1)
+swift *type metadata completion function for _SwiftDictionaryNSEnumerator(objc_class *a1)
 {
   v2[0] = &unk_1EEEAAE60;
   v2[1] = "\b";
@@ -1800,7 +1802,7 @@ swift *type metadata completion function for _SwiftDictionaryNSEnumerator(uint64
   return swift_initClassMetadata2(a1, 0, 4, v2, a1 + 120);
 }
 
-swift *type metadata completion function for _SwiftDeferredNSDictionary(uint64_t a1)
+swift *type metadata completion function for _SwiftDeferredNSDictionary(objc_class *a1)
 {
   v2[0] = "\b";
   v2[1] = "\b";
@@ -1819,7 +1821,7 @@ void type metadata completion function for DiscontiguousSlice.Index(uint64_t a1)
   }
 }
 
-atomic_ullong **initializeBufferWithCopyOfBuffer for DiscontiguousSlice.Index(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+uint64_t *initializeBufferWithCopyOfBuffer for DiscontiguousSlice.Index(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   swift_getAssociatedTypeWitness(0, *(a3 + 24), *(a3 + 16), &protocol requirements base descriptor for Collection, associated type descriptor for Collection.Index);
   v6 = *(v5 - 8);
@@ -2171,13 +2173,13 @@ uint64_t assignWithTake for _ClosureBasedIterator(uint64_t a1, _OWORD *a2)
   return a1;
 }
 
-uint64_t type metadata completion function for _IteratorBox(uint64_t a1)
+void *type metadata completion function for _IteratorBox(uint64_t **a1)
 {
-  result = swift_checkMetadataState(319, *(a1 + 104));
+  result = swift_checkMetadataState(319, a1[13]);
   if (v3 <= 0x3F)
   {
-    v4 = *(result - 8) + 64;
-    result = swift_initClassMetadata2(a1, 0, 1, &v4, a1 + 120);
+    v4 = *(result - 1) + 64;
+    result = swift_initClassMetadata2(a1, 0, 1, &v4, (a1 + 15));
     if (!result)
     {
       return 0;
@@ -2187,7 +2189,7 @@ uint64_t type metadata completion function for _IteratorBox(uint64_t a1)
   return result;
 }
 
-swift *type metadata completion function for _AnyCollectionBox(uint64_t a1)
+swift *type metadata completion function for _AnyCollectionBox(objc_class *a1)
 {
   v2[0] = &unk_180726B08;
   v2[1] = &unk_180726B08;
@@ -2203,13 +2205,13 @@ uint64_t dispatch thunk of _AnyCollectionBox.subscript.getter()
   return (*(*v0 + 336))();
 }
 
-uint64_t type metadata completion function for _SequenceBox(uint64_t a1)
+void *type metadata completion function for _SequenceBox(uint64_t **a1)
 {
-  result = swift_checkMetadataState(319, *(a1 + 208));
+  result = swift_checkMetadataState(319, a1[26]);
   if (v3 <= 0x3F)
   {
-    v4 = *(result - 8) + 64;
-    result = swift_initClassMetadata2(a1, 0, 1, &v4, a1 + 224);
+    v4 = *(result - 1) + 64;
+    result = swift_initClassMetadata2(a1, 0, 1, &v4, (a1 + 28));
     if (!result)
     {
       return 0;
@@ -2219,13 +2221,13 @@ uint64_t type metadata completion function for _SequenceBox(uint64_t a1)
   return result;
 }
 
-uint64_t type metadata completion function for _CollectionBox(uint64_t a1)
+void *type metadata completion function for _CollectionBox(uint64_t **a1)
 {
-  result = swift_checkMetadataState(319, *(a1 + 344));
+  result = swift_checkMetadataState(319, a1[43]);
   if (v3 <= 0x3F)
   {
-    v4 = *(result - 8) + 64;
-    result = swift_initClassMetadata2(a1, 0, 1, &v4, a1 + 360);
+    v4 = *(result - 1) + 64;
+    result = swift_initClassMetadata2(a1, 0, 1, &v4, (a1 + 45));
     if (!result)
     {
       return 0;
@@ -2235,13 +2237,13 @@ uint64_t type metadata completion function for _CollectionBox(uint64_t a1)
   return result;
 }
 
-uint64_t type metadata completion function for _BidirectionalCollectionBox(uint64_t a1)
+void *type metadata completion function for _BidirectionalCollectionBox(uint64_t **a1)
 {
-  result = swift_checkMetadataState(319, *(a1 + 368));
+  result = swift_checkMetadataState(319, a1[46]);
   if (v3 <= 0x3F)
   {
-    v4 = *(result - 8) + 64;
-    result = swift_initClassMetadata2(a1, 0, 1, &v4, a1 + 384);
+    v4 = *(result - 1) + 64;
+    result = swift_initClassMetadata2(a1, 0, 1, &v4, (a1 + 48));
     if (!result)
     {
       return 0;
@@ -2251,13 +2253,13 @@ uint64_t type metadata completion function for _BidirectionalCollectionBox(uint6
   return result;
 }
 
-uint64_t type metadata completion function for _RandomAccessCollectionBox(uint64_t a1)
+void *type metadata completion function for _RandomAccessCollectionBox(uint64_t **a1)
 {
-  result = swift_checkMetadataState(319, *(a1 + 376));
+  result = swift_checkMetadataState(319, a1[47]);
   if (v3 <= 0x3F)
   {
-    v4 = *(result - 8) + 64;
-    result = swift_initClassMetadata2(a1, 0, 1, &v4, a1 + 392);
+    v4 = *(result - 1) + 64;
+    result = swift_initClassMetadata2(a1, 0, 1, &v4, (a1 + 49));
     if (!result)
     {
       return 0;
@@ -2305,7 +2307,7 @@ id *assignWithTake for AnyIndex(id *a1, _OWORD *a2)
   return a1;
 }
 
-atomic_ullong **initializeBufferWithCopyOfBuffer for LazyFilterSequence.Iterator(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+uint64_t *initializeBufferWithCopyOfBuffer for LazyFilterSequence.Iterator(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   swift_getAssociatedTypeWitness(0, *(a3 + 24), *(a3 + 16), &protocol requirements base descriptor for Sequence, associated type descriptor for Sequence.Iterator);
   v6 = *(v5 - 8);
@@ -2680,7 +2682,7 @@ void type metadata completion function for FlattenSequence.Iterator(void *a1)
   }
 }
 
-atomic_ullong **initializeBufferWithCopyOfBuffer for FlattenSequence.Iterator(atomic_ullong **a1, atomic_ullong **a2, void *a3)
+uint64_t *initializeBufferWithCopyOfBuffer for FlattenSequence.Iterator(uint64_t *a1, uint64_t *a2, void *a3)
 {
   v7 = a3[2];
   v6 = a3[3];
@@ -3428,7 +3430,7 @@ void type metadata completion function for FlattenSequence<>.Index(void *a1)
   }
 }
 
-atomic_ullong **initializeBufferWithCopyOfBuffer for FlattenSequence<>.Index(atomic_ullong **a1, atomic_ullong **a2, void *a3)
+uint64_t *initializeBufferWithCopyOfBuffer for FlattenSequence<>.Index(uint64_t *a1, uint64_t *a2, void *a3)
 {
   v7 = a3[2];
   v6 = a3[3];
@@ -4481,11 +4483,11 @@ LABEL_20:
 
 uint64_t dispatch thunk of BinaryFloatingPoint.init(_:)(uint64_t a1, uint64_t a2)
 {
-  return (*(a2 + 64))();
+  return (*(a2 + 64))(a1);
 }
 
 {
-  return (*(a2 + 72))();
+  return (*(a2 + 72))(a1);
 }
 
 uint64_t initializeWithCopy for AnyHashable(uint64_t a1, uint64_t a2)
@@ -4496,12 +4498,12 @@ uint64_t initializeWithCopy for AnyHashable(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-uint64_t *__swift_assign_boxed_opaque_existential_1(uint64_t *result, uint64_t a2)
+uint64_t *__swift_assign_boxed_opaque_existential_1(uint64_t *result, uint64_t *a2)
 {
   if (result != a2)
   {
     v2 = result[3];
-    v3 = *(a2 + 24);
+    v3 = a2[3];
     if (v2 == v3)
     {
       v10 = *(v2 - 8);
@@ -4526,7 +4528,7 @@ uint64_t *__swift_assign_boxed_opaque_existential_1(uint64_t *result, uint64_t a
     else
     {
       result[3] = v3;
-      result[4] = *(a2 + 32);
+      result[4] = a2[4];
       v4 = *(v2 - 8);
       v5 = *(v3 - 8);
       v6 = v5;
@@ -4698,7 +4700,7 @@ uint64_t storeEnumTagSinglePayload for Hasher._Core(uint64_t result, int a2, int
   return result;
 }
 
-void type metadata accessor for __BridgingBufferStorage(uint64_t a1, void *a2, _DWORD *a3)
+void type metadata accessor for __BridgingBufferStorage(uint64_t a1, void *a2, unsigned int *a3)
 {
   if (!*a2)
   {
@@ -4863,18 +4865,18 @@ uint64_t storeEnumTagSinglePayload for _UnsafeBitset.Iterator(uint64_t result, u
   return result;
 }
 
-unint64_t type metadata completion function for DefaultIndices(uint64_t a1)
+uint64_t *type metadata completion function for DefaultIndices(uint64_t a1)
 {
   v2 = swift_checkMetadataState(319, *(a1 + 16));
   v3 = v2;
   if (v4 <= 0x3F)
   {
-    v8 = *(v2 - 8) + 64;
+    v8 = *(v2 - 1) + 64;
     swift_getAssociatedTypeWitness(319, *(a1 + 24), v2, &protocol requirements base descriptor for Collection, associated type descriptor for Collection.Index);
     v3 = v5;
     if (v6 <= 0x3F)
     {
-      v9 = *(v5 - 8) + 64;
+      v9 = *(v5 - 1) + 64;
       v10 = v9;
       swift_initStructMetadata(a1, 0, 3uLL, &v8, a1 + 32);
       return 0;
@@ -4884,10 +4886,10 @@ unint64_t type metadata completion function for DefaultIndices(uint64_t a1)
   return v3;
 }
 
-atomic_ullong **initializeBufferWithCopyOfBuffer for DefaultIndices(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+uint64_t *initializeBufferWithCopyOfBuffer for DefaultIndices(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   v5 = *(a3 + 16);
-  v6 = *(v5 - 8);
+  v6 = *(v5 - 1);
   v7 = *(v6 + 64);
   swift_getAssociatedTypeWitness(0, *(a3 + 24), v5, &protocol requirements base descriptor for Collection, associated type descriptor for Collection.Index);
   v9 = *(v8 - 8);
@@ -4923,7 +4925,7 @@ atomic_ullong **initializeBufferWithCopyOfBuffer for DefaultIndices(atomic_ullon
 uint64_t destroy for DefaultIndices(uint64_t a1, uint64_t a2)
 {
   v4 = *(a2 + 16);
-  v5 = *(v4 - 8) + 8;
+  v5 = *(v4 - 1) + 8;
   (*v5)(a1, v4);
   v6 = *(v5 + 56) + a1;
   swift_getAssociatedTypeWitness(0, *(a2 + 24), v4, &protocol requirements base descriptor for Collection, associated type descriptor for Collection.Index);
@@ -4942,7 +4944,7 @@ uint64_t destroy for DefaultIndices(uint64_t a1, uint64_t a2)
 uint64_t initializeWithCopy for DefaultIndices(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6 = *(a3 + 16);
-  v7 = *(v6 - 8) + 16;
+  v7 = *(v6 - 1) + 16;
   (*v7)(a1, a2, v6);
   v8 = *(v7 + 48);
   swift_getAssociatedTypeWitness(0, *(a3 + 24), v6, &protocol requirements base descriptor for Collection, associated type descriptor for Collection.Index);
@@ -4960,7 +4962,7 @@ uint64_t initializeWithCopy for DefaultIndices(uint64_t a1, uint64_t a2, uint64_
 uint64_t assignWithCopy for DefaultIndices(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6 = *(a3 + 16);
-  v7 = *(v6 - 8) + 24;
+  v7 = *(v6 - 1) + 24;
   (*v7)(a1, a2, v6);
   v8 = *(v7 + 40);
   swift_getAssociatedTypeWitness(0, *(a3 + 24), v6, &protocol requirements base descriptor for Collection, associated type descriptor for Collection.Index);
@@ -4978,7 +4980,7 @@ uint64_t assignWithCopy for DefaultIndices(uint64_t a1, uint64_t a2, uint64_t a3
 uint64_t initializeWithTake for DefaultIndices(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6 = *(a3 + 16);
-  v7 = *(v6 - 8) + 32;
+  v7 = *(v6 - 1) + 32;
   (*v7)(a1, a2, v6);
   v8 = *(v7 + 32);
   swift_getAssociatedTypeWitness(0, *(a3 + 24), v6, &protocol requirements base descriptor for Collection, associated type descriptor for Collection.Index);
@@ -4996,7 +4998,7 @@ uint64_t initializeWithTake for DefaultIndices(uint64_t a1, uint64_t a2, uint64_
 uint64_t assignWithTake for DefaultIndices(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6 = *(a3 + 16);
-  v7 = *(v6 - 8) + 40;
+  v7 = *(v6 - 1) + 40;
   (*v7)(a1, a2, v6);
   v8 = *(v7 + 24);
   swift_getAssociatedTypeWitness(0, *(a3 + 24), v6, &protocol requirements base descriptor for Collection, associated type descriptor for Collection.Index);
@@ -5014,7 +5016,7 @@ uint64_t assignWithTake for DefaultIndices(uint64_t a1, uint64_t a2, uint64_t a3
 uint64_t getEnumTagSinglePayload for DefaultIndices(unsigned __int16 *a1, unsigned int a2, uint64_t a3)
 {
   v5 = *(a3 + 16);
-  v6 = *(v5 - 8);
+  v6 = *(v5 - 1);
   v7 = *(v6 + 84);
   swift_getAssociatedTypeWitness(0, *(a3 + 24), v5, &protocol requirements base descriptor for Collection, associated type descriptor for Collection.Index);
   v9 = *(v8 - 8);
@@ -5153,7 +5155,7 @@ LABEL_14:
 void storeEnumTagSinglePayload for DefaultIndices(_BYTE *a1, uint64_t a2, unsigned int a3, uint64_t a4)
 {
   v7 = *(a4 + 16);
-  v8 = *(v7 - 8);
+  v8 = *(v7 - 1);
   v25 = v8;
   v9 = *(v8 + 84);
   swift_getAssociatedTypeWitness(0, *(a4 + 24), v7, &protocol requirements base descriptor for Collection, associated type descriptor for Collection.Index);
@@ -5349,7 +5351,7 @@ void *type metadata completion function for InlineArray(uint64_t a1)
   return result;
 }
 
-atomic_ullong **initializeBufferWithCopyOfBuffer for InlineArray(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+char *initializeBufferWithCopyOfBuffer for InlineArray(char *a1, uint64_t *a2, uint64_t a3)
 {
   v5 = *(a3 + 24);
   v6 = *(v5 - 8);
@@ -5371,7 +5373,7 @@ atomic_ullong **initializeBufferWithCopyOfBuffer for InlineArray(atomic_ullong *
     v15 = *(v6 + 16);
     do
     {
-      v15(a1 + v14, a2 + v14, v5);
+      v15(&a1[v14], a2 + v14, v5);
       v14 += v7;
       --v9;
     }
@@ -5502,14 +5504,14 @@ uint64_t assignWithTake for InlineArray(uint64_t a1, uint64_t a2, uint64_t a3)
 
 uint64_t dispatch thunk of BinaryInteger.init<A>(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  return (*(a5 + 80))();
+  return (*(a5 + 80))(a1, a2, a3, a4);
 }
 
 {
-  return (*(a5 + 88))();
+  return (*(a5 + 88))(a1, a2, a3, a4);
 }
 
-atomic_ullong **initializeBufferWithCopyOfBuffer for DiscontiguousSlice(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+uint64_t *initializeBufferWithCopyOfBuffer for DiscontiguousSlice(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   v3 = a1;
   v4 = *(*(a3 + 16) - 8);
@@ -5672,7 +5674,7 @@ uint64_t getEnumTagSinglePayload for DiscontiguousSlice(_DWORD *a1, unsigned int
 LABEL_28:
     if (v5 >= 0x7FFFFFFF)
     {
-      return (*(v4 + 48))();
+      return (*(v4 + 48))(a1);
     }
 
     v17 = *((a1 + v6 + 7) & 0xFFFFFFFFFFFFFFF8);
@@ -5879,7 +5881,7 @@ void type metadata completion function for JoinedSequence.Iterator(void *a1)
   }
 }
 
-atomic_ullong **initializeBufferWithCopyOfBuffer for JoinedSequence.Iterator(atomic_ullong **a1, atomic_ullong **a2, void *a3)
+uint64_t *initializeBufferWithCopyOfBuffer for JoinedSequence.Iterator(uint64_t *a1, uint64_t *a2, void *a3)
 {
   v7 = a3[2];
   v6 = a3[3];
@@ -6658,25 +6660,25 @@ LABEL_29:
   }
 }
 
-swift *type metadata completion function for ClassHolder(uint64_t a1)
+swift *type metadata completion function for ClassHolder(objc_class *a1)
 {
   v2[0] = "\b";
   v2[1] = &value witness table for Builtin.UnknownObject.size;
   return swift_initClassMetadata2(a1, 0, 2, v2, a1 + 88);
 }
 
-uint64_t type metadata completion function for MutatingWritebackBuffer(uint64_t a1)
+void *type metadata completion function for MutatingWritebackBuffer(uint64_t **a1)
 {
   v4[0] = "\b";
   v4[1] = &unk_1EEEAAF10;
   v4[2] = &unk_1EEEAAF10;
   v4[3] = &unk_1EEEAAF10;
   v4[4] = &value witness table for Builtin.Int64.size;
-  result = swift_checkMetadataState(319, *(a1 + 88));
+  result = swift_checkMetadataState(319, a1[11]);
   if (v3 <= 0x3F)
   {
-    v4[5] = *(result - 8) + 64;
-    result = swift_initClassMetadata2(a1, 0, 6, v4, a1 + 96);
+    v4[5] = *(result - 1) + 64;
+    result = swift_initClassMetadata2(a1, 0, 6, v4, (a1 + 12));
     if (!result)
     {
       return 0;
@@ -6686,21 +6688,21 @@ uint64_t type metadata completion function for MutatingWritebackBuffer(uint64_t 
   return result;
 }
 
-uint64_t type metadata completion function for NonmutatingWritebackBuffer(uint64_t a1)
+void *type metadata completion function for NonmutatingWritebackBuffer(uint64_t **a1)
 {
   v5[0] = "\b";
-  result = swift_checkMetadataState(319, *(a1 + 80));
+  result = swift_checkMetadataState(319, a1[10]);
   if (v3 <= 0x3F)
   {
-    v5[1] = *(result - 8) + 64;
+    v5[1] = *(result - 1) + 64;
     v5[2] = &unk_1EEEAAF10;
     v5[3] = &unk_1EEEAAF10;
     v5[4] = &value witness table for Builtin.Int64.size;
-    result = swift_checkMetadataState(319, *(a1 + 88));
+    result = swift_checkMetadataState(319, a1[11]);
     if (v4 <= 0x3F)
     {
-      v5[5] = *(result - 8) + 64;
-      result = swift_initClassMetadata2(a1, 0, 6, v5, a1 + 96);
+      v5[5] = *(result - 1) + 64;
+      result = swift_initClassMetadata2(a1, 0, 6, v5, (a1 + 12));
       if (!result)
       {
         return 0;
@@ -6711,27 +6713,27 @@ uint64_t type metadata completion function for NonmutatingWritebackBuffer(uint64
   return result;
 }
 
-uint64_t default associated conformance accessor for LazyCollectionProtocol.LazySequenceProtocol.Elements: Collection(uint64_t a1, const char *a2, int ***a3)
+unint64_t default associated conformance accessor for LazyCollectionProtocol.LazySequenceProtocol.Elements: Collection(uint64_t a1, Class *a2, int ***a3)
 {
   swift_getAssociatedTypeWitness(255, a3[2], a2, &protocol requirements base descriptor for LazySequenceProtocol, associated type descriptor for LazySequenceProtocol.Elements);
 
   return swift_getAssociatedConformanceWitness(a3, a2, v5, &protocol requirements base descriptor for LazyCollectionProtocol, associated conformance descriptor for LazyCollectionProtocol.LazySequenceProtocol.Elements: Collection);
 }
 
-uint64_t default associated conformance accessor for LazySequenceProtocol.LazySequenceProtocol.Elements: Sequence(uint64_t a1, const char *a2, int **a3)
+unint64_t default associated conformance accessor for LazySequenceProtocol.LazySequenceProtocol.Elements: Sequence(uint64_t a1, Class *a2, int **a3)
 {
   swift_getAssociatedTypeWitness(255, a3, a2, &protocol requirements base descriptor for LazySequenceProtocol, associated type descriptor for LazySequenceProtocol.Elements);
 
   return swift_getAssociatedConformanceWitness(a3, a2, v5, &protocol requirements base descriptor for LazySequenceProtocol, associated conformance descriptor for LazySequenceProtocol.LazySequenceProtocol.Elements: Sequence);
 }
 
-uint64_t type metadata completion function for _IndexBox(uint64_t a1)
+void *type metadata completion function for _IndexBox(uint64_t **a1)
 {
-  result = swift_checkMetadataState(319, *(a1 + 80));
+  result = swift_checkMetadataState(319, a1[10]);
   if (v3 <= 0x3F)
   {
-    v4 = *(result - 8) + 64;
-    result = swift_initClassMetadata2(a1, 0, 1, &v4, a1 + 96);
+    v4 = *(result - 1) + 64;
+    result = swift_initClassMetadata2(a1, 0, 1, &v4, (a1 + 12));
     if (!result)
     {
       return 0;
@@ -6741,12 +6743,12 @@ uint64_t type metadata completion function for _IndexBox(uint64_t a1)
   return result;
 }
 
-uint64_t type metadata completion function for JoinedSequence(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *type metadata completion function for JoinedSequence(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = swift_checkMetadataState(319, *(a1 + 16));
   if (v7 <= 0x3F)
   {
-    v8[0] = *(result - 8) + 64;
+    v8[0] = *(result - 1) + 64;
     v8[1] = a4;
     swift_initStructMetadata(a1, 0, 2uLL, v8, a1 + 40);
     return 0;
@@ -6766,7 +6768,7 @@ void type metadata completion function for LazyMapSequence.Iterator(uint64_t a1)
   }
 }
 
-atomic_ullong **initializeBufferWithCopyOfBuffer for LazyMapSequence.Iterator(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+uint64_t *initializeBufferWithCopyOfBuffer for LazyMapSequence.Iterator(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   swift_getAssociatedTypeWitness(0, *(a3 + 32), *(a3 + 16), &protocol requirements base descriptor for Sequence, associated type descriptor for Sequence.Iterator);
   v6 = *(v5 - 8);
@@ -7133,20 +7135,20 @@ LABEL_36:
 
 uint64_t dispatch thunk of MutableCollection.subscript.setter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  return (*(a4 + 24))();
+  return (*(a4 + 24))(a1, a2, a3);
 }
 
 {
-  return (*(a4 + 40))();
+  return (*(a4 + 40))(a1, a2, a3);
 }
 
 uint64_t dispatch thunk of MutableCollection.subscript.modify(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  return (*(a4 + 32))();
+  return (*(a4 + 32))(a1, a2, a3);
 }
 
 {
-  return (*(a4 + 48))();
+  return (*(a4 + 48))(a1, a2, a3);
 }
 
 uint64_t initializeWithCopy for _NativeSet.Iterator(uint64_t a1, uint64_t a2)
@@ -7159,17 +7161,17 @@ uint64_t initializeWithCopy for _NativeSet.Iterator(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-uint64_t *assignWithCopy for _NativeDictionary.Iterator(uint64_t *a1, uint64_t a2)
+uint64_t *assignWithCopy for _NativeDictionary.Iterator(uint64_t *a1, uint64_t *a2)
 {
   v4 = *a2;
   v5 = *a1;
   *a1 = *a2;
   v4;
   v5;
-  a1[1] = *(a2 + 8);
-  a1[2] = *(a2 + 16);
-  a1[3] = *(a2 + 24);
-  a1[4] = *(a2 + 32);
+  a1[1] = a2[1];
+  a1[2] = a2[2];
+  a1[3] = a2[3];
+  a1[4] = a2[4];
   return a1;
 }
 
@@ -7241,19 +7243,19 @@ LABEL_8:
   return result;
 }
 
-uint64_t type metadata completion function for ClosedRange<>.Index(uint64_t a1)
+uint64_t *type metadata completion function for ClosedRange<>.Index(uint64_t a1)
 {
   result = swift_checkMetadataState(319, *(a1 + 16));
   if (v3 <= 0x3F)
   {
-    swift_initEnumMetadataSinglePayload(a1, 0, *(result - 8) + 64, 1u);
+    swift_initEnumMetadataSinglePayload(a1, 0, *(result - 1) + 64, 1u);
     return 0;
   }
 
   return result;
 }
 
-atomic_ullong **initializeBufferWithCopyOfBuffer for LazyDropWhileSequence(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+uint64_t *initializeBufferWithCopyOfBuffer for LazyDropWhileSequence(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   v3 = a1;
   v4 = *(*(a3 + 16) - 8);
@@ -7428,7 +7430,7 @@ uint64_t getEnumTagSinglePayload for LazyDropWhileSequence(_DWORD *a1, unsigned 
 LABEL_28:
     if (v5 >= 0x7FFFFFFF)
     {
-      return (*(v4 + 48))();
+      return (*(v4 + 48))(a1);
     }
 
     v17 = *((a1 + v6 + 7) & 0xFFFFFFFFFFFFFFF8);
@@ -7623,7 +7625,7 @@ void type metadata completion function for LazyDropWhileSequence.Iterator(uint64
   }
 }
 
-atomic_ullong **initializeBufferWithCopyOfBuffer for LazyDropWhileSequence.Iterator(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+uint64_t *initializeBufferWithCopyOfBuffer for LazyDropWhileSequence.Iterator(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   swift_getAssociatedTypeWitness(0, *(a3 + 24), *(a3 + 16), &protocol requirements base descriptor for Sequence, associated type descriptor for Sequence.Iterator);
   v6 = *(v5 - 8);
@@ -8075,7 +8077,7 @@ uint64_t type metadata completion function for LazyPrefixWhileSequence<>.Index(u
   return result;
 }
 
-atomic_ullong **initializeBufferWithCopyOfBuffer for LazyPrefixWhileSequence<>._IndexRepresentation(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+uint64_t *initializeBufferWithCopyOfBuffer for LazyPrefixWhileSequence<>._IndexRepresentation(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   swift_getAssociatedTypeWitness(0, *(a3 + 24), *(a3 + 16), &protocol requirements base descriptor for Collection, associated type descriptor for Collection.Index);
   v6 = *(v5 - 8);
@@ -8584,12 +8586,12 @@ LABEL_40:
   }
 }
 
-uint64_t type metadata completion function for ClosedRange(uint64_t a1)
+uint64_t *type metadata completion function for ClosedRange(uint64_t a1)
 {
   result = swift_checkMetadataState(319, *(a1 + 16));
   if (v3 <= 0x3F)
   {
-    v4[0] = *(result - 8) + 64;
+    v4[0] = *(result - 1) + 64;
     v4[1] = v4[0];
     swift_initStructMetadata(a1, 0, 2uLL, v4, a1 + 32);
     return 0;
@@ -8598,12 +8600,12 @@ uint64_t type metadata completion function for ClosedRange(uint64_t a1)
   return result;
 }
 
-uint64_t type metadata completion function for FlattenSequence(uint64_t a1)
+uint64_t *type metadata completion function for FlattenSequence(uint64_t a1)
 {
   result = swift_checkMetadataState(319, *(a1 + 16));
   if (v3 <= 0x3F)
   {
-    v4 = *(result - 8) + 64;
+    v4 = *(result - 1) + 64;
     swift_initStructMetadata(a1, 0, 1uLL, &v4, a1 + 40);
     return 0;
   }
@@ -8813,13 +8815,13 @@ LABEL_20:
   return result;
 }
 
-uint64_t type metadata completion function for Repeated(uint64_t a1)
+uint64_t *type metadata completion function for Repeated(uint64_t a1)
 {
   v4[0] = &value witness table for Builtin.Int64.size;
   result = swift_checkMetadataState(319, *(a1 + 16));
   if (v3 <= 0x3F)
   {
-    v4[1] = *(result - 8) + 64;
+    v4[1] = *(result - 1) + 64;
     swift_initStructMetadata(a1, 0, 2uLL, v4, a1 + 24);
     return 0;
   }
@@ -8827,7 +8829,7 @@ uint64_t type metadata completion function for Repeated(uint64_t a1)
   return result;
 }
 
-atomic_ullong **initializeBufferWithCopyOfBuffer for Repeated(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+uint64_t *initializeBufferWithCopyOfBuffer for Repeated(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   v3 = a1;
   v4 = *(*(a3 + 16) - 8);
@@ -9149,17 +9151,17 @@ LABEL_28:
   v18(v19);
 }
 
-uint64_t type metadata completion function for Result(uint64_t a1)
+uint64_t *type metadata completion function for Result(uint64_t a1)
 {
   result = swift_checkMetadataState(319, *(a1 + 16));
   if (v3 <= 0x3F)
   {
-    v5[0] = *(result - 8) + 64;
+    v5[0] = *(result - 1) + 64;
     result = swift_checkMetadataState(319, *(a1 + 24));
     if (v4 <= 0x3F)
     {
-      v5[1] = *(result - 8) + 64;
-      swift_initEnumMetadataMultiPayload(a1, 0, 2u, v5);
+      v5[1] = *(result - 1) + 64;
+      swift_initEnumMetadataMultiPayload(a1, 0, 2uLL, v5);
       return 0;
     }
   }
@@ -9401,7 +9403,7 @@ LABEL_18:
   return a1;
 }
 
-unsigned __int8 *assignWithCopy for Result(unsigned __int8 *a1, unsigned __int16 *a2, uint64_t a3)
+unsigned __int8 *assignWithCopy for Result(unsigned __int8 *a1, unsigned __int8 *a2, uint64_t a3)
 {
   if (a1 == a2)
   {
@@ -9491,7 +9493,7 @@ LABEL_19:
   }
 
   (*(v15 + 8))(a1, v16);
-  v17 = *(a2 + v9);
+  v17 = a2[v9];
   v18 = v17 - 2;
   if (v17 >= 2)
   {
@@ -9514,7 +9516,7 @@ LABEL_19:
 
       else if (v19 == 3)
       {
-        v20 = *a2 | (*(a2 + 2) << 16);
+        v20 = *a2 | (a2[2] << 16);
       }
 
       else
@@ -9640,7 +9642,7 @@ LABEL_18:
   return a1;
 }
 
-unsigned __int8 *assignWithTake for Result(unsigned __int8 *a1, unsigned __int16 *a2, uint64_t a3)
+unsigned __int8 *assignWithTake for Result(unsigned __int8 *a1, unsigned __int8 *a2, uint64_t a3)
 {
   if (a1 == a2)
   {
@@ -9730,7 +9732,7 @@ LABEL_19:
   }
 
   (*(v15 + 8))(a1, v16);
-  v17 = *(a2 + v9);
+  v17 = a2[v9];
   v18 = v17 - 2;
   if (v17 >= 2)
   {
@@ -9753,7 +9755,7 @@ LABEL_19:
 
       else if (v19 == 3)
       {
-        v20 = *a2 | (*(a2 + 2) << 16);
+        v20 = *a2 | (a2[2] << 16);
       }
 
       else
@@ -10200,18 +10202,18 @@ void destructiveInjectEnumTag for Result(_BYTE *a1, unsigned int a2, uint64_t a3
   }
 }
 
-unint64_t type metadata completion function for ReversedCollection.Iterator(uint64_t a1)
+uint64_t *type metadata completion function for ReversedCollection.Iterator(uint64_t a1)
 {
   v2 = swift_checkMetadataState(319, *(a1 + 16));
   v3 = v2;
   if (v4 <= 0x3F)
   {
-    v8[0] = *(v2 - 8) + 64;
+    v8[0] = *(v2 - 1) + 64;
     swift_getAssociatedTypeWitness(319, *(*(a1 + 24) + 8), v2, &protocol requirements base descriptor for Collection, associated type descriptor for Collection.Index);
     v3 = v5;
     if (v6 <= 0x3F)
     {
-      v8[1] = *(v5 - 8) + 64;
+      v8[1] = *(v5 - 1) + 64;
       swift_initStructMetadata(a1, 0, 2uLL, v8, a1 + 32);
       return 0;
     }
@@ -10220,10 +10222,10 @@ unint64_t type metadata completion function for ReversedCollection.Iterator(uint
   return v3;
 }
 
-atomic_ullong **initializeBufferWithCopyOfBuffer for ReversedCollection.Iterator(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+uint64_t *initializeBufferWithCopyOfBuffer for ReversedCollection.Iterator(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   v5 = *(a3 + 16);
-  v6 = *(v5 - 8);
+  v6 = *(v5 - 1);
   v7 = *(v6 + 64);
   swift_getAssociatedTypeWitness(0, *(*(a3 + 24) + 8), v5, &protocol requirements base descriptor for Collection, associated type descriptor for Collection.Index);
   v9 = *(v8 - 8);
@@ -10252,7 +10254,7 @@ atomic_ullong **initializeBufferWithCopyOfBuffer for ReversedCollection.Iterator
 uint64_t destroy for ReversedCollection.Iterator(uint64_t a1, uint64_t a2)
 {
   v4 = *(a2 + 16);
-  v5 = *(v4 - 8) + 8;
+  v5 = *(v4 - 1) + 8;
   (*v5)(a1, v4);
   v6 = *(v5 + 56) + a1;
   swift_getAssociatedTypeWitness(0, *(*(a2 + 24) + 8), v4, &protocol requirements base descriptor for Collection, associated type descriptor for Collection.Index);
@@ -10267,7 +10269,7 @@ uint64_t destroy for ReversedCollection.Iterator(uint64_t a1, uint64_t a2)
 uint64_t initializeWithCopy for ReversedCollection.Iterator(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6 = *(a3 + 16);
-  v7 = *(v6 - 8) + 16;
+  v7 = *(v6 - 1) + 16;
   (*v7)(a1, a2, v6);
   v8 = *(v7 + 48);
   swift_getAssociatedTypeWitness(0, *(*(a3 + 24) + 8), v6, &protocol requirements base descriptor for Collection, associated type descriptor for Collection.Index);
@@ -10279,7 +10281,7 @@ uint64_t initializeWithCopy for ReversedCollection.Iterator(uint64_t a1, uint64_
 uint64_t assignWithCopy for ReversedCollection.Iterator(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6 = *(a3 + 16);
-  v7 = *(v6 - 8) + 24;
+  v7 = *(v6 - 1) + 24;
   (*v7)(a1, a2, v6);
   v8 = *(v7 + 40);
   swift_getAssociatedTypeWitness(0, *(*(a3 + 24) + 8), v6, &protocol requirements base descriptor for Collection, associated type descriptor for Collection.Index);
@@ -10291,7 +10293,7 @@ uint64_t assignWithCopy for ReversedCollection.Iterator(uint64_t a1, uint64_t a2
 uint64_t initializeWithTake for ReversedCollection.Iterator(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6 = *(a3 + 16);
-  v7 = *(v6 - 8) + 32;
+  v7 = *(v6 - 1) + 32;
   (*v7)(a1, a2, v6);
   v8 = *(v7 + 32);
   swift_getAssociatedTypeWitness(0, *(*(a3 + 24) + 8), v6, &protocol requirements base descriptor for Collection, associated type descriptor for Collection.Index);
@@ -10303,7 +10305,7 @@ uint64_t initializeWithTake for ReversedCollection.Iterator(uint64_t a1, uint64_
 uint64_t assignWithTake for ReversedCollection.Iterator(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6 = *(a3 + 16);
-  v7 = *(v6 - 8) + 40;
+  v7 = *(v6 - 1) + 40;
   (*v7)(a1, a2, v6);
   v8 = *(v7 + 24);
   swift_getAssociatedTypeWitness(0, *(*(a3 + 24) + 8), v6, &protocol requirements base descriptor for Collection, associated type descriptor for Collection.Index);
@@ -10315,7 +10317,7 @@ uint64_t assignWithTake for ReversedCollection.Iterator(uint64_t a1, uint64_t a2
 uint64_t getEnumTagSinglePayload for ReversedCollection.Iterator(unsigned __int16 *a1, unsigned int a2, uint64_t a3)
 {
   v5 = *(a3 + 16);
-  v6 = *(v5 - 8);
+  v6 = *(v5 - 1);
   v7 = *(v6 + 84);
   swift_getAssociatedTypeWitness(0, *(*(a3 + 24) + 8), v5, &protocol requirements base descriptor for Collection, associated type descriptor for Collection.Index);
   v9 = *(v8 - 8);
@@ -10454,7 +10456,7 @@ LABEL_14:
 void storeEnumTagSinglePayload for ReversedCollection.Iterator(_BYTE *a1, uint64_t a2, unsigned int a3, uint64_t a4)
 {
   v7 = *(a4 + 16);
-  v8 = *(v7 - 8);
+  v8 = *(v7 - 1);
   v25 = v8;
   v9 = *(v8 + 84);
   swift_getAssociatedTypeWitness(0, *(*(a4 + 24) + 8), v7, &protocol requirements base descriptor for Collection, associated type descriptor for Collection.Index);
@@ -10647,7 +10649,7 @@ void type metadata completion function for ReversedCollection.Index(uint64_t a1)
   }
 }
 
-atomic_ullong **initializeBufferWithCopyOfBuffer for ReversedCollection.Index(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+uint64_t *initializeBufferWithCopyOfBuffer for ReversedCollection.Index(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   swift_getAssociatedTypeWitness(0, *(*(a3 + 24) + 8), *(a3 + 16), &protocol requirements base descriptor for Collection, associated type descriptor for Collection.Index);
   v6 = *(v5 - 8);
@@ -10999,12 +11001,12 @@ uint64_t storeEnumTagSinglePayload for Hasher._State(uint64_t result, int a2, in
   return result;
 }
 
-uint64_t type metadata completion function for DiscontiguousSlice(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *type metadata completion function for DiscontiguousSlice(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = swift_checkMetadataState(319, *(a1 + 16));
   if (v7 <= 0x3F)
   {
-    v8[0] = *(result - 8) + 64;
+    v8[0] = *(result - 1) + 64;
     v8[1] = a4;
     swift_initStructMetadata(a1, 0, 2uLL, v8, a1 + 32);
     return 0;
@@ -11013,7 +11015,7 @@ uint64_t type metadata completion function for DiscontiguousSlice(uint64_t a1, u
   return result;
 }
 
-atomic_ullong **initializeBufferWithCopyOfBuffer for DropFirstSequence(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+uint64_t *initializeBufferWithCopyOfBuffer for DropFirstSequence(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   v3 = a1;
   v4 = *(*(a3 + 16) - 8);
@@ -11079,7 +11081,7 @@ uint64_t getEnumTagSinglePayload for DropFirstSequence(_DWORD *a1, unsigned int 
 
   if (v5 >= a2)
   {
-    return (*(v4 + 48))();
+    return (*(v4 + 48))(a1);
   }
 
   v6 = ((*(*(*(a3 + 16) - 8) + 64) + 7) & 0xFFFFFFFFFFFFFFF8) + 8;
@@ -11146,7 +11148,7 @@ uint64_t getEnumTagSinglePayload for DropFirstSequence(_DWORD *a1, unsigned int 
 LABEL_24:
     if (v5)
     {
-      return (*(v4 + 48))();
+      return (*(v4 + 48))(a1);
     }
 
     return 0;
@@ -11298,7 +11300,7 @@ LABEL_30:
   return result;
 }
 
-atomic_ullong **initializeBufferWithCopyOfBuffer for EnumeratedSequence.Iterator(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3, uint64_t a4, _DWORD *a5)
+uint64_t *initializeBufferWithCopyOfBuffer for EnumeratedSequence.Iterator(uint64_t *a1, uint64_t *a2, uint64_t a3, uint64_t a4, _DWORD *a5)
 {
   swift_getAssociatedTypeWitness(0, *(a3 + 24), *(a3 + 16), a4, a5);
   v8 = *(v7 - 8);
@@ -11605,7 +11607,7 @@ void type metadata completion function for DropWhileSequence(uint64_t a1)
   }
 }
 
-atomic_ullong **initializeBufferWithCopyOfBuffer for DropWhileSequence(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+uint64_t *initializeBufferWithCopyOfBuffer for DropWhileSequence(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   v6 = *(a3 + 16);
   v5 = *(a3 + 24);
@@ -12321,7 +12323,7 @@ LABEL_59:
   }
 }
 
-swift *type metadata completion function for _SwiftSetNSEnumerator(uint64_t a1)
+swift *type metadata completion function for _SwiftSetNSEnumerator(objc_class *a1)
 {
   v2[0] = &unk_1EEEAAE60;
   v2[1] = "\b";
@@ -12330,7 +12332,7 @@ swift *type metadata completion function for _SwiftSetNSEnumerator(uint64_t a1)
   return swift_initClassMetadata2(a1, 0, 4, v2, a1 + 112);
 }
 
-swift *type metadata completion function for _SwiftDeferredNSSet(uint64_t a1)
+swift *type metadata completion function for _SwiftDeferredNSSet(objc_class *a1)
 {
   v2[0] = "\b";
   v2[1] = &unk_1EEEAAE60;
@@ -12367,24 +12369,24 @@ unint64_t *assignWithTake for __CocoaSet.Index(unint64_t *a1, unint64_t *a2)
   return a1;
 }
 
-void *initializeBufferWithCopyOfBuffer for _SetBuilder(void *a1, uint64_t a2)
+uint64_t *initializeBufferWithCopyOfBuffer for _SetBuilder(uint64_t *a1, uint64_t *a2)
 {
   v3 = *a2;
-  v4 = *(a2 + 8);
+  v4 = a2[1];
   *a1 = *a2;
   a1[1] = v4;
   v3;
   return a1;
 }
 
-uint64_t *assignWithCopy for _DictionaryBuilder(uint64_t *a1, uint64_t a2)
+uint64_t *assignWithCopy for _DictionaryBuilder(uint64_t *a1, uint64_t *a2)
 {
   v4 = *a2;
   v5 = *a1;
   *a1 = *a2;
   v4;
   v5;
-  a1[1] = *(a2 + 8);
+  a1[1] = a2[1];
   return a1;
 }
 
@@ -12408,13 +12410,13 @@ void type metadata completion function for Slice(uint64_t a1)
     v5 = swift_checkMetadataState(319, v2);
     if (v6 <= 0x3F)
     {
-      v7[2] = *(v5 - 8) + 64;
+      v7[2] = *(v5 - 1) + 64;
       swift_initStructMetadata(a1, 0, 3uLL, v7, a1 + 32);
     }
   }
 }
 
-atomic_ullong **initializeBufferWithCopyOfBuffer for Slice(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+uint64_t *initializeBufferWithCopyOfBuffer for Slice(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   v5 = *(a3 + 16);
   swift_getAssociatedTypeWitness(0, *(a3 + 24), v5, &protocol requirements base descriptor for Collection, associated type descriptor for Collection.Index);
@@ -12422,7 +12424,7 @@ atomic_ullong **initializeBufferWithCopyOfBuffer for Slice(atomic_ullong **a1, a
   v8 = *(v7 + 64);
   v9 = *(v7 + 80);
   v10 = v8 + v9;
-  v11 = *(v5 - 8);
+  v11 = *(v5 - 1);
   v12 = *(v11 + 80);
   v13 = v8 + v12;
   v14 = ((v8 + v12 + ((v8 + v9) & ~v9)) & ~v12) + *(v11 + 64);
@@ -12464,7 +12466,7 @@ uint64_t destroy for Slice(unint64_t a1, uint64_t a2)
   v9 = *(v8 + 56);
   v10 = (v9 + a1 + *(v8 + 72)) & ~*(v8 + 72);
   v7(v10, v5);
-  v11 = *(v3 - 8);
+  v11 = *(v3 - 1);
   v12 = *(v11 + 8);
   v13 = (v10 + v9 + *(v11 + 80)) & ~*(v11 + 80);
 
@@ -12485,7 +12487,7 @@ uint64_t initializeWithCopy for Slice(uint64_t a1, uint64_t a2, uint64_t a3)
   v13 = (v11 + v12 + a1) & ~v12;
   v14 = (v11 + v12 + a2) & ~v12;
   v9(v13, v14, v7);
-  v15 = *(v5 - 8);
+  v15 = *(v5 - 1);
   (*(v15 + 16))((v11 + *(v15 + 80) + v13) & ~*(v15 + 80), (v11 + *(v15 + 80) + v14) & ~*(v15 + 80), v5);
   return a1;
 }
@@ -12504,7 +12506,7 @@ uint64_t assignWithCopy for Slice(uint64_t a1, uint64_t a2, uint64_t a3)
   v13 = (v11 + v12 + a1) & ~v12;
   v14 = (v11 + v12 + a2) & ~v12;
   v9(v13, v14, v7);
-  v15 = *(v5 - 8);
+  v15 = *(v5 - 1);
   (*(v15 + 24))((v11 + *(v15 + 80) + v13) & ~*(v15 + 80), (v11 + *(v15 + 80) + v14) & ~*(v15 + 80), v5);
   return a1;
 }
@@ -12523,7 +12525,7 @@ uint64_t initializeWithTake for Slice(uint64_t a1, uint64_t a2, uint64_t a3)
   v13 = (v11 + v12 + a1) & ~v12;
   v14 = (v11 + v12 + a2) & ~v12;
   v9(v13, v14, v7);
-  v15 = *(v5 - 8);
+  v15 = *(v5 - 1);
   (*(v15 + 32))((v11 + *(v15 + 80) + v13) & ~*(v15 + 80), (v11 + *(v15 + 80) + v14) & ~*(v15 + 80), v5);
   return a1;
 }
@@ -12542,7 +12544,7 @@ uint64_t assignWithTake for Slice(uint64_t a1, uint64_t a2, uint64_t a3)
   v13 = (v11 + v12 + a1) & ~v12;
   v14 = (v11 + v12 + a2) & ~v12;
   v9(v13, v14, v7);
-  v15 = *(v5 - 8);
+  v15 = *(v5 - 1);
   (*(v15 + 40))((v11 + *(v15 + 80) + v13) & ~*(v15 + 80), (v11 + *(v15 + 80) + v14) & ~*(v15 + 80), v5);
   return a1;
 }
@@ -12553,7 +12555,7 @@ uint64_t getEnumTagSinglePayload for Slice(unsigned __int16 *a1, unsigned int a2
   swift_getAssociatedTypeWitness(0, *(a3 + 24), v5, &protocol requirements base descriptor for Collection, associated type descriptor for Collection.Index);
   v7 = *(v6 - 8);
   v8 = *(v7 + 84);
-  v9 = *(v5 - 8);
+  v9 = *(v5 - 1);
   v10 = *(v9 + 84);
   v11 = *(v7 + 64);
   v12 = *(v7 + 80);
@@ -12579,7 +12581,7 @@ uint64_t getEnumTagSinglePayload for Slice(unsigned __int16 *a1, unsigned int a2
     goto LABEL_28;
   }
 
-  v16 = ((v11 + v13 + (v15 & ~v12)) & ~v13) + *(*(v5 - 8) + 64);
+  v16 = ((v11 + v13 + (v15 & ~v12)) & ~v13) + *(*(v5 - 1) + 8);
   v17 = 8 * v16;
   if (v16 <= 3)
   {
@@ -12648,7 +12650,7 @@ LABEL_14:
   {
     if (v16 <= 3)
     {
-      v21 = ((v11 + v13 + (v15 & ~v12)) & ~v13) + *(*(v5 - 8) + 64);
+      v21 = ((v11 + v13 + (v15 & ~v12)) & ~v13) + *(*(v5 - 1) + 16);
     }
 
     else
@@ -12694,7 +12696,7 @@ void storeEnumTagSinglePayload for Slice(_BYTE *a1, uint64_t a2, unsigned int a3
   swift_getAssociatedTypeWitness(0, *(a4 + 24), v7, &protocol requirements base descriptor for Collection, associated type descriptor for Collection.Index);
   v9 = *(v8 - 8);
   v10 = *(v9 + 84);
-  v11 = *(v7 - 8);
+  v11 = *(v7 - 1);
   v12 = *(v11 + 84);
   v13 = *(v9 + 64);
   v14 = *(v9 + 80);
@@ -12709,7 +12711,7 @@ void storeEnumTagSinglePayload for Slice(_BYTE *a1, uint64_t a2, unsigned int a3
     v16 = *(v11 + 84);
   }
 
-  v17 = ((v13 + v15 + ((v13 + v14) & ~v14)) & ~v15) + *(*(v7 - 8) + 64);
+  v17 = ((v13 + v15 + ((v13 + v14) & ~v14)) & ~v15) + *(*(v7 - 1) + 8);
   if (a3 <= v16)
   {
     v18 = 0;
@@ -12966,20 +12968,20 @@ uint64_t storeEnumTagSinglePayload for StaticString(uint64_t result, int a2, int
   return result;
 }
 
-unint64_t type metadata completion function for StrideToIterator(uint64_t a1)
+uint64_t *type metadata completion function for StrideToIterator(uint64_t a1)
 {
   v2 = swift_checkMetadataState(319, *(a1 + 16));
   v3 = v2;
   if (v4 <= 0x3F)
   {
-    v5 = *(v2 - 8) + 64;
+    v5 = *(v2 - 1) + 64;
     v10[0] = v5;
     v10[1] = v5;
     swift_getAssociatedTypeWitness(319, *(a1 + 24), v2, &protocol requirements base descriptor for Strideable, associated type descriptor for Strideable.Stride);
     v3 = v6;
     if (v7 <= 0x3F)
     {
-      v10[2] = *(v6 - 8) + 64;
+      v10[2] = *(v6 - 1) + 64;
       swift_getTupleTypeLayout2(v9, "\t", v5);
       v10[3] = v9;
       swift_initStructMetadata(a1, 0, 4uLL, v10, a1 + 32);
@@ -12990,10 +12992,10 @@ unint64_t type metadata completion function for StrideToIterator(uint64_t a1)
   return v3;
 }
 
-atomic_ullong **initializeBufferWithCopyOfBuffer for StrideToIterator(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+uint64_t *initializeBufferWithCopyOfBuffer for StrideToIterator(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   v4 = *(a3 + 16);
-  v5 = *(v4 - 8);
+  v5 = *(v4 - 1);
   v6 = *(v5 + 64);
   v7 = *(v5 + 80);
   v8 = v7;
@@ -13037,7 +13039,7 @@ atomic_ullong **initializeBufferWithCopyOfBuffer for StrideToIterator(atomic_ull
 uint64_t initializeWithCopy for StrideToIterator(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6 = *(a3 + 16);
-  v7 = *(v6 - 8);
+  v7 = *(v6 - 1);
   v8 = *(v7 + 16);
   v8(a1, a2, v6);
   v9 = *(v7 + 64);
@@ -13064,7 +13066,7 @@ uint64_t initializeWithCopy for StrideToIterator(uint64_t a1, uint64_t a2, uint6
 uint64_t assignWithCopy for StrideToIterator(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6 = *(a3 + 16);
-  v7 = *(v6 - 8);
+  v7 = *(v6 - 1);
   v8 = *(v7 + 24);
   v8(a1, a2, v6);
   v9 = *(v7 + 64);
@@ -13091,7 +13093,7 @@ uint64_t assignWithCopy for StrideToIterator(uint64_t a1, uint64_t a2, uint64_t 
 uint64_t initializeWithTake for StrideToIterator(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6 = *(a3 + 16);
-  v7 = *(v6 - 8);
+  v7 = *(v6 - 1);
   v8 = *(v7 + 32);
   v8(a1, a2, v6);
   v9 = *(v7 + 64);
@@ -13118,7 +13120,7 @@ uint64_t initializeWithTake for StrideToIterator(uint64_t a1, uint64_t a2, uint6
 uint64_t assignWithTake for StrideToIterator(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6 = *(a3 + 16);
-  v7 = *(v6 - 8);
+  v7 = *(v6 - 1);
   v8 = *(v7 + 40);
   v8(a1, a2, v6);
   v9 = *(v7 + 64);
@@ -13145,7 +13147,7 @@ uint64_t assignWithTake for StrideToIterator(uint64_t a1, uint64_t a2, uint64_t 
 uint64_t getEnumTagSinglePayload for StrideToIterator(unsigned __int16 *a1, unsigned int a2, uint64_t a3)
 {
   v5 = *(a3 + 16);
-  v6 = *(v5 - 8);
+  v6 = *(v5 - 1);
   v7 = *(v6 + 84);
   swift_getAssociatedTypeWitness(0, *(a3 + 24), v5, &protocol requirements base descriptor for Strideable, associated type descriptor for Strideable.Stride);
   v9 = *(v8 - 8);
@@ -13286,7 +13288,7 @@ LABEL_14:
 void storeEnumTagSinglePayload for StrideToIterator(_BYTE *a1, uint64_t a2, unsigned int a3, uint64_t a4)
 {
   v7 = *(a4 + 16);
-  v8 = *(v7 - 8);
+  v8 = *(v7 - 1);
   v9 = *(v8 + 84);
   swift_getAssociatedTypeWitness(0, *(a4 + 24), v7, &protocol requirements base descriptor for Strideable, associated type descriptor for Strideable.Stride);
   v11 = v8;
@@ -13470,20 +13472,20 @@ LABEL_31:
   }
 }
 
-unint64_t type metadata completion function for StrideThroughIterator(uint64_t a1)
+uint64_t *type metadata completion function for StrideThroughIterator(uint64_t a1)
 {
   v2 = swift_checkMetadataState(319, *(a1 + 16));
   v3 = v2;
   if (v4 <= 0x3F)
   {
-    v5 = *(v2 - 8) + 64;
+    v5 = *(v2 - 1) + 64;
     v10[0] = v5;
     v10[1] = v5;
     swift_getAssociatedTypeWitness(319, *(a1 + 24), v2, &protocol requirements base descriptor for Strideable, associated type descriptor for Strideable.Stride);
     v3 = v6;
     if (v7 <= 0x3F)
     {
-      v10[2] = *(v6 - 8) + 64;
+      v10[2] = *(v6 - 1) + 64;
       swift_getTupleTypeLayout2(v9, "\t", v5);
       v10[3] = v9;
       v10[4] = &unk_1807268D8;
@@ -13495,10 +13497,10 @@ unint64_t type metadata completion function for StrideThroughIterator(uint64_t a
   return v3;
 }
 
-atomic_ullong **initializeBufferWithCopyOfBuffer for StrideThroughIterator(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+uint64_t *initializeBufferWithCopyOfBuffer for StrideThroughIterator(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   v3 = *(a3 + 16);
-  v4 = *(v3 - 8);
+  v4 = *(v3 - 1);
   v5 = *(v4 + 64);
   v6 = *(v4 + 80);
   v7 = v5 + v6;
@@ -13547,7 +13549,7 @@ atomic_ullong **initializeBufferWithCopyOfBuffer for StrideThroughIterator(atomi
 uint64_t destroy for StrideToIterator(uint64_t a1, uint64_t a2)
 {
   v4 = *(a2 + 16);
-  v5 = *(v4 - 8);
+  v5 = *(v4 - 1);
   v15 = *(v5 + 8);
   v15(a1, v4);
   v6 = *(v5 + 64);
@@ -13561,13 +13563,13 @@ uint64_t destroy for StrideToIterator(uint64_t a1, uint64_t a2)
   (*(v10 + 8))(v12, v9);
   v13 = (v7 + ((*(v11 + 56) + (v7 | 7) + v12) & ~(v7 | 7)) + 9) & ~v7;
 
-  return v15(v13, v4);
+  return (v15)(v13, v4);
 }
 
 uint64_t initializeWithCopy for StrideThroughIterator(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6 = *(a3 + 16);
-  v7 = *(v6 - 8);
+  v7 = *(v6 - 1);
   v8 = *(v7 + 16);
   v8(a1, a2, v6);
   v9 = *(v7 + 64);
@@ -13595,7 +13597,7 @@ uint64_t initializeWithCopy for StrideThroughIterator(uint64_t a1, uint64_t a2, 
 uint64_t assignWithCopy for StrideThroughIterator(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6 = *(a3 + 16);
-  v7 = *(v6 - 8);
+  v7 = *(v6 - 1);
   v8 = *(v7 + 24);
   v8(a1, a2, v6);
   v9 = *(v7 + 64);
@@ -13623,7 +13625,7 @@ uint64_t assignWithCopy for StrideThroughIterator(uint64_t a1, uint64_t a2, uint
 uint64_t initializeWithTake for StrideThroughIterator(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6 = *(a3 + 16);
-  v7 = *(v6 - 8);
+  v7 = *(v6 - 1);
   v8 = *(v7 + 32);
   v8(a1, a2, v6);
   v9 = *(v7 + 64);
@@ -13651,7 +13653,7 @@ uint64_t initializeWithTake for StrideThroughIterator(uint64_t a1, uint64_t a2, 
 uint64_t assignWithTake for StrideThroughIterator(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6 = *(a3 + 16);
-  v7 = *(v6 - 8);
+  v7 = *(v6 - 1);
   v8 = *(v7 + 40);
   v8(a1, a2, v6);
   v9 = *(v7 + 64);
@@ -13679,7 +13681,7 @@ uint64_t assignWithTake for StrideThroughIterator(uint64_t a1, uint64_t a2, uint
 uint64_t getEnumTagSinglePayload for StrideThroughIterator(unsigned __int16 *a1, unsigned int a2, uint64_t a3)
 {
   v5 = *(a3 + 16);
-  v6 = *(v5 - 8);
+  v6 = *(v5 - 1);
   v7 = *(v6 + 84);
   swift_getAssociatedTypeWitness(0, *(a3 + 24), v5, &protocol requirements base descriptor for Strideable, associated type descriptor for Strideable.Stride);
   v9 = v6;
@@ -13835,7 +13837,7 @@ LABEL_29:
 void storeEnumTagSinglePayload for StrideThroughIterator(_BYTE *a1, uint64_t a2, unsigned int a3, uint64_t a4)
 {
   v7 = *(a4 + 16);
-  v8 = *(v7 - 8);
+  v8 = *(v7 - 1);
   v9 = *(v8 + 84);
   swift_getAssociatedTypeWitness(0, *(a4 + 24), v7, &protocol requirements base descriptor for Strideable, associated type descriptor for Strideable.Stride);
   v11 = v8;
@@ -14035,19 +14037,19 @@ LABEL_33:
   }
 }
 
-unint64_t type metadata completion function for StrideTo(uint64_t a1)
+uint64_t *type metadata completion function for StrideTo(uint64_t a1)
 {
   v2 = swift_checkMetadataState(319, *(a1 + 16));
   v3 = v2;
   if (v4 <= 0x3F)
   {
-    v8[0] = *(v2 - 8) + 64;
+    v8[0] = *(v2 - 1) + 64;
     v8[1] = v8[0];
     swift_getAssociatedTypeWitness(319, *(a1 + 24), v2, &protocol requirements base descriptor for Strideable, associated type descriptor for Strideable.Stride);
     v3 = v5;
     if (v6 <= 0x3F)
     {
-      v8[2] = *(v5 - 8) + 64;
+      v8[2] = *(v5 - 1) + 64;
       swift_initStructMetadata(a1, 0, 3uLL, v8, a1 + 32);
       return 0;
     }
@@ -14056,10 +14058,10 @@ unint64_t type metadata completion function for StrideTo(uint64_t a1)
   return v3;
 }
 
-atomic_ullong **initializeBufferWithCopyOfBuffer for StrideTo(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+uint64_t *initializeBufferWithCopyOfBuffer for StrideTo(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   v4 = *(a3 + 16);
-  v5 = *(v4 - 8);
+  v5 = *(v4 - 1);
   v6 = *(v5 + 64);
   v7 = *(v5 + 80);
   v8 = v6 + v7;
@@ -14093,7 +14095,7 @@ atomic_ullong **initializeBufferWithCopyOfBuffer for StrideTo(atomic_ullong **a1
 uint64_t destroy for StrideTo(unint64_t a1, uint64_t a2)
 {
   v4 = *(a2 + 16);
-  v5 = *(v4 - 8);
+  v5 = *(v4 - 1);
   v6 = *(v5 + 8);
   v6(a1, v4);
   v7 = *(v5 + 64);
@@ -14111,7 +14113,7 @@ uint64_t destroy for StrideTo(unint64_t a1, uint64_t a2)
 uint64_t initializeWithCopy for StrideTo(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6 = *(a3 + 16);
-  v7 = *(v6 - 8);
+  v7 = *(v6 - 1);
   v8 = *(v7 + 16);
   v8(a1, a2, v6);
   v9 = *(v7 + 64);
@@ -14128,7 +14130,7 @@ uint64_t initializeWithCopy for StrideTo(uint64_t a1, uint64_t a2, uint64_t a3)
 uint64_t assignWithCopy for StrideTo(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6 = *(a3 + 16);
-  v7 = *(v6 - 8);
+  v7 = *(v6 - 1);
   v8 = *(v7 + 24);
   v8(a1, a2, v6);
   v9 = *(v7 + 64);
@@ -14145,7 +14147,7 @@ uint64_t assignWithCopy for StrideTo(uint64_t a1, uint64_t a2, uint64_t a3)
 uint64_t initializeWithTake for StrideTo(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6 = *(a3 + 16);
-  v7 = *(v6 - 8);
+  v7 = *(v6 - 1);
   v8 = *(v7 + 32);
   v8(a1, a2, v6);
   v9 = *(v7 + 64);
@@ -14162,7 +14164,7 @@ uint64_t initializeWithTake for StrideTo(uint64_t a1, uint64_t a2, uint64_t a3)
 uint64_t assignWithTake for StrideTo(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6 = *(a3 + 16);
-  v7 = *(v6 - 8);
+  v7 = *(v6 - 1);
   v8 = *(v7 + 40);
   v8(a1, a2, v6);
   v9 = *(v7 + 64);
@@ -14179,7 +14181,7 @@ uint64_t assignWithTake for StrideTo(uint64_t a1, uint64_t a2, uint64_t a3)
 uint64_t getEnumTagSinglePayload for StrideTo(unsigned __int16 *a1, unsigned int a2, uint64_t a3)
 {
   v5 = *(a3 + 16);
-  v6 = *(v5 - 8);
+  v6 = *(v5 - 1);
   v7 = *(v6 + 84);
   swift_getAssociatedTypeWitness(0, *(a3 + 24), v5, &protocol requirements base descriptor for Strideable, associated type descriptor for Strideable.Stride);
   v9 = *(v8 - 8);
@@ -14320,7 +14322,7 @@ LABEL_14:
 void storeEnumTagSinglePayload for StrideTo(_BYTE *a1, uint64_t a2, unsigned int a3, uint64_t a4)
 {
   v7 = *(a4 + 16);
-  v8 = *(v7 - 8);
+  v8 = *(v7 - 1);
   v9 = *(v8 + 84);
   swift_getAssociatedTypeWitness(0, *(a4 + 24), v7, &protocol requirements base descriptor for Strideable, associated type descriptor for Strideable.Stride);
   v11 = v8;
@@ -15052,21 +15054,21 @@ uint64_t storeEnumTagSinglePayload for _UIntBuffer.Iterator(uint64_t result, int
   return result;
 }
 
-uint64_t type metadata completion function for Unicode.ParseResult(uint64_t a1)
+uint64_t *type metadata completion function for Unicode.ParseResult(uint64_t a1)
 {
   result = swift_checkMetadataState(319, *(a1 + 16));
   if (v3 <= 0x3F)
   {
-    v4[0] = *(result - 8) + 64;
+    v4[0] = *(result - 1) + 64;
     v4[1] = &value witness table for Builtin.Int64.size;
-    swift_initEnumMetadataMultiPayload(a1, 0, 2u, v4);
+    swift_initEnumMetadataMultiPayload(a1, 0, 2uLL, v4);
     return 0;
   }
 
   return result;
 }
 
-char *initializeBufferWithCopyOfBuffer for Unicode.ParseResult(char *result, unsigned __int16 *a2, uint64_t a3)
+void *initializeBufferWithCopyOfBuffer for Unicode.ParseResult(void *result, unsigned __int16 *a2, uint64_t a3)
 {
   v3 = *(*(a3 + 16) - 8);
   if (*(v3 + 64) <= 8uLL)
@@ -15142,7 +15144,7 @@ LABEL_24:
   if (v9 == 1)
   {
     *result = *a2;
-    result[v4] = 1;
+    *(result + v4) = 1;
   }
 
   else if (v9)
@@ -15156,7 +15158,7 @@ LABEL_24:
     v14 = result;
     (*(v3 + 16))();
     result = v14;
-    v14[v4] = 0;
+    *(v14 + v4) = 0;
   }
 
   return result;
@@ -15308,7 +15310,7 @@ LABEL_18:
   return result;
 }
 
-unsigned __int8 *assignWithCopy for Unicode.ParseResult(unsigned __int8 *result, unsigned __int16 *a2, uint64_t a3)
+unsigned __int8 *assignWithCopy for Unicode.ParseResult(unsigned __int8 *result, unsigned __int8 *a2, uint64_t a3)
 {
   if (result == a2)
   {
@@ -15383,7 +15385,7 @@ unsigned __int8 *assignWithCopy for Unicode.ParseResult(unsigned __int8 *result,
   }
 
 LABEL_21:
-  v12 = *(a2 + v4);
+  v12 = a2[v4];
   v13 = v12 - 2;
   if (v12 >= 2)
   {
@@ -15406,7 +15408,7 @@ LABEL_21:
 
       else if (v14 == 3)
       {
-        v15 = *a2 | (*(a2 + 2) << 16);
+        v15 = *a2 | (a2[2] << 16);
       }
 
       else
@@ -15539,7 +15541,7 @@ LABEL_18:
   return result;
 }
 
-unsigned __int8 *assignWithTake for Unicode.ParseResult(unsigned __int8 *result, unsigned __int16 *a2, uint64_t a3)
+unsigned __int8 *assignWithTake for Unicode.ParseResult(unsigned __int8 *result, unsigned __int8 *a2, uint64_t a3)
 {
   if (result == a2)
   {
@@ -15614,7 +15616,7 @@ unsigned __int8 *assignWithTake for Unicode.ParseResult(unsigned __int8 *result,
   }
 
 LABEL_21:
-  v12 = *(a2 + v4);
+  v12 = a2[v4];
   v13 = v12 - 2;
   if (v12 >= 2)
   {
@@ -15637,7 +15639,7 @@ LABEL_21:
 
       else if (v14 == 3)
       {
-        v15 = *a2 | (*(a2 + 2) << 16);
+        v15 = *a2 | (a2[2] << 16);
       }
 
       else
@@ -17594,24 +17596,24 @@ uint64_t destructiveInjectEnumTag for _PlaygroundQuickLook(uint64_t result, unsi
   return result;
 }
 
-uint64_t type metadata completion function for CollectionDifference.Change(uint64_t a1)
+uint64_t *type metadata completion function for CollectionDifference.Change(uint64_t a1)
 {
   result = swift_checkMetadataState(319, *(a1 + 16));
   if (v3 <= 0x3F)
   {
-    v4 = *(result - 8);
+    v4 = *(result - 1);
     swift_getTupleTypeLayout3(v6, &value witness table for Builtin.Int64.size, v4 + 64, "\t");
     v7[0] = v6;
     swift_getTupleTypeLayout3(v5, &value witness table for Builtin.Int64.size, v4 + 64, "\t");
     v7[1] = v5;
-    swift_initEnumMetadataMultiPayload(a1, 0, 2u, v7);
+    swift_initEnumMetadataMultiPayload(a1, 0, 2uLL, v7);
     return 0;
   }
 
   return result;
 }
 
-atomic_ullong **initializeBufferWithCopyOfBuffer for CollectionDifference.Change(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+uint64_t *initializeBufferWithCopyOfBuffer for CollectionDifference.Change(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   v3 = a1;
   v4 = *(*(a3 + 16) - 8);
@@ -18111,12 +18113,12 @@ void destructiveInjectEnumTag for CollectionDifference.Change(_BYTE *a1, unsigne
   }
 }
 
-uint64_t type metadata completion function for CollectionOfOne(uint64_t a1)
+uint64_t *type metadata completion function for CollectionOfOne(uint64_t a1)
 {
   result = swift_checkMetadataState(319, *(a1 + 16));
   if (v3 <= 0x3F)
   {
-    v4 = *(result - 8) + 64;
+    v4 = *(result - 1) + 64;
     swift_initStructMetadata(a1, 0, 1uLL, &v4, a1 + 24);
     return 0;
   }
@@ -18137,7 +18139,7 @@ uint64_t type metadata completion function for CollectionOfOne.Iterator(uint64_t
   return result;
 }
 
-atomic_ullong **initializeBufferWithCopyOfBuffer for ClosedRange<>.Index(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+uint64_t *initializeBufferWithCopyOfBuffer for ClosedRange<>.Index(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   v4 = *(a3 + 16);
   v5 = *(v4 - 8);
@@ -18658,11 +18660,11 @@ LABEL_33:
 
 uint64_t dispatch thunk of static DurationProtocol./ infix(_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  return (*(a4 + 24))();
+  return (*(a4 + 24))(a1, a2, a3);
 }
 
 {
-  return (*(a4 + 56))();
+  return (*(a4 + 56))(a1, a2, a3);
 }
 
 __n128 __swift_memcpy41_8(uint64_t a1, uint64_t a2)
@@ -18695,7 +18697,7 @@ __n128 initializeBufferWithCopyOfBuffer for Mirror.AncestorRepresentation(__n128
 
   else
   {
-    v2 = a2->n128_u64[1];
+    v2 = a2->n128_i64[1];
     a1->n128_u64[0] = a2->n128_u64[0];
     a1->n128_u64[1] = v2;
     v2;
@@ -18842,7 +18844,7 @@ uint64_t storeEnumTagSinglePayload for Mirror.AncestorRepresentation(uint64_t re
   return result;
 }
 
-uint64_t getEnumTag for Mirror.AncestorRepresentation(uint64_t *a1)
+uint64_t getEnumTag for Mirror.AncestorRepresentation(unint64_t *a1)
 {
   v1 = *a1;
   if (*a1 >= 0xFFFFFFFF)
@@ -19321,12 +19323,12 @@ LABEL_8:
   return result;
 }
 
-uint64_t type metadata completion function for UnfoldSequence(uint64_t a1)
+uint64_t *type metadata completion function for UnfoldSequence(uint64_t a1)
 {
   result = swift_checkMetadataState(319, *(a1 + 24));
   if (v3 <= 0x3F)
   {
-    v4[0] = *(result - 8) + 64;
+    v4[0] = *(result - 1) + 64;
     v4[1] = &unk_1EEEAC098;
     v4[2] = &unk_1807268D8;
     swift_initStructMetadata(a1, 0, 3uLL, v4, a1 + 32);
@@ -19336,7 +19338,7 @@ uint64_t type metadata completion function for UnfoldSequence(uint64_t a1)
   return result;
 }
 
-atomic_ullong **initializeBufferWithCopyOfBuffer for UnfoldSequence(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+uint64_t *initializeBufferWithCopyOfBuffer for UnfoldSequence(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   v3 = a1;
   v4 = *(*(a3 + 24) - 8);
@@ -19519,7 +19521,7 @@ uint64_t getEnumTagSinglePayload for UnfoldSequence(unsigned __int8 *a1, unsigne
 LABEL_28:
     if (v5 >= 0x7FFFFFFF)
     {
-      return (*(v4 + 48))();
+      return (*(v4 + 48))(a1);
     }
 
     v17 = *(&a1[v6 + 7] & 0xFFFFFFFFFFFFFFF8);
@@ -19718,29 +19720,29 @@ LABEL_27:
   }
 }
 
-void type metadata completion function for Zip2Sequence.Iterator(uint64_t a1)
+void type metadata completion function for Zip2Sequence.Iterator(uint64_t *a1)
 {
-  swift_getAssociatedTypeWitness(319, *(a1 + 32), *(a1 + 16), &protocol requirements base descriptor for Sequence, associated type descriptor for Sequence.Iterator);
+  swift_getAssociatedTypeWitness(319, a1[4], a1[2], &protocol requirements base descriptor for Sequence, associated type descriptor for Sequence.Iterator);
   if (v3 <= 0x3F)
   {
     v6[0] = *(v2 - 8) + 64;
-    swift_getAssociatedTypeWitness(319, *(a1 + 40), *(a1 + 24), &protocol requirements base descriptor for Sequence, associated type descriptor for Sequence.Iterator);
+    swift_getAssociatedTypeWitness(319, a1[5], a1[3], &protocol requirements base descriptor for Sequence, associated type descriptor for Sequence.Iterator);
     if (v5 <= 0x3F)
     {
       v6[1] = *(v4 - 8) + 64;
       v6[2] = &unk_1807268D8;
-      swift_initStructMetadata(a1, 0, 3uLL, v6, a1 + 48);
+      swift_initStructMetadata(a1, 0, 3uLL, v6, (a1 + 6));
     }
   }
 }
 
-atomic_ullong **initializeBufferWithCopyOfBuffer for Zip2Sequence.Iterator(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+uint64_t *initializeBufferWithCopyOfBuffer for Zip2Sequence.Iterator(uint64_t *a1, uint64_t *a2, uint64_t *a3)
 {
-  swift_getAssociatedTypeWitness(0, *(a3 + 32), *(a3 + 16), &protocol requirements base descriptor for Sequence, associated type descriptor for Sequence.Iterator);
+  swift_getAssociatedTypeWitness(0, a3[4], a3[2], &protocol requirements base descriptor for Sequence, associated type descriptor for Sequence.Iterator);
   v7 = v6;
   v8 = *(v6 - 8);
   v9 = *(v8 + 64);
-  swift_getAssociatedTypeWitness(0, *(a3 + 40), *(a3 + 24), &protocol requirements base descriptor for Sequence, associated type descriptor for Sequence.Iterator);
+  swift_getAssociatedTypeWitness(0, a3[5], a3[3], &protocol requirements base descriptor for Sequence, associated type descriptor for Sequence.Iterator);
   v11 = *(v10 - 8);
   v12 = *(v11 + 80);
   v13 = v9 + v12;
@@ -19767,13 +19769,13 @@ atomic_ullong **initializeBufferWithCopyOfBuffer for Zip2Sequence.Iterator(atomi
   return a1;
 }
 
-uint64_t destroy for Zip2Sequence.Iterator(uint64_t a1, uint64_t a2)
+uint64_t destroy for Zip2Sequence.Iterator(uint64_t a1, uint64_t *a2)
 {
-  swift_getAssociatedTypeWitness(0, *(a2 + 32), *(a2 + 16), &protocol requirements base descriptor for Sequence, associated type descriptor for Sequence.Iterator);
+  swift_getAssociatedTypeWitness(0, a2[4], a2[2], &protocol requirements base descriptor for Sequence, associated type descriptor for Sequence.Iterator);
   v5 = *(v4 - 8) + 8;
   (*v5)(a1, v4);
   v6 = *(v5 + 56) + a1;
-  swift_getAssociatedTypeWitness(0, *(a2 + 40), *(a2 + 24), &protocol requirements base descriptor for Sequence, associated type descriptor for Sequence.Iterator);
+  swift_getAssociatedTypeWitness(0, a2[5], a2[3], &protocol requirements base descriptor for Sequence, associated type descriptor for Sequence.Iterator);
   v8 = v7;
   v9 = *(v7 - 8);
   v10 = *(v9 + 8);
@@ -19782,13 +19784,13 @@ uint64_t destroy for Zip2Sequence.Iterator(uint64_t a1, uint64_t a2)
   return v10(v11, v8);
 }
 
-uint64_t initializeWithCopy for Zip2Sequence.Iterator(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t initializeWithCopy for Zip2Sequence.Iterator(uint64_t a1, uint64_t a2, uint64_t *a3)
 {
-  swift_getAssociatedTypeWitness(0, *(a3 + 32), *(a3 + 16), &protocol requirements base descriptor for Sequence, associated type descriptor for Sequence.Iterator);
+  swift_getAssociatedTypeWitness(0, a3[4], a3[2], &protocol requirements base descriptor for Sequence, associated type descriptor for Sequence.Iterator);
   v7 = *(v6 - 8) + 16;
   (*v7)(a1, a2, v6);
   v8 = *(v7 + 48);
-  swift_getAssociatedTypeWitness(0, *(a3 + 40), *(a3 + 24), &protocol requirements base descriptor for Sequence, associated type descriptor for Sequence.Iterator);
+  swift_getAssociatedTypeWitness(0, a3[5], a3[3], &protocol requirements base descriptor for Sequence, associated type descriptor for Sequence.Iterator);
   v10 = *(v9 - 8);
   v11 = v10 + 16;
   v12 = *(v10 + 80);
@@ -19799,13 +19801,13 @@ uint64_t initializeWithCopy for Zip2Sequence.Iterator(uint64_t a1, uint64_t a2, 
   return a1;
 }
 
-uint64_t assignWithCopy for Zip2Sequence.Iterator(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t assignWithCopy for Zip2Sequence.Iterator(uint64_t a1, uint64_t a2, uint64_t *a3)
 {
-  swift_getAssociatedTypeWitness(0, *(a3 + 32), *(a3 + 16), &protocol requirements base descriptor for Sequence, associated type descriptor for Sequence.Iterator);
+  swift_getAssociatedTypeWitness(0, a3[4], a3[2], &protocol requirements base descriptor for Sequence, associated type descriptor for Sequence.Iterator);
   v7 = *(v6 - 8) + 24;
   (*v7)(a1, a2, v6);
   v8 = *(v7 + 40);
-  swift_getAssociatedTypeWitness(0, *(a3 + 40), *(a3 + 24), &protocol requirements base descriptor for Sequence, associated type descriptor for Sequence.Iterator);
+  swift_getAssociatedTypeWitness(0, a3[5], a3[3], &protocol requirements base descriptor for Sequence, associated type descriptor for Sequence.Iterator);
   v10 = *(v9 - 8);
   v11 = v10 + 24;
   v12 = *(v10 + 80);
@@ -19816,13 +19818,13 @@ uint64_t assignWithCopy for Zip2Sequence.Iterator(uint64_t a1, uint64_t a2, uint
   return a1;
 }
 
-uint64_t initializeWithTake for Zip2Sequence.Iterator(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t initializeWithTake for Zip2Sequence.Iterator(uint64_t a1, uint64_t a2, uint64_t *a3)
 {
-  swift_getAssociatedTypeWitness(0, *(a3 + 32), *(a3 + 16), &protocol requirements base descriptor for Sequence, associated type descriptor for Sequence.Iterator);
+  swift_getAssociatedTypeWitness(0, a3[4], a3[2], &protocol requirements base descriptor for Sequence, associated type descriptor for Sequence.Iterator);
   v7 = *(v6 - 8) + 32;
   (*v7)(a1, a2, v6);
   v8 = *(v7 + 32);
-  swift_getAssociatedTypeWitness(0, *(a3 + 40), *(a3 + 24), &protocol requirements base descriptor for Sequence, associated type descriptor for Sequence.Iterator);
+  swift_getAssociatedTypeWitness(0, a3[5], a3[3], &protocol requirements base descriptor for Sequence, associated type descriptor for Sequence.Iterator);
   v10 = *(v9 - 8);
   v11 = v10 + 32;
   v12 = *(v10 + 80);
@@ -19833,13 +19835,13 @@ uint64_t initializeWithTake for Zip2Sequence.Iterator(uint64_t a1, uint64_t a2, 
   return a1;
 }
 
-uint64_t assignWithTake for Zip2Sequence.Iterator(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t assignWithTake for Zip2Sequence.Iterator(uint64_t a1, uint64_t a2, uint64_t *a3)
 {
-  swift_getAssociatedTypeWitness(0, *(a3 + 32), *(a3 + 16), &protocol requirements base descriptor for Sequence, associated type descriptor for Sequence.Iterator);
+  swift_getAssociatedTypeWitness(0, a3[4], a3[2], &protocol requirements base descriptor for Sequence, associated type descriptor for Sequence.Iterator);
   v7 = *(v6 - 8) + 40;
   (*v7)(a1, a2, v6);
   v8 = *(v7 + 24);
-  swift_getAssociatedTypeWitness(0, *(a3 + 40), *(a3 + 24), &protocol requirements base descriptor for Sequence, associated type descriptor for Sequence.Iterator);
+  swift_getAssociatedTypeWitness(0, a3[5], a3[3], &protocol requirements base descriptor for Sequence, associated type descriptor for Sequence.Iterator);
   v10 = *(v9 - 8);
   v11 = v10 + 40;
   v12 = *(v10 + 80);
@@ -19850,13 +19852,13 @@ uint64_t assignWithTake for Zip2Sequence.Iterator(uint64_t a1, uint64_t a2, uint
   return a1;
 }
 
-uint64_t getEnumTagSinglePayload for Zip2Sequence.Iterator(unsigned __int16 *a1, unsigned int a2, uint64_t a3)
+uint64_t getEnumTagSinglePayload for Zip2Sequence.Iterator(unsigned __int16 *a1, unsigned int a2, uint64_t *a3)
 {
-  swift_getAssociatedTypeWitness(0, *(a3 + 32), *(a3 + 16), &protocol requirements base descriptor for Sequence, associated type descriptor for Sequence.Iterator);
+  swift_getAssociatedTypeWitness(0, a3[4], a3[2], &protocol requirements base descriptor for Sequence, associated type descriptor for Sequence.Iterator);
   v7 = v6;
   v8 = *(v6 - 8);
   v9 = *(v8 + 84);
-  swift_getAssociatedTypeWitness(0, *(a3 + 40), *(a3 + 24), &protocol requirements base descriptor for Sequence, associated type descriptor for Sequence.Iterator);
+  swift_getAssociatedTypeWitness(0, a3[5], a3[3], &protocol requirements base descriptor for Sequence, associated type descriptor for Sequence.Iterator);
   v11 = *(v10 - 8);
   v12 = *(v11 + 84);
   if (v12 <= v9)
@@ -20002,13 +20004,13 @@ LABEL_29:
   return v27(v26);
 }
 
-void storeEnumTagSinglePayload for Zip2Sequence.Iterator(_BYTE *a1, uint64_t a2, unsigned int a3, uint64_t a4)
+void storeEnumTagSinglePayload for Zip2Sequence.Iterator(_BYTE *a1, uint64_t a2, unsigned int a3, uint64_t *a4)
 {
-  swift_getAssociatedTypeWitness(0, *(a4 + 32), *(a4 + 16), &protocol requirements base descriptor for Sequence, associated type descriptor for Sequence.Iterator);
+  swift_getAssociatedTypeWitness(0, a4[4], a4[2], &protocol requirements base descriptor for Sequence, associated type descriptor for Sequence.Iterator);
   v9 = v8;
   v10 = *(v8 - 8);
   v11 = *(v10 + 84);
-  swift_getAssociatedTypeWitness(0, *(a4 + 40), *(a4 + 24), &protocol requirements base descriptor for Sequence, associated type descriptor for Sequence.Iterator);
+  swift_getAssociatedTypeWitness(0, a4[5], a4[3], &protocol requirements base descriptor for Sequence, associated type descriptor for Sequence.Iterator);
   v13 = *(v12 - 8);
   v14 = *(v13 + 84);
   if (v14 <= v11)
@@ -20259,7 +20261,7 @@ void type metadata completion function for SIMD2(uint64_t a1, uint64_t a2, uint6
   }
 }
 
-atomic_ullong **initializeBufferWithCopyOfBuffer for SIMD2(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3, _DWORD *a4)
+uint64_t *initializeBufferWithCopyOfBuffer for SIMD2(uint64_t *a1, uint64_t *a2, uint64_t a3, _DWORD *a4)
 {
   swift_getAssociatedTypeWitness(0, *(a3 + 24), *(a3 + 16), &protocol requirements base descriptor for SIMDScalar, a4);
   v7 = *(v6 - 8);
@@ -20935,7 +20937,7 @@ uint64_t storeEnumTagSinglePayload for _GraphemeBreakingState(uint64_t result, u
   return result;
 }
 
-atomic_ullong **initializeBufferWithCopyOfBuffer for Unicode._InternalNFC.Iterator(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+uint64_t *initializeBufferWithCopyOfBuffer for Unicode._InternalNFC.Iterator(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   swift_getAssociatedTypeWitness(0, *(a3 + 24), *(a3 + 16), &protocol requirements base descriptor for Sequence, associated type descriptor for Sequence.Iterator);
   v6 = *(v5 - 8);
@@ -21418,7 +21420,7 @@ void type metadata completion function for EnumeratedSequence.Iterator(uint64_t 
   }
 }
 
-atomic_ullong **initializeBufferWithCopyOfBuffer for Unicode._InternalNFD.Iterator(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+uint64_t *initializeBufferWithCopyOfBuffer for Unicode._InternalNFD.Iterator(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   swift_getAssociatedTypeWitness(0, *(a3 + 24), *(a3 + 16), &protocol requirements base descriptor for Sequence, associated type descriptor for Sequence.Iterator);
   v6 = *(v5 - 8);
@@ -22047,12 +22049,12 @@ void destroy for _SetAnyHashableBox(unint64_t *a1)
   v2;
 }
 
-uint64_t type metadata completion function for _Pair(uint64_t a1)
+uint64_t *type metadata completion function for _Pair(uint64_t a1)
 {
   result = swift_checkMetadataState(319, *(a1 + 16));
   if (v3 <= 0x3F)
   {
-    swift_getTupleTypeLayout2(v4, *(result - 8) + 64, *(result - 8) + 64);
+    swift_getTupleTypeLayout2(v4, *(result - 1) + 64, *(result - 1) + 64);
     v5 = v4;
     swift_initStructMetadata(a1, 0, 1uLL, &v5, a1 + 24);
     return 0;
@@ -22061,7 +22063,7 @@ uint64_t type metadata completion function for _Pair(uint64_t a1)
   return result;
 }
 
-atomic_ullong **initializeBufferWithCopyOfBuffer for ClosedRange(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+uint64_t *initializeBufferWithCopyOfBuffer for ClosedRange(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   v3 = a1;
   v4 = *(a3 + 16);
@@ -22414,16 +22416,16 @@ LABEL_28:
   return v18();
 }
 
-uint64_t type metadata completion function for Zip2Sequence(uint64_t a1)
+uint64_t *type metadata completion function for Zip2Sequence(uint64_t a1)
 {
   result = swift_checkMetadataState(319, *(a1 + 16));
   if (v3 <= 0x3F)
   {
-    v5[0] = *(result - 8) + 64;
+    v5[0] = *(result - 1) + 64;
     result = swift_checkMetadataState(319, *(a1 + 24));
     if (v4 <= 0x3F)
     {
-      v5[1] = *(result - 8) + 64;
+      v5[1] = *(result - 1) + 64;
       swift_initStructMetadata(a1, 0, 2uLL, v5, a1 + 48);
       return 0;
     }
@@ -22432,7 +22434,7 @@ uint64_t type metadata completion function for Zip2Sequence(uint64_t a1)
   return result;
 }
 
-atomic_ullong **initializeBufferWithCopyOfBuffer for Zip2Sequence(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+uint64_t *initializeBufferWithCopyOfBuffer for Zip2Sequence(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   v3 = a1;
   v4 = *(*(a3 + 16) - 8);
@@ -22837,12 +22839,12 @@ LABEL_31:
   }
 }
 
-uint64_t type metadata completion function for SIMDMask(uint64_t a1)
+uint64_t *type metadata completion function for SIMDMask(uint64_t a1)
 {
   result = swift_checkMetadataState(319, *(a1 + 16));
   if (v3 <= 0x3F)
   {
-    v4 = *(result - 8) + 64;
+    v4 = *(result - 1) + 64;
     swift_initStructMetadata(a1, 0, 1uLL, &v4, a1 + 48);
     return 0;
   }
@@ -22850,12 +22852,12 @@ uint64_t type metadata completion function for SIMDMask(uint64_t a1)
   return result;
 }
 
-uint64_t type metadata completion function for EnumeratedSequence(uint64_t a1)
+uint64_t *type metadata completion function for EnumeratedSequence(uint64_t a1)
 {
   result = swift_checkMetadataState(319, *(a1 + 16));
   if (v3 <= 0x3F)
   {
-    v4 = *(result - 8) + 64;
+    v4 = *(result - 1) + 64;
     swift_initStructMetadata(a1, 0, 1uLL, &v4, a1 + 32);
     return 0;
   }
@@ -22863,14 +22865,14 @@ uint64_t type metadata completion function for EnumeratedSequence(uint64_t a1)
   return result;
 }
 
-atomic_ullong **initializeBufferWithCopyOfBuffer for EnumeratedSequence(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+uint64_t *initializeBufferWithCopyOfBuffer for EnumeratedSequence(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   v3 = a1;
   v4 = *(*(a3 + 16) - 8);
   v5 = *(v4 + 80);
   if (v5 <= 7 && *(*(*(a3 + 16) - 8) + 64) <= 0x18uLL && (*(v4 + 80) & 0x100000) == 0)
   {
-    (*(v4 + 16))(a1);
+    (*(v4 + 16))(a1, a2);
   }
 
   else
@@ -23365,7 +23367,7 @@ void *initializeWithCopy for Dictionary.Keys.Iterator(void *a1, void *a2, uint64
   return a1;
 }
 
-uint64_t *assignWithCopy for Dictionary.Keys.Iterator(uint64_t *a1, void *a2, uint64_t a3, void (*a4)(void, uint64_t, uint64_t, uint64_t, uint64_t), void (*a5)(uint64_t, uint64_t, uint64_t, uint64_t, uint64_t))
+uint64_t *assignWithCopy for Dictionary.Keys.Iterator(uint64_t *a1, uint64_t *a2, uint64_t a3, void (*a4)(uint64_t, uint64_t, uint64_t, uint64_t, uint64_t), void (*a5)(uint64_t, uint64_t, uint64_t, uint64_t, uint64_t))
 {
   v7 = *a2;
   v8 = a2[1];
@@ -23387,7 +23389,7 @@ uint64_t *assignWithCopy for Dictionary.Keys.Iterator(uint64_t *a1, void *a2, ui
   return a1;
 }
 
-void *assignWithTake for Dictionary.Keys.Iterator(void *a1, uint64_t a2, uint64_t a3, void (*a4)(uint64_t, uint64_t, uint64_t, uint64_t, uint64_t))
+uint64_t *assignWithTake for Dictionary.Keys.Iterator(uint64_t *a1, uint64_t a2, uint64_t a3, void (*a4)(uint64_t, uint64_t, uint64_t, uint64_t, uint64_t))
 {
   v6 = *(a2 + 32);
   v7 = *a1;
@@ -23551,7 +23553,7 @@ uint64_t storeEnumTagSinglePayload for Dictionary.Index(uint64_t result, unsigne
   return result;
 }
 
-unint64_t instantiation function for generic protocol witness table for _Pair<A>(uint64_t a1, unint64_t a2, uint64_t a3)
+unint64_t instantiation function for generic protocol witness table for _Pair<A>(uint64_t a1, unsigned __int16 *a2, uint64_t a3)
 {
   result = swift_getWitnessTable(protocol conformance descriptor for _Pair<A>, a2, a3);
   *(a1 + 8) = result;
@@ -23781,7 +23783,7 @@ uint64_t lazy protocol witness table accessor for type _UInt128.Words and confor
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type IndexingIterator<_CocoaArrayWrapper> and conformance IndexingIterator<A>(unint64_t *a1, uint64_t *a2, unsigned __int8 *a3, int *a4)
+uint64_t lazy protocol witness table accessor for type IndexingIterator<_CocoaArrayWrapper> and conformance IndexingIterator<A>(unint64_t *a1, uint64_t *a2, unsigned __int8 *a3, int *a4)
 {
   result = *a1;
   if (!result)
@@ -24024,6 +24026,15 @@ uint64_t outlined destroy of Unicode._NFD.Iterator(uint64_t a1)
   return a1;
 }
 
+unint64_t partial apply for specialized closure #1 in Substring.UnicodeScalarView.replaceSubrange<A>(_:with:)()
+{
+  return specialized _StringGuts.replaceSubrange<A>(_:with:)(*(v0 + 16), *(v0 + 24), **(v0 + 32));
+}
+
+{
+  return specialized _StringGuts.replaceSubrange<A>(_:with:)(*(v0 + 16), *(v0 + 24));
+}
+
 void outlined consume of CollectionDifference<A.Element>?<A, B>(unint64_t a1, unint64_t a2)
 {
   if (a1)
@@ -24143,7 +24154,7 @@ _OWORD *partial apply for closure #1 in Mirror.init(internalReflecting:subjectTy
   v5 = *a1;
   v12 = 0;
   v13 = 0;
-  swift_reflectionMirror_subscript((v2 + 16), v4, v5, &v13, &v12, byte_1EEEAC6F8, v11);
+  swift_reflectionMirror_subscript((v2 + 16), v4, v5, &v13, &v12, qword_1EEEAC6F8, v11);
   if (!v13)
   {
     v6 = 0;
@@ -24186,7 +24197,7 @@ void sub_18065617C()
   swift_deallocObject(v0);
 }
 
-unint64_t partial apply for closure #2 in Mirror.init(internalReflecting:subjectType:customAncestor:)@<X0>(uint64_t a1@<X8>)
+uint64_t partial apply for closure #2 in Mirror.init(internalReflecting:subjectType:customAncestor:)@<X0>(uint64_t a1@<X8>)
 {
   v3 = *(v1 + 16);
   v4 = *(v1 + 32);
@@ -24240,7 +24251,7 @@ LABEL_16:
     v17[0] = v13;
     *(v17 + 9) = *(v1 + 49);
     outlined init with copy of Mirror?(v1 + 24, &v19);
-    result = Mirror.init(internalReflecting:subjectType:customAncestor:)(&v19, v18, v12, &v16);
+    result = Mirror.init(internalReflecting:subjectType:customAncestor:)(v18, v12, &v16, &v19);
     v14 = v20;
     v15 = v22;
     *a1 = v19;
@@ -25941,7 +25952,7 @@ BOOL __isOSVersionAtLeast(int a1, int a2, int a3)
   return dword_1ED42CF68 >= a3;
 }
 
-uint64_t __isPlatformVersionAtLeast(uint64_t a1, int a2, int a3, int a4)
+uint64_t __isPlatformVersionAtLeast(int a1, int a2, int a3, int a4)
 {
   if (qword_1ED42CF78 == -1)
   {
@@ -26356,13 +26367,13 @@ uint64_t handleSingleRefCountDestroy(uint64_t a1, void *a2, void *a3)
   *a3 += v3 & 0xFFFFFFFFFFFFFFLL;
   if (HIBYTE(v3))
   {
-    return destroyTable[HIBYTE(v3)]();
+    return (destroyTable[HIBYTE(v3)])(a1);
   }
 
-  return result;
+  return a1;
 }
 
-uint64_t *findBridgeWitness(uint64_t *result, void *a2)
+unint64_t *findBridgeWitness(unint64_t *result, void *a2)
 {
   v2 = *result;
   if (*result > 0x7FF)
@@ -26406,62 +26417,62 @@ LABEL_14:
 
 void findBridgeWitness(swift *a1)
 {
-  if (__cxa_guard_acquire(&qword_1ED415EC8))
+  if (__cxa_guard_acquire(byte_1ED415EC8))
   {
-    _MergedGlobals = swift_conformsToProtocolCommon(a1, &protocol descriptor for _ObjectiveCBridgeable);
+    _MergedGlobals = swift_conformsToProtocolCommon(a1, &protocol descriptor for _ObjectiveCBridgeable.Flags);
 
-    __cxa_guard_release(&qword_1ED415EC8);
+    __cxa_guard_release(byte_1ED415EC8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_1ED415F18))
+  if (__cxa_guard_acquire(byte_1ED415F18))
   {
-    _MergedGlobals_0 = swift_conformsToProtocolCommon(a1, &protocol descriptor for _ObjectiveCBridgeable);
+    _MergedGlobals_0 = swift_conformsToProtocolCommon(a1, &protocol descriptor for _ObjectiveCBridgeable.Flags);
 
-    __cxa_guard_release(&qword_1ED415F18);
+    __cxa_guard_release(byte_1ED415F18);
   }
 }
 
 void getNonNullSrcObject(Class *a1, Class *a2)
 {
-  swift::nameForMetadata(&__p, a1, 1);
-  v4 = swift::nameForMetadata(&v11, a2, 1);
+  swift::nameForMetadata(a1, 1, __p);
+  v4 = swift::nameForMetadata(a2, 1, v12);
   v5 = swift::runtime::bincompat::useLegacyProtocolConformanceReverseIteration(v4);
-  if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if (v11 >= 0)
   {
-    p_p = &__p;
+    v8 = __p;
   }
 
   else
   {
-    p_p = __p.__r_.__value_.__r.__words[0];
+    v8 = __p[0];
   }
 
-  if ((v11.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if (v13 >= 0)
   {
-    v9 = &v11;
+    v9 = v12;
   }
 
   else
   {
-    v9 = v11.__r_.__value_.__r.__words[0];
+    v9 = v12[0];
   }
 
   if (!v5)
   {
-    swift::fatalError(v5, "Found a null pointer in a value of type '%s' (%p). Non-Optional values are not allowed to hold null pointers. (Detected while casting to '%s' (%p))%s\n", v6, v7, p_p, a1, v9, a2, "");
+    swift::fatalError(v5, "Found a null pointer in a value of type '%s' (%p). Non-Optional values are not allowed to hold null pointers. (Detected while casting to '%s' (%p))%s\n", v6, v7, v8, a1, v9, a2, "");
   }
 
-  swift::warning(0, "Found a null pointer in a value of type '%s' (%p). Non-Optional values are not allowed to hold null pointers. (Detected while casting to '%s' (%p))%s\n", v6, v7, p_p, a1, v9, a2, ": Continuing with null object, but expect problems later.");
-  if (SHIBYTE(v11.__r_.__value_.__r.__words[2]) < 0)
+  swift::warning(0, "Found a null pointer in a value of type '%s' (%p). Non-Optional values are not allowed to hold null pointers. (Detected while casting to '%s' (%p))%s\n", v6, v7, v8, a1, v9, a2, ": Continuing with null object, but expect problems later.");
+  if (v13 < 0)
   {
-    operator delete(v11.__r_.__value_.__l.__data_);
+    operator delete(v12[0]);
   }
 
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+  if (v11 < 0)
   {
-    operator delete(__p.__r_.__value_.__l.__data_);
+    operator delete(__p[0]);
   }
 }
 
@@ -26493,7 +26504,7 @@ void swift_deallocClassInstance_cold_1(unint64_t **a1, uint64_t a2)
 
 uint64_t swift::getLibPrespecializedTypeDescriptor(uint64_t a1, uint64_t a2, const void *a3)
 {
-  swift::Demangle::__runtime::mangleNode(a3);
+  swift::Demangle::__runtime::mangleNode(a3, __swift::__runtime::llvm::function_ref<swift::Demangle::__runtime::Node * ()(swift::Demangle::__runtime::SymbolicReferenceKind,void const*)>::callback_fn<swift::ExpandResolvedSymbolicReferences>);
   if (*a1)
   {
     if (prespecializedLoggingEnabled)
@@ -26556,11 +26567,11 @@ uint64_t LibPrespecializedState::LibPrespecializedState(char a1)
   return fprintf(*MEMORY[0x1E69E9848], "Prespecializations library: Setting descriptorMapEnabled=%s from SWIFT_DEBUG_ENABLE_LIB_PRESPECIALIZED_DESCRIPTOR_LOOKUP.\n", v1);
 }
 
-uint64_t LibPrespecializedState::findLibPrespecialized()
+uint64_t LibPrespecializedState::findLibPrespecialized(uint64_t a1)
 {
-  v0 = *MEMORY[0x1E69E9848];
-  v1 = dyld_shared_cache_some_image_overridden();
-  return fprintf(v0, "Prespecializations library: Disabling prespecialized metadata, dyld_shared_cache_some_image_overridden = %d\n", v1);
+  v1 = *MEMORY[0x1E69E9848];
+  v2 = dyld_shared_cache_some_image_overridden();
+  return fprintf(v1, "Prespecializations library: Disabling prespecialized metadata, dyld_shared_cache_some_image_overridden = %d\n", v2);
 }
 
 uint64_t LibPrespecializedState::findLibPrespecialized(_DWORD *a1, void *a2)
@@ -26625,7 +26636,7 @@ unsigned __int8 *swift::MetadataAllocator::Allocate(unint64_t a1, _WORD *a2, _WO
     recordBacktrace(v5);
   }
 
-  return checkScribble(v5, a1);
+  return checkScribble(v5, a1, a3, a4);
 }
 
 void getCache()
@@ -26665,9 +26676,9 @@ void _swift_initClassMetadataImpl()
   dispatch_once_f(&qword_1ED426160, &supportsLazyObjcClassNames(void)::$_0::operator() const(void)::TheLazy, supportsLazyObjcClassNames(void)::$_0::operator() const(void)::{lambda(void *)#1}::__invoke);
 }
 
-void swift::ResolveAsSymbolicReference::operator()(swift::SymbolInfo *a1, swift::SymbolInfo *this, uint64_t a3)
+void swift::ResolveAsSymbolicReference::operator()(uint64_t a1, swift::SymbolInfo *this, uint64_t a3)
 {
-  swift::SymbolInfo::lookup(this, a1);
+  swift::SymbolInfo::lookup(a1, this);
   if (*(a1 + 32) == 1)
   {
     if (swift::SymbolInfo::getFilename(a1))
@@ -26721,7 +26732,7 @@ LABEL_4:
   else
   {
     OUTLINED_FUNCTION_5_0();
-    dispatch_once_f(&qword_1ED426338, _MergedGlobals_1, v10);
+    dispatch_once_f(&qword_1ED426338, &_MergedGlobals_1, v10);
     if (v8)
     {
       goto LABEL_4;
@@ -26730,7 +26741,7 @@ LABEL_4:
 
   v9 = 0;
 LABEL_7:
-  if (_MergedGlobals_1[0] <= v9 && unk_1ED426330 > v9)
+  if (_MergedGlobals_1 <= v9 && unk_1ED426330 > v9)
   {
     if (a3)
     {
@@ -26745,7 +26756,7 @@ LABEL_7:
 
     if (!swift::equalContexts(v13, v8))
     {
-      swift::Demangle::__runtime::getNodeTreeAsString(a2, a4);
+      swift::Demangle::__runtime::getNodeTreeAsString(a4, a2);
       OUTLINED_FUNCTION_9();
       swift::fatalError(0, "Searching for type descriptor, prespecialized descriptor map returned %p, but scan returned %p. Node tree:\n%s", v14, v15);
     }
@@ -26783,7 +26794,7 @@ LABEL_4:
   else
   {
     OUTLINED_FUNCTION_5_0();
-    dispatch_once_f(&qword_1ED426338, _MergedGlobals_1, v10);
+    dispatch_once_f(&qword_1ED426338, &_MergedGlobals_1, v10);
     if (v8)
     {
       goto LABEL_4;
@@ -26792,7 +26803,7 @@ LABEL_4:
 
   v9 = 0;
 LABEL_7:
-  if (_MergedGlobals_1[0] <= v9 && unk_1ED426330 > v9)
+  if (_MergedGlobals_1 <= v9 && unk_1ED426330 > v9)
   {
     if (a3)
     {
@@ -26807,7 +26818,7 @@ LABEL_7:
 
     if (!swift::equalContexts(v13, v8))
     {
-      swift::Demangle::__runtime::getNodeTreeAsString(a2, a4);
+      swift::Demangle::__runtime::getNodeTreeAsString(a4, a2);
       OUTLINED_FUNCTION_9();
       swift::fatalError(0, "Searching for type descriptor, prespecialized descriptor map returned %p, but scan returned %p. Node tree:\n%s", v14, v15);
     }
@@ -26966,21 +26977,21 @@ void gotLoadHelper_x19___sSo8NSObjectCSH10ObjectiveCMc(double a1)
   }
 }
 
-double __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> dlopenHelper_CoreFoundation(double a1)
+double dlopenHelper_CoreFoundation(double a1)
 {
   dlopen("/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation", 0);
   atomic_store(1u, &dlopenHelperFlag_CoreFoundation);
   return a1;
 }
 
-double __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> dlopenHelper_Foundation(double a1)
+double dlopenHelper_Foundation(double a1)
 {
   dlopen("/System/Library/Frameworks/Foundation.framework/Foundation", 0);
   atomic_store(1u, dlopenHelperFlag_Foundation);
   return a1;
 }
 
-double __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> dlopenHelper_libswiftObjectiveC_dylib(double a1)
+double dlopenHelper_libswiftObjectiveC_dylib(double a1)
 {
   dlopen("/usr/lib/swift/libswiftObjectiveC.dylib", 0);
   atomic_store(1u, &dlopenHelperFlag_libswiftObjectiveC_dylib);

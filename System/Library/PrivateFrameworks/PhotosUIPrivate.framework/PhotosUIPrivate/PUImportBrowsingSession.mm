@@ -76,7 +76,7 @@
 
 - (void)importController:(id)controller failedToAddImportSource:(id)source exceptions:(id)exceptions
 {
-  sub_1B3710718(0, &qword_1EB8546C8);
+  sub_1B3710718(0, &qword_1EB8546C8, 0x1E6978880);
   sub_1B3C9C788();
 }
 

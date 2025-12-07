@@ -123,7 +123,6 @@
   objc_storeStrong(&view, 0);
   objc_storeStrong(&v31, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (double)transitionDuration:(id)duration

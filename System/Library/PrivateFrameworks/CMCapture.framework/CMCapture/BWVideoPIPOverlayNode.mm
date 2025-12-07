@@ -7,8 +7,7 @@
 - (int)_drawOverlayRects:(id)rects toPixelBuffer:(__CVBuffer *)buffer withinRect:(CGRect)rect;
 - (int)_loadAndConfigureSmartStyleProxyRenderer;
 - (int)_renderSmartStyleToIntermediateBufferWithInputSampleBuffer:(opaqueCMSampleBuffer *)buffer pipSourcePixelBuffer:(__CVBuffer *)pixelBuffer inputRect:(CGRect)rect outputRect:(CGRect)outputRect;
-- (uint64_t)_drawPIPUsingCPUAndMSRToOutputPixelBuffer:(double)buffer attachedPixelBuffer:(double)pixelBuffer outputRect:(double)rect inputRect:(double)inputRect normalizedReticleRect:(double)reticleRect primaryCaptureRect:(double)captureRect uprightExifOrientation:(double)orientation;
-- (uint64_t)_loadAndConfigureSmartStyleProxyRenderer;
+- (void)_drawPIPUsingCPUAndMSRToOutputPixelBuffer:(double)buffer attachedPixelBuffer:(double)pixelBuffer outputRect:(double)rect inputRect:(double)inputRect normalizedReticleRect:(double)reticleRect primaryCaptureRect:(double)captureRect uprightExifOrientation:(double)orientation;
 - (void)_drawPIPUsingGPUToOutputPixelBuffer:(double)buffer attachedPixelBuffer:(double)pixelBuffer filters:(double)filters outputRect:(double)rect inputRect:(double)inputRect normalizedReticleRect:(double)reticleRect uprightExifOrientation:(double)orientation pipOpacity:(uint64_t)self0;
 - (void)_ensureGPUResources;
 - (void)_releaseResources;
@@ -293,58 +292,60 @@
   if (v6)
   {
     v7 = CFAutorelease(v6);
+    isEqualToString = objc_msgSend_isEqualToString_(v7);
   }
 
   else
   {
     v7 = 0;
+    isEqualToString = objc_msgSend_isEqualToString_(0);
   }
 
-  if ([v7 isEqualToString:*MEMORY[0x1E6965F48]])
+  if (isEqualToString)
   {
-    v8 = MEMORY[0x1E695F170];
-    v9 = 238.0;
-    v10 = 230.0;
-    v11 = 120.0;
+    v9 = MEMORY[0x1E695F170];
+    v10 = 238.0;
+    v11 = 230.0;
+    v12 = 120.0;
   }
 
   else
   {
-    v12 = [v7 isEqualToString:*MEMORY[0x1E6965F50]];
-    v8 = MEMORY[0x1E695F0B8];
-    if (v12)
+    v13 = objc_msgSend_isEqualToString_(v7);
+    v9 = MEMORY[0x1E695F0B8];
+    if (v13)
     {
-      v8 = MEMORY[0x1E695F1C0];
-      v11 = 20.0;
+      v9 = MEMORY[0x1E695F1C0];
+      v12 = 20.0;
     }
 
     else
     {
-      v11 = 74.0;
+      v12 = 74.0;
     }
 
-    if (v12)
+    if (v13)
     {
-      v10 = 212.0;
-    }
-
-    else
-    {
-      v10 = 215.0;
-    }
-
-    if (v12)
-    {
-      v9 = 254.0;
+      v11 = 212.0;
     }
 
     else
     {
-      v9 = 248.0;
+      v11 = 215.0;
+    }
+
+    if (v13)
+    {
+      v10 = 254.0;
+    }
+
+    else
+    {
+      v10 = 248.0;
     }
   }
 
-  v13 = *v8;
+  v14 = *v9;
   colorSpace = [(CIColor *)self->_ciReticleColor colorSpace];
   if (colorSpace)
   {
@@ -358,17 +359,17 @@
 
   [(CIColor *)self->_ciReticleColor alpha];
   opacityCopy = opacity;
-  v18 = v17 != opacityCopy || Name == 0;
-  if (!v18 && CFStringCompare(Name, v13, 0) == kCFCompareEqualTo)
+  v19 = v18 != opacityCopy || Name == 0;
+  if (!v19 && CFStringCompare(Name, v14, 0) == kCFCompareEqualTo)
   {
     return self->_ciReticleColor;
   }
 
-  v19 = CGColorSpaceCreateWithName(v13);
-  v20 = [objc_alloc(MEMORY[0x1E695F610]) initWithRed:v19 green:(v9 / 255.0) blue:(v10 / 255.0) alpha:(v11 / 255.0) colorSpace:opacityCopy];
-  CGColorSpaceRelease(v19);
-  self->_ciReticleColor = v20;
-  return v20;
+  v20 = CGColorSpaceCreateWithName(v14);
+  v21 = [objc_alloc(MEMORY[0x1E695F610]) initWithRed:v20 green:(v10 / 255.0) blue:(v11 / 255.0) alpha:(v12 / 255.0) colorSpace:opacityCopy];
+  CGColorSpaceRelease(v20);
+  self->_ciReticleColor = v21;
+  return v21;
 }
 
 - (CGPoint)_overlayOffsetForPixelBuffer:(__CVBuffer *)buffer primaryCaptureRect:(CGRect)rect
@@ -402,19 +403,19 @@
     {
       if (self->_frameRate != 0.0)
       {
-        memset(&v156, 0, 24);
-        CMSampleBufferGetPresentationTimeStamp(&v156, previousAttachedSampleBuffer);
-        memset(&v155, 0, 24);
-        CMSampleBufferGetPresentationTimeStamp(&v155, buffer);
-        memset(&v158, 0, 24);
-        *&lhs.value = *&v155.a;
-        lhs.epoch = *&v155.c;
-        *&rhs.value = v156.origin;
-        rhs.epoch = *&v156.size.width;
-        CMTimeSubtract(&v158, &lhs, &rhs);
+        memset(&v160, 0, 24);
+        CMSampleBufferGetPresentationTimeStamp(&v160, previousAttachedSampleBuffer);
+        memset(&v159, 0, 24);
+        CMSampleBufferGetPresentationTimeStamp(&v159, buffer);
+        memset(&v162, 0, 24);
+        *&lhs.value = *&v159.a;
+        lhs.epoch = *&v159.c;
+        *&rhs.value = v160.origin;
+        rhs.epoch = *&v160.size.width;
+        CMTimeSubtract(&v162, &lhs, &rhs);
         v13 = (1.0 / self->_frameRate);
-        *&lhs.value = v158.origin;
-        lhs.epoch = *&v158.size.width;
+        *&lhs.value = v162.origin;
+        lhs.epoch = *&v162.size.width;
         if (CMTimeGetSeconds(&lhs) <= v13 + v13)
         {
           AttachedMedia = self->_previousAttachedSampleBuffer;
@@ -426,29 +427,29 @@
 
   else
   {
-    memset(&v156, 0, 24);
-    CMSampleBufferGetPresentationTimeStamp(&v156, AttachedMedia);
-    memset(&v155, 0, 24);
+    memset(&v160, 0, 24);
+    CMSampleBufferGetPresentationTimeStamp(&v160, AttachedMedia);
+    memset(&v159, 0, 24);
     v11 = self->_previousAttachedSampleBuffer;
     if (v11)
     {
-      CMSampleBufferGetPresentationTimeStamp(&v155, v11);
+      CMSampleBufferGetPresentationTimeStamp(&v159, v11);
     }
 
     else
     {
-      *&v155.a = *MEMORY[0x1E6960CC0];
-      v155.c = *(MEMORY[0x1E6960CC0] + 16);
+      *&v159.a = *MEMORY[0x1E6960CC0];
+      v159.c = *(MEMORY[0x1E6960CC0] + 16);
     }
 
-    memset(&v158, 0, 24);
-    *&lhs.value = v156.origin;
-    lhs.epoch = *&v156.size.width;
-    *&rhs.value = *&v155.a;
-    rhs.epoch = *&v155.c;
-    CMTimeSubtract(&v158, &lhs, &rhs);
-    *&lhs.value = v158.origin;
-    lhs.epoch = *&v158.size.width;
+    memset(&v162, 0, 24);
+    *&lhs.value = v160.origin;
+    lhs.epoch = *&v160.size.width;
+    *&rhs.value = *&v159.a;
+    rhs.epoch = *&v159.c;
+    CMTimeSubtract(&v162, &lhs, &rhs);
+    *&lhs.value = v162.origin;
+    lhs.epoch = *&v162.size.width;
     Seconds = CMTimeGetSeconds(&lhs);
     v15 = self->_previousAttachedSampleBuffer;
     if (Seconds >= (1.0 / self->_frameRate) + -0.00100000005)
@@ -486,9 +487,9 @@
 
     else
     {
-      LODWORD(v156.origin.x) = 0;
+      LODWORD(v160.origin.x) = 0;
       FigCFDictionaryGetFloatIfPresent();
-      LODWORD(v24) = llroundf(self->_fadeInDurationSeconds * *&v156.origin.x);
+      LODWORD(v24) = llroundf(self->_fadeInDurationSeconds * *&v160.origin.x);
       v21 = 0.0;
       LODWORD(v25) = 1.0;
       [(BWRamp *)self->_fadeRamp startRampFrom:v24 to:1 iterations:0.0 shape:v25];
@@ -522,12 +523,12 @@ LABEL_36:
   else
   {
     CMGetAttachment(self->_fadeReferenceSampleBuffer, v9, 0);
-    LODWORD(v156.origin.x) = 0;
+    LODWORD(v160.origin.x) = 0;
     FigCFDictionaryGetFloatIfPresent();
-    LODWORD(v36) = llroundf(self->_fadeOutDurationSeconds * *&v156.origin.x);
+    LODWORD(v38) = llroundf(self->_fadeOutDurationSeconds * *&v160.origin.x);
     v21 = 1.0;
-    LODWORD(v37) = 1.0;
-    [(BWRamp *)self->_fadeRamp startRampFrom:v36 to:2 iterations:v37 shape:0.0];
+    LODWORD(v39) = 1.0;
+    [(BWRamp *)self->_fadeRamp startRampFrom:v38 to:2 iterations:v39 shape:0.0];
   }
 
   isRamping = [(BWRamp *)self->_fadeRamp isRamping];
@@ -554,53 +555,53 @@ LABEL_26:
     v29 = CFGetTypeID(ImageBuffer);
     if (v29 == CVPixelBufferGetTypeID())
     {
-      v145 = v21;
-      memset(&v156, 0, sizeof(v156));
+      v149 = v21;
+      memset(&v160, 0, sizeof(v160));
       v30 = *off_1E798A430;
       v31 = CMGetAttachment(buffer, *off_1E798A430, 0);
       theDict = v10;
       if (v31)
       {
-        CGRectMakeWithDictionaryRepresentation(v31, &v156);
-        CVPixelBufferGetWidth(pixelBuffer);
-        CVPixelBufferGetHeight(pixelBuffer);
-        FigCaptureMetadataUtilitiesDenormalizeCropRect(v156.origin.x, v156.origin.y, v156.size.width, v156.size.height);
-        v156.origin.x = v32;
-        v156.origin.y = v33;
-        v156.size.width = v34;
-        v156.size.height = v35;
+        CGRectMakeWithDictionaryRepresentation(v31, &v160);
+        Width = CVPixelBufferGetWidth(pixelBuffer);
+        Height = CVPixelBufferGetHeight(pixelBuffer);
+        FigCaptureMetadataUtilitiesDenormalizeCropRect(v160.origin.x, v160.origin.y, v160.size.width, v160.size.height, Width, Height);
+        v160.origin.x = v34;
+        v160.origin.y = v35;
+        v160.size.width = v36;
+        v160.size.height = v37;
       }
 
       else
       {
-        Width = CVPixelBufferGetWidth(pixelBuffer);
-        Height = CVPixelBufferGetHeight(pixelBuffer);
-        v156.origin.x = 0.0;
-        v156.origin.y = 0.0;
-        v156.size.width = Width;
-        v156.size.height = Height;
+        v41 = CVPixelBufferGetWidth(pixelBuffer);
+        v42 = CVPixelBufferGetHeight(pixelBuffer);
+        v160.origin.x = 0.0;
+        v160.origin.y = 0.0;
+        v160.size.width = v41;
+        v160.size.height = v42;
       }
 
-      v41 = CVPixelBufferGetWidth(ImageBuffer);
-      v42 = CVPixelBufferGetHeight(ImageBuffer);
-      v155.a = 0.0;
-      v155.b = 0.0;
+      v43 = CVPixelBufferGetWidth(ImageBuffer);
+      v44 = CVPixelBufferGetHeight(ImageBuffer);
+      v159.a = 0.0;
+      v159.b = 0.0;
       __asm { FMOV            V0.2D, #1.0 }
 
-      *&v155.c = _Q0;
-      v47 = CMGetAttachment(AttachedMedia, v30, 0);
-      if (v47)
+      *&v159.c = _Q0;
+      v49 = CMGetAttachment(AttachedMedia, v30, 0);
+      if (v49)
       {
-        CGRectMakeWithDictionaryRepresentation(v47, &v155);
-        v48 = *(v7 + 16);
-        v158.origin = *v7;
-        v158.size = v48;
+        CGRectMakeWithDictionaryRepresentation(v49, &v159);
+        v50 = *(v7 + 16);
+        v162.origin = *v7;
+        v162.size = v50;
         if (FigCFDictionaryGetCGRectIfPresent())
         {
-          v155.a = FigCaptureMetadataUtilitiesScaleRect(v155.a, v155.b, v155.c, v155.d, (v158.size.width + v158.size.height) * 0.5);
-          v155.b = v49;
-          v155.c = v50;
-          v155.d = v51;
+          v159.a = FigCaptureMetadataUtilitiesScaleRect(v159.a, v159.b, v159.c, v159.d, (v162.size.width + v162.size.height) * 0.5, v51);
+          v159.b = v52;
+          v159.c = v53;
+          v159.d = v54;
         }
       }
 
@@ -609,152 +610,152 @@ LABEL_26:
         FigCFDictionaryGetCGRectIfPresent();
       }
 
-      v52 = v42;
-      v150 = v41;
-      FigCaptureMetadataUtilitiesDenormalizeCropRect(v155.a, v155.b, v155.c, v155.d);
-      v146 = v54;
-      v148 = v53;
-      v56 = v55;
-      v58 = v57;
+      v55 = v44;
+      v154 = v43;
+      FigCaptureMetadataUtilitiesDenormalizeCropRect(v159.a, v159.b, v159.c, v159.d, v43, v44);
+      v150 = v57;
+      v152 = v56;
+      v59 = v58;
+      v61 = v60;
       CVPixelBufferGetWidth(pixelBuffer);
       CVPixelBufferGetHeight(pixelBuffer);
       FigCaptureRotationDegreesAndMirroringFromExifOrientation(6, 0);
-      [(BWVideoPIPOverlayNode *)self _overlayOffsetForPixelBuffer:pixelBuffer primaryCaptureRect:v156.origin.x, v156.origin.y, v156.size.width, v156.size.height];
+      [(BWVideoPIPOverlayNode *)self _overlayOffsetForPixelBuffer:pixelBuffer primaryCaptureRect:v160.origin.x, v160.origin.y, v160.size.width, v160.size.height];
       CVPixelBufferGetWidth(pixelBuffer);
       CVPixelBufferGetWidth(pixelBuffer);
       FigCaptureMetadataUtilitiesRoundRectToEvenCoordinates();
-      v151 = v59;
-      v152 = v60;
-      v153 = v61;
-      v154 = v62;
-      v63 = CMGetAttachment(AttachedMedia, @"NarrowerCameraPreviewAlignmentShift", 0);
+      v155 = v62;
+      v156 = v63;
+      v157 = v64;
+      v158 = v65;
+      v66 = CMGetAttachment(AttachedMedia, @"NarrowerCameraPreviewAlignmentShift", 0);
       v10 = theDict;
-      v144 = v52;
-      if (v63)
+      v148 = v55;
+      if (v66)
       {
         *&lhs.value = *MEMORY[0x1E695EFF8];
-        if (CGPointMakeWithDictionaryRepresentation(v63, &lhs))
+        if (CGPointMakeWithDictionaryRepresentation(v66, &lhs))
         {
-          v161.origin.y = v146;
-          v161.origin.x = v148;
-          v161.size.width = v56;
-          v161.size.height = v58;
-          v162 = CGRectOffset(v161, -*&lhs.value, -*&lhs.timescale);
-          x = v162.origin.x;
-          y = v162.origin.y;
-          v65 = v162.size.width;
-          v66 = v162.size.height;
-          v158.origin.x = 0.0;
-          v158.origin.y = 0.0;
-          v158.size.width = v41;
-          v158.size.height = v52;
+          v165.origin.y = v150;
+          v165.origin.x = v152;
+          v165.size.width = v59;
+          v165.size.height = v61;
+          v166 = CGRectOffset(v165, -*&lhs.value, -*&lhs.timescale);
+          x = v166.origin.x;
+          y = v166.origin.y;
+          v68 = v166.size.width;
+          v69 = v166.size.height;
+          v162.origin.x = 0.0;
+          v162.origin.y = 0.0;
+          v162.size.width = v43;
+          v162.size.height = v55;
           FigCFDictionaryGetCGRectIfPresent();
-          v67 = v158.origin.x;
-          v68 = v158.origin.y;
-          v70 = v158.size.width;
-          v69 = v158.size.height;
-          if (v158.size.width >= v65)
+          v70 = v162.origin.x;
+          v71 = v162.origin.y;
+          v73 = v162.size.width;
+          v72 = v162.size.height;
+          if (v162.size.width >= v68)
           {
-            v71 = v65;
+            v74 = v68;
           }
 
           else
           {
-            v71 = v158.size.width;
+            v74 = v162.size.width;
           }
 
-          v56 = fmax(v71, 0.0);
-          if (v158.size.height >= v66)
+          v59 = fmax(v74, 0.0);
+          if (v162.size.height >= v69)
           {
-            v72 = v66;
+            v75 = v69;
           }
 
           else
           {
-            v72 = v158.size.height;
+            v75 = v162.size.height;
           }
 
-          v58 = fmax(v72, 0.0);
-          MinX = CGRectGetMinX(v158);
-          v163.origin.x = v67;
-          v163.origin.y = v68;
-          v163.size.width = v70;
-          v163.size.height = v69;
-          v74 = CGRectGetMaxX(v163) - v56;
-          if (v74 >= x)
+          v61 = fmax(v75, 0.0);
+          MinX = CGRectGetMinX(v162);
+          v167.origin.x = v70;
+          v167.origin.y = v71;
+          v167.size.width = v73;
+          v167.size.height = v72;
+          v77 = CGRectGetMaxX(v167) - v59;
+          if (v77 >= x)
           {
-            v74 = x;
+            v77 = x;
           }
 
-          if (MinX >= v74)
+          if (MinX >= v77)
           {
-            v74 = MinX;
+            v77 = MinX;
           }
 
-          v148 = v74;
-          v164.origin.x = v67;
-          v164.origin.y = v68;
-          v164.size.width = v70;
-          v164.size.height = v69;
-          MinY = CGRectGetMinY(v164);
-          v165.origin.x = v67;
-          v165.origin.y = v68;
-          v52 = v144;
-          v165.size.width = v70;
-          v165.size.height = v69;
-          v76 = CGRectGetMaxY(v165) - v58;
-          if (v76 >= y)
+          v152 = v77;
+          v168.origin.x = v70;
+          v168.origin.y = v71;
+          v168.size.width = v73;
+          v168.size.height = v72;
+          MinY = CGRectGetMinY(v168);
+          v169.origin.x = v70;
+          v169.origin.y = v71;
+          v55 = v148;
+          v169.size.width = v73;
+          v169.size.height = v72;
+          v79 = CGRectGetMaxY(v169) - v61;
+          if (v79 >= y)
           {
-            v76 = y;
+            v79 = y;
           }
 
-          if (MinY >= v76)
+          if (MinY >= v79)
           {
-            v76 = MinY;
+            v79 = MinY;
           }
 
-          v146 = v76;
+          v150 = v79;
         }
       }
 
-      v142 = v56;
-      if (v150 / v56 >= v52 / v58)
+      v146 = v59;
+      if (v154 / v59 >= v55 / v61)
       {
-        v77 = v52 / v58;
+        v80 = v55 / v61;
       }
 
       else
       {
-        v77 = v150 / v56;
+        v80 = v154 / v59;
       }
 
       Value = CFDictionaryGetValue(theDict, *off_1E798B540);
       if (self->_isDeviceBravoVariant)
       {
-        v79 = Value;
-        v80 = CMGetAttachment(AttachedMedia, @"TotalZoomFactor", 0);
-        if (v80)
+        v82 = Value;
+        v83 = CMGetAttachment(AttachedMedia, @"TotalZoomFactor", 0);
+        if (v83)
         {
-          [v80 floatValue];
-          v82 = v81;
+          [v83 floatValue];
+          v85 = v84;
         }
 
         else
         {
-          v82 = 1.0;
+          v85 = 1.0;
         }
 
-        v83 = *off_1E798A0D8;
-        if ([v79 isEqualToString:*off_1E798A0D8])
+        v86 = *off_1E798A0D8;
+        if (objc_msgSend_isEqualToString_(v82))
         {
-          v84 = v77;
-          self->_lastTeleMaxScale = v84;
-          self->_lastTeleMaxScaleZoomFactor = v82;
+          v87 = v80;
+          self->_lastTeleMaxScale = v87;
+          self->_lastTeleMaxScaleZoomFactor = v85;
         }
 
         else if (self->_secondaryCameraStreamingEnabled)
         {
-          v77 = v77 * 0.699999988;
+          v80 = v80 * 0.699999988;
         }
 
         else
@@ -762,143 +763,143 @@ LABEL_26:
           lastTeleMaxScale = self->_lastTeleMaxScale;
           if (lastTeleMaxScale <= 0.0)
           {
-            [-[NSDictionary objectForKeyedSubscript:](self->_baseZoomFactorsByPortType objectForKeyedSubscript:{v83), "floatValue"}];
-            v90 = v89;
-            [-[NSDictionary objectForKeyedSubscript:](self->_baseZoomFactorsByPortType objectForKeyedSubscript:{v79), "floatValue"}];
-            v92 = v91;
+            [-[NSDictionary objectForKeyedSubscript:](self->_baseZoomFactorsByPortType objectForKeyedSubscript:{v86), "floatValue"}];
+            v93 = v92;
+            [-[NSDictionary objectForKeyedSubscript:](self->_baseZoomFactorsByPortType objectForKeyedSubscript:{v82), "floatValue"}];
+            v95 = v94;
             [-[__CFDictionary objectForKeyedSubscript:](theDict objectForKeyedSubscript:{*off_1E798B508), "floatValue"}];
-            if (v93 == 0.0)
+            if (v96 == 0.0)
             {
-              v93 = 1.0;
+              v96 = 1.0;
             }
 
-            v77 = v77 / (v90 / (v92 * v93));
+            v80 = v80 / (v93 / (v95 * v96));
           }
 
           else
           {
-            v77 = lastTeleMaxScale;
-            if (v82 > 0.0)
+            v80 = lastTeleMaxScale;
+            if (v85 > 0.0)
             {
               lastTeleMaxScaleZoomFactor = self->_lastTeleMaxScaleZoomFactor;
-              v87 = lastTeleMaxScaleZoomFactor <= 0.0;
-              v88 = v77 * (v82 / lastTeleMaxScaleZoomFactor);
-              if (!v87)
+              v90 = lastTeleMaxScaleZoomFactor <= 0.0;
+              v91 = v80 * (v85 / lastTeleMaxScaleZoomFactor);
+              if (!v90)
               {
-                v77 = v88;
+                v80 = v91;
               }
             }
           }
         }
       }
 
-      v94 = v58;
+      v97 = v61;
       overCaptureTargetRatioInterpolationStart = self->_overCaptureTargetRatioInterpolationStart;
-      v96 = overCaptureTargetRatioInterpolationStart;
-      v97 = v77 / overCaptureTargetRatioInterpolationStart;
-      v98 = self->_overCaptureTargetInterpolationScale * log2f(v97);
+      v99 = overCaptureTargetRatioInterpolationStart;
+      v100 = v80 / overCaptureTargetRatioInterpolationStart;
+      v101 = self->_overCaptureTargetInterpolationScale * log2f(v100);
       overCaptureTargetRatio = self->_overCaptureTargetRatio;
-      v100 = log2f(overCaptureTargetRatio / overCaptureTargetRatioInterpolationStart);
-      if (fabs(v98) <= v100 * 1.57079633)
+      v103 = log2f(overCaptureTargetRatio / overCaptureTargetRatioInterpolationStart);
+      if (fabs(v101) <= v103 * 1.57079633)
       {
-        v101 = v142;
-        v102 = sin(v98 / v100) * v100;
+        v104 = v146;
+        v105 = sin(v101 / v103) * v103;
       }
 
       else
       {
-        v101 = v142;
-        v102 = -v100;
-        if (v98 >= 0.0)
+        v104 = v146;
+        v105 = -v103;
+        if (v101 >= 0.0)
         {
-          v102 = v100;
+          v105 = v103;
         }
       }
 
-      v103 = v102;
-      v104 = v96 * exp2f(v103);
-      v105 = overCaptureTargetRatio;
-      if (v104 > overCaptureTargetRatio)
+      v106 = v105;
+      v107 = v99 * exp2f(v106);
+      v109 = overCaptureTargetRatio;
+      if (v107 > overCaptureTargetRatio)
       {
-        v104 = overCaptureTargetRatio;
+        v107 = overCaptureTargetRatio;
       }
 
-      if (v77 <= v105)
+      if (v80 <= v109)
       {
-        v105 = v77;
+        v109 = v80;
       }
 
       if (!self->_overCaptureTargetRatioSmoothingEnabled)
       {
-        v104 = v105;
+        v107 = v109;
       }
 
-      v106 = v94;
-      v107 = FigCaptureMetadataUtilitiesScaleRect(v148, v146, v101, v94, fmax(v104, 1.0));
-      v109 = v108;
-      v143 = v110;
-      v112 = v111;
-      v113 = v156.size.width / v156.size.height;
-      v114 = [CMGetAttachment(pixelBuffer @"RotationDegrees"];
-      v115 = v114;
-      if (v114 == 270 || v114 == 90)
+      v110 = v97;
+      v111 = FigCaptureMetadataUtilitiesScaleRect(v152, v150, v104, v97, fmax(v107, 1.0), v108);
+      v113 = v112;
+      v147 = v114;
+      v116 = v115;
+      v117 = v160.size.width / v160.size.height;
+      v118 = [CMGetAttachment(pixelBuffer @"RotationDegrees"];
+      v119 = v118;
+      if (v118 == 270 || v118 == 90)
       {
-        v117 = 1.0 / v113;
+        v121 = 1.0 / v117;
       }
 
       else
       {
-        v117 = v113;
+        v121 = v117;
       }
 
-      v118 = FigCaptureMetadataUtilitiesRectByCroppingRectToAspectRatio(v148, v146, v101, v106, v117);
-      v122 = FigCaptureMetadataUtilitiesRectNormalizedToRect(v118, v119, v120, v121, v107, v109, v143);
-      v155.a = v122;
-      v155.b = v123;
-      v155.c = v124;
-      v155.d = v125;
-      if (v115 == 270 || v115 == 90)
+      v122 = FigCaptureMetadataUtilitiesRectByCroppingRectToAspectRatio(v152, v150, v104, v110, v121);
+      v126 = FigCaptureMetadataUtilitiesRectNormalizedToRect(v122, v123, v124, v125, v111, v113, v147);
+      v159.a = v126;
+      v159.b = v127;
+      v159.c = v128;
+      v159.d = v129;
+      if (v119 == 270 || v119 == 90)
       {
-        v155.a = v123;
-        v155.b = v122;
-        v155.c = v125;
-        v155.d = v124;
+        v159.a = v127;
+        v159.b = v126;
+        v159.c = v129;
+        v159.d = v128;
       }
 
-      v126 = v150 - v143;
-      if (v150 - v143 >= v107)
+      v130 = v154 - v147;
+      if (v154 - v147 >= v111)
       {
-        v126 = v107;
+        v130 = v111;
       }
 
-      v127 = fmax(v126, 0.0);
-      v128 = v144 - v112;
-      if (v144 - v112 >= v109)
+      v131 = fmax(v130, 0.0);
+      v132 = v148 - v116;
+      if (v148 - v116 >= v113)
       {
-        v128 = v109;
+        v132 = v113;
       }
 
-      v129 = fmax(v128, 0.0);
-      v16 = FigCaptureMetadataUtilitiesRectNormalizedToRect(v151, v152, v153, v154, v156.origin.x, v156.origin.y, v156.size.width);
-      v17 = v130;
-      v18 = v131;
-      v19 = v132;
-      v133 = CMGetAttachment(AttachedMedia, @"FiltersForZoomPIPOverlay", 0);
+      v133 = fmax(v132, 0.0);
+      v16 = FigCaptureMetadataUtilitiesRectNormalizedToRect(v155, v156, v157, v158, v160.origin.x, v160.origin.y, v160.size.width);
+      v17 = v134;
+      v18 = v135;
+      v19 = v136;
+      v137 = CMGetAttachment(AttachedMedia, @"FiltersForZoomPIPOverlay", 0);
       if (self->_smartStyleRenderingEnabled)
       {
-        [(BWVideoPIPOverlayNode *)self _renderSmartStyleToIntermediateBufferWithInputSampleBuffer:buffer pipSourcePixelBuffer:ImageBuffer inputRect:v127 outputRect:v129, v143, v112, v151, v152, v153, v154];
+        [(BWVideoPIPOverlayNode *)self _renderSmartStyleToIntermediateBufferWithInputSampleBuffer:buffer pipSourcePixelBuffer:ImageBuffer inputRect:v131 outputRect:v133, v147, v116, v155, v156, v157, v158];
       }
 
-      if (self->_useGPUForDrawing || v133 || (LODWORD(v134) = 1.0, *&v135 = v145, v145 < 1.0) || (*&v134 = self->_pipCornerRadius, *&v134 > 0.0))
+      if (self->_useGPUForDrawing || v137 || (LODWORD(v138) = 1.0, *&v139 = v149, v149 < 1.0) || (*&v138 = self->_pipCornerRadius, *&v138 > 0.0))
       {
-        [(BWVideoPIPOverlayNode *)self _ensureGPUResources:v134];
-        *&v141 = v145;
-        [(BWVideoPIPOverlayNode *)self _drawPIPUsingGPUToOutputPixelBuffer:pixelBuffer attachedPixelBuffer:ImageBuffer filters:v133 outputRect:6 inputRect:v151 normalizedReticleRect:v152 uprightExifOrientation:v153 pipOpacity:v154, v127, v129, v143, v112, *&v155.a, *&v155.b, *&v155.c, *&v155.d, v141];
+        [(BWVideoPIPOverlayNode *)self _ensureGPUResources:v138];
+        *&v145 = v149;
+        [(BWVideoPIPOverlayNode *)self _drawPIPUsingGPUToOutputPixelBuffer:pixelBuffer attachedPixelBuffer:ImageBuffer filters:v137 outputRect:6 inputRect:v155 normalizedReticleRect:v156 uprightExifOrientation:v157 pipOpacity:v158, v131, v133, v147, v116, *&v159.a, *&v159.b, *&v159.c, *&v159.d, v145];
       }
 
       else
       {
-        [(BWVideoPIPOverlayNode *)self _drawPIPUsingCPUAndMSRToOutputPixelBuffer:pixelBuffer attachedPixelBuffer:ImageBuffer outputRect:6 inputRect:v151 normalizedReticleRect:v152 primaryCaptureRect:v153 uprightExifOrientation:v154, v127, v129, v143, v112, *&v155.a, *&v155.b, *&v155.c, *&v155.d, *&v156.origin.x, *&v156.origin.y, *&v156.size.width, *&v156.size.height];
+        [(BWVideoPIPOverlayNode *)self _drawPIPUsingCPUAndMSRToOutputPixelBuffer:pixelBuffer attachedPixelBuffer:ImageBuffer outputRect:6 inputRect:v155 normalizedReticleRect:v156 primaryCaptureRect:v157 uprightExifOrientation:v158, v131, v133, v147, v116, *&v159.a, *&v159.b, *&v159.c, *&v159.d, *&v160.origin.x, *&v160.origin.y, *&v160.size.width, *&v160.size.height];
       }
     }
 
@@ -906,11 +907,11 @@ LABEL_26:
   }
 
 LABEL_111:
-  v166.origin.x = v16;
-  v166.origin.y = v17;
-  v166.size.width = v18;
-  v166.size.height = v19;
-  if (!CGRectEqualToRect(v166, self->_normalizedOutputRect) && self->_delegate)
+  v170.origin.x = v16;
+  v170.origin.y = v17;
+  v170.size.width = v18;
+  v170.size.height = v19;
+  if (!CGRectEqualToRect(v170, self->_normalizedOutputRect) && self->_delegate)
   {
     self->_normalizedOutputRect.origin.x = v16;
     self->_normalizedOutputRect.origin.y = v17;
@@ -918,37 +919,37 @@ LABEL_111:
     self->_normalizedOutputRect.size.height = v19;
     if (v10)
     {
-      v167.origin.x = v16;
-      v167.origin.y = v17;
-      v167.size.width = v18;
-      v167.size.height = v19;
-      if (!CGRectIsEmpty(v167))
+      v171.origin.x = v16;
+      v171.origin.y = v17;
+      v171.size.width = v18;
+      v171.size.height = v19;
+      if (!CGRectIsEmpty(v171))
       {
-        v136 = [CMGetAttachment(pixelBuffer @"RotationDegrees"];
-        v137 = [CMGetAttachment(pixelBuffer @"MirroredHorizontal"];
-        v138 = [CMGetAttachment(pixelBuffer @"MirroredVertical"];
-        v139 = CMGetAttachment(buffer, *off_1E798A438, 0);
-        v158.origin.x = 0.0;
-        v158.origin.y = 0.0;
+        v140 = [CMGetAttachment(pixelBuffer @"RotationDegrees"];
+        v141 = [CMGetAttachment(pixelBuffer @"MirroredHorizontal"];
+        v142 = [CMGetAttachment(pixelBuffer @"MirroredVertical"];
+        v143 = CMGetAttachment(buffer, *off_1E798A438, 0);
+        v162.origin.x = 0.0;
+        v162.origin.y = 0.0;
         __asm { FMOV            V0.2D, #1.0 }
 
-        v158.size = _Q0;
-        CGRectMakeWithDictionaryRepresentation(v139, &v158);
-        v157 = 0u;
-        memset(&v156, 0, sizeof(v156));
-        FigCaptureGetTransformForMirroringRotationAndCrop(v137, v138, v136, &v156, v158.origin.x, v158.origin.y, v158.size.width, v158.size.height);
-        *&v155.a = v156.origin;
-        *&v155.c = v156.size;
-        *&v155.tx = v157;
-        v168.origin.x = v16;
-        v168.origin.y = v17;
-        v168.size.width = v18;
-        v168.size.height = v19;
-        v169 = CGRectApplyAffineTransform(v168, &v155);
-        v16 = v169.origin.x;
-        v17 = v169.origin.y;
-        v18 = v169.size.width;
-        v19 = v169.size.height;
+        v162.size = _Q0;
+        CGRectMakeWithDictionaryRepresentation(v143, &v162);
+        v161 = 0u;
+        memset(&v160, 0, sizeof(v160));
+        FigCaptureGetTransformForMirroringRotationAndCrop(v141, v142, v140, &v160, v162.origin.x, v162.origin.y, v162.size.width, v162.size.height);
+        *&v159.a = v160.origin;
+        *&v159.c = v160.size;
+        *&v159.tx = v161;
+        v172.origin.x = v16;
+        v172.origin.y = v17;
+        v172.size.width = v18;
+        v172.size.height = v19;
+        v173 = CGRectApplyAffineTransform(v172, &v159);
+        v16 = v173.origin.x;
+        v17 = v173.origin.y;
+        v18 = v173.size.width;
+        v19 = v173.size.height;
       }
     }
 
@@ -964,213 +965,213 @@ LABEL_111:
 
 - (void)_drawPIPUsingGPUToOutputPixelBuffer:(double)buffer attachedPixelBuffer:(double)pixelBuffer filters:(double)filters outputRect:(double)rect inputRect:(double)inputRect normalizedReticleRect:(double)reticleRect uprightExifOrientation:(double)orientation pipOpacity:(uint64_t)self0
 {
-  v34 = [objc_alloc(MEMORY[0x1E695F678]) initWithPixelBuffer:a11];
+  v32 = [objc_alloc(MEMORY[0x1E695F678]) initWithPixelBuffer:a11];
   pixelBufferCopy = pixelBuffer;
   if (*(self + 350) == 1)
   {
     if (*(self + 368) && *(self + 352))
     {
-      v35 = &OBJC_IVAR___BWVideoPIPOverlayNode__smartStyleIntermediateStyled;
+      v33 = &OBJC_IVAR___BWVideoPIPOverlayNode__smartStyleIntermediateStyled;
     }
 
     else
     {
-      v35 = &OBJC_IVAR___BWVideoPIPOverlayNode__smartStyleIntermediateUnstyled;
+      v33 = &OBJC_IVAR___BWVideoPIPOverlayNode__smartStyleIntermediateUnstyled;
     }
 
-    v43 = [objc_msgSend(MEMORY[0x1E695F658] imageWithCVPixelBuffer:{*(self + *v35)), "imageByCroppingToRect:", *(self + 400), CVPixelBufferGetHeight(*(self + 392)) - *(self + 408) - *(self + 424), *(self + 416), *(self + 424)}];
-    v44 = *(self + 424);
-    v45 = *(self + 416);
-    memset(&v98, 0, sizeof(v98));
-    FigCaptureExifOrientationGetAffineTransform(a14, v45 | (v44 << 32), &v97);
-    CGAffineTransformInvert(&v98, &v97);
-    v97 = v98;
-    v46 = [v43 imageByApplyingTransform:&v97];
-    [v46 extent];
-    v48 = -v47;
-    [v46 extent];
-    CGAffineTransformMakeTranslation(&v97, v48, -v49);
-    v50 = [v46 imageByApplyingTransform:&v97];
-    v51 = ss_conformRectForMSR420vfPixelBuffer(a11, 1, a2, buffer, pixelBuffer, filters);
+    v41 = [objc_msgSend(MEMORY[0x1E695F658] imageWithCVPixelBuffer:{*(self + *v33)), "imageByCroppingToRect:", *(self + 400), CVPixelBufferGetHeight(*(self + 392)) - *(self + 408) - *(self + 424), *(self + 416), *(self + 424)}];
+    v42 = *(self + 424);
+    v43 = *(self + 416);
+    memset(&v96, 0, sizeof(v96));
+    FigCaptureExifOrientationGetAffineTransform(a14, v43 | (v42 << 32), &v95);
+    CGAffineTransformInvert(&v96, &v95);
+    v95 = v96;
+    v44 = [v41 imageByApplyingTransform:&v95];
+    [v44 extent];
+    v46 = -v45;
+    [v44 extent];
+    CGAffineTransformMakeTranslation(&v95, v46, -v47);
+    v48 = [v44 imageByApplyingTransform:&v95];
+    v49 = ss_conformRectForMSR420vfPixelBuffer(a11, 1, a2, buffer, pixelBuffer, filters);
+    v51 = v50;
     v53 = v52;
     v55 = v54;
-    v57 = v56;
-    [v50 extent];
+    [v48 extent];
+    v57 = v53 / v56;
+    [v48 extent];
     v59 = v55 / v58;
-    [v50 extent];
-    v61 = v57 / v60;
-    v62 = CVPixelBufferGetHeight(a11) - v53 - v57;
-    CGAffineTransformMakeScale(&v97, v59, v61);
-    v63 = [v50 imageByApplyingTransform:&v97];
-    CGAffineTransformMakeTranslation(&v97, v51, v62);
-    v42 = [v63 imageByApplyingTransform:&v97];
+    v60 = CVPixelBufferGetHeight(a11) - v51 - v55;
+    CGAffineTransformMakeScale(&v95, v57, v59);
+    v61 = [v48 imageByApplyingTransform:&v95];
+    CGAffineTransformMakeTranslation(&v95, v49, v60);
+    v40 = [v61 imageByApplyingTransform:&v95];
   }
 
   else
   {
-    v36 = [MEMORY[0x1E695F658] imageWithCVPixelBuffer:a12];
-    v37 = CVPixelBufferGetHeight(a12) - inputRect;
+    v34 = [MEMORY[0x1E695F658] imageWithCVPixelBuffer:a12];
+    v35 = CVPixelBufferGetHeight(a12) - inputRect;
     pixelBufferCopy2 = pixelBuffer;
-    v39 = v37 - orientation;
-    v40 = [v36 imageByCroppingToRect:{rect, v37 - orientation, reticleRect, orientation}];
+    v37 = v35 - orientation;
+    v38 = [v34 imageByCroppingToRect:{rect, v35 - orientation, reticleRect, orientation}];
     Height = CVPixelBufferGetHeight(a11);
-    CGAffineTransformMakeTranslation(&v98, a2, Height - buffer - filters);
-    t1 = v98;
-    CGAffineTransformScale(&v97, &t1, pixelBufferCopy2, filters);
-    v98 = v97;
-    FigCaptureExifOrientationGetAffineTransform(a14, 0x100000001uLL, &v97);
-    CGAffineTransformInvert(&t1, &v97);
-    t2 = v98;
-    CGAffineTransformConcat(&v97, &t1, &t2);
-    v98 = v97;
-    t1 = v97;
-    CGAffineTransformScale(&v97, &t1, 1.0 / reticleRect, 1.0 / orientation);
-    v98 = v97;
-    t1 = v97;
-    CGAffineTransformTranslate(&v97, &t1, -rect, -v39);
-    v98 = v97;
-    v42 = [v40 imageByApplyingTransform:&v97 highQualityDownsample:*(self + 432)];
+    CGAffineTransformMakeTranslation(&v96, a2, Height - buffer - filters);
+    t1 = v96;
+    CGAffineTransformScale(&v95, &t1, pixelBufferCopy2, filters);
+    v96 = v95;
+    FigCaptureExifOrientationGetAffineTransform(a14, 0x100000001uLL, &v95);
+    CGAffineTransformInvert(&t1, &v95);
+    t2 = v96;
+    CGAffineTransformConcat(&v95, &t1, &t2);
+    v96 = v95;
+    t1 = v95;
+    CGAffineTransformScale(&v95, &t1, 1.0 / reticleRect, 1.0 / orientation);
+    v96 = v95;
+    t1 = v95;
+    CGAffineTransformTranslate(&v95, &t1, -rect, -v37);
+    v96 = v95;
+    v40 = [v38 imageByApplyingTransform:&v95 highQualityDownsample:*(self + 432)];
   }
 
-  outputImage = v42;
-  v98.a = 0.0;
+  outputImage = v40;
+  v96.a = 0.0;
+  v89 = 0u;
+  v90 = 0u;
   v91 = 0u;
   v92 = 0u;
-  v93 = 0u;
-  v94 = 0u;
-  v65 = [a13 countByEnumeratingWithState:&v91 objects:v90 count:16];
-  if (v65)
+  v63 = [a13 countByEnumeratingWithState:&v89 objects:v88 count:16];
+  if (v63)
   {
-    v66 = v65;
-    v67 = *v92;
-    v68 = *MEMORY[0x1E695FAB0];
+    v64 = v63;
+    v65 = *v90;
+    v66 = *MEMORY[0x1E695FAB0];
     do
     {
-      for (i = 0; i != v66; ++i)
+      for (i = 0; i != v64; ++i)
       {
-        if (*v92 != v67)
+        if (*v90 != v65)
         {
           objc_enumerationMutation(a13);
         }
 
-        v70 = *(*(&v91 + 1) + 8 * i);
-        [v70 setValue:outputImage forKey:v68];
-        outputImage = [v70 outputImage];
+        v68 = *(*(&v89 + 1) + 8 * i);
+        [v68 setValue:outputImage forKey:v66];
+        outputImage = [v68 outputImage];
       }
 
-      v66 = [a13 countByEnumeratingWithState:&v91 objects:v90 count:16];
+      v64 = [a13 countByEnumeratingWithState:&v89 objects:v88 count:16];
     }
 
-    while (v66);
+    while (v64);
   }
 
   if (*(self + 212) != 0.0)
   {
     [outputImage extent];
     [*(self + 232) setExtent:?];
-    LODWORD(v71) = *(self + 212);
-    [*(self + 232) setRadius:v71];
+    LODWORD(v69) = *(self + 212);
+    [*(self + 232) setRadius:v69];
     [*(self + 232) setColor:{objc_msgSend(MEMORY[0x1E695F610], "whiteColor")}];
-    LODWORD(v72) = 1.0;
-    [*(self + 232) setSmoothness:v72];
+    LODWORD(v70) = 1.0;
+    [*(self + 232) setSmoothness:v70];
     outputImage = [objc_msgSend(MEMORY[0x1E695F608] "sourceIn")];
   }
 
   if (*(self + 348) == 1)
   {
     [outputImage extent];
-    CGRectInset(v99, -*(self + 336), -*(self + 336));
+    CGRectInset(v97, -*(self + 336), -*(self + 336));
     FigCaptureMetadataUtilitiesRoundRectToEvenCoordinates();
     [*(self + 224) setExtent:?];
-    LODWORD(v73) = *(self + 340);
-    [*(self + 224) setSigma:v73];
-    *&v74 = *(self + 212) + *(self + 336);
-    [*(self + 224) setRadius:v74];
+    LODWORD(v71) = *(self + 340);
+    [*(self + 224) setSigma:v71];
+    *&v72 = *(self + 212) + *(self + 336);
+    [*(self + 224) setRadius:v72];
     [*(self + 224) setColor:{objc_msgSend(MEMORY[0x1E695F610], "colorWithRed:green:blue:alpha:", 0.0, 0.0, 0.0, *(self + 344))}];
-    LODWORD(v75) = 1.0;
-    [*(self + 224) setSmoothness:v75];
+    LODWORD(v73) = 1.0;
+    [*(self + 224) setSmoothness:v73];
     outputImage = [outputImage imageByCompositingOverImage:{objc_msgSend(*(self + 224), "outputImage")}];
   }
 
   if (a19 < 1.0)
   {
-    v88 = @"inputAVector";
-    v89 = [MEMORY[0x1E695F688] vectorWithX:0.0 Y:0.0 Z:0.0 W:a19];
-    outputImage = [outputImage imageByApplyingFilter:@"CIColorMatrix" withInputParameters:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v89, &v88, 1)}];
+    v86 = @"inputAVector";
+    v87 = [MEMORY[0x1E695F688] vectorWithX:0.0 Y:0.0 Z:0.0 W:a19];
+    outputImage = [outputImage imageByApplyingFilter:@"CIColorMatrix" withInputParameters:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v87, &v86, 1)}];
   }
 
-  v76 = FigCaptureMetadataUtilitiesRectDenormalizedToRect(a15, a16, a17, a18, a2, buffer, pixelBufferCopy);
+  v74 = FigCaptureMetadataUtilitiesRectDenormalizedToRect(a15, a16, a17, a18, a2, buffer, pixelBufferCopy);
+  v76 = v75;
   v78 = v77;
-  v80 = v79;
-  v82 = CVPixelBufferGetHeight(a11) - v81;
-  v83 = v82 - v80;
-  *&v82 = a19;
-  v84 = [self _reticleCIColorForPixelBuffer:a11 opacity:v82];
-  LODWORD(v85) = *(self + 208);
-  v86 = [objc_msgSend(self _strokedRectangleImageWithRect:v84 thickness:v76 c:{v83, v78, v80, v85), "imageByCompositingOverImage:", outputImage}];
-  [v34 setBlendKernel:*(self + 240)];
-  [objc_msgSend(*(self + 248) startTaskToRender:v86 toDestination:v34 error:{&v98), "waitUntilCompletedAndReturnError:", &v98}];
+  v80 = CVPixelBufferGetHeight(a11) - v79;
+  v81 = v80 - v78;
+  *&v80 = a19;
+  v82 = [self _reticleCIColorForPixelBuffer:a11 opacity:v80];
+  LODWORD(v83) = *(self + 208);
+  v84 = [objc_msgSend(self _strokedRectangleImageWithRect:v82 thickness:v74 c:{v81, v76, v78, v83), "imageByCompositingOverImage:", outputImage}];
+  [v32 setBlendKernel:*(self + 240)];
+  [objc_msgSend(*(self + 248) startTaskToRender:v84 toDestination:v32 error:{&v96), "waitUntilCompletedAndReturnError:", &v96}];
 }
 
-- (uint64_t)_drawPIPUsingCPUAndMSRToOutputPixelBuffer:(double)buffer attachedPixelBuffer:(double)pixelBuffer outputRect:(double)rect inputRect:(double)inputRect normalizedReticleRect:(double)reticleRect primaryCaptureRect:(double)captureRect uprightExifOrientation:(double)orientation
+- (void)_drawPIPUsingCPUAndMSRToOutputPixelBuffer:(double)buffer attachedPixelBuffer:(double)pixelBuffer outputRect:(double)rect inputRect:(double)inputRect normalizedReticleRect:(double)reticleRect primaryCaptureRect:(double)captureRect uprightExifOrientation:(double)orientation
 {
   array = [MEMORY[0x1E695DF70] array];
   if (*(self + 350) == 1)
   {
     if (*(self + 368) && *(self + 352))
     {
-      v37 = &OBJC_IVAR___BWVideoPIPOverlayNode__smartStyleIntermediateStyled;
+      v34 = &OBJC_IVAR___BWVideoPIPOverlayNode__smartStyleIntermediateStyled;
     }
 
     else
     {
-      v37 = &OBJC_IVAR___BWVideoPIPOverlayNode__smartStyleIntermediateUnstyled;
+      v34 = &OBJC_IVAR___BWVideoPIPOverlayNode__smartStyleIntermediateUnstyled;
     }
 
-    a12 = *(self + *v37);
+    a12 = *(self + *v34);
     inputRect = *(self + 400);
     reticleRect = *(self + 408);
     captureRect = *(self + 416);
     orientation = *(self + 424);
   }
 
-  v38 = *(self + 144);
+  v35 = *(self + 144);
   if (a13 < 6)
   {
-    [v38 scalePixelBuffer:a12 rect:a11 intoPixelBuffer:inputRect rect:{reticleRect, captureRect, orientation, a2, buffer, pixelBuffer, rect}];
+    [v35 scalePixelBuffer:a12 rect:a11 intoPixelBuffer:inputRect rect:{reticleRect, captureRect, orientation, a2, buffer, pixelBuffer, rect}];
   }
 
   else
   {
-    [v38 scalePixelBuffer:a12 rect:a13 exifOrientation:a11 intoPixelBuffer:inputRect rect:{reticleRect, captureRect, orientation, a2, buffer, pixelBuffer, rect}];
+    [v35 scalePixelBuffer:a12 rect:a13 exifOrientation:a11 intoPixelBuffer:inputRect rect:{reticleRect, captureRect, orientation, a2, buffer, pixelBuffer, rect}];
   }
 
-  v39 = [[BWOverlaidRectangle alloc] initWithDisplayStyle:3];
-  [(BWOverlaidRectangle *)v39 setBounds:a2, buffer, pixelBuffer, rect];
-  [(BWOverlaidRectangle *)v39 setAnimationState:1];
-  v40 = [[BWRamp alloc] initWithName:@"OverlaidRectangleDisplayStyleVideo"];
-  LODWORD(v41) = 1.0;
-  [(BWRamp *)v40 startRampFrom:1 to:2 iterations:0.0 shape:v41];
-  [(BWRamp *)v40 updateRampForNextIteration];
-  [(BWOverlaidRectangle *)v39 setRampAnimation:v40];
-  [array addObject:v39];
-  v42 = FigCaptureMetadataUtilitiesRectDenormalizedToRect(a14, a15, a16, a17, a2, buffer, pixelBuffer);
-  v44 = v43;
-  v46 = v45;
-  v48 = v47;
-  v49 = [[BWOverlaidRectangle alloc] initWithDisplayStyle:4];
-  [(BWOverlaidRectangle *)v49 setBounds:v42, v44, v46, v48];
-  [(BWOverlaidRectangle *)v49 setAnimationState:1];
-  v50 = [[BWRamp alloc] initWithName:@"PiP Reticle"];
-  LODWORD(v51) = 1.0;
-  [(BWRamp *)v50 startRampFrom:1 to:2 iterations:0.0 shape:v51];
-  [(BWRamp *)v50 updateRampForNextIteration];
-  [(BWOverlaidRectangle *)v49 setRampAnimation:v50];
-  [array addObject:v49];
+  v36 = [[BWOverlaidRectangle alloc] initWithDisplayStyle:3];
+  [(BWOverlaidRectangle *)v36 setBounds:a2, buffer, pixelBuffer, rect];
+  [(BWOverlaidRectangle *)v36 setAnimationState:1];
+  v37 = [[BWRamp alloc] initWithName:@"OverlaidRectangleDisplayStyleVideo"];
+  LODWORD(v38) = 1.0;
+  [(BWRamp *)v37 startRampFrom:1 to:2 iterations:0.0 shape:v38];
+  [(BWRamp *)v37 updateRampForNextIteration];
+  [(BWOverlaidRectangle *)v36 setRampAnimation:v37];
+  [array addObject:v36];
+  v39 = FigCaptureMetadataUtilitiesRectDenormalizedToRect(a14, a15, a16, a17, a2, buffer, pixelBuffer);
+  v41 = v40;
+  v43 = v42;
+  v45 = v44;
+  v46 = [[BWOverlaidRectangle alloc] initWithDisplayStyle:4];
+  [(BWOverlaidRectangle *)v46 setBounds:v39, v41, v43, v45];
+  [(BWOverlaidRectangle *)v46 setAnimationState:1];
+  v47 = [[BWRamp alloc] initWithName:@"PiP Reticle"];
+  LODWORD(v48) = 1.0;
+  [(BWRamp *)v47 startRampFrom:1 to:2 iterations:0.0 shape:v48];
+  [(BWRamp *)v47 updateRampForNextIteration];
+  [(BWOverlaidRectangle *)v46 setRampAnimation:v47];
+  [array addObject:v46];
   if ([array count])
   {
     [objc_msgSend(array "firstObject")];
-    a19 = CGRectGetMaxY(v56) + 10.0;
+    a19 = CGRectGetMaxY(v53) + 10.0;
   }
 
   return [self _drawOverlayRects:array toPixelBuffer:a11 withinRect:{a18, a19, a20, a21}];
@@ -1243,11 +1244,11 @@ LABEL_111:
   self->_smartStyleClass = v3;
   if (!v3 || (v4 = NSClassFromString([MEMORY[0x1E696AEC0] stringWithFormat:@"CMISmartStyleProxyRendererV%d", 1])) == 0 || (v5 = objc_msgSend([v4 alloc], "initWithOptionalMetalCommandQueue:", self->_metalCommandQueue), (self->_smartStyleProxyRenderer = v5) == 0))
   {
-    prewarm = -12786;
+    LODWORD(v14) = -12786;
 LABEL_23:
 
     self->_smartStyleProxyRenderer = 0;
-    return prewarm;
+    return v14;
   }
 
   [(CMISmartStyleProxyRenderer *)v5 setMaxInputStylesCount:1];
@@ -1275,7 +1276,7 @@ LABEL_17:
 LABEL_18:
     v13 = 0;
 LABEL_19:
-    prewarm = -12786;
+    v14 = 4294954510;
     goto LABEL_10;
   }
 
@@ -1292,40 +1293,41 @@ LABEL_19:
     {
       [v12 setAllocatorBackend:v9];
       [(CMISmartStyleProxyRenderer *)smartStyleProxyRenderer setExternalMemoryResource:v13];
-      prewarm = 0;
+      v14 = 0;
       goto LABEL_10;
     }
 
     goto LABEL_19;
   }
 
-  prewarm = v11;
+  v14 = v11;
   v13 = 0;
 LABEL_10:
 
-  if (prewarm)
+  if (v14)
   {
-    [BWVideoPIPOverlayNode _loadAndConfigureSmartStyleProxyRenderer];
+    [(BWVideoPIPOverlayNode *)v14 _loadAndConfigureSmartStyleProxyRenderer];
     goto LABEL_23;
   }
 
   setup = [(CMISmartStyleProxyRenderer *)self->_smartStyleProxyRenderer setup];
   if (setup)
   {
-    prewarm = setup;
+    LODWORD(v14) = setup;
     [BWVideoPIPOverlayNode _loadAndConfigureSmartStyleProxyRenderer];
     goto LABEL_23;
   }
 
   prewarm = [(CMISmartStyleProxyRenderer *)self->_smartStyleProxyRenderer prewarm];
+  LODWORD(v14) = prewarm;
   if (prewarm)
   {
-    [BWVideoPIPOverlayNode _loadAndConfigureSmartStyleProxyRenderer];
+    [(BWVideoPIPOverlayNode *)prewarm _loadAndConfigureSmartStyleProxyRenderer];
     goto LABEL_23;
   }
 
   self->_smartStyleRenderingMethod = 2;
-  return prewarm;
+  return v14;
 }
 
 - (void)_updateCurrentStyle:(opaqueCMSampleBuffer *)style
@@ -1458,70 +1460,63 @@ LABEL_20:
     v31 = [(CMISmartStyleProxyRenderer *)self->_smartStyleProxyRenderer prepareToProcess:1];
     if (!v31)
     {
-      goto LABEL_30;
+      goto LABEL_29;
     }
 
-    goto LABEL_28;
-  }
-
-  if (smartStyleRenderingMethod == 3)
-  {
-    v31 = [(CMISmartStyleProxyRenderer *)self->_smartStyleProxyRenderer prepareToProcess:2];
-    if (!v31)
-    {
-LABEL_30:
-      currentStyle = self->_currentStyle;
-      -[CMISmartStyleProxyRenderer setInputStyles:](self->_smartStyleProxyRenderer, "setInputStyles:", [MEMORY[0x1E695DEC8] arrayWithObjects:&currentStyle count:1]);
-      [(CMISmartStyleProxyRenderer *)self->_smartStyleProxyRenderer setInputPixelBuffer:self->_smartStyleIntermediateUnstyled];
-      [(CMISmartStyleProxyRenderer *)self->_smartStyleProxyRenderer setOutputPixelBuffer:self->_smartStyleIntermediateStyled];
-      [(CMISmartStyleProxyRenderer *)self->_smartStyleProxyRenderer setInputMetadata:CMGetAttachment(buffer, *off_1E798A3C8, 0)];
-      process = [(CMISmartStyleProxyRenderer *)self->_smartStyleProxyRenderer process];
-      if (process)
-      {
-        smartStyleRenderingMethod = process;
-        fig_log_get_emitter();
-        OUTLINED_FUNCTION_7_6();
-      }
-
-      else
-      {
-        smartStyleRenderingMethod = [(CMISmartStyleProxyRenderer *)self->_smartStyleProxyRenderer finishProcessing];
-        if (!smartStyleRenderingMethod)
-        {
-          return smartStyleRenderingMethod;
-        }
-
-        fig_log_get_emitter();
-        OUTLINED_FUNCTION_7_6();
-      }
-
-      goto LABEL_26;
-    }
-
-LABEL_28:
+LABEL_27:
     smartStyleRenderingMethod = v31;
     fig_log_get_emitter();
     OUTLINED_FUNCTION_7_6();
-    goto LABEL_26;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", smartStyleRenderingMethod);
+    return smartStyleRenderingMethod;
   }
 
-  if (smartStyleRenderingMethod)
+  if (smartStyleRenderingMethod != 3)
   {
+    if (smartStyleRenderingMethod)
+    {
+      fig_log_get_emitter();
+      OUTLINED_FUNCTION_7_6();
+      smartStyleRenderingMethod = -12782;
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", -12782);
+    }
+
+    return smartStyleRenderingMethod;
+  }
+
+  v31 = [(CMISmartStyleProxyRenderer *)self->_smartStyleProxyRenderer prepareToProcess:2];
+  if (v31)
+  {
+    goto LABEL_27;
+  }
+
+LABEL_29:
+  currentStyle = self->_currentStyle;
+  -[CMISmartStyleProxyRenderer setInputStyles:](self->_smartStyleProxyRenderer, "setInputStyles:", [MEMORY[0x1E695DEC8] arrayWithObjects:&currentStyle count:1]);
+  [(CMISmartStyleProxyRenderer *)self->_smartStyleProxyRenderer setInputPixelBuffer:self->_smartStyleIntermediateUnstyled];
+  [(CMISmartStyleProxyRenderer *)self->_smartStyleProxyRenderer setOutputPixelBuffer:self->_smartStyleIntermediateStyled];
+  [(CMISmartStyleProxyRenderer *)self->_smartStyleProxyRenderer setInputMetadata:CMGetAttachment(buffer, *off_1E798A3C8, 0)];
+  process = [(CMISmartStyleProxyRenderer *)self->_smartStyleProxyRenderer process];
+  if (process)
+  {
+    smartStyleRenderingMethod = process;
     fig_log_get_emitter();
     OUTLINED_FUNCTION_7_6();
-    smartStyleRenderingMethod = -12782;
-LABEL_26:
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", smartStyleRenderingMethod);
+  }
+
+  else
+  {
+    smartStyleRenderingMethod = [(CMISmartStyleProxyRenderer *)self->_smartStyleProxyRenderer finishProcessing];
+    if (smartStyleRenderingMethod)
+    {
+      fig_log_get_emitter();
+      OUTLINED_FUNCTION_7_6();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", smartStyleRenderingMethod);
+    }
   }
 
   return smartStyleRenderingMethod;
-}
-
-- (uint64_t)_loadAndConfigureSmartStyleProxyRenderer
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
 }
 
 @end

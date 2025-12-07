@@ -2,6 +2,7 @@
 - (BOOL)isEqual:(id)equal;
 - (_INPBSetDefrosterSettingsInCarIntent)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)defrosterAsString:(int)string;
 - (id)dictionaryRepresentation;
 - (int)StringAsDefroster:(id)defroster;
 - (unint64_t)hash;
@@ -239,25 +240,23 @@ LABEL_21:
 
   if ([(_INPBSetDefrosterSettingsInCarIntent *)self hasDefroster])
   {
-    defroster = self->_defroster;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBSetDefrosterSettingsInCarIntent *)self hasEnable])
   {
-    enable = self->_enable;
     PBDataWriterWriteBOOLField();
   }
 
   intentMetadata = [(_INPBSetDefrosterSettingsInCarIntent *)self intentMetadata];
 
-  v9 = toCopy;
+  v7 = toCopy;
   if (intentMetadata)
   {
     intentMetadata2 = [(_INPBSetDefrosterSettingsInCarIntent *)self intentMetadata];
     PBDataWriterWriteSubmessage();
 
-    v9 = toCopy;
+    v7 = toCopy;
   }
 }
 
@@ -297,6 +296,21 @@ LABEL_21:
   else
   {
     v4 = 1;
+  }
+
+  return v4;
+}
+
+- (id)defrosterAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E727FE70[string - 1];
   }
 
   return v4;

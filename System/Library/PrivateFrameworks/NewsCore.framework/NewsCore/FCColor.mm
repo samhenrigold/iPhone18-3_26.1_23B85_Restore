@@ -36,12 +36,13 @@
   return v2;
 }
 
-uint64_t __21__FCColor_whiteColor__block_invoke(uint64_t a1)
+uint64_t __21__FCColor_whiteColor__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
-  _MergedGlobals_134 = [objc_alloc(objc_opt_class()) initWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
+  v2 = [objc_alloc(objc_opt_class()) initWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
+  v3 = _MergedGlobals_134;
+  _MergedGlobals_134 = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v3);
 }
 
 - (FCColor)init
@@ -72,66 +73,66 @@ uint64_t __21__FCColor_whiteColor__block_invoke(uint64_t a1)
 
 - (FCColor)initWithRed:(double)red green:(double)green blue:(double)blue alpha:(double)alpha
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if (red < 0.0 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v13 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "red >= 0"];
+    v12 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "red >= 0"];
     *buf = 136315906;
-    v19 = "[FCColor initWithRed:green:blue:alpha:]";
-    v20 = 2080;
-    v21 = "FCColor.m";
-    v22 = 1024;
-    v23 = 82;
-    v24 = 2114;
-    v25 = v13;
+    v18 = "[FCColor initWithRed:green:blue:alpha:]";
+    v19 = 2080;
+    v20 = "FCColor.m";
+    v21 = 1024;
+    v22 = 82;
+    v23 = 2114;
+    v24 = v12;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
   if (green < 0.0 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "green >= 0"];
+    v13 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "green >= 0"];
     *buf = 136315906;
-    v19 = "[FCColor initWithRed:green:blue:alpha:]";
-    v20 = 2080;
-    v21 = "FCColor.m";
-    v22 = 1024;
-    v23 = 83;
-    v24 = 2114;
-    v25 = v14;
+    v18 = "[FCColor initWithRed:green:blue:alpha:]";
+    v19 = 2080;
+    v20 = "FCColor.m";
+    v21 = 1024;
+    v22 = 83;
+    v23 = 2114;
+    v24 = v13;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
   if (blue < 0.0 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "blue >= 0"];
+    v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "blue >= 0"];
     *buf = 136315906;
-    v19 = "[FCColor initWithRed:green:blue:alpha:]";
-    v20 = 2080;
-    v21 = "FCColor.m";
-    v22 = 1024;
-    v23 = 84;
-    v24 = 2114;
-    v25 = v15;
+    v18 = "[FCColor initWithRed:green:blue:alpha:]";
+    v19 = 2080;
+    v20 = "FCColor.m";
+    v21 = 1024;
+    v22 = 84;
+    v23 = 2114;
+    v24 = v14;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
   if (alpha < 0.0 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "alpha >= 0"];
+    v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "alpha >= 0"];
     *buf = 136315906;
-    v19 = "[FCColor initWithRed:green:blue:alpha:]";
-    v20 = 2080;
-    v21 = "FCColor.m";
-    v22 = 1024;
-    v23 = 85;
-    v24 = 2114;
-    v25 = v16;
+    v18 = "[FCColor initWithRed:green:blue:alpha:]";
+    v19 = 2080;
+    v20 = "FCColor.m";
+    v21 = 1024;
+    v22 = 85;
+    v23 = 2114;
+    v24 = v15;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v17.receiver = self;
-  v17.super_class = FCColor;
-  result = [(FCColor *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = FCColor;
+  result = [(FCColor *)&v16 init];
   if (result)
   {
     result->_red = red;
@@ -140,71 +141,69 @@ uint64_t __21__FCColor_whiteColor__block_invoke(uint64_t a1)
     result->_alpha = alpha;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 + (FCColor)colorWithRed:(double)red green:(double)green blue:(double)blue alpha:(double)alpha
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if (red < 0.0 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "red >= 0"];
+    v13 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "red >= 0"];
     *buf = 136315906;
-    v19 = "+[FCColor colorWithRed:green:blue:alpha:]";
-    v20 = 2080;
-    v21 = "FCColor.m";
-    v22 = 1024;
-    v23 = 100;
-    v24 = 2114;
-    v25 = v14;
+    v18 = "+[FCColor colorWithRed:green:blue:alpha:]";
+    v19 = 2080;
+    v20 = "FCColor.m";
+    v21 = 1024;
+    v22 = 100;
+    v23 = 2114;
+    v24 = v13;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
   if (green < 0.0 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "green >= 0"];
+    v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "green >= 0"];
     *buf = 136315906;
-    v19 = "+[FCColor colorWithRed:green:blue:alpha:]";
-    v20 = 2080;
-    v21 = "FCColor.m";
-    v22 = 1024;
-    v23 = 101;
-    v24 = 2114;
-    v25 = v15;
+    v18 = "+[FCColor colorWithRed:green:blue:alpha:]";
+    v19 = 2080;
+    v20 = "FCColor.m";
+    v21 = 1024;
+    v22 = 101;
+    v23 = 2114;
+    v24 = v14;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
   if (blue < 0.0 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "blue >= 0"];
+    v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "blue >= 0"];
     *buf = 136315906;
-    v19 = "+[FCColor colorWithRed:green:blue:alpha:]";
-    v20 = 2080;
-    v21 = "FCColor.m";
-    v22 = 1024;
-    v23 = 102;
-    v24 = 2114;
-    v25 = v16;
+    v18 = "+[FCColor colorWithRed:green:blue:alpha:]";
+    v19 = 2080;
+    v20 = "FCColor.m";
+    v21 = 1024;
+    v22 = 102;
+    v23 = 2114;
+    v24 = v15;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
   if (alpha < 0.0 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "alpha >= 0"];
+    v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "alpha >= 0"];
     *buf = 136315906;
-    v19 = "+[FCColor colorWithRed:green:blue:alpha:]";
-    v20 = 2080;
-    v21 = "FCColor.m";
-    v22 = 1024;
-    v23 = 103;
-    v24 = 2114;
-    v25 = v17;
+    v18 = "+[FCColor colorWithRed:green:blue:alpha:]";
+    v19 = 2080;
+    v20 = "FCColor.m";
+    v21 = 1024;
+    v22 = 103;
+    v23 = 2114;
+    v24 = v16;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
   v11 = [[self alloc] initWithRed:red green:green blue:blue alpha:alpha];
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -242,10 +241,9 @@ uint64_t __21__FCColor_whiteColor__block_invoke(uint64_t a1)
   return v7;
 }
 
-uint64_t __30__FCColor_colorWithHexString___block_invoke(uint64_t a1, double a2, double a3, double a4, double a5)
+uint64_t __30__FCColor_colorWithHexString___block_invoke(uint64_t a1, uint64_t a2, double a3, double a4, double a5, double a6)
 {
-  v6 = *(a1 + 40);
-  v7 = [objc_alloc(objc_opt_class()) initWithRed:a2 green:a3 blue:a4 alpha:a5];
+  v7 = [objc_alloc(objc_opt_class()) initWithRed:a3 green:a4 blue:a5 alpha:a6];
   v8 = *(*(a1 + 32) + 8);
   v9 = *(v8 + 40);
   *(v8 + 40) = v7;
@@ -279,10 +277,9 @@ uint64_t __30__FCColor_colorWithHexString___block_invoke(uint64_t a1, double a2,
   return v5;
 }
 
-uint64_t __38__FCColor_nullableColorWithHexString___block_invoke(uint64_t a1, double a2, double a3, double a4, double a5)
+uint64_t __38__FCColor_nullableColorWithHexString___block_invoke(uint64_t a1, uint64_t a2, double a3, double a4, double a5, double a6)
 {
-  v6 = *(a1 + 40);
-  v7 = [objc_alloc(objc_opt_class()) initWithRed:a2 green:a3 blue:a4 alpha:a5];
+  v7 = [objc_alloc(objc_opt_class()) initWithRed:a3 green:a4 blue:a5 alpha:a6];
   v8 = *(*(a1 + 32) + 8);
   v9 = *(v8 + 40);
   *(v8 + 40) = v7;
@@ -307,9 +304,8 @@ uint64_t __38__FCColor_nullableColorWithHexString___block_invoke(uint64_t a1, do
   return v2;
 }
 
-uint64_t __21__FCColor_blackColor__block_invoke(uint64_t a1)
+uint64_t __21__FCColor_blackColor__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
   v2 = [objc_alloc(objc_opt_class()) initWithRed:0.0 green:0.0 blue:0.0 alpha:1.0];
   v3 = qword_1EDB26EE0;
   qword_1EDB26EE0 = v2;
@@ -334,9 +330,8 @@ uint64_t __21__FCColor_blackColor__block_invoke(uint64_t a1)
   return v2;
 }
 
-uint64_t __21__FCColor_clearColor__block_invoke(uint64_t a1)
+uint64_t __21__FCColor_clearColor__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
   v2 = [objc_alloc(objc_opt_class()) initWithRed:0.0 green:0.0 blue:0.0 alpha:0.0];
   v3 = qword_1EDB26EF0;
   qword_1EDB26EF0 = v2;
@@ -346,19 +341,19 @@ uint64_t __21__FCColor_clearColor__block_invoke(uint64_t a1)
 
 - (void)readDeconstructedRepresentationWithAcccessor:(id)acccessor
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   acccessorCopy = acccessor;
   if (!acccessorCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v13 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "accessor"];
+    v12 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "accessor"];
     *buf = 136315906;
-    v15 = "[FCColor readDeconstructedRepresentationWithAcccessor:]";
-    v16 = 2080;
-    v17 = "FCColor.m";
-    v18 = 1024;
-    v19 = 173;
-    v20 = 2114;
-    v21 = v13;
+    v14 = "[FCColor readDeconstructedRepresentationWithAcccessor:]";
+    v15 = 2080;
+    v16 = "FCColor.m";
+    v17 = 1024;
+    v18 = 173;
+    v19 = 2114;
+    v20 = v12;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
@@ -370,8 +365,6 @@ uint64_t __21__FCColor_clearColor__block_invoke(uint64_t a1)
   v10 = v9;
   [(FCColor *)self alpha];
   acccessorCopy[2](acccessorCopy, v6, v8, v10, v11);
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isSimilarToColor:(id)color withinPercentage:(double)percentage
@@ -494,12 +487,11 @@ LABEL_8:
   return v2;
 }
 
-void __23__FCColor_legibleColor__block_invoke(uint64_t a1, double a2, double a3, double a4)
+void __23__FCColor_legibleColor__block_invoke(uint64_t a1, uint64_t a2, double a3, double a4, double a5)
 {
-  v5 = a3 * 0.7152 + a2 * 0.2126 + a4 * 0.0722;
-  v6 = *(a1 + 32);
+  v6 = a4 * 0.7152 + a3 * 0.2126 + a5 * 0.0722;
   v7 = objc_opt_class();
-  if (v5 > 0.7)
+  if (v6 > 0.7)
   {
     [v7 blackColor];
   }

@@ -91,10 +91,11 @@
 
 - (void)searchBar:(id)bar textDidChange:(id)change
 {
-  sub_219BF5414();
+  v6 = sub_219BF5414();
+  v8 = v7;
   barCopy = bar;
   selfCopy = self;
-  sub_218F735B0(barCopy);
+  sub_218F735B0(barCopy, v6, v8);
 }
 
 - (void)searchBarCancelButtonClicked:(id)clicked

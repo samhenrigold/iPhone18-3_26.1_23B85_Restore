@@ -13,47 +13,46 @@
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277D01970];
   if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v7 = "[SSRSpeakerRecognitionContext dealloc]";
+    v6 = "[SSRSpeakerRecognitionContext dealloc]";
     _os_log_impl(&dword_225E12000, v3, OS_LOG_TYPE_DEFAULT, "%s ", buf, 0xCu);
   }
 
-  v5.receiver = self;
-  v5.super_class = SSRSpeakerRecognitionContext;
-  [(SSRSpeakerRecognitionContext *)&v5 dealloc];
-  v4 = *MEMORY[0x277D85DE8];
+  v4.receiver = self;
+  v4.super_class = SSRSpeakerRecognitionContext;
+  [(SSRSpeakerRecognitionContext *)&v4 dealloc];
 }
 
 - (NSDictionary)numEnrollmentUtterances
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   if ((CSIsCommunalDevice() & 1) == 0)
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     obj = self->_voiceProfileArray;
-    v4 = [(NSArray *)obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v4 = [(NSArray *)obj countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v17;
+      v6 = *v16;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v17 != v6)
+          if (*v16 != v6)
           {
             objc_enumerationMutation(obj);
           }
 
-          v8 = *(*(&v16 + 1) + 8 * i);
+          v8 = *(*(&v15 + 1) + 8 * i);
           v9 = [v8 voiceProfileAudioDirPathForSpidType:self->_spIdType];
           v10 = [SSRUtils getNumberOfAudioFilesInDirectory:v9];
           v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v10];
@@ -61,47 +60,45 @@
           [dictionary setValue:v11 forKey:profileID];
         }
 
-        v5 = [(NSArray *)obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v5 = [(NSArray *)obj countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v5);
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return dictionary;
 }
 
 - (id)pickAssetForProfiles:(id)profiles forSpIdType:(unint64_t)type withAssetArray:(id)array
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   profilesCopy = profiles;
   arrayCopy = array;
   if ([arrayCopy count])
   {
     v10 = [arrayCopy objectAtIndexedSubscript:0];
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
     v11 = arrayCopy;
-    v12 = [v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v24;
+      v14 = *v23;
       while (2)
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v24 != v14)
+          if (*v23 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v23 + 1) + 8 * i);
-          if ([(SSRSpeakerRecognitionContext *)self _checkIfModelsPresentForProfiles:profilesCopy forSpIdType:type forAsset:v16, v23])
+          v16 = *(*(&v22 + 1) + 8 * i);
+          if ([(SSRSpeakerRecognitionContext *)self _checkIfModelsPresentForProfiles:profilesCopy forSpIdType:type forAsset:v16, v22])
           {
             v19 = v16;
 
@@ -109,7 +106,7 @@
           }
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
         if (v13)
         {
           continue;
@@ -125,9 +122,9 @@
       if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v29 = "[SSRSpeakerRecognitionContext pickAssetForProfiles:forSpIdType:withAssetArray:]";
-        v30 = 2112;
-        v31 = v10;
+        v28 = "[SSRSpeakerRecognitionContext pickAssetForProfiles:forSpIdType:withAssetArray:]";
+        v29 = 2112;
+        v30 = v10;
         _os_log_error_impl(&dword_225E12000, v17, OS_LOG_TYPE_ERROR, "%s ERR: triggering profile retrain for asset %{publiic}@", buf, 0x16u);
       }
 
@@ -146,9 +143,9 @@
     if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v29 = "[SSRSpeakerRecognitionContext pickAssetForProfiles:forSpIdType:withAssetArray:]";
-      v30 = 2114;
-      v31 = v10;
+      v28 = "[SSRSpeakerRecognitionContext pickAssetForProfiles:forSpIdType:withAssetArray:]";
+      v29 = 2114;
+      v30 = v10;
       _os_log_error_impl(&dword_225E12000, v20, OS_LOG_TYPE_ERROR, "%s %{public}@", buf, 0x16u);
     }
 
@@ -156,8 +153,6 @@
   }
 
 LABEL_19:
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
@@ -175,29 +170,29 @@ LABEL_19:
 
 - (BOOL)_checkIfModelsPresentForProfiles:(id)profiles forSpIdType:(unint64_t)type forAsset:(id)asset
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   profilesCopy = profiles;
   assetCopy = asset;
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v9 = profilesCopy;
-  v10 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v24;
+    v12 = *v23;
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v24 != v12)
+        if (*v23 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = [*(*(&v23 + 1) + 8 * i) voiceProfileModelFilePathForRecognizerType:1 spIdType:{type, v23}];
+        v14 = [*(*(&v22 + 1) + 8 * i) voiceProfileModelFilePathForRecognizerType:1 spIdType:{type, v22}];
         hashFromResourcePath = [assetCopy hashFromResourcePath];
         v16 = [v14 URLByAppendingPathComponent:hashFromResourcePath];
 
@@ -212,7 +207,7 @@ LABEL_19:
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
       if (v11)
       {
         continue;
@@ -225,17 +220,16 @@ LABEL_19:
   v20 = 1;
 LABEL_11:
 
-  v21 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
 - (void)composeModelContextsForProfiles:(id)profiles forSpIdType:(unint64_t)type forAsset:(id)asset completion:(id)completion
 {
-  v109 = *MEMORY[0x277D85DE8];
+  v108 = *MEMORY[0x277D85DE8];
   profilesCopy = profiles;
   completionCopy = completion;
-  v79 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v78 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v77 = objc_alloc_init(MEMORY[0x277CBEB38]);
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   v9 = 0;
   v10 = 1;
@@ -244,50 +238,50 @@ LABEL_11:
   selfCopy = self;
   while ((v9 & 1) == 0 || self->_spIdType != 3)
   {
-    v83 = v9;
+    v82 = v9;
     if (self->_asset && ([*(v12 + 2296) needRetrainingForExclaveOnly] & 1) == 0)
     {
       v13 = [*(v11 + 1160) satConfigFileNameForCSSpIdType:type forModelType:v10 forAssetType:{-[CSAsset assetProvider](self->_asset, "assetProvider")}];
       v14 = MEMORY[0x277CBEBC0];
       resourcePath = [(CSAsset *)self->_asset resourcePath];
       v16 = [resourcePath stringByAppendingPathComponent:v13];
-      v84 = [v14 URLWithString:v16];
+      v83 = [v14 URLWithString:v16];
     }
 
     else
     {
-      v84 = 0;
+      v83 = 0;
     }
 
     v17 = objc_alloc_init(MEMORY[0x277CBEB38]);
     v18 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v84 = objc_alloc_init(MEMORY[0x277CBEB38]);
     v85 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    v86 = objc_alloc_init(MEMORY[0x277CBEB38]);
     hashFromResourcePath = [(CSAsset *)self->_asset hashFromResourcePath];
     secureAsset = self->_secureAsset;
     v20 = v17;
-    v94 = [*(v11 + 1160) getEmbeddingFileName:secureAsset];
+    v93 = [*(v11 + 1160) getEmbeddingFileName:secureAsset];
+    v95 = 0u;
     v96 = 0u;
     v97 = 0u;
     v98 = 0u;
-    v99 = 0u;
     obj = profilesCopy;
-    v87 = v17;
-    v90 = v18;
-    v91 = [obj countByEnumeratingWithState:&v96 objects:v100 count:16];
-    if (v91)
+    v86 = v17;
+    v89 = v18;
+    v90 = [obj countByEnumeratingWithState:&v95 objects:v99 count:16];
+    if (v90)
     {
-      v89 = *v97;
+      v88 = *v96;
       do
       {
-        for (i = 0; i != v91; ++i)
+        for (i = 0; i != v90; ++i)
         {
-          if (*v97 != v89)
+          if (*v96 != v88)
           {
             objc_enumerationMutation(obj);
           }
 
-          v22 = *(*(&v96 + 1) + 8 * i);
+          v22 = *(*(&v95 + 1) + 8 * i);
           v23 = [v22 voiceProfileModelFilePathForRecognizerType:v10 spIdType:type];
           if (v23)
           {
@@ -313,7 +307,7 @@ LABEL_11:
           v28 = v27;
           if (v27)
           {
-            v29 = v94 == 0;
+            v29 = v93 == 0;
           }
 
           else
@@ -321,7 +315,7 @@ LABEL_11:
             v29 = 1;
           }
 
-          v92 = v23;
+          v91 = v23;
           if (!v29)
           {
             v30 = [v27 URLByAppendingPathComponent:?];
@@ -348,7 +342,7 @@ LABEL_11:
             v34 = [v32 URLByAppendingPathComponent:hashFromResourcePath];
 
             profileID3 = [v22 profileID];
-            [v85 setValue:v34 forKey:profileID3];
+            [v84 setValue:v34 forKey:profileID3];
 
             v32 = v34;
           }
@@ -357,7 +351,7 @@ LABEL_11:
           v37 = v36;
           if (v36)
           {
-            v38 = v94 == 0;
+            v38 = v93 == 0;
           }
 
           else
@@ -374,27 +368,27 @@ LABEL_11:
             v43 = v42 = v11;
 
             profileID4 = [v22 profileID];
-            [v86 setValue:v43 forKey:profileID4];
+            [v85 setValue:v43 forKey:profileID4];
 
             v37 = v43;
             v11 = v42;
             type = typeCopy;
             v12 = v40;
             v10 = v39;
-            v20 = v87;
+            v20 = v86;
           }
 
-          v18 = v90;
+          v18 = v89;
         }
 
-        v91 = [obj countByEnumeratingWithState:&v96 objects:v100 count:16];
+        v90 = [obj countByEnumeratingWithState:&v95 objects:v99 count:16];
       }
 
-      while (v91);
+      while (v90);
     }
 
-    v45 = v84;
-    path = [v84 path];
+    v45 = v83;
+    path = [v83 path];
     if ([defaultManager fileExistsAtPath:path])
     {
     }
@@ -406,10 +400,10 @@ LABEL_11:
       if ((needRetrainingForExclaveOnly & 1) == 0)
       {
         v61 = *MEMORY[0x277D01970];
-        v59 = v86;
-        v60 = v87;
-        v50 = v90;
-        v54 = v85;
+        v59 = v85;
+        v60 = v86;
+        v50 = v89;
+        v54 = v84;
         if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
         {
           v62 = *(v11 + 1160);
@@ -417,21 +411,21 @@ LABEL_11:
           v64 = v61;
           v65 = [v62 stringForCSSpIdType:spIdType];
           v66 = [*(v11 + 1160) stringForSpeakerRecognizerType:v10];
-          path2 = [v84 path];
+          path2 = [v83 path];
           *buf = 136315906;
-          v102 = "[SSRSpeakerRecognitionContext composeModelContextsForProfiles:forSpIdType:forAsset:completion:]";
-          v103 = 2114;
-          v104 = v65;
-          v105 = 2114;
-          v106 = v66;
-          v107 = 2114;
-          v108 = path2;
+          v101 = "[SSRSpeakerRecognitionContext composeModelContextsForProfiles:forSpIdType:forAsset:completion:]";
+          v102 = 2114;
+          v103 = v65;
+          v104 = 2114;
+          v105 = v66;
+          v106 = 2114;
+          v107 = path2;
           _os_log_impl(&dword_225E12000, v64, OS_LOG_TYPE_DEFAULT, "%s Skipping Model {%{public}@, %{public}@} as file doesnt exist at %{public}@", buf, 0x2Au);
 
-          v45 = v84;
-          v59 = v86;
-          v54 = v85;
-          v60 = v87;
+          v45 = v83;
+          v59 = v85;
+          v54 = v84;
+          v60 = v86;
         }
 
         goto LABEL_53;
@@ -439,9 +433,9 @@ LABEL_11:
     }
 
     v48 = [SSRSpeakerRecognitionModelContext alloc];
-    if ([v87 count])
+    if ([v86 count])
     {
-      v49 = v87;
+      v49 = v86;
     }
 
     else
@@ -449,10 +443,10 @@ LABEL_11:
       v49 = 0;
     }
 
-    v50 = v90;
-    if ([v90 count])
+    v50 = v89;
+    if ([v89 count])
     {
-      v51 = v90;
+      v51 = v89;
     }
 
     else
@@ -460,15 +454,15 @@ LABEL_11:
       v51 = 0;
     }
 
-    v93 = [(SSRSpeakerRecognitionModelContext *)v48 initWithConfigFilePath:v84 withModelFilePaths:v49 withModelFilePathsExclave:v51];
+    v92 = [(SSRSpeakerRecognitionModelContext *)v48 initWithConfigFilePath:v83 withModelFilePaths:v49 withModelFilePathsExclave:v51];
     v52 = [*(v11 + 1160) stringForSpeakerRecognizerType:v10];
-    [v79 setValue:v93 forKey:v52];
+    [v78 setValue:v92 forKey:v52];
 
     v53 = [SSRSpeakerRecognitionModelContext alloc];
-    v54 = v85;
-    if ([v85 count])
+    v54 = v84;
+    if ([v84 count])
     {
-      v55 = v85;
+      v55 = v84;
     }
 
     else
@@ -476,9 +470,9 @@ LABEL_11:
       v55 = 0;
     }
 
-    if ([v86 count])
+    if ([v85 count])
     {
-      v56 = v86;
+      v56 = v85;
     }
 
     else
@@ -486,19 +480,19 @@ LABEL_11:
       v56 = 0;
     }
 
-    v57 = [(SSRSpeakerRecognitionModelContext *)v53 initWithConfigFilePath:v84 withModelFilePaths:v55 withModelFilePathsExclave:v56];
+    v57 = [(SSRSpeakerRecognitionModelContext *)v53 initWithConfigFilePath:v83 withModelFilePaths:v55 withModelFilePathsExclave:v56];
     v58 = [*(v11 + 1160) stringForSpeakerRecognizerType:v10];
-    [v78 setValue:v57 forKey:v58];
+    [v77 setValue:v57 forKey:v58];
 
-    v45 = v84;
-    v59 = v86;
-    v60 = v87;
+    v45 = v83;
+    v59 = v85;
+    v60 = v86;
 
 LABEL_53:
     v9 = 1;
     v10 = 2;
     self = selfCopy;
-    if (v83)
+    if (v82)
     {
       goto LABEL_59;
     }
@@ -513,22 +507,22 @@ LABEL_53:
     v72 = [*(v11 + 1160) stringForSpeakerRecognizerType:2];
     locale = self->_locale;
     *buf = 136315906;
-    v102 = "[SSRSpeakerRecognitionContext composeModelContextsForProfiles:forSpIdType:forAsset:completion:]";
-    v103 = 2114;
-    v104 = v71;
-    v105 = 2114;
-    v106 = v72;
-    v107 = 2114;
-    v108 = locale;
+    v101 = "[SSRSpeakerRecognitionContext composeModelContextsForProfiles:forSpIdType:forAsset:completion:]";
+    v102 = 2114;
+    v103 = v71;
+    v104 = 2114;
+    v105 = v72;
+    v106 = 2114;
+    v107 = locale;
     _os_log_impl(&dword_225E12000, v70, OS_LOG_TYPE_DEFAULT, "%s Skipping Model {%{public}@, %{public}@} for %{public}@", buf, 0x2Au);
   }
 
 LABEL_59:
   if (completionCopy)
   {
-    if ([v79 count])
+    if ([v78 count])
     {
-      v74 = v79;
+      v74 = v78;
     }
 
     else
@@ -536,9 +530,9 @@ LABEL_59:
       v74 = 0;
     }
 
-    if ([v78 count])
+    if ([v77 count])
     {
-      v75 = v78;
+      v75 = v77;
     }
 
     else
@@ -548,8 +542,6 @@ LABEL_59:
 
     completionCopy[2](completionCopy, v74, v75);
   }
-
-  v76 = *MEMORY[0x277D85DE8];
 }
 
 - (id)description
@@ -558,19 +550,18 @@ LABEL_59:
   sessionId = self->_sessionId;
   recognitionStyle = self->_recognitionStyle;
   v6 = [SSRUtils stringForInvocationStyle:recognitionStyle];
-  asset = self->_asset;
-  v8 = [v3 stringWithFormat:@"[SessionId: %@, RecognitionStyle:(%lu)%@, Asset: %@, vtEventInfo: %@]", sessionId, recognitionStyle, v6, asset, self->_vtEventInfo];
+  v7 = [v3 stringWithFormat:@"[SessionId: %@, RecognitionStyle:(%lu)%@, Asset: %@, vtEventInfo: %@]", sessionId, recognitionStyle, v6, self->_asset, self->_vtEventInfo];
 
-  return v8;
+  return v7;
 }
 
 - (SSRSpeakerRecognitionContext)initWithVoiceRecognitionContext:(id)context error:(id *)error
 {
-  v151 = *MEMORY[0x277D85DE8];
+  v150 = *MEMORY[0x277D85DE8];
   contextCopy = context;
-  v136.receiver = self;
-  v136.super_class = SSRSpeakerRecognitionContext;
-  v7 = [(SSRSpeakerRecognitionContext *)&v136 init];
+  v135.receiver = self;
+  v135.super_class = SSRSpeakerRecognitionContext;
+  v7 = [(SSRSpeakerRecognitionContext *)&v135 init];
   if (!v7)
   {
 LABEL_72:
@@ -606,9 +597,9 @@ LABEL_72:
         v21 = v19;
         uUIDString = [(NSUUID *)v20 UUIDString];
         *buf = 136315394;
-        v148 = "[SSRSpeakerRecognitionContext initWithVoiceRecognitionContext:error:]";
-        v149 = 2114;
-        v150 = uUIDString;
+        v147 = "[SSRSpeakerRecognitionContext initWithVoiceRecognitionContext:error:]";
+        v148 = 2114;
+        v149 = uUIDString;
         _os_log_impl(&dword_225E12000, v21, OS_LOG_TYPE_INFO, "%s endpointUUID: %{public}@", buf, 0x16u);
       }
     }
@@ -624,9 +615,9 @@ LABEL_72:
     if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v148 = "[SSRSpeakerRecognitionContext initWithVoiceRecognitionContext:error:]";
-      v149 = 2114;
-      v150 = v27;
+      v147 = "[SSRSpeakerRecognitionContext initWithVoiceRecognitionContext:error:]";
+      v148 = 2114;
+      v149 = v27;
       _os_log_error_impl(&dword_225E12000, v33, OS_LOG_TYPE_ERROR, "%s %{public}@", buf, 0x16u);
       if (!error)
       {
@@ -643,9 +634,9 @@ LABEL_16:
     }
 
     v34 = MEMORY[0x277CCA9B8];
-    v145 = @"reason";
-    v146 = v27;
-    v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v146 forKeys:&v145 count:1];
+    v144 = @"reason";
+    v145 = v27;
+    v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v145 forKeys:&v144 count:1];
     *error = [v34 errorWithDomain:@"com.apple.speakerrecognition" code:752 userInfo:v35];
 
     goto LABEL_16;
@@ -822,13 +813,13 @@ LABEL_68:
                 v101 = v7->_voiceProfileArray;
                 spIdType = v7->_spIdType;
                 v103 = v7->_asset;
-                v131 = MEMORY[0x277D85DD0];
-                v132 = 3221225472;
-                v133 = __70__SSRSpeakerRecognitionContext_initWithVoiceRecognitionContext_error___block_invoke;
-                v134 = &unk_2785798F0;
+                v130 = MEMORY[0x277D85DD0];
+                v131 = 3221225472;
+                v132 = __70__SSRSpeakerRecognitionContext_initWithVoiceRecognitionContext_error___block_invoke;
+                v133 = &unk_2785798F0;
                 v104 = v7;
-                v135 = v104;
-                [(SSRSpeakerRecognitionContext *)v104 composeModelContextsForProfiles:v101 forSpIdType:spIdType forAsset:v103 completion:&v131];
+                v134 = v104;
+                [(SSRSpeakerRecognitionContext *)v104 composeModelContextsForProfiles:v101 forSpIdType:spIdType forAsset:v103 completion:&v130];
                 if (v104->_modelsContext || ([MEMORY[0x277D018F8] needRetrainingForExclaveOnly] & 1) != 0)
                 {
 
@@ -844,14 +835,14 @@ LABEL_68:
                   v110 = MEMORY[0x277CCACA8];
                   v111 = [SSRUtils stringForInvocationStyle:v7->_recognitionStyle];
                   v112 = [SSRUtils stringForCSSpIdType:v7->_spIdType];
-                  v134 = [v110 stringWithFormat:@"%@_%@_%@", v111, v112, v104->_sessionId, v131, v132, v133, v134];
+                  v133 = [v110 stringWithFormat:@"%@_%@_%@", v111, v112, v104->_sessionId, v130, v131, v132, v133];
 
-                  v114 = [v134 stringByAppendingPathExtension:@"wav"];
+                  v114 = [v133 stringByAppendingPathExtension:@"wav"];
                   v115 = [v109 stringByAppendingPathComponent:v114];
                   debugUtteranceAudioFile = v104->_debugUtteranceAudioFile;
                   v104->_debugUtteranceAudioFile = v115;
 
-                  v117 = [v134 stringByAppendingPathExtension:@"json"];
+                  v117 = [v133 stringByAppendingPathExtension:@"json"];
                   v118 = [v109 stringByAppendingPathComponent:v117];
                   debugUtteranceMetaFile = v104->_debugUtteranceMetaFile;
                   v104->_debugUtteranceMetaFile = v118;
@@ -868,15 +859,15 @@ LABEL_68:
                   goto LABEL_72;
                 }
 
-                v124 = [MEMORY[0x277CCACA8] stringWithFormat:@"ERR: ModelsContext is nil for locale %@ - Bailing out", v7->_locale];
-                v125 = *MEMORY[0x277D01970];
+                v123 = [MEMORY[0x277CCACA8] stringWithFormat:@"ERR: ModelsContext is nil for locale %@ - Bailing out", v7->_locale];
+                v124 = *MEMORY[0x277D01970];
                 if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
                 {
                   *buf = 136315394;
-                  v148 = "[SSRSpeakerRecognitionContext initWithVoiceRecognitionContext:error:]";
-                  v149 = 2114;
-                  v150 = v124;
-                  _os_log_error_impl(&dword_225E12000, v125, OS_LOG_TYPE_ERROR, "%s %{public}@", buf, 0x16u);
+                  v147 = "[SSRSpeakerRecognitionContext initWithVoiceRecognitionContext:error:]";
+                  v148 = 2114;
+                  v149 = v123;
+                  _os_log_error_impl(&dword_225E12000, v124, OS_LOG_TYPE_ERROR, "%s %{public}@", buf, 0x16u);
                   if (!error)
                   {
                     goto LABEL_77;
@@ -891,11 +882,11 @@ LABEL_77:
                   goto LABEL_18;
                 }
 
-                v126 = MEMORY[0x277CCA9B8];
-                v137 = @"reason";
-                v138 = v124;
-                v127 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v138 forKeys:&v137 count:1];
-                *error = [v126 errorWithDomain:@"com.apple.speakerrecognition" code:713 userInfo:v127];
+                v125 = MEMORY[0x277CCA9B8];
+                v136 = @"reason";
+                v137 = v123;
+                v126 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v137 forKeys:&v136 count:1];
+                *error = [v125 errorWithDomain:@"com.apple.speakerrecognition" code:713 userInfo:v126];
 
                 goto LABEL_77;
               }
@@ -937,14 +928,14 @@ LABEL_77:
 
 LABEL_79:
               v27 = [MEMORY[0x277CCACA8] stringWithFormat:@"ERR: Endpointer Asset not picked - Bailing out"];
-              v128 = *MEMORY[0x277D01970];
+              v127 = *MEMORY[0x277D01970];
               if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
               {
                 *buf = 136315394;
-                v148 = "[SSRSpeakerRecognitionContext initWithVoiceRecognitionContext:error:]";
-                v149 = 2114;
-                v150 = v27;
-                _os_log_error_impl(&dword_225E12000, v128, OS_LOG_TYPE_ERROR, "%s %{public}@", buf, 0x16u);
+                v147 = "[SSRSpeakerRecognitionContext initWithVoiceRecognitionContext:error:]";
+                v148 = 2114;
+                v149 = v27;
+                _os_log_error_impl(&dword_225E12000, v127, OS_LOG_TYPE_ERROR, "%s %{public}@", buf, 0x16u);
                 if (!error)
                 {
                   goto LABEL_82;
@@ -959,11 +950,11 @@ LABEL_82:
                 goto LABEL_17;
               }
 
-              v129 = MEMORY[0x277CCA9B8];
-              v139 = @"reason";
-              v140 = v27;
-              v130 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v140 forKeys:&v139 count:1];
-              *error = [v129 errorWithDomain:@"com.apple.speakerrecognition" code:107 userInfo:v130];
+              v128 = MEMORY[0x277CCA9B8];
+              v138 = @"reason";
+              v139 = v27;
+              v129 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v139 forKeys:&v138 count:1];
+              *error = [v128 errorWithDomain:@"com.apple.speakerrecognition" code:107 userInfo:v129];
 
               goto LABEL_82;
             }
@@ -979,9 +970,9 @@ LABEL_51:
         if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
         {
           *buf = 136315394;
-          v148 = "[SSRSpeakerRecognitionContext initWithVoiceRecognitionContext:error:]";
-          v149 = 2114;
-          v150 = v27;
+          v147 = "[SSRSpeakerRecognitionContext initWithVoiceRecognitionContext:error:]";
+          v148 = 2114;
+          v149 = v27;
           _os_log_error_impl(&dword_225E12000, v85, OS_LOG_TYPE_ERROR, "%s %{public}@", buf, 0x16u);
           if (!error)
           {
@@ -998,9 +989,9 @@ LABEL_55:
         }
 
         v86 = MEMORY[0x277CCA9B8];
-        v141 = @"reason";
-        v142 = v27;
-        v87 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v142 forKeys:&v141 count:1];
+        v140 = @"reason";
+        v141 = v27;
+        v87 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v141 forKeys:&v140 count:1];
         *error = [v86 errorWithDomain:@"com.apple.speakerrecognition" code:107 userInfo:v87];
 
         goto LABEL_55;
@@ -1019,9 +1010,9 @@ LABEL_55:
   if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v148 = "[SSRSpeakerRecognitionContext initWithVoiceRecognitionContext:error:]";
-    v149 = 2114;
-    v150 = v27;
+    v147 = "[SSRSpeakerRecognitionContext initWithVoiceRecognitionContext:error:]";
+    v148 = 2114;
+    v149 = v27;
     _os_log_error_impl(&dword_225E12000, v28, OS_LOG_TYPE_ERROR, "%s %{public}@", buf, 0x16u);
     if (!error)
     {
@@ -1035,9 +1026,9 @@ LABEL_55:
   {
 LABEL_11:
     v29 = MEMORY[0x277CCA9B8];
-    v143 = @"reason";
-    v144 = v27;
-    v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v144 forKeys:&v143 count:1];
+    v142 = @"reason";
+    v143 = v27;
+    v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v143 forKeys:&v142 count:1];
     *error = [v29 errorWithDomain:@"com.apple.speakerrecognition" code:109 userInfo:v30];
   }
 
@@ -1051,7 +1042,6 @@ LABEL_18:
   v36 = 0;
 LABEL_73:
 
-  v122 = *MEMORY[0x277D85DE8];
   return v36;
 }
 

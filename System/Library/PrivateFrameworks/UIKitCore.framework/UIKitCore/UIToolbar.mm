@@ -794,9 +794,9 @@ LABEL_6:
 
   if (v6 && v5)
   {
-    v7 = [(UIBarAppearance *)v5 isEqual:v6];
+    isEqual = objc_msgSend_isEqual_(v5, v6, v6);
 
-    if (v7)
+    if (isEqual)
     {
       goto LABEL_13;
     }
@@ -843,9 +843,9 @@ LABEL_13:
 
   if (v6 && v5)
   {
-    v7 = [(UIBarAppearance *)v5 isEqual:v6];
+    isEqual = objc_msgSend_isEqual_(v5, v6, v6);
 
-    if (v7)
+    if (isEqual)
     {
       goto LABEL_13;
     }
@@ -892,9 +892,9 @@ LABEL_13:
 
   if (v6 && v5)
   {
-    v7 = [(UIBarAppearance *)v5 isEqual:v6];
+    isEqual = objc_msgSend_isEqual_(v5, v6, v6);
 
-    if (v7)
+    if (isEqual)
     {
       goto LABEL_13;
     }
@@ -941,9 +941,9 @@ LABEL_13:
 
   if (v6 && v5)
   {
-    v7 = [(UIBarAppearance *)v5 isEqual:v6];
+    isEqual = objc_msgSend_isEqual_(v5, v6, v6);
 
-    if (v7)
+    if (isEqual)
     {
       goto LABEL_13;
     }
@@ -1093,10 +1093,10 @@ LABEL_8:
     goto LABEL_13;
   }
 
-  v9 = [(NSArray *)v7 isEqual:v8];
+  isEqual = objc_msgSend_isEqual_(v7, v8, v8);
 
   v10 = v19;
-  if ((v9 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     goto LABEL_8;
   }

@@ -232,7 +232,7 @@ uint64_t __47__NWTCPConnection_multipathSubflowSwitchCounts__block_invoke(uint64
   v6 = __nwlog_obj();
   *buf = 136446210;
   v16 = "[NWTCPConnection fillOutTCPConnectionInfo:]";
-  v7 = _os_log_send_and_compose_impl();
+  v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v6, 16, "%{public}s called with null tcp_conn_info", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v13 = 0;
@@ -684,7 +684,7 @@ void __71__NWTCPConnection_handleIdentityRequestWithMetadata_completionHandler__
   v17 = __nwlog_obj();
   *buf = 136446210;
   v33 = "[NWTCPConnection handlePeerCertificateTrustEvaluationWithMetadata:trust:completionHandler:]";
-  v18 = _os_log_send_and_compose_impl();
+  v18 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v17, 16, "%{public}s called with null metadata", buf, 12);
 
   LOBYTE(location) = 16;
   v31 = 0;
@@ -1143,7 +1143,7 @@ void __69__NWTCPConnection_readMinimumLength_maximumLength_completionHandler___b
     v33 = __nwlog_obj();
     *buf = 136446210;
     v56 = "[NWTCPConnection initWithUpgradeForConnection:]";
-    v34 = _os_log_send_and_compose_impl();
+    v34 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v33, 16, "%{public}s called with null connection", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v53 = 0;
@@ -1226,7 +1226,7 @@ LABEL_60:
     v38 = __nwlog_obj();
     *buf = 136446210;
     v56 = "[NWTCPConnection initWithUpgradeForConnection:]";
-    v34 = _os_log_send_and_compose_impl();
+    v34 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v38, 16, "%{public}s called with null connection.endpoint", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v53 = 0;
@@ -1343,7 +1343,7 @@ LABEL_60:
       v40 = __nwlog_obj();
       *buf = 136446210;
       v56 = "[NWTCPConnection initWithUpgradeForConnection:]";
-      v41 = _os_log_send_and_compose_impl();
+      v41 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v40, 16, "%{public}s [super init] failed", buf, 12);
 
       type = OS_LOG_TYPE_ERROR;
       v53 = 0;
@@ -1424,7 +1424,7 @@ LABEL_89:
     v22 = gLogObj;
     *buf = 136446210;
     v56 = "[NWTCPConnection initWithUpgradeForConnection:]";
-    v23 = _os_log_send_and_compose_impl();
+    v23 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v22, 16, "%{public}s nw_connection_create failed", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v53 = 0;
@@ -1526,7 +1526,7 @@ LABEL_23:
   v39 = __nwlog_obj();
   *buf = 136446210;
   v56 = "[NWTCPConnection initWithUpgradeForConnection:]";
-  v34 = _os_log_send_and_compose_impl();
+  v34 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v39, 16, "%{public}s called with null connection.parameters", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v53 = 0;
@@ -1608,88 +1608,88 @@ LABEL_28:
 
 - (NWTCPConnection)initWithEndpoint:(id)endpoint parameters:(id)parameters delegate:(id)delegate
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   endpointCopy = endpoint;
   parametersCopy = parameters;
   delegateCopy = delegate;
   if (!endpointCopy)
   {
-    v35 = __nwlog_obj();
+    v42 = __nwlog_obj();
     *buf = 136446210;
-    v57 = "[NWTCPConnection initWithEndpoint:parameters:delegate:]";
-    v36 = _os_log_send_and_compose_impl();
+    v64 = "[NWTCPConnection initWithEndpoint:parameters:delegate:]";
+    v43 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v42, 16, "%{public}s called with null endpoint", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
-    v54 = 0;
-    if (!__nwlog_fault(v36, &type, &v54))
+    v61 = 0;
+    if (!__nwlog_fault(v43, &type, &v61))
     {
       goto LABEL_72;
     }
 
     if (type == OS_LOG_TYPE_FAULT)
     {
-      v37 = __nwlog_obj();
-      v38 = type;
-      if (os_log_type_enabled(v37, type))
+      v44 = __nwlog_obj();
+      v45 = type;
+      if (os_log_type_enabled(v44, type))
       {
         *buf = 136446210;
-        v57 = "[NWTCPConnection initWithEndpoint:parameters:delegate:]";
-        v39 = "%{public}s called with null endpoint";
+        v64 = "[NWTCPConnection initWithEndpoint:parameters:delegate:]";
+        v46 = "%{public}s called with null endpoint";
 LABEL_70:
-        _os_log_impl(&dword_181A37000, v37, v38, v39, buf, 0xCu);
+        _os_log_impl(&dword_181A37000, v44, v45, v46, buf, 0xCu);
       }
     }
 
-    else if (v54 == 1)
+    else if (v61 == 1)
     {
       backtrace_string = __nw_create_backtrace_string();
-      v37 = __nwlog_obj();
-      v38 = type;
-      v47 = os_log_type_enabled(v37, type);
+      v44 = __nwlog_obj();
+      v45 = type;
+      v54 = os_log_type_enabled(v44, type);
       if (backtrace_string)
       {
-        if (v47)
+        if (v54)
         {
           *buf = 136446466;
-          v57 = "[NWTCPConnection initWithEndpoint:parameters:delegate:]";
-          v58 = 2082;
-          v59 = backtrace_string;
-          _os_log_impl(&dword_181A37000, v37, v38, "%{public}s called with null endpoint, dumping backtrace:%{public}s", buf, 0x16u);
+          v64 = "[NWTCPConnection initWithEndpoint:parameters:delegate:]";
+          v65 = 2082;
+          v66 = backtrace_string;
+          _os_log_impl(&dword_181A37000, v44, v45, "%{public}s called with null endpoint, dumping backtrace:%{public}s", buf, 0x16u);
         }
 
         free(backtrace_string);
 LABEL_72:
-        if (!v36)
+        if (!v43)
         {
 LABEL_74:
 
-          v23 = 0;
+          v30 = 0;
           goto LABEL_23;
         }
 
 LABEL_73:
-        free(v36);
+        free(v43);
         goto LABEL_74;
       }
 
-      if (v47)
+      if (v54)
       {
         *buf = 136446210;
-        v57 = "[NWTCPConnection initWithEndpoint:parameters:delegate:]";
-        v39 = "%{public}s called with null endpoint, no backtrace";
+        v64 = "[NWTCPConnection initWithEndpoint:parameters:delegate:]";
+        v46 = "%{public}s called with null endpoint, no backtrace";
         goto LABEL_70;
       }
     }
 
     else
     {
-      v37 = __nwlog_obj();
-      v38 = type;
-      if (os_log_type_enabled(v37, type))
+      v44 = __nwlog_obj();
+      v45 = type;
+      if (os_log_type_enabled(v44, type))
       {
         *buf = 136446210;
-        v57 = "[NWTCPConnection initWithEndpoint:parameters:delegate:]";
-        v39 = "%{public}s called with null endpoint, backtrace limit exceeded";
+        v64 = "[NWTCPConnection initWithEndpoint:parameters:delegate:]";
+        v46 = "%{public}s called with null endpoint, backtrace limit exceeded";
         goto LABEL_70;
       }
     }
@@ -1701,52 +1701,52 @@ LABEL_71:
 
   if (!parametersCopy)
   {
-    v40 = __nwlog_obj();
+    v47 = __nwlog_obj();
     *buf = 136446210;
-    v57 = "[NWTCPConnection initWithEndpoint:parameters:delegate:]";
-    v36 = _os_log_send_and_compose_impl();
+    v64 = "[NWTCPConnection initWithEndpoint:parameters:delegate:]";
+    v43 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v47, 16, "%{public}s called with null parameters", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
-    v54 = 0;
-    if (!__nwlog_fault(v36, &type, &v54))
+    v61 = 0;
+    if (!__nwlog_fault(v43, &type, &v61))
     {
       goto LABEL_72;
     }
 
     if (type == OS_LOG_TYPE_FAULT)
     {
-      v37 = __nwlog_obj();
-      v38 = type;
-      if (os_log_type_enabled(v37, type))
+      v44 = __nwlog_obj();
+      v45 = type;
+      if (os_log_type_enabled(v44, type))
       {
         *buf = 136446210;
-        v57 = "[NWTCPConnection initWithEndpoint:parameters:delegate:]";
-        v39 = "%{public}s called with null parameters";
+        v64 = "[NWTCPConnection initWithEndpoint:parameters:delegate:]";
+        v46 = "%{public}s called with null parameters";
         goto LABEL_70;
       }
     }
 
     else
     {
-      if (v54 == 1)
+      if (v61 == 1)
       {
-        v48 = __nw_create_backtrace_string();
-        v37 = __nwlog_obj();
-        v38 = type;
-        v49 = os_log_type_enabled(v37, type);
-        if (v48)
+        v55 = __nw_create_backtrace_string();
+        v44 = __nwlog_obj();
+        v45 = type;
+        v56 = os_log_type_enabled(v44, type);
+        if (v55)
         {
-          if (v49)
+          if (v56)
           {
             *buf = 136446466;
-            v57 = "[NWTCPConnection initWithEndpoint:parameters:delegate:]";
-            v58 = 2082;
-            v59 = v48;
-            _os_log_impl(&dword_181A37000, v37, v38, "%{public}s called with null parameters, dumping backtrace:%{public}s", buf, 0x16u);
+            v64 = "[NWTCPConnection initWithEndpoint:parameters:delegate:]";
+            v65 = 2082;
+            v66 = v55;
+            _os_log_impl(&dword_181A37000, v44, v45, "%{public}s called with null parameters, dumping backtrace:%{public}s", buf, 0x16u);
           }
 
-          free(v48);
-          if (!v36)
+          free(v55);
+          if (!v43)
           {
             goto LABEL_74;
           }
@@ -1754,24 +1754,24 @@ LABEL_71:
           goto LABEL_73;
         }
 
-        if (!v49)
+        if (!v56)
         {
           goto LABEL_71;
         }
 
         *buf = 136446210;
-        v57 = "[NWTCPConnection initWithEndpoint:parameters:delegate:]";
-        v39 = "%{public}s called with null parameters, no backtrace";
+        v64 = "[NWTCPConnection initWithEndpoint:parameters:delegate:]";
+        v46 = "%{public}s called with null parameters, no backtrace";
         goto LABEL_70;
       }
 
-      v37 = __nwlog_obj();
-      v38 = type;
-      if (os_log_type_enabled(v37, type))
+      v44 = __nwlog_obj();
+      v45 = type;
+      if (os_log_type_enabled(v44, type))
       {
         *buf = 136446210;
-        v57 = "[NWTCPConnection initWithEndpoint:parameters:delegate:]";
-        v39 = "%{public}s called with null parameters, backtrace limit exceeded";
+        v64 = "[NWTCPConnection initWithEndpoint:parameters:delegate:]";
+        v46 = "%{public}s called with null parameters, backtrace limit exceeded";
         goto LABEL_70;
       }
     }
@@ -1779,9 +1779,9 @@ LABEL_71:
     goto LABEL_71;
   }
 
-  v53.receiver = self;
-  v53.super_class = NWTCPConnection;
-  v12 = [(NWTCPConnection *)&v53 init];
+  v60.receiver = self;
+  v60.super_class = NWTCPConnection;
+  v12 = [(NWTCPConnection *)&v60 init];
   if (v12)
   {
     v13 = v12;
@@ -1791,100 +1791,100 @@ LABEL_71:
 
     if (!v16)
     {
-      options = _nw_tcp_create_options();
+      options = _nw_tcp_create_options(v17, v18, v19, v20, v21, v22, v23);
       nw_protocol_stack_set_transport_protocol(v15, options);
     }
 
     nw_parameters_set_indefinite(copyCParameters);
-    nw_parameters_set_no_opaque_proxy(copyCParameters, 1);
+    nw_parameters_set_no_opaque_proxy(copyCParameters);
     internalEndpoint = [endpointCopy internalEndpoint];
-    v19 = nw_connection_create(internalEndpoint, copyCParameters);
+    v26 = nw_connection_create(internalEndpoint, copyCParameters);
 
-    if (v19)
+    if (v26)
     {
       if (NWCopyInternalQueue_init_once != -1)
       {
         dispatch_once(&NWCopyInternalQueue_init_once, &__block_literal_global_66536);
       }
 
-      v20 = NWCopyInternalQueue_nwQueue;
-      nw_connection_set_queue(v19, v20);
+      v27 = NWCopyInternalQueue_nwQueue;
+      nw_connection_set_queue(v26, v27);
 
       objc_storeStrong(&v13->_endpoint, endpoint);
-      v21 = [[NWParameters alloc] initWithParameters:copyCParameters];
+      v28 = [[NWParameters alloc] initWithParameters:copyCParameters];
       parameters = v13->_parameters;
-      v13->_parameters = v21;
+      v13->_parameters = v28;
 
-      objc_storeStrong(&v13->_internalConnection, v19);
+      objc_storeStrong(&v13->_internalConnection, v26);
       objc_storeWeak(&v13->_delegate, delegateCopy);
       v13->_state = 1;
       [(NWTCPConnection *)v13 startInternal];
-      v23 = v13;
+      v30 = v13;
       goto LABEL_22;
     }
 
-    v52 = delegateCopy;
+    v59 = delegateCopy;
     pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
     networkd_settings_init();
-    v24 = gLogObj;
+    v31 = gLogObj;
     *buf = 136446210;
-    v57 = "[NWTCPConnection initWithEndpoint:parameters:delegate:]";
-    v25 = _os_log_send_and_compose_impl();
+    v64 = "[NWTCPConnection initWithEndpoint:parameters:delegate:]";
+    v32 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v31, 16, "%{public}s nw_connection_create failed", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
-    v54 = 0;
-    if (__nwlog_fault(v25, &type, &v54))
+    v61 = 0;
+    if (__nwlog_fault(v32, &type, &v61))
     {
       if (type == OS_LOG_TYPE_FAULT)
       {
         pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
         networkd_settings_init();
-        v26 = gLogObj;
-        v27 = type;
-        if (!os_log_type_enabled(v26, type))
+        v33 = gLogObj;
+        v34 = type;
+        if (!os_log_type_enabled(v33, type))
         {
           goto LABEL_28;
         }
 
         *buf = 136446210;
-        v57 = "[NWTCPConnection initWithEndpoint:parameters:delegate:]";
-        v28 = "%{public}s nw_connection_create failed";
+        v64 = "[NWTCPConnection initWithEndpoint:parameters:delegate:]";
+        v35 = "%{public}s nw_connection_create failed";
 LABEL_26:
-        v33 = v26;
-        v34 = v27;
+        v40 = v33;
+        v41 = v34;
         goto LABEL_27;
       }
 
-      if (v54 != 1)
+      if (v61 != 1)
       {
         pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
         networkd_settings_init();
-        v26 = gLogObj;
-        v27 = type;
-        if (!os_log_type_enabled(v26, type))
+        v33 = gLogObj;
+        v34 = type;
+        if (!os_log_type_enabled(v33, type))
         {
           goto LABEL_28;
         }
 
         *buf = 136446210;
-        v57 = "[NWTCPConnection initWithEndpoint:parameters:delegate:]";
-        v28 = "%{public}s nw_connection_create failed, backtrace limit exceeded";
+        v64 = "[NWTCPConnection initWithEndpoint:parameters:delegate:]";
+        v35 = "%{public}s nw_connection_create failed, backtrace limit exceeded";
         goto LABEL_26;
       }
 
-      v29 = __nw_create_backtrace_string();
+      v36 = __nw_create_backtrace_string();
       pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
       networkd_settings_init();
-      v26 = gLogObj;
-      v30 = type;
-      v31 = os_log_type_enabled(v26, type);
-      if (!v29)
+      v33 = gLogObj;
+      v37 = type;
+      v38 = os_log_type_enabled(v33, type);
+      if (!v36)
       {
-        if (!v31)
+        if (!v38)
         {
 LABEL_28:
 
-          if (!v25)
+          if (!v32)
           {
             goto LABEL_21;
           }
@@ -1893,106 +1893,106 @@ LABEL_28:
         }
 
         *buf = 136446210;
-        v57 = "[NWTCPConnection initWithEndpoint:parameters:delegate:]";
-        v28 = "%{public}s nw_connection_create failed, no backtrace";
-        v33 = v26;
-        v34 = v30;
+        v64 = "[NWTCPConnection initWithEndpoint:parameters:delegate:]";
+        v35 = "%{public}s nw_connection_create failed, no backtrace";
+        v40 = v33;
+        v41 = v37;
 LABEL_27:
-        _os_log_impl(&dword_181A37000, v33, v34, v28, buf, 0xCu);
+        _os_log_impl(&dword_181A37000, v40, v41, v35, buf, 0xCu);
         goto LABEL_28;
       }
 
-      if (v31)
+      if (v38)
       {
         *buf = 136446466;
-        v57 = "[NWTCPConnection initWithEndpoint:parameters:delegate:]";
-        v58 = 2082;
-        v59 = v29;
-        _os_log_impl(&dword_181A37000, v26, v30, "%{public}s nw_connection_create failed, dumping backtrace:%{public}s", buf, 0x16u);
+        v64 = "[NWTCPConnection initWithEndpoint:parameters:delegate:]";
+        v65 = 2082;
+        v66 = v36;
+        _os_log_impl(&dword_181A37000, v33, v37, "%{public}s nw_connection_create failed, dumping backtrace:%{public}s", buf, 0x16u);
       }
 
-      free(v29);
+      free(v36);
     }
 
-    if (!v25)
+    if (!v32)
     {
 LABEL_21:
-      v23 = 0;
-      delegateCopy = v52;
+      v30 = 0;
+      delegateCopy = v59;
 LABEL_22:
 
       goto LABEL_23;
     }
 
 LABEL_20:
-    free(v25);
+    free(v32);
     goto LABEL_21;
   }
 
-  v41 = __nwlog_obj();
+  v48 = __nwlog_obj();
   *buf = 136446210;
-  v57 = "[NWTCPConnection initWithEndpoint:parameters:delegate:]";
-  v42 = _os_log_send_and_compose_impl();
+  v64 = "[NWTCPConnection initWithEndpoint:parameters:delegate:]";
+  v49 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v48, 16, "%{public}s [super init] failed", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
-  v54 = 0;
-  if (__nwlog_fault(v42, &type, &v54))
+  v61 = 0;
+  if (__nwlog_fault(v49, &type, &v61))
   {
     if (type == OS_LOG_TYPE_FAULT)
     {
-      v43 = __nwlog_obj();
-      v44 = type;
-      if (os_log_type_enabled(v43, type))
+      v50 = __nwlog_obj();
+      v51 = type;
+      if (os_log_type_enabled(v50, type))
       {
         *buf = 136446210;
-        v57 = "[NWTCPConnection initWithEndpoint:parameters:delegate:]";
-        v45 = "%{public}s [super init] failed";
+        v64 = "[NWTCPConnection initWithEndpoint:parameters:delegate:]";
+        v52 = "%{public}s [super init] failed";
 LABEL_77:
-        _os_log_impl(&dword_181A37000, v43, v44, v45, buf, 0xCu);
+        _os_log_impl(&dword_181A37000, v50, v51, v52, buf, 0xCu);
       }
     }
 
     else
     {
-      if (v54 == 1)
+      if (v61 == 1)
       {
-        v50 = __nw_create_backtrace_string();
-        v43 = __nwlog_obj();
-        v44 = type;
-        v51 = os_log_type_enabled(v43, type);
-        if (v50)
+        v57 = __nw_create_backtrace_string();
+        v50 = __nwlog_obj();
+        v51 = type;
+        v58 = os_log_type_enabled(v50, type);
+        if (v57)
         {
-          if (v51)
+          if (v58)
           {
             *buf = 136446466;
-            v57 = "[NWTCPConnection initWithEndpoint:parameters:delegate:]";
-            v58 = 2082;
-            v59 = v50;
-            _os_log_impl(&dword_181A37000, v43, v44, "%{public}s [super init] failed, dumping backtrace:%{public}s", buf, 0x16u);
+            v64 = "[NWTCPConnection initWithEndpoint:parameters:delegate:]";
+            v65 = 2082;
+            v66 = v57;
+            _os_log_impl(&dword_181A37000, v50, v51, "%{public}s [super init] failed, dumping backtrace:%{public}s", buf, 0x16u);
           }
 
-          free(v50);
+          free(v57);
           goto LABEL_79;
         }
 
-        if (!v51)
+        if (!v58)
         {
           goto LABEL_78;
         }
 
         *buf = 136446210;
-        v57 = "[NWTCPConnection initWithEndpoint:parameters:delegate:]";
-        v45 = "%{public}s [super init] failed, no backtrace";
+        v64 = "[NWTCPConnection initWithEndpoint:parameters:delegate:]";
+        v52 = "%{public}s [super init] failed, no backtrace";
         goto LABEL_77;
       }
 
-      v43 = __nwlog_obj();
-      v44 = type;
-      if (os_log_type_enabled(v43, type))
+      v50 = __nwlog_obj();
+      v51 = type;
+      if (os_log_type_enabled(v50, type))
       {
         *buf = 136446210;
-        v57 = "[NWTCPConnection initWithEndpoint:parameters:delegate:]";
-        v45 = "%{public}s [super init] failed, backtrace limit exceeded";
+        v64 = "[NWTCPConnection initWithEndpoint:parameters:delegate:]";
+        v52 = "%{public}s [super init] failed, backtrace limit exceeded";
         goto LABEL_77;
       }
     }
@@ -2001,15 +2001,15 @@ LABEL_78:
   }
 
 LABEL_79:
-  if (v42)
+  if (v49)
   {
-    free(v42);
+    free(v49);
   }
 
-  v23 = 0;
+  v30 = 0;
 LABEL_23:
 
-  return v23;
+  return v30;
 }
 
 - (NWTCPConnection)initWithAcceptedInternalConnection:(id)connection
@@ -2021,7 +2021,7 @@ LABEL_23:
     v20 = __nwlog_obj();
     *buf = 136446210;
     v40 = "[NWTCPConnection initWithAcceptedInternalConnection:]";
-    v21 = _os_log_send_and_compose_impl();
+    v21 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v20, 16, "%{public}s called with null internalConnection", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v37 = 0;
@@ -2099,7 +2099,7 @@ LABEL_36:
     v24 = __nwlog_obj();
     *buf = 136446210;
     v40 = "[NWTCPConnection initWithAcceptedInternalConnection:]";
-    v25 = _os_log_send_and_compose_impl();
+    v25 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v24, 16, "%{public}s [super init] failed", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v37 = 0;

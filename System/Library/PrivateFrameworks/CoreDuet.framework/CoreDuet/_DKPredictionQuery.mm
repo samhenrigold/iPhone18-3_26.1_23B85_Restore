@@ -51,29 +51,27 @@
 
 + (id)predictionQueryForStream:(id)stream withPredicate:(id)predicate withPredictionType:(unint64_t)type
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
   streamCopy = stream;
   v9 = objc_opt_class();
-  v14[0] = streamCopy;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
+  v13[0] = streamCopy;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
 
   v11 = [v9 predictionQueryForStreams:v10 withPredicate:predicateCopy withPredictionType:type];
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
 
 + (id)predictionQueryForStreams:(id)streams withPredicate:(id)predicate withPredictionType:(unint64_t)type
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
   streamsCopy = streams;
   v9 = objc_opt_class();
   v10 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"startDate" ascending:1];
-  v16[0] = v10;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
+  v15[0] = v10;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
   v12 = [v9 eventQueryWithPredicate:predicateCopy eventStreams:streamsCopy offset:0 limit:0 sortDescriptors:v11];
 
   [v12 setType:type];
@@ -82,8 +80,6 @@
   [v12 setDeduplicateValues:1];
   date = [MEMORY[0x1E695DF00] date];
   [v12 setAsOfDate:date];
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -327,7 +323,7 @@ LABEL_10:
   {
     if (startDate == 2)
     {
-      [OUTLINED_FUNCTION_6_11(132) dateByAddingTimeInterval:?];
+      [OUTLINED_FUNCTION_6_11() dateByAddingTimeInterval:?];
       objc_claimAutoreleasedReturnValue();
       v20 = OUTLINED_FUNCTION_3_11();
       v19 = [(_DKPredictionQuery *)v20 both:v21 and:v22 areSameDayOfWeekWith:v23];
@@ -341,7 +337,7 @@ LABEL_10:
         goto LABEL_5;
       }
 
-      [OUTLINED_FUNCTION_6_11(132) dateByAddingTimeInterval:?];
+      [OUTLINED_FUNCTION_6_11() dateByAddingTimeInterval:?];
       objc_claimAutoreleasedReturnValue();
       v15 = OUTLINED_FUNCTION_3_11();
       v19 = [(_DKPredictionQuery *)v15 both:v16 and:v17 areWeekendOrWeekdayWithCalendar:v18];
@@ -388,13 +384,13 @@ LABEL_5:
 
 - (id)constructTimelineWithObservations:(void *)observations withFirstEventDate:(void *)date withHistogramInterval:(void *)interval withPredictionStartDate:(double)startDate durationSinceFirstEvent:
 {
-  v85[1] = *MEMORY[0x1E69E9840];
+  v80[1] = *MEMORY[0x1E69E9840];
   v11 = a2;
   observationsCopy = observations;
   dateCopy = date;
   intervalCopy = interval;
   v15 = intervalCopy;
-  v82 = dateCopy;
+  v77 = dateCopy;
   if (self)
   {
     v16 = *(self + 152);
@@ -403,7 +399,7 @@ LABEL_5:
       v16 = 0;
     }
 
-    v83 = intervalCopy;
+    v78 = intervalCopy;
     if (v16 == 2)
     {
       v45 = observationsCopy;
@@ -470,15 +466,15 @@ LABEL_5:
       {
         if (*(self + 140) >= 1)
         {
-          v70 = 0;
+          v66 = 0;
           do
           {
-            v71 = OUTLINED_FUNCTION_2_11();
-            [(_DKPredictionQuery *)v71 setValueForIndex:v72 forObservations:v73 withDenominator:v46 + -1.0];
-            ++v70;
+            v67 = OUTLINED_FUNCTION_2_11();
+            [(_DKPredictionQuery *)v67 setValueForIndex:v68 forObservations:v69 withDenominator:v46 + -1.0];
+            ++v66;
           }
 
-          while (v70 < *(self + 140));
+          while (v66 < *(self + 140));
         }
       }
 
@@ -488,22 +484,19 @@ LABEL_5:
         if (v60 < 0.0)
         {
           OUTLINED_FUNCTION_4_11();
-          v60 = v61 + v62 * 86400.0;
         }
 
-        v63 = *(self + 140);
-        if (v63 >= 1)
+        if (*(self + 140) >= 1)
         {
-          v64 = 0;
-          v65 = v60 / *(self + 132) % v63;
+          v61 = 0;
           do
           {
-            v66 = OUTLINED_FUNCTION_2_11();
-            [(_DKPredictionQuery *)v66 setValueForIndex:v67 forObservations:v68 withDenominator:v69];
-            ++v64;
+            v62 = OUTLINED_FUNCTION_2_11();
+            [(_DKPredictionQuery *)v62 setValueForIndex:v63 forObservations:v64 withDenominator:v65];
+            ++v61;
           }
 
-          while (v64 < *(self + 140));
+          while (v61 < *(self + 140));
         }
       }
     }
@@ -514,7 +507,7 @@ LABEL_5:
       {
         if (!v16)
         {
-          [observationsCopy timeIntervalSinceDate:v83];
+          [observationsCopy timeIntervalSinceDate:v78];
           v18 = v17;
           if (v17 < 0.0)
           {
@@ -523,7 +516,7 @@ LABEL_5:
 
           v19 = *(self + 132);
           v20 = *(self + 140);
-          [observationsCopy timeIntervalSinceDate:v83];
+          [observationsCopy timeIntervalSinceDate:v78];
           if (*(self + 140) >= 1)
           {
             v22 = 0;
@@ -558,14 +551,14 @@ LABEL_5:
       }
 
       currentCalendar = [MEMORY[0x1E695DEE8] currentCalendar];
-      v84 = 0.0;
-      v85[0] = 0.0;
-      v30 = [_DKPredictionQuery calendar:currentCalendar isWeekendWithIntervalToWeekdayWeekendTransition:v85 containingOrAfterDate:observationsCopy];
-      v81 = [_DKPredictionQuery calendar:currentCalendar isWeekendWithIntervalToWeekdayWeekendTransition:&v84 containingOrAfterDate:v15];
-      v79 = &v79;
-      v31 = &v79 - ((4 * *(self + 140) + 15) & 0x7FFFFFFF0);
+      v79 = 0.0;
+      v80[0] = 0.0;
+      v30 = [_DKPredictionQuery calendar:currentCalendar isWeekendWithIntervalToWeekdayWeekendTransition:v80 containingOrAfterDate:observationsCopy];
+      v76 = [_DKPredictionQuery calendar:currentCalendar isWeekendWithIntervalToWeekdayWeekendTransition:&v79 containingOrAfterDate:v15];
+      v74 = &v74;
+      v31 = &v74 - ((4 * *(self + 140) + 15) & 0x7FFFFFFF0);
       bzero(v31, 4 * *(self + 140));
-      v80 = observationsCopy;
+      v75 = observationsCopy;
       v32 = observationsCopy;
       [v15 timeIntervalSinceDate:v32];
       v34 = v33;
@@ -579,11 +572,11 @@ LABEL_5:
       v38 = *(self + 132);
       v39 = *(self + 140);
       v40 = v35 / v38 % v39;
-      v41 = v84 - (v38 * v40);
-      v42 = v81;
+      v41 = v79 - (v38 * v40);
+      v42 = v76;
       if (v41 <= 0.0)
       {
-        v42 = v81 ^ 1;
+        v42 = v76 ^ 1;
         v41 = 1.79769313e308;
       }
 
@@ -591,7 +584,7 @@ LABEL_5:
       {
         v43 = v32;
 LABEL_39:
-        observationsCopy = v80;
+        observationsCopy = v75;
       }
 
       else
@@ -612,11 +605,11 @@ LABEL_39:
             break;
           }
 
-          v85[0] = v85[0] - v44;
-          if (v85[0] <= 0.0)
+          v80[0] = v80[0] - v44;
+          if (v80[0] <= 0.0)
           {
             v30 ^= 1u;
-            [_DKPredictionQuery calendar:currentCalendar isWeekendWithIntervalToWeekdayWeekendTransition:v85 containingOrAfterDate:v43];
+            [_DKPredictionQuery calendar:currentCalendar isWeekendWithIntervalToWeekdayWeekendTransition:v80 containingOrAfterDate:v43];
           }
 
           ++v40;
@@ -624,8 +617,8 @@ LABEL_39:
           if (v40 == v39)
           {
             v40 = 0;
-            v41 = v84;
-            v42 = v81;
+            v41 = v79;
+            v42 = v76;
           }
 
           else if (v41 - *(self + 132) > 0.0)
@@ -647,47 +640,45 @@ LABEL_39:
         }
 
         LODWORD(v39) = *(self + 140);
-        observationsCopy = v80;
+        observationsCopy = v75;
       }
 
       if (v39 >= 1)
       {
-        v74 = 0;
+        v70 = 0;
         do
         {
-          [(_DKPredictionQuery *)self setValueForIndex:v74 forObservations:v11 withDenominator:*&v31[4 * v74]];
-          ++v74;
+          [(_DKPredictionQuery *)self setValueForIndex:v70 forObservations:v11 withDenominator:*&v31[4 * v70]];
+          ++v70;
         }
 
-        while (v74 < *(self + 140));
+        while (v70 < *(self + 140));
       }
     }
 
 LABEL_65:
-    v75 = [MEMORY[0x1E695DEC8] arrayWithArray:v11];
-    v15 = v83;
-    v76 = [_DKPredictionTimeline timelineWithValues:v75 eachWithDuration:v83 startingAt:*(self + 132)];
+    v71 = [MEMORY[0x1E695DEC8] arrayWithArray:v11];
+    v15 = v78;
+    v72 = [_DKPredictionTimeline timelineWithValues:v71 eachWithDuration:v78 startingAt:*(self + 132)];
 
     goto LABEL_66;
   }
 
-  v76 = 0;
+  v72 = 0;
 LABEL_66:
 
-  v77 = *MEMORY[0x1E69E9840];
-
-  return v76;
+  return v72;
 }
 
 - (void)handleImpulsePredictionWithEventStartDate:(void *)date predictionStartDate:(void *)startDate durationSinceFirstEvent:(void *)event calendar:(void *)calendar observations:(_DWORD *)observations lastDate:(double)lastDate lastSlot:
 {
-  v28 = a2;
+  v27 = a2;
   dateCopy = date;
   startDateCopy = startDate;
   eventCopy = event;
   if (self)
   {
-    [v28 timeIntervalSinceDate:dateCopy];
+    [v27 timeIntervalSinceDate:dateCopy];
     if (v18 < 0.0)
     {
       OUTLINED_FUNCTION_4_11();
@@ -695,28 +686,27 @@ LABEL_66:
     }
 
     v21 = v18 / *(self + 132) % *(self + 140);
-    v22 = *(self + 152);
     if (lastDate >= 1209600.0)
     {
-      v23 = *(self + 152);
+      v22 = *(self + 152);
     }
 
     else
     {
-      v23 = 0;
+      v22 = 0;
     }
 
-    if ([(_DKPredictionQuery *)self shouldIncludeEventWithStartDate:v28 eventSlot:v21 withPredictionStartDate:dateCopy withPartitionType:v23 andCalendar:startDateCopy])
+    if ([(_DKPredictionQuery *)self shouldIncludeEventWithStartDate:v27 eventSlot:v21 withPredictionStartDate:dateCopy withPartitionType:v22 andCalendar:startDateCopy])
     {
-      if (*observations != v21 || ([v28 timeIntervalSinceDate:*calendar], v24 >= *(self + 132)))
+      if (*observations != v21 || ([v27 timeIntervalSinceDate:*calendar], v23 >= *(self + 132)))
       {
-        v25 = MEMORY[0x1E696AD98];
-        v26 = [eventCopy objectAtIndexedSubscript:v21];
-        v27 = [v25 numberWithInteger:{objc_msgSend(v26, "integerValue") + 1}];
-        [eventCopy setObject:v27 atIndexedSubscript:v21];
+        v24 = MEMORY[0x1E696AD98];
+        v25 = [eventCopy objectAtIndexedSubscript:v21];
+        v26 = [v24 numberWithInteger:{objc_msgSend(v25, "integerValue") + 1}];
+        [eventCopy setObject:v26 atIndexedSubscript:v21];
 
         *observations = v21;
-        *calendar = v28;
+        *calendar = v27;
       }
     }
   }
@@ -724,18 +714,18 @@ LABEL_66:
 
 - (void)handleEventPredictionWithEventStartDate:(void *)date eventEndDate:(void *)endDate predictionStartDate:(void *)startDate durationSinceFirstEvent:(void *)event calendar:(int)calendar observations:(double)observations useWeights:
 {
-  HIDWORD(v70) = calendar;
-  v72 = a2;
+  HIDWORD(v69) = calendar;
+  v71 = a2;
   dateCopy = date;
   endDateCopy = endDate;
   startDateCopy = startDate;
   eventCopy = event;
   if (self)
   {
-    [dateCopy timeIntervalSinceDate:v72];
-    [v72 timeIntervalSinceDate:endDateCopy];
+    [dateCopy timeIntervalSinceDate:v71];
+    [v71 timeIntervalSinceDate:endDateCopy];
     v18 = [endDateCopy dateByAddingTimeInterval:(*(self + 132) * (v17 / *(self + 132)))];
-    [v72 timeIntervalSinceDate:endDateCopy];
+    [v71 timeIntervalSinceDate:endDateCopy];
     if (v19 < 0.0)
     {
       OUTLINED_FUNCTION_4_11();
@@ -744,114 +734,113 @@ LABEL_66:
 
     v22 = v19 / *(self + 132) % *(self + 140);
     LODWORD(v23) = v22;
-    v24 = *(self + 152);
     if (observations >= 1209600.0)
     {
-      v25 = *(self + 152);
+      v24 = *(self + 152);
     }
 
     else
     {
-      v25 = 0;
+      v24 = 0;
     }
 
     [dateCopy timeIntervalSinceDate:v18];
-    v27 = v26;
-    v28 = [(_DKPredictionQuery *)self shouldIncludeEventWithStartDate:v72 eventSlot:v22 withPredictionStartDate:endDateCopy withPartitionType:v25 andCalendar:startDateCopy];
-    if (v27 <= 0.0)
+    v26 = v25;
+    v27 = [(_DKPredictionQuery *)self shouldIncludeEventWithStartDate:v71 eventSlot:v22 withPredictionStartDate:endDateCopy withPartitionType:v24 andCalendar:startDateCopy];
+    if (v26 <= 0.0)
     {
-      if (!v28)
+      if (!v27)
       {
 LABEL_29:
 
         goto LABEL_30;
       }
 
-      v36 = MEMORY[0x1E696AD98];
-      v37 = [eventCopy objectAtIndexedSubscript:v22];
-      v38 = v37;
-      if (HIDWORD(v70))
+      v35 = MEMORY[0x1E696AD98];
+      v36 = [eventCopy objectAtIndexedSubscript:v22];
+      v37 = v36;
+      if (HIDWORD(v69))
       {
-        [v37 doubleValue];
+        [v36 doubleValue];
         OUTLINED_FUNCTION_5_7();
-        [v36 numberWithDouble:v39 + v40];
+        [v35 numberWithDouble:v38 + v39];
       }
 
       else
       {
-        [v36 numberWithInteger:{objc_msgSend(v37, "integerValue") + 1}];
+        [v35 numberWithInteger:{objc_msgSend(v36, "integerValue") + 1}];
       }
-      v41 = ;
-      OUTLINED_FUNCTION_7_4(v41, v58, v59, v60, v61, v62, v63, v64, v65, v66, v68, v70, eventCopy);
+      v40 = ;
+      OUTLINED_FUNCTION_7_4(v40, v57, v58, v59, v60, v61, v62, v63, v64, v65, v67, v69, eventCopy);
     }
 
     else
     {
-      if (v28)
+      if (v27)
       {
-        v29 = MEMORY[0x1E696AD98];
-        v30 = [eventCopy objectAtIndexedSubscript:v22];
-        v31 = v30;
-        if (HIDWORD(v70))
+        v28 = MEMORY[0x1E696AD98];
+        v29 = [eventCopy objectAtIndexedSubscript:v22];
+        v30 = v29;
+        if (HIDWORD(v69))
         {
-          [v30 doubleValue];
-          v33 = v32;
-          [v18 timeIntervalSinceDate:v72];
-          [v29 numberWithDouble:v33 + v34 / *(self + 132)];
+          [v29 doubleValue];
+          v32 = v31;
+          [v18 timeIntervalSinceDate:v71];
+          [v28 numberWithDouble:v32 + v33 / *(self + 132)];
         }
 
         else
         {
-          [v29 numberWithInteger:{objc_msgSend(v30, "integerValue") + 1}];
+          [v28 numberWithInteger:{objc_msgSend(v29, "integerValue") + 1}];
         }
-        v35 = ;
-        OUTLINED_FUNCTION_7_4(v35, v42, v43, v44, v45, v46, v47, v48, v65, v66, v68, v70, eventCopy);
+        v34 = ;
+        OUTLINED_FUNCTION_7_4(v34, v41, v42, v43, v44, v45, v46, v47, v64, v65, v67, v69, eventCopy);
       }
 
-      v49 = v18;
-      [dateCopy timeIntervalSinceDate:v49];
-      if (v50 <= 0.0)
+      v48 = v18;
+      [dateCopy timeIntervalSinceDate:v48];
+      if (v49 <= 0.0)
       {
-        v38 = v49;
+        v37 = v48;
       }
 
       else
       {
-        v67 = v18;
-        v69 = startDateCopy;
+        v66 = v18;
+        v68 = startDateCopy;
         do
         {
           v23 = ((v23 + 1) % *(self + 140));
-          if ([(_DKPredictionQuery *)self shouldIncludeEventWithStartDate:v49 eventSlot:v23 withPredictionStartDate:endDateCopy withPartitionType:v25 andCalendar:startDateCopy])
+          if ([(_DKPredictionQuery *)self shouldIncludeEventWithStartDate:v48 eventSlot:v23 withPredictionStartDate:endDateCopy withPartitionType:v24 andCalendar:startDateCopy])
           {
-            v51 = MEMORY[0x1E696AD98];
-            v52 = [eventCopy objectAtIndexedSubscript:v23];
-            v53 = v52;
-            if (HIDWORD(v70))
+            v50 = MEMORY[0x1E696AD98];
+            v51 = [eventCopy objectAtIndexedSubscript:v23];
+            v52 = v51;
+            if (HIDWORD(v69))
             {
-              [v52 doubleValue];
+              [v51 doubleValue];
               OUTLINED_FUNCTION_5_7();
-              [v51 numberWithDouble:{v55 + fmin(v54, 1.0)}];
+              [v50 numberWithDouble:{v54 + fmin(v53, 1.0)}];
             }
 
             else
             {
-              [v51 numberWithInteger:{objc_msgSend(v52, "integerValue") + 1}];
+              [v50 numberWithInteger:{objc_msgSend(v51, "integerValue") + 1}];
             }
-            v56 = ;
-            [eventCopy setObject:v56 atIndexedSubscript:v23];
+            v55 = ;
+            [eventCopy setObject:v55 atIndexedSubscript:v23];
 
-            v18 = v67;
-            startDateCopy = v69;
+            v18 = v66;
+            startDateCopy = v68;
           }
 
-          v38 = [v49 dateByAddingTimeInterval:*(self + 132)];
+          v37 = [v48 dateByAddingTimeInterval:*(self + 132)];
 
-          [dateCopy timeIntervalSinceDate:v38];
-          v49 = v38;
+          [dateCopy timeIntervalSinceDate:v37];
+          v48 = v37;
         }
 
-        while (v57 > 0.0);
+        while (v56 > 0.0);
       }
     }
 
@@ -922,14 +911,14 @@ LABEL_30:
 
 - (id)predictionOfType:(void *)type withData:
 {
-  v126 = *MEMORY[0x1E69E9840];
+  v125 = *MEMORY[0x1E69E9840];
   typeCopy = type;
   v6 = typeCopy;
   if (self)
   {
     if ([typeCopy count])
     {
-      v101 = *(self + 160);
+      v100 = *(self + 160);
       v7 = [MEMORY[0x1E695DF70] arrayWithCapacity:*(self + 140)];
       if (*(self + 140) >= 1)
       {
@@ -943,34 +932,34 @@ LABEL_30:
       }
 
       selfCopy = self;
-      v104 = v7;
+      v103 = v7;
       currentCalendar = [MEMORY[0x1E695DEE8] currentCalendar];
       array = [MEMORY[0x1E695DF70] array];
       localTimeZone = [MEMORY[0x1E695DFE8] localTimeZone];
       secondsFromGMT = [localTimeZone secondsFromGMT];
 
-      v114 = 0u;
-      v115 = 0u;
-      v112 = 0u;
       v113 = 0u;
-      v100 = v6;
+      v114 = 0u;
+      v111 = 0u;
+      v112 = 0u;
+      v99 = v6;
       v11 = v6;
-      v12 = [v11 countByEnumeratingWithState:&v112 objects:v125 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v111 objects:v124 count:16];
       if (v12)
       {
         v13 = v12;
         v14 = secondsFromGMT;
-        v15 = *v113;
+        v15 = *v112;
         do
         {
           for (i = 0; i != v13; ++i)
           {
-            if (*v113 != v15)
+            if (*v112 != v15)
             {
               objc_enumerationMutation(v11);
             }
 
-            v17 = *(*(&v112 + 1) + 8 * i);
+            v17 = *(*(&v111 + 1) + 8 * i);
             v18 = [v17 valueForKey:@"secondsFromGMT"];
             [v18 doubleValue];
             v20 = v19;
@@ -989,16 +978,16 @@ LABEL_30:
 
               v25 = [v22 dateByAddingTimeInterval:v23];
 
-              v123[0] = @"startDate";
-              v123[1] = @"endDate";
-              v124[0] = v24;
-              v124[1] = v25;
-              v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v124 forKeys:v123 count:2];
+              v122[0] = @"startDate";
+              v122[1] = @"endDate";
+              v123[0] = v24;
+              v123[1] = v25;
+              v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v123 forKeys:v122 count:2];
               [array addObject:v26];
             }
           }
 
-          v13 = [v11 countByEnumeratingWithState:&v112 objects:v125 count:16];
+          v13 = [v11 countByEnumeratingWithState:&v111 objects:v124 count:16];
         }
 
         while (v13);
@@ -1007,8 +996,8 @@ LABEL_30:
       [array sortUsingComparator:&__block_literal_global_44];
       firstObject = [array firstObject];
       v28 = [firstObject objectForKeyedSubscript:@"startDate"];
-      v29 = v101;
-      [v101 timeIntervalSinceDate:v28];
+      v29 = v100;
+      [v100 timeIntervalSinceDate:v28];
       v31 = v30;
 
       v32 = (86400 * *(selfCopy + 136));
@@ -1018,20 +1007,20 @@ LABEL_30:
       {
         if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
         {
-          v72 = [MEMORY[0x1E696AD98] numberWithDouble:v31];
-          v29 = v101;
-          v73 = [MEMORY[0x1E696AD98] numberWithInt:(86400 * *(selfCopy + 136))];
+          v71 = [MEMORY[0x1E696AD98] numberWithDouble:v31];
+          v29 = v100;
+          v72 = [MEMORY[0x1E696AD98] numberWithInt:(86400 * *(selfCopy + 136))];
           *buf = 138412546;
-          v118 = v72;
-          v119 = 2112;
-          v120 = v73;
+          v117 = v71;
+          v118 = 2112;
+          v119 = v72;
           OUTLINED_FUNCTION_19();
-          _os_log_error_impl(v74, v75, v76, v77, v78, 0x16u);
+          _os_log_error_impl(v73, v74, v75, v76, v77, 0x16u);
         }
 
         v35 = +[_DKPredictionTimeline predictionUnavailable];
 LABEL_54:
-        v6 = v100;
+        v6 = v99;
 
         goto LABEL_55;
       }
@@ -1039,13 +1028,13 @@ LABEL_54:
       if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
       {
         firstObject2 = [array firstObject];
-        v80 = [firstObject2 objectForKeyedSubscript:@"startDate"];
+        v79 = [firstObject2 objectForKeyedSubscript:@"startDate"];
         *buf = 138412802;
-        v118 = v101;
-        v119 = 2112;
-        v120 = v80;
-        v121 = 2048;
-        v122 = v31;
+        v117 = v100;
+        v118 = 2112;
+        v119 = v79;
+        v120 = 2048;
+        v121 = v31;
         _os_log_debug_impl(&dword_191750000, v34, OS_LOG_TYPE_DEBUG, "Prediction Start Date %@, First Object Start: %@, Duration: %lf", buf, 0x20u);
       }
 
@@ -1062,29 +1051,29 @@ LABEL_54:
           if (v37 != 2)
           {
 LABEL_29:
+            v96 = 0;
             v97 = 0;
             v98 = 0;
-            v99 = 0;
 LABEL_35:
             *buf = -1;
             distantPast = [MEMORY[0x1E695DF00] distantPast];
+            v107 = 0u;
             v108 = 0u;
             v109 = 0u;
             v110 = 0u;
-            v111 = 0u;
             v44 = array;
-            v45 = [v44 countByEnumeratingWithState:&v108 objects:v116 count:16];
+            v45 = [v44 countByEnumeratingWithState:&v107 objects:v115 count:16];
             if (!v45)
             {
               v47 = 0;
 LABEL_59:
 
-              v62 = v99;
-              v35 = [(_DKPredictionQuery *)selfCopy constructTimelineWithObservations:v104 withFirstEventDate:v47 withHistogramInterval:v99 withPredictionStartDate:v101 durationSinceFirstEvent:v31];
-              v63 = v98;
-              [v35 setStartHistogram:v98];
-              v64 = v97;
-              [v35 setEndHistogram:v97];
+              v62 = v98;
+              v35 = [(_DKPredictionQuery *)selfCopy constructTimelineWithObservations:v103 withFirstEventDate:v47 withHistogramInterval:v98 withPredictionStartDate:v100 durationSinceFirstEvent:v31];
+              v63 = v97;
+              [v35 setStartHistogram:v97];
+              v64 = v96;
+              [v35 setEndHistogram:v96];
 LABEL_53:
 
               goto LABEL_54;
@@ -1092,19 +1081,19 @@ LABEL_53:
 
             v46 = v45;
             v47 = 0;
-            v48 = *v109;
-            v96 = distantPast;
+            v48 = *v108;
+            v95 = distantPast;
 LABEL_37:
             v49 = 0;
             while (1)
             {
-              if (*v109 != v48)
+              if (*v108 != v48)
               {
                 objc_enumerationMutation(v44);
               }
 
-              v50 = *(*(&v108 + 1) + 8 * v49);
-              v51 = [v50 valueForKey:{@"startDate", v96}];
+              v50 = *(*(&v107 + 1) + 8 * v49);
+              v51 = [v50 valueForKey:{@"startDate", v95}];
               v52 = [v50 valueForKey:@"endDate"];
               if (!v47)
               {
@@ -1125,16 +1114,16 @@ LABEL_37:
                   {
 
                     v35 = 0;
-                    v63 = v98;
-                    v62 = v99;
-                    distantPast = v96;
-                    v64 = v97;
+                    v63 = v97;
+                    v62 = v98;
+                    distantPast = v95;
+                    v64 = v96;
                     goto LABEL_53;
                   }
 
-                  v107 = distantPast;
-                  [(_DKPredictionQuery *)selfCopy handleImpulsePredictionWithEventStartDate:v51 predictionStartDate:v101 durationSinceFirstEvent:currentCalendar calendar:v104 observations:&v107 lastDate:buf lastSlot:v31];
-                  v53 = v107;
+                  v106 = distantPast;
+                  [(_DKPredictionQuery *)selfCopy handleImpulsePredictionWithEventStartDate:v51 predictionStartDate:v100 durationSinceFirstEvent:currentCalendar calendar:v103 observations:&v106 lastDate:buf lastSlot:v31];
+                  v53 = v106;
 
                   distantPast = v53;
                   goto LABEL_49;
@@ -1149,7 +1138,7 @@ LABEL_49:
 
               if (v46 == ++v49)
               {
-                v46 = [v44 countByEnumeratingWithState:&v108 objects:v116 count:16];
+                v46 = [v44 countByEnumeratingWithState:&v107 objects:v115 count:16];
                 if (v46)
                 {
                   goto LABEL_37;
@@ -1161,77 +1150,77 @@ LABEL_49:
           }
 
           storage = [selfCopy storage];
-          v82 = storage;
+          v81 = storage;
           if (storage)
           {
-            v83 = storage;
+            v82 = storage;
           }
 
           else
           {
-            v83 = +[_DKKnowledgeStore knowledgeStoreWithDirectReadOnlyAccess];
+            v82 = +[_DKKnowledgeStore knowledgeStoreWithDirectReadOnlyAccess];
           }
 
-          v38 = v83;
+          v38 = v82;
 
-          v84 = objc_alloc_init(_DKDeviceActivityStandingQuery);
-          v85 = [currentCalendar component:512 fromDate:v101];
-          v86 = [v101 dateByAddingTimeInterval:86399.0];
-          v87 = [currentCalendar component:512 fromDate:v86];
+          v83 = objc_alloc_init(_DKDeviceActivityStandingQuery);
+          v84 = [currentCalendar component:512 fromDate:v100];
+          v85 = [v100 dateByAddingTimeInterval:86399.0];
+          v86 = [currentCalendar component:512 fromDate:v85];
 
-          v88 = [(_DKDeviceActivityStandingQuery *)v84 fetchResultForDayOfWeek:v85 withStorage:v38];
-          if (v85 == v87)
+          v87 = [(_DKDeviceActivityStandingQuery *)v83 fetchResultForDayOfWeek:v84 withStorage:v38];
+          if (v84 == v86)
           {
-            v89 = 0;
+            v88 = 0;
           }
 
           else
           {
-            v89 = [(_DKDeviceActivityStandingQuery *)v84 fetchResultForDayOfWeek:v87 withStorage:v38];
+            v88 = [(_DKDeviceActivityStandingQuery *)v83 fetchResultForDayOfWeek:v86 withStorage:v38];
           }
 
-          [(_DKPredictionQuery *)selfCopy addEventsToObservations:v104 startingHistogram:v88 endingHistogram:v89 withPredictionDate:v101];
-          if (v88 && v89)
+          [(_DKPredictionQuery *)selfCopy addEventsToObservations:v103 startingHistogram:v87 endingHistogram:v88 withPredictionDate:v100];
+          if (v87 && v88)
           {
-            interval = [v88 interval];
+            interval = [v87 interval];
             startDate = [interval startDate];
-            interval2 = [v89 interval];
+            interval2 = [v88 interval];
             startDate2 = [interval2 startDate];
             [startDate timeIntervalSinceDate:startDate2];
-            if (v94 > 0.0)
+            if (v93 > 0.0)
             {
-              v95 = v89;
+              v94 = v88;
             }
 
             else
             {
-              v95 = v88;
+              v94 = v87;
             }
 
-            interval3 = [v95 interval];
+            interval3 = [v94 interval];
 
-            v41 = v88;
-            v40 = v89;
+            v41 = v87;
+            v40 = v88;
           }
 
-          else if (v88)
+          else if (v87)
           {
-            interval3 = [v88 interval];
-            v41 = v88;
+            interval3 = [v87 interval];
+            v41 = v87;
             v40 = 0;
           }
 
           else
           {
-            interval3 = [v89 interval];
-            v40 = v89;
+            interval3 = [v88 interval];
+            v40 = v88;
             v41 = 0;
           }
 
 LABEL_34:
-          v97 = v40;
-          v98 = v41;
-          v99 = interval3;
+          v96 = v40;
+          v97 = v41;
+          v98 = interval3;
 
           goto LABEL_35;
         }
@@ -1271,7 +1260,7 @@ LABEL_33:
     {
       *buf = 0;
       OUTLINED_FUNCTION_19();
-      _os_log_error_impl(v67, v68, v69, v70, v71, 2u);
+      _os_log_error_impl(v66, v67, v68, v69, v70, 2u);
     }
 
     v35 = +[_DKPredictionTimeline predictionUnavailable];
@@ -1284,48 +1273,46 @@ LABEL_33:
 
 LABEL_55:
 
-  v65 = *MEMORY[0x1E69E9840];
-
   return v35;
 }
 
 - (id)likelihoodForTopN:(void *)n withMinLikelihood:(double)likelihood withData:
 {
-  v129 = *MEMORY[0x1E69E9840];
+  v128 = *MEMORY[0x1E69E9840];
   nCopy = n;
   v8 = nCopy;
   if (self)
   {
     if ([nCopy count])
     {
-      v96 = a2;
+      v95 = a2;
       selfCopy = self;
       array = [MEMORY[0x1E695DF70] array];
       localTimeZone = [MEMORY[0x1E695DFE8] localTimeZone];
       secondsFromGMT = [localTimeZone secondsFromGMT];
 
-      v117 = 0u;
-      v118 = 0u;
-      v115 = 0u;
       v116 = 0u;
-      v95 = v8;
+      v117 = 0u;
+      v114 = 0u;
+      v115 = 0u;
+      v94 = v8;
       v12 = v8;
-      v13 = [v12 countByEnumeratingWithState:&v115 objects:v128 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v114 objects:v127 count:16];
       if (v13)
       {
         v14 = v13;
         v15 = secondsFromGMT;
-        v16 = *v116;
+        v16 = *v115;
         do
         {
           for (i = 0; i != v14; ++i)
           {
-            if (*v116 != v16)
+            if (*v115 != v16)
             {
               objc_enumerationMutation(v12);
             }
 
-            v18 = *(*(&v115 + 1) + 8 * i);
+            v18 = *(*(&v114 + 1) + 8 * i);
             value = [v18 value];
             stringValue = [value stringValue];
 
@@ -1343,16 +1330,16 @@ LABEL_55:
                 v24 = v25;
               }
 
-              v126[0] = @"startDate";
-              v126[1] = @"bundleID";
-              v127[0] = v24;
-              v127[1] = stringValue;
-              v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v127 forKeys:v126 count:2];
+              v125[0] = @"startDate";
+              v125[1] = @"bundleID";
+              v126[0] = v24;
+              v126[1] = stringValue;
+              v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v126 forKeys:v125 count:2];
               [array addObject:v26];
             }
           }
 
-          v14 = [v12 countByEnumeratingWithState:&v115 objects:v128 count:16];
+          v14 = [v12 countByEnumeratingWithState:&v114 objects:v127 count:16];
         }
 
         while (v14);
@@ -1363,41 +1350,41 @@ LABEL_55:
       firstObject = [array firstObject];
       v29 = [firstObject valueForKey:@"startDate"];
 
-      v102 = v27;
+      v101 = v27;
       [v27 timeIntervalSinceDate:v29];
       v31 = v30;
       if (v30 >= (86400 * *(selfCopy + 34)))
       {
-        v94 = v29;
+        v93 = v29;
         v35 = MEMORY[0x1E695E0F8];
-        v107 = [MEMORY[0x1E695E0F8] mutableCopy];
-        v106 = [v35 mutableCopy];
-        v99 = [v35 mutableCopy];
+        v106 = [MEMORY[0x1E695E0F8] mutableCopy];
+        v105 = [v35 mutableCopy];
+        v98 = [v35 mutableCopy];
+        v110 = 0u;
         v111 = 0u;
         v112 = 0u;
         v113 = 0u;
-        v114 = 0u;
-        v97 = array;
+        v96 = array;
         obj = array;
-        v103 = [obj countByEnumeratingWithState:&v111 objects:v125 count:16];
-        if (v103)
+        v102 = [obj countByEnumeratingWithState:&v110 objects:v124 count:16];
+        if (v102)
         {
-          v100 = *v112;
+          v99 = *v111;
           do
           {
-            for (j = 0; j != v103; ++j)
+            for (j = 0; j != v102; ++j)
             {
-              if (*v112 != v100)
+              if (*v111 != v99)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v37 = *(*(&v111 + 1) + 8 * j);
+              v37 = *(*(&v110 + 1) + 8 * j);
               v38 = objc_autoreleasePoolPush();
               v39 = [v37 valueForKey:@"bundleID"];
               v40 = [v37 valueForKey:@"startDate"];
-              v41 = [v106 objectForKeyedSubscript:v39];
-              v42 = [v107 objectForKeyedSubscript:v39];
+              v41 = [v105 objectForKeyedSubscript:v39];
+              v42 = [v106 objectForKeyedSubscript:v39];
               if (v41)
               {
                 intValue = [v41 intValue];
@@ -1411,7 +1398,7 @@ LABEL_55:
                 v42 = distantPast;
               }
 
-              [v40 timeIntervalSinceDate:v102];
+              [v40 timeIntervalSinceDate:v101];
               if (v45 < 0.0)
               {
                 v45 = v45 + ceil(v45 / -86400.0) * 86400.0;
@@ -1420,7 +1407,7 @@ LABEL_55:
               v46 = (v45 / *(selfCopy + 33) % *(selfCopy + 35));
               if (intValue != v46 || ([v40 timeIntervalSinceDate:v42], v47 >= *(selfCopy + 33)))
               {
-                v48 = [v99 objectForKeyedSubscript:v39];
+                v48 = [v98 objectForKeyedSubscript:v39];
                 if (!v48)
                 {
                   v48 = [MEMORY[0x1E696AB50] set];
@@ -1428,22 +1415,22 @@ LABEL_55:
 
                 v49 = [MEMORY[0x1E696AD98] numberWithInt:v46];
                 [v48 addObject:v49];
-                [v99 setObject:v48 forKeyedSubscript:v39];
-                [v106 setObject:v49 forKeyedSubscript:v39];
-                [v107 setObject:v40 forKeyedSubscript:v39];
+                [v98 setObject:v48 forKeyedSubscript:v39];
+                [v105 setObject:v49 forKeyedSubscript:v39];
+                [v106 setObject:v40 forKeyedSubscript:v39];
               }
 
               objc_autoreleasePoolPop(v38);
             }
 
-            v103 = [obj countByEnumeratingWithState:&v111 objects:v125 count:16];
+            v102 = [obj countByEnumeratingWithState:&v110 objects:v124 count:16];
           }
 
-          while (v103);
+          while (v102);
         }
 
-        v29 = v94;
-        [v94 timeIntervalSinceDate:v102];
+        v29 = v93;
+        [v93 timeIntervalSinceDate:v101];
         v51 = v50;
         if (v50 < 0.0)
         {
@@ -1453,47 +1440,47 @@ LABEL_55:
         v52 = selfCopy;
         v53 = *(selfCopy + 33);
         v54 = *(selfCopy + 35);
-        [v94 timeIntervalSinceDate:v102];
+        [v93 timeIntervalSinceDate:v101];
         v56 = (v55 / 86400.0);
         v57 = -v56;
-        array = v97;
-        v58 = v99;
+        array = v96;
+        v58 = v98;
         if (v56 < 1)
         {
-          v104 = [MEMORY[0x1E695DF70] arrayWithCapacity:*(selfCopy + 35)];
-          allKeys = [v99 allKeys];
+          v103 = [MEMORY[0x1E695DF70] arrayWithCapacity:*(selfCopy + 35)];
+          allKeys = [v98 allKeys];
           v61 = [allKeys mutableCopy];
 
           if (*(selfCopy + 35) >= 1)
           {
             v62 = 0;
-            v101 = v51 / v53 % v54;
+            v100 = v51 / v53 % v54;
             do
             {
               dictionary = [MEMORY[0x1E695DF90] dictionary];
-              if (v62 == v101)
+              if (v62 == v100)
               {
                 LODWORD(v57) = v57 + 1;
               }
 
               if (v57)
               {
-                v108[0] = MEMORY[0x1E69E9820];
-                v108[1] = 3221225472;
-                v108[2] = __67___DKPredictionQuery_likelihoodForTopN_withMinLikelihood_withData___block_invoke_28;
-                v108[3] = &unk_1E7368F30;
-                v64 = v99;
-                v109 = v64;
-                v110 = v62;
-                [v61 sortUsingComparator:v108];
-                if ([v61 count] <= v96)
+                v107[0] = MEMORY[0x1E69E9820];
+                v107[1] = 3221225472;
+                v107[2] = __67___DKPredictionQuery_likelihoodForTopN_withMinLikelihood_withData___block_invoke_28;
+                v107[3] = &unk_1E7368F30;
+                v64 = v98;
+                v108 = v64;
+                v109 = v62;
+                [v61 sortUsingComparator:v107];
+                if ([v61 count] <= v95)
                 {
                   v65 = 0;
                 }
 
                 else
                 {
-                  v65 = [v61 count] - v96;
+                  v65 = [v61 count] - v95;
                 }
 
                 for (k = [v61 count] - 1; k >= v65; --k)
@@ -1512,15 +1499,15 @@ LABEL_55:
                 }
 
                 v73 = [MEMORY[0x1E695DF20] dictionaryWithDictionary:dictionary];
-                [v104 addObject:v73];
+                [v103 addObject:v73];
 
-                array = v97;
+                array = v96;
                 v52 = selfCopy;
               }
 
               else
               {
-                [v104 addObject:MEMORY[0x1E695E0F8]];
+                [v103 addObject:MEMORY[0x1E695E0F8]];
               }
 
               v62 = (v62 + 1);
@@ -1529,28 +1516,28 @@ LABEL_55:
             while (v62 < *(v52 + 35));
           }
 
-          v33 = [_DKPredictionTimeline timelineWithValues:v104 eachWithDuration:v102 startingAt:*(v52 + 33)];
+          v33 = [_DKPredictionTimeline timelineWithValues:v103 eachWithDuration:v101 startingAt:*(v52 + 33)];
 
-          v29 = v94;
-          v8 = v95;
-          v58 = v99;
+          v29 = v93;
+          v8 = v94;
+          v58 = v98;
         }
 
         else
         {
           v59 = +[_CDLogging knowledgeChannel];
-          v8 = v95;
+          v8 = v94;
           if (OUTLINED_FUNCTION_60(v59))
           {
-            v88 = [MEMORY[0x1E696AD98] numberWithInt:v57];
-            v119 = 138412802;
-            v120 = v88;
-            v121 = 2112;
-            v122 = v94;
-            v123 = 2112;
-            v124 = v102;
+            v87 = [MEMORY[0x1E696AD98] numberWithInt:v57];
+            v118 = 138412802;
+            v119 = v87;
+            v120 = 2112;
+            v121 = v93;
+            v122 = 2112;
+            v123 = v101;
             OUTLINED_FUNCTION_19();
-            _os_log_error_impl(v89, v90, v91, v92, v93, 0x20u);
+            _os_log_error_impl(v88, v89, v90, v91, v92, 0x20u);
           }
 
           v33 = +[_DKPredictionTimeline predictionUnavailable];
@@ -1562,18 +1549,18 @@ LABEL_55:
         v32 = +[_CDLogging knowledgeChannel];
         if (OUTLINED_FUNCTION_60(v32))
         {
-          v81 = [MEMORY[0x1E696AD98] numberWithDouble:v31];
-          v82 = [MEMORY[0x1E696AD98] numberWithInt:(86400 * *(selfCopy + 34))];
-          v119 = 138412546;
-          v120 = v81;
-          v121 = 2112;
-          v122 = v82;
+          v80 = [MEMORY[0x1E696AD98] numberWithDouble:v31];
+          v81 = [MEMORY[0x1E696AD98] numberWithInt:(86400 * *(selfCopy + 34))];
+          v118 = 138412546;
+          v119 = v80;
+          v120 = 2112;
+          v121 = v81;
           OUTLINED_FUNCTION_19();
-          _os_log_error_impl(v83, v84, v85, v86, v87, 0x16u);
+          _os_log_error_impl(v82, v83, v84, v85, v86, 0x16u);
         }
 
         v33 = +[_DKPredictionTimeline predictionUnavailable];
-        v8 = v95;
+        v8 = v94;
       }
     }
 
@@ -1582,9 +1569,9 @@ LABEL_55:
       v34 = +[_CDLogging knowledgeChannel];
       if (OUTLINED_FUNCTION_60(v34))
       {
-        LOWORD(v119) = 0;
+        LOWORD(v118) = 0;
         OUTLINED_FUNCTION_19();
-        _os_log_error_impl(v76, v77, v78, v79, v80, 2u);
+        _os_log_error_impl(v75, v76, v77, v78, v79, 2u);
       }
 
       v33 = +[_DKPredictionTimeline predictionUnavailable];
@@ -1595,8 +1582,6 @@ LABEL_55:
   {
     v33 = 0;
   }
-
-  v74 = *MEMORY[0x1E69E9840];
 
   return v33;
 }
@@ -1624,12 +1609,9 @@ LABEL_55:
 
 - (void)initWithCoder:.cold.1()
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v6 = [MEMORY[0x1E696AD98] numberWithInt:0];
+  v5 = [MEMORY[0x1E696AD98] numberWithInt:0];
   OUTLINED_FUNCTION_19();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -5,7 +5,7 @@ void sub_233522510(uint64_t a1)
   if (v3 || ([*(a1 + 32) incomingVideoCall], (v3 = objc_claimAutoreleasedReturnValue()) != 0))
   {
     v4 = v3;
-    v5 = PHDefaultLog();
+    v5 = PHDefaultLog(v3);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *v10 = 0;
@@ -18,7 +18,7 @@ void sub_233522510(uint64_t a1)
 
   else
   {
-    v9 = PHDefaultLog();
+    v9 = PHDefaultLog(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_2335271FC(v9);
@@ -41,7 +41,7 @@ void sub_2335227E4(uint64_t a1)
   if (v3 || ([*(a1 + 32) incomingVideoCall], (v3 = objc_claimAutoreleasedReturnValue()) != 0))
   {
     v4 = v3;
-    v5 = PHDefaultLog();
+    v5 = PHDefaultLog(v3);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v14 = 138412290;
@@ -55,8 +55,9 @@ void sub_2335227E4(uint64_t a1)
 
   else
   {
-    v10 = [*(a1 + 32) hasCurrentCalls];
-    v11 = PHDefaultLog();
+    v9 = [*(a1 + 32) hasCurrentCalls];
+    v10 = v9;
+    v11 = PHDefaultLog(v9);
     v12 = v11;
     if (v10)
     {
@@ -87,34 +88,33 @@ void sub_2335227E4(uint64_t a1)
   v7 = *(a1 + 40);
   v8 = [v6 dictionary];
   (*(v7 + 16))(v7, v8);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void sub_233524870(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
+  v5 = v4;
   if (v4)
   {
-    v5 = PHDefaultLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = PHDefaultLog(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      sub_233527670(a1, v4, v5);
+      sub_233527670(a1, v5, v6);
     }
 
-    v6 = [objc_alloc(MEMORY[0x277D47208]) initWithReason:@"Unable to open url"];
+    v7 = [objc_alloc(MEMORY[0x277D47208]) initWithReason:@"Unable to open url"];
   }
 
   else
   {
-    v6 = [MEMORY[0x277D47650] callStarted];
-    [v6 setPhoneLogId:*(a1 + 32)];
-    v7 = [*(a1 + 40) provider];
-    v8 = [v7 isTelephonyProvider];
+    v7 = [MEMORY[0x277D47650] callStarted];
+    [v7 setPhoneLogId:*(a1 + 32)];
+    v8 = [*(a1 + 40) provider];
+    v9 = [v8 isTelephonyProvider];
 
-    if (v8)
+    if (v9)
     {
-      v9 = [*(a1 + 40) handle];
+      v10 = [*(a1 + 40) handle];
       TUGreenTeaLogOutgoingSiriCallToHandle();
     }
   }
@@ -122,9 +122,9 @@ void sub_233524870(uint64_t a1, uint64_t a2, void *a3)
   (*(*(a1 + 48) + 16))();
 }
 
-void sub_233524B28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_233524B28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -145,7 +145,7 @@ void sub_233524B5C(uint64_t a1)
     v4 = [v2 callStatus];
     if (v4 == 3)
     {
-      v5 = PHDefaultLog();
+      v5 = PHDefaultLog(v4);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
@@ -162,7 +162,7 @@ void sub_233524B5C(uint64_t a1)
         goto LABEL_11;
       }
 
-      v5 = PHDefaultLog();
+      v5 = PHDefaultLog(v4);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
@@ -209,14 +209,14 @@ LABEL_15:
 
 void sub_233524D6C(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = PHDefaultLog();
+  v4 = PHDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = v3;
-    _os_log_impl(&dword_233521000, v4, OS_LOG_TYPE_DEFAULT, "appPunchOutResult: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v3;
+    _os_log_impl(&dword_233521000, v4, OS_LOG_TYPE_DEFAULT, "appPunchOutResult: %@", &v7, 0xCu);
   }
 
   v5 = *(a1 + 32);
@@ -225,14 +225,13 @@ void sub_233524D6C(uint64_t a1, void *a2)
     v6 = [v3 dictionary];
     (*(v5 + 16))(v5, v6);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
-void sub_233524F34(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_233524F34(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 void sub_233524F74(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
@@ -242,16 +241,16 @@ void sub_233524F74(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
   _os_log_error_impl(a1, log, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-id PHDefaultLog()
+id PHDefaultLog(uint64_t a1)
 {
   if (qword_27DE0E898 != -1)
   {
     sub_2335276EC();
   }
 
-  v1 = qword_27DE0E890;
+  v2 = qword_27DE0E890;
 
-  return v1;
+  return v2;
 }
 
 uint64_t sub_233524FD8()
@@ -261,16 +260,16 @@ uint64_t sub_233524FD8()
   return MEMORY[0x2821F96F8]();
 }
 
-id PHOversizedLog()
+id PHOversizedLog(uint64_t a1)
 {
   if (qword_27DE0E8A8 != -1)
   {
     sub_233527700();
   }
 
-  v1 = qword_27DE0E8A0;
+  v2 = qword_27DE0E8A0;
 
-  return v1;
+  return v2;
 }
 
 uint64_t sub_233525060()
@@ -280,16 +279,16 @@ uint64_t sub_233525060()
   return MEMORY[0x2821F96F8]();
 }
 
-id PHOversizedLogQueue()
+id PHOversizedLogQueue(uint64_t a1)
 {
   if (qword_27DE0E8B8 != -1)
   {
     sub_233527714();
   }
 
-  v1 = qword_27DE0E8B0;
+  v2 = qword_27DE0E8B0;
 
-  return v1;
+  return v2;
 }
 
 void sub_2335250E8()
@@ -472,45 +471,19 @@ LABEL_13:
   return v7;
 }
 
-void sub_233527284()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  sub_233524F50();
-  sub_233524F74(&dword_233521000, v0, v1, "Could not find contact with identifier %{sensitive}@: %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void sub_2335272EC()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  sub_233524F50();
-  sub_233524F74(&dword_233521000, v0, v1, "Could not read contents of %@: %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
 void sub_233527388(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_233521000, a2, OS_LOG_TYPE_ERROR, "Retrieving subscription info failed with error %@.", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void sub_233527538()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  sub_233524F50();
-  sub_233524F74(&dword_233521000, v0, v1, "[PHAssistantCall _validate]: Destination ID %@ is NOT VALID for country %@ according to PNIsValidPhoneNumberForCountry, failing validation");
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_233521000, a2, OS_LOG_TYPE_ERROR, "Retrieving subscription info failed with error %@.", &v2, 0xCu);
 }
 
 void sub_233527670(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138412546;
-  *&v4[4] = *(a1 + 32);
-  *&v4[12] = 2112;
-  *&v4[14] = a2;
-  sub_233524F74(&dword_233521000, a2, a3, "Failed to perform app punch-out with URL %@: %@", *v4, *&v4[8], *&v4[16], *MEMORY[0x277D85DE8]);
-  v3 = *MEMORY[0x277D85DE8];
+  *v3 = 138412546;
+  *&v3[4] = *(a1 + 32);
+  *&v3[12] = 2112;
+  *&v3[14] = a2;
+  sub_233524F74(&dword_233521000, a2, a3, "Failed to perform app punch-out with URL %@: %@", *v3, *&v3[8], *&v3[16], *MEMORY[0x277D85DE8]);
 }

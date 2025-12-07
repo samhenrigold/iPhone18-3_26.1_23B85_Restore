@@ -17,18 +17,18 @@
 
 - (BOOL)handleItems:(id)items
 {
-  v72[1] = *MEMORY[0x1E69E9840];
+  v71[1] = *MEMORY[0x1E69E9840];
   itemsCopy = items;
-  v71[0] = MEMORY[0x1E69E9820];
-  v71[1] = 3221225472;
-  v71[2] = __39__MFBaseSyncResponseQueue_handleItems___block_invoke;
-  v71[3] = &unk_1E7AA50A0;
+  v70[0] = MEMORY[0x1E69E9820];
+  v70[1] = 3221225472;
+  v70[2] = __39__MFBaseSyncResponseQueue_handleItems___block_invoke;
+  v70[3] = &unk_1E7AA50A0;
   selfCopy = self;
-  v71[4] = self;
-  v63 = [itemsCopy sortedArrayUsingComparator:v71];
+  v70[4] = self;
+  v62 = [itemsCopy sortedArrayUsingComparator:v70];
 
   currentUID = self->_currentUID;
-  lastObject = [v63 lastObject];
+  lastObject = [v62 lastObject];
   v7 = [(MFBaseSyncResponseQueue *)self uidForItem:lastObject];
 
   selfCopy->_currentUID = v7;
@@ -45,7 +45,7 @@
   serverMessages = selfCopy->_serverMessages;
   if (serverMessages)
   {
-    v69 = serverMessages;
+    v68 = serverMessages;
   }
 
   else
@@ -58,14 +58,14 @@
     v15 = [serverMessagePersistenceFactory serverMessagePersistenceForMailboxURL:v14];
 
     v16 = [objc_alloc(MEMORY[0x1E696AC90]) initWithIndexesInRange:{v8, v7 - v8 + 1}];
-    v69 = [v15 serverMessagesForIMAPUIDs:v16 limit:*MEMORY[0x1E699B3A8] returnLastEntries:0];
+    v68 = [v15 serverMessagesForIMAPUIDs:v16 limit:*MEMORY[0x1E699B3A8] returnLastEntries:0];
   }
 
-  v65 = [v63 count];
-  v66 = [(NSArray *)v69 count];
-  if (v65)
+  v64 = [v62 count];
+  v65 = [(NSArray *)v68 count];
+  if (v64)
   {
-    v17 = [v63 objectAtIndex:0];
+    v17 = [v62 objectAtIndex:0];
   }
 
   else
@@ -73,9 +73,9 @@
     v17 = 0;
   }
 
-  if (v66)
+  if (v65)
   {
-    v18 = [(NSArray *)v69 objectAtIndex:0];
+    v18 = [(NSArray *)v68 objectAtIndex:0];
   }
 
   else
@@ -83,19 +83,19 @@
     v18 = 0;
   }
 
-  v61 = objc_opt_new();
+  v60 = objc_opt_new();
   v19 = v17 != 0;
   v20 = v18 != 0;
   if (v17 | v18)
   {
     array = 0;
+    v66 = 0;
     v67 = 0;
-    v68 = 0;
     while (1)
     {
       v21 = [(MFBaseSyncResponseQueue *)selfCopy uidForItem:v17];
       imapUID = [v18 imapUID];
-      if (v19 && v69 != 0 && v21 == imapUID)
+      if (v19 && v68 != 0 && v21 == imapUID)
       {
         break;
       }
@@ -120,14 +120,14 @@
             [(NSMutableArray *)missingUIDs addObject:v27];
           }
 
-          if (++v67 >= v65)
+          if (++v66 >= v64)
           {
             v28 = 0;
           }
 
           else
           {
-            v28 = [v63 objectAtIndex:?];
+            v28 = [v62 objectAtIndex:?];
           }
 
           v50 = v17;
@@ -146,9 +146,9 @@ LABEL_40:
           [array addObject:remoteID];
         }
 
-        if (++v68 < v66)
+        if (++v67 < v65)
         {
-          v49 = [(NSArray *)v69 objectAtIndex:?];
+          v49 = [(NSArray *)v68 objectAtIndex:?];
           v50 = v18;
           v28 = v17;
           goto LABEL_49;
@@ -186,7 +186,7 @@ LABEL_57:
       v32 = v18;
       v33 = v30;
       v34 = MEMORY[0x1E699B300];
-      v64 = v32;
+      v63 = v32;
       serverFlags = [v32 serverFlags];
       v36 = [v34 changeFrom:serverFlags to:v33];
 
@@ -195,9 +195,9 @@ LABEL_57:
         library2 = [(MFLibraryStore *)v31 library];
         persistence2 = [library2 persistence];
         messageChangeManager = [persistence2 messageChangeManager];
-        remoteID2 = [v64 remoteID];
-        v72[0] = remoteID2;
-        v39 = [MEMORY[0x1E695DEC8] arrayWithObjects:v72 count:1];
+        remoteID2 = [v63 remoteID];
+        v71[0] = remoteID2;
+        v39 = [MEMORY[0x1E695DEC8] arrayWithObjects:v71 count:1];
         mailbox2 = [(MFLibraryStore *)v31 mailbox];
         v41 = [mailbox2 URL];
         [messageChangeManager reflectFlagChanges:v36 forMessagesWithRemoteIDs:v39 mailboxURL:v41];
@@ -206,9 +206,9 @@ LABEL_57:
       if (!selfCopy->_isSearching)
       {
         v42 = MEMORY[0x1E696AD98];
-        messagePersistentID = [v64 messagePersistentID];
+        messagePersistentID = [v63 messagePersistentID];
         v44 = [v42 numberWithLongLong:{objc_msgSend(messagePersistentID, "longLongValue")}];
-        [v61 addObject:v44];
+        [v60 addObject:v44];
       }
     }
 
@@ -224,23 +224,23 @@ LABEL_57:
       }
     }
 
-    if (++v67 >= v65)
+    if (++v66 >= v64)
     {
       v28 = 0;
     }
 
     else
     {
-      v28 = [v63 objectAtIndex:?];
+      v28 = [v62 objectAtIndex:?];
     }
 
-    if (++v68 >= v66)
+    if (++v67 >= v65)
     {
       v50 = v18;
       goto LABEL_53;
     }
 
-    v49 = [(NSArray *)v69 objectAtIndex:?];
+    v49 = [(NSArray *)v68 objectAtIndex:?];
     v50 = v18;
 LABEL_49:
     v18 = v49;
@@ -251,10 +251,10 @@ LABEL_56:
 
   array = 0;
 LABEL_60:
-  if ([v61 count])
+  if ([v60 count])
   {
     library4 = [(MFLibraryStore *)selfCopy->_store library];
-    [library4 clearServerSearchFlagsForMessagesWithLibraryIDs:v61];
+    [library4 clearServerSearchFlagsForMessagesWithLibraryIDs:v60];
   }
 
   if (array)
@@ -267,7 +267,6 @@ LABEL_60:
     [messageChangeManager2 reflectDeletedMessagesWithRemoteIDs:array mailboxURL:v56];
   }
 
-  v57 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -297,26 +296,26 @@ uint64_t __39__MFBaseSyncResponseQueue_handleItems___block_invoke(uint64_t a1, u
 
 - (unint64_t)uidForItem:(id)item
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   itemCopy = item;
-  v4 = [itemCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [itemCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
-    v5 = *v12;
+    v5 = *v11;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(itemCopy);
         }
 
-        v7 = *(*(&v11 + 1) + 8 * i);
+        v7 = *(*(&v10 + 1) + 8 * i);
         if ([v7 type] == 8)
         {
           v8 = [v7 uid];
@@ -324,7 +323,7 @@ uint64_t __39__MFBaseSyncResponseQueue_handleItems___block_invoke(uint64_t a1, u
         }
       }
 
-      v4 = [itemCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [itemCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v4)
       {
         continue;
@@ -337,32 +336,31 @@ uint64_t __39__MFBaseSyncResponseQueue_handleItems___block_invoke(uint64_t a1, u
   v8 = 0x7FFFFFFFFFFFFFFFLL;
 LABEL_11:
 
-  v9 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 - (unint64_t)flagsForItem:(id)item
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   itemCopy = item;
-  messageFlags = [itemCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+  messageFlags = [itemCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (messageFlags)
   {
-    v5 = *v11;
+    v5 = *v10;
     while (2)
     {
       for (i = 0; i != messageFlags; ++i)
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(itemCopy);
         }
 
-        v7 = *(*(&v10 + 1) + 8 * i);
+        v7 = *(*(&v9 + 1) + 8 * i);
         if ([v7 type] == 10)
         {
           messageFlags = [v7 messageFlags];
@@ -370,7 +368,7 @@ LABEL_11:
         }
       }
 
-      messageFlags = [itemCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+      messageFlags = [itemCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (messageFlags)
       {
         continue;
@@ -382,13 +380,12 @@ LABEL_11:
 
 LABEL_11:
 
-  v8 = *MEMORY[0x1E69E9840];
   return messageFlags;
 }
 
 - (id)sequenceIdentifierForItem:(id)item
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   itemCopy = item;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -396,25 +393,25 @@ LABEL_11:
     __assert_rtn("[MFBaseSyncResponseQueue sequenceIdentifierForItem:]", "MFBaseSyncResponseQueue.m", 167, "[item isKindOfClass:[NSArray class]]");
   }
 
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v4 = itemCopy;
-  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
-    v6 = *v14;
+    v6 = *v13;
 LABEL_4:
     v7 = 0;
     while (1)
     {
-      if (*v14 != v6)
+      if (*v13 != v6)
       {
         objc_enumerationMutation(v4);
       }
 
-      v8 = *(*(&v13 + 1) + 8 * v7);
+      v8 = *(*(&v12 + 1) + 8 * v7);
       if ([v8 type] == 11)
       {
         break;
@@ -422,7 +419,7 @@ LABEL_4:
 
       if (v5 == ++v7)
       {
-        v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
         if (v5)
         {
           goto LABEL_4;
@@ -449,8 +446,6 @@ LABEL_10:
 LABEL_12:
     v10 = 0;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

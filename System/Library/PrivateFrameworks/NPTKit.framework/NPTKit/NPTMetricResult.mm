@@ -654,23 +654,7 @@ LABEL_7:
   resultCopy = result;
   fetchDate = [(NPTMetricResult *)self fetchDate];
   fetchDate2 = [resultCopy fetchDate];
-  if (![fetchDate isEqualToString:fetchDate2])
-  {
-    goto LABEL_8;
-  }
-
-  [(NPTMetricResult *)self requestToResponseTime];
-  v8 = v7;
-  [resultCopy requestToResponseTime];
-  if (v8 != v9)
-  {
-    goto LABEL_8;
-  }
-
-  [(NPTMetricResult *)self requestTime];
-  v11 = v10;
-  [resultCopy requestTime];
-  if (v11 == v12 && (-[NPTMetricResult domainLookupTime](self, "domainLookupTime"), v14 = v13, [resultCopy domainLookupTime], v14 == v15))
+  if ([fetchDate isEqualToString:fetchDate2] && (-[NPTMetricResult requestToResponseTime](self, "requestToResponseTime"), v8 = v7, objc_msgSend(resultCopy, "requestToResponseTime"), v8 == v9) && (-[NPTMetricResult requestTime](self, "requestTime"), v11 = v10, objc_msgSend(resultCopy, "requestTime"), v11 == v12) && (-[NPTMetricResult domainLookupTime](self, "domainLookupTime"), v14 = v13, objc_msgSend(resultCopy, "domainLookupTime"), v14 == v15))
   {
     cdnuuid = [(NPTMetricResult *)self cdnuuid];
     cdnuuid2 = [resultCopy cdnuuid];
@@ -700,7 +684,6 @@ LABEL_7:
 
   else
   {
-LABEL_8:
     v23 = 0;
   }
 
@@ -726,11 +709,10 @@ LABEL_8:
 
 - (void)timeIntervalSinceDateWithLogging:(uint64_t)a1 startDate:(NSObject *)a2 nameToLog:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_233421000, a2, OS_LOG_TYPE_DEBUG, "%@ is NaN", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_233421000, a2, OS_LOG_TYPE_DEBUG, "%@ is NaN", &v2, 0xCu);
 }
 
 @end

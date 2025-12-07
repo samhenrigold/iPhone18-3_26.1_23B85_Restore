@@ -1,7 +1,139 @@
+BOOL SBSRectOnDisplayIntersectsNeighboringDisplay(void *a1, uint64_t a2, void *a3, uint64_t a4, CGFloat a5, CGFloat a6, CGFloat a7, CGFloat a8)
+{
+  v15 = a1;
+  v16 = a3;
+  v17 = [v15 hardwareIdentifier];
+  if (v17)
+  {
+    v18 = 0;
+  }
+
+  else
+  {
+    v18 = [v15 isMainDisplay];
+  }
+
+  v19 = [v16 hardwareIdentifier];
+  if (v19)
+  {
+    v20 = 0;
+  }
+
+  else
+  {
+    v20 = [v16 isMainDisplay];
+  }
+
+  if (v20 == v18)
+  {
+    goto LABEL_39;
+  }
+
+  if (v18)
+  {
+    v21 = v15;
+  }
+
+  else
+  {
+    v21 = v16;
+  }
+
+  [v21 bounds];
+  v54 = v23;
+  v55 = v22;
+  v25 = v24;
+  v27 = v26;
+  v51 = a8;
+  if ((!BSInterfaceOrientationIsLandscape() || v25 >= v27) && (!BSInterfaceOrientationIsPortrait() || v27 >= v25))
+  {
+    v28 = v25;
+    v25 = v27;
+    v27 = v28;
+  }
+
+  v29 = v18 ? v16 : v15;
+  if (([v29 bounds], v52 = v31, v53 = v30, v33 = v32, v35 = v34, BSInterfaceOrientationIsLandscape()) && v33 < v35 || BSInterfaceOrientationIsPortrait() && v35 < v33)
+  {
+    v36 = v35;
+  }
+
+  else
+  {
+    v36 = v33;
+    v33 = v35;
+  }
+
+  v37 = v18 ? v25 : v33;
+  v38 = v18 ? v27 : v36;
+  v39 = v18 ? v54 : v52;
+  v40 = v18 ? v55 : v53;
+  v56.origin.x = a5;
+  v56.origin.y = a6;
+  v56.size.width = a7;
+  v56.size.height = v51;
+  if (!CGRectIntersectsRect(v56, *(&v37 - 3)) || (SBSConvertRectFromDisplayToNeighboringDisplay(v15, a2, v16, a4, a5), x = v57.origin.x, y = v57.origin.y, width = v57.size.width, height = v57.size.height, CGRectIsNull(v57)))
+  {
+LABEL_39:
+    v45 = 0;
+  }
+
+  else
+  {
+    if (v18)
+    {
+      v47 = v33;
+    }
+
+    else
+    {
+      v47 = v25;
+    }
+
+    if (v18)
+    {
+      v48 = v36;
+    }
+
+    else
+    {
+      v48 = v27;
+    }
+
+    if (v18)
+    {
+      v49 = v52;
+    }
+
+    else
+    {
+      v49 = v54;
+    }
+
+    if (v18)
+    {
+      v50 = v53;
+    }
+
+    else
+    {
+      v50 = v55;
+    }
+
+    v58.origin.x = x;
+    v58.origin.y = y;
+    v58.size.width = width;
+    v58.size.height = height;
+    v45 = CGRectIntersectsRect(v58, *(&v47 - 3));
+  }
+
+  return v45;
+}
+
 uint64_t SBSDisplayEdgeAdjacentToNeighboringDisplay(void *a1)
 {
   v1 = a1;
-  if (__sb__runningInSpringBoard())
+  if (__sb__runningInSpringBoard(v1))
   {
     v2 = [MEMORY[0x1E695E000] standardUserDefaults];
   }
@@ -114,10 +246,11 @@ void sub_1916EA530(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_0_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 uint64_t __SystemStatusLibraryCore_block_invoke(uint64_t a1)
@@ -147,9 +280,9 @@ uint64_t getSTBackgroundActivityIdentifierBackgroundLocationSymbolLoc()
   return v0;
 }
 
-void sub_1916EADA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1916EADA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -185,31 +318,31 @@ void *__getSTBackgroundActivityIdentifiersDescriptionSymbolLoc_block_invoke(uint
   return result;
 }
 
-uint64_t SystemStatusUILibraryCore()
+uint64_t SystemStatusUILibraryCore(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v2 = 0;
-  v3 = &v2;
-  v4 = 0x2020000000;
-  v0 = SystemStatusUILibraryCore_frameworkLibrary;
-  v5 = SystemStatusUILibraryCore_frameworkLibrary;
+  v10 = *MEMORY[0x1E69E9840];
+  v3 = 0;
+  v4 = &v3;
+  v5 = 0x2020000000;
+  v1 = SystemStatusUILibraryCore_frameworkLibrary;
+  v6 = SystemStatusUILibraryCore_frameworkLibrary;
   if (!SystemStatusUILibraryCore_frameworkLibrary)
   {
-    v6 = xmmword_1E7361218;
-    v7 = *off_1E7361228;
-    v8 = 0;
-    v3[3] = _sl_dlopen();
-    SystemStatusUILibraryCore_frameworkLibrary = v3[3];
-    v0 = v3[3];
+    v7 = xmmword_1E7361218;
+    v8 = *off_1E7361228;
+    v9 = 0;
+    v4[3] = _sl_dlopen();
+    SystemStatusUILibraryCore_frameworkLibrary = v4[3];
+    v1 = v4[3];
   }
 
-  _Block_object_dispose(&v2, 8);
-  return v0;
+  _Block_object_dispose(&v3, 8);
+  return v1;
 }
 
-void sub_1916EAFA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1916EAFA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -224,14 +357,20 @@ uint64_t __SystemStatusUILibraryCore_block_invoke(uint64_t a1)
 
 uint64_t SystemStatusUILibrary()
 {
-  v1 = 0;
-  result = SystemStatusUILibraryCore();
-  if (!result)
+  v3 = 0;
+  v0 = SystemStatusUILibraryCore(&v3);
+  if (!v0)
   {
-    SystemStatusUILibrary_cold_1(&v1);
+    SystemStatusUILibrary_cold_1(&v3);
   }
 
-  return result;
+  v1 = v0;
+  if (v3)
+  {
+    free(v3);
+  }
+
+  return v1;
 }
 
 uint64_t getSTUIBackgroundActivityIdentifiersForStyleOverridesSymbolLoc()
@@ -253,9 +392,9 @@ uint64_t getSTUIBackgroundActivityIdentifiersForStyleOverridesSymbolLoc()
   return v0;
 }
 
-void sub_1916EB180(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1916EB180(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -299,9 +438,9 @@ uint64_t getSTUIStyleOverridesForBackgroundActivityIdentifiersSymbolLoc()
   return v0;
 }
 
-void sub_1916EB300(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1916EB300(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -409,7 +548,7 @@ uint64_t SBSEventObserverGetValueForState(void *a1)
   return v3;
 }
 
-void _SBSAutolockTimerRegisterForExternalChangeNotification()
+void _SBSAutolockTimerRegisterForExternalChangeNotification(uint64_t result, uint64_t a2)
 {
   if (_SBSAutolockTimerRegisterForExternalChangeNotification___once != -1)
   {
@@ -438,11 +577,11 @@ void sub_1916EDF7C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t SBSUIAppSetWantsLockButtonEvents(uint64_t a1)
+uint64_t SBSUIAppSetWantsLockButtonEvents()
 {
-  v2 = SBSSpringBoardServerPort();
+  SBSSpringBoardServerPort();
 
-  return SBSetWantsLockButtonEvents(v2, a1);
+  return SBSetWantsLockButtonEvents();
 }
 
 void sub_1916F1280(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location)
@@ -522,7 +661,7 @@ __CFString *NSStringFromRemoteContentBackgroundStyle(unint64_t a1)
   }
 }
 
-uint64_t SBSAppSwitcherServiceRegistrationGetTypeID()
+uint64_t SBSAppSwitcherServiceRegistrationGetTypeID(uint64_t a1, uint64_t a2)
 {
   if (SBSAppSwitcherServiceRegistrationGetTypeID_onceToken != -1)
   {
@@ -605,7 +744,7 @@ uint64_t SBSAppSwitcherServiceRegister(const __CFAllocator *a1, const __CFString
   v44 = *MEMORY[0x1E69E9840];
   if (!a2)
   {
-    v8 = SBLogCommon();
+    v8 = SBLogCommon(a1);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       SBSAppSwitcherServiceRegister_cold_3(v8);
@@ -616,7 +755,7 @@ uint64_t SBSAppSwitcherServiceRegister(const __CFAllocator *a1, const __CFString
 
   if (!a3)
   {
-    v8 = SBLogCommon();
+    v8 = SBLogCommon(a1);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       SBSAppSwitcherServiceRegister_cold_2(v8);
@@ -636,7 +775,7 @@ LABEL_13:
   if (Instance)
   {
     name = 0;
-    if (mach_port_allocate(*MEMORY[0x1E69E9A60], 1u, &name) || (*(Instance + 80) = name, *(Instance + 88) = CFStringCreateCopy(a1, a2), *(Instance + 96) = CFStringCreateCopy(a1, a3), memset(buffer, 0, 512), v41 = 0u, v42 = 0u, v39 = 0u, v40 = 0u, v37 = 0u, v38 = 0u, v35 = 0u, v36 = 0u, v33 = 0u, v34 = 0u, v31 = 0u, v32 = 0u, v29 = 0u, v30 = 0u, v27 = 0u, v28 = 0u, v25 = 0u, v26 = 0u, v23 = 0u, v24 = 0u, v21 = 0u, v22 = 0u, v19 = 0u, v20 = 0u, v17 = 0u, v18 = 0u, v15 = 0u, v16 = 0u, v13 = 0u, v14 = 0u, *v11 = 0u, v12 = 0u, CFStringGetCString(*(Instance + 88), buffer, 1024, 0x8000100u), CFStringGetCString(*(Instance + 96), v11, 1024, 0x8000100u), v7 = SBSSpringBoardServerPort(), SBAppSwitcherServiceRegister(v7, *(Instance + 80), buffer, v11)))
+    if (mach_port_allocate(*MEMORY[0x1E69E9A60], 1u, &name) || (*(Instance + 80) = name, *(Instance + 88) = CFStringCreateCopy(a1, a2), *(Instance + 96) = CFStringCreateCopy(a1, a3), memset(buffer, 0, 512), v41 = 0u, v42 = 0u, v39 = 0u, v40 = 0u, v37 = 0u, v38 = 0u, v35 = 0u, v36 = 0u, v33 = 0u, v34 = 0u, v31 = 0u, v32 = 0u, v29 = 0u, v30 = 0u, v27 = 0u, v28 = 0u, v25 = 0u, v26 = 0u, v23 = 0u, v24 = 0u, v21 = 0u, v22 = 0u, v19 = 0u, v20 = 0u, v17 = 0u, v18 = 0u, v15 = 0u, v16 = 0u, v13 = 0u, v14 = 0u, *v11 = 0u, v12 = 0u, CFStringGetCString(*(Instance + 88), buffer, 1024, 0x8000100u), CFStringGetCString(*(Instance + 96), v11, 1024, 0x8000100u), v7 = SBSSpringBoardServerPort(), SBAppSwitcherServiceRegister(v7, *(Instance + 80), buffer)))
     {
       CFRelease(Instance);
       return 0;
@@ -727,9 +866,10 @@ void SBSRegisterDisplayIdentifiersChangedBlock(void *a1)
 
 uint64_t SBSSetRequiredContextIdsForMedusaDragAndDropForSpotlightOnly(void *a1)
 {
-  _requiredContextIdsForMedusaDragAndDrop = [a1 copy];
+  v1 = [a1 copy];
+  _requiredContextIdsForMedusaDragAndDrop = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1);
 }
 
 __CFString *NSStringFromSBSAccessoryType(unint64_t a1)
@@ -767,11 +907,11 @@ void __copy_assignment_8_8_t0w40_s40_s48(uint64_t a1, __int128 *a2)
 
 void SBMachServiceInitialize(uint64_t *a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v1 = *a1;
   if (a1[5])
   {
-    v2 = SBLogCommon();
+    v2 = SBLogCommon(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       SBMachServiceInitialize_cold_1();
@@ -784,7 +924,7 @@ LABEL_13:
 
   if (!v1 || !a1[4] || !a1[2])
   {
-    v2 = SBLogCommon();
+    v2 = SBLogCommon(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       SBMachServiceInitialize_cold_2();
@@ -796,37 +936,38 @@ LABEL_13:
   v4 = *(a1 + 2);
   v5 = *(a1[3] + 8);
   IsUsable = BSMachPortIsUsable();
-  v7 = SBLogCommon();
-  v8 = v7;
-  if (IsUsable)
+  v7 = IsUsable;
+  v8 = SBLogCommon(IsUsable);
+  v9 = v8;
+  if (v7)
   {
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v12 = 136446466;
-      v13 = v1;
-      v14 = 1024;
-      v15 = v5;
-      _os_log_impl(&dword_19169D000, v8, OS_LOG_TYPE_INFO, "[SBMig] Service initialized: %{public}s (ID %d)", &v12, 0x12u);
+      v13 = 136446466;
+      v14 = v1;
+      v15 = 1024;
+      v16 = v5;
+      _os_log_impl(&dword_19169D000, v9, OS_LOG_TYPE_INFO, "[SBMig] Service initialized: %{public}s (ID %d)", &v13, 0x12u);
     }
 
-    v12 = 16;
-    MEMORY[0x193AFF7F0](*MEMORY[0x1E69E9A60], v4, 1, &v12, 1);
+    v13 = 16;
+    MEMORY[0x193AFF7F0](*MEMORY[0x1E69E9A60], v4, 1, &v13, 1);
     f = dispatch_mach_create_f();
     dispatch_set_qos_class_fallback();
-    v10 = a1[5];
+    v11 = a1[5];
     a1[5] = f;
-    v11 = f;
+    v12 = f;
 
     dispatch_mach_connect();
   }
 
   else
   {
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 136446210;
-      v13 = v1;
-      _os_log_impl(&dword_19169D000, v8, OS_LOG_TYPE_DEFAULT, "[SBMig] Service %{public}s cannot be initialized because the receive port is invalid.", &v12, 0xCu);
+      v13 = 136446210;
+      v14 = v1;
+      _os_log_impl(&dword_19169D000, v9, OS_LOG_TYPE_DEFAULT, "[SBMig] Service %{public}s cannot be initialized because the receive port is invalid.", &v13, 0xCu);
     }
   }
 }
@@ -911,9 +1052,9 @@ uint64_t SBSUIActivateRemoteAlertWithLifecycleNotifications(void *a1, void *a2, 
   return v17;
 }
 
-void sub_1916FEF4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_1916FEF4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1006,50 +1147,52 @@ __CFString *NSStringFromSBSAnalyticsActionButtonInteractionType(uint64_t a1)
   }
 }
 
-uint64_t _SBSGetIsAlive(int a1, _BYTE *a2, mach_msg_timeout_t a3)
+uint64_t _SBSGetIsAlive(uint64_t a1, _BYTE *a2, uint64_t a3, uint64_t a4)
 {
+  v4 = a3;
+  v6 = a1;
   memset(&name_12[4], 0, 28);
   name = 0;
   special_reply_port = mig_get_special_reply_port();
-  name_4 = a1;
+  name_4 = v6;
   name_8 = special_reply_port;
-  v12 = 5395;
+  v13 = 5395;
   *name_12 = 0x30D4000000000;
   if (MEMORY[0x1EEE9AC50])
   {
-    voucher_mach_msg_set(&v12);
-    v7 = name_8;
+    voucher_mach_msg_set(&v13);
+    v8 = name_8;
   }
 
   else
   {
-    v7 = special_reply_port;
+    v8 = special_reply_port;
   }
 
-  v8 = mach_msg(&v12, 3162387, 0x18u, 0x30u, v7, a3, 0);
-  v9 = v8;
-  if ((v8 - 268435458) > 0xE || ((1 << (v8 - 2)) & 0x4003) == 0)
+  v9 = mach_msg(&v13, 3162387, 0x18u, 0x30u, v8, v4, 0);
+  v10 = v9;
+  if ((v9 - 268435458) > 0xE || ((1 << (v9 - 2)) & 0x4003) == 0)
   {
-    if (!v8)
+    if (!v9)
     {
       if (*&name_12[4] == 71)
       {
-        v9 = 4294966988;
+        v10 = 4294966988;
       }
 
       else if (*&name_12[4] == 200100)
       {
-        if ((v12 & 0x80000000) == 0)
+        if ((v13 & 0x80000000) == 0)
         {
           if (name == 40)
           {
             if (!name_4)
             {
-              v9 = *&name_12[16];
+              v10 = *&name_12[16];
               if (!*&name_12[16])
               {
                 *a2 = name_12[20];
-                return v9;
+                return v10;
               }
 
               goto LABEL_26;
@@ -1060,47 +1203,47 @@ uint64_t _SBSGetIsAlive(int a1, _BYTE *a2, mach_msg_timeout_t a3)
           {
             if (name_4)
             {
-              v10 = 1;
+              v11 = 1;
             }
 
             else
             {
-              v10 = *&name_12[16] == 0;
+              v11 = *&name_12[16] == 0;
             }
 
-            if (v10)
+            if (v11)
             {
-              v9 = 4294966996;
+              v10 = 4294966996;
             }
 
             else
             {
-              v9 = *&name_12[16];
+              v10 = *&name_12[16];
             }
 
             goto LABEL_26;
           }
         }
 
-        v9 = 4294966996;
+        v10 = 4294966996;
       }
 
       else
       {
-        v9 = 4294966995;
+        v10 = 4294966995;
       }
 
 LABEL_26:
-      mach_msg_destroy(&v12);
-      return v9;
+      mach_msg_destroy(&v13);
+      return v10;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-  if ((v9 - 268435459) <= 1)
+  if ((v10 - 268435459) <= 1)
   {
-    if ((v12 & 0x1F00) == 0x1100)
+    if ((v13 & 0x1F00) == 0x1100)
     {
       mach_port_deallocate(*MEMORY[0x1E69E9A60], name_8);
     }
@@ -1108,12 +1251,13 @@ LABEL_26:
     goto LABEL_26;
   }
 
-  return v9;
+  return v10;
 }
 
-uint64_t _SBSDisplayIdentifierForPID(mach_port_t a1, mach_port_t a2, char *a3)
+uint64_t _SBSDisplayIdentifierForPID(uint64_t a1, uint64_t a2, char *a3, uint64_t a4)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v5 = a1;
+  v14 = *MEMORY[0x1E69E9840];
   memset(&msg[20].msgh_size, 0, 28);
   memset(&msg[1].msgh_local_port, 0, 448);
   *&msg[0].msgh_id = 0u;
@@ -1121,7 +1265,7 @@ uint64_t _SBSDisplayIdentifierForPID(mach_port_t a1, mach_port_t a2, char *a3)
   *&msg[1].msgh_bits = *MEMORY[0x1E69E99E0];
   msg[1].msgh_remote_port = a2;
   special_reply_port = mig_get_special_reply_port();
-  msg[0].msgh_remote_port = a1;
+  msg[0].msgh_remote_port = v5;
   msg[0].msgh_local_port = special_reply_port;
   msg[0].msgh_bits = 5395;
   *&msg[0].msgh_voucher_port = 0x30D4100000000;
@@ -1136,11 +1280,11 @@ uint64_t _SBSDisplayIdentifierForPID(mach_port_t a1, mach_port_t a2, char *a3)
     msgh_local_port = special_reply_port;
   }
 
-  v7 = mach_msg(msg, 3162115, 0x24u, 0x434u, msgh_local_port, 0, 0);
-  msgh_remote_port = v7;
-  if ((v7 - 268435458) > 0xE || ((1 << (v7 - 2)) & 0x4003) == 0)
+  v8 = mach_msg(msg, 3162115, 0x24u, 0x434u, msgh_local_port, 0, 0);
+  msgh_remote_port = v8;
+  if ((v8 - 268435458) > 0xE || ((1 << (v8 - 2)) & 0x4003) == 0)
   {
-    if (!v7)
+    if (!v8)
     {
       if (msg[0].msgh_id == 71)
       {
@@ -1155,15 +1299,15 @@ uint64_t _SBSDisplayIdentifierForPID(mach_port_t a1, mach_port_t a2, char *a3)
           {
             if (msg[1].msgh_remote_port)
             {
-              v9 = msg[0].msgh_remote_port == 0;
+              v10 = msg[0].msgh_remote_port == 0;
             }
 
             else
             {
-              v9 = 0;
+              v10 = 0;
             }
 
-            if (v9 && msg[0].msgh_size == 36)
+            if (v10 && msg[0].msgh_size == 36)
             {
               msgh_remote_port = msg[1].msgh_remote_port;
             }
@@ -1222,15 +1366,16 @@ LABEL_28:
   return msgh_remote_port;
 }
 
-uint64_t _SBSDisplayIdentifiersForPID(int a1, int a2, void *a3, _DWORD *a4)
+uint64_t _SBSDisplayIdentifiersForPID(uint64_t a1, uint64_t a2, void *a3, _DWORD *a4)
 {
+  v6 = a1;
   v15 = *MEMORY[0x1E69E9840];
   memset(&msg_4[16], 0, 44);
   *msg_4 = 0u;
   *&msg_4[20] = *MEMORY[0x1E69E99E0];
   *&msg_4[28] = a2;
   special_reply_port = mig_get_special_reply_port();
-  *&msg_4[4] = a1;
+  *&msg_4[4] = v6;
   *&msg_4[8] = special_reply_port;
   msg = 5395;
   *&msg_4[12] = 0x30D4200000000;
@@ -1325,8 +1470,9 @@ LABEL_28:
   return v10;
 }
 
-uint64_t _SBSApplicationDisplayIdentifiers(int a1, char a2, char a3, void *a4, _DWORD *a5)
+uint64_t _SBSApplicationDisplayIdentifiers(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, _DWORD *a5)
 {
+  v7 = a1;
   v16 = *MEMORY[0x1E69E9840];
   memset(&msg_4[16], 0, 44);
   *msg_4 = 0u;
@@ -1338,7 +1484,7 @@ uint64_t _SBSApplicationDisplayIdentifiers(int a1, char a2, char a3, void *a4, _
   *&msg_4[33] = 0;
   msg_4[35] = 0;
   special_reply_port = mig_get_special_reply_port();
-  *&msg_4[4] = a1;
+  *&msg_4[4] = v7;
   *&msg_4[8] = special_reply_port;
   msg = 5395;
   *&msg_4[12] = 0x30D4300000000;
@@ -1433,15 +1579,16 @@ LABEL_28:
   return v11;
 }
 
-uint64_t _SBSFrontmostApplicationDisplayIdentifier(mach_port_t a1, char *a2)
+uint64_t _SBSFrontmostApplicationDisplayIdentifier(uint64_t a1, char *a2, uint64_t a3, uint64_t a4)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v5 = a1;
+  v14 = *MEMORY[0x1E69E9840];
   memset(&msg[20].msgh_size, 0, 28);
   memset(&msg[1].msgh_local_port, 0, 448);
   *&msg[0].msgh_id = 0u;
   msg[0].msgh_size = 0;
   special_reply_port = mig_get_special_reply_port();
-  msg[0].msgh_remote_port = a1;
+  msg[0].msgh_remote_port = v5;
   msg[0].msgh_local_port = special_reply_port;
   msg[0].msgh_bits = 5395;
   *&msg[0].msgh_voucher_port = 0x30D4400000000;
@@ -1456,11 +1603,11 @@ uint64_t _SBSFrontmostApplicationDisplayIdentifier(mach_port_t a1, char *a2)
     msgh_local_port = special_reply_port;
   }
 
-  v6 = mach_msg(msg, 3162115, 0x18u, 0x434u, msgh_local_port, 0, 0);
-  msgh_remote_port = v6;
-  if ((v6 - 268435458) > 0xE || ((1 << (v6 - 2)) & 0x4003) == 0)
+  v8 = mach_msg(msg, 3162115, 0x18u, 0x434u, msgh_local_port, 0, 0);
+  msgh_remote_port = v8;
+  if ((v8 - 268435458) > 0xE || ((1 << (v8 - 2)) & 0x4003) == 0)
   {
-    if (!v6)
+    if (!v8)
     {
       if (msg[0].msgh_id == 71)
       {
@@ -1475,15 +1622,15 @@ uint64_t _SBSFrontmostApplicationDisplayIdentifier(mach_port_t a1, char *a2)
           {
             if (msg[1].msgh_remote_port)
             {
-              v8 = msg[0].msgh_remote_port == 0;
+              v10 = msg[0].msgh_remote_port == 0;
             }
 
             else
             {
-              v8 = 0;
+              v10 = 0;
             }
 
-            if (v8 && msg[0].msgh_size == 36)
+            if (v10 && msg[0].msgh_size == 36)
             {
               msgh_remote_port = msg[1].msgh_remote_port;
             }
@@ -1664,36 +1811,37 @@ LABEL_31:
   return v10;
 }
 
-uint64_t _SBSIsSystemApplication(int a1, _BYTE *a2, _BYTE *a3)
+uint64_t _SBSIsSystemApplication(uint64_t a1, _BYTE *a2, _BYTE *a3, uint64_t a4)
 {
+  v6 = a1;
   *&msg[20] = 0u;
-  v13 = 0u;
+  v14 = 0u;
   *&msg[4] = 0;
   special_reply_port = mig_get_special_reply_port();
-  *&msg[8] = a1;
+  *&msg[8] = v6;
   *&msg[12] = special_reply_port;
   *msg = 5395;
   *&msg[16] = 0x30D4700000000;
   if (MEMORY[0x1EEE9AC50])
   {
     voucher_mach_msg_set(msg);
-    v7 = *&msg[12];
+    v8 = *&msg[12];
   }
 
   else
   {
-    v7 = special_reply_port;
+    v8 = special_reply_port;
   }
 
-  v8 = mach_msg(msg, 3162115, 0x18u, 0x34u, v7, 0, 0);
-  v9 = v8;
-  if ((v8 - 268435458) > 0xE || ((1 << (v8 - 2)) & 0x4003) == 0)
+  v9 = mach_msg(msg, 3162115, 0x18u, 0x34u, v8, 0, 0);
+  v10 = v9;
+  if ((v9 - 268435458) > 0xE || ((1 << (v9 - 2)) & 0x4003) == 0)
   {
-    if (!v8)
+    if (!v9)
     {
       if (*&msg[20] == 71)
       {
-        v9 = 4294966988;
+        v10 = 4294966988;
       }
 
       else if (*&msg[20] == 200107)
@@ -1704,12 +1852,12 @@ uint64_t _SBSIsSystemApplication(int a1, _BYTE *a2, _BYTE *a3)
           {
             if (!*&msg[8])
             {
-              v9 = *&msg[32];
+              v10 = *&msg[32];
               if (!*&msg[32])
               {
-                *a2 = v13;
-                *a3 = BYTE4(v13);
-                return v9;
+                *a2 = v14;
+                *a3 = BYTE4(v14);
+                return v10;
               }
 
               goto LABEL_26;
@@ -1720,45 +1868,45 @@ uint64_t _SBSIsSystemApplication(int a1, _BYTE *a2, _BYTE *a3)
           {
             if (*&msg[8])
             {
-              v10 = 1;
+              v11 = 1;
             }
 
             else
             {
-              v10 = *&msg[32] == 0;
+              v11 = *&msg[32] == 0;
             }
 
-            if (v10)
+            if (v11)
             {
-              v9 = 4294966996;
+              v10 = 4294966996;
             }
 
             else
             {
-              v9 = *&msg[32];
+              v10 = *&msg[32];
             }
 
             goto LABEL_26;
           }
         }
 
-        v9 = 4294966996;
+        v10 = 4294966996;
       }
 
       else
       {
-        v9 = 4294966995;
+        v10 = 4294966995;
       }
 
 LABEL_26:
       mach_msg_destroy(msg);
-      return v9;
+      return v10;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-  if ((v9 - 268435459) <= 1)
+  if ((v10 - 268435459) <= 1)
   {
     if ((*msg & 0x1F00) == 0x1100)
     {
@@ -1768,7 +1916,7 @@ LABEL_26:
     goto LABEL_26;
   }
 
-  return v9;
+  return v10;
 }
 
 uint64_t _SBSLocalizedApplicationNameForDisplayIdentifier(mach_port_name_t a1, const char *a2, char *a3)
@@ -2037,8 +2185,9 @@ LABEL_31:
   return v12;
 }
 
-uint64_t _SBSGetIconState(int a1, char a2, void *a3, _DWORD *a4)
+uint64_t _SBSGetIconState(uint64_t a1, uint64_t a2, void *a3, _DWORD *a4)
 {
+  v6 = a1;
   v15 = *MEMORY[0x1E69E9840];
   memset(&msg_4[16], 0, 44);
   *msg_4 = 0u;
@@ -2047,7 +2196,7 @@ uint64_t _SBSGetIconState(int a1, char a2, void *a3, _DWORD *a4)
   *&msg_4[29] = 0;
   msg_4[31] = 0;
   special_reply_port = mig_get_special_reply_port();
-  *&msg_4[4] = a1;
+  *&msg_4[4] = v6;
   *&msg_4[8] = special_reply_port;
   msg = 5395;
   *&msg_4[12] = 0x30D4A00000000;
@@ -2142,8 +2291,9 @@ LABEL_28:
   return v10;
 }
 
-uint64_t _SBSGetPendingIconState(int a1, char a2, void *a3, _DWORD *a4)
+uint64_t _SBSGetPendingIconState(uint64_t a1, uint64_t a2, void *a3, _DWORD *a4)
 {
+  v6 = a1;
   v15 = *MEMORY[0x1E69E9840];
   memset(&msg_4[16], 0, 44);
   *msg_4 = 0u;
@@ -2152,7 +2302,7 @@ uint64_t _SBSGetPendingIconState(int a1, char a2, void *a3, _DWORD *a4)
   *&msg_4[29] = 0;
   msg_4[31] = 0;
   special_reply_port = mig_get_special_reply_port();
-  *&msg_4[4] = a1;
+  *&msg_4[4] = v6;
   *&msg_4[8] = special_reply_port;
   msg = 5395;
   *&msg_4[12] = 0x30D4B00000000;
@@ -2247,8 +2397,9 @@ LABEL_28:
   return v10;
 }
 
-uint64_t _SBSGetFlattenedIconState(int a1, char a2, void *a3, _DWORD *a4)
+uint64_t _SBSGetFlattenedIconState(uint64_t a1, uint64_t a2, void *a3, _DWORD *a4)
 {
+  v6 = a1;
   v15 = *MEMORY[0x1E69E9840];
   memset(&msg_4[16], 0, 44);
   *msg_4 = 0u;
@@ -2257,7 +2408,7 @@ uint64_t _SBSGetFlattenedIconState(int a1, char a2, void *a3, _DWORD *a4)
   *&msg_4[29] = 0;
   msg_4[31] = 0;
   special_reply_port = mig_get_special_reply_port();
-  *&msg_4[4] = a1;
+  *&msg_4[4] = v6;
   *&msg_4[8] = special_reply_port;
   msg = 5395;
   *&msg_4[12] = 0x30D4C00000000;
@@ -2352,24 +2503,25 @@ LABEL_28:
   return v10;
 }
 
-uint64_t _SBSSetIconState(mach_port_t a1, uint64_t a2, int a3)
+uint64_t _SBSSetIconState(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v10 = 1;
-  v11 = a2;
-  v12 = 16777472;
-  v13 = a3;
-  v14 = *MEMORY[0x1E69E99E0];
-  v15 = a3;
+  v4 = a1;
+  v17 = *MEMORY[0x1E69E9840];
+  v11 = 1;
+  v12 = a2;
+  v13 = 16777472;
+  v14 = a3;
+  v15 = *MEMORY[0x1E69E99E0];
+  v16 = a3;
   special_reply_port = mig_get_special_reply_port();
-  *&v9.msgh_bits = 2147489043;
-  v9.msgh_remote_port = a1;
-  v9.msgh_local_port = special_reply_port;
-  *&v9.msgh_voucher_port = 0x30D4D00000000;
+  *&v10.msgh_bits = 2147489043;
+  v10.msgh_remote_port = v4;
+  v10.msgh_local_port = special_reply_port;
+  *&v10.msgh_voucher_port = 0x30D4D00000000;
   if (MEMORY[0x1EEE9AC50])
   {
-    voucher_mach_msg_set(&v9);
-    msgh_local_port = v9.msgh_local_port;
+    voucher_mach_msg_set(&v10);
+    msgh_local_port = v10.msgh_local_port;
   }
 
   else
@@ -2377,62 +2529,67 @@ uint64_t _SBSSetIconState(mach_port_t a1, uint64_t a2, int a3)
     msgh_local_port = special_reply_port;
   }
 
-  v6 = mach_msg(&v9, 3162115, 0x38u, 0x2Cu, msgh_local_port, 0, 0);
-  v7 = v6;
-  if ((v6 - 268435458) <= 0xE && ((1 << (v6 - 2)) & 0x4003) != 0)
+  v7 = mach_msg(&v10, 3162115, 0x38u, 0x2Cu, msgh_local_port, 0, 0);
+  v8 = v7;
+  if ((v7 - 268435458) <= 0xE && ((1 << (v7 - 2)) & 0x4003) != 0)
   {
-    goto LABEL_14;
+    goto LABEL_15;
   }
 
-  if (v6)
+  if (v7)
   {
     mig_dealloc_special_reply_port();
-LABEL_14:
-    if ((v7 - 268435459) > 1)
+LABEL_15:
+    if ((v8 - 268435459) > 1)
     {
-      return v7;
+      return v8;
     }
 
-    if ((v9.msgh_bits & 0x1F00) == 0x1100)
+    if ((v10.msgh_bits & 0x1F00) == 0x1100)
     {
-      mach_port_deallocate(*MEMORY[0x1E69E9A60], v9.msgh_local_port);
+      mach_port_deallocate(*MEMORY[0x1E69E9A60], v10.msgh_local_port);
     }
 
-LABEL_19:
-    mach_msg_destroy(&v9);
-    return v7;
+LABEL_20:
+    mach_msg_destroy(&v10);
+    return v8;
   }
 
-  if (v9.msgh_id == 71)
+  if (v10.msgh_id == 71)
   {
-    v7 = 4294966988;
-    goto LABEL_19;
+    v8 = 4294966988;
+    goto LABEL_20;
   }
 
-  if (v9.msgh_id != 200113)
+  if (v10.msgh_id != 200113)
   {
-    v7 = 4294966995;
-    goto LABEL_19;
+    v8 = 4294966995;
+    goto LABEL_20;
   }
 
-  v7 = 4294966996;
-  if ((v9.msgh_bits & 0x80000000) != 0)
+  v8 = 4294966996;
+  if ((v10.msgh_bits & 0x80000000) != 0)
   {
-    goto LABEL_19;
+    goto LABEL_20;
   }
 
-  if (*&v9.msgh_size != 36)
+  if (v10.msgh_size != 36)
   {
-    goto LABEL_19;
+    goto LABEL_20;
   }
 
-  v7 = HIDWORD(v11);
-  if (HIDWORD(v11))
+  if (v10.msgh_remote_port)
   {
-    goto LABEL_19;
+    goto LABEL_20;
   }
 
-  return v7;
+  v8 = HIDWORD(v12);
+  if (HIDWORD(v12))
+  {
+    goto LABEL_20;
+  }
+
+  return v8;
 }
 
 uint64_t _SBSSetApplicationBadgeNumber(mach_port_name_t a1, const char *a2, int a3)
@@ -3457,50 +3614,51 @@ uint64_t _SBSInterruptKeybagRefetch(mach_port_t a1)
   return v1;
 }
 
-uint64_t _SBSGetActiveInterfaceOrientation(int a1, _DWORD *a2)
+uint64_t _SBSGetActiveInterfaceOrientation(uint64_t a1, _DWORD *a2, uint64_t a3, uint64_t a4)
 {
+  v5 = a1;
   memset(&name_12[4], 0, 28);
   name = 0;
   special_reply_port = mig_get_special_reply_port();
-  name_4 = a1;
+  name_4 = v5;
   name_8 = special_reply_port;
-  v10 = 5395;
+  v12 = 5395;
   *name_12 = 0x186A200000000;
   if (MEMORY[0x1EEE9AC50])
   {
-    voucher_mach_msg_set(&v10);
-    v5 = name_8;
+    voucher_mach_msg_set(&v12);
+    v7 = name_8;
   }
 
   else
   {
-    v5 = special_reply_port;
+    v7 = special_reply_port;
   }
 
-  v6 = mach_msg(&v10, 3162115, 0x18u, 0x30u, v5, 0, 0);
-  v7 = v6;
-  if ((v6 - 268435458) > 0xE || ((1 << (v6 - 2)) & 0x4003) == 0)
+  v8 = mach_msg(&v12, 3162115, 0x18u, 0x30u, v7, 0, 0);
+  v9 = v8;
+  if ((v8 - 268435458) > 0xE || ((1 << (v8 - 2)) & 0x4003) == 0)
   {
-    if (!v6)
+    if (!v8)
     {
       if (*&name_12[4] == 71)
       {
-        v7 = 4294966988;
+        v9 = 4294966988;
       }
 
       else if (*&name_12[4] == 100102)
       {
-        if ((v10 & 0x80000000) == 0)
+        if ((v12 & 0x80000000) == 0)
         {
           if (name == 40)
           {
             if (!name_4)
             {
-              v7 = *&name_12[16];
+              v9 = *&name_12[16];
               if (!*&name_12[16])
               {
                 *a2 = *&name_12[20];
-                return v7;
+                return v9;
               }
 
               goto LABEL_26;
@@ -3511,47 +3669,47 @@ uint64_t _SBSGetActiveInterfaceOrientation(int a1, _DWORD *a2)
           {
             if (name_4)
             {
-              v8 = 1;
+              v10 = 1;
             }
 
             else
             {
-              v8 = *&name_12[16] == 0;
+              v10 = *&name_12[16] == 0;
             }
 
-            if (v8)
+            if (v10)
             {
-              v7 = 4294966996;
+              v9 = 4294966996;
             }
 
             else
             {
-              v7 = *&name_12[16];
+              v9 = *&name_12[16];
             }
 
             goto LABEL_26;
           }
         }
 
-        v7 = 4294966996;
+        v9 = 4294966996;
       }
 
       else
       {
-        v7 = 4294966995;
+        v9 = 4294966995;
       }
 
 LABEL_26:
-      mach_msg_destroy(&v10);
-      return v7;
+      mach_msg_destroy(&v12);
+      return v9;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-  if ((v7 - 268435459) <= 1)
+  if ((v9 - 268435459) <= 1)
   {
-    if ((v10 & 0x1F00) == 0x1100)
+    if ((v12 & 0x1F00) == 0x1100)
     {
       mach_port_deallocate(*MEMORY[0x1E69E9A60], name_8);
     }
@@ -3559,7 +3717,7 @@ LABEL_26:
     goto LABEL_26;
   }
 
-  return v7;
+  return v9;
 }
 
 uint64_t _SBSPresentPowerDownUI(mach_port_t a1)
@@ -3588,41 +3746,42 @@ uint64_t _SBSPresentPowerDownUI(mach_port_t a1)
   return v1;
 }
 
-uint64_t _SBSReboot(int a1)
+uint64_t _SBSReboot(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v8 = 0;
+  v4 = a1;
+  v11 = 0;
   *&msg[20] = 0u;
   *&msg[4] = 0;
   special_reply_port = mig_get_special_reply_port();
-  *&msg[8] = a1;
+  *&msg[8] = v4;
   *&msg[12] = special_reply_port;
   *msg = 5395;
   *&msg[16] = 0x186A400000000;
   if (MEMORY[0x1EEE9AC50])
   {
     voucher_mach_msg_set(msg);
-    v3 = *&msg[12];
+    v6 = *&msg[12];
   }
 
   else
   {
-    v3 = special_reply_port;
+    v6 = special_reply_port;
   }
 
-  v4 = mach_msg(msg, 3162115, 0x18u, 0x2Cu, v3, 0, 0);
-  v5 = v4;
-  if ((v4 - 268435458) <= 0xE && ((1 << (v4 - 2)) & 0x4003) != 0)
+  v7 = mach_msg(msg, 3162115, 0x18u, 0x2Cu, v6, 0, 0);
+  v8 = v7;
+  if ((v7 - 268435458) <= 0xE && ((1 << (v7 - 2)) & 0x4003) != 0)
   {
     goto LABEL_15;
   }
 
-  if (v4)
+  if (v7)
   {
     mig_dealloc_special_reply_port();
 LABEL_15:
-    if ((v5 - 268435459) > 1)
+    if ((v8 - 268435459) > 1)
     {
-      return v5;
+      return v8;
     }
 
     if ((*msg & 0x1F00) == 0x1100)
@@ -3632,22 +3791,22 @@ LABEL_15:
 
 LABEL_20:
     mach_msg_destroy(msg);
-    return v5;
+    return v8;
   }
 
   if (*&msg[20] == 71)
   {
-    v5 = 4294966988;
+    v8 = 4294966988;
     goto LABEL_20;
   }
 
   if (*&msg[20] != 100104)
   {
-    v5 = 4294966995;
+    v8 = 4294966995;
     goto LABEL_20;
   }
 
-  v5 = 4294966996;
+  v8 = 4294966996;
   if ((*msg & 0x80000000) != 0)
   {
     goto LABEL_20;
@@ -3663,50 +3822,51 @@ LABEL_20:
     goto LABEL_20;
   }
 
-  v5 = *&msg[32];
+  v8 = *&msg[32];
   if (*&msg[32])
   {
     goto LABEL_20;
   }
 
-  return v5;
+  return v8;
 }
 
-uint64_t _SBSShutDown(int a1)
+uint64_t _SBSShutDown(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v8 = 0;
+  v4 = a1;
+  v11 = 0;
   *&msg[20] = 0u;
   *&msg[4] = 0;
   special_reply_port = mig_get_special_reply_port();
-  *&msg[8] = a1;
+  *&msg[8] = v4;
   *&msg[12] = special_reply_port;
   *msg = 5395;
   *&msg[16] = 0x186A500000000;
   if (MEMORY[0x1EEE9AC50])
   {
     voucher_mach_msg_set(msg);
-    v3 = *&msg[12];
+    v6 = *&msg[12];
   }
 
   else
   {
-    v3 = special_reply_port;
+    v6 = special_reply_port;
   }
 
-  v4 = mach_msg(msg, 3162115, 0x18u, 0x2Cu, v3, 0, 0);
-  v5 = v4;
-  if ((v4 - 268435458) <= 0xE && ((1 << (v4 - 2)) & 0x4003) != 0)
+  v7 = mach_msg(msg, 3162115, 0x18u, 0x2Cu, v6, 0, 0);
+  v8 = v7;
+  if ((v7 - 268435458) <= 0xE && ((1 << (v7 - 2)) & 0x4003) != 0)
   {
     goto LABEL_15;
   }
 
-  if (v4)
+  if (v7)
   {
     mig_dealloc_special_reply_port();
 LABEL_15:
-    if ((v5 - 268435459) > 1)
+    if ((v8 - 268435459) > 1)
     {
-      return v5;
+      return v8;
     }
 
     if ((*msg & 0x1F00) == 0x1100)
@@ -3716,22 +3876,22 @@ LABEL_15:
 
 LABEL_20:
     mach_msg_destroy(msg);
-    return v5;
+    return v8;
   }
 
   if (*&msg[20] == 71)
   {
-    v5 = 4294966988;
+    v8 = 4294966988;
     goto LABEL_20;
   }
 
   if (*&msg[20] != 100105)
   {
-    v5 = 4294966995;
+    v8 = 4294966995;
     goto LABEL_20;
   }
 
-  v5 = 4294966996;
+  v8 = 4294966996;
   if ((*msg & 0x80000000) != 0)
   {
     goto LABEL_20;
@@ -3747,13 +3907,13 @@ LABEL_20:
     goto LABEL_20;
   }
 
-  v5 = *&msg[32];
+  v8 = *&msg[32];
   if (*&msg[32])
   {
     goto LABEL_20;
   }
 
-  return v5;
+  return v8;
 }
 
 uint64_t _SBSEnableLockScreenBundle(mach_port_t a1, char a2, char *src, uint64_t a4, unsigned int a5)
@@ -3867,50 +4027,51 @@ uint64_t _SBSShowNetworkPromptsIfNecessary(mach_port_t a1, char a2)
   return v2;
 }
 
-uint64_t _SBSGetCurrentBacklightFactor(int a1, _DWORD *a2)
+uint64_t _SBSGetCurrentBacklightFactor(uint64_t a1, _DWORD *a2, uint64_t a3, uint64_t a4)
 {
+  v5 = a1;
   memset(&name_12[4], 0, 28);
   name = 0;
   special_reply_port = mig_get_special_reply_port();
-  name_4 = a1;
+  name_4 = v5;
   name_8 = special_reply_port;
-  v10 = 5395;
+  v12 = 5395;
   *name_12 = 0x186AA00000000;
   if (MEMORY[0x1EEE9AC50])
   {
-    voucher_mach_msg_set(&v10);
-    v5 = name_8;
+    voucher_mach_msg_set(&v12);
+    v7 = name_8;
   }
 
   else
   {
-    v5 = special_reply_port;
+    v7 = special_reply_port;
   }
 
-  v6 = mach_msg(&v10, 3162115, 0x18u, 0x30u, v5, 0, 0);
-  v7 = v6;
-  if ((v6 - 268435458) > 0xE || ((1 << (v6 - 2)) & 0x4003) == 0)
+  v8 = mach_msg(&v12, 3162115, 0x18u, 0x30u, v7, 0, 0);
+  v9 = v8;
+  if ((v8 - 268435458) > 0xE || ((1 << (v8 - 2)) & 0x4003) == 0)
   {
-    if (!v6)
+    if (!v8)
     {
       if (*&name_12[4] == 71)
       {
-        v7 = 4294966988;
+        v9 = 4294966988;
       }
 
       else if (*&name_12[4] == 100110)
       {
-        if ((v10 & 0x80000000) == 0)
+        if ((v12 & 0x80000000) == 0)
         {
           if (name == 40)
           {
             if (!name_4)
             {
-              v7 = *&name_12[16];
+              v9 = *&name_12[16];
               if (!*&name_12[16])
               {
                 *a2 = *&name_12[20];
-                return v7;
+                return v9;
               }
 
               goto LABEL_26;
@@ -3921,47 +4082,47 @@ uint64_t _SBSGetCurrentBacklightFactor(int a1, _DWORD *a2)
           {
             if (name_4)
             {
-              v8 = 1;
+              v10 = 1;
             }
 
             else
             {
-              v8 = *&name_12[16] == 0;
+              v10 = *&name_12[16] == 0;
             }
 
-            if (v8)
+            if (v10)
             {
-              v7 = 4294966996;
+              v9 = 4294966996;
             }
 
             else
             {
-              v7 = *&name_12[16];
+              v9 = *&name_12[16];
             }
 
             goto LABEL_26;
           }
         }
 
-        v7 = 4294966996;
+        v9 = 4294966996;
       }
 
       else
       {
-        v7 = 4294966995;
+        v9 = 4294966995;
       }
 
 LABEL_26:
-      mach_msg_destroy(&v10);
-      return v7;
+      mach_msg_destroy(&v12);
+      return v9;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-  if ((v7 - 268435459) <= 1)
+  if ((v9 - 268435459) <= 1)
   {
-    if ((v10 & 0x1F00) == 0x1100)
+    if ((v12 & 0x1F00) == 0x1100)
     {
       mach_port_deallocate(*MEMORY[0x1E69E9A60], name_8);
     }
@@ -3969,7 +4130,7 @@ LABEL_26:
     goto LABEL_26;
   }
 
-  return v7;
+  return v9;
 }
 
 uint64_t _SBSDimScreen(mach_port_t a1, char a2)
@@ -4406,15 +4567,16 @@ uint64_t _SBSScrollToIconWithDisplayIdentifier(mach_port_name_t a1, const char *
   return v8;
 }
 
-uint64_t _SBSGetNowPlayingAppBundleIdentifier(mach_port_t a1, char *a2)
+uint64_t _SBSGetNowPlayingAppBundleIdentifier(uint64_t a1, char *a2, uint64_t a3, uint64_t a4)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v5 = a1;
+  v14 = *MEMORY[0x1E69E9840];
   memset(&msg[20].msgh_size, 0, 28);
   memset(&msg[1].msgh_local_port, 0, 448);
   *&msg[0].msgh_id = 0u;
   msg[0].msgh_size = 0;
   special_reply_port = mig_get_special_reply_port();
-  msg[0].msgh_remote_port = a1;
+  msg[0].msgh_remote_port = v5;
   msg[0].msgh_local_port = special_reply_port;
   msg[0].msgh_bits = 5395;
   *&msg[0].msgh_voucher_port = 0x186B100000000;
@@ -4429,11 +4591,11 @@ uint64_t _SBSGetNowPlayingAppBundleIdentifier(mach_port_t a1, char *a2)
     msgh_local_port = special_reply_port;
   }
 
-  v6 = mach_msg(msg, 3162115, 0x18u, 0x434u, msgh_local_port, 0, 0);
-  msgh_remote_port = v6;
-  if ((v6 - 268435458) > 0xE || ((1 << (v6 - 2)) & 0x4003) == 0)
+  v8 = mach_msg(msg, 3162115, 0x18u, 0x434u, msgh_local_port, 0, 0);
+  msgh_remote_port = v8;
+  if ((v8 - 268435458) > 0xE || ((1 << (v8 - 2)) & 0x4003) == 0)
   {
-    if (!v6)
+    if (!v8)
     {
       if (msg[0].msgh_id == 71)
       {
@@ -4448,15 +4610,15 @@ uint64_t _SBSGetNowPlayingAppBundleIdentifier(mach_port_t a1, char *a2)
           {
             if (msg[1].msgh_remote_port)
             {
-              v8 = msg[0].msgh_remote_port == 0;
+              v10 = msg[0].msgh_remote_port == 0;
             }
 
             else
             {
-              v8 = 0;
+              v10 = 0;
             }
 
-            if (v8 && msg[0].msgh_size == 36)
+            if (v10 && msg[0].msgh_size == 36)
             {
               msgh_remote_port = msg[1].msgh_remote_port;
             }
@@ -4515,8 +4677,9 @@ LABEL_28:
   return msgh_remote_port;
 }
 
-uint64_t _SBSGetTopButtonFrames(int a1, void *a2, void *a3, void *a4, void *a5, void *a6, void *a7, void *a8, void *a9)
+uint64_t _SBSGetTopButtonFrames(uint64_t a1, void *a2, void *a3, void *a4, void *a5, void *a6, void *a7, void *a8, void *a9)
 {
+  v16 = a1;
   v33 = *MEMORY[0x1E69E9840];
   v32 = 0;
   v30 = 0u;
@@ -4526,7 +4689,7 @@ uint64_t _SBSGetTopButtonFrames(int a1, void *a2, void *a3, void *a4, void *a5, 
   *&msg[4] = 0;
   *&msg[20] = 0u;
   special_reply_port = mig_get_special_reply_port();
-  *&msg[8] = a1;
+  *&msg[8] = v16;
   *&msg[12] = special_reply_port;
   *msg = 5395;
   *&msg[16] = 0x186B200000000;
@@ -4637,36 +4800,37 @@ LABEL_26:
   return v20;
 }
 
-uint64_t _SBSGetApplicationNetworkFlags(int a1, _BYTE *a2, _BYTE *a3)
+uint64_t _SBSGetApplicationNetworkFlags(uint64_t a1, _BYTE *a2, _BYTE *a3, uint64_t a4)
 {
+  v6 = a1;
   *&msg[20] = 0u;
-  v13 = 0u;
+  v14 = 0u;
   *&msg[4] = 0;
   special_reply_port = mig_get_special_reply_port();
-  *&msg[8] = a1;
+  *&msg[8] = v6;
   *&msg[12] = special_reply_port;
   *msg = 5395;
   *&msg[16] = 0x186B400000000;
   if (MEMORY[0x1EEE9AC50])
   {
     voucher_mach_msg_set(msg);
-    v7 = *&msg[12];
+    v8 = *&msg[12];
   }
 
   else
   {
-    v7 = special_reply_port;
+    v8 = special_reply_port;
   }
 
-  v8 = mach_msg(msg, 3162115, 0x18u, 0x34u, v7, 0, 0);
-  v9 = v8;
-  if ((v8 - 268435458) > 0xE || ((1 << (v8 - 2)) & 0x4003) == 0)
+  v9 = mach_msg(msg, 3162115, 0x18u, 0x34u, v8, 0, 0);
+  v10 = v9;
+  if ((v9 - 268435458) > 0xE || ((1 << (v9 - 2)) & 0x4003) == 0)
   {
-    if (!v8)
+    if (!v9)
     {
       if (*&msg[20] == 71)
       {
-        v9 = 4294966988;
+        v10 = 4294966988;
       }
 
       else if (*&msg[20] == 100120)
@@ -4677,12 +4841,12 @@ uint64_t _SBSGetApplicationNetworkFlags(int a1, _BYTE *a2, _BYTE *a3)
           {
             if (!*&msg[8])
             {
-              v9 = *&msg[32];
+              v10 = *&msg[32];
               if (!*&msg[32])
               {
-                *a2 = v13;
-                *a3 = BYTE4(v13);
-                return v9;
+                *a2 = v14;
+                *a3 = BYTE4(v14);
+                return v10;
               }
 
               goto LABEL_26;
@@ -4693,45 +4857,45 @@ uint64_t _SBSGetApplicationNetworkFlags(int a1, _BYTE *a2, _BYTE *a3)
           {
             if (*&msg[8])
             {
-              v10 = 1;
+              v11 = 1;
             }
 
             else
             {
-              v10 = *&msg[32] == 0;
+              v11 = *&msg[32] == 0;
             }
 
-            if (v10)
+            if (v11)
             {
-              v9 = 4294966996;
+              v10 = 4294966996;
             }
 
             else
             {
-              v9 = *&msg[32];
+              v10 = *&msg[32];
             }
 
             goto LABEL_26;
           }
         }
 
-        v9 = 4294966996;
+        v10 = 4294966996;
       }
 
       else
       {
-        v9 = 4294966995;
+        v10 = 4294966995;
       }
 
 LABEL_26:
       mach_msg_destroy(msg);
-      return v9;
+      return v10;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-  if ((v9 - 268435459) <= 1)
+  if ((v10 - 268435459) <= 1)
   {
     if ((*msg & 0x1F00) == 0x1100)
     {
@@ -4741,7 +4905,7 @@ LABEL_26:
     goto LABEL_26;
   }
 
-  return v9;
+  return v10;
 }
 
 uint64_t _SBSAppSwitcherServiceRegister(mach_port_t a1, int a2, char *src, const char *a4)
@@ -4954,50 +5118,51 @@ uint64_t _SBSSetWantsLockButtonEvents(mach_port_t a1, int a2)
   return v2;
 }
 
-uint64_t _SBSGetMediaVolume(int a1, _DWORD *a2)
+uint64_t _SBSGetMediaVolume(uint64_t a1, _DWORD *a2, uint64_t a3, uint64_t a4)
 {
+  v5 = a1;
   memset(&name_12[4], 0, 28);
   name = 0;
   special_reply_port = mig_get_special_reply_port();
-  name_4 = a1;
+  name_4 = v5;
   name_8 = special_reply_port;
-  v10 = 5395;
+  v12 = 5395;
   *name_12 = 0x186B900000000;
   if (MEMORY[0x1EEE9AC50])
   {
-    voucher_mach_msg_set(&v10);
-    v5 = name_8;
+    voucher_mach_msg_set(&v12);
+    v7 = name_8;
   }
 
   else
   {
-    v5 = special_reply_port;
+    v7 = special_reply_port;
   }
 
-  v6 = mach_msg(&v10, 3162115, 0x18u, 0x30u, v5, 0, 0);
-  v7 = v6;
-  if ((v6 - 268435458) > 0xE || ((1 << (v6 - 2)) & 0x4003) == 0)
+  v8 = mach_msg(&v12, 3162115, 0x18u, 0x30u, v7, 0, 0);
+  v9 = v8;
+  if ((v8 - 268435458) > 0xE || ((1 << (v8 - 2)) & 0x4003) == 0)
   {
-    if (!v6)
+    if (!v8)
     {
       if (*&name_12[4] == 71)
       {
-        v7 = 4294966988;
+        v9 = 4294966988;
       }
 
       else if (*&name_12[4] == 100125)
       {
-        if ((v10 & 0x80000000) == 0)
+        if ((v12 & 0x80000000) == 0)
         {
           if (name == 40)
           {
             if (!name_4)
             {
-              v7 = *&name_12[16];
+              v9 = *&name_12[16];
               if (!*&name_12[16])
               {
                 *a2 = *&name_12[20];
-                return v7;
+                return v9;
               }
 
               goto LABEL_26;
@@ -5008,47 +5173,47 @@ uint64_t _SBSGetMediaVolume(int a1, _DWORD *a2)
           {
             if (name_4)
             {
-              v8 = 1;
+              v10 = 1;
             }
 
             else
             {
-              v8 = *&name_12[16] == 0;
+              v10 = *&name_12[16] == 0;
             }
 
-            if (v8)
+            if (v10)
             {
-              v7 = 4294966996;
+              v9 = 4294966996;
             }
 
             else
             {
-              v7 = *&name_12[16];
+              v9 = *&name_12[16];
             }
 
             goto LABEL_26;
           }
         }
 
-        v7 = 4294966996;
+        v9 = 4294966996;
       }
 
       else
       {
-        v7 = 4294966995;
+        v9 = 4294966995;
       }
 
 LABEL_26:
-      mach_msg_destroy(&v10);
-      return v7;
+      mach_msg_destroy(&v12);
+      return v9;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-  if ((v7 - 268435459) <= 1)
+  if ((v9 - 268435459) <= 1)
   {
-    if ((v10 & 0x1F00) == 0x1100)
+    if ((v12 & 0x1F00) == 0x1100)
     {
       mach_port_deallocate(*MEMORY[0x1E69E9A60], name_8);
     }
@@ -5056,7 +5221,7 @@ LABEL_26:
     goto LABEL_26;
   }
 
-  return v7;
+  return v9;
 }
 
 uint64_t _SBSSetMediaVolume(mach_port_t a1, float a2)
@@ -5087,8 +5252,9 @@ uint64_t _SBSSetMediaVolume(mach_port_t a1, float a2)
   return v2;
 }
 
-uint64_t _SBSGetHomeScreenIconMetrics(int a1, void *a2, void *a3, void *a4, void *a5, _DWORD *a6, _DWORD *a7, _DWORD *a8, _DWORD *a9, _DWORD *a10, _DWORD *a11, _DWORD *a12)
+uint64_t _SBSGetHomeScreenIconMetrics(uint64_t a1, void *a2, void *a3, void *a4, void *a5, _DWORD *a6, _DWORD *a7, _DWORD *a8, _DWORD *a9, _DWORD *a10, _DWORD *a11, _DWORD *a12)
 {
+  v19 = a1;
   v39 = *MEMORY[0x1E69E9840];
   v38 = 0;
   v37 = 0u;
@@ -5098,7 +5264,7 @@ uint64_t _SBSGetHomeScreenIconMetrics(int a1, void *a2, void *a3, void *a4, void
   *&name_12[4] = 0u;
   name = 0;
   special_reply_port = mig_get_special_reply_port();
-  name_4 = a1;
+  name_4 = v19;
   name_8 = special_reply_port;
   v29 = 5395;
   *name_12 = 0x186BB00000000;
@@ -5211,21 +5377,22 @@ LABEL_26:
   return v23;
 }
 
-uint64_t _SBSFlashColor(mach_port_t a1, float a2, float a3, float a4)
+uint64_t _SBSFlashColor(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, float a5, float a6, float a7)
 {
-  v11 = *MEMORY[0x1E69E99E0];
-  v12 = a2;
-  v13 = a3;
-  v14 = a4;
+  v7 = a1;
+  v14 = *MEMORY[0x1E69E99E0];
+  v15 = a5;
+  v16 = a6;
+  v17 = a7;
   special_reply_port = mig_get_special_reply_port();
-  *&v10.msgh_bits = 5395;
-  v10.msgh_remote_port = a1;
-  v10.msgh_local_port = special_reply_port;
-  *&v10.msgh_voucher_port = 0x186BC00000000;
+  *&v13.msgh_bits = 5395;
+  v13.msgh_remote_port = v7;
+  v13.msgh_local_port = special_reply_port;
+  *&v13.msgh_voucher_port = 0x186BC00000000;
   if (MEMORY[0x1EEE9AC50])
   {
-    voucher_mach_msg_set(&v10);
-    msgh_local_port = v10.msgh_local_port;
+    voucher_mach_msg_set(&v13);
+    msgh_local_port = v13.msgh_local_port;
   }
 
   else
@@ -5233,62 +5400,67 @@ uint64_t _SBSFlashColor(mach_port_t a1, float a2, float a3, float a4)
     msgh_local_port = special_reply_port;
   }
 
-  v7 = mach_msg(&v10, 3162115, 0x2Cu, 0x2Cu, msgh_local_port, 0, 0);
-  v8 = v7;
-  if ((v7 - 268435458) <= 0xE && ((1 << (v7 - 2)) & 0x4003) != 0)
+  v10 = mach_msg(&v13, 3162115, 0x2Cu, 0x2Cu, msgh_local_port, 0, 0);
+  v11 = v10;
+  if ((v10 - 268435458) <= 0xE && ((1 << (v10 - 2)) & 0x4003) != 0)
   {
-    goto LABEL_14;
+    goto LABEL_15;
   }
 
-  if (v7)
+  if (v10)
   {
     mig_dealloc_special_reply_port();
-LABEL_14:
-    if ((v8 - 268435459) > 1)
+LABEL_15:
+    if ((v11 - 268435459) > 1)
     {
-      return v8;
+      return v11;
     }
 
-    if ((v10.msgh_bits & 0x1F00) == 0x1100)
+    if ((v13.msgh_bits & 0x1F00) == 0x1100)
     {
-      mach_port_deallocate(*MEMORY[0x1E69E9A60], v10.msgh_local_port);
+      mach_port_deallocate(*MEMORY[0x1E69E9A60], v13.msgh_local_port);
     }
 
-LABEL_19:
-    mach_msg_destroy(&v10);
-    return v8;
+LABEL_20:
+    mach_msg_destroy(&v13);
+    return v11;
   }
 
-  if (v10.msgh_id == 71)
+  if (v13.msgh_id == 71)
   {
-    v8 = 4294966988;
-    goto LABEL_19;
+    v11 = 4294966988;
+    goto LABEL_20;
   }
 
-  if (v10.msgh_id != 100128)
+  if (v13.msgh_id != 100128)
   {
-    v8 = 4294966995;
-    goto LABEL_19;
+    v11 = 4294966995;
+    goto LABEL_20;
   }
 
-  v8 = 4294966996;
-  if ((v10.msgh_bits & 0x80000000) != 0)
+  v11 = 4294966996;
+  if ((v13.msgh_bits & 0x80000000) != 0)
   {
-    goto LABEL_19;
+    goto LABEL_20;
   }
 
-  if (*&v10.msgh_size != 36)
+  if (v13.msgh_size != 36)
   {
-    goto LABEL_19;
+    goto LABEL_20;
   }
 
-  v8 = LODWORD(v12);
-  if (v12 != 0.0)
+  if (v13.msgh_remote_port)
   {
-    goto LABEL_19;
+    goto LABEL_20;
   }
 
-  return v8;
+  v11 = LODWORD(v15);
+  if (v15 != 0.0)
+  {
+    goto LABEL_20;
+  }
+
+  return v11;
 }
 
 uint64_t _SBSProgrammaticSwitchAppGestureMoveToLeft(mach_port_t a1)
@@ -5494,8 +5666,9 @@ uint64_t _SBSLockDeviceAndFeatures(mach_port_t a1, char a2, char a3)
   return v3;
 }
 
-uint64_t _SBSActivateAssistantWithContext(mach_port_t a1, int a2, uint64_t a3, int a4)
+uint64_t _SBSActivateAssistantWithContext(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
+  v4 = a1;
   v18 = *MEMORY[0x1E69E9840];
   v11 = 1;
   v12 = a3;
@@ -5506,7 +5679,7 @@ uint64_t _SBSActivateAssistantWithContext(mach_port_t a1, int a2, uint64_t a3, i
   v17 = a4;
   special_reply_port = mig_get_special_reply_port();
   *&msg.msgh_bits = 2147489043;
-  msg.msgh_remote_port = a1;
+  msg.msgh_remote_port = v4;
   msg.msgh_local_port = special_reply_port;
   *&msg.msgh_voucher_port = 0x186C500000000;
   if (MEMORY[0x1EEE9AC50])
@@ -5718,7 +5891,7 @@ LABEL_23:
   return v14;
 }
 
-uint64_t _SBSSetWallpaperImageForLocations(mach_port_t a1, uint64_t a2, int a3, char a4, char a5, char a6, char a7, char *src, float a9, float a10, float a11, float a12, float a13, float a14, double a15, char a16, char a17, char a18, uint64_t a19, unsigned int a20, _BYTE *a21)
+uint64_t _SBSSetWallpaperImageForLocations(mach_port_t a1, uint64_t a2, int a3, char a4, char a5, char a6, char a7, char *src, float a9, float a10, float a11, float a12, float a13, float a14, double a15, char a16, char a17, char a18, uint64_t a19, int a20, _BYTE *a21)
 {
   v43 = *MEMORY[0x1E69E9840];
   memset(v42, 0, 384);
@@ -6067,50 +6240,51 @@ LABEL_29:
   return v32;
 }
 
-uint64_t _SBSClearWallpaperAsset(int a1, _BYTE *a2)
+uint64_t _SBSClearWallpaperAsset(uint64_t a1, _BYTE *a2, uint64_t a3, uint64_t a4)
 {
+  v5 = a1;
   memset(&name_12[4], 0, 28);
   name = 0;
   special_reply_port = mig_get_special_reply_port();
-  name_4 = a1;
+  name_4 = v5;
   name_8 = special_reply_port;
-  v10 = 5395;
+  v12 = 5395;
   *name_12 = 0x186C900000000;
   if (MEMORY[0x1EEE9AC50])
   {
-    voucher_mach_msg_set(&v10);
-    v5 = name_8;
+    voucher_mach_msg_set(&v12);
+    v7 = name_8;
   }
 
   else
   {
-    v5 = special_reply_port;
+    v7 = special_reply_port;
   }
 
-  v6 = mach_msg(&v10, 3162115, 0x18u, 0x30u, v5, 0, 0);
-  v7 = v6;
-  if ((v6 - 268435458) > 0xE || ((1 << (v6 - 2)) & 0x4003) == 0)
+  v8 = mach_msg(&v12, 3162115, 0x18u, 0x30u, v7, 0, 0);
+  v9 = v8;
+  if ((v8 - 268435458) > 0xE || ((1 << (v8 - 2)) & 0x4003) == 0)
   {
-    if (!v6)
+    if (!v8)
     {
       if (*&name_12[4] == 71)
       {
-        v7 = 4294966988;
+        v9 = 4294966988;
       }
 
       else if (*&name_12[4] == 100141)
       {
-        if ((v10 & 0x80000000) == 0)
+        if ((v12 & 0x80000000) == 0)
         {
           if (name == 40)
           {
             if (!name_4)
             {
-              v7 = *&name_12[16];
+              v9 = *&name_12[16];
               if (!*&name_12[16])
               {
                 *a2 = name_12[20];
-                return v7;
+                return v9;
               }
 
               goto LABEL_26;
@@ -6121,47 +6295,47 @@ uint64_t _SBSClearWallpaperAsset(int a1, _BYTE *a2)
           {
             if (name_4)
             {
-              v8 = 1;
+              v10 = 1;
             }
 
             else
             {
-              v8 = *&name_12[16] == 0;
+              v10 = *&name_12[16] == 0;
             }
 
-            if (v8)
+            if (v10)
             {
-              v7 = 4294966996;
+              v9 = 4294966996;
             }
 
             else
             {
-              v7 = *&name_12[16];
+              v9 = *&name_12[16];
             }
 
             goto LABEL_26;
           }
         }
 
-        v7 = 4294966996;
+        v9 = 4294966996;
       }
 
       else
       {
-        v7 = 4294966995;
+        v9 = 4294966995;
       }
 
 LABEL_26:
-      mach_msg_destroy(&v10);
-      return v7;
+      mach_msg_destroy(&v12);
+      return v9;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-  if ((v7 - 268435459) <= 1)
+  if ((v9 - 268435459) <= 1)
   {
-    if ((v10 & 0x1F00) == 0x1100)
+    if ((v12 & 0x1F00) == 0x1100)
     {
       mach_port_deallocate(*MEMORY[0x1E69E9A60], name_8);
     }
@@ -6169,11 +6343,12 @@ LABEL_26:
     goto LABEL_26;
   }
 
-  return v7;
+  return v9;
 }
 
-uint64_t _SBSGetWallpaperOptions(int a1, char a2, _DWORD *a3, _DWORD *a4, _DWORD *a5, _DWORD *a6, _DWORD *a7, _DWORD *a8, _BYTE *a9, _BYTE *a10, _BYTE *a11, void *a12, void *a13, _DWORD *a14)
+uint64_t _SBSGetWallpaperOptions(uint64_t a1, uint64_t a2, _DWORD *a3, _DWORD *a4, _DWORD *a5, _DWORD *a6, _DWORD *a7, _DWORD *a8, _BYTE *a9, _BYTE *a10, _BYTE *a11, void *a12, void *a13, _DWORD *a14)
 {
+  v20 = a1;
   v36 = *MEMORY[0x1E69E9840];
   *&msg[20] = 0u;
   v31 = 0u;
@@ -6187,7 +6362,7 @@ uint64_t _SBSGetWallpaperOptions(int a1, char a2, _DWORD *a3, _DWORD *a4, _DWORD
   *&msg[33] = 0;
   msg[35] = 0;
   special_reply_port = mig_get_special_reply_port();
-  *&msg[8] = a1;
+  *&msg[8] = v20;
   *&msg[12] = special_reply_port;
   *msg = 5395;
   *&msg[16] = 0x186CA00000000;
@@ -6295,8 +6470,9 @@ LABEL_28:
   return v24;
 }
 
-uint64_t _SBSSetWallpaperVariant(int a1, char a2, _BYTE *a3)
+uint64_t _SBSSetWallpaperVariant(uint64_t a1, uint64_t a2, _BYTE *a3, uint64_t a4)
 {
+  v5 = a1;
   memset(&name[16], 0, 28);
   *name = 0u;
   *&name[20] = *MEMORY[0x1E69E99E0];
@@ -6304,45 +6480,45 @@ uint64_t _SBSSetWallpaperVariant(int a1, char a2, _BYTE *a3)
   *&name[29] = 0;
   name[31] = 0;
   special_reply_port = mig_get_special_reply_port();
-  *&name[4] = a1;
+  *&name[4] = v5;
   *&name[8] = special_reply_port;
-  v11 = 5395;
+  v12 = 5395;
   *&name[12] = 0x186CB00000000;
   if (MEMORY[0x1EEE9AC50])
   {
-    voucher_mach_msg_set(&v11);
-    v6 = *&name[8];
+    voucher_mach_msg_set(&v12);
+    v7 = *&name[8];
   }
 
   else
   {
-    v6 = special_reply_port;
+    v7 = special_reply_port;
   }
 
-  v7 = mach_msg(&v11, 3162115, 0x24u, 0x30u, v6, 0, 0);
-  v8 = v7;
-  if ((v7 - 268435458) > 0xE || ((1 << (v7 - 2)) & 0x4003) == 0)
+  v8 = mach_msg(&v12, 3162115, 0x24u, 0x30u, v7, 0, 0);
+  v9 = v8;
+  if ((v8 - 268435458) > 0xE || ((1 << (v8 - 2)) & 0x4003) == 0)
   {
-    if (!v7)
+    if (!v8)
     {
       if (*&name[16] == 71)
       {
-        v8 = 4294966988;
+        v9 = 4294966988;
       }
 
       else if (*&name[16] == 100143)
       {
-        if ((v11 & 0x80000000) == 0)
+        if ((v12 & 0x80000000) == 0)
         {
           if (*name == 40)
           {
             if (!*&name[4])
             {
-              v8 = *&name[28];
+              v9 = *&name[28];
               if (!*&name[28])
               {
                 *a3 = name[32];
-                return v8;
+                return v9;
               }
 
               goto LABEL_26;
@@ -6353,47 +6529,47 @@ uint64_t _SBSSetWallpaperVariant(int a1, char a2, _BYTE *a3)
           {
             if (*&name[4])
             {
-              v9 = 1;
+              v10 = 1;
             }
 
             else
             {
-              v9 = *&name[28] == 0;
+              v10 = *&name[28] == 0;
             }
 
-            if (v9)
+            if (v10)
             {
-              v8 = 4294966996;
+              v9 = 4294966996;
             }
 
             else
             {
-              v8 = *&name[28];
+              v9 = *&name[28];
             }
 
             goto LABEL_26;
           }
         }
 
-        v8 = 4294966996;
+        v9 = 4294966996;
       }
 
       else
       {
-        v8 = 4294966995;
+        v9 = 4294966995;
       }
 
 LABEL_26:
-      mach_msg_destroy(&v11);
-      return v8;
+      mach_msg_destroy(&v12);
+      return v9;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-  if ((v8 - 268435459) <= 1)
+  if ((v9 - 268435459) <= 1)
   {
-    if ((v11 & 0x1F00) == 0x1100)
+    if ((v12 & 0x1F00) == 0x1100)
     {
       mach_port_deallocate(*MEMORY[0x1E69E9A60], *&name[8]);
     }
@@ -6401,11 +6577,12 @@ LABEL_26:
     goto LABEL_26;
   }
 
-  return v8;
+  return v9;
 }
 
-uint64_t _SBSGetWallpaperLegibilitySettings(int a1, char a2, void *a3, _DWORD *a4)
+uint64_t _SBSGetWallpaperLegibilitySettings(uint64_t a1, uint64_t a2, void *a3, _DWORD *a4)
 {
+  v6 = a1;
   v15 = *MEMORY[0x1E69E9840];
   memset(&msg_4[16], 0, 44);
   *msg_4 = 0u;
@@ -6414,7 +6591,7 @@ uint64_t _SBSGetWallpaperLegibilitySettings(int a1, char a2, void *a3, _DWORD *a
   *&msg_4[29] = 0;
   msg_4[31] = 0;
   special_reply_port = mig_get_special_reply_port();
-  *&msg_4[4] = a1;
+  *&msg_4[4] = v6;
   *&msg_4[8] = special_reply_port;
   msg = 5395;
   *&msg_4[12] = 0x186CC00000000;
@@ -6611,50 +6788,51 @@ LABEL_23:
   return v9;
 }
 
-uint64_t _SBSIsReachabilityEnabled(int a1, _BYTE *a2)
+uint64_t _SBSIsReachabilityEnabled(uint64_t a1, _BYTE *a2, uint64_t a3, uint64_t a4)
 {
+  v5 = a1;
   memset(&name_12[4], 0, 28);
   name = 0;
   special_reply_port = mig_get_special_reply_port();
-  name_4 = a1;
+  name_4 = v5;
   name_8 = special_reply_port;
-  v10 = 5395;
+  v12 = 5395;
   *name_12 = 0x186CF00000000;
   if (MEMORY[0x1EEE9AC50])
   {
-    voucher_mach_msg_set(&v10);
-    v5 = name_8;
+    voucher_mach_msg_set(&v12);
+    v7 = name_8;
   }
 
   else
   {
-    v5 = special_reply_port;
+    v7 = special_reply_port;
   }
 
-  v6 = mach_msg(&v10, 3162115, 0x18u, 0x30u, v5, 0, 0);
-  v7 = v6;
-  if ((v6 - 268435458) > 0xE || ((1 << (v6 - 2)) & 0x4003) == 0)
+  v8 = mach_msg(&v12, 3162115, 0x18u, 0x30u, v7, 0, 0);
+  v9 = v8;
+  if ((v8 - 268435458) > 0xE || ((1 << (v8 - 2)) & 0x4003) == 0)
   {
-    if (!v6)
+    if (!v8)
     {
       if (*&name_12[4] == 71)
       {
-        v7 = 4294966988;
+        v9 = 4294966988;
       }
 
       else if (*&name_12[4] == 100147)
       {
-        if ((v10 & 0x80000000) == 0)
+        if ((v12 & 0x80000000) == 0)
         {
           if (name == 40)
           {
             if (!name_4)
             {
-              v7 = *&name_12[16];
+              v9 = *&name_12[16];
               if (!*&name_12[16])
               {
                 *a2 = name_12[20];
-                return v7;
+                return v9;
               }
 
               goto LABEL_26;
@@ -6665,47 +6843,47 @@ uint64_t _SBSIsReachabilityEnabled(int a1, _BYTE *a2)
           {
             if (name_4)
             {
-              v8 = 1;
+              v10 = 1;
             }
 
             else
             {
-              v8 = *&name_12[16] == 0;
+              v10 = *&name_12[16] == 0;
             }
 
-            if (v8)
+            if (v10)
             {
-              v7 = 4294966996;
+              v9 = 4294966996;
             }
 
             else
             {
-              v7 = *&name_12[16];
+              v9 = *&name_12[16];
             }
 
             goto LABEL_26;
           }
         }
 
-        v7 = 4294966996;
+        v9 = 4294966996;
       }
 
       else
       {
-        v7 = 4294966995;
+        v9 = 4294966995;
       }
 
 LABEL_26:
-      mach_msg_destroy(&v10);
-      return v7;
+      mach_msg_destroy(&v12);
+      return v9;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-  if ((v7 - 268435459) <= 1)
+  if ((v9 - 268435459) <= 1)
   {
-    if ((v10 & 0x1F00) == 0x1100)
+    if ((v12 & 0x1F00) == 0x1100)
     {
       mach_port_deallocate(*MEMORY[0x1E69E9A60], name_8);
     }
@@ -6713,7 +6891,7 @@ LABEL_26:
     goto LABEL_26;
   }
 
-  return v7;
+  return v9;
 }
 
 uint64_t _SBSSetReachabilityEnabled(mach_port_t a1, char a2)
@@ -7160,8 +7338,9 @@ uint64_t _SBSSetShowsOverridesForRecording(mach_port_t a1, char a2)
   return v2;
 }
 
-uint64_t _SBSGetWallpaperPreviewSurface(int a1, char a2, int a3, int a4, _DWORD *a5, double a6)
+uint64_t _SBSGetWallpaperPreviewSurface(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _DWORD *a5, double a6)
 {
+  v7 = a1;
   v21 = *MEMORY[0x1E69E9840];
   *&msg[20] = 0u;
   *&msg[4] = 0u;
@@ -7175,7 +7354,7 @@ uint64_t _SBSGetWallpaperPreviewSurface(int a1, char a2, int a3, int a4, _DWORD 
   v19 = a6;
   v20 = a3;
   special_reply_port = mig_get_special_reply_port();
-  *&msg[8] = a1;
+  *&msg[8] = v7;
   *&msg[12] = special_reply_port;
   *msg = -2147478253;
   *&msg[16] = 0x186DD00000000;
@@ -7265,8 +7444,9 @@ LABEL_27:
   return v11;
 }
 
-uint64_t _SBSGetWallpaperPreview(mach_port_t a1, char a2, int a3, uint64_t a4, int a5, void *a6, _DWORD *a7, double a8)
+uint64_t _SBSGetWallpaperPreview(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, uint64_t *a6, int *a7, double a8)
 {
+  v10 = a1;
   v18 = 1;
   v19 = a4;
   v20 = 16777472;
@@ -7280,7 +7460,7 @@ uint64_t _SBSGetWallpaperPreview(mach_port_t a1, char a2, int a3, uint64_t a4, i
   v26 = a5;
   special_reply_port = mig_get_special_reply_port();
   *&msg.msgh_bits = 2147489043;
-  msg.msgh_remote_port = a1;
+  msg.msgh_remote_port = v10;
   msg.msgh_local_port = special_reply_port;
   *&msg.msgh_voucher_port = 0x186DE00000000;
   if (MEMORY[0x1EEE9AC50])
@@ -7515,15 +7695,16 @@ LABEL_29:
   return v23;
 }
 
-uint64_t _SBSGetBatteryAwakeTime(mach_port_t a1, char *a2)
+uint64_t _SBSGetBatteryAwakeTime(uint64_t a1, char *a2, uint64_t a3, uint64_t a4)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v5 = a1;
+  v14 = *MEMORY[0x1E69E9840];
   memset(&msg[20].msgh_size, 0, 28);
   memset(&msg[1].msgh_local_port, 0, 448);
   *&msg[0].msgh_id = 0u;
   msg[0].msgh_size = 0;
   special_reply_port = mig_get_special_reply_port();
-  msg[0].msgh_remote_port = a1;
+  msg[0].msgh_remote_port = v5;
   msg[0].msgh_local_port = special_reply_port;
   msg[0].msgh_bits = 5395;
   *&msg[0].msgh_voucher_port = 0x186E000000000;
@@ -7538,11 +7719,11 @@ uint64_t _SBSGetBatteryAwakeTime(mach_port_t a1, char *a2)
     msgh_local_port = special_reply_port;
   }
 
-  v6 = mach_msg(msg, 3162115, 0x18u, 0x434u, msgh_local_port, 0, 0);
-  msgh_remote_port = v6;
-  if ((v6 - 268435458) > 0xE || ((1 << (v6 - 2)) & 0x4003) == 0)
+  v8 = mach_msg(msg, 3162115, 0x18u, 0x434u, msgh_local_port, 0, 0);
+  msgh_remote_port = v8;
+  if ((v8 - 268435458) > 0xE || ((1 << (v8 - 2)) & 0x4003) == 0)
   {
-    if (!v6)
+    if (!v8)
     {
       if (msg[0].msgh_id == 71)
       {
@@ -7557,15 +7738,15 @@ uint64_t _SBSGetBatteryAwakeTime(mach_port_t a1, char *a2)
           {
             if (msg[1].msgh_remote_port)
             {
-              v8 = msg[0].msgh_remote_port == 0;
+              v10 = msg[0].msgh_remote_port == 0;
             }
 
             else
             {
-              v8 = 0;
+              v10 = 0;
             }
 
-            if (v8 && msg[0].msgh_size == 36)
+            if (v10 && msg[0].msgh_size == 36)
             {
               msgh_remote_port = msg[1].msgh_remote_port;
             }
@@ -7624,36 +7805,37 @@ LABEL_28:
   return msgh_remote_port;
 }
 
-uint64_t _SBSGetRecentSleepsWakes(int a1, void *a2, _DWORD *a3)
+uint64_t _SBSGetRecentSleepsWakes(uint64_t a1, void *a2, _DWORD *a3, uint64_t a4)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v6 = a1;
+  v18 = *MEMORY[0x1E69E9840];
   memset(&msg_16[4], 0, 44);
   msg_4 = 0;
   special_reply_port = mig_get_special_reply_port();
-  msg_8 = a1;
+  msg_8 = v6;
   msg_12 = special_reply_port;
   msg = 5395;
   *msg_16 = 0x186E100000000;
   if (MEMORY[0x1EEE9AC50])
   {
     voucher_mach_msg_set(&msg);
-    v7 = msg_12;
+    v8 = msg_12;
   }
 
   else
   {
-    v7 = special_reply_port;
+    v8 = special_reply_port;
   }
 
-  v8 = mach_msg(&msg, 3162115, 0x18u, 0x40u, v7, 0, 0);
-  v9 = v8;
-  if ((v8 - 268435458) > 0xE || ((1 << (v8 - 2)) & 0x4003) == 0)
+  v9 = mach_msg(&msg, 3162115, 0x18u, 0x40u, v8, 0, 0);
+  v10 = v9;
+  if ((v9 - 268435458) > 0xE || ((1 << (v9 - 2)) & 0x4003) == 0)
   {
-    if (!v8)
+    if (!v9)
     {
       if (*&msg_16[4] == 71)
       {
-        v9 = 4294966988;
+        v10 = 4294966988;
       }
 
       else if (*&msg_16[4] == 100165)
@@ -7662,57 +7844,57 @@ uint64_t _SBSGetRecentSleepsWakes(int a1, void *a2, _DWORD *a3)
         {
           if (msg_4 == 36)
           {
-            v9 = 4294966996;
+            v10 = 4294966996;
             if (*&msg_16[16])
             {
               if (msg_8)
               {
-                v9 = 4294966996;
+                v10 = 4294966996;
               }
 
               else
               {
-                v9 = *&msg_16[16];
+                v10 = *&msg_16[16];
               }
             }
           }
 
           else
           {
-            v9 = 4294966996;
+            v10 = 4294966996;
           }
 
           goto LABEL_28;
         }
 
-        v9 = 4294966996;
+        v10 = 4294966996;
         if (*&msg_16[8] == 1 && msg_4 == 56 && !msg_8 && msg_16[23] == 1)
         {
-          v10 = *&msg_16[24];
+          v11 = *&msg_16[24];
           if (*&msg_16[24] == *&msg_16[36])
           {
-            v9 = 0;
+            v10 = 0;
             *a2 = *&msg_16[12];
-            *a3 = v10;
-            return v9;
+            *a3 = v11;
+            return v10;
           }
         }
       }
 
       else
       {
-        v9 = 4294966995;
+        v10 = 4294966995;
       }
 
 LABEL_28:
       mach_msg_destroy(&msg);
-      return v9;
+      return v10;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-  if ((v9 - 268435459) <= 1)
+  if ((v10 - 268435459) <= 1)
   {
     if ((msg & 0x1F00) == 0x1100)
     {
@@ -7722,39 +7904,40 @@ LABEL_28:
     goto LABEL_28;
   }
 
-  return v9;
+  return v10;
 }
 
-uint64_t _SBSGetScheduledPowerEvents(int a1, void *a2, _DWORD *a3)
+uint64_t _SBSGetScheduledPowerEvents(uint64_t a1, void *a2, _DWORD *a3, uint64_t a4)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v6 = a1;
+  v18 = *MEMORY[0x1E69E9840];
   memset(&msg_16[4], 0, 44);
   msg_4 = 0;
   special_reply_port = mig_get_special_reply_port();
-  msg_8 = a1;
+  msg_8 = v6;
   msg_12 = special_reply_port;
   msg = 5395;
   *msg_16 = 0x186E200000000;
   if (MEMORY[0x1EEE9AC50])
   {
     voucher_mach_msg_set(&msg);
-    v7 = msg_12;
+    v8 = msg_12;
   }
 
   else
   {
-    v7 = special_reply_port;
+    v8 = special_reply_port;
   }
 
-  v8 = mach_msg(&msg, 3162115, 0x18u, 0x40u, v7, 0, 0);
-  v9 = v8;
-  if ((v8 - 268435458) > 0xE || ((1 << (v8 - 2)) & 0x4003) == 0)
+  v9 = mach_msg(&msg, 3162115, 0x18u, 0x40u, v8, 0, 0);
+  v10 = v9;
+  if ((v9 - 268435458) > 0xE || ((1 << (v9 - 2)) & 0x4003) == 0)
   {
-    if (!v8)
+    if (!v9)
     {
       if (*&msg_16[4] == 71)
       {
-        v9 = 4294966988;
+        v10 = 4294966988;
       }
 
       else if (*&msg_16[4] == 100166)
@@ -7763,57 +7946,57 @@ uint64_t _SBSGetScheduledPowerEvents(int a1, void *a2, _DWORD *a3)
         {
           if (msg_4 == 36)
           {
-            v9 = 4294966996;
+            v10 = 4294966996;
             if (*&msg_16[16])
             {
               if (msg_8)
               {
-                v9 = 4294966996;
+                v10 = 4294966996;
               }
 
               else
               {
-                v9 = *&msg_16[16];
+                v10 = *&msg_16[16];
               }
             }
           }
 
           else
           {
-            v9 = 4294966996;
+            v10 = 4294966996;
           }
 
           goto LABEL_28;
         }
 
-        v9 = 4294966996;
+        v10 = 4294966996;
         if (*&msg_16[8] == 1 && msg_4 == 56 && !msg_8 && msg_16[23] == 1)
         {
-          v10 = *&msg_16[24];
+          v11 = *&msg_16[24];
           if (*&msg_16[24] == *&msg_16[36])
           {
-            v9 = 0;
+            v10 = 0;
             *a2 = *&msg_16[12];
-            *a3 = v10;
-            return v9;
+            *a3 = v11;
+            return v10;
           }
         }
       }
 
       else
       {
-        v9 = 4294966995;
+        v10 = 4294966995;
       }
 
 LABEL_28:
       mach_msg_destroy(&msg);
-      return v9;
+      return v10;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-  if ((v9 - 268435459) <= 1)
+  if ((v10 - 268435459) <= 1)
   {
     if ((msg & 0x1F00) == 0x1100)
     {
@@ -7823,17 +8006,18 @@ LABEL_28:
     goto LABEL_28;
   }
 
-  return v9;
+  return v10;
 }
 
-uint64_t _SBSGetBatteryUsageTimesInSeconds(int a1, _DWORD *a2, _DWORD *a3, _BYTE *a4, _BYTE *a5)
+uint64_t _SBSGetBatteryUsageTimesInSeconds(uint64_t a1, _DWORD *a2, _DWORD *a3, _BYTE *a4, _BYTE *a5)
 {
+  v9 = a1;
   v19 = 0;
   v18 = 0u;
   *&msg[20] = 0u;
   *&msg[4] = 0;
   special_reply_port = mig_get_special_reply_port();
-  *&msg[8] = a1;
+  *&msg[8] = v9;
   *&msg[12] = special_reply_port;
   *msg = 5395;
   *&msg[16] = 0x186E300000000;
@@ -9651,167 +9835,6 @@ LABEL_7:
 
   *(a2 + 32) = result;
 LABEL_8:
-  *(a2 + 24) = *MEMORY[0x1E69E99E0];
-  return result;
-}
-
-uint64_t _XAddAlertItemsSuppressionAssertion(uint64_t a1, uint64_t a2)
-{
-  if ((*a1 & 0x80000000) == 0)
-  {
-    goto LABEL_2;
-  }
-
-  v5 = *(a1 + 24);
-  result = 4294966992;
-  if (v5 == 1)
-  {
-    v6 = *(a1 + 4);
-    if ((v6 - 1081) >= 0xFFFFFBFF)
-    {
-      if (*(a1 + 38) << 16 != 1114112)
-      {
-        result = 4294966996;
-        goto LABEL_3;
-      }
-
-      v7 = *(a1 + 52);
-      if (v7 <= 0x400 && v6 - 56 >= v7 && v6 == ((v7 + 3) & 0xFFC) + 56)
-      {
-        if (!memchr((a1 + 56), 0, v6 - 56))
-        {
-LABEL_2:
-          result = 4294966992;
-          goto LABEL_3;
-        }
-
-        v8 = ((v6 + 3) & 0xFFC) + a1;
-        if (*v8 || *(v8 + 4) < 0x20u)
-        {
-          result = 4294966987;
-        }
-
-        else
-        {
-          v9 = *(a1 + 12);
-          v10 = *(a1 + 28);
-          v11 = *(v8 + 36);
-          v12[0] = *(v8 + 20);
-          v12[1] = v11;
-          result = _SBMigAddAlertItemsSuppressionAssertion(v9, a1 + 56, v10, v12);
-        }
-      }
-    }
-  }
-
-LABEL_3:
-  *(a2 + 32) = result;
-  *(a2 + 24) = *MEMORY[0x1E69E99E0];
-  return result;
-}
-
-_DWORD *_XIsReachabilityEnabled(_DWORD *result, uint64_t a2)
-{
-  if ((*result & 0x80000000) != 0 || result[1] != 24)
-  {
-    v4 = -304;
-    goto LABEL_7;
-  }
-
-  v3 = result + 6;
-  if (result[6] || result[7] <= 0x1Fu)
-  {
-    v4 = -309;
-LABEL_7:
-    *(a2 + 32) = v4;
-    *(a2 + 24) = *MEMORY[0x1E69E99E0];
-    return result;
-  }
-
-  v5 = result[3];
-  v6 = *(v3 + 9);
-  v7[0] = *(v3 + 5);
-  v7[1] = v6;
-  result = _SBMigIsReachabilityEnabled(v5, (a2 + 36), v7);
-  *(a2 + 32) = result;
-  *(a2 + 24) = *MEMORY[0x1E69E99E0];
-  if (!result)
-  {
-    *(a2 + 4) = 40;
-  }
-
-  return result;
-}
-
-uint64_t _XSetReachabilityEnabled(uint64_t result, uint64_t a2)
-{
-  if ((*result & 0x80000000) != 0 || *(result + 4) != 36)
-  {
-    v3 = -304;
-  }
-
-  else
-  {
-    if (!*(result + 36) && *(result + 40) > 0x1Fu)
-    {
-      v4 = *(result + 12);
-      v5 = *(result + 32);
-      v6 = *(result + 72);
-      v7[0] = *(result + 56);
-      v7[1] = v6;
-      result = _SBMigSetReachabilityEnabled(v4, v5, v7);
-      *(a2 + 32) = result;
-      return result;
-    }
-
-    v3 = -309;
-  }
-
-  *(a2 + 32) = v3;
-  *(a2 + 24) = *MEMORY[0x1E69E99E0];
-  return result;
-}
-
-uint64_t _XOverrideDisplayedDate(int *a1, uint64_t a2)
-{
-  v4 = *a1;
-  result = 4294966992;
-  if ((v4 & 0x80000000) == 0)
-  {
-    v6 = a1[1];
-    if ((v6 - 1065) >= 0xFFFFFBFF)
-    {
-      v7 = a1[9];
-      v8 = v7 <= 0x400 && v6 - 40 >= v7;
-      if (v8 && v6 == ((v7 + 3) & 0xFFC) + 40)
-      {
-        if (memchr(a1 + 10, 0, v6 - 40))
-        {
-          v9 = a1 + ((v6 + 3) & 0xFFC);
-          if (*v9 || *(v9 + 1) < 0x20u)
-          {
-            result = 4294966987;
-          }
-
-          else
-          {
-            v10 = a1[3];
-            v11 = *(v9 + 36);
-            v12[0] = *(v9 + 20);
-            v12[1] = v11;
-            result = _SBMigOverrideDisplayedDate(v10, (a1 + 10), v12);
-          }
-        }
-
-        else
-        {
-          result = 4294966992;
-        }
-      }
-    }
-  }
-
-  *(a2 + 32) = result;
   *(a2 + 24) = *MEMORY[0x1E69E99E0];
   return result;
 }

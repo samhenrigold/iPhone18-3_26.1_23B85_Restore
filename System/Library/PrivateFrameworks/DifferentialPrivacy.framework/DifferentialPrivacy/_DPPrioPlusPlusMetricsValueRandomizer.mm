@@ -81,7 +81,7 @@ LABEL_10:
 
 - (id)randomizeFloatVectors:(id)vectors metadata:(id)metadata forKey:(id)key
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   vectorsCopy = vectors;
   metadataCopy = metadata;
   keyCopy = key;
@@ -89,27 +89,27 @@ LABEL_10:
   [v9 timeIntervalSinceReferenceDate];
   v11 = v10;
 
-  v24 = [MEMORY[0x277CBEBF8] mutableCopy];
+  v23 = [MEMORY[0x277CBEBF8] mutableCopy];
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   obj = vectorsCopy;
-  v12 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v12 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v29;
+    v14 = *v28;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v29 != v14)
+        if (*v28 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = [(_DPPrioPlusPlusMetricsValueRandomizer *)self randomizeFloatVector:*(*(&v28 + 1) + 8 * i) metadata:metadataCopy];
+        v16 = [(_DPPrioPlusPlusMetricsValueRandomizer *)self randomizeFloatVector:*(*(&v27 + 1) + 8 * i) metadata:metadataCopy];
         if ([v16 count])
         {
           v17 = [v16 objectForKeyedSubscript:@"share1"];
@@ -119,32 +119,29 @@ LABEL_10:
           v21 = -[_DPPrioRecord initWithKey:share1:share2:dimension:metadata:creationDate:submitted:objectId:]([_DPPrioRecord alloc], "initWithKey:share1:share2:dimension:metadata:creationDate:submitted:objectId:", keyCopy, v17, v18, [v19 longLongValue], v20, 0, v11, 0);
           if (v21)
           {
-            [v24 addObject:v21];
+            [v23 addObject:v21];
           }
         }
       }
 
-      v13 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v13 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
     }
 
     while (v13);
   }
 
-  v22 = *MEMORY[0x277D85DE8];
-
-  return v24;
+  return v23;
 }
 
 - (void)randomizeFloatVector:(os_log_t)log metadata:.cold.2(uint64_t *a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *a1;
-  v5 = 134218240;
-  v6 = a2;
-  v7 = 2048;
-  v8 = v3;
-  _os_log_error_impl(&dword_22622D000, log, OS_LOG_TYPE_ERROR, "Float vector dimension %lu exceeds limit %lu for PrioPlusPlusMetricsAlgorithm.", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 134218240;
+  v5 = a2;
+  v6 = 2048;
+  v7 = v3;
+  _os_log_error_impl(&dword_22622D000, log, OS_LOG_TYPE_ERROR, "Float vector dimension %lu exceeds limit %lu for PrioPlusPlusMetricsAlgorithm.", &v4, 0x16u);
 }
 
 @end

@@ -300,17 +300,17 @@ LABEL_4:
   else
   {
     v16 = [(AEAnnotationSerializationManager *)self urlForOfflineDBWithAssetID:dCopy];
-    v17 = BKMobileCloudSyncAnnotationsLog();
+    v17 = BKMobileCloudSyncAnnotationsLog(v16);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
       *&buf[4] = dCopy;
-      v33 = 2112;
-      v34 = v16;
+      v34 = 2112;
+      v35 = v16;
       _os_log_impl(&dword_0, v17, OS_LOG_TYPE_DEFAULT, "Taking asset offline. assetID: %@, db url: %@", buf, 0x16u);
     }
 
-    if (v16 && ([v16 URLByDeletingLastPathComponent], v18 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v18, "path"), v19 = objc_claimAutoreleasedReturnValue(), v20 = -[AEAnnotationSerializationManager p_ensureDirectoryPathExists:](self, "p_ensureDirectoryPathExists:", v19), v19, v18, v20))
+    if (v16 && ([v16 URLByDeletingLastPathComponent], v19 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v19, "path"), v20 = objc_claimAutoreleasedReturnValue(), v21 = -[AEAnnotationSerializationManager p_ensureDirectoryPathExists:](self, "p_ensureDirectoryPathExists:", v20), v20, v19, v21))
     {
       if (data)
       {
@@ -321,23 +321,23 @@ LABEL_4:
       {
         [NSPredicate predicateWithValue:0];
       }
-      v22 = ;
-      v31 = 0;
-      [providerCopy exportAnnotationsMatchingPredicate:v22 toURL:v16 withType:0 error:&v31];
-      v23 = v31;
-      v21 = v23;
-      if (v23)
+      v23 = ;
+      v32 = 0;
+      [providerCopy exportAnnotationsMatchingPredicate:v23 toURL:v16 withType:0 error:&v32];
+      v24 = v32;
+      v22 = v24;
+      if (v24)
       {
-        sub_1EB424(v23, v24, v25, v26, v27, v28, v29, v30);
+        sub_1EB424(v24, v25, v26, v27, v28, v29, v30, v31);
       }
     }
 
     else
     {
-      v21 = BKMobileCloudSyncAnnotationsLog();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v22 = BKMobileCloudSyncAnnotationsLog(v18);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
-        sub_1EB470(v21);
+        sub_1EB470(v22);
       }
     }
   }

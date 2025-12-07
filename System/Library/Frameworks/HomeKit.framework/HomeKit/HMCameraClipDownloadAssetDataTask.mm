@@ -10,23 +10,23 @@
 {
   length = range.length;
   location = range.location;
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v6 = objc_autoreleasePoolPush();
   selfCopy = self;
   v8 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v33.location = location;
-    v33.length = length;
-    v10 = NSStringFromRange(v33);
+    v32.location = location;
+    v32.length = length;
+    v10 = NSStringFromRange(v32);
     urlRequest = [(HMCameraClipDownloadAssetDataTask *)selfCopy urlRequest];
     *buf = 138543874;
-    v27 = v9;
-    v28 = 2112;
-    v29 = v10;
-    v30 = 2112;
-    v31 = urlRequest;
+    v26 = v9;
+    v27 = 2112;
+    v28 = v10;
+    v29 = 2112;
+    v30 = urlRequest;
     _os_log_impl(&dword_19BB39000, v8, OS_LOG_TYPE_INFO, "%{public}@Downloading data with byte range %@ for URL request %@", buf, 0x20u);
   }
 
@@ -38,27 +38,26 @@
 
   handler = [(HMCameraClipDownloadAssetDataTask *)selfCopy handler];
   urlRequest3 = [(HMCameraClipDownloadAssetDataTask *)selfCopy urlRequest];
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __62__HMCameraClipDownloadAssetDataTask_downloadDataForByteRange___block_invoke;
-  v22[3] = &unk_1E7548848;
-  v22[4] = selfCopy;
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __62__HMCameraClipDownloadAssetDataTask_downloadDataForByteRange___block_invoke;
+  v21[3] = &unk_1E7548848;
+  v21[4] = selfCopy;
   v17 = v12;
-  v23 = v17;
-  v24 = location;
-  v25 = length;
-  [handler resumeDataTaskWithRequest:urlRequest3 completionHandler:v22];
+  v22 = v17;
+  v23 = location;
+  v24 = length;
+  [handler resumeDataTaskWithRequest:urlRequest3 completionHandler:v21];
 
-  v18 = v23;
+  v18 = v22;
   v19 = v17;
 
-  v20 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
 void __62__HMCameraClipDownloadAssetDataTask_downloadDataForByteRange___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -89,11 +88,11 @@ void __62__HMCameraClipDownloadAssetDataTask_downloadDataForByteRange___block_in
         {
           v16 = HMFGetLogIdentifier();
           v17 = NSStringFromRange(*(a1 + 48));
-          v33 = 138543618;
-          v34 = v16;
-          v35 = 2112;
-          v36 = v17;
-          _os_log_impl(&dword_19BB39000, v15, OS_LOG_TYPE_INFO, "%{public}@Successfully downloaded asset data with byte range %@", &v33, 0x16u);
+          v32 = 138543618;
+          v33 = v16;
+          v34 = 2112;
+          v35 = v17;
+          _os_log_impl(&dword_19BB39000, v15, OS_LOG_TYPE_INFO, "%{public}@Successfully downloaded asset data with byte range %@", &v32, 0x16u);
         }
 
         objc_autoreleasePoolPop(v13);
@@ -107,11 +106,11 @@ void __62__HMCameraClipDownloadAssetDataTask_downloadDataForByteRange___block_in
       if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
         v29 = HMFGetLogIdentifier();
-        v33 = 138543618;
-        v34 = v29;
-        v35 = 2048;
-        v36 = [v12 statusCode];
-        _os_log_impl(&dword_19BB39000, v28, OS_LOG_TYPE_ERROR, "%{public}@Received bad HTTP response status code from asset data download: %lu", &v33, 0x16u);
+        v32 = 138543618;
+        v33 = v29;
+        v34 = 2048;
+        v35 = [v12 statusCode];
+        _os_log_impl(&dword_19BB39000, v28, OS_LOG_TYPE_ERROR, "%{public}@Received bad HTTP response status code from asset data download: %lu", &v32, 0x16u);
       }
     }
 
@@ -123,14 +122,14 @@ void __62__HMCameraClipDownloadAssetDataTask_downloadDataForByteRange___block_in
       if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         v25 = HMFGetLogIdentifier();
-        v33 = 138543874;
-        v34 = v25;
-        v35 = 2112;
-        v36 = objc_opt_class();
-        v37 = 2112;
-        v38 = v10;
-        v26 = v36;
-        _os_log_impl(&dword_19BB39000, v24, OS_LOG_TYPE_ERROR, "%{public}@Response was not of class NSHTTPURLResponse (class=%@): %@", &v33, 0x20u);
+        v32 = 138543874;
+        v33 = v25;
+        v34 = 2112;
+        v35 = objc_opt_class();
+        v36 = 2112;
+        v37 = v10;
+        v26 = v35;
+        _os_log_impl(&dword_19BB39000, v24, OS_LOG_TYPE_ERROR, "%{public}@Response was not of class NSHTTPURLResponse (class=%@): %@", &v32, 0x20u);
       }
     }
 
@@ -149,18 +148,16 @@ LABEL_21:
   if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
   {
     v21 = HMFGetLogIdentifier();
-    v33 = 138543618;
-    v34 = v21;
-    v35 = 2112;
-    v36 = v9;
-    _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_ERROR, "%{public}@Download of asset data failed: %@", &v33, 0x16u);
+    v32 = 138543618;
+    v33 = v21;
+    v34 = 2112;
+    v35 = v9;
+    _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_ERROR, "%{public}@Download of asset data failed: %@", &v32, 0x16u);
   }
 
   objc_autoreleasePoolPop(v18);
   [*(a1 + 40) finishWithError:v9];
 LABEL_22:
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 - (HMCameraClipDownloadAssetDataTask)initWithURL:(id)l httpHeaderFields:(id)fields handler:(id)handler

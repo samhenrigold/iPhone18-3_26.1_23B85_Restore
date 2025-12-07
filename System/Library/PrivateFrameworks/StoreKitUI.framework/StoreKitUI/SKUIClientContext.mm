@@ -419,9 +419,9 @@ void __68__SKUIClientContext_getDefaultMetricsControllerWithCompletionBlock___bl
 
   mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
   bundleIdentifier = [mainBundle bundleIdentifier];
-  v6 = [bundleIdentifier isEqualToString:@"com.apple.Music"];
+  isEqualToString = objc_msgSend_isEqualToString_(bundleIdentifier);
 
-  return v6;
+  return isEqualToString;
 }
 
 - (id)tabBarItemsForStyle:(int64_t)style
@@ -885,7 +885,7 @@ uint64_t __66__SKUIClientContext_loadValueForConfigurationKey_completionBlock___
 
 - (Class)moviePlayerViewControllerClass
 {
-  v2 = SKUIMediaPlayerFramework();
+  v2 = SKUIMediaPlayerFramework(self, a2);
 
   return SKUIWeakLinkedClassForString(&cfstr_Mpmovieplayerv.isa, v2);
 }

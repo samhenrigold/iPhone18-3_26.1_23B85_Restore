@@ -395,7 +395,7 @@ LABEL_8:
 
 - (void)configureSupplementaryRegistration:(id)registration elementKind:(id)kind sectionIdentifier:(id)identifier
 {
-  v21[2] = *MEMORY[0x1E69E9840];
+  v22[2] = *MEMORY[0x1E69E9840];
   registrationCopy = registration;
   identifierCopy = identifier;
   if ([identifierCopy isEqualToString:@"InstalledAppsSection"])
@@ -418,27 +418,27 @@ LABEL_8:
   {
     v11 = v10;
     headerConfiguration = [MEMORY[0x1E69DCC28] headerConfiguration];
-    [headerConfiguration setAxesPreservingSuperviewLayoutMargins:0];
-    v20[0] = *MEMORY[0x1E69DB648];
-    v13 = PKOBKListHeaderFont();
-    v21[0] = v13;
-    v20[1] = *MEMORY[0x1E69DB650];
-    v14 = PKOBKListHeaderTextColor();
-    v21[1] = v14;
-    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:2];
+    v13 = [headerConfiguration setAxesPreservingSuperviewLayoutMargins:0];
+    v21[0] = *MEMORY[0x1E69DB648];
+    v14 = PKOBKListHeaderFont(v13);
+    v22[0] = v14;
+    v21[1] = *MEMORY[0x1E69DB650];
+    v15 = PKOBKListHeaderTextColor(v14);
+    v22[1] = v15;
+    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:2];
 
-    v16 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:v11 attributes:v15];
-    [headerConfiguration setAttributedText:v16];
+    v17 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:v11 attributes:v16];
+    [headerConfiguration setAttributedText:v17];
 
-    v17 = PKSetupViewConstantsViewMargin();
-    v18 = PKSetupListViewConstantsViewMargin();
-    v19 = v17 - v18;
-    if (v18 > v17)
+    v18 = PKSetupViewConstantsViewMargin();
+    v19 = PKSetupListViewConstantsViewMargin();
+    v20 = v18 - v19;
+    if (v19 > v18)
     {
-      v19 = 0.0;
+      v20 = 0.0;
     }
 
-    [headerConfiguration setDirectionalLayoutMargins:{10.0, v19, 10.0, v19}];
+    [headerConfiguration setDirectionalLayoutMargins:{10.0, v20, 10.0, v20}];
     [registrationCopy setContentConfiguration:headerConfiguration];
   }
 

@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (int)frequency;
 - (void)pronunciations:(id)pronunciations;
+- (void)setFrequency:(int)frequency;
 - (void)setOrthography:(id)orthography;
 - (void)setPronunciations:(id)pronunciations;
 - (void)setTag:(id)tag;
@@ -13,6 +14,12 @@
 - (void)setTag:(id)tag
 {
   v4 = [tag copy];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
+
+- (void)setFrequency:(int)frequency
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:*&frequency];
   [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 

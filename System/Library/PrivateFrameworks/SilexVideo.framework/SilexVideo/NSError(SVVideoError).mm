@@ -7,16 +7,16 @@
 
 + (id)videoErrorWithUnderlyingError:()SVVideoError
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v4 = a3;
   domain = [v4 domain];
   v6 = [self errorCodeForUnderlyingErrorDomain:domain];
 
   if (v4)
   {
-    v11 = v4;
-    v12[0] = *MEMORY[0x277CCA7E8];
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v10 = v4;
+    v11[0] = *MEMORY[0x277CCA7E8];
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
   }
 
   else
@@ -25,8 +25,6 @@
   }
 
   v8 = [MEMORY[0x277CCA9B8] errorWithDomain:@"SVVideoErrorDomain" code:v6 userInfo:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

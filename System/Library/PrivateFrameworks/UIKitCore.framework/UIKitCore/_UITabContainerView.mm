@@ -1942,15 +1942,15 @@ LABEL_10:
   if (self->_sidebarResizeDirectPanGestureRecognizer == recognizer || self->_sidebarResizeIndirectPanGestureRecognizer == recognizer)
   {
     name = [gestureRecognizerCopy name];
-    v8 = [name isEqualToString:@"com.apple.UIKit.UIWindowDraggingPan"];
+    isEqualToString = objc_msgSend_isEqualToString_(name);
   }
 
   else
   {
-    v8 = 1;
+    isEqualToString = 1;
   }
 
-  return v8;
+  return isEqualToString;
 }
 
 - (void)setSupportsResizingSidebar:(BOOL)sidebar
@@ -2603,7 +2603,7 @@ LABEL_12:
 
   if (v21)
   {
-    [v21 transform];
+    objc_msgSend_transform(v21);
   }
 
   else

@@ -1,5 +1,6 @@
 @interface AppDelegate
 - (BOOL)_canBeAcceptedOnWatch:(id)watch;
+- (BOOL)_handleURL:(id)l invitationToken:(id)token isSourceICS:(BOOL)s unitTestOverrides:(id)overrides;
 - (BOOL)_shouldLaunchAcceptFlowForShareURL:(id)l;
 - (BOOL)application:(id)application openURL:(id)l options:(id)options;
 - (BOOL)handleUniversalLinkInUserActivity:(id)activity unitTestOverrides:(id)overrides;
@@ -10,6 +11,7 @@
 - (void)_acceptShareWithAcceptor:(id)acceptor;
 - (void)_synchronouslyAcceptShareWithAcceptor:(id)acceptor;
 - (void)acceptShareWithMetadata:(id)metadata shareURL:(id)l;
+- (void)acceptShareWithURL:(id)l invitationToken:(id)token isSourceICS:(BOOL)s unitTestOverrides:(id)overrides;
 - (void)initOnce;
 - (void)injectTestTargetContainer:(id)container;
 - (void)vetURL:(id)l;
@@ -198,6 +200,39 @@
   }
 }
 
+- (void)acceptShareWithURL:(id)l invitationToken:(id)token isSourceICS:(BOOL)s unitTestOverrides:(id)overrides
+{
+  sCopy = s;
+  overridesCopy = overrides;
+  tokenCopy = token;
+  lCopy = l;
+  v15 = [[ShareAcceptor alloc] initWithCloudKitURL:lCopy invitationToken:tokenCopy isSourceICS:sCopy unitTestOverrides:overridesCopy];
+
+  if (__sTestOverridesAvailable == 1)
+  {
+    testContainer = [(AppDelegate *)self testContainer];
+
+    if (testContainer)
+    {
+      testContainer2 = [(AppDelegate *)self testContainer];
+      [(ShareAcceptor *)v15 setTestTargetContainer:testContainer2];
+    }
+
+    [(ShareAcceptor *)v15 setShouldTerminateAfterFetchingMetadata:1];
+  }
+
+  [(AppDelegate *)self setShareAcceptor:v15];
+  if (__sTestOverridesAvailable == 1)
+  {
+    [(AppDelegate *)self _synchronouslyAcceptShareWithAcceptor:v15];
+  }
+
+  else
+  {
+    [(AppDelegate *)self _acceptShareWithAcceptor:v15];
+  }
+}
+
 - (void)acceptShareWithMetadata:(id)metadata shareURL:(id)l
 {
   lCopy = l;
@@ -275,6 +310,36 @@
       _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "Vetting URL is already being handled, ignoring: %@", buf, 0xCu);
     }
   }
+}
+
+- (BOOL)_handleURL:(id)l invitationToken:(id)token isSourceICS:(BOOL)s unitTestOverrides:(id)overrides
+{
+  sCopy = s;
+  lCopy = l;
+  tokenCopy = token;
+  overridesCopy = overrides;
+  if ([(AppDelegate *)self _shouldLaunchAcceptFlowForShareURL:lCopy])
+  {
+    LOBYTE(v13) = 1;
+    v14 = [NSURLComponents componentsWithURL:lCopy resolvingAgainstBaseURL:1];
+    [v14 setScheme:kCKURLComponentsScheme];
+    v15 = [v14 URL];
+    [(AppDelegate *)self acceptShareWithURL:v15 invitationToken:tokenCopy isSourceICS:sCopy unitTestOverrides:overridesCopy];
+  }
+
+  else
+  {
+    cKURLSlug = [lCopy CKURLSlug];
+    v13 = [cKURLSlug isEqualToString:kCKVettingURLSlug];
+
+    if (v13)
+    {
+      [(AppDelegate *)self vetURL:lCopy];
+      LOBYTE(v13) = 1;
+    }
+  }
+
+  return v13;
 }
 
 - (BOOL)_canBeAcceptedOnWatch:(id)watch

@@ -18,9 +18,9 @@
   filterCopy = filter;
   v16 = objc_opt_class();
   v19 = objc_msgSend_reuseIdentifier(v16, v17, v18);
-  v45.receiver = self;
-  v45.super_class = NTKCLeghornFaceDetailEditOptionCell;
-  v20 = [(NTKCDetailTableViewCell *)&v45 initWithStyle:0 reuseIdentifier:v19];
+  v43.receiver = self;
+  v43.super_class = NTKCLeghornFaceDetailEditOptionCell;
+  v20 = [(NTKCDetailTableViewCell *)&v43 initWithStyle:0 reuseIdentifier:v19];
 
   if (v20)
   {
@@ -42,18 +42,18 @@
     v20->_valueLabel = v25;
 
     v27 = objc_alloc(MEMORY[0x277D75A68]);
-    v29 = objc_msgSend_initWithFrame_(v27, v28, *MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24));
+    v30 = objc_msgSend_initWithFrame_(v27, v28, v29, *MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24));
     alignmentView = v20->_alignmentView;
-    v20->_alignmentView = v29;
+    v20->_alignmentView = v30;
 
-    objc_msgSend_setSelectionStyle_(v20, v31, v32, 3);
+    objc_msgSend_setSelectionStyle_(v20, v32, 3);
     objc_msgSend__setupSubviews(v20, v33, v34);
     objc_msgSend_setupDetails(v20, v35, v36);
-    objc_msgSend_setFilter_(v20, v37, v38, filterCopy);
+    objc_msgSend_setFilter_(v20, v37, filterCopy);
     if (v20->_category || allCopy)
     {
-      v41 = objc_msgSend_secondarySystemGroupedBackgroundColor(MEMORY[0x277D75348], v39, v40);
-      objc_msgSend_setBackgroundColor_(v20, v42, v43, v41);
+      v40 = objc_msgSend_secondarySystemGroupedBackgroundColor(MEMORY[0x277D75348], v38, v39);
+      objc_msgSend_setBackgroundColor_(v20, v41, v40);
     }
   }
 
@@ -63,10 +63,10 @@
 - (void)setupDetails
 {
   v3 = self->_name;
-  v23 = v3;
+  v19 = v3;
   if (v3)
   {
-    objc_msgSend_setText_(self->_titleLabel, v3, v5, v3);
+    objc_msgSend_setText_(self->_titleLabel, v3, v3);
   }
 
   else
@@ -75,19 +75,19 @@
     if (self->_all)
     {
       v7 = objc_msgSend_showAllString(section, v4, v5);
-      objc_msgSend_setText_(self->_titleLabel, v8, v9, v7);
+      objc_msgSend_setText_(self->_titleLabel, v8, v7);
     }
 
     else
     {
-      v10 = objc_msgSend_name(section, v4, v5);
-      objc_msgSend_setText_(self->_titleLabel, v11, v12, v10);
+      v9 = objc_msgSend_name(section, v4, v5);
+      objc_msgSend_setText_(self->_titleLabel, v10, v9);
 
-      v15 = objc_msgSend_action(self->_section, v13, v14);
-      objc_msgSend_setText_(self->_valueLabel, v16, v17, v15);
+      v13 = objc_msgSend_action(self->_section, v11, v12);
+      objc_msgSend_setText_(self->_valueLabel, v14, v13);
 
-      v20 = objc_msgSend_detailsCount(self->_section, v18, v19) != 0;
-      objc_msgSend_setAccessoryType_(self, v21, v22, v20);
+      v17 = objc_msgSend_detailsCount(self->_section, v15, v16) != 0;
+      objc_msgSend_setAccessoryType_(self, v18, v17);
     }
   }
 }
@@ -97,25 +97,25 @@
   v4 = self->_name;
   if (v4)
   {
-    v6 = objc_msgSend_includesCategory_named_(self->_filter, v3, v5, self->_category, v4);
+    v5 = objc_msgSend_includesCategory_named_(self->_filter, v3, self->_category, v4);
   }
 
   else
   {
     all = self->_all;
-    v8 = objc_msgSend_selectionForFilter_(self->_section, v3, v5, self->_filter);
+    v7 = objc_msgSend_selectionForFilter_(self->_section, v3, self->_filter);
     if (all)
     {
-      v6 = v8 == 2;
+      v5 = v7 == 2;
     }
 
     else
     {
-      v6 = v8 != 0;
+      v5 = v7 != 0;
     }
   }
 
-  return v6;
+  return v5;
 }
 
 - (void)setFilter:(id)filter
@@ -125,99 +125,99 @@
   if (objc_msgSend_isChecked(self, v5, v6))
   {
     v9 = objc_msgSend__checkmarkImage(self, v7, v8);
-    objc_msgSend_setImage_(self->_leadingAccessoryView, v10, v11, v9);
+    objc_msgSend_setImage_(self->_leadingAccessoryView, v10, v9);
   }
 
   else
   {
-    objc_msgSend_setImage_(self->_leadingAccessoryView, v7, v8, 0);
+    objc_msgSend_setImage_(self->_leadingAccessoryView, v7, 0);
   }
 }
 
 - (id)_checkmarkImage
 {
-  v3 = objc_msgSend_configurationWithWeight_(MEMORY[0x277D755D0], a2, v2, 6);
-  v6 = objc_msgSend_configurationWithTextStyle_(MEMORY[0x277D755D0], v4, v5, *MEMORY[0x277D76918]);
-  v9 = objc_msgSend_configurationByApplyingConfiguration_(v3, v7, v8, v6);
-  v12 = objc_msgSend_systemImageNamed_withConfiguration_(MEMORY[0x277D755B8], v10, v11, @"checkmark", v9);
+  v2 = objc_msgSend_configurationWithWeight_(MEMORY[0x277D755D0], a2, 6);
+  v4 = objc_msgSend_configurationWithTextStyle_(MEMORY[0x277D755D0], v3, *MEMORY[0x277D76918]);
+  v6 = objc_msgSend_configurationByApplyingConfiguration_(v2, v5, v4);
+  v8 = objc_msgSend_systemImageNamed_withConfiguration_(MEMORY[0x277D755B8], v7, @"checkmark", v6);
 
-  return v12;
+  return v8;
 }
 
 - (double)_reservedSizeForImage
 {
-  v3 = objc_msgSend_preferredFontForTextStyle_(MEMORY[0x277D74300], a2, v2, *MEMORY[0x277D76918]);
-  objc_msgSend_pointSize(v3, v4, v5);
-  v7 = v6;
+  v2 = objc_msgSend_preferredFontForTextStyle_(MEMORY[0x277D74300], a2, *MEMORY[0x277D76918]);
+  objc_msgSend_pointSize(v2, v3, v4);
+  v6 = v5;
 
-  return v7;
+  return v6;
 }
 
 - (void)_setupSubviews
 {
-  v114[4] = *MEMORY[0x277D85DE8];
-  v113 = objc_opt_new();
-  objc_msgSend_addArrangedSubview_(self->_alignmentView, v3, v4, self->_leadingAccessoryView);
-  objc_msgSend_addArrangedSubview_(self->_alignmentView, v5, v6, self->_titleLabel);
-  objc_msgSend_addArrangedSubview_(self->_alignmentView, v7, v8, v113);
-  objc_msgSend_addArrangedSubview_(self->_alignmentView, v9, v10, self->_valueLabel);
-  v13 = objc_msgSend_contentView(self, v11, v12);
-  objc_msgSend_addSubview_(v13, v14, v15, self->_alignmentView);
+  v92[4] = *MEMORY[0x277D85DE8];
+  v91 = objc_opt_new();
+  objc_msgSend_addArrangedSubview_(self->_alignmentView, v3, self->_leadingAccessoryView);
+  objc_msgSend_addArrangedSubview_(self->_alignmentView, v4, self->_titleLabel);
+  objc_msgSend_addArrangedSubview_(self->_alignmentView, v5, v91);
+  objc_msgSend_addArrangedSubview_(self->_alignmentView, v6, self->_valueLabel);
+  v9 = objc_msgSend_contentView(self, v7, v8);
+  objc_msgSend_addSubview_(v9, v10, self->_alignmentView);
 
-  LODWORD(v16) = 1132068864;
-  objc_msgSend_setContentCompressionResistancePriority_forAxis_(self->_valueLabel, v17, v16, 0);
-  objc_msgSend_setTranslatesAutoresizingMaskIntoConstraints_(self->_alignmentView, v18, v19, 0);
-  objc_msgSend_setPreservesSuperviewLayoutMargins_(self->_alignmentView, v20, v21, 1);
-  v24 = objc_msgSend_contentView(self, v22, v23);
-  v27 = objc_msgSend_layoutMarginsGuide(v24, v25, v26);
+  LODWORD(v11) = 1132068864;
+  objc_msgSend_setContentCompressionResistancePriority_forAxis_(self->_valueLabel, v12, 0, v11);
+  objc_msgSend_setTranslatesAutoresizingMaskIntoConstraints_(self->_alignmentView, v13, 0);
+  objc_msgSend_setPreservesSuperviewLayoutMargins_(self->_alignmentView, v14, 1);
+  v17 = objc_msgSend_contentView(self, v15, v16);
+  v20 = objc_msgSend_layoutMarginsGuide(v17, v18, v19);
 
-  v106 = MEMORY[0x277CCAAD0];
-  v111 = objc_msgSend_leadingAnchor(self->_alignmentView, v28, v29);
-  v110 = objc_msgSend_leadingAnchor(v27, v30, v31);
-  v109 = objc_msgSend_constraintEqualToAnchor_(v111, v32, v33, v110);
-  v114[0] = v109;
-  v108 = objc_msgSend_trailingAnchor(self->_alignmentView, v34, v35);
-  v107 = objc_msgSend_trailingAnchor(v27, v36, v37);
-  v40 = objc_msgSend_constraintEqualToAnchor_(v108, v38, v39, v107);
-  v114[1] = v40;
-  v43 = objc_msgSend_topAnchor(self->_alignmentView, v41, v42);
-  v112 = v27;
-  v46 = objc_msgSend_topAnchor(v27, v44, v45);
-  v49 = objc_msgSend_constraintEqualToAnchor_(v43, v47, v48, v46);
-  v114[2] = v49;
-  v52 = objc_msgSend_bottomAnchor(self->_alignmentView, v50, v51);
-  v55 = objc_msgSend_bottomAnchor(v27, v53, v54);
-  v58 = objc_msgSend_constraintEqualToAnchor_(v52, v56, v57, v55);
-  v114[3] = v58;
-  v61 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v59, v60, v114, 4);
-  objc_msgSend_activateConstraints_(v106, v62, v63, v61);
+  v84 = MEMORY[0x277CCAAD0];
+  v89 = objc_msgSend_leadingAnchor(self->_alignmentView, v21, v22);
+  v88 = objc_msgSend_leadingAnchor(v20, v23, v24);
+  v87 = objc_msgSend_constraintEqualToAnchor_(v89, v25, v88);
+  v92[0] = v87;
+  v86 = objc_msgSend_trailingAnchor(self->_alignmentView, v26, v27);
+  v85 = objc_msgSend_trailingAnchor(v20, v28, v29);
+  v31 = objc_msgSend_constraintEqualToAnchor_(v86, v30, v85);
+  v92[1] = v31;
+  v34 = objc_msgSend_topAnchor(self->_alignmentView, v32, v33);
+  v90 = v20;
+  v37 = objc_msgSend_topAnchor(v20, v35, v36);
+  v39 = objc_msgSend_constraintEqualToAnchor_(v34, v38, v37);
+  v92[2] = v39;
+  v42 = objc_msgSend_bottomAnchor(self->_alignmentView, v40, v41);
+  v45 = objc_msgSend_bottomAnchor(v20, v43, v44);
+  v47 = objc_msgSend_constraintEqualToAnchor_(v42, v46, v45);
+  v92[3] = v47;
+  v49 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v48, v92, 4);
+  objc_msgSend_activateConstraints_(v84, v50, v49);
 
-  objc_msgSend_setAxis_(self->_alignmentView, v64, v65, 0);
-  objc_msgSend_setAlignment_(self->_alignmentView, v66, v67, 3);
-  objc_msgSend_setSpacing_(self->_alignmentView, v68, 8.0);
-  v71 = objc_msgSend_widthAnchor(self->_leadingAccessoryView, v69, v70);
-  objc_msgSend__reservedSizeForImage(self, v72, v73);
-  v76 = objc_msgSend_constraintEqualToConstant_(v71, v74, v75);
-  objc_msgSend_setActive_(v76, v77, v78, 1);
+  objc_msgSend_setAxis_(self->_alignmentView, v51, 0);
+  objc_msgSend_setAlignment_(self->_alignmentView, v52, 3);
+  objc_msgSend_setSpacing_(self->_alignmentView, v53, v54, 8.0);
+  v57 = objc_msgSend_widthAnchor(self->_leadingAccessoryView, v55, v56);
+  objc_msgSend__reservedSizeForImage(self, v58, v59);
+  v62 = objc_msgSend_constraintEqualToConstant_(v57, v60, v61);
+  objc_msgSend_setActive_(v62, v63, 1);
 
   titleLabel = self->_titleLabel;
-  v80 = *MEMORY[0x277D76918];
-  v83 = objc_msgSend_preferredFontForTextStyle_(MEMORY[0x277D74300], v81, v82, *MEMORY[0x277D76918]);
-  objc_msgSend_setFont_(titleLabel, v84, v85, v83);
+  v65 = *MEMORY[0x277D76918];
+  v67 = objc_msgSend_preferredFontForTextStyle_(MEMORY[0x277D74300], v66, *MEMORY[0x277D76918]);
+  objc_msgSend_setFont_(titleLabel, v68, v67);
 
-  v86 = self->_titleLabel;
-  v89 = objc_msgSend_labelColor(MEMORY[0x277D75348], v87, v88);
-  objc_msgSend_setTextColor_(v86, v90, v91, v89);
+  v69 = self->_titleLabel;
+  v72 = objc_msgSend_labelColor(MEMORY[0x277D75348], v70, v71);
+  objc_msgSend_setTextColor_(v69, v73, v72);
 
   valueLabel = self->_valueLabel;
-  v95 = objc_msgSend_preferredFontForTextStyle_(MEMORY[0x277D74300], v93, v94, v80);
-  objc_msgSend_setFont_(valueLabel, v96, v97, v95);
+  v76 = objc_msgSend_preferredFontForTextStyle_(MEMORY[0x277D74300], v75, v65);
+  objc_msgSend_setFont_(valueLabel, v77, v76);
 
-  v98 = self->_valueLabel;
-  v101 = objc_msgSend_tintColor(MEMORY[0x277D75348], v99, v100);
-  objc_msgSend_setTextColor_(v98, v102, v103, v101);
+  v78 = self->_valueLabel;
+  v81 = objc_msgSend_tintColor(MEMORY[0x277D75348], v79, v80);
+  objc_msgSend_setTextColor_(v78, v82, v81);
 
-  objc_msgSend_setShowsSeparator_(self, v104, v105, 1);
+  objc_msgSend_setShowsSeparator_(self, v83, 1);
 }
 
 @end

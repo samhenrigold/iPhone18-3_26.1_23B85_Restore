@@ -23,7 +23,7 @@
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFClosureStateObservable.closureStateService(_:didUpdateLatchState:)();
+  CAFClosureStateObservable.closureStateService(_:didUpdateLatchState:)(selfCopy, state);
 }
 
 - (void)serviceDidUpdate:(id)update characteristic:(id)characteristic fromGroupUpdate:(BOOL)groupUpdate

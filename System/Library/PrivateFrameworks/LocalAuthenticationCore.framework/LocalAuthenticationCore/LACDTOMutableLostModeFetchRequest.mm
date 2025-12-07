@@ -88,15 +88,15 @@ LABEL_13:
 
 - (NSString)description
 {
-  v24[5] = *MEMORY[0x1E69E9840];
-  v22 = MEMORY[0x1E696AEC0];
-  v21 = objc_opt_class();
-  v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"policy: %d", -[LACDTOMutableLostModeFetchRequest policy](self, "policy")];
-  v24[0] = v23;
+  v23[5] = *MEMORY[0x1E69E9840];
+  v21 = MEMORY[0x1E696AEC0];
+  v20 = objc_opt_class();
+  v22 = [MEMORY[0x1E696AEC0] stringWithFormat:@"policy: %d", -[LACDTOMutableLostModeFetchRequest policy](self, "policy")];
+  v23[0] = v22;
   v3 = MEMORY[0x1E696AEC0];
   options = [(LACDTOMutableLostModeFetchRequest *)self options];
   v5 = [v3 stringWithFormat:@"options: %@", options];
-  v24[1] = v5;
+  v23[1] = v5;
   v6 = MEMORY[0x1E696AEC0];
   isDTOEnabled = [(LACDTOMutableLostModeFetchRequest *)self isDTOEnabled];
   v8 = @"NO";
@@ -106,20 +106,18 @@ LABEL_13:
   }
 
   v9 = [v6 stringWithFormat:@"isDTOEnabled: %@", v8];
-  v24[2] = v9;
+  v23[2] = v9;
   v10 = MEMORY[0x1E696AEC0];
   ratchetState = [(LACDTOMutableLostModeFetchRequest *)self ratchetState];
   v12 = [v10 stringWithFormat:@"ratchetState: %@", ratchetState];
-  v24[3] = v12;
+  v23[3] = v12;
   v13 = MEMORY[0x1E696AEC0];
   biometryWatchdogPack = [(LACDTOMutableLostModeFetchRequest *)self biometryWatchdogPack];
   v15 = [v13 stringWithFormat:@"biometryWatchdogPack: %@", biometryWatchdogPack];
-  v24[4] = v15;
-  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:5];
+  v23[4] = v15;
+  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:5];
   v17 = [v16 componentsJoinedByString:@" "];;
-  v18 = [v22 stringWithFormat:@"<%@ %p %@>", v21, self, v17];;
-
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = [v21 stringWithFormat:@"<%@ %p %@>", v20, self, v17];;
 
   return v18;
 }

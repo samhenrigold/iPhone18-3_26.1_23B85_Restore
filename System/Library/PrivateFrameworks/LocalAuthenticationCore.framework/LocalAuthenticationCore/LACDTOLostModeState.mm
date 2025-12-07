@@ -2,11 +2,32 @@
 + (id)nullInstance;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isValid:(id)valid;
+- (LACDTOLostModeState)initWithIsInLostMode:(BOOL)mode;
+- (LACDTOLostModeState)initWithIsInLostMode:(BOOL)mode confirmed:(BOOL)confirmed;
 - (LACDTOLostModeState)initWithIsInLostMode:(BOOL)mode confirmed:(BOOL)confirmed createdAt:(id)at;
 - (id)description;
 @end
 
 @implementation LACDTOLostModeState
+
+- (LACDTOLostModeState)initWithIsInLostMode:(BOOL)mode
+{
+  modeCopy = mode;
+  v5 = [MEMORY[0x1E695DF00] now];
+  v6 = [(LACDTOLostModeState *)self initWithIsInLostMode:modeCopy confirmed:0 createdAt:v5];
+
+  return v6;
+}
+
+- (LACDTOLostModeState)initWithIsInLostMode:(BOOL)mode confirmed:(BOOL)confirmed
+{
+  confirmedCopy = confirmed;
+  modeCopy = mode;
+  v7 = [MEMORY[0x1E695DF00] now];
+  v8 = [(LACDTOLostModeState *)self initWithIsInLostMode:modeCopy confirmed:confirmedCopy createdAt:v7];
+
+  return v8;
+}
 
 - (LACDTOLostModeState)initWithIsInLostMode:(BOOL)mode confirmed:(BOOL)confirmed createdAt:(id)at
 {
@@ -80,7 +101,7 @@
 
 - (id)description
 {
-  v30[6] = *MEMORY[0x1E69E9840];
+  v29[6] = *MEMORY[0x1E69E9840];
   v3 = os_variant_allows_internal_security_policies();
   v4 = MEMORY[0x1E696AEC0];
   v5 = objc_opt_class();
@@ -98,8 +119,8 @@
       v8 = @"NO";
     }
 
-    v29 = [v7 stringWithFormat:@"isInLostMode: %@", v8];
-    v30[0] = v29;
+    v28 = [v7 stringWithFormat:@"isInLostMode: %@", v8];
+    v29[0] = v28;
     v9 = MEMORY[0x1E696AEC0];
     if ([(LACDTOLostModeState *)self confirmed])
     {
@@ -111,17 +132,17 @@
       v10 = @"NO";
     }
 
-    v28 = [v9 stringWithFormat:@"confirmed: %@", v10];
-    v30[1] = v28;
+    v27 = [v9 stringWithFormat:@"confirmed: %@", v10];
+    v29[1] = v27;
     v11 = MEMORY[0x1E696AEC0];
     createdAt = [(LACDTOLostModeState *)self createdAt];
-    v26 = [v11 stringWithFormat:@"createdAt: %@", createdAt];
-    v30[2] = v26;
+    v25 = [v11 stringWithFormat:@"createdAt: %@", createdAt];
+    v29[2] = v25;
     v12 = MEMORY[0x1E696AEC0];
     createdAt2 = [(LACDTOLostModeState *)self createdAt];
     [createdAt2 timeIntervalSince1970];
     v15 = [v12 stringWithFormat:@"createdAtTimestamp: %.2f", v14];
-    v30[3] = v15;
+    v29[3] = v15;
     v16 = MEMORY[0x1E696AEC0];
     v17 = [MEMORY[0x1E695DF00] now];
     if ([(LACDTOLostModeState *)self isValid:v17])
@@ -135,10 +156,10 @@
     }
 
     v19 = [v16 stringWithFormat:@"isValid: %@", v18];
-    v30[4] = v19;
+    v29[4] = v19;
     v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"maxAge: %.2f", LACDTOLostModeStateMaxAgeSeconds(v19)];
-    v30[5] = v20;
-    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:6];
+    v29[5] = v20;
+    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:6];
     v22 = [v21 componentsJoinedByString:@" "];;
     v23 = [v4 stringWithFormat:@"<%@ %p %@>", v6, self, v22];;
   }
@@ -147,8 +168,6 @@
   {
     v23 = [v4 stringWithFormat:@"<%@ %p>", v5, self];
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return v23;
 }

@@ -49,33 +49,34 @@
 
 - (MSDPublicDBManager)init
 {
-  v10.receiver = self;
-  v10.super_class = MSDPublicDBManager;
-  v2 = [(MSDPublicDBManager *)&v10 init];
+  v11.receiver = self;
+  v11.super_class = MSDPublicDBManager;
+  v2 = [(MSDPublicDBManager *)&v11 init];
+  v3 = v2;
   if (v2)
   {
-    v3 = sub_100030FE4();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100030FE4(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v12 = "[MSDPublicDBManager init]";
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
+      v13 = "[MSDPublicDBManager init]";
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
     }
 
-    v2->_retryCount = 0;
-    v2->_isCurrentlySyncing = 0;
-    v4 = objc_opt_new();
-    queuedPendingRequests = v2->_queuedPendingRequests;
-    v2->_queuedPendingRequests = v4;
+    v3->_retryCount = 0;
+    v3->_isCurrentlySyncing = 0;
+    v5 = objc_opt_new();
+    queuedPendingRequests = v3->_queuedPendingRequests;
+    v3->_queuedPendingRequests = v5;
 
-    v2->_syncLock._os_unfair_lock_opaque = 0;
-    v6 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_USER_INTERACTIVE, 0);
-    v7 = dispatch_queue_create("com.apple.mediasetup.publicdb-notify-queue", v6);
-    notifyQueue = v2->_notifyQueue;
-    v2->_notifyQueue = v7;
+    v3->_syncLock._os_unfair_lock_opaque = 0;
+    v7 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_USER_INTERACTIVE, 0);
+    v8 = dispatch_queue_create("com.apple.mediasetup.publicdb-notify-queue", v7);
+    notifyQueue = v3->_notifyQueue;
+    v3->_notifyQueue = v8;
   }
 
-  return v2;
+  return v3;
 }
 
 - (void)syncDataWithCloudKit:(id)kit
@@ -205,7 +206,7 @@
 
   else
   {
-    v15 = sub_100030FE4();
+    v15 = sub_100030FE4(0);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       sub_100027AE8();
@@ -241,7 +242,7 @@
 
   else
   {
-    v13 = sub_100030FE4();
+    v13 = sub_100030FE4(0);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       v15 = 138412546;
@@ -258,7 +259,7 @@
 - (void)_syncDataWithCloudKitWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = sub_100030FE4();
+  v5 = sub_100030FE4(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 136315138;
@@ -266,72 +267,78 @@
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%s", &buf, 0xCu);
   }
 
-  v41 = 0;
-  v42 = &v41;
-  v43 = 0x2020000000;
-  v44 = 0;
-  v38[0] = _NSConcreteStackBlock;
-  v38[1] = 3221225472;
-  v38[2] = sub_100025A9C;
-  v38[3] = &unk_100051FB8;
-  v38[4] = self;
-  v40 = &v41;
+  v43 = 0;
+  v44 = &v43;
+  v45 = 0x2020000000;
+  v46 = 0;
+  v40[0] = _NSConcreteStackBlock;
+  v40[1] = 3221225472;
+  v40[2] = sub_100025A9C;
+  v40[3] = &unk_100051FB8;
+  v40[4] = self;
+  v42 = &v43;
   v6 = completionCopy;
-  v39 = v6;
-  [(MSDPublicDBManager *)self _withLock:v38];
-  if (v6 && (v42[3] & 1) == 0)
+  v41 = v6;
+  v7 = [(MSDPublicDBManager *)self _withLock:v40];
+  if (v6 && (v44[3] & 1) == 0)
   {
-    v7 = sub_100030FE4();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100030FE4(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf) = 0;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "A sync with the public db is already underway. Suspending request to sync with CloudKit until sync is complete.", &buf, 2u);
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "A sync with the public db is already underway. Suspending request to sync with CloudKit until sync is complete.", &buf, 2u);
     }
 
     goto LABEL_25;
   }
 
-  v8 = sub_100030FE4();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = sub_100030FE4(v7);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf) = 0;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Starting sync with public db", &buf, 2u);
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Starting sync with public db", &buf, 2u);
   }
 
-  v9 = [CKRecordZoneID alloc];
-  v10 = [v9 initWithZoneName:MSPublicInfoRecordZoneName ownerName:CKCurrentUserDefaultName];
-  v7 = v10;
-  if (v10)
+  v10 = [CKRecordZoneID alloc];
+  v11 = [v10 initWithZoneName:MSPublicInfoRecordZoneName ownerName:CKCurrentUserDefaultName];
+  v8 = v11;
+  if (v11)
   {
-    zoneName = [v10 zoneName];
-    v12 = [(MSDPublicDBManager *)self _fetchPreviousChangeToken:zoneName];
+    zoneName = [v11 zoneName];
+    v13 = [(MSDPublicDBManager *)self _fetchPreviousChangeToken:zoneName];
 
-    v13 = objc_opt_new();
-    [v13 setPreviousServerChangeToken:v12];
-    if (v13)
+    v14 = objc_opt_new();
+    v15 = [v14 setPreviousServerChangeToken:v13];
+    if (v14)
     {
-      v51 = v7;
-      v52 = v13;
-      v14 = [NSDictionary dictionaryWithObjects:&v52 forKeys:&v51 count:1];
-      v15 = sub_100030FE4();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v53 = v8;
+      v54 = v14;
+      v16 = [NSDictionary dictionaryWithObjects:&v54 forKeys:&v53 count:1];
+      v17 = sub_100030FE4(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         LODWORD(buf) = 138477827;
-        *(&buf + 4) = v14;
-        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "[Public] Passing Configuration for recordZoneID %{private}@", &buf, 0xCu);
+        *(&buf + 4) = v16;
+        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "[Public] Passing Configuration for recordZoneID %{private}@", &buf, 0xCu);
       }
 
-      v16 = [CKFetchRecordZoneChangesOperation alloc];
-      v50 = v7;
-      v17 = [NSArray arrayWithObjects:&v50 count:1];
-      v18 = [v16 initWithRecordZoneIDs:v17 configurationsByRecordZoneID:v14];
+      v18 = [CKFetchRecordZoneChangesOperation alloc];
+      v52 = v8;
+      v19 = [NSArray arrayWithObjects:&v52 count:1];
+      v20 = [v18 initWithRecordZoneIDs:v19 configurationsByRecordZoneID:v16];
 
       *&buf = 0;
       *(&buf + 1) = &buf;
-      v46 = 0x3032000000;
-      v47 = sub_100025B38;
-      v48 = sub_100025B48;
-      v49 = 0;
+      v48 = 0x3032000000;
+      v49 = sub_100025B38;
+      v50 = sub_100025B48;
+      v51 = 0;
+      v38[0] = 0;
+      v38[1] = v38;
+      v38[2] = 0x3032000000;
+      v38[3] = sub_100025B38;
+      v38[4] = sub_100025B48;
+      v39 = objc_opt_new();
       v36[0] = 0;
       v36[1] = v36;
       v36[2] = 0x3032000000;
@@ -344,65 +351,59 @@
       v34[3] = sub_100025B38;
       v34[4] = sub_100025B48;
       v35 = objc_opt_new();
-      v32[0] = 0;
-      v32[1] = v32;
-      v32[2] = 0x3032000000;
-      v32[3] = sub_100025B38;
-      v32[4] = sub_100025B48;
-      v33 = objc_opt_new();
-      v31[0] = _NSConcreteStackBlock;
-      v31[1] = 3221225472;
-      v31[2] = sub_100025B50;
-      v31[3] = &unk_100051FE0;
-      v31[4] = v34;
-      [v18 setRecordWithIDWasDeletedBlock:v31];
-      v30[0] = _NSConcreteStackBlock;
-      v30[1] = 3221225472;
-      v30[2] = sub_100025C1C;
-      v30[3] = &unk_100052008;
-      v30[4] = v36;
-      [v18 setRecordWasChangedBlock:v30];
+      v33[0] = _NSConcreteStackBlock;
+      v33[1] = 3221225472;
+      v33[2] = sub_100025B50;
+      v33[3] = &unk_100051FE0;
+      v33[4] = v36;
+      [v20 setRecordWithIDWasDeletedBlock:v33];
+      v32[0] = _NSConcreteStackBlock;
+      v32[1] = 3221225472;
+      v32[2] = sub_100025C1C;
+      v32[3] = &unk_100052008;
+      v32[4] = v38;
+      [v20 setRecordWasChangedBlock:v32];
       objc_initWeak(&location, self);
-      v24[0] = _NSConcreteStackBlock;
-      v24[1] = 3221225472;
-      v24[2] = sub_100025D48;
-      v24[3] = &unk_100052098;
-      objc_copyWeak(&v28, &location);
-      v24[4] = self;
-      v26 = v32;
+      v26[0] = _NSConcreteStackBlock;
+      v26[1] = 3221225472;
+      v26[2] = sub_100025D48;
+      v26[3] = &unk_100052098;
+      objc_copyWeak(&v30, &location);
+      v26[4] = self;
+      v28 = v34;
       p_buf = &buf;
-      v25 = v6;
-      [v18 setFetchRecordZoneChangesCompletionBlock:v24];
-      v23[0] = _NSConcreteStackBlock;
-      v23[1] = 3221225472;
-      v23[2] = sub_100026424;
-      v23[3] = &unk_1000520C0;
-      v23[6] = v36;
-      v23[7] = v34;
-      v23[4] = self;
-      v23[5] = &buf;
-      [v18 setRecordZoneFetchCompletionBlock:v23];
-      [v18 setQualityOfService:17];
-      v19 = +[CKContainer MSDPublicCloudKitContainer];
-      publicCloudDatabase = [v19 publicCloudDatabase];
-      [publicCloudDatabase addOperation:v18];
+      v27 = v6;
+      [v20 setFetchRecordZoneChangesCompletionBlock:v26];
+      v25[0] = _NSConcreteStackBlock;
+      v25[1] = 3221225472;
+      v25[2] = sub_100026424;
+      v25[3] = &unk_1000520C0;
+      v25[6] = v38;
+      v25[7] = v36;
+      v25[4] = self;
+      v25[5] = &buf;
+      [v20 setRecordZoneFetchCompletionBlock:v25];
+      [v20 setQualityOfService:17];
+      v21 = +[CKContainer MSDPublicCloudKitContainer];
+      publicCloudDatabase = [v21 publicCloudDatabase];
+      [publicCloudDatabase addOperation:v20];
 
-      objc_destroyWeak(&v28);
+      objc_destroyWeak(&v30);
       objc_destroyWeak(&location);
-      _Block_object_dispose(v32, 8);
-
       _Block_object_dispose(v34, 8);
+
       _Block_object_dispose(v36, 8);
+      _Block_object_dispose(v38, 8);
 
       _Block_object_dispose(&buf, 8);
     }
 
     else
     {
-      v22 = sub_100030FE4();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v24 = sub_100030FE4(v15);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
-        sub_100027B5C(v22);
+        sub_100027B5C(v24);
       }
 
       if (!v6)
@@ -410,30 +411,30 @@
         goto LABEL_23;
       }
 
-      v14 = [NSError errorWithDomain:CKErrorDomain code:12 userInfo:0];
-      (*(v6 + 2))(v6, 0, v14);
+      v16 = [NSError errorWithDomain:CKErrorDomain code:12 userInfo:0];
+      (*(v6 + 2))(v6, 0, v16);
     }
 
 LABEL_23:
     goto LABEL_24;
   }
 
-  v21 = sub_100030FE4();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+  v23 = sub_100030FE4(0);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
   {
-    sub_100027BA0(v21);
+    sub_100027BA0(v23);
   }
 
   if (v6)
   {
-    v12 = [NSError errorWithDomain:CKErrorDomain code:12 userInfo:0];
-    (*(v6 + 2))(v6, 0, v12);
+    v13 = [NSError errorWithDomain:CKErrorDomain code:12 userInfo:0];
+    (*(v6 + 2))(v6, 0, v13);
 LABEL_24:
   }
 
 LABEL_25:
 
-  _Block_object_dispose(&v41, 8);
+  _Block_object_dispose(&v43, 8);
 }
 
 - (id)_handleRecordsChanged:(id)changed deletedRecordIDS:(id)s error:(id *)error
@@ -461,86 +462,87 @@ LABEL_25:
 {
   sCopy = s;
   copyCopy = copy;
-  if ([copyCopy count] && objc_msgSend(sCopy, "count"))
+  v7 = [copyCopy count];
+  if (v7 && (v7 = [sCopy count]) != 0)
   {
-    v7 = [copyCopy na_dictionaryWithKeyGenerator:&stru_100052100];
-    v8 = sub_100030FE4();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v8 = [copyCopy na_dictionaryWithKeyGenerator:&stru_100052100];
+    v9 = sub_100030FE4(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138477827;
-      v34 = sCopy;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "[Public] RecordIDS deleted on device: %{private}@", buf, 0xCu);
+      v36 = sCopy;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "[Public] RecordIDS deleted on device: %{private}@", buf, 0xCu);
     }
 
-    v26 = copyCopy;
-    v9 = [NSMutableArray arrayWithArray:copyCopy];
-    v28 = 0u;
-    v29 = 0u;
+    v28 = copyCopy;
+    v10 = [NSMutableArray arrayWithArray:copyCopy];
     v30 = 0u;
     v31 = 0u;
-    v27 = sCopy;
-    v10 = sCopy;
-    v11 = [v10 countByEnumeratingWithState:&v28 objects:v32 count:16];
-    if (v11)
+    v32 = 0u;
+    v33 = 0u;
+    v29 = sCopy;
+    v11 = sCopy;
+    v12 = [v11 countByEnumeratingWithState:&v30 objects:v34 count:16];
+    if (v12)
     {
-      v12 = v11;
-      v13 = *v29;
+      v13 = v12;
+      v14 = *v31;
       do
       {
-        for (i = 0; i != v12; i = i + 1)
+        for (i = 0; i != v13; i = i + 1)
         {
-          if (*v29 != v13)
+          if (*v31 != v14)
           {
-            objc_enumerationMutation(v10);
+            objc_enumerationMutation(v11);
           }
 
-          v15 = *(*(&v28 + 1) + 8 * i);
-          allKeys = [v7 allKeys];
-          recordName = [v15 recordName];
-          v18 = [allKeys containsObject:recordName];
+          v16 = *(*(&v30 + 1) + 8 * i);
+          allKeys = [v8 allKeys];
+          recordName = [v16 recordName];
+          v19 = [allKeys containsObject:recordName];
 
-          if (v18)
+          if (v19)
           {
-            v19 = sub_100030FE4();
-            if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+            v21 = sub_100030FE4(v20);
+            if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
             {
-              recordName2 = [v15 recordName];
+              recordName2 = [v16 recordName];
               *buf = 138477827;
-              v34 = recordName2;
-              _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "[Public] Found match for %{private}@, removing obj from local copy", buf, 0xCu);
+              v36 = recordName2;
+              _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "[Public] Found match for %{private}@, removing obj from local copy", buf, 0xCu);
             }
 
-            recordName3 = [v15 recordName];
-            v22 = [v7 objectForKey:recordName3];
+            recordName3 = [v16 recordName];
+            v24 = [v8 objectForKey:recordName3];
 
-            [v9 removeObject:v22];
+            [v10 removeObject:v24];
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v28 objects:v32 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v30 objects:v34 count:16];
       }
 
-      while (v12);
+      while (v13);
     }
 
-    v23 = [v9 copy];
-    copyCopy = v26;
-    sCopy = v27;
+    v25 = [v10 copy];
+    copyCopy = v28;
+    sCopy = v29;
   }
 
   else
   {
-    v24 = sub_100030FE4();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    v26 = sub_100030FE4(v7);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "[Public] Deleted recordIDS or cachedData is nil, skipping update", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "[Public] Deleted recordIDS or cachedData is nil, skipping update", buf, 2u);
     }
 
-    v23 = copyCopy;
+    v25 = copyCopy;
   }
 
-  return v23;
+  return v25;
 }
 
 - (id)_handleChangedRecords:(id)records localCachedCopy:(id)copy error:(id *)error
@@ -550,60 +552,61 @@ LABEL_25:
   if ([recordsCopy count])
   {
     v10 = [NSMutableArray arrayWithArray:copyCopy];
-    v37 = 0u;
     v38 = 0u;
     v39 = 0u;
     v40 = 0u;
-    v28 = recordsCopy;
+    v41 = 0u;
+    v29 = recordsCopy;
     obj = recordsCopy;
-    v11 = [obj countByEnumeratingWithState:&v37 objects:v43 count:16];
+    v11 = [obj countByEnumeratingWithState:&v38 objects:v44 count:16];
     v12 = copyCopy;
-    v29 = v10;
+    v30 = v10;
     if (v11)
     {
       v13 = v11;
-      v32 = *v38;
-      v30 = MSErrorDomain;
+      v33 = *v39;
+      v31 = MSErrorDomain;
       do
       {
         for (i = 0; i != v13; i = i + 1)
         {
-          if (*v38 != v32)
+          if (*v39 != v33)
           {
             objc_enumerationMutation(obj);
           }
 
-          v15 = [(MSDPublicDBManager *)self createPublicDBInfoObject:*(*(&v37 + 1) + 8 * i)];
+          v15 = [(MSDPublicDBManager *)self createPublicDBInfoObject:*(*(&v38 + 1) + 8 * i)];
           v16 = v15;
           if (v15)
           {
-            v33[0] = _NSConcreteStackBlock;
-            v33[1] = 3221225472;
-            v33[2] = sub_100026EA8;
-            v33[3] = &unk_100050B60;
+            v34[0] = _NSConcreteStackBlock;
+            v34[1] = 3221225472;
+            v34[2] = sub_100026EA8;
+            v34[3] = &unk_100050B60;
             v17 = v15;
-            v34 = v17;
-            v18 = [v12 na_firstObjectPassingTest:v33];
+            v35 = v17;
+            v18 = [v12 na_firstObjectPassingTest:v34];
+            v19 = v18;
             if (v18)
             {
-              v19 = sub_100030FE4();
-              if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+              v20 = sub_100030FE4(v18);
+              if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
               {
                 [v17 serviceID];
                 selfCopy = self;
                 errorCopy = error;
-                v23 = v22 = v12;
+                v24 = v23 = v12;
                 *buf = 138477827;
-                v42 = v23;
-                _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "A property on a known service (%{private}@) changed", buf, 0xCu);
+                v43 = v24;
+                _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "A property on a known service (%{private}@) changed", buf, 0xCu);
 
-                v12 = v22;
+                v12 = v23;
                 error = errorCopy;
                 self = selfCopy;
-                v10 = v29;
+                v10 = v30;
               }
 
-              [v10 removeObject:v18];
+              [v10 removeObject:v19];
             }
 
             [v10 na_safeAddObject:v17];
@@ -611,43 +614,43 @@ LABEL_25:
 
           else
           {
-            v24 = sub_100030FE4();
-            if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+            v25 = sub_100030FE4(0);
+            if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
             {
-              sub_100027DF8(&v35, v36, v24);
+              sub_100027DF8(&v36, v37, v25);
             }
 
             if (error)
             {
-              *error = [NSError errorWithDomain:v30 code:1 userInfo:0];
+              *error = [NSError errorWithDomain:v31 code:1 userInfo:0];
             }
           }
         }
 
-        v13 = [obj countByEnumeratingWithState:&v37 objects:v43 count:16];
+        v13 = [obj countByEnumeratingWithState:&v38 objects:v44 count:16];
       }
 
       while (v13);
     }
 
-    v25 = v12;
-    recordsCopy = v28;
+    v26 = v12;
+    recordsCopy = v29;
   }
 
   else
   {
-    v25 = copyCopy;
-    v26 = sub_100030FE4();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+    v26 = copyCopy;
+    v27 = sub_100030FE4(0);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "[Public] Changed records is nil, skipping update", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "[Public] Changed records is nil, skipping update", buf, 2u);
     }
 
-    v29 = v25;
+    v30 = v26;
   }
 
-  return v29;
+  return v30;
 }
 
 - (void)_clearAllDefaultsData
@@ -715,8 +718,7 @@ LABEL_25:
     v9 = objc_opt_new();
   }
 
-  [v9 na_safeSetObject:changeTokenCopy forKey:tokenCopy];
-  v10 = sub_100030FE4();
+  v10 = sub_100030FE4([v9 na_safeSetObject:changeTokenCopy forKey:tokenCopy]);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v13 = 138477827;
@@ -737,32 +739,32 @@ LABEL_25:
 
   if (shouldUseCloudKit)
   {
-    v6 = +[MSDPublicDBManager shared];
-    v10[0] = _NSConcreteStackBlock;
-    v10[1] = 3221225472;
-    v10[2] = sub_100027440;
-    v10[3] = &unk_100051558;
-    v11 = dataCopy;
-    [v6 syncDataWithCloudKit:v10];
+    v7 = +[MSDPublicDBManager shared];
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = sub_100027440;
+    v11[3] = &unk_100051558;
+    v12 = dataCopy;
+    [v7 syncDataWithCloudKit:v11];
 
-    v7 = v11;
+    v8 = v12;
 LABEL_7:
 
     goto LABEL_8;
   }
 
-  v8 = sub_100030FE4();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = sub_100030FE4(v6);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "[Public] Returning data from cached copy, last refresh was less than 24 hours back", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "[Public] Returning data from cached copy, last refresh was less than 24 hours back", buf, 2u);
   }
 
   if (dataCopy)
   {
-    v7 = +[MSDDefaultsManager sharedManager];
-    v9 = [v7 objectForDefaultWithCustomClass:@"publicDBData"];
-    (*(dataCopy + 2))(dataCopy, v9, 0);
+    v8 = +[MSDDefaultsManager sharedManager];
+    v10 = [v8 objectForDefaultWithCustomClass:@"publicDBData"];
+    (*(dataCopy + 2))(dataCopy, v10, 0);
 
     goto LABEL_7;
   }

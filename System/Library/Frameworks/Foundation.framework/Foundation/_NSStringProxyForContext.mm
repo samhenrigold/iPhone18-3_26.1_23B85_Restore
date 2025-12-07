@@ -44,7 +44,7 @@
 
 - (id)_dynamicContextEvaluation:(id)evaluation patternString:(id)string
 {
-  if ([evaluation isEqualToString:string])
+  if (objc_msgSend_isEqualToString_(evaluation, a2, string))
   {
     v7 = 2;
   }

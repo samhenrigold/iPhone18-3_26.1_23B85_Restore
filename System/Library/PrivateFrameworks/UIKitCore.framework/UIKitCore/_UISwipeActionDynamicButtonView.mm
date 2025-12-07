@@ -198,9 +198,9 @@
   {
     if (titleCopy && titleCopy2)
     {
-      v6 = [(NSString *)titleCopy isEqual:titleCopy2];
+      isEqual = objc_msgSend_isEqual_(titleCopy);
 
-      if (v6)
+      if (isEqual)
       {
         return;
       }

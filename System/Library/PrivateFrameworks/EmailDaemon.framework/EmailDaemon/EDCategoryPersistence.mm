@@ -5,6 +5,7 @@
 + (void)addCategoryColumnsToMessagesSelectComponent:(id)component globalMessagesSelectComponent:(id)selectComponent businessAddressesSelectComponent:(id)addressesSelectComponent;
 + (void)initializeCategorizationVersion:(id)version;
 - (BOOL)persistCategorizationResult:(id)result forGlobalID:(int64_t)d categorizationVersion:(int64_t)version connection:(id)connection;
+- (BOOL)persistCategorizationResultMap:(id)map userInitiated:(BOOL)initiated;
 - (EDCategoryPersistence)initWithDatabase:(id)database hookResponder:(id)responder;
 - (id)modelAnalyticsForMessage:(int64_t)message;
 - (id)requestProtectedDatabaseBackgroundProcessingForDuration:(double)duration error:(id *)error;
@@ -90,7 +91,7 @@ void __28__EDCategoryPersistence_log__block_invoke(uint64_t a1)
 
 - (BOOL)persistCategorizationResult:(id)result forGlobalID:(int64_t)d categorizationVersion:(int64_t)version connection:(id)connection
 {
-  v41[1] = *MEMORY[0x1E69E9840];
+  v40[1] = *MEMORY[0x1E69E9840];
   resultCopy = result;
   connectionCopy = connection;
   v11 = objc_alloc(MEMORY[0x1E699B960]);
@@ -136,14 +137,58 @@ void __28__EDCategoryPersistence_log__block_invoke(uint64_t a1)
 
   v35 = [MEMORY[0x1E699B8C8] column:*MEMORY[0x1E699B768]];
   v36 = [MEMORY[0x1E696AD98] numberWithLongLong:d];
-  v41[0] = v36;
-  v37 = [MEMORY[0x1E695DEC8] arrayWithObjects:v41 count:1];
+  v40[0] = v36;
+  v37 = [MEMORY[0x1E695DEC8] arrayWithObjects:v40 count:1];
   v38 = [v35 in:v37];
   [v13 setWhereClause:v38];
 
   LOBYTE(v38) = [connectionCopy executeUpdateStatement:v13 error:0];
-  v39 = *MEMORY[0x1E69E9840];
   return v38;
+}
+
+- (BOOL)persistCategorizationResultMap:(id)map userInitiated:(BOOL)initiated
+{
+  initiatedCopy = initiated;
+  mapCopy = map;
+  if ([mapCopy count])
+  {
+    allKeys = [mapCopy allKeys];
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __70__EDCategoryPersistence_persistCategorizationResultMap_userInitiated___block_invoke;
+    v25[3] = &unk_1E8251360;
+    v8 = mapCopy;
+    v26 = v8;
+    v19 = allKeys;
+    v9 = [allKeys ef_filter:v25];
+    hookResponder = [(EDCategoryPersistence *)self hookResponder];
+    [hookResponder persistenceWillChangeCategorizationForMessages:v9];
+
+    v11 = objc_alloc_init(EDPersistenceDatabaseGenerationWindow);
+    currentCategorizationVersion = [(EDCategoryPersistence *)self currentCategorizationVersion];
+    database = [(EDCategoryPersistence *)self database];
+    v14 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[EDCategoryPersistence persistCategorizationResultMap:userInitiated:]"];
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __70__EDCategoryPersistence_persistCategorizationResultMap_userInitiated___block_invoke_2;
+    v20[3] = &unk_1E8251998;
+    v15 = v11;
+    v21 = v15;
+    selfCopy = self;
+    v23 = v8;
+    v24 = currentCategorizationVersion;
+    v16 = [database __performWriteWithCaller:v14 usingBlock:v20];
+
+    hookResponder2 = [(EDCategoryPersistence *)self hookResponder];
+    [hookResponder2 persistenceDidChangeCategorizationForMessages:v9 userInitiated:initiatedCopy generationWindow:v15];
+  }
+
+  else
+  {
+    v16 = 1;
+  }
+
+  return v16;
 }
 
 uint64_t __70__EDCategoryPersistence_persistCategorizationResultMap_userInitiated___block_invoke(uint64_t a1, void *a2)
@@ -193,37 +238,37 @@ void __70__EDCategoryPersistence_persistCategorizationResultMap_userInitiated___
 
 - (void)changeHighImpactType:(unint64_t)type messages:(id)messages
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   messagesCopy = messages;
   if ([messagesCopy count])
   {
-    v28 = objc_opt_new();
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
+    v27 = objc_opt_new();
     v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
     obj = messagesCopy;
-    v5 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
+    v5 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
     if (v5)
     {
-      v6 = *v36;
+      v6 = *v35;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v36 != v6)
+          if (*v35 != v6)
           {
             objc_enumerationMutation(obj);
           }
 
-          v8 = *(*(&v35 + 1) + 8 * i);
+          v8 = *(*(&v34 + 1) + 8 * i);
           category = [v8 category];
           v10 = [objc_alloc(MEMORY[0x1E699AC48]) initWithType:objc_msgSend(category subtype:"type") isHighImpact:objc_msgSend(category state:{"subtype"), type == 1, objc_msgSend(category, "state")}];
           v11 = [[EDMessageCategorizationResult alloc] initWithCategory:v10 metadata:0];
-          [v28 setObject:v11 forKeyedSubscript:v8];
+          [v27 setObject:v11 forKeyedSubscript:v8];
         }
 
-        v5 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
+        v5 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
       }
 
       while (v5);
@@ -235,19 +280,19 @@ void __70__EDCategoryPersistence_persistCategorizationResultMap_userInitiated___
     v13 = objc_alloc_init(EDPersistenceDatabaseGenerationWindow);
     database = [(EDCategoryPersistence *)self database];
     v15 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[EDCategoryPersistence changeHighImpactType:messages:]"];
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 3221225472;
-    v29[2] = __55__EDCategoryPersistence_changeHighImpactType_messages___block_invoke;
-    v29[3] = &unk_1E82519E0;
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 3221225472;
+    v28[2] = __55__EDCategoryPersistence_changeHighImpactType_messages___block_invoke;
+    v28[3] = &unk_1E82519E0;
     v16 = v13;
-    v30 = v16;
+    v29 = v16;
     v17 = obj;
-    v31 = v17;
+    v30 = v17;
     selfCopy = self;
-    v18 = v28;
-    v33 = v18;
+    v18 = v27;
+    v32 = v18;
     typeCopy = type;
-    [database __performWriteWithCaller:v15 usingBlock:v29];
+    [database __performWriteWithCaller:v15 usingBlock:v28];
 
     hookResponder2 = [(EDCategoryPersistence *)self hookResponder];
     [hookResponder2 persistenceDidChangeCategorizationForMessages:v17 userInitiated:1 generationWindow:v16];
@@ -260,13 +305,11 @@ void __70__EDCategoryPersistence_persistCategorizationResultMap_userInitiated___
     analyticsLogger = [(EDCategoryPersistence *)self analyticsLogger];
     [analyticsLogger logRecategorizationEventForMessages:v17 categoryType:v22 categoryPersistence:self isHighImpactFlagChange:1];
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __55__EDCategoryPersistence_changeHighImpactType_messages___block_invoke(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = a2;
   [*(a1 + 32) insertGeneration:{objc_msgSend(v3, "transactionGeneration")}];
   v4 = [*(a1 + 40) ef_map:&__block_literal_global_16];
@@ -283,9 +326,9 @@ uint64_t __55__EDCategoryPersistence_changeHighImpactType_messages___block_invok
   v11 = [v10 in:v4];
   [v7 setWhereClause:v11];
 
-  v19 = 0;
-  v12 = [v3 executeUpdateStatement:v7 error:&v19];
-  v13 = v19;
+  v18 = 0;
+  v12 = [v3 executeUpdateStatement:v7 error:&v18];
+  v13 = v18;
   if (v13)
   {
     v14 = +[EDCategoryPersistence log];
@@ -297,7 +340,6 @@ uint64_t __55__EDCategoryPersistence_changeHighImpactType_messages___block_invok
     }
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -400,10 +442,10 @@ void __50__EDCategoryPersistence_modelAnalyticsForMessage___block_invoke_2(uint6
 
 + (void)initializeCategorizationVersion:(id)version
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v8 = 0;
-  v3 = _setCategorizationVersionUsingConnection(version, &v8);
-  v4 = v8;
+  v9 = *MEMORY[0x1E69E9840];
+  v7 = 0;
+  v3 = _setCategorizationVersionUsingConnection(version, &v7);
+  v4 = v7;
   if ((v3 & 1) == 0)
   {
     v5 = +[EDCategoryPersistence log];
@@ -413,8 +455,6 @@ void __50__EDCategoryPersistence_modelAnalyticsForMessage___block_invoke_2(uint6
       [(EDCategoryPersistence *)ef_publicDescription initializeCategorizationVersion:buf, v5];
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_initializeCategorizationVersion
@@ -464,20 +504,20 @@ uint64_t __57__EDCategoryPersistence__initializeCategorizationVersion__block_inv
 
 uint64_t __55__EDCategoryPersistence_incrementCategorizationVersion__block_invoke(uint64_t a1, void *a2)
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = objc_alloc(MEMORY[0x1E699B968]);
-  v17[0] = @"key";
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
+  v16[0] = @"key";
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
   v6 = [v4 initWithTable:@"properties" conflictTarget:v5];
 
   [v6 setObject:@"CategorizationVersion" forKeyedSubscript:@"key"];
   v7 = [MEMORY[0x1E696AD98] numberWithInteger:*(a1 + 40) + 1];
   [v6 setObject:v7 forKeyedSubscript:@"value"];
 
-  v15 = 0;
-  v8 = [v3 executeUpsertStatement:v6 error:&v15];
-  v9 = v15;
+  v14 = 0;
+  v8 = [v3 executeUpsertStatement:v6 error:&v14];
+  v9 = v14;
   if (v8)
   {
     v10 = [*(a1 + 32) cachedCurrentCategorizationVersion];
@@ -495,46 +535,44 @@ uint64_t __55__EDCategoryPersistence_incrementCategorizationVersion__block_invok
     }
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
 - (int64_t)currentCategorizationVersion
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x2020000000;
+  v19 = *MEMORY[0x1E69E9840];
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x2020000000;
   cachedCurrentCategorizationVersion = [(EDCategoryPersistence *)self cachedCurrentCategorizationVersion];
   getObject = [cachedCurrentCategorizationVersion getObject];
   integerValue = [getObject integerValue];
 
-  v17 = integerValue;
-  if (v15[3] == 0x7FFFFFFFFFFFFFFFLL)
+  v16 = integerValue;
+  if (v14[3] == 0x7FFFFFFFFFFFFFFFLL)
   {
     database = [(EDCategoryPersistence *)self database];
     v7 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[EDCategoryPersistence currentCategorizationVersion]"];
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __53__EDCategoryPersistence_currentCategorizationVersion__block_invoke;
-    v13[3] = &unk_1E8250FD8;
-    v13[4] = self;
-    v13[5] = &v14;
-    [database __performReadWithCaller:v7 usingBlock:v13];
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __53__EDCategoryPersistence_currentCategorizationVersion__block_invoke;
+    v12[3] = &unk_1E8250FD8;
+    v12[4] = self;
+    v12[5] = &v13;
+    [database __performReadWithCaller:v7 usingBlock:v12];
   }
 
   v8 = +[EDCategoryPersistence log];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = v15[3];
+    v9 = v14[3];
     *buf = 134217984;
-    v19 = v9;
+    v18 = v9;
     _os_log_impl(&dword_1C61EF000, v8, OS_LOG_TYPE_DEFAULT, "Current categorization version set to %ld.", buf, 0xCu);
   }
 
-  v10 = v15[3];
-  _Block_object_dispose(&v14, 8);
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = v14[3];
+  _Block_object_dispose(&v13, 8);
   return v10;
 }
 
@@ -647,23 +685,13 @@ LABEL_11:
     v9 = +[EDMessagePersistence messageBusinessCategoryColumnAlias];
     v10 = [rowCopy columnExistsWithName:v9];
 
-    if (!v10)
-    {
-      goto LABEL_16;
-    }
-
-    v11 = +[EDMessagePersistence messageBusinessCategoryColumnAlias];
-    v12 = [rowCopy objectForKeyedSubscript:v11];
-    numberValue = [v12 numberValue];
-
-    if (numberValue)
+    if (v10 && (+[EDMessagePersistence messageBusinessCategoryColumnAlias](EDMessagePersistence, "messageBusinessCategoryColumnAlias"), v11 = objc_claimAutoreleasedReturnValue(), [rowCopy objectForKeyedSubscript:v11], v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "numberValue"), numberValue = objc_claimAutoreleasedReturnValue(), v12, v11, numberValue))
     {
       v13 = 3;
     }
 
     else
     {
-LABEL_16:
       v16 = +[EDMessagePersistence messageGlobalDataModelCategoryColumnName];
       v17 = [rowCopy objectForKeyedSubscript:v16];
       numberValue = [v17 numberValue];
@@ -721,14 +749,13 @@ void __55__EDCategoryPersistence_changeHighImpactType_messages___block_invoke_co
 
 - (void)modelAnalyticsForMessage:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *(*a1 + 40);
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_error_impl(&dword_1C61EF000, log, OS_LOG_TYPE_ERROR, "Model Analytics is invalid JSON: %@. Error:%@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_error_impl(&dword_1C61EF000, log, OS_LOG_TYPE_ERROR, "Model Analytics is invalid JSON: %@. Error:%@", &v4, 0x16u);
 }
 
 + (void)initializeCategorizationVersion:(os_log_t)log .cold.1(void *a1, uint8_t *buf, os_log_t log)

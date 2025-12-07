@@ -350,14 +350,13 @@ LABEL_14:
 - (GEOImageServicePersistence)initWithDBFileURL:(id)l maximumTotalDataSize:(unint64_t)UInteger maximumAge:(double)age
 {
   lCopy = l;
-  v29.receiver = self;
-  v29.super_class = GEOImageServicePersistence;
-  v9 = [(GEOImageServicePersistence *)&v29 init];
+  v27.receiver = self;
+  v27.super_class = GEOImageServicePersistence;
+  v9 = [(GEOImageServicePersistence *)&v27 init];
   if (v9)
   {
     if (!UInteger)
     {
-      v10 = GeoServicesConfig_ImageServicePersistenceMaxBytes[1];
       if (GEOConfigGetUInteger() >> 23 > 0x18)
       {
         UInteger = 209715200;
@@ -372,50 +371,49 @@ LABEL_14:
     v9->_maxTotalDataSize = UInteger;
     if (age <= 0.0)
     {
-      v11 = GeoServicesConfig_ImageServicePersistenceMaxAge[1];
       GEOConfigGetDouble();
       age = 518400.0;
-      if (v12 < 518400.0)
+      if (v10 < 518400.0)
       {
         GEOConfigGetDouble();
-        age = v13;
+        age = v11;
       }
     }
 
     v9->_maximumAge = age;
     if (lCopy)
     {
-      v14 = [lCopy copy];
+      v12 = [lCopy copy];
       dbFileURL = v9->_dbFileURL;
-      v9->_dbFileURL = v14;
+      v9->_dbFileURL = v12;
     }
 
     else
     {
       dbFileURL = [GEOFilePaths pathFor:32796];
-      v16 = [GEOFilePaths urlFor:28];
-      v17 = v9->_dbFileURL;
-      v9->_dbFileURL = v16;
+      v14 = [GEOFilePaths urlFor:28];
+      v15 = v9->_dbFileURL;
+      v9->_dbFileURL = v14;
 
       path = [(NSURL *)v9->_dbFileURL path];
       [GEOSQLiteDB migrateAllDBFilesFrom:dbFileURL to:path];
     }
 
     objc_initWeak(&location, v9);
-    v19 = [GEOSQLiteDB alloc];
-    v20 = sub_10003C314();
-    v21 = v9->_dbFileURL;
-    v26[0] = _NSConcreteStackBlock;
-    v26[1] = 3221225472;
-    v26[2] = sub_10003CD78;
-    v26[3] = &unk_100082E08;
-    objc_copyWeak(&v27, &location);
-    v22 = [v19 initWithQueueName:"com.apple.geod.ImageServicePersistence" log:v20 databaseFileURL:v21 sqliteFlags:3145728 pragmas:0 setupBlock:v26];
+    v17 = [GEOSQLiteDB alloc];
+    v18 = sub_10003C314();
+    v19 = v9->_dbFileURL;
+    v24[0] = _NSConcreteStackBlock;
+    v24[1] = 3221225472;
+    v24[2] = sub_10003CD78;
+    v24[3] = &unk_100082E08;
+    objc_copyWeak(&v25, &location);
+    v20 = [v17 initWithQueueName:"com.apple.geod.ImageServicePersistence" log:v18 databaseFileURL:v19 sqliteFlags:3145728 pragmas:0 setupBlock:v24];
     db = v9->_db;
-    v9->_db = v22;
+    v9->_db = v20;
 
-    v24 = v9;
-    objc_destroyWeak(&v27);
+    v22 = v9;
+    objc_destroyWeak(&v25);
     objc_destroyWeak(&location);
   }
 

@@ -240,14 +240,12 @@ void __35__EKAutocompleter_clearLastResults__block_invoke(uint64_t a1)
 
 - (void)cancelSearch
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   prefix = [a2 prefix];
-  v6 = 138412290;
-  v7 = prefix;
-  _os_log_debug_impl(&dword_1A805E000, selfCopy, OS_LOG_TYPE_DEBUG, "[EKAutocomplete] Cancel search for %@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 138412290;
+  v6 = prefix;
+  _os_log_debug_impl(&dword_1A805E000, selfCopy, OS_LOG_TYPE_DEBUG, "[EKAutocomplete] Cancel search for %@", &v5, 0xCu);
 }
 
 - (BOOL)isRunning
@@ -273,33 +271,33 @@ void __35__EKAutocompleter_clearLastResults__block_invoke(uint64_t a1)
 
 - (id)cnResults
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E695DFA0];
   contactResults = [(EKAutocompleter *)self contactResults];
   v5 = [v3 orderedSetWithArray:contactResults];
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   contactResults2 = [(EKAutocompleter *)self contactResults];
   v7 = [contactResults2 copy];
 
-  v8 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v21;
+    v10 = *v20;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v21 != v10)
+        if (*v20 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v20 + 1) + 8 * i);
+        v12 = *(*(&v19 + 1) + 8 * i);
         value = [v12 value];
         address = [value address];
 
@@ -315,7 +313,7 @@ void __35__EKAutocompleter_clearLastResults__block_invoke(uint64_t a1)
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v9);
@@ -323,14 +321,12 @@ void __35__EKAutocompleter_clearLastResults__block_invoke(uint64_t a1)
 
   array = [v5 array];
 
-  v18 = *MEMORY[0x1E69E9840];
-
   return array;
 }
 
 - (void)setIgnoredAddresses:(id)addresses ignoredAddressesFromParticipants:(id)participants
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   addressesCopy = addresses;
   participantsCopy = participants;
   v8 = [MEMORY[0x1E695DFA8] setWithCapacity:{objc_msgSend(participantsCopy, "count") + objc_msgSend(addressesCopy, "count")}];
@@ -339,26 +335,26 @@ void __35__EKAutocompleter_clearLastResults__block_invoke(uint64_t a1)
     [v8 addObjectsFromArray:addressesCopy];
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v9 = participantsCopy;
-  v10 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v22;
+    v12 = *v21;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v22 != v12)
+        if (*v21 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v21 + 1) + 8 * i);
+        v14 = *(*(&v20 + 1) + 8 * i);
         emailAddress = [v14 emailAddress];
         v16 = [v14 URL];
         absoluteString = [v16 absoluteString];
@@ -394,7 +390,7 @@ LABEL_13:
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v11);
@@ -402,13 +398,11 @@ LABEL_13:
 
   allObjects = [v8 allObjects];
   [(EKAutocompleter *)self setIgnoredAddresses:allObjects];
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setIgnoredAddresses:(id)addresses
 {
-  v35[1] = *MEMORY[0x1E69E9840];
+  v34[1] = *MEMORY[0x1E69E9840];
   addressesCopy = addresses;
   if (addressesCopy)
   {
@@ -425,74 +419,72 @@ LABEL_13:
   {
     selfCopy = self;
     defaultProvider = [MEMORY[0x1E6992F50] defaultProvider];
-    v35[0] = *MEMORY[0x1E695C208];
-    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:1];
-    v24 = addressesCopy;
+    v34[0] = *MEMORY[0x1E695C208];
+    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:1];
+    v23 = addressesCopy;
     v9 = [defaultProvider unifiedContactsForHandleStrings:addressesCopy keysToFetch:v8];
 
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     v10 = v9;
-    v11 = [v10 countByEnumeratingWithState:&v29 objects:v34 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v28 objects:v33 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v30;
+      v13 = *v29;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v30 != v13)
+          if (*v29 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v29 + 1) + 8 * i);
+          v15 = *(*(&v28 + 1) + 8 * i);
+          v24 = 0u;
           v25 = 0u;
           v26 = 0u;
           v27 = 0u;
-          v28 = 0u;
           emailAddresses = [v15 emailAddresses];
-          v17 = [emailAddresses countByEnumeratingWithState:&v25 objects:v33 count:16];
+          v17 = [emailAddresses countByEnumeratingWithState:&v24 objects:v32 count:16];
           if (v17)
           {
             v18 = v17;
-            v19 = *v26;
+            v19 = *v25;
             do
             {
               for (j = 0; j != v18; ++j)
               {
-                if (*v26 != v19)
+                if (*v25 != v19)
                 {
                   objc_enumerationMutation(emailAddresses);
                 }
 
-                value = [*(*(&v25 + 1) + 8 * j) value];
+                value = [*(*(&v24 + 1) + 8 * j) value];
                 [v6 addObject:value];
               }
 
-              v18 = [emailAddresses countByEnumeratingWithState:&v25 objects:v33 count:16];
+              v18 = [emailAddresses countByEnumeratingWithState:&v24 objects:v32 count:16];
             }
 
             while (v18);
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v29 objects:v34 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v28 objects:v33 count:16];
       }
 
       while (v12);
     }
 
     self = selfCopy;
-    addressesCopy = v24;
+    addressesCopy = v23;
   }
 
   [(EKAutocompleter *)self setAddressesToIgnore:v6];
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (id)removeIgnoredAddressesFromResults:(id)results
@@ -578,7 +570,7 @@ LABEL_8:
 
 - (void)autocompleteFetch:(id)fetch didReceiveResults:(id)results
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   fetchCopy = fetch;
   resultsCopy = results;
   selfCopy = self;
@@ -587,39 +579,39 @@ LABEL_8:
 
   if (autocompletionSearchRequest == fetchCopy)
   {
-    v31 = fetchCopy;
+    v30 = fetchCopy;
     v11 = EKLogHandle;
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_INFO))
     {
       v12 = v11;
       prefix = [(EKAutocompleter *)self prefix];
       *buf = 138412546;
-      v41 = prefix;
-      v42 = 2112;
-      v43 = v9;
+      v40 = prefix;
+      v41 = 2112;
+      v42 = v9;
       _os_log_impl(&dword_1A805E000, v12, OS_LOG_TYPE_INFO, ":: :: CNAutocomplete Update %@ with %@", buf, 0x16u);
     }
 
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
     v36 = 0u;
-    v30 = v9;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
+    v29 = v9;
     obj = v9;
-    v34 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
-    if (v34)
+    v33 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+    if (v33)
     {
-      v33 = *v36;
+      v32 = *v35;
       do
       {
-        for (i = 0; i != v34; ++i)
+        for (i = 0; i != v33; ++i)
         {
-          if (*v36 != v33)
+          if (*v35 != v32)
           {
             objc_enumerationMutation(obj);
           }
 
-          v15 = *(*(&v35 + 1) + 8 * i);
+          v15 = *(*(&v34 + 1) + 8 * i);
           value = [v15 value];
           address = [value address];
 
@@ -650,55 +642,51 @@ LABEL_8:
           }
         }
 
-        v34 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
+        v33 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
       }
 
-      while (v34);
+      while (v33);
     }
 
-    v9 = v30;
-    fetchCopy = v31;
+    v9 = v29;
+    fetchCopy = v30;
   }
 
   delegate = [(EKAutocompleter *)selfCopy delegate];
   [delegate autocompleterUpdated:selfCopy];
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 - (void)autocompleteFetch:(id)fetch didFailWithError:(id)error
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   v6 = EKLogHandle;
   if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_INFO))
   {
     v7 = v6;
     prefix = [(EKAutocompleter *)self prefix];
-    v11 = 138412546;
-    v12 = prefix;
-    v13 = 2112;
-    v14 = errorCopy;
-    _os_log_impl(&dword_1A805E000, v7, OS_LOG_TYPE_INFO, ":: :: CNAutocomplete Failed %@ with error %@", &v11, 0x16u);
+    v10 = 138412546;
+    v11 = prefix;
+    v12 = 2112;
+    v13 = errorCopy;
+    _os_log_impl(&dword_1A805E000, v7, OS_LOG_TYPE_INFO, ":: :: CNAutocomplete Failed %@ with error %@", &v10, 0x16u);
   }
 
   [(EKAutocompleter *)self setAutocompleteRunning:0];
   delegate = [(EKAutocompleter *)self delegate];
   [delegate autocompleter:self finishedWithError:errorCopy];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)autocompleteFetchDidFinish:(id)finish
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = EKLogHandle;
   if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_INFO))
   {
     v5 = v4;
     prefix = [(EKAutocompleter *)self prefix];
     *buf = 138412290;
-    v10 = prefix;
+    v9 = prefix;
     _os_log_impl(&dword_1A805E000, v5, OS_LOG_TYPE_INFO, ":: :: CNAutocomplete Finished %@", buf, 0xCu);
   }
 
@@ -708,7 +696,6 @@ LABEL_8:
   block[3] = &unk_1E77FD418;
   block[4] = self;
   dispatch_async(MEMORY[0x1E69E96A0], block);
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __46__EKAutocompleter_autocompleteFetchDidFinish___block_invoke(uint64_t a1)
@@ -720,7 +707,7 @@ void __46__EKAutocompleter_autocompleteFetchDidFinish___block_invoke(uint64_t a1
 
 - (void)autocompleteFetchDidBeginNetworkActivity:(id)activity
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   activityCopy = activity;
   v5 = EKLogHandle;
   if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_INFO))
@@ -728,7 +715,7 @@ void __46__EKAutocompleter_autocompleteFetchDidFinish___block_invoke(uint64_t a1
     v6 = v5;
     prefix = [(EKAutocompleter *)self prefix];
     *buf = 138412290;
-    v13 = prefix;
+    v12 = prefix;
     _os_log_impl(&dword_1A805E000, v6, OS_LOG_TYPE_INFO, ":: :: CNAutocomplete Began network activity for %@", buf, 0xCu);
   }
 
@@ -744,8 +731,6 @@ void __46__EKAutocompleter_autocompleteFetchDidFinish___block_invoke(uint64_t a1
     block[4] = self;
     dispatch_async(MEMORY[0x1E69E96A0], block);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __60__EKAutocompleter_autocompleteFetchDidBeginNetworkActivity___block_invoke(uint64_t a1)
@@ -756,7 +741,7 @@ void __60__EKAutocompleter_autocompleteFetchDidBeginNetworkActivity___block_invo
 
 - (void)autocompleteFetchDidEndNetworkActivity:(id)activity
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   activityCopy = activity;
   v5 = EKLogHandle;
   if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_INFO))
@@ -764,7 +749,7 @@ void __60__EKAutocompleter_autocompleteFetchDidBeginNetworkActivity___block_invo
     v6 = v5;
     prefix = [(EKAutocompleter *)self prefix];
     *buf = 138412290;
-    v13 = prefix;
+    v12 = prefix;
     _os_log_impl(&dword_1A805E000, v6, OS_LOG_TYPE_INFO, ":: :: CNAutocomplete finished network activity for %@", buf, 0xCu);
   }
 
@@ -780,8 +765,6 @@ void __60__EKAutocompleter_autocompleteFetchDidBeginNetworkActivity___block_invo
     block[4] = self;
     dispatch_async(MEMORY[0x1E69E96A0], block);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __58__EKAutocompleter_autocompleteFetchDidEndNetworkActivity___block_invoke(uint64_t a1)
@@ -792,29 +775,29 @@ void __58__EKAutocompleter_autocompleteFetchDidEndNetworkActivity___block_invoke
 
 - (id)autocompleteResultsFromDirectoryRecords:(id)records withType:(int64_t)type
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   recordsCopy = records;
-  v26 = objc_opt_new();
+  v25 = objc_opt_new();
   v5 = [MEMORY[0x1E695DFA8] setWithCapacity:{objc_msgSend(recordsCopy, "count")}];
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   obj = recordsCopy;
-  v6 = [obj countByEnumeratingWithState:&v32 objects:v47 count:16];
+  v6 = [obj countByEnumeratingWithState:&v31 objects:v46 count:16];
   if (v6)
   {
-    v30 = *v33;
+    v29 = *v32;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v33 != v30)
+        if (*v32 != v29)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v32 + 1) + 8 * i);
+        v8 = *(*(&v31 + 1) + 8 * i);
         preferredAddress = [v8 preferredAddress];
         stringRemovingMailto = [preferredAddress stringRemovingMailto];
 
@@ -846,24 +829,24 @@ void __58__EKAutocompleter_autocompleteFetchDidEndNetworkActivity___block_invoke
 
           else
           {
-            v41 = 0;
-            v42 = &v41;
-            v43 = 0x2050000000;
+            v40 = 0;
+            v41 = &v40;
+            v42 = 0x2050000000;
             v13 = getCNAutocompleteNameComponentsClass_softClass;
-            v44 = getCNAutocompleteNameComponentsClass_softClass;
+            v43 = getCNAutocompleteNameComponentsClass_softClass;
             if (!getCNAutocompleteNameComponentsClass_softClass)
             {
-              v36 = MEMORY[0x1E69E9820];
-              v37 = 3221225472;
-              v38 = __getCNAutocompleteNameComponentsClass_block_invoke;
-              v39 = &unk_1E77FCFD8;
-              v40 = &v41;
-              __getCNAutocompleteNameComponentsClass_block_invoke(&v36);
-              v13 = v42[3];
+              v35 = MEMORY[0x1E69E9820];
+              v36 = 3221225472;
+              v37 = __getCNAutocompleteNameComponentsClass_block_invoke;
+              v38 = &unk_1E77FCFD8;
+              v39 = &v40;
+              __getCNAutocompleteNameComponentsClass_block_invoke(&v35);
+              v13 = v41[3];
             }
 
             v14 = v13;
-            _Block_object_dispose(&v41, 8);
+            _Block_object_dispose(&v40, 8);
             firstName = [v8 firstName];
             lastName = [v8 lastName];
             v12 = [v13 nameComponentsWithFirstName:firstName lastName:lastName nickname:0 nameSuffix:0];
@@ -873,10 +856,10 @@ void __58__EKAutocompleter_autocompleteFetchDidEndNetworkActivity___block_invoke
 
           if (principalPath)
           {
-            v45 = EKDirectoryRecordPrincipalPathKey;
+            v44 = EKDirectoryRecordPrincipalPathKey;
             principalPath2 = [v8 principalPath];
-            v46 = principalPath2;
-            principalPath = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v46 forKeys:&v45 count:1];
+            v45 = principalPath2;
+            principalPath = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v45 forKeys:&v44 count:1];
           }
 
           aBlock[0] = MEMORY[0x1E69E9820];
@@ -886,46 +869,45 @@ void __58__EKAutocompleter_autocompleteFetchDidEndNetworkActivity___block_invoke
           aBlock[4] = self;
           aBlock[5] = v8;
           v19 = _Block_copy(aBlock);
-          v41 = 0;
-          v42 = &v41;
-          v43 = 0x2050000000;
+          v40 = 0;
+          v41 = &v40;
+          v42 = 0x2050000000;
           v20 = getCNAutocompleteResultClass_softClass;
-          v44 = getCNAutocompleteResultClass_softClass;
+          v43 = getCNAutocompleteResultClass_softClass;
           if (!getCNAutocompleteResultClass_softClass)
           {
-            v36 = MEMORY[0x1E69E9820];
-            v37 = 3221225472;
-            v38 = __getCNAutocompleteResultClass_block_invoke;
-            v39 = &unk_1E77FCFD8;
-            v40 = &v41;
-            __getCNAutocompleteResultClass_block_invoke(&v36);
-            v20 = v42[3];
+            v35 = MEMORY[0x1E69E9820];
+            v36 = 3221225472;
+            v37 = __getCNAutocompleteResultClass_block_invoke;
+            v38 = &unk_1E77FCFD8;
+            v39 = &v40;
+            __getCNAutocompleteResultClass_block_invoke(&v35);
+            v20 = v41[3];
           }
 
           v21 = v20;
-          _Block_object_dispose(&v41, 8);
+          _Block_object_dispose(&v40, 8);
           displayName = [v8 displayName];
           v23 = [v20 calDAVResultWithAddress:stringRemovingMailto displayName:displayName nameComponents:v12 resultType:type groupMembersProvider:v19 userInfo:principalPath];
 
           if (v23)
           {
-            [v26 addObject:v23];
+            [v25 addObject:v23];
           }
         }
 
 LABEL_23:
       }
 
-      v6 = [obj countByEnumeratingWithState:&v32 objects:v47 count:16];
+      v6 = [obj countByEnumeratingWithState:&v31 objects:v46 count:16];
     }
 
     while (v6);
   }
 
-  [v26 sortUsingComparator:&__block_literal_global_13];
-  v24 = *MEMORY[0x1E69E9840];
+  [v25 sortUsingComparator:&__block_literal_global_13];
 
-  return v26;
+  return v25;
 }
 
 id __68__EKAutocompleter_autocompleteResultsFromDirectoryRecords_withType___block_invoke(uint64_t a1, void *a2)
@@ -1216,25 +1198,22 @@ void __49__EKAutocompleter_directorySearchWithCompletion___block_invoke_5(uint64
 
 - (void)searchFor:(uint64_t)a1 onSource:(NSObject *)a2 withContext:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1A805E000, a2, OS_LOG_TYPE_DEBUG, "[EKAutocomplete] Search for %@ invoked", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1A805E000, a2, OS_LOG_TYPE_DEBUG, "[EKAutocomplete] Search for %@ invoked", &v2, 0xCu);
 }
 
 - (void)searchFor:(uint64_t)a1 onSource:(void *)a2 withContext:(void *)a3 .cold.2(uint64_t a1, void *a2, void *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = [a3 allResults];
-  v8 = 138412546;
-  v9 = a1;
-  v10 = 2048;
-  v11 = [v6 count];
-  _os_log_debug_impl(&dword_1A805E000, v5, OS_LOG_TYPE_DEBUG, "[EKAutocomplete] Same search (%@), ret %lu results.", &v8, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
+  v7 = 138412546;
+  v8 = a1;
+  v9 = 2048;
+  v10 = [v6 count];
+  _os_log_debug_impl(&dword_1A805E000, v5, OS_LOG_TYPE_DEBUG, "[EKAutocomplete] Same search (%@), ret %lu results.", &v7, 0x16u);
 }
 
 @end

@@ -49,12 +49,12 @@
 
   self->mProcessId = client;
   objc_initWeak(&location, self);
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __41__WRM_UCMInterface_registerClient_queue___block_invoke;
-  v29[3] = &unk_279ED5CE0;
-  objc_copyWeak(&v30, &location);
-  v13 = MEMORY[0x2743E9050](v29);
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __41__WRM_UCMInterface_registerClient_queue___block_invoke;
+  v28[3] = &unk_279ED5CE0;
+  objc_copyWeak(&v29, &location);
+  v13 = MEMORY[0x2743E9050](v28);
   mNotificationBlock = self->mNotificationBlock;
   if (mNotificationBlock)
   {
@@ -78,35 +78,33 @@
       handler[1] = 3221225472;
       handler[2] = __41__WRM_UCMInterface_registerClient_queue___block_invoke_2;
       handler[3] = &unk_279ED6110;
-      objc_copyWeak(&v28, &location);
+      objc_copyWeak(&v27, &location);
       xpc_connection_set_event_handler(v19, handler);
       xpc_connection_resume(self->mConnection);
       keys[0] = "kWCMRegisterProcess_ProcessId";
       v20 = xpc_uint64_create(client);
       values = v20;
       v21 = xpc_dictionary_create(keys, &values, 1uLL);
-      *v33 = xmmword_279ED6208;
+      *v32 = xmmword_279ED6208;
       v22 = xpc_uint64_create(1uLL);
-      v32[0] = v22;
+      v31[0] = v22;
       v23 = v21;
-      v32[1] = v23;
-      v24 = xpc_dictionary_create(v33, v32, 2uLL);
+      v31[1] = v23;
+      v24 = xpc_dictionary_create(v32, v31, 2uLL);
       xpc_connection_send_message(self->mConnection, v24);
 
       for (i = 1; i != -1; --i)
       {
       }
 
-      objc_destroyWeak(&v28);
+      objc_destroyWeak(&v27);
     }
 
     v13 = 0;
   }
 
-  objc_destroyWeak(&v30);
+  objc_destroyWeak(&v29);
   objc_destroyWeak(&location);
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unregisterClient
@@ -153,7 +151,7 @@
 {
   percentageCopy = percentage;
   enabledCopy = enabled;
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     v9 = "disable";
@@ -192,22 +190,20 @@
   xpc_dictionary_set_uint64(v13, "kWCMAirplayCriticalityPercentage", percentageCopy);
   *buf = xmmword_279ED6208;
   v14 = v12;
-  v19[0] = v14;
+  v18[0] = v14;
   v15 = v13;
-  v19[1] = v15;
-  v16 = xpc_dictionary_create(buf, v19, 2uLL);
+  v18[1] = v15;
+  v16 = xpc_dictionary_create(buf, v18, 2uLL);
   xpc_connection_send_message(self->mConnection, v16);
 
   for (i = 1; i != -1; --i)
   {
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setAWDLEnabled:(BOOL)enabled
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (self->mIsAwdlEnabled != enabled)
   {
     enabledCopy = enabled;
@@ -247,10 +243,10 @@
     xpc_dictionary_set_BOOL(v9, "kWCMP2PAWDLOn", enabledCopy);
     *buf = xmmword_279ED6208;
     v10 = v8;
-    v15[0] = v10;
+    v14[0] = v10;
     v11 = v9;
-    v15[1] = v11;
-    v12 = xpc_dictionary_create(buf, v15, 2uLL);
+    v14[1] = v11;
+    v12 = xpc_dictionary_create(buf, v14, 2uLL);
     xpc_connection_send_message(self->mConnection, v12);
     self->mIsAwdlEnabled = enabledCopy;
 
@@ -258,13 +254,11 @@
     {
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setNANEnabled:(BOOL)enabled
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (self->mIsNanEnabled != enabled)
   {
     enabledCopy = enabled;
@@ -304,10 +298,10 @@
     xpc_dictionary_set_BOOL(v9, "kWCMP2PNANOn", enabledCopy);
     *buf = xmmword_279ED6208;
     v10 = v8;
-    v15[0] = v10;
+    v14[0] = v10;
     v11 = v9;
-    v15[1] = v11;
-    v12 = xpc_dictionary_create(buf, v15, 2uLL);
+    v14[1] = v11;
+    v12 = xpc_dictionary_create(buf, v14, 2uLL);
     xpc_connection_send_message(self->mConnection, v12);
     self->mIsNanEnabled = enabledCopy;
     if (!enabledCopy)
@@ -319,13 +313,11 @@
     {
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setNANRealTimeEnabled:(BOOL)enabled
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (self->mIsNanRealTimeEnabled != enabled)
   {
     enabledCopy = enabled;
@@ -365,10 +357,10 @@
     xpc_dictionary_set_BOOL(v9, "kWCMP2PNANRealTimeOn", enabledCopy);
     *buf = xmmword_279ED6208;
     v10 = v8;
-    v16[0] = v10;
+    v15[0] = v10;
     v11 = v9;
-    v16[1] = v11;
-    v12 = xpc_dictionary_create(buf, v16, 2uLL);
+    v15[1] = v11;
+    v12 = xpc_dictionary_create(buf, v15, 2uLL);
     mConnection = self->mConnection;
     if (mConnection)
     {
@@ -381,8 +373,6 @@
     {
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (WRM_UCMInterface)init
@@ -446,7 +436,7 @@
 - (void)handleNotification:(id)notification :(BOOL)a4
 {
   v4 = a4;
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   v7 = notificationCopy;
   if (!v4)
@@ -487,9 +477,9 @@ LABEL_16:
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138412290;
-      v12 = v7;
-      _os_log_impl(&dword_2742D6000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Invoking reConnect %@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v7;
+      _os_log_impl(&dword_2742D6000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Invoking reConnect %@", &v10, 0xCu);
     }
 
     goto LABEL_16;
@@ -497,14 +487,12 @@ LABEL_16:
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v11) = 0;
-    _os_log_impl(&dword_2742D6000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Invoking reConnect", &v11, 2u);
+    LOWORD(v10) = 0;
+    _os_log_impl(&dword_2742D6000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Invoking reConnect", &v10, 2u);
   }
 
   [(WRM_UCMInterface *)self reConnect];
 LABEL_17:
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processBTConnectedLinksNotification:(id)notification

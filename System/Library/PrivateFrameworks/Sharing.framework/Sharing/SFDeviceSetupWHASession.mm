@@ -28,25 +28,24 @@
 
 - (SFDeviceSetupWHASession)init
 {
-  v7.receiver = self;
-  v7.super_class = SFDeviceSetupWHASession;
-  v2 = [(SFDeviceSetupWHASession *)&v7 init];
-  v3 = v2;
+  v6.receiver = self;
+  v6.super_class = SFDeviceSetupWHASession;
+  v2 = [(SFDeviceSetupWHASession *)&v6 init];
   if (v2)
   {
-    v4 = SFMainQueue(v2);
-    dispatchQueue = v3->_dispatchQueue;
-    v3->_dispatchQueue = v4;
+    v3 = SFMainQueue();
+    dispatchQueue = v2->_dispatchQueue;
+    v2->_dispatchQueue = v3;
   }
 
-  return v3;
+  return v2;
 }
 
 - (void)dealloc
 {
   if (self->_activateCalled && !self->_invalidateCalled)
   {
-    v3 = [SFRemoteAutoFillService dealloc];
+    [SFRemoteAutoFillService dealloc];
     [(SFDeviceSetupWHASession *)v3 _cleanup];
   }
 
@@ -61,36 +60,36 @@
 
 - (void)_cleanup
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   [(TROperationQueue *)self->_trOperationQueue invalidate];
   trOperationQueue = self->_trOperationQueue;
   self->_trOperationQueue = 0;
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v4 = self->_trOperations;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v23;
+    v7 = *v22;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v23 != v7)
+        if (*v22 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v22 + 1) + 8 * i);
+        v9 = *(*(&v21 + 1) + 8 * i);
         [v9 cancel];
         [v9 setCompletionBlock:0];
       }
 
-      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v6);
@@ -140,8 +139,6 @@
 
   promptForRoomHandler = self->_promptForRoomHandler;
   self->_promptForRoomHandler = 0;
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)activate
@@ -155,25 +152,29 @@
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __35__SFDeviceSetupWHASession_activate__block_invoke(uint64_t a1)
+uint64_t __35__SFDeviceSetupWHASession_activate__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (gLogCategory_SFDeviceSetupWHASession <= 30 && (gLogCategory_SFDeviceSetupWHASession != -1 || _LogCategory_Initialize()))
+  v3 = a1;
+  if (gLogCategory_SFDeviceSetupWHASession <= 30)
   {
-    __35__SFDeviceSetupWHASession_activate__block_invoke_cold_1();
+    if (gLogCategory_SFDeviceSetupWHASession != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      __35__SFDeviceSetupWHASession_activate__block_invoke_cold_1(a1, a2, a3);
+    }
   }
 
-  *(*(a1 + 32) + 8) = 1;
-  *(*(a1 + 32) + 120) = CFPrefs_GetInt64() != 0;
-  *(*(a1 + 32) + 164) = CFPrefs_GetInt64() != 0;
-  v2 = *(a1 + 32);
-  v3 = v2[25];
-  if (v3)
+  *(*(v3 + 32) + 8) = 1;
+  *(*(v3 + 32) + 120) = CFPrefs_GetInt64() != 0;
+  *(*(v3 + 32) + 164) = CFPrefs_GetInt64() != 0;
+  v4 = *(v3 + 32);
+  v5 = v4[25];
+  if (v5)
   {
-    (*(v3 + 16))(v2[25], 10, 0);
-    v2 = *(a1 + 32);
+    (*(v5 + 16))(v4[25], 10, 0);
+    v4 = *(v3 + 32);
   }
 
-  return [v2 _run];
+  return [v4 _run];
 }
 
 - (void)invalidate
@@ -187,17 +188,21 @@ uint64_t __35__SFDeviceSetupWHASession_activate__block_invoke(uint64_t a1)
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __37__SFDeviceSetupWHASession_invalidate__block_invoke(uint64_t a1)
+uint64_t __37__SFDeviceSetupWHASession_invalidate__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if ((*(*(a1 + 32) + 9) & 1) == 0 && gLogCategory_SFDeviceSetupWHASession <= 30 && (gLogCategory_SFDeviceSetupWHASession != -1 || _LogCategory_Initialize()))
+  v3 = a1;
+  if ((*(*(a1 + 32) + 9) & 1) == 0 && gLogCategory_SFDeviceSetupWHASession <= 30)
   {
-    __37__SFDeviceSetupWHASession_invalidate__block_invoke_cold_1();
+    if (gLogCategory_SFDeviceSetupWHASession != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      __37__SFDeviceSetupWHASession_invalidate__block_invoke_cold_1(a1, a2, a3);
+    }
   }
 
-  *(*(a1 + 32) + 9) = 1;
-  v2 = *(a1 + 32);
+  *(*(v3 + 32) + 9) = 1;
+  v4 = *(v3 + 32);
 
-  return [v2 _cleanup];
+  return [v4 _cleanup];
 }
 
 - (void)homeKitSelectHome:(id)home
@@ -244,23 +249,23 @@ uint64_t __37__SFDeviceSetupWHASession_invalidate__block_invoke(uint64_t a1)
 
 - (void)_reportError:(id)error
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (gLogCategory_SFDeviceSetupWHASession <= 30 && (gLogCategory_SFDeviceSetupWHASession != -1 || _LogCategory_Initialize()))
   {
-    [SFDeviceSetupWHASession _reportError:];
+    [SFDeviceSetupWHASession _reportError:errorCopy];
   }
 
   progressHandler = self->_progressHandler;
   if (progressHandler)
   {
-    v17 = @"eo";
+    v16 = @"eo";
     v8 = errorCopy;
     if (!errorCopy)
     {
       v9 = MEMORY[0x1E696ABC0];
       v10 = *MEMORY[0x1E696A768];
-      v15 = *MEMORY[0x1E696A578];
+      v14 = *MEMORY[0x1E696A578];
       v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:DebugGetErrorString()];
       v3 = v11;
       v12 = @"?";
@@ -269,25 +274,24 @@ uint64_t __37__SFDeviceSetupWHASession_invalidate__block_invoke(uint64_t a1)
         v12 = v11;
       }
 
-      v16 = v12;
-      v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+      v15 = v12;
+      v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
       v8 = [v9 errorWithDomain:v10 code:-6700 userInfo:v4];
     }
 
-    v18[0] = v8;
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+    v17[0] = v8;
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
     progressHandler[2](progressHandler, 30, v13);
 
     if (!errorCopy)
     {
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (int)_runSFSessionStart
 {
+  selfCopy = self;
   sfSessionState = self->_sfSessionState;
   if (sfSessionState != 4)
   {
@@ -299,69 +303,72 @@ uint64_t __37__SFDeviceSetupWHASession_invalidate__block_invoke(uint64_t a1)
         {
           if (!_LogCategory_Initialize())
           {
-            return self->_sfSessionState;
+            return selfCopy->_sfSessionState;
           }
 
-          v8 = self->_sfSessionState;
+          sfSessionState = selfCopy->_sfSessionState;
         }
 
-        LogPrintF();
+        LogPrintF(&gLogCategory_SFDeviceSetupWHASession, "[SFDeviceSetupWHASession _runSFSessionStart]", 30, "SFSession hasn't succeeded yet (%d)\n", sfSessionState);
       }
     }
 
     else
     {
-      if (gLogCategory_SFDeviceSetupWHASession <= 30 && (gLogCategory_SFDeviceSetupWHASession != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_SFDeviceSetupWHASession <= 30)
       {
-        [SFDeviceSetupWHASession _runSFSessionStart];
+        if (gLogCategory_SFDeviceSetupWHASession != -1 || (self = _LogCategory_Initialize(), self))
+        {
+          [(SFDeviceSetupWHASession *)self _runSFSessionStart];
+        }
       }
 
-      self->_sfSessionState = 1;
-      [(SFSession *)self->_sfSession invalidate];
-      v4 = objc_alloc_init(SFSession);
-      sfSession = self->_sfSession;
-      self->_sfSession = v4;
+      selfCopy->_sfSessionState = 1;
+      [(SFSession *)selfCopy->_sfSession invalidate];
+      v5 = objc_alloc_init(SFSession);
+      sfSession = selfCopy->_sfSession;
+      selfCopy->_sfSession = v5;
 
-      [(SFSession *)self->_sfSession setDispatchQueue:self->_dispatchQueue];
-      [(SFSession *)self->_sfSession setLabel:@"WHASetup"];
-      [(SFSession *)self->_sfSession setPeerDevice:self->_peerDevice];
-      [(SFSession *)self->_sfSession setServiceIdentifier:@"com.apple.sharing.WHASetup"];
-      [(SFSession *)self->_sfSession setSessionFlags:1];
-      [(SFSession *)self->_sfSession setTouchRemoteEnabled:1];
+      [(SFSession *)selfCopy->_sfSession setDispatchQueue:selfCopy->_dispatchQueue];
+      [(SFSession *)selfCopy->_sfSession setLabel:@"WHASetup"];
+      [(SFSession *)selfCopy->_sfSession setPeerDevice:selfCopy->_peerDevice];
+      [(SFSession *)selfCopy->_sfSession setServiceIdentifier:@"com.apple.sharing.WHASetup"];
+      [(SFSession *)selfCopy->_sfSession setSessionFlags:1];
+      [(SFSession *)selfCopy->_sfSession setTouchRemoteEnabled:1];
       v12[0] = MEMORY[0x1E69E9820];
       v12[1] = 3221225472;
       v12[2] = __45__SFDeviceSetupWHASession__runSFSessionStart__block_invoke;
       v12[3] = &unk_1E788B238;
-      v12[4] = self;
-      [(SFSession *)self->_sfSession setErrorHandler:v12];
+      v12[4] = selfCopy;
+      [(SFSession *)selfCopy->_sfSession setErrorHandler:v12];
       v11[0] = MEMORY[0x1E69E9820];
       v11[1] = 3221225472;
       v11[2] = __45__SFDeviceSetupWHASession__runSFSessionStart__block_invoke_2;
       v11[3] = &unk_1E788B198;
-      v11[4] = self;
-      [(SFSession *)self->_sfSession setInterruptionHandler:v11];
+      v11[4] = selfCopy;
+      [(SFSession *)selfCopy->_sfSession setInterruptionHandler:v11];
       v10[0] = MEMORY[0x1E69E9820];
       v10[1] = 3221225472;
       v10[2] = __45__SFDeviceSetupWHASession__runSFSessionStart__block_invoke_3;
       v10[3] = &unk_1E788B198;
-      v10[4] = self;
-      [(SFSession *)self->_sfSession setInvalidationHandler:v10];
-      if (self->_promptForPINHandler)
+      v10[4] = selfCopy;
+      [(SFSession *)selfCopy->_sfSession setInvalidationHandler:v10];
+      if (selfCopy->_promptForPINHandler)
       {
-        [(SFSession *)self->_sfSession setPromptForPINHandler:?];
+        [(SFSession *)selfCopy->_sfSession setPromptForPINHandler:?];
       }
 
-      v6 = self->_sfSession;
+      v7 = selfCopy->_sfSession;
       v9[0] = MEMORY[0x1E69E9820];
       v9[1] = 3221225472;
       v9[2] = __45__SFDeviceSetupWHASession__runSFSessionStart__block_invoke_4;
       v9[3] = &unk_1E788B238;
-      v9[4] = self;
-      [(SFSession *)v6 activateWithCompletion:v9];
+      v9[4] = selfCopy;
+      [(SFSession *)v7 activateWithCompletion:v9];
     }
   }
 
-  return self->_sfSessionState;
+  return selfCopy->_sfSessionState;
 }
 
 void __45__SFDeviceSetupWHASession__runSFSessionStart__block_invoke(uint64_t a1, void *a2)
@@ -372,7 +379,7 @@ void __45__SFDeviceSetupWHASession__runSFSessionStart__block_invoke(uint64_t a1,
   {
     if (gLogCategory_SFDeviceSetupWHASession != -1 || (v4 = _LogCategory_Initialize(), v3 = v5, v4))
     {
-      __45__SFDeviceSetupWHASession__runSFSessionStart__block_invoke_cold_1();
+      __45__SFDeviceSetupWHASession__runSFSessionStart__block_invoke_cold_1(v3);
       v3 = v5;
     }
   }
@@ -382,11 +389,11 @@ void __45__SFDeviceSetupWHASession__runSFSessionStart__block_invoke(uint64_t a1,
 
 void __45__SFDeviceSetupWHASession__runSFSessionStart__block_invoke_2(uint64_t a1)
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   v2 = MEMORY[0x1E696ABC0];
   v3 = *MEMORY[0x1E696A768];
-  v10 = *MEMORY[0x1E696A578];
+  v9 = *MEMORY[0x1E696A578];
   v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:DebugGetErrorString()];
   v5 = v4;
   v6 = @"?";
@@ -395,23 +402,21 @@ void __45__SFDeviceSetupWHASession__runSFSessionStart__block_invoke_2(uint64_t a
     v6 = v4;
   }
 
-  v11[0] = v6;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v10[0] = v6;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   v8 = [v2 errorWithDomain:v3 code:-6762 userInfo:v7];
   [v1 _reportError:v8];
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __45__SFDeviceSetupWHASession__runSFSessionStart__block_invoke_3(uint64_t a1)
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   if ((v1[9] & 1) == 0)
   {
     v2 = MEMORY[0x1E696ABC0];
     v3 = *MEMORY[0x1E696A768];
-    v10 = *MEMORY[0x1E696A578];
+    v9 = *MEMORY[0x1E696A578];
     v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:DebugGetErrorString()];
     v5 = v4;
     v6 = @"?";
@@ -420,13 +425,11 @@ void __45__SFDeviceSetupWHASession__runSFSessionStart__block_invoke_3(uint64_t a
       v6 = v4;
     }
 
-    v11[0] = v6;
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    v10[0] = v6;
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
     v8 = [v2 errorWithDomain:v3 code:-6736 userInfo:v7];
     [v1 _reportError:v8];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __45__SFDeviceSetupWHASession__runSFSessionStart__block_invoke_4(uint64_t a1, uint64_t a2)
@@ -461,10 +464,10 @@ uint64_t __45__SFDeviceSetupWHASession__runSFSessionStart__block_invoke_4(uint64
             return self->_pairVerifyState;
           }
 
-          v7 = self->_pairVerifyState;
+          pairVerifyState = self->_pairVerifyState;
         }
 
-        LogPrintF();
+        LogPrintF(&gLogCategory_SFDeviceSetupWHASession, "[SFDeviceSetupWHASession _runPairVerify]", 30, "PairVerify hasn't succeeded yet (%d)\n", pairVerifyState);
       }
     }
 
@@ -478,12 +481,12 @@ uint64_t __45__SFDeviceSetupWHASession__runSFSessionStart__block_invoke_4(uint64
       }
 
       sfSession = self->_sfSession;
-      v8[0] = MEMORY[0x1E69E9820];
-      v8[1] = 3221225472;
-      v8[2] = __41__SFDeviceSetupWHASession__runPairVerify__block_invoke;
-      v8[3] = &unk_1E788B238;
-      v8[4] = self;
-      [(SFSession *)sfSession pairVerifyWithFlags:8 completion:v8];
+      v7[0] = MEMORY[0x1E69E9820];
+      v7[1] = 3221225472;
+      v7[2] = __41__SFDeviceSetupWHASession__runPairVerify__block_invoke;
+      v7[3] = &unk_1E788B238;
+      v7[4] = self;
+      [(SFSession *)sfSession pairVerifyWithFlags:8 completion:v7];
     }
   }
 
@@ -492,39 +495,46 @@ uint64_t __45__SFDeviceSetupWHASession__runSFSessionStart__block_invoke_4(uint64
 
 void __41__SFDeviceSetupWHASession__runPairVerify__block_invoke(uint64_t a1, void *a2)
 {
-  v8 = a2;
-  if (v8)
+  v3 = a2;
+  v11 = v3;
+  if (v3)
   {
-    if (gLogCategory_SFDeviceSetupWHASession <= 30 && (gLogCategory_SFDeviceSetupWHASession != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFDeviceSetupWHASession <= 30)
     {
-      __41__SFDeviceSetupWHASession__runPairVerify__block_invoke_cold_1();
+      if (gLogCategory_SFDeviceSetupWHASession != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        __41__SFDeviceSetupWHASession__runPairVerify__block_invoke_cold_1(v3, v4, v5);
+      }
     }
 
-    v4 = *(a1 + 32);
-    v3 = a1 + 32;
-    *(v4 + 32) = 2;
+    v7 = *(a1 + 32);
+    v6 = a1 + 32;
+    *(v7 + 32) = 2;
     goto LABEL_11;
   }
 
-  if (gLogCategory_SFDeviceSetupWHASession <= 30 && (gLogCategory_SFDeviceSetupWHASession != -1 || _LogCategory_Initialize()))
+  if (gLogCategory_SFDeviceSetupWHASession <= 30)
   {
-    __41__SFDeviceSetupWHASession__runPairVerify__block_invoke_cold_2();
+    if (gLogCategory_SFDeviceSetupWHASession != -1 || (v3 = _LogCategory_Initialize(), v3))
+    {
+      __41__SFDeviceSetupWHASession__runPairVerify__block_invoke_cold_2(v3, v4, v5);
+    }
   }
 
-  v5 = *(a1 + 32);
-  v3 = a1 + 32;
-  *(v5 + 28) = 1;
-  *(*v3 + 32) = 4;
-  v6 = *v3;
-  v7 = *(*v3 + 200);
-  if (v7)
+  v8 = *(a1 + 32);
+  v6 = a1 + 32;
+  *(v8 + 28) = 1;
+  *(*v6 + 32) = 4;
+  v9 = *v6;
+  v10 = *(*v6 + 200);
+  if (v10)
   {
-    (*(v7 + 16))(*(*v3 + 200), 70, 0);
+    (*(v10 + 16))(*(*v6 + 200), 70, 0);
 LABEL_11:
-    v6 = *v3;
+    v9 = *v6;
   }
 
-  [v6 _run];
+  [v9 _run];
 }
 
 - (int)_runPairSetup
@@ -543,10 +553,10 @@ LABEL_11:
             return self->_pairSetupState;
           }
 
-          v7 = self->_pairSetupState;
+          pairSetupState = self->_pairSetupState;
         }
 
-        LogPrintF();
+        LogPrintF(&gLogCategory_SFDeviceSetupWHASession, "[SFDeviceSetupWHASession _runPairSetup]", 30, "PairSetup hasn't succeeded yet (%d)\n", pairSetupState);
       }
     }
 
@@ -560,12 +570,12 @@ LABEL_11:
       }
 
       sfSession = self->_sfSession;
-      v8[0] = MEMORY[0x1E69E9820];
-      v8[1] = 3221225472;
-      v8[2] = __40__SFDeviceSetupWHASession__runPairSetup__block_invoke;
-      v8[3] = &unk_1E788B238;
-      v8[4] = self;
-      [(SFSession *)sfSession pairSetupWithFlags:8 completion:v8];
+      v7[0] = MEMORY[0x1E69E9820];
+      v7[1] = 3221225472;
+      v7[2] = __40__SFDeviceSetupWHASession__runPairSetup__block_invoke;
+      v7[3] = &unk_1E788B238;
+      v7[4] = self;
+      [(SFSession *)sfSession pairSetupWithFlags:8 completion:v7];
     }
   }
 
@@ -601,6 +611,7 @@ void __40__SFDeviceSetupWHASession__runPairSetup__block_invoke(uint64_t a1, void
 
 - (int)_runInfoExchange
 {
+  selfCopy = self;
   infoExchangeState = self->_infoExchangeState;
   if (infoExchangeState != 4 && infoExchangeState != 2)
   {
@@ -612,29 +623,32 @@ void __40__SFDeviceSetupWHASession__runPairSetup__block_invoke(uint64_t a1, void
         {
           if (!_LogCategory_Initialize())
           {
-            return self->_infoExchangeState;
+            return selfCopy->_infoExchangeState;
           }
 
-          v6 = self->_infoExchangeState;
+          infoExchangeState = selfCopy->_infoExchangeState;
         }
 
-        LogPrintF();
+        LogPrintF(&gLogCategory_SFDeviceSetupWHASession, "[SFDeviceSetupWHASession _runInfoExchange]", 30, "InfoExchange not done yet (%d)\n", infoExchangeState);
       }
     }
 
     else
     {
-      if (gLogCategory_SFDeviceSetupWHASession <= 30 && (gLogCategory_SFDeviceSetupWHASession != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_SFDeviceSetupWHASession <= 30)
       {
-        [SFDeviceSetupWHASession _runInfoExchange];
+        if (gLogCategory_SFDeviceSetupWHASession != -1 || (self = _LogCategory_Initialize(), self))
+        {
+          [(SFDeviceSetupWHASession *)self _runInfoExchange];
+        }
       }
 
-      self->_infoExchangeState = 1;
-      [(SFDeviceSetupWHASession *)self _runInfoExchangeRequest];
+      selfCopy->_infoExchangeState = 1;
+      [(SFDeviceSetupWHASession *)selfCopy _runInfoExchangeRequest];
     }
   }
 
-  return self->_infoExchangeState;
+  return selfCopy->_infoExchangeState;
 }
 
 - (void)_runInfoExchangeRequest
@@ -642,7 +656,7 @@ void __40__SFDeviceSetupWHASession__runPairSetup__block_invoke(uint64_t a1, void
   v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
   if (gLogCategory_SFDeviceSetupWHASession <= 30 && (gLogCategory_SFDeviceSetupWHASession != -1 || _LogCategory_Initialize()))
   {
-    [SFDeviceSetupWHASession _runInfoExchangeRequest];
+    [(SFDeviceSetupWHASession *)v3 _runInfoExchangeRequest];
   }
 
   sfSession = self->_sfSession;
@@ -664,7 +678,7 @@ void __40__SFDeviceSetupWHASession__runPairSetup__block_invoke(uint64_t a1, void
   {
     if (gLogCategory_SFDeviceSetupWHASession <= 30 && (gLogCategory_SFDeviceSetupWHASession != -1 || _LogCategory_Initialize()))
     {
-      [SFDeviceSetupWHASession _runInfoExchangeResponse:error:];
+      [SFDeviceSetupWHASession _runInfoExchangeResponse:responseCopy error:?];
     }
 
     v11 = 0;
@@ -690,7 +704,7 @@ LABEL_12:
   self->_infoExchangeState = 3;
   if (!errorCopy)
   {
-    v10 = NSErrorWithOSStatusF();
+    v10 = NSErrorWithOSStatusF(4294960596, "No response, no error?");
     goto LABEL_12;
   }
 
@@ -700,72 +714,83 @@ LABEL_14:
 
 - (int)_runTRSessionStart
 {
+  selfCopy = self;
   v21[1] = *MEMORY[0x1E69E9840];
   trSessionState = self->_trSessionState;
   if (trSessionState == 4)
   {
-    goto LABEL_13;
+    return selfCopy->_trSessionState;
   }
 
   if (!trSessionState)
   {
-    if (gLogCategory_SFDeviceSetupWHASession <= 30 && (gLogCategory_SFDeviceSetupWHASession != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFDeviceSetupWHASession <= 30)
     {
-      [SFDeviceSetupWHASession _runTRSessionStart];
+      if (gLogCategory_SFDeviceSetupWHASession != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        [(SFDeviceSetupWHASession *)self _runTRSessionStart];
+      }
     }
 
-    self->_trSessionState = 1;
-    trSession = [(SFSession *)self->_sfSession trSession];
-    trSession = self->_trSession;
-    self->_trSession = trSession;
+    selfCopy->_trSessionState = 1;
+    trSession = [(SFSession *)selfCopy->_sfSession trSession];
+    trSession = selfCopy->_trSession;
+    selfCopy->_trSession = trSession;
 
-    if (self->_trSession)
+    if (selfCopy->_trSession)
     {
-      v6 = objc_alloc_init(getTROperationQueueClass_3());
-      trOperationQueue = self->_trOperationQueue;
-      self->_trOperationQueue = v6;
+      v7 = objc_alloc_init(getTROperationQueueClass_3());
+      trOperationQueue = selfCopy->_trOperationQueue;
+      selfCopy->_trOperationQueue = v7;
 
-      if (self->_trOperationQueue)
+      if (selfCopy->_trOperationQueue)
       {
-        v8 = objc_alloc_init(MEMORY[0x1E695DF70]);
-        trOperations = self->_trOperations;
-        self->_trOperations = v8;
+        v9 = objc_alloc_init(MEMORY[0x1E695DF70]);
+        trOperations = selfCopy->_trOperations;
+        selfCopy->_trOperations = v9;
 
-        self->_trSessionState = 4;
-        goto LABEL_13;
+        selfCopy->_trSessionState = 4;
+        return selfCopy->_trSessionState;
       }
 
       if (gLogCategory_SFDeviceSetupWHASession > 90 || gLogCategory_SFDeviceSetupWHASession == -1 && !_LogCategory_Initialize())
       {
         goto LABEL_22;
       }
+
+      v12 = "### Create TROperationQueue failed\n";
     }
 
-    else if (gLogCategory_SFDeviceSetupWHASession > 90 || gLogCategory_SFDeviceSetupWHASession == -1 && !_LogCategory_Initialize())
+    else
     {
-      goto LABEL_22;
+      if (gLogCategory_SFDeviceSetupWHASession > 90 || gLogCategory_SFDeviceSetupWHASession == -1 && !_LogCategory_Initialize())
+      {
+        goto LABEL_22;
+      }
+
+      v12 = "### No TRSession on SFSession\n";
     }
 
-    [SFDeviceSetupWHASession _runTRSessionStart];
+    [(SFDeviceSetupWHASession *)v12 _runTRSessionStart];
 LABEL_22:
-    self->_trSessionState = 3;
-    v12 = MEMORY[0x1E696ABC0];
-    v13 = *MEMORY[0x1E696A768];
+    selfCopy->_trSessionState = 3;
+    v13 = MEMORY[0x1E696ABC0];
+    v14 = *MEMORY[0x1E696A768];
     v20 = *MEMORY[0x1E696A578];
-    v14 = [MEMORY[0x1E696AEC0] stringWithUTF8String:DebugGetErrorString()];
-    v15 = v14;
-    v16 = @"?";
-    if (v14)
+    v15 = [MEMORY[0x1E696AEC0] stringWithUTF8String:DebugGetErrorString()];
+    v16 = v15;
+    v17 = @"?";
+    if (v15)
     {
-      v16 = v14;
+      v17 = v15;
     }
 
-    v21[0] = v16;
-    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
-    v18 = [v12 errorWithDomain:v13 code:-6700 userInfo:v17];
-    [(SFDeviceSetupWHASession *)self _reportError:v18];
+    v21[0] = v17;
+    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+    v19 = [v13 errorWithDomain:v14 code:-6700 userInfo:v18];
+    [(SFDeviceSetupWHASession *)selfCopy _reportError:v19];
 
-    goto LABEL_13;
+    return selfCopy->_trSessionState;
   }
 
   if (gLogCategory_SFDeviceSetupWHASession <= 30)
@@ -774,23 +799,21 @@ LABEL_22:
     {
       if (!_LogCategory_Initialize())
       {
-        goto LABEL_13;
+        return selfCopy->_trSessionState;
       }
 
-      v19 = self->_trSessionState;
+      trSessionState = selfCopy->_trSessionState;
     }
 
-    LogPrintF();
+    LogPrintF(&gLogCategory_SFDeviceSetupWHASession, "[SFDeviceSetupWHASession _runTRSessionStart]", 30, "TRSession hasn't succeeded yet (%d)\n", trSessionState);
   }
 
-LABEL_13:
-  result = self->_trSessionState;
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  return selfCopy->_trSessionState;
 }
 
 - (int)_runTRSetupConfiguration
 {
+  selfCopy = self;
   trSetupConfigurationState = self->_trSetupConfigurationState;
   if (trSetupConfigurationState != 4)
   {
@@ -802,39 +825,42 @@ LABEL_13:
         {
           if (!_LogCategory_Initialize())
           {
-            return self->_trSetupConfigurationState;
+            return selfCopy->_trSetupConfigurationState;
           }
 
-          v7 = self->_trSetupConfigurationState;
+          trSetupConfigurationState = selfCopy->_trSetupConfigurationState;
         }
 
-        LogPrintF();
+        LogPrintF(&gLogCategory_SFDeviceSetupWHASession, "[SFDeviceSetupWHASession _runTRSetupConfiguration]", 30, "TRSetupConfiguration hasn't succeeded yet (%d)\n", trSetupConfigurationState);
       }
     }
 
     else
     {
-      if (gLogCategory_SFDeviceSetupWHASession <= 30 && (gLogCategory_SFDeviceSetupWHASession != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_SFDeviceSetupWHASession <= 30)
       {
-        [SFDeviceSetupWHASession _runTRSetupConfiguration];
+        if (gLogCategory_SFDeviceSetupWHASession != -1 || (self = _LogCategory_Initialize(), self))
+        {
+          [(SFDeviceSetupWHASession *)self _runTRSetupConfiguration];
+        }
       }
 
-      self->_trSetupConfigurationState = 1;
-      v4 = [objc_alloc(getTRSetupConfigurationOperationClass_0()) initWithSession:self->_trSession];
-      [(NSMutableArray *)self->_trOperations addObject:v4];
+      selfCopy->_trSetupConfigurationState = 1;
+      v5 = [objc_alloc(getTRSetupConfigurationOperationClass_0()) initWithSession:selfCopy->_trSession];
+      [(NSMutableArray *)selfCopy->_trOperations addObject:v5];
       v8[0] = MEMORY[0x1E69E9820];
       v8[1] = 3221225472;
       v8[2] = __51__SFDeviceSetupWHASession__runTRSetupConfiguration__block_invoke;
       v8[3] = &unk_1E788A658;
-      v8[4] = self;
-      v9 = v4;
-      v5 = v4;
-      [v5 setCompletionBlock:v8];
-      [(TROperationQueue *)self->_trOperationQueue addOperation:v5];
+      v8[4] = selfCopy;
+      v9 = v5;
+      v6 = v5;
+      [v6 setCompletionBlock:v8];
+      [(TROperationQueue *)selfCopy->_trOperationQueue addOperation:v6];
     }
   }
 
-  return self->_trSetupConfigurationState;
+  return selfCopy->_trSetupConfigurationState;
 }
 
 void __51__SFDeviceSetupWHASession__runTRSetupConfiguration__block_invoke(uint64_t a1)
@@ -856,14 +882,15 @@ void __51__SFDeviceSetupWHASession__runTRSetupConfiguration__block_invoke_2(uint
   v1 = (a1 + 32);
   if (*(*(a1 + 32) + 72))
   {
-    v6 = [*(a1 + 40) result];
-    if (v6)
+    v3 = [*(a1 + 40) result];
+    v7 = v3;
+    if (v3)
     {
-      getTRSetupConfigurationOperationUnauthenticatedServicesKey_0();
+      getTRSetupConfigurationOperationUnauthenticatedServicesKey_0(v3);
       CFSetGetTypeID();
-      v3 = CFDictionaryGetTypedValue();
-      v4 = *(*v1 + 13);
-      *(*v1 + 13) = v3;
+      v4 = CFDictionaryGetTypedValue();
+      v5 = *(*v1 + 13);
+      *(*v1 + 13) = v4;
 
       if (gLogCategory_SFDeviceSetupWHASession <= 30 && (gLogCategory_SFDeviceSetupWHASession != -1 || _LogCategory_Initialize()))
       {
@@ -876,20 +903,21 @@ void __51__SFDeviceSetupWHASession__runTRSetupConfiguration__block_invoke_2(uint
 
     else
     {
-      v5 = [*(a1 + 40) error];
+      v6 = [*(a1 + 40) error];
       if (gLogCategory_SFDeviceSetupWHASession <= 60 && (gLogCategory_SFDeviceSetupWHASession != -1 || _LogCategory_Initialize()))
       {
-        __51__SFDeviceSetupWHASession__runTRSetupConfiguration__block_invoke_2_cold_2();
+        __51__SFDeviceSetupWHASession__runTRSetupConfiguration__block_invoke_2_cold_2(v6);
       }
 
       *(*v1 + 25) = 3;
-      [*v1 _reportError:v5];
+      [*v1 _reportError:v6];
     }
   }
 }
 
 - (int)_runTRAuthentication
 {
+  selfCopy = self;
   trAuthenticationState = self->_trAuthenticationState;
   if (trAuthenticationState != 4)
   {
@@ -901,45 +929,48 @@ void __51__SFDeviceSetupWHASession__runTRSetupConfiguration__block_invoke_2(uint
         {
           if (!_LogCategory_Initialize())
           {
-            return self->_trAuthenticationState;
+            return selfCopy->_trAuthenticationState;
           }
 
-          v7 = self->_trAuthenticationState;
+          trAuthenticationState = selfCopy->_trAuthenticationState;
         }
 
-        LogPrintF();
+        LogPrintF(&gLogCategory_SFDeviceSetupWHASession, "[SFDeviceSetupWHASession _runTRAuthentication]", 30, "TRAuthentication hasn't succeeded yet (%d)\n", trAuthenticationState);
       }
     }
 
     else
     {
-      if (gLogCategory_SFDeviceSetupWHASession <= 30 && (gLogCategory_SFDeviceSetupWHASession != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_SFDeviceSetupWHASession <= 30)
       {
-        [SFDeviceSetupWHASession _runTRAuthentication];
+        if (gLogCategory_SFDeviceSetupWHASession != -1 || (self = _LogCategory_Initialize(), self))
+        {
+          [(SFDeviceSetupWHASession *)self _runTRAuthentication];
+        }
       }
 
-      self->_trAuthenticationState = 1;
-      v4 = [objc_alloc(getTRAuthenticationOperationClass_2()) initWithSession:self->_trSession];
-      [(NSMutableArray *)self->_trOperations addObject:v4];
-      [v4 setTargetedServices:self->_trUnauthServices];
-      if (self->_presentingViewController)
+      selfCopy->_trAuthenticationState = 1;
+      v5 = [objc_alloc(getTRAuthenticationOperationClass_2()) initWithSession:selfCopy->_trSession];
+      [(NSMutableArray *)selfCopy->_trOperations addObject:v5];
+      [v5 setTargetedServices:selfCopy->_trUnauthServices];
+      if (selfCopy->_presentingViewController)
       {
-        [v4 setPresentingViewController:?];
+        [v5 setPresentingViewController:?];
       }
 
       v8[0] = MEMORY[0x1E69E9820];
       v8[1] = 3221225472;
       v8[2] = __47__SFDeviceSetupWHASession__runTRAuthentication__block_invoke;
       v8[3] = &unk_1E788A658;
-      v8[4] = self;
-      v9 = v4;
-      v5 = v4;
-      [v5 setCompletionBlock:v8];
-      [(TROperationQueue *)self->_trOperationQueue addOperation:v5];
+      v8[4] = selfCopy;
+      v9 = v5;
+      v6 = v5;
+      [v6 setCompletionBlock:v8];
+      [(TROperationQueue *)selfCopy->_trOperationQueue addOperation:v6];
     }
   }
 
-  return self->_trAuthenticationState;
+  return selfCopy->_trAuthenticationState;
 }
 
 void __47__SFDeviceSetupWHASession__runTRAuthentication__block_invoke(uint64_t a1)
@@ -960,12 +991,16 @@ void __47__SFDeviceSetupWHASession__runTRAuthentication__block_invoke_2(uint64_t
 {
   if (*(*(a1 + 32) + 72))
   {
-    v3 = [*(a1 + 40) result];
-    if (v3)
+    v2 = [*(a1 + 40) result];
+    v6 = v2;
+    if (v2)
     {
-      if (gLogCategory_SFDeviceSetupWHASession <= 30 && (gLogCategory_SFDeviceSetupWHASession != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_SFDeviceSetupWHASession <= 30)
       {
-        __47__SFDeviceSetupWHASession__runTRAuthentication__block_invoke_2_cold_1();
+        if (gLogCategory_SFDeviceSetupWHASession != -1 || (v2 = _LogCategory_Initialize(), v2))
+        {
+          __47__SFDeviceSetupWHASession__runTRAuthentication__block_invoke_2_cold_1(v2, v3, v4);
+        }
       }
 
       *(*(a1 + 32) + 116) = 4;
@@ -974,20 +1009,21 @@ void __47__SFDeviceSetupWHASession__runTRAuthentication__block_invoke_2(uint64_t
 
     else
     {
-      v2 = [*(a1 + 40) error];
+      v5 = [*(a1 + 40) error];
       if (gLogCategory_SFDeviceSetupWHASession <= 60 && (gLogCategory_SFDeviceSetupWHASession != -1 || _LogCategory_Initialize()))
       {
-        __47__SFDeviceSetupWHASession__runTRAuthentication__block_invoke_2_cold_2();
+        __47__SFDeviceSetupWHASession__runTRAuthentication__block_invoke_2_cold_2(v5);
       }
 
       *(*(a1 + 32) + 116) = 3;
-      [*(a1 + 32) _reportError:v2];
+      [*(a1 + 32) _reportError:v5];
     }
   }
 }
 
 - (int)_runCDPSetup
 {
+  selfCopy = self;
   cdpState = self->_cdpState;
   if (cdpState != 4)
   {
@@ -999,92 +1035,96 @@ void __47__SFDeviceSetupWHASession__runTRAuthentication__block_invoke_2(uint64_t
         {
           if (!_LogCategory_Initialize())
           {
-            return self->_cdpState;
+            return selfCopy->_cdpState;
           }
 
-          v8 = self->_cdpState;
+          cdpState = selfCopy->_cdpState;
         }
 
-        LogPrintF();
+        LogPrintF(&gLogCategory_SFDeviceSetupWHASession, "[SFDeviceSetupWHASession _runCDPSetup]", 30, "CDPSetup hasn't succeeded yet (%d)\n", cdpState);
       }
     }
 
     else
     {
-      if (gLogCategory_SFDeviceSetupWHASession <= 30 && (gLogCategory_SFDeviceSetupWHASession != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_SFDeviceSetupWHASession <= 30)
       {
-        [SFDeviceSetupWHASession _runCDPSetup];
+        if (gLogCategory_SFDeviceSetupWHASession != -1 || (self = _LogCategory_Initialize(), self))
+        {
+          [(SFDeviceSetupWHASession *)self _runCDPSetup];
+        }
       }
 
-      self->_cdpState = 1;
-      progressHandler = self->_progressHandler;
+      selfCopy->_cdpState = 1;
+      progressHandler = selfCopy->_progressHandler;
       if (progressHandler)
       {
         progressHandler[2](progressHandler, 236, 0);
       }
 
-      [(SFDeviceOperationCDPSetup *)self->_cdpSetupOperation invalidate];
-      v5 = objc_alloc_init(SFDeviceOperationCDPSetup);
-      cdpSetupOperation = self->_cdpSetupOperation;
-      self->_cdpSetupOperation = v5;
+      [(SFDeviceOperationCDPSetup *)selfCopy->_cdpSetupOperation invalidate];
+      v6 = objc_alloc_init(SFDeviceOperationCDPSetup);
+      cdpSetupOperation = selfCopy->_cdpSetupOperation;
+      selfCopy->_cdpSetupOperation = v6;
 
-      [(SFDeviceOperationCDPSetup *)self->_cdpSetupOperation setDispatchQueue:self->_dispatchQueue];
-      [(SFDeviceOperationCDPSetup *)self->_cdpSetupOperation setSfSession:self->_sfSession];
-      if (self->_presentingViewController)
+      [(SFDeviceOperationCDPSetup *)selfCopy->_cdpSetupOperation setDispatchQueue:selfCopy->_dispatchQueue];
+      [(SFDeviceOperationCDPSetup *)selfCopy->_cdpSetupOperation setSfSession:selfCopy->_sfSession];
+      if (selfCopy->_presentingViewController)
       {
-        [(SFDeviceOperationCDPSetup *)self->_cdpSetupOperation setPresentingViewController:?];
+        [(SFDeviceOperationCDPSetup *)selfCopy->_cdpSetupOperation setPresentingViewController:?];
       }
 
       v9[0] = MEMORY[0x1E69E9820];
       v9[1] = 3221225472;
       v9[2] = __39__SFDeviceSetupWHASession__runCDPSetup__block_invoke;
       v9[3] = &unk_1E788B238;
-      v9[4] = self;
-      [(SFDeviceOperationCDPSetup *)self->_cdpSetupOperation setCompletionHandler:v9];
-      [(SFDeviceOperationCDPSetup *)self->_cdpSetupOperation activate];
+      v9[4] = selfCopy;
+      [(SFDeviceOperationCDPSetup *)selfCopy->_cdpSetupOperation setCompletionHandler:v9];
+      [(SFDeviceOperationCDPSetup *)selfCopy->_cdpSetupOperation activate];
     }
   }
 
-  return self->_cdpState;
+  return selfCopy->_cdpState;
 }
 
 void __39__SFDeviceSetupWHASession__runCDPSetup__block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v6 = *(a1 + 32);
-  v5 = (a1 + 32);
-  v4 = v6;
-  v7 = *(v6 + 128);
-  if (v7)
+  v11 = *(a1 + 32);
+  v10 = (a1 + 32);
+  v9 = v11;
+  v12 = *(v11 + 128);
+  if (v12)
   {
-    v11 = v3;
+    v17 = v3;
     if (v3)
     {
-      *(v4 + 144) = 3;
-      v8 = *v5;
-      v9 = SFNestedErrorF();
-      [v8 _reportError:v9];
+      *(v9 + 144) = 3;
+      v13 = *v10;
+      v14 = SFNestedErrorF(v3, 4294960596, "CDPSetup failed", v4, v5, v6, v7, v8, v16);
+      [v13 _reportError:v14];
     }
 
     else
     {
-      [v7 metricSeconds];
-      *(*v5 + 17) = v10;
+      [v12 metricSeconds];
+      *(*v10 + 17) = v15;
       if (gLogCategory_SFDeviceSetupWHASession <= 30 && (gLogCategory_SFDeviceSetupWHASession != -1 || _LogCategory_Initialize()))
       {
-        __39__SFDeviceSetupWHASession__runCDPSetup__block_invoke_cold_1(v5);
+        __39__SFDeviceSetupWHASession__runCDPSetup__block_invoke_cold_1(v10);
       }
 
-      *(*v5 + 36) = 4;
-      [*v5 _run];
+      *(*v10 + 36) = 4;
+      [*v10 _run];
     }
 
-    v3 = v11;
+    v3 = v17;
   }
 }
 
 - (int)_runHomeKitSetup
 {
+  selfCopy = self;
   homeKitState = self->_homeKitState;
   if (homeKitState != 4)
   {
@@ -1096,61 +1136,64 @@ void __39__SFDeviceSetupWHASession__runCDPSetup__block_invoke(uint64_t a1, void 
         {
           if (!_LogCategory_Initialize())
           {
-            return self->_homeKitState;
+            return selfCopy->_homeKitState;
           }
 
-          v7 = self->_homeKitState;
+          homeKitState = selfCopy->_homeKitState;
         }
 
-        LogPrintF();
+        LogPrintF(&gLogCategory_SFDeviceSetupWHASession, "[SFDeviceSetupWHASession _runHomeKitSetup]", 30, "HomeKitSetup hasn't succeeded yet (%d)\n", homeKitState);
       }
     }
 
     else
     {
-      if (gLogCategory_SFDeviceSetupWHASession <= 30 && (gLogCategory_SFDeviceSetupWHASession != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_SFDeviceSetupWHASession <= 30)
       {
-        [SFDeviceSetupWHASession _runHomeKitSetup];
+        if (gLogCategory_SFDeviceSetupWHASession != -1 || (self = _LogCategory_Initialize(), self))
+        {
+          [(SFDeviceSetupWHASession *)self _runHomeKitSetup];
+        }
       }
 
-      self->_homeKitState = 1;
-      [(SFDeviceOperationHomeKitSetup *)self->_homeKitSetup invalidate];
-      v4 = objc_alloc_init(SFDeviceOperationHomeKitSetup);
-      homeKitSetup = self->_homeKitSetup;
-      self->_homeKitSetup = v4;
+      selfCopy->_homeKitState = 1;
+      [(SFDeviceOperationHomeKitSetup *)selfCopy->_homeKitSetup invalidate];
+      v5 = objc_alloc_init(SFDeviceOperationHomeKitSetup);
+      homeKitSetup = selfCopy->_homeKitSetup;
+      selfCopy->_homeKitSetup = v5;
 
-      [(SFDeviceOperationHomeKitSetup *)self->_homeKitSetup setDispatchQueue:self->_dispatchQueue];
-      [(SFDeviceOperationHomeKitSetup *)self->_homeKitSetup setUserInteractive:1];
-      [(SFDeviceOperationHomeKitSetup *)self->_homeKitSetup setTrSession:self->_trSession];
-      if (self->_homeKitDoFullSetup)
+      [(SFDeviceOperationHomeKitSetup *)selfCopy->_homeKitSetup setDispatchQueue:selfCopy->_dispatchQueue];
+      [(SFDeviceOperationHomeKitSetup *)selfCopy->_homeKitSetup setUserInteractive:1];
+      [(SFDeviceOperationHomeKitSetup *)selfCopy->_homeKitSetup setTrSession:selfCopy->_trSession];
+      if (selfCopy->_homeKitDoFullSetup)
       {
-        if (self->_promptForHomeHandler)
+        if (selfCopy->_promptForHomeHandler)
         {
-          [(SFDeviceOperationHomeKitSetup *)self->_homeKitSetup setPromptForHomeHandler:?];
+          [(SFDeviceOperationHomeKitSetup *)selfCopy->_homeKitSetup setPromptForHomeHandler:?];
         }
 
-        if (self->_promptForRoomHandler)
+        if (selfCopy->_promptForRoomHandler)
         {
-          [(SFDeviceOperationHomeKitSetup *)self->_homeKitSetup setPromptForRoomHandler:?];
+          [(SFDeviceOperationHomeKitSetup *)selfCopy->_homeKitSetup setPromptForRoomHandler:?];
         }
       }
 
       else
       {
-        [(SFDeviceOperationHomeKitSetup *)self->_homeKitSetup setKeyExchangeOnly:1];
+        [(SFDeviceOperationHomeKitSetup *)selfCopy->_homeKitSetup setKeyExchangeOnly:1];
       }
 
       v8[0] = MEMORY[0x1E69E9820];
       v8[1] = 3221225472;
       v8[2] = __43__SFDeviceSetupWHASession__runHomeKitSetup__block_invoke;
       v8[3] = &unk_1E788B238;
-      v8[4] = self;
-      [(SFDeviceOperationHomeKitSetup *)self->_homeKitSetup setCompletionHandler:v8];
-      [(SFDeviceOperationHomeKitSetup *)self->_homeKitSetup activate];
+      v8[4] = selfCopy;
+      [(SFDeviceOperationHomeKitSetup *)selfCopy->_homeKitSetup setCompletionHandler:v8];
+      [(SFDeviceOperationHomeKitSetup *)selfCopy->_homeKitSetup activate];
     }
   }
 
-  return self->_homeKitState;
+  return selfCopy->_homeKitState;
 }
 
 void __43__SFDeviceSetupWHASession__runHomeKitSetup__block_invoke(uint64_t a1, void *a2)
@@ -1160,7 +1203,7 @@ void __43__SFDeviceSetupWHASession__runHomeKitSetup__block_invoke(uint64_t a1, v
   v5 = *(v4 + 152);
   if (v5)
   {
-    v13 = v3;
+    v11 = v3;
     if (v3)
     {
       if ((*(v4 + 49) & 2) == 0)
@@ -1168,7 +1211,7 @@ void __43__SFDeviceSetupWHASession__runHomeKitSetup__block_invoke(uint64_t a1, v
         *(v4 + 160) = 3;
         [*(a1 + 32) _reportError:v3];
 LABEL_16:
-        v3 = v13;
+        v3 = v11;
         goto LABEL_17;
       }
 
@@ -1190,9 +1233,7 @@ LABEL_16:
       }
 
       [v5 metricNonUserSeconds];
-      v12 = v13;
-      v11 = v7;
-      LogPrintF();
+      LogPrintF(&gLogCategory_SFDeviceSetupWHASession, "[SFDeviceSetupWHASession _runHomeKitSetup]_block_invoke", 90, "### HomeKitSetup failure skipped: %f secs, %{error}\n", v7, v11);
       v4 = *(a1 + 32);
 LABEL_14:
       v9 = 2;
@@ -1214,8 +1255,7 @@ LABEL_14:
       }
 
       [v5 metricNonUserSeconds];
-      v11 = v6;
-      LogPrintF();
+      LogPrintF(&gLogCategory_SFDeviceSetupWHASession, "[SFDeviceSetupWHASession _runHomeKitSetup]_block_invoke", 30, "HomeKitSetup succeeded (%f secs)\n", v6);
       v4 = *(a1 + 32);
     }
 
@@ -1232,35 +1272,38 @@ LABEL_17:
 
 - (int)_runFinish
 {
-  result = self->_finishState;
-  if (!result)
+  finishState = self->_finishState;
+  if (!finishState)
   {
-    if (gLogCategory_SFDeviceSetupWHASession <= 30 && (gLogCategory_SFDeviceSetupWHASession != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFDeviceSetupWHASession <= 30)
     {
-      [SFDeviceSetupWHASession _runFinish];
+      if (gLogCategory_SFDeviceSetupWHASession != -1 || (finishState = _LogCategory_Initialize(), finishState))
+      {
+        [(SFDeviceSetupWHASession *)finishState _runFinish];
+      }
     }
 
     self->_finishState = 1;
-    v4 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    [v4 setObject:&unk_1F1D7D048 forKeyedSubscript:@"op"];
+    v5 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    [v5 setObject:&unk_1F1D7D048 forKeyedSubscript:@"op"];
     sfSession = self->_sfSession;
-    v6[0] = MEMORY[0x1E69E9820];
-    v6[1] = 3221225472;
-    v6[2] = __37__SFDeviceSetupWHASession__runFinish__block_invoke;
-    v6[3] = &unk_1E788D070;
-    v6[4] = self;
-    [(SFSession *)sfSession sendRequestWithFlags:1 object:v4 responseHandler:v6];
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __37__SFDeviceSetupWHASession__runFinish__block_invoke;
+    v8[3] = &unk_1E788D070;
+    v8[4] = self;
+    [(SFSession *)sfSession sendRequestWithFlags:1 object:v5 responseHandler:v8];
     self->_finishState = 4;
 
-    return self->_finishState;
+    LODWORD(finishState) = self->_finishState;
   }
 
-  return result;
+  return finishState;
 }
 
 void __37__SFDeviceSetupWHASession__runFinish__block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = a4;
   if (v6)
@@ -1277,7 +1320,7 @@ void __37__SFDeviceSetupWHASession__runFinish__block_invoke(uint64_t a1, uint64_
   v9 = MEMORY[0x1E696ABC0];
   v10 = *MEMORY[0x1E696A768];
   v11 = Int64Ranged;
-  v17 = *MEMORY[0x1E696A578];
+  v16 = *MEMORY[0x1E696A578];
   v12 = [MEMORY[0x1E696AEC0] stringWithUTF8String:DebugGetErrorString()];
   v13 = v12;
   v14 = @"?";
@@ -1286,8 +1329,8 @@ void __37__SFDeviceSetupWHASession__runFinish__block_invoke(uint64_t a1, uint64_
     v14 = v12;
   }
 
-  v18[0] = v14;
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+  v17[0] = v14;
+  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
   v6 = [v9 errorWithDomain:v10 code:v11 userInfo:v15];
 
   if (v6)
@@ -1295,7 +1338,7 @@ void __37__SFDeviceSetupWHASession__runFinish__block_invoke(uint64_t a1, uint64_
 LABEL_19:
     if (gLogCategory_SFDeviceSetupWHASession <= 50 && (gLogCategory_SFDeviceSetupWHASession != -1 || _LogCategory_Initialize()))
     {
-      __37__SFDeviceSetupWHASession__runFinish__block_invoke_cold_1();
+      __37__SFDeviceSetupWHASession__runFinish__block_invoke_cold_1(v6);
     }
 
     *(*(a1 + 32) + 168) = 3;
@@ -1312,8 +1355,6 @@ LABEL_20:
 
     [*(a1 + 32) _cleanup];
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_verifyiCloudMatch:(unint64_t)match error:(id *)error
@@ -1335,14 +1376,20 @@ LABEL_20:
         v12 = 0;
         goto LABEL_5;
       }
+
+      NSErrorWithOSStatusF(301015, "Mismatch 0x%llX vs 0x%llX");
     }
 
-    v12 = NSErrorWithOSStatusF();
+    else
+    {
+      NSErrorWithOSStatusF(301015, "No derived key");
+    }
+    v12 = ;
   }
 
   else
   {
-    v12 = NSErrorWithOSStatusF();
+    v12 = NSErrorWithOSStatusF(301015, "No My AltDSID");
     v10 = 0;
   }
 

@@ -14,6 +14,7 @@
 - (void)onboardingControllerRequestsCancellation:(id)cancellation;
 - (void)onboardingControllerRequestsGoingBack:(id)back;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation VTUIGMEnrollmentViewController
@@ -80,25 +81,24 @@
 
 - (void)_setupContent
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[VTUIGMEnrollmentViewController _setupContent]";
-  _os_log_error_impl(&dword_2728BC000, log, OS_LOG_TYPE_ERROR, "%s #gmenrollment Failed to acquire icon for header view", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[VTUIGMEnrollmentViewController _setupContent]";
+  _os_log_error_impl(&dword_2728BC000, log, OS_LOG_TYPE_ERROR, "%s #gmenrollment Failed to acquire icon for header view", &v1, 0xCu);
 }
 
 - (void)_userDidTapSetupLaterButton
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = VTUILogContextFacility;
   if (os_log_type_enabled(VTUILogContextFacility, OS_LOG_TYPE_DEFAULT))
   {
     enrollmentType = self->_enrollmentType;
-    v10 = 136315394;
-    v11 = "[VTUIGMEnrollmentViewController _userDidTapSetupLaterButton]";
-    v12 = 2048;
-    v13 = enrollmentType;
-    _os_log_impl(&dword_2728BC000, v3, OS_LOG_TYPE_DEFAULT, "%s #gmenrollment User did tap SetupLater button with enrollmentType: %lu", &v10, 0x16u);
+    v9 = 136315394;
+    v10 = "[VTUIGMEnrollmentViewController _userDidTapSetupLaterButton]";
+    v11 = 2048;
+    v12 = enrollmentType;
+    _os_log_impl(&dword_2728BC000, v3, OS_LOG_TYPE_DEFAULT, "%s #gmenrollment User did tap SetupLater button with enrollmentType: %lu", &v9, 0x16u);
   }
 
   v5 = objc_alloc_init(MEMORY[0x277CFB468]);
@@ -118,8 +118,6 @@
   }
 
   [(VTUIGMEnrollmentViewController *)self userDidCancel];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_presentEnrollmentErrorWithCompletion:(id)completion
@@ -174,7 +172,7 @@ void __57__VTUIGMEnrollmentViewController__enrollUserIntoWaitlist__block_invoke(
 
 void __57__VTUIGMEnrollmentViewController__enrollUserIntoWaitlist__block_invoke_2(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
   {
@@ -187,18 +185,18 @@ void __57__VTUIGMEnrollmentViewController__enrollUserIntoWaitlist__block_invoke_
       {
         v6 = *(a1 + 32);
         *buf = 136315394;
-        v12 = "[VTUIGMEnrollmentViewController _enrollUserIntoWaitlist]_block_invoke";
-        v13 = 2112;
-        v14 = v6;
+        v11 = "[VTUIGMEnrollmentViewController _enrollUserIntoWaitlist]_block_invoke";
+        v12 = 2112;
+        v13 = v6;
         _os_log_impl(&dword_2728BC000, v4, OS_LOG_TYPE_DEFAULT, "%s #gmenrollment Enrollment from buddy getTicketForFeature: received an error. Bailing! Error: %@", buf, 0x16u);
       }
 
-      v10[0] = MEMORY[0x277D85DD0];
-      v10[1] = 3221225472;
-      v10[2] = __57__VTUIGMEnrollmentViewController__enrollUserIntoWaitlist__block_invoke_68;
-      v10[3] = &unk_279E54220;
-      v10[4] = WeakRetained;
-      [WeakRetained _presentEnrollmentErrorWithCompletion:v10];
+      v9[0] = MEMORY[0x277D85DD0];
+      v9[1] = 3221225472;
+      v9[2] = __57__VTUIGMEnrollmentViewController__enrollUserIntoWaitlist__block_invoke_68;
+      v9[3] = &unk_279E54220;
+      v9[4] = WeakRetained;
+      [WeakRetained _presentEnrollmentErrorWithCompletion:v9];
     }
 
     else
@@ -207,9 +205,9 @@ void __57__VTUIGMEnrollmentViewController__enrollUserIntoWaitlist__block_invoke_
       {
         v8 = *(a1 + 40);
         *buf = 136315394;
-        v12 = "[VTUIGMEnrollmentViewController _enrollUserIntoWaitlist]_block_invoke_2";
-        v13 = 2112;
-        v14 = v8;
+        v11 = "[VTUIGMEnrollmentViewController _enrollUserIntoWaitlist]_block_invoke_2";
+        v12 = 2112;
+        v13 = v8;
         _os_log_impl(&dword_2728BC000, v4, OS_LOG_TYPE_DEFAULT, "%s #gmenrollment Enrollment from buddy getTicketForFeature: cloud.llm ticket: %@", buf, 0x16u);
       }
 
@@ -224,17 +222,15 @@ void __57__VTUIGMEnrollmentViewController__enrollUserIntoWaitlist__block_invoke_
     if (os_log_type_enabled(VTUILogContextFacility, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v12 = "[VTUIGMEnrollmentViewController _enrollUserIntoWaitlist]_block_invoke_2";
+      v11 = "[VTUIGMEnrollmentViewController _enrollUserIntoWaitlist]_block_invoke_2";
       _os_log_impl(&dword_2728BC000, v7, OS_LOG_TYPE_DEFAULT, "%s #gmenrollment Enrollment from buddy getTicketForFeature: self in unavailable. Bailing!", buf, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_userDidTapContinueButton
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   isSkippingIntroduction = self->_isSkippingIntroduction;
   v4 = VTUILogContextFacility;
   v5 = os_log_type_enabled(VTUILogContextFacility, OS_LOG_TYPE_DEFAULT);
@@ -243,11 +239,11 @@ void __57__VTUIGMEnrollmentViewController__enrollUserIntoWaitlist__block_invoke_
     if (v5)
     {
       enrollmentType = self->_enrollmentType;
-      v15 = 136315394;
-      v16 = "[VTUIGMEnrollmentViewController _userDidTapContinueButton]";
-      v17 = 2048;
-      v18 = enrollmentType;
-      _os_log_impl(&dword_2728BC000, v4, OS_LOG_TYPE_DEFAULT, "%s #gmenrollment Enrollment skipped with enrollmentType: %lu", &v15, 0x16u);
+      v14 = 136315394;
+      v15 = "[VTUIGMEnrollmentViewController _userDidTapContinueButton]";
+      v16 = 2048;
+      v17 = enrollmentType;
+      _os_log_impl(&dword_2728BC000, v4, OS_LOG_TYPE_DEFAULT, "%s #gmenrollment Enrollment skipped with enrollmentType: %lu", &v14, 0x16u);
     }
   }
 
@@ -256,11 +252,11 @@ void __57__VTUIGMEnrollmentViewController__enrollUserIntoWaitlist__block_invoke_
     if (v5)
     {
       v7 = self->_enrollmentType;
-      v15 = 136315394;
-      v16 = "[VTUIGMEnrollmentViewController _userDidTapContinueButton]";
-      v17 = 2048;
-      v18 = v7;
-      _os_log_impl(&dword_2728BC000, v4, OS_LOG_TYPE_DEFAULT, "%s #gmenrollment User did tap continue button with enrollmentType: %lu", &v15, 0x16u);
+      v14 = 136315394;
+      v15 = "[VTUIGMEnrollmentViewController _userDidTapContinueButton]";
+      v16 = 2048;
+      v17 = v7;
+      _os_log_impl(&dword_2728BC000, v4, OS_LOG_TYPE_DEFAULT, "%s #gmenrollment User did tap continue button with enrollmentType: %lu", &v14, 0x16u);
     }
 
     if ((self->_enrollmentType | 2) == 3)
@@ -305,8 +301,6 @@ void __57__VTUIGMEnrollmentViewController__enrollUserIntoWaitlist__block_invoke_
   {
     [(GMAvailabilityViewModel *)self->_viewModel sendContinueEventWithEnrollmentType:self->_enrollmentType];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)viewDidLoad
@@ -362,6 +356,17 @@ LABEL_12:
   [(GMAvailabilityViewModel *)self->_viewModel sendViewDidLoadEventWithEnrollmentType:self->_enrollmentType];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = VTUIGMEnrollmentViewController;
+  [(VTUIGMEnrollmentViewController *)&v4 viewWillAppear:appear];
+  if (self->_isSkippingIntroduction)
+  {
+    [(VTUIGMEnrollmentViewController *)self _userDidTapContinueButton];
+  }
+}
+
 - (void)_continueFromGMEnrollment
 {
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -397,7 +402,7 @@ LABEL_12:
 
 - (void)onboardingControllerRequestsGoingBack:(id)back
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   navigationItem = [(OBBaseWelcomeController *)self navigationItem];
   hidesBackButton = [navigationItem hidesBackButton];
 
@@ -427,13 +432,11 @@ LABEL_12:
     if (os_log_type_enabled(VTUILogContextFacility, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v26 = "[VTUIGMEnrollmentViewController onboardingControllerRequestsGoingBack:]";
-      v27 = 2048;
-      v28 = v10;
+      v24 = "[VTUIGMEnrollmentViewController onboardingControllerRequestsGoingBack:]";
+      v25 = 2048;
+      v26 = v10;
       _os_log_impl(&dword_2728BC000, v20, OS_LOG_TYPE_DEFAULT, "%s #gmenrollment Unexpected view controller index that we can't pop to: %ld", buf, 0x16u);
     }
-
-    v21 = *MEMORY[0x277D85DE8];
   }
 
   else
@@ -452,10 +455,10 @@ LABEL_12:
 
     navigationController3 = [(VTUIGMEnrollmentViewController *)self navigationController];
     viewControllers3 = [navigationController3 viewControllers];
-    v24 = [viewControllers3 objectAtIndex:v10];
+    v22 = [viewControllers3 objectAtIndex:v10];
 
     navigationController4 = [(VTUIGMEnrollmentViewController *)self navigationController];
-    v17 = [navigationController4 popToViewController:v24 animated:1];
+    v17 = [navigationController4 popToViewController:v22 animated:1];
 
     navigationController5 = [(VTUIGMEnrollmentViewController *)self navigationController];
     topViewController = [navigationController5 topViewController];
@@ -471,8 +474,6 @@ LABEL_12:
       summarizationOnboardingController = self->_summarizationOnboardingController;
       self->_summarizationOnboardingController = 0;
     }
-
-    v23 = *MEMORY[0x277D85DE8];
   }
 }
 

@@ -99,16 +99,17 @@
   }
 
   sceneRef = [(SCNGeometry *)self sceneRef];
-  v4 = sceneRef;
+  v5 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v4);
   }
 
-  Height = C3DParametricGeometryGetHeight([(SCNGeometry *)self geometryRef]);
-  if (v4)
+  geometryRef = [(SCNGeometry *)self geometryRef];
+  Height = C3DParametricGeometryGetHeight(geometryRef, v7);
+  if (v5)
   {
-    C3DSceneUnlock(v4);
+    C3DSceneUnlock(v5, v8);
   }
 
   return Height;
@@ -116,10 +117,11 @@
 
 - (void)setHeight:(CGFloat)height
 {
-  if ([(SCNGeometry *)self isPresentationInstance])
+  isPresentationInstance = [(SCNGeometry *)self isPresentationInstance];
+  if (isPresentationInstance)
   {
-    v5 = scn_default_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = scn_default_log(isPresentationInstance, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SCNPyramid setHeight:];
     }
@@ -129,22 +131,22 @@
   {
     self->_pyramidheight = height;
     sceneRef = [(SCNGeometry *)self sceneRef];
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = __24__SCNPyramid_setHeight___block_invoke;
-    v7[3] = &unk_2782FB7D0;
-    v7[4] = self;
-    *&v7[5] = height;
-    [SCNTransaction postCommandWithContext:sceneRef object:self key:@"height" applyBlock:v7];
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __24__SCNPyramid_setHeight___block_invoke;
+    v9[3] = &unk_2782FB7D0;
+    v9[4] = self;
+    *&v9[5] = height;
+    [SCNTransaction postCommandWithContext:sceneRef object:self key:@"height" applyBlock:v9];
   }
 }
 
 void __24__SCNPyramid_setHeight___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) geometryRef];
-  v3 = *(a1 + 40);
+  v4 = *(a1 + 40);
 
-  C3DParametricGeometrySetHeight(v2, v3);
+  C3DParametricGeometrySetHeight(v2, v3, v4);
 }
 
 - (NSInteger)heightSegmentCount
@@ -155,16 +157,17 @@ void __24__SCNPyramid_setHeight___block_invoke(uint64_t a1)
   }
 
   sceneRef = [(SCNGeometry *)self sceneRef];
-  v4 = sceneRef;
+  v5 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v4);
   }
 
-  HeightSegmentCount = C3DParametricGeometryGetHeightSegmentCount([(SCNGeometry *)self geometryRef]);
-  if (v4)
+  geometryRef = [(SCNGeometry *)self geometryRef];
+  HeightSegmentCount = C3DParametricGeometryGetHeightSegmentCount(geometryRef, v7);
+  if (v5)
   {
-    C3DSceneUnlock(v4);
+    C3DSceneUnlock(v5, v8);
   }
 
   return HeightSegmentCount;
@@ -172,10 +175,11 @@ void __24__SCNPyramid_setHeight___block_invoke(uint64_t a1)
 
 - (void)setHeightSegmentCount:(NSInteger)heightSegmentCount
 {
-  if ([(SCNGeometry *)self isPresentationInstance])
+  isPresentationInstance = [(SCNGeometry *)self isPresentationInstance];
+  if (isPresentationInstance)
   {
-    v5 = scn_default_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = scn_default_log(isPresentationInstance, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SCNPyramid setHeightSegmentCount:];
     }
@@ -185,13 +189,13 @@ void __24__SCNPyramid_setHeight___block_invoke(uint64_t a1)
   {
     self->_pyramidheightSegmentCount = heightSegmentCount;
     sceneRef = [(SCNGeometry *)self sceneRef];
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = __36__SCNPyramid_setHeightSegmentCount___block_invoke;
-    v7[3] = &unk_2782FB7D0;
-    v7[4] = self;
-    v7[5] = heightSegmentCount;
-    [SCNTransaction postCommandWithContext:sceneRef object:self key:@"heightSegmentCount" applyBlock:v7];
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __36__SCNPyramid_setHeightSegmentCount___block_invoke;
+    v9[3] = &unk_2782FB7D0;
+    v9[4] = self;
+    v9[5] = heightSegmentCount;
+    [SCNTransaction postCommandWithContext:sceneRef object:self key:@"heightSegmentCount" applyBlock:v9];
   }
 }
 
@@ -211,16 +215,17 @@ void __36__SCNPyramid_setHeightSegmentCount___block_invoke(uint64_t a1)
   }
 
   sceneRef = [(SCNGeometry *)self sceneRef];
-  v4 = sceneRef;
+  v5 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v4);
   }
 
-  Length = C3DParametricGeometryGetLength([(SCNGeometry *)self geometryRef]);
-  if (v4)
+  geometryRef = [(SCNGeometry *)self geometryRef];
+  Length = C3DParametricGeometryGetLength(geometryRef, v7);
+  if (v5)
   {
-    C3DSceneUnlock(v4);
+    C3DSceneUnlock(v5, v8);
   }
 
   return Length;
@@ -228,10 +233,11 @@ void __36__SCNPyramid_setHeightSegmentCount___block_invoke(uint64_t a1)
 
 - (void)setLength:(CGFloat)length
 {
-  if ([(SCNGeometry *)self isPresentationInstance])
+  isPresentationInstance = [(SCNGeometry *)self isPresentationInstance];
+  if (isPresentationInstance)
   {
-    v5 = scn_default_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = scn_default_log(isPresentationInstance, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SCNPyramid setLength:];
     }
@@ -241,22 +247,22 @@ void __36__SCNPyramid_setHeightSegmentCount___block_invoke(uint64_t a1)
   {
     self->_pyramidlength = length;
     sceneRef = [(SCNGeometry *)self sceneRef];
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = __24__SCNPyramid_setLength___block_invoke;
-    v7[3] = &unk_2782FB7D0;
-    v7[4] = self;
-    *&v7[5] = length;
-    [SCNTransaction postCommandWithContext:sceneRef object:self key:@"length" applyBlock:v7];
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __24__SCNPyramid_setLength___block_invoke;
+    v9[3] = &unk_2782FB7D0;
+    v9[4] = self;
+    *&v9[5] = length;
+    [SCNTransaction postCommandWithContext:sceneRef object:self key:@"length" applyBlock:v9];
   }
 }
 
 void __24__SCNPyramid_setLength___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) geometryRef];
-  v3 = *(a1 + 40);
+  v4 = *(a1 + 40);
 
-  C3DParametricGeometrySetLength(v2, v3);
+  C3DParametricGeometrySetLength(v2, v3, v4);
 }
 
 - (NSInteger)lengthSegmentCount
@@ -267,16 +273,17 @@ void __24__SCNPyramid_setLength___block_invoke(uint64_t a1)
   }
 
   sceneRef = [(SCNGeometry *)self sceneRef];
-  v4 = sceneRef;
+  v5 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v4);
   }
 
-  LengthSegmentCount = C3DParametricGeometryGetLengthSegmentCount([(SCNGeometry *)self geometryRef]);
-  if (v4)
+  geometryRef = [(SCNGeometry *)self geometryRef];
+  LengthSegmentCount = C3DParametricGeometryGetLengthSegmentCount(geometryRef, v7);
+  if (v5)
   {
-    C3DSceneUnlock(v4);
+    C3DSceneUnlock(v5, v8);
   }
 
   return LengthSegmentCount;
@@ -284,10 +291,11 @@ void __24__SCNPyramid_setLength___block_invoke(uint64_t a1)
 
 - (void)setLengthSegmentCount:(NSInteger)lengthSegmentCount
 {
-  if ([(SCNGeometry *)self isPresentationInstance])
+  isPresentationInstance = [(SCNGeometry *)self isPresentationInstance];
+  if (isPresentationInstance)
   {
-    v5 = scn_default_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = scn_default_log(isPresentationInstance, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SCNPyramid setLengthSegmentCount:];
     }
@@ -297,13 +305,13 @@ void __24__SCNPyramid_setLength___block_invoke(uint64_t a1)
   {
     self->_pyramidlengthSegmentCount = lengthSegmentCount;
     sceneRef = [(SCNGeometry *)self sceneRef];
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = __36__SCNPyramid_setLengthSegmentCount___block_invoke;
-    v7[3] = &unk_2782FB7D0;
-    v7[4] = self;
-    v7[5] = lengthSegmentCount;
-    [SCNTransaction postCommandWithContext:sceneRef object:self key:@"lengthSegmentCount" applyBlock:v7];
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __36__SCNPyramid_setLengthSegmentCount___block_invoke;
+    v9[3] = &unk_2782FB7D0;
+    v9[4] = self;
+    v9[5] = lengthSegmentCount;
+    [SCNTransaction postCommandWithContext:sceneRef object:self key:@"lengthSegmentCount" applyBlock:v9];
   }
 }
 
@@ -323,16 +331,17 @@ void __36__SCNPyramid_setLengthSegmentCount___block_invoke(uint64_t a1)
   }
 
   sceneRef = [(SCNGeometry *)self sceneRef];
-  v4 = sceneRef;
+  v5 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v4);
   }
 
-  PrimitiveType = C3DParametricGeometryGetPrimitiveType([(SCNGeometry *)self geometryRef]);
-  if (v4)
+  geometryRef = [(SCNGeometry *)self geometryRef];
+  PrimitiveType = C3DParametricGeometryGetPrimitiveType(geometryRef, v7);
+  if (v5)
   {
-    C3DSceneUnlock(v4);
+    C3DSceneUnlock(v5, v8);
   }
 
   return PrimitiveType;
@@ -340,10 +349,11 @@ void __36__SCNPyramid_setLengthSegmentCount___block_invoke(uint64_t a1)
 
 - (void)setPrimitiveType:(int64_t)type
 {
-  if ([(SCNGeometry *)self isPresentationInstance])
+  isPresentationInstance = [(SCNGeometry *)self isPresentationInstance];
+  if (isPresentationInstance)
   {
-    v5 = scn_default_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = scn_default_log(isPresentationInstance, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SCNPyramid setPrimitiveType:];
     }
@@ -353,13 +363,13 @@ void __36__SCNPyramid_setLengthSegmentCount___block_invoke(uint64_t a1)
   {
     self->_pyramidprimitiveType = type;
     sceneRef = [(SCNGeometry *)self sceneRef];
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = __31__SCNPyramid_setPrimitiveType___block_invoke;
-    v7[3] = &unk_2782FB7D0;
-    v7[4] = self;
-    v7[5] = type;
-    [SCNTransaction postCommandWithContext:sceneRef object:self applyBlock:v7];
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __31__SCNPyramid_setPrimitiveType___block_invoke;
+    v9[3] = &unk_2782FB7D0;
+    v9[4] = self;
+    v9[5] = type;
+    [SCNTransaction postCommandWithContext:sceneRef object:self applyBlock:v9];
   }
 }
 
@@ -379,16 +389,17 @@ void __31__SCNPyramid_setPrimitiveType___block_invoke(uint64_t a1)
   }
 
   sceneRef = [(SCNGeometry *)self sceneRef];
-  v4 = sceneRef;
+  v5 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v4);
   }
 
-  Width = C3DParametricGeometryGetWidth([(SCNGeometry *)self geometryRef]);
-  if (v4)
+  geometryRef = [(SCNGeometry *)self geometryRef];
+  Width = C3DParametricGeometryGetWidth(geometryRef, v7);
+  if (v5)
   {
-    C3DSceneUnlock(v4);
+    C3DSceneUnlock(v5, v8);
   }
 
   return Width;
@@ -396,10 +407,11 @@ void __31__SCNPyramid_setPrimitiveType___block_invoke(uint64_t a1)
 
 - (void)setWidth:(CGFloat)width
 {
-  if ([(SCNGeometry *)self isPresentationInstance])
+  isPresentationInstance = [(SCNGeometry *)self isPresentationInstance];
+  if (isPresentationInstance)
   {
-    v5 = scn_default_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = scn_default_log(isPresentationInstance, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SCNPyramid setWidth:];
     }
@@ -409,22 +421,22 @@ void __31__SCNPyramid_setPrimitiveType___block_invoke(uint64_t a1)
   {
     self->_pyramidwidth = width;
     sceneRef = [(SCNGeometry *)self sceneRef];
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = __23__SCNPyramid_setWidth___block_invoke;
-    v7[3] = &unk_2782FB7D0;
-    v7[4] = self;
-    *&v7[5] = width;
-    [SCNTransaction postCommandWithContext:sceneRef object:self key:@"width" applyBlock:v7];
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __23__SCNPyramid_setWidth___block_invoke;
+    v9[3] = &unk_2782FB7D0;
+    v9[4] = self;
+    *&v9[5] = width;
+    [SCNTransaction postCommandWithContext:sceneRef object:self key:@"width" applyBlock:v9];
   }
 }
 
 void __23__SCNPyramid_setWidth___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) geometryRef];
-  v3 = *(a1 + 40);
+  v4 = *(a1 + 40);
 
-  C3DParametricGeometrySetWidth(v2, v3);
+  C3DParametricGeometrySetWidth(v2, v3, v4);
 }
 
 - (NSInteger)widthSegmentCount
@@ -435,16 +447,17 @@ void __23__SCNPyramid_setWidth___block_invoke(uint64_t a1)
   }
 
   sceneRef = [(SCNGeometry *)self sceneRef];
-  v4 = sceneRef;
+  v5 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v4);
   }
 
-  WidthSegmentCount = C3DParametricGeometryGetWidthSegmentCount([(SCNGeometry *)self geometryRef]);
-  if (v4)
+  geometryRef = [(SCNGeometry *)self geometryRef];
+  WidthSegmentCount = C3DParametricGeometryGetWidthSegmentCount(geometryRef, v7);
+  if (v5)
   {
-    C3DSceneUnlock(v4);
+    C3DSceneUnlock(v5, v8);
   }
 
   return WidthSegmentCount;
@@ -452,10 +465,11 @@ void __23__SCNPyramid_setWidth___block_invoke(uint64_t a1)
 
 - (void)setWidthSegmentCount:(NSInteger)widthSegmentCount
 {
-  if ([(SCNGeometry *)self isPresentationInstance])
+  isPresentationInstance = [(SCNGeometry *)self isPresentationInstance];
+  if (isPresentationInstance)
   {
-    v5 = scn_default_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = scn_default_log(isPresentationInstance, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SCNPyramid setWidthSegmentCount:];
     }
@@ -465,13 +479,13 @@ void __23__SCNPyramid_setWidth___block_invoke(uint64_t a1)
   {
     self->_pyramidwidthSegmentCount = widthSegmentCount;
     sceneRef = [(SCNGeometry *)self sceneRef];
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = __35__SCNPyramid_setWidthSegmentCount___block_invoke;
-    v7[3] = &unk_2782FB7D0;
-    v7[4] = self;
-    v7[5] = widthSegmentCount;
-    [SCNTransaction postCommandWithContext:sceneRef object:self key:@"widthSegmentCount" applyBlock:v7];
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __35__SCNPyramid_setWidthSegmentCount___block_invoke;
+    v9[3] = &unk_2782FB7D0;
+    v9[4] = self;
+    v9[5] = widthSegmentCount;
+    [SCNTransaction postCommandWithContext:sceneRef object:self key:@"widthSegmentCount" applyBlock:v9];
   }
 }
 
@@ -485,24 +499,24 @@ void __35__SCNPyramid_setWidthSegmentCount___block_invoke(uint64_t a1)
 
 - (BOOL)getBoundingBoxMin:(SCNVector3 *)min max:(SCNVector3 *)max
 {
+  v28 = 0.0;
+  v27 = 0;
   v26 = 0.0;
   v25 = 0;
-  v24 = 0.0;
-  v23 = 0;
   if ([(SCNGeometry *)self isPresentationInstance])
   {
     sceneRef = [(SCNGeometry *)self sceneRef];
-    v8 = sceneRef;
+    v9 = sceneRef;
     if (sceneRef)
     {
-      C3DSceneLock(sceneRef);
+      C3DSceneLock(sceneRef, v8);
     }
 
     if ([(SCNGeometry *)self geometryRef])
     {
-      C3DPyramidGetBoundingBox([(SCNGeometry *)self geometryRef], &v25, &v23);
-      v10 = v9;
-      if (!v8)
+      C3DPyramidGetBoundingBox([(SCNGeometry *)self geometryRef], &v27, &v25);
+      v12 = v11;
+      if (!v9)
       {
         goto LABEL_12;
       }
@@ -510,11 +524,11 @@ void __35__SCNPyramid_setWidthSegmentCount___block_invoke(uint64_t a1)
       goto LABEL_11;
     }
 
-    v10 = 0;
-    if (v8)
+    v12 = 0;
+    if (v9)
     {
 LABEL_11:
-      C3DSceneUnlock(v8);
+      C3DSceneUnlock(v9, v10);
     }
   }
 
@@ -522,107 +536,107 @@ LABEL_11:
   {
     if ([(SCNGeometry *)self _hasFixedBoundingBoxExtrema])
     {
-      v22.receiver = self;
-      v22.super_class = SCNPyramid;
-      return [(SCNGeometry *)&v22 getBoundingBoxMin:min max:max];
+      v24.receiver = self;
+      v24.super_class = SCNPyramid;
+      return [(SCNGeometry *)&v24 getBoundingBoxMin:min max:max];
     }
 
     [(SCNPyramid *)self width];
-    v12 = v11;
-    [(SCNPyramid *)self height];
     v14 = v13;
-    [(SCNPyramid *)self length];
+    [(SCNPyramid *)self height];
     v16 = v15;
-    v17.i64[0] = v12;
-    C3DPyramidGetBoundingBoxForPyramidParameters(&v25, &v23, v17, v14, v16);
-    v10 = v18;
+    [(SCNPyramid *)self length];
+    v18 = v17;
+    v19.i64[0] = v14;
+    C3DPyramidGetBoundingBoxForPyramidParameters(&v27, &v25, v19, v16, v18);
+    v12 = v20;
   }
 
 LABEL_12:
   if (min)
   {
-    v19 = v26;
-    *&min->x = v25;
-    min->z = v19;
+    v21 = v28;
+    *&min->x = v27;
+    min->z = v21;
   }
 
   if (max)
   {
-    v20 = v24;
-    *&max->x = v23;
-    max->z = v20;
+    v22 = v26;
+    *&max->x = v25;
+    max->z = v22;
   }
 
-  return v10;
+  return v12;
 }
 
 - (BOOL)getBoundingSphereCenter:(SCNVector3 *)center radius:(double *)radius
 {
-  v19 = 0uLL;
+  v21 = 0uLL;
   if ([(SCNGeometry *)self isPresentationInstance])
   {
     sceneRef = [(SCNGeometry *)self sceneRef];
-    v8 = sceneRef;
+    v9 = sceneRef;
     if (sceneRef)
     {
-      C3DSceneLock(sceneRef);
+      C3DSceneLock(sceneRef, v8);
     }
 
-    if ([(SCNGeometry *)self geometryRef]&& C3DPyramidGetBoundingSphere([(SCNGeometry *)self geometryRef], &v19))
+    if ([(SCNGeometry *)self geometryRef]&& C3DPyramidGetBoundingSphere([(SCNGeometry *)self geometryRef], &v21))
     {
       if (center)
       {
-        v9 = *&v19.i32[2];
-        *&center->x = v19.i64[0];
-        center->z = v9;
+        v11 = *&v21.i32[2];
+        *&center->x = v21.i64[0];
+        center->z = v11;
       }
 
       if (radius)
       {
-        *radius = *&v19.i32[3];
+        *radius = *&v21.i32[3];
       }
 
-      v10 = 1;
-      if (!v8)
+      v12 = 1;
+      if (!v9)
       {
-        return v10;
+        return v12;
       }
     }
 
     else
     {
-      v10 = 0;
-      if (!v8)
+      v12 = 0;
+      if (!v9)
       {
-        return v10;
+        return v12;
       }
     }
 
-    C3DSceneUnlock(v8);
-    return v10;
+    C3DSceneUnlock(v9, v10);
+    return v12;
   }
 
   [(SCNPyramid *)self width];
-  v12 = v11;
-  [(SCNPyramid *)self height];
   v14 = v13;
+  [(SCNPyramid *)self height];
+  v16 = v15;
   [(SCNPyramid *)self length];
-  v15.f64[0] = v14;
-  if (!C3DPyramidGetBoundingSphereForPyramidParameters(&v19, v12, v15, v16))
+  v17.f64[0] = v16;
+  if (!C3DPyramidGetBoundingSphereForPyramidParameters(&v21, v14, v17, v18))
   {
     return 0;
   }
 
   if (center)
   {
-    v17 = *&v19.i32[2];
-    *&center->x = v19.i64[0];
-    center->z = v17;
+    v19 = *&v21.i32[2];
+    *&center->x = v21.i64[0];
+    center->z = v19;
   }
 
   if (radius)
   {
-    *radius = *&v19.i32[3];
+    *radius = *&v21.i32[3];
   }
 
   return 1;
@@ -724,51 +738,58 @@ LABEL_12:
 
 - (void)setHeight:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setHeightSegmentCount:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setLength:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setLengthSegmentCount:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setPrimitiveType:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setWidth:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setWidthSegmentCount:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 @end

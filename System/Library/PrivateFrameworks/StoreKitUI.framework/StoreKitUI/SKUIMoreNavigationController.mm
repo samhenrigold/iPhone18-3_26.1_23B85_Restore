@@ -3,8 +3,10 @@
 - (id)displayedViewController;
 - (unint64_t)supportedInterfaceOrientations;
 - (void)didShowViewController:(id)controller animated:(BOOL)animated;
+- (void)displayedViewController;
 - (void)pushViewController:(id)controller animated:(BOOL)animated;
 - (void)setDisplayedViewController:(id)controller;
+- (void)supportedInterfaceOrientations;
 @end
 
 @implementation SKUIMoreNavigationController
@@ -226,7 +228,7 @@ LABEL_16:
       supportedInterfaceOrientations = 30;
     }
 
-    else if (SKUIAllowsLandscapePhone())
+    else if (SKUIAllowsLandscapePhone(v16, v17))
     {
       supportedInterfaceOrientations = 26;
     }
@@ -245,6 +247,36 @@ LABEL_16:
   WeakRetained = objc_loadWeakRetained(&self->_storeKitDelegate);
 
   return WeakRetained;
+}
+
+- (void)displayedViewController
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIMoreNavigationController displayedViewController]";
+}
+
+- (void)setDisplayedViewController:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIMoreNavigationController setDisplayedViewController:]";
+}
+
+- (void)didShowViewController:(uint64_t)a3 animated:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIMoreNavigationController didShowViewController:animated:]";
+}
+
+- (void)pushViewController:(uint64_t)a3 animated:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIMoreNavigationController pushViewController:animated:]";
+}
+
+- (void)supportedInterfaceOrientations
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIMoreNavigationController supportedInterfaceOrientations]";
 }
 
 @end

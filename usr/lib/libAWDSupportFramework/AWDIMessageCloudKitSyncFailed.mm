@@ -127,7 +127,6 @@
 {
   if (*&self->_has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -143,7 +142,6 @@
 
   if ((*&self->_has & 8) != 0)
   {
-    topLevelErrorCode = self->_topLevelErrorCode;
     PBDataWriterWriteInt32Field();
   }
 
@@ -155,14 +153,12 @@
   has = self->_has;
   if ((has & 4) != 0)
   {
-    nestedErrorCode = self->_nestedErrorCode;
     PBDataWriterWriteInt32Field();
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    linkQuality = self->_linkQuality;
 
     PBDataWriterWriteInt32Field();
   }
@@ -253,7 +249,6 @@
   v5 = [equal isMemberOfClass:objc_opt_class()];
   if (v5)
   {
-    v6 = *(equal + 56);
     if (*&self->_has)
     {
       if ((*(equal + 56) & 1) == 0 || self->_timestamp != *(equal + 1))
@@ -276,7 +271,6 @@ LABEL_28:
       if (!(topLevelErrorDomain | *(equal + 6)) || (v5 = [(NSString *)topLevelErrorDomain isEqual:?]) != 0)
       {
         has = self->_has;
-        v10 = *(equal + 56);
         if ((has & 8) != 0)
         {
           if ((*(equal + 56) & 8) == 0 || self->_topLevelErrorCode != *(equal + 10))

@@ -47,10 +47,10 @@ LABEL_6:
 
 + (__CFString)_navigation_stringWithDirection:()NavigationDebug abbreviated:
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   if (!_navigation_stringWithDirection_abbreviated__headings)
   {
-    v40 = a4;
+    v39 = a4;
     v5 = objc_alloc(MEMORY[0x1E695DEC8]);
     v6 = _MNLocalizedStringFromThisBundle(@"North");
     v7 = _MNLocalizedStringFromThisBundle(@"North East");
@@ -77,7 +77,7 @@ LABEL_6:
     v26 = _navigation_stringWithDirection_abbreviated__abbreviatedHeadings;
     _navigation_stringWithDirection_abbreviated__abbreviatedHeadings = v25;
 
-    a4 = v40;
+    a4 = v39;
   }
 
   selfCopy = self + 360.0;
@@ -119,18 +119,16 @@ LABEL_6:
     if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v42 = "+[NSString(NavigationDebug) _navigation_stringWithDirection:abbreviated:]";
-      v43 = 2080;
-      v44 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Extras/NSString+MNExtras.m";
-      v45 = 1024;
-      v46 = 2289;
+      v41 = "+[NSString(NavigationDebug) _navigation_stringWithDirection:abbreviated:]";
+      v42 = 2080;
+      v43 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Extras/NSString+MNExtras.m";
+      v44 = 1024;
+      v45 = 2289;
       _os_log_impl(&dword_1D311E000, v28, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: Hit an unreachable code path", buf, 0x1Cu);
     }
 
     v29 = @"?";
   }
-
-  v38 = *MEMORY[0x1E69E9840];
 
   return v29;
 }

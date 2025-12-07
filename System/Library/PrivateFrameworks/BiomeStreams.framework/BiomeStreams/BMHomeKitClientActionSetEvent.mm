@@ -38,12 +38,9 @@
 
 - (NSString)description
 {
-  v3 = objc_alloc(MEMORY[0x1E696AEC0]);
-  base = self->_base;
-  actionSetName = self->_actionSetName;
-  v6 = [v3 initWithFormat:@"BMHomeKitClientActionSetEvent event with base: %@, actionSetUniqueIdentifier: %@, actionSetType: %@, associatedAccessoryUniqueIdentifiers: %@, actionSetName: %@, homeName: %@", base, self->_actionSetUniqueIdentifier, self->_actionSetType, self->_associatedAccessoryUniqueIdentifiers, actionSetName, self->_homeName];
+  v2 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"BMHomeKitClientActionSetEvent event with base: %@, actionSetUniqueIdentifier: %@, actionSetType: %@, associatedAccessoryUniqueIdentifiers: %@, actionSetName: %@, homeName: %@", self->_base, self->_actionSetUniqueIdentifier, self->_actionSetType, self->_associatedAccessoryUniqueIdentifiers, self->_actionSetName, self->_homeName];
 
-  return v6;
+  return v2;
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version

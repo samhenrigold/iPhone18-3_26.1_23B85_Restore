@@ -32,8 +32,8 @@
   v8 = [options copy];
   [v6 setOptions:v8];
 
-  preview = [(UIWindowSceneActivationConfiguration *)self preview];
-  v10 = [preview copy];
+  v9 = objc_msgSend_preview(self);
+  v10 = [v9 copy];
   [v6 setPreview:v10];
 
   _sceneActivator = [(UIWindowSceneActivationConfiguration *)self _sceneActivator];
@@ -52,13 +52,13 @@
   v7 = [v4 stringWithFormat:@"activityType = %@", activityType];
   [v3 addObject:v7];
 
-  preview = [(UIWindowSceneActivationConfiguration *)self preview];
+  v8 = objc_msgSend_preview(self);
 
-  if (preview)
+  if (v8)
   {
     v9 = MEMORY[0x1E696AEC0];
-    preview2 = [(UIWindowSceneActivationConfiguration *)self preview];
-    v11 = [v9 stringWithFormat:@"preview = %@", preview2];
+    v10 = objc_msgSend_preview(self);
+    v11 = [v9 stringWithFormat:@"preview = %@", v10];
     [v3 addObject:v11];
   }
 

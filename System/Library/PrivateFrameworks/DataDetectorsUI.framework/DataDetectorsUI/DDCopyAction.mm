@@ -29,7 +29,7 @@
   if (result && result->super._result && !result->super._url)
   {
     resultCopy = result;
-    v7 = _DDURLFromResult(result->super._result);
+    v7 = _DDURLFromResult(result->super._result, 0);
     url = resultCopy->super._url;
     resultCopy->super._url = v7;
 
@@ -60,11 +60,8 @@
     v4 = Category;
     if (Category == 1)
     {
-      v5 = self->super._result;
-      v6 = *MEMORY[0x277D040C8];
       if (DDResultHasType())
       {
-        v7 = self->super._result;
         MatchedString = DDResultGetMatchedString();
         if ((dd_handleIsChatBot(MatchedString) & 1) == 0)
         {
@@ -76,9 +73,9 @@
 
       scheme = [(NSURL *)self->super._url scheme];
       lowercaseString = [scheme lowercaseString];
-      v26 = [lowercaseString isEqualToString:@"mailto"];
+      v23 = [lowercaseString isEqualToString:@"mailto"];
 
-      if (v26)
+      if (v23)
       {
         goto LABEL_49;
       }
@@ -86,31 +83,31 @@
       if (!dd_isAnySimpleTelephonyScheme(self->super._url))
       {
 LABEL_50:
-        v19 = @"Copy Link";
+        v16 = @"Copy Link";
         goto LABEL_51;
       }
 
       url = self->super._url;
-      v38 = 0;
-      v28 = [(NSURL *)url dd_phoneNumberFromTelSchemeAndExtractBody:&v38 serviceID:0 suggestions:?];
-      v29 = v38;
-      v30 = [v28 containsString:@"@"];
-      if (v29)
+      v31 = 0;
+      v25 = [(NSURL *)url dd_phoneNumberFromTelSchemeAndExtractBody:&v31 serviceID:0 suggestions:?];
+      v26 = v31;
+      v27 = [v25 containsString:@"@"];
+      if (v26)
       {
-        v17 = 0;
+        v14 = 0;
 LABEL_39:
         v4 = 1;
 
         goto LABEL_40;
       }
 
-      v17 = v30;
-      if (([v28 length] == 0) | v30 & 1)
+      v14 = v27;
+      if (([v25 length] == 0) | v27 & 1)
       {
         goto LABEL_39;
       }
 
-      v17 = 0;
+      v14 = 0;
       if ([DDTextMessageAction isShowMessageURL:self->super._url])
       {
         goto LABEL_39;
@@ -123,25 +120,25 @@ LABEL_40:
       {
         if (v4 == 2)
         {
-          v19 = @"Copy Phone Number";
+          v16 = @"Copy Phone Number";
           goto LABEL_51;
         }
 
         goto LABEL_43;
       }
 
-      if (v17)
+      if (v14)
       {
 LABEL_49:
-        v19 = @"Copy Email";
+        v16 = @"Copy Email";
         goto LABEL_51;
       }
 
       goto LABEL_50;
     }
 
-    v18 = 0;
-    v17 = 0;
+    v15 = 0;
+    v14 = 0;
     if (Category <= 2)
     {
       goto LABEL_40;
@@ -150,27 +147,27 @@ LABEL_49:
     goto LABEL_12;
   }
 
-  v9 = self->super._url;
-  if (v9)
+  v6 = self->super._url;
+  if (v6)
   {
-    scheme2 = [(NSURL *)v9 scheme];
+    scheme2 = [(NSURL *)v6 scheme];
     lowercaseString2 = [scheme2 lowercaseString];
 
     isAnySimpleTelephonyScheme = dd_isAnySimpleTelephonyScheme(self->super._url);
-    v13 = self->super._url;
+    v10 = self->super._url;
     if (!isAnySimpleTelephonyScheme)
     {
-      if (![(__CFString *)v13 dd_isMaps:1]|| (DDMapAddressFromURL(self->super._url), v23 = objc_claimAutoreleasedReturnValue(), v23, !v23))
+      if (![(__CFString *)v10 dd_isMaps:1]|| (DDMapAddressFromURL(self->super._url), v20 = objc_claimAutoreleasedReturnValue(), v20, !v20))
       {
         if ([lowercaseString2 isEqualToString:@"mailto"])
         {
-          v17 = 1;
+          v14 = 1;
         }
 
         else
         {
           dd_schemeIsHttp(lowercaseString2);
-          v17 = 0;
+          v14 = 0;
         }
 
         v4 = 1;
@@ -179,20 +176,20 @@ LABEL_49:
       }
 
       v4 = 3;
-      v18 = 1;
+      v15 = 1;
 
 LABEL_12:
       if (v4 == 4)
       {
-        v19 = @"Copy Event";
+        v16 = @"Copy Event";
         goto LABEL_51;
       }
 
       if (v4 == 3)
       {
-        if (v18)
+        if (v15)
         {
-          v19 = @"Copy Location";
+          v16 = @"Copy Location";
           goto LABEL_51;
         }
 
@@ -202,21 +199,21 @@ LABEL_12:
       goto LABEL_43;
     }
 
-    v37 = 0;
-    v14 = [(NSURL *)v13 dd_phoneNumberFromTelSchemeAndExtractBody:&v37 serviceID:0 suggestions:?];
-    v15 = v37;
-    v16 = [v14 containsString:@"@"];
-    if (v15)
+    v30 = 0;
+    v11 = [(NSURL *)v10 dd_phoneNumberFromTelSchemeAndExtractBody:&v30 serviceID:0 suggestions:?];
+    v12 = v30;
+    v13 = [v11 containsString:@"@"];
+    if (v12)
     {
-      v17 = 0;
+      v14 = 0;
     }
 
     else
     {
-      v17 = v16;
-      if (!(([v14 length] == 0) | v16 & 1))
+      v14 = v13;
+      if (!(([v11 length] == 0) | v13 & 1))
       {
-        v17 = 0;
+        v14 = 0;
         if (![DDTextMessageAction isShowMessageURL:self->super._url])
         {
           v4 = 2;
@@ -234,69 +231,60 @@ LABEL_34:
   contact = self->super._contact;
   if (contact)
   {
-    v21 = DDDefaultAddressForContact(contact);
+    v18 = DDDefaultAddressForContact(contact);
 
-    if (v21)
+    if (v18)
     {
-      v22 = DDDefaultAddressForContact(self->super._contact);
+      v19 = DDDefaultAddressForContact(self->super._contact);
 
-      if (v22)
+      if (v19)
       {
 LABEL_19:
-        v19 = @"Copy Address";
+        v16 = @"Copy Address";
         goto LABEL_51;
       }
     }
   }
 
 LABEL_43:
-  v31 = self->super._result;
-  v32 = *MEMORY[0x277D04048];
   if (DDResultHasType())
   {
-    v19 = @"Copy Code";
+    v16 = @"Copy Code";
+  }
+
+  else if (DDResultHasType())
+  {
+    v16 = @"Copy Flight Code";
   }
 
   else
   {
-    v33 = self->super._result;
-    v34 = *MEMORY[0x277D040D0];
-    if (DDResultHasType())
-    {
-      v19 = @"Copy Flight Code";
-    }
-
-    else
-    {
-      v19 = @"Copy";
-    }
+    v16 = @"Copy";
   }
 
 LABEL_51:
-  v35 = DDLocalizedString(v19);
+  v28 = DDLocalizedString(v16);
 
-  return v35;
+  return v28;
 }
 
 - (id)iconName
 {
   if (self->super._result && DDResultGetCategory() == 1)
   {
-    v3 = self->super._result;
-    v4 = *MEMORY[0x277D040C8];
     if ((DDResultHasType() & 1) == 0)
     {
       scheme = [(NSURL *)self->super._url scheme];
       lowercaseString = [scheme lowercaseString];
-      v7 = [lowercaseString isEqualToString:@"mailto"];
+      v5 = [lowercaseString isEqualToString:@"mailto"];
 
-      if ((v7 & 1) == 0 && (dd_isAnySimpleTelephonyScheme(self->super._url) & 1) == 0)
+      if ((v5 & 1) == 0 && (dd_isAnySimpleTelephonyScheme(self->super._url) & 1) == 0)
       {
         scheme2 = [(NSURL *)self->super._url scheme];
         lowercaseString2 = [scheme2 lowercaseString];
-        v10 = [lowercaseString2 isEqualToString:@"upi"];
+        v8 = [lowercaseString2 isEqualToString:@"upi"];
 
-        if ((v10 & 1) == 0)
+        if ((v8 & 1) == 0)
         {
           return @"link";
         }
@@ -323,9 +311,9 @@ LABEL_51:
 
   if ([(NSURL *)self->super._url dd_isMaps:1])
   {
-    v15 = DDMapAddressFromURL(self->super._url);
+    v13 = DDMapAddressFromURL(self->super._url);
 
-    if (v15)
+    if (v13)
     {
       return @"doc.on.doc";
     }
@@ -342,7 +330,7 @@ LABEL_51:
 
 - (void)_copyURL:(id)l
 {
-  v34[1] = *MEMORY[0x277D85DE8];
+  v33[1] = *MEMORY[0x277D85DE8];
   lCopy = l;
   v5 = lCopy;
   if (lCopy)
@@ -392,13 +380,13 @@ LABEL_14:
 LABEL_15:
       v25 = MEMORY[0x277D75810];
       dataOwner = self->_dataOwner;
-      v29[0] = MEMORY[0x277D85DD0];
-      v29[1] = 3221225472;
-      v29[2] = __25__DDCopyAction__copyURL___block_invoke;
-      v29[3] = &unk_278290B50;
-      v30 = v20;
+      v28[0] = MEMORY[0x277D85DD0];
+      v28[1] = 3221225472;
+      v28[2] = __25__DDCopyAction__copyURL___block_invoke;
+      v28[3] = &unk_278290B50;
+      v29 = v20;
       v27 = v20;
-      [v25 _performAsDataOwner:dataOwner block:v29];
+      [v25 _performAsDataOwner:dataOwner block:v28];
 
       goto LABEL_16;
     }
@@ -410,15 +398,15 @@ LABEL_8:
     v12 = [v9 dictionaryWithObjectsAndKeys:{_web_userVisibleString, identifier2, v5, identifier3, 0}];
 
     v13 = objc_alloc(MEMORY[0x277CCA898]);
-    v33 = *MEMORY[0x277D740E8];
-    v34[0] = v5;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:&v33 count:1];
+    v32 = *MEMORY[0x277D740E8];
+    v33[0] = v5;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:&v32 count:1];
     v15 = [v13 initWithString:_web_userVisibleString attributes:v14];
 
     v16 = [v15 length];
-    v31 = *MEMORY[0x277D74090];
-    v32 = *MEMORY[0x277D74130];
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
+    v30 = *MEMORY[0x277D74090];
+    v31 = *MEMORY[0x277D74130];
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
     v18 = [v15 dataFromRange:0 documentAttributes:v16 error:{v17, 0}];
 
     if (v18)
@@ -433,8 +421,6 @@ LABEL_8:
   }
 
 LABEL_16:
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __25__DDCopyAction__copyURL___block_invoke(uint64_t a1)
@@ -459,16 +445,16 @@ void __25__DDCopyAction__copyURL___block_invoke(uint64_t a1)
 
 void __31__DDCopyAction_copyStringOnly___block_invoke(uint64_t a1)
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) length])
   {
     v2 = [*MEMORY[0x277CE1EB0] identifier];
     v3 = *(a1 + 32);
-    v8 = v2;
-    v9 = v3;
-    v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v9 forKeys:&v8 count:1];
-    v10[0] = v4;
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+    v7 = v2;
+    v8 = v3;
+    v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v8 forKeys:&v7 count:1];
+    v9[0] = v4;
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
   }
 
   else
@@ -478,8 +464,6 @@ void __31__DDCopyAction_copyStringOnly___block_invoke(uint64_t a1)
 
   v6 = [MEMORY[0x277D75810] generalPasteboard];
   [v6 setItems:v5];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performFromView:(id)view
@@ -499,16 +483,16 @@ void __31__DDCopyAction_copyStringOnly___block_invoke(uint64_t a1)
   DDUIRecordOtherActionInSheetForResultIfNeeded(self->super._result);
   if (dd_isAnySimpleTelephonyScheme(self->super._url))
   {
-    v30 = 0;
+    v26 = 0;
     if (self->super._result)
     {
       DDResultCopyPhoneValue();
     }
 
     url = self->super._url;
-    v29 = 0;
-    v9 = [(NSURL *)url dd_phoneNumberFromTelSchemeAndExtractBody:&v29 serviceID:0 suggestions:?];
-    generalPasteboard3 = v29;
+    v25 = 0;
+    v9 = [(NSURL *)url dd_phoneNumberFromTelSchemeAndExtractBody:&v25 serviceID:0 suggestions:?];
+    generalPasteboard3 = v25;
     if (generalPasteboard3 || ![v9 length] || (objc_msgSend(v9, "isEqualToString:", @"open") & 1) != 0)
     {
       [(DDCopyAction *)self _copyURL:self->super._url];
@@ -542,7 +526,7 @@ void __31__DDCopyAction_copyStringOnly___block_invoke(uint64_t a1)
 
   if ([lowercaseString isEqualToString:@"mailto"])
   {
-    v30 = 0;
+    v26 = 0;
     if (self->super._result)
     {
       DDResultCopyMailValue();
@@ -559,9 +543,9 @@ void __31__DDCopyAction_copyStringOnly___block_invoke(uint64_t a1)
     }
 
 LABEL_29:
-    v13 = self->super._url;
+    v12 = self->super._url;
 LABEL_30:
-    [(DDCopyAction *)self _copyURL:v13];
+    [(DDCopyAction *)self _copyURL:v12];
 
     return;
   }
@@ -573,24 +557,22 @@ LABEL_30:
 
   if (self->super._result)
   {
-    v14 = DDResultCopyAuthCode();
-    if (v14)
+    v13 = DDResultCopyAuthCode();
+    if (v13)
     {
-      generalPasteboard6 = v14;
+      generalPasteboard6 = v13;
       generalPasteboard2 = [MEMORY[0x277D75810] generalPasteboard];
-      v17 = generalPasteboard2;
-      v18 = generalPasteboard6;
+      v16 = generalPasteboard2;
+      v17 = generalPasteboard6;
     }
 
     else
     {
-      result = self->super._result;
       Category = DDResultGetCategory();
       if (Category == 3)
       {
 LABEL_26:
         generalPasteboard3 = [MEMORY[0x277D75810] generalPasteboard];
-        v11 = self->super._result;
         generalPasteboard4 = DDResultGetMatchedString();
         [(__CFString *)generalPasteboard3 setString:generalPasteboard4];
 LABEL_27:
@@ -603,7 +585,7 @@ LABEL_16:
       {
         if (Category == 1)
         {
-          generalPasteboard3 = _DDURLFromResult(self->super._result);
+          generalPasteboard3 = _DDURLFromResult(self->super._result, 0);
           if (generalPasteboard3)
           {
             generalPasteboard4 = [MEMORY[0x277D75810] generalPasteboard];
@@ -612,7 +594,6 @@ LABEL_16:
 
           else
           {
-            v26 = self->super._result;
             generalPasteboard4 = DDResultGetMatchedString();
             generalPasteboard5 = [MEMORY[0x277D75810] generalPasteboard];
             [generalPasteboard5 setString:generalPasteboard4];
@@ -621,40 +602,39 @@ LABEL_16:
           goto LABEL_27;
         }
 
-        v24 = Category;
+        v22 = Category;
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
         {
-          [DDCopyAction performFromView:v24];
+          [DDCopyAction performFromView:v22];
         }
       }
 
-      v25 = self->super._result;
-      v17 = DDResultGetMatchedString();
+      v16 = DDResultGetMatchedString();
       generalPasteboard2 = [MEMORY[0x277D75810] generalPasteboard];
       generalPasteboard6 = generalPasteboard2;
-      v18 = v17;
+      v17 = v16;
     }
 
-    [generalPasteboard2 setString:v18];
+    [generalPasteboard2 setString:v17];
     goto LABEL_35;
   }
 
   contact = self->super._contact;
   if (contact)
   {
-    v20 = DDDefaultAddressForContact(contact);
+    v19 = DDDefaultAddressForContact(contact);
 
-    if (v20)
+    if (v19)
     {
-      v17 = DDDefaultAddressForContact(self->super._contact);
-      if (!v17)
+      v16 = DDDefaultAddressForContact(self->super._contact);
+      if (!v16)
       {
         goto LABEL_36;
       }
 
       generalPasteboard6 = [MEMORY[0x277D75810] generalPasteboard];
-      v21 = [MEMORY[0x277CBDB80] stringFromPostalAddress:v17 style:0];
-      [generalPasteboard6 setString:v21];
+      v20 = [MEMORY[0x277CBDB80] stringFromPostalAddress:v16 style:0];
+      [generalPasteboard6 setString:v20];
 
 LABEL_35:
 LABEL_36:
@@ -663,8 +643,8 @@ LABEL_36:
     }
   }
 
-  v13 = self->super._url;
-  if (v13)
+  v12 = self->super._url;
+  if (v12)
   {
     goto LABEL_30;
   }
@@ -690,11 +670,10 @@ LABEL_36:
 
 - (void)performFromView:(int)a1 .cold.1(int a1)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 67109120;
-  v2[1] = a1;
-  _os_log_debug_impl(&dword_21AB70000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Unknown category %x", v2, 8u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 67109120;
+  v1[1] = a1;
+  _os_log_debug_impl(&dword_21AB70000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Unknown category %x", v1, 8u);
 }
 
 @end

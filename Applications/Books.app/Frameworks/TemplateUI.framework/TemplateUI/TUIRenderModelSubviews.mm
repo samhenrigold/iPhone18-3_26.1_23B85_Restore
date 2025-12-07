@@ -191,7 +191,7 @@ LABEL_40:
       v24 = [v16 objectForKeyedSubscript:identifier];
       [NSIndexPath tui_indexPathForRow:v18 inSection:0];
       v108 = v107 = v24;
-      if (v24 && ([v24 reuseIdentifier], v25 = objc_claimAutoreleasedReturnValue(), v26 = objc_msgSend(v25, "isEqualToString:", reuseIdentifier), v25, v27 = v108, v106 = v24, (v26 & 1) != 0) || (objc_msgSend(factoryCopy, "viewFactoryDequeueReusableSubviewWithReuseIdentifier:indexPath:host:", reuseIdentifier, v108, v17), v28 = objc_claimAutoreleasedReturnValue(), v24, v27 = v108, (v106 = v28) != 0))
+      if (v24 && ([v24 reuseIdentifier], v25 = objc_claimAutoreleasedReturnValue(), v26 = objc_msgSend_isEqualToString_(v25), v25, v27 = v108, v106 = v24, (v26 & 1) != 0) || (objc_msgSend(factoryCopy, "viewFactoryDequeueReusableSubviewWithReuseIdentifier:indexPath:host:", reuseIdentifier, v108, v17), v28 = objc_claimAutoreleasedReturnValue(), v24, v27 = v108, (v106 = v28) != 0))
       {
         v29 = [TUILayoutAttributes newLayoutAttributesWithIndexPath:v27];
         [v111 outsets];
@@ -213,7 +213,7 @@ LABEL_40:
         memset(&v118, 0, 48);
         if (v111)
         {
-          [v111 transform];
+          objc_msgSend_transform(v111);
         }
 
         v48 = v37 + v32 + v35;

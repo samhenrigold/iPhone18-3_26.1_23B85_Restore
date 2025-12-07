@@ -187,9 +187,7 @@ LABEL_8:
 
 - (void)setLetters:(id)letters
 {
-  v4 = [letters copy];
-  letters = self->_letters;
-  self->_letters = v4;
+  self->_letters = [letters copy];
 
   MEMORY[0x1EEE66BB8]();
 }

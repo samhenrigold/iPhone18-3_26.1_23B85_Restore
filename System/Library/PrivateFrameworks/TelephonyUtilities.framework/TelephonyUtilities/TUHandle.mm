@@ -3,6 +3,7 @@
 + (TUHandle)handleWithDictionaryRepresentation:(id)representation;
 + (TUHandle)handleWithPerson:(id)person;
 + (TUHandle)handleWithPersonHandle:(id)handle;
++ (id)handleForCHRecentCall:(id)call validHandlesOnly:(BOOL)only;
 + (id)handleFromMessagingData:(id)data;
 + (id)handlesForCHRecentCall:(id)call validHandlesOnly:(BOOL)only;
 + (id)normalizedEmailAddressHandleForValue:(id)value;
@@ -129,10 +130,18 @@
   return v10;
 }
 
++ (id)handleForCHRecentCall:(id)call validHandlesOnly:(BOOL)only
+{
+  v4 = [self handlesForCHRecentCall:call validHandlesOnly:only];
+  firstObject = [v4 firstObject];
+
+  return firstObject;
+}
+
 + (id)handlesForCHRecentCall:(id)call validHandlesOnly:(BOOL)only
 {
   onlyCopy = only;
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   callCopy = call;
   array = [MEMORY[0x1E695DF70] array];
   if (onlyCopy)
@@ -147,26 +156,26 @@
   v7 = ;
   v8 = [v7 copy];
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v9 = v8;
-  v10 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v23;
+    v12 = *v22;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v23 != v12)
+        if (*v22 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v22 + 1) + 8 * i);
+        v14 = *(*(&v21 + 1) + 8 * i);
         value = [v14 value];
         if ([value length])
         {
@@ -210,13 +219,11 @@ LABEL_18:
 LABEL_19:
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v11);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return array;
 }

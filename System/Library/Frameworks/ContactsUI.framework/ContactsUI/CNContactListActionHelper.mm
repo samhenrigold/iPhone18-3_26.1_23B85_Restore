@@ -224,13 +224,13 @@ id __42__CNContactListActionHelper_copyContacts___block_invoke(uint64_t a1, void
 - (BOOL)canShowDeleteAction
 {
   selfCopy = self;
-  contacts = [(CNContactListActionHelper *)self contacts];
+  v3 = objc_msgSend_contacts(self, a2);
   v5[0] = MEMORY[0x1E69E9820];
   v5[1] = 3221225472;
   v5[2] = __48__CNContactListActionHelper_canShowDeleteAction__block_invoke;
   v5[3] = &unk_1E74E7880;
   v5[4] = selfCopy;
-  LOBYTE(selfCopy) = [contacts _cn_any:v5];
+  LOBYTE(selfCopy) = [v3 _cn_any:v5];
 
   return selfCopy ^ 1;
 }

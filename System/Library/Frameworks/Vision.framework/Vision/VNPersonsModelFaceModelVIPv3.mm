@@ -38,7 +38,7 @@
   std::ios_base::init(&v13, &__sb);
   v14 = 0;
   v15 = -1;
-  v8 = vision::mod::FaceID3Model::serialize(self->_faceIDModel.__ptr_);
+  v8 = vision::mod::FaceID3Model::serialize(self->_faceIDModel.__ptr_, &v12);
   if (v8 != 128)
   {
     v9 = MEMORY[0x1E695DF30];
@@ -869,7 +869,7 @@ LABEL_8:
       atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    [self _concatenateFaceprintImageDescriptorBuffer:&v57 withFaceprints:v15 forIdentityWithSerialNumber:(v11 + 1) faceprintLabels:&v60];
+    objc_msgSend__concatenateFaceprintImageDescriptorBuffer_withFaceprints_forIdentityWithSerialNumber_faceprintLabels_(self);
     v22 = v72;
     v44 = v71;
     v71 = 0;
@@ -980,6 +980,7 @@ void *__89__VNPersonsModelFaceModelVIPv3_modelBuiltFromConfiguration_dataProvide
   bufferCopy = buffer;
   var0 = a3.var0;
   v9 = v6;
+  v39[2] = *MEMORY[0x1E69E9840];
   v10 = a3.var1;
   v33 = v10;
   v11 = [(__shared_weak_count *)v10 count];
@@ -992,7 +993,9 @@ void *__89__VNPersonsModelFaceModelVIPv3_modelBuiltFromConfiguration_dataProvide
     __n = lengthInBytes;
     if (!*var0)
     {
-      std::vector<long long>::__init_with_size[abi:ne200100]<long long const*,long long const*>();
+      v38 = 1;
+      memset(__p, 0, sizeof(__p));
+      std::vector<long long>::__init_with_size[abi:ne200100]<long long const*,long long const*>(__p, &v38, v39);
     }
 
     LODWORD(v15) = *(v13 + 18);

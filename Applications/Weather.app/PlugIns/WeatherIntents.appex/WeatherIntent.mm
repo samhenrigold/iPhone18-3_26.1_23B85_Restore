@@ -20,19 +20,20 @@
   }
 
   storeCopy = store;
-  return WeatherIntent.init(identifier:backingStore:)(v5, v7, store);
+  return WeatherIntent.init(identifier:backingStore:)(v5, v7, store, v9);
 }
 
 - (WeatherIntent)initWithDomain:(id)domain verb:(id)verb parametersByName:(id)name
 {
-  sub_10000FCB4();
+  v6 = sub_10000FCB4();
+  v8 = v7;
   sub_10000FCB4();
   if (name)
   {
     sub_10000FC94();
   }
 
-  return WeatherIntent.init(domain:verb:parametersByName:)();
+  return WeatherIntent.init(domain:verb:parametersByName:)(v6, v8);
 }
 
 @end

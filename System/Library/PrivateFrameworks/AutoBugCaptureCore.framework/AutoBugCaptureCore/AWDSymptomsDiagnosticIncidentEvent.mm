@@ -3,6 +3,9 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)stateAsString:(int)string;
+- (id)statusAsString:(int)string;
+- (id)typeAsString:(int)string;
 - (int)StringAsState:(id)state;
 - (int)StringAsStatus:(id)status;
 - (int)StringAsType:(id)type;
@@ -47,6 +50,26 @@
   }
 
   *&self->_has = *&self->_has & 0xEF | v3;
+}
+
+- (id)typeAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"Trigger";
+  }
+
+  else if (string == 2)
+  {
+    v4 = @"Action";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsType:(id)type
@@ -112,6 +135,21 @@
   *&self->_has = *&self->_has & 0xF7 | v3;
 }
 
+- (id)statusAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278CF01A8[string - 1];
+  }
+
+  return v4;
+}
+
 - (int)StringAsStatus:(id)status
 {
   statusCopy = status;
@@ -164,6 +202,26 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)stateAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"Started";
+  }
+
+  else if (string == 2)
+  {
+    v4 = @"Ended";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsState:(id)state
@@ -316,39 +374,36 @@ LABEL_27:
 {
   toCopy = to;
   has = self->_has;
-  v12 = toCopy;
+  v7 = toCopy;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
-    toCopy = v12;
+    toCopy = v7;
     has = self->_has;
   }
 
   if ((has & 0x10) != 0)
   {
-    type = self->_type;
     PBDataWriterWriteInt32Field();
-    toCopy = v12;
+    toCopy = v7;
   }
 
   if (self->_name)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v7;
   }
 
-  v8 = self->_has;
-  if ((v8 & 2) != 0)
+  v6 = self->_has;
+  if ((v6 & 2) != 0)
   {
-    value = self->_value;
     PBDataWriterWriteUint64Field();
-    toCopy = v12;
-    v8 = self->_has;
-    if ((v8 & 8) == 0)
+    toCopy = v7;
+    v6 = self->_has;
+    if ((v6 & 8) == 0)
     {
 LABEL_9:
-      if ((v8 & 4) == 0)
+      if ((v6 & 4) == 0)
       {
         goto LABEL_11;
       }
@@ -362,28 +417,26 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  status = self->_status;
   PBDataWriterWriteInt32Field();
-  toCopy = v12;
+  toCopy = v7;
   if ((*&self->_has & 4) != 0)
   {
 LABEL_10:
-    state = self->_state;
     PBDataWriterWriteInt32Field();
-    toCopy = v12;
+    toCopy = v7;
   }
 
 LABEL_11:
   if (self->_detectedName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v7;
   }
 
   if (self->_effectiveName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v7;
   }
 }
 
@@ -535,7 +588,6 @@ LABEL_9:
   }
 
   has = self->_has;
-  v6 = *(equalCopy + 60);
   if (has)
   {
     if ((*(equalCopy + 60) & 1) == 0 || self->_timestamp != *(equalCopy + 1))
@@ -568,14 +620,13 @@ LABEL_9:
     if (![(NSString *)name isEqual:?])
     {
 LABEL_34:
-      v11 = 0;
+      v9 = 0;
       goto LABEL_35;
     }
 
     has = self->_has;
   }
 
-  v8 = *(equalCopy + 60);
   if ((has & 2) != 0)
   {
     if ((*(equalCopy + 60) & 2) == 0 || self->_value != *(equalCopy + 2))
@@ -624,17 +675,17 @@ LABEL_34:
   effectiveName = self->_effectiveName;
   if (effectiveName | *(equalCopy + 4))
   {
-    v11 = [(NSString *)effectiveName isEqual:?];
+    v9 = [(NSString *)effectiveName isEqual:?];
   }
 
   else
   {
-    v11 = 1;
+    v9 = 1;
   }
 
 LABEL_35:
 
-  return v11;
+  return v9;
 }
 
 - (unint64_t)hash

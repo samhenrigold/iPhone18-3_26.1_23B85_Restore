@@ -15,7 +15,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   createdDateTime = [(_INPBTaskList *)self createdDateTime];
   dictionaryRepresentation = [createdDateTime dictionaryRepresentation];
@@ -39,30 +39,30 @@
   if ([(NSArray *)self->_tasks count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
     v13 = self->_tasks;
-    v14 = [(NSArray *)v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v14 = [(NSArray *)v13 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v24;
+      v16 = *v23;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v24 != v16)
+          if (*v23 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          dictionaryRepresentation4 = [*(*(&v23 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation4 = [*(*(&v22 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation4];
         }
 
-        v15 = [(NSArray *)v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v15 = [(NSArray *)v13 countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
       while (v15);
@@ -74,8 +74,6 @@
   title = [(_INPBTaskList *)self title];
   dictionaryRepresentation5 = [title dictionaryRepresentation];
   [dictionary setObject:dictionaryRepresentation5 forKeyedSubscript:@"title"];
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -309,7 +307,7 @@ LABEL_33:
 
 - (void)writeTo:(id)to
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   toCopy = to;
   createdDateTime = [(_INPBTaskList *)self createdDateTime];
 
@@ -331,7 +329,6 @@ LABEL_33:
 
   if (identifier)
   {
-    identifier = self->_identifier;
     PBDataWriterWriteStringField();
   }
 
@@ -343,36 +340,35 @@ LABEL_33:
     PBDataWriterWriteSubmessage();
   }
 
-  v24 = 0u;
-  v25 = 0u;
+  v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  v13 = self->_tasks;
-  v14 = [(NSArray *)v13 countByEnumeratingWithState:&v22 objects:v26 count:16];
-  if (v14)
+  v19 = 0u;
+  v20 = 0u;
+  v12 = self->_tasks;
+  v13 = [(NSArray *)v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  if (v13)
   {
-    v15 = v14;
-    v16 = *v23;
+    v14 = v13;
+    v15 = *v20;
     do
     {
-      v17 = 0;
+      v16 = 0;
       do
       {
-        if (*v23 != v16)
+        if (*v20 != v15)
         {
-          objc_enumerationMutation(v13);
+          objc_enumerationMutation(v12);
         }
 
-        v18 = *(*(&v22 + 1) + 8 * v17);
         PBDataWriterWriteSubmessage();
-        ++v17;
+        ++v16;
       }
 
-      while (v15 != v17);
-      v15 = [(NSArray *)v13 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      while (v14 != v16);
+      v14 = [(NSArray *)v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
-    while (v15);
+    while (v14);
   }
 
   title = [(_INPBTaskList *)self title];
@@ -382,8 +378,6 @@ LABEL_33:
     title2 = [(_INPBTaskList *)self title];
     PBDataWriterWriteSubmessage();
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addTasks:(id)tasks

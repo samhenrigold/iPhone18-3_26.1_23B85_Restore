@@ -141,8 +141,8 @@ LABEL_26:
 {
   if (![(OrgApacheLuceneCodecsDocValuesConsumer_$1_$1 *)self hasNext])
   {
-    v5 = new_JavaUtilNoSuchElementException_init();
-    objc_exception_throw(v5);
+    v6 = new_JavaUtilNoSuchElementException_init();
+    objc_exception_throw(v6);
   }
 
   self->nextIsSet_ = 0;
@@ -153,7 +153,7 @@ LABEL_26:
 
   nextValue = self->nextValue_;
 
-  return JavaLangLong_valueOfWithLong_(nextValue);
+  return JavaLangLong_valueOfWithLong_(nextValue, v3);
 }
 
 - (OrgApacheLuceneCodecsDocValuesConsumer_$1_$1)initWithOrgApacheLuceneCodecsDocValuesConsumer_$1:(id)1

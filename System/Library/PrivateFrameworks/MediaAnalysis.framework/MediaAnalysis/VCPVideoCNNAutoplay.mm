@@ -131,7 +131,7 @@
       goto LABEL_25;
     }
 
-    [(VCPCNNModelEspresso *)v39 outputBlob];
+    objc_msgSend_outputBlob(v39);
     if (!v55)
     {
       goto LABEL_25;
@@ -195,7 +195,7 @@ LABEL_12:
     v7 = self->_modelEspresso;
     if (v7)
     {
-      [(VCPCNNModelEspresso *)v7 outputBlob];
+      objc_msgSend_outputBlob(v7);
       v8 = v55;
       if (v55)
       {

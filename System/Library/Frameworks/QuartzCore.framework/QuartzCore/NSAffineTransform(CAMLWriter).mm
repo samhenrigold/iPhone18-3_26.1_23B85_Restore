@@ -9,7 +9,7 @@
   v11 = *MEMORY[0x1E69E9840];
   if (self)
   {
-    [self transformStruct];
+    objc_msgSend_transformStruct(self, a2);
   }
 
   else

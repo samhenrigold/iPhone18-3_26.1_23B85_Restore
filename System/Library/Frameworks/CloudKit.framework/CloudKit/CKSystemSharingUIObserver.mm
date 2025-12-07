@@ -191,7 +191,7 @@ LABEL_5:
 - (void)_locked_handleSharingUIUpdatedShare:(id)share recordID:(id)d isDeleted:(BOOL)deleted error:(id)error
 {
   deletedCopy = deleted;
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   shareCopy = share;
   dCopy = d;
   errorCopy = error;
@@ -214,19 +214,19 @@ LABEL_5:
   v17 = ck_log_facility_ck;
   if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
   {
-    v35 = @"NO";
-    v40 = 138412802;
-    v41 = v16;
+    v34 = @"NO";
+    v39 = 138412802;
+    v40 = v16;
     if (deletedCopy)
     {
-      v35 = @"YES";
+      v34 = @"YES";
     }
 
-    v42 = 2114;
-    v43 = v35;
-    v44 = 2112;
-    v45 = errorCopy;
-    _os_log_debug_impl(&dword_1883EA000, v17, OS_LOG_TYPE_DEBUG, "Handle sharing UI updated called with share: %@, deleted: %{public}@, error: %@", &v40, 0x20u);
+    v41 = 2114;
+    v42 = v34;
+    v43 = 2112;
+    v44 = errorCopy;
+    _os_log_debug_impl(&dword_1883EA000, v17, OS_LOG_TYPE_DEBUG, "Handle sharing UI updated called with share: %@, deleted: %{public}@, error: %@", &v39, 0x20u);
   }
 
   if (!deletedCopy)
@@ -253,18 +253,37 @@ LABEL_30:
       goto LABEL_31;
     }
 
-    v36 = @" RecordID: ";
+    v35 = @" RecordID: ";
     if (!v16)
+    {
+      v35 = &stru_1EFA32970;
+    }
+
+    v39 = 138544130;
+    v40 = v35;
+    v36 = @" Error: ";
+    if (v16)
+    {
+      v37 = v16;
+    }
+
+    else
+    {
+      v37 = &stru_1EFA32970;
+    }
+
+    v41 = 2112;
+    v42 = v37;
+    if (!errorCopy)
     {
       v36 = &stru_1EFA32970;
     }
 
-    v40 = 138544130;
-    v41 = v36;
-    v37 = @" Error: ";
-    if (v16)
+    v43 = 2114;
+    v44 = v36;
+    if (errorCopy)
     {
-      v38 = v16;
+      v38 = errorCopy;
     }
 
     else
@@ -272,30 +291,11 @@ LABEL_30:
       v38 = &stru_1EFA32970;
     }
 
-    v42 = 2112;
-    v43 = v38;
-    if (!errorCopy)
-    {
-      v37 = &stru_1EFA32970;
-    }
-
-    v44 = 2114;
-    v45 = v37;
-    if (errorCopy)
-    {
-      v39 = errorCopy;
-    }
-
-    else
-    {
-      v39 = &stru_1EFA32970;
-    }
-
-    v46 = 2112;
-    v47 = v39;
+    v45 = 2112;
+    v46 = v38;
     v33 = "Sharing UI observer received update but no systemSharingUIDidSaveShareBlock set.%{public}@%@%{public}@%@";
 LABEL_46:
-    _os_log_debug_impl(&dword_1883EA000, v28, OS_LOG_TYPE_DEBUG, v33, &v40, 0x2Au);
+    _os_log_debug_impl(&dword_1883EA000, v28, OS_LOG_TYPE_DEBUG, v33, &v39, 0x2Au);
     goto LABEL_30;
   }
 
@@ -319,8 +319,8 @@ LABEL_46:
       v29 = &stru_1EFA32970;
     }
 
-    v40 = 138544130;
-    v41 = v29;
+    v39 = 138544130;
+    v40 = v29;
     v30 = @" Error: ";
     if (v16)
     {
@@ -332,15 +332,15 @@ LABEL_46:
       v31 = &stru_1EFA32970;
     }
 
-    v42 = 2112;
-    v43 = v31;
+    v41 = 2112;
+    v42 = v31;
     if (!errorCopy)
     {
       v30 = &stru_1EFA32970;
     }
 
-    v44 = 2114;
-    v45 = v30;
+    v43 = 2114;
+    v44 = v30;
     if (errorCopy)
     {
       v32 = errorCopy;
@@ -351,8 +351,8 @@ LABEL_46:
       v32 = &stru_1EFA32970;
     }
 
-    v46 = 2112;
-    v47 = v32;
+    v45 = 2112;
+    v46 = v32;
     v33 = "Sharing UI observer received delete but no systemSharingUIDidStopSharingBlock set.%{public}@%@%{public}@%@";
     goto LABEL_46;
   }
@@ -363,7 +363,6 @@ LABEL_46:
 LABEL_12:
 
 LABEL_31:
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -10,62 +10,65 @@
 - (CERecommendationSection)initWithDictionary:(id)dictionary
 {
   dictionaryCopy = dictionary;
-  v16.receiver = self;
-  v16.super_class = CERecommendationSection;
-  v5 = [(CERecommendationSection *)&v16 init];
+  v19.receiver = self;
+  v19.super_class = CERecommendationSection;
+  v5 = [(CERecommendationSection *)&v19 init];
   if (v5)
   {
     v6 = [dictionaryCopy objectForKeyedSubscript:@"sectionID"];
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v7 = v6;
+      v8 = v6;
       sectionID = v5->_sectionID;
-      v5->_sectionID = v7;
+      v5->_sectionID = v8;
     }
 
     else
     {
-      sectionID = _CELogSystem();
+      sectionID = _CELogSystem(isKindOfClass);
       if (os_log_type_enabled(sectionID, OS_LOG_TYPE_DEBUG))
       {
-        [CERecommendationSection initWithDictionary:];
+        [CERecommendationSection initWithDictionary:v5];
       }
     }
 
-    v9 = [dictionaryCopy objectForKeyedSubscript:@"sectionHeader"];
+    v10 = [dictionaryCopy objectForKeyedSubscript:@"sectionHeader"];
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    v11 = objc_opt_isKindOfClass();
+    if (v11)
     {
-      v10 = v9;
+      v12 = v10;
       sectionHeader = v5->_sectionHeader;
-      v5->_sectionHeader = v10;
+      v5->_sectionHeader = v12;
     }
 
     else
     {
-      sectionHeader = _CELogSystem();
+      sectionHeader = _CELogSystem(v11);
       if (os_log_type_enabled(sectionHeader, OS_LOG_TYPE_DEBUG))
       {
-        [CERecommendationSection initWithDictionary:];
+        [CERecommendationSection initWithDictionary:v5];
       }
     }
 
-    v12 = [dictionaryCopy objectForKeyedSubscript:@"sectionFooter"];
+    v14 = [dictionaryCopy objectForKeyedSubscript:@"sectionFooter"];
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    v15 = objc_opt_isKindOfClass();
+    if (v15)
     {
-      v13 = v12;
+      v16 = v14;
       sectionFooter = v5->_sectionFooter;
-      v5->_sectionFooter = v13;
+      v5->_sectionFooter = v16;
     }
 
     else
     {
-      sectionFooter = _CELogSystem();
+      sectionFooter = _CELogSystem(v15);
       if (os_log_type_enabled(sectionFooter, OS_LOG_TYPE_DEBUG))
       {
-        [CERecommendationSection initWithDictionary:];
+        [CERecommendationSection initWithDictionary:v5];
       }
     }
   }
@@ -115,31 +118,28 @@
   return v4;
 }
 
-- (void)initWithDictionary:.cold.1()
+- (void)initWithDictionary:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  OUTLINED_FUNCTION_0(&dword_2439E1000, v1, v2, "%@ Unable to parse sectionID from dictionary", v3, v4, v5, v6, 2u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = objc_opt_class();
+  v1 = *(&v8 + 4);
+  OUTLINED_FUNCTION_0(&dword_2439E1000, v2, v3, "%@ Unable to parse sectionID from dictionary", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
-- (void)initWithDictionary:.cold.2()
+- (void)initWithDictionary:(uint64_t)a1 .cold.2(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  OUTLINED_FUNCTION_0(&dword_2439E1000, v1, v2, "%@ Unable to parse sectionHeader from dictionary", v3, v4, v5, v6, 2u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = objc_opt_class();
+  v1 = *(&v8 + 4);
+  OUTLINED_FUNCTION_0(&dword_2439E1000, v2, v3, "%@ Unable to parse sectionHeader from dictionary", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
-- (void)initWithDictionary:.cold.3()
+- (void)initWithDictionary:(uint64_t)a1 .cold.3(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  OUTLINED_FUNCTION_0(&dword_2439E1000, v1, v2, "%@ Unable to parse sectionFooter from dictionary", v3, v4, v5, v6, 2u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = objc_opt_class();
+  v1 = *(&v8 + 4);
+  OUTLINED_FUNCTION_0(&dword_2439E1000, v2, v3, "%@ Unable to parse sectionFooter from dictionary", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

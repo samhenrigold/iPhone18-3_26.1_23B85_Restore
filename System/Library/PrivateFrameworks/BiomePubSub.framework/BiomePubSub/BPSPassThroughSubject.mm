@@ -59,41 +59,40 @@
 
 - (void)dealloc
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v3 = self->_upstreamSubscriptions;
-  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(&v10 + 1) + 8 * v7++) cancel];
+        [*(*(&v9 + 1) + 8 * v7++) cancel];
       }
 
       while (v5 != v7);
-      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
 
-  v9.receiver = self;
-  v9.super_class = BPSPassThroughSubject;
-  [(BPSPassThroughSubject *)&v9 dealloc];
-  v8 = *MEMORY[0x1E69E9840];
+  v8.receiver = self;
+  v8.super_class = BPSPassThroughSubject;
+  [(BPSPassThroughSubject *)&v8 dealloc];
 }
 
 - (void)sendSubscription:(id)subscription
@@ -111,11 +110,10 @@
 
 - (void)acknowledgeDownstreamDemand
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_lock);
   if ([(BPSPassThroughSubject *)self hasAnyDownstreamDemand])
   {
-    v3 = *MEMORY[0x1E69E9840];
 
     os_unfair_lock_unlock(&self->_lock);
   }
@@ -125,35 +123,33 @@
     [(BPSPassThroughSubject *)self setHasAnyDownstreamDemand:1];
     upstreamSubscriptions = [(BPSPassThroughSubject *)self upstreamSubscriptions];
     os_unfair_lock_unlock(&self->_lock);
-    v13 = 0u;
-    v14 = 0u;
     v11 = 0u;
     v12 = 0u;
-    v5 = upstreamSubscriptions;
-    v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
-    if (v6)
+    v9 = 0u;
+    v10 = 0u;
+    v4 = upstreamSubscriptions;
+    v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
+    if (v5)
     {
-      v7 = v6;
-      v8 = *v12;
+      v6 = v5;
+      v7 = *v10;
       do
       {
-        for (i = 0; i != v7; ++i)
+        for (i = 0; i != v6; ++i)
         {
-          if (*v12 != v8)
+          if (*v10 != v7)
           {
-            objc_enumerationMutation(v5);
+            objc_enumerationMutation(v4);
           }
 
-          [*(*(&v11 + 1) + 8 * i) requestDemand:{0x7FFFFFFFFFFFFFFFLL, v11}];
+          [*(*(&v9 + 1) + 8 * i) requestDemand:{0x7FFFFFFFFFFFFFFFLL, v9}];
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
       }
 
-      while (v7);
+      while (v6);
     }
-
-    v10 = *MEMORY[0x1E69E9840];
   }
 }
 
@@ -192,7 +188,7 @@
 
 - (void)sendValue:(id)value
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   valueCopy = value;
   selfCopy = self;
   os_unfair_lock_lock(&selfCopy->_lock);
@@ -202,31 +198,31 @@
     items = [downstreams items];
 
     os_unfair_lock_unlock(&selfCopy->_lock);
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v8 = items;
-    v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v15;
+      v11 = *v14;
       do
       {
         v12 = 0;
         do
         {
-          if (*v15 != v11)
+          if (*v14 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          [*(*(&v14 + 1) + 8 * v12++) offerInput:{valueCopy, v14}];
+          [*(*(&v13 + 1) + 8 * v12++) offerInput:{valueCopy, v13}];
         }
 
         while (v10 != v12);
-        v10 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v10);
@@ -237,13 +233,11 @@
   {
     os_unfair_lock_unlock(&selfCopy->_lock);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sendCompletion:(id)completion
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   selfCopy = self;
   os_unfair_lock_lock(&selfCopy->_lock);
@@ -256,31 +250,31 @@
 
     [(BPSPassThroughSubject *)selfCopy setUpstreamSubscriptions:0];
     os_unfair_lock_unlock(&selfCopy->_lock);
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v8 = claimAll;
-    v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v15;
+      v11 = *v14;
       do
       {
         v12 = 0;
         do
         {
-          if (*v15 != v11)
+          if (*v14 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          [*(*(&v14 + 1) + 8 * v12++) finishWithCompletion:{completionCopy, v14}];
+          [*(*(&v13 + 1) + 8 * v12++) finishWithCompletion:{completionCopy, v13}];
         }
 
         while (v10 != v12);
-        v10 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v10);
@@ -291,8 +285,6 @@
   {
     os_unfair_lock_unlock(&selfCopy->_lock);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)disassociate:(int64_t)disassociate
@@ -323,7 +315,7 @@
 
 - (void)cancel
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   os_unfair_lock_lock(&selfCopy->_lock);
   if ([(BPSPassThroughSubject *)selfCopy active])
@@ -334,31 +326,31 @@
 
     [(BPSPassThroughSubject *)selfCopy setUpstreamSubscriptions:0];
     os_unfair_lock_unlock(&selfCopy->_lock);
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
     v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
     v5 = v4;
-    v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v12;
+      v8 = *v11;
       do
       {
         v9 = 0;
         do
         {
-          if (*v12 != v8)
+          if (*v11 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          [*(*(&v11 + 1) + 8 * v9++) cancel];
+          [*(*(&v10 + 1) + 8 * v9++) cancel];
         }
 
         while (v7 != v9);
-        v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
       }
 
       while (v7);
@@ -369,8 +361,6 @@
   {
     os_unfair_lock_unlock(&selfCopy->_lock);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (id)startWithSubscriber:(id)subscriber
@@ -444,7 +434,7 @@
 
 - (id)validateBookmark:(id)bookmark
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   bookmarkCopy = bookmark;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -458,13 +448,11 @@
     v6 = objc_opt_class();
     bookmarkCopy = [v5 initWithFormat:@"%@ expected bookmark of class %@, but received %@", v6, objc_opt_class(), bookmarkCopy];
     v8 = MEMORY[0x1E696ABC0];
-    v12 = *MEMORY[0x1E696A578];
-    v13[0] = bookmarkCopy;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    v11 = *MEMORY[0x1E696A578];
+    v12[0] = bookmarkCopy;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
     v4 = [v8 errorWithDomain:@"BiomePubSubError" code:2 userInfo:v9];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

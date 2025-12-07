@@ -15,35 +15,33 @@
 
 - (void)start
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v11.receiver = self;
-  v11.super_class = WFCloudKitWebServiceAssetDownloadOperation;
-  [(WFCloudKitAsyncOperation *)&v11 start];
+  v17 = *MEMORY[0x1E69E9840];
+  v10.receiver = self;
+  v10.super_class = WFCloudKitWebServiceAssetDownloadOperation;
+  [(WFCloudKitAsyncOperation *)&v10 start];
   v3 = getWFCloudKitWSLogObject();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     item = [(WFCloudKitWebServiceAssetDownloadOperation *)self item];
     v5 = [(WFCloudKitWebServiceAssetDownloadOperation *)self key];
     *buf = 136315650;
-    v13 = "[WFCloudKitWebServiceAssetDownloadOperation start]";
-    v14 = 2112;
-    v15 = item;
-    v16 = 2112;
-    v17 = v5;
+    v12 = "[WFCloudKitWebServiceAssetDownloadOperation start]";
+    v13 = 2112;
+    v14 = item;
+    v15 = 2112;
+    v16 = v5;
     _os_log_impl(&dword_1CA256000, v3, OS_LOG_TYPE_INFO, "%s Asset fetch operation starting: %@ %@", buf, 0x20u);
   }
 
   wf_sharedSession = [MEMORY[0x1E696AF78] wf_sharedSession];
   assetURL = [(WFCloudKitWebServiceAssetDownloadOperation *)self assetURL];
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __51__WFCloudKitWebServiceAssetDownloadOperation_start__block_invoke;
-  v10[3] = &unk_1E837AEE8;
-  v10[4] = self;
-  v8 = [wf_sharedSession downloadTaskWithURL:assetURL completionHandler:v10];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __51__WFCloudKitWebServiceAssetDownloadOperation_start__block_invoke;
+  v9[3] = &unk_1E837AEE8;
+  v9[4] = self;
+  v8 = [wf_sharedSession downloadTaskWithURL:assetURL completionHandler:v9];
   [v8 resume];
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __51__WFCloudKitWebServiceAssetDownloadOperation_start__block_invoke(uint64_t a1, void *a2, void *a3)

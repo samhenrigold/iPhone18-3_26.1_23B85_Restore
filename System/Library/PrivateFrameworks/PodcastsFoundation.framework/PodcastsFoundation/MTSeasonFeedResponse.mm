@@ -17,15 +17,14 @@
   v11 = &v9[OBJC_IVAR___MTGenericDataSourceSection_storedTitle];
   *v11 = v5;
   v11[1] = v7;
-  v17.receiver = v9;
-  v17.super_class = v8;
-  v12 = [(BaseFeedResponse *)&v17 init];
+  v16.receiver = v9;
+  v16.super_class = v8;
+  v12 = [(BaseFeedResponse *)&v16 init];
   v13 = swift_allocObject();
   *(v13 + 16) = selfCopy;
   *(v13 + 24) = index;
-  v14 = (v12 + OBJC_IVAR___MTGenericDataSourceSection_shouldIncludeSeeAllBlock);
+  v14 = (&v12->super.super.super.isa + OBJC_IVAR___MTGenericDataSourceSection_shouldIncludeSeeAllBlock);
   swift_beginAccess();
-  v15 = v14[1];
   *v14 = sub_1D901AA10;
   v14[1] = v13;
 

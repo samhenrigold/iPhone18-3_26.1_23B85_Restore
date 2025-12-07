@@ -38,7 +38,7 @@
 
 void __51__HMDWACScanner_wacBrowser_didUpdateAirPlayDevice___block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -48,11 +48,11 @@ void __51__HMDWACScanner_wacBrowser_didUpdateAirPlayDevice___block_invoke(uint64
     v6 = [*(a1 + 40) ssid];
     v7 = [*(a1 + 40) identifier];
     *buf = 138543874;
-    v20 = v5;
-    v21 = 2112;
-    v22 = v6;
-    v23 = 2112;
-    v24 = v7;
+    v19 = v5;
+    v20 = 2112;
+    v21 = v6;
+    v22 = 2112;
+    v23 = v7;
     _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_DEBUG, "%{public}@wacBrowser updated device %@: (%@)", buf, 0x20u);
   }
 
@@ -68,14 +68,12 @@ void __51__HMDWACScanner_wacBrowser_didUpdateAirPlayDevice___block_invoke(uint64
     block[3] = &unk_279734960;
     v11 = v8;
     v12 = *(a1 + 32);
-    v16 = v11;
-    v17 = v12;
-    v18 = v9;
+    v15 = v11;
+    v16 = v12;
+    v17 = v9;
     v13 = v9;
     dispatch_async(v10, block);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)wacBrowser:(id)browser didRemoveAirPlayDevice:(id)device
@@ -94,7 +92,7 @@ void __51__HMDWACScanner_wacBrowser_didUpdateAirPlayDevice___block_invoke(uint64
 
 void __51__HMDWACScanner_wacBrowser_didRemoveAirPlayDevice___block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -104,11 +102,11 @@ void __51__HMDWACScanner_wacBrowser_didRemoveAirPlayDevice___block_invoke(uint64
     v6 = [*(a1 + 40) ssid];
     v7 = [*(a1 + 40) identifier];
     *buf = 138543874;
-    v20 = v5;
-    v21 = 2112;
-    v22 = v6;
-    v23 = 2112;
-    v24 = v7;
+    v19 = v5;
+    v20 = 2112;
+    v21 = v6;
+    v22 = 2112;
+    v23 = v7;
     _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_DEBUG, "%{public}@wacBrowser lost device %@: (%@)", buf, 0x20u);
   }
 
@@ -124,14 +122,12 @@ void __51__HMDWACScanner_wacBrowser_didRemoveAirPlayDevice___block_invoke(uint64
     block[3] = &unk_279734960;
     v11 = v8;
     v12 = *(a1 + 32);
-    v16 = v11;
-    v17 = v12;
-    v18 = v9;
+    v15 = v11;
+    v16 = v12;
+    v17 = v9;
     v13 = v9;
     dispatch_async(v10, block);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)wacBrowser:(id)browser didFindAirPlayDevice:(id)device
@@ -150,7 +146,7 @@ void __51__HMDWACScanner_wacBrowser_didRemoveAirPlayDevice___block_invoke(uint64
 
 void __49__HMDWACScanner_wacBrowser_didFindAirPlayDevice___block_invoke(uint64_t a1)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -160,11 +156,11 @@ void __49__HMDWACScanner_wacBrowser_didFindAirPlayDevice___block_invoke(uint64_t
     v6 = [*(a1 + 40) ssid];
     v7 = [*(a1 + 40) identifier];
     *buf = 138543874;
-    v24 = v5;
-    v25 = 2112;
-    v26 = v6;
-    v27 = 2112;
-    v28 = v7;
+    v23 = v5;
+    v24 = 2112;
+    v25 = v6;
+    v26 = 2112;
+    v27 = v7;
     _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_DEBUG, "%{public}@wacBrowser found device %@: (%@)", buf, 0x20u);
   }
 
@@ -180,9 +176,9 @@ void __49__HMDWACScanner_wacBrowser_didFindAirPlayDevice___block_invoke(uint64_t
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v24 = v13;
-      v25 = 2112;
-      v26 = v9;
+      v23 = v13;
+      v24 = 2112;
+      v25 = v9;
       _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@Device %@", buf, 0x16u);
     }
 
@@ -194,14 +190,12 @@ void __49__HMDWACScanner_wacBrowser_didFindAirPlayDevice___block_invoke(uint64_t
     block[3] = &unk_279734960;
     v15 = v8;
     v16 = *(a1 + 32);
-    v20 = v15;
-    v21 = v16;
-    v22 = v9;
+    v19 = v15;
+    v20 = v16;
+    v21 = v9;
     v17 = v9;
     dispatch_async(v14, block);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stop
@@ -217,7 +211,7 @@ void __49__HMDWACScanner_wacBrowser_didFindAirPlayDevice___block_invoke(uint64_t
 
 void __21__HMDWACScanner_stop__block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   if (v1[2])
   {
@@ -227,16 +221,14 @@ void __21__HMDWACScanner_stop__block_invoke(uint64_t a1)
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       v5 = HMFGetLogIdentifier();
-      v7 = 138543362;
-      v8 = v5;
-      _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@Invalidating CUWiFiScanner...", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v5;
+      _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@Invalidating CUWiFiScanner...", &v6, 0xCu);
     }
 
     objc_autoreleasePoolPop(v2);
     [v1[2] invalidate];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resume
@@ -288,7 +280,7 @@ void __21__HMDWACScanner_stop__block_invoke(uint64_t a1)
 
 void __22__HMDWACScanner_start__block_invoke(uint64_t a1)
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   if (!v1[2])
   {
@@ -310,45 +302,43 @@ void __22__HMDWACScanner_start__block_invoke(uint64_t a1)
     objc_initWeak(&location, v3);
     *&buf = MEMORY[0x277D85DD0];
     *(&buf + 1) = 3221225472;
-    v18 = ____start_block_invoke;
-    v19 = &unk_279729E78;
-    objc_copyWeak(v20, &location);
+    v17 = ____start_block_invoke;
+    v18 = &unk_279729E78;
+    objc_copyWeak(v19, &location);
     [v6 setDeviceFoundHandler:&buf];
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = ____start_block_invoke_2;
-    v14[3] = &unk_279729E78;
-    objc_copyWeak(&v15, &location);
-    [v6 setDeviceLostHandler:v14];
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = ____start_block_invoke_2_148;
-    v12[3] = &unk_279729EA0;
-    objc_copyWeak(&v13, &location);
-    [v6 setDeviceChangedHandler:v12];
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = ____start_block_invoke_4;
-    v10[3] = &unk_279734708;
-    objc_copyWeak(&v11, &location);
-    [v6 setErrorHandler:v10];
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = ____start_block_invoke_2_152;
-    v8[3] = &unk_279732FD8;
-    objc_copyWeak(&v9, &location);
-    [v6 setInvalidationHandler:v8];
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = ____start_block_invoke_2;
+    v13[3] = &unk_279729E78;
+    objc_copyWeak(&v14, &location);
+    [v6 setDeviceLostHandler:v13];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = ____start_block_invoke_2_148;
+    v11[3] = &unk_279729EA0;
+    objc_copyWeak(&v12, &location);
+    [v6 setDeviceChangedHandler:v11];
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = ____start_block_invoke_4;
+    v9[3] = &unk_279734708;
+    objc_copyWeak(&v10, &location);
+    [v6 setErrorHandler:v9];
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = ____start_block_invoke_2_152;
+    v7[3] = &unk_279732FD8;
+    objc_copyWeak(&v8, &location);
+    [v6 setInvalidationHandler:v7];
     objc_storeStrong(v1 + 2, v6);
     [v6 activate];
-    objc_destroyWeak(&v9);
-    objc_destroyWeak(&v11);
-    objc_destroyWeak(&v13);
-    objc_destroyWeak(&v15);
-    objc_destroyWeak(v20);
+    objc_destroyWeak(&v8);
+    objc_destroyWeak(&v10);
+    objc_destroyWeak(&v12);
+    objc_destroyWeak(&v14);
+    objc_destroyWeak(v19);
     objc_destroyWeak(&location);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setDelegate:(id)delegate queue:(id)queue
@@ -408,12 +398,11 @@ uint64_t __35__HMDWACScanner_setDelegate_queue___block_invoke(uint64_t a1)
 
 uint64_t __28__HMDWACScanner_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v8_92821;
-  logCategory__hmf_once_v8_92821 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v8_92821;
+  logCategory__hmf_once_v8_92821 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

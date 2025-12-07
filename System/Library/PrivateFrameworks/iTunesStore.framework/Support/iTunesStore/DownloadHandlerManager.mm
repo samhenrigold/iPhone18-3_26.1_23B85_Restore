@@ -659,15 +659,21 @@
     shouldLog = [v14 shouldLog];
     if ([v14 shouldLogToDisk])
     {
-      v16 = shouldLog | 2;
+      LODWORD(v16) = shouldLog | 2;
     }
 
     else
     {
-      v16 = shouldLog;
+      LODWORD(v16) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v14 OSLogObject], OS_LOG_TYPE_INFO))
+    oSLogObject = [v14 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    {
+      v16 = v16;
+    }
+
+    else
     {
       v16 &= 2u;
     }
@@ -680,23 +686,22 @@
       messageCopy = message;
       v27 = 2112;
       v28 = v13;
-      LODWORD(v21) = 32;
-      v17 = _os_log_send_and_compose_impl();
-      if (v17)
+      v18 = _os_log_send_and_compose_impl(v16, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Send session message: %lld to client: %@", &v23, 32);
+      if (v18)
       {
-        v18 = v17;
-        [NSString stringWithCString:v17 encoding:4, &v23, v21];
-        free(v18);
+        v19 = v18;
+        [NSString stringWithCString:v18 encoding:4];
+        free(v19);
         SSFileLog();
       }
     }
 
-    v19 = xpc_dictionary_create(0, 0, 0);
-    xpc_dictionary_set_int64(v19, "0", message);
-    xpc_dictionary_set_int64(v19, "1", d);
+    v20 = xpc_dictionary_create(0, 0, 0);
+    xpc_dictionary_set_int64(v20, "0", message);
+    xpc_dictionary_set_int64(v20, "1", d);
     sessionProperties = [v11 sessionProperties];
-    xpc_dictionary_set_int64(v19, "2", [sessionProperties downloadIdentifier]);
-    xpc_dictionary_set_int64(v19, "3", [sessionProperties assetIdentifier]);
+    xpc_dictionary_set_int64(v20, "2", [sessionProperties downloadIdentifier]);
+    xpc_dictionary_set_int64(v20, "3", [sessionProperties assetIdentifier]);
     [sessionProperties downloadPhase];
     SSXPCDictionarySetCFObject();
     [sessionProperties duetBudget];
@@ -707,7 +712,7 @@
     v22[3] = &unk_100328240;
     v22[4] = block;
     [objc_msgSend(v13 "outputConnection")];
-    xpc_release(v19);
+    xpc_release(v20);
   }
 
   else if (block)

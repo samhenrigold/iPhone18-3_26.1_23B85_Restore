@@ -49,7 +49,7 @@
 
 - (BOOL)areObjectsDifferentOnProperty:(id)property changeType:(unint64_t)type
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   propertyCopy = property;
   trackingChangeType = self->_trackingChangeType;
   if (!trackingChangeType)
@@ -61,18 +61,18 @@
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v14 = __CPLGenericOSLogDomain();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v13 = __CPLGenericOSLogDomain();
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         *buf = 134217984;
         typeCopy2 = type;
-        _os_log_impl(&dword_1DC05A000, v14, OS_LOG_TYPE_ERROR, "Invalid change type %ld", buf, 0xCu);
+        _os_log_impl(&dword_1DC05A000, v13, OS_LOG_TYPE_ERROR, "Invalid change type %ld", buf, 0xCu);
       }
     }
 
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v16 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLRecordChange.m"];
-    [currentHandler handleFailureInMethod:a2 object:self file:v16 lineNumber:1569 description:{@"Invalid change type %ld", type, v19}];
+    v15 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLRecordChange.m"];
+    [currentHandler handleFailureInMethod:a2 object:self file:v15 lineNumber:1569 description:{@"Invalid change type %ld", type, v18}];
 LABEL_19:
 
     abort();
@@ -90,21 +90,21 @@ LABEL_7:
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v17 = __CPLGenericOSLogDomain();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v16 = __CPLGenericOSLogDomain();
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        v18 = self->_trackingChangeType;
+        v17 = self->_trackingChangeType;
         *buf = 134218240;
         typeCopy2 = type;
-        v22 = 2048;
-        v23 = v18;
-        _os_log_impl(&dword_1DC05A000, v17, OS_LOG_TYPE_ERROR, "Invalid change type %ld - tracked %ld", buf, 0x16u);
+        v21 = 2048;
+        v22 = v17;
+        _os_log_impl(&dword_1DC05A000, v16, OS_LOG_TYPE_ERROR, "Invalid change type %ld - tracked %ld", buf, 0x16u);
       }
     }
 
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v16 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLRecordChange.m"];
-    [currentHandler handleFailureInMethod:a2 object:self file:v16 lineNumber:1575 description:{@"Invalid change type %ld - tracked %ld", type, self->_trackingChangeType}];
+    v15 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLRecordChange.m"];
+    [currentHandler handleFailureInMethod:a2 object:self file:v15 lineNumber:1575 description:{@"Invalid change type %ld - tracked %ld", type, self->_trackingChangeType}];
     goto LABEL_19;
   }
 
@@ -117,7 +117,6 @@ LABEL_7:
   v11 = [(CPLDiffTracker *)diffTracker areObjectsDifferentOnProperty:propertyCopy];
 LABEL_8:
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

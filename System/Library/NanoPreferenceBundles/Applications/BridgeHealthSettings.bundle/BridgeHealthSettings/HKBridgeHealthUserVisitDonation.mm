@@ -7,24 +7,24 @@
 
 + (void)donateUserVisitForHealthSection
 {
-  objc_opt_class();
-  v4 = sub_B898();
-  objc_opt_class();
-  v3 = sub_B96C();
-  sub_B7A0(self, v4, &__NSArray0__struct, v3);
+  v3 = objc_opt_class();
+  v6 = sub_B898(v3);
+  v4 = objc_opt_class();
+  v5 = sub_B96C(v4);
+  sub_B7A0(self, v6, &__NSArray0__struct, v5);
 }
 
 + (void)donateUserVisitForHealthDetailsSection
 {
-  objc_opt_class();
-  v3 = sub_BA94();
-  objc_opt_class();
-  v4 = sub_B898();
-  v7 = v4;
-  v5 = [NSArray arrayWithObjects:&v7 count:1];
-  objc_opt_class();
-  v6 = sub_BB68();
-  sub_B7A0(self, v3, v5, v6);
+  v3 = objc_opt_class();
+  v4 = sub_BA94(v3);
+  v5 = objc_opt_class();
+  v6 = sub_B898(v5);
+  v10 = v6;
+  v7 = [NSArray arrayWithObjects:&v10 count:1];
+  v8 = objc_opt_class();
+  v9 = sub_BB68(v8);
+  sub_B7A0(self, v4, v7, v9);
 }
 
 @end

@@ -129,7 +129,6 @@ LABEL_5:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteDoubleField();
     has = self->_has;
     if ((has & 4) == 0)
@@ -149,12 +148,10 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  width = self->_width;
   PBDataWriterWriteDoubleField();
   if (*&self->_has)
   {
 LABEL_4:
-    height = self->_height;
     PBDataWriterWriteDoubleField();
   }
 
@@ -166,7 +163,6 @@ LABEL_5:
 
   if ((*&self->_has & 8) != 0)
   {
-    originIdentifier = self->_originIdentifier;
     PBDataWriterWriteInt32Field();
   }
 }
@@ -280,7 +276,6 @@ LABEL_5:
   }
 
   has = self->_has;
-  v6 = *(equalCopy + 44);
   if ((has & 2) != 0)
   {
     if ((*(equalCopy + 44) & 2) == 0 || self->_timestamp != *(equalCopy + 2))
@@ -326,14 +321,14 @@ LABEL_5:
     if (![(NSString *)bundleID isEqual:?])
     {
 LABEL_24:
-      v8 = 0;
+      v7 = 0;
       goto LABEL_25;
     }
 
     has = self->_has;
   }
 
-  v8 = (*(equalCopy + 44) & 8) == 0;
+  v7 = (*(equalCopy + 44) & 8) == 0;
   if ((has & 8) != 0)
   {
     if ((*(equalCopy + 44) & 8) == 0 || self->_originIdentifier != *(equalCopy + 10))
@@ -341,12 +336,12 @@ LABEL_24:
       goto LABEL_24;
     }
 
-    v8 = 1;
+    v7 = 1;
   }
 
 LABEL_25:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash

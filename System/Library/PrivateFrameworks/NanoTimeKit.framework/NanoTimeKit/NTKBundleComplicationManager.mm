@@ -39,11 +39,11 @@
   return v2;
 }
 
-void __45__NTKBundleComplicationManager_sharedManager__block_invoke()
+void __45__NTKBundleComplicationManager_sharedManager__block_invoke(uint64_t a1)
 {
-  v0 = objc_alloc_init(objc_opt_class());
-  v1 = sharedManager_manager_1;
-  sharedManager_manager_1 = v0;
+  v1 = objc_alloc_init(objc_opt_class());
+  v2 = sharedManager_manager_1;
+  sharedManager_manager_1 = v1;
 }
 
 - (NTKBundleComplicationManager)init

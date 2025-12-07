@@ -195,7 +195,7 @@
         v36 = 0u;
         if (levelBox)
         {
-          [levelBox transformFromDescendant:v18];
+          objc_msgSend_transformFromDescendant_(levelBox);
         }
 
         if (v14)
@@ -281,16 +281,15 @@ LABEL_24:
 
 - (void)addOpticalAlignForEdge:(unsigned int)edge config:(id)config
 {
-  memset(v25, 0, sizeof(v25));
+  memset(v24, 0, sizeof(v24));
   edgeCopy = edge;
   v6 = MEMORY[0x277CBF348];
-  [(EQKitBox *)self->_box appendOpticalAlignToSpec:v25 offset:*MEMORY[0x277CBF348], *(MEMORY[0x277CBF348] + 8)];
+  [(EQKitBox *)self->_box appendOpticalAlignToSpec:v24 offset:*MEMORY[0x277CBF348], *(MEMORY[0x277CBF348] + 8)];
   if ([config length])
   {
     v7 = [MEMORY[0x277CCAC80] scannerWithString:config];
-    __src = 0;
+    __src = 0uLL;
     v23 = 0;
-    v24 = 0;
     while (([v7 isAtEnd] & 1) == 0)
     {
       v20 = 0;
@@ -301,20 +300,20 @@ LABEL_24:
         break;
       }
 
-      v10 = v23;
-      if (v23 >= v24)
+      v10 = *(&__src + 1);
+      if (*(&__src + 1) >= v23)
       {
         v12 = __src;
-        v13 = v23 - __src;
-        v14 = (v23 - __src) >> 3;
+        v13 = *(&__src + 1) - __src;
+        v14 = (*(&__src + 1) - __src) >> 3;
         v15 = v14 + 1;
         if ((v14 + 1) >> 61)
         {
           std::vector<std::string>::__throw_length_error[abi:ne200100]();
         }
 
-        v16 = v24 - __src;
-        if ((v24 - __src) >> 2 > v15)
+        v16 = v23 - __src;
+        if ((v23 - __src) >> 2 > v15)
         {
           v15 = v16 >> 2;
         }
@@ -338,9 +337,9 @@ LABEL_24:
         v11 = 8 * v14 + 8;
         memcpy(0, v12, v13);
         v18 = __src;
-        __src = 0;
-        v23 = v11;
-        v24 = 0;
+        *&__src = 0;
+        *(&__src + 1) = v11;
+        v23 = 0;
         if (v18)
         {
           operator delete(v18);
@@ -349,11 +348,11 @@ LABEL_24:
 
       else
       {
-        *v23 = v20;
-        v11 = (v10 + 8);
+        **(&__src + 1) = v20;
+        v11 = v10 + 8;
       }
 
-      v23 = v11;
+      *(&__src + 1) = v11;
     }
 
     if ([v7 isAtEnd])
@@ -363,23 +362,23 @@ LABEL_24:
 
     if (__src)
     {
-      v23 = __src;
+      *(&__src + 1) = __src;
       operator delete(__src);
     }
   }
 
   EQKitPath::QuantizationConfig::QuantizationConfig(&__src);
   EQKitPath::QuantizationConfig::setThresholdCurveControlPointDistance(&__src, -1.0);
-  EQKit::OpticalKern::Edge::Composite::Composite(&v20, v25, &__src, 0);
+  EQKit::OpticalKern::Edge::Composite::Composite(&v20, v24, &__src, 0);
   v19 = _pathBoxForCompositeEdge(&v20, self->_scale);
   if (v19)
   {
     [(EQKitOverlay *)self addOverlayBox:v19 offset:*v6, v6[1]];
   }
 
-  v27 = &v21;
-  std::vector<std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>>::__destroy_vector::operator()[abi:ne200100](&v27);
-  __src = v25;
+  v26 = &v21;
+  std::vector<std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>>::__destroy_vector::operator()[abi:ne200100](&v26);
+  *&__src = v24;
   std::vector<EQKit::OpticalKern::Spec::Entry>::__destroy_vector::operator()[abi:ne200100](&__src);
 }
 

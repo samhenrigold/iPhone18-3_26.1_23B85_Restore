@@ -164,7 +164,7 @@ void __91__PXFooterViewModelController__mainQueue_finishUpdateWithCPLStatus_view
   countsController = self->_countsController;
   if (countsController)
   {
-    [(PXAssetsDataSourceCountsController *)countsController counts];
+    objc_msgSend_counts(countsController);
   }
 
   v6 = self->_photoLibrary;

@@ -550,27 +550,21 @@ LABEL_27:
 
 - (void)setStoreAddress:(id)address
 {
-  v4 = [address copy];
-  storeAddress = self->_storeAddress;
-  self->_storeAddress = v4;
+  self->_storeAddress = [address copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setStoreName:(id)name
 {
-  v4 = [name copy];
-  storeName = self->_storeName;
-  self->_storeName = v4;
+  self->_storeName = [name copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setStoreId:(id)id
 {
-  v4 = [id copy];
-  storeId = self->_storeId;
-  self->_storeId = v4;
+  self->_storeId = [id copy];
 
   MEMORY[0x1EEE66BB8]();
 }

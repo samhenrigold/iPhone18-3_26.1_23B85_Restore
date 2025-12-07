@@ -43,7 +43,7 @@
 - (void)updateWithEphemeralAuthResults:(id)results
 {
   resultsCopy = results;
-  v5 = _FALogSystem();
+  v5 = _FALogSystem(resultsCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [FARequestConfigurator updateWithEphemeralAuthResults:v5];
@@ -86,7 +86,7 @@
 
 void __66__FARequestConfigurator_addFresnoHeadersToRequest_withCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v34[1] = *MEMORY[0x1E69E9840];
+  v33[1] = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = [*(a1 + 32) ephemeralAuthResults];
@@ -105,8 +105,8 @@ void __66__FARequestConfigurator_addFresnoHeadersToRequest_withCompletion___bloc
   v13 = [MEMORY[0x1E695DF58] preferredLanguages];
   v14 = MEMORY[0x1E695DF58];
   v15 = [MEMORY[0x1E695DF58] _deviceLanguage];
-  v34[0] = v15;
-  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:1];
+  v33[0] = v15;
+  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:1];
   v17 = [v14 minimizedLanguagesFromLanguages:v16];
   v18 = [v17 componentsJoinedByString:{@", "}];
 
@@ -136,12 +136,12 @@ void __66__FARequestConfigurator_addFresnoHeadersToRequest_withCompletion___bloc
   v24 = [v22 initWithSuiteName:v23];
 
   v25 = [v24 integerForKey:@"MockInviteCode"];
-  v26 = _FALogSystem();
+  v26 = _FALogSystem(v25);
   if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
   {
-    v32 = 134217984;
-    v33 = v25;
-    _os_log_impl(&dword_1B70B0000, v26, OS_LOG_TYPE_DEFAULT, "MockInviteCode %ld", &v32, 0xCu);
+    v31 = 134217984;
+    v32 = v25;
+    _os_log_impl(&dword_1B70B0000, v26, OS_LOG_TYPE_DEFAULT, "MockInviteCode %ld", &v31, 0xCu);
   }
 
   if (v25 == 1)
@@ -149,15 +149,14 @@ void __66__FARequestConfigurator_addFresnoHeadersToRequest_withCompletion___bloc
     [*(a1 + 40) setValue:@"sender" forHTTPHeaderField:@"X-Apple-Family-Mock-Invite"];
   }
 
-  [*(a1 + 32) signURLRequest:*(a1 + 40)];
-  v27 = _FALogSystem();
+  v27 = _FALogSystem([*(a1 + 32) signURLRequest:*(a1 + 40)]);
   if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
   {
     v28 = [*(a1 + 40) allHTTPHeaderFields];
     v29 = [v28 allKeys];
-    v32 = 138477827;
-    v33 = v29;
-    _os_log_impl(&dword_1B70B0000, v27, OS_LOG_TYPE_DEFAULT, "Headers added to request %{private}@", &v32, 0xCu);
+    v31 = 138477827;
+    v32 = v29;
+    _os_log_impl(&dword_1B70B0000, v27, OS_LOG_TYPE_DEFAULT, "Headers added to request %{private}@", &v31, 0xCu);
   }
 
   v30 = *(a1 + 48);
@@ -165,8 +164,6 @@ void __66__FARequestConfigurator_addFresnoHeadersToRequest_withCompletion___bloc
   {
     (*(v30 + 16))(v30, 1, v6);
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 void __66__FARequestConfigurator_addFresnoHeadersToRequest_withCompletion___block_invoke_86(uint64_t a1, void *a2)
@@ -192,44 +189,41 @@ void __66__FARequestConfigurator_addFresnoHeadersToRequest_withCompletion___bloc
 
 void __66__FARequestConfigurator_addFresnoHeadersToRequest_withCompletion___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = _FALogSystem();
+  v6 = _FALogSystem(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = [MEMORY[0x1E696AD98] numberWithBool:a2];
     *buf = 138412546;
-    v16 = v7;
-    v17 = 2112;
-    v18 = v5;
+    v15 = v7;
+    v16 = 2112;
+    v17 = v5;
     _os_log_impl(&dword_1B70B0000, v6, OS_LOG_TYPE_DEFAULT, "LoadDelegate signed request %@ - %@", buf, 0x16u);
   }
 
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __66__FARequestConfigurator_addFresnoHeadersToRequest_withCompletion___block_invoke_88;
-  v12[3] = &unk_1E7CA4AB0;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __66__FARequestConfigurator_addFresnoHeadersToRequest_withCompletion___block_invoke_88;
+  v11[3] = &unk_1E7CA4AB0;
   v8 = *(a1 + 32);
   v9 = *(a1 + 40);
-  v13 = v5;
-  v14 = v9;
+  v12 = v5;
+  v13 = v9;
   v10 = v5;
-  [v8 pushTokenWithCompletion:v12];
-
-  v11 = *MEMORY[0x1E69E9840];
+  [v8 pushTokenWithCompletion:v11];
 }
 
 void __66__FARequestConfigurator_addFresnoHeadersToRequest_withCompletion___block_invoke_88(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _FALogSystem();
+  v4 = _FALogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v6 = 0;
-    _os_log_impl(&dword_1B70B0000, v4, OS_LOG_TYPE_DEFAULT, "Push token fetched", v6, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1B70B0000, v4, OS_LOG_TYPE_DEFAULT, "Push token fetched", v5, 2u);
   }
 
-  v5 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
 }
 
@@ -257,7 +251,7 @@ void __66__FARequestConfigurator_addFresnoHeadersToRequest_withCompletion___bloc
 - (void)addFresnoHeadersToRequest:(id)request
 {
   requestCopy = request;
-  v5 = _FALogSystem();
+  v5 = _FALogSystem(requestCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -284,7 +278,7 @@ void __66__FARequestConfigurator_addFresnoHeadersToRequest_withCompletion___bloc
   if (v2)
   {
     v3 = v2;
-    v4 = _FALogSystem();
+    v4 = _FALogSystem(v2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       [(FARequestConfigurator *)v3 _canConnectToAPS];
@@ -293,33 +287,33 @@ void __66__FARequestConfigurator_addFresnoHeadersToRequest_withCompletion___bloc
 
   else
   {
-    v12 = task_info_out;
-    v7 = SecTaskCreateWithAuditToken(0, &v12);
+    v13 = task_info_out;
+    v7 = SecTaskCreateWithAuditToken(0, &v13);
     if (!v7)
     {
-      v11 = _FALogSystem();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = _FALogSystem(0);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        [(FARequestConfigurator *)v11 _canConnectToAPS];
+        [(FARequestConfigurator *)v12 _canConnectToAPS];
       }
 
       goto LABEL_5;
     }
 
     v8 = v7;
-    *v12.val = 0;
-    v9 = SecTaskCopyValueForEntitlement(v7, @"aps-connection-initiate", &v12);
+    *v13.val = 0;
+    v9 = SecTaskCopyValueForEntitlement(v7, @"aps-connection-initiate", &v13);
 
-    v4 = *v12.val;
-    if (!*v12.val)
+    v4 = *v13.val;
+    if (!*v13.val)
     {
       v5 = v9 != 0;
       CFRelease(v8);
       return v5;
     }
 
-    v10 = _FALogSystem();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = _FALogSystem(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [(FARequestConfigurator *)v4 _canConnectToAPS];
     }
@@ -341,15 +335,16 @@ LABEL_5:
   aBlock[3] = &unk_1E7CA4B50;
   v5 = completionCopy;
   aBlock[4] = self;
-  v13 = v5;
+  v14 = v5;
   v6 = _Block_copy(aBlock);
-  if (![(FARequestConfigurator *)self _canConnectToAPS])
+  _canConnectToAPS = [(FARequestConfigurator *)self _canConnectToAPS];
+  if ((_canConnectToAPS & 1) == 0)
   {
-    v8 = _FALogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = _FALogSystem(_canConnectToAPS);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1B70B0000, v8, OS_LOG_TYPE_DEFAULT, "Process can't connect to APS. Skipping token retrieval step", buf, 2u);
+      _os_log_impl(&dword_1B70B0000, v9, OS_LOG_TYPE_DEFAULT, "Process can't connect to APS. Skipping token retrieval step", buf, 2u);
     }
 
     goto LABEL_7;
@@ -362,27 +357,27 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  v7 = objc_opt_new();
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __49__FARequestConfigurator_pushTokenWithCompletion___block_invoke_94;
-  v9[3] = &unk_1E7CA4770;
-  v9[4] = self;
-  v10 = v6;
-  [v7 fetchAAURLConfigurationWithCompletion:v9];
+  v8 = objc_opt_new();
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __49__FARequestConfigurator_pushTokenWithCompletion___block_invoke_94;
+  v10[3] = &unk_1E7CA4770;
+  v10[4] = self;
+  v11 = v6;
+  [v8 fetchAAURLConfigurationWithCompletion:v10];
 
 LABEL_8:
 }
 
 void __49__FARequestConfigurator_pushTokenWithCompletion___block_invoke_94(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
   if (!v5 || v6)
   {
-    v8 = _FALogSystem();
+    v8 = _FALogSystem(v6);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __49__FARequestConfigurator_pushTokenWithCompletion___block_invoke_94_cold_1(v5, v7, v8);
@@ -395,12 +390,12 @@ void __49__FARequestConfigurator_pushTokenWithCompletion___block_invoke_94(uint6
   v12 = [v11 publicToken];
   if (!v12)
   {
-    v13 = _FALogSystem();
+    v13 = _FALogSystem(0);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = 138412290;
-      v19 = v9;
-      _os_log_impl(&dword_1B70B0000, v13, OS_LOG_TYPE_DEFAULT, "APSConnection did not give us a publicToken for environment %@", &v18, 0xCu);
+      v17 = 138412290;
+      v18 = v9;
+      _os_log_impl(&dword_1B70B0000, v13, OS_LOG_TYPE_DEFAULT, "APSConnection did not give us a publicToken for environment %@", &v17, 0xCu);
     }
   }
 
@@ -410,7 +405,6 @@ void __49__FARequestConfigurator_pushTokenWithCompletion___block_invoke_94(uint6
   v16 = v12;
 
   (*(*(a1 + 40) + 16))();
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addFresnoPayloadToRequest:(id)request additionalPayload:(id)payload
@@ -421,26 +415,26 @@ void __49__FARequestConfigurator_pushTokenWithCompletion___block_invoke_94(uint6
 
   if (hTTPBody)
   {
-    v9 = MEMORY[0x1E696AE40];
+    v10 = MEMORY[0x1E696AE40];
     hTTPBody2 = [requestCopy HTTPBody];
-    v11 = [v9 propertyListWithData:hTTPBody2 options:1 format:0 error:0];
+    v12 = [v10 propertyListWithData:hTTPBody2 options:1 format:0 error:0];
 
-    v12 = objc_opt_self();
+    v13 = objc_opt_self();
     isKindOfClass = objc_opt_isKindOfClass();
 
     if (isKindOfClass)
     {
-      [v11 addEntriesFromDictionary:v7];
-      v14 = [v11 copy];
+      [v12 addEntriesFromDictionary:v7];
+      v15 = [v12 copy];
 
-      v7 = v14;
+      v7 = v15;
     }
   }
 
-  v15 = _FALogSystem();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+  v16 = _FALogSystem(v9);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
-    [FARequestConfigurator addFresnoPayloadToRequest:v7 additionalPayload:v15];
+    [FARequestConfigurator addFresnoPayloadToRequest:v7 additionalPayload:v16];
   }
 
   [requestCopy aa_setBodyWithParameters:v7];
@@ -456,61 +450,58 @@ void __49__FARequestConfigurator_pushTokenWithCompletion___block_invoke_94(uint6
 
 - (void)renewCredentialsWithCompletion:(id)completion
 {
-  v18[2] = *MEMORY[0x1E69E9840];
+  v17[2] = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   v5 = *MEMORY[0x1E6959AA8];
-  v18[0] = MEMORY[0x1E695E118];
+  v17[0] = MEMORY[0x1E695E118];
   v6 = *MEMORY[0x1E6959A90];
-  v17[0] = v5;
-  v17[1] = v6;
-  v16 = *MEMORY[0x1E698B7B8];
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v16 count:1];
-  v18[1] = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:2];
+  v16[0] = v5;
+  v16[1] = v6;
+  v15 = *MEMORY[0x1E698B7B8];
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v15 count:1];
+  v17[1] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:2];
 
   _account = [(FARequestConfigurator *)self _account];
   if (_account)
   {
     _accountStore = [(FARequestConfigurator *)self _accountStore];
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __56__FARequestConfigurator_renewCredentialsWithCompletion___block_invoke;
-    v14[3] = &unk_1E7CA4B78;
-    v15 = completionCopy;
-    [_accountStore renewCredentialsForAccount:_account options:v8 completion:v14];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __56__FARequestConfigurator_renewCredentialsWithCompletion___block_invoke;
+    v13[3] = &unk_1E7CA4B78;
+    v14 = completionCopy;
+    [_accountStore renewCredentialsForAccount:_account options:v8 completion:v13];
   }
 
   else
   {
-    v11 = _FALogSystem();
+    v11 = _FALogSystem(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      *v13 = 0;
-      _os_log_impl(&dword_1B70B0000, v11, OS_LOG_TYPE_DEFAULT, "No primary Apple account found. Not attempting credential renwal.", v13, 2u);
+      *v12 = 0;
+      _os_log_impl(&dword_1B70B0000, v11, OS_LOG_TYPE_DEFAULT, "No primary Apple account found. Not attempting credential renwal.", v12, 2u);
     }
 
     (*(completionCopy + 2))(completionCopy, 0, 0);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __56__FARequestConfigurator_renewCredentialsWithCompletion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = _FALogSystem();
+  v6 = _FALogSystem(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 134218242;
-    v9 = a2;
-    v10 = 2112;
-    v11 = v5;
-    _os_log_impl(&dword_1B70B0000, v6, OS_LOG_TYPE_DEFAULT, "Result of renewing credentials for family request configurator: %ld. Error: %@", &v8, 0x16u);
+    v7 = 134218242;
+    v8 = a2;
+    v9 = 2112;
+    v10 = v5;
+    _os_log_impl(&dword_1B70B0000, v6, OS_LOG_TYPE_DEFAULT, "Result of renewing credentials for family request configurator: %ld. Error: %@", &v7, 0x16u);
   }
 
   (*(*(a1 + 32) + 16))();
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_account
@@ -646,17 +637,17 @@ void __56__FARequestConfigurator_renewCredentialsWithCompletion___block_invoke(u
 
 void __47__FARequestConfigurator__resourceLoadDelegate___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v7 = _FALogSystem();
+  v7 = _FALogSystem(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138412546;
-    v13 = v5;
-    v14 = 2112;
-    v15 = v6;
-    _os_log_impl(&dword_1B70B0000, v7, OS_LOG_TYPE_DEFAULT, "Received resource load delegate %@ - %@", &v12, 0x16u);
+    v11 = 138412546;
+    v12 = v5;
+    v13 = 2112;
+    v14 = v6;
+    _os_log_impl(&dword_1B70B0000, v7, OS_LOG_TYPE_DEFAULT, "Received resource load delegate %@ - %@", &v11, 0x16u);
   }
 
   [v5 setShouldSendSigningHeaders:1];
@@ -666,7 +657,6 @@ void __47__FARequestConfigurator__resourceLoadDelegate___block_invoke_2(uint64_t
   v10 = v5;
 
   (*(*(a1 + 40) + 16))();
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_authContext
@@ -726,23 +716,23 @@ void __47__FARequestConfigurator__resourceLoadDelegate___block_invoke_2(uint64_t
     }
 
 LABEL_16:
-    v18 = [v11 copy];
-    [payloadCopy setObject:v18 forKey:keyCopy];
+    v19 = [v11 copy];
+    [payloadCopy setObject:v19 forKey:keyCopy];
     goto LABEL_17;
   }
 
   _serviceOwnersManager = [(FARequestConfigurator *)self _serviceOwnersManager];
   v17 = [_serviceOwnersManager accountForService:typeCopy];
 
-  v18 = _FALogSystem();
-  v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
+  v19 = _FALogSystem(v18);
+  v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
   if (v17)
   {
-    if (v19)
+    if (v20)
     {
       *buf = 138412290;
       v31 = v17;
-      _os_log_impl(&dword_1B70B0000, v18, OS_LOG_TYPE_DEFAULT, "Account for service - %@", buf, 0xCu);
+      _os_log_impl(&dword_1B70B0000, v19, OS_LOG_TYPE_DEFAULT, "Account for service - %@", buf, 0xCu);
     }
 
     username = [v17 username];
@@ -752,74 +742,73 @@ LABEL_16:
     }
 
     _serviceOwnersManager2 = [(FARequestConfigurator *)self _serviceOwnersManager];
-    v22 = [_serviceOwnersManager2 DSIDForAccount:v17 service:typeCopy];
+    v23 = [_serviceOwnersManager2 DSIDForAccount:v17 service:typeCopy];
 
-    if (v22)
+    if (v23)
     {
-      [v11 setObject:v22 forKeyedSubscript:*MEMORY[0x1E698BA90]];
+      [v11 setObject:v23 forKeyedSubscript:*MEMORY[0x1E698BA90]];
     }
 
     v29 = username;
     _serviceOwnersManager3 = [(FARequestConfigurator *)self _serviceOwnersManager];
-    v24 = [_serviceOwnersManager3 altDSIDForAccount:v17 service:typeCopy];
+    v25 = [_serviceOwnersManager3 altDSIDForAccount:v17 service:typeCopy];
 
-    if (v24)
+    if (v25)
     {
-      [v11 setObject:v24 forKeyedSubscript:*MEMORY[0x1E698BA80]];
+      [v11 setObject:v25 forKeyedSubscript:*MEMORY[0x1E698BA80]];
     }
 
     _accountStore = [(FARequestConfigurator *)self _accountStore];
-    v26 = [_accountStore aa_grandSlamAccountForAltDSID:v24];
+    v27 = [_accountStore aa_grandSlamAccountForAltDSID:v25];
 
-    v27 = [(FARequestConfigurator *)self _familyTokenForGrandSlamAccount:v26 andTokenID:*MEMORY[0x1E698B7B8]];
-    if (v27)
+    v28 = [(FARequestConfigurator *)self _familyTokenForGrandSlamAccount:v27 andTokenID:*MEMORY[0x1E698B7B8]];
+    if (v28)
     {
-      [v11 setObject:v27 forKeyedSubscript:@"dsFamilyToken"];
+      [v11 setObject:v28 forKeyedSubscript:@"dsFamilyToken"];
     }
 
     goto LABEL_16;
   }
 
-  if (v19)
+  if (v20)
   {
     *buf = 138412290;
     v31 = typeCopy;
-    _os_log_impl(&dword_1B70B0000, v18, OS_LOG_TYPE_DEFAULT, "No Account found for serviceType - %@", buf, 0xCu);
+    _os_log_impl(&dword_1B70B0000, v19, OS_LOG_TYPE_DEFAULT, "No Account found for serviceType - %@", buf, 0xCu);
   }
 
 LABEL_17:
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_familyTokenForGrandSlamAccount:(id)account andTokenID:(id)d
 {
   accountCopy = account;
   dCopy = d;
+  v8 = dCopy;
   if (accountCopy)
   {
     _accountStore = [(FARequestConfigurator *)self _accountStore];
-    v9 = [_accountStore credentialForAccount:accountCopy serviceID:dCopy];
+    v10 = [_accountStore credentialForAccount:accountCopy serviceID:v8];
 
-    token = [v9 token];
+    token = [v10 token];
     if (!token)
     {
-      v11 = _FALogSystem();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v12 = _FALogSystem(0);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        *v13 = 0;
-        _os_log_impl(&dword_1B70B0000, v11, OS_LOG_TYPE_DEFAULT, "Error: No GS Family token.", v13, 2u);
+        *v14 = 0;
+        _os_log_impl(&dword_1B70B0000, v12, OS_LOG_TYPE_DEFAULT, "Error: No GS Family token.", v14, 2u);
       }
     }
   }
 
   else
   {
-    v9 = _FALogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = _FALogSystem(dCopy);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1B70B0000, v9, OS_LOG_TYPE_DEFAULT, "No grandslam account, unable to fetch token", buf, 2u);
+      _os_log_impl(&dword_1B70B0000, v10, OS_LOG_TYPE_DEFAULT, "No grandslam account, unable to fetch token", buf, 2u);
     }
 
     token = 0;
@@ -847,31 +836,28 @@ LABEL_17:
 
 - (void)_canConnectToAPS
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_1B70B0000, a2, OS_LOG_TYPE_ERROR, "Error reading entitlement: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1B70B0000, a2, OS_LOG_TYPE_ERROR, "Error reading entitlement: %@", &v2, 0xCu);
 }
 
 void __49__FARequestConfigurator_pushTokenWithCompletion___block_invoke_94_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_1B70B0000, log, OS_LOG_TYPE_ERROR, "Unable to fetch configuration %@ with error %@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_1B70B0000, log, OS_LOG_TYPE_ERROR, "Unable to fetch configuration %@ with error %@", &v3, 0x16u);
 }
 
 - (void)addFresnoPayloadToRequest:(uint64_t)a1 additionalPayload:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138477827;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1B70B0000, a2, OS_LOG_TYPE_DEBUG, "Body: %{private}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138477827;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1B70B0000, a2, OS_LOG_TYPE_DEBUG, "Body: %{private}@", &v2, 0xCu);
 }
 
 @end

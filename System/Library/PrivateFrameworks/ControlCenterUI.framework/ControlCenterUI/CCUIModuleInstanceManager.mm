@@ -657,4 +657,25 @@ void __77__CCUIModuleInstanceManager__instantiateModuleWithMetadata_uniqueIdenti
   [v0 handleFailureInMethod:@"uniqueIdentifier != nil" object:? file:? lineNumber:? description:?];
 }
 
+- (void)_instantiateModuleWithMetadata:(uint64_t)a3 uniqueIdentifier:(uint64_t)a4 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_21E9F5000, a2, a3, "[%{public}@] Attempting to load module whose bundle has not been loaded", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)_instantiateModuleWithMetadata:(uint64_t)a3 uniqueIdentifier:(uint64_t)a4 .cold.2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_21E9F5000, a2, a3, "[%{public}@] Module's init method returned nil, will unload bundle", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)_instantiateModuleWithMetadata:(uint64_t)a3 uniqueIdentifier:(uint64_t)a4 .cold.3(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_21E9F5000, a2, a3, "[%{public}@] Could not alloc an instance of the module, will unload bundle", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 @end

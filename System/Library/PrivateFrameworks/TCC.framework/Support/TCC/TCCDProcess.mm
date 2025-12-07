@@ -70,7 +70,7 @@
 
 - (void)tccd_crash_fd_limit
 {
-  log_open_file_descriptors();
+  log_open_file_descriptors(self);
   if (os_variant_allows_internal_security_policies())
   {
     _os_crash();
@@ -103,7 +103,7 @@
     *pidp = 0;
     euidp = 0;
     tidp = 0;
-    [p_isa auditToken];
+    objc_msgSend_auditToken(p_isa);
     audit_token_to_au32(&atoken, pidp, &euidp, 0, 0, 0, &pidp[1], 0, &tidp);
     if (pidp[0] == -1)
     {
@@ -258,13 +258,14 @@ LABEL_10:
     if (entitlements)
     {
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      isKindOfClass = objc_opt_isKindOfClass();
+      if (isKindOfClass)
       {
         goto LABEL_8;
       }
 
-      v7 = tcc_access_log();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = tcc_access_log(isKindOfClass);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         sub_100059C58(self);
       }
@@ -508,10 +509,10 @@ LABEL_12:
     if (objc_opt_isKindOfClass())
     {
       v5 = equalCopy;
-      [(TCCDProcess *)self auditToken];
+      objc_msgSend_auditToken(self);
       if (v5)
       {
-        [(TCCDProcess *)v5 auditToken];
+        objc_msgSend_auditToken(v5);
       }
 
       else

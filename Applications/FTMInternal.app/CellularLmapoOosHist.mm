@@ -206,70 +206,65 @@
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    durationSeconds = self->_durationSeconds;
     PBDataWriterWriteUint32Field();
   }
 
   if (self->_oosStateCounts.count)
   {
-    v8 = 0;
+    v6 = 0;
     do
     {
-      v9 = self->_oosStateCounts.list[v8];
       PBDataWriterWriteUint32Field();
-      ++v8;
+      ++v6;
     }
 
-    while (v8 < self->_oosStateCounts.count);
+    while (v6 < self->_oosStateCounts.count);
   }
 
   if (self->_oosStateDurationMs.count)
   {
-    v10 = 0;
+    v7 = 0;
     do
     {
-      v11 = self->_oosStateDurationMs.list[v10];
       PBDataWriterWriteUint32Field();
-      ++v10;
+      ++v7;
     }
 
-    while (v10 < self->_oosStateDurationMs.count);
+    while (v7 < self->_oosStateDurationMs.count);
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
-  v22 = 0u;
-  v12 = self->_recoverHists;
-  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
-  if (v13)
+  v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v8 = self->_recoverHists;
+  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  if (v9)
   {
-    v14 = v13;
-    v15 = *v22;
+    v10 = v9;
+    v11 = *v15;
     do
     {
-      for (i = 0; i != v14; i = i + 1)
+      for (i = 0; i != v10; ++i)
       {
-        if (*v22 != v15)
+        if (*v15 != v11)
         {
-          objc_enumerationMutation(v12);
+          objc_enumerationMutation(v8);
         }
 
-        v17 = *(*(&v21 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
-    while (v14);
+    while (v10);
   }
 
   if (self->_oosToOosCounts.count)
@@ -277,15 +272,14 @@
     PBDataWriterPlaceMark();
     if (self->_oosToOosCounts.count)
     {
-      v18 = 0;
+      v13 = 0;
       do
       {
-        v19 = self->_oosToOosCounts.list[v18];
         PBDataWriterWriteUint32Field();
-        ++v18;
+        ++v13;
       }
 
-      while (v18 < self->_oosToOosCounts.count);
+      while (v13 < self->_oosToOosCounts.count);
     }
 
     PBDataWriterRecallMark();
@@ -293,7 +287,6 @@
 
   if ((*&self->_has & 4) != 0)
   {
-    version = self->_version;
     PBDataWriterWriteUint32Field();
   }
 }
@@ -447,7 +440,6 @@
     goto LABEL_21;
   }
 
-  v5 = *(equalCopy + 108);
   if (*&self->_has)
   {
     if ((*(equalCopy + 108) & 1) == 0 || self->_timestamp != *(equalCopy + 10))
@@ -459,7 +451,7 @@
   else if (*(equalCopy + 108))
   {
 LABEL_21:
-    v7 = 0;
+    v6 = 0;
     goto LABEL_22;
   }
 
@@ -500,7 +492,7 @@ LABEL_21:
     goto LABEL_21;
   }
 
-  v7 = (*(equalCopy + 108) & 4) == 0;
+  v6 = (*(equalCopy + 108) & 4) == 0;
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equalCopy + 108) & 4) == 0 || self->_version != *(equalCopy + 26))
@@ -508,12 +500,12 @@ LABEL_21:
       goto LABEL_21;
     }
 
-    v7 = 1;
+    v6 = 1;
   }
 
 LABEL_22:
 
-  return v7;
+  return v6;
 }
 
 - (unint64_t)hash

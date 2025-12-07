@@ -273,7 +273,6 @@ LABEL_6:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x10) == 0)
@@ -293,7 +292,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  error = self->_error;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -308,12 +306,10 @@ LABEL_4:
   }
 
 LABEL_30:
-  channel = self->_channel;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 0x80) != 0)
   {
 LABEL_5:
-    signal = self->_signal;
     PBDataWriterWriteInt32Field();
   }
 
@@ -330,7 +326,6 @@ LABEL_6:
 
   if ((*&self->_has & 8) != 0)
   {
-    deauthReason = self->_deauthReason;
     PBDataWriterWriteInt32Field();
   }
 
@@ -339,17 +334,15 @@ LABEL_6:
     PBDataWriterWriteDataField();
   }
 
-  v7 = self->_has;
-  if ((v7 & 0x20) != 0)
+  v5 = self->_has;
+  if ((v5 & 0x20) != 0)
   {
-    noise = self->_noise;
     PBDataWriterWriteInt32Field();
-    v7 = self->_has;
+    v5 = self->_has;
   }
 
-  if ((v7 & 0x100) != 0)
+  if ((v5 & 0x100) != 0)
   {
-    txrate = self->_txrate;
     PBDataWriterWriteInt32Field();
   }
 
@@ -358,17 +351,15 @@ LABEL_6:
     PBDataWriterWriteStringField();
   }
 
-  v10 = self->_has;
-  if ((v10 & 0x40) != 0)
+  v6 = self->_has;
+  if ((v6 & 0x40) != 0)
   {
-    phymode = self->_phymode;
     PBDataWriterWriteUint32Field();
-    v10 = self->_has;
+    v6 = self->_has;
   }
 
-  if ((v10 & 2) != 0)
+  if ((v6 & 2) != 0)
   {
-    band = self->_band;
     PBDataWriterWriteInt32Field();
   }
 

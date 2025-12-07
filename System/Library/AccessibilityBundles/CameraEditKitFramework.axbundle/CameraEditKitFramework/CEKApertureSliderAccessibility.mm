@@ -133,7 +133,7 @@ void __49__CEKApertureSliderAccessibility__axAdjustValue___block_invoke_5(uint64
   return v3;
 }
 
-uint64_t __72__CEKApertureSliderAccessibility__axValidApertureIndexForDiscreteIndex___block_invoke(uint64_t a1)
+void *__72__CEKApertureSliderAccessibility__axValidApertureIndexForDiscreteIndex___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _validApertureIndexForDiscreteIndex:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = result;

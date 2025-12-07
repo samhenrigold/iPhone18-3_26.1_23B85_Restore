@@ -385,7 +385,7 @@ LABEL_16:
   itemsCopy = items;
   completionCopy = completion;
   v10 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(itemsCopy, "count")}];
-  v11 = _itemLoaderQueue();
+  v11 = _itemLoaderQueue(v10);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __89__UIActivity__loadItemProvidersFromActivityItems_wantsSendCopyRepresentation_completion___block_invoke;
@@ -429,7 +429,7 @@ void __89__UIActivity__loadItemProvidersFromActivityItems_wantsSendCopyRepresent
 {
   v5 = a3;
   v6 = a2;
-  v7 = _itemLoaderQueue();
+  v7 = _itemLoaderQueue(v6);
   dispatch_assert_queue_V2(v7);
 
   v8 = objc_opt_new();
@@ -502,7 +502,7 @@ void __89__UIActivity__loadItemProvidersFromActivityItems_wantsSendCopyRepresent
   lCopy = l;
   completionCopy = completion;
   v10 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(itemsCopy, "count")}];
-  v11 = _itemLoaderQueue();
+  v11 = _itemLoaderQueue(v10);
   v16[0] = MEMORY[0x1E69E9820];
   v16[1] = 3221225472;
   v16[2] = __74__UIActivity__loadItemProvidersFromActivityItems_withCacheURL_completion___block_invoke;
@@ -541,7 +541,7 @@ void __74__UIActivity__loadItemProvidersFromActivityItems_withCacheURL_completio
 {
   v5 = a3;
   v6 = a2;
-  v7 = _itemLoaderQueue();
+  v7 = _itemLoaderQueue(v6);
   dispatch_assert_queue_V2(v7);
 
   v8 = objc_opt_new();

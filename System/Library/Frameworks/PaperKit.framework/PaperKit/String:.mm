@@ -12,7 +12,7 @@
 
   if (v3)
   {
-    type metadata accessor for PKMathRecognitionItemAttributes(0, &lazy cache variable for type metadata for NSObject);
+    type metadata accessor for PKMathRecognitionItemAttributes(0, &lazy cache variable for type metadata for NSObject, 0x1E69E58C0);
     v4.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
   }
 

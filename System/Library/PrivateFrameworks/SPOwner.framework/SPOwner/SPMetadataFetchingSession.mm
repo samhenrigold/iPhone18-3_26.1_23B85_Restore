@@ -65,13 +65,13 @@
 
 - (void)interruptionHandler:(id)handler
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
-  v5 = LogCategory_AccessoryDiscovery();
+  v5 = LogCategory_AccessoryDiscovery(handlerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v11 = handlerCopy;
+    v10 = handlerCopy;
     _os_log_impl(&dword_2643D0000, v5, OS_LOG_TYPE_DEFAULT, "SPMetadataFetchingSession: interruptionHandler %@", buf, 0xCu);
   }
 
@@ -87,8 +87,6 @@
     block[4] = self;
     dispatch_sync(callbackQueue, block);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __49__SPMetadataFetchingSession_interruptionHandler___block_invoke(uint64_t a1)
@@ -99,13 +97,13 @@ void __49__SPMetadataFetchingSession_interruptionHandler___block_invoke(uint64_t
 
 - (void)invalidationHandler:(id)handler
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
-  v5 = LogCategory_AccessoryDiscovery();
+  v5 = LogCategory_AccessoryDiscovery(handlerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v11 = handlerCopy;
+    v10 = handlerCopy;
     _os_log_impl(&dword_2643D0000, v5, OS_LOG_TYPE_DEFAULT, "SPMetadataFetchingSession: invalidationHandler %@", buf, 0xCu);
   }
 
@@ -122,8 +120,6 @@ void __49__SPMetadataFetchingSession_interruptionHandler___block_invoke(uint64_t
     block[4] = self;
     dispatch_sync(callbackQueue, block);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __49__SPMetadataFetchingSession_invalidationHandler___block_invoke(uint64_t a1)
@@ -147,14 +143,14 @@ void __49__SPMetadataFetchingSession_invalidationHandler___block_invoke(uint64_t
     v7 = [v5 initWithServiceDescription:serviceDescription];
     [(SPMetadataFetchingSession *)self setSession:v7];
 
-    v8 = LogCategory_AccessoryDiscovery();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = LogCategory_AccessoryDiscovery(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       serviceDescription2 = [(SPMetadataFetchingSession *)self serviceDescription];
       machService = [serviceDescription2 machService];
       v16 = 138412290;
       v17 = machService;
-      _os_log_impl(&dword_2643D0000, v8, OS_LOG_TYPE_DEFAULT, "SPMetadataFetchingSession: Establishing XPC connection to %@", &v16, 0xCu);
+      _os_log_impl(&dword_2643D0000, v9, OS_LOG_TYPE_DEFAULT, "SPMetadataFetchingSession: Establishing XPC connection to %@", &v16, 0xCu);
     }
 
     session2 = [(SPMetadataFetchingSession *)self session];
@@ -163,8 +159,6 @@ void __49__SPMetadataFetchingSession_invalidationHandler___block_invoke(uint64_t
 
   session3 = [(SPMetadataFetchingSession *)self session];
   proxy = [session3 proxy];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return proxy;
 }
@@ -225,7 +219,7 @@ uint64_t __44__SPMetadataFetchingSession_remoteInterface__block_invoke()
 
 void __57__SPMetadataFetchingSession_fetchProductData_completion___block_invoke(uint64_t a1)
 {
-  v2 = LogCategory_BeaconScanning();
+  v2 = LogCategory_BeaconScanning(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -268,7 +262,7 @@ void __57__SPMetadataFetchingSession_fetchProductData_completion___block_invoke_
 
 void __66__SPMetadataFetchingSession_fetchManufacturerNameData_completion___block_invoke(uint64_t a1)
 {
-  v2 = LogCategory_BeaconScanning();
+  v2 = LogCategory_BeaconScanning(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -311,7 +305,7 @@ void __66__SPMetadataFetchingSession_fetchManufacturerNameData_completion___bloc
 
 void __59__SPMetadataFetchingSession_fetchModelNameData_completion___block_invoke(uint64_t a1)
 {
-  v2 = LogCategory_BeaconScanning();
+  v2 = LogCategory_BeaconScanning(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -354,7 +348,7 @@ void __59__SPMetadataFetchingSession_fetchModelNameData_completion___block_invok
 
 void __67__SPMetadataFetchingSession_fetchAccessoryCategoryData_completion___block_invoke(uint64_t a1)
 {
-  v2 = LogCategory_BeaconScanning();
+  v2 = LogCategory_BeaconScanning(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -397,7 +391,7 @@ void __67__SPMetadataFetchingSession_fetchAccessoryCategoryData_completion___blo
 
 void __65__SPMetadataFetchingSession_fetchProtocolVersionData_completion___block_invoke(uint64_t a1)
 {
-  v2 = LogCategory_BeaconScanning();
+  v2 = LogCategory_BeaconScanning(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -440,7 +434,7 @@ void __65__SPMetadataFetchingSession_fetchProtocolVersionData_completion___block
 
 void __71__SPMetadataFetchingSession_fetchAccessoryCapabilitiesData_completion___block_invoke(uint64_t a1)
 {
-  v2 = LogCategory_BeaconScanning();
+  v2 = LogCategory_BeaconScanning(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -483,7 +477,7 @@ void __71__SPMetadataFetchingSession_fetchAccessoryCapabilitiesData_completion__
 
 void __65__SPMetadataFetchingSession_fetchFirmwareVersionData_completion___block_invoke(uint64_t a1)
 {
-  v2 = LogCategory_BeaconScanning();
+  v2 = LogCategory_BeaconScanning(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -526,7 +520,7 @@ void __65__SPMetadataFetchingSession_fetchFirmwareVersionData_completion___block
 
 void __61__SPMetadataFetchingSession_fetchBatteryTypeData_completion___block_invoke(uint64_t a1)
 {
-  v2 = LogCategory_BeaconScanning();
+  v2 = LogCategory_BeaconScanning(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -569,7 +563,7 @@ void __61__SPMetadataFetchingSession_fetchBatteryTypeData_completion___block_inv
 
 void __63__SPMetadataFetchingSession_fetchBatteryStatusData_completion___block_invoke(uint64_t a1)
 {
-  v2 = LogCategory_BeaconScanning();
+  v2 = LogCategory_BeaconScanning(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -612,7 +606,7 @@ void __63__SPMetadataFetchingSession_fetchBatteryStatusData_completion___block_i
 
 void __64__SPMetadataFetchingSession_fetchModelColorCodeData_completion___block_invoke(uint64_t a1)
 {
-  v2 = LogCategory_BeaconScanning();
+  v2 = LogCategory_BeaconScanning(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -655,7 +649,7 @@ void __64__SPMetadataFetchingSession_fetchModelColorCodeData_completion___block_
 
 void __63__SPMetadataFetchingSession_fetchCurrentPrimaryKey_completion___block_invoke(uint64_t a1)
 {
-  v2 = LogCategory_BeaconScanning();
+  v2 = LogCategory_BeaconScanning(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -698,7 +692,7 @@ void __63__SPMetadataFetchingSession_fetchCurrentPrimaryKey_completion___block_i
 
 void __62__SPMetadataFetchingSession_fetchiCloudIdentifier_completion___block_invoke(uint64_t a1)
 {
-  v2 = LogCategory_BeaconScanning();
+  v2 = LogCategory_BeaconScanning(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;

@@ -43,28 +43,28 @@
 
 + (id)authSchemesForAccount:(id)account connection:(id)connection
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   authenticationMechanisms = [connection authenticationMechanisms];
-  v16 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(authenticationMechanisms, "count")}];
+  v15 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(authenticationMechanisms, "count")}];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v6 = [authenticationMechanisms countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [authenticationMechanisms countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v18;
+    v8 = *v17;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(authenticationMechanisms);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * i);
+        v10 = *(*(&v16 + 1) + 8 * i);
         if ([@"PLAIN" isEqualToString:v10])
         {
           v11 = &stru_2869ED3E0;
@@ -81,23 +81,21 @@
           v13 = v12;
           if ([(MFAuthScheme *)v12 canAuthenticateAccountClass:objc_opt_class() connection:connection])
           {
-            if ([v16 indexOfObject:v13] == 0x7FFFFFFFFFFFFFFFLL)
+            if ([v15 indexOfObject:v13] == 0x7FFFFFFFFFFFFFFFLL)
             {
-              [v16 addObject:v13];
+              [v15 addObject:v13];
             }
           }
         }
       }
 
-      v7 = [authenticationMechanisms countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [authenticationMechanisms countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v7);
   }
 
-  result = v16;
-  v15 = *MEMORY[0x277D85DE8];
-  return result;
+  return v15;
 }
 
 - (id)authenticatorForAccount:(id)account connection:(id)connection

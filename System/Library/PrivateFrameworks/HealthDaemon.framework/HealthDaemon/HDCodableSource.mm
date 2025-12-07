@@ -140,64 +140,61 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v9 = toCopy;
+  v6 = toCopy;
   if (self->_name)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_bundleIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_productType)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    options = self->_options;
     PBDataWriterWriteInt64Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_uuid)
   {
     PBDataWriterWriteDataField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   has = self->_has;
   if (has)
   {
-    modificationDate = self->_modificationDate;
     PBDataWriterWriteDoubleField();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
   }
 
   if ((has & 4) != 0)
   {
-    deleted = self->_deleted;
     PBDataWriterWriteBOOLField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_owningAppBundleIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_syncIdentity)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 }
 
@@ -404,7 +401,6 @@ LABEL_28:
     goto LABEL_28;
   }
 
-  v15 = *(equalCopy + 72);
   if (self->_deleted)
   {
     if ((*(equalCopy + 72) & 1) == 0)
@@ -563,25 +559,34 @@ LABEL_29:
   v7 = *(fromCopy + 7);
   if (syncIdentity)
   {
-    if (v7)
+    if (!v7)
     {
-      [(HDCodableSyncIdentity *)syncIdentity mergeFrom:?];
+      goto LABEL_23;
     }
+
+    syncIdentity = [(HDCodableSyncIdentity *)syncIdentity mergeFrom:?];
   }
 
-  else if (v7)
+  else
   {
-    [(HDCodableSource *)self setSyncIdentity:?];
+    if (!v7)
+    {
+      goto LABEL_23;
+    }
+
+    syncIdentity = [(HDCodableSource *)self setSyncIdentity:?];
   }
 
-  MEMORY[0x2821F96F8]();
+  fromCopy = v8;
+LABEL_23:
+
+  MEMORY[0x2821F96F8](syncIdentity, fromCopy);
 }
 
 - (id)decodedModificationDate
 {
   if (*&self->_has)
   {
-    modificationDate = self->_modificationDate;
     v3 = HDDecodeDateForValue();
   }
 

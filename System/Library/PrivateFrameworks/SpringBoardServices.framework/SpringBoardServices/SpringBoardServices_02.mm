@@ -1,3 +1,164 @@
+uint64_t _XAddAlertItemsSuppressionAssertion(uint64_t a1, uint64_t a2)
+{
+  if ((*a1 & 0x80000000) == 0)
+  {
+    goto LABEL_2;
+  }
+
+  v5 = *(a1 + 24);
+  result = 4294966992;
+  if (v5 == 1)
+  {
+    v6 = *(a1 + 4);
+    if ((v6 - 1081) >= 0xFFFFFBFF)
+    {
+      if (*(a1 + 38) << 16 != 1114112)
+      {
+        result = 4294966996;
+        goto LABEL_3;
+      }
+
+      v7 = *(a1 + 52);
+      if (v7 <= 0x400 && v6 - 56 >= v7 && v6 == ((v7 + 3) & 0xFFC) + 56)
+      {
+        if (!memchr((a1 + 56), 0, v6 - 56))
+        {
+LABEL_2:
+          result = 4294966992;
+          goto LABEL_3;
+        }
+
+        v8 = ((v6 + 3) & 0xFFC) + a1;
+        if (*v8 || *(v8 + 4) < 0x20u)
+        {
+          result = 4294966987;
+        }
+
+        else
+        {
+          v9 = *(a1 + 12);
+          v10 = *(a1 + 28);
+          v11 = *(v8 + 36);
+          v12[0] = *(v8 + 20);
+          v12[1] = v11;
+          result = _SBMigAddAlertItemsSuppressionAssertion(v9, a1 + 56, v10, v12);
+        }
+      }
+    }
+  }
+
+LABEL_3:
+  *(a2 + 32) = result;
+  *(a2 + 24) = *MEMORY[0x1E69E99E0];
+  return result;
+}
+
+_DWORD *_XIsReachabilityEnabled(_DWORD *result, uint64_t a2)
+{
+  if ((*result & 0x80000000) != 0 || result[1] != 24)
+  {
+    v4 = -304;
+    goto LABEL_7;
+  }
+
+  v3 = result + 6;
+  if (result[6] || result[7] <= 0x1Fu)
+  {
+    v4 = -309;
+LABEL_7:
+    *(a2 + 32) = v4;
+    *(a2 + 24) = *MEMORY[0x1E69E99E0];
+    return result;
+  }
+
+  v5 = result[3];
+  v6 = *(v3 + 9);
+  v7[0] = *(v3 + 5);
+  v7[1] = v6;
+  result = _SBMigIsReachabilityEnabled(v5, (a2 + 36), v7);
+  *(a2 + 32) = result;
+  *(a2 + 24) = *MEMORY[0x1E69E99E0];
+  if (!result)
+  {
+    *(a2 + 4) = 40;
+  }
+
+  return result;
+}
+
+uint64_t _XSetReachabilityEnabled(uint64_t result, uint64_t a2)
+{
+  if ((*result & 0x80000000) != 0 || *(result + 4) != 36)
+  {
+    v3 = -304;
+  }
+
+  else
+  {
+    if (!*(result + 36) && *(result + 40) > 0x1Fu)
+    {
+      v4 = *(result + 12);
+      v5 = *(result + 32);
+      v6 = *(result + 72);
+      v7[0] = *(result + 56);
+      v7[1] = v6;
+      result = _SBMigSetReachabilityEnabled(v4, v5, v7);
+      *(a2 + 32) = result;
+      return result;
+    }
+
+    v3 = -309;
+  }
+
+  *(a2 + 32) = v3;
+  *(a2 + 24) = *MEMORY[0x1E69E99E0];
+  return result;
+}
+
+uint64_t _XOverrideDisplayedDate(int *a1, uint64_t a2)
+{
+  v4 = *a1;
+  result = 4294966992;
+  if ((v4 & 0x80000000) == 0)
+  {
+    v6 = a1[1];
+    if ((v6 - 1065) >= 0xFFFFFBFF)
+    {
+      v7 = a1[9];
+      v8 = v7 <= 0x400 && v6 - 40 >= v7;
+      if (v8 && v6 == ((v7 + 3) & 0xFFC) + 40)
+      {
+        if (memchr(a1 + 10, 0, v6 - 40))
+        {
+          v9 = a1 + ((v6 + 3) & 0xFFC);
+          if (*v9 || *(v9 + 1) < 0x20u)
+          {
+            result = 4294966987;
+          }
+
+          else
+          {
+            v10 = a1[3];
+            v11 = *(v9 + 36);
+            v12[0] = *(v9 + 20);
+            v12[1] = v11;
+            result = _SBMigOverrideDisplayedDate(v10, (a1 + 10), v12);
+          }
+        }
+
+        else
+        {
+          result = 4294966992;
+        }
+      }
+    }
+  }
+
+  *(a2 + 32) = result;
+  *(a2 + 24) = *MEMORY[0x1E69E99E0];
+  return result;
+}
+
 uint64_t _XSetIdleText(int *a1, uint64_t a2)
 {
   v4 = *a1;
@@ -769,8 +930,9 @@ void SBMachChannelHandleEvent_cold_3()
   [v0 handleFailureInFunction:v1 file:@"SBLegacyServices.m" lineNumber:108 description:@"message must not be nil"];
 }
 
-void SBMachChannelHandleEvent_cold_5(int *a1, int a2, NSObject *a3)
+void SBMachChannelHandleEvent_cold_5(int *a1, uint64_t a2, NSObject *a3)
 {
+  v4 = a2;
   v12 = *MEMORY[0x1E69E9840];
   v5 = *a1;
   v6 = BSProcessNameForPID();
@@ -779,6 +941,6 @@ void SBMachChannelHandleEvent_cold_5(int *a1, int a2, NSObject *a3)
   v8 = 2114;
   v9 = v6;
   v10 = 1024;
-  v11 = a2;
+  v11 = v4;
   _os_log_error_impl(&dword_19169D000, a3, OS_LOG_TYPE_ERROR, "[SBMig] ERROR: No service found for message id %d from caller %{public}@:%d", v7, 0x18u);
 }

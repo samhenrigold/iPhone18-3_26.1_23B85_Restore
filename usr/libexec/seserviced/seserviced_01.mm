@@ -1,107 +1,11 @@
-void sub_100028724(uint64_t a1, void *a2, void *a3)
-{
-  v5 = a2;
-  v6 = a3;
-  if (v6)
-  {
-    v8 = v6;
-    v9 = *(a1 + 40);
-    v10 = SESDefaultLogObject();
-    v11 = SESCreateAndLogError();
-    (*(v9 + 16))(v9, 0, v11);
-  }
-
-  else
-  {
-    v12 = sub_1003AD1F4(*(a1 + 32), v7);
-    v17 = 0;
-    v13 = sub_100016EB8(SESEndpointDatabase, v12, v5, &v17);
-    v8 = v17;
-
-    v14 = *(a1 + 40);
-    if (v8)
-    {
-      v15 = SESDefaultLogObject();
-      v16 = SESCreateAndLogError();
-      (*(v14 + 16))(v14, 0, v16);
-    }
-
-    else
-    {
-      (*(v14 + 16))(v14, v13, 0);
-    }
-  }
-}
-
-void sub_100028A48(uint64_t a1, void *a2, void *a3)
-{
-  v5 = a2;
-  v6 = a3;
-  if (v6)
-  {
-    v8 = v6;
-    v9 = *(a1 + 48);
-    v10 = SESDefaultLogObject();
-    v11 = SESCreateAndLogError();
-    (*(v9 + 16))(v9, 0, v11);
-  }
-
-  else
-  {
-    v12 = *(a1 + 32);
-    v13 = sub_1003AD1F4(*(a1 + 40), v7);
-    v19 = 0;
-    v14 = sub_100017028(SESEndpointDatabase, v12, v13, v5, &v19);
-    v8 = v19;
-
-    v15 = *(a1 + 48);
-    if (v8)
-    {
-      v16 = SESDefaultLogObject();
-      v18 = *(a1 + 32);
-      v17 = SESCreateAndLogError();
-      (*(v15 + 16))(v15, 0, v17);
-    }
-
-    else
-    {
-      (*(v15 + 16))(*(a1 + 48), v14, 0);
-    }
-  }
-}
-
-void sub_100028D98(uint64_t a1, void *a2, void *a3)
-{
-  v14 = a2;
-  v5 = a3;
-  if (v5)
-  {
-    v7 = v5;
-    v8 = *(a1 + 56);
-    v9 = SESDefaultLogObject();
-    v10 = SESCreateAndLogError();
-    (*(v8 + 16))(v8, 0, v10);
-  }
-
-  else
-  {
-    v11 = *(a1 + 32);
-    v12 = *(a1 + 40);
-    v13 = sub_1003AD1F4(*(a1 + 48), v6);
-    v7 = sub_1000171E8(SESEndpointDatabase, v11, v12, v13, v14);
-
-    (*(*(a1 + 56) + 16))(*(a1 + 56), v7 == 0, v7);
-  }
-}
-
-void sub_10002905C(uint64_t a1, void *a2, void *a3)
+void sub_10002905C(void *a1, void *a2, void *a3)
 {
   v13 = a2;
   v5 = a3;
   if (v5)
   {
     v7 = v5;
-    v8 = *(a1 + 48);
+    v8 = a1[6];
     v9 = SESDefaultLogObject();
     v10 = SESCreateAndLogError();
     (*(v8 + 16))(v8, 0, v10);
@@ -109,22 +13,22 @@ void sub_10002905C(uint64_t a1, void *a2, void *a3)
 
   else
   {
-    v11 = *(a1 + 32);
-    v12 = sub_1003AD1F4(*(a1 + 40), v6);
+    v11 = a1[4];
+    v12 = sub_1003AD1F4(a1[5], v6);
     v7 = sub_100017678(SESEndpointDatabase, v11, v12, v13);
 
-    (*(*(a1 + 48) + 16))(*(a1 + 48), v7 == 0, v7);
+    (*(a1[6] + 16))(a1[6], v7 == 0, v7);
   }
 }
 
-void sub_100029310(uint64_t a1, void *a2, void *a3)
+void sub_100029310(void *a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
   if (v6)
   {
     v8 = v6;
-    v9 = *(a1 + 48);
+    v9 = a1[6];
     v10 = SESDefaultLogObject();
     v11 = SESCreateAndLogError();
     (*(v9 + 16))(v9, 0, v11);
@@ -132,13 +36,13 @@ void sub_100029310(uint64_t a1, void *a2, void *a3)
 
   else
   {
-    v12 = *(a1 + 32);
-    v13 = sub_1003AD1F4(*(a1 + 40), v7);
+    v12 = a1[4];
+    v13 = sub_1003AD1F4(a1[5], v7);
     v18 = 0;
     v14 = sub_10004F934(SESEndpointDatabase, v12, v13, v5, &v18);
     v8 = v18;
 
-    v15 = *(a1 + 48);
+    v15 = a1[6];
     if (v8)
     {
       v16 = SESDefaultLogObject();
@@ -153,14 +57,14 @@ void sub_100029310(uint64_t a1, void *a2, void *a3)
   }
 }
 
-void sub_100029658(uint64_t a1, void *a2, void *a3)
+void sub_100029658(void *a1, void *a2, void *a3)
 {
   v14 = a2;
   v5 = a3;
   if (v5)
   {
     v7 = v5;
-    v8 = *(a1 + 56);
+    v8 = a1[7];
     v9 = SESDefaultLogObject();
     v10 = SESCreateAndLogError();
     (*(v8 + 16))(v8, 0, v10);
@@ -168,23 +72,23 @@ void sub_100029658(uint64_t a1, void *a2, void *a3)
 
   else
   {
-    v11 = *(a1 + 32);
-    v12 = *(a1 + 40);
-    v13 = sub_1003AD1F4(*(a1 + 48), v6);
+    v11 = a1[4];
+    v12 = a1[5];
+    v13 = sub_1003AD1F4(a1[6], v6);
     v7 = sub_10004FAE4(SESEndpointDatabase, v11, v12, v13, v14);
 
-    (*(*(a1 + 56) + 16))(*(a1 + 56), v7 == 0, v7);
+    (*(a1[7] + 16))(a1[7], v7 == 0, v7);
   }
 }
 
-void sub_10002991C(uint64_t a1, void *a2, void *a3)
+void sub_10002991C(void *a1, void *a2, void *a3)
 {
   v13 = a2;
   v5 = a3;
   if (v5)
   {
     v7 = v5;
-    v8 = *(a1 + 48);
+    v8 = a1[6];
     v9 = SESDefaultLogObject();
     v10 = SESCreateAndLogError();
     (*(v8 + 16))(v8, 0, v10);
@@ -192,15 +96,15 @@ void sub_10002991C(uint64_t a1, void *a2, void *a3)
 
   else
   {
-    v11 = *(a1 + 32);
-    v12 = sub_1003AD1F4(*(a1 + 40), v6);
+    v11 = a1[4];
+    v12 = sub_1003AD1F4(a1[5], v6);
     v7 = sub_10004FE00(SESEndpointDatabase, v11, v12, v13);
 
-    (*(*(a1 + 48) + 16))(*(a1 + 48), v7 == 0, v7);
+    (*(a1[6] + 16))(a1[6], v7 == 0, v7);
   }
 }
 
-void sub_100029C5C(uint64_t a1, void *a2, void *a3, void *a4)
+void sub_100029C5C(void *a1, void *a2, void *a3, void *a4)
 {
   v7 = a2;
   v8 = a3;
@@ -208,31 +112,29 @@ void sub_100029C5C(uint64_t a1, void *a2, void *a3, void *a4)
   v11 = v9;
   if (v8 && v7 && !v9)
   {
-    v12 = *(a1 + 32);
-    v13 = sub_1003AD1F4(*(a1 + 40), v10);
-    v33 = 0;
-    v14 = sub_1000431F8(SESEndpointDatabase, v12, v13, v8, &v33);
-    v11 = v33;
+    v12 = a1[4];
+    v13 = sub_1003AD1F4(a1[5], v10);
+    v31 = 0;
+    v14 = sub_1000431F8(SESEndpointDatabase, v12, v13, v8, &v31);
+    v11 = v31;
 
     if (v11)
     {
-      v15 = *(a1 + 48);
+      v15 = a1[6];
       v16 = SESDefaultLogObject();
-      v30 = *(a1 + 32);
       v17 = SESCreateAndLogError();
       (*(v15 + 16))(v15, 0, v17);
     }
 
     else
     {
-      v32 = 0;
-      v16 = sub_1000433C4(SESEndpointDatabase, v14, &v32);
-      v11 = v32;
+      v30 = 0;
+      v16 = sub_1000433C4(SESEndpointDatabase, v14, &v30);
+      v11 = v30;
       if (v11)
       {
-        v21 = *(a1 + 48);
+        v21 = a1[6];
         v17 = SESDefaultLogObject();
-        v31 = *(a1 + 32);
         v22 = SESCreateAndLogError();
         (*(v21 + 16))(v21, 0, v22);
       }
@@ -250,14 +152,14 @@ void sub_100029C5C(uint64_t a1, void *a2, void *a3, void *a4)
         v28 = [v16 secureElementAttestation];
         v29 = [SEEndPointBindingAttestationRequestItems withSubCAAttestation:v28 casdECDSACertificate:v17 casdRSACertificate:v22];
 
-        (*(*(a1 + 48) + 16))();
+        (*(a1[6] + 16))();
       }
     }
   }
 
   else
   {
-    v18 = *(a1 + 48);
+    v18 = a1[6];
     v19 = SESEnsureError();
     (*(v18 + 16))(v18, 0, v19);
   }
@@ -377,27 +279,26 @@ void sub_10002A780(uint64_t a1, void *a2, uint64_t a3)
 {
   if (a3)
   {
-    v4 = *(a1 + 48);
-    v5 = *(*(a1 + 48) + 16);
+    v4 = *(*(a1 + 48) + 16);
 
-    v5();
+    v4();
   }
 
   else
   {
-    v6 = [a2 filter:&stru_1004C1DB0];
-    v7 = *(a1 + 32);
-    v8 = *(a1 + 40);
-    v9 = [NSString stringWithUTF8String:"[SESEndpointAndKeyXPCServer(SEEndPointXPC) getSESEndpointTSMDictionary:reply:]_block_invoke"];
-    v12[0] = _NSConcreteStackBlock;
-    v12[1] = 3221225472;
-    v12[2] = sub_10002A900;
-    v12[3] = &unk_1004C18F0;
-    v10 = *(a1 + 48);
-    v13 = v6;
-    v14 = v10;
-    v11 = v6;
-    [v7 endPointServiceAvailableWithProxy:v8 reason:v9 reply:v12];
+    v5 = [a2 filter:&stru_1004C1DB0];
+    v6 = *(a1 + 32);
+    v7 = *(a1 + 40);
+    v8 = [NSString stringWithUTF8String:"[SESEndpointAndKeyXPCServer(SEEndPointXPC) getSESEndpointTSMDictionary:reply:]_block_invoke"];
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = sub_10002A900;
+    v11[3] = &unk_1004C18F0;
+    v9 = *(a1 + 48);
+    v12 = v5;
+    v13 = v9;
+    v10 = v5;
+    [v6 endPointServiceAvailableWithProxy:v7 reason:v8 reply:v11];
   }
 }
 
@@ -882,29 +783,29 @@ LABEL_25:
 
 void sub_10002C778(uint64_t a1)
 {
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x3032000000;
-  v20 = sub_100019DE8;
-  v21 = sub_100019DF8;
-  v22 = 0;
-  v11 = 0;
-  v12 = &v11;
-  v13 = 0x3032000000;
-  v14 = sub_100019DE8;
-  v15 = sub_100019DF8;
   v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = sub_100019DE8;
+  v20 = sub_100019DF8;
+  v21 = 0;
+  v10 = 0;
+  v11 = &v10;
+  v12 = 0x3032000000;
+  v13 = sub_100019DE8;
+  v14 = sub_100019DF8;
+  v15 = 0;
   v2 = [*(a1 + 32) database];
   v3 = *(a1 + 40);
-  v10[0] = _NSConcreteStackBlock;
-  v10[1] = 3221225472;
-  v10[2] = sub_10002C9F8;
-  v10[3] = &unk_1004C1E10;
-  v10[4] = &v17;
-  v10[5] = &v11;
-  sub_1003ACDB4(v2, v3, v10);
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 3221225472;
+  v9[2] = sub_10002C9F8;
+  v9[3] = &unk_1004C1E10;
+  v9[4] = &v16;
+  v9[5] = &v10;
+  sub_1003ACDB4(v2, v3, v9);
 
-  if (v18[5] || !v12[5])
+  if (v17[5] || !v11[5])
   {
     v4 = *(a1 + 48);
     v5 = SESEnsureError();
@@ -913,37 +814,36 @@ void sub_10002C778(uint64_t a1)
 
   else
   {
-    v6 = v12[5];
     v5 = TransformIf();
-    v7 = SESDefaultLogObject();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v6 = SESDefaultLogObject();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      v8 = [v12[5] count];
-      v9 = [v5 count];
+      v7 = [v11[5] count];
+      v8 = [v5 count];
       *buf = 67109376;
-      v24 = v8;
-      v25 = 1024;
-      v26 = v9;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "Got %d entities, %d transformed", buf, 0xEu);
+      v23 = v7;
+      v24 = 1024;
+      v25 = v8;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEBUG, "Got %d entities, %d transformed", buf, 0xEu);
     }
 
     (*(*(a1 + 48) + 16))();
   }
 
-  _Block_object_dispose(&v11, 8);
-  _Block_object_dispose(&v17, 8);
+  _Block_object_dispose(&v10, 8);
+  _Block_object_dispose(&v16, 8);
 }
 
-void sub_10002C9C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10002C9C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
   v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -993,9 +893,9 @@ void sub_10002CB8C(uint64_t a1)
   _Block_object_dispose(&v8, 8);
 }
 
-void sub_10002CCB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10002CCB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1052,7 +952,7 @@ id sub_10002CEF4(id a1, CTCellularPlanItem *a2)
   return v7;
 }
 
-id sub_10002D094(uint64_t a1, void *a2, void *a3)
+SESDatabaseTransaction *sub_10002D094(uint64_t a1, void *a2, void *a3)
 {
   v4 = a2;
   v5 = a3;
@@ -1191,7 +1091,7 @@ LABEL_7:
   return 0;
 }
 
-uint64_t sub_10002D63C(uint64_t a1, unint64_t *a2)
+uint64_t sub_10002D63C(uint64_t a1, char **a2)
 {
   objc_opt_self();
   v3 = sub_10002D8E8(SESSignatureFixer, a2);
@@ -1258,7 +1158,7 @@ BOOL sub_10002D68C(uint64_t a1, id *a2)
   return v6;
 }
 
-uint64_t sub_10002D8E8(uint64_t a1, unint64_t *a2)
+uint64_t sub_10002D8E8(uint64_t a1, char **a2)
 {
   objc_opt_self();
   v3 = a2[1];
@@ -1305,9 +1205,9 @@ void sub_10002D9A4(id a1)
   qword_10050CC18 = v4;
 }
 
-void sub_10002DEE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10002DEE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1430,15 +1330,16 @@ LABEL_17:
   return a3;
 }
 
-void sub_10002E3B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10002E3B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 id sub_10002E3C8(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a1;
   v4 = 0;
   if (a2 && a3 && (encodeSequenceSpec(), (v4 = objc_claimAutoreleasedReturnValue()) == 0))
   {
@@ -1447,7 +1348,7 @@ id sub_10002E3C8(uint64_t a1, uint64_t a2, uint64_t a3)
 
   else
   {
-    v5 = sub_100032E10(a1, v4);
+    v5 = sub_100032E10(v3, v4);
   }
 
   return v5;
@@ -1996,7 +1897,7 @@ LABEL_36:
   return v33;
 }
 
-id sub_10002F2BC(void *a1, void *a2, void *a3, void *a4, void *a5, uint64_t a6, void *a7)
+void *sub_10002F2BC(void *a1, void *a2, void *a3, void *a4, void *a5, uint64_t a6, void *a7)
 {
   v11 = a1;
   v64 = a2;
@@ -3293,7 +3194,7 @@ LABEL_54:
   return v30;
 }
 
-id sub_100031AA0(void *a1, void *a2, void *a3, void *a4, void *a5, void *a6, void *a7, void *a8, void *a9, void *a10, void *a11)
+void *sub_100031AA0(void *a1, void *a2, void *a3, void *a4, void *a5, void *a6, void *a7, void *a8, void *a9, void *a10, void *a11)
 {
   v18 = a1;
   v19 = a2;
@@ -3554,7 +3455,7 @@ LABEL_51:
   return v35;
 }
 
-id sub_100032238(void *a1, void *a2, void *a3, void *a4, void *a5, void *a6, void *a7, void *a8, void *a9, void *a10, void *a11, void *a12, void *a13, void *a14, void *a15)
+void *sub_100032238(void *a1, void *a2, void *a3, void *a4, void *a5, void *a6, void *a7, void *a8, void *a9, void *a10, void *a11, void *a12, void *a13, void *a14, void *a15)
 {
   v88 = a1;
   v92 = a2;
@@ -3909,7 +3810,7 @@ id sub_100032BA0(void *a1, void *a2)
   return v9;
 }
 
-id sub_100032E10(uint64_t a1, void *a2)
+id sub_100032E10(unsigned int a1, void *a2)
 {
   [a2 DERItem];
   v2 = encodeSequenceSpec();
@@ -4389,7 +4290,7 @@ LABEL_8:
   return isKindOfClass & 1;
 }
 
-id sub_100033CD0(void *a1, void *a2, void *a3, void *a4, void *a5, void *a6, void *a7, void *a8, void *a9, void *a10)
+void *sub_100033CD0(void *a1, void *a2, void *a3, void *a4, void *a5, void *a6, void *a7, void *a8, void *a9, void *a10)
 {
   v17 = a1;
   v18 = a2;
@@ -5301,7 +5202,7 @@ int sub_100035828(id a1, $6842A9A1E17D9B0613ECF6F11EE1909C *a2, BOOL *a3)
   return 0;
 }
 
-id sub_100035A18(uint64_t a1, void *a2)
+SESClientInfo *sub_100035A18(uint64_t a1, void *a2)
 {
   v2 = a2;
   objc_opt_self();
@@ -5343,7 +5244,7 @@ id sub_100035A18(uint64_t a1, void *a2)
   return v3;
 }
 
-void *sub_100035DF4(uint64_t a1, void *a2)
+SESDatabaseReadHandle *sub_100035DF4(uint64_t a1, void *a2)
 {
   v2 = a2;
   objc_opt_self();
@@ -5414,9 +5315,9 @@ void sub_100036B68(uint64_t a1)
   _Block_object_dispose(v7, 8);
 }
 
-void sub_100036CEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100036CEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5509,22 +5410,22 @@ void sub_100036EE4(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 }
 
-void sub_100036F74()
+void sub_100036F74(uint64_t a1)
 {
   objc_opt_self();
-  v0 = [_TtC10seserviced13EndpointStore containsWithFilter:&stru_1004C2360];
-  v1 = [_TtC10seserviced13EndpointStore containsWithFilter:&stru_1004C2380];
-  v2 = v1;
-  if ((v0 & 1) != 0 || v1)
+  v1 = [_TtC10seserviced13EndpointStore containsWithFilter:&stru_1004C2360];
+  v2 = [_TtC10seserviced13EndpointStore containsWithFilter:&stru_1004C2380];
+  v3 = v2;
+  if ((v1 & 1) != 0 || v2)
   {
-    v3 = +[_TtC10seserviced3DSK queue];
+    v4 = +[_TtC10seserviced3DSK queue];
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_100037410;
     block[3] = &unk_1004C23A0;
-    v5 = v0;
-    v6 = v2;
-    dispatch_async(v3, block);
+    v6 = v1;
+    v7 = v3;
+    dispatch_async(v4, block);
   }
 }
 
@@ -5613,7 +5514,7 @@ LABEL_4:
     goto LABEL_4;
   }
 
-  sub_100036F74();
+  sub_100036F74(SESEndpointAndKeyXPCServer);
 
   [SESBootUUID setFirstLaunchAfterBootDoneForKey:@"applet.personalization.last.check.uuid"];
 }
@@ -5643,29 +5544,29 @@ void sub_100037648(uint64_t a1)
   }
 }
 
-void sub_100037690()
+void sub_100037690(uint64_t a1)
 {
-  v0 = SESDefaultLogObject();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v1 = SESDefaultLogObject();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v0, OS_LOG_TYPE_INFO, "Kicking off first unlock actions", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v1, OS_LOG_TYPE_INFO, "Kicking off first unlock actions", buf, 2u);
   }
 
   [qword_10050CC48 onFirstUnlock];
   +[_TtC10seserviced16SEKeySyncManager kickOff];
-  sub_10005FCFC();
-  v4 = 0;
-  [_TtC10seserviced15SESAssetManager kickOffAndReturnError:&v4];
-  v1 = v4;
-  if (v1)
+  sub_10005FCFC(SESDebugServer);
+  v5 = 0;
+  [_TtC10seserviced15SESAssetManager kickOffAndReturnError:&v5];
+  v2 = v5;
+  if (v2)
   {
-    v2 = SESDefaultLogObject();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v3 = SESDefaultLogObject();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v6 = v1;
-      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_ERROR, "Failed to start asset manager %@", buf, 0xCu);
+      v7 = v2;
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "Failed to start asset manager %@", buf, 0xCu);
     }
   }
 
@@ -5676,8 +5577,8 @@ void sub_100037690()
   if (SESInternalVariant())
   {
     *buf = 0;
-    v3 = dispatch_get_global_queue(21, 0);
-    notify_register_dispatch("seserviced.debug.request.ttr", buf, v3, &stru_1004C23E0);
+    v4 = dispatch_get_global_queue(21, 0);
+    notify_register_dispatch("seserviced.debug.request.ttr", buf, v4, &stru_1004C23E0);
   }
 
   +[_TtC10seserviced10SESStartup startup];
@@ -5691,8 +5592,8 @@ uint64_t start()
   v1 = SESDefaultLogObject();
   if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v24[0]) = 0;
-    _os_log_impl(&_mh_execute_header, v1, OS_LOG_TYPE_INFO, "Starting ... ", v24, 2u);
+    LOWORD(v25[0]) = 0;
+    _os_log_impl(&_mh_execute_header, v1, OS_LOG_TYPE_INFO, "Starting ... ", v25, 2u);
   }
 
   for (i = 0; i != 4; ++i)
@@ -5734,39 +5635,40 @@ uint64_t start()
   [qword_10050CC40 resume];
   +[_TtC10seserviced10SESStartup scheduleViennaBackgroundTasks];
   +[_TtC10seserviced28SEStorageManagementXPCServer kickOff];
-  if (MKBDeviceUnlockedSinceBoot())
+  v14 = MKBDeviceUnlockedSinceBoot();
+  if (v14)
   {
-    sub_100037690();
+    sub_100037690(v14);
   }
 
   else
   {
-    v14 = objc_opt_new();
-    v15 = qword_10050CC60;
-    qword_10050CC60 = v14;
+    v15 = objc_opt_new();
+    v16 = qword_10050CC60;
+    qword_10050CC60 = v15;
   }
 
   if (SESInternalVariant())
   {
-    v16 = [[NSUserDefaults alloc] initWithSuiteName:@"com.apple.seserviced"];
-    [v16 doubleForKey:@"debug.boost.log.interval.sec"];
+    v17 = [[NSUserDefaults alloc] initWithSuiteName:@"com.apple.seserviced"];
+    [v17 doubleForKey:@"debug.boost.log.interval.sec"];
     if (qword_10050CC48)
     {
-      v18 = v17;
-      if (v17 > 0.0)
+      v19 = v18;
+      if (v18 > 0.0)
       {
-        v19 = [SESTimer alloc];
-        v20 = [qword_10050CC48 messageQueue];
-        v24[0] = _NSConcreteStackBlock;
-        v24[1] = 3221225472;
-        v24[2] = sub_100037C40;
-        v24[3] = &unk_1004C2400;
-        *&v24[4] = v18;
-        v21 = sub_1003AE50C(v19, v20, v24);
-        v22 = qword_10050CC58;
-        qword_10050CC58 = v21;
+        v20 = [SESTimer alloc];
+        v21 = [qword_10050CC48 messageQueue];
+        v25[0] = _NSConcreteStackBlock;
+        v25[1] = 3221225472;
+        v25[2] = sub_100037C40;
+        v25[3] = &unk_1004C2400;
+        *&v25[4] = v19;
+        v22 = sub_1003AE50C(v20, v21, v25);
+        v23 = qword_10050CC58;
+        qword_10050CC58 = v22;
 
-        sub_1003AE618(qword_10050CC58, v18);
+        sub_1003AE618(qword_10050CC58, v19);
       }
     }
   }
@@ -6000,9 +5902,9 @@ void sub_100038658(uint64_t a1)
   qword_10050CC98 = v1;
 }
 
-void sub_100038C70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_100038C70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6246,9 +6148,9 @@ void sub_100039D78(uint64_t a1, void *a2)
   dispatch_async(v5, v7);
 }
 
-void sub_10003A01C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_10003A01C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6347,7 +6249,7 @@ LABEL_14:
     v24 = *(v28 + 32);
     if (v24)
     {
-      [v24 auditToken];
+      objc_msgSend_auditToken(v24);
     }
 
     else
@@ -6672,9 +6574,9 @@ void sub_10003B5DC(uint64_t a1, void *a2)
   [v9 removeObject:v3];
 }
 
-void sub_10003B948(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_10003B948(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6699,14 +6601,13 @@ void sub_10003B968(uint64_t a1)
     }
 
     v3 = *(a1 + 56);
-    v9 = SESDefaultLogObject();
-    v8 = *(a1 + 40);
+    v8 = SESDefaultLogObject();
   }
 
   else
   {
     v3 = *(a1 + 56);
-    v9 = SESDefaultLogObject();
+    v8 = SESDefaultLogObject();
     [*(a1 + 32) doubleValue];
   }
 
@@ -6714,9 +6615,9 @@ void sub_10003B968(uint64_t a1)
   (*(v3 + 16))(v3, 0, v7);
 }
 
-void sub_10003BD10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10003BD10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6738,8 +6639,7 @@ void sub_10003BD30(uint64_t a1)
   else
   {
     v5 = *(a1 + 48);
-    v8 = SESDefaultLogObject();
-    v7 = *(a1 + 32);
+    v7 = SESDefaultLogObject();
     v6 = SESCreateAndLogError();
     (*(v5 + 16))(v5, 0, v6);
   }
@@ -7022,7 +6922,7 @@ LABEL_6:
   return v6;
 }
 
-id sub_10003CD80(uint64_t a1, void *a2, void *a3)
+NSMutableSet *sub_10003CD80(uint64_t a1, void *a2, void *a3)
 {
   v4 = a2;
   v5 = objc_opt_self();
@@ -7177,9 +7077,9 @@ id sub_10003D080(uint64_t a1, void *a2, void *a3, void *a4)
   return v9;
 }
 
-void sub_10003D21C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10003D21C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7212,7 +7112,6 @@ void sub_10003D24C(uint64_t a1, void *a2)
   if (v7)
   {
     v13 = SESDefaultLogObject();
-    v14 = *(a1 + 32);
     v8 = SESCreateAndLogError();
     v9 = *(*(a1 + 48) + 8);
     v10 = *(v9 + 40);
@@ -7323,9 +7222,9 @@ void sub_10003EC9C(uint64_t a1)
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
     *buf = 138412546;
-    v17 = v3;
-    v18 = 2112;
-    v19 = v4;
+    v16 = v3;
+    v17 = 2112;
+    v18 = v4;
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "SESRKESession %@ isPassiveEntryAvailable readerIdentifier %@", buf, 0x16u);
   }
 
@@ -7348,7 +7247,6 @@ void sub_10003EC9C(uint64_t a1)
     {
       v12 = *(a1 + 48);
       v13 = SESDefaultLogObject();
-      v15 = *(a1 + 40);
       v14 = SESCreateAndLogError();
       (*(v12 + 16))(v12, 0, v14);
     }
@@ -7376,19 +7274,19 @@ void sub_10003EFE0(uint64_t a1)
     v8 = *(a1 + 80);
     v9 = *(a1 + 81);
     *buf = 138413826;
-    v41 = v5;
+    v39 = v5;
+    v40 = 1024;
+    v41 = v3;
     v42 = 1024;
-    v43 = v3;
-    v44 = 1024;
-    v45 = v4;
-    v46 = 2112;
-    v47 = v6;
+    v43 = v4;
+    v44 = 2112;
+    v45 = v6;
+    v46 = 1024;
+    v47 = v7;
     v48 = 1024;
-    v49 = v7;
+    v49 = v8;
     v50 = 1024;
-    v51 = v8;
-    v52 = 1024;
-    v53 = v9;
+    v51 = v9;
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "SESRKESession %@ sendRKEFunction 0x%X action 0x%X readerIdentifier %@ authorization %d isEnduring %d isHandlingExternal %d", buf, 0x34u);
   }
 
@@ -7409,7 +7307,6 @@ void sub_10003EFE0(uint64_t a1)
   {
     v24 = *(a1 + 56);
     v14 = SESDefaultLogObject();
-    v33 = *(a1 + 40);
     v17 = SESCreateAndLogError();
     (*(v24 + 16))(v24, 0, v17);
     goto LABEL_24;
@@ -7426,7 +7323,6 @@ void sub_10003EFE0(uint64_t a1)
   {
     v31 = *(a1 + 56);
     v17 = SESDefaultLogObject();
-    v34 = *(a1 + 40);
     v32 = SESCreateAndLogError();
     (*(v31 + 16))(v31, 0, v32);
 
@@ -7463,13 +7359,13 @@ LABEL_11:
   objc_initWeak(buf, *(a1 + 32));
   if (*(a1 + 80) == 1 && *(a1 + 81) == 1)
   {
-    v35 = _NSConcreteStackBlock;
-    v36 = 3221225472;
-    v37 = sub_10003F4B8;
-    v38 = &unk_1004C27A8;
-    v16 = &v39;
-    objc_copyWeak(&v39, buf);
-    v21 = &v35;
+    v33 = _NSConcreteStackBlock;
+    v34 = 3221225472;
+    v35 = sub_10003F4B8;
+    v36 = &unk_1004C27A8;
+    v16 = &v37;
+    objc_copyWeak(&v37, buf);
+    v21 = &v33;
     v22 = 1;
   }
 
@@ -7494,7 +7390,7 @@ LABEL_11:
     v30 = 1;
   }
 
-  [v26 sendRKERequestWithFunctionIdentifier:v27 actionIdentifier:v28 keyIdentifier:v29 requestType:v30 actionType:0 arbitraryData:0 enduringRequestHandler:v25 authorization:*(a1 + 48) completion:{*(a1 + 56), v35, v36, v37, v38}];
+  [v26 sendRKERequestWithFunctionIdentifier:v27 actionIdentifier:v28 keyIdentifier:v29 requestType:v30 actionType:0 arbitraryData:0 enduringRequestHandler:v25 authorization:*(a1 + 48) completion:{*(a1 + 56), v33, v34, v35, v36}];
 
   if (v22)
   {
@@ -7548,11 +7444,11 @@ void sub_10003F6F0(uint64_t a1)
     v4 = *(a1 + 32);
     v5 = *(a1 + 40);
     *buf = 138412802;
-    v25 = v4;
-    v26 = 1024;
-    v27 = v3;
-    v28 = 2112;
-    v29 = v5;
+    v23 = v4;
+    v24 = 1024;
+    v25 = v3;
+    v26 = 2112;
+    v27 = v5;
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "SESRKESession %@ cancelRKEFunction 0x%X for readerIdentifier %@", buf, 0x1Cu);
   }
 
@@ -7576,7 +7472,6 @@ LABEL_9:
   {
     v19 = *(a1 + 48);
     v10 = SESDefaultLogObject();
-    v22 = *(a1 + 40);
     v15 = SESCreateAndLogError();
     v17 = *(v19 + 16);
     v18 = v19;
@@ -7603,7 +7498,6 @@ LABEL_9:
   {
     v20 = *(a1 + 48);
     v15 = SESDefaultLogObject();
-    v23 = *(a1 + 40);
     v21 = SESCreateAndLogError();
     (*(v20 + 16))(v20, 0, v21);
   }
@@ -7622,15 +7516,15 @@ void sub_10003FAE0(uint64_t a1)
     v6 = *(a1 + 40) != 0;
     v7 = *(a1 + 48);
     *buf = 138413314;
-    v29 = v5;
+    v27 = v5;
+    v28 = 1024;
+    v29 = v3;
     v30 = 1024;
-    v31 = v3;
+    v31 = v4;
     v32 = 1024;
-    v33 = v4;
-    v34 = 1024;
-    v35 = v6;
-    v36 = 2112;
-    v37 = v7;
+    v33 = v6;
+    v34 = 2112;
+    v35 = v7;
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "SESRKESession %@ continueExecutingFunction 0x%X action 0x%X arbitraryData %d readerIdentifier %@", buf, 0x28u);
   }
 
@@ -7654,7 +7548,6 @@ LABEL_10:
   {
     v10 = *(a1 + 56);
     v11 = SESDefaultLogObject();
-    v26 = *(a1 + 48);
     goto LABEL_9;
   }
 
@@ -7692,7 +7585,6 @@ LABEL_9:
   {
     v24 = *(a1 + 56);
     v13 = SESDefaultLogObject();
-    v27 = *(a1 + 48);
     v25 = SESCreateAndLogError();
     (*(v24 + 16))(v24, 0, v25);
   }
@@ -7708,9 +7600,9 @@ void sub_10003FF48(uint64_t a1)
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
     *buf = 138412546;
-    v30 = v3;
-    v31 = 2112;
-    v32 = v4;
+    v28 = v3;
+    v29 = 2112;
+    v30 = v4;
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "SESRKESession %@ sendPassthroughMessage readerIdentifier %@", buf, 0x16u);
   }
 
@@ -7724,7 +7616,6 @@ void sub_10003FF48(uint64_t a1)
     {
       v20 = *(a1 + 56);
       v9 = SESDefaultLogObject();
-      v27 = *(a1 + 40);
       v12 = SESCreateAndLogError();
       (*(v20 + 16))(v20, 0, v12);
       goto LABEL_24;
@@ -7740,7 +7631,6 @@ void sub_10003FF48(uint64_t a1)
     {
       v21 = *(a1 + 56);
       v12 = SESDefaultLogObject();
-      v28 = *(a1 + 40);
       v22 = SESCreateAndLogError();
       (*(v21 + 16))(v21, 0, v22);
 LABEL_23:
@@ -8217,9 +8107,9 @@ void sub_100042618(uint64_t a1)
   }
 }
 
-void sub_100042B84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100042B84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8534,9 +8424,9 @@ id sub_1000434A0(uint64_t a1, void *a2, void *a3, void *a4)
   return v11;
 }
 
-void sub_1000435F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000435F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }

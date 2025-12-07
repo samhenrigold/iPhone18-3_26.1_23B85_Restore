@@ -7,6 +7,7 @@
 - (void)dealloc;
 - (void)endEncoding;
 - (void)endEncoding_private;
+- (void)filterCounterRangeWithFirstBatch:(unsigned int)batch lastBatch:(unsigned int)lastBatch filterIndex:(unsigned int)index;
 - (void)setColorStoreAction:(unint64_t)action atIndex:(unint64_t)index;
 - (void)setColorStoreActionOptions:(unint64_t)options atIndex:(unint64_t)index;
 - (void)setDepthStoreAction:(unint64_t)action;
@@ -103,8 +104,7 @@
   }
 
   v7 = [(MTLRenderPassColorAttachmentDescriptorArray *)[(MTLRenderPassDescriptor *)self->_descriptor colorAttachments] _descriptorAtIndex:index];
-  _MTLDebugValidateDeferredStoreActionOnDevice([(MTLToolsObject *)self device], action, v7, index, *(&self->_unknownStoreActions + 1));
-  [v7 setStoreAction:action];
+  [v7 setStoreAction:{action, _MTLDebugValidateDeferredStoreActionOnDevice(-[MTLToolsObject device](self, "device"), action, v7, index, *(&self->_unknownStoreActions + 1))}];
   baseObject = [(MTLToolsObject *)self baseObject];
 
   [baseObject setColorStoreAction:action atIndex:index];
@@ -113,8 +113,7 @@
 - (void)setDepthStoreAction:(unint64_t)action
 {
   v5 = [(MTLRenderPassColorAttachmentDescriptorArray *)[(MTLRenderPassDescriptor *)self->_descriptor colorAttachments] _descriptorAtIndex:8];
-  _MTLDebugValidateDeferredStoreActionOnDevice([(MTLToolsObject *)self device], action, v5, 8uLL, *(&self->_unknownStoreActions + 1));
-  [v5 setStoreAction:action];
+  [v5 setStoreAction:{action, _MTLDebugValidateDeferredStoreActionOnDevice(-[MTLToolsObject device](self, "device"), action, v5, 8uLL, *(&self->_unknownStoreActions + 1))}];
   baseObject = [(MTLToolsObject *)self baseObject];
 
   [baseObject setDepthStoreAction:action];
@@ -123,8 +122,7 @@
 - (void)setStencilStoreAction:(unint64_t)action
 {
   v5 = [(MTLRenderPassColorAttachmentDescriptorArray *)[(MTLRenderPassDescriptor *)self->_descriptor colorAttachments] _descriptorAtIndex:9];
-  _MTLDebugValidateDeferredStoreActionOnDevice([(MTLToolsObject *)self device], action, v5, 9uLL, *(&self->_unknownStoreActions + 1));
-  [v5 setStoreAction:action];
+  [v5 setStoreAction:{action, _MTLDebugValidateDeferredStoreActionOnDevice(-[MTLToolsObject device](self, "device"), action, v5, 9uLL, *(&self->_unknownStoreActions + 1))}];
   baseObject = [(MTLToolsObject *)self baseObject];
 
   [baseObject setStencilStoreAction:action];
@@ -138,8 +136,7 @@
   }
 
   v7 = [(MTLRenderPassColorAttachmentDescriptorArray *)[(MTLRenderPassDescriptor *)self->_descriptor colorAttachments] _descriptorAtIndex:index];
-  _MTLDebugValidateDeferredStoreActionOptionsOnDevice([(MTLToolsObject *)self device], options, v7, index, *(&self->_unknownStoreActions + 1));
-  [v7 setStoreActionOptions:options];
+  [v7 setStoreActionOptions:{options, _MTLDebugValidateDeferredStoreActionOptionsOnDevice(-[MTLToolsObject device](self, "device"), options, v7, index, *(&self->_unknownStoreActions + 1))}];
   baseObject = [(MTLToolsObject *)self baseObject];
 
   [baseObject setColorStoreActionOptions:options atIndex:index];
@@ -148,8 +145,7 @@
 - (void)setDepthStoreActionOptions:(unint64_t)options
 {
   v5 = [(MTLRenderPassColorAttachmentDescriptorArray *)[(MTLRenderPassDescriptor *)self->_descriptor colorAttachments] _descriptorAtIndex:8];
-  _MTLDebugValidateDeferredStoreActionOptionsOnDevice([(MTLToolsObject *)self device], options, v5, 8, *(&self->_unknownStoreActions + 1));
-  [v5 setStoreActionOptions:options];
+  [v5 setStoreActionOptions:{options, _MTLDebugValidateDeferredStoreActionOptionsOnDevice(-[MTLToolsObject device](self, "device"), options, v5, 8, *(&self->_unknownStoreActions + 1))}];
   baseObject = [(MTLToolsObject *)self baseObject];
 
   [baseObject setDepthStoreActionOptions:options];
@@ -158,8 +154,7 @@
 - (void)setStencilStoreActionOptions:(unint64_t)options
 {
   v5 = [(MTLRenderPassColorAttachmentDescriptorArray *)[(MTLRenderPassDescriptor *)self->_descriptor colorAttachments] _descriptorAtIndex:9];
-  _MTLDebugValidateDeferredStoreActionOptionsOnDevice([(MTLToolsObject *)self device], options, v5, 9, *(&self->_unknownStoreActions + 1));
-  [v5 setStoreActionOptions:options];
+  [v5 setStoreActionOptions:{options, _MTLDebugValidateDeferredStoreActionOptionsOnDevice(-[MTLToolsObject device](self, "device"), options, v5, 9, *(&self->_unknownStoreActions + 1))}];
   baseObject = [(MTLToolsObject *)self baseObject];
 
   [baseObject setStencilStoreActionOptions:options];
@@ -167,7 +162,7 @@
 
 - (void)endEncoding_private
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   descriptor = self->_descriptor;
   if (descriptor)
   {
@@ -246,17 +241,15 @@
     {
       v16 = objc_autoreleasePoolPush();
       renderCommandEncoder = [(MTLDebugParallelRenderCommandEncoder *)self renderCommandEncoder];
-      v22[0] = xmmword_22E27C300;
-      v22[1] = unk_22E27C310;
+      v21[0] = xmmword_22E27C300;
+      v21[1] = unk_22E27C310;
       device = self->super.super.super._device;
       v19 = atomic_load(&self->_attachmentWriteMask.__a_.__a_value);
-      [(MTLToolsDevice *)device clearRenderEncoder:renderCommandEncoder writeMask:v19 withCheckerboard:v22];
+      [(MTLToolsDevice *)device clearRenderEncoder:renderCommandEncoder writeMask:v19 withCheckerboard:v21];
       [renderCommandEncoder endEncoding];
       objc_autoreleasePoolPop(v16);
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)endEncoding
@@ -293,6 +286,17 @@
   }
 
   return [v5 stringWithFormat:@"%@%@", v6, v8];
+}
+
+- (void)filterCounterRangeWithFirstBatch:(unsigned int)batch lastBatch:(unsigned int)lastBatch filterIndex:(unsigned int)index
+{
+  v5 = *&index;
+  v6 = *&lastBatch;
+  v7 = *&batch;
+  MTLReportFailure();
+  baseObject = [(MTLToolsObject *)self baseObject];
+
+  [baseObject filterCounterRangeWithFirstBatch:v7 lastBatch:v6 filterIndex:v5];
 }
 
 @end

@@ -14,7 +14,7 @@
 {
   stringCopy = string;
   selfCopy = self;
-  v6 = sub_27058A394();
+  v6 = sub_27058A394(stringCopy, sub_27058AAB4);
 
   return v6;
 }
@@ -23,7 +23,7 @@
 {
   doubleCopy = double;
   selfCopy = self;
-  v6 = sub_27058A394();
+  v6 = sub_27058A394(doubleCopy, sub_27058AA80);
 
   return v6;
 }
@@ -32,7 +32,7 @@
 {
   integerCopy = integer;
   selfCopy = self;
-  v6 = sub_27058A394();
+  v6 = sub_27058A394(integerCopy, sub_27058AA4C);
 
   return v6;
 }
@@ -41,7 +41,7 @@
 {
   leanCopy = lean;
   selfCopy = self;
-  v6 = sub_27058A394();
+  v6 = sub_27058A394(leanCopy, sub_27058AA18);
 
   return v6;
 }
@@ -50,7 +50,7 @@
 {
   arrayCopy = array;
   selfCopy = self;
-  v6 = sub_27058A394();
+  v6 = sub_27058A394(arrayCopy, sub_27058A9E4);
 
   return v6;
 }
@@ -59,7 +59,7 @@
 {
   dictionaryCopy = dictionary;
   selfCopy = self;
-  v6 = sub_27058A394();
+  v6 = sub_27058A394(dictionaryCopy, sub_27058A9B0);
 
   return v6;
 }
@@ -68,7 +68,7 @@
 {
   urlCopy = url;
   selfCopy = self;
-  v6 = sub_27058A394();
+  v6 = sub_27058A394(urlCopy, sub_27058A918);
 
   return v6;
 }

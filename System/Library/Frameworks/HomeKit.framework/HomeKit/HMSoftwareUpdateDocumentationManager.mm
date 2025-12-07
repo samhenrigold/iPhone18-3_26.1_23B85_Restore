@@ -14,7 +14,7 @@
 
 - (void)didUpdateDocumentationAssetState:(id)state
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   stateCopy = state;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -23,7 +23,7 @@
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v26 = v8;
+    v25 = v8;
     _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@In didUpdateDocumentationAssetState", buf, 0xCu);
   }
 
@@ -52,42 +52,40 @@
     {
       context = [(HMSoftwareUpdateDocumentationManager *)selfCopy context];
       delegateCaller = [context delegateCaller];
-      v22[0] = MEMORY[0x1E69E9820];
-      v22[1] = 3221225472;
-      v22[2] = __73__HMSoftwareUpdateDocumentationManager_didUpdateDocumentationAssetState___block_invoke;
-      v22[3] = &unk_1E754E5C0;
-      v23 = completions;
-      v24 = stateCopy;
-      [delegateCaller invokeBlock:v22];
+      v21[0] = MEMORY[0x1E69E9820];
+      v21[1] = 3221225472;
+      v21[2] = __73__HMSoftwareUpdateDocumentationManager_didUpdateDocumentationAssetState___block_invoke;
+      v21[3] = &unk_1E754E5C0;
+      v22 = completions;
+      v23 = stateCopy;
+      [delegateCaller invokeBlock:v21];
     }
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __73__HMSoftwareUpdateDocumentationManager_didUpdateDocumentationAssetState___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v13;
+    v5 = *v12;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v13 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v12 + 1) + 8 * i);
+        v7 = *(*(&v11 + 1) + 8 * i);
         v8 = [*(a1 + 40) documentation];
         if (v8)
         {
@@ -110,18 +108,16 @@ void __73__HMSoftwareUpdateDocumentationManager_didUpdateDocumentationAssetState
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v4);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)assetForDocumentationMetadata:(id)metadata
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   metadataCopy = metadata;
   os_unfair_lock_lock_with_options();
   assetCompletionPairByDigestUUID = [(HMSoftwareUpdateDocumentationManager *)self assetCompletionPairByDigestUUID];
@@ -129,25 +125,25 @@ void __73__HMSoftwareUpdateDocumentationManager_didUpdateDocumentationAssetState
   v7 = [allValues na_map:&__block_literal_global_52209];
 
   os_unfair_lock_unlock(&self->_lock);
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v8 = v7;
-  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v9)
   {
-    v10 = *v18;
+    v10 = *v17;
     while (2)
     {
       for (i = 0; i != v9; i = i + 1)
       {
-        if (*v18 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        v12 = *(*(&v17 + 1) + 8 * i);
+        v12 = *(*(&v16 + 1) + 8 * i);
         metadata = [v12 metadata];
         v14 = [metadata isEqual:metadataCopy];
 
@@ -158,7 +154,7 @@ void __73__HMSoftwareUpdateDocumentationManager_didUpdateDocumentationAssetState
         }
       }
 
-      v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v9)
       {
         continue;
@@ -169,8 +165,6 @@ void __73__HMSoftwareUpdateDocumentationManager_didUpdateDocumentationAssetState
   }
 
 LABEL_11:
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -189,7 +183,7 @@ LABEL_11:
 
 - (void)addAssetAndCompletion:(id)completion completion:(id)a4
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   v7 = a4;
   documentationIsCached = [completionCopy documentationIsCached];
@@ -238,31 +232,29 @@ LABEL_6:
     {
       v23 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v32 = v23;
-      v33 = 2112;
-      v34 = documentation;
+      v31 = v23;
+      v32 = 2112;
+      v33 = documentation;
       _os_log_impl(&dword_19BB39000, v22, OS_LOG_TYPE_INFO, "%{public}@Calling completion with cached documentation: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v20);
     context = [(HMSoftwareUpdateDocumentationManager *)selfCopy context];
     delegateCaller = [context delegateCaller];
-    v28[0] = MEMORY[0x1E69E9820];
-    v28[1] = 3221225472;
-    v28[2] = __73__HMSoftwareUpdateDocumentationManager_addAssetAndCompletion_completion___block_invoke;
-    v28[3] = &unk_1E754E458;
-    v29 = documentation;
-    v30 = v7;
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = __73__HMSoftwareUpdateDocumentationManager_addAssetAndCompletion_completion___block_invoke;
+    v27[3] = &unk_1E754E458;
+    v28 = documentation;
+    v29 = v7;
     v26 = documentation;
-    [delegateCaller invokeBlock:v28];
+    [delegateCaller invokeBlock:v27];
   }
 
   else
   {
     [completionCopy startCaching];
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeDocumentationMetadata:(id)metadata
@@ -290,7 +282,7 @@ LABEL_6:
 
 void __76__HMSoftwareUpdateDocumentationManager_documentationForMetadata_completion___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) assetForDocumentationMetadata:*(a1 + 40)];
   if (!v2)
   {
@@ -304,11 +296,11 @@ void __76__HMSoftwareUpdateDocumentationManager_documentationForMetadata_complet
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         v6 = HMFGetLogIdentifier();
-        v8 = 138543618;
-        v9 = v6;
-        v10 = 2112;
-        v11 = v2;
-        _os_log_impl(&dword_19BB39000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@Created new documentation asset: %@", &v8, 0x16u);
+        v7 = 138543618;
+        v8 = v6;
+        v9 = 2112;
+        v10 = v2;
+        _os_log_impl(&dword_19BB39000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@Created new documentation asset: %@", &v7, 0x16u);
       }
 
       objc_autoreleasePoolPop(v3);
@@ -318,13 +310,11 @@ void __76__HMSoftwareUpdateDocumentationManager_documentationForMetadata_complet
   }
 
   [*(a1 + 32) addAssetAndCompletion:v2 completion:*(a1 + 48)];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (id)assetForMetadataFromDisk:(id)disk
 {
-  v59 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   diskCopy = disk;
   v4 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -333,43 +323,43 @@ void __76__HMSoftwareUpdateDocumentationManager_documentationForMetadata_complet
   {
     v7 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v53 = v7;
+    v52 = v7;
     _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Parsing cached assets", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   v9 = +[HMSoftwareUpdateDocumentationAsset assetDirectoryURL];
-  v51 = 0;
-  v10 = [defaultManager contentsOfDirectoryAtURL:v9 includingPropertiesForKeys:0 options:0 error:&v51];
-  v11 = v51;
+  v50 = 0;
+  v10 = [defaultManager contentsOfDirectoryAtURL:v9 includingPropertiesForKeys:0 options:0 error:&v50];
+  v11 = v50;
 
-  v41 = v11;
+  v40 = v11;
   if (v10)
   {
     metadataDigestUUID = [diskCopy metadataDigestUUID];
+    v46 = 0u;
     v47 = 0u;
     v48 = 0u;
     v49 = 0u;
-    v50 = 0u;
     obj = v10;
-    v13 = [obj countByEnumeratingWithState:&v47 objects:v58 count:16];
+    v13 = [obj countByEnumeratingWithState:&v46 objects:v57 count:16];
     if (v13)
     {
       v14 = v13;
-      v40 = v10;
-      v15 = *v48;
-      v42 = selfCopy;
+      v39 = v10;
+      v15 = *v47;
+      v41 = selfCopy;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v48 != v15)
+          if (*v47 != v15)
           {
             objc_enumerationMutation(obj);
           }
 
-          v17 = *(*(&v47 + 1) + 8 * i);
+          v17 = *(*(&v46 + 1) + 8 * i);
           lastPathComponent = [v17 lastPathComponent];
           uUIDString = [metadataDigestUUID UUIDString];
           v20 = [lastPathComponent isEqual:uUIDString];
@@ -399,20 +389,20 @@ void __76__HMSoftwareUpdateDocumentationManager_documentationForMetadata_complet
                 v31 = [diskCopy URL];
                 metadata2 = [v22 metadata];
                 [metadata2 URL];
-                v44 = v27;
+                v43 = v27;
                 v33 = v32 = metadataDigestUUID;
                 *buf = 138543874;
-                v53 = v30;
-                v54 = 2112;
-                v55 = v31;
-                v56 = 2112;
-                v57 = v33;
+                v52 = v30;
+                v53 = 2112;
+                v54 = v31;
+                v55 = 2112;
+                v56 = v33;
                 _os_log_impl(&dword_19BB39000, v29, OS_LOG_TYPE_DEFAULT, "%{public}@Remote URL in the metadata %@ and in the asset %@ did not match", buf, 0x20u);
 
                 metadataDigestUUID = v32;
-                v27 = v44;
+                v27 = v43;
 
-                selfCopy = v42;
+                selfCopy = v41;
               }
 
               objc_autoreleasePoolPop(v27);
@@ -420,13 +410,13 @@ void __76__HMSoftwareUpdateDocumentationManager_documentationForMetadata_complet
           }
         }
 
-        v14 = [obj countByEnumeratingWithState:&v47 objects:v58 count:16];
+        v14 = [obj countByEnumeratingWithState:&v46 objects:v57 count:16];
       }
 
       while (v14);
       v22 = 0;
 LABEL_19:
-      v10 = v40;
+      v10 = v39;
     }
 
     else
@@ -444,9 +434,9 @@ LABEL_19:
     {
       v37 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v53 = v37;
-      v54 = 2112;
-      v55 = v11;
+      v52 = v37;
+      v53 = 2112;
+      v54 = v11;
       _os_log_impl(&dword_19BB39000, v36, OS_LOG_TYPE_DEFAULT, "%{public}@Failed to get cached assets with error: %@", buf, 0x16u);
 
       v10 = 0;
@@ -455,8 +445,6 @@ LABEL_19:
     objc_autoreleasePoolPop(v34);
     v22 = 0;
   }
-
-  v38 = *MEMORY[0x1E69E9840];
 
   return v22;
 }
@@ -500,12 +488,11 @@ LABEL_19:
 
 uint64_t __51__HMSoftwareUpdateDocumentationManager_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x1E69A2980];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v9_52228;
-  logCategory__hmf_once_v9_52228 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v9_52228;
+  logCategory__hmf_once_v9_52228 = v0;
 
-  return MEMORY[0x1EEE66BB8](v1, v2);
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

@@ -12,9 +12,9 @@
 - (ABPKMultiPerson2DTracking)init
 {
   [(ABPKMultiPerson2DTracking *)self _startInitABPKSignpost];
-  v19.receiver = self;
-  v19.super_class = ABPKMultiPerson2DTracking;
-  v3 = [(ABPKMultiPerson2DTracking *)&v19 init];
+  v22.receiver = self;
+  v22.super_class = ABPKMultiPerson2DTracking;
+  v3 = [(ABPKMultiPerson2DTracking *)&v22 init];
   if (!v3)
   {
     goto LABEL_6;
@@ -26,327 +26,359 @@
 
   if (!v3->_abpkPersonIDTracker)
   {
-    v15 = __ABPKLogSharedInstance();
-    if (!os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v18 = __ABPKLogSharedInstance(v6);
+    if (!os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_14;
     }
 
-    *v18 = 0;
-    v16 = " Failed to initialize ABPK Person ID Tracker ";
+    *v21 = 0;
+    v19 = " Failed to initialize ABPK Person ID Tracker ";
 LABEL_13:
-    _os_log_impl(&dword_23EDDC000, v15, OS_LOG_TYPE_ERROR, v16, v18, 2u);
+    _os_log_impl(&dword_23EDDC000, v18, OS_LOG_TYPE_ERROR, v19, v21, 2u);
     goto LABEL_14;
   }
 
-  v6 = [[ABPK2DDetectionConfiguration alloc] initWithAlgorithmMode:10];
+  v7 = [[ABPK2DDetectionConfiguration alloc] initWithAlgorithmMode:10];
   config2D = v3->_config2D;
-  v3->_config2D = v6;
+  v3->_config2D = v7;
 
   if (!v3->_config2D)
   {
-    v15 = __ABPKLogSharedInstance();
-    if (!os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v18 = __ABPKLogSharedInstance(v9);
+    if (!os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_14;
     }
 
-    *v18 = 0;
-    v16 = " Failed to initialize config for 2D Detection module ";
+    *v21 = 0;
+    v19 = " Failed to initialize config for 2D Detection module ";
     goto LABEL_13;
   }
 
-  v8 = [[ABPK2DPoseEstimation alloc] initWith2DDetectionConfig:v3->_config2D use3DSkeletonForExtrapolation:0 shouldPush3DSupportSkeleton:0];
+  v10 = [[ABPK2DPoseEstimation alloc] initWith2DDetectionConfig:v3->_config2D use3DSkeletonForExtrapolation:0 shouldPush3DSupportSkeleton:0];
   poseEstimation2D = v3->_poseEstimation2D;
-  v3->_poseEstimation2D = v8;
+  v3->_poseEstimation2D = v10;
 
   if (!v3->_poseEstimation2D)
   {
-    v15 = __ABPKLogSharedInstance();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v18 = __ABPKLogSharedInstance(v12);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      *v18 = 0;
-      v16 = " Failed to initialize 2D Pose Estimation Algorithm. ";
+      *v21 = 0;
+      v19 = " Failed to initialize 2D Pose Estimation Algorithm. ";
       goto LABEL_13;
     }
 
 LABEL_14:
 
-    v14 = 0;
+    v17 = 0;
     goto LABEL_15;
   }
 
-  v10 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v13 = objc_alloc_init(MEMORY[0x277CBEB18]);
   previousMultiPerson2DResult = v3->_previousMultiPerson2DResult;
-  v3->_previousMultiPerson2DResult = v10;
+  v3->_previousMultiPerson2DResult = v13;
 
-  v12 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v15 = objc_alloc_init(MEMORY[0x277CBEB18]);
   trackedBodies = v3->_trackedBodies;
-  v3->_trackedBodies = v12;
+  v3->_trackedBodies = v15;
 
   v3->_lastTrackingId = -1;
 LABEL_6:
   [(ABPKMultiPerson2DTracking *)v3 _endInitABPKSignpost];
-  v14 = v3;
+  v17 = v3;
 LABEL_15:
 
-  return v14;
+  return v17;
 }
 
 - (int)runWithInput:(__CVBuffer *)input abpkDeviceOrientation:(int64_t)orientation atTimeStamp:(double)stamp andOutput:(id)output
 {
-  v147 = *MEMORY[0x277D85DE8];
+  v163 = *MEMORY[0x277D85DE8];
   outputCopy = output;
   [(ABPKMultiPerson2DTracking *)self _startMultiPerson2DTrackingRunWithInputSignpostWithTimestamp:stamp];
   [(NSMutableArray *)self->_trackedBodies removeAllObjects];
   [(ABPKPersonIDTracker *)self->_abpkPersonIDTracker runWithInput:input atTimeStamp:self->_trackedBodies andOutput:stamp];
+  v10 = [(NSMutableArray *)self->_trackedBodies count];
   selfCopy = self;
-  if ([(NSMutableArray *)self->_trackedBodies count])
+  if (v10)
   {
-    v10 = __ABPKLogSharedInstance();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v11 = __ABPKLogSharedInstance(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_impl(&dword_23EDDC000, v10, OS_LOG_TYPE_DEBUG, " Found full bodies in the image ", buf, 2u);
+      _os_log_impl(&dword_23EDDC000, v11, OS_LOG_TYPE_DEBUG, " Found full bodies in the image ", buf, 2u);
     }
 
-    for (i = 0; [(NSMutableArray *)selfCopy->_trackedBodies count]> i; ++i)
+    for (i = 0; ; ++i)
     {
-      v12 = __ABPKLogSharedInstance();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      v13 = [(NSMutableArray *)selfCopy->_trackedBodies count];
+      if (v13 <= i)
       {
-        v13 = [(NSMutableArray *)selfCopy->_trackedBodies objectAtIndexedSubscript:i];
-        objectID = [v13 objectID];
-        *buf = 134217984;
-        *&buf[4] = objectID;
-        _os_log_impl(&dword_23EDDC000, v12, OS_LOG_TYPE_DEBUG, " Person Tracking Id: %lu ", buf, 0xCu);
+        break;
       }
 
-      v15 = [(NSMutableArray *)selfCopy->_trackedBodies objectAtIndexedSubscript:i];
-      [v15 boundingBox];
-      v17 = v16;
+      v14 = __ABPKLogSharedInstance(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+      {
+        v15 = [(NSMutableArray *)selfCopy->_trackedBodies objectAtIndexedSubscript:i];
+        objectID = [v15 objectID];
+        *buf = 134217984;
+        *&buf[4] = objectID;
+        _os_log_impl(&dword_23EDDC000, v14, OS_LOG_TYPE_DEBUG, " Person Tracking Id: %lu ", buf, 0xCu);
+      }
+
+      v17 = [(NSMutableArray *)selfCopy->_trackedBodies objectAtIndexedSubscript:i];
+      [v17 boundingBox];
       v19 = v18;
       v21 = v20;
       v23 = v22;
+      v25 = v24;
 
-      v24 = __ABPKLogSharedInstance();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+      v27 = __ABPKLogSharedInstance(v26);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
       {
         *buf = 134218752;
-        *&buf[4] = v19;
+        *&buf[4] = v21;
         *&buf[12] = 2048;
-        *&buf[14] = v17;
-        v143 = 2048;
-        v144 = v23;
-        v145 = 2048;
-        v146 = v21;
-        _os_log_impl(&dword_23EDDC000, v24, OS_LOG_TYPE_DEBUG, " Bounding Box: (%f,%f,%f,%f ", buf, 0x2Au);
+        *&buf[14] = v19;
+        v159 = 2048;
+        v160 = v25;
+        v161 = 2048;
+        v162 = v23;
+        _os_log_impl(&dword_23EDDC000, v27, OS_LOG_TYPE_DEBUG, " Bounding Box: (%f,%f,%f,%f ", buf, 0x2Au);
       }
     }
   }
 
-  v129 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v126 = [(ABPKMultiPerson2DTracking *)selfCopy runPoseEstimationWithInput:input abpkDeviceOrientation:orientation atTimeStamp:stamp andOutput:?];
-  v25 = __ABPKLogSharedInstance();
-  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+  v145 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v28 = [(ABPKMultiPerson2DTracking *)selfCopy runPoseEstimationWithInput:input abpkDeviceOrientation:orientation atTimeStamp:stamp andOutput:?];
+  v142 = v28;
+  v29 = __ABPKLogSharedInstance(v28);
+  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
   {
-    v26 = [v129 count];
+    v30 = [v145 count];
     *buf = 134217984;
-    *&buf[4] = v26;
-    _os_log_impl(&dword_23EDDC000, v25, OS_LOG_TYPE_DEBUG, " Humans detected: %lu ", buf, 0xCu);
+    *&buf[4] = v30;
+    _os_log_impl(&dword_23EDDC000, v29, OS_LOG_TYPE_DEBUG, " Humans detected: %lu ", buf, 0xCu);
   }
 
-  v27 = __ABPKLogSharedInstance();
-  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+  v32 = __ABPKLogSharedInstance(v31);
+  if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
   {
     *buf = 0;
-    _os_log_impl(&dword_23EDDC000, v27, OS_LOG_TYPE_DEBUG, " ANST Bounding boxes ", buf, 2u);
+    _os_log_impl(&dword_23EDDC000, v32, OS_LOG_TYPE_DEBUG, " ANST Bounding boxes ", buf, 2u);
   }
 
-  for (j = 0; [(NSMutableArray *)selfCopy->_trackedBodies count]> j; ++j)
+  for (j = 0; ; ++j)
   {
-    v29 = __ABPKLogSharedInstance();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+    v34 = [(NSMutableArray *)selfCopy->_trackedBodies count];
+    if (v34 <= j)
+    {
+      break;
+    }
+
+    v35 = __ABPKLogSharedInstance(v34);
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
     {
       *buf = 67109120;
       *&buf[4] = j;
-      _os_log_impl(&dword_23EDDC000, v29, OS_LOG_TYPE_DEBUG, " Person: %d ", buf, 8u);
+      _os_log_impl(&dword_23EDDC000, v35, OS_LOG_TYPE_DEBUG, " Person: %d ", buf, 8u);
     }
 
-    v30 = [(NSMutableArray *)selfCopy->_trackedBodies objectAtIndexedSubscript:j];
-    [v30 boundingBox];
-    printCGRect(v31, v32, v33, v34);
+    v36 = [(NSMutableArray *)selfCopy->_trackedBodies objectAtIndexedSubscript:j];
+    boundingBox = [v36 boundingBox];
+    printCGRect(boundingBox, v38, v39, v40, v41);
   }
 
-  v35 = __ABPKLogSharedInstance();
-  if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
+  v42 = __ABPKLogSharedInstance(v34);
+  if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
   {
     *buf = 0;
-    _os_log_impl(&dword_23EDDC000, v35, OS_LOG_TYPE_DEBUG, " 2d Skeleton Bounding boxes ", buf, 2u);
+    _os_log_impl(&dword_23EDDC000, v42, OS_LOG_TYPE_DEBUG, " 2d Skeleton Bounding boxes ", buf, 2u);
   }
 
-  for (k = 0; [v129 count] > k; ++k)
+  for (k = 0; ; ++k)
   {
-    v37 = __ABPKLogSharedInstance();
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
+    v44 = [v145 count];
+    if (v44 <= k)
+    {
+      break;
+    }
+
+    v45 = __ABPKLogSharedInstance(v44);
+    if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
     {
       *buf = 67109120;
       *&buf[4] = k;
-      _os_log_impl(&dword_23EDDC000, v37, OS_LOG_TYPE_DEBUG, " Person: %d ", buf, 8u);
+      _os_log_impl(&dword_23EDDC000, v45, OS_LOG_TYPE_DEBUG, " Person: %d ", buf, 8u);
     }
 
-    v38 = [v129 objectAtIndexedSubscript:k];
-    [v38 boundingBox];
-    printCGRect(v39, v40, v41, v42);
+    v46 = [v145 objectAtIndexedSubscript:k];
+    boundingBox2 = [v46 boundingBox];
+    printCGRect(boundingBox2, v48, v49, v50, v51);
   }
 
-  [(ABPKMultiPerson2DTracking *)selfCopy _startMultiPerson2DTrackingPersonTrackingSignpostWithTimestamp:stamp];
-  v43 = __ABPKLogSharedInstance();
-  if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
+  v52 = __ABPKLogSharedInstance([(ABPKMultiPerson2DTracking *)selfCopy _startMultiPerson2DTrackingPersonTrackingSignpostWithTimestamp:stamp]);
+  if (os_log_type_enabled(v52, OS_LOG_TYPE_DEBUG))
   {
     *buf = 0;
-    _os_log_impl(&dword_23EDDC000, v43, OS_LOG_TYPE_DEBUG, " Computing tracking ids ", buf, 2u);
+    _os_log_impl(&dword_23EDDC000, v52, OS_LOG_TYPE_DEBUG, " Computing tracking ids ", buf, 2u);
   }
 
-  std::vector<unsigned long>::vector[abi:ne200100](buf, [v129 count]);
-  *&v44 = 0.0;
+  std::vector<unsigned long>::vector[abi:ne200100](buf, [v145 count]);
+  v53 = 0.0;
   __src = 0;
-  v135 = 0;
-  v136 = 0;
-  while (v44 < [v129 count])
+  v151 = 0;
+  v152 = 0;
+  while (1)
   {
-    v45 = __ABPKLogSharedInstance();
-    if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
+    v54 = [v145 count];
+    if (*&v53 >= v54)
     {
-      *v138 = 134217984;
-      v139 = *&v44;
-      _os_log_impl(&dword_23EDDC000, v45, OS_LOG_TYPE_DEBUG, " Finding tracking id for skeleton: %lu ", v138, 0xCu);
+      break;
     }
 
-    *&v46 = 0.0;
-    *&v47 = NAN;
-    v48 = -10000.0;
-    while (v46 < [(NSMutableArray *)selfCopy->_trackedBodies count])
+    v55 = __ABPKLogSharedInstance(v54);
+    if (os_log_type_enabled(v55, OS_LOG_TYPE_DEBUG))
     {
-      v49 = __ABPKLogSharedInstance();
-      if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
+      *v154 = 134217984;
+      v155 = v53;
+      _os_log_impl(&dword_23EDDC000, v55, OS_LOG_TYPE_DEBUG, " Finding tracking id for skeleton: %lu ", v154, 0xCu);
+    }
+
+    v56 = 0.0;
+    *&v57 = NAN;
+    v58 = -10000.0;
+    while (1)
+    {
+      v59 = [(NSMutableArray *)selfCopy->_trackedBodies count];
+      if (*&v56 >= v59)
       {
-        v50 = [(NSMutableArray *)selfCopy->_trackedBodies objectAtIndexedSubscript:v46];
-        objectID2 = [v50 objectID];
-        *v138 = 134218240;
-        v139 = *&v46;
-        v140 = 2048;
-        v141 = objectID2;
-        _os_log_impl(&dword_23EDDC000, v49, OS_LOG_TYPE_DEBUG, " \t Comparing with ANST tracked body %lu with objec-id: %lu ", v138, 0x16u);
+        break;
+      }
+
+      v60 = __ABPKLogSharedInstance(v59);
+      if (os_log_type_enabled(v60, OS_LOG_TYPE_DEBUG))
+      {
+        v61 = [(NSMutableArray *)selfCopy->_trackedBodies objectAtIndexedSubscript:*&v56];
+        objectID2 = [v61 objectID];
+        *v154 = 134218240;
+        v155 = v56;
+        v156 = 2048;
+        v157 = objectID2;
+        _os_log_impl(&dword_23EDDC000, v60, OS_LOG_TYPE_DEBUG, " \t Comparing with ANST tracked body %lu with objec-id: %lu ", v154, 0x16u);
       }
 
       __p = 0;
-      v132 = 0;
-      v133 = 0;
-      std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(&__p, __src, v135, (v135 - __src) >> 3);
-      v52 = [(NSMutableArray *)selfCopy->_trackedBodies objectAtIndexedSubscript:v46];
-      objectID3 = [v52 objectID];
-      if (v132 == __p)
+      v148 = 0;
+      v149 = 0;
+      std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(&__p, __src, v151, (v151 - __src) >> 3);
+      v63 = [(NSMutableArray *)selfCopy->_trackedBodies objectAtIndexedSubscript:*&v56];
+      objectID3 = [v63 objectID];
+      if (v148 == __p)
       {
-        v56 = 0;
+        v67 = 0;
       }
 
       else
       {
-        v54 = (v132 - __p) >> 3;
-        if (v54 <= 1)
+        v65 = (v148 - __p) >> 3;
+        if (v65 <= 1)
         {
-          v55 = 1;
+          v66 = 1;
         }
 
         else
         {
-          v55 = (v132 - __p) >> 3;
+          v66 = (v148 - __p) >> 3;
         }
 
         if (*__p == objectID3)
         {
-          v56 = 1;
+          v67 = 1;
         }
 
         else
         {
-          v57 = 1;
+          v68 = 1;
           do
           {
-            v58 = v57;
-            if (v55 == v57)
+            v69 = v68;
+            if (v66 == v68)
             {
               break;
             }
 
-            v59 = *(__p + v57++);
+            v70 = *(__p + v68++);
           }
 
-          while (v59 != objectID3);
-          v56 = v58 < v54;
+          while (v70 != objectID3);
+          v67 = v69 < v65;
         }
       }
 
+      v71 = __p;
       if (__p)
       {
-        v132 = __p;
+        v148 = __p;
         operator delete(__p);
       }
 
-      if (v56)
+      if (v67)
       {
-        v60 = __ABPKLogSharedInstance();
-        if (os_log_type_enabled(v60, OS_LOG_TYPE_DEBUG))
+        v72 = __ABPKLogSharedInstance(v71);
+        if (os_log_type_enabled(v72, OS_LOG_TYPE_DEBUG))
         {
-          *v138 = 0;
-          _os_log_impl(&dword_23EDDC000, v60, OS_LOG_TYPE_DEBUG, " \t Skipping. Tracking id already assigned ", v138, 2u);
+          *v154 = 0;
+          _os_log_impl(&dword_23EDDC000, v72, OS_LOG_TYPE_DEBUG, " \t Skipping. Tracking id already assigned ", v154, 2u);
         }
 
         goto LABEL_57;
       }
 
-      v61 = [v129 objectAtIndexedSubscript:v44];
-      [v61 boundingBox];
-      v63 = v62;
-      v65 = v64;
-      v67 = v66;
-      v69 = v68;
-      v70 = [(NSMutableArray *)selfCopy->_trackedBodies objectAtIndexedSubscript:v46];
-      [v70 boundingBox];
-      v75 = computeIOUbetweenRects(v63, v65, v67, v69, v71, v72, v73, v74);
+      v73 = [v145 objectAtIndexedSubscript:*&v53];
+      [v73 boundingBox];
+      v75 = v74;
+      v77 = v76;
+      v79 = v78;
+      v81 = v80;
+      v82 = [(NSMutableArray *)selfCopy->_trackedBodies objectAtIndexedSubscript:*&v56];
+      [v82 boundingBox];
+      v87 = computeIOUbetweenRects(v75, v77, v79, v81, v83, v84, v85, v86);
 
-      v76 = __ABPKLogSharedInstance();
-      if (os_log_type_enabled(v76, OS_LOG_TYPE_DEBUG))
+      v89 = __ABPKLogSharedInstance(v88);
+      if (os_log_type_enabled(v89, OS_LOG_TYPE_DEBUG))
       {
-        *v138 = 134217984;
-        v139 = v75;
-        _os_log_impl(&dword_23EDDC000, v76, OS_LOG_TYPE_DEBUG, " \t\t iou: %f ", v138, 0xCu);
+        *v154 = 134217984;
+        v155 = v87;
+        _os_log_impl(&dword_23EDDC000, v89, OS_LOG_TYPE_DEBUG, " \t\t iou: %f ", v154, 0xCu);
       }
 
-      if (v75 > v48)
+      if (v87 > v58)
       {
-        v60 = [(NSMutableArray *)selfCopy->_trackedBodies objectAtIndexedSubscript:v46];
-        *&v47 = COERCE_DOUBLE([v60 objectID]);
-        v48 = v75;
+        v72 = [(NSMutableArray *)selfCopy->_trackedBodies objectAtIndexedSubscript:*&v56];
+        *&v57 = COERCE_DOUBLE([v72 objectID]);
+        v58 = v87;
 LABEL_57:
       }
 
-      ++v46;
+      ++*&v56;
     }
 
-    v77 = __ABPKLogSharedInstance();
-    if (os_log_type_enabled(v77, OS_LOG_TYPE_DEBUG))
+    v90 = __ABPKLogSharedInstance(v59);
+    if (os_log_type_enabled(v90, OS_LOG_TYPE_DEBUG))
     {
-      *v138 = 134217984;
-      v139 = v48;
-      _os_log_impl(&dword_23EDDC000, v77, OS_LOG_TYPE_DEBUG, " \t Maximum IOU: %f ", v138, 0xCu);
+      *v154 = 134217984;
+      v155 = v58;
+      _os_log_impl(&dword_23EDDC000, v90, OS_LOG_TYPE_DEBUG, " \t Maximum IOU: %f ", v154, 0xCu);
     }
 
-    if (v48 >= 0.0)
+    if (v58 >= 0.0)
     {
-      v79 = selfCopy;
-      if (*&v47 == NAN)
+      v93 = selfCopy;
+      if (*&v57 == NAN)
       {
         goto LABEL_66;
       }
@@ -354,182 +386,181 @@ LABEL_57:
 
     else
     {
-      v78 = __ABPKLogSharedInstance();
-      if (os_log_type_enabled(v78, OS_LOG_TYPE_DEBUG))
+      v92 = __ABPKLogSharedInstance(v91);
+      if (os_log_type_enabled(v92, OS_LOG_TYPE_DEBUG))
       {
-        *v138 = 0;
-        _os_log_impl(&dword_23EDDC000, v78, OS_LOG_TYPE_DEBUG, " IOU is lower than threshold. No closest human found from the previous frame. Assigning new tracking id ", v138, 2u);
+        *v154 = 0;
+        _os_log_impl(&dword_23EDDC000, v92, OS_LOG_TYPE_DEBUG, " IOU is lower than threshold. No closest human found from the previous frame. Assigning new tracking id ", v154, 2u);
       }
 
-      v79 = selfCopy;
+      v93 = selfCopy;
 LABEL_66:
-      v47 = v79->_lastTrackingId + 1;
-      v79->_lastTrackingId = v47;
+      v57 = v93->_lastTrackingId + 1;
+      v93->_lastTrackingId = v57;
     }
 
-    *(*buf + 8 * v44) = *&v47;
-    v80 = __ABPKLogSharedInstance();
-    if (os_log_type_enabled(v80, OS_LOG_TYPE_DEBUG))
+    *(*buf + 8 * *&v53) = *&v57;
+    v94 = __ABPKLogSharedInstance(v91);
+    if (os_log_type_enabled(v94, OS_LOG_TYPE_DEBUG))
     {
-      *v138 = 134217984;
-      v139 = *&v47;
-      _os_log_impl(&dword_23EDDC000, v80, OS_LOG_TYPE_DEBUG, " \t Tracking id: %lu ", v138, 0xCu);
+      *v154 = 134217984;
+      v155 = *&v57;
+      _os_log_impl(&dword_23EDDC000, v94, OS_LOG_TYPE_DEBUG, " \t Tracking id: %lu ", v154, 0xCu);
     }
 
-    v81 = v135;
-    if (v135 >= v136)
+    v95 = v151;
+    if (v151 >= v152)
     {
-      v83 = __src;
-      v84 = v135 - __src;
-      v85 = (v135 - __src) >> 3;
-      v86 = v85 + 1;
-      if ((v85 + 1) >> 61)
+      v97 = __src;
+      v98 = v151 - __src;
+      v99 = (v151 - __src) >> 3;
+      v100 = v99 + 1;
+      if ((v99 + 1) >> 61)
       {
         std::vector<std::array<float,3ul>>::__throw_length_error[abi:ne200100]();
       }
 
-      v87 = v136 - __src;
-      if ((v136 - __src) >> 2 > v86)
+      v101 = v152 - __src;
+      if ((v152 - __src) >> 2 > v100)
       {
-        v86 = v87 >> 2;
+        v100 = v101 >> 2;
       }
 
-      v88 = v87 >= 0x7FFFFFFFFFFFFFF8;
-      v89 = 0x1FFFFFFFFFFFFFFFLL;
-      if (!v88)
+      v102 = v101 >= 0x7FFFFFFFFFFFFFF8;
+      v103 = 0x1FFFFFFFFFFFFFFFLL;
+      if (!v102)
       {
-        v89 = v86;
+        v103 = v100;
       }
 
-      if (v89)
+      if (v103)
       {
-        std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long>>(&__src, v89);
+        std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long>>(&__src, v103);
       }
 
-      *(8 * v85) = *&v47;
-      v82 = (8 * v85 + 8);
-      memcpy(0, v83, v84);
-      v90 = __src;
+      *(8 * v99) = *&v57;
+      v96 = (8 * v99 + 8);
+      memcpy(0, v97, v98);
+      v104 = __src;
       __src = 0;
-      v135 = v82;
-      v136 = 0;
-      if (v90)
+      v151 = v96;
+      v152 = 0;
+      if (v104)
       {
-        operator delete(v90);
+        operator delete(v104);
       }
     }
 
     else
     {
-      *v135 = *&v47;
-      v82 = v81 + 8;
+      *v151 = *&v57;
+      v96 = v95 + 8;
     }
 
-    v135 = v82;
-    v91 = [v129 objectAtIndexedSubscript:v44];
-    skeletonDefinition = [v91 skeletonDefinition];
+    v151 = v96;
+    v105 = [v145 objectAtIndexedSubscript:*&v53];
+    skeletonDefinition = [v105 skeletonDefinition];
     jointCount = [skeletonDefinition jointCount];
 
-    v94 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v95 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v96 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v108 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v109 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v110 = objc_alloc_init(MEMORY[0x277CBEB18]);
     if (jointCount)
     {
       for (m = 0; m != jointCount; ++m)
       {
-        v98 = [v129 objectAtIndexedSubscript:v44];
-        v128 = *([v98 keypoints2d] + 8 * m);
+        v112 = [v145 objectAtIndexedSubscript:*&v53];
+        v144 = *([v112 keypoints2d] + 8 * m);
 
-        v99 = [v129 objectAtIndexedSubscript:v44];
-        v100 = *([v99 confidences] + 4 * m);
+        v113 = [v145 objectAtIndexedSubscript:*&v53];
+        v114 = *([v113 confidences] + 4 * m);
 
-        v101 = [v129 objectAtIndexedSubscript:v44];
-        v102 = *([v101 visibility] + 4 * m);
+        v115 = [v145 objectAtIndexedSubscript:*&v53];
+        v116 = *([v115 visibility] + 4 * m);
 
-        v103 = [MEMORY[0x277CCABB0] numberWithFloat:v128];
-        v137[0] = v103;
-        HIDWORD(v104) = HIDWORD(v128);
-        LODWORD(v104) = HIDWORD(v128);
-        v105 = [MEMORY[0x277CCABB0] numberWithFloat:v104];
-        v137[1] = v105;
-        v106 = [MEMORY[0x277CBEA60] arrayWithObjects:v137 count:2];
-        [v94 addObject:v106];
+        v117 = [MEMORY[0x277CCABB0] numberWithFloat:v144];
+        v153[0] = v117;
+        HIDWORD(v118) = HIDWORD(v144);
+        LODWORD(v118) = HIDWORD(v144);
+        v119 = [MEMORY[0x277CCABB0] numberWithFloat:v118];
+        v153[1] = v119;
+        v120 = [MEMORY[0x277CBEA60] arrayWithObjects:v153 count:2];
+        [v108 addObject:v120];
 
-        LODWORD(v107) = v100;
-        v108 = [MEMORY[0x277CCABB0] numberWithFloat:v107];
-        [v95 addObject:v108];
+        LODWORD(v121) = v114;
+        v122 = [MEMORY[0x277CCABB0] numberWithFloat:v121];
+        [v109 addObject:v122];
 
-        v109 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v102];
-        [v96 addObject:v109];
+        v123 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v116];
+        [v110 addObject:v123];
       }
     }
 
-    ++v44;
+    ++*&v53;
   }
 
-  [(ABPKMultiPerson2DTracking *)selfCopy _endMultiPerson2DTrackingPersonTrackingSignpostWithTimestamp:stamp];
-  v110 = __ABPKLogSharedInstance();
-  if (os_log_type_enabled(v110, OS_LOG_TYPE_DEBUG))
+  v124 = __ABPKLogSharedInstance([(ABPKMultiPerson2DTracking *)selfCopy _endMultiPerson2DTrackingPersonTrackingSignpostWithTimestamp:stamp]);
+  if (os_log_type_enabled(v124, OS_LOG_TYPE_DEBUG))
   {
-    *v138 = 0;
-    _os_log_impl(&dword_23EDDC000, v110, OS_LOG_TYPE_DEBUG, " Creating result ", v138, 2u);
+    *v154 = 0;
+    _os_log_impl(&dword_23EDDC000, v124, OS_LOG_TYPE_DEBUG, " Creating result ", v154, 2u);
   }
 
-  if (v126)
+  if (v142)
   {
-    v111 = __ABPKLogSharedInstance();
-    if (os_log_type_enabled(v111, OS_LOG_TYPE_ERROR))
+    v126 = __ABPKLogSharedInstance(v125);
+    if (os_log_type_enabled(v126, OS_LOG_TYPE_ERROR))
     {
-      *v138 = 0;
-      _os_log_impl(&dword_23EDDC000, v111, OS_LOG_TYPE_ERROR, " Pose not valid. Skipping ", v138, 2u);
+      *v154 = 0;
+      _os_log_impl(&dword_23EDDC000, v126, OS_LOG_TYPE_ERROR, " Pose not valid. Skipping ", v154, 2u);
     }
 
     previousMultiPerson2DResult = selfCopy->_previousMultiPerson2DResult;
     selfCopy->_previousMultiPerson2DResult = 0;
 
-    v113 = __ABPKLogSharedInstance();
-    if (os_log_type_enabled(v113, OS_LOG_TYPE_DEBUG))
+    v129 = __ABPKLogSharedInstance(v128);
+    if (os_log_type_enabled(v129, OS_LOG_TYPE_DEBUG))
     {
-      *&v114 = COERCE_DOUBLE([(NSMutableArray *)selfCopy->_previousMultiPerson2DResult count]);
-      *v138 = 134217984;
-      v139 = *&v114;
-      _os_log_impl(&dword_23EDDC000, v113, OS_LOG_TYPE_DEBUG, " _previousMultiPerson2DResult count: %lu ", v138, 0xCu);
+      *&v130 = COERCE_DOUBLE([(NSMutableArray *)selfCopy->_previousMultiPerson2DResult count]);
+      *v154 = 134217984;
+      v155 = *&v130;
+      _os_log_impl(&dword_23EDDC000, v129, OS_LOG_TYPE_DEBUG, " _previousMultiPerson2DResult count: %lu ", v154, 0xCu);
     }
 
-    v115 = -6661;
+    v131 = -6661;
   }
 
   else
   {
-    for (n = 0; n < [v129 count]; ++n)
+    for (n = 0; n < [v145 count]; ++n)
     {
-      v117 = [v129 objectAtIndexedSubscript:n];
-      v118 = *(*buf + 8 * n);
-      v119 = objc_alloc_init(ABPKSinglePerson2DResult);
-      [(ABPKSinglePerson2DResult *)v119 set2dSkeleton:v117 isPoseValid:1 trackingId:v118];
-      [outputCopy addObject:v119];
+      v133 = [v145 objectAtIndexedSubscript:n];
+      v134 = *(*buf + 8 * n);
+      v135 = objc_alloc_init(ABPKSinglePerson2DResult);
+      [(ABPKSinglePerson2DResult *)v135 set2dSkeleton:v133 isPoseValid:1 trackingId:v134];
+      [outputCopy addObject:v135];
     }
 
-    v120 = [outputCopy mutableCopy];
-    v121 = selfCopy->_previousMultiPerson2DResult;
-    selfCopy->_previousMultiPerson2DResult = v120;
+    v136 = [outputCopy mutableCopy];
+    v137 = selfCopy->_previousMultiPerson2DResult;
+    selfCopy->_previousMultiPerson2DResult = v136;
 
-    v122 = __ABPKLogSharedInstance();
-    if (os_log_type_enabled(v122, OS_LOG_TYPE_DEBUG))
+    v139 = __ABPKLogSharedInstance(v138);
+    if (os_log_type_enabled(v139, OS_LOG_TYPE_DEBUG))
     {
-      *&v123 = COERCE_DOUBLE([(NSMutableArray *)selfCopy->_previousMultiPerson2DResult count]);
-      *v138 = 134217984;
-      v139 = *&v123;
-      _os_log_impl(&dword_23EDDC000, v122, OS_LOG_TYPE_DEBUG, " _previousMultiPerson2DResult count: %lu ", v138, 0xCu);
+      *&v140 = COERCE_DOUBLE([(NSMutableArray *)selfCopy->_previousMultiPerson2DResult count]);
+      *v154 = 134217984;
+      v155 = *&v140;
+      _os_log_impl(&dword_23EDDC000, v139, OS_LOG_TYPE_DEBUG, " _previousMultiPerson2DResult count: %lu ", v154, 0xCu);
     }
 
     [(ABPKMultiPerson2DTracking *)selfCopy _endMultiPerson2DTrackingRunWithInputSignpostWithTimestamp:stamp];
-    v115 = 0;
+    v131 = 0;
   }
 
   if (__src)
   {
-    v135 = __src;
+    v151 = __src;
     operator delete(__src);
   }
 
@@ -539,121 +570,123 @@ LABEL_66:
     operator delete(*buf);
   }
 
-  v124 = *MEMORY[0x277D85DE8];
-  return v115;
+  return v131;
 }
 
 - (int)runPoseEstimationWithInput:(__CVBuffer *)input abpkDeviceOrientation:(int64_t)orientation atTimeStamp:(double)stamp andOutput:(id)output
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   outputCopy = output;
   [(ABPKMultiPerson2DTracking *)self _startMultiPerson2DTrackingImagePreProcessingSignpostWithTimestamp:stamp];
   Width = CVPixelBufferGetWidth(input);
   Height = CVPixelBufferGetHeight(input);
-  v13 = __ABPKLogSharedInstance();
+  v13 = __ABPKLogSharedInstance(Height);
   v14 = Width;
   v15 = Height;
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218240;
     *&buf[4] = Height;
-    v43 = 2048;
-    v44 = Width;
+    v49 = 2048;
+    v50 = Width;
     _os_log_impl(&dword_23EDDC000, v13, OS_LOG_TYPE_DEBUG, " Sensor image resolution: (height,width):(%f,%f) ", buf, 0x16u);
   }
 
-  if ([(ABPK2DDetectionConfiguration *)self->_config2D abpkDeviceOrientation]!= orientation)
+  abpkDeviceOrientation = [(ABPK2DDetectionConfiguration *)self->_config2D abpkDeviceOrientation];
+  if (abpkDeviceOrientation != orientation)
   {
-    v16 = __ABPKLogSharedInstance();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+    v17 = __ABPKLogSharedInstance(abpkDeviceOrientation);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
-      v17 = convertABPKDeviceOrientationEnumToString([(ABPK2DDetectionConfiguration *)self->_config2D abpkDeviceOrientation]);
+      v18 = convertABPKDeviceOrientationEnumToString([(ABPK2DDetectionConfiguration *)self->_config2D abpkDeviceOrientation]);
       convertABPKDeviceOrientationEnumToString(orientation);
-      v18 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+      v19 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
       *buf = 138412546;
-      *&buf[4] = v17;
-      v43 = 2112;
-      v44 = v18;
-      _os_log_impl(&dword_23EDDC000, v16, OS_LOG_TYPE_DEBUG, " Device orientation changed from %@ to %@ ", buf, 0x16u);
+      *&buf[4] = v18;
+      v49 = 2112;
+      v50 = v19;
+      _os_log_impl(&dword_23EDDC000, v17, OS_LOG_TYPE_DEBUG, " Device orientation changed from %@ to %@ ", buf, 0x16u);
     }
 
     [(ABPK2DDetectionConfiguration *)self->_config2D setAbpkDeviceOrientation:orientation];
   }
 
-  [ABPK2DMLModelConfigSelector inputDimensionsForModelWithABPKNetworkConfig:self->_config2D];
-  v20 = v19;
+  v20 = [ABPK2DMLModelConfigSelector inputDimensionsForModelWithABPKNetworkConfig:self->_config2D];
   v22 = v21;
-  v23 = __ABPKLogSharedInstance();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+  v24 = v23;
+  v25 = __ABPKLogSharedInstance(v20);
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218240;
-    *&buf[4] = v22;
-    v43 = 2048;
-    v44 = v20;
-    _os_log_impl(&dword_23EDDC000, v23, OS_LOG_TYPE_DEBUG, " ML image resolution: (height,width):(%f,%f) ", buf, 0x16u);
+    *&buf[4] = v24;
+    v49 = 2048;
+    v50 = v22;
+    _os_log_impl(&dword_23EDDC000, v25, OS_LOG_TYPE_DEBUG, " ML image resolution: (height,width):(%f,%f) ", buf, 0x16u);
   }
 
-  v24 = [[ABPKImagePreProcessingParams alloc] initWithType:2 inputResolution:v14 outputResolution:v15, v20, v22];
-  v25 = [[ABPKImagePreProcessing alloc] initWithPreProcessingParams:v24];
-  if (v25)
+  v26 = [[ABPKImagePreProcessingParams alloc] initWithType:2 inputResolution:v14 outputResolution:v15, v22, v24];
+  v27 = [[ABPKImagePreProcessing alloc] initWithPreProcessingParams:v26];
+  v28 = v27;
+  if (v27)
   {
     *buf = 0;
-    v26 = __ABPKLogSharedInstance();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+    v29 = __ABPKLogSharedInstance(v27);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
     {
-      *v39 = 0;
-      _os_log_impl(&dword_23EDDC000, v26, OS_LOG_TYPE_DEBUG, " Image Preprocessing ", v39, 2u);
+      *v45 = 0;
+      _os_log_impl(&dword_23EDDC000, v29, OS_LOG_TYPE_DEBUG, " Image Preprocessing ", v45, 2u);
     }
 
-    v40 = *MEMORY[0x277CC4DE8];
-    v41 = MEMORY[0x277CBEC10];
-    v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
-    if (CVPixelBufferCreate(*MEMORY[0x277CBECE8], v20, v22, 0x42475241u, v27, buf))
+    v46 = *MEMORY[0x277CC4DE8];
+    v47 = MEMORY[0x277CBEC10];
+    v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v47 forKeys:&v46 count:1];
+    v31 = CVPixelBufferCreate(*MEMORY[0x277CBECE8], v22, v24, 0x42475241u, v30, buf);
+    if (v31)
     {
-      v28 = __ABPKLogSharedInstance();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+      v32 = __ABPKLogSharedInstance(v31);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
-        *v39 = 0;
-        v29 = " Could not create mlImage buffer of type kCVPixelFormatType_32BGRA ";
+        *v45 = 0;
+        v33 = " Could not create mlImage buffer of type kCVPixelFormatType_32BGRA ";
 LABEL_21:
-        _os_log_impl(&dword_23EDDC000, v28, OS_LOG_TYPE_ERROR, v29, v39, 2u);
+        _os_log_impl(&dword_23EDDC000, v32, OS_LOG_TYPE_ERROR, v33, v45, 2u);
       }
     }
 
     else
     {
-      v32 = [(ABPKImagePreProcessing *)v25 preprocessData:input outputBuffer:*buf];
-      [(ABPKImagePreProcessing *)v25 logProfilingDetails];
-      if (!v32)
+      v36 = [(ABPKImagePreProcessing *)v28 preprocessData:input outputBuffer:*buf];
+      logProfilingDetails = [(ABPKImagePreProcessing *)v28 logProfilingDetails];
+      if (!v36)
       {
         [(ABPKMultiPerson2DTracking *)self _endMultiPerson2DTrackingImagePreProcessingSignpostWithTimestamp:stamp];
-        [(ABPKMultiPerson2DTracking *)self _startMultiPerson2DTracking2DDetectionMLSignpostWithTimestamp:stamp];
-        v35 = __ABPKLogSharedInstance();
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
+        v39 = __ABPKLogSharedInstance([(ABPKMultiPerson2DTracking *)self _startMultiPerson2DTracking2DDetectionMLSignpostWithTimestamp:stamp]);
+        if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
         {
-          *v39 = 0;
-          _os_log_impl(&dword_23EDDC000, v35, OS_LOG_TYPE_DEBUG, " Running 2d pose estimation ", v39, 2u);
+          *v45 = 0;
+          _os_log_impl(&dword_23EDDC000, v39, OS_LOG_TYPE_DEBUG, " Running 2d pose estimation ", v45, 2u);
         }
 
-        v36 = __ABPKLogSharedInstance();
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
+        v41 = __ABPKLogSharedInstance(v40);
+        if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
         {
-          *v39 = 0;
-          _os_log_impl(&dword_23EDDC000, v36, OS_LOG_TYPE_DEBUG, " \t Running the ML model ", v39, 2u);
+          *v45 = 0;
+          _os_log_impl(&dword_23EDDC000, v41, OS_LOG_TYPE_DEBUG, " \t Running the ML model ", v45, 2u);
         }
 
-        v37 = [ABPKMLImageData alloc];
-        v28 = [(ABPKMLImageData *)v37 initWithPixelBuffer:*buf timestamp:orientation abpkDeviceOrientation:v24 preprocessingParameters:stamp];
-        if ([(ABPK2DPoseEstimation *)self->_poseEstimation2D runWithMLImageData:v28 rotationOfResultTensor:0]== -6661)
+        v42 = [ABPKMLImageData alloc];
+        v32 = [(ABPKMLImageData *)v42 initWithPixelBuffer:*buf timestamp:orientation abpkDeviceOrientation:v26 preprocessingParameters:stamp];
+        v43 = [(ABPK2DPoseEstimation *)self->_poseEstimation2D runWithMLImageData:v32 rotationOfResultTensor:0];
+        if (v43 == -6661)
         {
-          v38 = __ABPKLogSharedInstance();
-          if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+          v44 = __ABPKLogSharedInstance(v43);
+          if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
           {
-            *v39 = 0;
-            _os_log_impl(&dword_23EDDC000, v38, OS_LOG_TYPE_ERROR, " 2D Pose estimation failed. ", v39, 2u);
+            *v45 = 0;
+            _os_log_impl(&dword_23EDDC000, v44, OS_LOG_TYPE_ERROR, " 2D Pose estimation failed. ", v45, 2u);
           }
 
-          v31 = -6661;
+          v35 = -6661;
         }
 
         else
@@ -661,39 +694,38 @@ LABEL_21:
           [(ABPK2DPoseEstimation *)self->_poseEstimation2D getRawTrackedHumanSkeletonVector:outputCopy];
           CVPixelBufferRelease(*buf);
           [(ABPKMultiPerson2DTracking *)self _endMultiPerson2DTracking2DDetectionPostProcessingSignpostWithTimestamp:stamp];
-          v31 = 0;
+          v35 = 0;
         }
 
         goto LABEL_23;
       }
 
-      v28 = __ABPKLogSharedInstance();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+      v32 = __ABPKLogSharedInstance(logProfilingDetails);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
-        *v39 = 0;
-        v29 = " Could not pre-process image ";
+        *v45 = 0;
+        v33 = " Could not pre-process image ";
         goto LABEL_21;
       }
     }
 
-    v31 = -6660;
+    v35 = -6660;
 LABEL_23:
 
     goto LABEL_24;
   }
 
-  v30 = __ABPKLogSharedInstance();
-  if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+  v34 = __ABPKLogSharedInstance(0);
+  if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
-    _os_log_impl(&dword_23EDDC000, v30, OS_LOG_TYPE_ERROR, " Could not initialize imagePreprocessor ", buf, 2u);
+    _os_log_impl(&dword_23EDDC000, v34, OS_LOG_TYPE_ERROR, " Could not initialize imagePreprocessor ", buf, 2u);
   }
 
-  v31 = -6660;
+  v35 = -6660;
 LABEL_24:
 
-  v33 = *MEMORY[0x277D85DE8];
-  return v31;
+  return v35;
 }
 
 - (CGRect)_rotateBoundingBoxToPortrait:(CGRect)portrait withImageRes:(CGSize)res
@@ -713,7 +745,7 @@ LABEL_24:
 
 - (BOOL)overlayTrackedBodiesOnImage:(__CVBuffer *)image andGenerateOverlayImage:(__CVBuffer *)overlayImage
 {
-  v47[1] = *MEMORY[0x277D85DE8];
+  *(&v47 + 1) = *MEMORY[0x277D85DE8];
   *buf = xmmword_23EE281B0;
   *&buf[16] = xmmword_23EE281C0;
   *&v7 = 255;
@@ -733,10 +765,10 @@ LABEL_24:
   v34 = 0;
   v35 = 0;
   __p = 0;
-  _ZNSt3__16vectorIDv3_iNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(&__p, buf, v47, 0xCuLL);
+  _ZNSt3__16vectorIDv3_iNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(&__p, buf, &v47, 0xCuLL);
   Width = CVPixelBufferGetWidth(image);
   Height = CVPixelBufferGetHeight(image);
-  v11 = __ABPKLogSharedInstance();
+  v11 = __ABPKLogSharedInstance(Height);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218240;
@@ -749,28 +781,34 @@ LABEL_24:
   v12 = 0;
   *&v13 = 134217984;
   v31 = v13;
-  while (v12 < [(NSMutableArray *)self->_trackedBodies count])
+  while (1)
   {
-    v14 = __ABPKLogSharedInstance();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    v14 = [(NSMutableArray *)self->_trackedBodies count];
+    if (v12 >= v14)
     {
-      v15 = [(NSMutableArray *)self->_trackedBodies objectAtIndexedSubscript:v12];
-      objectID = [v15 objectID];
-      *buf = v31;
-      *&buf[4] = objectID;
-      _os_log_impl(&dword_23EDDC000, v14, OS_LOG_TYPE_DEBUG, " \x10Overlaying result for Tracked Body with iD: %lu ", buf, 0xCu);
+      break;
     }
 
-    v17 = [(NSMutableArray *)self->_trackedBodies objectAtIndexedSubscript:v12];
-    objectID2 = [v17 objectID];
+    v15 = __ABPKLogSharedInstance(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    {
+      v16 = [(NSMutableArray *)self->_trackedBodies objectAtIndexedSubscript:v12];
+      objectID = [v16 objectID];
+      *buf = v31;
+      *&buf[4] = objectID;
+      _os_log_impl(&dword_23EDDC000, v15, OS_LOG_TYPE_DEBUG, " \x10Overlaying result for Tracked Body with iD: %lu ", buf, 0xCu);
+    }
+
+    v18 = [(NSMutableArray *)self->_trackedBodies objectAtIndexedSubscript:v12];
+    objectID2 = [v18 objectID];
     v32 = *(__p + objectID2 % ((v34 - __p) >> 4));
 
-    v19 = [(NSMutableArray *)self->_trackedBodies objectAtIndexedSubscript:v12];
-    [v19 boundingBox];
-    v21 = v20;
-    v23 = v22;
-    v25 = v24;
-    v27 = v26;
+    v20 = [(NSMutableArray *)self->_trackedBodies objectAtIndexedSubscript:v12];
+    [v20 boundingBox];
+    v22 = v21;
+    v24 = v23;
+    v26 = v25;
+    v28 = v27;
 
     if (v12)
     {
@@ -782,7 +820,7 @@ LABEL_24:
       imageCopy = image;
     }
 
-    overlay2dBoundingBox(imageCopy, overlayImage, v21, v23, v25, v27, *&v32);
+    overlay2dBoundingBox(imageCopy, overlayImage, v22, v24, v26, v28, *&v32);
     ++v12;
   }
 
@@ -792,13 +830,12 @@ LABEL_24:
     operator delete(__p);
   }
 
-  v29 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 - (BOOL)overlayResult:(id)result OnImage:(__CVBuffer *)image andGenerateOverlayImage:(__CVBuffer *)overlayImage
 {
-  v34[1] = *MEMORY[0x277D85DE8];
+  *(&v34 + 1) = *MEMORY[0x277D85DE8];
   resultCopy = result;
   *buf = xmmword_23EE281B0;
   v23 = xmmword_23EE281C0;
@@ -819,22 +856,28 @@ LABEL_24:
   v20 = 0;
   v21 = 0;
   __p = 0;
-  _ZNSt3__16vectorIDv3_iNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(&__p, buf, v34, 0xCuLL);
+  _ZNSt3__16vectorIDv3_iNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(&__p, buf, &v34, 0xCuLL);
   v10 = 0;
   *&v11 = 134217984;
   v18 = v11;
-  while (v10 < [resultCopy count])
+  while (1)
   {
-    v12 = __ABPKLogSharedInstance();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v12 = [resultCopy count];
+    if (v10 >= v12)
+    {
+      break;
+    }
+
+    v13 = __ABPKLogSharedInstance(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       *buf = v18;
       *&buf[4] = v10;
-      _os_log_impl(&dword_23EDDC000, v12, OS_LOG_TYPE_DEBUG, " \x10Overlaying result for Person: %lu ", buf, 0xCu);
+      _os_log_impl(&dword_23EDDC000, v13, OS_LOG_TYPE_DEBUG, " \x10Overlaying result for Person: %lu ", buf, 0xCu);
     }
 
-    v13 = [resultCopy objectAtIndexedSubscript:v10];
-    trackingId = [v13 trackingId];
+    v14 = [resultCopy objectAtIndexedSubscript:v10];
+    trackingId = [v14 trackingId];
     if (v10)
     {
       imageCopy = overlayImage;
@@ -845,7 +888,7 @@ LABEL_24:
       imageCopy = image;
     }
 
-    [v13 overlayResultOnImage:imageCopy withResult:overlayImage withColor:*(__p + 2 * (trackingId % ((v20 - __p) >> 4)))];
+    [v14 overlayResultOnImage:imageCopy withResult:overlayImage withColor:*(__p + 2 * (trackingId % ((v20 - __p) >> 4)))];
 
     ++v10;
   }
@@ -856,7 +899,6 @@ LABEL_24:
     operator delete(__p);
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return 1;
 }
 

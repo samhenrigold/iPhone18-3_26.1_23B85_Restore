@@ -110,7 +110,7 @@ LABEL_6:
 
 - (void)switchToPublisherWithStreamIdentifier:(id)identifier storeEvent:(id)event
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   eventCopy = event;
   os_unfair_lock_lock(&self->_lock);
@@ -126,40 +126,40 @@ LABEL_6:
   else
   {
     selfCopy = self;
-    v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
     v39 = 0u;
+    v40 = 0u;
+    v37 = 0u;
+    v38 = 0u;
     graph = [(_BMBiomeXPCSchedulerInner *)self graph];
     streamPublishers = [graph streamPublishers];
 
-    v12 = [streamPublishers countByEnumeratingWithState:&v38 objects:v44 count:16];
+    v12 = [streamPublishers countByEnumeratingWithState:&v37 objects:v43 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v39;
+      v14 = *v38;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v39 != v14)
+          if (*v38 != v14)
           {
             objc_enumerationMutation(streamPublishers);
           }
 
-          v16 = *(*(&v38 + 1) + 8 * i);
+          v16 = *(*(&v37 + 1) + 8 * i);
           identifier = [v16 identifier];
           v18 = [identifier isEqualToString:identifierCopy];
 
           if (v18)
           {
-            v43 = eventCopy;
-            v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v43 count:1];
+            v42 = eventCopy;
+            v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v42 count:1];
             [v16 setBackingEvents:v19];
           }
         }
 
-        v13 = [streamPublishers countByEnumeratingWithState:&v38 objects:v44 count:16];
+        v13 = [streamPublishers countByEnumeratingWithState:&v37 objects:v43 count:16];
       }
 
       while (v13);
@@ -168,28 +168,28 @@ LABEL_6:
     graph2 = [(_BMBiomeXPCSchedulerInner *)selfCopy graph];
     bpsPublisher = [graph2 bpsPublisher];
 
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
     v35 = 0u;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
     graph3 = [(_BMBiomeXPCSchedulerInner *)selfCopy graph];
     streamPublishers2 = [graph3 streamPublishers];
 
-    v24 = [streamPublishers2 countByEnumeratingWithState:&v34 objects:v42 count:16];
+    v24 = [streamPublishers2 countByEnumeratingWithState:&v33 objects:v41 count:16];
     if (v24)
     {
       v25 = v24;
-      v26 = *v35;
+      v26 = *v34;
       do
       {
         for (j = 0; j != v25; ++j)
         {
-          if (*v35 != v26)
+          if (*v34 != v26)
           {
             objc_enumerationMutation(streamPublishers2);
           }
 
-          v28 = *(*(&v34 + 1) + 8 * j);
+          v28 = *(*(&v33 + 1) + 8 * j);
           identifier2 = [v28 identifier];
           v30 = [identifier2 isEqualToString:identifierCopy];
 
@@ -199,7 +199,7 @@ LABEL_6:
           }
         }
 
-        v25 = [streamPublishers2 countByEnumeratingWithState:&v34 objects:v42 count:16];
+        v25 = [streamPublishers2 countByEnumeratingWithState:&v33 objects:v41 count:16];
       }
 
       while (v25);
@@ -211,8 +211,6 @@ LABEL_6:
     os_unfair_lock_unlock(&selfCopy->_lock);
     [bpsPublisher subscribe:selfCopy];
   }
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 - (void)switchToUpdatedPublisher
@@ -326,7 +324,7 @@ LABEL_6:
 
 - (int64_t)receiveInput:(id)input
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   inputCopy = input;
   selfCopy = self;
   os_unfair_lock_lock(&selfCopy->_lock);
@@ -390,16 +388,16 @@ LABEL_12:
   *&buf[8] = buf;
   *&buf[16] = 0x2020000000;
   v18 = *MEMORY[0x1E698F0A0];
-  v28 = *MEMORY[0x1E698F0A0];
+  v27 = *MEMORY[0x1E698F0A0];
   queue = [(_BMBiomeXPCSchedulerInner *)selfCopy queue];
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __42___BMBiomeXPCSchedulerInner_receiveInput___block_invoke;
   block[3] = &unk_1E6E529A8;
-  v26 = buf;
+  v25 = buf;
   v20 = downstream;
-  v24 = v20;
-  v25 = inputCopy;
+  v23 = v20;
+  v24 = inputCopy;
   dispatch_async(queue, block);
 
   os_unfair_lock_lock(&selfCopy->_lock);
@@ -413,7 +411,6 @@ LABEL_12:
   _Block_object_dispose(buf, 8);
 LABEL_13:
 
-  v21 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
@@ -449,10 +446,10 @@ LABEL_13:
 
 + (id)streamIdentifierFromGraph:(id)graph
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   graphCopy = graph;
-  v11[0] = graphCopy;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
+  v10[0] = graphCopy;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
   v5 = [v4 mutableCopy];
 
   if (![v5 count])
@@ -490,7 +487,6 @@ LABEL_5:
   identifier = [firstObject identifier];
 
 LABEL_8:
-  v9 = *MEMORY[0x1E69E9840];
 
   return identifier;
 }

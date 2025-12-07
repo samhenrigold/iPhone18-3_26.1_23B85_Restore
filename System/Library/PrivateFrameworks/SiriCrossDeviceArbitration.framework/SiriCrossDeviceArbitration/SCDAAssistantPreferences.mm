@@ -26,13 +26,21 @@
 - (int)myriadConstantGoodness;
 - (unsigned)myriadDeviceClass;
 - (void)_preferencesDidChangeExternally;
+- (void)setIgnoreMyriadAdjustedBoost:(BOOL)boost;
+- (void)setIgnoreMyriadPlatformBias:(BOOL)bias;
+- (void)setMyriadConstantGoodness:(int)goodness;
+- (void)setMyriadCoordinationEnabled:(BOOL)enabled;
 - (void)setMyriadDeviceAdjust:(float)adjust;
+- (void)setMyriadDeviceClass:(unsigned __int8)class;
 - (void)setMyriadDeviceDelay:(double)delay;
 - (void)setMyriadDeviceSlowdown:(double)slowdown;
 - (void)setMyriadDeviceTrumpDelay:(double)delay;
 - (void)setMyriadDeviceVTEndTimeDistanceThreshold:(double)threshold;
+- (void)setMyriadDuckingEnabled:(BOOL)enabled;
 - (void)setMyriadLastWin;
 - (void)setMyriadMaxNoOperationDelay:(double)delay;
+- (void)setMyriadServerHasProvisioned:(BOOL)provisioned;
+- (void)setMyriadServerProvisioning:(BOOL)provisioning;
 - (void)setMyriadTestDeviceDelay:(double)delay;
 @end
 
@@ -315,6 +323,12 @@
   return v3;
 }
 
+- (void)setIgnoreMyriadPlatformBias:(BOOL)bias
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:bias];
+  _SCDAAssistantPreferencesSetValueForKeyWithContext(v4, @"Myriad Ignore Platform Bias", @"com.apple.assistant", self->_instanceContext);
+}
+
 - (BOOL)ignoreMyriadPlatformBias
 {
   if (SCDAIsInternalInstall_onceToken != -1)
@@ -340,6 +354,12 @@
   }
 
   return bOOLValue;
+}
+
+- (void)setIgnoreMyriadAdjustedBoost:(BOOL)boost
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:boost];
+  _SCDAAssistantPreferencesSetValueForKeyWithContext(v4, @"Myriad Ignore Adjusted Boost", @"com.apple.assistant", self->_instanceContext);
 }
 
 - (BOOL)myriadShouldIgnoreAdjustedBoost
@@ -458,6 +478,24 @@
   _SCDAAssistantPreferencesSetValueForKeyWithContext(v4, @"Myriad Device Adjust", @"com.apple.assistant", self->_instanceContext);
 }
 
+- (void)setMyriadConstantGoodness:(int)goodness
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithInt:*&goodness];
+  _SCDAAssistantPreferencesSetValueForKeyWithContext(v4, @"Myriad Constant Goodness", @"com.apple.assistant", self->_instanceContext);
+}
+
+- (void)setMyriadDeviceClass:(unsigned __int8)class
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithInt:class];
+  _SCDAAssistantPreferencesSetValueForKeyWithContext(v4, @"Myriad Device Class", @"com.apple.assistant", self->_instanceContext);
+}
+
+- (void)setMyriadServerProvisioning:(BOOL)provisioning
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:provisioning];
+  _SCDAAssistantPreferencesSetValueForKeyWithContext(v4, @"Server Provisions Myriad", @"com.apple.assistant", self->_instanceContext);
+}
+
 - (BOOL)myriadServerProvisioning
 {
   v2 = _SCDAAssistantPreferencesValueForKeyWithContext(@"Server Provisions Myriad", @"com.apple.assistant", self->_instanceContext);
@@ -473,6 +511,18 @@
   }
 
   return bOOLValue;
+}
+
+- (void)setMyriadServerHasProvisioned:(BOOL)provisioned
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:provisioned];
+  _SCDAAssistantPreferencesSetValueForKeyWithContext(v4, @"Server Has Provisioned Myriad", @"com.apple.assistant", self->_instanceContext);
+}
+
+- (void)setMyriadDuckingEnabled:(BOOL)enabled
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:enabled];
+  _SCDAAssistantPreferencesSetValueForKeyWithContext(v4, @"Allow Myriad Ducking", @"com.apple.assistant", self->_instanceContext);
 }
 
 - (BOOL)myriadDuckingEnabled
@@ -492,6 +542,12 @@
   return bOOLValue;
 }
 
+- (void)setMyriadCoordinationEnabled:(BOOL)enabled
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:enabled];
+  _SCDAAssistantPreferencesSetValueForKeyWithContext(v4, @"Allow Myriad Coordination", @"com.apple.assistant", self->_instanceContext);
+}
+
 - (BOOL)myriadCoordinationEnabledForAccessoryLogging
 {
   v2 = _SCDAAssistantPreferencesValueForKeyWithContext(@"Allow Myriad Coordination", @"com.apple.assistant", 0);
@@ -502,18 +558,18 @@
 
 - (void)_preferencesDidChangeExternally
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_DEBUG))
   {
     instanceContext = self->_instanceContext;
-    v7 = 136315650;
-    v8 = "[SCDAAssistantPreferences _preferencesDidChangeExternally]";
-    v9 = 2048;
+    v6 = 136315650;
+    v7 = "[SCDAAssistantPreferences _preferencesDidChangeExternally]";
+    v8 = 2048;
     selfCopy = self;
-    v11 = 2112;
-    v12 = instanceContext;
-    _os_log_debug_impl(&dword_1DA758000, v3, OS_LOG_TYPE_DEBUG, "%s %p %@", &v7, 0x20u);
+    v10 = 2112;
+    v11 = instanceContext;
+    _os_log_debug_impl(&dword_1DA758000, v3, OS_LOG_TYPE_DEBUG, "%s %p %@", &v6, 0x20u);
   }
 
   CFPreferencesAppSynchronize(@"com.apple.assistant.support");
@@ -521,17 +577,15 @@
   CFPreferencesAppSynchronize(@"com.apple.assistant");
   defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
   [defaultCenter postNotificationName:@"SCDAPreferencesDidChangeNotification" object:self];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (SCDAAssistantPreferences)initWithInstanceContext:(id)context
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   contextCopy = context;
-  v16.receiver = self;
-  v16.super_class = SCDAAssistantPreferences;
-  v5 = [(SCDAAssistantPreferences *)&v16 init];
+  v15.receiver = self;
+  v15.super_class = SCDAAssistantPreferences;
+  v5 = [(SCDAAssistantPreferences *)&v15 init];
   if (v5)
   {
     if (SCDALogInitIfNeeded_once != -1)
@@ -562,18 +616,17 @@
     v12 = SCDALogContextCore;
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_DEBUG))
     {
-      v15 = v5->_instanceContext;
+      v14 = v5->_instanceContext;
       *buf = 136315650;
-      v18 = "[SCDAAssistantPreferences initWithInstanceContext:]";
-      v19 = 2048;
-      v20 = v5;
-      v21 = 2112;
-      v22 = v15;
+      v17 = "[SCDAAssistantPreferences initWithInstanceContext:]";
+      v18 = 2048;
+      v19 = v5;
+      v20 = 2112;
+      v21 = v14;
       _os_log_debug_impl(&dword_1DA758000, v12, OS_LOG_TYPE_DEBUG, "%s %p %@", buf, 0x20u);
     }
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

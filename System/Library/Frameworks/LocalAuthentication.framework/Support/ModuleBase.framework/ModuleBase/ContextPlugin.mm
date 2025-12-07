@@ -110,7 +110,7 @@
       v19 = MEMORY[0x277CD47C8];
       if (originatorCopy)
       {
-        [originatorCopy auditToken];
+        objc_msgSend_auditToken(originatorCopy);
       }
 
       else
@@ -215,7 +215,7 @@ LABEL_32:
   v32 = objc_alloc(MEMORY[0x277D23FF8]);
   if (originatorCopy)
   {
-    [originatorCopy auditToken];
+    objc_msgSend_auditToken(originatorCopy);
   }
 
   else

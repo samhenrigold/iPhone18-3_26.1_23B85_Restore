@@ -30,9 +30,9 @@ void __65__WFWorkflowMigration_enumerateActionsWithIdentifier_usingBlock___block
   v12 = a2;
   v6 = [*(a1 + 32) actionIdentifierKey];
   v7 = [v12 objectForKeyedSubscript:v6];
-  v8 = [v7 isEqualToString:*(a1 + 40)];
+  isEqualToString = objc_msgSend_isEqualToString_(v7);
 
-  if (v8)
+  if (isEqualToString)
   {
     v9 = *(a1 + 48);
     v10 = [*(a1 + 32) actionParametersKey];

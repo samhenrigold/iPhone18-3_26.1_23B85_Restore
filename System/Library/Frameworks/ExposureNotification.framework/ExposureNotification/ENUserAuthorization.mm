@@ -30,144 +30,150 @@
 
 - (id)description
 {
-  NSAppendPrintF_safe();
-  v39 = 0;
+  v45 = 0;
+  NSAppendPrintF_safe(&v45, "ENUserAuthorization: ");
+  v3 = v45;
+  v44 = v3;
   identifier = [(ENUserAuthorization *)self identifier];
-  NSAppendPrintF_safe();
-  v3 = v39;
+  NSAppendPrintF_safe(&v44, "%@, ", identifier);
+  v5 = v44;
 
+  v43 = v5;
   userAuthorization = [(ENUserAuthorization *)self userAuthorization];
   if (userAuthorization > 2)
   {
-    v5 = "?";
+    v7 = "?";
   }
 
   else
   {
-    v5 = off_278A4BCC8[userAuthorization];
+    v7 = off_278A4BCC8[userAuthorization];
   }
 
-  v30 = v5;
-  NSAppendPrintF_safe();
-  v6 = v3;
+  NSAppendPrintF_safe(&v43, "%s, ", v7);
+  v8 = v43;
 
+  v42 = v8;
   expirationDate = [(ENUserAuthorization *)self expirationDate];
-  NSAppendPrintF_safe();
-  v7 = v6;
+  NSAppendPrintF_safe(&v42, "ExpireDate: %@, ", expirationDate);
+  v10 = v42;
 
+  v41 = v10;
   expirationStatus = [(ENUserAuthorization *)self expirationStatus];
   if (expirationStatus > 2)
   {
-    v9 = "?";
+    v12 = "?";
   }
 
   else
   {
-    v9 = off_278A4BCE0[expirationStatus];
+    v12 = off_278A4BCE0[expirationStatus];
   }
 
-  v32 = v9;
-  NSAppendPrintF_safe();
-  v10 = v7;
+  NSAppendPrintF_safe(&v41, "expirationStatus: %s ", v12);
+  v13 = v41;
 
   testDateToday = [(ENUserAuthorization *)self testDateToday];
 
   if (testDateToday)
   {
+    v40 = v13;
     testDateToday2 = [(ENUserAuthorization *)self testDateToday];
-    NSAppendPrintF_safe();
-    v12 = v10;
+    NSAppendPrintF_safe(&v40, "testDateToday: %@ ", testDateToday2);
+    v16 = v40;
 
-    v10 = v12;
+    v13 = v16;
   }
 
   symptomOnsetDate = [(ENUserAuthorization *)self symptomOnsetDate];
 
   if (symptomOnsetDate)
   {
+    v39 = v13;
     symptomOnsetDate2 = [(ENUserAuthorization *)self symptomOnsetDate];
-    NSAppendPrintF_safe();
-    v14 = v10;
+    NSAppendPrintF_safe(&v39, "symptomOnsetDate: %@ ", symptomOnsetDate2);
+    v19 = v39;
 
-    v10 = v14;
+    v13 = v19;
   }
 
   didUserTravel = [(ENUserAuthorization *)self didUserTravel];
 
   if (didUserTravel)
   {
+    v38 = v13;
     didUserTravel2 = [(ENUserAuthorization *)self didUserTravel];
     if ([didUserTravel2 BOOLValue])
     {
-      v17 = "yes";
+      v22 = "yes";
     }
 
     else
     {
-      v17 = "no";
+      v22 = "no";
     }
 
-    v35 = v17;
-    NSAppendPrintF_safe();
-    v18 = v10;
+    NSAppendPrintF_safe(&v38, "didUserTravel: %s ", v22);
+    v23 = v38;
 
-    v10 = v18;
+    v13 = v23;
   }
 
   isUserVaccinated = [(ENUserAuthorization *)self isUserVaccinated];
 
   if (isUserVaccinated)
   {
+    v37 = v13;
     isUserVaccinated2 = [(ENUserAuthorization *)self isUserVaccinated];
     if ([isUserVaccinated2 BOOLValue])
     {
-      v21 = "yes";
+      v26 = "yes";
     }
 
     else
     {
-      v21 = "no";
+      v26 = "no";
     }
 
-    v36 = v21;
-    NSAppendPrintF_safe();
-    v22 = v10;
+    NSAppendPrintF_safe(&v37, "isUserVaccinated: %s ", v26);
+    v27 = v37;
 
-    v10 = v22;
+    v13 = v27;
   }
 
   if ([(ENUserAuthorization *)self reportType])
   {
+    v36 = v13;
     reportType = [(ENUserAuthorization *)self reportType];
     if (reportType > 5)
     {
-      v24 = "?";
+      v29 = "?";
     }
 
     else
     {
-      v24 = off_278A4BCF8[reportType];
+      v29 = off_278A4BCF8[reportType];
     }
 
-    v37 = v24;
-    NSAppendPrintF_safe();
-    v25 = v10;
+    NSAppendPrintF_safe(&v36, "reportType: %s ", v29);
+    v30 = v36;
 
-    v10 = v25;
+    v13 = v30;
   }
 
   verificationCode = [(ENUserAuthorization *)self verificationCode];
 
   if (verificationCode)
   {
+    v35 = v13;
     verificationCode2 = [(ENUserAuthorization *)self verificationCode];
-    NSAppendPrintF_safe();
-    v27 = v10;
+    NSAppendPrintF_safe(&v35, "verificationCode: %@ ", verificationCode2);
+    v33 = v35;
 
-    v10 = v27;
+    v13 = v33;
   }
 
-  return v10;
+  return v13;
 }
 
 - (void)encodeWithCoder:(id)coder

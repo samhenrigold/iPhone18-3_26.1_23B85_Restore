@@ -271,9 +271,9 @@ LABEL_26:
         goto LABEL_20;
       }
 
-      v12 = [v8 isEqual:v9];
+      isEqual = objc_msgSend_isEqual_(v8);
 
-      if ((v12 & 1) == 0)
+      if ((isEqual & 1) == 0)
       {
         goto LABEL_13;
       }
@@ -303,7 +303,7 @@ LABEL_15:
         v11 = 0;
         if (v8 && v19)
         {
-          v11 = [v8 isEqual:v19];
+          v11 = objc_msgSend_isEqual_(v8);
         }
       }
 
@@ -313,7 +313,7 @@ LABEL_15:
     v11 = 0;
     if (v8 && v15)
     {
-      v16 = [v8 isEqual:v15];
+      v16 = objc_msgSend_isEqual_(v8);
 
       if ((v16 & 1) == 0)
       {

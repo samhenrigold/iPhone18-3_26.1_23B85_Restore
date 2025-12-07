@@ -74,7 +74,7 @@ uint64_t __65__FLFollowUpActionHandler_handleExtensionBasedAction_completion___b
 
 - (void)handleExtensionBasedAction:(id)action completionWithUserInfo:(id)info
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   actionCopy = action;
   infoCopy = info;
   v8 = _FLSignpostCreate();
@@ -85,15 +85,15 @@ uint64_t __65__FLFollowUpActionHandler_handleExtensionBasedAction_completion___b
     [FLFollowUpActionHandler handleExtensionBasedAction:v8 completionWithUserInfo:v11];
   }
 
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __77__FLFollowUpActionHandler_handleExtensionBasedAction_completionWithUserInfo___block_invoke;
-  v22[3] = &unk_278E358F8;
-  v24 = v8;
-  v25 = v10;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __77__FLFollowUpActionHandler_handleExtensionBasedAction_completionWithUserInfo___block_invoke;
+  v21[3] = &unk_278E358F8;
+  v23 = v8;
+  v24 = v10;
   v12 = infoCopy;
-  v23 = v12;
-  v13 = MEMORY[0x245D69850](v22);
+  v22 = v12;
+  v13 = MEMORY[0x245D69850](v21);
   completionHandler = self->_completionHandler;
   self->_completionHandler = v13;
 
@@ -102,7 +102,7 @@ uint64_t __65__FLFollowUpActionHandler_handleExtensionBasedAction_completion___b
   {
     item = [(FLHeadlessActionHandler *)self item];
     *buf = 138412290;
-    v27 = item;
+    v26 = item;
     _os_log_impl(&dword_245383000, v15, OS_LOG_TYPE_DEFAULT, "Starting to load extension for follow up: %@", buf, 0xCu);
   }
 
@@ -112,30 +112,26 @@ uint64_t __65__FLFollowUpActionHandler_handleExtensionBasedAction_completion___b
   block[2] = __77__FLFollowUpActionHandler_handleExtensionBasedAction_completionWithUserInfo___block_invoke_3;
   block[3] = &unk_278E35970;
   block[4] = self;
-  v21 = actionCopy;
+  v20 = actionCopy;
   v18 = actionCopy;
   dispatch_async(mEMORY[0x277CFE520], block);
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __77__FLFollowUpActionHandler_handleExtensionBasedAction_completionWithUserInfo___block_invoke(void *a1, uint64_t a2, void *a3, void *a4)
 {
   v7 = a3;
   v8 = a4;
-  v9 = a1[5];
-  v10 = a1[6];
   Nanoseconds = _FLSignpostGetNanoseconds();
-  v12 = _FLSignpostLogSystem();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v10 = _FLSignpostLogSystem();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    __77__FLFollowUpActionHandler_handleExtensionBasedAction_completionWithUserInfo___block_invoke_cold_1(Nanoseconds, a1 + 5, v12);
+    __77__FLFollowUpActionHandler_handleExtensionBasedAction_completionWithUserInfo___block_invoke_cold_1(Nanoseconds, a1 + 5, v10);
   }
 
-  v13 = a1[4];
-  if (v13)
+  v11 = a1[4];
+  if (v11)
   {
-    (*(v13 + 16))(v13, a2, v7, v8);
+    (*(v11 + 16))(v11, a2, v7, v8);
   }
 }
 
@@ -165,13 +161,13 @@ void __77__FLFollowUpActionHandler_handleExtensionBasedAction_completionWithUser
 
 void __77__FLFollowUpActionHandler_handleExtensionBasedAction_completionWithUserInfo___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = _FLLogSystem();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [MEMORY[0x277CCABB0] numberWithBool:a2];
     *buf = 138412290;
-    v13 = v5;
+    v12 = v5;
     _os_log_impl(&dword_245383000, v4, OS_LOG_TYPE_DEFAULT, "Extension processed follow up: %@", buf, 0xCu);
   }
 
@@ -201,8 +197,6 @@ void __77__FLFollowUpActionHandler_handleExtensionBasedAction_completionWithUser
     block[4] = *(a1 + 32);
     dispatch_async(MEMORY[0x277D85CD0], block);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __77__FLFollowUpActionHandler_handleExtensionBasedAction_completionWithUserInfo___block_invoke_5(uint64_t a1)
@@ -311,7 +305,7 @@ void __82__FLFollowUpActionHandler_extensionDidFinishWithError_userInfo_completi
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = _FLLogSystem();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -320,31 +314,28 @@ void __82__FLFollowUpActionHandler_extensionDidFinishWithError_userInfo_completi
     _os_log_impl(&dword_245383000, v3, OS_LOG_TYPE_DEFAULT, "%@ going away", buf, 0xCu);
   }
 
-  v5.receiver = self;
-  v5.super_class = FLFollowUpActionHandler;
-  [(FLHeadlessActionHandler *)&v5 dealloc];
-  v4 = *MEMORY[0x277D85DE8];
+  v4.receiver = self;
+  v4.super_class = FLFollowUpActionHandler;
+  [(FLHeadlessActionHandler *)&v4 dealloc];
 }
 
 - (void)handleExtensionBasedAction:(uint64_t)a1 completionWithUserInfo:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_debug_impl(&dword_245383000, a2, OS_LOG_TYPE_DEBUG, "BEGIN [%llu]: Extension Processing", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_debug_impl(&dword_245383000, a2, OS_LOG_TYPE_DEBUG, "BEGIN [%llu]: Extension Processing", &v2, 0xCu);
 }
 
 void __77__FLFollowUpActionHandler_handleExtensionBasedAction_completionWithUserInfo___block_invoke_cold_1(unint64_t a1, uint64_t *a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *a2;
-  v5 = 134218240;
-  v6 = v3;
-  v7 = 2048;
-  v8 = a1 / 1000000000.0;
-  _os_log_debug_impl(&dword_245383000, log, OS_LOG_TYPE_DEBUG, "END [%llu] %fs: Extension Processing", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 134218240;
+  v5 = v3;
+  v6 = 2048;
+  v7 = a1 / 1000000000.0;
+  _os_log_debug_impl(&dword_245383000, log, OS_LOG_TYPE_DEBUG, "END [%llu] %fs: Extension Processing", &v4, 0x16u);
 }
 
 @end

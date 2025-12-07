@@ -27,15 +27,15 @@
 
 - (id)ef_initWithDomain:()EmailFoundationAdditions code:underlyingError:
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   v8 = a3;
   v9 = a5;
   v10 = v9;
   if (v9)
   {
-    v15 = *MEMORY[0x1E696AA08];
-    v16[0] = v9;
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+    v14 = *MEMORY[0x1E696AA08];
+    v15[0] = v9;
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
   }
 
   else
@@ -44,8 +44,6 @@
   }
 
   v12 = [self initWithDomain:v8 code:a4 userInfo:v11];
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }

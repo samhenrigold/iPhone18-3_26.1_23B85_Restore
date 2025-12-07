@@ -62,12 +62,10 @@
 
 - (id)sampleTypes
 {
-  v6[1] = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
   sleepScheduleType = [MEMORY[0x277CCD8D8] sleepScheduleType];
-  v6[0] = sleepScheduleType;
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v5[0] = sleepScheduleType;
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
 
   return v3;
 }

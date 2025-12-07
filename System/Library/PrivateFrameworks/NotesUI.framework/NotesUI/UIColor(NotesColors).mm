@@ -12,9 +12,9 @@
     +[UIColor(NotesColors) ic_notesAppYellowColor];
   }
 
-  v1 = ic_notesAppYellowColor_appYellowColor;
+  v2 = ic_notesAppYellowColor_appYellowColor;
 
-  return v1;
+  return v2;
 }
 
 + (id)ic_notesDefaultTextColor
@@ -24,9 +24,9 @@
     +[UIColor(NotesColors) ic_notesDefaultTextColor];
   }
 
-  v1 = ic_notesDefaultTextColor_defaultTextColor;
+  v2 = ic_notesDefaultTextColor_defaultTextColor;
 
-  return v1;
+  return v2;
 }
 
 @end

@@ -1,48 +1,3 @@
-uint64_t CSDBPerformUnlockedSectionForQueryForWriting(uint64_t result, const __CFString *a2, uint64_t a3)
-{
-  if (result)
-  {
-    if (a2)
-    {
-      if (a3)
-      {
-        v5 = result;
-        result = *(result + 8);
-        if (result)
-        {
-          result = CSDBRecordStoreGetDatabase(result);
-          if (result)
-          {
-            v6 = result;
-            result = CSDBSqliteDatabaseStatementForWriting(result, a2);
-            if (result)
-            {
-              v7 = result;
-              if (*(result + 8))
-              {
-                (*(a3 + 16))(a3, *(v5 + 8), v6, result);
-
-                return CSDBSqliteStatementReset(v7);
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  return result;
-}
-
-void CSDBRecordStoreInvalidateCaches(uint64_t a1)
-{
-  v1 = *(a1 + 8);
-  if (v1)
-  {
-    CSDBRecordStoreInvalidateCachesWithStore(v1);
-  }
-}
-
 void CSDBRecordStoreSaveAndInvalidateCaches(uint64_t a1)
 {
   if (a1)
@@ -120,9 +75,9 @@ uint64_t CSDBThreadedRecordStoreGetSequenceNumber(uint64_t a1)
   return v2;
 }
 
-void sub_2478AC7DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2478AC7DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -136,133 +91,130 @@ uint64_t sub_2478AC7F4(uint64_t a1, uint64_t a2)
 
 void sub_2478AC9E4(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (*(*(a1 + 32) + 8))
   {
-    goto LABEL_2;
+    return;
   }
 
-  v3 = *(a1 + 40);
+  v2 = *(a1 + 40);
+  if (!v2)
+  {
+    if (!IMOSLoggingEnabled())
+    {
+      return;
+    }
+
+    v11 = OSLogHandleForIMFoundationCategory();
+    if (!os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    {
+      return;
+    }
+
+    v12 = *(a1 + 32);
+    __b[0] = 138412290;
+    *&__b[1] = v12;
+    v13 = "No DB path block passed into CSDBThreadedRecordStore %@";
+LABEL_17:
+    _os_log_impl(&dword_24789E000, v11, OS_LOG_TYPE_INFO, v13, __b, 0xCu);
+    return;
+  }
+
+  v3 = (*(v2 + 16))();
   if (!v3)
   {
     if (!IMOSLoggingEnabled())
     {
-      goto LABEL_2;
+      return;
     }
 
-    v12 = OSLogHandleForIMFoundationCategory();
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v11 = OSLogHandleForIMFoundationCategory();
+    if (!os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      goto LABEL_2;
+      return;
     }
 
-    v13 = *(a1 + 32);
+    v14 = *(a1 + 32);
     __b[0] = 138412290;
-    *&__b[1] = v13;
-    v14 = "No DB path block passed into CSDBThreadedRecordStore %@";
-LABEL_17:
-    _os_log_impl(&dword_24789E000, v12, OS_LOG_TYPE_INFO, v14, __b, 0xCu);
-    goto LABEL_2;
-  }
-
-  v4 = (*(v3 + 16))();
-  if (!v4)
-  {
-    if (!IMOSLoggingEnabled())
-    {
-      goto LABEL_2;
-    }
-
-    v12 = OSLogHandleForIMFoundationCategory();
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
-    {
-      goto LABEL_2;
-    }
-
-    v15 = *(a1 + 32);
-    __b[0] = 138412290;
-    *&__b[1] = v15;
-    v14 = "No DB path passed into CSDBThreadedRecordStore %@";
+    *&__b[1] = v14;
+    v13 = "No DB path passed into CSDBThreadedRecordStore %@";
     goto LABEL_17;
   }
 
-  v5 = v4;
-  *(*(a1 + 32) + 8) = CSDBRecordStoreCreateWithPath(v4);
-  v6 = *(*(a1 + 32) + 8);
-  if (v6)
+  v4 = v3;
+  *(*(a1 + 32) + 8) = CSDBRecordStoreCreateWithPath(v3);
+  v5 = *(*(a1 + 32) + 8);
+  if (v5)
   {
-    CSDBRecordStoreSetSetupHandler(v6, *(a1 + 56));
+    CSDBRecordStoreSetSetupHandler(v5, *(a1 + 56));
     Database = CSDBRecordStoreGetDatabase(*(*(a1 + 32) + 8));
     if (Database)
     {
-      v8 = Database;
+      v7 = Database;
       CSDBSqliteDatabaseSetVersion(Database, *(a1 + 88));
-      CSDBSqliteDatabaseSetDataProtectionClass(v8, *(a1 + 92));
-      CSDBSqliteDatabaseSetLookAsideConfig(v8, *(*(a1 + 32) + 40), *(*(a1 + 32) + 48));
-      CSDBSqliteDatabaseSetConnectionInitializer(v8, *(a1 + 64));
-      CSDBSqliteDatabaseSetMigrationHandlers(v8, *(a1 + 72), *(a1 + 80), *(*(a1 + 32) + 8));
-      CSDBSqliteDatabaseSetShouldMigrateInExternalProcess(v8, (*(a1 + 96) & 1) == 0);
+      CSDBSqliteDatabaseSetDataProtectionClass(v7, *(a1 + 92));
+      CSDBSqliteDatabaseSetLookAsideConfig(v7, *(*(a1 + 32) + 40), *(*(a1 + 32) + 48));
+      CSDBSqliteDatabaseSetConnectionInitializer(v7, *(a1 + 64));
+      CSDBSqliteDatabaseSetMigrationHandlers(v7, *(a1 + 72), *(a1 + 80), *(*(a1 + 32) + 8));
+      CSDBSqliteDatabaseSetShouldMigrateInExternalProcess(v7, (*(a1 + 96) & 1) == 0);
       *(*(a1 + 32) + 52) = 1;
-      v9 = *(a1 + 48);
-      if (v9)
+      v8 = *(a1 + 48);
+      if (v8)
       {
-        (*(v9 + 16))(v9, *(a1 + 32));
+        (*(v8 + 16))(v8, *(a1 + 32));
       }
 
       *(*(a1 + 32) + 52) = 0;
       memset(__b, 170, 0x400uLL);
-      if (CFStringGetCString(v5, __b, 1024, 0x8000100u))
+      if (CFStringGetCString(v4, __b, 1024, 0x8000100u))
       {
-        v10 = CSDBGetMobileUserUID();
-        v11 = CSDBGetMobileUserGID();
-        chown(__b, v10, v11);
+        v9 = CSDBGetMobileUserUID();
+        v10 = CSDBGetMobileUserGID();
+        chown(__b, v9, v10);
       }
 
       else if (IMOSLoggingEnabled())
       {
-        v18 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+        v17 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
         {
-          *v19 = 0;
-          _os_log_impl(&dword_24789E000, v18, OS_LOG_TYPE_INFO, "Unable to change permissions on messages database.", v19, 2u);
+          *v18 = 0;
+          _os_log_impl(&dword_24789E000, v17, OS_LOG_TYPE_INFO, "Unable to change permissions on messages database.", v18, 2u);
         }
       }
 
-      CSDBSqliteDatabaseSetVersion(v8, *(a1 + 88));
-      CSDBSqliteDatabaseConnectionForWritingWithOwnership(v8, *(a1 + 97));
+      CSDBSqliteDatabaseSetVersion(v7, *(a1 + 88));
+      CSDBSqliteDatabaseConnectionForWritingWithOwnership(v7, *(a1 + 97));
     }
 
     else if (IMOSLoggingEnabled())
     {
-      v17 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+      v16 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
       {
         LOWORD(__b[0]) = 0;
-        _os_log_impl(&dword_24789E000, v17, OS_LOG_TYPE_INFO, "Unable to get a db reference.", __b, 2u);
+        _os_log_impl(&dword_24789E000, v16, OS_LOG_TYPE_INFO, "Unable to get a db reference.", __b, 2u);
       }
     }
 
-    CFRelease(v5);
+    CFRelease(v4);
   }
 
   else
   {
     if (IMOSLoggingEnabled())
     {
-      v16 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+      v15 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
         __b[0] = 138412290;
-        *&__b[1] = v5;
-        _os_log_impl(&dword_24789E000, v16, OS_LOG_TYPE_INFO, "Unable to create a CSDBRecordStore for path %@", __b, 0xCu);
+        *&__b[1] = v4;
+        _os_log_impl(&dword_24789E000, v15, OS_LOG_TYPE_INFO, "Unable to create a CSDBRecordStore for path %@", __b, 0xCu);
       }
     }
 
-    CFRelease(v5);
+    CFRelease(v4);
   }
-
-LABEL_2:
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2478ACEE0(uint64_t a1)
@@ -435,11 +387,10 @@ LABEL_16:
 
 void sub_2478AD9A8(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_24789E000, a2, OS_LOG_TYPE_ERROR, "ASSERTION FAILED: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_24789E000, a2, OS_LOG_TYPE_ERROR, "ASSERTION FAILED: %@", &v2, 0xCu);
 }
 
 void sub_2478ADAA0(NSObject *a1)

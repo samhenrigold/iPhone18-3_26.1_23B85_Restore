@@ -10,7 +10,10 @@
 - (id)installationStatusForLanguagesIgnoringCache:(BOOL)cache assetType:(unint64_t)type withDetailedStatus:(BOOL)status withError:(id *)error;
 - (id)installedGeoLMRegionSpecificAssetForLanguage:(id)language regionId:(id)id mainAssetConfig:(id)config;
 - (id)installedHammerConfigFileForLanguage:(id)language;
+- (id)installedModelInfoForAssetConfig:(id)config error:(id *)error triggerDownload:(BOOL)download ignoreSpellingModel:(BOOL)model;
 - (id)installedQuasarModelPathForAssetConfig:(id)config error:(id *)error;
+- (id)installedQuasarModelPathForAssetConfig:(id)config error:(id *)error triggerDownload:(BOOL)download;
+- (id)installedQuasarModelPathForAssetConfig:(id)config error:(id *)error triggerDownload:(BOOL)download ignoreSpellingModel:(BOOL)model;
 - (void)_invalidateInstallationStatusCacheForAssetType:(unint64_t)type;
 - (void)cleanupUnusedSubscriptions;
 - (void)dealloc;
@@ -394,6 +397,129 @@ LABEL_9:
   dispatch_async(queue, block);
 
   return 1;
+}
+
+- (id)installedModelInfoForAssetConfig:(id)config error:(id *)error triggerDownload:(BOOL)download ignoreSpellingModel:(BOOL)model
+{
+  downloadCopy = download;
+  configCopy = config;
+  language = [configCopy language];
+  if (downloadCopy)
+  {
+    v10 = +[AFPreferences sharedPreferences];
+    if (([v10 dictationIsEnabled] & 1) == 0 && (objc_msgSend(v10, "assistantIsEnabled") & 1) == 0)
+    {
+      v28 = AFSiriLogContextSpeech;
+      if (os_log_type_enabled(AFSiriLogContextSpeech, OS_LOG_TYPE_INFO))
+      {
+        *buf = 136315138;
+        v35 = "[ESAssetManager installedModelInfoForAssetConfig:error:triggerDownload:ignoreSpellingModel:]";
+        _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_INFO, "%s Siri and Dictation are both disabled, no need to access asset", buf, 0xCu);
+      }
+
+      goto LABEL_16;
+    }
+  }
+
+  if (![(ESAssetManager *)self isTrialAssetDeliveryEnabled])
+  {
+LABEL_13:
+    [configCopy assetType];
+    v24 = SFEntitledAssetTypeToString();
+    v25 = qword_100061630;
+    if (os_log_type_enabled(qword_100061630, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136315650;
+      v35 = "[ESAssetManager installedModelInfoForAssetConfig:error:triggerDownload:ignoreSpellingModel:]";
+      v36 = 2114;
+      v37 = language;
+      v38 = 2114;
+      v39 = v24;
+      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "%s No assets available for language: %{public}@, asset type: %{public}@", buf, 0x20u);
+    }
+
+    queue = self->_queue;
+    v29[0] = _NSConcreteStackBlock;
+    v29[1] = 3221225472;
+    v29[2] = sub_100011D64;
+    v29[3] = &unk_1000554A8;
+    v30 = language;
+    v31 = v24;
+    v10 = v24;
+    dispatch_async(queue, v29);
+
+LABEL_16:
+    v23 = 0;
+    goto LABEL_17;
+  }
+
+  v10 = +[SFEntitledAssetManager sharedInstance];
+  v11 = +[NSBundle mainBundle];
+  bundleIdentifier = [v11 bundleIdentifier];
+  v13 = [v10 installedAssetWithConfig:configCopy regionId:0 shouldSubscribe:downloadCopy subscriberId:bundleIdentifier expiration:0];
+
+  if (!v13)
+  {
+
+    goto LABEL_13;
+  }
+
+  v14 = qword_100061630;
+  if (os_log_type_enabled(qword_100061630, OS_LOG_TYPE_DEFAULT))
+  {
+    v15 = v14;
+    language2 = [configCopy language];
+    [configCopy assetType];
+    v17 = SFEntitledAssetTypeToString();
+    *buf = 136315906;
+    v35 = "[ESAssetManager installedModelInfoForAssetConfig:error:triggerDownload:ignoreSpellingModel:]";
+    v36 = 2114;
+    v37 = language2;
+    v38 = 2114;
+    v39 = v17;
+    v40 = 2114;
+    v41 = v13;
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%s Using ASR Trial assets for language: %{public}@, asset type: %{public}@, at path: %{public}@", buf, 0x2Au);
+  }
+
+  v18 = [v10 modelQualityTypeStatusStringWithConfig:configCopy];
+  v19 = v18;
+  v20 = &stru_100055AC8;
+  if (v18)
+  {
+    v20 = v18;
+  }
+
+  v21 = v20;
+
+  v32[0] = @"quasarModelPath";
+  v32[1] = @"type";
+  v33[0] = v13;
+  v33[1] = v21;
+  v32[2] = @"trial";
+  v22 = [NSNumber numberWithBool:1];
+  v33[2] = v22;
+  v23 = [NSDictionary dictionaryWithObjects:v33 forKeys:v32 count:3];
+
+LABEL_17:
+
+  return v23;
+}
+
+- (id)installedQuasarModelPathForAssetConfig:(id)config error:(id *)error triggerDownload:(BOOL)download ignoreSpellingModel:(BOOL)model
+{
+  v6 = [(ESAssetManager *)self installedModelInfoForAssetConfig:config error:error triggerDownload:download ignoreSpellingModel:model];
+  v7 = [v6 objectForKey:@"quasarModelPath"];
+
+  return v7;
+}
+
+- (id)installedQuasarModelPathForAssetConfig:(id)config error:(id *)error triggerDownload:(BOOL)download
+{
+  v5 = [(ESAssetManager *)self installedModelInfoForAssetConfig:config error:error triggerDownload:download];
+  v6 = [v5 objectForKey:@"quasarModelPath"];
+
+  return v6;
 }
 
 - (id)installedQuasarModelPathForAssetConfig:(id)config error:(id *)error

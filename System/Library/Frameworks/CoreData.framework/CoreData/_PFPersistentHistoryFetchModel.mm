@@ -1,5 +1,5 @@
 @interface _PFPersistentHistoryFetchModel
-+ (id)newFetchHistoryModelForCoordinator:andOptions:;
++ (id)newFetchHistoryModelForCoordinator:(uint64_t)coordinator andOptions:;
 + (void)_invalidateStaticCaches;
 + (void)initialize;
 @end
@@ -29,86 +29,84 @@
   }
 }
 
-+ (id)newFetchHistoryModelForCoordinator:andOptions:
++ (id)newFetchHistoryModelForCoordinator:(uint64_t)coordinator andOptions:
 {
   v21[2] = *MEMORY[0x1E69E9840];
   objc_opt_self();
   if (!historyFetchModel)
   {
-    v0 = objc_autoreleasePoolPush();
-    v1 = [[NSEntityDescription alloc] _initWithName:@"Transaction"];
-    v2 = [[NSAttributeDescription alloc] _initWithName:@"author" type:700];
-    [v1 _addProperty:v2];
+    v1 = objc_autoreleasePoolPush();
+    v2 = [[NSEntityDescription alloc] _initWithName:@"Transaction"];
+    v3 = [[NSAttributeDescription alloc] _initWithName:@"author" type:700];
+    [v2 _addProperty:v3];
 
-    v3 = [[NSAttributeDescription alloc] _initWithName:@"contextName" type:700];
-    [v1 _addProperty:v3];
+    v4 = [[NSAttributeDescription alloc] _initWithName:@"contextName" type:700];
+    [v2 _addProperty:v4];
 
-    v4 = [[NSAttributeDescription alloc] _initWithName:@"bundleID" type:700];
-    [v1 _addProperty:v4];
+    v5 = [[NSAttributeDescription alloc] _initWithName:@"bundleID" type:700];
+    [v2 _addProperty:v5];
 
-    v5 = [[NSAttributeDescription alloc] _initWithName:@"processID" type:700];
-    [v1 _addProperty:v5];
+    v6 = [[NSAttributeDescription alloc] _initWithName:@"processID" type:700];
+    [v2 _addProperty:v6];
 
-    v6 = [[NSAttributeDescription alloc] _initWithName:@"timestamp" type:900];
-    [v1 _addProperty:v6];
+    v7 = [[NSAttributeDescription alloc] _initWithName:@"timestamp" type:900];
+    [v2 _addProperty:v7];
 
-    v7 = [[NSAttributeDescription alloc] _initWithName:@"transactionNumber" type:300];
-    [v1 _addProperty:v7];
+    v8 = [[NSAttributeDescription alloc] _initWithName:@"transactionNumber" type:300];
+    [v2 _addProperty:v8];
 
-    v8 = [[NSAttributeDescription alloc] _initWithName:@"token" type:300];
-    [v1 _addProperty:v8];
+    v9 = [[NSAttributeDescription alloc] _initWithName:@"token" type:300];
+    [v2 _addProperty:v9];
 
-    v9 = [[NSEntityDescription alloc] _initWithName:@"Change"];
-    v10 = [[NSAttributeDescription alloc] _initWithName:@"changeID" type:300];
-    [v9 _addProperty:v10];
+    v10 = [[NSEntityDescription alloc] _initWithName:@"Change"];
+    v11 = [[NSAttributeDescription alloc] _initWithName:@"changeID" type:300];
+    [v10 _addProperty:v11];
 
-    v11 = [[NSAttributeDescription alloc] _initWithName:@"changeType" type:300];
-    [v9 _addProperty:v11];
+    v12 = [[NSAttributeDescription alloc] _initWithName:@"changeType" type:300];
+    [v10 _addProperty:v12];
 
-    v12 = [[NSAttributeDescription alloc] _initWithName:@"changedEntity" type:300];
-    [v9 _addProperty:v12];
+    v13 = [[NSAttributeDescription alloc] _initWithName:@"changedEntity" type:300];
+    [v10 _addProperty:v13];
 
-    v13 = objc_alloc_init(NSAttributeDescription);
-    [(NSPropertyDescription *)v13 setName:@"changedObjectID"];
-    if (v13)
+    v14 = objc_alloc_init(NSAttributeDescription);
+    [(NSPropertyDescription *)v14 setName:@"changedObjectID"];
+    if (v14)
     {
-      [(NSPropertyDescription *)v13 _throwIfNotEditable];
-      v13->_type = 2000;
+      [(NSPropertyDescription *)v14 _throwIfNotEditable];
+      v14->_type = 2000;
     }
 
-    [v9 _addProperty:v13];
+    [v10 _addProperty:v14];
 
-    v14 = [[NSRelationshipDescription alloc] _initWithName:@"changes"];
-    v15 = [[NSRelationshipDescription alloc] _initWithName:@"transaction"];
-    [v15 setDestinationEntity:v1];
-    [v15 setInverseRelationship:v14];
-    [v14 setDestinationEntity:v9];
-    [v14 setInverseRelationship:v15];
-    [v15 setMaxCount:1];
-    [v15 setMinCount:1];
-    [v1 _addProperty:v14];
+    v15 = [[NSRelationshipDescription alloc] _initWithName:@"changes"];
+    v16 = [[NSRelationshipDescription alloc] _initWithName:@"transaction"];
+    [v16 setDestinationEntity:v2];
+    [v16 setInverseRelationship:v15];
+    [v15 setDestinationEntity:v10];
+    [v15 setInverseRelationship:v16];
+    [v16 setMaxCount:1];
+    [v16 setMinCount:1];
+    [v2 _addProperty:v15];
 
-    [v9 _addProperty:v15];
-    [v1 _flattenProperties];
-    [v9 _flattenProperties];
-    v16 = [NSManagedObjectModel alloc];
-    v21[0] = v1;
-    v21[1] = v9;
-    v17 = -[NSManagedObjectModel _initWithEntities:](v16, "_initWithEntities:", [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:2]);
-    [v17 _setModelsReferenceIDOffset:{+[_PFPersistentHistoryFetchModel ancillaryEntityOffset](_PFPersistentHistoryFetchModel, "ancillaryEntityOffset")}];
-    [v17 _setIsEditable:0];
+    [v10 _addProperty:v16];
+    [v2 _flattenProperties];
+    [v10 _flattenProperties];
+    v17 = [NSManagedObjectModel alloc];
+    v21[0] = v2;
+    v21[1] = v10;
+    v18 = -[NSManagedObjectModel _initWithEntities:](v17, "_initWithEntities:", [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:2]);
+    [v18 _setModelsReferenceIDOffset:{+[_PFPersistentHistoryFetchModel ancillaryEntityOffset](_PFPersistentHistoryFetchModel, "ancillaryEntityOffset")}];
+    [v18 _setIsEditable:0];
 
-    objc_autoreleasePoolPop(v0);
-    v18 = 0;
-    atomic_compare_exchange_strong(&historyFetchModel, &v18, v17);
-    if (v18)
+    objc_autoreleasePoolPop(v1);
+    v19 = 0;
+    atomic_compare_exchange_strong(&historyFetchModel, &v19, v18);
+    if (v19)
     {
     }
   }
 
-  result = historyFetchModel;
-  v20 = *MEMORY[0x1E69E9840];
-  return result;
+  return historyFetchModel;
 }
 
 @end

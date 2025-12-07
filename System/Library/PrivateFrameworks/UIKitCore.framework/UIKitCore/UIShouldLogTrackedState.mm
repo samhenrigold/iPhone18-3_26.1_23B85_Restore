@@ -5,10 +5,10 @@
 
 void ___UIShouldLogTrackedState_block_invoke()
 {
-  if ((_UIInternalPreferenceUsesDefault_0(&_MergedGlobals_940, @"TraitUsageTrackingLoggingEnabled") & 1) != 0 || !byte_1ED48B1A4)
+  if (_UIInternalPreferenceUsesDefault_0(&_MergedGlobals_940, @"TraitUsageTrackingLoggingEnabled") || !byte_1ED48B1A4)
   {
     v1 = [MEMORY[0x1E695E000] standardUserDefaults];
-    if (([v1 BOOLForKey:@"UITraitUsageTrackingLoggingEnabled"] & 1) != 0 || (_UIInternalPreferenceUsesDefault_0(&dword_1ED48B1A8, @"StateTrackingLoggingEnabled") & 1) == 0 && byte_1ED48B1AC)
+    if (([v1 BOOLForKey:@"UITraitUsageTrackingLoggingEnabled"] & 1) != 0 || !_UIInternalPreferenceUsesDefault_0(&dword_1ED48B1A8, @"StateTrackingLoggingEnabled") && byte_1ED48B1AC)
     {
       _MergedGlobals_15_4 = 1;
     }

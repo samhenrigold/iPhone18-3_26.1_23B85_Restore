@@ -1,5 +1,6 @@
 @interface LSPlugInQueryWithQueryDictionary
 - (BOOL)isEqual:(id)equal;
+- (BOOL)matchesPlugin:(unsigned int)plugin pluginData:(const LSPluginData *)data withDatabase:(id)database;
 - (LSPlugInQueryWithQueryDictionary)initWithCoder:(id)coder;
 - (id).cxx_construct;
 - (id)_initWithQueryDictionary:(id)dictionary applyFilter:(id)filter;
@@ -101,6 +102,173 @@
   }
 
   return v21;
+}
+
+- (BOOL)matchesPlugin:(unsigned int)plugin pluginData:(const LSPluginData *)data withDatabase:(id)database
+{
+  v6 = *&plugin;
+  databaseCopy = database;
+  v66 = 0;
+  v67 = &v66;
+  v68 = 0x2020000000;
+  v69 = 0;
+  active_platform = dyld_get_active_platform();
+  if (_LSPluginIsValid(databaseCopy, v6, data, self->_filterBlock, 0, 0))
+  {
+    v62 = 0;
+    v63 = &v62;
+    v64 = 0x2020000000;
+    v65 = 0;
+    if (getkMISMinSupportedSignatureVersion_ptr(void)::onceToken != -1)
+    {
+      [LSPlugInQueryWithQueryDictionary matchesPlugin:pluginData:withDatabase:];
+    }
+
+    if (getkMISMinSupportedSignatureVersion_ptr(void)::ptr)
+    {
+      v10 = *getkMISMinSupportedSignatureVersion_ptr(void)::ptr;
+    }
+
+    else
+    {
+      v10 = 0;
+    }
+
+    queryDict = self->_queryDict;
+    v12 = objc_opt_class();
+    v13 = [(NSDictionary *)queryDict objectForKey:@"LS:IncludeUnsupportedCodeSignatures"];
+    v14 = v13;
+    if (v12 && v13 && (objc_opt_isKindOfClass() & 1) == 0)
+    {
+
+      v14 = 0;
+    }
+
+    bOOLValue = [v14 BOOLValue];
+
+    v16 = data->var0.signatureVersion >= v10;
+    v61[0] = MEMORY[0x1E69E9820];
+    v61[1] = 3221225472;
+    v61[2] = __74__LSPlugInQueryWithQueryDictionary_matchesPlugin_pluginData_withDatabase___block_invoke;
+    v61[3] = &unk_1E6A1ABC0;
+    v61[4] = &v62;
+    _LSEnumerateSliceMask(data->var0._sliceMask, v61);
+    v17 = v16 | bOOLValue;
+    v55 = 0;
+    v56 = &v55;
+    v57 = 0x3032000000;
+    v58 = __Block_byref_object_copy__40;
+    v59 = __Block_byref_object_dispose__40;
+    v60 = 0;
+    v51[0] = MEMORY[0x1E69E9820];
+    v51[1] = 3221225472;
+    v51[2] = __74__LSPlugInQueryWithQueryDictionary_matchesPlugin_pluginData_withDatabase___block_invoke_60;
+    v51[3] = &unk_1E6A1D798;
+    v53 = &v55;
+    v18 = databaseCopy;
+    v52 = v18;
+    dataCopy = data;
+    v19 = MEMORY[0x1865D71B0](v51);
+    v20 = self->_queryDict;
+    if (!v20 && ((*(v63 + 24) != 0) & v17) == 1 && data->var0.platform == active_platform)
+    {
+      *(v67 + 24) = 1;
+    }
+
+    else if (v17)
+    {
+      v21 = [(NSDictionary *)v20 objectForKeyedSubscript:@"LS:ExtensionPlatforms"];
+      v43 = v21;
+      v22 = [v21 count];
+      v23 = MEMORY[0x1E695DFD8];
+      if (v22)
+      {
+        v24 = [MEMORY[0x1E695DFD8] setWithArray:v21];
+      }
+
+      else
+      {
+        v25 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:active_platform];
+        v24 = [v23 setWithObject:v25];
+      }
+
+      systemMode = [(LSPlugInQueryWithQueryDictionary *)self systemMode];
+      v26 = self->_queryDict;
+      v27 = objc_opt_class();
+      v28 = [(NSDictionary *)v26 objectForKey:@"LS:IncludeRestricted"];
+      v29 = v28;
+      if (v27 && v28 && (objc_opt_isKindOfClass() & 1) == 0)
+      {
+
+        v29 = 0;
+      }
+
+      bOOLValue2 = [v29 BOOLValue];
+
+      if (systemMode)
+      {
+        v31 = bOOLValue2;
+      }
+
+      else
+      {
+        v31 = 1;
+      }
+
+      if (v31)
+      {
+        v32 = 0;
+      }
+
+      else
+      {
+        v19[2](v19);
+        v33 = v56[5];
+        v34 = objc_opt_class();
+        v35 = [v33 objectForKey:@"LSExtensionRestrictedSystemModes"];
+        v36 = v35;
+        if (v34 && v35 && (objc_opt_isKindOfClass() & 1) == 0)
+        {
+
+          v36 = 0;
+        }
+
+        v32 = [v36 containsObject:systemMode];
+      }
+
+      v37 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:data->var0.platform];
+      v38 = v24;
+      v39 = [v24 containsObject:v37];
+
+      if (!(v32 & 1 | ((v39 & 1) == 0)))
+      {
+        v40 = self->_queryDict;
+        v45[0] = MEMORY[0x1E69E9820];
+        v45[1] = 3221225472;
+        v45[2] = __74__LSPlugInQueryWithQueryDictionary_matchesPlugin_pluginData_withDatabase___block_invoke_2;
+        v45[3] = &unk_1E6A1D7E8;
+        v48 = &v66;
+        dataCopy2 = data;
+        v46 = v18;
+        v47 = v19;
+        v49 = &v55;
+        [(NSDictionary *)v40 enumerateKeysAndObjectsUsingBlock:v45];
+      }
+    }
+
+    else
+    {
+      *(v67 + 24) = 0;
+    }
+
+    _Block_object_dispose(&v55, 8);
+    _Block_object_dispose(&v62, 8);
+  }
+
+  v41 = *(v67 + 24);
+  _Block_object_dispose(&v66, 8);
+
+  return v41;
 }
 
 uint64_t __74__LSPlugInQueryWithQueryDictionary_matchesPlugin_pluginData_withDatabase___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
@@ -222,111 +390,110 @@ void __74__LSPlugInQueryWithQueryDictionary_matchesPlugin_pluginData_withDatabas
 
 - (void)_enumerateWithXPCConnection:(id)connection block:(id)block
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   blockCopy = block;
+  v8 = blockCopy;
   if (connectionCopy)
   {
-    v8 = _LSDefaultLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _LSDefaultLog(blockCopy);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [LSPlugInQueryWithQueryDictionary _enumerateWithXPCConnection:v8 block:?];
+      [LSPlugInQueryWithQueryDictionary _enumerateWithXPCConnection:v9 block:?];
     }
   }
 
-  v37 = 0;
   v38 = 0;
-  inited = _LSContextInitReturningError(&v38, &v37);
-  v10 = v37;
+  v39 = 0;
+  inited = _LSContextInitReturningError(&v39, &v38);
+  v11 = v38;
   if (inited)
   {
-    v11 = [MEMORY[0x1E695DFA8] set];
+    v12 = [MEMORY[0x1E695DFA8] set];
     if ([(NSArray *)self->_extensionIdentifiers count]|| [(NSArray *)self->_extensionPointIdentifiers count])
     {
-      v33[0] = MEMORY[0x1E69E9820];
-      v33[1] = 3321888768;
-      v33[2] = __70__LSPlugInQueryWithQueryDictionary__enumerateWithXPCConnection_block___block_invoke;
-      v33[3] = &unk_1EEF63C80;
-      v34 = v11;
+      v34[0] = MEMORY[0x1E69E9820];
+      v34[1] = 3321888768;
+      v34[2] = __70__LSPlugInQueryWithQueryDictionary__enumerateWithXPCConnection_block___block_invoke;
+      v34[3] = &unk_1EEF63C80;
+      v35 = v12;
       selfCopy = self;
-      v36 = v38;
-      v12 = MEMORY[0x1865D71B0](v33);
-      v31 = 0u;
+      v37 = v39;
+      v13 = MEMORY[0x1865D71B0](v34);
       v32 = 0u;
+      v33 = 0u;
+      v31 = 0u;
       v30 = 0u;
-      v29 = 0u;
-      v13 = self->_extensionIdentifiers;
-      v14 = [(NSArray *)v13 countByEnumeratingWithState:&v29 objects:v40 count:16];
-      if (v14)
+      v14 = self->_extensionIdentifiers;
+      v15 = [(NSArray *)v14 countByEnumeratingWithState:&v30 objects:v41 count:16];
+      if (v15)
       {
-        v15 = *v30;
+        v16 = *v31;
         do
         {
-          for (i = 0; i != v14; ++i)
+          for (i = 0; i != v15; ++i)
           {
-            if (*v30 != v15)
+            if (*v31 != v16)
             {
-              objc_enumerationMutation(v13);
+              objc_enumerationMutation(v14);
             }
 
-            _LSDatabaseGetStringForCFString(v38, *(*(&v29 + 1) + 8 * i), 0);
-            _LSDatabaseEnumeratingBindingMap(v38);
+            StringForCFString = _LSDatabaseGetStringForCFString(v39, *(*(&v30 + 1) + 8 * i), 0);
+            _LSDatabaseEnumeratingBindingMap(v39, 9, StringForCFString, v13);
           }
 
-          v14 = [(NSArray *)v13 countByEnumeratingWithState:&v29 objects:v40 count:16];
+          v15 = [(NSArray *)v14 countByEnumeratingWithState:&v30 objects:v41 count:16];
         }
 
-        while (v14);
+        while (v15);
       }
 
-      v27 = 0u;
       v28 = 0u;
-      v25 = 0u;
+      v29 = 0u;
       v26 = 0u;
-      v17 = self->_extensionPointIdentifiers;
-      v18 = [(NSArray *)v17 countByEnumeratingWithState:&v25 objects:v39 count:16];
-      if (v18)
+      v27 = 0u;
+      v19 = self->_extensionPointIdentifiers;
+      v20 = [(NSArray *)v19 countByEnumeratingWithState:&v26 objects:v40 count:16];
+      if (v20)
       {
-        v19 = *v26;
+        v21 = *v27;
         do
         {
-          for (j = 0; j != v18; ++j)
+          for (j = 0; j != v20; ++j)
           {
-            if (*v26 != v19)
+            if (*v27 != v21)
             {
-              objc_enumerationMutation(v17);
+              objc_enumerationMutation(v19);
             }
 
-            _LSDatabaseGetStringForCFString(v38, *(*(&v25 + 1) + 8 * j), 0);
-            _LSDatabaseEnumeratingBindingMap(v38);
+            v23 = _LSDatabaseGetStringForCFString(v39, *(*(&v26 + 1) + 8 * j), 0);
+            _LSDatabaseEnumeratingBindingMap(v39, 10, v23, v13);
           }
 
-          v18 = [(NSArray *)v17 countByEnumeratingWithState:&v25 objects:v39 count:16];
+          v20 = [(NSArray *)v19 countByEnumeratingWithState:&v26 objects:v40 count:16];
         }
 
-        while (v18);
+        while (v20);
       }
     }
 
     else
     {
-      [(_LSDatabase *)v38 store];
-      v22 = *([(_LSDatabase *)v38 schema]+ 1588);
-      v24 = v38;
-      v23 = v11;
+      [(_LSDatabase *)v39 store];
+      [(_LSDatabase *)v39 schema];
+      v25 = v39;
+      v24 = v12;
       _CSStoreEnumerateUnits();
     }
 
-    [(LSPlugInQuery *)self sort:1 pluginIDs:v11 andYield:blockCopy context:&v38];
-    _LSContextDestroy(&v38);
+    [(LSPlugInQuery *)self sort:1 pluginIDs:v12 andYield:v8 context:&v39];
+    _LSContextDestroy(&v39);
   }
 
   else
   {
-    blockCopy[2](blockCopy, 0, v10);
+    (v8)[2](v8, 0, v11);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __70__LSPlugInQueryWithQueryDictionary__enumerateWithXPCConnection_block___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)

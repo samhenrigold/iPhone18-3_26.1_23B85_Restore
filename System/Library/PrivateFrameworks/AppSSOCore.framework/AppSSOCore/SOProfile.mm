@@ -14,7 +14,7 @@
 
 - (void)preLoadURLData
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
   urlPredicates = self->_urlPredicates;
   self->_urlPredicates = v3;
@@ -23,26 +23,26 @@
   urlNoWildCards = self->_urlNoWildCards;
   self->_urlNoWildCards = v5;
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v7 = self->_URLPrefix;
-  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v18;
+    v10 = *v17;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v18 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v17 + 1) + 8 * i);
+        v12 = *(*(&v16 + 1) + 8 * i);
         if ([v12 containsString:@"*"])
         {
           v13 = MEMORY[0x1E696AE18];
@@ -58,40 +58,38 @@
         }
       }
 
-      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v9);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)matchesURL:(id)l
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   lCopy = l;
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v5 = self->_URLPrefix;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v21;
+    v8 = *v20;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v21 != v8)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v20 + 1) + 8 * i);
-        v11 = [(NSMutableDictionary *)self->_urlNoWildCards valueForKey:v10, v20];
+        v10 = *(*(&v19 + 1) + 8 * i);
+        v11 = [(NSMutableDictionary *)self->_urlNoWildCards valueForKey:v10, v19];
 
         if (v11)
         {
@@ -119,7 +117,7 @@ LABEL_16:
         }
       }
 
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (v7)
       {
         continue;
@@ -132,7 +130,6 @@ LABEL_16:
   v17 = 0;
 LABEL_17:
 
-  v18 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
@@ -183,15 +180,15 @@ LABEL_17:
 
 - (id)description
 {
-  v21 = *MEMORY[0x1E69E9840];
-  v14[0] = @"Type";
+  v20 = *MEMORY[0x1E69E9840];
+  v13[0] = @"Type";
   v3 = [objc_opt_class() stringWithProfileType:self->_type];
-  v15 = v3;
-  v14[1] = @"URLPrefix";
-  v14[2] = @"Hosts";
-  v13 = vdupq_n_s64(@"<null>");
-  v16 = vbslq_s8(vceqzq_s64(*&self->_URLPrefix), v13, *&self->_URLPrefix);
-  v14[3] = @"BundleIdentifier";
+  v14 = v3;
+  v13[1] = @"URLPrefix";
+  v13[2] = @"Hosts";
+  v12 = vdupq_n_s64(@"<null>");
+  v15 = vbslq_s8(vceqzq_s64(*&self->_URLPrefix), v12, *&self->_URLPrefix);
+  v13[3] = @"BundleIdentifier";
   extensionBundleIdentifier = [(SOProfile *)self extensionBundleIdentifier];
   v5 = extensionBundleIdentifier;
   if (extensionBundleIdentifier)
@@ -204,20 +201,18 @@ LABEL_17:
     v6 = @"<null>";
   }
 
-  v17 = v6;
-  v14[4] = @"Realm";
-  v14[5] = @"DeniedBundleIdentifiers";
-  v18 = vbslq_s8(vceqzq_s64(*&self->_realm), v13, *&self->_realm);
-  v14[6] = @"ScreenLockedBehavior";
+  v16 = v6;
+  v13[4] = @"Realm";
+  v13[5] = @"DeniedBundleIdentifiers";
+  v17 = vbslq_s8(vceqzq_s64(*&self->_realm), v12, *&self->_realm);
+  v13[6] = @"ScreenLockedBehavior";
   v7 = [objc_opt_class() stringWithScreenLockedBehavior:self->_screenLockedBehavior];
-  v19 = v7;
-  v14[7] = @"AuthenticationMethod";
+  v18 = v7;
+  v13[7] = @"AuthenticationMethod";
   v8 = [objc_opt_class() stringWithAuthenticationMethod:self->_pssoAuthenticationMethod];
-  v20 = v8;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v15 forKeys:v14 count:8];
+  v19 = v8;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v14 forKeys:v13 count:8];
   v10 = [v9 description];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

@@ -232,11 +232,10 @@
 
 - (void)processNetworkStatistics:(double)statistics
 {
-  keepingUpWithNetwork = self->_keepingUpWithNetwork;
   if (statistics > 1.0 && !self->_keepingUpWithNetwork)
   {
-    v6 = airdrop_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v5 = airdrop_log();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       sub_10014F424();
     }
@@ -245,7 +244,7 @@
     self->_numBlocksProcessed = 0;
     self->_totalBytesSent = 0;
     lastCompressionRatio = 0.0;
-    v8 = 16;
+    v7 = 16;
     goto LABEL_22;
   }
 
@@ -256,11 +255,11 @@
   }
 
   totalBytesProcessed = self->_totalBytesProcessed;
-  v11 = totalBytesProcessed;
+  v10 = totalBytesProcessed;
   if (totalBytesProcessed)
   {
     LODWORD(v3) = self->_totalCompressedOutput;
-    lastCompressionRatio = v3 / v11;
+    lastCompressionRatio = v3 / v10;
   }
 
   else
@@ -268,50 +267,50 @@
     lastCompressionRatio = self->_lastCompressionRatio;
   }
 
-  LODWORD(v11) = self->_totalBytesSent;
-  v12 = *&v11 / self->_totalNetworkDelay;
-  v13 = self->_totalCompressionTime * 128.0 * 1024.0 / totalBytesProcessed + lastCompressionRatio * 131072.0 / v12;
-  v14 = 131072.0 / v12;
-  if (self->_keepingUpWithNetwork && v13 > v14 + v14)
+  LODWORD(v10) = self->_totalBytesSent;
+  v11 = *&v10 / self->_totalNetworkDelay;
+  v12 = self->_totalCompressionTime * 128.0 * 1024.0 / totalBytesProcessed + lastCompressionRatio * 131072.0 / v11;
+  v13 = 131072.0 / v11;
+  if (self->_keepingUpWithNetwork && v12 > v13 + v13)
   {
-    v15 = airdrop_log();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    v14 = airdrop_log();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
       sub_10014F510();
     }
 
-    v16 = 0;
+    v15 = 0;
 LABEL_20:
 
-    self->_keepingUpWithNetwork = v16;
+    self->_keepingUpWithNetwork = v15;
     goto LABEL_21;
   }
 
-  if (!self->_keepingUpWithNetwork && v14 > v13)
+  if (!self->_keepingUpWithNetwork && v13 > v12)
   {
-    v15 = airdrop_log();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    v14 = airdrop_log();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
       sub_10014F49C();
     }
 
-    v16 = 1;
+    v15 = 1;
     goto LABEL_20;
   }
 
   if (numBlocksProcessed <= 0x1F4)
   {
-    v8 = 56;
+    v7 = 56;
     goto LABEL_22;
   }
 
 LABEL_21:
   self->_numBlocksProcessed = 0;
   self->_totalBytesSent = 0;
-  v8 = 56;
+  v7 = 56;
   self->_totalNetworkDelay = 0.0;
 LABEL_22:
-  *(&self->super.isa + v8) = lastCompressionRatio;
+  *(&self->super.isa + v7) = lastCompressionRatio;
 }
 
 - (void)processCompressibilityStatistics

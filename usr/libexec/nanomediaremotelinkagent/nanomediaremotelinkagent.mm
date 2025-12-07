@@ -1045,28 +1045,28 @@ uint64_t sub_100005B8C(int a1)
 id sub_100005E08(void *a1)
 {
   v1 = a1;
-  v2 = sub_100005E6C();
+  v2 = sub_100005E6C(v1);
   v3 = [v2 protobufFromDictionary:v1];
 
   return v3;
 }
 
-id sub_100005E6C()
+id sub_100005E6C(uint64_t a1)
 {
   if (qword_100054180 != -1)
   {
     sub_10003096C();
   }
 
-  v1 = qword_100054178;
+  v2 = qword_100054178;
 
-  return v1;
+  return v2;
 }
 
 id sub_100005EB0(void *a1)
 {
   v1 = a1;
-  v2 = sub_100005E6C();
+  v2 = sub_100005E6C(v1);
   v3 = [v2 dictionaryFromProtobuf:v1];
 
   return v3;
@@ -1488,217 +1488,216 @@ LABEL_58:
 id sub_100007F68(void *a1)
 {
   v1 = a1;
-  v47 = objc_opt_new();
+  v46 = objc_opt_new();
+  v68 = 0u;
   v69 = 0u;
   v70 = 0u;
   v71 = 0u;
-  v72 = 0u;
   obj = v1;
-  v49 = [obj countByEnumeratingWithState:&v69 objects:v76 count:16];
-  if (v49)
+  v48 = [obj countByEnumeratingWithState:&v68 objects:v75 count:16];
+  if (v48)
   {
-    v48 = *v70;
-    v45 = kMRMediaRemoteCommandInfoLocalizedShortTitleKey;
+    v47 = *v69;
+    v44 = kMRMediaRemoteCommandInfoLocalizedShortTitleKey;
     do
     {
-      for (i = 0; i != v49; i = i + 1)
+      for (i = 0; i != v48; ++i)
       {
-        if (*v70 != v48)
+        if (*v69 != v47)
         {
           objc_enumerationMutation(obj);
         }
 
-        v3 = *(*(&v69 + 1) + 8 * i);
-        v4 = objc_opt_new();
+        v3 = objc_opt_new();
         Command = MRMediaRemoteCommandInfoGetCommand();
-        v6 = sub_1000058C8(Command);
-        if (v6)
+        v5 = sub_1000058C8(Command);
+        if (v5)
         {
-          [v4 setCommand:v6];
-          [v4 setEnabled:MRMediaRemoteCommandInfoGetEnabled() != 0];
-          v7 = MRMediaRemoteCommandInfoCopyValueForKey();
+          [v3 setCommand:v5];
+          [v3 setEnabled:MRMediaRemoteCommandInfoGetEnabled() != 0];
+          v6 = MRMediaRemoteCommandInfoCopyValueForKey();
+          v64 = 0u;
           v65 = 0u;
           v66 = 0u;
           v67 = 0u;
-          v68 = 0u;
-          v8 = v7;
-          v9 = [v8 countByEnumeratingWithState:&v65 objects:v75 count:16];
-          if (v9)
+          v7 = v6;
+          v8 = [v7 countByEnumeratingWithState:&v64 objects:v74 count:16];
+          if (v8)
           {
-            v10 = v9;
-            v11 = *v66;
+            v9 = v8;
+            v10 = *v65;
             do
             {
-              for (j = 0; j != v10; j = j + 1)
+              for (j = 0; j != v9; j = j + 1)
               {
-                if (*v66 != v11)
+                if (*v65 != v10)
                 {
-                  objc_enumerationMutation(v8);
+                  objc_enumerationMutation(v7);
                 }
 
-                [*(*(&v65 + 1) + 8 * j) doubleValue];
-                [v4 addPreferredInterval:?];
+                [*(*(&v64 + 1) + 8 * j) doubleValue];
+                [v3 addPreferredInterval:?];
               }
 
-              v10 = [v8 countByEnumeratingWithState:&v65 objects:v75 count:16];
+              v9 = [v7 countByEnumeratingWithState:&v64 objects:v74 count:16];
             }
 
-            while (v10);
+            while (v9);
           }
 
-          v13 = MRMediaRemoteCommandInfoCopyValueForKey();
-          v14 = v13;
-          if (v13)
+          v12 = MRMediaRemoteCommandInfoCopyValueForKey();
+          v13 = v12;
+          if (v12)
           {
-            [v4 setActive:{objc_msgSend(v13, "BOOLValue")}];
+            [v3 setActive:{objc_msgSend(v12, "BOOLValue")}];
           }
 
-          v15 = MRMediaRemoteCommandInfoCopyValueForKey();
-          if ([v15 length])
+          v14 = MRMediaRemoteCommandInfoCopyValueForKey();
+          if ([v14 length])
           {
-            [v4 setLocalizedTitle:v15];
+            [v3 setLocalizedTitle:v14];
           }
 
           else
           {
-            v16 = MRMediaRemoteCommandInfoCopyValueForKey();
-            if ([v16 length])
+            v15 = MRMediaRemoteCommandInfoCopyValueForKey();
+            if ([v15 length])
             {
-              [v4 setLocalizedShortTitle:v16];
+              [v3 setLocalizedShortTitle:v15];
             }
           }
 
-          v17 = MRMediaRemoteCommandInfoCopyValueForKey();
-          v18 = v17;
-          if (v17)
+          v16 = MRMediaRemoteCommandInfoCopyValueForKey();
+          v17 = v16;
+          if (v16)
           {
-            [v17 floatValue];
-            [v4 setMinimumRating:?];
+            [v16 floatValue];
+            [v3 setMinimumRating:?];
           }
 
-          v54 = v18;
-          v55 = v15;
-          v56 = v14;
-          v19 = MRMediaRemoteCommandInfoCopyValueForKey();
-          v20 = v19;
-          if (v19)
+          v53 = v17;
+          v54 = v14;
+          v55 = v13;
+          v18 = MRMediaRemoteCommandInfoCopyValueForKey();
+          v19 = v18;
+          if (v18)
           {
-            [v19 floatValue];
-            [v4 setMaximumRating:?];
+            [v18 floatValue];
+            [v3 setMaximumRating:?];
           }
 
-          v53 = v20;
-          v21 = MRMediaRemoteCommandInfoCopyValueForKey();
+          v52 = v19;
+          v20 = MRMediaRemoteCommandInfoCopyValueForKey();
+          v60 = 0u;
           v61 = 0u;
           v62 = 0u;
           v63 = 0u;
-          v64 = 0u;
-          v22 = v21;
-          v23 = [v22 countByEnumeratingWithState:&v61 objects:v74 count:16];
-          if (v23)
+          v21 = v20;
+          v22 = [v21 countByEnumeratingWithState:&v60 objects:v73 count:16];
+          if (v22)
           {
-            v24 = v23;
-            v25 = *v62;
+            v23 = v22;
+            v24 = *v61;
             do
             {
-              for (k = 0; k != v24; k = k + 1)
+              for (k = 0; k != v23; k = k + 1)
               {
-                if (*v62 != v25)
+                if (*v61 != v24)
                 {
-                  objc_enumerationMutation(v22);
+                  objc_enumerationMutation(v21);
                 }
 
-                [*(*(&v61 + 1) + 8 * k) floatValue];
-                [v4 addSupportedPlaybackRate:?];
+                [*(*(&v60 + 1) + 8 * k) floatValue];
+                [v3 addSupportedPlaybackRate:?];
               }
 
-              v24 = [v22 countByEnumeratingWithState:&v61 objects:v74 count:16];
+              v23 = [v21 countByEnumeratingWithState:&v60 objects:v73 count:16];
             }
 
-            while (v24);
+            while (v23);
           }
 
-          v27 = MRMediaRemoteCommandInfoCopyValueForKey();
-          v28 = v27;
-          if (v27)
+          v26 = MRMediaRemoteCommandInfoCopyValueForKey();
+          v27 = v26;
+          if (v26)
           {
-            [v27 floatValue];
-            [v4 setPreferredPlaybackRate:?];
+            [v26 floatValue];
+            [v3 setPreferredPlaybackRate:?];
           }
 
-          v29 = MRMediaRemoteCommandInfoCopyValueForKey();
-          v30 = v29;
-          if (v29)
+          v28 = MRMediaRemoteCommandInfoCopyValueForKey();
+          v29 = v28;
+          if (v28)
           {
-            [v4 setShuffleMode:{objc_msgSend(v29, "unsignedIntegerValue")}];
+            [v3 setShuffleMode:{objc_msgSend(v28, "unsignedIntegerValue")}];
           }
 
-          v51 = v30;
-          v31 = MRMediaRemoteCommandInfoCopyValueForKey();
-          v32 = v31;
-          if (v31)
+          v50 = v29;
+          v30 = MRMediaRemoteCommandInfoCopyValueForKey();
+          v31 = v30;
+          if (v30)
           {
-            [v4 setRepeatMode:{objc_msgSend(v31, "unsignedIntegerValue")}];
+            [v3 setRepeatMode:{objc_msgSend(v30, "unsignedIntegerValue")}];
           }
 
-          v50 = v32;
-          v52 = v28;
-          v33 = MRMediaRemoteCommandInfoCopyValueForKey();
-          v34 = v33;
-          if (v33)
+          v49 = v31;
+          v51 = v27;
+          v32 = MRMediaRemoteCommandInfoCopyValueForKey();
+          v33 = v32;
+          if (v32)
           {
-            [v4 setCurrentQueueEndAction:{objc_msgSend(v33, "unsignedIntegerValue")}];
+            [v3 setCurrentQueueEndAction:{objc_msgSend(v32, "unsignedIntegerValue")}];
           }
 
-          v35 = MRMediaRemoteCommandInfoCopyValueForKey();
+          v34 = MRMediaRemoteCommandInfoCopyValueForKey();
+          v56 = 0u;
           v57 = 0u;
           v58 = 0u;
           v59 = 0u;
-          v60 = 0u;
-          v36 = v35;
-          v37 = [v36 countByEnumeratingWithState:&v57 objects:v73 count:16];
-          if (v37)
+          v35 = v34;
+          v36 = [v35 countByEnumeratingWithState:&v56 objects:v72 count:16];
+          if (v36)
           {
-            v38 = v37;
-            v39 = *v58;
+            v37 = v36;
+            v38 = *v57;
             do
             {
-              for (m = 0; m != v38; m = m + 1)
+              for (m = 0; m != v37; m = m + 1)
               {
-                if (*v58 != v39)
+                if (*v57 != v38)
                 {
-                  objc_enumerationMutation(v36);
+                  objc_enumerationMutation(v35);
                 }
 
-                [v4 addSupportedQueueEndAction:{objc_msgSend(*(*(&v57 + 1) + 8 * m), "intValue", v45)}];
+                [v3 addSupportedQueueEndAction:{objc_msgSend(*(*(&v56 + 1) + 8 * m), "intValue", v44)}];
               }
 
-              v38 = [v36 countByEnumeratingWithState:&v57 objects:v73 count:16];
+              v37 = [v35 countByEnumeratingWithState:&v56 objects:v72 count:16];
             }
 
-            while (v38);
+            while (v37);
           }
 
-          v41 = MRMediaRemoteCommandInfoCopyValueForKey();
-          v42 = v41;
-          if (v41)
+          v40 = MRMediaRemoteCommandInfoCopyValueForKey();
+          v41 = v40;
+          if (v40)
           {
-            [v4 setPresentationStyle:{objc_msgSend(v41, "intValue")}];
+            [v3 setPresentationStyle:{objc_msgSend(v40, "intValue")}];
           }
 
-          [v47 addSupportedCommand:{v4, v45}];
+          [v46 addSupportedCommand:{v3, v44}];
         }
       }
 
-      v49 = [obj countByEnumeratingWithState:&v69 objects:v76 count:16];
+      v48 = [obj countByEnumeratingWithState:&v68 objects:v75 count:16];
     }
 
-    while (v49);
+    while (v48);
   }
 
-  v43 = [v47 data];
+  v42 = [v46 data];
 
-  return v43;
+  return v42;
 }
 
 id sub_100008964(void *a1)
@@ -2690,7 +2689,7 @@ void sub_10000D8C8(uint64_t a1)
   v2 = sub_10002C180(2);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    sub_100030980(a1);
+    sub_100030980();
   }
 
   v4 = *(a1 + 32);
@@ -2702,28 +2701,28 @@ void sub_10000D8C8(uint64_t a1)
   {
     if (v7)
     {
-      sub_1000309E8(v3);
+      sub_1000309E8();
     }
 
-    *(*v3 + 8) = 2;
+    *(*v3 + 1) = 2;
   }
 
   else
   {
     if (v7)
     {
-      sub_100030A54(v3);
+      sub_100030A54();
     }
 
-    *(*v3 + 8) = 1;
+    *(*v3 + 1) = 1;
     v8 = sub_10002C180(2);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      sub_100030AC0(v3);
+      sub_100030AC0();
     }
 
     objc_initWeak(&location, *v3);
-    v9 = *(*v3 + 16);
+    v9 = *(*v3 + 2);
     v10[0] = _NSConcreteStackBlock;
     v10[1] = 3221225472;
     v10[2] = sub_10000DA74;
@@ -2765,7 +2764,7 @@ void sub_10000DB08(uint64_t a1)
   v2 = sub_10002C180(2);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    sub_100030B2C(a1);
+    sub_100030B2C();
   }
 
   if (*(*(a1 + 40) + 8) == 2)
@@ -2773,7 +2772,7 @@ void sub_10000DB08(uint64_t a1)
     v3 = sub_10002C180(2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      sub_100030B94(a1);
+      sub_100030B94();
     }
 
     [*(a1 + 40) executeUpdateBlock];
@@ -2782,23 +2781,17 @@ void sub_10000DB08(uint64_t a1)
   v4 = sub_10002C180(2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    sub_100030BFC(a1);
+    sub_100030BFC();
   }
 
   *(*(a1 + 40) + 8) = 0;
 }
 
-void sub_10000DC1C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000DC1C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
-}
-
-uint64_t sub_10000DC44@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *(result + 32);
-  return result;
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 id sub_10000E670(void *a1)
@@ -2806,7 +2799,7 @@ id sub_10000E670(void *a1)
   if (a1)
   {
     v1 = a1;
-    v2 = sub_10000E6E0();
+    v2 = sub_10000E6E0(v1);
     v3 = [v2 protobufDataFromDictionary:v1];
   }
 
@@ -2818,28 +2811,28 @@ id sub_10000E670(void *a1)
   return v3;
 }
 
-id sub_10000E6E0()
+id sub_10000E6E0(uint64_t a1)
 {
   if (qword_1000541A0 != -1)
   {
     sub_100030C64();
   }
 
-  v1 = qword_100054198;
+  v2 = qword_100054198;
 
-  return v1;
+  return v2;
 }
 
-id sub_10000E724()
+id sub_10000E724(uint64_t a1)
 {
   if (qword_100054190 != -1)
   {
     sub_100030C78();
   }
 
-  v1 = qword_100054188;
+  v2 = qword_100054188;
 
-  return v1;
+  return v2;
 }
 
 void sub_10000E768(id a1)
@@ -2931,14 +2924,14 @@ void sub_10000EC8C(id a1)
   qword_100054198 = v1;
 
   v3 = qword_100054198;
-  v4 = sub_10000E724();
-  [v3 setDictionaryKeyToProtobufKeyMapping:v4];
+  v5 = sub_10000E724(v4);
+  [v3 setDictionaryKeyToProtobufKeyMapping:v5];
 
   [qword_100054198 setProtobufClass:objc_opt_class()];
   [qword_100054198 setDictionaryValueToProtobufValueTransformer:&stru_100048D30];
-  v5 = qword_100054198;
+  v6 = qword_100054198;
 
-  [v5 setProtobufValueToDictionaryValueTransformer:&stru_100048D78];
+  [v6 setProtobufValueToDictionaryValueTransformer:&stru_100048D78];
 }
 
 id sub_10000ED34(id a1, NSDictionary *a2, NSString *a3, id a4)
@@ -3172,10 +3165,11 @@ LABEL_11:
   return v6;
 }
 
-void sub_10000F464(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000F464(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_10000F5DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
@@ -3257,10 +3251,7 @@ uint64_t sub_10000FB40(uint64_t result, uint64_t a2)
 
 uint64_t sub_10000FB58(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 8) data];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 8) data];
 
   return _objc_release_x1();
 }
@@ -3387,9 +3378,9 @@ LABEL_12:
 LABEL_22:
 }
 
-void sub_1000102FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000102FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3462,7 +3453,7 @@ LABEL_15:
   }
 
 LABEL_17:
-  [*(a1 + 48) addObject:{v7, *v15}];
+  [*(a1 + 48) addObject:{v7, *v15, *&v15[8]}];
 }
 
 id sub_1000105B4(void *a1, void *a2)
@@ -3511,7 +3502,7 @@ LABEL_11:
   return v5;
 }
 
-id sub_100010700(void *a1)
+NSMutableString *sub_100010700(void *a1)
 {
   v1 = a1;
   v2 = [v1 contentItems];
@@ -3615,9 +3606,9 @@ void sub_1000109A4(uint64_t a1)
   _Block_object_dispose(&v22, 8);
 }
 
-void sub_100010C58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_100010C58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3753,7 +3744,7 @@ void sub_10001130C(uint64_t a1)
 void sub_1000118AC(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v10 = sub_100011994();
+  v10 = sub_100011994(v3);
   v4 = MRContentItemGetIdentifier();
 
   v5 = [*(a1 + 32) _metadataForItemWithIdentifier:v4];
@@ -3772,33 +3763,33 @@ void sub_1000118AC(uint64_t a1, void *a2)
   [*(a1 + 40) addObject:v9];
 }
 
-id sub_100011994()
+_NMRContentItemMetadata *sub_100011994(uint64_t a1)
 {
-  v0 = objc_opt_new();
-  [v0 setTitle:MRContentItemGetTitle()];
+  v1 = objc_opt_new();
+  [v1 setTitle:MRContentItemGetTitle()];
   TrackArtistName = MRContentItemGetTrackArtistName();
   if (!TrackArtistName)
   {
     TrackArtistName = MRContentItemGetAlbumArtistName();
   }
 
-  [v0 setArtist:TrackArtistName];
-  [v0 setAlbum:MRContentItemGetAlbumName()];
+  [v1 setArtist:TrackArtistName];
+  [v1 setAlbum:MRContentItemGetAlbumName()];
   if (MRContentItemGetHasDuration())
   {
     MRContentItemGetDuration();
-    [v0 setDuration:?];
+    [v1 setDuration:?];
   }
 
-  v2 = MRContentItemCopyUserInfo();
-  v3 = [v2 objectForKey:MPNowPlayingContentItemUserInfoKeyIsAutoPlayItem];
-  v4 = v3;
-  if (v3)
+  v3 = MRContentItemCopyUserInfo();
+  v4 = [v3 objectForKey:MPNowPlayingContentItemUserInfoKeyIsAutoPlayItem];
+  v5 = v4;
+  if (v4)
   {
-    [v0 setIsAutoPlayItem:{objc_msgSend(v3, "BOOLValue")}];
+    [v1 setIsAutoPlayItem:{objc_msgSend(v4, "BOOLValue")}];
   }
 
-  return v0;
+  return v1;
 }
 
 void sub_100011B24(uint64_t a1)
@@ -3832,7 +3823,7 @@ void sub_100011C3C(uint64_t a1, void *a2)
   if (v5)
   {
     [*(a1 + 40) addObject:v3];
-    v6 = sub_100011994();
+    v6 = sub_100011994(v3);
     v7 = [v5 metadata];
     [v7 mergeFrom:v6];
   }
@@ -3858,11 +3849,11 @@ void sub_100011D68(uint64_t a1)
   }
 }
 
-void sub_100011EF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100011EF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 80), 8);
+  _Block_object_dispose((v18 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -4639,28 +4630,27 @@ void sub_1000158A4(uint64_t a1)
     v13 = v12;
     v14 = @"YES";
     *buf = 138413570;
-    v18 = v11;
-    v19 = 2112;
+    v17 = v11;
+    v18 = 2112;
     if ((v9 & 1) == 0)
     {
       v14 = @"NO";
     }
 
-    v20 = v12;
-    v21 = 1024;
-    v22 = v2;
-    v23 = 2112;
-    v24 = v3;
-    v25 = 2112;
-    v26 = v14;
-    v27 = 2112;
-    v28 = v5;
+    v19 = v12;
+    v20 = 1024;
+    v21 = v2;
+    v22 = 2112;
+    v23 = v3;
+    v24 = 2112;
+    v25 = v14;
+    v26 = 2112;
+    v27 = v5;
     _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "[LinkAgent] (%@-%@) Sending media remote command %d to bundleID %@, launching: %@, options: %@", buf, 0x3Au);
   }
 
   [*(*(a1 + 40) + 160) mediaRemoteOrigin];
-  v15 = *(*(a1 + 40) + 8);
-  v16 = *(a1 + 48);
+  v15 = *(a1 + 48);
   MRMediaRemoteSendCommandToApp();
 }
 
@@ -4802,35 +4792,34 @@ BOOL sub_10001615C(uint64_t a1, uint64_t a2)
 
 id sub_1000161B8(uint64_t a1)
 {
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
     do
     {
       v6 = 0;
       do
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v10 + 1) + 8 * v6);
-        v8 = MRContentItemGetIdentifier();
-        [*(*(a1 + 40) + 144) addObject:{v8, v10}];
+        v7 = MRContentItemGetIdentifier();
+        [*(*(a1 + 40) + 144) addObject:{v7, v9}];
 
-        v6 = v6 + 1;
+        ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
@@ -4839,16 +4828,16 @@ id sub_1000161B8(uint64_t a1)
   return [*(a1 + 40) _scheduleEagerUpdate:3];
 }
 
-void sub_10001694C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_10001694C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_100016C00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_100016C00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4872,7 +4861,7 @@ void sub_100016C38(uint64_t a1)
   }
 }
 
-void sub_100016CCC(uint64_t a1, int a2, CFErrorRef err)
+void sub_100016CCC(uint64_t a1, uint64_t a2, CFErrorRef err)
 {
   if (!err || [(__CFString *)CFErrorGetDomain(err) isEqualToString:kMRMediaRemoteFrameworkErrorDomain]&& CFErrorGetCode(err) == 35)
   {
@@ -4928,9 +4917,9 @@ void sub_100016CCC(uint64_t a1, int a2, CFErrorRef err)
   }
 }
 
-void sub_100017238(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_100017238(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4940,10 +4929,7 @@ uint64_t sub_100017270(uint64_t a1)
   result = *(*(a1 + 32) + 40);
   if (result)
   {
-    v3 = MRContentItemGetIdentifier();
-    v4 = *(*(a1 + 40) + 8);
-    v5 = *(v4 + 40);
-    *(v4 + 40) = v3;
+    *(*(*(a1 + 40) + 8) + 40) = MRContentItemGetIdentifier();
 
     return _objc_release_x1();
   }
@@ -4951,11 +4937,10 @@ uint64_t sub_100017270(uint64_t a1)
   return result;
 }
 
-void sub_1000172D0(uint64_t a1, int a2, CFErrorRef err)
+void sub_1000172D0(uint64_t a1, uint64_t a2, CFErrorRef err)
 {
   if (!err || [(__CFString *)CFErrorGetDomain(err) isEqualToString:kMRMediaRemoteFrameworkErrorDomain]&& CFErrorGetCode(err) == 35)
   {
-    v5 = *(*(*(a1 + 48) + 8) + 40);
     ContentItemForIdentifier = MRPlaybackQueueGetContentItemForIdentifier();
     if (sub_10001615C(*(*(a1 + 32) + 40), ContentItemForIdentifier))
     {
@@ -4964,45 +4949,45 @@ void sub_1000172D0(uint64_t a1, int a2, CFErrorRef err)
 
     else
     {
-      v8 = sub_10002C180(2);
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v7 = sub_10002C180(2);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = [*(*(a1 + 32) + 160) displayName];
-        v10 = [*(*(a1 + 32) + 160) uniqueIdentifier];
-        v15 = 138412546;
-        v16 = v9;
-        v17 = 2112;
-        v18 = v10;
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "[LinkAgent] (%@-%@) Skipped updating artwork because item has changed.", &v15, 0x16u);
+        v8 = [*(*(a1 + 32) + 160) displayName];
+        v9 = [*(*(a1 + 32) + 160) uniqueIdentifier];
+        v14 = 138412546;
+        v15 = v8;
+        v16 = 2112;
+        v17 = v9;
+        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "[LinkAgent] (%@-%@) Skipped updating artwork because item has changed.", &v14, 0x16u);
       }
     }
   }
 
   else
   {
-    v7 = sub_10002C180(2);
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v6 = sub_10002C180(2);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_100030F90();
     }
   }
 
-  v11 = *(a1 + 40);
-  if (v11)
+  v10 = *(a1 + 40);
+  if (v10)
   {
-    (*(v11 + 16))();
+    (*(v10 + 16))();
   }
 
-  v12 = sub_10002C180(2);
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v11 = sub_10002C180(2);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = [*(*(a1 + 32) + 160) displayName];
-    v14 = [*(*(a1 + 32) + 160) uniqueIdentifier];
-    v15 = 138412546;
-    v16 = v13;
-    v17 = 2112;
-    v18 = v14;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "[LinkAgent] (%@-%@) Finished fetching artwork.", &v15, 0x16u);
+    v12 = [*(*(a1 + 32) + 160) displayName];
+    v13 = [*(*(a1 + 32) + 160) uniqueIdentifier];
+    v14 = 138412546;
+    v15 = v12;
+    v16 = 2112;
+    v17 = v13;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "[LinkAgent] (%@-%@) Finished fetching artwork.", &v14, 0x16u);
   }
 }
 
@@ -5014,8 +4999,9 @@ id sub_100017590(uint64_t a1, void *a2)
   return [v3 _scheduleEagerUpdate:2];
 }
 
-void sub_100017848(uint64_t a1, int a2)
+void sub_100017848(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v4 = MRMediaRemoteCopyPlaybackStateDescription();
   v5 = sub_10002C180(2);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -5031,7 +5017,7 @@ void sub_100017848(uint64_t a1, int a2)
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "[LinkAgent] (%@-%@) Got new now playing state %@", &v8, 0x20u);
   }
 
-  *(*(a1 + 32) + 88) = a2;
+  *(*(a1 + 32) + 88) = v2;
   dispatch_group_leave(*(a1 + 40));
 }
 
@@ -5170,10 +5156,11 @@ void sub_100018624(uint64_t a1, void *a2, void *a3, _BYTE *a4)
   }
 }
 
-void sub_100018744(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100018744(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x20u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x20u);
 }
 
 uint64_t sub_1000188F0(uint64_t a1, void *a2)
@@ -5378,9 +5365,9 @@ LABEL_10:
 
     if ([v8 isHomePodRoute])
     {
-      v16 = [*(*(a1 + 32) + 16) isStereoPair];
+      v15 = [*(*(a1 + 32) + 16) isStereoPair];
       v4 = *(*(a1 + 40) + 8);
-      if (v16)
+      if (v15)
       {
         v5 = 7;
       }
@@ -5426,29 +5413,28 @@ LABEL_10:
 
     if (DeviceClass == 7)
     {
-      v17 = *(*(a1 + 32) + 40);
-      v10 = [v17 modelID];
+      v16 = *(*(a1 + 32) + 40);
+      v10 = [v16 modelID];
       v11 = [v10 hasPrefix:{@"AudioAccessory5, "}];
-      v12 = *(*(a1 + 32) + 40);
       IsTightlySyncedGroup = MRPairedDeviceIsTightlySyncedGroup();
-      v14 = 4;
+      v13 = 4;
       if (IsTightlySyncedGroup)
       {
-        v14 = 5;
+        v13 = 5;
       }
 
-      v15 = 6;
+      v14 = 6;
       if (IsTightlySyncedGroup)
       {
-        v15 = 7;
+        v14 = 7;
       }
 
       if (!v11)
       {
-        v14 = v15;
+        v13 = v14;
       }
 
-      *(*(*(a1 + 40) + 8) + 24) = v14;
+      *(*(*(a1 + 40) + 8) + 24) = v13;
     }
   }
 }
@@ -5465,47 +5451,48 @@ void sub_10001990C(uint64_t a1)
 
   else
   {
-    if (!*(v2 + 40))
+    v6 = *(v2 + 40);
+    if (!v6)
     {
       return;
     }
 
-    v5 = sub_1000199A4();
+    v5 = sub_1000199A4(v6);
   }
 
-  v6 = *(*(a1 + 40) + 8);
-  v7 = *(v6 + 40);
-  *(v6 + 40) = v5;
+  v7 = *(*(a1 + 40) + 8);
+  v8 = *(v7 + 40);
+  *(v7 + 40) = v5;
 }
 
-__CFString *sub_1000199A4()
+__CFString *sub_1000199A4(uint64_t a1)
 {
-  v0 = MRPairedDeviceCopyDeviceUID();
-  v1 = v0;
-  if (!v0)
+  v1 = MRPairedDeviceCopyDeviceUID();
+  v2 = v1;
+  if (!v1)
   {
     if (MRPairedDeviceGetDeviceClass() == 1)
     {
-      v1 = @"CMPN";
+      v2 = @"CMPN";
     }
 
     else
     {
-      v1 = @"LOCAL";
+      v2 = @"LOCAL";
     }
   }
 
-  v2 = v1;
+  v3 = v2;
 
-  return v1;
+  return v2;
 }
 
 uint64_t sub_100019AFC(uint64_t a1)
 {
   v2 = *(a1 + 32);
-  if (!v2[6])
+  if (!*(v2 + 48))
   {
-    v3 = v2[2];
+    v3 = *(v2 + 16);
     if (v3)
     {
       v4 = [v3 designatedGroupLeaderName];
@@ -5520,35 +5507,29 @@ uint64_t sub_100019AFC(uint64_t a1)
       {
         [v6 routeName];
       }
-      v12 = ;
-      objc_storeStrong((*(a1 + 32) + 48), v12);
+      v9 = ;
+      objc_storeStrong((*(a1 + 32) + 48), v9);
     }
 
     else
     {
-      v7 = v2[5];
-      v8 = MRPairedDeviceCopyGroupName();
-      if (!v8)
+      v7 = MRPairedDeviceCopyGroupName();
+      if (!v7)
       {
-        v9 = *(*(a1 + 32) + 40);
-        v8 = MRPairedDeviceCopyName();
-        if (!v8)
+        v7 = MRPairedDeviceCopyName();
+        if (!v7)
         {
-          v10 = *(*(a1 + 32) + 24);
-          v8 = MROriginGetDisplayName();
+          v7 = MROriginGetDisplayName();
         }
       }
 
-      v11 = *(a1 + 32);
-      v4 = *(v11 + 48);
-      *(v11 + 48) = v8;
+      v8 = *(a1 + 32);
+      v4 = *(v8 + 48);
+      *(v8 + 48) = v7;
     }
   }
 
-  v13 = [*(*(a1 + 32) + 48) copy];
-  v14 = *(*(a1 + 40) + 8);
-  v15 = *(v14 + 40);
-  *(v14 + 40) = v13;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 48) copy];
 
   return _objc_release_x1();
 }
@@ -5558,10 +5539,7 @@ uint64_t sub_100019CE0(uint64_t a1)
   result = *(*(a1 + 32) + 24);
   if (result)
   {
-    v3 = [NSNumber numberWithInt:MROriginGetUniqueIdentifier()];
-    v4 = *(*(a1 + 40) + 8);
-    v5 = *(v4 + 40);
-    *(v4 + 40) = v3;
+    *(*(*(a1 + 40) + 8) + 40) = [NSNumber numberWithInt:MROriginGetUniqueIdentifier()];
 
     return _objc_release_x1();
   }
@@ -5644,31 +5622,27 @@ id *sub_10001A124(uint64_t a1)
 
 void sub_10001A200(uint64_t a1)
 {
-  v2 = *(a1 + 40);
-  v3 = *(*(a1 + 32) + 24);
-  v4 = MROriginEqualToOrigin();
-  if (!v4)
+  v2 = MROriginEqualToOrigin();
+  if (!v2)
   {
-    v5 = *(*(a1 + 32) + 24);
-    if (v5)
+    v3 = *(*(a1 + 32) + 24);
+    if (v3)
     {
-      CFRelease(v5);
+      CFRelease(v3);
     }
 
     *(*(a1 + 32) + 24) = CFRetain(*(a1 + 40));
-    v6 = *(a1 + 32);
-    v7 = *(v6 + 48);
-    *(v6 + 48) = 0;
+    v4 = *(a1 + 32);
+    v5 = *(v4 + 48);
+    *(v4 + 48) = 0;
 
     [*(a1 + 32) _updateConnectionState];
   }
 
-  v8 = *(a1 + 48);
-  v9 = *(*(a1 + 32) + 40);
-  v10 = MRPairedDeviceEqualToPairedDevice();
-  if (v10)
+  v6 = MRPairedDeviceEqualToPairedDevice();
+  if (v6)
   {
-    if (v4)
+    if (v2)
     {
       return;
     }
@@ -5676,30 +5650,29 @@ void sub_10001A200(uint64_t a1)
 
   else
   {
-    v11 = *(*(a1 + 32) + 40);
-    if (v11)
+    v7 = *(*(a1 + 32) + 40);
+    if (v7)
     {
-      CFRelease(v11);
+      CFRelease(v7);
     }
 
-    v12 = *(a1 + 48);
     *(*(a1 + 32) + 40) = MRPairedDeviceCreateCopy();
-    v13 = *(a1 + 32);
-    v14 = *(v13 + 48);
-    *(v13 + 48) = 0;
+    v8 = *(a1 + 32);
+    v9 = *(v8 + 48);
+    *(v8 + 48) = 0;
   }
 
-  v15 = sub_10002C180(2);
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v10 = sub_10002C180(2);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = *(a1 + 32);
+    v11 = *(a1 + 32);
     *buf = 134218496;
-    v19 = v16;
-    v20 = 1024;
-    v21 = v4 == 0;
-    v22 = 1024;
-    v23 = v10 == 0;
-    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "[Origin] Updated origin: %p, originChanged:%d, deviceInfoChanged:%d", buf, 0x18u);
+    v14 = v11;
+    v15 = 1024;
+    v16 = v2 == 0;
+    v17 = 1024;
+    v18 = v6 == 0;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "[Origin] Updated origin: %p, originChanged:%d, deviceInfoChanged:%d", buf, 0x18u);
   }
 
   block[0] = _NSConcreteStackBlock;
@@ -5716,9 +5689,9 @@ void sub_10001A3D4(uint64_t a1)
   [v2 postNotificationName:@"NMROriginDeviceInfoDidChangeNotification" object:*(a1 + 32) userInfo:0];
 }
 
-void sub_10001A63C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10001A63C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5778,30 +5751,21 @@ uint64_t sub_10001ADB4(uint64_t a1)
 
 uint64_t sub_10001B150(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 16) array];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 16) array];
 
   return _objc_release_x1();
 }
 
 uint64_t sub_10001B290(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 32) objectForKeyedSubscript:*(*(a1 + 32) + 40)];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 32) objectForKeyedSubscript:*(*(a1 + 32) + 40)];
 
   return _objc_release_x1();
 }
 
 uint64_t sub_10001B3D0(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 32) objectForKeyedSubscript:*(*(a1 + 32) + 48)];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 32) objectForKeyedSubscript:*(*(a1 + 32) + 48)];
 
   return _objc_release_x1();
 }
@@ -5818,20 +5782,14 @@ void sub_10001B514(uint64_t a1)
 
 uint64_t sub_10001B6C0(void *a1)
 {
-  v2 = [*(a1[4] + 24) objectForKeyedSubscript:a1[5]];
-  v3 = *(a1[6] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[6] + 8) + 40) = [*(a1[4] + 24) objectForKeyedSubscript:a1[5]];
 
   return _objc_release_x1();
 }
 
 uint64_t sub_10001B838(void *a1)
 {
-  v2 = [*(a1[4] + 32) objectForKeyedSubscript:a1[5]];
-  v3 = *(a1[6] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[6] + 8) + 40) = [*(a1[4] + 32) objectForKeyedSubscript:a1[5]];
 
   return _objc_release_x1();
 }
@@ -5921,10 +5879,7 @@ id sub_10001C240(uint64_t a1)
 
   if (!*(v4 + 48))
   {
-    v6 = [NSNumber numberWithInt:MROriginGetUniqueIdentifier()];
-    v7 = *(a1 + 32);
-    v8 = *(v7 + 48);
-    *(v7 + 48) = v6;
+    *(*(a1 + 32) + 48) = [NSNumber numberWithInt:MROriginGetUniqueIdentifier()];
 
     return _objc_release_x1();
   }
@@ -7823,25 +7778,24 @@ LABEL_41:
 id sub_100026FD4(uint64_t a1)
 {
   v2 = (a1 + 40);
-  v3 = *(a1 + 32);
   NSSelectorFromString(*(a1 + 40));
   if (objc_opt_respondsToSelector())
   {
-    v4 = [*(a1 + 32) valueForKey:*(a1 + 40)];
+    v3 = [*(a1 + 32) valueForKey:*(a1 + 40)];
   }
 
   else
   {
-    v5 = sub_10002C180(2);
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v4 = sub_10002C180(2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      sub_100031380(v2, v5);
+      sub_100031380(v2, v4);
     }
 
-    v4 = 0;
+    v3 = 0;
   }
 
-  return v4;
+  return v3;
 }
 
 void sub_100027268(uint64_t a1, void *a2, void *a3)
@@ -9188,28 +9142,27 @@ void sub_10002EB70(uint64_t a1, void *a2)
   {
     v5 = [(NMRPlaybackQueueResponse *)v3 playbackQueue];
     MRPlaybackQueueGetResolvedPlayerPath();
-    v6 = *(a1 + 64);
     MRNowPlayingPlayerPathSetOrigin();
-    v7 = [[NMRPlaybackQueueResponse alloc] initWithPlaybackQueue:v5 error:[(NMRPlaybackQueueResponse *)v3 error]];
+    v6 = [[NMRPlaybackQueueResponse alloc] initWithPlaybackQueue:v5 error:[(NMRPlaybackQueueResponse *)v3 error]];
 
     CFRelease(*(a1 + 64));
-    v3 = v7;
+    v3 = v6;
   }
 
-  v8 = *(*(a1 + 40) + 16);
-  v9 = [(NMRPlaybackQueueResponse *)v3 protobufData];
-  [v8 sendMessageWithProtobufData:v9 messageType:19 priority:2 timeout:0 bypassDuet:0 skipStorage:*(a1 + 48) inReplyTo:60.0 resultingMessageIdentifier:0 error:0];
+  v7 = *(*(a1 + 40) + 16);
+  v8 = [(NMRPlaybackQueueResponse *)v3 protobufData];
+  [v7 sendMessageWithProtobufData:v8 messageType:19 priority:2 timeout:0 bypassDuet:0 skipStorage:*(a1 + 48) inReplyTo:60.0 resultingMessageIdentifier:0 error:0];
 
   kdebug_trace();
-  v10 = sub_10002C180(2);
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v9 = sub_10002C180(2);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = *(a1 + 56);
+    v10 = *(a1 + 56);
     *buf = 138412546;
-    v13 = v3;
-    v14 = 2112;
-    v15 = v11;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "[LinkAgent] Sent playback queue response: %@ for request: %@", buf, 0x16u);
+    v12 = v3;
+    v13 = 2112;
+    v14 = v10;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "[LinkAgent] Sent playback queue response: %@ for request: %@", buf, 0x16u);
   }
 }
 
@@ -9281,4 +9234,24 @@ void sub_10002F648(uint64_t a1)
 
     while (v16);
   }
+}
+
+id sub_10002F8B0(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 32);
+  v3 = [a2 uniqueIdentifier];
+  v4 = [v2 containsObject:v3];
+
+  return v4;
+}
+
+void sub_10002FE90(uint64_t a1)
+{
+  v2 = *(a1 + 40);
+  v3 = *(a1 + 32);
+  v4 = [v2 object];
+  v5 = *(a1 + 48);
+  v7 = v4;
+  v6 = [NSArray arrayWithObjects:&v7 count:1];
+  [v5 _sendOriginUpdatesToClient:v6];
 }

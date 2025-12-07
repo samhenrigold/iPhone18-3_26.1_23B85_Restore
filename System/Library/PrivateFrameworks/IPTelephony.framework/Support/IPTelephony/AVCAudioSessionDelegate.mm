@@ -1181,17 +1181,17 @@ LABEL_29:
   ims::performBlock(v9);
 }
 
-void __63__AVCAudioSessionDelegate_stream_didReceiveDTMFEventWithDigit___block_invoke()
+void __63__AVCAudioSessionDelegate_stream_didReceiveDTMFEventWithDigit___block_invoke(uint64_t a1)
 {
-  std::string::basic_string[abi:ne200100]<0>(v3, "avc.audio.delegate");
-  v1[0] = 0;
-  v2 = 0;
-  v0 = ims::debug(v3, v1);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v0 + 8), "DTMF digit received: ", 21);
-  *(v0 + 17) = 0;
-  v5 = 0;
-  memset(v4, 0, sizeof(v4));
-  ImsStringOutStream::ImsStringOutStream(v4);
+  std::string::basic_string[abi:ne200100]<0>(v4, "avc.audio.delegate");
+  v2[0] = 0;
+  v3 = 0;
+  v1 = ims::debug(v4, v2);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v1 + 8), "DTMF digit received: ", 21);
+  *(v1 + 17) = 0;
+  v6 = 0;
+  memset(v5, 0, sizeof(v5));
+  ImsStringOutStream::ImsStringOutStream(v5, 1);
 }
 
 - (void)stream:(id)stream didReceiveRTCPPackets:(id)packets

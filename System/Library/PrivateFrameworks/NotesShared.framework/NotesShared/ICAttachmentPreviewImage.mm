@@ -360,8 +360,10 @@ void __42__ICAttachmentPreviewImage_fileQueueGroup__block_invoke()
 {
   identifier = [self identifier];
   objectID = [self objectID];
+  LODWORD(v10) = 138412546;
+  *(&v10 + 4) = identifier;
   OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_4_7(&dword_214D51000, v4, v5, "Not deleting files for attachment preview image - identifier: %@, object ID: %@", v6, v7, v8, v9, 2u);
+  OUTLINED_FUNCTION_4_7(&dword_214D51000, v4, v5, "Not deleting files for attachment preview image - identifier: %@, object ID: %@", v6, v7, v8, v9, v10, DWORD2(v10));
 }
 
 - (void)willTurnIntoFault
@@ -1966,8 +1968,10 @@ void __63__ICAttachmentPreviewImage_setScaledImageFromImageSrc_typeUTI___block_i
 {
   identifier = [self identifier];
   identifier2 = [a2 identifier];
+  LODWORD(v11) = 138412546;
+  *(&v11 + 4) = identifier;
   OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_4_7(&dword_214D51000, v5, v6, "Couldn't find account for media %@, using default account %@ for container directory.", v7, v8, v9, v10, 2u);
+  OUTLINED_FUNCTION_4_7(&dword_214D51000, v5, v6, "Couldn't find account for media %@, using default account %@ for container directory.", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 - (void)previewImageURL

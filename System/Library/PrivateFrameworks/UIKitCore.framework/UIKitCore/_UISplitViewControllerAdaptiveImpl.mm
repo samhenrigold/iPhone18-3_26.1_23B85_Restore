@@ -94,7 +94,6 @@
 - (uint64_t)_updatePreferredColumnsSplitBehavior:(uint64_t)result;
 - (uint64_t)_updatePreferredColumnsToHideSplitViewControllerColumn:(void *)column layout:;
 - (uint64_t)_updatePreferredColumnsToShowSplitViewControllerColumn:(void *)column layout:;
-- (uint64_t)_updatePreferredColumnsToToggleSplitViewControllerColumnOnEdge:(void *)edge layout:;
 - (uint64_t)_updatePreferredColumnsWithPreferredColumns:(void *)columns;
 - (unint64_t)preferredScreenEdgesDeferringSystemGestures;
 - (void)_commonInit;
@@ -144,6 +143,7 @@
 - (void)_updateChildContentMargins;
 - (void)_updateForReselectionInContainingTabBarController;
 - (void)_updatePreferredColumnsToPreferredDisplayMode:(void *)result;
+- (void)_updatePreferredColumnsToToggleSplitViewControllerColumnOnEdge:(void *)edge layout:;
 - (void)_updatePreferredDisplayModeForPreferredColumns;
 - (void)_validateTriggerInspectorKeyCommand:(id)command;
 - (void)_validateTriggerSidebarKeyCommand:(id)command;
@@ -1327,7 +1327,7 @@ LABEL_132:
     self = self[41];
     if (!self)
     {
-      v3 = [objc_alloc(_UISplitViewControllerAdaptiveLayoutClassCollapsed()) initWithDataSource:selfCopy delegate:selfCopy];
+      v3 = [objc_alloc(_UISplitViewControllerAdaptiveLayoutClassCollapsed(0)) initWithDataSource:selfCopy delegate:selfCopy];
       v4 = selfCopy[41];
       selfCopy[41] = v3;
 
@@ -1345,13 +1345,14 @@ LABEL_132:
   if (self)
   {
     selfCopy = self;
-    if (!self[49])
+    horizontalSizeClass = self[49];
+    if (!horizontalSizeClass)
     {
       traitCollection = [self traitCollection];
-      [traitCollection horizontalSizeClass];
+      horizontalSizeClass = [traitCollection horizontalSizeClass];
     }
 
-    self = [objc_alloc(_UISplitViewControllerAdaptiveLayoutClassCollapsed()) initWithDataSource:selfCopy delegate:selfCopy];
+    self = [objc_alloc(_UISplitViewControllerAdaptiveLayoutClassCollapsed(horizontalSizeClass == 1)) initWithDataSource:selfCopy delegate:selfCopy];
     v1 = vars8;
   }
 
@@ -3115,7 +3116,7 @@ LABEL_10:
       v5 = *(result + 440);
       v6 = *(result + 424);
       v7 = v5;
-      [column updatedPreferredColumns:&v6 toShowSplitViewControllerColumn:a2];
+      objc_msgSend_updatedPreferredColumns_toShowSplitViewControllerColumn_(column, a2, &v6, a2);
     }
 
     v8 = v13;
@@ -3218,7 +3219,7 @@ LABEL_10:
       v5 = *(result + 440);
       v6 = *(result + 424);
       v7 = v5;
-      [column updatedPreferredColumns:&v6 toHideSplitViewControllerColumn:a2];
+      objc_msgSend_updatedPreferredColumns_toHideSplitViewControllerColumn_(column, a2, &v6, a2);
     }
 
     v8 = v13;
@@ -6326,9 +6327,9 @@ LABEL_14:
 
 - (void)willTransitionToTraitCollection:(id)collection withTransitionCoordinator:(id)coordinator
 {
-  v12.receiver = self;
-  v12.super_class = _UISplitViewControllerAdaptiveImpl;
-  [(_UISplitViewControllerBaseImpl *)&v12 willTransitionToTraitCollection:collection withTransitionCoordinator:coordinator];
+  v11.receiver = self;
+  v11.super_class = _UISplitViewControllerAdaptiveImpl;
+  [(_UISplitViewControllerBaseImpl *)&v11 willTransitionToTraitCollection:collection withTransitionCoordinator:coordinator];
   horizontalSizeClassOverride = self->_horizontalSizeClassOverride;
   if (!horizontalSizeClassOverride)
   {
@@ -6344,14 +6345,13 @@ LABEL_14:
   }
 
   v9 = objc_opt_class();
-  [collection horizontalSizeClass];
-  v10 = _UISplitViewControllerAdaptiveLayoutClassCollapsed();
-  if (v9 && ([v9 isEqual:v10] & 1) == 0)
+  _UISplitViewControllerAdaptiveLayoutClassCollapsed([collection horizontalSizeClass] == 1);
+  if (v9 && (objc_msgSend_isEqual_(v9) & 1) == 0)
   {
-    v11 = [(UIView *)self->_containerView snapshotViewAfterScreenUpdates:0];
-    if (v11)
+    v10 = [(UIView *)self->_containerView snapshotViewAfterScreenUpdates:0];
+    if (v10)
     {
-      [(_UISplitViewControllerAdaptiveLayoutTransitionController *)self->_transitionController scheduleSnapshot:v11];
+      [(_UISplitViewControllerAdaptiveLayoutTransitionController *)self->_transitionController scheduleSnapshot:v10];
     }
   }
 }
@@ -7797,7 +7797,7 @@ LABEL_7:
   return ((v4 || v5) | v6 | v7 | v8 | v9 | v10 | v11 | [(_UISplitViewControllerAdaptiveImpl *)columns _updatePreferredColumnsSecondaryEdgePreferenceMode:?]) & 1;
 }
 
-- (uint64_t)_updatePreferredColumnsToToggleSplitViewControllerColumnOnEdge:(void *)edge layout:
+- (void)_updatePreferredColumnsToToggleSplitViewControllerColumnOnEdge:(void *)edge layout:
 {
   if (result)
   {
@@ -8672,9 +8672,9 @@ LABEL_16:
   {
     if (groupsCopy && v11)
     {
-      v6 = [(NSArray *)v11 isEqual:groupsCopy];
+      isEqual = objc_msgSend_isEqual_(v11);
 
-      if (v6)
+      if (isEqual)
       {
         return;
       }
@@ -8720,9 +8720,9 @@ LABEL_16:
   {
     if (groupsCopy && v11)
     {
-      v6 = [(NSArray *)v11 isEqual:groupsCopy];
+      isEqual = objc_msgSend_isEqual_(v11);
 
-      if (v6)
+      if (isEqual)
       {
         return;
       }

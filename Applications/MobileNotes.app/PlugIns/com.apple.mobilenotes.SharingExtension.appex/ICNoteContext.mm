@@ -13,6 +13,7 @@
 - (void)sendNotificationAfterDeletingOrUndeletingNotes;
 - (void)sendNotificationBeforeDeletingOrUndeletingNotes:(id)notes;
 - (void)undoablyDeleteAttachment:(id)attachment;
+- (void)undoablyDeleteFolder:(id)folder markNotesForDeletion:(BOOL)deletion moveAction:(id)action actionName:(id)name;
 - (void)undoablyDeleteNote:(id)note moveAction:(id)action actionName:(id)name;
 - (void)undoablyDeleteUnusedTagsForSmartFolder:(id)folder;
 - (void)undoablyMarkNotes:(id)notes asCallNotes:(BOOL)callNotes;
@@ -26,6 +27,7 @@
 - (void)undoablyProcessNoteIDs:(id)ds progressStringBlock:(id)block workerContext:(id)context processNoteBlock:(id)noteBlock completionHandler:(id)handler;
 - (void)undoablyTrashOrDeleteNotes:(id)notes;
 - (void)undoablyUndeleteAttachment:(id)attachment;
+- (void)undoablyUndeleteFolder:(id)folder didMarkNotesForDeletion:(BOOL)deletion moveAction:(id)action actionName:(id)name;
 - (void)undoablyUndeleteNote:(id)note moveAction:(id)action actionName:(id)name;
 - (void)undoablyUndeleteUnusedTagsForSmartFolder:(id)folder;
 - (void)undoablyUnmoveNoteIDs:(id)ds toFolderIDs:(id)iDs originalToCopyNoteIDs:(id)noteIDs actionName:(id)name noteToFolderIDsForRedo:(id)redo workerContext:(id)context;
@@ -128,34 +130,33 @@ LABEL_10:
     nameCopy = +[NSString localizedStringWithFormat:](NSString, "localizedStringWithFormat:", v10, [notesCopy count]);
   }
 
-  v29 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [notesCopy count]);
+  v28 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [notesCopy count]);
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
-  v26 = notesCopy;
+  v25 = notesCopy;
   obj = [notesCopy copy];
-  v11 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+  v11 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v32;
+    v13 = *v31;
     do
     {
-      for (i = 0; i != v12; i = i + 1)
+      for (i = 0; i != v12; ++i)
       {
-        if (*v32 != v13)
+        if (*v31 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v31 + 1) + 8 * i);
-        v16 = ICCheckedProtocolCast();
-        if (v16)
+        v15 = ICCheckedProtocolCast();
+        if (v15)
         {
           objc_opt_class();
-          v17 = ICDynamicCast();
-          v18 = v17;
+          v16 = ICDynamicCast();
+          v17 = v16;
           if (folderCopy)
           {
             folder = folderCopy;
@@ -163,37 +164,37 @@ LABEL_10:
 
           else
           {
-            folder = [v17 folder];
+            folder = [v16 folder];
           }
 
-          v20 = folder;
-          if (v18)
+          v19 = folder;
+          if (v17)
           {
-            v21 = [[ICCloudSyncingObjectMoveAction alloc] initWithNote:v18 toFolder:folder isCopy:1];
+            v20 = [[ICCloudSyncingObjectMoveAction alloc] initWithNote:v17 toFolder:folder isCopy:1];
           }
 
           else
           {
-            v21 = 0;
+            v20 = 0;
           }
 
-          v22 = [(ICNoteContext *)self undoablyCopyNote:v16 toFolder:v20 moveAction:v21 actionName:nameCopy];
-          [v29 ic_addNonNilObject:v22];
+          v21 = [(ICNoteContext *)self undoablyCopyNote:v15 toFolder:v19 moveAction:v20 actionName:nameCopy];
+          [v28 ic_addNonNilObject:v21];
         }
       }
 
-      v12 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v12 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
     }
 
     while (v12);
   }
 
-  v23 = +[NSUndoManager shared];
-  [v23 setActionName:nameCopy];
+  v22 = +[NSUndoManager shared];
+  [v22 setActionName:nameCopy];
 
-  v24 = [v29 copy];
+  v23 = [v28 copy];
 
-  return v24;
+  return v23;
 }
 
 - (void)undoablyDeleteNote:(id)note moveAction:(id)action actionName:(id)name
@@ -531,37 +532,36 @@ LABEL_6:
 {
   notesCopy = notes;
   folderCopy = folder;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v8 = [notesCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [notesCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v15;
     do
     {
       v11 = 0;
       do
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(notesCopy);
         }
 
-        v12 = *(*(&v15 + 1) + 8 * v11);
-        v13 = ICCheckedProtocolCast();
-        if (v13)
+        v12 = ICCheckedProtocolCast();
+        if (v12)
         {
-          v14 = [(ICNoteContext *)self addNewNoteByCopyingNote:v13 toFolder:folderCopy];
+          v13 = [(ICNoteContext *)self addNewNoteByCopyingNote:v12 toFolder:folderCopy];
         }
 
-        v11 = v11 + 1;
+        ++v11;
       }
 
       while (v9 != v11);
-      v9 = [notesCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [notesCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v9);
@@ -605,46 +605,45 @@ LABEL_3:
     notesForCopying = [folderCopy notesForCopying];
     [(ICNoteContext *)self copyNotes:notesForCopying toFolder:v8];
 
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
-    v19 = folderCopy;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
+    v18 = folderCopy;
     subfoldersForCopying = [folderCopy subfoldersForCopying];
-    v12 = [subfoldersForCopying countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v12 = [subfoldersForCopying countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v21;
+      v14 = *v20;
       do
       {
         v15 = 0;
         do
         {
-          if (*v21 != v14)
+          if (*v20 != v14)
           {
             objc_enumerationMutation(subfoldersForCopying);
           }
 
-          v16 = *(*(&v20 + 1) + 8 * v15);
-          v17 = ICCheckedProtocolCast();
-          if (v17)
+          v16 = ICCheckedProtocolCast();
+          if (v16)
           {
-            v18 = [ICFolder newFolderInParentFolder:v8];
-            [(ICNoteContext *)self copyFolder:v17 toFolder:v18];
+            v17 = [ICFolder newFolderInParentFolder:v8];
+            [(ICNoteContext *)self copyFolder:v16 toFolder:v17];
           }
 
-          v15 = v15 + 1;
+          ++v15;
         }
 
         while (v13 != v15);
-        v13 = [subfoldersForCopying countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v13 = [subfoldersForCopying countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v13);
     }
 
-    folderCopy = v19;
+    folderCopy = v18;
   }
 }
 
@@ -955,6 +954,185 @@ LABEL_10:
   [v17 updateChangeCountRecursivelyWithReason:@"Copied folder"];
 
   return v17;
+}
+
+- (void)undoablyDeleteFolder:(id)folder markNotesForDeletion:(BOOL)deletion moveAction:(id)action actionName:(id)name
+{
+  deletionCopy = deletion;
+  folderCopy = folder;
+  actionCopy = action;
+  nameCopy = name;
+  if ([folderCopy isDeletable])
+  {
+    if (([folderCopy markedForDeletion] & 1) == 0)
+    {
+      if (!nameCopy)
+      {
+        v13 = +[NSBundle mainBundle];
+        nameCopy = [v13 localizedStringForKey:@"Delete Folder" value:&stru_1000F6F48 table:0];
+      }
+
+      v46 = 0u;
+      v47 = 0u;
+      v44 = 0u;
+      v45 = 0u;
+      notes = [folderCopy notes];
+      v15 = [notes copy];
+
+      v16 = [v15 countByEnumeratingWithState:&v44 objects:v49 count:16];
+      if (v16)
+      {
+        v17 = v16;
+        v18 = *v45;
+        do
+        {
+          for (i = 0; i != v17; i = i + 1)
+          {
+            if (*v45 != v18)
+            {
+              objc_enumerationMutation(v15);
+            }
+
+            v20 = *(*(&v44 + 1) + 8 * i);
+            v21 = [v20 undoablyTrashOrDeleteWithMoveAction:0 actionName:nameCopy];
+            if (deletionCopy)
+            {
+              [(ICNoteContext *)self undoablyDeleteNote:v20 moveAction:0 actionName:nameCopy];
+              if (v21)
+              {
+                [(ICNoteContext *)self undoablyDeleteNote:v21 moveAction:0 actionName:nameCopy];
+              }
+            }
+          }
+
+          v17 = [v15 countByEnumeratingWithState:&v44 objects:v49 count:16];
+        }
+
+        while (v17);
+      }
+
+      v42 = 0u;
+      v43 = 0u;
+      v40 = 0u;
+      v41 = 0u;
+      children = [folderCopy children];
+      v23 = [children copy];
+
+      v24 = [v23 countByEnumeratingWithState:&v40 objects:v48 count:16];
+      if (v24)
+      {
+        v25 = v24;
+        v26 = *v41;
+        do
+        {
+          for (j = 0; j != v25; j = j + 1)
+          {
+            if (*v41 != v26)
+            {
+              objc_enumerationMutation(v23);
+            }
+
+            [(ICNoteContext *)self undoablyDeleteFolder:*(*(&v40 + 1) + 8 * j) markNotesForDeletion:deletionCopy moveAction:0 actionName:nameCopy];
+          }
+
+          v25 = [v23 countByEnumeratingWithState:&v40 objects:v48 count:16];
+        }
+
+        while (v25);
+      }
+
+      parent = [folderCopy parent];
+
+      if (parent)
+      {
+        [folderCopy parent];
+      }
+
+      else
+      {
+        [folderCopy account];
+      }
+      v30 = ;
+      actionCopy = v37;
+      [v30 undoablyRemoveFromOrder:folderCopy];
+
+      [folderCopy markForDeletion];
+      [(ICNoteContext *)self undoablyDeleteUnusedTagsForSmartFolder:folderCopy];
+      if ([folderCopy importedFromLegacy])
+      {
+        [ICLegacyTombstone addLegacyTombstoneForFolder:folderCopy];
+      }
+
+      v31 = +[NSUndoManager shared];
+      isUndoing = [v31 isUndoing];
+
+      if (v37 && (isUndoing & 1) == 0)
+      {
+        [ICCloudSyncingObject undoablyPersistActivityEventsForMoveAction:v37 oldObject:folderCopy newObject:0];
+      }
+
+      v33 = +[NSUndoManager shared];
+      v34 = [v33 prepareWithInvocationTarget:self];
+      [v34 undoablyUndeleteFolder:folderCopy didMarkNotesForDeletion:deletionCopy moveAction:v37 actionName:nameCopy];
+
+      v35 = +[NSUndoManager shared];
+      [v35 setActionName:nameCopy];
+    }
+
+    managedObjectContext = [folderCopy managedObjectContext];
+    v38[0] = _NSConcreteStackBlock;
+    v38[1] = 3221225472;
+    v38[2] = sub_10001DCBC;
+    v38[3] = &unk_1000F2390;
+    v39 = folderCopy;
+    [managedObjectContext performBlock:v38];
+
+    v29 = v39;
+  }
+
+  else
+  {
+    v29 = os_log_create("com.apple.notes", "CoreData");
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    {
+      sub_1000B40C4();
+    }
+  }
+}
+
+- (void)undoablyUndeleteFolder:(id)folder didMarkNotesForDeletion:(BOOL)deletion moveAction:(id)action actionName:(id)name
+{
+  deletionCopy = deletion;
+  folderCopy = folder;
+  actionCopy = action;
+  nameCopy = name;
+  if (!nameCopy)
+  {
+    [ICAssert handleFailedAssertWithCondition:"actionName" functionName:"[ICNoteContext(UndoSupport) undoablyUndeleteFolder:didMarkNotesForDeletion:moveAction:actionName:]" simulateCrash:1 showAlert:0 format:@"actionName is nil"];
+    v12 = +[NSBundle mainBundle];
+    nameCopy = [v12 localizedStringForKey:@"Delete Folder" value:&stru_1000F6F48 table:0];
+  }
+
+  [folderCopy unmarkForDeletion];
+  if ([folderCopy importedFromLegacy])
+  {
+    [ICLegacyTombstone removeLegacyTombstoneForFolder:folderCopy];
+  }
+
+  v13 = +[NSUndoManager shared];
+  isUndoing = [v13 isUndoing];
+
+  if (actionCopy && (isUndoing & 1) == 0)
+  {
+    [ICCloudSyncingObject undoablyPersistActivityEventsForMoveAction:actionCopy oldObject:0 newObject:folderCopy];
+  }
+
+  v15 = +[NSUndoManager shared];
+  v16 = [v15 prepareWithInvocationTarget:self];
+  [v16 undoablyDeleteFolder:folderCopy markNotesForDeletion:deletionCopy moveAction:actionCopy actionName:nameCopy];
+
+  v17 = +[NSUndoManager shared];
+  [v17 setActionName:nameCopy];
 }
 
 - (void)undoablyDeleteUnusedTagsForSmartFolder:(id)folder

@@ -85,7 +85,7 @@
 
         else if (error)
         {
-          ENTestResultErrorF(10);
+          ENTestResultErrorF(10, "Nil upload URL");
           *error = v19 = 0;
         }
 
@@ -97,7 +97,7 @@
 
       else if (error)
       {
-        ENTestResultErrorF(10);
+        ENTestResultErrorF(10, "Nil verification URL");
         *error = v19 = 0;
       }
 
@@ -109,7 +109,7 @@
 
     else if (error)
     {
-      ENTestResultErrorF(10);
+      ENTestResultErrorF(10, "Nil certificate URL");
       *error = v19 = 0;
     }
 
@@ -121,7 +121,7 @@
 
   else if (error)
   {
-    ENTestResultErrorF(10);
+    ENTestResultErrorF(10, "Nil API key");
     *error = v19 = 0;
   }
 
@@ -140,7 +140,16 @@
   v9 = completionCopy;
   if (state)
   {
-    v8 = ENErrorF();
+    if (state == 5)
+    {
+      ENErrorF(10, "Session invalidated");
+    }
+
+    else
+    {
+      ENErrorF(10, "Session already started");
+    }
+    v8 = ;
     v9[2](v9, v8);
   }
 
@@ -262,7 +271,7 @@ void __78__ENChaffTestResultSession__sendChaffRequestWithURL_useAPIKey_successHa
     networkRequest = self->_networkRequest;
     self->_networkRequest = 0;
 
-    v5 = ENTestResultErrorF(5);
+    v5 = ENTestResultErrorF(5, "Session invalidated");
     [(ENChaffTestResultSession *)self _callCompletionIfNecessaryWithError:v5];
   }
 }

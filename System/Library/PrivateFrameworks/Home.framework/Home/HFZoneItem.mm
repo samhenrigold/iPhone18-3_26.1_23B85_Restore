@@ -91,7 +91,7 @@ void __25__HFZoneItem_na_identity__block_invoke_2()
 
 - (id)hf_deleteItem
 {
-  home = [(HFZoneItem *)self home];
+  v3 = objc_msgSend_home(self, a2);
   v4 = [(HFZoneItem *)self zone];
   v5 = MEMORY[0x277D2C900];
   v10[0] = MEMORY[0x277D85DD0];
@@ -99,8 +99,8 @@ void __25__HFZoneItem_na_identity__block_invoke_2()
   v10[2] = __27__HFZoneItem_hf_deleteItem__block_invoke;
   v10[3] = &unk_277DF28D8;
   v11 = v4;
-  v12 = home;
-  v6 = home;
+  v12 = v3;
+  v6 = v3;
   v7 = v4;
   v8 = [v5 futureWithBlock:v10];
 
@@ -191,7 +191,7 @@ uint64_t __27__HFZoneItem_hf_deleteItem__block_invoke_5(uint64_t a1, uint64_t a2
 
 - (id)_subclass_updateWithOptions:(id)options
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   v4 = objc_alloc_init(MEMORY[0x277D2C900]);
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   v6 = [(HFZoneItem *)self zone];
@@ -202,20 +202,18 @@ uint64_t __27__HFZoneItem_hf_deleteItem__block_invoke_5(uint64_t a1, uint64_t a2
   uniqueIdentifier = [v8 uniqueIdentifier];
   [dictionary setObject:uniqueIdentifier forKeyedSubscript:@"zoneIdentifier"];
 
-  v17[0] = objc_opt_class();
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
+  v16[0] = objc_opt_class();
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
   [dictionary setObject:v10 forKeyedSubscript:@"dependentHomeKitClasses"];
 
   v11 = MEMORY[0x277CCABB0];
-  home = [(HFZoneItem *)self home];
-  v13 = [v11 numberWithBool:{objc_msgSend(home, "hf_currentUserIsAdministrator")}];
+  v12 = objc_msgSend_home(self);
+  v13 = [v11 numberWithBool:{objc_msgSend(v12, "hf_currentUserIsAdministrator")}];
   [dictionary setObject:v13 forKeyedSubscript:@"administrator"];
 
   [dictionary setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"shouldDisableForNonAdminUsers"];
   v14 = [HFItemUpdateOutcome outcomeWithResults:dictionary];
   [v4 finishWithResult:v14];
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

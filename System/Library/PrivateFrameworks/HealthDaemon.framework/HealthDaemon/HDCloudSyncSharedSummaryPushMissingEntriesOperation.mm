@@ -6,7 +6,7 @@
 
 - (void)main
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   configuration = [(HDCloudSyncOperation *)self configuration];
   repository = [configuration repository];
   syncAvailability = [repository syncAvailability];
@@ -20,18 +20,18 @@
     repository2 = [configuration3 repository];
     primaryCKContainer = [repository2 primaryCKContainer];
     containerIdentifier = [primaryCKContainer containerIdentifier];
-    v32 = 0;
-    v13 = [cachedCloudState privateMetadataZoneForContainerID:containerIdentifier error:&v32];
-    v14 = v32;
+    v31 = 0;
+    v13 = [cachedCloudState privateMetadataZoneForContainerID:containerIdentifier error:&v31];
+    v14 = v31;
 
     if (v13)
     {
-      v31 = 0;
-      v15 = [v13 recordsForClass:objc_opt_class() error:&v31];
-      v16 = v31;
+      v30 = 0;
+      v15 = [v13 recordsForClass:objc_opt_class() error:&v30];
+      v16 = v30;
       if (v15)
       {
-        v28 = [v15 hk_mapToSet:&__block_literal_global_3];
+        v27 = [v15 hk_mapToSet:&__block_literal_global_3];
         v17 = [HDCloudSyncCompoundOperation alloc];
         configuration4 = [(HDCloudSyncOperation *)self configuration];
         v19 = [(HDCloudSyncCompoundOperation *)v17 initWithConfiguration:configuration4 cloudState:0 name:@"Push Pending Invitations" continueOnSubOperationError:0];
@@ -42,14 +42,14 @@
         summarySharingEntryShim = [cloudSyncShimProvider summarySharingEntryShim];
 
         configuration6 = [(HDCloudSyncOperation *)self configuration];
-        v29[0] = MEMORY[0x277D85DD0];
-        v29[1] = 3221225472;
-        v29[2] = __59__HDCloudSyncSharedSummaryPushMissingEntriesOperation_main__block_invoke_2;
-        v29[3] = &unk_278613C88;
-        v29[4] = self;
-        v30 = v19;
+        v28[0] = MEMORY[0x277D85DD0];
+        v28[1] = 3221225472;
+        v28[2] = __59__HDCloudSyncSharedSummaryPushMissingEntriesOperation_main__block_invoke_2;
+        v28[3] = &unk_278613C88;
+        v28[4] = self;
+        v29 = v19;
         v25 = v19;
-        [summarySharingEntryShim authorizationIdentifiersForEntriesNotExistingParticipants:v28 configuration:configuration6 completion:v29];
+        [summarySharingEntryShim authorizationIdentifiersForEntriesNotExistingParticipants:v27 configuration:configuration6 completion:v28];
       }
 
       else
@@ -82,39 +82,37 @@
 
     [(HDCloudSyncOperation *)self finishWithSuccess:1 error:0];
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __59__HDCloudSyncSharedSummaryPushMissingEntriesOperation_main__block_invoke_2(uint64_t a1, void *a2, char a3, uint64_t a4)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = v7;
   if (a3)
   {
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     obj = [v7 allKeys];
-    v9 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v9 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v22;
+      v11 = *v21;
       v12 = MEMORY[0x277CBEBF8];
       do
       {
         v13 = 0;
         do
         {
-          if (*v22 != v11)
+          if (*v21 != v11)
           {
             objc_enumerationMutation(obj);
           }
 
-          v14 = *(*(&v21 + 1) + 8 * v13);
+          v14 = *(*(&v20 + 1) + 8 * v13);
           v15 = [HDCloudSyncSharedSummaryUpdateParticipantOperation alloc];
           v16 = [*(a1 + 32) configuration];
           v17 = [v8 objectForKeyedSubscript:v14];
@@ -125,7 +123,7 @@ void __59__HDCloudSyncSharedSummaryPushMissingEntriesOperation_main__block_invok
         }
 
         while (v10 != v13);
-        v10 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v10 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v10);
@@ -138,8 +136,6 @@ void __59__HDCloudSyncSharedSummaryPushMissingEntriesOperation_main__block_invok
   {
     [*(a1 + 32) finishWithSuccess:0 error:a4];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -506,7 +506,7 @@
 
 - (void)handleMessageWithPipeline:(id)pipeline input:(id)input completionBlock:(id)block
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   pipelineCopy = pipeline;
   inputCopy = input;
   blockCopy = block;
@@ -517,7 +517,7 @@
     {
       gUID = [inputCopy GUID];
       *buf = 138412290;
-      v29 = gUID;
+      v28 = gUID;
       _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Enquing message processing (%@)", buf, 0xCu);
     }
   }
@@ -529,29 +529,27 @@
     {
       v14 = qos_class_self();
       *buf = 67109120;
-      LODWORD(v29) = v14;
+      LODWORD(v28) = v14;
       _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "Enqueue message qos is (%u)", buf, 8u);
     }
   }
 
   v15 = IMLogHandleForCategory();
   v16 = os_signpost_id_generate(v15);
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = sub_22B645D6C;
-  v22[3] = &unk_278706CD8;
-  v23 = inputCopy;
-  v24 = v15;
-  v26 = blockCopy;
-  v27 = v16;
-  v25 = pipelineCopy;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = sub_22B645D6C;
+  v21[3] = &unk_278706CD8;
+  v22 = inputCopy;
+  v23 = v15;
+  v25 = blockCopy;
+  v26 = v16;
+  v24 = pipelineCopy;
   v17 = blockCopy;
   v18 = pipelineCopy;
   v19 = v15;
   v20 = inputCopy;
-  [(IMDiMessageIncomingMessageHandler *)self _enqueueBlock:v22 withTimeout:@"message" description:45.0];
-
-  v21 = *MEMORY[0x277D85DE8];
+  [(IMDiMessageIncomingMessageHandler *)self _enqueueBlock:v21 withTimeout:@"message" description:45.0];
 }
 
 - (void)handleSyndicatedActionWithPipeline:(id)pipeline input:(id)input completionBlock:(id)block

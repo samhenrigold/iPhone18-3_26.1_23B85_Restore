@@ -78,7 +78,7 @@
   return v4;
 }
 
-uint64_t __75__PKPaymentSetupAssistantController_isFollowupNeededReturningRequirements___block_invoke(uint64_t a1)
+void *__75__PKPaymentSetupAssistantController_isFollowupNeededReturningRequirements___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _setupAssistantNeedsToRunReturningRequirements:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -242,7 +242,7 @@ void __74__PKPaymentSetupAssistantController_prepareForPresentationWithCompletio
       if (!v16)
       {
         contextCopy = context;
-        watchPeerPaymentWebService = [getNPKCompanionAgentConnectionClass_2[0]() watchPeerPaymentWebService];
+        watchPeerPaymentWebService = [(objc_class *)getNPKCompanionAgentConnectionClass_2() watchPeerPaymentWebService];
         mEMORY[0x1E69B9020] = [MEMORY[0x1E69B9020] sharedService];
         v30 = watchPeerPaymentWebService;
         targetDevice = [watchPeerPaymentWebService targetDevice];
@@ -272,7 +272,7 @@ void __74__PKPaymentSetupAssistantController_prepareForPresentationWithCompletio
     }
   }
 
-  watchPaymentWebService = [getNPKCompanionAgentConnectionClass_2[0]() watchPaymentWebService];
+  watchPaymentWebService = [(objc_class *)getNPKCompanionAgentConnectionClass_2() watchPaymentWebService];
   v27 = [(PKPaymentSetupAssistantCoreController *)self _provisioningControllerWithWebService:watchPaymentWebService];
   if (PKIsAltAccountPairedOrPairing())
   {
@@ -403,25 +403,25 @@ uint64_t __100__PKPaymentSetupAssistantController__bridgeStartingViewControllerF
   return result;
 }
 
-uint64_t __100__PKPaymentSetupAssistantController__bridgeStartingViewControllerForPaymentSetupContext_completion___block_invoke_2(uint64_t a1)
+uint64_t __100__PKPaymentSetupAssistantController__bridgeStartingViewControllerForPaymentSetupContext_completion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (*(*(*(a1 + 48) + 8) + 24))
   {
-    v2 = *(a1 + 32);
+    v3 = *(a1 + 32);
 
-    return [v2 viewControllerDidTerminateSetupFlow:0];
+    return [v3 viewControllerDidTerminateSetupFlow:0];
   }
 
   else
   {
-    v4 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = PKLogFacilityTypeGetObject();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = NSStringFromSelector(*(a1 + 56));
-      v6 = 138543362;
-      v7 = v5;
-      _os_log_impl(&dword_1BD026000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ no initial view controller found", &v6, 0xCu);
+      v6 = NSStringFromSelector(*(a1 + 56));
+      v7 = 138543362;
+      v8 = v6;
+      _os_log_impl(&dword_1BD026000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ no initial view controller found", &v7, 0xCu);
     }
 
     return (*(*(a1 + 40) + 16))();

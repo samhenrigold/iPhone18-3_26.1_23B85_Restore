@@ -43,33 +43,31 @@ id __122__LNEntity_WFSerializableContent__valueFromSerializedRepresentation_meta
 
 uint64_t __122__LNEntity_WFSerializableContent__valueFromSerializedRepresentation_metadata_variableProvider_parameter_bundleIdentifier___block_invoke_3(uint64_t a1, void *a2)
 {
-  v3 = [a2 identifier];
-  v4 = [v3 isEqualToString:*(a1 + 32)];
+  v2 = [a2 identifier];
+  isEqualToString = objc_msgSend_isEqualToString_(v2);
 
-  return v4;
+  return isEqualToString;
 }
 
 void __122__LNEntity_WFSerializableContent__valueFromSerializedRepresentation_metadata_variableProvider_parameter_bundleIdentifier___block_invoke(int a1, id a2, void *a3, void *a4, void *a5)
 {
-  v20[2] = *MEMORY[0x1E69E9840];
+  v19[2] = *MEMORY[0x1E69E9840];
   v9 = a2;
   *a4 = a2;
-  v18 = a3;
-  v19[0] = @"identifier";
-  v19[1] = @"value";
-  v20[0] = a2;
-  v17 = @"value";
+  v17 = a3;
+  v18[0] = @"identifier";
+  v18[1] = @"value";
+  v19[0] = a2;
+  v16 = @"value";
   v10 = MEMORY[0x1E695DF20];
   v11 = a3;
   v12 = a2;
-  v13 = [v10 dictionaryWithObjects:&v18 forKeys:&v17 count:1];
-  v20[1] = v13;
-  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:2];
+  v13 = [v10 dictionaryWithObjects:&v17 forKeys:&v16 count:1];
+  v19[1] = v13;
+  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:2];
 
   v15 = v14;
   *a5 = v14;
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 @end

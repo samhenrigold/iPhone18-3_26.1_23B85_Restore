@@ -245,7 +245,7 @@
 - (BOOL)addPointyRoofForBuilding:(void *)building buildingModel:(unsigned __int8)model scaleThreshold:(float)threshold styleIndex:(float)index
 {
   modelCopy = model;
-  v102 = *MEMORY[0x1E69E9840];
+  v104 = *MEMORY[0x1E69E9840];
   v77 = *(building + 24);
   v71 = *(building + 5);
   v10 = +[VKPlatform sharedPlatform];
@@ -340,7 +340,7 @@ LABEL_6:
                 v30 = (*(v29 + 6) - *(v29 + 5)) / *(v29 + 1);
                 ggl::BufferData::resize(v29, v30 + 4 * v26);
                 v74 = v30;
-                ggl::DataAccess<ggl::CommonMesh::BufferPos4>::DataAccess(v100, **(v28 + 64), v30, v30 + 4 * v26);
+                ggl::DataAccess<ggl::CommonMesh::BufferPos4>::DataAccess(v101, **(v28 + 64), v30, v30 + 4 * v26);
                 v31 = *(v28 + 96);
                 v32 = (*(v31 + 6) - *(v31 + 5)) / *(v31 + 1);
                 v33 = v26;
@@ -359,24 +359,24 @@ LABEL_6:
                   v37 = v35->_maximum._e[0];
                   v38 = v35->_minimum._e[0];
                   v35 = (v35 + 4);
-                  *(&v101[-164] + i - 12) = v37 - v38;
+                  *(&v103[-164] + i - 12) = v37 - v38;
                 }
 
                 v39 = 0;
-                v93 = vmaxnm_f32(*&v101[0], 0);
-                v94 = fmaxf(*(v101 + 2), 0.0);
+                v93 = vmaxnm_f32(*&v103[0], 0);
+                v94 = fmaxf(*(v103 + 2), 0.0);
                 do
                 {
-                  *(v101 + v39 * 4) = 65535.0 / v93.f32[v39];
+                  *(v103 + v39 * 4) = 65535.0 / v93.f32[v39];
                   ++v39;
                 }
 
                 while (v39 != 3);
                 v40 = 0;
-                v73 = *v101;
-                v41 = *(v101 + 4);
-                v42 = v100[5];
-                v43 = v99[5];
+                v73 = *v103;
+                v41 = *(v103 + 4);
+                v42 = v102;
+                v43 = v100;
                 do
                 {
                   v44 = &v75[24 * v40];
@@ -388,22 +388,22 @@ LABEL_6:
                   _transformPositionAndNormal(&v91, 0, &v79, &v97, v25);
                   for (j = 0; j != 12; j += 4)
                   {
-                    *(v101 + j) = *(&v85 + j) - *(&v95 + j);
+                    *(v103 + j) = *(&v85 + j) - *(&v95 + j);
                   }
 
                   v46 = 0;
-                  v47 = v101[0];
-                  v48 = *(v101 + 4);
+                  v47 = v103[0];
+                  v48 = *(v103 + 4);
                   do
                   {
-                    *(v101 + v46) = *(&v91 + v46) - *(&v95 + v46);
+                    *(v103 + v46) = *(&v91 + v46) - *(&v95 + v46);
                     v46 += 4;
                   }
 
                   while (v46 != 12);
-                  v49 = vcvt_s32_f32(vmul_n_f32(__PAIR64__(v47, v101[0]), v73));
-                  v50 = vcvt_s32_f32(vmul_f32(__PAIR64__(v48.u32[1], DWORD1(v101[0])), v41));
-                  v48.i32[1] = DWORD2(v101[0]);
+                  v49 = vcvt_s32_f32(vmul_n_f32(__PAIR64__(v47, v103[0]), v73));
+                  v50 = vcvt_s32_f32(vmul_f32(__PAIR64__(v48.u32[1], DWORD1(v103[0])), v41));
+                  v48.i32[1] = DWORD2(v103[0]);
                   v51 = vcvt_s32_f32(vmul_f32(v48, v41));
                   v52.i64[0] = v51.u32[0];
                   v52.i64[1] = v51.u32[1];
@@ -452,15 +452,15 @@ LABEL_6:
                 *(&v60 + 1) = *v90;
                 *&v61 = v88;
                 *(&v61 + 1) = *v87;
-                v101[0] = v60;
-                v101[1] = v61;
-                v62 = ggl::CullingGrid::intersectedCellsForRibbon(4uLL, v101, 1);
+                v103[0] = v60;
+                v103[1] = v61;
+                v62 = ggl::CullingGrid::intersectedCellsForRibbon(4uLL, v103, 1);
                 *&v85 = v65;
                 *(&v85 + 1) = v64;
                 v86 = v71;
                 _addRangeToList(&self->_pointyRoofStrokeCullingGroups, v62, 0, &v85);
                 ggl::BufferMemory::~BufferMemory(v99);
-                ggl::BufferMemory::~BufferMemory(v100);
+                ggl::BufferMemory::~BufferMemory(v101);
               }
             }
 
@@ -681,7 +681,7 @@ LABEL_6:
   v35 = v34 + 4 * v27;
   if (v35 >= 0x10000)
   {
-    ggl::MeshVendor<ggl::BuildingFacade::BuildingMesh>::_allocateNewMesh();
+    ggl::MeshVendor<ggl::BuildingFacade::BuildingMesh>::_allocateNewMesh(self->_extrusionFillMeshVendor.__ptr_);
   }
 
   v150 = *ptr;
@@ -1621,7 +1621,7 @@ LABEL_70:
         *buf = buildingCopy;
         *&buf[8] = v18;
         v143 = buf;
-        v54 = std::__hash_table<std::__hash_value_type<std::pair<void const*,unsigned long>,std::vector<md::Edge>>,std::__unordered_map_hasher<std::pair<void const*,unsigned long>,std::__hash_value_type<std::pair<void const*,unsigned long>,std::vector<md::Edge>>,std::hash<std::pair<void const*,unsigned long>>,std::equal_to<std::pair<void const*,unsigned long>>,true>,std::__unordered_map_equal<std::pair<void const*,unsigned long>,std::__hash_value_type<std::pair<void const*,unsigned long>,std::vector<md::Edge>>,std::equal_to<std::pair<void const*,unsigned long>>,std::hash<std::pair<void const*,unsigned long>>,true>,std::allocator<std::__hash_value_type<std::pair<void const*,unsigned long>,std::vector<md::Edge>>>>::__emplace_unique_key_args<std::pair<void const*,unsigned long>,std::piecewise_construct_t const&,std::tuple<std::pair<void const*,unsigned long>&&>,std::tuple<>>(&self->super._polygonEdges.__table_.__bucket_list_.__ptr_, buildingCopy, v18);
+        v54 = std::__hash_table<std::__hash_value_type<std::pair<void const*,unsigned long>,std::vector<md::Edge>>,std::__unordered_map_hasher<std::pair<void const*,unsigned long>,std::__hash_value_type<std::pair<void const*,unsigned long>,std::vector<md::Edge>>,std::hash<std::pair<void const*,unsigned long>>,std::equal_to<std::pair<void const*,unsigned long>>,true>,std::__unordered_map_equal<std::pair<void const*,unsigned long>,std::__hash_value_type<std::pair<void const*,unsigned long>,std::vector<md::Edge>>,std::equal_to<std::pair<void const*,unsigned long>>,std::hash<std::pair<void const*,unsigned long>>,true>,std::allocator<std::__hash_value_type<std::pair<void const*,unsigned long>,std::vector<md::Edge>>>>::__emplace_unique_key_args<std::pair<void const*,unsigned long>,std::piecewise_construct_t const&,std::tuple<std::pair<void const*,unsigned long>&&>,std::tuple<>>(&self->super._polygonEdges.__table_.__bucket_list_.__ptr_, buildingCopy, v18, &v143);
         std::vector<md::Edge>::reserve(v54 + 4, v23);
         v55 = 0;
         do

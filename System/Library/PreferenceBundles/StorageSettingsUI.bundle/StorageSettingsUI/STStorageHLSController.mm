@@ -8,6 +8,7 @@
 - (void)toggleEditing:(id)editing;
 - (void)updateHLSSpecs;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation STStorageHLSController
@@ -29,6 +30,27 @@
 
   v8 = +[NSNotificationCenter defaultCenter];
   [v8 addObserver:self selector:"updateHLSSpecs" name:UIApplicationDidBecomeActiveNotification object:0];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v11.receiver = self;
+  v11.super_class = STStorageHLSController;
+  [(STStorageHLSController *)&v11 viewWillAppear:appear];
+  v4 = STLocalizedString(@"Downloaded Videos");
+  navigationItem = [(STStorageHLSController *)self navigationItem];
+  [navigationItem setTitle:v4];
+
+  editButtonItem = [(STStorageHLSController *)self editButtonItem];
+  [editButtonItem setTarget:self];
+
+  editButtonItem2 = [(STStorageHLSController *)self editButtonItem];
+  [editButtonItem2 setAction:"toggleEditing:"];
+
+  parentViewController = [(STStorageHLSController *)self parentViewController];
+  navigationItem2 = [parentViewController navigationItem];
+  editButtonItem3 = [(STStorageHLSController *)self editButtonItem];
+  [navigationItem2 setRightBarButtonItem:editButtonItem3];
 }
 
 - (void)toggleEditing:(id)editing

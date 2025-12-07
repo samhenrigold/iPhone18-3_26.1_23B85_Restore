@@ -15,13 +15,12 @@
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path
 {
-  v6 = *MEMORY[0x29EDBDAB0];
   pathCopy = path;
   viewCopy = view;
   UIAccessibilitySpeak();
-  v9.receiver = self;
-  v9.super_class = VTUIVoiceSelectionOptionsViewAccessibility;
-  [(VTUIVoiceSelectionOptionsViewAccessibility *)&v9 tableView:viewCopy didSelectRowAtIndexPath:pathCopy];
+  v8.receiver = self;
+  v8.super_class = VTUIVoiceSelectionOptionsViewAccessibility;
+  [(VTUIVoiceSelectionOptionsViewAccessibility *)&v8 tableView:viewCopy didSelectRowAtIndexPath:pathCopy];
 }
 
 - (id)_tableCellForVoiceViewModel:(id)model indexPath:(id)path

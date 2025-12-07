@@ -8,9 +8,9 @@
 - (MRDistantExternalDevice)distantExternalDevice;
 - (id)debugDescription;
 - (id)groupSessionInfo;
-- (uint64_t)_handleEndpointDidConnectWithExternalDevice:(uint64_t)result;
 - (void)_handleConnectionStateDidChangeNotification:(id)notification;
 - (void)_handleDeviceInfoDidChangeNotification:(id)notification;
+- (void)_handleEndpointDidConnectWithExternalDevice:(void *)result;
 - (void)_handleEndpointDidDisconnectWithError:(void *)error;
 - (void)_onExternalDeviceQueue_setExternalDevice:(uint64_t)device;
 - (void)_registerNotificationsForExternalDevice:(uint64_t)device;
@@ -60,10 +60,9 @@ void __44__MRAVDistantEndpoint_distantExternalDevice__block_invoke(uint64_t a1)
   v3 = *(v2 + 88);
   if (!v3)
   {
-    v5 = *(a1 + 32);
-    v6 = [objc_opt_class() externalDeviceFactory];
-    v7 = [v6 distantExternalDeviceForEndpoint:*(a1 + 32)];
-    [(MRAVDistantEndpoint *)v2 _onExternalDeviceQueue_setExternalDevice:v7];
+    v5 = [objc_opt_class() externalDeviceFactory];
+    v6 = [v5 distantExternalDeviceForEndpoint:*(a1 + 32)];
+    [(MRAVDistantEndpoint *)v2 _onExternalDeviceQueue_setExternalDevice:v6];
 
     v3 = *(*(a1 + 32) + 88);
   }
@@ -87,11 +86,11 @@ void __44__MRAVDistantEndpoint_distantExternalDevice__block_invoke(uint64_t a1)
 
 - (MRAVDistantEndpoint)initWithDescriptor:(id)descriptor
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   descriptorCopy = descriptor;
-  v47.receiver = self;
-  v47.super_class = MRAVDistantEndpoint;
-  _init = [(MRAVEndpoint *)&v47 _init];
+  v46.receiver = self;
+  v46.super_class = MRAVDistantEndpoint;
+  _init = [(MRAVEndpoint *)&v46 _init];
   if (_init)
   {
     v6 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
@@ -112,68 +111,68 @@ void __44__MRAVDistantEndpoint_distantExternalDevice__block_invoke(uint64_t a1)
     _init->_connectionType = [descriptorCopy connectionType];
     _init->_canModifyGroupMembership = [descriptorCopy canModifyGroupMembership];
     v15 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v42 = 0u;
     v43 = 0u;
     v44 = 0u;
     v45 = 0u;
-    v46 = 0u;
     outputDevices = [descriptorCopy outputDevices];
-    v17 = [outputDevices countByEnumeratingWithState:&v43 objects:v49 count:16];
+    v17 = [outputDevices countByEnumeratingWithState:&v42 objects:v48 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v44;
+      v19 = *v43;
       do
       {
         v20 = 0;
         do
         {
-          if (*v44 != v19)
+          if (*v43 != v19)
           {
             objc_enumerationMutation(outputDevices);
           }
 
-          v21 = [[MRAVDistantOutputDevice alloc] initWithDescriptor:*(*(&v43 + 1) + 8 * v20)];
+          v21 = [[MRAVDistantOutputDevice alloc] initWithDescriptor:*(*(&v42 + 1) + 8 * v20)];
           [(NSArray *)v15 addObject:v21];
 
           ++v20;
         }
 
         while (v18 != v20);
-        v18 = [outputDevices countByEnumeratingWithState:&v43 objects:v49 count:16];
+        v18 = [outputDevices countByEnumeratingWithState:&v42 objects:v48 count:16];
       }
 
       while (v18);
     }
 
     v22 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v38 = 0u;
     v39 = 0u;
     v40 = 0u;
     v41 = 0u;
-    v42 = 0u;
     personalOutputDevices = [descriptorCopy personalOutputDevices];
-    v24 = [personalOutputDevices countByEnumeratingWithState:&v39 objects:v48 count:16];
+    v24 = [personalOutputDevices countByEnumeratingWithState:&v38 objects:v47 count:16];
     if (v24)
     {
       v25 = v24;
-      v26 = *v40;
+      v26 = *v39;
       do
       {
         v27 = 0;
         do
         {
-          if (*v40 != v26)
+          if (*v39 != v26)
           {
             objc_enumerationMutation(personalOutputDevices);
           }
 
-          v28 = [[MRAVDistantOutputDevice alloc] initWithDescriptor:*(*(&v39 + 1) + 8 * v27)];
+          v28 = [[MRAVDistantOutputDevice alloc] initWithDescriptor:*(*(&v38 + 1) + 8 * v27)];
           [(NSArray *)v22 addObject:v28];
 
           ++v27;
         }
 
         while (v25 != v27);
-        v25 = [personalOutputDevices countByEnumeratingWithState:&v39 objects:v48 count:16];
+        v25 = [personalOutputDevices countByEnumeratingWithState:&v38 objects:v47 count:16];
       }
 
       while (v25);
@@ -194,7 +193,6 @@ void __44__MRAVDistantEndpoint_distantExternalDevice__block_invoke(uint64_t a1)
     _init->_distantGroupLeader = v35;
   }
 
-  v37 = *MEMORY[0x1E69E9840];
   return _init;
 }
 
@@ -255,7 +253,7 @@ uint64_t __39__MRAVDistantEndpoint_debugDescription__block_invoke(uint64_t a1)
 
 - (void)encodeWithCoder:(id)coder
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = objc_alloc_init(_MRAVEndpointDescriptorProtobuf);
   [(_MRAVEndpointDescriptorProtobuf *)v5 setName:self->_localizedName];
@@ -265,67 +263,67 @@ uint64_t __39__MRAVDistantEndpoint_debugDescription__block_invoke(uint64_t a1)
   [(_MRAVEndpointDescriptorProtobuf *)v5 setDesignatedGroupLeader:protobuf];
 
   [(_MRAVEndpointDescriptorProtobuf *)v5 setCanModifyGroupMembership:self->_canModifyGroupMembership];
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   v7 = self->_distantOutputDevices;
-  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v28 objects:v33 count:16];
+  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v27 objects:v32 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v29;
+    v10 = *v28;
     do
     {
       v11 = 0;
       do
       {
-        if (*v29 != v10)
+        if (*v28 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        protobuf2 = [*(*(&v28 + 1) + 8 * v11) protobuf];
+        protobuf2 = [*(*(&v27 + 1) + 8 * v11) protobuf];
         [(_MRAVEndpointDescriptorProtobuf *)v5 addOutputDevices:protobuf2];
 
         ++v11;
       }
 
       while (v9 != v11);
-      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v28 objects:v33 count:16];
+      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v27 objects:v32 count:16];
     }
 
     while (v9);
   }
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v13 = self->_distantPersonalOutputDevices;
-  v14 = [(NSArray *)v13 countByEnumeratingWithState:&v24 objects:v32 count:16];
+  v14 = [(NSArray *)v13 countByEnumeratingWithState:&v23 objects:v31 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v25;
+    v16 = *v24;
     do
     {
       v17 = 0;
       do
       {
-        if (*v25 != v16)
+        if (*v24 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        protobuf3 = [*(*(&v24 + 1) + 8 * v17) protobuf];
+        protobuf3 = [*(*(&v23 + 1) + 8 * v17) protobuf];
         [(_MRAVEndpointDescriptorProtobuf *)v5 addPersonalOutputDevices:protobuf3];
 
         ++v17;
       }
 
       while (v15 != v17);
-      v15 = [(NSArray *)v13 countByEnumeratingWithState:&v24 objects:v32 count:16];
+      v15 = [(NSArray *)v13 countByEnumeratingWithState:&v23 objects:v31 count:16];
     }
 
     while (v15);
@@ -336,32 +334,29 @@ uint64_t __39__MRAVDistantEndpoint_debugDescription__block_invoke(uint64_t a1)
   if (objc_opt_isKindOfClass())
   {
     externalDeviceQueue = self->_externalDeviceQueue;
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __39__MRAVDistantEndpoint_encodeWithCoder___block_invoke;
-    v21[3] = &unk_1E769A4A0;
-    v22 = coderCopy;
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __39__MRAVDistantEndpoint_encodeWithCoder___block_invoke;
+    v20[3] = &unk_1E769A4A0;
+    v21 = coderCopy;
     selfCopy = self;
-    dispatch_sync(externalDeviceQueue, v21);
+    dispatch_sync(externalDeviceQueue, v20);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isConnected
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v8 = 0;
-  externalDeviceQueue = self->_externalDeviceQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x2020000000;
+  v7 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = *(v6 + 24);
-  _Block_object_dispose(&v5, 8);
-  return v3;
+  v2 = *(v5 + 24);
+  _Block_object_dispose(&v4, 8);
+  return v2;
 }
 
-uint64_t __34__MRAVDistantEndpoint_isConnected__block_invoke(uint64_t a1)
+void *__34__MRAVDistantEndpoint_isConnected__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 88) isConnected];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -549,7 +544,7 @@ void __44__MRAVDistantEndpoint_externalDeviceFactory__block_invoke()
   }
 }
 
-- (uint64_t)_handleEndpointDidConnectWithExternalDevice:(uint64_t)result
+- (void)_handleEndpointDidConnectWithExternalDevice:(void *)result
 {
   if (result)
   {

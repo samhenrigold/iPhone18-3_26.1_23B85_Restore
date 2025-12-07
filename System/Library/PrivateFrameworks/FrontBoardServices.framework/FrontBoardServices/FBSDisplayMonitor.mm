@@ -150,13 +150,13 @@ void __40__FBSDisplayMonitor_connectedIdentities__block_invoke(uint64_t a1, void
   if (v9)
   {
     objc_storeStrong(&v9->_callOutQueue, MEMORY[0x1E69E96A0]);
-    objc_storeWeak(&v10->_lock_bookendObserver, observerCopy);
-    v10->_lock._os_unfair_lock_opaque = 0;
+    objc_storeWeak((v10 + 48), observerCopy);
+    *(v10 + 40) = 0;
     v11 = [objc_alloc(MEMORY[0x1E696AC70]) initWithOptions:517 capacity:4];
-    lock_observers = v10->_lock_observers;
-    v10->_lock_observers = v11;
+    v12 = *(v10 + 56);
+    *(v10 + 56) = v11;
 
-    objc_storeStrong(&v10->_transformer, transformer);
+    objc_storeStrong((v10 + 32), transformer);
     if (!getCADisplayClass())
     {
       [FBSDisplayMonitor _initWithBookendObserver:a2 transformer:?];
@@ -164,29 +164,29 @@ void __40__FBSDisplayMonitor_connectedIdentities__block_invoke(uint64_t a1, void
 
     displays = [getCADisplayClass() displays];
     firstObject = [displays firstObject];
-    mainDisplay = v10->_mainDisplay;
-    v10->_mainDisplay = firstObject;
+    v15 = *(v10 + 16);
+    *(v10 + 16) = firstObject;
 
-    if (!v10->_mainDisplay)
+    if (!*(v10 + 16))
     {
       [FBSDisplayMonitor _initWithBookendObserver:a2 transformer:?];
     }
 
-    v16 = [[FBSDisplaySource alloc] initWithDisplay:1 alwaysConnected:[(CADisplay *)v10->_mainDisplay isExternal] triggers:v10 monitor:?];
-    mainDisplaySource = v10->_mainDisplaySource;
-    v10->_mainDisplaySource = v16;
+    v16 = -[FBSDisplaySource initWithDisplay:alwaysConnected:triggers:monitor:]([FBSDisplaySource alloc], *(v10 + 16), 1, [*(v10 + 16) isExternal], v10);
+    v17 = *(v10 + 24);
+    *(v10 + 24) = v16;
 
-    if (!v10->_mainDisplaySource)
+    if (!*(v10 + 24))
     {
       [FBSDisplayMonitor _initWithBookendObserver:a2 transformer:?];
     }
 
     v18 = [objc_alloc(MEMORY[0x1E696AD18]) initWithKeyOptions:512 valueOptions:0 capacity:2];
-    lock_sourcesByDisplay = v10->_lock_sourcesByDisplay;
-    v10->_lock_sourcesByDisplay = v18;
+    v19 = *(v10 + 64);
+    *(v10 + 64) = v18;
 
-    [(NSMapTable *)v10->_lock_sourcesByDisplay setObject:v10->_mainDisplaySource forKey:v10->_mainDisplay];
-    mainIdentity = [(FBSDisplayMonitor *)v10 mainIdentity];
+    [*(v10 + 64) setObject:*(v10 + 24) forKey:*(v10 + 16)];
+    mainIdentity = [v10 mainIdentity];
     isMainDisplay = [mainIdentity isMainDisplay];
 
     if ((isMainDisplay & 1) == 0)
@@ -217,14 +217,14 @@ void __40__FBSDisplayMonitor_connectedIdentities__block_invoke(uint64_t a1, void
           }
 
           v27 = *(*(&v37 + 1) + 8 * i);
-          displayId = [(CADisplay *)v27 displayId];
+          displayId = [v27 displayId];
           v29 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:displayId];
           if ([v22 containsObject:v29])
           {
             v33 = [MEMORY[0x1E696AEC0] stringWithFormat:@"two CADisplays had the same displayID(%u) -> $@", displayId, obj];
             if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
             {
-              [FBSDisplayMonitor _initWithBookendObserver:v34 transformer:?];
+              [FBSDisplayMonitor _initWithBookendObserver:v34 transformer:v10];
             }
 
             [v33 UTF8String];
@@ -232,7 +232,7 @@ void __40__FBSDisplayMonitor_connectedIdentities__block_invoke(uint64_t a1, void
           }
 
           [v22 addObject:v29];
-          if (v10->_mainDisplay != v27)
+          if (*(v10 + 16) != v27)
           {
             v30 = [[FBSDisplaySource alloc] initWithDisplay:v27 alwaysConnected:0 triggers:1 monitor:v10];
             if (!v30)
@@ -241,7 +241,7 @@ void __40__FBSDisplayMonitor_connectedIdentities__block_invoke(uint64_t a1, void
             }
 
             v31 = v30;
-            [(NSMapTable *)v10->_lock_sourcesByDisplay setObject:v30 forKey:v27];
+            [*(v10 + 64) setObject:v30 forKey:v27];
             [(FBSDisplaySource *)v31 setAllowsUnknown:?];
           }
         }
@@ -723,59 +723,58 @@ void __55__FBSDisplayMonitor__lock_enumerateConnectedWithBlock___block_invoke(ui
 - (void)_initWithBookendObserver:(void *)a1 transformer:(const char *)a2 .cold.1(void *a1, const char *a2)
 {
   v3 = MEMORY[0x1E696AEC0];
-  v12 = [a1 mainConfiguration];
-  v4 = [v3 stringWithFormat:@"failed to initialize mainConfiguration -> %@"];
+  v4 = [a1 mainConfiguration];
+  v5 = [v3 stringWithFormat:@"failed to initialize mainConfiguration -> %@", v4];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v5 = NSStringFromSelector(a2);
-    v6 = objc_opt_class();
-    v14 = NSStringFromClass(v6);
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13, 2u);
+    v6 = NSStringFromSelector(a2);
+    v7 = objc_opt_class();
+    v15 = NSStringFromClass(v7);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v13, v14);
   }
 
-  [v4 UTF8String];
+  [v5 UTF8String];
   _bs_set_crash_log_message();
 }
 
 - (void)_initWithBookendObserver:(uint64_t)a1 transformer:(char *)a2 .cold.2(uint64_t a1, char *a2)
 {
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"failed to initialize display source -> display=%@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"failed to initialize display source -> display=%@", a1];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a2);
-    objc_claimAutoreleasedReturnValue();
-    v4 = OUTLINED_FUNCTION_12();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a2);
+    v6 = OUTLINED_FUNCTION_12(v4, v5);
+    v7 = NSStringFromClass(v6);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, a1, v12, v13);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v13, v14);
   }
 
   [v3 UTF8String];
   _bs_set_crash_log_message();
 }
 
-- (void)_initWithBookendObserver:(const char *)a1 transformer:.cold.3(const char *a1)
+- (void)_initWithBookendObserver:(const char *)a1 transformer:(uint64_t)a2 .cold.3(const char *a1, uint64_t a2)
 {
-  v1 = NSStringFromSelector(a1);
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
+  v2 = NSStringFromSelector(a1);
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
+  LODWORD(v10) = 138544642;
+  *(&v10 + 4) = v2;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v4, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v5, v6, v7, v8, 2u);
+  OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, DWORD2(v10));
 }
 
 - (void)_initWithBookendObserver:(uint64_t *)a1 transformer:(char *)a2 .cold.4(uint64_t *a1, char *a2)
 {
-  v11 = *a1;
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"failed to initialize mainDisplay source -> mainDisplay=%@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"failed to initialize mainDisplay source -> mainDisplay=%@", *a1];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a2);
-    objc_claimAutoreleasedReturnValue();
-    v4 = OUTLINED_FUNCTION_12();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a2);
+    v6 = OUTLINED_FUNCTION_12(v4, v5);
+    v7 = NSStringFromClass(v6);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11, v12, v13);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v13, v14);
   }
 
   [v3 UTF8String];
@@ -787,12 +786,13 @@ void __55__FBSDisplayMonitor__lock_enumerateConnectedWithBlock___block_invoke(ui
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"failed to find the main CADisplay"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
+    LODWORD(v12) = 138544642;
+    *(&v12 + 4) = a1;
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, 2u);
+    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, DWORD2(v12));
   }
 
   [v2 UTF8String];
@@ -804,12 +804,13 @@ void __55__FBSDisplayMonitor__lock_enumerateConnectedWithBlock___block_invoke(ui
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"failed to find the symbol for CADisplay"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
+    LODWORD(v12) = 138544642;
+    *(&v12 + 4) = a1;
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, 2u);
+    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, DWORD2(v12));
   }
 
   [v2 UTF8String];
@@ -818,14 +819,13 @@ void __55__FBSDisplayMonitor__lock_enumerateConnectedWithBlock___block_invoke(ui
 
 void __46__FBSDisplayMonitor_configurationForIdentity___block_invoke_cold_1(uint64_t a1)
 {
-  v10 = *(a1 + 40);
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"somehow we ended up with two connected displays with the same identity - this shouldn't be possible : manager=%@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"somehow we ended up with two connected displays with the same identity - this shouldn't be possible : manager=%@", *(a1 + 40)];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v3 = NSStringFromSelector(*(a1 + 56));
     v4 = objc_opt_class();
     v12 = NSStringFromClass(v4);
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11, 2u);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -834,15 +834,14 @@ void __46__FBSDisplayMonitor_configurationForIdentity___block_invoke_cold_1(uint
 
 - (void)initWithTransformer:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"transformer"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"transformer", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -864,8 +863,19 @@ void __35__FBSDisplayMonitor__sortedSources__block_invoke_cold_1(uint64_t a1)
   {
     v3 = NSStringFromSelector(*(a1 + 40));
     v4 = objc_opt_class();
-    v10 = NSStringFromClass(v4);
-    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, 2u);
+    v5 = NSStringFromClass(v4);
+    *v11 = 138544642;
+    *&v11[4] = v3;
+    *&v11[12] = 2114;
+    *&v11[14] = v5;
+    *&v11[22] = 2048;
+    LOWORD(v12) = 2114;
+    *(&v12 + 2) = @"FBSDisplayMonitor.m";
+    WORD5(v12) = 1024;
+    HIDWORD(v12) = 340;
+    LOWORD(v13) = 2114;
+    *(&v13 + 2) = v2;
+    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, *v11, *&v11[8], *&v11[16], *(a1 + 32), v12, v13, HIWORD(v2));
   }
 
   [v2 UTF8String];

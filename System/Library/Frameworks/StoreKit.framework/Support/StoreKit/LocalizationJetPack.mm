@@ -23,22 +23,23 @@
 
 - (id)stringForKey:(id)key
 {
-  static String._unconditionallyBridgeFromObjectiveC(_:)();
-  selfCopy = self;
-  sub_10017E694();
+  v4 = static String._unconditionallyBridgeFromObjectiveC(_:)();
   v6 = v5;
+  selfCopy = self;
+  sub_10017E694(v4, v6);
+  v9 = v8;
 
-  if (v6)
+  if (v9)
   {
-    v7 = String._bridgeToObjectiveC()();
+    v10 = String._bridgeToObjectiveC()();
   }
 
   else
   {
-    v7 = 0;
+    v10 = 0;
   }
 
-  return v7;
+  return v10;
 }
 
 @end

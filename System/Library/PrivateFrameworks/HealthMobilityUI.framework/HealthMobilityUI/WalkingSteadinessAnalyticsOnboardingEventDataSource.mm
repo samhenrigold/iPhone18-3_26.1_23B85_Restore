@@ -17,7 +17,6 @@
 
 - (id)stepWithError:(id *)error
 {
-  *(&self->super.isa + OBJC_IVAR____TtC16HealthMobilityUI51WalkingSteadinessAnalyticsOnboardingEventDataSource_onboardingStep);
   v3 = sub_2519AEE28();
 
   return v3;
@@ -33,12 +32,10 @@
 
 - (id)provenanceWithError:(id *)error
 {
-  v3 = *(&self->super.isa + OBJC_IVAR____TtC16HealthMobilityUI51WalkingSteadinessAnalyticsOnboardingEventDataSource_presentation);
-  v4 = *&self->healthStore[OBJC_IVAR____TtC16HealthMobilityUI51WalkingSteadinessAnalyticsOnboardingEventDataSource_presentation];
 
-  v5 = sub_2519AEE28();
+  v3 = sub_2519AEE28();
 
-  return v5;
+  return v3;
 }
 
 - (id)activeWatchProductTypeWithError:(id *)error

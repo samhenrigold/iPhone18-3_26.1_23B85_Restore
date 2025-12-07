@@ -17,14 +17,14 @@
 
 - (id)_initWithName:(id)name destinationFolderNode:(id)node destinationFolderItem:(id)item propertyList:(id)list
 {
-  v40[1] = *MEMORY[0x1E69E9840];
+  v39[1] = *MEMORY[0x1E69E9840];
   nameCopy = name;
   nodeCopy = node;
   itemCopy = item;
   listCopy = list;
-  v35.receiver = self;
-  v35.super_class = FINewFolderOperation;
-  v15 = [(FIOperation *)&v35 init];
+  v34.receiver = self;
+  v34.super_class = FINewFolderOperation;
+  v15 = [(FIOperation *)&v34 init];
   if ([nodeCopy nodeIs:18] == 2)
   {
     isFolder = 1;
@@ -70,8 +70,8 @@
 
         *buf = 138543618;
         *&buf[4] = v22;
-        v37 = 2114;
-        *v38 = v24;
+        v36 = 2114;
+        *v37 = v24;
         _os_log_impl(&dword_1E5674000, v20, OS_LOG_TYPE_ERROR, "%{public}@ expects a folder: %{public}@", buf, 0x16u);
       }
     }
@@ -105,28 +105,27 @@
 
     else
     {
-      v40[0] = itemCopy;
-      v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:v40 count:1];
-      make_nsweak<FIRenameOperation>(v15, &v33);
-      v34 = itemCopy;
-      v39 = 0;
+      v39[0] = itemCopy;
+      v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:1];
+      make_nsweak<FIRenameOperation>(v15, &v32);
+      v33 = itemCopy;
+      v38 = 0;
       *buf = &unk_1F5F41CB0;
-      objc_copyWeak(&buf[8], &v33);
-      objc_storeWeak(&v33, 0);
-      v30 = v34;
-      v34 = 0;
-      *&v38[2] = v30;
-      v39 = buf;
+      objc_copyWeak(&buf[8], &v32);
+      objc_storeWeak(&v32, 0);
+      v30 = v33;
+      v33 = 0;
+      *&v37[2] = v30;
+      v38 = buf;
       [(FIOperation *)v15 fetchNodesAsyncFor:v29 completion:buf];
       std::__function::__value_func<void ()(std::vector<std::optional<FINode * {__strong}>> const&)>::~__value_func[abi:ne200100](buf);
 
-      objc_destroyWeak(&v33);
+      objc_destroyWeak(&v32);
     }
 
     v28 = v15;
   }
 
-  v31 = *MEMORY[0x1E69E9840];
   return v28;
 }
 
@@ -197,7 +196,7 @@
 - (void)startFSOperationFailed:(id)failed markCancelled:(BOOL)cancelled error:(id)error
 {
   cancelledCopy = cancelled;
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   failedCopy = failed;
   errorCopy = error;
   errorHandler = [(FIOperation *)self errorHandler];
@@ -218,8 +217,8 @@
   {
     if (failedCopy)
     {
-      v17[0] = failedCopy;
-      v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
+      v16[0] = failedCopy;
+      v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
     }
 
     else
@@ -232,8 +231,6 @@
     {
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (id)nameConflictHandler:(id)handler fileExtension:(id)extension error:(id *)error

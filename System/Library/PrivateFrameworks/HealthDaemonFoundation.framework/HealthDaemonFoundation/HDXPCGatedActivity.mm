@@ -93,7 +93,7 @@
 
 - (void)setWaitingForTrigger:(BOOL)trigger
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   if (trigger)
   {
@@ -105,21 +105,18 @@
       loggingCategory = self->_loggingCategory;
       if (os_log_type_enabled(loggingCategory, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = 138543362;
+        v7 = 138543362;
         selfCopy = self;
-        _os_log_impl(&dword_25156C000, loggingCategory, OS_LOG_TYPE_DEFAULT, "%{public}@: Requesting implicit run by setting waitingForTrigger = YES.", &v9, 0xCu);
+        _os_log_impl(&dword_25156C000, loggingCategory, OS_LOG_TYPE_DEFAULT, "%{public}@: Requesting implicit run by setting waitingForTrigger = YES.", &v7, 0xCu);
       }
 
       [(HDXPCGatedActivity *)self requestRunWithMaximumDelay:&__block_literal_global_4 completion:0.0];
     }
-
-    v7 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
     [(HDXPCGatedActivity *)self _lock_resetNextActivityFireDate];
-    v8 = *MEMORY[0x277D85DE8];
 
     os_unfair_lock_unlock(&self->_lock);
   }
@@ -176,7 +173,7 @@ LABEL_7:
 
 - (void)_runRequestWithMaximumDelay:(double)delay requiredDelay:(double)requiredDelay completion:(id)completion
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   os_unfair_lock_lock(&self->_lock);
   nextScheduledFireDeadline = self->_nextScheduledFireDeadline;
@@ -209,9 +206,9 @@ LABEL_7:
       loggingCategory = self->_loggingCategory;
       if (os_log_type_enabled(loggingCategory, OS_LOG_TYPE_DEFAULT))
       {
-        v32 = 138543362;
+        v31 = 138543362;
         selfCopy3 = self;
-        _os_log_impl(&dword_25156C000, loggingCategory, OS_LOG_TYPE_DEFAULT, "%{public}@: Run requested delayed because activity is already in progress.", &v32, 0xCu);
+        _os_log_impl(&dword_25156C000, loggingCategory, OS_LOG_TYPE_DEFAULT, "%{public}@: Run requested delayed because activity is already in progress.", &v31, 0xCu);
       }
 
 LABEL_23:
@@ -226,13 +223,13 @@ LABEL_23:
       v27 = self->_loggingCategory;
       if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
-        v32 = 138543874;
+        v31 = 138543874;
         selfCopy3 = self;
-        v34 = 2048;
+        v33 = 2048;
         delayCopy2 = delay;
-        v36 = 2048;
+        v35 = 2048;
         requiredDelayCopy = v19;
-        _os_log_impl(&dword_25156C000, v27, OS_LOG_TYPE_DEFAULT, "%{public}@: Run requested with delay %lf, but next fire date is in  %lf, no need to re-register.", &v32, 0x20u);
+        _os_log_impl(&dword_25156C000, v27, OS_LOG_TYPE_DEFAULT, "%{public}@: Run requested with delay %lf, but next fire date is in  %lf, no need to re-register.", &v31, 0x20u);
       }
 
       pendingCompletions = self->_pendingCompletions;
@@ -249,13 +246,13 @@ LABEL_23:
   v20 = self->_loggingCategory;
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
-    v32 = 138543874;
+    v31 = 138543874;
     selfCopy3 = self;
-    v34 = 2048;
+    v33 = 2048;
     delayCopy2 = delay;
-    v36 = 2048;
+    v35 = 2048;
     requiredDelayCopy = requiredDelay;
-    _os_log_impl(&dword_25156C000, v20, OS_LOG_TYPE_DEFAULT, "%{public}@: Requesting run with maximum delay %lf, required delay %lf", &v32, 0x20u);
+    _os_log_impl(&dword_25156C000, v20, OS_LOG_TYPE_DEFAULT, "%{public}@: Requesting run with maximum delay %lf, required delay %lf", &v31, 0x20u);
   }
 
   v21 = self->_pendingCompletions;
@@ -277,7 +274,6 @@ LABEL_23:
   [(HDXPCGatedActivity *)self _registerActivityWithCriteria:v26 delay:requiredDelay gracePeriod:delay];
 
 LABEL_24:
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)shouldDefer
@@ -337,7 +333,7 @@ void __52__HDXPCGatedActivity__registerActivityWithCriteria___block_invoke(uint6
 
 - (void)_handleXPCActivityCallback:(id)callback
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   callbackCopy = callback;
   WeakRetained = objc_loadWeakRetained(&self->_activityShim);
   v6 = [WeakRetained xpcActivity_getState:callbackCopy];
@@ -354,18 +350,18 @@ void __52__HDXPCGatedActivity__registerActivityWithCriteria___block_invoke(uint6
       {
         *buf = 138543618;
         selfCopy2 = self;
-        v26 = 2114;
-        v27 = callbackCopy;
+        v25 = 2114;
+        v26 = callbackCopy;
         _os_log_impl(&dword_25156C000, loggingCategory, OS_LOG_TYPE_DEFAULT, "%{public}@ fired with activity %{public}@", buf, 0x16u);
       }
 
-      v22[0] = MEMORY[0x277D85DD0];
-      v22[1] = 3221225472;
-      v22[2] = __49__HDXPCGatedActivity__handleXPCActivityCallback___block_invoke;
-      v22[3] = &unk_2796BDDE8;
-      v22[4] = self;
-      v23 = callbackCopy;
-      [(HDXPCGatedActivity *)self _performActivity:v23 completion:v22];
+      v21[0] = MEMORY[0x277D85DD0];
+      v21[1] = 3221225472;
+      v21[2] = __49__HDXPCGatedActivity__handleXPCActivityCallback___block_invoke;
+      v21[3] = &unk_2796BDDE8;
+      v21[4] = self;
+      v22 = callbackCopy;
+      [(HDXPCGatedActivity *)self _performActivity:v22 completion:v21];
     }
 
     else
@@ -374,8 +370,8 @@ void __52__HDXPCGatedActivity__registerActivityWithCriteria___block_invoke(uint6
       {
         *buf = 138543618;
         selfCopy2 = self;
-        v26 = 2114;
-        v27 = callbackCopy;
+        v25 = 2114;
+        v26 = callbackCopy;
         _os_log_impl(&dword_25156C000, loggingCategory, OS_LOG_TYPE_DEFAULT, "%{public}@ fired with activity %{public}@, but we're not currently waiting on a trigger.", buf, 0x16u);
       }
 
@@ -409,13 +405,11 @@ void __52__HDXPCGatedActivity__registerActivityWithCriteria___block_invoke(uint6
       _os_log_impl(&dword_25156C000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ Checked in for gated scheduling", buf, 0xCu);
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __49__HDXPCGatedActivity__handleXPCActivityCallback___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (a2 != 2)
   {
@@ -425,7 +419,7 @@ void __49__HDXPCGatedActivity__handleXPCActivityCallback___block_invoke(uint64_t
       v6 = (a1 + 32);
       if (os_log_type_enabled(*(*(a1 + 32) + 104), OS_LOG_TYPE_ERROR))
       {
-        __49__HDXPCGatedActivity__handleXPCActivityCallback___block_invoke_cold_3((a1 + 32));
+        __49__HDXPCGatedActivity__handleXPCActivityCallback___block_invoke_cold_3();
       }
 
       WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 80));
@@ -436,7 +430,7 @@ void __49__HDXPCGatedActivity__handleXPCActivityCallback___block_invoke(uint64_t
         _HKInitializeLogging();
         if (os_log_type_enabled(*(*v6 + 13), OS_LOG_TYPE_ERROR))
         {
-          __49__HDXPCGatedActivity__handleXPCActivityCallback___block_invoke_cold_1((a1 + 32));
+          __49__HDXPCGatedActivity__handleXPCActivityCallback___block_invoke_cold_1();
         }
       }
 
@@ -454,9 +448,9 @@ void __49__HDXPCGatedActivity__handleXPCActivityCallback___block_invoke(uint64_t
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = *v6;
-      v35 = 138543362;
-      v36 = v8;
-      _os_log_impl(&dword_25156C000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: Finished activity successfully.", &v35, 0xCu);
+      v34 = 138543362;
+      v35 = v8;
+      _os_log_impl(&dword_25156C000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: Finished activity successfully.", &v34, 0xCu);
     }
 
     v9 = objc_loadWeakRetained((*(a1 + 32) + 80));
@@ -474,7 +468,7 @@ void __49__HDXPCGatedActivity__handleXPCActivityCallback___block_invoke(uint64_t
     }
 
 LABEL_24:
-    __49__HDXPCGatedActivity__handleXPCActivityCallback___block_invoke_cold_1((a1 + 32));
+    __49__HDXPCGatedActivity__handleXPCActivityCallback___block_invoke_cold_1();
 LABEL_25:
     os_unfair_lock_lock(*v6 + 2);
     [*v6 _lock_resetNextActivityFireDate];
@@ -494,9 +488,9 @@ LABEL_25:
     if (v16)
     {
       v20 = *v6;
-      v35 = 138543362;
-      v36 = v20;
-      _os_log_impl(&dword_25156C000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@: Handler requested activity deferral but activity should not be deferred; failing activity.", &v35, 0xCu);
+      v34 = 138543362;
+      v35 = v20;
+      _os_log_impl(&dword_25156C000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@: Handler requested activity deferral but activity should not be deferred; failing activity.", &v34, 0xCu);
     }
 
     v21 = objc_loadWeakRetained((*(a1 + 32) + 80));
@@ -519,9 +513,9 @@ LABEL_25:
   if (v16)
   {
     v17 = *v6;
-    v35 = 138543362;
-    v36 = v17;
-    _os_log_impl(&dword_25156C000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@: Requesting activity deferral.", &v35, 0xCu);
+    v34 = 138543362;
+    v35 = v17;
+    _os_log_impl(&dword_25156C000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@: Requesting activity deferral.", &v34, 0xCu);
   }
 
   v18 = objc_loadWeakRetained((*(a1 + 32) + 80));
@@ -532,7 +526,7 @@ LABEL_25:
     _HKInitializeLogging();
     if (os_log_type_enabled(*(*v6 + 13), OS_LOG_TYPE_ERROR))
     {
-      __49__HDXPCGatedActivity__handleXPCActivityCallback___block_invoke_cold_2((a1 + 32));
+      __49__HDXPCGatedActivity__handleXPCActivityCallback___block_invoke_cold_2();
     }
   }
 
@@ -578,8 +572,6 @@ LABEL_26:
 
     [v31 _registerActivityWithCriteria:v30 delay:v26 gracePeriod:v27];
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_performActivity:(id)activity completion:(id)completion
@@ -626,20 +618,20 @@ LABEL_26:
     {
       [(HDCoalescedTaskPoolQuota *)self->_quota consumeQuota];
       v18 = [MEMORY[0x277CCD288] transactionWithOwner:self activityName:self->_name];
-      v26[0] = MEMORY[0x277D85DD0];
-      v26[1] = 3221225472;
-      v26[2] = __50__HDXPCGatedActivity__performActivity_completion___block_invoke;
-      v26[3] = &unk_2796BDDE8;
-      v26[4] = self;
+      v28[0] = MEMORY[0x277D85DD0];
+      v28[1] = 3221225472;
+      v28[2] = __50__HDXPCGatedActivity__performActivity_completion___block_invoke;
+      v28[3] = &unk_2796BDDE8;
+      v28[4] = self;
       v19 = v18;
-      v27 = v19;
-      v15[2](v15, self, activityCopy, v26);
-      if (HDIsUnitTesting())
+      v29 = v19;
+      v20 = v15[2](v15, self, activityCopy, v28);
+      if (HDIsUnitTesting(v20, v21))
       {
         unitTest_ActivityCompletion = self->unitTest_ActivityCompletion;
         if (unitTest_ActivityCompletion)
         {
-          unitTest_ActivityCompletion[2](unitTest_ActivityCompletion, v20, v21, v22, v23);
+          unitTest_ActivityCompletion[2](unitTest_ActivityCompletion, v22, v23, v24, v25);
         }
       }
     }
@@ -656,7 +648,7 @@ uint64_t __50__HDXPCGatedActivity__performActivity_completion___block_invoke(uin
 
 - (void)_activityFinishedWithResult:(int64_t)result error:(id)error
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   os_unfair_lock_lock(&self->_lock);
   self->_inProgress = 0;
@@ -668,38 +660,36 @@ uint64_t __50__HDXPCGatedActivity__performActivity_completion___block_invoke(uin
   self->_currentActivity = 0;
 
   os_unfair_lock_unlock(&self->_lock);
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v9 = v6;
-  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v16;
+    v12 = *v15;
     do
     {
       v13 = 0;
       do
       {
-        if (*v16 != v12)
+        if (*v15 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        (*(*(*(&v15 + 1) + 8 * v13) + 16))(*(*(&v15 + 1) + 8 * v13));
+        (*(*(*(&v14 + 1) + 8 * v13) + 16))(*(*(&v14 + 1) + 8 * v13));
         ++v13;
       }
 
       while (v11 != v13);
-      v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v11);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_lock_setNextScheduledFireDeadline:(double)deadline
@@ -722,7 +712,7 @@ uint64_t __50__HDXPCGatedActivity__performActivity_completion___block_invoke(uin
 {
   criteria = criteria;
   handlerCopy = handler;
-  if ((HDIsUnitTesting() & 1) == 0)
+  if ((HDIsUnitTesting(handlerCopy, v8) & 1) == 0)
   {
     xpc_activity_register(activity_register, criteria, handlerCopy);
   }
@@ -730,7 +720,7 @@ uint64_t __50__HDXPCGatedActivity__performActivity_completion___block_invoke(uin
 
 - (void)xpcActivity_unregister:(const char *)activity_unregister
 {
-  if ((HDIsUnitTesting() & 1) == 0)
+  if ((HDIsUnitTesting(self, a2) & 1) == 0)
   {
 
     xpc_activity_unregister(activity_unregister);
@@ -764,56 +754,50 @@ uint64_t __50__HDXPCGatedActivity__performActivity_completion___block_invoke(uin
 
 - (void)unitTest_setActivityCompletion:(id)completion
 {
-  v4 = _Block_copy(completion);
-  unitTest_ActivityCompletion = self->unitTest_ActivityCompletion;
-  self->unitTest_ActivityCompletion = v4;
+  self->unitTest_ActivityCompletion = _Block_copy(completion);
 
   MEMORY[0x2821F96F8]();
 }
 
 - (void)_handleXPCActivityCallback:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2(&dword_25156C000, a2, a3, "%{public}@: Failed to update completion state.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_2(&dword_25156C000, a2, a3, "%{public}@: Failed to update completion state.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
-void __49__HDXPCGatedActivity__handleXPCActivityCallback___block_invoke_cold_1(uint64_t *a1)
+void __49__HDXPCGatedActivity__handleXPCActivityCallback___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_2_2(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_2_2(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_2(&dword_25156C000, v1, v2, "%{public}@: Failed to update completion state.", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_25156C000, v0, v1, "%{public}@: Failed to update completion state.", v2, v3, v4, v5);
 }
 
-void __49__HDXPCGatedActivity__handleXPCActivityCallback___block_invoke_cold_2(uint64_t *a1)
+void __49__HDXPCGatedActivity__handleXPCActivityCallback___block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2_2(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_2_2(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_2(&dword_25156C000, v1, v2, "%{public}@: Failed to defer activity.", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_25156C000, v0, v1, "%{public}@: Failed to defer activity.", v2, v3, v4, v5);
 }
 
-void __49__HDXPCGatedActivity__handleXPCActivityCallback___block_invoke_cold_3(uint64_t *a1)
+void __49__HDXPCGatedActivity__handleXPCActivityCallback___block_invoke_cold_3()
 {
-  OUTLINED_FUNCTION_2_2(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_2_2(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_1_0();
-  v5 = 2114;
-  v6 = v1;
-  _os_log_error_impl(&dword_25156C000, v2, OS_LOG_TYPE_ERROR, "%{public}@: Failed to perform activity: %{public}@.", v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 2114;
+  v4 = v0;
+  _os_log_error_impl(&dword_25156C000, v1, OS_LOG_TYPE_ERROR, "%{public}@: Failed to perform activity: %{public}@.", v2, 0x16u);
 }
 
 - (void)_performActivity:(uint64_t)a1 completion:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 96);
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 2114;
-  v7 = v2;
-  _os_log_error_impl(&dword_25156C000, a2, OS_LOG_TYPE_ERROR, "%{public}@: Failed to continue activity %{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 2114;
+  v6 = v2;
+  _os_log_error_impl(&dword_25156C000, a2, OS_LOG_TYPE_ERROR, "%{public}@: Failed to continue activity %{public}@", &v3, 0x16u);
 }
 
 @end

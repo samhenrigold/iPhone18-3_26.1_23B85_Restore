@@ -1,5 +1,6 @@
 @interface _DKBacklightMonitor
 + (id)_eventWithState:(id)state;
++ (void)setIsBacklit:(BOOL)backlit;
 - (_DKBacklightMonitor)init;
 - (id)_lastAliveDate;
 - (id)_shutdownDateFromSpringBoard;
@@ -84,6 +85,19 @@
   v3.receiver = self;
   v3.super_class = _DKBacklightMonitor;
   [(_DKMonitor *)&v3 dealloc];
+}
+
++ (void)setIsBacklit:(BOOL)backlit
+{
+  backlitCopy = backlit;
+  obj = [MEMORY[0x277CFE318] userContext];
+  objc_sync_enter(obj);
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:backlitCopy];
+  userContext = [MEMORY[0x277CFE318] userContext];
+  keyPathForBacklightOnStatus = [MEMORY[0x277CFE338] keyPathForBacklightOnStatus];
+  [userContext setObject:v4 forKeyedSubscript:keyPathForBacklightOnStatus];
+
+  objc_sync_exit(obj);
 }
 
 + (id)_eventWithState:(id)state
@@ -212,7 +226,7 @@
 
 - (id)lastBacklightEvent
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = NSStringFromSelector(a2);
   v4 = [objc_alloc(MEMORY[0x277CF1A50]) initWithStartDate:0 endDate:0 maxEvents:1 lastN:0 reversed:1];
   v5 = BiomeLibrary();
@@ -221,62 +235,58 @@
   backlight = [display Backlight];
   v9 = [backlight publisherWithOptions:v4];
 
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x3032000000;
-  v20 = __Block_byref_object_copy__0;
-  v21 = __Block_byref_object_dispose__0;
-  v22 = 0;
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __41___DKBacklightMonitor_lastBacklightEvent__block_invoke_2;
-  v16[3] = &unk_27856F238;
-  v16[4] = &v17;
-  v10 = [v9 sinkWithCompletion:&__block_literal_global_0 receiveInput:v16];
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = __Block_byref_object_copy__0;
+  v20 = __Block_byref_object_dispose__0;
+  v21 = 0;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __41___DKBacklightMonitor_lastBacklightEvent__block_invoke_2;
+  v15[3] = &unk_27856F238;
+  v15[4] = &v16;
+  v10 = [v9 sinkWithCompletion:&__block_literal_global_0 receiveInput:v15];
   v11 = [(_DKMonitor *)self log];
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = v18[5];
+    v12 = v17[5];
     *buf = 138412546;
-    v24 = v3;
-    v25 = 2112;
-    v26 = v12;
+    v23 = v3;
+    v24 = 2112;
+    v25 = v12;
     _os_log_impl(&dword_22595A000, v11, OS_LOG_TYPE_DEFAULT, "%@: event:%@", buf, 0x16u);
   }
 
-  v13 = v18[5];
-  _Block_object_dispose(&v17, 8);
-
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = v17[5];
+  _Block_object_dispose(&v16, 8);
 
   return v13;
 }
 
 - (id)bootDate
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v9 = 0;
-  *v10 = 0x1500000001;
-  v7 = 16;
+  v10 = *MEMORY[0x277D85DE8];
   v8 = 0;
-  v2 = sysctl(v10, 2u, &v8, &v7, 0, 0);
+  *v9 = 0x1500000001;
+  v6 = 16;
+  v7 = 0;
+  v2 = sysctl(v9, 2u, &v7, &v6, 0, 0);
   v3 = 0;
-  if (v2 != -1 && v8 != 0)
+  if (v2 != -1 && v7 != 0)
   {
-    v3 = [objc_alloc(MEMORY[0x277CBEAA8]) initWithTimeIntervalSince1970:v9 / 1000000.0 + v8];
+    v3 = [objc_alloc(MEMORY[0x277CBEAA8]) initWithTimeIntervalSince1970:v8 / 1000000.0 + v7];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (id)_shutdownDateFromSysctl
 {
-  v26[2] = *MEMORY[0x277D85DE8];
-  v22 = 8;
-  v23 = 0;
-  if (sysctlbyname("kern.shutdowntime", &v23, &v22, 0, 0))
+  v25[2] = *MEMORY[0x277D85DE8];
+  v21 = 8;
+  v22 = 0;
+  if (sysctlbyname("kern.shutdowntime", &v22, &v21, 0, 0))
   {
     v3 = [(_DKMonitor *)self log];
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
@@ -290,19 +300,19 @@ LABEL_4:
     goto LABEL_11;
   }
 
-  if (!v23)
+  if (!v22)
   {
     v3 = [(_DKMonitor *)self log];
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      [(_DKBacklightMonitor *)v3 _shutdownDateFromSysctl:v8];
+      [(_DKBacklightMonitor *)v3 _shutdownDateFromSysctl:v7];
     }
 
     goto LABEL_4;
   }
 
-  v22 = 16;
-  if (sysctlbyname("kern.monotonicclock_usecs", v26, &v22, 0, 0))
+  v21 = 16;
+  if (sysctlbyname("kern.monotonicclock_usecs", v25, &v21, 0, 0))
   {
     v5 = [(_DKMonitor *)self log];
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
@@ -313,14 +323,14 @@ LABEL_4:
 
   else
   {
-    if (v26[0])
+    if (v25[0])
     {
-      v4 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:(v26[0] - v23) / -1000000.0];
+      v4 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:(v25[0] - v22) / -1000000.0];
       v5 = [(_DKMonitor *)self log];
       if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
         *buf = 138543362;
-        v25 = v4;
+        v24 = v4;
         _os_log_impl(&dword_22595A000, v5, OS_LOG_TYPE_INFO, "Elapsed PMU RTC ticks in USecs since shutdown: %{public}@", buf, 0xCu);
       }
 
@@ -330,7 +340,7 @@ LABEL_4:
     v5 = [(_DKMonitor *)self log];
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      [(_DKBacklightMonitor *)v5 _shutdownDateFromSysctl:v15];
+      [(_DKBacklightMonitor *)v5 _shutdownDateFromSysctl:v14];
     }
   }
 
@@ -338,48 +348,45 @@ LABEL_4:
 LABEL_10:
 
 LABEL_11:
-  v6 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (id)_shutdownDateFromSpringBoard
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.springboard"];
   v4 = [v3 objectForKey:@"SBLastKnownShutdownDate"];
   v5 = [(_DKMonitor *)self log];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v8 = 138543362;
-    v9 = v4;
-    _os_log_impl(&dword_22595A000, v5, OS_LOG_TYPE_INFO, "SpringBoard shutdown date: %{public}@", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v4;
+    _os_log_impl(&dword_22595A000, v5, OS_LOG_TYPE_INFO, "SpringBoard shutdown date: %{public}@", &v7, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (id)shutdownDate
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   _shutdownDateFromSysctl = [(_DKBacklightMonitor *)self _shutdownDateFromSysctl];
   v4 = [(_DKMonitor *)self log];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v22 = 138543362;
-    v23 = _shutdownDateFromSysctl;
-    _os_log_impl(&dword_22595A000, v4, OS_LOG_TYPE_INFO, "Shutdown date from kern.shutdowntime is: %{public}@", &v22, 0xCu);
+    v21 = 138543362;
+    v22 = _shutdownDateFromSysctl;
+    _os_log_impl(&dword_22595A000, v4, OS_LOG_TYPE_INFO, "Shutdown date from kern.shutdowntime is: %{public}@", &v21, 0xCu);
   }
 
   _lastAliveDate = [(_DKBacklightMonitor *)self _lastAliveDate];
   v6 = [(_DKMonitor *)self log];
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v22 = 138543362;
-    v23 = _lastAliveDate;
-    _os_log_impl(&dword_22595A000, v6, OS_LOG_TYPE_INFO, "Last alive date is: %{public}@", &v22, 0xCu);
+    v21 = 138543362;
+    v22 = _lastAliveDate;
+    _os_log_impl(&dword_22595A000, v6, OS_LOG_TYPE_INFO, "Last alive date is: %{public}@", &v21, 0xCu);
   }
 
   v7 = _shutdownDateFromSysctl;
@@ -409,9 +416,9 @@ LABEL_11:
   v13 = [(_DKMonitor *)self log];
   if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
-    v22 = 138543362;
-    v23 = _shutdownDateFromSpringBoard;
-    _os_log_impl(&dword_22595A000, v13, OS_LOG_TYPE_INFO, "Shutdown date from SpringBoard is: %{public}@", &v22, 0xCu);
+    v21 = 138543362;
+    v22 = _shutdownDateFromSpringBoard;
+    _os_log_impl(&dword_22595A000, v13, OS_LOG_TYPE_INFO, "Shutdown date from SpringBoard is: %{public}@", &v21, 0xCu);
   }
 
   v14 = v11;
@@ -438,34 +445,33 @@ LABEL_11:
   v18 = v17;
 
   v19 = v18;
-  v20 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
 - (id)checkShutdownConditionOfBacklightStream
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = NSStringFromSelector(a2);
   bootDate = [(_DKBacklightMonitor *)self bootDate];
   v5 = [(_DKMonitor *)self log];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v21 = 138412546;
-    v22 = v3;
-    v23 = 2112;
-    v24 = bootDate;
-    _os_log_impl(&dword_22595A000, v5, OS_LOG_TYPE_DEFAULT, "%@: bootDate: %@", &v21, 0x16u);
+    v20 = 138412546;
+    v21 = v3;
+    v22 = 2112;
+    v23 = bootDate;
+    _os_log_impl(&dword_22595A000, v5, OS_LOG_TYPE_DEFAULT, "%@: bootDate: %@", &v20, 0x16u);
   }
 
   shutdownDate = [(_DKBacklightMonitor *)self shutdownDate];
   v7 = [(_DKMonitor *)self log];
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v21 = 138412546;
-    v22 = v3;
-    v23 = 2112;
-    v24 = shutdownDate;
-    _os_log_impl(&dword_22595A000, v7, OS_LOG_TYPE_DEFAULT, "%@: shutdownDate is: %@", &v21, 0x16u);
+    v20 = 138412546;
+    v21 = v3;
+    v22 = 2112;
+    v23 = shutdownDate;
+    _os_log_impl(&dword_22595A000, v7, OS_LOG_TYPE_DEFAULT, "%@: shutdownDate is: %@", &v20, 0x16u);
   }
 
   if (shutdownDate)
@@ -476,11 +482,11 @@ LABEL_11:
       lastBacklightEvent = [(_DKMonitor *)self log];
       if (os_log_type_enabled(lastBacklightEvent, OS_LOG_TYPE_DEFAULT))
       {
-        v21 = 138412290;
-        v22 = v3;
+        v20 = 138412290;
+        v21 = v3;
         v10 = "%@: Shutdown date is in the future";
 LABEL_11:
-        _os_log_impl(&dword_22595A000, lastBacklightEvent, OS_LOG_TYPE_DEFAULT, v10, &v21, 0xCu);
+        _os_log_impl(&dword_22595A000, lastBacklightEvent, OS_LOG_TYPE_DEFAULT, v10, &v20, 0xCu);
         goto LABEL_29;
       }
 
@@ -491,11 +497,11 @@ LABEL_11:
     v11 = [(_DKMonitor *)self log];
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = 138412546;
-      v22 = v3;
-      v23 = 2112;
-      v24 = lastBacklightEvent;
-      _os_log_impl(&dword_22595A000, v11, OS_LOG_TYPE_DEFAULT, "%@: lastEvent: %@", &v21, 0x16u);
+      v20 = 138412546;
+      v21 = v3;
+      v22 = 2112;
+      v23 = lastBacklightEvent;
+      _os_log_impl(&dword_22595A000, v11, OS_LOG_TYPE_DEFAULT, "%@: lastEvent: %@", &v20, 0x16u);
     }
 
     if (!lastBacklightEvent)
@@ -503,8 +509,8 @@ LABEL_11:
       v14 = [(_DKMonitor *)self log];
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v21 = 138412290;
-        v22 = v3;
+        v20 = 138412290;
+        v21 = v3;
         v16 = "%@: Unable to read last backlight event, will attempt to write event for shutdown date";
         goto LABEL_21;
       }
@@ -526,11 +532,11 @@ LABEL_22:
       {
         if (v15)
         {
-          v21 = 138412290;
-          v22 = v3;
+          v20 = 138412290;
+          v21 = v3;
           v16 = "%@: the last event has backlight on, written before boot time, will attempt to write event for shutdown date";
 LABEL_21:
-          _os_log_impl(&dword_22595A000, v14, OS_LOG_TYPE_DEFAULT, v16, &v21, 0xCu);
+          _os_log_impl(&dword_22595A000, v14, OS_LOG_TYPE_DEFAULT, v16, &v20, 0xCu);
           goto LABEL_22;
         }
 
@@ -539,8 +545,8 @@ LABEL_21:
 
       if (v15)
       {
-        v21 = 138412290;
-        v22 = v3;
+        v20 = 138412290;
+        v21 = v3;
         v18 = "%@: the last event has backlight on, written after boot time, no need to write an event";
         goto LABEL_27;
       }
@@ -551,11 +557,11 @@ LABEL_21:
       v14 = [(_DKMonitor *)self log];
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v21 = 138412290;
-        v22 = v3;
+        v20 = 138412290;
+        v21 = v3;
         v18 = "%@: the last event has backlight off, no need to write an event";
 LABEL_27:
-        _os_log_impl(&dword_22595A000, v14, OS_LOG_TYPE_DEFAULT, v18, &v21, 0xCu);
+        _os_log_impl(&dword_22595A000, v14, OS_LOG_TYPE_DEFAULT, v18, &v20, 0xCu);
       }
     }
 
@@ -565,8 +571,8 @@ LABEL_27:
   lastBacklightEvent = [(_DKMonitor *)self log];
   if (os_log_type_enabled(lastBacklightEvent, OS_LOG_TYPE_DEFAULT))
   {
-    v21 = 138412290;
-    v22 = v3;
+    v20 = 138412290;
+    v21 = v3;
     v10 = "%@: Unable to obtain shutdown date";
     goto LABEL_11;
   }
@@ -574,8 +580,6 @@ LABEL_27:
 LABEL_29:
   v17 = 0;
 LABEL_30:
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -590,28 +594,25 @@ LABEL_30:
 
 - (void)_setLastAliveDate:(id)date
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   v5 = [(_DKMonitor *)self log];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138543362;
-    v9 = dateCopy;
-    _os_log_impl(&dword_22595A000, v5, OS_LOG_TYPE_DEFAULT, "Setting last alive date: %{public}@", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = dateCopy;
+    _os_log_impl(&dword_22595A000, v5, OS_LOG_TYPE_DEFAULT, "Setting last alive date: %{public}@", &v7, 0xCu);
   }
 
   standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
   [standardUserDefaults setObject:dateCopy forKey:@"LastAliveDate"];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_shutdownDateFromSysctl
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
-  OUTLINED_FUNCTION_1(&dword_22595A000, v1, v2, "Unable to get kern.monotonicclock_usecs: %{errno}d", v3, v4, v5, v6, 0);
-  v7 = *MEMORY[0x277D85DE8];
+  LODWORD(v6) = 67109120;
+  HIDWORD(v6) = *__error();
+  OUTLINED_FUNCTION_1(&dword_22595A000, v0, v1, "Unable to get kern.monotonicclock_usecs: %{errno}d", v2, v3, v4, v5, v6);
 }
 
 @end

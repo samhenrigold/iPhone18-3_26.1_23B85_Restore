@@ -13,7 +13,7 @@
   v13 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   contactCopy = contact;
-  v8 = ConversationKitLog();
+  v8 = ConversationKitLog(contactCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 138412546;
@@ -31,7 +31,7 @@
 {
   contactCopy = contact;
   controllerCopy = controller;
-  v9 = ConversationKitLog();
+  v9 = ConversationKitLog(controllerCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *v10 = 0;
@@ -45,7 +45,7 @@
 {
   contactCopy = contact;
   controllerCopy = controller;
-  v9 = ConversationKitLog();
+  v9 = ConversationKitLog(controllerCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *v10 = 0;
@@ -57,17 +57,17 @@
 
 - (void)setOracleUsingController:(id)controller contact:(id)contact
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   contactCopy = contact;
-  v7 = ConversationKitLog();
+  v7 = ConversationKitLog(contactCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 138412546;
-    v16 = controllerCopy;
-    v17 = 2112;
-    v18 = contactCopy;
-    _os_log_impl(&dword_1BBC58000, v7, OS_LOG_TYPE_DEFAULT, "[CNKGroupIdentityHeaderSNaPWrapper] Setting oracle on controller: %@ with contact: %@", &v15, 0x16u);
+    v16 = 138412546;
+    v17 = controllerCopy;
+    v18 = 2112;
+    v19 = contactCopy;
+    _os_log_impl(&dword_1BBC58000, v7, OS_LOG_TYPE_DEFAULT, "[CNKGroupIdentityHeaderSNaPWrapper] Setting oracle on controller: %@ with contact: %@", &v16, 0x16u);
   }
 
   v8 = objc_alloc(MEMORY[0x1E695CF98]);
@@ -75,18 +75,18 @@
   contactStore = [mEMORY[0x1E69D8A58] contactStore];
   v11 = [v8 initWithContact:contactCopy contactStore:contactStore];
 
-  v12 = ConversationKitLog();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = ConversationKitLog(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     currentNickname = [v11 currentNickname];
     pendingNickname = [v11 pendingNickname];
-    v15 = 138412802;
-    v16 = v11;
-    v17 = 2112;
-    v18 = currentNickname;
-    v19 = 2112;
-    v20 = pendingNickname;
-    _os_log_impl(&dword_1BBC58000, v12, OS_LOG_TYPE_DEFAULT, "[CNKGroupIdentityHeaderSNaPWrapper] Created oracle %@ current nickname %@ pending nickname %@", &v15, 0x20u);
+    v16 = 138412802;
+    v17 = v11;
+    v18 = 2112;
+    v19 = currentNickname;
+    v20 = 2112;
+    v21 = pendingNickname;
+    _os_log_impl(&dword_1BBC58000, v13, OS_LOG_TYPE_DEFAULT, "[CNKGroupIdentityHeaderSNaPWrapper] Created oracle %@ current nickname %@ pending nickname %@", &v16, 0x20u);
   }
 
   [controllerCopy setSharedProfileStateOracle:v11];
@@ -97,7 +97,7 @@
   v23 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   contactCopy = contact;
-  v8 = ConversationKitLog();
+  v8 = ConversationKitLog(contactCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;

@@ -72,7 +72,7 @@ void __95__PLDetectedFaceGroup_batchFetchFaceGroupByFaceUUIDWithFaceUUIDs_predic
     v23 = v6;
     v24 = v1;
     v25 = v2;
-    v10 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(v7, "count")}];
+    v10 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:objc_msgSend_count(v7)];
     v26 = 0u;
     v27 = 0u;
     v28 = 0u;

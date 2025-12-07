@@ -82,12 +82,10 @@
 
 - (unsigned)addDebugResourceListInfo:(IOAccelResourceInfo *)info flag:(unsigned int)flag
 {
-  resourceList = self->_resourceList;
   result = IOAccelResourceListAddResource();
   if (!self->_resourceList->var2)
   {
     [(MTLIOAccelDebugCommandEncoder *)self restartDebugPass];
-    v7 = self->_resourceList;
 
     return IOAccelResourceListAddResource();
   }

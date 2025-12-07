@@ -21,7 +21,7 @@
 
 - (void)touchFilePath:(id)path forGUID:(id)d
 {
-  v5 = sub_1A870CCE0(&unk_1EB3090D0);
+  v5 = sub_1A870CCE0(&unk_1EB3090D0, &qword_1A88E2A30);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v22 - v6;
   v8 = sub_1A88C72E8();
@@ -51,17 +51,17 @@
   v21 = selfCopy;
   sub_1A8865C1C(0, 0, v7, &unk_1A88F9020, v19);
 
-  sub_1A85EF638(v7, &unk_1EB3090D0);
+  sub_1A85EF638(v7, &unk_1EB3090D0, &qword_1A88E2A30);
   (*(v9 + 8))(v16, v8);
 }
 
 - (void)touchFilePaths:(id)paths forGUID:(id)d
 {
-  v5 = sub_1A870CCE0(&unk_1EB3090D0);
+  v5 = sub_1A870CCE0(&unk_1EB3090D0, &qword_1A88E2A30);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v16 - v6;
   sub_1A88C72E8();
-  sub_1A87173B4(&qword_1EB303178);
+  sub_1A87173B4(&qword_1EB303178, MEMORY[0x1EEE786C0]);
   v8 = sub_1A88C88F8();
   v9 = sub_1A88C82E8();
   v11 = v10;
@@ -79,7 +79,7 @@
   v15 = selfCopy;
   sub_1A8865C1C(0, 0, v7, &unk_1A88F9018, v14);
 
-  sub_1A85EF638(v7, &unk_1EB3090D0);
+  sub_1A85EF638(v7, &unk_1EB3090D0, &qword_1A88E2A30);
 }
 
 - (IMRemoteIntentFilePersistenceManager)init

@@ -534,7 +534,7 @@ void __51__UIKBInputDelegateManager_isAsyncTextInputEnabled__block_invoke()
   qword_1ED49DFA8 = _UIDeviceNativeUserInterfaceIdiomIgnoringClassic();
   v1 = [MEMORY[0x1E696AAE8] mainBundle];
   v0 = [v1 bundleIdentifier];
-  _MergedGlobals_1104 = [v0 isEqualToString:@"com.apple.iBooks"];
+  _MergedGlobals_1104 = objc_msgSend_isEqualToString_(v0);
 }
 
 - (id)privateInputDelegate
@@ -2074,9 +2074,9 @@ LABEL_24:
   v24 = [contextBeforeInput4 substringWithRange:{v10, v9}];
 
   string = [stringCopy string];
-  v26 = [v24 isEqualToString:string];
+  isEqualToString = objc_msgSend_isEqualToString_(v24);
 
-  if ((v26 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     webInputDelegate4 = [(UIKBInputDelegateManager *)self webInputDelegate];
     string2 = [stringCopy string];

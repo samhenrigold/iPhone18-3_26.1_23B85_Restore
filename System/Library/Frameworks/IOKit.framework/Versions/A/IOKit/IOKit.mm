@@ -1,4 +1,4 @@
-unsigned int *__IODataQueuePeek(unsigned int *result, uint64_t a2, void *a3)
+atomic_uint *__IODataQueuePeek(atomic_uint *result, uint64_t a2, void *a3)
 {
   if (result)
   {
@@ -18,7 +18,7 @@ unsigned int *__IODataQueuePeek(unsigned int *result, uint64_t a2, void *a3)
       return 0;
     }
 
-    v4 = result + 3;
+    v4 = (result + 3);
     if (v3 < 0xFFFFFFFC)
     {
       result = (v4 + v3);
@@ -69,15 +69,16 @@ LABEL_23:
   return result;
 }
 
-void *__IOHIDEventCreateWithBytesHelper(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
+HIDEvent *__IOHIDEventCreateWithBytesHelper(void *a1, uint64_t a2, uint64_t a3, unsigned int a4)
 {
+  v44 = a1;
   v51[3] = *MEMORY[0x1E69E9840];
   if (a3 >= 28)
   {
     v4 = a3;
     v5 = 0;
     v6 = 0;
-    v7 = 0;
+    parent = 0;
     v8 = 0;
     LODWORD(v9) = 0;
     v43 = 0;
@@ -92,14 +93,14 @@ void *__IOHIDEventCreateWithBytesHelper(uint64_t a1, uint64_t a2, uint64_t a3, i
         v9 = v5 + v43 + 28;
         if (HIDWORD(v9) || v9 >= v4)
         {
-          goto LABEL_62;
+          return v8;
         }
       }
 
       v13 = v4 - v9;
       if ((v4 - v9) < 0x10)
       {
-        goto LABEL_62;
+        return v8;
       }
 
       v39 = v10;
@@ -107,39 +108,39 @@ void *__IOHIDEventCreateWithBytesHelper(uint64_t a1, uint64_t a2, uint64_t a3, i
       v15 = *v14;
       if (*v14 <= 0xFu)
       {
-        v29 = _IOHIDLog();
-        if (!os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+        v30 = _IOHIDLog(a1, a2);
+        if (!os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
         {
-          goto LABEL_62;
+          return v8;
         }
 
         OUTLINED_FUNCTION_27();
         v49 = v15;
         v50 = 2048;
         v51[0] = 16;
-        v30 = "Failed to create event at index=%d , eventDataSize: %u < sizeof(IOHIDEventData): %lu";
-        v31 = v29;
-        v32 = 24;
+        v31 = "Failed to create event at index=%d , eventDataSize: %u < sizeof(IOHIDEventData): %lu";
+        v32 = v30;
+        v33 = 24;
 LABEL_64:
-        _os_log_error_impl(&dword_197195000, v31, OS_LOG_TYPE_ERROR, v30, buf, v32);
-        goto LABEL_62;
+        _os_log_error_impl(&dword_197195000, v32, OS_LOG_TYPE_ERROR, v31, buf, v33);
+        return v8;
       }
 
       if (v13 < v15)
       {
-        v33 = _IOHIDLog();
-        if (!os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+        v34 = _IOHIDLog(a1, a2);
+        if (!os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
         {
-          goto LABEL_62;
+          return v8;
         }
 
         OUTLINED_FUNCTION_27();
         v49 = v13;
         v50 = v36;
         LODWORD(v51[0]) = v15;
-        v30 = "Failed to create event at index=%d , eventDataMaxSize: %u < eventDataSize: %u";
-        v31 = v33;
-        v32 = 20;
+        v31 = "Failed to create event at index=%d , eventDataMaxSize: %u < eventDataSize: %u";
+        v32 = v34;
+        v33 = 20;
         goto LABEL_64;
       }
 
@@ -191,10 +192,10 @@ LABEL_20:
       v21 = 1;
 LABEL_26:
       v22 = v20;
-      v23 = _IOHIDEventCreate(a1, v20, v18, v16, v17);
+      v23 = _IOHIDEventCreate(v44, v20, v18, v16, v17);
       if (!v23)
       {
-        v37 = _IOHIDLog();
+        v37 = _IOHIDLog(0, v24);
         if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
         {
           v38 = *(v6 + 24);
@@ -214,55 +215,55 @@ LABEL_26:
           CFRelease(cf);
         }
 
-        goto LABEL_69;
+        return 0;
       }
 
-      v24 = v23;
-      if (_MergedGlobals[0] && _MergedGlobals[0]() && off_1ED446908)
+      v25 = v23;
+      if (_MergedGlobals && _MergedGlobals() && off_1ED446908)
       {
         v16 = off_1ED446908(v16);
       }
 
-      v24[1] = v16;
+      v25->_event.timeStamp = v16;
       if (v21)
       {
-        __IOHIDEventPopulateCurrentEventData(v14, v24[12]);
+        __IOHIDEventPopulateCurrentEventData(v14, v25->_event.eventData);
       }
 
       else
       {
-        memmove(v24[12], v14, v22);
+        a1 = memmove(v25->_event.eventData, v14, v22);
       }
 
       v4 = v41;
       v8 = cf;
-      v24[2] = *(v6 + 8);
+      v25->_event.senderID = *(v6 + 8);
       a4 = v45;
       if (cf)
       {
-        if (v7)
+        if (parent)
         {
           if ((v45 & 1) == 0)
           {
-            IOHIDEventSetAttributeData(v24, (v6 + 28), v43);
+            IOHIDEventSetAttributeData(v25, (v6 + 28), v43);
           }
 
-          v27 = v14[12];
-          if (v27 <= *(v7[12] + 12))
+          v28 = v14[12];
+          if (v28 <= *(parent->_event.eventData + 12))
           {
             v10 = v39;
             do
             {
-              if (!v7[10])
+              if (!parent->_event.parent)
               {
                 break;
               }
 
-              v28 = *(v7[12] + 12);
-              v7 = v7[10];
+              v29 = *(parent->_event.eventData + 12);
+              parent = parent->_event.parent;
             }
 
-            while (v27 < v28);
+            while (v28 < v29);
           }
 
           else
@@ -271,7 +272,7 @@ LABEL_26:
           }
 
           IOHIDEventAppendEvent();
-          CFRelease(v24);
+          CFRelease(v25);
           a4 = v45;
         }
 
@@ -284,26 +285,26 @@ LABEL_26:
       else
       {
         v10 = *(v6 + 24);
-        IOHIDEventSetAttributeData(v24, (v6 + 28), v43);
+        IOHIDEventSetAttributeData(v25, (v6 + 28), v43);
         a4 = v45;
-        v8 = v24;
+        v8 = v25;
       }
 
       v5 = v15 + v9;
       if (v11 < v10 - 1 && v5 > v9)
       {
         ++v11;
-        v26 = v41 > v5 && v41 - v5 > 0x1B;
-        v7 = v24;
+        v27 = v41 > v5 && v41 - v5 > 0x1B;
+        parent = v25;
         LODWORD(v9) = v15 + v9;
         a2 = v40;
-        if (v26)
+        if (v27)
         {
           continue;
         }
       }
 
-      goto LABEL_62;
+      return v8;
     }
 
     v21 = 0;
@@ -313,11 +314,7 @@ LABEL_22:
     goto LABEL_26;
   }
 
-LABEL_69:
-  v8 = 0;
-LABEL_62:
-  v34 = *MEMORY[0x1E69E9840];
-  return v8;
+  return 0;
 }
 
 uint64_t __IODataQueueDequeue(_DWORD *a1, uint64_t a2, void *__dst, _DWORD *a4)
@@ -461,7 +458,7 @@ kern_return_t IOConnectCallScalarMethod(mach_port_t connection, uint32_t selecto
     v6 = outputCnt;
   }
 
-  return io_connect_method(connection, selector, input, inputCnt, 0, 0, 0, 0, 0, &v9, output, v6, 0, &v8);
+  return io_connect_method(*&connection, *&selector, input, inputCnt, 0, 0, 0, 0, 0, &v9, output, v6, 0, &v8);
 }
 
 kern_return_t IOConnectCallMethod(mach_port_t connection, uint32_t selector, const uint64_t *input, uint32_t inputCnt, const void *inputStruct, size_t inputStructCnt, uint64_t *output, uint32_t *outputCnt, void *outputStruct, size_t *outputStructCnt)
@@ -502,13 +499,13 @@ kern_return_t IOConnectCallMethod(mach_port_t connection, uint32_t selector, con
 
   if (!outputStructCnt)
   {
-    return io_connect_method(connection, selector, input, inputCnt, inputStruct, inputStructCnt, v15, v16, 0, &v24, output, outputCnt, 0, &v23);
+    return io_connect_method(*&connection, *&selector, input, inputCnt, inputStruct, inputStructCnt, v15, v16, 0, &v24, output, outputCnt, 0, &v23);
   }
 
   __dst = outputStruct;
   if (*outputStructCnt == -3)
   {
-    result = io_connect_method_var_output(connection, selector, input, inputCnt, inputStruct, inputStructCnt, v15, v16, 0, &v24, output, outputCnt, &v22, &v21);
+    result = io_connect_method_var_output(*&connection, *&selector, input, inputCnt, inputStruct, inputStructCnt, v15, v16, 0, &v24, output, outputCnt, &v22, &v21);
     *outputStruct = v22;
     v19 = v21;
   }
@@ -528,7 +525,7 @@ kern_return_t IOConnectCallMethod(mach_port_t connection, uint32_t selector, con
       v24 = *outputStructCnt;
     }
 
-    result = io_connect_method(connection, selector, input, inputCnt, inputStruct, inputStructCnt, v15, v16, __dst, &v24, output, outputCnt, v20, &v23);
+    result = io_connect_method(*&connection, *&selector, input, inputCnt, inputStruct, inputStructCnt, v15, v16, __dst, &v24, output, outputCnt, v20, &v23);
     if (*outputStructCnt > 0x1000)
     {
       v19 = v23;
@@ -544,43 +541,43 @@ kern_return_t IOConnectCallMethod(mach_port_t connection, uint32_t selector, con
   return result;
 }
 
-uint64_t io_connect_method(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__dst, int *a10, void *a11, int *a12, uint64_t a13, void *a14)
+uint64_t io_connect_method(uint64_t a1, uint64_t a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__dst, int *a10, void *a11, unsigned int *a12, uint64_t a13, void *a14)
 {
-  v14 = MEMORY[0x1EEE9AC00]();
-  v81 = *MEMORY[0x1E69E9840];
-  v79 = 0u;
-  v80 = 0u;
-  v77 = 0u;
+  v14 = MEMORY[0x1EEE9AC00](a1, a2);
+  v80 = *MEMORY[0x1E69E9840];
   v78 = 0u;
-  v75 = 0u;
+  v79 = 0u;
   v76 = 0u;
-  v73 = 0u;
+  v77 = 0u;
   v74 = 0u;
-  v71 = 0u;
+  v75 = 0u;
   v72 = 0u;
-  v69 = 0u;
+  v73 = 0u;
   v70 = 0u;
-  v67 = 0u;
+  v71 = 0u;
   v68 = 0u;
-  v65 = 0u;
+  v69 = 0u;
   v66 = 0u;
-  v63 = 0u;
+  v67 = 0u;
   v64 = 0u;
-  v61 = 0u;
+  v65 = 0u;
   v62 = 0u;
-  v59 = 0u;
+  v63 = 0u;
   v60 = 0u;
-  v57 = 0u;
+  v61 = 0u;
   v58 = 0u;
-  v55 = 0u;
+  v59 = 0u;
   v56 = 0u;
-  v53 = 0u;
+  v57 = 0u;
   v54 = 0u;
-  *__n = 0u;
+  v55 = 0u;
   v52 = 0u;
+  v53 = 0u;
+  *__n = 0u;
+  v51 = 0u;
   *reply_port = 0u;
-  v50 = 0u;
-  *(&v50 + 1) = *MEMORY[0x1E69E99E0];
+  v49 = 0u;
+  *(&v49 + 1) = *MEMORY[0x1E69E99E0];
   LODWORD(__n[0]) = v20;
   if (v15 <= 0x10)
   {
@@ -595,55 +592,55 @@ uint64_t io_connect_method(int a1, int a2, int a3, int a4, int a5, int a6, int a
     HIDWORD(__n[0]) = v25;
     if (v23 <= 0x1000)
     {
-      v31 = &reply_port[v27];
-      v32 = (v23 + 3) & 0x3FFC;
-      v33 = &reply_port[v27] + v32;
-      v34 = v27 * 4 + v32;
-      memcpy(v31 + 11, v24, v23);
-      v31[10] = v23;
-      *(v33 + 44) = v22;
-      *(v33 + 52) = v21;
-      v35 = *a10;
+      v30 = &reply_port[v27];
+      v31 = (v23 + 3) & 0x3FFC;
+      v32 = &reply_port[v27] + v31;
+      v33 = v27 * 4 + v31;
+      memcpy(v30 + 11, v24, v23);
+      v30[10] = v23;
+      *(v32 + 44) = v22;
+      *(v32 + 52) = v21;
+      v34 = *a10;
       if (*a10 >= 0x1000)
       {
-        v35 = 4096;
+        v34 = 4096;
       }
 
-      *(v33 + 15) = v35;
-      v36 = *a12;
+      *(v32 + 15) = v34;
+      v35 = *a12;
       if (*a12 >= 0x10)
       {
-        v36 = 16;
+        v35 = 16;
       }
 
-      *(v33 + 16) = v36;
-      *(v33 + 68) = a13;
-      *(v33 + 76) = *a14;
-      v37 = mig_get_reply_port();
+      *(v32 + 16) = v35;
+      *(v32 + 68) = a13;
+      *(v32 + 76) = *a14;
+      v36 = mig_get_reply_port();
       reply_port[0] = 5395;
-      reply_port[1] = v34 + 84;
-      *&reply_port[2] = __PAIR64__(v37, v26);
-      *&v50 = 0xB3100000000;
-      v38 = mach_msg2_internal();
-      v28 = v38;
-      if ((v38 - 268435458) <= 0xE && ((1 << (v38 - 2)) & 0x4003) != 0)
+      reply_port[1] = v33 + 84;
+      *&reply_port[2] = __PAIR64__(v36, v26);
+      *&v49 = 0xB3100000000;
+      v37 = mach_msg2_internal();
+      v28 = v37;
+      if ((v37 - 268435458) <= 0xE && ((1 << (v37 - 2)) & 0x4003) != 0)
       {
         mig_put_reply_port(reply_port[3]);
-        goto LABEL_4;
+        return v28;
       }
 
-      if (v38)
+      if (v37)
       {
         mig_dealloc_reply_port(reply_port[3]);
-        goto LABEL_4;
+        return v28;
       }
 
-      if (DWORD1(v50) == 71)
+      if (DWORD1(v49) == 71)
       {
         v28 = 4294966988;
       }
 
-      else if (DWORD1(v50) == 2965)
+      else if (DWORD1(v49) == 2965)
       {
         if ((reply_port[0] & 0x80000000) != 0)
         {
@@ -654,15 +651,15 @@ uint64_t io_connect_method(int a1, int a2, int a3, int a4, int a5, int a6, int a
         {
           if (LODWORD(__n[0]))
           {
-            v39 = reply_port[2] == 0;
+            v38 = reply_port[2] == 0;
           }
 
           else
           {
-            v39 = 0;
+            v38 = 0;
           }
 
-          if (v39 && reply_port[1] == 36)
+          if (v38 && reply_port[1] == 36)
           {
             v28 = LODWORD(__n[0]);
           }
@@ -686,7 +683,7 @@ uint64_t io_connect_method(int a1, int a2, int a3, int a4, int a5, int a6, int a
           goto LABEL_31;
         }
 
-        v41 = HIDWORD(__n[0]);
+        v40 = HIDWORD(__n[0]);
         if (HIDWORD(__n[0]) > 0x1000)
         {
 LABEL_30:
@@ -698,43 +695,43 @@ LABEL_30:
           v28 = 4294966996;
           if (reply_port[1] - 52 >= HIDWORD(__n[0]))
           {
-            v42 = (HIDWORD(__n[0]) + 3) & 0xFFFFFFFC;
-            if (reply_port[1] >= v42 + 52)
+            v41 = (HIDWORD(__n[0]) + 3) & 0xFFFFFFFC;
+            if (reply_port[1] >= v41 + 52)
             {
-              v43 = reply_port + v42;
-              v44 = *(v43 + 10);
-              if (v44 <= 0x10 && v44 <= (reply_port[1] - v42 - 52) >> 3)
+              v42 = reply_port + v41;
+              v43 = *(v42 + 10);
+              if (v43 <= 0x10 && v43 <= (reply_port[1] - v41 - 52) >> 3)
               {
-                v45 = 8 * v44;
-                if (reply_port[1] - v42 == 8 * v44 + 52)
+                v44 = 8 * v43;
+                if (reply_port[1] - v41 == 8 * v43 + 52)
                 {
-                  v46 = *a10;
-                  if (HIDWORD(__n[0]) <= v46)
+                  v45 = *a10;
+                  if (HIDWORD(__n[0]) <= v45)
                   {
-                    v47 = v43 - 4096;
+                    v46 = v42 - 4096;
                     memcpy(__dst, &__n[1], HIDWORD(__n[0]));
-                    *a10 = v41;
-                    v48 = *(v47 + 1034);
-                    if (v48 <= *a12)
+                    *a10 = v40;
+                    v47 = *(v46 + 1034);
+                    if (v47 <= *a12)
                     {
-                      memcpy(a11, v47 + 4140, 8 * v48);
+                      memcpy(a11, v46 + 4140, 8 * v47);
                       v28 = 0;
-                      *a12 = *(v47 + 1034);
-                      *a14 = *&v47[v45 + 4140];
-                      goto LABEL_4;
+                      *a12 = *(v46 + 1034);
+                      *a14 = *&v46[v44 + 4140];
+                      return v28;
                     }
 
-                    memcpy(a11, v47 + 4140, (8 * *a12));
-                    *a12 = *(v47 + 1034);
+                    memcpy(a11, v46 + 4140, 8 * *a12);
+                    *a12 = *(v46 + 1034);
                   }
 
                   else
                   {
-                    memcpy(__dst, &__n[1], v46);
-                    *a10 = v41;
+                    memcpy(__dst, &__n[1], v45);
+                    *a10 = v40;
                   }
 
-                  goto LABEL_3;
+                  return 4294966989;
                 }
               }
             }
@@ -749,15 +746,11 @@ LABEL_30:
 
 LABEL_31:
       mach_msg_destroy(reply_port);
-      goto LABEL_4;
+      return v28;
     }
   }
 
-LABEL_3:
-  v28 = 4294966989;
-LABEL_4:
-  v29 = *MEMORY[0x1E69E9840];
-  return v28;
+  return 4294966989;
 }
 
 void __IOHIDEventSystemClientQueueCallback(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -783,7 +776,7 @@ void __IOHIDEventSystemClientQueueCallback(uint64_t a1, uint64_t a2, uint64_t a3
           Type = IOHIDEventGetType(v7);
           TimeStampType = IOHIDEventGetTimeStampType(v7);
           _IOHIDDebugTrace(8224, 0, TimeStampOfType, Type, Service, TimeStampType);
-          Latency = IOHIDEventGetLatency(v7, 1u);
+          Latency = IOHIDEventGetLatency(v7, 1);
           if (Latency > v10)
           {
             v10 = Latency;
@@ -886,16 +879,16 @@ void *IOHIDEventQueueDequeueCopy(uint64_t a1)
       v6 = IOHIDEventCreateWithBytesInternal(v7, v6 + 4, v12);
       if (!v6)
       {
-        v8 = _IOHIDLog();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+        v9 = _IOHIDLog(0, v8);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
         {
           v13[0] = 67109120;
           v13[1] = v12;
-          OUTLINED_FUNCTION_1_10(&dword_197195000, v8, v9, "Unable to create IOHIDEvent with length:%d", v13);
+          OUTLINED_FUNCTION_1_10(&dword_197195000, v9, v10, "Unable to create IOHIDEvent with length:%d", v13);
         }
       }
 
-      _IODataQueueDequeue(v5, *(a1 + 56), 0);
+      _IODataQueueDequeue(v5, *(a1 + 56), 0, 0);
     }
   }
 
@@ -905,11 +898,10 @@ void *IOHIDEventQueueDequeueCopy(uint64_t a1)
   }
 
   os_unfair_recursive_lock_unlock();
-  v10 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
-uint64_t _IOHIDEventCreate(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+HIDEvent *_IOHIDEventCreate(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v9 = [HIDEvent allocWithZone:a1];
 
@@ -945,7 +937,7 @@ uint64_t IOHIDEventGetTimeStampOfType(uint64_t a1, int a2)
         v2 = 0;
       }
 
-      if (_MergedGlobals[0] && _MergedGlobals[0]() && off_1ED446908)
+      if (_MergedGlobals && _MergedGlobals() && off_1ED446908)
       {
         return off_1ED446908(v2);
       }
@@ -966,7 +958,7 @@ LABEL_5:
 
 void _IOHIDDebugTrace(__int16 a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v10 = (4 * (a1 & 0x3FFF)) | a2 | 0x5230000u;
   kdebug_trace();
   if ((gIOHIDDebugConfig & 2) != 0)
@@ -979,21 +971,19 @@ void _IOHIDDebugTrace(__int16 a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5,
     v11 = qword_1ED446B58;
     if (os_log_type_enabled(qword_1ED446B58, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 134219008;
-      v14 = v10;
-      v15 = 2048;
-      v16 = a3;
-      v17 = 2048;
-      v18 = a4;
-      v19 = 2048;
-      v20 = a5;
-      v21 = 2048;
-      v22 = a6;
-      _os_log_impl(&dword_197195000, v11, OS_LOG_TYPE_DEFAULT, "0x%-16llx 0x%-16llx 0x%-16llx 0x%-16llx 0x%-16llx", &v13, 0x34u);
+      v12 = 134219008;
+      v13 = v10;
+      v14 = 2048;
+      v15 = a3;
+      v16 = 2048;
+      v17 = a4;
+      v18 = 2048;
+      v19 = a5;
+      v20 = 2048;
+      v21 = a6;
+      _os_log_impl(&dword_197195000, v11, OS_LOG_TYPE_DEFAULT, "0x%-16llx 0x%-16llx 0x%-16llx 0x%-16llx 0x%-16llx", &v12, 0x34u);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t IOHIDEventGetTimeStamp(uint64_t a1)
@@ -1004,17 +994,18 @@ uint64_t IOHIDEventGetTimeStamp(uint64_t a1)
     return 0;
   }
 
-  if (v1 && _MergedGlobals[0] && _MergedGlobals[0]() && dynLinkrosetta_convert_to_rosetta_absolute_time_0[0])
+  if (v1 && _MergedGlobals && _MergedGlobals() && dynLinkrosetta_convert_to_rosetta_absolute_time_0)
   {
-    return (dynLinkrosetta_convert_to_rosetta_absolute_time_0[0])(v1);
+    return dynLinkrosetta_convert_to_rosetta_absolute_time_0(v1);
   }
 
   return v1;
 }
 
-unint64_t IOHIDEventGetLatency(uint64_t a1, unsigned int a2)
+unint64_t IOHIDEventGetLatency(uint64_t a1, uint64_t a2)
 {
-  if (_MergedGlobals[0] && _MergedGlobals[0]())
+  v2 = a2;
+  if (_MergedGlobals && _MergedGlobals())
   {
     v4 = mach_absolute_time();
     v5 = v4;
@@ -1034,7 +1025,7 @@ unint64_t IOHIDEventGetLatency(uint64_t a1, unsigned int a2)
   v5 = v6;
 LABEL_7:
   TimeStamp = IOHIDEventGetTimeStamp(a1);
-  result = _IOHIDGetTimestampDelta(v5, TimeStamp, a2);
+  result = _IOHIDGetTimestampDelta(v5, TimeStamp, v2);
   if (v5 < TimeStamp)
   {
     return 0;
@@ -2919,33 +2910,33 @@ uint64_t pm_connect_init(_DWORD *a1)
   return _pm_connect(a1);
 }
 
-void __IOHIDEventSystemClientSetDispatchQueue_block_invoke(uint64_t a1, uint64_t a2)
+void __IOHIDEventSystemClientSetDispatchQueue_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 8)
   {
     dispatch_release(*(*(a1 + 32) + 296));
     *(*(a1 + 32) + 296) = 0;
-    v6 = *(a1 + 32);
-    v7 = *(v6 + 304);
-    if (v7)
+    v7 = *(a1 + 32);
+    v8 = *(v7 + 304);
+    if (v8)
     {
-      (*(v7 + 16))();
+      (*(v8 + 16))();
       _Block_release(*(*(a1 + 32) + 304));
-      v6 = *(a1 + 32);
-      *(v6 + 304) = 0;
+      v7 = *(a1 + 32);
+      *(v7 + 304) = 0;
     }
 
-    dispatch_release(*(v6 + 400));
+    dispatch_release(*(v7 + 400));
     dispatch_release(*(*(a1 + 32) + 488));
-    v8 = *(a1 + 32);
+    v9 = *(a1 + 32);
 
-    _IOHIDObjectInternalRelease(v8);
+    _IOHIDObjectInternalRelease(v9);
   }
 
   else if (a2 == 2)
   {
     msg = dispatch_mach_msg_get_msg();
-    __IOHIDEventSystemClientQueueCallback(msg, v4, v5, *(a1 + 32));
+    __IOHIDEventSystemClientQueueCallback(msg, v5, v6, *(a1 + 32));
   }
 }
 
@@ -3335,13 +3326,13 @@ void IOCFSerializeBinaryAddObject(uint64_t a1, const void *a2, int a3, const UIn
   }
 }
 
-uint64_t IOCFSerializeBinaryCFDictionaryFunction(uint64_t a1, uint64_t a2, uint64_t *a3)
+uint64_t IOCFSerializeBinaryCFDictionaryFunction(const __CFString *a1, const __CFString *a2, uint64_t a3)
 {
   v6 = *a3;
-  ++a3[1];
+  ++*(a3 + 8);
   *(a3 + 24) &= DoCFSerializeBinary(v6, a1, 1);
   v7 = *a3;
-  *(v7 + 16) = a3[1] == a3[2];
+  *(v7 + 16) = *(a3 + 8) == *(a3 + 16);
   result = DoCFSerializeBinary(v7, a2, 0);
   *(a3 + 24) &= result;
   return result;
@@ -3380,13 +3371,12 @@ uint64_t _pm_connect(_DWORD *a1)
 
     else
     {
-      v3 = *MEMORY[0x1E69E99F8];
-      v4 = bootstrap_look_up2();
-      if (v4)
+      v3 = bootstrap_look_up2();
+      if (v3)
       {
         powerd_connection = 0;
         *a1 = 0;
-        asl_log(0, 0, 3, "bootstrap_look_up2 failed with 0x%x\n", v4);
+        asl_log(0, 0, 3, "bootstrap_look_up2 failed with 0x%x\n", v3);
       }
 
       else
@@ -3408,15 +3398,15 @@ uint64_t _pm_connect(_DWORD *a1)
 
 uint64_t io_pm_declare_system_active(mach_port_t a1, int *a2, uint64_t a3, int a4, int *a5, _DWORD *a6)
 {
-  v27 = *MEMORY[0x1E69E9840];
-  v19 = 1;
-  v20 = a3;
-  v21 = 16777472;
-  v22 = a4;
-  v23 = *MEMORY[0x1E69E99E0];
-  v24 = *a2;
-  v25 = a4;
-  v26 = *a5;
+  v26 = *MEMORY[0x1E69E9840];
+  v18 = 1;
+  v19 = a3;
+  v20 = 16777472;
+  v21 = a4;
+  v22 = *MEMORY[0x1E69E99E0];
+  v23 = *a2;
+  v24 = a4;
+  v25 = *a5;
   special_reply_port = mig_get_special_reply_port();
   *&msg.msgh_bits = 2147489043;
   msg.msgh_remote_port = a1;
@@ -3452,14 +3442,14 @@ uint64_t io_pm_declare_system_active(mach_port_t a1, int *a2, uint64_t a3, int a
           {
             if (!msg.msgh_remote_port)
             {
-              v13 = HIDWORD(v20);
-              if (!HIDWORD(v20))
+              v13 = HIDWORD(v19);
+              if (!HIDWORD(v19))
               {
-                v17 = v22;
-                *a2 = v21;
-                *a5 = v17;
-                *a6 = v23;
-                goto LABEL_24;
+                v16 = v21;
+                *a2 = v20;
+                *a5 = v16;
+                *a6 = v22;
+                return v13;
               }
 
               goto LABEL_23;
@@ -3475,7 +3465,7 @@ uint64_t io_pm_declare_system_active(mach_port_t a1, int *a2, uint64_t a3, int a
 
             else
             {
-              v14 = HIDWORD(v20) == 0;
+              v14 = HIDWORD(v19) == 0;
             }
 
             if (v14)
@@ -3485,7 +3475,7 @@ uint64_t io_pm_declare_system_active(mach_port_t a1, int *a2, uint64_t a3, int a
 
             else
             {
-              v13 = HIDWORD(v20);
+              v13 = HIDWORD(v19);
             }
 
             goto LABEL_23;
@@ -3502,14 +3492,12 @@ uint64_t io_pm_declare_system_active(mach_port_t a1, int *a2, uint64_t a3, int a
 
 LABEL_23:
       mach_msg_destroy(&msg);
-      goto LABEL_24;
+      return v13;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-LABEL_24:
-  v15 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -3538,9 +3526,10 @@ kern_return_t IORegistryEntrySetCFProperties(io_registry_entry_t entry, CFTypeRe
   }
 
   v4 = v3;
+  v9 = 0;
   BytePtr = CFDataGetBytePtr(v3);
   Length = CFDataGetLength(v4);
-  v7 = io_registry_entry_set_properties(entry, BytePtr, Length);
+  v7 = io_registry_entry_set_properties(entry, BytePtr, Length, &v9);
   CFRelease(v4);
   if (v7)
   {
@@ -3549,11 +3538,11 @@ kern_return_t IORegistryEntrySetCFProperties(io_registry_entry_t entry, CFTypeRe
 
   else
   {
-    return 0;
+    return v9;
   }
 }
 
-unint64_t IOHIDEventGetIntegerValueWithOptions(const __CFArray *a1, int a2, uint64_t a3)
+uint64_t IOHIDEventGetIntegerValueWithOptions(const __CFArray *a1, int a2, uint64_t a3)
 {
   v4 = a1;
   v5 = HIWORD(a2);
@@ -3568,7 +3557,7 @@ unint64_t IOHIDEventGetIntegerValueWithOptions(const __CFArray *a1, int a2, uint
   }
 
   result = 0;
-  v7 = *(v4 + 96);
+  v7 = *(v4 + 12);
   switch(v5)
   {
     case 0u:
@@ -5050,7 +5039,7 @@ LABEL_234:
   }
 }
 
-uint64_t io_registry_entry_set_properties(unsigned int a1, uint64_t a2, int a3)
+uint64_t io_registry_entry_set_properties(unsigned int a1, uint64_t a2, int a3, int *a4)
 {
   v14 = *MEMORY[0x1E69E9840];
   v8 = 1;
@@ -5062,29 +5051,28 @@ uint64_t io_registry_entry_set_properties(unsigned int a1, uint64_t a2, int a3)
   *&v7.msgh_bits = 0x3880001513;
   *&v7.msgh_remote_port = __PAIR64__(mig_get_reply_port(), a1);
   *&v7.msgh_voucher_port = 0xB0C00000000;
-  v3 = mach_msg2_internal();
-  v4 = v3;
-  if ((v3 - 268435458) <= 0xE && ((1 << (v3 - 2)) & 0x4003) != 0)
+  v4 = mach_msg2_internal();
+  v5 = v4;
+  if ((v4 - 268435458) <= 0xE && ((1 << (v4 - 2)) & 0x4003) != 0)
   {
     mig_put_reply_port(v7.msgh_local_port);
   }
 
-  else if (v3)
+  else if (v4)
   {
     mig_dealloc_reply_port(v7.msgh_local_port);
   }
 
   else
   {
-    v4 = 4294966995;
+    v5 = 4294966995;
     mach_msg_destroy(&v7);
   }
 
-  v5 = *MEMORY[0x1E69E9840];
-  return v4;
+  return v5;
 }
 
-uint64_t IOHIDEventCreate(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+HIDEvent *IOHIDEventCreate(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a2 > 0x2B)
   {
@@ -5099,12 +5087,12 @@ uint64_t IOHIDEventCreate(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   v7 = _IOHIDEventCreate(a1, v6, a2, a3, a4);
   if (v7)
   {
-    if (_MergedGlobals[0] && _MergedGlobals[0]() && off_1ED446908)
+    if (_MergedGlobals && _MergedGlobals() && off_1ED446908)
     {
       a3 = off_1ED446908(a3);
     }
 
-    *(v7 + 8) = a3;
+    v7->_event.timeStamp = a3;
   }
 
   return v7;
@@ -5135,7 +5123,7 @@ const __CFArray *IOHIDEventCreateDigitizerEvent(uint64_t a1, uint64_t a2, int a3
   }
 
   v29 = IOHIDEventCreate(a1, 11, a2, v28);
-  v30 = v29;
+  v31 = v29;
   if (v29)
   {
     EventWithOptions = IOHIDEventGetEventWithOptions(v29, 11, 4026531840);
@@ -5144,72 +5132,72 @@ const __CFArray *IOHIDEventCreateDigitizerEvent(uint64_t a1, uint64_t a2, int a3
       *(*(EventWithOptions + 12) + 52) = a6;
     }
 
-    v34 = IOHIDEventGetEventWithOptions(v30, 11, 4026531840);
-    if (v34)
-    {
-      *(*(v34 + 12) + 60) = a7;
-    }
-
-    v35 = IOHIDEventGetEventWithOptions(v30, 11, 4026531840);
+    v35 = IOHIDEventGetEventWithOptions(v31, 11, 4026531840);
     if (v35)
     {
-      *(*(v35 + 12) + 40) = a4;
+      *(*(v35 + 12) + 60) = a7;
     }
 
-    v36 = IOHIDEventGetEventWithOptions(v30, 11, 4026531840);
+    v36 = IOHIDEventGetEventWithOptions(v31, 11, 4026531840);
     if (v36)
     {
-      *(*(v36 + 12) + 44) = a3;
+      *(*(v36 + 12) + 40) = a4;
     }
 
-    v37 = IOHIDEventGetEventWithOptions(v30, 11, 4026531840);
+    v37 = IOHIDEventGetEventWithOptions(v31, 11, 4026531840);
     if (v37)
     {
-      *(*(v37 + 12) + 48) = a5;
+      *(*(v37 + 12) + 44) = a3;
     }
 
-    v38 = IOHIDEventGetEventWithOptions(v30, 11, 4026531840);
+    v38 = IOHIDEventGetEventWithOptions(v31, 11, 4026531840);
     if (v38)
     {
-      *(*(v38 + 12) + 16) = a9;
+      *(*(v38 + 12) + 48) = a5;
     }
 
-    v39 = IOHIDEventGetEventWithOptions(v30, 11, 4026531840);
+    v39 = IOHIDEventGetEventWithOptions(v31, 11, 4026531840);
     if (v39)
     {
-      *(*(v39 + 12) + 24) = a10;
+      *(*(v39 + 12) + 16) = a9;
     }
 
-    v40 = IOHIDEventGetEventWithOptions(v30, 11, 4026531840);
+    v40 = IOHIDEventGetEventWithOptions(v31, 11, 4026531840);
     if (v40)
     {
-      *(*(v40 + 12) + 32) = a11;
+      *(*(v40 + 12) + 24) = a10;
     }
 
-    v41 = IOHIDEventGetEventWithOptions(v30, 11, 4026531840);
+    v41 = IOHIDEventGetEventWithOptions(v31, 11, 4026531840);
     if (v41)
     {
-      *(*(v41 + 12) + 64) = a12;
+      *(*(v41 + 12) + 32) = a11;
     }
 
-    v42 = IOHIDEventGetEventWithOptions(v30, 11, 4026531840);
+    v42 = IOHIDEventGetEventWithOptions(v31, 11, 4026531840);
     if (v42)
     {
-      *(*(v42 + 12) + 80) = a13;
+      *(*(v42 + 12) + 64) = a12;
+    }
+
+    v43 = IOHIDEventGetEventWithOptions(v31, 11, 4026531840);
+    if (v43)
+    {
+      *(*(v43 + 12) + 80) = a13;
     }
   }
 
   else
   {
-    v31 = _IOHIDLog();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+    v32 = _IOHIDLog(0, v30);
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
     {
-      *v43 = 0;
-      _os_log_impl(&dword_197195000, v31, OS_LOG_TYPE_DEFAULT, "IOHIDEventCreateDigitizerEvent event is null", v43, 2u);
+      *v44 = 0;
+      _os_log_impl(&dword_197195000, v32, OS_LOG_TYPE_DEFAULT, "IOHIDEventCreateDigitizerEvent event is null", v44, 2u);
     }
   }
 
-  return v30;
+  return v31;
 }
 
 void IOHIDEventSetSenderID(uint64_t a1, uint64_t a2)
@@ -5860,8 +5848,9 @@ LABEL_118:
   return v7;
 }
 
-int64_t __IOHIDEventReadBytesHelper(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, int a5)
+uint64_t __IOHIDEventReadBytesHelper(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5)
 {
+  v5 = a5;
   v10 = *(a1 + 32);
   if ((v10 & 0x80) != 0)
   {
@@ -5891,36 +5880,34 @@ int64_t __IOHIDEventReadBytesHelper(uint64_t a1, uint64_t a2, uint64_t a3, void 
     v15 = 28;
   }
 
-  appended = __IOHIDEventDataAppendEventData(a1, (a2 + v15), a3 - v15, a4, a5);
+  appended = __IOHIDEventDataAppendEventData(a1, (a2 + v15), a3 - v15, a4, v5);
   *(a2 + 24) = *a4;
   return appended + v15;
 }
 
 int64_t __IOHIDEventDataAppendEventData(uint64_t a1, char *a2, int64_t a3, void *a4, int a5)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   if (!a1)
   {
-LABEL_26:
-    v8 = 0;
-    goto LABEL_23;
+    return 0;
   }
 
   v7 = *(a1 + 96);
   v8 = *v7;
   if (v8 > a3)
   {
-    v27 = _IOHIDLog();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v26 = _IOHIDLog(a1, a2);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
-      v28 = 134218240;
-      v29 = 0;
-      v30 = 2048;
-      v31 = a3;
-      _os_log_error_impl(&dword_197195000, v27, OS_LOG_TYPE_ERROR, "insufficient buffer data available, size: %ld, length: %ld", &v28, 0x16u);
+      v27 = 134218240;
+      v28 = 0;
+      v29 = 2048;
+      v30 = a3;
+      _os_log_error_impl(&dword_197195000, v26, OS_LOG_TYPE_ERROR, "insufficient buffer data available, size: %ld, length: %ld", &v27, 0x16u);
     }
 
-    goto LABEL_26;
+    return 0;
   }
 
   v12 = *(a1 + 80);
@@ -5934,11 +5921,11 @@ LABEL_26:
 
     else
     {
-      v14 = _IOHIDLog();
+      v14 = _IOHIDLog(a1, a2);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v28) = 0;
-        _os_log_error_impl(&dword_197195000, v14, OS_LOG_TYPE_ERROR, "no event->parent->eventData", &v28, 2u);
+        LOWORD(v27) = 0;
+        _os_log_error_impl(&dword_197195000, v14, OS_LOG_TYPE_ERROR, "no event->parent->eventData", &v27, 2u);
       }
     }
   }
@@ -5995,8 +5982,6 @@ LABEL_26:
     ++*a4;
   }
 
-LABEL_23:
-  v25 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -7694,7 +7679,7 @@ LABEL_154:
   }
 }
 
-uint64_t _IOHIDDebugEventAddPerfData(uint64_t result, int a2, uint64_t a3)
+void *_IOHIDDebugEventAddPerfData(void *result, int a2, uint64_t a3)
 {
   if ((gIOHIDDebugConfig & 0x10) != 0)
   {
@@ -7768,15 +7753,14 @@ LABEL_10:
 
 uint64_t __IOHIDServiceQueueWillExecute(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   result = pthread_mutex_lock((a1 + 8));
   if (result)
   {
-    __IOHIDServiceQueueWillExecute_cold_1(&v4, v5);
+    __IOHIDServiceQueueWillExecute_cold_1(&v3, v4);
   }
 
   ++*a1;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -7790,14 +7774,14 @@ uint64_t IOHIDAnalyticsHistogramEventSetIntegerValue()
   return result;
 }
 
-uint64_t __IOHIDServiceEventCallback(uint64_t a1, uint64_t a2, uint64_t a3, const __CFArray *a4)
+uint64_t __IOHIDServiceEventCallback(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v60 = *MEMORY[0x1E69E9840];
   context = a4;
   v6 = mach_absolute_time();
   if (!a1)
   {
-    goto LABEL_81;
+    return __IOHIDServiceEventCallback_cold_5(a1, v6);
   }
 
   valuePtr[0].tv_sec = 0;
@@ -7809,7 +7793,7 @@ uint64_t __IOHIDServiceEventCallback(uint64_t a1, uint64_t a2, uint64_t a3, cons
   _IOHIDDebugTrace(8256, 0, TimeStampOfType, tv_sec, Type, TimeStampType);
   if (pthread_mutex_lock((*(a1 + 72) + 8)))
   {
-    __IOHIDServiceCreateAndCopyConnectionCache_cold_1(&v58, valuePtr);
+    __IOHIDServiceCreateAndCopyConnectionCache_cold_1(&v57, valuePtr);
   }
 
   v11 = *(a1 + 72);
@@ -7821,7 +7805,7 @@ uint64_t __IOHIDServiceEventCallback(uint64_t a1, uint64_t a2, uint64_t a3, cons
   }
 
   v13 = *(a1 + 128);
-  v56 = *(a1 + 136);
+  v55 = *(a1 + 136);
   v14 = *(a1 + 144);
   if (!v14)
   {
@@ -7958,7 +7942,7 @@ LABEL_23:
     }
   }
 
-  v57 = v17;
+  v56 = v17;
   if (!IOHIDEventGetSenderID(a4))
   {
     IOHIDEventSetSenderID(a4, tv_sec);
@@ -7985,10 +7969,10 @@ LABEL_23:
       goto LABEL_60;
     }
 
-    v54 = v14;
-    v55 = v6;
+    v53 = v14;
+    v54 = v6;
     v35 = IOHIDEventGetIntegerValue(a4, 196608);
-    v53 = IOHIDEventGetIntegerValue(a4, 196610);
+    v52 = IOHIDEventGetIntegerValue(a4, 196610);
     v36 = IOHIDEventGetIntegerValue(a4, 196613);
     v37 = IOHIDEventGetIntegerValue(a4, 196612);
     Phase = IOHIDEventGetPhase(a4);
@@ -8008,9 +7992,9 @@ LABEL_23:
       }
     }
 
-    v42 = v53 | (v35 << 42) | (2 * v36) | (4 * v37) | (Phase << 10) | v39;
-    v14 = v54;
-    v6 = v55;
+    v42 = v52 | (v35 << 42) | (2 * v36) | (4 * v37) | (Phase << 10) | v39;
+    v14 = v53;
+    v6 = v54;
   }
 
   *&valuePtr[1].tv_usec = v42;
@@ -8025,16 +8009,16 @@ LABEL_60:
   ++*(*(a1 + 416) + 8 * v34);
   ++*(a1 + 228);
   *(a1 + 232) |= 1 << IOHIDEventGetType(a4);
-  _IOHIDDebugTrace(8259, 1, v32, a1, v33, v57);
+  _IOHIDDebugTrace(8259, 1, v32, a1, v33, v56);
   v47 = *(a1 + 248);
   if (v47)
   {
-    v62.length = CFArrayGetCount(*(a1 + 248));
-    v62.location = 0;
-    CFArrayApplyFunction(v47, v62, __FilterFunctionFilterEvent, &context);
+    v61.length = CFArrayGetCount(*(a1 + 248));
+    v61.location = 0;
+    CFArrayApplyFunction(v47, v61, __FilterFunctionFilterEvent, &context);
   }
 
-  _IOHIDDebugTrace(8259, 2, v32, a1, v33, v57);
+  _IOHIDDebugTrace(8259, 2, v32, a1, v33, v56);
   v12 = **(a1 + 72);
 LABEL_66:
   if (v12)
@@ -8048,7 +8032,7 @@ LABEL_66:
         --*v49;
         if (pthread_mutex_unlock((v49 + 8)))
         {
-          __IOHIDServiceCreateAndCopyConnectionCache_cold_2(&v58, valuePtr);
+          __IOHIDServiceCreateAndCopyConnectionCache_cold_2(&v57, valuePtr);
         }
       }
 
@@ -8060,7 +8044,7 @@ LABEL_66:
 
   if (v14)
   {
-    v14(v13, v56, a1, context, 0);
+    v14(v13, v55, a1, context, 0);
   }
 
   v11 = *(a1 + 72);
@@ -8070,7 +8054,7 @@ LABEL_66:
 LABEL_75:
     if (!v12)
     {
-      goto LABEL_81;
+      return __IOHIDServiceEventCallback_cold_5(a1, v6);
     }
 
     goto LABEL_80;
@@ -8080,7 +8064,7 @@ LABEL_75:
   {
     if (pthread_mutex_lock((v11 + 8)))
     {
-      __IOHIDServiceCreateAndCopyConnectionCache_cold_1(&v58, valuePtr);
+      __IOHIDServiceCreateAndCopyConnectionCache_cold_1(&v57, valuePtr);
     }
 
     v11 = *(a1 + 72);
@@ -8097,17 +8081,14 @@ LABEL_80:
     *v11 = v12 - 1;
     if (pthread_mutex_unlock((v11 + 8)))
     {
-      __IOHIDServiceCreateAndCopyConnectionCache_cold_2(&v58, valuePtr);
+      __IOHIDServiceCreateAndCopyConnectionCache_cold_2(&v57, valuePtr);
     }
   }
 
-LABEL_81:
-  result = __IOHIDServiceEventCallback_cold_5(a1, v6);
-  v52 = *MEMORY[0x1E69E9840];
-  return result;
+  return __IOHIDServiceEventCallback_cold_5(a1, v6);
 }
 
-uint64_t _IOHIDServiceDispatchEvent(uint64_t result, const __CFArray *a2, uint64_t a3)
+uint64_t _IOHIDServiceDispatchEvent(uint64_t result, void *a2, uint64_t a3)
 {
   if (result)
   {
@@ -8154,10 +8135,10 @@ LABEL_7:
   return 3758097115;
 }
 
-id IOHIDSessionFilterFilterEventToConnection(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+id IOHIDSessionFilterFilterEventToConnection(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
   SenderID = a3;
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v8 = *(a1 + 56);
   v9 = a4;
   if (v8)
@@ -8182,20 +8163,19 @@ id IOHIDSessionFilterFilterEventToConnection(uint64_t a1, uint64_t a2, uint64_t 
       }
 
       UUID = IOHIDEventSystemConnectionGetUUID(a2);
-      v16 = *(a1 + 32);
-      v17[0] = 67109890;
-      v17[1] = Type;
-      v18 = 2048;
-      v19 = SenderID;
-      v20 = 2112;
-      v21 = UUID;
-      v22 = 2112;
-      v23 = v16;
-      _os_log_debug_impl(&dword_197195000, v11, OS_LOG_TYPE_DEBUG, "EventToConnection filtered type:%d service:0x%llx connection:%@ session filter:%@", v17, 0x26u);
+      v15 = *(a1 + 32);
+      v16[0] = 67109890;
+      v16[1] = Type;
+      v17 = 2048;
+      v18 = SenderID;
+      v19 = 2112;
+      v20 = UUID;
+      v21 = 2112;
+      v22 = v15;
+      _os_log_debug_impl(&dword_197195000, v11, OS_LOG_TYPE_DEBUG, "EventToConnection filtered type:%d service:0x%llx connection:%@ session filter:%@", v16, 0x26u);
     }
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -8234,13 +8214,13 @@ CFTypeRef _IOHIDEventCopyAttachment(uint64_t a1, CFTypeRef cf1)
   return CFRetain(v5);
 }
 
-void __IOHIDSessionServiceCallback(uint64_t a1, int a2, const void *a3, void *a4)
+void __IOHIDSessionServiceCallback(uint64_t result, int a2, const void *a3, void *a4)
 {
-  if (a1 && a4)
+  if (result && a4)
   {
     _IOHIDEventSetAttachment(a4, @"Sender", a3);
 
-    __IOHIDSessionDispatchEvent(a1, a4);
+    __IOHIDSessionDispatchEvent(result, a4);
   }
 }
 
@@ -8278,11 +8258,11 @@ BOOL _IOHIDEventSetAttachment(void *a1, CFTypeRef cf1, const void *a3)
       return 1;
     }
 
-    v11 = _IOHIDLog();
-    result = os_log_type_enabled(v11, OS_LOG_TYPE_ERROR);
+    v12 = _IOHIDLog(0, v11);
+    result = os_log_type_enabled(v12, OS_LOG_TYPE_ERROR);
     if (result)
     {
-      _IOHIDEventSetAttachment_cold_1(v11);
+      _IOHIDEventSetAttachment_cold_1(v12);
       return 0;
     }
   }
@@ -8292,10 +8272,10 @@ BOOL _IOHIDEventSetAttachment(void *a1, CFTypeRef cf1, const void *a3)
 
 void __IOHIDSessionDispatchEvent(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   context = 0;
+  v26 = 0;
   v27 = 0;
-  v28 = 0;
   if (a1)
   {
     TimeStampOfType = IOHIDEventGetTimeStampOfType(a2, 2);
@@ -8304,7 +8284,7 @@ void __IOHIDSessionDispatchEvent(uint64_t a1, void *a2)
     v6 = (a1 + 32);
     if (pthread_mutex_lock((*(a1 + 32) + 8)))
     {
-      __IOHIDSessionCreate_block_invoke_cold_1(&v25, v29);
+      __IOHIDSessionCreate_block_invoke_cold_1(v24, v28);
     }
 
     ++**(a1 + 32);
@@ -8313,30 +8293,30 @@ void __IOHIDSessionDispatchEvent(uint64_t a1, void *a2)
     v9 = *(a1 + 24);
     v10 = _IOHIDEventCopyAttachment(a2, @"Sender");
     context = a1;
-    v27 = v10;
-    v28 = CFRetain(a2);
+    v26 = v10;
+    v27 = CFRetain(a2);
     v11 = IOHIDEventGetTimeStampOfType(a2, 2);
     v12 = IOHIDEventGetTimeStampType(a2);
     _IOHIDDebugTrace(8274, 1, v11, v12, 0, 0);
     v13 = *(a1 + 144);
-    v31.length = CFArrayGetCount(v13);
-    v31.location = 0;
-    CFArrayApplyFunction(v13, v31, __FilterFunctionFilterEvent_0, &context);
+    v30.length = CFArrayGetCount(v13);
+    v30.location = 0;
+    CFArrayApplyFunction(v13, v30, __FilterFunctionFilterEvent_0, &context);
     v14 = IOHIDEventGetTimeStampOfType(a2, 2);
     v15 = IOHIDEventGetTimeStampType(a2);
     _IOHIDDebugTrace(8274, 2, v14, v15, 0, 0);
-    v16 = v28;
-    if (v10 && v28)
+    v16 = v27;
+    if (v10 && v27)
     {
-      if (_IOHIDServiceIsInactive(v10) && (IOHIDEventGetEventFlags(v28) & 0x800000) == 0)
+      if (_IOHIDServiceIsInactive(v10) && (IOHIDEventGetEventFlags(v27) & 0x800000) == 0)
       {
-        v28 = 0;
+        v27 = 0;
 LABEL_8:
-        __IOHIDSessionCreate_block_invoke_cold_3((a1 + 32));
+        __IOHIDSessionCreate_block_invoke_cold_3(a1 + 32);
         goto LABEL_25;
       }
 
-      v16 = v28;
+      v16 = v27;
     }
 
     if (!v16)
@@ -8367,7 +8347,7 @@ LABEL_8:
             *v20 = v21 - 1;
             if (pthread_mutex_unlock((v20 + 2)))
             {
-              __IOHIDSessionCreate_block_invoke_cold_2(&v25, v29);
+              __IOHIDSessionCreate_block_invoke_cold_2(v24, v28);
             }
           }
 
@@ -8377,7 +8357,7 @@ LABEL_8:
         while (v19);
       }
 
-      v8(v7, v9, v27, v28);
+      v8(v7, v9, v26, v27);
       v22 = *v6;
       if (v18)
       {
@@ -8385,7 +8365,7 @@ LABEL_8:
         {
           if (pthread_mutex_lock((v22 + 2)))
           {
-            __IOHIDSessionCreate_block_invoke_cold_1(&v25, v29);
+            __IOHIDSessionCreate_block_invoke_cold_1(v24, v28);
           }
 
           v22 = *v6;
@@ -8407,7 +8387,7 @@ LABEL_8:
         *v22 = v23 - 1;
         if (pthread_mutex_unlock((v22 + 2)))
         {
-          __IOHIDSessionCreate_block_invoke_cold_2(&v25, v29);
+          __IOHIDSessionCreate_block_invoke_cold_2(v24, v28);
         }
       }
     }
@@ -8417,19 +8397,18 @@ LABEL_8:
       *v17 = v18 - 1;
       if (pthread_mutex_unlock((v17 + 2)))
       {
-        __IOHIDSessionCreate_block_invoke_cold_2(&v25, v29);
+        __IOHIDSessionCreate_block_invoke_cold_2(v24, v28);
       }
     }
   }
 
 LABEL_25:
   __IOHIDSessionDispatchEvent_cold_7(&context);
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 id IOHIDSessionFilterFilterEvent(uint64_t a1, uint64_t a2, id a3)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v6 = *(a1 + 16);
   if (v6 && (v7 = *(*v6 + 32)) != 0 || (v8 = *(a1 + 24)) != 0 && (v7 = *(*v8 + 32)) != 0)
   {
@@ -8437,14 +8416,14 @@ id IOHIDSessionFilterFilterEvent(uint64_t a1, uint64_t a2, id a3)
     goto LABEL_6;
   }
 
-  v14 = *(a1 + 56);
+  v13 = *(a1 + 56);
   v9 = a3;
-  if (!v14 || (v9 = [v14 *(a1 + 80)], v9 == a3))
+  if (!v13 || (v9 = [v13 *(a1 + 80)], v9 == a3))
   {
 LABEL_6:
     if (v9)
     {
-      goto LABEL_11;
+      return v9;
     }
 
     goto LABEL_7;
@@ -8454,7 +8433,7 @@ LABEL_6:
   if (v9)
   {
     CFRetain(v9);
-    goto LABEL_11;
+    return v9;
   }
 
 LABEL_7:
@@ -8475,37 +8454,34 @@ LABEL_7:
         SenderID = 0;
       }
 
-      v17 = *(a1 + 32);
-      v18[0] = 67109890;
-      v18[1] = Type;
-      v19 = 2048;
-      v20 = SenderID;
-      v21 = 2112;
-      v22 = v10;
-      v23 = 2112;
-      v24 = v17;
-      _os_log_debug_impl(&dword_197195000, v11, OS_LOG_TYPE_DEBUG, "FilterEvent filtered type:%d service:0x%llx eventInfo:(%@) session filter:%@", v18, 0x26u);
+      v16 = *(a1 + 32);
+      v17[0] = 67109890;
+      v17[1] = Type;
+      v18 = 2048;
+      v19 = SenderID;
+      v20 = 2112;
+      v21 = v10;
+      v22 = 2112;
+      v23 = v16;
+      _os_log_debug_impl(&dword_197195000, v11, OS_LOG_TYPE_DEBUG, "FilterEvent filtered type:%d service:0x%llx eventInfo:(%@) session filter:%@", v17, 0x26u);
     }
 
     CFRelease(v10);
   }
 
-  v9 = 0;
-LABEL_11:
-  v12 = *MEMORY[0x1E69E9840];
-  return v9;
+  return 0;
 }
 
 id IOHIDServiceFilterFilterEvent(uint64_t a1, uint64_t a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v4 = *(a1 + 16);
   if (v4 && (v5 = *(*v4 + 40)) != 0 || (v6 = *(a1 + 24)) != 0 && (v5 = *(*v6 + 40)) != 0)
   {
     result = v5();
     if (result)
     {
-      goto LABEL_12;
+      return result;
     }
   }
 
@@ -8517,7 +8493,7 @@ id IOHIDServiceFilterFilterEvent(uint64_t a1, uint64_t a2)
       result = [v8 *(a1 + 120)];
       if (result)
       {
-        goto LABEL_12;
+        return result;
       }
     }
   }
@@ -8528,23 +8504,20 @@ id IOHIDServiceFilterFilterEvent(uint64_t a1, uint64_t a2)
   {
     Type = IOHIDEventGetType(a2);
     SenderID = _IOHIDServiceGetSenderID(*(a1 + 48));
-    v14 = *(a1 + 88);
-    v15[0] = 67109890;
-    v15[1] = Type;
-    v16 = 2048;
-    v17 = SenderID;
-    v18 = 2112;
-    v19 = v9;
-    v20 = 2112;
-    v21 = v14;
-    _os_log_debug_impl(&dword_197195000, v10, OS_LOG_TYPE_DEBUG, "Event filtered type:%d sender:0x%llx eventInfo:(%@) service filter:%@", v15, 0x26u);
+    v13 = *(a1 + 88);
+    v14[0] = 67109890;
+    v14[1] = Type;
+    v15 = 2048;
+    v16 = SenderID;
+    v17 = 2112;
+    v18 = v9;
+    v19 = 2112;
+    v20 = v13;
+    _os_log_debug_impl(&dword_197195000, v10, OS_LOG_TYPE_DEBUG, "Event filtered type:%d sender:0x%llx eventInfo:(%@) service filter:%@", v14, 0x26u);
   }
 
   CFRelease(v9);
-  result = 0;
-LABEL_12:
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
 id __FilterFunctionFilterEvent(id result, uint64_t *a2)
@@ -8580,7 +8553,7 @@ uint64_t IOHIDEventGetPolicy(uint64_t a1, uint64_t a2)
 
   if (a2 != 3)
   {
-    v4 = _IOHIDLog();
+    v4 = _IOHIDLog(a1, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       IOHIDEventGetPolicy_cold_1(a2, v4);
@@ -8602,39 +8575,39 @@ uint64_t IOHIDEventGetPolicy(uint64_t a1, uint64_t a2)
 
 const __CFArray *__IOHIDServiceFilterEventForClient(uint64_t a1, const __CFArray *a2, const void *a3)
 {
-  v28 = *MEMORY[0x1E69E9840];
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x2000000000;
-  v26 = a2;
+  v27 = *MEMORY[0x1E69E9840];
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x2000000000;
+  v25 = a2;
   if (a1)
   {
     if (pthread_mutex_lock((*(a1 + 72) + 8)))
     {
-      __IOHIDServiceCreateAndCopyConnectionCache_cold_1(&v22, v27);
+      __IOHIDServiceCreateAndCopyConnectionCache_cold_1(v21, v26);
     }
 
     ++**(a1 + 72);
     v6 = *(a1 + 256);
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 0x40000000;
-    v21[2] = ____IOHIDServiceFilterEventForClient_block_invoke;
-    v21[3] = &unk_1E74A8BC8;
-    v21[4] = &v23;
-    v21[5] = a2;
-    v21[6] = a3;
-    _IOHIDCFArrayApplyBlock(v6, v21);
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 0x40000000;
+    v20[2] = ____IOHIDServiceFilterEventForClient_block_invoke;
+    v20[3] = &unk_1E74A8BC8;
+    v20[4] = &v22;
+    v20[5] = a2;
+    v20[6] = a3;
+    _IOHIDCFArrayApplyBlock(v6, v20);
     v7 = *(a1 + 72);
     if (*v7)
     {
       --*v7;
       if (pthread_mutex_unlock((v7 + 8)))
       {
-        __IOHIDServiceCreateAndCopyConnectionCache_cold_2(&v22, v27);
+        __IOHIDServiceCreateAndCopyConnectionCache_cold_2(v21, v26);
       }
     }
 
-    v8 = v24[3];
+    v8 = v23[3];
     if (v8 && (*(a1 + 296) & 4) != 0 && *(a1 + 220))
     {
       v9 = _IOHIDServiceCopyConnectionCache(a1, a3);
@@ -8681,8 +8654,8 @@ LABEL_30:
 
       else
       {
-        v20 = CFGetTypeID(a3);
-        v12 = v20 != IOHIDEventSystemConnectionGetTypeID() || IOHIDEventSystemConnectionGetType(a3) < 2;
+        v19 = CFGetTypeID(a3);
+        v12 = v19 != IOHIDEventSystemConnectionGetTypeID() || IOHIDEventSystemConnectionGetType(a3) < 2;
         if (!v9)
         {
           if (!v12)
@@ -8704,7 +8677,7 @@ LABEL_31:
       }
 
 LABEL_27:
-      v8 = v24[3];
+      v8 = v23[3];
     }
   }
 
@@ -8714,23 +8687,21 @@ LABEL_27:
   }
 
 LABEL_21:
-  _Block_object_dispose(&v23, 8);
-  v18 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v22, 8);
   return v8;
 }
 
 CFTypeRef _IOHIDServiceCopyConnections(uint64_t a1, int a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (a2 > 2)
   {
-    v6 = 0;
-    goto LABEL_6;
+    return 0;
   }
 
   if (pthread_mutex_lock((*(a1 + 72) + 8)))
   {
-    __IOHIDServiceCreateAndCopyConnectionCache_cold_1(&v9, v10);
+    __IOHIDServiceCreateAndCopyConnectionCache_cold_1(&v8, v9);
   }
 
   v4 = *(a1 + 72);
@@ -8743,7 +8714,7 @@ CFTypeRef _IOHIDServiceCopyConnections(uint64_t a1, int a2)
     v5 = *v4;
     if (!*v4)
     {
-      goto LABEL_6;
+      return v6;
     }
   }
 
@@ -8752,41 +8723,209 @@ CFTypeRef _IOHIDServiceCopyConnections(uint64_t a1, int a2)
     v6 = 0;
     if (!v5)
     {
-      goto LABEL_6;
+      return v6;
     }
   }
 
   *v4 = v5 - 1;
   if (pthread_mutex_unlock((v4 + 8)))
   {
-    __IOHIDServiceCreateAndCopyConnectionCache_cold_2(&v9, v10);
+    __IOHIDServiceCreateAndCopyConnectionCache_cold_2(&v8, v9);
   }
 
-LABEL_6:
-  v7 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
-uint64_t _IOHIDEventSystemConnectionDispatchEvent(uint64_t a1, const __CFArray *a2)
+void IOHIDEventSystemConnectionDispatchEvent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t block, uint64_t a11, void (*a12)(uint64_t a1), void *a13, uint64_t a14, __int128 buf, __int16 a16, __int16 a17, int a18, __int128 a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32)
 {
-  if (!a1)
+  OUTLINED_FUNCTION_18_1();
+  a31 = v32;
+  a32 = v33;
+  v35 = v34;
+  v37 = v36;
+  a20 = *MEMORY[0x1E69E9840];
+  Type = IOHIDEventGetType(v34);
+  if (v37)
   {
-    return 3758097084;
+    v39 = Type;
+    v40 = _IOHIDEventSystemConnectionCopyQueue(v37);
+    if (v40)
+    {
+      v41 = v40;
+      if (((*(v37 + 288) >> v39) & 1) == 0)
+      {
+        ++*(v37 + 296);
+        goto LABEL_36;
+      }
+
+      v42 = mach_absolute_time();
+      _IOHIDDebugEventAddPerfData(v35, 4, v42);
+      v43 = *(v37 + 448);
+      if (v43)
+      {
+        v35 = IOHIDConnectionFilterFilterEvent(v43, v35);
+        if (!v35)
+        {
+          goto LABEL_36;
+        }
+      }
+
+      if (IsNotificationEvent(v35))
+      {
+        IOHIDEventQueueNotify(*(v37 + 24));
+LABEL_36:
+        CFRelease(v41);
+        goto LABEL_37;
+      }
+
+      ++*(v37 + 320);
+      *(v37 + 328) |= 1 << IOHIDEventGetType(v35);
+      v44 = IOHIDEventQueueEnqueue(v41, v35);
+      v45 = v44;
+      if (v44 == -536870168)
+      {
+        if (*MEMORY[0x1E695E738] == v37 || (*(v37 + 264) & 2) == 0)
+        {
+          CFRetain(v37);
+          OUTLINED_FUNCTION_1_14();
+          a11 = 0x40000000;
+          a12 = __IOHIDEventSystemConnectionDispatchEvent_block_invoke;
+          a13 = &__block_descriptor_tmp_19_1;
+          a14 = v37;
+          dispatch_async(v54, &block);
+        }
+
+        goto LABEL_23;
+      }
+
+      if (v44)
+      {
+LABEL_23:
+        TimeStampOfType = IOHIDEventGetTimeStampOfType(v35, 2);
+        TimeStampType = IOHIDEventGetTimeStampType(v35);
+        _IOHIDDebugTrace(8240, 0, TimeStampOfType, v45, TimeStampType, 0);
+        if (v45 != -536870195)
+        {
+          if (v45)
+          {
+            if (v45 != *(v37 + 376))
+            {
+              v58 = _IOHIDLogCategory(9);
+              if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
+              {
+                v61 = *(v37 + 168);
+                v62 = IOHIDEventGetType(v35);
+                SenderID = IOHIDEventGetSenderID(v35);
+                LODWORD(buf) = 136315906;
+                *(&buf + 4) = v61;
+                WORD6(buf) = 1024;
+                *(&buf + 14) = v45;
+                a17 = 1024;
+                a18 = v62;
+                LOWORD(a19) = 2048;
+                *(&a19 + 2) = SenderID;
+                _os_log_error_impl(&dword_197195000, v58, OS_LOG_TYPE_ERROR, "%s: Event enqueue error:0x%08x type:%d sender:0x%llx", &buf, 0x22u);
+              }
+
+              *(v37 + 376) = v45;
+            }
+
+            *(v37 + 304) = vadd_s32(*(v37 + 304), 0x100000001);
+            *(v37 + 312) |= 1 << IOHIDEventGetType(v35);
+            if (!*(v37 + 352))
+            {
+              gettimeofday((v37 + 352), 0);
+            }
+
+            gettimeofday((v37 + 336), 0);
+          }
+
+          else if (*(v37 + 376))
+          {
+            v57 = _IOHIDLogCategory(9);
+            if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+            {
+              v59 = *(v37 + 168);
+              v60 = *(v37 + 308);
+              LODWORD(buf) = 136315394;
+              *(&buf + 4) = v59;
+              WORD6(buf) = 1024;
+              *(&buf + 14) = v60;
+              _os_log_error_impl(&dword_197195000, v57, OS_LOG_TYPE_ERROR, "%s: Event enqueue dropped:%d consecutive events", &buf, 0x12u);
+            }
+
+            *(v37 + 376) = 0;
+            *(v37 + 308) = 0;
+          }
+        }
+
+        goto LABEL_36;
+      }
+
+      Latency = IOHIDEventGetLatency(v35, 1);
+      v47 = Latency;
+      if (Latency > *(v37 + 368))
+      {
+        *(v37 + 368) = Latency;
+      }
+
+      v48 = _IOHIDEventCopyAttachment(v35, @"Sender");
+      v49 = v48;
+      if (v47 >= 0x2FAF081)
+      {
+        if (v48 && _IOHIDServiceCurrentBatchInterval(v48) > 1)
+        {
+LABEL_19:
+          CFRelease(v49);
+          goto LABEL_23;
+        }
+
+        v50 = _IOHIDLogCategory(9);
+        if (os_log_type_enabled(v50, OS_LOG_TYPE_INFO))
+        {
+          v51 = *(v37 + 168);
+          v52 = IOHIDEventGetType(v35);
+          v53 = IOHIDEventGetSenderID(v35);
+          LODWORD(buf) = 136315906;
+          *(&buf + 4) = v51;
+          WORD6(buf) = 2048;
+          *(&buf + 14) = v47;
+          HIWORD(a18) = 1024;
+          LODWORD(a19) = v52;
+          WORD2(a19) = 2048;
+          *(&a19 + 6) = v53;
+          _os_log_impl(&dword_197195000, v50, OS_LOG_TYPE_INFO, "%s: Event latency:%lld type:%d sender:0x%llx", &buf, 0x26u);
+        }
+      }
+
+      if (!v49)
+      {
+        goto LABEL_23;
+      }
+
+      goto LABEL_19;
+    }
   }
 
-  if (*(a1 + 256) && (IOHIDEventConformsTo(a2, 17) || IOHIDEventConformsTo(a2, 11) || IOHIDEventConformsTo(a2, 3) && (Event = IOHIDEventGetEvent(a2, 3)) != 0 && IOHIDEventGetIntegerValue(Event, 196608) == 7))
+LABEL_37:
+  OUTLINED_FUNCTION_19_0();
+}
+
+void _IOHIDEventSystemConnectionDispatchEvent(uint64_t a1, const __CFArray *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void (*a12)(uint64_t a1), void *a13, uint64_t a14, __int128 a15, __int16 a16, __int16 a17, int a18, __int128 a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32)
+{
+  if (a1)
   {
-    result = 0;
-    ++*(a1 + 296);
+    if (*(a1 + 256) && (IOHIDEventConformsTo(a2, 17) || IOHIDEventConformsTo(a2, 11) || IOHIDEventConformsTo(a2, 3) && (Event = IOHIDEventGetEvent(a2, 3)) != 0 && IOHIDEventGetIntegerValue(Event, 196608) == 7))
+    {
+      ++*(a1 + 296);
+    }
+
+    else
+    {
+
+      IOHIDEventSystemConnectionDispatchEvent(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26, a27, a28, a29, a30, a31, a32);
+    }
   }
-
-  else
-  {
-
-    return IOHIDEventSystemConnectionDispatchEvent(a1, a2);
-  }
-
-  return result;
 }
 
 void __IOHIDSessionDispatchEvent_cold_7(uint64_t a1)
@@ -8847,64 +8986,16 @@ LABEL_6:
   return CFRetain(v4);
 }
 
-void OUTLINED_FUNCTION_18_0(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint8_t buf)
+void OUTLINED_FUNCTION_18_0(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
+  va_start(va, a14);
 
-  _os_log_error_impl(a1, v15, OS_LOG_TYPE_ERROR, a4, &buf, 8u);
+  _os_log_error_impl(a1, v14, OS_LOG_TYPE_ERROR, a4, va, 8u);
 }
 
-void __EnqueueEventFunction(const void *a1, uint64_t a2)
+id IOHIDServiceFilterFilterEventForClient(void *a1, void *a2, const void *a3)
 {
-  if (a2)
-  {
-    v9 = 0;
-    v10 = &v9;
-    v11 = 0x2000000000;
-    v4 = *a2;
-    v12 = *(a2 + 8);
-    Filters = *(*(a2 + 16) + 128);
-    if (Filters)
-    {
-      Filters = IOHIDSessionGetFilters(Filters);
-    }
-
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 0x40000000;
-    v8[2] = ____EnqueueEventFunction_block_invoke;
-    v8[3] = &unk_1E74A8588;
-    v8[4] = &v9;
-    v8[5] = a1;
-    v8[6] = v4;
-    _IOHIDCFArrayApplyBlock(Filters, v8);
-    if (v10[3])
-    {
-      v6 = __IOHIDServiceFilterEventForClient(*a2, *(a2 + 8), a1);
-      if (v6)
-      {
-        v7 = v6;
-        _IOHIDEventSystemConnectionDispatchEvent(a1, v6);
-        if (v7 != v10[3])
-        {
-          CFRelease(v7);
-        }
-      }
-    }
-  }
-
-  else
-  {
-    v9 = 0;
-    v10 = &v9;
-    v11 = 0x2000000000;
-    v12 = 0;
-  }
-
-  _Block_object_dispose(&v9, 8);
-}
-
-id IOHIDServiceFilterFilterEventForClient(uint64_t *a1, uint64_t a2, const void *a3)
-{
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v6 = a1[12];
   v7 = a2;
   if (v6)
@@ -8928,8 +9019,8 @@ id IOHIDServiceFilterFilterEventForClient(uint64_t *a1, uint64_t a2, const void 
       {
         Type = IOHIDEventGetType(a2);
         SenderID = _IOHIDServiceGetSenderID(a1[6]);
-        v16 = a1[11];
-        if (a3 && (v17 = CFGetTypeID(a3), v17 == IOHIDEventSystemConnectionGetTypeID()))
+        v15 = a1[11];
+        if (a3 && (v16 = CFGetTypeID(a3), v16 == IOHIDEventSystemConnectionGetTypeID()))
         {
           UUID = IOHIDEventSystemConnectionGetUUID(a3);
         }
@@ -8939,31 +9030,31 @@ id IOHIDServiceFilterFilterEventForClient(uint64_t *a1, uint64_t a2, const void 
           UUID = 0;
         }
 
-        v19[0] = 67110146;
-        v19[1] = Type;
-        v20 = 2048;
-        v21 = SenderID;
-        v22 = 2112;
-        v23 = v10;
-        v24 = 2112;
-        v25 = v16;
-        v26 = 2112;
-        v27 = UUID;
-        _os_log_debug_impl(&dword_197195000, v11, OS_LOG_TYPE_DEBUG, "EventForClient filtered type:%d sender:0x%llx eventInfo:(%@) service filter:%@ for client:%@", v19, 0x30u);
+        v18[0] = 67110146;
+        v18[1] = Type;
+        v19 = 2048;
+        v20 = SenderID;
+        v21 = 2112;
+        v22 = v10;
+        v23 = 2112;
+        v24 = v15;
+        v25 = 2112;
+        v26 = UUID;
+        _os_log_debug_impl(&dword_197195000, v11, OS_LOG_TYPE_DEBUG, "EventForClient filtered type:%d sender:0x%llx eventInfo:(%@) service filter:%@ for client:%@", v18, 0x30u);
       }
 
       CFRelease(v10);
     }
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
-void OUTLINED_FUNCTION_1_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void OUTLINED_FUNCTION_1_1(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5, const char *a6, uint8_t *a7)
@@ -8972,13 +9063,14 @@ void OUTLINED_FUNCTION_1_1(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, cons
   _os_signpost_emit_with_name_impl(a1, v8, OS_SIGNPOST_INTERVAL_BEGIN, v7, a5, a6, a7, 0xCu);
 }
 
-void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
-uint64_t OUTLINED_FUNCTION_1_3()
+uint64_t OUTLINED_FUNCTION_1_3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
 
   return _os_log_send_and_compose_impl();
@@ -9020,16 +9112,18 @@ void OUTLINED_FUNCTION_1_10(void *a1, NSObject *a2, uint64_t a3, const char *a4,
   _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, a5, 8u);
 }
 
-void OUTLINED_FUNCTION_1_12(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint8_t buf)
+void OUTLINED_FUNCTION_1_12(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
+  va_start(va, a14);
 
-  _os_log_error_impl(a1, v15, OS_LOG_TYPE_ERROR, a4, &buf, 2u);
+  _os_log_error_impl(a1, v14, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
-void OUTLINED_FUNCTION_1_13(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint8_t buf)
+void OUTLINED_FUNCTION_1_13(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
+  va_start(va, a12);
 
-  _os_log_error_impl(a1, v13, OS_LOG_TYPE_ERROR, a4, &buf, 0xCu);
+  _os_log_error_impl(a1, v12, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 uint64_t OUTLINED_FUNCTION_1_16(mach_port_t a1, uint32_t a2, const uint64_t *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, size_t *a10)
@@ -9044,7 +9138,7 @@ void OUTLINED_FUNCTION_1_17()
   bzero(&STACK[0x408], 0x400uLL);
 }
 
-void __IOHIDEventSystemEventCallback(uint64_t a1, uint64_t a2, const void *a3, uint64_t a4)
+void __IOHIDEventSystemEventCallback(uint64_t a1, uint64_t a2, const void *a3, void *a4)
 {
   if (!a1)
   {
@@ -9232,7 +9326,7 @@ void OUTLINED_FUNCTION_3_0(void *a1, uint64_t a2, os_log_t log, const char *a4, 
   _os_log_error_impl(a1, log, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-uint64_t OUTLINED_FUNCTION_3_1()
+uint64_t OUTLINED_FUNCTION_3_1(uint64_t a1)
 {
 
   return os_unfair_recursive_lock_lock_with_options();
@@ -9250,10 +9344,11 @@ void OUTLINED_FUNCTION_3_5(__int16 a1)
   _IOHIDDebugTrace(a1, 0, v1, 0, 0, 0);
 }
 
-void OUTLINED_FUNCTION_3_6(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_3_6(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 CFTypeID OUTLINED_FUNCTION_3_8()
@@ -9272,10 +9367,10 @@ void _IOHIDCFArrayApplyBlock(const __CFArray *a1, void *a2)
 
 const void *_IOHIDServiceCopyConnectionCache(uint64_t a1, const void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (pthread_mutex_lock((*(a1 + 72) + 8)))
   {
-    __IOHIDServiceCreateAndCopyConnectionCache_cold_1(&v9, v10);
+    __IOHIDServiceCreateAndCopyConnectionCache_cold_1(&v8, v9);
   }
 
   ++**(a1 + 72);
@@ -9292,11 +9387,10 @@ const void *_IOHIDServiceCopyConnectionCache(uint64_t a1, const void *a2)
     --*v6;
     if (pthread_mutex_unlock((v6 + 8)))
     {
-      __IOHIDServiceCreateAndCopyConnectionCache_cold_2(&v9, v10);
+      __IOHIDServiceCreateAndCopyConnectionCache_cold_2(&v8, v9);
     }
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -9330,12 +9424,12 @@ void *__hid_dispatch_queue_did_execute(NSObject *a1)
   return result;
 }
 
-uint64_t IOCFSerializeBinaryCFArraySetFunction(uint64_t a1, uint64_t *a2)
+uint64_t IOCFSerializeBinaryCFArraySetFunction(const __CFString *a1, uint64_t a2)
 {
   v4 = *a2;
-  v5 = a2[1] + 1;
-  a2[1] = v5;
-  *(v4 + 16) = v5 == a2[2];
+  v5 = *(a2 + 8) + 1;
+  *(a2 + 8) = v5;
+  *(v4 + 16) = v5 == *(a2 + 16);
   result = DoCFSerializeBinary(v4, a1, 0);
   *(a2 + 24) &= result;
   return result;
@@ -9367,7 +9461,6 @@ uint64_t IOHIDEventQueueEnqueue(uint64_t a1, uint64_t a2)
       v8 = *(v6 + 8);
       if (v7 != *(a1 + 32))
       {
-        v9 = *(v6 + 8);
         __IOHIDEventQueueUpdateUsageAnalytics(a1);
       }
 
@@ -9378,24 +9471,24 @@ uint64_t IOHIDEventQueueEnqueue(uint64_t a1, uint64_t a2)
     if ((IOHIDEventGetEventFlags(a2) & 0x2000) != 0)
     {
       *(a1 + 156) = 1;
-      v10 = 2;
+      v9 = 2;
     }
 
     else
     {
-      v10 = 0;
+      v9 = 0;
     }
 
     if ((IOHIDEventGetEventFlags(a2) & 0x1000) != 0)
     {
-      v10 |= 1u;
+      v9 |= 1u;
       *(a1 + 156) = 0;
     }
 
-    v11 = *(a1 + 16);
-    v12 = *(a1 + 56);
+    v10 = *(a1 + 16);
+    v11 = *(a1 + 56);
     DataLengthInternal = IOHIDEventGetDataLengthInternal(a2);
-    CallbackOptions = _IODataQueueEnqueueWithReadCallbackOptions(v11, v12, (a1 + 60), ((DataLengthInternal - 1) & 0xFFFFFFFC) + 4, IOHIDEventReadBytesInternal, a2, v10);
+    CallbackOptions = _IODataQueueEnqueueWithReadCallbackOptions(v10, v11, (a1 + 60), ((DataLengthInternal - 1) & 0xFFFFFFFC) + 4, IOHIDEventReadBytesInternal, a2, v9);
     if (CallbackOptions)
     {
       v4 = CallbackOptions;
@@ -9407,7 +9500,7 @@ uint64_t IOHIDEventQueueEnqueue(uint64_t a1, uint64_t a2)
       goto LABEL_19;
     }
 
-    if ((v10 & 2) != 0)
+    if ((v9 & 2) != 0)
     {
 LABEL_19:
       v4 = 0;
@@ -9420,11 +9513,11 @@ LABEL_19:
       *(a1 + 156) = 0;
     }
 
-    v15 = mach_absolute_time();
+    v14 = mach_absolute_time();
     v4 = 0;
-    v16 = *(a1 + 136) + 1;
-    *(a1 + 128) = v15;
-    *(a1 + 136) = v16;
+    v15 = *(a1 + 136) + 1;
+    *(a1 + 128) = v14;
+    *(a1 + 136) = v15;
     *(a1 + 120) = TimeStamp;
   }
 
@@ -9438,7 +9531,6 @@ uint64_t __IOHIDEventQueueUpdateUsageAnalytics(uint64_t a1)
   result = *(a1 + 160);
   if (result)
   {
-    v3 = *(a1 + 56);
     return IOHIDAnalyticsHistogramEventSetIntegerValue();
   }
 
@@ -9616,12 +9708,12 @@ uint64_t _IODataQueueSendDataAvailableNotification(unsigned int *a1, mach_msg_he
   return v3;
 }
 
-uint64_t _IOHIDServiceGetEventDeadlineForClient(uint64_t a1, const void *a2, uint64_t a3)
+uint64_t _IOHIDServiceGetEventDeadlineForClient(uint64_t a1, const void *a2, const void *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (pthread_mutex_lock((*(a1 + 72) + 8)))
   {
-    __IOHIDServiceCreateAndCopyConnectionCache_cold_1(&v11, v12);
+    __IOHIDServiceCreateAndCopyConnectionCache_cold_1(&v10, v11);
   }
 
   ++**(a1 + 72);
@@ -9643,7 +9735,7 @@ uint64_t _IOHIDServiceGetEventDeadlineForClient(uint64_t a1, const void *a2, uin
     --*v8;
     if (pthread_mutex_unlock((v8 + 8)))
     {
-      __IOHIDServiceCreateAndCopyConnectionCache_cold_2(&v11, v12);
+      __IOHIDServiceCreateAndCopyConnectionCache_cold_2(&v10, v11);
     }
   }
 
@@ -9652,16 +9744,15 @@ uint64_t _IOHIDServiceGetEventDeadlineForClient(uint64_t a1, const void *a2, uin
     CFRelease(v7);
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return ReportDeadline;
 }
 
 const __CFDictionary *_IOHIDServiceContainsReportIntervalForClient(uint64_t a1, const void *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (pthread_mutex_lock((*(a1 + 72) + 8)))
   {
-    __IOHIDServiceCreateAndCopyConnectionCache_cold_1(&v13, v14);
+    __IOHIDServiceCreateAndCopyConnectionCache_cold_1(&v12, v13);
   }
 
   ++**(a1 + 72);
@@ -9684,7 +9775,7 @@ const __CFDictionary *_IOHIDServiceContainsReportIntervalForClient(uint64_t a1, 
     --*v9;
     if (pthread_mutex_unlock((v9 + 8)))
     {
-      __IOHIDServiceCreateAndCopyConnectionCache_cold_2(&v13, v14);
+      __IOHIDServiceCreateAndCopyConnectionCache_cold_2(&v12, v13);
     }
   }
 
@@ -9699,17 +9790,16 @@ const __CFDictionary *_IOHIDServiceContainsReportIntervalForClient(uint64_t a1, 
     CFRelease(v6);
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 uint64_t _IOHIDServiceGetReportIntervalForClient(uint64_t a1, const void *a2, void *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   valuePtr = 0;
   if (pthread_mutex_lock((*(a1 + 72) + 8)))
   {
-    __IOHIDServiceCreateAndCopyConnectionCache_cold_1(&v15, v17);
+    __IOHIDServiceCreateAndCopyConnectionCache_cold_1(&v14, v16);
   }
 
   ++**(a1 + 72);
@@ -9752,7 +9842,7 @@ LABEL_12:
     --*v11;
     if (pthread_mutex_unlock((v11 + 8)))
     {
-      __IOHIDServiceCreateAndCopyConnectionCache_cold_2(&v15, v17);
+      __IOHIDServiceCreateAndCopyConnectionCache_cold_2(&v14, v16);
     }
   }
 
@@ -9767,84 +9857,5 @@ LABEL_12:
     CFRelease(v6);
   }
 
-  result = valuePtr;
-  v14 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-const __CFDictionary *IOHIDServiceConnectionCacheContainsKey(void *a1, const void *a2)
-{
-  if (CFEqual(@"ReportInterval", a2))
-  {
-    v4 = a1[3];
-    return (v4 != 0);
-  }
-
-  if (CFEqual(@"BatchInterval", a2))
-  {
-    v4 = a1[4];
-    return (v4 != 0);
-  }
-
-  result = a1[5];
-  if (result)
-  {
-    return CFDictionaryContainsKey(result, a2);
-  }
-
-  return result;
-}
-
-void _IOHIDServiceSetEventDeadlineForClient(uint64_t a1, const void *a2, uint64_t a3, int a4, void *a5)
-{
-  v18 = *MEMORY[0x1E69E9840];
-  if (pthread_mutex_lock((*(a1 + 72) + 8)))
-  {
-    __IOHIDServiceCreateAndCopyConnectionCache_cold_1(&v16, v17);
-  }
-
-  ++**(a1 + 72);
-  v10 = a5;
-  if (a5 || (v10 = __IOHIDServiceCreateAndCopyConnectionCache(a1, a2)) != 0)
-  {
-    if (_IOHIDServiceGetReportIntervalForClient(a1, a2, v10) == a4)
-    {
-      IOHIDServiceConnectionCacheSetReportDeadline(v10, a3);
-    }
-
-    v11 = 1;
-  }
-
-  else
-  {
-    v11 = 0;
-  }
-
-  v12 = *(a1 + 72);
-  if (*v12)
-  {
-    --*v12;
-    if (pthread_mutex_unlock((v12 + 8)))
-    {
-      __IOHIDServiceCreateAndCopyConnectionCache_cold_2(&v16, v17);
-    }
-  }
-
-  v13 = v11 ^ 1;
-  if (v10 == a5)
-  {
-    v13 = 1;
-  }
-
-  if (v13)
-  {
-    v15 = *MEMORY[0x1E69E9840];
-  }
-
-  else
-  {
-    v14 = *MEMORY[0x1E69E9840];
-
-    CFRelease(v10);
-  }
+  return valuePtr;
 }

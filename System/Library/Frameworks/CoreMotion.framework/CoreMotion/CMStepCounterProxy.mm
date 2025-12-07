@@ -59,20 +59,19 @@
 
 - (void)_startStepCountingUpdatesToQueue:(id)queue updateOn:(int64_t)on withHandler:(id)handler
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   self->fStepCountFromStart = -1;
   self->fPrevStepCount = -1;
-  fLocationdConnection = self->fLocationdConnection;
   sub_19B428B50(&__p, "kCLConnectionMessageStepCountUpdate");
   CLConnectionClient::setHandlerForMessage();
-  if (v8 < 0)
+  if (v7 < 0)
   {
     operator delete(__p);
   }
 
-  v9 = @"kCLConnectionMessageSubscribeKey";
-  v10[0] = MEMORY[0x1E695E118];
-  objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v6, v10, &v9, 1);
+  v8 = @"kCLConnectionMessageSubscribeKey";
+  v9[0] = MEMORY[0x1E695E118];
+  objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v5, v9, &v8, 1);
   sub_19B6CA5DC();
 }
 
@@ -80,7 +79,7 @@
 {
   var1 = response.var1;
   var0 = response.var0;
-  v42 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   v8 = MEMORY[0x1E695DFD8];
   v9 = objc_opt_class();
   v10 = objc_opt_class();
@@ -95,24 +94,24 @@
     v25 = objc_msgSend_integerValue(v22, v23, v24);
     if (v17)
     {
-      v37[0] = MEMORY[0x1E69E9820];
-      v37[1] = 3221225472;
-      v37[2] = sub_19B75E758;
-      v37[3] = &unk_1E7532B90;
-      v37[4] = v17;
-      v37[5] = queue;
-      objc_msgSend_addOperationWithBlock_(var1, v26, v37);
+      v39[0] = MEMORY[0x1E69E9820];
+      v39[1] = 3221225472;
+      v39[2] = sub_19B75E758;
+      v39[3] = &unk_1E7532B90;
+      v39[4] = v17;
+      v39[5] = queue;
+      objc_msgSend_addOperationWithBlock_(var1, v26, v39);
     }
 
     else if (v19)
     {
-      v36[0] = MEMORY[0x1E69E9820];
-      v36[1] = 3221225472;
-      v36[2] = sub_19B75E7D0;
-      v36[3] = &unk_1E7532AD8;
-      v36[4] = queue;
-      v36[5] = v25;
-      objc_msgSend_addOperationWithBlock_(var1, v26, v36);
+      v38[0] = MEMORY[0x1E69E9820];
+      v38[1] = 3221225472;
+      v38[2] = sub_19B75E7D0;
+      v38[3] = &unk_1E7532AD8;
+      v38[4] = queue;
+      v38[5] = v25;
+      objc_msgSend_addOperationWithBlock_(var1, v26, v38);
     }
 
     else
@@ -126,7 +125,7 @@
       if (os_log_type_enabled(qword_1EAFE2818, OS_LOG_TYPE_FAULT))
       {
         *buf = 138543362;
-        v41 = v16;
+        v43 = v16;
         _os_log_impl(&dword_19B41C000, v32, OS_LOG_TYPE_FAULT, "Unable to parse mesage (%{public}@) for query response", buf, 0xCu);
       }
 
@@ -139,13 +138,15 @@
           dispatch_once(&qword_1EAFE27F0, &unk_1F0E27BA0);
         }
 
-        v38 = 138543362;
-        v39 = v16;
-        v34 = _os_log_send_and_compose_impl();
+        v40 = 138543362;
+        v41 = v16;
+        LODWORD(v36) = 12;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2818, 17, "Unable to parse mesage (%{public}@) for query response", &v40, v36);
+        v35 = v34;
         sub_19B6BB7CC("Generic", 1, 0, 0, "[CMStepCounterProxy _handleQueryResponse:onQueue:withHandler:]", "CoreLocation: %s\n", v34);
-        if (v34 != buf)
+        if (v35 != buf)
         {
-          free(v34);
+          free(v35);
         }
       }
     }
@@ -174,24 +175,24 @@
         dispatch_once(&qword_1EAFE27F0, &unk_1F0E27BA0);
       }
 
-      LOWORD(v38) = 0;
-      v30 = _os_log_send_and_compose_impl();
+      LOWORD(v40) = 0;
+      LODWORD(v36) = 2;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2818, 16, "Unable to parse message when checking for availability!", &v40, v36);
+      v31 = v30;
       sub_19B6BB7CC("Generic", 1, 0, 0, "[CMStepCounterProxy _handleQueryResponse:onQueue:withHandler:]", "CoreLocation: %s\n", v30);
-      if (v30 != buf)
+      if (v31 != buf)
       {
-        free(v30);
+        free(v31);
       }
     }
 
-    v35[0] = MEMORY[0x1E69E9820];
-    v35[1] = 3221225472;
-    v35[2] = sub_19B75E7E8;
-    v35[3] = &unk_1E7532B40;
-    v35[4] = queue;
-    objc_msgSend_addOperationWithBlock_(var1, v29, v35);
+    v37[0] = MEMORY[0x1E69E9820];
+    v37[1] = 3221225472;
+    v37[2] = sub_19B75E7E8;
+    v37[3] = &unk_1E7532B40;
+    v37[4] = queue;
+    objc_msgSend_addOperationWithBlock_(var1, v29, v37);
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 @end

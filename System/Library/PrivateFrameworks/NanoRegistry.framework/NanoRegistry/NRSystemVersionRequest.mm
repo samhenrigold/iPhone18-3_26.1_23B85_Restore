@@ -17,7 +17,7 @@ void __36__NRSystemVersionRequest_connection__block_invoke()
 
 - (void)sendVersionRequestToCompanion
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = nr_framework_log();
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
@@ -26,8 +26,8 @@ void __36__NRSystemVersionRequest_connection__block_invoke()
     v5 = nr_framework_log();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v15) = 0;
-      _os_log_impl(&dword_1E0ADF000, v5, OS_LOG_TYPE_DEFAULT, "Send version request in framework", &v15, 2u);
+      LOWORD(v14) = 0;
+      _os_log_impl(&dword_1E0ADF000, v5, OS_LOG_TYPE_DEFAULT, "Send version request in framework", &v14, 2u);
     }
   }
 
@@ -42,8 +42,8 @@ void __36__NRSystemVersionRequest_connection__block_invoke()
       v9 = nr_framework_log();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v15) = 0;
-        _os_log_error_impl(&dword_1E0ADF000, v9, OS_LOG_TYPE_ERROR, "connection called", &v15, 2u);
+        LOWORD(v14) = 0;
+        _os_log_error_impl(&dword_1E0ADF000, v9, OS_LOG_TYPE_ERROR, "connection called", &v14, 2u);
       }
     }
 
@@ -60,9 +60,9 @@ void __36__NRSystemVersionRequest_connection__block_invoke()
       v12 = nr_framework_log();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        v15 = 138412290;
-        v16 = qword_1ED6F0BC0;
-        _os_log_error_impl(&dword_1E0ADF000, v12, OS_LOG_TYPE_ERROR, "return connection: %@", &v15, 0xCu);
+        v14 = 138412290;
+        v15 = qword_1ED6F0BC0;
+        _os_log_error_impl(&dword_1E0ADF000, v12, OS_LOG_TYPE_ERROR, "return connection: %@", &v14, 0xCu);
       }
     }
 
@@ -71,13 +71,11 @@ void __36__NRSystemVersionRequest_connection__block_invoke()
   }
 
   [(NRSystemVersionRequest *)self sendVersionRequestToCompanion];
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __55__NRSystemVersionRequest_sendVersionRequestToCompanion__block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = nr_framework_log();
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_ERROR);
@@ -87,13 +85,11 @@ void __55__NRSystemVersionRequest_sendVersionRequestToCompanion__block_invoke(ui
     v5 = nr_framework_log();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v7 = 138412290;
-      v8 = v2;
-      _os_log_error_impl(&dword_1E0ADF000, v5, OS_LOG_TYPE_ERROR, "Error sending NRSystemVersionRequest : XPC error %@", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = v2;
+      _os_log_error_impl(&dword_1E0ADF000, v5, OS_LOG_TYPE_ERROR, "Error sending NRSystemVersionRequest : XPC error %@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

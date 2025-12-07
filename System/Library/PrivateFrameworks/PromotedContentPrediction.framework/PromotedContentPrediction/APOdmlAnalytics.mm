@@ -11,17 +11,15 @@
   eventCopy = event;
   detailsCopy = details;
   v7 = MEMORY[0x277CCACA8];
-  v10 = objc_msgSend_eventName(self, v8, v9);
-  v12 = objc_msgSend_stringWithFormat_(v7, v11, @"%@.%@", @"com.apple.ap.SearchAdsODML", v10);
+  eventName = [self eventName];
+  v9 = [v7 stringWithFormat:@"%@.%@", @"com.apple.ap.SearchAdsODML", eventName];
 
-  v16 = objc_msgSend__versionAndIdentifiers(self, v13, v14);
+  _versionAndIdentifiers = [self _versionAndIdentifiers];
   if (eventCopy)
   {
-    objc_msgSend_setValue_forKey_(v16, v15, @"2", @"statusCode");
-    v17 = MEMORY[0x277CCACA8];
-    v20 = objc_msgSend_code(eventCopy, v18, v19);
-    v22 = objc_msgSend_stringWithFormat_(v17, v21, @"%ld", v20);
-    objc_msgSend_setValue_forKey_(v16, v23, v22, @"statusDetails");
+    [_versionAndIdentifiers setValue:@"2" forKey:@"statusCode"];
+    v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"%ld", objc_msgSend(eventCopy, "code")];
+    [_versionAndIdentifiers setValue:v11 forKey:@"statusDetails"];
 
     if (!detailsCopy)
     {
@@ -31,98 +29,92 @@
     goto LABEL_3;
   }
 
-  objc_msgSend_setValue_forKey_(v16, v15, @"1", @"statusCode");
+  [_versionAndIdentifiers setValue:@"1" forKey:@"statusCode"];
   if (detailsCopy)
   {
 LABEL_3:
-    objc_msgSend_addEntriesFromDictionary_(v16, v24, detailsCopy);
+    [_versionAndIdentifiers addEntriesFromDictionary:detailsCopy];
   }
 
 LABEL_4:
-  v25 = objc_msgSend_dictionaryWithDictionary_(MEMORY[0x277CBEAC0], v24, v16);
-  objc_msgSend__analyticsSendEvent_eventPayload_(self, v26, v12, v25);
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithDictionary:_versionAndIdentifiers];
+  [self _analyticsSendEvent:v9 eventPayload:v12];
 }
 
 + (void)sendTimedEvent:(id)event statusSuccess:(BOOL)success additionalDetails:(id)details startDate:(id)date endDate:(id)endDate
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   detailsCopy = details;
   dateCopy = date;
   endDateCopy = endDate;
   v16 = MEMORY[0x277CCACA8];
-  v19 = objc_msgSend_eventName(self, v17, v18);
-  v21 = objc_msgSend_stringWithFormat_(v16, v20, @"%@.%@", @"com.apple.ap.SearchAdsODML", v19);
+  eventName = [self eventName];
+  v18 = [v16 stringWithFormat:@"%@.%@", @"com.apple.ap.SearchAdsODML", eventName];
 
-  v24 = 0.0;
+  v19 = 0.0;
   if (dateCopy)
   {
     if (endDateCopy)
     {
-      objc_msgSend_timeIntervalSinceDate_(endDateCopy, v22, dateCopy);
-      v24 = v25;
-      if (v25 < 0.0)
+      [endDateCopy timeIntervalSinceDate:dateCopy];
+      v19 = v20;
+      if (v20 < 0.0)
       {
-        v26 = OdmlLogForCategory(8uLL);
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+        v21 = OdmlLogForCategory(8uLL);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315138;
-          v44 = "+[APOdmlAnalytics sendTimedEvent:statusSuccess:additionalDetails:startDate:endDate:]";
-          _os_log_impl(&dword_260ECB000, v26, OS_LOG_TYPE_ERROR, "%s Start date is prior to end date", buf, 0xCu);
+          v27 = "+[APOdmlAnalytics sendTimedEvent:statusSuccess:additionalDetails:startDate:endDate:]";
+          _os_log_impl(&dword_260ECB000, v21, OS_LOG_TYPE_ERROR, "%s Start date is prior to end date", buf, 0xCu);
         }
       }
     }
   }
 
-  v27 = objc_msgSend__versionAndIdentifiers(self, v22, v23);
-  objc_msgSend_setValue_forKey_(v27, v28, @"1", @"statusCode");
-  v31 = objc_msgSend_numberWithDouble_(MEMORY[0x277CCABB0], v29, v30, v24);
-  objc_msgSend_setValue_forKey_(v27, v32, v31, @"processingTime");
+  _versionAndIdentifiers = [self _versionAndIdentifiers];
+  [_versionAndIdentifiers setValue:@"1" forKey:@"statusCode"];
+  v23 = [MEMORY[0x277CCABB0] numberWithDouble:v19];
+  [_versionAndIdentifiers setValue:v23 forKey:@"processingTime"];
 
   if (eventCopy)
   {
     if (!success)
     {
-      objc_msgSend_setValue_forKey_(v27, v33, @"2", @"statusCode");
+      [_versionAndIdentifiers setValue:@"2" forKey:@"statusCode"];
     }
 
-    v35 = MEMORY[0x277CCACA8];
-    v36 = objc_msgSend_code(eventCopy, v33, v34);
-    v38 = objc_msgSend_stringWithFormat_(v35, v37, @"%ld", v36);
-    objc_msgSend_setValue_forKey_(v27, v39, v38, @"statusDetails");
+    v24 = [MEMORY[0x277CCACA8] stringWithFormat:@"%ld", objc_msgSend(eventCopy, "code")];
+    [_versionAndIdentifiers setValue:v24 forKey:@"statusDetails"];
   }
 
   if (detailsCopy)
   {
-    objc_msgSend_addEntriesFromDictionary_(v27, v33, detailsCopy);
+    [_versionAndIdentifiers addEntriesFromDictionary:detailsCopy];
   }
 
-  v40 = objc_msgSend_dictionaryWithDictionary_(MEMORY[0x277CBEAC0], v33, v27);
-  objc_msgSend__analyticsSendEvent_eventPayload_(self, v41, v21, v40);
-
-  v42 = *MEMORY[0x277D85DE8];
+  v25 = [MEMORY[0x277CBEAC0] dictionaryWithDictionary:_versionAndIdentifiers];
+  [self _analyticsSendEvent:v18 eventPayload:v25];
 }
 
 + (id)_versionAndIdentifiers
 {
-  v3 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], a2, v2);
-  v5 = objc_msgSend_clientWithIdentifier_(MEMORY[0x277D73660], v4, 238);
-  v7 = objc_msgSend_experimentIdentifiersWithNamespaceName_(v5, v6, @"AD_PLATFORMS_ODML");
-  v9 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v8, @"%d", 4);
-  objc_msgSend_setValue_forKey_(v3, v10, v9, @"ODMLVersion");
+  dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v3 = [MEMORY[0x277D73660] clientWithIdentifier:238];
+  v4 = [v3 experimentIdentifiersWithNamespaceName:@"AD_PLATFORMS_ODML"];
+  v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"%d", 4];
+  [dictionary setValue:v5 forKey:@"ODMLVersion"];
 
-  v13 = objc_msgSend_treatmentId(v7, v11, v12);
-  objc_msgSend_setValue_forKey_(v3, v14, v13, @"trialTreatmentID");
+  treatmentId = [v4 treatmentId];
+  [dictionary setValue:treatmentId forKey:@"trialTreatmentID"];
 
-  v17 = objc_msgSend_experimentId(v7, v15, v16);
-  objc_msgSend_setValue_forKey_(v3, v18, v17, @"trialExperimentID");
+  experimentId = [v4 experimentId];
+  [dictionary setValue:experimentId forKey:@"trialExperimentID"];
 
-  v19 = MEMORY[0x277CCACA8];
-  v22 = objc_msgSend_deploymentId(v7, v20, v21);
-  v24 = objc_msgSend_stringWithFormat_(v19, v23, @"%d", v22);
-  objc_msgSend_setValue_forKey_(v3, v25, v24, @"trialDeploymentID");
+  v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"%d", objc_msgSend(v4, "deploymentId")];
+  [dictionary setValue:v8 forKey:@"trialDeploymentID"];
 
-  return v3;
+  return dictionary;
 }
 
 @end

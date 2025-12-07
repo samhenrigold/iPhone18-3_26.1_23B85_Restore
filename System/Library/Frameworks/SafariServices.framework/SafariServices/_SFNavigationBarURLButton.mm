@@ -193,7 +193,7 @@
 
 - (BOOL)_scribbleInteraction:(id)interaction focusWillTransformElement:(id)element
 {
-  v5 = WBS_LOG_CHANNEL_PREFIXPencilInput();
+  v5 = WBS_LOG_CHANNEL_PREFIXPencilInput(self, a2);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [_SFNavigationBarURLButton _scribbleInteraction:focusWillTransformElement:];
@@ -207,7 +207,7 @@
 
 - (void)_scribbleInteraction:(id)interaction willBeginWritingInElement:(id)element
 {
-  v5 = WBS_LOG_CHANNEL_PREFIXPencilInput();
+  v5 = WBS_LOG_CHANNEL_PREFIXPencilInput(self, a2);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [_SFNavigationBarURLButton _scribbleInteraction:willBeginWritingInElement:];
@@ -219,7 +219,7 @@
 
 - (void)_scribbleInteraction:(id)interaction didFinishWritingInElement:(id)element
 {
-  v5 = WBS_LOG_CHANNEL_PREFIXPencilInput();
+  v5 = WBS_LOG_CHANNEL_PREFIXPencilInput(self, a2);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [_SFNavigationBarURLButton _scribbleInteraction:didFinishWritingInElement:];
@@ -233,7 +233,7 @@
 {
   y = location.y;
   x = location.x;
-  v7 = WBS_LOG_CHANNEL_PREFIXPencilInput();
+  v7 = WBS_LOG_CHANNEL_PREFIXPencilInput(self, a2);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     [_SFNavigationBarURLButton _scribbleInteraction:shouldBeginAtLocation:];
@@ -247,10 +247,10 @@
 
 - (void)_scribbleInteraction:(id)interaction requestElementsInRect:(CGRect)rect completion:(id)completion
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v7 = WBS_LOG_CHANNEL_PREFIXPencilInput();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v8 = WBS_LOG_CHANNEL_PREFIXPencilInput(completionCopy, v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [_SFNavigationBarURLButton _scribbleInteraction:requestElementsInRect:completion:];
   }
@@ -258,22 +258,22 @@
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   if ([WeakRetained textFieldIsEditableForNavigationBarURLButton:self])
   {
-    v9 = [WeakRetained textFieldForNavigationBarURLButton:self];
-    isFirstResponder = [v9 isFirstResponder];
+    v10 = [WeakRetained textFieldForNavigationBarURLButton:self];
+    isFirstResponder = [v10 isFirstResponder];
 
     if (isFirstResponder)
     {
-      v11 = 0;
+      v12 = 0;
     }
 
     else
     {
-      v11 = 0x7FFFFFFFFFFFFFFFLL;
+      v12 = 0x7FFFFFFFFFFFFFFFLL;
     }
 
-    v13[0] = @"pencilTextInputElementIdentifier";
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
-    completionCopy[2](completionCopy, v12, v11);
+    v14[0] = @"pencilTextInputElementIdentifier";
+    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
+    completionCopy[2](completionCopy, v13, v12);
   }
 
   else
@@ -284,7 +284,7 @@
 
 - (CGRect)_scribbleInteraction:(id)interaction frameForElement:(id)element
 {
-  v5 = WBS_LOG_CHANNEL_PREFIXPencilInput();
+  v5 = WBS_LOG_CHANNEL_PREFIXPencilInput(self, a2);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [_SFNavigationBarURLButton _scribbleInteraction:frameForElement:];
@@ -302,25 +302,25 @@
 {
   completionCopy = completion;
   elementCopy = element;
-  v10 = WBS_LOG_CHANNEL_PREFIXPencilInput();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  v11 = WBS_LOG_CHANNEL_PREFIXPencilInput(elementCopy, v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     [_SFNavigationBarURLButton _scribbleInteraction:focusElement:initialFocusSelectionReferencePoint:completion:];
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
-  v12 = [elementCopy isEqual:@"pencilTextInputElementIdentifier"];
+  v13 = [elementCopy isEqual:@"pencilTextInputElementIdentifier"];
 
-  if (v12 && WeakRetained)
+  if (v13 && WeakRetained)
   {
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __110___SFNavigationBarURLButton__scribbleInteraction_focusElement_initialFocusSelectionReferencePoint_completion___block_invoke;
-    v13[3] = &unk_1E84908B0;
-    v16 = completionCopy;
-    v14 = WeakRetained;
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __110___SFNavigationBarURLButton__scribbleInteraction_focusElement_initialFocusSelectionReferencePoint_completion___block_invoke;
+    v14[3] = &unk_1E84908B0;
+    v17 = completionCopy;
+    v15 = WeakRetained;
     selfCopy = self;
-    [v14 navigationBarURLButtonDidRequestFocusForPencilInput:self completionHandler:v13];
+    [v15 navigationBarURLButtonDidRequestFocusForPencilInput:self completionHandler:v14];
   }
 
   else

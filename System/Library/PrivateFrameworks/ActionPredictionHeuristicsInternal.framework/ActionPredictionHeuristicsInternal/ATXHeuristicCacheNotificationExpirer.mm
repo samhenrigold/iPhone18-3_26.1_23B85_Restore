@@ -75,17 +75,16 @@
 
 - (void)_start
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *(self + 80);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_debug_impl(&dword_23E3EA000, a2, OS_LOG_TYPE_DEBUG, "Starting ATXHeuristicCacheNotificationExpirer for %@. We will now expire heuristics for this notification.", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_debug_impl(&dword_23E3EA000, a2, OS_LOG_TYPE_DEBUG, "Starting ATXHeuristicCacheNotificationExpirer for %@. We will now expire heuristics for this notification.", &v3, 0xCu);
 }
 
 void __46__ATXHeuristicCacheNotificationExpirer__start__block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
@@ -93,20 +92,18 @@ void __46__ATXHeuristicCacheNotificationExpirer__start__block_invoke(uint64_t a1
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       v3 = WeakRetained[10];
-      v5 = 138412290;
-      v6 = v3;
-      _os_log_impl(&dword_23E3EA000, v2, OS_LOG_TYPE_DEFAULT, "Received local notification: %@. Expiring heuristics.", &v5, 0xCu);
+      v4 = 138412290;
+      v5 = v3;
+      _os_log_impl(&dword_23E3EA000, v2, OS_LOG_TYPE_DEFAULT, "Received local notification: %@. Expiring heuristics.", &v4, 0xCu);
     }
 
     [WeakRetained expire];
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __46__ATXHeuristicCacheNotificationExpirer__start__block_invoke_82(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
@@ -114,15 +111,13 @@ void __46__ATXHeuristicCacheNotificationExpirer__start__block_invoke_82(uint64_t
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       v3 = WeakRetained[10];
-      v5 = 138412290;
-      v6 = v3;
-      _os_log_impl(&dword_23E3EA000, v2, OS_LOG_TYPE_DEFAULT, "Received Darwin notification: %@. Expiring heuristics.", &v5, 0xCu);
+      v4 = 138412290;
+      v5 = v3;
+      _os_log_impl(&dword_23E3EA000, v2, OS_LOG_TYPE_DEFAULT, "Received Darwin notification: %@. Expiring heuristics.", &v4, 0xCu);
     }
 
     [WeakRetained expire];
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isEqual:(id)equal

@@ -17,13 +17,10 @@
 
 - (unint64_t)hash
 {
-  size = self->_rect.size;
-  v6[0] = self->_rect.origin;
-  v6[1] = size;
-  v3 = [MEMORY[0x1E696B098] valueWithBytes:v6 objCType:"{CGRect={CGPoint=dd}{CGSize=dd}}"];
-  v4 = [v3 hash];
+  v2 = [MEMORY[0x1E696B098] valueWithBytes:*&self->_rect.origin objCType:{*&self->_rect.size.width, *&self->_rect.size.height}];
+  v3 = [v2 hash];
 
-  return v4;
+  return v3;
 }
 
 - (CGRect)_exclusiveTouchNormalizedSubRectInReferenceSpace
@@ -68,80 +65,51 @@
 - (BKSHitTestRegion)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_rect"];
+  objc_opt_class();
+  v5 = [coderCopy decodeObjectOfClass:? forKey:?];
   [v5 bs_CGRectValue];
-  v7 = v6;
-  v9 = v8;
-  v11 = v10;
-  v13 = v12;
 
-  v14 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_exclusiveTouchNormalizedSubRect"];
+  objc_opt_class();
+  v6 = [coderCopy decodeObjectOfClass:? forKey:?];
 
-  [v14 bs_CGRectValue];
-  v16 = v15;
-  v18 = v17;
-  v20 = v19;
-  v22 = v21;
+  [v6 bs_CGRectValue];
 
-  return [(BKSHitTestRegion *)self _initWithRect:v7 exclusiveTouchNormalizedSubRect:v9, v11, v13, v16, v18, v20, v22];
+  return [BKSHitTestRegion _initWithRect:"_initWithRect:exclusiveTouchNormalizedSubRect:" exclusiveTouchNormalizedSubRect:?];
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  v4 = MEMORY[0x1E696B098];
-  x = self->_rect.origin.x;
-  y = self->_rect.origin.y;
-  width = self->_rect.size.width;
-  height = self->_rect.size.height;
+  v3 = MEMORY[0x1E696B098];
   coderCopy = coder;
-  v10 = [v4 bs_valueWithCGRect:{x, y, width, height}];
-  [coderCopy encodeObject:v10 forKey:@"_rect"];
+  v5 = [v3 bs_valueWithCGRect:?];
+  [coderCopy encodeObject:? forKey:?];
 
-  v11 = [MEMORY[0x1E696B098] bs_valueWithCGRect:{self->_exclusiveTouchNormalizedSubRect.origin.x, self->_exclusiveTouchNormalizedSubRect.origin.y, self->_exclusiveTouchNormalizedSubRect.size.width, self->_exclusiveTouchNormalizedSubRect.size.height}];
-  [coderCopy encodeObject:v11 forKey:@"_exclusiveTouchNormalizedSubRect"];
+  v6 = [MEMORY[0x1E696B098] bs_valueWithCGRect:?];
+  [coderCopy encodeObject:? forKey:?];
 }
 
 - (void)appendDescriptionToStream:(id)stream
 {
   streamCopy = stream;
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __46__BKSHitTestRegion_appendDescriptionToStream___block_invoke;
-  v6[3] = &unk_1E6F47C78;
+  v6 = MEMORY[0x1E69E9820];
   v7 = streamCopy;
   selfCopy = self;
   v5 = streamCopy;
-  [v5 appendProem:self block:v6];
+  [v5 appendProem:v6 block:{3221225472, __46__BKSHitTestRegion_appendDescriptionToStream___block_invoke, &unk_1E6F47C78}];
 }
 
 id __46__BKSHitTestRegion_appendDescriptionToStream___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) appendRect:0 withName:{*(*(a1 + 40) + 8), *(*(a1 + 40) + 16), *(*(a1 + 40) + 24), *(*(a1 + 40) + 32)}];
+  v2 = [*(a1 + 32) appendRect:? withName:?];
   v3 = [*(a1 + 32) hasDebugStyle];
   v4 = *(a1 + 32);
-  v5 = *(a1 + 40);
   if (v3)
   {
-    v6 = [v4 appendRect:@"exclusiveNormalized" withName:{v5[5], v5[6], v5[7], v5[8]}];
+    v5 = [v4 appendRect:? withName:?];
     v4 = *(a1 + 32);
-    v7 = *(a1 + 40);
-    v8 = v7[9];
-    v9 = v7[10];
-    v10 = v7[11];
-    v11 = v7[12];
-    v12 = @"exclusiveDenormalized";
   }
 
-  else
-  {
-    v8 = v5[9];
-    v9 = v5[10];
-    v10 = v5[11];
-    v11 = v5[12];
-    v12 = @"exclusive";
-  }
-
-  return [v4 appendRect:v12 withName:{v8, v9, v10, v11}];
+  return [v4 appendRect:? withName:?];
 }
 
 - (BOOL)isEqual:(id)equal
@@ -159,33 +127,33 @@ id __46__BKSHitTestRegion_appendDescriptionToStream___block_invoke(uint64_t a1)
   width = rect.size.width;
   y = rect.origin.y;
   x = rect.origin.x;
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   if (!CGRectEqualToRect(rect, self->_exclusiveTouchNormalizedSubRect))
   {
     if (!BSFloatGreaterThanOrEqualToFloat() || (BSFloatLessThanOrEqualToFloat() & 1) == 0)
     {
-      v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"invalid exclusiveTouchNormalizedSubRect x coordinate: %f - needs to be between 0 and 1", *&x];
+      v13 = [MEMORY[0x1E696AEC0] stringWithFormat:*&x];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v15 = NSStringFromSelector(a2);
-        v16 = objc_opt_class();
-        v17 = NSStringFromClass(v16);
+        v14 = NSStringFromSelector(a2);
+        v15 = objc_opt_class();
+        v16 = NSStringFromClass(v15);
         *buf = 138544642;
-        v31 = v15;
-        v32 = 2114;
-        v33 = v17;
-        v34 = 2048;
+        v30 = v14;
+        v31 = 2114;
+        v32 = v16;
+        v33 = 2048;
         selfCopy4 = self;
-        v36 = 2114;
-        v37 = @"BKSHitTestRegion.m";
-        v38 = 1024;
-        v39 = 88;
-        v40 = 2114;
-        v41 = v14;
+        v35 = 2114;
+        v36 = @"BKSHitTestRegion.m";
+        v37 = 1024;
+        v38 = 88;
+        v39 = 2114;
+        v40 = v13;
         _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      [v14 UTF8String];
+      [v13 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x186389D5CLL);
@@ -193,28 +161,28 @@ id __46__BKSHitTestRegion_appendDescriptionToStream___block_invoke(uint64_t a1)
 
     if (!BSFloatGreaterThanOrEqualToFloat() || (BSFloatLessThanOrEqualToFloat() & 1) == 0)
     {
-      v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"invalid exclusiveTouchNormalizedSubRect y coordinate: %f - needs to be between 0 and 1", *&y];
+      v17 = [MEMORY[0x1E696AEC0] stringWithFormat:*&y];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v19 = NSStringFromSelector(a2);
-        v20 = objc_opt_class();
-        v21 = NSStringFromClass(v20);
+        v18 = NSStringFromSelector(a2);
+        v19 = objc_opt_class();
+        v20 = NSStringFromClass(v19);
         *buf = 138544642;
-        v31 = v19;
-        v32 = 2114;
-        v33 = v21;
-        v34 = 2048;
+        v30 = v18;
+        v31 = 2114;
+        v32 = v20;
+        v33 = 2048;
         selfCopy4 = self;
-        v36 = 2114;
-        v37 = @"BKSHitTestRegion.m";
-        v38 = 1024;
-        v39 = 89;
-        v40 = 2114;
-        v41 = v18;
+        v35 = 2114;
+        v36 = @"BKSHitTestRegion.m";
+        v37 = 1024;
+        v38 = 89;
+        v39 = 2114;
+        v40 = v17;
         _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      [v18 UTF8String];
+      [v17 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x186389E4CLL);
@@ -222,28 +190,28 @@ id __46__BKSHitTestRegion_appendDescriptionToStream___block_invoke(uint64_t a1)
 
     if (!BSFloatGreaterThanOrEqualToFloat() || (BSFloatLessThanOrEqualToFloat() & 1) == 0)
     {
-      v22 = [MEMORY[0x1E696AEC0] stringWithFormat:@"invalid exclusiveTouchNormalizedSubRect width: %f - needs to be between 0 and 1", *&width];
+      v21 = [MEMORY[0x1E696AEC0] stringWithFormat:*&width];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v23 = NSStringFromSelector(a2);
-        v24 = objc_opt_class();
-        v25 = NSStringFromClass(v24);
+        v22 = NSStringFromSelector(a2);
+        v23 = objc_opt_class();
+        v24 = NSStringFromClass(v23);
         *buf = 138544642;
-        v31 = v23;
-        v32 = 2114;
-        v33 = v25;
-        v34 = 2048;
+        v30 = v22;
+        v31 = 2114;
+        v32 = v24;
+        v33 = 2048;
         selfCopy4 = self;
-        v36 = 2114;
-        v37 = @"BKSHitTestRegion.m";
-        v38 = 1024;
-        v39 = 90;
-        v40 = 2114;
-        v41 = v22;
+        v35 = 2114;
+        v36 = @"BKSHitTestRegion.m";
+        v37 = 1024;
+        v38 = 90;
+        v39 = 2114;
+        v40 = v21;
         _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      [v22 UTF8String];
+      [v21 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x186389F3CLL);
@@ -251,28 +219,28 @@ id __46__BKSHitTestRegion_appendDescriptionToStream___block_invoke(uint64_t a1)
 
     if (!BSFloatGreaterThanOrEqualToFloat() || (BSFloatLessThanOrEqualToFloat() & 1) == 0)
     {
-      v26 = [MEMORY[0x1E696AEC0] stringWithFormat:@"invalid exclusiveTouchNormalizedSubRect height: %f - needs to be between 0 and 1", *&height];
+      v25 = [MEMORY[0x1E696AEC0] stringWithFormat:*&height];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v27 = NSStringFromSelector(a2);
-        v28 = objc_opt_class();
-        v29 = NSStringFromClass(v28);
+        v26 = NSStringFromSelector(a2);
+        v27 = objc_opt_class();
+        v28 = NSStringFromClass(v27);
         *buf = 138544642;
-        v31 = v27;
-        v32 = 2114;
-        v33 = v29;
-        v34 = 2048;
+        v30 = v26;
+        v31 = 2114;
+        v32 = v28;
+        v33 = 2048;
         selfCopy4 = self;
-        v36 = 2114;
-        v37 = @"BKSHitTestRegion.m";
-        v38 = 1024;
-        v39 = 91;
-        v40 = 2114;
-        v41 = v26;
+        v35 = 2114;
+        v36 = @"BKSHitTestRegion.m";
+        v37 = 1024;
+        v38 = 91;
+        v39 = 2114;
+        v40 = v25;
         _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      [v26 UTF8String];
+      [v25 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x18638A02CLL);
@@ -291,8 +259,6 @@ id __46__BKSHitTestRegion_appendDescriptionToStream___block_invoke(uint64_t a1)
     self->_exclusiveTouchNormalizedSubRectInReferenceSpace.size.width = width * v10;
     self->_exclusiveTouchNormalizedSubRectInReferenceSpace.size.height = height * v11;
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (int64_t)hitTestRegionLocationForPoint:(CGPoint)point
@@ -319,54 +285,46 @@ id __46__BKSHitTestRegion_appendDescriptionToStream___block_invoke(uint64_t a1)
 
 - (id)_initWithRect:(CGRect)rect exclusiveTouchNormalizedSubRect:(CGRect)subRect
 {
-  height = subRect.size.height;
-  width = subRect.size.width;
-  y = subRect.origin.y;
-  x = subRect.origin.x;
-  v8 = rect.size.height;
-  v9 = rect.size.width;
-  v10 = rect.origin.y;
-  v11 = rect.origin.x;
-  v15.receiver = self;
-  v15.super_class = BKSHitTestRegion;
-  v12 = [(BKSHitTestRegion *)&v15 init];
-  v13 = v12;
-  if (v12)
+  height = rect.size.height;
+  width = rect.size.width;
+  y = rect.origin.y;
+  x = rect.origin.x;
+  v11.receiver = self;
+  v11.super_class = BKSHitTestRegion;
+  v8 = [(BKSHitTestRegion *)&v11 init];
+  v9 = v8;
+  if (v8)
   {
-    v12->_rect.origin.x = v11;
-    v12->_rect.origin.y = v10;
-    v12->_rect.size.width = v9;
-    v12->_rect.size.height = v8;
-    [(BKSHitTestRegion *)v12 setExclusiveTouchNormalizedSubRect:x, y, width, height];
+    v8->_rect.origin.x = x;
+    v8->_rect.origin.y = y;
+    v8->_rect.size.width = width;
+    v8->_rect.size.height = height;
+    [(BKSHitTestRegion *)v8 setExclusiveTouchNormalizedSubRect:?];
   }
 
-  return v13;
+  return v9;
 }
 
 - (BKSHitTestRegion)initWithRect:(CGRect)rect exclusiveTouchSubRect:(CGRect)subRect
 {
-  height = subRect.size.height;
-  width = subRect.size.width;
-  y = subRect.origin.y;
-  x = subRect.origin.x;
-  v8 = rect.size.height;
-  v9 = rect.size.width;
-  v10 = rect.origin.y;
-  v11 = rect.origin.x;
-  v15.receiver = self;
-  v15.super_class = BKSHitTestRegion;
-  v12 = [(BKSHitTestRegion *)&v15 init];
-  v13 = v12;
-  if (v12)
+  height = rect.size.height;
+  width = rect.size.width;
+  y = rect.origin.y;
+  x = rect.origin.x;
+  v11.receiver = self;
+  v11.super_class = BKSHitTestRegion;
+  v8 = [(BKSHitTestRegion *)&v11 init];
+  v9 = v8;
+  if (v8)
   {
-    v12->_rect.origin.x = v11;
-    v12->_rect.origin.y = v10;
-    v12->_rect.size.width = v9;
-    v12->_rect.size.height = v8;
-    [(BKSHitTestRegion *)v12 setExclusiveTouchNormalizedSubRect:x / v9, y / v8, width / v9, height / v8];
+    v8->_rect.origin.x = x;
+    v8->_rect.origin.y = y;
+    v8->_rect.size.width = width;
+    v8->_rect.size.height = height;
+    [(BKSHitTestRegion *)v8 setExclusiveTouchNormalizedSubRect:?];
   }
 
-  return v13;
+  return v9;
 }
 
 @end

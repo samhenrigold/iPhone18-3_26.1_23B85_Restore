@@ -2,9 +2,9 @@
 - (BOOL)linkInsertedObjectsAndMetadataInContext:(uint64_t *)context error:;
 - (PFCloudKitImportZoneContext)initWithUpdatedRecords:(id)records deletedRecordTypeToRecordIDs:(id)ds options:(id)options fileBackedFuturesDirectory:(id)directory;
 - (uint64_t)addMirroredRelationshipToLink:(uint64_t)result;
-- (uint64_t)addObjectID:(void *)d toCache:(uint64_t)cache andRecordID:;
 - (uint64_t)initializeCachesWithManagedObjectContext:(void *)context andObservedStore:(id *)store error:;
 - (uint64_t)populateUnresolvedIDsInStore:(void *)store withManagedObjectContext:(void *)context error:;
+- (void)addObjectID:(void *)d toCache:(uint64_t)cache andRecordID:;
 - (void)addObjectID:(void *)d toCache:(uint64_t)cache forRecordWithType:(uint64_t)type andUniqueIdentifier:;
 - (void)addUnresolvedRecordID:(uint64_t)d forRecordType:(uint64_t)type toCache:(void *)cache;
 - (void)dealloc;
@@ -63,81 +63,81 @@
 
 - (uint64_t)initializeCachesWithManagedObjectContext:(void *)context andObservedStore:(id *)store error:
 {
-  v245 = *MEMORY[0x1E69E9840];
+  v244 = *MEMORY[0x1E69E9840];
   if (!self)
   {
     v144 = 0;
-    goto LABEL_263;
+    return v144 & 1;
   }
 
-  v225 = 0;
-  v159 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v184 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v181 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v224 = 0;
   v158 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v157 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-  v169 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-  v171 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v183 = [objc_msgSend(a2 "persistentStoreCoordinator")];
-  v185 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v183 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v180 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v157 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v156 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v168 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v170 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v182 = [objc_msgSend(a2 "persistentStoreCoordinator")];
+  v184 = objc_alloc_init(MEMORY[0x1E695DFA8]);
   if ([context configurationName])
   {
-    v6 = [v183 entitiesForConfiguration:{objc_msgSend(context, "configurationName")}];
+    v6 = [v182 entitiesForConfiguration:{objc_msgSend(context, "configurationName")}];
   }
 
   else
   {
-    v6 = [objc_msgSend(v183 "entitiesByName")];
+    v6 = [objc_msgSend(v182 "entitiesByName")];
   }
 
   v7 = v6;
   contextCopy = context;
-  v175 = a2;
-  v224 = 0u;
-  v222 = 0u;
+  v174 = a2;
   v223 = 0u;
   v221 = 0u;
-  v8 = [v6 countByEnumeratingWithState:&v221 objects:v244 count:16];
+  v222 = 0u;
+  v220 = 0u;
+  v8 = [v6 countByEnumeratingWithState:&v220 objects:v243 count:16];
   if (v8)
   {
-    v9 = *v222;
+    v9 = *v221;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v222 != v9)
+        if (*v221 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        [v185 addObject:{objc_msgSend(*(*(&v221 + 1) + 8 * i), "name")}];
+        [v184 addObject:{objc_msgSend(*(*(&v220 + 1) + 8 * i), "name")}];
       }
 
-      v8 = [v7 countByEnumeratingWithState:&v221 objects:v244 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v220 objects:v243 count:16];
     }
 
     while (v8);
   }
 
-  v219 = 0u;
-  v220 = 0u;
-  v217 = 0u;
   v218 = 0u;
+  v219 = 0u;
+  v216 = 0u;
+  v217 = 0u;
   obj = *(self + 8);
-  v11 = [obj countByEnumeratingWithState:&v217 objects:v243 count:16];
+  v11 = [obj countByEnumeratingWithState:&v216 objects:v242 count:16];
   if (v11)
   {
-    v12 = *v218;
+    v12 = *v217;
     do
     {
       for (j = 0; j != v11; ++j)
       {
-        if (*v218 != v12)
+        if (*v217 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v217 + 1) + 8 * j);
+        v14 = *(*(&v216 + 1) + 8 * j);
         v15 = objc_autoreleasePoolPush();
         recordType = [v14 recordType];
         recordType2 = [v14 recordType];
@@ -183,10 +183,10 @@
           if (os_log_type_enabled(Stream, v21))
           {
             *buf = 136315650;
-            v234 = "[PFCloudKitImportZoneContext initializeCachesWithManagedObjectContext:andObservedStore:error:]";
-            v235 = 1024;
-            v236 = 131;
-            v237 = 2112;
+            v233 = "[PFCloudKitImportZoneContext initializeCachesWithManagedObjectContext:andObservedStore:error:]";
+            v234 = 1024;
+            v235 = 131;
+            v236 = 2112;
             selfCopy6 = v14;
             _os_log_impl(&dword_18565F000, v20, v21, "CoreData+CloudKit: %s(%d): Updating relationship described by record: %@", buf, 0x1Cu);
           }
@@ -200,23 +200,23 @@
 
           if ([PFMirroredRelationship isValidMirroredRelationshipRecord:v14 values:encryptedValues])
           {
-            v24 = [PFMirroredRelationship mirroredRelationshipWithManyToManyRecord:v14 values:encryptedValues andManagedObjectModel:v183];
+            v24 = [PFMirroredRelationship mirroredRelationshipWithManyToManyRecord:v14 values:encryptedValues andManagedObjectModel:v182];
             v25 = v24;
             if (v24)
             {
               if (v24->super._relationshipDescription && v24->super._inverseRelationshipDescription)
               {
-                [v158 addObject:v24];
+                [v157 addObject:v24];
                 recordTypeToRecordID = [(PFMirroredManyToManyRelationship *)v25 recordTypeToRecordID];
-                v216[0] = MEMORY[0x1E69E9820];
-                v216[1] = 3221225472;
-                v216[2] = __95__PFCloudKitImportZoneContext_initializeCachesWithManagedObjectContext_andObservedStore_error___block_invoke;
-                v216[3] = &unk_1E6EC1888;
-                v216[4] = v185;
-                v216[5] = v184;
-                v216[6] = self;
-                v216[7] = v14;
-                [recordTypeToRecordID enumerateKeysAndObjectsUsingBlock:v216];
+                v215[0] = MEMORY[0x1E69E9820];
+                v215[1] = 3221225472;
+                v215[2] = __95__PFCloudKitImportZoneContext_initializeCachesWithManagedObjectContext_andObservedStore_error___block_invoke;
+                v215[3] = &unk_1E6EC1888;
+                v215[4] = v184;
+                v215[5] = v183;
+                v215[6] = self;
+                v215[7] = v14;
+                [recordTypeToRecordID enumerateKeysAndObjectsUsingBlock:v215];
                 goto LABEL_68;
               }
 
@@ -232,13 +232,13 @@
               if (os_log_type_enabled(v32, v34))
               {
                 *buf = 136315906;
-                v234 = "[PFCloudKitImportZoneContext initializeCachesWithManagedObjectContext:andObservedStore:error:]";
-                v235 = 1024;
-                v236 = 160;
-                v237 = 2112;
+                v233 = "[PFCloudKitImportZoneContext initializeCachesWithManagedObjectContext:andObservedStore:error:]";
+                v234 = 1024;
+                v235 = 160;
+                v236 = 2112;
                 selfCopy6 = self;
-                v239 = 2112;
-                v240 = v14;
+                v238 = 2112;
+                v239 = v14;
                 v35 = v33;
                 v36 = v34;
                 v37 = "CoreData+CloudKit: %s(%d): %@ - Skipping mirrored relationship for unknown relationships: %@";
@@ -264,13 +264,13 @@
               if (os_log_type_enabled(v38, v40))
               {
                 *buf = 136315906;
-                v234 = "[PFCloudKitImportZoneContext initializeCachesWithManagedObjectContext:andObservedStore:error:]";
-                v235 = 1024;
-                v236 = 163;
-                v237 = 2112;
+                v233 = "[PFCloudKitImportZoneContext initializeCachesWithManagedObjectContext:andObservedStore:error:]";
+                v234 = 1024;
+                v235 = 163;
+                v236 = 2112;
                 selfCopy6 = self;
-                v239 = 2112;
-                v240 = v14;
+                v238 = 2112;
+                v239 = v14;
                 v36 = v40;
                 v35 = v39;
                 v37 = "CoreData+CloudKit: %s(%d): %@: Failed to serialize many to many relationship from record: %@";
@@ -298,13 +298,13 @@ LABEL_60:
             if (os_log_type_enabled(v28, v30))
             {
               *buf = 136315906;
-              v234 = "[PFCloudKitImportZoneContext initializeCachesWithManagedObjectContext:andObservedStore:error:]";
-              v235 = 1024;
-              v236 = 166;
-              v237 = 2112;
+              v233 = "[PFCloudKitImportZoneContext initializeCachesWithManagedObjectContext:andObservedStore:error:]";
+              v234 = 1024;
+              v235 = 166;
+              v236 = 2112;
               selfCopy6 = self;
-              v239 = 2112;
-              v240 = v14;
+              v238 = 2112;
+              v239 = v14;
               _os_log_impl(&dword_18565F000, v29, v30, "CoreData+CloudKit: %s(%d): %@: Skipping invalid mirrored relationship record: %@", buf, 0x26u);
             }
           }
@@ -314,7 +314,7 @@ LABEL_67:
           goto LABEL_68;
         }
 
-        if (![v185 containsObject:recordType2])
+        if (![v184 containsObject:recordType2])
         {
           v27 = objc_autoreleasePoolPush();
           v41 = __PFCloudKitLoggingGetStream();
@@ -332,97 +332,97 @@ LABEL_67:
           if (os_log_type_enabled(v41, v43))
           {
             *buf = 136316162;
-            v234 = "[PFCloudKitImportZoneContext initializeCachesWithManagedObjectContext:andObservedStore:error:]";
-            v235 = 1024;
-            v236 = 180;
-            v237 = 2112;
+            v233 = "[PFCloudKitImportZoneContext initializeCachesWithManagedObjectContext:andObservedStore:error:]";
+            v234 = 1024;
+            v235 = 180;
+            v236 = 2112;
             selfCopy6 = self;
-            v239 = 2112;
-            v240 = v14;
-            v241 = 2112;
-            v242 = v185;
+            v238 = 2112;
+            v239 = v14;
+            v240 = 2112;
+            v241 = v184;
             _os_log_impl(&dword_18565F000, v42, v43, "CoreData+CloudKit: %s(%d): %@ - Skipping unknown updated record: %@\nIt is not a part of: %@", buf, 0x30u);
           }
 
           goto LABEL_67;
         }
 
-        v31 = [v184 objectForKey:recordType];
+        v31 = [v183 objectForKey:recordType];
         if (!v31)
         {
           v31 = objc_alloc_init(MEMORY[0x1E695DF70]);
-          [v184 setObject:v31 forKey:recordType];
+          [v183 setObject:v31 forKey:recordType];
         }
 
-        [v159 addObject:v14];
+        [v158 addObject:v14];
         [v31 addObject:{objc_msgSend(v14, "recordID")}];
 
 LABEL_68:
         objc_autoreleasePoolPop(v15);
       }
 
-      v11 = [obj countByEnumeratingWithState:&v217 objects:v243 count:16];
+      v11 = [obj countByEnumeratingWithState:&v216 objects:v242 count:16];
     }
 
     while (v11);
   }
 
-  v214 = 0u;
-  v215 = 0u;
-  v212 = 0u;
   v213 = 0u;
-  v160 = *(self + 16);
-  v44 = [v160 countByEnumeratingWithState:&v212 objects:v232 count:16];
+  v214 = 0u;
+  v211 = 0u;
+  v212 = 0u;
+  v159 = *(self + 16);
+  v44 = [v159 countByEnumeratingWithState:&v211 objects:v231 count:16];
   if (!v44)
   {
     goto LABEL_164;
   }
 
-  v161 = 1;
-  v162 = *v213;
+  v160 = 1;
+  v161 = *v212;
   do
   {
     v45 = 0;
-    v163 = v44;
+    v162 = v44;
     do
     {
-      if (*v213 != v162)
+      if (*v212 != v161)
       {
-        objc_enumerationMutation(v160);
+        objc_enumerationMutation(v159);
       }
 
-      v166 = v45;
-      v46 = *(*(&v212 + 1) + 8 * v45);
+      v165 = v45;
+      v46 = *(*(&v211 + 1) + 8 * v45);
       context = objc_autoreleasePoolPush();
       obja = [*(self + 16) objectForKey:v46];
-      v174 = v46;
+      v173 = v46;
       if ([v46 hasPrefix:@"CD_"])
       {
-        v174 = [v46 substringFromIndex:{objc_msgSend(@"CD_", "length")}];
+        v173 = [v46 substringFromIndex:{objc_msgSend(@"CD_", "length")}];
       }
 
-      v210 = 0u;
-      v211 = 0u;
-      v208 = 0u;
       v209 = 0u;
-      v47 = [obja countByEnumeratingWithState:&v208 objects:v231 count:16];
+      v210 = 0u;
+      v207 = 0u;
+      v208 = 0u;
+      v47 = [obja countByEnumeratingWithState:&v207 objects:v230 count:16];
       if (!v47)
       {
         goto LABEL_161;
       }
 
-      v48 = *v209;
+      v48 = *v208;
       while (2)
       {
         v49 = 0;
         do
         {
-          if (*v209 != v48)
+          if (*v208 != v48)
           {
             objc_enumerationMutation(obja);
           }
 
-          v50 = *(*(&v208 + 1) + 8 * v49);
+          v50 = *(*(&v207 + 1) + 8 * v49);
           v51 = objc_autoreleasePoolPush();
           v52 = __PFCloudKitLoggingGetStream();
           v53 = v52;
@@ -458,37 +458,37 @@ LABEL_68:
           if (os_log_type_enabled(v52, v54))
           {
             *buf = 136315906;
-            v234 = "[PFCloudKitImportZoneContext initializeCachesWithManagedObjectContext:andObservedStore:error:]";
-            v235 = 1024;
-            v236 = 191;
-            v237 = 2112;
+            v233 = "[PFCloudKitImportZoneContext initializeCachesWithManagedObjectContext:andObservedStore:error:]";
+            v234 = 1024;
+            v235 = 191;
+            v236 = 2112;
             selfCopy6 = v46;
-            v239 = 2112;
-            v240 = v50;
+            v238 = 2112;
+            v239 = v50;
             _os_log_impl(&dword_18565F000, v53, v54, "CoreData+CloudKit: %s(%d): Deleting record with id (%@): %@", buf, 0x26u);
           }
 
           objc_autoreleasePoolPop(v51);
           if ([v46 hasPrefix:@"CD_M2M_"])
           {
-            v56 = [PFMirroredRelationship mirroredRelationshipWithDeletedRecordType:v46 recordID:v50 andManagedObjectModel:v183];
-            [v181 addObject:v56];
+            v56 = [PFMirroredRelationship mirroredRelationshipWithDeletedRecordType:v46 recordID:v50 andManagedObjectModel:v182];
+            [v180 addObject:v56];
             recordTypeToRecordID2 = [(PFMirroredManyToManyRelationship *)v56 recordTypeToRecordID];
-            v207[0] = MEMORY[0x1E69E9820];
-            v207[1] = 3221225472;
-            v207[2] = __95__PFCloudKitImportZoneContext_initializeCachesWithManagedObjectContext_andObservedStore_error___block_invoke_11;
-            v207[3] = &unk_1E6EC1888;
-            v207[4] = v185;
-            v207[5] = v184;
-            v207[6] = self;
-            v207[7] = v50;
-            [recordTypeToRecordID2 enumerateKeysAndObjectsUsingBlock:v207];
+            v206[0] = MEMORY[0x1E69E9820];
+            v206[1] = 3221225472;
+            v206[2] = __95__PFCloudKitImportZoneContext_initializeCachesWithManagedObjectContext_andObservedStore_error___block_invoke_11;
+            v206[3] = &unk_1E6EC1888;
+            v206[4] = v184;
+            v206[5] = v183;
+            v206[6] = self;
+            v206[7] = v50;
+            [recordTypeToRecordID2 enumerateKeysAndObjectsUsingBlock:v206];
             goto LABEL_145;
           }
 
           if ([v46 isEqualToString:@"CDMR"])
           {
-            v58 = +[NSCKMirroredRelationship fetchMirroredRelationshipsMatchingPredicate:fromStore:inManagedObjectContext:error:](NSCKMirroredRelationship, [MEMORY[0x1E696AE18] predicateWithFormat:@"%K = %@", @"ckRecordID", objc_msgSend(v50, "recordName")], contextCopy, v175, &v225);
+            v58 = +[NSCKMirroredRelationship fetchMirroredRelationshipsMatchingPredicate:fromStore:inManagedObjectContext:error:](NSCKMirroredRelationship, [MEMORY[0x1E696AE18] predicateWithFormat:@"%K = %@", @"ckRecordID", objc_msgSend(v50, "recordName")], contextCopy, v174, &v224);
             if (!v58)
             {
               v90 = objc_autoreleasePoolPush();
@@ -507,17 +507,17 @@ LABEL_68:
               if (os_log_type_enabled(v91, v93))
               {
                 *buf = 136315650;
-                v234 = "[PFCloudKitImportZoneContext initializeCachesWithManagedObjectContext:andObservedStore:error:]";
-                v235 = 1024;
-                v236 = 264;
-                v237 = 2112;
-                selfCopy6 = v225;
+                v233 = "[PFCloudKitImportZoneContext initializeCachesWithManagedObjectContext:andObservedStore:error:]";
+                v234 = 1024;
+                v235 = 264;
+                v236 = 2112;
+                selfCopy6 = v224;
                 _os_log_impl(&dword_18565F000, v92, v93, "CoreData+CloudKit: %s(%d): Import context failed to fetch mirrored relationships during import: %@", buf, 0x1Cu);
               }
 
               objc_autoreleasePoolPop(v90);
-              v161 = 0;
-              v94 = v225;
+              v160 = 0;
+              v94 = v224;
               goto LABEL_161;
             }
 
@@ -550,10 +550,10 @@ LABEL_141:
               if (os_log_type_enabled(v76, v78))
               {
                 *buf = 136315650;
-                v234 = "[PFCloudKitImportZoneContext initializeCachesWithManagedObjectContext:andObservedStore:error:]";
-                v235 = 1024;
-                v236 = 261;
-                v237 = 2112;
+                v233 = "[PFCloudKitImportZoneContext initializeCachesWithManagedObjectContext:andObservedStore:error:]";
+                v234 = 1024;
+                v235 = 261;
+                v236 = 2112;
                 selfCopy6 = v50;
                 v82 = v77;
                 v83 = v78;
@@ -570,7 +570,7 @@ LABEL_144:
 
             [lastObject setNeedsDeleteBool:1];
             [v60 setIsUploadedBool:1];
-            if (![v185 containsObject:{objc_msgSend(v60, "cdEntityName")}])
+            if (![v184 containsObject:{objc_msgSend(v60, "cdEntityName")}])
             {
               v75 = objc_autoreleasePoolPush();
               v79 = __PFCloudKitLoggingGetStream();
@@ -588,15 +588,15 @@ LABEL_144:
               if (os_log_type_enabled(v79, v81))
               {
                 *buf = 136316162;
-                v234 = "[PFCloudKitImportZoneContext initializeCachesWithManagedObjectContext:andObservedStore:error:]";
-                v235 = 1024;
-                v236 = 258;
-                v237 = 2112;
+                v233 = "[PFCloudKitImportZoneContext initializeCachesWithManagedObjectContext:andObservedStore:error:]";
+                v234 = 1024;
+                v235 = 258;
+                v236 = 2112;
                 selfCopy6 = self;
-                v239 = 2112;
-                v240 = v60;
-                v241 = 2112;
-                v242 = v50;
+                v238 = 2112;
+                v239 = v60;
+                v240 = 2112;
+                v241 = v50;
                 v82 = v80;
                 v83 = v81;
                 v84 = "CoreData+CloudKit: %s(%d): %@ - Skipping unknown deleted relationship recordID: %@ - %@";
@@ -607,11 +607,11 @@ LABEL_144:
               goto LABEL_144;
             }
 
-            v61 = [objc_msgSend(objc_msgSend(objc_msgSend(v183 "entitiesByName")];
+            v61 = [objc_msgSend(objc_msgSend(objc_msgSend(v182 "entitiesByName")];
             createRecordIDForRecord = [(NSCKMirroredRelationship *)v60 createRecordIDForRecord];
             createRecordIDForRelatedRecord = [(NSCKMirroredRelationship *)v60 createRecordIDForRelatedRecord];
             v64 = -[PFMirroredManyToManyRelationshipV2 initWithRecordID:forRecordWithID:relatedToRecordWithID:byRelationship:withInverse:andType:]([PFMirroredManyToManyRelationshipV2 alloc], "initWithRecordID:forRecordWithID:relatedToRecordWithID:byRelationship:withInverse:andType:", v50, createRecordIDForRecord, createRecordIDForRelatedRecord, v61, [v61 inverseRelationship], 1);
-            [v181 addObject:v64];
+            [v180 addObject:v64];
             if (v64)
             {
               relationshipDescription = v64->super._relationshipDescription;
@@ -622,7 +622,7 @@ LABEL_144:
               relationshipDescription = 0;
             }
 
-            v66 = [v184 objectForKey:{-[NSEntityDescription name](-[NSPropertyDescription entity](relationshipDescription, "entity"), "name")}];
+            v66 = [v183 objectForKey:{-[NSEntityDescription name](-[NSPropertyDescription entity](relationshipDescription, "entity"), "name")}];
             if (!v66)
             {
               v66 = objc_alloc_init(MEMORY[0x1E695DF70]);
@@ -636,7 +636,7 @@ LABEL_144:
                 v67 = 0;
               }
 
-              [v184 setObject:v66 forKey:{-[NSEntityDescription name](-[NSPropertyDescription entity](v67, "entity"), "name")}];
+              [v183 setObject:v66 forKey:{-[NSEntityDescription name](-[NSPropertyDescription entity](v67, "entity"), "name")}];
             }
 
             if (v64)
@@ -661,7 +661,7 @@ LABEL_144:
               inverseRelationshipDescription = 0;
             }
 
-            v70 = [v184 objectForKey:{-[NSEntityDescription name](-[NSPropertyDescription entity](inverseRelationshipDescription, "entity"), "name")}];
+            v70 = [v183 objectForKey:{-[NSEntityDescription name](-[NSPropertyDescription entity](inverseRelationshipDescription, "entity"), "name")}];
             if (!v70)
             {
               v70 = objc_alloc_init(MEMORY[0x1E695DF70]);
@@ -675,7 +675,7 @@ LABEL_144:
                 v71 = 0;
               }
 
-              [v184 setObject:v70 forKey:{-[NSEntityDescription name](-[NSPropertyDescription entity](v71, "entity"), "name")}];
+              [v183 setObject:v70 forKey:{-[NSEntityDescription name](-[NSPropertyDescription entity](v71, "entity"), "name")}];
             }
 
             if (v64)
@@ -693,11 +693,11 @@ LABEL_144:
 
           else
           {
-            if (![v185 containsObject:v174])
+            if (![v184 containsObject:v173])
             {
               if ([v46 isEqualToString:getCloudKitCKRecordTypeShare()])
               {
-                [v169 addObject:v50];
+                [v168 addObject:v50];
                 goto LABEL_145;
               }
 
@@ -717,35 +717,35 @@ LABEL_144:
               if (os_log_type_enabled(v86, v88))
               {
                 *buf = 136316162;
-                v234 = "[PFCloudKitImportZoneContext initializeCachesWithManagedObjectContext:andObservedStore:error:]";
-                v235 = 1024;
-                v236 = 291;
-                v237 = 2112;
+                v233 = "[PFCloudKitImportZoneContext initializeCachesWithManagedObjectContext:andObservedStore:error:]";
+                v234 = 1024;
+                v235 = 291;
+                v236 = 2112;
                 selfCopy6 = self;
-                v239 = 2112;
-                v240 = v46;
-                v241 = 2112;
-                v242 = v50;
+                v238 = 2112;
+                v239 = v46;
+                v240 = 2112;
+                v241 = v50;
                 _os_log_impl(&dword_18565F000, v87, v88, "CoreData+CloudKit: %s(%d): %@ - Skipping unknown deleted record: %@ - %@", buf, 0x30u);
               }
 
               goto LABEL_144;
             }
 
-            v73 = [v184 objectForKey:v46];
+            v73 = [v183 objectForKey:v46];
             if (!v73)
             {
               v73 = objc_alloc_init(MEMORY[0x1E695DF70]);
-              [v184 setObject:v73 forKey:v46];
+              [v183 setObject:v73 forKey:v46];
             }
 
             [v73 addObject:v50];
 
-            v74 = [v171 objectForKey:v46];
+            v74 = [v170 objectForKey:v46];
             if (!v74)
             {
               v74 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-              [v171 setObject:v74 forKey:v46];
+              [v170 setObject:v74 forKey:v46];
             }
 
             [v74 addObject:v50];
@@ -756,7 +756,7 @@ LABEL_145:
         }
 
         while (v47 != v49);
-        v89 = [obja countByEnumeratingWithState:&v208 objects:v231 count:16];
+        v89 = [obja countByEnumeratingWithState:&v207 objects:v230 count:16];
         v47 = v89;
         if (v89)
         {
@@ -768,27 +768,27 @@ LABEL_145:
 
 LABEL_161:
       objc_autoreleasePoolPop(context);
-      v45 = v166 + 1;
+      v45 = v165 + 1;
     }
 
-    while (v166 + 1 != v163);
-    v44 = [v160 countByEnumeratingWithState:&v212 objects:v232 count:16];
+    while (v165 + 1 != v162);
+    v44 = [v159 countByEnumeratingWithState:&v211 objects:v231 count:16];
   }
 
   while (v44);
-  if ((v161 & 1) == 0)
+  if ((v160 & 1) == 0)
   {
-    v148 = v225;
-    v145 = v225;
-    if (!v225)
+    v148 = v224;
+    v145 = v224;
+    if (!v224)
     {
       LogStream = _PFLogGetLogStream(17);
       if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v234 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitImportZoneContext.m";
-        v235 = 1024;
-        v236 = 448;
+        v233 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitImportZoneContext.m";
+        v234 = 1024;
+        v235 = 448;
         _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
       }
 
@@ -799,16 +799,16 @@ LABEL_161:
       }
 
       *buf = 136315394;
-      v234 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitImportZoneContext.m";
-      v235 = 1024;
-      v236 = 448;
+      v233 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitImportZoneContext.m";
+      v234 = 1024;
+      v235 = 448;
       goto LABEL_259;
     }
 
 LABEL_243:
     if (store)
     {
-      v172 = 0;
+      v171 = 0;
       v144 = 0;
       *store = v145;
 
@@ -819,20 +819,20 @@ LABEL_243:
   }
 
 LABEL_164:
-  v95 = [NSCKMirroredRelationship fetchMirroredRelationshipsMatchingRelatingRecords:MEMORY[0x1E695E0F0] andRelatingRecordIDs:contextCopy fromStore:v175 inManagedObjectContext:&v225 error:?];
+  v95 = [NSCKMirroredRelationship fetchMirroredRelationshipsMatchingRelatingRecords:MEMORY[0x1E695E0F0] andRelatingRecordIDs:contextCopy fromStore:v174 inManagedObjectContext:&v224 error:?];
   v96 = v95;
   if (!v95)
   {
-    v145 = v225;
-    if (!v225)
+    v145 = v224;
+    if (!v224)
     {
       v146 = _PFLogGetLogStream(17);
       if (os_log_type_enabled(v146, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v234 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitImportZoneContext.m";
-        v235 = 1024;
-        v236 = 444;
+        v233 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitImportZoneContext.m";
+        v234 = 1024;
+        v235 = 444;
         _os_log_error_impl(&dword_18565F000, v146, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
       }
 
@@ -843,13 +843,13 @@ LABEL_164:
       }
 
       *buf = 136315394;
-      v234 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitImportZoneContext.m";
-      v235 = 1024;
-      v236 = 444;
+      v233 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitImportZoneContext.m";
+      v234 = 1024;
+      v235 = 444;
 LABEL_259:
       _os_log_fault_impl(&dword_18565F000, v147, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
 LABEL_248:
-      v172 = 0;
+      v171 = 0;
       v144 = 0;
 
       goto LABEL_262;
@@ -858,41 +858,41 @@ LABEL_248:
     goto LABEL_243;
   }
 
-  v205 = 0u;
-  v206 = 0u;
-  v203 = 0u;
   v204 = 0u;
-  v97 = [v95 countByEnumeratingWithState:&v203 objects:v230 count:16];
+  v205 = 0u;
+  v202 = 0u;
+  v203 = 0u;
+  v97 = [v95 countByEnumeratingWithState:&v202 objects:v229 count:16];
   if (v97)
   {
-    v98 = *v204;
+    v98 = *v203;
     do
     {
       for (k = 0; k != v97; ++k)
       {
-        if (*v204 != v98)
+        if (*v203 != v98)
         {
           objc_enumerationMutation(v96);
         }
 
-        v100 = *(*(&v203 + 1) + 8 * k);
+        v100 = *(*(&v202 + 1) + 8 * k);
         v101 = objc_autoreleasePoolPush();
         createRecordIDForRecord2 = [(NSCKMirroredRelationship *)v100 createRecordIDForRecord];
         createRecordIDForRelatedRecord2 = [(NSCKMirroredRelationship *)v100 createRecordIDForRelatedRecord];
-        v104 = [v184 objectForKey:{objc_msgSend(v100, "cdEntityName")}];
+        v104 = [v183 objectForKey:{objc_msgSend(v100, "cdEntityName")}];
         if (!v104)
         {
           v104 = objc_alloc_init(MEMORY[0x1E695DF70]);
-          [v184 setObject:v104 forKey:{objc_msgSend(v100, "cdEntityName")}];
+          [v183 setObject:v104 forKey:{objc_msgSend(v100, "cdEntityName")}];
         }
 
         [v104 addObject:createRecordIDForRecord2];
 
-        v105 = [v184 objectForKey:{objc_msgSend(v100, "relatedEntityName")}];
+        v105 = [v183 objectForKey:{objc_msgSend(v100, "relatedEntityName")}];
         if (!v105)
         {
           v105 = objc_alloc_init(MEMORY[0x1E695DF70]);
-          [v184 setObject:v105 forKey:{objc_msgSend(v100, "relatedEntityName")}];
+          [v183 setObject:v105 forKey:{objc_msgSend(v100, "relatedEntityName")}];
         }
 
         [v105 addObject:createRecordIDForRelatedRecord2];
@@ -900,62 +900,62 @@ LABEL_248:
         objc_autoreleasePoolPop(v101);
       }
 
-      v97 = [v96 countByEnumeratingWithState:&v203 objects:v230 count:16];
+      v97 = [v96 countByEnumeratingWithState:&v202 objects:v229 count:16];
     }
 
     while (v97);
   }
 
-  v176 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v201 = 0u;
-  v202 = 0u;
-  v199 = 0u;
+  v175 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v200 = 0u;
-  v172 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithArray:{objc_msgSend(v184, "allKeys")}];
-  v106 = [v172 countByEnumeratingWithState:&v199 objects:v229 count:16];
+  v201 = 0u;
+  v198 = 0u;
+  v199 = 0u;
+  v171 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithArray:{objc_msgSend(v183, "allKeys")}];
+  v106 = [v171 countByEnumeratingWithState:&v198 objects:v228 count:16];
   if (v106)
   {
-    objb = *v200;
+    objb = *v199;
 LABEL_178:
     v107 = 0;
     while (1)
     {
-      if (*v200 != objb)
+      if (*v199 != objb)
       {
-        objc_enumerationMutation(v172);
+        objc_enumerationMutation(v171);
       }
 
-      v108 = [v184 objectForKey:*(*(&v199 + 1) + 8 * v107)];
-      v109 = [NSCKRecordMetadata createMapOfMetadataMatchingRecords:v108 andRecordIDs:contextCopy inStore:v175 withManagedObjectContext:&v225 error:?];
+      v108 = [v183 objectForKey:*(*(&v198 + 1) + 8 * v107)];
+      v109 = [NSCKRecordMetadata createMapOfMetadataMatchingRecords:v108 andRecordIDs:contextCopy inStore:v174 withManagedObjectContext:&v224 error:?];
       if (v109)
       {
-        v197 = 0u;
-        v198 = 0u;
-        v195 = 0u;
         v196 = 0u;
-        v110 = [v108 countByEnumeratingWithState:&v195 objects:v228 count:16];
+        v197 = 0u;
+        v194 = 0u;
+        v195 = 0u;
+        v110 = [v108 countByEnumeratingWithState:&v194 objects:v227 count:16];
         if (v110)
         {
-          v111 = *v196;
+          v111 = *v195;
           do
           {
             for (m = 0; m != v110; ++m)
             {
-              if (*v196 != v111)
+              if (*v195 != v111)
               {
                 objc_enumerationMutation(v108);
               }
 
-              v113 = *(*(&v195 + 1) + 8 * m);
+              v113 = *(*(&v194 + 1) + 8 * m);
               v114 = [v109 objectForKey:v113];
               if (v114)
               {
                 createObjectIDForLinkedRow = [(NSCKRecordMetadata *)v114 createObjectIDForLinkedRow];
-                [(PFCloudKitImportZoneContext *)self addObjectID:createObjectIDForLinkedRow toCache:v176 andRecordID:v113];
+                [(PFCloudKitImportZoneContext *)self addObjectID:createObjectIDForLinkedRow toCache:v175 andRecordID:v113];
               }
             }
 
-            v110 = [v108 countByEnumeratingWithState:&v195 objects:v228 count:16];
+            v110 = [v108 countByEnumeratingWithState:&v194 objects:v227 count:16];
           }
 
           while (v110);
@@ -964,7 +964,7 @@ LABEL_178:
 
       else
       {
-        v116 = v225;
+        v116 = v224;
       }
 
       if (!v109)
@@ -974,7 +974,7 @@ LABEL_178:
 
       if (++v107 == v106)
       {
-        v106 = [v172 countByEnumeratingWithState:&v199 objects:v229 count:16];
+        v106 = [v171 countByEnumeratingWithState:&v198 objects:v228 count:16];
         if (v106)
         {
           goto LABEL_178;
@@ -985,11 +985,11 @@ LABEL_178:
     }
 
 LABEL_250:
-    if (v225)
+    if (v224)
     {
       if (store)
       {
-        *store = v225;
+        *store = v224;
       }
     }
 
@@ -999,9 +999,9 @@ LABEL_250:
       if (os_log_type_enabled(v151, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v234 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitImportZoneContext.m";
-        v235 = 1024;
-        v236 = 439;
+        v233 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitImportZoneContext.m";
+        v234 = 1024;
+        v235 = 439;
         _os_log_error_impl(&dword_18565F000, v151, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
       }
 
@@ -1009,71 +1009,71 @@ LABEL_250:
       if (os_log_type_enabled(v152, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315394;
-        v234 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitImportZoneContext.m";
-        v235 = 1024;
-        v236 = 439;
+        v233 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitImportZoneContext.m";
+        v234 = 1024;
+        v235 = 439;
         _os_log_fault_impl(&dword_18565F000, v152, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
       }
     }
 
     v144 = 0;
-    v153 = v225;
+    v153 = v224;
   }
 
   else
   {
 LABEL_196:
-    v117 = [NSCKImportOperation fetchUnfinishedImportOperationsInStore:contextCopy withManagedObjectContext:v175 error:&v225];
+    v117 = [NSCKImportOperation fetchUnfinishedImportOperationsInStore:contextCopy withManagedObjectContext:v174 error:&v224];
     *(self + 88) = v117;
     if (!v117)
     {
-      v150 = v225;
+      v150 = v224;
       goto LABEL_250;
     }
 
-    v193 = 0u;
-    v194 = 0u;
-    v191 = 0u;
     v192 = 0u;
+    v193 = 0u;
+    v190 = 0u;
+    v191 = 0u;
     contexta = v117;
-    v118 = [v117 countByEnumeratingWithState:&v191 objects:v227 count:16];
+    v118 = [v117 countByEnumeratingWithState:&v190 objects:v226 count:16];
     if (v118)
     {
-      v167 = *v192;
+      v166 = *v191;
       do
       {
         v119 = 0;
-        v168 = v118;
+        v167 = v118;
         do
         {
-          if (*v192 != v167)
+          if (*v191 != v166)
           {
             objc_enumerationMutation(contexta);
           }
 
-          v170 = v119;
-          v120 = *(*(&v191 + 1) + 8 * v119);
+          v169 = v119;
+          v120 = *(*(&v190 + 1) + 8 * v119);
+          v186 = 0u;
           v187 = 0u;
           v188 = 0u;
           v189 = 0u;
-          v190 = 0u;
           pendingRelationships = [v120 pendingRelationships];
-          v122 = [pendingRelationships countByEnumeratingWithState:&v187 objects:v226 count:16];
+          v122 = [pendingRelationships countByEnumeratingWithState:&v186 objects:v225 count:16];
           if (v122)
           {
-            objc = *v188;
+            objc = *v187;
             do
             {
               for (n = 0; n != v122; ++n)
               {
-                if (*v188 != objc)
+                if (*v187 != objc)
                 {
                   objc_enumerationMutation(pendingRelationships);
                 }
 
-                v124 = *(*(&v187 + 1) + 8 * n);
-                v125 = [objc_msgSend(v183 "entitiesByName")];
-                v126 = [objc_msgSend(v183 "entitiesByName")];
+                v124 = *(*(&v186 + 1) + 8 * n);
+                v125 = [objc_msgSend(v182 "entitiesByName")];
+                v126 = [objc_msgSend(v182 "entitiesByName")];
                 if (v125)
                 {
                   v127 = v126 == 0;
@@ -1117,25 +1117,25 @@ LABEL_196:
                   if (os_log_type_enabled(v129, v132))
                   {
                     *buf = 136315650;
-                    v234 = "[PFCloudKitImportZoneContext initializeCachesWithManagedObjectContext:andObservedStore:error:]";
-                    v235 = 1024;
-                    v236 = 403;
-                    v237 = 2112;
+                    v233 = "[PFCloudKitImportZoneContext initializeCachesWithManagedObjectContext:andObservedStore:error:]";
+                    v234 = 1024;
+                    v235 = 403;
+                    v236 = 2112;
                     selfCopy6 = v124;
                     _os_log_impl(&dword_18565F000, v130, v132, "CoreData+CloudKit: %s(%d): Deleting pending relationship because it's entities are no longer in the model: %@", buf, 0x1Cu);
                   }
 
                   objc_autoreleasePoolPop(v128);
-                  [v175 deleteObject:v124];
+                  [v174 deleteObject:v124];
                 }
 
                 else
                 {
                   v133 = [PFCloudKitSerializer recordTypeForEntity:v125];
                   v134 = [objc_alloc(getCloudKitCKRecordZoneIDClass[0]()) initWithZoneName:objc_msgSend(v124 ownerName:{"recordZoneName"), objc_msgSend(v124, "recordZoneOwnerName")}];
-                  v135 = [objc_alloc(getCloudKitCKRecordIDClass[0]()) initWithRecordName:objc_msgSend(v124 zoneID:{"recordName"), v134}];
+                  v135 = [objc_alloc(getCloudKitCKRecordIDClass()) initWithRecordName:objc_msgSend(v124 zoneID:{"recordName"), v134}];
                   v136 = [objc_alloc(getCloudKitCKRecordZoneIDClass[0]()) initWithZoneName:objc_msgSend(v124 ownerName:{"relatedRecordZoneName"), objc_msgSend(v124, "relatedRecordZoneOwnerName")}];
-                  v137 = [objc_alloc(getCloudKitCKRecordIDClass[0]()) initWithRecordName:objc_msgSend(v124 zoneID:{"relatedRecordName"), v136}];
+                  v137 = [objc_alloc(getCloudKitCKRecordIDClass()) initWithRecordName:objc_msgSend(v124 zoneID:{"relatedRecordName"), v136}];
                   v138 = [v134 isEqual:v136];
                   if ((v138 & 1) == 0)
                   {
@@ -1143,7 +1143,7 @@ LABEL_196:
                     if (os_log_type_enabled(v139, OS_LOG_TYPE_ERROR))
                     {
                       *buf = 138412290;
-                      v234 = v124;
+                      v233 = v124;
                       _os_log_error_impl(&dword_18565F000, v139, OS_LOG_TYPE_ERROR, "CoreData: fault: Import is attempting to link objects across zones: %@\n", buf, 0xCu);
                     }
 
@@ -1151,64 +1151,113 @@ LABEL_196:
                     if (os_log_type_enabled(v140, OS_LOG_TYPE_FAULT))
                     {
                       *buf = 138412290;
-                      v234 = v124;
+                      v233 = v124;
                       _os_log_fault_impl(&dword_18565F000, v140, OS_LOG_TYPE_FAULT, "CoreData: Import is attempting to link objects across zones: %@", buf, 0xCu);
                     }
                   }
 
                   [PFCloudKitImportZoneContext addUnresolvedRecordID:v135 forRecordType:v133 toCache:*(self + 72)];
-                  v141 = +[PFCloudKitSerializer recordTypeForEntity:](PFCloudKitSerializer, [objc_msgSend(v183 "entitiesByName")]);
+                  v141 = +[PFCloudKitSerializer recordTypeForEntity:](PFCloudKitSerializer, [objc_msgSend(v182 "entitiesByName")]);
                   [PFCloudKitImportZoneContext addUnresolvedRecordID:v137 forRecordType:v141 toCache:*(self + 72)];
-                  if (([objc_msgSend(v171 objectForKey:{v133), "containsObject:", v135}] & 1) != 0 || objc_msgSend(objc_msgSend(v171, "objectForKey:", v141), "containsObject:", v137))
+                  if (([objc_msgSend(v170 objectForKey:{v133), "containsObject:", v135}] & 1) != 0 || objc_msgSend(objc_msgSend(v170, "objectForKey:", v141), "containsObject:", v137))
                   {
-                    [v175 deleteObject:v124];
+                    [v174 deleteObject:v124];
                   }
                 }
               }
 
-              v122 = [pendingRelationships countByEnumeratingWithState:&v187 objects:v226 count:16];
+              v122 = [pendingRelationships countByEnumeratingWithState:&v186 objects:v225 count:16];
             }
 
             while (v122);
           }
 
-          v119 = v170 + 1;
+          v119 = v169 + 1;
         }
 
-        while (v170 + 1 != v168);
-        v118 = [contexta countByEnumeratingWithState:&v191 objects:v227 count:16];
+        while (v169 + 1 != v167);
+        v118 = [contexta countByEnumeratingWithState:&v190 objects:v226 count:16];
       }
 
       while (v118);
     }
 
-    *(self + 64) = v176;
-    *(self + 32) = [v159 copy];
-    *(self + 48) = [v181 copy];
-    *(self + 56) = [v157 copy];
-    *(self + 40) = v158;
-    *(self + 112) = [v169 copy];
+    *(self + 64) = v175;
+    *(self + 32) = [v158 copy];
+    *(self + 48) = [v180 copy];
+    *(self + 56) = [v156 copy];
+    *(self + 40) = v157;
+    *(self + 112) = [v168 copy];
     v142 = objc_alloc_init(MEMORY[0x1E695DFA8]);
     v143 = *(self + 16);
-    v186[0] = MEMORY[0x1E69E9820];
-    v186[1] = 3221225472;
-    v186[2] = __95__PFCloudKitImportZoneContext_initializeCachesWithManagedObjectContext_andObservedStore_error___block_invoke_21;
-    v186[3] = &unk_1E6EC18B0;
-    v186[4] = self;
-    v186[5] = v142;
-    [v143 enumerateKeysAndObjectsUsingBlock:v186];
+    v185[0] = MEMORY[0x1E69E9820];
+    v185[1] = 3221225472;
+    v185[2] = __95__PFCloudKitImportZoneContext_initializeCachesWithManagedObjectContext_andObservedStore_error___block_invoke_21;
+    v185[3] = &unk_1E6EC18B0;
+    v185[4] = self;
+    v185[5] = v142;
+    [v143 enumerateKeysAndObjectsUsingBlock:v185];
     *(self + 24) = [v142 copy];
 
     v144 = 1;
   }
 
 LABEL_262:
-LABEL_263:
-  v154 = *MEMORY[0x1E69E9840];
   return v144 & 1;
 }
 
 void __95__PFCloudKitImportZoneContext_initializeCachesWithManagedObjectContext_andObservedStore_error___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v23 = *MEMORY[0x1E69E9840];
+  if ([*(a1 + 32) containsObject:a2])
+  {
+    v6 = [*(a1 + 40) objectForKey:a2];
+    if (!v6)
+    {
+      v13 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      [*(a1 + 40) setObject:v13 forKey:a2];
+      v6 = v13;
+    }
+
+    v14 = v6;
+    [v6 addObjectsFromArray:a3];
+  }
+
+  else
+  {
+    v7 = objc_autoreleasePoolPush();
+    Stream = __PFCloudKitLoggingGetStream();
+    v9 = Stream;
+    if (__ckLoggingOverride == 17)
+    {
+      v10 = OS_LOG_TYPE_FAULT;
+    }
+
+    else
+    {
+      v10 = 16 * (__ckLoggingOverride == 16);
+    }
+
+    if (os_log_type_enabled(Stream, v10))
+    {
+      v11 = *(a1 + 48);
+      v12 = *(a1 + 56);
+      *buf = 136315906;
+      v16 = "[PFCloudKitImportZoneContext initializeCachesWithManagedObjectContext:andObservedStore:error:]_block_invoke";
+      v17 = 1024;
+      v18 = 156;
+      v19 = 2112;
+      v20 = v11;
+      v21 = 2112;
+      v22 = v12;
+      _os_log_impl(&dword_18565F000, v9, v10, "CoreData+CloudKit: %s(%d): %@ - Skipping unknown updated relationship record: %@", buf, 0x26u);
+    }
+
+    objc_autoreleasePoolPop(v7);
+  }
+}
+
+void __95__PFCloudKitImportZoneContext_initializeCachesWithManagedObjectContext_andObservedStore_error___block_invoke_11(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v25 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) containsObject:a2])
@@ -1216,107 +1265,52 @@ void __95__PFCloudKitImportZoneContext_initializeCachesWithManagedObjectContext_
     v6 = [*(a1 + 40) objectForKey:a2];
     if (!v6)
     {
-      v15 = objc_alloc_init(MEMORY[0x1E695DF70]);
-      [*(a1 + 40) setObject:v15 forKey:a2];
-      v6 = v15;
+      v13 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      [*(a1 + 40) setObject:v13 forKey:a2];
+      v6 = v13;
     }
 
-    v16 = v6;
+    v14 = v6;
     [v6 addObjectsFromArray:a3];
-    v7 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v8 = objc_autoreleasePoolPush();
+    v7 = objc_autoreleasePoolPush();
     Stream = __PFCloudKitLoggingGetStream();
-    v10 = Stream;
+    v9 = Stream;
     if (__ckLoggingOverride == 17)
     {
-      v11 = OS_LOG_TYPE_FAULT;
+      v10 = OS_LOG_TYPE_FAULT;
     }
 
     else
     {
-      v11 = 16 * (__ckLoggingOverride == 16);
+      v10 = 16 * (__ckLoggingOverride == 16);
     }
 
-    if (os_log_type_enabled(Stream, v11))
+    if (os_log_type_enabled(Stream, v10))
     {
-      v12 = *(a1 + 48);
-      v13 = *(a1 + 56);
-      *buf = 136315906;
-      v18 = "[PFCloudKitImportZoneContext initializeCachesWithManagedObjectContext:andObservedStore:error:]_block_invoke";
-      v19 = 1024;
-      v20 = 156;
-      v21 = 2112;
-      v22 = v12;
-      v23 = 2112;
-      v24 = v13;
-      _os_log_impl(&dword_18565F000, v10, v11, "CoreData+CloudKit: %s(%d): %@ - Skipping unknown updated relationship record: %@", buf, 0x26u);
-    }
-
-    objc_autoreleasePoolPop(v8);
-    v14 = *MEMORY[0x1E69E9840];
-  }
-}
-
-void __95__PFCloudKitImportZoneContext_initializeCachesWithManagedObjectContext_andObservedStore_error___block_invoke_11(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v27 = *MEMORY[0x1E69E9840];
-  if ([*(a1 + 32) containsObject:a2])
-  {
-    v6 = [*(a1 + 40) objectForKey:a2];
-    if (!v6)
-    {
-      v15 = objc_alloc_init(MEMORY[0x1E695DF70]);
-      [*(a1 + 40) setObject:v15 forKey:a2];
-      v6 = v15;
-    }
-
-    v16 = v6;
-    [v6 addObjectsFromArray:a3];
-    v7 = *MEMORY[0x1E69E9840];
-  }
-
-  else
-  {
-    v8 = objc_autoreleasePoolPush();
-    Stream = __PFCloudKitLoggingGetStream();
-    v10 = Stream;
-    if (__ckLoggingOverride == 17)
-    {
-      v11 = OS_LOG_TYPE_FAULT;
-    }
-
-    else
-    {
-      v11 = 16 * (__ckLoggingOverride == 16);
-    }
-
-    if (os_log_type_enabled(Stream, v11))
-    {
-      v12 = *(a1 + 48);
-      v13 = *(a1 + 56);
+      v11 = *(a1 + 48);
+      v12 = *(a1 + 56);
       *buf = 136316162;
-      v18 = "[PFCloudKitImportZoneContext initializeCachesWithManagedObjectContext:andObservedStore:error:]_block_invoke";
-      v19 = 1024;
-      v20 = 210;
+      v16 = "[PFCloudKitImportZoneContext initializeCachesWithManagedObjectContext:andObservedStore:error:]_block_invoke";
+      v17 = 1024;
+      v18 = 210;
+      v19 = 2112;
+      v20 = v11;
       v21 = 2112;
-      v22 = v12;
+      v22 = a2;
       v23 = 2112;
-      v24 = a2;
-      v25 = 2112;
-      v26 = v13;
-      _os_log_impl(&dword_18565F000, v10, v11, "CoreData+CloudKit: %s(%d): %@ - Skipping unknown deleted relationship recordID: %@ - %@", buf, 0x30u);
+      v24 = v12;
+      _os_log_impl(&dword_18565F000, v9, v10, "CoreData+CloudKit: %s(%d): %@ - Skipping unknown deleted relationship recordID: %@ - %@", buf, 0x30u);
     }
 
-    objc_autoreleasePoolPop(v8);
-    v14 = *MEMORY[0x1E69E9840];
+    objc_autoreleasePoolPop(v7);
   }
 }
 
-- (uint64_t)addObjectID:(void *)d toCache:(uint64_t)cache andRecordID:
+- (void)addObjectID:(void *)d toCache:(uint64_t)cache andRecordID:
 {
   if (result)
   {
@@ -1351,67 +1345,66 @@ void __95__PFCloudKitImportZoneContext_initializeCachesWithManagedObjectContext_
   [v6 addObject:d];
 }
 
-uint64_t __95__PFCloudKitImportZoneContext_initializeCachesWithManagedObjectContext_andObservedStore_error___block_invoke_21(uint64_t a1, void *a2, void *a3)
+void *__95__PFCloudKitImportZoneContext_initializeCachesWithManagedObjectContext_andObservedStore_error___block_invoke_21(uint64_t a1, void *a2, void *a3)
 {
   v4 = a2;
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if ([a2 hasPrefix:@"CD_"])
   {
     v4 = [v4 substringFromIndex:{objc_msgSend(@"CD_", "length")}];
   }
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
-  result = [a3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  result = [a3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (result)
   {
     v7 = result;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(a3);
         }
 
-        v10 = [objc_msgSend(*(*(a1 + 32) + 64) objectForKey:{v4), "objectForKey:", *(*(&v12 + 1) + 8 * v9)}];
+        v10 = [objc_msgSend(*(*(a1 + 32) + 64) objectForKey:{v4), "objectForKey:", *(*(&v11 + 1) + 8 * v9)}];
         if (v10)
         {
           [*(a1 + 40) addObject:v10];
         }
 
-        ++v9;
+        v9 = v9 + 1;
       }
 
       while (v7 != v9);
-      result = [a3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      result = [a3 countByEnumeratingWithState:&v11 objects:v15 count:16];
       v7 = result;
     }
 
     while (result);
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (void)registerObject:(void *)object forInsertedRecord:(void *)record withMetadata:
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if (self)
   {
-    -[PFCloudKitImportZoneContext addObjectID:toCache:andRecordID:](self, [a2 objectID], *(self + 64), objc_msgSend(object, "recordID"));
+    -[PFCloudKitImportZoneContext addObjectID:toCache:andRecordID:](self, [a2 objectID], self[8], objc_msgSend(object, "recordID"));
     v7 = [_PFCKInsertedMetadataLink alloc];
     if (v7)
     {
-      *v17 = v7;
-      *&v17[8] = _PFCKInsertedMetadataLink;
-      v8 = objc_msgSendSuper2(v17, sel_init);
+      *v16 = v7;
+      *&v16[8] = _PFCKInsertedMetadataLink;
+      v8 = objc_msgSendSuper2(v16, sel_init);
       if (v8)
       {
         v8[2] = a2;
@@ -1470,22 +1463,20 @@ uint64_t __95__PFCloudKitImportZoneContext_initializeCachesWithManagedObjectCont
     if (os_log_type_enabled(Stream, v14))
     {
       objectID = [a2 objectID];
-      *v17 = 136315906;
-      *&v17[4] = "[PFCloudKitImportZoneContext registerObject:forInsertedRecord:withMetadata:]";
-      *&v17[12] = 1024;
-      *&v17[14] = 497;
-      v18 = 2112;
-      v19 = objectID;
-      v20 = 2112;
+      *v16 = 136315906;
+      *&v16[4] = "[PFCloudKitImportZoneContext registerObject:forInsertedRecord:withMetadata:]";
+      *&v16[12] = 1024;
+      *&v16[14] = 497;
+      v17 = 2112;
+      v18 = objectID;
+      v19 = 2112;
       recordCopy = record;
-      _os_log_impl(&dword_18565F000, v11, v14, "CoreData+CloudKit: %s(%d): Linking %@ to %@", v17, 0x26u);
+      _os_log_impl(&dword_18565F000, v11, v14, "CoreData+CloudKit: %s(%d): Linking %@ to %@", v16, 0x26u);
     }
 
     objc_autoreleasePoolPop(v9);
-    [*(self + 80) addObject:v8];
+    [self[10] addObject:v8];
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (uint64_t)addMirroredRelationshipToLink:(uint64_t)result
@@ -1530,29 +1521,29 @@ uint64_t __95__PFCloudKitImportZoneContext_initializeCachesWithManagedObjectCont
   return result;
 }
 
-uint64_t __61__PFCloudKitImportZoneContext_addMirroredRelationshipToLink___block_invoke(uint64_t a1, uint64_t a2, void *a3)
+void *__61__PFCloudKitImportZoneContext_addMirroredRelationshipToLink___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  result = [a3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  result = [a3 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (result)
   {
     v7 = result;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       v9 = 0;
       do
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(a3);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * v9);
+        v10 = *(*(&v12 + 1) + 8 * v9);
         if (![objc_msgSend(*(*(a1 + 32) + 64) objectForKey:{a2), "objectForKey:", v10}])
         {
           v11 = [*(*(a1 + 32) + 72) objectForKey:a2];
@@ -1565,44 +1556,43 @@ uint64_t __61__PFCloudKitImportZoneContext_addMirroredRelationshipToLink___block
           [v11 addObject:v10];
         }
 
-        ++v9;
+        v9 = v9 + 1;
       }
 
       while (v7 != v9);
-      result = [a3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      result = [a3 countByEnumeratingWithState:&v12 objects:v16 count:16];
       v7 = result;
     }
 
     while (result);
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-uint64_t __61__PFCloudKitImportZoneContext_addMirroredRelationshipToLink___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
+void *__61__PFCloudKitImportZoneContext_addMirroredRelationshipToLink___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  result = [a3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  result = [a3 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (result)
   {
     v7 = result;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       v9 = 0;
       do
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(a3);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * v9);
+        v10 = *(*(&v12 + 1) + 8 * v9);
         if (![objc_msgSend(*(*(a1 + 32) + 64) objectForKey:{a2), "objectForKey:", v10}])
         {
           v11 = [*(*(a1 + 32) + 72) objectForKey:a2];
@@ -1615,54 +1605,53 @@ uint64_t __61__PFCloudKitImportZoneContext_addMirroredRelationshipToLink___block
           [v11 addObject:v10];
         }
 
-        ++v9;
+        v9 = v9 + 1;
       }
 
       while (v7 != v9);
-      result = [a3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      result = [a3 countByEnumeratingWithState:&v12 objects:v16 count:16];
       v7 = result;
     }
 
     while (result);
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (uint64_t)populateUnresolvedIDsInStore:(void *)store withManagedObjectContext:(void *)context error:
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if (self)
   {
-    v18 = 0;
-    v19 = &v18;
-    v20 = 0x2020000000;
-    v21 = 1;
-    v12 = 0;
-    v13 = &v12;
-    v14 = 0x3052000000;
-    v15 = __Block_byref_object_copy__5;
-    v16 = __Block_byref_object_dispose__5;
     v17 = 0;
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __91__PFCloudKitImportZoneContext_populateUnresolvedIDsInStore_withManagedObjectContext_error___block_invoke;
-    v11[3] = &unk_1E6EC1900;
-    v11[4] = self;
-    v11[5] = a2;
-    v11[6] = store;
-    v11[7] = &v12;
-    v11[8] = &v18;
-    [store performBlockAndWait:v11];
-    if ((v19[3] & 1) == 0)
+    v18 = &v17;
+    v19 = 0x2020000000;
+    v20 = 1;
+    v11 = 0;
+    v12 = &v11;
+    v13 = 0x3052000000;
+    v14 = __Block_byref_object_copy__5;
+    v15 = __Block_byref_object_dispose__5;
+    v16 = 0;
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __91__PFCloudKitImportZoneContext_populateUnresolvedIDsInStore_withManagedObjectContext_error___block_invoke;
+    v10[3] = &unk_1E6EC1900;
+    v10[4] = self;
+    v10[5] = a2;
+    v10[6] = store;
+    v10[7] = &v11;
+    v10[8] = &v17;
+    [store performBlockAndWait:v10];
+    if ((v18[3] & 1) == 0)
     {
-      v8 = v13[5];
-      if (v8)
+      v7 = v12[5];
+      if (v7)
       {
         if (context)
         {
-          *context = v8;
+          *context = v7;
         }
       }
 
@@ -1672,28 +1661,28 @@ uint64_t __61__PFCloudKitImportZoneContext_addMirroredRelationshipToLink___block
         if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315394;
-          v23 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitImportZoneContext.m";
-          v24 = 1024;
-          v25 = 590;
+          v22 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitImportZoneContext.m";
+          v23 = 1024;
+          v24 = 590;
           _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
         }
 
-        v10 = _PFLogGetLogStream(17);
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+        v9 = _PFLogGetLogStream(17);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
         {
           *buf = 136315394;
-          v23 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitImportZoneContext.m";
-          v24 = 1024;
-          v25 = 590;
-          _os_log_fault_impl(&dword_18565F000, v10, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
+          v22 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitImportZoneContext.m";
+          v23 = 1024;
+          v24 = 590;
+          _os_log_fault_impl(&dword_18565F000, v9, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
         }
       }
     }
 
-    v13[5] = 0;
-    v5 = *(v19 + 24);
-    _Block_object_dispose(&v12, 8);
-    _Block_object_dispose(&v18, 8);
+    v12[5] = 0;
+    v5 = *(v18 + 24);
+    _Block_object_dispose(&v11, 8);
+    _Block_object_dispose(&v17, 8);
   }
 
   else
@@ -1701,13 +1690,12 @@ uint64_t __61__PFCloudKitImportZoneContext_addMirroredRelationshipToLink___block
     v5 = 0;
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return v5 & 1;
 }
 
 void __91__PFCloudKitImportZoneContext_populateUnresolvedIDsInStore_withManagedObjectContext_error___block_invoke(uint64_t a1)
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   v2 = objc_autoreleasePoolPush();
   Stream = __PFCloudKitLoggingGetStream();
   v4 = Stream;
@@ -1755,58 +1743,58 @@ void __91__PFCloudKitImportZoneContext_populateUnresolvedIDsInStore_withManagedO
   {
     v8 = *(*(a1 + 32) + 72);
     *buf = 136315650;
-    v39 = "[PFCloudKitImportZoneContext populateUnresolvedIDsInStore:withManagedObjectContext:error:]_block_invoke";
-    v40 = 1024;
-    v41 = 551;
-    v42 = 2112;
-    v43 = v8;
+    v38 = "[PFCloudKitImportZoneContext populateUnresolvedIDsInStore:withManagedObjectContext:error:]_block_invoke";
+    v39 = 1024;
+    v40 = 551;
+    v41 = 2112;
+    v42 = v8;
     _os_log_impl(&dword_18565F000, v4, v7, "CoreData+CloudKit: %s(%d): Populating unresolved relationships:\n%@", buf, 0x1Cu);
   }
 
   objc_autoreleasePoolPop(v2);
   obj = [objc_alloc(MEMORY[0x1E695DFA8]) initWithArray:{objc_msgSend(*(*(a1 + 32) + 72), "allKeys")}];
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
-  v9 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
+  v9 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
   if (v9)
   {
-    v27 = *v33;
+    v26 = *v32;
 LABEL_18:
     v10 = 0;
-    v26 = v9;
+    v25 = v9;
     while (1)
     {
-      if (*v33 != v27)
+      if (*v32 != v26)
       {
         objc_enumerationMutation(obj);
       }
 
-      v11 = *(*(&v32 + 1) + 8 * v10);
+      v11 = *(*(&v31 + 1) + 8 * v10);
       v12 = objc_autoreleasePoolPush();
       v13 = [*(*(a1 + 32) + 72) objectForKey:v11];
       v14 = [NSCKRecordMetadata createMapOfMetadataMatchingRecords:v13 andRecordIDs:*(a1 + 40) inStore:*(a1 + 48) withManagedObjectContext:(*(*(a1 + 56) + 8) + 40) error:?];
       if (v14)
       {
-        v30 = 0u;
-        v31 = 0u;
-        v28 = 0u;
         v29 = 0u;
-        v15 = [v13 countByEnumeratingWithState:&v28 objects:v36 count:16];
+        v30 = 0u;
+        v27 = 0u;
+        v28 = 0u;
+        v15 = [v13 countByEnumeratingWithState:&v27 objects:v35 count:16];
         if (v15)
         {
-          v16 = *v29;
+          v16 = *v28;
           do
           {
             for (i = 0; i != v15; ++i)
             {
-              if (*v29 != v16)
+              if (*v28 != v16)
               {
                 objc_enumerationMutation(v13);
               }
 
-              v18 = *(*(&v28 + 1) + 8 * i);
+              v18 = *(*(&v27 + 1) + 8 * i);
               v19 = [v14 objectForKey:v18];
               v20 = v19;
               if (v19 && ([v19 isInserted] & 1) == 0)
@@ -1816,7 +1804,7 @@ LABEL_18:
               }
             }
 
-            v15 = [v13 countByEnumeratingWithState:&v28 objects:v36 count:16];
+            v15 = [v13 countByEnumeratingWithState:&v27 objects:v35 count:16];
           }
 
           while (v15);
@@ -1836,9 +1824,9 @@ LABEL_18:
         break;
       }
 
-      if (++v10 == v26)
+      if (++v10 == v25)
       {
-        v9 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
+        v9 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
         if (v9)
         {
           goto LABEL_18;
@@ -1848,8 +1836,6 @@ LABEL_18:
       }
     }
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addObjectID:(void *)d toCache:(uint64_t)cache forRecordWithType:(uint64_t)type andUniqueIdentifier:
@@ -1871,41 +1857,41 @@ LABEL_18:
 
 - (BOOL)linkInsertedObjectsAndMetadataInContext:(uint64_t *)context error:
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   if (!result)
   {
-    goto LABEL_41;
+    return result;
   }
 
   v5 = result;
-  v38 = 0;
-  if ([a2 obtainPermanentIDsForObjects:objc_msgSend(objc_msgSend(a2 error:{"insertedObjects"), "allObjects"), &v38}])
+  v37 = 0;
+  if ([a2 obtainPermanentIDsForObjects:objc_msgSend(objc_msgSend(a2 error:{"insertedObjects"), "allObjects"), &v37}])
   {
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
     v35 = 0u;
-    obj = *(v5 + 80);
-    v6 = [obj countByEnumeratingWithState:&v34 objects:v49 count:16];
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
+    obj = v5[10];
+    v6 = [obj countByEnumeratingWithState:&v33 objects:v48 count:16];
     if (v6)
     {
       v7 = v6;
       contextCopy = context;
-      v8 = *v35;
-      v32 = *MEMORY[0x1E696A250];
-      v31 = *MEMORY[0x1E696A588];
+      v8 = *v34;
+      v31 = *MEMORY[0x1E696A250];
+      v30 = *MEMORY[0x1E696A588];
       v9 = 1;
       do
       {
         v10 = 0;
         do
         {
-          if (*v35 != v8)
+          if (*v34 != v8)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v34 + 1) + 8 * v10);
+          v11 = *(*(&v33 + 1) + 8 * v10);
           if (v11)
           {
             v12 = *(v11 + 16);
@@ -1924,13 +1910,13 @@ LABEL_18:
             {
               insertedObjects = [a2 insertedObjects];
               *buf = 138413058;
-              v42 = objectID;
-              v43 = 2112;
-              v44 = v11;
-              v45 = 2112;
-              v46 = insertedObjects;
-              v47 = 2112;
-              v48 = v38;
+              v41 = objectID;
+              v42 = 2112;
+              v43 = v11;
+              v44 = 2112;
+              v45 = insertedObjects;
+              v46 = 2112;
+              v47 = v37;
               _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Found temporary objectID for metadata link: %@\n%@\n%@\n%@\n", buf, 0x2Au);
             }
 
@@ -1939,21 +1925,21 @@ LABEL_18:
             {
               insertedObjects2 = [a2 insertedObjects];
               *buf = 138413058;
-              v42 = objectID;
-              v43 = 2112;
-              v44 = v11;
-              v45 = 2112;
-              v46 = insertedObjects2;
-              v47 = 2112;
-              v48 = v38;
+              v41 = objectID;
+              v42 = 2112;
+              v43 = v11;
+              v44 = 2112;
+              v45 = insertedObjects2;
+              v46 = 2112;
+              v47 = v37;
               _os_log_fault_impl(&dword_18565F000, v15, OS_LOG_TYPE_FAULT, "CoreData: Found temporary objectID for metadata link: %@\n%@\n%@\n%@", buf, 0x2Au);
             }
 
             v16 = MEMORY[0x1E696ABC0];
-            v39 = v31;
-            v40 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Found temporary objectID for metadata link: %@\n%@\n%@", objectID, v11, objc_msgSend(a2, "insertedObjects")];
+            v38 = v30;
+            v39 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], objectID, v11, [a2 insertedObjects]);
             v9 = 0;
-            v38 = [v16 errorWithDomain:v32 code:134410 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v40, &v39, 1)}];
+            v37 = [v16 errorWithDomain:v31 code:134410 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v39, &v38, 1)}];
           }
 
           else
@@ -1995,20 +1981,20 @@ LABEL_18:
             }
 
             createRecordID = [(NSCKRecordMetadata *)v22 createRecordID];
-            [(PFCloudKitImportZoneContext *)v5 addObjectID:objectID toCache:*(v5 + 64) andRecordID:createRecordID];
+            [(PFCloudKitImportZoneContext *)v5 addObjectID:objectID toCache:v5[8] andRecordID:createRecordID];
           }
 
           ++v10;
         }
 
         while (v7 != v10);
-        v26 = [obj countByEnumeratingWithState:&v34 objects:v49 count:16];
+        v26 = [obj countByEnumeratingWithState:&v33 objects:v48 count:16];
         v7 = v26;
       }
 
       while (v26);
 
-      *(v5 + 80) = 0;
+      v5[10] = 0;
       context = contextCopy;
       if ((v9 & 1) == 0)
       {
@@ -2019,35 +2005,32 @@ LABEL_18:
     else
     {
 
-      *(v5 + 80) = 0;
+      v5[10] = 0;
     }
 
-    result = 1;
-    goto LABEL_41;
+    return 1;
   }
 
 LABEL_31:
-  if (v38)
+  if (v37)
   {
     if (context)
     {
       result = 0;
-      *context = v38;
-      goto LABEL_41;
+      *context = v37;
+      return result;
     }
 
-LABEL_38:
-    result = 0;
-    goto LABEL_41;
+    return 0;
   }
 
   v27 = _PFLogGetLogStream(17);
   if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v42 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitImportZoneContext.m";
-    v43 = 1024;
-    LODWORD(v44) = 674;
+    v41 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitImportZoneContext.m";
+    v42 = 1024;
+    LODWORD(v43) = 674;
     _os_log_error_impl(&dword_18565F000, v27, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
   }
 
@@ -2056,15 +2039,13 @@ LABEL_38:
   if (result)
   {
     *buf = 136315394;
-    v42 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitImportZoneContext.m";
-    v43 = 1024;
-    LODWORD(v44) = 674;
+    v41 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitImportZoneContext.m";
+    v42 = 1024;
+    LODWORD(v43) = 674;
     _os_log_fault_impl(&dword_18565F000, v28, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
-    goto LABEL_38;
+    return 0;
   }
 
-LABEL_41:
-  v29 = *MEMORY[0x1E69E9840];
   return result;
 }
 

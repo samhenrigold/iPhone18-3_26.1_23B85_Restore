@@ -195,7 +195,7 @@ LABEL_7:
 
 - (id)succinctDescriptionBuilder
 {
-  v70 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CF0C00] builderWithObject:self];
   selfCopy = self;
   v4 = self->_resolutionPolicy - 1;
@@ -214,28 +214,28 @@ LABEL_7:
   resolutionPolicy = self->_resolutionPolicy;
   if (resolutionPolicy == 1)
   {
-    v49 = v3;
+    v48 = v3;
     v12 = [MEMORY[0x277CBEB18] arrayWithCapacity:{-[NSArray count](self->_associatedDeviceOrientationStateTypes, "count")}];
+    v62 = 0u;
     v63 = 0u;
     v64 = 0u;
     v65 = 0u;
-    v66 = 0u;
     v13 = self->_associatedDeviceOrientationStateTypes;
-    v14 = [(NSArray *)v13 countByEnumeratingWithState:&v63 objects:v69 count:16];
+    v14 = [(NSArray *)v13 countByEnumeratingWithState:&v62 objects:v68 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v64;
+      v16 = *v63;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v64 != v16)
+          if (*v63 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = [*(*(&v63 + 1) + 8 * i) integerValue] - 1;
+          v18 = [*(*(&v62 + 1) + 8 * i) integerValue] - 1;
           v19 = @"ValidatedCurrentOrientation";
           if (v18 <= 2)
           {
@@ -245,7 +245,7 @@ LABEL_7:
           [v12 addObject:v19];
         }
 
-        v15 = [(NSArray *)v13 countByEnumeratingWithState:&v63 objects:v69 count:16];
+        v15 = [(NSArray *)v13 countByEnumeratingWithState:&v62 objects:v68 count:16];
       }
 
       while (v15);
@@ -254,7 +254,7 @@ LABEL_7:
     v11 = [v12 componentsJoinedByString:{@", "}];
 
     v10 = 0;
-    v3 = v49;
+    v3 = v48;
   }
 
   else
@@ -292,53 +292,53 @@ LABEL_7:
     associatedDeviceOrientationStateTypesBySupportedOrientationMask = selfCopy->_associatedDeviceOrientationStateTypesBySupportedOrientationMask;
     if (associatedDeviceOrientationStateTypesBySupportedOrientationMask)
     {
-      v46 = v10;
-      v47 = v11;
-      v48 = v21;
-      v50 = v3;
-      v53 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{-[NSDictionary count](associatedDeviceOrientationStateTypesBySupportedOrientationMask, "count")}];
+      v45 = v10;
+      v46 = v11;
+      v47 = v21;
+      v49 = v3;
+      v52 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{-[NSDictionary count](associatedDeviceOrientationStateTypesBySupportedOrientationMask, "count")}];
+      v58 = 0u;
       v59 = 0u;
       v60 = 0u;
       v61 = 0u;
-      v62 = 0u;
       obj = [(NSDictionary *)selfCopy->_associatedDeviceOrientationStateTypesBySupportedOrientationMask allKeys];
-      v23 = [obj countByEnumeratingWithState:&v59 objects:v68 count:16];
+      v23 = [obj countByEnumeratingWithState:&v58 objects:v67 count:16];
       if (v23)
       {
         v24 = v23;
-        v52 = *v60;
+        v51 = *v59;
         do
         {
           for (j = 0; j != v24; ++j)
           {
-            if (*v60 != v52)
+            if (*v59 != v51)
             {
               objc_enumerationMutation(obj);
             }
 
-            v26 = *(*(&v59 + 1) + 8 * j);
+            v26 = *(*(&v58 + 1) + 8 * j);
             v27 = [(NSDictionary *)selfCopy->_associatedDeviceOrientationStateTypesBySupportedOrientationMask objectForKey:v26];
             v28 = [MEMORY[0x277CBEB18] arrayWithCapacity:{-[NSArray count](selfCopy->_associatedDeviceOrientationStateTypes, "count")}];
+            v54 = 0u;
             v55 = 0u;
             v56 = 0u;
             v57 = 0u;
-            v58 = 0u;
             v29 = v27;
-            v30 = [v29 countByEnumeratingWithState:&v55 objects:v67 count:16];
+            v30 = [v29 countByEnumeratingWithState:&v54 objects:v66 count:16];
             if (v30)
             {
               v31 = v30;
-              v32 = *v56;
+              v32 = *v55;
               do
               {
                 for (k = 0; k != v31; ++k)
                 {
-                  if (*v56 != v32)
+                  if (*v55 != v32)
                   {
                     objc_enumerationMutation(v29);
                   }
 
-                  v34 = [*(*(&v55 + 1) + 8 * k) integerValue] - 1;
+                  v34 = [*(*(&v54 + 1) + 8 * k) integerValue] - 1;
                   v35 = @"ValidatedCurrentOrientation";
                   if (v34 <= 2)
                   {
@@ -348,7 +348,7 @@ LABEL_7:
                   [v28 addObject:v35];
                 }
 
-                v31 = [v29 countByEnumeratingWithState:&v55 objects:v67 count:16];
+                v31 = [v29 countByEnumeratingWithState:&v54 objects:v66 count:16];
               }
 
               while (v31);
@@ -357,24 +357,24 @@ LABEL_7:
             v36 = [v28 componentsJoinedByString:{@", "}];
             [v26 integerValue];
             v37 = BSInterfaceOrientationMaskDescription();
-            [v53 setObject:v36 forKey:v37];
+            [v52 setObject:v36 forKey:v37];
           }
 
-          v24 = [obj countByEnumeratingWithState:&v59 objects:v68 count:16];
+          v24 = [obj countByEnumeratingWithState:&v58 objects:v67 count:16];
         }
 
         while (v24);
       }
 
       v38 = MEMORY[0x277CCACA8];
-      v39 = [v53 description];
+      v39 = [v52 description];
       v40 = [v38 stringWithFormat:@"-(%@)", v39];
-      v21 = v48;
-      [v48 appendString:v40];
+      v21 = v47;
+      [v47 appendString:v40];
 
-      v3 = v50;
-      v10 = v46;
-      v11 = v47;
+      v3 = v49;
+      v10 = v45;
+      v11 = v46;
     }
   }
 
@@ -390,8 +390,6 @@ LABEL_43:
   {
     v43 = [v3 appendObject:actuationContext withName:@"Actuation Context"];
   }
-
-  v44 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

@@ -28,6 +28,7 @@
 - (void)deleteOnlineAuthEntryNoThrowWithCdHash:(id)hash;
 - (void)deleteOnlineAuthEntryNoThrowWithProfileUUID:(id)d cdHash:(id)hash;
 - (void)recordIndeterminateEntryNoThrowWithProfileUUID:(id)d cdHash:(id)hash onConflictDoNothing:(BOOL)nothing;
+- (void)setGracePeriodNoThrowWithProfileUUID:(id)d gracePeriod:(int)period;
 @end
 
 @implementation MISDBManager
@@ -68,41 +69,42 @@
 
 - (BOOL)migrate
 {
-  if ([(SQLDB *)self checkpoint])
+  checkpoint = [(SQLDB *)self checkpoint];
+  if (checkpoint)
   {
-    v6 = sub_1000027A4();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = sub_1000027A4(checkpoint);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      sub_10001831C(v6);
+      sub_10001831C(v7);
     }
 
     abort();
   }
 
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x2020000000;
+  v14 = 0;
+  v9[0] = 0;
+  v9[1] = v9;
+  v9[2] = 0x3032000000;
+  v9[3] = sub_100004A3C;
+  v9[4] = sub_100004A4C;
   v10 = 0;
-  v11 = &v10;
-  v12 = 0x2020000000;
-  v13 = 0;
-  v8[0] = 0;
-  v8[1] = v8;
-  v8[2] = 0x3032000000;
-  v8[3] = sub_100004A3C;
-  v8[4] = sub_100004A4C;
-  v9 = 0;
-  v7[0] = _NSConcreteStackBlock;
-  v7[1] = 3221225472;
-  v7[2] = sub_100004A54;
-  v7[3] = &unk_100028D10;
-  v7[4] = self;
-  v7[5] = v8;
-  v7[6] = &v10;
-  v3 = [(SQLDB *)self transaction:v7 immediate:1];
-  *(v11 + 6) = v3;
-  v4 = v3 == 0;
-  _Block_object_dispose(v8, 8);
+  v8[0] = _NSConcreteStackBlock;
+  v8[1] = 3221225472;
+  v8[2] = sub_100004A54;
+  v8[3] = &unk_100028D10;
+  v8[4] = self;
+  v8[5] = v9;
+  v8[6] = &v11;
+  v4 = [(SQLDB *)self transaction:v8 immediate:1];
+  *(v12 + 6) = v4;
+  v5 = v4 == 0;
+  _Block_object_dispose(v9, 8);
 
-  _Block_object_dispose(&v10, 8);
-  return v4;
+  _Block_object_dispose(&v11, 8);
+  return v5;
 }
 
 - (int)insertProfile:(void *)profile
@@ -398,6 +400,15 @@
   sub_100010E34(0xD000000000000038, 0x8000000100021D70, sub_1000165E4, v10, 0, 0);
 
   return 1;
+}
+
+- (void)setGracePeriodNoThrowWithProfileUUID:(id)d gracePeriod:(int)period
+{
+  v4 = *&period;
+  v6 = sub_10001A6F8();
+  v8 = v7;
+  selfCopy = self;
+  sub_100013EA0(v6, v8, v4);
 }
 
 - (BOOL)rejectEntryWithProfileUUID:(id)d cdHash:(id)hash isRejectedByWholeProfile:(BOOL)profile error:(id *)error

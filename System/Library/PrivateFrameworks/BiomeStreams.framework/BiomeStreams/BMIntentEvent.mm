@@ -19,7 +19,7 @@
 
 + (id)eventWithDKEvent:(id)event
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   metadata = [eventCopy metadata];
   serializedInteraction = [get_DKIntentMetadataKeyClass() serializedInteraction];
@@ -28,7 +28,7 @@
   if (v6)
   {
     metadata2 = [eventCopy metadata];
-    v31 = [BMIntentEvent alloc];
+    v30 = [BMIntentEvent alloc];
     startDate = [eventCopy startDate];
     [startDate timeIntervalSinceReferenceDate];
     v9 = v8;
@@ -37,24 +37,24 @@
     source2 = [eventCopy source];
     sourceID = [source2 sourceID];
     intentClass = [get_DKIntentMetadataKeyClass() intentClass];
-    v41 = [metadata2 objectForKeyedSubscript:?];
+    v40 = [metadata2 objectForKeyedSubscript:?];
     intentVerb = [get_DKIntentMetadataKeyClass() intentVerb];
-    v39 = [metadata2 objectForKeyedSubscript:?];
+    v38 = [metadata2 objectForKeyedSubscript:?];
     intentType = [get_DKIntentMetadataKeyClass() intentType];
-    v37 = [metadata2 objectForKeyedSubscript:?];
-    integerValue = [v37 integerValue];
+    v36 = [metadata2 objectForKeyedSubscript:?];
+    integerValue = [v36 integerValue];
     metadata3 = [eventCopy metadata];
     intentHandlingStatus = [get_DKIntentMetadataKeyClass() intentHandlingStatus];
-    v36 = metadata3;
-    v34 = [metadata3 objectForKeyedSubscript:?];
-    integerValue2 = [v34 integerValue];
+    v35 = metadata3;
+    v33 = [metadata3 objectForKeyedSubscript:?];
+    integerValue2 = [v33 integerValue];
     serializedInteraction2 = [get_DKIntentMetadataKeyClass() serializedInteraction];
     v11 = [metadata2 objectForKeyedSubscript:?];
     source3 = [eventCopy source];
     itemID = [source3 itemID];
     donatedBySiri = [get_DKIntentMetadataKeyClass() donatedBySiri];
-    v28 = [metadata2 objectForKeyedSubscript:?];
-    bOOLValue = [v28 BOOLValue];
+    v27 = [metadata2 objectForKeyedSubscript:?];
+    bOOLValue = [v27 BOOLValue];
     direction = [get_DKIntentMetadataKeyClass() direction];
     v15 = [metadata2 objectForKeyedSubscript:direction];
     integerValue3 = [v15 integerValue];
@@ -76,8 +76,8 @@
 
     source4 = [eventCopy source];
     groupID = [source4 groupID];
-    LOBYTE(v27) = bOOLValue;
-    v49 = [(BMIntentEvent *)v31 initWithAbsoluteTime:bundleID bundleId:sourceID sourceId:v41 intentClass:v39 intentVerb:integerValue intentType:integerValue2 intentHandlingStatus:v9 interaction:v11 itemID:itemID donatedBySiri:v27 interactionDirection:v17 groupIdentifier:groupID];
+    LOBYTE(v26) = bOOLValue;
+    v48 = [(BMIntentEvent *)v30 initWithAbsoluteTime:bundleID bundleId:sourceID sourceId:v40 intentClass:v38 intentVerb:integerValue intentType:integerValue2 intentHandlingStatus:v9 interaction:v11 itemID:itemID donatedBySiri:v26 interactionDirection:v17 groupIdentifier:groupID];
   }
 
   else
@@ -90,18 +90,16 @@
       source6 = [eventCopy source];
       sourceID2 = [source6 sourceID];
       *buf = 138543618;
-      v51 = bundleID2;
-      v52 = 2112;
-      v53 = sourceID2;
+      v50 = bundleID2;
+      v51 = 2112;
+      v52 = sourceID2;
       _os_log_impl(&dword_1848EE000, metadata2, OS_LOG_TYPE_INFO, "nil interaction found on event bundle:%{public}@ source:%{}@", buf, 0x16u);
     }
 
-    v49 = 0;
+    v48 = 0;
   }
 
-  v25 = *MEMORY[0x1E69E9840];
-
-  return v49;
+  return v48;
 }
 
 - (BMIntentEvent)initWithAbsoluteTime:(double)time bundleId:(id)id sourceId:(id)sourceId intentClass:(id)class intentVerb:(id)verb intentType:(int64_t)type intentHandlingStatus:(int64_t)status interaction:(id)self0 itemID:(id)self1 donatedBySiri:(BOOL)self2 interactionDirection:(int64_t)self3 groupIdentifier:(id)self4
@@ -196,7 +194,7 @@ LABEL_16:
 
 - (BOOL)checkAndReportDecodingFailureIfNeededForCFAbsoluteTime:(double)time key:(id)key coder:(id)coder errorDomain:(id)domain errorCode:(int64_t)code
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   keyCopy = key;
   coderCopy = coder;
   domainCopy = domain;
@@ -214,9 +212,9 @@ LABEL_16:
     {
       v16 = MEMORY[0x1E696ABC0];
       v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to decode key %@", keyCopy, *MEMORY[0x1E696A578]];
-      v23[0] = v17;
+      v22[0] = v17;
       v14 = 1;
-      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
       v19 = [v16 errorWithDomain:domainCopy code:code userInfo:v18];
 
       [coderCopy failWithError:v19];
@@ -227,13 +225,12 @@ LABEL_16:
   v14 = 0;
 LABEL_7:
 
-  v20 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 - (BOOL)checkAndReportDecodingFailureIfNeededForid:(id)forid key:(id)key coder:(id)coder errorDomain:(id)domain errorCode:(int64_t)code
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   keyCopy = key;
   coderCopy = coder;
   domainCopy = domain;
@@ -251,9 +248,9 @@ LABEL_7:
     {
       v16 = MEMORY[0x1E696ABC0];
       v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to decode key %@", keyCopy, *MEMORY[0x1E696A578]];
-      v23[0] = v17;
+      v22[0] = v17;
       v14 = 1;
-      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
       v19 = [v16 errorWithDomain:domainCopy code:code userInfo:v18];
 
       [coderCopy failWithError:v19];
@@ -264,13 +261,12 @@ LABEL_7:
   v14 = 0;
 LABEL_7:
 
-  v20 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 - (BOOL)checkAndReportDecodingFailureIfNeededForuint32_t:(unsigned int)foruint32_t key:(id)key coder:(id)coder errorDomain:(id)domain errorCode:(int64_t)code
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   keyCopy = key;
   coderCopy = coder;
   domainCopy = domain;
@@ -288,9 +284,9 @@ LABEL_7:
     {
       v16 = MEMORY[0x1E696ABC0];
       v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to decode key %@", keyCopy, *MEMORY[0x1E696A578]];
-      v23[0] = v17;
+      v22[0] = v17;
       v14 = 1;
-      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
       v19 = [v16 errorWithDomain:domainCopy code:code userInfo:v18];
 
       [coderCopy failWithError:v19];
@@ -301,7 +297,6 @@ LABEL_7:
   v14 = 0;
 LABEL_7:
 
-  v20 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -736,7 +731,7 @@ LABEL_45:
       v5 = __biome_log_for_category();
       if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
       {
-        [BMIntentEvent initWithProto:];
+        [BMIntentEvent initWithProto:?];
       }
 
       selfCopy = 0;

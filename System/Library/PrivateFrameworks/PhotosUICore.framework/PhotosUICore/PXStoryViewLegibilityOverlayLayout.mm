@@ -139,7 +139,7 @@
   [(PXStoryViewLegibilityOverlayLayout *)self modifySpritesInRange:v16 state:v18];
 }
 
-void __52__PXStoryViewLegibilityOverlayLayout__updateContent__block_invoke(uint64_t a1)
+void __52__PXStoryViewLegibilityOverlayLayout__updateContent__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   [*(a1 + 32) viewLayoutSpec];
   objc_claimAutoreleasedReturnValue();

@@ -4,6 +4,7 @@
 - (BOOL)destroy;
 - (BOOL)markToday;
 - (BOOL)persist;
+- (IADataStoreDaterange)initWithDatastoreHandle:(id)handle andName:(id)name shouldBeCreated:(BOOL)created;
 - (id)timesUsedInDayRangeFrom:(unint64_t)from to:(unint64_t)to;
 - (unint64_t)bitmaskForLessThanDayN:(unint64_t)n;
 - (unint64_t)usageFrequency;
@@ -14,57 +15,132 @@
 
 @implementation IADataStoreDaterange
 
+- (IADataStoreDaterange)initWithDatastoreHandle:(id)handle andName:(id)name shouldBeCreated:(BOOL)created
+{
+  createdCopy = created;
+  location[4] = *MEMORY[0x1E69E9840];
+  objc_initWeak(location, handle);
+  nameCopy = name;
+  WeakRetained = objc_loadWeakRetained(location);
+  v59.receiver = self;
+  v59.super_class = IADataStoreDaterange;
+  v10 = [(IADataStoreObject *)&v59 initWithDatastoreHandle:WeakRetained andName:nameCopy shouldBeCreated:createdCopy];
+
+  if (!v10)
+  {
+    goto LABEL_6;
+  }
+
+  if (createdCopy)
+  {
+    v13 = objc_msgSend_now(MEMORY[0x1E695DF00], v11, v12);
+    originDate = v10->_originDate;
+    v10->_originDate = v13;
+
+    v17 = objc_msgSend_copy(v10->_originDate, v15, v16);
+    startDate = v10->_startDate;
+    v10->_startDate = v17;
+
+    v10->_bitfield = 0;
+    objc_msgSend_persist(v10, v19, v20);
+LABEL_6:
+    v54 = v10;
+    goto LABEL_7;
+  }
+
+  v21 = objc_msgSend_datastoreHandle(v10, v11, v12);
+  v24 = v21;
+  if (v21)
+  {
+    v25 = objc_msgSend_defaultsHandle(v21, v22, v23);
+    v28 = objc_msgSend_name(v10, v26, v27);
+    v30 = objc_msgSend_stringByAppendingString_(v28, v29, @"_originDate");
+    v32 = objc_msgSend_objectForKey_(v25, v31, v30);
+    v33 = v10->_originDate;
+    v10->_originDate = v32;
+
+    v36 = objc_msgSend_defaultsHandle(v24, v34, v35);
+    v39 = objc_msgSend_name(v10, v37, v38);
+    v41 = objc_msgSend_stringByAppendingString_(v39, v40, @"_startDate");
+    v43 = objc_msgSend_objectForKey_(v36, v42, v41);
+    v44 = v10->_startDate;
+    v10->_startDate = v43;
+
+    v47 = objc_msgSend_defaultsHandle(v24, v45, v46);
+    v50 = objc_msgSend_name(v10, v48, v49);
+    v52 = objc_msgSend_stringByAppendingString_(v50, v51, @"_bitfield");
+    v10->_bitfield = objc_msgSend_integerForKey_(v47, v53, v52);
+
+    goto LABEL_6;
+  }
+
+  v56 = sub_1D4621008(0);
+  if (os_log_type_enabled(v56, OS_LOG_TYPE_FAULT))
+  {
+    objc_msgSend_name(v10, v57, v58);
+    objc_claimAutoreleasedReturnValue();
+    sub_1D462DE10();
+  }
+
+  v54 = 0;
+LABEL_7:
+
+  objc_destroyWeak(location);
+  return v54;
+}
+
 - (BOOL)persist
 {
   v4 = objc_msgSend_datastoreHandle(self, a2, v2);
   if (!v4)
   {
-    v31 = sub_1D4621008();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_FAULT))
+    v32 = sub_1D4621008(0);
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_FAULT))
     {
-      sub_1D462DE58(self, v31, v42);
+      sub_1D462DE58(self, v32, v43);
     }
 
     goto LABEL_8;
   }
 
-  v45.receiver = self;
-  v45.super_class = IADataStoreDaterange;
-  if (![(IADataStoreObject *)&v45 persist])
+  v46.receiver = self;
+  v46.super_class = IADataStoreDaterange;
+  persist = [(IADataStoreObject *)&v46 persist];
+  if ((persist & 1) == 0)
   {
-    v31 = sub_1D4621008();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_FAULT))
+    v32 = sub_1D4621008(persist);
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_FAULT))
     {
-      sub_1D462DFA4(self, v31, v43);
+      sub_1D462DFA4(self, v32, v44);
     }
 
 LABEL_8:
-    v41 = 0;
+    v42 = 0;
     goto LABEL_9;
   }
 
-  v7 = objc_msgSend_defaultsHandle(v4, v5, v6);
-  v10 = objc_msgSend_originDate(self, v8, v9);
-  v13 = objc_msgSend_name(self, v11, v12);
-  v15 = objc_msgSend_stringByAppendingString_(v13, v14, @"_originDate");
-  objc_msgSend_setObject_forKey_(v7, v16, v10, v15);
+  v8 = objc_msgSend_defaultsHandle(v4, v6, v7);
+  v11 = objc_msgSend_originDate(self, v9, v10);
+  v14 = objc_msgSend_name(self, v12, v13);
+  v16 = objc_msgSend_stringByAppendingString_(v14, v15, @"_originDate");
+  objc_msgSend_setObject_forKey_(v8, v17, v11, v16);
 
-  v19 = objc_msgSend_defaultsHandle(v4, v17, v18);
-  v22 = objc_msgSend_startDate(self, v20, v21);
-  v25 = objc_msgSend_name(self, v23, v24);
-  v27 = objc_msgSend_stringByAppendingString_(v25, v26, @"_startDate");
-  objc_msgSend_setObject_forKey_(v19, v28, v22, v27);
+  v20 = objc_msgSend_defaultsHandle(v4, v18, v19);
+  v23 = objc_msgSend_startDate(self, v21, v22);
+  v26 = objc_msgSend_name(self, v24, v25);
+  v28 = objc_msgSend_stringByAppendingString_(v26, v27, @"_startDate");
+  objc_msgSend_setObject_forKey_(v20, v29, v23, v28);
 
-  v31 = objc_msgSend_defaultsHandle(v4, v29, v30);
-  v34 = objc_msgSend_bitfield(self, v32, v33);
-  v37 = objc_msgSend_name(self, v35, v36);
-  v39 = objc_msgSend_stringByAppendingString_(v37, v38, @"_bitfield");
-  objc_msgSend_setInteger_forKey_(v31, v40, v34, v39);
+  v32 = objc_msgSend_defaultsHandle(v4, v30, v31);
+  v35 = objc_msgSend_bitfield(self, v33, v34);
+  v38 = objc_msgSend_name(self, v36, v37);
+  v40 = objc_msgSend_stringByAppendingString_(v38, v39, @"_bitfield");
+  objc_msgSend_setInteger_forKey_(v32, v41, v35, v40);
 
-  v41 = 1;
+  v42 = 1;
 LABEL_9:
 
-  return v41;
+  return v42;
 }
 
 - (BOOL)destroy
@@ -72,49 +148,50 @@ LABEL_9:
   v4 = objc_msgSend_datastoreHandle(self, a2, v2);
   if (!v4)
   {
-    v25 = sub_1D4621008();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
+    v26 = sub_1D4621008(0);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
     {
-      sub_1D462DE58(self, v25, v33);
+      sub_1D462DE58(self, v26, v34);
     }
 
     goto LABEL_8;
   }
 
-  v36.receiver = self;
-  v36.super_class = IADataStoreDaterange;
-  if (![(IADataStoreObject *)&v36 destroy])
+  v37.receiver = self;
+  v37.super_class = IADataStoreDaterange;
+  destroy = [(IADataStoreObject *)&v37 destroy];
+  if ((destroy & 1) == 0)
   {
-    v25 = sub_1D4621008();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
+    v26 = sub_1D4621008(destroy);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
     {
-      sub_1D462E028(self, v25, v34);
+      sub_1D462E028(self, v26, v35);
     }
 
 LABEL_8:
-    v32 = 0;
+    v33 = 0;
     goto LABEL_9;
   }
 
-  v7 = objc_msgSend_defaultsHandle(v4, v5, v6);
-  v10 = objc_msgSend_name(self, v8, v9);
-  v12 = objc_msgSend_stringByAppendingString_(v10, v11, @"_originDate");
-  objc_msgSend_removeObjectForKey_(v7, v13, v12);
+  v8 = objc_msgSend_defaultsHandle(v4, v6, v7);
+  v11 = objc_msgSend_name(self, v9, v10);
+  v13 = objc_msgSend_stringByAppendingString_(v11, v12, @"_originDate");
+  objc_msgSend_removeObjectForKey_(v8, v14, v13);
 
-  v16 = objc_msgSend_defaultsHandle(v4, v14, v15);
-  v19 = objc_msgSend_name(self, v17, v18);
-  v21 = objc_msgSend_stringByAppendingString_(v19, v20, @"_startDate");
-  objc_msgSend_removeObjectForKey_(v16, v22, v21);
+  v17 = objc_msgSend_defaultsHandle(v4, v15, v16);
+  v20 = objc_msgSend_name(self, v18, v19);
+  v22 = objc_msgSend_stringByAppendingString_(v20, v21, @"_startDate");
+  objc_msgSend_removeObjectForKey_(v17, v23, v22);
 
-  v25 = objc_msgSend_defaultsHandle(v4, v23, v24);
-  v28 = objc_msgSend_name(self, v26, v27);
-  v30 = objc_msgSend_stringByAppendingString_(v28, v29, @"_bitfield");
-  objc_msgSend_removeObjectForKey_(v25, v31, v30);
+  v26 = objc_msgSend_defaultsHandle(v4, v24, v25);
+  v29 = objc_msgSend_name(self, v27, v28);
+  v31 = objc_msgSend_stringByAppendingString_(v29, v30, @"_bitfield");
+  objc_msgSend_removeObjectForKey_(v26, v32, v31);
 
-  v32 = 1;
+  v33 = 1;
 LABEL_9:
 
-  return v32;
+  return v33;
 }
 
 - (unint64_t)usedInDayRangeFrom:(unint64_t)from to:(unint64_t)to
@@ -188,7 +265,7 @@ LABEL_20:
           goto LABEL_20;
         }
 
-        v18 = sub_1D4621008();
+        v18 = sub_1D4621008(0);
         if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
           sub_1D462E130(self, v18, v31);
@@ -197,7 +274,7 @@ LABEL_20:
 
       else
       {
-        v18 = sub_1D4621008();
+        v18 = sub_1D4621008(v26);
         if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
           sub_1D462E1B4(self, v18, v28);
@@ -207,7 +284,7 @@ LABEL_20:
 
     else
     {
-      v18 = sub_1D4621008();
+      v18 = sub_1D4621008(0);
       if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         sub_1D462E238(self, v18, v19);
@@ -242,7 +319,7 @@ LABEL_21:
   v30 = *MEMORY[0x1E69E9840];
   if (to < from)
   {
-    v7 = sub_1D4621008();
+    v7 = sub_1D4621008(self);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
       v10 = objc_msgSend_name(self, v8, v9);
@@ -257,39 +334,39 @@ LABEL_21:
 
 LABEL_10:
 
-    v20 = 0;
+    v21 = 0;
     goto LABEL_11;
   }
 
-  if ((objc_msgSend__updateStartDate(self, a2, from) & 1) == 0)
+  updated = objc_msgSend__updateStartDate(self, a2, from);
+  if ((updated & 1) == 0)
   {
-    v7 = sub_1D4621008();
+    v7 = sub_1D4621008(updated);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
-      sub_1D462E2BC(self, v7, v21);
+      sub_1D462E2BC(self, v7, v22);
     }
 
     goto LABEL_10;
   }
 
-  v12 = objc_msgSend_bitmaskForDayRangeFrom_to_(self, v11, from, to);
-  v16 = vdup_n_s32(objc_msgSend_bitfield(self, v13, v14) & v12);
-  v17 = 0x100000000;
-  v18 = 0uLL;
-  v19 = 32;
+  v13 = objc_msgSend_bitmaskForDayRangeFrom_to_(self, v12, from, to);
+  v17 = vdup_n_s32(objc_msgSend_bitfield(self, v14, v15) & v13);
+  v18 = 0x100000000;
+  v19 = 0uLL;
+  v20 = 32;
   do
   {
-    v18 = vaddw_u32(v18, vand_s8(vshl_u32(v16, vneg_s32(v17)), 0x100000001));
-    v17 = vadd_s32(v17, 0x200000002);
-    v19 -= 2;
+    v19 = vaddw_u32(v19, vand_s8(vshl_u32(v17, vneg_s32(v18)), 0x100000001));
+    v18 = vadd_s32(v18, 0x200000002);
+    v20 -= 2;
   }
 
-  while (v19);
-  v20 = objc_msgSend_numberWithUnsignedInteger_(MEMORY[0x1E696AD98], v15, vaddvq_s64(v18));
+  while (v20);
+  v21 = objc_msgSend_numberWithUnsignedInteger_(MEMORY[0x1E696AD98], v16, vaddvq_s64(v19));
 LABEL_11:
-  v22 = *MEMORY[0x1E69E9840];
 
-  return v20;
+  return v21;
 }
 
 - (BOOL)_updateStartDate
@@ -299,62 +376,63 @@ LABEL_11:
   objc_msgSend_timeIntervalSinceDate_(v4, v8, v7);
   v10 = v9;
 
-  v13 = (v10 / 86400.0);
-  if ((v13 & 0x8000000000000000) != 0)
+  v14 = (v10 / 86400.0);
+  if ((v14 & 0x8000000000000000) != 0)
   {
-    v15 = sub_1D4621008();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+    v16 = sub_1D4621008(v11);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
     {
-      sub_1D462E340(self, v15, v16);
+      sub_1D462E340(self, v16, v17);
     }
 
-    v14 = 0;
+    v15 = 0;
   }
 
   else
   {
-    if (v13)
+    if (v14)
     {
-      if (v13 < 0x20)
+      if (v14 < 0x20)
       {
-        v17 = objc_msgSend_bitfield(self, v11, v12) > (0x80000000 >> v13) - 1;
-        self->_bitfield = (objc_msgSend_bitfield(self, v18, v19) << v13) | (v17 << 31);
-        v20 = MEMORY[0x1E695DF00];
-        v23 = objc_msgSend_startDate(self, v21, v22);
-        v25 = objc_msgSend_dateWithTimeInterval_sinceDate_(v20, v24, v23, v13 * 86400.0);
+        v18 = objc_msgSend_bitfield(self, v12, v13) > (0x80000000 >> v14) - 1;
+        self->_bitfield = (objc_msgSend_bitfield(self, v19, v20) << v14) | (v18 << 31);
+        v21 = MEMORY[0x1E695DF00];
+        v24 = objc_msgSend_startDate(self, v22, v23);
+        v26 = objc_msgSend_dateWithTimeInterval_sinceDate_(v21, v25, v24, v14 * 86400.0);
         startDate = self->_startDate;
-        self->_startDate = v25;
+        self->_startDate = v26;
 
-        v14 = objc_msgSend_persist(self, v27, v28);
+        v15 = objc_msgSend_persist(self, v28, v29);
         goto LABEL_10;
       }
 
-      self->_bitfield = (objc_msgSend_bitfield(self, v11, v12) != 0) << 31;
+      self->_bitfield = (objc_msgSend_bitfield(self, v12, v13) != 0) << 31;
     }
 
-    v14 = 1;
+    v15 = 1;
   }
 
 LABEL_10:
 
-  return v14;
+  return v15;
 }
 
 - (BOOL)markToday
 {
-  if (objc_msgSend__updateStartDate(self, a2, v2))
+  updated = objc_msgSend__updateStartDate(self, a2, v2);
+  if (updated)
   {
-    self->_bitfield = objc_msgSend_bitfield(self, v4, v5) | 1;
+    self->_bitfield = objc_msgSend_bitfield(self, v5, v6) | 1;
 
-    return objc_msgSend_persist(self, v6, v7);
+    return objc_msgSend_persist(self, v7, v8);
   }
 
   else
   {
-    v9 = sub_1D4621008();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+    v10 = sub_1D4621008(updated);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
-      sub_1D462E2BC(self, v9, v10);
+      sub_1D462E2BC(self, v10, v11);
     }
 
     return 0;
@@ -365,6 +443,7 @@ LABEL_10:
 {
   maskCopy = mask;
   updated = objc_msgSend__updateStartDate(self, a2, mask);
+  v6 = updated;
   if (updated)
   {
     self->_bitfield &= maskCopy;
@@ -372,14 +451,14 @@ LABEL_10:
 
   else
   {
-    v6 = sub_1D4621008();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+    v7 = sub_1D4621008(updated);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
-      sub_1D462E2BC(self, v6, v7);
+      sub_1D462E2BC(self, v7, v8);
     }
   }
 
-  return updated;
+  return v6;
 }
 
 - (void)setStartDate:(id)date

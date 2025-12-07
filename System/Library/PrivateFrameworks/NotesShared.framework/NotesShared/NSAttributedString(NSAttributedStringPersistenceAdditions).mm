@@ -316,7 +316,8 @@ LABEL_59:
   {
     topotext::String::String(v23);
     bytes = [v13 bytes];
-    v18 = ICTTBoundedCheckedCastNSUIntegerToUInt32([v13 length]);
+    [v13 length];
+    ICTTBoundedCheckedCastNSUIntegerToUInt32();
     if (google::protobuf::MessageLite::ParseFromArray(v23, bytes, v18))
     {
       v19 = [MEMORY[0x277CCA898] ic_attributedStringWithArchive:v23 dataPersister:v14 note:v15 parentAttachment:v16 shouldCreateNewAttachments:a7 error:a8];
@@ -356,7 +357,8 @@ LABEL_59:
   v6 = a4;
   topotext::String::String(v15);
   bytes = [v5 bytes];
-  v8 = ICTTBoundedCheckedCastNSUIntegerToUInt32([v5 length]);
+  [v5 length];
+  ICTTBoundedCheckedCastNSUIntegerToUInt32();
   if (google::protobuf::MessageLite::ParseFromArray(v15, bytes, v8))
   {
     v14 = 0;
@@ -477,32 +479,33 @@ LABEL_14:
   v10 = a4;
   v11 = a5;
   v12 = [self ic_attributedStringByFlatteningUnsupportedInlineAttachmentsWithContext:v11];
-  topotext::String::String(v20);
-  v19 = 0;
-  v13 = [v12 ic_saveToArchive:v20 flags:a3 dataPersister:v10 managedObjectContext:v11 error:&v19];
-  v14 = v19;
+  topotext::String::String(v22);
+  v21 = 0;
+  v13 = [v12 ic_saveToArchive:v22 flags:a3 dataPersister:v10 managedObjectContext:v11 error:&v21];
+  v14 = v21;
   v15 = v14;
   if (v13)
   {
-    v16 = [objc_alloc(MEMORY[0x277CBEB28]) initWithLength:topotext::String::ByteSize(v20)];
-    google::protobuf::MessageLite::SerializeToArray(v20, [v16 mutableBytes], objc_msgSend(v16, "length"));
+    v16 = objc_alloc(MEMORY[0x277CBEB28]);
+    v18 = [v16 initWithLength:{topotext::String::ByteSize(v22, v17)}];
+    google::protobuf::MessageLite::SerializeToArray(v22, [v18 mutableBytes], objc_msgSend(v18, "length"));
   }
 
   else if (a6)
   {
-    v17 = v14;
-    v16 = 0;
+    v19 = v14;
+    v18 = 0;
     *a6 = v15;
   }
 
   else
   {
-    v16 = 0;
+    v18 = 0;
   }
 
-  topotext::String::~String(v20);
+  topotext::String::~String(v22);
 
-  return v16;
+  return v18;
 }
 
 - (uint64_t)ic_approximateAttachmentsSizeIncludingPreviews:()NSAttributedStringPersistenceAdditions

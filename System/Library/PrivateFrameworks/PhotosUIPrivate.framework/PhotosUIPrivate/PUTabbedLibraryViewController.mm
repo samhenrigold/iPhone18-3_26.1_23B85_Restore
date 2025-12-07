@@ -129,9 +129,11 @@
 
 uint64_t __49__PUTabbedLibraryViewController_tabbedLibraryLog__block_invoke()
 {
-  tabbedLibraryLog_tabbedLibraryLog = os_log_create("com.apple.photos.ui", "TabbedLibrary");
+  v0 = os_log_create("com.apple.photos.ui", "TabbedLibrary");
+  v1 = tabbedLibraryLog_tabbedLibraryLog;
+  tabbedLibraryLog_tabbedLibraryLog = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (UIViewController)searchHomeController
@@ -829,24 +831,24 @@ LABEL_6:
   return v10;
 }
 
-uint64_t __103__PUTabbedLibraryViewController__navigateToRootOfCurrentTabAnimated_dismissAnyPresentedViewController___block_invoke(uint64_t result)
+id *__103__PUTabbedLibraryViewController__navigateToRootOfCurrentTabAnimated_dismissAnyPresentedViewController___block_invoke(id *result)
 {
   v1 = result;
   if (*(result + 56) == 1)
   {
-    result = [*(result + 32) px_dismissViewControllerIfAllowedAnimated:0 forced:0];
-    *(*(*(v1 + 48) + 8) + 24) = result;
+    result = [result[4] px_dismissViewControllerIfAllowedAnimated:0 forced:0];
+    *(*(v1[6] + 1) + 24) = result;
   }
 
   else
   {
-    *(*(*(result + 48) + 8) + 24) = 1;
+    *(*(result[6] + 1) + 24) = 1;
   }
 
-  if (*(*(*(v1 + 48) + 8) + 24) == 1)
+  if (*(*(v1[6] + 1) + 24) == 1)
   {
-    result = [*(v1 + 40) pu_popToViewControllerIfAllowed:*(v1 + 32) animated:0 forced:0];
-    *(*(*(v1 + 48) + 8) + 24) = result;
+    result = [v1[5] pu_popToViewControllerIfAllowed:v1[4] animated:0 forced:0];
+    *(*(v1[6] + 1) + 24) = result;
   }
 
   return result;

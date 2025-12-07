@@ -6,9 +6,13 @@
 - (BOOL)endSingleResultQuery:(sqlite3_stmt *)query shouldFinalize:(BOOL)finalize error:(id *)error;
 - (BOOL)executeUpdate:(sqlite3_stmt *)update shouldFinalize:(BOOL)finalize error:(id *)error;
 - (BOOL)executeUpdateWithSql:(const char *)sql error:(id *)error;
+- (BOOL)needsUpgradeFromSchemaVersion:(int)version;
 - (BOOL)prepareStatement:(sqlite3_stmt *)statement sql:(const char *)sql error:(id *)error;
 - (BOOL)rollbackTransactionWithError:(id *)error;
+- (BOOL)setSchemaVersion:(int)version error:(id *)error;
 - (BOOL)startSingleResultQuery:(sqlite3_stmt *)query shouldLogErrors:(BOOL)errors error:(id *)error;
+- (BOOL)upgradeFromSchemaVersion:(int)version error:(id *)error;
+- (id)_initWithPath:(id)path readonly:(BOOL)readonly error:(id *)error;
 - (void)dealloc;
 @end
 
@@ -107,6 +111,65 @@
   }
 
   return v5;
+}
+
+- (BOOL)needsUpgradeFromSchemaVersion:(int)version
+{
+  +[TSUAssertionHandler _atomicIncrementAssertCount];
+  if (TSUAssertCat_init_token != -1)
+  {
+    sub_10015BD00();
+  }
+
+  if (os_log_type_enabled(TSUAssertCat_log_t, OS_LOG_TYPE_ERROR))
+  {
+    sub_10015BD14();
+  }
+
+  [TSUAssertionHandler handleFailureInFunction:[NSString stringWithUTF8String:"[TSUDatabase needsUpgradeFromSchemaVersion:]"] file:[NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/utility/TSUDatabase.m"] lineNumber:124 isFatal:0 description:"Abstract method"];
+  +[TSUAssertionHandler logBacktraceThrottled];
+  return 0;
+}
+
+- (BOOL)upgradeFromSchemaVersion:(int)version error:(id *)error
+{
+  [TSUAssertionHandler _atomicIncrementAssertCount:*&version];
+  if (TSUAssertCat_init_token != -1)
+  {
+    sub_10015BDA4();
+  }
+
+  if (os_log_type_enabled(TSUAssertCat_log_t, OS_LOG_TYPE_ERROR))
+  {
+    sub_10015BDB8();
+  }
+
+  [TSUAssertionHandler handleFailureInFunction:[NSString stringWithUTF8String:"[TSUDatabase upgradeFromSchemaVersion:error:]"] file:[NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/utility/TSUDatabase.m"] lineNumber:129 isFatal:0 description:"Abstract method"];
+  +[TSUAssertionHandler logBacktraceThrottled];
+  return 0;
+}
+
+- (BOOL)setSchemaVersion:(int)version error:(id *)error
+{
+  v5 = *&version;
+  if (version <= 0)
+  {
+    +[TSUAssertionHandler _atomicIncrementAssertCount];
+    if (TSUAssertCat_init_token != -1)
+    {
+      sub_10015BE48();
+    }
+
+    if (os_log_type_enabled(TSUAssertCat_log_t, OS_LOG_TYPE_ERROR))
+    {
+      sub_10015BE5C();
+    }
+
+    [TSUAssertionHandler handleFailureInFunction:[NSString stringWithUTF8String:"[TSUDatabase setSchemaVersion:error:]"] file:[NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/utility/TSUDatabase.m"] lineNumber:134 isFatal:0 description:"Use a positive version"];
+    +[TSUAssertionHandler logBacktraceThrottled];
+  }
+
+  return -[TSUDatabase executeUpdateWithSql:error:](self, "executeUpdateWithSql:error:", [+[NSString stringWithFormat:](NSString UTF8String:@"pragma user_version = %d"], error);
 }
 
 - (BOOL)prepareStatement:(sqlite3_stmt *)statement sql:(const char *)sql error:(id *)error
@@ -290,6 +353,85 @@ LABEL_12:
   }
 
   return result;
+}
+
+- (id)_initWithPath:(id)path readonly:(BOOL)readonly error:(id *)error
+{
+  selfCopy = self;
+  if (!path)
+  {
+    [TSUAssertionHandler _atomicIncrementAssertCount:0];
+    if (TSUAssertCat_init_token != -1)
+    {
+      sub_10015C1B8();
+    }
+
+    if (os_log_type_enabled(TSUAssertCat_log_t, OS_LOG_TYPE_ERROR))
+    {
+      sub_10015C1CC();
+    }
+
+    [TSUAssertionHandler handleFailureInFunction:[NSString stringWithUTF8String:"[TSUDatabase _initWithPath:readonly:error:]"] file:[NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/utility/TSUDatabase.m"] lineNumber:247 isFatal:0 description:"No path"];
+    +[TSUAssertionHandler logBacktraceThrottled];
+    goto LABEL_20;
+  }
+
+  readonlyCopy = readonly;
+  v23.receiver = self;
+  v23.super_class = TSUDatabase;
+  v9 = [(TSUDatabase *)&v23 init];
+  selfCopy = v9;
+  if (v9)
+  {
+    v9->_readonly = readonlyCopy;
+    if (readonlyCopy)
+    {
+      v10 = 1;
+    }
+
+    else
+    {
+      v10 = 6;
+    }
+
+    v11 = sqlite3_open_v2([path fileSystemRepresentation], &v9->_db, v10, 0);
+    v15 = TSUHandleSqlite(v11, error, 0, selfCopy, v12, v13, @"Opening database", v14, v23.receiver);
+    db = selfCopy->_db;
+    if (!v15)
+    {
+      sqlite3_close(db);
+      selfCopy->_db = 0;
+LABEL_20:
+
+      return 0;
+    }
+
+    v17 = sqlite3_extended_result_codes(db, 1);
+    if (!TSUHandleSqlite(v17, error, 0, selfCopy, v18, v19, 0, v20, v23.receiver))
+    {
+      goto LABEL_19;
+    }
+
+    v21 = [(TSUDatabase *)selfCopy _upgradeSchemaWithError:error];
+    if (!readonlyCopy && v21)
+    {
+      if ([(TSUDatabase *)selfCopy executeUpdateWithSql:"pragma fullfsync = true" error:error])
+      {
+        return selfCopy;
+      }
+
+      goto LABEL_19;
+    }
+
+    if ((readonlyCopy & v21 & 1) == 0)
+    {
+LABEL_19:
+      [(TSUDatabase *)selfCopy closeWithError:0];
+      goto LABEL_20;
+    }
+  }
+
+  return selfCopy;
 }
 
 - (BOOL)_upgradeSchemaWithError:(id *)error

@@ -1,4 +1,5 @@
 @interface VCReportingBiDirectionalHistogram
+- (VCReportingBiDirectionalHistogram)initWithType:(int)type bucketValues:(id)values;
 - (id)description;
 - (void)addValue:(unsigned int)value withDelta:(int64_t)delta;
 - (void)convertHistogramIntoPercentageUsingValuesFrom:(id)from;
@@ -6,6 +7,20 @@
 @end
 
 @implementation VCReportingBiDirectionalHistogram
+
+- (VCReportingBiDirectionalHistogram)initWithType:(int)type bucketValues:(id)values
+{
+  v7.receiver = self;
+  v7.super_class = VCReportingBiDirectionalHistogram;
+  values = [(VCHistogram *)&v7 initWithRanges:[VCReportingHistogram bucketValues:"bucketWithType:count:" bucketWithType:&self->super._bucketCount count:?], values];
+  v5 = values;
+  if (values)
+  {
+    values->_signedBuckets = malloc_type_calloc(values->super._bucketCount, 8uLL, 0x100004000313F17uLL);
+  }
+
+  return v5;
+}
 
 - (void)dealloc
 {
@@ -124,24 +139,22 @@ LABEL_8:
 
 - (void)convertHistogramIntoPercentageUsingValuesFrom:.cold.1()
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
     v0 = VRTraceErrorLogLevelToCSTR(3u);
     v1 = gVRTraceOSLog;
     if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_ERROR))
     {
-      v3 = 136315650;
-      v4 = v0;
-      v5 = 2080;
-      v6 = "[VCReportingBiDirectionalHistogram convertHistogramIntoPercentageUsingValuesFrom:]";
-      v7 = 1024;
-      v8 = 599;
-      _os_log_error_impl(&dword_23D4DF000, v1, OS_LOG_TYPE_ERROR, " [%s] %s:%d The number of buckets are not same in both histograms", &v3, 0x1Cu);
+      v2 = 136315650;
+      v3 = v0;
+      v4 = 2080;
+      v5 = "[VCReportingBiDirectionalHistogram convertHistogramIntoPercentageUsingValuesFrom:]";
+      v6 = 1024;
+      v7 = 599;
+      _os_log_error_impl(&dword_23D4DF000, v1, OS_LOG_TYPE_ERROR, " [%s] %s:%d The number of buckets are not same in both histograms", &v2, 0x1Cu);
     }
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

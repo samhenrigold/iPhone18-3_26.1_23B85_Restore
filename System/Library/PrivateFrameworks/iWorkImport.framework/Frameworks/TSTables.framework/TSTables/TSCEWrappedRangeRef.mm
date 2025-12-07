@@ -40,17 +40,17 @@
 
 - (TSCEWrappedRangeRef)init
 {
-  v5 = vdupq_n_s64(0x7FFF7FFFFFFFuLL);
+  v4 = vdupq_n_s64(0x7FFF7FFFFFFFuLL);
+  v5 = 0;
   v6 = 0;
-  v7 = 0;
-  return objc_msgSend_initWithRangeRef_(self, a2, &v5, v2, v3);
+  return objc_msgSend_initWithRangeRef_(self, a2, &v4, v2);
 }
 
 - (TSCEWrappedRangeRef)initWithRangeCoord:(TSCERangeCoordinate)coord tableUID:(TSKUIDStruct)d
 {
   v5[0] = coord;
   v5[1] = d;
-  return objc_msgSend_initWithRangeRef_(self, a2, v5, *&coord._bottomRight, d._lower);
+  return objc_msgSend_initWithRangeRef_(self, a2, v5, *&coord._bottomRight);
 }
 
 - (TSCEWrappedRangeRef)initWithRangeCoord:(TSCERangeCoordinate)coord tableID:(id)d
@@ -58,13 +58,13 @@
   bottomRight = coord._bottomRight;
   topLeft = coord._topLeft;
   dCopy = d;
-  v13[0] = topLeft;
-  v13[1] = bottomRight;
-  v13[2] = TSKMakeUIDStructFromNSUUID();
-  v13[3] = v8;
-  v11 = objc_msgSend_initWithRangeRef_(self, v8, v13, v9, v10);
+  v12[0] = topLeft;
+  v12[1] = bottomRight;
+  v12[2] = TSKMakeUIDStructFromNSUUID();
+  v12[3] = v8;
+  v10 = objc_msgSend_initWithRangeRef_(self, v8, v12, v9);
 
-  return v11;
+  return v10;
 }
 
 - (TSCEWrappedRangeRef)initWithRangeRefRect:(TSUCellRect)rect tableID:(id)d
@@ -72,22 +72,22 @@
   size = rect.size;
   origin = rect.origin;
   dCopy = d;
-  v16[2] = TSKMakeUIDStructFromNSUUID();
-  v16[3] = v8;
+  v15[2] = TSKMakeUIDStructFromNSUUID();
+  v15[3] = v8;
   v9 = origin;
   v10 = size;
-  v16[0] = __C(v9, v10);
-  v16[1] = v11;
-  v14 = objc_msgSend_initWithRangeRef_(self, v11, v16, v12, v13);
+  v15[0] = __C(v9, v10);
+  v15[1] = v11;
+  v13 = objc_msgSend_initWithRangeRef_(self, v11, v15, v12);
 
-  return v14;
+  return v13;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc(objc_opt_class());
 
-  return objc_msgSend_initWithRangeRef_(v4, v5, &self->_rangeRef, v6, v7);
+  return objc_msgSend_initWithRangeRef_(v4, v5, &self->_rangeRef, v6);
 }
 
 - (TSKUIDStruct)tableUID
@@ -128,19 +128,19 @@
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
-  v9 = equalCopy;
+  v8 = equalCopy;
   if (equalCopy)
   {
-    objc_msgSend_rangeRef(equalCopy, v5, v6, v7, v8);
-    v10 = TSCERangeRef::operator==(&self->_rangeRef.range._topLeft, v12);
+    objc_msgSend_rangeRef(equalCopy, v5, v6, v7);
+    v9 = TSCERangeRef::operator==(&self->_rangeRef.range._topLeft, v11);
   }
 
   else
   {
-    v10 = 0;
+    v9 = 0;
   }
 
-  return v10;
+  return v9;
 }
 
 - (TSCERangeRef)rangeRef

@@ -32,6 +32,7 @@
 - (void)_stateMachine_unconfigureAccessory;
 - (void)_stopBackoffTimerForType:(unint64_t)type;
 - (void)_unconfigureAccessoryWithCompletion:(id)completion;
+- (void)_updateCharacteristicsNotifications:(BOOL)notifications;
 - (void)_wakeSuspendedAccessory:(id)accessory activity:(id)activity completion:(id)completion;
 - (void)_writeToCharacteristic:(id)characteristic value:(id)value completion:(id)completion;
 - (void)dealloc;
@@ -57,7 +58,7 @@
 
 - (void)timerDidFire:(id)fire
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   fireCopy = fire;
   workQueue = [(HMDAccessoryProfile *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -76,13 +77,13 @@
       {
         v14 = HMFGetLogIdentifier();
         v15 = HMDLowPowerModeStateMachineDescription(selfCopy->_internalOldState);
-        v17 = 138543874;
-        v18 = v14;
-        v19 = 2112;
-        v20 = v15;
-        v21 = 2112;
-        v22 = selfCopy;
-        _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Resuming a backed-off state: %@ for %@", &v17, 0x20u);
+        v16 = 138543874;
+        v17 = v14;
+        v18 = 2112;
+        v19 = v15;
+        v20 = 2112;
+        v21 = selfCopy;
+        _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Resuming a backed-off state: %@ for %@", &v16, 0x20u);
       }
 
       objc_autoreleasePoolPop(v11);
@@ -112,13 +113,11 @@
       [(HMDLowPowerModeProfile *)self setPendingWakeBlock:0];
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stopBackoffTimerForType:(unint64_t)type
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDAccessoryProfile *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -134,11 +133,11 @@
       if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
         v16 = HMFGetLogIdentifier();
-        v19 = 138543618;
-        v20 = v16;
-        v21 = 2112;
-        v22 = selfCopy;
-        _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Stopping wait for wake timer for %@", &v19, 0x16u);
+        v18 = 138543618;
+        v19 = v16;
+        v20 = 2112;
+        v21 = selfCopy;
+        _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Stopping wait for wake timer for %@", &v18, 0x16u);
       }
 
       objc_autoreleasePoolPop(v13);
@@ -161,11 +160,11 @@
       if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
         v10 = HMFGetLogIdentifier();
-        v19 = 138543618;
-        v20 = v10;
-        v21 = 2112;
-        v22 = selfCopy2;
-        _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Stopping backoff timer for %@", &v19, 0x16u);
+        v18 = 138543618;
+        v19 = v10;
+        v20 = 2112;
+        v21 = selfCopy2;
+        _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Stopping backoff timer for %@", &v18, 0x16u);
       }
 
       objc_autoreleasePoolPop(v7);
@@ -175,13 +174,11 @@
       [(HMDLowPowerModeProfile *)selfCopy2 setBackoffTimer:0];
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startTimerForType:(unint64_t)type
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDAccessoryProfile *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -194,7 +191,7 @@
   {
     if (type != 2)
     {
-      goto LABEL_13;
+      return;
     }
 
     v6 = @"lowPowerModeWaitForWakeInterval";
@@ -221,13 +218,13 @@
       if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
         v16 = HMFGetLogIdentifier();
-        v20 = 138543618;
-        v21 = v16;
-        v22 = 2112;
-        v23 = selfCopy;
+        v19 = 138543618;
+        v20 = v16;
+        v21 = 2112;
+        v22 = selfCopy;
         v17 = "%{public}@Starting backoff timer for %@";
 LABEL_11:
-        _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, v17, &v20, 0x16u);
+        _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, v17, &v19, 0x16u);
       }
     }
 
@@ -240,10 +237,10 @@ LABEL_11:
       if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
         v16 = HMFGetLogIdentifier();
-        v20 = 138543618;
-        v21 = v16;
-        v22 = 2112;
-        v23 = selfCopy2;
+        v19 = 138543618;
+        v20 = v16;
+        v21 = 2112;
+        v22 = selfCopy2;
         v17 = "%{public}@Starting wait for wake timer for %@";
         goto LABEL_11;
       }
@@ -252,9 +249,6 @@ LABEL_11:
     objc_autoreleasePoolPop(v13);
     [v11 resume];
   }
-
-LABEL_13:
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)description
@@ -273,32 +267,32 @@ LABEL_13:
 
 - (id)newHAPSuspendedAccessoryFromAccessoryConnectivityInfoWithType:(int64_t)type
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   [MEMORY[0x277CBEB18] array];
-  v27 = v26 = self;
+  v26 = v25 = self;
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   connectivityInfo = [(HMDLowPowerModeProfile *)self connectivityInfo];
   woWLANInfos = [connectivityInfo woWLANInfos];
 
-  v7 = [woWLANInfos countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v7 = [woWLANInfos countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v29;
+    v9 = *v28;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v29 != v9)
+        if (*v28 != v9)
         {
           objc_enumerationMutation(woWLANInfos);
         }
 
-        v11 = *(*(&v28 + 1) + 8 * i);
-        if (type != 2 || [*(*(&v28 + 1) + 8 * i) wakeType] == 2)
+        v11 = *(*(&v27 + 1) + 8 * i);
+        if (type != 2 || [*(*(&v27 + 1) + 8 * i) wakeType] == 2)
         {
           v12 = objc_alloc(MEMORY[0x277CFEA50]);
           wakePort = [v11 wakePort];
@@ -308,26 +302,26 @@ LABEL_13:
 
           if (v16)
           {
-            [v27 addObject:v16];
+            [v26 addObject:v16];
           }
         }
       }
 
-      v8 = [woWLANInfos countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v8 = [woWLANInfos countByEnumeratingWithState:&v27 objects:v31 count:16];
     }
 
     while (v8);
   }
 
-  if ([v27 count])
+  if ([v26 count])
   {
     v17 = objc_alloc(MEMORY[0x277CFEC70]);
-    hapAccessory = [(HMDLowPowerModeProfile *)v26 hapAccessory];
+    hapAccessory = [(HMDLowPowerModeProfile *)v25 hapAccessory];
     name = [hapAccessory name];
-    hapAccessory2 = [(HMDLowPowerModeProfile *)v26 hapAccessory];
+    hapAccessory2 = [(HMDLowPowerModeProfile *)v25 hapAccessory];
     identifier = [hapAccessory2 identifier];
-    workQueue = [(HMDAccessoryProfile *)v26 workQueue];
-    v23 = [v17 initWithName:name identifier:identifier wakeTuples:v27 queue:workQueue];
+    workQueue = [(HMDAccessoryProfile *)v25 workQueue];
+    v23 = [v17 initWithName:name identifier:identifier wakeTuples:v26 queue:workQueue];
   }
 
   else
@@ -335,7 +329,6 @@ LABEL_13:
     v23 = 0;
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v23;
 }
 
@@ -392,7 +385,7 @@ LABEL_13:
 
 - (void)handleAccessoryConfigurationChanged:(id)changed
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -402,11 +395,11 @@ LABEL_13:
     v8 = HMFGetLogIdentifier();
     name = [changedCopy name];
     *buf = 138543874;
-    v21 = v8;
-    v22 = 2112;
-    v23 = name;
-    v24 = 2112;
-    v25 = selfCopy;
+    v20 = v8;
+    v21 = 2112;
+    v22 = name;
+    v23 = 2112;
+    v24 = selfCopy;
     _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Handling notification: %@ received by %@", buf, 0x20u);
   }
 
@@ -418,12 +411,12 @@ LABEL_13:
   {
     workQueue = [(HMDAccessoryProfile *)selfCopy workQueue];
     v13 = workQueue;
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __62__HMDLowPowerModeProfile_handleAccessoryConfigurationChanged___block_invoke;
-    v19[3] = &unk_279735D00;
-    v19[4] = selfCopy;
-    v14 = v19;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __62__HMDLowPowerModeProfile_handleAccessoryConfigurationChanged___block_invoke;
+    v18[3] = &unk_279735D00;
+    v18[4] = selfCopy;
+    v14 = v18;
 LABEL_7:
     dispatch_async(workQueue, v14);
 
@@ -437,18 +430,16 @@ LABEL_7:
   {
     workQueue = [(HMDAccessoryProfile *)selfCopy workQueue];
     v13 = workQueue;
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __62__HMDLowPowerModeProfile_handleAccessoryConfigurationChanged___block_invoke_2;
-    v18[3] = &unk_279735D00;
-    v18[4] = selfCopy;
-    v14 = v18;
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __62__HMDLowPowerModeProfile_handleAccessoryConfigurationChanged___block_invoke_2;
+    v17[3] = &unk_279735D00;
+    v17[4] = selfCopy;
+    v14 = v17;
     goto LABEL_7;
   }
 
 LABEL_8:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __62__HMDLowPowerModeProfile_handleAccessoryConfigurationChanged___block_invoke_2(uint64_t a1)
@@ -497,7 +488,7 @@ void __64__HMDLowPowerModeProfile_handleAccessoryCharacteristicsChanged___block_
 
 - (BOOL)_shouldManageAccessoryLPM
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   accessory = [(HMDAccessoryProfile *)self accessory];
   home = [accessory home];
 
@@ -511,28 +502,28 @@ void __64__HMDLowPowerModeProfile_handleAccessoryCharacteristicsChanged___block_
 
   else
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     residentDeviceManager2 = [home residentDeviceManager];
     residentDevices = [residentDeviceManager2 residentDevices];
 
-    v9 = [residentDevices countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v9 = [residentDevices countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v17;
+      v11 = *v16;
       while (2)
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v17 != v11)
+          if (*v16 != v11)
           {
             objc_enumerationMutation(residentDevices);
           }
 
-          v13 = *(*(&v16 + 1) + 8 * i);
+          v13 = *(*(&v15 + 1) + 8 * i);
           if (__51__HMDLowPowerModeProfile__shouldManageAccessoryLPM__block_invoke(v13))
           {
             isCurrentDevice = [v13 isCurrentDevice];
@@ -540,7 +531,7 @@ void __64__HMDLowPowerModeProfile_handleAccessoryCharacteristicsChanged___block_
           }
         }
 
-        v10 = [residentDevices countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v10 = [residentDevices countByEnumeratingWithState:&v15 objects:v19 count:16];
         if (v10)
         {
           continue;
@@ -554,7 +545,6 @@ void __64__HMDLowPowerModeProfile_handleAccessoryCharacteristicsChanged___block_
 LABEL_13:
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return isCurrentDevice;
 }
 
@@ -573,6 +563,21 @@ uint64_t __51__HMDLowPowerModeProfile__shouldManageAccessoryLPM__block_invoke(vo
   }
 
   return v3;
+}
+
+- (void)_updateCharacteristicsNotifications:(BOOL)notifications
+{
+  notificationsCopy = notifications;
+  v9[1] = *MEMORY[0x277D85DE8];
+  selectedSleepConfigurationCharacteristic = [(HMDLowPowerModeProfile *)self selectedSleepConfigurationCharacteristic];
+  if (selectedSleepConfigurationCharacteristic)
+  {
+    hapAccessory = [(HMDLowPowerModeProfile *)self hapAccessory];
+    v9[0] = selectedSleepConfigurationCharacteristic;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+    clientIdentifier = [(HMDLowPowerModeProfile *)self clientIdentifier];
+    [hapAccessory setNotificationsEnabled:notificationsCopy forCharacteristics:v7 clientIdentifier:clientIdentifier];
+  }
 }
 
 - (void)_readInitialRequiredCharacteristics
@@ -597,7 +602,7 @@ uint64_t __51__HMDLowPowerModeProfile__shouldManageAccessoryLPM__block_invoke(vo
 
 - (void)_readFromCharacteristic:(id)characteristic completion:(id)completion
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   characteristicCopy = characteristic;
   completionCopy = completion;
   workQueue = [(HMDAccessoryProfile *)self workQueue];
@@ -605,26 +610,24 @@ uint64_t __51__HMDLowPowerModeProfile__shouldManageAccessoryLPM__block_invoke(vo
 
   v9 = [HMDCharacteristicRequest requestWithCharacteristic:characteristicCopy];
   hapAccessory = [(HMDLowPowerModeProfile *)self hapAccessory];
-  v19[0] = v9;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
+  v18[0] = v9;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
   workQueue2 = [(HMDAccessoryProfile *)self workQueue];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __61__HMDLowPowerModeProfile__readFromCharacteristic_completion___block_invoke;
-  v16[3] = &unk_2797337F8;
-  v16[4] = self;
-  v17 = characteristicCopy;
-  v18 = completionCopy;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __61__HMDLowPowerModeProfile__readFromCharacteristic_completion___block_invoke;
+  v15[3] = &unk_2797337F8;
+  v15[4] = self;
+  v16 = characteristicCopy;
+  v17 = completionCopy;
   v13 = completionCopy;
   v14 = characteristicCopy;
-  [hapAccessory readCharacteristicValues:v11 source:1180 queue:workQueue2 completionHandler:v16];
-
-  v15 = *MEMORY[0x277D85DE8];
+  [hapAccessory readCharacteristicValues:v11 source:1180 queue:workQueue2 completionHandler:v15];
 }
 
 void __61__HMDLowPowerModeProfile__readFromCharacteristic_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 firstObject];
   v5 = [v4 value];
@@ -651,35 +654,33 @@ void __61__HMDLowPowerModeProfile__readFromCharacteristic_completion___block_inv
     {
       v12 = HMFGetLogIdentifier();
       [*(a1 + 40) instanceID];
-      v13 = v17 = v3;
+      v13 = v16 = v3;
       [*(a1 + 40) type];
-      v14 = v18 = v9;
+      v14 = v17 = v9;
       v15 = [v4 error];
       *buf = 138544130;
-      v20 = v12;
-      v21 = 2112;
-      v22 = v13;
-      v23 = 2112;
-      v24 = v14;
-      v25 = 2112;
-      v26 = v15;
+      v19 = v12;
+      v20 = 2112;
+      v21 = v13;
+      v22 = 2112;
+      v23 = v14;
+      v24 = 2112;
+      v25 = v15;
       _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_ERROR, "%{public}@Reading from characteristic: %@/%@ failed with error: %@", buf, 0x2Au);
 
-      v9 = v18;
-      v3 = v17;
+      v9 = v17;
+      v3 = v16;
     }
 
     objc_autoreleasePoolPop(v9);
   }
 
   (*(*(a1 + 48) + 16))();
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_writeToCharacteristic:(id)characteristic value:(id)value completion:(id)completion
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   characteristicCopy = characteristic;
   completionCopy = completion;
   valueCopy = value;
@@ -689,26 +690,24 @@ void __61__HMDLowPowerModeProfile__readFromCharacteristic_completion___block_inv
   v12 = [HMDCharacteristicWriteRequest writeRequestWithCharacteristic:characteristicCopy value:valueCopy authorizationData:0 type:0];
 
   hapAccessory = [(HMDLowPowerModeProfile *)self hapAccessory];
-  v22[0] = v12;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
+  v21[0] = v12;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
   workQueue2 = [(HMDAccessoryProfile *)self workQueue];
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __66__HMDLowPowerModeProfile__writeToCharacteristic_value_completion___block_invoke;
-  v19[3] = &unk_2797337F8;
-  v19[4] = self;
-  v20 = characteristicCopy;
-  v21 = completionCopy;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __66__HMDLowPowerModeProfile__writeToCharacteristic_value_completion___block_invoke;
+  v18[3] = &unk_2797337F8;
+  v18[4] = self;
+  v19 = characteristicCopy;
+  v20 = completionCopy;
   v16 = completionCopy;
   v17 = characteristicCopy;
-  [hapAccessory writeCharacteristicValues:v14 source:1180 queue:workQueue2 completionHandler:v19];
-
-  v18 = *MEMORY[0x277D85DE8];
+  [hapAccessory writeCharacteristicValues:v14 source:1180 queue:workQueue2 completionHandler:v18];
 }
 
 void __66__HMDLowPowerModeProfile__writeToCharacteristic_value_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 count])
   {
@@ -728,15 +727,15 @@ void __66__HMDLowPowerModeProfile__writeToCharacteristic_value_completion___bloc
         v11 = HMFGetLogIdentifier();
         v12 = [*(a1 + 40) instanceID];
         v13 = [*(a1 + 40) type];
-        v17 = 138544130;
-        v18 = v11;
-        v19 = 2112;
-        v20 = v12;
-        v21 = 2112;
-        v22 = v13;
-        v23 = 2112;
-        v24 = v5;
-        _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Writing to the characteristic: %@/%@ failed with error: %@", &v17, 0x2Au);
+        v16 = 138544130;
+        v17 = v11;
+        v18 = 2112;
+        v19 = v12;
+        v20 = 2112;
+        v21 = v13;
+        v22 = 2112;
+        v23 = v5;
+        _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Writing to the characteristic: %@/%@ failed with error: %@", &v16, 0x2Au);
       }
 
       objc_autoreleasePoolPop(v8);
@@ -759,13 +758,11 @@ void __66__HMDLowPowerModeProfile__writeToCharacteristic_value_completion___bloc
   }
 
   (*(*(a1 + 48) + 16))();
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_processSelectedSleepConfigurationParametersWithCharacteristic:(id)characteristic
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   characteristicCopy = characteristic;
   workQueue = [(HMDAccessoryProfile *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -799,13 +796,13 @@ void __66__HMDLowPowerModeProfile__writeToCharacteristic_value_completion___bloc
     {
       v17 = HMFGetLogIdentifier();
       v18 = HMDLowPowerModeOperationStatusDescription(value2);
-      v25 = 138543874;
-      v26 = v17;
-      v27 = 2112;
-      v28 = v18;
-      v29 = 2112;
-      v30 = selfCopy;
-      _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_INFO, "%{public}@Processing selected sleep configuration with status: '%@' for %@", &v25, 0x20u);
+      v24 = 138543874;
+      v25 = v17;
+      v26 = 2112;
+      v27 = v18;
+      v28 = 2112;
+      v29 = selfCopy;
+      _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_INFO, "%{public}@Processing selected sleep configuration with status: '%@' for %@", &v24, 0x20u);
     }
 
     objc_autoreleasePoolPop(v14);
@@ -827,22 +824,20 @@ void __66__HMDLowPowerModeProfile__writeToCharacteristic_value_completion___bloc
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       v23 = HMFGetLogIdentifier();
-      v25 = 138543618;
-      v26 = v23;
-      v27 = 2112;
-      v28 = v8;
-      _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_ERROR, "%{public}@Failed to parse selected sleep configuration with data: %@", &v25, 0x16u);
+      v24 = 138543618;
+      v25 = v23;
+      v26 = 2112;
+      v27 = v8;
+      _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_ERROR, "%{public}@Failed to parse selected sleep configuration with data: %@", &v24, 0x16u);
     }
 
     objc_autoreleasePoolPop(v20);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_processSupportedSleepConfigurationParametersWithCharacteristic:(id)characteristic
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   characteristicCopy = characteristic;
   workQueue = [(HMDAccessoryProfile *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -874,11 +869,11 @@ void __66__HMDLowPowerModeProfile__writeToCharacteristic_value_completion___bloc
       if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
         v15 = HMFGetLogIdentifier();
-        v22 = 138543618;
-        v23 = v15;
-        v24 = 2112;
-        v25 = selfCopy;
-        _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_INFO, "%{public}@Processing supported sleep configuration for %@.", &v22, 0x16u);
+        v21 = 138543618;
+        v22 = v15;
+        v23 = 2112;
+        v24 = selfCopy;
+        _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_INFO, "%{public}@Processing supported sleep configuration for %@.", &v21, 0x16u);
       }
 
       objc_autoreleasePoolPop(v11);
@@ -893,11 +888,11 @@ void __66__HMDLowPowerModeProfile__writeToCharacteristic_value_completion___bloc
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         v20 = HMFGetLogIdentifier();
-        v22 = 138543618;
-        v23 = v20;
-        v24 = 2112;
-        v25 = v8;
-        _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@Failed to parse supported sleep configuration with data: %@", &v22, 0x16u);
+        v21 = 138543618;
+        v22 = v20;
+        v23 = 2112;
+        v24 = v8;
+        _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@Failed to parse supported sleep configuration with data: %@", &v21, 0x16u);
       }
 
       objc_autoreleasePoolPop(v11);
@@ -912,22 +907,20 @@ void __66__HMDLowPowerModeProfile__writeToCharacteristic_value_completion___bloc
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
       v19 = HMFGetLogIdentifier();
-      v22 = 138543618;
-      v23 = v19;
-      v24 = 2112;
-      v25 = selfCopy2;
-      _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_DEBUG, "%{public}@Skipping processing characteristic update since a resident is present for %@", &v22, 0x16u);
+      v21 = 138543618;
+      v22 = v19;
+      v23 = 2112;
+      v24 = selfCopy2;
+      _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_DEBUG, "%{public}@Skipping processing characteristic update since a resident is present for %@", &v21, 0x16u);
     }
 
     objc_autoreleasePoolPop(v16);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queryAccessoryWithOperation:(int64_t)operation completion:(id)completion
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   workQueue = [(HMDAccessoryProfile *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -942,11 +935,11 @@ void __66__HMDLowPowerModeProfile__writeToCharacteristic_value_completion___bloc
       v23 = HMFGetLogIdentifier();
       v24 = HMDLowPowerModeOperationTypeDescription(operation);
       *buf = 138543874;
-      v45 = v23;
-      v46 = 2112;
-      v47 = v24;
-      v48 = 2112;
-      v49 = selfCopy;
+      v44 = v23;
+      v45 = 2112;
+      v46 = v24;
+      v47 = 2112;
+      v48 = selfCopy;
       _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_ERROR, "%{public}@Received invalid operation type: '%@' for %@", buf, 0x20u);
     }
 
@@ -967,9 +960,9 @@ void __66__HMDLowPowerModeProfile__writeToCharacteristic_value_completion___bloc
     v12 = v9;
     if ([(HMDSelectedSleepConfigurationTLV *)v12 conformsToProtocol:&unk_286660C80])
     {
-      v43 = 0;
-      v13 = [(HMDSelectedSleepConfigurationTLV *)v12 serializeWithError:&v43];
-      v14 = v43;
+      v42 = 0;
+      v13 = [(HMDSelectedSleepConfigurationTLV *)v12 serializeWithError:&v42];
+      v14 = v42;
       if (v14 || !v13)
       {
         v15 = objc_autoreleasePoolPush();
@@ -979,11 +972,11 @@ void __66__HMDLowPowerModeProfile__writeToCharacteristic_value_completion___bloc
           HMFGetLogIdentifier();
           v18 = v17 = selectedSleepConfigurationCharacteristic;
           *buf = 138543874;
-          v45 = v18;
-          v46 = 2112;
-          v47 = v12;
-          v48 = 2112;
-          v49 = v14;
+          v44 = v18;
+          v45 = 2112;
+          v46 = v12;
+          v47 = 2112;
+          v48 = v14;
           _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_ERROR, "%{public}@Failed to serialize object: %@ with error: %@", buf, 0x20u);
 
           selectedSleepConfigurationCharacteristic = v17;
@@ -1015,17 +1008,17 @@ LABEL_14:
         v29 = HMFGetLogIdentifier();
         v30 = HMDLowPowerModeOperationTypeDescription(operation);
         [(HMDAccessoryProfile *)selfCopy2 accessory];
-        v31 = v40 = selectedSleepConfigurationCharacteristic;
+        v31 = v39 = selectedSleepConfigurationCharacteristic;
         identifier = [v31 identifier];
         *buf = 138543874;
-        v45 = v29;
-        v46 = 2112;
-        v47 = v30;
-        v48 = 2112;
-        v49 = identifier;
+        v44 = v29;
+        v45 = 2112;
+        v46 = v30;
+        v47 = 2112;
+        v48 = identifier;
         _os_log_impl(&dword_2531F8000, v28, OS_LOG_TYPE_DEBUG, "%{public}@Requesting response to operation type: '%@' from accessory: %@", buf, 0x20u);
 
-        selectedSleepConfigurationCharacteristic = v40;
+        selectedSleepConfigurationCharacteristic = v39;
       }
 
       objc_autoreleasePoolPop(v25);
@@ -1033,11 +1026,11 @@ LABEL_14:
       aBlock[1] = 3221225472;
       aBlock[2] = __66__HMDLowPowerModeProfile__queryAccessoryWithOperation_completion___block_invoke;
       aBlock[3] = &unk_279728058;
-      v42 = completionCopy;
+      v41 = completionCopy;
       v33 = _Block_copy(aBlock);
       [(HMDLowPowerModeProfile *)selfCopy2 _writeToCharacteristic:selectedSleepConfigurationCharacteristic value:v19 completion:v33];
 
-      v34 = v42;
+      v34 = v41;
     }
 
     else
@@ -1049,11 +1042,11 @@ LABEL_14:
         [selectedSleepConfigurationCharacteristic type];
         v38 = v37 = selectedSleepConfigurationCharacteristic;
         *buf = 138543874;
-        v45 = v35;
-        v46 = 2112;
-        v47 = instanceID;
-        v48 = 2112;
-        v49 = v38;
+        v44 = v35;
+        v45 = 2112;
+        v46 = instanceID;
+        v47 = 2112;
+        v48 = v38;
         _os_log_impl(&dword_2531F8000, v28, OS_LOG_TYPE_ERROR, "%{public}@Failed to serialize selected sleep configuration value for charactersitic %@/%@", buf, 0x20u);
 
         selectedSleepConfigurationCharacteristic = v37;
@@ -1066,8 +1059,6 @@ LABEL_14:
 
 LABEL_22:
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 void __66__HMDLowPowerModeProfile__queryAccessoryWithOperation_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1142,7 +1133,7 @@ void __62__HMDLowPowerModeProfile__unconfigureAccessoryWithCompletion___block_in
 
 void __60__HMDLowPowerModeProfile__configureAccessoryWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -1159,9 +1150,9 @@ void __60__HMDLowPowerModeProfile__configureAccessoryWithCompletion___block_invo
       {
         v13 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v41 = v13;
-        v42 = 2112;
-        v43 = v5;
+        v40 = v13;
+        v41 = 2112;
+        v42 = v5;
         _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@LPM Configuration Error: Reading from Support Sleep Configuration resulted in error: %@", buf, 0x16u);
       }
 
@@ -1177,8 +1168,8 @@ void __60__HMDLowPowerModeProfile__configureAccessoryWithCompletion___block_invo
     {
       v16 = objc_opt_class();
       v14 = deserializeObject(v16, v6);
-      v35 = [v8 _validateSupportedSleepConfiguration:v14];
-      if (v35)
+      v34 = [v8 _validateSupportedSleepConfiguration:v14];
+      if (v34)
       {
         v17 = objc_autoreleasePoolPush();
         v18 = v8;
@@ -1187,9 +1178,9 @@ void __60__HMDLowPowerModeProfile__configureAccessoryWithCompletion___block_invo
         {
           v20 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v41 = v20;
-          v42 = 2112;
-          v43 = v35;
+          v40 = v20;
+          v41 = 2112;
+          v42 = v34;
           _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_ERROR, "%{public}@LPM Configuration Error: Validating Support Sleep Configuration resulted in error: %@", buf, 0x16u);
         }
 
@@ -1201,48 +1192,46 @@ void __60__HMDLowPowerModeProfile__configureAccessoryWithCompletion___block_invo
         v25 = [(HMDWoLANInvalidConfigurationLogEvent *)v21 initWithAccessory:v9 maxSupportedWoLANVersion:v22 wolanVersion:v24];
 
         v26 = +[HMDMetricsManager sharedLogEventSubmitter];
-        [v26 submitLogEvent:v25 error:v35];
+        [v26 submitLogEvent:v25 error:v34];
 
         (*(*(a1 + 32) + 16))();
       }
 
       else
       {
-        v34 = HMDLowPowerModeWoWLANInfoForSupportedSleepConfiguration(v14);
+        v33 = HMDLowPowerModeWoWLANInfoForSupportedSleepConfiguration(v14);
         v27 = objc_autoreleasePoolPush();
         v28 = v8;
         v29 = HMFGetOSLogHandle();
         if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
         {
-          v32 = HMFGetLogIdentifier();
-          v33 = [v28 connectivityInfo];
-          v30 = [v33 woWLANInfos];
+          v31 = HMFGetLogIdentifier();
+          v32 = [v28 connectivityInfo];
+          v30 = [v32 woWLANInfos];
           *buf = 138543874;
-          v41 = v32;
-          v42 = 2112;
-          v43 = v30;
-          v44 = 2112;
-          v45 = v34;
+          v40 = v31;
+          v41 = 2112;
+          v42 = v30;
+          v43 = 2112;
+          v44 = v33;
           _os_log_impl(&dword_2531F8000, v29, OS_LOG_TYPE_INFO, "%{public}@LPM Configuration: Attempting to update WoWLANInfo: '%@' -> '%@'", buf, 0x20u);
         }
 
         objc_autoreleasePoolPop(v27);
-        v36[0] = MEMORY[0x277D85DD0];
-        v36[1] = 3221225472;
-        v36[2] = __60__HMDLowPowerModeProfile__configureAccessoryWithCompletion___block_invoke_103;
-        v36[3] = &unk_279727FE0;
-        objc_copyWeak(&v39, (a1 + 40));
-        v38 = *(a1 + 32);
-        v25 = v34;
-        v37 = v25;
-        [v28 _queryAccessoryWithOperation:2 completion:v36];
+        v35[0] = MEMORY[0x277D85DD0];
+        v35[1] = 3221225472;
+        v35[2] = __60__HMDLowPowerModeProfile__configureAccessoryWithCompletion___block_invoke_103;
+        v35[3] = &unk_279727FE0;
+        objc_copyWeak(&v38, (a1 + 40));
+        v37 = *(a1 + 32);
+        v25 = v33;
+        v36 = v25;
+        [v28 _queryAccessoryWithOperation:2 completion:v35];
 
-        objc_destroyWeak(&v39);
+        objc_destroyWeak(&v38);
       }
     }
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void __60__HMDLowPowerModeProfile__configureAccessoryWithCompletion___block_invoke_103(uint64_t a1, void *a2, void *a3)
@@ -1270,7 +1259,7 @@ void __60__HMDLowPowerModeProfile__configureAccessoryWithCompletion___block_invo
 
 - (id)_validateSupportedSleepConfiguration:(id)configuration
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   v5 = configurationCopy;
   if (!configurationCopy)
@@ -1281,13 +1270,13 @@ void __60__HMDLowPowerModeProfile__configureAccessoryWithCompletion___block_invo
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       v17 = HMFGetLogIdentifier();
-      v25 = 138543362;
-      v26 = v17;
+      v24 = 138543362;
+      v25 = v17;
       v18 = "%{public}@Supported Sleep Configuration Validation Failure: parameter is nil, deserialization failed.";
       v19 = v12;
       v20 = 12;
 LABEL_11:
-      _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_ERROR, v18, &v25, v20);
+      _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_ERROR, v18, &v24, v20);
     }
 
 LABEL_12:
@@ -1309,10 +1298,10 @@ LABEL_13:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       v17 = HMFGetLogIdentifier();
-      v25 = 138543618;
-      v26 = v17;
-      v27 = 2112;
-      v28 = v5;
+      v24 = 138543618;
+      v25 = v17;
+      v26 = 2112;
+      v27 = v5;
       v18 = "%{public}@Supported Sleep Configuration Validation Failure: Version is nil: %@";
       v19 = v12;
       v20 = 22;
@@ -1335,15 +1324,15 @@ LABEL_13:
     {
       v13 = HMFGetLogIdentifier();
       v14 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:unsignedCharValue];
-      v25 = 138544130;
-      v26 = v13;
-      v27 = 2112;
-      v28 = v14;
-      v29 = 2112;
-      v30 = &unk_2866282E8;
-      v31 = 2112;
-      v32 = v5;
-      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@Supported Sleep Configuration Validation Failure: Accessory's supported LPM version: %@ is greater than the current supported device version: %@, from Supported Sleep Configuration: %@", &v25, 0x2Au);
+      v24 = 138544130;
+      v25 = v13;
+      v26 = 2112;
+      v27 = v14;
+      v28 = 2112;
+      v29 = &unk_2866282E8;
+      v30 = 2112;
+      v31 = v5;
+      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@Supported Sleep Configuration Validation Failure: Accessory's supported LPM version: %@ is greater than the current supported device version: %@, from Supported Sleep Configuration: %@", &v24, 0x2Au);
     }
 
     v15 = 48;
@@ -1352,8 +1341,6 @@ LABEL_13:
 
   v22 = 0;
 LABEL_14:
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v22;
 }
@@ -1417,7 +1404,7 @@ void __69__HMDLowPowerModeProfile__readAccessorySelectedConfigWithCompletion___b
 
 void __60__HMDLowPowerModeProfile__stateMachine_unconfigureAccessory__block_invoke(uint64_t a1, void *a2, unint64_t a3)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v5 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
@@ -1429,15 +1416,15 @@ void __60__HMDLowPowerModeProfile__stateMachine_unconfigureAccessory__block_invo
     {
       v10 = HMFGetLogIdentifier();
       v11 = HMDLowPowerModeOperationStatusDescription(a3);
-      *v26 = 138544130;
-      *&v26[4] = v10;
-      *&v26[12] = 2112;
-      *&v26[14] = v8;
-      *&v26[22] = 2112;
-      v27 = v11;
-      v28 = 2112;
-      v29 = v5;
-      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@LPM SM Unconfigure: Did unconfigure %@ with status: '%@' and error: %@", v26, 0x2Au);
+      *v25 = 138544130;
+      *&v25[4] = v10;
+      *&v25[12] = 2112;
+      *&v25[14] = v8;
+      *&v25[22] = 2112;
+      v26 = v11;
+      v27 = 2112;
+      v28 = v5;
+      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@LPM SM Unconfigure: Did unconfigure %@ with status: '%@' and error: %@", v25, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -1454,13 +1441,13 @@ void __60__HMDLowPowerModeProfile__stateMachine_unconfigureAccessory__block_invo
 LABEL_10:
           v16 = HMFGetLogIdentifier();
           v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v14, "retryCount")}];
-          *v26 = 138543874;
-          *&v26[4] = v16;
-          *&v26[12] = 2112;
-          *&v26[14] = v14;
-          *&v26[22] = 2112;
-          v27 = v17;
-          _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_DEBUG, "%{public}@LPM SM Unconfigure: Need to backoff and retry unconfiguring of %@. Retry count: %@", v26, 0x20u);
+          *v25 = 138543874;
+          *&v25[4] = v16;
+          *&v25[12] = 2112;
+          *&v25[14] = v14;
+          *&v25[22] = 2112;
+          v26 = v17;
+          _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_DEBUG, "%{public}@LPM SM Unconfigure: Need to backoff and retry unconfiguring of %@. Retry count: %@", v25, 0x20u);
         }
 
 LABEL_11:
@@ -1468,7 +1455,7 @@ LABEL_11:
         objc_autoreleasePoolPop(v13);
         v18 = 4;
 LABEL_20:
-        [v8 enterState:{v18, *v26, *&v26[16], v27}];
+        [v8 enterState:{v18, *v25, *&v25[8], v26}];
 
         goto LABEL_21;
       }
@@ -1494,15 +1481,15 @@ LABEL_20:
         v22 = HMFGetLogIdentifier();
         v23 = HMDLowPowerModeOperationStatusDescription(a3);
         v24 = HMDLowPowerModeOperationTypeDescription(2);
-        *v26 = 138544130;
-        *&v26[4] = v22;
-        *&v26[12] = 2112;
-        *&v26[14] = v23;
-        *&v26[22] = 2112;
-        v27 = v24;
-        v28 = 2112;
-        v29 = v5;
-        _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_ERROR, "%{public}@LPM SM Unconfigure: Received invalid status: %@ to operation: %@ with error: %@", v26, 0x2Au);
+        *v25 = 138544130;
+        *&v25[4] = v22;
+        *&v25[12] = 2112;
+        *&v25[14] = v23;
+        *&v25[22] = 2112;
+        v26 = v24;
+        v27 = 2112;
+        v28 = v5;
+        _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_ERROR, "%{public}@LPM SM Unconfigure: Received invalid status: %@ to operation: %@ with error: %@", v25, 0x2Au);
       }
 
       objc_autoreleasePoolPop(v19);
@@ -1526,13 +1513,11 @@ LABEL_20:
   }
 
 LABEL_21:
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stateMachine_configureAccessoryCompletion:(id)completion withWowInfos:(id)infos withStatus:(id)status
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   infosCopy = infos;
   statusCopy = status;
@@ -1557,29 +1542,29 @@ LABEL_21:
 
         else
         {
-          v30 = objc_autoreleasePoolPush();
+          v29 = objc_autoreleasePoolPush();
           selfCopy = self;
-          v32 = HMFGetOSLogHandle();
-          if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+          v31 = HMFGetOSLogHandle();
+          if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
           {
-            v33 = HMFGetLogIdentifier();
-            v34 = HMDLowPowerModeOperationStatusDescription([statusCopy value]);
+            v32 = HMFGetLogIdentifier();
+            v33 = HMDLowPowerModeOperationStatusDescription([statusCopy value]);
             HMDLowPowerModeOperationTypeDescription(2);
-            v35 = v36 = v30;
+            v34 = v35 = v29;
             *buf = 138544130;
-            v38 = v33;
-            v39 = 2112;
-            v40 = v34;
-            v41 = 2112;
-            v42 = v35;
-            v43 = 2112;
-            v44 = 0;
-            _os_log_impl(&dword_2531F8000, v32, OS_LOG_TYPE_ERROR, "%{public}@LPM SM Configuration: Received invalid status: %@ to operation: %@ with error: %@", buf, 0x2Au);
+            v37 = v32;
+            v38 = 2112;
+            v39 = v33;
+            v40 = 2112;
+            v41 = v34;
+            v42 = 2112;
+            v43 = 0;
+            _os_log_impl(&dword_2531F8000, v31, OS_LOG_TYPE_ERROR, "%{public}@LPM SM Configuration: Received invalid status: %@ to operation: %@ with error: %@", buf, 0x2Au);
 
-            v30 = v36;
+            v29 = v35;
           }
 
-          objc_autoreleasePoolPop(v30);
+          objc_autoreleasePoolPop(v29);
           v14 = 0;
           v13 = 0;
         }
@@ -1596,23 +1581,23 @@ LABEL_25:
 
     else
     {
-      v25 = objc_autoreleasePoolPush();
+      v24 = objc_autoreleasePoolPush();
       selfCopy2 = self;
-      v27 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+      v26 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
       {
-        v28 = HMFGetLogIdentifier();
-        v29 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDLowPowerModeProfile retryCount](selfCopy2, "retryCount")}];
+        v27 = HMFGetLogIdentifier();
+        v28 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDLowPowerModeProfile retryCount](selfCopy2, "retryCount")}];
         *buf = 138543874;
-        v38 = v28;
-        v39 = 2112;
-        v40 = selfCopy2;
-        v41 = 2112;
-        v42 = v29;
-        _os_log_impl(&dword_2531F8000, v27, OS_LOG_TYPE_DEBUG, "%{public}@LPM SM Configure: Need to backoff and retry configuring of %@. Retry count: %@", buf, 0x20u);
+        v37 = v27;
+        v38 = 2112;
+        v39 = selfCopy2;
+        v40 = 2112;
+        v41 = v28;
+        _os_log_impl(&dword_2531F8000, v26, OS_LOG_TYPE_DEBUG, "%{public}@LPM SM Configure: Need to backoff and retry configuring of %@. Retry count: %@", buf, 0x20u);
       }
 
-      objc_autoreleasePoolPop(v25);
+      objc_autoreleasePoolPop(v24);
     }
 
     v14 = 0;
@@ -1634,11 +1619,11 @@ LABEL_25:
     v19 = HMFGetLogIdentifier();
     accessory = [(HMDAccessoryProfile *)selfCopy3 accessory];
     *buf = 138543874;
-    v38 = v19;
-    v39 = 2112;
-    v40 = accessory;
-    v41 = 2112;
-    v42 = completionCopy;
+    v37 = v19;
+    v38 = 2112;
+    v39 = accessory;
+    v40 = 2112;
+    v41 = completionCopy;
     v21 = "%{public}@LPM SM Configure Error: configuring accessory %@ returned error: %@";
     v22 = v17;
     v23 = 32;
@@ -1654,9 +1639,9 @@ LABEL_25:
     v19 = HMFGetLogIdentifier();
     accessory = [(HMDAccessoryProfile *)selfCopy3 accessory];
     *buf = 138543618;
-    v38 = v19;
-    v39 = 2112;
-    v40 = accessory;
+    v37 = v19;
+    v38 = 2112;
+    v39 = accessory;
     v21 = "%{public}@LPM SM Configure Error: configuring accessory %@ returned null status";
     v22 = v17;
     v23 = 22;
@@ -1676,13 +1661,11 @@ LABEL_16:
 
 LABEL_17:
   [(HMDLowPowerModeProfile *)self enterState:v13];
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stateMachine_configureAccessory
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDAccessoryProfile *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -1694,22 +1677,21 @@ LABEL_17:
   {
     v7 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v13 = v7;
-    v14 = 2112;
-    v15 = selfCopy;
+    v12 = v7;
+    v13 = 2112;
+    v14 = selfCopy;
     _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_DEBUG, "%{public}@LPM SM Configure: Starting configuration of accessory: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __58__HMDLowPowerModeProfile__stateMachine_configureAccessory__block_invoke;
-  v9[3] = &unk_279727F90;
-  objc_copyWeak(&v10, &location);
-  [(HMDLowPowerModeProfile *)selfCopy _configureAccessoryWithCompletion:v9];
-  objc_destroyWeak(&v10);
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __58__HMDLowPowerModeProfile__stateMachine_configureAccessory__block_invoke;
+  v8[3] = &unk_279727F90;
+  objc_copyWeak(&v9, &location);
+  [(HMDLowPowerModeProfile *)selfCopy _configureAccessoryWithCompletion:v8];
+  objc_destroyWeak(&v9);
   objc_destroyWeak(&location);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __58__HMDLowPowerModeProfile__stateMachine_configureAccessory__block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
@@ -1743,7 +1725,7 @@ void __58__HMDLowPowerModeProfile__stateMachine_configureAccessory__block_invoke
 
 void __66__HMDLowPowerModeProfile__stateMachine_readAccessoryConfiguration__block_invoke(uint64_t a1, void *a2, unint64_t a3)
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   v5 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
@@ -1755,15 +1737,15 @@ void __66__HMDLowPowerModeProfile__stateMachine_readAccessoryConfiguration__bloc
     {
       v10 = HMFGetLogIdentifier();
       v11 = HMDLowPowerModeOperationStatusDescription(a3);
-      v39 = 138544130;
-      v40 = v10;
-      v41 = 2112;
-      v42 = v8;
-      v43 = 2112;
-      v44 = v11;
-      v45 = 2112;
-      v46 = v5;
-      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@LPM SM Read Config: Did read configuration of %@ with status: '%@' and error: %@", &v39, 0x2Au);
+      v38 = 138544130;
+      v39 = v10;
+      v40 = 2112;
+      v41 = v8;
+      v42 = 2112;
+      v43 = v11;
+      v44 = 2112;
+      v45 = v5;
+      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@LPM SM Read Config: Did read configuration of %@ with status: '%@' and error: %@", &v38, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -1776,13 +1758,13 @@ void __66__HMDLowPowerModeProfile__stateMachine_readAccessoryConfiguration__bloc
       {
         v24 = HMFGetLogIdentifier();
         v25 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v22, "retryCount")}];
-        v39 = 138543874;
-        v40 = v24;
-        v41 = 2112;
-        v42 = v22;
-        v43 = 2112;
-        v44 = v25;
-        _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_DEBUG, "%{public}@LPM SM Read Config: Need to backoff and retry reading configuration for %@. Retry count: %@", &v39, 0x20u);
+        v38 = 138543874;
+        v39 = v24;
+        v40 = 2112;
+        v41 = v22;
+        v42 = 2112;
+        v43 = v25;
+        _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_DEBUG, "%{public}@LPM SM Read Config: Need to backoff and retry reading configuration for %@. Retry count: %@", &v38, 0x20u);
       }
 
       objc_autoreleasePoolPop(v21);
@@ -1809,13 +1791,13 @@ void __66__HMDLowPowerModeProfile__stateMachine_readAccessoryConfiguration__bloc
           v35 = HMFGetLogIdentifier();
           v36 = [v33 accessory];
           v37 = [v36 identifier];
-          v39 = 138543874;
-          v40 = v35;
-          v41 = 2112;
-          v42 = v37;
-          v43 = 2112;
-          v44 = 0;
-          _os_log_impl(&dword_2531F8000, v34, OS_LOG_TYPE_DEBUG, "%{public}@LPM SM Read Config: Need to reconfigure the accessory: %@. Accessory has stale WoWLANInfo: %@.", &v39, 0x20u);
+          v38 = 138543874;
+          v39 = v35;
+          v40 = 2112;
+          v41 = v37;
+          v42 = 2112;
+          v43 = 0;
+          _os_log_impl(&dword_2531F8000, v34, OS_LOG_TYPE_DEBUG, "%{public}@LPM SM Read Config: Need to reconfigure the accessory: %@. Accessory has stale WoWLANInfo: %@.", &v38, 0x20u);
         }
 
         objc_autoreleasePoolPop(v32);
@@ -1833,15 +1815,15 @@ void __66__HMDLowPowerModeProfile__stateMachine_readAccessoryConfiguration__bloc
         v29 = HMFGetLogIdentifier();
         v30 = HMDLowPowerModeOperationStatusDescription(a3);
         v31 = HMDLowPowerModeOperationTypeDescription(2);
-        v39 = 138544130;
-        v40 = v29;
-        v41 = 2112;
-        v42 = v30;
-        v43 = 2112;
-        v44 = v31;
-        v45 = 2112;
-        v46 = v5;
-        _os_log_impl(&dword_2531F8000, v28, OS_LOG_TYPE_ERROR, "%{public}@LPM SM Read Config: Received invalid status: '%@' to operation: '%@' with error: %@", &v39, 0x2Au);
+        v38 = 138544130;
+        v39 = v29;
+        v40 = 2112;
+        v41 = v30;
+        v42 = 2112;
+        v43 = v31;
+        v44 = 2112;
+        v45 = v5;
+        _os_log_impl(&dword_2531F8000, v28, OS_LOG_TYPE_ERROR, "%{public}@LPM SM Read Config: Received invalid status: '%@' to operation: '%@' with error: %@", &v38, 0x2Au);
       }
 
       objc_autoreleasePoolPop(v26);
@@ -1858,11 +1840,11 @@ void __66__HMDLowPowerModeProfile__stateMachine_readAccessoryConfiguration__bloc
         v15 = HMFGetLogIdentifier();
         v16 = [v13 accessory];
         v17 = [v16 identifier];
-        v39 = 138543618;
-        v40 = v15;
-        v41 = 2112;
-        v42 = v17;
-        _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_DEBUG, "%{public}@LPM SM Read Config: Need to configure the accessory: %@. Accessory is unconfigured.", &v39, 0x16u);
+        v38 = 138543618;
+        v39 = v15;
+        v40 = 2112;
+        v41 = v17;
+        _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_DEBUG, "%{public}@LPM SM Read Config: Need to configure the accessory: %@. Accessory is unconfigured.", &v38, 0x16u);
       }
 
       objc_autoreleasePoolPop(v12);
@@ -1871,8 +1853,6 @@ void __66__HMDLowPowerModeProfile__stateMachine_readAccessoryConfiguration__bloc
 
     [v8 enterState:v18];
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stateMachine_Idle
@@ -1893,7 +1873,7 @@ void __66__HMDLowPowerModeProfile__stateMachine_readAccessoryConfiguration__bloc
 
 - (void)_enterState:(unint64_t)state
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDAccessoryProfile *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -1927,15 +1907,15 @@ void __66__HMDLowPowerModeProfile__stateMachine_readAccessoryConfiguration__bloc
         v14 = HMFGetLogIdentifier();
         v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_retryCount - 1];
         v16 = HMDLowPowerModeStateMachineDescription(state);
-        v24 = 138544130;
-        v25 = v14;
-        v26 = 2112;
-        v27 = v15;
-        v28 = 2112;
-        v29 = v16;
-        v30 = 2112;
-        v31 = selfCopy;
-        _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, "%{public}@Resetting state machine. Tried '%@' times for operation: '%@' for %@", &v24, 0x2Au);
+        v23 = 138544130;
+        v24 = v14;
+        v25 = 2112;
+        v26 = v15;
+        v27 = 2112;
+        v28 = v16;
+        v29 = 2112;
+        v30 = selfCopy;
+        _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, "%{public}@Resetting state machine. Tried '%@' times for operation: '%@' for %@", &v23, 0x2Au);
       }
 
       objc_autoreleasePoolPop(v11);
@@ -1956,19 +1936,17 @@ void __66__HMDLowPowerModeProfile__stateMachine_readAccessoryConfiguration__bloc
       v20 = HMFGetLogIdentifier();
       v21 = HMDLowPowerModeStateMachineDescription(selfCopy2->_internalState);
       v22 = HMDLowPowerModeStateMachineDescription(state);
-      v24 = 138543874;
-      v25 = v20;
-      v26 = 2112;
-      v27 = v21;
-      v28 = 2112;
-      v29 = v22;
-      _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_ERROR, "%{public}@Invalid machine state: %@ -> %@", &v24, 0x20u);
+      v23 = 138543874;
+      v24 = v20;
+      v25 = 2112;
+      v26 = v21;
+      v27 = 2112;
+      v28 = v22;
+      _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_ERROR, "%{public}@Invalid machine state: %@ -> %@", &v23, 0x20u);
     }
 
     objc_autoreleasePoolPop(v17);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enterState:(unint64_t)state
@@ -2055,7 +2033,7 @@ LABEL_17:
 
 - (void)_runStateMachine
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDAccessoryProfile *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -2067,15 +2045,15 @@ LABEL_17:
     v7 = HMFGetLogIdentifier();
     v8 = HMDLowPowerModeStateMachineDescription(selfCopy->_internalOldState);
     v9 = HMDLowPowerModeStateMachineDescription(selfCopy->_internalState);
-    v21 = 138544130;
-    v22 = v7;
-    v23 = 2112;
-    v24 = v8;
-    v25 = 2112;
-    v26 = v9;
-    v27 = 2112;
-    v28 = selfCopy;
-    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_DEBUG, "%{public}@LPM running state: '%@' -> '%@' for %@", &v21, 0x2Au);
+    v20 = 138544130;
+    v21 = v7;
+    v22 = 2112;
+    v23 = v8;
+    v24 = 2112;
+    v25 = v9;
+    v26 = 2112;
+    v27 = selfCopy;
+    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_DEBUG, "%{public}@LPM running state: '%@' -> '%@' for %@", &v20, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -2092,11 +2070,11 @@ LABEL_17:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       v13 = HMFGetLogIdentifier();
-      v21 = 138543618;
-      v22 = v13;
-      v23 = 2112;
-      v24 = v11;
-      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@Skipping processing state machine update since a resident is present for %@", &v21, 0x16u);
+      v20 = 138543618;
+      v21 = v13;
+      v22 = 2112;
+      v23 = v11;
+      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@Skipping processing state machine update since a resident is present for %@", &v20, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
@@ -2104,57 +2082,55 @@ LABEL_17:
   }
 
   internalState = selfCopy->_internalState;
-  if (internalState <= 1)
+  if (internalState > 1)
   {
-    if (internalState)
+    switch(internalState)
     {
-      if (internalState == 1)
-      {
-        [(HMDLowPowerModeProfile *)selfCopy _stateMachine_readAccessoryConfiguration];
-        goto LABEL_17;
-      }
-
-      goto LABEL_20;
+      case 2:
+        [(HMDLowPowerModeProfile *)selfCopy _stateMachine_configureAccessory];
+        return;
+      case 3:
+        [(HMDLowPowerModeProfile *)selfCopy _stateMachine_unconfigureAccessory];
+        return;
+      case 4:
+        [(HMDLowPowerModeProfile *)selfCopy _stateMachine_backoffOperation];
+        return;
     }
 
-LABEL_16:
-    [(HMDLowPowerModeProfile *)selfCopy _stateMachine_Idle];
-    goto LABEL_17;
+    goto LABEL_20;
   }
 
-  switch(internalState)
+  if (!internalState)
   {
-    case 2:
-      [(HMDLowPowerModeProfile *)selfCopy _stateMachine_configureAccessory];
-      goto LABEL_17;
-    case 3:
-      [(HMDLowPowerModeProfile *)selfCopy _stateMachine_unconfigureAccessory];
-      goto LABEL_17;
-    case 4:
-      [(HMDLowPowerModeProfile *)selfCopy _stateMachine_backoffOperation];
-      goto LABEL_17;
+LABEL_16:
+    [(HMDLowPowerModeProfile *)selfCopy _stateMachine_Idle];
+    return;
+  }
+
+  if (internalState == 1)
+  {
+    [(HMDLowPowerModeProfile *)selfCopy _stateMachine_readAccessoryConfiguration];
+    return;
   }
 
 LABEL_20:
-  v16 = objc_autoreleasePoolPush();
-  v17 = selfCopy;
-  v18 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+  v15 = objc_autoreleasePoolPush();
+  v16 = selfCopy;
+  v17 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
   {
-    v19 = HMFGetLogIdentifier();
-    v20 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:selfCopy->_internalState];
-    v21 = 138543874;
-    v22 = v19;
-    v23 = 2112;
-    v24 = v20;
-    v25 = 2112;
-    v26 = v17;
-    _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_ERROR, "%{public}@Invalid LPM state: %@ for %@", &v21, 0x20u);
+    v18 = HMFGetLogIdentifier();
+    v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:selfCopy->_internalState];
+    v20 = 138543874;
+    v21 = v18;
+    v22 = 2112;
+    v23 = v19;
+    v24 = 2112;
+    v25 = v16;
+    _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_ERROR, "%{public}@Invalid LPM state: %@ for %@", &v20, 0x20u);
   }
 
-  objc_autoreleasePoolPop(v16);
-LABEL_17:
-  v15 = *MEMORY[0x277D85DE8];
+  objc_autoreleasePoolPop(v15);
 }
 
 - (void)_wakeSuspendedAccessory:(id)accessory activity:(id)activity completion:(id)completion
@@ -2194,7 +2170,7 @@ LABEL_17:
 
 void __70__HMDLowPowerModeProfile__wakeSuspendedAccessory_activity_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v5 = WeakRetained;
@@ -2214,21 +2190,19 @@ void __70__HMDLowPowerModeProfile__wakeSuspendedAccessory_activity_completion___
       {
         v10 = HMFGetLogIdentifier();
         v11 = *(a1 + 32);
-        v13 = 138543874;
-        v14 = v10;
-        v15 = 2112;
-        v16 = v3;
-        v17 = 2112;
-        v18 = v11;
-        _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_DEBUG, "%{public}@Pending wake block was called with error: %@ for %@", &v13, 0x20u);
+        v12 = 138543874;
+        v13 = v10;
+        v14 = 2112;
+        v15 = v3;
+        v16 = 2112;
+        v17 = v11;
+        _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_DEBUG, "%{public}@Pending wake block was called with error: %@ for %@", &v12, 0x20u);
       }
 
       objc_autoreleasePoolPop(v7);
       (*(*(a1 + 40) + 16))();
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __70__HMDLowPowerModeProfile__wakeSuspendedAccessory_activity_completion___block_invoke_91(uint64_t a1, void *a2)
@@ -2249,7 +2223,7 @@ void __70__HMDLowPowerModeProfile__wakeSuspendedAccessory_activity_completion___
 
 - (void)wakeAccessoryWithType:(int64_t)type completion:(id)completion
 {
-  v97 = *MEMORY[0x277D85DE8];
+  v96 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   workQueue = [(HMDAccessoryProfile *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -2272,11 +2246,11 @@ void __70__HMDLowPowerModeProfile__wakeSuspendedAccessory_activity_completion___
       v18 = HMFGetLogIdentifier();
       suspendedAccessory2 = [(HMDLowPowerModeProfile *)selfCopy suspendedAccessory];
       *buf = 138543874;
-      v86 = v18;
-      v87 = 2112;
-      v88 = selfCopy;
-      v89 = 2112;
-      v90 = suspendedAccessory2;
+      v85 = v18;
+      v86 = 2112;
+      v87 = selfCopy;
+      v88 = 2112;
+      v89 = suspendedAccessory2;
       _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_ERROR, "%{public}@Wake operation is in progress for %@ with suspended accessory: %@", buf, 0x20u);
     }
 
@@ -2299,11 +2273,11 @@ LABEL_9:
       v25 = HMFGetLogIdentifier();
       v26 = [MEMORY[0x277CCABB0] numberWithInteger:type];
       *buf = 138543874;
-      v86 = v25;
-      v87 = 2112;
-      v88 = v26;
-      v89 = 2112;
-      v90 = selfCopy2;
+      v85 = v25;
+      v86 = 2112;
+      v87 = v26;
+      v88 = 2112;
+      v89 = selfCopy2;
       _os_log_impl(&dword_2531F8000, v24, OS_LOG_TYPE_ERROR, "%{public}@Invalid wake up type is used '%@' for accessory %@", buf, 0x20u);
     }
 
@@ -2316,138 +2290,137 @@ LABEL_9:
   connectivityInfo = [(HMDLowPowerModeProfile *)self connectivityInfo];
   woWLANInfo = [connectivityInfo woWLANInfo];
 
-  v77 = [(HMDLowPowerModeProfile *)self newHAPSuspendedAccessoryFromAccessoryConnectivityInfoWithType:type];
+  v76 = [(HMDLowPowerModeProfile *)self newHAPSuspendedAccessoryFromAccessoryConnectivityInfoWithType:type];
   accessory = [(HMDAccessoryProfile *)self accessory];
   home = [accessory home];
   availableBSPsCount = [home availableBSPsCount];
   unsignedIntegerValue = [availableBSPsCount unsignedIntegerValue];
 
-  v32 = objc_autoreleasePoolPush();
+  v31 = objc_autoreleasePoolPush();
   selfCopy3 = self;
-  v34 = HMFGetOSLogHandle();
-  v78 = accessory;
-  v75 = v13;
-  if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
+  v33 = HMFGetOSLogHandle();
+  v77 = accessory;
+  v74 = v13;
+  if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
   {
-    v35 = HMFGetLogIdentifier();
+    v34 = HMFGetLogIdentifier();
     identifier = [accessory identifier];
-    v76 = v32;
-    v69 = [MEMORY[0x277CCABB0] numberWithInteger:type];
+    v75 = v31;
+    v68 = [MEMORY[0x277CCABB0] numberWithInteger:type];
     [MEMORY[0x277CCABB0] numberWithUnsignedChar:{objc_msgSend(woWLANInfo, "version")}];
-    v37 = v72 = selfCopy3;
-    v38 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(woWLANInfo, "wakePacketType")}];
-    v39 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:unsignedIntegerValue];
+    v36 = v71 = selfCopy3;
+    v37 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(woWLANInfo, "wakePacketType")}];
+    v38 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:unsignedIntegerValue];
     *buf = 138544642;
-    v86 = v35;
-    v87 = 2112;
-    v88 = identifier;
-    v89 = 2112;
-    v90 = v69;
-    v91 = 2112;
-    v92 = v37;
-    v93 = 2112;
-    v94 = v38;
-    v95 = 2112;
-    v96 = v39;
-    _os_log_impl(&dword_2531F8000, v34, OS_LOG_TYPE_INFO, "%{public}@Waking suspended accessory: %@, wakeType: %@, version: %@, wakePacketType: %@, numBSP: %@", buf, 0x3Eu);
+    v85 = v34;
+    v86 = 2112;
+    v87 = identifier;
+    v88 = 2112;
+    v89 = v68;
+    v90 = 2112;
+    v91 = v36;
+    v92 = 2112;
+    v93 = v37;
+    v94 = 2112;
+    v95 = v38;
+    _os_log_impl(&dword_2531F8000, v33, OS_LOG_TYPE_INFO, "%{public}@Waking suspended accessory: %@, wakeType: %@, version: %@, wakePacketType: %@, numBSP: %@", buf, 0x3Eu);
 
-    v32 = v76;
-    accessory = v78;
+    v31 = v75;
+    accessory = v77;
 
-    selfCopy3 = v72;
-    v13 = v75;
+    selfCopy3 = v71;
+    v13 = v74;
   }
 
-  objc_autoreleasePoolPop(v32);
-  v40 = v13;
+  objc_autoreleasePoolPop(v31);
+  v39 = v13;
   [accessory uuid];
 
-  v41 = [MEMORY[0x277CCABB0] numberWithInteger:type];
-  v42 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:{objc_msgSend(woWLANInfo, "version")}];
-  v43 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(woWLANInfo, "wakePacketType")}];
-  v44 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:unsignedIntegerValue];
-  v70 = v40;
+  v40 = [MEMORY[0x277CCABB0] numberWithInteger:type];
+  v41 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:{objc_msgSend(woWLANInfo, "version")}];
+  v42 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(woWLANInfo, "wakePacketType")}];
+  v43 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:unsignedIntegerValue];
+  v69 = v39;
 
-  v45 = -[HMDAccessoryPowerManagementLogEvent initWithAccessory:wolanWakeUpType:version:]([HMDAccessoryPowerManagementLogEvent alloc], "initWithAccessory:wolanWakeUpType:version:", accessory, type, [woWLANInfo version]);
-  v46 = +[HMDMetricsManager sharedLogEventSubmitter];
-  v73 = v45;
-  [v46 submitLogEvent:v45];
+  v44 = -[HMDAccessoryPowerManagementLogEvent initWithAccessory:wolanWakeUpType:version:]([HMDAccessoryPowerManagementLogEvent alloc], "initWithAccessory:wolanWakeUpType:version:", accessory, type, [woWLANInfo version]);
+  v45 = +[HMDMetricsManager sharedLogEventSubmitter];
+  v72 = v44;
+  [v45 submitLogEvent:v44];
 
   hapAccessory = [(HMDLowPowerModeProfile *)selfCopy3 hapAccessory];
   hapAccessory2 = [(HMDLowPowerModeProfile *)selfCopy3 hapAccessory];
   identifier2 = [hapAccessory2 identifier];
-  v50 = [hapAccessory matchingHAPAccessoryWithServerIdentifier:identifier2 linkType:1];
+  v49 = [hapAccessory matchingHAPAccessoryWithServerIdentifier:identifier2 linkType:1];
 
-  server = [(HMDLowPowerModeProfile *)v50 server];
+  server = [(HMDLowPowerModeProfile *)v49 server];
   if ([server wakeNumber])
   {
-    v52 = v70;
+    v51 = v69;
     [accessory uuid];
 
-    v53 = [MEMORY[0x277CCABB0] numberWithInteger:type];
-    v54 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:unsignedIntegerValue];
+    v52 = [MEMORY[0x277CCABB0] numberWithInteger:type];
+    v53 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:unsignedIntegerValue];
 
-    v55 = v77;
-    [server setSuspendedAccessory:v77];
-    v56 = objc_autoreleasePoolPush();
-    v57 = selfCopy3;
-    v58 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v58, OS_LOG_TYPE_INFO))
+    v54 = v76;
+    [server setSuspendedAccessory:v76];
+    v55 = objc_autoreleasePoolPush();
+    v56 = selfCopy3;
+    v57 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v57, OS_LOG_TYPE_INFO))
     {
-      v59 = HMFGetLogIdentifier();
-      identifier3 = [v78 identifier];
+      v58 = HMFGetLogIdentifier();
+      identifier3 = [v77 identifier];
       [MEMORY[0x277CCABB0] numberWithInteger:type];
-      v61 = v71 = v56;
-      v62 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:unsignedIntegerValue];
+      v60 = v70 = v55;
+      v61 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:unsignedIntegerValue];
       *buf = 138544642;
-      v86 = v59;
-      v87 = 2112;
-      v88 = identifier3;
-      v89 = 2112;
-      v90 = v50;
-      v91 = 2112;
-      v92 = v77;
-      v93 = 2112;
-      v94 = v61;
-      v95 = 2112;
-      v96 = v62;
-      _os_log_impl(&dword_2531F8000, v58, OS_LOG_TYPE_INFO, "%{public}@Found accessory server for %@. Returning the HAPAccessory: %@. Wake will be via suspended accessory: %@, wakeType: %@, numBSP: %@", buf, 0x3Eu);
+      v85 = v58;
+      v86 = 2112;
+      v87 = identifier3;
+      v88 = 2112;
+      v89 = v49;
+      v90 = 2112;
+      v91 = v76;
+      v92 = 2112;
+      v93 = v60;
+      v94 = 2112;
+      v95 = v61;
+      _os_log_impl(&dword_2531F8000, v57, OS_LOG_TYPE_INFO, "%{public}@Found accessory server for %@. Returning the HAPAccessory: %@. Wake will be via suspended accessory: %@, wakeType: %@, numBSP: %@", buf, 0x3Eu);
 
-      v56 = v71;
-      v55 = v77;
+      v55 = v70;
+      v54 = v76;
     }
 
-    objc_autoreleasePoolPop(v56);
-    v63 = v50;
-    (completionCopy)[2](completionCopy, v50, 0);
-    v13 = v75;
+    objc_autoreleasePoolPop(v55);
+    v62 = v49;
+    (completionCopy)[2](completionCopy, v49, 0);
+    v13 = v74;
   }
 
   else
   {
-    v55 = v77;
-    [(HMDLowPowerModeProfile *)selfCopy3 setSuspendedAccessory:v77];
+    v54 = v76;
+    [(HMDLowPowerModeProfile *)selfCopy3 setSuspendedAccessory:v76];
     hapAccessory3 = [(HMDLowPowerModeProfile *)selfCopy3 hapAccessory];
     home2 = [hapAccessory3 home];
     accessoryBrowser = [home2 accessoryBrowser];
 
     hapAccessory4 = [(HMDLowPowerModeProfile *)selfCopy3 hapAccessory];
     identifier4 = [hapAccessory4 identifier];
-    v80[0] = MEMORY[0x277D85DD0];
-    v80[1] = 3221225472;
-    v80[2] = __59__HMDLowPowerModeProfile_wakeAccessoryWithType_completion___block_invoke;
-    v80[3] = &unk_279727F40;
-    v81 = v77;
-    v82 = selfCopy3;
-    v83 = v70;
-    v84 = completionCopy;
-    [accessoryBrowser currentlyFoundHAPAccessoryServerWithIdentifier:identifier4 linkType:1 completion:v80];
+    v79[0] = MEMORY[0x277D85DD0];
+    v79[1] = 3221225472;
+    v79[2] = __59__HMDLowPowerModeProfile_wakeAccessoryWithType_completion___block_invoke;
+    v79[3] = &unk_279727F40;
+    v80 = v76;
+    v81 = selfCopy3;
+    v82 = v69;
+    v83 = completionCopy;
+    [accessoryBrowser currentlyFoundHAPAccessoryServerWithIdentifier:identifier4 linkType:1 completion:v79];
 
-    v63 = v50;
+    v62 = v49;
   }
 
 LABEL_10:
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __59__HMDLowPowerModeProfile_wakeAccessoryWithType_completion___block_invoke(id *a1, void *a2)
@@ -2538,13 +2511,13 @@ void __59__HMDLowPowerModeProfile_wakeAccessoryWithType_completion___block_invok
 
 - (void)registerForMessages
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDAccessoryProfile *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
-  v14.receiver = self;
-  v14.super_class = HMDLowPowerModeProfile;
-  [(HMDAccessoryProfile *)&v14 registerForMessages];
+  v13.receiver = self;
+  v13.super_class = HMDLowPowerModeProfile;
+  [(HMDAccessoryProfile *)&v13 registerForMessages];
   accessory = [(HMDAccessoryProfile *)self accessory];
   home = [accessory home];
   v6 = objc_autoreleasePoolPush();
@@ -2554,11 +2527,11 @@ void __59__HMDLowPowerModeProfile_wakeAccessoryWithType_completion___block_invok
   {
     v9 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v16 = v9;
-    v17 = 2112;
-    v18 = home;
-    v19 = 2112;
-    v20 = selfCopy;
+    v15 = v9;
+    v16 = 2112;
+    v17 = home;
+    v18 = 2112;
+    v19 = selfCopy;
     _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Registering for messages with home: %@ for %@", buf, 0x20u);
   }
 
@@ -2571,13 +2544,11 @@ void __59__HMDLowPowerModeProfile_wakeAccessoryWithType_completion___block_invok
 
   defaultCenter3 = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter3 addObserver:selfCopy selector:sel_handleAccessoryConfigurationChanged_ name:@"HMDAccessoryDisconnectedNotification" object:accessory];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDLowPowerModeProfile)initWithAccessory:(id)accessory powerManagementservice:(id)managementservice workQueue:(id)queue
 {
-  v34[1] = *MEMORY[0x277D85DE8];
+  v33[1] = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   managementserviceCopy = managementservice;
   queueCopy = queue;
@@ -2592,11 +2563,11 @@ void __59__HMDLowPowerModeProfile_wakeAccessoryWithType_completion___block_invok
 
   v13 = [MEMORY[0x277CCAD78] hmf_UUIDWithNamespace:HMDLowPowerModeUUIDFromAccessory_namespace data:v11];
 
-  v34[0] = managementserviceCopy;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:1];
-  v33.receiver = self;
-  v33.super_class = HMDLowPowerModeProfile;
-  v15 = [(HMDAccessoryProfile *)&v33 initWithAccessory:accessoryCopy uniqueIdentifier:v13 services:v14 workQueue:queueCopy];
+  v33[0] = managementserviceCopy;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:1];
+  v32.receiver = self;
+  v32.super_class = HMDLowPowerModeProfile;
+  v15 = [(HMDAccessoryProfile *)&v32 initWithAccessory:accessoryCopy uniqueIdentifier:v13 services:v14 workQueue:queueCopy];
 
   if (v15)
   {
@@ -2635,7 +2606,6 @@ void __59__HMDLowPowerModeProfile_wakeAccessoryWithType_completion___block_invok
     [(HMDLowPowerModeProfile *)v15 _resetStateMachine];
   }
 
-  v31 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -2653,12 +2623,11 @@ void __59__HMDLowPowerModeProfile_wakeAccessoryWithType_completion___block_invok
 
 uint64_t __37__HMDLowPowerModeProfile_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v52;
-  logCategory__hmf_once_v52 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v52;
+  logCategory__hmf_once_v52 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (id)messageBindingForDispatcher:(id)dispatcher message:(id)message receiver:(id)receiver

@@ -121,25 +121,26 @@
   *(v9 + 16) = v8;
   subjectCopy = subject;
   selfCopy = self;
-  v11 = 0uLL;
-  v12 = 0uLL;
+  v16 = selfCopy;
+  v13 = 0uLL;
+  v14 = 0uLL;
   if (tokenCopy)
   {
-    v13 = APGetAuditTokenForSelf();
-    if (!v13)
+    v15 = APGetAuditTokenForSelf(selfCopy, v12);
+    if (!v15)
     {
       __break(1u);
       return;
     }
 
-    v11 = *v13;
-    v12 = v13[1];
+    v13 = *v15;
+    v14 = v15[1];
   }
 
-  v15[0] = v11;
-  v15[1] = v12;
-  v16 = !tokenCopy;
-  sub_185B101A8(subjectCopy, v15, sub_185ACA0F0, v9);
+  v17[0] = v13;
+  v17[1] = v14;
+  v18 = !tokenCopy;
+  sub_185B101A8(subjectCopy, v17, sub_185ACA0F0, v9);
 }
 
 - (void)getIsChallengeCurrentlyRequiredForSubject:(id)subject completion:(id)completion
@@ -167,9 +168,10 @@
 
 - (BOOL)authenticateSyncUnconditionallyWithReason:(id)reason error:(id *)error
 {
-  sub_185B67E4C();
+  v5 = sub_185B67E4C();
+  v7 = v6;
   selfCopy = self;
-  sub_185B117F8();
+  sub_185B117F8(v5, v7);
 
   return 1;
 }

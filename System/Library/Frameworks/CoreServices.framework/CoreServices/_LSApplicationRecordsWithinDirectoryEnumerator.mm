@@ -1,7 +1,9 @@
 @interface _LSApplicationRecordsWithinDirectoryEnumerator
 - (BOOL)_getObject:(id *)object atIndex:(unint64_t)index context:(LSContext *)context;
+- (BOOL)_preflightPathOfBundleWithContext:(LSContext *)context bundleUnit:(unsigned int)unit bundleData:(const LSBundleData *)data;
 - (BOOL)_prepareWithContext:(LSContext *)context error:(id *)error;
 - (_LSApplicationRecordsWithinDirectoryEnumerator)initWithContext:(LSContext *)context directoryURL:(id)l volumeURL:(id)rL enumerationOptions:(unint64_t)options filteringOptions:(unint64_t)filteringOptions;
+- (expected<LSApplicationRecord)_createPostflightedApplicationRecordWithContext:(LSContext *)context bundleUnit:(unsigned int)unit bundleData:(const LSBundleData *)data;
 - (id).cxx_construct;
 @end
 
@@ -46,7 +48,7 @@
   {
     v10 = ~LODWORD(self->_enumerationOptions) & 0xD0;
     [(_LSDatabase *)context->db store];
-    schema = [(_LSDatabase *)context->db schema];
+    [(_LSDatabase *)context->db schema];
     if (v10)
     {
       _CSStringBindingEnumerateAllBindings();
@@ -54,22 +56,100 @@
 
     else
     {
-      v12 = *(schema + 4);
       _CSStoreEnumerateUnits();
     }
 
-    v13 = [[FSNode alloc] initWithURL:self->_directoryURL flags:34 error:error];
-    v14 = v13;
-    if (v13)
+    v11 = [[FSNode alloc] initWithURL:self->_directoryURL flags:34 error:error];
+    v12 = v11;
+    if (v11)
     {
-      v15 = [(FSNode *)v13 URL];
-      v16 = [v15 copy];
+      v13 = [(FSNode *)v11 URL];
+      v14 = [v13 copy];
       directoryURL = self->_directoryURL;
-      self->_directoryURL = v16;
+      self->_directoryURL = v14;
     }
   }
 
   return v8 == 0;
+}
+
+- (BOOL)_preflightPathOfBundleWithContext:(LSContext *)context bundleUnit:(unsigned int)unit bundleData:(const LSBundleData *)data
+{
+  if (self->_filteringOptions)
+  {
+    v14 = 0;
+    v9 = _LSBundleCopyNode(context->db, *&unit, 0, 0, &v14);
+    if (v9)
+    {
+      v7 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], v9, 0, "[_LSApplicationRecordsWithinDirectoryEnumerator _preflightPathOfBundleWithContext:bundleUnit:bundleData:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Record/Enumerator/LSApplicationRecordEnumerator.mm", 520);
+    }
+
+    else
+    {
+      v13 = 0;
+      v8 = [v14 pathWithError:&v13];
+      v7 = v13;
+
+      if (v8)
+      {
+        goto LABEL_8;
+      }
+    }
+
+LABEL_9:
+    _LSEnumeratorFireErrorHandler(self, v7);
+    v11 = 0;
+    goto LABEL_10;
+  }
+
+  v6 = _LSAliasGetPath(context->db, data->base.bookmark);
+  if (!v6)
+  {
+    v7 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -10813, 0, "[_LSApplicationRecordsWithinDirectoryEnumerator _preflightPathOfBundleWithContext:bundleUnit:bundleData:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Record/Enumerator/LSApplicationRecordEnumerator.mm", 526);
+    goto LABEL_9;
+  }
+
+  v7 = 0;
+  v8 = v6;
+LABEL_8:
+  path = [(NSURL *)self->_directoryURL path];
+  v11 = _LSPathMatchesPath_NoIO(path, v8, 1);
+
+LABEL_10:
+  return v11;
+}
+
+- (expected<LSApplicationRecord)_createPostflightedApplicationRecordWithContext:(LSContext *)context bundleUnit:(unsigned int)unit bundleData:(const LSBundleData *)data
+{
+  v7 = v5;
+  v16 = 0;
+  v8 = [[LSApplicationRecord alloc] _initWithContext:context bundleID:*&unit bundleData:data error:&v16];
+  v9 = v16;
+  v10 = v9;
+  if (v8)
+  {
+    v11 = [v8 URL];
+    path = [(NSURL *)self->_directoryURL path];
+    path2 = [v11 path];
+    if ((_LSPathMatchesPath_NoIO(path, path2, 1) & 1) == 0)
+    {
+
+      v8 = 0;
+    }
+
+    *v7 = v8;
+    *(v7 + 8) = 1;
+  }
+
+  else
+  {
+    *v7 = v9;
+    *(v7 + 8) = 0;
+  }
+
+  *&result.var0.var0.var1 = v15;
+  result.var0.var0.var0.var0 = v14;
+  return result;
 }
 
 - (BOOL)_getObject:(id *)object atIndex:(unint64_t)index context:(LSContext *)context
@@ -100,7 +180,7 @@ LABEL_21:
         v16 = v14;
         if (LaunchServices::AppRecordEnumeration::evaluateBundleNoIOCommon(v12, v14, self->_enumerationOptions, v15) && [(_LSApplicationRecordsWithinDirectoryEnumerator *)self _preflightPathOfBundleWithContext:context bundleUnit:v12 bundleData:v16])
         {
-          [(_LSApplicationRecordsWithinDirectoryEnumerator *)self _createPostflightedApplicationRecordWithContext:context bundleUnit:v12 bundleData:v16];
+          objc_msgSend__createPostflightedApplicationRecordWithContext_bundleUnit_bundleData_(self);
           if (v31 == 1)
           {
             v17 = v30;
@@ -150,7 +230,7 @@ LABEL_25:
       v17 = 0;
       if (v29 && v28)
       {
-        [_LSApplicationRecordsWithinDirectoryEnumerator _createPostflightedApplicationRecordWithContext:"_createPostflightedApplicationRecordWithContext:bundleUnit:bundleData:" bundleUnit:context bundleData:?];
+        objc_msgSend__createPostflightedApplicationRecordWithContext_bundleUnit_bundleData_(self);
         if (v31 == 1)
         {
           v17 = v30;

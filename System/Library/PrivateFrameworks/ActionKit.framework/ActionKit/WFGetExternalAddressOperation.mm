@@ -35,48 +35,42 @@
 
 - (void)handleStreamEvent:(unint64_t)event
 {
-  v17[1] = *MEMORY[0x277D85DE8];
-  if (event == 16)
+  v15[1] = *MEMORY[0x277D85DE8];
+  switch(event)
   {
-    v6 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:self->_data encoding:4];
-    [(WFGetExternalAddressOperation *)self setResult:v6];
+    case 0x10uLL:
+      v5 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:self->_data encoding:4];
+      [(WFGetExternalAddressOperation *)self setResult:v5];
 
-    result = [(WFGetExternalAddressOperation *)self result];
+      result = [(WFGetExternalAddressOperation *)self result];
 
-    if (!result)
-    {
-      v8 = MEMORY[0x277CCA9B8];
-      v9 = *MEMORY[0x277CCA5B8];
-      v16 = *MEMORY[0x277CCA450];
-      v10 = WFLocalizedString(@"The response data was not a valid string.");
-      v17[0] = v10;
-      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
-      v12 = [v8 errorWithDomain:v9 code:79 userInfo:v11];
-      [(WFGetExternalAddressOperation *)self setError:v12];
-    }
+      if (!result)
+      {
+        v7 = MEMORY[0x277CCA9B8];
+        v8 = *MEMORY[0x277CCA5B8];
+        v14 = *MEMORY[0x277CCA450];
+        v9 = WFLocalizedString(@"The response data was not a valid string.");
+        v15[0] = v9;
+        v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+        v11 = [v7 errorWithDomain:v8 code:79 userInfo:v10];
+        [(WFGetExternalAddressOperation *)self setError:v11];
+      }
 
-    goto LABEL_12;
-  }
+      break;
+    case 8uLL:
+      v13 = CFReadStreamCopyError(self->_stream);
+      [(WFGetExternalAddressOperation *)self setError:?];
 
-  if (event != 8)
-  {
-    if (event == 2)
-    {
-      v4 = CFReadStreamRead(self->_stream, v14, 1024);
+      break;
+    case 2uLL:
+      v4 = CFReadStreamRead(self->_stream, v12, 1024);
       if (v4 >= 1)
       {
-        [(NSMutableData *)self->_data appendBytes:v14 length:v4];
+        [(NSMutableData *)self->_data appendBytes:v12 length:v4];
       }
-    }
 
-LABEL_12:
-    v13 = *MEMORY[0x277D85DE8];
-    return;
+      break;
   }
-
-  v15 = CFReadStreamCopyError(self->_stream);
-  [(WFGetExternalAddressOperation *)self setError:?];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -138,7 +132,7 @@ LABEL_12:
 
 void __38__WFGetExternalAddressOperation_start__block_invoke(id *a1)
 {
-  v39[1] = *MEMORY[0x277D85DE8];
+  v38[1] = *MEMORY[0x277D85DE8];
   v2 = [a1[4] UTF8String];
   if ([a1[5] useIPv6])
   {
@@ -157,10 +151,10 @@ void __38__WFGetExternalAddressOperation_start__block_invoke(id *a1)
     v9 = hstrerror(*MEMORY[0x277D85EE0]);
     if (v9)
     {
-      v38 = *MEMORY[0x277CCA450];
+      v37 = *MEMORY[0x277CCA450];
       v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:v9];
-      v39[0] = v10;
-      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:&v38 count:1];
+      v38[0] = v10;
+      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:&v37 count:1];
     }
 
     else
@@ -180,12 +174,12 @@ void __38__WFGetExternalAddressOperation_start__block_invoke(id *a1)
   {
     v12 = MEMORY[0x277CCA9B8];
     v13 = *MEMORY[0x277D85EE0];
-    v36 = *MEMORY[0x277CCA450];
+    v35 = *MEMORY[0x277CCA450];
     v11 = WFLocalizedString(@"The domain could not be found.");
-    v37 = v11;
+    v36 = v11;
     v14 = MEMORY[0x277CBEAC0];
-    v15 = &v37;
-    v16 = &v36;
+    v15 = &v36;
+    v16 = &v35;
 LABEL_25:
     v28 = [v14 dictionaryWithObjects:v15 forKeys:v16 count:1];
     v29 = [v12 errorWithDomain:@"WFNetDBErrorDomain" code:v13 userInfo:v28];
@@ -209,12 +203,12 @@ LABEL_25:
 LABEL_24:
       v12 = MEMORY[0x277CCA9B8];
       v13 = *MEMORY[0x277D85EE0];
-      v34 = *MEMORY[0x277CCA450];
+      v33 = *MEMORY[0x277CCA450];
       v11 = WFLocalizedString(@"The domain could not be found. (Error 2)");
-      v35 = v11;
+      v34 = v11;
       v14 = MEMORY[0x277CBEAC0];
-      v15 = &v35;
-      v16 = &v34;
+      v15 = &v34;
+      v16 = &v33;
       goto LABEL_25;
     }
 
@@ -252,9 +246,9 @@ LABEL_24:
   CFReadStreamSetProperty(v23, *MEMORY[0x277CBAE08], *MEMORY[0x277CBED28]);
   v24 = *MEMORY[0x277CBAE68];
   v25 = a1[4];
-  v32 = *MEMORY[0x277CBAEC8];
-  v33 = v25;
-  CFReadStreamSetProperty(v23, v24, [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v33 forKeys:&v32 count:1]);
+  v31 = *MEMORY[0x277CBAEC8];
+  v32 = v25;
+  CFReadStreamSetProperty(v23, v24, [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v32 forKeys:&v31 count:1]);
   [a1[5] setStream:v23];
   v26 = objc_opt_new();
   [a1[5] setData:v26];
@@ -276,8 +270,6 @@ LABEL_24:
   CFReadStreamScheduleWithRunLoop(v23, Main, *MEMORY[0x277CBF058]);
   CFReadStreamOpen(v23);
 LABEL_26:
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 @end

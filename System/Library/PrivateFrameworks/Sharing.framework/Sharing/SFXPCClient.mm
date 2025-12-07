@@ -64,8 +64,7 @@
     v10[3] = &unk_1E788B4D0;
     objc_copyWeak(&v11, &location);
     [(NSXPCConnection *)self->_connection setInvalidationHandler:v10];
-    [(NSXPCConnection *)self->_connection resume];
-    v9 = daemon_log();
+    v9 = daemon_log([(NSXPCConnection *)self->_connection resume]);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       [SFXPCClient onqueue_ensureXPCStarted];
@@ -97,7 +96,7 @@
 {
   if (self->_connection)
   {
-    v4 = [SFXPCClient dealloc];
+    [SFXPCClient dealloc];
     [(SFXPCClient *)v4 setDispatchQueue:v5, v6];
   }
 
@@ -122,7 +121,7 @@
   objc_sync_enter(obj);
   if (obj->_activateCalled)
   {
-    FatalErrorF();
+    FatalErrorF("Attempt to set dispatch queue after activate has been called");
     __break(1u);
   }
 
@@ -162,15 +161,15 @@
 
   else
   {
-    v5 = [SFXPCClient onqueue_getRemoteObjectProxyOnQueue:];
-    __51__SFXPCClient_onqueue_getRemoteObjectProxyOnQueue___block_invoke(v5);
+    [SFXPCClient onqueue_getRemoteObjectProxyOnQueue:];
+    __51__SFXPCClient_onqueue_getRemoteObjectProxyOnQueue___block_invoke(v5, v6);
   }
 }
 
 void __51__SFXPCClient_onqueue_getRemoteObjectProxyOnQueue___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = daemon_log();
+  v3 = daemon_log(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __51__SFXPCClient_onqueue_getRemoteObjectProxyOnQueue___block_invoke_cold_1(v2, v3);
@@ -193,11 +192,11 @@ void __51__SFXPCClient_onqueue_getRemoteObjectProxyOnQueue___block_invoke(uint64
   v10 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_dispatchQueue);
   activateCalled = self->_activateCalled;
-  v4 = daemon_log();
-  v5 = v4;
+  v5 = daemon_log(v4);
+  v6 = v5;
   if (activateCalled)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [SFXPCClient onqueue_activate];
     }
@@ -205,19 +204,17 @@ void __51__SFXPCClient_onqueue_getRemoteObjectProxyOnQueue___block_invoke(uint64
 
   else
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       machServiceName = [(SFXPCClient *)self machServiceName];
       v8 = 138412290;
       v9 = machServiceName;
-      _os_log_impl(&dword_1A9662000, v5, OS_LOG_TYPE_DEFAULT, "Activating %@", &v8, 0xCu);
+      _os_log_impl(&dword_1A9662000, v6, OS_LOG_TYPE_DEFAULT, "Activating %@", &v8, 0xCu);
     }
 
     self->_activateCalled = 1;
     [(SFXPCClient *)self onqueue_ensureXPCStarted];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_invalidate
@@ -291,7 +288,7 @@ void __39__SFXPCClient_onqueue_ensureXPCStarted__block_invoke_2(uint64_t a1)
 
 - (void)onqueue_ensureConnectionEstablished
 {
-  v3 = daemon_log();
+  v3 = daemon_log(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
@@ -323,7 +320,7 @@ void __50__SFXPCClient_onqueue_ensureConnectionEstablished__block_invoke(uint64_
 
 void __50__SFXPCClient_onqueue_ensureConnectionEstablished__block_invoke_2(uint64_t a1)
 {
-  v2 = daemon_log();
+  v2 = daemon_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v7 = 0;
@@ -360,11 +357,11 @@ void __50__SFXPCClient_onqueue_ensureConnectionEstablished__block_invoke_2(uint6
 - (void)onqueue_interrupted
 {
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  v3 = daemon_log();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = daemon_log(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_1A9662000, v3, OS_LOG_TYPE_DEFAULT, "Interrupted", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1A9662000, v4, OS_LOG_TYPE_DEFAULT, "Interrupted", v5, 2u);
   }
 
   [(SFXPCClient *)self onqueue_connectionInterrupted];
@@ -389,8 +386,8 @@ void __50__SFXPCClient_onqueue_ensureConnectionEstablished__block_invoke_2(uint6
   {
     if (!self->_invalidateCalled)
     {
-      v3 = daemon_log();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+      v4 = daemon_log(v3);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
         [SFXPCClient onqueue_invalidated];
       }
@@ -401,11 +398,11 @@ void __50__SFXPCClient_onqueue_ensureConnectionEstablished__block_invoke_2(uint6
     self->_connection = 0;
 
     self->_invalidateDone = 1;
-    v5 = daemon_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v7 = daemon_log(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_1A9662000, v5, OS_LOG_TYPE_DEFAULT, "Invalidated", v6, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_1A9662000, v7, OS_LOG_TYPE_DEFAULT, "Invalidated", v8, 2u);
     }
   }
 }
@@ -498,19 +495,19 @@ void __50__SFXPCClient_onqueue_ensureConnectionEstablished__block_invoke_2(uint6
 - (void)onqueue_connectionEstablished
 {
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  v2 = daemon_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = daemon_log(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v3 = 0;
-    _os_log_impl(&dword_1A9662000, v2, OS_LOG_TYPE_DEFAULT, "connection established", v3, 2u);
+    *v4 = 0;
+    _os_log_impl(&dword_1A9662000, v3, OS_LOG_TYPE_DEFAULT, "connection established", v4, 2u);
   }
 }
 
 - (void)onqueue_connectionInterrupted
 {
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  v2 = daemon_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = daemon_log(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     [SFXPCClient onqueue_connectionInterrupted];
   }
@@ -519,8 +516,8 @@ void __50__SFXPCClient_onqueue_ensureConnectionEstablished__block_invoke_2(uint6
 - (void)onqueue_connectionInvalidated
 {
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  v2 = daemon_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = daemon_log(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     [SFXPCClient onqueue_connectionInvalidated];
   }
@@ -528,13 +525,11 @@ void __50__SFXPCClient_onqueue_ensureConnectionEstablished__block_invoke_2(uint6
 
 void __51__SFXPCClient_onqueue_getRemoteObjectProxyOnQueue___block_invoke_cold_1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = [a1 debugDescription];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_1A9662000, a2, OS_LOG_TYPE_ERROR, "Failed to get remote object proxy: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_1A9662000, a2, OS_LOG_TYPE_ERROR, "Failed to get remote object proxy: %@", &v4, 0xCu);
 }
 
 @end

@@ -113,7 +113,7 @@ void __43__HFHomePropertyCacheManager_sharedManager__block_invoke(uint64_t a1)
 
 void __51__HFHomePropertyCacheManager__clearRoomOrderValues__block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = HFLogForCategory(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
@@ -121,27 +121,27 @@ void __51__HFHomePropertyCacheManager__clearRoomOrderValues__block_invoke(uint64
     _os_log_debug_impl(&dword_20D9BF000, v2, OS_LOG_TYPE_DEBUG, "HFHomePropertyCacheManager: Clearing room order cache", buf, 2u);
   }
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v3 = [*(a1 + 32) keysForRoomOrder];
-  v4 = [v3 countByEnumeratingWithState:&v15 objects:v20 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v14 objects:v19 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v16;
+    v6 = *v15;
     do
     {
       v7 = 0;
       do
       {
-        if (*v16 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v15 + 1) + 8 * v7);
+        v8 = *(*(&v14 + 1) + 8 * v7);
         v9 = [*(a1 + 32) objectCaches];
         v10 = [v8 objectID];
         v11 = [v9 objectForKey:v10];
@@ -152,7 +152,7 @@ void __51__HFHomePropertyCacheManager__clearRoomOrderValues__block_invoke(uint64
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v15 objects:v20 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v14 objects:v19 count:16];
     }
 
     while (v5);
@@ -160,8 +160,6 @@ void __51__HFHomePropertyCacheManager__clearRoomOrderValues__block_invoke(uint64
 
   v13 = [*(a1 + 32) keysForRoomOrder];
   [v13 removeAllObjects];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)valueForObject:(id)object key:(id)key invalidationReasons:(unint64_t)reasons recalculationBlock:(id)block
@@ -169,8 +167,8 @@ void __51__HFHomePropertyCacheManager__clearRoomOrderValues__block_invoke(uint64
   blockCopy = block;
   keyCopy = key;
   objectCopy = object;
-  home = [objectCopy home];
-  v14 = [(HFHomePropertyCacheManager *)self valueForObject:objectCopy home:home key:keyCopy invalidationReasons:reasons recalculationBlock:blockCopy];
+  v13 = objc_msgSend_home(objectCopy);
+  v14 = [(HFHomePropertyCacheManager *)self valueForObject:objectCopy home:v13 key:keyCopy invalidationReasons:reasons recalculationBlock:blockCopy];
 
   return v14;
 }
@@ -178,7 +176,7 @@ void __51__HFHomePropertyCacheManager__clearRoomOrderValues__block_invoke(uint64
 - (id)valueForObject:(id)object home:(id)home key:(id)key invalidationReasons:(unint64_t)reasons recalculationBlock:(id)block
 {
   reasonsCopy = reasons;
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   homeCopy = home;
   keyCopy = key;
@@ -192,11 +190,11 @@ void __51__HFHomePropertyCacheManager__clearRoomOrderValues__block_invoke(uint64
   v16 = homeCopy;
   uniqueIdentifier = [homeCopy uniqueIdentifier];
   v18 = +[HFHomeKitDispatcher sharedDispatcher];
-  home = [v18 home];
-  uniqueIdentifier2 = [home uniqueIdentifier];
+  v19 = objc_msgSend_home(v18);
+  uniqueIdentifier2 = [v19 uniqueIdentifier];
   if ([uniqueIdentifier isEqual:uniqueIdentifier2])
   {
-    v42 = reasonsCopy;
+    v41 = reasonsCopy;
     _testing_disableCaching = [(HFHomePropertyCacheManager *)self _testing_disableCaching];
 
     if (!_testing_disableCaching)
@@ -210,9 +208,9 @@ void __51__HFHomePropertyCacheManager__clearRoomOrderValues__block_invoke(uint64
         if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
         {
           *buf = 138412546;
-          v47 = keyCopy;
-          v48 = 2112;
-          v49 = objectCopy;
+          v46 = keyCopy;
+          v47 = 2112;
+          v48 = objectCopy;
           _os_log_impl(&dword_20D9BF000, v25, OS_LOG_TYPE_INFO, "HFHomePropertyCacheManager: Recalculating %@ for object %@", buf, 0x16u);
         }
 
@@ -224,21 +222,21 @@ void __51__HFHomePropertyCacheManager__clearRoomOrderValues__block_invoke(uint64
         }
 
         [v23 setObject:null forKey:keyCopy cost:1];
-        if ((v42 & 4) != 0)
+        if ((v41 & 4) != 0)
         {
           v26 = [_HFHomePropertyCacheManagerKey alloc];
           uniqueIdentifier3 = [objectCopy uniqueIdentifier];
           v28 = [(_HFHomePropertyCacheManagerKey *)v26 initWithObjectID:uniqueIdentifier3 key:keyCopy];
 
           roomOrderKeysLock = [(HFHomePropertyCacheManager *)self roomOrderKeysLock];
-          v44[0] = MEMORY[0x277D85DD0];
-          v44[1] = 3221225472;
-          v44[2] = __93__HFHomePropertyCacheManager_valueForObject_home_key_invalidationReasons_recalculationBlock___block_invoke;
-          v44[3] = &unk_277DF3370;
-          v44[4] = self;
-          v45 = v28;
+          v43[0] = MEMORY[0x277D85DD0];
+          v43[1] = 3221225472;
+          v43[2] = __93__HFHomePropertyCacheManager_valueForObject_home_key_invalidationReasons_recalculationBlock___block_invoke;
+          v43[3] = &unk_277DF3370;
+          v43[4] = self;
+          v44 = v28;
           v30 = v28;
-          [roomOrderKeysLock performBlock:v44];
+          [roomOrderKeysLock performBlock:v43];
         }
       }
 
@@ -269,17 +267,17 @@ void __51__HFHomePropertyCacheManager__clearRoomOrderValues__block_invoke(uint64
     if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
     {
       uniqueIdentifier4 = [homeCopy uniqueIdentifier];
-      v38 = +[HFHomeKitDispatcher sharedDispatcher];
-      home2 = [v38 home];
-      uniqueIdentifier5 = [home2 uniqueIdentifier];
+      v37 = +[HFHomeKitDispatcher sharedDispatcher];
+      v38 = objc_msgSend_home(v37);
+      uniqueIdentifier5 = [v38 uniqueIdentifier];
       *buf = 138413058;
-      v47 = objectCopy;
-      v48 = 2112;
-      v49 = uniqueIdentifier4;
-      v50 = 2112;
-      v51 = uniqueIdentifier5;
-      v52 = 2112;
-      v53 = keyCopy;
+      v46 = objectCopy;
+      v47 = 2112;
+      v48 = uniqueIdentifier4;
+      v49 = 2112;
+      v50 = uniqueIdentifier5;
+      v51 = 2112;
+      v52 = keyCopy;
       _os_log_debug_impl(&dword_20D9BF000, v34, OS_LOG_TYPE_DEBUG, "HFHomePropertyCacheManager: Object %@ home (%@) is not current home (%@): recalculating %@", buf, 0x2Au);
     }
   }
@@ -288,8 +286,6 @@ void __51__HFHomePropertyCacheManager__clearRoomOrderValues__block_invoke(uint64
   [(HFHomePropertyCacheManager *)self keyChangedWithObject:objectCopy key:keyCopy];
   v33 = blockCopy[2](blockCopy);
 LABEL_22:
-
-  v35 = *MEMORY[0x277D85DE8];
 
   return v33;
 }
@@ -367,11 +363,11 @@ void __93__HFHomePropertyCacheManager_valueForObject_home_key_invalidationReason
 
 - (void)accessoryDidUpdateServices:(id)services
 {
-  home = [services home];
+  v4 = objc_msgSend_home(services, a2);
   v5 = +[HFHomeKitDispatcher sharedDispatcher];
-  home2 = [v5 home];
+  v6 = objc_msgSend_home(v5);
 
-  if (home == home2)
+  if (v4 == v6)
   {
 
     [(HFHomePropertyCacheManager *)self _clearCachedValues];
@@ -380,11 +376,11 @@ void __93__HFHomePropertyCacheManager_valueForObject_home_key_invalidationReason
 
 - (void)home:(id)home didAddAccessory:(id)accessory
 {
-  home = [accessory home];
+  v5 = objc_msgSend_home(accessory, a2, home);
   v6 = +[HFHomeKitDispatcher sharedDispatcher];
-  home2 = [v6 home];
+  v7 = objc_msgSend_home(v6);
 
-  if (home == home2)
+  if (v5 == v7)
   {
 
     [(HFHomePropertyCacheManager *)self _clearCachedValues];
@@ -393,11 +389,11 @@ void __93__HFHomePropertyCacheManager_valueForObject_home_key_invalidationReason
 
 - (void)home:(id)home didRemoveAccessory:(id)accessory
 {
-  home = [accessory home];
+  v5 = objc_msgSend_home(accessory, a2, home);
   v6 = +[HFHomeKitDispatcher sharedDispatcher];
-  home2 = [v6 home];
+  v7 = objc_msgSend_home(v6);
 
-  if (home == home2)
+  if (v5 == v7)
   {
     [(HFHomePropertyCacheManager *)self _clearCachedValues];
 
@@ -409,9 +405,9 @@ void __93__HFHomePropertyCacheManager_valueForObject_home_key_invalidationReason
 {
   homeCopy = home;
   v6 = +[HFHomeKitDispatcher sharedDispatcher];
-  home = [v6 home];
+  v7 = objc_msgSend_home(v6);
 
-  if (home == homeCopy)
+  if (v7 == homeCopy)
   {
 
     [(HFHomePropertyCacheManager *)self _clearCachedValues];
@@ -422,9 +418,9 @@ void __93__HFHomePropertyCacheManager_valueForObject_home_key_invalidationReason
 {
   homeCopy = home;
   v6 = +[HFHomeKitDispatcher sharedDispatcher];
-  home = [v6 home];
+  v7 = objc_msgSend_home(v6);
 
-  if (home == homeCopy)
+  if (v7 == homeCopy)
   {
     [(HFHomePropertyCacheManager *)self _clearCachedValues];
 
@@ -436,9 +432,9 @@ void __93__HFHomePropertyCacheManager_valueForObject_home_key_invalidationReason
 {
   homeCopy = home;
   v7 = +[HFHomeKitDispatcher sharedDispatcher];
-  home = [v7 home];
+  v8 = objc_msgSend_home(v7);
 
-  if (home == homeCopy)
+  if (v8 == homeCopy)
   {
 
     [(HFHomePropertyCacheManager *)self _clearCachedValues];
@@ -449,9 +445,9 @@ void __93__HFHomePropertyCacheManager_valueForObject_home_key_invalidationReason
 {
   homeCopy = home;
   v7 = +[HFHomeKitDispatcher sharedDispatcher];
-  home = [v7 home];
+  v8 = objc_msgSend_home(v7);
 
-  if (home == homeCopy)
+  if (v8 == homeCopy)
   {
     [(HFHomePropertyCacheManager *)self _clearCachedValues];
 
@@ -463,9 +459,9 @@ void __93__HFHomePropertyCacheManager_valueForObject_home_key_invalidationReason
 {
   homeCopy = home;
   v6 = +[HFHomeKitDispatcher sharedDispatcher];
-  home = [v6 home];
+  v7 = objc_msgSend_home(v6);
 
-  if (home == homeCopy)
+  if (v7 == homeCopy)
   {
 
     [(HFHomePropertyCacheManager *)self _clearRoomOrderValues];
@@ -476,9 +472,9 @@ void __93__HFHomePropertyCacheManager_valueForObject_home_key_invalidationReason
 {
   homeCopy = home;
   v6 = +[HFHomeKitDispatcher sharedDispatcher];
-  home = [v6 home];
+  v7 = objc_msgSend_home(v6);
 
-  if (home == homeCopy)
+  if (v7 == homeCopy)
   {
 
     [(HFHomePropertyCacheManager *)self _clearRoomOrderValues];
@@ -489,9 +485,9 @@ void __93__HFHomePropertyCacheManager_valueForObject_home_key_invalidationReason
 {
   dataCopy = data;
   v5 = +[HFHomeKitDispatcher sharedDispatcher];
-  home = [v5 home];
+  v6 = objc_msgSend_home(v5);
 
-  if (home == dataCopy)
+  if (v6 == dataCopy)
   {
 
     [(HFHomePropertyCacheManager *)self _clearRoomOrderValues];

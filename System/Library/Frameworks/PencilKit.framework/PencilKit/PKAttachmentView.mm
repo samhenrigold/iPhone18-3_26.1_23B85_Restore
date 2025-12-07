@@ -277,7 +277,7 @@
 {
   if ((LOBYTE(self[8].tx) & 1) == 0)
   {
-    return [(CGAffineTransform *)self drawingTransform];
+    return objc_msgSend_drawingTransform(self, a3);
   }
 
   v3 = *&self[13].a;
@@ -806,7 +806,7 @@ LABEL_15:
 {
   [drawing bounds];
   v6 = CGRectGetMaxY(v10) + delta;
-  [(PKAttachmentView *)self drawingTransform];
+  objc_msgSend_drawingTransform(self);
   return v6 * sqrt(v9 * v9 + v8 * v8);
 }
 
@@ -876,7 +876,7 @@ LABEL_15:
 
   [(PKAttachmentView *)self updateTileContainerViewFrame];
   dataDetectorHelper = [(PKAttachmentView *)self dataDetectorHelper];
-  [(PKAttachmentView *)self drawingTransform];
+  objc_msgSend_drawingTransform(self);
   [(PKDataDetectorInteractionHelper *)dataDetectorHelper layoutInlineViewsDrawingTransform:v5];
 }
 
@@ -1219,7 +1219,7 @@ void __114__PKAttachmentView__initializeRecognitionForDrawingIfNecessary_withVis
     }
   }
 
-  else if ((v5 & 1) == 0)
+  else if (!v5)
   {
     return;
   }

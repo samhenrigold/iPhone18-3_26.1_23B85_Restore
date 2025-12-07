@@ -11,64 +11,62 @@
 
 - (id)jsonObject
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v4 = self->_eventActivities;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v20 objects:v26 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v19 objects:v25 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v21;
+    v7 = *v20;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v21 != v7)
+        if (*v20 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        jsonObject = [*(*(&v20 + 1) + 8 * i) jsonObject];
+        jsonObject = [*(*(&v19 + 1) + 8 * i) jsonObject];
         if (jsonObject)
         {
           [v3 addObject:jsonObject];
         }
       }
 
-      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v20 objects:v26 count:16];
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v19 objects:v25 count:16];
     }
 
     while (v6);
   }
 
-  v24[0] = @"SGEventMetadataTypeKey";
+  v23[0] = @"SGEventMetadataTypeKey";
   v10 = [objc_opt_class() describeType:self->_type];
   categoryDescription = self->_categoryDescription;
   originBundleId = self->_originBundleId;
-  v25[0] = v10;
-  v25[1] = categoryDescription;
-  v24[1] = @"SGEventMetadataCategoryDescriptionKey";
-  v24[2] = @"SGEventMetadataBundleIdKey";
-  v25[2] = originBundleId;
-  v24[3] = @"SGEventMetadataConfidenceKey";
+  v24[0] = v10;
+  v24[1] = categoryDescription;
+  v23[1] = @"SGEventMetadataCategoryDescriptionKey";
+  v23[2] = @"SGEventMetadataBundleIdKey";
+  v24[2] = originBundleId;
+  v23[3] = @"SGEventMetadataConfidenceKey";
   v13 = [MEMORY[0x1E696AD98] numberWithDouble:self->_confidence];
   schemaOrg = self->_schemaOrg;
   participants = self->_participants;
-  v25[3] = v13;
-  v25[4] = schemaOrg;
-  v24[4] = @"SGEventMetadataSchemaOrgKey";
-  v24[5] = @"SGEventMetadataParticipantsKey";
-  v24[6] = @"SGEventMetadataEventActivitiesKey";
-  v25[5] = participants;
-  v25[6] = v3;
-  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:7];
+  v24[3] = v13;
+  v24[4] = schemaOrg;
+  v23[4] = @"SGEventMetadataSchemaOrgKey";
+  v23[5] = @"SGEventMetadataParticipantsKey";
+  v23[6] = @"SGEventMetadataEventActivitiesKey";
+  v24[5] = participants;
+  v24[6] = v3;
+  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:7];
   DeepCopy = CFPropertyListCreateDeepCopy(0, v16, 0);
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return DeepCopy;
 }
@@ -208,7 +206,7 @@
 
 + (id)eventMetadataFromEKEvent:(id)event
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   v5 = objc_autoreleasePoolPush();
   v6 = [eventCopy customObjectForKey:@"SGEventMetadataKey"];
@@ -256,7 +254,7 @@ LABEL_29:
       goto LABEL_30;
     }
 
-    v42 = eventCopy;
+    v41 = eventCopy;
     v31 = v28;
     v32 = [v31 objectForKeyedSubscript:@"SuggestionsNLEventDictionaryEventTypeKey"];
     if (v32 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -274,39 +272,39 @@ LABEL_29:
     v36 = v35;
 
     v26 = [[SGEventMetadata alloc] initWithType:2 categoryDescription:v33 originBundleId:v30 confidence:0 schemaOrg:0 participants:v36];
-    eventCopy = v42;
+    eventCopy = v41;
 LABEL_28:
 
     goto LABEL_29;
   }
 
-  v41 = eventCopy;
+  v40 = eventCopy;
   context = objc_autoreleasePoolPush();
   v7 = v6;
-  v39 = [v7 objectForKeyedSubscript:@"SGEventMetadataConfidenceKey"];
-  [v39 doubleValue];
+  v38 = [v7 objectForKeyedSubscript:@"SGEventMetadataConfidenceKey"];
+  [v38 doubleValue];
   v9 = v8;
   v10 = objc_opt_new();
   [v7 objectForKeyedSubscript:@"SGEventMetadataEventActivitiesKey"];
+  v42 = 0u;
   v43 = 0u;
   v44 = 0u;
-  v45 = 0u;
-  v11 = v46 = 0u;
-  v12 = [v11 countByEnumeratingWithState:&v43 objects:v47 count:16];
+  v11 = v45 = 0u;
+  v12 = [v11 countByEnumeratingWithState:&v42 objects:v46 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v44;
+    v14 = *v43;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v44 != v14)
+        if (*v43 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v43 + 1) + 8 * i);
+        v16 = *(*(&v42 + 1) + 8 * i);
         v17 = objc_autoreleasePoolPush();
         v18 = [[SGEventActivity alloc] initWithDictionary:v16];
         if (v18)
@@ -317,7 +315,7 @@ LABEL_28:
         objc_autoreleasePoolPop(v17);
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v43 objects:v47 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v42 objects:v46 count:16];
     }
 
     while (v13);
@@ -333,10 +331,8 @@ LABEL_28:
   v26 = [(SGEventMetadata *)v19 initWithType:v21 categoryDescription:v22 originBundleId:v23 confidence:v24 schemaOrg:v25 participants:v10 eventActivities:v9];
 
   objc_autoreleasePoolPop(context);
-  eventCopy = v41;
+  eventCopy = v40;
 LABEL_30:
-
-  v37 = *MEMORY[0x1E69E9840];
 
   return v26;
 }

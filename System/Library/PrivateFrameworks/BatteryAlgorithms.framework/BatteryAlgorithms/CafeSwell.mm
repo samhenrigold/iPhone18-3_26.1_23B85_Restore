@@ -612,53 +612,51 @@ LABEL_106:
 
 - (id)output
 {
-  v29[4] = *MEMORY[0x277D85DE8];
-  v28[0] = @"savedAlgoState";
-  v26[0] = @"kSavedAlgoStateCafeSwellInterface";
-  v24 = @"previousACAMInitializationTime";
+  v28[4] = *MEMORY[0x277D85DE8];
+  v27[0] = @"savedAlgoState";
+  v25[0] = @"kSavedAlgoStateCafeSwellInterface";
+  v23 = @"previousACAMInitializationTime";
   v3 = MEMORY[0x277CCABB0];
   [(CafeSwell *)self previousACAMInitializationTime];
-  v18 = [v3 numberWithDouble:?];
-  v25 = v18;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
-  v26[1] = @"kSavedAlgoStateCafeSwellCoreAlgo";
-  v27[0] = v4;
+  v17 = [v3 numberWithDouble:?];
+  v24 = v17;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+  v25[1] = @"kSavedAlgoStateCafeSwellCoreAlgo";
+  v26[0] = v4;
   model = [(CafeSwell *)self model];
   v7 = CafeSwellAlgo::Serialization::createDiskStateFromPersistentState((model + 184), v6);
-  v27[1] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:2];
-  v29[0] = v8;
-  v28[1] = @"kBDCOutputData";
-  v22 = @"Daily";
-  v19[0] = @"VCafe";
+  v26[1] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:2];
+  v28[0] = v8;
+  v27[1] = @"kBDCOutputData";
+  v21 = @"Daily";
+  v18[0] = @"VCafe";
   v9 = [MEMORY[0x277CCABB0] numberWithDouble:{*(-[CafeSwell model](self, "model") + 184)}];
-  v20[0] = v9;
-  v19[1] = @"mCafe";
+  v19[0] = v9;
+  v18[1] = @"mCafe";
   v10 = [MEMORY[0x277CCABB0] numberWithDouble:{*(-[CafeSwell model](self, "model") + 192)}];
-  v20[1] = v10;
-  v19[2] = @"longevityPredict";
+  v19[1] = v10;
+  v18[2] = @"longevityPredict";
   v11 = [MEMORY[0x277CCABB0] numberWithDouble:{*(-[CafeSwell model](self, "model") + 200)}];
-  v20[2] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:3];
-  v21 = v12;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v21 count:1];
-  v23 = v13;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
-  v29[1] = v14;
-  v29[2] = MEMORY[0x277CBEC10];
-  v28[2] = @"kPowerLogData";
-  v28[3] = @"kCoreAnalyticsData";
-  v29[3] = MEMORY[0x277CBEC10];
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:4];
-
-  v16 = *MEMORY[0x277D85DE8];
+  v19[2] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:3];
+  v20 = v12;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:1];
+  v22 = v13;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+  v28[1] = v14;
+  v28[2] = MEMORY[0x277CBEC10];
+  v27[2] = @"kPowerLogData";
+  v27[3] = @"kCoreAnalyticsData";
+  v28[3] = MEMORY[0x277CBEC10];
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:4];
 
   return v15;
 }
 
 - (id)preRun:(id)run
 {
-  v21[3] = *MEMORY[0x277D85DE8];
+  v20[3] = *MEMORY[0x277D85DE8];
   runCopy = run;
   v5 = [runCopy objectForKeyedSubscript:@"streamCurrentDate"];
   null = [MEMORY[0x277CBEB68] null];
@@ -689,35 +687,31 @@ LABEL_106:
 
   v16 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSince1970:v13];
 
-  v20[0] = @"streamDateStart";
-  v20[1] = @"streamDateEnd";
-  v21[0] = v16;
-  v21[1] = v8;
-  v20[2] = @"streamRequest";
-  v21[2] = &unk_2853A8270;
-  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:3];
-
-  v18 = *MEMORY[0x277D85DE8];
+  v19[0] = @"streamDateStart";
+  v19[1] = @"streamDateEnd";
+  v20[0] = v16;
+  v20[1] = v8;
+  v19[2] = @"streamRequest";
+  v20[2] = &unk_2853A8270;
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:3];
 
   return v17;
 }
 
 - (void)multiLog:(id)log
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   logCopy = log;
   v5 = objc_alloc_init(MEMORY[0x277CCA968]);
   [v5 setDateFormat:@"YYYY-MM-dd HH:m:s.SSS"];
-  v6 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:logCopy arguments:&v12];
+  v6 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:logCopy arguments:&v11];
   logger = self->_logger;
   if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v10 = v6;
+    v9 = v6;
     _os_log_impl(&dword_241A71000, logger, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

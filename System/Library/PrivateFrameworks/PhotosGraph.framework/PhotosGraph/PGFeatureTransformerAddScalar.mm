@@ -30,20 +30,20 @@
 
 + (id)instanceWithParameters:(id)parameters error:(id *)error
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   parametersCopy = parameters;
-  v26[0] = objc_opt_class();
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:1];
+  v25[0] = objc_opt_class();
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
   if ([PGFeatureTransformerHelper validParameters:parametersCopy ofTypes:v6])
   {
 
     goto LABEL_4;
   }
 
-  v25[0] = objc_opt_class();
-  v25[1] = objc_opt_class();
-  v25[2] = objc_opt_class();
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:3];
+  v24[0] = objc_opt_class();
+  v24[1] = objc_opt_class();
+  v24[2] = objc_opt_class();
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:3];
   v8 = [PGFeatureTransformerHelper validParameters:parametersCopy ofTypes:v7];
 
   if (v8)
@@ -76,9 +76,9 @@ LABEL_4:
   if (error)
   {
     v20 = MEMORY[0x277CCA9B8];
-    v23 = *MEMORY[0x277CCA450];
-    v24 = @"Failed to instantiate PGFeatureTransformerAddScalar: incorrect parameters.";
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+    v22 = *MEMORY[0x277CCA450];
+    v23 = @"Failed to instantiate PGFeatureTransformerAddScalar: incorrect parameters.";
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
     [v20 errorWithDomain:@"com.apple.PhotosGraph.PGFeatureTransformerAddScalar" code:0 userInfo:v9];
     *error = v18 = 0;
 LABEL_9:
@@ -88,8 +88,6 @@ LABEL_9:
 
   v18 = 0;
 LABEL_10:
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v18;
 }

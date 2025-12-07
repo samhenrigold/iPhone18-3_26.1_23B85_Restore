@@ -64,7 +64,7 @@
     *__p = 0u;
     v20 = 0u;
     v21 = 1;
-    sub_276AF6A98();
+    sub_276AF6A98(&v7->_map);
   }
 
   return 0;
@@ -188,9 +188,9 @@
   currentItem = self->_currentItem;
   if (!currentItem)
   {
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Calling this method outside of a finalize handler.", "[TSPFinalizeHandlerQueue currentObjectIdentifier]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPFinalizeHandlerQueue.mm", 228);
     v8 = MEMORY[0x277D81150];
-    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "[TSPFinalizeHandlerQueue currentObjectIdentifier]", "[TSPFinalizeHandlerQueue currentObjectIdentifier]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPFinalizeHandlerQueue.mm", 228);
+    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "[TSPFinalizeHandlerQueue currentObjectIdentifier]");
     v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPFinalizeHandlerQueue.mm");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v8, v13, v10, v12, 228, 1, "Calling this method outside of a finalize handler.");
 

@@ -115,7 +115,7 @@ uint64_t _citrus_UTF7_stdenc_cstomb(uint64_t a1, char *a2, unint64_t a3, int a4,
   return _citrus_UTF7_wcrtomb_priv(*(a1 + 8), a2, a3, a5, a6, a7);
 }
 
-uint64_t _citrus_UTF7_stdenc_mbtowc(uint64_t a1, int *a2, unsigned __int8 **a3, uint64_t a4, unsigned int *a5, unint64_t *a6, uint64_t a7)
+uint64_t _citrus_UTF7_stdenc_mbtowc(uint64_t a1, unsigned int *a2, unsigned __int8 **a3, uint64_t a4, unsigned int *a5, unint64_t *a6, uint64_t a7)
 {
   v9 = _citrus_UTF7_mbrtowc_priv(*(a1 + 8), a2, a3, a4, a5, a6);
   v10 = v9;
@@ -467,7 +467,7 @@ uint64_t _citrus_UTF7_wcrtomb_priv(uint64_t a1, char *__dst, unint64_t a3, unsig
 LABEL_5:
     v10 = 0;
     v11 = 0;
-    v12 = (a5 + 2);
+    v12 = a5 + 2;
     v13 = a5[1] == 0;
     while (1)
     {

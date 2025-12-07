@@ -29,7 +29,7 @@
     {
       localizations = [v4 localizations];
       v7 = +[NSUserDefaults standardUserDefaults];
-      v8 = [v7 objectForKey:@"AppleLanguages"];
+      v8 = objc_msgSend_objectForKey_(v7);
       v9 = [NSBundle preferredLocalizationsFromArray:localizations forPreferences:v8];
       firstObject = [v9 firstObject];
 
@@ -152,7 +152,7 @@ LABEL_12:
 {
   infoCopy = info;
   v4 = objc_alloc_init(SAStartHandoffRequest);
-  v5 = [infoCopy objectForKey:@"Data"];
+  v5 = objc_msgSend_objectForKey_(infoCopy);
 
   [v4 setHandoffData:v5];
 

@@ -455,7 +455,7 @@ LABEL_38:
   }
 
   v14->_format = formatCopy;
-  v14->_count = [imagesCopy count];
+  v14->_count = objc_msgSend_count(imagesCopy);
   v16 = PLPhotoBakedFormatInfoForFormat();
   count = v15->_count;
   if (count)

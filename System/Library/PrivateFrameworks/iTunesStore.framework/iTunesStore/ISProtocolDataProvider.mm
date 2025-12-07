@@ -23,7 +23,7 @@
 
 - (ISProtocolDataProvider)init
 {
-  __ISRecordSPIClassUsage(self);
+  __ISRecordSPIClassUsage(self, "/Library/Caches/com.apple.xbs/Sources/iTunesStore/src/ISProtocolDataProvider.m", 106, a2);
   v4.receiver = self;
   v4.super_class = ISProtocolDataProvider;
   result = [(ISDataProvider *)&v4 init];
@@ -43,7 +43,7 @@
 
 - (BOOL)processDialogFromDictionary:(id)dictionary error:(id *)error
 {
-  v84 = *MEMORY[0x277D85DE8];
+  v81 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   authenticationContext = [(ISDataProvider *)self authenticationContext];
   v7 = [authenticationContext mutableCopy];
@@ -65,7 +65,7 @@
     if ([v7 promptStyle] == 1000)
     {
 LABEL_4:
-      v60 = 0;
+      v57 = 0;
       goto LABEL_8;
     }
 
@@ -77,227 +77,224 @@ LABEL_4:
     v10 = 1;
   }
 
-  v60 = v10;
+  v57 = v10;
 LABEL_8:
   if ([(ISProtocolDataProvider *)self shouldProcessDialogs])
   {
-    v61 = [v7 shouldSuppressDialogs] ^ 1;
+    v58 = [v7 shouldSuppressDialogs] ^ 1;
   }
 
   else
   {
-    v61 = 0;
+    v58 = 0;
   }
 
-  v68 = [objc_alloc(MEMORY[0x277D69A88]) initWithResponseDictionary:dictionaryCopy];
-  [v68 actionsWithActionType:*MEMORY[0x277D6A570]];
-  v75 = 0u;
-  v76 = 0u;
-  v77 = 0u;
-  v11 = v78 = 0u;
-  v67 = [v11 countByEnumeratingWithState:&v75 objects:v83 count:16];
-  if (v67)
+  v65 = [objc_alloc(MEMORY[0x277D69A88]) initWithResponseDictionary:dictionaryCopy];
+  [v65 actionsWithActionType:*MEMORY[0x277D6A570]];
+  v72 = 0u;
+  v73 = 0u;
+  v74 = 0u;
+  v11 = v75 = 0u;
+  v64 = [v11 countByEnumeratingWithState:&v72 objects:v80 count:16];
+  if (v64)
   {
     errorCopy = error;
     v12 = 0;
-    v66 = *v76;
-    v13 = &selRef_initWithBundleIdentifier_;
-    v63 = v7;
+    v63 = *v73;
+    v60 = v7;
     obj = v11;
 LABEL_13:
-    v14 = 0;
-    v59 = v13[392];
-    v15 = v12;
+    v13 = 0;
+    v14 = v12;
     while (1)
     {
-      if (*v76 != v66)
+      if (*v73 != v63)
       {
         objc_enumerationMutation(obj);
       }
 
-      v16 = *(*(&v75 + 1) + 8 * v14);
-      v17 = [(ISProtocolDataProvider *)selfCopy _metricsDictionaryForResponse:v68, v56, v57];
-      v18 = [MEMORY[0x277D69A60] dialogIdForMetricsDictionary:v17];
-      dialog = [v16 dialog];
-      v20 = [ISDialog alloc];
+      v15 = *(*(&v72 + 1) + 8 * v13);
+      v16 = [(ISProtocolDataProvider *)selfCopy _metricsDictionaryForResponse:v65, v54];
+      v17 = [MEMORY[0x277D69A60] dialogIdForMetricsDictionary:v16];
+      dialog = [v15 dialog];
+      v19 = [ISDialog alloc];
       dialogDictionary = [dialog dialogDictionary];
-      v22 = [(ISDialog *)v20 initWithDialogDictionary:dialogDictionary authenticationContext:v7];
+      v21 = [(ISDialog *)v19 initWithDialogDictionary:dialogDictionary authenticationContext:v7];
 
-      paymentSheet = [(ISDialog *)v22 paymentSheet];
-      [paymentSheet setDialogId:v18];
+      paymentSheet = [(ISDialog *)v21 paymentSheet];
+      [paymentSheet setDialogId:v17];
 
-      paymentSheet2 = [(ISDialog *)v22 paymentSheet];
+      paymentSheet2 = [(ISDialog *)v21 paymentSheet];
       [paymentSheet2 setPresentingSceneIdentifier:selfCopy->_presentingSceneIdentifier];
 
-      if (!v22)
+      if (!v21)
       {
-        v33 = 1;
-LABEL_33:
-        v12 = v15;
-        goto LABEL_49;
+        v32 = 1;
+LABEL_34:
+        v12 = v14;
+        goto LABEL_50;
       }
 
-      v74 = v15;
-      v25 = [(ISProtocolDataProvider *)selfCopy _shouldFailWithTokenErrorForDialog:v22 dictionary:dictionaryCopy error:&v74];
-      v12 = v74;
+      v71 = v14;
+      v24 = [(ISProtocolDataProvider *)selfCopy _shouldFailWithTokenErrorForDialog:v21 dictionary:dictionaryCopy error:&v71];
+      v12 = v71;
 
-      if (v25)
+      if (v24)
       {
         break;
       }
 
-      if ([(ISDialog *)v22 kind]!= 1)
+      if ([(ISDialog *)v21 kind]!= 1)
       {
-        if (v61)
+        if (v58)
         {
-          [(ISProtocolDataProvider *)selfCopy _presentDialog:v22];
+          [(ISProtocolDataProvider *)selfCopy _presentDialog:v21];
         }
 
-LABEL_48:
-        v33 = 1;
-        goto LABEL_49;
+LABEL_49:
+        v32 = 1;
+        goto LABEL_50;
       }
 
       if (!shouldProcessTouchIDDialogs)
       {
-        if (!v60)
+        if (!v57)
         {
-          goto LABEL_48;
+          goto LABEL_49;
         }
 
         biometricSessionDelegate = [(ISDataProvider *)selfCopy biometricSessionDelegate];
-        v43 = objc_opt_respondsToSelector();
+        v42 = objc_opt_respondsToSelector();
 
-        if (v43)
+        if (v42)
         {
           biometricSessionDelegate2 = [(ISDataProvider *)selfCopy biometricSessionDelegate];
           [biometricSessionDelegate2 sender:selfCopy didFallbackToPassword:1];
         }
 
-        v70 = v12;
-        v33 = [(ISDataProvider *)selfCopy runAuthorizationDialog:v22 error:&v70];
-        v15 = v70;
+        v67 = v12;
+        v32 = [(ISDataProvider *)selfCopy runAuthorizationDialog:v21 error:&v67];
+        v14 = v67;
 
-        goto LABEL_33;
+        goto LABEL_34;
       }
 
-      v34 = selfCopy;
-      v35 = [(ISProtocolDataProvider *)selfCopy _touchIDDialogForResponse:v68];
-      paymentSheet3 = [v35 paymentSheet];
-      [paymentSheet3 setDialogId:v18];
+      v33 = selfCopy;
+      v34 = [(ISProtocolDataProvider *)selfCopy _touchIDDialogForResponse:v65];
+      paymentSheet3 = [v34 paymentSheet];
+      [paymentSheet3 setDialogId:v17];
 
-      paymentSheet4 = [v35 paymentSheet];
-      v38 = v35;
+      paymentSheet4 = [v34 paymentSheet];
+      v37 = v34;
       [paymentSheet4 setPresentingSceneIdentifier:selfCopy->_presentingSceneIdentifier];
 
       [(ISProtocolDataProvider *)selfCopy _checkBiometricFailureForResponse:dictionaryCopy];
-      v73 = v12;
-      v39 = [(ISDataProvider *)selfCopy runTouchIDAuthorizationDialog:v35 fallbackDialog:v22 metricsDictionary:v17 error:&v73];
-      v40 = v73;
+      v70 = v12;
+      v38 = [(ISDataProvider *)selfCopy runTouchIDAuthorizationDialog:v34 fallbackDialog:v21 metricsDictionary:v16 error:&v70];
+      v39 = v70;
 
-      if (v40)
+      if (v39)
       {
-        v41 = 1;
+        v40 = 1;
       }
 
       else
       {
-        v41 = v39;
+        v40 = v38;
       }
 
-      if ((v41 | v60 ^ 1))
+      if ((v40 | v57 ^ 1))
       {
-        if (v39)
+        if (v38)
         {
-          v12 = v40;
-LABEL_55:
+          v12 = v39;
+LABEL_56:
 
-          v33 = 1;
-          goto LABEL_31;
+          v32 = 1;
+          goto LABEL_32;
         }
 
-        v34 = selfCopy;
-        if (([(ISProtocolDataProvider *)selfCopy _shouldAttemptPasswordPaymentSheetForError:v40]& v60) == 1)
+        v33 = selfCopy;
+        if (([(ISProtocolDataProvider *)selfCopy _shouldAttemptPasswordPaymentSheetForError:v39]& v57) == 1)
         {
-          v71 = v40;
-          v50 = [(ISDataProvider *)selfCopy runAuthorizationDialog:v22 error:&v71];
-          v12 = v71;
+          v68 = v39;
+          v49 = [(ISDataProvider *)selfCopy runAuthorizationDialog:v21 error:&v68];
+          v12 = v68;
 
-          if (v50)
+          if (v49)
           {
-LABEL_53:
-            biometricAuthenticationContext = [(ISDataProvider *)v34 biometricAuthenticationContext];
+LABEL_54:
+            biometricAuthenticationContext = [(ISDataProvider *)v33 biometricAuthenticationContext];
             [biometricAuthenticationContext setDidFallbackToPassword:1];
 
-            biometricSessionDelegate3 = [(ISDataProvider *)v34 biometricSessionDelegate];
-            v48 = objc_opt_respondsToSelector();
+            biometricSessionDelegate3 = [(ISDataProvider *)v33 biometricSessionDelegate];
+            v47 = objc_opt_respondsToSelector();
 
-            if (v48)
+            if (v47)
             {
               biometricSessionDelegate4 = [(ISDataProvider *)selfCopy biometricSessionDelegate];
               [biometricSessionDelegate4 sender:selfCopy didFallbackToPassword:1];
             }
 
-            goto LABEL_55;
+            goto LABEL_56;
           }
         }
 
         else
         {
-          v12 = v40;
+          v12 = v39;
         }
       }
 
       else
       {
-        v72 = 0;
-        v45 = [(ISDataProvider *)selfCopy runAuthorizationDialog:v22 error:&v72];
-        v12 = v72;
-        if (v45)
+        v69 = 0;
+        v44 = [(ISDataProvider *)selfCopy runAuthorizationDialog:v21 error:&v69];
+        v12 = v69;
+        if (v44)
         {
-          goto LABEL_53;
+          goto LABEL_54;
         }
       }
 
-LABEL_30:
-      v33 = 0;
 LABEL_31:
-      v7 = v63;
-LABEL_49:
+      v32 = 0;
+LABEL_32:
+      v7 = v60;
+LABEL_50:
 
-      if ((v33 & 1) == 0)
+      if ((v32 & 1) == 0)
       {
         v11 = obj;
 
         if (errorCopy)
         {
-          v52 = v12;
-          v53 = 0;
+          v51 = v12;
+          v52 = 0;
           *errorCopy = v12;
         }
 
         else
         {
-          v53 = 0;
+          v52 = 0;
         }
 
-        goto LABEL_68;
+        goto LABEL_69;
       }
 
-      ++v14;
-      v15 = v12;
-      if (v67 == v14)
+      ++v13;
+      v14 = v12;
+      if (v64 == v13)
       {
         v11 = obj;
-        v51 = [obj countByEnumeratingWithState:&v75 objects:v83 count:16];
-        v67 = v51;
-        v13 = &selRef_initWithBundleIdentifier_;
-        if (v51)
+        v50 = [obj countByEnumeratingWithState:&v72 objects:v80 count:16];
+        v64 = v50;
+        if (v50)
         {
           goto LABEL_13;
         }
 
-        goto LABEL_66;
+        goto LABEL_67;
       }
     }
 
@@ -310,61 +307,64 @@ LABEL_49:
     shouldLog = [mEMORY[0x277D69B38] shouldLog];
     if ([mEMORY[0x277D69B38] shouldLogToDisk])
     {
-      v28 = shouldLog | 2;
+      LODWORD(v27) = shouldLog | 2;
     }
 
     else
     {
-      v28 = shouldLog;
+      LODWORD(v27) = shouldLog;
     }
 
     oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
     {
-      v28 &= 2u;
+      v27 = v27;
     }
 
-    if (v28)
+    else
     {
-      v30 = objc_opt_class();
-      v79 = 138543618;
-      v80 = v30;
-      v81 = 2112;
-      v82 = v12;
-      v31 = v30;
-      LODWORD(v57) = 22;
-      v56 = &v79;
-      v32 = _os_log_send_and_compose_impl();
+      v27 &= 2u;
+    }
 
-      if (!v32)
+    if (v27)
+    {
+      v29 = objc_opt_class();
+      v76 = 138543618;
+      v77 = v29;
+      v78 = 2112;
+      v79 = v12;
+      v30 = v29;
+      LODWORD(v55) = 22;
+      v31 = _os_log_send_and_compose_impl(v27, 0, 0, 0, &dword_275BC3000, oSLogObject, 16, "%{public}@: Failing dialog with token error. error = %@", &v76, v55);
+
+      if (!v31)
       {
-LABEL_29:
+LABEL_30:
 
-        goto LABEL_30;
+        goto LABEL_31;
       }
 
-      oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v32 encoding:{4, &v79, v57}];
-      free(v32);
-      v56 = oSLogObject;
+      oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v31 encoding:4];
+      free(v31);
+      v54 = oSLogObject;
       SSFileLog();
     }
 
-    goto LABEL_29;
+    goto LABEL_30;
   }
 
   v12 = 0;
-LABEL_66:
+LABEL_67:
 
-  v53 = 1;
-LABEL_68:
+  v52 = 1;
+LABEL_69:
 
-  v54 = *MEMORY[0x277D85DE8];
-  return v53;
+  return v52;
 }
 
 - (BOOL)processDictionary:(id)dictionary error:(id *)error
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   if (![(ISProtocolDataProvider *)self shouldProcessProtocol])
   {
@@ -375,7 +375,7 @@ LABEL_68:
 
   v7 = [objc_alloc(MEMORY[0x277D69A88]) initWithResponseDictionary:dictionaryCopy];
   errorCopy = error;
-  v46 = dictionaryCopy;
+  v45 = dictionaryCopy;
   if (([v7 isSupportedProtocolVersion] & 1) == 0)
   {
     versionMismatchURL = [v7 versionMismatchURL];
@@ -409,14 +409,12 @@ LABEL_68:
 
     if (v18)
     {
-      v55 = 138412546;
-      v56 = objc_opt_class();
-      v57 = 2112;
-      v58 = versionMismatchURL;
-      v19 = v56;
-      LODWORD(v41) = 22;
-      v39 = &v55;
-      v20 = _os_log_send_and_compose_impl();
+      v54 = 138412546;
+      v55 = objc_opt_class();
+      v56 = 2112;
+      v57 = versionMismatchURL;
+      v19 = v55;
+      v20 = _os_log_send_and_compose_impl(v18, 0, 0, 0, &dword_275BC3000, oSLogObject, 0, "%@: Unsupported protocol version, redirecting to: %@", &v54, 22);
 
       if (!v20)
       {
@@ -424,62 +422,62 @@ LABEL_18:
 
         [(ISDataProvider *)self setRedirectURL:versionMismatchURL];
         v11 = 0;
-        v42 = versionMismatchURL != 0;
+        v41 = versionMismatchURL != 0;
         goto LABEL_19;
       }
 
-      oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v20 encoding:{4, &v55, v41}];
+      oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v20 encoding:4];
       free(v20);
-      v39 = oSLogObject;
+      v38 = oSLogObject;
       SSFileLog();
     }
 
     goto LABEL_18;
   }
 
-  v53 = 0;
-  v8 = [(ISProtocolDataProvider *)self processDialogFromDictionary:dictionaryCopy error:&v53];
-  v9 = v53;
+  v52 = 0;
+  v8 = [(ISProtocolDataProvider *)self processDialogFromDictionary:dictionaryCopy error:&v52];
+  v9 = v52;
   versionMismatchURL = v9;
   if (!v8)
   {
-    v43 = v9;
-    v42 = 0;
+    v42 = v9;
+    v41 = 0;
     goto LABEL_21;
   }
 
   [(ISProtocolDataProvider *)self _performActionsForResponse:v7];
-  v52 = versionMismatchURL;
-  v42 = [(ISProtocolDataProvider *)self _processFailureTypeFromDictionary:dictionaryCopy error:&v52];
-  v11 = v52;
+  v51 = versionMismatchURL;
+  v41 = [(ISProtocolDataProvider *)self _processFailureTypeFromDictionary:dictionaryCopy error:&v51];
+  v11 = v51;
 LABEL_19:
 
-  v43 = v11;
+  v42 = v11;
 LABEL_21:
-  v44 = v7;
+  v43 = v7;
   [v7 pingURLs];
+  v47 = 0u;
   v48 = 0u;
   v49 = 0u;
-  v50 = 0u;
-  obj = v51 = 0u;
-  v21 = [obj countByEnumeratingWithState:&v48 objects:v54 count:16];
+  obj = v50 = 0u;
+  v21 = [obj countByEnumeratingWithState:&v47 objects:v53 count:16];
   if (!v21)
   {
     goto LABEL_40;
   }
 
   v22 = v21;
-  v23 = *v49;
+  v23 = *v48;
   do
   {
     for (i = 0; i != v22; ++i)
     {
-      if (*v49 != v23)
+      if (*v48 != v23)
       {
         objc_enumerationMutation(obj);
       }
 
-      v25 = *(*(&v48 + 1) + 8 * i);
+      v25 = *(*(&v47 + 1) + 8 * i);
       mEMORY[0x277D69B38]2 = [MEMORY[0x277D69B38] sharediTunesStoreConfig];
       if (!mEMORY[0x277D69B38]2)
       {
@@ -511,23 +509,22 @@ LABEL_21:
       if (v30)
       {
         v31 = objc_opt_class();
-        v55 = 138412546;
-        v56 = v31;
-        v57 = 2112;
-        v58 = v25;
+        v54 = 138412546;
+        v55 = v31;
+        v56 = 2112;
+        v57 = v25;
         v32 = v31;
-        LODWORD(v41) = 22;
-        v40 = &v55;
-        v33 = _os_log_send_and_compose_impl();
+        LODWORD(v40) = 22;
+        v33 = _os_log_send_and_compose_impl(v30, 0, 0, 0, &dword_275BC3000, oSLogObject2, 2, "%@: Pinging %@", &v54, v40);
 
         if (!v33)
         {
           goto LABEL_38;
         }
 
-        oSLogObject2 = [MEMORY[0x277CCACA8] stringWithCString:v33 encoding:{4, &v55, v41}];
+        oSLogObject2 = [MEMORY[0x277CCACA8] stringWithCString:v33 encoding:4];
         free(v33);
-        v40 = oSLogObject2;
+        v39 = oSLogObject2;
         SSFileLog();
       }
 
@@ -537,16 +534,16 @@ LABEL_38:
       [v34 addOperation:v35];
     }
 
-    v22 = [obj countByEnumeratingWithState:&v48 objects:v54 count:16];
+    v22 = [obj countByEnumeratingWithState:&v47 objects:v53 count:16];
   }
 
   while (v22);
 LABEL_40:
 
-  v13 = v42;
+  v13 = v41;
   if (errorCopy)
   {
-    v36 = v42;
+    v36 = v41;
   }
 
   else
@@ -556,21 +553,20 @@ LABEL_40:
 
   if (v36)
   {
-    dictionaryCopy = v46;
-    v12 = v43;
+    dictionaryCopy = v45;
+    v12 = v42;
   }
 
   else
   {
-    v12 = v43;
+    v12 = v42;
     v13 = 0;
     *errorCopy = v12;
-    dictionaryCopy = v46;
+    dictionaryCopy = v45;
   }
 
 LABEL_46:
 
-  v37 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -584,7 +580,7 @@ LABEL_46:
 
 - (BOOL)parseData:(id)data returningError:(id *)error
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   contentType = [(ISDataProvider *)self contentType];
   v8 = contentType;
@@ -597,9 +593,9 @@ LABEL_46:
 
   else
   {
-    v44 = 0;
-    v10 = [MEMORY[0x277CCAAA0] JSONObjectWithData:dataCopy options:0 error:&v44];
-    mEMORY[0x277D69B38]3 = v44;
+    v42 = 0;
+    v10 = [MEMORY[0x277CCAAA0] JSONObjectWithData:dataCopy options:0 error:&v42];
+    mEMORY[0x277D69B38]3 = v42;
     if (v9)
     {
       goto LABEL_8;
@@ -610,9 +606,9 @@ LABEL_46:
   {
     if (dataCopy)
     {
-      v43 = 0;
-      v10 = [MEMORY[0x277CCAC58] propertyListWithData:dataCopy options:0 format:0 error:&v43];
-      v12 = v43;
+      v41 = 0;
+      v10 = [MEMORY[0x277CCAC58] propertyListWithData:dataCopy options:0 format:0 error:&v41];
+      v12 = v41;
 
       mEMORY[0x277D69B38]3 = v12;
       goto LABEL_8;
@@ -627,16 +623,21 @@ LABEL_46:
     shouldLog = [mEMORY[0x277D69B38] shouldLog];
     if ([mEMORY[0x277D69B38] shouldLogToDisk])
     {
-      v24 = shouldLog | 2;
+      LODWORD(v24) = shouldLog | 2;
     }
 
     else
     {
-      v24 = shouldLog;
+      LODWORD(v24) = shouldLog;
     }
 
     oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    {
+      v24 = v24;
+    }
+
+    else
     {
       v24 &= 2u;
     }
@@ -644,18 +645,16 @@ LABEL_46:
     if (v24)
     {
       v26 = objc_opt_class();
-      v45 = 138412290;
-      v46 = v26;
+      v43 = 138412290;
+      v44 = v26;
       v27 = v26;
-      LODWORD(v41) = 12;
-      v40 = &v45;
-      v28 = _os_log_send_and_compose_impl();
+      v28 = _os_log_send_and_compose_impl(v24, 0, 0, 0, &dword_275BC3000, oSLogObject, 16, "%@: Property list serialization failed with nil data", &v43, 12);
 
       if (!v28)
       {
-LABEL_33:
+LABEL_35:
 
-LABEL_34:
+LABEL_36:
         mEMORY[0x277D69B38]2 = [MEMORY[0x277D69B38] sharediTunesStoreConfig];
         if (!mEMORY[0x277D69B38]2)
         {
@@ -665,16 +664,21 @@ LABEL_34:
         shouldLog2 = [mEMORY[0x277D69B38]2 shouldLog];
         if ([mEMORY[0x277D69B38]2 shouldLogToDisk])
         {
-          v31 = shouldLog2 | 2;
+          LODWORD(v31) = shouldLog2 | 2;
         }
 
         else
         {
-          v31 = shouldLog2;
+          LODWORD(v31) = shouldLog2;
         }
 
         oSLogObject2 = [mEMORY[0x277D69B38]2 OSLogObject];
-        if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
+        {
+          v31 = v31;
+        }
+
+        else
         {
           v31 &= 2u;
         }
@@ -682,56 +686,55 @@ LABEL_34:
         if (v31)
         {
           v33 = objc_opt_class();
-          v45 = 138412546;
-          v46 = v33;
-          v47 = 2112;
-          v48 = mEMORY[0x277D69B38]3;
+          v43 = 138412546;
+          v44 = v33;
+          v45 = 2112;
+          v46 = mEMORY[0x277D69B38]3;
           v34 = v33;
-          LODWORD(v41) = 22;
-          v35 = _os_log_send_and_compose_impl();
+          LODWORD(v39) = 22;
+          v35 = _os_log_send_and_compose_impl(v31, 0, 0, 0, &dword_275BC3000, oSLogObject2, 16, "%@: Couldn't parse protocol: %@", &v43, v39);
 
           if (!v35)
           {
-LABEL_45:
+LABEL_48:
 
-            v36 = *MEMORY[0x277D6A110];
             v14 = SSError();
             v10 = 0;
-            goto LABEL_46;
+            goto LABEL_49;
           }
 
-          oSLogObject2 = [MEMORY[0x277CCACA8] stringWithCString:v35 encoding:{4, &v45, v41}];
+          oSLogObject2 = [MEMORY[0x277CCACA8] stringWithCString:v35 encoding:4];
           free(v35);
           SSFileLog();
         }
 
-        goto LABEL_45;
+        goto LABEL_48;
       }
 
-      oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v28 encoding:{4, &v45, v41}];
+      oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v28 encoding:4];
       free(v28);
-      v40 = oSLogObject;
+      v38 = oSLogObject;
       SSFileLog();
     }
 
-    goto LABEL_33;
+    goto LABEL_35;
   }
 
 LABEL_8:
   if (!v10)
   {
-    goto LABEL_34;
+    goto LABEL_36;
   }
 
-  v42 = mEMORY[0x277D69B38]3;
-  v13 = [(ISProtocolDataProvider *)self processDictionary:v10 error:&v42];
-  v14 = v42;
+  v40 = mEMORY[0x277D69B38]3;
+  v13 = [(ISProtocolDataProvider *)self processDictionary:v10 error:&v40];
+  v14 = v40;
 
   if (v13)
   {
     [(ISDataProvider *)self setOutput:v10];
     v15 = 1;
-    goto LABEL_49;
+    goto LABEL_52;
   }
 
   mEMORY[0x277D69B38]3 = [MEMORY[0x277D69B38] sharediTunesStoreConfig];
@@ -743,16 +746,21 @@ LABEL_8:
   shouldLog3 = [mEMORY[0x277D69B38]3 shouldLog];
   if ([mEMORY[0x277D69B38]3 shouldLogToDisk])
   {
-    v17 = shouldLog3 | 2;
+    LODWORD(v17) = shouldLog3 | 2;
   }
 
   else
   {
-    v17 = shouldLog3;
+    LODWORD(v17) = shouldLog3;
   }
 
   oSLogObject3 = [mEMORY[0x277D69B38]3 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_ERROR))
+  {
+    v17 = v17;
+  }
+
+  else
   {
     v17 &= 2u;
   }
@@ -760,29 +768,28 @@ LABEL_8:
   if (v17)
   {
     v19 = objc_opt_class();
-    v45 = 138412546;
-    v46 = v19;
-    v47 = 2112;
-    v48 = v14;
+    v43 = 138412546;
+    v44 = v19;
+    v45 = 2112;
+    v46 = v14;
     v20 = v19;
-    LODWORD(v41) = 22;
-    v21 = _os_log_send_and_compose_impl();
+    v21 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &dword_275BC3000, oSLogObject3, 16, "%@: Error processing protocol: %@", &v43, 22);
 
     if (!v21)
     {
-      goto LABEL_46;
+      goto LABEL_49;
     }
 
-    oSLogObject3 = [MEMORY[0x277CCACA8] stringWithCString:v21 encoding:{4, &v45, v41}];
+    oSLogObject3 = [MEMORY[0x277CCACA8] stringWithCString:v21 encoding:4];
     free(v21);
     SSFileLog();
   }
 
-LABEL_46:
+LABEL_49:
   [(ISDataProvider *)self setOutput:v10];
   if (error)
   {
-    v37 = v14;
+    v36 = v14;
     v15 = 0;
     *error = v14;
   }
@@ -792,9 +799,8 @@ LABEL_46:
     v15 = 0;
   }
 
-LABEL_49:
+LABEL_52:
 
-  v38 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -817,7 +823,7 @@ LABEL_49:
 
 - (void)_checkDownloadQueues
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if ([(ISProtocolDataProvider *)self shouldTriggerDownloads])
   {
     mEMORY[0x277D69B38] = [MEMORY[0x277D69B38] sharediTunesStoreConfig];
@@ -829,51 +835,52 @@ LABEL_49:
     shouldLog = [mEMORY[0x277D69B38] shouldLog];
     if ([mEMORY[0x277D69B38] shouldLogToDisk])
     {
-      v4 = shouldLog | 2;
+      LODWORD(v4) = shouldLog | 2;
     }
 
     else
     {
-      v4 = shouldLog;
+      LODWORD(v4) = shouldLog;
     }
 
     oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    {
+      v4 = v4;
+    }
+
+    else
     {
       v4 &= 2u;
     }
 
     if (v4)
     {
-      LODWORD(v10) = 138412290;
-      *(&v10 + 4) = objc_opt_class();
-      v6 = *(&v10 + 4);
-      LODWORD(v9) = 12;
-      v7 = _os_log_send_and_compose_impl();
+      v8 = 138412290;
+      v9 = objc_opt_class();
+      v6 = v9;
+      v7 = _os_log_send_and_compose_impl(v4, 0, 0, 0, &dword_275BC3000, oSLogObject, 2, "%@: Triggering queue check", &v8, 12);
 
       if (!v7)
       {
-LABEL_13:
+LABEL_14:
 
         [MEMORY[0x277D69AB8] _triggerDownloads];
-        goto LABEL_14;
+        return;
       }
 
-      oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v7 encoding:{4, &v10, v9, v10}];
+      oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v7 encoding:4];
       free(v7);
       SSFileLog();
     }
 
-    goto LABEL_13;
+    goto LABEL_14;
   }
-
-LABEL_14:
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_checkBiometricFailureForResponse:(id)response
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277D69B38];
   responseCopy = response;
   sharediTunesStoreConfig = [v4 sharediTunesStoreConfig];
@@ -885,41 +892,44 @@ LABEL_14:
   shouldLog = [sharediTunesStoreConfig shouldLog];
   if ([sharediTunesStoreConfig shouldLogToDisk])
   {
-    v8 = shouldLog | 2;
+    LODWORD(v8) = shouldLog | 2;
   }
 
   else
   {
-    v8 = shouldLog;
+    LODWORD(v8) = shouldLog;
   }
 
   oSLogObject = [sharediTunesStoreConfig OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+  {
+    v8 = v8;
+  }
+
+  else
   {
     v8 &= 2u;
   }
 
   if (v8)
   {
-    *v56 = 138543362;
-    *&v56[4] = objc_opt_class();
-    v10 = *&v56[4];
-    LODWORD(v55) = 12;
-    v53 = v56;
-    v11 = _os_log_send_and_compose_impl();
+    v55 = 138543362;
+    v56 = objc_opt_class();
+    v10 = v56;
+    v11 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &dword_275BC3000, oSLogObject, 2, "%{public}@: Checking for server verification failure", &v55, 12);
 
     if (!v11)
     {
-      goto LABEL_12;
+      goto LABEL_13;
     }
 
-    oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v11 encoding:{4, v56, v55, *v56}];
+    oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v11 encoding:4];
     free(v11);
-    v53 = oSLogObject;
+    v52 = oSLogObject;
     SSFileLog();
   }
 
-LABEL_12:
+LABEL_13:
   v12 = [responseCopy objectForKeyedSubscript:@"dialog"];
 
   objc_opt_class();
@@ -974,16 +984,21 @@ LABEL_12:
   shouldLog2 = [mEMORY[0x277D69B38] shouldLog];
   if ([mEMORY[0x277D69B38] shouldLogToDisk])
   {
-    v21 = shouldLog2 | 2;
+    LODWORD(v21) = shouldLog2 | 2;
   }
 
   else
   {
-    v21 = shouldLog2;
+    LODWORD(v21) = shouldLog2;
   }
 
   oSLogObject2 = [mEMORY[0x277D69B38] OSLogObject];
-  if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEBUG))
+  {
+    v21 = v21;
+  }
+
+  else
   {
     v21 &= 2u;
   }
@@ -994,26 +1009,25 @@ LABEL_12:
     v24 = MEMORY[0x277CCABB0];
     v25 = v23;
     v26 = [v24 numberWithBool:v18];
-    *v56 = 138543618;
-    *&v56[4] = v23;
-    *&v56[12] = 2114;
-    *&v56[14] = v26;
-    LODWORD(v55) = 22;
-    v54 = v56;
-    v27 = _os_log_send_and_compose_impl();
+    v55 = 138543618;
+    v56 = v23;
+    v57 = 2114;
+    v58 = v26;
+    LODWORD(v54) = 22;
+    v27 = _os_log_send_and_compose_impl(v21, 0, 0, 0, &dword_275BC3000, oSLogObject2, 2, "%{public}@: Did server verification occur? %{public}@", &v55, v54);
 
     if (!v27)
     {
-      goto LABEL_35;
+      goto LABEL_37;
     }
 
-    oSLogObject2 = [MEMORY[0x277CCACA8] stringWithCString:v27 encoding:{4, v56, v55}];
+    oSLogObject2 = [MEMORY[0x277CCACA8] stringWithCString:v27 encoding:4];
     free(v27);
-    v54 = oSLogObject2;
+    v53 = oSLogObject2;
     SSFileLog();
   }
 
-LABEL_35:
+LABEL_37:
   if (v18)
   {
     defaultStore = [MEMORY[0x277D69A20] defaultStore];
@@ -1024,7 +1038,7 @@ LABEL_35:
 
     if (accountName)
     {
-      goto LABEL_49;
+      goto LABEL_52;
     }
 
     mEMORY[0x277D69B38]2 = [MEMORY[0x277D69B38] sharediTunesStoreConfig];
@@ -1036,16 +1050,21 @@ LABEL_35:
     shouldLog3 = [mEMORY[0x277D69B38]2 shouldLog];
     if ([mEMORY[0x277D69B38]2 shouldLogToDisk])
     {
-      v34 = shouldLog3 | 2;
+      LODWORD(v34) = shouldLog3 | 2;
     }
 
     else
     {
-      v34 = shouldLog3;
+      LODWORD(v34) = shouldLog3;
     }
 
     oSLogObject3 = [mEMORY[0x277D69B38]2 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEBUG))
+    {
+      v34 = v34;
+    }
+
+    else
     {
       v34 &= 2u;
     }
@@ -1053,30 +1072,29 @@ LABEL_35:
     if (v34)
     {
       v36 = objc_opt_class();
-      *v56 = 138543362;
-      *&v56[4] = v36;
+      v55 = 138543362;
+      v56 = v36;
       v37 = v36;
-      LODWORD(v55) = 12;
-      v54 = v56;
-      v38 = _os_log_send_and_compose_impl();
+      LODWORD(v54) = 12;
+      v38 = _os_log_send_and_compose_impl(v34, 0, 0, 0, &dword_275BC3000, oSLogObject3, 2, "%{public}@: Setting accountName on context to active account", &v55, v54);
 
       if (!v38)
       {
-LABEL_48:
+LABEL_51:
 
         biometricAuthenticationContext2 = [(ISDataProvider *)self biometricAuthenticationContext];
         accountName2 = [activeAccount accountName];
         [biometricAuthenticationContext2 setAccountName:accountName2];
 
-LABEL_49:
+LABEL_52:
         biometricAuthenticationContext3 = [(ISDataProvider *)self biometricAuthenticationContext];
         accountIdentifier = [biometricAuthenticationContext3 accountIdentifier];
 
         if (accountIdentifier)
         {
-LABEL_62:
+LABEL_66:
 
-          goto LABEL_63;
+          goto LABEL_67;
         }
 
         mEMORY[0x277D69B38]3 = [MEMORY[0x277D69B38] sharediTunesStoreConfig];
@@ -1088,16 +1106,21 @@ LABEL_62:
         shouldLog4 = [mEMORY[0x277D69B38]3 shouldLog];
         if ([mEMORY[0x277D69B38]3 shouldLogToDisk])
         {
-          v45 = shouldLog4 | 2;
+          LODWORD(v45) = shouldLog4 | 2;
         }
 
         else
         {
-          v45 = shouldLog4;
+          LODWORD(v45) = shouldLog4;
         }
 
         oSLogObject4 = [mEMORY[0x277D69B38]3 OSLogObject];
-        if (!os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEBUG))
+        if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEBUG))
+        {
+          v45 = v45;
+        }
+
+        else
         {
           v45 &= 2u;
         }
@@ -1105,48 +1128,46 @@ LABEL_62:
         if (v45)
         {
           v47 = objc_opt_class();
-          *v56 = 138543362;
-          *&v56[4] = v47;
+          v55 = 138543362;
+          v56 = v47;
           v48 = v47;
-          LODWORD(v55) = 12;
-          v49 = _os_log_send_and_compose_impl();
+          LODWORD(v54) = 12;
+          v49 = _os_log_send_and_compose_impl(v45, 0, 0, 0, &dword_275BC3000, oSLogObject4, 2, "%{public}@: Setting accountIdentifier on context to active account", &v55, v54);
 
           if (!v49)
           {
-LABEL_61:
+LABEL_65:
 
             biometricAuthenticationContext4 = [(ISDataProvider *)self biometricAuthenticationContext];
             uniqueIdentifier = [activeAccount uniqueIdentifier];
             [biometricAuthenticationContext4 setAccountIdentifier:uniqueIdentifier];
 
-            goto LABEL_62;
+            goto LABEL_66;
           }
 
-          oSLogObject4 = [MEMORY[0x277CCACA8] stringWithCString:v49 encoding:{4, v56, v55}];
+          oSLogObject4 = [MEMORY[0x277CCACA8] stringWithCString:v49 encoding:4];
           free(v49);
           SSFileLog();
         }
 
-        goto LABEL_61;
+        goto LABEL_65;
       }
 
-      oSLogObject3 = [MEMORY[0x277CCACA8] stringWithCString:v38 encoding:{4, v56, v55}];
+      oSLogObject3 = [MEMORY[0x277CCACA8] stringWithCString:v38 encoding:4];
       free(v38);
-      v54 = oSLogObject3;
+      v53 = oSLogObject3;
       SSFileLog();
     }
 
-    goto LABEL_48;
+    goto LABEL_51;
   }
 
-LABEL_63:
-
-  v52 = *MEMORY[0x277D85DE8];
+LABEL_67:
 }
 
 - (void)_checkInAppPurchaseQueueForAction:(id)action
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   actionCopy = action;
   v5 = objc_alloc_init(MEMORY[0x277D69C90]);
   [v5 setBagType:{objc_msgSend(actionCopy, "URLBagType")}];
@@ -1163,49 +1184,52 @@ LABEL_63:
   shouldLog = [mEMORY[0x277D69B38] shouldLog];
   if ([mEMORY[0x277D69B38] shouldLogToDisk])
   {
-    v10 = shouldLog | 2;
+    LODWORD(v10) = shouldLog | 2;
   }
 
   else
   {
-    v10 = shouldLog;
+    LODWORD(v10) = shouldLog;
   }
 
   oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+  {
+    v10 = v10;
+  }
+
+  else
   {
     v10 &= 2u;
   }
 
   if (!v10)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
   v12 = objc_opt_class();
   v13 = v12;
   bagType = [v5 bagType];
-  [actionCopy clientIdentifier];
-  v19 = 138412802;
-  v20 = v12;
-  v21 = 2048;
-  v22 = bagType;
-  v24 = v23 = 2112;
-  LODWORD(v18) = 32;
-  v15 = _os_log_send_and_compose_impl();
+  clientIdentifier = [actionCopy clientIdentifier];
+  v18 = 138412802;
+  v19 = v12;
+  v20 = 2048;
+  v21 = bagType;
+  v22 = 2112;
+  v23 = clientIdentifier;
+  v16 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &dword_275BC3000, oSLogObject, 2, "%@: Trigger in-app queue check: [%ld, %@]", &v18, 32);
 
-  if (v15)
+  if (v16)
   {
-    oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v15 encoding:{4, &v19, v18}];
-    free(v15);
+    oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v16 encoding:4];
+    free(v16);
     SSFileLog();
-LABEL_11:
+LABEL_12:
   }
 
-  clientIdentifier = [actionCopy clientIdentifier];
+  clientIdentifier2 = [actionCopy clientIdentifier];
   SSCheckInAppPurchaseQueue();
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_metricsDictionaryForResponse:(id)response
@@ -1229,12 +1253,12 @@ LABEL_11:
 
 - (void)_performActionsForResponse:(id)response
 {
-  v124 = *MEMORY[0x277D85DE8];
+  v123 = *MEMORY[0x277D85DE8];
   actions = [response actions];
   v5 = 0x277D69000uLL;
   if (![actions count])
   {
-    goto LABEL_14;
+    goto LABEL_15;
   }
 
   mEMORY[0x277D69B38] = [MEMORY[0x277D69B38] sharediTunesStoreConfig];
@@ -1246,93 +1270,96 @@ LABEL_11:
   shouldLog = [mEMORY[0x277D69B38] shouldLog];
   if ([mEMORY[0x277D69B38] shouldLogToDisk])
   {
-    v8 = shouldLog | 2;
+    LODWORD(v8) = shouldLog | 2;
   }
 
   else
   {
-    v8 = shouldLog;
+    LODWORD(v8) = shouldLog;
   }
 
   oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+  {
+    v8 = v8;
+  }
+
+  else
   {
     v8 &= 2u;
   }
 
   if (!v8)
   {
-    goto LABEL_12;
+    goto LABEL_13;
   }
 
-  v117 = 138412546;
-  v118 = objc_opt_class();
-  v119 = 2112;
-  v120 = actions;
-  v10 = v118;
-  LODWORD(v90) = 22;
-  v88 = &v117;
-  v11 = _os_log_send_and_compose_impl();
+  v116 = 138412546;
+  v117 = objc_opt_class();
+  v118 = 2112;
+  v119 = actions;
+  v10 = v117;
+  v11 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &dword_275BC3000, oSLogObject, 2, "%@: Performing actions: %@", &v116, 22);
 
   if (v11)
   {
-    oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v11 encoding:{4, &v117, v90}];
+    oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v11 encoding:4];
     free(v11);
-    v88 = oSLogObject;
+    v87 = oSLogObject;
     SSFileLog();
-LABEL_12:
+LABEL_13:
   }
 
-LABEL_14:
-  v115 = 0u;
-  v116 = 0u;
-  v113 = 0u;
+LABEL_15:
   v114 = 0u;
+  v115 = 0u;
+  v112 = 0u;
+  v113 = 0u;
   v12 = actions;
-  v13 = [v12 countByEnumeratingWithState:&v113 objects:v123 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v112 objects:v122 count:16];
   if (!v13)
   {
-    goto LABEL_122;
+    goto LABEL_127;
   }
 
   v14 = v13;
-  v15 = *v114;
-  v108 = *MEMORY[0x277D6A530];
-  v104 = *MEMORY[0x277D6A538];
-  v101 = *MEMORY[0x277D6A540];
+  v15 = *v113;
+  v107 = *MEMORY[0x277D6A530];
+  v103 = *MEMORY[0x277D6A538];
+  v100 = *MEMORY[0x277D6A540];
   name = *MEMORY[0x277D6A6F0];
-  v110 = *MEMORY[0x277D6A548];
-  v107 = *MEMORY[0x277D6A550];
-  v103 = *MEMORY[0x277D6A558];
-  v99 = *MEMORY[0x277D6A560];
-  v98 = *MEMORY[0x277D6A568];
+  v109 = *MEMORY[0x277D6A548];
+  v106 = *MEMORY[0x277D6A550];
+  v102 = *MEMORY[0x277D6A558];
+  v98 = *MEMORY[0x277D6A560];
+  v97 = *MEMORY[0x277D6A568];
   v16 = *MEMORY[0x277D6A520];
-  v93 = *MEMORY[0x277D6A528];
-  v102 = v12;
-  v105 = *v114;
-  v106 = *MEMORY[0x277D6A520];
+  v92 = *MEMORY[0x277D6A528];
+  v101 = v12;
+  v104 = *v113;
+  v105 = *MEMORY[0x277D6A520];
   do
   {
     v17 = 0;
-    v109 = v14;
+    v108 = v14;
     do
     {
-      if (*v114 != v15)
+      if (*v113 != v15)
       {
         objc_enumerationMutation(v12);
       }
 
-      v18 = *(*(&v113 + 1) + 8 * v17);
+      v18 = *(*(&v112 + 1) + 8 * v17);
       actionType = [v18 actionType];
       if ([actionType isEqualToString:v16])
       {
         [(ISProtocolDataProvider *)self _checkDownloadQueues];
-        goto LABEL_58;
+        goto LABEL_62;
       }
 
-      if (![actionType isEqualToString:v108])
+      if (![actionType isEqualToString:v107])
       {
-        if ([actionType isEqualToString:v104])
+        if ([actionType isEqualToString:v103])
         {
           sharediTunesStoreConfig = [*(v5 + 2872) sharediTunesStoreConfig];
           if (!sharediTunesStoreConfig)
@@ -1340,52 +1367,56 @@ LABEL_14:
             sharediTunesStoreConfig = [*(v5 + 2872) sharedConfig];
           }
 
-          shouldLog2 = [sharediTunesStoreConfig shouldLog];
+          LODWORD(v29) = [sharediTunesStoreConfig shouldLog];
           if ([sharediTunesStoreConfig shouldLogToDisk])
           {
-            shouldLog2 |= 2u;
+            LODWORD(v29) = v29 | 2;
           }
 
           oSLogObject2 = [sharediTunesStoreConfig OSLogObject];
-          if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEBUG))
+          if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEBUG))
           {
-            shouldLog2 &= 2u;
+            v29 = v29;
           }
 
-          if (shouldLog2)
+          else
+          {
+            v29 &= 2u;
+          }
+
+          if (v29)
           {
             v31 = objc_opt_class();
-            v117 = 138412290;
-            v118 = v31;
+            v116 = 138412290;
+            v117 = v31;
             v32 = v31;
-            LODWORD(v90) = 12;
-            v89 = &v117;
-            v33 = _os_log_send_and_compose_impl();
+            LODWORD(v89) = 12;
+            v33 = _os_log_send_and_compose_impl(v29, 0, 0, 0, &dword_275BC3000, oSLogObject2, 2, "%@: Invalidating URL bag", &v116, v89);
 
-            v15 = v105;
+            v15 = v104;
             if (v33)
             {
-              oSLogObject2 = [MEMORY[0x277CCACA8] stringWithCString:v33 encoding:{4, &v117, v90}];
+              oSLogObject2 = [MEMORY[0x277CCACA8] stringWithCString:v33 encoding:4];
               free(v33);
-              v89 = oSLogObject2;
+              v88 = oSLogObject2;
               SSFileLog();
-              goto LABEL_43;
+              goto LABEL_46;
             }
           }
 
           else
           {
-LABEL_43:
+LABEL_46:
           }
 
           DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
           CFNotificationCenterPostNotification(DarwinNotifyCenter, name, 0, 0, 1u);
-          goto LABEL_57;
+          goto LABEL_61;
         }
 
-        if (![actionType isEqualToString:v101])
+        if (![actionType isEqualToString:v100])
         {
-          goto LABEL_58;
+          goto LABEL_62;
         }
 
         sharediTunesStoreConfig2 = [*(v5 + 2872) sharediTunesStoreConfig];
@@ -1394,47 +1425,51 @@ LABEL_43:
           sharediTunesStoreConfig2 = [*(v5 + 2872) sharedConfig];
         }
 
-        shouldLog3 = [sharediTunesStoreConfig2 shouldLog];
+        LODWORD(v36) = [sharediTunesStoreConfig2 shouldLog];
         if ([sharediTunesStoreConfig2 shouldLogToDisk])
         {
-          shouldLog3 |= 2u;
+          LODWORD(v36) = v36 | 2;
         }
 
         oSLogObject3 = [sharediTunesStoreConfig2 OSLogObject];
-        if (!os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEBUG))
+        if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEBUG))
         {
-          shouldLog3 &= 2u;
+          v36 = v36;
         }
 
-        if (shouldLog3)
+        else
+        {
+          v36 &= 2u;
+        }
+
+        if (v36)
         {
           v38 = objc_opt_class();
           v39 = v38;
           v40 = [v18 URL];
-          v117 = 138412546;
-          v118 = v38;
-          v119 = 2112;
-          v120 = v40;
-          LODWORD(v90) = 22;
-          v89 = &v117;
-          v41 = _os_log_send_and_compose_impl();
+          v116 = 138412546;
+          v117 = v38;
+          v118 = 2112;
+          v119 = v40;
+          LODWORD(v89) = 22;
+          v41 = _os_log_send_and_compose_impl(v36, 0, 0, 0, &dword_275BC3000, oSLogObject3, 2, "%@: Opening URL action: %@", &v116, v89);
 
-          v12 = v102;
+          v12 = v101;
           v5 = 0x277D69000uLL;
 
           if (v41)
           {
-            oSLogObject3 = [MEMORY[0x277CCACA8] stringWithCString:v41 encoding:{4, &v117, v90}];
+            oSLogObject3 = [MEMORY[0x277CCACA8] stringWithCString:v41 encoding:4];
             free(v41);
-            v89 = oSLogObject3;
+            v88 = oSLogObject3;
             SSFileLog();
-            goto LABEL_55;
+            goto LABEL_59;
           }
         }
 
         else
         {
-LABEL_55:
+LABEL_59:
         }
 
         v42 = [v18 URL];
@@ -1445,8 +1480,8 @@ LABEL_55:
         v45 = +[ISOperationQueue mainQueue];
         [v45 addOperation:v44];
 
-        v15 = v105;
-        goto LABEL_57;
+        v15 = v104;
+        goto LABEL_61;
       }
 
       sharediTunesStoreConfig3 = [*(v5 + 2872) sharediTunesStoreConfig];
@@ -1455,79 +1490,83 @@ LABEL_55:
         sharediTunesStoreConfig3 = [*(v5 + 2872) sharedConfig];
       }
 
-      shouldLog4 = [sharediTunesStoreConfig3 shouldLog];
+      LODWORD(v21) = [sharediTunesStoreConfig3 shouldLog];
       if ([sharediTunesStoreConfig3 shouldLogToDisk])
       {
-        shouldLog4 |= 2u;
+        LODWORD(v21) = v21 | 2;
       }
 
       oSLogObject4 = [sharediTunesStoreConfig3 OSLogObject];
-      if (!os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
       {
-        shouldLog4 &= 2u;
+        v21 = v21;
       }
 
-      if (!shouldLog4)
+      else
       {
-        goto LABEL_31;
+        v21 &= 2u;
+      }
+
+      if (!v21)
+      {
+        goto LABEL_33;
       }
 
       v23 = objc_opt_class();
       v24 = v23;
       v25 = [v18 URL];
-      v117 = 138412546;
-      v118 = v23;
-      v12 = v102;
-      v119 = 2112;
-      v120 = v25;
-      LODWORD(v90) = 22;
-      v89 = &v117;
-      v26 = _os_log_send_and_compose_impl();
+      v116 = 138412546;
+      v117 = v23;
+      v12 = v101;
+      v118 = 2112;
+      v119 = v25;
+      LODWORD(v89) = 22;
+      v26 = _os_log_send_and_compose_impl(v21, 0, 0, 0, &dword_275BC3000, oSLogObject4, 0, "%@: Plist-driven redirect to: %@", &v116, v89);
 
       v5 = 0x277D69000;
-      v15 = v105;
+      v15 = v104;
 
       if (v26)
       {
-        oSLogObject4 = [MEMORY[0x277CCACA8] stringWithCString:v26 encoding:{4, &v117, v90}];
+        oSLogObject4 = [MEMORY[0x277CCACA8] stringWithCString:v26 encoding:4];
         free(v26);
-        v89 = oSLogObject4;
+        v88 = oSLogObject4;
         SSFileLog();
-LABEL_31:
+LABEL_33:
       }
 
       v27 = [v18 URL];
       [(ISDataProvider *)self setRedirectURL:v27];
 
-LABEL_57:
-      v14 = v109;
-      v16 = v106;
-LABEL_58:
-      if ([actionType isEqualToString:{v110, v89}])
+LABEL_61:
+      v14 = v108;
+      v16 = v105;
+LABEL_62:
+      if ([actionType isEqualToString:{v109, v88}])
       {
         [(ISProtocolDataProvider *)self _refreshSubscriptionStatus];
-        goto LABEL_64;
+        goto LABEL_68;
       }
 
-      if ([actionType isEqualToString:v107])
+      if ([actionType isEqualToString:v106])
       {
         [MEMORY[0x277D69AB8] retryAllRestoreDownloads];
-        goto LABEL_64;
+        goto LABEL_68;
       }
 
-      if ([actionType isEqualToString:v103])
+      if ([actionType isEqualToString:v102])
       {
         footerSection = [v18 footerSection];
         [(ISProtocolDataProvider *)self _selectFooterSection:footerSection];
 
-        goto LABEL_64;
+        goto LABEL_68;
       }
 
-      if ([actionType isEqualToString:v99])
+      if ([actionType isEqualToString:v98])
       {
         if (![(ISProtocolDataProvider *)self shouldProcessAccount])
         {
-          goto LABEL_64;
+          goto LABEL_68;
         }
 
         account = [v18 account];
@@ -1535,9 +1574,9 @@ LABEL_58:
         [account setCreditsString:creditsString];
 
         defaultStore = [MEMORY[0x277D69A20] defaultStore];
-        v112 = 0;
-        [defaultStore saveAccount:account verifyCredentials:0 error:&v112];
-        v50 = v112;
+        v111 = 0;
+        [defaultStore saveAccount:account verifyCredentials:0 error:&v111];
+        v50 = v111;
 
         if (v50)
         {
@@ -1547,65 +1586,69 @@ LABEL_58:
             sharedAccountsConfig = [*(v5 + 2872) sharedConfig];
           }
 
-          shouldLog5 = [sharedAccountsConfig shouldLog];
+          LODWORD(v52) = [sharedAccountsConfig shouldLog];
           if ([sharedAccountsConfig shouldLogToDisk])
           {
-            shouldLog5 |= 2u;
+            LODWORD(v52) = v52 | 2;
           }
 
           oSLogObject5 = [sharedAccountsConfig OSLogObject];
-          if (!os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_ERROR))
           {
-            shouldLog5 &= 2u;
+            v52 = v52;
           }
 
-          if (shouldLog5)
+          else
+          {
+            v52 &= 2u;
+          }
+
+          if (v52)
           {
             v54 = objc_opt_class();
-            v94 = v54;
+            v93 = v54;
             accountName = [account accountName];
             SSHashIfNeeded();
-            v56 = v96 = v50;
-            v117 = 138543618;
-            v118 = v54;
-            v15 = v105;
-            v119 = 2114;
-            v120 = v56;
-            LODWORD(v90) = 22;
-            v88 = &v117;
-            v57 = _os_log_send_and_compose_impl();
+            v56 = v95 = v50;
+            v116 = 138543618;
+            v117 = v54;
+            v15 = v104;
+            v118 = 2114;
+            v119 = v56;
+            LODWORD(v89) = 22;
+            v57 = _os_log_send_and_compose_impl(v52, 0, 0, 0, &dword_275BC3000, oSLogObject5, 16, "%{public}@: Failed to save credit string to account: %{public}@", &v116, v89);
 
             v5 = 0x277D69000;
-            v50 = v96;
+            v50 = v95;
 
             if (v57)
             {
-              oSLogObject5 = [MEMORY[0x277CCACA8] stringWithCString:v57 encoding:{4, &v117, v90}];
+              oSLogObject5 = [MEMORY[0x277CCACA8] stringWithCString:v57 encoding:4];
               free(v57);
-              v88 = oSLogObject5;
+              v87 = oSLogObject5;
               SSFileLog();
-              goto LABEL_78;
+              goto LABEL_83;
             }
           }
 
           else
           {
-LABEL_78:
+LABEL_83:
           }
 
-          v12 = v102;
-          v14 = v109;
+          v12 = v101;
+          v14 = v108;
         }
 
-        v16 = v106;
-        goto LABEL_64;
+        v16 = v105;
+        goto LABEL_68;
       }
 
-      if ([actionType isEqualToString:v98])
+      if ([actionType isEqualToString:v97])
       {
         if (![(ISProtocolDataProvider *)self shouldProcessAccount])
         {
-          goto LABEL_64;
+          goto LABEL_68;
         }
 
         account2 = [v18 account];
@@ -1616,60 +1659,59 @@ LABEL_78:
           sharedAccountsConfig2 = [*(v5 + 2872) sharedConfig];
         }
 
-        shouldLog6 = [sharedAccountsConfig2 shouldLog];
+        shouldLog2 = [sharedAccountsConfig2 shouldLog];
         if ([sharedAccountsConfig2 shouldLogToDisk])
         {
-          shouldLog6 |= 2u;
+          shouldLog2 |= 2u;
         }
 
         oSLogObject6 = [sharedAccountsConfig2 OSLogObject];
         if (os_log_type_enabled(oSLogObject6, OS_LOG_TYPE_DEFAULT))
         {
-          v62 = shouldLog6;
+          v62 = shouldLog2;
         }
 
         else
         {
-          v62 = shouldLog6 & 2;
+          v62 = shouldLog2 & 2;
         }
 
-        v97 = account2;
+        v96 = account2;
         if (v62)
         {
           v63 = objc_opt_class();
           v64 = v63;
           accountName2 = [account2 accountName];
           v66 = SSHashIfNeeded();
-          v117 = 138543618;
-          v118 = v63;
-          v119 = 2114;
-          v120 = v66;
-          LODWORD(v90) = 22;
-          v88 = &v117;
-          v67 = _os_log_send_and_compose_impl();
+          v116 = 138543618;
+          v117 = v63;
+          v118 = 2114;
+          v119 = v66;
+          LODWORD(v89) = 22;
+          v67 = _os_log_send_and_compose_impl(v62, 0, 0, 0, &dword_275BC3000, oSLogObject6, 0, "%{public}@: The server told us to set the active account. Saving %{public}@.", &v116, v89);
 
           v5 = 0x277D69000uLL;
-          account2 = v97;
+          account2 = v96;
 
           if (v67)
           {
-            oSLogObject6 = [MEMORY[0x277CCACA8] stringWithCString:v67 encoding:{4, &v117, v90}];
+            oSLogObject6 = [MEMORY[0x277CCACA8] stringWithCString:v67 encoding:4];
             free(v67);
-            v88 = oSLogObject6;
+            v87 = oSLogObject6;
             SSFileLog();
-            goto LABEL_93;
+            goto LABEL_98;
           }
         }
 
         else
         {
-LABEL_93:
+LABEL_98:
         }
 
         defaultStore2 = [MEMORY[0x277D69A20] defaultStore];
-        v111 = 0;
-        v69 = [defaultStore2 saveAccount:account2 verifyCredentials:0 error:&v111];
-        v95 = v111;
+        v110 = 0;
+        v69 = [defaultStore2 saveAccount:account2 verifyCredentials:0 error:&v110];
+        v94 = v110;
 
         sharedAccountsConfig3 = [*(v5 + 2872) sharedAccountsConfig];
         sharedConfig = sharedAccountsConfig3;
@@ -1680,21 +1722,21 @@ LABEL_93:
             sharedConfig = [*(v5 + 2872) sharedConfig];
           }
 
-          shouldLog7 = [sharedConfig shouldLog];
+          shouldLog3 = [sharedConfig shouldLog];
           if ([sharedConfig shouldLogToDisk])
           {
-            shouldLog7 |= 2u;
+            shouldLog3 |= 2u;
           }
 
           oSLogObject7 = [sharedConfig OSLogObject];
           if (os_log_type_enabled(oSLogObject7, OS_LOG_TYPE_INFO))
           {
-            v74 = shouldLog7;
+            v74 = shouldLog3;
           }
 
           else
           {
-            v74 = shouldLog7 & 2;
+            v74 = shouldLog3 & 2;
           }
 
           if (v74)
@@ -1703,22 +1745,21 @@ LABEL_93:
             v76 = v75;
             accountName3 = [account2 accountName];
             v78 = SSHashIfNeeded();
-            v117 = 138543618;
-            v118 = v75;
-            v119 = 2114;
-            v120 = v78;
-            LODWORD(v90) = 22;
-            v88 = &v117;
-            v79 = _os_log_send_and_compose_impl();
+            v116 = 138543618;
+            v117 = v75;
+            v118 = 2114;
+            v119 = v78;
+            LODWORD(v89) = 22;
+            v79 = _os_log_send_and_compose_impl(v74, 0, 0, 0, &dword_275BC3000, oSLogObject7, 1, "%{public}@: Successfully set %{public}@ as the active account.", &v116, v89);
 
-            goto LABEL_115;
+            goto LABEL_120;
           }
 
-LABEL_117:
-          v12 = v102;
-          v15 = v105;
-LABEL_118:
-          v14 = v109;
+LABEL_122:
+          v12 = v101;
+          v15 = v104;
+LABEL_123:
+          v14 = v108;
         }
 
         else
@@ -1728,91 +1769,88 @@ LABEL_118:
             sharedConfig = [*(v5 + 2872) sharedConfig];
           }
 
-          shouldLog8 = [sharedConfig shouldLog];
+          shouldLog4 = [sharedConfig shouldLog];
           if ([sharedConfig shouldLogToDisk])
           {
-            shouldLog8 |= 2u;
+            shouldLog4 |= 2u;
           }
 
           oSLogObject7 = [sharedConfig OSLogObject];
           if (os_log_type_enabled(oSLogObject7, OS_LOG_TYPE_ERROR))
           {
-            v81 = shouldLog8;
+            v81 = shouldLog4;
           }
 
           else
           {
-            v81 = shouldLog8 & 2;
+            v81 = shouldLog4 & 2;
           }
 
           if (!v81)
           {
-            goto LABEL_117;
+            goto LABEL_122;
           }
 
           v82 = objc_opt_class();
-          v92 = v82;
+          v91 = v82;
           accountName4 = [account2 accountName];
           v83 = SSHashIfNeeded();
-          v84 = [v95 description];
+          v84 = [v94 description];
           v85 = SSHashIfNeeded();
-          v117 = 138543874;
-          v118 = v82;
-          v119 = 2114;
-          v120 = v83;
-          v121 = 2114;
-          v122 = v85;
-          LODWORD(v90) = 32;
-          v88 = &v117;
-          v79 = _os_log_send_and_compose_impl();
+          v116 = 138543874;
+          v117 = v82;
+          v118 = 2114;
+          v119 = v83;
+          v120 = 2114;
+          v121 = v85;
+          LODWORD(v89) = 32;
+          v79 = _os_log_send_and_compose_impl(v81, 0, 0, 0, &dword_275BC3000, oSLogObject7, 16, "%{public}@: Failed to set %{public}@ as the active account. error = %{public}@", &v116, v89);
 
-LABEL_115:
+LABEL_120:
           v5 = 0x277D69000;
           if (v79)
           {
-            v12 = v102;
-            v15 = v105;
-            oSLogObject7 = [MEMORY[0x277CCACA8] stringWithCString:v79 encoding:{4, &v117, v90}];
+            v12 = v101;
+            v15 = v104;
+            oSLogObject7 = [MEMORY[0x277CCACA8] stringWithCString:v79 encoding:4];
             free(v79);
-            v88 = oSLogObject7;
+            v87 = oSLogObject7;
             SSFileLog();
-            goto LABEL_118;
+            goto LABEL_123;
           }
 
-          v12 = v102;
-          v15 = v105;
-          v14 = v109;
+          v12 = v101;
+          v15 = v104;
+          v14 = v108;
         }
 
-        v16 = v106;
+        v16 = v105;
 
-        goto LABEL_64;
+        goto LABEL_68;
       }
 
-      if ([actionType isEqualToString:v93])
+      if ([actionType isEqualToString:v92])
       {
         [(ISProtocolDataProvider *)self _checkInAppPurchaseQueueForAction:v18];
       }
 
-LABEL_64:
+LABEL_68:
 
       ++v17;
     }
 
     while (v14 != v17);
-    v86 = [v12 countByEnumeratingWithState:&v113 objects:v123 count:16];
+    v86 = [v12 countByEnumeratingWithState:&v112 objects:v122 count:16];
     v14 = v86;
   }
 
   while (v86);
-LABEL_122:
-
-  v87 = *MEMORY[0x277D85DE8];
+LABEL_127:
 }
 
 - (BOOL)_processFailureTypeFromDictionary:(id)dictionary error:(id *)error
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v5 = [dictionary objectForKey:@"failureType"];
   if (objc_opt_respondsToSelector())
   {
@@ -1829,55 +1867,58 @@ LABEL_122:
       shouldLog = [mEMORY[0x277D69B38]2 shouldLog];
       if ([mEMORY[0x277D69B38]2 shouldLogToDisk])
       {
-        v24 = shouldLog | 2;
+        LODWORD(v23) = shouldLog | 2;
       }
 
       else
       {
-        v24 = shouldLog;
+        LODWORD(v23) = shouldLog;
       }
 
       oSLogObject = [mEMORY[0x277D69B38]2 OSLogObject];
-      if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
       {
-        v24 &= 2u;
+        v23 = v23;
       }
 
-      if (v24)
+      else
       {
-        v26 = objc_opt_class();
-        v27 = v26;
-        v31 = 138543618;
-        v32 = v26;
-        v33 = 1024;
+        v23 &= 2u;
+      }
+
+      if (v23)
+      {
+        v25 = objc_opt_class();
+        v26 = v25;
+        v28 = 138543618;
+        v29 = v25;
+        v30 = 1024;
         intValue2 = [v5 intValue];
-        LODWORD(v30) = 18;
-        v28 = _os_log_send_and_compose_impl();
+        v27 = _os_log_send_and_compose_impl(v23, 0, 0, 0, &dword_275BC3000, oSLogObject, 16, "%{public}@: Saw token failure: %d", &v28, 18);
 
-        if (!v28)
+        if (!v27)
         {
-LABEL_35:
+LABEL_37:
 
-          v29 = *MEMORY[0x277D6A5A8];
           [v5 intValue];
           v15 = SSError();
-LABEL_36:
+LABEL_38:
           v16 = v15;
           v17 = 0;
           if (!error)
           {
-            goto LABEL_23;
+            goto LABEL_24;
           }
 
-          goto LABEL_22;
+          goto LABEL_23;
         }
 
-        oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v28 encoding:{4, &v31, v30}];
-        free(v28);
+        oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v27 encoding:4];
+        free(v27);
         SSFileLog();
       }
 
-      goto LABEL_35;
+      goto LABEL_37;
     }
 
     if (intValue == 2034 || intValue == 2002)
@@ -1891,16 +1932,21 @@ LABEL_36:
       shouldLog2 = [mEMORY[0x277D69B38]3 shouldLog];
       if ([mEMORY[0x277D69B38]3 shouldLogToDisk])
       {
-        v10 = shouldLog2 | 2;
+        LODWORD(v10) = shouldLog2 | 2;
       }
 
       else
       {
-        v10 = shouldLog2;
+        LODWORD(v10) = shouldLog2;
       }
 
       oSLogObject2 = [mEMORY[0x277D69B38]3 OSLogObject];
-      if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
+      {
+        v10 = v10;
+      }
+
+      else
       {
         v10 &= 2u;
       }
@@ -1909,27 +1955,26 @@ LABEL_36:
       {
         v12 = objc_opt_class();
         v13 = v12;
-        v31 = 138543618;
-        v32 = v12;
-        v33 = 1024;
+        v28 = 138543618;
+        v29 = v12;
+        v30 = 1024;
         intValue2 = [v5 intValue];
-        LODWORD(v30) = 18;
-        v14 = _os_log_send_and_compose_impl();
+        v14 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &dword_275BC3000, oSLogObject2, 16, "%{public}@: Saw token failure: %d", &v28, 18);
 
         if (!v14)
         {
-LABEL_20:
+LABEL_21:
 
           v15 = ISError(18, 0, 0);
-          goto LABEL_36;
+          goto LABEL_38;
         }
 
-        oSLogObject2 = [MEMORY[0x277CCACA8] stringWithCString:v14 encoding:{4, &v31, v30}];
+        oSLogObject2 = [MEMORY[0x277CCACA8] stringWithCString:v14 encoding:4];
         free(v14);
         SSFileLog();
       }
 
-      goto LABEL_20;
+      goto LABEL_21;
     }
   }
 
@@ -1937,14 +1982,13 @@ LABEL_20:
   v17 = 1;
   if (error)
   {
-LABEL_22:
+LABEL_23:
     v18 = v16;
     *error = v16;
   }
 
-LABEL_23:
+LABEL_24:
 
-  v19 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
@@ -1961,7 +2005,7 @@ LABEL_23:
 
 - (void)_selectFooterSection:(id)section
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   sectionCopy = section;
   if ([(ISProtocolDataProvider *)self shouldPostFooterSectionChanged])
   {
@@ -1974,55 +2018,57 @@ LABEL_23:
     shouldLog = [mEMORY[0x277D69B38] shouldLog];
     if ([mEMORY[0x277D69B38] shouldLogToDisk])
     {
-      v7 = shouldLog | 2;
+      LODWORD(v7) = shouldLog | 2;
     }
 
     else
     {
-      v7 = shouldLog;
+      LODWORD(v7) = shouldLog;
     }
 
     oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    {
+      v7 = v7;
+    }
+
+    else
     {
       v7 &= 2u;
     }
 
     if (v7)
     {
-      v15 = 138412546;
-      v16 = objc_opt_class();
-      v17 = 2112;
-      v18 = sectionCopy;
-      v9 = v16;
-      LODWORD(v12) = 22;
-      v10 = _os_log_send_and_compose_impl();
+      v13 = 138412546;
+      v14 = objc_opt_class();
+      v15 = 2112;
+      v16 = sectionCopy;
+      v9 = v14;
+      v10 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &dword_275BC3000, oSLogObject, 2, "%@: Select footer section: %@", &v13, 22);
 
       if (!v10)
       {
-LABEL_13:
+LABEL_14:
 
         block[0] = MEMORY[0x277D85DD0];
         block[1] = 3221225472;
         block[2] = __47__ISProtocolDataProvider__selectFooterSection___block_invoke;
         block[3] = &unk_27A670818;
-        v14 = sectionCopy;
+        v12 = sectionCopy;
         dispatch_async(MEMORY[0x277D85CD0], block);
 
-        goto LABEL_14;
+        goto LABEL_15;
       }
 
-      oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v10 encoding:{4, &v15, v12}];
+      oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v10 encoding:4];
       free(v10);
       SSFileLog();
     }
 
-    goto LABEL_13;
+    goto LABEL_14;
   }
 
-LABEL_14:
-
-  v11 = *MEMORY[0x277D85DE8];
+LABEL_15:
 }
 
 void __47__ISProtocolDataProvider__selectFooterSection___block_invoke(uint64_t a1)
@@ -2070,24 +2116,23 @@ void __47__ISProtocolDataProvider__selectFooterSection___block_invoke(uint64_t a
   {
 
 LABEL_8:
-    v14 = 0;
-    v12 = 0;
+    v13 = 0;
+    v11 = 0;
     goto LABEL_9;
   }
 
-  v11 = *MEMORY[0x277D6A110];
-  v12 = SSError();
+  v11 = SSError();
 
   if (error)
   {
-    v13 = v12;
-    *error = v12;
+    v12 = v11;
+    *error = v11;
   }
 
-  v14 = 1;
+  v13 = 1;
 LABEL_9:
 
-  return v14;
+  return v13;
 }
 
 - (id)_touchIDDialogForResponse:(id)response

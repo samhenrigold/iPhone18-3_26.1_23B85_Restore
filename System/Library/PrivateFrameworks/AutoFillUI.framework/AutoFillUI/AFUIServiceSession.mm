@@ -243,7 +243,7 @@ void __26__AFUIServiceSession_hide__block_invoke_2(uint64_t a1)
   v5 = *MEMORY[0x1E695E480];
   if (connectionCopy)
   {
-    [connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy);
   }
 
   else

@@ -32,7 +32,7 @@
 
 - (NSArray)dataProviders
 {
-  sub_1000CE6B8(&unk_101919370);
+  sub_1000CE6B8(&unk_101919370, &unk_1011F9F40);
   v2.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v2.super.isa;

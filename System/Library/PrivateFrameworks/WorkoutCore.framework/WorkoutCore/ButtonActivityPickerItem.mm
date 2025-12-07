@@ -35,13 +35,11 @@
   Hasher.init()();
   MEMORY[0x20F2E7FF0](*(&self->super.isa + OBJC_IVAR____TtC11WorkoutCore24ButtonActivityPickerItem_type));
   MEMORY[0x20F2E7FF0](0);
-  v3 = *(&self->super.isa + OBJC_IVAR____TtC11WorkoutCore24ButtonActivityPickerItem_title);
-  v4 = *&self->type[OBJC_IVAR____TtC11WorkoutCore24ButtonActivityPickerItem_title];
   selfCopy = self;
   String.hash(into:)();
-  v6 = Hasher.finalize()();
+  v4 = Hasher.finalize()();
 
-  return v6;
+  return v4;
 }
 
 - (BOOL)isEqual:(id)equal

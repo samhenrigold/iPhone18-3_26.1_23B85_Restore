@@ -10,6 +10,7 @@
 - (id)initVideoZoomSliderWithIdentifier:(id)identifier maximumZoomFactor:(double)factor captureDeviceUniqueID:(id)d;
 - (id)sliderUnpackingDisplayValuesIfNeeded;
 - (id)updateWithFloatValue:(float)value;
+- (id)updateWithRecording:(BOOL)recording;
 - (id)updateWithStyleDictionary:(id)dictionary;
 - (void)encodeWithCoder:(id)coder;
 - (void)setValueFormat:(id)format;
@@ -173,7 +174,7 @@ LABEL_16:
 
 - (id)sliderUnpackingDisplayValuesIfNeeded
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   displayValuesByValue = [(CAMOverlayServiceSlider *)selfCopy displayValuesByValue];
   if ([displayValuesByValue count])
@@ -182,26 +183,26 @@ LABEL_16:
     v5 = [allKeys sortedArrayUsingSelector:sel_compare_];
 
     v6 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v5, "count")}];
+    v42 = 0u;
     v43 = 0u;
     v44 = 0u;
     v45 = 0u;
-    v46 = 0u;
     v7 = v5;
-    v8 = [(NSArray *)v7 countByEnumeratingWithState:&v43 objects:v47 count:16];
+    v8 = [(NSArray *)v7 countByEnumeratingWithState:&v42 objects:v46 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v44;
+      v10 = *v43;
       while (2)
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v44 != v10)
+          if (*v43 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          values = [displayValuesByValue objectForKeyedSubscript:{*(*(&v43 + 1) + 8 * i), v43}];
+          values = [displayValuesByValue objectForKeyedSubscript:{*(*(&v42 + 1) + 8 * i), v42}];
           if ([(NSArray *)v6 count])
           {
             [values doubleValue];
@@ -221,7 +222,7 @@ LABEL_16:
           [(NSArray *)v6 addObject:values];
         }
 
-        v9 = [(NSArray *)v7 countByEnumeratingWithState:&v43 objects:v47 count:16];
+        v9 = [(NSArray *)v7 countByEnumeratingWithState:&v42 objects:v46 count:16];
         if (v9)
         {
           continue;
@@ -280,8 +281,6 @@ LABEL_16:
 LABEL_17:
     }
   }
-
-  v41 = *MEMORY[0x277D85DE8];
 
   return selfCopy;
 }
@@ -343,13 +342,13 @@ LABEL_17:
 
 - (void)setValueFormat:(id)format
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   formatCopy = format;
   if (formatCopy)
   {
-    v11 = 0;
-    v5 = [MEMORY[0x277CCACA8] stringWithValidatedFormat:formatCopy validFormatSpecifiers:@"%@" error:&v11, @"test"];
-    v6 = v11;
+    v10 = 0;
+    v5 = [MEMORY[0x277CCACA8] stringWithValidatedFormat:formatCopy validFormatSpecifiers:@"%@" error:&v10, @"test"];
+    v6 = v10;
     if (v5)
     {
       v7 = [formatCopy copy];
@@ -363,11 +362,11 @@ LABEL_17:
       if (os_log_type_enabled(valueFormat, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543874;
-        v13 = formatCopy;
-        v14 = 2114;
+        v12 = formatCopy;
+        v13 = 2114;
         selfCopy = self;
-        v16 = 2112;
-        v17 = v6;
+        v15 = 2112;
+        v16 = v6;
         _os_log_error_impl(&dword_22E684000, valueFormat, OS_LOG_TYPE_ERROR, "Invalid value format %{public}@ for %{public}@: %@", buf, 0x20u);
       }
     }
@@ -378,8 +377,6 @@ LABEL_17:
     v9 = self->_valueFormat;
     self->_valueFormat = 0;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isEnabled
@@ -749,6 +746,16 @@ LABEL_19:
   v8 = [(CAMOverlayServiceControlUpdate *)v5 _initWithControlIdentifier:identifier floatValue:v7];
 
   return v8;
+}
+
+- (id)updateWithRecording:(BOOL)recording
+{
+  recordingCopy = recording;
+  v5 = [CAMOverlayServiceControlUpdate alloc];
+  identifier = [(CAMAbstractOverlayServiceControl *)self identifier];
+  v7 = [(CAMOverlayServiceControlUpdate *)v5 _initWithControlIdentifier:identifier isRecording:recordingCopy];
+
+  return v7;
 }
 
 @end

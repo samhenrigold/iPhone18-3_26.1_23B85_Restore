@@ -46,7 +46,7 @@
 
 - (BOOL)readXattrForTimespan:(id *)timespan
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = _index_log();
   if (os_signpost_enabled(v5))
   {
@@ -57,25 +57,24 @@
   }
 
   *buf = 0u;
-  memset(v22, 0, sizeof(v22));
+  memset(v20, 0, sizeof(v20));
   diagnosticsDirectoryReference = [(_OSLogCollectionReference *)self->_oslcr diagnosticsDirectoryReference];
   [diagnosticsDirectoryReference fileDescriptor];
-  v8 = self->_path;
-  v9 = _os_trace_getxattr_at();
+  v8 = _os_trace_getxattr_at();
 
-  if (v9 == 40)
+  if (v8 == 40)
   {
-    *&self->_xot = *&v22[8];
-    v10 = _index_log();
-    if (os_signpost_enabled(v10))
+    *&self->_xot = *&v20[8];
+    v9 = _index_log();
+    if (os_signpost_enabled(v9))
     {
-      v17 = 67109120;
-      v18 = 1;
-      v11 = "success: %{BOOL}d";
-      v12 = v10;
-      v13 = 8;
+      v15 = 67109120;
+      v16 = 1;
+      v10 = "success: %{BOOL}d";
+      v11 = v9;
+      v12 = 8;
 LABEL_10:
-      _os_signpost_emit_with_name_impl(&dword_22E01A000, v12, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Read Extended Attributes", v11, &v17, v13);
+      _os_signpost_emit_with_name_impl(&dword_22E01A000, v11, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Read Extended Attributes", v10, &v15, v12);
     }
   }
 
@@ -86,23 +85,22 @@ LABEL_10:
       *timespan = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:*__error() userInfo:0];
     }
 
-    v10 = _index_log();
-    if (os_signpost_enabled(v10))
+    v9 = _index_log();
+    if (os_signpost_enabled(v9))
     {
-      v14 = *__error();
-      v17 = 67109376;
-      v18 = 0;
-      v19 = 1024;
-      v20 = v14;
-      v11 = "success: %{BOOL}d %{darwin.errno}d";
-      v12 = v10;
-      v13 = 14;
+      v13 = *__error();
+      v15 = 67109376;
+      v16 = 0;
+      v17 = 1024;
+      v18 = v13;
+      v10 = "success: %{BOOL}d %{darwin.errno}d";
+      v11 = v9;
+      v12 = 14;
       goto LABEL_10;
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-  return v9 == 40;
+  return v8 == 40;
 }
 
 - (void)dealloc

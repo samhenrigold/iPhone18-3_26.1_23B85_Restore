@@ -1,6 +1,7 @@
 @interface OBBundle
 + (OBBundle)bundleWithIdentifier:(id)identifier;
 + (id)bundleAtPath:(id)path;
++ (id)bundleAtPath:(id)path isLinkBundle:(BOOL)bundle isReplacementBundle:(BOOL)replacementBundle;
 + (id)bundleAtPath:(id)path placeholderIdentifier:(id)identifier;
 + (id)nameFromIdentifier:(id)identifier;
 - (OBBundle)initWithBundle:(id)bundle isLinkBundle:(BOOL)linkBundle isReplacementBundle:(BOOL)replacementBundle;
@@ -32,6 +33,24 @@
   }
 
   return v4;
+}
+
++ (id)bundleAtPath:(id)path isLinkBundle:(BOOL)bundle isReplacementBundle:(BOOL)replacementBundle
+{
+  replacementBundleCopy = replacementBundle;
+  bundleCopy = bundle;
+  v7 = [MEMORY[0x1E696AAE8] bundleWithPath:path];
+  if (v7)
+  {
+    v8 = [[OBBundle alloc] initWithBundle:v7 isLinkBundle:bundleCopy isReplacementBundle:replacementBundleCopy];
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  return v8;
 }
 
 + (id)bundleAtPath:(id)path placeholderIdentifier:(id)identifier

@@ -72,7 +72,7 @@
   v7 = __nwlog_obj();
   *buf = 136446210;
   v19 = "[NWConcrete_nw_protocol_data_array init]";
-  v8 = _os_log_send_and_compose_impl();
+  v8 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v7, 16, "%{public}s [super init] failed", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v15 = 0;

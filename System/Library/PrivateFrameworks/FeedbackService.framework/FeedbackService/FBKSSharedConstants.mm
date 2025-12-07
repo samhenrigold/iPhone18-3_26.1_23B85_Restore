@@ -29,41 +29,43 @@
 {
   environmentCopy = environment;
   defaultsCopy = defaults;
+  v7 = defaultsCopy;
   if ((environmentCopy - 1) > 3)
   {
-    v6 = @"https://fba.apple.com/";
+    v9 = @"https://fba.apple.com/";
   }
 
   else
   {
-    if (FBKSHasInternalUI() && [_overrideHostString length])
+    if (FBKSHasInternalUI(defaultsCopy, v6) && [_overrideHostString length])
     {
-      v6 = _overrideHostString;
+      v8 = _overrideHostString;
+      v9 = v8;
     }
 
     else
     {
       standardUserDefaults = [MEMORY[0x1E695E000] standardUserDefaults];
-      v6 = [standardUserDefaults stringForKey:@"developmentHost"];
+      v9 = [standardUserDefaults stringForKey:@"developmentHost"];
     }
 
-    v8 = FBKSLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v11 = FBKSLog(v8);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      [FBKSSharedConstants appleSeedURLFromDefaults:v6 withEnvironment:v8];
+      [FBKSSharedConstants appleSeedURLFromDefaults:v9 withEnvironment:v11];
     }
   }
 
-  v9 = [MEMORY[0x1E695DFF8] URLWithString:v6];
-  v10 = v9;
-  if (!v9 || ([v9 host], v11 = objc_claimAutoreleasedReturnValue(), v11, !v11))
+  v12 = [MEMORY[0x1E695DFF8] URLWithString:v9];
+  v13 = v12;
+  if (!v12 || ([v12 host], v14 = objc_claimAutoreleasedReturnValue(), v14, !v14))
   {
-    v12 = [MEMORY[0x1E695DFF8] URLWithString:@"https://fba.apple.com/"];
+    v15 = [MEMORY[0x1E695DFF8] URLWithString:@"https://fba.apple.com/"];
 
-    v10 = v12;
+    v13 = v15;
   }
 
-  return v10;
+  return v13;
 }
 
 + (id)appleSeedURL
@@ -96,8 +98,8 @@
   hostCopy = host;
   _cachedEnvironment = environmentCopy;
   objc_storeStrong(&_overrideHostString, host);
-  v7 = FBKSLog();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = FBKSLog(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 136446978;
     v10 = "+[FBKSSharedConstants overrideEnvironment:host:]";
@@ -107,10 +109,8 @@
     v14 = _cachedEnvironment;
     v15 = 2114;
     v16 = _overrideHostString;
-    _os_log_impl(&dword_1B00C4000, v7, OS_LOG_TYPE_DEFAULT, "%{public}s: %hd -> [%hd] [%{public}@]", &v9, 0x22u);
+    _os_log_impl(&dword_1B00C4000, v8, OS_LOG_TYPE_DEFAULT, "%{public}s: %hd -> [%hd] [%{public}@]", &v9, 0x22u);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 + (NSString)overrideGeoCountryCode
@@ -125,9 +125,9 @@
   return v3;
 }
 
-void __45__FBKSSharedConstants_overrideGeoCountryCode__block_invoke()
+void __45__FBKSSharedConstants_overrideGeoCountryCode__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (FBKSIsInternalInstall_onceToken != -1)
   {
     FBKSIsInternalInstall_cold_1();
@@ -135,25 +135,23 @@ void __45__FBKSSharedConstants_overrideGeoCountryCode__block_invoke()
 
   if (FBKSIsInternalInstall__isInternal == 1)
   {
-    v0 = [MEMORY[0x1E695E000] standardUserDefaults];
-    v1 = [v0 stringForKey:@"geoOverride"];
-    v2 = [v1 uppercaseString];
-    v3 = overrideGeoCountryCode_overrideValue;
-    overrideGeoCountryCode_overrideValue = v2;
+    v2 = [MEMORY[0x1E695E000] standardUserDefaults];
+    v3 = [v2 stringForKey:@"geoOverride"];
+    v4 = [v3 uppercaseString];
+    v5 = overrideGeoCountryCode_overrideValue;
+    overrideGeoCountryCode_overrideValue = v4;
 
     if (overrideGeoCountryCode_overrideValue)
     {
-      v4 = FBKSLog();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      v7 = FBKSLog(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v6 = 138543362;
-        v7 = overrideGeoCountryCode_overrideValue;
-        _os_log_impl(&dword_1B00C4000, v4, OS_LOG_TYPE_DEFAULT, "Using geo override: %{public}@", &v6, 0xCu);
+        v8 = 138543362;
+        v9 = overrideGeoCountryCode_overrideValue;
+        _os_log_impl(&dword_1B00C4000, v7, OS_LOG_TYPE_DEFAULT, "Using geo override: %{public}@", &v8, 0xCu);
       }
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (NSUserDefaults)sharedUserDefaults
@@ -184,52 +182,57 @@ uint64_t __41__FBKSSharedConstants_sharedUserDefaults__block_invoke()
   v4 = [standardUserDefaults valueForKey:@"BuildOverride"];
 
   v5 = _CFCopySystemVersionDictionary();
-  if (v4 && [v4 length])
+  v6 = v5;
+  if (v4)
   {
-    objc_storeStrong(&_swVers, v4);
+    v5 = [v4 length];
+    if (v5)
+    {
+      objc_storeStrong(&_swVers, v4);
 LABEL_6:
-    CFRelease(v5);
-    goto LABEL_10;
+      CFRelease(v6);
+      goto LABEL_10;
+    }
   }
 
-  if (v5)
+  if (v6)
   {
-    v6 = CFDictionaryGetValue(v5, *MEMORY[0x1E695E1E8]);
-    v7 = _swVers;
-    _swVers = v6;
+    v7 = CFDictionaryGetValue(v6, *MEMORY[0x1E695E1E8]);
+    v8 = _swVers;
+    _swVers = v7;
 
-    v8 = CFDictionaryGetValue(v5, *MEMORY[0x1E695E208]);
-    v9 = _productVersion;
-    _productVersion = v8;
+    v9 = CFDictionaryGetValue(v6, *MEMORY[0x1E695E208]);
+    v10 = _productVersion;
+    _productVersion = v9;
 
     goto LABEL_6;
   }
 
-  v10 = FBKSLog();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  v11 = FBKSLog(v5);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
-    +[(FBKSSharedConstants *)v10];
+    +[(FBKSSharedConstants *)v11];
   }
 
 LABEL_10:
   if (_swVers)
   {
-    v11 = [MEMORY[0x1E696AE88] scannerWithString:?];
+    v12 = [MEMORY[0x1E696AE88] scannerWithString:?];
     whitespaceAndNewlineCharacterSet = [MEMORY[0x1E696AB08] whitespaceAndNewlineCharacterSet];
-    [v11 setCharactersToBeSkipped:whitespaceAndNewlineCharacterSet];
+    [v12 setCharactersToBeSkipped:whitespaceAndNewlineCharacterSet];
 
-    v19 = 0;
-    if ([v11 scanInteger:&v19])
+    v20 = 0;
+    if ([v12 scanInteger:&v20])
     {
       uppercaseLetterCharacterSet = [MEMORY[0x1E696AB08] uppercaseLetterCharacterSet];
-      v18 = 0;
-      v14 = [v11 scanCharactersFromSet:uppercaseLetterCharacterSet intoString:&v18];
-      v15 = v18;
-      if (v14)
+      v19 = 0;
+      v15 = [v12 scanCharactersFromSet:uppercaseLetterCharacterSet intoString:&v19];
+      v16 = v19;
+      if (v15)
       {
-        v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%ld%@", v19, v15];
-        v17 = _swTrain;
-        _swTrain = v16;
+        v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%ld%@", v20, v16];
+        v18 = _swTrain;
+        _swTrain = v17;
       }
     }
   }
@@ -285,11 +288,10 @@ LABEL_10:
 
 + (void)appleSeedURLFromDefaults:(uint64_t)a1 withEnvironment:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1B00C4000, a2, OS_LOG_TYPE_DEBUG, "Using non-production server: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1B00C4000, a2, OS_LOG_TYPE_DEBUG, "Using non-production server: %{public}@", &v2, 0xCu);
 }
 
 @end

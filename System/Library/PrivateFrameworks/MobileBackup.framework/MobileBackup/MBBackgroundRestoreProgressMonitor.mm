@@ -106,7 +106,7 @@
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Cancelling background restore progress monitor", buf, 2u);
-      _MBLog();
+      _MBLog(@"Df", "Cancelling background restore progress monitor");
     }
 
     [(MBBackgroundRestoreProgressMonitor *)self _clearRestoreInProgressFollowUp];
@@ -127,7 +127,7 @@
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Starting background restore progress monitor", buf, 2u);
-    _MBLog();
+    _MBLog(@"Df", "Starting background restore progress monitor");
   }
 
   queue = [(MBBackgroundRestoreProgressMonitor *)self queue];
@@ -183,7 +183,7 @@
         v20 = 1024;
         v21 = v12;
         _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "notify_register_dispatch(%{public}@) failed: %u", buf, 0x12u);
-        _MBLog();
+        _MBLog(@"E ", "notify_register_dispatch(%{public}@) failed: %u", v11, v12);
       }
     }
   }
@@ -268,7 +268,7 @@
     {
       *v7 = 0;
       _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Cancelling prompt timer", v7, 2u);
-      _MBLog();
+      _MBLog(@"Df", "Cancelling prompt timer");
     }
 
     dispatch_source_cancel(v4);
@@ -286,7 +286,7 @@
   {
     LOWORD(buf[0]) = 0;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Starting prompt timer", buf, 2u);
-    _MBLog();
+    _MBLog(@"Df", "Starting prompt timer");
   }
 
   queue2 = [(MBBackgroundRestoreProgressMonitor *)self queue];
@@ -341,7 +341,7 @@
     {
       *v6 = 0;
       _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Attempting to fire WiFi prompt", v6, 2u);
-      _MBLog();
+      _MBLog(@"Df", "Attempting to fire WiFi prompt");
     }
 
     restoreNetworkAccessPrompt = [(MBBackgroundRestoreProgressMonitor *)self restoreNetworkAccessPrompt];
@@ -359,7 +359,7 @@
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Attempting to fire cellular prompt", buf, 2u);
-      _MBLog();
+      _MBLog(@"Df", "Attempting to fire cellular prompt");
     }
 
     account = [(MBBackgroundRestoreProgressMonitor *)self account];
@@ -371,7 +371,7 @@
       {
         *buf = 0;
         _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "No primary account found, skipping prompt", buf, 2u);
-        _MBLog();
+        _MBLog(@"E ", "No primary account found, skipping prompt");
       }
 
       v3 = 0;
@@ -389,7 +389,7 @@
         *buf = 138412290;
         v27 = v9;
         _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "The background restore cellular access was already confirmed on:%@, skipping prompt", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"Df", "The background restore cellular access was already confirmed on:%@, skipping prompt", v9);
       }
 
       v3 = 0;
@@ -407,7 +407,7 @@
         *buf = 138412290;
         v27 = v10;
         _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Found existing background restore cellular access:%@, skipping prompt", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"Df", "Found existing background restore cellular access:%@, skipping prompt", v10);
       }
     }
 
@@ -427,7 +427,7 @@
           *buf = 138412290;
           v27 = v12;
           _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Error when estimating background restore size:%@", buf, 0xCu);
-          _MBLog();
+          _MBLog(@"Df", "Error when estimating background restore size:%@", v12);
         }
 
         v3 = [MBError isError:v12 withCode:17];
@@ -439,7 +439,7 @@
         *buf = 134217984;
         v27 = v14;
         _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Received size estimate of %llu for background restore", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"Df", "Received size estimate of %llu for background restore", v14);
       }
 
       serviceManager = [(MBBackgroundRestoreProgressMonitor *)self serviceManager];
@@ -481,12 +481,12 @@ LABEL_27:
   p_cellularAccessToken = &self->_cellularAccessToken;
   uTF8String = [kMBBackgroundRestoreCellularAccessChangedNotification UTF8String];
   queue = self->_queue;
-  handler[0] = _NSConcreteStackBlock;
-  handler[1] = 3221225472;
-  handler[2] = sub_1001BB4D8;
-  handler[3] = &unk_1003C1000;
-  objc_copyWeak(&v9, &location);
-  v6 = notify_register_dispatch(uTF8String, p_cellularAccessToken, queue, handler);
+  handler = _NSConcreteStackBlock;
+  v9 = 3221225472;
+  v10 = sub_1001BB4D8;
+  v11 = &unk_1003C1000;
+  objc_copyWeak(&v12, &location);
+  v6 = notify_register_dispatch(uTF8String, p_cellularAccessToken, queue, &handler);
   if (v6)
   {
     *p_cellularAccessToken = -1;
@@ -494,11 +494,11 @@ LABEL_27:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446466;
-      v12 = uTF8String;
-      v13 = 1024;
-      v14 = v6;
+      v15 = uTF8String;
+      v16 = 1024;
+      v17 = v6;
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "notify_register_dispatch(%{public}s) failed: %u", buf, 0x12u);
-      _MBLog();
+      _MBLog(@"E ", "notify_register_dispatch(%{public}s) failed: %u", uTF8String, v6, handler, v9, v10, v11);
     }
   }
 
@@ -508,13 +508,13 @@ LABEL_27:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446210;
-      v12 = uTF8String;
+      v15 = uTF8String;
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Registered for %{public}s notifications", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"Df", "Registered for %{public}s notifications", uTF8String);
     }
   }
 
-  objc_destroyWeak(&v9);
+  objc_destroyWeak(&v12);
   objc_destroyWeak(&location);
 }
 
@@ -565,7 +565,7 @@ LABEL_27:
     {
       *v14 = 0;
       _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "Failed to fetch the thermal pressure level", v14, 2u);
-      _MBLog();
+      _MBLog(@"E ", "Failed to fetch the thermal pressure level");
     }
 
     goto LABEL_8;
@@ -611,7 +611,7 @@ LABEL_8:
   {
     LOWORD(buf[0]) = 0;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Starting restore in progress follow-up timer", buf, 2u);
-    _MBLog();
+    _MBLog(@"Df", "Starting restore in progress follow-up timer");
   }
 
   objc_initWeak(buf, self);
@@ -649,7 +649,7 @@ LABEL_8:
   {
     *v6 = 0;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Cancelling restore in progress follow-up timer", v6, 2u);
-    _MBLog();
+    _MBLog(@"Df", "Cancelling restore in progress follow-up timer");
   }
 
   v4 = self->_followUpTimer;
@@ -673,7 +673,7 @@ LABEL_8:
     *buf = 138412290;
     v20 = reasonCopy;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEBUG, "Attempting to post restore in progress follow-up (%@)", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"Db", "Attempting to post restore in progress follow-up (%@)", reasonCopy);
   }
 
   account = [(MBBackgroundRestoreProgressMonitor *)self account];
@@ -692,7 +692,7 @@ LABEL_8:
         *buf = 138412290;
         v20 = v9;
         _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "Failed to fetch the background restore size estimate: %@", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"E ", "Failed to fetch the background restore size estimate: %@", v9);
       }
     }
 
@@ -727,7 +727,7 @@ LABEL_8:
       *buf = 138412290;
       v20 = reasonCopy;
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "No account found, skipping follow-up (%@)", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "No account found, skipping follow-up (%@)", reasonCopy);
     }
   }
 }
@@ -766,7 +766,7 @@ LABEL_8:
   {
     LOWORD(buf[0]) = 0;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Starting restore telemetry heartbeat timer", buf, 2u);
-    _MBLog();
+    _MBLog(@"Df", "Starting restore telemetry heartbeat timer");
   }
 
   objc_initWeak(buf, self);
@@ -797,7 +797,7 @@ LABEL_8:
   {
     *v6 = 0;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Cancelling restore telemetry heartbeat timer", v6, 2u);
-    _MBLog();
+    _MBLog(@"Df", "Cancelling restore telemetry heartbeat timer");
   }
 
   v4 = self->_telemetryHeartBeatTimer;

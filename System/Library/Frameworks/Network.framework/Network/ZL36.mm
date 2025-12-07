@@ -11,7 +11,7 @@ void _ZL36_nw_content_context_final_send_block_block_invoke_2()
   v0 = gLogObj;
   *buf = 136446210;
   v13 = "_ZL36_nw_content_context_final_send_block_block_invoke_2";
-  v1 = _os_log_send_and_compose_impl();
+  v1 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v0, 16, "%{public}s _nw_content_context_final_send invoked directly", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v10 = 0;

@@ -170,7 +170,7 @@
 {
   contextCopy = context;
   owningEnvironment = [(_UIFocusRegionContainerProxy *)self owningEnvironment];
-  if (_UIFocusEnvironmentIsViewOrViewControllerOrRespondsToSelector(owningEnvironment))
+  if (_UIFocusEnvironmentIsViewOrViewControllerOrRespondsToSelector(owningEnvironment, sel_shouldUpdateFocusInContext_))
   {
     v6 = [owningEnvironment shouldUpdateFocusInContext:contextCopy];
   }

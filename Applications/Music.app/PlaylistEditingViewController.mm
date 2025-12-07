@@ -20,19 +20,19 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_1006CCC9C();
+  sub_1006CCC9C(v2);
 }
 
 - (void)viewIsAppearing:(BOOL)appearing
 {
   selfCopy = self;
-  sub_1006CFE60(appearing);
+  sub_1006CFE60(appearing, v4);
 }
 
 - (void)viewWillLayoutSubviews
 {
   selfCopy = self;
-  sub_1006D0184();
+  sub_1006D0184(v2);
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator
@@ -54,7 +54,7 @@
 {
   editingCopy = editing;
   selfCopy = self;
-  sub_1006D03A4(editingCopy, animated);
+  sub_1006D03A4(editingCopy, animated, v6);
 }
 
 - (int64_t)collectionView:(id)view numberOfItemsInSection:(int64_t)section
@@ -82,14 +82,14 @@
 {
   v7 = type metadata accessor for IndexPath();
   v8 = *(v7 - 8);
-  __chkstk_darwin(v7);
+  __chkstk_darwin();
   v10 = &v18 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   v11 = static String._unconditionallyBridgeFromObjectiveC(_:)();
   v13 = v12;
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  v16 = sub_1006D0BA8(viewCopy, v11, v13);
+  v16 = sub_1006D0BA8(viewCopy, v11, v13, v10);
 
   (*(v8 + 8))(v10, v7);
 
@@ -100,12 +100,12 @@
 {
   v6 = type metadata accessor for IndexPath();
   v7 = *(v6 - 8);
-  __chkstk_darwin(v6);
+  __chkstk_darwin();
   v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  sub_1006D0EA8(viewCopy);
+  sub_1006D0EA8(viewCopy, v9);
   v13 = v12;
 
   (*(v7 + 8))(v9, v6);
@@ -117,25 +117,25 @@
 {
   v6 = type metadata accessor for IndexPath();
   v7 = *(v6 - 8);
-  __chkstk_darwin(v6);
-  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v10);
-  v12 = &v15 - v11;
+  __chkstk_darwin();
+  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin();
+  v11 = &v14 - v10;
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
   sub_1006DAF60();
 
-  v14 = *(v7 + 8);
-  v14(v9, v6);
-  v14(v12, v6);
+  v13 = *(v7 + 8);
+  v13(v9, v6);
+  v13(v11, v6);
 }
 
 - (void)collectionView:(id)view didSelectItemAtIndexPath:(id)path
 {
   v5 = type metadata accessor for IndexPath();
   v6 = *(v5 - 8);
-  __chkstk_darwin(v5);
+  __chkstk_darwin();
   v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
@@ -149,7 +149,7 @@
 {
   v6 = type metadata accessor for IndexPath();
   v7 = *(v6 - 8);
-  __chkstk_darwin(v6);
+  __chkstk_darwin();
   v9 = &v18 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;

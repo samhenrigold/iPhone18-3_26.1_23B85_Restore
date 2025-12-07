@@ -94,9 +94,8 @@
 {
   v4 = sub_1000C6D84();
   v5 = (self + OBJC_IVAR___CloudSharingViewController_appName);
-  v6 = *&self->itemUTI[OBJC_IVAR___CloudSharingViewController_appName];
   *v5 = v4;
-  v5[1] = v7;
+  v5[1] = v6;
 }
 
 - (void)_setSandboxingURLWrapper:(id)wrapper
@@ -200,7 +199,6 @@ LABEL_8:
 {
   if (info)
   {
-    v4 = (*(&self->super.super.super.isa + OBJC_IVAR___CloudSharingViewController_model))[3];
     swift_getKeyPath();
     swift_getKeyPath();
 
@@ -213,7 +211,6 @@ LABEL_8:
 {
   if (thumbnail)
   {
-    v4 = *(&self->super.super.super.isa + OBJC_IVAR___CloudSharingViewController_model);
     swift_getKeyPath();
     swift_getKeyPath();
     thumbnailCopy = thumbnail;
@@ -226,7 +223,6 @@ LABEL_8:
 {
   if (people)
   {
-    v3 = *(&self->super.super.super.isa + OBJC_IVAR___CloudSharingViewController_model);
     swift_getKeyPath();
     swift_getKeyPath();
 
@@ -240,7 +236,6 @@ LABEL_8:
   {
     sub_100010778(0, &unk_100116280, _UIShareParticipantDetails_ptr);
     sub_1000C6CE4();
-    v4 = *(&self->super.super.super.isa + OBJC_IVAR___CloudSharingViewController_model);
     swift_getKeyPath();
     swift_getKeyPath();
 

@@ -1,6 +1,8 @@
 @interface ACLSTypeVerifier
 - (ACLSTypeVerifier)initWithTemplate:(id)template;
+- (BOOL)verify:(id)verify name:(id)name tag:(unsigned int)tag;
 - (BOOL)verify:(id)verify name:(id)name withTemplate:(id)template tag:(unsigned int)tag;
+- (id)sanitize:(id)sanitize tag:(unsigned int)tag;
 - (id)sanitize:(id)sanitize withTemplate:(id)template tag:(unsigned int)tag;
 @end
 
@@ -19,6 +21,27 @@
   }
 
   return v6;
+}
+
+- (BOOL)verify:(id)verify name:(id)name tag:(unsigned int)tag
+{
+  v5 = *&tag;
+  nameCopy = name;
+  verifyCopy = verify;
+  template = [(ACLSTypeVerifier *)self template];
+  LOBYTE(v5) = [(ACLSTypeVerifier *)self verify:verifyCopy name:nameCopy withTemplate:template tag:v5];
+
+  return v5;
+}
+
+- (id)sanitize:(id)sanitize tag:(unsigned int)tag
+{
+  v4 = *&tag;
+  sanitizeCopy = sanitize;
+  template = [(ACLSTypeVerifier *)self template];
+  v8 = [(ACLSTypeVerifier *)self sanitize:sanitizeCopy withTemplate:template tag:v4];
+
+  return v8;
 }
 
 - (BOOL)verify:(id)verify name:(id)name withTemplate:(id)template tag:(unsigned int)tag

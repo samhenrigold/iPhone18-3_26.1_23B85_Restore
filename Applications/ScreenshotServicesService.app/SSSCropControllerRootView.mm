@@ -695,11 +695,11 @@ LABEL_15:
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     v13 = NSStringFromCGRect(*p_overlayViewUnitRect);
-    v23[0] = 67109378;
-    v23[1] = v11;
-    v24 = 2112;
-    v25 = v13;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "update overlayUI showRoundedResizeHandles: %{BOOL}d, _overlayViewUnitRect: %@", v23, 0x12u);
+    v24[0] = 67109378;
+    v24[1] = v11;
+    v25 = 2112;
+    v26 = v13;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "update overlayUI showRoundedResizeHandles: %{BOOL}d, _overlayViewUnitRect: %@", v24, 0x12u);
   }
 
   [(SSSCropOverlayView *)self->_overlayView setShowRoundedCorners:v11];
@@ -718,17 +718,17 @@ LABEL_15:
     [(SSSCropControllerRootView *)self frame];
     v17 = v16;
     v18 = +[UIScreen mainScreen];
-    [v18 bounds];
-    if (vabdd_f64(v17, v19) >= 5.0)
+    bounds = [v18 bounds];
+    if (vabdd_f64(v17, v20) >= 5.0)
     {
-      v14 = sub_10000F550();
+      v14 = sub_10000F550(bounds);
     }
 
     else
     {
       traitCollection = [(SSSCropControllerRootView *)self traitCollection];
       [traitCollection displayCornerRadius];
-      v14 = v21;
+      v14 = v22;
     }
   }
 
@@ -1291,7 +1291,7 @@ LABEL_25:
   }
 
   memset(&v16[1], 0, sizeof(CGAffineTransform));
-  [(SSSCropControllerRootView *)self _transformToConvertFromRect:x toRect:y, width, height, v4, v6, v8, v10];
+  objc_msgSend__transformToConvertFromRect_toRect_(self, x, y, width, height, v4, v6, v8, v10);
   [(SSSCropControllerRootView *)self _updateLastScrollViewUnitRect];
   overlayViewUnitRect = self->_overlayViewUnitRect;
   v16[0] = v16[1];

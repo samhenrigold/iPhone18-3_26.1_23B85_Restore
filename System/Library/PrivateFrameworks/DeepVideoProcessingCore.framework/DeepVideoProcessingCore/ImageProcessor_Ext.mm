@@ -657,7 +657,7 @@ LABEL_25:
 LABEL_30:
     if (self->_pseudoDepth || (OUTLINED_FUNCTION_2_1(), v13))
     {
-      [(Normalization_Ext *)self->_normalization normalizeFramesFirstInput:self->_rgbaDownscaleFirstTexture secondInput:self->_rgbaDownscaleSecondTexture packedFirst:self->_packedDownscaledFirstRGBTexture packedSecond:self->_packedDownscaledSecondRGBTexture commandBuffer:commandBuffer];
+      objc_msgSend_normalizeFramesFirstInput_secondInput_packedFirst_packedSecond_commandBuffer_(self->_normalization);
     }
 
     [commandBuffer commit];

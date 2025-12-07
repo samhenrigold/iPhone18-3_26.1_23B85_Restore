@@ -167,27 +167,27 @@
   countdownLabel = [(PHCountdownView *)self countdownLabel];
   [countdownLabel setText:v5];
 
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x2020000000;
+  v33 = 0;
+  v34 = &v33;
+  v35 = 0x2020000000;
   countdownViewModel3 = [(PHCountdownView *)self countdownViewModel];
   countdown = [countdownViewModel3 countdown];
 
-  v34 = countdown;
+  v36 = countdown;
   countdownViewModel4 = [(PHCountdownView *)self countdownViewModel];
   countdownWithAudio = [countdownViewModel4 countdownWithAudio];
 
-  v11 = sub_100004F84();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = sub_100004F84(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     countdownViewModel5 = [(PHCountdownView *)self countdownViewModel];
     countdownViewModel6 = [(PHCountdownView *)self countdownViewModel];
     playsSound = [countdownViewModel6 playsSound];
     *buf = 138412546;
-    v36 = countdownViewModel5;
-    v37 = 1024;
-    v38 = playsSound;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Countdown with model: %@ shouldPlaySounds: %d", buf, 0x12u);
+    v38 = countdownViewModel5;
+    v39 = 1024;
+    v40 = playsSound;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Countdown with model: %@ shouldPlaySounds: %d", buf, 0x12u);
   }
 
   countdownViewModel7 = [(PHCountdownView *)self countdownViewModel];
@@ -209,49 +209,49 @@
   countdownViewModel9 = [(PHCountdownView *)self countdownViewModel];
   if ([countdownViewModel9 playsSound])
   {
-    v19 = v32[3] <= countdownWithAudio;
+    v20 = v34[3] <= countdownWithAudio;
   }
 
   else
   {
-    v19 = 0;
+    v20 = 0;
   }
 
   alertController = [(PHCountdownView *)self alertController];
-  [alertController playAlertWithAudio:v19 alertTopic:TLAlertTopicSOSCountdownTick];
+  [alertController playAlertWithAudio:v20 alertTopic:TLAlertTopicSOSCountdownTick];
 
 LABEL_10:
   countdownTimer = [(PHCountdownView *)self countdownTimer];
-  v22 = countdownTimer == 0;
+  v23 = countdownTimer == 0;
 
-  if (v22)
+  if (v23)
   {
     objc_initWeak(buf, self);
     countdownViewModel10 = [(PHCountdownView *)self countdownViewModel];
     [countdownViewModel10 countdownTickDuration];
-    v25 = v24;
-    v29[0] = _NSConcreteStackBlock;
-    v29[1] = 3221225472;
-    v29[2] = sub_1000C74C8;
-    v29[3] = &unk_100358EB8;
-    objc_copyWeak(v30, buf);
-    v29[4] = &v31;
-    v30[1] = countdownWithAudio;
-    v26 = [NSTimer scheduledTimerWithTimeInterval:1 repeats:v29 block:v25];
-    [(PHCountdownView *)self setCountdownTimer:v26];
+    v26 = v25;
+    v31[0] = _NSConcreteStackBlock;
+    v31[1] = 3221225472;
+    v31[2] = sub_1000C74C8;
+    v31[3] = &unk_100358EB8;
+    objc_copyWeak(v32, buf);
+    v31[4] = &v33;
+    v32[1] = countdownWithAudio;
+    v27 = [NSTimer scheduledTimerWithTimeInterval:1 repeats:v31 block:v26];
+    [(PHCountdownView *)self setCountdownTimer:v27];
 
-    v27 = sub_100004F84();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    v29 = sub_100004F84(v28);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
-      *v28 = 0;
-      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Created countdown timer", v28, 2u);
+      *v30 = 0;
+      _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "Created countdown timer", v30, 2u);
     }
 
-    objc_destroyWeak(v30);
+    objc_destroyWeak(v32);
     objc_destroyWeak(buf);
   }
 
-  _Block_object_dispose(&v31, 8);
+  _Block_object_dispose(&v33, 8);
 }
 
 - (void)pause
@@ -263,7 +263,7 @@ LABEL_10:
 
 - (void)restart
 {
-  v3 = sub_100004F84();
+  v3 = sub_100004F84(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -282,11 +282,11 @@ LABEL_10:
 
   if (isValid)
   {
-    v5 = sub_100004F84();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100004F84(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v8 = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Invalidating PHCountdownView timer", v8, 2u);
+      *v9 = 0;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Invalidating PHCountdownView timer", v9, 2u);
     }
 
     countdownTimer2 = [(PHCountdownView *)self countdownTimer];
@@ -494,11 +494,11 @@ LABEL_10:
 
   if (sosCallSlidingButton == buttonCopy)
   {
-    v6 = sub_100004F84();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_100004F84(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v9 = 0;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "PHCountdownView,user slid SOS slider", v9, 2u);
+      *v10 = 0;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "PHCountdownView,user slid SOS slider", v10, 2u);
     }
 
     [(PHCountdownView *)self stop];

@@ -9,43 +9,43 @@
 
 - (SCRO2DBrailleString)initWithText:(id)text
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   textCopy = text;
-  v22.receiver = self;
-  v22.super_class = SCRO2DBrailleString;
-  v5 = [(SCRO2DBrailleString *)&v22 init];
+  v21.receiver = self;
+  v21.super_class = SCRO2DBrailleString;
+  v5 = [(SCRO2DBrailleString *)&v21 init];
   if (v5)
   {
     v6 = +[SCROBrailleTranslationManager sharedManager];
     v7 = objc_opt_new();
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
     v8 = [textCopy componentsSeparatedByString:@"\n"];
-    v9 = [v8 countByEnumeratingWithState:&v18 objects:v23 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v17 objects:v22 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v19;
+      v11 = *v18;
       do
       {
         v12 = 0;
         do
         {
-          if (*v19 != v11)
+          if (*v18 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = [v6 printBrailleForText:*(*(&v18 + 1) + 8 * v12) language:0 mode:1 textPositionsRange:0x7FFFFFFFFFFFFFFFLL locations:0 textFormattingRanges:{0, 0}];
+          v13 = [v6 printBrailleForText:*(*(&v17 + 1) + 8 * v12) language:0 mode:1 textPositionsRange:0x7FFFFFFFFFFFFFFFLL locations:0 textFormattingRanges:{0, 0}];
           [(NSArray *)v7 addObject:v13];
 
           ++v12;
         }
 
         while (v10 != v12);
-        v10 = [v8 countByEnumeratingWithState:&v18 objects:v23 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v17 objects:v22 count:16];
       }
 
       while (v10);
@@ -57,7 +57,6 @@
     v15 = v5;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -85,20 +84,20 @@
 
 - (id)brailleLinesForWidth:(unint64_t)width indent:(unint64_t)indent focused:(BOOL)focused wordWrap:(BOOL)wrap
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   if (width)
   {
     focusedCopy = focused;
     v9 = objc_opt_new();
+    v33 = 0u;
     v34 = 0u;
     v35 = 0u;
     v36 = 0u;
-    v37 = 0u;
     obj = self->_brailleParagraphs;
-    v32 = [(NSArray *)obj countByEnumeratingWithState:&v34 objects:v38 count:16];
-    if (v32)
+    v31 = [(NSArray *)obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+    if (v31)
     {
-      v30 = *v35;
+      v29 = *v34;
       if (indent)
       {
         v10 = focusedCopy;
@@ -109,19 +108,19 @@
         v10 = 0;
       }
 
-      v29 = v10;
+      v28 = v10;
       v11 = @"⣿";
       do
       {
-        for (i = 0; i != v32; ++i)
+        for (i = 0; i != v31; ++i)
         {
-          if (*v35 != v30)
+          if (*v34 != v29)
           {
             objc_enumerationMutation(obj);
           }
 
-          v13 = *(*(&v34 + 1) + 8 * i);
-          if (v29)
+          v13 = *(*(&v33 + 1) + 8 * i);
+          if (v28)
           {
             v14 = v11;
           }
@@ -131,8 +130,8 @@
             v14 = &stru_28763D5C8;
           }
 
-          v33 = [(__CFString *)v14 stringByPaddingToLength:indent withString:@"⠀" startingAtIndex:0];
-          v15 = [v33 stringByAppendingString:v13];
+          v32 = [(__CFString *)v14 stringByPaddingToLength:indent withString:@"⠀" startingAtIndex:0];
+          v15 = [v32 stringByAppendingString:v13];
           v16 = v15;
           if ([v15 length])
           {
@@ -176,10 +175,10 @@
         }
 
         v11 = &stru_28763D5C8;
-        v32 = [(NSArray *)obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+        v31 = [(NSArray *)obj countByEnumeratingWithState:&v33 objects:v37 count:16];
       }
 
-      while (v32);
+      while (v31);
     }
 
     v25 = [v9 copy];
@@ -189,8 +188,6 @@
   {
     v25 = objc_opt_new();
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v25;
 }

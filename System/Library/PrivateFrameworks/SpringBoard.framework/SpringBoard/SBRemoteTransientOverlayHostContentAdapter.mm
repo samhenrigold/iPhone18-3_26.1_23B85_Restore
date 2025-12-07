@@ -975,7 +975,7 @@ LABEL_9:
         [SBRemoteTransientOverlayHostContentAdapter prepareForActivationWithContext:presentationMode:windowScene:completion:];
       }
 
-      if ([prepareForActivationWithContext_presentationMode_windowScene_completion__sAllowedBundleIDs containsObject:serviceBundleIdentifier] && !self->_switcherEligible)
+      if (objc_msgSend_containsObject_(prepareForActivationWithContext_presentationMode_windowScene_completion__sAllowedBundleIDs) && !self->_switcherEligible)
       {
         self->_switcherEligible = 1;
         [(SBRemoteTransientOverlayHostContentAdapter *)self _updatePreferredGestureDismissalStyles];
@@ -1808,7 +1808,7 @@ LABEL_7:
       [SBRemoteTransientOverlayHostContentAdapter _handleUpdatedSwipeDismissalStyle:];
     }
 
-    v6 = [_handleUpdatedSwipeDismissalStyle__sAllowedBundleIDs containsObject:v5];
+    v6 = objc_msgSend_containsObject_(_handleUpdatedSwipeDismissalStyle__sAllowedBundleIDs);
 
     if (v6)
     {

@@ -30,13 +30,13 @@
       uTF8String = [nameCopy UTF8String];
       if (!uTF8String)
       {
-        [WiFiTriggerHandler getHandlerByName:?];
+        [WiFiTriggerHandler getHandlerByName:v11];
       }
 
       v8 = strdup(uTF8String);
       if (!v8)
       {
-        [WiFiTriggerHandler getHandlerByName:?];
+        [WiFiTriggerHandler getHandlerByName:v11];
       }
 
       p_isa[2] = v8;
@@ -61,15 +61,15 @@
 
 - (void)didReceiveSyndrome:(id)syndrome
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   syndromeCopy = syndrome;
   v5 = configurationLogHandle;
   if (os_log_type_enabled(configurationLogHandle, OS_LOG_TYPE_INFO))
   {
     v6 = v5;
-    v14 = 136315138;
+    v13 = 136315138;
     reason = [syndromeCopy reason];
-    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_INFO, "%s", &v14, 0xCu);
+    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_INFO, "%s", &v13, 0xCu);
   }
 
   eventHandler = self->_eventHandler;
@@ -84,19 +84,17 @@
     {
       syndromeUTF8Name = self->_syndromeUTF8Name;
       v11 = self->_eventHandler;
-      v14 = 134218242;
+      v13 = 134218242;
       reason = v11;
-      v16 = 2080;
-      v17 = syndromeUTF8Name;
-      _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEBUG, "Minimal Syndrome Handler allocated Managed Event Handler at %p for %s", &v14, 0x16u);
+      v15 = 2080;
+      v16 = syndromeUTF8Name;
+      _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEBUG, "Minimal Syndrome Handler allocated Managed Event Handler at %p for %s", &v13, 0x16u);
     }
 
     eventHandler = self->_eventHandler;
   }
 
   [(ManagedEventHandler *)eventHandler didReceiveSyndrome:syndromeCopy];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 @end

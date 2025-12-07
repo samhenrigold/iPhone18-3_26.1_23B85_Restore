@@ -92,9 +92,8 @@
   return v2;
 }
 
-uint64_t __24__VTUIStyle_sharedStyle__block_invoke(uint64_t a1)
+uint64_t __24__VTUIStyle_sharedStyle__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
   objc_opt_class();
   sharedStyle__instance = objc_opt_new();
 
@@ -1303,63 +1302,63 @@ LABEL_25:
 
 - (id)VTUIDeviceSpecificString:(id)string
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   if (stringCopy)
   {
     array = [MEMORY[0x277CBEB18] array];
+    v26 = 0u;
     v27 = 0u;
     v28 = 0u;
     v29 = 0u;
-    v30 = 0u;
     v6 = self->_deviceStringSuffixes;
-    v7 = [(NSArray *)v6 countByEnumeratingWithState:&v27 objects:v32 count:16];
+    v7 = [(NSArray *)v6 countByEnumeratingWithState:&v26 objects:v31 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v28;
+      v9 = *v27;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v28 != v9)
+          if (*v27 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = [stringCopy stringByAppendingString:*(*(&v27 + 1) + 8 * i)];
+          v11 = [stringCopy stringByAppendingString:*(*(&v26 + 1) + 8 * i)];
           [array addObject:v11];
         }
 
-        v8 = [(NSArray *)v6 countByEnumeratingWithState:&v27 objects:v32 count:16];
+        v8 = [(NSArray *)v6 countByEnumeratingWithState:&v26 objects:v31 count:16];
       }
 
       while (v8);
     }
 
     [array addObject:stringCopy];
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     v12 = array;
-    v13 = [v12 countByEnumeratingWithState:&v23 objects:v31 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v22 objects:v30 count:16];
     if (v13)
     {
       v14 = v13;
       v15 = 0;
-      v16 = *v24;
+      v16 = *v23;
 LABEL_11:
       v17 = 0;
       v18 = v15;
       while (1)
       {
-        if (*v24 != v16)
+        if (*v23 != v16)
         {
           objc_enumerationMutation(v12);
         }
 
-        v19 = *(*(&v23 + 1) + 8 * v17);
+        v19 = *(*(&v22 + 1) + 8 * v17);
         v20 = +[VTUIStringsHelper sharedStringsHelper];
         v15 = [v20 uiLocalizedStringForKey:v19];
 
@@ -1372,7 +1371,7 @@ LABEL_11:
         v18 = v15;
         if (v14 == v17)
         {
-          v14 = [v12 countByEnumeratingWithState:&v23 objects:v31 count:16];
+          v14 = [v12 countByEnumeratingWithState:&v22 objects:v30 count:16];
           if (v14)
           {
             goto LABEL_11;
@@ -1393,8 +1392,6 @@ LABEL_11:
   {
     v15 = 0;
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -1491,31 +1488,29 @@ uint64_t __36__VTUIStyle_isGreenTeaCapableDevice__block_invoke()
 
 - (id)dynamicColorWithLightColor:(id)color darkColor:(id)darkColor
 {
-  v16[3] = *MEMORY[0x277D85DE8];
+  v15[3] = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277D75C80];
   darkColorCopy = darkColor;
   colorCopy = color;
   v8 = [v5 traitCollectionWithUserInterfaceStyle:0];
-  v15[0] = v8;
-  v16[0] = colorCopy;
+  v14[0] = v8;
+  v15[0] = colorCopy;
   v9 = [MEMORY[0x277D75C80] traitCollectionWithUserInterfaceStyle:1];
-  v15[1] = v9;
-  v16[1] = colorCopy;
+  v14[1] = v9;
+  v15[1] = colorCopy;
   v10 = [MEMORY[0x277D75C80] traitCollectionWithUserInterfaceStyle:2];
-  v15[2] = v10;
-  v16[2] = darkColorCopy;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:3];
+  v14[2] = v10;
+  v15[2] = darkColorCopy;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
 
   v12 = [MEMORY[0x277D75348] _dynamicColorWithColorsByTraitCollection:v11];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
 
 - (BOOL)shouldSetupForMultipleTriggerPhrases
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (_os_feature_enabled_impl())
   {
     if ([(VTUIStyle *)self currentLocaleSupportsCompactVoiceTrigger])
@@ -1551,20 +1546,19 @@ uint64_t __36__VTUIStyle_isGreenTeaCapableDevice__block_invoke()
       v7 = @"Should";
     }
 
-    v10 = 136315394;
-    v11 = "[VTUIStyle shouldSetupForMultipleTriggerPhrases]";
-    v12 = 2112;
-    v13 = v7;
-    _os_log_impl(&dword_2728BC000, v6, OS_LOG_TYPE_DEFAULT, "%s %@ set up for multiple triggers", &v10, 0x16u);
+    v9 = 136315394;
+    v10 = "[VTUIStyle shouldSetupForMultipleTriggerPhrases]";
+    v11 = 2112;
+    v12 = v7;
+    _os_log_impl(&dword_2728BC000, v6, OS_LOG_TYPE_DEFAULT, "%s %@ set up for multiple triggers", &v9, 0x16u);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 - (BOOL)shouldShowVoiceTriggerConfirmationInBuddy
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   mEMORY[0x277D7A8D0] = [MEMORY[0x277D7A8D0] sharedPreferences];
   voiceTriggerEnabled = [mEMORY[0x277D7A8D0] voiceTriggerEnabled];
 
@@ -1596,13 +1590,13 @@ uint64_t __36__VTUIStyle_isGreenTeaCapableDevice__block_invoke()
   v10 = VTUILogContextFacility;
   if (os_log_type_enabled(VTUILogContextFacility, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 136315650;
-    v17 = "[VTUIStyle shouldShowVoiceTriggerConfirmationInBuddy]";
-    v18 = 2112;
-    v19 = v4;
-    v20 = 2112;
-    v21 = v5;
-    _os_log_impl(&dword_2728BC000, v10, OS_LOG_TYPE_DEFAULT, "%s VT confirmation is %@ %@", &v16, 0x20u);
+    v15 = 136315650;
+    v16 = "[VTUIStyle shouldShowVoiceTriggerConfirmationInBuddy]";
+    v17 = 2112;
+    v18 = v4;
+    v19 = 2112;
+    v20 = v5;
+    _os_log_impl(&dword_2728BC000, v10, OS_LOG_TYPE_DEFAULT, "%s VT confirmation is %@ %@", &v15, 0x20u);
   }
 
   v11 = VTUILogContextFacility;
@@ -1614,10 +1608,10 @@ uint64_t __36__VTUIStyle_isGreenTeaCapableDevice__block_invoke()
       v12 = @"Will show";
     }
 
-    v16 = 136315650;
-    v17 = "[VTUIStyle shouldShowVoiceTriggerConfirmationInBuddy]";
-    v18 = 2112;
-    v19 = v12;
+    v15 = 136315650;
+    v16 = "[VTUIStyle shouldShowVoiceTriggerConfirmationInBuddy]";
+    v17 = 2112;
+    v18 = v12;
     if (voiceTriggerEnabled)
     {
       v13 = @"enabled";
@@ -1628,12 +1622,11 @@ uint64_t __36__VTUIStyle_isGreenTeaCapableDevice__block_invoke()
       v13 = @"not enabled";
     }
 
-    v20 = 2112;
-    v21 = v13;
-    _os_log_impl(&dword_2728BC000, v11, OS_LOG_TYPE_DEFAULT, "%s %@ VT confirmation - voice trigger is %@", &v16, 0x20u);
+    v19 = 2112;
+    v20 = v13;
+    _os_log_impl(&dword_2728BC000, v11, OS_LOG_TYPE_DEFAULT, "%s %@ VT confirmation - voice trigger is %@", &v15, 0x20u);
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v9 & 1;
 }
 
@@ -1647,7 +1640,7 @@ uint64_t __36__VTUIStyle_isGreenTeaCapableDevice__block_invoke()
 
 - (BOOL)shouldPresentDisclosureForCompactVoiceTrigger
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (_os_feature_enabled_impl() && [(VTUIStyle *)self currentLocaleSupportsCompactVoiceTrigger])
   {
     mEMORY[0x277CEF368] = [MEMORY[0x277CEF368] sharedPreferences];
@@ -1685,14 +1678,13 @@ uint64_t __36__VTUIStyle_isGreenTeaCapableDevice__block_invoke()
       v15 = @"should present";
     }
 
-    v18 = 136315394;
-    v19 = "[VTUIStyle shouldPresentDisclosureForCompactVoiceTrigger]";
-    v20 = 2112;
-    v21 = v15;
-    _os_log_impl(&dword_2728BC000, v14, OS_LOG_TYPE_DEFAULT, "%s Compact trigger disclosure check: %@", &v18, 0x16u);
+    v17 = 136315394;
+    v18 = "[VTUIStyle shouldPresentDisclosureForCompactVoiceTrigger]";
+    v19 = 2112;
+    v20 = v15;
+    _os_log_impl(&dword_2728BC000, v14, OS_LOG_TYPE_DEFAULT, "%s Compact trigger disclosure check: %@", &v17, 0x16u);
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -1715,16 +1707,15 @@ uint64_t __36__VTUIStyle_isGreenTeaCapableDevice__block_invoke()
 
 - (void)_prefetchHomePodInfo
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = VTUILogContextFacility;
   if (os_log_type_enabled(VTUILogContextFacility, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v10 = "[VTUIStyle _prefetchHomePodInfo]";
+    v8 = "[VTUIStyle _prefetchHomePodInfo]";
     _os_log_impl(&dword_2728BC000, v3, OS_LOG_TYPE_DEFAULT, "%s Fetch of HomePod Info", buf, 0xCu);
   }
 
-  settingsConnection = self->_settingsConnection;
   if (objc_opt_respondsToSelector())
   {
     objc_initWeak(buf, self);
@@ -1733,13 +1724,11 @@ uint64_t __36__VTUIStyle_isGreenTeaCapableDevice__block_invoke()
     block[1] = 3221225472;
     block[2] = __33__VTUIStyle__prefetchHomePodInfo__block_invoke;
     block[3] = &unk_279E541F8;
-    objc_copyWeak(&v8, buf);
+    objc_copyWeak(&v6, buf);
     dispatch_async(settingsQueue, block);
-    objc_destroyWeak(&v8);
+    objc_destroyWeak(&v6);
     objc_destroyWeak(buf);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __33__VTUIStyle__prefetchHomePodInfo__block_invoke(uint64_t a1)
@@ -1761,7 +1750,7 @@ void __33__VTUIStyle__prefetchHomePodInfo__block_invoke(uint64_t a1)
 
 void __33__VTUIStyle__prefetchHomePodInfo__block_invoke_2(uint64_t a1, void *a2, int a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a2;
   if (v5)
   {
@@ -1787,29 +1776,26 @@ void __33__VTUIStyle__prefetchHomePodInfo__block_invoke_2(uint64_t a1, void *a2,
           v10 = @"enabled";
         }
 
-        v12 = 136315394;
-        v13 = "[VTUIStyle _prefetchHomePodInfo]_block_invoke";
-        v14 = 2112;
-        v15 = v10;
-        _os_log_impl(&dword_2728BC000, v9, OS_LOG_TYPE_DEFAULT, "%s Fetch of HomePod compact trigger enablement completed with result: %@", &v12, 0x16u);
+        v11 = 136315394;
+        v12 = "[VTUIStyle _prefetchHomePodInfo]_block_invoke";
+        v13 = 2112;
+        v14 = v10;
+        _os_log_impl(&dword_2728BC000, v9, OS_LOG_TYPE_DEFAULT, "%s Fetch of HomePod compact trigger enablement completed with result: %@", &v11, 0x16u);
       }
 
       v8[69] = a3;
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __33__VTUIStyle__prefetchHomePodInfo__block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = "[VTUIStyle _prefetchHomePodInfo]_block_invoke_2";
-  v5 = 2112;
-  v6 = a1;
-  _os_log_error_impl(&dword_2728BC000, a2, OS_LOG_TYPE_ERROR, "%s Fetch of HomePod compact trigger enablement failed with error:%@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "[VTUIStyle _prefetchHomePodInfo]_block_invoke_2";
+  v4 = 2112;
+  v5 = a1;
+  _os_log_error_impl(&dword_2728BC000, a2, OS_LOG_TYPE_ERROR, "%s Fetch of HomePod compact trigger enablement failed with error:%@", &v2, 0x16u);
 }
 
 @end

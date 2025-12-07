@@ -138,7 +138,7 @@ LABEL_8:
 
 - (float)loudness
 {
-  [(PXStoryMediaAnalysisMovieHighlight *)self timeRange];
+  objc_msgSend_timeRange(self, a2);
   [(PXStoryMediaAnalysisMovieHighlight *)self audioLoudnessForTimeRange:&v4];
   return result;
 }
@@ -225,7 +225,7 @@ LABEL_8:
 
 - (float)peakVolume
 {
-  [(PXStoryMediaAnalysisMovieHighlight *)self timeRange];
+  objc_msgSend_timeRange(self, a2);
   [(PXStoryMediaAnalysisMovieHighlight *)self audioPeakForTimeRange:&v4];
   return result;
 }
@@ -529,7 +529,7 @@ LABEL_10:
 
 - ($E59C7DEBCD57E98EE3F0104B12BEB13C)bestTimeRangeForPreferredDuration:(SEL)duration min:(double)min max:(double)max
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if (min < max)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
@@ -547,15 +547,13 @@ LABEL_10:
   *&retstr->var1.var1 = 0u;
   v13 = fmin(min + 1.0, a6);
   *&retstr->var0.var0 = 0u;
-  [(PXStoryMediaAnalysisMovieHighlight *)self _bestTimeRangeForMinDuration:v12 maxDuration:v13];
+  objc_msgSend__bestTimeRangeForMinDuration_maxDuration_(self, v12, v13);
   *time = *&retstr->var1.var0;
   *&time[16] = retstr->var1.var3;
   Seconds = CMTimeGetSeconds(time);
   if (v12 > max && Seconds < min + -0.75)
   {
-    selfCopy2 = self;
-    minCopy2 = max;
-    minCopy = min;
+    objc_msgSend__bestTimeRangeForMinDuration_maxDuration_(self, max, min);
   }
 
   else
@@ -565,34 +563,31 @@ LABEL_10:
       goto LABEL_16;
     }
 
-    selfCopy2 = self;
-    minCopy2 = min;
-    minCopy = a6;
+    objc_msgSend__bestTimeRangeForMinDuration_maxDuration_(self, min, a6);
   }
 
-  [(PXStoryMediaAnalysisMovieHighlight *)selfCopy2 _bestTimeRangeForMinDuration:minCopy2 maxDuration:minCopy];
-  v20 = *&time[16];
+  v17 = *&time[16];
   *&retstr->var0.var0 = *time;
-  *&retstr->var0.var3 = v20;
-  *&retstr->var1.var1 = v28;
+  *&retstr->var0.var3 = v17;
+  *&retstr->var1.var1 = v25;
 LABEL_16:
-  v21 = PLStoryGetLog();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+  v18 = PLStoryGetLog();
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
   {
-    v22 = *&retstr->var0.var3;
+    v19 = *&retstr->var0.var3;
     *time = *&retstr->var0.var0;
-    *&time[16] = v22;
-    v28 = *&retstr->var1.var1;
-    v23 = PXStoryTimeRangeDescription(time);
+    *&time[16] = v19;
+    v25 = *&retstr->var1.var1;
+    v20 = PXStoryTimeRangeDescription(time);
     *time = 134218754;
     *&time[4] = min;
     *&time[12] = 2048;
     *&time[14] = max;
     *&time[22] = 2048;
     *&time[24] = a6;
-    LOWORD(v28) = 2112;
-    *(&v28 + 2) = v23;
-    _os_log_impl(&dword_1A3C1C000, v21, OS_LOG_TYPE_DEBUG, "Best range for preferred duration: %0.1f, min: %0.1f, max: %0.1f -> %@", time, 0x2Au);
+    LOWORD(v25) = 2112;
+    *(&v25 + 2) = v20;
+    _os_log_impl(&dword_1A3C1C000, v18, OS_LOG_TYPE_DEBUG, "Best range for preferred duration: %0.1f, min: %0.1f, max: %0.1f -> %@", time, 0x2Au);
   }
 
   return result;
@@ -601,7 +596,7 @@ LABEL_16:
 - ($E59C7DEBCD57E98EE3F0104B12BEB13C)_bestTimeRangeForMinDuration:(SEL)duration maxDuration:(double)maxDuration
 {
   v19 = *MEMORY[0x1E69E9840];
-  [(PXStoryMediaAnalysisMovieHighlight *)self timeRange];
+  objc_msgSend_timeRange(self, duration);
   *time = v15;
   *&time[16] = v16;
   v9 = fmin(a5, CMTimeGetSeconds(time));
@@ -609,7 +604,7 @@ LABEL_16:
   *&retstr->var0.var3 = 0u;
   *&retstr->var1.var1 = 0u;
   *&retstr->var0.var0 = 0u;
-  [(PXStoryMediaAnalysisMovieHighlight *)self _bestTimeRangeForTargetDuration:(v9 + v10) * 0.5 tolerance:(v9 - v10) * 0.5];
+  objc_msgSend__bestTimeRangeForTargetDuration_tolerance_(self, (v9 + v10) * 0.5, (v9 - v10) * 0.5);
   v11 = PLStoryGetLog();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
@@ -632,63 +627,59 @@ LABEL_16:
 
 - ($E59C7DEBCD57E98EE3F0104B12BEB13C)_bestTimeRangeForTargetDuration:(SEL)duration tolerance:(double)tolerance
 {
-  v31[3] = *MEMORY[0x1E69E9840];
+  v29[3] = *MEMORY[0x1E69E9840];
   *&retstr->var0.var3 = 0u;
   *&retstr->var1.var1 = 0u;
   *&retstr->var0.var0 = 0u;
-  [(PXStoryMediaAnalysisMovieHighlight *)self timeRange];
+  objc_msgSend_timeRange(self, duration);
   *time = retstr->var1;
   if (CMTimeGetSeconds(time) > tolerance)
   {
     mEMORY[0x1E69AE238] = [MEMORY[0x1E69AE238] sharedMediaAnalyzer];
     if (self->_highlightIndex < 0)
     {
-      CMTimeMakeWithSeconds(&v24, tolerance, 600);
-      v21 = *&retstr->var0.var3;
-      v23[0] = *&retstr->var0.var0;
-      v23[1] = v21;
-      v23[2] = *&retstr->var1.var1;
-      [(PXStoryMediaAnalysisMovieHighlight *)self _bestTimeRangeForRange:v23 targetDuration:&v24];
-      v22 = *&time[16];
+      CMTimeMakeWithSeconds(&v22, tolerance, 600);
+      objc_msgSend__bestTimeRangeForRange_targetDuration_(self, retstr->var0.var0, *&retstr->var0.var1, retstr->var0.var3, retstr->var1.var0, *&retstr->var1.var1, retstr->var1.var3);
+      v21 = *&time[16];
       *&retstr->var0.var0 = *time;
-      *&retstr->var0.var3 = v22;
-      *&retstr->var1.var1 = v26;
+      *&retstr->var0.var3 = v21;
+      *&retstr->var1.var1 = v24;
     }
 
     else
     {
       v11 = [off_1E7721928 alloc];
       v12 = [MEMORY[0x1E696AD98] numberWithDouble:tolerance];
-      v31[0] = v12;
+      v29[0] = v12;
       v13 = [MEMORY[0x1E696AD98] numberWithDouble:a5];
-      v31[1] = v13;
+      v29[1] = v13;
       v14 = [MEMORY[0x1E696AD98] numberWithInteger:self->_highlightIndex];
-      v31[2] = v14;
-      v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:3];
+      v29[2] = v14;
+      v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:3];
       v16 = [v11 initWithObjects:v15];
 
       movieHighlightTimeRangeCache = self->_movieHighlightTimeRangeCache;
-      v27[0] = MEMORY[0x1E69E9820];
-      v27[1] = 3221225472;
-      v27[2] = __80__PXStoryMediaAnalysisMovieHighlight__bestTimeRangeForTargetDuration_tolerance___block_invoke;
-      v27[3] = &unk_1E773F6F0;
+      v25[0] = MEMORY[0x1E69E9820];
+      v25[1] = 3221225472;
+      v25[2] = __80__PXStoryMediaAnalysisMovieHighlight__bestTimeRangeForTargetDuration_tolerance___block_invoke;
+      v25[3] = &unk_1E773F6F0;
       toleranceCopy = tolerance;
-      v30 = a5;
-      v27[4] = self;
-      v28 = mEMORY[0x1E69AE238];
-      v18 = [(NSCache *)movieHighlightTimeRangeCache px_objectForKey:v16 usingPromise:v27];
+      v28 = a5;
+      v25[4] = self;
+      v26 = mEMORY[0x1E69AE238];
+      v18 = [(NSCache *)movieHighlightTimeRangeCache px_objectForKey:v16 usingPromise:v25];
       v19 = v18;
-      v26 = 0u;
+      v24 = 0u;
       memset(time, 0, sizeof(time));
       if (v18)
       {
-        [v18 CMTimeRangeValue];
+        objc_msgSend_CMTimeRangeValue(v18);
       }
 
       v20 = *&time[16];
       *&retstr->var0.var0 = *time;
       *&retstr->var0.var3 = v20;
-      *&retstr->var1.var1 = v26;
+      *&retstr->var1.var1 = v24;
     }
   }
 
@@ -715,7 +706,7 @@ id __80__PXStoryMediaAnalysisMovieHighlight__bestTimeRangeForTargetDuration_tole
   v6 = *(a1 + 40);
   if (v6)
   {
-    [v6 postProcessMovieHighlightDuration:*(*(a1 + 32) + 8) withOptions:v5];
+    objc_msgSend_postProcessMovieHighlightDuration_withOptions_(v6);
   }
 
   v9[0] = v10;
@@ -732,7 +723,7 @@ id __80__PXStoryMediaAnalysisMovieHighlight__bestTimeRangeForTargetDuration_tole
   *&retstr->var0.var3 = 0u;
   *&retstr->var1.var1 = 0u;
   *&retstr->var0.var0 = 0u;
-  [(PXStoryMediaAnalysisMovieHighlight *)self _bestTimeRangeForTargetDuration:a4 tolerance:a4 * 0.1];
+  objc_msgSend__bestTimeRangeForTargetDuration_tolerance_(self, duration, a4, a4 * 0.1);
   v6 = PLStoryGetLog();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
@@ -871,32 +862,22 @@ LABEL_8:
   if (movieSummaryResults)
   {
     movieHighlightResults = movieSummaryResults;
-    v20 = 0u;
-    v21 = 0u;
-    v19 = 0u;
-    PXStoryMediaAnalysisResultsGetTimeRange(&v19, movieSummaryResults);
-    v17 = 0uLL;
-    v18 = 0;
-    +[PXStoryFallbackMovieHighlightCuration maxHighlightDuration];
-    v14 = v19;
-    v15 = v20;
-    v16 = v21;
-    v12 = v17;
-    v13 = v18;
-    [(PXStoryMediaAnalysisMovieHighlight *)self _bestTimeRangeForRange:&v14 targetDuration:&v12];
+    v13 = 0u;
+    v14 = 0u;
+    v12 = 0u;
+    PXStoryMediaAnalysisResultsGetTimeRange(&v12, movieSummaryResults);
+    objc_msgSend_maxHighlightDuration(PXStoryFallbackMovieHighlightCuration);
+    objc_msgSend__bestTimeRangeForRange_targetDuration_(self, 0, 0);
   }
 
   else
   {
     movieHighlightScoreResults = [(PXStoryMediaAnalysisMovieHighlight *)self movieHighlightScoreResults];
-    v20 = 0u;
-    v21 = 0u;
-    v19 = 0u;
-    PXStoryMediaAnalysisResultsGetTimeRange(&v19, movieHighlightScoreResults);
-    v14 = v19;
-    v15 = v20;
-    v16 = v21;
-    [PXStoryFallbackMovieHighlightCuration defaultHighlightRangeForPlaybackRange:&v14];
+    v13 = 0u;
+    v14 = 0u;
+    v12 = 0u;
+    PXStoryMediaAnalysisResultsGetTimeRange(&v12, movieHighlightScoreResults);
+    objc_msgSend_defaultHighlightRangeForPlaybackRange_(PXStoryFallbackMovieHighlightCuration);
 
     movieHighlightResults = 0;
   }

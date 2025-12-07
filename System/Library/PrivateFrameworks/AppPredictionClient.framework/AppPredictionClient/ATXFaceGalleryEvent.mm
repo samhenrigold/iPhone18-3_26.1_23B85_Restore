@@ -181,46 +181,47 @@ LABEL_8:
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v10 = __atxlog_handle_lock_screen();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+    v11 = __atxlog_handle_lock_screen(isKindOfClass);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
-      [(ATXDigestTimeline *)self initWithProto:v10];
+      [(ATXDigestTimeline *)self initWithProto:v11];
     }
 
     goto LABEL_8;
   }
 
-  v5 = protoCopy;
-  eventType = [(ATXPBFaceGalleryEvent *)v5 eventType];
-  if ([(ATXPBFaceGalleryEvent *)v5 hasConfiguration])
+  v6 = protoCopy;
+  eventType = [(ATXPBFaceGalleryEvent *)v6 eventType];
+  if ([(ATXPBFaceGalleryEvent *)v6 hasConfiguration])
   {
-    v7 = [ATXFaceGalleryConfiguration alloc];
-    configuration = [(ATXPBFaceGalleryEvent *)v5 configuration];
-    v9 = [(ATXFaceGalleryConfiguration *)v7 initWithProto:configuration];
+    v8 = [ATXFaceGalleryConfiguration alloc];
+    configuration = [(ATXPBFaceGalleryEvent *)v6 configuration];
+    v10 = [(ATXFaceGalleryConfiguration *)v8 initWithProto:configuration];
   }
 
   else
   {
-    v9 = 0;
+    v10 = 0;
   }
 
-  items = [(ATXPBFaceGalleryEvent *)v5 items];
-  v13 = [items count];
+  items = [(ATXPBFaceGalleryEvent *)v6 items];
+  v14 = [items count];
 
-  if (v13)
+  if (v14)
   {
-    items2 = [(ATXPBFaceGalleryEvent *)v5 items];
-    v15 = [items2 _pas_mappedArrayWithTransform:&__block_literal_global_37_0];
+    items2 = [(ATXPBFaceGalleryEvent *)v6 items];
+    v16 = [items2 _pas_mappedArrayWithTransform:&__block_literal_global_37_0];
   }
 
   else
   {
-    v15 = 0;
+    v16 = 0;
   }
 
-  self = [(ATXFaceGalleryEvent *)self initWithEventType:eventType configuration:v9 items:v15];
+  self = [(ATXFaceGalleryEvent *)self initWithEventType:eventType configuration:v10 items:v16];
 
   selfCopy = self;
 LABEL_14:

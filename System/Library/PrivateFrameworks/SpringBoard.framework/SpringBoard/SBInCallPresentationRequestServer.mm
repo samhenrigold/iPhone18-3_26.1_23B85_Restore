@@ -61,8 +61,8 @@ void __41__SBInCallPresentationRequestServer_init__block_invoke(uint64_t a1, voi
 
   clientAuthenticator = self->_clientAuthenticator;
   remoteProcess = [connectionCopy remoteProcess];
-  auditToken = [remoteProcess auditToken];
-  LODWORD(clientAuthenticator) = [(FBServiceClientAuthenticator *)clientAuthenticator authenticateAuditToken:auditToken];
+  v10 = objc_msgSend_auditToken(remoteProcess);
+  LODWORD(clientAuthenticator) = [(FBServiceClientAuthenticator *)clientAuthenticator authenticateAuditToken:v10];
 
   if (clientAuthenticator)
   {

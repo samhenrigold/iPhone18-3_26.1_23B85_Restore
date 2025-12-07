@@ -216,7 +216,7 @@ void __45__SBCenterIconZoomAnimator__prepareAnimation__block_invoke(uint64_t a1,
   [model addListObserver:self];
 
   v11 = [SBHTouchPassThroughView alloc];
-  [iconListView bounds];
+  objc_msgSend_bounds(iconListView);
   v12 = [(SBHTouchPassThroughView *)v11 initWithFrame:?];
   zoomView = self->_zoomView;
   self->_zoomView = v12;
@@ -247,7 +247,7 @@ void __45__SBCenterIconZoomAnimator__prepareAnimation__block_invoke(uint64_t a1,
   self->_captureOnlyBackdropLayer = v22;
 
   v24 = self->_captureOnlyBackdropLayer;
-  [iconListView bounds];
+  objc_msgSend_bounds(iconListView);
   [(CABackdropLayer *)v24 setBounds:?];
   [(CABackdropLayer *)self->_captureOnlyBackdropLayer setCaptureOnly:1];
   [(CABackdropLayer *)self->_captureOnlyBackdropLayer setScale:0.25];
@@ -291,7 +291,7 @@ void __45__SBCenterIconZoomAnimator__prepareAnimation__block_invoke(uint64_t a1,
   v6 = v5;
   v8 = v7;
   v10 = v9;
-  [(UIView *)self->_zoomView bounds];
+  objc_msgSend_bounds(self->_zoomView);
   v13 = 0.5;
   v14 = 0.5;
   if (v11 != 0.0)
@@ -326,11 +326,11 @@ void __45__SBCenterIconZoomAnimator__prepareAnimation__block_invoke(uint64_t a1,
   [(SBCenterIconZoomAnimator *)self _updateDockForFraction:fraction];
 }
 
-uint64_t __61__SBCenterIconZoomAnimator__setAnimationFraction_withCenter___block_invoke(uint64_t result, uint64_t a2, uint64_t a3, char a4)
+id *__61__SBCenterIconZoomAnimator__setAnimationFraction_withCenter___block_invoke(id *result, uint64_t a2, uint64_t a3, char a4)
 {
   if ((a4 & 1) == 0)
   {
-    return [*(result + 32) _setZPositionForView:*(result + 40) center:*(result + 48) andFraction:*(result + 56)];
+    return [result[4] _setZPositionForView:a3 center:*(result + 5) andFraction:{*(result + 6), *(result + 7)}];
   }
 
   return result;

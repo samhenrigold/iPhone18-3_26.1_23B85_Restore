@@ -1,9 +1,6 @@
 uint64_t StorageSearchResult.key.getter()
 {
   v1 = *v0;
-  v2 = v0[1];
-  v4 = v0[2];
-  v3 = v0[3];
 
   return v1;
 }

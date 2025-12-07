@@ -68,7 +68,7 @@
       {
         v9 = sourceTexture1;
         memset(v80, 0, 48);
-        [(NUMixKernel *)self sourceRegion1];
+        objc_msgSend_sourceRegion1(self);
         v10 = v9;
         if ([v10 width] && objc_msgSend(v10, "height"))
         {

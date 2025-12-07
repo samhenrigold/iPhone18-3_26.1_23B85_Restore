@@ -590,9 +590,9 @@ LABEL_9:
   userIdentifier = [participantCopy userIdentifier];
   participantID = [participantCopy participantID];
   emailAddress = [(PLShareParticipant *)self emailAddress];
-  v11 = [emailAddress isEqualToString:email];
+  isEqualToString = objc_msgSend_isEqualToString_(emailAddress);
 
-  if ((v11 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     [(PLShareParticipant *)self setEmailAddress:email];
   }
@@ -606,7 +606,7 @@ LABEL_9:
   }
 
   phoneNumber2 = [(PLShareParticipant *)self phoneNumber];
-  v15 = [phoneNumber2 isEqualToString:phoneNumber];
+  v15 = objc_msgSend_isEqualToString_(phoneNumber2);
 
   if ((v15 & 1) == 0)
   {
@@ -614,7 +614,7 @@ LABEL_9:
   }
 
   userIdentifier2 = [(PLShareParticipant *)self userIdentifier];
-  v17 = [userIdentifier2 isEqualToString:userIdentifier];
+  v17 = objc_msgSend_isEqualToString_(userIdentifier2);
 
   if ((v17 & 1) == 0)
   {
@@ -879,7 +879,7 @@ LABEL_11:
 
   v14 = [self _shareParticipantsWithPredicate:v12 fetchLimit:0 inManagedObjectContext:managedObjectContext];
 
-  [v14 count];
+  objc_msgSend_count(v14);
   firstObject = [v14 firstObject];
 
   return firstObject;

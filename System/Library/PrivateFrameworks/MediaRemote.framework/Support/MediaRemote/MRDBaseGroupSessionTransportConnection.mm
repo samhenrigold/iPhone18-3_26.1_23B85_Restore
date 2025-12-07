@@ -1,5 +1,6 @@
 @interface MRDBaseGroupSessionTransportConnection
 - (BOOL)hasAccessToPlayerPath:(id)path;
+- (BOOL)isAllowedToSendCommand:(unsigned int)command;
 - (BOOL)isAllowedToSendMessageType:(unint64_t)type;
 - (MRDBaseGroupSession)groupSession;
 - (MRDBaseGroupSessionTransportConnection)initWithGroupSession:(id)session participantIdentifier:(id)identifier dataSource:(id)source;
@@ -96,6 +97,21 @@
   LOBYTE(v4) = [v4 containsObject:v5];
 
   return v4;
+}
+
+- (BOOL)isAllowedToSendCommand:(unsigned int)command
+{
+  v3 = *&command;
+  if (qword_100529400 != -1)
+  {
+    sub_1003A8BF4();
+  }
+
+  v4 = qword_1005293F8;
+  v5 = [NSNumber numberWithUnsignedInt:v3];
+  LOBYTE(v4) = [v4 containsObject:v5];
+
+  return v4 ^ 1;
 }
 
 - (MRDBaseGroupSession)groupSession

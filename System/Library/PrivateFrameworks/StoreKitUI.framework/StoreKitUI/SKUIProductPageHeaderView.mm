@@ -100,10 +100,10 @@
 {
   stringCopy = string;
   ageBandString = [(SKUIProductPageHeaderView *)self ageBandString];
-  v5 = [stringCopy isEqualToString:ageBandString];
+  isEqualToString = objc_msgSend_isEqualToString_(stringCopy);
 
   v7 = stringCopy;
-  if ((v5 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     ageBandLabel = self->_ageBandLabel;
     if (stringCopy)
@@ -123,10 +123,10 @@
         [(UILabel *)v13 setFont:v14];
 
         v15 = self->_ageBandLabel;
-        primaryTextColor = [(SKUIColorScheme *)self->_colorScheme primaryTextColor];
-        if (primaryTextColor)
+        v16 = objc_msgSend_primaryTextColor(self->_colorScheme);
+        if (v16)
         {
-          [(UILabel *)v15 setTextColor:primaryTextColor];
+          [(UILabel *)v15 setTextColor:v16];
         }
 
         else
@@ -161,7 +161,7 @@
 {
   nameCopy = name;
   artistName = [(SKUIProductPageHeaderView *)self artistName];
-  if (artistName != nameCopy && ([artistName isEqualToString:nameCopy] & 1) == 0)
+  if (artistName != nameCopy && (objc_msgSend_isEqualToString_(artistName) & 1) == 0)
   {
     artistButton = self->_artistButton;
     if (nameCopy)
@@ -190,10 +190,10 @@
         [titleLabel setFont:v12];
 
         v13 = self->_artistButton;
-        primaryTextColor = [(SKUIColorScheme *)self->_colorScheme primaryTextColor];
-        if (primaryTextColor)
+        v14 = objc_msgSend_primaryTextColor(self->_colorScheme);
+        if (v14)
         {
-          [(UIButton *)v13 setTitleColor:primaryTextColor forState:0];
+          [(UIButton *)v13 setTitleColor:v14 forState:0];
         }
 
         else
@@ -203,10 +203,10 @@
         }
 
         v16 = self->_artistButton;
-        primaryTextColor2 = [(SKUIColorScheme *)self->_colorScheme primaryTextColor];
-        if (primaryTextColor2)
+        v17 = objc_msgSend_primaryTextColor(self->_colorScheme);
+        if (v17)
         {
-          [(UIButton *)v16 setTitleColor:primaryTextColor2 forState:1];
+          [(UIButton *)v16 setTitleColor:v17 forState:1];
         }
 
         else
@@ -261,10 +261,10 @@
     [(SKUIProductPageHeaderView *)self setBackgroundColor:backgroundColor];
 
     artistButton = self->_artistButton;
-    primaryTextColor = [(SKUIColorScheme *)self->_colorScheme primaryTextColor];
-    if (primaryTextColor)
+    v8 = objc_msgSend_primaryTextColor(self->_colorScheme);
+    if (v8)
     {
-      [(UIButton *)artistButton setTitleColor:primaryTextColor forState:0];
+      [(UIButton *)artistButton setTitleColor:v8 forState:0];
     }
 
     else
@@ -274,10 +274,10 @@
     }
 
     inAppPurchasesLabel = self->_inAppPurchasesLabel;
-    primaryTextColor2 = [(SKUIColorScheme *)self->_colorScheme primaryTextColor];
-    if (primaryTextColor2)
+    v11 = objc_msgSend_primaryTextColor(self->_colorScheme);
+    if (v11)
     {
-      [(UILabel *)inAppPurchasesLabel setTextColor:primaryTextColor2];
+      [(UILabel *)inAppPurchasesLabel setTextColor:v11];
     }
 
     else
@@ -287,10 +287,10 @@
     }
 
     ageBandLabel = self->_ageBandLabel;
-    primaryTextColor3 = [(SKUIColorScheme *)self->_colorScheme primaryTextColor];
-    if (primaryTextColor3)
+    v14 = objc_msgSend_primaryTextColor(self->_colorScheme);
+    if (v14)
     {
-      [(UILabel *)ageBandLabel setTextColor:primaryTextColor3];
+      [(UILabel *)ageBandLabel setTextColor:v14];
     }
 
     else
@@ -313,10 +313,10 @@
     }
 
     userRatingLabel = self->_userRatingLabel;
-    primaryTextColor4 = [(SKUIColorScheme *)self->_colorScheme primaryTextColor];
-    if (primaryTextColor4)
+    v20 = objc_msgSend_primaryTextColor(self->_colorScheme);
+    if (v20)
     {
-      [(UILabel *)userRatingLabel setTextColor:primaryTextColor4];
+      [(UILabel *)userRatingLabel setTextColor:v20];
     }
 
     else
@@ -326,10 +326,10 @@
     }
 
     editorialBadgeLabel = self->_editorialBadgeLabel;
-    primaryTextColor5 = [(SKUIColorScheme *)self->_colorScheme primaryTextColor];
-    if (primaryTextColor5)
+    v23 = objc_msgSend_primaryTextColor(self->_colorScheme);
+    if (v23)
     {
-      [(SKUIBadgeLabel *)editorialBadgeLabel setBackgroundColor:primaryTextColor5];
+      [(SKUIBadgeLabel *)editorialBadgeLabel setBackgroundColor:v23];
     }
 
     else
@@ -378,7 +378,7 @@
 {
   badgeCopy = badge;
   text = [(SKUIBadgeLabel *)self->_editorialBadgeLabel text];
-  if (text != badgeCopy && ([text isEqualToString:badgeCopy] & 1) == 0)
+  if (text != badgeCopy && (objc_msgSend_isEqualToString_(text) & 1) == 0)
   {
     editorialBadgeLabel = self->_editorialBadgeLabel;
     if (badgeCopy)
@@ -403,10 +403,10 @@
         }
 
         v12 = self->_editorialBadgeLabel;
-        primaryTextColor = [(SKUIColorScheme *)self->_colorScheme primaryTextColor];
-        if (primaryTextColor)
+        v13 = objc_msgSend_primaryTextColor(self->_colorScheme);
+        if (v13)
         {
-          [(SKUIBadgeLabel *)v12 setBackgroundColor:primaryTextColor];
+          [(SKUIBadgeLabel *)v12 setBackgroundColor:v13];
         }
 
         else
@@ -537,7 +537,7 @@
 {
   stringCopy = string;
   text = [(UILabel *)self->_inAppPurchasesLabel text];
-  if (text != stringCopy && ([text isEqualToString:stringCopy] & 1) == 0)
+  if (text != stringCopy && (objc_msgSend_isEqualToString_(text) & 1) == 0)
   {
     inAppPurchasesLabel = self->_inAppPurchasesLabel;
     if (stringCopy)
@@ -557,10 +557,10 @@
         [(UILabel *)v10 setFont:v11];
 
         v12 = self->_inAppPurchasesLabel;
-        primaryTextColor = [(SKUIColorScheme *)self->_colorScheme primaryTextColor];
-        if (primaryTextColor)
+        v13 = objc_msgSend_primaryTextColor(self->_colorScheme);
+        if (v13)
         {
-          [(UILabel *)v12 setTextColor:primaryTextColor];
+          [(UILabel *)v12 setTextColor:v13];
         }
 
         else
@@ -604,9 +604,9 @@
 {
   textCopy = text;
   text = [(UILabel *)self->_itemOfferExplanationLabel text];
-  v5 = [text isEqualToString:textCopy];
+  isEqualToString = objc_msgSend_isEqualToString_(text);
 
-  if ((v5 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     itemOfferExplanationLabel = self->_itemOfferExplanationLabel;
     v7 = textCopy;
@@ -652,9 +652,9 @@
 {
   titleCopy = title;
   text = [(UILabel *)self->_itemOfferExplanationTitleLabel text];
-  v5 = [text isEqualToString:titleCopy];
+  isEqualToString = objc_msgSend_isEqualToString_(text);
 
-  if ((v5 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     itemOfferExplanationTitleLabel = self->_itemOfferExplanationTitleLabel;
     v7 = titleCopy;
@@ -732,10 +732,10 @@
     [(UILabel *)v14 setFont:v15];
 
     v16 = self->_userRatingLabel;
-    primaryTextColor = [(SKUIColorScheme *)self->_colorScheme primaryTextColor];
-    if (primaryTextColor)
+    v17 = objc_msgSend_primaryTextColor(self->_colorScheme);
+    if (v17)
     {
-      [(UILabel *)v16 setTextColor:primaryTextColor];
+      [(UILabel *)v16 setTextColor:v17];
     }
 
     else
@@ -800,7 +800,7 @@ LABEL_14:
 {
   titleCopy = title;
   text = [(SKUIProductPageHeaderLabel *)self->_titleLabel text];
-  if (text != titleCopy && ([text isEqualToString:titleCopy] & 1) == 0)
+  if (text != titleCopy && (objc_msgSend_isEqualToString_(text) & 1) == 0)
   {
     titleLabel = self->_titleLabel;
     if (titleCopy)

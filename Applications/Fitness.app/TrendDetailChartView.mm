@@ -82,7 +82,7 @@
 
 - (id)accessibilityDateIntervalForIndex:(int64_t)index
 {
-  v5 = sub_100140278(&qword_1008E5C70);
+  v5 = sub_100140278(&qword_1008E5C70, qword_1006F0480);
   __chkstk_darwin(v5 - 8);
   v7 = &v15 - v6;
   selfCopy = self;

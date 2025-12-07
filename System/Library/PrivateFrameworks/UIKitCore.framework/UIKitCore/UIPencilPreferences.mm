@@ -15,11 +15,11 @@ void __52___UIPencilPreferences__preferredTapActionDidChange__block_invoke(uint6
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
-    v2 = WeakRetained;
+    v3 = WeakRetained;
     [objc_opt_class() willChangeValueForKey:@"preferredTapAction"];
-    v2[1] = _UIPencilPreferredActionForKey(@"UIPencilPreferredTapAction");
+    v3[1] = _UIPencilPreferredActionForKey(@"UIPencilPreferredTapAction", v2);
     [objc_opt_class() didChangeValueForKey:@"preferredTapAction"];
-    WeakRetained = v2;
+    WeakRetained = v3;
   }
 }
 
@@ -28,11 +28,11 @@ void __56___UIPencilPreferences__preferredSqueezeActionDidChange__block_invoke(u
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
-    v2 = WeakRetained;
+    v3 = WeakRetained;
     [objc_opt_class() willChangeValueForKey:@"_preferredSqueezeAction"];
-    v2[2] = _UIPencilPreferredActionForKey(@"UIPencilPreferredSqueezeAction");
+    v3[2] = _UIPencilPreferredActionForKey(@"UIPencilPreferredSqueezeAction", v2);
     [objc_opt_class() didChangeValueForKey:@"_preferredSqueezeAction"];
-    WeakRetained = v2;
+    WeakRetained = v3;
   }
 }
 

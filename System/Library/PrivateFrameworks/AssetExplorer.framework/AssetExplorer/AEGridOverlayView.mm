@@ -142,13 +142,13 @@ LABEL_5:
   return v3;
 }
 
-void __30__AEGridOverlayView_loopBadge__block_invoke()
+void __30__AEGridOverlayView_loopBadge__block_invoke(uint64_t a1)
 {
-  v0 = MEMORY[0x277D755B8];
-  v3 = AssetExplorerBundle();
-  v1 = [v0 imageNamed:@"Loop_badge" inBundle:v3];
-  v2 = loopBadge_loopBadge;
-  loopBadge_loopBadge = v1;
+  v1 = MEMORY[0x277D755B8];
+  v4 = AssetExplorerBundle();
+  v2 = [v1 imageNamed:@"Loop_badge" inBundle:v4];
+  v3 = loopBadge_loopBadge;
+  loopBadge_loopBadge = v2;
 }
 
 + (id)videoBadge
@@ -163,13 +163,13 @@ void __30__AEGridOverlayView_loopBadge__block_invoke()
   return v3;
 }
 
-void __31__AEGridOverlayView_videoBadge__block_invoke()
+void __31__AEGridOverlayView_videoBadge__block_invoke(uint64_t a1)
 {
-  v0 = MEMORY[0x277D755B8];
-  v3 = AssetExplorerBundle();
-  v1 = [v0 imageNamed:@"Video_badge" inBundle:v3];
-  v2 = videoBadge_videoBadge;
-  videoBadge_videoBadge = v1;
+  v1 = MEMORY[0x277D755B8];
+  v4 = AssetExplorerBundle();
+  v2 = [v1 imageNamed:@"Video_badge" inBundle:v4];
+  v3 = videoBadge_videoBadge;
+  videoBadge_videoBadge = v2;
 }
 
 + (id)cloudBadge
@@ -184,13 +184,13 @@ void __31__AEGridOverlayView_videoBadge__block_invoke()
   return v3;
 }
 
-void __31__AEGridOverlayView_cloudBadge__block_invoke()
+void __31__AEGridOverlayView_cloudBadge__block_invoke(uint64_t a1)
 {
-  v0 = MEMORY[0x277D755B8];
-  v3 = AssetExplorerBundle();
-  v1 = [v0 imageNamed:@"Cloud_badge" inBundle:v3];
-  v2 = cloudBadge_cloudBadge;
-  cloudBadge_cloudBadge = v1;
+  v1 = MEMORY[0x277D755B8];
+  v4 = AssetExplorerBundle();
+  v2 = [v1 imageNamed:@"Cloud_badge" inBundle:v4];
+  v3 = cloudBadge_cloudBadge;
+  cloudBadge_cloudBadge = v2;
 }
 
 + (id)gradientShadow
@@ -205,13 +205,13 @@ void __31__AEGridOverlayView_cloudBadge__block_invoke()
   return v3;
 }
 
-void __35__AEGridOverlayView_gradientShadow__block_invoke()
+void __35__AEGridOverlayView_gradientShadow__block_invoke(uint64_t a1)
 {
-  v0 = MEMORY[0x277D755B8];
-  v3 = AssetExplorerBundle();
-  v1 = [v0 imageNamed:@"Gradient_shadow" inBundle:v3];
-  v2 = gradientShadow_gradientShadow;
-  gradientShadow_gradientShadow = v1;
+  v1 = MEMORY[0x277D755B8];
+  v4 = AssetExplorerBundle();
+  v2 = [v1 imageNamed:@"Gradient_shadow" inBundle:v4];
+  v3 = gradientShadow_gradientShadow;
+  gradientShadow_gradientShadow = v2;
 }
 
 + (id)gridOverlayLayoutInfo

@@ -82,20 +82,18 @@
 
 void __60__HMDBackgroundTaskManager__postNotificationWithIdentifier___block_invoke(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) notificationCenter];
   v3 = *(a1 + 40);
-  v6 = @"HMD.BGTM.NK";
-  v7[0] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v5 = @"HMD.BGTM.NK";
+  v6[0] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
   [v2 postNotificationName:@"HMD.BGTM.NN" object:0 userInfo:v4];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handlePendingTaskWithIdentifier:(id)identifier date:(id)date
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   dateCopy = date;
   pendingTaskDateByIdentifier = [(HMDBackgroundTaskManager *)self pendingTaskDateByIdentifier];
@@ -115,11 +113,11 @@ void __60__HMDBackgroundTaskManager__postNotificationWithIdentifier___block_invo
       if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
       {
         v19 = HMFGetLogIdentifier();
-        v21 = 138543618;
-        v22 = v19;
-        v23 = 2112;
-        v24 = identifierCopy;
-        _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@Executing pending task identifier: %@", &v21, 0x16u);
+        v20 = 138543618;
+        v21 = v19;
+        v22 = 2112;
+        v23 = identifierCopy;
+        _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@Executing pending task identifier: %@", &v20, 0x16u);
       }
 
       objc_autoreleasePoolPop(v16);
@@ -134,25 +132,23 @@ void __60__HMDBackgroundTaskManager__postNotificationWithIdentifier___block_invo
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         v14 = HMFGetLogIdentifier();
-        v21 = 138543874;
-        v22 = v14;
-        v23 = 2112;
-        v24 = v9;
-        v25 = 2112;
-        v26 = identifierCopy;
-        _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Not executing pending task because client was registered too late, expected fire date: %@, identifier: %@", &v21, 0x20u);
+        v20 = 138543874;
+        v21 = v14;
+        v22 = 2112;
+        v23 = v9;
+        v24 = 2112;
+        v25 = identifierCopy;
+        _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Not executing pending task because client was registered too late, expected fire date: %@, identifier: %@", &v20, 0x20u);
       }
 
       objc_autoreleasePoolPop(v11);
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleEvent:(id)event
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   string = xpc_dictionary_get_string(eventCopy, *MEMORY[0x277D86430]);
   if (string)
@@ -183,13 +179,13 @@ void __60__HMDBackgroundTaskManager__postNotificationWithIdentifier___block_invo
           {
             v18 = HMFGetLogIdentifier();
             expectedFireDate2 = [v8 expectedFireDate];
-            v37 = 138543874;
-            v38 = v18;
-            v39 = 2112;
-            v40 = expectedFireDate2;
-            v41 = 2112;
-            v42 = v7;
-            _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_ERROR, "%{public}@Not executing task because xpc event was delivered too late, expected fire date: %@, identifier: %@", &v37, 0x20u);
+            v36 = 138543874;
+            v37 = v18;
+            v38 = 2112;
+            v39 = expectedFireDate2;
+            v40 = 2112;
+            v41 = v7;
+            _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_ERROR, "%{public}@Not executing task because xpc event was delivered too late, expected fire date: %@, identifier: %@", &v36, 0x20u);
           }
 
           objc_autoreleasePoolPop(v14);
@@ -202,11 +198,11 @@ void __60__HMDBackgroundTaskManager__postNotificationWithIdentifier___block_invo
           if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
           {
             v34 = HMFGetLogIdentifier();
-            v37 = 138543618;
-            v38 = v34;
-            v39 = 2112;
-            v40 = v8;
-            _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Executing task %@", &v37, 0x16u);
+            v36 = 138543618;
+            v37 = v34;
+            v38 = 2112;
+            v39 = v8;
+            _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Executing task %@", &v36, 0x16u);
           }
 
           objc_autoreleasePoolPop(v14);
@@ -224,11 +220,11 @@ void __60__HMDBackgroundTaskManager__postNotificationWithIdentifier___block_invo
         if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
         {
           v32 = HMFGetLogIdentifier();
-          v37 = 138543618;
-          v38 = v32;
-          v39 = 2112;
-          v40 = v7;
-          _os_log_impl(&dword_229538000, v31, OS_LOG_TYPE_INFO, "%{public}@Pausing scheduled task until observer is added, identifier: %@", &v37, 0x16u);
+          v36 = 138543618;
+          v37 = v32;
+          v38 = 2112;
+          v39 = v7;
+          _os_log_impl(&dword_229538000, v31, OS_LOG_TYPE_INFO, "%{public}@Pausing scheduled task until observer is added, identifier: %@", &v36, 0x16u);
         }
 
         objc_autoreleasePoolPop(v29);
@@ -248,11 +244,11 @@ void __60__HMDBackgroundTaskManager__postNotificationWithIdentifier___block_invo
       if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
         v28 = HMFGetLogIdentifier();
-        v37 = 138543618;
-        v38 = v28;
-        v39 = 2080;
-        v40 = v6;
-        _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_ERROR, "%{public}@Unable to execute task with missing identifier for event key name: %s", &v37, 0x16u);
+        v36 = 138543618;
+        v37 = v28;
+        v38 = 2080;
+        v39 = v6;
+        _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_ERROR, "%{public}@Unable to execute task with missing identifier for event key name: %s", &v36, 0x16u);
       }
 
       objc_autoreleasePoolPop(v25);
@@ -267,15 +263,13 @@ void __60__HMDBackgroundTaskManager__postNotificationWithIdentifier___block_invo
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       v24 = HMFGetLogIdentifier();
-      v37 = 138543362;
-      v38 = v24;
-      _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_ERROR, "%{public}@Unable to execute task because xpc event key name is missing", &v37, 0xCu);
+      v36 = 138543362;
+      v37 = v24;
+      _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_ERROR, "%{public}@Unable to execute task because xpc event key name is missing", &v36, 0xCu);
     }
 
     objc_autoreleasePoolPop(v21);
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configure
@@ -315,7 +309,7 @@ void __60__HMDBackgroundTaskManager__postNotificationWithIdentifier___block_invo
 
 - (void)cancelTaskWithIdentifier:(id)identifier onObserver:(id)observer
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   observerCopy = observer;
   v8 = objc_autoreleasePoolPush();
@@ -324,11 +318,11 @@ void __60__HMDBackgroundTaskManager__postNotificationWithIdentifier___block_invo
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v11 = HMFGetLogIdentifier();
-    v19 = 138543618;
-    v20 = v11;
-    v21 = 2112;
-    v22 = identifierCopy;
-    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Cancelling task with identifier: %@", &v19, 0x16u);
+    v18 = 138543618;
+    v19 = v11;
+    v20 = 2112;
+    v21 = identifierCopy;
+    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Cancelling task with identifier: %@", &v18, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
@@ -353,13 +347,11 @@ void __60__HMDBackgroundTaskManager__postNotificationWithIdentifier___block_invo
 
   os_unfair_lock_unlock(&selfCopy->_lock);
   [(HMDBackgroundTaskManager *)selfCopy _unregisterEventWithIdentifier:identifierCopy];
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)scheduleTaskWithIdentifier:(id)identifier fireDate:(id)date onObserver:(id)observer selector:(SEL)selector error:(id *)error
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   dateCopy = date;
   observerCopy = observer;
@@ -393,13 +385,13 @@ void __60__HMDBackgroundTaskManager__postNotificationWithIdentifier___block_invo
     if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
       v32 = HMFGetLogIdentifier();
-      v35 = 138543874;
-      v36 = v32;
-      v37 = 2112;
-      v38 = identifierCopy;
-      v39 = 2112;
-      v40 = dateCopy;
-      _os_log_impl(&dword_229538000, v31, OS_LOG_TYPE_ERROR, "%{public}@Failed to schedule task for identifier %@ with fire date in the past: %@", &v35, 0x20u);
+      v34 = 138543874;
+      v35 = v32;
+      v36 = 2112;
+      v37 = identifierCopy;
+      v38 = 2112;
+      v39 = dateCopy;
+      _os_log_impl(&dword_229538000, v31, OS_LOG_TYPE_ERROR, "%{public}@Failed to schedule task for identifier %@ with fire date in the past: %@", &v34, 0x20u);
     }
 
     objc_autoreleasePoolPop(v29);
@@ -421,20 +413,19 @@ void __60__HMDBackgroundTaskManager__postNotificationWithIdentifier___block_invo
     {
       v27 = HMFGetLogIdentifier();
       [dateCopy timeIntervalSinceDate:v18];
-      v35 = 138543874;
-      v36 = v27;
-      v37 = 2112;
-      v38 = v23;
-      v39 = 2048;
-      v40 = v28;
-      _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_INFO, "%{public}@Scheduling task %@ (in %fs)", &v35, 0x20u);
+      v34 = 138543874;
+      v35 = v27;
+      v36 = 2112;
+      v37 = v23;
+      v38 = 2048;
+      v39 = v28;
+      _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_INFO, "%{public}@Scheduling task %@ (in %fs)", &v34, 0x20u);
     }
 
     objc_autoreleasePoolPop(v24);
     [(HMDBackgroundTaskManager *)selfCopy2 _registerEventWithIdentifier:identifierCopy fireDate:dateCopy];
   }
 
-  v33 = *MEMORY[0x277D85DE8];
   return v22 != -1;
 }
 
@@ -490,10 +481,9 @@ void __60__HMDBackgroundTaskManager__postNotificationWithIdentifier___block_invo
 
 void __39__HMDBackgroundTaskManager_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v19_134589;
-  logCategory__hmf_once_v19_134589 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v19_134589;
+  logCategory__hmf_once_v19_134589 = v0;
 }
 
 + (HMDBackgroundTaskManager)sharedManager

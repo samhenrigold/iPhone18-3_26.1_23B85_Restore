@@ -434,23 +434,21 @@ void __58__HDHealthAppDailyAnalyticsEvent__supportsSecureContainer__block_invoke
 
 - (void)_supportsSecureContainer
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
   selfCopy = self;
-  _os_log_error_impl(&dword_22939E000, a2, OS_LOG_TYPE_ERROR, "%{public}@: Profile is nil.", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_22939E000, a2, OS_LOG_TYPE_ERROR, "%{public}@: Profile is nil.", &v2, 0xCu);
 }
 
 void __58__HDHealthAppDailyAnalyticsEvent__supportsSecureContainer__block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
-  v5 = 138543618;
-  v6 = v3;
-  v7 = 2114;
-  v8 = a2;
-  _os_log_error_impl(&dword_22939E000, log, OS_LOG_TYPE_ERROR, "%{public}@: Failed to get secure container status with error %{public}@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138543618;
+  v5 = v3;
+  v6 = 2114;
+  v7 = a2;
+  _os_log_error_impl(&dword_22939E000, log, OS_LOG_TYPE_ERROR, "%{public}@: Failed to get secure container status with error %{public}@", &v4, 0x16u);
 }
 
 @end

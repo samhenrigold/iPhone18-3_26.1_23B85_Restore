@@ -261,7 +261,6 @@ LABEL_28:
 
   if (manufacturer)
   {
-    manufacturer = self->_manufacturer;
     PBDataWriterWriteStringField();
   }
 
@@ -277,18 +276,16 @@ LABEL_28:
 
   if (model)
   {
-    model = self->_model;
     PBDataWriterWriteStringField();
   }
 
   registrationPlate = [(_INPBRideVehicle *)self registrationPlate];
 
-  v13 = toCopy;
+  v11 = toCopy;
   if (registrationPlate)
   {
-    registrationPlate = self->_registrationPlate;
     PBDataWriterWriteStringField();
-    v13 = toCopy;
+    v11 = toCopy;
   }
 }
 

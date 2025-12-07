@@ -25,7 +25,7 @@
   selfCopy = self;
   sub_249FE2E68();
   v6.receiver = selfCopy;
-  v6.super_class = type metadata accessor for EmojiForegroundGridLayersViewController();
+  v6.super_class = type metadata accessor for EmojiForegroundGridLayersViewController(0);
   [(EmojiForegroundGridLayersViewController *)&v6 didMoveToParentViewController:controllerCopy];
 }
 

@@ -79,7 +79,7 @@ LABEL_6:
 
 - (id)dequeueEventsIntoEnvelope
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   events = [(NSSNewsAnalyticsPBEventAccumulator *)self events];
   v4 = [events count];
 
@@ -94,17 +94,16 @@ LABEL_6:
 
     nss_sessionBatchWithIdentifier = [MEMORY[0x277D35500] nss_sessionBatchWithIdentifier];
     [nss_sessionBatchWithIdentifier setSession:v7];
-    [nss_sessionBatchWithIdentifier setEvents:v9];
-    v11 = NSSNewsAnalyticsPBEventAccumulatorLog();
+    v11 = NSSNewsAnalyticsPBEventAccumulatorLog([nss_sessionBatchWithIdentifier setEvents:v9]);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       envelopeDescriptor = [(NSSNewsAnalyticsPBEventAccumulator *)self envelopeDescriptor];
       *buf = 67109634;
       contentType = [envelopeDescriptor contentType];
-      v28 = 2112;
-      v29 = v7;
-      v30 = 2112;
-      v31 = v9;
+      v27 = 2112;
+      v28 = v7;
+      v29 = 2112;
+      v30 = v9;
       _os_log_impl(&dword_25BF0A000, v11, OS_LOG_TYPE_DEBUG, "Preparing an envelope of contentType %d with session %@, events %@", buf, 0x1Cu);
     }
 
@@ -126,8 +125,8 @@ LABEL_6:
     [nss_envelopeWithIdentifier setContent:fc_zlibDeflate];
 
     v20 = MEMORY[0x277D2F918];
-    v25 = nss_envelopeWithIdentifier;
-    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v25 count:1];
+    v24 = nss_envelopeWithIdentifier;
+    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v24 count:1];
     [v20 registerEnvelopesAsCreated:v21];
 
     events3 = [(NSSNewsAnalyticsPBEventAccumulator *)self events];
@@ -139,30 +138,26 @@ LABEL_6:
     nss_envelopeWithIdentifier = 0;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-
   return nss_envelopeWithIdentifier;
 }
 
 - (void)observeEvent:(id)event
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   eventCopy = event;
   if (!eventCopy && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     [NSSNewsAnalyticsPBEventAccumulator observeEvent:];
   }
 
-  v7[0] = eventCopy;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
+  v6[0] = eventCopy;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
   [(NSSNewsAnalyticsPBEventAccumulator *)self observeEvents:v5];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)observeEvents:(id)events
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   if (!eventsCopy && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
@@ -181,53 +176,56 @@ LABEL_6:
       [v7 registerEnvelopeCreationAnticipatedForContentType:{objc_msgSend(envelopeDescriptor, "contentType")}];
     }
 
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
-    v20 = eventsCopy;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
+    v19 = eventsCopy;
     v9 = eventsCopy;
-    v10 = [v9 countByEnumeratingWithState:&v21 objects:v29 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v20 objects:v28 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v22;
+      v12 = *v21;
       do
       {
-        for (i = 0; i != v11; ++i)
+        v13 = 0;
+        do
         {
-          if (*v22 != v12)
+          if (*v21 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v21 + 1) + 8 * i);
-          v15 = NSSNewsAnalyticsPBEventAccumulatorLog();
+          v14 = *(*(&v20 + 1) + 8 * v13);
+          v15 = NSSNewsAnalyticsPBEventAccumulatorLog(v10);
           if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
           {
             envelopeDescriptor2 = [(NSSNewsAnalyticsPBEventAccumulator *)self envelopeDescriptor];
             contentType = [envelopeDescriptor2 contentType];
             *buf = 67109378;
-            v26 = contentType;
-            v27 = 2112;
-            v28 = v14;
+            v25 = contentType;
+            v26 = 2112;
+            v27 = v14;
             _os_log_impl(&dword_25BF0A000, v15, OS_LOG_TYPE_DEBUG, "For envelope of contentType %d, processing event %@.", buf, 0x12u);
           }
+
+          ++v13;
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v21 objects:v29 count:16];
+        while (v11 != v13);
+        v10 = [v9 countByEnumeratingWithState:&v20 objects:v28 count:16];
+        v11 = v10;
       }
 
-      while (v11);
+      while (v10);
     }
 
     events2 = [(NSSNewsAnalyticsPBEventAccumulator *)self events];
     [events2 addObjectsFromArray:v9];
 
-    eventsCopy = v20;
+    eventsCopy = v19;
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (NSSNewsAnalyticsSessionManager)sessionManager
@@ -239,50 +237,38 @@ LABEL_6:
 
 - (void)initWithEnvelopeDescriptor:sessionManager:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "envelopeDescriptor"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF0A000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "envelopeDescriptor", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF0A000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)initWithEnvelopeDescriptor:sessionManager:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "sessionManager"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF0A000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "sessionManager", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF0A000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)observeEvent:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "event"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF0A000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "event", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF0A000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)observeEvents:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "events"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF0A000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "events", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF0A000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 @end

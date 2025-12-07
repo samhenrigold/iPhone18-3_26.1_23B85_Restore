@@ -2833,32 +2833,32 @@ void __62__WFSlotTemplateView_updateDisclosureButtonTransformAnimated___block_in
   [layoutManager2 enumerateEnclosingRectsForGlyphRange:v6 withinSelectedGlyphRange:v8 inTextContainer:0x7FFFFFFFFFFFFFFFLL usingBlock:{0, textContainer, v11}];
 }
 
-uint64_t __52__WFSlotTemplateView_updateDisclosureButtonPosition__block_invoke(uint64_t a1)
+uint64_t __52__WFSlotTemplateView_updateDisclosureButtonPosition__block_invoke(uint64_t a1, double a2, double a3, double a4, double a5)
 {
   if ([*(a1 + 32) showsOutputButton])
   {
-    v2 = [*(a1 + 32) outputButton];
-    [v2 intrinsicContentSize];
+    v6 = [*(a1 + 32) outputButton];
+    [v6 intrinsicContentSize];
   }
 
-  v3 = [*(a1 + 32) traitCollection];
-  [v3 displayScale];
+  v7 = [*(a1 + 32) traitCollection];
+  [v7 displayScale];
 
-  v4 = [*(a1 + 32) disclosureButton];
-  [v4 intrinsicContentSize];
-  v6 = v5;
-  v8 = v7;
-
-  BSFloatRoundForScale();
+  v8 = [*(a1 + 32) disclosureButton];
+  [v8 intrinsicContentSize];
   v10 = v9;
-  BSFloatRoundForScale();
   v12 = v11;
-  v13 = [*(a1 + 32) disclosureButton];
-  [v13 setFrame:{v10, v12, v6, v8}];
 
-  v14 = *(a1 + 32);
+  BSFloatRoundForScale();
+  v14 = v13;
+  BSFloatRoundForScale();
+  v16 = v15;
+  v17 = [*(a1 + 32) disclosureButton];
+  [v17 setFrame:{v14, v16, v10, v12}];
 
-  return [v14 updateDisclosureButtonTransformAnimated:0];
+  v18 = *(a1 + 32);
+
+  return [v18 updateDisclosureButtonTransformAnimated:0];
 }
 
 - (void)didTapDisclosureArrow

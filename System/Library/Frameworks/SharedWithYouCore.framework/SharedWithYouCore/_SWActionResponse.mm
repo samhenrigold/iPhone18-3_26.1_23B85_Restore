@@ -1,5 +1,6 @@
 @interface _SWActionResponse
 + (id)responseWithDestinationResponse:(id)response;
++ (id)responseWithSuccess:(BOOL)success error:(id)error;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToActionResponse:(id)response;
 - (BSActionResponse)sourceBSActionResponse;
@@ -12,6 +13,15 @@
 @end
 
 @implementation _SWActionResponse
+
++ (id)responseWithSuccess:(BOOL)success error:(id)error
+{
+  successCopy = success;
+  errorCopy = error;
+  v7 = [[self alloc] initWithSuccess:successCopy error:errorCopy];
+
+  return v7;
+}
 
 - (_SWActionResponse)initWithSuccess:(BOOL)success error:(id)error
 {

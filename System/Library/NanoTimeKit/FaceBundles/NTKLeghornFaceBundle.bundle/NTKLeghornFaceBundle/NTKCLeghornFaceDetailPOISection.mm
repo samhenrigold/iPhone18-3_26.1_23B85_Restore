@@ -26,9 +26,9 @@
 {
   delegateCopy = delegate;
   v6 = objc_alloc(objc_opt_class());
-  v9 = objc_msgSend_initWithType_delegate_(v6, v7, v8, type, delegateCopy);
+  v8 = objc_msgSend_initWithType_delegate_(v6, v7, type, delegateCopy);
 
-  return v9;
+  return v8;
 }
 
 - (NTKCLeghornFaceDetailPOISection)initWithType:(unint64_t)type delegate:(id)delegate
@@ -134,26 +134,26 @@ LABEL_5:
 
 - (unint64_t)_userGuideCategoryAtIndex:(unint64_t)index categoryName:(id *)name displayName:(id *)displayName
 {
-  v10 = objc_msgSend_guides(self, a2, v5);
-  v13 = objc_msgSend_count(v10, v11, v12);
+  v9 = objc_msgSend_guides(self, a2, index);
+  v12 = objc_msgSend_count(v9, v10, v11);
 
-  if (v13 <= index)
+  if (v12 <= index)
   {
-    if (v13 == index)
+    if (v12 == index)
     {
       if (displayName)
       {
-        v24 = NTKFoghornFaceLocalizedString(@"POI_FILTER_SECTION_MAPS_FAVORITES");
-        v22 = 0;
+        v22 = NTKFoghornFaceLocalizedString(@"POI_FILTER_SECTION_MAPS_FAVORITES");
+        v20 = 0;
       }
 
       else
       {
+        v20 = 0;
         v22 = 0;
-        v24 = 0;
       }
 
-      v23 = 256;
+      v21 = 256;
       if (!name)
       {
         goto LABEL_14;
@@ -162,9 +162,9 @@ LABEL_5:
 
     else
     {
+      v20 = 0;
       v22 = 0;
-      v24 = 0;
-      v23 = 0;
+      v21 = 0;
       if (!name)
       {
         goto LABEL_14;
@@ -172,25 +172,25 @@ LABEL_5:
     }
 
 LABEL_13:
-    v25 = v22;
-    *name = v22;
+    v23 = v20;
+    *name = v20;
     goto LABEL_14;
   }
 
   if (!(name | displayName))
   {
+    v20 = 0;
     v22 = 0;
-    v24 = 0;
-    v23 = 2;
+    v21 = 2;
     goto LABEL_16;
   }
 
-  v16 = objc_msgSend_guides(self, v14, v15);
-  v19 = objc_msgSend_objectAtIndexedSubscript_(v16, v17, v18, index);
-  v22 = objc_msgSend_title(v19, v20, v21);
+  v15 = objc_msgSend_guides(self, v13, v14);
+  v17 = objc_msgSend_objectAtIndexedSubscript_(v15, v16, index);
+  v20 = objc_msgSend_title(v17, v18, v19);
 
-  v23 = 2;
-  v24 = v22;
+  v21 = 2;
+  v22 = v20;
   if (name)
   {
     goto LABEL_13;
@@ -199,13 +199,13 @@ LABEL_13:
 LABEL_14:
   if (displayName)
   {
-    v26 = v24;
-    *displayName = v24;
+    v24 = v22;
+    *displayName = v22;
   }
 
 LABEL_16:
 
-  return v23;
+  return v21;
 }
 
 - (unint64_t)categoryForDetailItemAtIndex:(unint64_t)index
@@ -221,7 +221,7 @@ LABEL_16:
 
   else if (type == 1)
   {
-    return objc_msgSend__userGuideCategoryAtIndex_categoryName_displayName_(self, a2, v3, index, 0, 0);
+    return objc_msgSend__userGuideCategoryAtIndex_categoryName_displayName_(self, a2, index, 0, 0);
   }
 
   return 0;
@@ -234,9 +234,9 @@ LABEL_16:
   {
     if (type == 1)
     {
-      v9 = 0;
-      objc_msgSend__userGuideCategoryAtIndex_categoryName_displayName_(self, a2, v3, item, 0, &v9);
-      v5 = v9;
+      v8 = 0;
+      objc_msgSend__userGuideCategoryAtIndex_categoryName_displayName_(self, a2, item, 0, &v8);
+      v4 = v8;
       goto LABEL_10;
     }
 
@@ -248,32 +248,32 @@ LABEL_16:
     goto LABEL_9;
   }
 
-  v6 = qword_23BEED868[item];
-  if (v6 == 128)
+  v5 = qword_23BEED868[item];
+  if (v5 == 128)
   {
-    v7 = @"POI_FILTER_ITEM_BEACHES";
+    v6 = @"POI_FILTER_ITEM_BEACHES";
     goto LABEL_15;
   }
 
-  if (v6 == 64)
+  if (v5 == 64)
   {
-    v7 = @"POI_FILTER_ITEM_TRAILHEADS";
+    v6 = @"POI_FILTER_ITEM_TRAILHEADS";
     goto LABEL_15;
   }
 
-  if (v6 != 32)
+  if (v5 != 32)
   {
 LABEL_9:
-    v5 = 0;
+    v4 = 0;
     goto LABEL_10;
   }
 
-  v7 = @"POI_FILTER_ITEM_PARKED_CAR";
+  v6 = @"POI_FILTER_ITEM_PARKED_CAR";
 LABEL_15:
-  v5 = NTKFoghornFaceLocalizedString(v7);
+  v4 = NTKFoghornFaceLocalizedString(v6);
 LABEL_10:
 
-  return v5;
+  return v4;
 }
 
 - (unint64_t)selectionForFilter:(id)filter
@@ -282,62 +282,62 @@ LABEL_10:
   type = self->_type;
   if (type > 5)
   {
-    v8 = 0;
+    v7 = 0;
   }
 
   else
   {
-    v8 = objc_msgSend__selectionForFilter_forCategory_(self, v4, v6, filterCopy, qword_23BEED880[type]);
+    v7 = objc_msgSend__selectionForFilter_forCategory_(self, v4, filterCopy, qword_23BEED880[type]);
   }
 
-  return v8;
+  return v7;
 }
 
 - (BOOL)selectedForFilter:(id)filter atIndex:(unint64_t)index
 {
   filterCopy = filter;
-  v9 = filterCopy;
+  v8 = filterCopy;
   type = self->_type;
   if (type == 5)
   {
     if (index > 2)
     {
-      v16 = objc_msgSend_includesCategory_(filterCopy, v7, v8, 0);
+      v14 = objc_msgSend_includesCategory_(filterCopy, v7, 0);
     }
 
     else
     {
-      v16 = objc_msgSend_includesCategory_(filterCopy, v7, v8, qword_23BEED868[index]);
+      v14 = objc_msgSend_includesCategory_(filterCopy, v7, qword_23BEED868[index]);
     }
 
-    v15 = v16;
+    v13 = v14;
   }
 
   else if (type == 1)
   {
-    v18 = 0;
-    v11 = objc_msgSend__userGuideCategoryAtIndex_categoryName_displayName_(self, v7, v8, index, &v18, 0);
-    v12 = v18;
-    v15 = objc_msgSend_includesCategory_named_(v9, v13, v14, v11, v12);
+    v16 = 0;
+    v10 = objc_msgSend__userGuideCategoryAtIndex_categoryName_displayName_(self, v7, index, &v16, 0);
+    v11 = v16;
+    v13 = objc_msgSend_includesCategory_named_(v8, v12, v10, v11);
   }
 
   else
   {
-    v15 = 0;
+    v13 = 0;
   }
 
-  return v15;
+  return v13;
 }
 
 - (unint64_t)_selectionForFilter:(id)filter forCategory:(unint64_t)category
 {
   filterCopy = filter;
-  if (objc_msgSend_includesAllOfCategories_(filterCopy, v6, v7, category))
+  if (objc_msgSend_includesAllOfCategories_(filterCopy, v6, category))
   {
-    v10 = objc_msgSend_excludedNamesForCategory_(filterCopy, v8, v9, category);
+    v8 = objc_msgSend_excludedNamesForCategory_(filterCopy, v7, category);
 
-    v13 = objc_msgSend_count(v10, v11, v12);
-    if (v13)
+    v11 = objc_msgSend_count(v8, v9, v10);
+    if (v11)
     {
       return 1;
     }
@@ -350,9 +350,9 @@ LABEL_10:
 
   else
   {
-    v15 = objc_msgSend_includesAnyOfCategories_(filterCopy, v8, v9, category);
+    v13 = objc_msgSend_includesAnyOfCategories_(filterCopy, v7, category);
 
-    return v15;
+    return v13;
   }
 }
 
@@ -365,7 +365,7 @@ LABEL_10:
   if (type <= 5)
   {
     v11 = filterCopy;
-    filterCopy = objc_msgSend__setSelected_forFilter_forCategory_(self, filterCopy, v7.n128_f64[0], selectedCopy, filterCopy, qword_23BEED8B0[type]);
+    filterCopy = objc_msgSend__setSelected_forFilter_forCategory_(self, filterCopy, selectedCopy, filterCopy, qword_23BEED8B0[type]);
     v9 = v11;
   }
 
@@ -381,21 +381,21 @@ LABEL_10:
   {
     if (index > 2)
     {
-      objc_msgSend__setSelected_forFilter_forCategory_named_(self, v8, v10, selectedCopy, filterCopy, 0, 0);
+      objc_msgSend__setSelected_forFilter_forCategory_named_(self, v8, selectedCopy, filterCopy, 0, 0);
     }
 
     else
     {
-      objc_msgSend__setSelected_forFilter_forCategory_named_(self, v8, v10, selectedCopy, filterCopy, qword_23BEED868[index], 0);
+      objc_msgSend__setSelected_forFilter_forCategory_named_(self, v8, selectedCopy, filterCopy, qword_23BEED868[index], 0);
     }
   }
 
   else if (type == 1)
   {
-    v16 = 0;
-    v12 = objc_msgSend__userGuideCategoryAtIndex_categoryName_displayName_(self, v8, v10, index, &v16, 0);
-    v13 = v16;
-    objc_msgSend__setSelected_forFilter_forCategory_named_(self, v14, v15, selectedCopy, filterCopy, v12, v13);
+    v14 = 0;
+    v11 = objc_msgSend__userGuideCategoryAtIndex_categoryName_displayName_(self, v8, index, &v14, 0);
+    v12 = v14;
+    objc_msgSend__setSelected_forFilter_forCategory_named_(self, v13, selectedCopy, filterCopy, v11, v12);
   }
 }
 
@@ -403,23 +403,23 @@ LABEL_10:
 {
   selectedCopy = selected;
   filterCopy = filter;
-  v10 = objc_msgSend_excludedNamesForCategory_(filterCopy, v8, v9, category);
-  v16 = MEMORY[0x277D85DD0];
-  v17 = 3221225472;
-  v18 = sub_23BEDBDC8;
-  v19 = &unk_278BA1610;
-  v20 = filterCopy;
+  v9 = objc_msgSend_excludedNamesForCategory_(filterCopy, v8, category);
+  v13 = MEMORY[0x277D85DD0];
+  v14 = 3221225472;
+  v15 = sub_23BEDBDC8;
+  v16 = &unk_278BA1610;
+  v17 = filterCopy;
   categoryCopy = category;
-  v11 = filterCopy;
-  objc_msgSend_enumerateObjectsUsingBlock_(v10, v12, v13, &v16);
+  v10 = filterCopy;
+  objc_msgSend_enumerateObjectsUsingBlock_(v9, v11, &v13);
   if (selectedCopy)
   {
-    objc_msgSend_includeCategories_(v11, v14, v15, category, v16, v17, v18, v19, v20, categoryCopy);
+    objc_msgSend_includeCategories_(v10, v12, category, v13, v14, v15, v16, v17, categoryCopy);
   }
 
   else
   {
-    objc_msgSend_excludeCategories_(v11, v14, v15, category, v16, v17, v18, v19, v20, categoryCopy);
+    objc_msgSend_excludeCategories_(v10, v12, category, v13, v14, v15, v16, v17, categoryCopy);
   }
 }
 
@@ -430,49 +430,49 @@ LABEL_10:
   namedCopy = named;
   if (selectedCopy)
   {
-    if ((objc_msgSend_includesCategory_(filterCopy, v10, v12, category) & 1) == 0)
+    if ((objc_msgSend_includesCategory_(filterCopy, v10, category) & 1) == 0)
     {
-      objc_msgSend_includeCategories_(filterCopy, v13, v14, category);
-      if (objc_msgSend_detailsCount(self, v15, v16))
+      objc_msgSend_includeCategories_(filterCopy, v12, category);
+      if (objc_msgSend_detailsCount(self, v13, v14))
       {
-        v17 = 0;
+        v15 = 0;
         do
         {
-          v18 = objc_msgSend_nameForDetailItem_(self, v13, v14, v17);
-          objc_msgSend_excludeCategory_named_(filterCopy, v19, v20, category, v18);
+          v16 = objc_msgSend_nameForDetailItem_(self, v12, v15);
+          objc_msgSend_excludeCategory_named_(filterCopy, v17, category, v16);
 
-          ++v17;
+          ++v15;
         }
 
-        while (objc_msgSend_detailsCount(self, v21, v22) > v17);
+        while (objc_msgSend_detailsCount(self, v18, v19) > v15);
       }
     }
 
-    objc_msgSend_includeCategory_named_(filterCopy, v13, v14, category, namedCopy);
+    objc_msgSend_includeCategory_named_(filterCopy, v12, category, namedCopy);
   }
 
   else
   {
-    objc_msgSend_excludeCategory_named_(filterCopy, v10, v12, category, namedCopy);
-    if (objc_msgSend_detailsCount(self, v23, v24))
+    objc_msgSend_excludeCategory_named_(filterCopy, v10, category, namedCopy);
+    if (objc_msgSend_detailsCount(self, v20, v21))
     {
-      if (!objc_msgSend_detailsCount(self, v25, v26))
+      if (!objc_msgSend_detailsCount(self, v22, v23))
       {
         goto LABEL_12;
       }
 
-      v29 = 0;
-      v30 = 0;
+      v25 = 0;
+      v26 = 0;
       do
       {
-        v30 |= objc_msgSend_selectedForFilter_atIndex_(self, v27, v28, filterCopy, v29++);
+        v26 |= objc_msgSend_selectedForFilter_atIndex_(self, v24, filterCopy, v25++);
       }
 
-      while (objc_msgSend_detailsCount(self, v31, v32) > v29);
-      if ((v30 & 1) == 0)
+      while (objc_msgSend_detailsCount(self, v27, v28) > v25);
+      if ((v26 & 1) == 0)
       {
 LABEL_12:
-        objc_msgSend_excludeCategories_(filterCopy, v27, v28, category);
+        objc_msgSend_excludeCategories_(filterCopy, v24, category);
       }
     }
   }
@@ -483,7 +483,7 @@ LABEL_12:
   guides = self->_guides;
   if (!guides)
   {
-    v4 = NTKFoghornFaceBundleLogObject();
+    v4 = NTKFoghornFaceBundleLogObject(0, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *v6 = 0;
@@ -500,17 +500,16 @@ LABEL_12:
 {
   if (!self->_guides)
   {
-    Current = CFAbsoluteTimeGetCurrent();
-    self->_guidesLoading = Current;
-    v5 = objc_msgSend_sharedWaypointsDataSource(NTKLeghornCircularDataSource, v4, Current);
+    self->_guidesLoading = CFAbsoluteTimeGetCurrent();
+    v5 = objc_msgSend_sharedWaypointsDataSource(NTKLeghornCircularDataSource, v3, v4);
     objc_initWeak(&location, self);
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = sub_23BEDC098;
-    v8[3] = &unk_278BA1660;
-    objc_copyWeak(&v9, &location);
-    objc_msgSend_fetchUserGuidesWithCompletion_(v5, v6, v7, v8);
-    objc_destroyWeak(&v9);
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = sub_23BEDC098;
+    v7[3] = &unk_278BA1660;
+    objc_copyWeak(&v8, &location);
+    objc_msgSend_fetchUserGuidesWithCompletion_(v5, v6, v7);
+    objc_destroyWeak(&v8);
     objc_destroyWeak(&location);
   }
 }

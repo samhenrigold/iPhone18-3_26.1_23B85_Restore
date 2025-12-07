@@ -82,14 +82,14 @@
   controllerCopy = controller;
   snapshotCopy = snapshot;
   selfCopy = self;
-  sub_10006D260();
+  sub_10006D260(snapshotCopy);
 }
 
 - (void)updateUserActivityState:(id)state
 {
   stateCopy = state;
   selfCopy = self;
-  sub_100097C08();
+  sub_100097C08(stateCopy);
 }
 
 - (void)setUpBottomFade
@@ -145,7 +145,7 @@
 
   v8 = sub_10030E350(action, v10);
 
-  sub_100004F84(v10, &qword_100AD13D0);
+  sub_100004F84(v10, &qword_100AD13D0, &unk_100942DB0);
   return v8 & 1;
 }
 
@@ -213,7 +213,7 @@
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  LOBYTE(self) = sub_1003176CC();
+  LOBYTE(self) = sub_1003176CC(v9);
 
   (*(v7 + 8))(v9, v6);
   return self & 1;
@@ -289,11 +289,11 @@
   viewCopy = view;
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_1003183E4();
+  sub_1003183E4(v10);
 
   swift_unknownObjectRelease();
   (*(v8 + 8))(v10, v7);
-  sub_1000065A8(0, &unk_100AD4C90);
+  sub_1000065A8(0, &unk_100AD4C90, UIDragItem_ptr);
   v13.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v13.super.isa;

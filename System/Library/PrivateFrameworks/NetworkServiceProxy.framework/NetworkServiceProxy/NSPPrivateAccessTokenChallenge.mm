@@ -65,17 +65,17 @@
 
 - (NSPPrivateAccessTokenChallenge)initWithData:(id)data
 {
-  *&v68[5] = *MEMORY[0x1E69E9840];
+  *&v67[5] = *MEMORY[0x1E69E9840];
   dataCopy = data;
   v5 = dataCopy;
   if (!dataCopy)
   {
-    v38 = nplog_obj();
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_FAULT))
+    v37 = nplog_obj();
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      *v68 = "[NSPPrivateAccessTokenChallenge initWithData:]";
-      v39 = "%s called with null data";
+      *v67 = "[NSPPrivateAccessTokenChallenge initWithData:]";
+      v38 = "%s called with null data";
       goto LABEL_90;
     }
 
@@ -88,12 +88,12 @@ LABEL_64:
   bytes = [v5 bytes];
   if (!v6)
   {
-    v38 = nplog_obj();
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_FAULT))
+    v37 = nplog_obj();
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      *v68 = "[NSPPrivateAccessTokenChallenge initWithData:]";
-      v39 = "%s called with null remainingLength";
+      *v67 = "[NSPPrivateAccessTokenChallenge initWithData:]";
+      v38 = "%s called with null remainingLength";
       goto LABEL_90;
     }
 
@@ -103,23 +103,23 @@ LABEL_64:
   v8 = bytes;
   if (!bytes)
   {
-    v38 = nplog_obj();
-    if (!os_log_type_enabled(v38, OS_LOG_TYPE_FAULT))
+    v37 = nplog_obj();
+    if (!os_log_type_enabled(v37, OS_LOG_TYPE_FAULT))
     {
       goto LABEL_64;
     }
 
     *buf = 136315138;
-    *v68 = "[NSPPrivateAccessTokenChallenge initWithData:]";
-    v39 = "%s called with null cursor";
+    *v67 = "[NSPPrivateAccessTokenChallenge initWithData:]";
+    v38 = "%s called with null cursor";
 LABEL_90:
-    _os_log_fault_impl(&dword_1AE7E2000, v38, OS_LOG_TYPE_FAULT, v39, buf, 0xCu);
+    _os_log_fault_impl(&dword_1AE7E2000, v37, OS_LOG_TYPE_FAULT, v38, buf, 0xCu);
     goto LABEL_64;
   }
 
-  v66.receiver = self;
-  v66.super_class = NSPPrivateAccessTokenChallenge;
-  v9 = [(NSPPrivateAccessTokenChallenge *)&v66 init];
+  v65.receiver = self;
+  v65.super_class = NSPPrivateAccessTokenChallenge;
+  v9 = [(NSPPrivateAccessTokenChallenge *)&v65 init];
   if (!v9)
   {
     self = nplog_obj();
@@ -162,7 +162,7 @@ LABEL_31:
 
     tokenType = [(NSPPrivateAccessTokenChallenge *)v10 tokenType];
     *buf = 67109120;
-    v68[0] = tokenType;
+    v67[0] = tokenType;
     v12 = "Unsupported token type %u";
     goto LABEL_30;
   }
@@ -187,9 +187,9 @@ LABEL_16:
     goto LABEL_17;
   }
 
-  v17 = bswap32(v8[1]) >> 16;
-  v18 = v6 - 4;
-  if (v6 - 4 < v17 || ((v17 - 257) >> 8) != 255)
+  v16 = bswap32(v8[1]) >> 16;
+  v17 = v6 - 4;
+  if (v6 - 4 < v16 || ((v16 - 257) >> 8) != 255)
   {
     v11 = nplog_obj();
     if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
@@ -198,13 +198,13 @@ LABEL_16:
     }
 
     *buf = 67109120;
-    v68[0] = v17;
+    v67[0] = v16;
     v12 = "Invalid issuer name length %u";
     goto LABEL_30;
   }
 
-  v19 = malloc_type_calloc(1uLL, (v17 + 1), 0x4C6E16EDuLL);
-  if (!v19)
+  v18 = malloc_type_calloc(1uLL, (v16 + 1), 0x4C6E16EDuLL);
+  if (!v18)
   {
     v11 = nplog_obj();
     if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
@@ -213,18 +213,18 @@ LABEL_16:
     }
 
     *buf = 67109120;
-    v68[0] = v17 + 1;
+    v67[0] = v16 + 1;
     v12 = "calloc of %u bytes failed";
     goto LABEL_30;
   }
 
-  v20 = v19;
-  v21 = v8 + 2;
-  memcpy(v19, v8 + 2, v17);
-  v22 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v20];
-  objc_setProperty_atomic(v10, v23, v22, 24);
+  v19 = v18;
+  v20 = v8 + 2;
+  memcpy(v18, v8 + 2, v16);
+  v21 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v19];
+  objc_setProperty_atomic(v10, v22, v21, 24);
 
-  free(v20);
+  free(v19);
   issuerName = [(NSPPrivateAccessTokenChallenge *)v10 issuerName];
 
   if (!issuerName)
@@ -240,7 +240,7 @@ LABEL_16:
     goto LABEL_8;
   }
 
-  if (v18 == v17)
+  if (v17 == v16)
   {
     v11 = nplog_obj();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
@@ -253,14 +253,14 @@ LABEL_16:
     goto LABEL_14;
   }
 
-  v26 = v21 + v17;
-  v27 = v21 + v17;
-  v30 = *v27;
-  v28 = (v27 + 1);
-  v29 = v30;
-  v31 = v18 + ~v17;
-  v32 = v31 - v30;
-  if (v31 < v30)
+  v25 = v20 + v16;
+  v26 = v20 + v16;
+  v29 = *v26;
+  v27 = (v26 + 1);
+  v28 = v29;
+  v30 = v17 + ~v16;
+  v31 = v30 - v29;
+  if (v30 < v29)
   {
     v11 = nplog_obj();
     if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
@@ -269,16 +269,16 @@ LABEL_16:
     }
 
     *buf = 67109376;
-    v68[0] = v29;
-    LOWORD(v68[1]) = 2048;
-    *(&v68[1] + 2) = v31;
+    v67[0] = v28;
+    LOWORD(v67[1]) = 2048;
+    *(&v67[1] + 2) = v30;
     v12 = "Invalid nonce length %u, cannot fit in %zu";
     goto LABEL_37;
   }
 
-  if (v29)
+  if (v28)
   {
-    if (v29 != 32)
+    if (v28 != 32)
     {
       v11 = nplog_obj();
       if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
@@ -287,13 +287,13 @@ LABEL_16:
       }
 
       *buf = 67109120;
-      v68[0] = v29;
+      v67[0] = v28;
       v12 = "Invalid nonce length %u";
       goto LABEL_30;
     }
 
-    v33 = [MEMORY[0x1E695DEF0] dataWithBytes:v28 length:v29];
-    objc_setProperty_atomic(v10, v34, v33, 32);
+    v32 = [MEMORY[0x1E695DEF0] dataWithBytes:v27 length:v28];
+    objc_setProperty_atomic(v10, v33, v32, 32);
 
     redemptionContext = [(NSPPrivateAccessTokenChallenge *)v10 redemptionContext];
 
@@ -310,8 +310,8 @@ LABEL_16:
       goto LABEL_8;
     }
 
-    v28 = (v26 + 33);
-    v31 = v32;
+    v27 = (v25 + 33);
+    v30 = v31;
   }
 
   if ([(NSPPrivateAccessTokenChallenge *)v10 typeRequiresRedemptionNonce])
@@ -332,7 +332,7 @@ LABEL_16:
     }
   }
 
-  if (v31 <= 1)
+  if (v30 <= 1)
   {
     v11 = nplog_obj();
     if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
@@ -345,8 +345,8 @@ LABEL_16:
     goto LABEL_8;
   }
 
-  v37 = __rev16(*v28);
-  if (v31 - 2 < v37)
+  v36 = __rev16(*v27);
+  if (v30 - 2 < v36)
   {
     v11 = nplog_obj();
     if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
@@ -355,14 +355,14 @@ LABEL_16:
     }
 
     *buf = 67109376;
-    v68[0] = v37;
-    LOWORD(v68[1]) = 2048;
-    *(&v68[1] + 2) = v31 - 2;
+    v67[0] = v36;
+    LOWORD(v67[1]) = 2048;
+    *(&v67[1] + 2) = v30 - 2;
     v12 = "Invalid origin info length %u, cannot fit in %zu";
     goto LABEL_37;
   }
 
-  if (v37 >= 0xA01)
+  if (v36 >= 0xA01)
   {
     v11 = nplog_obj();
     if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
@@ -371,15 +371,15 @@ LABEL_16:
     }
 
     *buf = 67109120;
-    v68[0] = v37;
+    v67[0] = v36;
     v12 = "Invalid origin info length %u";
     goto LABEL_30;
   }
 
-  if (*v28)
+  if (*v27)
   {
-    v40 = malloc_type_calloc(1uLL, (v37 + 1), 0xCF19D43DuLL);
-    if (!v40)
+    v39 = malloc_type_calloc(1uLL, (v36 + 1), 0xCF19D43DuLL);
+    if (!v39)
     {
       v11 = nplog_obj();
       if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
@@ -388,26 +388,26 @@ LABEL_16:
       }
 
       *buf = 67109120;
-      v68[0] = v37 + 1;
+      v67[0] = v36 + 1;
       v12 = "calloc of %u bytes failed";
       goto LABEL_30;
     }
 
-    v41 = v40;
-    memcpy(v40, v28 + 1, v37);
-    v42 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v41];
-    objc_setProperty_atomic(v10, v43, v42, 64);
+    v40 = v39;
+    memcpy(v39, v27 + 1, v36);
+    v41 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v40];
+    objc_setProperty_atomic(v10, v42, v41, 64);
 
-    free(v41);
-    v45 = [objc_getProperty(v10 v44];
-    objc_setProperty_atomic(v10, v46, v45, 48);
+    free(v40);
+    v44 = [objc_getProperty(v10 v43];
+    objc_setProperty_atomic(v10, v45, v44, 48);
 
     originNames = [(NSPPrivateAccessTokenChallenge *)v10 originNames];
     firstObject = [originNames firstObject];
-    objc_setProperty_atomic(v10, v49, firstObject, 40);
+    objc_setProperty_atomic(v10, v48, firstObject, 40);
   }
 
-  if ([(NSPPrivateAccessTokenChallenge *)v10 typeRequiresOriginName]&& !objc_getProperty(v10, v50, 64, 1))
+  if ([(NSPPrivateAccessTokenChallenge *)v10 typeRequiresOriginName]&& !objc_getProperty(v10, v49, 64, 1))
   {
     v11 = nplog_obj();
     if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
@@ -422,7 +422,7 @@ LABEL_16:
 
   if ([(NSPPrivateAccessTokenChallenge *)v10 tokenType]== 58796)
   {
-    if (v31 == 2)
+    if (v30 == 2)
     {
       v11 = nplog_obj();
       if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
@@ -435,8 +435,8 @@ LABEL_16:
       goto LABEL_8;
     }
 
-    v52 = *(v28 + 2);
-    if (v31 - 3 < v52)
+    v51 = *(v27 + 2);
+    if (v30 - 3 < v51)
     {
       v11 = nplog_obj();
       if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
@@ -445,9 +445,9 @@ LABEL_16:
       }
 
       *buf = 67109376;
-      v68[0] = v52;
-      LOWORD(v68[1]) = 2048;
-      *(&v68[1] + 2) = v31 - 3;
+      v67[0] = v51;
+      LOWORD(v67[1]) = 2048;
+      *(&v67[1] + 2) = v30 - 3;
       v12 = "Invalid credential context length %u, cannot fit in %zu";
 LABEL_37:
       v13 = v11;
@@ -455,12 +455,12 @@ LABEL_37:
       goto LABEL_31;
     }
 
-    if (*(v28 + 2))
+    if (*(v27 + 2))
     {
-      if (v52 == 32)
+      if (v51 == 32)
       {
-        v53 = [MEMORY[0x1E695DEF0] dataWithBytes:v28 + 3 length:v52];
-        objc_setProperty_atomic(v10, v54, v53, 56);
+        v52 = [MEMORY[0x1E695DEF0] dataWithBytes:v27 + 3 length:v51];
+        objc_setProperty_atomic(v10, v53, v52, 56);
 
         credentialContext = [(NSPPrivateAccessTokenChallenge *)v10 credentialContext];
 
@@ -487,7 +487,7 @@ LABEL_37:
       }
 
       *buf = 67109120;
-      v68[0] = v52;
+      v67[0] = v51;
       v12 = "Invalid credential context length %u";
 LABEL_30:
       v13 = v11;
@@ -497,38 +497,37 @@ LABEL_30:
   }
 
 LABEL_86:
-  objc_setProperty_atomic(v10, v51, v5, 16);
+  objc_setProperty_atomic(v10, v50, v5, 16);
   if (os_variant_allows_internal_security_policies())
   {
     issuerName2 = [(NSPPrivateAccessTokenChallenge *)v10 issuerName];
-    v57 = [issuerName2 containsString:@";"];
+    v56 = [issuerName2 containsString:@";"];
 
-    if (v57)
+    if (v56)
     {
       issuerName3 = [(NSPPrivateAccessTokenChallenge *)v10 issuerName];
-      v59 = [issuerName3 componentsSeparatedByString:@""];;
-      self = [v59 firstObject];
+      v58 = [issuerName3 componentsSeparatedByString:@""];;
+      self = [v58 firstObject];
 
-      LODWORD(v59) = [(NSPPrivateAccessTokenChallenge *)v10 tokenType];
+      LODWORD(v58) = [(NSPPrivateAccessTokenChallenge *)v10 tokenType];
       redemptionContext2 = [(NSPPrivateAccessTokenChallenge *)v10 redemptionContext];
-      v62 = objc_getProperty(v10, v61, 64, 1);
+      v61 = objc_getProperty(v10, v60, 64, 1);
       credentialContext2 = [(NSPPrivateAccessTokenChallenge *)v10 credentialContext];
-      v64 = [(NSPPrivateAccessTokenChallenge *)v10 challengeDataForTokenType:v59 issuerName:self redemptionContext:redemptionContext2 originInfo:v62 credentialContext:credentialContext2];
+      v63 = [(NSPPrivateAccessTokenChallenge *)v10 challengeDataForTokenType:v58 issuerName:self redemptionContext:redemptionContext2 originInfo:v61 credentialContext:credentialContext2];
 
-      objc_setProperty_atomic(v10, v65, v64, 16);
+      objc_setProperty_atomic(v10, v64, v63, 16);
       goto LABEL_16;
     }
   }
 
 LABEL_17:
 
-  v15 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 - (NSObject)initWithType:(void *)type issuerName:(void *)name redemptionContext:(void *)context originNames:(void *)names credentialContext:
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   typeCopy = type;
   nameCopy = name;
   contextCopy = context;
@@ -541,8 +540,8 @@ LABEL_17:
 
   if (nameCopy && [nameCopy length] != 32)
   {
-    v38 = nplog_obj();
-    if (!os_log_type_enabled(v38, OS_LOG_TYPE_FAULT))
+    v37 = nplog_obj();
+    if (!os_log_type_enabled(v37, OS_LOG_TYPE_FAULT))
     {
 LABEL_26:
 
@@ -550,34 +549,34 @@ LABEL_26:
     }
 
     *buf = 136315138;
-    v50 = "[NSPPrivateAccessTokenChallenge initWithType:issuerName:redemptionContext:originNames:credentialContext:]";
-    v39 = "%s called with null (redemptionContext.length == 32)";
+    v49 = "[NSPPrivateAccessTokenChallenge initWithType:issuerName:redemptionContext:originNames:credentialContext:]";
+    v38 = "%s called with null (redemptionContext.length == 32)";
 LABEL_29:
-    _os_log_fault_impl(&dword_1AE7E2000, v38, OS_LOG_TYPE_FAULT, v39, buf, 0xCu);
+    _os_log_fault_impl(&dword_1AE7E2000, v37, OS_LOG_TYPE_FAULT, v38, buf, 0xCu);
     goto LABEL_26;
   }
 
   if (namesCopy && [namesCopy length] != 32)
   {
-    v38 = nplog_obj();
-    if (!os_log_type_enabled(v38, OS_LOG_TYPE_FAULT))
+    v37 = nplog_obj();
+    if (!os_log_type_enabled(v37, OS_LOG_TYPE_FAULT))
     {
       goto LABEL_26;
     }
 
     *buf = 136315138;
-    v50 = "[NSPPrivateAccessTokenChallenge initWithType:issuerName:redemptionContext:originNames:credentialContext:]";
-    v39 = "%s called with null (credentialContext.length == 32)";
+    v49 = "[NSPPrivateAccessTokenChallenge initWithType:issuerName:redemptionContext:originNames:credentialContext:]";
+    v38 = "%s called with null (credentialContext.length == 32)";
     goto LABEL_29;
   }
 
-  v47.receiver = self;
-  v47.super_class = NSPPrivateAccessTokenChallenge;
-  v15 = [&v47 init];
+  v46.receiver = self;
+  v46.super_class = NSPPrivateAccessTokenChallenge;
+  v15 = [&v46 init];
   if (v15)
   {
     v17 = v15;
-    v15[4] = a2;
+    LOWORD(v15[1].isa) = a2;
     objc_setProperty_atomic(v15, v16, typeCopy, 24);
     objc_setProperty_atomic(v17, v18, nameCopy, 32);
     objc_setProperty_atomic(v17, v19, contextCopy, 48);
@@ -590,30 +589,30 @@ LABEL_29:
 
     if (v24)
     {
-      v40 = a2;
-      v41 = contextCopy;
-      v42 = typeCopy;
+      v39 = a2;
+      v40 = contextCopy;
+      v41 = typeCopy;
       v24 = objc_alloc_init(MEMORY[0x1E696AD60]);
+      v42 = 0u;
       v43 = 0u;
       v44 = 0u;
       v45 = 0u;
-      v46 = 0u;
       originNames3 = [v17 originNames];
-      v27 = [originNames3 countByEnumeratingWithState:&v43 objects:v48 count:16];
+      v27 = [originNames3 countByEnumeratingWithState:&v42 objects:v47 count:16];
       if (v27)
       {
         v28 = v27;
-        v29 = *v44;
+        v29 = *v43;
         do
         {
           for (i = 0; i != v28; ++i)
           {
-            if (*v44 != v29)
+            if (*v43 != v29)
             {
               objc_enumerationMutation(originNames3);
             }
 
-            v31 = *(*(&v43 + 1) + 8 * i);
+            v31 = *(*(&v42 + 1) + 8 * i);
             if ([v24 length])
             {
               [v24 appendString:{@", "}];
@@ -622,16 +621,16 @@ LABEL_29:
             [v24 appendString:v31];
           }
 
-          v28 = [originNames3 countByEnumeratingWithState:&v43 objects:v48 count:16];
+          v28 = [originNames3 countByEnumeratingWithState:&v42 objects:v47 count:16];
         }
 
         while (v28);
       }
 
       objc_setProperty_atomic(v17, v32, v24, 64);
-      contextCopy = v41;
-      typeCopy = v42;
-      a2 = v40;
+      contextCopy = v40;
+      typeCopy = v41;
+      a2 = v39;
     }
 
     objc_setProperty_atomic(v17, v25, namesCopy, 56);
@@ -655,14 +654,13 @@ LABEL_27:
 LABEL_19:
 
 LABEL_20:
-  v36 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (id)initRSABlindSignatureChallengeWithIssuerName:(id)name redemptionNonce:(id)nonce originNames:(id)names
 {
   selfCopy = self;
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (name)
   {
     selfCopy = [(NSPPrivateAccessTokenChallenge *)&self->super initWithType:name issuerName:nonce redemptionContext:names originNames:0 credentialContext:?];
@@ -671,36 +669,35 @@ LABEL_20:
 
   else
   {
-    v9 = nplog_obj();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+    v8 = nplog_obj();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
-      v10 = 136315138;
-      v11 = "[NSPPrivateAccessTokenChallenge initRSABlindSignatureChallengeWithIssuerName:redemptionNonce:originNames:]";
-      _os_log_fault_impl(&dword_1AE7E2000, v9, OS_LOG_TYPE_FAULT, "%s called with null issuerName", &v10, 0xCu);
+      v9 = 136315138;
+      v10 = "[NSPPrivateAccessTokenChallenge initRSABlindSignatureChallengeWithIssuerName:redemptionNonce:originNames:]";
+      _os_log_fault_impl(&dword_1AE7E2000, v8, OS_LOG_TYPE_FAULT, "%s called with null issuerName", &v9, 0xCu);
     }
 
     v6 = 0;
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (id)initRateLimitedRSABlindSignatureChallengeWithIssuerName:(id)name redemptionNonce:(id)nonce originNames:(id)names
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   nonceCopy = nonce;
   namesCopy = names;
   v11 = namesCopy;
   if (!nameCopy)
   {
-    v15 = nplog_obj();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+    v14 = nplog_obj();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
-      v17 = 136315138;
-      v18 = "[NSPPrivateAccessTokenChallenge initRateLimitedRSABlindSignatureChallengeWithIssuerName:redemptionNonce:originNames:]";
-      v16 = "%s called with null issuerName";
+      v16 = 136315138;
+      v17 = "[NSPPrivateAccessTokenChallenge initRateLimitedRSABlindSignatureChallengeWithIssuerName:redemptionNonce:originNames:]";
+      v15 = "%s called with null issuerName";
       goto LABEL_13;
     }
 
@@ -712,12 +709,12 @@ LABEL_11:
 
   if (!nonceCopy)
   {
-    v15 = nplog_obj();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+    v14 = nplog_obj();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
-      v17 = 136315138;
-      v18 = "[NSPPrivateAccessTokenChallenge initRateLimitedRSABlindSignatureChallengeWithIssuerName:redemptionNonce:originNames:]";
-      v16 = "%s called with null redemptionNonce";
+      v16 = 136315138;
+      v17 = "[NSPPrivateAccessTokenChallenge initRateLimitedRSABlindSignatureChallengeWithIssuerName:redemptionNonce:originNames:]";
+      v15 = "%s called with null redemptionNonce";
       goto LABEL_13;
     }
 
@@ -726,17 +723,17 @@ LABEL_11:
 
   if (![namesCopy count])
   {
-    v15 = nplog_obj();
-    if (!os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+    v14 = nplog_obj();
+    if (!os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
       goto LABEL_11;
     }
 
-    v17 = 136315138;
-    v18 = "[NSPPrivateAccessTokenChallenge initRateLimitedRSABlindSignatureChallengeWithIssuerName:redemptionNonce:originNames:]";
-    v16 = "%s called with null originNames.count";
+    v16 = 136315138;
+    v17 = "[NSPPrivateAccessTokenChallenge initRateLimitedRSABlindSignatureChallengeWithIssuerName:redemptionNonce:originNames:]";
+    v15 = "%s called with null originNames.count";
 LABEL_13:
-    _os_log_fault_impl(&dword_1AE7E2000, v15, OS_LOG_TYPE_FAULT, v16, &v17, 0xCu);
+    _os_log_fault_impl(&dword_1AE7E2000, v14, OS_LOG_TYPE_FAULT, v15, &v16, 0xCu);
     goto LABEL_11;
   }
 
@@ -744,14 +741,13 @@ LABEL_13:
   selfCopy = self;
 LABEL_5:
 
-  v13 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (id)initARCChallengeWithIssuerName:(id)name redemptionContext:(id)context originNames:(id)names credentialContext:(id)credentialContext
 {
   selfCopy = self;
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (name)
   {
     selfCopy = [(NSPPrivateAccessTokenChallenge *)&self->super initWithType:name issuerName:context redemptionContext:names originNames:credentialContext credentialContext:?];
@@ -760,25 +756,24 @@ LABEL_5:
 
   else
   {
-    v10 = nplog_obj();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+    v9 = nplog_obj();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
-      v11 = 136315138;
-      v12 = "[NSPPrivateAccessTokenChallenge initARCChallengeWithIssuerName:redemptionContext:originNames:credentialContext:]";
-      _os_log_fault_impl(&dword_1AE7E2000, v10, OS_LOG_TYPE_FAULT, "%s called with null issuerName", &v11, 0xCu);
+      v10 = 136315138;
+      v11 = "[NSPPrivateAccessTokenChallenge initARCChallengeWithIssuerName:redemptionContext:originNames:credentialContext:]";
+      _os_log_fault_impl(&dword_1AE7E2000, v9, OS_LOG_TYPE_FAULT, "%s called with null issuerName", &v10, 0xCu);
     }
 
     v7 = 0;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (id)initATHMChallengeWithIssuerName:(id)name
 {
   selfCopy = self;
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (name)
   {
     selfCopy = [(NSPPrivateAccessTokenChallenge *)&self->super initWithType:name issuerName:0 redemptionContext:0 originNames:0 credentialContext:?];
@@ -787,25 +782,24 @@ LABEL_5:
 
   else
   {
-    v7 = nplog_obj();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    v6 = nplog_obj();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
-      v8 = 136315138;
-      v9 = "[NSPPrivateAccessTokenChallenge initATHMChallengeWithIssuerName:]";
-      _os_log_fault_impl(&dword_1AE7E2000, v7, OS_LOG_TYPE_FAULT, "%s called with null issuerName", &v8, 0xCu);
+      v7 = 136315138;
+      v8 = "[NSPPrivateAccessTokenChallenge initATHMChallengeWithIssuerName:]";
+      _os_log_fault_impl(&dword_1AE7E2000, v6, OS_LOG_TYPE_FAULT, "%s called with null issuerName", &v7, 0xCu);
     }
 
     v4 = 0;
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
 - (id)initARCChallengeWithIssuerName:(id)name
 {
   selfCopy = self;
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (name)
   {
     selfCopy = [(NSPPrivateAccessTokenChallenge *)&self->super initWithType:name issuerName:0 redemptionContext:0 originNames:0 credentialContext:?];
@@ -814,18 +808,17 @@ LABEL_5:
 
   else
   {
-    v7 = nplog_obj();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    v6 = nplog_obj();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
-      v8 = 136315138;
-      v9 = "[NSPPrivateAccessTokenChallenge initARCChallengeWithIssuerName:]";
-      _os_log_fault_impl(&dword_1AE7E2000, v7, OS_LOG_TYPE_FAULT, "%s called with null issuerName", &v8, 0xCu);
+      v7 = 136315138;
+      v8 = "[NSPPrivateAccessTokenChallenge initARCChallengeWithIssuerName:]";
+      _os_log_fault_impl(&dword_1AE7E2000, v6, OS_LOG_TYPE_FAULT, "%s called with null issuerName", &v7, 0xCu);
     }
 
     v4 = 0;
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return v4;
 }
 

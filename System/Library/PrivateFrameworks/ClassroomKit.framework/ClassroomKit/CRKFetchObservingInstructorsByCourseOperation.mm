@@ -121,7 +121,7 @@ void __55__CRKFetchObservingInstructorsByCourseOperation_cancel__block_invoke(ui
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        [CRKFetchObservingInstructorsByCourseOperation operationsDidComplete:];
+        [CRKFetchObservingInstructorsByCourseOperation operationsDidComplete:resultObject];
       }
 
       fetchInstructorsOperation2 = [(CRKFetchObservingInstructorsByCourseOperation *)self fetchInstructorsOperation];
@@ -130,7 +130,7 @@ void __55__CRKFetchObservingInstructorsByCourseOperation_cancel__block_invoke(ui
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        [CRKFetchObservingInstructorsByCourseOperation operationsDidComplete:];
+        [CRKFetchObservingInstructorsByCourseOperation operationsDidComplete:resultObject2];
       }
 
       [(CRKFetchObservingInstructorsByCourseOperation *)self compileResultsWithFetchCoursesResult:resultObject fetchScreenObserversResult:resultObject2];
@@ -237,26 +237,26 @@ uint64_t __113__CRKFetchObservingInstructorsByCourseOperation_compileResultsWith
   return v7;
 }
 
-- (void)operationsDidComplete:.cold.1()
+- (void)operationsDidComplete:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v5 = [MEMORY[0x277CCA890] currentHandler];
-  v0 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[CRKFetchObservingInstructorsByCourseOperation operationsDidComplete:]"];
-  v1 = objc_opt_class();
-  v2 = NSStringFromClass(v1);
-  v3 = objc_opt_class();
-  v4 = NSStringFromClass(v3);
-  [v5 handleFailureInFunction:v0 file:@"CRKFetchObservingInstructorsByCourseOperation.m" lineNumber:99 description:{@"expected %@, got %@", v2, v4}];
+  v6 = [MEMORY[0x277CCA890] currentHandler];
+  v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[CRKFetchObservingInstructorsByCourseOperation operationsDidComplete:]"];
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
+  v4 = objc_opt_class();
+  v5 = NSStringFromClass(v4);
+  [v6 handleFailureInFunction:v1 file:@"CRKFetchObservingInstructorsByCourseOperation.m" lineNumber:99 description:{@"expected %@, got %@", v3, v5}];
 }
 
-- (void)operationsDidComplete:.cold.2()
+- (void)operationsDidComplete:(uint64_t)a1 .cold.2(uint64_t a1)
 {
-  v5 = [MEMORY[0x277CCA890] currentHandler];
-  v0 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[CRKFetchObservingInstructorsByCourseOperation operationsDidComplete:]"];
-  v1 = objc_opt_class();
-  v2 = NSStringFromClass(v1);
-  v3 = objc_opt_class();
-  v4 = NSStringFromClass(v3);
-  [v5 handleFailureInFunction:v0 file:@"CRKFetchObservingInstructorsByCourseOperation.m" lineNumber:100 description:{@"expected %@, got %@", v2, v4}];
+  v6 = [MEMORY[0x277CCA890] currentHandler];
+  v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[CRKFetchObservingInstructorsByCourseOperation operationsDidComplete:]"];
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
+  v4 = objc_opt_class();
+  v5 = NSStringFromClass(v4);
+  [v6 handleFailureInFunction:v1 file:@"CRKFetchObservingInstructorsByCourseOperation.m" lineNumber:100 description:{@"expected %@, got %@", v3, v5}];
 }
 
 - (void)compileResultsWithFetchCoursesResult:(const char *)a1 fetchScreenObserversResult:(uint64_t)a2 .cold.1(const char *a1, uint64_t a2)

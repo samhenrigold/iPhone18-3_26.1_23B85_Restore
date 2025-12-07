@@ -26,8 +26,7 @@
     zoneName = v12->_zoneName;
     v12->_zoneName = v14;
 
-    [databaseControllerCopy addObserver:v12 zoneID:v12->_zoneName];
-    v16 = sub_10000DC08();
+    v16 = sub_10000DC08([databaseControllerCopy addObserver:v12 zoneID:v12->_zoneName]);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       WeakRetained = objc_loadWeakRetained(&v12->_zoneDataManager);
@@ -51,7 +50,7 @@
   changeCopy = change;
   completionCopy = completion;
   zoneName = [(BDSSaltVersionIdentifierManager *)self zoneName];
-  v9 = sub_10000DC08();
+  v9 = sub_10000DC08(zoneName);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;

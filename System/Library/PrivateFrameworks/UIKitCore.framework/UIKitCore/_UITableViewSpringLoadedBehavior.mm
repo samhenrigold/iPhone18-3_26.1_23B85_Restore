@@ -20,7 +20,7 @@
 
   if (overrideTargetItem)
   {
-    if (([overrideTargetItem isEqual:v8] & 1) == 0)
+    if ((objc_msgSend_isEqual_(overrideTargetItem) & 1) == 0)
     {
 LABEL_5:
       v11 = 0;

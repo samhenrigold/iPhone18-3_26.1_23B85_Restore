@@ -40,10 +40,9 @@
 
 - (APPCLifecycleMetricsHelping)metricsHelper
 {
-  v2 = *(self + OBJC_IVAR___APPCPromotedContentInfo_metricsHelper);
-  v3 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v3;
+  return v2;
 }
 
 - (id)ready
@@ -80,7 +79,7 @@
   bestRepresentation = [*(self + OBJC_IVAR___APPCPromotedContentInfo_promotedContent) bestRepresentation];
   if (bestRepresentation)
   {
-    type metadata accessor for NativeRepresentation();
+    type metadata accessor for NativeRepresentation(0);
     bestRepresentation = swift_dynamicCastClass();
     if (!bestRepresentation)
     {
@@ -138,7 +137,7 @@
   selfCopy = self;
   if ([v2 bestRepresentation])
   {
-    type metadata accessor for ClientLayoutRepresentation();
+    type metadata accessor for ClientLayoutRepresentation(0);
     v4 = swift_dynamicCastClass() != 0;
 
     swift_unknownObjectRelease();
@@ -167,7 +166,7 @@
   selfCopy = self;
   if ([v2 bestRepresentation])
   {
-    type metadata accessor for VideoRepresentation();
+    type metadata accessor for VideoRepresentation(0);
     if (swift_dynamicCastClass())
     {
 

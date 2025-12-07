@@ -59,7 +59,7 @@
 
 + (id)cachedEventForICSString:(id)string
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   stringCopy = string;
   if ([stringCopy length])
   {
@@ -75,11 +75,11 @@
 
         if (firstObject)
         {
-          v17[0] = @"event";
-          v17[1] = @"store";
-          v18[0] = firstObject;
-          v18[1] = v7;
-          v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
+          v16[0] = @"event";
+          v16[1] = @"store";
+          v17[0] = firstObject;
+          v17[1] = v7;
+          v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
 
 LABEL_8:
           goto LABEL_11;
@@ -92,10 +92,10 @@ LABEL_8:
       v12 = [self icsEventForICSString:stringCopy];
       if (v12)
       {
-        v15 = @"icsEvent";
-        v16 = v12;
+        v14 = @"icsEvent";
+        v15 = v12;
         v7 = v12;
-        v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+        v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
         goto LABEL_8;
       }
     }
@@ -103,8 +103,6 @@ LABEL_8:
 
   v11 = 0;
 LABEL_11:
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

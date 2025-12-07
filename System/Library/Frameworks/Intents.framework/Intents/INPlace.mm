@@ -14,8 +14,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v14[4] = *MEMORY[0x1E69E9840];
-  v13[0] = @"placeType";
+  v13[4] = *MEMORY[0x1E69E9840];
+  v12[0] = @"placeType";
   placeType = self->_placeType;
   null = placeType;
   if (!placeType)
@@ -23,8 +23,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v14[0] = null;
-  v13[1] = @"placeSubType";
+  v13[0] = null;
+  v12[1] = @"placeSubType";
   placeSubType = self->_placeSubType;
   null2 = placeSubType;
   if (!placeSubType)
@@ -32,8 +32,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v14[1] = null2;
-  v13[2] = @"placeDescriptors";
+  v13[1] = null2;
+  v12[2] = @"placeDescriptors";
   placeDescriptors = self->_placeDescriptors;
   null3 = placeDescriptors;
   if (!placeDescriptors)
@@ -41,11 +41,11 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v14[2] = null3;
-  v13[3] = @"personalPlaceType";
+  v13[2] = null3;
+  v12[3] = @"personalPlaceType";
   v9 = [MEMORY[0x1E696AD98] numberWithInteger:self->_personalPlaceType];
-  v14[3] = v9;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:4];
+  v13[3] = v9;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:4];
 
   if (placeDescriptors)
   {
@@ -78,7 +78,6 @@ LABEL_9:
 LABEL_15:
 
 LABEL_10:
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -145,21 +144,20 @@ LABEL_10:
 
 - (INPlace)initWithCoder:(id)coder
 {
-  v15[2] = *MEMORY[0x1E69E9840];
+  v14[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"placeType"];
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"placeSubType"];
   v7 = MEMORY[0x1E695DFD8];
-  v15[0] = objc_opt_class();
-  v15[1] = objc_opt_class();
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
+  v14[0] = objc_opt_class();
+  v14[1] = objc_opt_class();
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:2];
   v9 = [v7 setWithArray:v8];
   v10 = [coderCopy decodeObjectOfClasses:v9 forKey:@"placeDescriptors"];
 
   v11 = [coderCopy decodeIntegerForKey:@"personalPlaceType"];
   v12 = [(INPlace *)self initWithPlaceType:v5 placeSubType:v6 placeDescriptors:v10 personalPlaceType:v11];
 
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 

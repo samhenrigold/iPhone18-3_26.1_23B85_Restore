@@ -61,9 +61,9 @@
 
 - (void)populateDREReason
 {
-  v15 = 0;
-  v3 = sub_1000102E0("IODeviceTree:/chosen", @"recovery-reason", &v15);
-  v4 = v15;
+  v20 = 0;
+  v3 = sub_1000102E0("IODeviceTree:/chosen", @"recovery-reason", &v20);
+  v4 = v20;
   v5 = v4;
   if (v4)
   {
@@ -77,42 +77,43 @@
     {
       if ([v3 length] > 3)
       {
-        v6 = *[v3 bytes];
-        if (v6 > 5)
+        bytes = [v3 bytes];
+        v7 = *bytes;
+        if (*bytes > 5)
         {
-          v8 = sub_1000118BC();
-          if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+          v9 = sub_1000118BC(bytes);
+          if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
           {
             sub_100021850(self);
           }
 
-          v6 = 0;
+          v7 = 0;
           goto LABEL_21;
         }
 
-        if (((1 << v6) & 0x3A) != 0)
+        if (((1 << v7) & 0x3A) != 0)
         {
 LABEL_22:
-          self->_entryReason = v6;
+          self->_entryReason = v7;
           goto LABEL_23;
         }
 
-        v7 = sub_100010688("IODeviceTree:/options", @"device-recovery-boot-reason");
+        v8 = sub_100010688("IODeviceTree:/options", @"device-recovery-boot-reason");
 
-        if (!v7)
+        if (!v8)
         {
-          v8 = [(DeviceRecoveryEnvironmentWorker *)self getObjectFromInternalCookie:@"entryReason"];
+          v9 = [(DeviceRecoveryEnvironmentWorker *)self getObjectFromInternalCookie:@"entryReason"];
           objc_opt_class();
-          if ((objc_opt_isKindOfClass() & 1) != 0 && [v8 unsignedIntValue]== 5)
+          if ((objc_opt_isKindOfClass() & 1) != 0 && [v9 unsignedIntValue]== 5)
           {
-            v6 = 5;
+            v7 = 5;
           }
 
           goto LABEL_21;
         }
 
 LABEL_13:
-        v6 = 5;
+        v7 = 5;
         goto LABEL_22;
       }
 
@@ -127,52 +128,54 @@ LABEL_13:
 
   else
   {
-    v9 = sub_100010688("IODeviceTree:/options", @"device-recovery-boot-reason");
+    v10 = sub_100010688("IODeviceTree:/options", @"device-recovery-boot-reason");
 
-    if (v9)
+    if (v10)
     {
       goto LABEL_13;
     }
 
-    v8 = [(DeviceRecoveryEnvironmentWorker *)self getObjectFromInternalCookie:@"entryReason"];
-    if (v8)
+    v9 = [(DeviceRecoveryEnvironmentWorker *)self getObjectFromInternalCookie:@"entryReason"];
+    if (v9)
     {
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      isKindOfClass = objc_opt_isKindOfClass();
+      if (isKindOfClass)
       {
-        if ([v8 unsignedIntValue]== 5)
+        unsignedIntValue = [v9 unsignedIntValue];
+        if (unsignedIntValue == 5)
         {
-          v6 = 5;
+          v7 = 5;
 LABEL_21:
 
           goto LABEL_22;
         }
 
-        v14 = sub_1000118BC();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+        v18 = sub_1000118BC(unsignedIntValue);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
           sub_100021B8C();
         }
 
-        v12 = sub_1000118BC();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        v15 = sub_1000118BC(v19);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
-          sub_100021C3C(v8);
+          sub_100021C3C(v9);
         }
       }
 
       else
       {
-        v13 = sub_1000118BC();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+        v16 = sub_1000118BC(isKindOfClass);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
           sub_100021A44();
         }
 
-        v12 = sub_1000118BC();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        v15 = sub_1000118BC(v17);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
-          sub_100021AF4(v8);
+          sub_100021AF4(v9);
         }
       }
     }
@@ -180,20 +183,20 @@ LABEL_21:
     else
     {
       sub_100021CD4(buf);
-      v12 = *buf;
+      v15 = *buf;
     }
   }
 
 LABEL_23:
-  v10 = sub_1000118BC();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v13 = sub_1000118BC(bytes);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     entryReason = self->_entryReason;
     *buf = 136446466;
     *&buf[4] = "[DeviceRecoveryEnvironmentWorker populateDREReason]";
-    v17 = 1024;
-    v18 = entryReason;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}s: Entry reason: %d", buf, 0x12u);
+    v22 = 1024;
+    v23 = entryReason;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "%{public}s: Entry reason: %d", buf, 0x12u);
   }
 }
 
@@ -227,18 +230,19 @@ LABEL_23:
 {
   descriptionCopy = description;
   v5 = sub_100010688("IODeviceTree:/options", @"device-recovery-boot-reason");
+  v6 = v5;
   if (!v5)
   {
-    v9 = [(DeviceRecoveryEnvironmentWorker *)self getObjectFromInternalCookie:@"entryDescription"];
+    v10 = [(DeviceRecoveryEnvironmentWorker *)self getObjectFromInternalCookie:@"entryDescription"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v5 = v9;
+      v6 = v10;
     }
 
     else
     {
-      v5 = 0;
+      v6 = 0;
     }
 
     if (descriptionCopy)
@@ -247,7 +251,7 @@ LABEL_23:
     }
 
 LABEL_13:
-    v7 = 0;
+    v8 = 0;
     goto LABEL_14;
   }
 
@@ -257,64 +261,64 @@ LABEL_13:
   }
 
 LABEL_3:
-  v6 = [descriptionCopy objectForKey:@"PanicReason"];
-  v7 = v6;
-  if (v6)
+  v7 = [descriptionCopy objectForKey:@"PanicReason"];
+  v8 = v7;
+  if (v7)
   {
-    v8 = v6;
+    v9 = v7;
   }
 
   else
   {
-    v10 = sub_1000118BC();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = sub_1000118BC(0);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_100021E04();
     }
   }
 
 LABEL_14:
-  if (v5 | v7)
+  if (v6 | v8)
   {
-    if (v5 && v7)
+    if (v6 && v8)
     {
-      v11 = [v5 stringByAppendingFormat:@" | PanicMedic: %@", v7];
+      v12 = [v6 stringByAppendingFormat:@" | PanicMedic: %@", v8];
     }
 
     else
     {
-      if (v5)
+      if (v6)
       {
-        v12 = v5;
+        v13 = v6;
       }
 
       else
       {
-        v12 = v7;
+        v13 = v8;
       }
 
-      v11 = v12;
+      v12 = v13;
     }
 
-    v13 = v11;
+    v14 = v12;
   }
 
   else
   {
-    sub_100021E98();
-    v13 = 0;
+    sub_100021E98(v5);
+    v14 = 0;
   }
 
-  objc_storeStrong(&self->_entryDescription, v13);
-  v14 = sub_1000118BC();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  objc_storeStrong(&self->_entryDescription, v14);
+  v16 = sub_1000118BC(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     entryDescription = self->_entryDescription;
     *buf = 136446466;
-    v17 = "[DeviceRecoveryEnvironmentWorker populateDREDescription:]";
-    v18 = 2114;
-    v19 = entryDescription;
-    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%{public}s: Entry description: %{public}@", buf, 0x16u);
+    v19 = "[DeviceRecoveryEnvironmentWorker populateDREDescription:]";
+    v20 = 2114;
+    v21 = entryDescription;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "%{public}s: Entry description: %{public}@", buf, 0x16u);
   }
 
   dispatch_activate(self->_serviceQueue);
@@ -333,7 +337,7 @@ LABEL_14:
       goto LABEL_7;
     }
 
-    v7 = sub_1000118BC();
+    v7 = sub_1000118BC(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_100021FC4();

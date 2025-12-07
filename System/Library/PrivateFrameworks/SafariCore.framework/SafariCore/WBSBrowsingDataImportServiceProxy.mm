@@ -17,7 +17,7 @@
 
 - (WBSBrowsingDataImportServiceProxy)init
 {
-  v3 = WBSBrowsingDataImportServiceInterface();
+  v3 = WBSBrowsingDataImportServiceInterface(self);
   v4 = [(WBSBrowsingDataImportServiceProxy *)self initWithInterface:v3];
 
   return v4;
@@ -79,23 +79,22 @@
 
 void __79__WBSBrowsingDataImportServiceProxy__defaultProxyErrorHandlerWithReplyHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = *(a1 + 40);
-  if (v4)
+  v4 = a2;
+  v5 = *(a1 + 40);
+  if (v5)
   {
-    (*(v4 + 16))(v4, v3);
+    (*(v5 + 16))(v5, v4);
   }
 
   else
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXOther();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXOther(0, v3);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __79__WBSBrowsingDataImportServiceProxy__defaultProxyErrorHandlerWithReplyHandler___block_invoke_cold_1(v5, v3);
+      __79__WBSBrowsingDataImportServiceProxy__defaultProxyErrorHandlerWithReplyHandler___block_invoke_cold_1(v6, v4);
     }
   }
 
-  v6 = *(a1 + 32);
   objc_opt_class();
 }
 
@@ -118,23 +117,22 @@ void __79__WBSBrowsingDataImportServiceProxy__defaultProxyErrorHandlerWithReplyH
 
 void __85__WBSBrowsingDataImportServiceProxy__defaultProxyErrorHandlerWithSimpleReplyHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = *(a1 + 40);
-  if (v4)
+  v4 = a2;
+  v5 = *(a1 + 40);
+  if (v5)
   {
-    (*(v4 + 16))(v4, 0, v3);
+    (*(v5 + 16))(v5, 0, v4);
   }
 
   else
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXOther();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXOther(0, v3);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __79__WBSBrowsingDataImportServiceProxy__defaultProxyErrorHandlerWithReplyHandler___block_invoke_cold_1(v5, v3);
+      __79__WBSBrowsingDataImportServiceProxy__defaultProxyErrorHandlerWithReplyHandler___block_invoke_cold_1(v6, v4);
     }
   }
 
-  v6 = *(a1 + 32);
   objc_opt_class();
 }
 
@@ -224,12 +222,11 @@ void __85__WBSBrowsingDataImportServiceProxy__defaultProxyErrorHandlerWithSimple
 
 void __79__WBSBrowsingDataImportServiceProxy__defaultProxyErrorHandlerWithReplyHandler___block_invoke_cold_1(void *a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = [a2 safari_privacyPreservingDescription];
-  OUTLINED_FUNCTION_2(&dword_1B8447000, v5, v6, "XPC Proxy reported: %{public}@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_2(&dword_1B8447000, v5, v6, "XPC Proxy reported: %{public}@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 @end

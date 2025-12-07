@@ -15,7 +15,7 @@
 
 - (void)_noteNewUsage
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   if (self->_dampening || !self->_enabled)
   {
     v15 = flowLogHandle;
@@ -30,21 +30,21 @@
       v22 = self->_backgroundCounts.lastReportedClassFlags;
       v23 = self->_backgroundCounts.lastReportedCombinedFlags;
       *buf = 67110912;
-      v28 = classFlags;
-      v29 = 2048;
-      v30 = v20;
-      v31 = 1024;
-      v32 = v17;
-      v33 = 2048;
-      v34 = currentCombinedFlags;
-      v35 = 1024;
-      v36 = lastReportedClassFlags;
-      v37 = 2048;
-      v38 = lastReportedCombinedFlags;
-      v39 = 1024;
-      v40 = v22;
-      v41 = 2048;
-      v42 = v23;
+      v27 = classFlags;
+      v28 = 2048;
+      v29 = v20;
+      v30 = 1024;
+      v31 = v17;
+      v32 = 2048;
+      v33 = currentCombinedFlags;
+      v34 = 1024;
+      v35 = lastReportedClassFlags;
+      v36 = 2048;
+      v37 = lastReportedCombinedFlags;
+      v38 = 1024;
+      v39 = v22;
+      v40 = 2048;
+      v41 = v23;
       _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_INFO, "WiFi Observer: New flags fg 0x%x 0x%llx bg 0x%x 0x%llx  during suppression / dampening, initial value 0x%x 0x%llx 0x%x 0x%llx", buf, 0x42u);
     }
   }
@@ -64,21 +64,21 @@
       v10 = self->_backgroundCounts.lastReportedClassFlags;
       v11 = self->_backgroundCounts.lastReportedCombinedFlags;
       *buf = 67110912;
-      v28 = v4;
-      v29 = 2048;
-      v30 = v8;
-      v31 = 1024;
-      v32 = v5;
-      v33 = 2048;
-      v34 = v6;
-      v35 = 1024;
-      v36 = v7;
-      v37 = 2048;
-      v38 = v9;
-      v39 = 1024;
-      v40 = v10;
-      v41 = 2048;
-      v42 = v11;
+      v27 = v4;
+      v28 = 2048;
+      v29 = v8;
+      v30 = 1024;
+      v31 = v5;
+      v32 = 2048;
+      v33 = v6;
+      v34 = 1024;
+      v35 = v7;
+      v36 = 2048;
+      v37 = v9;
+      v38 = 1024;
+      v39 = v10;
+      v40 = 2048;
+      v41 = v11;
       _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_INFO, "WiFi Observer: Sent notification when new flags fg 0x%x 0x%llx bg 0x%x 0x%llx,  initial value 0x%x 0x%llx 0x%x 0x%llx", buf, 0x42u);
     }
 
@@ -87,21 +87,19 @@
     self->_dampening = 1;
     v13 = dispatch_time(0, 1000000 * self->_dampeningMsecs);
     v14 = +[FlowAnalyticsEngine queue];
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __33__wifiFlowObserver__noteNewUsage__block_invoke;
-    v25[3] = &unk_27898CAB8;
-    v25[4] = self;
-    v26 = v12;
-    dispatch_after(v13, v14, v25);
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __33__wifiFlowObserver__noteNewUsage__block_invoke;
+    v24[3] = &unk_27898CAB8;
+    v24[4] = self;
+    v25 = v12;
+    dispatch_after(v13, v14, v24);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (id)infoDir
 {
-  v98 = *MEMORY[0x277D85DE8];
+  v97 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_foregroundCounts.currentCombinedFlags];
   v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:kManagedEventKeyForegroundCombinedFlowProperties];
@@ -203,18 +201,18 @@
   if (os_log_type_enabled(flowLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     v49 = self->_foregroundCounts.currentCombinedFlags;
-    v84 = 134217984;
-    *v85 = v49;
-    _os_log_impl(&dword_23255B000, v48, OS_LOG_TYPE_DEFAULT, "WiFi observer _foregroundCounts.currentCombinedFlags is 0x%llx", &v84, 0xCu);
+    v83 = 134217984;
+    *v84 = v49;
+    _os_log_impl(&dword_23255B000, v48, OS_LOG_TYPE_DEFAULT, "WiFi observer _foregroundCounts.currentCombinedFlags is 0x%llx", &v83, 0xCu);
   }
 
   v50 = flowLogHandle;
   if (os_log_type_enabled(flowLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     v51 = self->_backgroundCounts.currentCombinedFlags;
-    v84 = 134217984;
-    *v85 = v51;
-    _os_log_impl(&dword_23255B000, v50, OS_LOG_TYPE_DEFAULT, "WiFi observer _backgroundCounts.currentCombinedFlags is 0x%llx", &v84, 0xCu);
+    v83 = 134217984;
+    *v84 = v51;
+    _os_log_impl(&dword_23255B000, v50, OS_LOG_TYPE_DEFAULT, "WiFi observer _backgroundCounts.currentCombinedFlags is 0x%llx", &v83, 0xCu);
   }
 
   v52 = flowLogHandle;
@@ -228,23 +226,23 @@
     v58 = self->_backgroundCounts.latencyPropertyCounter[5];
     v59 = self->_backgroundCounts.latencyPropertyCounter[6];
     v60 = self->_backgroundCounts.latencyPropertyCounter[7];
-    v84 = 67110912;
-    *v85 = v53;
-    *&v85[4] = 1024;
-    *&v85[6] = v54;
-    v86 = 1024;
-    v87 = v55;
-    v88 = 1024;
-    v89 = v56;
-    v90 = 1024;
-    v91 = v57;
-    v92 = 1024;
-    v93 = v58;
-    v94 = 1024;
-    v95 = v59;
-    v96 = 1024;
-    v97 = v60;
-    _os_log_impl(&dword_23255B000, v52, OS_LOG_TYPE_DEBUG, "WiFi observer _backgroundCounts latency counts %d %d %d %d %d %d %d %d", &v84, 0x32u);
+    v83 = 67110912;
+    *v84 = v53;
+    *&v84[4] = 1024;
+    *&v84[6] = v54;
+    v85 = 1024;
+    v86 = v55;
+    v87 = 1024;
+    v88 = v56;
+    v89 = 1024;
+    v90 = v57;
+    v91 = 1024;
+    v92 = v58;
+    v93 = 1024;
+    v94 = v59;
+    v95 = 1024;
+    v96 = v60;
+    _os_log_impl(&dword_23255B000, v52, OS_LOG_TYPE_DEBUG, "WiFi observer _backgroundCounts latency counts %d %d %d %d %d %d %d %d", &v83, 0x32u);
   }
 
   v61 = flowLogHandle;
@@ -258,23 +256,23 @@
     v67 = self->_backgroundCounts.jitterPropertyCounter[5];
     v68 = self->_backgroundCounts.jitterPropertyCounter[6];
     v69 = self->_backgroundCounts.jitterPropertyCounter[7];
-    v84 = 67110912;
-    *v85 = v62;
-    *&v85[4] = 1024;
-    *&v85[6] = v63;
-    v86 = 1024;
-    v87 = v64;
-    v88 = 1024;
-    v89 = v65;
-    v90 = 1024;
-    v91 = v66;
-    v92 = 1024;
-    v93 = v67;
-    v94 = 1024;
-    v95 = v68;
-    v96 = 1024;
-    v97 = v69;
-    _os_log_impl(&dword_23255B000, v61, OS_LOG_TYPE_DEBUG, "WiFi observer _backgroundCounts jitter counts %d %d %d %d %d %d %d %d", &v84, 0x32u);
+    v83 = 67110912;
+    *v84 = v62;
+    *&v84[4] = 1024;
+    *&v84[6] = v63;
+    v85 = 1024;
+    v86 = v64;
+    v87 = 1024;
+    v88 = v65;
+    v89 = 1024;
+    v90 = v66;
+    v91 = 1024;
+    v92 = v67;
+    v93 = 1024;
+    v94 = v68;
+    v95 = 1024;
+    v96 = v69;
+    _os_log_impl(&dword_23255B000, v61, OS_LOG_TYPE_DEBUG, "WiFi observer _backgroundCounts jitter counts %d %d %d %d %d %d %d %d", &v83, 0x32u);
   }
 
   v70 = flowLogHandle;
@@ -288,38 +286,36 @@
     v76 = self->_backgroundCounts.lossTolerancePropertyCounter[5];
     v77 = self->_backgroundCounts.lossTolerancePropertyCounter[6];
     v78 = self->_backgroundCounts.lossTolerancePropertyCounter[7];
-    v84 = 67110912;
-    *v85 = v71;
-    *&v85[4] = 1024;
-    *&v85[6] = v72;
-    v86 = 1024;
-    v87 = v73;
-    v88 = 1024;
-    v89 = v74;
-    v90 = 1024;
-    v91 = v75;
-    v92 = 1024;
-    v93 = v76;
-    v94 = 1024;
-    v95 = v77;
-    v96 = 1024;
-    v97 = v78;
-    _os_log_impl(&dword_23255B000, v70, OS_LOG_TYPE_DEBUG, "WiFi observer _backgroundCounts loss tolerance counts %d %d %d %d %d %d %d %d", &v84, 0x32u);
+    v83 = 67110912;
+    *v84 = v71;
+    *&v84[4] = 1024;
+    *&v84[6] = v72;
+    v85 = 1024;
+    v86 = v73;
+    v87 = 1024;
+    v88 = v74;
+    v89 = 1024;
+    v90 = v75;
+    v91 = 1024;
+    v92 = v76;
+    v93 = 1024;
+    v94 = v77;
+    v95 = 1024;
+    v96 = v78;
+    _os_log_impl(&dword_23255B000, v70, OS_LOG_TYPE_DEBUG, "WiFi observer _backgroundCounts loss tolerance counts %d %d %d %d %d %d %d %d", &v83, 0x32u);
   }
 
   v79 = flowLogHandle;
   if (os_log_type_enabled(flowLogHandle, OS_LOG_TYPE_INFO))
   {
-    v84 = 138543362;
-    *v85 = dictionary;
-    _os_log_impl(&dword_23255B000, v79, OS_LOG_TYPE_INFO, "WiFi observer Info dir %{public}@", &v84, 0xCu);
+    v83 = 138543362;
+    *v84 = dictionary;
+    _os_log_impl(&dword_23255B000, v79, OS_LOG_TYPE_INFO, "WiFi observer Info dir %{public}@", &v83, 0xCu);
   }
 
   date = [MEMORY[0x277CBEAA8] date];
   lastReportTimestamp = self->_lastReportTimestamp;
   self->_lastReportTimestamp = date;
-
-  v82 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
@@ -364,39 +360,36 @@
 - (void)setEnabled:(BOOL)enabled
 {
   enabledCopy = enabled;
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = scoringLogHandle;
   if (os_log_type_enabled(scoringLogHandle, OS_LOG_TYPE_DEBUG))
   {
     enabled = self->_enabled;
-    v8[0] = 67109376;
-    v8[1] = enabled;
-    v9 = 1024;
-    v10 = enabledCopy;
-    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEBUG, "Entry, _enabled = %d new value %d", v8, 0xEu);
+    v7[0] = 67109376;
+    v7[1] = enabled;
+    v8 = 1024;
+    v9 = enabledCopy;
+    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEBUG, "Entry, _enabled = %d new value %d", v7, 0xEu);
   }
 
   self->_enabled = enabledCopy;
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configurePolicies:(id)policies
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   policiesCopy = policies;
   v5 = configurationLogHandle;
   if (os_log_type_enabled(configurationLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     v6 = v5;
     v7 = [(wifiFlowObserver *)self description];
-    v9 = 138412546;
-    v10 = policiesCopy;
-    v11 = 2112;
-    v12 = v7;
-    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "Entry with ignored params %@, self %@", &v9, 0x16u);
+    v8 = 138412546;
+    v9 = policiesCopy;
+    v10 = 2112;
+    v11 = v7;
+    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "Entry with ignored params %@, self %@", &v8, 0x16u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)addClassification:(id)classification context:(wifiPropertyCounts *)context
@@ -669,7 +662,7 @@ LABEL_16:
 - (void)noteForegroundState:(BOOL)state forApp:(id)app hasForegroundApps:(BOOL)apps
 {
   appsCopy = apps;
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   appCopy = app;
   if (!appsCopy)
   {
@@ -686,8 +679,8 @@ LABEL_16:
     }
 
     enabled = self->_enabled;
-    v13 = 67109120;
-    v14 = enabled;
+    v12 = 67109120;
+    v13 = enabled;
     v10 = "WiFi Observer going to background, enabled %d";
     goto LABEL_8;
   }
@@ -702,11 +695,11 @@ LABEL_16:
   if (os_log_type_enabled(scoringLogHandle, OS_LOG_TYPE_DEBUG))
   {
     v9 = self->_enabled;
-    v13 = 67109120;
-    v14 = v9;
+    v12 = 67109120;
+    v13 = v9;
     v10 = "WiFi Observer going to Foreground, enabled %d";
 LABEL_8:
-    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEBUG, v10, &v13, 8u);
+    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEBUG, v10, &v12, 8u);
   }
 
 LABEL_9:
@@ -716,8 +709,6 @@ LABEL_9:
   }
 
 LABEL_11:
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 @end

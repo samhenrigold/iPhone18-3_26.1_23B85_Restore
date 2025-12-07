@@ -20,34 +20,34 @@
 
 - (unint64_t)numHAPAccessoriesWithAnyServiceWithTypes:(id)types
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   typesCopy = types;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   home = [(HMDAccessoryCount *)self home];
   hapAccessories = [home hapAccessories];
 
-  v7 = [hapAccessories countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [hapAccessories countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
     v9 = 0;
-    v10 = *v15;
+    v10 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v10)
+        if (*v14 != v10)
         {
           objc_enumerationMutation(hapAccessories);
         }
 
-        v9 += [*(*(&v14 + 1) + 8 * i) hasAnyServiceWithTypes:typesCopy];
+        v9 += [*(*(&v13 + 1) + 8 * i) hasAnyServiceWithTypes:typesCopy];
       }
 
-      v8 = [hapAccessories countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [hapAccessories countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
@@ -58,7 +58,6 @@
     v9 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -80,34 +79,34 @@
 
 - (unint64_t)numCameraAccessoriesRecordingEnabled
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   home = [(HMDAccessoryCount *)self home];
   cameraAccessories = [home cameraAccessories];
 
-  v4 = [cameraAccessories countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [cameraAccessories countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(cameraAccessories);
         }
 
-        cameraProfileSettingsManager = [*(*(&v12 + 1) + 8 * i) cameraProfileSettingsManager];
+        cameraProfileSettingsManager = [*(*(&v11 + 1) + 8 * i) cameraProfileSettingsManager];
         v6 += [cameraProfileSettingsManager isRecordingEnabled];
       }
 
-      v5 = [cameraAccessories countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [cameraAccessories countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
@@ -118,7 +117,6 @@
     v6 = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

@@ -75,7 +75,7 @@
 
 - (CKFileOpenResult)initWithMobileKeyBagHandle:(_mkbbackupref *)handle path:(id)path error:(id *)error
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   v11 = objc_msgSend_init(self, v9, v10);
   if (!v11)
@@ -97,13 +97,13 @@
       v21 = ck_log_facility_ck;
       if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_ERROR))
       {
-        v39 = v21;
-        v40 = *__error();
-        v45.st_dev = 138543618;
-        *&v45.st_mode = pathCopy;
-        WORD2(v45.st_ino) = 1024;
-        *(&v45.st_ino + 6) = v40;
-        _os_log_error_impl(&dword_1883EA000, v39, OS_LOG_TYPE_ERROR, "could not get protection class of file %{public}@: %{errno}d\n", &v45, 0x12u);
+        v38 = v21;
+        v39 = *__error();
+        v44.st_dev = 138543618;
+        *&v44.st_mode = pathCopy;
+        WORD2(v44.st_ino) = 1024;
+        *(&v44.st_ino + 6) = v39;
+        _os_log_error_impl(&dword_1883EA000, v38, OS_LOG_TYPE_ERROR, "could not get protection class of file %{public}@: %{errno}d\n", &v44, 0x12u);
       }
     }
 
@@ -117,14 +117,14 @@
           dispatch_once(&ck_log_initialization_predicate, ck_log_initialization_block);
         }
 
-        v37 = ck_log_facility_ck;
+        v36 = ck_log_facility_ck;
         if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_ERROR))
         {
-          v45.st_dev = 138543618;
-          *&v45.st_mode = pathCopy;
-          WORD2(v45.st_ino) = 1024;
-          *(&v45.st_ino + 6) = v18;
-          _os_log_error_impl(&dword_1883EA000, v37, OS_LOG_TYPE_ERROR, "attempting to open unprotected file %{public}@: %d", &v45, 0x12u);
+          v44.st_dev = 138543618;
+          *&v44.st_mode = pathCopy;
+          WORD2(v44.st_ino) = 1024;
+          *(&v44.st_ino + 6) = v18;
+          _os_log_error_impl(&dword_1883EA000, v36, OS_LOG_TYPE_ERROR, "attempting to open unprotected file %{public}@: %d", &v44, 0x12u);
           if (!error)
           {
             goto LABEL_9;
@@ -136,12 +136,12 @@
           goto LABEL_9;
         }
 
-        objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v38, @"CKInternalErrorDomain", 1017, @"Attempted to open raw encrypted bytes of unprotected file %@ with class:%d", pathCopy, v18);
+        objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v37, @"CKInternalErrorDomain", 1017, @"Attempted to open raw encrypted bytes of unprotected file %@ with class:%d", pathCopy, v18);
         goto LABEL_8;
       }
 
-      memset(&v45, 0, sizeof(v45));
-      if (!fstat(-1, &v45) && (v45.st_flags & 0x20) != 0)
+      memset(&v44, 0, sizeof(v44));
+      if (!fstat(-1, &v44) && (v44.st_flags & 0x20) != 0)
       {
         if (ck_log_initialization_predicate != -1)
         {
@@ -152,9 +152,9 @@
         if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543618;
-          v42 = pathCopy;
-          v43 = 1024;
-          v44 = v18;
+          v41 = pathCopy;
+          v42 = 1024;
+          v43 = v18;
           _os_log_error_impl(&dword_1883EA000, v19, OS_LOG_TYPE_ERROR, "attempting to open compressed file %{public}@ with class %d", buf, 0x12u);
           if (ck_log_initialization_predicate != -1)
           {
@@ -198,15 +198,15 @@
     v34 = ck_log_facility_ck;
     if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
     {
-      v45.st_dev = 138544130;
-      *&v45.st_mode = pathCopy;
-      WORD2(v45.st_ino) = 1024;
-      *(&v45.st_ino + 6) = -1;
-      HIWORD(v45.st_uid) = 1024;
-      v45.st_gid = -1;
-      LOWORD(v45.st_rdev) = 2048;
-      *(&v45.st_rdev + 2) = v30;
-      _os_log_debug_impl(&dword_1883EA000, v34, OS_LOG_TYPE_DEBUG, "MKBBackupGetFileDescriptors succeeded at %{public}@ - fd:%d, efd:%d, size:%llu", &v45, 0x22u);
+      v44.st_dev = 138544130;
+      *&v44.st_mode = pathCopy;
+      WORD2(v44.st_ino) = 1024;
+      *(&v44.st_ino + 6) = -1;
+      HIWORD(v44.st_uid) = 1024;
+      v44.st_gid = -1;
+      LOWORD(v44.st_rdev) = 2048;
+      *(&v44.st_rdev + 2) = v30;
+      _os_log_debug_impl(&dword_1883EA000, v34, OS_LOG_TYPE_DEBUG, "MKBBackupGetFileDescriptors succeeded at %{public}@ - fd:%d, efd:%d, size:%llu", &v44, 0x22u);
     }
 
 LABEL_30:
@@ -223,11 +223,11 @@ LABEL_30:
   v14 = ck_log_facility_ck;
   if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_ERROR))
   {
-    v45.st_dev = 138543618;
-    *&v45.st_mode = pathCopy;
-    WORD2(v45.st_ino) = 1024;
-    *(&v45.st_ino + 6) = v13;
-    _os_log_error_impl(&dword_1883EA000, v14, OS_LOG_TYPE_ERROR, "MKBBackupGetFileDescriptors failed at %{public}@: %d", &v45, 0x12u);
+    v44.st_dev = 138543618;
+    *&v44.st_mode = pathCopy;
+    WORD2(v44.st_ino) = 1024;
+    *(&v44.st_ino + 6) = v13;
+    _os_log_error_impl(&dword_1883EA000, v14, OS_LOG_TYPE_ERROR, "MKBBackupGetFileDescriptors failed at %{public}@: %d", &v44, 0x12u);
     if (!error)
     {
       goto LABEL_9;
@@ -247,7 +247,6 @@ LABEL_9:
   v16 = 0;
 LABEL_31:
 
-  v35 = *MEMORY[0x1E69E9840];
   return v16;
 }
 

@@ -3,6 +3,7 @@
 - (BOOL)loadWithError:(id *)error;
 - (BOOL)purgeDatabaseWithVersion:(int)version error:(id *)error;
 - (CSUKnowledgeEntityStore)initWithDatabasePath:(id)path error:(id *)error;
+- (id)entityForIdentifier:(unsigned int)identifier;
 - (unsigned)storeEntity:(id)entity error:(id *)error;
 - (void)enumerateIdentifiersUsingBlock:(id)block;
 @end
@@ -35,63 +36,63 @@
 - (BOOL)commitWithError:(id *)error
 {
   errorCopy = error;
-  v75 = *MEMORY[0x1E69E9840];
+  v74 = *MEMORY[0x1E69E9840];
   v4 = objc_alloc(MEMORY[0x1E695DF70]);
   v9 = objc_msgSend_count(self->_data, v5, v6, v7, v8);
-  v63 = objc_msgSend_initWithCapacity_(v4, v10, v9, v11, v12);
+  v62 = objc_msgSend_initWithCapacity_(v4, v10, v9, v11, v12);
+  v63 = 0u;
   v64 = 0u;
   v65 = 0u;
   v66 = 0u;
-  v67 = 0u;
   v13 = self->_data;
-  v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v14, &v64, v74, 16);
+  v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v14, &v63, v73, 16);
   if (v18)
   {
-    v19 = *v65;
+    v19 = *v64;
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v65 != v19)
+        if (*v64 != v19)
         {
           objc_enumerationMutation(v13);
         }
 
-        v21 = *(*(&v64 + 1) + 8 * i);
-        v72[0] = @"identifier";
-        v72[1] = @"data";
-        v73[0] = v21;
+        v21 = *(*(&v63 + 1) + 8 * i);
+        v71[0] = @"identifier";
+        v71[1] = @"data";
+        v72[0] = v21;
         v22 = objc_msgSend_objectForKeyedSubscript_(self->_data, v15, v21, v16, v17, errorCopy);
         v27 = objc_msgSend_dictionary(v22, v23, v24, v25, v26);
-        v73[1] = v27;
-        v29 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v28, v73, v72, 2);
-        objc_msgSend_addObject_(v63, v30, v29, v31, v32);
+        v72[1] = v27;
+        v29 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v28, v72, v71, 2);
+        objc_msgSend_addObject_(v62, v30, v29, v31, v32);
       }
 
-      v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v15, &v64, v74, 16);
+      v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v15, &v63, v73, 16);
     }
 
     while (v18);
   }
 
   v33 = MEMORY[0x1E696ACB0];
-  v70[0] = @"metadata";
-  v68[0] = @"schemaVersion";
+  v69[0] = @"metadata";
+  v67[0] = @"schemaVersion";
   v37 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v34, self->_schemaVersion, v35, v36);
-  v69[0] = v37;
-  v68[1] = @"size";
+  v68[0] = v37;
+  v67[1] = @"size";
   v38 = MEMORY[0x1E696AD98];
   v43 = objc_msgSend_count(self->_data, v39, v40, v41, v42);
   v47 = objc_msgSend_numberWithUnsignedInteger_(v38, v44, v43, v45, v46);
-  v69[1] = v47;
-  v68[2] = @"version";
+  v68[1] = v47;
+  v67[2] = @"version";
   v51 = objc_msgSend_numberWithInt_(MEMORY[0x1E696AD98], v48, self->_version, v49, v50);
-  v69[2] = v51;
-  v53 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v52, v69, v68, 3);
-  v70[1] = @"data";
-  v71[0] = v53;
-  v71[1] = v63;
-  v55 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v54, v71, v70, 2);
+  v68[2] = v51;
+  v53 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v52, v68, v67, 3);
+  v69[1] = @"data";
+  v70[0] = v53;
+  v70[1] = v62;
+  v55 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v54, v70, v69, 2);
   v57 = objc_msgSend_dataWithJSONObject_options_error_(v33, v56, v55, 0, errorCopy);
 
   if (v57)
@@ -104,72 +105,71 @@
     v59 = 0;
   }
 
-  v60 = *MEMORY[0x1E69E9840];
   return v59;
 }
 
 - (BOOL)loadWithError:(id *)error
 {
-  v91 = *MEMORY[0x1E69E9840];
+  v89 = *MEMORY[0x1E69E9840];
   v6 = objc_msgSend_defaultManager(MEMORY[0x1E696AC08], a2, error, v3, v4);
   v10 = objc_msgSend_fileExistsAtPath_(v6, v7, self->_databasePath, v8, v9);
 
   if (v10)
   {
-    v83 = objc_msgSend_dataWithContentsOfFile_options_error_(MEMORY[0x1E695DEF0], v11, self->_databasePath, 0, error);
-    if (v83)
+    v81 = objc_msgSend_dataWithContentsOfFile_options_error_(MEMORY[0x1E695DEF0], v11, self->_databasePath, 0, error);
+    if (v81)
     {
-      v13 = objc_msgSend_JSONObjectWithData_options_error_(MEMORY[0x1E696ACB0], v12, v83, 0, error);
-      v82 = v13 != 0;
+      v13 = objc_msgSend_JSONObjectWithData_options_error_(MEMORY[0x1E696ACB0], v12, v81, 0, error);
+      v80 = v13 != 0;
       selfCopy2 = self;
       if (v13)
       {
-        v81 = v13;
+        v79 = v13;
         v18 = objc_msgSend_objectForKeyedSubscript_(v13, v14, @"metadata", v15, v16);
-        v79 = objc_msgSend_objectForKeyedSubscript_(v18, v19, @"version", v20, v21);
+        v77 = objc_msgSend_objectForKeyedSubscript_(v18, v19, @"version", v20, v21);
 
-        v25 = objc_msgSend_objectForKeyedSubscript_(v81, v22, @"metadata", v23, v24);
-        v80 = objc_msgSend_objectForKeyedSubscript_(v25, v26, @"schemaVersion", v27, v28);
+        v25 = objc_msgSend_objectForKeyedSubscript_(v79, v22, @"metadata", v23, v24);
+        v78 = objc_msgSend_objectForKeyedSubscript_(v25, v26, @"schemaVersion", v27, v28);
 
-        v33 = v79;
-        if (v79)
+        v33 = v77;
+        if (v77)
         {
-          v33 = objc_msgSend_integerValue(v79, v29, v30, v31, v32);
+          v33 = objc_msgSend_integerValue(v77, v29, v30, v31, v32);
         }
 
         self->_version = v33;
-        v34 = v80;
-        if (v80)
+        v34 = v78;
+        if (v78)
         {
-          v34 = objc_msgSend_integerValue(v80, v29, v30, v31, v32);
+          v34 = objc_msgSend_integerValue(v78, v29, v30, v31, v32);
         }
 
         self->_schemaVersion = v34;
         v35 = objc_alloc(MEMORY[0x1E695DF90]);
-        v40 = objc_msgSend_count(v81, v36, v37, v38, v39);
+        v40 = objc_msgSend_count(v79, v36, v37, v38, v39);
         v44 = objc_msgSend_initWithCapacity_(v35, v41, v40, v42, v43);
         data = self->_data;
         self->_data = v44;
 
-        v88 = 0u;
-        v89 = 0u;
         v86 = 0u;
         v87 = 0u;
-        obj = objc_msgSend_objectForKeyedSubscript_(v81, v46, @"data", v47, v48);
-        v50 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v49, &v86, v90, 16);
+        v84 = 0u;
+        v85 = 0u;
+        obj = objc_msgSend_objectForKeyedSubscript_(v79, v46, @"data", v47, v48);
+        v50 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v49, &v84, v88, 16);
         if (v50)
         {
-          v51 = *v87;
+          v51 = *v85;
           do
           {
             for (i = 0; i != v50; ++i)
             {
-              if (*v87 != v51)
+              if (*v85 != v51)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v53 = *(*(&v86 + 1) + 8 * i);
+              v53 = *(*(&v84 + 1) + 8 * i);
               v54 = [CSUKnowledgeEntity alloc];
               v58 = objc_msgSend_objectForKeyedSubscript_(v53, v55, @"data", v56, v57);
               v62 = objc_msgSend_initWithDictionary_(v54, v59, v58, v60, v61);
@@ -180,23 +180,22 @@
               selfCopy2 = self;
             }
 
-            v50 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v70, &v86, v90, 16);
+            v50 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v70, &v84, v88, 16);
           }
 
           while (v50);
         }
 
-        v13 = v81;
+        v13 = v79;
       }
     }
 
     else
     {
-      v82 = 0;
+      v80 = 0;
     }
 
-    v78 = *MEMORY[0x1E69E9840];
-    return v82;
+    return v80;
   }
 
   else
@@ -207,7 +206,6 @@
 
     self->_version = 0;
     self->_schemaVersion = 0;
-    v76 = *MEMORY[0x1E69E9840];
 
     return objc_msgSend_commitWithError_(self, v73, error, v74, v75);
   }
@@ -255,6 +253,15 @@ LABEL_8:
   return v20;
 }
 
+- (id)entityForIdentifier:(unsigned int)identifier
+{
+  data = self->_data;
+  v6 = objc_msgSend_numberWithUnsignedInt_(MEMORY[0x1E696AD98], a2, *&identifier, v3, v4);
+  v10 = objc_msgSend_objectForKey_(data, v7, v6, v8, v9);
+
+  return v10;
+}
+
 - (BOOL)purgeDatabaseWithVersion:(int)version error:(id *)error
 {
   v7 = objc_alloc_init(MEMORY[0x1E695DF90]);
@@ -268,37 +275,37 @@ LABEL_8:
 
 - (void)enumerateIdentifiersUsingBlock:(id)block
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   blockCopy = block;
-  v20 = 0;
+  v19 = 0;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v5 = self->_data;
-  v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v16, v21, 16);
+  v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v15, v20, 16);
   if (v11)
   {
-    v12 = *v17;
+    v12 = *v16;
 LABEL_3:
     v13 = 0;
     while (1)
     {
-      if (*v17 != v12)
+      if (*v16 != v12)
       {
         objc_enumerationMutation(v5);
       }
 
-      v14 = objc_msgSend_integerValue(*(*(&v16 + 1) + 8 * v13), v7, v8, v9, v10, v16);
-      blockCopy[2](blockCopy, v14, &v20);
-      if (v20)
+      v14 = objc_msgSend_integerValue(*(*(&v15 + 1) + 8 * v13), v7, v8, v9, v10, v15);
+      blockCopy[2](blockCopy, v14, &v19);
+      if (v19)
       {
         break;
       }
 
       if (v11 == ++v13)
       {
-        v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v7, &v16, v21, 16);
+        v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v7, &v15, v20, 16);
         if (v11)
         {
           goto LABEL_3;
@@ -308,8 +315,6 @@ LABEL_3:
       }
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 @end

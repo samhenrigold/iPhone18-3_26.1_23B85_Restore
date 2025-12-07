@@ -51,10 +51,10 @@
   smartStyle = [(CAMSmartStyleNameBadge *)self smartStyle];
   presetDisplayName = [smartStyle presetDisplayName];
 
-  v4 = CAMPreferredLocale();
-  v5 = [presetDisplayName uppercaseStringWithLocale:v4];
+  v5 = CAMPreferredLocale(v4);
+  v6 = [presetDisplayName uppercaseStringWithLocale:v5];
 
-  [(CEKBadgeTextView *)self _setText:v5];
+  [(CEKBadgeTextView *)self _setText:v6];
 }
 
 @end

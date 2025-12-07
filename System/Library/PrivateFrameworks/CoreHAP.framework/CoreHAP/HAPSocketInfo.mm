@@ -9,18 +9,9 @@
 - (HAPSocketInfo)initWithSocket:(const sockaddr_storage *)socket;
 - (NSDictionary)dictionaryRepresentation;
 - (NSString)ipAddressStringWithScope;
-- (NSString)shortDescription;
 @end
 
 @implementation HAPSocketInfo
-
-- (NSString)shortDescription
-{
-  v3 = MEMORY[0x277CCACA8];
-  v4 = objc_opt_class();
-  ipAddressString = self->_ipAddressString;
-  return [v3 stringWithFormat:@"%@ %@/%@", v4, ipAddressString, self->_port];
-}
 
 - (BOOL)isEqual:(id)equal
 {
@@ -49,18 +40,16 @@
 
 - (NSDictionary)dictionaryRepresentation
 {
-  v10[2] = *MEMORY[0x277D85DE8];
+  v9[2] = *MEMORY[0x277D85DE8];
   ipAddressString = [(HAPSocketInfo *)self ipAddressString];
   v4 = [HAPSocketInfo ipAddressRemoveScopeWithAddress:ipAddressString];
 
-  v9[0] = @"HAPSocketInfoIPAddressString";
-  v9[1] = @"HAPSocketInfoPort";
-  v10[0] = v4;
+  v8[0] = @"HAPSocketInfoIPAddressString";
+  v8[1] = @"HAPSocketInfoPort";
+  v9[0] = v4;
   port = [(HAPSocketInfo *)self port];
-  v10[1] = port;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[1] = port;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
 
   return v6;
 }
@@ -96,15 +85,15 @@
 
 - (HAPSocketInfo)initWithIPAddressString:(id)string port:(id)port
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   portCopy = port;
   v8 = portCopy;
   selfCopy = 0;
   if (stringCopy && portCopy)
   {
-    v19 = 0;
-    if (inet_pton(2, [stringCopy UTF8String], &v19) == 1)
+    v18 = 0;
+    if (inet_pton(2, [stringCopy UTF8String], &v18) == 1)
     {
       v10 = [(HAPSocketInfo *)self initWithIPAddressString:stringCopy ipAddressType:1 port:v8];
 LABEL_18:
@@ -113,22 +102,22 @@ LABEL_18:
       goto LABEL_19;
     }
 
-    v18[0] = 0;
-    v18[1] = 0;
-    if (inet_pton(30, [stringCopy UTF8String], v18) == 1)
+    v17[0] = 0;
+    v17[1] = 0;
+    if (inet_pton(30, [stringCopy UTF8String], v17) == 1)
     {
-      if (LOBYTE(v18[0]) == 255)
+      if (LOBYTE(v17[0]) == 255)
       {
-        if ((BYTE1(v18[0]) & 0xF) == 0xE)
+        if ((BYTE1(v17[0]) & 0xF) == 0xE)
         {
           v11 = 3;
           goto LABEL_17;
         }
       }
 
-      else if (LOBYTE(v18[0]) == 254)
+      else if (LOBYTE(v17[0]) == 254)
       {
-        if ((BYTE1(v18[0]) & 0xC0) == 0x80)
+        if ((BYTE1(v17[0]) & 0xC0) == 0x80)
         {
           v11 = 2;
 LABEL_17:
@@ -137,7 +126,7 @@ LABEL_17:
         }
       }
 
-      else if ((v18[0] & 0xFE) == 0xFC)
+      else if ((v17[0] & 0xFE) == 0xFC)
       {
         v11 = 4;
         goto LABEL_17;
@@ -151,9 +140,9 @@ LABEL_17:
     {
       v15 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v21 = v15;
-      v22 = 2112;
-      v23 = stringCopy;
+      v20 = v15;
+      v21 = 2112;
+      v22 = stringCopy;
       _os_log_impl(&dword_22AADC000, v14, OS_LOG_TYPE_ERROR, "%{public}@Could not determine IP address type from string: %@", buf, 0x16u);
     }
 
@@ -164,13 +153,12 @@ LABEL_17:
 
 LABEL_19:
 
-  v16 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
 - (HAPSocketInfo)initWithDictionary:(id)dictionary
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v5 = [dictionaryCopy hmf_stringForKey:@"HAPSocketInfoIPAddressString"];
   v6 = [dictionaryCopy hmf_numberForKey:@"HAPSocketInfoPort"];
@@ -192,24 +180,23 @@ LABEL_19:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       v14 = HMFGetLogIdentifier();
-      v17 = 138543618;
-      v18 = v14;
-      v19 = 2112;
-      v20 = dictionaryCopy;
-      _os_log_impl(&dword_22AADC000, v13, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize socket info from dictionary: %@", &v17, 0x16u);
+      v16 = 138543618;
+      v17 = v14;
+      v18 = 2112;
+      v19 = dictionaryCopy;
+      _os_log_impl(&dword_22AADC000, v13, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize socket info from dictionary: %@", &v16, 0x16u);
     }
 
     objc_autoreleasePoolPop(v12);
     v11 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (HAPSocketInfo)initWithSocket:(const sockaddr_storage *)socket
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   ss_family = socket->ss_family;
   if (ss_family == 2 || ss_family == 30)
   {
@@ -232,11 +219,11 @@ LABEL_19:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       v8 = HMFGetLogIdentifier();
-      v20 = 138543618;
-      v21 = v8;
-      v22 = 1024;
-      v23 = v7;
-      _os_log_impl(&dword_22AADC000, v11, OS_LOG_TYPE_ERROR, "%{public}@Failed to initialize HAPSocketInfo: failed to obtain socket address string: %d", &v20, 0x12u);
+      v19 = 138543618;
+      v20 = v8;
+      v21 = 1024;
+      v22 = v7;
+      _os_log_impl(&dword_22AADC000, v11, OS_LOG_TYPE_ERROR, "%{public}@Failed to initialize HAPSocketInfo: failed to obtain socket address string: %d", &v19, 0x12u);
     }
   }
 
@@ -249,9 +236,9 @@ LABEL_19:
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v25 = v13;
-      v26 = 1024;
-      v27 = ss_family;
+      v24 = v13;
+      v25 = 1024;
+      v26 = ss_family;
       _os_log_impl(&dword_22AADC000, v11, OS_LOG_TYPE_ERROR, "%{public}@Failed to initialize HAPSocketInfo: invalid socket address family: %d", buf, 0x12u);
     }
   }
@@ -260,7 +247,6 @@ LABEL_19:
   v14 = 0;
 LABEL_13:
 
-  v18 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -310,26 +296,26 @@ LABEL_13:
 
 + (id)ipAddressRemoveScopeWithAddress:(id)address
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
+  v18 = *MEMORY[0x277D85DE8];
   v16 = 0u;
-  v13 = 0u;
+  v17 = 0u;
   v14 = 0u;
-  v11 = 0u;
+  v15 = 0u;
   v12 = 0u;
-  v9[2] = 0;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  v8[2] = 0;
   addressCopy = address;
   v4 = addressCopy;
   if (addressCopy)
   {
-    v9[0] = 0;
-    v9[1] = 0;
-    if (inet_pton(30, [addressCopy UTF8String], v9) == 1 && LOBYTE(v9[0]) == 254 && (BYTE1(v9[0]) & 0xC0) == 0x80 && (objc_msgSend(v4, "UTF8String"), !StringToSockAddr()))
+    v8[0] = 0;
+    v8[1] = 0;
+    if (inet_pton(30, [addressCopy UTF8String], v8) == 1 && LOBYTE(v8[0]) == 254 && (BYTE1(v8[0]) & 0xC0) == 0x80 && (objc_msgSend(v4, "UTF8String"), !StringToSockAddr()))
     {
       SockAddrToString();
-      v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:v10];
+      v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:v9];
     }
 
     else
@@ -344,8 +330,6 @@ LABEL_13:
   {
     v6 = 0;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

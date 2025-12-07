@@ -22,9 +22,11 @@
 
 uint64_t __51__ML3LanguageResourceManager_sharedResourceManager__block_invoke()
 {
-  sharedResourceManager___sharedResourceManager = [[ML3LanguageResourceManager alloc] _init];
+  v0 = [[ML3LanguageResourceManager alloc] _init];
+  v1 = sharedResourceManager___sharedResourceManager;
+  sharedResourceManager___sharedResourceManager = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (id)_init

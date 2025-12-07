@@ -84,9 +84,11 @@ void __48__TripleClickController_initWithNibName_bundle___block_invoke_2(uint64_
 
 - (void)_updateTripleClickOptions
 {
-  self->_tripleClickOptions = _AXSTripleClickCopyOptions();
+  v3 = _AXSTripleClickCopyOptions();
+  tripleClickOptions = self->_tripleClickOptions;
+  self->_tripleClickOptions = v3;
 
-  _objc_release_x1();
+  _objc_release_x1(v3, tripleClickOptions);
 }
 
 - (void)viewDidLoad

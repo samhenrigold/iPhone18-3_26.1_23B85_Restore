@@ -154,32 +154,32 @@ void __99__VSAppSettingsFacade_initWithStorage_restrictionsCenter_accountChannel
 
 - (void)updateDecidedApps
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   appSections = [(VSAppSettingsFacade *)self appSections];
-  v18 = [appSections mutableCopy];
+  v17 = [appSections mutableCopy];
 
   v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   obj = [(VSAppSettingsFacade *)self knownAppBundles];
-  v5 = [obj countByEnumeratingWithState:&v20 objects:v25 count:16];
+  v5 = [obj countByEnumeratingWithState:&v19 objects:v24 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v21;
+    v7 = *v20;
     do
     {
       v8 = 0;
       do
       {
-        if (*v21 != v7)
+        if (*v20 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v20 + 1) + 8 * v8);
+        v9 = *(*(&v19 + 1) + 8 * v8);
         v10 = [VSAppSettingsViewModel alloc];
         restrictionsCenter = [(VSAppSettingsFacade *)self restrictionsCenter];
         storage = [(VSAppSettingsFacade *)self storage];
@@ -191,21 +191,19 @@ void __99__VSAppSettingsFacade_initWithStorage_restrictionsCenter_accountChannel
       }
 
       while (v6 != v8);
-      v6 = [obj countByEnumeratingWithState:&v20 objects:v25 count:16];
+      v6 = [obj countByEnumeratingWithState:&v19 objects:v24 count:16];
     }
 
     while (v6);
   }
 
   v15 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"displayName" ascending:1 selector:sel_localizedStandardCompare_];
-  v24 = v15;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v24 count:1];
+  v23 = v15;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v23 count:1];
   [v4 sortUsingDescriptors:v16];
 
-  [v18 setObject:v4 forKeyedSubscript:@"decided"];
-  [(VSAppSettingsFacade *)self setAppSections:v18];
-
-  v17 = *MEMORY[0x277D85DE8];
+  [v17 setObject:v4 forKeyedSubscript:@"decided"];
+  [(VSAppSettingsFacade *)self setAppSections:v17];
 }
 
 - (void)_updateApps
@@ -318,7 +316,7 @@ void __34__VSAppSettingsFacade__updateApps__block_invoke(uint64_t a1)
 
 void __34__VSAppSettingsFacade__updateApps__block_invoke_2(uint64_t a1)
 {
-  v89 = *MEMORY[0x277D85DE8];
+  v88 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 64));
   if (!WeakRetained)
   {
@@ -334,36 +332,36 @@ void __34__VSAppSettingsFacade__updateApps__block_invoke_2(uint64_t a1)
     goto LABEL_45;
   }
 
-  v66 = v3;
+  v65 = v3;
   v5 = [v3 result];
   [WeakRetained setHasChannelApps:{objc_msgSend(v5, "hasChannelApps")}];
   *(*(*(a1 + 40) + 8) + 24) = [v5 hasUserChannelList];
   v6 = [WeakRetained storage];
   v7 = [v5 nonChannelApps];
   v8 = [v5 availableApps];
-  v65 = v5;
+  v64 = v5;
   v9 = [v5 subscribedApps];
-  v64 = v6;
+  v63 = v6;
   v10 = [v6 accountStore];
   v11 = [v10 firstAccount];
 
-  v61 = v11;
+  v60 = v11;
   v12 = [v11 preferredAppID];
   v13 = [MEMORY[0x277CE2238] currentDevice];
   v14 = [v13 stringForAMSDeviceFamilies];
 
   v15 = objc_alloc_init(VSNonChannelAppDecider);
   [(VSNonChannelAppDecider *)v15 setAppDescriptions:v7];
-  v60 = v12;
+  v59 = v12;
   [(VSNonChannelAppDecider *)v15 setPreferredAppBundleOrAdamID:v12];
-  v59 = v14;
+  v58 = v14;
   [(VSNonChannelAppDecider *)v15 setPreferredDeviceFamily:v14];
-  v57 = v15;
+  v56 = v15;
   v16 = [(VSNonChannelAppDecider *)v15 decidedNonChannelApps];
 
-  v62 = v9;
-  v63 = v8;
-  v58 = v16;
+  v61 = v9;
+  v62 = v8;
+  v57 = v16;
   v17 = [WeakRetained viewModelsForAvailableAppDescriptions:v8 subscribedAppDescriptions:v9 andNonChannelAppDescriptions:v16];
   v18 = [v17 nonChannelAppViewModels];
   v19 = [MEMORY[0x277CE2198] sharedInstance];
@@ -376,29 +374,29 @@ void __34__VSAppSettingsFacade__updateApps__block_invoke_2(uint64_t a1)
 
   if (v20)
   {
-    v81 = 0u;
-    v82 = 0u;
-    v79 = 0u;
     v80 = 0u;
+    v81 = 0u;
+    v78 = 0u;
+    v79 = 0u;
     v19 = v18;
-    v21 = [v19 countByEnumeratingWithState:&v79 objects:v88 count:16];
+    v21 = [v19 countByEnumeratingWithState:&v78 objects:v87 count:16];
     if (v21)
     {
       v22 = v21;
-      v23 = *v80;
+      v23 = *v79;
       do
       {
         for (i = 0; i != v22; ++i)
         {
-          if (*v80 != v23)
+          if (*v79 != v23)
           {
             objc_enumerationMutation(v19);
           }
 
-          [*(*(&v79 + 1) + 8 * i) setForceDSIDlessInstall:1];
+          [*(*(&v78 + 1) + 8 * i) setForceDSIDlessInstall:1];
         }
 
-        v22 = [v19 countByEnumeratingWithState:&v79 objects:v88 count:16];
+        v22 = [v19 countByEnumeratingWithState:&v78 objects:v87 count:16];
       }
 
       while (v22);
@@ -415,33 +413,33 @@ LABEL_12:
   v28 = *(v27 + 40);
   *(v27 + 40) = v26;
 
-  v77 = 0u;
-  v78 = 0u;
-  v75 = 0u;
   v76 = 0u;
+  v77 = 0u;
+  v74 = 0u;
+  v75 = 0u;
   v29 = [v17 availableAppViewModels];
-  v30 = [v29 countByEnumeratingWithState:&v75 objects:v87 count:16];
+  v30 = [v29 countByEnumeratingWithState:&v74 objects:v86 count:16];
   if (v30)
   {
     v31 = v30;
-    v32 = *v76;
+    v32 = *v75;
     do
     {
       for (j = 0; j != v31; ++j)
       {
-        if (*v76 != v32)
+        if (*v75 != v32)
         {
           objc_enumerationMutation(v29);
         }
 
-        v34 = *(*(&v75 + 1) + 8 * j);
+        v34 = *(*(&v74 + 1) + 8 * j);
         if (([v34 isDecided] & 1) == 0)
         {
           [*(*(*(a1 + 48) + 8) + 40) addObject:v34];
         }
       }
 
-      v31 = [v29 countByEnumeratingWithState:&v75 objects:v87 count:16];
+      v31 = [v29 countByEnumeratingWithState:&v74 objects:v86 count:16];
     }
 
     while (v31);
@@ -452,33 +450,33 @@ LABEL_12:
   v37 = *(v36 + 40);
   *(v36 + 40) = v35;
 
-  v73 = 0u;
-  v74 = 0u;
-  v71 = 0u;
   v72 = 0u;
+  v73 = 0u;
+  v70 = 0u;
+  v71 = 0u;
   v38 = [v17 subscribedAppViewModels];
-  v39 = [v38 countByEnumeratingWithState:&v71 objects:v86 count:16];
+  v39 = [v38 countByEnumeratingWithState:&v70 objects:v85 count:16];
   if (v39)
   {
     v40 = v39;
-    v41 = *v72;
+    v41 = *v71;
     do
     {
       for (k = 0; k != v40; ++k)
       {
-        if (*v72 != v41)
+        if (*v71 != v41)
         {
           objc_enumerationMutation(v38);
         }
 
-        v43 = *(*(&v71 + 1) + 8 * k);
+        v43 = *(*(&v70 + 1) + 8 * k);
         if (([v43 isDecided] & 1) == 0)
         {
           [*(*(*(a1 + 56) + 8) + 40) addObject:v43];
         }
       }
 
-      v40 = [v38 countByEnumeratingWithState:&v71 objects:v86 count:16];
+      v40 = [v38 countByEnumeratingWithState:&v70 objects:v85 count:16];
     }
 
     while (v40);
@@ -486,35 +484,35 @@ LABEL_12:
 
   v44 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"displayName" ascending:1 selector:sel_localizedStandardCompare_];
   v45 = *(*(*(a1 + 48) + 8) + 40);
-  v85 = v44;
-  v46 = [MEMORY[0x277CBEA60] arrayWithObjects:&v85 count:1];
+  v84 = v44;
+  v46 = [MEMORY[0x277CBEA60] arrayWithObjects:&v84 count:1];
   [v45 sortUsingDescriptors:v46];
 
   v47 = *(*(*(a1 + 56) + 8) + 40);
-  v84 = v44;
-  v48 = [MEMORY[0x277CBEA60] arrayWithObjects:&v84 count:1];
+  v83 = v44;
+  v48 = [MEMORY[0x277CBEA60] arrayWithObjects:&v83 count:1];
   [v47 sortUsingDescriptors:v48];
 
-  v69 = 0u;
-  v70 = 0u;
-  v67 = 0u;
   v68 = 0u;
+  v69 = 0u;
+  v66 = 0u;
+  v67 = 0u;
   v49 = v18;
-  v50 = [v49 countByEnumeratingWithState:&v67 objects:v83 count:16];
+  v50 = [v49 countByEnumeratingWithState:&v66 objects:v82 count:16];
   if (v50)
   {
     v51 = v50;
-    v52 = *v68;
+    v52 = *v67;
     do
     {
       for (m = 0; m != v51; ++m)
       {
-        if (*v68 != v52)
+        if (*v67 != v52)
         {
           objc_enumerationMutation(v49);
         }
 
-        v54 = *(*(&v67 + 1) + 8 * m);
+        v54 = *(*(&v66 + 1) + 8 * m);
         if (([v54 isDecided] & 1) == 0)
         {
           if (*(*(*(a1 + 40) + 8) + 24))
@@ -531,19 +529,18 @@ LABEL_12:
         }
       }
 
-      v51 = [v49 countByEnumeratingWithState:&v67 objects:v83 count:16];
+      v51 = [v49 countByEnumeratingWithState:&v66 objects:v82 count:16];
     }
 
     while (v51);
   }
 
 LABEL_45:
-  v56 = *MEMORY[0x277D85DE8];
 }
 
 - (id)viewModelsForAvailableAppDescriptions:(id)descriptions subscribedAppDescriptions:(id)appDescriptions andNonChannelAppDescriptions:(id)channelAppDescriptions
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   descriptionsCopy = descriptions;
   appDescriptionsCopy = appDescriptions;
   channelAppDescriptionsCopy = channelAppDescriptions;
@@ -558,33 +555,33 @@ LABEL_45:
     [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"The [self identityProvider] parameter must not be nil."];
   }
 
-  v40 = v8;
+  v39 = v8;
   identityProvider2 = [(VSAppSettingsFacade *)self identityProvider];
   providerID = [identityProvider2 providerID];
   forceUnwrapObject = [providerID forceUnwrapObject];
 
   unredeemedVouchers = [(VSAppSettingsFacade *)self unredeemedVouchers];
   v14 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v47 = 0u;
   v48 = 0u;
   v49 = 0u;
   v50 = 0u;
-  v51 = 0u;
   v15 = unredeemedVouchers;
-  v16 = [v15 countByEnumeratingWithState:&v48 objects:v53 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v47 objects:v52 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v49;
+    v18 = *v48;
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v49 != v18)
+        if (*v48 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        v20 = *(*(&v48 + 1) + 8 * i);
+        v20 = *(*(&v47 + 1) + 8 * i);
         providerID2 = [v20 providerID];
         v22 = [providerID2 isEqualToString:forceUnwrapObject];
 
@@ -594,34 +591,34 @@ LABEL_45:
         }
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v48 objects:v53 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v47 objects:v52 count:16];
     }
 
     while (v17);
   }
 
   v23 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v43 = 0u;
   v44 = 0u;
   v45 = 0u;
   v46 = 0u;
-  v47 = 0u;
   selfCopy = self;
   knownAppBundles = [(VSAppSettingsFacade *)self knownAppBundles];
-  v25 = [knownAppBundles countByEnumeratingWithState:&v44 objects:v52 count:16];
+  v25 = [knownAppBundles countByEnumeratingWithState:&v43 objects:v51 count:16];
   if (v25)
   {
     v26 = v25;
-    v27 = *v45;
+    v27 = *v44;
     do
     {
       for (j = 0; j != v26; ++j)
       {
-        if (*v45 != v27)
+        if (*v44 != v27)
         {
           objc_enumerationMutation(knownAppBundles);
         }
 
-        v29 = *(*(&v44 + 1) + 8 * j);
+        v29 = *(*(&v43 + 1) + 8 * j);
         bundleIdentifier = [v29 bundleIdentifier];
         if (bundleIdentifier)
         {
@@ -629,7 +626,7 @@ LABEL_45:
         }
       }
 
-      v26 = [knownAppBundles countByEnumeratingWithState:&v44 objects:v52 count:16];
+      v26 = [knownAppBundles countByEnumeratingWithState:&v43 objects:v51 count:16];
     }
 
     while (v26);
@@ -638,45 +635,43 @@ LABEL_45:
   v31 = [(VSAppSettingsFacade *)selfCopy viewModelsForAppDescriptions:channelAppDescriptionsCopy bundleByBundleID:v23 vouchersForProvider:v14 restrictionsCenter:restrictionsCenter privacyFacade:privacyFacade];
   v32 = [(VSAppSettingsFacade *)selfCopy viewModelsForAppDescriptions:descriptionsCopy bundleByBundleID:v23 vouchersForProvider:v14 restrictionsCenter:restrictionsCenter privacyFacade:privacyFacade];
   v33 = [(VSAppSettingsFacade *)selfCopy viewModelsForAppDescriptions:appDescriptionsCopy bundleByBundleID:v23 vouchersForProvider:v14 restrictionsCenter:restrictionsCenter privacyFacade:privacyFacade];
-  [(VSAppSettingsViewModelResult *)v40 setNonChannelAppViewModels:v31];
-  [(VSAppSettingsViewModelResult *)v40 setSubscribedAppViewModels:v33];
-  [(VSAppSettingsViewModelResult *)v40 setAvailableAppViewModels:v32];
+  [(VSAppSettingsViewModelResult *)v39 setNonChannelAppViewModels:v31];
+  [(VSAppSettingsViewModelResult *)v39 setSubscribedAppViewModels:v33];
+  [(VSAppSettingsViewModelResult *)v39 setAvailableAppViewModels:v32];
 
-  v34 = *MEMORY[0x277D85DE8];
-
-  return v40;
+  return v39;
 }
 
 - (id)viewModelsForAppDescriptions:(id)descriptions bundleByBundleID:(id)d vouchersForProvider:(id)provider restrictionsCenter:(id)center privacyFacade:(id)facade
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   descriptionsCopy = descriptions;
   dCopy = d;
   providerCopy = provider;
   centerCopy = center;
   facadeCopy = facade;
-  v45 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v44 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v52 = 0u;
   v53 = 0u;
   v54 = 0u;
   v55 = 0u;
-  v56 = 0u;
   obj = descriptionsCopy;
-  v48 = [obj countByEnumeratingWithState:&v53 objects:v58 count:16];
-  if (v48)
+  v47 = [obj countByEnumeratingWithState:&v52 objects:v57 count:16];
+  if (v47)
   {
-    v47 = *v54;
-    v39 = facadeCopy;
-    v40 = dCopy;
+    v46 = *v53;
+    v38 = facadeCopy;
+    v39 = dCopy;
     do
     {
-      for (i = 0; i != v48; ++i)
+      for (i = 0; i != v47; ++i)
       {
-        if (*v54 != v47)
+        if (*v53 != v46)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v53 + 1) + 8 * i);
+        v15 = *(*(&v52 + 1) + 8 * i);
         bundleID = [v15 bundleID];
         if (bundleID)
         {
@@ -693,33 +688,33 @@ LABEL_45:
 
             i = v19;
             bundleID = v21;
-            [v45 addObject:v24];
+            [v44 addObject:v24];
             [dCopy removeObjectForKey:v21];
           }
 
           else
           {
-            v51 = 0u;
-            v52 = 0u;
-            v49 = 0u;
             v50 = 0u;
+            v51 = 0u;
+            v48 = 0u;
+            v49 = 0u;
             v25 = providerCopy;
-            v24 = [v25 countByEnumeratingWithState:&v49 objects:v57 count:16];
+            v24 = [v25 countByEnumeratingWithState:&v48 objects:v56 count:16];
             if (v24)
             {
-              v42 = bundleID;
-              v43 = i;
-              v26 = *v50;
+              v41 = bundleID;
+              v42 = i;
+              v26 = *v49;
               while (2)
               {
                 for (j = 0; j != v24; j = (j + 1))
                 {
-                  if (*v50 != v26)
+                  if (*v49 != v26)
                   {
                     objc_enumerationMutation(v25);
                   }
 
-                  v28 = *(*(&v49 + 1) + 8 * j);
+                  v28 = *(*(&v48 + 1) + 8 * j);
                   adamID = [v15 adamID];
                   stringValue2 = [adamID stringValue];
 
@@ -738,7 +733,7 @@ LABEL_45:
                   }
                 }
 
-                v24 = [v25 countByEnumeratingWithState:&v49 objects:v57 count:16];
+                v24 = [v25 countByEnumeratingWithState:&v48 objects:v56 count:16];
                 if (v24)
                 {
                   continue;
@@ -748,11 +743,11 @@ LABEL_45:
               }
 
 LABEL_21:
-              facadeCopy = v39;
-              dCopy = v40;
+              facadeCopy = v38;
+              dCopy = v39;
               v34 = centerCopy;
-              bundleID = v42;
-              i = v43;
+              bundleID = v41;
+              i = v42;
               v17 = 0;
             }
 
@@ -762,19 +757,18 @@ LABEL_21:
             }
 
             v35 = [[VSAppSettingsViewModel alloc] initWithAppDescription:v15 privacyVoucher:v24 restrictionsCenter:v34 privacyFacade:facadeCopy];
-            [v45 addObject:v35];
+            [v44 addObject:v35];
           }
         }
       }
 
-      v48 = [obj countByEnumeratingWithState:&v53 objects:v58 count:16];
+      v47 = [obj countByEnumeratingWithState:&v52 objects:v57 count:16];
     }
 
-    while (v48);
+    while (v47);
   }
 
-  v36 = [v45 copy];
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = [v44 copy];
 
   return v36;
 }
@@ -1029,15 +1023,13 @@ uint64_t __89__VSAppSettingsFacade_presentMVPDAppInstallPromptFromViewController
 
 - (void)shouldShowMVPDAppInstallPrompt
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   localizedDescription = [a2 localizedDescription];
-  v7 = 138412546;
+  v6 = 138412546;
   selfCopy = self;
-  v9 = 2112;
-  v10 = localizedDescription;
-  _os_log_error_impl(&dword_270DD4000, a3, OS_LOG_TYPE_ERROR, "shouldShowMVPDAppInstallPrompt - Error finding bundle record for bundleID %@ : %@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v8 = 2112;
+  v9 = localizedDescription;
+  _os_log_error_impl(&dword_270DD4000, a3, OS_LOG_TYPE_ERROR, "shouldShowMVPDAppInstallPrompt - Error finding bundle record for bundleID %@ : %@", &v6, 0x16u);
 }
 
 @end

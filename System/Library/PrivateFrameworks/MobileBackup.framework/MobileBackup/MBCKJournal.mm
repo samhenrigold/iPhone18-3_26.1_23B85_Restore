@@ -159,7 +159,7 @@ LABEL_2:
       {
         *v14 = 0;
         _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "Recreated empty journal record", v14, 2u);
-        _MBLog();
+        _MBLog(@"I ", "Recreated empty journal record");
       }
 
       goto LABEL_2;
@@ -213,7 +213,7 @@ LABEL_11:
   if (![(MBCKJournal *)self fetchFromServerWithOperationTracker:trackerCopy error:error])
   {
     v28 = 0;
-    goto LABEL_47;
+    goto LABEL_48;
   }
 
   v47 = v14;
@@ -249,7 +249,7 @@ LABEL_11:
   if (!v19)
   {
     v28 = 0;
-    goto LABEL_46;
+    goto LABEL_47;
   }
 
   v20 = v19;
@@ -281,7 +281,7 @@ LABEL_11:
         {
           *buf = 0;
           _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_INFO, "Replaying journal - journal contains server reset", buf, 2u);
-          _MBLog();
+          _MBLog(@"I ", "Replaying journal - journal contains server reset");
         }
 
         engine = [(MBCKJournal *)selfCopy engine];
@@ -302,32 +302,33 @@ LABEL_11:
 
         if (v32 && [(MBCKJournal *)selfCopy _clearSnapshotActionsWithOperationTracker:v46 error:errorCopy])
         {
-          goto LABEL_45;
+          goto LABEL_46;
         }
 
         v36 = MBGetDefaultLog();
-        if (!os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
+        if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
         {
-          goto LABEL_44;
+          if (errorCopy)
+          {
+            v37 = *errorCopy;
+            *buf = 138412290;
+            v57 = v37;
+            _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_INFO, "Replaying journal - unable to complete reset: %@", buf, 0xCu);
+            v38 = *errorCopy;
+          }
+
+          else
+          {
+            *buf = 138412290;
+            v38 = @"unknown error";
+            v57 = @"unknown error";
+            _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_INFO, "Replaying journal - unable to complete reset: %@", buf, 0xCu);
+          }
+
+          _MBLog(@"I ", "Replaying journal - unable to complete reset: %@", v38);
         }
 
-        if (errorCopy)
-        {
-          v37 = *errorCopy;
-          *buf = 138412290;
-          v57 = v37;
-          _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_INFO, "Replaying journal - unable to complete reset: %@", buf, 0xCu);
-          v38 = *errorCopy;
-        }
-
-        else
-        {
-          *buf = 138412290;
-          v57 = @"unknown error";
-          _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_INFO, "Replaying journal - unable to complete reset: %@", buf, 0xCu);
-        }
-
-        goto LABEL_43;
+        goto LABEL_45;
       }
 
       if ([firstObject containsString:@"disable"])
@@ -337,7 +338,7 @@ LABEL_11:
         {
           *buf = 0;
           _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_INFO, "Replaying journal - journal contains server disable", buf, 2u);
-          _MBLog();
+          _MBLog(@"I ", "Replaying journal - journal contains server disable");
         }
 
         v40 = [v48 resetCacheWithAccount:v47 error:errorCopy];
@@ -349,39 +350,38 @@ LABEL_11:
         if (v40 && [(MBCKJournal *)selfCopy _clearSnapshotActionsWithOperationTracker:v46 error:errorCopy])
         {
           *disable = 1;
-LABEL_45:
+LABEL_46:
 
           v28 = 1;
-          goto LABEL_46;
+          goto LABEL_47;
         }
 
         v36 = MBGetDefaultLog();
-        if (!os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
+        if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
         {
-LABEL_44:
+          if (errorCopy)
+          {
+            v41 = *errorCopy;
+            *buf = 138412290;
+            v57 = v41;
+            _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_INFO, "Replaying journal - unable to complete disable: %@", buf, 0xCu);
+            v42 = *errorCopy;
+          }
 
-          goto LABEL_45;
+          else
+          {
+            *buf = 138412290;
+            v42 = @"unknown error";
+            v57 = @"unknown error";
+            _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_INFO, "Replaying journal - unable to complete disable: %@", buf, 0xCu);
+          }
+
+          _MBLog(@"I ", "Replaying journal - unable to complete disable: %@", v42);
         }
 
-        if (errorCopy)
-        {
-          v41 = *errorCopy;
-          *buf = 138412290;
-          v57 = v41;
-          _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_INFO, "Replaying journal - unable to complete disable: %@", buf, 0xCu);
-          v42 = *errorCopy;
-        }
+LABEL_45:
 
-        else
-        {
-          *buf = 138412290;
-          v57 = @"unknown error";
-          _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_INFO, "Replaying journal - unable to complete disable: %@", buf, 0xCu);
-        }
-
-LABEL_43:
-        _MBLog();
-        goto LABEL_44;
+        goto LABEL_46;
       }
     }
 
@@ -396,11 +396,11 @@ LABEL_43:
     break;
   }
 
-LABEL_46:
+LABEL_47:
 
   v14 = v47;
   v12 = v48;
-LABEL_47:
+LABEL_48:
 
   return v28;
 }
@@ -420,23 +420,23 @@ LABEL_47:
   {
     recordIDString = [device recordIDString];
     *buf = 138543362;
-    v78 = recordIDString;
+    v76 = recordIDString;
     _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Replaying journal for device: %{public}@", buf, 0xCu);
 
     recordIDString2 = [device recordIDString];
-    _MBLog();
+    _MBLog(@"Df", "Replaying journal for device: %{public}@", recordIDString2);
   }
 
-  if (([device hasFetchedSnapshots] & 1) == 0 && !objc_msgSend(device, "fetchSnapshotsWithOperationTracker:error:", v9, error) || !-[MBCKJournal fetchFromServerWithOperationTracker:error:](self, "fetchFromServerWithOperationTracker:error:", v9, error, recordIDString2))
+  if (([device hasFetchedSnapshots] & 1) == 0 && !objc_msgSend(device, "fetchSnapshotsWithOperationTracker:error:", v9, error) || !-[MBCKJournal fetchFromServerWithOperationTracker:error:](self, "fetchFromServerWithOperationTracker:error:", v9, error))
   {
-    LOBYTE(v21) = 0;
+    LOBYTE(v22) = 0;
     goto LABEL_62;
   }
 
   if (MBIsInternalInstall())
   {
-    v13 = +[MBBehaviorOptions sharedOptions];
-    cancelBackupDuringJournalReplay = [v13 cancelBackupDuringJournalReplay];
+    v14 = +[MBBehaviorOptions sharedOptions];
+    cancelBackupDuringJournalReplay = [v14 cancelBackupDuringJournalReplay];
 
     if (cancelBackupDuringJournalReplay)
     {
@@ -446,191 +446,189 @@ LABEL_47:
     }
   }
 
-  v17 = [(NSArray *)self->_snapshotActions count];
-  v18 = MBGetDefaultLog();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v18 = [(NSArray *)self->_snapshotActions count];
+  v19 = MBGetDefaultLog();
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     snapshotActions = self->_snapshotActions;
     *buf = 138543362;
-    v78 = snapshotActions;
-    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Journal actions: %{public}@", buf, 0xCu);
-    v52 = self->_snapshotActions;
-    _MBLog();
+    v76 = snapshotActions;
+    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Journal actions: %{public}@", buf, 0xCu);
+    _MBLog(@"Df", "Journal actions: %{public}@", self->_snapshotActions);
   }
 
   if (count)
   {
-    *count = v17;
+    *count = v18;
   }
 
-  if (!v17)
+  if (!v18)
   {
-    LOBYTE(v21) = 1;
+    LOBYTE(v22) = 1;
     goto LABEL_62;
   }
 
-  v73 = 0u;
-  v74 = 0u;
   v71 = 0u;
   v72 = 0u;
+  v69 = 0u;
+  v70 = 0u;
   obj = self->_snapshotActions;
-  v60 = [(NSArray *)obj countByEnumeratingWithState:&v71 objects:v76 count:16];
-  v20 = 0;
-  if (!v60)
+  v58 = [(NSArray *)obj countByEnumeratingWithState:&v69 objects:v74 count:16];
+  v21 = 0;
+  if (!v58)
   {
-    LOBYTE(v21) = 1;
+    LOBYTE(v22) = 1;
     goto LABEL_45;
   }
 
-  v59 = *v72;
-  v21 = 1;
+  v57 = *v70;
+  v22 = 1;
   errorCopy = error;
-  v56 = v9;
-  v54 = device;
+  v54 = v9;
+  v52 = device;
 LABEL_17:
-  v22 = 0;
+  v23 = 0;
   while (1)
   {
-    if (*v72 != v59)
+    if (*v70 != v57)
     {
       objc_enumerationMutation(obj);
     }
 
-    v61 = *(*(&v71 + 1) + 8 * v22);
-    v23 = objc_alloc_init(NSMutableDictionary);
+    v59 = *(*(&v69 + 1) + 8 * v23);
+    v24 = objc_alloc_init(NSMutableDictionary);
     cachedSnapshotsByID = self->_cachedSnapshotsByID;
-    self->_cachedSnapshotsByID = v23;
+    self->_cachedSnapshotsByID = v24;
 
-    v25 = objc_alloc_init(NSMutableDictionary);
+    v26 = objc_alloc_init(NSMutableDictionary);
     snapshotsByID = self->_snapshotsByID;
-    self->_snapshotsByID = v25;
+    self->_snapshotsByID = v26;
 
-    v27 = objc_opt_new();
+    v28 = objc_opt_new();
     cache = [(MBCKModel *)self cache];
-    v69[0] = _NSConcreteStackBlock;
-    v69[1] = 3221225472;
-    v69[2] = sub_100087BE0;
-    v69[3] = &unk_1003BC450;
-    v63 = v27;
-    v70 = v63;
-    v29 = [cache enumerateSnapshotIDs:v69];
+    v67[0] = _NSConcreteStackBlock;
+    v67[1] = 3221225472;
+    v67[2] = sub_100087BE0;
+    v67[3] = &unk_1003BC450;
+    v61 = v28;
+    v68 = v61;
+    v30 = [cache enumerateSnapshotIDs:v67];
 
-    if (v29)
+    if (v30)
     {
       if (error)
       {
-        v46 = v29;
-        *error = v29;
+        v47 = v30;
+        *error = v30;
       }
 
-      v47 = MBGetDefaultLog();
-      if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+      v48 = MBGetDefaultLog();
+      if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v78 = v29;
-        _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_ERROR, "Error enumerating snapshot IDs: %@", buf, 0xCu);
-        _MBLog();
+        v76 = v30;
+        _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_ERROR, "Error enumerating snapshot IDs: %@", buf, 0xCu);
+        _MBLog(@"E ", "Error enumerating snapshot IDs: %@", v30);
       }
 
-      LOBYTE(v21) = 0;
+      LOBYTE(v22) = 0;
       goto LABEL_59;
     }
 
-    objc_storeStrong(&self->_cachedSnapshotIDs, v27);
+    objc_storeStrong(&self->_cachedSnapshotIDs, v28);
     cache2 = [(MBCKModel *)self cache];
-    v68[0] = _NSConcreteStackBlock;
-    v68[1] = 3221225472;
-    v68[2] = sub_100087C04;
-    v68[3] = &unk_1003BCD40;
-    v68[4] = self;
-    v31 = [cache2 enumerateSnapshots:v68];
+    v66[0] = _NSConcreteStackBlock;
+    v66[1] = 3221225472;
+    v66[2] = sub_100087C04;
+    v66[3] = &unk_1003BCD40;
+    v66[4] = self;
+    v32 = [cache2 enumerateSnapshots:v66];
 
-    v62 = v31;
-    if (v31)
+    v60 = v32;
+    if (v32)
     {
       if (error)
       {
-        v32 = v31;
-        *error = v31;
+        v33 = v32;
+        *error = v32;
       }
 
-      v33 = MBGetDefaultLog();
-      v34 = v63;
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+      v34 = MBGetDefaultLog();
+      v35 = v61;
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v78 = v31;
-        _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_ERROR, "Error enumerating snapshots: %@", buf, 0xCu);
-        v52 = v31;
-        _MBLog();
+        v76 = v32;
+        _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_ERROR, "Error enumerating snapshots: %@", buf, 0xCu);
+        _MBLog(@"E ", "Error enumerating snapshots: %@", v32);
       }
 
-      v35 = 1;
+      v36 = 1;
     }
 
     else
     {
-      v57 = v21;
-      v66 = 0u;
-      v67 = 0u;
+      v55 = v22;
       v64 = 0u;
       v65 = 0u;
+      v62 = 0u;
+      v63 = 0u;
       WeakRetained = objc_loadWeakRetained(&self->_device);
       snapshots = [WeakRetained snapshots];
 
-      v38 = [snapshots countByEnumeratingWithState:&v64 objects:v75 count:16];
-      if (v38)
+      v39 = [snapshots countByEnumeratingWithState:&v62 objects:v73 count:16];
+      if (v39)
       {
-        v39 = v38;
-        v40 = *v65;
+        v40 = v39;
+        v41 = *v63;
         do
         {
-          for (i = 0; i != v39; i = i + 1)
+          for (i = 0; i != v40; i = i + 1)
           {
-            if (*v65 != v40)
+            if (*v63 != v41)
             {
               objc_enumerationMutation(snapshots);
             }
 
-            v42 = *(*(&v64 + 1) + 8 * i);
-            v43 = self->_snapshotsByID;
-            snapshotID = [v42 snapshotID];
-            [(NSMutableDictionary *)v43 setValue:v42 forKey:snapshotID];
+            v43 = *(*(&v62 + 1) + 8 * i);
+            v44 = self->_snapshotsByID;
+            snapshotID = [v43 snapshotID];
+            [(NSMutableDictionary *)v44 setValue:v43 forKey:snapshotID];
           }
 
-          v39 = [snapshots countByEnumeratingWithState:&v64 objects:v75 count:16];
+          v40 = [snapshots countByEnumeratingWithState:&v62 objects:v73 count:16];
         }
 
-        while (v39);
+        while (v40);
       }
 
       error = errorCopy;
-      v9 = v56;
-      v45 = [(MBCKJournal *)self _handleSnapshotAction:v61 operationTracker:v56 error:errorCopy];
-      v35 = v45 ? 0 : 10;
-      v21 = v45 & v57;
-      v34 = v63;
+      v9 = v54;
+      v46 = [(MBCKJournal *)self _handleSnapshotAction:v59 operationTracker:v54 error:errorCopy];
+      v36 = v46 ? 0 : 10;
+      v22 = v46 & v55;
+      v35 = v61;
     }
 
-    if (v35)
+    if (v36)
     {
       break;
     }
 
-    v22 = v22 + 1;
-    v20 = v62;
-    if (v22 == v60)
+    v23 = v23 + 1;
+    v21 = v60;
+    if (v23 == v58)
     {
-      device = v54;
-      v60 = [(NSArray *)obj countByEnumeratingWithState:&v71 objects:v76 count:16];
-      if (v60)
+      device = v52;
+      v58 = [(NSArray *)obj countByEnumeratingWithState:&v69 objects:v74 count:16];
+      if (v58)
       {
         goto LABEL_17;
       }
 
 LABEL_45:
 
-      v29 = v20;
+      v30 = v21;
       if (error)
       {
         goto LABEL_54;
@@ -640,17 +638,17 @@ LABEL_45:
     }
   }
 
-  if (v35 != 10)
+  if (v36 != 10)
   {
-    LOBYTE(v21) = 0;
-    v29 = v62;
+    LOBYTE(v22) = 0;
+    v30 = v60;
 LABEL_59:
-    device = v54;
+    device = v52;
     goto LABEL_61;
   }
 
-  v29 = v62;
-  device = v54;
+  v30 = v60;
+  device = v52;
   if (!error)
   {
     goto LABEL_61;
@@ -659,15 +657,14 @@ LABEL_59:
 LABEL_54:
   if (*error)
   {
-    v48 = MBGetDefaultLog();
-    if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+    v49 = MBGetDefaultLog();
+    if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
     {
-      v49 = *error;
+      v50 = *error;
       *buf = 138412290;
-      v78 = v49;
-      _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_ERROR, "Not marking journal action as processed %@", buf, 0xCu);
-      v53 = *error;
-      _MBLog();
+      v76 = v50;
+      _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_ERROR, "Not marking journal action as processed %@", buf, 0xCu);
+      _MBLog(@"E ", "Not marking journal action as processed %@", *error);
     }
   }
 
@@ -679,7 +676,7 @@ LABEL_54:
 LABEL_61:
 
 LABEL_62:
-  return v21 & 1;
+  return v22 & 1;
 }
 
 - (BOOL)_handleMergeAction:(id)action outputSnapshotID:(id)d serverSnapshot:(id)snapshot shouldMergeDeletions:(BOOL)deletions operationTracker:(id)tracker error:(id *)error
@@ -717,8 +714,7 @@ LABEL_62:
         _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "Client side merge only supports two snapshots. (%lu specified %@)", buf, 0x16u);
       }
 
-      [actionCopy count];
-      _MBLog();
+      _MBLog(@"E ", "Client side merge only supports two snapshots. (%lu specified %@)", [actionCopy count], actionCopy);
     }
 
     goto LABEL_15;
@@ -731,7 +727,7 @@ LABEL_62:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "Merge output snapshotID not specified.", buf, 2u);
-      _MBLog();
+      _MBLog(@"E ", "Merge output snapshotID not specified.");
     }
 
 LABEL_15:
@@ -774,12 +770,12 @@ LABEL_22:
       v44 = dCopy;
       deletionsCopy = deletions;
       v45 = snapshotCopy;
-      v33 = [cache performInTransaction:v40];
+      v34 = [cache performInTransaction:v40];
 
-      v27 = v33 == 0;
-      if (v33 && !v50[5])
+      v27 = v34 == 0;
+      if (v34 && !v50[5])
       {
-        objc_storeStrong(v50 + 5, v33);
+        objc_storeStrong(v50 + 5, v34);
       }
 
 LABEL_26:
@@ -816,7 +812,7 @@ LABEL_26:
 
       firstObject3 = [actionCopy firstObject];
       lastObject3 = [actionCopy lastObject];
-      _MBLog();
+      _MBLog(@"E ", "Input snapshots do not exist: %@ %@", firstObject3, lastObject3);
 
       v27 = 0;
       goto LABEL_26;
@@ -854,28 +850,26 @@ LABEL_28:
   if (!domainCopy)
   {
     device = MBGetDefaultLog();
-    if (!os_log_type_enabled(device, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(device, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_12;
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, device, OS_LOG_TYPE_ERROR, "Input removeDomain snapshot does not exist.", buf, 2u);
+      _MBLog(@"E ", "Input removeDomain snapshot does not exist.", hmacsCopy);
     }
 
-    *buf = 0;
-    _os_log_impl(&_mh_execute_header, device, OS_LOG_TYPE_ERROR, "Input removeDomain snapshot does not exist.", buf, 2u);
-LABEL_11:
-    _MBLog();
-    goto LABEL_12;
+    goto LABEL_11;
   }
 
   if (!dCopy)
   {
     device = MBGetDefaultLog();
-    if (!os_log_type_enabled(device, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(device, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_12;
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, device, OS_LOG_TYPE_ERROR, "Merge output snapshotID not specified.", buf, 2u);
+      _MBLog(@"E ", "Merge output snapshotID not specified.", hmacsCopy);
     }
 
-    *buf = 0;
-    _os_log_impl(&_mh_execute_header, device, OS_LOG_TYPE_ERROR, "Merge output snapshotID not specified.", buf, 2u);
     goto LABEL_11;
   }
 
@@ -887,18 +881,18 @@ LABEL_11:
     created = [domainCopy created];
     [v20 setCreated:created];
 
-    goto LABEL_14;
+    goto LABEL_13;
   }
 
   if (![snapshotCopy fetchManifestsWithOperationTracker:v18 error:{error, hmacsCopy}])
   {
-LABEL_12:
+LABEL_11:
     v21 = 0;
-    goto LABEL_20;
+    goto LABEL_19;
   }
 
   v20 = snapshotCopy;
-LABEL_14:
+LABEL_13:
   *buf = 0;
   v36 = buf;
   v37 = 0x3032000000;
@@ -936,7 +930,7 @@ LABEL_14:
   }
 
   _Block_object_dispose(buf, 8);
-LABEL_20:
+LABEL_19:
 
   return v21;
 }
@@ -955,10 +949,9 @@ LABEL_20:
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v32 = v10;
+    v31 = v10;
     _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Journal snapshot action: %{public}@", buf, 0xCu);
-    v26 = v10;
-    _MBLog();
+    _MBLog(@"Df", "Journal snapshot action: %{public}@", v10);
   }
 
   if (firstObject && lastObject)
@@ -976,57 +969,57 @@ LABEL_20:
         {
           snapshotID2 = [v14 snapshotID];
           *buf = 138543618;
-          v32 = snapshotID2;
-          v33 = 2114;
-          v34 = firstObject;
+          v31 = snapshotID2;
+          v32 = 2114;
+          v33 = firstObject;
           _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Output snapshot already exists: %{public}@ skipping %{public}@ request", buf, 0x16u);
 
           snapshotID3 = [v14 snapshotID];
-          _MBLog();
+          _MBLog(@"Df", "Output snapshot already exists: %{public}@ skipping %{public}@ request", snapshotID3, firstObject);
         }
 
-        v20 = 1;
-        goto LABEL_17;
+        v21 = 1;
+        goto LABEL_16;
       }
     }
 
-    if (([firstObject isEqualToString:{@"merge", v26}] & 1) != 0 || objc_msgSend(firstObject, "isEqualToString:", @"mergeBase"))
+    if (([firstObject isEqualToString:@"merge"] & 1) != 0 || objc_msgSend(firstObject, "isEqualToString:", @"mergeBase"))
     {
       v18 = [v11 objectAtIndexedSubscript:1];
-      v21 = [v18 componentsSeparatedByString:@", "];
-      v20 = -[MBCKJournal _handleMergeAction:outputSnapshotID:serverSnapshot:shouldMergeDeletions:operationTracker:error:](self, "_handleMergeAction:outputSnapshotID:serverSnapshot:shouldMergeDeletions:operationTracker:error:", v21, lastObject, v14, [firstObject isEqualToString:@"merge"], trackerCopy, error);
+      v22 = [v18 componentsSeparatedByString:@", "];
+      v21 = -[MBCKJournal _handleMergeAction:outputSnapshotID:serverSnapshot:shouldMergeDeletions:operationTracker:error:](self, "_handleMergeAction:outputSnapshotID:serverSnapshot:shouldMergeDeletions:operationTracker:error:", v22, lastObject, v14, [firstObject isEqualToString:@"merge"], trackerCopy, error);
 
-      goto LABEL_17;
+      goto LABEL_16;
     }
 
     if ([firstObject isEqualToString:@"removeDomain"])
     {
       v18 = [v11 objectAtIndexedSubscript:1];
-      v23 = [v18 componentsSeparatedByString:@", "];
+      v24 = [v18 componentsSeparatedByString:@", "];
       cachedSnapshotsByID = self->_cachedSnapshotsByID;
-      v30 = v23;
-      firstObject2 = [v23 firstObject];
-      v29 = [(NSMutableDictionary *)cachedSnapshotsByID valueForKey:firstObject2];
+      v29 = v24;
+      firstObject2 = [v24 firstObject];
+      v28 = [(NSMutableDictionary *)cachedSnapshotsByID valueForKey:firstObject2];
 
-      v25 = [v30 subarrayWithRange:{1, objc_msgSend(v30, "count") - 1}];
-      v20 = [(MBCKJournal *)self _handleRemoveDomain:v29 domainHmacs:v25 outputSnapshotID:lastObject serverSnapshot:v14 operationTracker:trackerCopy error:error];
+      v26 = [v29 subarrayWithRange:{1, objc_msgSend(v29, "count") - 1}];
+      v21 = [(MBCKJournal *)self _handleRemoveDomain:v28 domainHmacs:v26 outputSnapshotID:lastObject serverSnapshot:v14 operationTracker:trackerCopy error:error];
 
-      goto LABEL_17;
+      goto LABEL_16;
     }
 
     if ([firstObject isEqualToString:@"repair"])
     {
-      v20 = 0;
-      goto LABEL_18;
+      v21 = 0;
+      goto LABEL_17;
     }
 
     v18 = MBGetDefaultLog();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v32 = v10;
+      v31 = v10;
       _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "Unrecognized journal entry: %@", buf, 0xCu);
-      goto LABEL_12;
+      _MBLog(@"E ", "Unrecognized journal entry: %@", v10);
     }
   }
 
@@ -1036,18 +1029,17 @@ LABEL_20:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v32 = v10;
+      v31 = v10;
       _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "No action or outputSnapshot specified: %{public}@", buf, 0xCu);
-LABEL_12:
-      _MBLog();
+      _MBLog(@"E ", "No action or outputSnapshot specified: %{public}@", v10);
     }
   }
 
-  v20 = 0;
-LABEL_17:
+  v21 = 0;
+LABEL_16:
 
-LABEL_18:
-  return v20;
+LABEL_17:
+  return v21;
 }
 
 - (MBCKDevice)device

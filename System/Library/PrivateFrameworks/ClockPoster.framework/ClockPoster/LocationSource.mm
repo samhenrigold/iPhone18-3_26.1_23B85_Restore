@@ -11,11 +11,11 @@
 - (NSString)description
 {
   selfCopy = self;
-  sub_1E497F61C();
+  sub_1E497F61C(v3);
 
-  v3 = sub_1E4997EAC();
+  v4 = sub_1E4997EAC();
 
-  return v3;
+  return v4;
 }
 
 - (_TtC11ClockPosterP33_80B341479428838F1831E32E38C9D6BF14LocationSource)init

@@ -53,44 +53,44 @@
 
 - (void)_initWithIdentifier:(char)identifier hiddenAtLaunch:(char)launch derived:(void *)derived options:
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v9 = a2;
   derivedCopy = derived;
   if (self)
   {
     if (!v9)
     {
-      v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"identifier != ((void *)0)"];
+      v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"identifier != ((void *)0)"];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v19 = NSStringFromSelector(sel__initWithIdentifier_hiddenAtLaunch_derived_options_);
-        v20 = objc_opt_class();
-        v21 = NSStringFromClass(v20);
+        v18 = NSStringFromSelector(sel__initWithIdentifier_hiddenAtLaunch_derived_options_);
+        v19 = objc_opt_class();
+        v20 = NSStringFromClass(v19);
         *buf = 138544642;
-        v25 = v19;
-        v26 = 2114;
-        v27 = v21;
-        v28 = 2048;
+        v24 = v18;
+        v25 = 2114;
+        v26 = v20;
+        v27 = 2048;
         selfCopy = self;
-        v30 = 2114;
-        v31 = @"BSServiceSpecification.m";
-        v32 = 1024;
-        v33 = 39;
-        v34 = 2114;
-        v35 = v18;
+        v29 = 2114;
+        v30 = @"BSServiceSpecification.m";
+        v31 = 1024;
+        v32 = 39;
+        v33 = 2114;
+        v34 = v17;
         _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      v22 = v18;
-      [v18 UTF8String];
+      v21 = v17;
+      [v17 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x19A87B768);
     }
 
-    v23.receiver = self;
-    v23.super_class = BSServiceSpecification;
-    v11 = objc_msgSendSuper2(&v23, sel_init);
+    v22.receiver = self;
+    v22.super_class = BSServiceSpecification;
+    v11 = objc_msgSendSuper2(&v22, sel_init);
     if (v11)
     {
       v12 = [v9 copy];
@@ -110,7 +110,6 @@
     v11 = 0;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -147,26 +146,24 @@
   equalCopy = equal;
   if (self == equalCopy)
   {
-    v10 = 1;
+    v6 = 1;
   }
 
   else
   {
     v5 = objc_opt_class();
-    if (v5 == objc_opt_class() && (identifier = self->_identifier, v7 = equalCopy->_identifier, BSEqualStrings()) && self->_hiddenAtLaunch == equalCopy->_hiddenAtLaunch && self->_derived == equalCopy->_derived)
+    if (v5 == objc_opt_class() && BSEqualStrings() && self->_hiddenAtLaunch == equalCopy->_hiddenAtLaunch && self->_derived == equalCopy->_derived)
     {
-      options = self->_options;
-      v9 = equalCopy->_options;
-      v10 = BSEqualObjects();
+      v6 = BSEqualObjects();
     }
 
     else
     {
-      v10 = 0;
+      v6 = 0;
     }
   }
 
-  return v10;
+  return v6;
 }
 
 - (id)succinctDescription

@@ -108,64 +108,64 @@
 
 - (id)codableCompetition
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(ASCodableCloudKitCompetition);
   uUID = [(ASCompetition *)self UUID];
   hk_dataForUUIDBytes = [uUID hk_dataForUUIDBytes];
   [(ASCodableCloudKitCompetition *)v3 setUuid:hk_dataForUUIDBytes];
 
   [(ASCodableCloudKitCompetition *)v3 setCurrentCacheIndex:[(ASCompetition *)self currentCacheIndex]];
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   scores = [(ASCompetition *)self scores];
-  v7 = [scores countByEnumeratingWithState:&v35 objects:v41 count:16];
+  v7 = [scores countByEnumeratingWithState:&v34 objects:v40 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v36;
+    v9 = *v35;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v36 != v9)
+        if (*v35 != v9)
         {
           objc_enumerationMutation(scores);
         }
 
-        -[ASCodableCloudKitCompetition addScores:](v3, "addScores:", [*(*(&v35 + 1) + 8 * i) integerValue]);
+        -[ASCodableCloudKitCompetition addScores:](v3, "addScores:", [*(*(&v34 + 1) + 8 * i) integerValue]);
       }
 
-      v8 = [scores countByEnumeratingWithState:&v35 objects:v41 count:16];
+      v8 = [scores countByEnumeratingWithState:&v34 objects:v40 count:16];
     }
 
     while (v8);
   }
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   opponentScores = [(ASCompetition *)self opponentScores];
-  v12 = [opponentScores countByEnumeratingWithState:&v31 objects:v40 count:16];
+  v12 = [opponentScores countByEnumeratingWithState:&v30 objects:v39 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v32;
+    v14 = *v31;
     do
     {
       for (j = 0; j != v13; ++j)
       {
-        if (*v32 != v14)
+        if (*v31 != v14)
         {
           objc_enumerationMutation(opponentScores);
         }
 
-        -[ASCodableCloudKitCompetition addOpponentScores:](v3, "addOpponentScores:", [*(*(&v31 + 1) + 8 * j) integerValue]);
+        -[ASCodableCloudKitCompetition addOpponentScores:](v3, "addOpponentScores:", [*(*(&v30 + 1) + 8 * j) integerValue]);
       }
 
-      v13 = [opponentScores countByEnumeratingWithState:&v31 objects:v40 count:16];
+      v13 = [opponentScores countByEnumeratingWithState:&v30 objects:v39 count:16];
     }
 
     while (v13);
@@ -179,36 +179,35 @@
   as_codableDateComponents2 = [durationDateComponents as_codableDateComponents];
   [(ASCodableCloudKitCompetition *)v3 setDurationDateComponents:as_codableDateComponents2];
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   preferredVictoryBadgeStyles = [(ASCompetition *)self preferredVictoryBadgeStyles];
-  v21 = [preferredVictoryBadgeStyles countByEnumeratingWithState:&v27 objects:v39 count:16];
+  v21 = [preferredVictoryBadgeStyles countByEnumeratingWithState:&v26 objects:v38 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v28;
+    v23 = *v27;
     do
     {
       for (k = 0; k != v22; ++k)
       {
-        if (*v28 != v23)
+        if (*v27 != v23)
         {
           objc_enumerationMutation(preferredVictoryBadgeStyles);
         }
 
-        -[ASCodableCloudKitCompetition addPreferredVictoryBadgeStyles:](v3, "addPreferredVictoryBadgeStyles:", [*(*(&v27 + 1) + 8 * k) unsignedIntValue]);
+        -[ASCodableCloudKitCompetition addPreferredVictoryBadgeStyles:](v3, "addPreferredVictoryBadgeStyles:", [*(*(&v26 + 1) + 8 * k) unsignedIntValue]);
       }
 
-      v22 = [preferredVictoryBadgeStyles countByEnumeratingWithState:&v27 objects:v39 count:16];
+      v22 = [preferredVictoryBadgeStyles countByEnumeratingWithState:&v26 objects:v38 count:16];
     }
 
     while (v22);
   }
 
   [(ASCodableCloudKitCompetition *)v3 setMaximumNumberOfPointsPerDay:[(ASCompetition *)self maximumNumberOfPointsPerDay]];
-  v25 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -446,9 +445,9 @@
 
 - (unint64_t)dailyScoreForParticipant:(int64_t)participant onDate:(id)date
 {
-  ASCacheIndexForLocalDate(date);
+  v6 = ASCacheIndexForLocalDate(date);
 
-  return ASCompetitionDailyScoreForParticipantWithCacheIndex(self, participant);
+  return ASCompetitionDailyScoreForParticipantWithCacheIndex(self, participant, v6);
 }
 
 - (id)daysWonByParticipant:(int64_t)participant
@@ -641,19 +640,19 @@
 
 + (id)codableDatabaseCompetitionsFromCompetitions:(id)competitions withFriendWithUUID:(id)d withType:(int64_t)type
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   competitionsCopy = competitions;
   dCopy = d;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   obj = competitionsCopy;
-  v9 = [competitionsCopy countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v9 = [competitionsCopy countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v23;
+    v11 = *v22;
     v12 = MEMORY[0x277CBEBF8];
     do
     {
@@ -661,12 +660,12 @@
       v14 = v12;
       do
       {
-        if (*v23 != v11)
+        if (*v22 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v22 + 1) + 8 * v13);
+        v15 = *(*(&v21 + 1) + 8 * v13);
         v16 = objc_alloc_init(ASCodableDatabaseCompetition);
         hk_dataForUUIDBytes = [dCopy hk_dataForUUIDBytes];
         [(ASCodableDatabaseCompetition *)v16 setFriendUUID:hk_dataForUUIDBytes];
@@ -682,7 +681,7 @@
       }
 
       while (v10 != v13);
-      v10 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v10 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v10);
@@ -692,8 +691,6 @@
   {
     v12 = MEMORY[0x277CBEBF8];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

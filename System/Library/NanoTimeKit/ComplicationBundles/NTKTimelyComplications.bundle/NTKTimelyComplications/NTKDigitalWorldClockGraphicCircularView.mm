@@ -82,7 +82,7 @@
   v24 = ceilf(*&v23);
 
   [cityLabel setFrame:{v15, v24, v11, v21}];
-  [(NTKDigitalWorldClockGraphicCircularView *)self layoutConstants:0];
+  objc_msgSend_layoutConstants(self, 0, 0, 0, 0, 0, 0);
   v35.origin.x = 0.0;
   v35.origin.y = 0.0;
   v35.size.width = Width;
@@ -117,7 +117,7 @@
     v9 = objc_opt_class();
     if (v9)
     {
-      [v9 _layoutConstantsForDevice:deviceCopy];
+      objc_msgSend__layoutConstantsForDevice_(v9);
     }
 
     else

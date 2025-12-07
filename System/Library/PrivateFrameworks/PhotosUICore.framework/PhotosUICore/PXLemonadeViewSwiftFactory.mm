@@ -7,7 +7,7 @@
 
 + (id)sharedLibraryBannerViewForConfiguration:(id)configuration delegate:(id)delegate
 {
-  v6 = type metadata accessor for SharedLibraryBannerView();
+  v6 = type metadata accessor for SharedLibraryBannerView(0);
   v7 = v6 - 8;
   MEMORY[0x1EEE9AC00](v6);
   v9 = &v19 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -21,7 +21,7 @@
   swift_unknownObjectRelease();
   *(v12 + v14) = delegate;
   sub_1A4840AB4(v12, v9);
-  sub_1A4840B18();
+  sub_1A4840B18(0);
   v16 = objc_allocWithZone(v15);
   v17 = sub_1A52485F4();
 

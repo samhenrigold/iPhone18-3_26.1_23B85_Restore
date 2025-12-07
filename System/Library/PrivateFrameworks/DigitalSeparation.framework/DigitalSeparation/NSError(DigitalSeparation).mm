@@ -10,7 +10,7 @@
 
 + (id)ds_errorFromIgnorableError:()DigitalSeparation sourceName:
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (v5)
   {
@@ -25,9 +25,9 @@
       v7 = DSLogNSError_log;
       if (os_log_type_enabled(DSLogNSError_log, OS_LOG_TYPE_INFO))
       {
-        v11 = 138543362;
-        v12 = v5;
-        _os_log_impl(&dword_248C40000, v7, OS_LOG_TYPE_INFO, "Ignoring returned error %{public}@", &v11, 0xCu);
+        v10 = 138543362;
+        v11 = v5;
+        _os_log_impl(&dword_248C40000, v7, OS_LOG_TYPE_INFO, "Ignoring returned error %{public}@", &v10, 0xCu);
       }
 
       v8 = 0;
@@ -44,14 +44,12 @@
     v8 = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 - (id)ds_underlyingErrorsBySource
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   userInfo = [self userInfo];
   v4 = [userInfo objectForKeyedSubscript:@"DSErrorKeySourceName"];
@@ -61,28 +59,28 @@
     [dictionary setObject:self forKeyedSubscript:v4];
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   underlyingErrors = [self underlyingErrors];
-  v6 = [underlyingErrors countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [underlyingErrors countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       v9 = 0;
       v10 = v4;
       do
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(underlyingErrors);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * v9);
+        v11 = *(*(&v15 + 1) + 8 * v9);
         userInfo2 = [v11 userInfo];
         v4 = [userInfo2 objectForKeyedSubscript:@"DSErrorKeySourceName"];
 
@@ -96,7 +94,7 @@
       }
 
       while (v7 != v9);
-      v7 = [underlyingErrors countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [underlyingErrors countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
@@ -104,40 +102,38 @@
 
   v13 = [MEMORY[0x277CBEAC0] dictionaryWithDictionary:dictionary];
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
 - (id)ds_sourcesByPresentableError
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
   underlyingErrors = [self underlyingErrors];
-  v4 = [underlyingErrors countByEnumeratingWithState:&v40 objects:v45 count:16];
+  v4 = [underlyingErrors countByEnumeratingWithState:&v39 objects:v44 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v41;
-    v31 = *MEMORY[0x277CCA578];
-    v32 = *v41;
-    v33 = underlyingErrors;
+    v6 = *v40;
+    v30 = *MEMORY[0x277CCA578];
+    v31 = *v40;
+    v32 = underlyingErrors;
     do
     {
       v7 = 0;
-      v34 = v5;
+      v33 = v5;
       do
       {
-        if (*v41 != v6)
+        if (*v40 != v6)
         {
           objc_enumerationMutation(underlyingErrors);
         }
 
-        v8 = *(*(&v40 + 1) + 8 * v7);
+        v8 = *(*(&v39 + 1) + 8 * v7);
         userInfo = [v8 userInfo];
         v10 = [userInfo objectForKeyedSubscript:@"DSErrorKeySourceName"];
 
@@ -170,30 +166,30 @@ LABEL_27:
 
           if ([v8 code] == 1 || objc_msgSend(v8, "code") == 2)
           {
-            v35 = v7;
+            v34 = v7;
             userInfo2 = [v8 userInfo];
-            v16 = [userInfo2 objectForKeyedSubscript:v31];
+            v16 = [userInfo2 objectForKeyedSubscript:v30];
 
-            v38 = 0u;
-            v39 = 0u;
-            v36 = 0u;
             v37 = 0u;
+            v38 = 0u;
+            v35 = 0u;
+            v36 = 0u;
             v17 = v16;
-            v18 = [v17 countByEnumeratingWithState:&v36 objects:v44 count:16];
+            v18 = [v17 countByEnumeratingWithState:&v35 objects:v43 count:16];
             if (v18)
             {
               v19 = v18;
-              v20 = *v37;
+              v20 = *v36;
               do
               {
                 for (i = 0; i != v19; ++i)
                 {
-                  if (*v37 != v20)
+                  if (*v36 != v20)
                   {
                     objc_enumerationMutation(v17);
                   }
 
-                  v22 = *(*(&v36 + 1) + 8 * i);
+                  v22 = *(*(&v35 + 1) + 8 * i);
                   domain = [v22 domain];
                   v24 = [domain isEqualToString:@"com.apple.DigitalSeparation.DSSourceErrorDomain"];
 
@@ -218,16 +214,16 @@ LABEL_27:
                   }
                 }
 
-                v19 = [v17 countByEnumeratingWithState:&v36 objects:v44 count:16];
+                v19 = [v17 countByEnumeratingWithState:&v35 objects:v43 count:16];
               }
 
               while (v19);
             }
 
-            v6 = v32;
-            underlyingErrors = v33;
-            v5 = v34;
-            v7 = v35;
+            v6 = v31;
+            underlyingErrors = v32;
+            v5 = v33;
+            v7 = v34;
             goto LABEL_27;
           }
         }
@@ -238,28 +234,65 @@ LABEL_28:
       }
 
       while (v7 != v5);
-      v5 = [underlyingErrors countByEnumeratingWithState:&v40 objects:v45 count:16];
+      v5 = [underlyingErrors countByEnumeratingWithState:&v39 objects:v44 count:16];
     }
 
     while (v5);
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
 
 - (id)ds_localizedAppNames
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   ds_underlyingErrorsBySource = [self ds_underlyingErrorsBySource];
   array = [MEMORY[0x277CBEB18] array];
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v3 = ds_underlyingErrorsBySource;
+  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v4)
+  {
+    v5 = v4;
+    v6 = *v13;
+    do
+    {
+      for (i = 0; i != v5; ++i)
+      {
+        if (*v13 != v6)
+        {
+          objc_enumerationMutation(v3);
+        }
+
+        v8 = [DSSourceDescriptor sourceDescriptorForSource:*(*(&v12 + 1) + 8 * i), v12];
+        localizedAppName = [v8 localizedAppName];
+        [array addObject:localizedAppName];
+      }
+
+      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    }
+
+    while (v5);
+  }
+
+  v10 = [MEMORY[0x277CBEA60] arrayWithArray:array];
+
+  return v10;
+}
+
+- (id)ds_localizedPermissionNames
+{
+  v18 = *MEMORY[0x277D85DE8];
+  v2 = [MEMORY[0x277CBEB58] set];
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v3 = ds_underlyingErrorsBySource;
-  v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  underlyingErrors = [self underlyingErrors];
+  v4 = [underlyingErrors countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
@@ -270,51 +303,10 @@ LABEL_28:
       {
         if (*v14 != v6)
         {
-          objc_enumerationMutation(v3);
-        }
-
-        v8 = [DSSourceDescriptor sourceDescriptorForSource:*(*(&v13 + 1) + 8 * i), v13];
-        localizedAppName = [v8 localizedAppName];
-        [array addObject:localizedAppName];
-      }
-
-      v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
-    }
-
-    while (v5);
-  }
-
-  v10 = [MEMORY[0x277CBEA60] arrayWithArray:array];
-
-  v11 = *MEMORY[0x277D85DE8];
-
-  return v10;
-}
-
-- (id)ds_localizedPermissionNames
-{
-  v19 = *MEMORY[0x277D85DE8];
-  v2 = [MEMORY[0x277CBEB58] set];
-  v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v17 = 0u;
-  underlyingErrors = [self underlyingErrors];
-  v4 = [underlyingErrors countByEnumeratingWithState:&v14 objects:v18 count:16];
-  if (v4)
-  {
-    v5 = v4;
-    v6 = *v15;
-    do
-    {
-      for (i = 0; i != v5; ++i)
-      {
-        if (*v15 != v6)
-        {
           objc_enumerationMutation(underlyingErrors);
         }
 
-        userInfo = [*(*(&v14 + 1) + 8 * i) userInfo];
+        userInfo = [*(*(&v13 + 1) + 8 * i) userInfo];
         v9 = [userInfo objectForKeyedSubscript:@"DSErrorKeyServiceName"];
 
         if (v9)
@@ -325,13 +317,11 @@ LABEL_28:
         }
       }
 
-      v5 = [underlyingErrors countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [underlyingErrors countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v5);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v2;
 }

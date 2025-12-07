@@ -5,7 +5,7 @@
 
 void ___MREnqueueAndHandlePlaybackQueueRequest_block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = +[MRUserSettings currentSettings];
@@ -28,19 +28,17 @@ void ___MREnqueueAndHandlePlaybackQueueRequest_block_invoke(uint64_t a1, void *a
       v11 = [*(a1 + 32) requestIdentifier];
       v12 = [MEMORY[0x1E695DF00] date];
       [v12 timeIntervalSinceDate:*(a1 + 40)];
-      v15 = 138543874;
-      v16 = @"MREnqueueAndHandlePlaybackQueueRequest";
-      v17 = 2114;
-      v18 = v11;
-      v19 = 2048;
-      v20 = v13;
-      _os_log_impl(&dword_1A2860000, v10, OS_LOG_TYPE_DEFAULT, "Response: %{public}@<%{public}@> returned in %.4lf seconds", &v15, 0x20u);
+      v14 = 138543874;
+      v15 = @"MREnqueueAndHandlePlaybackQueueRequest";
+      v16 = 2114;
+      v17 = v11;
+      v18 = 2048;
+      v19 = v13;
+      _os_log_impl(&dword_1A2860000, v10, OS_LOG_TYPE_DEFAULT, "Response: %{public}@<%{public}@> returned in %.4lf seconds", &v14, 0x20u);
     }
   }
 
   (*(*(a1 + 48) + 16))();
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void ___MREnqueueAndHandlePlaybackQueueRequest_block_invoke_108(uint64_t a1)
@@ -108,67 +106,61 @@ void ___MREnqueueAndHandlePlaybackQueueRequest_block_invoke_4(uint64_t a1, void 
 
 id ___MREnqueueAndHandlePlaybackQueueRequest_block_invoke_5(uint64_t a1)
 {
-  v20[6] = *MEMORY[0x1E69E9840];
+  v19[6] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc(MEMORY[0x1E695DF90]);
-  v19[0] = @"waitDuration";
+  v18[0] = @"waitDuration";
   v3 = MEMORY[0x1E696AD98];
   [*(a1 + 32) waitDuration];
   v4 = [v3 numberWithDouble:?];
-  v20[0] = v4;
-  v19[1] = @"executionDuration";
+  v19[0] = v4;
+  v18[1] = @"executionDuration";
   v5 = MEMORY[0x1E696AD98];
   [*(a1 + 32) executionDuration];
   v6 = [v5 numberWithDouble:?];
-  v20[1] = v6;
-  v19[2] = @"totalDuration";
+  v19[1] = v6;
+  v18[2] = @"totalDuration";
   v7 = MEMORY[0x1E696AD98];
   [*(a1 + 32) totalDuration];
   v8 = [v7 numberWithDouble:?];
-  v20[2] = v8;
-  v19[3] = @"bundleID";
+  v19[2] = v8;
+  v18[3] = @"bundleID";
   v9 = MEMORY[0x1E696AD98];
   v10 = [MEMORY[0x1E696AAE8] mainBundle];
   v11 = [v10 bundleIdentifier];
   v12 = [v9 numberWithInt:MRAnalyticsAppBundleIDStringToInt(v11)];
-  v20[3] = v12;
-  v19[4] = @"pendingOperationCount";
+  v19[3] = v12;
+  v18[4] = @"pendingOperationCount";
   v13 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(*(a1 + 40), "operationCount")}];
-  v20[4] = v13;
-  v19[5] = @"maxConcurrentOperationCount";
+  v19[4] = v13;
+  v18[5] = @"maxConcurrentOperationCount";
   v14 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(*(a1 + 40), "maxConcurrentOperationCount")}];
-  v20[5] = v14;
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:6];
+  v19[5] = v14;
+  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:6];
   v16 = [v2 initWithDictionary:v15];
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
 
 void ___MREnqueueAndHandlePlaybackQueueRequest_block_invoke_cold_1(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) requestIdentifier];
   v3 = [MEMORY[0x1E695DF00] date];
   [v3 timeIntervalSinceDate:*(a1 + 40)];
   OUTLINED_FUNCTION_2_14();
   OUTLINED_FUNCTION_4_11();
   _os_log_error_impl(v4, v5, OS_LOG_TYPE_ERROR, v6, v7, 0x2Au);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void ___MREnqueueAndHandlePlaybackQueueRequest_block_invoke_108_cold_1(uint64_t a1, NSObject *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
   v2 = *(a1 + 40);
-  v5 = 134218242;
-  v6 = v2;
-  v7 = 2112;
-  v8 = v3;
-  _os_log_error_impl(&dword_1A2860000, a2, OS_LOG_TYPE_ERROR, "It has been more than <%lf> seconds since playbackQueueRequest=%@ was called and still waiting for operation to begin", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 134218242;
+  v5 = v2;
+  v6 = 2112;
+  v7 = v3;
+  _os_log_error_impl(&dword_1A2860000, a2, OS_LOG_TYPE_ERROR, "It has been more than <%lf> seconds since playbackQueueRequest=%@ was called and still waiting for operation to begin", &v4, 0x16u);
 }
 
 @end

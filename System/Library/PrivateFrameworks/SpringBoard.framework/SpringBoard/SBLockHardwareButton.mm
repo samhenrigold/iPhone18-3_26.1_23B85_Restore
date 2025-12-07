@@ -202,14 +202,14 @@
 
 - (void)_reconfigureButtonGestureRecognizers
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v3 = SBLogButtonsLock();
+  v16 = *MEMORY[0x277D85DE8];
+  v3 = SBLogButtonsLock(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     buttonGestureParameters = self->_buttonGestureParameters;
-    v13 = 138543362;
-    v14 = buttonGestureParameters;
-    _os_log_impl(&dword_21ED4E000, v3, OS_LOG_TYPE_DEFAULT, "reconfigured lock button: %{public}@", &v13, 0xCu);
+    v14 = 138543362;
+    v15 = buttonGestureParameters;
+    _os_log_impl(&dword_21ED4E000, v3, OS_LOG_TYPE_DEFAULT, "reconfigured lock button: %{public}@", &v14, 0xCu);
   }
 
   longPressGestureRecognizer = self->_longPressGestureRecognizer;
@@ -227,7 +227,7 @@
     v9 = maximumPressCount > 2;
     [(SBClickGestureRecognizer *)self->_doublePressGestureRecognizer setEnabled:maximumPressCount > 1];
     [(SBClickGestureRecognizer *)self->_triplePressGestureRecognizer setEnabled:v9];
-    [(SBClickGestureRecognizer *)self->_quadruplePressGestureRecognizer setEnabled:v9];
+    v10 = [(SBClickGestureRecognizer *)self->_quadruplePressGestureRecognizer setEnabled:v9];
     if (v8 < 3)
     {
       [(SBClickGestureRecognizer *)self->_doublePressGestureRecognizer removeFailureRequirement:self->_triplePressGestureRecognizer];
@@ -235,11 +235,11 @@
 
     else
     {
-      v10 = SBLogButtonsLock();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = SBLogButtonsLock(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v13) = 0;
-        _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "triple-click enabled", &v13, 2u);
+        LOWORD(v14) = 0;
+        _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_DEFAULT, "triple-click enabled", &v14, 2u);
       }
 
       [(SBClickGestureRecognizer *)self->_doublePressGestureRecognizer requireGestureRecognizerToFail:self->_triplePressGestureRecognizer];
@@ -249,17 +249,17 @@
   if (self->_homeButtonType == 2)
   {
     _AXSSideButtonClickSpeed();
-    v12 = v11;
-    [(SBClickGestureRecognizer *)self->_singlePressGestureRecognizer setMaximumBetweenClicksDelay:v11];
-    [(SBClickGestureRecognizer *)self->_doublePressGestureRecognizer setMaximumBetweenClicksDelay:v12];
-    [(SBClickGestureRecognizer *)self->_triplePressGestureRecognizer setMaximumBetweenClicksDelay:v12];
-    [(SBClickGestureRecognizer *)self->_quadruplePressGestureRecognizer setMaximumBetweenClicksDelay:v12];
+    v13 = v12;
+    [(SBClickGestureRecognizer *)self->_singlePressGestureRecognizer setMaximumBetweenClicksDelay:v12];
+    [(SBClickGestureRecognizer *)self->_doublePressGestureRecognizer setMaximumBetweenClicksDelay:v13];
+    [(SBClickGestureRecognizer *)self->_triplePressGestureRecognizer setMaximumBetweenClicksDelay:v13];
+    [(SBClickGestureRecognizer *)self->_quadruplePressGestureRecognizer setMaximumBetweenClicksDelay:v13];
   }
 }
 
 - (void)forceResetSequenceDidBegin
 {
-  v3 = SBLogButtonsLock();
+  v3 = SBLogButtonsLock(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -272,7 +272,7 @@
 
 - (BOOL)gestureRecognizerShouldBegin:(id)begin
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   beginCopy = begin;
   restartManager = [SBApp restartManager];
   v6 = restartManager;
@@ -282,9 +282,10 @@
 
     if (!startupTransition)
     {
-      if ([v6 isPendingExit])
+      isPendingExit = [v6 isPendingExit];
+      if (isPendingExit)
       {
-        v8 = SBLogButtonsLock();
+        v8 = SBLogButtonsLock(isPendingExit);
         if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_7;
@@ -293,18 +294,19 @@
         sb_briefDescription = [(UIGestureRecognizer *)beginCopy sb_briefDescription];
         pendingRestartTransitionRequest = [v6 pendingRestartTransitionRequest];
         *buf = 138543618;
-        v32 = sb_briefDescription;
-        v33 = 2114;
-        v34 = pendingRestartTransitionRequest;
+        v35 = sb_briefDescription;
+        v36 = 2114;
+        v37 = pendingRestartTransitionRequest;
         v11 = "Preventing lock recognizer (%{public}@) because we are pending a restart: %{public}@";
         goto LABEL_5;
       }
 
       if (self->_buttonDownGestureRecognizer != beginCopy)
       {
-        if (![(SBLockHardwareButton *)self _shouldRunActions])
+        _shouldRunActions = [(SBLockHardwareButton *)self _shouldRunActions];
+        if ((_shouldRunActions & 1) == 0)
         {
-          v8 = SBLogButtonsLock();
+          v8 = SBLogButtonsLock(_shouldRunActions);
           if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
           {
             goto LABEL_7;
@@ -312,103 +314,104 @@
 
           sb_briefDescription = [(UIGestureRecognizer *)beginCopy sb_briefDescription];
           *buf = 138543362;
-          v32 = sb_briefDescription;
-          v17 = "Preventing lock recognizer (%{public}@) because hardware button coordinator says nope";
-          v18 = v8;
+          v35 = sb_briefDescription;
+          v19 = "Preventing lock recognizer (%{public}@) because hardware button coordinator says nope";
+          v20 = v8;
           goto LABEL_40;
         }
 
         if (self->_singlePressGestureRecognizer == beginCopy)
         {
           buttonActions = self->_buttonActions;
-          v30 = 0;
-          v15 = [(SBLockHardwareButtonActions *)buttonActions disallowsSinglePressForReason:&v30];
-          v16 = v30;
-          v8 = v16;
-          if (v15)
+          v33 = 0;
+          v17 = [(SBLockHardwareButtonActions *)buttonActions disallowsSinglePressForReason:&v33];
+          v18 = v33;
+          v8 = v18;
+          if (v17)
           {
-            sb_briefDescription = SBLogButtonsLock();
+            sb_briefDescription = SBLogButtonsLock(v18);
             if (!os_log_type_enabled(sb_briefDescription, OS_LOG_TYPE_DEFAULT))
             {
               goto LABEL_6;
             }
 
             *buf = 138543362;
-            v32 = v8;
-            v17 = "Single press recognizer disallowed for reason: %{public}@";
+            v35 = v8;
+            v19 = "Single press recognizer disallowed for reason: %{public}@";
             goto LABEL_39;
           }
         }
 
         if (self->_doublePressGestureRecognizer == beginCopy)
         {
-          v19 = self->_buttonActions;
-          v29 = 0;
-          v20 = [(SBLockHardwareButtonActions *)v19 disallowsDoublePressForReason:&v29];
-          v21 = v29;
-          v8 = v21;
-          if (v20)
+          v21 = self->_buttonActions;
+          v32 = 0;
+          v22 = [(SBLockHardwareButtonActions *)v21 disallowsDoublePressForReason:&v32];
+          v23 = v32;
+          v8 = v23;
+          if (v22)
           {
-            sb_briefDescription = SBLogButtonsLock();
+            sb_briefDescription = SBLogButtonsLock(v23);
             if (!os_log_type_enabled(sb_briefDescription, OS_LOG_TYPE_DEFAULT))
             {
               goto LABEL_6;
             }
 
             *buf = 138543362;
-            v32 = v8;
-            v17 = "Double press recognizer disallowed for reason: %{public}@";
+            v35 = v8;
+            v19 = "Double press recognizer disallowed for reason: %{public}@";
             goto LABEL_39;
           }
         }
 
         if (self->_triplePressGestureRecognizer == beginCopy || self->_quadruplePressGestureRecognizer == beginCopy)
         {
-          v22 = self->_buttonActions;
-          v28 = 0;
-          v23 = [(SBLockHardwareButtonActions *)v22 disallowsTriplePressForReason:&v28];
-          v24 = v28;
-          v8 = v24;
-          if (v23)
+          v24 = self->_buttonActions;
+          v31 = 0;
+          v25 = [(SBLockHardwareButtonActions *)v24 disallowsTriplePressForReason:&v31];
+          v26 = v31;
+          v8 = v26;
+          if (v25)
           {
-            sb_briefDescription = SBLogButtonsLock();
+            sb_briefDescription = SBLogButtonsLock(v26);
             if (!os_log_type_enabled(sb_briefDescription, OS_LOG_TYPE_DEFAULT))
             {
               goto LABEL_6;
             }
 
             *buf = 138543362;
-            v32 = v8;
-            v17 = ">= Triple press recognizer disallowed for reason: %{public}@";
+            v35 = v8;
+            v19 = ">= Triple press recognizer disallowed for reason: %{public}@";
             goto LABEL_39;
           }
         }
 
         if (self->_longPressGestureRecognizer == beginCopy || self->_terminalLockLongPressGestureRecognizer == beginCopy)
         {
-          v25 = self->_buttonActions;
-          v27 = 0;
-          v26 = [(SBLockHardwareButtonActions *)v25 disallowsLongPressForReason:&v27];
-          v8 = v27;
-          if (!v26)
+          v27 = self->_buttonActions;
+          v30 = 0;
+          v28 = [(SBLockHardwareButtonActions *)v27 disallowsLongPressForReason:&v30];
+          v29 = v30;
+          v8 = v29;
+          if (!v28)
           {
             v12 = 1;
             goto LABEL_8;
           }
 
-          sb_briefDescription = SBLogButtonsLock();
+          sb_briefDescription = SBLogButtonsLock(v29);
           if (!os_log_type_enabled(sb_briefDescription, OS_LOG_TYPE_DEFAULT))
           {
             goto LABEL_6;
           }
 
           *buf = 138543362;
-          v32 = v8;
-          v17 = "Long press recognizer disallowed for reason: %{public}@";
+          v35 = v8;
+          v19 = "Long press recognizer disallowed for reason: %{public}@";
 LABEL_39:
-          v18 = sb_briefDescription;
+          v20 = sb_briefDescription;
 LABEL_40:
-          _os_log_impl(&dword_21ED4E000, v18, OS_LOG_TYPE_DEFAULT, v17, buf, 0xCu);
+          _os_log_impl(&dword_21ED4E000, v20, OS_LOG_TYPE_DEFAULT, v19, buf, 0xCu);
           goto LABEL_6;
         }
       }
@@ -418,15 +421,15 @@ LABEL_40:
     }
   }
 
-  v8 = SBLogButtonsLock();
+  v8 = SBLogButtonsLock(restartManager);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     sb_briefDescription = [(UIGestureRecognizer *)beginCopy sb_briefDescription];
     pendingRestartTransitionRequest = [v6 startupTransition];
     *buf = 138543618;
-    v32 = sb_briefDescription;
-    v33 = 2114;
-    v34 = pendingRestartTransitionRequest;
+    v35 = sb_briefDescription;
+    v36 = 2114;
+    v37 = pendingRestartTransitionRequest;
     v11 = "Preventing lock recognizer (%{public}@) because we're in a startup transition: %{public}@";
 LABEL_5:
     _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, v11, buf, 0x16u);
@@ -452,14 +455,14 @@ LABEL_9:
     buttonActions = self->_buttonActions;
     v15 = 0;
     v12 = [(SBLockHardwareButtonActions *)buttonActions disallowsDoublePressForReason:&v15];
-    v9 = !v12;
-    if (!v12)
+    v9 = v12 ^ 1;
+    if ((v12 & 1) == 0)
     {
-      v13 = SBLogButtonsLock();
+      v13 = SBLogButtonsLock(v12);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = 0;
-        _os_log_impl(&dword_21ED4E000, v13, OS_LOG_TYPE_DEFAULT, "Requiring double-press failure for single-press", &v14, 2u);
+        *v14 = 0;
+        _os_log_impl(&dword_21ED4E000, v13, OS_LOG_TYPE_DEFAULT, "Requiring double-press failure for single-press", v14, 2u);
       }
     }
   }
@@ -531,7 +534,7 @@ LABEL_9:
 {
   v19 = *MEMORY[0x277D85DE8];
   downCopy = down;
-  v5 = SBLogButtonsLock();
+  v5 = SBLogButtonsLock(downCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v17 = 67109120;
@@ -545,8 +548,7 @@ LABEL_9:
   {
     if (state2 == 1)
     {
-      [(SBLockHardwareButton *)self _updatePressCountForDownEvent];
-      v9 = SBLogButtonsLock();
+      v9 = SBLogButtonsLock([(SBLockHardwareButton *)self _updatePressCountForDownEvent]);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         currentPressCount = self->_currentPressCount;
@@ -604,37 +606,42 @@ LABEL_9:
 
 - (void)singlePress:(id)press
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   pressCopy = press;
-  v5 = SBLogButtonsLock();
+  v5 = SBLogButtonsLock(pressCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8[0] = 67109120;
-    v8[1] = [pressCopy state];
-    _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "Lock button single press: state=%d", v8, 8u);
+    v10[0] = 67109120;
+    v10[1] = [pressCopy state];
+    _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "Lock button single press: state=%d", v10, 8u);
   }
 
-  if ([pressCopy state] == 3 && -[SBLockHardwareButton _shouldRunActions](self, "_shouldRunActions"))
+  if ([pressCopy state] == 3)
   {
-    v6 = SBLogButtonsLock();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    _shouldRunActions = [(SBLockHardwareButton *)self _shouldRunActions];
+    if (_shouldRunActions)
     {
-      LOWORD(v8[0]) = 0;
-      _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "Lock button single press recognized.", v8, 2u);
-    }
-
-    if ([(SBLockHardwareButtonActions *)self->_buttonActions performButtonUpPreActions])
-    {
-      [(SBLockHardwareButtonActions *)self->_buttonActions performSinglePressAction];
-    }
-
-    else
-    {
-      v7 = SBLogButtonsLock();
+      v7 = SBLogButtonsLock(_shouldRunActions);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v8[0]) = 0;
-        _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "Lock button single tap action handled with result: single tap pre-actions handled it.", v8, 2u);
+        LOWORD(v10[0]) = 0;
+        _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "Lock button single press recognized.", v10, 2u);
+      }
+
+      performButtonUpPreActions = [(SBLockHardwareButtonActions *)self->_buttonActions performButtonUpPreActions];
+      if (performButtonUpPreActions)
+      {
+        [(SBLockHardwareButtonActions *)self->_buttonActions performSinglePressAction];
+      }
+
+      else
+      {
+        v9 = SBLogButtonsLock(performButtonUpPreActions);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+        {
+          LOWORD(v10[0]) = 0;
+          _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "Lock button single tap action handled with result: single tap pre-actions handled it.", v10, 2u);
+        }
       }
     }
   }
@@ -644,7 +651,7 @@ LABEL_9:
 {
   v12 = *MEMORY[0x277D85DE8];
   pressCopy = press;
-  v5 = SBLogButtonsLock();
+  v5 = SBLogButtonsLock(pressCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     state = [pressCopy state];
@@ -658,7 +665,7 @@ LABEL_9:
 
   if ([pressCopy state] == 1)
   {
-    v8 = SBLogButtonsLock();
+    v8 = SBLogButtonsLock(1);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(v9[0]) = 0;
@@ -678,7 +685,7 @@ LABEL_9:
 {
   v13 = *MEMORY[0x277D85DE8];
   pressCopy = press;
-  v5 = SBLogButtonsLock();
+  v5 = SBLogButtonsLock(pressCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     state = [pressCopy state];
@@ -694,7 +701,7 @@ LABEL_9:
   {
     if ([pressCopy state] == 1)
     {
-      v8 = SBLogButtonsLock();
+      v8 = SBLogButtonsLock(1);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(v10[0]) = 0;
@@ -717,7 +724,7 @@ LABEL_9:
 {
   v8 = *MEMORY[0x277D85DE8];
   pressCopy = press;
-  v5 = SBLogButtonsLock();
+  v5 = SBLogButtonsLock(pressCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7[0] = 67109120;
@@ -727,7 +734,7 @@ LABEL_9:
 
   if (-[SBLockHardwareButton _shouldRunActions](self, "_shouldRunActions") && [pressCopy state] == 3)
   {
-    v6 = SBLogButtonsLock();
+    v6 = SBLogButtonsLock(3);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(v7[0]) = 0;
@@ -742,7 +749,7 @@ LABEL_9:
 {
   v8 = *MEMORY[0x277D85DE8];
   pressCopy = press;
-  v5 = SBLogButtonsLock();
+  v5 = SBLogButtonsLock(pressCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7[0] = 67109120;
@@ -752,7 +759,7 @@ LABEL_9:
 
   if (-[SBLockHardwareButton _shouldRunActions](self, "_shouldRunActions") && [pressCopy state] == 3)
   {
-    v6 = SBLogButtonsLock();
+    v6 = SBLogButtonsLock(3);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(v7[0]) = 0;
@@ -767,7 +774,7 @@ LABEL_9:
 {
   v6 = *MEMORY[0x277D85DE8];
   pressCopy = press;
-  v4 = SBLogButtonsLock();
+  v4 = SBLogButtonsLock(pressCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5[0] = 67109120;
@@ -778,17 +785,18 @@ LABEL_9:
 
 - (void)_cancelLongPressRecognizer:(id)recognizer
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   recognizerCopy = recognizer;
-  if ([recognizerCopy state] <= 2)
+  state = [recognizerCopy state];
+  if (state <= 2)
   {
-    v4 = SBLogButtonsLock();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = SBLogButtonsLock(state);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       name = [recognizerCopy name];
-      v6 = 138543362;
-      v7 = name;
-      _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ canceled", &v6, 0xCu);
+      v7 = 138543362;
+      v8 = name;
+      _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ canceled", &v7, 0xCu);
     }
 
     [recognizerCopy setEnabled:0];

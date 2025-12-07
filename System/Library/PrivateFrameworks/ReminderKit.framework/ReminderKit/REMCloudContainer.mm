@@ -47,17 +47,14 @@
 uint64_t __51__REMCloudContainer_newCloudContainerForAccountID___block_invoke(uint64_t a1, uint64_t a2)
 {
   [*(a1 + 48) _writeLogCreatingCKContainerWithAccountIdentifier:*(a1 + 32) personaIdentifier:a2];
-  v3 = [*(a1 + 48) _newCloudContainerForAccountIdentifier:*(a1 + 32)];
-  v4 = *(*(a1 + 40) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 48) _newCloudContainerForAccountIdentifier:*(a1 + 32)];
 
   return MEMORY[0x1EEE66BB8]();
 }
 
 + (id)_newCloudContainerForAccountIdentifier:(id)identifier
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   if (!identifierCopy)
   {
@@ -83,18 +80,17 @@ uint64_t __51__REMCloudContainer_newCloudContainerForAccountID___block_invoke(ui
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v14 = identifierCopy;
+    v13 = identifierCopy;
     _os_log_impl(&dword_19A0DB000, v10, OS_LOG_TYPE_DEFAULT, "Created new CloudKit container {accountIdentifier: %{public}@}", buf, 0xCu);
   }
 
   [v9 setSourceApplicationBundleIdentifier:@"com.apple.reminders"];
-  v11 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 + (void)_writeLogCreatingCKContainerWithAccountIdentifier:(id)identifier personaIdentifier:(id)personaIdentifier
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   personaIdentifierCopy = personaIdentifier;
   v7 = +[REMAppleAccountUtilities sharedInstance];
@@ -102,18 +98,16 @@ uint64_t __51__REMCloudContainer_newCloudContainerForAccountID___block_invoke(ui
   v9 = +[REMLog cloudkit];
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138544130;
-    v12 = identifierCopy;
-    v13 = 2114;
-    v14 = personaIdentifierCopy;
-    v15 = 1024;
+    v10 = 138544130;
+    v11 = identifierCopy;
+    v12 = 2114;
+    v13 = personaIdentifierCopy;
+    v14 = 1024;
     isCurrentPersonaDataSeparated = [v7 isCurrentPersonaDataSeparated];
-    v17 = 2114;
-    v18 = currentPersonaUserPersonaUniqueString;
-    _os_log_impl(&dword_19A0DB000, v9, OS_LOG_TYPE_DEFAULT, "[newCloudContainerForAccountID] Creating CKContainer with {accountIdentifier: %{public}@, account.personaIdentifier: %{public}@, currentPersona.isDataSeparatedPersona: %d, currentPersona.userPersonaUniqueString: %{public}@}", &v11, 0x26u);
+    v16 = 2114;
+    v17 = currentPersonaUserPersonaUniqueString;
+    _os_log_impl(&dword_19A0DB000, v9, OS_LOG_TYPE_DEFAULT, "[newCloudContainerForAccountID] Creating CKContainer with {accountIdentifier: %{public}@, account.personaIdentifier: %{public}@, currentPersona.isDataSeparatedPersona: %d, currentPersona.userPersonaUniqueString: %{public}@}", &v10, 0x26u);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 + (id)newCloudContainerWithPublicCloudDatabase

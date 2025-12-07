@@ -26,21 +26,19 @@
 
 - (id)success
 {
-  v2 = self + OBJC_IVAR____TtC9securityd7TResult_result;
-  v3 = *(&self->super.isa + OBJC_IVAR____TtC9securityd7TResult_result);
-  if (v2[8])
+  if (self->result[OBJC_IVAR____TtC9securityd7TResult_result])
   {
     sub_10002ACB8(&qword_10039B270, &qword_1002941E0);
     swift_willThrowTypedImpl();
-    v4 = 0;
+    v2 = 0;
   }
 
   else
   {
-    v4 = swift_unknownObjectRetain();
+    v2 = swift_unknownObjectRetain();
   }
 
-  return v4;
+  return v2;
 }
 
 - (NSError)failure
@@ -69,7 +67,6 @@
     return 0;
   }
 
-  v3 = *(&self->super.isa + OBJC_IVAR____TtC9securityd7TResult_result);
   type metadata accessor for TResult.VoidWrapper();
   return swift_dynamicCastClass() != 0;
 }

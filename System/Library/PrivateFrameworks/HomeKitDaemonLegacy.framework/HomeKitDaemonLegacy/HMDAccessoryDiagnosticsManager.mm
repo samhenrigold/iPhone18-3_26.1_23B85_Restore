@@ -31,7 +31,7 @@
 
 - (void)_clearCurrentDiagnosticsSession:(id)session
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   workQueue = [(HMDAccessoryDiagnosticsManagerInternal *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -47,13 +47,13 @@
     {
       v10 = HMFGetLogIdentifier();
       currentDiagnosticsSession2 = [(HMDAccessoryDiagnosticsManagerInternal *)selfCopy currentDiagnosticsSession];
-      v14 = 138543874;
-      v15 = v10;
-      v16 = 2112;
-      v17 = currentDiagnosticsSession2;
-      v18 = 2112;
-      v19 = sessionCopy;
-      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Clear current session: %@ with error: %@", &v14, 0x20u);
+      v13 = 138543874;
+      v14 = v10;
+      v15 = 2112;
+      v16 = currentDiagnosticsSession2;
+      v17 = 2112;
+      v18 = sessionCopy;
+      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Clear current session: %@ with error: %@", &v13, 0x20u);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -62,13 +62,11 @@
 
     [(HMDAccessoryDiagnosticsManagerInternal *)selfCopy setCurrentDiagnosticsSession:0];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_readDiagnosticsDataWithCloudKitMetadataRequirement:(BOOL)requirement completion:(id)completion
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   workQueue = [(HMDAccessoryDiagnosticsManagerInternal *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -94,33 +92,31 @@
   {
     v14 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v22 = v14;
-    v23 = 2112;
-    v24 = v10;
+    v21 = v14;
+    v22 = 2112;
+    v23 = v10;
     _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Read diagnostics data for session: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v11);
   objc_initWeak(buf, selfCopy);
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __97__HMDAccessoryDiagnosticsManager__readDiagnosticsDataWithCloudKitMetadataRequirement_completion___block_invoke;
-  v17[3] = &unk_27972D478;
-  objc_copyWeak(&v19, buf);
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __97__HMDAccessoryDiagnosticsManager__readDiagnosticsDataWithCloudKitMetadataRequirement_completion___block_invoke;
+  v16[3] = &unk_27972D478;
+  objc_copyWeak(&v18, buf);
   v15 = completionCopy;
-  v18 = v15;
+  v17 = v15;
   requirementCopy = requirement;
-  [v10 readDataWithCompletion:v17];
+  [v10 readDataWithCompletion:v16];
 
-  objc_destroyWeak(&v19);
+  objc_destroyWeak(&v18);
   objc_destroyWeak(buf);
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __97__HMDAccessoryDiagnosticsManager__readDiagnosticsDataWithCloudKitMetadataRequirement_completion___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -137,9 +133,9 @@ void __97__HMDAccessoryDiagnosticsManager__readDiagnosticsDataWithCloudKitMetada
     {
       v15 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v33 = v15;
-      v34 = 2112;
-      v35 = v7;
+      v32 = v15;
+      v33 = 2112;
+      v34 = v7;
       _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@Diagnostics data read failed with error: %@", buf, 0x16u);
     }
 
@@ -151,17 +147,17 @@ void __97__HMDAccessoryDiagnosticsManager__readDiagnosticsDataWithCloudKitMetada
   else if (*(a1 + 48) == 1)
   {
     v16 = [WeakRetained accessory];
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __97__HMDAccessoryDiagnosticsManager__readDiagnosticsDataWithCloudKitMetadataRequirement_completion___block_invoke_37;
-    v27[3] = &unk_27972D450;
-    objc_copyWeak(&v31, (a1 + 40));
-    v30 = *(a1 + 32);
-    v28 = v8;
-    v29 = v9;
-    [WeakRetained _fetchModelDiagnosticsMetadataForAccessory:v16 withCompletion:v27];
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __97__HMDAccessoryDiagnosticsManager__readDiagnosticsDataWithCloudKitMetadataRequirement_completion___block_invoke_37;
+    v26[3] = &unk_27972D450;
+    objc_copyWeak(&v30, (a1 + 40));
+    v29 = *(a1 + 32);
+    v27 = v8;
+    v28 = v9;
+    [WeakRetained _fetchModelDiagnosticsMetadataForAccessory:v16 withCompletion:v26];
 
-    objc_destroyWeak(&v31);
+    objc_destroyWeak(&v30);
   }
 
   else
@@ -174,9 +170,9 @@ void __97__HMDAccessoryDiagnosticsManager__readDiagnosticsDataWithCloudKitMetada
       v20 = HMFGetLogIdentifier();
       v21 = [v18 currentDiagnosticsSession];
       *buf = 138543618;
-      v33 = v20;
-      v34 = 2112;
-      v35 = v21;
+      v32 = v20;
+      v33 = 2112;
+      v34 = v21;
       _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_INFO, "%{public}@Diagnostics metadata not required for session:%@", buf, 0x16u);
     }
 
@@ -189,13 +185,11 @@ void __97__HMDAccessoryDiagnosticsManager__readDiagnosticsDataWithCloudKitMetada
     [v18 _clearCurrentDiagnosticsSession:0];
     (*(*(a1 + 32) + 16))();
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __97__HMDAccessoryDiagnosticsManager__readDiagnosticsDataWithCloudKitMetadataRequirement_completion___block_invoke_37(uint64_t a1, void *a2, void *a3)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 56));
@@ -211,9 +205,9 @@ void __97__HMDAccessoryDiagnosticsManager__readDiagnosticsDataWithCloudKitMetada
     {
       v12 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v29 = v12;
-      v30 = 2112;
-      v31 = v6;
+      v28 = v12;
+      v29 = 2112;
+      v30 = v6;
       _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_ERROR, "%{public}@Fetching cloud metadata from model failed with error: %@", buf, 0x16u);
     }
 
@@ -224,15 +218,15 @@ void __97__HMDAccessoryDiagnosticsManager__readDiagnosticsDataWithCloudKitMetada
 
   else
   {
-    v26 = objc_alloc(MEMORY[0x277CD16E0]);
+    v25 = objc_alloc(MEMORY[0x277CD16E0]);
     v13 = *(a1 + 32);
     v14 = *(a1 + 40);
     v15 = [v5 privacyPolicyURL];
     v16 = [v5 uploadDestination];
     v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v5, "consentVersion")}];
-    v27 = v5;
+    v26 = v5;
     v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v5, "uploadType")}];
-    v19 = [v26 initWithSnapshotPath:v13 urlParameters:v14 privacyPolicyURL:v15 uploadDestination:v16 consentVersion:v17 uploadType:v18];
+    v19 = [v25 initWithSnapshotPath:v13 urlParameters:v14 privacyPolicyURL:v15 uploadDestination:v16 consentVersion:v17 uploadType:v18];
 
     v20 = objc_autoreleasePoolPush();
     v21 = WeakRetained;
@@ -242,11 +236,11 @@ void __97__HMDAccessoryDiagnosticsManager__readDiagnosticsDataWithCloudKitMetada
       v23 = HMFGetLogIdentifier();
       v24 = [v21 currentDiagnosticsSession];
       *buf = 138543874;
-      v29 = v23;
-      v30 = 2112;
-      v31 = v24;
-      v32 = 2112;
-      v33 = v19;
+      v28 = v23;
+      v29 = 2112;
+      v30 = v24;
+      v31 = 2112;
+      v32 = v19;
       _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_INFO, "%{public}@Diagnostics data read completed for session:%@ metadata:%@", buf, 0x20u);
     }
 
@@ -254,15 +248,13 @@ void __97__HMDAccessoryDiagnosticsManager__readDiagnosticsDataWithCloudKitMetada
     [v21 _clearCurrentDiagnosticsSession:0];
     (*(*(a1 + 48) + 16))();
 
-    v5 = v27;
+    v5 = v26;
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleDiagnosticsTransferRequestWithOptions:(id)options completion:(id)completion
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   completionCopy = completion;
   workQueue = [(HMDAccessoryDiagnosticsManagerInternal *)self workQueue];
@@ -275,7 +267,7 @@ void __97__HMDAccessoryDiagnosticsManager__readDiagnosticsDataWithCloudKitMetada
   {
     v12 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v54 = v12;
+    v53 = v12;
     _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Attempting to start diagnostics transfer", buf, 0xCu);
   }
 
@@ -292,81 +284,81 @@ void __97__HMDAccessoryDiagnosticsManager__readDiagnosticsDataWithCloudKitMetada
 
       if (currentDiagnosticsSession)
       {
-        v29 = objc_autoreleasePoolPush();
-        v30 = selfCopy;
-        v31 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+        v28 = objc_autoreleasePoolPush();
+        v29 = selfCopy;
+        v30 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
         {
-          v32 = HMFGetLogIdentifier();
+          v31 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v54 = v32;
-          _os_log_impl(&dword_2531F8000, v31, OS_LOG_TYPE_INFO, "%{public}@A session is already opened", buf, 0xCu);
+          v53 = v31;
+          _os_log_impl(&dword_2531F8000, v30, OS_LOG_TYPE_INFO, "%{public}@A session is already opened", buf, 0xCu);
         }
 
-        objc_autoreleasePoolPop(v29);
-        v33 = [MEMORY[0x277CCA9B8] hmErrorWithCode:15];
-        completionCopy[2](completionCopy, v33, 0);
+        objc_autoreleasePoolPop(v28);
+        v32 = [MEMORY[0x277CCA9B8] hmErrorWithCode:15];
+        completionCopy[2](completionCopy, v32, 0);
       }
 
       else if ([(HMDAccessoryDiagnosticsManager *)selfCopy cloudFetchCompleted])
       {
-        v34 = [HMDAccessoryDiagnosticsSession alloc];
+        v33 = [HMDAccessoryDiagnosticsSession alloc];
         accessory = [(HMDAccessoryDiagnosticsManagerInternal *)selfCopy accessory];
         diagnosticsSettings2 = [(HMDAccessoryDiagnosticsManager *)selfCopy diagnosticsSettings];
-        v37 = [(HMDAccessoryDiagnosticsSession *)v34 initWithAccessory:accessory settings:diagnosticsSettings2];
-        [(HMDAccessoryDiagnosticsManagerInternal *)selfCopy setCurrentDiagnosticsSession:v37];
+        v36 = [(HMDAccessoryDiagnosticsSession *)v33 initWithAccessory:accessory settings:diagnosticsSettings2];
+        [(HMDAccessoryDiagnosticsManagerInternal *)selfCopy setCurrentDiagnosticsSession:v36];
 
-        v38 = objc_autoreleasePoolPush();
-        v39 = selfCopy;
-        v40 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
+        v37 = objc_autoreleasePoolPush();
+        v38 = selfCopy;
+        v39 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
         {
-          v41 = HMFGetLogIdentifier();
-          currentDiagnosticsSession2 = [(HMDAccessoryDiagnosticsManagerInternal *)v39 currentDiagnosticsSession];
+          v40 = HMFGetLogIdentifier();
+          currentDiagnosticsSession2 = [(HMDAccessoryDiagnosticsManagerInternal *)v38 currentDiagnosticsSession];
           *buf = 138543618;
-          v54 = v41;
-          v55 = 2112;
-          v56 = currentDiagnosticsSession2;
-          _os_log_impl(&dword_2531F8000, v40, OS_LOG_TYPE_INFO, "%{public}@Setting up a diagnostics transfer session: %@", buf, 0x16u);
+          v53 = v40;
+          v54 = 2112;
+          v55 = currentDiagnosticsSession2;
+          _os_log_impl(&dword_2531F8000, v39, OS_LOG_TYPE_INFO, "%{public}@Setting up a diagnostics transfer session: %@", buf, 0x16u);
         }
 
-        objc_autoreleasePoolPop(v38);
-        objc_initWeak(buf, v39);
-        currentDiagnosticsSession3 = [(HMDAccessoryDiagnosticsManagerInternal *)v39 currentDiagnosticsSession];
-        v49[0] = MEMORY[0x277D85DD0];
-        v49[1] = 3221225472;
-        v49[2] = __90__HMDAccessoryDiagnosticsManager__handleDiagnosticsTransferRequestWithOptions_completion___block_invoke;
-        v49[3] = &unk_279731AF8;
-        objc_copyWeak(&v52, buf);
-        v51 = completionCopy;
-        v50 = optionsCopy;
-        [currentDiagnosticsSession3 setUpWithOptions:v50 completion:v49];
+        objc_autoreleasePoolPop(v37);
+        objc_initWeak(buf, v38);
+        currentDiagnosticsSession3 = [(HMDAccessoryDiagnosticsManagerInternal *)v38 currentDiagnosticsSession];
+        v48[0] = MEMORY[0x277D85DD0];
+        v48[1] = 3221225472;
+        v48[2] = __90__HMDAccessoryDiagnosticsManager__handleDiagnosticsTransferRequestWithOptions_completion___block_invoke;
+        v48[3] = &unk_279731AF8;
+        objc_copyWeak(&v51, buf);
+        v50 = completionCopy;
+        v49 = optionsCopy;
+        [currentDiagnosticsSession3 setUpWithOptions:v49 completion:v48];
 
-        objc_destroyWeak(&v52);
+        objc_destroyWeak(&v51);
         objc_destroyWeak(buf);
       }
 
       else
       {
-        v44 = objc_autoreleasePoolPush();
-        v45 = selfCopy;
-        v46 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v46, OS_LOG_TYPE_INFO))
+        v43 = objc_autoreleasePoolPush();
+        v44 = selfCopy;
+        v45 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
         {
-          v47 = HMFGetLogIdentifier();
+          v46 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v54 = v47;
-          _os_log_impl(&dword_2531F8000, v46, OS_LOG_TYPE_INFO, "%{public}@Diagnostic cloud metadata not available", buf, 0xCu);
+          v53 = v46;
+          _os_log_impl(&dword_2531F8000, v45, OS_LOG_TYPE_INFO, "%{public}@Diagnostic cloud metadata not available", buf, 0xCu);
         }
 
-        objc_autoreleasePoolPop(v44);
-        if (![(HMDAccessoryDiagnosticsManager *)v45 cloudFetchInProgress])
+        objc_autoreleasePoolPop(v43);
+        if (![(HMDAccessoryDiagnosticsManager *)v44 cloudFetchInProgress])
         {
-          [(HMDAccessoryDiagnosticsManager *)v45 _fetchCloudDiagnosticsMetadata];
+          [(HMDAccessoryDiagnosticsManager *)v44 _fetchCloudDiagnosticsMetadata];
         }
 
-        v48 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
-        completionCopy[2](completionCopy, v48, 0);
+        v47 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
+        completionCopy[2](completionCopy, v47, 0);
       }
     }
 
@@ -380,9 +372,9 @@ void __97__HMDAccessoryDiagnosticsManager__readDiagnosticsDataWithCloudKitMetada
       {
         v20 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v54 = v20;
-        v55 = 2112;
-        v56 = v16;
+        v53 = v20;
+        v54 = 2112;
+        v55 = v16;
         _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_ERROR, "%{public}@Transport is not data stream, error: %@", buf, 0x16u);
       }
 
@@ -401,7 +393,7 @@ void __97__HMDAccessoryDiagnosticsManager__readDiagnosticsDataWithCloudKitMetada
     {
       v25 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v54 = v25;
+      v53 = v25;
       _os_log_impl(&dword_2531F8000, v24, OS_LOG_TYPE_ERROR, "%{public}@Diagnostics transfer failed as the request is not supported.", buf, 0xCu);
     }
 
@@ -409,13 +401,11 @@ void __97__HMDAccessoryDiagnosticsManager__readDiagnosticsDataWithCloudKitMetada
     v26 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
     completionCopy[2](completionCopy, v26, 0);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __90__HMDAccessoryDiagnosticsManager__handleDiagnosticsTransferRequestWithOptions_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
@@ -435,11 +425,11 @@ void __90__HMDAccessoryDiagnosticsManager__handleDiagnosticsTransferRequestWithO
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         v14 = HMFGetLogIdentifier();
-        v24 = 138543618;
-        v25 = v14;
-        v26 = 2112;
-        v27 = v5;
-        _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to setup data transfer session with error: %@", &v24, 0x16u);
+        v23 = 138543618;
+        v24 = v14;
+        v25 = 2112;
+        v26 = v5;
+        _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to setup data transfer session with error: %@", &v23, 0x16u);
       }
 
       objc_autoreleasePoolPop(v10);
@@ -452,9 +442,9 @@ void __90__HMDAccessoryDiagnosticsManager__handleDiagnosticsTransferRequestWithO
       if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
         v20 = HMFGetLogIdentifier();
-        v24 = 138543362;
-        v25 = v20;
-        _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Diagnostics transfer session was setup successfully", &v24, 0xCu);
+        v23 = 138543362;
+        v24 = v20;
+        _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Diagnostics transfer session was setup successfully", &v23, 0xCu);
       }
 
       objc_autoreleasePoolPop(v10);
@@ -481,9 +471,9 @@ void __90__HMDAccessoryDiagnosticsManager__handleDiagnosticsTransferRequestWithO
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       v18 = HMFGetLogIdentifier();
-      v24 = 138543362;
-      v25 = v18;
-      _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_ERROR, "%{public}@Failed to setup data transfer session, current diagnostics session is nil", &v24, 0xCu);
+      v23 = 138543362;
+      v24 = v18;
+      _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_ERROR, "%{public}@Failed to setup data transfer session, current diagnostics session is nil", &v23, 0xCu);
     }
 
     objc_autoreleasePoolPop(v15);
@@ -491,13 +481,11 @@ void __90__HMDAccessoryDiagnosticsManager__handleDiagnosticsTransferRequestWithO
     [v16 _clearCurrentDiagnosticsSession:v19];
     (*(*(a1 + 40) + 16))();
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_readRequiredDiagnosticCharacteristicsIfNeededWithCompletion:(id)completion
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   workQueue = [(HMDAccessoryDiagnosticsManagerInternal *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -525,27 +513,27 @@ void __90__HMDAccessoryDiagnosticsManager__handleDiagnosticsTransferRequestWithO
         v14 = HMFGetLogIdentifier();
         identifier = [accessory identifier];
         *buf = 138543618;
-        v25 = v14;
-        v26 = 2112;
-        v27 = identifier;
+        v24 = v14;
+        v25 = 2112;
+        v26 = identifier;
         _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Attempting to read and update the diagnostic settings for %@", buf, 0x16u);
       }
 
       objc_autoreleasePoolPop(v11);
       v16 = [HMDCharacteristicRequest requestWithCharacteristic:v7];
       objc_initWeak(buf, selfCopy);
-      v23 = v16;
-      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v23 count:1];
+      v22 = v16;
+      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v22 count:1];
       workQueue2 = [(HMDAccessoryDiagnosticsManagerInternal *)selfCopy workQueue];
-      v20[0] = MEMORY[0x277D85DD0];
-      v20[1] = 3221225472;
-      v20[2] = __95__HMDAccessoryDiagnosticsManager__readRequiredDiagnosticCharacteristicsIfNeededWithCompletion___block_invoke;
-      v20[3] = &unk_2797351F8;
-      objc_copyWeak(&v22, buf);
-      v21 = completionCopy;
-      [accessory readCharacteristicValues:v17 source:1020 queue:workQueue2 completionHandler:v20];
+      v19[0] = MEMORY[0x277D85DD0];
+      v19[1] = 3221225472;
+      v19[2] = __95__HMDAccessoryDiagnosticsManager__readRequiredDiagnosticCharacteristicsIfNeededWithCompletion___block_invoke;
+      v19[3] = &unk_2797351F8;
+      objc_copyWeak(&v21, buf);
+      v20 = completionCopy;
+      [accessory readCharacteristicValues:v17 source:1020 queue:workQueue2 completionHandler:v19];
 
-      objc_destroyWeak(&v22);
+      objc_destroyWeak(&v21);
       objc_destroyWeak(buf);
 
       goto LABEL_10;
@@ -561,7 +549,6 @@ LABEL_10:
   (*(completionCopy + 2))(completionCopy, v10);
 
 LABEL_11:
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __95__HMDAccessoryDiagnosticsManager__readRequiredDiagnosticCharacteristicsIfNeededWithCompletion___block_invoke(uint64_t a1, void *a2)
@@ -597,7 +584,7 @@ void __95__HMDAccessoryDiagnosticsManager__readRequiredDiagnosticCharacteristics
 
 - (BOOL)_isRequestSupported:(id)supported
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   supportedCopy = supported;
   diagnosticsSettings = [(HMDAccessoryDiagnosticsManager *)self diagnosticsSettings];
   currentSnapshot = [diagnosticsSettings currentSnapshot];
@@ -633,8 +620,8 @@ void __95__HMDAccessoryDiagnosticsManager__readRequiredDiagnosticCharacteristics
                 if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
                 {
                   v16 = HMFGetLogIdentifier();
-                  v46 = 138543362;
-                  v47 = v16;
+                  v45 = 138543362;
+                  v46 = v16;
                   v17 = "%{public}@ADK snapshot requested, but not supported on the accessory.";
                   goto LABEL_33;
                 }
@@ -648,8 +635,8 @@ void __95__HMDAccessoryDiagnosticsManager__readRequiredDiagnosticCharacteristics
                 if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
                 {
                   v16 = HMFGetLogIdentifier();
-                  v46 = 138543362;
-                  v47 = v16;
+                  v45 = 138543362;
+                  v46 = v16;
                   v17 = "%{public}@Manufacturer snapshot requested, but not supported on the accessory.";
                   goto LABEL_33;
                 }
@@ -664,8 +651,8 @@ void __95__HMDAccessoryDiagnosticsManager__readRequiredDiagnosticCharacteristics
               if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
               {
                 v16 = HMFGetLogIdentifier();
-                v46 = 138543362;
-                v47 = v16;
+                v45 = 138543362;
+                v46 = v16;
                 v17 = "%{public}@Audio clips requested, but not supported on the accessory.";
                 goto LABEL_33;
               }
@@ -680,8 +667,8 @@ void __95__HMDAccessoryDiagnosticsManager__readRequiredDiagnosticCharacteristics
             if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
             {
               v16 = HMFGetLogIdentifier();
-              v46 = 138543362;
-              v47 = v16;
+              v45 = 138543362;
+              v46 = v16;
               v17 = "%{public}@Audio recording requested, but not supported on the accessory.";
               goto LABEL_33;
             }
@@ -696,8 +683,8 @@ void __95__HMDAccessoryDiagnosticsManager__readRequiredDiagnosticCharacteristics
           if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
           {
             v16 = HMFGetLogIdentifier();
-            v46 = 138543362;
-            v47 = v16;
+            v45 = 138543362;
+            v46 = v16;
             v17 = "%{public}@Delay requested, but not supported on the accessory.";
             goto LABEL_33;
           }
@@ -712,11 +699,11 @@ void __95__HMDAccessoryDiagnosticsManager__readRequiredDiagnosticCharacteristics
         if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
           v16 = HMFGetLogIdentifier();
-          v46 = 138543362;
-          v47 = v16;
+          v45 = 138543362;
+          v46 = v16;
           v17 = "%{public}@Custom max log size requested, but not supported on the accessory.";
 LABEL_33:
-          _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_DEFAULT, v17, &v46, 0xCu);
+          _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_DEFAULT, v17, &v45, 0xCu);
         }
       }
 
@@ -733,9 +720,9 @@ LABEL_35:
     if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
     {
       v31 = HMFGetLogIdentifier();
-      v46 = 138543362;
-      v47 = v31;
-      _os_log_impl(&dword_2531F8000, v30, OS_LOG_TYPE_INFO, "%{public}@No options selected, default request will be issued.", &v46, 0xCu);
+      v45 = 138543362;
+      v46 = v31;
+      _os_log_impl(&dword_2531F8000, v30, OS_LOG_TYPE_INFO, "%{public}@No options selected, default request will be issued.", &v45, 0xCu);
     }
 
     objc_autoreleasePoolPop(v28);
@@ -750,9 +737,9 @@ LABEL_35:
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       v21 = HMFGetLogIdentifier();
-      v46 = 138543362;
-      v47 = v21;
-      _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_DEFAULT, "%{public}@Diagnostic settings not configured yet", &v46, 0xCu);
+      v45 = 138543362;
+      v46 = v21;
+      _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_DEFAULT, "%{public}@Diagnostic settings not configured yet", &v45, 0xCu);
     }
 
     objc_autoreleasePoolPop(v18);
@@ -761,7 +748,6 @@ LABEL_35:
 
 LABEL_36:
 
-  v44 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
@@ -777,7 +763,7 @@ LABEL_36:
 
 - (void)_updateDiagnosticSettings
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDAccessoryDiagnosticsManagerInternal *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -790,9 +776,9 @@ LABEL_36:
   {
     v7 = MEMORY[0x277CFEC68];
     value2 = [v5 value];
-    v53 = 0;
-    v9 = [v7 parsedFromData:value2 error:&v53];
-    v10 = v53;
+    v52 = 0;
+    v9 = [v7 parsedFromData:value2 error:&v52];
+    v10 = v52;
 
     format = [v9 format];
     if (format || ([v9 type], (format = objc_claimAutoreleasedReturnValue()) != 0) || (objc_msgSend(v9, "options"), (format = objc_claimAutoreleasedReturnValue()) != 0))
@@ -805,34 +791,34 @@ LABEL_36:
 
       if (!audioDiagnostics)
       {
-        v37 = objc_autoreleasePoolPush();
+        v36 = objc_autoreleasePoolPush();
         selfCopy = self;
-        v39 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+        v38 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
         {
           HMFGetLogIdentifier();
-          v40 = v52 = v10;
+          v39 = v51 = v10;
           [(HMDAccessoryDiagnosticsManagerInternal *)selfCopy accessory];
-          v41 = v50 = v37;
-          name = [v41 name];
+          v40 = v49 = v36;
+          name = [v40 name];
           accessory = [(HMDAccessoryDiagnosticsManagerInternal *)selfCopy accessory];
           uuid = [accessory uuid];
           uUIDString = [uuid UUIDString];
           *buf = 138544130;
-          v55 = v40;
-          v56 = 2112;
-          v57 = name;
-          v58 = 2112;
-          v59 = uUIDString;
-          v60 = 2112;
-          v61 = v52;
-          _os_log_impl(&dword_2531F8000, v39, OS_LOG_TYPE_ERROR, "%{public}@Failed to parse accessory supported diagnostics snapshot (%@/%@) with error: %@", buf, 0x2Au);
+          v54 = v39;
+          v55 = 2112;
+          v56 = name;
+          v57 = 2112;
+          v58 = uUIDString;
+          v59 = 2112;
+          v60 = v51;
+          _os_log_impl(&dword_2531F8000, v38, OS_LOG_TYPE_ERROR, "%{public}@Failed to parse accessory supported diagnostics snapshot (%@/%@) with error: %@", buf, 0x2Au);
 
-          v37 = v50;
-          v10 = v52;
+          v36 = v49;
+          v10 = v51;
         }
 
-        objc_autoreleasePoolPop(v37);
+        objc_autoreleasePoolPop(v36);
         goto LABEL_10;
       }
     }
@@ -848,31 +834,31 @@ LABEL_36:
       v17 = HMFGetOSLogHandle();
       if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
       {
-        v46 = HMFGetLogIdentifier();
+        v45 = HMFGetLogIdentifier();
         accessory2 = [(HMDAccessoryDiagnosticsManagerInternal *)selfCopy2 accessory];
         name2 = [accessory2 name];
         [(HMDAccessoryDiagnosticsManagerInternal *)selfCopy2 accessory];
-        v47 = v49 = v15;
-        [v47 uuid];
-        v19 = v51 = v10;
+        v46 = v48 = v15;
+        [v46 uuid];
+        v19 = v50 = v10;
         uUIDString2 = [v19 UUIDString];
         diagnosticsSettings2 = [(HMDAccessoryDiagnosticsManager *)selfCopy2 diagnosticsSettings];
         currentSnapshot2 = [diagnosticsSettings2 currentSnapshot];
         *buf = 138544386;
-        v55 = v46;
-        v56 = 2112;
-        v57 = name2;
-        v58 = 2112;
-        v59 = uUIDString2;
+        v54 = v45;
+        v55 = 2112;
+        v56 = name2;
+        v57 = 2112;
+        v58 = uUIDString2;
         v23 = uUIDString2;
-        v60 = 2112;
-        v61 = currentSnapshot2;
-        v62 = 2112;
-        v63 = v9;
+        v59 = 2112;
+        v60 = currentSnapshot2;
+        v61 = 2112;
+        v62 = v9;
         _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@Updating accessory diagnostics snapshot for %@/%@: %@ -> %@", buf, 0x34u);
 
-        v10 = v51;
-        v15 = v49;
+        v10 = v50;
+        v15 = v48;
       }
 
       objc_autoreleasePoolPop(v15);
@@ -902,23 +888,21 @@ LABEL_10:
     uuid2 = [accessory4 uuid];
     uUIDString3 = [uuid2 UUIDString];
     *buf = 138543874;
-    v55 = v29;
-    v56 = 2112;
-    v57 = name3;
-    v58 = 2112;
-    v59 = uUIDString3;
+    v54 = v29;
+    v55 = 2112;
+    v56 = name3;
+    v57 = 2112;
+    v58 = uUIDString3;
     _os_log_impl(&dword_2531F8000, v28, OS_LOG_TYPE_INFO, "%{public}@No diagnostics supported configuration (%@/%@)", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v26);
 LABEL_14:
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_registerForMessagesAndNotifications
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   accessory = [(HMDAccessoryDiagnosticsManagerInternal *)self accessory];
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter addObserver:self selector:sel_handleCharacteristicsUpdatedNotification_ name:@"kHMDNotificationCharacteristicsUpdated" object:accessory];
@@ -933,8 +917,8 @@ LABEL_14:
   v8 = v7;
   if (v7)
   {
-    v25[0] = v7;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
+    v24[0] = v7;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
     clientIdentifier = [(HMDAccessoryDiagnosticsManagerInternal *)self clientIdentifier];
     [accessory setNotificationsEnabled:1 forCharacteristics:v9 clientIdentifier:clientIdentifier];
   }
@@ -950,24 +934,22 @@ LABEL_14:
       name = [accessory name];
       uuid = [accessory uuid];
       uUIDString = [uuid UUIDString];
-      v19 = 138543874;
-      v20 = v14;
-      v21 = 2112;
-      v22 = name;
-      v23 = 2112;
-      v24 = uUIDString;
-      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, "%{public}@Expected diagnostics characteristic not present for accessory(%@/%@)", &v19, 0x20u);
+      v18 = 138543874;
+      v19 = v14;
+      v20 = 2112;
+      v21 = name;
+      v22 = 2112;
+      v23 = uUIDString;
+      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, "%{public}@Expected diagnostics characteristic not present for accessory(%@/%@)", &v18, 0x20u);
     }
 
     objc_autoreleasePoolPop(v11);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_shutDown
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDAccessoryDiagnosticsManagerInternal *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -982,9 +964,9 @@ LABEL_14:
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543362;
-    v10 = v7;
-    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Shutting down", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v7;
+    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Shutting down", &v8, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -993,12 +975,11 @@ LABEL_14:
   [(HMDAccessoryDiagnosticsManager *)selfCopy setDidShutDown:1];
   [(HMDAccessoryDiagnosticsManager *)selfCopy _notifyClientsOfDiagnosticsTransferSupportUpdated];
   [(HMDAccessoryDiagnosticsManager *)selfCopy _invalidateCloudDiagnosticsMetadata];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_start
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDAccessoryDiagnosticsManagerInternal *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -1013,9 +994,9 @@ LABEL_14:
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v12 = 138543362;
-    v13 = v7;
-    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Starting", &v12, 0xCu);
+    v11 = 138543362;
+    v12 = v7;
+    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Starting", &v11, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -1027,7 +1008,6 @@ LABEL_14:
 
   [(HMDAccessoryDiagnosticsManager *)selfCopy _updateDiagnosticSettings];
   [(HMDAccessoryDiagnosticsManager *)selfCopy _fetchCloudDiagnosticsMetadata];
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleDiagnosticsTransferWithOptions:(id)options completion:(id)completion
@@ -1055,7 +1035,7 @@ LABEL_14:
 
 void __83__HMDAccessoryDiagnosticsManager__handleDiagnosticsTransferWithOptions_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v5 = WeakRetained;
@@ -1067,11 +1047,11 @@ void __83__HMDAccessoryDiagnosticsManager__handleDiagnosticsTransferWithOptions_
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v9 = HMFGetLogIdentifier();
-      v11 = 138543618;
-      v12 = v9;
-      v13 = 2112;
-      v14 = v3;
-      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to read the required diagnostic characteristics. Error: %@", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = v9;
+      v12 = 2112;
+      v13 = v3;
+      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to read the required diagnostic characteristics. Error: %@", &v10, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
@@ -1082,8 +1062,6 @@ void __83__HMDAccessoryDiagnosticsManager__handleDiagnosticsTransferWithOptions_
   {
     [WeakRetained _handleDiagnosticsTransferRequestWithOptions:*(a1 + 32) completion:*(a1 + 40)];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleDiagnosticsTransferWithOptions:(id)options message:(id)message
@@ -1118,7 +1096,7 @@ void __79__HMDAccessoryDiagnosticsManager_handleDiagnosticsTransferWithOptions_m
 
 void __79__HMDAccessoryDiagnosticsManager_handleDiagnosticsTransferWithOptions_message___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -1131,11 +1109,11 @@ void __79__HMDAccessoryDiagnosticsManager_handleDiagnosticsTransferWithOptions_m
       v10 = HMFGetLogIdentifier();
       v11 = [*(a1 + 40) shortDescription];
       *buf = 138543874;
-      v18 = v10;
-      v19 = 2112;
-      v20 = v11;
-      v21 = 2112;
-      v22 = v5;
+      v17 = v10;
+      v18 = 2112;
+      v19 = v11;
+      v20 = 2112;
+      v21 = v5;
       _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_ERROR, "%{public}@Diagnostics transfer request failed for message: %@. Error: %@.", buf, 0x20u);
     }
 
@@ -1144,10 +1122,10 @@ void __79__HMDAccessoryDiagnosticsManager_handleDiagnosticsTransferWithOptions_m
 
   if (v6)
   {
-    v15 = *MEMORY[0x277CCEA28];
+    v14 = *MEMORY[0x277CCEA28];
     v12 = encodeRootObject();
-    v16 = v12;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+    v15 = v12;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
   }
 
   else
@@ -1155,9 +1133,7 @@ void __79__HMDAccessoryDiagnosticsManager_handleDiagnosticsTransferWithOptions_m
     v13 = 0;
   }
 
-  [*(a1 + 40) respondWithPayload:v13 error:{v5, v15}];
-
-  v14 = *MEMORY[0x277D85DE8];
+  [*(a1 + 40) respondWithPayload:v13 error:{v5, v14}];
 }
 
 - (void)handleAccessoryConfiguredNotification:(id)notification
@@ -1214,7 +1190,7 @@ void __72__HMDAccessoryDiagnosticsManager_handleAccessoryConfiguredNotification_
 
 void __72__HMDAccessoryDiagnosticsManager_handleAccessoryConfiguredNotification___block_invoke_2(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -1224,17 +1200,15 @@ void __72__HMDAccessoryDiagnosticsManager_handleAccessoryConfiguredNotification_
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = HMFGetLogIdentifier();
-      v9 = 138543618;
-      v10 = v7;
-      v11 = 2112;
-      v12 = v3;
-      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to read the required diagnostic characteristics with error: %@", &v9, 0x16u);
+      v8 = 138543618;
+      v9 = v7;
+      v10 = 2112;
+      v11 = v3;
+      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to read the required diagnostic characteristics with error: %@", &v8, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleCharacteristicValueUpdatedNotification:(id)notification
@@ -1283,14 +1257,14 @@ void __72__HMDAccessoryDiagnosticsManager_handleAccessoryConfiguredNotification_
 
 - (void)dealloc
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   accessory = [(HMDAccessoryDiagnosticsManagerInternal *)self accessory];
   v4 = [accessory findCharacteristicType:*MEMORY[0x277CCFAD8] forServiceType:*MEMORY[0x277CD0E28]];
   v5 = v4;
   if (v4)
   {
-    v22[0] = v4;
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
+    v21[0] = v4;
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
     clientIdentifier = [(HMDAccessoryDiagnosticsManagerInternal *)self clientIdentifier];
     [accessory setNotificationsEnabled:0 forCharacteristics:v6 clientIdentifier:clientIdentifier];
   }
@@ -1304,7 +1278,7 @@ void __72__HMDAccessoryDiagnosticsManager_handleAccessoryConfiguredNotification_
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v19 = v11;
+      v18 = v11;
       _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Not disabling notification since diagnostics snapshot characteristic is not present", buf, 0xCu);
     }
 
@@ -1318,42 +1292,39 @@ void __72__HMDAccessoryDiagnosticsManager_handleAccessoryConfiguredNotification_
   {
     v15 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v19 = v15;
-    v20 = 2048;
-    v21 = selfCopy2;
+    v18 = v15;
+    v19 = 2048;
+    v20 = selfCopy2;
     _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_INFO, "%{public}@Accessory diagnostics manager: %p destroyed", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v12);
-  v17.receiver = selfCopy2;
-  v17.super_class = HMDAccessoryDiagnosticsManager;
-  [(HMDAccessoryDiagnosticsManager *)&v17 dealloc];
-  v16 = *MEMORY[0x277D85DE8];
+  v16.receiver = selfCopy2;
+  v16.super_class = HMDAccessoryDiagnosticsManager;
+  [(HMDAccessoryDiagnosticsManager *)&v16 dealloc];
 }
 
 - (id)attributeDescriptions
 {
-  v18[3] = *MEMORY[0x277D85DE8];
-  v17.receiver = self;
-  v17.super_class = HMDAccessoryDiagnosticsManager;
-  attributeDescriptions = [(HMDAccessoryDiagnosticsManagerInternal *)&v17 attributeDescriptions];
+  v17[3] = *MEMORY[0x277D85DE8];
+  v16.receiver = self;
+  v16.super_class = HMDAccessoryDiagnosticsManager;
+  attributeDescriptions = [(HMDAccessoryDiagnosticsManagerInternal *)&v16 attributeDescriptions];
   v4 = objc_alloc(MEMORY[0x277D0F778]);
   diagnosticsSettings = [(HMDAccessoryDiagnosticsManager *)self diagnosticsSettings];
   v6 = [v4 initWithName:@"Diagnostics Settings" value:diagnosticsSettings];
-  v18[0] = v6;
+  v17[0] = v6;
   v7 = objc_alloc(MEMORY[0x277D0F778]);
   currentDiagnosticsSession = [(HMDAccessoryDiagnosticsManagerInternal *)self currentDiagnosticsSession];
   v9 = [v7 initWithName:@"Diagnostics Session" value:currentDiagnosticsSession];
-  v18[1] = v9;
+  v17[1] = v9;
   v10 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDAccessoryDiagnosticsManager *)self didShutDown];
   v11 = HMFBooleanToString();
   v12 = [v10 initWithName:@"didShutDown" value:v11];
-  v18[2] = v12;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:3];
+  v17[2] = v12;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:3];
   v14 = [attributeDescriptions arrayByAddingObjectsFromArray:v13];
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -1416,7 +1387,7 @@ void __72__HMDAccessoryDiagnosticsManager_handleAccessoryConfiguredNotification_
 
 - (void)_fetchModelDiagnosticsMetadataForAccessory:(id)accessory withCompletion:(id)completion
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   completionCopy = completion;
   workQueue = [(HMDAccessoryDiagnosticsManagerInternal *)self workQueue];
@@ -1434,25 +1405,25 @@ void __72__HMDAccessoryDiagnosticsManager_handleAccessoryConfiguredNotification_
     {
       v15 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v25 = v15;
-      v26 = 2112;
-      v27 = metadataIdentifier;
+      v24 = v15;
+      v25 = 2112;
+      v26 = metadataIdentifier;
       _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_INFO, "%{public}@Fetching diagnostics parameters locally for accessory with identifier %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v11);
     objc_initWeak(buf, selfCopy);
     v16 = [MEMORY[0x277CBEB98] setWithObject:metadataIdentifier];
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __99__HMDAccessoryDiagnosticsManager_Cloud___fetchModelDiagnosticsMetadataForAccessory_withCompletion___block_invoke;
-    v20[3] = &unk_279731820;
-    objc_copyWeak(&v23, buf);
-    v21 = metadataIdentifier;
-    v22 = completionCopy;
-    [v9 fetchPairedMetadataVersionConfigurationsForAccessories:v16 completion:v20];
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __99__HMDAccessoryDiagnosticsManager_Cloud___fetchModelDiagnosticsMetadataForAccessory_withCompletion___block_invoke;
+    v19[3] = &unk_279731820;
+    objc_copyWeak(&v22, buf);
+    v20 = metadataIdentifier;
+    v21 = completionCopy;
+    [v9 fetchPairedMetadataVersionConfigurationsForAccessories:v16 completion:v19];
 
-    objc_destroyWeak(&v23);
+    objc_destroyWeak(&v22);
     objc_destroyWeak(buf);
   }
 
@@ -1462,7 +1433,7 @@ void __72__HMDAccessoryDiagnosticsManager_handleAccessoryConfiguredNotification_
     {
       v17 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v25 = v17;
+      v24 = v17;
       _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@Unable to get cloud diagnostics parameters due to failure to derive identifier for accessory", buf, 0xCu);
     }
 
@@ -1470,13 +1441,11 @@ void __72__HMDAccessoryDiagnosticsManager_handleAccessoryConfiguredNotification_
     v18 = [MEMORY[0x277CCA9B8] hmErrorWithCode:-1];
     (*(completionCopy + 2))(completionCopy, 0, v18);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __99__HMDAccessoryDiagnosticsManager_Cloud___fetchModelDiagnosticsMetadataForAccessory_withCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
@@ -1489,13 +1458,13 @@ void __99__HMDAccessoryDiagnosticsManager_Cloud___fetchModelDiagnosticsMetadataF
     {
       v11 = HMFGetLogIdentifier();
       v12 = *(a1 + 32);
-      v40 = 138543874;
-      v41 = v11;
-      v42 = 2112;
-      v43 = v12;
-      v44 = 2112;
-      v45 = v6;
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Fetched accessory metadata for %@ failed with error %@", &v40, 0x20u);
+      v39 = 138543874;
+      v40 = v11;
+      v41 = 2112;
+      v42 = v12;
+      v43 = 2112;
+      v44 = v6;
+      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Fetched accessory metadata for %@ failed with error %@", &v39, 0x20u);
     }
 
     objc_autoreleasePoolPop(v8);
@@ -1520,13 +1489,13 @@ void __99__HMDAccessoryDiagnosticsManager_Cloud___fetchModelDiagnosticsMetadataF
         v20 = HMFGetLogIdentifier();
         v21 = [v14 diagnostics];
         v22 = *(a1 + 32);
-        v40 = 138543874;
-        v41 = v20;
-        v42 = 2112;
-        v43 = v21;
-        v44 = 2112;
-        v45 = v22;
-        _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_INFO, "%{public}@Fetched diagnostics metadata %@ from model for accessory with identifier %@", &v40, 0x20u);
+        v39 = 138543874;
+        v40 = v20;
+        v41 = 2112;
+        v42 = v21;
+        v43 = 2112;
+        v44 = v22;
+        _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_INFO, "%{public}@Fetched diagnostics metadata %@ from model for accessory with identifier %@", &v39, 0x20u);
       }
 
       objc_autoreleasePoolPop(v16);
@@ -1544,11 +1513,11 @@ void __99__HMDAccessoryDiagnosticsManager_Cloud___fetchModelDiagnosticsMetadataF
       {
         v36 = HMFGetLogIdentifier();
         v37 = *(a1 + 32);
-        v40 = 138543618;
-        v41 = v36;
-        v42 = 2112;
-        v43 = v37;
-        _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_ERROR, "%{public}@Diagnostics metadata not present in version configuration for accessory %@", &v40, 0x16u);
+        v39 = 138543618;
+        v40 = v36;
+        v41 = 2112;
+        v42 = v37;
+        _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_ERROR, "%{public}@Diagnostics metadata not present in version configuration for accessory %@", &v39, 0x16u);
       }
 
       objc_autoreleasePoolPop(v16);
@@ -1572,11 +1541,11 @@ void __99__HMDAccessoryDiagnosticsManager_Cloud___fetchModelDiagnosticsMetadataF
     {
       v32 = HMFGetLogIdentifier();
       v33 = *(a1 + 32);
-      v40 = 138543618;
-      v41 = v32;
-      v42 = 2112;
-      v43 = v33;
-      _os_log_impl(&dword_2531F8000, v31, OS_LOG_TYPE_ERROR, "%{public}@Fetched accessory metadata for %@ failed due to nil metadata", &v40, 0x16u);
+      v39 = 138543618;
+      v40 = v32;
+      v41 = 2112;
+      v42 = v33;
+      _os_log_impl(&dword_2531F8000, v31, OS_LOG_TYPE_ERROR, "%{public}@Fetched accessory metadata for %@ failed due to nil metadata", &v39, 0x16u);
     }
 
     objc_autoreleasePoolPop(v29);
@@ -1584,8 +1553,6 @@ void __99__HMDAccessoryDiagnosticsManager_Cloud___fetchModelDiagnosticsMetadataF
     v35 = [MEMORY[0x277CCA9B8] hmErrorWithCode:-1];
     [v30 _callCompletionHandler:v34 diagnostics:0 error:v35];
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (void)__fetchCloudDiagnosticsMetadataForAccessory:(id)accessory completion:(id)completion
@@ -1606,7 +1573,7 @@ void __99__HMDAccessoryDiagnosticsManager_Cloud___fetchModelDiagnosticsMetadataF
 
 void __96__HMDAccessoryDiagnosticsManager_Cloud____fetchCloudDiagnosticsMetadataForAccessory_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -1617,9 +1584,9 @@ void __96__HMDAccessoryDiagnosticsManager_Cloud____fetchCloudDiagnosticsMetadata
     {
       v7 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v13 = v7;
-      v14 = 2112;
-      v15 = v3;
+      v12 = v7;
+      v13 = 2112;
+      v14 = v3;
       _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to start up firewall rule manager: %@", buf, 0x16u);
     }
 
@@ -1629,22 +1596,20 @@ void __96__HMDAccessoryDiagnosticsManager_Cloud____fetchCloudDiagnosticsMetadata
 
   else
   {
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __96__HMDAccessoryDiagnosticsManager_Cloud____fetchCloudDiagnosticsMetadataForAccessory_completion___block_invoke_4;
-    v10[3] = &unk_27972DF20;
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __96__HMDAccessoryDiagnosticsManager_Cloud____fetchCloudDiagnosticsMetadataForAccessory_completion___block_invoke_4;
+    v9[3] = &unk_27972DF20;
     v8 = *(a1 + 40);
-    v10[4] = *(a1 + 32);
-    v11 = *(a1 + 48);
-    [v8 fetchCloudChangesWithCompletion:v10];
+    v9[4] = *(a1 + 32);
+    v10 = *(a1 + 48);
+    [v8 fetchCloudChangesWithCompletion:v9];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __96__HMDAccessoryDiagnosticsManager_Cloud____fetchCloudDiagnosticsMetadataForAccessory_completion___block_invoke_4(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -1655,11 +1620,11 @@ void __96__HMDAccessoryDiagnosticsManager_Cloud____fetchCloudDiagnosticsMetadata
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v10 = HMFGetLogIdentifier();
-      v13 = 138543618;
-      v14 = v10;
-      v15 = 2112;
-      v16 = v6;
-      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch changes from firewall rule manager: %@", &v13, 0x16u);
+      v12 = 138543618;
+      v13 = v10;
+      v14 = 2112;
+      v15 = v6;
+      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch changes from firewall rule manager: %@", &v12, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -1672,8 +1637,6 @@ void __96__HMDAccessoryDiagnosticsManager_Cloud____fetchCloudDiagnosticsMetadata
   }
 
   v11();
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_fetchCloudDiagnosticsMetadata
@@ -1694,7 +1657,7 @@ void __96__HMDAccessoryDiagnosticsManager_Cloud____fetchCloudDiagnosticsMetadata
 
 void __71__HMDAccessoryDiagnosticsManager_Cloud___fetchCloudDiagnosticsMetadata__block_invoke(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = WeakRetained;
@@ -1709,9 +1672,9 @@ void __71__HMDAccessoryDiagnosticsManager_Cloud___fetchCloudDiagnosticsMetadata_
       {
         v9 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v15 = v9;
-        v16 = 2112;
-        v17 = v3;
+        v14 = v9;
+        v15 = 2112;
+        v16 = v3;
         _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch cloud diagnostics metadata with error: %@", buf, 0x16u);
       }
 
@@ -1722,22 +1685,20 @@ void __71__HMDAccessoryDiagnosticsManager_Cloud___fetchCloudDiagnosticsMetadata_
     else
     {
       v10 = [WeakRetained workQueue];
-      v12[0] = MEMORY[0x277D85DD0];
-      v12[1] = 3221225472;
-      v12[2] = __71__HMDAccessoryDiagnosticsManager_Cloud___fetchCloudDiagnosticsMetadata__block_invoke_1;
-      v12[3] = &unk_2797359B0;
-      v12[4] = v5;
-      v13 = 0;
-      dispatch_async(v10, v12);
+      v11[0] = MEMORY[0x277D85DD0];
+      v11[1] = 3221225472;
+      v11[2] = __71__HMDAccessoryDiagnosticsManager_Cloud___fetchCloudDiagnosticsMetadata__block_invoke_1;
+      v11[3] = &unk_2797359B0;
+      v11[4] = v5;
+      v12 = 0;
+      dispatch_async(v10, v11);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __71__HMDAccessoryDiagnosticsManager_Cloud___fetchCloudDiagnosticsMetadata__block_invoke_1(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -1747,19 +1708,17 @@ uint64_t __71__HMDAccessoryDiagnosticsManager_Cloud___fetchCloudDiagnosticsMetad
     v6 = [*(a1 + 32) accessory];
     v7 = [v6 name];
     v8 = *(a1 + 40);
-    v11 = 138543874;
-    v12 = v5;
-    v13 = 2112;
-    v14 = v7;
-    v15 = 2112;
-    v16 = v8;
-    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@fetching diagnostics cloud metadata for accessory %@ completed with error: %@", &v11, 0x20u);
+    v10 = 138543874;
+    v11 = v5;
+    v12 = 2112;
+    v13 = v7;
+    v14 = 2112;
+    v15 = v8;
+    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@fetching diagnostics cloud metadata for accessory %@ completed with error: %@", &v10, 0x20u);
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [*(a1 + 32) setCloudFetchCompleted:1];
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) setCloudFetchCompleted:1];
 }
 
 - (id)watchedAccessoryIdentifiersForFirewallRuleManager:(id)manager

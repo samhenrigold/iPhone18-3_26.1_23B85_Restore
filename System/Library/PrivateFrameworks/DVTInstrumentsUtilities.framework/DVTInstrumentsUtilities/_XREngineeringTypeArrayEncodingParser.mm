@@ -22,9 +22,7 @@
 
 - (void)_handleStart
 {
-  v3 = objc_opt_new();
-  fixedTypes = self->_fixedTypes;
-  self->_fixedTypes = v3;
+  self->_fixedTypes = objc_opt_new();
 
   MEMORY[0x2821F96F8]();
 }
@@ -38,9 +36,7 @@
 
 - (void)setRemainder:(id)remainder
 {
-  v6 = objc_msgSend_copy(remainder, a2, remainder, v3, v4);
-  remainderType = self->_remainderType;
-  self->_remainderType = v6;
+  self->_remainderType = objc_msgSend_copy(remainder, a2, remainder, v3, v4);
 
   MEMORY[0x2821F96F8]();
 }

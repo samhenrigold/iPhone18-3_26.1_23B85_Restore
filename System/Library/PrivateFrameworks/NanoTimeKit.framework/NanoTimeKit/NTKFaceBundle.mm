@@ -546,26 +546,26 @@ void __46__NTKFaceBundle_FaceGeneration__faceFromData___block_invoke(uint64_t a1
 
 - (Class)faceClass
 {
-  objc_opt_class();
-  OUTLINED_FUNCTION_0_5();
+  v2 = objc_opt_class();
+  OUTLINED_FUNCTION_0_5(v2);
   return 0;
 }
 
 - (Class)faceViewClass
 {
-  objc_opt_class();
-  OUTLINED_FUNCTION_0_5();
+  v2 = objc_opt_class();
+  OUTLINED_FUNCTION_0_5(v2);
   return 0;
 }
 
 - (id)defaultFaceForDevice:(id)device
 {
   deviceCopy = device;
-  objc_opt_class();
-  OUTLINED_FUNCTION_0_5();
-  v4 = [NTKFace defaultFaceOfStyle:12 forDevice:deviceCopy];
+  v4 = objc_opt_class();
+  OUTLINED_FUNCTION_0_5(v4);
+  v5 = [NTKFace defaultFaceOfStyle:12 forDevice:deviceCopy];
 
-  return v4;
+  return v5;
 }
 
 @end

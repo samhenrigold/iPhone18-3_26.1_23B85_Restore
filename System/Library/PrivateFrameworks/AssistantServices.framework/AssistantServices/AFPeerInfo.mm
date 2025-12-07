@@ -3,6 +3,7 @@
 - (AFPeerInfo)initWithBuilder:(id)builder;
 - (AFPeerInfo)initWithCoder:(id)coder;
 - (AFPeerInfo)initWithDictionaryRepresentation:(id)representation;
+- (AFPeerInfo)initWithIsDeviceOwnedByCurrentUser:(BOOL)user assistantIdentifier:(id)identifier idsIdentifier:(id)idsIdentifier idsDeviceUniqueIdentifier:(id)uniqueIdentifier sharedUserID:(id)d rapportEffectiveIdentifier:(id)effectiveIdentifier homeKitAccessoryIdentifier:(id)accessoryIdentifier mediaSystemIdentifier:(id)self0 mediaRouteIdentifier:(id)self1 isCommunalDevice:(BOOL)self2 roomName:(id)self3 name:(id)self4 productType:(id)self5 buildVersion:(id)self6 userInterfaceIdiom:(id)self7 aceVersion:(id)self8 myriadTrialTreatment:(id)self9;
 - (AFPeerInfo)initWithIsDeviceOwnedByCurrentUser:(BOOL)user assistantIdentifier:(id)identifier sharedUserIdentifier:(id)userIdentifier idsIdentifier:(id)idsIdentifier idsDeviceUniqueIdentifier:(id)uniqueIdentifier rapportEffectiveIdentifier:(id)effectiveIdentifier homeKitAccessoryIdentifier:(id)accessoryIdentifier mediaSystemIdentifier:(id)self0 mediaRouteIdentifier:(id)self1 isCommunalDevice:(BOOL)self2 roomName:(id)self3 name:(id)self4 productType:(id)self5 buildVersion:(id)self6 userInterfaceIdiom:(id)self7 aceVersion:(id)self8 isLocationSharingDevice:(BOOL)self9 isSiriCloudSyncEnabled:(BOOL)enabled myriadTrialTreatment:(id)treatment;
 - (BOOL)isEqual:(id)equal;
 - (id)_descriptionWithIndent:(unint64_t)indent;
@@ -143,6 +144,13 @@
   v13 = [v15 stringWithFormat:@"(assistant=%@, ids=%@, media(s/r)=%@/%@, nm=%@, rm=%@, communal=%d, tt=%@)", ad_shortDescription, ad_shortDescription2, ad_shortDescription3, ad_shortDescription4, name, roomName, isCommunalDevice, myriadTrialTreatment];
 
   return v13;
+}
+
+- (AFPeerInfo)initWithIsDeviceOwnedByCurrentUser:(BOOL)user assistantIdentifier:(id)identifier idsIdentifier:(id)idsIdentifier idsDeviceUniqueIdentifier:(id)uniqueIdentifier sharedUserID:(id)d rapportEffectiveIdentifier:(id)effectiveIdentifier homeKitAccessoryIdentifier:(id)accessoryIdentifier mediaSystemIdentifier:(id)self0 mediaRouteIdentifier:(id)self1 isCommunalDevice:(BOOL)self2 roomName:(id)self3 name:(id)self4 productType:(id)self5 buildVersion:(id)self6 userInterfaceIdiom:(id)self7 aceVersion:(id)self8 myriadTrialTreatment:(id)self9
+{
+  LOWORD(v21) = 256;
+  LOBYTE(v20) = device;
+  return [(AFPeerInfo *)self initWithIsDeviceOwnedByCurrentUser:user assistantIdentifier:identifier sharedUserIdentifier:d idsIdentifier:idsIdentifier idsDeviceUniqueIdentifier:uniqueIdentifier rapportEffectiveIdentifier:effectiveIdentifier homeKitAccessoryIdentifier:accessoryIdentifier mediaSystemIdentifier:systemIdentifier mediaRouteIdentifier:routeIdentifier isCommunalDevice:v20 roomName:name name:a14 productType:type buildVersion:version userInterfaceIdiom:idiom aceVersion:aceVersion isLocationSharingDevice:v21 isSiriCloudSyncEnabled:treatment myriadTrialTreatment:?];
 }
 
 - (AFPeerInfo)initWithDictionaryRepresentation:(id)representation

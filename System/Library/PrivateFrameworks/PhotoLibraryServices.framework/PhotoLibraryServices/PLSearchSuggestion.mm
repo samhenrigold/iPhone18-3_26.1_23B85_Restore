@@ -146,7 +146,7 @@
     v5 = equalCopy;
     contentString = [(PLSearchSuggestion *)self contentString];
     contentString2 = [v5 contentString];
-    v8 = [contentString isEqualToString:contentString2];
+    isEqualToString = objc_msgSend_isEqualToString_(contentString);
 
     categoriesType = [(PLSearchSuggestion *)self categoriesType];
     categoriesType2 = [v5 categoriesType];
@@ -158,7 +158,7 @@
     matchedCollectionsCount2 = [v5 matchedCollectionsCount];
     matchedText = [(PLSearchSuggestion *)self matchedText];
     matchedText2 = [v5 matchedText];
-    v40 = [matchedText isEqualToString:matchedText2];
+    v40 = objc_msgSend_isEqualToString_(matchedText);
 
     matchRangeOfSearchText = [(PLSearchSuggestion *)self matchRangeOfSearchText];
     v14 = v13;
@@ -181,10 +181,10 @@
       v35 = v14;
       v26 = categoriesType2;
       v27 = categoriesType;
-      v29 = v28 = v8;
+      v29 = v28 = isEqualToString;
       v30 = [nextTokenSuggestions2 isEqualToArray:v29];
 
-      v8 = v28;
+      isEqualToString = v28;
       categoriesType = v27;
       categoriesType2 = v26;
       v14 = v35;
@@ -199,7 +199,7 @@
 
     if (categoriesType == categoriesType2)
     {
-      v32 = v8;
+      v32 = isEqualToString;
     }
 
     else
@@ -288,7 +288,7 @@
   }
 
   suggestionComponents2 = [(PLSearchSuggestion *)self suggestionComponents];
-  v11 = [suggestionComponents2 count];
+  v11 = objc_msgSend_count(suggestionComponents2);
 
   return v7 / v11;
 }
@@ -305,7 +305,7 @@
     [currentHandler handleFailureInMethod:a2 object:self file:@"PLSearchSuggestion.m" lineNumber:15 description:{@"Invalid parameter not satisfying: %@", @"contentString.length > 0"}];
   }
 
-  if (![componentsCopy count])
+  if (!objc_msgSend_count(componentsCopy))
   {
     currentHandler2 = [MEMORY[0x1E696AAA8] currentHandler];
     [currentHandler2 handleFailureInMethod:a2 object:self file:@"PLSearchSuggestion.m" lineNumber:16 description:{@"Invalid parameter not satisfying: %@", @"suggestionComponents.count > 0"}];

@@ -1591,14 +1591,14 @@ void ___ZL19gatherDeviceOptionsPN3AGX6HAL3006DeviceEPP8NSStringS5__block_invoke(
   operator new();
 }
 
-void sub_29CCCBCAC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29CCCBCAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<AppBundleInfo>::~vector[abi:nn200100](va);
   _Unwind_Resume(a1);
 }
 
-void **std::vector<AppBundleInfo>::~vector[abi:nn200100](void **a1)
+char **std::vector<AppBundleInfo>::~vector[abi:nn200100](char **a1)
 {
   v2 = *a1;
   if (*a1)
@@ -1634,22 +1634,22 @@ void ___ZN3AGX6DeviceINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE36setup
 {
   v8 = *MEMORY[0x29EDCA608];
   v1 = *(*(a1 + 32) + 6288);
-  AGX::Mempool<32u,0u,true,0u,0u,std::array<AGX::IntersectionFunctionTableEncoderGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::Entry,8ul>>::RangeAllocation::RangeAllocation(&c, (*(v1 + 176) + 14136), 0x70u, 0);
+  AGX::Mempool<32u,0u,true,0u,0u,std::array<AGX::IntersectionFunctionTableEncoderGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::Entry,8ul>>::RangeAllocation::RangeAllocation(c, (*(v1 + 176) + 14136), 112, 0);
   v2 = *(v1 + 184);
-  *(v1 + 184) = *c.count;
-  *c.count = v2;
+  *(v1 + 184) = c[0];
+  c[0] = v2;
   v3 = *(v1 + 192);
-  *(v1 + 192) = *c.hash;
-  *c.hash = v3;
+  *(v1 + 192) = c[1];
+  c[1] = v3;
   v4 = *(v1 + 200);
-  *(v1 + 200) = c.hash[2];
-  LOBYTE(c.hash[2]) = v4;
+  *(v1 + 200) = c[2];
+  LOBYTE(c[2]) = v4;
   if (v2)
   {
     if ((v4 & 1) == 0)
     {
       os_unfair_lock_lock(v3 + 188);
-      AGX::Mempool<16u,0u,true,0u,0u,unsigned long long>::FreeIntervalList::push(*c.hash + 696, c.count[0], c.count[0] + c.count[1] - 1);
+      AGX::Mempool<16u,0u,true,0u,0u,unsigned long long>::FreeIntervalList::push(c[1] + 696, LODWORD(c[0]), LODWORD(c[0]) + HIDWORD(c[0]) - 1);
       os_unfair_lock_unlock(v3 + 188);
     }
   }
@@ -1664,7 +1664,7 @@ void ___ZN3AGX6DeviceINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE36setup
   RaytracingConstantsGen1::getCommonDriverIntersectionShaderInfos(&v5);
 }
 
-void sub_29CCCD1B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, void *a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, void *a34, uint64_t a35, uint64_t a36, uint64_t a37, void *__p, uint64_t a39, uint64_t a40, char a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, void *a47)
+void sub_29CCCD1B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, void *a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, void *a34, uint64_t a35, uint64_t a36, uint64_t a37, void *__p, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, void *a47)
 {
   if (__p)
   {
@@ -3091,7 +3091,7 @@ void AGX::Device<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClas
   os_unfair_lock_unlock((a1 + 16696));
 }
 
-void AGX::Device<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::allocateBindlessConstantSampler(void *a1, uint64_t a2, unsigned __int16 *a3)
+void AGX::Device<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::allocateBindlessConstantSampler(uint64_t *a1, uint64_t a2, unsigned __int16 *a3)
 {
   *a1 = 0;
   a1[1] = 0;
@@ -3222,7 +3222,7 @@ LABEL_14:
   return areDriverUberShadersDisabled(void)::disableUberVariants;
 }
 
-uint64_t AGX::Device<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::findOrCreateDriverProgramVariant<AGX::HAL300::BackgroundObjectProgramVariant,AGX::BackgroundObjectProgramKey,AGX::HAL300::BackgroundObjectProgram>(uint64_t a1, os_unfair_lock_s *a2, uint64_t a3, uint64_t a4)
+dispatch_group_t AGX::Device<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::findOrCreateDriverProgramVariant<AGX::HAL300::BackgroundObjectProgramVariant,AGX::BackgroundObjectProgramKey,AGX::HAL300::BackgroundObjectProgram>(uint64_t a1, os_unfair_lock_s *a2, uint64_t a3, uint64_t a4)
 {
   v14 = 0;
   v15 = &v14;
@@ -3342,21 +3342,21 @@ void ___ZN3AGX6DeviceINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE32findO
     v7 = v5;
   }
 
-  v12 = 0;
-  v13 = 0;
-  AGX::BackgroundObjectProgramKey::serialize(*(a1 + 48), &v13, &v12);
-  v8 = a4;
-  v9 = v7;
-  v10 = v12;
-  v11 = v13;
-  _ZZZN3AGX6DeviceINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE30findOrCreateBlitProgramVariantERNS_20BlitVertexProgramKeyEEUb_ENKUlvE_clB14_AGX__Crashed_Ev();
+  v9 = 0;
+  v10 = 0;
+  AGX::BackgroundObjectProgramKey::serialize(*(a1 + 48), &v10, &v9);
+  v8[0] = a4;
+  v8[1] = v7;
+  v8[2] = v9;
+  v8[3] = v10;
+  _ZZZN3AGX6DeviceINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE30findOrCreateBlitProgramVariantERNS_20BlitVertexProgramKeyEEUb_ENKUlvE_clB14_AGX__Crashed_Ev(v8);
 }
 
-void sub_29CCCF2E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_29CCCF2E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   AGX::ProgramBindingRemap<AGX::HAL300::Encoders,AGX::HAL300::Classes>::~ProgramBindingRemap(va);
-  MEMORY[0x29ED520D0](v5, v4);
+  MEMORY[0x29ED520D0](v8, v7);
   _Unwind_Resume(a1);
 }
 
@@ -3576,9 +3576,9 @@ void ___ZN3AGX8Compiler14compileProgramINS_26BackgroundObjectProgramKeyE20AGCDes
   AGCDeserializedReply::~AGCDeserializedReply(v5);
 }
 
-void sub_29CCCFAD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29CCCFAD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   AGCDeserializedReply::~AGCDeserializedReply(va);
   _Unwind_Resume(a1);
 }
@@ -4363,7 +4363,7 @@ void sub_29CCD0824(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ___ZN3AGX6DeviceINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE35tryFindOrCreateDriverProgramVariantINS1_30BackgroundObjectProgramVariantENS_26BackgroundObjectProgramKeyENS1_23BackgroundObjectProgramEEEPT_PT1_RKT0_P7NSArrayIPU27objcproto16MTLBinaryArchive11objc_objectE_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+void ___ZN3AGX6DeviceINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE35tryFindOrCreateDriverProgramVariantINS1_30BackgroundObjectProgramVariantENS_26BackgroundObjectProgramKeyENS1_23BackgroundObjectProgramEEEPT_PT1_RKT0_P7NSArrayIPU27objcproto16MTLBinaryArchive11objc_objectE_block_invoke(void *a1, uint64_t a2, uint64_t a3, void *a4)
 {
   v19 = *MEMORY[0x29EDCA608];
   if (a3 <= 1)
@@ -4399,7 +4399,7 @@ LABEL_8:
 LABEL_11:
   v9 = 0;
   v10 = 0;
-  AGX::BackgroundObjectProgramKey::serialize((a1 + 40), &v10, &v9);
+  AGX::BackgroundObjectProgramKey::serialize((a1 + 5), &v10, &v9);
   if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_FAULT))
   {
     *buf = 138544130;
@@ -4413,7 +4413,7 @@ LABEL_11:
     _os_log_fault_impl(&dword_29CA13000, MEMORY[0x29EDCA988], OS_LOG_TYPE_FAULT, "AGX: %{public}@ (%{public}s). %{public}.*P", buf, 0x26u);
   }
 
-  v8 = *(a1 + 128);
+  v8 = a1[16];
   *(v8 + 8) = 0;
   *(v8 + 16) = a3;
 
@@ -4432,11 +4432,11 @@ LABEL_11:
   dispatch_group_leave(*v8);
 }
 
-void sub_29CCD0B20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_29CCD0B20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   AGX::ProgramBindingRemap<AGX::HAL300::Encoders,AGX::HAL300::Classes>::~ProgramBindingRemap(va);
-  MEMORY[0x29ED520D0](v5, v6);
+  MEMORY[0x29ED520D0](v9, v10);
   _Unwind_Resume(a1);
 }
 
@@ -4479,9 +4479,9 @@ __n128 __copy_helper_block_e8_40c38_ZTSN3AGX26BackgroundObjectProgramKeyE(uint64
   return result;
 }
 
-void AGX::Device<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::populateEndOfTileProgramVariants(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t *a6)
+void AGX::Device<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::populateEndOfTileProgramVariants(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, uint64_t a7)
 {
-  v57 = *(a1 + 8);
+  v58 = *(a1 + 8);
   if (**MEMORY[0x29EDC56B0])
   {
     IOGPUDeviceTraceEvent();
@@ -4489,29 +4489,29 @@ void AGX::Device<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClas
 
   if ((areDriverUberShadersDisabled() & 1) == 0)
   {
-    v21 = *(a2 + 44);
-    v22 = *(a2 + 52);
-    v23 = *(a2 + 76);
-    v24.i32[0] = *(a2 + 40);
-    v24.i32[1] = *(a2 + 48);
-    v24.i64[1] = v22;
-    v25 = vorrq_s8(*(a2 + 60), *(a2 + 92));
-    v26 = vorrq_s8(v24, vorrq_s8(v23, v25));
-    v27 = vorr_s8(*v26.i8, *&vextq_s8(v26, v26, 8uLL));
-    v28 = (v27.i8[0] | v21) | v27.i8[4] ? ((v27.i32[0] | v21 | v27.i32[1]) & 0x2000000) + 1 : (v27.i32[0] | v21 | v27.i32[1]) & 0x2000000;
-    v29 = *(a2 + 112);
-    if ((v29 & 0x180000000000000) == 0)
+    v22 = *(a2 + 44);
+    v23 = *(a2 + 52);
+    v24 = *(a2 + 76);
+    v25.i32[0] = *(a2 + 40);
+    v25.i32[1] = *(a2 + 48);
+    v25.i64[1] = v23;
+    v26 = vorrq_s8(*(a2 + 60), *(a2 + 92));
+    v27 = vorrq_s8(v25, vorrq_s8(v24, v26));
+    v28 = vorr_s8(*v27.i8, *&vextq_s8(v27, v27, 8uLL));
+    v29 = (v28.i8[0] | v22) | v28.i8[4] ? ((v28.i32[0] | v22 | v28.i32[1]) & 0x2000000) + 1 : (v28.i32[0] | v22 | v28.i32[1]) & 0x2000000;
+    v30 = *(a2 + 112);
+    if ((v30 & 0x180000000000000) == 0)
     {
-      v30 = v22;
-      v31 = HIDWORD(v22);
-      v32 = vorrq_s8(v25, v23);
-      v33 = vorr_s8(*v32.i8, *&vextq_s8(v32, v32, 8uLL));
-      if ((v29 | v33.i32[0] | v30 | v33.i32[1] | v31 | v21 | v28 ^ *(a2 + 40) | *(a2 + 120) | *(a2 + 122) | *(a2 + 124) | *(a2 + 48)) != 0x200000000000000)
+      v31 = v23;
+      v32 = HIDWORD(v23);
+      v33 = vorrq_s8(v26, v24);
+      v34 = vorr_s8(*v33.i8, *&vextq_s8(v33, v33, 8uLL));
+      if ((v30 | v34.i32[0] | v31 | v34.i32[1] | v32 | v22 | v29 ^ *(a2 + 40) | *(a2 + 120) | *(a2 + 122) | *(a2 + 124) | *(a2 + 48)) != 0x200000000000000)
       {
-        v34 = *a4;
+        v35 = *a4;
         if (*a4)
         {
-          v35 = *a5;
+          v36 = *a5;
           if (*a5)
           {
             goto LABEL_49;
@@ -4520,35 +4520,35 @@ void AGX::Device<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClas
 
         else
         {
-          v34 = AGX::Device<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::tryFindOrCreateDriverProgramVariant<AGX::HAL300::EndOfTileProgramVariant,AGX::EndOfTileProgramKey,AGX::HAL300::EndOfTileProgram>(a1, v57, a2, a3);
-          *a4 = v34;
-          v35 = *a5;
+          v35 = AGX::Device<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::tryFindOrCreateDriverProgramVariant<AGX::HAL300::EndOfTileProgramVariant,AGX::EndOfTileProgramKey,AGX::HAL300::EndOfTileProgram>(a1, v58, a2, a3);
+          *a4 = v35;
+          v36 = *a5;
           if (*a5)
           {
             goto LABEL_49;
           }
         }
 
-        v38 = *(a2 + 120);
-        if (v38 > 0xFF || *(a2 + 122) || *(a2 + 124))
+        v39 = *(a2 + 120);
+        if (v39 > 0xFF || *(a2 + 122) || *(a2 + 124))
         {
-          if (v34 && (v35 = *(v34 + 2040)) != 0)
+          if (v35 && (v36 = *(v35 + 2040)) != 0)
           {
-            *a5 = v35;
+            *a5 = v36;
           }
 
           else
           {
-            v82 = &unk_2A23F9778;
-            v83 = *(a2 + 8);
-            v85 = 0;
+            v83 = &unk_2A23F9778;
+            v84 = *(a2 + 8);
             v86 = 0;
-            v84 = 0;
-            v42 = *(a2 + 16);
-            v41 = *(a2 + 24);
-            if (v41 != v42)
+            v87 = 0;
+            v85 = 0;
+            v43 = *(a2 + 16);
+            v42 = *(a2 + 24);
+            if (v42 != v43)
             {
-              if (((v41 - v42) & 0x8000000000000000) == 0)
+              if (((v42 - v43) & 0x8000000000000000) == 0)
               {
                 operator new();
               }
@@ -4556,49 +4556,49 @@ void AGX::Device<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClas
               goto LABEL_86;
             }
 
-            v43 = *(a2 + 88);
-            *&v87[64] = *(a2 + 104);
-            *&v87[32] = *(a2 + 72);
-            *&v87[48] = v43;
-            v44 = *(a2 + 56);
-            *v87 = *(a2 + 40);
-            v82 = &unk_2A23F9738;
-            *&v87[80] = *(a2 + 120);
-            *&v87[16] = v44;
-            *&v87[80] = v38;
-            *&v87[82] = 0;
-            *&v87[72] = v38;
-            v35 = AGX::Device<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::tryFindOrCreateDriverProgramVariant<AGX::HAL300::EndOfTileProgramVariant,AGX::EndOfTileProgramKey,AGX::HAL300::EndOfTileProgram>(a1, v57, &v82, a3);
-            *a5 = v35;
-            v82 = &unk_2A23F9778;
-            if (v84)
+            v44 = *(a2 + 88);
+            *&v88[64] = *(a2 + 104);
+            *&v88[32] = *(a2 + 72);
+            *&v88[48] = v44;
+            v45 = *(a2 + 56);
+            *v88 = *(a2 + 40);
+            v83 = &unk_2A23F9738;
+            *&v88[80] = *(a2 + 120);
+            *&v88[16] = v45;
+            *&v88[80] = v39;
+            *&v88[82] = 0;
+            *&v88[72] = v39;
+            v36 = AGX::Device<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::tryFindOrCreateDriverProgramVariant<AGX::HAL300::EndOfTileProgramVariant,AGX::EndOfTileProgramKey,AGX::HAL300::EndOfTileProgram>(a1, v58, &v83, a3);
+            *a5 = v36;
+            v83 = &unk_2A23F9778;
+            if (v85)
             {
-              v85 = v84;
-              operator delete(v84);
-              v35 = *a5;
+              v86 = v85;
+              operator delete(v85);
+              v36 = *a5;
             }
 
-            if (!v35)
+            if (!v36)
             {
               goto LABEL_53;
             }
 
             if (*a4)
             {
-              *(*a4 + 2040) = v35;
-              v35 = *a5;
+              *(*a4 + 2040) = v36;
+              v36 = *a5;
             }
           }
         }
 
         else
         {
-          *a5 = v34;
-          v35 = v34;
+          *a5 = v35;
+          v36 = v35;
         }
 
 LABEL_49:
-        if (*a4 && v35)
+        if (*a4 && v36)
         {
           if (**MEMORY[0x29EDC56B0])
           {
@@ -4609,43 +4609,43 @@ LABEL_49:
         }
 
 LABEL_53:
-        v12 = 0;
         v13 = 0;
-        v45 = vorrq_s8(vorrq_s8(*(a2 + 40), *(a2 + 72)), vorrq_s8(*(a2 + 56), *(a2 + 88)));
-        *v45.i8 = vorr_s8(*v45.i8, *&vextq_s8(v45, v45, 8uLL));
-        v46 = v45.i32[0] | *(a2 + 104);
-        v83 = 19;
-        v47 = v46 | v45.i32[1];
-        v85 = 0;
+        v14 = 0;
+        v46 = vorrq_s8(vorrq_s8(*(a2 + 40), *(a2 + 72)), vorrq_s8(*(a2 + 56), *(a2 + 88)));
+        *v46.i8 = vorr_s8(*v46.i8, *&vextq_s8(v46, v46, 8uLL));
+        v47 = v46.i32[0] | *(a2 + 104);
+        v84 = 19;
+        v48 = v47 | v46.i32[1];
         v86 = 0;
-        v84 = 0;
-        v82 = &unk_2A23F9738;
-        *&v87[78] = 0;
-        *&v87[72] = 0x200000000000000;
-        v48 = v47 == 0;
-        v49 = v47 & 0x2000000;
-        memset(v87, 0, 72);
-        if (!v48)
+        v87 = 0;
+        v85 = 0;
+        v83 = &unk_2A23F9738;
+        *&v88[78] = 0;
+        *&v88[72] = 0x200000000000000;
+        v49 = v48 == 0;
+        v50 = v48 & 0x2000000;
+        memset(v88, 0, 72);
+        if (!v49)
         {
-          ++v49;
+          ++v50;
         }
 
-        *v87 = v49;
+        *v88 = v50;
         goto LABEL_8;
       }
     }
   }
 
-  v82 = &unk_2A23F9778;
-  v83 = *(a2 + 8);
-  v85 = 0;
+  v83 = &unk_2A23F9778;
+  v84 = *(a2 + 8);
   v86 = 0;
-  v84 = 0;
-  v10 = *(a2 + 16);
-  v9 = *(a2 + 24);
-  if (v9 != v10)
+  v87 = 0;
+  v85 = 0;
+  v11 = *(a2 + 16);
+  v10 = *(a2 + 24);
+  if (v10 != v11)
   {
-    if (((v9 - v10) & 0x8000000000000000) == 0)
+    if (((v10 - v11) & 0x8000000000000000) == 0)
     {
       operator new();
     }
@@ -4653,140 +4653,140 @@ LABEL_53:
     goto LABEL_86;
   }
 
-  *&v87[32] = *(a2 + 72);
-  *&v87[48] = *(a2 + 88);
-  *&v87[64] = *(a2 + 104);
-  v11 = *(a2 + 120);
-  v82 = &unk_2A23F9738;
-  *&v87[80] = v11;
-  *v87 = *(a2 + 40);
-  v12 = 1;
-  v13 = a3;
-  *&v87[16] = *(a2 + 56);
+  *&v88[32] = *(a2 + 72);
+  *&v88[48] = *(a2 + 88);
+  *&v88[64] = *(a2 + 104);
+  v12 = *(a2 + 120);
+  v83 = &unk_2A23F9738;
+  *&v88[80] = v12;
+  *v88 = *(a2 + 40);
+  v13 = 1;
+  v14 = a3;
+  *&v88[16] = *(a2 + 56);
 LABEL_8:
   os_unfair_lock_lock((a1 + 16884));
-  v14.i64[0] = __PAIR64__(*&v87[8], *v87);
-  v14.i64[1] = *&v87[12];
-  v15 = vorrq_s8(*&v87[20], *&v87[52]);
-  v16 = vorrq_s8(v14, vorrq_s8(*&v87[36], v15));
-  *v16.i8 = vorr_s8(*v16.i8, *&vextq_s8(v16, v16, 8uLL));
-  v17 = (v16.i32[0] | *&v87[4] | v16.i32[1]) & 0x2000000;
-  if ((v16.i8[0] | v87[4]) | v16.i8[4])
+  v15.i64[0] = __PAIR64__(*&v88[8], *v88);
+  v15.i64[1] = *&v88[12];
+  v16 = vorrq_s8(*&v88[20], *&v88[52]);
+  v17 = vorrq_s8(v15, vorrq_s8(*&v88[36], v16));
+  *v17.i8 = vorr_s8(*v17.i8, *&vextq_s8(v17, v17, 8uLL));
+  v18 = (v17.i32[0] | *&v88[4] | v17.i32[1]) & 0x2000000;
+  if ((v17.i8[0] | v88[4]) | v17.i8[4])
   {
-    ++v17;
+    ++v18;
   }
 
-  v18 = vorrq_s8(v15, *&v87[36]);
-  v19 = vorr_s8(*v18.i8, *&vextq_s8(v18, v18, 8uLL));
-  if ((*&v87[72] | *&v87[80] | *&v87[82] | *&v87[84] | v19.i32[0] | *&v87[12] | v19.i32[1] | *&v87[16] | *&v87[4] | *&v87[8] | v17 ^ *v87) == 0x200000000000000)
+  v19 = vorrq_s8(v16, *&v88[36]);
+  v20 = vorr_s8(*v19.i8, *&vextq_s8(v19, v19, 8uLL));
+  if ((*&v88[72] | *&v88[80] | *&v88[82] | *&v88[84] | v20.i32[0] | *&v88[12] | v20.i32[1] | *&v88[16] | *&v88[4] | *&v88[8] | v18 ^ *v88) == 0x200000000000000)
   {
     atomic_fetch_add(&AGX::EndOfTileProgramVariant<AGX::HAL300::Encoders,AGX::HAL300::Classes>::liveUberVariantUses, 1uLL);
   }
 
-  v20 = *a4;
+  v21 = *a4;
   if (*a4)
   {
     if (!*a5)
     {
 LABEL_24:
-      v36 = *(a2 + 120);
-      if (v36 <= 0xFF && !*(a2 + 122) && !*(a2 + 124))
+      v37 = *(a2 + 120);
+      if (v37 <= 0xFF && !*(a2 + 122) && !*(a2 + 124))
       {
-        *a5 = v20;
+        *a5 = v21;
         goto LABEL_67;
       }
 
-      v37 = *(v20 + 2040);
-      if (v37)
+      isa = v21[255].isa;
+      if (isa)
       {
-        *a5 = v37;
+        *a5 = isa;
         goto LABEL_67;
       }
 
-      v71 = &unk_2A23F9778;
-      v72 = *(a2 + 8);
-      v74 = 0;
+      v72 = &unk_2A23F9778;
+      v73 = *(a2 + 8);
       v75 = 0;
-      v73 = 0;
-      v40 = *(a2 + 16);
-      v39 = *(a2 + 24);
-      if (v39 == v40)
+      v76 = 0;
+      v74 = 0;
+      v41 = *(a2 + 16);
+      v40 = *(a2 + 24);
+      if (v40 == v41)
       {
-        v71 = &unk_2A23F9738;
-        v81 = *(a2 + 120);
-        v80 = *(a2 + 104);
-        v78 = *(a2 + 72);
-        v79 = *(a2 + 88);
-        v76 = *(a2 + 40);
-        v77 = *(a2 + 56);
-        LOWORD(v81) = v36;
-        *(&v81 + 2) = 0;
-        DWORD2(v80) = v36;
-        if (v12)
+        v72 = &unk_2A23F9738;
+        v82 = *(a2 + 120);
+        v81 = *(a2 + 104);
+        v79 = *(a2 + 72);
+        v80 = *(a2 + 88);
+        v77 = *(a2 + 40);
+        v78 = *(a2 + 56);
+        LOWORD(v82) = v37;
+        *(&v82 + 2) = 0;
+        DWORD2(v81) = v37;
+        if (v13)
         {
-          v62 = v72;
-          v64 = 0;
+          v63 = v73;
           v65 = 0;
+          v66 = 0;
           __p = 0;
-          v61 = &unk_2A23F9738;
-          v68 = v78;
+          v62 = &unk_2A23F9738;
           v69 = v79;
-          *v70 = v80;
-          *&v70[16] = v81;
-          v66 = v76;
+          v70 = v80;
+          *v71 = v81;
+          *&v71[16] = v82;
           v67 = v77;
+          v68 = v78;
         }
 
         else
         {
-          v50 = vorrq_s8(vorrq_s8(v76, v78), vorrq_s8(v77, v79));
-          *v50.i8 = vorr_s8(*v50.i8, *&vextq_s8(v50, v50, 8uLL));
-          v62 = 19;
-          v51 = (v50.i32[0] | v80 | v50.i32[1]) & 0x2000000;
-          v64 = 0;
+          v51 = vorrq_s8(vorrq_s8(v77, v79), vorrq_s8(v78, v80));
+          *v51.i8 = vorr_s8(*v51.i8, *&vextq_s8(v51, v51, 8uLL));
+          v63 = 19;
+          v52 = (v51.i32[0] | v81 | v51.i32[1]) & 0x2000000;
           v65 = 0;
+          v66 = 0;
           __p = 0;
-          v61 = &unk_2A23F9738;
-          v69 = 0u;
-          *v70 = 0;
-          *&v70[14] = 0;
-          v66 = 0u;
+          v62 = &unk_2A23F9738;
+          v70 = 0u;
+          *v71 = 0;
+          *&v71[14] = 0;
           v67 = 0u;
           v68 = 0u;
-          *&v70[8] = 0x200000000000000;
-          if ((v50.i8[0] | v80) | v50.i8[4])
+          v69 = 0u;
+          *&v71[8] = 0x200000000000000;
+          if ((v51.i8[0] | v81) | v51.i8[4])
           {
-            ++v51;
+            ++v52;
           }
 
-          v66.i32[0] = v51;
+          v67.i32[0] = v52;
         }
 
-        v52 = AGX::Device<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::findOrCreateDriverProgramVariant<AGX::HAL300::EndOfTileProgramVariant,AGX::EndOfTileProgramKey,AGX::HAL300::EndOfTileProgram>(a1, v57, &v61, v13);
-        *a5 = v52;
-        if (*(*a4 + 2032) == *(v52 + 2032))
+        v53 = AGX::Device<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::findOrCreateDriverProgramVariant<AGX::HAL300::EndOfTileProgramVariant,AGX::EndOfTileProgramKey,AGX::HAL300::EndOfTileProgram>(a1, v58, &v62, v14);
+        *a5 = v53;
+        if (*(*a4 + 2032) == LOBYTE(v53[254].isa))
         {
-          *(*a4 + 2040) = v52;
+          *(*a4 + 2040) = v53;
         }
 
-        v61 = &unk_2A23F9778;
+        v62 = &unk_2A23F9778;
         if (__p)
         {
-          v64 = __p;
+          v65 = __p;
           operator delete(__p);
         }
 
-        v71 = &unk_2A23F9778;
-        if (v73)
+        v72 = &unk_2A23F9778;
+        if (v74)
         {
-          v74 = v73;
-          operator delete(v73);
+          v75 = v74;
+          operator delete(v74);
         }
 
         goto LABEL_67;
       }
 
-      if (((v39 - v40) & 0x8000000000000000) == 0)
+      if (((v40 - v41) & 0x8000000000000000) == 0)
       {
         operator new();
       }
@@ -4798,8 +4798,8 @@ LABEL_86:
 
   else
   {
-    v20 = AGX::Device<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::findOrCreateDriverProgramVariant<AGX::HAL300::EndOfTileProgramVariant,AGX::EndOfTileProgramKey,AGX::HAL300::EndOfTileProgram>(a1, v57, &v82, v13);
-    *a4 = v20;
+    v21 = AGX::Device<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::findOrCreateDriverProgramVariant<AGX::HAL300::EndOfTileProgramVariant,AGX::EndOfTileProgramKey,AGX::HAL300::EndOfTileProgram>(a1, v58, &v83, v14);
+    *a4 = v21;
     if (!*a5)
     {
       goto LABEL_24;
@@ -4813,11 +4813,11 @@ LABEL_67:
   }
 
   os_unfair_lock_unlock((a1 + 16884));
-  v82 = &unk_2A23F9778;
-  if (v84)
+  v83 = &unk_2A23F9778;
+  if (v85)
   {
-    v85 = v84;
-    operator delete(v84);
+    v86 = v85;
+    operator delete(v85);
   }
 
 LABEL_71:
@@ -4825,16 +4825,16 @@ LABEL_71:
     AGX::Device<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::enableGIN1403EOT2ReadSWWA(void)::enable_gin1403_swwa = 1;
   }
 
-  v82 = &unk_2A23F9778;
-  v83 = *(a2 + 8);
-  v85 = 0;
+  v83 = &unk_2A23F9778;
+  v84 = *(a2 + 8);
   v86 = 0;
-  v84 = 0;
-  v54 = *(a2 + 16);
-  v53 = *(a2 + 24);
-  if (v53 != v54)
+  v87 = 0;
+  v85 = 0;
+  v55 = *(a2 + 16);
+  v54 = *(a2 + 24);
+  if (v54 != v55)
   {
-    if (((v53 - v54) & 0x8000000000000000) == 0)
+    if (((v54 - v55) & 0x8000000000000000) == 0)
     {
       operator new();
     }
@@ -4842,30 +4842,30 @@ LABEL_71:
     goto LABEL_86;
   }
 
-  *&v87[64] = *(a2 + 104);
-  *&v87[80] = *(a2 + 120);
-  *&v87[48] = *(a2 + 88);
-  *&v87[32] = *(a2 + 72);
-  *v87 = *(a2 + 40);
-  *&v87[16] = *(a2 + 56);
-  *&v87[80] = *(a2 + 126) & *(a2 + 120);
-  v55 = 0x100000000000000;
+  *&v88[64] = *(a2 + 104);
+  *&v88[80] = *(a2 + 120);
+  *&v88[48] = *(a2 + 88);
+  *&v88[32] = *(a2 + 72);
+  *v88 = *(a2 + 40);
+  *&v88[16] = *(a2 + 56);
+  *&v88[80] = *(a2 + 126) & *(a2 + 120);
+  v56 = 0x100000000000000;
   if (AGX::Device<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::enableGIN1403EOT2ReadSWWA(void)::enable_gin1403_swwa)
   {
-    v55 = 0x500000000000000;
+    v56 = 0x500000000000000;
   }
 
-  v82 = &unk_2A23F9738;
-  *&v87[72] = v55 | *&v87[72] & 0xFA7FFFFFFFFF0000 | ~*&v87[82] & *&v87[80];
+  v83 = &unk_2A23F9738;
+  *&v88[72] = v56 | *&v88[72] & 0xFA7FFFFFFFFF0000 | ~*&v88[82] & *&v88[80];
   if (**MEMORY[0x29EDC56B0])
   {
     IOGPUDeviceTraceEvent();
   }
 
   os_unfair_lock_lock((a1 + 16884));
-  v56 = AGX::Device<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::tryFindOrCreateDriverProgramVariant<AGX::HAL300::EndOfTileProgramVariant,AGX::EndOfTileProgramKey,AGX::HAL300::EndOfTileProgram>(a1, *(a1 + 8), &v82, a3);
-  *a6 = v56;
-  if (!v56)
+  v57 = AGX::Device<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::tryFindOrCreateDriverProgramVariant<AGX::HAL300::EndOfTileProgramVariant,AGX::EndOfTileProgramKey,AGX::HAL300::EndOfTileProgram>(a1, *(a1 + 8), &v83, a3);
+  *a6 = v57;
+  if (!v57)
   {
     *a6 = *a4;
   }
@@ -4876,11 +4876,11 @@ LABEL_71:
   }
 
   os_unfair_lock_unlock((a1 + 16884));
-  v82 = &unk_2A23F9778;
-  if (v84)
+  v83 = &unk_2A23F9778;
+  if (v85)
   {
-    v85 = v84;
-    operator delete(v84);
+    v86 = v85;
+    operator delete(v85);
   }
 }
 
@@ -5139,11 +5139,11 @@ LABEL_11:
   dispatch_group_leave(*v17);
 }
 
-void sub_29CCD2018(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29CCD2018(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   AGX::ProgramBindingRemap<AGX::HAL300::Encoders,AGX::HAL300::Classes>::~ProgramBindingRemap(va);
-  MEMORY[0x29ED520D0](v3, v4);
+  MEMORY[0x29ED520D0](v5, v6);
   _Unwind_Resume(a1);
 }
 
@@ -5416,9 +5416,9 @@ void ___ZN3AGX8Compiler14compileProgramINS_19EndOfTileProgramKeyE20AGCDeserializ
   AGCDeserializedReply::~AGCDeserializedReply(v5);
 }
 
-void sub_29CCD2950(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29CCD2950(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   AGCDeserializedReply::~AGCDeserializedReply(va);
   _Unwind_Resume(a1);
 }
@@ -5467,7 +5467,7 @@ __n128 __copy_helper_block_e8_40c31_ZTSN3AGX19EndOfTileProgramKeyE(uint64_t a1, 
   return result;
 }
 
-uint64_t AGX::Device<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::findOrCreateDriverProgramVariant<AGX::HAL300::EndOfTileProgramVariant,AGX::EndOfTileProgramKey,AGX::HAL300::EndOfTileProgram>(uint64_t a1, os_unfair_lock_s *a2, uint64_t a3, uint64_t a4)
+dispatch_group_t AGX::Device<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::findOrCreateDriverProgramVariant<AGX::HAL300::EndOfTileProgramVariant,AGX::EndOfTileProgramKey,AGX::HAL300::EndOfTileProgram>(uint64_t a1, os_unfair_lock_s *a2, uint64_t a3, uint64_t a4)
 {
   v14 = 0;
   v15 = &v14;
@@ -5547,21 +5547,21 @@ void ___ZN3AGX6DeviceINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE32findO
     v7 = v5;
   }
 
-  v12 = 0;
-  v13 = 0;
-  AGX::EndOfTileProgramKey::serialize(*(a1 + 48), &v13, &v12);
-  v8 = a4;
-  v9 = v7;
-  v10 = v12;
-  v11 = v13;
-  _ZZZN3AGX6DeviceINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE30findOrCreateBlitProgramVariantERNS_20BlitVertexProgramKeyEEUb_ENKUlvE_clB14_AGX__Crashed_Ev();
+  v9 = 0;
+  v10 = 0;
+  AGX::EndOfTileProgramKey::serialize(*(a1 + 48), &v10, &v9);
+  v8[0] = a4;
+  v8[1] = v7;
+  v8[2] = v9;
+  v8[3] = v10;
+  _ZZZN3AGX6DeviceINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE30findOrCreateBlitProgramVariantERNS_20BlitVertexProgramKeyEEUb_ENKUlvE_clB14_AGX__Crashed_Ev(v8);
 }
 
-void sub_29CCD2DC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_29CCD2DC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   AGX::ProgramBindingRemap<AGX::HAL300::Encoders,AGX::HAL300::Classes>::~ProgramBindingRemap(va);
-  MEMORY[0x29ED520D0](v5, v4);
+  MEMORY[0x29ED520D0](v8, v7);
   _Unwind_Resume(a1);
 }
 
@@ -5607,23 +5607,23 @@ void ___ZN3AGX6DeviceINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE32findO
     v7 = v5;
   }
 
-  v12 = 0;
-  v13 = 0;
-  AGX::EndOfTileProgramKey::serialize(*(a1 + 48), &v12, &v13);
-  v8 = a4;
-  v9 = v7;
-  v10 = v13;
-  v11 = v12;
-  _ZZZN3AGX6DeviceINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE30findOrCreateBlitProgramVariantERNS_20BlitVertexProgramKeyEEUb_ENKUlvE_clB14_AGX__Crashed_Ev();
+  *&v9 = 0;
+  v10 = 0;
+  AGX::EndOfTileProgramKey::serialize(*(a1 + 48), &v9, &v10);
+  v8[0] = a4;
+  v8[1] = v7;
+  v8[2] = v10;
+  v8[3] = v9;
+  _ZZZN3AGX6DeviceINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE30findOrCreateBlitProgramVariantERNS_20BlitVertexProgramKeyEEUb_ENKUlvE_clB14_AGX__Crashed_Ev(v8);
 }
 
-void sub_29CCD30D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_29CCD30D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
-  AGX::HAL300::FragmentProgramVariantESLState::~FragmentProgramVariantESLState((v5 + 680));
-  AGX::EndOfTileProgramVariantBase<AGX::HAL300::Encoders,AGX::HAL300::Classes>::~EndOfTileProgramVariantBase(v5);
+  va_start(va, a7);
+  AGX::HAL300::FragmentProgramVariantESLState::~FragmentProgramVariantESLState((v8 + 680));
+  AGX::EndOfTileProgramVariantBase<AGX::HAL300::Encoders,AGX::HAL300::Classes>::~EndOfTileProgramVariantBase(v8);
   AGX::ProgramBindingRemap<AGX::HAL300::Encoders,AGX::HAL300::Classes>::~ProgramBindingRemap(va);
-  MEMORY[0x29ED520D0](v5, v4);
+  MEMORY[0x29ED520D0](v8, v7);
   _Unwind_Resume(a1);
 }
 
@@ -7424,7 +7424,7 @@ LABEL_55:
   return v41;
 }
 
-void sub_29CCD3BE8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, dispatch_object_t object)
+void sub_29CCD3BE8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, dispatch_object_t object)
 {
   dispatch_release(object);
   _Block_object_dispose(&a17, 8);
@@ -7461,21 +7461,21 @@ void ___ZN3AGX6DeviceINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE32findO
     v7 = v5;
   }
 
-  v12 = 0;
-  v13 = 0;
-  (*(**(a1 + 48) + 16))(*(a1 + 48), &v13, &v12);
-  v8 = a4;
-  v9 = v7;
-  v10 = v12;
-  v11 = v13;
-  _ZZZN3AGX6DeviceINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE30findOrCreateBlitProgramVariantERNS_20BlitVertexProgramKeyEEUb_ENKUlvE_clB14_AGX__Crashed_Ev();
+  v9 = 0;
+  v10 = 0;
+  (*(**(a1 + 48) + 16))(*(a1 + 48), &v10, &v9);
+  v8[0] = a4;
+  v8[1] = v7;
+  v8[2] = v9;
+  v8[3] = v10;
+  _ZZZN3AGX6DeviceINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE30findOrCreateBlitProgramVariantERNS_20BlitVertexProgramKeyEEUb_ENKUlvE_clB14_AGX__Crashed_Ev(v8);
 }
 
-void sub_29CCD3DE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_29CCD3DE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   AGX::ProgramBindingRemap<AGX::HAL300::Encoders,AGX::HAL300::Classes>::~ProgramBindingRemap(va);
-  MEMORY[0x29ED520D0](v5, v4);
+  MEMORY[0x29ED520D0](v8, v7);
   _Unwind_Resume(a1);
 }
 
@@ -7559,9 +7559,9 @@ void ___ZN3AGX8Compiler14compileProgramINS_22BlitFragmentProgramKeyE20AGCDeseria
   AGCDeserializedReply::~AGCDeserializedReply(v5);
 }
 
-void sub_29CCD40E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29CCD40E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   AGCDeserializedReply::~AGCDeserializedReply(va);
   _Unwind_Resume(a1);
 }
@@ -8050,7 +8050,7 @@ unint64_t AGX::BlitFragmentProgramVariant<AGX::HAL300::Encoders,AGX::HAL300::Cla
   return AGX::ProgramVariant<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::BlitFragmentArgumentTable,false,false,AGX::NoCombinedUserDriverArgumentTable>::~ProgramVariant(a1);
 }
 
-void sub_29CCD51C4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, dispatch_object_t object)
+void sub_29CCD51C4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, dispatch_object_t object)
 {
   os_unfair_lock_unlock(v27 + 182);
   os_unfair_lock_unlock((v26 + v28));
@@ -8088,20 +8088,20 @@ void ___ZN3AGX6DeviceINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE30findO
   }
 
   v8[0] = 0;
-  v9 = 0;
-  (*(**(a1 + 48) + 16))(*(a1 + 48), v8, &v9);
-  v8[7] = a4;
-  v8[8] = v7;
-  v8[9] = v9;
-  v8[10] = v8[0];
-  _ZZZN3AGX6DeviceINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE30findOrCreateBlitProgramVariantERNS_20BlitVertexProgramKeyEEUb_ENKUlvE_clB14_AGX__Crashed_Ev();
+  v10 = 0;
+  (*(**(a1 + 48) + 16))(*(a1 + 48), v8, &v10);
+  v9[0] = a4;
+  v9[1] = v7;
+  v9[2] = v10;
+  v9[3] = v8[0];
+  _ZZZN3AGX6DeviceINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE30findOrCreateBlitProgramVariantERNS_20BlitVertexProgramKeyEEUb_ENKUlvE_clB14_AGX__Crashed_Ev(v9);
 }
 
-void sub_29CCD53CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_29CCD53CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   AGX::ProgramBindingRemap<AGX::HAL300::Encoders,AGX::HAL300::Classes>::~ProgramBindingRemap(va);
-  MEMORY[0x29ED520D0](v12, v11);
+  MEMORY[0x29ED520D0](v19, v18);
   _Unwind_Resume(a1);
 }
 
@@ -8185,17 +8185,41 @@ void ___ZN3AGX8Compiler14compileProgramINS_20BlitVertexProgramKeyE20AGCDeseriali
   AGCDeserializedReply::~AGCDeserializedReply(v5);
 }
 
-void sub_29CCD56CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29CCD56CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   AGCDeserializedReply::~AGCDeserializedReply(va);
   _Unwind_Resume(a1);
 }
 
-void _ZZZN3AGX6DeviceINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE30findOrCreateBlitProgramVariantERNS_20BlitVertexProgramKeyEEUb_ENKUlvE_clB14_AGX__Crashed_Ev()
+void _ZZZN3AGX6DeviceINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE30findOrCreateBlitProgramVariantERNS_20BlitVertexProgramKeyEEUb_ENKUlvE_clB14_AGX__Crashed_Ev(uint64_t *a1)
 {
-  os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR);
-  _os_log_send_and_compose_impl();
+  v17 = 0;
+  memset(v16, 0, sizeof(v16));
+  v2 = MEMORY[0x29EDCA988];
+  if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
+  {
+    v3 = 3;
+  }
+
+  else
+  {
+    v3 = 2;
+  }
+
+  v4 = *a1;
+  v5 = a1[1];
+  v6 = a1[2];
+  v7 = a1[3];
+  v8 = 138544130;
+  v9 = v4;
+  v10 = 2082;
+  v11 = v5;
+  v12 = 1040;
+  v13 = v6;
+  v14 = 2098;
+  v15 = v7;
+  _os_log_send_and_compose_impl(v3, &v17, v16, 80, &dword_29CA13000, v2, 16, "%{public}@ (%{public}s). %{public}.*P", &v8, 38);
   _os_crash_msg();
   __break(1u);
 }
@@ -8207,7 +8231,7 @@ void AGX::HAL300::BlitVertexProgramVariant::~BlitVertexProgramVariant(AGX::HAL30
   JUMPOUT(0x29ED520D0);
 }
 
-void sub_29CCD61B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, dispatch_object_t object)
+void sub_29CCD61B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, dispatch_object_t object)
 {
   os_unfair_lock_unlock(v27 + 222);
   _Block_object_dispose(&a17, 8);
@@ -8244,23 +8268,23 @@ void ___ZN3AGX6DeviceINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE32findO
     v7 = v5;
   }
 
-  v12 = 0;
-  *&v13 = 0;
-  (*(**(a1 + 48) + 16))(*(a1 + 48), &v13, &v12);
-  v8 = a4;
-  v9 = v7;
-  v10 = v12;
-  v11 = v13;
-  _ZZZN3AGX6DeviceINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE30findOrCreateBlitProgramVariantERNS_20BlitVertexProgramKeyEEUb_ENKUlvE_clB14_AGX__Crashed_Ev();
+  v9 = 0;
+  *&v10 = 0;
+  (*(**(a1 + 48) + 16))(*(a1 + 48), &v10, &v9);
+  v8[0] = a4;
+  v8[1] = v7;
+  v8[2] = v9;
+  v8[3] = v10;
+  _ZZZN3AGX6DeviceINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE30findOrCreateBlitProgramVariantERNS_20BlitVertexProgramKeyEEUb_ENKUlvE_clB14_AGX__Crashed_Ev(v8);
 }
 
-void sub_29CCD64DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29CCD64DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
-  AGX::ProgramVariantESLState<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::UserVertexArgumentTableLayout,true,8ul>::~ProgramVariantESLState((v3 + 1784));
-  AGX::ProgramVariant<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::BlitComputeArgumentTable,false,false,AGX::NoCombinedUserDriverArgumentTable>::~ProgramVariant(v3);
+  va_start(va, a5);
+  AGX::ProgramVariantESLState<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::UserVertexArgumentTableLayout,true,8ul>::~ProgramVariantESLState((v5 + 1784));
+  AGX::ProgramVariant<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::BlitComputeArgumentTable,false,false,AGX::NoCombinedUserDriverArgumentTable>::~ProgramVariant(v5);
   AGX::ProgramBindingRemap<AGX::HAL300::Encoders,AGX::HAL300::Classes>::~ProgramBindingRemap(va);
-  MEMORY[0x29ED520D0](v3, v4);
+  MEMORY[0x29ED520D0](v5, v6);
   _Unwind_Resume(a1);
 }
 
@@ -8344,14 +8368,14 @@ void ___ZN3AGX8Compiler14compileProgramINS_21BlitComputeProgramKeyE20AGCDeserial
   AGCDeserializedReply::~AGCDeserializedReply(v5);
 }
 
-void sub_29CCD680C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29CCD680C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   AGCDeserializedReply::~AGCDeserializedReply(va);
   _Unwind_Resume(a1);
 }
 
-void sub_29CCD704C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, dispatch_object_t object)
+void sub_29CCD704C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, dispatch_object_t object)
 {
   os_unfair_lock_unlock(v27 + 182);
   _Block_object_dispose(&a17, 8);
@@ -8388,23 +8412,23 @@ void ___ZN3AGX6DeviceINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE32findO
     v7 = v5;
   }
 
-  v12 = 0;
-  *&v13 = 0;
-  (*(**(a1 + 48) + 16))(*(a1 + 48), &v13, &v12);
-  v8 = a4;
-  v9 = v7;
-  v10 = v12;
-  v11 = v13;
-  _ZZZN3AGX6DeviceINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE30findOrCreateBlitProgramVariantERNS_20BlitVertexProgramKeyEEUb_ENKUlvE_clB14_AGX__Crashed_Ev();
+  v9 = 0;
+  *&v10 = 0;
+  (*(**(a1 + 48) + 16))(*(a1 + 48), &v10, &v9);
+  v8[0] = a4;
+  v8[1] = v7;
+  v8[2] = v9;
+  v8[3] = v10;
+  _ZZZN3AGX6DeviceINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE30findOrCreateBlitProgramVariantERNS_20BlitVertexProgramKeyEEUb_ENKUlvE_clB14_AGX__Crashed_Ev(v8);
 }
 
-void sub_29CCD7374(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29CCD7374(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
-  AGX::ProgramVariantESLState<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::UserVertexArgumentTableLayout,true,8ul>::~ProgramVariantESLState((v3 + 1784));
-  AGX::ProgramVariant<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::BlitComputeArgumentTable,false,false,AGX::NoCombinedUserDriverArgumentTable>::~ProgramVariant(v3);
+  va_start(va, a5);
+  AGX::ProgramVariantESLState<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::UserVertexArgumentTableLayout,true,8ul>::~ProgramVariantESLState((v5 + 1784));
+  AGX::ProgramVariant<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::BlitComputeArgumentTable,false,false,AGX::NoCombinedUserDriverArgumentTable>::~ProgramVariant(v5);
   AGX::ProgramBindingRemap<AGX::HAL300::Encoders,AGX::HAL300::Classes>::~ProgramBindingRemap(va);
-  MEMORY[0x29ED520D0](v3, v4);
+  MEMORY[0x29ED520D0](v5, v6);
   _Unwind_Resume(a1);
 }
 
@@ -8488,14 +8512,14 @@ void ___ZN3AGX8Compiler14compileProgramINS_20BlitSparseProgramKeyE20AGCDeseriali
   AGCDeserializedReply::~AGCDeserializedReply(v5);
 }
 
-void sub_29CCD76A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29CCD76A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   AGCDeserializedReply::~AGCDeserializedReply(va);
   _Unwind_Resume(a1);
 }
 
-void sub_29CCD7EE4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, dispatch_object_t object)
+void sub_29CCD7EE4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, dispatch_object_t object)
 {
   os_unfair_lock_unlock(v27 + 182);
   _Block_object_dispose(&a17, 8);
@@ -8532,23 +8556,23 @@ void ___ZN3AGX6DeviceINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE32findO
     v7 = v5;
   }
 
-  v12 = 0;
-  *&v13 = 0;
-  (*(**(a1 + 48) + 16))(*(a1 + 48), &v13, &v12);
-  v8 = a4;
-  v9 = v7;
-  v10 = v12;
-  v11 = v13;
-  _ZZZN3AGX6DeviceINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE30findOrCreateBlitProgramVariantERNS_20BlitVertexProgramKeyEEUb_ENKUlvE_clB14_AGX__Crashed_Ev();
+  v9 = 0;
+  *&v10 = 0;
+  (*(**(a1 + 48) + 16))(*(a1 + 48), &v10, &v9);
+  v8[0] = a4;
+  v8[1] = v7;
+  v8[2] = v9;
+  v8[3] = v10;
+  _ZZZN3AGX6DeviceINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE30findOrCreateBlitProgramVariantERNS_20BlitVertexProgramKeyEEUb_ENKUlvE_clB14_AGX__Crashed_Ev(v8);
 }
 
-void sub_29CCD820C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29CCD820C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
-  AGX::ProgramVariantESLState<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::UserVertexArgumentTableLayout,true,8ul>::~ProgramVariantESLState((v3 + 1784));
-  AGX::ProgramVariant<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::BlitComputeArgumentTable,false,false,AGX::NoCombinedUserDriverArgumentTable>::~ProgramVariant(v3);
+  va_start(va, a5);
+  AGX::ProgramVariantESLState<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::UserVertexArgumentTableLayout,true,8ul>::~ProgramVariantESLState((v5 + 1784));
+  AGX::ProgramVariant<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::BlitComputeArgumentTable,false,false,AGX::NoCombinedUserDriverArgumentTable>::~ProgramVariant(v5);
   AGX::ProgramBindingRemap<AGX::HAL300::Encoders,AGX::HAL300::Classes>::~ProgramBindingRemap(va);
-  MEMORY[0x29ED520D0](v3, v4);
+  MEMORY[0x29ED520D0](v5, v6);
   _Unwind_Resume(a1);
 }
 
@@ -8632,14 +8656,14 @@ void ___ZN3AGX8Compiler14compileProgramINS_23BlitFastClearProgramKeyE20AGCDeseri
   AGCDeserializedReply::~AGCDeserializedReply(v5);
 }
 
-void sub_29CCD853C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29CCD853C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   AGCDeserializedReply::~AGCDeserializedReply(va);
   _Unwind_Resume(a1);
 }
 
-void sub_29CCD8D4C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, dispatch_object_t object)
+void sub_29CCD8D4C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, dispatch_object_t object)
 {
   os_unfair_lock_unlock(v27 + 182);
   os_unfair_lock_unlock((v26 + v28));
@@ -8677,20 +8701,20 @@ void ___ZN3AGX6DeviceINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE30findO
   }
 
   v8[0] = 0;
-  v9 = 0;
-  (*(**(a1 + 48) + 16))(*(a1 + 48), v8, &v9);
-  v8[7] = a4;
-  v8[8] = v7;
-  v8[9] = v9;
-  v8[10] = v8[0];
-  _ZZZN3AGX6DeviceINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE30findOrCreateBlitProgramVariantERNS_20BlitVertexProgramKeyEEUb_ENKUlvE_clB14_AGX__Crashed_Ev();
+  v10 = 0;
+  (*(**(a1 + 48) + 16))(*(a1 + 48), v8, &v10);
+  v9[0] = a4;
+  v9[1] = v7;
+  v9[2] = v10;
+  v9[3] = v8[0];
+  _ZZZN3AGX6DeviceINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE30findOrCreateBlitProgramVariantERNS_20BlitVertexProgramKeyEEUb_ENKUlvE_clB14_AGX__Crashed_Ev(v9);
 }
 
-void sub_29CCD8F54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_29CCD8F54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   AGX::ProgramBindingRemap<AGX::HAL300::Encoders,AGX::HAL300::Classes>::~ProgramBindingRemap(va);
-  MEMORY[0x29ED520D0](v12, v11);
+  MEMORY[0x29ED520D0](v19, v18);
   _Unwind_Resume(a1);
 }
 
@@ -8774,9 +8798,9 @@ void ___ZN3AGX8Compiler14compileProgramINS_29BlitVertexFastClearProgramKeyE20AGC
   AGCDeserializedReply::~AGCDeserializedReply(v5);
 }
 
-void sub_29CCD9254(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29CCD9254(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   AGCDeserializedReply::~AGCDeserializedReply(va);
   _Unwind_Resume(a1);
 }
@@ -8990,7 +9014,7 @@ unint64_t AGX::Device<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::Ob
   return v3;
 }
 
-void sub_29CCD9980(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, dispatch_object_t object)
+void sub_29CCD9980(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, dispatch_object_t object)
 {
   dispatch_release(object);
   os_unfair_lock_unlock((v26 + v27));
@@ -8998,7 +9022,7 @@ void sub_29CCD9980(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void ___ZN3AGX6DeviceINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE28findOrCreateUberBlitPipelineERNS_18UberBlitProgramKeyE_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+void ___ZN3AGX6DeviceINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE28findOrCreateUberBlitPipelineERNS_18UberBlitProgramKeyE_block_invoke(void *a1, uint64_t a2, uint64_t a3, void *a4)
 {
   if (!a3)
   {
@@ -9088,18 +9112,31 @@ void ___ZN3AGX8Compiler14compileProgramINS_18UberBlitProgramKeyE20AGCDeserialize
   AGCDeserializedReply::~AGCDeserializedReply(v5);
 }
 
-void sub_29CCD9FCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29CCD9FCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   AGCDeserializedReply::~AGCDeserializedReply(va);
   _Unwind_Resume(a1);
 }
 
 void _ZZZN3AGX6DeviceINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE28findOrCreateUberBlitPipelineERNS_18UberBlitProgramKeyEEUb_ENKUlvE_clB57_AGX__Failed_assertion__error____MTLCompilerErrorNoError_Ev(void *a1)
 {
-  os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR);
-  [a1 UTF8String];
-  _os_log_send_and_compose_impl();
+  v7 = 0;
+  memset(v6, 0, sizeof(v6));
+  v2 = MEMORY[0x29EDCA988];
+  if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
+  {
+    v3 = 3;
+  }
+
+  else
+  {
+    v3 = 2;
+  }
+
+  v4 = 136315138;
+  v5 = [a1 UTF8String];
+  _os_log_send_and_compose_impl(v3, &v7, v6, 80, &dword_29CA13000, v2, 16, "%s", &v4);
   _os_crash_msg();
   __break(1u);
 }
@@ -9133,26 +9170,26 @@ void ___ZN3AGX6DeviceINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE46findO
     v7 = v5;
   }
 
-  v12 = 0;
-  v13 = 0;
-  (*(**(a1 + 48) + 16))(*(a1 + 48), &v13, &v12);
-  v8 = a4;
-  v9 = v7;
-  v10 = v12;
-  v11 = v13;
-  _ZZZN3AGX6DeviceINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE30findOrCreateBlitProgramVariantERNS_20BlitVertexProgramKeyEEUb_ENKUlvE_clB14_AGX__Crashed_Ev();
+  v9 = 0;
+  v10 = 0;
+  (*(**(a1 + 48) + 16))(*(a1 + 48), &v10, &v9);
+  v8[0] = a4;
+  v8[1] = v7;
+  v8[2] = v9;
+  v8[3] = v10;
+  _ZZZN3AGX6DeviceINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE30findOrCreateBlitProgramVariantERNS_20BlitVertexProgramKeyEEUb_ENKUlvE_clB14_AGX__Crashed_Ev(v8);
 }
 
-void sub_29CCDA280(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_29CCDA280(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
-  if (*(v6 - 65) < 0)
+  va_start(va, a7);
+  if (*(v9 - 65) < 0)
   {
-    operator delete(*(v6 - 88));
+    operator delete(*(v9 - 88));
   }
 
   AGX::ProgramBindingRemap<AGX::HAL300::Encoders,AGX::HAL300::Classes>::~ProgramBindingRemap(va);
-  MEMORY[0x29ED520D0](v4, v5);
+  MEMORY[0x29ED520D0](v7, v8);
   _Unwind_Resume(a1);
 }
 
@@ -9236,9 +9273,9 @@ void ___ZN3AGX8Compiler14compileProgramINS_37ComputeControlFlowPredicateProgramK
   AGCDeserializedReply::~AGCDeserializedReply(v5);
 }
 
-void sub_29CCDA590(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29CCDA590(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   AGCDeserializedReply::~AGCDeserializedReply(va);
   _Unwind_Resume(a1);
 }
@@ -9524,7 +9561,7 @@ LABEL_55:
   return v41;
 }
 
-void sub_29CCDADB8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, dispatch_object_t object)
+void sub_29CCDADB8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, dispatch_object_t object)
 {
   os_unfair_lock_unlock(v27 + 182);
   os_unfair_lock_unlock((v26 + v28));
@@ -9532,7 +9569,7 @@ void sub_29CCDADB8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void ___ZN3AGX6DeviceINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE37findOrCreateTileDispatchVertexProgramERKNS_28TileDispatchVertexProgramKeyE_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+void ___ZN3AGX6DeviceINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE37findOrCreateTileDispatchVertexProgramERKNS_28TileDispatchVertexProgramKeyE_block_invoke(void *a1, uint64_t a2, uint64_t a3, void *a4)
 {
   if (!a3)
   {
@@ -9542,11 +9579,11 @@ void ___ZN3AGX6DeviceINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE37findO
   _ZZZN3AGX6DeviceINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE28findOrCreateUberBlitPipelineERNS_18UberBlitProgramKeyEEUb_ENKUlvE_clB57_AGX__Failed_assertion__error____MTLCompilerErrorNoError_Ev(a4);
 }
 
-void sub_29CCDAF40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_29CCDAF40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   AGX::ProgramBindingRemap<AGX::HAL300::Encoders,AGX::HAL300::Classes>::~ProgramBindingRemap(va);
-  MEMORY[0x29ED520D0](v11, v10);
+  MEMORY[0x29ED520D0](v18, v17);
   _Unwind_Resume(a1);
 }
 
@@ -9630,9 +9667,9 @@ void ___ZN3AGX8Compiler14compileProgramINS_28TileDispatchVertexProgramKeyE20AGCD
   AGCDeserializedReply::~AGCDeserializedReply(v5);
 }
 
-void sub_29CCDB240(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29CCDB240(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   AGCDeserializedReply::~AGCDeserializedReply(va);
   _Unwind_Resume(a1);
 }
@@ -9852,34 +9889,4 @@ unint64_t AGX::Device<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::Ob
   }
 
   return result;
-}
-
-void sub_29CCDB980(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, dispatch_object_t object)
-{
-  dispatch_release(object);
-  _Block_object_dispose(&a17, 8);
-  os_unfair_lock_unlock(v26 + 20);
-  _Unwind_Resume(a1);
-}
-
-void ___ZN3AGX6DeviceINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE30findOrCreateBVHBuilderPipelineERNS_20BVHBuilderProgramKeyE_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
-{
-  if (!a3)
-  {
-    operator new();
-  }
-
-  _ZZZN3AGX6DeviceINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE28findOrCreateUberBlitPipelineERNS_18UberBlitProgramKeyEEUb_ENKUlvE_clB57_AGX__Failed_assertion__error____MTLCompilerErrorNoError_Ev(a4);
-}
-
-uint64_t ___ZN3AGX8Compiler14compileProgramINS_20BVHBuilderProgramKeyEEEvRKT_P7NSArrayIPU27objcproto16MTLBinaryArchive11objc_objectEU13block_pointerFvRK20AGCDeserializedReply16MTLCompilerErrorP8NSStringEb_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  if (a5)
-  {
-    AGX::Device<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::alertCommandBufferActivityStart(void)::{lambda(void)#1}::operator()[abi:[AGX] Failed assertion _previousValue _ 2147483647_]();
-  }
-
-  v5 = *(*(a1 + 32) + 16);
-
-  return v5();
 }

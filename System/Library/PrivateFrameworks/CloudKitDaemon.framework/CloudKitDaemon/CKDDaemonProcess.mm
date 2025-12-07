@@ -1,5 +1,6 @@
 @interface CKDDaemonProcess
 + (id)currentProcess;
++ (void)deriveCurrentProcessWithArgC:(int)c argv:(const char *)argv;
 - (id)_initWithArgC:(int)c argv:(const char *)argv;
 - (id)_initWithProcessType:(int64_t)type;
 - (id)chunkDataFromSignature:(id)signature forContainerIdentifier:(id)identifier;
@@ -26,6 +27,25 @@
   objc_sync_exit(selfCopy);
 
   return v8;
+}
+
++ (void)deriveCurrentProcessWithArgC:(int)c argv:(const char *)argv
+{
+  v5 = *&c;
+  obj = self;
+  objc_sync_enter(obj);
+  if (qword_280D586E0)
+  {
+    v13 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v7, v8);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v13, v14, a2, obj, @"CKDDaemonProcess.m", 42, @"Not expected to have a current process here");
+  }
+
+  v9 = [CKDDaemonProcess alloc];
+  v11 = objc_msgSend__initWithArgC_argv_(v9, v10, v5, argv);
+  v12 = qword_280D586E0;
+  qword_280D586E0 = v11;
+
+  objc_sync_exit(obj);
 }
 
 - (id)_initWithProcessType:(int64_t)type
@@ -59,19 +79,19 @@
 {
   v8 = 0;
   v9 = 0;
-  v29 = *MEMORY[0x277D85DE8];
-  v25 = xmmword_27854E090;
-  v26 = unk_27854E0A0;
-  v27 = xmmword_27854E0B0;
-  v28 = unk_27854E0C0;
-  v22 = *ymmword_27854E050;
-  v23 = xmmword_27854E070;
-  v24 = unk_27854E080;
+  v28 = *MEMORY[0x277D85DE8];
+  v24 = xmmword_27854E090;
+  v25 = unk_27854E0A0;
+  v26 = xmmword_27854E0B0;
+  v27 = unk_27854E0C0;
+  v21 = *ymmword_27854E050;
+  v22 = xmmword_27854E070;
+  v23 = unk_27854E080;
   while (1)
   {
     while (1)
     {
-      v10 = getopt_long_only(c, argv, "std", &v22, 0);
+      v10 = getopt_long_only(c, argv, "std", &v21, 0);
       if (v10 <= 114)
       {
         break;
@@ -99,24 +119,23 @@
     }
   }
 
-  v12 = objc_msgSend__initWithProcessType_(self, v11, v8, *&v22.name, *&v22.flag, v23, v24, v25, v26, v27, v28);
+  v12 = objc_msgSend__initWithProcessType_(self, v11, v8, *&v21.name, *&v21.flag, v22, v23, v24, v25, v26, v27);
   v15 = v12;
   if (v12)
   {
     if (*(v12 + 8) == (v9 & 1))
     {
-      v18 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v13, v14);
-      objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v18, v19, a2, v15, @"CKDDaemonProcess.m", 86, @"Incompatible env and cli arguments for using debug");
+      v17 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v13, v14);
+      objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v17, v18, a2, v15, @"CKDDaemonProcess.m", 86, @"Incompatible env and cli arguments for using debug");
     }
 
     if ((v15[2] == 2) != *MEMORY[0x277CBC810])
     {
-      v20 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v13, v14);
-      objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v20, v21, a2, v15, @"CKDDaemonProcess.m", 87, @"Incompatible env and cli arguments for supporting test hooks");
+      v19 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v13, v14);
+      objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v19, v20, a2, v15, @"CKDDaemonProcess.m", 87, @"Incompatible env and cli arguments for supporting test hooks");
     }
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 

@@ -206,32 +206,7 @@
 {
   equalCopy = equal;
   v5 = objc_opt_class();
-  if (!objc_msgSend_isMemberOfClass_(equalCopy, v6, v5))
-  {
-    goto LABEL_14;
-  }
-
-  serviceName = self->_serviceName;
-  v9 = equalCopy[5];
-  if (serviceName | v9)
-  {
-    if (!objc_msgSend_isEqual_(serviceName, v7, v9))
-    {
-      goto LABEL_14;
-    }
-  }
-
-  functionName = self->_functionName;
-  v11 = equalCopy[2];
-  if (functionName | v11)
-  {
-    if (!objc_msgSend_isEqual_(functionName, v7, v11))
-    {
-      goto LABEL_14;
-    }
-  }
-
-  if (((serializedParameters = self->_serializedParameters, v13 = equalCopy[4], !(serializedParameters | v13)) || objc_msgSend_isEqual_(serializedParameters, v7, v13)) && ((protectedCloudComputeMetadata = self->_protectedCloudComputeMetadata, v15 = equalCopy[3], !(protectedCloudComputeMetadata | v15)) || objc_msgSend_isEqual_(protectedCloudComputeMetadata, v7, v15)) && ((attestationRequest = self->_attestationRequest, v17 = equalCopy[1], !(attestationRequest | v17)) || objc_msgSend_isEqual_(attestationRequest, v7, v17)))
+  if (objc_msgSend_isMemberOfClass_(equalCopy, v6, v5) && ((serviceName = self->_serviceName, v9 = equalCopy[5], !(serviceName | v9)) || objc_msgSend_isEqual_(serviceName, v7, v9)) && ((functionName = self->_functionName, v11 = equalCopy[2], !(functionName | v11)) || objc_msgSend_isEqual_(functionName, v7, v11)) && ((serializedParameters = self->_serializedParameters, v13 = equalCopy[4], !(serializedParameters | v13)) || objc_msgSend_isEqual_(serializedParameters, v7, v13)) && ((protectedCloudComputeMetadata = self->_protectedCloudComputeMetadata, v15 = equalCopy[3], !(protectedCloudComputeMetadata | v15)) || objc_msgSend_isEqual_(protectedCloudComputeMetadata, v7, v15)) && ((attestationRequest = self->_attestationRequest, v17 = equalCopy[1], !(attestationRequest | v17)) || objc_msgSend_isEqual_(attestationRequest, v7, v17)))
   {
     trustedTargetCryptoMetadata = self->_trustedTargetCryptoMetadata;
     v19 = equalCopy[6];
@@ -248,7 +223,6 @@
 
   else
   {
-LABEL_14:
     isEqual = 0;
   }
 

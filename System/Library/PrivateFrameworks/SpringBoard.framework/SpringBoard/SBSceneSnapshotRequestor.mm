@@ -524,7 +524,7 @@ LABEL_88:
                 v67 = SBLogSceneSnapshots();
                 if (os_log_type_enabled(v67, OS_LOG_TYPE_DEBUG))
                 {
-                  [v66 frame];
+                  objc_msgSend_frame(v66);
                   v68 = NSStringFromCGRect(v125);
                   [v66 interfaceOrientation];
                   v69 = BSInterfaceOrientationDescription();
@@ -770,37 +770,37 @@ void __71__SBSceneSnapshotRequestor_handleSnapshotRequestAction_forSceneHandle__
   BSDispatchMain();
 }
 
-uint64_t __71__SBSceneSnapshotRequestor_handleSnapshotRequestAction_forSceneHandle___block_invoke_56(uint64_t a1)
+void *__71__SBSceneSnapshotRequestor_handleSnapshotRequestAction_forSceneHandle___block_invoke_56(uint64_t a1, const char *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
-  result = [*(*(a1 + 32) + 16) containsObject:*(a1 + 40)];
+  v22 = *MEMORY[0x277D85DE8];
+  result = objc_msgSend_containsObject_(*(*(a1 + 32) + 16), a2, *(a1 + 40));
   if (result)
   {
     if ([*(a1 + 40) isValid])
     {
-      v3 = *(a1 + 40);
-      v4 = FBSSceneSnapshotActionResponseForErrorCode();
-      [v3 sendResponse:v4];
+      v4 = *(a1 + 40);
+      v5 = FBSSceneSnapshotActionResponseForErrorCode();
+      [v4 sendResponse:v5];
 
-      v5 = *(a1 + 40);
-      v6 = *(*(a1 + 32) + 16);
+      v6 = *(a1 + 40);
+      v7 = *(*(a1 + 32) + 16);
 
-      return [v6 removeObject:v5];
+      return [v7 removeObject:v6];
     }
 
-    v7 = SBLogSceneSnapshots();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = SBLogSceneSnapshots();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = [*(a1 + 32) succinctDescription];
-      v9 = [*(a1 + 48) sceneIdentifier];
-      v10 = *(a1 + 40);
-      v15 = 138543874;
-      v16 = v8;
-      v17 = 2114;
-      v18 = v9;
-      v19 = 2048;
-      v20 = v10;
-      _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ [%{public}@] Snapshot request (%p) was invalidated before it completed!", &v15, 0x20u);
+      v9 = [*(a1 + 32) succinctDescription];
+      v10 = [*(a1 + 48) sceneIdentifier];
+      v11 = *(a1 + 40);
+      v16 = 138543874;
+      v17 = v9;
+      v18 = 2114;
+      v19 = v10;
+      v20 = 2048;
+      v21 = v11;
+      _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ [%{public}@] Snapshot request (%p) was invalidated before it completed!", &v16, 0x20u);
     }
 
     [*(*(a1 + 32) + 16) removeObject:*(a1 + 40)];
@@ -811,19 +811,19 @@ uint64_t __71__SBSceneSnapshotRequestor_handleSnapshotRequestAction_forSceneHand
     return result;
   }
 
-  v11 = SBLogSceneSnapshots();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  v12 = SBLogSceneSnapshots();
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
-    v12 = [*(a1 + 32) succinctDescription];
-    v13 = [*(a1 + 48) sceneIdentifier];
-    v14 = *(a1 + 40);
-    v15 = 138543874;
-    v16 = v12;
-    v17 = 2114;
-    v18 = v13;
-    v19 = 2048;
-    v20 = v14;
-    _os_log_debug_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_DEBUG, "%{public}@ [%{public}@] Deleting any snapshot taken for now-invalidated action (%p)", &v15, 0x20u);
+    v13 = [*(a1 + 32) succinctDescription];
+    v14 = [*(a1 + 48) sceneIdentifier];
+    v15 = *(a1 + 40);
+    v16 = 138543874;
+    v17 = v13;
+    v18 = 2114;
+    v19 = v14;
+    v20 = 2048;
+    v21 = v15;
+    _os_log_debug_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_DEBUG, "%{public}@ [%{public}@] Deleting any snapshot taken for now-invalidated action (%p)", &v16, 0x20u);
   }
 
   return [*(a1 + 56) deleteSnapshotForContext:*(a1 + 64)];
@@ -1291,7 +1291,7 @@ LABEL_34:
 
                     else
                     {
-                      [*(a1 + 80) frame];
+                      objc_msgSend_frame(*(a1 + 80));
                     }
                   }
 
@@ -1408,7 +1408,7 @@ LABEL_53:
                               v59 = SBFStringForUIUserInterfaceStyle();
                               v60 = [v58 stringWithFormat:@"w%0.0f:h%0.0f:%@:%@", *&v34, *&v26, v59, v90];
 
-                              if ([*(a1 + 96) containsObject:v60])
+                              if (objc_msgSend_containsObject_(*(a1 + 96)))
                               {
                                 v61 = SBLogSceneSnapshots();
                                 if (os_log_type_enabled(v61, OS_LOG_TYPE_DEBUG))

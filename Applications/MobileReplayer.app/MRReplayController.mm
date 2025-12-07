@@ -5,6 +5,7 @@
 - (MRReplayControllerDelegate)strongDelegate;
 - (id)_replayerControllerSupportForCaptureStore:(id)store;
 - (void)_displayPlaybackEngine;
+- (void)_playbackArchiveWithExperiment:(id)experiment passingFuture:(id)future resolvingFuture:(BOOL)resolvingFuture;
 - (void)_processMessage:(id)message;
 - (void)_updateBackgroundImage:(id)image;
 - (void)dealloc;
@@ -384,6 +385,73 @@ LABEL_28:
       dispatch_async(&_dispatch_main_q, block);
     }
   }
+}
+
+- (void)_playbackArchiveWithExperiment:(id)experiment passingFuture:(id)future resolvingFuture:(BOOL)resolvingFuture
+{
+  resolvingFutureCopy = resolvingFuture;
+  experimentCopy = experiment;
+  futureCopy = future;
+  archiveStack = [(MRReplayController *)self archiveStack];
+  if ([archiveStack empty])
+  {
+    __assert_rtn("[MRReplayController _playbackArchiveWithExperiment:passingFuture:resolvingFuture:]", &unk_100004CE1, 0, "![self.archiveStack empty]");
+  }
+
+  profileInfo = [(MRReplayController *)self profileInfo];
+  v12 = [profileInfo count];
+
+  if (v12)
+  {
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_100002C6C;
+    block[3] = &unk_1000083E0;
+    block[4] = self;
+    dispatch_sync(&_dispatch_main_q, block);
+    replayControllerSupport = [(MRReplayController *)self replayControllerSupport];
+    playbackEngine = [(MRReplayController *)self playbackEngine];
+    v15 = objc_opt_new();
+    v16 = [replayControllerSupport newShaderProfilerWithPlaybackEngine:playbackEngine payload:v15];
+
+    profileInfo2 = [(MRReplayController *)self profileInfo];
+    v18 = [profileInfo2 objectForKeyedSubscript:kDYQueryAvailableCounters];
+
+    if (v18)
+    {
+      replayControllerSupport2 = [(MRReplayController *)self replayControllerSupport];
+      v20 = [replayControllerSupport2 availableCountersForFrameProfiler:v16];
+    }
+
+    else
+    {
+      profileInfo3 = [(MRReplayController *)self profileInfo];
+      v22 = [profileInfo3 objectForKeyedSubscript:kDYDerivedCounterData];
+
+      if (!v22)
+      {
+        replayControllerSupport2 = [(MRReplayController *)self replayControllerSupport];
+        profileInfo4 = [(MRReplayController *)self profileInfo];
+        v23 = [replayControllerSupport2 profilerCounters:profileInfo4 withFrameProfiler:v16];
+
+        goto LABEL_9;
+      }
+
+      replayControllerSupport2 = [(MRReplayController *)self replayControllerSupport];
+      v20 = [replayControllerSupport2 derivedCounterDataForFrameProfiler:v16];
+    }
+
+    v23 = v20;
+LABEL_9:
+
+    [futureCopy resolveWithFuture:v23];
+    goto LABEL_10;
+  }
+
+  v26.receiver = self;
+  v26.super_class = MRReplayController;
+  [(MRReplayController *)&v26 _playbackArchiveWithExperiment:experimentCopy passingFuture:futureCopy resolvingFuture:resolvingFutureCopy];
+LABEL_10:
 }
 
 - (MRReplayControllerDelegate)delegate

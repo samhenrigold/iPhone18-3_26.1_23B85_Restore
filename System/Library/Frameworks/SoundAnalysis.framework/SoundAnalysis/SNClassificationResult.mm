@@ -58,7 +58,7 @@
   result = self->_impl;
   if (result)
   {
-    return [(CMTimeRange *)result timeRange];
+    return objc_msgSend_timeRange(result, a3);
   }
 
   *&retstr->start.epoch = 0u;

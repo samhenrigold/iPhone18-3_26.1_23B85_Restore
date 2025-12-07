@@ -27,29 +27,29 @@
 
 - (REUpNextThumbnailCell)initWithFrame:(CGRect)frame
 {
-  v125[14] = *MEMORY[0x277D85DE8];
-  v120.receiver = self;
-  v120.super_class = REUpNextThumbnailCell;
-  v3 = [(REUpNextBaseCell *)&v120 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v124[14] = *MEMORY[0x277D85DE8];
+  v119.receiver = self;
+  v119.super_class = REUpNextThumbnailCell;
+  v3 = [(REUpNextBaseCell *)&v119 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
   if (v3)
   {
     v4 = [MEMORY[0x277CBBB08] systemFontOfSize:*&kActiveLayout_5_0];
     fontDescriptor = [v4 fontDescriptor];
-    v118 = [fontDescriptor fontDescriptorWithSymbolicTraits:1];
+    v117 = [fontDescriptor fontDescriptorWithSymbolicTraits:1];
 
     v6 = [MEMORY[0x277CBBB08] systemFontOfSize:*&kActiveLayout_5_0];
     fontDescriptor2 = [v6 fontDescriptor];
-    v119 = [fontDescriptor2 fontDescriptorWithSymbolicTraits:2];
+    v118 = [fontDescriptor2 fontDescriptorWithSymbolicTraits:2];
 
     v8 = [MEMORY[0x277CBBB08] systemFontOfSize:*&kActiveLayout_5_0 weight:*MEMORY[0x277D74410]];
     standardFont = v3->_standardFont;
     v3->_standardFont = v8;
 
-    v10 = [MEMORY[0x277CBBB08] fontWithDescriptor:v119 size:*&kActiveLayout_5_0];
+    v10 = [MEMORY[0x277CBBB08] fontWithDescriptor:v118 size:*&kActiveLayout_5_0];
     boldFont = v3->_boldFont;
     v3->_boldFont = v10;
 
-    v12 = [MEMORY[0x277CBBB08] fontWithDescriptor:v118 size:*&kActiveLayout_5_0];
+    v12 = [MEMORY[0x277CBBB08] fontWithDescriptor:v117 size:*&kActiveLayout_5_0];
     italicFont = v3->_italicFont;
     v3->_italicFont = v12;
 
@@ -65,7 +65,7 @@
     [(CLKUIColoringLabel *)v17 setTextColor:whiteColor];
 
     [(CLKUIColoringLabel *)v3->_headerLabel setNumberOfLines:2];
-    v117 = v14;
+    v116 = v14;
     [(CLKUIColoringLabel *)v3->_headerLabel setParagraphStyle:v14];
     v19 = __39__REUpNextThumbnailCell_initWithFrame___block_invoke();
     descriptionLine1Label = v3->_descriptionLine1Label;
@@ -130,113 +130,112 @@
     leadingAnchor = [(UIImageView *)v3->_imageView leadingAnchor];
     contentView6 = [(REUpNextThumbnailCell *)v3 contentView];
     leadingAnchor2 = [contentView6 leadingAnchor];
-    v112 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:*&kActiveLayout_4_0];
-    v125[0] = v112;
+    v111 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:*&kActiveLayout_4_0];
+    v124[0] = v111;
     centerYAnchor = [(UIImageView *)v3->_imageView centerYAnchor];
     contentView7 = [(REUpNextThumbnailCell *)v3 contentView];
     centerYAnchor2 = [contentView7 centerYAnchor];
-    v108 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-    v125[1] = v108;
+    v107 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
+    v124[1] = v107;
     topAnchor = [(UILayoutGuide *)v3->_labelLayoutGuide topAnchor];
     contentView8 = [(REUpNextThumbnailCell *)v3 contentView];
     topAnchor2 = [contentView8 topAnchor];
-    v104 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:0.0];
-    v125[2] = v104;
+    v103 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:0.0];
+    v124[2] = v103;
     bottomAnchor = [(UILayoutGuide *)v3->_labelLayoutGuide bottomAnchor];
     contentView9 = [(REUpNextThumbnailCell *)v3 contentView];
     bottomAnchor2 = [contentView9 bottomAnchor];
-    v100 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2 constant:-0.0];
-    v125[3] = v100;
+    v99 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2 constant:-0.0];
+    v124[3] = v99;
     leadingAnchor3 = [(UILayoutGuide *)v3->_labelLayoutGuide leadingAnchor];
     trailingAnchor = [(UIImageView *)v3->_imageView trailingAnchor];
-    v97 = [leadingAnchor3 constraintEqualToAnchor:trailingAnchor constant:*&kActiveLayout_9];
-    v125[4] = v97;
+    v96 = [leadingAnchor3 constraintEqualToAnchor:trailingAnchor constant:*&kActiveLayout_9];
+    v124[4] = v96;
     trailingAnchor2 = [(UILayoutGuide *)v3->_labelLayoutGuide trailingAnchor];
     contentView10 = [(REUpNextThumbnailCell *)v3 contentView];
     trailingAnchor3 = [contentView10 trailingAnchor];
-    v93 = [trailingAnchor2 constraintEqualToAnchor:trailingAnchor3 constant:-*&kActiveLayout_11];
-    v125[5] = v93;
+    v92 = [trailingAnchor2 constraintEqualToAnchor:trailingAnchor3 constant:-*&kActiveLayout_11];
+    v124[5] = v92;
     leadingAnchor4 = [(CLKUIColoringLabel *)v3->_headerLabel leadingAnchor];
     leadingAnchor5 = [(UILayoutGuide *)v3->_labelLayoutGuide leadingAnchor];
-    v90 = [leadingAnchor4 constraintEqualToAnchor:leadingAnchor5];
-    v125[6] = v90;
+    v89 = [leadingAnchor4 constraintEqualToAnchor:leadingAnchor5];
+    v124[6] = v89;
     trailingAnchor4 = [(CLKUIColoringLabel *)v3->_headerLabel trailingAnchor];
     trailingAnchor5 = [(UILayoutGuide *)v3->_labelLayoutGuide trailingAnchor];
-    v87 = [trailingAnchor4 constraintEqualToAnchor:trailingAnchor5];
-    v125[7] = v87;
+    v86 = [trailingAnchor4 constraintEqualToAnchor:trailingAnchor5];
+    v124[7] = v86;
     leadingAnchor6 = [(CLKUIColoringLabel *)v3->_descriptionLine1Label leadingAnchor];
     leadingAnchor7 = [(UILayoutGuide *)v3->_labelLayoutGuide leadingAnchor];
-    v84 = [leadingAnchor6 constraintEqualToAnchor:leadingAnchor7];
-    v125[8] = v84;
+    v83 = [leadingAnchor6 constraintEqualToAnchor:leadingAnchor7];
+    v124[8] = v83;
     trailingAnchor6 = [(CLKUIColoringLabel *)v3->_descriptionLine1Label trailingAnchor];
     trailingAnchor7 = [(UILayoutGuide *)v3->_labelLayoutGuide trailingAnchor];
     v46 = [trailingAnchor6 constraintEqualToAnchor:trailingAnchor7];
-    v125[9] = v46;
+    v124[9] = v46;
     leadingAnchor8 = [(CLKUIColoringLabel *)v3->_descriptionLine2Label leadingAnchor];
     leadingAnchor9 = [(UILayoutGuide *)v3->_labelLayoutGuide leadingAnchor];
     v49 = [leadingAnchor8 constraintEqualToAnchor:leadingAnchor9];
-    v125[10] = v49;
+    v124[10] = v49;
     trailingAnchor8 = [(CLKUIColoringLabel *)v3->_descriptionLine2Label trailingAnchor];
     trailingAnchor9 = [(UILayoutGuide *)v3->_labelLayoutGuide trailingAnchor];
     v52 = [trailingAnchor8 constraintEqualToAnchor:trailingAnchor9];
-    v125[11] = v52;
-    v125[12] = v3->_imageHeightConstraint;
-    v125[13] = v3->_imageWidthConstraint;
-    v116 = [MEMORY[0x277CBEA60] arrayWithObjects:v125 count:14];
+    v124[11] = v52;
+    v124[12] = v3->_imageHeightConstraint;
+    v124[13] = v3->_imageWidthConstraint;
+    v115 = [MEMORY[0x277CBEA60] arrayWithObjects:v124 count:14];
 
     firstBaselineAnchor = [(CLKUIColoringLabel *)v3->_descriptionLine1Label firstBaselineAnchor];
     topAnchor3 = [(UILayoutGuide *)v3->_labelLayoutGuide topAnchor];
     v55 = [firstBaselineAnchor constraintEqualToAnchor:topAnchor3 constant:*&kActiveLayout_1_0];
-    v124 = v55;
-    v56 = [MEMORY[0x277CBEA60] arrayWithObjects:&v124 count:1];
+    v123 = v55;
+    v56 = [MEMORY[0x277CBEA60] arrayWithObjects:&v123 count:1];
     withoutHeaderConstraints = v3->_withoutHeaderConstraints;
     v3->_withoutHeaderConstraints = v56;
 
     firstBaselineAnchor2 = [(CLKUIColoringLabel *)v3->_headerLabel firstBaselineAnchor];
     topAnchor4 = [(UILayoutGuide *)v3->_labelLayoutGuide topAnchor];
     v60 = [firstBaselineAnchor2 constraintEqualToAnchor:topAnchor4 constant:*&kActiveLayout_1_0];
-    v123[0] = v60;
+    v122[0] = v60;
     firstBaselineAnchor3 = [(CLKUIColoringLabel *)v3->_descriptionLine1Label firstBaselineAnchor];
     lastBaselineAnchor = [(CLKUIColoringLabel *)v3->_headerLabel lastBaselineAnchor];
     v63 = [firstBaselineAnchor3 constraintEqualToAnchor:lastBaselineAnchor constant:*&kActiveLayout_2_0];
-    v123[1] = v63;
-    v64 = [MEMORY[0x277CBEA60] arrayWithObjects:v123 count:2];
+    v122[1] = v63;
+    v64 = [MEMORY[0x277CBEA60] arrayWithObjects:v122 count:2];
     withHeaderConstraints = v3->_withHeaderConstraints;
     v3->_withHeaderConstraints = v64;
 
     firstBaselineAnchor4 = [(CLKUIColoringLabel *)v3->_descriptionLine2Label firstBaselineAnchor];
     lastBaselineAnchor2 = [(CLKUIColoringLabel *)v3->_descriptionLine1Label lastBaselineAnchor];
     v68 = [firstBaselineAnchor4 constraintEqualToAnchor:lastBaselineAnchor2 constant:*&kActiveLayout_3_0];
-    v122[0] = v68;
+    v121[0] = v68;
     lastBaselineAnchor3 = [(CLKUIColoringLabel *)v3->_descriptionLine2Label lastBaselineAnchor];
     bottomAnchor3 = [(UILayoutGuide *)v3->_labelLayoutGuide bottomAnchor];
     v71 = [lastBaselineAnchor3 constraintLessThanOrEqualToAnchor:bottomAnchor3 constant:-*&kActiveLayout_6_0];
-    v122[1] = v71;
-    v72 = [MEMORY[0x277CBEA60] arrayWithObjects:v122 count:2];
+    v121[1] = v71;
+    v72 = [MEMORY[0x277CBEA60] arrayWithObjects:v121 count:2];
     withDescription2Constraints = v3->_withDescription2Constraints;
     v3->_withDescription2Constraints = v72;
 
     lastBaselineAnchor4 = [(CLKUIColoringLabel *)v3->_descriptionLine1Label lastBaselineAnchor];
     bottomAnchor4 = [(UILayoutGuide *)v3->_labelLayoutGuide bottomAnchor];
     v76 = [lastBaselineAnchor4 constraintLessThanOrEqualToAnchor:bottomAnchor4 constant:-*&kActiveLayout_6_0];
-    v121[0] = v76;
+    v120[0] = v76;
     lastBaselineAnchor5 = [(CLKUIColoringLabel *)v3->_headerLabel lastBaselineAnchor];
     bottomAnchor5 = [(UILayoutGuide *)v3->_labelLayoutGuide bottomAnchor];
     v79 = [lastBaselineAnchor5 constraintLessThanOrEqualToAnchor:bottomAnchor5 constant:-*&kActiveLayout_6_0];
-    v121[1] = v79;
-    v80 = [MEMORY[0x277CBEA60] arrayWithObjects:v121 count:2];
+    v120[1] = v79;
+    v80 = [MEMORY[0x277CBEA60] arrayWithObjects:v120 count:2];
     withoutDescription2Constraints = v3->_withoutDescription2Constraints;
     v3->_withoutDescription2Constraints = v80;
 
     [MEMORY[0x277CCAAD0] activateConstraints:v3->_withoutDescription2Constraints];
     [MEMORY[0x277CCAAD0] activateConstraints:v3->_withoutHeaderConstraints];
-    [MEMORY[0x277CCAAD0] activateConstraints:v116];
+    [MEMORY[0x277CCAAD0] activateConstraints:v115];
     [(CLKUIColoringLabel *)v3->_descriptionLine1Label setNumberOfLines:3];
     [(CLKUIColoringLabel *)v3->_headerLabel setHidden:1];
     [(CLKUIColoringLabel *)v3->_descriptionLine2Label setHidden:1];
   }
 
-  v82 = *MEMORY[0x277D85DE8];
   return v3;
 }
 

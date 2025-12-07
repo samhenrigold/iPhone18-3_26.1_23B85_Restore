@@ -21,7 +21,7 @@
 
 + (unint64_t)analyzePage:(id)page withBox:(int64_t)box requestTypes:(unint64_t)types
 {
-  v71[1] = *MEMORY[0x1E69E9840];
+  v53[1] = *MEMORY[0x1E69E9840];
   pageCopy = page;
   document = [pageCopy document];
   if (([self isCreatedByCalendar:document] & 1) == 0)
@@ -44,111 +44,111 @@
 
     if (types)
     {
-      v18 = v10 + 1;
-      _PDFLog(OS_LOG_TYPE_DEBUG, "PageAnalysis", "analyzePage: (page #%lu) START", v13, v14, v15, v16, v17, v18);
-      v19 = [self createPixelBufferForPage:v12 withBox:box];
-      v61[1] = v19;
-      if (v19)
+      v13 = v10 + 1;
+      _PDFLog(OS_LOG_TYPE_DEBUG, "PageAnalysis", "analyzePage: (page #%lu) START", v13);
+      v14 = [self createPixelBufferForPage:v12 withBox:box];
+      v43[1] = v14;
+      if (v14)
       {
-        v56 = CFAbsoluteTimeGetCurrent() - Current;
-        _PDFLog(OS_LOG_TYPE_DEBUG, "PageAnalysis", "analyzePage: (page #%lu) Created pixel buffer. (+%g secs)", v20, v21, v22, v23, v24, v18);
-        v58 = v18;
-        v67 = 0;
-        v68 = &v67;
-        v69 = 0x2050000000;
-        v25 = getVNSessionClass(void)::softClass;
-        v70 = getVNSessionClass(void)::softClass;
+        v15 = CFAbsoluteTimeGetCurrent();
+        _PDFLog(OS_LOG_TYPE_DEBUG, "PageAnalysis", "analyzePage: (page #%lu) Created pixel buffer. (+%g secs)", v13, v15 - Current);
+        v40 = v13;
+        v49 = 0;
+        v50 = &v49;
+        v51 = 0x2050000000;
+        v16 = getVNSessionClass(void)::softClass;
+        v52 = getVNSessionClass(void)::softClass;
         if (!getVNSessionClass(void)::softClass)
         {
-          v62 = MEMORY[0x1E69E9820];
-          v63 = 3221225472;
-          v64 = ___ZL17getVNSessionClassv_block_invoke;
-          v65 = &unk_1E8150870;
-          v66 = &v67;
-          ___ZL17getVNSessionClassv_block_invoke(&v62);
-          v25 = v68[3];
+          v44 = MEMORY[0x1E69E9820];
+          v45 = 3221225472;
+          v46 = ___ZL17getVNSessionClassv_block_invoke;
+          v47 = &unk_1E8150870;
+          v48 = &v49;
+          ___ZL17getVNSessionClassv_block_invoke(&v44);
+          v16 = v50[3];
         }
 
-        v26 = v25;
-        _Block_object_dispose(&v67, 8);
-        v27 = [[v25 alloc] init];
-        v67 = 0;
-        v68 = &v67;
-        v69 = 0x2050000000;
-        v28 = getVNRecognizeDocumentsRequestClass(void)::softClass;
-        v70 = getVNRecognizeDocumentsRequestClass(void)::softClass;
-        v57 = v27;
+        v17 = v16;
+        _Block_object_dispose(&v49, 8);
+        v18 = [[v16 alloc] init];
+        v49 = 0;
+        v50 = &v49;
+        v51 = 0x2050000000;
+        v19 = getVNRecognizeDocumentsRequestClass(void)::softClass;
+        v52 = getVNRecognizeDocumentsRequestClass(void)::softClass;
+        v39 = v18;
         if (!getVNRecognizeDocumentsRequestClass(void)::softClass)
         {
-          v62 = MEMORY[0x1E69E9820];
-          v63 = 3221225472;
-          v64 = ___ZL35getVNRecognizeDocumentsRequestClassv_block_invoke;
-          v65 = &unk_1E8150870;
-          v66 = &v67;
-          ___ZL35getVNRecognizeDocumentsRequestClassv_block_invoke(&v62);
-          v28 = v68[3];
+          v44 = MEMORY[0x1E69E9820];
+          v45 = 3221225472;
+          v46 = ___ZL35getVNRecognizeDocumentsRequestClassv_block_invoke;
+          v47 = &unk_1E8150870;
+          v48 = &v49;
+          ___ZL35getVNRecognizeDocumentsRequestClassv_block_invoke(&v44);
+          v19 = v50[3];
         }
 
-        v29 = v28;
-        _Block_object_dispose(&v67, 8);
-        v30 = [[v28 alloc] init];
-        v59 = v30;
-        [v30 setRecognitionLevel:0];
-        [v30 setUsesFormFieldDetection:(types >> 1) & 1];
-        v67 = 0;
-        v68 = &v67;
-        v69 = 0x2050000000;
-        v31 = getVNImageRequestHandlerClass(void)::softClass;
-        v70 = getVNImageRequestHandlerClass(void)::softClass;
+        v20 = v19;
+        _Block_object_dispose(&v49, 8);
+        v21 = [[v19 alloc] init];
+        v41 = v21;
+        [v21 setRecognitionLevel:0];
+        [v21 setUsesFormFieldDetection:(types >> 1) & 1];
+        v49 = 0;
+        v50 = &v49;
+        v51 = 0x2050000000;
+        v22 = getVNImageRequestHandlerClass(void)::softClass;
+        v52 = getVNImageRequestHandlerClass(void)::softClass;
         if (!getVNImageRequestHandlerClass(void)::softClass)
         {
-          v62 = MEMORY[0x1E69E9820];
-          v63 = 3221225472;
-          v64 = ___ZL29getVNImageRequestHandlerClassv_block_invoke;
-          v65 = &unk_1E8150870;
-          v66 = &v67;
-          ___ZL29getVNImageRequestHandlerClassv_block_invoke(&v62);
-          v31 = v68[3];
+          v44 = MEMORY[0x1E69E9820];
+          v45 = 3221225472;
+          v46 = ___ZL29getVNImageRequestHandlerClassv_block_invoke;
+          v47 = &unk_1E8150870;
+          v48 = &v49;
+          ___ZL29getVNImageRequestHandlerClassv_block_invoke(&v44);
+          v22 = v50[3];
         }
 
-        v32 = v31;
-        _Block_object_dispose(&v67, 8);
-        v33 = [v31 alloc];
-        v60 = [v33 initWithCVPixelBuffer:v19 options:MEMORY[0x1E695E0F8] session:v27];
-        v71[0] = v30;
-        v34 = [MEMORY[0x1E695DEC8] arrayWithObjects:v71 count:1];
-        v61[0] = 0;
-        v35 = [v60 performRequests:v34 error:v61];
-        v36 = v61[0];
+        v23 = v22;
+        _Block_object_dispose(&v49, 8);
+        v24 = [v22 alloc];
+        v42 = [v24 initWithCVPixelBuffer:v14 options:MEMORY[0x1E695E0F8] session:v18];
+        v53[0] = v21;
+        v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v53 count:1];
+        v43[0] = 0;
+        v26 = [v42 performRequests:v25 error:v43];
+        v27 = v43[0];
 
-        if (!v35)
+        if (!v26)
         {
-          NSLog(&cfstr_Vnimagerequest.isa, v36, *&v56, v57);
-          v44 = 0;
+          NSLog(&cfstr_Vnimagerequest.isa, v27);
+          v31 = 0;
 LABEL_31:
 
-          CFRelease(v19);
+          CFRelease(v14);
           goto LABEL_22;
         }
 
-        CFAbsoluteTimeGetCurrent();
-        _PDFLog(OS_LOG_TYPE_DEBUG, "PageAnalysis", "analyzePage: (page #%lu) VN Request complete. (+%g secs)", v37, v38, v39, v40, v41, v58);
-        results = [v59 results];
+        v28 = CFAbsoluteTimeGetCurrent();
+        _PDFLog(OS_LOG_TYPE_DEBUG, "PageAnalysis", "analyzePage: (page #%lu) VN Request complete. (+%g secs)", v40, v28 - Current);
+        results = [v41 results];
         firstObject = [results firstObject];
 
         if (types)
         {
-          v46 = v12;
-          objc_sync_enter(v46);
-          [v46 setDidPerformOCR:1];
-          objc_sync_exit(v46);
+          v33 = v12;
+          objc_sync_enter(v33);
+          [v33 setDidPerformOCR:1];
+          objc_sync_exit(v33);
 
-          v44 = [self addTextFromVisionDocument:firstObject documentImage:v19 toPage:v46 withBox:box];
+          v31 = [self addTextFromVisionDocument:firstObject documentImage:v14 toPage:v33 withBox:box];
           if ((types & 2) == 0)
           {
 LABEL_30:
-            CFAbsoluteTimeGetCurrent();
-            _PDFLog(OS_LOG_TYPE_DEBUG, "PageAnalysis", "analyzePage: (page #%lu) DONE. (+%g secs)", v51, v52, v53, v54, v55, v58);
+            v38 = CFAbsoluteTimeGetCurrent();
+            _PDFLog(OS_LOG_TYPE_DEBUG, "PageAnalysis", "analyzePage: (page #%lu) DONE. (+%g secs)", v40, v38 - Current);
 
             goto LABEL_31;
           }
@@ -156,34 +156,34 @@ LABEL_30:
 
         else
         {
-          v44 = 0;
+          v31 = 0;
           if ((types & 2) == 0)
           {
             goto LABEL_30;
           }
         }
 
-        v47 = v12;
-        objc_sync_enter(v47);
-        [v47 setDidPerformFormDetection:1];
-        objc_sync_exit(v47);
+        v34 = v12;
+        objc_sync_enter(v34);
+        [v34 setDidPerformFormDetection:1];
+        objc_sync_exit(v34);
 
-        v48 = [self addFormFieldsFromVisionDocument:firstObject documentImage:v19 toPage:v47 withBox:box];
-        v49 = [self addTablesFromVisionDocument:firstObject documentImage:v19 toPage:v47 withBox:box];
-        v50 = v44 | 2;
-        if (!v48)
+        v35 = [self addFormFieldsFromVisionDocument:firstObject documentImage:v14 toPage:v34 withBox:box];
+        v36 = [self addTablesFromVisionDocument:firstObject documentImage:v14 toPage:v34 withBox:box];
+        v37 = v31 | 2;
+        if (!v35)
         {
-          v50 = v44;
+          v37 = v31;
         }
 
-        if (v49)
+        if (v36)
         {
-          v44 = v50 | 4;
+          v31 = v37 | 4;
         }
 
         else
         {
-          v44 = v50;
+          v31 = v37;
         }
 
         goto LABEL_30;
@@ -191,10 +191,10 @@ LABEL_30:
     }
   }
 
-  v44 = 0;
+  v31 = 0;
 LABEL_22:
 
-  return v44;
+  return v31;
 }
 
 + (BOOL)isCreatedByCalendar:(id)calendar
@@ -526,7 +526,7 @@ LABEL_17:
 
 + (tuple<unsigned)getBaselineAndHeightFromRowAverages:(CGImage *)averages
 {
-  [self getVectorFromAveragesImage:?];
+  objc_msgSend_getVectorFromAveragesImage_(self, a2);
   v4 = v17;
   if (v17 == v18)
   {
@@ -607,7 +607,7 @@ LABEL_17:
 
 + (tuple<unsigned)getXInsetsFromColAverages:(CGImage *)averages
 {
-  [self getVectorFromAveragesImage:averages];
+  objc_msgSend_getVectorFromAveragesImage_(self, a2, averages);
   if (v17 == v18)
   {
     v10 = 0;
@@ -806,7 +806,7 @@ LABEL_21:
     v21 = objc_opt_class();
     if (v21)
     {
-      [v21 normalizedToPageTransformForPageWithBounds:{v14, v16, v18, v20}];
+      objc_msgSend_normalizedToPageTransformForPageWithBounds_(v21, v14, v16, v18, v20);
     }
 
     else
@@ -820,7 +820,7 @@ LABEL_21:
     v24 = objc_opt_class();
     if (v24)
     {
-      [v24 normalizedToCIImageTransformForImageWithSize:{Width, Height}];
+      objc_msgSend_normalizedToCIImageTransformForImageWithSize_(v24, Width, Height);
     }
 
     else
@@ -1199,7 +1199,7 @@ LABEL_21:
     v97 = 0u;
     v98 = 0u;
     v96 = 0u;
-    [self normalizedToPageTransformForPageWithBounds:v21];
+    objc_msgSend_normalizedToPageTransformForPageWithBounds_(self, v21);
     v29 = MEMORY[0x1E69DB878];
     v30 = +[PDFAnnotation detectedFormFieldDefaultFontName];
     +[PDFAnnotation detectedFormFieldDefaultFontSize];
@@ -1437,7 +1437,7 @@ void __82__PDFPageAnalyzerV2_addFormFieldsFromVisionDocument_documentImage_toPag
 
 + (BOOL)addTablesFromVisionDocument:(id)document documentImage:(__CVBuffer *)image toPage:(id)page withBox:(int64_t)box
 {
-  v113 = *MEMORY[0x1E69E9840];
+  v110 = *MEMORY[0x1E69E9840];
   documentCopy = document;
   pageCopy = page;
   [pageCopy boundsForBox:box];
@@ -1445,40 +1445,40 @@ void __82__PDFPageAnalyzerV2_addFormFieldsFromVisionDocument_documentImage_toPag
   v11 = v10;
   v13 = v12;
   v15 = v14;
-  memset(&v109, 0, sizeof(v109));
+  memset(&v106, 0, sizeof(v106));
   v16 = objc_opt_class();
   if (v16)
   {
-    [v16 normalizedToPageTransformForPageWithBounds:{v9, v11, v13, v15}];
+    objc_msgSend_normalizedToPageTransformForPageWithBounds_(v16, v9, v11, v13, v15);
   }
 
   else
   {
-    memset(&v109, 0, sizeof(v109));
+    memset(&v106, 0, sizeof(v106));
   }
 
   getCRDocumentOutputRegion = [documentCopy getCRDocumentOutputRegion];
   layoutComponents = [getCRDocumentOutputRegion layoutComponents];
-  v88 = objc_opt_new();
-  v107 = 0u;
-  v108 = 0u;
+  v85 = objc_opt_new();
+  v104 = 0u;
   v105 = 0u;
-  v106 = 0u;
+  v102 = 0u;
+  v103 = 0u;
   obj = layoutComponents;
-  v91 = [obj countByEnumeratingWithState:&v105 objects:v112 count:16];
-  if (v91)
+  v88 = [obj countByEnumeratingWithState:&v102 objects:v109 count:16];
+  if (v88)
   {
-    v90 = *v106;
+    v87 = *v103;
     do
     {
-      for (i = 0; i != v91; ++i)
+      for (i = 0; i != v88; ++i)
       {
-        if (*v106 != v90)
+        if (*v103 != v87)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v105 + 1) + 8 * i);
+        v17 = *(*(&v102 + 1) + 8 * i);
         if ([v17 type] == 64)
         {
           boundingQuad = [v17 boundingQuad];
@@ -1488,39 +1488,39 @@ void __82__PDFPageAnalyzerV2_addFormFieldsFromVisionDocument_documentImage_toPag
           v24 = v23;
           v26 = v25;
 
-          v104 = v109;
-          v114.origin.x = v20;
-          v114.origin.y = v22;
-          v114.size.width = v24;
-          v114.size.height = v26;
-          v115 = CGRectApplyAffineTransform(v114, &v104);
-          x = v115.origin.x;
-          y = v115.origin.y;
-          width = v115.size.width;
-          height = v115.size.height;
-          v93 = objc_opt_new();
-          v95 = objc_opt_new();
-          v102 = 0u;
-          v103 = 0u;
+          v101 = v106;
+          v111.origin.x = v20;
+          v111.origin.y = v22;
+          v111.size.width = v24;
+          v111.size.height = v26;
+          v112 = CGRectApplyAffineTransform(v111, &v101);
+          x = v112.origin.x;
+          y = v112.origin.y;
+          width = v112.size.width;
+          height = v112.size.height;
+          v90 = objc_opt_new();
+          v92 = objc_opt_new();
+          v99 = 0u;
           v100 = 0u;
-          v101 = 0u;
+          v97 = 0u;
+          v98 = 0u;
           children = [v17 children];
           v32 = 0;
           v33 = 0;
-          v34 = [children countByEnumeratingWithState:&v100 objects:v111 count:16];
+          v34 = [children countByEnumeratingWithState:&v97 objects:v108 count:16];
           if (v34)
           {
-            v35 = *v101;
+            v35 = *v98;
             do
             {
               for (j = 0; j != v34; ++j)
               {
-                if (*v101 != v35)
+                if (*v98 != v35)
                 {
                   objc_enumerationMutation(children);
                 }
 
-                v37 = *(*(&v100 + 1) + 8 * j);
+                v37 = *(*(&v97 + 1) + 8 * j);
                 v38 = objc_opt_new();
                 v39 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v37, "rowRange")}];
                 [v38 setValue:v39 forKey:@"Row Index"];
@@ -1545,16 +1545,16 @@ void __82__PDFPageAnalyzerV2_addFormFieldsFromVisionDocument_documentImage_toPag
                 v53 = v52;
                 v55 = v54;
 
-                v104 = v109;
-                v116.origin.x = v49;
-                v116.origin.y = v51;
-                v116.size.width = v53;
-                v116.size.height = v55;
-                v117 = CGRectApplyAffineTransform(v116, &v104);
-                v56 = [MEMORY[0x1E696B098] valueWithRect:{v117.origin.x, v117.origin.y, v117.size.width, v117.size.height}];
+                v101 = v106;
+                v113.origin.x = v49;
+                v113.origin.y = v51;
+                v113.size.width = v53;
+                v113.size.height = v55;
+                v114 = CGRectApplyAffineTransform(v113, &v101);
+                v56 = [MEMORY[0x1E696B098] valueWithRect:{v114.origin.x, v114.origin.y, v114.size.width, v114.size.height}];
                 [v38 setValue:v56 forKey:@"Rect"];
 
-                [v95 addObject:v38];
+                [v92 addObject:v38];
                 rowRange = [v37 rowRange];
                 [v37 rowRange];
                 if (v58 + rowRange > v33)
@@ -1570,7 +1570,7 @@ void __82__PDFPageAnalyzerV2_addFormFieldsFromVisionDocument_documentImage_toPag
                 }
               }
 
-              v34 = [children countByEnumeratingWithState:&v100 objects:v111 count:16];
+              v34 = [children countByEnumeratingWithState:&v97 objects:v108 count:16];
             }
 
             while (v34);
@@ -1586,25 +1586,25 @@ void __82__PDFPageAnalyzerV2_addFormFieldsFromVisionDocument_documentImage_toPag
             }
           }
 
-          v98 = 0u;
-          v99 = 0u;
+          v95 = 0u;
           v96 = 0u;
-          v97 = 0u;
-          v94 = v95;
-          v64 = [v94 countByEnumeratingWithState:&v96 objects:v110 count:16];
+          v93 = 0u;
+          v94 = 0u;
+          v91 = v92;
+          v64 = [v91 countByEnumeratingWithState:&v93 objects:v107 count:16];
           if (v64)
           {
-            v65 = *v97;
+            v65 = *v94;
             do
             {
               for (m = 0; m != v64; ++m)
               {
-                if (*v97 != v65)
+                if (*v94 != v65)
                 {
-                  objc_enumerationMutation(v94);
+                  objc_enumerationMutation(v91);
                 }
 
-                v67 = *(*(&v96 + 1) + 8 * m);
+                v67 = *(*(&v93 + 1) + 8 * m);
                 v68 = [v67 objectForKeyedSubscript:@"Row Index"];
                 integerValue = [v68 integerValue];
 
@@ -1612,42 +1612,42 @@ void __82__PDFPageAnalyzerV2_addFormFieldsFromVisionDocument_documentImage_toPag
                 [v70 insertObject:v67 atIndex:{objc_msgSend(v70, "indexOfObject:inSortedRange:options:usingComparator:", v67, 0, objc_msgSend(v70, "count"), 1024, &__block_literal_global)}];
               }
 
-              v64 = [v94 countByEnumeratingWithState:&v96 objects:v110 count:16];
+              v64 = [v91 countByEnumeratingWithState:&v93 objects:v107 count:16];
             }
 
             while (v64);
           }
 
           v71 = [MEMORY[0x1E696B098] valueWithRect:{x, y, width, height}];
-          [v93 setValue:v71 forKey:@"Rect"];
+          [v90 setValue:v71 forKey:@"Rect"];
 
-          [v93 setValue:v61 forKey:@"Rows"];
+          [v90 setValue:v61 forKey:@"Rows"];
           v72 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v32];
-          [v93 setValue:v72 forKey:@"maxColIndex"];
+          [v90 setValue:v72 forKey:@"maxColIndex"];
 
           v73 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v33];
-          [v93 setValue:v73 forKey:@"maxRowIndex"];
+          [v90 setValue:v73 forKey:@"maxRowIndex"];
 
-          [v88 addObject:v93];
+          [v85 addObject:v90];
         }
       }
 
-      v91 = [obj countByEnumeratingWithState:&v105 objects:v112 count:16];
+      v88 = [obj countByEnumeratingWithState:&v102 objects:v109 count:16];
     }
 
-    while (v91);
+    while (v88);
   }
 
-  if ([v88 count])
+  if ([v85 count])
   {
-    CFAbsoluteTimeGetCurrent();
+    Current = CFAbsoluteTimeGetCurrent();
     [pageCopy pageRef];
-    v74 = v88;
+    v75 = v85;
     inserted = CGPDFPageInsertTableDescriptions();
     document = [pageCopy document];
-    v77 = [document indexForPage:pageCopy];
-    CFAbsoluteTimeGetCurrent();
-    _PDFLog(OS_LOG_TYPE_DEBUG, "PageAnalysis", "table insertion for page: (page #%lu) COMPLETED (+%g secs)", v78, v79, v80, v81, v82, v77 + 1);
+    v78 = [document indexForPage:pageCopy];
+    v79 = CFAbsoluteTimeGetCurrent();
+    _PDFLog(OS_LOG_TYPE_DEBUG, "PageAnalysis", "table insertion for page: (page #%lu) COMPLETED (+%g secs)", v78 + 1, v79 - Current);
   }
 
   else

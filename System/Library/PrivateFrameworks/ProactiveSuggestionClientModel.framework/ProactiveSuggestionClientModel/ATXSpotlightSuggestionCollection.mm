@@ -143,25 +143,26 @@ LABEL_7:
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v11 = __atxlog_handle_default();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+    v12 = __atxlog_handle_default(isKindOfClass);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
-      [(ATXLightweightClientModelCacheUpdate *)self initWithProto:v11];
+      [(ATXLightweightClientModelCacheUpdate *)self initWithProto:v12];
     }
 
     goto LABEL_7;
   }
 
-  v5 = protoCopy;
-  contextTitle = [v5 contextTitle];
-  suggestions = [v5 suggestions];
-  v8 = [suggestions _pas_mappedArrayWithTransform:&__block_literal_global_16];
+  v6 = protoCopy;
+  contextTitle = [v6 contextTitle];
+  suggestions = [v6 suggestions];
+  v9 = [suggestions _pas_mappedArrayWithTransform:&__block_literal_global_16];
 
-  sectionIdentifier = [v5 sectionIdentifier];
+  sectionIdentifier = [v6 sectionIdentifier];
 
-  self = [(ATXSpotlightSuggestionCollection *)self initWithSuggestions:v8 contextTitle:contextTitle sectionIdentifier:sectionIdentifier];
+  self = [(ATXSpotlightSuggestionCollection *)self initWithSuggestions:v9 contextTitle:contextTitle sectionIdentifier:sectionIdentifier];
   selfCopy = self;
 LABEL_8:
 
@@ -175,15 +176,15 @@ ATXProactiveSuggestion *__50__ATXSpotlightSuggestionCollection_initWithProto___b
 
   if (v3)
   {
-    v4 = v3;
+    v5 = v3;
   }
 
   else
   {
-    v5 = __atxlog_handle_blending();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    v6 = __atxlog_handle_blending(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
-      __50__ATXSpotlightSuggestionCollection_initWithProto___block_invoke_cold_1(v5);
+      __50__ATXSpotlightSuggestionCollection_initWithProto___block_invoke_cold_1(v6);
     }
   }
 

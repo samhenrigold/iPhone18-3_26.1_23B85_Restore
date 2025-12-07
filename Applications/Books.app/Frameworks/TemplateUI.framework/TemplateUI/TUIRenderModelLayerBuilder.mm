@@ -26,12 +26,12 @@
     if (![(TUIRenderModelLayer *)modelCopy2 isEqual:v34])
     {
       [(TUIRenderModelLayerBuilder *)self _updateSubmodelLayers];
-      config = [(TUIRenderModelLayer *)self->_model config];
+      v11 = objc_msgSend_config(self->_model);
 
-      if (config)
+      if (v11)
       {
-        config2 = [(TUIRenderModelLayer *)self->_model config];
-        [config2 configureSublayers:self->_sublayers forLayer:self->_layer];
+        v12 = objc_msgSend_config(self->_model);
+        [v12 configureSublayers:self->_sublayers forLayer:self->_layer];
       }
 
       else
@@ -94,17 +94,17 @@
 
 - (void)dynamicUserInterfaceTraitDidChange
 {
-  config = [(TUIRenderModelLayer *)self->_model config];
-  [config dynamicUserInterfaceTraitDidChangeForLayer:self->_layer];
+  v3 = objc_msgSend_config(self->_model, a2);
+  [v3 dynamicUserInterfaceTraitDidChangeForLayer:self->_layer];
 }
 
 - (void)_updateLayerWithPreviousModel:(id)model newModel:(id)newModel
 {
   modelCopy = model;
   newModelCopy = newModel;
-  config = [newModelCopy config];
-  config2 = [modelCopy config];
-  if (config2 == config)
+  v7 = objc_msgSend_config(newModelCopy);
+  v8 = objc_msgSend_config(modelCopy);
+  if (v8 == v7)
   {
     goto LABEL_23;
   }
@@ -112,16 +112,16 @@
   [newModelCopy size];
   v10 = v9;
   v12 = v11;
-  v13 = [config layerClassForSize:?];
+  v13 = [v7 layerClassForSize:?];
   [newModelCopy eraseableInsets];
   v15 = v14 + 0.0;
   v17 = v16 + 0.0;
   v19 = v10 - (v14 + v18);
   v21 = v12 - (v16 + v20);
   layer = self->_layer;
-  if (layer && ((-[CALayer bounds](layer, "bounds"), v51.origin.x = v15, v51.origin.y = v17, v51.size.width = v19, v51.size.height = v21, !(v23 = CGRectEqualToRect(v50, v51))) ? (v24 = [config2 reuseLayerForBoundsChange]) : (v24 = 1), self->_layer && v13 == objc_opt_class() && (v25 = objc_opt_class(), v25 == objc_opt_class()) && (objc_msgSend(modelCopy, "identifier"), v26 = objc_claimAutoreleasedReturnValue(), objc_msgSend(newModelCopy, "identifier"), v27 = objc_claimAutoreleasedReturnValue(), v28 = objc_msgSend(v26, "isEqual:", v27) & v24, v27, v26, (v28 & 1) != 0)))
+  if (layer && ((-[CALayer bounds](layer, "bounds"), v53.origin.x = v15, v53.origin.y = v17, v53.size.width = v19, v53.size.height = v21, !(v23 = CGRectEqualToRect(v52, v53))) ? (v24 = [v8 reuseLayerForBoundsChange]) : (v24 = 1), self->_layer && v13 == objc_opt_class() && (v25 = objc_opt_class(), v25 == objc_opt_class()) && (objc_msgSend(modelCopy, "identifier"), v26 = objc_claimAutoreleasedReturnValue(), objc_msgSend(newModelCopy, "identifier"), v27 = objc_claimAutoreleasedReturnValue(), v28 = objc_msgSend(v26, "isEqual:", v27) & v24, v27, v26, (v28 & 1) != 0)))
   {
-    v29 = [config2 isEqualToConfig:config];
+    v29 = [v8 isEqualToConfig:v7];
     v30 = v29;
     if (v23)
     {
@@ -136,7 +136,7 @@
       [(CALayer *)self->_layer setBounds:v15, v17, v19, v21];
       if (v30)
       {
-        [config configureBounds:self->_layer];
+        [v7 configureBounds:self->_layer];
         goto LABEL_18;
       }
     }
@@ -161,45 +161,45 @@
     [(CALayer *)self->_layer setBounds:v15, v17, v19, v21];
   }
 
-  [config configureLayer:{self->_layer, modelCopy}];
+  [v7 configureLayer:{self->_layer, modelCopy}];
 LABEL_18:
-  [config configureDelegate:{self->_layer, modelCopy}];
+  [v7 configureDelegate:{self->_layer, modelCopy}];
   delegate = [(CALayer *)self->_layer delegate];
   if (delegate && (v35 = delegate, [(CALayer *)self->_layer delegate], v36 = objc_claimAutoreleasedReturnValue(), v37 = objc_opt_respondsToSelector(), v36, v35, (v37 & 1) == 0))
   {
-    if (_TUIDeviceHasInternalInstall())
+    if (_TUIDeviceHasInternalInstall(v38, v39))
     {
-      v39 = [NSException alloc];
-      v47[0] = @"layer";
-      v40 = self->_layer;
-      v41 = v40;
-      if (!v40)
+      v41 = [NSException alloc];
+      v49[0] = @"layer";
+      v42 = self->_layer;
+      v43 = v42;
+      if (!v42)
       {
-        v41 = +[NSNull null];
+        v43 = +[NSNull null];
       }
 
-      v47[1] = @"config";
-      v48[0] = v41;
-      v42 = config;
-      if (!config)
+      v49[1] = @"config";
+      v50[0] = v43;
+      v44 = v7;
+      if (!v7)
       {
-        v42 = +[NSNull null];
+        v44 = +[NSNull null];
       }
 
-      v48[1] = v42;
-      v43 = [NSDictionary dictionaryWithObjects:v48 forKeys:v47 count:2];
-      v44 = [v39 initWithName:@"LayerWithoutAnimationDelegate" reason:@"A layer without an animation delegate will result in the wrong animations" userInfo:v43];
-      v45 = v44;
+      v50[1] = v44;
+      v45 = [NSDictionary dictionaryWithObjects:v50 forKeys:v49 count:2];
+      v46 = [v41 initWithName:@"LayerWithoutAnimationDelegate" reason:@"A layer without an animation delegate will result in the wrong animations" userInfo:v45];
+      v47 = v46;
 
-      if (!config)
-      {
-      }
-
-      if (!v40)
+      if (!v7)
       {
       }
 
-      objc_exception_throw(v44);
+      if (!v42)
+      {
+      }
+
+      objc_exception_throw(v46);
     }
   }
 

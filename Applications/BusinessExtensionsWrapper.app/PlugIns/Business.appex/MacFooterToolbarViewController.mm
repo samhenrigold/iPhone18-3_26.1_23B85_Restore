@@ -4,6 +4,7 @@
 - (void)dismissButtonTapped;
 - (void)leftButtonTapped;
 - (void)rightButtonTapped;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -12,13 +13,23 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_1000A57DC();
+  sub_1000A57DC(selfCopy);
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v5.receiver = self;
+  v5.super_class = type metadata accessor for MacFooterToolbarViewController();
+  v4 = v5.receiver;
+  [(MacFooterToolbarViewController *)&v5 viewDidAppear:appearCopy];
+  [v4 becomeFirstResponder];
 }
 
 - (NSArray)keyCommands
 {
   selfCopy = self;
-  v3 = sub_1000A6360();
+  v3 = sub_1000A6360(selfCopy);
 
   if (v3)
   {

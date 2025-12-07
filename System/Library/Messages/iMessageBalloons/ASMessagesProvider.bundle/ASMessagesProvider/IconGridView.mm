@@ -8,7 +8,7 @@
 
 - (_TtC18ASMessagesProvider12IconGridView)initWithCoder:(id)coder
 {
-  v4 = sub_BD88(&qword_9464F8);
+  v4 = sub_BD88(&qword_9464F8, &qword_786F30);
   __chkstk_darwin(v4);
   *(&self->super.super.super.isa + OBJC_IVAR____TtC18ASMessagesProvider12IconGridView_artworkViews) = _swiftEmptyArrayStorage;
   sub_759210();

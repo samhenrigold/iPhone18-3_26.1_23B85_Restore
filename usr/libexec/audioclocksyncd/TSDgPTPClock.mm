@@ -12,6 +12,8 @@
 - (BOOL)addUnicastUDPv4PtPPortOnInterfaceNamed:(id)named withDestinationAddress:(unsigned int)address allocatedPortNumber:(unsigned __int16 *)number error:(id *)error;
 - (BOOL)addUnicastUDPv6EtEPortOnInterfaceNamed:(id)named withDestinationAddress:(const char *)address allocatedPortNumber:(unsigned __int16 *)number error:(id *)error;
 - (BOOL)addUnicastUDPv6PtPPortOnInterfaceNamed:(id)named withDestinationAddress:(const char *)address allocatedPortNumber:(unsigned __int16 *)number error:(id *)error;
+- (BOOL)convertFrom32BitASTime:(unsigned int *)time toMachAbsoluteTime:(unint64_t *)absoluteTime withCount:(unsigned int)count;
+- (BOOL)convertFrom32BitASTime:(unsigned int *)time toTimeSyncTime:(unint64_t *)syncTime withCount:(unsigned int)count;
 - (BOOL)getMachAbsoluteRateRatioNumerator:(unint64_t *)numerator denominator:(unint64_t *)denominator machAnchor:(unint64_t *)anchor andDomainAnchor:(unint64_t *)domainAnchor forGrandmasterIdentity:(unint64_t *)identity portNumber:(unsigned __int16 *)number withError:(id *)error;
 - (BOOL)getSyncInfoWithSyncInfoValid:(BOOL *)valid syncFlags:(char *)flags timeSyncTime:(unint64_t *)time domainTimeHi:(unint64_t *)hi domainTimeLo:(unint64_t *)lo cumulativeScaledRate:(unint64_t *)rate inverseCumulativeScaledRate:(unint64_t *)scaledRate grandmasterID:(unint64_t *)self0 localPortNumber:(unsigned __int16 *)self1 error:(id *)self2;
 - (BOOL)getTimeSyncTimeRateRatioNumerator:(unint64_t *)numerator denominator:(unint64_t *)denominator timeSyncAnchor:(unint64_t *)anchor andDomainAnchor:(unint64_t *)domainAnchor forGrandmasterIdentity:(unint64_t *)identity portNumber:(unsigned __int16 *)number withError:(id *)error;
@@ -26,6 +28,7 @@
 - (BOOL)setPreferredGM:(BOOL)m error:(id *)error;
 - (BOOL)updateNtpAnchorOffset:(int64_t)offset isLocalClockSourceFromNTP:(BOOL)p error:(id *)error;
 - (NSArray)ports;
+- (TSDgPTPClock)initWithClockIdentifier:(unint64_t)identifier pid:(int)pid;
 - (id)_gptpPath;
 - (id)gPTPTimeFromMachAbsoluteTime:(unint64_t)time;
 - (id)gPTPTimeFromTimeSyncTime:(unint64_t)time;
@@ -48,6 +51,8 @@
 - (unsigned)clockClass;
 - (unsigned)clockPriority1;
 - (unsigned)clockPriority2;
+- (void)_handleInterestNotification:(unsigned int)notification withArgument:(void *)argument;
+- (void)_handleNotification:(unsigned int)notification withArg1:(unint64_t)arg1 andArg2:(unint64_t)arg2;
 - (void)_handleRefreshConnection;
 - (void)_refreshGrandmasterIdentityOnNotificationQueue;
 - (void)addImplClock:(id)clock;
@@ -106,6 +111,30 @@
   return v5;
 }
 
+- (TSDgPTPClock)initWithClockIdentifier:(unint64_t)identifier pid:(int)pid
+{
+  v4 = *&pid;
+  v7 = +[NSPointerArray weakObjectsPointerArray];
+  implClocks = self->_implClocks;
+  self->_implClocks = v7;
+
+  self->_implClocksLock._os_unfair_lock_opaque = 0;
+  v14.receiver = self;
+  v14.super_class = TSDgPTPClock;
+  v9 = [(TSDKernelClock *)&v14 initWithClockIdentifier:identifier pid:v4];
+  v10 = v9;
+  if (v9)
+  {
+    _gptpPath = [(TSDgPTPClock *)v9 _gptpPath];
+    gptpPath = v10->_gptpPath;
+    v10->_gptpPath = _gptpPath;
+
+    v10->_grandmasterIdentity = [(TSDgPTPClock *)v10 _grandmasterIdentity];
+  }
+
+  return v10;
+}
+
 - (unint64_t)convertFrom32BitASToMachAbsoluteTime:(unsigned int)time
 {
   v6 = 1;
@@ -128,6 +157,104 @@
   {
     return -1;
   }
+}
+
+- (BOOL)convertFrom32BitASTime:(unsigned int *)time toMachAbsoluteTime:(unint64_t *)absoluteTime withCount:(unsigned int)count
+{
+  v5 = *&count;
+  if (count < 0xC)
+  {
+    v19 = 0;
+    v20 = 1;
+    if (!count)
+    {
+      return v20 & 1;
+    }
+
+    goto LABEL_13;
+  }
+
+  v9 = 0;
+  v25 = 12 * ((count - 12) / 0xC);
+  v26 = 1;
+  timeCopy = time;
+  do
+  {
+    v11 = 0;
+    v27 = 12;
+    v12 = timeCopy;
+    do
+    {
+      v13 = *v12;
+      v12 += 4;
+      *&v14 = v13;
+      *(&v14 + 1) = DWORD1(v13);
+      v15 = v14;
+      *&v14 = DWORD2(v13);
+      *(&v14 + 1) = HIDWORD(v13);
+      v16 = &v40[v11];
+      *v16 = v15;
+      v16[1] = v14;
+      v11 += 4;
+    }
+
+    while (v11 != 12);
+    connection = [(TSDKernelClock *)self connection];
+    v18 = [connection callMethodWithSelector:33 scalarInputs:v40 scalarInputCount:12 scalarOutputs:&absoluteTime[v9] scalarOutputCount:&v27 error:0];
+
+    if ((v18 & 1) == 0)
+    {
+      v26 = 0;
+      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 136316418;
+        v29 = "callResult == YES";
+        v30 = 2048;
+        v31 = 0;
+        v32 = 2048;
+        v33 = 0;
+        v34 = 2080;
+        v35 = "";
+        v36 = 2080;
+        v37 = "/Library/Caches/com.apple.xbs/Sources/TimeSync_exec/clocksyncd/IOKit/TSDgPTPClock.m";
+        v38 = 1024;
+        v39 = 164;
+        _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", buf, 0x3Au);
+        v26 = 0;
+      }
+    }
+
+    v5 = (v5 - 12);
+    v9 += 12;
+    timeCopy += 12;
+  }
+
+  while (v5 > 0xB);
+  v20 = v26;
+  v19 = v25 + 12;
+  if (v5)
+  {
+LABEL_13:
+    v21 = 0;
+    *buf = v5;
+    do
+    {
+      v40[v21] = time[v19 + v21];
+      ++v21;
+    }
+
+    while (v5 != v21);
+    connection2 = [(TSDKernelClock *)self connection];
+    v23 = [connection2 callMethodWithSelector:33 scalarInputs:v40 scalarInputCount:v5 scalarOutputs:&absoluteTime[v19] scalarOutputCount:buf error:0];
+
+    if ((v23 & 1) == 0)
+    {
+      sub_10003032C(&v27);
+      v20 = v27;
+    }
+  }
+
+  return v20 & 1;
 }
 
 - (id)gPTPTimeFromMachAbsoluteTime:(unint64_t)time
@@ -402,6 +529,104 @@
   }
 }
 
+- (BOOL)convertFrom32BitASTime:(unsigned int *)time toTimeSyncTime:(unint64_t *)syncTime withCount:(unsigned int)count
+{
+  v5 = *&count;
+  if (count < 0xC)
+  {
+    v19 = 0;
+    v20 = 1;
+    if (!count)
+    {
+      return v20 & 1;
+    }
+
+    goto LABEL_13;
+  }
+
+  v9 = 0;
+  v25 = 12 * ((count - 12) / 0xC);
+  v26 = 1;
+  timeCopy = time;
+  do
+  {
+    v11 = 0;
+    v27 = 12;
+    v12 = timeCopy;
+    do
+    {
+      v13 = *v12;
+      v12 += 4;
+      *&v14 = v13;
+      *(&v14 + 1) = DWORD1(v13);
+      v15 = v14;
+      *&v14 = DWORD2(v13);
+      *(&v14 + 1) = HIDWORD(v13);
+      v16 = &v40[v11];
+      *v16 = v15;
+      v16[1] = v14;
+      v11 += 4;
+    }
+
+    while (v11 != 12);
+    connection = [(TSDKernelClock *)self connection];
+    v18 = [connection callMethodWithSelector:44 scalarInputs:v40 scalarInputCount:12 scalarOutputs:&syncTime[v9] scalarOutputCount:&v27 error:0];
+
+    if ((v18 & 1) == 0)
+    {
+      v26 = 0;
+      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 136316418;
+        v29 = "callResult == YES";
+        v30 = 2048;
+        v31 = 0;
+        v32 = 2048;
+        v33 = 0;
+        v34 = 2080;
+        v35 = "";
+        v36 = 2080;
+        v37 = "/Library/Caches/com.apple.xbs/Sources/TimeSync_exec/clocksyncd/IOKit/TSDgPTPClock.m";
+        v38 = 1024;
+        v39 = 448;
+        _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", buf, 0x3Au);
+        v26 = 0;
+      }
+    }
+
+    v5 = (v5 - 12);
+    v9 += 12;
+    timeCopy += 12;
+  }
+
+  while (v5 > 0xB);
+  v20 = v26;
+  v19 = v25 + 12;
+  if (v5)
+  {
+LABEL_13:
+    v21 = 0;
+    *buf = v5;
+    do
+    {
+      v40[v21] = time[v19 + v21];
+      ++v21;
+    }
+
+    while (v5 != v21);
+    connection2 = [(TSDKernelClock *)self connection];
+    v23 = [connection2 callMethodWithSelector:44 scalarInputs:v40 scalarInputCount:v5 scalarOutputs:&syncTime[v19] scalarOutputCount:buf error:0];
+
+    if ((v23 & 1) == 0)
+    {
+      sub_1000309C4(&v27);
+      v20 = v27;
+    }
+  }
+
+  return v20 & 1;
+}
+
 - (id)gPTPTimeFromTimeSyncTime:(unint64_t)time
 {
   v14 = -1;
@@ -650,23 +875,80 @@
   return v16;
 }
 
+- (void)_handleInterestNotification:(unsigned int)notification withArgument:(void *)argument
+{
+  v23.receiver = self;
+  v23.super_class = TSDgPTPClock;
+  [(TSDKernelClock *)&v23 _handleInterestNotification:*&notification withArgument:argument];
+  if (notification == -536870608)
+  {
+    propertyUpdateQueue = [(TSDKernelClock *)self propertyUpdateQueue];
+    if (!propertyUpdateQueue)
+    {
+      propertyUpdateQueue = [(TSDKernelClock *)self notificationQueue];
+    }
+
+    _grandmasterIdentity = [(TSDgPTPClock *)self _grandmasterIdentity];
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_100025B2C;
+    block[3] = &unk_10004C990;
+    block[4] = self;
+    block[5] = _grandmasterIdentity;
+    dispatch_async(propertyUpdateQueue, block);
+    [(TSDgPTPClock *)self _gptpPath];
+    v19[0] = _NSConcreteStackBlock;
+    v19[1] = 3221225472;
+    v19[2] = sub_100025B88;
+    v8 = v19[3] = &unk_10004C808;
+    v20 = v8;
+    selfCopy = self;
+    dispatch_async(propertyUpdateQueue, v19);
+    os_unfair_lock_lock(&self->_implClocksLock);
+    [(NSPointerArray *)self->_implClocks compact];
+    v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
+    v9 = self->_implClocks;
+    v10 = [(NSPointerArray *)v9 countByEnumeratingWithState:&v15 objects:v24 count:16];
+    if (v10)
+    {
+      v11 = v10;
+      v12 = *v16;
+      do
+      {
+        for (i = 0; i != v11; i = i + 1)
+        {
+          if (*v16 != v12)
+          {
+            objc_enumerationMutation(v9);
+          }
+
+          v14 = *(*(&v15 + 1) + 8 * i);
+          if ([v14 conformsToProtocol:&OBJC_PROTOCOL___TSDgPTPClockImplProtocol])
+          {
+            [v14 updateGrandmasterIdentity:_grandmasterIdentity andgPTPPath:v8];
+          }
+        }
+
+        v11 = [(NSPointerArray *)v9 countByEnumeratingWithState:&v15 objects:v24 count:16];
+      }
+
+      while (v11);
+    }
+
+    os_unfair_lock_unlock(&self->_implClocksLock);
+  }
+}
+
 - (void)_refreshGrandmasterIdentityOnNotificationQueue
 {
   _grandmasterIdentity = [(TSDgPTPClock *)self _grandmasterIdentity];
   _gptpPath = [(TSDgPTPClock *)self _gptpPath];
   propertyUpdateQueue = [(TSDKernelClock *)self propertyUpdateQueue];
-  if (!propertyUpdateQueue)
+  if (!propertyUpdateQueue || (v6 = propertyUpdateQueue, [(TSDKernelClock *)self propertyUpdateQueue], v7 = objc_claimAutoreleasedReturnValue(), [(TSDKernelClock *)self notificationQueue], v8 = objc_claimAutoreleasedReturnValue(), v8, v7, v6, v7 == v8))
   {
-    goto LABEL_4;
-  }
-
-  v6 = propertyUpdateQueue;
-  propertyUpdateQueue2 = [(TSDKernelClock *)self propertyUpdateQueue];
-  notificationQueue = [(TSDKernelClock *)self notificationQueue];
-
-  if (propertyUpdateQueue2 == notificationQueue)
-  {
-LABEL_4:
     if (_grandmasterIdentity != [(TSDgPTPClock *)self grandmasterIdentity])
     {
       [(TSDgPTPClock *)self setGrandmasterIdentity:_grandmasterIdentity];
@@ -683,7 +965,7 @@ LABEL_4:
 
   else
   {
-    propertyUpdateQueue3 = [(TSDKernelClock *)self propertyUpdateQueue];
+    propertyUpdateQueue2 = [(TSDKernelClock *)self propertyUpdateQueue];
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_100025E78;
@@ -691,7 +973,7 @@ LABEL_4:
     v24 = _grandmasterIdentity;
     block[4] = self;
     v23 = _gptpPath;
-    dispatch_sync(propertyUpdateQueue3, block);
+    dispatch_sync(propertyUpdateQueue2, block);
   }
 
   os_unfair_lock_lock(&self->_implClocksLock);
@@ -737,6 +1019,19 @@ LABEL_4:
   v3.super_class = TSDgPTPClock;
   [(TSDKernelClock *)&v3 _handleRefreshConnection];
   [(TSDgPTPClock *)self _refreshGrandmasterIdentityOnNotificationQueue];
+}
+
+- (void)_handleNotification:(unsigned int)notification withArg1:(unint64_t)arg1 andArg2:(unint64_t)arg2
+{
+  v7 = *&notification;
+  if (notification == 2004)
+  {
+    [(TSDgPTPClock *)self _refreshGrandmasterIdentityOnNotificationQueue];
+  }
+
+  v9.receiver = self;
+  v9.super_class = TSDgPTPClock;
+  [(TSDKernelClock *)&v9 _handleNotification:v7 withArg1:arg1 andArg2:arg2];
 }
 
 - (unint64_t)_grandmasterIdentity

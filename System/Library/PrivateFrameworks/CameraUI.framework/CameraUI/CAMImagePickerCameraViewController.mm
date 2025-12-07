@@ -269,7 +269,7 @@
   if (viewfinderViewController)
   {
     v6 = viewfinderViewController;
-    [viewfinderViewController customPreviewViewTransform];
+    objc_msgSend_customPreviewViewTransform(viewfinderViewController);
     viewfinderViewController = v6;
   }
 
@@ -369,7 +369,7 @@
   v22 = v21;
   if (v21)
   {
-    [v21 CGAffineTransformValue];
+    objc_msgSend_CGAffineTransformValue(v21);
   }
 
   else
@@ -1078,7 +1078,7 @@ LABEL_7:
 
   if ((v7 & 1) == 0)
   {
-    [playbackCopy duration];
+    objc_msgSend_duration(playbackCopy);
     v9 = v8;
     [v6 doubleValue];
     if (v9 > v10)

@@ -20,7 +20,7 @@
 
 - (void)donateServerTrustFor:(IDSURI *)for serverTrust:(BOOL)trust service:(NSString *)service completionHandler:(id)handler
 {
-  v11 = sub_100706B30(&qword_100CB3410);
+  v11 = sub_100706B30(&qword_100CB3410, &qword_1009B3440);
   __chkstk_darwin(v11 - 8);
   v13 = &v22 - v12;
   v14 = _Block_copy(handler);

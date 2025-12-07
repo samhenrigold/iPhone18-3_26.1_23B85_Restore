@@ -64,22 +64,22 @@
 
 - (id)entryWithIndex:(unint64_t)index error:(id *)error
 {
-  v24[1] = *MEMORY[0x1E69E9840];
-  v23 = @"ENTRYINDEX";
+  v23[1] = *MEMORY[0x1E69E9840];
+  v22 = @"ENTRYINDEX";
   v6 = objc_msgSend_numberWithUnsignedLongLong_(MEMORY[0x1E696AD98], a2, index);
-  v24[0] = v6;
-  v8 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v7, v24, &v23, 1);
+  v23[0] = v6;
+  v8 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v7, v23, &v22, 1);
 
   v11 = objc_msgSend_primaryKey(self, v9, v10);
-  v22 = 0;
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = sub_18851FC58;
-  v20[3] = &unk_1E70BC098;
+  v21 = 0;
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = sub_18851FC58;
+  v19[3] = &unk_1E70BC098;
   v12 = v11;
-  v21 = v12;
-  v14 = objc_msgSend_entryWithValues_label_error_setupBlock_(self, v13, v8, off_1EA90EAC0, &v22, v20);
-  v15 = v22;
+  v20 = v12;
+  v14 = objc_msgSend_entryWithValues_label_error_setupBlock_(self, v13, v8, off_1EA90EAC0, &v21, v19);
+  v15 = v21;
   v16 = v15;
   if (v15)
   {
@@ -92,47 +92,44 @@
     v14 = 0;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
-
   return v14;
 }
 
 - (id)fetchEntryBatchWithStartingIndex:(unint64_t)index error:(id *)error
 {
-  v28[1] = *MEMORY[0x1E69E9840];
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x3032000000;
-  v24 = sub_1883ED844;
-  v25 = sub_1883EF578;
-  v26 = 0;
-  v27 = @"STARTINDEX";
+  v27[1] = *MEMORY[0x1E69E9840];
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = sub_1883ED844;
+  v24 = sub_1883EF578;
+  v25 = 0;
+  v26 = @"STARTINDEX";
   v6 = objc_msgSend_numberWithUnsignedLongLong_(MEMORY[0x1E696AD98], a2, index);
-  v28[0] = v6;
-  v8 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v7, v28, &v27, 1);
+  v27[0] = v6;
+  v8 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v7, v27, &v26, 1);
 
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = sub_18851FEB8;
-  v18[3] = &unk_1E70BC0C0;
-  v18[4] = self;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = sub_18851FEB8;
+  v17[3] = &unk_1E70BC0C0;
+  v17[4] = self;
   v9 = v8;
-  v19 = v9;
-  v20 = &v21;
-  v11 = objc_msgSend_performInTransaction_(self, v10, v18);
+  v18 = v9;
+  v19 = &v20;
+  v11 = objc_msgSend_performInTransaction_(self, v10, v17);
   v12 = v11;
   if (error && v11)
   {
     v13 = v11;
     *error = v12;
-    v14 = v22[5];
-    v22[5] = 0;
+    v14 = v21[5];
+    v21[5] = 0;
   }
 
-  v15 = v22[5];
+  v15 = v21[5];
 
-  _Block_object_dispose(&v21, 8);
-  v16 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v20, 8);
 
   return v15;
 }

@@ -32,7 +32,7 @@
 - (void)studentTargetsDidChange:(id)change
 {
   changeCopy = change;
-  v5 = _CRKLogGeneral_13();
+  v5 = _CRKLogGeneral_13(changeCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v8 = 0;
@@ -49,7 +49,7 @@
 - (void)instructorTargetsDidChange:(id)change
 {
   changeCopy = change;
-  v5 = _CRKLogGeneral_13();
+  v5 = _CRKLogGeneral_13(changeCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v8 = 0;
@@ -76,16 +76,17 @@
 
 - (void)didFindTargets:(id)targets
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   targetsCopy = targets;
-  if ([targetsCopy count])
+  v5 = [targetsCopy count];
+  if (v5)
   {
-    v5 = _CRKLogGeneral_13();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = _CRKLogGeneral_13(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138543362;
-      v9 = targetsCopy;
-      _os_log_impl(&dword_243550000, v5, OS_LOG_TYPE_DEFAULT, "Classroom: Share target browser did find targets: %{public}@", &v8, 0xCu);
+      v9 = 138543362;
+      v10 = targetsCopy;
+      _os_log_impl(&dword_243550000, v6, OS_LOG_TYPE_DEFAULT, "Classroom: Share target browser did find targets: %{public}@", &v9, 0xCu);
     }
 
     delegate = [(CRKShareTargetCollector *)self delegate];
@@ -96,16 +97,17 @@
 
 - (void)didRemoveTargets:(id)targets
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   targetsCopy = targets;
-  if ([targetsCopy count])
+  v5 = [targetsCopy count];
+  if (v5)
   {
-    v5 = _CRKLogGeneral_13();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = _CRKLogGeneral_13(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138543362;
-      v9 = targetsCopy;
-      _os_log_impl(&dword_243550000, v5, OS_LOG_TYPE_DEFAULT, "Classroom: Share target browser did remove targets: %{public}@", &v8, 0xCu);
+      v9 = 138543362;
+      v10 = targetsCopy;
+      _os_log_impl(&dword_243550000, v6, OS_LOG_TYPE_DEFAULT, "Classroom: Share target browser did remove targets: %{public}@", &v9, 0xCu);
     }
 
     delegate = [(CRKShareTargetCollector *)self delegate];

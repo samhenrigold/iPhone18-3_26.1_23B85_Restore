@@ -1,8 +1,10 @@
 @interface PDDPIngestItem
 - (BOOL)isEqual:(id)equal;
+- (id)actionAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)syncTypeAsString:(int)string;
 - (int)StringAsAction:(id)action;
 - (int)StringAsSyncType:(id)type;
 - (int)action;
@@ -28,6 +30,21 @@
   {
     return 0;
   }
+}
+
+- (id)actionAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_100203CA8[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsAction:(id)action
@@ -82,6 +99,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)syncTypeAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_100203CC0[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsSyncType:(id)type
@@ -240,7 +272,6 @@
   toCopy = to;
   if (*&self->_has)
   {
-    action = self->_action;
     PBDataWriterWriteInt32Field();
   }
 
@@ -256,40 +287,38 @@
 
   if ((*&self->_has & 2) != 0)
   {
-    syncType = self->_syncType;
     PBDataWriterWriteInt32Field();
   }
 
-  v15 = 0u;
-  v16 = 0u;
+  v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v7 = self->_handoutAuthorizedMetaInfos;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
-  if (v8)
+  v10 = 0u;
+  v11 = 0u;
+  v5 = self->_handoutAuthorizedMetaInfos;
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v6)
   {
-    v9 = v8;
-    v10 = *v14;
+    v7 = v6;
+    v8 = *v11;
     do
     {
-      v11 = 0;
+      v9 = 0;
       do
       {
-        if (*v14 != v10)
+        if (*v11 != v8)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v5);
         }
 
-        v12 = *(*(&v13 + 1) + 8 * v11);
         PBDataWriterWriteSubmessage();
-        v11 = v11 + 1;
+        ++v9;
       }
 
-      while (v9 != v11);
-      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      while (v7 != v9);
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
-    while (v9);
+    while (v7);
   }
 }
 
@@ -401,7 +430,6 @@
     goto LABEL_18;
   }
 
-  v5 = *(equalCopy + 44);
   if (*&self->_has)
   {
     if ((*(equalCopy + 44) & 1) == 0 || self->_action != *(equalCopy + 2))
@@ -413,7 +441,7 @@
   else if (*(equalCopy + 44))
   {
 LABEL_18:
-    v10 = 0;
+    v8 = 0;
     goto LABEL_19;
   }
 
@@ -432,7 +460,6 @@ LABEL_18:
     }
   }
 
-  v8 = *(equalCopy + 44);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 44) & 2) == 0 || self->_syncType != *(equalCopy + 10))
@@ -449,17 +476,17 @@ LABEL_18:
   handoutAuthorizedMetaInfos = self->_handoutAuthorizedMetaInfos;
   if (handoutAuthorizedMetaInfos | *(equalCopy + 2))
   {
-    v10 = [(NSMutableArray *)handoutAuthorizedMetaInfos isEqual:?];
+    v8 = [(NSMutableArray *)handoutAuthorizedMetaInfos isEqual:?];
   }
 
   else
   {
-    v10 = 1;
+    v8 = 1;
   }
 
 LABEL_19:
 
-  return v10;
+  return v8;
 }
 
 - (unint64_t)hash

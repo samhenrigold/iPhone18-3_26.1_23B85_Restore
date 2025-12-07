@@ -40,31 +40,29 @@
 
 - (id)dictionaryRepresentation
 {
-  v15[4] = *MEMORY[0x277D85DE8];
-  v14[0] = 0x28822C3E8;
+  v14[4] = *MEMORY[0x277D85DE8];
+  v13[0] = 0x28822C3E8;
   v2 = MEMORY[0x277CCABB0];
   [self intensity];
   v3 = [v2 numberWithDouble:?];
-  v15[0] = v3;
-  v14[1] = 0x28822C408;
+  v14[0] = v3;
+  v13[1] = 0x28822C408;
   v4 = MEMORY[0x277CCABB0];
   [self chance];
   v5 = [v4 numberWithDouble:?];
-  v15[1] = v5;
-  v14[2] = 0x28822C428;
+  v14[1] = v5;
+  v13[2] = 0x28822C428;
   v6 = MEMORY[0x277CCABB0];
   [self perceivedIntensity];
   v7 = [v6 numberWithDouble:?];
-  v15[2] = v7;
-  v14[3] = 0x28822C448;
+  v14[2] = v7;
+  v13[3] = 0x28822C448;
   v8 = MEMORY[0x277CCABB0];
   date = [self date];
   [date timeIntervalSince1970];
   v10 = [v8 numberWithDouble:?];
-  v15[3] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:4];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v14[3] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:4];
 
   return v11;
 }

@@ -75,6 +75,7 @@
 
 - (void)getSNProximityLinkRecommendationWithRetry:(BOOL)retry completion:(id)completion
 {
+  retryCopy = retry;
   v6 = _Block_copy(completion);
   if (v6)
   {
@@ -89,8 +90,8 @@
   }
 
   selfCopy = self;
-  NetworkManager.getSNProximityLinkRecommendation(retry:completion:)(retry, v6, v7);
-  outlined consume of (@escaping @callee_guaranteed (@guaranteed SNLinkRecommendationInfo?) -> ())?(v6);
+  NetworkManager.getSNProximityLinkRecommendation(retry:completion:)(retryCopy, v6, v7);
+  outlined consume of (@escaping @callee_guaranteed (@guaranteed SNLinkRecommendationInfo?) -> ())?(v6, v7);
 }
 
 - (void)getSNLinkRecommendationMetrics:(id)metrics
@@ -112,7 +113,7 @@
 
   selfCopy = self;
   NetworkManager.getSNLinkRecommendationMetrics(_:)(v7, v6);
-  outlined consume of (@escaping @callee_guaranteed (@guaranteed SNLinkRecommendationInfo?) -> ())?(v7);
+  outlined consume of (@escaping @callee_guaranteed (@guaranteed SNLinkRecommendationInfo?) -> ())?(v7, v6);
 }
 
 - (void)preferredDataSimChanged:(id)changed

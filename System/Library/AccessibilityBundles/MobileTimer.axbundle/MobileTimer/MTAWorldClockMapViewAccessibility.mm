@@ -147,32 +147,32 @@ void __77__MTAWorldClockMapViewAccessibility__accessibilityAnnounceSolarRegionCh
 {
   y = test.y;
   x = test.x;
-  v28 = *MEMORY[0x29EDCA608];
+  v27 = *MEMORY[0x29EDCA608];
   eventCopy = event;
   accessibilityElements = [(MTAWorldClockMapViewAccessibility *)self accessibilityElements];
   UIAccessibilityPointForPoint();
   v10 = v9;
   v12 = v11;
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v13 = accessibilityElements;
-  v14 = [v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v24;
+    v16 = *v23;
     while (2)
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v24 != v16)
+        if (*v23 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v23 + 1) + 8 * i);
+        v18 = *(*(&v22 + 1) + 8 * i);
         [(MTAWorldClockMapViewAccessibility *)self convertPoint:v18 toView:x, y];
         if ([v18 pointInside:eventCopy withEvent:?])
         {
@@ -183,7 +183,7 @@ void __77__MTAWorldClockMapViewAccessibility__accessibilityAnnounceSolarRegionCh
         }
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v22 objects:v26 count:16];
       if (v15)
       {
         continue;
@@ -194,19 +194,17 @@ void __77__MTAWorldClockMapViewAccessibility__accessibilityAnnounceSolarRegionCh
   }
 
   [(MTAWorldClockMapViewAccessibility *)self accessibilityFrame];
-  v30.x = v10;
-  v30.y = v12;
-  if (CGRectContainsPoint(v31, v30))
+  v29.x = v10;
+  v29.y = v12;
+  if (CGRectContainsPoint(v30, v29))
   {
     [(MTAWorldClockMapViewAccessibility *)self _accessibilityAnnounceSolarRegionChange:x, y];
   }
 
-  v22.receiver = self;
-  v22.super_class = MTAWorldClockMapViewAccessibility;
-  v19 = [(MTAWorldClockMapViewAccessibility *)&v22 _accessibilityHitTest:eventCopy withEvent:x, y];
+  v21.receiver = self;
+  v21.super_class = MTAWorldClockMapViewAccessibility;
+  v19 = [(MTAWorldClockMapViewAccessibility *)&v21 _accessibilityHitTest:eventCopy withEvent:x, y];
 LABEL_13:
-
-  v20 = *MEMORY[0x29EDCA608];
 
   return v19;
 }

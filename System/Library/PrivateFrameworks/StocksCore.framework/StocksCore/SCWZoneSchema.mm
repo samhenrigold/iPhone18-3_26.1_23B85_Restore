@@ -33,65 +33,63 @@
 
 - (NSArray)allRecordFieldNames
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   recordSchemas = [(SCWZoneSchema *)self recordSchemas];
-  v5 = [recordSchemas countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [recordSchemas countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(recordSchemas);
         }
 
-        fieldNames = [*(*(&v12 + 1) + 8 * i) fieldNames];
+        fieldNames = [*(*(&v11 + 1) + 8 * i) fieldNames];
         [array addObjectsFromArray:fieldNames];
       }
 
-      v6 = [recordSchemas countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [recordSchemas countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return array;
 }
 
 - (id)schemaForRecordType:(id)type
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   typeCopy = type;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   recordSchemas = [(SCWZoneSchema *)self recordSchemas];
-  v6 = [recordSchemas countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [recordSchemas countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(recordSchemas);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         recordType = [v9 recordType];
         v11 = [recordType isEqualToString:typeCopy];
 
@@ -102,7 +100,7 @@
         }
       }
 
-      v6 = [recordSchemas countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [recordSchemas countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -114,14 +112,12 @@
 
 LABEL_11:
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return v6;
 }
 
 - (BOOL)isValidRecord:(id)record
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   recordCopy = record;
   recordID = [recordCopy recordID];
   zoneID = [recordID zoneID];
@@ -131,25 +127,25 @@ LABEL_11:
 
   if (v9)
   {
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     recordSchemas = [(SCWZoneSchema *)self recordSchemas];
-    v11 = [recordSchemas countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v11 = [recordSchemas countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v11)
     {
-      v12 = *v21;
+      v12 = *v20;
       while (2)
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v21 != v12)
+          if (*v20 != v12)
           {
             objc_enumerationMutation(recordSchemas);
           }
 
-          v14 = *(*(&v20 + 1) + 8 * i);
+          v14 = *(*(&v19 + 1) + 8 * i);
           recordType = [v14 recordType];
           recordType2 = [recordCopy recordType];
           v17 = [recordType isEqualToString:recordType2];
@@ -161,7 +157,7 @@ LABEL_11:
           }
         }
 
-        v11 = [recordSchemas countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v11 = [recordSchemas countByEnumeratingWithState:&v19 objects:v23 count:16];
         if (v11)
         {
           continue;
@@ -179,7 +175,6 @@ LABEL_13:
     LOBYTE(v11) = 0;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

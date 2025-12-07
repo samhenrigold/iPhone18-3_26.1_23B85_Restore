@@ -1,9 +1,11 @@
 @interface BKTouchDeliveryObservationManager
 + (id)sharedInstance;
 - (BKTouchDeliveryObservationManager)init;
+- (int)_pidForClientPort:(unsigned int)port;
 - (void)_queue_pendUpdate:(id)update;
 - (void)_queue_postPendingUpdates;
 - (void)_queue_postUpdate:(id)update forTouchIdentifier:(unsigned int)identifier;
+- (void)_queue_postUpdate:(id)update toProcessPID:(int)d;
 - (void)_queue_setProcessPID:(int)d observesGlobalTouches:(BOOL)touches;
 - (void)_queue_setProcessPID:(int)d observesTouch:(BOOL)touch withIdentifier:(unsigned int)identifier;
 - (void)connectionDidTerminate:(id)terminate;
@@ -51,6 +53,50 @@
   block[3] = &unk_1000FD150;
   block[4] = self;
   dispatch_async(queue, block);
+}
+
+- (int)_pidForClientPort:(unsigned int)port
+{
+  v3 = *&port;
+  v4 = BKHIDEventRoutingGetClientConnectionManager();
+  v5 = [v4 clientForTaskPort:v3];
+  v6 = v5;
+  if (v5)
+  {
+    v7 = [v5 pid];
+  }
+
+  else
+  {
+    v7 = -1;
+  }
+
+  return v7;
+}
+
+- (void)_queue_postUpdate:(id)update toProcessPID:(int)d
+{
+  v4 = *&d;
+  updateCopy = update;
+  v7 = BKLogTouchDeliveryObserver();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  {
+    v10[0] = 67109376;
+    v10[1] = [updateCopy touchIdentifier];
+    v11 = 1024;
+    v12 = v4;
+    _os_log_debug_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "post update for touch:%X to pid:%d", v10, 0xEu);
+  }
+
+  v8 = [(BKHIDDomainServiceServer *)self->_server connectionForPID:v4];
+  v9 = [(BKHIDDomainServiceServer *)self->_server userInfoForConnection:v8];
+  if (!v9)
+  {
+    v9 = [[BKTouchObservationClient alloc] initWithConnection:v8 pid:v4];
+    [BKHIDDomainServiceServer setUserInfo:"setUserInfo:forConnection:" forConnection:?];
+  }
+
+  [(BKTouchObservationClient *)v9 sendTouchUpdate:updateCopy];
 }
 
 - (void)_queue_postUpdate:(id)update forTouchIdentifier:(unsigned int)identifier

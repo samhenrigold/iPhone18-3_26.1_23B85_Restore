@@ -11,7 +11,7 @@
 {
   v4 = type metadata accessor for SearchResultsContextCardView.Style(0);
   __chkstk_darwin(v4);
-  v7 = &v13 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = (&v14 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
   v8 = OBJC_IVAR____TtC18ASMessagesProvider32ContextualContentUnavailableView_queryContext;
   if (qword_93DED0 != -1)
   {
@@ -21,8 +21,8 @@
   }
 
   v10 = sub_BE38(v5, qword_9A0388);
-  sub_34FBC4(v10, v7);
-  v11 = objc_allocWithZone(type metadata accessor for SearchResultsContextCardView(0));
+  sub_34FBC4(v10, v7, v11);
+  v12 = objc_allocWithZone(type metadata accessor for SearchResultsContextCardView(0));
   *(&self->super.super.super.isa + v8) = sub_5EFC8C(v7);
   *(&self->super.super.super.isa + OBJC_IVAR____TtC18ASMessagesProvider32ContextualContentUnavailableView_navigationBarMargins) = 0x4034000000000000;
   *(&self->super.super.super.isa + OBJC_IVAR____TtC18ASMessagesProvider32ContextualContentUnavailableView_queryContextTopPadding) = 0x4030000000000000;

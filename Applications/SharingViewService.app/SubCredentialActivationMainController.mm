@@ -28,8 +28,7 @@
         v7 = "yes";
       }
 
-      v11 = v7;
-      LogPrintF();
+      LogPrintF(&dword_1001BEEA8, "[SubCredentialActivationMainController dismissAnimated:completion:]", 30, "Dismissing animated: %s", v7);
     }
 
     _remoteViewControllerProxy = [(SubCredentialActivationMainController *)self _remoteViewControllerProxy];
@@ -38,13 +37,13 @@
     if (proxCardNavigationController)
     {
       proxCardNavigationController2 = [(SubCredentialActivationMainController *)self proxCardNavigationController];
-      v12[0] = _NSConcreteStackBlock;
-      v12[1] = 3221225472;
-      v12[2] = sub_10011D9D4;
-      v12[3] = &unk_1001959D0;
-      v13 = _remoteViewControllerProxy;
-      v14 = completionCopy;
-      [proxCardNavigationController2 dismissViewControllerAnimated:animatedCopy completion:v12];
+      v11[0] = _NSConcreteStackBlock;
+      v11[1] = 3221225472;
+      v11[2] = sub_10011D9D4;
+      v11[3] = &unk_1001959D0;
+      v12 = _remoteViewControllerProxy;
+      v13 = completionCopy;
+      [proxCardNavigationController2 dismissViewControllerAnimated:animatedCopy completion:v11];
     }
 
     else
@@ -62,7 +61,7 @@
 {
   if (dword_1001BEEA8 <= 30 && (dword_1001BEEA8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEEA8, "[SubCredentialActivationMainController dismiss:]", 30, "Dismissing UI. Reason: %d", dismiss);
   }
 
   [(SubCredentialActivationMainController *)self dismissAnimated:dismiss != 19 completion:0];
@@ -75,7 +74,7 @@
   {
     if (dword_1001BEEA8 <= 50 && (dword_1001BEEA8 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001BEEA8, "[SubCredentialActivationMainController viewDidDisappear:]", 50, "Dismising from view did disappear.");
     }
 
     [(SubCredentialActivationMainController *)self dismiss:21];
@@ -100,7 +99,7 @@
   self->_appeared = 1;
   if (dword_1001BEEA8 <= 30 && (dword_1001BEEA8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEEA8, "[SubCredentialActivationMainController viewDidAppear:]", 30, "View did appear");
   }
 
   v5.receiver = self;
@@ -116,7 +115,7 @@
   [(SubCredentialActivationMainController *)&v3 viewWillAppear:appear];
   if (dword_1001BEEA8 <= 30 && (dword_1001BEEA8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEEA8, "[SubCredentialActivationMainController viewWillAppear:]", 30, "View will appear");
   }
 }
 
@@ -173,17 +172,16 @@
 
   if (dword_1001BEEA8 <= 50 && (dword_1001BEEA8 != -1 || _LogCategory_Initialize()))
   {
-    adamIDs = self->_adamIDs;
-    LogPrintF();
+    LogPrintF(&dword_1001BEEA8, "[SubCredentialActivationMainController viewFetchContent]", 50, "Fetching image for adamID %@", self->_adamIDs);
   }
 
   v6 = self->_appContent;
-  v8[0] = _NSConcreteStackBlock;
-  v8[1] = 3221225472;
-  v8[2] = sub_10011DFBC;
-  v8[3] = &unk_100195530;
-  v8[4] = self;
-  [(SFAppContent *)v6 fetchNameAndIconWithSize:v8 completion:98.0, 98.0, adamIDs];
+  v7[0] = _NSConcreteStackBlock;
+  v7[1] = 3221225472;
+  v7[2] = sub_10011DFBC;
+  v7[3] = &unk_100195530;
+  v7[4] = self;
+  [(SFAppContent *)v6 fetchNameAndIconWithSize:v7 completion:98.0, 98.0];
   if (([(SFAppContent *)self->_appContent installed]& 1) == 0)
   {
     [(SubCredentialActivationMainController *)self viewPresentStartViewControllerIfReady];
@@ -223,16 +221,14 @@
 
   if (dword_1001BEEA8 <= 30 && (dword_1001BEEA8 != -1 || _LogCategory_Initialize()))
   {
-    v16 = self->super._userInfo;
-    LogPrintF();
+    LogPrintF(&dword_1001BEEA8, "[SubCredentialActivationMainController configureWithContext:completion:]", 30, "Main configuration: %@", self->super._userInfo);
   }
 
   CFArrayGetTypeID();
   v9 = CFDictionaryGetTypedValue();
   if (![v9 count] && dword_1001BEEA8 <= 90 && (dword_1001BEEA8 != -1 || _LogCategory_Initialize()))
   {
-    v16 = 0;
-    LogPrintF();
+    LogPrintF(&dword_1001BEEA8, "[SubCredentialActivationMainController configureWithContext:completion:]", 90, "### No adam IDs: %@", 0);
   }
 
   objc_storeStrong(&self->_adamIDs, v9);
@@ -240,8 +236,7 @@
   v10 = CFDictionaryGetTypedValue();
   if (!v10 && dword_1001BEEA8 <= 10 && (dword_1001BEEA8 != -1 || _LogCategory_Initialize()))
   {
-    v16 = 0;
-    LogPrintF();
+    LogPrintF(&dword_1001BEEA8, "[SubCredentialActivationMainController configureWithContext:completion:]", 10, "No app store URL override: %@", 0);
   }
 
   objc_storeStrong(&self->_appStoreURL, v10);
@@ -249,8 +244,7 @@
   v11 = CFDictionaryGetTypedValue();
   if (!v11 && dword_1001BEEA8 <= 10 && (dword_1001BEEA8 != -1 || _LogCategory_Initialize()))
   {
-    v16 = 0;
-    LogPrintF();
+    LogPrintF(&dword_1001BEEA8, "[SubCredentialActivationMainController configureWithContext:completion:]", 10, "No launch URL override: %@", 0);
   }
 
   objc_storeStrong(&self->_launchURL, v11);
@@ -258,8 +252,7 @@
   v12 = CFDictionaryGetTypedValue();
   if (!v12 && dword_1001BEEA8 <= 60 && (dword_1001BEEA8 != -1 || _LogCategory_Initialize()))
   {
-    v16 = 0;
-    LogPrintF();
+    LogPrintF(&dword_1001BEEA8, "[SubCredentialActivationMainController configureWithContext:completion:]", 60, "No title: %@", 0);
   }
 
   objc_storeStrong(&self->_cardTitle, v12);
@@ -267,8 +260,7 @@
   v13 = CFDictionaryGetTypedValue();
   if (!v13 && dword_1001BEEA8 <= 60 && (dword_1001BEEA8 != -1 || _LogCategory_Initialize()))
   {
-    v16 = 0;
-    LogPrintF();
+    LogPrintF(&dword_1001BEEA8, "[SubCredentialActivationMainController configureWithContext:completion:]", 60, "No subtitle: %@", 0);
   }
 
   objc_storeStrong(&self->_cardSubtitle, v13);
@@ -276,8 +268,7 @@
   v14 = CFDictionaryGetTypedValue();
   if (!v14 && dword_1001BEEA8 <= 60 && (dword_1001BEEA8 != -1 || _LogCategory_Initialize()))
   {
-    v16 = 0;
-    LogPrintF();
+    LogPrintF(&dword_1001BEEA8, "[SubCredentialActivationMainController configureWithContext:completion:]", 60, "No issuer ID: %@", 0);
   }
 
   issuerID = self->_issuerID;

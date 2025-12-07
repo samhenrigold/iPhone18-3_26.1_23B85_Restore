@@ -15,22 +15,22 @@ id accessibilityLocalizedString(void *a1)
   return v5;
 }
 
-uint64_t _accessibilityConvertToStatus()
+uint64_t _accessibilityConvertToStatus(uint64_t a1)
 {
   type metadata accessor for HKMedicationDoseEventStatus();
   swift_unknownObjectRetain_n();
   if (swift_dynamicCast())
   {
-    v0 = v2;
+    v1 = v3;
   }
 
   else
   {
-    v0 = 0;
+    v1 = 0;
   }
 
   swift_unknownObjectRelease();
-  return v0;
+  return v1;
 }
 
 void type metadata accessor for HKMedicationDoseEventStatus()
@@ -45,13 +45,13 @@ void type metadata accessor for HKMedicationDoseEventStatus()
   }
 }
 
-uint64_t _accessibilityConvertToStatus(_:)()
+uint64_t _accessibilityConvertToStatus(_:)(uint64_t a1)
 {
   type metadata accessor for HKMedicationDoseEventStatus();
   swift_unknownObjectRetain();
   if (swift_dynamicCast())
   {
-    return v1;
+    return v2;
   }
 
   else

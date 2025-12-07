@@ -1133,7 +1133,7 @@ LABEL_13:
   cacheCopy = cache;
   selfCopy = self;
   v18 = *MEMORY[0x1E69E9840];
-  v16 = self->_lengthAndRefCount >> 20;
+  v16 = (self->_lengthAndRefCount >> 20);
   characters = self->_characters;
   __memmove_chk();
   _NSExpandTildeInPath(v17, &v16);
@@ -1147,7 +1147,7 @@ LABEL_13:
 
   else
   {
-    v8 = selfCopy->_lengthAndRefCount >> 20;
+    v8 = (selfCopy->_lengthAndRefCount >> 20);
   }
 
   if (v8)

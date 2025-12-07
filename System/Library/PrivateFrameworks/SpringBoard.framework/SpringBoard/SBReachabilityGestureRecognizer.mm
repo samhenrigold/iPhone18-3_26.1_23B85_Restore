@@ -117,9 +117,9 @@
 {
   endedCopy = ended;
   eventCopy = event;
-  v48.receiver = self;
-  v48.super_class = SBReachabilityGestureRecognizer;
-  [(SBReachabilityGestureRecognizer *)&v48 touchesEnded:endedCopy withEvent:eventCopy];
+  v49.receiver = self;
+  v49.super_class = SBReachabilityGestureRecognizer;
+  [(SBReachabilityGestureRecognizer *)&v49 touchesEnded:endedCopy withEvent:eventCopy];
   anyObject = [endedCopy anyObject];
   if ([endedCopy count] <= 1 && anyObject == self->_activeTouch)
   {
@@ -144,24 +144,24 @@
     [view safeAreaInsets];
     v29 = v23 + v28;
     v32 = v25 - (v30 + v31);
-    v49.size.height = v27 - (v28 + v33);
-    v49.origin.x = v21 + v30;
-    v49.origin.y = v29;
-    v49.size.width = v32;
-    v34 = CGRectContainsPoint(v49, self->_initialTouchLocation);
+    v50.size.height = v27 - (v28 + v33);
+    v50.origin.x = v21 + v30;
+    v50.origin.y = v29;
+    v50.size.width = v32;
+    v34 = CGRectContainsPoint(v50, self->_initialTouchLocation);
     [view bounds];
-    if (self->_movedPastHysteresis && (everTranslatedUpwards = self->_everTranslatedUpwards, *v43 = v11, *&v43[1] = v13, *&v43[2] = v11 - x, *&v43[3] = v13 - y, v43[4] = v17, v43[5] = v19, v43[6] = v35, v43[7] = v36, v43[8] = v37, v43[9] = v38, v44 = v34, v45 = everTranslatedUpwards, v46 = 0, v47 = 0, SBReachabilityGestureShouldActivate(v43)))
+    if (self->_movedPastHysteresis && (everTranslatedUpwards = self->_everTranslatedUpwards, *v44 = v11, *&v44[1] = v13, *&v44[2] = v11 - x, *&v44[3] = v13 - y, v44[4] = v17, v44[5] = v19, v44[6] = v36, v44[7] = v37, v44[8] = v38, v44[9] = v39, v45 = v34, v46 = everTranslatedUpwards, v47 = 0, v48 = 0, SBReachabilityGestureShouldActivate(v44, v35)))
     {
       [(SBReachabilityGestureRecognizer *)self setState:1];
-      v40 = 3;
+      v41 = 3;
     }
 
     else
     {
-      v40 = 5;
+      v41 = 5;
     }
 
-    [(SBReachabilityGestureRecognizer *)self setState:v40];
+    [(SBReachabilityGestureRecognizer *)self setState:v41];
   }
 
   else

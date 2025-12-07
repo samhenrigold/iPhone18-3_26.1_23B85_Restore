@@ -7,22 +7,21 @@ uint64_t sub_1BD8(uint64_t a1)
 
 uint64_t sub_20B0(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   qword_11740 = [NSBundle bundleForClass:objc_opt_class()];
 
   return _objc_release_x1();
 }
 
-id stocks_bridge_log()
+id stocks_bridge_log(uint64_t a1)
 {
   if (qword_11758 != -1)
   {
     sub_4E98();
   }
 
-  v1 = qword_11750;
+  v2 = qword_11750;
 
-  return v1;
+  return v2;
 }
 
 void sub_2468(id a1)
@@ -64,7 +63,7 @@ void sub_2B08(uint64_t a1, void *a2)
 
   else
   {
-    v4 = stocks_sync_log();
+    v4 = stocks_sync_log(v3);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_4EAC(v4);
@@ -75,28 +74,28 @@ void sub_2B08(uint64_t a1, void *a2)
 void sub_2E38(uint64_t a1)
 {
   v1 = *(a1 + 32);
-  v9 = 0;
-  [v1 invalidateWithError:&v9];
-  v2 = v9;
-  v3 = stocks_sync_log();
-  v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
-  if (v2)
+  v10 = 0;
+  v2 = [v1 invalidateWithError:&v10];
+  v3 = v10;
+  v4 = stocks_sync_log(v2);
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+  if (v3)
   {
-    if (v4)
+    if (v5)
     {
-      v8 = 0;
-      v5 = "Unable to release assertion.";
-      v6 = &v8;
+      v9 = 0;
+      v6 = "Unable to release assertion.";
+      v7 = &v9;
 LABEL_6:
-      _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, v5, v6, 2u);
+      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, v6, v7, 2u);
     }
   }
 
-  else if (v4)
+  else if (v5)
   {
-    v7 = 0;
-    v5 = "Released assertion.";
-    v6 = &v7;
+    v8 = 0;
+    v6 = "Released assertion.";
+    v7 = &v8;
     goto LABEL_6;
   }
 }
@@ -105,74 +104,76 @@ void sub_31A0(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = stocks_sync_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = stocks_sync_log(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      sub_4EF0(a1, v6, v7);
+      sub_4EF0(a1, v7, v8);
     }
 
     goto LABEL_4;
   }
 
-  if ([v5 pid])
+  v11 = [v5 pid];
+  if (v11)
   {
-    v7 = stocks_sync_log();
-    if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = stocks_sync_log(v11);
+    if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_13;
     }
 
-    v10 = *(a1 + 32);
-    v16 = 138543362;
-    v17 = v10;
-    v11 = "Successfully launched %{public}@.";
+    v12 = *(a1 + 32);
+    v18 = 138543362;
+    v19 = v12;
+    v13 = "Successfully launched %{public}@.";
     goto LABEL_12;
   }
 
-  v7 = stocks_sync_log();
-  v12 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+  v8 = stocks_sync_log(v11);
+  v14 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
   if (!v5)
   {
-    if (v12)
+    if (v14)
     {
-      v15 = *(a1 + 32);
-      v16 = 138543362;
-      v17 = v15;
-      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "FrontBoard indicates we successfully launched %{public}@, but we do not have a BSProcessHandle.", &v16, 0xCu);
+      v17 = *(a1 + 32);
+      v18 = 138543362;
+      v19 = v17;
+      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "FrontBoard indicates we successfully launched %{public}@, but we do not have a BSProcessHandle.", &v18, 0xCu);
     }
 
 LABEL_4:
 
-    v8 = *(a1 + 40);
-    if (v8)
+    v9 = *(a1 + 40);
+    if (v9)
     {
-      v9 = *(v8 + 16);
+      v10 = *(v9 + 16);
 LABEL_15:
-      v9();
+      v10();
       goto LABEL_16;
     }
 
     goto LABEL_16;
   }
 
-  if (v12)
+  if (v14)
   {
-    v13 = *(a1 + 32);
-    v16 = 138543362;
-    v17 = v13;
-    v11 = "FrontBoard indicates we successfully launched %{public}@, but we do not have a PID.";
+    v15 = *(a1 + 32);
+    v18 = 138543362;
+    v19 = v15;
+    v13 = "FrontBoard indicates we successfully launched %{public}@, but we do not have a PID.";
 LABEL_12:
-    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, v11, &v16, 0xCu);
+    _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, v13, &v18, 0xCu);
   }
 
 LABEL_13:
 
-  v14 = *(a1 + 40);
-  if (v14)
+  v16 = *(a1 + 40);
+  if (v16)
   {
-    v9 = *(v14 + 16);
+    v10 = *(v16 + 16);
     goto LABEL_15;
   }
 
@@ -214,16 +215,16 @@ id sub_4ADC(uint64_t a1, void *a2)
   return v6;
 }
 
-id stocks_sync_log()
+id stocks_sync_log(uint64_t a1)
 {
   if (qword_11768 != -1)
   {
     sub_4F7C();
   }
 
-  v1 = qword_11760;
+  v2 = qword_11760;
 
-  return v1;
+  return v2;
 }
 
 void sub_4E54(id a1)

@@ -8,48 +8,44 @@
 
 - (id)attributeDescriptions
 {
-  v18[4] = *MEMORY[0x277D85DE8];
+  v17[4] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   model = [(HMDCloudManagerModelFailureEvent *)self model];
   v5 = [v3 initWithName:@"model" value:model];
-  v18[0] = v5;
+  v17[0] = v5;
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   failureCode = [(HMDCloudManagerModelFailureEvent *)self failureCode];
   v8 = [v6 initWithName:@"failureCode" value:failureCode];
-  v18[1] = v8;
+  v17[1] = v8;
   v9 = objc_alloc(MEMORY[0x277D0F778]);
   errorDomain = [(HMDCloudManagerModelFailureEvent *)self errorDomain];
   v11 = [v9 initWithName:@"errorDomain" value:errorDomain];
-  v18[2] = v11;
+  v17[2] = v11;
   v12 = objc_alloc(MEMORY[0x277D0F778]);
   errorCode = [(HMDCloudManagerModelFailureEvent *)self errorCode];
   v14 = [v12 initWithName:@"errorCode" value:errorCode];
-  v18[3] = v14;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:4];
-
-  v16 = *MEMORY[0x277D85DE8];
+  v17[3] = v14;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:4];
 
   return v15;
 }
 
 - (NSDictionary)coreAnalyticsEventDictionary
 {
-  v11[4] = *MEMORY[0x277D85DE8];
-  v10[0] = @"modelClass";
+  v10[4] = *MEMORY[0x277D85DE8];
+  v9[0] = @"modelClass";
   model = [(HMDCloudManagerModelFailureEvent *)self model];
-  v11[0] = model;
-  v10[1] = @"failureCode";
+  v10[0] = model;
+  v9[1] = @"failureCode";
   failureCode = [(HMDCloudManagerModelFailureEvent *)self failureCode];
-  v11[1] = failureCode;
-  v10[2] = @"errorDomain";
+  v10[1] = failureCode;
+  v9[2] = @"errorDomain";
   errorDomain = [(HMDCloudManagerModelFailureEvent *)self errorDomain];
-  v11[2] = errorDomain;
-  v10[3] = @"errorCode";
+  v10[2] = errorDomain;
+  v9[3] = @"errorCode";
   errorCode = [(HMDCloudManagerModelFailureEvent *)self errorCode];
-  v11[3] = errorCode;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:4];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10[3] = errorCode;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:4];
 
   return v7;
 }

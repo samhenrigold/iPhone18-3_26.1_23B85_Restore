@@ -243,7 +243,7 @@ __n128 __45__TSDDrawableInfo_computeLayoutFullTransform__block_invoke(uint64_t a
   v4 = [a2 geometry];
   if (v4)
   {
-    [v4 transform];
+    objc_msgSend_transform(v4);
   }
 
   else
@@ -295,7 +295,7 @@ __n128 __45__TSDDrawableInfo_computeLayoutFullTransform__block_invoke(uint64_t a
   {
     if (self)
     {
-      result = [(TSDDrawableInfo *)self computeLayoutFullTransform];
+      result = objc_msgSend_computeLayoutFullTransform(self);
       goto LABEL_8;
     }
 
@@ -312,7 +312,7 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  result = [(CGAffineTransform *)result fullTransform];
+  result = objc_msgSend_fullTransform(result);
 LABEL_8:
   v6 = v8;
   *&retstr->a = v7;
@@ -329,7 +329,7 @@ LABEL_8:
   geometry = [(TSDDrawableInfo *)self geometry];
   if (geometry)
   {
-    [(TSDInfoGeometry *)geometry fullTransform];
+    objc_msgSend_fullTransform(geometry);
   }
 
   else
@@ -344,7 +344,7 @@ LABEL_8:
   result = TSUDynamicCast();
   if (result)
   {
-    [(CGAffineTransform *)result transformInRoot];
+    objc_msgSend_transformInRoot(result);
     v7 = *&retstr->c;
     *&v9.a = *&retstr->a;
     *&v9.c = v7;
@@ -374,7 +374,7 @@ LABEL_8:
       geometry = [(CGAffineTransform *)selfCopy2 geometry];
       if (geometry)
       {
-        [geometry transform];
+        objc_msgSend_transform(geometry);
       }
 
       else
@@ -629,7 +629,7 @@ LABEL_8:
   v4 = MEMORY[0x277CBEA60];
   if (localized)
   {
-    v5 = [TSDBundle() localizedStringForKey:@"All at Once" value:&stru_287D36338 table:@"TSDrawables"];
+    v5 = [TSDBundle(self a2)];
   }
 
   else

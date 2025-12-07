@@ -1036,22 +1036,8 @@ LABEL_19:
       v33.origin.y = v19;
       v33.size.width = v21;
       v33.size.height = v23;
-      if (CGRectContainsRect(v30, v33))
+      if (CGRectContainsRect(v30, v33) || (v31.origin.x = v17, v31.origin.y = v19, v31.size.width = v21, v31.size.height = v23, v34.origin.x = v9, v34.origin.y = v11, v34.size.width = v13, v34.size.height = v15, CGRectContainsRect(v31, v34)))
       {
-        goto LABEL_7;
-      }
-
-      v31.origin.x = v17;
-      v31.origin.y = v19;
-      v31.size.width = v21;
-      v31.size.height = v23;
-      v34.origin.x = v9;
-      v34.origin.y = v11;
-      v34.size.width = v13;
-      v34.size.height = v15;
-      if (CGRectContainsRect(v31, v34))
-      {
-LABEL_7:
         v25 = sub_10000CCD4(@"VoiceOverImageExplorer.relations.overlaps");
         v26 = __UIAXStringForVariables();
 

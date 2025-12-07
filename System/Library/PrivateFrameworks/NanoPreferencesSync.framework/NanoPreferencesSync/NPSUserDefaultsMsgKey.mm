@@ -80,7 +80,7 @@
     sub_100026604();
   }
 
-  v9 = toCopy;
+  v7 = toCopy;
   PBDataWriterWriteStringField();
   if (self->_value)
   {
@@ -90,17 +90,15 @@
   has = self->_has;
   if ((has & 2) != 0)
   {
-    twoWaySync = self->_twoWaySync;
     PBDataWriterWriteBOOLField();
     has = self->_has;
   }
 
-  v7 = v9;
+  v6 = v7;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteDoubleField();
-    v7 = v9;
+    v6 = v7;
   }
 }
 
@@ -189,7 +187,6 @@
       goto LABEL_13;
     }
 
-    v9 = *(equalCopy + 32);
     if (self->_twoWaySync)
     {
       if ((*(equalCopy + 32) & 1) == 0)

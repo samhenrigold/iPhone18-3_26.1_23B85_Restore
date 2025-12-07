@@ -13,8 +13,6 @@
     JreThrowNullPointerException();
   }
 
-  v4 = self->val$context_;
-  v5 = self->val$scorer_;
   target = v3->target_;
 
   [ComAppleProactiveLuceneScoreInterceptTarget scoreMatchWithOrgApacheLuceneSearchWeight:"scoreMatchWithOrgApacheLuceneSearchWeight:withOrgApacheLuceneIndexLeafReaderContext:withOrgApacheLuceneSearchScorer:" withOrgApacheLuceneIndexLeafReaderContext:? withOrgApacheLuceneSearchScorer:?];

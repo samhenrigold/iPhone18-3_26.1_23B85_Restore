@@ -553,11 +553,11 @@
   [noteHTMLEditorView getRectForSelectionWithCompletion:v7];
 }
 
-void __54__NoteContentLayer_getRectForSelectionWithCompletion___block_invoke(uint64_t a1, void *a2)
+void __54__NoteContentLayer_getRectForSelectionWithCompletion___block_invoke(uint64_t a1, void *a2, double a3, double a4, double a5, double a6)
 {
-  v3 = a2;
-  v5 = *(a1 + 40);
-  v4 = v3;
+  v7 = a2;
+  v9 = *(a1 + 40);
+  v8 = v7;
   performBlockOnMainThread();
 }
 

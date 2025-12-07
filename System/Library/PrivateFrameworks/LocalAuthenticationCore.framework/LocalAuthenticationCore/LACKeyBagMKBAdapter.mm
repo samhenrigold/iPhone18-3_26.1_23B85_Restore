@@ -1,5 +1,6 @@
 @interface LACKeyBagMKBAdapter
 - (LACKeyBagMKBAdapter)initWithKeyBagStateProvider:(id)provider notificationCenter:(id)center;
+- (LACKeyBagMKBAdapter)initWithUserId:(unsigned int)id;
 - (void)_updateKeybagState;
 - (void)dealloc;
 - (void)notificationCenter:(id)center didReceiveNotification:(__CFString *)notification;
@@ -14,6 +15,15 @@
   observers = self->_observers;
 
   [(LACKeyBagObserverCollection *)observers publishKeybagStateUpdate:self state:state];
+}
+
+- (LACKeyBagMKBAdapter)initWithUserId:(unsigned int)id
+{
+  v4 = [[LACKeyBagStateProviderMKBAdapter alloc] initWithUserId:*&id];
+  v5 = +[LACDarwinNotificationCenter sharedInstance];
+  v6 = [(LACKeyBagMKBAdapter *)self initWithKeyBagStateProvider:v4 notificationCenter:v5];
+
+  return v6;
 }
 
 - (LACKeyBagMKBAdapter)initWithKeyBagStateProvider:(id)provider notificationCenter:(id)center

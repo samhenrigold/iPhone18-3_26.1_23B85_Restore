@@ -103,7 +103,7 @@
 
 - (void)setTimeToUpdateStatus:(id)status
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   statusCopy = status;
   if (![(NSDate *)self->_timeToUpdateStatus isEqualToDate:statusCopy])
   {
@@ -114,23 +114,21 @@
       if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
         stringFromDate = [(NSDate *)self->_timeToUpdateStatus stringFromDate];
-        v9 = 136315394;
-        v10 = "[SMTriggerDestinationState setTimeToUpdateStatus:]";
-        v11 = 2112;
-        v12 = stringFromDate;
-        _os_log_impl(&dword_26455D000, v6, OS_LOG_TYPE_INFO, "%s, timeToUpdateStatus, %@", &v9, 0x16u);
+        v8 = 136315394;
+        v9 = "[SMTriggerDestinationState setTimeToUpdateStatus:]";
+        v10 = 2112;
+        v11 = stringFromDate;
+        _os_log_impl(&dword_26455D000, v6, OS_LOG_TYPE_INFO, "%s, timeToUpdateStatus, %@", &v8, 0x16u);
       }
     }
 
     [(SMTriggerDestinationState *)self markDirty];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setLastLockDate:(id)date
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   if (![(NSDate *)self->_lastLockDate isEqualToDate:dateCopy])
   {
@@ -141,23 +139,21 @@
       if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
         stringFromDate = [(NSDate *)self->_lastLockDate stringFromDate];
-        v9 = 136315394;
-        v10 = "[SMTriggerDestinationState setLastLockDate:]";
-        v11 = 2112;
-        v12 = stringFromDate;
-        _os_log_impl(&dword_26455D000, v6, OS_LOG_TYPE_INFO, "%s, lastLockDate, %@", &v9, 0x16u);
+        v8 = 136315394;
+        v9 = "[SMTriggerDestinationState setLastLockDate:]";
+        v10 = 2112;
+        v11 = stringFromDate;
+        _os_log_impl(&dword_26455D000, v6, OS_LOG_TYPE_INFO, "%s, lastLockDate, %@", &v8, 0x16u);
       }
     }
 
     [(SMTriggerDestinationState *)self markDirty];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setLastUnlockDate:(id)date
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   if (![(NSDate *)self->_lastUnlockDate isEqualToDate:dateCopy])
   {
@@ -168,23 +164,21 @@
       if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
         stringFromDate = [(NSDate *)self->_lastUnlockDate stringFromDate];
-        v9 = 136315394;
-        v10 = "[SMTriggerDestinationState setLastUnlockDate:]";
-        v11 = 2112;
-        v12 = stringFromDate;
-        _os_log_impl(&dword_26455D000, v6, OS_LOG_TYPE_INFO, "%s, lastUnlockDate, %@", &v9, 0x16u);
+        v8 = 136315394;
+        v9 = "[SMTriggerDestinationState setLastUnlockDate:]";
+        v10 = 2112;
+        v11 = stringFromDate;
+        _os_log_impl(&dword_26455D000, v6, OS_LOG_TYPE_INFO, "%s, lastUnlockDate, %@", &v8, 0x16u);
       }
     }
 
     [(SMTriggerDestinationState *)self markDirty];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setCurrentStatus:(unint64_t)status
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (self->_currentStatus != status)
   {
     self->_currentStatus = status;
@@ -199,25 +193,23 @@
       {
         v7 = [SMTriggerDestinationState statusToString:self->_currentStatus];
         stringFromDate = [(NSDate *)self->_currentStatusDate stringFromDate];
-        v10 = 136315650;
-        v11 = "[SMTriggerDestinationState setCurrentStatus:]";
-        v12 = 2112;
-        v13 = v7;
-        v14 = 2112;
-        v15 = stringFromDate;
-        _os_log_impl(&dword_26455D000, v6, OS_LOG_TYPE_INFO, "%s, currentStatus, %@, currentStatusDate, %@", &v10, 0x20u);
+        v9 = 136315650;
+        v10 = "[SMTriggerDestinationState setCurrentStatus:]";
+        v11 = 2112;
+        v12 = v7;
+        v13 = 2112;
+        v14 = stringFromDate;
+        _os_log_impl(&dword_26455D000, v6, OS_LOG_TYPE_INFO, "%s, currentStatus, %@, currentStatusDate, %@", &v9, 0x20u);
       }
     }
 
     [(SMTriggerDestinationState *)self markDirty];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setCurrentStatusDate:(id)date
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   if (self->_currentStatusDate != dateCopy)
   {
@@ -228,23 +220,21 @@
       if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
         stringFromDate = [(NSDate *)self->_currentStatusDate stringFromDate];
-        v9 = 136315394;
-        v10 = "[SMTriggerDestinationState setCurrentStatusDate:]";
-        v11 = 2112;
-        v12 = stringFromDate;
-        _os_log_impl(&dword_26455D000, v6, OS_LOG_TYPE_INFO, "%s, currentStatusDate, %@", &v9, 0x16u);
+        v8 = 136315394;
+        v9 = "[SMTriggerDestinationState setCurrentStatusDate:]";
+        v10 = 2112;
+        v11 = stringFromDate;
+        _os_log_impl(&dword_26455D000, v6, OS_LOG_TYPE_INFO, "%s, currentStatusDate, %@", &v8, 0x16u);
       }
     }
 
     [(SMTriggerDestinationState *)self markDirty];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setRoundTripReminderDate:(id)date
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   if (![(NSDate *)self->_roundTripReminderDate isEqualToDate:dateCopy])
   {
@@ -255,23 +245,21 @@
       if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
         stringFromDate = [(NSDate *)self->_roundTripReminderDate stringFromDate];
-        v9 = 136315394;
-        v10 = "[SMTriggerDestinationState setRoundTripReminderDate:]";
-        v11 = 2112;
-        v12 = stringFromDate;
-        _os_log_impl(&dword_26455D000, v6, OS_LOG_TYPE_INFO, "%s, roundTripReminderDate, %@", &v9, 0x16u);
+        v8 = 136315394;
+        v9 = "[SMTriggerDestinationState setRoundTripReminderDate:]";
+        v10 = 2112;
+        v11 = stringFromDate;
+        _os_log_impl(&dword_26455D000, v6, OS_LOG_TYPE_INFO, "%s, roundTripReminderDate, %@", &v8, 0x16u);
       }
     }
 
     [(SMTriggerDestinationState *)self markDirty];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setUpperBoundEta:(id)eta
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   etaCopy = eta;
   if (![(SMUpperBoundEta *)self->_upperBoundEta isEqual:etaCopy])
   {
@@ -282,23 +270,21 @@
       if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
         upperBoundEta = self->_upperBoundEta;
-        v9 = 136315394;
-        v10 = "[SMTriggerDestinationState setUpperBoundEta:]";
-        v11 = 2112;
-        v12 = upperBoundEta;
-        _os_log_impl(&dword_26455D000, v6, OS_LOG_TYPE_INFO, "%s, upperBoundEta, %@", &v9, 0x16u);
+        v8 = 136315394;
+        v9 = "[SMTriggerDestinationState setUpperBoundEta:]";
+        v10 = 2112;
+        v11 = upperBoundEta;
+        _os_log_impl(&dword_26455D000, v6, OS_LOG_TYPE_INFO, "%s, upperBoundEta, %@", &v8, 0x16u);
       }
     }
 
     [(SMTriggerDestinationState *)self markDirty];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setPredominantModeOfTransport:(unint64_t)transport
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (self->_predominantModeOfTransport != transport)
   {
     self->_predominantModeOfTransport = transport;
@@ -308,23 +294,21 @@
       if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
       {
         v5 = [SMTriggerDestinationState convertSMDirectionTransportTypeToString:self->_predominantModeOfTransport];
-        v7 = 136315394;
-        v8 = "[SMTriggerDestinationState setPredominantModeOfTransport:]";
-        v9 = 2112;
-        v10 = v5;
-        _os_log_impl(&dword_26455D000, v4, OS_LOG_TYPE_INFO, "%s, predominantModeOfTransport, %@", &v7, 0x16u);
+        v6 = 136315394;
+        v7 = "[SMTriggerDestinationState setPredominantModeOfTransport:]";
+        v8 = 2112;
+        v9 = v5;
+        _os_log_impl(&dword_26455D000, v4, OS_LOG_TYPE_INFO, "%s, predominantModeOfTransport, %@", &v6, 0x16u);
       }
     }
 
     [(SMTriggerDestinationState *)self markDirty];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setMapsExpectedTravelTime:(double)time
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (self->_mapsExpectedTravelTime != time)
   {
     self->_mapsExpectedTravelTime = time;
@@ -334,23 +318,21 @@
       if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
       {
         mapsExpectedTravelTime = self->_mapsExpectedTravelTime;
-        v7 = 136315394;
-        v8 = "[SMTriggerDestinationState setMapsExpectedTravelTime:]";
-        v9 = 2048;
-        v10 = mapsExpectedTravelTime;
-        _os_log_impl(&dword_26455D000, v4, OS_LOG_TYPE_INFO, "%s, mapsExpectedTravelTime, %.1f", &v7, 0x16u);
+        v6 = 136315394;
+        v7 = "[SMTriggerDestinationState setMapsExpectedTravelTime:]";
+        v8 = 2048;
+        v9 = mapsExpectedTravelTime;
+        _os_log_impl(&dword_26455D000, v4, OS_LOG_TYPE_INFO, "%s, mapsExpectedTravelTime, %.1f", &v6, 0x16u);
       }
     }
 
     [(SMTriggerDestinationState *)self markDirty];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setRemainingDistance:(double)distance
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (self->_remainingDistance != distance)
   {
     self->_remainingDistance = distance;
@@ -360,18 +342,16 @@
       if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
       {
         remainingDistance = self->_remainingDistance;
-        v7 = 136315394;
-        v8 = "[SMTriggerDestinationState setRemainingDistance:]";
-        v9 = 2048;
-        v10 = remainingDistance;
-        _os_log_impl(&dword_26455D000, v4, OS_LOG_TYPE_INFO, "%s, remainingDistance, %.1f", &v7, 0x16u);
+        v6 = 136315394;
+        v7 = "[SMTriggerDestinationState setRemainingDistance:]";
+        v8 = 2048;
+        v9 = remainingDistance;
+        _os_log_impl(&dword_26455D000, v4, OS_LOG_TYPE_INFO, "%s, remainingDistance, %.1f", &v6, 0x16u);
       }
     }
 
     [(SMTriggerDestinationState *)self markDirty];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 + (id)statusToString:(unint64_t)string

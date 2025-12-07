@@ -56,7 +56,7 @@
 
 - (void)checkValuesAndResetToDefaultIfNecessary
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (!self->_disableStorageBehaviorOptimization)
   {
     reportToPersistenceDelayTime = self->_reportToPersistenceDelayTime;
@@ -72,7 +72,7 @@
 
       if (sub_2393D5398(2u))
       {
-        sub_2393D5320(0, 2);
+        sub_2393D5320(0, 2, "%@ storage behavior: MTRDeviceStorageBehaviorConfiguration values out of bounds - resetting to default", self);
       }
 
       *&self->_reportToPersistenceDelayTime = xmmword_2395C1440;
@@ -81,8 +81,6 @@
       *&self->_reportToPersistenceDelayMaxMultiplier = xmmword_2395C1460;
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)copyWithZone:(_NSZone *)zone

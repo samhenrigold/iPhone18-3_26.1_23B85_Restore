@@ -1600,7 +1600,7 @@ LABEL_30:
     [(SMSessionMonitor *)self _updateGeofenceWithConfiguration:configurationCopy];
   }
 
-  [(SMSessionMonitor *)self setConfiguration:configurationCopy, *v10];
+  [(SMSessionMonitor *)self setConfiguration:configurationCopy, *v10, *&v10[8]];
   [(SMSessionMonitor *)self _bootstrap];
 }
 
@@ -3359,43 +3359,43 @@ void __74__SMSessionMonitor__updateRoundTripRegionStateWithCircularRegionCallbac
   dispatch_async(v7, v6);
 }
 
-void __43__SMSessionMonitor_onLocationNotification___block_invoke(uint64_t a1)
+void __43__SMSessionMonitor_onLocationNotification___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v2 = [*(a1 + 32) leechedLocations];
-    v9 = 0u;
+    v3 = [*(a1 + 32) leechedLocations];
     v10 = 0u;
     v11 = 0u;
     v12 = 0u;
-    v3 = [v2 reverseObjectEnumerator];
-    v4 = [v3 countByEnumeratingWithState:&v9 objects:v14 count:16];
-    if (v4)
+    v13 = 0u;
+    v4 = [v3 reverseObjectEnumerator];
+    v5 = [v4 countByEnumeratingWithState:&v10 objects:v15 count:16];
+    if (v5)
     {
-      v5 = v4;
-      v6 = *v10;
+      v6 = v5;
+      v7 = *v11;
       while (2)
       {
-        for (i = 0; i != v5; ++i)
+        for (i = 0; i != v6; ++i)
         {
-          if (*v10 != v6)
+          if (*v11 != v7)
           {
-            objc_enumerationMutation(v3);
+            objc_enumerationMutation(v4);
           }
 
-          if ([SMTriggerDestination validLocation:*(*(&v9 + 1) + 8 * i)])
+          if ([SMTriggerDestination validLocation:*(*(&v10 + 1) + 8 * i)])
           {
-            v8 = [v2 lastObject];
-            [*(a1 + 40) setCurrentLocation:v8];
+            v9 = [v3 lastObject];
+            [*(a1 + 40) setCurrentLocation:v9];
 
             goto LABEL_14;
           }
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v9 objects:v14 count:16];
-        if (v5)
+        v6 = [v4 countByEnumeratingWithState:&v10 objects:v15 count:16];
+        if (v6)
         {
           continue;
         }
@@ -3409,11 +3409,11 @@ LABEL_14:
 
   else
   {
-    v2 = _rt_log_facility_get_os_log(RTLogFacilityGeneral);
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v3 = _rt_log_facility_get_os_log(RTLogFacilityGeneral);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_error_impl(&dword_2304B3000, v2, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: [notification isKindOfClass:[RTLocationManagerNotificationLocationsLeeched class]]", buf, 2u);
+      _os_log_error_impl(&dword_2304B3000, v3, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: [notification isKindOfClass:[RTLocationManagerNotificationLocationsLeeched class]]", buf, 2u);
     }
   }
 }

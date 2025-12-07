@@ -418,14 +418,14 @@
 
 - (void)environmentConfiguration:(double)configuration viewAreaDidChangeFromViewAreaFrame:(double)frame safeAreaInsets:(double)insets toViewAreaFrame:(uint64_t)areaFrame safeAreaInsets:(void *)areaInsets duration:(double)duration transitionControlType:(double)type
 {
-  v54[2] = *MEMORY[0x277D85DE8];
+  v58[2] = *MEMORY[0x277D85DE8];
   areaInsetsCopy = areaInsets;
   if ([self isGaugeCluster])
   {
-    v27 = DBLogForCategory(0xAuLL);
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v31 = DBLogForCategory(0xAuLL);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
-      [DBInstrumentCluster environmentConfiguration:v27 viewAreaDidChangeFromViewAreaFrame:? safeAreaInsets:? toViewAreaFrame:? safeAreaInsets:? duration:? transitionControlType:?];
+      [DBInstrumentCluster environmentConfiguration:v31 viewAreaDidChangeFromViewAreaFrame:? safeAreaInsets:? toViewAreaFrame:? safeAreaInsets:? duration:? transitionControlType:?];
     }
   }
 
@@ -443,69 +443,69 @@
 
   else
   {
-    v28 = [_TtC9DashBoard14DBResizeWindow alloc];
+    v32 = [_TtC9DashBoard14DBResizeWindow alloc];
     windowScene = [self windowScene];
     environmentConfiguration = [self environmentConfiguration];
     displayConfiguration = [environmentConfiguration displayConfiguration];
     [displayConfiguration bounds];
-    v32 = [(DBResizeWindow *)v28 initWithWindowScene:windowScene frame:?];
+    v36 = [(DBResizeWindow *)v32 initWithWindowScene:windowScene frame:?];
 
-    [(DBResizeWindow *)v32 setHidden:0];
-    [self setResizeWindow:v32];
-    v33 = [self _takeSnapshotOfFrame:{a2, configuration, frame, insets}];
-    [v33 setAutoresizingMask:18];
+    [(DBResizeWindow *)v36 setHidden:0];
+    [self setResizeWindow:v36];
+    v37 = [self _takeSnapshotOfFrame:{a2, configuration, frame, insets}];
+    [v37 setAutoresizingMask:18];
     insets = [[_TtC9DashBoard15DBAnimationView alloc] initWithFrame:a2, configuration, frame, insets];
     [(DBAnimationView *)insets setClipsToBounds:1];
-    [(DBResizeWindow *)v32 addSubview:insets];
+    [(DBResizeWindow *)v36 addSubview:insets];
     [(DBAnimationView *)insets setAutoresizingMask:18];
-    v54[0] = @"filters.gaussianBlur.inputRadius";
-    v54[1] = @"filters.saturation.inputAmount";
-    v35 = [MEMORY[0x277CBEA60] arrayWithObjects:v54 count:2];
-    [(DBAnimationView *)insets setKeysToAnimate:v35];
+    v58[0] = @"filters.gaussianBlur.inputRadius";
+    v58[1] = @"filters.saturation.inputAmount";
+    v39 = [MEMORY[0x277CBEA60] arrayWithObjects:v58 count:2];
+    [(DBAnimationView *)insets setKeysToAnimate:v39];
 
-    v36 = [MEMORY[0x277CD9EA0] filterWithType:*MEMORY[0x277CDA328]];
-    [v36 setName:@"gaussianBlur"];
-    [v36 setValue:&unk_285AA4B08 forKey:@"inputRadius"];
-    [v36 setValue:MEMORY[0x277CBEC38] forKey:@"inputHardEdges"];
-    v37 = [MEMORY[0x277CD9EA0] filterWithType:*MEMORY[0x277CDA2D0]];
-    [v37 setName:@"saturation"];
-    [v37 setValue:&unk_285AA4B18 forKey:@"inputAmount"];
+    v40 = [MEMORY[0x277CD9EA0] filterWithType:*MEMORY[0x277CDA328]];
+    [v40 setName:@"gaussianBlur"];
+    [v40 setValue:&unk_285AA4B08 forKey:@"inputRadius"];
+    [v40 setValue:MEMORY[0x277CBEC38] forKey:@"inputHardEdges"];
+    v41 = [MEMORY[0x277CD9EA0] filterWithType:*MEMORY[0x277CDA2D0]];
+    [v41 setName:@"saturation"];
+    [v41 setValue:&unk_285AA4B18 forKey:@"inputAmount"];
     layer = [(DBAnimationView *)insets layer];
-    v53[0] = v36;
-    v53[1] = v37;
-    v39 = [MEMORY[0x277CBEA60] arrayWithObjects:v53 count:2];
-    [layer setFilters:v39];
+    v57[0] = v40;
+    v57[1] = v41;
+    v43 = [MEMORY[0x277CBEA60] arrayWithObjects:v57 count:2];
+    [layer setFilters:v43];
 
-    [(DBAnimationView *)insets addSubview:v33];
+    [(DBAnimationView *)insets addSubview:v37];
     [(DBAnimationView *)insets bounds];
-    [v33 setFrame:?];
+    [v37 setFrame:?];
     [MEMORY[0x277CD9FF0] commit];
     rootViewController2 = [self rootViewController];
     [rootViewController2 updateViewAreaFrame:*&a17 safeAreaInsets:{*&a18, *&a19, *&a20, a21, a22, a23, a24}];
 
     objc_initWeak(&location, self);
-    v41 = MEMORY[0x277D75D18];
-    v50[0] = MEMORY[0x277D85DD0];
-    v50[1] = 3221225472;
-    v50[2] = __160__DBInstrumentCluster_environmentConfiguration_viewAreaDidChangeFromViewAreaFrame_safeAreaInsets_toViewAreaFrame_safeAreaInsets_duration_transitionControlType___block_invoke;
-    v50[3] = &unk_278F01580;
-    v42 = insets;
-    v51 = v42;
-    v47[0] = MEMORY[0x277D85DD0];
-    v47[1] = 3221225472;
-    v47[2] = __160__DBInstrumentCluster_environmentConfiguration_viewAreaDidChangeFromViewAreaFrame_safeAreaInsets_toViewAreaFrame_safeAreaInsets_duration_transitionControlType___block_invoke_257;
-    v47[3] = &unk_278F02A30;
-    objc_copyWeak(v49, &location);
-    v49[1] = a17;
-    v49[2] = a18;
-    v49[3] = a19;
-    v49[4] = a20;
-    v43 = v42;
-    v48 = v43;
-    v49[5] = a25;
-    [v41 animateWithDuration:v50 animations:v47 completion:0.25];
+    v45 = MEMORY[0x277D75D18];
+    v54[0] = MEMORY[0x277D85DD0];
+    v54[1] = 3221225472;
+    v54[2] = __160__DBInstrumentCluster_environmentConfiguration_viewAreaDidChangeFromViewAreaFrame_safeAreaInsets_toViewAreaFrame_safeAreaInsets_duration_transitionControlType___block_invoke;
+    v54[3] = &unk_278F01580;
+    v46 = insets;
+    v55 = v46;
+    v51[0] = MEMORY[0x277D85DD0];
+    v51[1] = 3221225472;
+    v51[2] = __160__DBInstrumentCluster_environmentConfiguration_viewAreaDidChangeFromViewAreaFrame_safeAreaInsets_toViewAreaFrame_safeAreaInsets_duration_transitionControlType___block_invoke_257;
+    v51[3] = &unk_278F02A30;
+    objc_copyWeak(v53, &location);
+    v53[1] = a17;
+    v53[2] = a18;
+    v53[3] = a19;
+    v53[4] = a20;
+    v47 = v46;
+    v52 = v47;
+    v53[5] = a25;
+    [v45 animateWithDuration:v54 animations:v51 completion:0.25];
 
-    objc_destroyWeak(v49);
+    objc_destroyWeak(v53);
     objc_destroyWeak(&location);
   }
 }

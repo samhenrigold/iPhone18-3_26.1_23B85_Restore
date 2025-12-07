@@ -40,7 +40,7 @@
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  sub_1000FE1A4();
+  sub_1000FE1A4(v9);
 
   (*(v7 + 8))(v9, v6);
 }
@@ -55,7 +55,7 @@
   viewCopy = view;
   cellCopy = cell;
   selfCopy = self;
-  sub_1000FE528();
+  sub_1000FE528(cellCopy, v11);
 
   (*(v9 + 8))(v11, v8);
 }

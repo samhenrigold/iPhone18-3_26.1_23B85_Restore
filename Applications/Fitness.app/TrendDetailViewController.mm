@@ -53,7 +53,7 @@
     v5 = swift_allocObject();
     *(v5 + 16) = v4;
     v6 = v4;
-    sub_1001B1314(sub_1002E3BC8, v5);
+    sub_1001B1314(sub_1002E3BC8, v5, 0.1);
   }
 }
 
@@ -66,7 +66,7 @@
 
 - (uint64_t)tapToRadar
 {
-  v0 = sub_100140278(&unk_1008EB5B0);
+  v0 = sub_100140278(&unk_1008EB5B0, &unk_1006D2BF0);
   __chkstk_darwin(v0 - 8);
   v2 = &v13 - v1;
   v3 = type metadata accessor for URL();

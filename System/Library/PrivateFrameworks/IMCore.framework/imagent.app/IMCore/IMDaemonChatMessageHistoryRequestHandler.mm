@@ -4,11 +4,16 @@
 - (void)_populateParentMessagesIfNeeded:(id)needed;
 - (void)_updateLastMessageTimeStampForChat:(id)chat;
 - (void)cleanupAttachments;
+- (void)clearHistoryForIDs:(id)ds style:(unsigned __int8)style onServices:(id)services beforeGUID:(id)d afterGUID:(id)iD chatID:(id)chatID queryID:(id)queryID;
 - (void)deleteMessageWithGUIDs:(id)ds queryID:(id)d;
 - (void)fetchEarliestMessageDateForChatsWithGUIDs:(id)ds completion:(id)completion;
 - (void)fetchIncomingPendingMessagesOverSatelliteForChatsWithIDs:(id)ds services:(id)services;
+- (void)fetchMessageHistorySummaryForDateInterval:(id)interval chatIdentifiers:(id)identifiers chatStyle:(unsigned __int8)style services:(id)services reply:(id)reply;
+- (void)fetchOldestMessageDateForChatIdentifiers:(id)identifiers chatStyle:(unsigned __int8)style services:(id)services reply:(id)reply;
 - (void)loadAttachmentsForChatWithGUID:(id)d chatIdentifiers:(id)identifiers style:(unsigned __int8)style services:(id)services reply:(id)reply;
+- (void)loadAttachmentsForIDs:(id)ds style:(unsigned __int8)style onServices:(id)services chatID:(id)d queryID:(id)iD;
 - (void)loadFrequentRepliesForChatWithGUID:(id)d chatIdentifiers:(id)identifiers style:(unsigned __int8)style services:(id)services limit:(int64_t)limit reply:(id)reply;
+- (void)loadFrequentRepliesForIDs:(id)ds style:(unsigned __int8)style onServices:(id)services limit:(int64_t)limit chatID:(id)d queryID:(id)iD;
 - (void)loadHistoryForChatWithGUID:(id)d chatIdentifiers:(id)identifiers style:(unsigned __int8)style services:(id)services limit:(int64_t)limit beforeGUID:(id)iD afterGUID:(id)uID threadIdentifier:(id)self0 reply:(id)self1;
 - (void)loadHistoryForIDs:(id)ds style:(unsigned __int8)style onServices:(id)services limit:(int64_t)limit beforeGUID:(id)d afterGUID:(id)iD threadIdentifier:(id)identifier chatID:(id)self0 queryID:(id)self1;
 - (void)loadMessageItemWithGUID:(id)d queryID:(id)iD;
@@ -17,8 +22,11 @@
 - (void)loadPagedHistoryForGUID:(id)d chatIdentifiers:(id)identifiers style:(unsigned __int8)style onServices:(id)services numberOfMessagesBefore:(int64_t)before numberOfMessagesAfter:(int64_t)after threadIdentifier:(id)identifier chatID:(id)self0 queryID:(id)self1;
 - (void)loadRecoverableMessagesMetadataWithQueryID:(id)d;
 - (void)loadUncachedAttachmentCountForChatWithGUID:(id)d chatIdentifiers:(id)identifiers style:(unsigned __int8)style services:(id)services reply:(id)reply;
+- (void)loadUncachedAttachmentCountForIDs:(id)ds style:(unsigned __int8)style onServices:(id)services chatID:(id)d queryID:(id)iD;
 - (void)loadUnreadForIDs:(id)ds style:(unsigned __int8)style onServices:(id)services limit:(int64_t)limit fallbackGUID:(id)d chatId:(id)id queryID:(id)iD;
 - (void)loadUnreadHistoryForChatWithGUID:(id)d chatIdentifiers:(id)identifiers style:(unsigned __int8)style services:(id)services limit:(int64_t)limit fallbackMessageGUID:(id)iD reply:(id)reply;
+- (void)markAsSpamForIDs:(id)ds style:(unsigned __int8)style onServices:(id)services chatID:(id)d queryID:(id)iD autoReport:(BOOL)report;
+- (void)markChatAsSpamWithGUID:(id)d chatIdentifiers:(id)identifiers style:(unsigned __int8)style services:(id)services isAutoReport:(BOOL)report isJunkReportedToCarrier:(BOOL)carrier reportReason:(unint64_t)reason reply:(id)self0;
 - (void)moveMessagesInChatsWithGUIDsToRecentlyDeleted:(id)deleted deleteDate:(id)date queryID:(id)d;
 - (void)moveMessagesWithGUIDsToRecentlyDeleted:(id)deleted deleteDate:(id)date queryID:(id)d;
 - (void)permanentlyDeleteRecoverableMessagesInChatsWithGUIDs:(id)ds queryID:(id)d;
@@ -463,6 +471,65 @@
   [(IMDaemonChatMessageHistoryRequestHandler *)self loadPagedHistoryAroundMessageWithGUID:dCopy chatGUID:v26 chatIdentifiers:identifiersCopy style:styleCopy services:v25 numberOfMessagesBefore:before numberOfMessagesAfter:after threadIdentifier:identifierCopy reply:v32];
 }
 
+- (void)fetchMessageHistorySummaryForDateInterval:(id)interval chatIdentifiers:(id)identifiers chatStyle:(unsigned __int8)style services:(id)services reply:(id)reply
+{
+  styleCopy = style;
+  intervalCopy = interval;
+  identifiersCopy = identifiers;
+  servicesCopy = services;
+  replyCopy = reply;
+  if (IMOSLoggingEnabled())
+  {
+    v15 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    {
+      v16 = +[IMDClientRequestContext currentContext];
+      listenerID = [v16 listenerID];
+      v20 = 138413058;
+      v21 = listenerID;
+      v22 = 2112;
+      v23 = identifiersCopy;
+      v24 = 2112;
+      v25 = servicesCopy;
+      v26 = 2112;
+      v27 = intervalCopy;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "Request from %@ to fetch message history with chatIDs: %@ services: %@ dateInterval: %@", &v20, 0x2Au);
+    }
+  }
+
+  v18 = +[IMDMessageStore sharedInstance];
+  v19 = [v18 messageHistorySummaryForDateInterval:intervalCopy chatIdentifiers:identifiersCopy chatStyle:styleCopy services:servicesCopy];
+  replyCopy[2](replyCopy, v19);
+}
+
+- (void)fetchOldestMessageDateForChatIdentifiers:(id)identifiers chatStyle:(unsigned __int8)style services:(id)services reply:(id)reply
+{
+  styleCopy = style;
+  identifiersCopy = identifiers;
+  servicesCopy = services;
+  replyCopy = reply;
+  if (IMOSLoggingEnabled())
+  {
+    v12 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    {
+      v13 = +[IMDClientRequestContext currentContext];
+      listenerID = [v13 listenerID];
+      v17 = 138412802;
+      v18 = listenerID;
+      v19 = 2112;
+      v20 = identifiersCopy;
+      v21 = 2112;
+      v22 = servicesCopy;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Request from %@ to fetch oldest message date with chatIDs: %@ services: %@", &v17, 0x20u);
+    }
+  }
+
+  v15 = +[IMDMessageStore sharedInstance];
+  v16 = [v15 oldestMessageDateForChatIdentifiers:identifiersCopy chatStyle:styleCopy services:servicesCopy];
+  replyCopy[2](replyCopy, v16);
+}
+
 - (void)loadAttachmentsForChatWithGUID:(id)d chatIdentifiers:(id)identifiers style:(unsigned __int8)style services:(id)services reply:(id)reply
 {
   styleCopy = style;
@@ -534,6 +601,31 @@
 
     replyCopy[2](replyCopy, &__NSArray0__struct);
   }
+}
+
+- (void)loadAttachmentsForIDs:(id)ds style:(unsigned __int8)style onServices:(id)services chatID:(id)d queryID:(id)iD
+{
+  styleCopy = style;
+  servicesCopy = services;
+  dCopy = d;
+  iDCopy = iD;
+  dsCopy = ds;
+  v16 = +[IMDClientRequestContext currentContext];
+  replyProxy = [v16 replyProxy];
+
+  v22[0] = _NSConcreteStackBlock;
+  v22[1] = 3221225472;
+  v22[2] = sub_10002DC2C;
+  v22[3] = &unk_1000820C0;
+  v23 = replyProxy;
+  v24 = iDCopy;
+  v25 = dCopy;
+  v26 = servicesCopy;
+  v18 = servicesCopy;
+  v19 = dCopy;
+  v20 = iDCopy;
+  v21 = replyProxy;
+  [(IMDaemonChatMessageHistoryRequestHandler *)self loadAttachmentsForChatWithGUID:v19 chatIdentifiers:dsCopy style:styleCopy services:v18 reply:v22];
 }
 
 - (id)_serializedFileTransfersForItems:(id)items
@@ -649,6 +741,245 @@
   }
 }
 
+- (void)clearHistoryForIDs:(id)ds style:(unsigned __int8)style onServices:(id)services beforeGUID:(id)d afterGUID:(id)iD chatID:(id)chatID queryID:(id)queryID
+{
+  styleCopy = style;
+  dsCopy = ds;
+  servicesCopy = services;
+  dCopy = d;
+  iDCopy = iD;
+  chatIDCopy = chatID;
+  queryIDCopy = queryID;
+  if (IMOSLoggingEnabled())
+  {
+    v15 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    {
+      v16 = +[IMDClientRequestContext currentContext];
+      listenerID = [v16 listenerID];
+      *buf = 138412802;
+      v78 = listenerID;
+      v79 = 2112;
+      v80 = dsCopy;
+      v81 = 2112;
+      v82 = servicesCopy;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "Request from %@ to delete messages with destination IDs: %@  service: %@", buf, 0x20u);
+    }
+  }
+
+  if ([dsCopy count] && objc_msgSend(servicesCopy, "count"))
+  {
+    v64 = 0u;
+    v65 = 0u;
+    v62 = 0u;
+    v63 = 0u;
+    v18 = servicesCopy;
+    v19 = [v18 countByEnumeratingWithState:&v62 objects:v76 count:16];
+    if (v19)
+    {
+      v20 = 0;
+      v21 = *v63;
+      do
+      {
+        for (i = 0; i != v19; i = i + 1)
+        {
+          if (*v63 != v21)
+          {
+            objc_enumerationMutation(v18);
+          }
+
+          v20 |= [*(*(&v62 + 1) + 8 * i) isEqualToString:IMServiceNameSMS];
+        }
+
+        v19 = [v18 countByEnumeratingWithState:&v62 objects:v76 count:16];
+      }
+
+      while (v19);
+
+      if (v20)
+      {
+        IMGreenTeaMessageDeleteLog();
+      }
+    }
+
+    else
+    {
+    }
+
+    v23 = +[IMDChatRegistry sharedInstance];
+    v58 = [v23 existingChatWithGUID:chatIDCopy];
+
+    if (v58)
+    {
+      v24 = +[IMDAccountController sharedInstance];
+      serviceName = [v58 serviceName];
+      v26 = [v24 anySessionForServiceName:serviceName];
+
+      [v26 willRemoveChat:v58];
+    }
+
+    v27 = +[IMDMessageStore sharedInstance];
+    v53 = [v27 deleteMessagesWithChatIdentifiers:dsCopy style:styleCopy onServices:v18];
+
+    if (IMOSLoggingEnabled())
+    {
+      v28 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+      {
+        *buf = 138412290;
+        v78 = v53;
+        _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_INFO, "   deleted messages: %@", buf, 0xCu);
+      }
+    }
+
+    if ([v53 count])
+    {
+      v61 = objc_alloc_init(NSMutableArray);
+      v29 = objc_alloc_init(NSMutableArray);
+      v30 = objc_alloc_init(NSMutableArray);
+      if ([dsCopy count])
+      {
+        v31 = 0;
+        do
+        {
+          v32 = [v18 objectAtIndex:v31];
+          v33 = [dsCopy objectAtIndex:v31];
+          v34 = IMCopyGUIDForChat();
+
+          if ([v34 length] && (v35 = objc_msgSend(v32, "isEqualToString:", IMServiceNameSMS), v36 = v61, (v35 & 1) != 0) || (v37 = objc_msgSend(v34, "length"), v36 = v29, v37))
+          {
+            [v36 addObject:v34];
+            [v30 addObject:v34];
+          }
+
+          ++v31;
+        }
+
+        while (v31 < [dsCopy count]);
+      }
+
+      if (v58)
+      {
+        if ([v29 count])
+        {
+          v38 = +[IMDAccountController sharedInstance];
+          v39 = [v38 anySessionForServiceName:IMServiceNameiMessage];
+
+          v74 = @"chat-clear";
+          v71[1] = @"groupID";
+          v72[0] = v29;
+          v71[0] = @"guids";
+          groupID = [v58 groupID];
+          v72[1] = groupID;
+          v41 = [NSDictionary dictionaryWithObjects:v72 forKeys:v71 count:2];
+          v73 = v41;
+          v42 = [NSArray arrayWithObjects:&v73 count:1];
+          v75 = v42;
+          v43 = [NSDictionary dictionaryWithObjects:&v75 forKeys:&v74 count:1];
+          [v39 sendDeleteCommand:v43 forChatGUID:chatIDCopy];
+        }
+
+        if ([v61 count])
+        {
+          v44 = +[IMDAccountController sharedInstance];
+          v45 = [v44 anySessionForServiceName:IMServiceNameSMS];
+
+          v69 = @"chat-clear";
+          v67[0] = v61;
+          v66[0] = @"guids";
+          v66[1] = @"groupID";
+          groupID2 = [v58 groupID];
+          v67[1] = groupID2;
+          v66[2] = @"ptcpts";
+          participantHandles = [v58 participantHandles];
+          v67[2] = participantHandles;
+          v48 = [NSDictionary dictionaryWithObjects:v67 forKeys:v66 count:3];
+          v68 = v48;
+          v49 = [NSArray arrayWithObjects:&v68 count:1];
+          v70 = v49;
+          v50 = [NSDictionary dictionaryWithObjects:&v70 forKeys:&v69 count:1];
+          [v45 sendDeleteCommand:v50 forChatGUID:chatIDCopy];
+        }
+      }
+
+      v51 = +[IMDBroadcastController sharedProvider];
+      v52 = [v51 broadcasterForChatListenersUsingBlackholeRegistry:{objc_msgSend(v58, "isBlackholed")}];
+      [v52 historicalMessageGUIDsDeleted:v54 chatGUIDs:v30 queryID:queryIDCopy];
+    }
+  }
+}
+
+- (void)markChatAsSpamWithGUID:(id)d chatIdentifiers:(id)identifiers style:(unsigned __int8)style services:(id)services isAutoReport:(BOOL)report isJunkReportedToCarrier:(BOOL)carrier reportReason:(unint64_t)reason reply:(id)self0
+{
+  reportCopy = report;
+  styleCopy = style;
+  dCopy = d;
+  identifiersCopy = identifiers;
+  servicesCopy = services;
+  replyCopy = reply;
+  if (IMOSLoggingEnabled())
+  {
+    v19 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+    {
+      v20 = +[IMDClientRequestContext currentContext];
+      listenerID = [v20 listenerID];
+      v22 = @"NO";
+      *buf = 138413314;
+      v28 = listenerID;
+      if (reportCopy)
+      {
+        v22 = @"YES";
+      }
+
+      v29 = 2112;
+      v30 = identifiersCopy;
+      v31 = 2112;
+      v32 = servicesCopy;
+      v33 = 2112;
+      v34 = v22;
+      v35 = 2112;
+      v36 = dCopy;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "Request from %@ to mark IDs as spam: %@  service: %@ autoReport %@ chatGUID %@", buf, 0x34u);
+    }
+  }
+
+  v23 = +[NSString stringGUID];
+  v24 = +[IMDChatRegistry sharedInstance];
+  BYTE1(v26) = carrier;
+  LOBYTE(v26) = reportCopy;
+  v25 = [v24 markAsSpamForIDs:identifiersCopy style:styleCopy onServices:servicesCopy chatID:dCopy conversationID:v23 queryID:0 autoReport:v26 isJunkReportedToCarrier:reason reportReason:?];
+
+  replyCopy[2](replyCopy, v25);
+}
+
+- (void)markAsSpamForIDs:(id)ds style:(unsigned __int8)style onServices:(id)services chatID:(id)d queryID:(id)iD autoReport:(BOOL)report
+{
+  reportCopy = report;
+  styleCopy = style;
+  servicesCopy = services;
+  dCopy = d;
+  iDCopy = iD;
+  dsCopy = ds;
+  v18 = +[IMDClientRequestContext currentContext];
+  replyProxy = [v18 replyProxy];
+
+  v24[0] = _NSConcreteStackBlock;
+  v24[1] = 3221225472;
+  v24[2] = sub_10002EB98;
+  v24[3] = &unk_1000820E8;
+  v29 = reportCopy;
+  v25 = iDCopy;
+  v26 = replyProxy;
+  v27 = dCopy;
+  v28 = servicesCopy;
+  v20 = servicesCopy;
+  v21 = dCopy;
+  v22 = replyProxy;
+  v23 = iDCopy;
+  [(IMDaemonChatMessageHistoryRequestHandler *)self markChatAsSpamWithGUID:v21 chatIdentifiers:dsCopy style:styleCopy services:v20 isAutoReport:reportCopy isJunkReportedToCarrier:0 reportReason:0 reply:v24];
+}
+
 - (void)cleanupAttachments
 {
   v2 = IMAttachmentsLogHandle();
@@ -721,6 +1052,32 @@
 
     replyCopy[2](replyCopy, v23);
   }
+}
+
+- (void)loadFrequentRepliesForIDs:(id)ds style:(unsigned __int8)style onServices:(id)services limit:(int64_t)limit chatID:(id)d queryID:(id)iD
+{
+  styleCopy = style;
+  servicesCopy = services;
+  dCopy = d;
+  iDCopy = iD;
+  dsCopy = ds;
+  v18 = +[IMDClientRequestContext currentContext];
+  replyProxy = [v18 replyProxy];
+
+  v24[0] = _NSConcreteStackBlock;
+  v24[1] = 3221225472;
+  v24[2] = sub_10002F10C;
+  v24[3] = &unk_100082110;
+  v25 = replyProxy;
+  v26 = iDCopy;
+  v27 = dCopy;
+  v28 = servicesCopy;
+  limitCopy = limit;
+  v20 = servicesCopy;
+  v21 = dCopy;
+  v22 = iDCopy;
+  v23 = replyProxy;
+  [(IMDaemonChatMessageHistoryRequestHandler *)self loadFrequentRepliesForChatWithGUID:v21 chatIdentifiers:dsCopy style:styleCopy services:v20 limit:limit reply:v24];
 }
 
 - (void)loadUnreadHistoryForChatWithGUID:(id)d chatIdentifiers:(id)identifiers style:(unsigned __int8)style services:(id)services limit:(int64_t)limit fallbackMessageGUID:(id)iD reply:(id)reply
@@ -1198,6 +1555,31 @@ LABEL_18:
   (replyCopy)[2](replyCopy, [v19 purgedAttachmentsCountForChatsWithChatIdentifiers:identifiersCopy services:servicesCopy]);
 
 LABEL_19:
+}
+
+- (void)loadUncachedAttachmentCountForIDs:(id)ds style:(unsigned __int8)style onServices:(id)services chatID:(id)d queryID:(id)iD
+{
+  styleCopy = style;
+  servicesCopy = services;
+  dCopy = d;
+  iDCopy = iD;
+  dsCopy = ds;
+  v16 = +[IMDClientRequestContext currentContext];
+  replyProxy = [v16 replyProxy];
+
+  v22[0] = _NSConcreteStackBlock;
+  v22[1] = 3221225472;
+  v22[2] = sub_10003043C;
+  v22[3] = &unk_1000821E0;
+  v23 = replyProxy;
+  v24 = iDCopy;
+  v25 = dCopy;
+  v26 = servicesCopy;
+  v18 = servicesCopy;
+  v19 = dCopy;
+  v20 = iDCopy;
+  v21 = replyProxy;
+  [(IMDaemonChatMessageHistoryRequestHandler *)self loadUncachedAttachmentCountForChatWithGUID:v19 chatIdentifiers:dsCopy style:styleCopy services:v18 reply:v22];
 }
 
 - (void)purgeAttachmentsForChatGUID:(id)d

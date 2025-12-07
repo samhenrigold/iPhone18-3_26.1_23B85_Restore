@@ -175,14 +175,14 @@
 
 - (void)layoutSubviews
 {
-  v247 = *MEMORY[0x1E69E9840];
+  v249 = *MEMORY[0x1E69E9840];
   if (![(AVMobileGlassControlsView *)self layoutAllowed])
   {
     goto LABEL_114;
   }
 
   [(AVMobileGlassControlsView *)self bounds];
-  v213 = v3;
+  v215 = v3;
   v5 = v4;
   v7 = v6;
   v9 = v8;
@@ -194,16 +194,16 @@
   traitCollection = [(AVMobileGlassControlsView *)self traitCollection];
   if ([traitCollection userInterfaceStyle] == 1)
   {
-    v248.origin.x = v11;
-    v248.origin.y = v13;
-    v248.size.width = v15;
-    v248.size.height = v17;
-    IsNull = CGRectIsNull(v248);
+    v250.origin.x = v11;
+    v250.origin.y = v13;
+    v250.size.width = v15;
+    v250.size.height = v17;
+    IsNull = CGRectIsNull(v250);
 
     if (IsNull)
     {
       v15 = v7;
-      v20 = v213;
+      v20 = v215;
     }
 
     else
@@ -227,20 +227,20 @@
   {
 
     v15 = v7;
-    v20 = v213;
+    v20 = v215;
     v13 = v5;
     v21 = v9;
   }
 
   layoutMarginsGuide = [(AVMobileGlassControlsView *)self layoutMarginsGuide];
   [layoutMarginsGuide layoutFrame];
-  v215 = v24;
-  v216 = v23;
-  v210 = v25;
-  v212 = v26;
+  v217 = v24;
+  v218 = v23;
+  v212 = v25;
+  v214 = v26;
 
   includedControls = self->_layoutConfiguration.includedControls;
-  v219 = *&self->_layoutConfiguration.excludedControls;
+  v221 = *&self->_layoutConfiguration.excludedControls;
   controlsPadding = self->_layoutConfiguration.controlsPadding;
   auxiliaryControlsPlacement = self->_layoutConfiguration.auxiliaryControlsPlacement;
   v28 = self->_layoutConfiguration.pinnedAuxiliaryControls;
@@ -248,9 +248,9 @@
   contentTabsDismissing = self->_layoutConfiguration.contentTabsDismissing;
   contentTabTransitioning = self->_layoutConfiguration.contentTabTransitioning;
   v31 = *(&self->_layoutConfiguration.timelineSliderInsets.left + 3);
-  v242 = *(&self->_layoutConfiguration.contentTabTransitioning + 1);
-  v243[0] = v31;
-  *(v243 + 13) = *&self->_layoutConfiguration.timelineSliderInsets.right;
+  v244 = *(&self->_layoutConfiguration.contentTabTransitioning + 1);
+  v245[0] = v31;
+  *(v245 + 13) = *&self->_layoutConfiguration.timelineSliderInsets.right;
   bottom = self->_layoutConfiguration.volumeSliderInsets.bottom;
   left = self->_layoutConfiguration.volumeSliderInsets.left;
   right = self->_layoutConfiguration.volumeSliderInsets.right;
@@ -258,29 +258,29 @@
   contentTabsLayout = self->_layoutConfiguration.contentTabsLayout;
   contentTabPresentationHeight = self->_layoutConfiguration.contentTabPresentationHeight;
   [(AVMobileGlassBackgroundView *)self->_backgroundView setFrame:v20, v13, v15, v21];
-  [(AVGlassBackedGroupView *)self->_contentTabsContainerView setFrame:v213, v5, v7, v9];
-  v218 = v219;
+  [(AVGlassBackedGroupView *)self->_contentTabsContainerView setFrame:v215, v5, v7, v9];
+  v220 = v221;
   v34 = v28;
-  v240 = v242;
-  v241[0] = v243[0];
-  *(v241 + 13) = *(v243 + 13);
-  v236 = 0;
-  v35 = v210;
-  v36 = v212;
+  v242 = v244;
+  v243[0] = v245[0];
+  *(v243 + 13) = *(v245 + 13);
+  v238 = 0;
+  v35 = v212;
+  v36 = v214;
   if (contentTabPresented)
   {
-    v36 = v212;
+    v36 = v214;
     if (contentTabsPresentationLayout == 1)
     {
-      v38 = v215;
-      v37 = v216;
-      v39 = v212;
-      v36 = v212 - (contentTabPresentationHeight - CGRectGetMinY(*(&v35 - 1)));
+      v38 = v217;
+      v37 = v218;
+      v39 = v214;
+      v36 = v214 - (contentTabPresentationHeight - CGRectGetMinY(*(&v35 - 1)));
     }
   }
 
-  v200 = contentTabTransitioning;
-  v214 = v34;
+  v202 = contentTabTransitioning;
+  v216 = v34;
   v40 = self->_playbackControlsView;
   effectiveUserInterfaceLayoutDirection = [(AVMobileGlassControlsView *)self effectiveUserInterfaceLayoutDirection];
   [(AVMobileGlassPlaybackControlsView *)v40 intrinsicContentSize];
@@ -295,18 +295,18 @@
     v58 = v51;
     v59 = v43;
     v60 = v36;
-    v207 = *(MEMORY[0x1E695F058] + 8);
+    v209 = *(MEMORY[0x1E695F058] + 8);
     rect = *MEMORY[0x1E695F058];
-    v205 = *(MEMORY[0x1E695F058] + 24);
-    v206 = *(MEMORY[0x1E695F058] + 16);
+    v207 = *(MEMORY[0x1E695F058] + 24);
+    v208 = *(MEMORY[0x1E695F058] + 16);
     if (v59 < v60 || vabds_f32(v59, v60) < 0.00000011921)
     {
       v56 = 0.0;
-      v196 = v50;
-      v198 = v48;
+      v198 = v50;
+      v200 = v48;
       if (contentTabPresented)
       {
-        v54 = (v47 + v210 + v36 + v45 - v43) * 0.5 - controlsPadding;
+        v54 = (v47 + v212 + v36 + v45 - v43) * 0.5 - controlsPadding;
         if (!contentTabsPresentationLayout)
         {
           v61 = v54 - vabdd_f64(v43 + v54, v36 - contentTabPresentationHeight);
@@ -326,30 +326,30 @@
       currentDevice = [MEMORY[0x1E69DC938] currentDevice];
       [currentDevice userInterfaceIdiom];
 
-      v249.size.width = v215;
-      v249.origin.x = v216;
-      v249.origin.y = v54;
-      v249.size.height = v43;
-      MinX = CGRectGetMinX(v249);
-      v250.size.width = v215;
-      v250.origin.x = v216;
-      v250.origin.y = v54;
-      v250.size.height = v43;
-      CGRectGetWidth(v250);
-      v251.size.width = v196;
-      v251.origin.x = v198;
-      v251.origin.y = v57;
-      v251.size.height = v58;
-      CGRectGetHeight(v251);
+      v251.size.width = v217;
+      v251.origin.x = v218;
+      v251.origin.y = v54;
+      v251.size.height = v43;
+      MinX = CGRectGetMinX(v251);
+      v252.size.width = v217;
+      v252.origin.x = v218;
+      v252.origin.y = v54;
+      v252.size.height = v43;
+      CGRectGetWidth(v252);
+      v253.size.width = v198;
+      v253.origin.x = v200;
+      v253.origin.y = v57;
+      v253.size.height = v58;
+      CGRectGetHeight(v253);
       [(AVGlassBackedGroupView *)self->_playbackControlsContainerView setFrame:MinX];
       [(AVGlassBackedGroupView *)self->_playbackControlsContainerView bounds];
-      x = v252.origin.x;
-      v64 = CGRectGetMidY(v252) + v43 * -0.5;
+      x = v254.origin.x;
+      v64 = CGRectGetMidY(v254) + v43 * -0.5;
       v65 = x;
-      v55 = v215;
-      [(UIView *)v40 avkit_setFrame:effectiveUserInterfaceLayoutDirection inLayoutDirection:v65, v64, v215, v43];
+      v55 = v217;
+      [(UIView *)v40 avkit_setFrame:effectiveUserInterfaceLayoutDirection inLayoutDirection:v65, v64, v217, v43];
       v52 = 1;
-      v53 = v216;
+      v53 = v218;
     }
 
     else
@@ -371,9 +371,9 @@
     v55 = *(MEMORY[0x1E695F058] + 16);
     v43 = *(MEMORY[0x1E695F058] + 24);
     v56 = 0.0;
-    v205 = v43;
-    v206 = v55;
-    v207 = v54;
+    v207 = v43;
+    v208 = v55;
+    v209 = v54;
     rect = *MEMORY[0x1E695F058];
   }
 
@@ -387,62 +387,62 @@
     v66 = v54;
   }
 
-  BYTE2(v236) = v52;
+  BYTE2(v238) = v52;
 
-  v253.origin.x = v53;
-  v253.origin.y = v66;
-  v253.size.width = v55;
-  v253.size.height = v43;
-  MaxY = CGRectGetMaxY(v253);
-  if (BYTE2(v236) == 1)
+  v255.origin.x = v53;
+  v255.origin.y = v66;
+  v255.size.width = v55;
+  v255.size.height = v43;
+  MaxY = CGRectGetMaxY(v255);
+  if (BYTE2(v238) == 1)
   {
     [(AVMobileGlassControlsView *)self bounds];
-    v185 = v67;
-    v254.origin.x = v216;
-    v254.origin.y = v210;
-    v254.size.width = v215;
-    v254.size.height = v212;
-    MinY = CGRectGetMinY(v254);
-    v255.origin.x = v216;
-    v255.origin.y = v210;
-    v255.size.width = v215;
-    v255.size.height = v212;
-    v68 = CGRectGetMaxY(v255);
-    v256.origin.x = v53;
-    v256.origin.y = v66;
-    v256.size.width = v55;
-    v256.size.height = v43;
-    v69 = CGRectGetMinY(v256);
-    v257.origin.x = v53;
-    v257.origin.y = v66;
-    v257.size.width = v55;
-    v257.size.height = v43;
-    v70 = CGRectGetMaxY(v257);
+    v187 = v67;
+    v256.origin.x = v218;
+    v256.origin.y = v212;
+    v256.size.width = v217;
+    v256.size.height = v214;
+    MinY = CGRectGetMinY(v256);
+    v257.origin.x = v218;
+    v257.origin.y = v212;
+    v257.size.width = v217;
+    v257.size.height = v214;
+    v68 = CGRectGetMaxY(v257);
+    v258.origin.x = v53;
+    v258.origin.y = v66;
+    v258.size.width = v55;
+    v258.size.height = v43;
+    v69 = CGRectGetMinY(v258);
+    v259.origin.x = v53;
+    v259.origin.y = v66;
+    v259.size.width = v55;
+    v259.size.height = v43;
+    v70 = CGRectGetMaxY(v259);
     v71 = v68 - v70;
-    v258.origin.x = v216;
-    v258.origin.y = v70;
-    v258.size.width = v215;
-    v258.size.height = v71;
-    v184 = CGRectGetMinY(v258);
+    v260.origin.x = v218;
+    v260.origin.y = v70;
+    v260.size.width = v217;
+    v260.size.height = v71;
+    v186 = CGRectGetMinY(v260);
     v72 = contentTabsPresentationLayout;
-    v192 = contentTabsLayout;
-    [(AVMobileGlassTransportControlsView *)self->_transportControlsView sizeThatFits:v215, v212];
-    v186 = v73;
-    v211 = v214;
+    v194 = contentTabsLayout;
+    [(AVMobileGlassTransportControlsView *)self->_transportControlsView sizeThatFits:v217, v214];
+    v188 = v73;
+    v213 = v216;
     v74 = self->_displayModeControlsView;
     v75 = self->_volumeControlsView;
     effectiveUserInterfaceLayoutDirection2 = [(AVMobileGlassControlsView *)self effectiveUserInterfaceLayoutDirection];
-    v259.origin.x = v216;
-    v259.origin.y = MinY;
-    v259.size.width = v215;
-    v259.size.height = v69 - MinY - controlsPadding;
-    Height = CGRectGetHeight(v259);
-    v188 = v70;
-    v260.origin.x = v216;
-    v260.origin.y = MinY;
-    v260.size.width = v215;
-    v260.size.height = v69 - MinY - controlsPadding;
-    Width = CGRectGetWidth(v260);
+    v261.origin.x = v218;
+    v261.origin.y = MinY;
+    v261.size.width = v217;
+    v261.size.height = v69 - MinY - controlsPadding;
+    Height = CGRectGetHeight(v261);
+    v190 = v70;
+    v262.origin.x = v218;
+    v262.origin.y = MinY;
+    v262.size.width = v217;
+    v262.size.height = v69 - MinY - controlsPadding;
+    Width = CGRectGetWidth(v262);
     [(AVMobileGlassControlsStyleSheet *)self->_styleSheet controlsFullscreenInternalSpacing];
     v80 = v79;
     [(AVMobileGlassVolumeControlsView *)v75 intrinsicContentSize];
@@ -470,7 +470,7 @@
       v87 = v84;
     }
 
-    v190 = v87;
+    v192 = v87;
     v88 = Width - v87 - v80;
     if (v86 >= v88)
     {
@@ -480,51 +480,51 @@
     [(AVMobileGlassDisplayModeControlsView *)v74 sizeThatFits:v86, v84];
     v90 = v89;
     _controlsExpansionYOffset = [(AVMobileGlassControlsView *)self _controlsExpansionYOffset];
-    v187 = v71;
-    v91 = 0;
-    v92 = v84 < Height;
+    v189 = v71;
+    v92 = 0;
+    v93 = v84 < Height;
     if (vabdd_f64(v84, Height) < 2.22044605e-16)
     {
-      v92 = 1;
+      v93 = 1;
     }
 
-    v93 = v92 & (includedControls >> 1);
+    v94 = v93 & (includedControls >> 1);
     if ((includedControls & 4) != 0)
     {
-      v94 = v205;
-      v95 = v206;
-      y = v207;
-      v97 = rect;
-      if (!v92)
+      v95 = v207;
+      v96 = v208;
+      y = v209;
+      v98 = rect;
+      if (!v93)
       {
         goto LABEL_51;
       }
 
-      v98 = Width - (v80 + v90);
-      v99 = v98 <= v190;
-      if (vabdd_f64(v98, v190) < 2.22044605e-16)
+      v99 = Width - (v80 + v90);
+      v100 = v99 <= v192;
+      if (vabdd_f64(v99, v192) < 2.22044605e-16)
       {
-        v99 = 1;
+        v100 = 1;
       }
 
-      if (!v93 || !v99)
+      if (!v94 || !v100)
       {
-        [(UIView *)v74 avkit_setFrame:effectiveUserInterfaceLayoutDirection2 inLayoutDirection:v216, MinY - _controlsExpansionYOffset, v90, v84];
-        v263.origin.y = v207;
-        v263.origin.x = rect;
-        v263.size.height = v205;
-        v263.size.width = v206;
-        v278.origin.x = v216;
-        v278.origin.y = MinY - _controlsExpansionYOffset;
-        v278.size.width = v90;
-        v278.size.height = v84;
-        v264 = CGRectUnion(v263, v278);
-        v97 = v264.origin.x;
-        y = v264.origin.y;
-        v95 = v264.size.width;
-        v94 = v264.size.height;
-        v91 = 1;
-        if (v93)
+        [(UIView *)v74 avkit_setFrame:effectiveUserInterfaceLayoutDirection2 inLayoutDirection:v218, MinY - _controlsExpansionYOffset, v90, v84];
+        v265.origin.y = v209;
+        v265.origin.x = rect;
+        v265.size.height = v207;
+        v265.size.width = v208;
+        v280.origin.x = v218;
+        v280.origin.y = MinY - _controlsExpansionYOffset;
+        v280.size.width = v90;
+        v280.size.height = v84;
+        v266 = CGRectUnion(v265, v280);
+        v98 = v266.origin.x;
+        y = v266.origin.y;
+        v96 = v266.size.width;
+        v95 = v266.size.height;
+        v92 = 1;
+        if (v94)
         {
           goto LABEL_52;
         }
@@ -532,336 +532,336 @@
         goto LABEL_57;
       }
 
-      v91 = 0;
+      v92 = 0;
     }
 
-    v94 = v205;
-    v95 = v206;
-    y = v207;
-    v97 = rect;
+    v95 = v207;
+    v96 = v208;
+    y = v209;
+    v98 = rect;
 LABEL_51:
-    if (v93)
+    if (v94)
     {
 LABEL_52:
       if (fabs(left) <= fabs(right))
       {
-        v100 = right;
+        v101 = right;
       }
 
       else
       {
-        v100 = left;
+        v101 = left;
       }
 
-      v101 = v216 + Width - v190 + v100;
-      [(UIView *)v75 avkit_setFrame:effectiveUserInterfaceLayoutDirection2 inLayoutDirection:v101, MinY - _controlsExpansionYOffset, v190, v84];
-      v261.origin.x = v97;
-      v261.origin.y = y;
-      v261.size.width = v95;
-      v261.size.height = v94;
-      v277.origin.x = v101;
-      v277.origin.y = MinY - _controlsExpansionYOffset;
-      v277.size.width = v190;
-      v277.size.height = v84;
-      v262 = CGRectUnion(v261, v277);
-      v97 = v262.origin.x;
-      y = v262.origin.y;
-      v102 = v262.size.width;
-      v103 = v262.size.height;
-      v104 = v72;
+      v102 = v218 + Width - v192 + v101;
+      [(UIView *)v75 avkit_setFrame:effectiveUserInterfaceLayoutDirection2 inLayoutDirection:v102, MinY - _controlsExpansionYOffset, v192, v84];
+      v263.origin.x = v98;
+      v263.origin.y = y;
+      v263.size.width = v96;
+      v263.size.height = v95;
+      v279.origin.x = v102;
+      v279.origin.y = MinY - _controlsExpansionYOffset;
+      v279.size.width = v192;
+      v279.size.height = v84;
+      v264 = CGRectUnion(v263, v279);
+      v98 = v264.origin.x;
+      y = v264.origin.y;
+      v103 = v264.size.width;
+      v104 = v264.size.height;
+      v105 = v72;
       goto LABEL_58;
     }
 
 LABEL_57:
-    v104 = v72;
-    v102 = v95;
-    v103 = v94;
+    v105 = v72;
+    v103 = v96;
+    v104 = v95;
 LABEL_58:
-    v265.origin.x = v97;
-    v265.origin.y = y;
-    v265.size.width = v102;
-    v265.size.height = v103;
-    v279.origin.y = v207;
-    v279.origin.x = rect;
-    v279.size.height = v205;
-    v279.size.width = v206;
-    v105 = v97;
-    v106 = v102;
+    v267.origin.x = v98;
+    v267.origin.y = y;
+    v267.size.width = v103;
+    v267.size.height = v104;
+    v281.origin.y = v209;
+    v281.origin.x = rect;
+    v281.size.height = v207;
+    v281.size.width = v208;
+    v106 = v98;
     v107 = v103;
-    if (!CGRectEqualToRect(v265, v279))
+    v108 = v104;
+    if (!CGRectEqualToRect(v267, v281))
     {
       [(AVMobileGlassControlsView *)self bounds];
-      v105 = CGRectGetMinX(v266);
+      v106 = CGRectGetMinX(v268);
       [(AVMobileGlassControlsView *)self bounds];
-      v106 = CGRectGetWidth(v267);
+      v107 = CGRectGetWidth(v269);
       currentDevice2 = [MEMORY[0x1E69DC938] currentDevice];
       userInterfaceIdiom = [currentDevice2 userInterfaceIdiom];
-      v110 = 50.0;
+      v111 = 50.0;
       if (userInterfaceIdiom == 1)
       {
-        v110 = 70.0;
+        v111 = 70.0;
       }
 
-      v107 = v103 + v110;
+      v108 = v104 + v111;
     }
 
-    [(AVGlassBackedGroupView *)self->_topControlsContainerView setFrame:v105, y, v106, v107];
-    BYTE1(v236) = v91;
-    HIBYTE(v236) = v93;
+    [(AVGlassBackedGroupView *)self->_topControlsContainerView setFrame:v106, y, v107, v108];
+    BYTE1(v238) = v92;
+    HIBYTE(v238) = v94;
 
-    v111 = v211;
-    if ((contentTabPresented || v200) && self->_contentTabsView && (includedControls & 0x40) != 0)
+    v112 = v213;
+    if ((contentTabPresented || v202) && self->_contentTabsView && (includedControls & 0x40) != 0)
     {
-      v268.origin.x = v97;
-      v268.origin.y = y;
-      recta = v102;
-      v268.size.width = v102;
-      v268.size.height = v103;
-      v112 = controlsPadding + CGRectGetMaxY(v268);
-      v220 = includedControls;
-      v221 = v218;
-      v222 = controlsPadding;
-      v223 = auxiliaryControlsPlacement;
-      v228 = v240;
-      v224 = v211;
-      v225 = contentTabPresented;
-      v226 = contentTabsDismissing;
-      v227 = v200;
-      *v229 = v241[0];
-      *&v229[13] = *(v241 + 13);
-      v230 = left;
-      v231 = bottom;
-      v232 = right;
-      v233 = v104;
-      v234 = v192;
-      v235 = contentTabPresentationHeight;
-      v103 = [(AVMobileGlassControlsView *)&self->super.super.super.super.isa _layoutContentTabsInFrame:&v236 withConfiguration:v216 canFitState:v112, v215, v212 - v103];
-      v115 = v114;
-      v117 = v116;
-      v119 = v118;
-      v269.origin.x = v97;
-      v269.origin.y = y;
-      v269.size.width = recta;
-      v269.size.height = v103;
-      v120 = CGRectGetMaxY(v269);
-      v270.origin.x = v103;
-      v270.origin.y = v115;
-      v270.size.width = v117;
-      v270.size.height = v119;
-      v121 = CGRectGetMinY(v270);
-      v271.origin.x = v97;
+      v270.origin.x = v98;
+      v270.origin.y = y;
+      recta = v103;
+      v270.size.width = v103;
+      v270.size.height = v104;
+      v113 = controlsPadding + CGRectGetMaxY(v270);
+      v222 = includedControls;
+      v223 = v220;
+      v224 = controlsPadding;
+      v225 = auxiliaryControlsPlacement;
+      v230 = v242;
+      v226 = v213;
+      v227 = contentTabPresented;
+      v228 = contentTabsDismissing;
+      v229 = v202;
+      *v231 = v243[0];
+      *&v231[13] = *(v243 + 13);
+      v232 = left;
+      v233 = bottom;
+      v234 = right;
+      v235 = v105;
+      v236 = v194;
+      v237 = contentTabPresentationHeight;
+      v104 = [(AVMobileGlassControlsView *)&self->super.super.super.super.isa _layoutContentTabsInFrame:&v238 withConfiguration:v218 canFitState:v113, v217, v214 - v104];
+      v116 = v115;
+      v118 = v117;
+      v120 = v119;
+      v271.origin.x = v98;
       v271.origin.y = y;
       v271.size.width = recta;
-      v271.size.height = v103;
-      v122 = v121 - CGRectGetMaxY(v271) - controlsPadding;
-      v123 = v185 - contentTabPresentationHeight;
+      v271.size.height = v104;
+      v121 = CGRectGetMaxY(v271);
+      v272.origin.x = v104;
+      v272.origin.y = v116;
+      v272.size.width = v118;
+      v272.size.height = v120;
+      v122 = CGRectGetMinY(v272);
+      v273.origin.x = v98;
+      v273.origin.y = y;
+      v273.size.width = recta;
+      v273.size.height = v104;
+      v123 = v122 - CGRectGetMaxY(v273) - controlsPadding;
+      v124 = v187 - contentTabPresentationHeight;
     }
 
     else
     {
-      v123 = 0.0;
+      v124 = 0.0;
       if ((includedControls & 0x40) != 0)
       {
-        v122 = v187;
-        if (v186 >= v187)
+        v123 = v189;
+        if (v188 >= v189)
         {
-          v120 = v188;
+          v121 = v190;
         }
 
         else
         {
-          v220 = includedControls;
-          v221 = v218;
-          v222 = controlsPadding;
-          v223 = auxiliaryControlsPlacement;
-          v228 = v240;
-          v224 = v211;
-          v225 = contentTabPresented;
-          v226 = contentTabsDismissing;
-          v227 = v200;
-          *v229 = v241[0];
-          *&v229[13] = *(v241 + 13);
-          v230 = left;
-          v231 = bottom;
-          v232 = right;
-          v233 = v104;
-          v234 = v192;
-          v235 = contentTabPresentationHeight;
-          v120 = v188;
-          v272.origin.x = [(AVMobileGlassControlsView *)&self->super.super.super.super.isa _layoutContentTabsInFrame:&v236 withConfiguration:v216 canFitState:v188, v215, v187];
-          v124 = v272.origin.x;
-          v125 = v272.origin.y;
-          v126 = v272.size.width;
-          v127 = v272.size.height;
-          v128 = v236;
-          if (v128 == CGRectEqualToRect(v272, *MEMORY[0x1E695F050]))
+          v222 = includedControls;
+          v223 = v220;
+          v224 = controlsPadding;
+          v225 = auxiliaryControlsPlacement;
+          v230 = v242;
+          v226 = v213;
+          v227 = contentTabPresented;
+          v228 = contentTabsDismissing;
+          v229 = v202;
+          *v231 = v243[0];
+          *&v231[13] = *(v243 + 13);
+          v232 = left;
+          v233 = bottom;
+          v234 = right;
+          v235 = v105;
+          v236 = v194;
+          v237 = contentTabPresentationHeight;
+          v121 = v190;
+          v274.origin.x = [(AVMobileGlassControlsView *)&self->super.super.super.super.isa _layoutContentTabsInFrame:&v238 withConfiguration:v218 canFitState:v190, v217, v189];
+          v125 = v274.origin.x;
+          v126 = v274.origin.y;
+          v127 = v274.size.width;
+          v128 = v274.size.height;
+          v129 = v238;
+          if (v129 == CGRectEqualToRect(v274, *MEMORY[0x1E695F050]))
           {
-            v129 = _AVLog();
-            if (os_log_type_enabled(v129, OS_LOG_TYPE_ERROR))
+            v130 = _AVLog();
+            if (os_log_type_enabled(v130, OS_LOG_TYPE_ERROR))
             {
-              v182 = v236;
-              v276.origin.x = v124;
-              v276.origin.y = v125;
-              v276.size.width = v126;
-              v276.size.height = v127;
-              v183 = NSStringFromCGRect(v276);
+              v184 = v238;
+              v278.origin.x = v125;
+              v278.origin.y = v126;
+              v278.size.width = v127;
+              v278.size.height = v128;
+              v185 = NSStringFromCGRect(v278);
               *buf = 67109378;
-              *&buf[4] = v182;
-              LOWORD(v245) = 2112;
-              *(&v245 + 2) = v183;
-              _os_log_error_impl(&dword_18B49C000, v129, OS_LOG_TYPE_ERROR, "Error: Internal inconsistency. Fitting state and layout rect for content tabs UI does not match. canFitContentTabs: %d  contentTabsLayoutFrame: %@", buf, 0x12u);
+              *&buf[4] = v184;
+              LOWORD(v247) = 2112;
+              *(&v247 + 2) = v185;
+              _os_log_error_impl(&dword_18B49C000, v130, OS_LOG_TYPE_ERROR, "Error: Internal inconsistency. Fitting state and layout rect for content tabs UI does not match. canFitContentTabs: %d  contentTabsLayoutFrame: %@", buf, 0x12u);
 
-              v111 = v211;
+              v112 = v213;
             }
           }
 
-          if (v236 == 1)
+          if (v238 == 1)
           {
-            v273.origin.x = v124;
-            v273.origin.y = v125;
-            v273.size.width = v126;
-            v273.size.height = v127;
-            v120 = v184;
-            v122 = CGRectGetMinY(v273) - v184 - controlsPadding;
+            v275.origin.x = v125;
+            v275.origin.y = v126;
+            v275.size.width = v127;
+            v275.size.height = v128;
+            v121 = v186;
+            v123 = CGRectGetMinY(v275) - v186 - controlsPadding;
           }
         }
       }
 
       else
       {
-        v122 = v187;
-        v120 = v188;
+        v123 = v189;
+        v121 = v190;
       }
     }
 
-    v130 = v111;
-    if (v123 >= MaxY)
+    v131 = v112;
+    if (v124 >= MaxY)
     {
-      v131 = v123;
+      v132 = v124;
     }
 
     else
     {
-      v131 = MaxY;
+      v132 = MaxY;
     }
 
-    v132 = self->_transportControlsContainerView;
-    v133 = self->_transportControlsView;
+    v133 = self->_transportControlsContainerView;
+    v134 = self->_transportControlsView;
     [(AVMobileGlassControlsView *)self bounds];
-    v135 = v134;
-    v137 = v136;
-    v139 = v138;
-    v141 = v140;
+    v136 = v135;
+    v138 = v137;
+    v140 = v139;
+    v142 = v141;
     _controlsExpansionYOffset2 = [(AVMobileGlassControlsView *)self _controlsExpansionYOffset];
     effectiveUserInterfaceLayoutDirection3 = [(AVMobileGlassControlsView *)self effectiveUserInterfaceLayoutDirection];
-    [(AVGlassBackedGroupView *)v132 setFrame:v135, v137, v139, v141];
-    [(UIView *)v133 avkit_setFrame:effectiveUserInterfaceLayoutDirection3 inLayoutDirection:v216, v120 + _controlsExpansionYOffset2, v215, v122];
-    v144 = v130;
+    [(AVGlassBackedGroupView *)v133 setFrame:v136, v138, v140, v142];
+    [(UIView *)v134 avkit_setFrame:effectiveUserInterfaceLayoutDirection3 inLayoutDirection:v218, v121 + _controlsExpansionYOffset2, v217, v123];
+    v146 = v131;
     [(AVMobileGlassControlsView *)self bounds];
-    v146 = v145;
     v148 = v147;
     v150 = v149;
     v152 = v151;
-    v153 = self->_layoutConfiguration.contentTabPresented || self->_layoutConfiguration.contentTabTransitioning;
+    v154 = v153;
+    v155 = self->_layoutConfiguration.contentTabPresented || self->_layoutConfiguration.contentTabTransitioning;
     [(AVMobileGlassControlsView *)self bounds];
-    v156 = 0.0;
-    v157 = 0.0;
-    if (v153)
+    v158 = 0.0;
+    v159 = 0.0;
+    if (v155)
     {
-      if (v154 <= v155)
+      if (v156 <= v157)
       {
-        v158 = 200.0;
+        v160 = 200.0;
       }
 
       else
       {
-        v158 = 20.0;
+        v160 = 20.0;
       }
 
-      v159 = 60.0;
-      if (v154 > v155)
+      v161 = 60.0;
+      if (v156 > v157)
       {
-        v159 = -30.0;
+        v161 = -30.0;
       }
 
-      v160 = v131 + v159;
-      v274.origin.x = v216;
-      v274.origin.y = v160;
-      v274.size.width = v215;
-      v274.size.height = v158;
-      v161 = CGRectGetMaxY(v274);
-      v275.origin.x = v216;
-      v275.origin.y = v160;
-      v275.size.width = v215;
-      v275.size.height = v158;
-      v156 = v161 / v152;
-      v157 = CGRectGetMinY(v275) / v152;
+      v162 = v132 + v161;
+      v276.origin.x = v218;
+      v276.origin.y = v162;
+      v276.size.width = v217;
+      v276.size.height = v160;
+      v163 = CGRectGetMaxY(v276);
+      v277.origin.x = v218;
+      v277.origin.y = v162;
+      v277.size.width = v217;
+      v277.size.height = v160;
+      v158 = v163 / v154;
+      v159 = CGRectGetMinY(v277) / v154;
     }
 
-    v162 = [MEMORY[0x1E696AD98] numberWithDouble:v157];
-    *buf = v162;
-    v163 = [MEMORY[0x1E696AD98] numberWithDouble:v156];
-    *&v245 = v163;
-    *(&v245 + 1) = &unk_1EFF130E0;
-    v164 = [MEMORY[0x1E695DEC8] arrayWithObjects:buf count:3];
+    v164 = [MEMORY[0x1E696AD98] numberWithDouble:v159];
+    *buf = v164;
+    v165 = [MEMORY[0x1E696AD98] numberWithDouble:v158];
+    *&v247 = v165;
+    *(&v247 + 1) = &unk_1EFF130E0;
+    v166 = [MEMORY[0x1E695DEC8] arrayWithObjects:buf count:3];
 
     [MEMORY[0x1E6979518] begin];
     [MEMORY[0x1E6979518] setDisableActions:1];
-    [(CAGradientLayer *)self->_transportControlsContainerMask setFrame:v146, v148, v150, v152];
-    [(CAGradientLayer *)self->_transportControlsContainerMask setLocations:v164];
+    [(CAGradientLayer *)self->_transportControlsContainerMask setFrame:v148, v150, v152, v154];
+    [(CAGradientLayer *)self->_transportControlsContainerMask setLocations:v166];
     [MEMORY[0x1E6979518] commit];
   }
 
-  v165 = v236;
+  v167 = v238;
   *buf = self->_contentTabsView;
-  *&v245 = self->_displayModeControlsView;
-  *(&v245 + 1) = self->_playbackControlsView;
-  v246 = self->_volumeControlsView;
-  v237 = v165 & 0x101;
-  v238 = BYTE2(v165) & 1;
-  v239 = HIBYTE(v165) & 1;
+  *&v247 = self->_displayModeControlsView;
+  *(&v247 + 1) = self->_playbackControlsView;
+  v248 = self->_volumeControlsView;
+  v239 = v167 & 0x101;
+  v240 = BYTE2(v167) & 1;
+  v241 = HIBYTE(v167) & 1;
   array = [MEMORY[0x1E695DF70] array];
   array2 = [MEMORY[0x1E695DF70] array];
   for (i = 0; i != 4; ++i)
   {
-    v169 = *&buf[8 * i];
-    v170 = v169;
-    if (v169)
+    v171 = *&buf[8 * i];
+    v172 = v171;
+    if (v171)
     {
-      v171 = *(&v237 + i);
-      if ([v169 isHidden] == v171)
+      v173 = *(&v239 + i);
+      if ([v171 isHidden] == v173)
       {
-        [v170 setHidden:v171 ^ 1u];
-        if (v171)
+        [v172 setHidden:v173 ^ 1u];
+        if (v173)
         {
-          v172 = array2;
+          v174 = array2;
         }
 
         else
         {
-          v172 = array;
+          v174 = array;
         }
 
-        [v172 addObject:v170];
+        [v174 addObject:v172];
       }
     }
   }
 
   if ([array count])
   {
-    v173 = array;
-    [(AVMobileGlassControlsView *)self _detachViews:v173];
-    if (v173)
+    v175 = array;
+    [(AVMobileGlassControlsView *)self _detachViews:v175];
+    if (v175)
     {
-      if ([v173 count])
+      if ([v175 count])
       {
         delegate = [(AVMobileGlassControlsView *)self delegate];
-        v175 = objc_opt_respondsToSelector();
+        v177 = objc_opt_respondsToSelector();
 
-        if (v175)
+        if (v177)
         {
           delegate2 = [(AVMobileGlassControlsView *)self delegate];
-          [delegate2 glassControlsView:self didDetachControlsViews:v173];
+          [delegate2 glassControlsView:self didDetachControlsViews:v175];
         }
       }
     }
@@ -869,19 +869,19 @@ LABEL_58:
 
   if ([array2 count])
   {
-    v177 = array2;
-    [(AVMobileGlassControlsView *)self _attachViews:v177];
-    if (v177)
+    v179 = array2;
+    [(AVMobileGlassControlsView *)self _attachViews:v179];
+    if (v179)
     {
-      if ([v177 count])
+      if ([v179 count])
       {
         delegate3 = [(AVMobileGlassControlsView *)self delegate];
-        v179 = objc_opt_respondsToSelector();
+        v181 = objc_opt_respondsToSelector();
 
-        if (v179)
+        if (v181)
         {
           delegate4 = [(AVMobileGlassControlsView *)self delegate];
-          [delegate4 glassControlsView:self didAttachControlsViews:v177];
+          [delegate4 glassControlsView:self didAttachControlsViews:v179];
         }
       }
     }
@@ -892,9 +892,9 @@ LABEL_58:
   }
 
 LABEL_114:
-  v217.receiver = self;
-  v217.super_class = AVMobileGlassControlsView;
-  [(AVView *)&v217 layoutSubviews];
+  v219.receiver = self;
+  v219.super_class = AVMobileGlassControlsView;
+  [(AVView *)&v219 layoutSubviews];
 }
 
 - (double)_layoutContentTabsInFrame:(_BYTE *)frame withConfiguration:(double)configuration canFitState:(double)state
@@ -902,98 +902,98 @@ LABEL_114:
   v13 = self[69];
   v14 = *(a2 + 24);
   [self layoutMargins];
-  v56 = v16;
-  v57 = v15;
+  v57 = v16;
+  v58 = v15;
   v18 = v17;
   v20 = v19;
   effectiveUserInterfaceLayoutDirection = [self effectiveUserInterfaceLayoutDirection];
   _controlsExpansionYOffset = [(AVMobileGlassControlsView *)self _controlsExpansionYOffset];
   [v13 intrinsicContentSize];
-  v24 = v23;
-  v58 = v14 + v23 + 50.0;
-  v25 = state + a7;
-  v26 = *(a2 + 128);
-  v55 = a6;
-  if (v26 == 1 && (*(a2 + 50) & 1) == 0)
+  v25 = v24;
+  v59 = v14 + v24 + 50.0;
+  v26 = state + a7;
+  v27 = *(a2 + 128);
+  v56 = a6;
+  if (v27 == 1 && (*(a2 + 50) & 1) == 0)
   {
-    v27 = *(a2 + 48);
+    v28 = *(a2 + 48);
   }
 
   else
   {
-    v27 = 1;
+    v28 = 1;
   }
 
-  v28 = *&v27 & ((*a2 & 0x40) >> 6);
+  v29 = *&v28 & ((*a2 & 0x40) >> 6);
   if (v13)
   {
-    v29 = *&v27 & ((*a2 & 0x40) >> 6);
+    v30 = *&v28 & ((*a2 & 0x40) >> 6);
   }
 
   else
   {
-    v29 = 0;
-  }
-
-  if (a7 >= v58)
-  {
-    v30 = 1;
-  }
-
-  else
-  {
-    v29 = 0;
     v30 = 0;
   }
 
-  v31 = v30 & v28;
-  if ((v30 & v28) != 0)
+  if (a7 >= v59)
   {
-    v32 = v25 - v23;
+    v31 = 1;
   }
 
   else
   {
-    v32 = state + a7;
+    v30 = 0;
+    v31 = 0;
+  }
+
+  v32 = v31 & v29;
+  if ((v31 & v29) != 0)
+  {
+    v33 = v26 - v24;
+  }
+
+  else
+  {
+    v33 = state + a7;
   }
 
   configurationCopy = configuration;
-  if (v26 == 1)
+  if (v27 == 1)
   {
-    v34 = v25 + v14;
+    v35 = v26 + v14;
     if (*(a2 + 49))
     {
-      v32 = v34;
+      v33 = v35;
     }
   }
 
-  v35 = _controlsExpansionYOffset;
-  v54 = v20;
-  if (!v29)
+  v36 = _controlsExpansionYOffset;
+  v55 = v20;
+  if (!v30)
   {
-    v37 = v23;
+    v38 = v24;
     goto LABEL_34;
   }
 
-  v36 = *(a2 + 136) - v23 - v14 - v20;
-  if (v36 <= 0.0)
+  v37 = *(a2 + 136) - v24 - v14 - v20;
+  if (v37 <= 0.0)
   {
-    v36 = a7 - v23 - v14;
+    v37 = a7 - v24 - v14;
   }
 
-  if (v36 >= a7 - v23 - v14)
+  if (v37 >= a7 - v24 - v14)
   {
-    v36 = a7 - v23 - v14;
+    v37 = a7 - v24 - v14;
   }
 
-  if (v36 >= 50.0)
+  if (v37 >= 50.0)
   {
-    v37 = v36;
+    v38 = v37;
   }
 
   else
   {
-    v37 = 50.0;
+    v38 = 50.0;
   }
 
   if ((*(a2 + 50) & 1) == 0)
@@ -1010,63 +1010,63 @@ LABEL_114:
   {
 LABEL_30:
     [self bounds];
-    v39 = 0.0;
-    if (v40 > v41)
+    v40 = 0.0;
+    if (v41 > v42)
     {
-      v39 = v18;
+      v40 = v18;
     }
 
-    v32 = v32 - (v37 - v20 + v39);
-    v38 = v14 + v20 + v20 + v24;
+    v33 = v33 - (v38 - v20 + v40);
+    v39 = v14 + v20 + v20 + v25;
     goto LABEL_33;
   }
 
-  v32 = v32 - (v14 - v18);
-  v38 = v14 - v20;
+  v33 = v33 - (v14 - v18);
+  v39 = v14 - v20;
 LABEL_33:
-  v37 = v38 + v37;
+  v38 = v39 + v38;
 LABEL_34:
-  v42 = configurationCopy - v57;
-  v43 = v35 + v32;
-  [self[69] avkit_setFrame:effectiveUserInterfaceLayoutDirection inLayoutDirection:{configurationCopy - v57, v35 + v32, v56 + v55 + v57, v37}];
-  v45 = *MEMORY[0x1E695F050];
-  v44 = *(MEMORY[0x1E695F050] + 8);
-  v47 = *(MEMORY[0x1E695F050] + 16);
-  v46 = *(MEMORY[0x1E695F050] + 24);
-  if (v31)
+  v43 = configurationCopy - v58;
+  v44 = v36 + v33;
+  [self[69] avkit_setFrame:effectiveUserInterfaceLayoutDirection inLayoutDirection:{configurationCopy - v58, v36 + v33, v57 + v56 + v58, v38}];
+  v46 = *MEMORY[0x1E695F050];
+  v45 = *(MEMORY[0x1E695F050] + 8);
+  v48 = *(MEMORY[0x1E695F050] + 16);
+  v47 = *(MEMORY[0x1E695F050] + 24);
+  if (v32)
   {
     [self safeAreaInsets];
-    if (v48 < v57)
+    if (v49 < v58)
     {
-      v48 = v57;
+      v49 = v58;
     }
 
-    if (v49 < v56)
+    if (v50 < v57)
     {
-      v49 = v56;
+      v50 = v57;
     }
 
-    [self[69] setLayoutMargins:{v18, v48, v54, v49}];
-    v62.origin.x = v45;
-    v62.origin.y = v44;
-    v62.size.width = v47;
-    v62.size.height = v46;
-    v64.origin.x = v42;
-    v64.origin.y = v43;
-    v64.size.width = v56 + v55 + v57;
-    v64.size.height = v37;
-    *&v45 = CGRectUnion(v62, v64);
+    [self[69] setLayoutMargins:{v18, v49, v55, v50}];
+    v63.origin.x = v46;
+    v63.origin.y = v45;
+    v63.size.width = v48;
+    v63.size.height = v47;
+    v65.origin.x = v43;
+    v65.origin.y = v44;
+    v65.size.width = v57 + v56 + v58;
+    v65.size.height = v38;
+    *&v46 = CGRectUnion(v63, v65);
     if (*(a2 + 48) == 1)
     {
       [self bounds];
-      MaxY = CGRectGetMaxY(v63);
-      if (*(a2 + 48) == 1 && MaxY - v43 != *(a2 + 136))
+      MaxY = CGRectGetMaxY(v64);
+      if (*(a2 + 48) == 1 && MaxY - v44 != *(a2 + 136))
       {
-        v51 = _AVLog();
-        if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+        v52 = _AVLog();
+        if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
         {
-          *v61 = 0;
-          _os_log_error_impl(&dword_18B49C000, v51, OS_LOG_TYPE_ERROR, "The content tabs layout frame height does not match the given contentTabsPresentationHeight.", v61, 2u);
+          *v62 = 0;
+          _os_log_error_impl(&dword_18B49C000, v52, OS_LOG_TYPE_ERROR, "The content tabs layout frame height does not match the given contentTabsPresentationHeight.", v62, 2u);
         }
       }
     }
@@ -1074,20 +1074,20 @@ LABEL_34:
 
   if (frame)
   {
-    *frame = (a7 >= v58) & v28;
+    *frame = (a7 >= v59) & v29;
   }
 
   else
   {
-    v52 = _AVLog();
-    if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+    v53 = _AVLog();
+    if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_error_impl(&dword_18B49C000, v52, OS_LOG_TYPE_ERROR, "Error: Internal inconsistency. AVMobileGlassControlsViewCanFitState cannot be nil.", buf, 2u);
+      _os_log_error_impl(&dword_18B49C000, v53, OS_LOG_TYPE_ERROR, "Error: Internal inconsistency. AVMobileGlassControlsViewCanFitState cannot be nil.", buf, 2u);
     }
   }
 
-  return v45;
+  return v46;
 }
 
 - (void)_attachViews:(uint64_t)views
@@ -1172,7 +1172,7 @@ LABEL_34:
 
 - (double)_controlsExpansionYOffset
 {
-  [self layoutConfiguration];
+  objc_msgSend_layoutConfiguration(self, a2, 0, 0);
 
   return 0.0;
 }

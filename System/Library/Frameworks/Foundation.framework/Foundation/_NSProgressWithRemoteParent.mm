@@ -28,7 +28,7 @@
   v9[1] = v5;
   v9[2] = *&completed->var1.total;
   [(NSProgress *)&v10 _updateFractionCompleted:v9];
-  if ((_NSProgressFractionIsEqual(&completed->var0.completed, &completed->var1.completed) & 1) == 0)
+  if (!_NSProgressFractionIsEqual(&completed->var0.completed, &completed->var1.completed))
   {
     v6 = xpc_dictionary_create(0, 0, 0);
     completed = completed->var1.completed;
@@ -47,7 +47,7 @@
   v17.receiver = self;
   v17.super_class = _NSProgressWithRemoteParent;
   [(NSProgress *)&v17 _setUserInfoValue:value forKey:key fromChild:child];
-  if ([key isEqualToString:@"NSProgressThroughputKey"])
+  if (objc_msgSend_isEqualToString_(key))
   {
     v8 = xpc_dictionary_create(0, 0, 0);
     xpc_dictionary_set_BOOL(v8, "isUserInfo", 1);
@@ -75,7 +75,7 @@
     v13 = 1;
   }
 
-  else if ([key isEqualToString:@"NSProgressEstimatedTimeRemainingKey"])
+  else if (objc_msgSend_isEqualToString_(key))
   {
     v8 = xpc_dictionary_create(0, 0, 0);
     xpc_dictionary_set_BOOL(v8, "isUserInfo", 1);
@@ -103,7 +103,7 @@
     v13 = 2;
   }
 
-  else if ([key isEqualToString:@"_NSProgressRemoteLocalizedDescriptionKey"])
+  else if (objc_msgSend_isEqualToString_(key))
   {
     v8 = xpc_dictionary_create(0, 0, 0);
     xpc_dictionary_set_BOOL(v8, "isUserInfo", 1);
@@ -127,7 +127,7 @@
     v13 = 3;
   }
 
-  else if ([key isEqualToString:@"_NSProgressRemoteLocalizedAdditionalDescriptionKey"])
+  else if (objc_msgSend_isEqualToString_(key))
   {
     v8 = xpc_dictionary_create(0, 0, 0);
     xpc_dictionary_set_BOOL(v8, "isUserInfo", 1);
@@ -151,7 +151,7 @@
     v13 = 4;
   }
 
-  else if ([key isEqualToString:@"NSProgressFileCompletedCountKey"])
+  else if (objc_msgSend_isEqualToString_(key))
   {
     v8 = xpc_dictionary_create(0, 0, 0);
     xpc_dictionary_set_BOOL(v8, "isUserInfo", 1);
@@ -181,7 +181,7 @@
 
   else
   {
-    if (![key isEqualToString:@"NSProgressFileTotalCountKey"])
+    if (!objc_msgSend_isEqualToString_(key))
     {
       return;
     }

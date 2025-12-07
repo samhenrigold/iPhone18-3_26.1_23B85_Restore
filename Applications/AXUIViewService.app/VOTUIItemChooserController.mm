@@ -14,8 +14,10 @@
 - (void)_keyboardWillHide:(id)hide;
 - (void)_keyboardWillShow:(id)show;
 - (void)_loadGuidedAccessBundle;
+- (void)_updateGuidedAccessWindowId:(unsigned int)id;
 - (void)_updatePositionForKeyboard:(CGRect)keyboard;
 - (void)_updateSelectedRow:(id)row;
+- (void)hideItemChooser:(BOOL)chooser;
 - (void)showItemChooser:(id)chooser;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)tableView:(id)view willDisplayCell:(id)cell forRowAtIndexPath:(id)path;
@@ -236,6 +238,19 @@
   -[VOTUIItemChooserController _updateGuidedAccessWindowId:](self, "_updateGuidedAccessWindowId:", [window _contextId]);
 }
 
+- (void)_updateGuidedAccessWindowId:(unsigned int)id
+{
+  v3 = *&id;
+  if (_AXSGuidedAccessEnabled())
+  {
+    v4 = [AXSafeClassFromString() safeValueForKey:@"sharedInstance"];
+    if ([v4 isActive])
+    {
+      [v4 voiceOverItemChooserDidShow:v3];
+    }
+  }
+}
+
 - (void)_loadGuidedAccessBundle
 {
   if (_AXSGuidedAccessEnabled())
@@ -382,6 +397,26 @@ LABEL_19:
   }
 
   return v6;
+}
+
+- (void)hideItemChooser:(BOOL)chooser
+{
+  delegate = [(VOTUIItemChooserController *)self delegate];
+
+  if (delegate)
+  {
+    v6[0] = _NSConcreteStackBlock;
+    v6[1] = 3221225472;
+    v6[2] = sub_10000FA20;
+    v6[3] = &unk_100028758;
+    v6[4] = self;
+    v5[0] = _NSConcreteStackBlock;
+    v5[1] = 3221225472;
+    v5[2] = sub_10000FA68;
+    v5[3] = &unk_100028808;
+    v5[4] = self;
+    [UIView animateWithDuration:v6 animations:v5 completion:0.2];
+  }
 }
 
 - (void)_handleSearchFieldTextChange:(id)change

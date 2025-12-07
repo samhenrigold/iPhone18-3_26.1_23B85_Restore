@@ -62,16 +62,16 @@ void __64__PHNumberPadKeyCommandHandler_initWithViewController_selector___block_
 
 - (void)handleKeyCommand:(id)command receivedCharacterBlock:(id)block receivedSpecialCharacterBlock:(id)characterBlock
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   commandCopy = command;
   blockCopy = block;
   characterBlockCopy = characterBlock;
-  v11 = PHDefaultLog();
+  v11 = PHDefaultLog(characterBlockCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v24 = 138412290;
-    v25 = commandCopy;
-    _os_log_impl(&dword_2429BC000, v11, OS_LOG_TYPE_DEFAULT, "Handling key command - %@", &v24, 0xCu);
+    v25 = 138412290;
+    v26 = commandCopy;
+    _os_log_impl(&dword_2429BC000, v11, OS_LOG_TYPE_DEFAULT, "Handling key command - %@", &v25, 0xCu);
   }
 
   if (characterBlockCopy)
@@ -81,33 +81,33 @@ void __64__PHNumberPadKeyCommandHandler_initWithViewController_selector___block_
 
     if (v13)
     {
-      v14 = PHDefaultLog();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v15 = PHDefaultLog(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v24) = 0;
-        _os_log_impl(&dword_2429BC000, v14, OS_LOG_TYPE_DEFAULT, "Calling callback for PHNumberPadKeyCommandHandlerSpecialCharacterDial", &v24, 2u);
+        LOWORD(v25) = 0;
+        _os_log_impl(&dword_2429BC000, v15, OS_LOG_TYPE_DEFAULT, "Calling callback for PHNumberPadKeyCommandHandlerSpecialCharacterDial", &v25, 2u);
       }
 
-      v15 = 1;
+      v16 = 1;
 LABEL_12:
 
-      characterBlockCopy[2](characterBlockCopy, v15);
+      characterBlockCopy[2](characterBlockCopy, v16);
       goto LABEL_13;
     }
 
     input2 = [commandCopy input];
-    v17 = [input2 isEqualToString:@"\b"];
+    v18 = [input2 isEqualToString:@"\b"];
 
-    if (v17)
+    if (v18)
     {
-      v14 = PHDefaultLog();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v15 = PHDefaultLog(v19);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v24) = 0;
-        _os_log_impl(&dword_2429BC000, v14, OS_LOG_TYPE_DEFAULT, "Calling callback for PHNumberPadKeyCommandHandlerSpecialCharacterBackspace", &v24, 2u);
+        LOWORD(v25) = 0;
+        _os_log_impl(&dword_2429BC000, v15, OS_LOG_TYPE_DEFAULT, "Calling callback for PHNumberPadKeyCommandHandlerSpecialCharacterBackspace", &v25, 2u);
       }
 
-      v15 = 0;
+      v16 = 0;
       goto LABEL_12;
     }
   }
@@ -116,25 +116,23 @@ LABEL_13:
   if (blockCopy)
   {
     input3 = [commandCopy input];
-    v19 = [(PHNumberPadKeyCommandHandler *)self numberPadCharacterForString:input3];
+    v21 = [(PHNumberPadKeyCommandHandler *)self numberPadCharacterForString:input3];
 
-    v20 = [(PHNumberPadKeyCommandHandler *)self characterForNumberPadCharacter:v19];
-    if (v20)
+    v22 = [(PHNumberPadKeyCommandHandler *)self characterForNumberPadCharacter:v21];
+    if (v22)
     {
-      v21 = v20;
-      v22 = PHDefaultLog();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      v23 = v22;
+      v24 = PHDefaultLog(v22);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
-        v24 = 67109120;
-        LODWORD(v25) = v21;
-        _os_log_impl(&dword_2429BC000, v22, OS_LOG_TYPE_DEFAULT, "Calling callback for character '%c'", &v24, 8u);
+        v25 = 67109120;
+        LODWORD(v26) = v23;
+        _os_log_impl(&dword_2429BC000, v24, OS_LOG_TYPE_DEFAULT, "Calling callback for character '%c'", &v25, 8u);
       }
 
-      blockCopy[2](blockCopy, v21);
+      blockCopy[2](blockCopy, v23);
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (char)characterForNumberPadCharacter:(int64_t)character
@@ -152,7 +150,7 @@ LABEL_13:
 
 - (int64_t)numberPadCharacterForString:(id)string
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   v4 = [objc_alloc(MEMORY[0x277CBEB38]) initWithDictionary:&unk_285537DC8];
   for (i = 0; i != 12; ++i)
@@ -166,27 +164,27 @@ LABEL_13:
   }
 
   localizedLowercaseString2 = [stringCopy localizedLowercaseString];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   allKeys = [v4 allKeys];
-  v12 = [allKeys countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v12 = [allKeys countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v22;
+    v14 = *v21;
     intValue = 13;
     while (2)
     {
       for (j = 0; j != v13; ++j)
       {
-        if (*v22 != v14)
+        if (*v21 != v14)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v17 = *(*(&v21 + 1) + 8 * j);
+        v17 = *(*(&v20 + 1) + 8 * j);
         if ([v17 containsString:localizedLowercaseString2])
         {
           v18 = [v4 objectForKeyedSubscript:v17];
@@ -196,7 +194,7 @@ LABEL_13:
         }
       }
 
-      v13 = [allKeys countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v13 = [allKeys countByEnumeratingWithState:&v20 objects:v24 count:16];
       if (v13)
       {
         continue;
@@ -213,7 +211,6 @@ LABEL_13:
 
 LABEL_14:
 
-  v19 = *MEMORY[0x277D85DE8];
   return intValue;
 }
 

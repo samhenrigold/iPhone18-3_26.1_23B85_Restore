@@ -39,7 +39,7 @@
   contactCopy = contact;
   profileCopy = profile;
   swift_unknownObjectRetain();
-  return sub_199B61334(configurationCopy, contactCopy, profileCopy, mode);
+  return sub_199B61334(configurationCopy, contactCopy, profileCopy, mode, delegate);
 }
 
 - (void)dealloc
@@ -64,7 +64,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_199B619D0();
+  sub_199B619D0(selfCopy, v2);
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator
@@ -110,8 +110,9 @@
 
 - (void)viewWillDisappear:(BOOL)disappear
 {
+  disappearCopy = disappear;
   selfCopy = self;
-  sub_199B62AF0(disappear);
+  sub_199B62AF0(disappearCopy);
 }
 
 - (int64_t)collectionView:(id)view numberOfItemsInSection:(int64_t)section
@@ -140,49 +141,50 @@
 {
   v6 = sub_199DF738C();
   v7 = *(v6 - 8);
-  MEMORY[0x1EEE9AC00](v6, v8);
-  v10 = &v16 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v6);
+  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_199DF732C();
   viewCopy = view;
   selfCopy = self;
   sub_199B62CE8(viewCopy);
-  v14 = v13;
+  v13 = v12;
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 
-  return v14;
+  return v13;
 }
 
 - (id)collectionView:(id)view viewForSupplementaryElementOfKind:(id)kind atIndexPath:(id)path
 {
   v7 = sub_199DF738C();
   v8 = *(v7 - 8);
-  MEMORY[0x1EEE9AC00](v7, v9);
-  v11 = &v17 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_199DF9F8C();
+  MEMORY[0x1EEE9AC00](v7);
+  v10 = &v19 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = sub_199DF9F8C();
+  v13 = v12;
   sub_199DF732C();
   viewCopy = view;
   selfCopy = self;
-  sub_199B631DC(viewCopy);
-  v15 = v14;
+  sub_199B631DC(viewCopy, v11, v13);
+  v17 = v16;
 
-  (*(v8 + 8))(v11, v7);
+  (*(v8 + 8))(v10, v7);
 
-  return v15;
+  return v17;
 }
 
 - (void)collectionView:(id)view didSelectItemAtIndexPath:(id)path
 {
   v6 = sub_199DF738C();
   v7 = *(v6 - 8);
-  MEMORY[0x1EEE9AC00](v6, v8);
-  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v6);
+  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_199DF732C();
   viewCopy = view;
   selfCopy = self;
   sub_199B6B178();
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (void)editingViewController:(id)controller didFinishWithConfiguration:(id)configuration

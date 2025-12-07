@@ -13,10 +13,10 @@
 
 - (SSVellumOpacityControl)initWithFrame:(CGRect)frame
 {
-  v66[3] = *MEMORY[0x1E69E9840];
-  v64.receiver = self;
-  v64.super_class = SSVellumOpacityControl;
-  v3 = [(SSVellumOpacityControl *)&v64 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v68[3] = *MEMORY[0x1E69E9840];
+  v66.receiver = self;
+  v66.super_class = SSVellumOpacityControl;
+  v3 = [(SSVellumOpacityControl *)&v66 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
   v4 = objc_alloc_init(MEMORY[0x1E69DCF60]);
   slider = v3->_slider;
   v3->_slider = v4;
@@ -29,7 +29,7 @@
   v8 = [whiteColor colorWithAlphaComponent:0.4];
 
   [(UISlider *)v3->_slider setMinimumTrackTintColor:v8];
-  v63 = v8;
+  v65 = v8;
   [(UISlider *)v3->_slider setMaximumTrackTintColor:v8];
   v9 = v3->_slider;
   if (SSVellumOpacityControlKnobImage_onceToken != -1)
@@ -43,7 +43,7 @@
   [v10 applyToView:_minTrackView];
 
   _maxTrackView = [(UISlider *)v3->_slider _maxTrackView];
-  v62 = v10;
+  v64 = v10;
   [v10 applyToView:_maxTrackView];
 
   v13 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"app"];
@@ -59,7 +59,7 @@
 
   v21 = [v20 imageWithRenderingMode:2];
 
-  v61 = v17;
+  v63 = v17;
   v22 = [objc_alloc(MEMORY[0x1E69DCAE0]) initWithImage:v17];
   leadingImageView = v3->_leadingImageView;
   v3->_leadingImageView = v22;
@@ -85,61 +85,61 @@
   [(UIImageView *)v3->_leadingImageView setShowsLargeContentViewer:1];
   [(UIImageView *)v3->_trailingImageView setShowsLargeContentViewer:1];
   v32 = +[SSMaterial vellumOpacitySliderValueImage];
-  [v32 applyToView:v3->_leadingImageView];
-  if (_SSScreenshotsRedesign2025Enabled())
+  v33 = [v32 applyToView:v3->_leadingImageView];
+  if (_SSScreenshotsRedesign2025Enabled(v33, v34))
   {
     [(UISlider *)v3->_slider setTranslatesAutoresizingMaskIntoConstraints:0];
     [(UIImageView *)v3->_leadingImageView setTranslatesAutoresizingMaskIntoConstraints:0];
     [(UIImageView *)v3->_trailingImageView setTranslatesAutoresizingMaskIntoConstraints:0];
-    v59 = v32;
-    v60 = v21;
-    v33 = objc_alloc(MEMORY[0x1E69DCF90]);
-    v66[0] = v3->_leadingImageView;
-    v66[1] = v3->_slider;
-    v66[2] = v3->_trailingImageView;
-    v34 = [MEMORY[0x1E695DEC8] arrayWithObjects:v66 count:3];
-    v35 = [v33 initWithArrangedSubviews:v34];
+    v61 = v32;
+    v62 = v21;
+    v35 = objc_alloc(MEMORY[0x1E69DCF90]);
+    v68[0] = v3->_leadingImageView;
+    v68[1] = v3->_slider;
+    v68[2] = v3->_trailingImageView;
+    v36 = [MEMORY[0x1E695DEC8] arrayWithObjects:v68 count:3];
+    v37 = [v35 initWithArrangedSubviews:v36];
     containerStackView = v3->_containerStackView;
-    v3->_containerStackView = v35;
+    v3->_containerStackView = v37;
 
     [(UIStackView *)v3->_containerStackView setAxis:0];
     [(UIStackView *)v3->_containerStackView setAlignment:3];
     [(UIStackView *)v3->_containerStackView setSpacing:15.0];
     [(UIStackView *)v3->_containerStackView setTranslatesAutoresizingMaskIntoConstraints:0];
     [(SSVellumOpacityControl *)v3 addSubview:v3->_containerStackView];
-    v51 = MEMORY[0x1E696ACD8];
+    v53 = MEMORY[0x1E696ACD8];
     widthAnchor = [(UIImageView *)v3->_leadingImageView widthAnchor];
-    v57 = [widthAnchor constraintEqualToConstant:17.0];
-    v65[0] = v57;
+    v59 = [widthAnchor constraintEqualToConstant:17.0];
+    v67[0] = v59;
     heightAnchor = [(UIImageView *)v3->_leadingImageView heightAnchor];
-    v55 = [heightAnchor constraintEqualToConstant:17.0];
-    v65[1] = v55;
+    v57 = [heightAnchor constraintEqualToConstant:17.0];
+    v67[1] = v57;
     widthAnchor2 = [(UIImageView *)v3->_trailingImageView widthAnchor];
-    v53 = [widthAnchor2 constraintEqualToConstant:17.0];
-    v65[2] = v53;
+    v55 = [widthAnchor2 constraintEqualToConstant:17.0];
+    v67[2] = v55;
     heightAnchor2 = [(UIImageView *)v3->_trailingImageView heightAnchor];
-    v50 = [heightAnchor2 constraintEqualToConstant:17.0];
-    v65[3] = v50;
+    v52 = [heightAnchor2 constraintEqualToConstant:17.0];
+    v67[3] = v52;
     heightAnchor3 = [(UISlider *)v3->_slider heightAnchor];
-    v48 = [heightAnchor3 constraintEqualToConstant:44.0];
-    v65[4] = v48;
+    v50 = [heightAnchor3 constraintEqualToConstant:44.0];
+    v67[4] = v50;
     leadingAnchor = [(UIStackView *)v3->_containerStackView leadingAnchor];
     leadingAnchor2 = [(SSVellumOpacityControl *)v3 leadingAnchor];
-    v38 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:8.0];
-    v65[5] = v38;
+    v40 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:8.0];
+    v67[5] = v40;
     trailingAnchor = [(UIStackView *)v3->_containerStackView trailingAnchor];
     trailingAnchor2 = [(SSVellumOpacityControl *)v3 trailingAnchor];
-    v41 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2 constant:-8.0];
-    v65[6] = v41;
+    v43 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2 constant:-8.0];
+    v67[6] = v43;
     centerYAnchor = [(UIStackView *)v3->_containerStackView centerYAnchor];
     centerYAnchor2 = [(SSVellumOpacityControl *)v3 centerYAnchor];
-    v44 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-    v65[7] = v44;
-    v45 = [MEMORY[0x1E695DEC8] arrayWithObjects:v65 count:8];
-    [v51 activateConstraints:v45];
+    v46 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
+    v67[7] = v46;
+    v47 = [MEMORY[0x1E695DEC8] arrayWithObjects:v67 count:8];
+    [v53 activateConstraints:v47];
 
-    v21 = v60;
-    v32 = v59;
+    v21 = v62;
+    v32 = v61;
   }
 
   else
@@ -154,7 +154,7 @@
 
 - (CGSize)intrinsicContentSize
 {
-  if (_SSScreenshotsRedesign2025Enabled())
+  if (_SSScreenshotsRedesign2025Enabled(self, a2))
   {
     +[SSVellumOpacityControl preferredWidth];
   }
@@ -182,7 +182,7 @@
 
 + (double)preferredWidth
 {
-  v2 = _SSScreenshotsRedesign2025Enabled();
+  v2 = _SSScreenshotsRedesign2025Enabled(self, a2);
   result = 233.0;
   if (v2)
   {
@@ -194,23 +194,23 @@
 
 - (void)layoutSubviews
 {
-  v15.receiver = self;
-  v15.super_class = SSVellumOpacityControl;
-  [(SSVellumOpacityControl *)&v15 layoutSubviews];
-  if ((_SSScreenshotsRedesign2025Enabled() & 1) == 0)
+  v17.receiver = self;
+  v17.super_class = SSVellumOpacityControl;
+  layoutSubviews = [(SSVellumOpacityControl *)&v17 layoutSubviews];
+  if ((_SSScreenshotsRedesign2025Enabled(layoutSubviews, v4) & 1) == 0)
   {
     [(SSVellumOpacityControl *)self bounds];
-    v4 = v3;
-    UIRectCenteredYInRect();
     v6 = v5;
+    UIRectCenteredYInRect();
     v8 = v7;
     v10 = v9;
     v12 = v11;
+    v14 = v13;
     _leftImageView = [(SSVellumOpacityControl *)self _leftImageView];
-    [_leftImageView setFrame:{v6, v8, v10, v12}];
+    [_leftImageView setFrame:{v8, v10, v12, v14}];
 
     _rightImageView = [(SSVellumOpacityControl *)self _rightImageView];
-    [_rightImageView setFrame:{v4 - v10, v8, v10, v12}];
+    [_rightImageView setFrame:{v6 - v12, v10, v12, v14}];
 
     UIRectCenteredIntegralRect();
     [(UISlider *)self->_slider setFrame:?];

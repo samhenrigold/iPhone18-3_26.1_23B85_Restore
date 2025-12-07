@@ -111,10 +111,10 @@ double __68__AKOverlayViewAccessibility__accessibilityCreateOverlayViewElement__
 
 - (id)accessibilityElements
 {
-  v36 = *MEMORY[0x29EDCA608];
-  v33.receiver = self;
-  v33.super_class = AKOverlayViewAccessibility;
-  accessibilityElements = [(AKOverlayViewAccessibility *)&v33 accessibilityElements];
+  v35 = *MEMORY[0x29EDCA608];
+  v32.receiver = self;
+  v32.super_class = AKOverlayViewAccessibility;
+  accessibilityElements = [(AKOverlayViewAccessibility *)&v32 accessibilityElements];
   v4 = accessibilityElements;
   if (accessibilityElements)
   {
@@ -124,7 +124,7 @@ double __68__AKOverlayViewAccessibility__accessibilityCreateOverlayViewElement__
   else
   {
     _accessibilityCreateOverlayViewElement = [(AKOverlayViewAccessibility *)self _accessibilityCreateOverlayViewElement];
-    v32 = 0;
+    v31 = 0;
     objc_opt_class();
     v7 = [(AKOverlayViewAccessibility *)self safeValueForKey:@"pageController"];
     v8 = [v7 safeValueForKey:@"layerPresentationManager"];
@@ -133,32 +133,32 @@ double __68__AKOverlayViewAccessibility__accessibilityCreateOverlayViewElement__
 
     sublayers = [v10 sublayers];
     _axOverlayViewLayers = [(AKOverlayViewAccessibility *)self _axOverlayViewLayers];
-    v27 = v10;
+    v26 = v10;
     if (([sublayers isEqualToArray:_axOverlayViewLayers] & 1) == 0)
     {
-      v30 = 0u;
-      v31 = 0u;
-      v28 = 0u;
       v29 = 0u;
+      v30 = 0u;
+      v27 = 0u;
+      v28 = 0u;
       v13 = _axOverlayViewLayers;
-      v14 = [v13 countByEnumeratingWithState:&v28 objects:v35 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v27 objects:v34 count:16];
       if (v14)
       {
         v15 = v14;
-        v16 = *v29;
+        v16 = *v28;
         do
         {
           for (i = 0; i != v15; ++i)
           {
-            if (*v29 != v16)
+            if (*v28 != v16)
             {
               objc_enumerationMutation(v13);
             }
 
-            [*(*(&v28 + 1) + 8 * i) setAccessibilityContainer:0];
+            [*(*(&v27 + 1) + 8 * i) setAccessibilityContainer:0];
           }
 
-          v15 = [v13 countByEnumeratingWithState:&v28 objects:v35 count:16];
+          v15 = [v13 countByEnumeratingWithState:&v27 objects:v34 count:16];
         }
 
         while (v15);
@@ -170,8 +170,8 @@ double __68__AKOverlayViewAccessibility__accessibilityCreateOverlayViewElement__
 
     if (_accessibilityCreateOverlayViewElement)
     {
-      v34 = _accessibilityCreateOverlayViewElement;
-      v18 = [MEMORY[0x29EDB8D80] arrayWithObjects:&v34 count:1];
+      v33 = _accessibilityCreateOverlayViewElement;
+      v18 = [MEMORY[0x29EDB8D80] arrayWithObjects:&v33 count:1];
       v5 = [v18 arrayByAddingObjectsFromArray:_axOverlayViewLayers];
     }
 
@@ -180,14 +180,14 @@ double __68__AKOverlayViewAccessibility__accessibilityCreateOverlayViewElement__
       v5 = _axOverlayViewLayers;
     }
 
-    v32 = 0;
+    v31 = 0;
     v19 = [(AKOverlayViewAccessibility *)self safeValueForKey:@"pageController"];
     v20 = [v19 safeValueForKey:@"inkPageOverlayController"];
     v21 = [v20 safeValueForKey:@"inkOverlayView"];
     v22 = [v21 safeValueForKey:@"canvasView"];
     v23 = __UIAccessibilitySafeClass();
 
-    if (v32 == 1)
+    if (v31 == 1)
     {
       abort();
     }
@@ -199,8 +199,6 @@ double __68__AKOverlayViewAccessibility__accessibilityCreateOverlayViewElement__
       v5 = v24;
     }
   }
-
-  v25 = *MEMORY[0x29EDCA608];
 
   return v5;
 }

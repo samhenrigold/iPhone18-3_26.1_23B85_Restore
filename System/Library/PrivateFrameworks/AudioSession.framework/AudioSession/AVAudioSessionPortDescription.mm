@@ -232,7 +232,7 @@ LABEL_21:
 
 - (AVAudioSessionDataSourceDescription)preferredDataSource
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   impl = self->_impl;
   WeakRetained = objc_loadWeakRetained(impl);
   v5 = copyDataSourcePreference([WeakRetained opaqueSessionID], *(impl + 1));
@@ -241,25 +241,25 @@ LABEL_21:
   {
     selfCopy = self;
     objc_sync_enter(selfCopy);
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
     v7 = *(impl + 10);
-    v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v8)
     {
-      v9 = *v17;
+      v9 = *v16;
       while (2)
       {
         for (i = 0; i != v8; i = i + 1)
         {
-          if (*v17 != v9)
+          if (*v16 != v9)
           {
             objc_enumerationMutation(v7);
           }
 
-          v11 = *(*(&v16 + 1) + 8 * i);
+          v11 = *(*(&v15 + 1) + 8 * i);
           dataSourceID = [v11 dataSourceID];
           v13 = [v5 isEqualToNumber:dataSourceID];
 
@@ -270,7 +270,7 @@ LABEL_21:
           }
         }
 
-        v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
         if (v8)
         {
           continue;
@@ -290,28 +290,26 @@ LABEL_12:
     v8 = 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
-
   return v8;
 }
 
 - (BOOL)setPreferredDataSource:(AVAudioSessionDataSourceDescription *)dataSource error:(NSError *)outError
 {
-  v29[2] = *MEMORY[0x1E69E9840];
+  v28[2] = *MEMORY[0x1E69E9840];
   v6 = dataSource;
   privateGetImplementation = [(AVAudioSessionPortDescription *)self privateGetImplementation];
   p_var0 = &privateGetImplementation->var0;
   if (v6)
   {
     v9 = *MEMORY[0x1E69B06A8];
-    v28[0] = v9;
+    v27[0] = v9;
     privateGetID = [(AVAudioSessionPortDescription *)self privateGetID];
-    v29[0] = privateGetID;
+    v28[0] = privateGetID;
     v11 = *MEMORY[0x1E69B0698];
-    v28[1] = v11;
+    v27[1] = v11;
     dataSourceID = [(AVAudioSessionDataSourceDescription *)v6 dataSourceID];
-    v29[1] = dataSourceID;
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v28 count:2];
+    v28[1] = dataSourceID;
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:v27 count:2];
     v14 = MEMORY[0x1E69B0240];
   }
 
@@ -324,14 +322,14 @@ LABEL_12:
     }
 
     v9 = *MEMORY[0x1E69B06A8];
-    v26[0] = v9;
+    v25[0] = v9;
     privateGetID = [(AVAudioSessionPortDescription *)self privateGetID];
-    v27[0] = privateGetID;
+    v26[0] = privateGetID;
     v11 = *MEMORY[0x1E69B0698];
-    v26[1] = v11;
+    v25[1] = v11;
     dataSourceID = [p_var0[12] dataSourceID];
-    v27[1] = dataSourceID;
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:2];
+    v26[1] = dataSourceID;
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:2];
     v14 = MEMORY[0x1E69AFED8];
   }
 
@@ -339,102 +337,100 @@ LABEL_12:
   v16 = [MEMORY[0x1E695DEC8] arrayWithObject:v13];
   objc_storeStrong(p_var0 + 12, dataSource);
   WeakRetained = objc_loadWeakRetained(p_var0);
-  AVAudioSessionGetXPCConnection([WeakRetained opaqueSessionID], &v24);
+  AVAudioSessionGetXPCConnection(&v23, [WeakRetained opaqueSessionID]);
 
+  v21 = v23;
   v22 = v24;
-  v23 = v25;
-  if (v25)
+  if (v24)
   {
-    atomic_fetch_add_explicit(&v25->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v24->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
   v18 = objc_loadWeakRetained(p_var0);
-  avas::client::SetPropertyXPC(&v22, [v18 opaqueSessionID], v15, v16, 1);
+  avas::client::SetPropertyXPC(&v21, [v18 opaqueSessionID], v15, v16, 1);
 
-  if (v23)
+  if (v22)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v23);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v22);
   }
 
   v19 = FormatNSErrorForReturn();
-  if (v25)
+  if (v24)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v25);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v24);
   }
 
 LABEL_12:
-  v20 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
 - (AVAudioSessionPortDescription)initWithRawPortDescriptionXPC:(id)c owningSession:(id)session
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   cCopy = c;
   sessionCopy = session;
-  v11.receiver = self;
-  v11.super_class = AVAudioSessionPortDescription;
-  if ([(AVAudioSessionPortDescription *)&v11 init])
+  v10.receiver = self;
+  v10.super_class = AVAudioSessionPortDescription;
+  if ([(AVAudioSessionPortDescription *)&v10 init])
   {
     operator new();
   }
 
   v8 = 0;
 
-  v9 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 - (void)configureChannelsAndDataSources:(id)sources
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   sourcesCopy = sources;
   privateGetImplementation = [(AVAudioSessionPortDescription *)self privateGetImplementation];
-  v25 = *MEMORY[0x1E69B0650];
+  v24 = *MEMORY[0x1E69B0650];
   v5 = [sourcesCopy objectForKey:?];
-  v28 = *MEMORY[0x1E69B05D8];
+  v27 = *MEMORY[0x1E69B05D8];
   v6 = [sourcesCopy objectForKey:?];
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  v27 = v6;
+  v26 = v6;
   v8 = [AVAudioSessionChannelDescription privateCreateArray:v6 portUID:privateGetImplementation->var4];
   var13 = privateGetImplementation->var13;
   privateGetImplementation->var13 = v8;
 
   objc_sync_exit(selfCopy);
   v10 = *MEMORY[0x1E69B05F0];
-  v30 = *MEMORY[0x1E69B0600];
-  v26 = v10;
-  v32 = [sourcesCopy objectForKey:v10];
+  v29 = *MEMORY[0x1E69B0600];
+  v25 = v10;
+  v31 = [sourcesCopy objectForKey:v10];
   WeakRetained = objc_loadWeakRetained(&privateGetImplementation->var0);
   if ([WeakRetained allowAllBuiltInDataSources])
   {
-    v33 = [sourcesCopy objectForKey:v30];
+    v32 = [sourcesCopy objectForKey:v29];
   }
 
   else
   {
+    v32 = 0;
+  }
+
+  v33 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v32, "count") + objc_msgSend(v31, "count")}];
+  [v33 addObjectsFromArray:v31];
+  if (v32)
+  {
+    [v33 addObjectsFromArray:v32];
+  }
+
+  if ([v33 count] == 1)
+  {
+
     v33 = 0;
-  }
-
-  v34 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v33, "count") + objc_msgSend(v32, "count")}];
-  [v34 addObjectsFromArray:v32];
-  if (v33)
-  {
-    [v34 addObjectsFromArray:v33];
-  }
-
-  if ([v34 count] == 1)
-  {
-
-    v34 = 0;
   }
 
   obj = selfCopy;
   objc_sync_enter(obj);
   var1 = privateGetImplementation->var1;
   v13 = objc_loadWeakRetained(&privateGetImplementation->var0);
-  v14 = +[AVAudioSessionDataSourceDescription privateCreateArray:portID:sessionID:](AVAudioSessionDataSourceDescription, "privateCreateArray:portID:sessionID:", v34, var1, [v13 opaqueSessionID]);
+  v14 = +[AVAudioSessionDataSourceDescription privateCreateArray:portID:sessionID:](AVAudioSessionDataSourceDescription, "privateCreateArray:portID:sessionID:", v33, var1, [v13 opaqueSessionID]);
   var14 = privateGetImplementation->var14;
   privateGetImplementation->var14 = v14;
 
@@ -443,25 +439,25 @@ LABEL_12:
 
   if (v5)
   {
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
     v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
     v17 = privateGetImplementation->var14;
-    v18 = [v17 countByEnumeratingWithState:&v35 objects:v39 count:16];
+    v18 = [v17 countByEnumeratingWithState:&v34 objects:v38 count:16];
     if (v18)
     {
-      v19 = *v36;
+      v19 = *v35;
       while (2)
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v36 != v19)
+          if (*v35 != v19)
           {
             objc_enumerationMutation(v17);
           }
 
-          v21 = *(*(&v35 + 1) + 8 * i);
+          v21 = *(*(&v34 + 1) + 8 * i);
           dataSourceID = [v21 dataSourceID];
           v23 = [dataSourceID isEqualToNumber:v5];
 
@@ -472,7 +468,7 @@ LABEL_12:
           }
         }
 
-        v18 = [v17 countByEnumeratingWithState:&v35 objects:v39 count:16];
+        v18 = [v17 countByEnumeratingWithState:&v34 objects:v38 count:16];
         if (v18)
         {
           continue;
@@ -488,7 +484,6 @@ LABEL_19:
   objc_sync_exit(obj);
 
   PortDescriptionImpl::ValidateRequiredFields(privateGetImplementation);
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 + (id)privateCreateArray:(id)array owningSession:(id)session

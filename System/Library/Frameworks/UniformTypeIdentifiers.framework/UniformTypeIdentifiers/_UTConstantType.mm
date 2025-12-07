@@ -52,14 +52,14 @@
 
 + (void)_validateThisClass
 {
-  v22 = *MEMORY[0x1E69E9840];
+  *&v20[13] = *MEMORY[0x1E69E9840];
   v3 = UniformTypeIdentifiers::CoreTypes::log(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
     Name = class_getName(self);
-    v20 = 2082;
-    v21 = "{Constant=^v{Fields=@b2b1b1b4[7c]}}";
+    v19 = 2082;
+    *v20 = "{Constant=^v{Fields=@b2b1b1b4[7c]}}";
     _os_log_impl(&dword_1AC1AE000, v3, OS_LOG_TYPE_DEFAULT, "%{public}s instance C structure encoding: %{public}s", buf, 0x16u);
   }
 
@@ -110,8 +110,6 @@
     currentHandler2 = [MEMORY[0x1E696AAA8] currentHandler];
     [currentHandler2 handleFailureInMethod:a2 object:self file:@"UTCoreTypes.mm" lineNumber:362 description:{@"Offset of %s::_fields is %zu at runtime, but we expected %zu during compilation. UTType may have had ivars added unintentionally.", class_getName(self), Offset, 16}];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)conformsToType:(id)type
@@ -326,6 +324,144 @@ LABEL_22:
   }
 
   return v15;
+}
+
++ (objc_ivar)_validateThisClass
+{
+  if (a3)
+  {
+    v4 = a4;
+    v6 = result;
+    if (a3 == 1)
+    {
+LABEL_9:
+      *v4 = *v6;
+      return result;
+    }
+
+    if (a3 == 2)
+    {
+      v8 = a2 - 1;
+      v9 = *result;
+      Offset = ivar_getOffset(*(a2 - 1));
+      result = ivar_getOffset(v9);
+      if (Offset >= result)
+      {
+        v11 = v6;
+      }
+
+      else
+      {
+        v11 = v8;
+      }
+
+      *v4++ = *v11;
+      if (Offset >= result)
+      {
+        v6 = v8;
+      }
+
+      goto LABEL_9;
+    }
+
+    if (a3 > 8)
+    {
+      v23 = &result[a3 >> 1];
+      std::__stable_sort<std::_ClassicAlgPolicy,+[_UTConstantType _validateThisClass]::$_0 &,std::__wrap_iter<objc_ivar **>>(result, v23, a3 >> 1, a4, a3 >> 1);
+      result = std::__stable_sort<std::_ClassicAlgPolicy,+[_UTConstantType _validateThisClass]::$_0 &,std::__wrap_iter<objc_ivar **>>(&v6[a3 >> 1], a2, a3 - (a3 >> 1), &v4[a3 >> 1], a3 - (a3 >> 1));
+      v24 = &v6[a3 >> 1];
+      while (v24 != a2)
+      {
+        v25 = *v6;
+        v26 = ivar_getOffset(*v24);
+        result = ivar_getOffset(v25);
+        if (v26 >= result)
+        {
+          v27 = v6;
+        }
+
+        else
+        {
+          v27 = v24;
+        }
+
+        v24 += v26 < result;
+        v6 += v26 >= result;
+        *v4++ = *v27;
+        if (v6 == v23)
+        {
+          while (v24 != a2)
+          {
+            v29 = *v24++;
+            *v4++ = v29;
+          }
+
+          return result;
+        }
+      }
+
+      while (v6 != v23)
+      {
+        v28 = *v6++;
+        *v4++ = v28;
+      }
+    }
+
+    else if (result != a2)
+    {
+      v12 = result + 1;
+      *a4 = *result;
+      if (result + 1 != a2)
+      {
+        v13 = 0;
+        v14 = a4;
+        do
+        {
+          v15 = v14;
+          v16 = *v14++;
+          v17 = ivar_getOffset(*v12);
+          result = ivar_getOffset(v16);
+          v18 = v14;
+          if (v17 < result)
+          {
+            v15[1] = *v15;
+            v18 = v4;
+            if (v15 != v4)
+            {
+              v19 = v13;
+              while (1)
+              {
+                v18 = (v4 + v19);
+                v20 = *(v4 + v19 - 8);
+                v21 = ivar_getOffset(*v12);
+                result = ivar_getOffset(v20);
+                if (v21 >= result)
+                {
+                  break;
+                }
+
+                *v18 = *(v18 - 1);
+                v19 -= 8;
+                if (!v19)
+                {
+                  v18 = v4;
+                  break;
+                }
+              }
+            }
+          }
+
+          v22 = *v12++;
+          *v18 = v22;
+          v13 += 8;
+        }
+
+        while (v12 != a2);
+      }
+    }
+  }
+
+  return result;
 }
 
 + (Ivar)_validateThisClass
@@ -690,144 +826,6 @@ LABEL_22:
         }
 
         while (v72 != a6);
-      }
-    }
-  }
-
-  return result;
-}
-
-+ (objc_ivar)_validateThisClass
-{
-  if (a3)
-  {
-    v4 = a4;
-    v6 = result;
-    if (a3 == 1)
-    {
-LABEL_9:
-      *v4 = *v6;
-      return result;
-    }
-
-    if (a3 == 2)
-    {
-      v8 = a2 - 1;
-      v9 = *result;
-      Offset = ivar_getOffset(*(a2 - 1));
-      result = ivar_getOffset(v9);
-      if (Offset >= result)
-      {
-        v11 = v6;
-      }
-
-      else
-      {
-        v11 = v8;
-      }
-
-      *v4++ = *v11;
-      if (Offset >= result)
-      {
-        v6 = v8;
-      }
-
-      goto LABEL_9;
-    }
-
-    if (a3 > 8)
-    {
-      v23 = &result[a3 >> 1];
-      std::__stable_sort<std::_ClassicAlgPolicy,+[_UTConstantType _validateThisClass]::$_0 &,std::__wrap_iter<objc_ivar **>>(result, v23, a3 >> 1, a4, a3 >> 1);
-      result = std::__stable_sort<std::_ClassicAlgPolicy,+[_UTConstantType _validateThisClass]::$_0 &,std::__wrap_iter<objc_ivar **>>(&v6[a3 >> 1], a2, a3 - (a3 >> 1), &v4[a3 >> 1], a3 - (a3 >> 1));
-      v24 = &v6[a3 >> 1];
-      while (v24 != a2)
-      {
-        v25 = *v6;
-        v26 = ivar_getOffset(*v24);
-        result = ivar_getOffset(v25);
-        if (v26 >= result)
-        {
-          v27 = v6;
-        }
-
-        else
-        {
-          v27 = v24;
-        }
-
-        v24 += v26 < result;
-        v6 += v26 >= result;
-        *v4++ = *v27;
-        if (v6 == v23)
-        {
-          while (v24 != a2)
-          {
-            v29 = *v24++;
-            *v4++ = v29;
-          }
-
-          return result;
-        }
-      }
-
-      while (v6 != v23)
-      {
-        v28 = *v6++;
-        *v4++ = v28;
-      }
-    }
-
-    else if (result != a2)
-    {
-      v12 = result + 1;
-      *a4 = *result;
-      if (result + 1 != a2)
-      {
-        v13 = 0;
-        v14 = a4;
-        do
-        {
-          v15 = v14;
-          v16 = *v14++;
-          v17 = ivar_getOffset(*v12);
-          result = ivar_getOffset(v16);
-          v18 = v14;
-          if (v17 < result)
-          {
-            v15[1] = *v15;
-            v18 = v4;
-            if (v15 != v4)
-            {
-              v19 = v13;
-              while (1)
-              {
-                v18 = (v4 + v19);
-                v20 = *(v4 + v19 - 8);
-                v21 = ivar_getOffset(*v12);
-                result = ivar_getOffset(v20);
-                if (v21 >= result)
-                {
-                  break;
-                }
-
-                *v18 = *(v18 - 1);
-                v19 -= 8;
-                if (!v19)
-                {
-                  v18 = v4;
-                  break;
-                }
-              }
-            }
-          }
-
-          v22 = *v12++;
-          *v18 = v22;
-          v13 += 8;
-        }
-
-        while (v12 != a2);
       }
     }
   }

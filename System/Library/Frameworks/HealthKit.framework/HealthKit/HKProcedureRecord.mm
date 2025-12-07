@@ -4,6 +4,7 @@
 + (id)defaultDisplayString;
 + (id)indexableConceptKeyPaths;
 + (id)procedureRecordWithType:(id)type note:(id)note enteredInError:(BOOL)error modifiedDate:(id)date originIdentifier:(id)identifier locale:(id)locale extractionVersion:(int64_t)version device:(id)self0 metadata:(id)self1 country:(id)self2 state:(unint64_t)self3 procedureCodingCollection:(id)self4 performers:(id)self5 executionStartDate:(id)self6 executionEndDate:(id)self7 notPerformed:(BOOL)self8 statusCoding:(id)self9 categoryCodingCollection:(id)codingCollection reasonCodingCollections:(id)collections reasonsNotPerformedCodingCollections:(id)codingCollections outcomeCodingCollection:(id)outcomeCodingCollection complicationsCodingCollections:(id)complicationsCodingCollections followUpsCodingCollections:(id)upsCodingCollections bodySitesCodingCollections:(id)sitesCodingCollections;
++ (id)procedureRecordWithType:(id)type note:(id)note enteredInError:(BOOL)error modifiedDate:(id)date originIdentifier:(id)identifier locale:(id)locale extractionVersion:(int64_t)version device:(id)self0 metadata:(id)self1 sortDate:(id)self2 country:(id)self3 state:(unint64_t)self4 procedureCodingCollection:(id)self5 performers:(id)self6 executionStartDate:(id)self7 executionEndDate:(id)self8 notPerformed:(BOOL)self9 statusCoding:(id)coding categoryCodingCollection:(id)codingCollection reasonCodingCollections:(id)collections reasonsNotPerformedCodingCollections:(id)codingCollections outcomeCodingCollection:(id)outcomeCodingCollection complicationsCodingCollections:(id)complicationsCodingCollections followUpsCodingCollections:(id)upsCodingCollections bodySitesCodingCollections:(id)sitesCodingCollections;
 - (BOOL)applyConcepts:(id)concepts forKeyPath:(id)path error:(id *)error;
 - (BOOL)isEquivalent:(id)equivalent;
 - (HKConcept)category;
@@ -95,7 +96,7 @@
 
 - (id)codingsForKeyPath:(id)path error:(id *)error
 {
-  v29[1] = *MEMORY[0x1E69E9840];
+  v28[1] = *MEMORY[0x1E69E9840];
   pathCopy = path;
   v7 = [HKConceptIndexUtilities firstComponentForKeyPath:pathCopy error:error];
   v8 = v7;
@@ -109,9 +110,9 @@
   {
     procedureCodingCollection = [(HKProcedureRecord *)self procedureCodingCollection];
     v10 = [HKIndexableObject indexableObjectWithObject:procedureCodingCollection];
-    v29[0] = v10;
+    v28[0] = v10;
     v11 = MEMORY[0x1E695DEC8];
-    v12 = v29;
+    v12 = v28;
 LABEL_4:
     v13 = [v11 arrayWithObjects:v12 count:1];
 LABEL_8:
@@ -125,8 +126,8 @@ LABEL_9:
     procedureCodingCollection = [(HKProcedureRecord *)self statusCoding];
     v10 = [HKMedicalCodingCollection collectionWithCoding:procedureCodingCollection];
     v14 = [HKIndexableObject indexableObjectWithObject:v10];
-    v28 = v14;
-    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v28 count:1];
+    v27 = v14;
+    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v27 count:1];
 
     goto LABEL_8;
   }
@@ -139,9 +140,9 @@ LABEL_9:
     {
       procedureCodingCollection = [(HKProcedureRecord *)self categoryCodingCollection];
       v10 = [HKIndexableObject indexableObjectWithObject:procedureCodingCollection];
-      v27 = v10;
+      v26 = v10;
       v11 = MEMORY[0x1E695DEC8];
-      v12 = &v27;
+      v12 = &v26;
       goto LABEL_4;
     }
 
@@ -187,9 +188,9 @@ LABEL_35:
     {
       procedureCodingCollection = [(HKProcedureRecord *)self outcomeCodingCollection];
       v10 = [HKIndexableObject indexableObjectWithObject:procedureCodingCollection];
-      v26 = v10;
+      v25 = v10;
       v11 = MEMORY[0x1E695DEC8];
-      v12 = &v26;
+      v12 = &v25;
       goto LABEL_4;
     }
 
@@ -235,12 +236,10 @@ LABEL_35:
     goto LABEL_35;
   }
 
-  v25.receiver = self;
-  v25.super_class = HKProcedureRecord;
-  v13 = [(HKMedicalRecord *)&v25 codingsForKeyPath:pathCopy error:error];
+  v24.receiver = self;
+  v24.super_class = HKProcedureRecord;
+  v13 = [(HKMedicalRecord *)&v24 codingsForKeyPath:pathCopy error:error];
 LABEL_10:
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -494,6 +493,14 @@ LABEL_13:
   return v52;
 }
 
++ (id)procedureRecordWithType:(id)type note:(id)note enteredInError:(BOOL)error modifiedDate:(id)date originIdentifier:(id)identifier locale:(id)locale extractionVersion:(int64_t)version device:(id)self0 metadata:(id)self1 sortDate:(id)self2 country:(id)self3 state:(unint64_t)self4 procedureCodingCollection:(id)self5 performers:(id)self6 executionStartDate:(id)self7 executionEndDate:(id)self8 notPerformed:(BOOL)self9 statusCoding:(id)coding categoryCodingCollection:(id)codingCollection reasonCodingCollections:(id)collections reasonsNotPerformedCodingCollections:(id)codingCollections outcomeCodingCollection:(id)outcomeCodingCollection complicationsCodingCollections:(id)complicationsCodingCollections followUpsCodingCollections:(id)upsCodingCollections bodySitesCodingCollections:(id)sitesCodingCollections
+{
+  LOBYTE(v29) = performed;
+  v27 = [self _newProcedureRecordWithType:type note:note enteredInError:error modifiedDate:date originIdentifier:identifier locale:locale extractionVersion:version device:device metadata:metadata sortDate:sortDate country:country state:state procedureCodingCollection:collection performers:performers executionStartDate:startDate executionEndDate:endDate notPerformed:v29 statusCoding:coding categoryCodingCollection:codingCollection reasonCodingCollections:collections reasonsNotPerformedCodingCollections:codingCollections outcomeCodingCollection:outcomeCodingCollection complicationsCodingCollections:complicationsCodingCollections followUpsCodingCollections:upsCodingCollections bodySitesCodingCollections:sitesCodingCollections config:0];
+
+  return v27;
+}
+
 + (id)_newProcedureRecordWithType:(id)type note:(id)note enteredInError:(BOOL)error modifiedDate:(id)date originIdentifier:(id)identifier locale:(id)locale extractionVersion:(int64_t)version device:(id)self0 metadata:(id)self1 sortDate:(id)self2 country:(id)self3 state:(unint64_t)self4 procedureCodingCollection:(id)self5 performers:(id)self6 executionStartDate:(id)self7 executionEndDate:(id)self8 notPerformed:(BOOL)self9 statusCoding:(id)coding categoryCodingCollection:(id)codingCollection reasonCodingCollections:(id)collections reasonsNotPerformedCodingCollections:(id)codingCollections outcomeCodingCollection:(id)outcomeCodingCollection complicationsCodingCollections:(id)complicationsCodingCollections followUpsCodingCollections:(id)upsCodingCollections bodySitesCodingCollections:(id)sitesCodingCollections config:(id)config
 {
   errorCopy = error;
@@ -632,13 +639,12 @@ void __464__HKProcedureRecord__newProcedureRecordWithType_note_enteredInError_mo
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  v10.receiver = self;
-  v10.super_class = HKProcedureRecord;
-  v6 = [(HKSample *)&v10 description];
-  followUpsCodingCollections = self->_followUpsCodingCollections;
-  v8 = [v3 stringWithFormat:@"<%@:%p super=%@procedureCodingCollection = %@performers = %@executionStartDate = %@executionEndDate = %@notPerformed = %ldstatusCoding = %@categoryCodingCollection = %@reasonCodingCollections = %@reasonsNotPerformedCodingCollections = %@outcomeCodingCollection = %@complicationsCodingCollections = %@followUpsCodingCollections = %@bodySitesCodingCollections = %@>", v5, self, v6, self->_procedureCodingCollection, self->_performers, self->_executionStartDate, self->_executionEndDate, self->_notPerformed, self->_statusCoding, self->_categoryCodingCollection, self->_reasonCodingCollections, self->_reasonsNotPerformedCodingCollections, self->_outcomeCodingCollection, self->_complicationsCodingCollections, followUpsCodingCollections, self->_bodySitesCodingCollections];
+  v9.receiver = self;
+  v9.super_class = HKProcedureRecord;
+  v6 = [(HKSample *)&v9 description];
+  v7 = [v3 stringWithFormat:@"<%@:%p super=%@procedureCodingCollection = %@performers = %@executionStartDate = %@executionEndDate = %@notPerformed = %ldstatusCoding = %@categoryCodingCollection = %@reasonCodingCollections = %@reasonsNotPerformedCodingCollections = %@outcomeCodingCollection = %@complicationsCodingCollections = %@followUpsCodingCollections = %@bodySitesCodingCollections = %@>", v5, self, v6, self->_procedureCodingCollection, self->_performers, self->_executionStartDate, self->_executionEndDate, self->_notPerformed, self->_statusCoding, self->_categoryCodingCollection, self->_reasonCodingCollections, self->_reasonsNotPerformedCodingCollections, self->_outcomeCodingCollection, self->_complicationsCodingCollections, self->_followUpsCodingCollections, self->_bodySitesCodingCollections];
 
-  return v8;
+  return v7;
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -1603,17 +1609,17 @@ LABEL_112:
   procedureCopy = procedure;
   if (!procedureCopy)
   {
-    _HKInitializeLogging();
-    v5 = HKLogHealthRecords;
+    _HKInitializeLogging(0, v4);
+    v6 = HKLogHealthRecords;
     if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_FAULT))
     {
-      [HKProcedureRecord _setProcedure:v5];
+      [HKProcedureRecord _setProcedure:v6];
     }
   }
 
-  v6 = [procedureCopy copy];
+  v7 = [procedureCopy copy];
   procedure = self->_procedure;
-  self->_procedure = v6;
+  self->_procedure = v7;
 }
 
 - (HKConcept)status
@@ -1638,17 +1644,17 @@ LABEL_112:
   statusCopy = status;
   if (!statusCopy)
   {
-    _HKInitializeLogging();
-    v5 = HKLogHealthRecords;
+    _HKInitializeLogging(0, v4);
+    v6 = HKLogHealthRecords;
     if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_FAULT))
     {
-      [HKProcedureRecord _setStatus:v5];
+      [HKProcedureRecord _setStatus:v6];
     }
   }
 
-  v6 = [statusCopy copy];
+  v7 = [statusCopy copy];
   status = self->_status;
-  self->_status = v6;
+  self->_status = v7;
 }
 
 - (HKConcept)category

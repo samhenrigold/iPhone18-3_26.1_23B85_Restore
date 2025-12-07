@@ -8,159 +8,159 @@
 {
   TSUDecimal::operator=();
   v9 = *(*arguments + 8);
-  v105 = 0;
-  v11 = objc_msgSend_asGrid_functionSpec_argumentIndex_applyPreferredFormat_outError_(v9, v10, context, spec, 1, 1, &v105);
-  v12 = v105;
+  v89 = 0;
+  v11 = objc_msgSend_asGrid_functionSpec_argumentIndex_applyPreferredFormat_outError_(v9, v10, context, spec, 1, 1, &v89);
+  v12 = v89;
   if (v12)
   {
-    v16 = v12;
-    v17 = objc_msgSend_raiseErrorOrConvert_(context, v13, v12, v14, v15);
+    v15 = v12;
+    v16 = objc_msgSend_raiseErrorOrConvert_(context, v13, v12, v14);
     goto LABEL_34;
   }
 
-  v18 = **arguments;
-  v104 = 0;
-  v20 = objc_msgSend_asGrid_functionSpec_argumentIndex_applyPreferredFormat_outError_(v18, v19, context, spec, 0, 1, &v104);
-  v21 = v104;
-  if (!v21)
+  v17 = **arguments;
+  v88 = 0;
+  v19 = objc_msgSend_asGrid_functionSpec_argumentIndex_applyPreferredFormat_outError_(v17, v18, context, spec, 0, 1, &v88);
+  v20 = v88;
+  if (!v20)
   {
-    v94 = v20;
-    v26 = objc_msgSend_nilValue(TSCENilValue, v22, v23, v24, v25);
-    v31 = objc_msgSend_nilValue(TSCENilValue, v27, v28, v29, v30);
-    v102 = v31;
-    v103 = v26;
-    v16 = objc_msgSend_computeSlope_functionSpec_xs_xArgumentIndex_ys_yArgumentIndex_xAverageResult_yAverageResult_slopeResult_xExamplePtr_yExamplePtr_(self, v32, context, spec, v11, 1, v94, 0, 0, 0, v106, &v103, &v102);
-    v33 = v103;
+    v78 = v19;
+    v24 = objc_msgSend_nilValue(TSCENilValue, v21, v22, v23);
+    v28 = objc_msgSend_nilValue(TSCENilValue, v25, v26, v27);
+    v86 = v28;
+    v87 = v24;
+    v15 = objc_msgSend_computeSlope_functionSpec_xs_xArgumentIndex_ys_yArgumentIndex_xAverageResult_yAverageResult_slopeResult_xExamplePtr_yExamplePtr_(self, v29, context, spec, v11, 1, v78, 0, 0, 0, v90, &v87, &v86);
+    v30 = v87;
 
-    v34 = v102;
-    if (v16)
+    v31 = v86;
+    if (v15)
     {
-      v17 = objc_msgSend_raiseErrorOrConvert_(context, v35, v16, v37, v38);
-      v39 = v33;
-      v20 = v94;
+      v16 = objc_msgSend_raiseErrorOrConvert_(context, v32, v15, v34);
+      v35 = v30;
+      v19 = v78;
 LABEL_32:
 
       goto LABEL_33;
     }
 
-    v93 = v33;
-    v40 = objc_msgSend_nilValue(TSCENilValue, v35, v36, v37, v38);
-    v20 = v94;
-    if (objc_msgSend_deepType_(v34, v41, context, v42, v43) == 5 && objc_msgSend_deepType_(v93, v44, context, v45, v46) == 5)
+    v77 = v30;
+    v36 = objc_msgSend_nilValue(TSCENilValue, v32, v33, v34);
+    v19 = v78;
+    if (objc_msgSend_deepType_(v31, v37, context, v38) == 5 && objc_msgSend_deepType_(v77, v39, context, v40) == 5)
     {
-      v101 = 0;
-      v92 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v34, v44, context, spec, 0, &v101);
-      v47 = v101;
-      v100 = v47;
-      v49 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v93, v48, context, spec, 1, &v100);
-      v16 = v100;
+      v85 = 0;
+      v76 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v31, v39, context, spec, 0, &v85);
+      v41 = v85;
+      v84 = v41;
+      v43 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v77, v42, context, spec, 1, &v84);
+      v15 = v84;
 
-      if (v16)
+      if (v15)
       {
-        v17 = objc_msgSend_raiseErrorOrConvert_(context, v50, v16, v52, v53);
+        v16 = objc_msgSend_raiseErrorOrConvert_(context, v44, v15, v46);
 
-        v39 = v93;
+        v35 = v77;
 LABEL_31:
 
         goto LABEL_32;
       }
 
-      v58 = v92;
-      if (objc_msgSend_hasUnits(v92, v50, v51, v52, v53) && !objc_msgSend_dimension(v92, v63, v64, v65, v66) && (objc_msgSend_hasUnits(v49, v67, v68, v69, v70) & 1) == 0)
+      v50 = v76;
+      if (objc_msgSend_hasUnits(v76, v44, v45, v46) && !objc_msgSend_dimension(v76, v54, v55, v56) && (objc_msgSend_hasUnits(v43, v57, v58, v59) & 1) == 0)
       {
         TSUDecimal::operator=();
-        *&v98._tskFormat = v106[0];
+        *&v82._tskFormat = v90[0];
         TSUDecimal::operator*=();
-        v97._tskFormat = v98._tskFormat;
-        *&v97._formatType = *&v98._formatType;
-        v75 = objc_msgSend_unit(v92, v71, v72, v73, v74);
-        v78 = objc_msgSend_numberWithDecimal_baseUnit_(TSCENumberValue, v76, &v97, v75, v77);
+        v81._tskFormat = v82._tskFormat;
+        *&v81._formatType = *&v82._formatType;
+        v63 = objc_msgSend_unit(v76, v60, v61, v62);
+        v65 = objc_msgSend_numberWithDecimal_baseUnit_(TSCENumberValue, v64, &v81, v63);
 
-        v40 = v78;
-        v58 = v92;
+        v36 = v65;
+        v50 = v76;
       }
     }
 
     else
     {
-      if (objc_msgSend_deepType_(v34, v44, context, v45, v46) != 3 || objc_msgSend_deepType_(v93, v54, context, v56, v57) != 5)
+      if (objc_msgSend_deepType_(v31, v39, context, v40) != 3 || objc_msgSend_deepType_(v77, v47, context, v49) != 5)
       {
 LABEL_23:
-        if (objc_msgSend_isNil(v40, v54, v55, v56, v57))
+        if (objc_msgSend_isNil(v36, v47, v48, v49))
         {
-          v87 = objc_msgSend_numberWithDecimal_(TSCENumberValue, v83, v106, v85, v86);
+          v72 = objc_msgSend_numberWithDecimal_(TSCENumberValue, v69, v90, v71);
 
-          v40 = v87;
+          v36 = v72;
         }
 
-        v39 = v93;
+        v35 = v77;
         if (v11)
         {
-          objc_msgSend_formatWithContext_(v11, v83, context, v85, v86);
-          if (v94)
+          objc_msgSend_formatWithContext_(v11, v69, context, v71);
+          if (v78)
           {
 LABEL_27:
-            objc_msgSend_formatWithContext_(v94, v83, context, v85, v86);
+            objc_msgSend_formatWithContext_(v78, v69, context, v71);
 LABEL_30:
-            TSCEFormat::formatByMergingWithFormat(&v97, &v96, v84, v85, v86, &v95);
-            TSCEFormat::TSCEFormat(&v98, &v95);
-            objc_msgSend_setFormat_(v40, v88, &v98, v89, v90);
-            v40 = v40;
-            v16 = 0;
-            v17 = v40;
+            TSCEFormat::formatByMergingWithFormat(&v79, &v81, &v80, v70, v71);
+            TSCEFormat::TSCEFormat(&v82, &v79);
+            objc_msgSend_setFormat_(v36, v73, &v82, v74);
+            v36 = v36;
+            v15 = 0;
+            v16 = v36;
             goto LABEL_31;
           }
         }
 
         else
         {
-          memset(&v97, 0, sizeof(v97));
-          if (v94)
+          memset(&v81, 0, sizeof(v81));
+          if (v78)
           {
             goto LABEL_27;
           }
         }
 
-        memset(&v96, 0, sizeof(v96));
+        memset(&v80, 0, sizeof(v80));
         goto LABEL_30;
       }
 
-      v99 = 0;
-      v58 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v93, v54, context, spec, 1, &v99);
-      v16 = v99;
-      if (v16)
+      v83 = 0;
+      v50 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v77, v47, context, spec, 1, &v83);
+      v15 = v83;
+      if (v15)
       {
-        v39 = v93;
-        v17 = objc_msgSend_raiseErrorOrConvert_(context, v59, v16, v61, v62);
+        v35 = v77;
+        v16 = objc_msgSend_raiseErrorOrConvert_(context, v51, v15, v53);
 
         goto LABEL_31;
       }
 
-      if ((objc_msgSend_hasUnits(v58, v59, v60, v61, v62) & 1) == 0)
+      if ((objc_msgSend_hasUnits(v50, v51, v52, v53) & 1) == 0)
       {
-        v79 = v58;
+        v66 = v50;
         TSUDecimal::operator=();
-        *&v98._tskFormat = v106[0];
+        *&v82._tskFormat = v90[0];
         TSUDecimal::operator*=();
-        v97._tskFormat = v98._tskFormat;
-        *&v97._formatType = *&v98._formatType;
-        v82 = objc_msgSend_numberWithDecimal_baseUnit_(TSCENumberValue, v80, &v97, 3, v81);
+        v81._tskFormat = v82._tskFormat;
+        *&v81._formatType = *&v82._formatType;
+        v68 = objc_msgSend_numberWithDecimal_baseUnit_(TSCENumberValue, v67, &v81, 3);
 
-        v40 = v82;
-        v58 = v79;
+        v36 = v68;
+        v50 = v66;
       }
     }
 
     goto LABEL_23;
   }
 
-  v16 = v21;
-  v17 = objc_msgSend_raiseErrorOrConvert_(context, v22, v21, v24, v25);
+  v15 = v20;
+  v16 = objc_msgSend_raiseErrorOrConvert_(context, v21, v20, v23);
 LABEL_33:
 
 LABEL_34:
 
-  return v17;
+  return v16;
 }
 
 @end

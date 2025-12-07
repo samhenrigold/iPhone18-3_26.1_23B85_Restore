@@ -5,7 +5,7 @@
 
 id __39__NSArray_SFExtras__sf_asCardSections___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 parsec_stringForKey:@"type"];
   switch([v4 sf_cardSectionType])
@@ -84,16 +84,14 @@ LABEL_28:
       v6 = PARLogHandleForCategory_logHandles_1_365;
       if (os_log_type_enabled(PARLogHandleForCategory_logHandles_1_365, OS_LOG_TYPE_ERROR))
       {
-        v10 = 138412290;
-        v11 = v4;
-        _os_log_error_impl(&dword_1B1064000, v6, OS_LOG_TYPE_ERROR, "unknown card section type: %@", &v10, 0xCu);
+        v9 = 138412290;
+        v10 = v4;
+        _os_log_error_impl(&dword_1B1064000, v6, OS_LOG_TYPE_ERROR, "unknown card section type: %@", &v9, 0xCu);
       }
 
       v7 = 0;
       break;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

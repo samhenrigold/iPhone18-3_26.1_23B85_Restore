@@ -329,19 +329,19 @@
 
 - (id)inlock_applicationMetadataForApplicationID:(id)d
 {
-  v62[1] = *MEMORY[0x277D85DE8];
+  v61[1] = *MEMORY[0x277D85DE8];
   dCopy = d;
-  v61 = @"applicationID";
-  v62[0] = dCopy;
-  v6 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v5, v62, &v61, 1);
+  v60 = @"applicationID";
+  v61[0] = dCopy;
+  v6 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v5, v61, &v60, 1);
   v8 = objc_msgSend_equalityClauseAndBindingsForDict_(MEMORY[0x277CBC648], v7, v6);
-  v60[0] = @"adopterProcessType";
-  v60[1] = @"applicationContainerPath";
-  v60[2] = @"clientSDKVersion";
-  v60[3] = @"containingBundleID";
-  v60[4] = @"entitlements";
-  v60[5] = @"isMainBundleAppleExecutable";
-  v10 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v9, v60, 6);
+  v59[0] = @"adopterProcessType";
+  v59[1] = @"applicationContainerPath";
+  v59[2] = @"clientSDKVersion";
+  v59[3] = @"containingBundleID";
+  v59[4] = @"entitlements";
+  v59[5] = @"isMainBundleAppleExecutable";
+  v10 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v9, v59, 6);
   v13 = objc_msgSend_v1(v8, v11, v12);
   v16 = objc_msgSend_v2(v8, v14, v15);
   v18 = objc_msgSend_select_from_where_bindings_(self, v17, v10, @"AppBundle", v13, v16);
@@ -350,13 +350,13 @@
   {
     v22 = objc_msgSend_objectAtIndexedSubscript_(v18, v21, 0);
     v24 = objc_msgSend_objectForKeyedSubscript_(v22, v23, @"adopterProcessType");
-    v59 = objc_msgSend_integerValue(v24, v25, v26);
+    v58 = objc_msgSend_integerValue(v24, v25, v26);
 
     v28 = objc_msgSend_objectForKeyedSubscript_(v22, v27, @"applicationContainerPath");
-    v58 = objc_msgSend_CKNilIfLengthZero(v28, v29, v30);
+    v57 = objc_msgSend_CKNilIfLengthZero(v28, v29, v30);
 
     v32 = objc_msgSend_objectForKeyedSubscript_(v22, v31, @"clientSDKVersion");
-    v57 = objc_msgSend_integerValue(v32, v33, v34);
+    v56 = objc_msgSend_integerValue(v32, v33, v34);
 
     v36 = objc_msgSend_objectForKeyedSubscript_(v22, v35, @"isMainBundleAppleExecutable");
     v39 = objc_msgSend_BOOLValue(v36, v37, v38);
@@ -372,7 +372,7 @@
 
     dCopy = v47;
     v52 = [CKDApplicationMetadata alloc];
-    isClientMainBundleAppleExecutable = objc_msgSend_initWithAdopterProcessType_containingBundleID_applicationContainerPath_entitlements_clientSDKVersion_isClientMainBundleAppleExecutable_(v52, v53, v59, v44, v58, v51, v57, v39);
+    isClientMainBundleAppleExecutable = objc_msgSend_initWithAdopterProcessType_containingBundleID_applicationContainerPath_entitlements_clientSDKVersion_isClientMainBundleAppleExecutable_(v52, v53, v58, v44, v57, v51, v56, v39);
 
     v6 = v50;
   }
@@ -381,8 +381,6 @@
   {
     isClientMainBundleAppleExecutable = objc_opt_new();
   }
-
-  v55 = *MEMORY[0x277D85DE8];
 
   return isClientMainBundleAppleExecutable;
 }
@@ -615,74 +613,70 @@
 
 - (id)inlock_containerServerInfoForContainerID:(id)d accountID:(id)iD
 {
-  v32[2] = *MEMORY[0x277D85DE8];
+  v31[2] = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   v9 = iDCopy;
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x3032000000;
-  v28 = sub_225073F20;
-  v29 = sub_22507351C;
-  v30 = 0;
-  v31[0] = @"containerID";
-  v31[1] = @"accountID";
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x3032000000;
+  v27 = sub_225073F20;
+  v28 = sub_22507351C;
+  v29 = 0;
+  v30[0] = @"containerID";
+  v30[1] = @"accountID";
   v10 = &stru_28385ED00;
   if (iDCopy)
   {
     v10 = iDCopy;
   }
 
-  v32[0] = dCopy;
-  v32[1] = v10;
-  v11 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v8, v32, v31, 2);
+  v31[0] = dCopy;
+  v31[1] = v10;
+  v11 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v8, v31, v30, 2);
   v13 = objc_msgSend_equalityClauseAndBindingsForDict_(MEMORY[0x277CBC648], v12, v11);
   v16 = objc_msgSend_v1(v13, v14, v15);
   v19 = objc_msgSend_v2(v13, v17, v18);
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = sub_225159388;
-  v24[3] = &unk_278546AA0;
-  v24[4] = &v25;
-  objc_msgSend__enumerateContainerServerInfo_bindings_usingBlock_(self, v20, v16, v19, v24);
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = sub_225159388;
+  v23[3] = &unk_278546AA0;
+  v23[4] = &v24;
+  objc_msgSend__enumerateContainerServerInfo_bindings_usingBlock_(self, v20, v16, v19, v23);
 
-  v21 = v26[5];
-  _Block_object_dispose(&v25, 8);
-
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = v25[5];
+  _Block_object_dispose(&v24, 8);
 
   return v21;
 }
 
 - (void)_enumerateContainerServerInfo:(id)info bindings:(id)bindings usingBlock:(id)block
 {
-  v21[10] = *MEMORY[0x277D85DE8];
+  v20[10] = *MEMORY[0x277D85DE8];
   blockCopy = block;
-  v21[0] = @"containerID";
-  v21[1] = @"accountID";
-  v21[2] = @"publicCloudDBURL";
-  v21[3] = @"publicShareServiceURL";
-  v21[4] = @"publicDeviceServiceURL";
-  v21[5] = @"publicCodeServiceURL";
-  v21[6] = @"publicMetricsServiceURL";
-  v21[7] = @"scopedUserID";
-  v21[8] = @"orgAdminUserID";
-  v21[9] = @"environment";
+  v20[0] = @"containerID";
+  v20[1] = @"accountID";
+  v20[2] = @"publicCloudDBURL";
+  v20[3] = @"publicShareServiceURL";
+  v20[4] = @"publicDeviceServiceURL";
+  v20[5] = @"publicCodeServiceURL";
+  v20[6] = @"publicMetricsServiceURL";
+  v20[7] = @"scopedUserID";
+  v20[8] = @"orgAdminUserID";
+  v20[9] = @"environment";
   v9 = MEMORY[0x277CBEA60];
   bindingsCopy = bindings;
   infoCopy = info;
-  v13 = objc_msgSend_arrayWithObjects_count_(v9, v12, v21, 10);
+  v13 = objc_msgSend_arrayWithObjects_count_(v9, v12, v20, 10);
   v15 = objc_msgSend_select_from_where_bindings_(self, v14, v13, @"ContainerServerInfo", infoCopy, bindingsCopy);
 
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = sub_225159588;
-  v19[3] = &unk_278546AC8;
-  v20 = blockCopy;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = sub_225159588;
+  v18[3] = &unk_278546AC8;
+  v19 = blockCopy;
   v16 = blockCopy;
-  objc_msgSend_enumerateObjectsUsingBlock_(v15, v17, v19);
-
-  v18 = *MEMORY[0x277D85DE8];
+  objc_msgSend_enumerateObjectsUsingBlock_(v15, v17, v18);
 }
 
 - (id)containerServerInfoForContainerID:(id)d accountID:(id)iD

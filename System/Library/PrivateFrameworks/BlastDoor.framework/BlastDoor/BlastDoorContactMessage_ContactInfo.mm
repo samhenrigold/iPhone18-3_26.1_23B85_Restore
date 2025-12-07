@@ -40,32 +40,26 @@
 
 - (NSString)contactNameTitle
 {
-  v2 = *&self->contactMessage_ContactInfo[OBJC_IVAR___BlastDoorContactMessage_ContactInfo_contactMessage_ContactInfo + 56];
-  v3 = *&self->contactMessage_ContactInfo[OBJC_IVAR___BlastDoorContactMessage_ContactInfo_contactMessage_ContactInfo + 64];
 
-  v4 = sub_2146D9588();
+  v2 = sub_2146D9588();
 
-  return v4;
+  return v2;
 }
 
 - (NSString)organizationNameSubtitle
 {
-  v2 = *&self->contactMessage_ContactInfo[OBJC_IVAR___BlastDoorContactMessage_ContactInfo_contactMessage_ContactInfo + 72];
-  v3 = *&self->contactMessage_ContactInfo[OBJC_IVAR___BlastDoorContactMessage_ContactInfo_contactMessage_ContactInfo + 80];
 
-  v4 = sub_2146D9588();
+  v2 = sub_2146D9588();
 
-  return v4;
+  return v2;
 }
 
 - (NSString)contactNameSubtitle
 {
-  v2 = *&self->contactMessage_ContactInfo[OBJC_IVAR___BlastDoorContactMessage_ContactInfo_contactMessage_ContactInfo + 88];
-  v3 = *&self->contactMessage_ContactInfo[OBJC_IVAR___BlastDoorContactMessage_ContactInfo_contactMessage_ContactInfo + 96];
 
-  v4 = sub_2146D9588();
+  v2 = sub_2146D9588();
 
-  return v4;
+  return v2;
 }
 
 - (BlastDoorContactMessage_ContactInfo)init

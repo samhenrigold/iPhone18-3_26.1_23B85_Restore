@@ -1,6 +1,7 @@
 @interface ACCiAP2ShimAccessory
 - (ACCiAP2ShimAccessory)initWithUID:(id)d keyTag:(id)tag features:(unsigned int)features;
 - (id)accessoryInfoDict;
+- (void)setConnectionID:(unsigned int)d;
 @end
 
 @implementation ACCiAP2ShimAccessory
@@ -124,9 +125,9 @@ LABEL_24:
 {
   dCopy = d;
   tagCopy = tag;
-  v26.receiver = self;
-  v26.super_class = ACCiAP2ShimAccessory;
-  v11 = [(ACCiAP2ShimAccessory *)&v26 init];
+  v25.receiver = self;
+  v25.super_class = ACCiAP2ShimAccessory;
+  v11 = [(ACCiAP2ShimAccessory *)&v25 init];
   if (v11)
   {
     if (_Generate32BitConnectionID_onceToken != -1)
@@ -171,17 +172,24 @@ LABEL_24:
     context = v11->_context;
     v11->_context = 0;
 
-    keyTag = v11->_keyTag;
-    v21 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@-%@", keyTag, v11->_accessoryUID];
+    v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@-%@", v11->_keyTag, v11->_accessoryUID];
     keyAccessoryUID = v11->_keyAccessoryUID;
-    v11->_keyAccessoryUID = v21;
+    v11->_keyAccessoryUID = v20;
 
-    v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@-%u", v11->_keyTag, v11->_connectionID];
+    v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@-%u", v11->_keyTag, v11->_connectionID];
     keyConnectionID = v11->_keyConnectionID;
-    v11->_keyConnectionID = v23;
+    v11->_keyConnectionID = v22;
   }
 
   return v11;
+}
+
+- (void)setConnectionID:(unsigned int)d
+{
+  self->_connectionID = d;
+  self->_keyConnectionID = [MEMORY[0x277CCACA8] stringWithFormat:@"%@-%lu", self->_keyTag, *&d];
+
+  MEMORY[0x2821F96F8]();
 }
 
 @end

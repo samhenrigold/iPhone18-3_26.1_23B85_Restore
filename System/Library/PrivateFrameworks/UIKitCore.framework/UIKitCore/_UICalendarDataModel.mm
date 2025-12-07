@@ -92,7 +92,7 @@
 
 - (_UIDatePickerCalendarMonth)visibleMonth
 {
-  if (!self->_effectiveCalendar || (v3 = self->_visibleMonth) == 0 || (-[_UIDatePickerCalendarDateComponent calendar](v3, "calendar"), v4 = objc_claimAutoreleasedReturnValue(), v5 = [v4 isEqual:self->_effectiveCalendar], v4, (v5 & 1) == 0))
+  if (!self->_effectiveCalendar || (v3 = self->_visibleMonth) == 0 || ([(_UIDatePickerCalendarDateComponent *)v3 calendar], v4 = objc_claimAutoreleasedReturnValue(), v5 = objc_msgSend_isEqual_(v4), v4, (v5 & 1) == 0))
   {
     visibleMonth = self->_visibleMonth;
     if (visibleMonth)
@@ -111,9 +111,9 @@
       {
         if (v10 && v11)
         {
-          v13 = [v10 isEqual:v11];
+          isEqual = objc_msgSend_isEqual_(v10);
 
-          if (v13)
+          if (isEqual)
           {
             goto LABEL_13;
           }
@@ -176,9 +176,9 @@ LABEL_18:
     v5 = [calendar copy];
 
     locale2 = [(NSCalendar *)v5 locale];
-    v7 = [locale2 isEqual:locale];
+    isEqual = objc_msgSend_isEqual_(locale2);
 
-    if ((v7 & 1) == 0)
+    if ((isEqual & 1) == 0)
     {
       firstWeekday = [(NSCalendar *)v5 firstWeekday];
       [(NSCalendar *)v5 setLocale:locale];

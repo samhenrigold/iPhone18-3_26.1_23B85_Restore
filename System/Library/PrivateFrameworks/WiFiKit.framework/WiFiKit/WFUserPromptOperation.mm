@@ -68,36 +68,38 @@
 
 - (void)_notification:(__CFUserNotification *)_notification didFinishWithResponse:(unint64_t)response
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v7 = WFLogForCategory(0);
   v8 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v7 && os_log_type_enabled(v7, v8))
+  v9 = v8;
+  if (WFCurrentLogLevel(v8, v10) >= 3 && v7 && os_log_type_enabled(v7, v9))
   {
-    v16 = 136315394;
-    v17 = "[WFUserPromptOperation _notification:didFinishWithResponse:]";
-    v18 = 2048;
+    v19 = 136315394;
+    v20 = "[WFUserPromptOperation _notification:didFinishWithResponse:]";
+    v21 = 2048;
     responseCopy = response;
-    _os_log_impl(&dword_273ECD000, v7, v8, "%s: response %lu", &v16, 0x16u);
+    _os_log_impl(&dword_273ECD000, v7, v9, "%s: response %lu", &v19, 0x16u);
   }
 
   if (_notification)
   {
-    v9 = CFUserNotificationGetResponseDictionary(_notification);
+    v11 = CFUserNotificationGetResponseDictionary(_notification);
     userResponse = self->_userResponse;
-    self->_userResponse = v9;
+    self->_userResponse = v11;
 
     if (self->_userResponse)
     {
-      v11 = WFLogForCategory(0);
-      v12 = OSLogForWFLogLevel(3uLL);
-      if (WFCurrentLogLevel() >= 3 && v11 && os_log_type_enabled(v11, v12))
+      v13 = WFLogForCategory(0);
+      v14 = OSLogForWFLogLevel(3uLL);
+      v15 = v14;
+      if (WFCurrentLogLevel(v14, v16) >= 3 && v13 && os_log_type_enabled(v13, v15))
       {
-        v13 = self->_userResponse;
-        v16 = 136315394;
-        v17 = "[WFUserPromptOperation _notification:didFinishWithResponse:]";
-        v18 = 2112;
-        responseCopy = v13;
-        _os_log_impl(&dword_273ECD000, v11, v12, "%s: user response %@", &v16, 0x16u);
+        v17 = self->_userResponse;
+        v19 = 136315394;
+        v20 = "[WFUserPromptOperation _notification:didFinishWithResponse:]";
+        v21 = 2112;
+        responseCopy = v17;
+        _os_log_impl(&dword_273ECD000, v13, v15, "%s: user response %@", &v19, 0x16u);
       }
     }
   }
@@ -116,7 +118,6 @@
   }
 
   [(WFOperation *)self finish];
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 + (id)sharedMapTable

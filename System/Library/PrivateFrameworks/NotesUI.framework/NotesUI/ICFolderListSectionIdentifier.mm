@@ -29,9 +29,10 @@
 
 uint64_t __53__ICFolderListSectionIdentifier_tagSectionIdentifier__block_invoke()
 {
-  tagSectionIdentifier_identifier = [[ICFolderListSectionIdentifier alloc] initWithSectionType:8];
+  v0 = [[ICFolderListSectionIdentifier alloc] initWithSectionType:8];
+  tagSectionIdentifier_identifier = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0);
 }
 
 + (NSArray)sortDescriptors
@@ -101,8 +102,8 @@ uint64_t __48__ICFolderListSectionIdentifier_initWithObject___block_invoke(uint6
   if (isKindOfClass)
   {
     v4 = *(a1 + 40);
-    v45 = v3;
-    v5 = [v4 accountSectionTypeForModernAccount:v45];
+    v46 = v3;
+    v5 = [v4 accountSectionTypeForModernAccount:v46];
 LABEL_5:
     *(*(a1 + 40) + 24) = v5;
     v7 = [*(a1 + 32) objectID];
@@ -110,7 +111,7 @@ LABEL_5:
     v9 = *(v8 + 16);
     *(v8 + 16) = v7;
 
-    v10 = [v45 localizedName];
+    v10 = [v46 localizedName];
     v11 = *(a1 + 40);
     v12 = *(v11 + 32);
     *(v11 + 32) = v10;
@@ -121,89 +122,89 @@ LABEL_5:
   if ([v3 conformsToProtocol:&unk_1F5091860])
   {
     v6 = *(a1 + 40);
-    v45 = *(a1 + 32);
-    v5 = [v6 accountSectionTypeForLegacyAccount:v45];
+    v46 = *(a1 + 32);
+    v5 = [v6 accountSectionTypeForLegacyAccount:v46];
     goto LABEL_5;
   }
 
   objc_opt_class();
-  v13 = objc_opt_isKindOfClass();
-  v14 = *(a1 + 32);
-  if (v13)
+  v14 = objc_opt_isKindOfClass();
+  v15 = *(a1 + 32);
+  if (v14)
   {
-    v15 = v14;
-    v16 = [v15 account];
-    v17 = [v16 objectID];
-    v18 = *(a1 + 40);
-    v19 = *(v18 + 16);
-    *(v18 + 16) = v17;
+    v16 = v15;
+    v17 = [v16 account];
+    v18 = [v17 objectID];
+    v19 = *(a1 + 40);
+    v20 = *(v19 + 16);
+    *(v19 + 16) = v18;
 
-    v20 = [v15 account];
-    v21 = [v20 localizedName];
-    v22 = *(a1 + 40);
-    v23 = *(v22 + 32);
-    *(v22 + 32) = v21;
+    v21 = [v16 account];
+    v22 = [v21 localizedName];
+    v23 = *(a1 + 40);
+    v24 = *(v23 + 32);
+    *(v23 + 32) = v22;
 
-    v24 = *(a1 + 40);
-    [v15 account];
-    *(*(a1 + 40) + 24) = [v24 accountSectionTypeForModernAccount:objc_claimAutoreleasedReturnValue()];
+    v25 = *(a1 + 40);
+    [v16 account];
+    *(*(a1 + 40) + 24) = [v25 accountSectionTypeForModernAccount:objc_claimAutoreleasedReturnValue()];
 LABEL_14:
 
     goto LABEL_15;
   }
 
-  if ([v14 conformsToProtocol:&unk_1F50918C0])
+  if ([v15 conformsToProtocol:&unk_1F50918C0])
   {
-    v25 = *(a1 + 40);
-    v15 = *(a1 + 32);
-    v26 = [v15 account];
-    v27 = [v25 accountSectionTypeForLegacyAccount:v26];
+    v26 = *(a1 + 40);
+    v16 = *(a1 + 32);
+    v27 = [v16 account];
+    v28 = [v26 accountSectionTypeForLegacyAccount:v27];
 LABEL_12:
-    *(*(a1 + 40) + 24) = v27;
+    *(*(a1 + 40) + 24) = v28;
 
-    v31 = [v15 account];
-    v32 = [v31 objectID];
-    v33 = *(a1 + 40);
-    v34 = *(v33 + 16);
-    *(v33 + 16) = v32;
+    v32 = [v16 account];
+    v33 = [v32 objectID];
+    v34 = *(a1 + 40);
+    v35 = *(v34 + 16);
+    *(v34 + 16) = v33;
 
-    [v15 account];
-    v35 = [objc_claimAutoreleasedReturnValue() localizedName];
+    [v16 account];
+    v36 = [objc_claimAutoreleasedReturnValue() localizedName];
 LABEL_13:
-    v36 = *(a1 + 40);
-    v37 = *(v36 + 32);
-    *(v36 + 32) = v35;
+    v37 = *(a1 + 40);
+    v38 = *(v37 + 32);
+    *(v37 + 32) = v36;
 
     goto LABEL_14;
   }
 
   objc_opt_class();
-  v28 = objc_opt_isKindOfClass();
-  v29 = *(a1 + 32);
-  if (v28)
+  v29 = objc_opt_isKindOfClass();
+  v30 = *(a1 + 32);
+  if (v29)
   {
-    v30 = *(a1 + 40);
-    v15 = v29;
-    v26 = [v15 account];
-    v27 = [v30 accountSectionTypeForModernAccount:v26];
+    v31 = *(a1 + 40);
+    v16 = v30;
+    v27 = [v16 account];
+    v28 = [v31 accountSectionTypeForModernAccount:v27];
     goto LABEL_12;
   }
 
-  if ([v29 conformsToProtocol:&unk_1F5091920])
+  if ([v30 conformsToProtocol:&unk_1F5091920])
   {
-    v38 = *(a1 + 40);
-    v15 = *(a1 + 32);
-    v39 = [v15 account];
-    *(*(a1 + 40) + 24) = [v38 accountSectionTypeForLegacyAccount:v39];
+    v39 = *(a1 + 40);
+    v16 = *(a1 + 32);
+    v40 = [v16 account];
+    *(*(a1 + 40) + 24) = [v39 accountSectionTypeForLegacyAccount:v40];
 
-    v40 = [v15 account];
-    v41 = [v40 objectID];
-    v42 = *(a1 + 40);
-    v43 = *(v42 + 16);
-    *(v42 + 16) = v41;
+    v41 = [v16 account];
+    v42 = [v41 objectID];
+    v43 = *(a1 + 40);
+    v44 = *(v43 + 16);
+    *(v43 + 16) = v42;
 
-    [v15 account];
-    v35 = [objc_claimAutoreleasedReturnValue() name];
+    [v16 account];
+    v36 = [objc_claimAutoreleasedReturnValue() name];
     goto LABEL_13;
   }
 
@@ -215,10 +216,11 @@ LABEL_13:
   }
 
   *(*(a1 + 40) + 24) = 8;
-  *(*(a1 + 40) + 32) = [MEMORY[0x1E69B7768] localizedSectionTitle];
+  v13 = [MEMORY[0x1E69B7768] localizedSectionTitle];
+  *(*(a1 + 40) + 32) = v13;
 LABEL_15:
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v13);
 }
 
 - (ICFolderListSectionIdentifier)initWithSectionType:(int64_t)type
@@ -283,9 +285,10 @@ LABEL_15:
 
 uint64_t __56__ICFolderListSectionIdentifier_systemSectionIdentifier__block_invoke()
 {
-  systemSectionIdentifier_identifier = [[ICFolderListSectionIdentifier alloc] initWithSectionType:0];
+  v0 = [[ICFolderListSectionIdentifier alloc] initWithSectionType:0];
+  systemSectionIdentifier_identifier = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0);
 }
 
 - (NSString)expansionStateContext

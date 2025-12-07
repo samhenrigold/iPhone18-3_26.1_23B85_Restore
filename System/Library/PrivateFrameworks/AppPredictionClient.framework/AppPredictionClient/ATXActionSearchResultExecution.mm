@@ -26,7 +26,7 @@ void __49__ATXActionSearchResultExecution_executeShortcut__block_invoke(uint64_t
   v10[0] = MEMORY[0x1E695E118];
   v10[1] = MEMORY[0x1E695E118];
   v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:2];
-  v4 = __atxlog_handle_ui();
+  v4 = __atxlog_handle_ui(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -44,7 +44,7 @@ void __49__ATXActionSearchResultExecution_executeShortcut__block_invoke(uint64_t
 
 void __49__ATXActionSearchResultExecution_executeShortcut__block_invoke_57(uint64_t a1, char a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = v5;
   if ((a2 & 1) == 0)
@@ -53,20 +53,20 @@ void __49__ATXActionSearchResultExecution_executeShortcut__block_invoke_57(uint6
     goto LABEL_7;
   }
 
-  v7 = __atxlog_handle_ui();
+  v7 = __atxlog_handle_ui(v5);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = [*(a1 + 32) bundleId];
-    v14 = 138412290;
-    v15 = v8;
-    _os_log_impl(&dword_1BF549000, v7, OS_LOG_TYPE_DEFAULT, "searchExec: successfully launched UAUserActivityProxy for bundleId: %@", &v14, 0xCu);
+    v15 = 138412290;
+    v16 = v8;
+    _os_log_impl(&dword_1BF549000, v7, OS_LOG_TYPE_DEFAULT, "searchExec: successfully launched UAUserActivityProxy for bundleId: %@", &v15, 0xCu);
   }
 
   if (v6)
   {
     v9 = 0;
 LABEL_7:
-    v10 = __atxlog_handle_ui();
+    v10 = __atxlog_handle_ui(v5);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       __49__ATXActionSearchResultExecution_executeShortcut__block_invoke_57_cold_1(a1);
@@ -74,16 +74,16 @@ LABEL_7:
 
     if (!v9)
     {
-      v11 = __atxlog_handle_ui();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = __atxlog_handle_ui(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         __49__ATXActionSearchResultExecution_executeShortcut__block_invoke_57_cold_2(v6);
       }
     }
   }
 
-  v12 = [*(a1 + 32) userActivityProxy];
-  v13 = objc_opt_self();
+  v13 = [*(a1 + 32) userActivityProxy];
+  v14 = objc_opt_self();
 }
 
 void __49__ATXActionSearchResultExecution_executeShortcut__block_invoke_65(uint64_t a1, void *a2, void *a3)
@@ -107,7 +107,7 @@ void __49__ATXActionSearchResultExecution_executeShortcut__block_invoke_2(uint64
   v1 = (a1 + 32);
   if (*(a1 + 32))
   {
-    v2 = __atxlog_handle_ui();
+    v2 = __atxlog_handle_ui(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       __49__ATXActionSearchResultExecution_executeShortcut__block_invoke_2_cold_1(v1, v2);
@@ -121,22 +121,22 @@ void __49__ATXActionSearchResultExecution_executeShortcut__block_invoke_2(uint64
     {
       v5 = [v4 shortcut];
 
-      v6 = __atxlog_handle_ui();
-      v2 = v6;
+      v7 = __atxlog_handle_ui(v6);
+      v2 = v7;
       if (v5)
       {
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
         {
-          *v8 = 0;
-          _os_log_impl(&dword_1BF549000, v2, OS_LOG_TYPE_DEFAULT, "searchExec: fetched voiceShortcut SUCCESS. Continuing...", v8, 2u);
+          *v9 = 0;
+          _os_log_impl(&dword_1BF549000, v2, OS_LOG_TYPE_DEFAULT, "searchExec: fetched voiceShortcut SUCCESS. Continuing...", v9, 2u);
         }
 
-        v7 = *(a1 + 48);
+        v8 = *(a1 + 48);
         v2 = [*(a1 + 40) shortcut];
-        [v7 _spawnShortcutExecutionWithShortcut:v2 executionContext:5];
+        [v8 _spawnShortcutExecutionWithShortcut:v2 executionContext:5];
       }
 
-      else if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      else if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         __49__ATXActionSearchResultExecution_executeShortcut__block_invoke_2_cold_2();
       }
@@ -144,7 +144,7 @@ void __49__ATXActionSearchResultExecution_executeShortcut__block_invoke_2(uint64
 
     else
     {
-      v2 = __atxlog_handle_ui();
+      v2 = __atxlog_handle_ui(0);
       if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
       {
         __49__ATXActionSearchResultExecution_executeShortcut__block_invoke_2_cold_3();
@@ -168,13 +168,13 @@ void __49__ATXActionSearchResultExecution_executeShortcut__block_invoke_80(uint6
 
 void __49__ATXActionSearchResultExecution_executeShortcut__block_invoke_2_81(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v2 = __atxlog_handle_ui();
+  v22 = *MEMORY[0x1E69E9840];
+  v2 = __atxlog_handle_ui(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
     *buf = 138412290;
-    v17 = v3;
+    v21 = v3;
     _os_log_impl(&dword_1BF549000, v2, OS_LOG_TYPE_INFO, "searchExec: fetchDataAndUpdateIntentFromIdentifier attributeValues: %@", buf, 0xCu);
   }
 
@@ -182,22 +182,23 @@ void __49__ATXActionSearchResultExecution_executeShortcut__block_invoke_2_81(uin
   {
     v4 = [*(a1 + 32) objectAtIndexedSubscript:0];
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    isKindOfClass = objc_opt_isKindOfClass();
+    if ((isKindOfClass & 1) == 0)
     {
-      v5 = __atxlog_handle_ui();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v6 = __atxlog_handle_ui(isKindOfClass);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        __49__ATXActionSearchResultExecution_executeShortcut__block_invoke_2_81_cold_1();
+        __49__ATXActionSearchResultExecution_executeShortcut__block_invoke_2_81_cold_1(v4);
       }
 
       goto LABEL_27;
     }
 
-    v5 = v4;
-    if (![v5 count])
+    v6 = v4;
+    if (![v6 count])
     {
-      v6 = __atxlog_handle_ui();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = __atxlog_handle_ui(0);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         __49__ATXActionSearchResultExecution_executeShortcut__block_invoke_2_81_cold_5();
       }
@@ -205,26 +206,27 @@ void __49__ATXActionSearchResultExecution_executeShortcut__block_invoke_2_81(uin
       goto LABEL_26;
     }
 
-    v6 = [v5 objectAtIndexedSubscript:0];
+    v7 = [v6 objectAtIndexedSubscript:0];
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    v8 = objc_opt_isKindOfClass();
+    if ((v8 & 1) == 0)
     {
-      v7 = __atxlog_handle_ui();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v9 = __atxlog_handle_ui(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        __49__ATXActionSearchResultExecution_executeShortcut__block_invoke_2_81_cold_2();
+        __49__ATXActionSearchResultExecution_executeShortcut__block_invoke_2_81_cold_2(v7);
       }
     }
 
-    v8 = objc_autoreleasePoolPush();
-    v15 = 0;
-    v9 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v6 error:&v15];
-    v10 = v15;
-    objc_autoreleasePoolPop(v8);
-    if (v10 || !v9)
+    v10 = objc_autoreleasePoolPush();
+    v19 = 0;
+    v11 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v7 error:&v19];
+    v12 = v19;
+    objc_autoreleasePoolPop(v10);
+    if (v12 || !v11)
     {
-      v14 = __atxlog_handle_ui();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v18 = __atxlog_handle_ui(v13);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         __49__ATXActionSearchResultExecution_executeShortcut__block_invoke_2_81_cold_3();
       }
@@ -233,12 +235,13 @@ void __49__ATXActionSearchResultExecution_executeShortcut__block_invoke_2_81(uin
     else
     {
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      v14 = objc_opt_isKindOfClass();
+      if (v14)
       {
-        v11 = [objc_alloc(MEMORY[0x1E696EA38]) initWithIntent:v9];
-        v12 = *(*(a1 + 48) + 8);
-        v13 = *(v12 + 40);
-        *(v12 + 40) = v11;
+        v15 = [objc_alloc(MEMORY[0x1E696EA38]) initWithIntent:v11];
+        v16 = *(*(a1 + 48) + 8);
+        v17 = *(v16 + 40);
+        *(v16 + 40) = v15;
 
         [*(a1 + 40) _spawnShortcutExecutionWithShortcut:*(*(*(a1 + 48) + 8) + 40) executionContext:5];
 LABEL_25:
@@ -249,8 +252,8 @@ LABEL_27:
         goto LABEL_28;
       }
 
-      v14 = __atxlog_handle_ui();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+      v18 = __atxlog_handle_ui(v14);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
       {
         __49__ATXActionSearchResultExecution_executeShortcut__block_invoke_2_81_cold_4();
       }
@@ -259,7 +262,7 @@ LABEL_27:
     goto LABEL_25;
   }
 
-  v4 = __atxlog_handle_ui();
+  v4 = __atxlog_handle_ui(0);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __49__ATXActionSearchResultExecution_executeShortcut__block_invoke_2_81_cold_6();
@@ -271,7 +274,7 @@ LABEL_28:
 - (void)_spawnShortcutExecutionWithShortcut:(id)shortcut executionContext:(int64_t)context
 {
   shortcutCopy = shortcut;
-  v7 = __atxlog_handle_ui();
+  v7 = __atxlog_handle_ui(shortcutCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *v13 = 0;
@@ -324,7 +327,7 @@ LABEL_28:
   v12 = *MEMORY[0x1E69E9840];
   clientCopy = client;
   progressCopy = progress;
-  v7 = __atxlog_handle_ui();
+  v7 = __atxlog_handle_ui(progressCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 134218240;
@@ -338,87 +341,88 @@ LABEL_28:
 - (void)workflowRunnerClient:(id)client didFinishRunningWorkflowWithOutput:(id)output error:(id)error cancelled:(BOOL)cancelled
 {
   cancelledCopy = cancelled;
-  v22 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   clientCopy = client;
   errorCopy = error;
-  v11 = __atxlog_handle_ui();
+  v11 = __atxlog_handle_ui(errorCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v20 = 134217984;
-    v21 = clientCopy;
-    _os_log_impl(&dword_1BF549000, v11, OS_LOG_TYPE_DEFAULT, "searchExec: workflowRunnerClient: <%p> didFinishRunningWorkflowWithOutput:error:cancelled:", &v20, 0xCu);
+    v23 = 134217984;
+    v24 = clientCopy;
+    _os_log_impl(&dword_1BF549000, v11, OS_LOG_TYPE_DEFAULT, "searchExec: workflowRunnerClient: <%p> didFinishRunningWorkflowWithOutput:error:cancelled:", &v23, 0xCu);
   }
 
   _delegateDoesRespond = [(ATXActionSearchResultExecution *)self _delegateDoesRespond];
-  v13 = __atxlog_handle_ui();
-  v14 = v13;
+  v13 = _delegateDoesRespond;
+  v14 = __atxlog_handle_ui(_delegateDoesRespond);
+  v15 = v14;
   if (errorCopy || cancelledCopy)
   {
     if (errorCopy)
     {
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         [ATXActionSearchResultExecution workflowRunnerClient:didFinishRunningWorkflowWithOutput:error:cancelled:];
       }
 
-      v14 = __atxlog_handle_ui();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = __atxlog_handle_ui(v18);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         [ATXActionSearchResultExecution workflowRunnerClient:errorCopy didFinishRunningWorkflowWithOutput:? error:? cancelled:?];
       }
 
-      v15 = 1;
-      v16 = 2;
+      v16 = 1;
+      v17 = 2;
     }
 
     else if (cancelledCopy)
     {
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v20) = 0;
-        _os_log_impl(&dword_1BF549000, v14, OS_LOG_TYPE_DEFAULT, "searchExec: workflowRunnerClient:didFinishRunningWithError: CANCELLED", &v20, 2u);
+        LOWORD(v23) = 0;
+        _os_log_impl(&dword_1BF549000, v15, OS_LOG_TYPE_DEFAULT, "searchExec: workflowRunnerClient:didFinishRunningWithError: CANCELLED", &v23, 2u);
       }
 
-      v15 = 1;
-      v16 = 5;
+      v16 = 1;
+      v17 = 5;
     }
 
     else
     {
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
       {
         [ATXActionSearchResultExecution workflowRunnerClient:didFinishRunningWorkflowWithOutput:error:cancelled:];
       }
 
+      v17 = 0;
       v16 = 0;
-      v15 = 0;
     }
   }
 
   else
   {
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v20) = 0;
-      _os_log_impl(&dword_1BF549000, v14, OS_LOG_TYPE_DEFAULT, "searchExec: workflowRunnerClient:didFinishRunningWithError: SUCCEEDED", &v20, 2u);
+      LOWORD(v23) = 0;
+      _os_log_impl(&dword_1BF549000, v15, OS_LOG_TYPE_DEFAULT, "searchExec: workflowRunnerClient:didFinishRunningWithError: SUCCEEDED", &v23, 2u);
     }
 
-    v15 = 3;
-    v16 = 1;
+    v16 = 3;
+    v17 = 1;
   }
 
-  if (_delegateDoesRespond)
+  if (v13)
   {
-    v17 = __atxlog_handle_ui();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+    v20 = __atxlog_handle_ui(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v20) = 0;
-      _os_log_impl(&dword_1BF549000, v17, OS_LOG_TYPE_INFO, "searchExec: calling delegate for ATXActionSearchResultExecution", &v20, 2u);
+      LOWORD(v23) = 0;
+      _os_log_impl(&dword_1BF549000, v20, OS_LOG_TYPE_INFO, "searchExec: calling delegate for ATXActionSearchResultExecution", &v23, 2u);
     }
 
-    v18 = [(ATXActionSearchResultExecution *)self _shouldTellDelegateToClearActionOnDismissal:v15];
+    v21 = [(ATXActionSearchResultExecution *)self _shouldTellDelegateToClearActionOnDismissal:v16];
     delegate = [(ATXActionSearchResultExecution *)self delegate];
-    [delegate actionSearchResultExecution:self didDismissRemoteAlertWithReason:v15 actionCompleted:1 withResult:v16 shouldClearAction:v18];
+    [delegate actionSearchResultExecution:self didDismissRemoteAlertWithReason:v16 actionCompleted:1 withResult:v17 shouldClearAction:v21];
   }
 }
 
@@ -457,22 +461,22 @@ void __49__ATXActionSearchResultExecution_executeShortcut__block_invoke_2_cold_1
   _os_log_error_impl(&dword_1BF549000, a2, OS_LOG_TYPE_ERROR, "e:%ld * searchExec: VoiceShortcutClient fetch error: %@", &v3, 0x16u);
 }
 
-void __49__ATXActionSearchResultExecution_executeShortcut__block_invoke_2_81_cold_1()
+void __49__ATXActionSearchResultExecution_executeShortcut__block_invoke_2_81_cold_1(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_0_20();
   OUTLINED_FUNCTION_0_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
-void __49__ATXActionSearchResultExecution_executeShortcut__block_invoke_2_81_cold_2()
+void __49__ATXActionSearchResultExecution_executeShortcut__block_invoke_2_81_cold_2(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_0_20();
   OUTLINED_FUNCTION_0_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void __49__ATXActionSearchResultExecution_executeShortcut__block_invoke_2_81_cold_3()

@@ -174,71 +174,71 @@ LABEL_9:
   return ParametricStorageTypeImpl;
 }
 
-void mlir::AttrTypeSubElementHandler<std::tuple<mlir::Type,long long,llvm::ArrayRef<char>>,void>::replace(uint64_t a1@<X0>, int64x2_t *a2@<X2>, uint64_t a3@<X8>)
+void mlir::AttrTypeSubElementHandler<std::tuple<mlir::Type,long long,llvm::ArrayRef<char>>,void>::replace(void *a1@<X0>, int64x2_t *a3@<X2>, uint64_t a4@<X8>)
 {
-  v14[5] = *MEMORY[0x1E69E9840];
-  v4 = a1 + 8;
+  v15[5] = *MEMORY[0x1E69E9840];
+  v5 = a1 + 1;
   if (*a1)
   {
-    v5 = *a2;
-    *a2 = vaddq_s64(*a2, xmmword_1E09721B0);
-    v6 = *v5.i64[0];
+    v6 = *a3;
+    *a3 = vaddq_s64(*a3, xmmword_1E09721B0);
+    v7 = *v6.i64[0];
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
-  mlir::AttrTypeSubElementHandler<llvm::ArrayRef<char>,void>::replace(*(a1 + 16), *(a1 + 24), &__src);
-  v7 = (a3 + 40);
-  *(a3 + 16) = a3 + 40;
-  *a3 = v6;
-  *(a3 + 8) = v4;
-  *(a3 + 24) = xmmword_1E09700D0;
-  v8 = __src;
-  if ((a3 + 16) == &__src)
+  mlir::AttrTypeSubElementHandler<llvm::ArrayRef<char>,void>::replace(a1[2], a1[3], &__src);
+  v8 = (a4 + 40);
+  *(a4 + 16) = a4 + 40;
+  *a4 = v7;
+  *(a4 + 8) = v5;
+  *(a4 + 24) = xmmword_1E09700D0;
+  v9 = __src;
+  if ((a4 + 16) == &__src)
   {
     goto LABEL_14;
   }
 
-  v9 = __n;
+  v10 = __n;
   if (!__n)
   {
     goto LABEL_14;
   }
 
-  if (__src != v14)
+  if (__src != v15)
   {
-    *(a3 + 16) = __src;
-    *(a3 + 24) = v9;
-    *(a3 + 32) = v13;
+    *(a4 + 16) = __src;
+    *(a4 + 24) = v10;
+    *(a4 + 32) = v14;
     return;
   }
 
   if (__n < 0x29)
   {
-    v10 = __n;
+    v11 = __n;
     goto LABEL_12;
   }
 
-  llvm::SmallVectorBase<unsigned long long>::grow_pod(a3 + 16, (a3 + 40), __n, 1);
-  v8 = __src;
-  v10 = __n;
+  llvm::SmallVectorBase<unsigned long long>::grow_pod(a4 + 16, (a4 + 40), __n, 1);
+  v9 = __src;
+  v11 = __n;
   if (__n)
   {
-    v7 = *(a3 + 16);
+    v8 = *(a4 + 16);
 LABEL_12:
-    memcpy(v7, v8, v10);
-    v8 = __src;
+    memcpy(v8, v9, v11);
+    v9 = __src;
   }
 
-  *(a3 + 24) = v9;
+  *(a4 + 24) = v10;
   __n = 0;
 LABEL_14:
-  if (v8 != v14)
+  if (v9 != v15)
   {
-    free(v8);
+    free(v9);
   }
 }
 
@@ -3761,7 +3761,7 @@ unint64_t mlir::DenseElementsAttr::tryGetValues<double,void>@<X0>(uint64_t *a1@<
   return result;
 }
 
-void _ZNK4mlir6detail17ElementsAttrTraitINS_24DenseIntOrFPElementsAttrEE12getValueImplINSt3__17complexIdEEJENS5_17integral_constantIbLb1EEEEEDaNS_6TypeIDET1_(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+void _ZNK4mlir6detail17ElementsAttrTraitINS_24DenseIntOrFPElementsAttrEE12getValueImplINSt3__17complexIdEEJENS5_17integral_constantIbLb1EEEEEDaNS_6TypeIDET1_(uint64_t *result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   {
     if (mlir::detail::TypeIDResolver<std::complex<double>,void>::resolveTypeID(void)::id != a2)
@@ -3782,17 +3782,17 @@ LABEL_3:
     }
   }
 
-  v11 = *(*a1 + 8);
+  v11 = *(*result + 8);
   ArgAttrsAttr = mlir::CallableOpInterface::getArgAttrsAttr(&v11);
   if (mlir::ShapedType::getNumElements(ArgAttrsAttr, v6))
   {
-    mlir::DenseElementsAttr::tryGetValues<std::complex<double>,double,void>(a1, &v11);
+    mlir::DenseElementsAttr::tryGetValues<std::complex<double>,double,void>(result, &v11);
     if ((v13 & 1) == 0)
     {
       goto LABEL_3;
     }
 
-    v7 = *(*a1 + 24);
+    v7 = *(*result + 24);
     if (BYTE8(v11))
     {
       v8 = 0;
@@ -4114,7 +4114,7 @@ __n128 mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<mli
   return result;
 }
 
-uint64_t mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<mlir::DenseElementsAttr::AttributeElementIterator,mlir::Attribute>::at(uint64_t a1, uint64_t a2)
+llvm::APFloatBase *mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<mlir::DenseElementsAttr::AttributeElementIterator,mlir::Attribute>::at(uint64_t a1, uint64_t a2)
 {
   v2 = *(a1 + 16) + a2;
   v4[0] = *(a1 + 8);
@@ -4275,7 +4275,7 @@ void *mlir::detail::ElementsAttrTrait<mlir::DenseIntOrFPElementsAttr>::buildValu
   return result;
 }
 
-unint64_t mlir::detail::ElementsAttrTrait<mlir::DenseIntOrFPElementsAttr>::getValueImpl<std::complex<llvm::APInt>,llvm::APFloat,std::complex<llvm::APFloat>,std::integral_constant<BOOL,false>>@<X0>(mlir::DenseElementsAttr *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+char *mlir::detail::ElementsAttrTrait<mlir::DenseIntOrFPElementsAttr>::getValueImpl<std::complex<llvm::APInt>,llvm::APFloat,std::complex<llvm::APFloat>,std::integral_constant<BOOL,false>>@<X0>(mlir::DenseElementsAttr *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   v16 = *MEMORY[0x1E69E9840];
   {
@@ -4304,7 +4304,7 @@ LABEL_3:
 
   v6 = a3;
   v7 = a1;
-  result = mlir::DenseElementsAttr::tryGetComplexIntValues(a1, &v12);
+  result = mlir::DenseElementsAttr::tryGetComplexIntValues(&v12, a1);
   if (v14)
   {
     v8 = v12;
@@ -4313,7 +4313,7 @@ LABEL_3:
     v9 = *(*v7 + 24);
     result = operator new(0x28uLL);
     *result = &unk_1F5AF5DF8;
-    *(result + 8) = v8;
+    result[8] = v8;
     *(result + 9) = v15[0];
     *(result + 24) = *(v15 + 15);
     *(v6 + 1) = v9;
@@ -4386,7 +4386,7 @@ uint64_t mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<m
   return (*(*(a1 + 8) + (v2 >> 3)) >> (v2 & 7)) & 1;
 }
 
-unint64_t mlir::detail::ElementsAttrTrait<mlir::DenseIntOrFPElementsAttr>::getValueImpl<llvm::APFloat,std::complex<llvm::APFloat>,std::integral_constant<BOOL,false>>@<X0>(mlir::DenseElementsAttr *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+char *mlir::detail::ElementsAttrTrait<mlir::DenseIntOrFPElementsAttr>::getValueImpl<llvm::APFloat,std::complex<llvm::APFloat>,std::integral_constant<BOOL,false>>@<X0>(mlir::DenseElementsAttr *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   v19 = *MEMORY[0x1E69E9840];
   {
@@ -4415,7 +4415,7 @@ LABEL_3:
 
   v6 = a3;
   v7 = a1;
-  result = mlir::DenseElementsAttr::tryGetFloatValues(a1, &v13);
+  result = mlir::DenseElementsAttr::tryGetFloatValues(&v13, a1);
   if (v16)
   {
     v8 = v13;
@@ -4425,11 +4425,11 @@ LABEL_3:
     v9 = *(*v7 + 24);
     result = operator new(0x30uLL);
     *result = &unk_1F5AF5E58;
-    *(result + 8) = v8;
+    result[8] = v8;
     v10 = *v18;
     *(result + 9) = v17;
     *(result + 25) = v10;
-    *(result + 40) = *&v18[15];
+    *(result + 5) = *&v18[15];
     *(v6 + 1) = v9;
     *(v6 + 8) = result;
     v11 = 1;
@@ -4485,7 +4485,7 @@ __n128 mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<mli
   return result;
 }
 
-void mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<mlir::DenseElementsAttr::ComplexIntElementIterator,std::complex<llvm::APInt>>::at(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+void mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<mlir::DenseElementsAttr::ComplexIntElementIterator,std::complex<llvm::APInt>>::at(uint64_t a1@<X0>, uint64_t a2@<X1>, _DWORD *a3@<X8>)
 {
   v4 = *(a1 + 8);
   v3 = *(a1 + 32);
@@ -4494,7 +4494,7 @@ void mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<mlir:
   mlir::DenseElementsAttr::ComplexIntElementIterator::operator*(&v4, a3);
 }
 
-unint64_t _ZNK4mlir6detail17ElementsAttrTraitINS_24DenseIntOrFPElementsAttrEE12getValueImplINSt3__17complexIN4llvm7APFloatEEEJENS5_17integral_constantIbLb0EEEEEDaNS_6TypeIDET1_@<X0>(unint64_t result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+char *_ZNK4mlir6detail17ElementsAttrTraitINS_24DenseIntOrFPElementsAttrEE12getValueImplINSt3__17complexIN4llvm7APFloatEEEJENS5_17integral_constantIbLb0EEEEEDaNS_6TypeIDET1_@<X0>(char *result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   v17 = *MEMORY[0x1E69E9840];
   {
@@ -4519,7 +4519,7 @@ LABEL_3:
   }
 
   v5 = result;
-  result = mlir::DenseElementsAttr::tryGetComplexFloatValues(result, &v11);
+  result = mlir::DenseElementsAttr::tryGetComplexFloatValues(&v11, result);
   if (v14)
   {
     v6 = v11;
@@ -4529,11 +4529,11 @@ LABEL_3:
     v7 = *(*v5 + 24);
     result = operator new(0x30uLL);
     *result = &unk_1F5AF5EB8;
-    *(result + 8) = v6;
+    result[8] = v6;
     v8 = *v16;
     *(result + 9) = v15;
     *(result + 25) = v8;
-    *(result + 40) = *&v16[15];
+    *(result + 5) = *&v16[15];
     *(a3 + 1) = v7;
     *(a3 + 8) = result;
     v9 = 1;
@@ -4874,7 +4874,7 @@ LABEL_9:
   }
 }
 
-void _ZNK4mlir6detail17ElementsAttrTraitINS_23DenseStringElementsAttrEE12getValueImplIN4llvm9StringRefEJENSt3__117integral_constantIbLb1EEEEEDaNS_6TypeIDET1_(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+void _ZNK4mlir6detail17ElementsAttrTraitINS_23DenseStringElementsAttrEE12getValueImplIN4llvm9StringRefEJENSt3__117integral_constantIbLb1EEEEEDaNS_6TypeIDET1_(uint64_t result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   {
     if (mlir::detail::TypeIDResolver<llvm::StringRef,void>::resolveTypeID(void)::id != a2)
@@ -4895,15 +4895,15 @@ LABEL_3:
     }
   }
 
-  v12 = *(*a1 + 8);
+  v12 = *(*result + 8);
   ArgAttrsAttr = mlir::CallableOpInterface::getArgAttrsAttr(&v12);
   if (mlir::ShapedType::getNumElements(ArgAttrsAttr, v7))
   {
-    v8 = *(*a1 + 32);
-    v12 = *(*a1 + 8);
+    v8 = *(*result + 32);
+    v12 = *(*result + 8);
     v9 = mlir::CallableOpInterface::getArgAttrsAttr(&v12);
     mlir::ShapedType::getNumElements(v9, v10);
-    v11 = *(*a1 + 24);
+    v11 = *(*result + 24);
   }
 
   else
@@ -5346,52 +5346,54 @@ void _ZN4llvm12function_refIFvN4mlir9AttributeENS0_IFvS2_EEENS0_IFvNS1_4TypeEEEE
   }
 }
 
-uint64_t _ZN4llvm12function_refIFN4mlir9AttributeES2_NS_8ArrayRefIS2_EENS3_INS1_4TypeEEEEE11callback_fnIZNS1_6detail15StorageUserBaseINS1_14DictionaryAttrES2_NSA_21DictionaryAttrStorageENSA_16AttributeUniquerEJEE32getReplaceImmediateSubElementsFnEvEUlT_S4_S6_E_EES2_lS2_S4_S6_(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t _ZN4llvm12function_refIFN4mlir9AttributeES2_NS_8ArrayRefIS2_EENS3_INS1_4TypeEEEEE11callback_fnIZNS1_6detail15StorageUserBaseINS1_14DictionaryAttrES2_NSA_21DictionaryAttrStorageENSA_16AttributeUniquerEJEE32getReplaceImmediateSubElementsFnEvEUlT_S4_S6_E_EES2_lS2_S4_S6_(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v5.i64[0] = a3;
-  v5.i64[1] = a4;
-  return mlir::detail::replaceImmediateSubElementsImpl<mlir::DictionaryAttr>(a2, &v5);
+  v8.i64[0] = a3;
+  v8.i64[1] = a4;
+  *&v7 = a5;
+  *(&v7 + 1) = a6;
+  return mlir::detail::replaceImmediateSubElementsImpl<mlir::DictionaryAttr>(a2, &v8, &v7);
 }
 
-uint64_t mlir::detail::replaceImmediateSubElementsImpl<mlir::DictionaryAttr>(uint64_t a1, int64x2_t *a2)
+uint64_t mlir::detail::replaceImmediateSubElementsImpl<mlir::DictionaryAttr>(uint64_t a1, int64x2_t *a2, __int128 *a3)
 {
-  v19[6] = *MEMORY[0x1E69E9840];
-  v13 = a1;
-  v2 = *(a1 + 8);
-  v11 = *a2;
-  v12 = v2;
-  mlir::AttrTypeSubElementHandler<std::tuple<llvm::ArrayRef<mlir::NamedAttribute>>,void>::replace(&v12, &v11, &v17);
-  Context = mlir::Attribute::getContext(&v13);
-  v14 = v16;
-  v15 = 0x300000000;
-  v4 = v18;
-  if (v18)
+  v20[6] = *MEMORY[0x1E69E9840];
+  v14 = a1;
+  v3 = *(a1 + 8);
+  v12 = *a2;
+  v13 = v3;
+  mlir::AttrTypeSubElementHandler<std::tuple<llvm::ArrayRef<mlir::NamedAttribute>>,void>::replace(&v13, &v12, &v18);
+  Context = mlir::Attribute::getContext(&v14);
+  v15 = v17;
+  v16 = 0x300000000;
+  v5 = v19;
+  if (v19)
   {
-    v5 = Context;
-    if (v18 < 4)
+    v6 = Context;
+    if (v19 < 4)
     {
-      v7 = v16;
-      v6 = v18;
+      v8 = v17;
+      v7 = v19;
     }
 
     else
     {
-      llvm::SmallVectorBase<unsigned int>::grow_pod(&v14, v16, v18, 16);
-      v6 = v18;
-      if (!v18)
+      llvm::SmallVectorBase<unsigned int>::grow_pod(&v15, v17, v19, 16);
+      v7 = v19;
+      if (!v19)
       {
         goto LABEL_9;
       }
 
-      v7 = v14;
+      v8 = v15;
     }
 
-    memcpy(v7, v17, 16 * v6);
+    memcpy(v8, v18, 16 * v7);
 LABEL_9:
-    LODWORD(v15) = v4;
-    v8 = mlir::DictionaryAttr::get(v5, v14, v4);
-    v9 = v14;
-    if (v14 == v16)
+    LODWORD(v16) = v5;
+    v9 = mlir::DictionaryAttr::get(v6, v15, v5);
+    v10 = v15;
+    if (v15 == v17)
     {
       goto LABEL_11;
     }
@@ -5399,87 +5401,87 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  v8 = mlir::DictionaryAttr::get(Context, v16, 0);
-  v9 = v14;
-  if (v14 != v16)
+  v9 = mlir::DictionaryAttr::get(Context, v17, 0);
+  v10 = v15;
+  if (v15 != v17)
   {
 LABEL_10:
-    free(v9);
+    free(v10);
   }
 
 LABEL_11:
-  if (v17 != v19)
+  if (v18 != v20)
   {
-    free(v17);
+    free(v18);
   }
 
-  return v8;
+  return v9;
 }
 
-void mlir::AttrTypeSubElementHandler<std::tuple<llvm::ArrayRef<mlir::NamedAttribute>>,void>::replace(uint64_t a1@<X0>, int64x2_t *a2@<X1>, uint64_t a3@<X8>)
+void mlir::AttrTypeSubElementHandler<std::tuple<llvm::ArrayRef<mlir::NamedAttribute>>,void>::replace(void *a1@<X0>, int64x2_t *a2@<X1>, uint64_t a4@<X8>)
 {
-  v13[6] = *MEMORY[0x1E69E9840];
-  mlir::AttrTypeSubElementHandler<llvm::ArrayRef<mlir::NamedAttribute>,void>::replace(*(a1 + 8), a2, &__src);
-  v4 = (a3 + 16);
-  *a3 = a3 + 16;
-  *(a3 + 8) = 0x300000000;
-  v5 = v11;
-  v6 = __src;
-  if (v11)
+  v14[6] = *MEMORY[0x1E69E9840];
+  mlir::AttrTypeSubElementHandler<llvm::ArrayRef<mlir::NamedAttribute>,void>::replace(a1[1], a2, &__src);
+  v5 = (a4 + 16);
+  *a4 = a4 + 16;
+  *(a4 + 8) = 0x300000000;
+  v6 = v12;
+  v7 = __src;
+  if (v12)
   {
-    v7 = &__src == a3;
+    v8 = &__src == a4;
   }
 
   else
   {
-    v7 = 1;
+    v8 = 1;
   }
 
-  if (v7)
+  if (v8)
   {
     goto LABEL_14;
   }
 
-  if (__src == v13)
+  if (__src == v14)
   {
-    if (v11 < 4)
+    if (v12 < 4)
     {
-      v9 = v11;
+      v10 = v12;
     }
 
     else
     {
-      llvm::SmallVectorBase<unsigned int>::grow_pod(a3, a3 + 16, v11, 16);
-      v9 = v11;
-      v6 = __src;
-      if (!v11)
+      llvm::SmallVectorBase<unsigned int>::grow_pod(a4, (a4 + 16), v12, 16);
+      v10 = v12;
+      v7 = __src;
+      if (!v12)
       {
 LABEL_12:
-        *(a3 + 8) = v5;
+        *(a4 + 8) = v6;
         goto LABEL_13;
       }
 
-      v4 = *a3;
+      v5 = *a4;
     }
 
-    memcpy(v4, v6, 16 * v9);
-    v6 = __src;
+    memcpy(v5, v7, 16 * v10);
+    v7 = __src;
     goto LABEL_12;
   }
 
-  *a3 = __src;
-  v8 = v12;
-  *(a3 + 8) = v5;
-  *(a3 + 12) = v8;
-  __src = v13;
-  v12 = 0;
-  v6 = v13;
+  *a4 = __src;
+  v9 = v13;
+  *(a4 + 8) = v6;
+  *(a4 + 12) = v9;
+  __src = v14;
+  v13 = 0;
+  v7 = v14;
 LABEL_13:
-  v11 = 0;
+  v12 = 0;
 LABEL_14:
-  if (v6 != v13)
+  if (v7 != v14)
   {
-    free(v6);
+    free(v7);
   }
 }
 
@@ -5527,7 +5529,7 @@ LABEL_7:
       if (v8 == v14)
       {
         v10 = v7;
-        if (v7 < 4 || (llvm::SmallVectorBase<unsigned int>::grow_pod(a3, a3 + 16, v7, 16), v10 = v13, v8 = __src, v13))
+        if (v7 < 4 || (llvm::SmallVectorBase<unsigned int>::grow_pod(a3, (a3 + 16), v7, 16), v10 = v13, v8 = __src, v13))
         {
           memcpy(*a3, v8, 16 * v10);
           v8 = __src;
@@ -5629,12 +5631,12 @@ BOOL mlir::detail::StorageUserBase<mlir::FloatAttr,mlir::Attribute,mlir::detail:
   return mlir::detail::TypeIDResolver<mlir::TypedAttr::Trait<mlir::TypeID mlir::TypeID::get<mlir::TypedAttr::Trait>(void)::Empty>,void>::resolveTypeID(void)::id == a1;
 }
 
-void mlir::detail::walkImmediateSubElementsImpl<mlir::FloatAttr>(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void mlir::detail::walkImmediateSubElementsImpl<mlir::FloatAttr>(llvm::APFloatBase *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v14[3] = *MEMORY[0x1E69E9840];
-  v9 = (a1 + 3);
-  v10 = a1[3];
-  v13 = a1[1];
+  v9 = (a1 + 24);
+  v10 = *(a1 + 3);
+  v13 = *(a1 + 1);
   v11 = llvm::APFloatBase::PPCDoubleDouble(a1);
   if (v11 == v10)
   {
@@ -5662,7 +5664,7 @@ void mlir::detail::walkImmediateSubElementsImpl<mlir::FloatAttr>(void *a1, uint6
   }
 }
 
-uint64_t _ZN4llvm12function_refIFN4mlir9AttributeES2_NS_8ArrayRefIS2_EENS3_INS1_4TypeEEEEE11callback_fnIZNS1_6detail15StorageUserBaseINS1_9FloatAttrES2_NSA_16FloatAttrStorageENSA_16AttributeUniquerEJNS1_9TypedAttr5TraitEEE32getReplaceImmediateSubElementsFnEvEUlT_S4_S6_E_EES2_lS2_S4_S6_(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t *a5, uint64_t *a6)
+uint64_t _ZN4llvm12function_refIFN4mlir9AttributeES2_NS_8ArrayRefIS2_EENS3_INS1_4TypeEEEEE11callback_fnIZNS1_6detail15StorageUserBaseINS1_9FloatAttrES2_NSA_16FloatAttrStorageENSA_16AttributeUniquerEJNS1_9TypedAttr5TraitEEE32getReplaceImmediateSubElementsFnEvEUlT_S4_S6_E_EES2_lS2_S4_S6_(uint64_t a1, llvm::APFloatBase *a2, uint64_t a3, uint64_t a4, uint64_t *a5, uint64_t *a6)
 {
   v8[0] = a3;
   v8[1] = a4;
@@ -5671,13 +5673,13 @@ uint64_t _ZN4llvm12function_refIFN4mlir9AttributeES2_NS_8ArrayRefIS2_EENS3_INS1_
   return mlir::detail::replaceImmediateSubElementsImpl<mlir::FloatAttr>(a2, v8, v7);
 }
 
-uint64_t mlir::detail::replaceImmediateSubElementsImpl<mlir::FloatAttr>(void *a1, uint64_t a2, uint64_t **a3)
+uint64_t mlir::detail::replaceImmediateSubElementsImpl<mlir::FloatAttr>(llvm::APFloatBase *a1, uint64_t a2, uint64_t **a3)
 {
   v17[3] = *MEMORY[0x1E69E9840];
   v12 = a1;
-  v4 = (a1 + 3);
-  v5 = a1[3];
-  v15 = a1[1];
+  v4 = (a1 + 24);
+  v5 = *(a1 + 3);
+  v15 = *(a1 + 1);
   v6 = llvm::APFloatBase::PPCDoubleDouble(a1);
   if (v6 == v5)
   {
@@ -6187,32 +6189,32 @@ LABEL_14:
   mlir::detail::InterfaceMap::insert(a1, v13, v3);
 }
 
-void mlir::detail::ElementsAttrInterfaceTraits::Model<mlir::SparseElementsAttr>::getValuesImpl(uint64_t a1@<X1>, uint64_t a2@<X2>, _BYTE *a3@<X8>)
+void mlir::detail::ElementsAttrInterfaceTraits::Model<mlir::SparseElementsAttr>::getValuesImpl(uint64_t a2@<X1>, uint64_t a3@<X2>, _BYTE *x8_0@<X8>)
 {
-  v5 = a1;
+  v6 = a2;
   {
-    if (mlir::detail::TypeIDResolver<mlir::Attribute,void>::resolveTypeID(void)::id != a2)
+    if (mlir::detail::TypeIDResolver<mlir::Attribute,void>::resolveTypeID(void)::id != a3)
     {
 LABEL_3:
-      mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::getValueImpl<llvm::APInt,BOOL,unsigned char,unsigned short,unsigned int,unsigned long long,signed char,short,int,long long,short,unsigned short,int,unsigned int,long,unsigned long,std::complex<llvm::APInt>,std::complex<unsigned char>,std::complex<unsigned short>,std::complex<unsigned int>,std::complex<unsigned long long>,std::complex<signed char>,std::complex<short>,std::complex<int>,std::complex<long long>,llvm::APFloat,float,double,std::complex<llvm::APFloat>,std::complex<float>,std::complex<double>,llvm::StringRef,std::integral_constant<BOOL,false>>(&v5, a2, a3);
+      mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::getValueImpl<llvm::APInt,BOOL,unsigned char,unsigned short,unsigned int,unsigned long long,signed char,short,int,long long,short,unsigned short,int,unsigned int,long,unsigned long,std::complex<llvm::APInt>,std::complex<unsigned char>,std::complex<unsigned short>,std::complex<unsigned int>,std::complex<unsigned long long>,std::complex<signed char>,std::complex<short>,std::complex<int>,std::complex<long long>,llvm::APFloat,float,double,std::complex<llvm::APFloat>,std::complex<float>,std::complex<double>,llvm::StringRef,std::integral_constant<BOOL,false>>(&v6, a3, x8_0);
       return;
     }
   }
 
   else
   {
-    v3 = a2;
     v4 = a3;
+    v5 = x8_0;
     mlir::detail::ElementsAttrTrait<mlir::DenseIntOrFPElementsAttr>::getValueImpl<mlir::Attribute,llvm::APInt,BOOL,std::complex<llvm::APInt>,llvm::APFloat,std::complex<llvm::APFloat>,std::integral_constant<BOOL,false>>();
-    a2 = v3;
     a3 = v4;
-    if (mlir::detail::TypeIDResolver<mlir::Attribute,void>::resolveTypeID(void)::id != v3)
+    x8_0 = v5;
+    if (mlir::detail::TypeIDResolver<mlir::Attribute,void>::resolveTypeID(void)::id != v4)
     {
       goto LABEL_3;
     }
   }
 
-  mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<mlir::Attribute>(&v5, a3);
+  mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<mlir::Attribute>(&v6, x8_0);
 }
 
 void mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<mlir::Attribute>(mlir::SparseElementsAttr *a1@<X0>, uint64_t a2@<X8>)
@@ -6495,7 +6497,7 @@ void *mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llv
   *result = &unk_1F5AF5FA8;
   result[1] = v4;
   *(result + 16) = 0;
-  v8 = (result + 2);
+  v8 = result + 2;
   *(result + 48) = 0;
   if ((v5 & 1) == 0)
   {
@@ -6512,7 +6514,7 @@ void *mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llv
       v13 = result;
       (*(*v9 + 24))(v9);
       result = v13;
-      v13[48] = 1;
+      *(v13 + 48) = 1;
       v14 = v18;
       *(a3 + 8) = v13;
       if ((v14 & 1) == 0)
@@ -6627,10 +6629,8 @@ void *_ZNKSt3__110__function6__funcIZNK4mlir18SparseElementsAttr20try_value_begi
 
 __n128 _ZNKSt3__110__function6__funcIZNK4mlir18SparseElementsAttr20try_value_begin_implINS2_9AttributeEEEN4llvm9FailureOrINS6_15mapped_iteratorINS6_6detail15SafeIntIteratorIlLb0EEENS_8functionIFT_lEEEDTclclsr3stdE7declvalISF_EEdeclL_ZNS_7declvalB8nn200100ISB_EEDTclsr3stdE9__declvalISD_ELi0EEEvEEEEEEEENS2_6detail17ElementsAttrTraitIS3_E13OverloadTokenISD_EEEUllE_NS_9allocatorISQ_EEFS5_lEE7__cloneEPNS0_6__baseIST_EE(__n128 *a1, __n128 *a2)
 {
-  a2->n128_u64[0] = &unk_1F5AF5F18;
-  a2->n128_u64[1] = 0;
-  a2[1].n128_u64[0] = 0;
-  a2[1].n128_u64[1] = 0;
+  *a2 = &unk_1F5AF5F18;
+  a2[1] = 0uLL;
   v5 = a1->n128_u64[1];
   v4 = a1[1].n128_u64[0];
   v6 = v4 - v5;
@@ -6644,8 +6644,8 @@ __n128 _ZNKSt3__110__function6__funcIZNK4mlir18SparseElementsAttr20try_value_beg
     v7 = operator new(v4 - v5);
     a2->n128_u64[1] = v7;
     a2[1].n128_u64[0] = v7;
-    v8 = &v7[v6];
-    a2[1].n128_u64[1] = &v7[v6];
+    v8 = v7 + v6;
+    a2[1].n128_u64[1] = v7 + v6;
     memcpy(v7, v5, v6);
     a2[1].n128_u64[0] = v8;
   }
@@ -6681,7 +6681,7 @@ void _ZNSt3__110__function6__funcIZNK4mlir18SparseElementsAttr20try_value_begin_
   operator delete(a1);
 }
 
-uint64_t _ZNSt3__110__function6__funcIZNK4mlir18SparseElementsAttr20try_value_begin_implINS2_9AttributeEEEN4llvm9FailureOrINS6_15mapped_iteratorINS6_6detail15SafeIntIteratorIlLb0EEENS_8functionIFT_lEEEDTclclsr3stdE7declvalISF_EEdeclL_ZNS_7declvalB8nn200100ISB_EEDTclsr3stdE9__declvalISD_ELi0EEEvEEEEEEEENS2_6detail17ElementsAttrTraitIS3_E13OverloadTokenISD_EEEUllE_NS_9allocatorISQ_EEFS5_lEEclEOl(void *a1, void *a2)
+llvm::APFloatBase *_ZNSt3__110__function6__funcIZNK4mlir18SparseElementsAttr20try_value_begin_implINS2_9AttributeEEEN4llvm9FailureOrINS6_15mapped_iteratorINS6_6detail15SafeIntIteratorIlLb0EEENS_8functionIFT_lEEEDTclclsr3stdE7declvalISF_EEdeclL_ZNS_7declvalB8nn200100ISB_EEDTclsr3stdE9__declvalISD_ELi0EEEvEEEEEEEENS2_6detail17ElementsAttrTraitIS3_E13OverloadTokenISD_EEEUllE_NS_9allocatorISQ_EEFS5_lEEclEOl(void *a1, void *a2)
 {
   v2 = a1[1];
   v3 = a1[2] - v2;
@@ -6803,7 +6803,7 @@ void *mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm
   *result = &unk_1F5AF5FA8;
   result[1] = v5;
   *(result + 16) = 0;
-  v6 = (result + 2);
+  v6 = result + 2;
   *(result + 48) = 0;
   if (*(a1 + 48) == 1)
   {
@@ -6839,17 +6839,17 @@ void *mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm
   return result;
 }
 
-uint64_t mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<mlir::Attribute ()(long)>,mlir::Attribute>,mlir::Attribute>::at(uint64_t a1, uint64_t a2)
+uint64_t *mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<mlir::Attribute ()(long)>,mlir::Attribute>,mlir::Attribute>::at(uint64_t a1, uint64_t a2)
 {
-  v5 = *(a1 + 8) + a2;
+  v6 = *(a1 + 8) + a2;
   v2 = *(a1 + 40);
   if (v2)
   {
-    return (*(*v2 + 48))(v2, &v5);
+    return (*(*v2 + 48))(v2, &v6);
   }
 
   v4 = std::__throw_bad_function_call[abi:nn200100]();
-  return mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<llvm::APInt>(v4);
+  return mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<llvm::APInt>(v4, v5);
 }
 
 void mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<llvm::APInt>(mlir::SparseElementsAttr *a1@<X0>, uint64_t a2@<X8>)
@@ -7132,7 +7132,7 @@ void *mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llv
   *result = &unk_1F5AF6080;
   result[1] = v4;
   *(result + 16) = 0;
-  v8 = (result + 2);
+  v8 = result + 2;
   *(result + 48) = 0;
   if ((v5 & 1) == 0)
   {
@@ -7149,7 +7149,7 @@ void *mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llv
       v13 = result;
       (*(*v9 + 24))(v9);
       result = v13;
-      v13[48] = 1;
+      *(v13 + 48) = 1;
       v14 = v18;
       *(a3 + 8) = v13;
       if ((v14 & 1) == 0)
@@ -7400,7 +7400,7 @@ uint64_t _ZNKSt3__110__function6__funcIZNK4mlir18SparseElementsAttr20try_value_b
   return 0;
 }
 
-void *_ZZNK4mlir18SparseElementsAttr20try_value_begin_implIN4llvm5APIntEEENS2_9FailureOrINS2_15mapped_iteratorINS2_6detail15SafeIntIteratorIlLb0EEENSt3__18functionIFT_lEEEDTclclsr3stdE7declvalISD_EEdeclL_ZNS9_7declvalB8nn200100IS8_EEDTclsr3stdE9__declvalISB_ELi0EEEvEEEEEEEENS_6detail17ElementsAttrTraitIS0_E13OverloadTokenISB_EEENKUllE_clEl@<X0>(void *result@<X0>, uint64_t a2@<X1>, llvm::APInt *a3@<X8>)
+char *_ZZNK4mlir18SparseElementsAttr20try_value_begin_implIN4llvm5APIntEEENS2_9FailureOrINS2_15mapped_iteratorINS2_6detail15SafeIntIteratorIlLb0EEENSt3__18functionIFT_lEEEDTclclsr3stdE7declvalISD_EEdeclL_ZNS9_7declvalB8nn200100IS8_EEDTclsr3stdE9__declvalISB_ELi0EEEvEEEEEEEENS_6detail17ElementsAttrTraitIS0_E13OverloadTokenISB_EEENKUllE_clEl@<X0>(char *result@<X0>, uint64_t a2@<X1>, llvm::APInt *a3@<X8>)
 {
   v3 = *result;
   v4 = (*(result + 1) - *result) >> 3;
@@ -7425,7 +7425,7 @@ void *_ZZNK4mlir18SparseElementsAttr20try_value_begin_implIN4llvm5APIntEEENS2_9F
 
     v9 = *(result + 3);
     v10 = *(result + 6);
-    if (*(result + 32))
+    if (result[32])
     {
       v11 = 0;
     }
@@ -7565,7 +7565,7 @@ void *mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm
   *result = &unk_1F5AF6080;
   result[1] = v5;
   *(result + 16) = 0;
-  v6 = (result + 2);
+  v6 = result + 2;
   *(result + 48) = 0;
   if (*(a1 + 48) == 1)
   {
@@ -7601,17 +7601,17 @@ void *mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm
   return result;
 }
 
-uint64_t mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<llvm::APInt ()(long)>,llvm::APInt>,llvm::APInt>::at(uint64_t a1, uint64_t a2)
+uint64_t *mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<llvm::APInt ()(long)>,llvm::APInt>,llvm::APInt>::at(uint64_t a1, uint64_t a2)
 {
-  v5 = *(a1 + 8) + a2;
+  v6 = *(a1 + 8) + a2;
   v2 = *(a1 + 40);
   if (v2)
   {
-    return (*(*v2 + 48))(v2, &v5);
+    return (*(*v2 + 48))(v2, &v6);
   }
 
   v4 = std::__throw_bad_function_call[abi:nn200100]();
-  return mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<BOOL>(v4);
+  return mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<BOOL>(v4, v5);
 }
 
 void mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<BOOL>(mlir::SparseElementsAttr *a1@<X0>, uint64_t a2@<X8>)
@@ -7905,7 +7905,7 @@ void *mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llv
   *result = &unk_1F5AF6158;
   result[1] = v4;
   *(result + 16) = 0;
-  v8 = (result + 2);
+  v8 = result + 2;
   *(result + 48) = 0;
   if ((v5 & 1) == 0)
   {
@@ -7922,7 +7922,7 @@ void *mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llv
       v13 = result;
       (*(*v9 + 24))(v9);
       result = v13;
-      v13[48] = 1;
+      *(v13 + 48) = 1;
       v14 = v18;
       *(a3 + 8) = v13;
       if ((v14 & 1) == 0)
@@ -8220,7 +8220,7 @@ void *mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm
   *result = &unk_1F5AF6158;
   result[1] = v5;
   *(result + 16) = 0;
-  v6 = (result + 2);
+  v6 = result + 2;
   *(result + 48) = 0;
   if (*(a1 + 48) == 1)
   {
@@ -8256,17 +8256,17 @@ void *mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm
   return result;
 }
 
-uint64_t mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<BOOL ()(long)>,BOOL>,BOOL>::at(uint64_t a1, uint64_t a2)
+uint64_t *mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<BOOL ()(long)>,BOOL>,BOOL>::at(uint64_t a1, uint64_t a2)
 {
-  v5 = *(a1 + 8) + a2;
+  v6 = *(a1 + 8) + a2;
   v2 = *(a1 + 40);
   if (v2)
   {
-    return (*(*v2 + 48))(v2, &v5);
+    return (*(*v2 + 48))(v2, &v6);
   }
 
   v4 = std::__throw_bad_function_call[abi:nn200100]();
-  return mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<unsigned char>(v4);
+  return mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<unsigned char>(v4, v5);
 }
 
 void mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<unsigned char>(mlir::SparseElementsAttr *a1@<X0>, uint64_t a2@<X8>)
@@ -8502,7 +8502,7 @@ void *mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llv
   *result = &unk_1F5AF6230;
   result[1] = v4;
   *(result + 16) = 0;
-  v8 = (result + 2);
+  v8 = result + 2;
   *(result + 48) = 0;
   if ((v5 & 1) == 0)
   {
@@ -8519,7 +8519,7 @@ void *mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llv
       v13 = result;
       (*(*v9 + 24))(v9);
       result = v13;
-      v13[48] = 1;
+      *(v13 + 48) = 1;
       v14 = v18;
       *(a3 + 8) = v13;
       if ((v14 & 1) == 0)
@@ -8817,7 +8817,7 @@ void *mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm
   *result = &unk_1F5AF6230;
   result[1] = v5;
   *(result + 16) = 0;
-  v6 = (result + 2);
+  v6 = result + 2;
   *(result + 48) = 0;
   if (*(a1 + 48) == 1)
   {
@@ -8853,17 +8853,17 @@ void *mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm
   return result;
 }
 
-uint64_t mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<unsigned char ()(long)>,unsigned char>,unsigned char>::at(uint64_t a1, uint64_t a2)
+uint64_t *mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<unsigned char ()(long)>,unsigned char>,unsigned char>::at(uint64_t a1, uint64_t a2)
 {
-  v5 = *(a1 + 8) + a2;
+  v6 = *(a1 + 8) + a2;
   v2 = *(a1 + 40);
   if (v2)
   {
-    return (*(*v2 + 48))(v2, &v5);
+    return (*(*v2 + 48))(v2, &v6);
   }
 
   v4 = std::__throw_bad_function_call[abi:nn200100]();
-  return mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<unsigned short>(v4);
+  return mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<unsigned short>(v4, v5);
 }
 
 void mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<unsigned short>(mlir::SparseElementsAttr *a1@<X0>, uint64_t a2@<X8>)
@@ -9154,7 +9154,7 @@ void *mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llv
   *result = &unk_1F5AF6320;
   result[1] = v4;
   *(result + 16) = 0;
-  v8 = (result + 2);
+  v8 = result + 2;
   *(result + 48) = 0;
   if ((v5 & 1) == 0)
   {
@@ -9171,7 +9171,7 @@ void *mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llv
       v13 = result;
       (*(*v9 + 24))(v9);
       result = v13;
-      v13[48] = 1;
+      *(v13 + 48) = 1;
       v14 = v18;
       *(a3 + 8) = v13;
       if ((v14 & 1) == 0)
@@ -9469,7 +9469,7 @@ void *mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm
   *result = &unk_1F5AF6320;
   result[1] = v5;
   *(result + 16) = 0;
-  v6 = (result + 2);
+  v6 = result + 2;
   *(result + 48) = 0;
   if (*(a1 + 48) == 1)
   {
@@ -9505,17 +9505,17 @@ void *mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm
   return result;
 }
 
-uint64_t mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<unsigned short ()(long)>,unsigned short>,unsigned short>::at(uint64_t a1, uint64_t a2)
+uint64_t *mlir::detail::ElementsAttrIndexer::NonContiguousState::OpaqueIterator<llvm::mapped_iterator<llvm::detail::SafeIntIterator<long,false>,std::function<unsigned short ()(long)>,unsigned short>,unsigned short>::at(uint64_t a1, uint64_t a2)
 {
-  v5 = *(a1 + 8) + a2;
+  v6 = *(a1 + 8) + a2;
   v2 = *(a1 + 40);
   if (v2)
   {
-    return (*(*v2 + 48))(v2, &v5);
+    return (*(*v2 + 48))(v2, &v6);
   }
 
   v4 = std::__throw_bad_function_call[abi:nn200100]();
-  return mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<unsigned int>(v4);
+  return mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<unsigned int>(v4, v5);
 }
 
 void mlir::detail::ElementsAttrTrait<mlir::SparseElementsAttr>::buildValueResult<unsigned int>(mlir::SparseElementsAttr *a1@<X0>, uint64_t a2@<X8>)
@@ -9751,7 +9751,7 @@ void *mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llv
   *result = &unk_1F5AF6410;
   result[1] = v4;
   *(result + 16) = 0;
-  v8 = (result + 2);
+  v8 = result + 2;
   *(result + 48) = 0;
   if ((v5 & 1) == 0)
   {
@@ -9768,7 +9768,7 @@ void *mlir::detail::ElementsAttrIndexer::nonContiguous<llvm::mapped_iterator<llv
       v13 = result;
       (*(*v9 + 24))(v9);
       result = v13;
-      v13[48] = 1;
+      *(v13 + 48) = 1;
       v14 = v18;
       *(a3 + 8) = v13;
       if ((v14 & 1) == 0)

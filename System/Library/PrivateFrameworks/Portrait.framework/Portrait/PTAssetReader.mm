@@ -156,7 +156,7 @@ LABEL_9:
 {
   framesCopy = frames;
   selfCopy = self;
-  v89 = *MEMORY[0x277D85DE8];
+  v91 = *MEMORY[0x277D85DE8];
   [(PTAssetReader *)self stopReadingFrames];
   v9 = MEMORY[0x277CE6410];
   asset = [(PTAssetReader *)selfCopy asset];
@@ -170,7 +170,7 @@ LABEL_9:
     asset2 = [(AVAssetReader *)v13 asset];
     v15 = loadTracksWithMediaType(asset2, *MEMORY[0x277CE5EA8]);
     memset(&range2, 0, sizeof(range2));
-    v85 = 0u;
+    v87 = 0u;
     v16 = [v15 countByEnumeratingWithState:&range2 objects:&range1 count:16];
     if (v16)
     {
@@ -218,18 +218,18 @@ LABEL_13:
       if (framesCopy)
       {
         timeCopy = time;
-        v80 = selfCopy;
-        v81 = v23;
+        v82 = selfCopy;
+        v83 = v23;
         asset3 = [(AVAssetReader *)selfCopy->assetReader asset];
         v25 = loadTracksWithMediaType(asset3, *MEMORY[0x277CE5E70]);
         memset(&range2, 0, sizeof(range2));
-        v85 = 0u;
+        v87 = 0u;
         v26 = [v25 countByEnumeratingWithState:&range2 objects:&range1 count:16];
         if (v26)
         {
           v27 = v26;
-          v77 = asset3;
-          v78 = framesCopy;
+          v79 = asset3;
+          v80 = framesCopy;
           v28 = *range2.start.epoch;
           while (2)
           {
@@ -272,8 +272,8 @@ LABEL_13:
 
           v36 = 0;
 LABEL_31:
-          framesCopy = v78;
-          asset3 = v77;
+          framesCopy = v80;
+          asset3 = v79;
         }
 
         else
@@ -281,48 +281,49 @@ LABEL_31:
           v36 = 0;
         }
 
-        selfCopy = v80;
+        selfCopy = v82;
         if (!v36)
         {
-          v74 = MEMORY[0x277CCACA8];
-          asset4 = [(AVAssetReader *)v80->assetReader asset];
-          v76 = [v74 stringWithFormat:@"Couldn't find metadata track in asset: %@", asset4];
-          *error = AssetReaderError(v76);
+          v76 = MEMORY[0x277CCACA8];
+          asset4 = [(AVAssetReader *)v82->assetReader asset];
+          v78 = [v76 stringWithFormat:@"Couldn't find metadata track in asset: %@", asset4];
+          *error = AssetReaderError(v78);
 
           v37 = 0;
-          v23 = v81;
+          v23 = v83;
           goto LABEL_65;
         }
 
-        v23 = v81;
-        [v81 timeRange];
-        [v36 timeRange];
-        if (!CMTimeRangeEqual(&range1, &range2))
+        v23 = v83;
+        objc_msgSend_timeRange(v83);
+        objc_msgSend_timeRange(v36);
+        v40 = CMTimeRangeEqual(&range1, &range2);
+        if (!v40)
         {
-          v40 = _PTLogSystem();
-          if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
+          v41 = _PTLogSystem(v40);
+          if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
           {
-            [v36 timeRange];
-            v41 = *MEMORY[0x277CBECE8];
+            objc_msgSend_timeRange(v36);
+            v42 = *MEMORY[0x277CBECE8];
             range1 = range2;
-            v42 = CMTimeRangeCopyDescription(v41, &range1);
-            [v81 timeRange];
+            v43 = CMTimeRangeCopyDescription(v42, &range1);
+            objc_msgSend_timeRange(v83);
             range1 = range2;
-            v43 = CMTimeRangeCopyDescription(v41, &range1);
+            v44 = CMTimeRangeCopyDescription(v42, &range1);
             LODWORD(range1.start.value) = 138412546;
-            *(&range1.start.value + 4) = v42;
+            *(&range1.start.value + 4) = v43;
             LOWORD(range1.start.flags) = 2112;
-            *(&range1.start.flags + 2) = v43;
-            _os_log_impl(&dword_2243FB000, v40, OS_LOG_TYPE_INFO, "WARNING: meta timeRange (%@) not equal to vide timeRange (%@)", &range1, 0x16u);
+            *(&range1.start.flags + 2) = v44;
+            _os_log_impl(&dword_2243FB000, v41, OS_LOG_TYPE_INFO, "WARNING: meta timeRange (%@) not equal to vide timeRange (%@)", &range1, 0x16u);
           }
         }
 
-        v44 = [objc_alloc(MEMORY[0x277CE6430]) initWithTrack:v36 outputSettings:0];
-        v45 = [objc_alloc(MEMORY[0x277CE6420]) initWithAssetReaderTrackOutput:v44];
-        metadataAdaptor = v80->metadataAdaptor;
-        v80->metadataAdaptor = v45;
+        v45 = [objc_alloc(MEMORY[0x277CE6430]) initWithTrack:v36 outputSettings:0];
+        v46 = [objc_alloc(MEMORY[0x277CE6420]) initWithAssetReaderTrackOutput:v45];
+        metadataAdaptor = v82->metadataAdaptor;
+        v82->metadataAdaptor = v46;
 
-        [(AVAssetReader *)v80->assetReader addOutput:v44];
+        [(AVAssetReader *)v82->assetReader addOutput:v45];
         time = timeCopy;
       }
 
@@ -335,10 +336,10 @@ LABEL_57:
           range1.start.epoch = time->var3;
           *&range2.start.value = *MEMORY[0x277CC08B0];
           range2.start.epoch = *(MEMORY[0x277CC08B0] + 16);
-          CMTimeRangeMake(&v82, &range1.start, &range2.start);
-          v70 = selfCopy->assetReader;
-          range1 = v82;
-          [(AVAssetReader *)v70 setTimeRange:&range1];
+          CMTimeRangeMake(&v84, &range1.start, &range2.start);
+          v72 = selfCopy->assetReader;
+          range1 = v84;
+          [(AVAssetReader *)v72 setTimeRange:&range1];
         }
 
         if ([(AVAssetReader *)selfCopy->assetReader startReading])
@@ -355,38 +356,38 @@ LABEL_57:
         goto LABEL_65;
       }
 
-      v47 = objc_opt_new();
+      v48 = objc_opt_new();
       composedFrames = selfCopy->composedFrames;
-      selfCopy->composedFrames = v47;
+      selfCopy->composedFrames = v48;
 
       asset5 = [(AVAssetReader *)selfCopy->assetReader asset];
-      v50 = loadTracksWithMediaType(asset5, *MEMORY[0x277CE5E50]);
+      v51 = loadTracksWithMediaType(asset5, *MEMORY[0x277CE5E50]);
       memset(&range2, 0, sizeof(range2));
-      v85 = 0u;
-      v51 = [v50 countByEnumeratingWithState:&range2 objects:&range1 count:16];
-      if (v51)
+      v87 = 0u;
+      v52 = [v51 countByEnumeratingWithState:&range2 objects:&range1 count:16];
+      if (v52)
       {
-        v52 = v51;
-        v53 = *range2.start.epoch;
+        v53 = v52;
+        v54 = *range2.start.epoch;
         while (2)
         {
-          for (k = 0; k != v52; ++k)
+          for (k = 0; k != v53; ++k)
           {
-            if (*range2.start.epoch != v53)
+            if (*range2.start.epoch != v54)
             {
-              objc_enumerationMutation(v50);
+              objc_enumerationMutation(v51);
             }
 
-            v55 = *(*&range2.start.timescale + 8 * k);
-            if ([v55 isEnabled])
+            v56 = *(*&range2.start.timescale + 8 * k);
+            if ([v56 isEnabled])
             {
-              v56 = v55;
+              v57 = v56;
               goto LABEL_50;
             }
           }
 
-          v52 = [v50 countByEnumeratingWithState:&range2 objects:&range1 count:16];
-          if (v52)
+          v53 = [v51 countByEnumeratingWithState:&range2 objects:&range1 count:16];
+          if (v53)
           {
             continue;
           }
@@ -395,41 +396,42 @@ LABEL_57:
         }
       }
 
-      v56 = 0;
+      v57 = 0;
 LABEL_50:
 
-      if (v56)
+      if (v57)
       {
         timeCopy2 = time;
         trackID = [v23 trackID];
-        trackID2 = [v56 trackID];
-        v60 = objc_alloc_init(PTAssetReaderCompositionInstruction);
+        trackID2 = [v57 trackID];
+        v61 = objc_alloc_init(PTAssetReaderCompositionInstruction);
         *&range1.start.value = *MEMORY[0x277CC08F0];
         range1.start.epoch = *(MEMORY[0x277CC08F0] + 16);
         *&range2.start.value = *MEMORY[0x277CC08B0];
         range2.start.epoch = *(MEMORY[0x277CC08B0] + 16);
-        CMTimeRangeMake(&v83, &range1.start, &range2.start);
-        range1 = v83;
-        [(PTAssetReaderCompositionInstruction *)v60 setTimeRange:&range1];
-        [(PTAssetReaderCompositionInstruction *)v60 setVideTrackID:trackID];
-        [(PTAssetReaderCompositionInstruction *)v60 setAuxvTrackID:trackID2];
-        [(PTAssetReaderCompositionInstruction *)v60 setAssetReader:selfCopy];
-        [v23 timeRange];
-        [v56 timeRange];
-        if (!CMTimeRangeEqual(&range1, &range2))
+        CMTimeRangeMake(&v85, &range1.start, &range2.start);
+        range1 = v85;
+        [(PTAssetReaderCompositionInstruction *)v61 setTimeRange:&range1];
+        [(PTAssetReaderCompositionInstruction *)v61 setVideTrackID:trackID];
+        [(PTAssetReaderCompositionInstruction *)v61 setAuxvTrackID:trackID2];
+        [(PTAssetReaderCompositionInstruction *)v61 setAssetReader:selfCopy];
+        objc_msgSend_timeRange(v23);
+        objc_msgSend_timeRange(v57);
+        v62 = CMTimeRangeEqual(&range1, &range2);
+        if (!v62)
         {
-          v61 = _PTLogSystem();
-          if (os_log_type_enabled(v61, OS_LOG_TYPE_INFO))
+          v63 = _PTLogSystem(v62);
+          if (os_log_type_enabled(v63, OS_LOG_TYPE_INFO))
           {
-            [v56 timeRange];
-            v62 = StringFromTimeRange(&range1);
-            [v23 timeRange];
-            v63 = StringFromTimeRange(&range1);
+            objc_msgSend_timeRange(v57);
+            v64 = StringFromTimeRange(&range1);
+            objc_msgSend_timeRange(v23);
+            v65 = StringFromTimeRange(&range1);
             LODWORD(range1.start.value) = 138412546;
-            *(&range1.start.value + 4) = v62;
+            *(&range1.start.value + 4) = v64;
             LOWORD(range1.start.flags) = 2112;
-            *(&range1.start.flags + 2) = v63;
-            _os_log_impl(&dword_2243FB000, v61, OS_LOG_TYPE_INFO, "WARNING: auxv timeRange (%@) not equal to vide timeRange (%@)", &range1, 0x16u);
+            *(&range1.start.flags + 2) = v65;
+            _os_log_impl(&dword_2243FB000, v63, OS_LOG_TYPE_INFO, "WARNING: auxv timeRange (%@) not equal to vide timeRange (%@)", &range1, 0x16u);
           }
         }
 
@@ -444,16 +446,16 @@ LABEL_50:
         *&range1.start.value = *&selfCopy->_frameDuration.value;
         range1.start.epoch = selfCopy->_frameDuration.epoch;
         [(AVMutableVideoComposition *)selfCopy->videoComposition setFrameDuration:&range1];
-        v87 = v60;
-        v66 = [MEMORY[0x277CBEA60] arrayWithObjects:&v87 count:1];
-        [(AVMutableVideoComposition *)selfCopy->videoComposition setInstructions:v66];
+        v89 = v61;
+        v68 = [MEMORY[0x277CBEA60] arrayWithObjects:&v89 count:1];
+        [(AVMutableVideoComposition *)selfCopy->videoComposition setInstructions:v68];
 
-        v86[0] = v23;
-        v86[1] = v56;
-        v67 = [MEMORY[0x277CBEA60] arrayWithObjects:v86 count:2];
-        v68 = [objc_alloc(MEMORY[0x277CE6438]) initWithVideoTracks:v67 videoSettings:0];
+        v88[0] = v23;
+        v88[1] = v57;
+        v69 = [MEMORY[0x277CBEA60] arrayWithObjects:v88 count:2];
+        v70 = [objc_alloc(MEMORY[0x277CE6438]) initWithVideoTracks:v69 videoSettings:0];
         videoCompositionOutput = selfCopy->videoCompositionOutput;
-        selfCopy->videoCompositionOutput = v68;
+        selfCopy->videoCompositionOutput = v70;
 
         [(AVAssetReaderVideoCompositionOutput *)selfCopy->videoCompositionOutput setVideoComposition:selfCopy->videoComposition];
         [(AVAssetReaderVideoCompositionOutput *)selfCopy->videoCompositionOutput setAlwaysCopiesSampleData:0];
@@ -470,9 +472,9 @@ LABEL_50:
         goto LABEL_64;
       }
 
-      v71 = MEMORY[0x277CCACA8];
+      v73 = MEMORY[0x277CCACA8];
       asset6 = [(AVAssetReader *)selfCopy->assetReader asset];
-      [v71 stringWithFormat:@"Couldn't find disparity track in asset: %@", asset6];
+      [v73 stringWithFormat:@"Couldn't find disparity track in asset: %@", asset6];
     }
 
     else
@@ -481,8 +483,8 @@ LABEL_50:
       asset6 = [(AVAssetReader *)selfCopy->assetReader asset];
       [v38 stringWithFormat:@"Couldn't find video track in asset: %@", asset6];
     }
-    v72 = ;
-    *error = AssetReaderError(v72);
+    v74 = ;
+    *error = AssetReaderError(v74);
 
 LABEL_64:
     v37 = 0;
@@ -525,16 +527,17 @@ LABEL_65:
   v4 = loadTracksWithMediaType(asset, *MEMORY[0x277CE5EA8]);
 
   firstObject = [v4 firstObject];
+  v6 = firstObject;
   if (!firstObject)
   {
     goto LABEL_6;
   }
 
   asset2 = [(PTAssetReader *)self asset];
-  v7 = asset2;
+  v8 = asset2;
   if (asset2)
   {
-    [asset2 duration];
+    objc_msgSend_duration(asset2);
   }
 
   else
@@ -543,23 +546,23 @@ LABEL_65:
   }
 
   Seconds = CMTimeGetSeconds(&time);
-  [firstObject nominalFrameRate];
-  v10 = Seconds * v9;
+  [v6 nominalFrameRate];
+  v11 = Seconds * v10;
 
-  v11 = vcvtad_u64_f64(v10);
-  if (!v11)
+  v12 = vcvtad_u64_f64(v11);
+  if (!v12)
   {
 LABEL_6:
-    v12 = _PTLogSystem();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = _PTLogSystem(firstObject);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [(PTAssetReader *)v12 estimatedFrameCount];
+      [(PTAssetReader *)v13 estimatedFrameCount];
     }
 
-    v11 = 0;
+    v12 = 0;
   }
 
-  return v11;
+  return v12;
 }
 
 - (unint64_t)frameCount
@@ -637,122 +640,122 @@ LABEL_6:
 
 - (void)_decodeGlobalMetadata
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   asset = [(PTAssetReader *)self asset];
-  v44 = 0;
-  v45 = &v44;
-  v46 = 0x3032000000;
-  v47 = __Block_byref_object_copy_;
-  v48 = __Block_byref_object_dispose_;
   v49 = 0;
+  v50 = &v49;
+  v51 = 0x3032000000;
+  v52 = __Block_byref_object_copy_;
+  v53 = __Block_byref_object_dispose_;
+  v54 = 0;
   v4 = dispatch_semaphore_create(0);
-  v40[0] = MEMORY[0x277D85DD0];
-  v40[1] = 3221225472;
-  v40[2] = __loadMetadataForFormat_block_invoke;
-  v40[3] = &unk_278522F28;
-  v41 = @"com.apple.quicktime.mdta";
-  v43 = &v44;
+  v45[0] = MEMORY[0x277D85DD0];
+  v45[1] = 3221225472;
+  v45[2] = __loadMetadataForFormat_block_invoke;
+  v45[3] = &unk_278522F28;
+  v46 = @"com.apple.quicktime.mdta";
+  v48 = &v49;
   v5 = v4;
-  v42 = v5;
-  [asset loadMetadataForFormat:@"com.apple.quicktime.mdta" completionHandler:v40];
+  v47 = v5;
+  [asset loadMetadataForFormat:@"com.apple.quicktime.mdta" completionHandler:v45];
   dispatch_semaphore_wait(v5, 0xFFFFFFFFFFFFFFFFLL);
-  v6 = v45[5];
+  v6 = v50[5];
 
-  _Block_object_dispose(&v44, 8);
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
-  v37 = 0u;
+  _Block_object_dispose(&v49, 8);
+  v43 = 0u;
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
   v7 = v6;
-  v8 = [v7 countByEnumeratingWithState:&v36 objects:v50 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v41 objects:v55 count:16];
   if (v8)
   {
-    v9 = *v37;
+    v9 = *v42;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v37 != v9)
+        if (*v42 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v36 + 1) + 8 * i);
+        v11 = *(*(&v41 + 1) + 8 * i);
         v12 = [v11 key];
         v13 = [v12 isEqualToString:@"com.apple.quicktime.cinematic-video"];
 
         if (v13)
         {
           value = [v11 value];
-          v35 = 0;
-          v16 = [PTGlobalVideoMetadata deserializeMetadataWithType:2 fromGlobalMetadata:value error:&v35];
-          v17 = v35;
+          v40 = 0;
+          v17 = [PTGlobalVideoMetadata deserializeMetadataWithType:2 fromGlobalMetadata:value error:&v40];
+          v18 = v40;
           globalRenderingMetadata = self->_globalRenderingMetadata;
-          self->_globalRenderingMetadata = v16;
+          self->_globalRenderingMetadata = v17;
 
-          if (v17)
+          if (v18)
           {
-            v19 = _PTLogSystem();
-            if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+            v21 = _PTLogSystem(v20);
+            if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
             {
               [PTAssetReader _decodeGlobalMetadata];
             }
           }
 
-          v34 = v17;
-          v20 = [PTGlobalVideoMetadata deserializeMetadataWithType:3 fromGlobalMetadata:value error:&v34];
-          v21 = v34;
+          v39 = v18;
+          v22 = [PTGlobalVideoMetadata deserializeMetadataWithType:3 fromGlobalMetadata:value error:&v39];
+          v23 = v39;
 
           globalStabilizationMetadata = self->_globalStabilizationMetadata;
-          self->_globalStabilizationMetadata = v20;
+          self->_globalStabilizationMetadata = v22;
 
-          if (v21)
+          if (v23)
           {
-            v23 = _PTLogSystem();
-            if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+            v26 = _PTLogSystem(v25);
+            if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
             {
               [PTAssetReader _decodeGlobalMetadata];
             }
           }
 
-          v33 = v21;
-          v24 = [PTGlobalVideoMetadata deserializeMetadataWithType:4 fromGlobalMetadata:value error:&v33];
-          v25 = v33;
+          v38 = v23;
+          v27 = [PTGlobalVideoMetadata deserializeMetadataWithType:4 fromGlobalMetadata:value error:&v38];
+          v28 = v38;
 
           globalCinematographyMetadata = self->_globalCinematographyMetadata;
-          self->_globalCinematographyMetadata = v24;
+          self->_globalCinematographyMetadata = v27;
 
-          if (v25)
+          if (v28)
           {
-            v27 = _PTLogSystem();
-            if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
-            {
-              [PTAssetReader _decodeGlobalMetadata];
-            }
-          }
-
-          v32 = v25;
-          v28 = [PTGlobalVideoMetadata deserializeMetadataWithType:1 fromGlobalMetadata:value error:&v32];
-          v29 = v32;
-
-          globalVideoHeaderMetadata = self->_globalVideoHeaderMetadata;
-          self->_globalVideoHeaderMetadata = v28;
-
-          if (v29)
-          {
-            v31 = _PTLogSystem();
+            v31 = _PTLogSystem(v30);
             if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
             {
               [PTAssetReader _decodeGlobalMetadata];
             }
           }
 
-          v14 = v7;
+          v37 = v28;
+          v32 = [PTGlobalVideoMetadata deserializeMetadataWithType:1 fromGlobalMetadata:value error:&v37];
+          v33 = v37;
+
+          globalVideoHeaderMetadata = self->_globalVideoHeaderMetadata;
+          self->_globalVideoHeaderMetadata = v32;
+
+          if (v33)
+          {
+            v36 = _PTLogSystem(v35);
+            if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+            {
+              [PTAssetReader _decodeGlobalMetadata];
+            }
+          }
+
+          v15 = v7;
           goto LABEL_28;
         }
       }
 
-      v8 = [v7 countByEnumeratingWithState:&v36 objects:v50 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v41 objects:v55 count:16];
       if (v8)
       {
         continue;
@@ -762,10 +765,10 @@ LABEL_6:
     }
   }
 
-  v14 = _PTLogSystem();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+  v15 = _PTLogSystem(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
-    [(PTAssetReader *)v14 _decodeGlobalMetadata];
+    [(PTAssetReader *)v15 _decodeGlobalMetadata];
   }
 
 LABEL_28:
@@ -773,31 +776,31 @@ LABEL_28:
 
 - (void)_decodeMetadata:(id)metadata
 {
-  v54[2] = *MEMORY[0x277D85DE8];
+  v59[2] = *MEMORY[0x277D85DE8];
   metadataCopy = metadata;
-  v54[0] = @"com.apple.quicktime.camera-dictionary";
-  v54[1] = @"com.apple.quicktime.cinematography-dictionary";
-  [MEMORY[0x277CBEA60] arrayWithObjects:v54 count:2];
-  v44 = 0u;
-  v45 = 0u;
-  v46 = 0u;
-  v4 = v47 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v44 objects:v53 count:16];
+  v59[0] = @"com.apple.quicktime.camera-dictionary";
+  v59[1] = @"com.apple.quicktime.cinematography-dictionary";
+  [MEMORY[0x277CBEA60] arrayWithObjects:v59 count:2];
+  v49 = 0u;
+  v50 = 0u;
+  v51 = 0u;
+  v4 = v52 = 0u;
+  v5 = [v4 countByEnumeratingWithState:&v49 objects:v58 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v45;
-    v42 = v4;
+    v7 = *v50;
+    v47 = v4;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v45 != v7)
+        if (*v50 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v44 + 1) + 8 * i);
+        v9 = *(*(&v49 + 1) + 8 * i);
         v10 = [metadataCopy objectForKeyedSubscript:v9];
         if (v10)
         {
@@ -814,126 +817,126 @@ LABEL_28:
 
             if (v15)
             {
-              v16 = [metadataCopy objectForKeyedSubscript:v9];
-              v52[0] = objc_opt_class();
-              v52[1] = objc_opt_class();
-              v52[2] = objc_opt_class();
-              v52[3] = objc_opt_class();
-              v52[4] = objc_opt_class();
-              v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v52 count:5];
-              v18 = MEMORY[0x277CCAAC8];
-              v19 = [MEMORY[0x277CBEB98] setWithArray:v17];
-              v43 = 0;
-              v20 = [v18 unarchivedObjectOfClasses:v19 fromData:v16 error:&v43];
-              v21 = v43;
+              v17 = [metadataCopy objectForKeyedSubscript:v9];
+              v57[0] = objc_opt_class();
+              v57[1] = objc_opt_class();
+              v57[2] = objc_opt_class();
+              v57[3] = objc_opt_class();
+              v57[4] = objc_opt_class();
+              v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v57 count:5];
+              v19 = MEMORY[0x277CCAAC8];
+              v20 = [MEMORY[0x277CBEB98] setWithArray:v18];
+              v48 = 0;
+              v21 = [v19 unarchivedObjectOfClasses:v20 fromData:v17 error:&v48];
+              v22 = v48;
 
-              if (v21)
+              if (v22)
               {
-                v22 = _PTLogSystem();
-                if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+                v24 = _PTLogSystem(v23);
+                if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138412546;
-                  v49 = v9;
-                  v50 = 2112;
-                  v51 = v21;
-                  _os_log_error_impl(&dword_2243FB000, v22, OS_LOG_TYPE_ERROR, "ERROR: Failed to decode metadata dictionary for %@. Decoder failed: %@", buf, 0x16u);
+                  v54 = v9;
+                  v55 = 2112;
+                  v56 = v22;
+                  _os_log_error_impl(&dword_2243FB000, v24, OS_LOG_TYPE_ERROR, "ERROR: Failed to decode metadata dictionary for %@. Decoder failed: %@", buf, 0x16u);
                 }
               }
 
               else
               {
-                [metadataCopy setObject:v20 forKeyedSubscript:v9];
+                [metadataCopy setObject:v21 forKeyedSubscript:v9];
               }
 
-              v4 = v42;
+              v4 = v47;
             }
 
             else
             {
-              v21 = _PTLogSystem();
-              if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+              v22 = _PTLogSystem(v16);
+              if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                v49 = v9;
-                _os_log_error_impl(&dword_2243FB000, v21, OS_LOG_TYPE_ERROR, "ERROR: Failed to decode metadata dictionary for %@. Value is not NSData.", buf, 0xCu);
+                v54 = v9;
+                _os_log_error_impl(&dword_2243FB000, v22, OS_LOG_TYPE_ERROR, "ERROR: Failed to decode metadata dictionary for %@. Value is not NSData.", buf, 0xCu);
               }
             }
           }
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v44 objects:v53 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v49 objects:v58 count:16];
     }
 
     while (v6);
   }
 
-  v23 = [metadataCopy objectForKeyedSubscript:@"com.apple.quicktime.cinematic-video.rendering"];
+  v25 = [metadataCopy objectForKeyedSubscript:@"com.apple.quicktime.cinematic-video.rendering"];
 
-  if (v23)
+  if (v25)
   {
-    v24 = [metadataCopy objectForKeyedSubscript:@"com.apple.quicktime.cinematic-video.rendering"];
+    v26 = [metadataCopy objectForKeyedSubscript:@"com.apple.quicktime.cinematic-video.rendering"];
     globalRenderingMetadata = [(PTAssetReader *)self globalRenderingMetadata];
     majorVersion = [globalRenderingMetadata majorVersion];
     globalRenderingMetadata2 = [(PTAssetReader *)self globalRenderingMetadata];
-    v28 = +[PTTimedRenderingMetadata objectFromData:withMajorVersion:minorVersion:](PTTimedRenderingMetadata, "objectFromData:withMajorVersion:minorVersion:", v24, majorVersion, [globalRenderingMetadata2 minorVersion]);
+    v30 = +[PTTimedRenderingMetadata objectFromData:withMajorVersion:minorVersion:](PTTimedRenderingMetadata, "objectFromData:withMajorVersion:minorVersion:", v26, majorVersion, [globalRenderingMetadata2 minorVersion]);
 
-    if (v28)
+    if (v30)
     {
-      [metadataCopy setObject:v28 forKeyedSubscript:@"com.apple.quicktime.cinematic-video.rendering"];
+      [metadataCopy setObject:v30 forKeyedSubscript:@"com.apple.quicktime.cinematic-video.rendering"];
     }
 
     else
     {
-      v29 = _PTLogSystem();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      v32 = _PTLogSystem(v31);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
         [(PTAssetReader *)metadataCopy _decodeMetadata:?];
       }
     }
   }
 
-  v30 = [metadataCopy objectForKeyedSubscript:@"com.apple.quicktime.cinematic-video.stabilization"];
+  v33 = [metadataCopy objectForKeyedSubscript:@"com.apple.quicktime.cinematic-video.stabilization"];
 
-  if (v30)
+  if (v33)
   {
-    v31 = [metadataCopy objectForKeyedSubscript:@"com.apple.quicktime.cinematic-video.stabilization"];
+    v34 = [metadataCopy objectForKeyedSubscript:@"com.apple.quicktime.cinematic-video.stabilization"];
     globalStabilizationMetadata = [(PTAssetReader *)self globalStabilizationMetadata];
     majorVersion2 = [globalStabilizationMetadata majorVersion];
     globalStabilizationMetadata2 = [(PTAssetReader *)self globalStabilizationMetadata];
-    v35 = +[PTTimedStabilizationMetadata objectFromData:withMajorVersion:minorVersion:](PTTimedStabilizationMetadata, "objectFromData:withMajorVersion:minorVersion:", v31, majorVersion2, [globalStabilizationMetadata2 minorVersion]);
+    v38 = +[PTTimedStabilizationMetadata objectFromData:withMajorVersion:minorVersion:](PTTimedStabilizationMetadata, "objectFromData:withMajorVersion:minorVersion:", v34, majorVersion2, [globalStabilizationMetadata2 minorVersion]);
 
-    if (v35)
+    if (v38)
     {
-      [metadataCopy setObject:v35 forKeyedSubscript:@"com.apple.quicktime.cinematic-video.stabilization"];
+      [metadataCopy setObject:v38 forKeyedSubscript:@"com.apple.quicktime.cinematic-video.stabilization"];
     }
 
     else
     {
-      v36 = _PTLogSystem();
-      if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+      v40 = _PTLogSystem(v39);
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
       {
         [(PTAssetReader *)metadataCopy _decodeMetadata:?];
       }
     }
   }
 
-  v37 = [metadataCopy objectForKeyedSubscript:@"com.apple.quicktime.cinematic-video.cinematography"];
+  v41 = [metadataCopy objectForKeyedSubscript:@"com.apple.quicktime.cinematic-video.cinematography"];
 
-  if (v37)
+  if (v41)
   {
-    v38 = [metadataCopy objectForKeyedSubscript:@"com.apple.quicktime.cinematic-video.cinematography"];
-    v39 = [PTSerialization objectFromData:v38 error:0];
+    v42 = [metadataCopy objectForKeyedSubscript:@"com.apple.quicktime.cinematic-video.cinematography"];
+    v43 = [PTSerialization objectFromData:v42 error:0];
 
-    if (v39)
+    if (v43)
     {
-      [metadataCopy setObject:v39 forKeyedSubscript:@"com.apple.quicktime.cinematic-video.cinematography"];
+      [metadataCopy setObject:v43 forKeyedSubscript:@"com.apple.quicktime.cinematic-video.cinematography"];
     }
 
     else
     {
-      v40 = _PTLogSystem();
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+      v45 = _PTLogSystem(v44);
+      if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
       {
         [(PTAssetReader *)metadataCopy _decodeMetadata:?];
       }
@@ -943,7 +946,7 @@ LABEL_28:
 
 - (id)nextFrame
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   ++self->lastDecodedFrameIndex;
   v4 = objc_opt_new();
@@ -955,39 +958,39 @@ LABEL_28:
     if (nextTimedMetadataGroup)
     {
       selfCopy = self;
-      v33 = v4;
-      v34 = v3;
+      v34 = v4;
+      v35 = v3;
       dictionary = [MEMORY[0x277CBEB38] dictionary];
-      v55 = *MEMORY[0x277CC0898];
+      v56 = *MEMORY[0x277CC0898];
       v8 = *(MEMORY[0x277CC0898] + 12);
-      v56 = *(MEMORY[0x277CC0898] + 8);
+      v57 = *(MEMORY[0x277CC0898] + 8);
       v9 = *(MEMORY[0x277CC0898] + 16);
-      v50 = 0u;
       v51 = 0u;
       v52 = 0u;
       v53 = 0u;
-      v31 = nextTimedMetadataGroup;
+      v54 = 0u;
+      v32 = nextTimedMetadataGroup;
       items = [nextTimedMetadataGroup items];
-      v11 = [items countByEnumeratingWithState:&v50 objects:v54 count:16];
+      v11 = [items countByEnumeratingWithState:&v51 objects:v55 count:16];
       if (v11)
       {
         v12 = v11;
-        v13 = *v51;
+        v13 = *v52;
         do
         {
           for (i = 0; i != v12; ++i)
           {
-            if (*v51 != v13)
+            if (*v52 != v13)
             {
               objc_enumerationMutation(items);
             }
 
-            v15 = *(*(&v50 + 1) + 8 * i);
+            v15 = *(*(&v51 + 1) + 8 * i);
             if (v8)
             {
               if (v15)
               {
-                [*(*(&v50 + 1) + 8 * i) time];
+                objc_msgSend_time(*(*(&v51 + 1) + 8 * i));
               }
 
               else
@@ -995,8 +998,8 @@ LABEL_28:
                 memset(time1, 0, 24);
               }
 
-              time2.value = v55;
-              time2.timescale = v56;
+              time2.value = v56;
+              time2.timescale = v57;
               time2.flags = v8;
               time2.epoch = v9;
               if (CMTimeCompare(time1, &time2))
@@ -1009,7 +1012,7 @@ LABEL_28:
             {
               if (v15)
               {
-                [*(*(&v50 + 1) + 8 * i) time];
+                objc_msgSend_time(*(*(&v51 + 1) + 8 * i));
                 v8 = *&time1[12];
                 v9 = *&time1[16];
               }
@@ -1021,8 +1024,8 @@ LABEL_28:
                 memset(time1, 0, 24);
               }
 
-              v55 = *time1;
-              v56 = *&time1[8];
+              v56 = *time1;
+              v57 = *&time1[8];
             }
 
             value = [v15 value];
@@ -1030,7 +1033,7 @@ LABEL_28:
             [dictionary setObject:value forKeyedSubscript:v17];
           }
 
-          v12 = [items countByEnumeratingWithState:&v50 objects:v54 count:16];
+          v12 = [items countByEnumeratingWithState:&v51 objects:v55 count:16];
         }
 
         while (v12);
@@ -1038,19 +1041,20 @@ LABEL_28:
 
       self = selfCopy;
       [(PTAssetReader *)selfCopy _decodeMetadata:dictionary];
-      v4 = v33;
-      [v33 setMetadata:dictionary];
-      *time1 = v55;
-      *&time1[8] = __PAIR64__(v8, v56);
+      v4 = v34;
+      [v34 setMetadata:dictionary];
+      *time1 = v56;
+      *&time1[8] = v57;
+      *&time1[12] = v8;
       *&time1[16] = v9;
-      [v33 setMetadataTime:time1];
+      [v34 setMetadataTime:time1];
       if ((v8 & 1) == 0)
       {
         NSLog(&cfstr_WarningMetadat_0.isa);
       }
 
-      v3 = v34;
-      nextTimedMetadataGroup = v31;
+      v3 = v35;
+      nextTimedMetadataGroup = v32;
     }
 
     else if (!self->videoCompositionOutput)
@@ -1084,68 +1088,69 @@ LABEL_46:
   if (popComposedFrame)
   {
     v21 = popComposedFrame;
-    [popComposedFrame time];
-    *time1 = v47;
-    *&time1[16] = v48;
+    objc_msgSend_time(popComposedFrame);
+    *time1 = v48;
+    *&time1[16] = v49;
     [v4 setTime:time1];
     [v4 setColorBuffer:{CVPixelBufferRetain(objc_msgSend(v21, "colorBuffer"))}];
-    [v21 time];
-    *time1 = v45;
-    *&time1[16] = v46;
+    objc_msgSend_time(v21);
+    *time1 = v46;
+    *&time1[16] = v47;
     [v4 setColorBufferTime:time1];
     videoTracks = [(AVAssetReaderVideoCompositionOutput *)self->videoCompositionOutput videoTracks];
     v23 = [videoTracks objectAtIndexedSubscript:0];
     v24 = v23;
     if (v23)
     {
-      [v23 preferredTransform];
+      objc_msgSend_preferredTransform(v23);
     }
 
     else
     {
-      v43 = 0u;
       v44 = 0u;
-      v42 = 0u;
+      v45 = 0u;
+      v43 = 0u;
     }
 
-    *time1 = v42;
-    *&time1[16] = v43;
-    v41 = v44;
+    *time1 = v43;
+    *&time1[16] = v44;
+    v42 = v45;
     [v4 setColorBufferPreferredTransform:time1];
 
     if ([v21 auxBuffer])
     {
-      if (CVPixelBufferGetPixelFormatType([v21 auxBuffer]) == 1751411059)
+      PixelFormatType = CVPixelBufferGetPixelFormatType([v21 auxBuffer]);
+      if (PixelFormatType == 1751411059)
       {
         [v4 setDisparityBuffer:{CVPixelBufferRetain(objc_msgSend(v21, "auxBuffer"))}];
-        [v21 time];
-        *time1 = v38;
-        *&time1[16] = v39;
+        objc_msgSend_time(v21);
+        *time1 = v39;
+        *&time1[16] = v40;
         [v4 setDisparityBufferTime:time1];
         videoTracks2 = [(AVAssetReaderVideoCompositionOutput *)self->videoCompositionOutput videoTracks];
-        v28 = [videoTracks2 objectAtIndexedSubscript:1];
-        v29 = v28;
-        if (v28)
+        v29 = [videoTracks2 objectAtIndexedSubscript:1];
+        v30 = v29;
+        if (v29)
         {
-          [v28 preferredTransform];
+          objc_msgSend_preferredTransform(v29);
         }
 
         else
         {
-          v36 = 0u;
           v37 = 0u;
-          v35 = 0u;
+          v38 = 0u;
+          v36 = 0u;
         }
 
-        *time1 = v35;
-        *&time1[16] = v36;
-        v41 = v37;
+        *time1 = v36;
+        *&time1[16] = v37;
+        v42 = v38;
         [v4 setDisparityBufferPreferredTransform:time1];
       }
 
       else
       {
-        videoTracks2 = _PTLogSystem();
+        videoTracks2 = _PTLogSystem(PixelFormatType);
         if (os_log_type_enabled(videoTracks2, OS_LOG_TYPE_ERROR))
         {
           [(PTAssetReader *)v4 nextFrame];
@@ -1156,7 +1161,7 @@ LABEL_46:
     goto LABEL_45;
   }
 
-  v25 = _PTLogSystem();
+  v25 = _PTLogSystem(0);
   if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
   {
     [(PTAssetReader *)v4 nextFrame];
@@ -1173,28 +1178,28 @@ LABEL_47:
 {
   v2 = [a1 objectForKeyedSubscript:a2];
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0_4(&dword_2243FB000, v3, v4, "Failed to deserialize timed rendering metadata: %@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_0_4(&dword_2243FB000, v3, v4, "Failed to deserialize timed rendering metadata: %@", v5, v6, v7, v8);
 }
 
 - (void)_decodeMetadata:(void *)a1 .cold.2(void *a1, uint64_t a2)
 {
   v2 = [a1 objectForKeyedSubscript:a2];
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0_4(&dword_2243FB000, v3, v4, "Failed to deserialize timed stabilization metadata: %@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_0_4(&dword_2243FB000, v3, v4, "Failed to deserialize timed stabilization metadata: %@", v5, v6, v7, v8);
 }
 
 - (void)_decodeMetadata:(void *)a1 .cold.3(void *a1, uint64_t a2)
 {
   v2 = [a1 objectForKeyedSubscript:a2];
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0_4(&dword_2243FB000, v3, v4, "Failed to deserialize cinematography metadata: %@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_0_4(&dword_2243FB000, v3, v4, "Failed to deserialize cinematography metadata: %@", v5, v6, v7, v8);
 }
 
 - (void)nextFrame
 {
   [self index];
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0_4(&dword_2243FB000, v1, v2, "Failed to get composed frame %lu from custom compositor", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_0_4(&dword_2243FB000, v1, v2, "Failed to get composed frame %lu from custom compositor", v3, v4, v5, v6);
 }
 
 @end

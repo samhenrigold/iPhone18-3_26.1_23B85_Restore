@@ -285,33 +285,35 @@ LABEL_22:
   v5 = +[FBKData sharedInstance];
   loginManager = [v5 loginManager];
 
-  if ([loginManager loginState] != 1)
+  loginState = [loginManager loginState];
+  if (loginState != 1)
   {
-    v9 = sub_10000F530();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v11 = sub_10000F530(loginState);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       sub_100092930();
     }
 
     selfCopy2 = self;
-    v8 = 1;
+    v10 = 1;
     goto LABEL_9;
   }
 
-  if ([(AppDelegate *)self biometricsState]== 3)
+  biometricsState = [(AppDelegate *)self biometricsState];
+  if (biometricsState == 3)
   {
     selfCopy2 = self;
-    v8 = 5;
+    v10 = 5;
 LABEL_9:
-    [(AppDelegate *)selfCopy2 setBiometricsState:v8];
+    [(AppDelegate *)selfCopy2 setBiometricsState:v10];
     goto LABEL_13;
   }
 
-  v10 = sub_10000F530();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  v12 = sub_10000F530(biometricsState);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
-    *v11 = 0;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "will perform biometric evaluation if needed", v11, 2u);
+    *v13 = 0;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "will perform biometric evaluation if needed", v13, 2u);
   }
 
   [(AppDelegate *)self performBiometricAuthenticationIfNeeded];
@@ -637,27 +639,27 @@ LABEL_13:
 - (void)setBiometricsState:(unint64_t)state
 {
   selfCopy = self;
-  objc_sync_enter(selfCopy);
+  v5 = objc_sync_enter(selfCopy);
   selfCopy->_biometricsState = state;
   switch(state)
   {
     case 0uLL:
-      v17 = sub_10000F530();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+      v18 = sub_10000F530(v5);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v20) = 0;
-        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "Biometrics authentication is not enabled", &v20, 2u);
+        LOWORD(v21) = 0;
+        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "Biometrics authentication is not enabled", &v21, 2u);
       }
 
       goto LABEL_28;
     case 1uLL:
       goto LABEL_28;
     case 2uLL:
-      v11 = sub_10000F530();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+      v12 = sub_10000F530(v5);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v20) = 0;
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "Biometric evaluation pending. Will perform evaluation", &v20, 2u);
+        LOWORD(v21) = 0;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Biometric evaluation pending. Will perform evaluation", &v21, 2u);
       }
 
       [(AppDelegate *)selfCopy addBlurView];
@@ -665,68 +667,68 @@ LABEL_13:
       [(AppDelegate *)selfCopy _performBiometricsEvaluationWithContext:lastUsedLAContext];
       goto LABEL_17;
     case 3uLL:
-      v12 = sub_10000F530();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+      v13 = sub_10000F530(v5);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
         lastUsedLAContext2 = [(AppDelegate *)selfCopy lastUsedLAContext];
-        v20 = 138412290;
-        v21 = lastUsedLAContext2;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Biometric evaluation began with context [%@]", &v20, 0xCu);
+        v21 = 138412290;
+        v22 = lastUsedLAContext2;
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "Biometric evaluation began with context [%@]", &v21, 0xCu);
       }
 
       goto LABEL_38;
     case 4uLL:
     case 0xAuLL:
-      v5 = sub_10000F530();
-      if (!os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+      v6 = sub_10000F530(v5);
+      if (!os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
         goto LABEL_10;
       }
 
-      LOWORD(v20) = 0;
-      v6 = "Biometrics stuck - locking out";
-      v7 = v5;
-      v8 = OS_LOG_TYPE_INFO;
+      LOWORD(v21) = 0;
+      v7 = "Biometrics stuck - locking out";
+      v8 = v6;
+      v9 = OS_LOG_TYPE_INFO;
       goto LABEL_9;
     case 5uLL:
-      v19 = sub_10000F530();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+      v20 = sub_10000F530(v5);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v20) = 0;
-        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "Biometrics evaluation happened while app was in background - Retrying", &v20, 2u);
+        LOWORD(v21) = 0;
+        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "Biometrics evaluation happened while app was in background - Retrying", &v21, 2u);
       }
 
       [(AppDelegate *)selfCopy addBlurView];
       [(AppDelegate *)selfCopy performBiometricAuthenticationIfNeeded];
       goto LABEL_39;
     case 6uLL:
-      v12 = sub_10000F530();
-      if (!os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+      v13 = sub_10000F530(v5);
+      if (!os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
         goto LABEL_38;
       }
 
-      LOWORD(v20) = 0;
-      v13 = "Biometric evaluation completed";
-      v14 = v12;
-      v15 = OS_LOG_TYPE_INFO;
+      LOWORD(v21) = 0;
+      v14 = "Biometric evaluation completed";
+      v15 = v13;
+      v16 = OS_LOG_TYPE_INFO;
       goto LABEL_37;
     case 7uLL:
-      v12 = sub_10000F530();
-      if (!os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v13 = sub_10000F530(v5);
+      if (!os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_38;
       }
 
-      LOWORD(v20) = 0;
-      v13 = "Biometric unlock failed - not authenticated";
+      LOWORD(v21) = 0;
+      v14 = "Biometric unlock failed - not authenticated";
       goto LABEL_36;
     case 8uLL:
-      v9 = sub_10000F530();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = sub_10000F530(v5);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v20) = 0;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Biometric unlock cancelled by user - likely that user pressed Cancel (suspending).", &v20, 2u);
+        LOWORD(v21) = 0;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Biometric unlock cancelled by user - likely that user pressed Cancel (suspending).", &v21, 2u);
       }
 
       [(AppDelegate *)selfCopy addBlurView];
@@ -736,47 +738,47 @@ LABEL_17:
 
       goto LABEL_39;
     case 9uLL:
-      v12 = sub_10000F530();
-      if (!os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v13 = sub_10000F530(v5);
+      if (!os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_38;
       }
 
-      LOWORD(v20) = 0;
-      v13 = "Biometric unlock cancelled by system – likely that user went home.";
+      LOWORD(v21) = 0;
+      v14 = "Biometric unlock cancelled by system – likely that user went home.";
 LABEL_36:
-      v14 = v12;
-      v15 = OS_LOG_TYPE_DEFAULT;
+      v15 = v13;
+      v16 = OS_LOG_TYPE_DEFAULT;
 LABEL_37:
-      _os_log_impl(&_mh_execute_header, v14, v15, v13, &v20, 2u);
+      _os_log_impl(&_mh_execute_header, v15, v16, v14, &v21, 2u);
 LABEL_38:
 
       [(AppDelegate *)selfCopy addBlurView];
       goto LABEL_39;
     case 0xBuLL:
-      v5 = sub_10000F530();
-      if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v6 = sub_10000F530(v5);
+      if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_10;
       }
 
-      LOWORD(v20) = 0;
-      v6 = "Biometric unlock unavailable - biometry is in lockout.";
+      LOWORD(v21) = 0;
+      v7 = "Biometric unlock unavailable - biometry is in lockout.";
       goto LABEL_8;
     case 0xCuLL:
-      v5 = sub_10000F530();
-      if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v6 = sub_10000F530(v5);
+      if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_10;
       }
 
-      LOWORD(v20) = 0;
-      v6 = "Biometric unlock failed - unknown error.";
+      LOWORD(v21) = 0;
+      v7 = "Biometric unlock failed - unknown error.";
 LABEL_8:
-      v7 = v5;
-      v8 = OS_LOG_TYPE_DEFAULT;
+      v8 = v6;
+      v9 = OS_LOG_TYPE_DEFAULT;
 LABEL_9:
-      _os_log_impl(&_mh_execute_header, v7, v8, v6, &v20, 2u);
+      _os_log_impl(&_mh_execute_header, v8, v9, v7, &v21, 2u);
 LABEL_10:
 
       [(AppDelegate *)selfCopy _logOutForBiometricsAuthFailure];
@@ -785,11 +787,11 @@ LABEL_39:
 
       return;
     case 0xDuLL:
-      v18 = sub_10000F530();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+      v19 = sub_10000F530(v5);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v20) = 0;
-        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "Biometric unlock succeeded", &v20, 2u);
+        LOWORD(v21) = 0;
+        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "Biometric unlock succeeded", &v21, 2u);
       }
 
       [(AppDelegate *)selfCopy _invalidateWatchDogTimer];
@@ -846,7 +848,7 @@ LABEL_28:
   if ([(AppDelegate *)self biometricsState]== 13)
   {
     v3 = +[NSDate date];
-    v4 = sub_10000F530();
+    v4 = sub_10000F530(v3);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = [v3 description];
@@ -862,7 +864,7 @@ LABEL_28:
   else
   {
     biometricsState = [(AppDelegate *)self biometricsState];
-    v8 = sub_10000F530();
+    v8 = sub_10000F530(biometricsState);
     v3 = v8;
     if (biometricsState)
     {
@@ -896,7 +898,7 @@ LABEL_28:
 
   if ([(AppDelegate *)self biometricsState]== 3)
   {
-    v3 = sub_10000F530();
+    v3 = sub_10000F530(3);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -911,45 +913,46 @@ LABEL_28:
 
   if (v5)
   {
-    v6 = sub_10000F530();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = sub_10000F530(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      *v15 = 0;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "Biometrics authentication enabled", v15, 2u);
+      *v17 = 0;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "Biometrics authentication enabled", v17, 2u);
     }
 
-    if ([(AppDelegate *)self _touchIDDidTimeout])
+    _touchIDDidTimeout = [(AppDelegate *)self _touchIDDidTimeout];
+    if (_touchIDDidTimeout)
     {
       newLAContext = [(AppDelegate *)self newLAContext];
-      v13 = 0;
-      v8 = [newLAContext canEvaluatePolicy:-[AppDelegate _evaluationPolicy](self error:{"_evaluationPolicy"), &v13}];
-      v9 = v13;
-      v10 = v9;
-      if (v8)
+      v15 = 0;
+      v10 = [newLAContext canEvaluatePolicy:-[AppDelegate _evaluationPolicy](self error:{"_evaluationPolicy"), &v15}];
+      v11 = v15;
+      v12 = v11;
+      if (v10)
       {
-        v11 = 2;
+        v13 = 2;
       }
 
-      else if (v9 && [v9 code] == -8)
+      else if (v11 && [v11 code] == -8)
       {
-        v11 = 11;
+        v13 = 11;
       }
 
       else
       {
-        v11 = 12;
+        v13 = 12;
       }
 
-      [(AppDelegate *)self setBiometricsState:v11];
+      [(AppDelegate *)self setBiometricsState:v13];
     }
 
     else
     {
-      v12 = sub_10000F530();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+      v14 = sub_10000F530(_touchIDDidTimeout);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
-        *v14 = 0;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Biometrics authentication has not timed out", v14, 2u);
+        *v16 = 0;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "Biometrics authentication has not timed out", v16, 2u);
       }
 
       [(AppDelegate *)self setBiometricsState:13];

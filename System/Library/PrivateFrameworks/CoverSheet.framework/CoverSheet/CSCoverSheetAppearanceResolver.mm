@@ -4,7 +4,7 @@
 - (double)_alphaForTransitionFromHidden:(uint64_t)hidden toHidden:(uint64_t)toHidden unhiddenAlpha:(uint64_t)alpha timingFunction:(void *)function;
 - (double)_alphaForTransitionFromHidden:(uint64_t)hidden toHidden:(void *)toHidden timingFunction:;
 - (double)_dateViewAlphaForCurrentWakeState;
-- (double)_finalizeOffset:(uint64_t)offset referenceFrame:(double)frame;
+- (double)_finalizeOffset:(double)offset referenceFrame:;
 - (double)_offsetForTransitionFromOffset:(uint64_t)offset toOffset:timingFunction:;
 - (double)_scaleForTransitionFromScale:(uint64_t)scale toScale:timingFunction:;
 - (double)_valueForTransitionInterval:(void *)interval timingFunction:;
@@ -143,28 +143,27 @@ LABEL_8:
   v11 = [(CSAppearance *)self->_desiredAppearance componentForType:1 property:128];
   transitionModifiers = [v11 transitionModifiers];
 
-  v31 = 0u;
   v30 = 0u;
+  v29 = 0u;
   v13 = [(CSAppearance *)self->_desiredAppearance componentForType:1 property:256];
   v14 = v13;
   if (v13)
   {
-    [v13 transitionInputs];
+    objc_msgSend_transitionInputs(v13);
   }
 
   else
   {
-    v31 = 0u;
     v30 = 0u;
+    v29 = 0u;
   }
 
   if ((transitionModifiers & 8) != 0)
   {
     SBFMainScreenScale();
-    BSPointRoundForScale();
-    v15 = v17;
-    v16 = v18;
-    [v4 setAnimationDuration:*&v30];
+    v15 = BSPointRoundForScale(*(&v29 + 1));
+    v16 = v17;
+    [v4 setAnimationDuration:*&v29];
     if ((transitionModifiers & 0x10) == 0)
     {
       goto LABEL_9;
@@ -179,14 +178,14 @@ LABEL_8:
   {
 LABEL_8:
     [v5 scale];
-    v32 = v19;
-    v33 = 1;
-    memset(v34, 0, sizeof(v34));
-    v35 = *(&v31 + 1);
-    v36 = 1;
-    memset(v37, 0, sizeof(v37));
-    [v4 setScale:{-[CSCoverSheetAppearanceResolver _valueForTransitionInterval:timingFunction:](self, &v32, 0)}];
-    [v4 setAnimationDuration:*&v30];
+    v31 = v18;
+    v32 = 1;
+    memset(v33, 0, sizeof(v33));
+    v34 = *(&v30 + 1);
+    v35 = 1;
+    memset(v36, 0, sizeof(v36));
+    [v4 setScale:{-[CSCoverSheetAppearanceResolver _valueForTransitionInterval:timingFunction:](self, &v31, 0)}];
+    [v4 setAnimationDuration:*&v29];
   }
 
 LABEL_9:
@@ -197,34 +196,34 @@ LABEL_9:
 
   [v5 offset];
   [v4 setOffset:-[CSCoverSheetAppearanceResolver _offsetForTransitionFromOffset:toOffset:timingFunction:](self)];
-  v20 = [(CSAppearance *)self->_desiredAppearance componentForType:1 property:16];
-  view = [v20 view];
+  v19 = [(CSAppearance *)self->_desiredAppearance componentForType:1 property:16];
+  view = [v19 view];
   [v4 setView:view];
 
-  v22 = [(CSAppearance *)self->_desiredAppearance componentForType:1 property:8];
-  [v4 setVibrantAndCentered:{objc_msgSend(v22, "flag")}];
+  v21 = [(CSAppearance *)self->_desiredAppearance componentForType:1 property:8];
+  [v4 setVibrantAndCentered:{objc_msgSend(v21, "flag")}];
 
   if (self->_startIndex != self->_targetIndex && (BSFloatIsOne() & 1) == 0)
   {
     if (isHidden != isHidden2)
     {
-      v23 = 72;
+      v22 = 72;
       if (isHidden2)
       {
-        v23 = 80;
+        v22 = 80;
       }
 
-      v24 = *(&self->super.isa + v23) - self->_indexOfMainPage;
+      v23 = *(&self->super.isa + v22) - self->_indexOfMainPage;
       if (isHidden)
       {
         [v5 offset];
-        v15 = v25;
-        v16 = v26;
+        v15 = v24;
+        v16 = v25;
       }
 
       [v4 setOffset:{v15, v16}];
-      v27 = [MEMORY[0x277CCABB0] numberWithInteger:v24];
-      [v4 setPageIndex:v27];
+      v26 = [MEMORY[0x277CCABB0] numberWithInteger:v23];
+      [v4 setPageIndex:v26];
     }
 
     isHidden = isHidden2 & isHidden;
@@ -250,24 +249,24 @@ LABEL_9:
   {
     objc_opt_new();
     OUTLINED_FUNCTION_3_2();
-    v4 = [v3 priority:?];
+    v5 = [v4 priority:?];
 
-    v5 = [*(self + 56) componentForType:21 identifier:@"(active)"];
-    [v5 isHidden];
-    v6 = [*(self + 48) componentForType:21 property:1];
-    isHidden = [v6 isHidden];
+    v6 = [*(self + 56) componentForType:21 identifier:@"(active)"];
+    [v6 isHidden];
+    v7 = [*(self + 48) componentForType:21 property:1];
+    isHidden = [v7 isHidden];
 
-    [v4 setHidden:isHidden];
-    v8 = OUTLINED_FUNCTION_2_3();
-    [v4 setAlpha:{-[CSCoverSheetAppearanceResolver _alphaForTransitionFromHidden:toHidden:unhiddenAlpha:timingFunction:](v8, v9, isHidden, v10)}];
+    [v5 setHidden:isHidden];
+    v9 = OUTLINED_FUNCTION_2_3();
+    [v5 setAlpha:{-[CSCoverSheetAppearanceResolver _alphaForTransitionFromHidden:toHidden:unhiddenAlpha:timingFunction:](v9, v10, isHidden, v11)}];
   }
 
   else
   {
-    v4 = 0;
+    v5 = 0;
   }
 
-  return v4;
+  return v5;
 }
 
 - (id)_resolveComplicationContainerComponent
@@ -276,17 +275,18 @@ LABEL_9:
   {
     objc_opt_new();
     OUTLINED_FUNCTION_3_2();
-    v4 = [v3 priority:?];
+    v5 = [v4 priority:?];
 
     [*(self + 56) componentForType:20 identifier:@"(active)"];
     objc_claimAutoreleasedReturnValue();
-    v5 = [OUTLINED_FUNCTION_5_0() componentForType:20 property:128];
-    transitionModifiers = [v5 transitionModifiers];
+    v6 = [OUTLINED_FUNCTION_5_0() componentForType:20 property:128];
+    transitionModifiers = [v6 transitionModifiers];
 
-    v7 = [*(self + 48) componentForType:20 property:{256, OUTLINED_FUNCTION_1_5()}];
-    if (v7)
+    v8 = [*(self + 48) componentForType:20 property:{256, OUTLINED_FUNCTION_1_5()}];
+    v16 = v8;
+    if (v8)
     {
-      OUTLINED_FUNCTION_9_0();
+      OUTLINED_FUNCTION_9_0(v8, v9, v10, v11, v12, v13, v14, v15, v41);
     }
 
     else
@@ -297,21 +297,21 @@ LABEL_9:
     if ((transitionModifiers & 8) != 0)
     {
       SBFMainScreenScale();
-      BSPointRoundForScale();
-      OUTLINED_FUNCTION_7_0(v8, v9, v10, v11, v12, v13, v14, v15, v32);
+      v17 = BSPointRoundForScale(v42);
+      OUTLINED_FUNCTION_7_0(v17, v18, v19, v20, v21, v22, v23, v24, *&v41);
       if ((transitionModifiers & 0x10) == 0)
       {
 LABEL_10:
-        [v1 offset];
-        [v4 setOffset:-[CSCoverSheetAppearanceResolver _offsetForTransitionFromOffset:toOffset:timingFunction:](self)];
-        v26 = [*(self + 48) componentForType:20 property:1];
-        [v26 isHidden];
+        [v2 offset];
+        [v5 setOffset:-[CSCoverSheetAppearanceResolver _offsetForTransitionFromOffset:toOffset:timingFunction:](self)];
+        v35 = [*(self + 48) componentForType:20 property:1];
+        [v35 isHidden];
 
         OUTLINED_FUNCTION_19();
-        [v1 isHidden];
+        [v2 isHidden];
         OUTLINED_FUNCTION_16();
-        v27 = OUTLINED_FUNCTION_2_3();
-        [v4 setAlpha:{-[CSCoverSheetAppearanceResolver _alphaForTransitionFromHidden:toHidden:unhiddenAlpha:timingFunction:](v27, v28, v29, v30)}];
+        v36 = OUTLINED_FUNCTION_2_3();
+        [v5 setAlpha:{-[CSCoverSheetAppearanceResolver _alphaForTransitionFromHidden:toHidden:unhiddenAlpha:timingFunction:](v36, v37, v38, v39)}];
 
         goto LABEL_11;
       }
@@ -322,17 +322,17 @@ LABEL_10:
       goto LABEL_10;
     }
 
-    [v1 scale];
+    [v2 scale];
     OUTLINED_FUNCTION_0_10();
-    [v4 setScale:{OUTLINED_FUNCTION_17(v16, v17)}];
-    OUTLINED_FUNCTION_7_0(v18, v19, v20, v21, v22, v23, v24, v25, v32);
+    [v5 setScale:{OUTLINED_FUNCTION_17(v25, v26)}];
+    OUTLINED_FUNCTION_7_0(v27, v28, v29, v30, v31, v32, v33, v34, *&v41);
     goto LABEL_10;
   }
 
-  v4 = 0;
+  v5 = 0;
 LABEL_11:
 
-  return v4;
+  return v5;
 }
 
 - (id)_resolveStatusBarBackgroundComponent
@@ -427,9 +427,10 @@ LABEL_11:
 
   OUTLINED_FUNCTION_1_5();
   v14 = [OUTLINED_FUNCTION_13() componentForType:? property:?];
+  v22 = v14;
   if (v14)
   {
-    OUTLINED_FUNCTION_9_0();
+    OUTLINED_FUNCTION_9_0(v14, v15, v16, v17, v18, v19, v20, v21, v28);
   }
 
   else
@@ -441,8 +442,8 @@ LABEL_11:
   {
     [v6 blurRadius];
     OUTLINED_FUNCTION_0_10();
-    [v5 setBlurRadius:{-[CSCoverSheetAppearanceResolver _valueForTransitionInterval:timingFunction:](self, v18, 0)}];
-    [v5 setAnimationDuration:v20];
+    [v5 setBlurRadius:{-[CSCoverSheetAppearanceResolver _valueForTransitionInterval:timingFunction:](self, v26, 0)}];
+    [v5 setAnimationDuration:*&v28];
     if ((transitionModifiers & 0x10) == 0)
     {
       goto LABEL_8;
@@ -451,8 +452,8 @@ LABEL_11:
 LABEL_19:
     [v6 scale];
     OUTLINED_FUNCTION_0_10();
-    [v5 setScale:{-[CSCoverSheetAppearanceResolver _valueForTransitionInterval:timingFunction:](self, v19, 0)}];
-    [v5 setAnimationDuration:v20];
+    [v5 setScale:{-[CSCoverSheetAppearanceResolver _valueForTransitionInterval:timingFunction:](self, v27, 0)}];
+    [v5 setAnimationDuration:*&v28];
     goto LABEL_8;
   }
 
@@ -462,24 +463,24 @@ LABEL_19:
   }
 
 LABEL_8:
-  v15 = [OUTLINED_FUNCTION_13() flagForComponentType:?];
+  v23 = [OUTLINED_FUNCTION_13() flagForComponentType:?];
   [(CSAppearance *)self->_oldAppearance flagForComponentType:2];
   if (self->_isTransitioning && ((BSSettingFlagIsYes() & 1) != 0 || (BSSettingFlagIsYes() & 1) != 0))
   {
-    v16 = 1;
+    v24 = 1;
   }
 
   else if (self->_hasContentAboveCoverSheet)
   {
-    v16 = 0;
+    v24 = 0;
   }
 
   else
   {
-    v16 = v15;
+    v24 = v23;
   }
 
-  [v5 setFakeStatusBar:v16];
+  [v5 setFakeStatusBar:v24];
   [v5 setLegibilitySettings:self->_discreteLegibilitySettings];
 
   return v5;
@@ -520,9 +521,10 @@ LABEL_8:
 
   OUTLINED_FUNCTION_1_5();
   v9 = [OUTLINED_FUNCTION_12() componentForType:? property:?];
+  v17 = v9;
   if (v9)
   {
-    OUTLINED_FUNCTION_9_0();
+    OUTLINED_FUNCTION_9_0(v9, v10, v11, v12, v13, v14, v15, v16, v57);
   }
 
   else
@@ -530,11 +532,11 @@ LABEL_8:
     OUTLINED_FUNCTION_1_5();
   }
 
-  v10 = *v6;
-  v11 = v6[1];
+  v18 = *v6;
+  v19 = v6[1];
 
-  v12 = v11;
-  v13 = v10;
+  v20 = v19;
+  v21 = v18;
   if ((transitionModifiers & 8) == 0)
   {
     if ((transitionModifiers & 0x10) == 0)
@@ -545,8 +547,8 @@ LABEL_8:
 LABEL_21:
     [v5 scale];
     OUTLINED_FUNCTION_0_10();
-    [v4 setScale:{-[CSCoverSheetAppearanceResolver _valueForTransitionInterval:timingFunction:](self, v41, 0)}];
-    OUTLINED_FUNCTION_7_0(v42, v43, v44, v45, v46, v47, v48, v49, v50);
+    [v4 setScale:{-[CSCoverSheetAppearanceResolver _valueForTransitionInterval:timingFunction:](self, v48, 0)}];
+    OUTLINED_FUNCTION_7_0(v49, v50, v51, v52, v53, v54, v55, v56, *&v57);
     if ((transitionModifiers & 0x20) == 0)
     {
       goto LABEL_8;
@@ -556,10 +558,9 @@ LABEL_21:
   }
 
   SBFMainScreenScale();
-  BSPointRoundForScale();
-  v13 = v33;
-  v12 = v34;
-  OUTLINED_FUNCTION_7_0(v33, v34, v35, v36, v37, v38, v39, v40, v50);
+  v21 = BSPointRoundForScale(v58);
+  v20 = v41;
+  OUTLINED_FUNCTION_7_0(v21, v41, v42, v43, v44, v45, v46, v47, *&v57);
   if ((transitionModifiers & 0x10) != 0)
   {
     goto LABEL_21;
@@ -571,44 +572,44 @@ LABEL_6:
 LABEL_7:
     [v5 blurRadius];
     OUTLINED_FUNCTION_0_10();
-    [v4 setBlurRadius:{-[CSCoverSheetAppearanceResolver _valueForTransitionInterval:timingFunction:](self, v14, 0)}];
-    OUTLINED_FUNCTION_7_0(v15, v16, v17, v18, v19, v20, v21, v22, v50);
+    [v4 setBlurRadius:{-[CSCoverSheetAppearanceResolver _valueForTransitionInterval:timingFunction:](self, v22, 0)}];
+    OUTLINED_FUNCTION_7_0(v23, v24, v25, v26, v27, v28, v29, v30, *&v57);
   }
 
 LABEL_8:
-  v23 = [CSCoverSheetAppearanceResolver _offsetForTransitionFromOffset:? toOffset:? timingFunction:?];
-  v25 = v24;
-  v26 = [OUTLINED_FUNCTION_12() componentForType:? property:?];
-  [v26 isHidden];
+  v31 = [CSCoverSheetAppearanceResolver _offsetForTransitionFromOffset:? toOffset:? timingFunction:?];
+  v33 = v32;
+  v34 = [OUTLINED_FUNCTION_12() componentForType:? property:?];
+  [v34 isHidden];
   [OUTLINED_FUNCTION_8_0() setHidden:?];
 
-  v27 = [OUTLINED_FUNCTION_12() componentForType:? property:?];
-  [v27 value];
+  v35 = [OUTLINED_FUNCTION_12() componentForType:? property:?];
+  [v35 value];
   objc_claimAutoreleasedReturnValue();
   [OUTLINED_FUNCTION_10() setValue:?];
 
   [v5 isHidden];
-  v28 = OUTLINED_FUNCTION_16();
+  v36 = OUTLINED_FUNCTION_16();
   [OUTLINED_FUNCTION_12() flagForComponentType:?];
   [(CSAppearance *)self->_oldAppearance flagForComponentType:11];
   [v5 alpha];
   OUTLINED_FUNCTION_20();
-  if (v30 && ((v31 = v29, (BSSettingFlagIsYes() & 1) != 0) || BSSettingFlagIsYes()))
+  if (v38 && ((v39 = v37, (BSSettingFlagIsYes() & 1) != 0) || BSSettingFlagIsYes()))
   {
-    [v4 setAlpha:v31];
+    [v4 setAlpha:v39];
   }
 
   else
   {
-    v31 = [CSCoverSheetAppearanceResolver _alphaForTransitionFromHidden:v27 toHidden:v28 unhiddenAlpha:@"proudLockAlpha" timingFunction:?];
-    [v4 setAlpha:{fmin(fmax(v31 * 2.0 + -1.0, 0.0), 1.0)}];
-    [v4 setOffset:{v23, v25}];
+    v39 = [CSCoverSheetAppearanceResolver _alphaForTransitionFromHidden:v35 toHidden:v36 unhiddenAlpha:@"proudLockAlpha" timingFunction:?];
+    [v4 setAlpha:{fmin(fmax(v39 * 2.0 + -1.0, 0.0), 1.0)}];
+    [v4 setOffset:{v31, v33}];
   }
 
-  if (BSPointEqualToPoint() && !BSFloatIsZero() && v27 != v28)
+  if (BSPointEqualToPoint() && !BSFloatIsZero() && v35 != v36)
   {
-    [v4 setAlpha:v31];
-    [v4 setOffset:{v13, v12}];
+    [v4 setAlpha:v39];
+    [v4 setOffset:{v21, v20}];
   }
 
   return v4;
@@ -659,9 +660,10 @@ LABEL_8:
 
   OUTLINED_FUNCTION_1_5();
   v20 = [OUTLINED_FUNCTION_15() componentForType:? property:?];
+  v28 = v20;
   if (v20)
   {
-    OUTLINED_FUNCTION_9_0();
+    OUTLINED_FUNCTION_9_0(v20, v21, v22, v23, v24, v25, v26, v27, v53);
   }
 
   else
@@ -671,38 +673,38 @@ LABEL_8:
 
   if ((transitionModifiers & 8) != 0)
   {
-    OUTLINED_FUNCTION_7_0(v21, v22, v23, v24, v25, v26, v27, v28, v45);
+    OUTLINED_FUNCTION_7_0(v29.n128_f64[0], v30.n128_f64[0], v31.n128_f64[0], v32.n128_f64[0], v33.n128_f64[0], v34.n128_f64[0], v35, v36, *&v53);
   }
 
-  v29 = OUTLINED_FUNCTION_18();
-  v37 = v29;
-  v38 = v30;
-  v39 = 1.0;
+  v37 = OUTLINED_FUNCTION_18(v29, v30, v31, v32, v33, v34);
+  v45 = v37;
+  v46 = v38;
+  v47 = 1.0;
   if ((transitionModifiers & 0x10) != 0)
   {
-    v39 = v46;
-    OUTLINED_FUNCTION_7_0(v29, v30, v31, v32, v33, v34, v35, v36, v45);
+    v47 = v54;
+    OUTLINED_FUNCTION_7_0(v37, v38, v39, v40, v41, v42, v43, v44, *&v53);
   }
 
   [v6 isHidden];
-  v40 = OUTLINED_FUNCTION_16();
-  if (!transitionModifiers || v40)
+  v48 = OUTLINED_FUNCTION_16();
+  if (!transitionModifiers || v48)
   {
     [v6 offset];
-    v37 = [CSCoverSheetAppearanceResolver _offsetForTransitionFromOffset:? toOffset:? timingFunction:?];
-    v38 = v42;
+    v45 = [CSCoverSheetAppearanceResolver _offsetForTransitionFromOffset:? toOffset:? timingFunction:?];
+    v46 = v50;
     scale = [v6 scale];
-    v47 = v44;
-    v48 = 1;
-    memset(v49, 0, sizeof(v49));
-    v50 = v39;
-    v51 = 1;
-    memset(v52, 0, sizeof(v52));
-    v39 = OUTLINED_FUNCTION_17(scale, &v47);
+    v55 = v52;
+    v56 = 1;
+    memset(v57, 0, sizeof(v57));
+    v58 = v47;
+    v59 = 1;
+    memset(v60, 0, sizeof(v60));
+    v47 = OUTLINED_FUNCTION_17(scale, &v55);
   }
 
-  [v5 setOffset:{v37, v38}];
-  [v5 setScale:v39];
+  [v5 setOffset:{v45, v46}];
+  [v5 setScale:v47];
 
   return v5;
 }
@@ -734,9 +736,10 @@ LABEL_8:
   transitionModifiers = [v12 transitionModifiers];
 
   v14 = [(CSAppearance *)self->_desiredAppearance componentForType:2 property:256, OUTLINED_FUNCTION_1_5()];
+  v22 = v14;
   if (v14)
   {
-    OUTLINED_FUNCTION_9_0();
+    OUTLINED_FUNCTION_9_0(v14, v15, v16, v17, v18, v19, v20, v21, v44);
   }
 
   else
@@ -748,8 +751,8 @@ LABEL_8:
   {
     [v6 blurRadius];
     OUTLINED_FUNCTION_0_10();
-    [v5 setBlurRadius:{OUTLINED_FUNCTION_17(v16, v17)}];
-    OUTLINED_FUNCTION_7_0(v18, v19, v20, v21, v22, v23, v24, v25, v36);
+    [v5 setBlurRadius:{OUTLINED_FUNCTION_17(v24, v25)}];
+    OUTLINED_FUNCTION_7_0(v26, v27, v28, v29, v30, v31, v32, v33, *&v44);
     if ((transitionModifiers & 0x10) == 0)
     {
       goto LABEL_9;
@@ -763,8 +766,8 @@ LABEL_8:
 
   [v6 scale];
   OUTLINED_FUNCTION_0_10();
-  [v5 setScale:{OUTLINED_FUNCTION_17(v26, v27)}];
-  OUTLINED_FUNCTION_7_0(v28, v29, v30, v31, v32, v33, v34, v35, v36);
+  [v5 setScale:{OUTLINED_FUNCTION_17(v34, v35)}];
+  OUTLINED_FUNCTION_7_0(v36, v37, v38, v39, v40, v41, v42, v43, *&v44);
 LABEL_9:
 
   return v5;
@@ -796,9 +799,10 @@ LABEL_9:
 
   OUTLINED_FUNCTION_1_5();
   v17 = [OUTLINED_FUNCTION_23() componentForType:? property:?];
+  v25 = v17;
   if (v17)
   {
-    OUTLINED_FUNCTION_9_0();
+    OUTLINED_FUNCTION_9_0(v17, v18, v19, v20, v21, v22, v23, v24, v55);
   }
 
   else
@@ -816,8 +820,8 @@ LABEL_9:
 LABEL_11:
     [v6 scale];
     OUTLINED_FUNCTION_0_10();
-    [v5 setScale:{OUTLINED_FUNCTION_17(v27, v28)}];
-    OUTLINED_FUNCTION_7_0(v29, v30, v31, v32, v33, v34, v35, v36, v47);
+    [v5 setScale:{OUTLINED_FUNCTION_17(v35, v36)}];
+    OUTLINED_FUNCTION_7_0(v37, v38, v39, v40, v41, v42, v43, v44, *&v55);
     if ((transitionModifiers & 0x20) == 0)
     {
       goto LABEL_7;
@@ -828,7 +832,7 @@ LABEL_11:
 
   [v6 offset];
   [v5 setOffset:-[CSCoverSheetAppearanceResolver _offsetForTransitionFromOffset:toOffset:timingFunction:](self)];
-  OUTLINED_FUNCTION_7_0(v19, v20, v21, v22, v23, v24, v25, v26, v47);
+  OUTLINED_FUNCTION_7_0(v27, v28, v29, v30, v31, v32, v33, v34, *&v55);
   if ((transitionModifiers & 0x10) != 0)
   {
     goto LABEL_11;
@@ -843,8 +847,8 @@ LABEL_6:
 LABEL_12:
   [v6 blurRadius];
   OUTLINED_FUNCTION_0_10();
-  [v5 setBlurRadius:{OUTLINED_FUNCTION_17(v37, v38)}];
-  OUTLINED_FUNCTION_7_0(v39, v40, v41, v42, v43, v44, v45, v46, v47);
+  [v5 setBlurRadius:{OUTLINED_FUNCTION_17(v45, v46)}];
+  OUTLINED_FUNCTION_7_0(v47, v48, v49, v50, v51, v52, v53, v54, *&v55);
 LABEL_7:
 
   return v5;
@@ -892,7 +896,7 @@ LABEL_7:
   v9 = v8;
   if (v8)
   {
-    [v8 transitionInputs];
+    objc_msgSend_transitionInputs(v8);
   }
 
   else
@@ -942,9 +946,10 @@ LABEL_6:
   transitionModifiers = [v6 transitionModifiers];
 
   v8 = [(CSAppearance *)self->_desiredAppearance componentForType:5 property:256, OUTLINED_FUNCTION_1_5()];
+  v16 = v8;
   if (v8)
   {
-    OUTLINED_FUNCTION_9_0();
+    OUTLINED_FUNCTION_9_0(v8, v9, v10, v11, v12, v13, v14, v15, v26);
   }
 
   else
@@ -954,10 +959,10 @@ LABEL_6:
 
   if ((transitionModifiers & 8) != 0)
   {
-    OUTLINED_FUNCTION_7_0(v9, v10, v11, v12, v13, v14, v15, v16, v18);
+    OUTLINED_FUNCTION_7_0(v17.n128_f64[0], v18.n128_f64[0], v19.n128_f64[0], v20.n128_f64[0], v21.n128_f64[0], v22.n128_f64[0], v23, v24, *&v26);
   }
 
-  OUTLINED_FUNCTION_18();
+  OUTLINED_FUNCTION_18(v17, v18, v19, v20, v21, v22);
   [v2 offset];
   [v5 setOffset:-[CSCoverSheetAppearanceResolver _offsetForTransitionFromOffset:toOffset:timingFunction:](self)];
 
@@ -968,48 +973,48 @@ LABEL_6:
 {
   if (self)
   {
-    v2 = objc_opt_new();
-    v3 = [v2 priority:100];
+    v3 = objc_opt_new();
+    v4 = [v3 priority:100];
 
-    v4 = [*(self + 56) componentForType:6 identifier:@"(active)"];
-    v5 = [*(self + 48) componentForType:6 property:1];
-    isHidden = [v4 isHidden];
-    [v5 isHidden];
+    v5 = [*(self + 56) componentForType:6 identifier:@"(active)"];
+    v6 = [*(self + 48) componentForType:6 property:1];
+    isHidden = [v5 isHidden];
+    [v6 isHidden];
     OUTLINED_FUNCTION_20();
-    if (v8 && v7 && !((*(self + 56) == 0) | isHidden & 1))
+    if (v9 && v8 && !((*(self + 56) == 0) | isHidden & 1))
     {
-      v7 = 0;
+      v8 = 0;
     }
 
-    [v3 setHidden:v7];
-    v9 = [*(self + 48) flagForComponentType:6];
+    [v4 setHidden:v8];
+    v10 = [*(self + 48) flagForComponentType:6];
     [*(self + 56) flagForComponentType:6];
     OUTLINED_FUNCTION_20();
-    if (v8 && ((BSSettingFlagIsExplicitNo() & 1) != 0 || *(self + 56) && (BSSettingFlagIsExplicitNo() & 1) != 0))
+    if (v9 && ((BSSettingFlagIsExplicitNo() & 1) != 0 || *(self + 56) && (BSSettingFlagIsExplicitNo() & 1) != 0))
     {
-      v10 = 0;
+      v11 = 0;
     }
 
     else
     {
-      v10 = BSSettingFlagIsExplicitNo() ^ 1;
+      v11 = BSSettingFlagIsExplicitNo() ^ 1;
     }
 
-    [v3 setShouldMatchBackgroundStyle:v10];
-    [v5 level];
+    [v4 setShouldMatchBackgroundStyle:v11];
+    [v6 level];
     [OUTLINED_FUNCTION_8_0() setLevel:?];
-    v11 = [*(self + 48) componentForType:6 property:64];
-    [v11 color];
+    v12 = [*(self + 48) componentForType:6 property:64];
+    [v12 color];
     objc_claimAutoreleasedReturnValue();
     [OUTLINED_FUNCTION_10() setColor:?];
   }
 
   else
   {
-    v3 = 0;
+    v4 = 0;
   }
 
-  return v3;
+  return v4;
 }
 
 - (id)_resolveModalContentComponent
@@ -1018,17 +1023,18 @@ LABEL_6:
   {
     objc_opt_new();
     OUTLINED_FUNCTION_3_2();
-    v4 = [v3 priority:?];
+    v5 = [v4 priority:?];
 
     [*(self + 56) componentForType:22 identifier:@"(active)"];
     objc_claimAutoreleasedReturnValue();
-    v5 = [OUTLINED_FUNCTION_5_0() componentForType:22 property:128];
-    transitionModifiers = [v5 transitionModifiers];
+    v6 = [OUTLINED_FUNCTION_5_0() componentForType:22 property:128];
+    transitionModifiers = [v6 transitionModifiers];
 
-    v7 = [*(self + 48) componentForType:22 property:{256, OUTLINED_FUNCTION_1_5()}];
-    if (v7)
+    v8 = [*(self + 48) componentForType:22 property:{256, OUTLINED_FUNCTION_1_5()}];
+    v16 = v8;
+    if (v8)
     {
-      OUTLINED_FUNCTION_9_0();
+      OUTLINED_FUNCTION_9_0(v8, v9, v10, v11, v12, v13, v14, v15, v18);
     }
 
     else
@@ -1038,7 +1044,7 @@ LABEL_6:
 
     if ((transitionModifiers & 0x40) != 0)
     {
-      [v1 level];
+      [v2 level];
       if (*(self + 16) == 1)
       {
         BSFloatIsZero();
@@ -1050,10 +1056,10 @@ LABEL_6:
 
   else
   {
-    v4 = 0;
+    v5 = 0;
   }
 
-  return v4;
+  return v5;
 }
 
 - (id)_resolveStatusBarGradientComponent
@@ -1133,54 +1139,54 @@ LABEL_7:
   {
     objc_opt_new();
     OUTLINED_FUNCTION_3_2();
-    v4 = [v3 priority:?];
+    v5 = [v4 priority:?];
 
-    v5 = [OUTLINED_FUNCTION_22() componentForType:? property:?];
-    [v5 shouldRenderInline];
-    [OUTLINED_FUNCTION_8_0() setShouldRenderInline:?];
     v6 = [OUTLINED_FUNCTION_22() componentForType:? property:?];
-    [v6 shouldRenderForPosterSwitcher];
+    [v6 shouldRenderInline];
+    [OUTLINED_FUNCTION_8_0() setShouldRenderInline:?];
+    v7 = [OUTLINED_FUNCTION_22() componentForType:? property:?];
+    [v7 shouldRenderForPosterSwitcher];
     [OUTLINED_FUNCTION_8_0() setShouldRenderForPosterSwitcher:?];
 
     if (CSFeatureEnabled(12))
     {
-      if (v5)
+      if (v6)
       {
-        [v5 alpha];
+        [v6 alpha];
       }
 
       else
       {
-        v7 = 1.0;
+        v8 = 1.0;
       }
 
-      [v4 setAlpha:v7];
+      [v5 setAlpha:v8];
     }
 
     [OUTLINED_FUNCTION_22() flagForComponentType:?];
     [*(self + 56) flagForComponentType:23];
     if (*(self + 16) == 1 && ((BSSettingFlagIsExplicitNo() & 1) != 0 || *(self + 56) && (BSSettingFlagIsExplicitNo() & 1) != 0))
     {
-      v8 = 0;
+      v9 = 0;
     }
 
     else
     {
-      v8 = BSSettingFlagIsExplicitNo() ^ 1;
+      v9 = BSSettingFlagIsExplicitNo() ^ 1;
     }
 
-    [v4 setShouldMatchMove:v8];
-    v9 = [OUTLINED_FUNCTION_22() componentForType:? property:?];
-    [v9 level];
+    [v5 setShouldMatchMove:v9];
+    v10 = [OUTLINED_FUNCTION_22() componentForType:? property:?];
+    [v10 level];
     [OUTLINED_FUNCTION_8_0() setLevel:?];
   }
 
   else
   {
-    v4 = 0;
+    v5 = 0;
   }
 
-  return v4;
+  return v5;
 }
 
 - (id)_resolveBackgroundContentComponent
@@ -1189,17 +1195,18 @@ LABEL_7:
   {
     objc_opt_new();
     OUTLINED_FUNCTION_3_2();
-    v4 = [v3 priority:?];
+    v5 = [v4 priority:?];
 
     [*(self + 56) componentForType:24 identifier:@"(active)"];
     objc_claimAutoreleasedReturnValue();
-    v5 = [OUTLINED_FUNCTION_5_0() componentForType:24 property:128];
-    transitionModifiers = [v5 transitionModifiers];
+    v6 = [OUTLINED_FUNCTION_5_0() componentForType:24 property:128];
+    transitionModifiers = [v6 transitionModifiers];
 
-    v7 = [*(self + 48) componentForType:24 property:{256, OUTLINED_FUNCTION_1_5()}];
-    if (v7)
+    v8 = [*(self + 48) componentForType:24 property:{256, OUTLINED_FUNCTION_1_5()}];
+    v16 = v8;
+    if (v8)
     {
-      OUTLINED_FUNCTION_9_0();
+      OUTLINED_FUNCTION_9_0(v8, v9, v10, v11, v12, v13, v14, v15, v22);
     }
 
     else
@@ -1209,7 +1216,7 @@ LABEL_7:
 
     if ((transitionModifiers & 0x40) != 0)
     {
-      [v1 level];
+      [v2 level];
       if (*(self + 16) == 1)
       {
         BSFloatIsZero();
@@ -1218,29 +1225,29 @@ LABEL_7:
       [OUTLINED_FUNCTION_14() setLevel:?];
     }
 
-    v8 = [*(self + 48) componentForType:24 property:1];
-    isHidden = [v8 isHidden];
+    v17 = [*(self + 48) componentForType:24 property:1];
+    isHidden = [v17 isHidden];
 
     OUTLINED_FUNCTION_19();
-    v10 = 1.0;
+    v19 = 1.0;
     if (isHidden)
     {
-      v10 = 0.0;
+      v19 = 0.0;
     }
 
-    [v4 setAlpha:v10];
-    v11 = [*(self + 48) componentForType:24 property:8];
-    [v11 flag];
+    [v5 setAlpha:v19];
+    v20 = [*(self + 48) componentForType:24 property:8];
+    [v20 flag];
 
     [OUTLINED_FUNCTION_14() setFlag:?];
   }
 
   else
   {
-    v4 = 0;
+    v5 = 0;
   }
 
-  return v4;
+  return v5;
 }
 
 - (id)_resolveComplicationSidebarComponent
@@ -1249,26 +1256,26 @@ LABEL_7:
   {
     objc_opt_new();
     OUTLINED_FUNCTION_3_2();
-    v4 = [v3 priority:?];
+    v5 = [v4 priority:?];
 
     [*(self + 56) componentForType:25 identifier:@"(active)"];
     objc_claimAutoreleasedReturnValue();
-    v5 = [OUTLINED_FUNCTION_5_0() componentForType:25 property:1];
-    [v5 isHidden];
+    v6 = [OUTLINED_FUNCTION_5_0() componentForType:25 property:1];
+    [v6 isHidden];
 
     OUTLINED_FUNCTION_19();
-    [v1 isHidden];
+    [v2 isHidden];
     OUTLINED_FUNCTION_16();
-    v6 = OUTLINED_FUNCTION_2_3();
-    [v4 setAlpha:{-[CSCoverSheetAppearanceResolver _alphaForTransitionFromHidden:toHidden:unhiddenAlpha:timingFunction:](v6, v7, v8, v9)}];
+    v7 = OUTLINED_FUNCTION_2_3();
+    [v5 setAlpha:{-[CSCoverSheetAppearanceResolver _alphaForTransitionFromHidden:toHidden:unhiddenAlpha:timingFunction:](v7, v8, v9, v10)}];
   }
 
   else
   {
-    v4 = 0;
+    v5 = 0;
   }
 
-  return v4;
+  return v5;
 }
 
 - (id)_resolveFullBleedContentComponent
@@ -1277,7 +1284,7 @@ LABEL_7:
   {
     objc_opt_new();
     OUTLINED_FUNCTION_3_2();
-    v4 = [v3 priority:?];
+    v5 = [v4 priority:?];
 
     [*(self + 48) flagForComponentType:26];
     [OUTLINED_FUNCTION_8_0() setFlag:?];
@@ -1285,10 +1292,10 @@ LABEL_7:
 
   else
   {
-    v4 = 0;
+    v5 = 0;
   }
 
-  return v4;
+  return v5;
 }
 
 - (id)_resolveDimmingLayerComponent
@@ -1297,26 +1304,26 @@ LABEL_7:
   {
     objc_opt_new();
     OUTLINED_FUNCTION_3_2();
-    v4 = [v3 priority:?];
+    v5 = [v4 priority:?];
 
     [*(self + 56) componentForType:27 identifier:@"(active)"];
     objc_claimAutoreleasedReturnValue();
-    v5 = [OUTLINED_FUNCTION_5_0() componentForType:27 property:1];
-    [v5 isHidden];
+    v6 = [OUTLINED_FUNCTION_5_0() componentForType:27 property:1];
+    [v6 isHidden];
 
     OUTLINED_FUNCTION_19();
-    [v1 isHidden];
+    [v2 isHidden];
     OUTLINED_FUNCTION_16();
-    v6 = OUTLINED_FUNCTION_2_3();
-    [v4 setAlpha:{-[CSCoverSheetAppearanceResolver _alphaForTransitionFromHidden:toHidden:unhiddenAlpha:timingFunction:](v6, v7, v8, v9)}];
+    v7 = OUTLINED_FUNCTION_2_3();
+    [v5 setAlpha:{-[CSCoverSheetAppearanceResolver _alphaForTransitionFromHidden:toHidden:unhiddenAlpha:timingFunction:](v7, v8, v9, v10)}];
   }
 
   else
   {
-    v4 = 0;
+    v5 = 0;
   }
 
-  return v4;
+  return v5;
 }
 
 - (CSCoverSheetAppearanceResolver)init
@@ -1424,7 +1431,7 @@ LABEL_7:
     currentTransitionSource = self->_currentTransitionSource;
     if (currentTransitionSource)
     {
-      [(CSCoverSheetViewTransitionSource *)currentTransitionSource transitionContext];
+      objc_msgSend_transitionContext(currentTransitionSource, 0.0);
     }
 
     BSIntervalFractionForValue();
@@ -1464,15 +1471,15 @@ LABEL_7:
   _resolveHomeAffordanceComponent = [(CSCoverSheetAppearanceResolver *)self _resolveHomeAffordanceComponent];
   [activeAppearanceCopy addComponent:_resolveHomeAffordanceComponent];
 
-  v45 = [(CSCoverSheetAppearanceResolver *)self _resolveComponentWithType:3];
-  [activeAppearanceCopy addComponent:v45];
+  v47 = [(CSCoverSheetAppearanceResolver *)self _resolveComponentWithType:3];
+  [activeAppearanceCopy addComponent:v47];
 
-  v46 = [(CSCoverSheetAppearanceResolver *)self _resolveComponentWithType:10];
-  [activeAppearanceCopy addComponent:v46];
-
-  v47 = [activeAppearanceCopy componentForType:12 identifier:@"(active)"];
-  v48 = [(CSCoverSheetAppearanceResolver *)self _resolveFooterCallToActionLabelComponentWithHomeAffordance:v47];
+  v48 = [(CSCoverSheetAppearanceResolver *)self _resolveComponentWithType:10];
   [activeAppearanceCopy addComponent:v48];
+
+  v49 = [activeAppearanceCopy componentForType:12 identifier:@"(active)"];
+  v50 = [(CSCoverSheetAppearanceResolver *)self _resolveFooterCallToActionLabelComponentWithHomeAffordance:v49];
+  [activeAppearanceCopy addComponent:v50];
 
   _resolveControlCenterGrabberComponent = [(CSCoverSheetAppearanceResolver *)self _resolveControlCenterGrabberComponent];
   [activeAppearanceCopy addComponent:_resolveControlCenterGrabberComponent];
@@ -1544,40 +1551,40 @@ LABEL_7:
   {
     objc_opt_new();
     OUTLINED_FUNCTION_3_2();
-    v4 = [v3 priority:?];
+    v5 = [v4 priority:?];
 
     [*(self + 56) componentForType:28 identifier:@"(active)"];
     objc_claimAutoreleasedReturnValue();
-    v5 = [OUTLINED_FUNCTION_5_0() componentForType:28 property:1];
-    isHidden = [v5 isHidden];
+    v6 = [OUTLINED_FUNCTION_5_0() componentForType:28 property:1];
+    isHidden = [v6 isHidden];
 
     OUTLINED_FUNCTION_19();
-    [v1 isHidden];
-    v7 = OUTLINED_FUNCTION_4_0();
-    [v4 setAlpha:{-[CSCoverSheetAppearanceResolver _alphaForTransitionFromHidden:toHidden:unhiddenAlpha:timingFunction:](v7, v8, isHidden, v9)}];
-    v10 = [*(self + 48) componentForType:28 property:1024];
-    [v10 animationDuration];
-    [v4 setAnimationDuration:?];
+    [v2 isHidden];
+    v8 = OUTLINED_FUNCTION_4_0();
+    [v5 setAlpha:{-[CSCoverSheetAppearanceResolver _alphaForTransitionFromHidden:toHidden:unhiddenAlpha:timingFunction:](v8, v9, isHidden, v10)}];
+    v11 = [*(self + 48) componentForType:28 property:1024];
+    [v11 animationDuration];
+    [v5 setAnimationDuration:?];
 
-    v11 = [*(self + 48) componentForType:28 property:4];
-    [v11 value];
+    v12 = [*(self + 48) componentForType:28 property:4];
+    [v12 value];
     objc_claimAutoreleasedReturnValue();
     [OUTLINED_FUNCTION_10() setValue:?];
 
-    v12 = [*(self + 48) componentForType:28 property:2];
-    [v12 offset];
-    v14 = v13;
-    v16 = v15;
+    v13 = [*(self + 48) componentForType:28 property:2];
+    [v13 offset];
+    v15 = v14;
+    v17 = v16;
 
-    [v4 setOffset:{v14, v16}];
+    [v5 setOffset:{v15, v17}];
   }
 
   else
   {
-    v4 = 0;
+    v5 = 0;
   }
 
-  return v4;
+  return v5;
 }
 
 - (double)_scaleForTransitionFromScale:(uint64_t)scale toScale:timingFunction:
@@ -1652,24 +1659,24 @@ LABEL_7:
   }
 }
 
-- (double)_finalizeOffset:(uint64_t)offset referenceFrame:(double)frame
+- (double)_finalizeOffset:(double)offset referenceFrame:
 {
-  if (!offset)
+  if (!self)
   {
     return 0.0;
   }
 
   if (BSFloatEqualToFloat())
   {
-    v5.origin.x = OUTLINED_FUNCTION_21();
-    CGRectGetHeight(v5);
+    v6.origin.x = OUTLINED_FUNCTION_21();
+    CGRectGetHeight(v6);
   }
 
   if (BSFloatEqualToFloat())
   {
-    v6.origin.x = OUTLINED_FUNCTION_21();
-    Width = CGRectGetWidth(v6);
-    if (frame >= 0.0)
+    v7.origin.x = OUTLINED_FUNCTION_21();
+    Width = CGRectGetWidth(v7);
+    if (a2 >= 0.0)
     {
       return Width;
     }
@@ -1680,7 +1687,7 @@ LABEL_7:
     }
   }
 
-  return frame;
+  return a2;
 }
 
 - (id)_resolveComponentWithType:(int64_t)type
@@ -1707,7 +1714,7 @@ LABEL_7:
   v16 = v15;
   if (v15)
   {
-    [v15 transitionInputs];
+    objc_msgSend_transitionInputs(v15);
   }
 
   else
@@ -1803,7 +1810,7 @@ LABEL_6:
 
     else
     {
-      v7 = *(a2 + 16);
+      v7 = a2[2];
     }
   }
 

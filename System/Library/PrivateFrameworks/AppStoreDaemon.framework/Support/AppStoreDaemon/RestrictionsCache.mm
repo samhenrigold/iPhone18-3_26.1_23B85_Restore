@@ -26,8 +26,8 @@
   os_unfair_lock_opaque_low = LOBYTE(v2[2]._os_unfair_lock_opaque);
   if (os_unfair_lock_opaque_low == 2)
   {
-    objc_opt_self();
-    LOBYTE(os_unfair_lock_opaque_low) = sub_10030B548();
+    v5 = objc_opt_self();
+    LOBYTE(os_unfair_lock_opaque_low) = sub_10030B548(v5);
     LOBYTE(v2[2]._os_unfair_lock_opaque) = os_unfair_lock_opaque_low;
   }
 

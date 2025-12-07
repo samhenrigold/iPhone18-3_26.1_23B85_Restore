@@ -77,7 +77,7 @@
 
   CGContextSaveGState(context);
   memset(&v38, 0, sizeof(v38));
-  [AKGeometryHelper rotationTransformForRectangularAnnotation:annotationCopy hasRotation:0];
+  objc_msgSend_rotationTransformForRectangularAnnotation_hasRotation_(AKGeometryHelper);
   transform = v38;
   CGContextConcatCTM(context, &transform);
   [annotationCopy rectangle];
@@ -131,7 +131,7 @@
   v27 = *(MEMORY[0x277CBF348] + 8);
   v28 = +[AKGeometryHelper inverseExifOrientation:](AKGeometryHelper, "inverseExifOrientation:", [annotationCopy originalExifOrientation]);
   memset(&transform, 0, sizeof(transform));
-  [AKGeometryHelper affineTransformRecenteringAboutOriginForExifOrientation:v28 withOriginalSize:v20, v22];
+  objc_msgSend_affineTransformRecenteringAboutOriginForExifOrientation_withOriginalSize_(AKGeometryHelper, v20, v22);
   v36 = transform;
   CGContextConcatCTM(context, &v36);
   [AKGeometryHelper adjustRect:v28 forExifOrientation:v26 aboutCenter:v27, v20, v22, v26, v27];
@@ -163,7 +163,7 @@
   [annotationCopy rectangle];
   v7 = CGPathCreateWithRect(v13, 0);
   memset(&m, 0, sizeof(m));
-  [AKGeometryHelper rotationTransformForRectangularAnnotation:annotationCopy hasRotation:0];
+  objc_msgSend_rotationTransformForRectangularAnnotation_hasRotation_(AKGeometryHelper);
 
   v9 = m;
   CGAffineTransformInvert(&v10, &v9);

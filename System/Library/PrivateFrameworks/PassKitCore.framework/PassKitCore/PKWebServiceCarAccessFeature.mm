@@ -206,9 +206,9 @@ LABEL_16:
 
         if (identifierCopy && partnerIdentifier)
         {
-          v13 = [partnerIdentifier isEqualToString:v11];
+          isEqualToString = objc_msgSend_isEqualToString_(partnerIdentifier);
 
-          if (v13)
+          if (isEqualToString)
           {
             goto LABEL_16;
           }

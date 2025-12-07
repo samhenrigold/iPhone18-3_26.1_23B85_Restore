@@ -54,8 +54,8 @@
     *&v4->_timeToDetectDevicesInProximity = _Q0;
     *&v4->_timeToAcquireFirstPreciseLocation = _Q0;
     v4->_timeForUserManualOverride = -1.0;
-    CAMSignpostsSmartSharingAutoDecisionBegin();
-    CAMSignpostsUserManualOverrideBegin();
+    CAMSignpostsSmartSharingAutoDecisionBegin(v4);
+    CAMSignpostsUserManualOverrideBegin(v4);
     v15 = os_log_create("com.apple.camera", "SharedLibrary");
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
@@ -435,8 +435,8 @@ LABEL_26:
   if ([v2 sharedLibraryLastLocationAcquiredDuringTrip])
   {
     sharedLibraryLastLocation = [v2 sharedLibraryLastLocation];
-    timestamp = [sharedLibraryLastLocation timestamp];
-    [timestamp timeIntervalSinceNow];
+    v4 = objc_msgSend_timestamp(sharedLibraryLastLocation);
+    [v4 timeIntervalSinceNow];
     v6 = fabs(v5);
 
     v7 = +[CAMCaptureCapabilities capabilities];

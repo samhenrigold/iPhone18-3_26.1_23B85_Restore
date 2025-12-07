@@ -28,36 +28,36 @@
     {
       if (v8)
       {
-        v10 = [(__CFString *)v8 isEqualToString:@"1099-int"];
+        isEqualToString = objc_msgSend_isEqualToString_(v8);
 
-        if (v10)
+        if (isEqualToString)
         {
           goto LABEL_5;
         }
 
         v12 = v9;
-        if (v12 == @"1099-div" || (v13 = v12, v14 = [(__CFString *)v12 isEqualToString:@"1099-div"], v13, (v14 & 1) != 0))
+        if (v12 == @"1099-div" || (v13 = v12, v14 = objc_msgSend_isEqualToString_(v12), v13, (v14 & 1) != 0))
         {
           v11 = 2;
           goto LABEL_19;
         }
 
         v15 = v13;
-        if (v15 == @"1099-b" || (v16 = v15, v17 = [(__CFString *)v15 isEqualToString:@"1099-b"], v16, (v17 & 1) != 0))
+        if (v15 == @"1099-b" || (v16 = v15, v17 = objc_msgSend_isEqualToString_(v15), v16, (v17 & 1) != 0))
         {
           v11 = 3;
           goto LABEL_19;
         }
 
         v18 = v16;
-        if (v18 == @"1099-misc" || (v19 = v18, v20 = [(__CFString *)v18 isEqualToString:@"1099-misc"], v19, (v20 & 1) != 0))
+        if (v18 == @"1099-misc" || (v19 = v18, v20 = objc_msgSend_isEqualToString_(v18), v19, (v20 & 1) != 0))
         {
           v11 = 4;
           goto LABEL_19;
         }
 
         v21 = v19;
-        if (v21 == @"1099-consolidated" || (v22 = v21, v23 = [(__CFString *)v21 isEqualToString:@"1099-consolidated"], v22, v23))
+        if (v21 == @"1099-consolidated" || (v22 = v21, v23 = objc_msgSend_isEqualToString_(v21), v22, v23))
         {
           v11 = 5;
           goto LABEL_19;

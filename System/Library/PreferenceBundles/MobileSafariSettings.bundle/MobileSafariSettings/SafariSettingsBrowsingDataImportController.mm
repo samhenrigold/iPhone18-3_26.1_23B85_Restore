@@ -247,27 +247,29 @@ void __89__SafariSettingsBrowsingDataImportController__importExtensionsFromURL_c
   dispatch_async(v6, v8);
 }
 
-id __89__SafariSettingsBrowsingDataImportController__importExtensionsFromURL_completionHandler___block_invoke_3(void *a1)
+id __89__SafariSettingsBrowsingDataImportController__importExtensionsFromURL_completionHandler___block_invoke_3(void *a1, uint64_t a2)
 {
   --*(a1[4] + 16);
-  v2 = a1 + 5;
+  v3 = a1 + 5;
   if (a1[5])
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXImport();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = WBS_LOG_CHANNEL_PREFIXImport(a1, a2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __89__SafariSettingsBrowsingDataImportController__importExtensionsFromURL_completionHandler___block_invoke_3_cold_1(v2, v3);
+      __89__SafariSettingsBrowsingDataImportController__importExtensionsFromURL_completionHandler___block_invoke_3_cold_1(v3, v4);
     }
   }
 
-  v4 = a1[4];
-  if (!v4[2])
+  v5 = a1[4];
+  if (v5[2])
   {
-    return [v4 _generateLockupViewsForAvailableAppsWithWebBookmarksSettingsGateway:a1[6] completionHandler:a1[7]];
+    return (*(a1[7] + 16))();
   }
 
-  v5 = a1[5];
-  return (*(a1[7] + 16))();
+  else
+  {
+    return [v5 _generateLockupViewsForAvailableAppsWithWebBookmarksSettingsGateway:a1[6] completionHandler:a1[7]];
+  }
 }
 
 - (void)_importChromeExtensionsFromURL:(id)l completionHandler:(id)handler
@@ -313,27 +315,29 @@ void __95__SafariSettingsBrowsingDataImportController__importChromeExtensionsFro
   dispatch_async(v6, v8);
 }
 
-id __95__SafariSettingsBrowsingDataImportController__importChromeExtensionsFromURL_completionHandler___block_invoke_3(void *a1)
+id __95__SafariSettingsBrowsingDataImportController__importChromeExtensionsFromURL_completionHandler___block_invoke_3(void *a1, uint64_t a2)
 {
   --*(a1[4] + 16);
-  v2 = a1 + 5;
+  v3 = a1 + 5;
   if (a1[5])
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXImport();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = WBS_LOG_CHANNEL_PREFIXImport(a1, a2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __95__SafariSettingsBrowsingDataImportController__importChromeExtensionsFromURL_completionHandler___block_invoke_3_cold_1(v2, v3);
+      __95__SafariSettingsBrowsingDataImportController__importChromeExtensionsFromURL_completionHandler___block_invoke_3_cold_1(v3, v4);
     }
   }
 
-  v4 = a1[4];
-  if (!v4[2])
+  v5 = a1[4];
+  if (v5[2])
   {
-    return [v4 _generateLockupViewsForAvailableAppsWithWebBookmarksSettingsGateway:a1[6] completionHandler:a1[7]];
+    return (*(a1[7] + 16))();
   }
 
-  v5 = a1[5];
-  return (*(a1[7] + 16))();
+  else
+  {
+    return [v5 _generateLockupViewsForAvailableAppsWithWebBookmarksSettingsGateway:a1[6] completionHandler:a1[7]];
+  }
 }
 
 - (void)_generateLockupViewsForAvailableAppsWithWebBookmarksSettingsGateway:(id)gateway completionHandler:(id)handler
@@ -373,42 +377,42 @@ void __132__SafariSettingsBrowsingDataImportController__generateLockupViewsForAv
 
 void __132__SafariSettingsBrowsingDataImportController__generateLockupViewsForAvailableAppsWithWebBookmarksSettingsGateway_completionHandler___block_invoke_2(uint64_t a1)
 {
-  v16 = [*(a1 + 32) safari_filterObjectsUsingBlock:&__block_literal_global_17];
-  v2 = [v16 safari_mapObjectsUsingBlock:&__block_literal_global_35];
+  v14 = [*(a1 + 32) safari_filterObjectsUsingBlock:&__block_literal_global_17];
+  v2 = [v14 safari_mapObjectsUsingBlock:&__block_literal_global_35];
   v3 = [NSSet setWithArray:v2];
 
-  v20 = 0u;
-  v21 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v17 = a1;
+  v16 = 0u;
+  v17 = 0u;
+  v15 = a1;
   v4 = [*(*(a1 + 40) + 48) allObjects];
-  v5 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v19;
+    v8 = *v17;
     do
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v19 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v18 + 1) + 8 * i);
+        v10 = *(*(&v16 + 1) + 8 * i);
         v11 = [v10 adamID];
         v12 = [v3 containsObject:v11];
 
         if (v12)
         {
-          v7 += [*(v17[5] + 48) countForObject:v10];
+          v7 += [*(*(v15 + 40) + 48) countForObject:v10];
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v6);
@@ -419,12 +423,10 @@ void __132__SafariSettingsBrowsingDataImportController__generateLockupViewsForAv
     v7 = 0;
   }
 
-  v13 = [[WBSBrowsingDataImportData alloc] initWithNumberOfItemsSuccessfullyImported:objc_msgSend(*(v17[5] + 40) numberOfItemsFailedToImport:"count") errorMessage:{v7, 0}];
-  [v13 setExtensionLockupViews:v16];
-  (*(v17[7] + 16))();
-  v14 = v17[6];
+  v13 = [[WBSBrowsingDataImportData alloc] initWithNumberOfItemsSuccessfullyImported:objc_msgSend(*(*(v15 + 40) + 40) numberOfItemsFailedToImport:"count") errorMessage:{v7, 0}];
+  [v13 setExtensionLockupViews:v14];
+  (*(*(v15 + 56) + 16))();
   objc_opt_class();
-  v15 = v17[5];
   objc_opt_class();
 }
 
@@ -496,12 +498,10 @@ uint64_t __90__SafariSettingsBrowsingDataImportController__importCreditCardsFrom
 
   else
   {
-    v6 = [[WBSBrowsingDataImportData alloc] initWithNumberOfItemsSuccessfullyImported:*(a1[5] + 8) numberOfItemsFailedToImport:0 errorMessage:0];
-    (*(v1 + 16))(v1, v6, 0);
+    v5 = [[WBSBrowsingDataImportData alloc] initWithNumberOfItemsSuccessfullyImported:*(a1[5] + 8) numberOfItemsFailedToImport:0 errorMessage:0];
+    (*(v1 + 16))(v1, v5, 0);
 
-    v7 = a1[6];
     objc_opt_class();
-    v8 = a1[5];
 
     return objc_opt_class();
   }
@@ -564,12 +564,13 @@ id __92__SafariSettingsBrowsingDataImportController__importChromeHistoryFromURL_
 void __112__SafariSettingsBrowsingDataImportController__computeNumberOfHistorySitesToBeImportedFromURL_completionHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
+  v6 = v4;
   if (v4)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXImport();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = WBS_LOG_CHANNEL_PREFIXImport(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __112__SafariSettingsBrowsingDataImportController__computeNumberOfHistorySitesToBeImportedFromURL_completionHandler___block_invoke_cold_1(v5);
+      __112__SafariSettingsBrowsingDataImportController__computeNumberOfHistorySitesToBeImportedFromURL_completionHandler___block_invoke_cold_1(v7);
     }
   }
 
@@ -594,12 +595,13 @@ void __112__SafariSettingsBrowsingDataImportController__computeNumberOfHistorySi
 void __118__SafariSettingsBrowsingDataImportController__computeNumberOfChromeHistorySitesToBeImportedFromURL_completionHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
+  v6 = v4;
   if (v4)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXImport();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = WBS_LOG_CHANNEL_PREFIXImport(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __112__SafariSettingsBrowsingDataImportController__computeNumberOfHistorySitesToBeImportedFromURL_completionHandler___block_invoke_cold_1(v5);
+      __112__SafariSettingsBrowsingDataImportController__computeNumberOfHistorySitesToBeImportedFromURL_completionHandler___block_invoke_cold_1(v7);
     }
   }
 
@@ -624,12 +626,13 @@ void __118__SafariSettingsBrowsingDataImportController__computeNumberOfChromeHis
 void __110__SafariSettingsBrowsingDataImportController__computeNumberOfExtensionsToBeImportedFromURL_completionHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
+  v6 = v4;
   if (v4)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXImport();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = WBS_LOG_CHANNEL_PREFIXImport(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __110__SafariSettingsBrowsingDataImportController__computeNumberOfExtensionsToBeImportedFromURL_completionHandler___block_invoke_cold_1(v5);
+      __110__SafariSettingsBrowsingDataImportController__computeNumberOfExtensionsToBeImportedFromURL_completionHandler___block_invoke_cold_1(v7);
     }
   }
 
@@ -654,12 +657,13 @@ void __110__SafariSettingsBrowsingDataImportController__computeNumberOfExtension
 void __116__SafariSettingsBrowsingDataImportController__computeNumberOfChromeExtensionsToBeImportedFromURL_completionHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
+  v6 = v4;
   if (v4)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXImport();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = WBS_LOG_CHANNEL_PREFIXImport(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __116__SafariSettingsBrowsingDataImportController__computeNumberOfChromeExtensionsToBeImportedFromURL_completionHandler___block_invoke_cold_1(v5);
+      __116__SafariSettingsBrowsingDataImportController__computeNumberOfChromeExtensionsToBeImportedFromURL_completionHandler___block_invoke_cold_1(v7);
     }
   }
 
@@ -684,12 +688,13 @@ void __116__SafariSettingsBrowsingDataImportController__computeNumberOfChromeExt
 void __109__SafariSettingsBrowsingDataImportController__computeNumberOfBookmarksToBeImportedFromURL_completionHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
+  v6 = v4;
   if (v4)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXImport();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = WBS_LOG_CHANNEL_PREFIXImport(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __109__SafariSettingsBrowsingDataImportController__computeNumberOfBookmarksToBeImportedFromURL_completionHandler___block_invoke_cold_1(v5);
+      __109__SafariSettingsBrowsingDataImportController__computeNumberOfBookmarksToBeImportedFromURL_completionHandler___block_invoke_cold_1(v7);
     }
   }
 
@@ -714,12 +719,13 @@ void __109__SafariSettingsBrowsingDataImportController__computeNumberOfBookmarks
 void __111__SafariSettingsBrowsingDataImportController__computeNumberOfCreditCardsToBeImportedFromURL_completionHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
+  v6 = v4;
   if (v4)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXImport();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = WBS_LOG_CHANNEL_PREFIXImport(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __111__SafariSettingsBrowsingDataImportController__computeNumberOfCreditCardsToBeImportedFromURL_completionHandler___block_invoke_cold_1(v5);
+      __111__SafariSettingsBrowsingDataImportController__computeNumberOfCreditCardsToBeImportedFromURL_completionHandler___block_invoke_cold_1(v7);
     }
   }
 
@@ -956,22 +962,20 @@ id __148__SafariSettingsBrowsingDataImportController__getComposedIdentifiersOfEx
   CFNotificationCenterPostNotification(DarwinNotifyCenter, @"com.apple.mobilesafari.SafariSettingsChangedExtensionSettings", 0, 0, 0);
 }
 
-void __89__SafariSettingsBrowsingDataImportController__importExtensionsFromURL_completionHandler___block_invoke_3_cold_1(uint64_t *a1, void *a2)
+void __89__SafariSettingsBrowsingDataImportController__importExtensionsFromURL_completionHandler___block_invoke_3_cold_1(uint64_t a1, void *a2)
 {
-  v3 = *a1;
-  v4 = a2;
-  v5 = [OUTLINED_FUNCTION_1() safari_privacyPreservingDescription];
+  v3 = a2;
+  v4 = [OUTLINED_FUNCTION_1() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_0, v6, v7, "Error importing extensions: %{public}@", v8, v9, v10, v11, v12);
+  OUTLINED_FUNCTION_0(&dword_0, v5, v6, "Error importing extensions: %{public}@", v7, v8, v9, v10);
 }
 
-void __95__SafariSettingsBrowsingDataImportController__importChromeExtensionsFromURL_completionHandler___block_invoke_3_cold_1(uint64_t *a1, void *a2)
+void __95__SafariSettingsBrowsingDataImportController__importChromeExtensionsFromURL_completionHandler___block_invoke_3_cold_1(uint64_t a1, void *a2)
 {
-  v3 = *a1;
-  v4 = a2;
-  v5 = [OUTLINED_FUNCTION_1() safari_privacyPreservingDescription];
+  v3 = a2;
+  v4 = [OUTLINED_FUNCTION_1() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_0, v6, v7, "Error importing Chrome extensions: %{public}@", v8, v9, v10, v11, v12);
+  OUTLINED_FUNCTION_0(&dword_0, v5, v6, "Error importing Chrome extensions: %{public}@", v7, v8, v9, v10);
 }
 
 void __112__SafariSettingsBrowsingDataImportController__computeNumberOfHistorySitesToBeImportedFromURL_completionHandler___block_invoke_cold_1(void *a1)
@@ -979,7 +983,7 @@ void __112__SafariSettingsBrowsingDataImportController__computeNumberOfHistorySi
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_0, v4, v5, "Failed to compute the number of history sites to be imported: %{public}@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_0(&dword_0, v4, v5, "Failed to compute the number of history sites to be imported: %{public}@", v6, v7, v8, v9);
 }
 
 void __110__SafariSettingsBrowsingDataImportController__computeNumberOfExtensionsToBeImportedFromURL_completionHandler___block_invoke_cold_1(void *a1)
@@ -987,7 +991,7 @@ void __110__SafariSettingsBrowsingDataImportController__computeNumberOfExtension
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_0, v4, v5, "Failed to compute the number of extensions to be imported: %{public}@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_0(&dword_0, v4, v5, "Failed to compute the number of extensions to be imported: %{public}@", v6, v7, v8, v9);
 }
 
 void __116__SafariSettingsBrowsingDataImportController__computeNumberOfChromeExtensionsToBeImportedFromURL_completionHandler___block_invoke_cold_1(void *a1)
@@ -995,7 +999,7 @@ void __116__SafariSettingsBrowsingDataImportController__computeNumberOfChromeExt
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_0, v4, v5, "Failed to compute the number of Chrome extensions to be imported: %{public}@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_0(&dword_0, v4, v5, "Failed to compute the number of Chrome extensions to be imported: %{public}@", v6, v7, v8, v9);
 }
 
 void __109__SafariSettingsBrowsingDataImportController__computeNumberOfBookmarksToBeImportedFromURL_completionHandler___block_invoke_cold_1(void *a1)
@@ -1003,7 +1007,7 @@ void __109__SafariSettingsBrowsingDataImportController__computeNumberOfBookmarks
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_0, v4, v5, "Failed to compute the number of bookmarks to be imported: %{public}@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_0(&dword_0, v4, v5, "Failed to compute the number of bookmarks to be imported: %{public}@", v6, v7, v8, v9);
 }
 
 void __111__SafariSettingsBrowsingDataImportController__computeNumberOfCreditCardsToBeImportedFromURL_completionHandler___block_invoke_cold_1(void *a1)
@@ -1011,7 +1015,7 @@ void __111__SafariSettingsBrowsingDataImportController__computeNumberOfCreditCar
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_0, v4, v5, "Failed to compute the number of credit cards to be imported: %{public}@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_0(&dword_0, v4, v5, "Failed to compute the number of credit cards to be imported: %{public}@", v6, v7, v8, v9);
 }
 
 @end

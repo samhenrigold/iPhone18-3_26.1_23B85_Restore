@@ -687,7 +687,7 @@ LABEL_26:
         v29[1] = @"extent";
         if (v11)
         {
-          [v11 extent];
+          objc_msgSend_extent(v11);
         }
 
         v13 = NSArrayFromNUPixelRect();

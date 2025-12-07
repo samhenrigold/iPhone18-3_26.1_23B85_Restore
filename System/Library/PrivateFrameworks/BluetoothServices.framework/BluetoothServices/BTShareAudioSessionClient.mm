@@ -8,6 +8,7 @@
 - (void)activate;
 - (void)encodeWithCoder:(id)coder;
 - (void)invalidate;
+- (void)shareAudioProgressEvent:(int)event info:(id)info;
 - (void)userConfirmed:(BOOL)confirmed;
 @end
 
@@ -65,13 +66,13 @@
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __37__BTShareAudioSessionClient_activate__block_invoke(uint64_t result)
+void *__37__BTShareAudioSessionClient_activate__block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = *(result + 4);
   if ((*(v1 + 8) & 1) == 0)
   {
     *(v1 + 8) = 1;
-    return [*(result + 32) _activate:0];
+    return [*(result + 4) _activate:0];
   }
 
   return result;
@@ -83,14 +84,16 @@ uint64_t __37__BTShareAudioSessionClient_activate__block_invoke(uint64_t result)
   {
     if (gLogCategory_BTShareAudioSessionClient <= 30 && (gLogCategory_BTShareAudioSessionClient != -1 || _LogCategory_Initialize()))
     {
-LABEL_16:
-      [BTShareAudioSessionClient _activate:];
+      v5 = "Re-activate";
+LABEL_17:
+      [(BTShareAudioSessionClient *)v5 _activate:a2, _activate];
     }
   }
 
   else if (gLogCategory_BTShareAudioSessionClient <= 30 && (gLogCategory_BTShareAudioSessionClient != -1 || _LogCategory_Initialize()))
   {
-    goto LABEL_16;
+    v5 = "Activate";
+    goto LABEL_17;
   }
 
   _ensureXPCStarted = [(BTShareAudioSessionClient *)self _ensureXPCStarted];
@@ -98,43 +101,51 @@ LABEL_16:
   {
     if (gLogCategory_BTShareAudioSessionClient <= 90 && (gLogCategory_BTShareAudioSessionClient != -1 || _LogCategory_Initialize()))
     {
-      [BTShareAudioSessionClient _activate:];
+      [BTShareAudioSessionClient _activate:_ensureXPCStarted];
     }
   }
 
   else
   {
     xpcCnx = self->_xpcCnx;
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __39__BTShareAudioSessionClient__activate___block_invoke;
-    v10[3] = &__block_descriptor_33_e17_v16__0__NSError_8l;
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __39__BTShareAudioSessionClient__activate___block_invoke;
+    v11[3] = &__block_descriptor_33_e17_v16__0__NSError_8l;
     _activateCopy = _activate;
-    v7 = [(NSXPCConnection *)xpcCnx remoteObjectProxyWithErrorHandler:v10];
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __39__BTShareAudioSessionClient__activate___block_invoke_2;
-    v8[3] = &__block_descriptor_33_e17_v16__0__NSError_8l;
+    v8 = [(NSXPCConnection *)xpcCnx remoteObjectProxyWithErrorHandler:v11];
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __39__BTShareAudioSessionClient__activate___block_invoke_2;
+    v9[3] = &__block_descriptor_33_e17_v16__0__NSError_8l;
     _activateCopy2 = _activate;
-    [v7 shareAudioSessionActivate:self completion:v8];
+    [v8 shareAudioSessionActivate:self completion:v9];
   }
 }
 
 uint64_t __39__BTShareAudioSessionClient__activate___block_invoke(uint64_t a1, void *a2)
 {
-  a2;
+  v3 = a2;
   if (*(a1 + 32) == 1)
   {
-    if (gLogCategory_BTShareAudioSessionClient <= 90 && (gLogCategory_BTShareAudioSessionClient != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_BTShareAudioSessionClient <= 90)
     {
-LABEL_12:
-      __39__BTShareAudioSessionClient__activate___block_invoke_cold_1();
+      if (gLogCategory_BTShareAudioSessionClient != -1 || (v8 = v3, v4 = _LogCategory_Initialize(), v3 = v8, v4))
+      {
+        v5 = "### Re-activate XPC error: %{error}";
+LABEL_13:
+        __39__BTShareAudioSessionClient__activate___block_invoke_cold_1(v5, v3);
+      }
     }
   }
 
-  else if (gLogCategory_BTShareAudioSessionClient <= 90 && (gLogCategory_BTShareAudioSessionClient != -1 || _LogCategory_Initialize()))
+  else if (gLogCategory_BTShareAudioSessionClient <= 90)
   {
-    goto LABEL_12;
+    if (gLogCategory_BTShareAudioSessionClient != -1 || (v9 = v3, v6 = _LogCategory_Initialize(), v3 = v9, v6))
+    {
+      v5 = "### Activate XPC error: %{error}";
+      goto LABEL_13;
+    }
   }
 
   return MEMORY[0x2821F96F8]();
@@ -143,34 +154,48 @@ LABEL_12:
 uint64_t __39__BTShareAudioSessionClient__activate___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = *(a1 + 32);
+  v5 = v3;
   if (v3)
   {
     if (*(a1 + 32))
     {
-      if (gLogCategory_BTShareAudioSessionClient <= 90 && (gLogCategory_BTShareAudioSessionClient != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_BTShareAudioSessionClient <= 90)
       {
-        __39__BTShareAudioSessionClient__activate___block_invoke_2_cold_2();
+        v9 = v3;
+        if (gLogCategory_BTShareAudioSessionClient != -1 || (v6 = _LogCategory_Initialize(), v5 = v9, v6))
+        {
+          __39__BTShareAudioSessionClient__activate___block_invoke_2_cold_2(v5);
+        }
       }
     }
 
-    else if (gLogCategory_BTShareAudioSessionClient <= 90 && (gLogCategory_BTShareAudioSessionClient != -1 || _LogCategory_Initialize()))
+    else if (gLogCategory_BTShareAudioSessionClient <= 90)
     {
-      __39__BTShareAudioSessionClient__activate___block_invoke_2_cold_1();
+      v10 = v3;
+      if (gLogCategory_BTShareAudioSessionClient != -1 || (v7 = _LogCategory_Initialize(), v5 = v10, v7))
+      {
+        __39__BTShareAudioSessionClient__activate___block_invoke_2_cold_1(v5);
+      }
     }
   }
 
   else if (*(a1 + 32))
   {
-    if (gLogCategory_BTShareAudioSessionClient <= 30 && (gLogCategory_BTShareAudioSessionClient != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_BTShareAudioSessionClient <= 30)
     {
-      __39__BTShareAudioSessionClient__activate___block_invoke_2_cold_4();
+      if (gLogCategory_BTShareAudioSessionClient != -1 || (v3 = _LogCategory_Initialize(), v5 = 0, v3))
+      {
+        __39__BTShareAudioSessionClient__activate___block_invoke_2_cold_4(v3, v5, v4);
+      }
     }
   }
 
-  else if (gLogCategory_BTShareAudioSessionClient <= 30 && (gLogCategory_BTShareAudioSessionClient != -1 || _LogCategory_Initialize()))
+  else if (gLogCategory_BTShareAudioSessionClient <= 30)
   {
-    __39__BTShareAudioSessionClient__activate___block_invoke_2_cold_3();
+    if (gLogCategory_BTShareAudioSessionClient != -1 || (v3 = _LogCategory_Initialize(), v5 = 0, v3))
+    {
+      __39__BTShareAudioSessionClient__activate___block_invoke_2_cold_3(v3, v5, v4);
+    }
   }
 
   return MEMORY[0x2821F96F8]();
@@ -249,22 +274,26 @@ uint64_t __46__BTShareAudioSessionClient__ensureXPCStarted__block_invoke_2(uint6
 
 - (void)_interrupted
 {
-  if (gLogCategory_BTShareAudioSessionClient <= 50 && (gLogCategory_BTShareAudioSessionClient != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (gLogCategory_BTShareAudioSessionClient <= 50)
   {
-    [BTShareAudioSessionClient _interrupted];
+    if (gLogCategory_BTShareAudioSessionClient != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      [(BTShareAudioSessionClient *)self _interrupted];
+    }
   }
 
-  v3 = MEMORY[0x245CFACE0](self->_progressHandler);
-  v4 = v3;
-  if (v3)
+  v4 = MEMORY[0x245CFACE0](selfCopy->_progressHandler);
+  v5 = v4;
+  if (v4)
   {
-    (*(v3 + 16))(v3, 30, 0);
+    (*(v4 + 16))(v4, 30, 0);
   }
 
-  if (self->_activateCalled)
+  if (selfCopy->_activateCalled)
   {
 
-    [(BTShareAudioSessionClient *)self _activate:1];
+    [(BTShareAudioSessionClient *)selfCopy _activate:1];
   }
 }
 
@@ -279,26 +308,29 @@ uint64_t __46__BTShareAudioSessionClient__ensureXPCStarted__block_invoke_2(uint6
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __39__BTShareAudioSessionClient_invalidate__block_invoke(uint64_t result)
+void *__39__BTShareAudioSessionClient_invalidate__block_invoke(void *result, uint64_t a2, uint64_t a3)
 {
-  v2 = *(result + 32);
-  if ((*(v2 + 9) & 1) == 0)
+  v4 = result[4];
+  if ((*(v4 + 9) & 1) == 0)
   {
-    v3 = result;
-    *(v2 + 9) = 1;
-    if (gLogCategory_BTShareAudioSessionClient <= 30 && (gLogCategory_BTShareAudioSessionClient != -1 || _LogCategory_Initialize()))
+    v5 = result;
+    *(v4 + 9) = 1;
+    if (gLogCategory_BTShareAudioSessionClient <= 30)
     {
-      __39__BTShareAudioSessionClient_invalidate__block_invoke_cold_1();
+      if (gLogCategory_BTShareAudioSessionClient != -1 || (result = _LogCategory_Initialize(), result))
+      {
+        __39__BTShareAudioSessionClient_invalidate__block_invoke_cold_1(result, a2, a3);
+      }
     }
 
-    v4 = *(v3 + 32);
-    if (v4[2])
+    v6 = v5[4];
+    if (v6[2])
     {
-      [v4[2] invalidate];
-      v4 = *(v3 + 32);
+      [v6[2] invalidate];
+      v6 = v5[4];
     }
 
-    return [v4 _invalidated];
+    return [v6 _invalidated];
   }
 
   return result;
@@ -309,18 +341,21 @@ uint64_t __39__BTShareAudioSessionClient_invalidate__block_invoke(uint64_t resul
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (!self->_invalidateDone)
   {
-    if (!self->_invalidateCalled && gLogCategory_BTShareAudioSessionClient <= 50 && (gLogCategory_BTShareAudioSessionClient != -1 || _LogCategory_Initialize()))
+    if (!self->_invalidateCalled && gLogCategory_BTShareAudioSessionClient <= 50)
     {
-      [BTShareAudioSessionClient _invalidated];
+      if (gLogCategory_BTShareAudioSessionClient != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        [(BTShareAudioSessionClient *)v3 _invalidated];
+      }
     }
 
     if (!self->_xpcCnx)
     {
-      v3 = MEMORY[0x245CFACE0](self->_progressHandler);
-      v4 = v3;
-      if (v3)
+      v6 = MEMORY[0x245CFACE0](self->_progressHandler);
+      v7 = v6;
+      if (v6)
       {
-        (*(v3 + 16))(v3, 20, 0);
+        (*(v6 + 16))(v6, 20, 0);
       }
 
       progressHandler = self->_progressHandler;
@@ -366,6 +401,39 @@ void __43__BTShareAudioSessionClient_userConfirmed___block_invoke(uint64_t a1)
   }
 }
 
+- (void)shareAudioProgressEvent:(int)event info:(id)info
+{
+  v4 = *&event;
+  infoCopy = info;
+  dispatch_assert_queue_V2(self->_dispatchQueue);
+  if (gLogCategory_BTShareAudioSessionClient <= 30 && (gLogCategory_BTShareAudioSessionClient != -1 || _LogCategory_Initialize()))
+  {
+    [BTShareAudioSessionClient shareAudioProgressEvent:v4 info:infoCopy];
+  }
+
+  v6 = MEMORY[0x245CFACE0](self->_progressHandler);
+  v7 = v6;
+  if (v6)
+  {
+    (*(v6 + 16))(v6, v4, infoCopy);
+  }
+}
+
+uint64_t __43__BTShareAudioSessionClient_userConfirmed___block_invoke_cold_1(uint64_t a1)
+{
+  if (*(a1 + 40))
+  {
+    v1 = "yes";
+  }
+
+  else
+  {
+    v1 = "no";
+  }
+
+  return LogPrintF(&gLogCategory_BTShareAudioSessionClient, "[BTShareAudioSessionClient userConfirmed:]_block_invoke", 30, "User confirmed: permanent %s", v1);
+}
+
 uint64_t __43__BTShareAudioSessionClient_userConfirmed___block_invoke_cold_2(uint64_t result)
 {
   if (result <= 90)
@@ -373,11 +441,76 @@ uint64_t __43__BTShareAudioSessionClient_userConfirmed___block_invoke_cold_2(uin
     if (result != -1 || (result = _LogCategory_Initialize(), result))
     {
 
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_BTShareAudioSessionClient, "[BTShareAudioSessionClient userConfirmed:]_block_invoke", 90, "### User confirmed without XPC cnx");
     }
   }
 
   return result;
+}
+
+- (uint64_t)shareAudioProgressEvent:(int)a1 info:(__CFString *)a2 .cold.1(int a1, __CFString *a2)
+{
+  if (a1)
+  {
+    switch(a1)
+    {
+      case 10:
+        v4 = "Activated";
+        break;
+      case 20:
+        v4 = "Invalidated";
+        break;
+      case 30:
+        v4 = "Interrupted";
+        break;
+      case 40:
+        v4 = "Succeeded";
+        break;
+      case 50:
+        v4 = "Failed";
+        break;
+      case 100:
+        v4 = "Confirm";
+        break;
+      case 120:
+        v4 = "ShowPairInstructions";
+        break;
+      case 200:
+        v4 = "GuestiOSConnecting";
+        break;
+      case 210:
+        v4 = "GuestiOSAuthenticated";
+        break;
+      case 220:
+        v4 = "GuestiOSWaitingForAccept";
+        break;
+      case 300:
+        v4 = "GuestHeadphonesConnecting";
+        break;
+      case 310:
+        v4 = "GuestHeadphonesConnected";
+        break;
+      case 320:
+        v4 = "GuestHeadphonesWaitForRoute";
+        break;
+      default:
+        v4 = "?";
+        break;
+    }
+  }
+
+  else
+  {
+    v4 = "Invalid";
+  }
+
+  v5 = &stru_2853D12E8;
+  if (a2)
+  {
+    v5 = a2;
+  }
+
+  return LogPrintF(&gLogCategory_BTShareAudioSessionClient, "[BTShareAudioSessionClient shareAudioProgressEvent:info:]", 30, "Progress: %s %##@", v4, v5, v2, v3);
 }
 
 @end

@@ -23,14 +23,14 @@
 
 + (void)clearPersistedObject
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = _ICQGetLogSystem();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138543362;
-    v10 = objc_opt_class();
-    v4 = v10;
-    _os_log_impl(&dword_275572000, v3, OS_LOG_TYPE_DEFAULT, "Clearing persisted object for %{public}@", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = objc_opt_class();
+    v4 = v9;
+    _os_log_impl(&dword_275572000, v3, OS_LOG_TYPE_DEFAULT, "Clearing persisted object for %{public}@", &v8, 0xCu);
   }
 
   userDefaults = [self userDefaults];
@@ -39,8 +39,6 @@
 
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter postNotificationName:@"ICQDaemonOfferPersistedNotificationName" object:0];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 + (id)userDefaults
@@ -99,7 +97,7 @@ void __34__ICQDaemonPersisted_userDefaults__block_invoke(uint64_t a1)
 
 - (void)persistObject
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = _ICQGetLogSystem();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -107,13 +105,13 @@ void __34__ICQDaemonPersisted_userDefaults__block_invoke(uint64_t a1)
     v5 = v4;
     persistenceKey = [objc_opt_class() persistenceKey];
     persistenceDomain = [objc_opt_class() persistenceDomain];
-    v13 = 138543874;
-    v14 = v4;
-    v15 = 2112;
-    v16 = persistenceKey;
-    v17 = 2112;
-    v18 = persistenceDomain;
-    _os_log_impl(&dword_275572000, v3, OS_LOG_TYPE_DEFAULT, "Persisting %{public}@ using key %@ at location %@", &v13, 0x20u);
+    v12 = 138543874;
+    v13 = v4;
+    v14 = 2112;
+    v15 = persistenceKey;
+    v16 = 2112;
+    v17 = persistenceDomain;
+    _os_log_impl(&dword_275572000, v3, OS_LOG_TYPE_DEFAULT, "Persisting %{public}@ using key %@ at location %@", &v12, 0x20u);
   }
 
   _persistenceDictionary = [(ICQDaemonPersisted *)self _persistenceDictionary];
@@ -123,8 +121,6 @@ void __34__ICQDaemonPersisted_userDefaults__block_invoke(uint64_t a1)
 
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter postNotificationName:@"ICQDaemonOfferPersistedNotificationName" object:0];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (NSDate)expirationDate
@@ -157,11 +153,11 @@ void __34__ICQDaemonPersisted_userDefaults__block_invoke(uint64_t a1)
 
 - (ICQDaemonPersisted)initWithDictionary:(id)dictionary
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
-  v23.receiver = self;
-  v23.super_class = ICQDaemonPersisted;
-  v5 = [(ICQDaemonPersisted *)&v23 init];
+  v22.receiver = self;
+  v22.super_class = ICQDaemonPersisted;
+  v5 = [(ICQDaemonPersisted *)&v22 init];
   if (v5)
   {
     objc_opt_class();
@@ -190,7 +186,7 @@ LABEL_30:
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v25 = v6;
+          v24 = v6;
           _os_log_impl(&dword_275572000, v9, OS_LOG_TYPE_DEFAULT, "bad retrieval date %@", buf, 0xCu);
         }
 
@@ -205,7 +201,7 @@ LABEL_9:
             if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v25 = v10;
+              v24 = v10;
               _os_log_impl(&dword_275572000, v12, OS_LOG_TYPE_DEFAULT, "bad callbackInterval %@", buf, 0xCu);
             }
 
@@ -280,7 +276,6 @@ LABEL_17:
 
 LABEL_31:
 
-  v21 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -296,7 +291,7 @@ LABEL_31:
     date = [MEMORY[0x277CBEAA8] date];
     [(ICQDaemonPersisted *)v8 setRetrievalDate:date];
 
-    v10 = [dictionaryCopy objectForKeyedSubscript:@"callbackInterval"];
+    v10 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
     [(ICQDaemonPersisted *)v8 _callbackIntervalFromServerObject:v10];
     [(ICQDaemonPersisted *)v8 setCallbackInterval:?];
 
@@ -320,12 +315,12 @@ LABEL_31:
 
 - (id)_initWithAccountAltDSID:(id)d error:(id)error
 {
-  v23[3] = *MEMORY[0x277D85DE8];
+  v22[3] = *MEMORY[0x277D85DE8];
   dCopy = d;
   errorCopy = error;
-  v21.receiver = self;
-  v21.super_class = ICQDaemonPersisted;
-  v8 = [(ICQDaemonPersisted *)&v21 init];
+  v20.receiver = self;
+  v20.super_class = ICQDaemonPersisted;
+  v8 = [(ICQDaemonPersisted *)&v20 init];
   if (v8)
   {
     date = [MEMORY[0x277CBEAA8] date];
@@ -340,7 +335,7 @@ LABEL_31:
     [(ICQDaemonPersisted *)v8 setFailedToFetchFromServer:1];
     if (errorCopy)
     {
-      v22[0] = @"ErrorDomain";
+      v21[0] = @"ErrorDomain";
       domain = [errorCopy domain];
       v12 = domain;
       if (domain)
@@ -353,11 +348,11 @@ LABEL_31:
         v13 = &stru_288431E38;
       }
 
-      v23[0] = v13;
-      v22[1] = @"ErrorCode";
+      v22[0] = v13;
+      v21[1] = @"ErrorCode";
       v14 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(errorCopy, "code")}];
-      v23[1] = v14;
-      v22[2] = @"ErrorDescription";
+      v22[1] = v14;
+      v21[2] = @"ErrorDescription";
       localizedDescription = [errorCopy localizedDescription];
       v16 = localizedDescription;
       if (localizedDescription)
@@ -370,13 +365,12 @@ LABEL_31:
         v17 = &stru_288431E38;
       }
 
-      v23[2] = v17;
-      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:3];
+      v22[2] = v17;
+      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:3];
       [(ICQDaemonPersisted *)v8 setFailureDetails:v18];
     }
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -389,12 +383,12 @@ LABEL_31:
 
 - (NSMutableDictionary)_mutablePersistenceDictionary
 {
-  v14[5] = *MEMORY[0x277D85DE8];
+  v13[5] = *MEMORY[0x277D85DE8];
   if (self->_retrievalDate && self->_serverDictionary)
   {
-    v14[0] = self->_retrievalDate;
-    v13[0] = @"retrievalDate";
-    v13[1] = @"callbackInterval";
+    v13[0] = self->_retrievalDate;
+    v12[0] = @"retrievalDate";
+    v12[1] = @"callbackInterval";
     v3 = [MEMORY[0x277CCABB0] numberWithDouble:self->_callbackInterval];
     v4 = v3;
     accountAltDSID = @"invalid";
@@ -404,15 +398,15 @@ LABEL_31:
       accountAltDSID = self->_accountAltDSID;
     }
 
-    v14[1] = v3;
-    v14[2] = accountAltDSID;
-    v13[2] = @"altDSID";
-    v13[3] = @"serverDict";
-    v14[3] = serverDictionary;
-    v13[4] = @"failedToFetchFromServer";
+    v13[1] = v3;
+    v13[2] = accountAltDSID;
+    v12[2] = @"altDSID";
+    v12[3] = @"serverDict";
+    v13[3] = serverDictionary;
+    v12[4] = @"failedToFetchFromServer";
     v7 = [MEMORY[0x277CCABB0] numberWithBool:self->_failedToFetchFromServer];
-    v14[4] = v7;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:5];
+    v13[4] = v7;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:5];
     v9 = [v8 mutableCopy];
 
     failureDetails = self->_failureDetails;
@@ -426,8 +420,6 @@ LABEL_31:
   {
     v9 = 0;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -461,8 +453,8 @@ LABEL_31:
 - (NSNumber)_cachedQuotaAvailable
 {
   serverDictionary = [(ICQDaemonPersisted *)self serverDictionary];
-  v3 = [serverDictionary objectForKeyedSubscript:@"quotaInfo"];
-  v4 = [v3 objectForKeyedSubscript:@"totalAvailable"];
+  v3 = objc_msgSend_objectForKeyedSubscript_(serverDictionary);
+  v4 = objc_msgSend_objectForKeyedSubscript_(v3);
 
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -493,7 +485,7 @@ LABEL_31:
 
 - (NSDictionary)_persistenceDictionary
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   _mutablePersistenceDictionary = [(ICQDaemonPersisted *)self _mutablePersistenceDictionary];
   v4 = [_mutablePersistenceDictionary copy];
 
@@ -504,8 +496,8 @@ LABEL_31:
   {
     if (v7)
     {
-      LOWORD(v15) = 0;
-      _os_log_impl(&dword_275572000, v6, OS_LOG_TYPE_DEFAULT, "validated persistence dictionary", &v15, 2u);
+      LOWORD(v14) = 0;
+      _os_log_impl(&dword_275572000, v6, OS_LOG_TYPE_DEFAULT, "validated persistence dictionary", &v14, 2u);
     }
   }
 
@@ -513,9 +505,9 @@ LABEL_31:
   {
     if (v7)
     {
-      v15 = 138412290;
-      v16 = v4;
-      _os_log_impl(&dword_275572000, v6, OS_LOG_TYPE_DEFAULT, "persistence dictionary is invalid: %@", &v15, 0xCu);
+      v14 = 138412290;
+      v15 = v4;
+      _os_log_impl(&dword_275572000, v6, OS_LOG_TYPE_DEFAULT, "persistence dictionary is invalid: %@", &v14, 0xCu);
     }
 
     v8 = objc_alloc(objc_opt_class());
@@ -527,26 +519,23 @@ LABEL_31:
     v6 = _ICQGetLogSystem();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 138543362;
-      v16 = v12;
-      _os_log_impl(&dword_275572000, v6, OS_LOG_TYPE_DEFAULT, "returning failure dictionary: %{public}@", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = v12;
+      _os_log_impl(&dword_275572000, v6, OS_LOG_TYPE_DEFAULT, "returning failure dictionary: %{public}@", &v14, 0xCu);
     }
 
     v4 = v12;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (void)initWithDictionary:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_275572000, a2, OS_LOG_TYPE_DEBUG, "bad server dict %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_275572000, a2, OS_LOG_TYPE_DEBUG, "bad server dict %@", &v2, 0xCu);
 }
 
 @end

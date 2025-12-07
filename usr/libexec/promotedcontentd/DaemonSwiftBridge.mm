@@ -25,7 +25,7 @@
 
 + (void)cacheCommandWithPayload:(id)payload completionHandler:(id)handler
 {
-  v5 = sub_1001E27A8(&qword_1004D70F0);
+  v5 = sub_1001E27A8(&qword_1004D70F0, &qword_1003C9960);
   __chkstk_darwin(v5 - 8);
   v7 = &v13 - v6;
   v8 = _Block_copy(handler);

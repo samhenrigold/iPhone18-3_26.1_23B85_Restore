@@ -105,25 +105,8 @@
   role = [sessionCopy role];
   v10 = [role isEqualToString:UIWindowSceneSessionRoleExternalDisplayNonInteractive];
 
-  if (v10)
+  if (v10 || ([sessionCopy role], v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v11, "isEqualToString:", @"CPTemplateApplicationSceneSessionRoleApplication"), v11, v12) || (objc_msgSend(sessionCopy, "role"), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v13, "isEqualToString:", UIWindowSceneSessionRoleAssistiveAccessApplication), v13, v14) || (objc_msgSend(sessionCopy, "role"), v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(v15, "isEqualToString:", @"com.apple.PosterBoardUIServices.editor-overlay"), v15, v16))
   {
-    goto LABEL_10;
-  }
-
-  role2 = [sessionCopy role];
-  v12 = [role2 isEqualToString:@"CPTemplateApplicationSceneSessionRoleApplication"];
-
-  if (v12)
-  {
-    goto LABEL_10;
-  }
-
-  role3 = [sessionCopy role];
-  v14 = [role3 isEqualToString:UIWindowSceneSessionRoleAssistiveAccessApplication];
-
-  if (v14 || ([sessionCopy role], v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(v15, "isEqualToString:", @"com.apple.PosterBoardUIServices.editor-overlay"), v15, v16))
-  {
-LABEL_10:
     configuration = [sessionCopy configuration];
     goto LABEL_11;
   }
@@ -228,8 +211,8 @@ LABEL_10:
   configuration2 = [sessionCopy configuration];
   v37 = [UISceneConfiguration alloc];
   name = [configuration2 name];
-  role4 = [configuration2 role];
-  configuration = [v37 initWithName:name sessionRole:role4];
+  role2 = [configuration2 role];
+  configuration = [v37 initWithName:name sessionRole:role2];
 
   [configuration setDelegateClass:v19];
   [configuration setSceneClass:{objc_msgSend(configuration2, "sceneClass")}];

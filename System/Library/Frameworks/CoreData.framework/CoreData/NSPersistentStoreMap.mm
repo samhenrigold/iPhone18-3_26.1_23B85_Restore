@@ -4,13 +4,13 @@
 - (id)dataForKey:(id)key;
 - (id)handleFetchRequest:(id)request;
 - (id)retainedObjectIDsForRelationship:(id)relationship forObjectID:(id)d;
-- (uint64_t)_setMetadata:(uint64_t)result;
-- (uint64_t)databaseUUID;
+- (id)setMetadata:(id *)result;
 - (unint64_t)nextPK64;
+- (void)_setMetadata:(void *)result;
 - (void)addObject:(id)object objectIDMap:(id)map;
+- (void)databaseUUID;
 - (void)dealloc;
 - (void)removeObject:(id)object objectIDMap:(id)map;
-- (void)setMetadata:(void *)result;
 - (void)updateObject:(id)object objectIDMap:(id)map;
 @end
 
@@ -59,43 +59,43 @@
 
 - (id)dataForKey:(id)key
 {
-  objc_opt_class();
-  NSRequestConcreteImplementation();
+  v5 = objc_opt_class();
+  NSRequestConcreteImplementation(self, a2, v5, v6, v7, v8, v9, v10);
   return 0;
 }
 
 - (void)addObject:(id)object objectIDMap:(id)map
 {
-  objc_opt_class();
+  v6 = objc_opt_class();
 
-  NSRequestConcreteImplementation();
+  NSRequestConcreteImplementation(self, a2, v6, v7, v8, v9, v10, v11);
 }
 
 - (void)removeObject:(id)object objectIDMap:(id)map
 {
-  objc_opt_class();
+  v6 = objc_opt_class();
 
-  NSRequestConcreteImplementation();
+  NSRequestConcreteImplementation(self, a2, v6, v7, v8, v9, v10, v11);
 }
 
 - (void)updateObject:(id)object objectIDMap:(id)map
 {
-  objc_opt_class();
+  v6 = objc_opt_class();
 
-  NSRequestConcreteImplementation();
+  NSRequestConcreteImplementation(self, a2, v6, v7, v8, v9, v10, v11);
 }
 
 - (id)handleFetchRequest:(id)request
 {
-  objc_opt_class();
-  NSRequestConcreteImplementation();
+  v5 = objc_opt_class();
+  NSRequestConcreteImplementation(self, a2, v5, v6, v7, v8, v9, v10);
   return 0;
 }
 
 - (id)retainedObjectIDsForRelationship:(id)relationship forObjectID:(id)d
 {
-  objc_opt_class();
-  NSRequestConcreteImplementation();
+  v6 = objc_opt_class();
+  NSRequestConcreteImplementation(self, a2, v6, v7, v8, v9, v10, v11);
   return 0;
 }
 
@@ -108,16 +108,16 @@
   return v3;
 }
 
-- (uint64_t)databaseUUID
+- (void)databaseUUID
 {
   if (result)
   {
     v1 = result;
-    result = *(result + 16);
+    result = result[2];
     if (!result)
     {
       result = [(__CFString *)+[_PFRoutines _getUUID]copy];
-      *(v1 + 16) = result;
+      v1[2] = result;
     }
   }
 
@@ -138,7 +138,7 @@
     v6 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:5];
   }
 
-  type = [*(v5 + 1) type];
+  type = [v5[1] type];
   if (!type)
   {
     type = [a2 objectForKey:@"NSStoreType"];
@@ -151,11 +151,11 @@
     goto LABEL_7;
   }
 
-  v9 = *(v5 + 2);
+  v9 = v5[2];
   if (!v9)
   {
     v8 = [(__CFString *)+[_PFRoutines _getUUID]copy];
-    *(v5 + 2) = v8;
+    v5[2] = v8;
     if (!v8)
     {
       v8 = +[_PFRoutines _getUUID];
@@ -176,7 +176,7 @@ LABEL_7:
       [v6 setObject:PFBundleVersion forKey:0x1EF3FD428];
     }
 
-    _persistentStoreCoordinator = [*(v5 + 1) _persistentStoreCoordinator];
+    _persistentStoreCoordinator = [v5[1] _persistentStoreCoordinator];
     if (_persistentStoreCoordinator)
     {
       managedObjectModel = [_persistentStoreCoordinator managedObjectModel];
@@ -203,22 +203,22 @@ LABEL_7:
     {
       if (![v6 objectForKey:0x1EF3FD3E8])
       {
-        [v6 setObject:objc_msgSend(*(v5 + 3) forKey:{"objectForKey:", 0x1EF3FD3E8), 0x1EF3FD3E8}];
+        [v6 setObject:objc_msgSend(v5[3] forKey:{"objectForKey:", 0x1EF3FD3E8), 0x1EF3FD3E8}];
       }
 
       if (![v6 objectForKey:@"NSStoreModelVersionHashes"])
       {
-        [v6 setObject:objc_msgSend(*(v5 + 3) forKey:{"objectForKey:", @"NSStoreModelVersionHashes", @"NSStoreModelVersionHashes"}];
+        [v6 setObject:objc_msgSend(v5[3] forKey:{"objectForKey:", @"NSStoreModelVersionHashes", @"NSStoreModelVersionHashes"}];
       }
 
       if (![v6 objectForKey:0x1EF3FCE28])
       {
-        [v6 setObject:objc_msgSend(*(v5 + 3) forKey:{"objectForKey:", 0x1EF3FCE28), 0x1EF3FCE28}];
+        [v6 setObject:objc_msgSend(v5[3] forKey:{"objectForKey:", 0x1EF3FCE28), 0x1EF3FCE28}];
       }
 
       if (![v6 objectForKey:@"NSStoreModelVersionIdentifiers"])
       {
-        [v6 setObject:objc_msgSend(*(v5 + 3) forKey:{"objectForKey:", @"NSStoreModelVersionIdentifiers", @"NSStoreModelVersionIdentifiers"}];
+        [v6 setObject:objc_msgSend(v5[3] forKey:{"objectForKey:", @"NSStoreModelVersionIdentifiers", @"NSStoreModelVersionIdentifiers"}];
       }
 
       if ([v6 objectForKey:@"NSStoreModelVersionChecksumKey"])
@@ -226,7 +226,7 @@ LABEL_7:
         goto LABEL_27;
       }
 
-      versionChecksum = [*(v5 + 3) objectForKey:@"NSStoreModelVersionChecksumKey"];
+      versionChecksum = [v5[3] objectForKey:@"NSStoreModelVersionChecksumKey"];
       v17 = v6;
     }
 
@@ -238,34 +238,34 @@ LABEL_27:
   return v6;
 }
 
-- (uint64_t)_setMetadata:(uint64_t)result
+- (void)_setMetadata:(void *)result
 {
   if (result)
   {
     v3 = result;
-    result = [a2 isEqual:*(result + 24)];
+    result = [a2 isEqual:result[3]];
     if ((result & 1) == 0)
     {
       v4 = [a2 objectForKey:@"NSStoreUUID"];
       if (v4)
       {
-        if (*(v3 + 16) != v4)
+        if (v3[2] != v4)
         {
           v5 = [v4 copy];
 
-          *(v3 + 16) = v5;
+          v3[2] = v5;
         }
       }
 
       result = a2;
-      *(v3 + 24) = result;
+      v3[3] = result;
     }
   }
 
   return result;
 }
 
-- (void)setMetadata:(void *)result
+- (id)setMetadata:(id *)result
 {
   if (result)
   {

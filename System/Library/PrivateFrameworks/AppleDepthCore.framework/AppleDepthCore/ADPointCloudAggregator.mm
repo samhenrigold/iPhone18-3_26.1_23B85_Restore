@@ -1,14 +1,14 @@
 @interface ADPointCloudAggregator
 + (id)aggregatePointClouds:(__n128)clouds calibrations:(__n128)calibrations worldToPlatformTransforms:(uint64_t)transforms projectingToCamera:(uint64_t)camera worldToPlatformAtProjectionTime:(void *)time;
 + (id)aggregatePointClouds:(__n128)clouds pointCloudToPlatformTransforms:(__n128)transforms worldToPlatformTransforms:(uint64_t)platformTransforms projectingToCamera:(uint64_t)camera worldToPlatformAtProjectionTime:(void *)time;
+- (ADPointCloudAggregator)initWithAggregationParameters:(__n128)parameters jasperToColorTransform:(__n128)transform colorCamera:(__n128)camera;
 - (id)aggregateForTime:(__n128)time worldToCameraTransform:(__n128)transform;
 - (int64_t)clear;
-- (uint64_t)aggregateAndProjectForTime:(double)time worldToCameraTransform:(double)transform cropTo:(double)to rotateBy:(double)by projectedPointsBuffer:(uint64_t)buffer;
-- (uint64_t)aggregateAndProjectForTime:(double)time worldToCameraTransform:(double)transform filterParams:(double)params cropTo:(double)to rotateBy:(uint64_t)by projectedPointsBuffer:(void *)buffer;
-- (uint64_t)initWithAggregationParameters:(double)parameters jasperToColorTransform:(double)transform colorCamera:(double)camera;
 - (uint64_t)pushPointCloud:(__n128)cloud timestamp:(__n128)timestamp worldToCameraTransform:(__n128)transform;
-- (uint64_t)pushPointCloud:(__n128)cloud timestamp:(__n128)timestamp worldToLidarTransform:(__n128)transform;
+- (void)aggregateAndProjectForTime:(double)time worldToCameraTransform:(double)transform cropTo:(double)to rotateBy:(double)by projectedPointsBuffer:(uint64_t)buffer;
+- (void)aggregateAndProjectForTime:(double)time worldToCameraTransform:(double)transform filterParams:(double)params cropTo:(double)to rotateBy:(uint64_t)by projectedPointsBuffer:(void *)buffer;
 - (void)dealloc;
+- (void)pushPointCloud:(__n128)cloud timestamp:(__n128)timestamp worldToLidarTransform:(__n128)transform;
 - (void)setJasperToCameraTransform:(__n128)transform;
 @end
 
@@ -44,7 +44,7 @@
   return 0;
 }
 
-- (uint64_t)aggregateAndProjectForTime:(double)time worldToCameraTransform:(double)transform filterParams:(double)params cropTo:(double)to rotateBy:(uint64_t)by projectedPointsBuffer:(void *)buffer
+- (void)aggregateAndProjectForTime:(double)time worldToCameraTransform:(double)transform filterParams:(double)params cropTo:(double)to rotateBy:(uint64_t)by projectedPointsBuffer:(void *)buffer
 {
   bufferCopy = buffer;
   selfCopy = self;
@@ -56,15 +56,15 @@
   return v24;
 }
 
-- (uint64_t)aggregateAndProjectForTime:(double)time worldToCameraTransform:(double)transform cropTo:(double)to rotateBy:(double)by projectedPointsBuffer:(uint64_t)buffer
+- (void)aggregateAndProjectForTime:(double)time worldToCameraTransform:(double)transform cropTo:(double)to rotateBy:(double)by projectedPointsBuffer:(uint64_t)buffer
 {
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  v21 = [selfCopy aggregateForTime:a2 worldToCameraTransform:{time, transform, to, by}];
-  v22 = [v21 projectJasperPointsCroppedBy:a8 rotatedBy:a9 andScaledInto:{a13, a14, a15, a16}];
+  v20 = [selfCopy aggregateForTime:a2 worldToCameraTransform:{time, transform, to, by}];
+  v21 = [v20 projectJasperPointsCroppedBy:a8 rotatedBy:a9 andScaledInto:{a13, a14, a15, a16}];
 
   objc_sync_exit(selfCopy);
-  return v22;
+  return v21;
 }
 
 - (id)aggregateForTime:(__n128)time worldToCameraTransform:(__n128)transform
@@ -235,7 +235,7 @@
   return v14;
 }
 
-- (uint64_t)pushPointCloud:(__n128)cloud timestamp:(__n128)timestamp worldToLidarTransform:(__n128)transform
+- (void)pushPointCloud:(__n128)cloud timestamp:(__n128)timestamp worldToLidarTransform:(__n128)transform
 {
   v10 = a8;
   [self jasperToCameraTransform];
@@ -284,8 +284,12 @@
   [(ADPointCloudAggregator *)&v8 dealloc];
 }
 
-- (uint64_t)initWithAggregationParameters:(double)parameters jasperToColorTransform:(double)transform colorCamera:(double)camera
+- (ADPointCloudAggregator)initWithAggregationParameters:(__n128)parameters jasperToColorTransform:(__n128)transform colorCamera:(__n128)camera
 {
+  v19 = transform.n128_f64[0];
+  v20 = camera.n128_f64[0];
+  v17 = a2.n128_f64[0];
+  v18 = parameters.n128_f64[0];
   v11 = a7;
   v12 = a8;
   v22 = 335679380;
@@ -302,7 +306,7 @@
   {
     objc_storeStrong(&v13->_aggregationParameters, a7);
     [(ADPointCloudAggregator *)v15 setColorCameraCalibration:v12];
-    [(ADPointCloudAggregator *)v15 setJasperToCameraTransform:a2, parameters, transform, camera];
+    [(ADPointCloudAggregator *)v15 setJasperToCameraTransform:v17, v18, v19, v20];
     [(ADAggregationParameters *)v14->_aggregationParameters aggregationSize];
     operator new[]();
   }

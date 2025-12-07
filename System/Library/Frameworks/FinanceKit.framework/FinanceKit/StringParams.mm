@@ -25,7 +25,7 @@
 
   v6 = StringParams.isEqual(_:)(v8);
 
-  sub_1B7205418(v8, &qword_1EB98FCB0);
+  sub_1B7205418(v8, &qword_1EB98FCB0, &qword_1B7808CE0);
   return v6 & 1;
 }
 
@@ -47,7 +47,7 @@
   selfCopy = self;
   sub_1B7222224(v4);
   sub_1B7223580();
-  sub_1B7223654(&qword_1EB98FCC8, sub_1B7223580);
+  sub_1B7223654(&qword_1EB98FCC8, sub_1B7223580, MEMORY[0x1E69E81B8]);
   v6 = sub_1B7800708();
 
   v7 = sub_1B7800838();

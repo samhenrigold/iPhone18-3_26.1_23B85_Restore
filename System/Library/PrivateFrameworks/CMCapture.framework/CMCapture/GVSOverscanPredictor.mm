@@ -16,9 +16,9 @@
   v6 = v5;
   attributesCopy = attributes;
   v10 = v6;
-  v22.receiver = self;
-  v22.super_class = GVSOverscanPredictor;
-  v11 = [(GVSOverscanPredictor *)&v22 init];
+  v24.receiver = self;
+  v24.super_class = GVSOverscanPredictor;
+  v11 = [(GVSOverscanPredictor *)&v24 init];
   v12 = v11;
   if (!v11)
   {
@@ -39,37 +39,37 @@
   {
     [GVSOverscanPredictor initWithConfig:cameraInfoByPortType:visInputPixelBufferAttributes:];
 LABEL_19:
-    v20 = 0;
+    v22 = 0;
     goto LABEL_13;
   }
 
   if (!FigCFDictionaryGetInt32IfPresent())
   {
-    [GVSOverscanPredictor initWithConfig:cameraInfoByPortType:visInputPixelBufferAttributes:];
+    [GVSOverscanPredictor initWithConfig:v18 cameraInfoByPortType:? visInputPixelBufferAttributes:?];
     goto LABEL_19;
   }
 
   if (!FigCFDictionaryGetInt32IfPresent())
   {
-    [GVSOverscanPredictor initWithConfig:cameraInfoByPortType:visInputPixelBufferAttributes:];
+    [GVSOverscanPredictor initWithConfig:v19 cameraInfoByPortType:? visInputPixelBufferAttributes:?];
     goto LABEL_19;
   }
 
-  v18.f32[0] = -1;
-  v18.f32[1] = -1;
+  v20.f32[0] = -1;
+  v20.f32[1] = -1;
   v12[2] = 0;
-  v12[3] = vmul_f32(v18, 0x3F0000003F000000);
-  v19 = v12[1];
-  if (v19.f32[0] < 0.0)
+  v12[3] = vmul_f32(v20, 0x3F0000003F000000);
+  v21 = v12[1];
+  if (v21.f32[0] < 0.0)
   {
-    v19.f32[0] = 0 * 8388600.0;
-    v12[1] = v19;
+    v21.f32[0] = 0 * 8388600.0;
+    v12[1] = v21;
   }
 
-  if (v19.f32[1] < 0.0)
+  if (v21.f32[1] < 0.0)
   {
-    v19.f32[1] = 0 * 8388600.0;
-    v12[1] = v19;
+    v21.f32[1] = 0 * 8388600.0;
+    v12[1] = v21;
   }
 
   [(float32x2_t *)v12 resetAndClear];
@@ -88,10 +88,10 @@ LABEL_19:
   objc_storeStrong(&v12[10], *off_1E798A0C0);
   [(float32x2_t *)v12 setCameraAlignmentForPortType:*&v12[10]];
 LABEL_12:
-  v20 = v12;
+  v22 = v12;
 LABEL_13:
 
-  return v20;
+  return v22;
 }
 
 - (int)parseCameraInfoByPortType:(id)type
@@ -154,14 +154,14 @@ LABEL_12:
 - (void)setCameraAlignmentForPortType:(id)type
 {
   typeCopy = type;
-  if ([typeCopy isEqualToString:*off_1E798A0E0])
+  if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = xmmword_1AD0562F0;
   }
 
   else
   {
-    if ([typeCopy isEqualToString:*off_1E798A0F8])
+    if (objc_msgSend_isEqualToString_(typeCopy))
     {
       v5 = -1;
     }
@@ -197,61 +197,62 @@ LABEL_12:
   if (!length)
   {
     [GVSOverscanPredictor computeFocalLength:fromMetadata:];
-    v13 = -12782;
+    v17 = -12782;
     goto LABEL_11;
   }
 
-  if (!v7 || ([v7 floatValue], v10 <= 0.0))
+  if (!v7 || (v10 = [v7 floatValue], v11 <= 0.0))
   {
     [GVSOverscanPredictor computeFocalLength:fromMetadata:];
 LABEL_16:
-    v13 = -12780;
+    v17 = -12780;
     goto LABEL_11;
   }
 
   if (!v8)
   {
-    [GVSOverscanPredictor computeFocalLength:fromMetadata:];
+    [GVSOverscanPredictor computeFocalLength:v10 fromMetadata:?];
     goto LABEL_16;
   }
 
   if (!v9)
   {
-    [GVSOverscanPredictor computeFocalLength:fromMetadata:];
+    [GVSOverscanPredictor computeFocalLength:v10 fromMetadata:?];
     goto LABEL_16;
   }
 
-  v11 = [metadataCopy objectForKeyedSubscript:*off_1E798B588];
-  if ([v11 intValue] < 1)
+  v12 = [metadataCopy objectForKeyedSubscript:*off_1E798B588];
+  if ([v12 intValue] < 1)
   {
-    v12 = 0x100000001;
+    v13 = 0x100000001;
   }
 
   else
   {
-    v12 = vdup_n_s32([v11 intValue]);
+    v13 = vdup_n_s32([v12 intValue]);
   }
 
-  v18 = v12;
+  v22 = v13;
 
-  v19 = 1.0;
-  v13 = FigMotionComputeLensPositionScalingFactor(metadataCopy, *self->_imageSize, HIDWORD(*self->_imageSize), v18.i32[0], v18.u32[1], &v19);
-  if (v13)
+  v23 = 1.0;
+  v16 = FigMotionComputeLensPositionScalingFactor(metadataCopy, *self->_imageSize, HIDWORD(*self->_imageSize), v22.u32[0], v22.u32[1], &v23, v14, v15);
+  v17 = v16;
+  if (v16)
   {
-    [GVSOverscanPredictor computeFocalLength:fromMetadata:];
+    [GVSOverscanPredictor computeFocalLength:v16 fromMetadata:?];
   }
 
   else
   {
     [v7 floatValue];
-    v15 = v14;
+    v19 = v18;
     [v9 floatValue];
-    *length = (v15 / v16) * v19;
+    *length = (v19 / v20) * v23;
   }
 
 LABEL_11:
 
-  return v13;
+  return v17;
 }
 
 - (__n64)estimateOverscanUseFromRotation:(float32x4_t)rotation focalLength:(float32x4_t)length cornerCoords:
@@ -406,7 +407,7 @@ LABEL_17:
     goto LABEL_17;
   }
 
-  if (![(NSString *)self->_previousPort isEqualToString:v15])
+  if ((objc_msgSend_isEqualToString_(self->_previousPort) & 1) == 0)
   {
     [(GVSOverscanPredictor *)self setCameraAlignmentForPortType:v15];
     objc_storeStrong(&self->_previousPort, v15);
@@ -453,137 +454,11 @@ LABEL_12:
   return v26;
 }
 
-- (uint64_t)initWithConfig:cameraInfoByPortType:visInputPixelBufferAttributes:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)initWithConfig:cameraInfoByPortType:visInputPixelBufferAttributes:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)initWithConfig:cameraInfoByPortType:visInputPixelBufferAttributes:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)initWithConfig:cameraInfoByPortType:visInputPixelBufferAttributes:.cold.4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)initWithConfig:cameraInfoByPortType:visInputPixelBufferAttributes:.cold.5()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
 - (void)parseCameraInfoByPortType:(void *)a1 .cold.1(void *a1, void *a2)
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_1_11();
-  FigDebugAssert3();
-}
-
-- (uint64_t)computeFocalLength:fromMetadata:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)computeFocalLength:fromMetadata:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)computeFocalLength:fromMetadata:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)computeFocalLength:fromMetadata:.cold.4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)computeFocalLength:fromMetadata:.cold.5()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)estimateOverscanUseFromMetadata:finalCropRect:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)estimateOverscanUseFromMetadata:finalCropRect:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)estimateOverscanUseFromMetadata:finalCropRect:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)estimateOverscanUseFromMetadata:finalCropRect:.cold.4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)predictOverscanFitsFromMetadata:finalCropRect:boundingRect:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)predictOverscanFitsFromMetadata:finalCropRect:boundingRect:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)predictOverscanFitsFromMetadata:finalCropRect:boundingRect:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)predictOverscanFitsFromMetadata:finalCropRect:boundingRect:.cold.4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
 }
 
 @end

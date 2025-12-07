@@ -12,9 +12,9 @@
   clientCopy = client;
   v10 = clientCopy;
   v11 = 0;
-  if (!subscriptionCopy || !clientCopy || (v27 = 0, v12 = objc_msgSend_copySIMIdentity_error_(clientCopy, v9, subscriptionCopy, &v27), v11 = v27, !v12) || (!objc_msgSend_length(v12, v13, v14) ? (v21 = objc_alloc_init(_BUNullCellularIdentity)) : ((v26 = v11, objc_msgSend_getDataStatus_error_(v10, v15, subscriptionCopy, &v26), v16 = objc_claimAutoreleasedReturnValue(), v17 = v26, v11, !v16) ? (v20 = 0) : (v20 = objc_msgSend_inHomeCountry(v16, v18, v19) ^ 1), v22 = [self alloc], v21 = objc_msgSend_initWithSIMIdentity_roaming_(v22, v23, v12, v20), v16, v11 = v17), v12, !v21))
+  if (!subscriptionCopy || !clientCopy || (v27 = 0, v12 = objc_msgSend_copySIMIdentity_error_(clientCopy, v9, subscriptionCopy, &v27), clientCopy = v27, v11 = clientCopy, !v12) || (!objc_msgSend_length(v12, v13, v14) ? (v21 = objc_alloc_init(_BUNullCellularIdentity)) : ((v26 = v11, objc_msgSend_getDataStatus_error_(v10, v15, subscriptionCopy, &v26), v16 = objc_claimAutoreleasedReturnValue(), v17 = v26, v11, !v16) ? (v20 = 0) : (v20 = objc_msgSend_inHomeCountry(v16, v18, v19) ^ 1), v22 = [self alloc], v21 = objc_msgSend_initWithSIMIdentity_roaming_(v22, v23, v12, v20), v16, v11 = v17), v12, !v21))
   {
-    v24 = BookUtilityLog();
+    v24 = BookUtilityLog(clientCopy);
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       sub_241DD19C8(v11, v24);

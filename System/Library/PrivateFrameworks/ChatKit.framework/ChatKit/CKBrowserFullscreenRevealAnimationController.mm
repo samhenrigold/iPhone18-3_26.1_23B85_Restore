@@ -43,7 +43,7 @@
 - (double)transitionDuration:(id)duration
 {
   ascentDescentAnimator = [(CKBrowserFullscreenRevealAnimationController *)self ascentDescentAnimator];
-  [ascentDescentAnimator duration];
+  objc_msgSend_duration(ascentDescentAnimator);
   v5 = v4;
 
   return v5;

@@ -189,14 +189,14 @@ LABEL_12:
 {
   v2 = [a2 identifier];
   OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_4(&dword_1D4171000, v3, v4, "Found an inline attachment (%@) in text of attachment (%@) that doesn't have a typeUTI", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_4(&dword_1D4171000, v3, v4, "Found an inline attachment (%@) in text of attachment (%@) that doesn't have a typeUTI", v5, v6, v7, v8);
 }
 
 - (void)inlineAttachmentFromObject:()InlineAttachmentManagement_UI createIfNecessary:.cold.3(uint64_t a1, void *a2)
 {
   v2 = [a2 identifier];
   OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_4(&dword_1D4171000, v3, v4, "Found an inline attachment (%@) in text of note (%@) that doesn't have an identifier", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_4(&dword_1D4171000, v3, v4, "Found an inline attachment (%@) in text of note (%@) that doesn't have an identifier", v5, v6, v7, v8);
 }
 
 @end

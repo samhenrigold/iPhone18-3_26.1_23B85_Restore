@@ -226,9 +226,9 @@
 
 - (uint64_t)tv_associatedViewElement
 {
-  v2 = objc_opt_class();
+  v3 = objc_opt_class();
 
-  return [self tv_associatedViewElementWithDefaultClass:v2];
+  return [self tv_associatedViewElementWithDefaultClass:v3];
 }
 
 @end

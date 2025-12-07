@@ -10,43 +10,45 @@
 
 + (id)_nodeWithText:()Daemon links:numberOfSelectionSpans:romanization:
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v9 = a3;
   v10 = a4;
   v11 = a6;
-  if (([MEMORY[0x277CE1AE0] isGenderDisambiguationEnabled] & 1) == 0)
+  isGenderDisambiguationEnabled = [MEMORY[0x277CE1AE0] isGenderDisambiguationEnabled];
+  if ((isGenderDisambiguationEnabled & 1) == 0)
   {
-    v18 = _LTOSLogDisambiguation();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+    v23 = _LTOSLogDisambiguation(isGenderDisambiguationEnabled, v13);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v24) = 0;
-      v19 = "Not attempting to parse disambiguation objects because the feature flag is disabled";
+      LOWORD(v30) = 0;
+      v24 = "Not attempting to parse disambiguation objects because the feature flag is disabled";
 LABEL_22:
-      _os_log_impl(&dword_232E53000, v18, OS_LOG_TYPE_INFO, v19, &v24, 2u);
+      _os_log_impl(&dword_232E53000, v23, OS_LOG_TYPE_INFO, v24, &v30, 2u);
     }
 
 LABEL_23:
-    v21 = 0;
+    v28 = 0;
     goto LABEL_24;
   }
 
   if (!a5)
   {
-    v12 = _LTOSLogDisambiguation();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v14 = _LTOSLogDisambiguation(isGenderDisambiguationEnabled, v13);
+    isGenderDisambiguationEnabled = os_log_type_enabled(v14, OS_LOG_TYPE_ERROR);
+    if (isGenderDisambiguationEnabled)
     {
-      [_LTDisambiguationNode(Daemon) _nodeWithText:v12 links:? numberOfSelectionSpans:? romanization:?];
+      [_LTDisambiguationNode(Daemon) _nodeWithText:v14 links:? numberOfSelectionSpans:? romanization:?];
       if (v9)
       {
         goto LABEL_5;
       }
 
 LABEL_20:
-      v18 = _LTOSLogDisambiguation();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+      v23 = _LTOSLogDisambiguation(isGenderDisambiguationEnabled, v13);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v24) = 0;
-        v19 = "Got nil translation phrase source text; won't create _LTDisambiguationNode";
+        LOWORD(v30) = 0;
+        v24 = "Got nil translation phrase source text; won't create _LTDisambiguationNode";
         goto LABEL_22;
       }
 
@@ -60,51 +62,51 @@ LABEL_20:
   }
 
 LABEL_5:
-  if ([v10 count] != a5)
+  v15 = [v10 count];
+  if (v15 != a5)
   {
-    v13 = _LTOSLogDisambiguation();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v17 = _LTOSLogDisambiguation(v15, v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
-      v14 = v13;
-      v24 = 134218240;
-      v25 = [v10 count];
-      v26 = 2048;
-      v27 = a5;
-      _os_log_impl(&dword_232E53000, v14, OS_LOG_TYPE_INFO, "Only %zu out of %zu link configurations were valid; not adding any links to this disambiguable node", &v24, 0x16u);
+      v18 = v17;
+      v30 = 134218240;
+      v31 = [v10 count];
+      v32 = 2048;
+      v33 = a5;
+      _os_log_impl(&dword_232E53000, v18, OS_LOG_TYPE_INFO, "Only %zu out of %zu link configurations were valid; not adding any links to this disambiguable node", &v30, 0x16u);
     }
 
     v10 = MEMORY[0x277CBEBF8];
   }
 
-  v15 = v11;
-  v16 = v15;
-  if (v15 && ![v15 length])
+  v19 = v11;
+  v21 = v19;
+  if (v19 && (v19 = [v19 length]) == 0)
   {
 
-    v20 = _LTOSLogTranslationEngine();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+    v27 = _LTOSLogTranslationEngine(v25, v26);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
     {
-      [_LTDisambiguationNode(Daemon) _nodeWithText:v20 links:? numberOfSelectionSpans:? romanization:?];
+      [_LTDisambiguationNode(Daemon) _nodeWithText:v27 links:? numberOfSelectionSpans:? romanization:?];
     }
 
-    v16 = 0;
+    v21 = 0;
   }
 
   else
   {
-    v17 = _LTOSLogTranslationEngine();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+    v22 = _LTOSLogTranslationEngine(v19, v20);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
     {
-      [_LTDisambiguationNode(Daemon) _nodeWithText:v16 links:v17 numberOfSelectionSpans:? romanization:?];
+      [_LTDisambiguationNode(Daemon) _nodeWithText:v21 links:v22 numberOfSelectionSpans:? romanization:?];
     }
   }
 
-  v21 = [objc_alloc(MEMORY[0x277CE1AF8]) initWithText:v9 links:v10 romanization:v16];
+  v28 = [objc_alloc(MEMORY[0x277CE1AF8]) initWithText:v9 links:v10 romanization:v21];
 
 LABEL_24:
-  v22 = *MEMORY[0x277D85DE8];
 
-  return v21;
+  return v28;
 }
 
 + (id)nodeFromEMTResult:()Daemon sourceText:romanization:
@@ -112,36 +114,37 @@ LABEL_24:
   v8 = a3;
   v9 = a4;
   v10 = a5;
-  if (objc_opt_respondsToSelector())
+  v11 = objc_opt_respondsToSelector();
+  if (v11)
   {
     alternativeSelectionSpans = [v8 alternativeSelectionSpans];
     tokens = [v8 tokens];
-    v13 = [tokens _ltCompactMap:&__block_literal_global_10];
+    v15 = [tokens _ltCompactMap:&__block_literal_global_10];
 
-    v14 = [v13 componentsJoinedByString:@" "];
-    v20 = MEMORY[0x277D85DD0];
-    v21 = 3221225472;
-    v22 = __75___LTDisambiguationNode_Daemon__nodeFromEMTResult_sourceText_romanization___block_invoke_2;
-    v23 = &unk_2789B6098;
-    v24 = v9;
-    v25 = v14;
-    v15 = v14;
-    v16 = [alternativeSelectionSpans _ltCompactMap:&v20];
-    v17 = [self _nodeWithText:v15 links:v16 numberOfSelectionSpans:objc_msgSend(alternativeSelectionSpans romanization:{"count", v20, v21, v22, v23), v10}];
+    v16 = [v15 componentsJoinedByString:@" "];
+    v22 = MEMORY[0x277D85DD0];
+    v23 = 3221225472;
+    v24 = __75___LTDisambiguationNode_Daemon__nodeFromEMTResult_sourceText_romanization___block_invoke_2;
+    v25 = &unk_2789B6098;
+    v26 = v9;
+    v27 = v16;
+    v17 = v16;
+    v18 = [alternativeSelectionSpans _ltCompactMap:&v22];
+    v19 = [self _nodeWithText:v17 links:v18 numberOfSelectionSpans:objc_msgSend(alternativeSelectionSpans romanization:{"count", v22, v23, v24, v25), v10}];
   }
 
   else
   {
-    v18 = _LTOSLogDisambiguation();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v20 = _LTOSLogDisambiguation(v11, v12);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      [_LTDisambiguationNode(Daemon) nodeFromEMTResult:v18 sourceText:? romanization:?];
+      [_LTDisambiguationNode(Daemon) nodeFromEMTResult:v20 sourceText:? romanization:?];
     }
 
-    v17 = 0;
+    v19 = 0;
   }
 
-  return v17;
+  return v19;
 }
 
 + (id)nodeFromFTSpeechTranslationPhrase:()Daemon descriptions:sourceText:censorSpeech:
@@ -157,33 +160,33 @@ LABEL_24:
 
   romanization = [meta_info_data2 romanization];
 
-  if (a6 && [MEMORY[0x277CE1BE8] stringContainsRedaction:translation_phrase])
+  if (a6 && (v18 = [MEMORY[0x277CE1BE8] stringContainsRedaction:translation_phrase], v18))
   {
-    v18 = _LTOSLogDisambiguation();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v20 = _LTOSLogDisambiguation(v18, v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_232E53000, v18, OS_LOG_TYPE_DEFAULT, "Removing all potential links from node because the target string appears to have redactions, and we don't currently support redactions and disambiguation in the same sentence", buf, 2u);
+      _os_log_impl(&dword_232E53000, v20, OS_LOG_TYPE_DEFAULT, "Removing all potential links from node because the target string appears to have redactions, and we don't currently support redactions and disambiguation in the same sentence", buf, 2u);
     }
 
-    v19 = [self _nodeWithText:translation_phrase links:MEMORY[0x277CBEBF8] numberOfSelectionSpans:0 romanization:0];
+    v21 = [self _nodeWithText:translation_phrase links:MEMORY[0x277CBEBF8] numberOfSelectionSpans:0 romanization:0];
   }
 
   else
   {
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __104___LTDisambiguationNode_Daemon__nodeFromFTSpeechTranslationPhrase_descriptions_sourceText_censorSpeech___block_invoke;
-    v23[3] = &unk_2789B60C0;
-    v24 = v10;
-    v25 = v11;
-    v20 = translation_phrase;
-    v26 = v20;
-    v21 = [selection_spans _ltCompactMap:v23];
-    v19 = [self _nodeWithText:v20 links:v21 numberOfSelectionSpans:objc_msgSend(selection_spans romanization:{"count"), romanization}];
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __104___LTDisambiguationNode_Daemon__nodeFromFTSpeechTranslationPhrase_descriptions_sourceText_censorSpeech___block_invoke;
+    v25[3] = &unk_2789B60C0;
+    v26 = v10;
+    v27 = v11;
+    v22 = translation_phrase;
+    v28 = v22;
+    v23 = [selection_spans _ltCompactMap:v25];
+    v21 = [self _nodeWithText:v22 links:v23 numberOfSelectionSpans:objc_msgSend(selection_spans romanization:{"count"), romanization}];
   }
 
-  return v19;
+  return v21;
 }
 
 + (id)nodeFromFTTranslationPhrase:()Daemon descriptions:sourceText:
@@ -246,11 +249,10 @@ LABEL_24:
 
 + (void)_nodeWithText:()Daemon links:numberOfSelectionSpans:romanization:.cold.3(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138739971;
-  v4 = a1;
-  _os_log_debug_impl(&dword_232E53000, a2, OS_LOG_TYPE_DEBUG, "Setting romanization from meta_info_data: %{sensitive}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138739971;
+  v3 = a1;
+  _os_log_debug_impl(&dword_232E53000, a2, OS_LOG_TYPE_DEBUG, "Setting romanization from meta_info_data: %{sensitive}@", &v2, 0xCu);
 }
 
 @end

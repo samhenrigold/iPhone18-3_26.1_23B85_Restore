@@ -208,7 +208,7 @@ void __34__TTSMauiSpeechEngine_bufferDone___block_invoke(uint64_t a1)
     v7 = v6;
     if (v6)
     {
-      [v6 streamDescription];
+      objc_msgSend_streamDescription(v6);
       v8 = v19;
     }
 
@@ -781,9 +781,9 @@ void __37__TTSMauiSpeechEngine_cancelSpeaking__block_invoke_2(uint64_t a1)
 - (void)_deinitializeEngine
 {
   vocalizerInstanceHandle = [(TTSMauiSpeechEngine *)self vocalizerInstanceHandle];
-  ve_ttsClose(vocalizerInstanceHandle, v4, v5, v6, v7, v8, v9, v10);
+  ve_ttsClose(vocalizerInstanceHandle, v4);
   vocalizerClassHandle = [(TTSMauiSpeechEngine *)self vocalizerClassHandle];
-  ve_ttsUnInitialize(vocalizerClassHandle, v12);
+  ve_ttsUnInitialize(vocalizerClassHandle, v6);
 
   [(TTSMauiSpeechEngine *)self setState:0];
 }
@@ -791,17 +791,17 @@ void __37__TTSMauiSpeechEngine_cancelSpeaking__block_invoke_2(uint64_t a1)
 - (void)setTrimEndingSilences:(BOOL)silences
 {
   silencesCopy = silences;
-  v13 = *MEMORY[0x277D85DE8];
-  bzero(v12, 0x83CuLL);
-  v11 = 22;
-  v12[0] = silencesCopy;
+  v9 = *MEMORY[0x277D85DE8];
+  bzero(v8, 0x83CuLL);
+  v7 = 22;
+  v8[0] = silencesCopy;
   vocalizerInstanceHandle = [(TTSMauiSpeechEngine *)self vocalizerInstanceHandle];
-  ve_ttsSetParamList(vocalizerInstanceHandle, v6, &v11, 1u, v7, v8, v9, v10);
+  ve_ttsSetParamList(vocalizerInstanceHandle, v6, &v7, 1u);
 }
 
 - (BOOL)_initializeEngine
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   if ([(TTSMauiSpeechEngine *)self _initializeVoiceDataFiles])
   {
     pathDictionary = [(TTSMauiSpeechEngine *)self pathDictionary];
@@ -819,9 +819,9 @@ void __37__TTSMauiSpeechEngine_cancelSpeaking__block_invoke_2(uint64_t a1)
       goto LABEL_19;
     }
 
-    v51 = 0;
-    v5 = [MEMORY[0x277CCACA8] stringWithContentsOfFile:v4 encoding:4 error:&v51];
-    v6 = v51;
+    v39 = 0;
+    v5 = [MEMORY[0x277CCACA8] stringWithContentsOfFile:v4 encoding:4 error:&v39];
+    v6 = v39;
     v7 = v6;
     if (!v5 || v6)
     {
@@ -838,27 +838,27 @@ void __37__TTSMauiSpeechEngine_cancelSpeaking__block_invoke_2(uint64_t a1)
     brokerString = [(TTSMauiSpeechEngine *)self brokerString];
     v9 = [(TTSMauiSpeechEngine *)self _parseBrokerString:brokerString];
 
-    v50[0] = 8963;
+    v38[0] = 8963;
     brokerString2 = [(TTSMauiSpeechEngine *)self brokerString];
     v11 = brokerString2;
-    v50[1] = [brokerString2 cStringUsingEncoding:{objc_msgSend(MEMORY[0x277CCACA8], "defaultCStringEncoding")}];
-    v50[2] = TTSMauiVocalizerGetHeapImpl();
-    v50[3] = 0;
-    v50[4] = TTSMauiVocalizerGetCriticalSectionImpl();
-    v50[5] = 0;
-    v50[6] = [(TTSMauiSpeechEngine *)self dataStreamImpl];
-    v50[7] = [(TTSMauiSpeechEngine *)self dataMapImpl];
-    v50[8] = TTSMauiVocalizerGetDLDImpl();
-    v50[9] = self;
-    v50[10] = TTSMauiVocalizerGetLogImpl();
-    memset(&v50[11], 0, 24);
-    v50[14] = TTSMauiVocalizerGetThreadImpl();
-    v50[15] = TTSMauiVocalizerGetSemaphoreImpl();
-    v50[16] = 0;
+    v38[1] = [brokerString2 cStringUsingEncoding:{objc_msgSend(MEMORY[0x277CCACA8], "defaultCStringEncoding")}];
+    v38[2] = TTSMauiVocalizerGetHeapImpl();
+    v38[3] = 0;
+    v38[4] = TTSMauiVocalizerGetCriticalSectionImpl();
+    v38[5] = 0;
+    v38[6] = [(TTSMauiSpeechEngine *)self dataStreamImpl];
+    v38[7] = [(TTSMauiSpeechEngine *)self dataMapImpl];
+    v38[8] = TTSMauiVocalizerGetDLDImpl();
+    v38[9] = self;
+    v38[10] = TTSMauiVocalizerGetLogImpl();
+    memset(&v38[11], 0, 24);
+    v38[14] = TTSMauiVocalizerGetThreadImpl();
+    v38[15] = TTSMauiVocalizerGetSemaphoreImpl();
+    v38[16] = 0;
 
     __b = 0;
-    v49 = 0;
-    v12 = ve_ttsInitialize(v50, &__b);
+    v37 = 0;
+    v12 = ve_ttsInitialize(v38, &__b);
     if (v12)
     {
       v13 = v12;
@@ -876,14 +876,14 @@ LABEL_19:
       goto LABEL_20;
     }
 
-    [(TTSMauiSpeechEngine *)self setVocalizerClassHandle:__b, v49];
-    v46 = 0;
-    v47 = 0;
+    [(TTSMauiSpeechEngine *)self setVocalizerClassHandle:__b, v37];
+    v34 = 0;
+    v35 = 0;
     vocalizerClassHandle = [(TTSMauiSpeechEngine *)self vocalizerClassHandle];
-    if (ve_ttsOpen(vocalizerClassHandle, v18, 0, 0, &v46, v19, v20, v21))
+    if (ve_ttsOpen(vocalizerClassHandle, v18, 0, 0, &v34))
     {
-      v22 = AXTTSLogCommon();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v19 = AXTTSLogCommon();
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         [(TTSMauiSpeechEngine *)self _initializeEngine];
       }
@@ -892,37 +892,37 @@ LABEL_19:
       goto LABEL_35;
     }
 
-    [(TTSMauiSpeechEngine *)self setVocalizerInstanceHandle:v46, v47];
-    v22 = [v9 objectForKeyedSubscript:@"voice"];
-    v23 = [v9 objectForKeyedSubscript:@"langcode"];
-    v24 = v23;
-    if (v22 && v23)
+    [(TTSMauiSpeechEngine *)self setVocalizerInstanceHandle:v34, v35];
+    v19 = [v9 objectForKeyedSubscript:@"voice"];
+    v20 = [v9 objectForKeyedSubscript:@"langcode"];
+    v21 = v20;
+    if (v19 && v20)
     {
-      v25 = v22;
-      v26 = -[NSObject cStringUsingEncoding:](v22, "cStringUsingEncoding:", [MEMORY[0x277CCACA8] defaultCStringEncoding]);
-      v27 = v24;
-      v28 = [v24 cStringUsingEncoding:{objc_msgSend(MEMORY[0x277CCACA8], "defaultCStringEncoding")}];
-      bzero(v53, 0x83CuLL);
-      v52 = 1;
-      strlcpy(v53, v28, 0x80uLL);
-      v54 = 2;
-      strlcpy(v55, v26, 0x80uLL);
-      v56 = 19;
-      v57 = 1;
-      v58 = 7;
-      v59 = 1;
+      v22 = v19;
+      v23 = -[NSObject cStringUsingEncoding:](v19, "cStringUsingEncoding:", [MEMORY[0x277CCACA8] defaultCStringEncoding]);
+      v24 = v21;
+      v25 = [v21 cStringUsingEncoding:{objc_msgSend(MEMORY[0x277CCACA8], "defaultCStringEncoding")}];
+      bzero(v41, 0x83CuLL);
+      v40 = 1;
+      strlcpy(v41, v25, 0x80uLL);
+      v42 = 2;
+      strlcpy(v43, v23, 0x80uLL);
+      v44 = 19;
+      v45 = 1;
+      v46 = 7;
+      v47 = 1;
       vocalizerInstanceHandle = [(TTSMauiSpeechEngine *)self vocalizerInstanceHandle];
-      if (!ve_ttsSetParamList(vocalizerInstanceHandle, v30, &v52, 4u, v31, v32, v33, v34))
+      if (!ve_ttsSetParamList(vocalizerInstanceHandle, v27, &v40, 4u))
       {
-        v45[0] = self;
-        v45[1] = MauiProcCallback;
+        v33[0] = self;
+        v33[1] = MauiProcCallback;
         vocalizerInstanceHandle2 = [(TTSMauiSpeechEngine *)self vocalizerInstanceHandle];
-        v43 = ve_ttsSetOutDevice(vocalizerInstanceHandle2, v37, v45, v38, v39, v40, v41, v42);
-        v15 = v43 == 0;
-        if (v43)
+        v31 = ve_ttsSetOutDevice(vocalizerInstanceHandle2, v30, v33);
+        v15 = v31 == 0;
+        if (v31)
         {
-          v44 = AXTTSLogCommon();
-          if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+          v32 = AXTTSLogCommon();
+          if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
           {
             [(TTSMauiSpeechEngine *)self _initializeEngine];
           }
@@ -937,8 +937,8 @@ LABEL_19:
         goto LABEL_34;
       }
 
-      v35 = AXTTSLogCommon();
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+      v28 = AXTTSLogCommon();
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
         [(TTSMauiSpeechEngine *)self _initializeEngine];
       }
@@ -946,8 +946,8 @@ LABEL_19:
 
     else
     {
-      v35 = AXTTSLogCommon();
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+      v28 = AXTTSLogCommon();
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
         [(TTSMauiSpeechEngine *)self _initializeEngine];
       }
@@ -1096,7 +1096,7 @@ void __46__TTSMauiSpeechEngine__applyPostRuleRewrites___block_invoke_2(uint64_t 
     }
 
     v14 = v7;
-    v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"\x1B\\tn=normal\\%@\x1B\\pause=100\\%@\x1B\\pause=100\\\x1B\\tn=spell\\", @"小さい"", v7];
+    v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"\x1B\\tn=normal\\%@\x1B\\pause=100\\%@\x1B\\pause=100\\\x1B\\tn=spell\, @"小さい"", v7];
     v9 = *(a1 + 40);
     v10 = [v4 range];
     v12 = v11;
@@ -1131,7 +1131,7 @@ void __46__TTSMauiSpeechEngine__applyPostRuleRewrites___block_invoke_4(uint64_t 
     v4 = a2;
     v5 = [v4 range];
     v12 = [v3 substringWithRange:{v5, v6}];
-    v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"\x1B\\tn=raw\\%@\x1B\\tn=spell\\"", v12];
+    v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"\x1B\\tn=raw\\%@\x1B\\tn=spell\", v12];
     v8 = *(a1 + 40);
     v9 = [v4 range];
     v11 = v10;
@@ -1142,37 +1142,37 @@ void __46__TTSMauiSpeechEngine__applyPostRuleRewrites___block_invoke_4(uint64_t 
 
 - (void)_syncParametersWithEngine
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if ([(TTSMauiSpeechEngine *)self state])
   {
-    bzero(v18, 0x290uLL);
-    v17 = 9;
+    bzero(v14, 0x290uLL);
+    v13 = 9;
     rate = [(TTSMauiSpeechEngine *)self rate];
-    v18[0] = [rate unsignedShortValue];
+    v14[0] = [rate unsignedShortValue];
 
-    v19 = 10;
+    v15 = 10;
     pitch = [(TTSMauiSpeechEngine *)self pitch];
     unsignedShortValue = [pitch unsignedShortValue];
 
-    v21 = 24;
+    v17 = 24;
     timbre = [(TTSMauiSpeechEngine *)self timbre];
     unsignedShortValue2 = [timbre unsignedShortValue];
 
-    v23 = 8;
+    v19 = 8;
     volume = [(TTSMauiSpeechEngine *)self volume];
     unsignedShortValue3 = [volume unsignedShortValue];
 
-    v25 = 11;
+    v21 = 11;
     postSentencePauseDuration = [(TTSMauiSpeechEngine *)self postSentencePauseDuration];
     unsignedShortValue4 = [postSentencePauseDuration unsignedShortValue];
 
     vocalizerInstanceHandle = [(TTSMauiSpeechEngine *)self vocalizerInstanceHandle];
-    v14 = ve_ttsSetParamList(vocalizerInstanceHandle, v9, &v17, 5u, v10, v11, v12, v13);
-    if (v14)
+    v10 = ve_ttsSetParamList(vocalizerInstanceHandle, v9, &v13, 5u);
+    if (v10)
     {
-      v15 = v14;
-      v16 = AXTTSLogCommon();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v11 = v10;
+      v12 = AXTTSLogCommon();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         [(TTSMauiSpeechEngine *)self _syncParametersWithEngine];
       }
@@ -1203,7 +1203,7 @@ void __46__TTSMauiSpeechEngine__applyPostRuleRewrites___block_invoke_4(uint64_t 
   return resourceCopy;
 }
 
-uint64_t __41__TTSMauiSpeechEngine_loadVoiceResource___block_invoke(uint64_t a1)
+void *__41__TTSMauiSpeechEngine_loadVoiceResource___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _loadVoiceResource:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -1261,14 +1261,14 @@ uint64_t __41__TTSMauiSpeechEngine_loadVoiceResource___block_invoke(uint64_t a1)
 
     v15 = v13;
 
-    v31 = 0;
-    v32 = 0;
+    v29 = 0;
+    v30 = 0;
     vocalizerInstanceHandle = [(TTSMauiSpeechEngine *)self vocalizerInstanceHandle];
-    v20 = ve_ttsResourceLoad(vocalizerInstanceHandle, v17, v6, v15, bytes, &v31, v18, v19);
-    v21 = v20 == 0;
-    if (!v20)
+    v18 = ve_ttsResourceLoad(vocalizerInstanceHandle, v17, v6, v15, bytes, &v29);
+    v19 = v18 == 0;
+    if (!v18)
     {
-      [resourceCopy setVoiceResourceHandle:{v31, v32}];
+      [resourceCopy setVoiceResourceHandle:{v29, v30}];
       voiceResources = [(TTSMauiSpeechEngine *)self voiceResources];
       [voiceResources addObject:resourceCopy];
     }
@@ -1288,22 +1288,22 @@ uint64_t __41__TTSMauiSpeechEngine_loadVoiceResource___block_invoke(uint64_t a1)
       resourceData5 = [resourceString2 dataUsingEncoding:4];
     }
 
-    v24 = MEMORY[0x277D70408];
+    v22 = MEMORY[0x277D70408];
     resourceName = [resourceCopy resourceName];
     loadedResources = [(TTSMauiSpeechEngine *)self loadedResources];
-    v27 = [v24 rulesetWithData:resourceData5 identifier:resourceName priority:{objc_msgSend(loadedResources, "count")}];
+    v25 = [v22 rulesetWithData:resourceData5 identifier:resourceName priority:{objc_msgSend(loadedResources, "count")}];
 
-    [resourceCopy setRuleSet:v27];
+    [resourceCopy setRuleSet:v25];
     ruleSetRunner = [(TTSMauiSpeechEngine *)self ruleSetRunner];
-    [ruleSetRunner loadRuleSet:v27];
+    [ruleSetRunner loadRuleSet:v25];
 
     voiceResources2 = [(TTSMauiSpeechEngine *)self voiceResources];
     [voiceResources2 addObject:resourceCopy];
 
-    v21 = 1;
+    v19 = 1;
   }
 
-  return v21;
+  return v19;
 }
 
 - (BOOL)unloadVoiceResource:(id)resource
@@ -1329,7 +1329,7 @@ uint64_t __41__TTSMauiSpeechEngine_loadVoiceResource___block_invoke(uint64_t a1)
   return resourceCopy;
 }
 
-uint64_t __43__TTSMauiSpeechEngine_unloadVoiceResource___block_invoke(uint64_t a1)
+void *__43__TTSMauiSpeechEngine_unloadVoiceResource___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) queue_unloadVoiceResource:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -1357,9 +1357,7 @@ uint64_t __43__TTSMauiSpeechEngine_unloadVoiceResource___block_invoke(uint64_t a
   else
   {
     vocalizerInstanceHandle = [(TTSMauiSpeechEngine *)self vocalizerInstanceHandle];
-    v12 = v11;
-    voiceResourceHandle = [resourceCopy voiceResourceHandle];
-    v9 = ve_ttsResourceUnload(vocalizerInstanceHandle, v12, voiceResourceHandle, v14, v15, v16, v17, v18) == 0;
+    v9 = ve_ttsResourceUnload(vocalizerInstanceHandle, v11, [resourceCopy voiceResourceHandle]) == 0;
   }
 
   return v9;

@@ -1486,7 +1486,7 @@ LABEL_11:
       v25 = *MEMORY[0x1E696B948];
       if (os_log_type_enabled(*MEMORY[0x1E696B948], OS_LOG_TYPE_ERROR))
       {
-        [WDClinicalProviderDetailsViewController clinicalOnboardingGatewayCell:v25 didTapConnectWithGateway:? dataProvider:?];
+        [WDClinicalProviderDetailsViewController clinicalOnboardingGatewayCell:v25 didTapConnectWithGateway:gatewayCopy dataProvider:?];
       }
     }
   }
@@ -1576,14 +1576,18 @@ void __59__WDClinicalProviderDetailsViewController__computeSections__block_invok
 {
   v3 = a1;
   v4 = [a2 localizedDescription];
-  OUTLINED_FUNCTION_9(&dword_1D101F000, v5, v6, "onboarding details presenting error with underlying description: %{public}@", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_9(&dword_1D101F000, v5, v6, "onboarding details presenting error with underlying description: %{public}@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
-- (void)clinicalOnboardingGatewayCell:(void *)a1 didTapConnectWithGateway:dataProvider:.cold.1(void *a1)
+- (void)clinicalOnboardingGatewayCell:(void *)a1 didTapConnectWithGateway:(uint64_t)a2 dataProvider:.cold.1(void *a1, uint64_t a2)
 {
-  v1 = a1;
-  v2 = HKSensitiveLogItem();
-  OUTLINED_FUNCTION_9(&dword_1D101F000, v3, v4, "Gateway %{public}@ is not in the list of connectable gateways", v5, v6, v7, v8, 2u);
+  v2 = a1;
+  v3 = HKSensitiveLogItem();
+  LODWORD(v10) = 138543362;
+  *(&v10 + 4) = v3;
+  OUTLINED_FUNCTION_9(&dword_1D101F000, v4, v5, "Gateway %{public}@ is not in the list of connectable gateways", v6, v7, v8, v9, v10, DWORD2(v10));
 }
 
 @end

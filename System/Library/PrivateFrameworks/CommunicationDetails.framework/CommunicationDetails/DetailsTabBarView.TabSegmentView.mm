@@ -76,7 +76,7 @@
   }
 
   v6.receiver = self;
-  v6.super_class = type metadata accessor for DetailsTabBarView.TabSegmentView();
+  v6.super_class = type metadata accessor for DetailsTabBarView.TabSegmentView(0);
   selfCopy = self;
   [(DetailsTabBarView.TabSegmentView *)&v6 layoutSubviews];
   v4 = OBJC_IVAR____TtCC20CommunicationDetails17DetailsTabBarView14TabSegmentView_label;

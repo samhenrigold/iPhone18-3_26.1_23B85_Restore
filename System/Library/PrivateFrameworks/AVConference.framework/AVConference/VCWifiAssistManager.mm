@@ -206,7 +206,7 @@ uint64_t __27__VCWifiAssistManager_init__block_invoke(uint64_t a1)
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Can not create CTServer Connection", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Can not create CTServer Connection", v2, v3, v4, v5);
 }
 
 - (void)queryBudget
@@ -442,7 +442,7 @@ void __35__VCWifiAssistManager_addDelegate___block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __38__VCWifiAssistManager_removeDelegate___block_invoke(uint64_t a1)
+void *__38__VCWifiAssistManager_removeDelegate___block_invoke(uint64_t a1)
 {
   v17 = *MEMORY[0x1E69E9840];
   [*(*(a1 + 32) + 24) removeObject:*(a1 + 40)];
@@ -545,7 +545,7 @@ uint64_t __38__VCWifiAssistManager_removeDelegate___block_invoke(uint64_t a1)
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Can not get NWNetworkOfInterestManager", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Can not get NWNetworkOfInterestManager", v2, v3, v4, v5);
 }
 
 void __34__VCWifiAssistManager_queryBudget__block_invoke_cold_1()

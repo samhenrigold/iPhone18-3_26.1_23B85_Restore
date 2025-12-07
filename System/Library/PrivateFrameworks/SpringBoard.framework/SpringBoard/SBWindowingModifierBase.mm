@@ -132,7 +132,7 @@ uint64_t __97__SBWindowingModifierBase_topMostItemsByAddingAppLayoutAndAccessori
     v5 = [v3 appLayout];
     v6 = [v5 allItems];
     v7 = [v6 firstObject];
-    v8 = [v4 containsObject:v7];
+    v8 = objc_msgSend_containsObject_(v4);
   }
 
   else

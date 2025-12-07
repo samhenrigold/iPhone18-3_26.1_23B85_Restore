@@ -113,7 +113,7 @@ LABEL_10:
   }
 }
 
-uint64_t __83__SBBacklightControllerAccessibility_setBacklightState_source_animated_completion___block_invoke(uint64_t a1)
+void *__83__SBBacklightControllerAccessibility_setBacklightState_source_animated_completion___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _factorToPublishForBacklightState:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = v3;

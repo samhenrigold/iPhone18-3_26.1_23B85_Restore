@@ -1151,7 +1151,7 @@ LABEL_39:
   [(SplitViewWindowRootViewController *)&v88 willTransitionToTraitCollection:v73 withTransitionCoordinator:coordinatorCopy];
   if (coordinatorCopy)
   {
-    [coordinatorCopy targetTransform];
+    objc_msgSend_targetTransform(coordinatorCopy);
   }
 
   else
@@ -1315,22 +1315,20 @@ LABEL_51:
   v8 = coordinatorCopy;
   if (coordinatorCopy)
   {
-    [coordinatorCopy targetTransform];
-    IsIdentity = CGAffineTransformIsIdentity(&v22);
-    [v8 targetTransform];
-    v10 = *(&v19 + 1);
-    [v8 targetTransform];
+    objc_msgSend_targetTransform(coordinatorCopy);
+    IsIdentity = CGAffineTransformIsIdentity(&v20);
+    objc_msgSend_targetTransform(v8);
+    v10 = v19[1];
+    objc_msgSend_targetTransform(v8);
     v11 = *&v16;
   }
 
   else
   {
-    memset(&v22, 0, sizeof(v22));
-    IsIdentity = CGAffineTransformIsIdentity(&v22);
+    memset(&v20, 0, sizeof(v20));
+    IsIdentity = CGAffineTransformIsIdentity(&v20);
     v18 = 0u;
-    v19 = 0u;
-    v20 = 0u;
-    v21 = 0u;
+    memset(v19, 0, sizeof(v19));
     v16 = 0u;
     v17 = 0u;
     v11 = 0.0;

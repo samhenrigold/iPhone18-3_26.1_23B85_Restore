@@ -5,22 +5,22 @@
 
 void __BulkPositionIterator_Step_Compressed_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v74 = *MEMORY[0x1E69E9840];
+  v73 = *MEMORY[0x1E69E9840];
   makeThreadId();
   v3 = *(a1 + 40);
-  v58 = *(a1 + 32);
+  v57 = *(a1 + 32);
+  v58 = 0u;
   v59 = 0u;
-  v60 = 0u;
-  v61 = 0;
-  v57 = 1;
+  v60 = 0;
+  v56 = 1;
   if (*(v3 + 8) == 1)
   {
     add_explicit = atomic_fetch_add_explicit(&exceptionSequenceNum, 1u, memory_order_relaxed);
     v5 = setThreadIdAndInfo(*(v3 + 64), sIndexExceptionCallbacks, v3, 0x20000000, add_explicit + 1);
-    v55 = HIDWORD(v5);
-    v56 = v5;
-    v53 = v7;
-    v54 = v6;
+    v54 = HIDWORD(v5);
+    v55 = v5;
+    v52 = v7;
+    v53 = v6;
     v8 = threadData[9 * v5 + 1] + 320 * HIDWORD(v5);
     *(v8 + 216) = 0;
     v9 = *(v8 + 312);
@@ -49,19 +49,19 @@ void __BulkPositionIterator_Step_Compressed_block_invoke(uint64_t a1, uint64_t a
         }
       }
 
-      CIOnThreadCleanUpReset(v53);
-      dropThreadId(v56, 1, add_explicit + 1);
-      CICleanUpReset(v56, v54);
+      CIOnThreadCleanUpReset(v52);
+      dropThreadId(v55, 1, add_explicit + 1);
+      CICleanUpReset(v55, v53);
     }
 
     else
     {
       v13 = atomic_fetch_add_explicit(&exceptionSequenceNum, 1u, memory_order_relaxed);
       v14 = setThreadIdAndInfo(-1, sAssertExceptionCallbacks, 0, 0, v13 + 1);
-      v51 = HIDWORD(v14);
-      v52 = v14;
-      v49 = v16;
-      v50 = v15;
+      v50 = HIDWORD(v14);
+      v51 = v14;
+      v48 = v16;
+      v49 = v15;
       v17 = threadData[9 * v14 + 1] + 320 * HIDWORD(v14);
       v18 = *(v17 + 312);
       v19 = *(v17 + 224);
@@ -79,18 +79,18 @@ void __BulkPositionIterator_Step_Compressed_block_invoke(uint64_t a1, uint64_t a
         }
 
         *(v17 + 312) = v18;
-        CIOnThreadCleanUpReset(v49);
-        dropThreadId(v52, 1, v13 + 1);
-        CICleanUpReset(v52, v50);
+        CIOnThreadCleanUpReset(v48);
+        dropThreadId(v51, 1, v13 + 1);
+        CICleanUpReset(v51, v49);
       }
 
       else
       {
-        v45 = v18;
-        v46 = v13;
-        v47 = v9;
-        v48 = add_explicit;
-        v43 = mach_absolute_time();
+        v44 = v18;
+        v45 = v13;
+        v46 = v9;
+        v47 = add_explicit;
+        v42 = mach_absolute_time();
         v20 = atomic_fetch_add_explicit(*(a1 + 48), 1u, memory_order_relaxed);
         if (v20 >= *(a1 + 160))
         {
@@ -109,7 +109,7 @@ void __BulkPositionIterator_Step_Compressed_block_invoke(uint64_t a1, uint64_t a
             v25 = *(a1 + 120) + 392 * a2;
             do
             {
-              v26 = PositionIterate_Compressed(v24, &v58, v25 + 24, *(a1 + 128), *(a1 + 164), *(a1 + 168), *(a1 + 136));
+              v26 = PositionIterate_Compressed(v24, &v57, (v25 + 24), *(a1 + 128), *(a1 + 164), *(a1 + 168), *(a1 + 136));
               v27 = ++v23;
             }
 
@@ -140,14 +140,14 @@ void __BulkPositionIterator_Step_Compressed_block_invoke(uint64_t a1, uint64_t a
         }
 
         v31 = v30;
-        v57 = 0;
+        v56 = 0;
         v32 = mach_absolute_time();
         if (timingNanosecondsSinceAbsoluteTime_onceToken[0] != -1)
         {
           dispatch_once(timingNanosecondsSinceAbsoluteTime_onceToken, &__block_literal_global_85);
         }
 
-        v33 = (v32 - v43) * timingNanosecondsSinceAbsoluteTime_sTimebaseInfo / *algn_1EBF479E4;
+        v33 = (v32 - v42) * timingNanosecondsSinceAbsoluteTime_sTimebaseInfo / *algn_1EBF479E4;
         if (v33 > 0x3B9AC9FF)
         {
           v34 = *__error();
@@ -157,37 +157,37 @@ void __BulkPositionIterator_Step_Compressed_block_invoke(uint64_t a1, uint64_t a
             v36 = **(a1 + 136);
             *buf = 134219264;
             v37 = *(a1 + 160);
-            v63 = v33 / 1000000000.0;
-            v64 = 2048;
-            v65 = v33;
-            v66 = 1024;
-            v67 = v37;
-            v68 = 2048;
-            v69 = v29;
-            v70 = 2048;
-            v71 = v31;
-            v72 = 1024;
-            v73 = v36;
+            v62 = v33 / 1000000000.0;
+            v63 = 2048;
+            v64 = v33;
+            v65 = 1024;
+            v66 = v37;
+            v67 = 2048;
+            v68 = v29;
+            v69 = 2048;
+            v70 = v31;
+            v71 = 1024;
+            v72 = v36;
             _os_log_impl(&dword_1C278D000, v35, OS_LOG_TYPE_DEFAULT, "It took %.1fs(%llu ns) to iterate %u loops with total %llu. maxIterSteps:%llu canceled:%d", buf, 0x36u);
           }
 
           *__error() = v34;
         }
 
-        v38 = threadData[9 * v52 + 1] + 320 * v51;
-        *(v38 + 312) = v45;
+        v38 = threadData[9 * v51 + 1] + 320 * v50;
+        *(v38 + 312) = v44;
         v39 = *(v38 + 232);
         if (v39)
         {
           v39(*(v38 + 288));
         }
 
-        dropThreadId(v52, 0, v46 + 1);
-        v9 = v47;
-        add_explicit = v48;
+        dropThreadId(v51, 0, v45 + 1);
+        v9 = v46;
+        add_explicit = v47;
       }
 
-      v40 = threadData[9 * v56 + 1] + 320 * v55;
+      v40 = threadData[9 * v55 + 1] + 320 * v54;
       *(v40 + 312) = v9;
       v41 = *(v40 + 232);
       if (v41)
@@ -195,7 +195,7 @@ void __BulkPositionIterator_Step_Compressed_block_invoke(uint64_t a1, uint64_t a
         v41(*(v40 + 288));
       }
 
-      dropThreadId(v56, 0, add_explicit + 1);
+      dropThreadId(v55, 0, add_explicit + 1);
     }
   }
 
@@ -205,13 +205,12 @@ void __BulkPositionIterator_Step_Compressed_block_invoke(uint64_t a1, uint64_t a
     _os_log_impl(&dword_1C278D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "Skipping because index is shut down", buf, 2u);
   }
 
-  if (v57 == 1)
+  if (v56 == 1)
   {
     **(a1 + 152) = 1;
   }
 
-  CIIndexSetDisposePerThreadCache(&v58);
-  v42 = *MEMORY[0x1E69E9840];
+  CIIndexSetDisposePerThreadCache(&v57);
 }
 
 @end

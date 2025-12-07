@@ -116,20 +116,19 @@ uint64_t __45__FCFileAccessToken_initForReadingURL_error___block_invoke(uint64_t
 
 uint64_t __45__FCFileAccessToken_initForReadingURL_error___block_invoke_2(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = FCDefaultLog;
   if (os_log_type_enabled(FCDefaultLog, OS_LOG_TYPE_ERROR))
   {
-    v5 = *(a1 + 32);
-    v6 = *(a1 + 40);
-    v7 = 138543618;
-    v8 = v5;
-    v9 = 2114;
-    v10 = v6;
-    _os_log_error_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_ERROR, "failed to create file access token for reading, url=%{public}@, error=%{public}@", &v7, 0x16u);
+    v4 = *(a1 + 32);
+    v5 = *(a1 + 40);
+    v6 = 138543618;
+    v7 = v4;
+    v8 = 2114;
+    v9 = v5;
+    _os_log_error_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_ERROR, "failed to create file access token for reading, url=%{public}@, error=%{public}@", &v6, 0x16u);
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -193,20 +192,19 @@ uint64_t __45__FCFileAccessToken_initForWritingURL_error___block_invoke(uint64_t
 
 uint64_t __45__FCFileAccessToken_initForWritingURL_error___block_invoke_2(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = FCDefaultLog;
   if (os_log_type_enabled(FCDefaultLog, OS_LOG_TYPE_ERROR))
   {
-    v5 = *(a1 + 32);
-    v6 = *(a1 + 40);
-    v7 = 138543618;
-    v8 = v5;
-    v9 = 2114;
-    v10 = v6;
-    _os_log_error_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_ERROR, "failed to create file access token for writing, url=%{public}@, error=%{public}@", &v7, 0x16u);
+    v4 = *(a1 + 32);
+    v5 = *(a1 + 40);
+    v6 = 138543618;
+    v7 = v4;
+    v8 = 2114;
+    v9 = v5;
+    _os_log_error_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_ERROR, "failed to create file access token for writing, url=%{public}@, error=%{public}@", &v6, 0x16u);
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return 0;
 }
 

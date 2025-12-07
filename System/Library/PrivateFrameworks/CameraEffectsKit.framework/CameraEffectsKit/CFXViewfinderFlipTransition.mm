@@ -163,7 +163,7 @@
   [(CFXViewfinderFlipTransition *)self _backSnapshotTargetRadiansForDirection:direction frontSnapshotRadians:v46];
   v28 = [(CFXViewfinderFlipTransition *)self _snapshotFlipAnimationFromValue:v26 toValue:v27];
   [v28 setRemovedOnCompletion:0];
-  [v24 duration];
+  objc_msgSend_duration(v24);
   v30 = v29;
   timingFunction = [v24 timingFunction];
   v32 = [MEMORY[0x277CD9EC8] animationWithKeyPath:@"transform.scale.xy"];
@@ -235,7 +235,7 @@ void __84__CFXViewfinderFlipTransition_performFlipTransitionWithDirection_comple
 
     [animationCopy beginTime];
     v17 = v15 - v16;
-    [animationCopy duration];
+    objc_msgSend_duration(animationCopy);
     v19 = v17 / v18;
     if (v19 > 1.0)
     {

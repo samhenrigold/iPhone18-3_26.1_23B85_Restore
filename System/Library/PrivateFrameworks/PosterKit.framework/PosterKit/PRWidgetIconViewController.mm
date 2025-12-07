@@ -228,8 +228,8 @@ void __41__PRWidgetIconViewController_viewDidLoad__block_invoke(uint64_t a1)
   [view bounds];
   [(UIView *)backgroundView setFrame:?];
 
-  metrics = [(CHUISWidgetHostViewController *)self->_widgetHostViewController metrics];
-  [metrics size];
+  v5 = objc_msgSend_metrics(self->_widgetHostViewController);
+  [v5 size];
   v7 = v6;
   v9 = v8;
 
@@ -299,11 +299,11 @@ void __41__PRWidgetIconViewController_viewDidLoad__block_invoke(uint64_t a1)
     v7 = v6;
 
     v8 = MEMORY[0x1E69AE170];
-    v9 = PRBundle();
-    v10 = [v8 _visualStylingProviderForStyleSetNamed:v7 inBundle:v9];
+    v10 = PRBundle(v9);
+    v11 = [v8 _visualStylingProviderForStyleSetNamed:v7 inBundle:v10];
 
-    v11 = self->_platterVisualStylingProvider;
-    self->_platterVisualStylingProvider = v10;
+    v12 = self->_platterVisualStylingProvider;
+    self->_platterVisualStylingProvider = v11;
 
     platterVisualStylingProvider = self->_platterVisualStylingProvider;
   }

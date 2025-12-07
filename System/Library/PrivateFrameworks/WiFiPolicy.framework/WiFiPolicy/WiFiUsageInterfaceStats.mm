@@ -68,23 +68,23 @@
 
 + (id)_statsFromMIB:(id)b
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   bCopy = b;
   v5 = objc_alloc_init(self);
-  *v37 = xmmword_2333AB5C0;
-  v38 = 6;
+  *v36 = xmmword_2333AB5C0;
+  v37 = 6;
   uTF8String = [bCopy UTF8String];
 
-  v39 = if_nametoindex(uTF8String);
+  v38 = if_nametoindex(uTF8String);
   size = 0;
-  sysctl(v37, 6u, 0, &size, 0, 0);
+  sysctl(v36, 6u, 0, &size, 0, 0);
   if (size)
   {
     v7 = malloc_type_malloc(size, 0xAABAB2C8uLL);
     if (v7)
     {
       v8 = v7;
-      if (sysctl(v37, 6u, v7, &size, 0, 0) < 0)
+      if (sysctl(v36, 6u, v7, &size, 0, 0) < 0)
       {
         v26 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
         if (v26)
@@ -124,8 +124,6 @@
       [(WiFiUsageInterfaceStats *)v10 _statsFromMIB:v11, v12, v13, v14, v15, v16, v17];
     }
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -224,30 +222,30 @@
 
 + (void)_statsFromMIB:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_7(&dword_2332D7000, MEMORY[0x277D86220], a3, "%s: sysctl failed", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "+[WiFiUsageInterfaceStats _statsFromMIB:]";
+  OUTLINED_FUNCTION_0_7(&dword_2332D7000, MEMORY[0x277D86220], a3, "%s: sysctl failed", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 + (void)_statsFromMIB:(uint64_t)a3 .cold.2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_7(&dword_2332D7000, MEMORY[0x277D86220], a3, "%s: null reqBuf", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "+[WiFiUsageInterfaceStats _statsFromMIB:]";
+  OUTLINED_FUNCTION_0_7(&dword_2332D7000, MEMORY[0x277D86220], a3, "%s: null reqBuf", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 + (void)_statsFromMIB:(uint64_t)a3 .cold.3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_7(&dword_2332D7000, MEMORY[0x277D86220], a3, "%s: failed to get mib length.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "+[WiFiUsageInterfaceStats _statsFromMIB:]";
+  OUTLINED_FUNCTION_0_7(&dword_2332D7000, MEMORY[0x277D86220], a3, "%s: failed to get mib length.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 + (void)statsForInterfaceName:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_7(&dword_2332D7000, MEMORY[0x277D86220], a3, "%s: falling back to NetIF", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "+[WiFiUsageInterfaceStats statsForInterfaceName:]";
+  OUTLINED_FUNCTION_0_7(&dword_2332D7000, MEMORY[0x277D86220], a3, "%s: falling back to NetIF", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

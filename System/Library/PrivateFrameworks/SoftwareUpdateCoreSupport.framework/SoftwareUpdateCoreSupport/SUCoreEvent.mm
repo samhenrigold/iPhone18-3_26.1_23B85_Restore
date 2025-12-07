@@ -11,13 +11,13 @@
 
 - (SUCoreEvent)initWithEventDictionary:(id)dictionary extendingWith:(id)with reportingToServer:(id)server
 {
-  v116 = *MEMORY[0x1E69E9840];
+  v115 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   withCopy = with;
   serverCopy = server;
-  v112.receiver = self;
-  v112.super_class = SUCoreEvent;
-  v11 = [(SUCoreEvent *)&v112 init];
+  v111.receiver = self;
+  v111.super_class = SUCoreEvent;
+  v11 = [(SUCoreEvent *)&v111 init];
   if (!v11)
   {
     goto LABEL_33;
@@ -34,7 +34,7 @@
     [(NSMutableDictionary *)v11->_allFields setSafeObject:@"SUCoreEvent" forKey:@"event"];
   }
 
-  v99 = serverCopy;
+  v98 = serverCopy;
   uUIDString = [dictionaryCopy safeStringForKey:@"UUID"];
   if (!uUIDString)
   {
@@ -44,7 +44,7 @@
     [(NSMutableDictionary *)v11->_allFields setSafeObject:uUIDString forKey:@"UUID"];
   }
 
-  v98 = uUIDString;
+  v97 = uUIDString;
   objc_storeStrong(&v11->_reportedUUID, uUIDString);
   objc_storeStrong(&v11->_serverURL, server);
   v17 = +[SUCoreDevice sharedDevice];
@@ -53,7 +53,7 @@
   v19 = +[SUCoreDevice sharedDevice];
   splatCryptex1BuildVersion = [v19 splatCryptex1BuildVersion];
 
-  v96 = splatCryptex1BuildVersion;
+  v95 = splatCryptex1BuildVersion;
   if (splatCryptex1BuildVersion)
   {
     v21 = splatCryptex1BuildVersion;
@@ -64,13 +64,13 @@
     v21 = buildVersion;
   }
 
-  v107 = v21;
+  v106 = v21;
   v22 = +[SUCoreDevice sharedDevice];
   splatCryptex1ProductVersionExtra = [v22 splatCryptex1ProductVersionExtra];
 
   v23 = MEMORY[0x1E696AD98];
   v24 = +[SUCoreDevice sharedDevice];
-  v105 = [v23 numberWithBool:{objc_msgSend(v24, "hasSplatOnlyUpdateInstalled")}];
+  v104 = [v23 numberWithBool:{objc_msgSend(v24, "hasSplatOnlyUpdateInstalled")}];
 
   v25 = MEMORY[0x1E696AD98];
   v26 = +[SUCoreDevice sharedDevice];
@@ -85,8 +85,8 @@
   v31 = +[SUCoreDevice sharedDevice];
   hwModelString = [v31 hwModelString];
 
-  v102 = MGCopyAnswer();
   v101 = MGCopyAnswer();
+  v100 = MGCopyAnswer();
   v32 = +[SUCoreLog sharedLogger];
   oslog = [v32 oslog];
 
@@ -96,7 +96,7 @@
     if (v34)
     {
       *buf = 138543362;
-      v115 = releaseType;
+      v114 = releaseType;
       v35 = "non-nil currentOSType found with value of: %{public}@";
 LABEL_14:
       _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, v35, buf, 0xCu);
@@ -109,13 +109,13 @@ LABEL_14:
     if (v34)
     {
       *buf = 138543362;
-      v115 = @"user";
+      v114 = @"user";
       v35 = "nil currentOSType found, setting the currentOSType to: %{public}@";
       goto LABEL_14;
     }
   }
 
-  v93 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SUCore-%@", @"2.1.0"];
+  v92 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SUCore-%@", @"2.1.0"];
   [NSMutableDictionary setSafeObject:"setSafeObject:forKey:" forKey:?];
   [(NSMutableDictionary *)v11->_allFields setSafeObject:@"1.2" forKey:@"reportVersion"];
   v36 = v11->_allFields;
@@ -125,16 +125,16 @@ LABEL_14:
   [(NSMutableDictionary *)v36 setSafeObject:v39 forKey:@"eventTime"];
 
   v40 = v11->_allFields;
-  v94 = v38;
+  v93 = v38;
   v41 = _ensureNSString(v38);
   [(NSMutableDictionary *)v40 setSafeObject:v41 forKey:@"currentOSType"];
 
   v42 = v11->_allFields;
-  v43 = _ensureNSString(v107);
+  v43 = _ensureNSString(v106);
   [(NSMutableDictionary *)v42 setSafeObject:v43 forKey:@"currentOSVersion"];
 
   v44 = v11->_allFields;
-  v97 = buildVersion;
+  v96 = buildVersion;
   v45 = _ensureNSString(buildVersion);
   [(NSMutableDictionary *)v44 setSafeObject:v45 forKey:@"currentBaseOSVersion"];
 
@@ -143,11 +143,11 @@ LABEL_14:
   [(NSMutableDictionary *)v46 setSafeObject:v47 forKey:@"currentProductVersionExtra"];
 
   v48 = v11->_allFields;
-  v49 = _ensureNSNumber(v105);
+  v49 = _ensureNSNumber(v104);
   [(NSMutableDictionary *)v48 setSafeObject:v49 forKey:@"rapidSecurityResponseInstalled"];
 
   v50 = v11->_allFields;
-  v95 = v27;
+  v94 = v27;
   v51 = _ensureNSNumber(v27);
   [(NSMutableDictionary *)v50 setSafeObject:v51 forKey:@"rapidSecurityResponseSemiSplat"];
 
@@ -160,11 +160,11 @@ LABEL_14:
   [(NSMutableDictionary *)v54 setSafeObject:v55 forKey:@"deviceModel"];
 
   v56 = v11->_allFields;
-  v57 = _ensureNSNumber(v102);
+  v57 = _ensureNSNumber(v101);
   [(NSMutableDictionary *)v56 setSafeObject:v57 forKey:@"batteryLevel"];
 
   v58 = v11->_allFields;
-  v59 = _ensureNSNumber(v101);
+  v59 = _ensureNSNumber(v100);
   [(NSMutableDictionary *)v58 setSafeObject:v59 forKey:@"batteryIsCharging"];
 
   if ([objc_opt_class() isSharediPad])
@@ -179,7 +179,7 @@ LABEL_14:
 
   v61 = v60;
   v62 = v11->_allFields;
-  v92 = v61;
+  v91 = v61;
   v63 = _ensureNSString(v61);
   [(NSMutableDictionary *)v62 setSafeObject:v63 forKey:@"sharediPad"];
 
@@ -228,29 +228,29 @@ LABEL_14:
     [(NSMutableDictionary *)v11->_allFields setSafeObject:@"success" forKey:@"result"];
   }
 
-  v100 = dictionaryCopy;
+  v99 = dictionaryCopy;
   [(NSMutableDictionary *)v11->_allFields addEntriesFromDictionary:dictionaryCopy];
-  v110 = 0u;
-  v111 = 0u;
-  v108 = 0u;
   v109 = 0u;
+  v110 = 0u;
+  v107 = 0u;
+  v108 = 0u;
   v80 = withCopy;
   v81 = withCopy;
-  v82 = [v81 countByEnumeratingWithState:&v108 objects:v113 count:16];
+  v82 = [v81 countByEnumeratingWithState:&v107 objects:v112 count:16];
   if (v82)
   {
     v83 = v82;
-    v84 = *v109;
+    v84 = *v108;
     do
     {
       for (i = 0; i != v83; ++i)
       {
-        if (*v109 != v84)
+        if (*v108 != v84)
         {
           objc_enumerationMutation(v81);
         }
 
-        v86 = *(*(&v108 + 1) + 8 * i);
+        v86 = *(*(&v107 + 1) + 8 * i);
         v87 = [(NSMutableDictionary *)v11->_allFields objectForKey:v86];
 
         if (!v87)
@@ -261,19 +261,18 @@ LABEL_14:
         }
       }
 
-      v83 = [v81 countByEnumeratingWithState:&v108 objects:v113 count:16];
+      v83 = [v81 countByEnumeratingWithState:&v107 objects:v112 count:16];
     }
 
     while (v83);
   }
 
   v11->_changedSinceReported = 0;
-  serverCopy = v99;
-  dictionaryCopy = v100;
+  serverCopy = v98;
+  dictionaryCopy = v99;
   withCopy = v80;
 LABEL_33:
 
-  v90 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

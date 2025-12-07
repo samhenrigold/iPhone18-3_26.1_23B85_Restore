@@ -107,16 +107,16 @@ void sub_1F98(uint64_t a1, void *a2, id *a3)
   [WeakRetained _updateTimeAnimated:1];
 }
 
-id sub_2198()
+id sub_2198(uint64_t a1)
 {
   if (qword_15798 != -1)
   {
     sub_6EDC();
   }
 
-  v1 = qword_15790;
+  v2 = qword_15790;
 
-  return v1;
+  return v2;
 }
 
 id sub_3564(uint64_t a1)

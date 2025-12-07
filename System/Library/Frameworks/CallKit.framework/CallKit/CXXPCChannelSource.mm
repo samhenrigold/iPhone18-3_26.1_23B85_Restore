@@ -36,7 +36,7 @@
   if (client)
   {
     v6 = client;
-    [client auditToken];
+    objc_msgSend_auditToken(client);
     client = v6;
   }
 

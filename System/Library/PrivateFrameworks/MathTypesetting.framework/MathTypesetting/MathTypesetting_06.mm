@@ -1,39 +1,39 @@
-void sub_2582AE580(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2582AE580(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<blahtex::Token>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<std::wstring,blahtex::MacroProcessor::Macro>,std::__unordered_map_hasher<std::wstring,std::__hash_value_type<std::wstring,blahtex::MacroProcessor::Macro>,std::hash<std::wstring>,std::equal_to<std::wstring>,true>,std::__unordered_map_equal<std::wstring,std::__hash_value_type<std::wstring,blahtex::MacroProcessor::Macro>,std::equal_to<std::wstring>,std::hash<std::wstring>,true>,std::allocator<std::__hash_value_type<std::wstring,blahtex::MacroProcessor::Macro>>>::__emplace_unique_key_args<std::wstring,std::piecewise_construct_t const&,std::tuple<std::wstring const&>,std::tuple<>>(void *a1, uint64_t a2)
+uint64_t **std::__hash_table<std::__hash_value_type<std::wstring,blahtex::MacroProcessor::Macro>,std::__unordered_map_hasher<std::wstring,std::__hash_value_type<std::wstring,blahtex::MacroProcessor::Macro>,std::hash<std::wstring>,std::equal_to<std::wstring>,true>,std::__unordered_map_equal<std::wstring,std::__hash_value_type<std::wstring,blahtex::MacroProcessor::Macro>,std::equal_to<std::wstring>,std::hash<std::wstring>,true>,std::allocator<std::__hash_value_type<std::wstring,blahtex::MacroProcessor::Macro>>>::__emplace_unique_key_args<std::wstring,std::piecewise_construct_t const&,std::tuple<std::wstring const&>,std::tuple<>>(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v4 = std::__string_hash<wchar_t>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v7 = std::__string_hash<wchar_t>::operator()[abi:ne200100](a1, a2);
+  v8 = v7;
+  v9 = a1[1];
+  if (!*&v9)
   {
     goto LABEL_31;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v10 = vcnt_s8(v9);
+  v10.i16[0] = vaddlv_u8(v10);
+  v11 = v10.u32[0];
+  if (v10.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v12 = v7;
+    if (v7 >= *&v9)
     {
-      v9 = v4 % *&v6;
+      v12 = v7 % *&v9;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v12 = (*&v9 - 1) & v7;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v13 = *(*a1 + 8 * v12);
+  if (!v13 || (v14 = *v13) == 0)
   {
 LABEL_31:
     std::__hash_table<std::__hash_value_type<std::wstring,blahtex::MacroProcessor::Macro>,std::__unordered_map_hasher<std::wstring,std::__hash_value_type<std::wstring,blahtex::MacroProcessor::Macro>,std::hash<std::wstring>,std::equal_to<std::wstring>,true>,std::__unordered_map_equal<std::wstring,std::__hash_value_type<std::wstring,blahtex::MacroProcessor::Macro>,std::equal_to<std::wstring>,std::hash<std::wstring>,true>,std::allocator<std::__hash_value_type<std::wstring,blahtex::MacroProcessor::Macro>>>::__construct_node_hash<std::piecewise_construct_t const&,std::tuple<std::wstring const&>,std::tuple<>>();
@@ -41,77 +41,77 @@ LABEL_31:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v15 = v14[1];
+    if (v15 == v8)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v11 > 1)
     {
-      if (v12 >= *&v6)
+      if (v15 >= *&v9)
       {
-        v12 %= *&v6;
+        v15 %= *&v9;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v15 &= *&v9 - 1;
     }
 
-    if (v12 != v9)
+    if (v15 != v12)
     {
       goto LABEL_31;
     }
 
 LABEL_30:
-    v11 = *v11;
-    if (!v11)
+    v14 = *v14;
+    if (!v14)
     {
       goto LABEL_31;
     }
   }
 
-  v13 = *(v11 + 39);
-  if (v13 >= 0)
+  v16 = *(v14 + 39);
+  if (v16 >= 0)
   {
-    v14 = *(v11 + 39);
+    v17 = *(v14 + 39);
   }
 
   else
   {
-    v14 = v11[3];
+    v17 = v14[3];
   }
 
-  v15 = *(a2 + 23);
-  v16 = v15;
-  if ((v15 & 0x80u) != 0)
+  v18 = *(a2 + 23);
+  v19 = v18;
+  if ((v18 & 0x80u) != 0)
   {
-    v15 = *(a2 + 8);
+    v18 = *(a2 + 8);
   }
 
-  if (v14 != v15)
+  if (v17 != v18)
   {
     goto LABEL_30;
   }
 
-  if (v14)
+  if (v17)
   {
-    v17 = v16 >= 0 ? a2 : *a2;
-    v18 = v13 >= 0 ? (v11 + 2) : v11[2];
-    if (wmemcmp(v18, v17, v14))
+    v20 = v19 >= 0 ? a2 : *a2;
+    v21 = v16 >= 0 ? (v14 + 2) : v14[2];
+    if (wmemcmp(v21, v20, v17))
     {
       goto LABEL_30;
     }
   }
 
-  return v11;
+  return v14;
 }
 
-void sub_2582AE838(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2582AE838(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::wstring,blahtex::MacroProcessor::Macro>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::wstring,blahtex::MacroProcessor::Macro>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -243,20 +243,20 @@ uint64_t **std::__hash_table<std::__hash_value_type<std::wstring,blahtex::MacroP
   return i;
 }
 
-void *std::vector<std::vector<blahtex::Token>>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<std::vector<blahtex::Token>>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<std::vector<blahtex::Token>>::__vallocate[abi:ne200100](result, a2);
+    std::vector<std::vector<blahtex::Token>>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
-void std::vector<std::vector<blahtex::Token>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::vector<blahtex::Token>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -276,7 +276,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<std::vector<blahtex::
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void std::vector<std::vector<blahtex::Token>>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<std::vector<blahtex::Token>>::__destroy_vector::operator()[abi:ne200100](void ****a1)
 {
   v1 = *a1;
   v2 = **a1;
@@ -302,7 +302,7 @@ void std::vector<std::vector<blahtex::Token>>::__destroy_vector::operator()[abi:
   }
 }
 
-uint64_t std::vector<blahtex::Token>::__emplace_back_slow_path<blahtex::Token>(uint64_t a1, const blahtex::Token *a2)
+uint64_t std::vector<blahtex::Token>::__emplace_back_slow_path<blahtex::Token>(uint64_t a1, const std::wstring *a2)
 {
   v2 = (*(a1 + 8) - *a1) >> 5;
   v3 = v2 + 1;
@@ -353,14 +353,14 @@ uint64_t std::vector<blahtex::Token>::__emplace_back_slow_path<blahtex::Token>(u
   return v13;
 }
 
-void sub_2582AED8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2582AED8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<blahtex::Token>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void blahtex::Tokenise(uint64_t *a1, uint64_t a2, int a3)
+void blahtex::Tokenise(unsigned int **a1, uint64_t a2, int a3)
 {
   if (a1[1])
   {
@@ -380,40 +380,40 @@ LABEL_17:
             if (v13 < 32 || v13 == 127)
             {
               exception = __cxa_allocate_exception(0x30uLL);
-              std::wstring::basic_string[abi:ne200100]<0>(&v42, dword_2582D5BCC);
-              std::wstring::basic_string[abi:ne200100]<0>(&v39, &dword_2582D5C10);
-              std::wstring::basic_string[abi:ne200100]<0>(v38, &dword_2582D5C10);
+              std::wstring::basic_string[abi:ne200100]<0>(&v40, dword_2582D5BCC);
+              std::wstring::basic_string[abi:ne200100]<0>(&v38, &dword_2582D5C10);
               std::wstring::basic_string[abi:ne200100]<0>(v37, &dword_2582D5C10);
-              blahtex::Exception::Exception(exception, &v42, &v39, v38, v37);
+              std::wstring::basic_string[abi:ne200100]<0>(v36, &dword_2582D5C10);
+              blahtex::Exception::Exception(exception, &v40, &v38, v37, v36);
             }
 
-            v36 = 1;
-            v35 = v13;
-            blahtex::Token::Token(&v42, &v35, 0);
-            std::vector<blahtex::Token>::push_back[abi:ne200100](a2, &v42);
-            if (v43 < 0)
+            *(&v35.__r_.__value_.__s + 23) = 1;
+            v35.__r_.__value_.__r.__words[0] = v13;
+            blahtex::Token::Token(&v40, &v35, 0);
+            std::vector<blahtex::Token>::push_back[abi:ne200100](a2, &v40);
+            if (SHIBYTE(v40.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v42);
+              operator delete(v40.__r_.__value_.__l.__data_);
             }
 
-            if (v36 < 0)
+            if (SHIBYTE(v35.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v35);
+              operator delete(v35.__r_.__value_.__l.__data_);
             }
 
             v10 = v7 + 1;
             goto LABEL_74;
           }
 
-          std::wstring::basic_string[abi:ne200100]<0>(&v39, &unk_2582D5C14);
-          if (v7 + 1 == (*a1 + 4 * a1[1]))
+          std::wstring::basic_string[abi:ne200100]<0>(&v38, &unk_2582D5C14);
+          if (v7 + 1 == &(*a1)[a1[1]])
           {
             v30 = __cxa_allocate_exception(0x30uLL);
-            std::wstring::basic_string[abi:ne200100]<0>(&v42, dword_2582D5C1C);
-            std::wstring::basic_string[abi:ne200100]<0>(v38, &dword_2582D5C10);
+            std::wstring::basic_string[abi:ne200100]<0>(&v40, dword_2582D5C1C);
             std::wstring::basic_string[abi:ne200100]<0>(v37, &dword_2582D5C10);
+            std::wstring::basic_string[abi:ne200100]<0>(v36, &dword_2582D5C10);
             std::wstring::basic_string[abi:ne200100]<0>(v34, &dword_2582D5C10);
-            blahtex::Exception::Exception(v30, &v42, v38, v37, v34);
+            blahtex::Exception::Exception(v30, &v40, v37, v36, v34);
           }
 
           v14 = v7[1];
@@ -423,8 +423,8 @@ LABEL_17:
             do
             {
               v10 = v15;
-              std::wstring::push_back(&v39, v14);
-              if (v10 == (*a1 + 4 * a1[1]))
+              std::wstring::push_back(&v38, v14);
+              if (v10 == &(*a1)[a1[1]])
               {
                 break;
               }
@@ -434,31 +434,31 @@ LABEL_17:
             }
 
             while ((*v10 & 0xFFFFFFDF) - 65 < 0x1A);
-            v16 = HIBYTE(v39.__r_.__value_.__r.__words[2]);
-            if ((SHIBYTE(v39.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+            v16 = HIBYTE(v38.__r_.__value_.__r.__words[2]);
+            if ((SHIBYTE(v38.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
             {
 LABEL_24:
               if (v16 == 4)
               {
-                v17 = &v39;
+                v17 = &v38;
                 goto LABEL_50;
               }
 
               goto LABEL_65;
             }
 
-            size = v39.__r_.__value_.__l.__size_;
-            if (v39.__r_.__value_.__l.__size_ == 6)
+            size = v38.__r_.__value_.__l.__size_;
+            if (v38.__r_.__value_.__l.__size_ == 6)
             {
-              if (wmemcmp(v39.__r_.__value_.__l.__data_, dword_2582D5C74, 6uLL))
+              if (wmemcmp(v38.__r_.__value_.__l.__data_, dword_2582D5C74, 6uLL))
               {
-                v16 = HIBYTE(v39.__r_.__value_.__r.__words[2]);
-                if ((SHIBYTE(v39.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+                v16 = HIBYTE(v38.__r_.__value_.__r.__words[2]);
+                if ((SHIBYTE(v38.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
                 {
                   goto LABEL_24;
                 }
 
-                size = v39.__r_.__value_.__l.__size_;
+                size = v38.__r_.__value_.__l.__size_;
                 goto LABEL_48;
               }
             }
@@ -471,26 +471,26 @@ LABEL_48:
                 goto LABEL_65;
               }
 
-              v17 = v39.__r_.__value_.__r.__words[0];
+              v17 = v38.__r_.__value_.__r.__words[0];
 LABEL_50:
               if (wmemcmp(v17, dword_2582D5C90, 4uLL))
               {
 LABEL_65:
-                if (SHIBYTE(v39.__r_.__value_.__r.__words[2]) < 0)
+                if (SHIBYTE(v38.__r_.__value_.__r.__words[2]) < 0)
                 {
-                  std::wstring::__init_copy_ctor_external(&v33, v39.__r_.__value_.__l.__data_, v39.__r_.__value_.__l.__size_);
+                  std::wstring::__init_copy_ctor_external(&v33, v38.__r_.__value_.__l.__data_, v38.__r_.__value_.__l.__size_);
                 }
 
                 else
                 {
-                  v33 = v39;
+                  v33 = v38;
                 }
 
-                blahtex::Token::Token(&v42, &v33, 0);
-                std::vector<blahtex::Token>::push_back[abi:ne200100](a2, &v42);
-                if (v43 < 0)
+                blahtex::Token::Token(&v40, &v33, 0);
+                std::vector<blahtex::Token>::push_back[abi:ne200100](a2, &v40);
+                if (SHIBYTE(v40.__r_.__value_.__r.__words[2]) < 0)
                 {
-                  operator delete(v42);
+                  operator delete(v40.__r_.__value_.__l.__data_);
                 }
 
                 if (SHIBYTE(v33.__r_.__value_.__r.__words[2]) < 0)
@@ -498,9 +498,9 @@ LABEL_65:
                   operator delete(v33.__r_.__value_.__l.__data_);
                 }
 
-                if (SHIBYTE(v39.__r_.__value_.__r.__words[2]) < 0)
+                if (SHIBYTE(v38.__r_.__value_.__r.__words[2]) < 0)
                 {
-                  operator delete(v39.__r_.__value_.__l.__data_);
+                  operator delete(v38.__r_.__value_.__l.__data_);
                 }
 
                 goto LABEL_74;
@@ -537,23 +537,23 @@ LABEL_65:
             if (v10 == (v22 + 4 * v23) || *v10 != 123)
             {
               v32 = __cxa_allocate_exception(0x30uLL);
-              std::wstring::basic_string[abi:ne200100]<0>(&v42, dword_2582D5CA4);
-              std::wstring::basic_string[abi:ne200100]<0>(v38, &dword_2582D5C10);
+              std::wstring::basic_string[abi:ne200100]<0>(&v40, dword_2582D5CA4);
               std::wstring::basic_string[abi:ne200100]<0>(v37, &dword_2582D5C10);
-              blahtex::Exception::Exception(v32, &v42, &v39, v38, v37);
+              std::wstring::basic_string[abi:ne200100]<0>(v36, &dword_2582D5C10);
+              blahtex::Exception::Exception(v32, &v40, &v38, v37, v36);
             }
 
-            std::wstring::push_back(&v39, 123);
-            for (i = (v10 + 1); ; ++i)
+            std::wstring::push_back(&v38, 123);
+            for (i = v10 + 1; ; ++i)
             {
-              if (i == (*a1 + 4 * a1[1]))
+              if (i == &(*a1)[a1[1]])
               {
                 v29 = __cxa_allocate_exception(0x30uLL);
-                std::wstring::basic_string[abi:ne200100]<0>(&v42, dword_2582D5CFC);
-                std::wstring::basic_string[abi:ne200100]<0>(v38, &dword_2582D5C10);
+                std::wstring::basic_string[abi:ne200100]<0>(&v40, dword_2582D5CFC);
                 std::wstring::basic_string[abi:ne200100]<0>(v37, &dword_2582D5C10);
+                std::wstring::basic_string[abi:ne200100]<0>(v36, &dword_2582D5C10);
                 std::wstring::basic_string[abi:ne200100]<0>(v34, &dword_2582D5C10);
-                blahtex::Exception::Exception(v29, &v42, v38, v37, v34);
+                blahtex::Exception::Exception(v29, &v40, v37, v36, v34);
               }
 
               v27 = *i;
@@ -562,11 +562,11 @@ LABEL_65:
                 break;
               }
 
-              std::wstring::push_back(&v39, v27);
+              std::wstring::push_back(&v38, v27);
             }
 
-            std::wstring::push_back(&v39, 125);
-            v10 = (i + 1);
+            std::wstring::push_back(&v38, 125);
+            v10 = i + 1;
             goto LABEL_65;
           }
 
@@ -575,12 +575,12 @@ LABEL_65:
             if ((*(v6 + 4 * v14 + 60) & 0x4000) != 0)
             {
 LABEL_35:
-              std::wstring::append(&v39, dword_2582D5BC4);
+              std::wstring::append(&v38, dword_2582D5BC4);
               v18 = v7 + 2;
               do
               {
                 v10 = v18;
-                if (v18 == (*a1 + 4 * a1[1]))
+                if (v18 == &(*a1)[a1[1]])
                 {
                   break;
                 }
@@ -600,7 +600,7 @@ LABEL_35:
             goto LABEL_35;
           }
 
-          std::wstring::push_back(&v39, v7[1]);
+          std::wstring::push_back(&v38, v7[1]);
           v10 = v7 + 2;
           goto LABEL_65;
         }
@@ -611,24 +611,24 @@ LABEL_35:
         goto LABEL_17;
       }
 
-      std::wstring::basic_string[abi:ne200100]<0>(__p, dword_2582D5BC4);
-      blahtex::Token::Token(&v42, __p, 0);
-      std::vector<blahtex::Token>::push_back[abi:ne200100](a2, &v42);
-      if (v43 < 0)
+      std::wstring::basic_string[abi:ne200100]<0>(&__p, dword_2582D5BC4);
+      blahtex::Token::Token(&v40, &__p, 0);
+      std::vector<blahtex::Token>::push_back[abi:ne200100](a2, &v40);
+      if (SHIBYTE(v40.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v42);
+        operator delete(v40.__r_.__value_.__l.__data_);
       }
 
-      if (v41 < 0)
+      if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(__p[0]);
+        operator delete(__p.__r_.__value_.__l.__data_);
       }
 
       v9 = v7 + 1;
       do
       {
         v10 = v9;
-        if (v9 == (*a1 + 4 * a1[1]))
+        if (v9 == &(*a1)[a1[1]])
         {
           break;
         }
@@ -740,36 +740,36 @@ double blahtex::Manager::Manager(blahtex::Manager *this)
   return result;
 }
 
-void blahtex::Manager::ProcessInput(uint64_t a1, std::wstring::size_type a2, int a3)
+void blahtex::Manager::ProcessInput(std::wstring **a1, std::wstring::size_type a2, int a3, int a4)
 {
   {
     std::unordered_set<std::wstring>::unordered_set<std::wstring_view const*>(blahtex::Manager::ProcessInput(std::wstring const&,BOOL,BOOL)::reservedCommandTable, &blahtex::Manager::ProcessInput(std::wstring const&,BOOL,BOOL)::reservedCommandArray, &__block_descriptor_tmp_0);
   }
 
-  v16 = 0;
   v17 = 0;
   v18 = 0;
-  v6 = *(a2 + 23);
-  if ((v6 & 0x80u) == 0)
+  v19 = 0;
+  v7 = *(a2 + 23);
+  if ((v7 & 0x80u) == 0)
   {
-    v7 = a2;
+    v8 = a2;
   }
 
   else
   {
-    v7 = *a2;
+    v8 = *a2;
   }
 
-  if ((v6 & 0x80u) != 0)
+  if ((v7 & 0x80u) != 0)
   {
-    v6 = *(a2 + 8);
+    v7 = *(a2 + 8);
   }
 
-  v15.__r_.__value_.__r.__words[0] = v7;
-  v15.__r_.__value_.__l.__size_ = v6;
-  blahtex::Tokenise(&v15, &v16, 1);
+  v16.__r_.__value_.__r.__words[0] = v8;
+  v16.__r_.__value_.__l.__size_ = v7;
+  blahtex::Tokenise(&v16, &v17, 1);
   *(a1 + 16) = 0;
-  for (i = v16; i != v17; i = (i + 32))
+  for (i = v17; i != v18; i = (i + 32))
   {
     if (std::__hash_table<std::wstring,std::hash<std::wstring>,std::equal_to<std::wstring>,std::allocator<std::wstring>>::find<std::wstring>(blahtex::Manager::ProcessInput(std::wstring const&,BOOL,BOOL)::reservedCommandTable, i))
     {
@@ -778,43 +778,43 @@ void blahtex::Manager::ProcessInput(uint64_t a1, std::wstring::size_type a2, int
 
     else
     {
-      v9 = *(i + 23);
-      if (v9 < 0)
+      size = SHIBYTE(i->__r_.__value_.__r.__words[2]);
+      if ((size & 0x8000000000000000) != 0)
       {
-        if (*(i + 1) > 7uLL)
+        if (i->__r_.__value_.__l.__size_ > 7)
         {
-          v9 = *(i + 1);
+          size = i->__r_.__value_.__l.__size_;
 LABEL_17:
-          std::wstring::basic_string(&v15, i, v9 - 8, 8uLL, &v14);
-          v10 = 0;
-          v11 = HIBYTE(v15.__r_.__value_.__r.__words[2]);
-          if (SHIBYTE(v15.__r_.__value_.__r.__words[2]) < 0 && v15.__r_.__value_.__l.__size_ == 8)
+          std::wstring::basic_string(&v16, i, size - 8, 8uLL, &v15);
+          v11 = 0;
+          v12 = HIBYTE(v16.__r_.__value_.__r.__words[2]);
+          if (SHIBYTE(v16.__r_.__value_.__r.__words[2]) < 0 && v16.__r_.__value_.__l.__size_ == 8)
           {
-            v10 = wmemcmp(v15.__r_.__value_.__l.__data_, dword_2582DA340, 8uLL) == 0;
-            v11 = HIBYTE(v15.__r_.__value_.__r.__words[2]);
+            v11 = wmemcmp(v16.__r_.__value_.__l.__data_, dword_2582DA340, 8uLL) == 0;
+            v12 = HIBYTE(v16.__r_.__value_.__r.__words[2]);
           }
 
-          if (v11 < 0)
+          if (v12 < 0)
           {
-            operator delete(v15.__r_.__value_.__l.__data_);
+            operator delete(v16.__r_.__value_.__l.__data_);
           }
 
-          if (v10)
+          if (v11)
           {
             exception = __cxa_allocate_exception(0x30uLL);
-            std::wstring::basic_string[abi:ne200100]<0>(&v15, dword_2582DA364);
-            std::wstring::basic_string[abi:ne200100]<0>(&v14, &dword_2582D5C10);
-            std::wstring::basic_string[abi:ne200100]<0>(v13, &dword_2582D5C10);
-            blahtex::Exception::Exception(exception, &v15, i, &v14, v13);
+            std::wstring::basic_string[abi:ne200100]<0>(&v16, dword_2582DA364);
+            std::wstring::basic_string[abi:ne200100]<0>(&v15, &dword_2582D5C10);
+            std::wstring::basic_string[abi:ne200100]<0>(v14, &dword_2582D5C10);
+            blahtex::Exception::Exception(exception, &v16, i, &v15, v14);
           }
 
-          if ((*(i + 23) & 0x80000000) == 0)
+          if ((SHIBYTE(i->__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
           {
             continue;
           }
         }
 
-        if (*(i + 1) == 14 && !wmemcmp(*i, dword_2582DA3A4, 0xEuLL))
+        if (i->__r_.__value_.__l.__size_ == 14 && !wmemcmp(i->__r_.__value_.__l.__data_, dword_2582DA3A4, 0xEuLL))
         {
           *(a1 + 16) = 1;
           MEMORY[0x259C7C920](i, dword_2582D5BC4);
@@ -823,20 +823,20 @@ LABEL_17:
         continue;
       }
 
-      if (v9 > 7)
+      if (size > 7)
       {
         goto LABEL_17;
       }
     }
   }
 
-  memset(&v15, 0, sizeof(v15));
-  if ((atomic_load_explicit(&_MergedGlobals, memory_order_acquire) & 1) == 0)
+  memset(&v16, 0, sizeof(v16));
+  if ((atomic_load_explicit(_MergedGlobals, memory_order_acquire) & 1) == 0)
   {
     blahtex::Manager::ProcessInput();
   }
 
-  if ((atomic_load_explicit(&qword_27F926B10, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_27F926B10, memory_order_acquire) & 1) == 0)
   {
     blahtex::Manager::ProcessInput();
   }
@@ -855,14 +855,14 @@ LABEL_17:
     if (!a3)
     {
 LABEL_34:
-      std::__copy_impl::operator()[abi:ne200100]<blahtex::Token *,blahtex::Token *,std::back_insert_iterator<std::vector<blahtex::Token>>>(v13, qword_27F926B18, unk_27F926B20, &v15);
-      std::__copy_impl::operator()[abi:ne200100]<blahtex::Token *,blahtex::Token *,std::back_insert_iterator<std::vector<blahtex::Token>>>(v13, v16, v17, &v15);
-      v13[0] = 0;
-      blahtex::Parser::DoParse();
+      std::__copy_impl::operator()[abi:ne200100]<blahtex::Token *,blahtex::Token *,std::back_insert_iterator<std::vector<blahtex::Token>>>(v14, qword_27F926B18, unk_27F926B20, &v16);
+      std::__copy_impl::operator()[abi:ne200100]<blahtex::Token *,blahtex::Token *,std::back_insert_iterator<std::vector<blahtex::Token>>>(v14, v17, v18, &v16);
+      v14[0] = 0;
+      blahtex::Parser::DoParse(v14, &v16);
     }
   }
 
-  std::vector<blahtex::Token>::__assign_with_size[abi:ne200100]<blahtex::Token*,blahtex::Token*>(&v15, qword_27F926B30, qword_27F926B38, (qword_27F926B38 - qword_27F926B30) >> 5);
+  std::vector<blahtex::Token>::__assign_with_size[abi:ne200100]<blahtex::Token*,blahtex::Token*>(&v16, qword_27F926B30, qword_27F926B38, (qword_27F926B38 - qword_27F926B30) >> 5);
   goto LABEL_34;
 }
 
@@ -910,7 +910,7 @@ void sub_2582AFC4C(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a
   JUMPOUT(0x2582AFD7CLL);
 }
 
-void sub_2582AFC64(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, void ***a14, uint64_t a15, uint64_t a16, void **a17, uint64_t a18, uint64_t a19, uint64_t a20)
+void sub_2582AFC64(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void ***a14, uint64_t a15, uint64_t a16, void **a17, uint64_t a18, uint64_t a19, uint64_t a20)
 {
   if (a2 == 1)
   {
@@ -918,7 +918,7 @@ void sub_2582AFC64(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
     if (std::operator==[abi:ne200100]<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>(v21, dword_2582DA3E0))
     {
       *(v20 + 17) = 1;
-      blahtex::Exception::operator=(v20 + 24, v21);
+      blahtex::Exception::operator=((v20 + 24), v21);
       v22 = *(v20 + 8);
       *(v20 + 8) = 0;
       if (v22)
@@ -942,10 +942,10 @@ void sub_2582AFC64(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
   JUMPOUT(0x2582AFD8CLL);
 }
 
-void sub_2582AFD14(uint64_t a1, uint64_t a2, ...)
+void sub_2582AFD14(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
 {
-  va_start(va, a2);
-  __cxa_free_exception(v2);
+  va_start(va, a4);
+  __cxa_free_exception(v4);
   __cxa_end_catch();
   blahtex::Parser::~Parser(va);
   JUMPOUT(0x2582AFD60);
@@ -958,12 +958,12 @@ void ___ZN7blahtex7Manager12ProcessInputERKNSt3__112basic_stringIwNS1_11char_tra
   blahtex::Tokenise(&blahtex::Manager::gStandardMacros, &qword_27F926B18, 0);
 }
 
-uint64_t blahtex::Exception::operator=(uint64_t a1, uint64_t a2)
+std::wstring *blahtex::Exception::operator=(std::wstring *a1, uint64_t a2)
 {
   std::wstring::operator=(a1, a2);
   if (a1 != a2)
   {
-    std::vector<std::wstring>::__assign_with_size[abi:ne200100]<std::wstring*,std::wstring*>((a1 + 24), *(a2 + 24), *(a2 + 32), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 32) - *(a2 + 24)) >> 3));
+    std::vector<std::wstring>::__assign_with_size[abi:ne200100]<std::wstring*,std::wstring*>(&a1[1], *(a2 + 24), *(a2 + 32), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 32) - *(a2 + 24)) >> 3));
   }
 
   return a1;
@@ -998,7 +998,7 @@ LABEL_8:
   }
 
   v9 = 0;
-  blahtex::MathmlEnvironment::MathmlEnvironment(v8, BYTE4(v10) ^ 1, 0xFFFFFFFF);
+  blahtex::MathmlEnvironment::MathmlEnvironment(v8, BYTE4(v10) ^ 1, -1);
   return (*(*v2 + 24))(v2, &v10, v8, &v9);
 }
 
@@ -1029,7 +1029,7 @@ void *std::operator<<[abi:ne200100]<wchar_t,std::char_traits<wchar_t>>(void *a1,
     v8 = *a2;
     if (*a2)
     {
-      v9 = (a2 + 1);
+      v9 = a2 + 1;
       v10 = MEMORY[0x277D82688];
       v11 = v6;
       do
@@ -1048,16 +1048,16 @@ void *std::operator<<[abi:ne200100]<wchar_t,std::char_traits<wchar_t>>(void *a1,
     }
 
     v15 = a1 + *(*a1 - 24);
-    v16 = *(v15 + 40);
-    v17 = *(v15 + 8);
-    v18 = *(v15 + 144);
+    v16 = *(v15 + 5);
+    v17 = *(v15 + 2);
+    v18 = *(v15 + 36);
     if (v18 == -1)
     {
       std::ios_base::getloc((a1 + *(*a1 - 24)));
       v19 = std::locale::use_facet(&v23, MEMORY[0x277D82688]);
       v18 = (v19->__vftable[3].__on_zero_shared)(v19, 32);
       std::locale::~locale(&v23);
-      *(v15 + 144) = v18;
+      *(v15 + 36) = v18;
     }
 
     if ((v17 & 0xB0) == 0x20)
@@ -1250,7 +1250,7 @@ std::wstring *blahtex::Exception::Exception(std::wstring *this, const blahtex::E
   this[1].__r_.__value_.__r.__words[0] = 0;
   this[1].__r_.__value_.__l.__size_ = 0;
   this[1].__r_.__value_.__r.__words[2] = 0;
-  std::vector<std::wstring>::__init_with_size[abi:ne200100]<std::wstring*,std::wstring*>(&this[1], *(a2 + 3), *(a2 + 4), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 4) - *(a2 + 3)) >> 3));
+  std::vector<std::wstring>::__init_with_size[abi:ne200100]<std::wstring*,std::wstring*>(this + 1, *(a2 + 3), *(a2 + 4), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 4) - *(a2 + 3)) >> 3));
   return this;
 }
 
@@ -1264,7 +1264,7 @@ void sub_2582B056C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<std::wstring>::__init_with_size[abi:ne200100]<std::wstring*,std::wstring*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+std::wstring *std::vector<std::wstring>::__init_with_size[abi:ne200100]<std::wstring*,std::wstring*>(std::wstring *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1294,17 +1294,17 @@ void blahtex::Parser::~Parser(blahtex::Parser *this)
   }
 }
 
-uint64_t std::unordered_set<std::wstring>::unordered_set<std::wstring_view const*>(uint64_t result, uint64_t a2, uint64_t a3)
+uint64_t std::unordered_set<std::wstring>::unordered_set<std::wstring_view const*>(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  *result = 0u;
-  *(result + 16) = 0u;
-  *(result + 32) = 1065353216;
+  *a1 = 0u;
+  *(a1 + 16) = 0u;
+  *(a1 + 32) = 1065353216;
   if (a2 != a3)
   {
-    std::__hash_table<std::wstring,std::hash<std::wstring>,std::equal_to<std::wstring>,std::allocator<std::wstring>>::__emplace_unique_impl<std::wstring_view const&>();
+    std::__hash_table<std::wstring,std::hash<std::wstring>,std::equal_to<std::wstring>,std::allocator<std::wstring>>::__emplace_unique_impl<std::wstring_view const&>(a1);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_2582B0754(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **__p, uint64_t a11)
@@ -1526,9 +1526,9 @@ void std::__hash_node_destructor<std::allocator<std::__hash_node<std::wstring,vo
   operator delete(__p);
 }
 
-uint64_t std::__hash_table<std::wstring,std::hash<std::wstring>,std::equal_to<std::wstring>,std::allocator<std::wstring>>::~__hash_table(uint64_t a1)
+void **std::__hash_table<std::wstring,std::hash<std::wstring>,std::equal_to<std::wstring>,std::allocator<std::wstring>>::~__hash_table(void **a1)
 {
-  std::__hash_table<std::wstring,std::hash<std::wstring>,std::equal_to<std::wstring>,std::allocator<std::wstring>>::__deallocate_node(a1, *(a1 + 16));
+  std::__hash_table<std::wstring,std::hash<std::wstring>,std::equal_to<std::wstring>,std::allocator<std::wstring>>::__deallocate_node(a1, a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -1657,7 +1657,7 @@ uint64_t **std::__hash_table<std::wstring,std::hash<std::wstring>,std::equal_to<
   return i;
 }
 
-void std::vector<blahtex::Token>::__assign_with_size[abi:ne200100]<blahtex::Token*,blahtex::Token*>(std::wstring **a1, std::wstring *a2, blahtex::Token *a3, unint64_t a4)
+void std::vector<blahtex::Token>::__assign_with_size[abi:ne200100]<blahtex::Token*,blahtex::Token*>(uint64_t *a1, std::wstring *a2, std::wstring *a3, unint64_t a4)
 {
   v6 = a2;
   v8 = *a1;
@@ -1708,11 +1708,11 @@ void std::vector<blahtex::Token>::__assign_with_size[abi:ne200100]<blahtex::Toke
 
     while (v12 != v8)
     {
-      v16 = *(v12 - 9);
-      v12 -= 4;
+      v16 = SHIBYTE(v12[-1].__r_.__value_.__r.__words[1]);
+      v12 = (v12 - 32);
       if (v16 < 0)
       {
-        operator delete(*v12);
+        operator delete(v12->__r_.__value_.__l.__data_);
       }
     }
 
@@ -1753,7 +1753,7 @@ void std::vector<blahtex::Token>::__vdeallocate(uint64_t a1)
   }
 }
 
-void std::vector<blahtex::Token>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<blahtex::Token>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 59))
   {
@@ -1763,7 +1763,7 @@ void std::vector<blahtex::Token>::__vallocate[abi:ne200100](uint64_t a1, unint64
   std::vector<std::string>::__throw_length_error[abi:ne200100]();
 }
 
-blahtex::Token *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<blahtex::Token>,blahtex::Token*,blahtex::Token*,blahtex::Token*>(uint64_t a1, blahtex::Token *a2, blahtex::Token *a3, blahtex::Token *this)
+std::wstring *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<blahtex::Token>,blahtex::Token*,blahtex::Token*,blahtex::Token*>(uint64_t a1, const std::wstring *a2, const std::wstring *a3, std::wstring *this)
 {
   v4 = this;
   v10 = this;
@@ -1791,7 +1791,7 @@ blahtex::Token *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allo
   return v4;
 }
 
-blahtex::Token *std::__copy_impl::operator()[abi:ne200100]<blahtex::Token *,blahtex::Token *,std::back_insert_iterator<std::vector<blahtex::Token>>>(int a1, blahtex::Token *a2, blahtex::Token *a3, uint64_t a4)
+const std::wstring *std::__copy_impl::operator()[abi:ne200100]<blahtex::Token *,blahtex::Token *,std::back_insert_iterator<std::vector<blahtex::Token>>>(int a1, const std::wstring *a2, const std::wstring *a3, uint64_t a4)
 {
   v5 = a2;
   if (a2 != a3)
@@ -1824,22 +1824,22 @@ blahtex::Token *std::__copy_impl::operator()[abi:ne200100]<blahtex::Token *,blah
 
 void blahtex::Manager::ProcessInput()
 {
-  if (__cxa_guard_acquire(&_MergedGlobals))
+  if (__cxa_guard_acquire(_MergedGlobals))
   {
     qword_27F926B18 = 0;
     unk_27F926B20 = 0;
     qword_27F926B28 = 0;
-    __cxa_guard_release(&_MergedGlobals);
+    __cxa_guard_release(_MergedGlobals);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_27F926B10))
+  if (__cxa_guard_acquire(byte_27F926B10))
   {
     qword_27F926B30 = 0;
     unk_27F926B38 = 0;
     qword_27F926B40 = 0;
-    __cxa_guard_release(&qword_27F926B10);
+    __cxa_guard_release(byte_27F926B10);
   }
 }
 
@@ -1877,7 +1877,7 @@ void blahtex::MathmlNode::~MathmlNode(blahtex::MathmlNode *this)
   std::__tree<std::__value_type<EQKit::Font::CharacterProperty::Map::Key,EQKit::StemStretch::Config::Entry>,std::__map_value_compare<EQKit::Font::CharacterProperty::Map::Key,std::__value_type<EQKit::Font::CharacterProperty::Map::Key,EQKit::StemStretch::Config::Entry>,std::less<EQKit::Font::CharacterProperty::Map::Key>,true>,std::allocator<std::__value_type<EQKit::Font::CharacterProperty::Map::Key,EQKit::StemStretch::Config::Entry>>>::destroy(this + 8, *(this + 2));
 }
 
-uint64_t blahtex::MathmlNode::AddFontAttributes(uint64_t result, unsigned int a2, uint64_t a3)
+int *blahtex::MathmlNode::AddFontAttributes(int *result, unsigned int a2, uint64_t a3)
 {
   v4 = result;
   if (*(a3 + 5) == 1)
@@ -1895,7 +1895,7 @@ uint64_t blahtex::MathmlNode::AddFontAttributes(uint64_t result, unsigned int a2
         v13 = *(result + 55);
         if (v13 < 0)
         {
-          v13 = *(result + 40);
+          v13 = *(result + 5);
         }
 
         v9 = v13 == 1;
@@ -1916,7 +1916,7 @@ uint64_t blahtex::MathmlNode::AddFontAttributes(uint64_t result, unsigned int a2
 
         v19 = 17;
         v20 = &v19;
-        v16 = std::__tree<std::__value_type<blahtex::MathmlNode::Attribute,std::wstring>,std::__map_value_compare<blahtex::MathmlNode::Attribute,std::__value_type<blahtex::MathmlNode::Attribute,std::wstring>,std::less<blahtex::MathmlNode::Attribute>,true>,std::allocator<std::__value_type<blahtex::MathmlNode::Attribute,std::wstring>>>::__emplace_unique_key_args<blahtex::MathmlNode::Attribute,std::piecewise_construct_t const&,std::tuple<blahtex::MathmlNode::Attribute&&>,std::tuple<>>(result + 8, &v19);
+        v16 = std::__tree<std::__value_type<blahtex::MathmlNode::Attribute,std::wstring>,std::__map_value_compare<blahtex::MathmlNode::Attribute,std::__value_type<blahtex::MathmlNode::Attribute,std::wstring>,std::less<blahtex::MathmlNode::Attribute>,true>,std::allocator<std::__value_type<blahtex::MathmlNode::Attribute,std::wstring>>>::__emplace_unique_key_args<blahtex::MathmlNode::Attribute,std::piecewise_construct_t const&,std::tuple<blahtex::MathmlNode::Attribute&&>,std::tuple<>>((result + 2), &v19, &std::piecewise_construct, &v20);
         result = MEMORY[0x259C7C920](v16 + 5, v15);
       }
 
@@ -1924,7 +1924,7 @@ uint64_t blahtex::MathmlNode::AddFontAttributes(uint64_t result, unsigned int a2
       {
         v19 = 18;
         v20 = &v19;
-        v17 = std::__tree<std::__value_type<blahtex::MathmlNode::Attribute,std::wstring>,std::__map_value_compare<blahtex::MathmlNode::Attribute,std::__value_type<blahtex::MathmlNode::Attribute,std::wstring>,std::less<blahtex::MathmlNode::Attribute>,true>,std::allocator<std::__value_type<blahtex::MathmlNode::Attribute,std::wstring>>>::__emplace_unique_key_args<blahtex::MathmlNode::Attribute,std::piecewise_construct_t const&,std::tuple<blahtex::MathmlNode::Attribute&&>,std::tuple<>>(v4 + 8, &v19);
+        v17 = std::__tree<std::__value_type<blahtex::MathmlNode::Attribute,std::wstring>,std::__map_value_compare<blahtex::MathmlNode::Attribute,std::__value_type<blahtex::MathmlNode::Attribute,std::wstring>,std::less<blahtex::MathmlNode::Attribute>,true>,std::allocator<std::__value_type<blahtex::MathmlNode::Attribute,std::wstring>>>::__emplace_unique_key_args<blahtex::MathmlNode::Attribute,std::piecewise_construct_t const&,std::tuple<blahtex::MathmlNode::Attribute&&>,std::tuple<>>(v4 + 8, &v19, &std::piecewise_construct, &v20);
         result = MEMORY[0x259C7C920](v17 + 5, "b");
       }
 
@@ -1937,7 +1937,7 @@ uint64_t blahtex::MathmlNode::AddFontAttributes(uint64_t result, unsigned int a2
 
         v19 = 16;
         v20 = &v19;
-        v6 = std::__tree<std::__value_type<blahtex::MathmlNode::Attribute,std::wstring>,std::__map_value_compare<blahtex::MathmlNode::Attribute,std::__value_type<blahtex::MathmlNode::Attribute,std::wstring>,std::less<blahtex::MathmlNode::Attribute>,true>,std::allocator<std::__value_type<blahtex::MathmlNode::Attribute,std::wstring>>>::__emplace_unique_key_args<blahtex::MathmlNode::Attribute,std::piecewise_construct_t const&,std::tuple<blahtex::MathmlNode::Attribute&&>,std::tuple<>>(v4 + 8, &v19);
+        v6 = std::__tree<std::__value_type<blahtex::MathmlNode::Attribute,std::wstring>,std::__map_value_compare<blahtex::MathmlNode::Attribute,std::__value_type<blahtex::MathmlNode::Attribute,std::wstring>,std::less<blahtex::MathmlNode::Attribute>,true>,std::allocator<std::__value_type<blahtex::MathmlNode::Attribute,std::wstring>>>::__emplace_unique_key_args<blahtex::MathmlNode::Attribute,std::piecewise_construct_t const&,std::tuple<blahtex::MathmlNode::Attribute&&>,std::tuple<>>(v4 + 8, &v19, &std::piecewise_construct, &v20);
         v7 = "m";
       }
 
@@ -1945,7 +1945,7 @@ uint64_t blahtex::MathmlNode::AddFontAttributes(uint64_t result, unsigned int a2
       {
         v19 = 16;
         v20 = &v19;
-        v6 = std::__tree<std::__value_type<blahtex::MathmlNode::Attribute,std::wstring>,std::__map_value_compare<blahtex::MathmlNode::Attribute,std::__value_type<blahtex::MathmlNode::Attribute,std::wstring>,std::less<blahtex::MathmlNode::Attribute>,true>,std::allocator<std::__value_type<blahtex::MathmlNode::Attribute,std::wstring>>>::__emplace_unique_key_args<blahtex::MathmlNode::Attribute,std::piecewise_construct_t const&,std::tuple<blahtex::MathmlNode::Attribute&&>,std::tuple<>>(v4 + 8, &v19);
+        v6 = std::__tree<std::__value_type<blahtex::MathmlNode::Attribute,std::wstring>,std::__map_value_compare<blahtex::MathmlNode::Attribute,std::__value_type<blahtex::MathmlNode::Attribute,std::wstring>,std::less<blahtex::MathmlNode::Attribute>,true>,std::allocator<std::__value_type<blahtex::MathmlNode::Attribute,std::wstring>>>::__emplace_unique_key_args<blahtex::MathmlNode::Attribute,std::piecewise_construct_t const&,std::tuple<blahtex::MathmlNode::Attribute&&>,std::tuple<>>(v4 + 8, &v19, &std::piecewise_construct, &v20);
         v7 = "s";
       }
     }
@@ -1961,7 +1961,7 @@ uint64_t blahtex::MathmlNode::AddFontAttributes(uint64_t result, unsigned int a2
 
       v19 = 18;
       v20 = &v19;
-      v6 = std::__tree<std::__value_type<blahtex::MathmlNode::Attribute,std::wstring>,std::__map_value_compare<blahtex::MathmlNode::Attribute,std::__value_type<blahtex::MathmlNode::Attribute,std::wstring>,std::less<blahtex::MathmlNode::Attribute>,true>,std::allocator<std::__value_type<blahtex::MathmlNode::Attribute,std::wstring>>>::__emplace_unique_key_args<blahtex::MathmlNode::Attribute,std::piecewise_construct_t const&,std::tuple<blahtex::MathmlNode::Attribute&&>,std::tuple<>>(result + 8, &v19);
+      v6 = std::__tree<std::__value_type<blahtex::MathmlNode::Attribute,std::wstring>,std::__map_value_compare<blahtex::MathmlNode::Attribute,std::__value_type<blahtex::MathmlNode::Attribute,std::wstring>,std::less<blahtex::MathmlNode::Attribute>,true>,std::allocator<std::__value_type<blahtex::MathmlNode::Attribute,std::wstring>>>::__emplace_unique_key_args<blahtex::MathmlNode::Attribute,std::piecewise_construct_t const&,std::tuple<blahtex::MathmlNode::Attribute&&>,std::tuple<>>((result + 2), &v19, &std::piecewise_construct, &v20);
       v7 = "b";
     }
 
@@ -1980,7 +1980,7 @@ uint64_t blahtex::MathmlNode::AddFontAttributes(uint64_t result, unsigned int a2
       v10 = *(result + 55);
       if (v10 < 0)
       {
-        v10 = *(result + 40);
+        v10 = *(result + 5);
       }
 
       v8 = 2 * (v10 == 1);
@@ -1991,7 +1991,7 @@ uint64_t blahtex::MathmlNode::AddFontAttributes(uint64_t result, unsigned int a2
       v11 = &(&blahtex::gMathmlFontStrings)[2 * a2];
       v19 = 2;
       v20 = &v19;
-      v12 = std::__tree<std::__value_type<blahtex::MathmlNode::Attribute,std::wstring>,std::__map_value_compare<blahtex::MathmlNode::Attribute,std::__value_type<blahtex::MathmlNode::Attribute,std::wstring>,std::less<blahtex::MathmlNode::Attribute>,true>,std::allocator<std::__value_type<blahtex::MathmlNode::Attribute,std::wstring>>>::__emplace_unique_key_args<blahtex::MathmlNode::Attribute,std::piecewise_construct_t const&,std::tuple<blahtex::MathmlNode::Attribute&&>,std::tuple<>>(result + 8, &v19);
+      v12 = std::__tree<std::__value_type<blahtex::MathmlNode::Attribute,std::wstring>,std::__map_value_compare<blahtex::MathmlNode::Attribute,std::__value_type<blahtex::MathmlNode::Attribute,std::wstring>,std::less<blahtex::MathmlNode::Attribute>,true>,std::allocator<std::__value_type<blahtex::MathmlNode::Attribute,std::wstring>>>::__emplace_unique_key_args<blahtex::MathmlNode::Attribute,std::piecewise_construct_t const&,std::tuple<blahtex::MathmlNode::Attribute&&>,std::tuple<>>((result + 2), &v19, &std::piecewise_construct, &v20);
       return MEMORY[0x259C7C930](v12 + 5, *v11, v11[1]);
     }
   }
@@ -2202,7 +2202,7 @@ LABEL_15:
 
     for (i = *(a1 + 72); i != a1 + 64; i = *(i + 8))
     {
-      blahtex::MathmlNode::Print(*(i + 16), a2, a3, a4, (v5 + 1));
+      blahtex::MathmlNode::Print(*(i + 16), a2, a3, a4, v5 + 1);
     }
 
     if (v10)
@@ -2240,33 +2240,33 @@ LABEL_34:
 void *blahtex::MathTokenTable(blahtex *this)
 {
   {
-    std::unordered_map<std::wstring,blahtex::Parser::TokenCode>::unordered_map<std::pair<std::wstring_view,blahtex::Parser::TokenCode> const*>(&blahtex::MathTokenTable(void)::gMathTokenTable, &blahtex::gMathTokenArray, (&blahtex::gMathTokenArray + 2127));
+    std::unordered_map<std::wstring,blahtex::Parser::TokenCode>::unordered_map<std::pair<std::wstring_view,blahtex::Parser::TokenCode> const*>(blahtex::MathTokenTable(void)::gMathTokenTable, &blahtex::gMathTokenArray, (&blahtex::gMathTokenArray + 2127));
   }
 
-  return &blahtex::MathTokenTable(void)::gMathTokenTable;
+  return blahtex::MathTokenTable(void)::gMathTokenTable;
 }
 
 void *blahtex::TextTokenTable(blahtex *this)
 {
   {
-    std::unordered_map<std::wstring,blahtex::Parser::TokenCode>::unordered_map<std::pair<std::wstring_view,blahtex::Parser::TokenCode> const*>(&blahtex::TextTokenTable(void)::gTextTokenTable, &blahtex::gTextTokenArray, &blahtex::gDelimiterArray);
+    std::unordered_map<std::wstring,blahtex::Parser::TokenCode>::unordered_map<std::pair<std::wstring_view,blahtex::Parser::TokenCode> const*>(blahtex::TextTokenTable(void)::gTextTokenTable, &blahtex::gTextTokenArray, &blahtex::gDelimiterArray);
   }
 
-  return &blahtex::TextTokenTable(void)::gTextTokenTable;
+  return blahtex::TextTokenTable(void)::gTextTokenTable;
 }
 
-uint64_t blahtex::Parser::GetMathTokenCode(blahtex::Parser *this, const blahtex::Token *a2)
+uint64_t blahtex::Parser::GetMathTokenCode(blahtex::Parser *this, const std::wstring *a2)
 {
   blahtex::MathTokenTable(this);
-  blahtex::translateToken(a2, v24);
-  v3 = std::__hash_table<std::wstring,std::hash<std::wstring>,std::equal_to<std::wstring>,std::allocator<std::wstring>>::find<std::wstring>(blahtex::MathTokenTable(void)::gMathTokenTable, v24);
+  blahtex::translateToken(a2, &v24);
+  v3 = std::__hash_table<std::wstring,std::hash<std::wstring>,std::equal_to<std::wstring>,std::allocator<std::wstring>>::find<std::wstring>(blahtex::MathTokenTable(void)::gMathTokenTable, &v24);
   if (v3)
   {
     v4 = *(v3 + 10);
     if (v4 == 3)
     {
       std::wstring::basic_string[abi:ne200100]<0>(__p, &unk_2582DAD74);
-      if (blahtex::Token::operator==(v24, __p))
+      if (blahtex::Token::operator==(&v24, __p))
       {
         v8 = 1;
       }
@@ -2274,7 +2274,7 @@ uint64_t blahtex::Parser::GetMathTokenCode(blahtex::Parser *this, const blahtex:
       else
       {
         std::wstring::basic_string[abi:ne200100]<0>(v20, &unk_2582DAD7C);
-        if (blahtex::Token::operator==(v24, v20))
+        if (blahtex::Token::operator==(&v24, v20))
         {
           v8 = 1;
         }
@@ -2282,7 +2282,7 @@ uint64_t blahtex::Parser::GetMathTokenCode(blahtex::Parser *this, const blahtex:
         else
         {
           std::wstring::basic_string[abi:ne200100]<0>(v18, &unk_2582DAD84);
-          v8 = blahtex::Token::operator==(v24, v18);
+          v8 = blahtex::Token::operator==(&v24, v18);
           if (v19 < 0)
           {
             operator delete(v18[0]);
@@ -2304,13 +2304,13 @@ uint64_t blahtex::Parser::GetMathTokenCode(blahtex::Parser *this, const blahtex:
       {
         exception = __cxa_allocate_exception(0x30uLL);
         std::wstring::basic_string[abi:ne200100]<0>(__p, dword_2582DAD8C);
-        std::operator+<wchar_t>(&unk_2582DAE10, v24, v20);
+        std::operator+<wchar_t>(&unk_2582DAE10, &v24, v20);
         std::wstring::basic_string[abi:ne200100]<0>(v18, &dword_2582DAE18);
         blahtex::Exception::Exception(exception, __p, a2, v20, v18);
       }
 
       std::wstring::basic_string[abi:ne200100]<0>(__p, &unk_2582DAE1C);
-      if (blahtex::Token::operator==(v24, __p))
+      if (blahtex::Token::operator==(&v24, __p))
       {
         v14 = 1;
       }
@@ -2318,7 +2318,7 @@ uint64_t blahtex::Parser::GetMathTokenCode(blahtex::Parser *this, const blahtex:
       else
       {
         std::wstring::basic_string[abi:ne200100]<0>(v20, &unk_2582DAE24);
-        v14 = blahtex::Token::operator==(v24, v20);
+        v14 = blahtex::Token::operator==(&v24, v20);
         if (v21 < 0)
         {
           operator delete(v20[0]);
@@ -2344,7 +2344,7 @@ uint64_t blahtex::Parser::GetMathTokenCode(blahtex::Parser *this, const blahtex:
       __cxa_throw(v16, MEMORY[0x277D82750], MEMORY[0x277D825D8]);
     }
 
-    if (v25 < 0)
+    if ((*(&v24.__r_.__value_.__s + 23) & 0x80) != 0)
     {
       goto LABEL_24;
     }
@@ -2352,16 +2352,16 @@ uint64_t blahtex::Parser::GetMathTokenCode(blahtex::Parser *this, const blahtex:
     return v4;
   }
 
-  if ((v25 & 0x80000000) == 0)
+  if ((SHIBYTE(v24.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
-    v5 = v24[0];
-    if (LODWORD(v24[0]) != 92)
+    v5 = v24.__r_.__value_.__s.__data_[0];
+    if (v24.__r_.__value_.__s.__data_[0] != 92)
     {
-      if (SLODWORD(v24[0]) < 128)
+      if (v24.__r_.__value_.__s.__data_[0] < 128)
       {
-        if (SLODWORD(v24[0]) > 96)
+        if (v24.__r_.__value_.__s.__data_[0] > 96)
         {
-          if (LODWORD(v24[0]) >= 0x7B)
+          if (v24.__r_.__value_.__s.__data_[0] >= 0x7Bu)
           {
             goto LABEL_32;
           }
@@ -2369,9 +2369,9 @@ uint64_t blahtex::Parser::GetMathTokenCode(blahtex::Parser *this, const blahtex:
           return 26;
         }
 
-        if (SLODWORD(v24[0]) > 64)
+        if (v24.__r_.__value_.__s.__data_[0] > 64)
         {
-          if (LODWORD(v24[0]) >= 0x5B)
+          if (v24.__r_.__value_.__s.__data_[0] >= 0x5Bu)
           {
             goto LABEL_32;
           }
@@ -2379,7 +2379,7 @@ uint64_t blahtex::Parser::GetMathTokenCode(blahtex::Parser *this, const blahtex:
           return 26;
         }
 
-        if (SLODWORD(v24[0]) < 48)
+        if (v24.__r_.__value_.__s.__data_[0] < 48)
         {
           goto LABEL_32;
         }
@@ -2398,7 +2398,7 @@ LABEL_35:
 
 LABEL_33:
     blahtex::TextTokenTable(0);
-    v11 = std::__hash_table<std::wstring,std::hash<std::wstring>,std::equal_to<std::wstring>,std::allocator<std::wstring>>::find<std::wstring>(blahtex::TextTokenTable(void)::gTextTokenTable, v24);
+    v11 = std::__hash_table<std::wstring,std::hash<std::wstring>,std::equal_to<std::wstring>,std::allocator<std::wstring>>::find<std::wstring>(blahtex::TextTokenTable(void)::gTextTokenTable, &v24);
     v12 = __cxa_allocate_exception(0x30uLL);
     if (!v11)
     {
@@ -2414,8 +2414,8 @@ LABEL_33:
     blahtex::Exception::Exception(v12, __p, a2, v20, v18);
   }
 
-  v6 = *v24[0];
-  if (*v24[0] == 92)
+  v6 = *v24.__r_.__value_.__l.__data_;
+  if (*v24.__r_.__value_.__l.__data_ == 92)
   {
     goto LABEL_33;
   }
@@ -2425,13 +2425,13 @@ LABEL_33:
     goto LABEL_35;
   }
 
-  if ((v6 - 97) < 0x1A || v6 > 64 && *v24[0] < 91)
+  if ((v6 - 97) < 0x1A || v6 > 64 && *v24.__r_.__value_.__l.__data_ < 91)
   {
     goto LABEL_23;
   }
 
-  v5 = *v24[0];
-  if (*v24[0] <= 47)
+  v5 = *v24.__r_.__value_.__l.__data_;
+  if (*v24.__r_.__value_.__l.__data_ <= 47)
   {
 LABEL_32:
     v10 = __cxa_allocate_exception(0x30uLL);
@@ -2449,10 +2449,10 @@ LABEL_22:
 
 LABEL_23:
   v4 = 26;
-  if (v25 < 0)
+  if ((*(&v24.__r_.__value_.__s + 23) & 0x80) != 0)
   {
 LABEL_24:
-    operator delete(v24[0]);
+    operator delete(v24.__r_.__value_.__l.__data_);
   }
 
   return v4;
@@ -2494,7 +2494,7 @@ LABEL_10:
   goto LABEL_10;
 }
 
-uint64_t std::operator+<wchar_t>@<X0>(const __int32 *a1@<X0>, const void **a2@<X1>, void **a3@<X8>)
+void *std::operator+<wchar_t>@<X0>(const __int32 *a1@<X0>, const void ***a2@<X1>, void ***a3@<X8>)
 {
   v6 = wcslen(a1);
   v7 = v6;
@@ -2546,7 +2546,7 @@ void blahtex::Token::~Token(void **this)
   }
 }
 
-uint64_t blahtex::Parser::GetTextTokenCode(blahtex::Parser *this, int **a2)
+uint64_t blahtex::Parser::GetTextTokenCode(blahtex::Parser *this, const void **a2)
 {
   blahtex::TextTokenTable(this);
   v3 = std::__hash_table<std::wstring,std::hash<std::wstring>,std::equal_to<std::wstring>,std::allocator<std::wstring>>::find<std::wstring>(blahtex::TextTokenTable(void)::gTextTokenTable, a2);
@@ -2851,11 +2851,11 @@ LABEL_12:
   goto LABEL_12;
 }
 
-void blahtex::Parser::ParseMathList(uint64_t *__return_ptr a1@<X8>, blahtex::Parser *this@<X0>)
+void blahtex::Parser::ParseMathList(blahtex::Parser *this)
 {
-  v2 = MEMORY[0x28223BE20](a1, this);
-  v5 = v3;
+  v1 = MEMORY[0x28223BE20](this);
   v4 = v2;
+  v3 = v1;
   operator new();
 }
 
@@ -2874,14 +2874,14 @@ uint64_t *std::unique_ptr<blahtex::ParseTree::MathNode>::~unique_ptr[abi:ne20010
 void blahtex::Parser::ParseMathField(blahtex::MacroProcessor **this)
 {
   blahtex::MacroProcessor::SkipWhitespace(*this);
-  blahtex::MacroProcessor::Get(*this, __p);
-  blahtex::translateToken(__p, v14);
-  if (v13 < 0)
+  blahtex::MacroProcessor::Get(*this, &__p);
+  blahtex::translateToken(&__p, &v14);
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(__p[0]);
+    operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  MathTokenCode = blahtex::Parser::GetMathTokenCode(v2, v14);
+  MathTokenCode = blahtex::Parser::GetMathTokenCode(v3, &v14);
   if (MathTokenCode != 4)
   {
     if (MathTokenCode == 26)
@@ -2892,47 +2892,47 @@ void blahtex::Parser::ParseMathField(blahtex::MacroProcessor **this)
     if (!MathTokenCode)
     {
       exception = __cxa_allocate_exception(0x30uLL);
-      std::wstring::basic_string[abi:ne200100]<0>(__p, dword_2582DB260);
+      std::wstring::basic_string[abi:ne200100]<0>(&__p, dword_2582DB260);
+      std::wstring::basic_string[abi:ne200100]<0>(v11, &dword_2582DAE18);
       std::wstring::basic_string[abi:ne200100]<0>(v10, &dword_2582DAE18);
       std::wstring::basic_string[abi:ne200100]<0>(v9, &dword_2582DAE18);
-      std::wstring::basic_string[abi:ne200100]<0>(v8, &dword_2582DAE18);
-      blahtex::Exception::Exception(exception, __p, v10, v9, v8);
+      blahtex::Exception::Exception(exception, &__p, v11, v10, v9);
     }
 
-    v6 = __cxa_allocate_exception(0x30uLL);
-    std::wstring::basic_string[abi:ne200100]<0>(__p, dword_2582DB2B8);
+    v7 = __cxa_allocate_exception(0x30uLL);
+    std::wstring::basic_string[abi:ne200100]<0>(&__p, dword_2582DB2B8);
+    std::wstring::basic_string[abi:ne200100]<0>(v11, &dword_2582DAE18);
     std::wstring::basic_string[abi:ne200100]<0>(v10, &dword_2582DAE18);
-    std::wstring::basic_string[abi:ne200100]<0>(v9, &dword_2582DAE18);
-    blahtex::Exception::Exception(v6, __p, v14, v10, v9);
+    blahtex::Exception::Exception(v7, &__p, &v14, v11, v10);
   }
 
   blahtex::Parser::ParseMathList(this);
-  blahtex::MacroProcessor::Get(*this, __p);
-  std::wstring::basic_string[abi:ne200100]<0>(v10, &unk_2582DB20C);
-  v4 = std::operator!=[abi:ne200100]<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>(__p, v10);
-  if (v11 < 0)
+  blahtex::MacroProcessor::Get(*this, &__p);
+  std::wstring::basic_string[abi:ne200100]<0>(v11, &unk_2582DB20C);
+  v5 = std::operator!=[abi:ne200100]<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>(&__p, v11);
+  if (v12 < 0)
   {
-    operator delete(v10[0]);
+    operator delete(v11[0]);
   }
 
-  if (v13 < 0)
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(__p[0]);
+    operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  if (v4)
+  if (v5)
   {
-    v7 = __cxa_allocate_exception(0x30uLL);
-    std::wstring::basic_string[abi:ne200100]<0>(__p, dword_2582DB214);
+    v8 = __cxa_allocate_exception(0x30uLL);
+    std::wstring::basic_string[abi:ne200100]<0>(&__p, dword_2582DB214);
+    std::wstring::basic_string[abi:ne200100]<0>(v11, &dword_2582DAE18);
     std::wstring::basic_string[abi:ne200100]<0>(v10, &dword_2582DAE18);
     std::wstring::basic_string[abi:ne200100]<0>(v9, &dword_2582DAE18);
-    std::wstring::basic_string[abi:ne200100]<0>(v8, &dword_2582DAE18);
-    blahtex::Exception::Exception(v7, __p, v10, v9, v8);
+    blahtex::Exception::Exception(v8, &__p, v11, v10, v9);
   }
 
-  if (v15 < 0)
+  if (SHIBYTE(v14.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v14[0]);
+    operator delete(v14.__r_.__value_.__l.__data_);
   }
 }
 
@@ -2984,7 +2984,7 @@ LABEL_12:
   goto LABEL_12;
 }
 
-blahtex::ParseTree::MathSymbol *blahtex::ParseTree::MathSymbol::MathSymbol(blahtex::ParseTree::MathSymbol *this, const blahtex::Token *a2)
+blahtex::ParseTree::MathSymbol *blahtex::ParseTree::MathSymbol::MathSymbol(blahtex::ParseTree::MathSymbol *this, const std::wstring *a2)
 {
   *this = &unk_28696BBE8;
   blahtex::Token::Token((this + 8), a2);
@@ -3102,7 +3102,7 @@ uint64_t std::unique_ptr<blahtex::ParseTree::MathNode>::reset[abi:ne200100](uint
   return result;
 }
 
-void blahtex::Parser::ParseColourName(blahtex::MacroProcessor **this@<X0>, uint64_t a2@<X8>)
+void blahtex::Parser::ParseColourName(std::wstring *__return_ptr a1@<X8>, blahtex::MacroProcessor **this@<X0>)
 {
   blahtex::MacroProcessor::SkipWhitespace(*this);
   blahtex::MacroProcessor::Get(*this, v23);
@@ -3122,16 +3122,16 @@ void blahtex::Parser::ParseColourName(blahtex::MacroProcessor **this@<X0>, uint6
   {
     exception = __cxa_allocate_exception(0x30uLL);
     std::wstring::basic_string[abi:ne200100]<0>(v23, "M");
-    std::wstring::basic_string[abi:ne200100]<0>(__p, "\");
+    std::wstring::basic_string[abi:ne200100]<0>(__p, "\"");
     std::wstring::basic_string[abi:ne200100]<0>(v20, &dword_2582DAE18);
     std::wstring::basic_string[abi:ne200100]<0>(v19, &dword_2582DAE18);
     blahtex::Exception::Exception(exception, v23, __p, v20, v19);
   }
 
   v5 = 0;
-  *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a1->__r_.__value_.__r.__words[0] = 0;
+  a1->__r_.__value_.__l.__size_ = 0;
+  a1->__r_.__value_.__r.__words[2] = 0;
   do
   {
     while (1)
@@ -3146,13 +3146,13 @@ void blahtex::Parser::ParseColourName(blahtex::MacroProcessor **this@<X0>, uint6
         if (v7)
         {
 LABEL_9:
-          if (blahtex::lookupColour(a2) == 0x10000000)
+          if (blahtex::lookupColour(a1) == 0x10000000)
           {
             v15 = __cxa_allocate_exception(0x30uLL);
             std::wstring::basic_string[abi:ne200100]<0>(__p, "I");
             std::wstring::basic_string[abi:ne200100]<0>(v20, &dword_2582DAE18);
             std::wstring::basic_string[abi:ne200100]<0>(v19, &dword_2582DAE18);
-            blahtex::Exception::Exception(v15, __p, a2, v20, v19);
+            blahtex::Exception::Exception(v15, __p, a1, v20, v19);
           }
 
           v5 = 1;
@@ -3185,7 +3185,7 @@ LABEL_9:
 
       v10 = (v24 & 0x80u) == 0 ? v23 : v23[0];
       v11 = (v24 & 0x80u) == 0 ? v24 : v23[1];
-      std::wstring::append(a2, v10, v11);
+      std::wstring::append(a1, v10, v11);
       v8 = v24;
       if (v24 < 0)
       {
@@ -3254,7 +3254,7 @@ LABEL_35:
 LABEL_43:
       v14 = __cxa_allocate_exception(0x30uLL);
       std::wstring::basic_string[abi:ne200100]<0>(__p, "I");
-      std::operator+[abi:ne200100]<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>(".", a2, v20);
+      std::operator+[abi:ne200100]<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>(v20, ".", &a1->__r_.__value_.__l.__data_);
       std::wstring::basic_string[abi:ne200100]<0>(v19, &dword_2582DAE18);
       std::wstring::basic_string[abi:ne200100]<0>(v18, &dword_2582DAE18);
       blahtex::Exception::Exception(v14, __p, v20, v19, v18);
@@ -3271,9 +3271,9 @@ LABEL_36:
 
   while (!v7);
 LABEL_40:
-  if (!(v5 & 1 | (*(a2 + 23) >= 0)))
+  if (!(v5 & 1 | ((a1->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)))
   {
-    operator delete(*a2);
+    operator delete(a1->__r_.__value_.__l.__data_);
   }
 }
 
@@ -3324,46 +3324,46 @@ uint64_t std::wstring::size[abi:ne200100](uint64_t a1)
   return result;
 }
 
-uint64_t std::operator+[abi:ne200100]<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>@<X0>(__int32 *a1@<X1>, const void **a2@<X0>, void **a3@<X8>)
+uint64_t *std::operator+[abi:ne200100]<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>@<X0>(uint64_t ***__return_ptr a1@<X8>, __int32 *a2@<X1>, const void **a3@<X0>)
 {
-  if (*(a2 + 23) >= 0)
+  if (*(a3 + 23) >= 0)
   {
-    v6 = *(a2 + 23);
+    v6 = *(a3 + 23);
   }
 
   else
   {
-    v6 = a2[1];
+    v6 = a3[1];
   }
 
-  v7 = wcslen(a1);
-  result = std::wstring::basic_string[abi:ne200100](a3, v6 + v7);
-  if (*(a3 + 23) < 0)
+  v7 = wcslen(a2);
+  result = std::wstring::basic_string[abi:ne200100](a1, v6 + v7);
+  if (*(a1 + 23) < 0)
   {
-    a3 = *a3;
+    a1 = *a1;
   }
 
   if (v6)
   {
-    if (*(a2 + 23) >= 0)
+    if (*(a3 + 23) >= 0)
     {
-      v9 = a2;
+      v9 = a3;
     }
 
     else
     {
-      v9 = *a2;
+      v9 = *a3;
     }
 
-    result = memmove(a3, v9, 4 * v6);
+    result = memmove(a1, v9, 4 * v6);
   }
 
   if (v7)
   {
-    result = memmove(a3 + 4 * v6, a1, 4 * v7);
+    result = memmove(a1 + 4 * v6, a2, 4 * v7);
   }
 
-  *(a3 + v6 + v7) = 0;
+  *(a1 + v6 + v7) = 0;
   return result;
 }
 
@@ -3395,7 +3395,7 @@ void *std::unique_ptr<blahtex::ParseTree::MathNode>::unique_ptr[abi:ne200100]<bl
   return result;
 }
 
-uint64_t blahtex::ParseTree::MathCommand2Args::MathCommand2Args(uint64_t a1, const blahtex::Token *a2, uint64_t *a3, uint64_t *a4, char a5)
+uint64_t blahtex::ParseTree::MathCommand2Args::MathCommand2Args(uint64_t a1, const std::wstring *a2, uint64_t *a3, uint64_t *a4, char a5)
 {
   *a1 = &unk_28696B6E8;
   blahtex::Token::Token((a1 + 8), a2);
@@ -3468,7 +3468,7 @@ uint64_t std::__wrap_iter<blahtex::ParseTree::MathTableRow **>::operator++[abi:n
   return v1;
 }
 
-uint64_t blahtex::ParseTree::MathEnvironment::MathEnvironment(uint64_t a1, const blahtex::Token *a2, uint64_t *a3, char a4)
+uint64_t blahtex::ParseTree::MathEnvironment::MathEnvironment(uint64_t a1, const std::wstring *a2, uint64_t *a3, char a4)
 {
   *a1 = &unk_28696B968;
   blahtex::Token::Token((a1 + 8), a2);
@@ -3554,7 +3554,7 @@ LABEL_12:
   goto LABEL_12;
 }
 
-void *blahtex::ParseTree::EnterTextMode::EnterTextMode(void *a1, const blahtex::Token *a2, uint64_t *a3)
+void *blahtex::ParseTree::EnterTextMode::EnterTextMode(void *a1, const std::wstring *a2, uint64_t *a3)
 {
   *a1 = &unk_28696B9B8;
   blahtex::Token::Token((a1 + 1), a2);
@@ -3592,7 +3592,7 @@ char *std::wstring::operator std::wstring_view[abi:ne200100](char *result)
   return result;
 }
 
-blahtex::ParseTree::MathMiddle *blahtex::ParseTree::MathMiddle::MathMiddle(blahtex::ParseTree::MathMiddle *this, const blahtex::Token *a2)
+blahtex::ParseTree::MathMiddle *blahtex::ParseTree::MathMiddle::MathMiddle(blahtex::ParseTree::MathMiddle *this, const std::wstring *a2)
 {
   *this = &unk_28696B738;
   blahtex::Token::Token((this + 8), a2);
@@ -3613,7 +3613,7 @@ uint64_t *std::unique_ptr<blahtex::ParseTree::MathNode>::operator=[abi:ne200100]
   return a1;
 }
 
-void *blahtex::ParseTree::MathLimits::MathLimits(void *a1, const blahtex::Token *a2, uint64_t *a3)
+void *blahtex::ParseTree::MathLimits::MathLimits(void *a1, const std::wstring *a2, uint64_t *a3)
 {
   *a1 = &unk_28696B8C8;
   blahtex::Token::Token((a1 + 1), a2);
@@ -3623,14 +3623,14 @@ void *blahtex::ParseTree::MathLimits::MathLimits(void *a1, const blahtex::Token 
   return a1;
 }
 
-blahtex::ParseTree::MathStateChange *blahtex::ParseTree::MathStateChange::MathStateChange(blahtex::ParseTree::MathStateChange *this, const blahtex::Token *a2)
+blahtex::ParseTree::MathStateChange *blahtex::ParseTree::MathStateChange::MathStateChange(blahtex::ParseTree::MathStateChange *this, const std::wstring *a2)
 {
   *this = &unk_28696BD18;
   blahtex::Token::Token((this + 8), a2);
   return this;
 }
 
-void *blahtex::ParseTree::MathCommand1Arg::MathCommand1Arg(void *a1, const blahtex::Token *a2, uint64_t *a3)
+void *blahtex::ParseTree::MathCommand1Arg::MathCommand1Arg(void *a1, const std::wstring *a2, uint64_t *a3)
 {
   *a1 = &unk_28696B698;
   blahtex::Token::Token((a1 + 1), a2);
@@ -3677,14 +3677,14 @@ LABEL_12:
   goto LABEL_12;
 }
 
-void *blahtex::ParseTree::MathDelimited::MathDelimited(void *a1, uint64_t *a2, blahtex::Token *a3, const blahtex::Token *a4)
+void *blahtex::ParseTree::MathDelimited::MathDelimited(void *a1, uint64_t *a2, const std::wstring *a3, const std::wstring *a4)
 {
   v6 = *a2;
   *a2 = 0;
   *a1 = &unk_28696B918;
   a1[1] = v6;
   blahtex::Token::Token((a1 + 2), a3);
-  blahtex::Token::Token((a1 + 6), a4);
+  blahtex::Token::Token(a1 + 2, a4);
   return a1;
 }
 
@@ -3705,7 +3705,7 @@ void sub_2582B97CC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-blahtex::ParseTree::MathBig *blahtex::ParseTree::MathBig::MathBig(blahtex::ParseTree::MathBig *this, const blahtex::Token *a2, const blahtex::Token *a3)
+blahtex::ParseTree::MathBig *blahtex::ParseTree::MathBig::MathBig(blahtex::ParseTree::MathBig *this, const std::wstring *a2, const std::wstring *a3)
 {
   *this = &unk_28696B788;
   v5 = (this + 40);
@@ -3724,20 +3724,20 @@ void sub_2582B9884(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-blahtex::ParseTree::MathColour *blahtex::ParseTree::MathColour::MathColour(blahtex::ParseTree::MathColour *this, const blahtex::Token *a2)
+blahtex::ParseTree::MathColour *blahtex::ParseTree::MathColour::MathColour(blahtex::ParseTree::MathColour *this, const std::wstring *a2)
 {
-  std::wstring::basic_string[abi:ne200100]<0>(v5, "\");
-  blahtex::Token::Token(__p, v5, 0);
+  std::wstring::basic_string[abi:ne200100]<0>(&v5, "\"");
+  blahtex::Token::Token(&__p, &v5, 0);
   *this = &unk_28696BD18;
-  blahtex::Token::Token((this + 8), __p);
-  if (v8 < 0)
+  blahtex::Token::Token((this + 8), &__p);
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(__p[0]);
+    operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  if (v6 < 0)
+  if (SHIBYTE(v5.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v5[0]);
+    operator delete(v5.__r_.__value_.__l.__data_);
   }
 
   *this = &unk_28696BD70;
@@ -3756,20 +3756,20 @@ void sub_2582B9970(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-blahtex::ParseTree::TextColour *blahtex::ParseTree::TextColour::TextColour(blahtex::ParseTree::TextColour *this, const blahtex::Token *a2)
+blahtex::ParseTree::TextColour *blahtex::ParseTree::TextColour::TextColour(blahtex::ParseTree::TextColour *this, const std::wstring *a2)
 {
-  std::wstring::basic_string[abi:ne200100]<0>(v5, "\");
-  blahtex::Token::Token(__p, v5, 0);
+  std::wstring::basic_string[abi:ne200100]<0>(&v5, "\"");
+  blahtex::Token::Token(&__p, &v5, 0);
   *this = &unk_28696BDC8;
-  blahtex::Token::Token((this + 8), __p);
-  if (v8 < 0)
+  blahtex::Token::Token((this + 8), &__p);
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(__p[0]);
+    operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  if (v6 < 0)
+  if (SHIBYTE(v5.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v5[0]);
+    operator delete(v5.__r_.__value_.__l.__data_);
   }
 
   *this = &unk_28696BE20;
@@ -3788,17 +3788,17 @@ void sub_2582B9A8C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::unordered_map<std::wstring,blahtex::Parser::TokenCode>::unordered_map<std::pair<std::wstring_view,blahtex::Parser::TokenCode> const*>(uint64_t result, uint64_t a2, uint64_t a3)
+uint64_t std::unordered_map<std::wstring,blahtex::Parser::TokenCode>::unordered_map<std::pair<std::wstring_view,blahtex::Parser::TokenCode> const*>(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  *result = 0u;
-  *(result + 16) = 0u;
-  *(result + 32) = 1065353216;
+  *a1 = 0u;
+  *(a1 + 16) = 0u;
+  *(a1 + 32) = 1065353216;
   if (a2 != a3)
   {
-    std::__hash_table<std::__hash_value_type<std::wstring,blahtex::Parser::TokenCode>,std::__unordered_map_hasher<std::wstring,std::__hash_value_type<std::wstring,blahtex::Parser::TokenCode>,std::hash<std::wstring>,std::equal_to<std::wstring>,true>,std::__unordered_map_equal<std::wstring,std::__hash_value_type<std::wstring,blahtex::Parser::TokenCode>,std::equal_to<std::wstring>,std::hash<std::wstring>,true>,std::allocator<std::__hash_value_type<std::wstring,blahtex::Parser::TokenCode>>>::__emplace_unique_impl<std::pair<std::wstring_view,blahtex::Parser::TokenCode> const&>();
+    std::__hash_table<std::__hash_value_type<std::wstring,blahtex::Parser::TokenCode>,std::__unordered_map_hasher<std::wstring,std::__hash_value_type<std::wstring,blahtex::Parser::TokenCode>,std::hash<std::wstring>,std::equal_to<std::wstring>,true>,std::__unordered_map_equal<std::wstring,std::__hash_value_type<std::wstring,blahtex::Parser::TokenCode>,std::equal_to<std::wstring>,std::hash<std::wstring>,true>,std::allocator<std::__hash_value_type<std::wstring,blahtex::Parser::TokenCode>>>::__emplace_unique_impl<std::pair<std::wstring_view,blahtex::Parser::TokenCode> const&>(a1);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_2582B9BB8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **__p, uint64_t a11)
@@ -3818,7 +3818,7 @@ void sub_2582B9CE8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t std::wstring::basic_string[abi:ne200100](uint64_t result, unint64_t a2)
+uint64_t std::wstring::basic_string[abi:ne200100](uint64_t a1, unint64_t a2)
 {
   if (a2 >= 0x3FFFFFFFFFFFFFF8)
   {
@@ -3845,11 +3845,11 @@ uint64_t std::wstring::basic_string[abi:ne200100](uint64_t result, unint64_t a2)
     std::__throw_bad_array_new_length[abi:ne200100]();
   }
 
-  *(result + 8) = 0;
-  *(result + 16) = 0;
-  *result = 0;
-  *(result + 23) = a2;
-  return result;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *a1 = 0;
+  *(a1 + 23) = a2;
+  return a1;
 }
 
 blahtex::Token *blahtex::Token::Token(blahtex::Token *this)
@@ -3874,8 +3874,7 @@ void sub_2582B9DD8(_Unwind_Exception *exception_object)
 
 std::wstring *blahtex::Token::Token(std::wstring *a1, const std::wstring *a2, std::wstring::size_type a3)
 {
-  a1->__r_.__value_.__r.__words[0] = 0;
-  a1->__r_.__value_.__l.__size_ = 0;
+  *&a1->__r_.__value_.__l.__data_ = 0uLL;
   a1->__r_.__value_.__r.__words[2] = 0;
   std::wstring::operator=(a1, a2);
   a1[1].__r_.__value_.__r.__words[0] = a3;
@@ -3894,8 +3893,7 @@ void sub_2582B9E30(_Unwind_Exception *exception_object)
 
 std::wstring *blahtex::Token::Token(std::wstring *this, const std::wstring *a2)
 {
-  this->__r_.__value_.__r.__words[0] = 0;
-  this->__r_.__value_.__l.__size_ = 0;
+  *&this->__r_.__value_.__l.__data_ = 0uLL;
   this->__r_.__value_.__r.__words[2] = 0;
   std::wstring::operator=(this, a2);
   this[1].__r_.__value_.__r.__words[0] = a2[1].__r_.__value_.__r.__words[0];
@@ -4342,56 +4340,30 @@ LABEL_11:
 
 void blahtex::ParseTree::MathCommand2Args::BuildLayoutTree(uint64_t a1, __int128 *a2)
 {
+  std::wstring::basic_string[abi:ne200100]<0>(&v28, &dword_2582E1B08);
   std::wstring::basic_string[abi:ne200100]<0>(&v27, &dword_2582E1B08);
-  std::wstring::basic_string[abi:ne200100]<0>(&v26, &dword_2582E1B08);
-  std::wstring::basic_string[abi:ne200100]<0>(v22, dword_2582E25C4);
-  if (blahtex::Token::operator==((a1 + 8), v22))
+  std::wstring::basic_string[abi:ne200100]<0>(v23, dword_2582E25C4);
+  if (blahtex::Token::operator==((a1 + 8), v23))
   {
-    v4 = 1;
+    v5 = 1;
   }
 
   else
   {
     std::wstring::basic_string[abi:ne200100]<0>(__p, dword_2582E25DC);
-    v4 = blahtex::Token::operator==((a1 + 8), __p);
-    if (SHIBYTE(v21) < 0)
+    v5 = blahtex::Token::operator==((a1 + 8), __p);
+    if (SHIBYTE(v22) < 0)
     {
       operator delete(__p[0]);
     }
   }
 
-  if (SHIBYTE(v23) < 0)
+  if (SHIBYTE(v24) < 0)
   {
-    operator delete(v22[0]);
-    if (v4)
+    operator delete(v23[0]);
+    if (v5)
     {
       goto LABEL_30;
-    }
-  }
-
-  else if (v4)
-  {
-    goto LABEL_30;
-  }
-
-  std::wstring::basic_string[abi:ne200100]<0>(v22, dword_2582E25F4);
-  v5 = blahtex::Token::operator==((a1 + 8), v22);
-  v6 = v5;
-  if (SHIBYTE(v23) < 0)
-  {
-    operator delete(v22[0]);
-    if (v6)
-    {
-LABEL_30:
-      v24 = *a2;
-      v25 = *(a2 + 2);
-      v12 = *(a2 + 4);
-      if (v12 <= 2)
-      {
-        LODWORD(v25) = v12 + 1;
-      }
-
-      operator new();
     }
   }
 
@@ -4400,168 +4372,194 @@ LABEL_30:
     goto LABEL_30;
   }
 
-  std::wstring::basic_string[abi:ne200100]<0>(v22, dword_2582E260C);
-  if (blahtex::Token::operator==((a1 + 8), v22))
+  std::wstring::basic_string[abi:ne200100]<0>(v23, dword_2582E25F4);
+  v6 = blahtex::Token::operator==((a1 + 8), v23);
+  v7 = v6;
+  if (SHIBYTE(v24) < 0)
   {
-    v7 = 1;
+    operator delete(v23[0]);
+    if (v7)
+    {
+LABEL_30:
+      v25 = *a2;
+      v26 = *(a2 + 2);
+      v13 = *(a2 + 4);
+      if (v13 <= 2)
+      {
+        LODWORD(v26) = v13 + 1;
+      }
+
+      operator new();
+    }
+  }
+
+  else if (v6)
+  {
+    goto LABEL_30;
+  }
+
+  std::wstring::basic_string[abi:ne200100]<0>(v23, dword_2582E260C);
+  if (blahtex::Token::operator==((a1 + 8), v23))
+  {
+    v8 = 1;
   }
 
   else
   {
     std::wstring::basic_string[abi:ne200100]<0>(__p, dword_2582E2628);
-    v7 = blahtex::Token::operator==((a1 + 8), __p);
-    if (SHIBYTE(v21) < 0)
+    v8 = blahtex::Token::operator==((a1 + 8), __p);
+    if (SHIBYTE(v22) < 0)
     {
       operator delete(__p[0]);
     }
   }
 
-  if (SHIBYTE(v23) < 0)
+  if (SHIBYTE(v24) < 0)
   {
-    operator delete(v22[0]);
-    if (v7)
+    operator delete(v23[0]);
+    if (v8)
     {
       goto LABEL_19;
     }
   }
 
-  else if (v7)
+  else if (v8)
   {
 LABEL_19:
-    MEMORY[0x259C7C920](&v27, &unk_2582E1E60);
-    v8 = &unk_2582E1E78;
+    MEMORY[0x259C7C920](&v28, &unk_2582E1E60);
+    v9 = &unk_2582E1E78;
 LABEL_29:
-    MEMORY[0x259C7C920](&v26, v8);
+    MEMORY[0x259C7C920](&v27, v9);
     goto LABEL_30;
   }
 
-  std::wstring::basic_string[abi:ne200100]<0>(v22, dword_2582E2648);
-  v9 = blahtex::Token::operator==((a1 + 8), v22);
-  v10 = v9;
-  if (SHIBYTE(v23) < 0)
+  std::wstring::basic_string[abi:ne200100]<0>(v23, dword_2582E2648);
+  v10 = blahtex::Token::operator==((a1 + 8), v23);
+  v11 = v10;
+  if (SHIBYTE(v24) < 0)
   {
-    operator delete(v22[0]);
-    if (v10)
+    operator delete(v23[0]);
+    if (v11)
     {
       goto LABEL_23;
     }
   }
 
-  else if (v9)
+  else if (v10)
   {
 LABEL_23:
-    MEMORY[0x259C7C920](&v27, &unk_2582E2664);
-    v8 = &unk_2582E266C;
+    MEMORY[0x259C7C920](&v28, &unk_2582E2664);
+    v9 = &unk_2582E266C;
     goto LABEL_29;
   }
 
-  std::wstring::basic_string[abi:ne200100]<0>(v22, dword_2582E2674);
-  v11 = blahtex::Token::operator==((a1 + 8), v22);
-  if (SHIBYTE(v23) < 0)
+  std::wstring::basic_string[abi:ne200100]<0>(v23, dword_2582E2674);
+  v12 = blahtex::Token::operator==((a1 + 8), v23);
+  if (SHIBYTE(v24) < 0)
   {
-    operator delete(v22[0]);
+    operator delete(v23[0]);
   }
 
-  if (!v11)
+  if (!v12)
   {
-    std::wstring::basic_string[abi:ne200100]<0>(v22, dword_2582E26A0);
-    v13 = blahtex::Token::operator==((a1 + 8), v22);
-    if (SHIBYTE(v23) < 0)
+    std::wstring::basic_string[abi:ne200100]<0>(v23, dword_2582E26A0);
+    v14 = blahtex::Token::operator==((a1 + 8), v23);
+    if (SHIBYTE(v24) < 0)
     {
-      operator delete(v22[0]);
-    }
-
-    if (v13)
-    {
-      v23 = *(a2 + 2);
-      *v22 = *a2;
-      LODWORD(v23) = 3;
-      operator new();
-    }
-
-    std::wstring::basic_string[abi:ne200100]<0>(v22, dword_2582E26D8);
-    v14 = blahtex::Token::operator==((a1 + 8), v22);
-    if (SHIBYTE(v23) < 0)
-    {
-      operator delete(v22[0]);
+      operator delete(v23[0]);
     }
 
     if (v14)
     {
-      v23 = *(a2 + 2);
-      *v22 = *a2;
-      LODWORD(v23) = 1;
+      v24 = *(a2 + 2);
+      *v23 = *a2;
+      LODWORD(v24) = 3;
       operator new();
     }
 
-    std::wstring::basic_string[abi:ne200100]<0>(v22, dword_2582E26F4);
-    if (blahtex::Token::operator==((a1 + 8), v22))
+    std::wstring::basic_string[abi:ne200100]<0>(v23, dword_2582E26D8);
+    v15 = blahtex::Token::operator==((a1 + 8), v23);
+    if (SHIBYTE(v24) < 0)
     {
-      v15 = 1;
+      operator delete(v23[0]);
+    }
+
+    if (v15)
+    {
+      v24 = *(a2 + 2);
+      *v23 = *a2;
+      LODWORD(v24) = 1;
+      operator new();
+    }
+
+    std::wstring::basic_string[abi:ne200100]<0>(v23, dword_2582E26F4);
+    if (blahtex::Token::operator==((a1 + 8), v23))
+    {
+      v16 = 1;
     }
 
     else
     {
       std::wstring::basic_string[abi:ne200100]<0>(__p, dword_2582E2744);
-      v15 = blahtex::Token::operator==((a1 + 8), __p);
-      if (SHIBYTE(v21) < 0)
+      v16 = blahtex::Token::operator==((a1 + 8), __p);
+      if (SHIBYTE(v22) < 0)
       {
         operator delete(__p[0]);
       }
     }
 
-    if (SHIBYTE(v23) < 0)
+    if (SHIBYTE(v24) < 0)
     {
-      operator delete(v22[0]);
+      operator delete(v23[0]);
     }
 
-    if (v15)
+    if (v16)
     {
       *__p = *a2;
-      v21 = *(a2 + 2);
-      v16 = *(a2 + 4);
-      if (v16 < 4)
+      v22 = *(a2 + 2);
+      v17 = *(a2 + 4);
+      if (v17 < 4)
       {
-        LODWORD(v21) = dword_2582E37A0[v16];
+        LODWORD(v22) = dword_2582E37A0[v17];
       }
 
       operator new();
     }
 
-    std::wstring::basic_string[abi:ne200100]<0>(v22, dword_2582E2798);
-    if (blahtex::Token::operator==((a1 + 8), v22))
+    std::wstring::basic_string[abi:ne200100]<0>(v23, dword_2582E2798);
+    if (blahtex::Token::operator==((a1 + 8), v23))
     {
-      v17 = 1;
+      v18 = 1;
     }
 
     else
     {
       std::wstring::basic_string[abi:ne200100]<0>(__p, dword_2582E27BC);
-      v17 = blahtex::Token::operator==((a1 + 8), __p);
-      if (SHIBYTE(v21) < 0)
+      v18 = blahtex::Token::operator==((a1 + 8), __p);
+      if (SHIBYTE(v22) < 0)
       {
         operator delete(__p[0]);
       }
     }
 
-    if (SHIBYTE(v23) < 0)
+    if (SHIBYTE(v24) < 0)
     {
-      operator delete(v22[0]);
+      operator delete(v23[0]);
     }
 
-    if (v17)
+    if (v18)
     {
-      *v22 = *a2;
-      v23 = *(a2 + 2);
-      v18 = *(a2 + 4);
-      if (v18 < 4)
+      *v23 = *a2;
+      v24 = *(a2 + 2);
+      v19 = *(a2 + 4);
+      if (v19 < 4)
       {
-        LODWORD(v23) = dword_2582E37A0[v18];
+        LODWORD(v24) = dword_2582E37A0[v19];
       }
 
       std::wstring::basic_string[abi:ne200100]<0>(__p, dword_2582E2798);
       blahtex::Token::operator==((a1 + 8), __p);
-      if (SHIBYTE(v21) < 0)
+      if (SHIBYTE(v22) < 0)
       {
         operator delete(__p[0]);
       }
@@ -4576,8 +4574,8 @@ LABEL_23:
     __cxa_throw(exception, MEMORY[0x277D82750], MEMORY[0x277D825D8]);
   }
 
-  MEMORY[0x259C7C920](&v27, &unk_2582E2690);
-  v8 = &unk_2582E2698;
+  MEMORY[0x259C7C920](&v28, &unk_2582E2690);
+  v9 = &unk_2582E2698;
   goto LABEL_29;
 }
 
@@ -4598,30 +4596,30 @@ void sub_2582BC84C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void blahtex::ParseTree::MathScripts::BuildLayoutTree(void *a1, __int128 *a2)
 {
-  v4 = a1[1];
-  if (v4)
+  v5 = a1[1];
+  if (v5)
   {
-    (*(*v4 + 16))(&v9);
+    (*(*v5 + 16))(&v10);
   }
 
-  v9 = *a2;
-  v10 = *(a2 + 2);
-  v5 = *(a2 + 4);
-  if (v5 <= 3)
+  v10 = *a2;
+  v11 = *(a2 + 2);
+  v6 = *(a2 + 4);
+  if (v6 <= 3)
   {
-    LODWORD(v10) = dword_2582E37A0[v5];
+    LODWORD(v11) = dword_2582E37A0[v6];
   }
 
-  v6 = a1[2];
-  if (v6)
-  {
-    (*(*v6 + 16))(&v8);
-  }
-
-  v7 = a1[3];
+  v7 = a1[2];
   if (v7)
   {
-    (*(*v7 + 16))(&v8);
+    (*(*v7 + 16))(&v9);
+  }
+
+  v8 = a1[3];
+  if (v8)
+  {
+    (*(*v8 + 16))(&v9);
   }
 
   operator new();
@@ -4712,13 +4710,13 @@ LABEL_14:
   *(*a2 + 16) = v6;
 }
 
-void sub_2582BD0AC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_2582BD0AC(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   v29 = *v27;
   *v27 = 0;
   if (v29)
   {
-    (*(*v29 + 8))(v29);
+    (*(*v29 + 8))(v29, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -4745,7 +4743,7 @@ uint64_t blahtex::ParseTree::MathCancel::BuildLayoutTree@<X0>(uint64_t a1@<X0>, 
   return result;
 }
 
-void sub_2582BD518(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, void *a27, uint64_t a28, int a29, __int16 a30, char a31, char a32, void *a33, uint64_t a34, int a35, __int16 a36, char a37, char a38)
+void sub_2582BD518(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, void *a27, uint64_t a28, int a29, __int16 a30, char a31, char a32, void *a33, uint64_t a34, int a35, __int16 a36, char a37, char a38)
 {
   if (a9)
   {
@@ -4772,11 +4770,11 @@ void sub_2582BD518(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     operator delete(a27);
   }
 
-  MEMORY[0x259C7CB70](v38, 0x10B3C4046C60783);
+  MEMORY[0x259C7CB70](v38, 0x10B3C4046C60783, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_2582BD74C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23)
+void sub_2582BD74C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23)
 {
   if (a23 < 0)
   {
@@ -4788,7 +4786,7 @@ void sub_2582BD74C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     operator delete(a12);
   }
 
-  MEMORY[0x259C7CB70](v24, v23);
+  MEMORY[0x259C7CB70](v24, v23, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
@@ -4798,20 +4796,20 @@ void blahtex::ParseTree::MathBig::BuildLayoutTree(uint64_t a1)
     std::unordered_map<std::wstring_view,blahtex::ParseTree::BigInfo>::unordered_map<std::pair<std::wstring_view,blahtex::ParseTree::BigInfo> const*>(blahtex::ParseTree::MathBig::BuildLayoutTree(blahtex::TexProcessingState const&)const::bigCommandTable, &blahtex::ParseTree::MathBig::BuildLayoutTree(blahtex::TexProcessingState const&)const::bigCommandArray, &blahtex::ParseTree::MathEnvironment::BuildLayoutTree(blahtex::TexProcessingState const&)const::environmentArray);
   }
 
-  v2 = *(a1 + 31);
-  if ((v2 & 0x8000000000000000) != 0)
+  v4 = *(a1 + 31);
+  if ((v4 & 0x8000000000000000) != 0)
   {
-    v3 = *(a1 + 8);
-    v2 = *(a1 + 16);
+    v5 = *(a1 + 8);
+    v4 = *(a1 + 16);
   }
 
   else
   {
-    v3 = (a1 + 8);
+    v5 = (a1 + 8);
   }
 
-  __p[0] = v3;
-  __p[1] = v2;
+  __p[0] = v5;
+  __p[1] = v4;
   if (std::__hash_table<std::wstring_view,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,std::allocator<std::wstring_view>>::find<std::wstring_view>(blahtex::ParseTree::MathBig::BuildLayoutTree(blahtex::TexProcessingState const&)const::bigCommandTable, __p))
   {
     operator new();
@@ -4829,7 +4827,7 @@ void blahtex::ParseTree::MathTableRow::BuildLayoutTree()
   __cxa_throw(exception, MEMORY[0x277D82750], MEMORY[0x277D825D8]);
 }
 
-void *std::vector<std::vector<blahtex::LayoutTree::Node *>>::reserve(void *result, unint64_t a2)
+const void **std::vector<std::vector<blahtex::LayoutTree::Node *>>::reserve(const void **result, unint64_t a2)
 {
   if (0xAAAAAAAAAAAAAAABLL * ((result[2] - *result) >> 3) < a2)
   {
@@ -4844,11 +4842,11 @@ void *std::vector<std::vector<blahtex::LayoutTree::Node *>>::reserve(void *resul
   return result;
 }
 
-uint64_t std::vector<std::vector<blahtex::LayoutTree::Node *>>::push_back[abi:ne200100](uint64_t result, uint64_t a2)
+const void **std::vector<std::vector<blahtex::LayoutTree::Node *>>::push_back[abi:ne200100](const void **result, uint64_t a2)
 {
   v3 = result;
-  v4 = *(result + 8);
-  v5 = *(result + 16);
+  v4 = result[1];
+  v5 = result[2];
   if (v4 >= v5)
   {
     v7 = 0xAAAAAAAAAAAAAAABLL * ((v4 - *result) >> 3);
@@ -4890,8 +4888,8 @@ uint64_t std::vector<std::vector<blahtex::LayoutTree::Node *>>::push_back[abi:ne
     *(a2 + 8) = 0;
     *(a2 + 16) = 0;
     v6 = 24 * v7 + 24;
-    v12 = *(result + 8) - *result;
-    v13 = v11 - v12;
+    v12 = result[1] - *result;
+    v13 = (v11 - v12);
     memcpy((v11 - v12), *result, v12);
     v14 = *v3;
     *v3 = v13;
@@ -4908,14 +4906,14 @@ uint64_t std::vector<std::vector<blahtex::LayoutTree::Node *>>::push_back[abi:ne
   else
   {
     *v4 = 0;
-    v4[1] = 0;
-    v4[2] = 0;
+    *(v4 + 1) = 0;
+    *(v4 + 2) = 0;
     *v4 = *a2;
-    v4[2] = *(a2 + 16);
+    *(v4 + 2) = *(a2 + 16);
     *a2 = 0;
     *(a2 + 8) = 0;
     *(a2 + 16) = 0;
-    v6 = (v4 + 3);
+    v6 = (v4 + 24);
   }
 
   v3[1] = v6;
@@ -5329,7 +5327,7 @@ void sub_2582BEE10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     blahtex::ParseTree::MathList::BuildLayoutTree();
   }
 
-  (*(*v10 + 8))(v10);
+  (*(*v10 + 8))(v10, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
@@ -5339,20 +5337,20 @@ void blahtex::ParseTree::TextSymbol::BuildLayoutTree(uint64_t a1)
     std::unordered_map<std::wstring_view,std::wstring_view>::unordered_map<std::pair<std::wstring_view,std::wstring_view> const*>(blahtex::ParseTree::TextSymbol::BuildLayoutTree(blahtex::TexProcessingState const&)const::textCommandTable, &blahtex::ParseTree::TextSymbol::BuildLayoutTree(blahtex::TexProcessingState const&)const::textCommandArray, &blahtex::operatorArray);
   }
 
-  v2 = *(a1 + 31);
-  if ((v2 & 0x8000000000000000) != 0)
+  v4 = *(a1 + 31);
+  if ((v4 & 0x8000000000000000) != 0)
   {
-    v3 = *(a1 + 8);
-    v2 = *(a1 + 16);
+    v5 = *(a1 + 8);
+    v4 = *(a1 + 16);
   }
 
   else
   {
-    v3 = (a1 + 8);
+    v5 = (a1 + 8);
   }
 
-  __p[0] = v3;
-  __p[1] = v2;
+  __p[0] = v5;
+  __p[1] = v4;
   if (std::__hash_table<std::__hash_value_type<std::wstring_view,blahtex::TexTextFont>,std::__unordered_map_hasher<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::TexTextFont>,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,true>,std::__unordered_map_equal<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::TexTextFont>,std::equal_to<std::wstring_view>,std::hash<std::wstring_view>,true>,std::allocator<std::__hash_value_type<std::wstring_view,blahtex::TexTextFont>>>::find<std::wstring_view>(blahtex::ParseTree::TextSymbol::BuildLayoutTree(blahtex::TexProcessingState const&)const::textCommandTable, __p))
   {
     operator new();
@@ -5375,209 +5373,209 @@ uint64_t blahtex::ParseTree::TextCancel::BuildLayoutTree@<X0>(uint64_t a1@<X0>, 
   return result;
 }
 
-uint64_t blahtex::ParseTree::TextCommand1Arg::BuildLayoutTree(uint64_t a1, __int128 *a2)
+std::wstring *blahtex::ParseTree::TextCommand1Arg::BuildLayoutTree(uint64_t a1, __int128 *a2)
 {
-  v36 = *a2;
-  v37 = *(a2 + 2);
-  std::wstring::basic_string[abi:ne200100]<0>(v34, dword_2582E2C80);
-  v3 = blahtex::Token::operator==((a1 + 8), v34);
-  v4 = v3;
-  if (v35 < 0)
+  v37 = *a2;
+  v38 = *(a2 + 2);
+  std::wstring::basic_string[abi:ne200100]<0>(v35, dword_2582E2C80);
+  v4 = blahtex::Token::operator==((a1 + 8), v35);
+  v5 = v4;
+  if (v36 < 0)
   {
-    operator delete(v34[0]);
-    if (v4)
+    operator delete(v35[0]);
+    if (v5)
     {
       goto LABEL_3;
     }
   }
 
-  else if (v3)
+  else if (v4)
   {
 LABEL_3:
-    DWORD2(v36) = 0;
+    DWORD2(v37) = 0;
     goto LABEL_13;
   }
 
-  std::wstring::basic_string[abi:ne200100]<0>(v34, dword_2582E2D18);
-  v5 = blahtex::Token::operator==((a1 + 8), v34);
-  v6 = v5;
-  if (v35 < 0)
+  std::wstring::basic_string[abi:ne200100]<0>(v35, dword_2582E2D18);
+  v6 = blahtex::Token::operator==((a1 + 8), v35);
+  v7 = v6;
+  if (v36 < 0)
   {
-    operator delete(v34[0]);
-    if (v6)
+    operator delete(v35[0]);
+    if (v7)
     {
       goto LABEL_7;
     }
   }
 
-  else if (v5)
+  else if (v6)
   {
 LABEL_7:
-    v7 = 2;
+    v8 = 2;
 LABEL_12:
-    DWORD2(v36) = v7;
+    DWORD2(v37) = v8;
     goto LABEL_13;
   }
 
-  std::wstring::basic_string[abi:ne200100]<0>(v34, dword_2582E2CF8);
-  v8 = blahtex::Token::operator==((a1 + 8), v34);
-  v9 = v8;
-  if (v35 < 0)
+  std::wstring::basic_string[abi:ne200100]<0>(v35, dword_2582E2CF8);
+  v9 = blahtex::Token::operator==((a1 + 8), v35);
+  v10 = v9;
+  if (v36 < 0)
   {
-    operator delete(v34[0]);
-    if (v9)
+    operator delete(v35[0]);
+    if (v10)
     {
       goto LABEL_11;
     }
   }
 
-  else if (v8)
+  else if (v9)
   {
 LABEL_11:
-    v7 = 1;
+    v8 = 1;
     goto LABEL_12;
   }
 
-  std::wstring::basic_string[abi:ne200100]<0>(v34, dword_2582E2CD8);
-  v15 = blahtex::Token::operator==((a1 + 8), v34);
-  v16 = v15;
-  if (v35 < 0)
+  std::wstring::basic_string[abi:ne200100]<0>(v35, dword_2582E2CD8);
+  v16 = blahtex::Token::operator==((a1 + 8), v35);
+  v17 = v16;
+  if (v36 < 0)
   {
-    operator delete(v34[0]);
-    if (v16)
+    operator delete(v35[0]);
+    if (v17)
     {
       goto LABEL_25;
     }
   }
 
-  else if (v15)
+  else if (v16)
   {
 LABEL_25:
-    v17 = 1;
+    v18 = 1;
 LABEL_31:
-    BYTE13(v36) = v17;
+    BYTE13(v37) = v18;
     goto LABEL_13;
   }
 
-  std::wstring::basic_string[abi:ne200100]<0>(v34, dword_2582E2CC0);
-  v18 = blahtex::Token::operator==((a1 + 8), v34);
-  if (v35 < 0)
+  std::wstring::basic_string[abi:ne200100]<0>(v35, dword_2582E2CC0);
+  v19 = blahtex::Token::operator==((a1 + 8), v35);
+  if (v36 < 0)
   {
-    operator delete(v34[0]);
-  }
-
-  if (v18)
-  {
-    v17 = BYTE13(v36) ^ 1;
-    goto LABEL_31;
-  }
-
-  std::wstring::basic_string[abi:ne200100]<0>(v34, dword_2582E2CA0);
-  v19 = blahtex::Token::operator==((a1 + 8), v34);
-  if (v35 < 0)
-  {
-    operator delete(v34[0]);
+    operator delete(v35[0]);
   }
 
   if (v19)
   {
-    BYTE12(v36) = 1;
+    v18 = BYTE13(v37) ^ 1;
+    goto LABEL_31;
+  }
+
+  std::wstring::basic_string[abi:ne200100]<0>(v35, dword_2582E2CA0);
+  v20 = blahtex::Token::operator==((a1 + 8), v35);
+  if (v36 < 0)
+  {
+    operator delete(v35[0]);
+  }
+
+  if (v20)
+  {
+    BYTE12(v37) = 1;
   }
 
   else
   {
-    std::wstring::basic_string[abi:ne200100]<0>(v34, dword_2582E2C68);
-    if (blahtex::Token::operator==((a1 + 8), v34))
+    std::wstring::basic_string[abi:ne200100]<0>(v35, dword_2582E2C68);
+    if (blahtex::Token::operator==((a1 + 8), v35))
     {
-      v20 = 1;
+      v21 = 1;
     }
 
     else
     {
-      std::wstring::basic_string[abi:ne200100]<0>(v32, dword_2582E2C50);
-      if (blahtex::Token::operator==((a1 + 8), v32))
+      std::wstring::basic_string[abi:ne200100]<0>(v33, dword_2582E2C50);
+      if (blahtex::Token::operator==((a1 + 8), v33))
       {
-        v20 = 1;
+        v21 = 1;
       }
 
       else
       {
-        std::wstring::basic_string[abi:ne200100]<0>(v30, dword_2582E2C38);
-        if (blahtex::Token::operator==((a1 + 8), v30))
+        std::wstring::basic_string[abi:ne200100]<0>(v31, dword_2582E2C38);
+        if (blahtex::Token::operator==((a1 + 8), v31))
         {
-          v20 = 1;
+          v21 = 1;
         }
 
         else
         {
-          std::wstring::basic_string[abi:ne200100]<0>(v28, dword_2582E2D38);
-          if (blahtex::Token::operator==((a1 + 8), v28))
+          std::wstring::basic_string[abi:ne200100]<0>(v29, dword_2582E2D38);
+          if (blahtex::Token::operator==((a1 + 8), v29))
           {
-            v20 = 1;
+            v21 = 1;
           }
 
           else
           {
-            std::wstring::basic_string[abi:ne200100]<0>(v26, dword_2582E2D4C);
-            if (blahtex::Token::operator==((a1 + 8), v26))
+            std::wstring::basic_string[abi:ne200100]<0>(v27, dword_2582E2D4C);
+            if (blahtex::Token::operator==((a1 + 8), v27))
             {
-              v20 = 1;
+              v21 = 1;
             }
 
             else
             {
-              std::wstring::basic_string[abi:ne200100]<0>(v24, dword_2582E1D24);
-              if (blahtex::Token::operator==((a1 + 8), v24))
+              std::wstring::basic_string[abi:ne200100]<0>(v25, dword_2582E1D24);
+              if (blahtex::Token::operator==((a1 + 8), v25))
               {
-                v20 = 1;
+                v21 = 1;
               }
 
               else
               {
                 std::wstring::basic_string[abi:ne200100]<0>(__p, dword_2582E1D48);
-                v20 = blahtex::Token::operator==((a1 + 8), __p);
-                if (v23 < 0)
+                v21 = blahtex::Token::operator==((a1 + 8), __p);
+                if (v24 < 0)
                 {
                   operator delete(__p[0]);
                 }
               }
 
-              if (v25 < 0)
+              if (v26 < 0)
               {
-                operator delete(v24[0]);
+                operator delete(v25[0]);
               }
             }
 
-            if (v27 < 0)
+            if (v28 < 0)
             {
-              operator delete(v26[0]);
+              operator delete(v27[0]);
             }
           }
 
-          if (v29 < 0)
+          if (v30 < 0)
           {
-            operator delete(v28[0]);
+            operator delete(v29[0]);
           }
         }
 
-        if (v31 < 0)
+        if (v32 < 0)
         {
-          operator delete(v30[0]);
+          operator delete(v31[0]);
         }
       }
 
-      if (v33 < 0)
+      if (v34 < 0)
       {
-        operator delete(v32[0]);
+        operator delete(v33[0]);
       }
     }
 
-    if (v35 < 0)
+    if (v36 < 0)
     {
-      operator delete(v34[0]);
+      operator delete(v35[0]);
     }
 
-    if (!v20)
+    if (!v21)
     {
       exception = __cxa_allocate_exception(0x10uLL);
       std::logic_error::logic_error(exception, "Unexpected command in TextCommand1Arg::BuildLayoutTree");
@@ -5586,43 +5584,43 @@ LABEL_31:
   }
 
 LABEL_13:
-  std::wstring::basic_string[abi:ne200100]<0>(v34, dword_2582E1D24);
-  v10 = blahtex::Token::operator==((a1 + 8), v34);
-  v11 = v10;
-  if (v35 < 0)
+  std::wstring::basic_string[abi:ne200100]<0>(v35, dword_2582E1D24);
+  v11 = blahtex::Token::operator==((a1 + 8), v35);
+  v12 = v11;
+  if (v36 < 0)
   {
-    operator delete(v34[0]);
-    if (v11)
+    operator delete(v35[0]);
+    if (v12)
     {
 LABEL_15:
       operator new();
     }
   }
 
-  else if (v10)
+  else if (v11)
   {
     goto LABEL_15;
   }
 
-  std::wstring::basic_string[abi:ne200100]<0>(v34, dword_2582E1D48);
-  v12 = blahtex::Token::operator==((a1 + 8), v34);
-  v13 = v12;
-  if (v35 < 0)
+  std::wstring::basic_string[abi:ne200100]<0>(v35, dword_2582E1D48);
+  v13 = blahtex::Token::operator==((a1 + 8), v35);
+  v14 = v13;
+  if (v36 < 0)
   {
-    operator delete(v34[0]);
-    if (v13)
+    operator delete(v35[0]);
+    if (v14)
     {
 LABEL_19:
       operator new();
     }
   }
 
-  else if (v12)
+  else if (v13)
   {
     goto LABEL_19;
   }
 
-  return (*(**(a1 + 40) + 16))(*(a1 + 40), &v36);
+  return (*(**(a1 + 40) + 16))(*(a1 + 40), &v37);
 }
 
 void sub_2582BF750(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, void *a27, uint64_t a28, int a29, __int16 a30, char a31, char a32, void *a33, uint64_t a34, int a35, __int16 a36, char a37, char a38)
@@ -6251,7 +6249,7 @@ void sub_2582C0C40(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::wstring::basic_string<std::wstring_view,0>(_BYTE *__dst, uint64_t a2)
+void *std::wstring::basic_string<std::wstring_view,0>(void *__dst, uint64_t a2)
 {
   v2 = *(a2 + 8);
   if (v2 >= 0x3FFFFFFFFFFFFFF8)
@@ -6275,17 +6273,17 @@ _BYTE *std::wstring::basic_string<std::wstring_view,0>(_BYTE *__dst, uint64_t a2
     std::__allocate_at_least[abi:ne200100]<std::allocator<wchar_t>>(__dst, v6);
   }
 
-  __dst[23] = v2;
+  *(__dst + 23) = v2;
   if (v2)
   {
     memmove(__dst, v4, 4 * v2);
   }
 
-  *&__dst[4 * v2] = 0;
+  *(__dst + v2) = 0;
   return __dst;
 }
 
-uint64_t std::unordered_map<std::wstring_view,blahtex::LayoutTree::Node::Flavour>::unordered_map<std::pair<std::wstring_view,blahtex::LayoutTree::Node::Flavour> const*>(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t std::unordered_map<std::wstring_view,blahtex::LayoutTree::Node::Flavour>::unordered_map<std::pair<std::wstring_view,blahtex::LayoutTree::Node::Flavour> const*>(uint64_t a1, uint64_t **a2, uint64_t **a3)
 {
   *a1 = 0u;
   *(a1 + 16) = 0u;
@@ -6295,8 +6293,8 @@ uint64_t std::unordered_map<std::wstring_view,blahtex::LayoutTree::Node::Flavour
     v5 = a2;
     do
     {
-      std::__hash_table<std::__hash_value_type<std::wstring_view,blahtex::LayoutTree::Node::Flavour>,std::__unordered_map_hasher<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::LayoutTree::Node::Flavour>,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,true>,std::__unordered_map_equal<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::LayoutTree::Node::Flavour>,std::equal_to<std::wstring_view>,std::hash<std::wstring_view>,true>,std::allocator<std::__hash_value_type<std::wstring_view,blahtex::LayoutTree::Node::Flavour>>>::__emplace_unique_key_args<std::wstring_view,std::pair<std::wstring_view,blahtex::LayoutTree::Node::Flavour> const&>(a1, v5);
-      v5 += 24;
+      std::__hash_table<std::__hash_value_type<std::wstring_view,blahtex::LayoutTree::Node::Flavour>,std::__unordered_map_hasher<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::LayoutTree::Node::Flavour>,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,true>,std::__unordered_map_equal<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::LayoutTree::Node::Flavour>,std::equal_to<std::wstring_view>,std::hash<std::wstring_view>,true>,std::allocator<std::__hash_value_type<std::wstring_view,blahtex::LayoutTree::Node::Flavour>>>::__emplace_unique_key_args<std::wstring_view,std::pair<std::wstring_view,blahtex::LayoutTree::Node::Flavour> const&>(a1, v5, v5);
+      v5 += 3;
     }
 
     while (v5 != a3);
@@ -6305,35 +6303,35 @@ uint64_t std::unordered_map<std::wstring_view,blahtex::LayoutTree::Node::Flavour
   return a1;
 }
 
-void *std::__hash_table<std::__hash_value_type<std::wstring_view,blahtex::LayoutTree::Node::Flavour>,std::__unordered_map_hasher<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::LayoutTree::Node::Flavour>,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,true>,std::__unordered_map_equal<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::LayoutTree::Node::Flavour>,std::equal_to<std::wstring_view>,std::hash<std::wstring_view>,true>,std::allocator<std::__hash_value_type<std::wstring_view,blahtex::LayoutTree::Node::Flavour>>>::__emplace_unique_key_args<std::wstring_view,std::pair<std::wstring_view,blahtex::LayoutTree::Node::Flavour> const&>(void *a1, uint64_t a2)
+void *std::__hash_table<std::__hash_value_type<std::wstring_view,blahtex::LayoutTree::Node::Flavour>,std::__unordered_map_hasher<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::LayoutTree::Node::Flavour>,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,true>,std::__unordered_map_equal<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::LayoutTree::Node::Flavour>,std::equal_to<std::wstring_view>,std::hash<std::wstring_view>,true>,std::allocator<std::__hash_value_type<std::wstring_view,blahtex::LayoutTree::Node::Flavour>>>::__emplace_unique_key_args<std::wstring_view,std::pair<std::wstring_view,blahtex::LayoutTree::Node::Flavour> const&>(void *a1, uint64_t **a2, uint64_t a3)
 {
-  v4 = std::__string_view_hash<wchar_t>::operator()[abi:ne200100](a1, *a2, *(a2 + 8));
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_view_hash<wchar_t>::operator()[abi:ne200100](a1, *a2, a2[1]);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     operator new();
@@ -6341,47 +6339,47 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::wstring_view>::operator()[abi:ne200100](a1, (v11 + 2), a2))
+  if (!std::equal_to<std::wstring_view>::operator()[abi:ne200100](a1, (v12 + 2), a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
-uint64_t std::unordered_map<std::wstring_view,blahtex::TexMathFont::Family>::unordered_map<std::pair<std::wstring_view,blahtex::TexMathFont::Family> const*>(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t std::unordered_map<std::wstring_view,blahtex::TexMathFont::Family>::unordered_map<std::pair<std::wstring_view,blahtex::TexMathFont::Family> const*>(uint64_t a1, uint64_t **a2, uint64_t **a3)
 {
   *a1 = 0u;
   *(a1 + 16) = 0u;
@@ -6391,8 +6389,8 @@ uint64_t std::unordered_map<std::wstring_view,blahtex::TexMathFont::Family>::uno
     v5 = a2;
     do
     {
-      std::__hash_table<std::__hash_value_type<std::wstring_view,blahtex::TexMathFont::Family>,std::__unordered_map_hasher<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::TexMathFont::Family>,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,true>,std::__unordered_map_equal<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::TexMathFont::Family>,std::equal_to<std::wstring_view>,std::hash<std::wstring_view>,true>,std::allocator<std::__hash_value_type<std::wstring_view,blahtex::TexMathFont::Family>>>::__emplace_unique_key_args<std::wstring_view,std::pair<std::wstring_view,blahtex::TexMathFont::Family> const&>(a1, v5);
-      v5 += 24;
+      std::__hash_table<std::__hash_value_type<std::wstring_view,blahtex::TexMathFont::Family>,std::__unordered_map_hasher<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::TexMathFont::Family>,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,true>,std::__unordered_map_equal<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::TexMathFont::Family>,std::equal_to<std::wstring_view>,std::hash<std::wstring_view>,true>,std::allocator<std::__hash_value_type<std::wstring_view,blahtex::TexMathFont::Family>>>::__emplace_unique_key_args<std::wstring_view,std::pair<std::wstring_view,blahtex::TexMathFont::Family> const&>(a1, v5, v5);
+      v5 += 3;
     }
 
     while (v5 != a3);
@@ -6401,35 +6399,35 @@ uint64_t std::unordered_map<std::wstring_view,blahtex::TexMathFont::Family>::uno
   return a1;
 }
 
-void *std::__hash_table<std::__hash_value_type<std::wstring_view,blahtex::TexMathFont::Family>,std::__unordered_map_hasher<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::TexMathFont::Family>,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,true>,std::__unordered_map_equal<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::TexMathFont::Family>,std::equal_to<std::wstring_view>,std::hash<std::wstring_view>,true>,std::allocator<std::__hash_value_type<std::wstring_view,blahtex::TexMathFont::Family>>>::__emplace_unique_key_args<std::wstring_view,std::pair<std::wstring_view,blahtex::TexMathFont::Family> const&>(void *a1, uint64_t a2)
+void *std::__hash_table<std::__hash_value_type<std::wstring_view,blahtex::TexMathFont::Family>,std::__unordered_map_hasher<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::TexMathFont::Family>,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,true>,std::__unordered_map_equal<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::TexMathFont::Family>,std::equal_to<std::wstring_view>,std::hash<std::wstring_view>,true>,std::allocator<std::__hash_value_type<std::wstring_view,blahtex::TexMathFont::Family>>>::__emplace_unique_key_args<std::wstring_view,std::pair<std::wstring_view,blahtex::TexMathFont::Family> const&>(void *a1, uint64_t **a2, uint64_t a3)
 {
-  v4 = std::__string_view_hash<wchar_t>::operator()[abi:ne200100](a1, *a2, *(a2 + 8));
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_view_hash<wchar_t>::operator()[abi:ne200100](a1, *a2, a2[1]);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     operator new();
@@ -6437,47 +6435,47 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::wstring_view>::operator()[abi:ne200100](a1, (v11 + 2), a2))
+  if (!std::equal_to<std::wstring_view>::operator()[abi:ne200100](a1, (v12 + 2), a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
-uint64_t std::unordered_map<std::wstring_view,blahtex::ParseTree::AccentInfo>::unordered_map<std::pair<std::wstring_view,blahtex::ParseTree::AccentInfo> const*>(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t std::unordered_map<std::wstring_view,blahtex::ParseTree::AccentInfo>::unordered_map<std::pair<std::wstring_view,blahtex::ParseTree::AccentInfo> const*>(uint64_t a1, uint64_t **a2, uint64_t **a3)
 {
   *a1 = 0u;
   *(a1 + 16) = 0u;
@@ -6487,8 +6485,8 @@ uint64_t std::unordered_map<std::wstring_view,blahtex::ParseTree::AccentInfo>::u
     v5 = a2;
     do
     {
-      std::__hash_table<std::__hash_value_type<std::wstring_view,blahtex::ParseTree::AccentInfo>,std::__unordered_map_hasher<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::ParseTree::AccentInfo>,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,true>,std::__unordered_map_equal<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::ParseTree::AccentInfo>,std::equal_to<std::wstring_view>,std::hash<std::wstring_view>,true>,std::allocator<std::__hash_value_type<std::wstring_view,blahtex::ParseTree::AccentInfo>>>::__emplace_unique_key_args<std::wstring_view,std::pair<std::wstring_view,blahtex::ParseTree::AccentInfo> const&>(a1, v5);
-      v5 += 40;
+      std::__hash_table<std::__hash_value_type<std::wstring_view,blahtex::ParseTree::AccentInfo>,std::__unordered_map_hasher<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::ParseTree::AccentInfo>,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,true>,std::__unordered_map_equal<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::ParseTree::AccentInfo>,std::equal_to<std::wstring_view>,std::hash<std::wstring_view>,true>,std::allocator<std::__hash_value_type<std::wstring_view,blahtex::ParseTree::AccentInfo>>>::__emplace_unique_key_args<std::wstring_view,std::pair<std::wstring_view,blahtex::ParseTree::AccentInfo> const&>(a1, v5, v5);
+      v5 += 5;
     }
 
     while (v5 != a3);
@@ -6497,35 +6495,35 @@ uint64_t std::unordered_map<std::wstring_view,blahtex::ParseTree::AccentInfo>::u
   return a1;
 }
 
-void *std::__hash_table<std::__hash_value_type<std::wstring_view,blahtex::ParseTree::AccentInfo>,std::__unordered_map_hasher<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::ParseTree::AccentInfo>,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,true>,std::__unordered_map_equal<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::ParseTree::AccentInfo>,std::equal_to<std::wstring_view>,std::hash<std::wstring_view>,true>,std::allocator<std::__hash_value_type<std::wstring_view,blahtex::ParseTree::AccentInfo>>>::__emplace_unique_key_args<std::wstring_view,std::pair<std::wstring_view,blahtex::ParseTree::AccentInfo> const&>(void *a1, uint64_t a2)
+void *std::__hash_table<std::__hash_value_type<std::wstring_view,blahtex::ParseTree::AccentInfo>,std::__unordered_map_hasher<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::ParseTree::AccentInfo>,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,true>,std::__unordered_map_equal<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::ParseTree::AccentInfo>,std::equal_to<std::wstring_view>,std::hash<std::wstring_view>,true>,std::allocator<std::__hash_value_type<std::wstring_view,blahtex::ParseTree::AccentInfo>>>::__emplace_unique_key_args<std::wstring_view,std::pair<std::wstring_view,blahtex::ParseTree::AccentInfo> const&>(void *a1, uint64_t **a2, uint64_t a3)
 {
-  v4 = std::__string_view_hash<wchar_t>::operator()[abi:ne200100](a1, *a2, *(a2 + 8));
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_view_hash<wchar_t>::operator()[abi:ne200100](a1, *a2, a2[1]);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     operator new();
@@ -6533,75 +6531,75 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::wstring_view>::operator()[abi:ne200100](a1, (v11 + 2), a2))
+  if (!std::equal_to<std::wstring_view>::operator()[abi:ne200100](a1, (v12 + 2), a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
-void *std::__hash_table<std::__hash_value_type<std::wstring_view,std::wstring_view>,std::__unordered_map_hasher<std::wstring_view,std::__hash_value_type<std::wstring_view,std::wstring_view>,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,true>,std::__unordered_map_equal<std::wstring_view,std::__hash_value_type<std::wstring_view,std::wstring_view>,std::equal_to<std::wstring_view>,std::hash<std::wstring_view>,true>,std::allocator<std::__hash_value_type<std::wstring_view,std::wstring_view>>>::__emplace_unique_key_args<std::wstring_view,std::piecewise_construct_t const&,std::tuple<std::wstring_view&&>,std::tuple<>>(void *a1, uint64_t a2)
+void *std::__hash_table<std::__hash_value_type<std::wstring_view,std::wstring_view>,std::__unordered_map_hasher<std::wstring_view,std::__hash_value_type<std::wstring_view,std::wstring_view>,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,true>,std::__unordered_map_equal<std::wstring_view,std::__hash_value_type<std::wstring_view,std::wstring_view>,std::equal_to<std::wstring_view>,std::hash<std::wstring_view>,true>,std::allocator<std::__hash_value_type<std::wstring_view,std::wstring_view>>>::__emplace_unique_key_args<std::wstring_view,std::piecewise_construct_t const&,std::tuple<std::wstring_view&&>,std::tuple<>>(void *a1, uint64_t **a2, uint64_t a3, _OWORD **a4)
 {
-  v4 = std::__string_view_hash<wchar_t>::operator()[abi:ne200100](a1, *a2, *(a2 + 8));
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v6 = std::__string_view_hash<wchar_t>::operator()[abi:ne200100](a1, *a2, a2[1]);
+  v7 = v6;
+  v8 = a1[1];
+  if (!*&v8)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v9 = vcnt_s8(v8);
+  v9.i16[0] = vaddlv_u8(v9);
+  v10 = v9.u32[0];
+  if (v9.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v11 = v6;
+    if (v6 >= *&v8)
     {
-      v9 = v4 % *&v6;
+      v11 = v6 % *&v8;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v11 = (*&v8 - 1) & v6;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v12 = *(*a1 + 8 * v11);
+  if (!v12 || (v13 = *v12) == 0)
   {
 LABEL_18:
     operator new();
@@ -6609,47 +6607,47 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v14 = v13[1];
+    if (v14 == v7)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v10 > 1)
     {
-      if (v12 >= *&v6)
+      if (v14 >= *&v8)
       {
-        v12 %= *&v6;
+        v14 %= *&v8;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v14 &= *&v8 - 1;
     }
 
-    if (v12 != v9)
+    if (v14 != v11)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v13 = *v13;
+    if (!v13)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::wstring_view>::operator()[abi:ne200100](a1, (v11 + 2), a2))
+  if (!std::equal_to<std::wstring_view>::operator()[abi:ne200100](a1, (v13 + 2), a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v13;
 }
 
-uint64_t std::unordered_map<std::wstring_view,blahtex::ParseTree::BigInfo>::unordered_map<std::pair<std::wstring_view,blahtex::ParseTree::BigInfo> const*>(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t std::unordered_map<std::wstring_view,blahtex::ParseTree::BigInfo>::unordered_map<std::pair<std::wstring_view,blahtex::ParseTree::BigInfo> const*>(uint64_t a1, uint64_t **a2, uint64_t **a3)
 {
   *a1 = 0u;
   *(a1 + 16) = 0u;
@@ -6659,8 +6657,8 @@ uint64_t std::unordered_map<std::wstring_view,blahtex::ParseTree::BigInfo>::unor
     v5 = a2;
     do
     {
-      std::__hash_table<std::__hash_value_type<std::wstring_view,blahtex::ParseTree::BigInfo>,std::__unordered_map_hasher<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::ParseTree::BigInfo>,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,true>,std::__unordered_map_equal<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::ParseTree::BigInfo>,std::equal_to<std::wstring_view>,std::hash<std::wstring_view>,true>,std::allocator<std::__hash_value_type<std::wstring_view,blahtex::ParseTree::BigInfo>>>::__emplace_unique_key_args<std::wstring_view,std::pair<std::wstring_view,blahtex::ParseTree::BigInfo> const&>(a1, v5);
-      v5 += 40;
+      std::__hash_table<std::__hash_value_type<std::wstring_view,blahtex::ParseTree::BigInfo>,std::__unordered_map_hasher<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::ParseTree::BigInfo>,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,true>,std::__unordered_map_equal<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::ParseTree::BigInfo>,std::equal_to<std::wstring_view>,std::hash<std::wstring_view>,true>,std::allocator<std::__hash_value_type<std::wstring_view,blahtex::ParseTree::BigInfo>>>::__emplace_unique_key_args<std::wstring_view,std::pair<std::wstring_view,blahtex::ParseTree::BigInfo> const&>(a1, v5, v5);
+      v5 += 5;
     }
 
     while (v5 != a3);
@@ -6669,35 +6667,35 @@ uint64_t std::unordered_map<std::wstring_view,blahtex::ParseTree::BigInfo>::unor
   return a1;
 }
 
-void *std::__hash_table<std::__hash_value_type<std::wstring_view,blahtex::ParseTree::BigInfo>,std::__unordered_map_hasher<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::ParseTree::BigInfo>,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,true>,std::__unordered_map_equal<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::ParseTree::BigInfo>,std::equal_to<std::wstring_view>,std::hash<std::wstring_view>,true>,std::allocator<std::__hash_value_type<std::wstring_view,blahtex::ParseTree::BigInfo>>>::__emplace_unique_key_args<std::wstring_view,std::pair<std::wstring_view,blahtex::ParseTree::BigInfo> const&>(void *a1, uint64_t a2)
+void *std::__hash_table<std::__hash_value_type<std::wstring_view,blahtex::ParseTree::BigInfo>,std::__unordered_map_hasher<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::ParseTree::BigInfo>,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,true>,std::__unordered_map_equal<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::ParseTree::BigInfo>,std::equal_to<std::wstring_view>,std::hash<std::wstring_view>,true>,std::allocator<std::__hash_value_type<std::wstring_view,blahtex::ParseTree::BigInfo>>>::__emplace_unique_key_args<std::wstring_view,std::pair<std::wstring_view,blahtex::ParseTree::BigInfo> const&>(void *a1, uint64_t **a2, uint64_t a3)
 {
-  v4 = std::__string_view_hash<wchar_t>::operator()[abi:ne200100](a1, *a2, *(a2 + 8));
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_view_hash<wchar_t>::operator()[abi:ne200100](a1, *a2, a2[1]);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     operator new();
@@ -6705,44 +6703,44 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::wstring_view>::operator()[abi:ne200100](a1, (v11 + 2), a2))
+  if (!std::equal_to<std::wstring_view>::operator()[abi:ne200100](a1, (v12 + 2), a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
 void std::__allocate_at_least[abi:ne200100]<std::allocator<std::vector<blahtex::LayoutTree::Node *>>>(uint64_t a1, unint64_t a2)
@@ -6787,7 +6785,7 @@ void std::__split_buffer<std::vector<blahtex::LayoutTree::Node *>>::__destruct_a
   }
 }
 
-uint64_t std::unordered_map<std::wstring_view,blahtex::ParseTree::EnvironmentInfo>::unordered_map<std::pair<std::wstring_view,blahtex::ParseTree::EnvironmentInfo> const*>(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t std::unordered_map<std::wstring_view,blahtex::ParseTree::EnvironmentInfo>::unordered_map<std::pair<std::wstring_view,blahtex::ParseTree::EnvironmentInfo> const*>(uint64_t a1, uint64_t **a2, uint64_t **a3)
 {
   *a1 = 0u;
   *(a1 + 16) = 0u;
@@ -6797,8 +6795,8 @@ uint64_t std::unordered_map<std::wstring_view,blahtex::ParseTree::EnvironmentInf
     v5 = a2;
     do
     {
-      std::__hash_table<std::__hash_value_type<std::wstring_view,blahtex::ParseTree::EnvironmentInfo>,std::__unordered_map_hasher<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::ParseTree::EnvironmentInfo>,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,true>,std::__unordered_map_equal<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::ParseTree::EnvironmentInfo>,std::equal_to<std::wstring_view>,std::hash<std::wstring_view>,true>,std::allocator<std::__hash_value_type<std::wstring_view,blahtex::ParseTree::EnvironmentInfo>>>::__emplace_unique_key_args<std::wstring_view,std::pair<std::wstring_view,blahtex::ParseTree::EnvironmentInfo> const&>(a1, v5);
-      v5 += 48;
+      std::__hash_table<std::__hash_value_type<std::wstring_view,blahtex::ParseTree::EnvironmentInfo>,std::__unordered_map_hasher<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::ParseTree::EnvironmentInfo>,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,true>,std::__unordered_map_equal<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::ParseTree::EnvironmentInfo>,std::equal_to<std::wstring_view>,std::hash<std::wstring_view>,true>,std::allocator<std::__hash_value_type<std::wstring_view,blahtex::ParseTree::EnvironmentInfo>>>::__emplace_unique_key_args<std::wstring_view,std::pair<std::wstring_view,blahtex::ParseTree::EnvironmentInfo> const&>(a1, v5, v5);
+      v5 += 6;
     }
 
     while (v5 != a3);
@@ -6807,35 +6805,35 @@ uint64_t std::unordered_map<std::wstring_view,blahtex::ParseTree::EnvironmentInf
   return a1;
 }
 
-void *std::__hash_table<std::__hash_value_type<std::wstring_view,blahtex::ParseTree::EnvironmentInfo>,std::__unordered_map_hasher<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::ParseTree::EnvironmentInfo>,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,true>,std::__unordered_map_equal<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::ParseTree::EnvironmentInfo>,std::equal_to<std::wstring_view>,std::hash<std::wstring_view>,true>,std::allocator<std::__hash_value_type<std::wstring_view,blahtex::ParseTree::EnvironmentInfo>>>::__emplace_unique_key_args<std::wstring_view,std::pair<std::wstring_view,blahtex::ParseTree::EnvironmentInfo> const&>(void *a1, uint64_t a2)
+void *std::__hash_table<std::__hash_value_type<std::wstring_view,blahtex::ParseTree::EnvironmentInfo>,std::__unordered_map_hasher<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::ParseTree::EnvironmentInfo>,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,true>,std::__unordered_map_equal<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::ParseTree::EnvironmentInfo>,std::equal_to<std::wstring_view>,std::hash<std::wstring_view>,true>,std::allocator<std::__hash_value_type<std::wstring_view,blahtex::ParseTree::EnvironmentInfo>>>::__emplace_unique_key_args<std::wstring_view,std::pair<std::wstring_view,blahtex::ParseTree::EnvironmentInfo> const&>(void *a1, uint64_t **a2, _OWORD *a3)
 {
-  v4 = std::__string_view_hash<wchar_t>::operator()[abi:ne200100](a1, *a2, *(a2 + 8));
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_view_hash<wchar_t>::operator()[abi:ne200100](a1, *a2, a2[1]);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     operator new();
@@ -6843,47 +6841,47 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::wstring_view>::operator()[abi:ne200100](a1, (v11 + 2), a2))
+  if (!std::equal_to<std::wstring_view>::operator()[abi:ne200100](a1, (v12 + 2), a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
-uint64_t std::unordered_map<std::wstring_view,blahtex::TexTextFont>::unordered_map<std::pair<std::wstring_view,blahtex::TexTextFont> const*>(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t std::unordered_map<std::wstring_view,blahtex::TexTextFont>::unordered_map<std::pair<std::wstring_view,blahtex::TexTextFont> const*>(uint64_t a1, uint64_t **a2, uint64_t **a3)
 {
   *a1 = 0u;
   *(a1 + 16) = 0u;
@@ -6893,8 +6891,8 @@ uint64_t std::unordered_map<std::wstring_view,blahtex::TexTextFont>::unordered_m
     v5 = a2;
     do
     {
-      std::__hash_table<std::__hash_value_type<std::wstring_view,blahtex::TexTextFont>,std::__unordered_map_hasher<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::TexTextFont>,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,true>,std::__unordered_map_equal<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::TexTextFont>,std::equal_to<std::wstring_view>,std::hash<std::wstring_view>,true>,std::allocator<std::__hash_value_type<std::wstring_view,blahtex::TexTextFont>>>::__emplace_unique_key_args<std::wstring_view,std::pair<std::wstring_view,blahtex::TexTextFont> const&>(a1, v5);
-      v5 += 24;
+      std::__hash_table<std::__hash_value_type<std::wstring_view,blahtex::TexTextFont>,std::__unordered_map_hasher<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::TexTextFont>,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,true>,std::__unordered_map_equal<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::TexTextFont>,std::equal_to<std::wstring_view>,std::hash<std::wstring_view>,true>,std::allocator<std::__hash_value_type<std::wstring_view,blahtex::TexTextFont>>>::__emplace_unique_key_args<std::wstring_view,std::pair<std::wstring_view,blahtex::TexTextFont> const&>(a1, v5, v5);
+      v5 += 3;
     }
 
     while (v5 != a3);
@@ -6903,35 +6901,35 @@ uint64_t std::unordered_map<std::wstring_view,blahtex::TexTextFont>::unordered_m
   return a1;
 }
 
-void *std::__hash_table<std::__hash_value_type<std::wstring_view,blahtex::TexTextFont>,std::__unordered_map_hasher<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::TexTextFont>,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,true>,std::__unordered_map_equal<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::TexTextFont>,std::equal_to<std::wstring_view>,std::hash<std::wstring_view>,true>,std::allocator<std::__hash_value_type<std::wstring_view,blahtex::TexTextFont>>>::__emplace_unique_key_args<std::wstring_view,std::pair<std::wstring_view,blahtex::TexTextFont> const&>(void *a1, uint64_t a2)
+void *std::__hash_table<std::__hash_value_type<std::wstring_view,blahtex::TexTextFont>,std::__unordered_map_hasher<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::TexTextFont>,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,true>,std::__unordered_map_equal<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::TexTextFont>,std::equal_to<std::wstring_view>,std::hash<std::wstring_view>,true>,std::allocator<std::__hash_value_type<std::wstring_view,blahtex::TexTextFont>>>::__emplace_unique_key_args<std::wstring_view,std::pair<std::wstring_view,blahtex::TexTextFont> const&>(void *a1, uint64_t **a2, uint64_t a3)
 {
-  v4 = std::__string_view_hash<wchar_t>::operator()[abi:ne200100](a1, *a2, *(a2 + 8));
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_view_hash<wchar_t>::operator()[abi:ne200100](a1, *a2, a2[1]);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     operator new();
@@ -6939,49 +6937,49 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::wstring_view>::operator()[abi:ne200100](a1, (v11 + 2), a2))
+  if (!std::equal_to<std::wstring_view>::operator()[abi:ne200100](a1, (v12 + 2), a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
-void *std::__hash_table<std::__hash_value_type<std::wstring_view,blahtex::TexTextFont>,std::__unordered_map_hasher<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::TexTextFont>,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,true>,std::__unordered_map_equal<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::TexTextFont>,std::equal_to<std::wstring_view>,std::hash<std::wstring_view>,true>,std::allocator<std::__hash_value_type<std::wstring_view,blahtex::TexTextFont>>>::find<std::wstring_view>(void *a1, uint64_t a2)
+void *std::__hash_table<std::__hash_value_type<std::wstring_view,blahtex::TexTextFont>,std::__unordered_map_hasher<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::TexTextFont>,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,true>,std::__unordered_map_equal<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::TexTextFont>,std::equal_to<std::wstring_view>,std::hash<std::wstring_view>,true>,std::allocator<std::__hash_value_type<std::wstring_view,blahtex::TexTextFont>>>::find<std::wstring_view>(void *a1, uint64_t **a2)
 {
-  v4 = std::__string_view_hash<wchar_t>::operator()[abi:ne200100](a1, *a2, *(a2 + 8));
+  v4 = std::__string_view_hash<wchar_t>::operator()[abi:ne200100](a1, *a2, a2[1]);
   v5 = a1[1];
   if (!*&v5)
   {
@@ -7058,35 +7056,35 @@ void *std::__hash_table<std::__hash_value_type<std::wstring_view,blahtex::TexTex
 
 void blahtex::ParseTree::MathSymbol::BuildLayoutTree(uint64_t a1, void **a2)
 {
-  v4 = (a1 + 8);
-  v5 = *(a1 + 31);
-  if (v5 < 0)
+  v5 = (a1 + 8);
+  v6 = *(a1 + 31);
+  if (v6 < 0)
   {
     if (*(a1 + 16) != 1)
     {
       goto LABEL_34;
     }
 
-    v6 = *a2;
-    v40[0] = *a2;
-    v8 = **v4;
-    if (v8 >= 65 && (v8 < 0x5B || (v8 - 97) < 0x1A))
+    v7 = *a2;
+    v41[0] = *a2;
+    v9 = **v5;
+    if (v9 >= 65 && (v9 < 0x5B || (v9 - 97) < 0x1A))
     {
       goto LABEL_14;
     }
 
-    v7 = *v4;
-    v15 = **v4;
-    if (v15 <= 47)
+    v8 = *v5;
+    v16 = **v5;
+    if (v16 <= 47)
     {
 LABEL_31:
-      if (v5 < 0)
+      if (v6 < 0)
       {
-        LODWORD(v7) = **v4;
+        LODWORD(v8) = **v5;
       }
 
 LABEL_33:
-      if (v7 >= 128)
+      if (v8 >= 128)
       {
         exception = __cxa_allocate_exception(0x10uLL);
         std::logic_error::logic_error(exception, "Unexpected non-ASCII character in MathSymbol::BuildLayoutTree");
@@ -7098,21 +7096,21 @@ LABEL_34:
         std::unordered_map<std::wstring_view,wchar_t>::unordered_map<std::pair<std::wstring_view,wchar_t> const*>(blahtex::ParseTree::MathSymbol::BuildLayoutTree(blahtex::TexProcessingState const&)const::lowercaseGreekTable, &blahtex::lowercaseGreekArray, &blahtex::uppercaseGreekArray);
       }
 
-      v16 = *(a1 + 31);
-      if (v16 < 0)
+      v17 = *(a1 + 31);
+      if (v17 < 0)
       {
-        v17 = *(a1 + 8);
-        v16 = *(a1 + 16);
+        v18 = *(a1 + 8);
+        v17 = *(a1 + 16);
       }
 
       else
       {
-        v17 = v4;
+        v18 = v5;
       }
 
-      *&v42 = v17;
-      *(&v42 + 1) = v16;
-      if (std::__hash_table<std::wstring_view,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,std::allocator<std::wstring_view>>::find<std::wstring_view>(blahtex::ParseTree::MathSymbol::BuildLayoutTree(blahtex::TexProcessingState const&)const::lowercaseGreekTable, &v42))
+      *&v43 = v18;
+      *(&v43 + 1) = v17;
+      if (std::__hash_table<std::wstring_view,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,std::allocator<std::wstring_view>>::find<std::wstring_view>(blahtex::ParseTree::MathSymbol::BuildLayoutTree(blahtex::TexProcessingState const&)const::lowercaseGreekTable, &v43))
       {
         operator new();
       }
@@ -7121,52 +7119,52 @@ LABEL_34:
         std::unordered_map<std::wstring_view,wchar_t>::unordered_map<std::pair<std::wstring_view,wchar_t> const*>(blahtex::ParseTree::MathSymbol::BuildLayoutTree(blahtex::TexProcessingState const&)const::uppercaseGreekTable, &blahtex::uppercaseGreekArray, &blahtex::spaceArray);
       }
 
-      v18 = *(a1 + 31);
-      if (v18 < 0)
+      v19 = *(a1 + 31);
+      if (v19 < 0)
       {
-        v19 = *(a1 + 8);
-        v18 = *(a1 + 16);
+        v20 = *(a1 + 8);
+        v19 = *(a1 + 16);
       }
 
       else
       {
-        v19 = v4;
+        v20 = v5;
       }
 
-      *&v42 = v19;
-      *(&v42 + 1) = v18;
-      if (std::__hash_table<std::wstring_view,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,std::allocator<std::wstring_view>>::find<std::wstring_view>(blahtex::ParseTree::MathSymbol::BuildLayoutTree(blahtex::TexProcessingState const&)const::uppercaseGreekTable, &v42))
+      *&v43 = v20;
+      *(&v43 + 1) = v19;
+      if (std::__hash_table<std::wstring_view,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,std::allocator<std::wstring_view>>::find<std::wstring_view>(blahtex::ParseTree::MathSymbol::BuildLayoutTree(blahtex::TexProcessingState const&)const::uppercaseGreekTable, &v43))
       {
-        v20 = *a2;
-        v40[0] = v20;
-        if (v20 > 5)
+        v21 = *a2;
+        v41[0] = v21;
+        if (v21 > 5)
         {
-          switch(v20)
+          switch(v21)
           {
             case 6:
-              v37 = __cxa_allocate_exception(0x30uLL);
-              std::wstring::basic_string[abi:ne200100]<0>(&v42, dword_2582E37B0);
-              std::wstring::basic_string[abi:ne200100]<0>(&v46, dword_2582E3848);
-              std::wstring::basic_string[abi:ne200100]<0>(v44, &dword_2582E3844);
-              blahtex::Exception::Exception(v37, &v42, v4, &v46, v44);
-            case 8:
               v38 = __cxa_allocate_exception(0x30uLL);
-              std::wstring::basic_string[abi:ne200100]<0>(&v42, dword_2582E37B0);
-              std::wstring::basic_string[abi:ne200100]<0>(&v46, dword_2582E3854);
-              std::wstring::basic_string[abi:ne200100]<0>(v44, &dword_2582E3844);
-              blahtex::Exception::Exception(v38, &v42, v4, &v46, v44);
-            case 7:
+              std::wstring::basic_string[abi:ne200100]<0>(&v43, dword_2582E37B0);
+              std::wstring::basic_string[abi:ne200100]<0>(&v47, dword_2582E3848);
+              std::wstring::basic_string[abi:ne200100]<0>(v45, &dword_2582E3844);
+              blahtex::Exception::Exception(v38, &v43, v5, &v47, v45);
+            case 8:
               v39 = __cxa_allocate_exception(0x30uLL);
-              std::wstring::basic_string[abi:ne200100]<0>(&v42, dword_2582E37B0);
-              std::wstring::basic_string[abi:ne200100]<0>(&v46, dword_2582E3834);
-              std::wstring::basic_string[abi:ne200100]<0>(v44, &dword_2582E3844);
-              blahtex::Exception::Exception(v39, &v42, v4, &v46, v44);
+              std::wstring::basic_string[abi:ne200100]<0>(&v43, dword_2582E37B0);
+              std::wstring::basic_string[abi:ne200100]<0>(&v47, dword_2582E3854);
+              std::wstring::basic_string[abi:ne200100]<0>(v45, &dword_2582E3844);
+              blahtex::Exception::Exception(v39, &v43, v5, &v47, v45);
+            case 7:
+              v40 = __cxa_allocate_exception(0x30uLL);
+              std::wstring::basic_string[abi:ne200100]<0>(&v43, dword_2582E37B0);
+              std::wstring::basic_string[abi:ne200100]<0>(&v47, dword_2582E3834);
+              std::wstring::basic_string[abi:ne200100]<0>(v45, &dword_2582E3844);
+              blahtex::Exception::Exception(v40, &v43, v5, &v47, v45);
           }
         }
 
-        else if (!v20)
+        else if (!v21)
         {
-          LODWORD(v40[0]) = 1;
+          LODWORD(v41[0]) = 1;
         }
 
         operator new();
@@ -7176,44 +7174,44 @@ LABEL_34:
         std::unordered_map<std::wstring_view,int>::unordered_map<std::pair<std::wstring_view,int> const*>(blahtex::ParseTree::MathSymbol::BuildLayoutTree(blahtex::TexProcessingState const&)const::spaceTable, &blahtex::spaceArray, &blahtex::identifierArray);
       }
 
-      v21 = *(a1 + 31);
-      if (v21 < 0)
+      v22 = *(a1 + 31);
+      if (v22 < 0)
       {
-        v22 = *(a1 + 8);
-        v21 = *(a1 + 16);
+        v23 = *(a1 + 8);
+        v22 = *(a1 + 16);
       }
 
       else
       {
-        v22 = v4;
+        v23 = v5;
       }
 
-      *&v42 = v22;
-      *(&v42 + 1) = v21;
-      if (std::__hash_table<std::wstring_view,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,std::allocator<std::wstring_view>>::find<std::wstring_view>(blahtex::ParseTree::MathSymbol::BuildLayoutTree(blahtex::TexProcessingState const&)const::spaceTable, &v42))
+      *&v43 = v23;
+      *(&v43 + 1) = v22;
+      if (std::__hash_table<std::wstring_view,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,std::allocator<std::wstring_view>>::find<std::wstring_view>(blahtex::ParseTree::MathSymbol::BuildLayoutTree(blahtex::TexProcessingState const&)const::spaceTable, &v43))
       {
         operator new();
       }
 
       {
-        std::unordered_map<std::wstring_view,blahtex::OperatorInfo>::unordered_map<std::pair<std::wstring_view,blahtex::OperatorInfo> const*>(blahtex::ParseTree::MathSymbol::BuildLayoutTree(blahtex::TexProcessingState const&)const::operatorTable, &blahtex::operatorArray, (&blahtex::operatorArray + 2210));
+        std::unordered_map<std::wstring_view,blahtex::OperatorInfo>::unordered_map<std::pair<std::wstring_view,blahtex::OperatorInfo> const*>(blahtex::ParseTree::MathSymbol::BuildLayoutTree(blahtex::TexProcessingState const&)const::operatorTable, &blahtex::operatorArray, &blahtex::operatorArray + 2210);
       }
 
-      v23 = *(a1 + 31);
-      if (v23 < 0)
+      v24 = *(a1 + 31);
+      if (v24 < 0)
       {
-        v24 = *(a1 + 8);
-        v23 = *(a1 + 16);
+        v25 = *(a1 + 8);
+        v24 = *(a1 + 16);
       }
 
       else
       {
-        v24 = v4;
+        v25 = v5;
       }
 
-      *&v42 = v24;
-      *(&v42 + 1) = v23;
-      if (std::__hash_table<std::wstring_view,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,std::allocator<std::wstring_view>>::find<std::wstring_view>(blahtex::ParseTree::MathSymbol::BuildLayoutTree(blahtex::TexProcessingState const&)const::operatorTable, &v42))
+      *&v43 = v25;
+      *(&v43 + 1) = v24;
+      if (std::__hash_table<std::wstring_view,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,std::allocator<std::wstring_view>>::find<std::wstring_view>(blahtex::ParseTree::MathSymbol::BuildLayoutTree(blahtex::TexProcessingState const&)const::operatorTable, &v43))
       {
         operator new();
       }
@@ -7222,55 +7220,43 @@ LABEL_34:
         std::unordered_map<std::wstring_view,blahtex::IdentifierInfo>::unordered_map<std::pair<std::wstring_view,blahtex::IdentifierInfo> const*>(blahtex::ParseTree::MathSymbol::BuildLayoutTree(blahtex::TexProcessingState const&)const::identifierTable, &blahtex::identifierArray, &blahtex::ParseTree::MathStateChange::Apply(blahtex::TexProcessingState &)const::styleCommandArray);
       }
 
-      v25 = *(a1 + 31);
-      if (v25 < 0)
+      v26 = *(a1 + 31);
+      if (v26 < 0)
       {
-        v26 = *(a1 + 8);
-        v25 = *(a1 + 16);
+        v27 = *(a1 + 8);
+        v26 = *(a1 + 16);
       }
 
       else
       {
-        v26 = v4;
+        v27 = v5;
       }
 
-      *&v42 = v26;
-      *(&v42 + 1) = v25;
-      v27 = std::__hash_table<std::wstring_view,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,std::allocator<std::wstring_view>>::find<std::wstring_view>(blahtex::ParseTree::MathSymbol::BuildLayoutTree(blahtex::TexProcessingState const&)const::identifierTable, &v42);
-      if (v27)
+      *&v43 = v27;
+      *(&v43 + 1) = v26;
+      v28 = std::__hash_table<std::wstring_view,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,std::allocator<std::wstring_view>>::find<std::wstring_view>(blahtex::ParseTree::MathSymbol::BuildLayoutTree(blahtex::TexProcessingState const&)const::identifierTable, &v43);
+      if (v28)
       {
-        v46 = *a2;
-        if (*(v27 + 32))
+        v47 = *a2;
+        if (*(v28 + 32))
         {
-          v28 = 3;
+          v29 = 3;
         }
 
         else
         {
-          v28 = 1;
+          v29 = 1;
         }
 
-        LODWORD(v46) = v28;
+        LODWORD(v47) = v29;
         operator new();
       }
 
-      std::wstring::basic_string[abi:ne200100]<0>(&v42, dword_2582E3868);
-      v29 = blahtex::Token::operator==(v4, &v42);
-      if (v43 < 0)
+      std::wstring::basic_string[abi:ne200100]<0>(&v43, dword_2582E3868);
+      v30 = blahtex::Token::operator==(v5, &v43);
+      if (v44 < 0)
       {
-        operator delete(v42);
-      }
-
-      if (v29)
-      {
-        operator new();
-      }
-
-      std::wstring::basic_string[abi:ne200100]<0>(&v42, dword_2582E3884);
-      v30 = blahtex::Token::operator==(v4, &v42);
-      if (v43 < 0)
-      {
-        operator delete(v42);
+        operator delete(v43);
       }
 
       if (v30)
@@ -7278,11 +7264,11 @@ LABEL_34:
         operator new();
       }
 
-      std::wstring::basic_string[abi:ne200100]<0>(&v42, dword_2582E38A0);
-      v31 = blahtex::Token::operator==(v4, &v42);
-      if (v43 < 0)
+      std::wstring::basic_string[abi:ne200100]<0>(&v43, dword_2582E3884);
+      v31 = blahtex::Token::operator==(v5, &v43);
+      if (v44 < 0)
       {
-        operator delete(v42);
+        operator delete(v43);
       }
 
       if (v31)
@@ -7290,11 +7276,11 @@ LABEL_34:
         operator new();
       }
 
-      std::wstring::basic_string[abi:ne200100]<0>(&v42, dword_2582E38C4);
-      v32 = blahtex::Token::operator==(v4, &v42);
-      if (v43 < 0)
+      std::wstring::basic_string[abi:ne200100]<0>(&v43, dword_2582E38A0);
+      v32 = blahtex::Token::operator==(v5, &v43);
+      if (v44 < 0)
       {
-        operator delete(v42);
+        operator delete(v43);
       }
 
       if (v32)
@@ -7302,11 +7288,11 @@ LABEL_34:
         operator new();
       }
 
-      std::wstring::basic_string[abi:ne200100]<0>(&v42, dword_2582E38EC);
-      v33 = blahtex::Token::operator==(v4, &v42);
-      if (v43 < 0)
+      std::wstring::basic_string[abi:ne200100]<0>(&v43, dword_2582E38C4);
+      v33 = blahtex::Token::operator==(v5, &v43);
+      if (v44 < 0)
       {
-        operator delete(v42);
+        operator delete(v43);
       }
 
       if (v33)
@@ -7314,56 +7300,68 @@ LABEL_34:
         operator new();
       }
 
-      std::wstring::basic_string[abi:ne200100]<0>(&v42, dword_2582E3900);
-      if (blahtex::Token::operator==(v4, &v42))
+      std::wstring::basic_string[abi:ne200100]<0>(&v43, dword_2582E38EC);
+      v34 = blahtex::Token::operator==(v5, &v43);
+      if (v44 < 0)
       {
-        v34 = 1;
+        operator delete(v43);
+      }
+
+      if (v34)
+      {
+        operator new();
+      }
+
+      std::wstring::basic_string[abi:ne200100]<0>(&v43, dword_2582E3900);
+      if (blahtex::Token::operator==(v5, &v43))
+      {
+        v35 = 1;
       }
 
       else
       {
-        std::wstring::basic_string[abi:ne200100]<0>(&v46, dword_2582E392C);
-        if (blahtex::Token::operator==(v4, &v46))
+        std::wstring::basic_string[abi:ne200100]<0>(&v47, dword_2582E392C);
+        if (blahtex::Token::operator==(v5, &v47))
         {
-          v34 = 1;
+          v35 = 1;
         }
 
         else
         {
-          std::wstring::basic_string[abi:ne200100]<0>(v44, dword_2582E395C);
-          if (blahtex::Token::operator==(v4, v44))
+          std::wstring::basic_string[abi:ne200100]<0>(v45, dword_2582E395C);
+          if (blahtex::Token::operator==(v5, v45))
           {
-            v34 = 1;
+            v35 = 1;
           }
 
           else
           {
-            std::wstring::basic_string[abi:ne200100]<0>(v40, dword_2582E3988);
-            v34 = blahtex::Token::operator==(v4, v40);
-            if (v41 < 0)
+            std::wstring::basic_string[abi:ne200100]<0>(v41, dword_2582E3988);
+            v35 = blahtex::Token::operator==(v5, v41);
+            if (v42 < 0)
             {
-              operator delete(v40[0]);
+              operator delete(v41[0]);
             }
           }
 
-          if (v45 < 0)
+          if (v46 < 0)
           {
-            operator delete(v44[0]);
+            operator delete(v45[0]);
           }
         }
 
-        if (v47 < 0)
+        if (v48 < 0)
         {
-          operator delete(v46);
+          operator delete(v47);
         }
       }
 
-      if (v43 < 0)
+      if (v44 < 0)
       {
-        operator delete(v42);
+        operator delete(v43);
       }
 
-      if (v34)
+      if (v35)
       {
         operator new();
       }
@@ -7377,56 +7375,37 @@ LABEL_114:
 
   else
   {
-    if (v5 != 1)
+    if (v6 != 1)
     {
       goto LABEL_34;
     }
 
-    v6 = *a2;
-    v40[0] = *a2;
-    LODWORD(v7) = *v4;
-    if (*v4 > 64)
+    v7 = *a2;
+    v41[0] = *a2;
+    LODWORD(v8) = *v5;
+    if (*v5 > 64)
     {
-      if (v7 < 0x5B)
+      if (v8 < 0x5B)
       {
         goto LABEL_14;
       }
 
-      if (v7 >= 97)
+      if (v8 >= 97)
       {
-        if (v7 >= 0x7B)
+        if (v8 >= 0x7B)
         {
           goto LABEL_33;
         }
 
 LABEL_14:
-        v10 = 0;
-        v11 = 3;
-        if (v6)
+        v11 = 0;
+        v12 = 3;
+        if (v7)
         {
 LABEL_15:
-          if (v6 == 7)
+          if (v7 == 7)
           {
-            v12 = v10 ^ 1;
-          }
-
-          else
-          {
-            v12 = 1;
-          }
-
-          if ((v12 & 1) == 0)
-          {
-            v36 = __cxa_allocate_exception(0x30uLL);
-            std::wstring::basic_string[abi:ne200100]<0>(&v42, dword_2582E37B0);
-            std::wstring::basic_string[abi:ne200100]<0>(&v46, dword_2582E3834);
-            std::wstring::basic_string[abi:ne200100]<0>(v44, &dword_2582E3844);
-            blahtex::Exception::Exception(v36, &v42, v4, &v46, v44);
-          }
-
-          if (v6 == 6)
-          {
-            v13 = v10 ^ 1;
+            v13 = v11 ^ 1;
           }
 
           else
@@ -7436,11 +7415,30 @@ LABEL_15:
 
           if ((v13 & 1) == 0)
           {
-            v14 = __cxa_allocate_exception(0x30uLL);
-            std::wstring::basic_string[abi:ne200100]<0>(&v42, dword_2582E37B0);
-            std::wstring::basic_string[abi:ne200100]<0>(&v46, dword_2582E3848);
-            std::wstring::basic_string[abi:ne200100]<0>(v44, &dword_2582E3844);
-            blahtex::Exception::Exception(v14, &v42, v4, &v46, v44);
+            v37 = __cxa_allocate_exception(0x30uLL);
+            std::wstring::basic_string[abi:ne200100]<0>(&v43, dword_2582E37B0);
+            std::wstring::basic_string[abi:ne200100]<0>(&v47, dword_2582E3834);
+            std::wstring::basic_string[abi:ne200100]<0>(v45, &dword_2582E3844);
+            blahtex::Exception::Exception(v37, &v43, v5, &v47, v45);
+          }
+
+          if (v7 == 6)
+          {
+            v14 = v11 ^ 1;
+          }
+
+          else
+          {
+            v14 = 1;
+          }
+
+          if ((v14 & 1) == 0)
+          {
+            v15 = __cxa_allocate_exception(0x30uLL);
+            std::wstring::basic_string[abi:ne200100]<0>(&v43, dword_2582E37B0);
+            std::wstring::basic_string[abi:ne200100]<0>(&v47, dword_2582E3848);
+            std::wstring::basic_string[abi:ne200100]<0>(v45, &dword_2582E3844);
+            blahtex::Exception::Exception(v15, &v43, v5, &v47, v45);
           }
 
 LABEL_30:
@@ -7448,23 +7446,23 @@ LABEL_30:
         }
 
 LABEL_29:
-        LODWORD(v40[0]) = v11;
+        LODWORD(v41[0]) = v12;
         goto LABEL_30;
       }
     }
 
-    v15 = *v4;
-    if (v7 < 48)
+    v16 = *v5;
+    if (v8 < 48)
     {
       goto LABEL_34;
     }
   }
 
-  if (v15 <= 0x39)
+  if (v16 <= 0x39)
   {
-    v10 = 1;
     v11 = 1;
-    if (v6)
+    v12 = 1;
+    if (v7)
     {
       goto LABEL_15;
     }
@@ -7494,7 +7492,7 @@ void blahtex::ParseTree::MathSymbol::~MathSymbol(void **this)
   JUMPOUT(0x259C7CB70);
 }
 
-uint64_t std::unordered_map<std::wstring_view,wchar_t>::unordered_map<std::pair<std::wstring_view,wchar_t> const*>(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t std::unordered_map<std::wstring_view,wchar_t>::unordered_map<std::pair<std::wstring_view,wchar_t> const*>(uint64_t a1, uint64_t **a2, uint64_t **a3)
 {
   *a1 = 0u;
   *(a1 + 16) = 0u;
@@ -7504,8 +7502,8 @@ uint64_t std::unordered_map<std::wstring_view,wchar_t>::unordered_map<std::pair<
     v5 = a2;
     do
     {
-      std::__hash_table<std::__hash_value_type<std::wstring_view,wchar_t>,std::__unordered_map_hasher<std::wstring_view,std::__hash_value_type<std::wstring_view,wchar_t>,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,true>,std::__unordered_map_equal<std::wstring_view,std::__hash_value_type<std::wstring_view,wchar_t>,std::equal_to<std::wstring_view>,std::hash<std::wstring_view>,true>,std::allocator<std::__hash_value_type<std::wstring_view,wchar_t>>>::__emplace_unique_key_args<std::wstring_view,std::pair<std::wstring_view,wchar_t> const&>(a1, v5);
-      v5 += 24;
+      std::__hash_table<std::__hash_value_type<std::wstring_view,wchar_t>,std::__unordered_map_hasher<std::wstring_view,std::__hash_value_type<std::wstring_view,wchar_t>,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,true>,std::__unordered_map_equal<std::wstring_view,std::__hash_value_type<std::wstring_view,wchar_t>,std::equal_to<std::wstring_view>,std::hash<std::wstring_view>,true>,std::allocator<std::__hash_value_type<std::wstring_view,wchar_t>>>::__emplace_unique_key_args<std::wstring_view,std::pair<std::wstring_view,wchar_t> const&>(a1, v5, v5);
+      v5 += 3;
     }
 
     while (v5 != a3);
@@ -7514,35 +7512,35 @@ uint64_t std::unordered_map<std::wstring_view,wchar_t>::unordered_map<std::pair<
   return a1;
 }
 
-void *std::__hash_table<std::__hash_value_type<std::wstring_view,wchar_t>,std::__unordered_map_hasher<std::wstring_view,std::__hash_value_type<std::wstring_view,wchar_t>,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,true>,std::__unordered_map_equal<std::wstring_view,std::__hash_value_type<std::wstring_view,wchar_t>,std::equal_to<std::wstring_view>,std::hash<std::wstring_view>,true>,std::allocator<std::__hash_value_type<std::wstring_view,wchar_t>>>::__emplace_unique_key_args<std::wstring_view,std::pair<std::wstring_view,wchar_t> const&>(void *a1, uint64_t a2)
+void *std::__hash_table<std::__hash_value_type<std::wstring_view,wchar_t>,std::__unordered_map_hasher<std::wstring_view,std::__hash_value_type<std::wstring_view,wchar_t>,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,true>,std::__unordered_map_equal<std::wstring_view,std::__hash_value_type<std::wstring_view,wchar_t>,std::equal_to<std::wstring_view>,std::hash<std::wstring_view>,true>,std::allocator<std::__hash_value_type<std::wstring_view,wchar_t>>>::__emplace_unique_key_args<std::wstring_view,std::pair<std::wstring_view,wchar_t> const&>(void *a1, uint64_t **a2, uint64_t a3)
 {
-  v4 = std::__string_view_hash<wchar_t>::operator()[abi:ne200100](a1, *a2, *(a2 + 8));
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_view_hash<wchar_t>::operator()[abi:ne200100](a1, *a2, a2[1]);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     operator new();
@@ -7550,47 +7548,47 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::wstring_view>::operator()[abi:ne200100](a1, (v11 + 2), a2))
+  if (!std::equal_to<std::wstring_view>::operator()[abi:ne200100](a1, (v12 + 2), a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
-uint64_t std::unordered_map<std::wstring_view,int>::unordered_map<std::pair<std::wstring_view,int> const*>(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t std::unordered_map<std::wstring_view,int>::unordered_map<std::pair<std::wstring_view,int> const*>(uint64_t a1, uint64_t **a2, uint64_t **a3)
 {
   *a1 = 0u;
   *(a1 + 16) = 0u;
@@ -7600,8 +7598,8 @@ uint64_t std::unordered_map<std::wstring_view,int>::unordered_map<std::pair<std:
     v5 = a2;
     do
     {
-      std::__hash_table<std::__hash_value_type<std::wstring_view,int>,std::__unordered_map_hasher<std::wstring_view,std::__hash_value_type<std::wstring_view,int>,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,true>,std::__unordered_map_equal<std::wstring_view,std::__hash_value_type<std::wstring_view,int>,std::equal_to<std::wstring_view>,std::hash<std::wstring_view>,true>,std::allocator<std::__hash_value_type<std::wstring_view,int>>>::__emplace_unique_key_args<std::wstring_view,std::pair<std::wstring_view,int> const&>(a1, v5);
-      v5 += 24;
+      std::__hash_table<std::__hash_value_type<std::wstring_view,int>,std::__unordered_map_hasher<std::wstring_view,std::__hash_value_type<std::wstring_view,int>,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,true>,std::__unordered_map_equal<std::wstring_view,std::__hash_value_type<std::wstring_view,int>,std::equal_to<std::wstring_view>,std::hash<std::wstring_view>,true>,std::allocator<std::__hash_value_type<std::wstring_view,int>>>::__emplace_unique_key_args<std::wstring_view,std::pair<std::wstring_view,int> const&>(a1, v5, v5);
+      v5 += 3;
     }
 
     while (v5 != a3);
@@ -7610,35 +7608,35 @@ uint64_t std::unordered_map<std::wstring_view,int>::unordered_map<std::pair<std:
   return a1;
 }
 
-void *std::__hash_table<std::__hash_value_type<std::wstring_view,int>,std::__unordered_map_hasher<std::wstring_view,std::__hash_value_type<std::wstring_view,int>,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,true>,std::__unordered_map_equal<std::wstring_view,std::__hash_value_type<std::wstring_view,int>,std::equal_to<std::wstring_view>,std::hash<std::wstring_view>,true>,std::allocator<std::__hash_value_type<std::wstring_view,int>>>::__emplace_unique_key_args<std::wstring_view,std::pair<std::wstring_view,int> const&>(void *a1, uint64_t a2)
+void *std::__hash_table<std::__hash_value_type<std::wstring_view,int>,std::__unordered_map_hasher<std::wstring_view,std::__hash_value_type<std::wstring_view,int>,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,true>,std::__unordered_map_equal<std::wstring_view,std::__hash_value_type<std::wstring_view,int>,std::equal_to<std::wstring_view>,std::hash<std::wstring_view>,true>,std::allocator<std::__hash_value_type<std::wstring_view,int>>>::__emplace_unique_key_args<std::wstring_view,std::pair<std::wstring_view,int> const&>(void *a1, uint64_t **a2, uint64_t a3)
 {
-  v4 = std::__string_view_hash<wchar_t>::operator()[abi:ne200100](a1, *a2, *(a2 + 8));
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_view_hash<wchar_t>::operator()[abi:ne200100](a1, *a2, a2[1]);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     operator new();
@@ -7646,47 +7644,47 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::wstring_view>::operator()[abi:ne200100](a1, (v11 + 2), a2))
+  if (!std::equal_to<std::wstring_view>::operator()[abi:ne200100](a1, (v12 + 2), a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
-uint64_t std::unordered_map<std::wstring_view,blahtex::OperatorInfo>::unordered_map<std::pair<std::wstring_view,blahtex::OperatorInfo> const*>(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t std::unordered_map<std::wstring_view,blahtex::OperatorInfo>::unordered_map<std::pair<std::wstring_view,blahtex::OperatorInfo> const*>(uint64_t a1, uint64_t **a2, uint64_t **a3)
 {
   *a1 = 0u;
   *(a1 + 16) = 0u;
@@ -7696,8 +7694,8 @@ uint64_t std::unordered_map<std::wstring_view,blahtex::OperatorInfo>::unordered_
     v5 = a2;
     do
     {
-      std::__hash_table<std::__hash_value_type<std::wstring_view,blahtex::OperatorInfo>,std::__unordered_map_hasher<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::OperatorInfo>,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,true>,std::__unordered_map_equal<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::OperatorInfo>,std::equal_to<std::wstring_view>,std::hash<std::wstring_view>,true>,std::allocator<std::__hash_value_type<std::wstring_view,blahtex::OperatorInfo>>>::__emplace_unique_key_args<std::wstring_view,std::pair<std::wstring_view,blahtex::OperatorInfo> const&>(a1, v5);
-      v5 += 40;
+      std::__hash_table<std::__hash_value_type<std::wstring_view,blahtex::OperatorInfo>,std::__unordered_map_hasher<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::OperatorInfo>,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,true>,std::__unordered_map_equal<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::OperatorInfo>,std::equal_to<std::wstring_view>,std::hash<std::wstring_view>,true>,std::allocator<std::__hash_value_type<std::wstring_view,blahtex::OperatorInfo>>>::__emplace_unique_key_args<std::wstring_view,std::pair<std::wstring_view,blahtex::OperatorInfo> const&>(a1, v5, v5);
+      v5 += 5;
     }
 
     while (v5 != a3);
@@ -7706,35 +7704,35 @@ uint64_t std::unordered_map<std::wstring_view,blahtex::OperatorInfo>::unordered_
   return a1;
 }
 
-void *std::__hash_table<std::__hash_value_type<std::wstring_view,blahtex::OperatorInfo>,std::__unordered_map_hasher<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::OperatorInfo>,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,true>,std::__unordered_map_equal<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::OperatorInfo>,std::equal_to<std::wstring_view>,std::hash<std::wstring_view>,true>,std::allocator<std::__hash_value_type<std::wstring_view,blahtex::OperatorInfo>>>::__emplace_unique_key_args<std::wstring_view,std::pair<std::wstring_view,blahtex::OperatorInfo> const&>(void *a1, uint64_t a2)
+void *std::__hash_table<std::__hash_value_type<std::wstring_view,blahtex::OperatorInfo>,std::__unordered_map_hasher<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::OperatorInfo>,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,true>,std::__unordered_map_equal<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::OperatorInfo>,std::equal_to<std::wstring_view>,std::hash<std::wstring_view>,true>,std::allocator<std::__hash_value_type<std::wstring_view,blahtex::OperatorInfo>>>::__emplace_unique_key_args<std::wstring_view,std::pair<std::wstring_view,blahtex::OperatorInfo> const&>(void *a1, uint64_t **a2, uint64_t a3)
 {
-  v4 = std::__string_view_hash<wchar_t>::operator()[abi:ne200100](a1, *a2, *(a2 + 8));
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_view_hash<wchar_t>::operator()[abi:ne200100](a1, *a2, a2[1]);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     operator new();
@@ -7742,47 +7740,47 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::wstring_view>::operator()[abi:ne200100](a1, (v11 + 2), a2))
+  if (!std::equal_to<std::wstring_view>::operator()[abi:ne200100](a1, (v12 + 2), a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
-uint64_t std::unordered_map<std::wstring_view,blahtex::IdentifierInfo>::unordered_map<std::pair<std::wstring_view,blahtex::IdentifierInfo> const*>(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t std::unordered_map<std::wstring_view,blahtex::IdentifierInfo>::unordered_map<std::pair<std::wstring_view,blahtex::IdentifierInfo> const*>(uint64_t a1, uint64_t **a2, uint64_t **a3)
 {
   *a1 = 0u;
   *(a1 + 16) = 0u;
@@ -7792,8 +7790,8 @@ uint64_t std::unordered_map<std::wstring_view,blahtex::IdentifierInfo>::unordere
     v5 = a2;
     do
     {
-      std::__hash_table<std::__hash_value_type<std::wstring_view,blahtex::IdentifierInfo>,std::__unordered_map_hasher<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::IdentifierInfo>,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,true>,std::__unordered_map_equal<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::IdentifierInfo>,std::equal_to<std::wstring_view>,std::hash<std::wstring_view>,true>,std::allocator<std::__hash_value_type<std::wstring_view,blahtex::IdentifierInfo>>>::__emplace_unique_key_args<std::wstring_view,std::pair<std::wstring_view,blahtex::IdentifierInfo> const&>(a1, v5);
-      v5 += 48;
+      std::__hash_table<std::__hash_value_type<std::wstring_view,blahtex::IdentifierInfo>,std::__unordered_map_hasher<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::IdentifierInfo>,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,true>,std::__unordered_map_equal<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::IdentifierInfo>,std::equal_to<std::wstring_view>,std::hash<std::wstring_view>,true>,std::allocator<std::__hash_value_type<std::wstring_view,blahtex::IdentifierInfo>>>::__emplace_unique_key_args<std::wstring_view,std::pair<std::wstring_view,blahtex::IdentifierInfo> const&>(a1, v5, v5);
+      v5 += 6;
     }
 
     while (v5 != a3);
@@ -7802,35 +7800,35 @@ uint64_t std::unordered_map<std::wstring_view,blahtex::IdentifierInfo>::unordere
   return a1;
 }
 
-void *std::__hash_table<std::__hash_value_type<std::wstring_view,blahtex::IdentifierInfo>,std::__unordered_map_hasher<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::IdentifierInfo>,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,true>,std::__unordered_map_equal<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::IdentifierInfo>,std::equal_to<std::wstring_view>,std::hash<std::wstring_view>,true>,std::allocator<std::__hash_value_type<std::wstring_view,blahtex::IdentifierInfo>>>::__emplace_unique_key_args<std::wstring_view,std::pair<std::wstring_view,blahtex::IdentifierInfo> const&>(void *a1, uint64_t a2)
+void *std::__hash_table<std::__hash_value_type<std::wstring_view,blahtex::IdentifierInfo>,std::__unordered_map_hasher<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::IdentifierInfo>,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,true>,std::__unordered_map_equal<std::wstring_view,std::__hash_value_type<std::wstring_view,blahtex::IdentifierInfo>,std::equal_to<std::wstring_view>,std::hash<std::wstring_view>,true>,std::allocator<std::__hash_value_type<std::wstring_view,blahtex::IdentifierInfo>>>::__emplace_unique_key_args<std::wstring_view,std::pair<std::wstring_view,blahtex::IdentifierInfo> const&>(void *a1, uint64_t **a2, _OWORD *a3)
 {
-  v4 = std::__string_view_hash<wchar_t>::operator()[abi:ne200100](a1, *a2, *(a2 + 8));
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_view_hash<wchar_t>::operator()[abi:ne200100](a1, *a2, a2[1]);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     operator new();
@@ -7838,52 +7836,52 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::wstring_view>::operator()[abi:ne200100](a1, (v11 + 2), a2))
+  if (!std::equal_to<std::wstring_view>::operator()[abi:ne200100](a1, (v12 + 2), a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
-uint64_t blahtex::lookupColour(uint64_t a1)
+uint64_t blahtex::lookupColour(uint64_t *a1)
 {
   v1 = *(a1 + 23);
   if ((v1 & 0x80u) != 0)
   {
-    v1 = *(a1 + 8);
+    v1 = a1[1];
   }
 
   if (!v1)
@@ -7904,7 +7902,7 @@ uint64_t blahtex::lookupColour(uint64_t a1)
   v5 = *(a1 + 23);
   if (v5 < 0)
   {
-    v6 = *(a1 + 8);
+    v6 = a1[1];
     if (v6 != 6)
     {
 LABEL_21:
@@ -8276,7 +8274,7 @@ void *blahtex::ParseTree::TextStateChange::Apply(uint64_t a1, uint64_t a2)
   }
 
   v4 = *(a1 + 31);
-  if (v4 < 0)
+  if ((v4 & 0x8000000000000000) != 0)
   {
     v5 = *(a1 + 8);
     v4 = *(a1 + 16);
@@ -8284,7 +8282,7 @@ void *blahtex::ParseTree::TextStateChange::Apply(uint64_t a1, uint64_t a2)
 
   else
   {
-    v5 = a1 + 8;
+    v5 = (a1 + 8);
   }
 
   v9[0] = v5;
@@ -8305,7 +8303,7 @@ void *blahtex::ParseTree::TextStateChange::Apply(uint64_t a1, uint64_t a2)
 
 uint64_t blahtex::ParseTree::MathColour::Apply(uint64_t a1, uint64_t a2)
 {
-  result = blahtex::lookupColour(a1 + 40);
+  result = blahtex::lookupColour((a1 + 40));
   if (result == 0x10000000)
   {
     exception = __cxa_allocate_exception(0x10uLL);
@@ -8319,7 +8317,7 @@ uint64_t blahtex::ParseTree::MathColour::Apply(uint64_t a1, uint64_t a2)
 
 uint64_t blahtex::ParseTree::TextColour::Apply(uint64_t a1, uint64_t a2)
 {
-  result = blahtex::lookupColour(a1 + 40);
+  result = blahtex::lookupColour((a1 + 40));
   if (result == 0x10000000)
   {
     exception = __cxa_allocate_exception(0x10uLL);
@@ -8562,10 +8560,10 @@ void *blahtex::ParseTree::MathCommand1Arg::GetPurifiedTex(uint64_t a1, void *a2,
   }
 
   v12 = std::__put_character_sequence[abi:ne200100]<wchar_t,std::char_traits<wchar_t>>(a2, v10, v11);
-  std::__put_character_sequence[abi:ne200100]<wchar_t,std::char_traits<wchar_t>>(v12, &unk_2582E970C, 1);
+  std::__put_character_sequence[abi:ne200100]<wchar_t,std::char_traits<wchar_t>>(v12, dword_2582E970C, 1);
   (*(**(a1 + 40) + 24))(*(a1 + 40), a2, a3, a4);
 
-  return std::__put_character_sequence[abi:ne200100]<wchar_t,std::char_traits<wchar_t>>(a2, &unk_2582E9714, 1);
+  return std::__put_character_sequence[abi:ne200100]<wchar_t,std::char_traits<wchar_t>>(a2, dword_2582E9714, 1);
 }
 
 void *blahtex::ParseTree::MathStateChange::GetPurifiedTex(uint64_t a1, void *a2, uint64_t a3)
@@ -8628,7 +8626,7 @@ void *blahtex::ParseTree::MathColour::GetPurifiedTex(uint64_t a1, void *a2, uint
 
   v11 = std::__put_character_sequence[abi:ne200100]<wchar_t,std::char_traits<wchar_t>>(v4, v9, v10);
 
-  return std::__put_character_sequence[abi:ne200100]<wchar_t,std::char_traits<wchar_t>>(v11, &unk_2582E9714, 1);
+  return std::__put_character_sequence[abi:ne200100]<wchar_t,std::char_traits<wchar_t>>(v11, dword_2582E9714, 1);
 }
 
 void *blahtex::ParseTree::MathCommand2Args::GetPurifiedTex(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
@@ -8660,7 +8658,7 @@ LABEL_13:
 LABEL_22:
       std::__put_character_sequence[abi:ne200100]<wchar_t,std::char_traits<wchar_t>>(v18, v17, v19);
       (*(**(a1 + 48) + 24))(*(a1 + 48), a2, a3, a4);
-      return std::__put_character_sequence[abi:ne200100]<wchar_t,std::char_traits<wchar_t>>(a2, &unk_2582E9714, 1);
+      return std::__put_character_sequence[abi:ne200100]<wchar_t,std::char_traits<wchar_t>>(a2, dword_2582E9714, 1);
     }
 
     v20 = *(a1 + 31);
@@ -8685,7 +8683,7 @@ LABEL_22:
     }
 
     v23 = std::__put_character_sequence[abi:ne200100]<wchar_t,std::char_traits<wchar_t>>(a2, v21, v22);
-    std::__put_character_sequence[abi:ne200100]<wchar_t,std::char_traits<wchar_t>>(v23, &unk_2582E970C, 1);
+    std::__put_character_sequence[abi:ne200100]<wchar_t,std::char_traits<wchar_t>>(v23, dword_2582E970C, 1);
     (*(**(a1 + 40) + 24))(*(a1 + 40), a2, a3, a4);
     v17 = &unk_2582E97A4;
     v18 = a2;
@@ -8693,9 +8691,9 @@ LABEL_22:
     goto LABEL_22;
   }
 
-  std::__put_character_sequence[abi:ne200100]<wchar_t,std::char_traits<wchar_t>>(a2, &unk_2582E970C, 1);
+  std::__put_character_sequence[abi:ne200100]<wchar_t,std::char_traits<wchar_t>>(a2, dword_2582E970C, 1);
   (*(**(a1 + 40) + 24))(*(a1 + 40), a2, a3, a4);
-  v9 = std::__put_character_sequence[abi:ne200100]<wchar_t,std::char_traits<wchar_t>>(a2, &unk_2582E9714, 1);
+  v9 = std::__put_character_sequence[abi:ne200100]<wchar_t,std::char_traits<wchar_t>>(a2, dword_2582E9714, 1);
   v10 = *(a1 + 31);
   if (v10 >= 0)
   {
@@ -8718,10 +8716,10 @@ LABEL_22:
   }
 
   v13 = std::__put_character_sequence[abi:ne200100]<wchar_t,std::char_traits<wchar_t>>(v9, v11, v12);
-  std::__put_character_sequence[abi:ne200100]<wchar_t,std::char_traits<wchar_t>>(v13, &unk_2582E970C, 1);
+  std::__put_character_sequence[abi:ne200100]<wchar_t,std::char_traits<wchar_t>>(v13, dword_2582E970C, 1);
   (*(**(a1 + 48) + 24))(*(a1 + 48), a2, a3, a4);
 
-  return std::__put_character_sequence[abi:ne200100]<wchar_t,std::char_traits<wchar_t>>(a2, &unk_2582E9714, 1);
+  return std::__put_character_sequence[abi:ne200100]<wchar_t,std::char_traits<wchar_t>>(a2, dword_2582E9714, 1);
 }
 
 void sub_2582C60A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -8736,10 +8734,10 @@ void sub_2582C60A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void *blahtex::ParseTree::MathGroup::GetPurifiedTex(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  std::__put_character_sequence[abi:ne200100]<wchar_t,std::char_traits<wchar_t>>(a2, &unk_2582E970C, 1);
+  std::__put_character_sequence[abi:ne200100]<wchar_t,std::char_traits<wchar_t>>(a2, dword_2582E970C, 1);
   (*(**(a1 + 8) + 24))(*(a1 + 8), a2, a3, a4);
 
-  return std::__put_character_sequence[abi:ne200100]<wchar_t,std::char_traits<wchar_t>>(a2, &unk_2582E9714, 1);
+  return std::__put_character_sequence[abi:ne200100]<wchar_t,std::char_traits<wchar_t>>(a2, dword_2582E9714, 1);
 }
 
 void *blahtex::ParseTree::MathPhantom::GetPurifiedTex(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
@@ -8747,7 +8745,7 @@ void *blahtex::ParseTree::MathPhantom::GetPurifiedTex(uint64_t a1, void *a2, uin
   std::__put_character_sequence[abi:ne200100]<wchar_t,std::char_traits<wchar_t>>(a2, &unk_2582E97B0, 9);
   (*(**(a1 + 8) + 24))(*(a1 + 8), a2, a3, a4);
 
-  return std::__put_character_sequence[abi:ne200100]<wchar_t,std::char_traits<wchar_t>>(a2, &unk_2582E9714, 1);
+  return std::__put_character_sequence[abi:ne200100]<wchar_t,std::char_traits<wchar_t>>(a2, dword_2582E9714, 1);
 }
 
 void *blahtex::ParseTree::MathCancel::GetPurifiedTex(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
@@ -8755,7 +8753,7 @@ void *blahtex::ParseTree::MathCancel::GetPurifiedTex(uint64_t a1, void *a2, uint
   std::__put_character_sequence[abi:ne200100]<wchar_t,std::char_traits<wchar_t>>(a2, &unk_2582E97D8, 8);
   (*(**(a1 + 8) + 24))(*(a1 + 8), a2, a3, a4);
 
-  return std::__put_character_sequence[abi:ne200100]<wchar_t,std::char_traits<wchar_t>>(a2, &unk_2582E9714, 1);
+  return std::__put_character_sequence[abi:ne200100]<wchar_t,std::char_traits<wchar_t>>(a2, dword_2582E9714, 1);
 }
 
 uint64_t blahtex::ParseTree::MathList::GetPurifiedTex(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -8788,7 +8786,7 @@ void *blahtex::ParseTree::MathScripts::GetPurifiedTex(uint64_t a1, void *a2, uin
   {
     std::__put_character_sequence[abi:ne200100]<wchar_t,std::char_traits<wchar_t>>(a2, &unk_2582E97FC, 2);
     (*(**(a1 + 16) + 24))(*(a1 + 16), a2, a3, a4);
-    result = std::__put_character_sequence[abi:ne200100]<wchar_t,std::char_traits<wchar_t>>(a2, &unk_2582E9714, 1);
+    result = std::__put_character_sequence[abi:ne200100]<wchar_t,std::char_traits<wchar_t>>(a2, dword_2582E9714, 1);
   }
 
   if (*(a1 + 24))
@@ -8796,7 +8794,7 @@ void *blahtex::ParseTree::MathScripts::GetPurifiedTex(uint64_t a1, void *a2, uin
     std::__put_character_sequence[abi:ne200100]<wchar_t,std::char_traits<wchar_t>>(a2, &unk_2582E9808, 2);
     (*(**(a1 + 24) + 24))(*(a1 + 24), a2, a3, a4);
 
-    return std::__put_character_sequence[abi:ne200100]<wchar_t,std::char_traits<wchar_t>>(a2, &unk_2582E9714, 1);
+    return std::__put_character_sequence[abi:ne200100]<wchar_t,std::char_traits<wchar_t>>(a2, dword_2582E9714, 1);
   }
 
   return result;
@@ -9020,7 +9018,7 @@ void blahtex::ParseTree::MathEnvironment::GetPurifiedTex(uint64_t a1, void *a2, 
   v20 = 0uLL;
   if (*(a1 + 48) == 1)
   {
-    std::operator+<wchar_t>(&unk_2582E9884, (a1 + 8), &v18.__r_.__value_.__l.__data_);
+    std::operator+<wchar_t>(&unk_2582E9884, (a1 + 8), &v18);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
@@ -9034,7 +9032,7 @@ void blahtex::ParseTree::MathEnvironment::GetPurifiedTex(uint64_t a1, void *a2, 
 
   else
   {
-    std::operator+<wchar_t>(dword_2582E988C, (a1 + 8), &v18.__r_.__value_.__l.__data_);
+    std::operator+<wchar_t>(dword_2582E988C, (a1 + 8), &v18);
     v8 = std::wstring::append(&v18, dword_2582E9714);
     v9 = v8->__r_.__value_.__r.__words[0];
     v22[0] = v8->__r_.__value_.__l.__size_;
@@ -9058,7 +9056,7 @@ void blahtex::ParseTree::MathEnvironment::GetPurifiedTex(uint64_t a1, void *a2, 
     }
 
     blahtex::LatexFeatures::Update(a3, &__p);
-    std::operator+<wchar_t>(dword_2582E98AC, (a1 + 8), &v18.__r_.__value_.__l.__data_);
+    std::operator+<wchar_t>(dword_2582E98AC, (a1 + 8), &v18);
     v11 = std::wstring::append(&v18, dword_2582E9714);
     v12 = v11->__r_.__value_.__r.__words[0];
     v22[0] = v11->__r_.__value_.__l.__size_;
@@ -11564,17 +11562,17 @@ void blahtex::ParseTree::TextColour::~TextColour(void **this)
   JUMPOUT(0x259C7CB70);
 }
 
-uint64_t std::unordered_map<std::wstring,unsigned int>::unordered_map<std::pair<std::wstring_view,unsigned int> const*>(uint64_t result, uint64_t a2, uint64_t a3)
+uint64_t std::unordered_map<std::wstring,unsigned int>::unordered_map<std::pair<std::wstring_view,unsigned int> const*>(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  *result = 0u;
-  *(result + 16) = 0u;
-  *(result + 32) = 1065353216;
+  *a1 = 0u;
+  *(a1 + 16) = 0u;
+  *(a1 + 32) = 1065353216;
   if (a2 != a3)
   {
-    std::__hash_table<std::__hash_value_type<std::wstring,unsigned int>,std::__unordered_map_hasher<std::wstring,std::__hash_value_type<std::wstring,unsigned int>,std::hash<std::wstring>,std::equal_to<std::wstring>,true>,std::__unordered_map_equal<std::wstring,std::__hash_value_type<std::wstring,unsigned int>,std::equal_to<std::wstring>,std::hash<std::wstring>,true>,std::allocator<std::__hash_value_type<std::wstring,unsigned int>>>::__emplace_unique_impl<std::pair<std::wstring_view,unsigned int> const&>();
+    std::__hash_table<std::__hash_value_type<std::wstring,unsigned int>,std::__unordered_map_hasher<std::wstring,std::__hash_value_type<std::wstring,unsigned int>,std::hash<std::wstring>,std::equal_to<std::wstring>,true>,std::__unordered_map_equal<std::wstring,std::__hash_value_type<std::wstring,unsigned int>,std::equal_to<std::wstring>,std::hash<std::wstring>,true>,std::allocator<std::__hash_value_type<std::wstring,unsigned int>>>::__emplace_unique_impl<std::pair<std::wstring_view,unsigned int> const&>(a1);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_2582CA9B0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **__p, uint64_t a11)
@@ -11827,17 +11825,17 @@ void *std::__hash_table<std::__hash_value_type<std::wstring,unsigned int>,std::_
   return v11;
 }
 
-uint64_t std::unordered_map<std::wstring,blahtex::LayoutTree::Node::Style>::unordered_map<std::pair<std::wstring_view,blahtex::LayoutTree::Node::Style> const*>(uint64_t result, uint64_t a2, uint64_t a3)
+uint64_t std::unordered_map<std::wstring,blahtex::LayoutTree::Node::Style>::unordered_map<std::pair<std::wstring_view,blahtex::LayoutTree::Node::Style> const*>(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  *result = 0u;
-  *(result + 16) = 0u;
-  *(result + 32) = 1065353216;
+  *a1 = 0u;
+  *(a1 + 16) = 0u;
+  *(a1 + 32) = 1065353216;
   if (a2 != a3)
   {
-    std::__hash_table<std::__hash_value_type<std::wstring,blahtex::LayoutTree::Node::Style>,std::__unordered_map_hasher<std::wstring,std::__hash_value_type<std::wstring,blahtex::LayoutTree::Node::Style>,std::hash<std::wstring>,std::equal_to<std::wstring>,true>,std::__unordered_map_equal<std::wstring,std::__hash_value_type<std::wstring,blahtex::LayoutTree::Node::Style>,std::equal_to<std::wstring>,std::hash<std::wstring>,true>,std::allocator<std::__hash_value_type<std::wstring,blahtex::LayoutTree::Node::Style>>>::__emplace_unique_impl<std::pair<std::wstring_view,blahtex::LayoutTree::Node::Style> const&>();
+    std::__hash_table<std::__hash_value_type<std::wstring,blahtex::LayoutTree::Node::Style>,std::__unordered_map_hasher<std::wstring,std::__hash_value_type<std::wstring,blahtex::LayoutTree::Node::Style>,std::hash<std::wstring>,std::equal_to<std::wstring>,true>,std::__unordered_map_equal<std::wstring,std::__hash_value_type<std::wstring,blahtex::LayoutTree::Node::Style>,std::equal_to<std::wstring>,std::hash<std::wstring>,true>,std::allocator<std::__hash_value_type<std::wstring,blahtex::LayoutTree::Node::Style>>>::__emplace_unique_impl<std::pair<std::wstring_view,blahtex::LayoutTree::Node::Style> const&>(a1);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_2582CAF10(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **__p, uint64_t a11)
@@ -11857,17 +11855,17 @@ void sub_2582CB040(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t std::unordered_map<std::wstring,blahtex::TexMathFont::Family>::unordered_map<std::pair<std::wstring_view,blahtex::TexMathFont::Family> const*>(uint64_t result, uint64_t a2, uint64_t a3)
+uint64_t std::unordered_map<std::wstring,blahtex::TexMathFont::Family>::unordered_map<std::pair<std::wstring_view,blahtex::TexMathFont::Family> const*>(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  *result = 0u;
-  *(result + 16) = 0u;
-  *(result + 32) = 1065353216;
+  *a1 = 0u;
+  *(a1 + 16) = 0u;
+  *(a1 + 32) = 1065353216;
   if (a2 != a3)
   {
-    std::__hash_table<std::__hash_value_type<std::wstring,blahtex::TexMathFont::Family>,std::__unordered_map_hasher<std::wstring,std::__hash_value_type<std::wstring,blahtex::TexMathFont::Family>,std::hash<std::wstring>,std::equal_to<std::wstring>,true>,std::__unordered_map_equal<std::wstring,std::__hash_value_type<std::wstring,blahtex::TexMathFont::Family>,std::equal_to<std::wstring>,std::hash<std::wstring>,true>,std::allocator<std::__hash_value_type<std::wstring,blahtex::TexMathFont::Family>>>::__emplace_unique_impl<std::pair<std::wstring_view,blahtex::TexMathFont::Family> const&>();
+    std::__hash_table<std::__hash_value_type<std::wstring,blahtex::TexMathFont::Family>,std::__unordered_map_hasher<std::wstring,std::__hash_value_type<std::wstring,blahtex::TexMathFont::Family>,std::hash<std::wstring>,std::equal_to<std::wstring>,true>,std::__unordered_map_equal<std::wstring,std::__hash_value_type<std::wstring,blahtex::TexMathFont::Family>,std::equal_to<std::wstring>,std::hash<std::wstring>,true>,std::allocator<std::__hash_value_type<std::wstring,blahtex::TexMathFont::Family>>>::__emplace_unique_impl<std::pair<std::wstring_view,blahtex::TexMathFont::Family> const&>(a1);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_2582CB13C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **__p, uint64_t a11)
@@ -11887,18 +11885,19 @@ void sub_2582CB26C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void *std::set<wchar_t>::set[abi:ne200100]<wchar_t const*>(void *a1, int *a2, int *a3)
+uint64_t std::set<wchar_t>::set[abi:ne200100]<wchar_t const*>(uint64_t a1, int *a2, int *a3)
 {
-  a1[1] = 0;
-  v4 = a1 + 1;
-  a1[2] = 0;
-  *a1 = a1 + 1;
+  *(a1 + 8) = 0;
+  v4 = (a1 + 8);
+  *(a1 + 16) = 0;
+  *a1 = a1 + 8;
   if (a2 != a3)
   {
     v6 = a2;
     do
     {
-      std::__tree<EQKitTypes::Attributes::Enum>::__emplace_hint_unique_key_args<EQKitTypes::Attributes::Enum,EQKitTypes::Attributes::Enum const&>(a1, v4, v6++);
+      std::__tree<EQKitTypes::Attributes::Enum>::__emplace_hint_unique_key_args<EQKitTypes::Attributes::Enum,EQKitTypes::Attributes::Enum const&>(a1, v4, v6, v6);
+      ++v6;
     }
 
     while (v6 != a3);
@@ -11910,10 +11909,10 @@ void *std::set<wchar_t>::set[abi:ne200100]<wchar_t const*>(void *a1, int *a2, in
 void *blahtex::UnicodeNameTable(blahtex *this)
 {
   {
-    std::unordered_map<wchar_t,blahtex::UnicodeNameInfo>::unordered_map<std::pair<wchar_t,blahtex::UnicodeNameInfo> const*>(&blahtex::UnicodeNameTable(void)::gUnicodeNameTable, &blahtex::gUnicodeNameArray, &blahtex::gUnicodeNameArray + 5290);
+    std::unordered_map<wchar_t,blahtex::UnicodeNameInfo>::unordered_map<std::pair<wchar_t,blahtex::UnicodeNameInfo> const*>(blahtex::UnicodeNameTable(void)::gUnicodeNameTable, &blahtex::gUnicodeNameArray, &blahtex::gUnicodeNameArray + 5290);
   }
 
-  return &blahtex::UnicodeNameTable(void)::gUnicodeNameTable;
+  return blahtex::UnicodeNameTable(void)::gUnicodeNameTable;
 }
 
 uint64_t blahtex::XmlEncode@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, std::wstringbuf::string_type *a3@<X8>)
@@ -12089,12 +12088,11 @@ LABEL_48:
   return MEMORY[0x259C7CB30](&v28);
 }
 
-void sub_2582CB734(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2582CB734(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   v6 = va_arg(va1, void);
   v7 = va_arg(va1, void);
   v8 = va_arg(va1, void);
@@ -12107,6 +12105,7 @@ void sub_2582CB734(_Unwind_Exception *a1, uint64_t a2, ...)
   v15 = va_arg(va1, void);
   v16 = va_arg(va1, void);
   v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
   MEMORY[0x259C7CB30](va1);
   _Unwind_Resume(a1);
 }
@@ -12121,7 +12120,7 @@ uint64_t std::unordered_map<wchar_t,blahtex::UnicodeNameInfo>::unordered_map<std
     v5 = a2;
     do
     {
-      std::__hash_table<std::__hash_value_type<wchar_t,blahtex::UnicodeNameInfo>,std::__unordered_map_hasher<wchar_t,std::__hash_value_type<wchar_t,blahtex::UnicodeNameInfo>,std::hash<wchar_t>,std::equal_to<wchar_t>,true>,std::__unordered_map_equal<wchar_t,std::__hash_value_type<wchar_t,blahtex::UnicodeNameInfo>,std::equal_to<wchar_t>,std::hash<wchar_t>,true>,std::allocator<std::__hash_value_type<wchar_t,blahtex::UnicodeNameInfo>>>::__emplace_unique_key_args<wchar_t,std::pair<wchar_t,blahtex::UnicodeNameInfo> const&>(a1, v5);
+      std::__hash_table<std::__hash_value_type<wchar_t,blahtex::UnicodeNameInfo>,std::__unordered_map_hasher<wchar_t,std::__hash_value_type<wchar_t,blahtex::UnicodeNameInfo>,std::hash<wchar_t>,std::equal_to<wchar_t>,true>,std::__unordered_map_equal<wchar_t,std::__hash_value_type<wchar_t,blahtex::UnicodeNameInfo>,std::equal_to<wchar_t>,std::hash<wchar_t>,true>,std::allocator<std::__hash_value_type<wchar_t,blahtex::UnicodeNameInfo>>>::__emplace_unique_key_args<wchar_t,std::pair<wchar_t,blahtex::UnicodeNameInfo> const&>(a1, v5, v5);
       v5 += 10;
     }
 
@@ -12131,33 +12130,33 @@ uint64_t std::unordered_map<wchar_t,blahtex::UnicodeNameInfo>::unordered_map<std
   return a1;
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<wchar_t,blahtex::UnicodeNameInfo>,std::__unordered_map_hasher<wchar_t,std::__hash_value_type<wchar_t,blahtex::UnicodeNameInfo>,std::hash<wchar_t>,std::equal_to<wchar_t>,true>,std::__unordered_map_equal<wchar_t,std::__hash_value_type<wchar_t,blahtex::UnicodeNameInfo>,std::equal_to<wchar_t>,std::hash<wchar_t>,true>,std::allocator<std::__hash_value_type<wchar_t,blahtex::UnicodeNameInfo>>>::__emplace_unique_key_args<wchar_t,std::pair<wchar_t,blahtex::UnicodeNameInfo> const&>(void *a1, int *a2)
+uint64_t *std::__hash_table<std::__hash_value_type<wchar_t,blahtex::UnicodeNameInfo>,std::__unordered_map_hasher<wchar_t,std::__hash_value_type<wchar_t,blahtex::UnicodeNameInfo>,std::hash<wchar_t>,std::equal_to<wchar_t>,true>,std::__unordered_map_equal<wchar_t,std::__hash_value_type<wchar_t,blahtex::UnicodeNameInfo>,std::equal_to<wchar_t>,std::hash<wchar_t>,true>,std::allocator<std::__hash_value_type<wchar_t,blahtex::UnicodeNameInfo>>>::__emplace_unique_key_args<wchar_t,std::pair<wchar_t,blahtex::UnicodeNameInfo> const&>(void *a1, int *a2, uint64_t a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v6 = *a2;
+    if (*&v4 <= v3)
     {
-      v5 = v2 % *&v3;
+      v6 = v3 % *&v4;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v6 = (*&v4 - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -12165,44 +12164,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v8 + 4) != v3)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v8;
 }
 
 CGRect CGPathGetPathBoundingBox(CGPathRef path)

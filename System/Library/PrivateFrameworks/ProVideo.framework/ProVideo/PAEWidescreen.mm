@@ -77,7 +77,7 @@
   v46 = 0u;
   if (v10)
   {
-    [(PAESharedDefaultBase *)self getPixelTransformForImage:output];
+    objc_msgSend_getPixelTransformForImage_(self);
     for (i = 0; i != 16; i += 4)
     {
       v12 = &v41[i * 8];
@@ -86,7 +86,7 @@
       v12[1] = v13;
     }
 
-    [(PAESharedDefaultBase *)self getInversePixelTransformForImage:output];
+    objc_msgSend_getInversePixelTransformForImage_(self);
     for (j = 0; j != 16; j += 4)
     {
       v15 = &v48[j * 8];
@@ -171,7 +171,7 @@
       {
         if (input)
         {
-          [input heliumRef];
+          objc_msgSend_heliumRef(input);
         }
 
         v32 = HGObject::operator new(0x1A0uLL);

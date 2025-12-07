@@ -11,7 +11,7 @@
 {
   nameCopy = name;
   activityCopy = activity;
-  v8 = __atxlog_handle_default();
+  v8 = __atxlog_handle_default(activityCopy);
   v9 = [(ATXXPCActivity *)self initWithActivity:activityCopy name:nameCopy logHandle:v8];
 
   return v9;

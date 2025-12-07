@@ -67,7 +67,7 @@ uint64_t __47__PUVFXRetouchOverlay__asyncCIRenderWithFlush___block_invoke(uint64
   height = size.height;
   width = size.width;
   imageCopy = image;
-  [imageCopy extent];
+  objc_msgSend_extent(imageCopy);
   v8 = v7;
   v10 = v9;
   v11 = imageCopy;
@@ -102,7 +102,7 @@ uint64_t __47__PUVFXRetouchOverlay__asyncCIRenderWithFlush___block_invoke(uint64
   [morphologyMinimumFilter setRadius:v11];
   [morphologyMinimumFilter setInputImage:imageCopy];
   outputImage = [morphologyMinimumFilter outputImage];
-  [imageCopy extent];
+  objc_msgSend_extent(imageCopy);
   v13 = [outputImage imageByCroppingToRect:?];
 
   sourceOutCompositingFilter = [MEMORY[0x1E695F648] sourceOutCompositingFilter];
@@ -549,13 +549,13 @@ LABEL_19:
           v25 = [v22 buffer];
           v26 = [v24 imageWithCVPixelBuffer:{objc_msgSend(v25, "CVPixelBuffer")}];
 
-          [v17 extent];
+          objc_msgSend_extent(v17);
           v28 = v27;
-          [v26 extent];
+          objc_msgSend_extent(v26);
           v30 = v28 / v29;
-          [v17 extent];
+          objc_msgSend_extent(v17);
           v32 = v31;
-          [v26 extent];
+          objc_msgSend_extent(v26);
           CGAffineTransformMakeScale(&buf, v30, v32 / v33);
           v34 = [v26 imageByApplyingTransform:&buf];
 
@@ -817,7 +817,7 @@ void __42__PUVFXRetouchOverlay__snapshotAvailable___block_invoke(uint64_t a1)
   v2 = [*(a1 + 32) _syncGetSourceImageOfSize:{1024.0, 768.0}];
   v3 = MEMORY[0x1E69B3D40];
   v20 = v2;
-  [v2 extent];
+  objc_msgSend_extent(v2);
   v4 = NUPixelSizeFromCGSize();
   v6 = [v3 newPixelBufferOfSize:v4 format:{v5, 1380411457}];
   v7 = v6;
@@ -825,7 +825,7 @@ void __42__PUVFXRetouchOverlay__snapshotAvailable___block_invoke(uint64_t a1)
   {
     v8 = *(*(a1 + 32) + 456);
     v9 = [v6 CVPixelBuffer];
-    [v20 extent];
+    objc_msgSend_extent(v20);
     v11 = v10;
     v13 = v12;
     v15 = v14;
@@ -1187,7 +1187,7 @@ LABEL_7:
 
   v13 = [MEMORY[0x1E69BDF30] dilateMask:imageCopy withRadius:v12];
   v14 = [v13 imageByApplyingGaussianBlurWithSigma:v9];
-  [imageCopy extent];
+  objc_msgSend_extent(imageCopy);
   v16 = v15;
   v18 = v17;
   v20 = v19;

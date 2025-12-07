@@ -404,7 +404,7 @@ LABEL_9:
   _Block_object_dispose(&v23, 8);
 }
 
-uint64_t __71__CAMSemanticStyleControl__updateSubviewsVisibilityWithDuration_delay___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__71__CAMSemanticStyleControl__updateSubviewsVisibilityWithDuration_delay___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 expanded];
   *(*(*(a1 + 32) + 8) + 24) = result;

@@ -41,25 +41,25 @@
 
 - (BOOL)hasValidTimeRange
 {
-  [(PHVideoRequestOptions *)self timeRange];
+  objc_msgSend_timeRange(self, a2);
   if ((v7 & 1) == 0)
   {
     return 0;
   }
 
-  [(PHVideoRequestOptions *)self timeRange];
+  objc_msgSend_timeRange(self);
   if ((v6 & 1) == 0)
   {
     return 0;
   }
 
-  [(PHVideoRequestOptions *)self timeRange];
+  objc_msgSend_timeRange(self);
   if (v5)
   {
     return 0;
   }
 
-  [(PHVideoRequestOptions *)self timeRange];
+  objc_msgSend_timeRange(self);
   return v4 >= 0;
 }
 
@@ -143,7 +143,7 @@ LABEL_5:
   if ([(PHVideoRequestOptions *)self hasValidTimeRange])
   {
     v10 = *MEMORY[0x1E695E480];
-    [(PHVideoRequestOptions *)self timeRange];
+    objc_msgSend_timeRange(self);
     v11 = CMTimeRangeCopyDescription(v10, &range);
     [string appendString:@"+timeRange="];
     [string appendString:v11];
@@ -248,7 +248,7 @@ LABEL_6:
   [v4 setLiveRenderAndOnDemandRenderVideoConcurrently:{-[PHVideoRequestOptions liveRenderAndOnDemandRenderVideoConcurrently](self, "liveRenderAndOnDemandRenderVideoConcurrently")}];
   [v4 setDownloadIntent:{-[PHVideoRequestOptions downloadIntent](self, "downloadIntent")}];
   [v4 setDownloadPriority:{-[PHVideoRequestOptions downloadPriority](self, "downloadPriority")}];
-  [(PHVideoRequestOptions *)self timeRange];
+  objc_msgSend_timeRange(self);
   [v4 setTimeRange:&v8];
   [v4 setIncludeTimeRangeMapper:{-[PHVideoRequestOptions includeTimeRangeMapper](self, "includeTimeRangeMapper")}];
   return v4;

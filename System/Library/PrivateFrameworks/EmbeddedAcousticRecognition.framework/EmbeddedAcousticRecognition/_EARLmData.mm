@@ -29,42 +29,43 @@
 
 - (_EARLmData)initWithConfiguration:(id)configuration ncsRoot:(id)root recognizerConfiguration:(id)recognizerConfiguration
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
   rootCopy = root;
   recognizerConfigurationCopy = recognizerConfiguration;
-  v18.receiver = self;
-  v18.super_class = _EARLmData;
-  v11 = [(_EARLmData *)&v18 init];
+  v20.receiver = self;
+  v20.super_class = _EARLmData;
+  v11 = [(_EARLmData *)&v20 init];
+  v12 = v11;
   if (v11)
   {
-    v12 = EarLmLogger();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = EarLmLogger(v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       LODWORD(buf) = 138412290;
       *(&buf + 4) = configurationCopy;
-      _os_log_impl(&dword_1B501D000, v12, OS_LOG_TYPE_DEFAULT, "Initializing %@", &buf, 0xCu);
+      _os_log_impl(&dword_1B501D000, v13, OS_LOG_TYPE_DEFAULT, "Initializing %@", &buf, 0xCu);
     }
 
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-    v14 = [defaultManager fileExistsAtPath:configurationCopy];
+    v15 = [defaultManager fileExistsAtPath:configurationCopy];
 
-    if (v14)
+    if (v15)
     {
       if (rootCopy)
       {
-        [_EARQuasarTokenizer tokenizerWithNcsRoot:rootCopy];
+        objc_msgSend_tokenizerWithNcsRoot_(_EARQuasarTokenizer);
       }
 
       else
       {
-        [_EARQuasarTokenizer tokenizerWithRecognizerConfigPath:configurationCopy];
+        objc_msgSend_tokenizerWithRecognizerConfigPath_(_EARQuasarTokenizer);
       }
 
       *&buf = 0;
       if (configurationCopy)
       {
-        [configurationCopy ear_toString];
+        objc_msgSend_ear_toString(configurationCopy);
         if (!recognizerConfigurationCopy)
         {
           goto LABEL_15;
@@ -74,7 +75,7 @@
       else
       {
         buf = 0uLL;
-        v20 = 0;
+        v22 = 0;
         if (!recognizerConfigurationCopy)
         {
 LABEL_15:
@@ -82,27 +83,27 @@ LABEL_15:
         }
       }
 
-      [recognizerConfigurationCopy ear_toString];
+      objc_msgSend_ear_toString(recognizerConfigurationCopy);
       goto LABEL_15;
     }
 
-    v15 = EarLmLogger();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v17 = EarLmLogger(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       LODWORD(buf) = 138412290;
       *(&buf + 4) = configurationCopy;
-      _os_log_impl(&dword_1B501D000, v15, OS_LOG_TYPE_DEFAULT, "File does not exist %@", &buf, 0xCu);
+      _os_log_impl(&dword_1B501D000, v17, OS_LOG_TYPE_DEFAULT, "File does not exist %@", &buf, 0xCu);
     }
 
-    v16 = 0;
+    v18 = 0;
   }
 
   else
   {
-    v16 = 0;
+    v18 = 0;
   }
 
-  return v16;
+  return v18;
 }
 
 - (void)addDocumentWithUUID:(id)d content:(id)content
@@ -114,8 +115,8 @@ LABEL_15:
   if (dCopy && contentCopy)
   {
     ptr = self->_data.__ptr_;
-    [dCopy ear_toString];
-    [v8 ear_toString];
+    objc_msgSend_ear_toString(dCopy);
+    objc_msgSend_ear_toString(v8);
     v10 = 0;
     quasar::PersonalizedLmData::addDocument(ptr, &v13, &__p, &v10);
     if (v12 < 0)
@@ -132,7 +133,7 @@ LABEL_15:
 
 - (void)addDocumentWithUUID:(id)d content:(id)content metadata:(id)metadata
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   dCopy = d;
   contentCopy = content;
   metadataCopy = metadata;
@@ -148,16 +149,16 @@ LABEL_15:
       if (v13)
       {
         ptr = self->_data.__ptr_;
-        [dCopy ear_toString];
-        [contentCopy ear_toString];
+        objc_msgSend_ear_toString(dCopy);
+        objc_msgSend_ear_toString(contentCopy);
         intValue = [v13 intValue];
         quasar::PersonalizedLmData::addDocument(ptr, buf, &__p, &intValue);
-        if (v18 < 0)
+        if (v19 < 0)
         {
           operator delete(__p);
         }
 
-        if (v20 < 0)
+        if (v21 < 0)
         {
           operator delete(*buf);
         }
@@ -172,11 +173,11 @@ LABEL_13:
     {
     }
 
-    v15 = EarLmLogger();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = EarLmLogger(v14);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1B501D000, v15, OS_LOG_TYPE_DEFAULT, "Document type is not set properly", buf, 2u);
+      _os_log_impl(&dword_1B501D000, v16, OS_LOG_TYPE_DEFAULT, "Document type is not set properly", buf, 2u);
     }
 
     v13 = 0;
@@ -197,8 +198,8 @@ LABEL_14:
   {
     ptr = self->_data.__ptr_;
     v14 = typeCopy;
-    [uuidCopy ear_toString];
-    [v10 ear_toString];
+    objc_msgSend_ear_toString(uuidCopy);
+    objc_msgSend_ear_toString(v10);
     quasar::LmData::addLine(ptr, &v14, &v15, &__p);
     if (v13 < 0)
     {
@@ -224,8 +225,8 @@ LABEL_14:
   {
     ptr = self->_data.__ptr_;
     v16 = typeCopy;
-    [uuidCopy ear_toString];
-    [v12 ear_toString];
+    objc_msgSend_ear_toString(uuidCopy);
+    objc_msgSend_ear_toString(v12);
     (*(*ptr + 24))(ptr, &v16, &v17, &__p, weightsCopy, 0, 0);
     if (v15 < 0)
     {
@@ -247,7 +248,7 @@ LABEL_14:
   if (contentCopy)
   {
     ptr = self->_data.__ptr_;
-    [contentCopy ear_toString];
+    objc_msgSend_ear_toString(contentCopy);
     quasar::LmData::addNgramCount(ptr, typeCopy, __p);
   }
 }
@@ -281,7 +282,7 @@ LABEL_14:
   v18 = 0;
   v19 = 0;
   v20 = 0;
-  std::vector<quasar::lm::TokenStringAndCount>::__init_with_size[abi:ne200100]<quasar::lm::TokenStringAndCount*,quasar::lm::TokenStringAndCount*>(&v18, *Sentences, Sentences[1], (Sentences[1] - *Sentences) >> 7);
+  std::vector<quasar::lm::TokenStringAndCount>::__init_with_size[abi:ne200100]<quasar::lm::TokenStringAndCount*,quasar::lm::TokenStringAndCount*>(&v18, *Sentences, *(Sentences + 8), (*(Sentences + 8) - *Sentences) >> 7);
   v8 = v18;
   for (i = v19; v8 != i; v8 += 128)
   {
@@ -325,7 +326,7 @@ LABEL_14:
 - (id)metrics
 {
   v4[9] = *MEMORY[0x1E69E9840];
-  quasar::LmData::getMetrics(self->_data.__ptr_, self->_roundingEnabled, v4);
+  quasar::LmData::getMetrics(v4, self->_data.__ptr_, self->_roundingEnabled);
   v2 = EARHelpers::dictFromPTree(v4, 1);
   quasar::PTree::~PTree(v4);
 

@@ -70,11 +70,11 @@
 
 - (_LTTranslationParagraph)initWithCoder:(id)coder
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v17.receiver = self;
-  v17.super_class = _LTTranslationParagraph;
-  v5 = [(_LTTranslationParagraph *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = _LTTranslationParagraph;
+  v5 = [(_LTTranslationParagraph *)&v16 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"identifier"];
@@ -85,9 +85,9 @@
     text = v5->_text;
     v5->_text = v8;
 
-    v18[0] = objc_opt_class();
-    v18[1] = objc_opt_class();
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
+    v17[0] = objc_opt_class();
+    v17[1] = objc_opt_class();
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
     v11 = [MEMORY[0x277CBEB98] setWithArray:v10];
     v12 = [coderCopy decodeObjectOfClasses:v11 forKey:@"spans"];
     spans = v5->_spans;
@@ -97,64 +97,63 @@
     v14 = v5;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (id)splitIntoSentences
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   v4 = [objc_alloc(MEMORY[0x277CCAB48]) initWithString:self->_text];
   spans = self->_spans;
-  v36[0] = MEMORY[0x277D85DD0];
-  v36[1] = 3221225472;
-  v36[2] = __45___LTTranslationParagraph_splitIntoSentences__block_invoke;
-  v36[3] = &unk_278B6D9D8;
+  v35[0] = MEMORY[0x277D85DD0];
+  v35[1] = 3221225472;
+  v35[2] = __45___LTTranslationParagraph_splitIntoSentences__block_invoke;
+  v35[3] = &unk_278B6D9D8;
   v6 = v4;
-  v37 = v6;
-  [(NSArray *)spans enumerateObjectsUsingBlock:v36];
-  v26 = v6;
+  v36 = v6;
+  [(NSArray *)spans enumerateObjectsUsingBlock:v35];
+  v25 = v6;
   [v6 sentences];
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
-  obj = v35 = 0u;
-  v7 = [obj countByEnumeratingWithState:&v32 objects:v39 count:16];
+  obj = v34 = 0u;
+  v7 = [obj countByEnumeratingWithState:&v31 objects:v38 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v33;
+    v9 = *v32;
     v10 = array;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v33 != v9)
+        if (*v32 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v32 + 1) + 8 * i);
+        v12 = *(*(&v31 + 1) + 8 * i);
         v13 = objc_alloc_init(MEMORY[0x277CBEB38]);
         v14 = [v12 length];
-        v30[0] = MEMORY[0x277D85DD0];
-        v30[1] = 3221225472;
-        v30[2] = __45___LTTranslationParagraph_splitIntoSentences__block_invoke_2;
-        v30[3] = &unk_278B6DA28;
+        v29[0] = MEMORY[0x277D85DD0];
+        v29[1] = 3221225472;
+        v29[2] = __45___LTTranslationParagraph_splitIntoSentences__block_invoke_2;
+        v29[3] = &unk_278B6DA28;
         v15 = v13;
-        v31 = v15;
-        [v12 enumerateAttributesInRange:0 options:v14 usingBlock:{0, v30}];
+        v30 = v15;
+        [v12 enumerateAttributesInRange:0 options:v14 usingBlock:{0, v29}];
         if ([v15 count])
         {
           v16 = objc_alloc_init(MEMORY[0x277CBEB18]);
-          v28[0] = MEMORY[0x277D85DD0];
-          v28[1] = 3221225472;
-          v28[2] = __45___LTTranslationParagraph_splitIntoSentences__block_invoke_4;
-          v28[3] = &unk_278B6DA50;
+          v27[0] = MEMORY[0x277D85DD0];
+          v27[1] = 3221225472;
+          v27[2] = __45___LTTranslationParagraph_splitIntoSentences__block_invoke_4;
+          v27[3] = &unk_278B6DA50;
           v17 = v16;
-          v29 = v17;
-          [v15 enumerateKeysAndObjectsUsingBlock:v28];
+          v28 = v17;
+          [v15 enumerateKeysAndObjectsUsingBlock:v27];
         }
 
         else
@@ -170,7 +169,7 @@
         [v10 addObject:v21];
       }
 
-      v8 = [obj countByEnumeratingWithState:&v32 objects:v39 count:16];
+      v8 = [obj countByEnumeratingWithState:&v31 objects:v38 count:16];
     }
 
     while (v8);
@@ -188,8 +187,6 @@
   }
 
   v23 = v22;
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v23;
 }

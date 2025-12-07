@@ -245,7 +245,7 @@
           if (renderModel == *(equalCopy + 9) || [(TUIRenderModel *)renderModel isEqualToRenderModel:?])
           {
             refId = self->_refId;
-            if (refId == *(equalCopy + 11) || [(NSString *)refId isEqualToString:?])
+            if (refId == *(equalCopy + 11) || objc_msgSend_isEqualToString_(refId))
             {
               refInstance = self->_refInstance;
               if (refInstance == *(equalCopy + 12))
@@ -255,7 +255,7 @@
 
               else
               {
-                v7 = [(NSString *)refInstance isEqualToString:?];
+                v7 = objc_msgSend_isEqualToString_(refInstance);
               }
 
               goto LABEL_13;

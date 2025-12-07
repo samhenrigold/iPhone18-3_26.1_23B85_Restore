@@ -71,7 +71,7 @@
 
 - (FCPurchaseManager)initWithCloudContext:(id)context purchaseIntegrityChecker:(id)checker purchaseReceiptProvider:(id)provider paymentTransactionManager:(id)manager bundleSubscriptionManager:(id)subscriptionManager keyValueStoreOption:(unint64_t)option
 {
-  v81 = *MEMORY[0x1E69E9840];
+  v79 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   checkerCopy = checker;
   providerCopy = provider;
@@ -79,19 +79,19 @@
   subscriptionManagerCopy = subscriptionManager;
   if (!contextCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v52 = providerCopy;
-    v53 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "cloudContext != nil"];
+    v50 = providerCopy;
+    v51 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "cloudContext != nil"];
     *buf = 136315906;
-    v74 = "[FCPurchaseManager initWithCloudContext:purchaseIntegrityChecker:purchaseReceiptProvider:paymentTransactionManager:bundleSubscriptionManager:keyValueStoreOption:]";
-    v75 = 2080;
-    v76 = "FCPurchaseManager.m";
-    v77 = 1024;
-    v78 = 103;
-    v79 = 2114;
-    v80 = v53;
+    v72 = "[FCPurchaseManager initWithCloudContext:purchaseIntegrityChecker:purchaseReceiptProvider:paymentTransactionManager:bundleSubscriptionManager:keyValueStoreOption:]";
+    v73 = 2080;
+    v74 = "FCPurchaseManager.m";
+    v75 = 1024;
+    v76 = 103;
+    v77 = 2114;
+    v78 = v51;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
-    providerCopy = v52;
+    providerCopy = v50;
     if (checkerCopy)
     {
       goto LABEL_6;
@@ -105,33 +105,33 @@
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v54 = providerCopy;
-    v55 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "purchaseIntegrityChecker != nil"];
+    v52 = providerCopy;
+    v53 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "purchaseIntegrityChecker != nil"];
     *buf = 136315906;
-    v74 = "[FCPurchaseManager initWithCloudContext:purchaseIntegrityChecker:purchaseReceiptProvider:paymentTransactionManager:bundleSubscriptionManager:keyValueStoreOption:]";
-    v75 = 2080;
-    v76 = "FCPurchaseManager.m";
-    v77 = 1024;
-    v78 = 104;
-    v79 = 2114;
-    v80 = v55;
+    v72 = "[FCPurchaseManager initWithCloudContext:purchaseIntegrityChecker:purchaseReceiptProvider:paymentTransactionManager:bundleSubscriptionManager:keyValueStoreOption:]";
+    v73 = 2080;
+    v74 = "FCPurchaseManager.m";
+    v75 = 1024;
+    v76 = 104;
+    v77 = 2114;
+    v78 = v53;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
-    providerCopy = v54;
+    providerCopy = v52;
   }
 
 LABEL_6:
   if (!providerCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v56 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "purchaseReceiptProvider != nil"];
+    v54 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "purchaseReceiptProvider != nil"];
     *buf = 136315906;
-    v74 = "[FCPurchaseManager initWithCloudContext:purchaseIntegrityChecker:purchaseReceiptProvider:paymentTransactionManager:bundleSubscriptionManager:keyValueStoreOption:]";
-    v75 = 2080;
-    v76 = "FCPurchaseManager.m";
-    v77 = 1024;
-    v78 = 105;
-    v79 = 2114;
-    v80 = v56;
+    v72 = "[FCPurchaseManager initWithCloudContext:purchaseIntegrityChecker:purchaseReceiptProvider:paymentTransactionManager:bundleSubscriptionManager:keyValueStoreOption:]";
+    v73 = 2080;
+    v74 = "FCPurchaseManager.m";
+    v75 = 1024;
+    v76 = 105;
+    v77 = 2114;
+    v78 = v54;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     providerCopy = 0;
@@ -139,146 +139,144 @@ LABEL_6:
 
   if (!managerCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v57 = providerCopy;
-    v58 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "paymentTransactionManager != nil"];
+    v55 = providerCopy;
+    v56 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "paymentTransactionManager != nil"];
     *buf = 136315906;
-    v74 = "[FCPurchaseManager initWithCloudContext:purchaseIntegrityChecker:purchaseReceiptProvider:paymentTransactionManager:bundleSubscriptionManager:keyValueStoreOption:]";
-    v75 = 2080;
-    v76 = "FCPurchaseManager.m";
-    v77 = 1024;
-    v78 = 106;
-    v79 = 2114;
-    v80 = v58;
+    v72 = "[FCPurchaseManager initWithCloudContext:purchaseIntegrityChecker:purchaseReceiptProvider:paymentTransactionManager:bundleSubscriptionManager:keyValueStoreOption:]";
+    v73 = 2080;
+    v74 = "FCPurchaseManager.m";
+    v75 = 1024;
+    v76 = 106;
+    v77 = 2114;
+    v78 = v56;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
-    providerCopy = v57;
+    providerCopy = v55;
   }
 
-  v68.receiver = self;
-  v68.super_class = FCPurchaseManager;
-  v67 = [(FCPurchaseManager *)&v68 init];
-  if (v67)
+  v66.receiver = self;
+  v66.super_class = FCPurchaseManager;
+  v65 = [(FCPurchaseManager *)&v66 init];
+  if (v65)
   {
-    v60 = providerCopy;
-    v61 = checkerCopy;
+    v58 = providerCopy;
+    v59 = checkerCopy;
     purchaseController = [contextCopy purchaseController];
-    purchaseController = v67->_purchaseController;
-    v67->_purchaseController = purchaseController;
+    purchaseController = v65->_purchaseController;
+    v65->_purchaseController = purchaseController;
 
-    objc_storeStrong(&v67->_purchaseIntegrityChecker, checker);
-    objc_storeStrong(&v67->_purchaseReceiptProvider, provider);
-    objc_storeStrong(&v67->_paymentTransactionManager, manager);
-    objc_storeStrong(&v67->_bundleSubscriptionManager, subscriptionManager);
+    objc_storeStrong(&v65->_purchaseIntegrityChecker, checker);
+    objc_storeStrong(&v65->_purchaseReceiptProvider, provider);
+    objc_storeStrong(&v65->_paymentTransactionManager, manager);
+    objc_storeStrong(&v65->_bundleSubscriptionManager, subscriptionManager);
     v19 = objc_alloc_init(FCReceiptRefresher);
-    receiptRefresher = v67->_receiptRefresher;
-    v67->_receiptRefresher = v19;
+    receiptRefresher = v65->_receiptRefresher;
+    v65->_receiptRefresher = v19;
 
-    [(FCPaymentTransactionManager *)v67->_paymentTransactionManager setDelegate:v67];
+    [(FCPaymentTransactionManager *)v65->_paymentTransactionManager setDelegate:v65];
     dictionary = [MEMORY[0x1E695DF90] dictionary];
-    cachedPurchaseModels = v67->_cachedPurchaseModels;
-    v67->_cachedPurchaseModels = dictionary;
+    cachedPurchaseModels = v65->_cachedPurchaseModels;
+    v65->_cachedPurchaseModels = dictionary;
 
     v23 = objc_alloc_init(MEMORY[0x1E69B68E8]);
-    accessLock = v67->_accessLock;
-    v67->_accessLock = v23;
+    accessLock = v65->_accessLock;
+    v65->_accessLock = v23;
 
     privateDataDirectory = [contextCopy privateDataDirectory];
     v26 = [FCKeyValueStore alloc];
-    v59 = privateDataDirectory;
+    v57 = privateDataDirectory;
     v27 = [(FCKeyValueStore *)v26 initWithName:FCPurchaseManagementFileName directory:privateDataDirectory version:2 options:option classRegistry:0];
-    localStore = v67->_localStore;
-    v67->_localStore = v27;
+    localStore = v65->_localStore;
+    v65->_localStore = v27;
 
-    v62 = contextCopy;
+    v60 = contextCopy;
     appActivityMonitor = [contextCopy appActivityMonitor];
-    [appActivityMonitor addObserver:v67];
+    [appActivityMonitor addObserver:v65];
 
     dictionary2 = [MEMORY[0x1E695DF90] dictionary];
-    ongoingPurchaseEntriesByProductID = v67->_ongoingPurchaseEntriesByProductID;
-    v67->_ongoingPurchaseEntriesByProductID = dictionary2;
+    ongoingPurchaseEntriesByProductID = v65->_ongoingPurchaseEntriesByProductID;
+    v65->_ongoingPurchaseEntriesByProductID = dictionary2;
 
-    v32 = v67->_localStore;
+    v32 = v65->_localStore;
+    v67 = 0u;
+    v68 = 0u;
     v69 = 0u;
     v70 = 0u;
-    v71 = 0u;
-    v72 = 0u;
     allKeys = [(FCKeyValueStore *)v32 allKeys];
-    v34 = [allKeys countByEnumeratingWithState:&v69 objects:buf count:16];
+    v34 = [allKeys countByEnumeratingWithState:&v67 objects:buf count:16];
     if (v34)
     {
       v35 = v34;
-      v36 = *v70;
+      v36 = *v68;
       v37 = 0x1E695D000uLL;
-      v65 = v32;
-      v66 = *v70;
+      v63 = v32;
+      v64 = *v68;
       do
       {
         for (i = 0; i != v35; ++i)
         {
-          if (*v70 != v36)
+          if (*v68 != v36)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v39 = *(*(&v69 + 1) + 8 * i);
-          v40 = *(v37 + 3872);
+          v39 = *(*(&v67 + 1) + 8 * i);
           objc_opt_class();
-          v41 = [(FCKeyValueStore *)v32 objectForKey:v39];
-          if (v41)
+          v40 = [(FCKeyValueStore *)v32 objectForKey:v39];
+          if (v40)
           {
             if (objc_opt_isKindOfClass())
             {
-              v42 = v41;
+              v41 = v40;
             }
 
             else
             {
-              v42 = 0;
+              v41 = 0;
             }
           }
 
           else
           {
-            v42 = 0;
+            v41 = 0;
           }
 
-          v43 = v42;
+          v42 = v41;
 
-          if (v43 && [v39 hasPrefix:@"onpc-"])
+          if (v42 && [v39 hasPrefix:@"onpc-"])
           {
-            v44 = [[FCOngoingPurchaseEntry alloc] initWithEntryID:v39 dictionaryRepresentation:v43];
-            if (v44)
+            v43 = [[FCOngoingPurchaseEntry alloc] initWithEntryID:v39 dictionaryRepresentation:v42];
+            if (v43)
             {
-              v45 = v67->_ongoingPurchaseEntriesByProductID;
-              [(FCOngoingPurchaseEntry *)v44 productID];
-              v46 = v37;
-              v47 = v35;
-              v49 = v48 = allKeys;
-              [(NSMutableDictionary *)v45 setObject:v44 forKey:v49];
+              v44 = v65->_ongoingPurchaseEntriesByProductID;
+              [(FCOngoingPurchaseEntry *)v43 productID];
+              v45 = v37;
+              v46 = v35;
+              v48 = v47 = allKeys;
+              [(NSMutableDictionary *)v44 setObject:v43 forKey:v48];
 
-              allKeys = v48;
-              v35 = v47;
-              v37 = v46;
-              v32 = v65;
-              v36 = v66;
-              [(FCPaymentTransactionManager *)v67->_paymentTransactionManager registerOngoingPurchaseTransactionsWithEntry:v44];
+              allKeys = v47;
+              v35 = v46;
+              v37 = v45;
+              v32 = v63;
+              v36 = v64;
+              [(FCPaymentTransactionManager *)v65->_paymentTransactionManager registerOngoingPurchaseTransactionsWithEntry:v43];
             }
           }
         }
 
-        v35 = [allKeys countByEnumeratingWithState:&v69 objects:buf count:16];
+        v35 = [allKeys countByEnumeratingWithState:&v67 objects:buf count:16];
       }
 
       while (v35);
     }
 
-    checkerCopy = v61;
-    contextCopy = v62;
-    providerCopy = v60;
+    checkerCopy = v59;
+    contextCopy = v60;
+    providerCopy = v58;
   }
 
-  v50 = *MEMORY[0x1E69E9840];
-  return v67;
+  return v65;
 }
 
 - (void)activityObservingApplicationDidEnterBackground
@@ -467,7 +465,7 @@ uint64_t __72__FCPurchaseManager_fetchPurchaseMetadataForPurchaseID_restorePurch
 
 - (void)startPurchaseWithTagID:(void *)d productID:(void *)iD purchaseID:(void *)purchaseID bundleID:(void *)bundleID appAdamID:(void *)adamID storeExternalVersion:(void *)version price:(unsigned __int8)price webAccessOptIn:(void *)self0 payment:(void *)self1 error:
 {
-  v75[1] = *MEMORY[0x1E69E9840];
+  v74[1] = *MEMORY[0x1E69E9840];
   v18 = a2;
   dCopy = d;
   iDCopy = iD;
@@ -483,15 +481,15 @@ uint64_t __72__FCPurchaseManager_fetchPurchaseMetadataForPurchaseID_restorePurch
 
   if (!dCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v54 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "productID"];
+    v53 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "productID"];
     *buf = 136315906;
-    v69 = "[FCPurchaseManager startPurchaseWithTagID:productID:purchaseID:bundleID:appAdamID:storeExternalVersion:price:webAccessOptIn:payment:error:]";
-    v70 = 2080;
-    v71 = "FCPurchaseManager.m";
-    v72 = 1024;
-    *v73 = 250;
-    *&v73[4] = 2114;
-    *&v73[6] = v54;
+    v68 = "[FCPurchaseManager startPurchaseWithTagID:productID:purchaseID:bundleID:appAdamID:storeExternalVersion:price:webAccessOptIn:payment:error:]";
+    v69 = 2080;
+    v70 = "FCPurchaseManager.m";
+    v71 = 1024;
+    *v72 = 250;
+    *&v72[4] = 2114;
+    *&v72[6] = v53;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (!iDCopy)
@@ -499,15 +497,15 @@ uint64_t __72__FCPurchaseManager_fetchPurchaseMetadataForPurchaseID_restorePurch
 LABEL_5:
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v55 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "purchaseID"];
+        v54 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "purchaseID"];
         *buf = 136315906;
-        v69 = "[FCPurchaseManager startPurchaseWithTagID:productID:purchaseID:bundleID:appAdamID:storeExternalVersion:price:webAccessOptIn:payment:error:]";
-        v70 = 2080;
-        v71 = "FCPurchaseManager.m";
-        v72 = 1024;
-        *v73 = 251;
-        *&v73[4] = 2114;
-        *&v73[6] = v55;
+        v68 = "[FCPurchaseManager startPurchaseWithTagID:productID:purchaseID:bundleID:appAdamID:storeExternalVersion:price:webAccessOptIn:payment:error:]";
+        v69 = 2080;
+        v70 = "FCPurchaseManager.m";
+        v71 = 1024;
+        *v72 = 251;
+        *&v72[4] = 2114;
+        *&v72[6] = v54;
         _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
       }
     }
@@ -520,15 +518,15 @@ LABEL_5:
 
   if (!inCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v56 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "payment"];
+    v55 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "payment"];
     *buf = 136315906;
-    v69 = "[FCPurchaseManager startPurchaseWithTagID:productID:purchaseID:bundleID:appAdamID:storeExternalVersion:price:webAccessOptIn:payment:error:]";
-    v70 = 2080;
-    v71 = "FCPurchaseManager.m";
-    v72 = 1024;
-    *v73 = 252;
-    *&v73[4] = 2114;
-    *&v73[6] = v56;
+    v68 = "[FCPurchaseManager startPurchaseWithTagID:productID:purchaseID:bundleID:appAdamID:storeExternalVersion:price:webAccessOptIn:payment:error:]";
+    v69 = 2080;
+    v70 = "FCPurchaseManager.m";
+    v71 = 1024;
+    *v72 = 252;
+    *&v72[4] = 2114;
+    *&v72[6] = v55;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
@@ -555,12 +553,12 @@ LABEL_5:
       block[1] = 3221225472;
       block[2] = __140__FCPurchaseManager_startPurchaseWithTagID_productID_purchaseID_bundleID_appAdamID_storeExternalVersion_price_webAccessOptIn_payment_error___block_invoke;
       block[3] = &unk_1E7C376A0;
-      v63 = dCopy;
+      v62 = dCopy;
       selfCopy = self;
-      v65 = v18;
+      v64 = v18;
       dispatch_after(v30, MEMORY[0x1E69E96A0], block);
 
-      v31 = v63;
+      v31 = v62;
 LABEL_28:
 
       goto LABEL_29;
@@ -577,11 +575,11 @@ LABEL_28:
       if (v33)
       {
         *buf = 138412802;
-        v69 = v18;
-        v70 = 2112;
-        v71 = iDCopy;
-        v72 = 2112;
-        *v73 = dCopy;
+        v68 = v18;
+        v69 = 2112;
+        v70 = iDCopy;
+        v71 = 2112;
+        *v72 = dCopy;
         _os_log_impl(&dword_1B63EF000, v32, OS_LOG_TYPE_DEFAULT, "ongoingPurchaseEntry already exists for tagID:%@ purchaseID:%@ productIdentifier:%@", buf, 0x20u);
       }
 
@@ -591,9 +589,9 @@ LABEL_28:
         v35 = purchaseIDCopy;
         v36 = MEMORY[0x1E696ABC0];
         v37 = FCOngoingPurchaseErrorCode;
-        v66 = *MEMORY[0x1E696A578];
-        v67 = @"There is a ongoing purchase transaction for the given product identifier";
-        v38 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v67 forKeys:&v66 count:1];
+        v65 = *MEMORY[0x1E696A578];
+        v66 = @"There is a ongoing purchase transaction for the given product identifier";
+        v38 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v66 forKeys:&v65 count:1];
         v39 = v36;
         purchaseIDCopy = v35;
         v18 = v34;
@@ -606,23 +604,23 @@ LABEL_28:
       if (v33)
       {
         *buf = 138544130;
-        v69 = v18;
-        v70 = 2114;
-        v71 = iDCopy;
-        v72 = 2114;
-        *v73 = dCopy;
-        *&v73[8] = 2114;
-        *&v73[10] = purchaseIDCopy;
+        v68 = v18;
+        v69 = 2114;
+        v70 = iDCopy;
+        v71 = 2114;
+        *v72 = dCopy;
+        *&v72[8] = 2114;
+        *&v72[10] = purchaseIDCopy;
         _os_log_impl(&dword_1B63EF000, v32, OS_LOG_TYPE_DEFAULT, "Starting purchase for tagID: %{public}@ purchaseID: %{public}@ productIdentifier: %{public}@, bundleID: %{public}@", buf, 0x2Au);
       }
 
       v43 = [FCOngoingPurchaseEntry alloc];
       dCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@", @"onpc-", dCopy];
       FCDeviceIdentifierForVendor();
-      v58 = v18;
+      v57 = v18;
       v46 = v45 = purchaseIDCopy;
       date = [MEMORY[0x1E695DF00] date];
-      v31 = [(FCOngoingPurchaseEntry *)v43 initWithEntryID:dCopy tagID:v58 purchaseID:iDCopy productID:dCopy bundleID:v45 webAccessOptIn:price appAdamID:bundleIDCopy storeExternalVersion:adamIDCopy vendorIdentifier:v46 purchaseInitiatedTime:date price:versionCopy];
+      v31 = [(FCOngoingPurchaseEntry *)v43 initWithEntryID:dCopy tagID:v57 purchaseID:iDCopy productID:dCopy bundleID:v45 webAccessOptIn:price appAdamID:bundleIDCopy storeExternalVersion:adamIDCopy vendorIdentifier:v46 purchaseInitiatedTime:date price:versionCopy];
 
       v48 = self[10];
       productID = [(FCOngoingPurchaseEntry *)v31 productID];
@@ -634,10 +632,10 @@ LABEL_28:
       [v50 setObject:dictionaryRepresentation forKey:identifier];
 
       purchaseIDCopy = v45;
-      v18 = v58;
+      v18 = v57;
 
-      LOBYTE(v57) = price;
-      [self[4] startPurchaseWithTagID:v58 productID:dCopy purchaseID:iDCopy bundleID:purchaseIDCopy appAdamID:bundleIDCopy storeExternalVersion:adamIDCopy price:versionCopy webAccessOptIn:v57 payment:inCopy];
+      LOBYTE(v56) = price;
+      [self[4] startPurchaseWithTagID:v57 productID:dCopy purchaseID:iDCopy bundleID:purchaseIDCopy appAdamID:bundleIDCopy storeExternalVersion:adamIDCopy price:versionCopy webAccessOptIn:v56 payment:inCopy];
     }
 
     goto LABEL_28;
@@ -654,16 +652,14 @@ LABEL_28:
   {
     v41 = MEMORY[0x1E696ABC0];
     v42 = FCPaymentRestrictedErrorCode;
-    v74 = *MEMORY[0x1E696A578];
-    v75[0] = @"This device is not able or allowed to make payments";
-    v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v75 forKeys:&v74 count:1];
+    v73 = *MEMORY[0x1E696A578];
+    v74[0] = @"This device is not able or allowed to make payments";
+    v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v74 forKeys:&v73 count:1];
     *payment = [v41 errorWithDomain:@"com.apple.news.purchase" code:v42 userInfo:v31];
     goto LABEL_28;
   }
 
 LABEL_29:
-
-  v53 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startPurchaseWithTagID:(id)d purchase:(id)purchase webAccessOptIn:(BOOL)in error:(id *)error
@@ -775,32 +771,30 @@ LABEL_10:
 LABEL_11:
 }
 
-void __86__FCPurchaseManager_transactionFailedWithProductID_transactionState_transactionError___block_invoke(uint64_t a1, uint64_t a2)
+void __86__FCPurchaseManager_transactionFailedWithProductID_transactionState_transactionError___block_invoke(void *a1, uint64_t a2)
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   if (a2)
   {
     v3 = MEMORY[0x1E696ABC0];
     v4 = FCAlreadyPurchasedErrorCode;
-    v14 = *MEMORY[0x1E696A578];
-    v15[0] = @"Subscription already purchased by this itunes account";
-    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+    v12 = *MEMORY[0x1E696A578];
+    v13[0] = @"Subscription already purchased by this itunes account";
+    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
     v6 = [v3 errorWithDomain:@"com.apple.news.purchase" code:v4 userInfo:v5];
 
-    [(FCPurchaseManager *)*(a1 + 32) _purchaseFailedWithProductID:*(a1 + 64) transactionState:v6 transactionError:*(a1 + 48) ongoingPurchaseEntry:?];
-    v7 = *MEMORY[0x1E69E9840];
+    [(FCPurchaseManager *)a1[4] _purchaseFailedWithProductID:a1[8] transactionState:v6 transactionError:a1[6] ongoingPurchaseEntry:?];
   }
 
   else
   {
-    v8 = *(a1 + 32);
-    v9 = *(a1 + 40);
-    v11 = *(a1 + 56);
-    v10 = *(a1 + 64);
-    v12 = *(a1 + 48);
-    v13 = *MEMORY[0x1E69E9840];
+    v7 = a1[4];
+    v8 = a1[5];
+    v10 = a1[7];
+    v9 = a1[8];
+    v11 = a1[6];
 
-    [(FCPurchaseManager *)v8 _purchaseFailedWithProductID:v9 transactionState:v10 transactionError:v11 ongoingPurchaseEntry:v12];
+    [(FCPurchaseManager *)v7 _purchaseFailedWithProductID:v8 transactionState:v9 transactionError:v10 ongoingPurchaseEntry:v11];
   }
 }
 
@@ -837,7 +831,7 @@ void __105__FCPurchaseManager__purchaseFailedWithProductID_transactionState_tran
 
 - (void)transactionPurchased:(id)purchased
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   purchasedCopy = purchased;
   if (self)
   {
@@ -863,11 +857,11 @@ void __105__FCPurchaseManager__purchaseFailedWithProductID_transactionState_tran
       v12 = v11;
       bundleID = [v8 bundleID];
       *buf = 138543874;
-      v25 = tagID;
-      v26 = 2114;
-      v27 = purchaseID;
-      v28 = 2114;
-      v29 = bundleID;
+      v24 = tagID;
+      v25 = 2114;
+      v26 = purchaseID;
+      v27 = 2114;
+      v28 = bundleID;
       _os_log_impl(&dword_1B63EF000, v12, OS_LOG_TYPE_DEFAULT, "transaction purchase callback with ongoingPurchaseEntry tagID: %{public}@ purchaseID: %{public}@ bundleID: %{public}@", buf, 0x20u);
     }
 
@@ -881,16 +875,16 @@ void __105__FCPurchaseManager__purchaseFailedWithProductID_transactionState_tran
       purchaseIntegrityChecker = 0;
     }
 
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __42__FCPurchaseManager_transactionPurchased___block_invoke;
-    v20[3] = &unk_1E7C3ADE0;
-    v20[4] = self;
-    v21 = tagID;
-    v22 = v8;
-    v23 = purchasedCopy;
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __42__FCPurchaseManager_transactionPurchased___block_invoke;
+    v19[3] = &unk_1E7C3ADE0;
+    v19[4] = self;
+    v20 = tagID;
+    v21 = v8;
+    v22 = purchasedCopy;
     v15 = tagID;
-    [(FCPurchaseIntegrityChecker *)purchaseIntegrityChecker isUserEntitledToSubscriptionForPurchaseID:purchaseID completion:v20];
+    [(FCPurchaseIntegrityChecker *)purchaseIntegrityChecker isUserEntitledToSubscriptionForPurchaseID:purchaseID completion:v19];
   }
 
   else
@@ -898,15 +892,13 @@ void __105__FCPurchaseManager__purchaseFailedWithProductID_transactionState_tran
     v16 = FCPurchaseLog;
     if (os_log_type_enabled(FCPurchaseLog, OS_LOG_TYPE_ERROR))
     {
-      v18 = v16;
+      v17 = v16;
       productID2 = [purchasedCopy productID];
       *buf = 138543362;
-      v25 = productID2;
-      _os_log_error_impl(&dword_1B63EF000, v18, OS_LOG_TYPE_ERROR, "ongoingPurchaseEntry not found for productID: %{public}@", buf, 0xCu);
+      v24 = productID2;
+      _os_log_error_impl(&dword_1B63EF000, v17, OS_LOG_TYPE_ERROR, "ongoingPurchaseEntry not found for productID: %{public}@", buf, 0xCu);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __42__FCPurchaseManager_transactionPurchased___block_invoke(uint64_t a1, void *a2)
@@ -976,7 +968,7 @@ void __42__FCPurchaseManager_transactionPurchased___block_invoke_63(uint64_t a1)
 
 void __42__FCPurchaseManager_transactionPurchased___block_invoke_2(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if (v2)
   {
@@ -991,9 +983,9 @@ void __42__FCPurchaseManager_transactionPurchased___block_invoke_2(uint64_t a1)
   v7 = FCPurchaseLog;
   if (os_log_type_enabled(FCPurchaseLog, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = 138412290;
-    v19 = v6;
-    _os_log_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_DEFAULT, "PurchaseReceipt:  %@", &v18, 0xCu);
+    v17 = 138412290;
+    v18 = v6;
+    _os_log_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_DEFAULT, "PurchaseReceipt:  %@", &v17, 0xCu);
   }
 
   v8 = [FCCompletedPaymentTransaction alloc];
@@ -1009,8 +1001,6 @@ void __42__FCPurchaseManager_transactionPurchased___block_invoke_2(uint64_t a1)
   v15 = *(a1 + 32);
   v16 = [*(a1 + 48) productID];
   [(FCPurchaseManager *)v15 finishPurchaseTransactionWithProductID:v16];
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)performEntitlementWithTagID:(void *)d completion:

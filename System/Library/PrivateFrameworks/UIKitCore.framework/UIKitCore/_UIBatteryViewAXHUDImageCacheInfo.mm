@@ -17,33 +17,33 @@
   if (v22 == capacity)
   {
     fillColor = [(_UIBatteryViewAXHUDImageCacheInfo *)self fillColor];
-    if ([fillColor isEqual:colorCopy])
+    if (objc_msgSend_isEqual_(fillColor))
     {
       tintColor = [(_UIBatteryViewAXHUDImageCacheInfo *)self tintColor];
-      if ([tintColor isEqual:tintColorCopy] && -[_UIBatteryViewAXHUDImageCacheInfo showBolt](self, "showBolt") == boltCopy && -[_UIBatteryViewAXHUDImageCacheInfo boltInactive](self, "boltInactive") == inactiveCopy && -[_UIBatteryViewAXHUDImageCacheInfo reverseLayoutDirection](self, "reverseLayoutDirection") == layoutCopy && (-[_UIBatteryViewAXHUDImageCacheInfo scale](self, "scale"), v25 == scale) && -[_UIBatteryViewAXHUDImageCacheInfo showsPercentage](self, "showsPercentage") == percentageCopy)
+      if (objc_msgSend_isEqual_(tintColor) && [(_UIBatteryViewAXHUDImageCacheInfo *)self showBolt]== boltCopy && [(_UIBatteryViewAXHUDImageCacheInfo *)self boltInactive]== inactiveCopy && [(_UIBatteryViewAXHUDImageCacheInfo *)self reverseLayoutDirection]== layoutCopy && ([(_UIBatteryViewAXHUDImageCacheInfo *)self scale], v25 == scale) && [(_UIBatteryViewAXHUDImageCacheInfo *)self showsPercentage]== percentageCopy)
       {
         contentSizeCategory = [(_UIBatteryViewAXHUDImageCacheInfo *)self contentSizeCategory];
-        v26 = [contentSizeCategory isEqualToString:categoryCopy];
+        isEqualToString = objc_msgSend_isEqualToString_(contentSizeCategory);
       }
 
       else
       {
-        v26 = 0;
+        isEqualToString = 0;
       }
     }
 
     else
     {
-      v26 = 0;
+      isEqualToString = 0;
     }
   }
 
   else
   {
-    v26 = 0;
+    isEqualToString = 0;
   }
 
-  return v26;
+  return isEqualToString;
 }
 
 @end

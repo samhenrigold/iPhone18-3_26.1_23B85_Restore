@@ -43,7 +43,7 @@ LABEL_7:
 
 - (WFStringSubstitutableState)wf_parameterStateForIntentValue:()Workflow parameterDefinition:
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = a4;
   codableEnum = [self codableEnum];
@@ -87,14 +87,14 @@ LABEL_7:
           name2 = [v17 name];
         }
 
-        v25 = name2;
+        v24 = name2;
 
-        v13 = [(WFVariableSubstitutableParameterState *)[WFStringSubstitutableState alloc] initWithValue:v25];
+        v13 = [(WFVariableSubstitutableParameterState *)[WFStringSubstitutableState alloc] initWithValue:v24];
         goto LABEL_7;
       }
     }
 
-    objc_msgSendSuper2(&v26, sel_wf_parameterStateForIntentValue_parameterDefinition_, v6, v7, self, &off_1F4AF9FF8, v27.receiver, v27.super_class);
+    objc_msgSendSuper2(&v25, sel_wf_parameterStateForIntentValue_parameterDefinition_, v6, v7, self, &off_1F4AF9FF8, v26.receiver, v26.super_class);
     goto LABEL_12;
   }
 
@@ -108,7 +108,7 @@ LABEL_7:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    objc_msgSendSuper2(&v27, sel_wf_parameterStateForIntentValue_parameterDefinition_, v6, v7, v26.receiver, v26.super_class, self, &off_1F4AF9FF8);
+    objc_msgSendSuper2(&v26, sel_wf_parameterStateForIntentValue_parameterDefinition_, v6, v7, v25.receiver, v25.super_class, self, &off_1F4AF9FF8);
     v13 = LABEL_12:;
     goto LABEL_19;
   }
@@ -117,16 +117,14 @@ LABEL_7:
   if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
   {
     *buf = 136315394;
-    v29 = "[INCodableEnumAttribute(Workflow) wf_parameterStateForIntentValue:parameterDefinition:]";
-    v30 = 2114;
-    v31 = v6;
+    v28 = "[INCodableEnumAttribute(Workflow) wf_parameterStateForIntentValue:parameterDefinition:]";
+    v29 = 2114;
+    v30 = v6;
     _os_log_impl(&dword_1CA256000, v22, OS_LOG_TYPE_FAULT, "%s Unsupported value: %{public}@", buf, 0x16u);
   }
 
   v13 = 0;
 LABEL_19:
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -203,10 +201,10 @@ LABEL_13:
 
 - (id)wf_updatedParameterDefinition:()Workflow parameterClass:localizer:
 {
-  v58[3] = *MEMORY[0x1E69E9840];
-  v49.receiver = self;
-  v49.super_class = &off_1F4AF9FF8;
-  v6 = objc_msgSendSuper2(&v49, sel_wf_updatedParameterDefinition_parameterClass_localizer_);
+  v57[3] = *MEMORY[0x1E69E9840];
+  v48.receiver = self;
+  v48.super_class = &off_1F4AF9FF8;
+  v6 = objc_msgSendSuper2(&v48, sel_wf_updatedParameterDefinition_parameterClass_localizer_, a3);
   if ([self supportsDynamicEnumeration])
   {
     v6 = v6;
@@ -222,16 +220,16 @@ LABEL_13:
     defaultValue = [v10 defaultValue];
     if ([a4 isEqual:objc_opt_class()])
     {
-      v57[0] = @"DefaultValue";
+      v56[0] = @"DefaultValue";
       v12 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(defaultValue, "index") == 1}];
-      v58[0] = v12;
-      v57[1] = @"OnDisplayName";
+      v57[0] = v12;
+      v56[1] = @"OnDisplayName";
       v13 = [[WFINCodableEnumSwitchDisplayName alloc] initWithAttribute:self toggleState:1];
-      v58[1] = v13;
-      v57[2] = @"OffDisplayName";
+      v57[1] = v13;
+      v56[2] = @"OffDisplayName";
       v14 = [[WFINCodableEnumSwitchDisplayName alloc] initWithAttribute:self toggleState:2];
-      v58[2] = v14;
-      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v58 forKeys:v57 count:3];
+      v57[2] = v14;
+      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v57 forKeys:v56 count:3];
       v7 = [v6 definitionByAddingEntriesInDictionary:v15];
     }
 
@@ -241,7 +239,7 @@ LABEL_13:
       {
         v16 = [MEMORY[0x1E695DFB8] orderedSetWithObjects:{@"Variable", @"ExtensionInput", @"ActionOutput", @"CurrentDate", @"Clipboard", 0}];
         v17 = [v6 objectForKey:@"DisallowedVariableTypes"];
-        v44 = v17;
+        v43 = v17;
         if (v17)
         {
           v18 = [v16 orderedSetByAddingObjectsFromArray:v17];
@@ -249,37 +247,37 @@ LABEL_13:
           v16 = v18;
         }
 
-        v55[0] = @"DisallowedVariableTypes";
+        v54[0] = @"DisallowedVariableTypes";
         array = [v16 array];
-        v55[1] = @"EnumAttribute";
-        v56[0] = array;
-        v56[1] = self;
-        v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v56 forKeys:v55 count:2];
-        v43 = [v6 definitionByAddingEntriesInDictionary:v20];
+        v54[1] = @"EnumAttribute";
+        v55[0] = array;
+        v55[1] = self;
+        v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v55 forKeys:v54 count:2];
+        v42 = [v6 definitionByAddingEntriesInDictionary:v20];
 
         v21 = objc_opt_new();
+        v44 = 0u;
         v45 = 0u;
         v46 = 0u;
         v47 = 0u;
-        v48 = 0u;
         codableEnum = [self codableEnum];
         values = [codableEnum values];
 
-        v24 = [values countByEnumeratingWithState:&v45 objects:v54 count:16];
+        v24 = [values countByEnumeratingWithState:&v44 objects:v53 count:16];
         if (v24)
         {
           v25 = v24;
-          v26 = *v46;
+          v26 = *v45;
           do
           {
             for (i = 0; i != v25; ++i)
             {
-              if (*v46 != v26)
+              if (*v45 != v26)
               {
                 objc_enumerationMutation(values);
               }
 
-              v28 = *(*(&v45 + 1) + 8 * i);
+              v28 = *(*(&v44 + 1) + 8 * i);
               if ([v28 index])
               {
                 v29 = [[WFINCodableEnumValueLabelName alloc] initWithValue:v28];
@@ -288,16 +286,16 @@ LABEL_13:
               }
             }
 
-            v25 = [values countByEnumeratingWithState:&v45 objects:v54 count:16];
+            v25 = [values countByEnumeratingWithState:&v44 objects:v53 count:16];
           }
 
           while (v25);
         }
 
-        v52 = @"EnumNamesToLabel";
-        v53 = v21;
-        v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
-        v6 = [v43 definitionByAddingEntriesInDictionary:v31];
+        v51 = @"EnumNamesToLabel";
+        v52 = v21;
+        v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v52 forKeys:&v51 count:1];
+        v6 = [v42 definitionByAddingEntriesInDictionary:v31];
 
         if (defaultValue)
         {
@@ -306,7 +304,7 @@ LABEL_13:
           v34 = WFEnforceClass_1501(v32, v33);
 
           name2 = [defaultValue name];
-          v50 = @"DefaultValue";
+          v49 = @"DefaultValue";
           v36 = [v34 objectForKeyedSubscript:name2];
           v37 = v36;
           if (v36)
@@ -319,8 +317,8 @@ LABEL_13:
             v38 = name2;
           }
 
-          v51 = v38;
-          v39 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v51 forKeys:&v50 count:1];
+          v50 = v38;
+          v39 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v50 forKeys:&v49 count:1];
           v40 = [v6 definitionByAddingEntriesInDictionary:v39];
 
           v6 = v40;
@@ -332,26 +330,17 @@ LABEL_13:
     }
   }
 
-  v41 = *MEMORY[0x1E69E9840];
-
   return v7;
 }
 
 - (id)wf_parameterClass
 {
   codableEnum = [self codableEnum];
-  type = [codableEnum type];
+  [codableEnum type];
 
-  v3 = off_1E836F358;
-  if (type != 1)
-  {
-    v3 = off_1E836E188;
-  }
+  v2 = objc_opt_class();
 
-  v4 = *v3;
-  v5 = objc_opt_class();
-
-  return v5;
+  return v2;
 }
 
 - (id)wf_outputDisplayNameWithLocalizer:()Workflow
@@ -368,25 +357,17 @@ LABEL_13:
   codableEnum = [self codableEnum];
   type = [codableEnum type];
 
-  if (type == 1)
+  if (type > 1)
   {
-    v3 = 0x1E696AD98;
-    goto LABEL_5;
+    v3 = 0;
   }
 
-  if (!type)
+  else
   {
-    v3 = 0x1E696AEC0;
-LABEL_5:
-    v4 = *v3;
-    v5 = objc_opt_class();
-    goto LABEL_7;
+    v3 = objc_opt_class();
   }
 
-  v5 = 0;
-LABEL_7:
-
-  return v5;
+  return v3;
 }
 
 @end

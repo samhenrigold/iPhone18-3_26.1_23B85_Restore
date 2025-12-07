@@ -1,6 +1,8 @@
 @interface PSUIEditCustomPlanLabelListController
 - (id)specifiers;
 - (void)suspend;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation PSUIEditCustomPlanLabelListController
@@ -56,6 +58,28 @@
   v4.receiver = self;
   v4.super_class = PSUIEditCustomPlanLabelListController;
   [(PSUIEditCustomPlanLabelListController *)&v4 suspend];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v6.receiver = self;
+  v6.super_class = PSUIEditCustomPlanLabelListController;
+  [(PSUIEditCustomPlanLabelListController *)&v6 viewDidAppear:appear];
+  v4 = [(PSTextFieldSpecifier *)self->_editableTextFieldSpecifier propertyForKey:*MEMORY[0x277D40148]];
+  [v4 setControllerDelegate:self];
+  textField = [v4 textField];
+  [textField setReturnKeyType:9];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  firstResponder = [*(&self->super.super.super.super.super.isa + *MEMORY[0x277D3FC60]) firstResponder];
+  [firstResponder resignFirstResponder];
+
+  v6.receiver = self;
+  v6.super_class = PSUIEditCustomPlanLabelListController;
+  [(PSUIEditCustomPlanLabelListController *)&v6 viewWillDisappear:disappearCopy];
 }
 
 @end

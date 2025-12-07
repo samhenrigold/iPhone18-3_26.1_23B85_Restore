@@ -144,7 +144,7 @@
 
 - (PRSPosterConfigurationAttributes)initWithURL:(id)l extensionIdentifier:(id)identifier configurationUUID:(id)d role:(id)role version:(id)version supplementalVersion:(id)supplementalVersion
 {
-  v91[2] = *MEMORY[0x1E69E9840];
+  v90[2] = *MEMORY[0x1E69E9840];
   lCopy = l;
   identifierCopy = identifier;
   dCopy = d;
@@ -157,10 +157,10 @@
     v20 = objc_opt_new();
     v21 = *MEMORY[0x1E695DC30];
     v22 = *MEMORY[0x1E695DB78];
-    v91[0] = *MEMORY[0x1E695DC30];
-    v91[1] = v22;
-    v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v91 count:2];
-    v87 = v20;
+    v90[0] = *MEMORY[0x1E695DC30];
+    v90[1] = v22;
+    v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v90 count:2];
+    v86 = v20;
     v24 = [v20 contentsOfDirectoryAtURL:lCopy includingPropertiesForKeys:v23 options:5 error:0];
 
     v25 = [v24 count];
@@ -174,7 +174,7 @@ LABEL_75:
     }
 
     v27 = [v24 bs_map:&__block_literal_global_9];
-    v85 = v27;
+    v84 = v27;
     if (identifierCopy)
     {
       v28 = [v27 indexOfObject:identifierCopy];
@@ -193,20 +193,20 @@ LABEL_74:
       v28 = 0;
     }
 
-    v83 = roleCopy;
+    v82 = roleCopy;
     v29 = [v24 objectAtIndexedSubscript:v28];
-    v84 = [v85 objectAtIndexedSubscript:v28];
+    v83 = [v84 objectAtIndexedSubscript:v28];
     if (!v29)
     {
       selfCopy2 = 0;
       self = selfCopy;
 LABEL_73:
 
-      roleCopy = v83;
+      roleCopy = v82;
       goto LABEL_74;
     }
 
-    v82 = v29;
+    v81 = v29;
     v30 = [v29 URLByAppendingPathComponent:@"configurations"];
     if (![v30 checkResourceIsReachableAndReturnError:0])
     {
@@ -214,15 +214,15 @@ LABEL_73:
       self = selfCopy;
 LABEL_72:
 
-      v29 = v82;
+      v29 = v81;
       goto LABEL_73;
     }
 
-    v90[0] = v21;
-    v90[1] = v22;
-    v31 = [MEMORY[0x1E695DEC8] arrayWithObjects:v90 count:2];
-    v81 = v30;
-    v32 = [v87 contentsOfDirectoryAtURL:v30 includingPropertiesForKeys:v31 options:5 error:0];
+    v89[0] = v21;
+    v89[1] = v22;
+    v31 = [MEMORY[0x1E695DEC8] arrayWithObjects:v89 count:2];
+    v80 = v30;
+    v32 = [v86 contentsOfDirectoryAtURL:v30 includingPropertiesForKeys:v31 options:5 error:0];
 
     v33 = [v32 count];
     if (![v32 count] || !dCopy && v33 > 1)
@@ -230,14 +230,14 @@ LABEL_72:
       v34 = v32;
       selfCopy2 = 0;
       self = selfCopy;
-      v30 = v81;
+      v30 = v80;
 LABEL_71:
 
       goto LABEL_72;
     }
 
     v35 = [v32 bs_map:&__block_literal_global_38];
-    v80 = v35;
+    v79 = v35;
     if (dCopy)
     {
       v36 = v35;
@@ -249,7 +249,7 @@ LABEL_71:
         v34 = v32;
         selfCopy2 = 0;
         self = selfCopy;
-        v30 = v81;
+        v30 = v80;
 LABEL_70:
 
         goto LABEL_71;
@@ -262,32 +262,32 @@ LABEL_70:
     }
 
     [v32 objectAtIndexedSubscript:v37];
-    v38 = v77 = v32;
-    v79 = [v80 objectAtIndexedSubscript:v37];
+    v38 = v76 = v32;
+    v78 = [v79 objectAtIndexedSubscript:v37];
     v39 = v38;
     if (!v38)
     {
-      v34 = v77;
+      v34 = v76;
       selfCopy2 = 0;
       self = selfCopy;
-      v30 = v81;
+      v30 = v80;
 LABEL_69:
 
       goto LABEL_70;
     }
 
-    v76 = v38;
+    v75 = v38;
     v40 = [v38 URLByAppendingPathComponent:@"versions"];
-    v75 = v40;
+    v74 = v40;
     if (![v40 checkResourceIsReachableAndReturnError:0])
     {
       selfCopy2 = 0;
-      v34 = v77;
+      v34 = v76;
       self = selfCopy;
-      v30 = v81;
+      v30 = v80;
 LABEL_68:
 
-      v39 = v76;
+      v39 = v75;
       goto LABEL_69;
     }
 
@@ -297,16 +297,16 @@ LABEL_68:
     if (versionCopy)
     {
       stringValue = [versionCopy stringValue];
-      v72 = [v76 URLByAppendingPathComponent:?];
-      if ([v72 checkResourceIsReachableAndReturnError:0])
+      v71 = [v75 URLByAppendingPathComponent:?];
+      if ([v71 checkResourceIsReachableAndReturnError:0])
       {
         selfCopy2 = 0;
-        v34 = v77;
+        v34 = v76;
         self = selfCopy;
-        v30 = v81;
+        v30 = v80;
 LABEL_65:
 
-        v47 = v72;
+        v47 = v71;
         goto LABEL_66;
       }
 
@@ -315,97 +315,97 @@ LABEL_65:
 
     else
     {
-      v89[0] = v21;
-      v89[1] = v22;
-      v42 = [MEMORY[0x1E695DEC8] arrayWithObjects:v89 count:2];
-      v43 = [v87 contentsOfDirectoryAtURL:v40 includingPropertiesForKeys:v42 options:5 error:0];
+      v88[0] = v21;
+      v88[1] = v22;
+      v42 = [MEMORY[0x1E695DEC8] arrayWithObjects:v88 count:2];
+      v43 = [v86 contentsOfDirectoryAtURL:v40 includingPropertiesForKeys:v42 options:5 error:0];
 
       if (![v43 count])
       {
-        v34 = v77;
+        v34 = v76;
         v47 = v43;
         selfCopy2 = 0;
         self = selfCopy;
-        v30 = v81;
+        v30 = v80;
 LABEL_66:
 
         goto LABEL_67;
       }
 
       stringValue = v43;
-      v69 = [v43 bs_map:&__block_literal_global_47];
-      v67 = [v69 sortedArrayUsingComparator:&__block_literal_global_50_0];
-      lastObject = [v67 lastObject];
+      v68 = [v43 bs_map:&__block_literal_global_47];
+      v66 = [v68 sortedArrayUsingComparator:&__block_literal_global_50_0];
+      lastObject = [v66 lastObject];
       v45 = lastObject;
       if (lastObject && [lastObject rangeOfCharacterFromSet:invertedSet] == 0x7FFFFFFFFFFFFFFFLL)
       {
-        v72 = [v75 URLByAppendingPathComponent:v45];
+        v71 = [v74 URLByAppendingPathComponent:v45];
         unsignedIntValue = [v45 integerValue];
       }
 
       else
       {
         unsignedIntValue = 0;
-        v72 = 0;
+        v71 = 0;
       }
     }
 
-    if (!v72)
+    if (!v71)
     {
-      v34 = v77;
+      v34 = v76;
       selfCopy2 = 0;
       self = selfCopy;
-      v30 = v81;
+      v30 = v80;
 LABEL_67:
 
       goto LABEL_68;
     }
 
-    stringValue = [v72 URLByAppendingPathComponent:@"supplements"];
+    stringValue = [v71 URLByAppendingPathComponent:@"supplements"];
     unsignedIntValue2 = 0;
     if (![stringValue checkResourceIsReachableAndReturnError:0])
     {
 LABEL_54:
       v53 = *MEMORY[0x1E69C5220];
-      if (v83)
+      if (v82)
       {
-        v53 = v83;
+        v53 = v82;
       }
 
       v54 = v53;
-      v55 = [v76 URLByAppendingPathComponent:*MEMORY[0x1E69C5200]];
+      v55 = [v75 URLByAppendingPathComponent:*MEMORY[0x1E69C5200]];
       self = selfCopy;
       stringValue2 = v54;
-      v66 = v55;
+      v65 = v55;
       if ([v55 checkResourceIsReachableAndReturnError:0])
       {
         v56 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:v55 options:2 error:0];
         if ([v56 length])
         {
-          v64 = v56;
+          v63 = v56;
           v57 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithData:v56 encoding:4];
           v58 = v57;
-          if (v83 && ![v57 isEqual:v83])
+          if (v82 && ![v57 isEqual:v82])
           {
-            v34 = v77;
+            v34 = v76;
             v61 = v58;
             selfCopy2 = 0;
-            v60 = v64;
+            v60 = v63;
             goto LABEL_63;
           }
 
-          v56 = v64;
+          v56 = v63;
         }
 
         v54 = stringValue2;
       }
 
-      v34 = v77;
-      v59 = [MEMORY[0x1E69C51E0] configurationIdentityWithProvider:v84 identifier:0 role:v54 posterUUID:dCopy version:unsignedIntValue supplement:unsignedIntValue2];
-      v65 = [MEMORY[0x1E69C51E8] pathWithProviderURL:v82 identity:v59];
+      v34 = v76;
+      v59 = [MEMORY[0x1E69C51E0] configurationIdentityWithProvider:v83 identifier:0 role:v54 posterUUID:dCopy version:unsignedIntValue supplement:unsignedIntValue2];
+      v64 = [MEMORY[0x1E69C51E8] pathWithProviderURL:v81 identity:v59];
       v60 = v59;
-      self = [(PRSPosterConfigurationAttributes *)selfCopy _initWithPath:v65 extensionIdentifier:v84 posterUUID:dCopy providerURL:v82 version:unsignedIntValue supplementalVersion:unsignedIntValue2 fileManager:v87];
-      v61 = v65;
+      self = [(PRSPosterConfigurationAttributes *)selfCopy _initWithPath:v64 extensionIdentifier:v83 posterUUID:dCopy providerURL:v81 version:unsignedIntValue supplementalVersion:unsignedIntValue2 fileManager:v86];
+      v61 = v64;
       selfCopy2 = self;
 LABEL_63:
 
@@ -415,15 +415,15 @@ LABEL_63:
     if (supplementalVersionCopy)
     {
       stringValue2 = [supplementalVersionCopy stringValue];
-      v46 = [v76 URLByAppendingPathComponent:?];
+      v46 = [v75 URLByAppendingPathComponent:?];
       if (![v46 checkResourceIsReachableAndReturnError:0])
       {
         selfCopy2 = 0;
-        v66 = v46;
-        v34 = v77;
+        v65 = v46;
+        v34 = v76;
         self = selfCopy;
 LABEL_64:
-        v30 = v81;
+        v30 = v80;
 
         goto LABEL_65;
       }
@@ -433,10 +433,10 @@ LABEL_64:
 
     else
     {
-      v88[0] = v21;
-      v88[1] = v22;
-      v48 = [MEMORY[0x1E695DEC8] arrayWithObjects:v88 count:2];
-      v49 = [v87 contentsOfDirectoryAtURL:stringValue includingPropertiesForKeys:v48 options:5 error:0];
+      v87[0] = v21;
+      v87[1] = v22;
+      v48 = [MEMORY[0x1E695DEC8] arrayWithObjects:v87 count:2];
+      v49 = [v86 contentsOfDirectoryAtURL:stringValue includingPropertiesForKeys:v48 options:5 error:0];
 
       if (![v49 count])
       {
@@ -469,7 +469,6 @@ LABEL_53:
   selfCopy2 = 0;
 LABEL_76:
 
-  v62 = *MEMORY[0x1E69E9840];
   return selfCopy2;
 }
 
@@ -571,44 +570,44 @@ LABEL_76:
 
 - (NSSet)snapshotURLs
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v27[1] = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   fileManager = self->_fileManager;
   identifierURL = self->_identifierURL;
   v6 = *MEMORY[0x1E695DB20];
-  v28[0] = *MEMORY[0x1E695DB20];
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:1];
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __48__PRSPosterConfigurationAttributes_snapshotURLs__block_invoke;
-  v26[3] = &unk_1E818D1E8;
-  v26[4] = self;
-  v8 = [(NSFileManager *)fileManager enumeratorAtURL:identifierURL includingPropertiesForKeys:v7 options:20 errorHandler:v26];
+  v27[0] = *MEMORY[0x1E695DB20];
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:1];
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __48__PRSPosterConfigurationAttributes_snapshotURLs__block_invoke;
+  v25[3] = &unk_1E818D1E8;
+  v25[4] = self;
+  v8 = [(NSFileManager *)fileManager enumeratorAtURL:identifierURL includingPropertiesForKeys:v7 options:20 errorHandler:v25];
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v9 = v8;
-  v10 = [v9 countByEnumeratingWithState:&v22 objects:v27 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v21 objects:v26 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v23;
+    v12 = *v22;
     v13 = *MEMORY[0x1E695DB30];
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v23 != v12)
+        if (*v22 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v15 = *(*(&v22 + 1) + 8 * i);
-        v21 = 0;
-        [v15 getResourceValue:&v21 forKey:v6 error:0];
-        v16 = v21;
+        v15 = *(*(&v21 + 1) + 8 * i);
+        v20 = 0;
+        [v15 getResourceValue:&v20 forKey:v6 error:0];
+        v16 = v20;
         if ([v16 isEqualToString:v13] && objc_msgSend(v15, "prs_isPosterSnapshot"))
         {
           uRLByStandardizingPath = [v15 URLByStandardizingPath];
@@ -616,14 +615,13 @@ LABEL_76:
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v22 objects:v27 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v21 objects:v26 count:16];
     }
 
     while (v11);
   }
 
   v18 = [v3 copy];
-  v19 = *MEMORY[0x1E69E9840];
 
   return v18;
 }
@@ -631,7 +629,7 @@ LABEL_76:
 uint64_t __48__PRSPosterConfigurationAttributes_snapshotURLs__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
-  v5 = PRSLogPosterContents();
+  v5 = PRSLogPosterContents(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     __48__PRSPosterConfigurationAttributes_snapshotURLs__block_invoke_cold_1(a1, v4, v5);
@@ -642,7 +640,7 @@ uint64_t __48__PRSPosterConfigurationAttributes_snapshotURLs__block_invoke(uint6
 
 - (void)initWithPath:(char *)a1 extensionIdentifier:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:PFPosterPathClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -650,7 +648,7 @@ uint64_t __48__PRSPosterConfigurationAttributes_snapshotURLs__block_invoke(uint6
     v3 = OUTLINED_FUNCTION_2_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:PFPosterPathClass]", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -660,7 +658,7 @@ uint64_t __48__PRSPosterConfigurationAttributes_snapshotURLs__block_invoke(uint6
 
 - (void)initWithPath:(char *)a1 extensionIdentifier:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -668,7 +666,7 @@ uint64_t __48__PRSPosterConfigurationAttributes_snapshotURLs__block_invoke(uint6
     v3 = OUTLINED_FUNCTION_2_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -678,7 +676,7 @@ uint64_t __48__PRSPosterConfigurationAttributes_snapshotURLs__block_invoke(uint6
 
 - (void)initWithConfiguration:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:PRSPosterConfigurationClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -686,7 +684,7 @@ uint64_t __48__PRSPosterConfigurationAttributes_snapshotURLs__block_invoke(uint6
     v3 = OUTLINED_FUNCTION_2_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:PRSPosterConfigurationClass]", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -696,7 +694,7 @@ uint64_t __48__PRSPosterConfigurationAttributes_snapshotURLs__block_invoke(uint6
 
 - (void)initWithConfiguration:(char *)a1 .cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:PFServerPosterPathClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -704,7 +702,7 @@ uint64_t __48__PRSPosterConfigurationAttributes_snapshotURLs__block_invoke(uint6
     v3 = OUTLINED_FUNCTION_2_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:PFServerPosterPathClass]", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -714,7 +712,7 @@ uint64_t __48__PRSPosterConfigurationAttributes_snapshotURLs__block_invoke(uint6
 
 - (void)initWithConfiguration:(char *)a1 .cold.3(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -722,7 +720,7 @@ uint64_t __48__PRSPosterConfigurationAttributes_snapshotURLs__block_invoke(uint6
     v3 = OUTLINED_FUNCTION_2_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -732,7 +730,7 @@ uint64_t __48__PRSPosterConfigurationAttributes_snapshotURLs__block_invoke(uint6
 
 - (void)initWithConfiguration:(char *)a1 .cold.4(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -740,7 +738,7 @@ uint64_t __48__PRSPosterConfigurationAttributes_snapshotURLs__block_invoke(uint6
     v3 = OUTLINED_FUNCTION_2_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -750,14 +748,13 @@ uint64_t __48__PRSPosterConfigurationAttributes_snapshotURLs__block_invoke(uint6
 
 void __48__PRSPosterConfigurationAttributes_snapshotURLs__block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *(*(a1 + 32) + 40);
-  v5 = 138543618;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_error_impl(&dword_1C26FF000, log, OS_LOG_TYPE_ERROR, "snapshotURLs %{public}@ encountered an error: %@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138543618;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_error_impl(&dword_1C26FF000, log, OS_LOG_TYPE_ERROR, "snapshotURLs %{public}@ encountered an error: %@", &v4, 0x16u);
 }
 
 @end

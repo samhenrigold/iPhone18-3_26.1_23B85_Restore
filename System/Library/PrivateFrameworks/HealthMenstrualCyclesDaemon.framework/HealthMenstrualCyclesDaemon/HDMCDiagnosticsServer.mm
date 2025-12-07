@@ -65,17 +65,16 @@
 
 + (id)requiredEntitlements
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = *MEMORY[0x277CCC420];
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = *MEMORY[0x277CCC420];
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }
 
 - (void)remote_triggerAnalysisForDiagnosticsWithCompletion:(id)completion
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   _HKInitializeLogging();
   v5 = *MEMORY[0x277CCC2E8];
@@ -83,22 +82,20 @@
   {
     v6 = v5;
     *buf = 138543362;
-    v14 = objc_opt_class();
-    v7 = v14;
+    v13 = objc_opt_class();
+    v7 = v13;
     _os_log_impl(&dword_2293D1000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Trigger analysis for diagnostics", buf, 0xCu);
   }
 
   v8 = dispatch_get_global_queue(25, 0);
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __76__HDMCDiagnosticsServer_remote_triggerAnalysisForDiagnosticsWithCompletion___block_invoke;
-  v11[3] = &unk_27865AEF0;
-  v11[4] = self;
-  v12 = completionCopy;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __76__HDMCDiagnosticsServer_remote_triggerAnalysisForDiagnosticsWithCompletion___block_invoke;
+  v10[3] = &unk_27865AEF0;
+  v10[4] = self;
+  v11 = completionCopy;
   v9 = completionCopy;
-  dispatch_async(v8, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  dispatch_async(v8, v10);
 }
 
 void __76__HDMCDiagnosticsServer_remote_triggerAnalysisForDiagnosticsWithCompletion___block_invoke(uint64_t a1)

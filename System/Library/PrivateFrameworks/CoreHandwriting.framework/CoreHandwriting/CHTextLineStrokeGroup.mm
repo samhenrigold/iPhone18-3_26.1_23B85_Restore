@@ -459,7 +459,7 @@ LABEL_66:
   obj = v152;
   if (objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v153, v499, buf, 16, v154))
   {
-    objc_msgSend_orientedBounds(*v499[1], v155, v156, v157, v158, v159);
+    objc_msgSend_orientedBounds(**(&v499[0] + 1), v155, v156, v157, v158, v159);
     operator new();
   }
 

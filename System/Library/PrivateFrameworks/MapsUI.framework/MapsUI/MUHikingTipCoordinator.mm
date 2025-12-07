@@ -11,12 +11,12 @@
   swift_unknownObjectRetain();
   swift_unknownObjectRetain();
   swift_unknownObjectRetain();
-  v7 = sub_1C571371C(serviceCopy);
+  v10 = sub_1C571371C(serviceCopy, delegate, provider, presenter);
 
   swift_unknownObjectRelease();
   swift_unknownObjectRelease();
   swift_unknownObjectRelease();
-  return v7;
+  return v10;
 }
 
 - (MUHikingTipCoordinator)init

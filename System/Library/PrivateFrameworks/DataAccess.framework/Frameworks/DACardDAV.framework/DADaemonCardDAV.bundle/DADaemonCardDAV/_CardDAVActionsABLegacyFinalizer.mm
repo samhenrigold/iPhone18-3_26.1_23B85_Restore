@@ -70,7 +70,7 @@
       addressBook = addressBook2;
       v67 = dCopy;
       v68 = asSource;
-      LODWORD(v17) = v17 | sub_1910(addressBook2, asSource, v21, 1, dCopy, &buf);
+      LODWORD(v17) = v17 | sub_1910(addressBook2, asSource, v21, 1u, dCopy, &buf);
     }
   }
 

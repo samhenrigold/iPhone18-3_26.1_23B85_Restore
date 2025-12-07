@@ -3,20 +3,20 @@
 
 @implementation VFXSkinner
 
-uint64_t __92__VFXSkinner_AVTExtension__avt_skinnerByInterpolatingFromSkinner_toSkinner_factor_skeleton___block_invoke(uint64_t a1, void *a2)
+void *__92__VFXSkinner_AVTExtension__avt_skinnerByInterpolatingFromSkinner_toSkinner_factor_skeleton___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = [a2 name];
-  v4 = [v3 isEqualToString:*(a1 + 32)];
+  v2 = [a2 name];
+  v3 = [v2 isEqualToString:?];
 
-  return v4;
+  return v3;
 }
 
-uint64_t __92__VFXSkinner_AVTExtension__avt_skinnerByInterpolatingFromSkinner_toSkinner_factor_skeleton___block_invoke_2(uint64_t a1, void *a2)
+void *__92__VFXSkinner_AVTExtension__avt_skinnerByInterpolatingFromSkinner_toSkinner_factor_skeleton___block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = [a2 name];
-  v4 = [v3 isEqualToString:*(a1 + 32)];
+  v2 = [a2 name];
+  v3 = [v2 isEqualToString:?];
 
-  return v4;
+  return v3;
 }
 
 @end

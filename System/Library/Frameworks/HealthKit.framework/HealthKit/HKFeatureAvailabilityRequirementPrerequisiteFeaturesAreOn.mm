@@ -57,28 +57,28 @@ id __81__HKFeatureAvailabilityRequirementPrerequisiteFeaturesAreOn_requiredEntit
 
 - (id)isSatisfiedWithDataSource:(id)source error:(id *)error
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   sourceCopy = source;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   obj = self->_prerequisiteFeatureSettings;
-  v7 = [(NSArray *)obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v7 = [(NSArray *)obj countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v23;
+    v9 = *v22;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v23 != v9)
+        if (*v22 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v22 + 1) + 8 * i);
+        v11 = *(*(&v21 + 1) + 8 * i);
         featureIdentifier = [v11 featureIdentifier];
         v13 = [sourceCopy onboardingRecordForFeatureWithIdentifier:featureIdentifier error:error];
 
@@ -114,7 +114,7 @@ LABEL_17:
         }
       }
 
-      v8 = [(NSArray *)obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v8 = [(NSArray *)obj countByEnumeratingWithState:&v21 objects:v25 count:16];
       if (v8)
       {
         continue;
@@ -127,13 +127,12 @@ LABEL_17:
   v18 = MEMORY[0x1E695E118];
 LABEL_18:
 
-  v19 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
 - (void)registerObserver:(id)observer forDataSource:(id)source
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   observerCopy = observer;
   sourceCopy = source;
   objc_initWeak(&location, sourceCopy);
@@ -141,52 +140,50 @@ LABEL_18:
   aBlock[1] = 3221225472;
   aBlock[2] = __92__HKFeatureAvailabilityRequirementPrerequisiteFeaturesAreOn_registerObserver_forDataSource___block_invoke;
   aBlock[3] = &unk_1E7379DC8;
-  objc_copyWeak(&v24, &location);
+  objc_copyWeak(&v23, &location);
   aBlock[4] = self;
   v8 = _Block_copy(aBlock);
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   obj = self->_prerequisiteFeatureSettings;
-  v9 = [(NSArray *)obj countByEnumeratingWithState:&v19 objects:v26 count:16];
+  v9 = [(NSArray *)obj countByEnumeratingWithState:&v18 objects:v25 count:16];
   if (v9)
   {
-    v10 = *v20;
+    v10 = *v19;
     do
     {
       v11 = 0;
       do
       {
-        if (*v20 != v10)
+        if (*v19 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v19 + 1) + 8 * v11);
+        v12 = *(*(&v18 + 1) + 8 * v11);
         featureAvailabilityProvidingDataSource = [sourceCopy featureAvailabilityProvidingDataSource];
         featureIdentifier = [v12 featureIdentifier];
-        v17[0] = MEMORY[0x1E69E9820];
-        v17[1] = 3221225472;
-        v17[2] = __92__HKFeatureAvailabilityRequirementPrerequisiteFeaturesAreOn_registerObserver_forDataSource___block_invoke_18;
-        v17[3] = &unk_1E737DBD0;
-        v18 = v8;
-        [featureAvailabilityProvidingDataSource registerObserver:observerCopy forKey:featureIdentifier newValueHandler:v17];
+        v16[0] = MEMORY[0x1E69E9820];
+        v16[1] = 3221225472;
+        v16[2] = __92__HKFeatureAvailabilityRequirementPrerequisiteFeaturesAreOn_registerObserver_forDataSource___block_invoke_18;
+        v16[3] = &unk_1E737DBD0;
+        v17 = v8;
+        [featureAvailabilityProvidingDataSource registerObserver:observerCopy forKey:featureIdentifier newValueHandler:v16];
 
         ++v11;
       }
 
       while (v9 != v11);
-      v9 = [(NSArray *)obj countByEnumeratingWithState:&v19 objects:v26 count:16];
+      v9 = [(NSArray *)obj countByEnumeratingWithState:&v18 objects:v25 count:16];
     }
 
     while (v9);
   }
 
-  objc_destroyWeak(&v24);
+  objc_destroyWeak(&v23);
   objc_destroyWeak(&location);
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __92__HKFeatureAvailabilityRequirementPrerequisiteFeaturesAreOn_registerObserver_forDataSource___block_invoke(uint64_t a1, void *a2)
@@ -197,9 +194,10 @@ void __92__HKFeatureAvailabilityRequirementPrerequisiteFeaturesAreOn_registerObs
   {
     v6 = *(a1 + 32);
     v5 = (a1 + 32);
-    v10 = 0;
-    v7 = [v6 isSatisfiedWithDataSource:WeakRetained error:&v10];
-    v8 = v10;
+    v14 = 0;
+    v7 = [v6 isSatisfiedWithDataSource:WeakRetained error:&v14];
+    v8 = v14;
+    v10 = v8;
     if (v7)
     {
       [v3 featureAvailabilityRequirement:*v5 didUpdateSatisfaction:{objc_msgSend(v7, "BOOLValue")}];
@@ -207,11 +205,11 @@ void __92__HKFeatureAvailabilityRequirementPrerequisiteFeaturesAreOn_registerObs
 
     else
     {
-      _HKInitializeLogging();
-      v9 = HKLogInfrastructure();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      _HKInitializeLogging(v8, v9);
+      v13 = HKLogInfrastructure(v11, v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        __92__HKFeatureAvailabilityRequirementPrerequisiteFeaturesAreOn_registerObserver_forDataSource___block_invoke_cold_1(v5, v8, v9);
+        __92__HKFeatureAvailabilityRequirementPrerequisiteFeaturesAreOn_registerObserver_forDataSource___block_invoke_cold_1(v5, v10, v13);
       }
     }
   }
@@ -219,30 +217,30 @@ void __92__HKFeatureAvailabilityRequirementPrerequisiteFeaturesAreOn_registerObs
 
 - (void)unregisterObserver:(id)observer fromDataSource:(id)source
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   observerCopy = observer;
   sourceCopy = source;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v8 = self->_prerequisiteFeatureSettings;
-  v9 = [(NSArray *)v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v9 = [(NSArray *)v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v18;
+    v11 = *v17;
     do
     {
       v12 = 0;
       do
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v17 + 1) + 8 * v12);
+        v13 = *(*(&v16 + 1) + 8 * v12);
         featureAvailabilityProvidingDataSource = [sourceCopy featureAvailabilityProvidingDataSource];
         featureIdentifier = [v13 featureIdentifier];
         [featureAvailabilityProvidingDataSource unregisterObserver:observerCopy forKey:featureIdentifier];
@@ -251,13 +249,11 @@ void __92__HKFeatureAvailabilityRequirementPrerequisiteFeaturesAreOn_registerObs
       }
 
       while (v10 != v12);
-      v10 = [(NSArray *)v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v10 = [(NSArray *)v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v10);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isEqual:(id)equal
@@ -289,18 +285,15 @@ void __92__HKFeatureAvailabilityRequirementPrerequisiteFeaturesAreOn_registerObs
   return v9;
 }
 
-void __92__HKFeatureAvailabilityRequirementPrerequisiteFeaturesAreOn_registerObserver_forDataSource___block_invoke_cold_1(uint64_t *a1, uint64_t a2, NSObject *a3)
+void __92__HKFeatureAvailabilityRequirementPrerequisiteFeaturesAreOn_registerObserver_forDataSource___block_invoke_cold_1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v5 = *a1;
-  v8 = 138543618;
-  v9 = objc_opt_class();
-  v10 = 2114;
-  v11 = a2;
-  v6 = v9;
-  _os_log_error_impl(&dword_19197B000, a3, OS_LOG_TYPE_ERROR, "[%{public}@]: Error determining satisfaction in response to change in feature availability: %{public}@", &v8, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
+  v6 = 138543618;
+  v7 = objc_opt_class();
+  v8 = 2114;
+  v9 = a2;
+  v5 = v7;
+  _os_log_error_impl(&dword_19197B000, a3, OS_LOG_TYPE_ERROR, "[%{public}@]: Error determining satisfaction in response to change in feature availability: %{public}@", &v6, 0x16u);
 }
 
 @end

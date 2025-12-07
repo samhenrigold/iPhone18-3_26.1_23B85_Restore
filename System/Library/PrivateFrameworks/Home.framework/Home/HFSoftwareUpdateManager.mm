@@ -126,7 +126,7 @@
 
 - (void)resetCaches
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   accessoryUniqueIDToSoftwareUpdateMapTable = [(HFSoftwareUpdateManager *)self accessoryUniqueIDToSoftwareUpdateMapTable];
   v4 = [accessoryUniqueIDToSoftwareUpdateMapTable count];
 
@@ -138,7 +138,7 @@
       accessoryUniqueIDToSoftwareUpdateMapTable2 = [(HFSoftwareUpdateManager *)self accessoryUniqueIDToSoftwareUpdateMapTable];
       hf_prettyDescription = [accessoryUniqueIDToSoftwareUpdateMapTable2 hf_prettyDescription];
       *buf = 138412290;
-      v31 = hf_prettyDescription;
+      v30 = hf_prettyDescription;
       _os_log_error_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_ERROR, "[RESET] Unexpected entries in accessoryUniqueIDToSoftwareUpdateMapTable: %@", buf, 0xCu);
     }
   }
@@ -157,7 +157,7 @@
       accessoryUniqueIDToSoftwareUpdateProgressMapTable2 = [(HFSoftwareUpdateManager *)self accessoryUniqueIDToSoftwareUpdateProgressMapTable];
       hf_prettyDescription2 = [accessoryUniqueIDToSoftwareUpdateProgressMapTable2 hf_prettyDescription];
       *buf = 138412290;
-      v31 = hf_prettyDescription2;
+      v30 = hf_prettyDescription2;
       _os_log_error_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_ERROR, "[RESET] Unexpected entries in accessoryUniqueIDToSoftwareUpdateProgressMapTable: %@", buf, 0xCu);
     }
   }
@@ -167,12 +167,12 @@
 
   accessoryUniqueIDToFetchPromisesMapTable = [(HFSoftwareUpdateManager *)self accessoryUniqueIDToFetchPromisesMapTable];
   keyEnumerator = [accessoryUniqueIDToFetchPromisesMapTable keyEnumerator];
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __38__HFSoftwareUpdateManager_resetCaches__block_invoke;
-  v29[3] = &unk_277DFF7F8;
-  v29[4] = self;
-  [keyEnumerator na_each:v29];
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __38__HFSoftwareUpdateManager_resetCaches__block_invoke;
+  v28[3] = &unk_277DFF7F8;
+  v28[4] = self;
+  [keyEnumerator na_each:v28];
 
   accessoryUniqueIDToFetchPromisesMapTable2 = [(HFSoftwareUpdateManager *)self accessoryUniqueIDToFetchPromisesMapTable];
   [accessoryUniqueIDToFetchPromisesMapTable2 removeAllObjects];
@@ -188,7 +188,7 @@
       observedAccessoryUniqueIDToAccessoryMapTable2 = [(HFSoftwareUpdateManager *)self observedAccessoryUniqueIDToAccessoryMapTable];
       hf_prettyDescription3 = [observedAccessoryUniqueIDToAccessoryMapTable2 hf_prettyDescription];
       *buf = 138412290;
-      v31 = hf_prettyDescription3;
+      v30 = hf_prettyDescription3;
       _os_log_error_impl(&dword_20D9BF000, v16, OS_LOG_TYPE_ERROR, "[RESET] Unexpected entries in observedAccessoryUniqueIDToAccessoryMapTable: %@", buf, 0xCu);
     }
   }
@@ -199,14 +199,12 @@
   documentationMetadataToDocumentationFutureMapTable = [(HFSoftwareUpdateManager *)self documentationMetadataToDocumentationFutureMapTable];
   keyEnumerator2 = [documentationMetadataToDocumentationFutureMapTable keyEnumerator];
   allObjects = [keyEnumerator2 allObjects];
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __38__HFSoftwareUpdateManager_resetCaches__block_invoke_13;
-  v28[3] = &unk_277DFF820;
-  v28[4] = self;
-  [allObjects na_each:v28];
-
-  v21 = *MEMORY[0x277D85DE8];
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __38__HFSoftwareUpdateManager_resetCaches__block_invoke_13;
+  v27[3] = &unk_277DFF820;
+  v27[4] = self;
+  [allObjects na_each:v27];
 }
 
 void __38__HFSoftwareUpdateManager_resetCaches__block_invoke(uint64_t a1, void *a2)
@@ -227,28 +225,27 @@ void __38__HFSoftwareUpdateManager_resetCaches__block_invoke(uint64_t a1, void *
 
 void __38__HFSoftwareUpdateManager_resetCaches__block_invoke_2(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HFLogForCategory(0x44uLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = [*(a1 + 32) observedAccessoryUniqueIDToAccessoryMapTable];
-    v7 = [v6 objectForKey:*(a1 + 40)];
-    v8 = [v7 hf_prettyDescription];
-    v9 = 138412546;
-    v10 = v3;
-    v11 = 2112;
-    v12 = v8;
-    _os_log_error_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_ERROR, "[RESET] Unexpectedly finishing promise in accessoryUniqueIDToFetchPromisesMapTable: %@ %@", &v9, 0x16u);
+    v5 = [*(a1 + 32) observedAccessoryUniqueIDToAccessoryMapTable];
+    v6 = [v5 objectForKey:*(a1 + 40)];
+    v7 = [v6 hf_prettyDescription];
+    v8 = 138412546;
+    v9 = v3;
+    v10 = 2112;
+    v11 = v7;
+    _os_log_error_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_ERROR, "[RESET] Unexpectedly finishing promise in accessoryUniqueIDToFetchPromisesMapTable: %@ %@", &v8, 0x16u);
   }
 
   [v3 finishWithNoResult];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __38__HFSoftwareUpdateManager_resetCaches__block_invoke_13(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) documentationMetadataToDocumentationFutureMapTable];
   v5 = [v4 objectForKey:v3];
@@ -256,15 +253,14 @@ void __38__HFSoftwareUpdateManager_resetCaches__block_invoke_13(uint64_t a1, voi
   v6 = HFLogForCategory(0x44uLL);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    v8 = 138412546;
-    v9 = v5;
-    v10 = 2112;
-    v11 = v3;
-    _os_log_error_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_ERROR, "[RESET] Unexpectedly cancelling future in documentationMetadataToDocumentationFutureMapTable: %@ %@", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = v5;
+    v9 = 2112;
+    v10 = v3;
+    _os_log_error_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_ERROR, "[RESET] Unexpectedly cancelling future in documentationMetadataToDocumentationFutureMapTable: %@ %@", &v7, 0x16u);
   }
 
   [v5 cancel];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startObservingSoftwareUpdatesForAccessories:(id)accessories
@@ -281,8 +277,8 @@ LABEL_8:
     }
 
     dispatcher = [(HFSoftwareUpdateManager *)self dispatcher];
-    home = [dispatcher home];
-    softwareUpdateController = [home softwareUpdateController];
+    v8 = objc_msgSend_home(dispatcher);
+    softwareUpdateController = [v8 softwareUpdateController];
     delegate = [softwareUpdateController delegate];
     if (delegate)
     {
@@ -303,8 +299,8 @@ LABEL_8:
 
 LABEL_7:
     dispatcher2 = [(HFSoftwareUpdateManager *)self dispatcher];
-    home2 = [dispatcher2 home];
-    softwareUpdateController2 = [home2 softwareUpdateController];
+    v13 = objc_msgSend_home(dispatcher2);
+    softwareUpdateController2 = [v13 softwareUpdateController];
     v15[0] = MEMORY[0x277D85DD0];
     v15[1] = 3221225472;
     v15[2] = __71__HFSoftwareUpdateManager_startObservingSoftwareUpdatesForAccessories___block_invoke_2;
@@ -337,7 +333,7 @@ id __71__HFSoftwareUpdateManager_startObservingSoftwareUpdatesForAccessories___b
 
 void __71__HFSoftwareUpdateManager_startObservingSoftwareUpdatesForAccessories___block_invoke_2(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = HFLogForCategory(0x44uLL);
   v6 = v5;
@@ -345,28 +341,28 @@ void __71__HFSoftwareUpdateManager_startObservingSoftwareUpdatesForAccessories__
   {
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v12 = [*(a1 + 32) count];
-      v13 = *(a1 + 32);
-      if (v12 == 1)
+      v11 = [*(a1 + 32) count];
+      v12 = *(a1 + 32);
+      if (v11 == 1)
       {
-        v2 = [v13 anyObject];
+        v2 = [v12 anyObject];
         [v2 hf_prettyDescription];
       }
 
       else
       {
-        [v13 hf_prettyDescription];
+        [v12 hf_prettyDescription];
       }
-      v14 = ;
+      v13 = ;
       *buf = 138412546;
-      v17 = v4;
-      v18 = 2112;
-      v19 = v14;
+      v16 = v4;
+      v17 = 2112;
+      v18 = v13;
       _os_log_error_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_ERROR, "[SUBSCRIBE] %@: Cannot subscribe to %@", buf, 0x16u);
-      if (v12 == 1)
+      if (v11 == 1)
       {
 
-        v14 = v2;
+        v13 = v2;
       }
     }
   }
@@ -389,7 +385,7 @@ void __71__HFSoftwareUpdateManager_startObservingSoftwareUpdatesForAccessories__
       }
       v9 = ;
       *buf = 138412290;
-      v17 = v9;
+      v16 = v9;
       _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "[SUBSCRIBE] Subscribed to %@", buf, 0xCu);
       if (v7 == 1)
       {
@@ -398,16 +394,14 @@ void __71__HFSoftwareUpdateManager_startObservingSoftwareUpdatesForAccessories__
       }
     }
 
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __71__HFSoftwareUpdateManager_startObservingSoftwareUpdatesForAccessories___block_invoke_20;
-    v15[3] = &unk_277DF5200;
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __71__HFSoftwareUpdateManager_startObservingSoftwareUpdatesForAccessories___block_invoke_20;
+    v14[3] = &unk_277DF5200;
     v10 = *(a1 + 32);
-    v15[4] = *(a1 + 40);
-    [v10 na_each:v15];
+    v14[4] = *(a1 + 40);
+    [v10 na_each:v14];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __71__HFSoftwareUpdateManager_startObservingSoftwareUpdatesForAccessories___block_invoke_20(uint64_t a1, void *a2)
@@ -421,7 +415,7 @@ void __71__HFSoftwareUpdateManager_startObservingSoftwareUpdatesForAccessories__
 
 - (void)stopObservingSoftwareUpdatesForAccessories:(id)accessories
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   accessoriesCopy = accessories;
   if ([accessoriesCopy count])
   {
@@ -429,24 +423,24 @@ void __71__HFSoftwareUpdateManager_startObservingSoftwareUpdatesForAccessories__
     if ([v5 count])
     {
       dispatcher = [(HFSoftwareUpdateManager *)self dispatcher];
-      home = [dispatcher home];
-      softwareUpdateController = [home softwareUpdateController];
+      anyObject = objc_msgSend_home(dispatcher);
+      softwareUpdateController = [anyObject softwareUpdateController];
       [softwareUpdateController unsubscribe:v5];
 
-      v13[0] = MEMORY[0x277D85DD0];
-      v13[1] = 3221225472;
-      v13[2] = __70__HFSoftwareUpdateManager_stopObservingSoftwareUpdatesForAccessories___block_invoke_2;
-      v13[3] = &unk_277DFF7F8;
-      v13[4] = self;
-      [v5 na_each:v13];
+      v12[0] = MEMORY[0x277D85DD0];
+      v12[1] = 3221225472;
+      v12[2] = __70__HFSoftwareUpdateManager_stopObservingSoftwareUpdatesForAccessories___block_invoke_2;
+      v12[3] = &unk_277DFF7F8;
+      v12[4] = self;
+      [v5 na_each:v12];
       v9 = HFLogForCategory(0x44uLL);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         v10 = [accessoriesCopy count];
         if (v10 == 1)
         {
-          home = [accessoriesCopy anyObject];
-          [home hf_prettyDescription];
+          anyObject = [accessoriesCopy anyObject];
+          [anyObject hf_prettyDescription];
         }
 
         else
@@ -455,18 +449,16 @@ void __71__HFSoftwareUpdateManager_startObservingSoftwareUpdatesForAccessories__
         }
         v11 = ;
         *buf = 138412290;
-        v15 = v11;
+        v14 = v11;
         _os_log_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_DEFAULT, "[UNSUBSCRIBE] Unsubscribed from %@", buf, 0xCu);
         if (v10 == 1)
         {
 
-          v11 = home;
+          v11 = anyObject;
         }
       }
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 id __70__HFSoftwareUpdateManager_stopObservingSoftwareUpdatesForAccessories___block_invoke(uint64_t a1, void *a2)
@@ -532,7 +524,7 @@ void __70__HFSoftwareUpdateManager_stopObservingSoftwareUpdatesForAccessories___
 
 - (void)softwareUpdateController:(id)controller accessory:(id)accessory didUpdateProgress:(id)progress
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   progressCopy = progress;
   accessoryUniqueIDToSoftwareUpdateProgressMapTable = [(HFSoftwareUpdateManager *)self accessoryUniqueIDToSoftwareUpdateProgressMapTable];
@@ -551,29 +543,27 @@ void __70__HFSoftwareUpdateManager_stopObservingSoftwareUpdatesForAccessories___
     {
       hf_prettyDescription = [v13 hf_prettyDescription];
       *buf = 138412290;
-      v22 = hf_prettyDescription;
+      v21 = hf_prettyDescription;
       _os_log_impl(&dword_20D9BF000, v14, OS_LOG_TYPE_DEFAULT, "[PROGRESS] %@", buf, 0xCu);
     }
 
     dispatcher = [(HFSoftwareUpdateManager *)self dispatcher];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __80__HFSoftwareUpdateManager_softwareUpdateController_accessory_didUpdateProgress___block_invoke;
-    v19[3] = &unk_277DFF848;
-    v20 = v13;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __80__HFSoftwareUpdateManager_softwareUpdateController_accessory_didUpdateProgress___block_invoke;
+    v18[3] = &unk_277DFF848;
+    v19 = v13;
     v17 = v13;
-    [dispatcher dispatchSoftwareUpdateMessage:v19 sender:0];
+    [dispatcher dispatchSoftwareUpdateMessage:v18 sender:0];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)executionEnvironmentDidBecomeActive:(id)active
 {
   v4 = MEMORY[0x277CBEB98];
   dispatcher = [(HFSoftwareUpdateManager *)self dispatcher];
-  home = [dispatcher home];
-  accessories = [home accessories];
+  v6 = objc_msgSend_home(dispatcher);
+  accessories = [v6 accessories];
   v8 = [v4 setWithArray:accessories];
 
   observedAccessoryUniqueIDToAccessoryMapTable = [(HFSoftwareUpdateManager *)self observedAccessoryUniqueIDToAccessoryMapTable];
@@ -657,7 +647,7 @@ void __63__HFSoftwareUpdateManager_executionEnvironmentDidBecomeActive___block_i
 
 - (void)home:(id)home didRemoveAccessory:(id)accessory
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   homeCopy = home;
   accessoryCopy = accessory;
   if ([accessoryCopy supportsSoftwareUpdateV2])
@@ -667,18 +657,16 @@ void __63__HFSoftwareUpdateManager_executionEnvironmentDidBecomeActive___block_i
     {
       hf_prettyDescription = [accessoryCopy hf_prettyDescription];
       hf_prettyDescription2 = [homeCopy hf_prettyDescription];
-      v13 = 138412546;
-      v14 = hf_prettyDescription;
-      v15 = 2112;
-      v16 = hf_prettyDescription2;
-      _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "[UNSUBSCRIBE] Stopped observing accessory because it was removed from its home: %@ %@", &v13, 0x16u);
+      v12 = 138412546;
+      v13 = hf_prettyDescription;
+      v14 = 2112;
+      v15 = hf_prettyDescription2;
+      _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "[UNSUBSCRIBE] Stopped observing accessory because it was removed from its home: %@ %@", &v12, 0x16u);
     }
 
     v11 = [MEMORY[0x277CBEB98] setWithObject:accessoryCopy];
     [(HFSoftwareUpdateManager *)self stopObservingSoftwareUpdatesForAccessories:v11];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)accessoryDidUpdateReachability:(id)reachability
@@ -703,51 +691,50 @@ void __63__HFSoftwareUpdateManager_executionEnvironmentDidBecomeActive___block_i
 
 void __58__HFSoftwareUpdateManager_accessoryDidUpdateReachability___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HFLogForCategory(0x44uLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = [*(a1 + 32) hf_prettyDescription];
-    v7 = 138412546;
-    v8 = v3;
-    v9 = 2112;
-    v10 = v6;
-    _os_log_error_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_ERROR, "[FETCH] Accessory became unreachable; finishing unmet promise: %@ %@", &v7, 0x16u);
+    v5 = [*(a1 + 32) hf_prettyDescription];
+    v6 = 138412546;
+    v7 = v3;
+    v8 = 2112;
+    v9 = v5;
+    _os_log_error_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_ERROR, "[FETCH] Accessory became unreachable; finishing unmet promise: %@ %@", &v6, 0x16u);
   }
 
   [v3 finishWithNoResult];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)softwareUpdate:(id)update didUpdateState:(int64_t)state
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   v7 = HFLogForCategory(0x44uLL);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     hf_prettyExpensiveDescription = [updateCopy hf_prettyExpensiveDescription];
     *buf = 138412290;
-    v18 = hf_prettyExpensiveDescription;
+    v17 = hf_prettyExpensiveDescription;
     _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "[STATUS] %@", buf, 0xCu);
   }
 
   if (updateCopy)
   {
     requestedSoftwareUpdateInstalls = [(HFSoftwareUpdateManager *)self requestedSoftwareUpdateInstalls];
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __57__HFSoftwareUpdateManager_softwareUpdate_didUpdateState___block_invoke;
-    v15[3] = &unk_277DF3888;
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __57__HFSoftwareUpdateManager_softwareUpdate_didUpdateState___block_invoke;
+    v14[3] = &unk_277DF3888;
     v10 = updateCopy;
-    v16 = v10;
-    v11 = [requestedSoftwareUpdateInstalls na_firstObjectPassingTest:v15];
+    v15 = v10;
+    v11 = [requestedSoftwareUpdateInstalls na_firstObjectPassingTest:v14];
 
     version = [v10 version];
     [(HFSoftwareUpdateManager *)self _updateRequestedSoftwareUpdateInstallsWithAccessory:v11 softwareUpdateState:state softwareUpdateVersion:version];
 
-    v13 = v16;
+    v13 = v15;
   }
 
   else
@@ -759,8 +746,6 @@ void __58__HFSoftwareUpdateManager_accessoryDidUpdateReachability___block_invoke
       _os_log_error_impl(&dword_20D9BF000, v13, OS_LOG_TYPE_ERROR, "[STATUS] softwareUpdate:didUpdateState: invoked with a nil update; ignoring.", buf, 2u);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __57__HFSoftwareUpdateManager_softwareUpdate_didUpdateState___block_invoke(uint64_t a1, void *a2)
@@ -774,7 +759,7 @@ BOOL __57__HFSoftwareUpdateManager_softwareUpdate_didUpdateState___block_invoke(
 
 - (void)_didReceiveUpdateForAccessory:(id)accessory update:(id)update
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   updateCopy = update;
   accessoryUniqueIDToSoftwareUpdateMapTable = [(HFSoftwareUpdateManager *)self accessoryUniqueIDToSoftwareUpdateMapTable];
@@ -784,27 +769,27 @@ BOOL __57__HFSoftwareUpdateManager_softwareUpdate_didUpdateState___block_invoke(
   if (documentationMetadata)
   {
     documentationMetadataToDocumentationMapTable = [(HFSoftwareUpdateManager *)self documentationMetadataToDocumentationMapTable];
-    v36 = [documentationMetadataToDocumentationMapTable objectForKey:documentationMetadata];
+    v35 = [documentationMetadataToDocumentationMapTable objectForKey:documentationMetadata];
   }
 
   else
   {
-    v36 = 0;
+    v35 = 0;
   }
 
-  if ([v9 isEqual:{updateCopy, v36}] && (objc_msgSend(updateCopy, "error"), v12 = objc_claimAutoreleasedReturnValue(), v12, !v12) && v37)
+  if ([v9 isEqual:{updateCopy, v35}] && (objc_msgSend(updateCopy, "error"), v12 = objc_claimAutoreleasedReturnValue(), v12, !v12) && v36)
   {
     v13 = HFLogForCategory(0x44uLL);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       uUIDString = [accessoryCopy UUIDString];
-      v15 = [v37 description];
+      v15 = [v36 description];
       *buf = 138412802;
-      v44 = uUIDString;
-      v45 = 2112;
-      v46 = updateCopy;
-      v47 = 2112;
-      v48 = v15;
+      v43 = uUIDString;
+      v44 = 2112;
+      v45 = updateCopy;
+      v46 = 2112;
+      v47 = v15;
       _os_log_impl(&dword_20D9BF000, v13, OS_LOG_TYPE_DEFAULT, "[STATUS] Skipping didReceiveUpdate for accessory: %@, with software update: %@, existingDocumentation: %@", buf, 0x20u);
     }
   }
@@ -827,7 +812,7 @@ BOOL __57__HFSoftwareUpdateManager_softwareUpdate_didUpdateState___block_invoke(
         {
           hf_prettyDescription = [v17 hf_prettyDescription];
           *buf = 138412290;
-          v44 = hf_prettyDescription;
+          v43 = hf_prettyDescription;
           _os_log_impl(&dword_20D9BF000, v28, OS_LOG_TYPE_DEFAULT, "[STATUS] Removing update from accessoryUniqueIDToSoftwareUpdateMapTable: %@", buf, 0xCu);
         }
 
@@ -848,7 +833,7 @@ BOOL __57__HFSoftwareUpdateManager_softwareUpdate_didUpdateState___block_invoke(
       {
         hf_prettyDescription2 = [v17 hf_prettyDescription];
         *buf = 138412290;
-        v44 = hf_prettyDescription2;
+        v43 = hf_prettyDescription2;
         _os_log_impl(&dword_20D9BF000, v23, OS_LOG_TYPE_DEFAULT, "[STATUS] %@", buf, 0xCu);
       }
 
@@ -863,19 +848,19 @@ BOOL __57__HFSoftwareUpdateManager_softwareUpdate_didUpdateState___block_invoke(
     aBlock[1] = 3221225472;
     aBlock[2] = __64__HFSoftwareUpdateManager__didReceiveUpdateForAccessory_update___block_invoke;
     aBlock[3] = &unk_277DF3A68;
-    objc_copyWeak(&v42, buf);
+    objc_copyWeak(&v41, buf);
     v13 = v17;
-    v41 = v13;
+    v40 = v13;
     v32 = _Block_copy(aBlock);
     v33 = v32;
     if (v25)
     {
-      v38[0] = MEMORY[0x277D85DD0];
-      v38[1] = 3221225472;
-      v38[2] = __64__HFSoftwareUpdateManager__didReceiveUpdateForAccessory_update___block_invoke_3;
-      v38[3] = &unk_277DFF898;
-      v39 = v32;
-      v34 = [v25 addCompletionBlock:v38];
+      v37[0] = MEMORY[0x277D85DD0];
+      v37[1] = 3221225472;
+      v37[2] = __64__HFSoftwareUpdateManager__didReceiveUpdateForAccessory_update___block_invoke_3;
+      v37[3] = &unk_277DFF898;
+      v38 = v32;
+      v34 = [v25 addCompletionBlock:v37];
     }
 
     else
@@ -883,11 +868,9 @@ BOOL __57__HFSoftwareUpdateManager_softwareUpdate_didUpdateState___block_invoke(
       v32[2](v32);
     }
 
-    objc_destroyWeak(&v42);
+    objc_destroyWeak(&v41);
     objc_destroyWeak(buf);
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 void __64__HFSoftwareUpdateManager__didReceiveUpdateForAccessory_update___block_invoke(uint64_t a1)
@@ -906,7 +889,7 @@ void __64__HFSoftwareUpdateManager__didReceiveUpdateForAccessory_update___block_
 - (void)_markSoftwareUpdate:(id)update asRequested:(BOOL)requested
 {
   requestedCopy = requested;
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   if (updateCopy)
   {
@@ -918,7 +901,7 @@ void __64__HFSoftwareUpdateManager__didReceiveUpdateForAccessory_update___block_
       {
         hf_prettyDescription = [updateCopy hf_prettyDescription];
         *buf = 138412290;
-        v46 = hf_prettyDescription;
+        v45 = hf_prettyDescription;
         _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "[MARK REQUESTED] Marked as requested: %@", buf, 0xCu);
       }
 
@@ -926,13 +909,13 @@ void __64__HFSoftwareUpdateManager__didReceiveUpdateForAccessory_update___block_
       [requestedSoftwareUpdateInstalls addObject:updateCopy];
 
       dispatcher = [(HFSoftwareUpdateManager *)self dispatcher];
-      v40 = MEMORY[0x277D85DD0];
-      v41 = 3221225472;
-      v42 = __59__HFSoftwareUpdateManager__markSoftwareUpdate_asRequested___block_invoke;
-      v43 = &unk_277DFF848;
-      v12 = &v44;
-      v44 = updateCopy;
-      v13 = &v40;
+      v39 = MEMORY[0x277D85DD0];
+      v40 = 3221225472;
+      v41 = __59__HFSoftwareUpdateManager__markSoftwareUpdate_asRequested___block_invoke;
+      v42 = &unk_277DFF848;
+      v12 = &v43;
+      v43 = updateCopy;
+      v13 = &v39;
     }
 
     else
@@ -941,7 +924,7 @@ void __64__HFSoftwareUpdateManager__didReceiveUpdateForAccessory_update___block_
       {
         hf_prettyDescription2 = [updateCopy hf_prettyDescription];
         *buf = 138412290;
-        v46 = hf_prettyDescription2;
+        v45 = hf_prettyDescription2;
         _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "[MARK REQUESTED] Removed as requested: %@", buf, 0xCu);
       }
 
@@ -949,13 +932,13 @@ void __64__HFSoftwareUpdateManager__didReceiveUpdateForAccessory_update___block_
       [requestedSoftwareUpdateInstalls2 removeObject:updateCopy];
 
       dispatcher = [(HFSoftwareUpdateManager *)self dispatcher];
-      v35 = MEMORY[0x277D85DD0];
-      v36 = 3221225472;
-      v37 = __59__HFSoftwareUpdateManager__markSoftwareUpdate_asRequested___block_invoke_31;
-      v38 = &unk_277DFF848;
-      v12 = &v39;
-      v39 = updateCopy;
-      v13 = &v35;
+      v34 = MEMORY[0x277D85DD0];
+      v35 = 3221225472;
+      v36 = __59__HFSoftwareUpdateManager__markSoftwareUpdate_asRequested___block_invoke_31;
+      v37 = &unk_277DFF848;
+      v12 = &v38;
+      v38 = updateCopy;
+      v13 = &v34;
     }
 
     [dispatcher dispatchSoftwareUpdateMessage:v13 sender:0];
@@ -969,18 +952,18 @@ void __64__HFSoftwareUpdateManager__didReceiveUpdateForAccessory_update___block_
       {
         hf_prettyDescription3 = [updateCopy hf_prettyDescription];
         *buf = 138412290;
-        v46 = hf_prettyDescription3;
+        v45 = hf_prettyDescription3;
         _os_log_impl(&dword_20D9BF000, v17, OS_LOG_TYPE_DEFAULT, "[MARK REQUESTED] Redispatching softwareUpdateController:accessory:didReceiveUpdate: %@", buf, 0xCu);
       }
 
       dispatcher2 = [(HFSoftwareUpdateManager *)self dispatcher];
-      v30 = MEMORY[0x277D85DD0];
-      v31 = 3221225472;
-      v32 = __59__HFSoftwareUpdateManager__markSoftwareUpdate_asRequested___block_invoke_32;
-      v33 = &unk_277DFF848;
-      v21 = &v34;
-      v34 = updateCopy;
-      v22 = &v30;
+      v29 = MEMORY[0x277D85DD0];
+      v30 = 3221225472;
+      v31 = __59__HFSoftwareUpdateManager__markSoftwareUpdate_asRequested___block_invoke_32;
+      v32 = &unk_277DFF848;
+      v21 = &v33;
+      v33 = updateCopy;
+      v22 = &v29;
     }
 
     else
@@ -989,24 +972,22 @@ void __64__HFSoftwareUpdateManager__didReceiveUpdateForAccessory_update___block_
       {
         hf_prettyDescription4 = [updateCopy hf_prettyDescription];
         *buf = 138412290;
-        v46 = hf_prettyDescription4;
+        v45 = hf_prettyDescription4;
         _os_log_impl(&dword_20D9BF000, v17, OS_LOG_TYPE_DEFAULT, "[MARK REQUESTED] Redispatching softwareUpdate:didUpdateState: %@", buf, 0xCu);
       }
 
       dispatcher2 = [(HFSoftwareUpdateManager *)self dispatcher];
-      v25 = MEMORY[0x277D85DD0];
-      v26 = 3221225472;
-      v27 = __59__HFSoftwareUpdateManager__markSoftwareUpdate_asRequested___block_invoke_33;
-      v28 = &unk_277DFF848;
-      v21 = &v29;
-      v29 = updateCopy;
-      v22 = &v25;
+      v24 = MEMORY[0x277D85DD0];
+      v25 = 3221225472;
+      v26 = __59__HFSoftwareUpdateManager__markSoftwareUpdate_asRequested___block_invoke_33;
+      v27 = &unk_277DFF848;
+      v21 = &v28;
+      v28 = updateCopy;
+      v22 = &v24;
     }
 
-    [dispatcher2 dispatchSoftwareUpdateMessage:v22 sender:{0, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34, v35, v36, v37, v38, v39, v40, v41, v42, v43, v44}];
+    [dispatcher2 dispatchSoftwareUpdateMessage:v22 sender:{0, v24, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34, v35, v36, v37, v38, v39, v40, v41, v42, v43}];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __59__HFSoftwareUpdateManager__markSoftwareUpdate_asRequested___block_invoke_33(uint64_t a1, void *a2)
@@ -1069,27 +1050,27 @@ void __59__HFSoftwareUpdateManager__markSoftwareUpdate_asRequested___block_invok
       if (!v11)
       {
         v16 = MEMORY[0x277D2C900];
-        v26[0] = MEMORY[0x277D85DD0];
-        v26[1] = 3221225472;
-        v26[2] = __74__HFSoftwareUpdateManager__fetchSoftwareUpdateDocumentationWithAccessory___block_invoke;
-        v26[3] = &unk_277DF28D8;
-        v27 = accessoryCopy;
+        v25[0] = MEMORY[0x277D85DD0];
+        v25[1] = 3221225472;
+        v25[2] = __74__HFSoftwareUpdateManager__fetchSoftwareUpdateDocumentationWithAccessory___block_invoke;
+        v25[3] = &unk_277DF28D8;
+        v26 = accessoryCopy;
         v17 = documentationMetadata;
-        v28 = v17;
-        v11 = [v16 futureWithBlock:v26];
+        v27 = v17;
+        v11 = [v16 futureWithBlock:v25];
         documentationMetadataToDocumentationFutureMapTable2 = [(HFSoftwareUpdateManager *)self documentationMetadataToDocumentationFutureMapTable];
         [documentationMetadataToDocumentationFutureMapTable2 setObject:v11 forKey:v17];
 
         objc_initWeak(location, self);
-        v23[0] = MEMORY[0x277D85DD0];
-        v23[1] = 3221225472;
-        v23[2] = __74__HFSoftwareUpdateManager__fetchSoftwareUpdateDocumentationWithAccessory___block_invoke_37;
-        v23[3] = &unk_277DFF8E8;
-        objc_copyWeak(&v25, location);
-        v24 = v17;
-        v19 = [v11 addCompletionBlock:v23];
+        v22[0] = MEMORY[0x277D85DD0];
+        v22[1] = 3221225472;
+        v22[2] = __74__HFSoftwareUpdateManager__fetchSoftwareUpdateDocumentationWithAccessory___block_invoke_37;
+        v22[3] = &unk_277DFF8E8;
+        objc_copyWeak(&v24, location);
+        v23 = v17;
+        v19 = [v11 addCompletionBlock:v22];
 
-        objc_destroyWeak(&v25);
+        objc_destroyWeak(&v24);
         objc_destroyWeak(location);
       }
     }
@@ -1111,42 +1092,38 @@ void __59__HFSoftwareUpdateManager__markSoftwareUpdate_asRequested___block_invok
     v11 = [v13 futureWithError:na_genericError];
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 void __74__HFSoftwareUpdateManager__fetchSoftwareUpdateDocumentationWithAccessory___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HFLogForCategory(0x44uLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [*(a1 + 32) hf_prettyDescription];
     *buf = 138412290;
-    v15 = v5;
+    v14 = v5;
     _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "[DOCUMENTATION] Fetching: %@", buf, 0xCu);
   }
 
-  v6 = [*(a1 + 32) home];
+  v6 = objc_msgSend_home(*(a1 + 32));
   v7 = [v6 softwareUpdateController];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __74__HFSoftwareUpdateManager__fetchSoftwareUpdateDocumentationWithAccessory___block_invoke_36;
-  v11[3] = &unk_277DFF8C0;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __74__HFSoftwareUpdateManager__fetchSoftwareUpdateDocumentationWithAccessory___block_invoke_36;
+  v10[3] = &unk_277DFF8C0;
   v8 = *(a1 + 40);
-  v12 = *(a1 + 32);
-  v13 = v3;
+  v11 = *(a1 + 32);
+  v12 = v3;
   v9 = v3;
-  [v7 fetchDocumentationFromMetadata:v8 completion:v11];
-
-  v10 = *MEMORY[0x277D85DE8];
+  [v7 fetchDocumentationFromMetadata:v8 completion:v10];
 }
 
 void __74__HFSoftwareUpdateManager__fetchSoftwareUpdateDocumentationWithAccessory___block_invoke_36(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = HFLogForCategory(0x44uLL);
@@ -1156,11 +1133,11 @@ void __74__HFSoftwareUpdateManager__fetchSoftwareUpdateDocumentationWithAccessor
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v9 = [*(a1 + 32) hf_prettyDescription];
-      v12 = 138412546;
-      v13 = v6;
-      v14 = 2112;
-      v15 = v9;
-      _os_log_error_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_ERROR, "[DOCUMENTATION] Fetch error: %@ %@", &v12, 0x16u);
+      v11 = 138412546;
+      v12 = v6;
+      v13 = 2112;
+      v14 = v9;
+      _os_log_error_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_ERROR, "[DOCUMENTATION] Fetch error: %@ %@", &v11, 0x16u);
 LABEL_6:
     }
   }
@@ -1169,17 +1146,16 @@ LABEL_6:
   {
     v9 = [v5 hf_prettyDescription];
     v10 = [*(a1 + 32) hf_prettyDescription];
-    v12 = 138412546;
-    v13 = v9;
-    v14 = 2112;
-    v15 = v10;
-    _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "[DOCUMENTATION] Completed fetch: %@ %@", &v12, 0x16u);
+    v11 = 138412546;
+    v12 = v9;
+    v13 = 2112;
+    v14 = v10;
+    _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "[DOCUMENTATION] Completed fetch: %@ %@", &v11, 0x16u);
 
     goto LABEL_6;
   }
 
   [*(a1 + 40) finishWithResult:v5 error:v6];
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __74__HFSoftwareUpdateManager__fetchSoftwareUpdateDocumentationWithAccessory___block_invoke_37(uint64_t a1, void *a2, uint64_t a3)
@@ -1199,7 +1175,7 @@ void __74__HFSoftwareUpdateManager__fetchSoftwareUpdateDocumentationWithAccessor
 
 - (void)_waitToFinishPromise:(id)promise untilSoftwareUpdateDocumentationFetchCompletes:(id)completes
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   promiseCopy = promise;
   completesCopy = completes;
   accessoryUniqueIDToSoftwareUpdateMapTable = [(HFSoftwareUpdateManager *)self accessoryUniqueIDToSoftwareUpdateMapTable];
@@ -1218,18 +1194,18 @@ void __74__HFSoftwareUpdateManager__fetchSoftwareUpdateDocumentationWithAccessor
     {
       hf_prettyDescription = [completesCopy hf_prettyDescription];
       *buf = 138412290;
-      v26 = hf_prettyDescription;
+      v25 = hf_prettyDescription;
       _os_log_impl(&dword_20D9BF000, v14, OS_LOG_TYPE_DEFAULT, "[FETCH] Waiting for documentation future to complete before finishing fetch promise: %@", buf, 0xCu);
     }
 
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __95__HFSoftwareUpdateManager__waitToFinishPromise_untilSoftwareUpdateDocumentationFetchCompletes___block_invoke;
-    v21[3] = &unk_277DFF910;
-    v22 = promiseCopy;
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __95__HFSoftwareUpdateManager__waitToFinishPromise_untilSoftwareUpdateDocumentationFetchCompletes___block_invoke;
+    v20[3] = &unk_277DFF910;
+    v21 = promiseCopy;
     selfCopy = self;
-    v24 = completesCopy;
-    v17 = [v13 addCompletionBlock:v21];
+    v23 = completesCopy;
+    v17 = [v13 addCompletionBlock:v20];
   }
 
   else
@@ -1239,46 +1215,42 @@ void __74__HFSoftwareUpdateManager__fetchSoftwareUpdateDocumentationWithAccessor
       v18 = [(HFSoftwareUpdateManager *)self isReadyToInstallSoftwareUpdate:completesCopy];
       hf_prettyDescription2 = [completesCopy hf_prettyDescription];
       *buf = 138412802;
-      v26 = promiseCopy;
-      v27 = 1024;
-      v28 = v18;
-      v29 = 2112;
-      v30 = hf_prettyDescription2;
+      v25 = promiseCopy;
+      v26 = 1024;
+      v27 = v18;
+      v28 = 2112;
+      v29 = hf_prettyDescription2;
       _os_log_impl(&dword_20D9BF000, v14, OS_LOG_TYPE_DEFAULT, "[FETCH] Finishing promise %@; Ready to Install: %{BOOL}d; %@", buf, 0x1Cu);
     }
 
     [promiseCopy finishWithNoResult];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __95__HFSoftwareUpdateManager__waitToFinishPromise_untilSoftwareUpdateDocumentationFetchCompletes___block_invoke(id *a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = HFLogForCategory(0x44uLL);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = a1[4];
     v4 = [a1[5] isReadyToInstallSoftwareUpdate:a1[6]];
     v5 = [a1[6] hf_prettyDescription];
-    v8 = 138412802;
-    v9 = v3;
-    v10 = 1024;
-    v11 = v4;
-    v12 = 2112;
-    v13 = v5;
-    _os_log_impl(&dword_20D9BF000, v2, OS_LOG_TYPE_DEFAULT, "[FETCH] Finishing promise %@; Ready to Install: %{BOOL}d; %@", &v8, 0x1Cu);
+    v7 = 138412802;
+    v8 = v3;
+    v9 = 1024;
+    v10 = v4;
+    v11 = 2112;
+    v12 = v5;
+    _os_log_impl(&dword_20D9BF000, v2, OS_LOG_TYPE_DEFAULT, "[FETCH] Finishing promise %@; Ready to Install: %{BOOL}d; %@", &v7, 0x1Cu);
   }
 
-  result = [a1[4] finishWithNoResult];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [a1[4] finishWithNoResult];
 }
 
 - (void)_finishFetchPromisesWithAccessory:(id)accessory
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   accessoryUniqueIDToFetchPromisesMapTable = [(HFSoftwareUpdateManager *)self accessoryUniqueIDToFetchPromisesMapTable];
   uniqueIdentifier = [accessoryCopy uniqueIdentifier];
@@ -1301,9 +1273,9 @@ uint64_t __95__HFSoftwareUpdateManager__waitToFinishPromise_untilSoftwareUpdateD
         v11 = v9 == 1;
         hf_prettyDescription = [accessoryCopy hf_prettyDescription];
         *buf = 138412546;
-        v24 = anyObject;
-        v25 = 2112;
-        v26 = hf_prettyDescription;
+        v23 = anyObject;
+        v24 = 2112;
+        v25 = hf_prettyDescription;
         _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "[FETCH] Unfinished promises still exist, but we haven't seen the new update yet: %@ %@", buf, 0x16u);
 
         if (v11)
@@ -1315,24 +1287,22 @@ uint64_t __95__HFSoftwareUpdateManager__waitToFinishPromise_untilSoftwareUpdateD
     else
     {
       objc_initWeak(buf, self);
-      v17 = MEMORY[0x277D85DD0];
-      v18 = 3221225472;
-      v19 = __61__HFSoftwareUpdateManager__finishFetchPromisesWithAccessory___block_invoke;
-      v20 = &unk_277DF8428;
-      objc_copyWeak(&v22, buf);
+      v16 = MEMORY[0x277D85DD0];
+      v17 = 3221225472;
+      v18 = __61__HFSoftwareUpdateManager__finishFetchPromisesWithAccessory___block_invoke;
+      v19 = &unk_277DF8428;
+      objc_copyWeak(&v21, buf);
       v13 = accessoryCopy;
-      v21 = v13;
-      [v7 na_each:&v17];
-      v14 = [(HFSoftwareUpdateManager *)self accessoryUniqueIDToFetchPromisesMapTable:v17];
+      v20 = v13;
+      [v7 na_each:&v16];
+      v14 = [(HFSoftwareUpdateManager *)self accessoryUniqueIDToFetchPromisesMapTable:v16];
       uniqueIdentifier2 = [v13 uniqueIdentifier];
       [v14 removeObjectForKey:uniqueIdentifier2];
 
-      objc_destroyWeak(&v22);
+      objc_destroyWeak(&v21);
       objc_destroyWeak(buf);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __61__HFSoftwareUpdateManager__finishFetchPromisesWithAccessory___block_invoke(uint64_t a1, void *a2)
@@ -1344,7 +1314,7 @@ void __61__HFSoftwareUpdateManager__finishFetchPromisesWithAccessory___block_inv
 
 - (void)_updateRequestedSoftwareUpdateInstallsWithAccessory:(id)accessory softwareUpdateState:(int64_t)state softwareUpdateVersion:(id)version
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   versionCopy = version;
   requestedSoftwareUpdateInstalls = [(HFSoftwareUpdateManager *)self requestedSoftwareUpdateInstalls];
@@ -1364,11 +1334,11 @@ void __61__HFSoftwareUpdateManager__finishFetchPromisesWithAccessory___block_inv
         if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
           hf_prettyDescription = [accessoryCopy hf_prettyDescription];
-          v31 = 138412546;
-          v32 = requestedSoftwareUpdateInstalls3;
-          v33 = 2112;
-          v34 = hf_prettyDescription;
-          _os_log_impl(&dword_20D9BF000, v19, OS_LOG_TYPE_DEFAULT, "[MARK REQUESTED] Removing accessory from requestedSoftwareUpdateInstalls because accessory and update versions (%@) match: %@", &v31, 0x16u);
+          v30 = 138412546;
+          v31 = requestedSoftwareUpdateInstalls3;
+          v32 = 2112;
+          v33 = hf_prettyDescription;
+          _os_log_impl(&dword_20D9BF000, v19, OS_LOG_TYPE_DEFAULT, "[MARK REQUESTED] Removing accessory from requestedSoftwareUpdateInstalls because accessory and update versions (%@) match: %@", &v30, 0x16u);
         }
 
         requestedSoftwareUpdateInstalls2 = [(HFSoftwareUpdateManager *)self requestedSoftwareUpdateInstalls];
@@ -1383,11 +1353,11 @@ void __61__HFSoftwareUpdateManager__finishFetchPromisesWithAccessory___block_inv
       {
         v14 = NSStringFromHMSoftwareUpdateState(state);
         hf_prettyDescription2 = [accessoryCopy hf_prettyDescription];
-        v31 = 138412546;
-        v32 = v14;
-        v33 = 2112;
-        v34 = hf_prettyDescription2;
-        _os_log_impl(&dword_20D9BF000, v13, OS_LOG_TYPE_DEFAULT, "[MARK REQUESTED] Removing accessory from requestedSoftwareUpdateInstalls because %@ is either Requested, Installing, Installed: %@", &v31, 0x16u);
+        v30 = 138412546;
+        v31 = v14;
+        v32 = 2112;
+        v33 = hf_prettyDescription2;
+        _os_log_impl(&dword_20D9BF000, v13, OS_LOG_TYPE_DEFAULT, "[MARK REQUESTED] Removing accessory from requestedSoftwareUpdateInstalls because %@ is either Requested, Installing, Installed: %@", &v30, 0x16u);
       }
 
       requestedSoftwareUpdateInstalls3 = [(HFSoftwareUpdateManager *)self requestedSoftwareUpdateInstalls];
@@ -1418,9 +1388,9 @@ void __61__HFSoftwareUpdateManager__finishFetchPromisesWithAccessory___block_inv
         [requestedSoftwareUpdateInstalls6 hf_prettyDescription];
       }
       v29 = ;
-      v31 = 138412290;
-      v32 = v29;
-      _os_log_impl(&dword_20D9BF000, v24, OS_LOG_TYPE_DEFAULT, "[MARK REQUESTED] requestedSoftwareUpdateInstalls still contains accessories: %@", &v31, 0xCu);
+      v30 = 138412290;
+      v31 = v29;
+      _os_log_impl(&dword_20D9BF000, v24, OS_LOG_TYPE_DEFAULT, "[MARK REQUESTED] requestedSoftwareUpdateInstalls still contains accessories: %@", &v30, 0xCu);
       if (v26 == 1)
       {
 
@@ -1428,8 +1398,6 @@ void __61__HFSoftwareUpdateManager__finishFetchPromisesWithAccessory___block_inv
       }
     }
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)hasSoftwareUpdate:(id)update
@@ -1544,7 +1512,7 @@ LABEL_16:
 
 - (BOOL)hasRequestedSoftwareUpdate:(id)update
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   if (![(HFSoftwareUpdateManager *)self hasSoftwareUpdate:updateCopy])
   {
@@ -1559,7 +1527,7 @@ LABEL_16:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v13 = v8;
+      v12 = v8;
       _os_log_error_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
     }
 
@@ -1597,13 +1565,12 @@ LABEL_12:
   }
 
 LABEL_13:
-  v10 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (BOOL)isReadyToInstallSoftwareUpdate:(id)update
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   if (![(HFSoftwareUpdateManager *)self hasSoftwareUpdate:updateCopy])
   {
@@ -1627,7 +1594,7 @@ LABEL_9:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v13 = v8;
+      v12 = v8;
       _os_log_error_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
     }
 
@@ -1656,13 +1623,12 @@ LABEL_9:
 
 LABEL_13:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (BOOL)isDownloadingSoftwareUpdate:(id)update
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   if (![(HFSoftwareUpdateManager *)self hasSoftwareUpdate:updateCopy])
   {
@@ -1684,7 +1650,7 @@ LABEL_13:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v12 = v7;
+      v11 = v7;
       _os_log_error_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
     }
 
@@ -1695,13 +1661,12 @@ LABEL_9:
 
 LABEL_10:
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (BOOL)isInstallingSoftwareUpdate:(id)update
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   if (![(HFSoftwareUpdateManager *)self hasSoftwareUpdate:updateCopy])
   {
@@ -1713,16 +1678,16 @@ LABEL_4:
   v5 = [(HFSoftwareUpdateManager *)self _softwareUpdateStateForAccessory:updateCopy];
   if (v5 > 5)
   {
-    v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"Yet to handle HMSoftwareUpdateState: %lu", v5];
-    v11 = HFLogForCategory(0x44uLL);
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"Yet to handle HMSoftwareUpdateState: %lu", v5];
+    v10 = HFLogForCategory(0x44uLL);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v13 = v10;
-      _os_log_error_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
+      v12 = v9;
+      _os_log_error_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
     }
 
-    NSLog(&stru_2824B1958.isa, v10);
+    NSLog(&stru_2824B1958.isa, v9);
     goto LABEL_4;
   }
 
@@ -1754,7 +1719,6 @@ LABEL_4:
   }
 
 LABEL_5:
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -1768,7 +1732,7 @@ LABEL_5:
 
 - (BOOL)isSoftwareUpdateInstalled:(id)installed
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   installedCopy = installed;
   if (![(HFSoftwareUpdateManager *)self hasSoftwareUpdate:installedCopy])
   {
@@ -1790,7 +1754,7 @@ LABEL_5:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v12 = v7;
+      v11 = v7;
       _os_log_error_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
     }
 
@@ -1801,13 +1765,12 @@ LABEL_9:
 
 LABEL_10:
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (BOOL)softwareUpdatePossessesNecessaryDocumentation:(id)documentation
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   documentationCopy = documentation;
   if ([documentationCopy hf_isHomePod])
   {
@@ -1840,13 +1803,13 @@ LABEL_13:
       v11 = HFLogForCategory(0x44uLL);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        v14 = [v5 description];
+        v13 = [v5 description];
         hf_prettyExpensiveDescription = [documentationCopy hf_prettyExpensiveDescription];
-        v16 = 138412546;
-        v17 = v14;
-        v18 = 2112;
-        v19 = hf_prettyExpensiveDescription;
-        _os_log_error_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_ERROR, "[DOCUMENTATION] Software update does not possess necessary documentation: %@, for accessory: %@", &v16, 0x16u);
+        v15 = 138412546;
+        v16 = v13;
+        v17 = 2112;
+        v18 = hf_prettyExpensiveDescription;
+        _os_log_error_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_ERROR, "[DOCUMENTATION] Software update does not possess necessary documentation: %@, for accessory: %@", &v15, 0x16u);
       }
     }
 
@@ -1857,7 +1820,6 @@ LABEL_13:
   v9 = 1;
 LABEL_14:
 
-  v12 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -2078,7 +2040,7 @@ uint64_t __55__HFSoftwareUpdateManager__fetchNeedsAttentionReasons___block_invok
 
 id __55__HFSoftwareUpdateManager__fetchNeedsAttentionReasons___block_invoke_4(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = a2;
   if ([v2 unsignedIntegerValue])
   {
@@ -2111,9 +2073,9 @@ id __55__HFSoftwareUpdateManager__fetchNeedsAttentionReasons___block_invoke_4(ui
         v5 = HFLogForCategory(0x44uLL);
         if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
         {
-          v11 = 134217984;
-          v12 = v4;
-          _os_log_error_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_ERROR, "[START UPDATE] Unhandled needsAttentionReasons: %ld", &v11, 0xCu);
+          v10 = 134217984;
+          v11 = v4;
+          _os_log_error_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_ERROR, "[START UPDATE] Unhandled needsAttentionReasons: %ld", &v10, 0xCu);
         }
 
         v6 = 68;
@@ -2134,8 +2096,6 @@ id __55__HFSoftwareUpdateManager__fetchNeedsAttentionReasons___block_invoke_4(ui
   {
     v7 = [MEMORY[0x277D2C900] futureWithNoResult];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -2221,7 +2181,7 @@ id __47__HFSoftwareUpdateManager_startSoftwareUpdate___block_invoke_2(uint64_t a
 
 void __47__HFSoftwareUpdateManager_startSoftwareUpdate___block_invoke_3(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   [WeakRetained _markSoftwareUpdate:*(a1 + 32) asRequested:1];
@@ -2229,9 +2189,9 @@ void __47__HFSoftwareUpdateManager_startSoftwareUpdate___block_invoke_3(uint64_t
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = [*(a1 + 32) hf_prettyExpensiveDescription];
-    v14 = 138412290;
-    v15 = v6;
-    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "[START UPDATE] Starting software update: %@", &v14, 0xCu);
+    v13 = 138412290;
+    v14 = v6;
+    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "[START UPDATE] Starting software update: %@", &v13, 0xCu);
   }
 
   if ([*(a1 + 32) supportsSoftwareUpdateV2])
@@ -2240,7 +2200,7 @@ void __47__HFSoftwareUpdateManager_startSoftwareUpdate___block_invoke_3(uint64_t
     v8 = [*(a1 + 32) uniqueIdentifier];
     v9 = [v7 objectForKey:v8];
 
-    v10 = [*(a1 + 32) home];
+    v10 = objc_msgSend_home(*(a1 + 32));
     v11 = [v10 softwareUpdateController];
     v12 = [*(a1 + 32) uniqueIdentifier];
     [v11 applySoftwareUpdate:v9 accessory:v12 completion:v3];
@@ -2253,41 +2213,38 @@ void __47__HFSoftwareUpdateManager_startSoftwareUpdate___block_invoke_3(uint64_t
     v11 = [v10 availableUpdate];
     [v9 startUpdate:v11 completionHandler:v3];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 id __47__HFSoftwareUpdateManager_startSoftwareUpdate___block_invoke_70(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = HFLogForCategory(0x44uLL);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) hf_prettyExpensiveDescription];
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_impl(&dword_20D9BF000, v2, OS_LOG_TYPE_DEFAULT, "[START UPDATE SUCCEEDED] %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v3;
+    _os_log_impl(&dword_20D9BF000, v2, OS_LOG_TYPE_DEFAULT, "[START UPDATE SUCCEEDED] %@", &v6, 0xCu);
   }
 
   v4 = [MEMORY[0x277D2C900] futureWithNoResult];
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 id __47__HFSoftwareUpdateManager_startSoftwareUpdate___block_invoke_72(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HFLogForCategory(0x44uLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v12 = [*(a1 + 32) hf_prettyExpensiveDescription];
-    v13 = 138412546;
-    v14 = v3;
-    v15 = 2112;
-    v16 = v12;
-    _os_log_error_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_ERROR, "[START UPDATE FAILED] %@ %@", &v13, 0x16u);
+    v11 = [*(a1 + 32) hf_prettyExpensiveDescription];
+    v12 = 138412546;
+    v13 = v3;
+    v14 = 2112;
+    v15 = v11;
+    _os_log_error_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_ERROR, "[START UPDATE FAILED] %@ %@", &v12, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -2298,8 +2255,6 @@ id __47__HFSoftwareUpdateManager_startSoftwareUpdate___block_invoke_72(uint64_t 
   v8 = [v3 hf_errorWithOperationType:@"HFOperationStartSoftwareUpdate" failedItemName:v7];
 
   v9 = [MEMORY[0x277D2C900] futureWithError:v8];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -2329,15 +2284,15 @@ id __47__HFSoftwareUpdateManager_startSoftwareUpdate___block_invoke_72(uint64_t 
 
         objc_initWeak(location, self);
         v19 = MEMORY[0x277D2C900];
-        v33[0] = MEMORY[0x277D85DD0];
-        v33[1] = 3221225472;
-        v33[2] = __64__HFSoftwareUpdateManager_fetchAvailableSoftwareUpdate_options___block_invoke;
-        v33[3] = &unk_277DF8428;
-        objc_copyWeak(&v35, location);
-        v34 = updateCopy;
-        futureWithNoResult = [v19 futureWithBlock:v33];
+        v32[0] = MEMORY[0x277D85DD0];
+        v32[1] = 3221225472;
+        v32[2] = __64__HFSoftwareUpdateManager_fetchAvailableSoftwareUpdate_options___block_invoke;
+        v32[3] = &unk_277DF8428;
+        objc_copyWeak(&v34, location);
+        v33 = updateCopy;
+        futureWithNoResult = [v19 futureWithBlock:v32];
 
-        objc_destroyWeak(&v35);
+        objc_destroyWeak(&v34);
         objc_destroyWeak(location);
       }
 
@@ -2345,16 +2300,16 @@ id __47__HFSoftwareUpdateManager_startSoftwareUpdate___block_invoke_72(uint64_t 
       {
         objc_initWeak(location, self);
         v10 = MEMORY[0x277D2C900];
-        v29[0] = MEMORY[0x277D85DD0];
-        v29[1] = 3221225472;
-        v29[2] = __64__HFSoftwareUpdateManager_fetchAvailableSoftwareUpdate_options___block_invoke_2;
-        v29[3] = &unk_277DFF9D8;
-        v30 = updateCopy;
-        v31 = uniqueIdentifier;
-        v32[1] = options;
-        objc_copyWeak(v32, location);
-        futureWithNoResult = [v10 futureWithBlock:v29];
-        objc_destroyWeak(v32);
+        v28[0] = MEMORY[0x277D85DD0];
+        v28[1] = 3221225472;
+        v28[2] = __64__HFSoftwareUpdateManager_fetchAvailableSoftwareUpdate_options___block_invoke_2;
+        v28[3] = &unk_277DFF9D8;
+        v29 = updateCopy;
+        v30 = uniqueIdentifier;
+        v31[1] = options;
+        objc_copyWeak(v31, location);
+        futureWithNoResult = [v10 futureWithBlock:v28];
+        objc_destroyWeak(v31);
 
         objc_destroyWeak(location);
       }
@@ -2363,27 +2318,27 @@ id __47__HFSoftwareUpdateManager_startSoftwareUpdate___block_invoke_72(uint64_t 
     else
     {
       v12 = MEMORY[0x277D2C900];
-      v27[0] = MEMORY[0x277D85DD0];
-      v27[1] = 3221225472;
-      v27[2] = __64__HFSoftwareUpdateManager_fetchAvailableSoftwareUpdate_options___block_invoke_74;
-      v27[3] = &unk_277DF2C68;
+      v26[0] = MEMORY[0x277D85DD0];
+      v26[1] = 3221225472;
+      v26[2] = __64__HFSoftwareUpdateManager_fetchAvailableSoftwareUpdate_options___block_invoke_74;
+      v26[3] = &unk_277DF2C68;
       v13 = updateCopy;
-      v28 = v13;
-      v14 = [v12 futureWithErrorOnlyHandlerAdapterBlock:v27];
-      v25[0] = MEMORY[0x277D85DD0];
-      v25[1] = 3221225472;
-      v25[2] = __64__HFSoftwareUpdateManager_fetchAvailableSoftwareUpdate_options___block_invoke_2_75;
-      v25[3] = &unk_277DF5038;
+      v27 = v13;
+      v14 = [v12 futureWithErrorOnlyHandlerAdapterBlock:v26];
+      v24[0] = MEMORY[0x277D85DD0];
+      v24[1] = 3221225472;
+      v24[2] = __64__HFSoftwareUpdateManager_fetchAvailableSoftwareUpdate_options___block_invoke_2_75;
+      v24[3] = &unk_277DF5038;
       v15 = v13;
-      v26 = v15;
-      v16 = [v14 recover:v25];
-      v22[0] = MEMORY[0x277D85DD0];
-      v22[1] = 3221225472;
-      v22[2] = __64__HFSoftwareUpdateManager_fetchAvailableSoftwareUpdate_options___block_invoke_3_77;
-      v22[3] = &unk_277DF50B0;
-      v23 = v15;
+      v25 = v15;
+      v16 = [v14 recover:v24];
+      v21[0] = MEMORY[0x277D85DD0];
+      v21[1] = 3221225472;
+      v21[2] = __64__HFSoftwareUpdateManager_fetchAvailableSoftwareUpdate_options___block_invoke_3_77;
+      v21[3] = &unk_277DF50B0;
+      v22 = v15;
       selfCopy = self;
-      futureWithNoResult = [v16 addCompletionBlock:v22];
+      futureWithNoResult = [v16 addCompletionBlock:v21];
     }
   }
 
@@ -2391,8 +2346,6 @@ id __47__HFSoftwareUpdateManager_startSoftwareUpdate___block_invoke_72(uint64_t 
   {
     futureWithNoResult = [MEMORY[0x277D2C900] futureWithNoResult];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return futureWithNoResult;
 }
@@ -2407,7 +2360,7 @@ void __64__HFSoftwareUpdateManager_fetchAvailableSoftwareUpdate_options___block_
 void __64__HFSoftwareUpdateManager_fetchAvailableSoftwareUpdate_options___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = [*(a1 + 32) home];
+  v4 = objc_msgSend_home(*(a1 + 32));
   v5 = [v4 softwareUpdateController];
   v6 = [MEMORY[0x277CBEB98] na_setWithSafeObject:*(a1 + 40)];
   v7 = *(a1 + 56);
@@ -2427,7 +2380,7 @@ void __64__HFSoftwareUpdateManager_fetchAvailableSoftwareUpdate_options___block_
 
 void __64__HFSoftwareUpdateManager_fetchAvailableSoftwareUpdate_options___block_invoke_3(uint64_t a1, int a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   v5 = WeakRetained;
   if (a2)
@@ -2439,11 +2392,11 @@ void __64__HFSoftwareUpdateManager_fetchAvailableSoftwareUpdate_options___block_
       {
         v17 = [v5 isReadyToInstallSoftwareUpdate:*(a1 + 32)];
         v18 = [*(a1 + 32) hf_prettyDescription];
-        v20 = 67109378;
-        *v21 = v17;
-        *&v21[4] = 2112;
-        *&v21[6] = v18;
-        _os_log_impl(&dword_20D9BF000, v16, OS_LOG_TYPE_DEFAULT, "[FETCH] Update found; Ready To Install: %{BOOL}d; %@", &v20, 0x12u);
+        v19 = 67109378;
+        *v20 = v17;
+        *&v20[4] = 2112;
+        *&v20[6] = v18;
+        _os_log_impl(&dword_20D9BF000, v16, OS_LOG_TYPE_DEFAULT, "[FETCH] Update found; Ready To Install: %{BOOL}d; %@", &v19, 0x12u);
       }
 
       [v5 _waitToFinishPromise:*(a1 + 40) untilSoftwareUpdateDocumentationFetchCompletes:*(a1 + 32)];
@@ -2456,11 +2409,11 @@ void __64__HFSoftwareUpdateManager_fetchAvailableSoftwareUpdate_options___block_
       {
         v7 = *(a1 + 40);
         v8 = [*(a1 + 32) hf_prettyDescription];
-        v20 = 138412546;
-        *v21 = v7;
-        *&v21[8] = 2112;
-        *&v21[10] = v8;
-        _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "[FETCH] Postpoining promise finish until next delegate callback: %@ %@", &v20, 0x16u);
+        v19 = 138412546;
+        *v20 = v7;
+        *&v20[8] = 2112;
+        *&v20[10] = v8;
+        _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "[FETCH] Postpoining promise finish until next delegate callback: %@ %@", &v19, 0x16u);
       }
 
       v9 = [v5 accessoryUniqueIDToFetchPromisesMapTable];
@@ -2488,15 +2441,13 @@ void __64__HFSoftwareUpdateManager_fetchAvailableSoftwareUpdate_options___block_
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       v14 = [*(a1 + 32) hf_prettyDescription];
-      v20 = 138412290;
-      *v21 = v14;
-      _os_log_impl(&dword_20D9BF000, v13, OS_LOG_TYPE_DEFAULT, "[FETCH] No update found: %@", &v20, 0xCu);
+      v19 = 138412290;
+      *v20 = v14;
+      _os_log_impl(&dword_20D9BF000, v13, OS_LOG_TYPE_DEFAULT, "[FETCH] No update found: %@", &v19, 0xCu);
     }
 
     [*(a1 + 40) finishWithNoResult];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __64__HFSoftwareUpdateManager_fetchAvailableSoftwareUpdate_options___block_invoke_74(uint64_t a1, void *a2)
@@ -2527,7 +2478,7 @@ id __64__HFSoftwareUpdateManager_fetchAvailableSoftwareUpdate_options___block_in
 
 void __64__HFSoftwareUpdateManager_fetchAvailableSoftwareUpdate_options___block_invoke_3_77(uint64_t a1, uint64_t a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = a3;
   if (!v4)
   {
@@ -2543,10 +2494,10 @@ void __64__HFSoftwareUpdateManager_fetchAvailableSoftwareUpdate_options___block_
 
       v9 = [*(a1 + 40) isReadyToInstallSoftwareUpdate:*(a1 + 32)];
       v6 = [*(a1 + 32) hf_prettyExpensiveDescription];
-      v14 = 67109378;
-      *v15 = v9;
-      *&v15[4] = 2112;
-      *&v15[6] = v6;
+      v13 = 67109378;
+      *v14 = v9;
+      *&v14[4] = 2112;
+      *&v14[6] = v6;
       v10 = "[FETCH] Update found; Ready To Install: %{BOOL}d; %@";
       v11 = v5;
       v12 = 18;
@@ -2560,14 +2511,14 @@ void __64__HFSoftwareUpdateManager_fetchAvailableSoftwareUpdate_options___block_
       }
 
       v6 = [*(a1 + 32) hf_prettyExpensiveDescription];
-      v14 = 138412290;
-      *v15 = v6;
+      v13 = 138412290;
+      *v14 = v6;
       v10 = "[FETCH] No update found: %@";
       v11 = v5;
       v12 = 12;
     }
 
-    _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_DEFAULT, v10, &v14, v12);
+    _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_DEFAULT, v10, &v13, v12);
     goto LABEL_10;
   }
 
@@ -2575,17 +2526,15 @@ void __64__HFSoftwareUpdateManager_fetchAvailableSoftwareUpdate_options___block_
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     v6 = [*(a1 + 32) hf_prettyExpensiveDescription];
-    v14 = 138412546;
-    *v15 = v4;
-    *&v15[8] = 2112;
-    *&v15[10] = v6;
-    _os_log_error_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_ERROR, "[FETCH] Failed: %@ %@", &v14, 0x16u);
+    v13 = 138412546;
+    *v14 = v4;
+    *&v14[8] = 2112;
+    *&v14[10] = v6;
+    _os_log_error_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_ERROR, "[FETCH] Failed: %@ %@", &v13, 0x16u);
 LABEL_10:
   }
 
 LABEL_11:
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (HFHomeKitDispatcher)dispatcher

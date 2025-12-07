@@ -109,9 +109,9 @@ uint64_t sub_21607F388@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_21607F3E4(uint64_t a1, void *a2)
+uint64_t sub_21607F3E4(uint64_t *a1, void *a2)
 {
-  v2 = *(a1 + 8);
+  v2 = a1[1];
   v3 = *a2 + OBJC_IVAR____TtC9MomentsUI35SuggestionsOnboardingViewController_delegate;
   swift_beginAccess();
   *(v3 + 8) = v2;
@@ -132,7 +132,7 @@ uint64_t sub_21607F48C@<X0>(void **a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_21607F4E8(uint64_t a1, void **a2)
+uint64_t sub_21607F4E8(void *a1, void **a2)
 {
   v2 = *((*MEMORY[0x277D85000] & **a2) + 0x60);
 
@@ -166,7 +166,7 @@ uint64_t sub_21607F704@<X0>(void **a1@<X0>, _BYTE *a2@<X8>)
   return result;
 }
 
-uint64_t _sSuSgIegd_SgWOy_0(uint64_t result)
+uint64_t _sSuSgIegd_SgWOy_0(uint64_t result, uint64_t a2)
 {
   if (result)
   {
@@ -175,7 +175,7 @@ uint64_t _sSuSgIegd_SgWOy_0(uint64_t result)
   return result;
 }
 
-uint64_t outlined consume of (@escaping @callee_guaranteed () -> ())?(uint64_t result)
+uint64_t outlined consume of (@escaping @callee_guaranteed () -> ())?(uint64_t result, uint64_t a2)
 {
   if (result)
   {
@@ -207,9 +207,9 @@ uint64_t sub_21607FAA8@<X0>(void **a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_21607FB04(uint64_t a1, void **a2)
+uint64_t sub_21607FB04(void *a1, void **a2)
 {
-  v2 = *(a1 + 8);
+  v2 = a1[1];
   v3 = *((*MEMORY[0x277D85000] & **a2) + 0x68);
   v4 = swift_unknownObjectRetain();
   return v3(v4, v2);
@@ -237,7 +237,7 @@ uint64_t sub_21607FC24@<X0>(void **a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_21607FC80(uint64_t a1, void **a2)
+uint64_t sub_21607FC80(void *a1, void **a2)
 {
   v2 = *((*MEMORY[0x277D85000] & **a2) + 0x80);
 
@@ -270,7 +270,7 @@ uint64_t sub_21607FE34@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_21607FE80(uint64_t a1, uint64_t a2)
+uint64_t sub_21607FE80(void *a1, uint64_t a2)
 {
   v2 = *(**a2 + 144);
 
@@ -323,7 +323,7 @@ uint64_t sub_216080088@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_2160800DC(uint64_t a1, uint64_t a2)
+uint64_t sub_2160800DC(void *a1, uint64_t a2)
 {
   v2 = *(**a2 + 584);
 
@@ -410,7 +410,7 @@ uint64_t sub_216080540@<X0>(void **a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_2160805A4(uint64_t a1, void **a2)
+uint64_t sub_2160805A4(void *a1, void **a2)
 {
   v2 = *((*MEMORY[0x277D85000] & **a2) + 0x240);
 
@@ -503,7 +503,7 @@ uint64_t sub_216080B0C@<X0>(void **a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_216080B68(uint64_t a1, void **a2)
+uint64_t sub_216080B68(void *a1, void **a2)
 {
   v2 = *((*MEMORY[0x277D85000] & **a2) + 0xF0);
 
@@ -612,9 +612,9 @@ uint64_t sub_21608107C@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_2160810D8(uint64_t a1, void *a2)
+uint64_t sub_2160810D8(uint64_t *a1, void *a2)
 {
-  v2 = *(a1 + 8);
+  v2 = a1[1];
   v3 = *a2 + OBJC_IVAR____TtC9MomentsUI39SuggestionsSyncOnboardingViewController_delegate;
   swift_beginAccess();
   *(v3 + 8) = v2;
@@ -629,9 +629,9 @@ uint64_t sub_216081148@<X0>(void **a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_2160811A4(uint64_t a1, void **a2)
+uint64_t sub_2160811A4(void *a1, void **a2)
 {
-  v2 = *(a1 + 8);
+  v2 = a1[1];
   v3 = *((*MEMORY[0x277D85000] & **a2) + 0x60);
   v4 = swift_unknownObjectRetain();
   return v3(v4, v2);
@@ -699,7 +699,7 @@ uint64_t sub_216081508@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_21608155C(uint64_t a1, uint64_t a2)
+uint64_t sub_21608155C(void *a1, uint64_t a2)
 {
   v2 = *(**a2 + 312);
 
@@ -736,7 +736,7 @@ uint64_t sub_2160816BC()
 
 uint64_t sub_21608170C()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGMd);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGMd, &_sScCyyts5NeverOGMR);
   v2 = *(v1 - 8);
   v3 = *(v2 + 80);
   v4 = (v3 + 32) & ~v3;
@@ -755,7 +755,7 @@ uint64_t sub_2160817E4()
 
 uint64_t sub_21608181C()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGMd);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGMd, &_sScCyyts5NeverOGMR);
   v2 = *(v1 - 8);
   v3 = *(v2 + 80);
   v4 = (v3 + 80) & ~v3;
@@ -846,7 +846,7 @@ uint64_t sub_2160820B4()
 
 uint64_t sub_2160820FC()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCy10Foundation3URLVSgs5NeverOGMd);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCy10Foundation3URLVSgs5NeverOGMd, &_sScCy10Foundation3URLVSgs5NeverOGMR);
   v2 = *(v1 - 8);
   v3 = *(v2 + 80);
   v4 = (v3 + 32) & ~v3;
@@ -859,7 +859,7 @@ uint64_t sub_2160820FC()
 
 uint64_t sub_2160821D4()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySo7PHAssetCSgs5NeverOGMd);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySo7PHAssetCSgs5NeverOGMd, &_sScCySo7PHAssetCSgs5NeverOGMR);
   v2 = *(v1 - 8);
   v3 = *(v2 + 80);
   v4 = (v3 + 48) & ~v3;
@@ -893,7 +893,7 @@ uint64_t sub_2160823B4@<X0>(void **a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_216082410(uint64_t a1, void **a2)
+uint64_t sub_216082410(void *a1, void **a2)
 {
   v2 = *((*MEMORY[0x277D85000] & **a2) + 0xB0);
 
@@ -908,9 +908,9 @@ uint64_t sub_216082474@<X0>(void **a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_2160824D0(uint64_t a1, void **a2)
+uint64_t sub_2160824D0(void *a1, void **a2)
 {
-  v2 = *(a1 + 8);
+  v2 = a1[1];
   v3 = *((*MEMORY[0x277D85000] & **a2) + 0xC8);
   v4 = swift_unknownObjectRetain();
   return v3(v4, v2);
@@ -1183,10 +1183,10 @@ uint64_t sub_216083A14()
   return MEMORY[0x2821FE8E8](v0, 48, 7);
 }
 
-uint64_t _s9MomentsUI12DBAssetModelC5StyleO38ExtraLargeCondensedThumbnailCodingKeys33_FD191C5A56C656085764A699ABC762EBLLOs0J3KeyAAsAIP11stringValuexSgSS_tcfCTW_0@<X0>(_BYTE *a1@<X8>)
+uint64_t _s9MomentsUI12DBAssetModelC5StyleO38ExtraLargeCondensedThumbnailCodingKeys33_FD191C5A56C656085764A699ABC762EBLLOs0J3KeyAAsAIP11stringValuexSgSS_tcfCTW_0@<X0>(_BYTE *a2@<X8>)
 {
 
-  *a1 = 1;
+  *a2 = 1;
   return result;
 }
 
@@ -1284,7 +1284,7 @@ uint64_t sub_2160842C4@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_216084310(uint64_t a1, uint64_t a2)
+uint64_t sub_216084310(void *a1, uint64_t a2)
 {
   v2 = *(**a2 + 136);
 
@@ -1317,7 +1317,7 @@ uint64_t sub_216084484@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_2160844D0(uint64_t a1, uint64_t a2)
+uint64_t sub_2160844D0(void *a1, uint64_t a2)
 {
   v2 = *(**a2 + 256);
 
@@ -1398,7 +1398,7 @@ uint64_t sub_2160847A0(uint64_t a1, uint64_t a2, uint64_t a3)
 
   else
   {
-    v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd);
+    v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
     v10 = *(*(v9 - 8) + 48);
     v11 = a1 + *(a3 + 24);
 
@@ -1416,7 +1416,7 @@ uint64_t sub_216084868(uint64_t result, uint64_t a2, int a3, uint64_t a4)
 
   else
   {
-    v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd);
+    v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
     v8 = *(*(v7 - 8) + 56);
     v9 = v5 + *(a4 + 24);
 
@@ -1442,7 +1442,7 @@ uint64_t sub_216084958()
 
 uint64_t sub_2160849A8()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGMd);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGMd, &_sScCyyts5NeverOGMR);
   v2 = *(v1 - 8);
   v3 = *(v2 + 80);
   v4 = (v3 + 32) & ~v3;
@@ -1609,9 +1609,9 @@ uint64_t sub_2160853D4@<X0>(void **a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_216085438(uint64_t a1, void **a2)
+uint64_t sub_216085438(void *a1, void **a2)
 {
-  v2 = *(a1 + 8);
+  v2 = a1[1];
   v3 = *((*MEMORY[0x277D85000] & **a2) + 0x138);
   v4 = swift_unknownObjectRetain();
   return v3(v4, v2);
@@ -1631,7 +1631,7 @@ uint64_t sub_21608557C@<X0>(void **a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_2160855E0(uint64_t a1, void **a2)
+uint64_t sub_2160855E0(void *a1, void **a2)
 {
   v2 = *((*MEMORY[0x277D85000] & **a2) + 0x170);
 
@@ -1662,11 +1662,11 @@ uint64_t sub_2160856D8@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
   *a2 = *(v3 + 120);
 }
 
-uint64_t sub_216085728@<X0>(uint64_t *a1@<X8>)
+uint64_t sub_216085728@<X0>(uint64_t *a2@<X8>)
 {
   swift_beginAccess();
   result = swift_unknownObjectWeakLoadStrong();
-  *a1 = result;
+  *a2 = result;
   return result;
 }
 
@@ -1681,9 +1681,9 @@ uint64_t sub_2160857C0@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_216085810(uint64_t a1, uint64_t *a2)
+uint64_t sub_216085810(uint64_t *a1, uint64_t *a2)
 {
-  v2 = *(a1 + 8);
+  v2 = a1[1];
   v3 = *a2;
   swift_beginAccess();
   *(v3 + 144) = v2;
@@ -1780,7 +1780,7 @@ id sub_216085FDC@<X0>(id *a1@<X0>, void *a2@<X8>)
   return result;
 }
 
-void *sub_21608602C@<X0>(void *a1@<X8>)
+void *sub_21608602C@<X0>(uint64_t *a1@<X8>)
 {
   result = CloudSyncSnapshot.suggestionTabs.getter();
   *a1 = result;
@@ -1976,7 +1976,7 @@ uint64_t sub_216086E64()
 
 uint64_t sub_216086E9C()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySaySo10CLLocationCGs5Error_pGMd);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySaySo10CLLocationCGs5Error_pGMd, &_sScCySaySo10CLLocationCGs5Error_pGMR);
   v2 = *(v1 - 8);
   v3 = *(v2 + 80);
   v4 = (v3 + 24) & ~v3;
@@ -1989,7 +1989,7 @@ uint64_t sub_216086E9C()
 
 uint64_t sub_216086F6C()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySo14HKWorkoutRouteCs5Error_pGMd);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySo14HKWorkoutRouteCs5Error_pGMd, &_sScCySo14HKWorkoutRouteCs5Error_pGMR);
   v2 = *(v1 - 8);
   v3 = *(v2 + 80);
   v4 = (v3 + 16) & ~v3;
@@ -2285,7 +2285,7 @@ uint64_t sub_216087DE8@<X0>(void **a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_216087E4C(uint64_t a1, void **a2)
+uint64_t sub_216087E4C(void *a1, void **a2)
 {
   v2 = *((*MEMORY[0x277D85000] & **a2) + 0x190);
 
@@ -2300,7 +2300,7 @@ uint64_t sub_216087EB8()
 
 uint64_t sub_216087EF4()
 {
-  v1 = (type metadata accessor for Client() - 8);
+  v1 = (type metadata accessor for Client(0) - 8);
   v2 = *(*v1 + 80);
   v3 = (v2 + 16) & ~v2;
   v4 = (v3 + *(*v1 + 64)) & 0xFFFFFFFFFFFFFFF8;
@@ -2327,7 +2327,7 @@ uint64_t sub_21608808C@<X0>(void **a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_2160880E8(uint64_t a1, void **a2)
+uint64_t sub_2160880E8(void *a1, void **a2)
 {
   v2 = *((*MEMORY[0x277D85000] & **a2) + 0x68);
 
@@ -2436,7 +2436,7 @@ uint64_t sub_2160886E0@<X0>(void **a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_21608873C(uint64_t a1, void **a2)
+uint64_t sub_21608873C(void *a1, void **a2)
 {
   v2 = *((*MEMORY[0x277D85000] & **a2) + 0xD8);
 
@@ -2484,7 +2484,7 @@ uint64_t sub_216088A08()
   return MEMORY[0x2821FE8E8](v0, 80, 7);
 }
 
-uint64_t sub_216088A58(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t sub_216088A58(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 2147483646)
   {
@@ -2505,7 +2505,7 @@ uint64_t sub_216088A58(uint64_t *a1, uint64_t a2, uint64_t a3)
 
   else
   {
-    v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation16AttributedStringVSgMd);
+    v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation16AttributedStringVSgMd, &_s10Foundation16AttributedStringVSgMR);
     v10 = *(v9 - 8);
     if (*(v10 + 84) == a2)
     {
@@ -2518,7 +2518,7 @@ uint64_t sub_216088A58(uint64_t *a1, uint64_t a2, uint64_t a3)
 
     else
     {
-      v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd);
+      v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
       v15 = *(*(v14 - 8) + 48);
       v16 = a1 + *(a3 + 24);
 
@@ -2537,7 +2537,7 @@ void *sub_216088BA0(void *result, uint64_t a2, int a3, uint64_t a4)
 
   else
   {
-    v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation16AttributedStringVSgMd);
+    v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation16AttributedStringVSgMd, &_s10Foundation16AttributedStringVSgMR);
     v9 = *(v8 - 8);
     if (*(v9 + 84) == a3)
     {
@@ -2550,7 +2550,7 @@ void *sub_216088BA0(void *result, uint64_t a2, int a3, uint64_t a4)
 
     else
     {
-      v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd);
+      v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
       v14 = *(*(v13 - 8) + 56);
       v15 = v5 + *(a4 + 24);
 
@@ -2712,7 +2712,7 @@ uint64_t sub_2160895A4@<X0>(void **a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_216089608(uint64_t a1, void **a2)
+uint64_t sub_216089608(void *a1, void **a2)
 {
   v2 = *((*MEMORY[0x277D85000] & **a2) + 0x240);
 
@@ -2726,7 +2726,7 @@ uint64_t sub_216089674@<X0>(void **a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_2160896D8(uint64_t a1, void **a2)
+uint64_t sub_2160896D8(void *a1, void **a2)
 {
   v2 = *((*MEMORY[0x277D85000] & **a2) + 0x258);
 
@@ -2781,7 +2781,7 @@ uint64_t sub_216089AC4@<X0>(void **a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_216089B28(uint64_t a1, void **a2)
+uint64_t sub_216089B28(void *a1, void **a2)
 {
   v2 = *((*MEMORY[0x277D85000] & **a2) + 0x128);
 
@@ -2841,7 +2841,7 @@ uint64_t sub_216089E50()
 
 uint64_t sub_216089EE4()
 {
-  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDV_ACtMd) - 8);
+  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDV_ACtMd, &_s10Foundation4UUIDV_ACtMR) - 8);
   v2 = *(*v1 + 80);
   v17 = (v2 + 32) & ~v2;
   v16 = (*(*v1 + 64) + v17 + 7) & 0xFFFFFFFFFFFFFFF8;
@@ -2886,17 +2886,10 @@ uint64_t sub_21608A1A8()
   return MEMORY[0x2821FE8E8](v0, 24, 7);
 }
 
-id sub_21608A1E8@<X0>(void *a1@<X8>)
+id sub_21608A1E8@<X0>(uint64_t *a1@<X8>)
 {
   result = CloudSyncAssetData.ckAsset.getter();
   *a1 = result;
-  return result;
-}
-
-id sub_21608A228@<X0>(_BYTE *a1@<X8>)
-{
-  result = CloudSyncAssetData.assetClass.getter(&v3);
-  *a1 = v3;
   return result;
 }
 
@@ -2922,7 +2915,7 @@ uint64_t sub_21608A2D8@<X0>(void *a1@<X0>, void *a2@<X8>)
 
 uint64_t sub_21608A348()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySo7UIImageCs5NeverOGMd);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySo7UIImageCs5NeverOGMd, &_sScCySo7UIImageCs5NeverOGMR);
   v2 = *(v1 - 8);
   v3 = *(v2 + 80);
   v4 = (v3 + 32) & ~v3;
@@ -3009,7 +3002,7 @@ uint64_t sub_21608A974()
 
 uint64_t sub_21608A9AC()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCy9MomentsUI27ProtectedAppChallengeResultOs5NeverOGMd);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCy9MomentsUI27ProtectedAppChallengeResultOs5NeverOGMd, &_sScCy9MomentsUI27ProtectedAppChallengeResultOs5NeverOGMR);
   v2 = *(v1 - 8);
   v3 = *(v2 + 80);
   v4 = (v3 + 16) & ~v3;
@@ -3070,7 +3063,7 @@ uint64_t sub_21608AC5C@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_21608ACA8(uint64_t a1, uint64_t a2)
+uint64_t sub_21608ACA8(void *a1, uint64_t a2)
 {
   v2 = *(**a2 + 192);
 
@@ -3092,28 +3085,28 @@ uint64_t sub_21608AD34()
 
 uint64_t sub_21608AD6C()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo16UICollectionViewC5UIKitE16CellRegistrationVy_9MomentsUI024SuggestionListCollectionbD0CAF06MosaichB5ModelCGMd);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo16UICollectionViewC5UIKitE16CellRegistrationVy_9MomentsUI024SuggestionListCollectionbD0CAF06MosaichB5ModelCGMd, &_sSo16UICollectionViewC5UIKitE16CellRegistrationVy_9MomentsUI024SuggestionListCollectionbD0CAF06MosaichB5ModelCGMR);
   v27 = *(v1 - 8);
   v28 = v1;
   v25 = *(v27 + 80);
   v2 = *(v27 + 64);
-  v26 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo16UICollectionViewC5UIKitE16CellRegistrationVy_9MomentsUI016MosaicCollectionbD0CAF0h10SuggestionB5ModelCGMd);
+  v26 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo16UICollectionViewC5UIKitE16CellRegistrationVy_9MomentsUI016MosaicCollectionbD0CAF0h10SuggestionB5ModelCGMd, &_sSo16UICollectionViewC5UIKitE16CellRegistrationVy_9MomentsUI016MosaicCollectionbD0CAF0h10SuggestionB5ModelCGMR);
   v3 = *(v26 - 8);
   v4 = *(v3 + 80);
   v22 = (((v25 + 16) & ~v25) + v2 + v4) & ~v4;
   v5 = *(v3 + 64);
-  v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo16UICollectionViewC5UIKitE16CellRegistrationVy_9MomentsUI019EvergreenCollectionbD0CAF0h10SuggestionB5ModelCGMd);
+  v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo16UICollectionViewC5UIKitE16CellRegistrationVy_9MomentsUI019EvergreenCollectionbD0CAF0h10SuggestionB5ModelCGMd, &_sSo16UICollectionViewC5UIKitE16CellRegistrationVy_9MomentsUI019EvergreenCollectionbD0CAF0h10SuggestionB5ModelCGMR);
   v6 = *(v24 - 8);
   v7 = *(v6 + 80);
   v8 = (v22 + v5 + v7) & ~v7;
   v20 = v8;
   v9 = *(v6 + 64);
-  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo16UICollectionViewC5UIKitE16CellRegistrationVy_9MomentsUI017MessageCollectionbD0CAF0h10SuggestionB5ModelCGMd);
+  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo16UICollectionViewC5UIKitE16CellRegistrationVy_9MomentsUI017MessageCollectionbD0CAF0h10SuggestionB5ModelCGMd, &_sSo16UICollectionViewC5UIKitE16CellRegistrationVy_9MomentsUI017MessageCollectionbD0CAF0h10SuggestionB5ModelCGMR);
   v10 = *(v23 - 8);
   v11 = *(v10 + 80);
   v12 = (v8 + v9 + v11) & ~v11;
   v13 = *(v10 + 64);
-  v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo16UICollectionViewC5UIKitE16CellRegistrationVy_9MomentsUI013TipCollectionbD0CAF0h10SuggestionB5ModelCGMd);
+  v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo16UICollectionViewC5UIKitE16CellRegistrationVy_9MomentsUI013TipCollectionbD0CAF0h10SuggestionB5ModelCGMd, &_sSo16UICollectionViewC5UIKitE16CellRegistrationVy_9MomentsUI013TipCollectionbD0CAF0h10SuggestionB5ModelCGMR);
   v14 = *(v21 - 8);
   v15 = *(v14 + 80);
   v16 = (v12 + v13 + v15) & ~v15;
@@ -3130,12 +3123,12 @@ uint64_t sub_21608AD6C()
 
 uint64_t sub_21608B094()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo16UICollectionViewC5UIKitE25SupplementaryRegistrationVy_9MomentsUI017SectionDateHeaderB0CGMd);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo16UICollectionViewC5UIKitE25SupplementaryRegistrationVy_9MomentsUI017SectionDateHeaderB0CGMd, &_sSo16UICollectionViewC5UIKitE25SupplementaryRegistrationVy_9MomentsUI017SectionDateHeaderB0CGMR);
   v2 = *(v1 - 8);
   v3 = *(v2 + 80);
   v4 = (v3 + 16) & ~v3;
   v5 = *(v2 + 64);
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo16UICollectionViewC5UIKitE25SupplementaryRegistrationVy_9MomentsUI014ShowMoreFooterB0CGMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo16UICollectionViewC5UIKitE25SupplementaryRegistrationVy_9MomentsUI014ShowMoreFooterB0CGMd, &_sSo16UICollectionViewC5UIKitE25SupplementaryRegistrationVy_9MomentsUI014ShowMoreFooterB0CGMR);
   v7 = *(v6 - 8);
   v8 = *(v7 + 80);
   v9 = (v4 + v5 + v8) & ~v8;
@@ -3190,7 +3183,7 @@ uint64_t sub_21608B3E4@<X0>(void **a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_21608B448(uint64_t a1, void **a2)
+uint64_t sub_21608B448(void *a1, void **a2)
 {
   v2 = *((*MEMORY[0x277D85000] & **a2) + 0x148);
 
@@ -3204,7 +3197,7 @@ uint64_t sub_21608B4B4@<X0>(void **a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_21608B518(uint64_t a1, void **a2)
+uint64_t sub_21608B518(void *a1, void **a2)
 {
   v2 = *((*MEMORY[0x277D85000] & **a2) + 0x160);
 
@@ -3225,7 +3218,7 @@ uint64_t sub_21608B740@<X0>(void **a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_21608B7A4(uint64_t a1, void **a2)
+uint64_t sub_21608B7A4(void *a1, void **a2)
 {
   v2 = *((*MEMORY[0x277D85000] & **a2) + 0x280);
 
@@ -3303,7 +3296,7 @@ uint64_t sub_21608BA28()
 uint64_t sub_21608BB0C(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v5 = *(a3 + 20);
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   v7 = *(*(v6 - 8) + 48);
 
   return v7(a1 + v5, a2, v6);
@@ -3312,7 +3305,7 @@ uint64_t sub_21608BB0C(uint64_t a1, uint64_t a2, uint64_t a3)
 uint64_t sub_21608BB90(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v6 = *(a4 + 20);
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   v8 = *(*(v7 - 8) + 56);
 
   return v8(a1 + v6, a2, a2, v7);
@@ -3467,7 +3460,7 @@ id sub_21608C448@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
 
 uint64_t sub_21608C4B8()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySo7UIImageCSgs5NeverOGMd);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySo7UIImageCSgs5NeverOGMd, &_sScCySo7UIImageCSgs5NeverOGMR);
   v2 = *(v1 - 8);
   v3 = *(v2 + 80);
   v4 = (v3 + 16) & ~v3;
@@ -3484,7 +3477,7 @@ uint64_t sub_21608C54C@<X0>(void **a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_21608C5A8(uint64_t a1, void **a2)
+uint64_t sub_21608C5A8(void *a1, void **a2)
 {
   v2 = *((*MEMORY[0x277D85000] & **a2) + 0x80);
 
@@ -3498,7 +3491,7 @@ uint64_t sub_21608C60C@<X0>(void **a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_21608C668(uint64_t a1, void **a2)
+uint64_t sub_21608C668(void *a1, void **a2)
 {
   v2 = *((*MEMORY[0x277D85000] & **a2) + 0x98);
 
@@ -3526,7 +3519,7 @@ uint64_t sub_21608C99C@<X0>(void **a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_21608C9F8(uint64_t a1, void **a2)
+uint64_t sub_21608C9F8(void *a1, void **a2)
 {
   v2 = *((*MEMORY[0x277D85000] & **a2) + 0xF8);
   v3 = swift_unknownObjectRetain();
@@ -3572,7 +3565,7 @@ uint64_t sub_21608CD90@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_21608CDE4(uint64_t a1, uint64_t a2)
+uint64_t sub_21608CDE4(void *a1, uint64_t a2)
 {
   v2 = *(**a2 + 512);
 
@@ -3586,7 +3579,7 @@ uint64_t sub_21608CE40@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_21608CE94(uint64_t a1, uint64_t a2)
+uint64_t sub_21608CE94(void *a1, uint64_t a2)
 {
   v2 = *(**a2 + 584);
 
@@ -3600,7 +3593,7 @@ uint64_t sub_21608CEF0@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_21608CF44(uint64_t a1, uint64_t a2)
+uint64_t sub_21608CF44(void *a1, uint64_t a2)
 {
   v2 = *(**a2 + 1272);
 
@@ -3653,7 +3646,7 @@ id sub_21608D1D8@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
 
 uint64_t sub_21608D248()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCy9MomentsUI5ImageCSgs5NeverOGMd);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCy9MomentsUI5ImageCSgs5NeverOGMd, &_sScCy9MomentsUI5ImageCSgs5NeverOGMR);
   v2 = *(v1 - 8);
   v3 = *(v2 + 80);
   v4 = (v3 + 16) & ~v3;
@@ -3743,15 +3736,15 @@ uint64_t sub_21608DB88@<X0>(uint64_t *a1@<X8>)
   return result;
 }
 
-uint64_t sub_21608DBB4(void *a1, void *a2)
+uint64_t sub_21608DBB4(uint64_t *a1, void *a2)
 {
   *(*a2 + OBJC_IVAR____TtC9MomentsUI9DBManager____lazy_storage___mainWriter) = *a1;
 }
 
 uint64_t sub_21608DD24()
 {
-  type metadata accessor for DBSuggestion();
-  _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_0(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion);
+  type metadata accessor for DBSuggestion(0);
+  _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_0(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
   return PersistentModel.persistentModelID.getter();
 }
 
@@ -3777,7 +3770,7 @@ uint64_t sub_21608DEC0@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_21608DF0C(uint64_t a1, uint64_t a2)
+uint64_t sub_21608DF0C(void *a1, uint64_t a2)
 {
   v2 = *(**a2 + 128);
 
@@ -3791,10 +3784,10 @@ char *sub_21608DF78@<X0>(char **a1@<X8>)
   return result;
 }
 
-void sub_21608DFA0()
+void sub_21608DFA0(void *a1)
 {
 
-  specialized static DefaultsManager.Cloud.capabilitiesMock.setter(v0);
+  specialized static DefaultsManager.Cloud.capabilitiesMock.setter(v1);
 }
 
 char *sub_21608DFCC@<X0>(char **a1@<X8>)
@@ -3804,10 +3797,10 @@ char *sub_21608DFCC@<X0>(char **a1@<X8>)
   return result;
 }
 
-void sub_21608DFF4()
+void sub_21608DFF4(void *a1)
 {
 
-  specialized static DefaultsManager.Cloud.capabilitiesForce.setter(v0);
+  specialized static DefaultsManager.Cloud.capabilitiesForce.setter(v1);
 }
 
 char *sub_21608E020@<X0>(char **a1@<X8>)
@@ -3817,20 +3810,20 @@ char *sub_21608E020@<X0>(char **a1@<X8>)
   return result;
 }
 
-void sub_21608E048()
+void sub_21608E048(void *a1)
 {
 
-  specialized static DefaultsManager.Cloud.capabilitiesBlock.setter(v0);
+  specialized static DefaultsManager.Cloud.capabilitiesBlock.setter(v1);
 }
 
-id sub_21608E074@<X0>(void *a1@<X8>)
+id sub_21608E074@<X0>(uint64_t *a1@<X8>)
 {
   result = specialized static DefaultsManager.SyncOnboarding.deferralCount.getter();
   *a1 = result;
   return result;
 }
 
-id sub_21608E108@<X0>(void *a1@<X8>)
+id sub_21608E108@<X0>(uint64_t *a1@<X8>)
 {
   result = specialized static DefaultsManager.Onboarding.deferralCount.getter();
   *a1 = result;
@@ -3844,7 +3837,7 @@ uint64_t sub_21608EB2C@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_21608EB80(uint64_t a1, uint64_t a2)
+uint64_t sub_21608EB80(void *a1, uint64_t a2)
 {
   v2 = *(**a2 + 1120);
 
@@ -3858,7 +3851,7 @@ uint64_t sub_21608EBDC@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_21608EC30(uint64_t a1, uint64_t a2)
+uint64_t sub_21608EC30(void *a1, uint64_t a2)
 {
   v2 = *(**a2 + 1168);
 
@@ -3961,8 +3954,8 @@ uint64_t sub_21608F450()
 
 uint64_t sub_21608F5A4()
 {
-  type metadata accessor for DBAssetData();
-  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBAssetData and conformance DBAssetData, type metadata accessor for DBAssetData);
+  type metadata accessor for DBAssetData(0);
+  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBAssetData and conformance DBAssetData, type metadata accessor for DBAssetData, &protocol conformance descriptor for DBAssetData);
   return PersistentModel.persistentModelID.getter();
 }
 
@@ -4010,7 +4003,7 @@ uint64_t sub_21608F96C()
 uint64_t sub_21608F9A4()
 {
   swift_unknownObjectRelease();
-  __swift_destroy_boxed_opaque_existential_1(v0 + 32);
+  __swift_destroy_boxed_opaque_existential_1((v0 + 32));
 
   return MEMORY[0x2821FE8E8](v0, 80, 7);
 }
@@ -4024,7 +4017,7 @@ uint64_t sub_21608F9EC()
   v5 = (*(v2 + 64) + v4 + 7) & 0xFFFFFFFFFFFFFFF8;
   (*(v2 + 8))(v0 + v4, v1);
 
-  __swift_destroy_boxed_opaque_existential_1(v0 + ((v5 + 15) & 0xFFFFFFFFFFFFFFF8));
+  __swift_destroy_boxed_opaque_existential_1((v0 + ((v5 + 15) & 0xFFFFFFFFFFFFFFF8)));
   swift_unknownObjectRelease();
 
   return MEMORY[0x2821FE8E8](v0, ((v5 + 63) & 0xFFFFFFFFFFFFFFF8) + 16, v3 | 7);
@@ -4257,7 +4250,7 @@ uint64_t sub_21609083C@<X0>(void **a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_2160908A0(uint64_t a1, void **a2)
+uint64_t sub_2160908A0(void *a1, void **a2)
 {
   v2 = *((*MEMORY[0x277D85000] & **a2) + 0x268);
 
@@ -4390,14 +4383,14 @@ uint64_t sub_2160910A8@<X0>(void **a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_21609110C(uint64_t a1, void **a2)
+uint64_t sub_21609110C(void *a1, void **a2)
 {
   v2 = *((*MEMORY[0x277D85000] & **a2) + 0x358);
 
   return v2(v3);
 }
 
-uint64_t *_s9MomentsUI33NotificationScheduleConfigurationOSYAASY8rawValuexSg03RawG0Qz_tcfCTW_0@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
+unint64_t *_s9MomentsUI33NotificationScheduleConfigurationOSYAASY8rawValuexSg03RawG0Qz_tcfCTW_0@<X0>(unint64_t *result@<X0>, uint64_t a2@<X8>)
 {
   v2 = *result;
   v3 = *result > 2;
@@ -4457,7 +4450,7 @@ uint64_t sub_21609146C@<X0>(void **a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_2160914C8(uint64_t a1, void **a2)
+uint64_t sub_2160914C8(void *a1, void **a2)
 {
   v2 = *((*MEMORY[0x277D85000] & **a2) + 0x80);
 
@@ -4558,7 +4551,7 @@ uint64_t sub_216091834@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_216091888(uint64_t a1, uint64_t a2)
+uint64_t sub_216091888(void *a1, uint64_t a2)
 {
   v2 = *(**a2 + 304);
 
@@ -4587,7 +4580,7 @@ uint64_t sub_216091AB4@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_216091B08(uint64_t a1, uint64_t a2)
+uint64_t sub_216091B08(void *a1, uint64_t a2)
 {
   v2 = *(**a2 + 424);
 
@@ -4601,7 +4594,7 @@ uint64_t sub_216091B64@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_216091BB8(uint64_t a1, uint64_t a2)
+uint64_t sub_216091BB8(void *a1, uint64_t a2)
 {
   v2 = *(**a2 + 448);
 
@@ -4636,11 +4629,11 @@ uint64_t sub_216091E38(uint64_t *a1, uint64_t *a2)
 {
   v2 = a1[1];
   v3 = *a2;
-  v6[0] = *a1;
-  v6[1] = v2;
+  v7[0] = *a1;
+  v7[1] = v2;
   v4 = *(*v3 + 592);
-  outlined copy of SuggestionGroup?(v6[0]);
-  return v4(v6);
+  v5 = outlined copy of SuggestionGroup?(v7[0], v2);
+  return v4(v7, v5);
 }
 
 uint64_t sub_216091EAC@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
@@ -4650,7 +4643,7 @@ uint64_t sub_216091EAC@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_216091F00(uint64_t a1, uint64_t a2)
+uint64_t sub_216091F00(void *a1, uint64_t a2)
 {
   v2 = *(**a2 + 616);
 
@@ -4710,7 +4703,7 @@ uint64_t sub_216092198@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_2160921EC(uint64_t a1, uint64_t a2)
+uint64_t sub_2160921EC(void *a1, uint64_t a2)
 {
   v2 = *(**a2 + 824);
 
@@ -4724,7 +4717,7 @@ uint64_t sub_2160922A4@<X0>(void **a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_216092300(uint64_t a1, void **a2)
+uint64_t sub_216092300(void *a1, void **a2)
 {
   v2 = *((*MEMORY[0x277D85000] & **a2) + 0x68);
 
@@ -4756,7 +4749,7 @@ uint64_t sub_216092484(id *a1, void **a2)
 
 uint64_t sub_2160924F4(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   v7 = *(v6 - 8);
   if (*(v7 + 84) == a2)
   {
@@ -4785,7 +4778,7 @@ uint64_t sub_2160924F4(uint64_t a1, uint64_t a2, uint64_t a3)
 
 uint64_t sub_2160925C8(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 {
-  result = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd);
+  result = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   v9 = *(result - 8);
   if (*(v9 + 84) == a3)
   {
@@ -4847,7 +4840,7 @@ uint64_t sub_216092914()
 
 uint64_t sub_21609294C()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo16UICollectionViewC5UIKitE16CellRegistrationVy_9MomentsUI016InterstitialListbD0CSSGMd);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo16UICollectionViewC5UIKitE16CellRegistrationVy_9MomentsUI016InterstitialListbD0CSSGMd, &_sSo16UICollectionViewC5UIKitE16CellRegistrationVy_9MomentsUI016InterstitialListbD0CSSGMR);
   v2 = *(v1 - 8);
   v3 = *(v2 + 80);
   v4 = (v3 + 16) & ~v3;
@@ -5251,7 +5244,7 @@ uint64_t sub_216093EA0@<X0>(void **a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_216093F04(uint64_t a1, void **a2)
+uint64_t sub_216093F04(void *a1, void **a2)
 {
   v2 = *((*MEMORY[0x277D85000] & **a2) + 0x108);
 
@@ -5292,7 +5285,7 @@ uint64_t sub_216094230@<X0>(void **a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_21609428C(uint64_t a1, void **a2)
+uint64_t sub_21609428C(void *a1, void **a2)
 {
   v2 = *((*MEMORY[0x277D85000] & **a2) + 0xA8);
 
@@ -5364,12 +5357,12 @@ uint64_t sub_2160945CC(char *a1, uint64_t *a2)
   return result;
 }
 
-uint64_t sub_21609463C(void *a1, void *a2)
+uint64_t sub_21609463C(uint64_t *a1, void *a2)
 {
   *(*a2 + OBJC_IVAR____TtC9MomentsUI14CloudDevicesDB__state + 8) = *a1;
 }
 
-uint64_t sub_2160946A8(void *a1, void *a2)
+uint64_t sub_2160946A8(uint64_t *a1, void *a2)
 {
   *(*a2 + OBJC_IVAR____TtC9MomentsUI14CloudDevicesDB__state + 16) = *a1;
 }
@@ -5382,7 +5375,7 @@ uint64_t sub_2160947B0()
 
 uint64_t sub_2160947F0()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGMd);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGMd, &_sScCyyts5NeverOGMR);
   v2 = *(v1 - 8);
   v3 = *(v2 + 80);
   v4 = (v3 + 24) & ~v3;
@@ -5395,7 +5388,7 @@ uint64_t sub_2160947F0()
 
 uint64_t sub_2160948CC()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGMd);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGMd, &_sScCyyts5NeverOGMR);
   v2 = *(v1 - 8);
   v3 = *(v2 + 80);
   v4 = (v3 + 56) & ~v3;
@@ -5409,12 +5402,12 @@ uint64_t sub_2160948CC()
 
 uint64_t sub_2160949B4()
 {
-  v1 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s9MomentsUI19DBSnapshotAnalyticsC13SnapshotEventVSgMd) - 8);
+  v1 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s9MomentsUI19DBSnapshotAnalyticsC13SnapshotEventVSgMd, &_s9MomentsUI19DBSnapshotAnalyticsC13SnapshotEventVSgMR) - 8);
   v2 = *(v1 + 80);
   v3 = (v2 + 32) & ~v2;
   v4 = *(v1 + 64);
   swift_unknownObjectRelease();
-  v5 = type metadata accessor for DBSnapshotAnalytics.SnapshotEvent();
+  v5 = type metadata accessor for DBSnapshotAnalytics.SnapshotEvent(0);
   if (!(*(*(v5 - 8) + 48))(v0 + v3, 1, v5))
   {
     v6 = type metadata accessor for UUID();
@@ -5429,7 +5422,7 @@ uint64_t sub_2160949B4()
 
 uint64_t sub_216094B54()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGMd);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGMd, &_sScCyyts5NeverOGMR);
   v2 = *(v1 - 8);
   v3 = *(v2 + 80);
   v4 = (v3 + 32) & ~v3;
@@ -5442,7 +5435,7 @@ uint64_t sub_216094B54()
 
 uint64_t sub_216094C38()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGMd);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGMd, &_sScCyyts5NeverOGMR);
   v2 = *(v1 - 8);
   v3 = *(v2 + 80);
   v4 = (v3 + 40) & ~v3;
@@ -5453,7 +5446,7 @@ uint64_t sub_216094C38()
   return MEMORY[0x2821FE8E8](v0, v4 + v5, v3 | 7);
 }
 
-id sub_216094D84@<X0>(void *a1@<X8>)
+id sub_216094D84@<X0>(uint64_t *a1@<X8>)
 {
   result = CloudMetaDevice.lastKnownCKRecord.getter();
   *a1 = result;
@@ -5482,7 +5475,7 @@ uint64_t sub_216094DE0(uint64_t a1, uint64_t a2, uint64_t a3)
 
   else
   {
-    v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd);
+    v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
     v9 = *(*(v8 - 8) + 48);
     v10 = a1 + *(a3 + 20);
 
@@ -5500,7 +5493,7 @@ uint64_t sub_216094E9C(uint64_t result, uint64_t a2, int a3, uint64_t a4)
 
   else
   {
-    v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd);
+    v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
     v8 = *(*(v7 - 8) + 56);
     v9 = v5 + *(a4 + 20);
 
@@ -5551,7 +5544,7 @@ uint64_t sub_216095590@<X0>(uint64_t *a1@<X0>, _OWORD *a2@<X8>)
 
 uint64_t sub_216095688()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGMd);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGMd, &_sScCyyts5NeverOGMR);
   v2 = *(v1 - 8);
   v3 = *(v2 + 80);
   v4 = (v3 + 56) & ~v3;
@@ -5577,14 +5570,14 @@ uint64_t sub_21609583C()
 
 uint64_t sub_216095884()
 {
-  v1 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s9MomentsUI11CloudDeviceVSgMd) - 8);
+  v1 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s9MomentsUI11CloudDeviceVSgMd, &_s9MomentsUI11CloudDeviceVSgMR) - 8);
   v2 = *(v1 + 80);
   v3 = (v2 + 40) & ~v2;
   v4 = *(v1 + 64);
   swift_unknownObjectRelease();
 
   v5 = v0 + v3;
-  v6 = type metadata accessor for CloudDevice();
+  v6 = type metadata accessor for CloudDevice(0);
   if (!(*(*(v6 - 1) + 48))(v0 + v3, 1, v6))
   {
     v27 = v4;
@@ -5685,7 +5678,7 @@ uint64_t sub_216095884()
 
 uint64_t sub_216095DB4()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySDySo10CKRecordIDCs6ResultOySo0A0Cs5Error_pGGsAG_pGMd);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySDySo10CKRecordIDCs6ResultOySo0A0Cs5Error_pGGsAG_pGMd, &_sScCySDySo10CKRecordIDCs6ResultOySo0A0Cs5Error_pGGsAG_pGMR);
   v2 = *(v1 - 8);
   v3 = *(v2 + 80);
   v4 = (v3 + 24) & ~v3;
@@ -5723,7 +5716,7 @@ uint64_t sub_216095FC4@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_216096018(uint64_t a1, uint64_t a2)
+uint64_t sub_216096018(void *a1, uint64_t a2)
 {
   v2 = *(**a2 + 480);
 
@@ -5738,9 +5731,9 @@ uint64_t sub_216096084@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_2160960D0(uint64_t a1, uint64_t a2)
+uint64_t sub_2160960D0(void *a1, uint64_t a2)
 {
-  v2 = *(a1 + 8);
+  v2 = a1[1];
   v3 = *(**a2 + 240);
   v4 = swift_unknownObjectRetain();
   return v3(v4, v2);
@@ -5783,7 +5776,7 @@ uint64_t sub_2160962AC()
 
 MomentsUI::CloudDevice::Idiom_optional sub_21609642C@<W0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
 {
-  v3 = a1 + *(type metadata accessor for CloudDevice() + 40);
+  v3 = a1 + *(type metadata accessor for CloudDevice(0) + 40);
   if (*(v3 + 8))
   {
     v4 = -1;
@@ -5827,13 +5820,13 @@ uint64_t sub_2160964E0(_OWORD *a1)
   v3 = a1[1];
   v6[0] = *a1;
   v6[1] = v3;
-  outlined init with copy of DateInterval?(v6, &v5, &_s9MomentsUI14CloudDevicesDBC24SnapshotEventAggregationVSgMd);
+  outlined init with copy of DateInterval?(v6, &v5, &_s9MomentsUI14CloudDevicesDBC24SnapshotEventAggregationVSgMd, &_s9MomentsUI14CloudDevicesDBC24SnapshotEventAggregationVSgMR);
   return CloudDevice.snapshotEventAggregation.setter(a1);
 }
 
-id sub_216096548@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
+id sub_216096548@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
 {
-  v4 = type metadata accessor for CloudDevice();
+  v4 = type metadata accessor for CloudDevice(0);
   result = specialized static CloudSyncDB.getCKRecord(_:)(*(a1 + *(v4 + 112)), *(a1 + *(v4 + 112) + 8));
   *a2 = result;
   return result;
@@ -5861,7 +5854,7 @@ uint64_t sub_2160965B8(uint64_t a1, uint64_t a2, uint64_t a3)
 
   else
   {
-    v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd);
+    v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
     v9 = *(*(v8 - 8) + 48);
     v10 = a1 + *(a3 + 28);
 
@@ -5879,7 +5872,7 @@ uint64_t sub_216096674(uint64_t result, uint64_t a2, int a3, uint64_t a4)
 
   else
   {
-    v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd);
+    v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
     v8 = *(*(v7 - 8) + 56);
     v9 = v5 + *(a4 + 28);
 
@@ -5937,7 +5930,7 @@ uint64_t sub_216096ABC@<X0>(void **a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_216096B20(uint64_t a1, void **a2)
+uint64_t sub_216096B20(void *a1, void **a2)
 {
   v2 = *((*MEMORY[0x277D85000] & **a2) + 0x240);
 
@@ -6142,11 +6135,11 @@ void sub_216097608(char *a1, uint64_t *a2)
   InterstitialViewController.viewMode.didset(v5);
 }
 
-uint64_t sub_216097664@<X0>(uint64_t *a1@<X8>)
+uint64_t sub_216097664@<X0>(uint64_t *a2@<X8>)
 {
   swift_beginAccess();
   result = swift_weakLoadStrong();
-  *a1 = result;
+  *a2 = result;
   return result;
 }
 
@@ -6159,7 +6152,7 @@ uint64_t sub_21609771C()
 
 uint64_t sub_21609775C()
 {
-  v1 = (type metadata accessor for Client() - 8);
+  v1 = (type metadata accessor for Client(0) - 8);
   v2 = *(*v1 + 80);
   v3 = (v2 + 16) & ~v2;
   v4 = (((((v3 + *(*v1 + 64)) & 0xFFFFFFFFFFFFFFF8) + 23) & 0xFFFFFFFFFFFFFFF8) + 23) & 0xFFFFFFFFFFFFFFF8;
@@ -6214,7 +6207,7 @@ uint64_t sub_216097B48@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_216097B94(uint64_t a1, uint64_t a2)
+uint64_t sub_216097B94(void *a1, uint64_t a2)
 {
   v2 = *(**a2 + 104);
   v3 = swift_unknownObjectRetain();
@@ -6229,9 +6222,9 @@ uint64_t sub_216097C1C@<X0>(void **a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_216097C78(uint64_t a1, void **a2)
+uint64_t sub_216097C78(void *a1, void **a2)
 {
-  v2 = *(a1 + 8);
+  v2 = a1[1];
   v3 = *((*MEMORY[0x277D85000] & **a2) + 0x80);
   v4 = swift_unknownObjectRetain();
   return v3(v4, v2);
@@ -6363,7 +6356,7 @@ uint64_t sub_21609849C@<X0>(void **a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_216098500(uint64_t a1, void **a2)
+uint64_t sub_216098500(void *a1, void **a2)
 {
   v2 = *((*MEMORY[0x277D85000] & **a2) + 0x2E0);
 
@@ -6524,9 +6517,9 @@ uint64_t sub_216098D38@<X0>(void **a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_216098D9C(uint64_t a1, void **a2)
+uint64_t sub_216098D9C(void *a1, void **a2)
 {
-  v2 = *(a1 + 8);
+  v2 = a1[1];
   v3 = *((*MEMORY[0x277D85000] & **a2) + 0x138);
   v4 = swift_unknownObjectRetain();
   return v3(v4, v2);
@@ -6567,7 +6560,7 @@ uint64_t sub_216099158@<X0>(void **a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_2160991BC(uint64_t a1, void **a2)
+uint64_t sub_2160991BC(void *a1, void **a2)
 {
   v2 = *((*MEMORY[0x277D85000] & **a2) + 0x1B0);
 
@@ -6581,7 +6574,7 @@ uint64_t sub_216099228@<X0>(void **a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_21609928C(uint64_t a1, void **a2)
+uint64_t sub_21609928C(void *a1, void **a2)
 {
   v2 = *((*MEMORY[0x277D85000] & **a2) + 0x1C8);
 
@@ -6595,7 +6588,7 @@ uint64_t sub_2160992F8@<X0>(void **a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_21609935C(uint64_t a1, void **a2)
+uint64_t sub_21609935C(void *a1, void **a2)
 {
   v2 = *((*MEMORY[0x277D85000] & **a2) + 0x1E0);
 
@@ -6609,7 +6602,7 @@ uint64_t sub_2160993C8@<X0>(void **a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_21609942C(uint64_t a1, void **a2)
+uint64_t sub_21609942C(void *a1, void **a2)
 {
   v2 = *((*MEMORY[0x277D85000] & **a2) + 0x1F8);
 
@@ -6623,7 +6616,7 @@ uint64_t sub_216099498@<X0>(void **a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_2160994FC(uint64_t a1, void **a2)
+uint64_t sub_2160994FC(void *a1, void **a2)
 {
   v2 = *((*MEMORY[0x277D85000] & **a2) + 0x210);
 
@@ -6637,7 +6630,7 @@ uint64_t sub_216099568@<X0>(void **a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_2160995CC(uint64_t a1, void **a2)
+uint64_t sub_2160995CC(void *a1, void **a2)
 {
   v2 = *((*MEMORY[0x277D85000] & **a2) + 0x228);
 
@@ -6651,7 +6644,7 @@ uint64_t sub_216099638@<X0>(void **a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_21609969C(uint64_t a1, void **a2)
+uint64_t sub_21609969C(void *a1, void **a2)
 {
   v2 = *((*MEMORY[0x277D85000] & **a2) + 0x240);
 
@@ -6740,7 +6733,7 @@ id sub_216099EA0@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
 
 uint64_t sub_216099F10()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCy9MomentsUI10EntityDataVSgs5NeverOGMd);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCy9MomentsUI10EntityDataVSgs5NeverOGMd, &_sScCy9MomentsUI10EntityDataVSgs5NeverOGMR);
   v2 = *(v1 - 8);
   v3 = *(v2 + 80);
   v4 = (v3 + 16) & ~v3;
@@ -6820,7 +6813,7 @@ uint64_t sub_21609A310@<X0>(void **a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_21609A374(uint64_t a1, void **a2)
+uint64_t sub_21609A374(void *a1, void **a2)
 {
   v2 = *((*MEMORY[0x277D85000] & **a2) + 0x2D8);
 
@@ -7012,7 +7005,7 @@ uint64_t sub_21609B04C()
 
 uint64_t sub_21609B084()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGMd);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGMd, &_sScCyyts5NeverOGMR);
   v2 = *(v1 - 8);
   v3 = *(v2 + 80);
   v4 = (v3 + 32) & ~v3;
@@ -7074,7 +7067,7 @@ uint64_t sub_21609B444()
 
 uint64_t sub_21609B47C()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGMd);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGMd, &_sScCyyts5NeverOGMR);
   v2 = *(v1 - 8);
   v3 = *(v2 + 80);
   v4 = (v3 + 32) & ~v3;
@@ -7087,7 +7080,7 @@ uint64_t sub_21609B47C()
 
 uint64_t sub_21609B560()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGMd);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGMd, &_sScCyyts5NeverOGMR);
   v2 = *(v1 - 8);
   v3 = *(v2 + 80);
   v4 = (v3 + 64) & ~v3;
@@ -7107,7 +7100,7 @@ uint64_t sub_21609B648()
 
 uint64_t sub_21609B680()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySo21NSPersistentContainerCs5Error_pGMd);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySo21NSPersistentContainerCs5Error_pGMd, &_sScCySo21NSPersistentContainerCs5Error_pGMR);
   v2 = *(v1 - 8);
   v3 = *(v2 + 80);
   v4 = (v3 + 16) & ~v3;
@@ -7186,11 +7179,11 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance Suggest
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance SuggestionRanking.VisibilityCategory()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance SuggestionRanking.VisibilityCategory(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  MEMORY[0x21CE937C0](v1);
+  MEMORY[0x21CE937C0](v2);
   return Hasher._finalize()();
 }
 
@@ -7294,45 +7287,42 @@ uint64_t SuggestionRanking.CodingKeys.rawValue.getter(unsigned __int8 a1)
   }
 }
 
-uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance SuggestionRanking.CodingKeys(unsigned __int8 *a1, unsigned __int8 *a2)
+uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance SuggestionRanking.CodingKeys()
 {
-  v2 = *a2;
-  v3 = SuggestionRanking.CodingKeys.stringValue.getter(*a1);
-  v5 = v4;
-  if (v3 == SuggestionRanking.CodingKeys.stringValue.getter(v2) && v5 == v6)
+  v0 = SuggestionRanking.CodingKeys.stringValue.getter();
+  v2 = v1;
+  if (v0 == SuggestionRanking.CodingKeys.stringValue.getter() && v2 == v3)
   {
-    v8 = 1;
+    v5 = 1;
   }
 
   else
   {
-    v8 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v5 = _stringCompareWithSmolCheck(_:_:expecting:)();
   }
 
-  return v8 & 1;
+  return v5 & 1;
 }
 
 Swift::Int protocol witness for Hashable.hashValue.getter in conformance SuggestionRanking.CodingKeys()
 {
-  v1 = *v0;
   Hasher.init(_seed:)();
-  SuggestionRanking.CodingKeys.stringValue.getter(v1);
+  SuggestionRanking.CodingKeys.stringValue.getter();
   String.hash(into:)();
 
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance SuggestionRanking.CodingKeys()
+uint64_t protocol witness for Hashable.hash(into:) in conformance SuggestionRanking.CodingKeys(uint64_t a1)
 {
-  SuggestionRanking.CodingKeys.stringValue.getter(*v0);
+  SuggestionRanking.CodingKeys.stringValue.getter();
   String.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance SuggestionRanking.CodingKeys()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance SuggestionRanking.CodingKeys(uint64_t a1)
 {
-  v1 = *v0;
   Hasher.init(_seed:)();
-  SuggestionRanking.CodingKeys.stringValue.getter(v1);
+  SuggestionRanking.CodingKeys.stringValue.getter();
   String.hash(into:)();
 
   return Hasher._finalize()();
@@ -7347,9 +7337,9 @@ unint64_t protocol witness for RawRepresentable.init(rawValue:) in conformance S
 
 uint64_t protocol witness for RawRepresentable.rawValue.getter in conformance SuggestionRanking.CodingKeys@<X0>(uint64_t *a1@<X8>)
 {
-  result = SuggestionRanking.CodingKeys.stringValue.getter(*v1);
+  result = SuggestionRanking.CodingKeys.stringValue.getter();
   *a1 = result;
-  a1[1] = v4;
+  a1[1] = v3;
   return result;
 }
 
@@ -7493,7 +7483,7 @@ id SuggestionRanking.__deallocating_deinit()
 uint64_t SuggestionRanking.encode(to:)(void *a1)
 {
   v3 = v1;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy9MomentsUI17SuggestionRankingC10CodingKeysOGMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy9MomentsUI17SuggestionRankingC10CodingKeysOGMd, &_ss22KeyedEncodingContainerVy9MomentsUI17SuggestionRankingC10CodingKeysOGMR);
   v6 = *(v5 - 8);
   MEMORY[0x28223BE20](v5);
   v8 = &v10[-v7];
@@ -7521,10 +7511,10 @@ uint64_t SuggestionRanking.encode(to:)(void *a1)
   return (*(v6 + 8))(v8, v5);
 }
 
-void *SuggestionRanking.init(from:)(void *a1)
+id SuggestionRanking.init(from:)(void *a1)
 {
   v3 = v1;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy9MomentsUI17SuggestionRankingC10CodingKeysOGMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy9MomentsUI17SuggestionRankingC10CodingKeysOGMd, &_ss22KeyedDecodingContainerVy9MomentsUI17SuggestionRankingC10CodingKeysOGMR);
   v6 = *(v5 - 8);
   MEMORY[0x28223BE20](v5);
   v8 = &v24 - v7;
@@ -7634,7 +7624,7 @@ id default argument 3 of UIImage.composedOf(with:rects:targetSize:backgroundColo
   return v0;
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance CFStringRef()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance CFStringRef(uint64_t a1, uint64_t a2)
 {
   Hasher.init(_seed:)();
   swift_getWitnessTable();
@@ -7642,7 +7632,7 @@ Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance CFS
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance CFStringRef()
+uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance CFStringRef(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   swift_getWitnessTable();
 
@@ -7685,21 +7675,21 @@ uint64_t protocol witness for static _ObjectiveCBridgeable._conditionallyBridgeF
 
 uint64_t protocol witness for Error._domain.getter in conformance related decl e for CKErrorCode(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type related decl 'e' for CKErrorCode and conformance related decl 'e' for CKErrorCode, type metadata accessor for related decl 'e' for CKErrorCode);
+  v2 = lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type related decl 'e' for CKErrorCode and conformance related decl 'e' for CKErrorCode, type metadata accessor for related decl 'e' for CKErrorCode, &protocol conformance descriptor for related decl 'e' for CKErrorCode);
 
   return MEMORY[0x28211F4B8](a1, v2);
 }
 
 uint64_t protocol witness for Error._code.getter in conformance related decl e for CKErrorCode(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type related decl 'e' for CKErrorCode and conformance related decl 'e' for CKErrorCode, type metadata accessor for related decl 'e' for CKErrorCode);
+  v2 = lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type related decl 'e' for CKErrorCode and conformance related decl 'e' for CKErrorCode, type metadata accessor for related decl 'e' for CKErrorCode, &protocol conformance descriptor for related decl 'e' for CKErrorCode);
 
   return MEMORY[0x28211F4A8](a1, v2);
 }
 
 uint64_t protocol witness for Error._getEmbeddedNSError() in conformance related decl e for CKErrorCode(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type related decl 'e' for CKErrorCode and conformance related decl 'e' for CKErrorCode, type metadata accessor for related decl 'e' for CKErrorCode);
+  v2 = lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type related decl 'e' for CKErrorCode and conformance related decl 'e' for CKErrorCode, type metadata accessor for related decl 'e' for CKErrorCode, &protocol conformance descriptor for related decl 'e' for CKErrorCode);
 
   return MEMORY[0x28211CA68](a1, v2);
 }
@@ -7765,11 +7755,11 @@ uint64_t *protocol witness for SetAlgebra.update(with:) in conformance UIViewAni
   return result;
 }
 
-uint64_t protocol witness for static _ObjectiveCBridgeable._forceBridgeFromObjectiveC(_:result:) in conformance UIFontWeight(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(uint64_t, uint64_t *))
+uint64_t protocol witness for static _ObjectiveCBridgeable._forceBridgeFromObjectiveC(_:result:) in conformance UIFontWeight(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(uint64_t, uint64_t *, uint64_t, uint64_t))
 {
   v9 = 0;
   v10 = 1;
-  result = a5(a1, &v9);
+  result = a5(a1, &v9, a3, a4);
   v7 = v9;
   v8 = v10;
   if (v10)
@@ -7782,11 +7772,11 @@ uint64_t protocol witness for static _ObjectiveCBridgeable._forceBridgeFromObjec
   return result;
 }
 
-uint64_t protocol witness for static _ObjectiveCBridgeable._conditionallyBridgeFromObjectiveC(_:result:) in conformance UIFontWeight(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(uint64_t, uint64_t *))
+uint64_t protocol witness for static _ObjectiveCBridgeable._conditionallyBridgeFromObjectiveC(_:result:) in conformance UIFontWeight(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(uint64_t, uint64_t *, uint64_t, uint64_t))
 {
   v10 = 0;
   v11 = 1;
-  v6 = a5(a1, &v10);
+  v6 = a5(a1, &v10, a3, a4);
   v7 = v10;
   v8 = v11;
   if (v11)
@@ -7820,32 +7810,32 @@ uint64_t protocol witness for static _ObjectiveCBridgeable._conditionallyBridgeF
   return v3 & 1;
 }
 
-uint64_t protocol witness for static _ObjectiveCBridgeable._unconditionallyBridgeFromObjectiveC(_:) in conformance NSURLResourceKey@<X0>(uint64_t *a1@<X8>)
+uint64_t protocol witness for static _ObjectiveCBridgeable._unconditionallyBridgeFromObjectiveC(_:) in conformance NSURLResourceKey@<X0>(uint64_t *a2@<X8>)
 {
-  v2 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v3 = MEMORY[0x21CE91FC0](v2);
+  v3 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v4 = MEMORY[0x21CE91FC0](v3);
 
-  *a1 = v3;
+  *a2 = v4;
   return result;
 }
 
 uint64_t protocol witness for CustomNSError.errorCode.getter in conformance related decl e for CKErrorCode(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type related decl 'e' for CKErrorCode and conformance related decl 'e' for CKErrorCode, type metadata accessor for related decl 'e' for CKErrorCode);
+  v2 = lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type related decl 'e' for CKErrorCode and conformance related decl 'e' for CKErrorCode, type metadata accessor for related decl 'e' for CKErrorCode, &protocol conformance descriptor for related decl 'e' for CKErrorCode);
 
   return MEMORY[0x28211CAD0](a1, v2);
 }
 
 uint64_t protocol witness for CustomNSError.errorUserInfo.getter in conformance related decl e for CKErrorCode(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type related decl 'e' for CKErrorCode and conformance related decl 'e' for CKErrorCode, type metadata accessor for related decl 'e' for CKErrorCode);
+  v2 = lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type related decl 'e' for CKErrorCode and conformance related decl 'e' for CKErrorCode, type metadata accessor for related decl 'e' for CKErrorCode, &protocol conformance descriptor for related decl 'e' for CKErrorCode);
 
   return MEMORY[0x28211CA88](a1, v2);
 }
 
 uint64_t protocol witness for _ObjectiveCBridgeableError.init(_bridgedNSError:) in conformance related decl e for CKErrorCode(void *a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type related decl 'e' for CKErrorCode and conformance related decl 'e' for CKErrorCode, type metadata accessor for related decl 'e' for CKErrorCode);
+  v4 = lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type related decl 'e' for CKErrorCode and conformance related decl 'e' for CKErrorCode, type metadata accessor for related decl 'e' for CKErrorCode, &protocol conformance descriptor for related decl 'e' for CKErrorCode);
   v5 = a1;
 
   return MEMORY[0x28211CA70](v5, a2, v4);
@@ -7853,12 +7843,12 @@ uint64_t protocol witness for _ObjectiveCBridgeableError.init(_bridgedNSError:) 
 
 uint64_t protocol witness for Hashable.hash(into:) in conformance related decl e for CKErrorCode(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type related decl 'e' for CKErrorCode and conformance related decl 'e' for CKErrorCode, type metadata accessor for related decl 'e' for CKErrorCode);
+  v4 = lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type related decl 'e' for CKErrorCode and conformance related decl 'e' for CKErrorCode, type metadata accessor for related decl 'e' for CKErrorCode, &protocol conformance descriptor for related decl 'e' for CKErrorCode);
 
   return MEMORY[0x28211CAB8](a1, a2, v4);
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance related decl e for CKErrorCode()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance related decl e for CKErrorCode(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   Hasher.init(_seed:)();
   dispatch thunk of Hashable.hash(into:)();
@@ -7881,18 +7871,18 @@ uint64_t protocol witness for ExpressibleByArrayLiteral.init(arrayLiteral:) in c
   return result;
 }
 
-uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance NSFileProtectionType()
+uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance NSFileProtectionType(uint64_t a1)
 {
-  lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type NSFileProtectionType and conformance NSFileProtectionType, type metadata accessor for NSFileProtectionType);
-  lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type NSFileProtectionType and conformance NSFileProtectionType, type metadata accessor for NSFileProtectionType);
+  lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type NSFileProtectionType and conformance NSFileProtectionType, type metadata accessor for NSFileProtectionType, &protocol conformance descriptor for NSFileProtectionType);
+  lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type NSFileProtectionType and conformance NSFileProtectionType, type metadata accessor for NSFileProtectionType, &protocol conformance descriptor for NSFileProtectionType);
 
   return _SwiftNewtypeWrapper<>._toCustomAnyHashable()();
 }
 
-uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance NSURLResourceKey()
+uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance NSURLResourceKey(uint64_t a1)
 {
-  lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type NSURLResourceKey and conformance NSURLResourceKey, type metadata accessor for NSURLResourceKey);
-  lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type NSURLResourceKey and conformance NSURLResourceKey, type metadata accessor for NSURLResourceKey);
+  lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type NSURLResourceKey and conformance NSURLResourceKey, type metadata accessor for NSURLResourceKey, &protocol conformance descriptor for NSURLResourceKey);
+  lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type NSURLResourceKey and conformance NSURLResourceKey, type metadata accessor for NSURLResourceKey, &protocol conformance descriptor for NSURLResourceKey);
 
   return _SwiftNewtypeWrapper<>._toCustomAnyHashable()();
 }
@@ -7904,48 +7894,48 @@ float protocol witness for RawRepresentable.rawValue.getter in conformance UILay
   return result;
 }
 
-uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance UILayoutPriority()
+uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance UILayoutPriority(uint64_t a1)
 {
-  lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type UILayoutPriority and conformance UILayoutPriority, type metadata accessor for UILayoutPriority);
-  lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type UILayoutPriority and conformance UILayoutPriority, type metadata accessor for UILayoutPriority);
+  lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type UILayoutPriority and conformance UILayoutPriority, type metadata accessor for UILayoutPriority, &protocol conformance descriptor for UILayoutPriority);
+  lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type UILayoutPriority and conformance UILayoutPriority, type metadata accessor for UILayoutPriority, &protocol conformance descriptor for UILayoutPriority);
   return _SwiftNewtypeWrapper<>._toCustomAnyHashable()();
 }
 
 uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance related decl e for CKErrorCode(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type related decl 'e' for CKErrorCode and conformance related decl 'e' for CKErrorCode, type metadata accessor for related decl 'e' for CKErrorCode);
+  v6 = lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type related decl 'e' for CKErrorCode and conformance related decl 'e' for CKErrorCode, type metadata accessor for related decl 'e' for CKErrorCode, &protocol conformance descriptor for related decl 'e' for CKErrorCode);
 
   return MEMORY[0x28211CA98](a1, a2, a3, v6);
 }
 
-uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance NSFileAttributeKey()
+uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance NSFileAttributeKey(uint64_t a1)
 {
-  lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type NSFileAttributeKey and conformance NSFileAttributeKey, type metadata accessor for NSFileAttributeKey);
-  lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type NSFileAttributeKey and conformance NSFileAttributeKey, type metadata accessor for NSFileAttributeKey);
+  lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type NSFileAttributeKey and conformance NSFileAttributeKey, type metadata accessor for NSFileAttributeKey, &protocol conformance descriptor for NSFileAttributeKey);
+  lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type NSFileAttributeKey and conformance NSFileAttributeKey, type metadata accessor for NSFileAttributeKey, &protocol conformance descriptor for NSFileAttributeKey);
 
   return _SwiftNewtypeWrapper<>._toCustomAnyHashable()();
 }
 
-uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance NSAttributedStringKey()
+uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance NSAttributedStringKey(uint64_t a1)
 {
-  lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type NSAttributedStringKey and conformance NSAttributedStringKey, type metadata accessor for NSAttributedStringKey);
-  lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type NSAttributedStringKey and conformance NSAttributedStringKey, type metadata accessor for NSAttributedStringKey);
+  lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type NSAttributedStringKey and conformance NSAttributedStringKey, type metadata accessor for NSAttributedStringKey, &protocol conformance descriptor for NSAttributedStringKey);
+  lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type NSAttributedStringKey and conformance NSAttributedStringKey, type metadata accessor for NSAttributedStringKey, &protocol conformance descriptor for NSAttributedStringKey);
 
   return _SwiftNewtypeWrapper<>._toCustomAnyHashable()();
 }
 
-uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance MOTaskAction()
+uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance MOTaskAction(uint64_t a1)
 {
-  lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type MOTaskAction and conformance MOTaskAction, type metadata accessor for MOTaskAction);
-  lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type MOTaskAction and conformance MOTaskAction, type metadata accessor for MOTaskAction);
+  lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type MOTaskAction and conformance MOTaskAction, type metadata accessor for MOTaskAction, &protocol conformance descriptor for MOTaskAction);
+  lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type MOTaskAction and conformance MOTaskAction, type metadata accessor for MOTaskAction, &protocol conformance descriptor for MOTaskAction);
 
   return _SwiftNewtypeWrapper<>._toCustomAnyHashable()();
 }
 
-uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance MOTaskWork()
+uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance MOTaskWork(uint64_t a1)
 {
-  lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type MOTaskWork and conformance MOTaskWork, type metadata accessor for MOTaskWork);
-  lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type MOTaskWork and conformance MOTaskWork, type metadata accessor for MOTaskWork);
+  lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type MOTaskWork and conformance MOTaskWork, type metadata accessor for MOTaskWork, &protocol conformance descriptor for MOTaskWork);
+  lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type MOTaskWork and conformance MOTaskWork, type metadata accessor for MOTaskWork, &protocol conformance descriptor for MOTaskWork);
 
   return _SwiftNewtypeWrapper<>._toCustomAnyHashable()();
 }
@@ -7957,42 +7947,42 @@ double protocol witness for RawRepresentable.rawValue.getter in conformance UIFo
   return result;
 }
 
-uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance UIFontWeight()
+uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance UIFontWeight(uint64_t a1)
 {
-  lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type UIFontWeight and conformance UIFontWeight, type metadata accessor for UIFontWeight);
-  lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type UIFontWeight and conformance UIFontWeight, type metadata accessor for UIFontWeight);
+  lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type UIFontWeight and conformance UIFontWeight, type metadata accessor for UIFontWeight, &protocol conformance descriptor for UIFontWeight);
+  lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type UIFontWeight and conformance UIFontWeight, type metadata accessor for UIFontWeight, &protocol conformance descriptor for UIFontWeight);
   lazy protocol witness table accessor for type CGFloat and conformance CGFloat();
   return _SwiftNewtypeWrapper<>._toCustomAnyHashable()();
 }
 
-uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance UIFontDescriptorAttributeName()
+uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance UIFontDescriptorAttributeName(uint64_t a1)
 {
-  lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type UIFontDescriptorAttributeName and conformance UIFontDescriptorAttributeName, type metadata accessor for UIFontDescriptorAttributeName);
-  lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type UIFontDescriptorAttributeName and conformance UIFontDescriptorAttributeName, type metadata accessor for UIFontDescriptorAttributeName);
+  lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type UIFontDescriptorAttributeName and conformance UIFontDescriptorAttributeName, type metadata accessor for UIFontDescriptorAttributeName, &protocol conformance descriptor for UIFontDescriptorAttributeName);
+  lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type UIFontDescriptorAttributeName and conformance UIFontDescriptorAttributeName, type metadata accessor for UIFontDescriptorAttributeName, &protocol conformance descriptor for UIFontDescriptorAttributeName);
 
   return _SwiftNewtypeWrapper<>._toCustomAnyHashable()();
 }
 
-uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance UIFontDescriptorFeatureKey()
+uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance UIFontDescriptorFeatureKey(uint64_t a1)
 {
-  lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type UIFontDescriptorFeatureKey and conformance UIFontDescriptorFeatureKey, type metadata accessor for UIFontDescriptorFeatureKey);
-  lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type UIFontDescriptorFeatureKey and conformance UIFontDescriptorFeatureKey, type metadata accessor for UIFontDescriptorFeatureKey);
+  lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type UIFontDescriptorFeatureKey and conformance UIFontDescriptorFeatureKey, type metadata accessor for UIFontDescriptorFeatureKey, &protocol conformance descriptor for UIFontDescriptorFeatureKey);
+  lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type UIFontDescriptorFeatureKey and conformance UIFontDescriptorFeatureKey, type metadata accessor for UIFontDescriptorFeatureKey, &protocol conformance descriptor for UIFontDescriptorFeatureKey);
 
   return _SwiftNewtypeWrapper<>._toCustomAnyHashable()();
 }
 
-uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance UIFontDescriptorSystemDesign()
+uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance UIFontDescriptorSystemDesign(uint64_t a1)
 {
-  lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type UIFontDescriptorSystemDesign and conformance UIFontDescriptorSystemDesign, type metadata accessor for UIFontDescriptorSystemDesign);
-  lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type UIFontDescriptorSystemDesign and conformance UIFontDescriptorSystemDesign, type metadata accessor for UIFontDescriptorSystemDesign);
+  lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type UIFontDescriptorSystemDesign and conformance UIFontDescriptorSystemDesign, type metadata accessor for UIFontDescriptorSystemDesign, &protocol conformance descriptor for UIFontDescriptorSystemDesign);
+  lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type UIFontDescriptorSystemDesign and conformance UIFontDescriptorSystemDesign, type metadata accessor for UIFontDescriptorSystemDesign, &protocol conformance descriptor for UIFontDescriptorSystemDesign);
 
   return _SwiftNewtypeWrapper<>._toCustomAnyHashable()();
 }
 
-uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance UIFontDescriptorTraitKey()
+uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance UIFontDescriptorTraitKey(uint64_t a1)
 {
-  lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type UIFontDescriptorTraitKey and conformance UIFontDescriptorTraitKey, type metadata accessor for UIFontDescriptorTraitKey);
-  lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type UIFontDescriptorTraitKey and conformance UIFontDescriptorTraitKey, type metadata accessor for UIFontDescriptorTraitKey);
+  lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type UIFontDescriptorTraitKey and conformance UIFontDescriptorTraitKey, type metadata accessor for UIFontDescriptorTraitKey, &protocol conformance descriptor for UIFontDescriptorTraitKey);
+  lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type UIFontDescriptorTraitKey and conformance UIFontDescriptorTraitKey, type metadata accessor for UIFontDescriptorTraitKey, &protocol conformance descriptor for UIFontDescriptorTraitKey);
 
   return _SwiftNewtypeWrapper<>._toCustomAnyHashable()();
 }
@@ -8005,18 +7995,18 @@ uint64_t protocol witness for RawRepresentable.init(rawValue:) in conformance NS
   return result;
 }
 
-uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance UIApplicationOpenExternalURLOptionsKey()
+uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance UIApplicationOpenExternalURLOptionsKey(uint64_t a1)
 {
-  lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type UIApplicationOpenExternalURLOptionsKey and conformance UIApplicationOpenExternalURLOptionsKey, type metadata accessor for UIApplicationOpenExternalURLOptionsKey);
-  lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type UIApplicationOpenExternalURLOptionsKey and conformance UIApplicationOpenExternalURLOptionsKey, type metadata accessor for UIApplicationOpenExternalURLOptionsKey);
+  lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type UIApplicationOpenExternalURLOptionsKey and conformance UIApplicationOpenExternalURLOptionsKey, type metadata accessor for UIApplicationOpenExternalURLOptionsKey, &protocol conformance descriptor for UIApplicationOpenExternalURLOptionsKey);
+  lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type UIApplicationOpenExternalURLOptionsKey and conformance UIApplicationOpenExternalURLOptionsKey, type metadata accessor for UIApplicationOpenExternalURLOptionsKey, &protocol conformance descriptor for UIApplicationOpenExternalURLOptionsKey);
 
   return _SwiftNewtypeWrapper<>._toCustomAnyHashable()();
 }
 
-uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance UIBackgroundTaskIdentifier()
+uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance UIBackgroundTaskIdentifier(uint64_t a1)
 {
-  lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type UIBackgroundTaskIdentifier and conformance UIBackgroundTaskIdentifier, type metadata accessor for UIBackgroundTaskIdentifier);
-  lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type UIBackgroundTaskIdentifier and conformance UIBackgroundTaskIdentifier, type metadata accessor for UIBackgroundTaskIdentifier);
+  lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type UIBackgroundTaskIdentifier and conformance UIBackgroundTaskIdentifier, type metadata accessor for UIBackgroundTaskIdentifier, &protocol conformance descriptor for UIBackgroundTaskIdentifier);
+  lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(&lazy protocol witness table cache variable for type UIBackgroundTaskIdentifier and conformance UIBackgroundTaskIdentifier, type metadata accessor for UIBackgroundTaskIdentifier, &protocol conformance descriptor for UIBackgroundTaskIdentifier);
   return _SwiftNewtypeWrapper<>._toCustomAnyHashable()();
 }
 
@@ -8050,37 +8040,37 @@ uint64_t protocol witness for Hashable.hashValue.getter in conformance NSURLReso
   return v1;
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance NSURLResourceKey()
+uint64_t protocol witness for Hashable.hash(into:) in conformance NSURLResourceKey(uint64_t a1)
 {
   static String._unconditionallyBridgeFromObjectiveC(_:)();
   String.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance NSURLResourceKey()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance NSURLResourceKey(uint64_t a1)
 {
   static String._unconditionallyBridgeFromObjectiveC(_:)();
   Hasher.init(_seed:)();
   String.hash(into:)();
-  v0 = Hasher._finalize()();
+  v1 = Hasher._finalize()();
 
-  return v0;
+  return v1;
 }
 
-uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance UISheetPresentationControllerDetentIdentifier()
+uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance UISheetPresentationControllerDetentIdentifier(void *a1, uint64_t *a2)
 {
-  v0 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v2 = v1;
-  if (v0 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v2 == v3)
+  v2 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v4 = v3;
+  if (v2 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v4 == v5)
   {
-    v5 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v5 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v7 = _stringCompareWithSmolCheck(_:_:expecting:)();
   }
 
-  return v5 & 1;
+  return v7 & 1;
 }
 
 unint64_t specialized SuggestionRanking.CodingKeys.init(rawValue:)(Swift::String string)
@@ -8179,7 +8169,7 @@ id specialized SuggestionRanking.init(coder:)(void *a1)
   return objc_msgSendSuper2(&v29, sel_init);
 }
 
-uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1)
+uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
@@ -8291,9 +8281,9 @@ unint64_t lazy protocol witness table accessor for type SuggestionRanking.Visibi
   return result;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_1(uint64_t a1)
+uint64_t __swift_destroy_boxed_opaque_existential_1(void *a1)
 {
-  v1 = *(*(a1 + 24) - 8);
+  v1 = *(a1[3] - 8);
   if ((*(v1 + 82) & 2) != 0)
   {
   }
@@ -8687,7 +8677,7 @@ uint64_t storeEnumTagSinglePayload for CGRect(uint64_t result, int a2, int a3)
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type NSFileAttributeKey and conformance NSFileAttributeKey(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -8828,12 +8818,12 @@ uint64_t storeEnumTagSinglePayload for os_unfair_lock_s(uint64_t result, int a2,
   return result;
 }
 
-void type metadata accessor for MOTaskWork(uint64_t a1, unint64_t *a2)
+void type metadata accessor for MOTaskWork(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
     ForeignTypeMetadata = swift_getForeignTypeMetadata();
-    if (!v4)
+    if (!v5)
     {
       atomic_store(ForeignTypeMetadata, a2);
     }
@@ -8883,18 +8873,18 @@ unint64_t one-time initialization function for _propertyFilter()
 
 unint64_t closure #1 in variable initialization expression of static Exif._propertyFilter()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo11CFStringRefa_yptGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo11CFStringRefa_yptGMd, &_ss23_ContiguousArrayStorageCySo11CFStringRefa_yptGMR);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_21658CA40;
   v1 = *MEMORY[0x277CD3258];
   *(inited + 32) = *MEMORY[0x277CD3258];
   v2 = *MEMORY[0x277CBEEE8];
-  v41 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo9CFNullRefaSgMd);
+  v41 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo9CFNullRefaSgMd, &_sSo9CFNullRefaSgMR);
   *(inited + 40) = v2;
   v3 = *MEMORY[0x277CD3490];
   *(inited + 64) = v41;
   *(inited + 72) = v3;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo11CFStringRefa_So06CFNullE0aSgtGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo11CFStringRefa_So06CFNullE0aSgtGMd, &_ss23_ContiguousArrayStorageCySo11CFStringRefa_So06CFNullE0aSgtGMR);
   v4 = swift_initStackObject();
   v5 = MEMORY[0x277CD34A0];
   *(v4 + 16) = xmmword_21658CA50;
@@ -8907,8 +8897,8 @@ unint64_t closure #1 in variable initialization expression of static Exif._prope
   v10 = v6;
   v11 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSo11CFStringRefa_So06CFNullD0aSgTt0g5Tf4g_n(v4);
   swift_setDeallocating();
-  outlined destroy of UTType?(v4 + 32, &_sSo11CFStringRefa_So06CFNullB0aSgtMd);
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySo11CFStringRefaSo06CFNullB0aSgGMd);
+  outlined destroy of UTType?(v4 + 32, &_sSo11CFStringRefa_So06CFNullB0aSgtMd, &_sSo11CFStringRefa_So06CFNullB0aSgtMR);
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySo11CFStringRefaSo06CFNullB0aSgGMd, &_sSDySo11CFStringRefaSo06CFNullB0aSgGMR);
   *(inited + 80) = v11;
   v13 = *MEMORY[0x277CD3038];
   *(inited + 104) = v12;
@@ -8924,7 +8914,7 @@ unint64_t closure #1 in variable initialization expression of static Exif._prope
   v19 = v16;
   v20 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSo11CFStringRefa_So06CFNullD0aSgTt0g5Tf4g_n(v14);
   swift_setDeallocating();
-  outlined destroy of UTType?(v14 + 32, &_sSo11CFStringRefa_So06CFNullB0aSgtMd);
+  outlined destroy of UTType?(v14 + 32, &_sSo11CFStringRefa_So06CFNullB0aSgtMd, &_sSo11CFStringRefa_So06CFNullB0aSgtMR);
   *(inited + 120) = v20;
   v21 = *MEMORY[0x277CD3438];
   *(inited + 144) = v12;
@@ -8943,7 +8933,7 @@ unint64_t closure #1 in variable initialization expression of static Exif._prope
   v28 = v24;
   v29 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSo11CFStringRefa_So06CFNullD0aSgTt0g5Tf4g_n(v22);
   swift_setDeallocating();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo11CFStringRefa_So06CFNullB0aSgtMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo11CFStringRefa_So06CFNullB0aSgtMd, &_sSo11CFStringRefa_So06CFNullB0aSgtMR);
   swift_arrayDestroy();
   *(inited + 160) = v29;
   v30 = *MEMORY[0x277CD3380];
@@ -8964,12 +8954,12 @@ unint64_t closure #1 in variable initialization expression of static Exif._prope
   v37 = v34;
   v38 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSo11CFStringRefa_So06CFNullD0aSgTt0g5Tf4g_n(v32);
   swift_setDeallocating();
-  outlined destroy of UTType?(v32 + 32, &_sSo11CFStringRefa_So06CFNullB0aSgtMd);
+  outlined destroy of UTType?(v32 + 32, &_sSo11CFStringRefa_So06CFNullB0aSgtMd, &_sSo11CFStringRefa_So06CFNullB0aSgtMR);
   *(inited + 264) = v12;
   *(inited + 240) = v38;
   v39 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSo11CFStringRefa_ypTt0g5Tf4g_n(inited);
   swift_setDeallocating();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo11CFStringRefa_yptMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo11CFStringRefa_yptMd, &_sSo11CFStringRefa_yptMR);
   swift_arrayDestroy();
   return v39;
 }
@@ -9175,7 +9165,7 @@ void $defer #1 () in static Exif.filterImage(imageSource:outputURL:)(uint64_t a1
     *v9 = 141558275;
     *(v9 + 4) = 1752392040;
     *(v9 + 12) = 2081;
-    lazy protocol witness table accessor for type URL and conformance URL(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x277CC9260]);
+    lazy protocol witness table accessor for type URL and conformance URL(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x277CC9260], MEMORY[0x277CC9290]);
     v11 = dispatch thunk of CustomStringConvertible.description.getter();
     v13 = v12;
     (*(v3 + 8))(v5, v2);
@@ -9202,13 +9192,13 @@ uint64_t static Exif.filterVideo(inputURL:outputURL:)(uint64_t a1, uint64_t a2)
   *v5 = v2;
   v5[1] = static Exif.filterVideo(inputURL:outputURL:);
 
-  return (specialized static Exif.filterVideo(inputURL:outputURL:))(a1, a2);
+  return specialized static Exif.filterVideo(inputURL:outputURL:)(a1, a2);
 }
 
-uint64_t specialized closure #1 in Sequence<>.contains(_:)()
+uint64_t specialized closure #1 in Sequence<>.contains(_:)(uint64_t *a1, uint64_t *a2)
 {
   type metadata accessor for CFStringRef(0);
-  lazy protocol witness table accessor for type URL and conformance URL(&lazy protocol witness table cache variable for type CFStringRef and conformance CFStringRef, type metadata accessor for CFStringRef);
+  lazy protocol witness table accessor for type URL and conformance URL(&lazy protocol witness table cache variable for type CFStringRef and conformance CFStringRef, type metadata accessor for CFStringRef, &protocol conformance descriptor for CFStringRef);
   return static _CFObject.== infix(_:_:)() & 1;
 }
 
@@ -9304,7 +9294,7 @@ uint64_t specialized static Exif.filterImage(imageSource:outputURL:)()
     *v25 = 141558275;
     *(v25 + 4) = 1752392040;
     *(v25 + 12) = 2081;
-    lazy protocol witness table accessor for type URL and conformance URL(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x277CC9260]);
+    lazy protocol witness table accessor for type URL and conformance URL(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x277CC9260], MEMORY[0x277CC9290]);
     v27 = dispatch thunk of CustomStringConvertible.description.getter();
     v29 = v28;
     v132 = *(v24 + 8);
@@ -9398,7 +9388,7 @@ LABEL_66:
     *v50 = v44;
     v51 = v46;
     _os_log_impl(&dword_21607C000, v47, v48, "Exif.filterImage() Source Type: %{public}@", v49, 0xCu);
-    outlined destroy of UTType?(v50, &_sSo8NSObjectCSgMd);
+    outlined destroy of UTType?(v50, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
     MEMORY[0x21CE94770](v50, -1, -1);
     MEMORY[0x21CE94770](v49, -1, -1);
   }
@@ -9463,7 +9453,7 @@ LABEL_35:
     *v74 = v70;
     v75 = v70;
     _os_log_impl(&dword_21607C000, v71, v72, "Exif.filterImage() Destination Type: %{private,mask.hash}@", v73, 0x16u);
-    outlined destroy of UTType?(v74, &_sSo8NSObjectCSgMd);
+    outlined destroy of UTType?(v74, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
     MEMORY[0x21CE94770](v74, -1, -1);
     MEMORY[0x21CE94770](v73, -1, -1);
   }
@@ -9507,7 +9497,7 @@ LABEL_35:
       *v101 = 141558275;
       *(v101 + 4) = 1752392040;
       *(v101 + 12) = 2081;
-      lazy protocol witness table accessor for type URL and conformance URL(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x277CC9260]);
+      lazy protocol witness table accessor for type URL and conformance URL(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x277CC9260], MEMORY[0x277CC9290]);
       v102 = dispatch thunk of CustomStringConvertible.description.getter();
       v103 = v70;
       v105 = v104;
@@ -9554,7 +9544,7 @@ LABEL_35:
     *v92 = 141558275;
     *(v92 + 4) = 1752392040;
     *(v92 + 12) = 2081;
-    lazy protocol witness table accessor for type URL and conformance URL(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x277CC9260]);
+    lazy protocol witness table accessor for type URL and conformance URL(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x277CC9260], MEMORY[0x277CC9290]);
     v93 = v88;
     v88 = dispatch thunk of CustomStringConvertible.description.getter();
     v35 = v94;
@@ -9596,7 +9586,7 @@ LABEL_63:
   }
 
 LABEL_48:
-  lazy protocol witness table accessor for type URL and conformance URL(&lazy protocol witness table cache variable for type CFStringRef and conformance CFStringRef, type metadata accessor for CFStringRef);
+  lazy protocol witness table accessor for type URL and conformance URL(&lazy protocol witness table cache variable for type CFStringRef and conformance CFStringRef, type metadata accessor for CFStringRef, &protocol conformance descriptor for CFStringRef);
   v108 = 0;
   v107 = v88;
   do
@@ -9627,7 +9617,7 @@ LABEL_50:
       *v119 = 141558275;
       *(v119 + 4) = 1752392040;
       *(v119 + 12) = 2081;
-      lazy protocol witness table accessor for type URL and conformance URL(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x277CC9260]);
+      lazy protocol witness table accessor for type URL and conformance URL(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x277CC9260], MEMORY[0x277CC9290]);
       v121 = dispatch thunk of CustomStringConvertible.description.getter();
       v123 = v122;
       v132(v117, v118);
@@ -9693,16 +9683,17 @@ LABEL_59:
   return MEMORY[0x2822009F8](v6, 0, 0);
 }
 
+uint64_t specialized static Exif.filterImage(imageSource:outputURL:)(uint64_t a1)
 {
-  v129 = v0;
-  v1 = Logger.logObject.getter();
-  v2 = static os_log_type_t.info.getter();
-  if (os_log_type_enabled(v1, v2))
+  v130 = v1;
+  v2 = Logger.logObject.getter();
+  v3 = static os_log_type_t.info.getter();
+  if (os_log_type_enabled(v2, v3))
   {
-    v3 = swift_slowAlloc();
-    *v3 = 0;
-    _os_log_impl(&dword_21607C000, v1, v2, "[EXIF] Background Processing Fake Work END", v3, 2u);
-    MEMORY[0x21CE94770](v3, -1, -1);
+    v4 = swift_slowAlloc();
+    *v4 = 0;
+    _os_log_impl(&dword_21607C000, v2, v3, "[EXIF] Background Processing Fake Work END", v4, 2u);
+    MEMORY[0x21CE94770](v4, -1, -1);
   }
 
   if (one-time initialization token for exif != -1)
@@ -9710,159 +9701,159 @@ LABEL_59:
     swift_once();
   }
 
-  v4 = v0[12];
-  v5 = v0[7];
-  v6 = v0[8];
-  v7 = v0[6];
-  v8 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v8, static CommonLogger.exif);
-  v126 = *(v6 + 16);
-  v126(v4, v7, v5);
-  v9 = Logger.logObject.getter();
-  v10 = static os_log_type_t.info.getter();
-  v11 = os_log_type_enabled(v9, v10);
-  v12 = v0[12];
-  v14 = v0[7];
-  v13 = v0[8];
-  if (v11)
+  v5 = v1[12];
+  v6 = v1[7];
+  v7 = v1[8];
+  v8 = v1[6];
+  v9 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v9, static CommonLogger.exif);
+  v127 = *(v7 + 16);
+  v127(v5, v8, v6);
+  v10 = Logger.logObject.getter();
+  v11 = static os_log_type_t.info.getter();
+  v12 = os_log_type_enabled(v10, v11);
+  v13 = v1[12];
+  v15 = v1[7];
+  v14 = v1[8];
+  if (v12)
   {
-    v15 = swift_slowAlloc();
     v16 = swift_slowAlloc();
-    v128[0] = v16;
-    *v15 = 141558275;
-    *(v15 + 4) = 1752392040;
-    *(v15 + 12) = 2081;
-    lazy protocol witness table accessor for type URL and conformance URL(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x277CC9260]);
-    v17 = dispatch thunk of CustomStringConvertible.description.getter();
-    v19 = v18;
-    v127 = *(v13 + 8);
-    v127(v12, v14);
-    v20 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v17, v19, v128);
+    v17 = swift_slowAlloc();
+    v129[0] = v17;
+    *v16 = 141558275;
+    *(v16 + 4) = 1752392040;
+    *(v16 + 12) = 2081;
+    lazy protocol witness table accessor for type URL and conformance URL(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x277CC9260], MEMORY[0x277CC9290]);
+    v18 = dispatch thunk of CustomStringConvertible.description.getter();
+    v20 = v19;
+    v128 = *(v14 + 8);
+    v128(v13, v15);
+    v21 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v18, v20, v129);
 
-    *(v15 + 14) = v20;
-    _os_log_impl(&dword_21607C000, v9, v10, "Exif.filterImage() for %{private,mask.hash}s BEGIN", v15, 0x16u);
-    __swift_destroy_boxed_opaque_existential_1(v16);
+    *(v16 + 14) = v21;
+    _os_log_impl(&dword_21607C000, v10, v11, "Exif.filterImage() for %{private,mask.hash}s BEGIN", v16, 0x16u);
+    __swift_destroy_boxed_opaque_existential_1(v17);
+    MEMORY[0x21CE94770](v17, -1, -1);
     MEMORY[0x21CE94770](v16, -1, -1);
-    MEMORY[0x21CE94770](v15, -1, -1);
   }
 
   else
   {
 
-    v127 = *(v13 + 8);
-    v127(v12, v14);
+    v128 = *(v14 + 8);
+    v128(v13, v15);
   }
 
-  v21 = CGImageDestinationCopyTypeIdentifiers();
+  v22 = CGImageDestinationCopyTypeIdentifiers();
   objc_opt_self();
   swift_dynamicCastObjCClassUnconditional();
-  v128[0] = 0;
+  v129[0] = 0;
   type metadata accessor for CFStringRef(0);
-  v23 = v22;
+  v24 = v23;
   result = static Array._forceBridgeFromObjectiveC(_:result:)();
-  v25 = v128[0];
-  if (!v128[0])
+  v26 = v129[0];
+  if (!v129[0])
   {
     goto LABEL_57;
   }
 
-  v26 = Logger.logObject.getter();
-  v27 = static os_log_type_t.debug.getter();
+  v27 = Logger.logObject.getter();
+  v28 = static os_log_type_t.debug.getter();
 
-  if (os_log_type_enabled(v26, v27))
+  if (os_log_type_enabled(v27, v28))
   {
-    v28 = swift_slowAlloc();
     v29 = swift_slowAlloc();
-    v128[0] = v29;
-    *v28 = 136315138;
-    v30 = MEMORY[0x21CE922B0](v25, v23);
-    v32 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v30, v31, v128);
+    v30 = swift_slowAlloc();
+    v129[0] = v30;
+    *v29 = 136315138;
+    v31 = MEMORY[0x21CE922B0](v26, v24);
+    v33 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v31, v32, v129);
 
-    *(v28 + 4) = v32;
-    _os_log_impl(&dword_21607C000, v26, v27, "Exif.filterImage() Possible Destination Types: %s", v28, 0xCu);
-    __swift_destroy_boxed_opaque_existential_1(v29);
+    *(v29 + 4) = v33;
+    _os_log_impl(&dword_21607C000, v27, v28, "Exif.filterImage() Possible Destination Types: %s", v29, 0xCu);
+    __swift_destroy_boxed_opaque_existential_1(v30);
+    MEMORY[0x21CE94770](v30, -1, -1);
     MEMORY[0x21CE94770](v29, -1, -1);
-    MEMORY[0x21CE94770](v28, -1, -1);
   }
 
-  v33 = CGImageSourceGetType(v0[5]);
-  if (!v33)
+  v34 = CGImageSourceGetType(v1[5]);
+  if (!v34)
   {
 
-    v45 = Logger.logObject.getter();
-    v46 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v45, v46))
+    v46 = Logger.logObject.getter();
+    v47 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v46, v47))
     {
-      v47 = swift_slowAlloc();
-      *v47 = 0;
-      _os_log_impl(&dword_21607C000, v45, v46, "Exif.filterImage() Invalid source type", v47, 2u);
-      MEMORY[0x21CE94770](v47, -1, -1);
+      v48 = swift_slowAlloc();
+      *v48 = 0;
+      _os_log_impl(&dword_21607C000, v46, v47, "Exif.filterImage() Invalid source type", v48, 2u);
+      MEMORY[0x21CE94770](v48, -1, -1);
     }
 
-    v48 = v0[6];
+    v49 = v1[6];
 
     lazy protocol witness table accessor for type Exif.ExifError and conformance Exif.ExifError();
     swift_allocError();
-    *v49 = 1;
+    *v50 = 1;
     swift_willThrow();
     goto LABEL_49;
   }
 
-  v34 = v33;
-  v35 = (v0 + 2);
-  v36 = v33;
-  v37 = Logger.logObject.getter();
-  v38 = static os_log_type_t.debug.getter();
+  v35 = v34;
+  v36 = (v1 + 2);
+  v37 = v34;
+  v38 = Logger.logObject.getter();
+  v39 = static os_log_type_t.debug.getter();
 
-  if (os_log_type_enabled(v37, v38))
+  if (os_log_type_enabled(v38, v39))
   {
-    v39 = swift_slowAlloc();
     v40 = swift_slowAlloc();
-    *v39 = 138543362;
-    *(v39 + 4) = v36;
-    *v40 = v34;
-    v41 = v36;
-    _os_log_impl(&dword_21607C000, v37, v38, "Exif.filterImage() Source Type: %{public}@", v39, 0xCu);
-    outlined destroy of UTType?(v40, &_sSo8NSObjectCSgMd);
+    v41 = swift_slowAlloc();
+    *v40 = 138543362;
+    *(v40 + 4) = v37;
+    *v41 = v35;
+    v42 = v37;
+    _os_log_impl(&dword_21607C000, v38, v39, "Exif.filterImage() Source Type: %{public}@", v40, 0xCu);
+    outlined destroy of UTType?(v41, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+    MEMORY[0x21CE94770](v41, -1, -1);
     MEMORY[0x21CE94770](v40, -1, -1);
-    MEMORY[0x21CE94770](v39, -1, -1);
   }
 
-  *v35 = v36;
-  v42 = swift_task_alloc();
-  *(v42 + 16) = v35;
-  v43 = specialized Sequence.contains(where:)(partial apply for specialized closure #1 in Sequence<>.contains(_:), v42, v25);
+  *v36 = v37;
+  v43 = swift_task_alloc();
+  *(v43 + 16) = v36;
+  v44 = specialized Sequence.contains(where:)(partial apply for specialized closure #1 in Sequence<>.contains(_:), v43, v26);
 
-  v124 = v36;
-  if (v43)
+  v125 = v37;
+  if (v44)
   {
 
-    v44 = v36;
+    v45 = v37;
     goto LABEL_26;
   }
 
-  v50 = 0xEB00000000636965;
-  v51 = 0x682E63696C627570;
-  v52 = MEMORY[0x21CE91FC0](0x682E63696C627570, 0xEB00000000636965);
-  v0[3] = v52;
-  v53 = swift_task_alloc();
-  *(v53 + 16) = v0 + 3;
-  v54 = specialized Sequence.contains(where:)(closure #1 in Sequence<>.contains(_:)specialized partial apply, v53, v25);
+  v51 = 0xEB00000000636965;
+  v52 = 0x682E63696C627570;
+  v53 = MEMORY[0x21CE91FC0](0x682E63696C627570, 0xEB00000000636965);
+  v1[3] = v53;
+  v54 = swift_task_alloc();
+  *(v54 + 16) = v1 + 3;
+  v55 = specialized Sequence.contains(where:)(closure #1 in Sequence<>.contains(_:)specialized partial apply, v54, v26);
 
-  if (v54 & 1) != 0 || (v50 = 0xEB00000000676570, v51 = 0x6A2E63696C627570, v55 = MEMORY[0x21CE91FC0](0x6A2E63696C627570, 0xEB00000000676570), v0[4] = v55, v56 = swift_task_alloc(), *(v56 + 16) = v0 + 4, v57 = specialized Sequence.contains(where:)(closure #1 in Sequence<>.contains(_:)specialized partial apply, v56, v25), v55, result = , (v57))
+  if (v55 & 1) != 0 || (v51 = 0xEB00000000676570, v52 = 0x6A2E63696C627570, v56 = MEMORY[0x21CE91FC0](0x6A2E63696C627570, 0xEB00000000676570), v1[4] = v56, v57 = swift_task_alloc(), *(v57 + 16) = v1 + 4, v58 = specialized Sequence.contains(where:)(closure #1 in Sequence<>.contains(_:)specialized partial apply, v57, v26), v56, result = , (v58))
   {
 
-    v44 = MEMORY[0x21CE91FC0](v51, v50);
+    v45 = MEMORY[0x21CE91FC0](v52, v51);
     goto LABEL_26;
   }
 
-  if ((v25 & 0xC000000000000001) != 0)
+  if ((v26 & 0xC000000000000001) != 0)
   {
-    v58 = MEMORY[0x21CE93180](0, v25);
+    v59 = MEMORY[0x21CE93180](0, v26);
     goto LABEL_25;
   }
 
-  if (!*((v25 & 0xFFFFFFFFFFFFFF8) + 0x10))
+  if (!*((v26 & 0xFFFFFFFFFFFFFF8) + 0x10))
   {
     __break(1u);
 LABEL_57:
@@ -9870,135 +9861,135 @@ LABEL_57:
     return result;
   }
 
-  v58 = *(v25 + 32);
+  v59 = *(v26 + 32);
 LABEL_25:
-  v59 = v58;
+  v60 = v59;
 
-  v44 = v59;
+  v45 = v60;
 LABEL_26:
-  v60 = v44;
-  v61 = Logger.logObject.getter();
-  v62 = static os_log_type_t.debug.getter();
+  v61 = v45;
+  v62 = Logger.logObject.getter();
+  v63 = static os_log_type_t.debug.getter();
 
-  if (os_log_type_enabled(v61, v62))
+  if (os_log_type_enabled(v62, v63))
   {
-    v63 = swift_slowAlloc();
     v64 = swift_slowAlloc();
-    *v63 = 141558275;
-    *(v63 + 4) = 1752392040;
-    *(v63 + 12) = 2113;
-    *(v63 + 14) = v60;
-    *v64 = v60;
-    v65 = v60;
-    _os_log_impl(&dword_21607C000, v61, v62, "Exif.filterImage() Destination Type: %{private,mask.hash}@", v63, 0x16u);
-    outlined destroy of UTType?(v64, &_sSo8NSObjectCSgMd);
+    v65 = swift_slowAlloc();
+    *v64 = 141558275;
+    *(v64 + 4) = 1752392040;
+    *(v64 + 12) = 2113;
+    *(v64 + 14) = v61;
+    *v65 = v61;
+    v66 = v61;
+    _os_log_impl(&dword_21607C000, v62, v63, "Exif.filterImage() Destination Type: %{private,mask.hash}@", v64, 0x16u);
+    outlined destroy of UTType?(v65, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+    MEMORY[0x21CE94770](v65, -1, -1);
     MEMORY[0x21CE94770](v64, -1, -1);
-    MEMORY[0x21CE94770](v63, -1, -1);
   }
 
-  v66 = v0[5];
+  v67 = v1[5];
 
-  Count = CGImageSourceGetCount(v66);
-  v68 = Logger.logObject.getter();
-  v69 = static os_log_type_t.debug.getter();
-  if (os_log_type_enabled(v68, v69))
+  Count = CGImageSourceGetCount(v67);
+  v69 = Logger.logObject.getter();
+  v70 = static os_log_type_t.debug.getter();
+  if (os_log_type_enabled(v69, v70))
   {
-    v70 = swift_slowAlloc();
-    *v70 = 134349056;
-    *(v70 + 4) = Count;
-    _os_log_impl(&dword_21607C000, v68, v69, "Exif.filterImage() Sub-images: %{public}ld", v70, 0xCu);
-    MEMORY[0x21CE94770](v70, -1, -1);
+    v71 = swift_slowAlloc();
+    *v71 = 134349056;
+    *(v71 + 4) = Count;
+    _os_log_impl(&dword_21607C000, v69, v70, "Exif.filterImage() Sub-images: %{public}ld", v71, 0xCu);
+    MEMORY[0x21CE94770](v71, -1, -1);
   }
 
-  URL._bridgeToObjectiveC()(v71);
-  v73 = v72;
-  v74 = v0;
-  v75 = CGImageDestinationCreateWithURL(v72, v60, Count, 0);
+  URL._bridgeToObjectiveC()(v72);
+  v74 = v73;
+  v75 = v1;
+  v76 = CGImageDestinationCreateWithURL(v73, v61, Count, 0);
 
-  v76 = v74[6];
-  v77 = v74[7];
-  v125 = v60;
-  if (!v75)
+  v77 = v75[6];
+  v78 = v75[7];
+  v126 = v61;
+  if (!v76)
   {
-    v126(v74[9], v76, v77);
-    v90 = Logger.logObject.getter();
-    v91 = static os_log_type_t.error.getter();
-    v92 = os_log_type_enabled(v90, v91);
-    v93 = v74[9];
-    v94 = v74[7];
-    v0 = v74;
-    if (v92)
+    v127(v75[9], v77, v78);
+    v91 = Logger.logObject.getter();
+    v92 = static os_log_type_t.error.getter();
+    v93 = os_log_type_enabled(v91, v92);
+    v94 = v75[9];
+    v95 = v75[7];
+    v1 = v75;
+    if (v93)
     {
-      v95 = swift_slowAlloc();
       v96 = swift_slowAlloc();
-      v128[0] = v96;
-      *v95 = 141558275;
-      *(v95 + 4) = 1752392040;
-      *(v95 + 12) = 2081;
-      lazy protocol witness table accessor for type URL and conformance URL(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x277CC9260]);
-      v97 = dispatch thunk of CustomStringConvertible.description.getter();
-      v99 = v98;
-      v127(v93, v94);
-      v100 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v97, v99, v128);
+      v97 = swift_slowAlloc();
+      v129[0] = v97;
+      *v96 = 141558275;
+      *(v96 + 4) = 1752392040;
+      *(v96 + 12) = 2081;
+      lazy protocol witness table accessor for type URL and conformance URL(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x277CC9260], MEMORY[0x277CC9290]);
+      v98 = dispatch thunk of CustomStringConvertible.description.getter();
+      v100 = v99;
+      v128(v94, v95);
+      v101 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v98, v100, v129);
 
-      *(v95 + 14) = v100;
-      _os_log_impl(&dword_21607C000, v90, v91, "Exif.filterImage() Invalid destination %{private,mask.hash}s", v95, 0x16u);
-      __swift_destroy_boxed_opaque_existential_1(v96);
+      *(v96 + 14) = v101;
+      _os_log_impl(&dword_21607C000, v91, v92, "Exif.filterImage() Invalid destination %{private,mask.hash}s", v96, 0x16u);
+      __swift_destroy_boxed_opaque_existential_1(v97);
+      MEMORY[0x21CE94770](v97, -1, -1);
       MEMORY[0x21CE94770](v96, -1, -1);
-      MEMORY[0x21CE94770](v95, -1, -1);
     }
 
     else
     {
 
-      v127(v93, v94);
+      v128(v94, v95);
     }
 
-    v48 = v0[6];
+    v49 = v1[6];
     lazy protocol witness table accessor for type Exif.ExifError and conformance Exif.ExifError();
     swift_allocError();
-    *v119 = 3;
+    *v120 = 3;
     swift_willThrow();
 
     goto LABEL_49;
   }
 
-  v126(v74[11], v76, v77);
-  v78 = Logger.logObject.getter();
-  v79 = static os_log_type_t.debug.getter();
-  v80 = os_log_type_enabled(v78, v79);
-  v81 = v74[11];
-  v82 = v74[7];
-  idst = v75;
-  v123 = v74;
-  if (v80)
+  v127(v75[11], v77, v78);
+  v79 = Logger.logObject.getter();
+  v80 = static os_log_type_t.debug.getter();
+  v81 = os_log_type_enabled(v79, v80);
+  v82 = v75[11];
+  v83 = v75[7];
+  idst = v76;
+  v124 = v75;
+  if (v81)
   {
-    v83 = swift_slowAlloc();
-    v121 = swift_slowAlloc();
-    v128[0] = v121;
-    *v83 = 141558275;
-    *(v83 + 4) = 1752392040;
-    *(v83 + 12) = 2081;
-    lazy protocol witness table accessor for type URL and conformance URL(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x277CC9260]);
-    v84 = v79;
-    v85 = dispatch thunk of CustomStringConvertible.description.getter();
-    v86 = Count;
-    v88 = v87;
-    v127(v81, v82);
-    v89 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v85, v88, v128);
-    Count = v86;
+    v84 = swift_slowAlloc();
+    v122 = swift_slowAlloc();
+    v129[0] = v122;
+    *v84 = 141558275;
+    *(v84 + 4) = 1752392040;
+    *(v84 + 12) = 2081;
+    lazy protocol witness table accessor for type URL and conformance URL(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x277CC9260], MEMORY[0x277CC9290]);
+    v85 = v80;
+    v86 = dispatch thunk of CustomStringConvertible.description.getter();
+    v87 = Count;
+    v89 = v88;
+    v128(v82, v83);
+    v90 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v86, v89, v129);
+    Count = v87;
 
-    *(v83 + 14) = v89;
-    _os_log_impl(&dword_21607C000, v78, v84, "Exif.filterImage() Rewriting: %{private,mask.hash}s", v83, 0x16u);
-    __swift_destroy_boxed_opaque_existential_1(v121);
-    MEMORY[0x21CE94770](v121, -1, -1);
-    MEMORY[0x21CE94770](v83, -1, -1);
+    *(v84 + 14) = v90;
+    _os_log_impl(&dword_21607C000, v79, v85, "Exif.filterImage() Rewriting: %{private,mask.hash}s", v84, 0x16u);
+    __swift_destroy_boxed_opaque_existential_1(v122);
+    MEMORY[0x21CE94770](v122, -1, -1);
+    MEMORY[0x21CE94770](v84, -1, -1);
   }
 
   else
   {
 
-    v127(v81, v82);
+    v128(v82, v83);
   }
 
   if ((Count & 0x8000000000000000) != 0)
@@ -10009,7 +10000,7 @@ LABEL_54:
     goto LABEL_39;
   }
 
-  v101 = idst;
+  v102 = idst;
   if (!Count)
   {
     goto LABEL_41;
@@ -10021,91 +10012,91 @@ LABEL_54:
   }
 
 LABEL_39:
-  lazy protocol witness table accessor for type URL and conformance URL(&lazy protocol witness table cache variable for type CFStringRef and conformance CFStringRef, type metadata accessor for CFStringRef);
-  v102 = 0;
-  v101 = idst;
+  lazy protocol witness table accessor for type URL and conformance URL(&lazy protocol witness table cache variable for type CFStringRef and conformance CFStringRef, type metadata accessor for CFStringRef, &protocol conformance descriptor for CFStringRef);
+  v103 = 0;
+  v102 = idst;
   do
   {
-    v103 = v123[5];
+    v104 = v124[5];
     isa = Dictionary._bridgeToObjectiveC()().super.isa;
-    CGImageDestinationAddImageFromSource(idst, v103, v102, isa);
+    CGImageDestinationAddImageFromSource(idst, v104, v103, isa);
 
-    ++v102;
+    ++v103;
   }
 
-  while (Count != v102);
+  while (Count != v103);
 LABEL_41:
-  v105 = v101;
-  if (!CGImageDestinationFinalize(v101))
+  v106 = v102;
+  if (!CGImageDestinationFinalize(v102))
   {
-    v126(v123[10], v123[6], v123[7]);
-    v108 = Logger.logObject.getter();
-    v109 = static os_log_type_t.error.getter();
-    v110 = os_log_type_enabled(v108, v109);
-    v111 = v123[10];
-    v112 = v123[7];
-    if (v110)
+    v127(v124[10], v124[6], v124[7]);
+    v109 = Logger.logObject.getter();
+    v110 = static os_log_type_t.error.getter();
+    v111 = os_log_type_enabled(v109, v110);
+    v112 = v124[10];
+    v113 = v124[7];
+    if (v111)
     {
-      v113 = swift_slowAlloc();
       v114 = swift_slowAlloc();
-      v128[0] = v114;
-      *v113 = 141558275;
-      *(v113 + 4) = 1752392040;
-      *(v113 + 12) = 2081;
-      lazy protocol witness table accessor for type URL and conformance URL(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x277CC9260]);
-      v115 = dispatch thunk of CustomStringConvertible.description.getter();
-      v117 = v116;
-      v127(v111, v112);
-      v118 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v115, v117, v128);
-      v105 = idst;
+      v115 = swift_slowAlloc();
+      v129[0] = v115;
+      *v114 = 141558275;
+      *(v114 + 4) = 1752392040;
+      *(v114 + 12) = 2081;
+      lazy protocol witness table accessor for type URL and conformance URL(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x277CC9260], MEMORY[0x277CC9290]);
+      v116 = dispatch thunk of CustomStringConvertible.description.getter();
+      v118 = v117;
+      v128(v112, v113);
+      v119 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v116, v118, v129);
+      v106 = idst;
 
-      *(v113 + 14) = v118;
-      _os_log_impl(&dword_21607C000, v108, v109, "Exif.filterImage() Cannot finalize image to %{private,mask.hash}s", v113, 0x16u);
-      __swift_destroy_boxed_opaque_existential_1(v114);
+      *(v114 + 14) = v119;
+      _os_log_impl(&dword_21607C000, v109, v110, "Exif.filterImage() Cannot finalize image to %{private,mask.hash}s", v114, 0x16u);
+      __swift_destroy_boxed_opaque_existential_1(v115);
+      MEMORY[0x21CE94770](v115, -1, -1);
       MEMORY[0x21CE94770](v114, -1, -1);
-      MEMORY[0x21CE94770](v113, -1, -1);
     }
 
     else
     {
 
-      v127(v111, v112);
+      v128(v112, v113);
     }
 
-    v0 = v123;
-    v48 = v123[6];
+    v1 = v124;
+    v49 = v124[6];
     lazy protocol witness table accessor for type Exif.ExifError and conformance Exif.ExifError();
     swift_allocError();
-    *v120 = 4;
+    *v121 = 4;
     swift_willThrow();
 
 LABEL_49:
-    $defer #1 () in static Exif.filterImage(imageSource:outputURL:)(v48);
+    $defer #1 () in static Exif.filterImage(imageSource:outputURL:)(v49);
 
-    v107 = v0[1];
+    v108 = v1[1];
     goto LABEL_50;
   }
 
-  v106 = v123[6];
+  v107 = v124[6];
 
-  $defer #1 () in static Exif.filterImage(imageSource:outputURL:)(v106);
+  $defer #1 () in static Exif.filterImage(imageSource:outputURL:)(v107);
 
-  v107 = v123[1];
+  v108 = v124[1];
 LABEL_50:
 
-  return v107();
+  return v108();
 }
 
 {
-  v132 = v0;
-  v1 = Logger.logObject.getter();
-  v2 = static os_log_type_t.info.getter();
-  if (os_log_type_enabled(v1, v2))
+  v133 = v1;
+  v2 = Logger.logObject.getter();
+  v3 = static os_log_type_t.info.getter();
+  if (os_log_type_enabled(v2, v3))
   {
-    v3 = swift_slowAlloc();
-    *v3 = 0;
-    _os_log_impl(&dword_21607C000, v1, v2, "[EXIF] Background Processing Fake Work END", v3, 2u);
-    MEMORY[0x21CE94770](v3, -1, -1);
+    v4 = swift_slowAlloc();
+    *v4 = 0;
+    _os_log_impl(&dword_21607C000, v2, v3, "[EXIF] Background Processing Fake Work END", v4, 2u);
+    MEMORY[0x21CE94770](v4, -1, -1);
   }
 
   if (one-time initialization token for exif != -1)
@@ -10113,160 +10104,160 @@ LABEL_50:
     swift_once();
   }
 
-  v4 = *(v130 + 96);
-  v5 = *(v130 + 56);
-  v6 = *(v130 + 64);
-  v7 = *(v130 + 48);
-  v8 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v8, static CommonLogger.exif);
-  v128 = *(v6 + 16);
-  v128(v4, v7, v5);
-  v9 = Logger.logObject.getter();
-  v10 = static os_log_type_t.info.getter();
-  v11 = os_log_type_enabled(v9, v10);
-  v12 = *(v130 + 96);
-  v13 = *(v130 + 56);
-  v14 = *(v130 + 64);
-  if (v11)
+  v5 = *(v131 + 96);
+  v6 = *(v131 + 56);
+  v7 = *(v131 + 64);
+  v8 = *(v131 + 48);
+  v9 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v9, static CommonLogger.exif);
+  v129 = *(v7 + 16);
+  v129(v5, v8, v6);
+  v10 = Logger.logObject.getter();
+  v11 = static os_log_type_t.info.getter();
+  v12 = os_log_type_enabled(v10, v11);
+  v13 = *(v131 + 96);
+  v14 = *(v131 + 56);
+  v15 = *(v131 + 64);
+  if (v12)
   {
-    v15 = swift_slowAlloc();
     v16 = swift_slowAlloc();
-    v131[0] = v16;
-    *v15 = 141558275;
-    *(v15 + 4) = 1752392040;
-    *(v15 + 12) = 2081;
-    lazy protocol witness table accessor for type URL and conformance URL(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x277CC9260]);
-    v17 = dispatch thunk of CustomStringConvertible.description.getter();
-    v19 = v18;
-    v20 = *(v14 + 8);
-    v20(v12, v13);
-    v21 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v17, v19, v131);
+    v17 = swift_slowAlloc();
+    v132[0] = v17;
+    *v16 = 141558275;
+    *(v16 + 4) = 1752392040;
+    *(v16 + 12) = 2081;
+    lazy protocol witness table accessor for type URL and conformance URL(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x277CC9260], MEMORY[0x277CC9290]);
+    v18 = dispatch thunk of CustomStringConvertible.description.getter();
+    v20 = v19;
+    v21 = *(v15 + 8);
+    v21(v13, v14);
+    v22 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v18, v20, v132);
 
-    *(v15 + 14) = v21;
-    _os_log_impl(&dword_21607C000, v9, v10, "Exif.filterImage() for %{private,mask.hash}s BEGIN", v15, 0x16u);
-    __swift_destroy_boxed_opaque_existential_1(v16);
-    MEMORY[0x21CE94770](v16, -1, -1);
-    v22 = v15;
-    v23 = v20;
-    MEMORY[0x21CE94770](v22, -1, -1);
+    *(v16 + 14) = v22;
+    _os_log_impl(&dword_21607C000, v10, v11, "Exif.filterImage() for %{private,mask.hash}s BEGIN", v16, 0x16u);
+    __swift_destroy_boxed_opaque_existential_1(v17);
+    MEMORY[0x21CE94770](v17, -1, -1);
+    v23 = v16;
+    v24 = v21;
+    MEMORY[0x21CE94770](v23, -1, -1);
   }
 
   else
   {
 
-    v23 = *(v14 + 8);
-    v23(v12, v13);
+    v24 = *(v15 + 8);
+    v24(v13, v14);
   }
 
-  v24 = CGImageDestinationCopyTypeIdentifiers();
+  v25 = CGImageDestinationCopyTypeIdentifiers();
   objc_opt_self();
   swift_dynamicCastObjCClassUnconditional();
-  v131[0] = 0;
+  v132[0] = 0;
   type metadata accessor for CFStringRef(0);
-  v26 = v25;
+  v27 = v26;
   result = static Array._forceBridgeFromObjectiveC(_:result:)();
-  v28 = v131[0];
-  if (!v131[0])
+  v29 = v132[0];
+  if (!v132[0])
   {
     goto LABEL_57;
   }
 
-  v29 = Logger.logObject.getter();
-  v30 = static os_log_type_t.debug.getter();
+  v30 = Logger.logObject.getter();
+  v31 = static os_log_type_t.debug.getter();
 
-  if (os_log_type_enabled(v29, v30))
+  if (os_log_type_enabled(v30, v31))
   {
-    v31 = swift_slowAlloc();
     v32 = swift_slowAlloc();
-    v131[0] = v32;
-    *v31 = 136315138;
-    v33 = MEMORY[0x21CE922B0](v28, v26);
-    v35 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v33, v34, v131);
+    v33 = swift_slowAlloc();
+    v132[0] = v33;
+    *v32 = 136315138;
+    v34 = MEMORY[0x21CE922B0](v29, v27);
+    v36 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v34, v35, v132);
 
-    *(v31 + 4) = v35;
-    _os_log_impl(&dword_21607C000, v29, v30, "Exif.filterImage() Possible Destination Types: %s", v31, 0xCu);
-    __swift_destroy_boxed_opaque_existential_1(v32);
+    *(v32 + 4) = v36;
+    _os_log_impl(&dword_21607C000, v30, v31, "Exif.filterImage() Possible Destination Types: %s", v32, 0xCu);
+    __swift_destroy_boxed_opaque_existential_1(v33);
+    MEMORY[0x21CE94770](v33, -1, -1);
     MEMORY[0x21CE94770](v32, -1, -1);
-    MEMORY[0x21CE94770](v31, -1, -1);
   }
 
-  v36 = CGImageSourceGetType(*(v130 + 40));
-  if (!v36)
+  v37 = CGImageSourceGetType(*(v131 + 40));
+  if (!v37)
   {
 
-    v48 = Logger.logObject.getter();
-    v49 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v48, v49))
+    v49 = Logger.logObject.getter();
+    v50 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v49, v50))
     {
-      v50 = swift_slowAlloc();
-      *v50 = 0;
-      _os_log_impl(&dword_21607C000, v48, v49, "Exif.filterImage() Invalid source type", v50, 2u);
-      MEMORY[0x21CE94770](v50, -1, -1);
+      v51 = swift_slowAlloc();
+      *v51 = 0;
+      _os_log_impl(&dword_21607C000, v49, v50, "Exif.filterImage() Invalid source type", v51, 2u);
+      MEMORY[0x21CE94770](v51, -1, -1);
     }
 
-    v51 = *(v130 + 48);
+    v52 = *(v131 + 48);
 
     lazy protocol witness table accessor for type Exif.ExifError and conformance Exif.ExifError();
     swift_allocError();
-    *v52 = 1;
+    *v53 = 1;
     swift_willThrow();
     goto LABEL_49;
   }
 
-  v37 = v36;
-  v38 = (v130 + 16);
-  v39 = v36;
-  v40 = Logger.logObject.getter();
-  v41 = static os_log_type_t.debug.getter();
+  v38 = v37;
+  v39 = (v131 + 16);
+  v40 = v37;
+  v41 = Logger.logObject.getter();
+  v42 = static os_log_type_t.debug.getter();
 
-  if (os_log_type_enabled(v40, v41))
+  if (os_log_type_enabled(v41, v42))
   {
-    v42 = swift_slowAlloc();
     v43 = swift_slowAlloc();
-    *v42 = 138543362;
-    *(v42 + 4) = v39;
-    *v43 = v37;
-    v44 = v39;
-    _os_log_impl(&dword_21607C000, v40, v41, "Exif.filterImage() Source Type: %{public}@", v42, 0xCu);
-    outlined destroy of UTType?(v43, &_sSo8NSObjectCSgMd);
+    v44 = swift_slowAlloc();
+    *v43 = 138543362;
+    *(v43 + 4) = v40;
+    *v44 = v38;
+    v45 = v40;
+    _os_log_impl(&dword_21607C000, v41, v42, "Exif.filterImage() Source Type: %{public}@", v43, 0xCu);
+    outlined destroy of UTType?(v44, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+    MEMORY[0x21CE94770](v44, -1, -1);
     MEMORY[0x21CE94770](v43, -1, -1);
-    MEMORY[0x21CE94770](v42, -1, -1);
   }
 
-  *v38 = v39;
-  v45 = swift_task_alloc();
-  *(v45 + 16) = v38;
-  v46 = specialized Sequence.contains(where:)(partial apply for specialized closure #1 in Sequence<>.contains(_:), v45, v28);
+  *v39 = v40;
+  v46 = swift_task_alloc();
+  *(v46 + 16) = v39;
+  v47 = specialized Sequence.contains(where:)(partial apply for specialized closure #1 in Sequence<>.contains(_:), v46, v29);
 
-  if (v46)
+  if (v47)
   {
 
-    v47 = v39;
+    v48 = v40;
     goto LABEL_26;
   }
 
-  v53 = 0xEB00000000636965;
-  v54 = 0x682E63696C627570;
-  v55 = MEMORY[0x21CE91FC0](0x682E63696C627570, 0xEB00000000636965);
-  *(v130 + 24) = v55;
-  v56 = swift_task_alloc();
-  *(v56 + 16) = v130 + 24;
-  v57 = specialized Sequence.contains(where:)(closure #1 in Sequence<>.contains(_:)specialized partial apply, v56, v28);
+  v54 = 0xEB00000000636965;
+  v55 = 0x682E63696C627570;
+  v56 = MEMORY[0x21CE91FC0](0x682E63696C627570, 0xEB00000000636965);
+  *(v131 + 24) = v56;
+  v57 = swift_task_alloc();
+  *(v57 + 16) = v131 + 24;
+  v58 = specialized Sequence.contains(where:)(closure #1 in Sequence<>.contains(_:)specialized partial apply, v57, v29);
 
-  if (v57 & 1) != 0 || (v53 = 0xEB00000000676570, v54 = 0x6A2E63696C627570, v58 = MEMORY[0x21CE91FC0](0x6A2E63696C627570, 0xEB00000000676570), *(v130 + 32) = v58, v59 = swift_task_alloc(), *(v59 + 16) = v130 + 32, v60 = specialized Sequence.contains(where:)(closure #1 in Sequence<>.contains(_:)specialized partial apply, v59, v28), v58, result = , (v60))
+  if (v58 & 1) != 0 || (v54 = 0xEB00000000676570, v55 = 0x6A2E63696C627570, v59 = MEMORY[0x21CE91FC0](0x6A2E63696C627570, 0xEB00000000676570), *(v131 + 32) = v59, v60 = swift_task_alloc(), *(v60 + 16) = v131 + 32, v61 = specialized Sequence.contains(where:)(closure #1 in Sequence<>.contains(_:)specialized partial apply, v60, v29), v59, result = , (v61))
   {
 
-    v47 = MEMORY[0x21CE91FC0](v54, v53);
+    v48 = MEMORY[0x21CE91FC0](v55, v54);
     goto LABEL_26;
   }
 
-  if ((v28 & 0xC000000000000001) != 0)
+  if ((v29 & 0xC000000000000001) != 0)
   {
-    v61 = MEMORY[0x21CE93180](0, v28);
+    v62 = MEMORY[0x21CE93180](0, v29);
     goto LABEL_25;
   }
 
-  if (!*((v28 & 0xFFFFFFFFFFFFFF8) + 0x10))
+  if (!*((v29 & 0xFFFFFFFFFFFFFF8) + 0x10))
   {
     __break(1u);
 LABEL_57:
@@ -10274,134 +10265,134 @@ LABEL_57:
     return result;
   }
 
-  v61 = *(v28 + 32);
+  v62 = *(v29 + 32);
 LABEL_25:
-  v62 = v61;
+  v63 = v62;
 
-  v47 = v62;
+  v48 = v63;
 LABEL_26:
-  v63 = v47;
-  v64 = Logger.logObject.getter();
-  v65 = static os_log_type_t.debug.getter();
+  v64 = v48;
+  v65 = Logger.logObject.getter();
+  v66 = static os_log_type_t.debug.getter();
 
-  if (os_log_type_enabled(v64, v65))
+  if (os_log_type_enabled(v65, v66))
   {
-    v66 = swift_slowAlloc();
     v67 = swift_slowAlloc();
-    *v66 = 141558275;
-    *(v66 + 4) = 1752392040;
-    *(v66 + 12) = 2113;
-    *(v66 + 14) = v63;
-    *v67 = v63;
-    v68 = v63;
-    _os_log_impl(&dword_21607C000, v64, v65, "Exif.filterImage() Destination Type: %{private,mask.hash}@", v66, 0x16u);
-    outlined destroy of UTType?(v67, &_sSo8NSObjectCSgMd);
+    v68 = swift_slowAlloc();
+    *v67 = 141558275;
+    *(v67 + 4) = 1752392040;
+    *(v67 + 12) = 2113;
+    *(v67 + 14) = v64;
+    *v68 = v64;
+    v69 = v64;
+    _os_log_impl(&dword_21607C000, v65, v66, "Exif.filterImage() Destination Type: %{private,mask.hash}@", v67, 0x16u);
+    outlined destroy of UTType?(v68, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+    MEMORY[0x21CE94770](v68, -1, -1);
     MEMORY[0x21CE94770](v67, -1, -1);
-    MEMORY[0x21CE94770](v66, -1, -1);
   }
 
-  v69 = *(v130 + 40);
+  v70 = *(v131 + 40);
 
-  Count = CGImageSourceGetCount(v69);
-  v71 = Logger.logObject.getter();
-  v72 = static os_log_type_t.debug.getter();
-  if (os_log_type_enabled(v71, v72))
+  Count = CGImageSourceGetCount(v70);
+  v72 = Logger.logObject.getter();
+  v73 = static os_log_type_t.debug.getter();
+  if (os_log_type_enabled(v72, v73))
   {
-    v73 = swift_slowAlloc();
-    *v73 = 134349056;
-    *(v73 + 4) = Count;
-    _os_log_impl(&dword_21607C000, v71, v72, "Exif.filterImage() Sub-images: %{public}ld", v73, 0xCu);
-    MEMORY[0x21CE94770](v73, -1, -1);
+    v74 = swift_slowAlloc();
+    *v74 = 134349056;
+    *(v74 + 4) = Count;
+    _os_log_impl(&dword_21607C000, v72, v73, "Exif.filterImage() Sub-images: %{public}ld", v74, 0xCu);
+    MEMORY[0x21CE94770](v74, -1, -1);
   }
 
-  URL._bridgeToObjectiveC()(v74);
-  v76 = v75;
-  v77 = CGImageDestinationCreateWithURL(v75, v63, Count, 0);
+  URL._bridgeToObjectiveC()(v75);
+  v77 = v76;
+  v78 = CGImageDestinationCreateWithURL(v76, v64, Count, 0);
 
-  v78 = *(v130 + 48);
-  v79 = *(v130 + 56);
-  v126 = v39;
-  idst = v77;
-  if (!v77)
+  v79 = *(v131 + 48);
+  v80 = *(v131 + 56);
+  v127 = v40;
+  idst = v78;
+  if (!v78)
   {
-    v128(*(v130 + 72), v78, v79);
-    v90 = Logger.logObject.getter();
-    v91 = static os_log_type_t.error.getter();
-    v92 = os_log_type_enabled(v90, v91);
-    v93 = *(v130 + 72);
-    v94 = *(v130 + 56);
-    if (v92)
+    v129(*(v131 + 72), v79, v80);
+    v91 = Logger.logObject.getter();
+    v92 = static os_log_type_t.error.getter();
+    v93 = os_log_type_enabled(v91, v92);
+    v94 = *(v131 + 72);
+    v95 = *(v131 + 56);
+    if (v93)
     {
-      v95 = swift_slowAlloc();
-      v96 = v23;
-      v129 = swift_slowAlloc();
-      v131[0] = v129;
-      *v95 = 141558275;
-      *(v95 + 4) = 1752392040;
-      *(v95 + 12) = 2081;
-      lazy protocol witness table accessor for type URL and conformance URL(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x277CC9260]);
-      v97 = v63;
-      v98 = dispatch thunk of CustomStringConvertible.description.getter();
-      v100 = v99;
-      v96(v93, v94);
-      v101 = v98;
-      v63 = v97;
-      v102 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v101, v100, v131);
+      v96 = swift_slowAlloc();
+      v97 = v24;
+      v130 = swift_slowAlloc();
+      v132[0] = v130;
+      *v96 = 141558275;
+      *(v96 + 4) = 1752392040;
+      *(v96 + 12) = 2081;
+      lazy protocol witness table accessor for type URL and conformance URL(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x277CC9260], MEMORY[0x277CC9290]);
+      v98 = v64;
+      v99 = dispatch thunk of CustomStringConvertible.description.getter();
+      v101 = v100;
+      v97(v94, v95);
+      v102 = v99;
+      v64 = v98;
+      v103 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v102, v101, v132);
 
-      *(v95 + 14) = v102;
-      _os_log_impl(&dword_21607C000, v90, v91, "Exif.filterImage() Invalid destination %{private,mask.hash}s", v95, 0x16u);
-      __swift_destroy_boxed_opaque_existential_1(v129);
-      MEMORY[0x21CE94770](v129, -1, -1);
-      MEMORY[0x21CE94770](v95, -1, -1);
+      *(v96 + 14) = v103;
+      _os_log_impl(&dword_21607C000, v91, v92, "Exif.filterImage() Invalid destination %{private,mask.hash}s", v96, 0x16u);
+      __swift_destroy_boxed_opaque_existential_1(v130);
+      MEMORY[0x21CE94770](v130, -1, -1);
+      MEMORY[0x21CE94770](v96, -1, -1);
     }
 
     else
     {
 
-      v23(v93, v94);
+      v24(v94, v95);
     }
 
-    v51 = *(v130 + 48);
+    v52 = *(v131 + 48);
     lazy protocol witness table accessor for type Exif.ExifError and conformance Exif.ExifError();
     swift_allocError();
-    *v122 = 3;
+    *v123 = 3;
     swift_willThrow();
 
     goto LABEL_49;
   }
 
-  v128(*(v130 + 88), v78, v79);
-  v80 = Logger.logObject.getter();
-  v81 = static os_log_type_t.debug.getter();
-  v82 = os_log_type_enabled(v80, v81);
-  v83 = *(v130 + 88);
-  v84 = *(v130 + 56);
-  if (v82)
+  v129(*(v131 + 88), v79, v80);
+  v81 = Logger.logObject.getter();
+  v82 = static os_log_type_t.debug.getter();
+  v83 = os_log_type_enabled(v81, v82);
+  v84 = *(v131 + 88);
+  v85 = *(v131 + 56);
+  if (v83)
   {
-    v85 = swift_slowAlloc();
-    v125 = swift_slowAlloc();
-    v131[0] = v125;
-    *v85 = 141558275;
-    *(v85 + 4) = 1752392040;
-    *(v85 + 12) = 2081;
-    lazy protocol witness table accessor for type URL and conformance URL(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x277CC9260]);
-    LODWORD(v124) = v81;
-    v86 = dispatch thunk of CustomStringConvertible.description.getter();
-    v88 = v87;
-    v23(v83, v84);
-    v89 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v86, v88, v131);
+    v86 = swift_slowAlloc();
+    p_isa = swift_slowAlloc();
+    v132[0] = p_isa;
+    *v86 = 141558275;
+    *(v86 + 4) = 1752392040;
+    *(v86 + 12) = 2081;
+    lazy protocol witness table accessor for type URL and conformance URL(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x277CC9260], MEMORY[0x277CC9290]);
+    LODWORD(v125) = v82;
+    v87 = dispatch thunk of CustomStringConvertible.description.getter();
+    v89 = v88;
+    v24(v84, v85);
+    v90 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v87, v89, v132);
 
-    *(v85 + 14) = v89;
-    _os_log_impl(&dword_21607C000, v80, v124, "Exif.filterImage() Rewriting: %{private,mask.hash}s", v85, 0x16u);
-    __swift_destroy_boxed_opaque_existential_1(v125);
-    MEMORY[0x21CE94770](v125, -1, -1);
-    MEMORY[0x21CE94770](v85, -1, -1);
+    *(v86 + 14) = v90;
+    _os_log_impl(&dword_21607C000, v81, v125, "Exif.filterImage() Rewriting: %{private,mask.hash}s", v86, 0x16u);
+    __swift_destroy_boxed_opaque_existential_1(p_isa);
+    MEMORY[0x21CE94770](p_isa, -1, -1);
+    MEMORY[0x21CE94770](v86, -1, -1);
   }
 
   else
   {
 
-    v23(v83, v84);
+    v24(v84, v85);
   }
 
   if ((Count & 0x8000000000000000) != 0)
@@ -10412,9 +10403,9 @@ LABEL_54:
     goto LABEL_39;
   }
 
-  v124 = v23;
-  v125 = v63;
-  v103 = idst;
+  v125 = v24;
+  p_isa = &v64->isa;
+  v104 = idst;
   if (!Count)
   {
     goto LABEL_41;
@@ -10426,77 +10417,77 @@ LABEL_54:
   }
 
 LABEL_39:
-  lazy protocol witness table accessor for type URL and conformance URL(&lazy protocol witness table cache variable for type CFStringRef and conformance CFStringRef, type metadata accessor for CFStringRef);
-  v104 = 0;
-  v103 = idst;
+  lazy protocol witness table accessor for type URL and conformance URL(&lazy protocol witness table cache variable for type CFStringRef and conformance CFStringRef, type metadata accessor for CFStringRef, &protocol conformance descriptor for CFStringRef);
+  v105 = 0;
+  v104 = idst;
   do
   {
-    v105 = *(v130 + 40);
+    v106 = *(v131 + 40);
     isa = Dictionary._bridgeToObjectiveC()().super.isa;
-    CGImageDestinationAddImageFromSource(idst, v105, v104, isa);
+    CGImageDestinationAddImageFromSource(idst, v106, v105, isa);
 
-    ++v104;
+    ++v105;
   }
 
-  while (Count != v104);
+  while (Count != v105);
 LABEL_41:
-  v107 = v103;
-  if (!CGImageDestinationFinalize(v103))
+  v108 = v104;
+  if (!CGImageDestinationFinalize(v104))
   {
-    v128(*(v130 + 80), *(v130 + 48), *(v130 + 56));
-    v110 = Logger.logObject.getter();
-    v111 = static os_log_type_t.error.getter();
-    v112 = os_log_type_enabled(v110, v111);
-    v113 = *(v130 + 80);
-    v114 = *(v130 + 56);
-    if (v112)
+    v129(*(v131 + 80), *(v131 + 48), *(v131 + 56));
+    v111 = Logger.logObject.getter();
+    v112 = static os_log_type_t.error.getter();
+    v113 = os_log_type_enabled(v111, v112);
+    v114 = *(v131 + 80);
+    v115 = *(v131 + 56);
+    if (v113)
     {
-      v115 = swift_slowAlloc();
       v116 = swift_slowAlloc();
-      v131[0] = v116;
-      *v115 = 141558275;
-      *(v115 + 4) = 1752392040;
-      *(v115 + 12) = 2081;
-      lazy protocol witness table accessor for type URL and conformance URL(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x277CC9260]);
-      v117 = dispatch thunk of CustomStringConvertible.description.getter();
-      v119 = v118;
-      v124(v113, v114);
-      v120 = v117;
-      v107 = idst;
-      v121 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v120, v119, v131);
+      v117 = swift_slowAlloc();
+      v132[0] = v117;
+      *v116 = 141558275;
+      *(v116 + 4) = 1752392040;
+      *(v116 + 12) = 2081;
+      lazy protocol witness table accessor for type URL and conformance URL(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x277CC9260], MEMORY[0x277CC9290]);
+      v118 = dispatch thunk of CustomStringConvertible.description.getter();
+      v120 = v119;
+      v125(v114, v115);
+      v121 = v118;
+      v108 = idst;
+      v122 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v121, v120, v132);
 
-      *(v115 + 14) = v121;
-      _os_log_impl(&dword_21607C000, v110, v111, "Exif.filterImage() Cannot finalize image to %{private,mask.hash}s", v115, 0x16u);
-      __swift_destroy_boxed_opaque_existential_1(v116);
+      *(v116 + 14) = v122;
+      _os_log_impl(&dword_21607C000, v111, v112, "Exif.filterImage() Cannot finalize image to %{private,mask.hash}s", v116, 0x16u);
+      __swift_destroy_boxed_opaque_existential_1(v117);
+      MEMORY[0x21CE94770](v117, -1, -1);
       MEMORY[0x21CE94770](v116, -1, -1);
-      MEMORY[0x21CE94770](v115, -1, -1);
     }
 
     else
     {
 
-      v124(v113, v114);
+      v125(v114, v115);
     }
 
-    v51 = *(v130 + 48);
+    v52 = *(v131 + 48);
     lazy protocol witness table accessor for type Exif.ExifError and conformance Exif.ExifError();
     swift_allocError();
-    *v123 = 4;
+    *v124 = 4;
     swift_willThrow();
 
 LABEL_49:
-    $defer #1 () in static Exif.filterImage(imageSource:outputURL:)(v51);
+    $defer #1 () in static Exif.filterImage(imageSource:outputURL:)(v52);
 
-    v109 = *(v130 + 8);
+    v110 = *(v131 + 8);
     goto LABEL_50;
   }
 
-  v108 = *(v130 + 48);
+  v109 = *(v131 + 48);
 
-  $defer #1 () in static Exif.filterImage(imageSource:outputURL:)(v108);
+  $defer #1 () in static Exif.filterImage(imageSource:outputURL:)(v109);
 
-  v109 = *(v130 + 8);
+  v110 = *(v131 + 8);
 LABEL_50:
 
-  return v109();
+  return v110();
 }

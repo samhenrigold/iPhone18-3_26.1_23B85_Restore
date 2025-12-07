@@ -10,6 +10,8 @@
 - (void)locationManagerDidChangeAuthorization:(id)authorization;
 - (void)mapView:(id)view didChooseMapItem:(id)item headerTapped:(BOOL)tapped;
 - (void)mapViewDidChooseMapAttribution:(id)attribution mapItem:(id)item;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation MAMapResultSnippetViewController
@@ -85,6 +87,31 @@
   [_loadMapSnippetView _ma_updateSemanticContentAttribute];
   [_loadMapSnippetView _mapkit_setNeedsLayout];
   [(MAMapResultSnippetViewController *)self setView:_loadMapSnippetView];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v8.receiver = self;
+  v8.super_class = MAMapResultSnippetViewController;
+  [(MABaseSnippetViewController *)&v8 viewDidAppear:appear];
+  selectedLocalSearchMapItem = [(MABaseSnippetViewController *)self selectedLocalSearchMapItem];
+  placeData2 = [selectedLocalSearchMapItem placeData2];
+  [(MABaseSnippetViewController *)self captureUserAction:2015 mapItemPlaceData:placeData2];
+
+  _mapSnippetView = [(MAMapResultSnippetViewController *)self _mapSnippetView];
+  [_mapSnippetView setShowsUserLocationInMapView:1];
+
+  selectedLocalSearchMapItem2 = [(MABaseSnippetViewController *)self selectedLocalSearchMapItem];
+  [(MABaseSnippetViewController *)self donateLocationForMapItem:selectedLocalSearchMapItem2];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = MAMapResultSnippetViewController;
+  [(MABaseSnippetViewController *)&v5 viewWillDisappear:disappear];
+  _mapSnippetView = [(MAMapResultSnippetViewController *)self _mapSnippetView];
+  [_mapSnippetView setShowsUserLocationInMapView:0];
 }
 
 - (void)dealloc

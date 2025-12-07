@@ -195,6 +195,16 @@ int main(int argc, const char **argv, const char **envp)
   return 0;
 }
 
+void sub_1000039E4(id a1, unsigned __int8 a2)
+{
+  v2 = a2;
+  v3 = +[SPXPCService sharedInstance];
+  [v3 locationCategoryChanged:v2];
+
+  v4 = +[SPXPCService sharedInstance];
+  [v4 contextEventUpdated:v2 fusedState:(v2 - 6) < 4];
+}
+
 void sub_100003AE4(id a1, unsigned int a2)
 {
   if (dword_100015ED0 <= 30 && (dword_100015ED0 != -1 || _LogCategory_Initialize()))
@@ -222,10 +232,10 @@ id sub_100003EA0(uint64_t a1)
   return [v2 _prefsChanged];
 }
 
-void sub_100004D38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100004D38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
-  (*(v9 + 16))(v9);
+  va_start(va, a16);
+  (*(v16 + 16))(v16, a2, a3, a4, a5, a6, a7, a8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -239,64 +249,50 @@ uint64_t sub_100004D70(uint64_t result, uint64_t a2)
 
 uint64_t sub_100004D88(uint64_t result)
 {
-  if (!*(*(*(result + 40) + 8) + 40))
+  if (*(*(*(result + 40) + 8) + 40))
   {
-    return result;
-  }
-
-  v1 = result;
-  if (dword_100015F40 <= 90)
-  {
-    if (dword_100015F40 != -1)
+    v1 = result;
+    if (dword_100015F40 <= 90 && (dword_100015F40 != -1 || _LogCategory_Initialize()))
     {
-LABEL_4:
       LogPrintF();
-      goto LABEL_6;
     }
 
-    if (_LogCategory_Initialize())
+    result = *(v1 + 32);
+    if (result)
     {
-      v4 = *(*(*(v1 + 40) + 8) + 40);
-      goto LABEL_4;
+      v2 = *(result + 16);
+
+      return v2();
     }
-  }
-
-LABEL_6:
-  result = *(v1 + 32);
-  if (result)
-  {
-    v2 = *(*(*(v1 + 40) + 8) + 40);
-    v3 = *(result + 16);
-
-    return v3();
   }
 
   return result;
 }
 
-void sub_100005060(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100005060(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
-  (*(v9 + 16))(v9);
+  va_start(va, a16);
+  (*(v16 + 16))(v16, a2, a3, a4, a5, a6, a7, a8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t sub_10000509C(uint64_t result)
 {
-  if (*(*(*(result + 32) + 8) + 40) && dword_100015F40 <= 90)
+  if (*(*(*(result + 32) + 8) + 40))
   {
-    if (dword_100015F40 != -1)
+    if (dword_100015F40 <= 90)
     {
-      return LogPrintF();
-    }
+      if (dword_100015F40 != -1)
+      {
+        return LogPrintF();
+      }
 
-    v1 = result;
-    result = _LogCategory_Initialize();
-    if (result)
-    {
-      v2 = *(*(*(v1 + 32) + 8) + 40);
-      return LogPrintF();
+      result = _LogCategory_Initialize();
+      if (result)
+      {
+        return LogPrintF();
+      }
     }
   }
 
@@ -332,20 +328,19 @@ uint64_t sub_100005214()
 
 uint64_t variable initialization expression of SPAudioAccessoryDeviceHIDClient.SPHIDManagerQueue()
 {
-  v0 = *(*(sub_10000A180() - 8) + 64);
+  sub_10000A180();
   __chkstk_darwin();
-  v1 = sub_10000A190();
-  v2 = *(v1 - 8);
-  v3 = *(v2 + 64);
+  v0 = sub_10000A190();
+  v1 = *(v0 - 8);
   __chkstk_darwin();
-  v5 = v8 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = *(*(sub_10000A110() - 8) + 64);
+  v3 = v5 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_10000A110();
   __chkstk_darwin();
   sub_1000055A8();
   sub_10000A100();
-  (*(v2 + 104))(v5, enum case for OS_dispatch_queue.AutoreleaseFrequency.workItem(_:), v1);
-  v8[1] = &_swiftEmptyArrayStorage;
-  sub_100008930(&qword_1000160D8, &type metadata accessor for OS_dispatch_queue.Attributes);
+  (*(v1 + 104))(v3, enum case for OS_dispatch_queue.AutoreleaseFrequency.workItem(_:), v0);
+  v5[1] = &_swiftEmptyArrayStorage;
+  sub_100008930(&qword_1000160D8, &type metadata accessor for OS_dispatch_queue.Attributes, &protocol conformance descriptor for OS_dispatch_queue.Attributes);
   sub_1000055F4(&qword_1000160E0, &qword_10000BDF0);
   sub_100008978(&qword_1000160E8, &qword_1000160E0, &qword_10000BDF0);
   sub_10000A1D0();
@@ -370,7 +365,6 @@ uint64_t sub_1000055F4(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -383,7 +377,6 @@ uint64_t sub_10000563C(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -437,55 +430,54 @@ id sub_1000057C0()
 void *SPAudioAccessoryDeviceHIDClient.init()()
 {
   v1 = v0;
-  v2 = *(*(sub_10000A180() - 8) + 64);
+  sub_10000A180();
   __chkstk_darwin();
-  v3 = sub_10000A190();
-  v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
+  v2 = sub_10000A190();
+  v3 = *(v2 - 8);
   __chkstk_darwin();
-  v7 = v20 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = *(*(sub_10000A110() - 8) + 64);
+  v5 = v17 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_10000A110();
   __chkstk_darwin();
-  v21 = OBJC_IVAR____TtC24SensingPredictXPCService31SPAudioAccessoryDeviceHIDClient_SPHIDManagerQueue;
-  v20[1] = sub_1000055A8();
+  v18 = OBJC_IVAR____TtC24SensingPredictXPCService31SPAudioAccessoryDeviceHIDClient_SPHIDManagerQueue;
+  v17[1] = sub_1000055A8();
   sub_10000A100();
-  (*(v4 + 104))(v7, enum case for OS_dispatch_queue.AutoreleaseFrequency.workItem(_:), v3);
-  v23 = &_swiftEmptyArrayStorage;
-  sub_100008930(&qword_1000160D8, &type metadata accessor for OS_dispatch_queue.Attributes);
+  (*(v3 + 104))(v5, enum case for OS_dispatch_queue.AutoreleaseFrequency.workItem(_:), v2);
+  v20 = &_swiftEmptyArrayStorage;
+  sub_100008930(&qword_1000160D8, &type metadata accessor for OS_dispatch_queue.Attributes, &protocol conformance descriptor for OS_dispatch_queue.Attributes);
   sub_1000055F4(&qword_1000160E0, &qword_10000BDF0);
   sub_100008978(&qword_1000160E8, &qword_1000160E0, &qword_10000BDF0);
   sub_10000A1D0();
-  *&v0[v21] = sub_10000A1B0();
-  v9 = OBJC_IVAR____TtC24SensingPredictXPCService31SPAudioAccessoryDeviceHIDClient_hidManager;
-  *&v1[v9] = [objc_allocWithZone(HIDManager) initWithOptions:8];
+  *&v0[v18] = sub_10000A1B0();
+  v6 = OBJC_IVAR____TtC24SensingPredictXPCService31SPAudioAccessoryDeviceHIDClient_hidManager;
+  *&v1[v6] = [objc_allocWithZone(HIDManager) initWithOptions:8];
   *&v1[OBJC_IVAR____TtC24SensingPredictXPCService31SPAudioAccessoryDeviceHIDClient_hidDevice] = 0;
-  v10 = OBJC_IVAR____TtC24SensingPredictXPCService31SPAudioAccessoryDeviceHIDClient_notificationPointer;
-  *&v1[v10] = IONotificationPortCreate(kIOMainPortDefault);
+  v7 = OBJC_IVAR____TtC24SensingPredictXPCService31SPAudioAccessoryDeviceHIDClient_notificationPointer;
+  *&v1[v7] = IONotificationPortCreate(kIOMainPortDefault);
   *&v1[OBJC_IVAR____TtC24SensingPredictXPCService31SPAudioAccessoryDeviceHIDClient_iter] = 0;
   *&v1[OBJC_IVAR____TtC24SensingPredictXPCService31SPAudioAccessoryDeviceHIDClient_currentMatchedService] = 0;
-  v11 = OBJC_IVAR____TtC24SensingPredictXPCService31SPAudioAccessoryDeviceHIDClient_cancelHIDTeardown;
+  v8 = OBJC_IVAR____TtC24SensingPredictXPCService31SPAudioAccessoryDeviceHIDClient_cancelHIDTeardown;
   v1[OBJC_IVAR____TtC24SensingPredictXPCService31SPAudioAccessoryDeviceHIDClient_cancelHIDTeardown] = 1;
-  v12 = &v1[OBJC_IVAR____TtC24SensingPredictXPCService31SPAudioAccessoryDeviceHIDClient_reportString];
-  *v12 = 0;
-  v12[1] = 0xE000000000000000;
+  v9 = &v1[OBJC_IVAR____TtC24SensingPredictXPCService31SPAudioAccessoryDeviceHIDClient_reportString];
+  *v9 = 0;
+  v9[1] = 0xE000000000000000;
   *&v1[OBJC_IVAR____TtC24SensingPredictXPCService31SPAudioAccessoryDeviceHIDClient_numActiveSessions] = 0;
   *&v1[OBJC_IVAR____TtC24SensingPredictXPCService31SPAudioAccessoryDeviceHIDClient_activeSessionInfo] = &_swiftEmptyArrayStorage;
-  v13 = &v1[OBJC_IVAR____TtC24SensingPredictXPCService31SPAudioAccessoryDeviceHIDClient_activeAppName];
-  *v13 = 0;
-  v13[1] = 0xE000000000000000;
-  v14 = &v1[OBJC_IVAR____TtC24SensingPredictXPCService31SPAudioAccessoryDeviceHIDClient_noiseLevelCallback];
-  *v14 = 0;
-  v14[1] = 0;
-  v1[v11] = 1;
-  v15 = type metadata accessor for SPAudioAccessoryDeviceHIDClient();
-  v22.receiver = v1;
-  v22.super_class = v15;
-  v16 = objc_msgSendSuper2(&v22, "init");
-  v17 = *((swift_isaMask & *v16) + 0x1A8);
-  v18 = v16;
-  v17();
+  v10 = &v1[OBJC_IVAR____TtC24SensingPredictXPCService31SPAudioAccessoryDeviceHIDClient_activeAppName];
+  *v10 = 0;
+  v10[1] = 0xE000000000000000;
+  v11 = &v1[OBJC_IVAR____TtC24SensingPredictXPCService31SPAudioAccessoryDeviceHIDClient_noiseLevelCallback];
+  *v11 = 0;
+  v11[1] = 0;
+  v1[v8] = 1;
+  v12 = type metadata accessor for SPAudioAccessoryDeviceHIDClient();
+  v19.receiver = v1;
+  v19.super_class = v12;
+  v13 = objc_msgSendSuper2(&v19, "init");
+  v14 = *((swift_isaMask & *v13) + 0x1A8);
+  v15 = v13;
+  v14();
 
-  return v18;
+  return v15;
 }
 
 uint64_t sub_100005C60(uint64_t a1, uint64_t a2)
@@ -495,12 +487,12 @@ uint64_t sub_100005C60(uint64_t a1, uint64_t a2)
   v5 = *(v2 + OBJC_IVAR____TtC24SensingPredictXPCService31SPAudioAccessoryDeviceHIDClient_noiseLevelCallback + 8);
   *v3 = a1;
   v3[1] = a2;
-  sub_100005CAC(a1);
+  sub_100005CAC(a1, a2);
 
-  return sub_100005CBC(v4);
+  return sub_100005CBC(v4, v5);
 }
 
-uint64_t sub_100005CAC(uint64_t result)
+uint64_t sub_100005CAC(uint64_t result, uint64_t a2)
 {
   if (result)
   {
@@ -509,7 +501,7 @@ uint64_t sub_100005CAC(uint64_t result)
   return result;
 }
 
-uint64_t sub_100005CBC(uint64_t result)
+uint64_t sub_100005CBC(uint64_t result, uint64_t a2)
 {
   if (result)
   {
@@ -567,15 +559,16 @@ void sub_100005FB0(char *a1, uint64_t a2)
   }
 }
 
-uint64_t sub_100006064(io_iterator_t a1)
+uint64_t sub_100006064(uint64_t a1)
 {
+  v2 = a1;
   sub_10000A170();
   v3 = sub_100009418();
   v4 = *v3;
   sub_10000A0D0();
 
   v5 = OBJC_IVAR____TtC24SensingPredictXPCService31SPAudioAccessoryDeviceHIDClient_currentMatchedService;
-  result = IOIteratorNext(a1);
+  result = IOIteratorNext(v2);
   if (result)
   {
     v7 = result;
@@ -620,7 +613,7 @@ uint64_t sub_100006064(io_iterator_t a1)
       }
 
       IOObjectRelease(v7);
-      result = IOIteratorNext(a1);
+      result = IOIteratorNext(v2);
       v7 = result;
       if (!result)
       {
@@ -761,66 +754,65 @@ LABEL_10:
 
 uint64_t sub_100006838(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6)
 {
-  v12 = *(a1 + 32);
-  v11 = *(a1 + 40);
+  v11 = *(a1 + 32);
 
-  v13 = a2;
-  v14 = a6;
-  v15 = sub_10000A090();
-  v17 = v16;
+  v12 = a2;
+  v13 = a6;
+  v14 = sub_10000A090();
+  v16 = v15;
 
-  v12(v13, a3, a4, a5, v15, v17);
-  sub_1000090A8(v15, v17);
+  v11(v12, a3, a4, a5, v14, v16);
+  sub_1000090A8(v14, v16);
 }
 
-void sub_100006900()
+void sub_100006900(uint64_t a1)
 {
   sub_10000A170();
-  v0 = *sub_100009418();
+  v1 = *sub_100009418();
   sub_10000A0D0();
 }
 
-void sub_100006980()
+void sub_100006980(uint64_t a1)
 {
-  v18 = 1;
-  v19 = 0;
+  v19 = 1;
+  v20 = 0;
   sub_10000A170();
-  v1 = sub_100009418();
-  v2 = *v1;
+  v2 = sub_100009418();
+  v3 = *v2;
   sub_10000A0D0();
 
-  v3 = OBJC_IVAR____TtC24SensingPredictXPCService31SPAudioAccessoryDeviceHIDClient_hidDevice;
-  v4 = *(v0 + OBJC_IVAR____TtC24SensingPredictXPCService31SPAudioAccessoryDeviceHIDClient_hidDevice);
-  if (v4)
+  v4 = OBJC_IVAR____TtC24SensingPredictXPCService31SPAudioAccessoryDeviceHIDClient_hidDevice;
+  v5 = *(v1 + OBJC_IVAR____TtC24SensingPredictXPCService31SPAudioAccessoryDeviceHIDClient_hidDevice);
+  if (v5)
   {
-    v20 = 0;
-    if ([v4 setReport:&v18 reportLength:5 withIdentifier:1 forType:2 error:&v20])
+    v21 = 0;
+    if ([v5 setReport:&v19 reportLength:5 withIdentifier:1 forType:2 error:&v21])
     {
-      v5 = v20;
+      v6 = v21;
     }
 
     else
     {
-      v6 = v20;
+      v7 = v21;
       sub_10000A060();
 
       swift_willThrow();
-      v7 = sub_10000A170();
-      v8 = *v1;
-      if (os_log_type_enabled(*v1, v7))
+      v8 = sub_10000A170();
+      v9 = *v2;
+      if (os_log_type_enabled(*v2, v8))
       {
-        v9 = v8;
-        v10 = swift_slowAlloc();
+        v10 = v9;
         v11 = swift_slowAlloc();
-        v20 = v11;
-        *v10 = 136380675;
+        v12 = swift_slowAlloc();
+        v21 = v12;
+        *v11 = 136380675;
         swift_getErrorValue();
-        v12 = sub_10000A220();
-        v14 = sub_100007B28(v12, v13, &v20);
+        v13 = sub_10000A220();
+        v15 = sub_100007B28(v13, v14, &v21);
 
-        *(v10 + 4) = v14;
-        _os_log_impl(&_mh_execute_header, v9, v7, "Error attempting to turn off packet streaming. { %{private}s }", v10, 0xCu);
-        sub_100008550(v11);
+        *(v11 + 4) = v15;
+        _os_log_impl(&_mh_execute_header, v10, v8, "Error attempting to turn off packet streaming. { %{private}s }", v11, 0xCu);
+        sub_100008550(v12);
       }
 
       else
@@ -829,28 +821,28 @@ void sub_100006980()
     }
   }
 
-  [*(v0 + v3) cancel];
-  [*(v0 + v3) close];
-  v15 = *(v0 + v3);
-  *(v0 + v3) = 0;
+  [*(v1 + v4) cancel];
+  [*(v1 + v4) close];
+  v16 = *(v1 + v4);
+  *(v1 + v4) = 0;
 
-  *(v0 + OBJC_IVAR____TtC24SensingPredictXPCService31SPAudioAccessoryDeviceHIDClient_currentMatchedService) = 0;
-  v16 = OBJC_IVAR____TtC24SensingPredictXPCService31SPAudioAccessoryDeviceHIDClient_notificationPointer;
-  v17 = *(v0 + OBJC_IVAR____TtC24SensingPredictXPCService31SPAudioAccessoryDeviceHIDClient_notificationPointer);
-  if (v17)
+  *(v1 + OBJC_IVAR____TtC24SensingPredictXPCService31SPAudioAccessoryDeviceHIDClient_currentMatchedService) = 0;
+  v17 = OBJC_IVAR____TtC24SensingPredictXPCService31SPAudioAccessoryDeviceHIDClient_notificationPointer;
+  v18 = *(v1 + OBJC_IVAR____TtC24SensingPredictXPCService31SPAudioAccessoryDeviceHIDClient_notificationPointer);
+  if (v18)
   {
-    IONotificationPortDestroy(v17);
-    *(v0 + v16) = 0;
+    IONotificationPortDestroy(v18);
+    *(v1 + v17) = 0;
   }
 }
 
-void sub_100006BF8()
+void sub_100006BF8(uint64_t a1)
 {
-  v1 = OBJC_IVAR____TtC24SensingPredictXPCService31SPAudioAccessoryDeviceHIDClient_cancelHIDTeardown;
-  v2 = *(v0 + OBJC_IVAR____TtC24SensingPredictXPCService31SPAudioAccessoryDeviceHIDClient_cancelHIDTeardown);
+  v2 = OBJC_IVAR____TtC24SensingPredictXPCService31SPAudioAccessoryDeviceHIDClient_cancelHIDTeardown;
+  v3 = *(v1 + OBJC_IVAR____TtC24SensingPredictXPCService31SPAudioAccessoryDeviceHIDClient_cancelHIDTeardown);
   sub_10000A170();
-  v3 = *sub_100009418();
-  if (v2 == 1)
+  v4 = *sub_100009418();
+  if (v3 == 1)
   {
     sub_10000A0D0();
   }
@@ -859,8 +851,8 @@ void sub_100006BF8()
   {
     sub_10000A0D0();
 
-    (*((swift_isaMask & *v0) + 0x1C0))();
-    *(v0 + v1) = 1;
+    (*((swift_isaMask & *v1) + 0x1C0))();
+    *(v1 + v2) = 1;
   }
 }
 
@@ -868,51 +860,50 @@ uint64_t sub_100006D1C(unint64_t a1)
 {
   v3 = sub_10000A0C0();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   __chkstk_darwin();
-  v7 = &v22 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = *(v1 + OBJC_IVAR____TtC24SensingPredictXPCService31SPAudioAccessoryDeviceHIDClient_noiseLevelCallback);
-  if (v8)
+  v6 = &v21 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = *(v1 + OBJC_IVAR____TtC24SensingPredictXPCService31SPAudioAccessoryDeviceHIDClient_noiseLevelCallback);
+  if (v7)
   {
-    v9 = *(v1 + OBJC_IVAR____TtC24SensingPredictXPCService31SPAudioAccessoryDeviceHIDClient_noiseLevelCallback + 8);
+    v8 = *(v1 + OBJC_IVAR____TtC24SensingPredictXPCService31SPAudioAccessoryDeviceHIDClient_noiseLevelCallback + 8);
 
-    v8(v10, BYTE2(a1));
-    sub_100005CBC(v8);
+    v7(v9, BYTE2(a1));
+    sub_100005CBC(v7, v8);
   }
 
-  v11 = a1 >> 16;
-  v23 = HIBYTE(a1);
-  v12 = HIDWORD(a1);
-  v13 = [objc_allocWithZone(NSDateFormatter) init];
-  [v13 setDateStyle:1];
-  [v13 setTimeStyle:3];
+  v10 = a1 >> 16;
+  v22 = HIBYTE(a1);
+  v11 = HIDWORD(a1);
+  v12 = [objc_allocWithZone(NSDateFormatter) init];
+  [v12 setDateStyle:1];
+  [v12 setTimeStyle:3];
   sub_10000A0B0();
   isa = sub_10000A0A0().super.isa;
-  v15 = [v13 stringFromDate:isa];
+  v14 = [v12 stringFromDate:isa];
 
-  v16 = sub_10000A130();
-  v18 = v17;
+  v15 = sub_10000A130();
+  v17 = v16;
 
   sub_1000055F4(&qword_100016158, &qword_10000BE00);
-  v19 = swift_allocObject();
-  *(v19 + 16) = xmmword_10000BDB0;
-  *(v19 + 56) = &type metadata for String;
-  *(v19 + 64) = sub_100008604();
-  *(v19 + 32) = v16;
-  *(v19 + 40) = v18;
-  *(v19 + 96) = &type metadata for UInt8;
-  *(v19 + 104) = &protocol witness table for UInt8;
-  *(v19 + 72) = v11;
-  *(v19 + 136) = &type metadata for UInt8;
-  *(v19 + 144) = &protocol witness table for UInt8;
-  *(v19 + 112) = v12;
-  *(v19 + 176) = &type metadata for UInt8;
-  *(v19 + 184) = &protocol witness table for UInt8;
-  *(v19 + 152) = v23;
-  v20 = sub_10000A140();
+  v18 = swift_allocObject();
+  *(v18 + 16) = xmmword_10000BDB0;
+  *(v18 + 56) = &type metadata for String;
+  *(v18 + 64) = sub_100008604();
+  *(v18 + 32) = v15;
+  *(v18 + 40) = v17;
+  *(v18 + 96) = &type metadata for UInt8;
+  *(v18 + 104) = &protocol witness table for UInt8;
+  *(v18 + 72) = v10;
+  *(v18 + 136) = &type metadata for UInt8;
+  *(v18 + 144) = &protocol witness table for UInt8;
+  *(v18 + 112) = v11;
+  *(v18 + 176) = &type metadata for UInt8;
+  *(v18 + 184) = &protocol witness table for UInt8;
+  *(v18 + 152) = v22;
+  v19 = sub_10000A140();
 
-  (*(v4 + 8))(v7, v3);
-  return v20;
+  (*(v4 + 8))(v6, v3);
+  return v19;
 }
 
 void sub_100006F80(void *a1)
@@ -953,97 +944,90 @@ void sub_100006F80(void *a1)
 uint64_t sub_100007160(uint64_t a1, uint64_t a2)
 {
   v5 = sub_10000A0E0();
-  v21 = *(v5 - 8);
-  v6 = *(v21 + 64);
+  v18 = *(v5 - 8);
   __chkstk_darwin();
-  v8 = &v19 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v20 = sub_10000A110();
-  v9 = *(v20 - 8);
-  v10 = *(v9 + 64);
+  v7 = &v16 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v17 = sub_10000A110();
+  v8 = *(v17 - 8);
   __chkstk_darwin();
-  v12 = &v19 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = &v16 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_10000A170();
-  v13 = *sub_100009418();
+  v11 = *sub_100009418();
   sub_10000A0D0();
 
-  v14 = *&v2[OBJC_IVAR____TtC24SensingPredictXPCService31SPAudioAccessoryDeviceHIDClient_SPHIDManagerQueue];
-  v15 = swift_allocObject();
-  v15[2] = v2;
-  v15[3] = a1;
-  v15[4] = a2;
+  v12 = swift_allocObject();
+  v12[2] = v2;
+  v12[3] = a1;
+  v12[4] = a2;
   aBlock[4] = sub_100008658;
-  aBlock[5] = v15;
+  aBlock[5] = v12;
   aBlock[0] = _NSConcreteStackBlock;
   aBlock[1] = 1107296256;
   aBlock[2] = sub_1000092AC;
   aBlock[3] = &unk_100010A20;
-  v16 = _Block_copy(aBlock);
-  v17 = v2;
+  v13 = _Block_copy(aBlock);
+  v14 = v2;
 
   sub_10000A0F0();
-  v22 = &_swiftEmptyArrayStorage;
-  sub_100008930(&qword_100016168, &type metadata accessor for DispatchWorkItemFlags);
+  v19 = &_swiftEmptyArrayStorage;
+  sub_100008930(&qword_100016168, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
   sub_1000055F4(&qword_100016170, &qword_10000BE08);
   sub_100008978(&qword_100016178, &qword_100016170, &qword_10000BE08);
   sub_10000A1D0();
   sub_10000A1A0();
-  _Block_release(v16);
-  (*(v21 + 8))(v8, v5);
-  (*(v9 + 8))(v12, v20);
+  _Block_release(v13);
+  (*(v18 + 8))(v7, v5);
+  (*(v8 + 8))(v10, v17);
 }
 
 uint64_t sub_100007474(uint64_t a1)
 {
   v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
 
-  v1(v3);
+  v1(v2);
 }
 
 void sub_1000074D0(uint64_t a1, uint64_t a2)
 {
   v5 = sub_10000A0E0();
-  v21 = *(v5 - 8);
-  v6 = *(v21 + 64);
+  v18 = *(v5 - 8);
   __chkstk_darwin();
-  v8 = &v19 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v20 = sub_10000A110();
-  v9 = *(v20 - 8);
-  v10 = *(v9 + 64);
+  v7 = &v16 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v17 = sub_10000A110();
+  v8 = *(v17 - 8);
   __chkstk_darwin();
-  v12 = &v19 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = &v16 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_10000A170();
-  v19 = sub_100009418();
-  v13 = *v19;
+  v16 = sub_100009418();
+  v11 = *v16;
   sub_10000A0D0();
 
-  v14 = *&v2[OBJC_IVAR____TtC24SensingPredictXPCService31SPAudioAccessoryDeviceHIDClient_SPHIDManagerQueue];
-  v15 = swift_allocObject();
-  v15[2] = v2;
-  v15[3] = a1;
-  v15[4] = a2;
+  v12 = swift_allocObject();
+  v12[2] = v2;
+  v12[3] = a1;
+  v12[4] = a2;
   aBlock[4] = sub_100008A10;
-  aBlock[5] = v15;
+  aBlock[5] = v12;
   aBlock[0] = _NSConcreteStackBlock;
   aBlock[1] = 1107296256;
   aBlock[2] = sub_1000092AC;
   aBlock[3] = &unk_100010A70;
-  v16 = _Block_copy(aBlock);
-  v17 = v2;
+  v13 = _Block_copy(aBlock);
+  v14 = v2;
 
   sub_10000A0F0();
-  v22 = &_swiftEmptyArrayStorage;
-  sub_100008930(&qword_100016168, &type metadata accessor for DispatchWorkItemFlags);
+  v19 = &_swiftEmptyArrayStorage;
+  sub_100008930(&qword_100016168, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
   sub_1000055F4(&qword_100016170, &qword_10000BE08);
   sub_100008978(&qword_100016178, &qword_100016170, &qword_10000BE08);
   sub_10000A1D0();
   sub_10000A1A0();
-  _Block_release(v16);
-  (*(v21 + 8))(v8, v5);
-  (*(v9 + 8))(v12, v20);
+  _Block_release(v13);
+  (*(v18 + 8))(v7, v5);
+  (*(v8 + 8))(v10, v17);
 
   sub_10000A170();
-  v18 = *v19;
+  v15 = *v16;
   sub_10000A0D0();
 }
 
@@ -1068,7 +1052,6 @@ uint64_t sub_100007830(unint64_t a1)
     v6 = v5 - 1;
     v7 = v3 + 16 * a1;
     v8 = *(v7 + 32);
-    v9 = *(v7 + 40);
     memmove((v7 + 32), (v7 + 48), 16 * (v5 - 1 - a1));
     *(v3 + 16) = v6;
     *v1 = v3;
@@ -1172,7 +1155,7 @@ char *sub_100007A1C(char *result, int64_t a2, char a3, char *a4)
   return v10;
 }
 
-uint64_t sub_100007B28(uint64_t a1, unint64_t a2, uint64_t *a3)
+unint64_t sub_100007B28(uint64_t a1, unint64_t a2, uint64_t *a3)
 {
 
   v6 = sub_100007BF4(v11, 0, 0, 1, a1, a2);
@@ -1272,11 +1255,9 @@ LABEL_8:
 
 char *sub_100007D00(uint64_t a1, unint64_t a2)
 {
-  v4 = sub_100007D4C(a1, a2);
+  v3 = sub_100007D4C(a1, a2);
   sub_100007E7C(&off_100010930);
-  result = v4;
-  v3 = *(v4 + 2) - 1;
-  return result;
+  return v3;
 }
 
 char *sub_100007D4C(uint64_t a1, unint64_t a2)
@@ -1376,7 +1357,6 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (result && v5 <= *(v3 + 24) >> 1)
   {
@@ -1390,15 +1370,15 @@ LABEL_16:
 
   if (v4 <= v5)
   {
-    v12 = v4 + v2;
+    v11 = v4 + v2;
   }
 
   else
   {
-    v12 = v4;
+    v11 = v4;
   }
 
-  result = sub_100007FDC(result, v12, 1, v3);
+  result = sub_100007FDC(result, v11, 1, v3);
   v3 = result;
   if (!*(v6 + 16))
   {
@@ -1413,15 +1393,15 @@ LABEL_13:
   }
 
 LABEL_5:
-  v8 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v8 < v2)
+  v7 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v7 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v8 + 32), (v6 + 32), v2);
+  memcpy((v3 + v7 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -1430,12 +1410,12 @@ LABEL_14:
     return result;
   }
 
-  v9 = *(v3 + 16);
-  v10 = __OFADD__(v9, v2);
-  v11 = v9 + v2;
-  if (!v10)
+  v8 = *(v3 + 16);
+  v9 = __OFADD__(v8, v2);
+  v10 = v8 + v2;
+  if (!v9)
   {
-    *(v3 + 16) = v11;
+    *(v3 + 16) = v10;
     goto LABEL_14;
   }
 
@@ -1545,85 +1525,84 @@ char *sub_100007FDC(char *result, int64_t a2, char a3, char *a4)
 
 uint64_t sub_1000080E0()
 {
-  v1 = *(v0 + 24);
 
   return _swift_deallocObject(v0, 40, 7);
 }
 
-void sub_100008128(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void sub_100008128(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v6 = v4[2];
-  v7 = v4[3];
-  v8 = v4[4];
-  v9 = sub_10000A170();
-  v10 = sub_100009418();
-  v11 = *v10;
-  if (os_log_type_enabled(*v10, v9))
+  v8 = v6[2];
+  v9 = v6[3];
+  v10 = v6[4];
+  v11 = sub_10000A170();
+  v12 = sub_100009418();
+  v13 = *v12;
+  if (os_log_type_enabled(*v12, v11))
   {
-    v12 = v11;
-    v13 = swift_slowAlloc();
-    *v13 = 134217984;
-    *(v13 + 4) = a4;
-    _os_log_impl(&_mh_execute_header, v12, v9, "Received report. { reporterID=%ld }", v13, 0xCu);
+    v14 = v13;
+    v15 = swift_slowAlloc();
+    *v15 = 134217984;
+    *(v15 + 4) = a4;
+    _os_log_impl(&_mh_execute_header, v14, v11, "Received report. { reporterID=%ld }", v15, 0xCu);
   }
 
   if (a4 == 2)
   {
-    v14 = sub_10000A170();
-    v15 = *v10;
-    if (os_log_type_enabled(*v10, v14))
+    v16 = sub_10000A170();
+    v17 = *v12;
+    if (os_log_type_enabled(*v12, v16))
     {
-      v16 = v15;
-      v17 = swift_slowAlloc();
-      v18 = swift_slowAlloc();
-      v38 = v18;
-      *v17 = 136315138;
-      v19 = sub_10000A070();
-      v21 = sub_100007B28(v19, v20, &v38);
+      v18 = v17;
+      v19 = swift_slowAlloc();
+      v20 = swift_slowAlloc();
+      v40 = v20;
+      *v19 = 136315138;
+      v21 = sub_10000A070();
+      v23 = sub_100007B28(v21, v22, &v40);
 
-      *(v17 + 4) = v21;
-      _os_log_impl(&_mh_execute_header, v16, v14, "setReportInputHandler report contents { report=%s }", v17, 0xCu);
-      sub_100008550(v18);
+      *(v19 + 4) = v23;
+      _os_log_impl(&_mh_execute_header, v18, v16, "setReportInputHandler report contents { report=%s }", v19, 0xCu);
+      sub_100008550(v20);
     }
 
     sub_10000A170();
-    v22 = *v10;
+    v24 = *v12;
     sub_10000A0D0();
 
     swift_beginAccess();
-    v23 = *(v7 + 16);
-    v37 = 0;
-    v24 = [v6 setReport:v7 + 16 reportLength:5 withIdentifier:v23 forType:2 error:&v37];
-    v35 = v37;
+    v25 = *(v9 + 16);
+    v39 = 0;
+    v26 = [v8 setReport:v9 + 16 reportLength:5 withIdentifier:v25 forType:2 error:&v39];
+    v37 = v39;
     swift_endAccess();
-    if (v24)
+    if (v26)
     {
 
-      v25 = v35;
+      v27 = v37;
     }
 
     else
     {
-      v26 = v35;
+      v28 = v37;
       sub_10000A060();
 
       swift_willThrow();
-      v27 = sub_10000A170();
-      v28 = *v10;
-      if (os_log_type_enabled(v28, v27))
+      v29 = sub_10000A170();
+      v30 = *v12;
+      if (os_log_type_enabled(v30, v29))
       {
-        v29 = v28;
-        v30 = swift_slowAlloc();
-        v31 = swift_slowAlloc();
-        v37 = v31;
-        *v30 = 136380675;
+        v31 = v30;
+        v32 = swift_slowAlloc();
+        v33 = swift_slowAlloc();
+        v39 = v33;
+        *v32 = 136380675;
         swift_getErrorValue();
-        v32 = sub_10000A220();
-        v34 = sub_100007B28(v32, v33, &v37);
+        v34 = sub_10000A220();
+        v36 = sub_100007B28(v34, v35, &v39);
 
-        *(v30 + 4) = v34;
-        _os_log_impl(&_mh_execute_header, v29, v27, "Error attempting to set report. { error=%{private}s }", v30, 0xCu);
-        sub_100008550(v31);
+        *(v32 + 4) = v36;
+        _os_log_impl(&_mh_execute_header, v31, v29, "Error attempting to set report. { error=%{private}s }", v32, 0xCu);
+        sub_100008550(v33);
       }
 
       else
@@ -1635,7 +1614,7 @@ void sub_100008128(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   else
   {
     isa = sub_10000A080().super.isa;
-    (*((swift_isaMask & *v8) + 0x1D8))();
+    (*((swift_isaMask & *v10) + 0x1D8))();
   }
 }
 
@@ -1646,15 +1625,17 @@ uint64_t sub_100008538(uint64_t a1, uint64_t a2)
   *(a1 + 40) = v2;
 }
 
-uint64_t sub_100008550(uint64_t *a1)
+uint64_t sub_100008550(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 uint64_t sub_10000859C(uint64_t a1)
@@ -1716,27 +1697,26 @@ LABEL_15:
   }
 
   v13 = (v6 + OBJC_IVAR____TtC24SensingPredictXPCService31SPAudioAccessoryDeviceHIDClient_activeAppName);
-  v14 = *(v6 + OBJC_IVAR____TtC24SensingPredictXPCService31SPAudioAccessoryDeviceHIDClient_activeAppName + 8);
   *v13 = v11;
   v13[1] = v10;
 
-  v15 = sub_10000A170();
-  v16 = *sub_100009418();
-  if (os_log_type_enabled(v16, v15))
+  v14 = sub_10000A170();
+  v15 = *sub_100009418();
+  if (os_log_type_enabled(v15, v14))
   {
-    v17 = v16;
+    v16 = v15;
+    v17 = swift_slowAlloc();
     v18 = swift_slowAlloc();
-    v19 = swift_slowAlloc();
-    v28 = v19;
-    *v18 = 136380675;
-    v20 = *v13;
-    v21 = v13[1];
+    v27[0] = v18;
+    *v17 = 136380675;
+    v19 = *v13;
+    v20 = v13[1];
 
-    v22 = sub_100007B28(v20, v21, &v28);
+    v21 = sub_100007B28(v19, v20, v27);
 
-    *(v18 + 4) = v22;
-    _os_log_impl(&_mh_execute_header, v17, v15, "Starting session. { appName=%{private}s }", v18, 0xCu);
-    sub_100008550(v19);
+    *(v17 + 4) = v21;
+    _os_log_impl(&_mh_execute_header, v16, v14, "Starting session. { appName=%{private}s }", v17, 0xCu);
+    sub_100008550(v18);
   }
 
   v3 = *v13;
@@ -1753,22 +1733,22 @@ LABEL_15:
   }
 
 LABEL_11:
-  v25 = *(v2 + 2);
-  v24 = *(v2 + 3);
-  if (v25 >= v24 >> 1)
+  v24 = *(v2 + 2);
+  v23 = *(v2 + 3);
+  if (v24 >= v23 >> 1)
   {
-    v2 = sub_100007A1C((v24 > 1), v25 + 1, 1, v2);
+    v2 = sub_100007A1C((v23 > 1), v24 + 1, 1, v2);
   }
 
-  *(v2 + 2) = v25 + 1;
-  v26 = &v2[16 * v25];
-  *(v26 + 4) = v3;
-  *(v26 + 5) = v0;
+  *(v2 + 2) = v24 + 1;
+  v25 = &v2[16 * v24];
+  *(v25 + 4) = v3;
+  *(v25 + 5) = v0;
   *(v6 + v4) = v2;
   return swift_endAccess();
 }
 
-uint64_t sub_100008930(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_100008930(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -1796,93 +1776,91 @@ uint64_t sub_100008978(unint64_t *a1, uint64_t *a2, uint64_t *a3)
 
 uint64_t sub_1000089D0()
 {
-  v1 = *(v0 + 32);
 
   return _swift_deallocObject(v0, 40, 7);
 }
 
-void sub_100008A10()
+void sub_100008A10(uint64_t a1)
 {
-  v1 = v0[2];
-  v2 = OBJC_IVAR____TtC24SensingPredictXPCService31SPAudioAccessoryDeviceHIDClient_numActiveSessions;
-  v3 = *(v1 + OBJC_IVAR____TtC24SensingPredictXPCService31SPAudioAccessoryDeviceHIDClient_numActiveSessions);
-  v4 = __OFSUB__(v3, 1);
-  v5 = v3 - 1;
-  if (v4)
+  v2 = v1[2];
+  v3 = OBJC_IVAR____TtC24SensingPredictXPCService31SPAudioAccessoryDeviceHIDClient_numActiveSessions;
+  v4 = *(v2 + OBJC_IVAR____TtC24SensingPredictXPCService31SPAudioAccessoryDeviceHIDClient_numActiveSessions);
+  v5 = __OFSUB__(v4, 1);
+  v6 = v4 - 1;
+  if (v5)
   {
     __break(1u);
   }
 
   else
   {
-    v7 = v0[3];
-    v6 = v0[4];
-    *(v1 + OBJC_IVAR____TtC24SensingPredictXPCService31SPAudioAccessoryDeviceHIDClient_numActiveSessions) = v5;
-    v8 = sub_10000A170();
-    v9 = sub_100009418();
-    v10 = *v9;
-    if (os_log_type_enabled(*v9, v8))
+    v8 = v1[3];
+    v7 = v1[4];
+    *(v2 + OBJC_IVAR____TtC24SensingPredictXPCService31SPAudioAccessoryDeviceHIDClient_numActiveSessions) = v6;
+    v9 = sub_10000A170();
+    v10 = sub_100009418();
+    v11 = *v10;
+    if (os_log_type_enabled(*v10, v9))
     {
-      v11 = v10;
-      v12 = v1;
-      v13 = swift_slowAlloc();
+      v12 = v11;
+      v13 = v2;
       v14 = swift_slowAlloc();
-      v45 = v14;
-      *v13 = 136380931;
-      *(v13 + 4) = sub_100007B28(v7, v6, &v45);
-      *(v13 + 12) = 2048;
-      *(v13 + 14) = *(v1 + v2);
+      v15 = swift_slowAlloc();
+      v45[0] = v15;
+      *v14 = 136380931;
+      *(v14 + 4) = sub_100007B28(v8, v7, v45);
+      *(v14 + 12) = 2048;
+      *(v14 + 14) = *(v2 + v3);
 
-      _os_log_impl(&_mh_execute_header, v11, v8, "Stopping session. { appName=%{private}s, numActiveSessions=%ld }", v13, 0x16u);
-      sub_100008550(v14);
+      _os_log_impl(&_mh_execute_header, v12, v9, "Stopping session. { appName=%{private}s, numActiveSessions=%ld }", v14, 0x16u);
+      sub_100008550(v15);
     }
 
-    v15 = OBJC_IVAR____TtC24SensingPredictXPCService31SPAudioAccessoryDeviceHIDClient_activeSessionInfo;
+    v16 = OBJC_IVAR____TtC24SensingPredictXPCService31SPAudioAccessoryDeviceHIDClient_activeSessionInfo;
     swift_beginAccess();
-    v16 = *(v1 + v15);
-    v17 = *(v16 + 16);
-    if (v17)
+    v17 = *(v2 + v16);
+    v18 = *(v17 + 16);
+    if (v18)
     {
-      v18 = 0;
-      v19 = (v16 + 40);
+      v19 = 0;
+      v20 = (v17 + 40);
       while (1)
       {
-        v20 = *(v19 - 1) == v7 && *v19 == v6;
-        if (v20 || (sub_10000A210() & 1) != 0)
+        v21 = *(v20 - 1) == v8 && *v20 == v7;
+        if (v21 || (sub_10000A210() & 1) != 0)
         {
           break;
         }
 
-        ++v18;
-        v19 += 2;
-        if (v17 == v18)
+        ++v19;
+        v20 += 2;
+        if (v18 == v19)
         {
           goto LABEL_12;
         }
       }
 
       swift_beginAccess();
-      sub_100007830(v18);
+      sub_100007830(v19);
       swift_endAccess();
 
-      v26 = *(v1 + v15);
-      v29 = *(v26 + 16);
-      v27 = v26 + 16;
-      v28 = v29;
-      if (v29)
+      v27 = *(v2 + v16);
+      v30 = *(v27 + 16);
+      v28 = v27 + 16;
+      v29 = v30;
+      if (v30)
       {
-        v30 = (v27 + 16 * v28);
-        v32 = *v30;
-        v31 = v30[1];
-        v33 = (v1 + OBJC_IVAR____TtC24SensingPredictXPCService31SPAudioAccessoryDeviceHIDClient_activeAppName);
-        v34 = *(v1 + OBJC_IVAR____TtC24SensingPredictXPCService31SPAudioAccessoryDeviceHIDClient_activeAppName + 8);
-        *v33 = v32;
-        v33[1] = v31;
+        v31 = (v28 + 16 * v29);
+        v33 = *v31;
+        v32 = v31[1];
+        v34 = (v2 + OBJC_IVAR____TtC24SensingPredictXPCService31SPAudioAccessoryDeviceHIDClient_activeAppName);
+        *v34 = v33;
+        v34[1] = v32;
       }
 
       v35 = sub_10000A170();
-      v36 = *v9;
-      v37 = os_log_type_enabled(*v9, v35);
+      v36 = *v10;
+      v37 = os_log_type_enabled(*v10, v35);
       if (v37)
       {
         v38 = v36;
@@ -1890,8 +1868,8 @@ void sub_100008A10()
         v40 = swift_slowAlloc();
         v44[0] = v40;
         *v39 = 136380675;
-        v41 = *(v1 + OBJC_IVAR____TtC24SensingPredictXPCService31SPAudioAccessoryDeviceHIDClient_activeAppName);
-        v42 = *(v1 + OBJC_IVAR____TtC24SensingPredictXPCService31SPAudioAccessoryDeviceHIDClient_activeAppName + 8);
+        v41 = *(v2 + OBJC_IVAR____TtC24SensingPredictXPCService31SPAudioAccessoryDeviceHIDClient_activeAppName);
+        v42 = *(v2 + OBJC_IVAR____TtC24SensingPredictXPCService31SPAudioAccessoryDeviceHIDClient_activeAppName + 8);
 
         v43 = sub_100007B28(v41, v42, v44);
 
@@ -1900,28 +1878,28 @@ void sub_100008A10()
         sub_100008550(v40);
       }
 
-      if (!*(v1 + v2))
+      if (!*(v2 + v3))
       {
-        *(v1 + OBJC_IVAR____TtC24SensingPredictXPCService31SPAudioAccessoryDeviceHIDClient_cancelHIDTeardown) = 0;
-        (*((swift_isaMask & *v1) + 0x1C8))(v37);
+        *(v2 + OBJC_IVAR____TtC24SensingPredictXPCService31SPAudioAccessoryDeviceHIDClient_cancelHIDTeardown) = 0;
+        (*((swift_isaMask & *v2) + 0x1C8))(v37);
       }
     }
 
     else
     {
 LABEL_12:
-      v21 = sub_10000A170();
-      v22 = *v9;
-      if (os_log_type_enabled(*v9, v21))
+      v22 = sub_10000A170();
+      v23 = *v10;
+      if (os_log_type_enabled(*v10, v22))
       {
-        v23 = v22;
-        v24 = swift_slowAlloc();
+        v24 = v23;
         v25 = swift_slowAlloc();
-        v44[0] = v25;
-        *v24 = 136380675;
-        *(v24 + 4) = sub_100007B28(v7, v6, v44);
-        _os_log_impl(&_mh_execute_header, v23, v21, "Couldn't find appName in sessionInfo. { appName=%{private}s }", v24, 0xCu);
-        sub_100008550(v25);
+        v26 = swift_slowAlloc();
+        v44[0] = v26;
+        *v25 = 136380675;
+        *(v25 + 4) = sub_100007B28(v8, v7, v44);
+        _os_log_impl(&_mh_execute_header, v24, v22, "Couldn't find appName in sessionInfo. { appName=%{private}s }", v25, 0xCu);
+        sub_100008550(v26);
       }
     }
   }
@@ -1997,12 +1975,11 @@ uint64_t sub_100008EBC()
 
 unint64_t sub_100008F04(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 40);
   sub_10000A230();
   sub_10000A150();
-  v6 = sub_10000A240();
+  v4 = sub_10000A240();
 
-  return sub_100008F7C(a1, a2, v6);
+  return sub_100008F7C(a1, a2, v4);
 }
 
 unint64_t sub_100008F7C(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -2042,13 +2019,13 @@ uint64_t sub_10000904C(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-uint64_t sub_1000090A8(uint64_t a1, unint64_t a2)
+uint64_t sub_1000090A8(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v3;
     }
   }
 }
@@ -2159,20 +2136,20 @@ uint64_t *sub_100009418()
   return &qword_100016238;
 }
 
-id sub_10000948C(void *a1, void **a2)
+id sub_10000948C(void *a1, void **a2, uint64_t a3)
 {
   if (*a1 == -1)
   {
-    v3 = *a2;
+    v4 = *a2;
   }
 
   else
   {
     swift_once();
-    v3 = *a2;
+    v4 = *a2;
   }
 
-  return v3;
+  return v4;
 }
 
 unint64_t sub_1000094FC()
@@ -2186,36 +2163,6 @@ unint64_t sub_1000094FC()
   }
 
   return result;
-}
-
-uint64_t sub_100009598(unsigned int a1)
-{
-  if (a1 <= 2)
-  {
-    v1 = off_1000106A0[a1];
-  }
-
-  return LogPrintF();
-}
-
-uint64_t sub_1000095F8(unsigned int a1)
-{
-  if (a1 <= 2)
-  {
-    v1 = off_1000106A0[a1];
-  }
-
-  return LogPrintF();
-}
-
-uint64_t sub_10000969C(unsigned int a1)
-{
-  if (a1 <= 2)
-  {
-    v1 = off_1000106A0[a1];
-  }
-
-  return LogPrintF();
 }
 
 void sub_100009950()
@@ -2241,42 +2188,4 @@ void sub_100009E3C(void *a1)
   v1 = [a1 xpcCnx];
   [v1 processIdentifier];
   LogPrintF();
-}
-
-uint64_t sub_100009EBC(id *a1, unsigned __int8 a2, unsigned int *a3)
-{
-  v5 = [*a1 locationCategory];
-  if (v5 <= 9)
-  {
-    v6 = off_1000108E0[v5];
-  }
-
-  if (a2 <= 9u)
-  {
-    v7 = off_1000108E0[a2];
-  }
-
-  v8 = *a3;
-  if (v8 <= 2)
-  {
-    v9 = off_1000108C8[v8];
-  }
-
-  return LogPrintF();
-}
-
-uint64_t sub_100009F7C(id *a1, unsigned __int8 a2)
-{
-  v3 = [*a1 locationCategory];
-  if (v3 <= 9)
-  {
-    v4 = off_1000108E0[v3];
-  }
-
-  if (a2 <= 9u)
-  {
-    v5 = off_1000108E0[a2];
-  }
-
-  return LogPrintF();
 }

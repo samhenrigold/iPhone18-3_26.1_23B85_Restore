@@ -12,6 +12,7 @@
 - (void)dismissFollowUpForSerialNumber:(id)number completion:(id)completion;
 - (void)dismissFollowUps:(id)ups completion:(id)completion;
 - (void)dismissNotificationForSerialNumber:(id)number completion:(id)completion;
+- (void)getAllFUPEligibleDeviceInfosUsingPolicy:(unint64_t)policy updateFollowUps:(BOOL)ups withReply:(id)reply;
 - (void)getAmsPropertiesForContext:(id)context withReply:(id)reply;
 - (void)getBTDeviceInfosUsingPolicy:(unint64_t)policy updateFollowUps:(BOOL)ups withReply:(id)reply;
 - (void)getBTPioneerDeviceInfosUsingPolicy:(unint64_t)policy updateFollowUps:(BOOL)ups withReply:(id)reply;
@@ -496,6 +497,16 @@ LABEL_8:
 
   v11 = [v12 copy];
   [(NDOAgent *)self _getInfosForDevices:v11 usingPolicy:2 updateFollowUps:1 withReply:infosCopy];
+}
+
+- (void)getAllFUPEligibleDeviceInfosUsingPolicy:(unint64_t)policy updateFollowUps:(BOOL)ups withReply:(id)reply
+{
+  upsCopy = ups;
+  replyCopy = reply;
+  deviceProvider = [(NDOAgent *)self deviceProvider];
+  allFUPEligibleDevices = [deviceProvider allFUPEligibleDevices];
+  allValues = [allFUPEligibleDevices allValues];
+  [(NDOAgent *)self _getInfosForDevices:allValues usingPolicy:policy updateFollowUps:upsCopy withReply:replyCopy];
 }
 
 - (void)_getInfosForDevices:(id)devices usingPolicy:(unint64_t)policy updateFollowUps:(BOOL)ups withReply:(id)reply

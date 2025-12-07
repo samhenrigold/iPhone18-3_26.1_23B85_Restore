@@ -25,21 +25,18 @@
 
 - (NSString)author
 {
-  v2 = *(self + OBJC_IVAR___MTServerPodcastEpisode_attributes);
-  if (*(v2 + 24))
+  if (*(*(self + OBJC_IVAR___MTServerPodcastEpisode_attributes) + 24))
   {
-    v3 = *(v2 + 16);
-    v4 = *(v2 + 24);
 
-    v5 = _sSS18PodcastsFoundationE18userDefaultsObjectSo8NSStringCSgyF_0();
+    v2 = _sSS18PodcastsFoundationE18userDefaultsObjectSo8NSStringCSgyF_0();
   }
 
   else
   {
-    v5 = 0;
+    v2 = 0;
   }
 
-  return v5;
+  return v2;
 }
 
 - (BOOL)isExplicit
@@ -52,192 +49,158 @@
 
 - (NSString)guid
 {
-  v2 = *(self + OBJC_IVAR___MTServerPodcastEpisode_attributes);
-  if (*(v2 + 328))
+  if (*(*(self + OBJC_IVAR___MTServerPodcastEpisode_attributes) + 328))
   {
-    v3 = *(v2 + 320);
-    v4 = *(v2 + 328);
 
-    v5 = _sSS18PodcastsFoundationE18userDefaultsObjectSo8NSStringCSgyF_0();
+    v2 = _sSS18PodcastsFoundationE18userDefaultsObjectSo8NSStringCSgyF_0();
   }
 
   else
   {
-    v5 = 0;
+    v2 = 0;
   }
 
-  return v5;
+  return v2;
 }
 
 - (NSString)itemDescription
 {
   v2 = *(self + OBJC_IVAR___MTServerPodcastEpisode_attributes);
-  if (v2[23])
+  if (*(v2 + 184))
   {
-    v3 = v2[22];
-    v4 = v2[23];
-LABEL_3:
-
-    v5 = _sSS18PodcastsFoundationE18userDefaultsObjectSo8NSStringCSgyF_0();
-
-    goto LABEL_8;
+    goto LABEL_2;
   }
 
-  v6 = v2[14];
-  if (v6 && *(v6 + 24))
+  v4 = *(v2 + 112);
+  if (v4 && *(v4 + 24))
   {
-    v7 = *(v6 + 16);
-    v8 = *(v6 + 24);
 
-    goto LABEL_3;
+LABEL_2:
+
+    v3 = _sSS18PodcastsFoundationE18userDefaultsObjectSo8NSStringCSgyF_0();
+
+    goto LABEL_7;
   }
 
-  v5 = 0;
-LABEL_8:
+  v3 = 0;
+LABEL_7:
 
-  return v5;
+  return v3;
 }
 
 - (NSDate)pubDate
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECAB75C0, &unk_1D9188A50);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x1EEE9AC00](v3 - 8);
-  v6 = &v15 - v5;
-  v7 = *(self + OBJC_IVAR___MTServerPodcastEpisode_attributes);
+  v5 = &v13 - v4;
   selfCopy = self;
-  PodcastEpisodeAttributes.releaseDateResolved.getter(v6);
+  PodcastEpisodeAttributes.releaseDateResolved.getter(v5);
 
-  v9 = sub_1D9176E3C();
-  v10 = *(v9 - 8);
-  v11 = (*(v10 + 48))(v6, 1, v9);
-  v12 = 0;
-  if (v11 != 1)
+  v7 = sub_1D9176E3C();
+  v8 = *(v7 - 8);
+  v9 = (*(v8 + 48))(v5, 1, v7);
+  v10 = 0;
+  if (v9 != 1)
   {
-    v13 = _s10Foundation4DateV08PodcastsA0E18userDefaultsObjectSo6NSDateCSgyF_0();
-    (*(v10 + 8))(v6, v9);
-    v12 = v13;
+    v11 = _s10Foundation4DateV08PodcastsA0E18userDefaultsObjectSo6NSDateCSgyF_0();
+    (*(v8 + 8))(v5, v7);
+    v10 = v11;
   }
 
-  return v12;
+  return v10;
 }
 
 - (NSDate)firstTimeAvailableAsPaid
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECAB75C0, &unk_1D9188A50);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x1EEE9AC00](v3 - 8);
-  v6 = &v15 - v5;
+  v5 = &v14 - v4;
   if (*(*(self + OBJC_IVAR___MTServerPodcastEpisode_attributes) + 208))
   {
-    v16 = 2;
+    v15 = 2;
     selfCopy = self;
 
-    PodcastEpisodeAttributes.AvailabilityDates.subscript.getter(&v16, v6);
+    PodcastEpisodeAttributes.AvailabilityDates.subscript.getter(&v15, v5);
 
-    v8 = sub_1D9176E3C();
-    v9 = *(v8 - 8);
-    v10 = (*(v9 + 48))(v6, 1, v8);
-    v11 = 0;
-    if (v10 != 1)
+    v7 = sub_1D9176E3C();
+    v8 = *(v7 - 8);
+    v9 = (*(v8 + 48))(v5, 1, v7);
+    v10 = 0;
+    if (v9 != 1)
     {
-      v12 = _s10Foundation4DateV08PodcastsA0E18userDefaultsObjectSo6NSDateCSgyF_0();
-      (*(v9 + 8))(v6, v8);
-      v11 = v12;
+      v11 = _s10Foundation4DateV08PodcastsA0E18userDefaultsObjectSo6NSDateCSgyF_0();
+      (*(v8 + 8))(v5, v7);
+      v10 = v11;
     }
   }
 
   else
   {
-    v13 = sub_1D9176E3C();
-    (*(*(v13 - 8) + 56))(v6, 1, 1, v13);
-    v11 = 0;
+    v12 = sub_1D9176E3C();
+    (*(*(v12 - 8) + 56))(v5, 1, 1, v12);
+    v10 = 0;
   }
 
-  return v11;
+  return v10;
 }
 
 - (NSDate)firstTimeAvailableAsFree
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECAB75C0, &unk_1D9188A50);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x1EEE9AC00](v3 - 8);
-  v6 = &v15 - v5;
+  v5 = &v14 - v4;
   if (*(*(self + OBJC_IVAR___MTServerPodcastEpisode_attributes) + 208))
   {
     selfCopy = self;
 
-    PodcastEpisodeAttributes.AvailabilityDates.free.getter(v6);
+    PodcastEpisodeAttributes.AvailabilityDates.free.getter(v5);
 
-    v8 = sub_1D9176E3C();
-    v9 = *(v8 - 8);
-    v10 = (*(v9 + 48))(v6, 1, v8);
-    v11 = 0;
-    if (v10 != 1)
+    v7 = sub_1D9176E3C();
+    v8 = *(v7 - 8);
+    v9 = (*(v8 + 48))(v5, 1, v7);
+    v10 = 0;
+    if (v9 != 1)
     {
-      v12 = _s10Foundation4DateV08PodcastsA0E18userDefaultsObjectSo6NSDateCSgyF_0();
-      (*(v9 + 8))(v6, v8);
-      v11 = v12;
+      v11 = _s10Foundation4DateV08PodcastsA0E18userDefaultsObjectSo6NSDateCSgyF_0();
+      (*(v8 + 8))(v5, v7);
+      v10 = v11;
     }
   }
 
   else
   {
-    v13 = sub_1D9176E3C();
-    (*(*(v13 - 8) + 56))(v6, 1, 1, v13);
-    v11 = 0;
+    v12 = sub_1D9176E3C();
+    (*(*(v12 - 8) + 56))(v5, 1, 1, v12);
+    v10 = 0;
   }
 
-  return v11;
+  return v10;
 }
 
 - (NSString)title
 {
-  v2 = *(self + OBJC_IVAR___MTServerPodcastEpisode_attributes);
-  if (*(v2 + 88))
+  if (*(*(self + OBJC_IVAR___MTServerPodcastEpisode_attributes) + 88))
   {
-    v3 = *(v2 + 80);
-    v4 = *(v2 + 88);
 
-    v5 = _sSS18PodcastsFoundationE18userDefaultsObjectSo8NSStringCSgyF_0();
+    v2 = _sSS18PodcastsFoundationE18userDefaultsObjectSo8NSStringCSgyF_0();
   }
 
   else
   {
-    v5 = 0;
+    v2 = 0;
   }
 
-  return v5;
+  return v2;
 }
 
 - (NSString)uti
 {
-  v2 = *(self + OBJC_IVAR___MTServerPodcastEpisode_attributes);
   selfCopy = self;
   PodcastEpisodeAttributes.uti.getter();
-  v5 = v4;
+  v4 = v3;
 
-  if (v5)
+  if (v4)
   {
-    v6 = _sSS18PodcastsFoundationE18userDefaultsObjectSo8NSStringCSgyF_0();
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  return v6;
-}
-
-- (NSString)itunesTitle
-{
-  v2 = *(self + OBJC_IVAR___MTServerPodcastEpisode_attributes);
-  if (*(v2 + 104))
-  {
-    v3 = *(v2 + 96);
-    v4 = *(v2 + 104);
-
     v5 = _sSS18PodcastsFoundationE18userDefaultsObjectSo8NSStringCSgyF_0();
   }
 
@@ -247,6 +210,22 @@ LABEL_8:
   }
 
   return v5;
+}
+
+- (NSString)itunesTitle
+{
+  if (*(*(self + OBJC_IVAR___MTServerPodcastEpisode_attributes) + 104))
+  {
+
+    v2 = _sSS18PodcastsFoundationE18userDefaultsObjectSo8NSStringCSgyF_0();
+  }
+
+  else
+  {
+    v2 = 0;
+  }
+
+  return v2;
 }
 
 - (int64_t)seasonNumber
@@ -279,57 +258,46 @@ LABEL_8:
 
 - (NSString)webpageURL
 {
-  v2 = *(self + OBJC_IVAR___MTServerPodcastEpisode_attributes);
-  if (*(v2 + 240))
+  if (*(*(self + OBJC_IVAR___MTServerPodcastEpisode_attributes) + 240))
   {
-    v3 = *(v2 + 232);
-    v4 = *(v2 + 240);
 
-    v5 = _sSS18PodcastsFoundationE18userDefaultsObjectSo8NSStringCSgyF_0();
+    v2 = _sSS18PodcastsFoundationE18userDefaultsObjectSo8NSStringCSgyF_0();
   }
 
   else
   {
-    v5 = 0;
+    v2 = 0;
   }
 
-  return v5;
+  return v2;
 }
 
 - (NSString)episodeStoreId
 {
-  v2 = *(self + OBJC_IVAR___MTServerPodcastEpisode_id);
-  v3 = *(self + OBJC_IVAR___MTServerPodcastEpisode_id + 8);
+
+  v2 = _sSS18PodcastsFoundationE18userDefaultsObjectSo8NSStringCSgyF_0();
+
+  return v2;
+}
+
+- (NSString)priceType
+{
+  selfCopy = self;
+  ServerPodcastEpisode.determineBestChannelMetaData(isSubscriptionActive:)(v3, &v6);
 
   v4 = _sSS18PodcastsFoundationE18userDefaultsObjectSo8NSStringCSgyF_0();
 
   return v4;
 }
 
-- (NSString)priceType
-{
-  selfCopy = self;
-  ServerPodcastEpisode.determineBestChannelMetaData(isSubscriptionActive:)(v3, &v8);
-
-  v4 = v8;
-
-  v5 = *&aStdq_12[8 * v4];
-  v6 = _sSS18PodcastsFoundationE18userDefaultsObjectSo8NSStringCSgyF_0();
-
-  return v6;
-}
-
 - (NSString)entitledPriceType
 {
   selfCopy = self;
-  ServerPodcastEpisode.determineBestChannelMetaData(isSubscriptionActive:)(v3, &v8);
+  ServerPodcastEpisode.determineBestChannelMetaData(isSubscriptionActive:)(v3, &v6);
 
-  v4 = v8;
+  v4 = _sSS18PodcastsFoundationE18userDefaultsObjectSo8NSStringCSgyF_0();
 
-  v5 = *&aStdq_12[8 * v4];
-  v6 = _sSS18PodcastsFoundationE18userDefaultsObjectSo8NSStringCSgyF_0();
-
-  return v6;
+  return v4;
 }
 
 - (NSOrderedSet)chapters

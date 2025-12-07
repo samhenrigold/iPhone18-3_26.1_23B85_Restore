@@ -84,43 +84,40 @@
 
 - (id)destinationArrayDescriptorForSourceArrays:(id)arrays sourceState:(id)state
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v6 = [arrays objectAtIndexedSubscript:{0, state}];
   v7 = MEMORY[0x277CD7410];
-  v15[0] = *(v6 + *MEMORY[0x277CD7410]);
-  v15[1] = *([arrays objectAtIndexedSubscript:0] + *v7 + 4);
-  v16 = *([arrays objectAtIndexedSubscript:0] + *v7 + 8);
-  v17 = *([arrays objectAtIndexedSubscript:0] + *v7 + 12);
-  v18 = *([arrays objectAtIndexedSubscript:0] + *v7 + 16);
-  v19 = *([arrays objectAtIndexedSubscript:0] + *v7 + 20);
-  v20 = *([arrays objectAtIndexedSubscript:0] + *v7 + 24);
-  v21 = *([arrays objectAtIndexedSubscript:0] + *v7 + 28);
-  v22 = *([arrays objectAtIndexedSubscript:0] + *v7 + 32);
-  v23 = *([arrays objectAtIndexedSubscript:0] + *v7 + 36);
-  v24 = *([arrays objectAtIndexedSubscript:0] + *v7 + 40);
-  v25 = *([arrays objectAtIndexedSubscript:0] + *v7 + 44);
-  v26 = *([arrays objectAtIndexedSubscript:0] + *v7 + 48);
-  v27 = *([arrays objectAtIndexedSubscript:0] + *v7 + 52);
-  v28 = *([arrays objectAtIndexedSubscript:0] + *v7 + 56);
-  v29 = *([arrays objectAtIndexedSubscript:0] + *v7 + 60);
-  v8 = self->_windowSizes.size[1] * self->_windowSizes.size[0];
+  v13[0] = *(v6 + *MEMORY[0x277CD7410]);
+  v13[1] = *([arrays objectAtIndexedSubscript:0] + *v7 + 4);
+  v14 = *([arrays objectAtIndexedSubscript:0] + *v7 + 8);
+  v15 = *([arrays objectAtIndexedSubscript:0] + *v7 + 12);
+  v16 = *([arrays objectAtIndexedSubscript:0] + *v7 + 16);
+  v17 = *([arrays objectAtIndexedSubscript:0] + *v7 + 20);
+  v18 = *([arrays objectAtIndexedSubscript:0] + *v7 + 24);
+  v19 = *([arrays objectAtIndexedSubscript:0] + *v7 + 28);
+  v20 = *([arrays objectAtIndexedSubscript:0] + *v7 + 32);
+  v21 = *([arrays objectAtIndexedSubscript:0] + *v7 + 36);
+  v22 = *([arrays objectAtIndexedSubscript:0] + *v7 + 40);
+  v23 = *([arrays objectAtIndexedSubscript:0] + *v7 + 44);
+  v24 = *([arrays objectAtIndexedSubscript:0] + *v7 + 48);
+  v25 = *([arrays objectAtIndexedSubscript:0] + *v7 + 52);
+  v26 = *([arrays objectAtIndexedSubscript:0] + *v7 + 56);
+  v27 = *([arrays objectAtIndexedSubscript:0] + *v7 + 60);
   if (self->_dataFormat == 1)
   {
-    v15[0] = self->_windowSizes.size[1] * self->_windowSizes.size[0];
+    v13[0] = self->_windowSizes.size[1] * self->_windowSizes.size[0];
   }
 
   else
   {
-    v16 = self->_windowSizes.size[1] * self->_windowSizes.size[0];
+    v14 = self->_windowSizes.size[1] * self->_windowSizes.size[0];
   }
 
-  v9 = MEMORY[0x277CD7268];
-  v10 = [arrays objectAtIndexedSubscript:0];
-  v11 = *(v10 + *MEMORY[0x277CD73C8]);
-  v12 = [arrays objectAtIndexedSubscript:0];
-  result = [v9 descriptorWithDataType:v11 dimensionCount:*(v12 + *MEMORY[0x277CD73F0]) dimensionSizes:v15];
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
+  v8 = MEMORY[0x277CD7268];
+  v9 = [arrays objectAtIndexedSubscript:0];
+  v10 = *(v9 + *MEMORY[0x277CD73C8]);
+  v11 = [arrays objectAtIndexedSubscript:0];
+  return [v8 descriptorWithDataType:v10 dimensionCount:*(v11 + *MEMORY[0x277CD73F0]) dimensionSizes:v13];
 }
 
 - (void)encodeWithCoder:(id)coder

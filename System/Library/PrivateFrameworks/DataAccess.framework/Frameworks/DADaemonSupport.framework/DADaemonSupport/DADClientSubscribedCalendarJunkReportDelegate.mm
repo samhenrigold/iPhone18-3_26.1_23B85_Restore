@@ -10,19 +10,19 @@
 
 - (void)reportSubscribedCalendarAsJunk:(id)junk
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   junkCopy = junk;
   v5 = [(DADClientSubscribedCalendarJunkReportDelegate *)self _createURLRequestForSubscriptionCalendarURL:junkCopy];
   if (v5)
   {
     mEMORY[0x277CCAD30] = [MEMORY[0x277CCAD30] sharedSession];
     hTTPBody = [v5 HTTPBody];
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __80__DADClientSubscribedCalendarJunkReportDelegate_reportSubscribedCalendarAsJunk___block_invoke;
-    v11[3] = &unk_278F1D340;
-    v12 = junkCopy;
-    v8 = [mEMORY[0x277CCAD30] uploadTaskWithRequest:v5 fromData:hTTPBody completionHandler:v11];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __80__DADClientSubscribedCalendarJunkReportDelegate_reportSubscribedCalendarAsJunk___block_invoke;
+    v10[3] = &unk_278F1D340;
+    v11 = junkCopy;
+    v8 = [mEMORY[0x277CCAD30] uploadTaskWithRequest:v5 fromData:hTTPBody completionHandler:v10];
 
     [v8 resume];
   }
@@ -34,17 +34,15 @@
     if (os_log_type_enabled(mEMORY[0x277CCAD30], v9))
     {
       *buf = 138412290;
-      v14 = junkCopy;
+      v13 = junkCopy;
       _os_log_impl(&dword_248524000, mEMORY[0x277CCAD30], v9, "Report subscribed calendar as junk failed. Unable to create a URL request. Calendar URL = %@", buf, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __80__DADClientSubscribedCalendarJunkReportDelegate_reportSubscribedCalendarAsJunk___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = a4;
   objc_opt_class();
@@ -58,14 +56,14 @@ void __80__DADClientSubscribedCalendarJunkReportDelegate_reportSubscribedCalenda
       if (os_log_type_enabled(v9, v10))
       {
         v11 = *(a1 + 32);
-        v22 = 138412290;
-        v23 = v11;
+        v21 = 138412290;
+        v22 = v11;
         v12 = "Reporting subscribed calendar as junk successful: %@";
         v13 = v9;
         v14 = v10;
         v15 = 12;
 LABEL_8:
-        _os_log_impl(&dword_248524000, v13, v14, v12, &v22, v15);
+        _os_log_impl(&dword_248524000, v13, v14, v12, &v21, v15);
         goto LABEL_9;
       }
 
@@ -80,12 +78,12 @@ LABEL_8:
       {
         v17 = [v8 statusCode];
         v18 = *(a1 + 32);
-        v22 = 138412802;
-        v23 = v7;
-        v24 = 2048;
-        v25 = v17;
-        v26 = 2112;
-        v27 = v18;
+        v21 = 138412802;
+        v22 = v7;
+        v23 = 2048;
+        v24 = v17;
+        v25 = 2112;
+        v26 = v18;
         v12 = "Report subscribed calendar as junk failed. Error = %@  Response status code = %ld  Calendar URL = %@";
         v13 = v9;
         v14 = v16;
@@ -104,32 +102,28 @@ LABEL_9:
   if (os_log_type_enabled(v8, v19))
   {
     v20 = *(a1 + 32);
-    v22 = 138412546;
-    v23 = v7;
-    v24 = 2112;
-    v25 = v20;
-    _os_log_impl(&dword_248524000, v8, v19, "Report subscribed calendar as junk failed. Error = %@  Calendar URL = %@", &v22, 0x16u);
+    v21 = 138412546;
+    v22 = v7;
+    v23 = 2112;
+    v24 = v20;
+    _os_log_impl(&dword_248524000, v8, v19, "Report subscribed calendar as junk failed. Error = %@  Calendar URL = %@", &v21, 0x16u);
   }
 
 LABEL_12:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)finishWithError:(id)error
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v4 = DALoggingwithCategory();
   v5 = *(MEMORY[0x277D03988] + 4);
   if (os_log_type_enabled(v4, v5))
   {
-    v7 = 138412290;
-    v8 = errorCopy;
-    _os_log_impl(&dword_248524000, v4, v5, "Report subscribed calendar as junk -finishWithError: called with error %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = errorCopy;
+    _os_log_impl(&dword_248524000, v4, v5, "Report subscribed calendar as junk -finishWithError: called with error %@", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_createURLRequestForSubscriptionCalendarURL:(id)l

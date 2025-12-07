@@ -98,7 +98,7 @@
           if (v28)
           {
             v29 = v28;
-            v51 = v27;
+            v50 = v27;
             v30 = [FTABFileBackDeploy alloc];
             payloadData2 = [v29 payloadData];
             v32 = [(FTABFileBackDeploy *)v30 initWithData:payloadData2];
@@ -143,13 +143,12 @@ LABEL_21:
                   v43 = *(&self->_cphyData + 1);
                   *(&self->_cphyData + 1) = v42;
 
-                  v44 = *(&self->_cphyData + 1);
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
                   {
-                    v45 = [v41 objectForKeyedSubscript:@"APInfo"];
-                    v46 = *(&self->_deviceInfoArray + 1);
-                    *(&self->_deviceInfoArray + 1) = v45;
+                    v44 = [v41 objectForKeyedSubscript:@"APInfo"];
+                    v45 = *(&self->_deviceInfoArray + 1);
+                    *(&self->_deviceInfoArray + 1) = v44;
 
                     v20 = 1;
 LABEL_28:
@@ -158,15 +157,15 @@ LABEL_35:
                     goto LABEL_36;
                   }
 
-                  v47 = @"Failed to locate device info array";
+                  v46 = @"Failed to locate device info array";
                 }
 
                 else
                 {
-                  v47 = @"Failed to locate device info";
+                  v46 = @"Failed to locate device info";
                 }
 
-                [(AppleTypeCRetimerRestoreInfoHelperBackDeploy *)self log:v47];
+                [(AppleTypeCRetimerRestoreInfoHelperBackDeploy *)self log:v46];
                 v20 = 0;
                 goto LABEL_28;
               }
@@ -178,13 +177,13 @@ LABEL_34:
 
             [(AppleTypeCRetimerRestoreInfoHelperBackDeploy *)self log:@"Failed to parse FTAB in super binary"];
 
-            v48 = v51;
+            v47 = v50;
           }
 
           else
           {
             [(AppleTypeCRetimerRestoreInfoHelperBackDeploy *)self log:@"Failed to locate FTAB in super binary"];
-            v48 = v27;
+            v47 = v27;
           }
         }
 

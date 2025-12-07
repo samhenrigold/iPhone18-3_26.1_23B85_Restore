@@ -132,19 +132,18 @@ LABEL_12:
   toCopy = to;
   if ([(_INPBModifyRelationship *)self hasIsRemoval])
   {
-    isRemoval = self->_isRemoval;
     PBDataWriterWriteBOOLField();
   }
 
   targetRelationship = [(_INPBModifyRelationship *)self targetRelationship];
 
-  v6 = toCopy;
+  v5 = toCopy;
   if (targetRelationship)
   {
     targetRelationship2 = [(_INPBModifyRelationship *)self targetRelationship];
     PBDataWriterWriteSubmessage();
 
-    v6 = toCopy;
+    v5 = toCopy;
   }
 }
 

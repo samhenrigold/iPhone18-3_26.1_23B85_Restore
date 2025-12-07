@@ -1,6 +1,7 @@
 @interface OSILocationMonitor
 - (BOOL)inTypicalChargingLocation;
 - (BOOL)inTypicalLocation;
+- (BOOL)inTypicalLocationWithError:(id *)error considerCharging:(BOOL)charging;
 - (BOOL)isInSameTimeZone;
 - (BOOL)locationIsUncertain:(id)uncertain;
 - (BOOL)locationOfInterestFoundNear:(id)near withError:(id *)error considerCharging:(BOOL)charging distance:(int)distance;
@@ -541,6 +542,126 @@ LABEL_14:
   LOBYTE(v7) = [v16 BOOLValue];
 
   return v7 & 1;
+}
+
+- (BOOL)inTypicalLocationWithError:(id *)error considerCharging:(BOOL)charging
+{
+  chargingCopy = charging;
+  queue = self->_queue;
+  block[0] = _NSConcreteStackBlock;
+  block[1] = 3221225472;
+  block[2] = sub_100024798;
+  block[3] = &unk_100094C20;
+  block[4] = self;
+  dispatch_sync(queue, block);
+  log = self->_log;
+  if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
+  {
+    if (self->_currentLocation)
+    {
+      v9 = @"Have Location";
+    }
+
+    else
+    {
+      v9 = 0;
+    }
+
+    *buf = 138412290;
+    v33 = v9;
+    _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEFAULT, "Current location: %@", buf, 0xCu);
+  }
+
+  currentLocation = [(OSILocationMonitor *)self currentLocation];
+  v11 = [(OSILocationMonitor *)self locationIsUncertain:currentLocation];
+
+  if (v11)
+  {
+    [(CLLocationManager *)self->_locationManager startUpdatingLocation];
+  }
+
+  currentLocation2 = [(OSILocationMonitor *)self currentLocation];
+  v13 = [(OSILocationMonitor *)self locationIsUncertain:currentLocation2];
+
+  if (v13)
+  {
+    requestLocationSemaphore = [(OSILocationMonitor *)self requestLocationSemaphore];
+    if (requestLocationSemaphore)
+    {
+      v15 = dispatch_time(0, 30000000000);
+      dispatch_semaphore_wait(requestLocationSemaphore, v15);
+    }
+
+    [(CLLocationManager *)self->_locationManager stopUpdatingLocation];
+  }
+
+  v16 = self->_log;
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  {
+    v17 = v16;
+    currentLocation3 = [(OSILocationMonitor *)self currentLocation];
+    if (currentLocation3)
+    {
+      v19 = @"Have Location";
+    }
+
+    else
+    {
+      v19 = 0;
+    }
+
+    location = [(CLLocationManager *)self->_locationManager location];
+    if (location)
+    {
+      v21 = @"Have Location";
+    }
+
+    else
+    {
+      v21 = 0;
+    }
+
+    *buf = 138412546;
+    v33 = v19;
+    v34 = 2112;
+    v35 = v21;
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Current location %@, Location manager location: %@", buf, 0x16u);
+  }
+
+  currentLocation4 = [(OSILocationMonitor *)self currentLocation];
+  v23 = currentLocation4;
+  if (currentLocation4)
+  {
+    location2 = currentLocation4;
+  }
+
+  else
+  {
+    location2 = [(CLLocationManager *)self->_locationManager location];
+  }
+
+  v25 = location2;
+
+  if (chargingCopy)
+  {
+    v26 = 100;
+  }
+
+  else
+  {
+    v26 = 200;
+  }
+
+  v27 = [(OSILocationMonitor *)self locationOfInterestFoundNear:v25 withError:error considerCharging:chargingCopy distance:v26];
+  v28 = self->_queue;
+  v30[0] = _NSConcreteStackBlock;
+  v30[1] = 3221225472;
+  v30[2] = sub_100024810;
+  v30[3] = &unk_100094C20;
+  v30[4] = self;
+  dispatch_sync(v28, v30);
+
+  return v27;
 }
 
 - (BOOL)locationOfInterestFoundNear:(id)near withError:(id *)error considerCharging:(BOOL)charging distance:(int)distance

@@ -55,12 +55,11 @@ uint64_t __103__HDSimpleGraphDatabaseAttributeEntity_addAttributeWithType_value_
 {
   sqlite3_bind_int64(a2, 1, a1[5]);
   sqlite3_bind_int64(a2, 2, a1[6]);
-  v4 = a1[4];
   HDSQLiteBindStringToStatement();
   sqlite3_bind_int64(a2, 4, a1[7]);
-  v5 = a1[8];
+  v4 = a1[8];
 
-  return sqlite3_bind_int64(a2, 5, v5);
+  return sqlite3_bind_int64(a2, 5, v4);
 }
 
 + (BOOL)updateSlots:(unint64_t)slots nodeID:(int64_t)d type:(int64_t)type database:(id)database error:(id *)error
@@ -217,7 +216,7 @@ uint64_t __84__HDSimpleGraphDatabaseAttributeEntity_maxVersion_slots_nodeID_type
   return sqlite3_bind_int64(a2, 2, v4);
 }
 
-uint64_t __84__HDSimpleGraphDatabaseAttributeEntity_maxVersion_slots_nodeID_type_database_error___block_invoke_3(void *a1)
+uint64_t __84__HDSimpleGraphDatabaseAttributeEntity_maxVersion_slots_nodeID_type_database_error___block_invoke_3(void *a1, uint64_t a2)
 {
   *(*(a1[4] + 8) + 24) = HDSQLiteColumnAsInt64();
   *(*(a1[5] + 8) + 24) = HDSQLiteColumnAsInt64();
@@ -366,42 +365,37 @@ uint64_t __119__HDSimpleGraphDatabaseAttributeEntity_enumerateAttributesForNodeW
 
 + (id)foreignKeys
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"node_id";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"node_id";
   v2 = +[HDSimpleGraphDatabaseNodeEntity nodeEntityForeignKey];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
 
 + (id)uniquedColumns
 {
-  v5[3] = *MEMORY[0x277D85DE8];
-  v5[0] = @"node_id";
-  v5[1] = @"attribute_type";
-  v5[2] = @"value";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:3];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[3] = *MEMORY[0x277D85DE8];
+  v4[0] = @"node_id";
+  v4[1] = @"attribute_type";
+  v4[2] = @"value";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:3];
 
   return v2;
 }
 
 + (id)indices
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v2 = objc_alloc(MEMORY[0x277D10B40]);
   v3 = objc_opt_class();
-  v9[0] = @"attribute_type";
-  v9[1] = @"value";
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:2];
+  v8[0] = @"attribute_type";
+  v8[1] = @"value";
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:2];
   v5 = [v2 initWithEntity:v3 name:@"type_value_index" columns:v4];
-  v10[0] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[0] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
 
   return v6;
 }

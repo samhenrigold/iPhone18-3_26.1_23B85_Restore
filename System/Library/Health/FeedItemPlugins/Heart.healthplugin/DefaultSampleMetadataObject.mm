@@ -28,18 +28,17 @@
 {
   v3 = sub_29D9339F8();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  MEMORY[0x2A1C7C4A8](v3, v6);
-  v8 = &v14 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = *(&self->super.isa + OBJC_IVAR____TtC5Heart27DefaultSampleMetadataObject_sample);
+  MEMORY[0x2A1C7C4A8](v3, v5);
+  v7 = &v13 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = *(&self->super.isa + OBJC_IVAR____TtC5Heart27DefaultSampleMetadataObject_sample);
   selfCopy = self;
-  startDate = [v9 startDate];
+  startDate = [v8 startDate];
   sub_29D933998();
 
-  v12 = sub_29D933958();
-  (*(v4 + 8))(v8, v3);
+  v11 = sub_29D933958();
+  (*(v4 + 8))(v7, v3);
 
-  return v12;
+  return v11;
 }
 
 - (_TtC5Heart27DefaultSampleMetadataObject)init

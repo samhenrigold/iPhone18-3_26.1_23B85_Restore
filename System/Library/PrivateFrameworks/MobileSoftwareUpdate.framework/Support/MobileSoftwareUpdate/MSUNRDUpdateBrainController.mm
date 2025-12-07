@@ -3,6 +3,7 @@
 + (id)stateToString:(int)string;
 - (MSUNRDUpdateBrainController)init;
 - (id)status;
+- (id)waitWithTimeout:(int)timeout progressCallback:(void *)callback context:(void *)context releaseLock:(BOOL)lock;
 - (void)cancelAndLock;
 - (void)prepareResizeForNeRDUpdate;
 - (void)saveLastError:(id)error;
@@ -121,16 +122,16 @@ void __81__MSUNRDUpdateBrainController_startForMSUUpdate_withMSUBrainVersion_wit
 {
   logfunction(", 1, @"starting RecoveryOS update for MSU update:%@\n"", a4, a5, a6, a7, a8, *(a1 + 32));
   [*(a1 + 40) saveMSUUpdateAttributes:*(a1 + 32) andState:1];
-  v100 = 0;
-  v101 = 0;
-  updated = NRDGetUpdateBrainConnection(&v101, &v100, progressCallback, *(a1 + 40));
-  v10 = v101;
-  v11 = v100;
+  v94 = 0;
+  v95 = 0;
+  updated = NRDGetUpdateBrainConnection(&v95, &v94, progressCallback, *(a1 + 40));
+  v10 = v95;
+  v11 = v94;
   v12 = objc_opt_new();
   [v12 setObject:*(a1 + 32) forKeyedSubscript:@"MainOSUpdateAttributes"];
-  v102 = @"msuBrainVersion";
-  v103 = *(a1 + 48);
-  v13 = [NSDictionary dictionaryWithObjects:&v103 forKeys:&v102 count:1];
+  v96 = @"msuBrainVersion";
+  v97 = *(a1 + 48);
+  v13 = [NSDictionary dictionaryWithObjects:&v97 forKeys:&v96 count:1];
   [v12 setObject:v13 forKeyedSubscript:@"AdditionalEventInfo"];
 
   v14 = [*(a1 + 56) objectForKeyedSubscript:@"ForceInline"];
@@ -150,7 +151,7 @@ void __81__MSUNRDUpdateBrainController_startForMSUUpdate_withMSUBrainVersion_wit
 
     if (v21)
     {
-      logfunction(", 1, @"Found existing nrd lock, releasing it first\n"", v22, v23, v24, v25, v26, v84);
+      logfunction(", 1, @"Found existing nrd lock, releasing it first\n"", v22, v23, v24, v25, v26);
       v27 = [*(a1 + 40) nrdLock];
       NRDReleaseActivityLock(v27);
 
@@ -162,13 +163,13 @@ void __81__MSUNRDUpdateBrainController_startForMSUUpdate_withMSUBrainVersion_wit
 
     v29 = [*(a1 + 32) objectForKeyedSubscript:@"OSVersion"];
     v30 = [*(a1 + 32) objectForKeyedSubscript:@"Build"];
-    v98 = 0;
-    v99 = 0;
-    v97 = v11;
-    v31 = NRDQueryRecoveryOS(v10, v29, v30, v12, &v99, &v98, &v97, progressCallback, *(a1 + 40));
-    v32 = v99;
-    v33 = v98;
-    v34 = v97;
+    v92 = 0;
+    v93 = 0;
+    v91 = v11;
+    v31 = NRDQueryRecoveryOS(v10, v29, v30, v12, &v93, &v92, &v91, progressCallback, *(a1 + 40));
+    v32 = v93;
+    v33 = v92;
+    v34 = v91;
 
     if (v33)
     {
@@ -181,33 +182,33 @@ void __81__MSUNRDUpdateBrainController_startForMSUUpdate_withMSUBrainVersion_wit
 LABEL_9:
           [*(a1 + 40) saveState:3];
           logfunction(", 1, @"RecoveryOS update was found:\n%@\n"", v45, v46, v47, v48, v49, v32);
-          v95 = v34;
-          v96 = 0;
-          v50 = NRDDownloadRecoveryOS(v10, v32, 0, &v96, &v95, progressCallback, *(a1 + 40));
-          v51 = v96;
-          v11 = v95;
+          v89 = v34;
+          v90 = 0;
+          v50 = NRDDownloadRecoveryOS(v10, v32, 0, &v90, &v89, progressCallback, *(a1 + 40));
+          v51 = v90;
+          v11 = v89;
 
           if (v50)
           {
             [*(a1 + 40) saveState:4];
-            logfunction(", 1, @"RecoveryOS update was successfully downloaded.\n"", v57, v58, v59, v60, v61, v87);
-            v93 = v11;
-            v94 = 0;
-            v62 = NRDInstallRecoveryOS(v10, v32, 0, &v94, &v93, progressCallback, *(a1 + 40));
-            v63 = v94;
-            v34 = v93;
+            logfunction(", 1, @"RecoveryOS update was successfully downloaded.\n"", v57, v58, v59, v60, v61);
+            v87 = v11;
+            v88 = 0;
+            v62 = NRDInstallRecoveryOS(v10, v32, 0, &v88, &v87, progressCallback, *(a1 + 40));
+            v63 = v88;
+            v34 = v87;
 
             if (v62)
             {
-              v91 = *(a1 + 40);
-              v92 = [*(a1 + 32) objectForKeyedSubscript:@"Build"];
-              v90 = [v32 objectForKeyedSubscript:@"assetAttributes"];
-              v69 = [v90 objectForKeyedSubscript:@"AssetProperties"];
+              v85 = *(a1 + 40);
+              v86 = [*(a1 + 32) objectForKeyedSubscript:@"Build"];
+              v84 = [v32 objectForKeyedSubscript:@"assetAttributes"];
+              v69 = [v84 objectForKeyedSubscript:@"AssetProperties"];
               v70 = [v69 objectForKeyedSubscript:@"Build"];
-              [v91 saveLastSuccessForTargetMainOSBuild:v92 recoveryOSBuild:v70];
+              [v85 saveLastSuccessForTargetMainOSBuild:v86 recoveryOSBuild:v70];
 
               [*(a1 + 40) saveState:5];
-              logfunction(", 1, @"RecoveryOS update was successfully installed.\n"", v71, v72, v73, v74, v75, v88);
+              logfunction(", 1, @"RecoveryOS update was successfully installed.\n"", v71, v72, v73, v74, v75);
               goto LABEL_22;
             }
 
@@ -221,7 +222,7 @@ LABEL_9:
         }
 
 LABEL_16:
-        logfunction(", 1, @"No RecoveryOS update is required for this update.\n"", v40, v41, v42, v43, v44, v86);
+        logfunction(", 1, @"No RecoveryOS update is required for this update.\n"", v40, v41, v42, v43, v44);
         v76 = 0;
         v51 = 0;
         v63 = 0;
@@ -233,7 +234,7 @@ LABEL_16:
     {
       if (v31)
       {
-        logfunction(", 1, @"No recoveryOS is installed\n"", v35, v36, v37, v38, v39, v85);
+        logfunction(", 1, @"No recoveryOS is installed\n"", v35, v36, v37, v38, v39);
         [*(a1 + 40) saveRecoveryOSInfo:0];
         if (v32)
         {
@@ -243,7 +244,7 @@ LABEL_16:
         goto LABEL_16;
       }
 
-      logfunction(", 1, @"Installed state of recovery OS is unknown.\n"", v35, v36, v37, v38, v39, v85);
+      logfunction(", 1, @"Installed state of recovery OS is unknown.\n"", v35, v36, v37, v38, v39);
     }
 
     logfunction(", 1, @"Non-fatal error querying for RecoveryOS update: %@\n"", v40, v41, v42, v43, v44, v34);
@@ -268,7 +269,7 @@ LABEL_20:
 
   if (v77)
   {
-    logfunction(", 1, @"Releasing nrd lock\n"", v78, v79, v80, v81, v82, v89);
+    logfunction(", 1, @"Releasing nrd lock\n"", v78, v79, v80, v81, v82);
     v83 = [*(a1 + 40) nrdLock];
     NRDReleaseActivityLock(v83);
 
@@ -388,7 +389,7 @@ void __37__MSUNRDUpdateBrainController_status__block_invoke(uint64_t a1)
 
 - (void)cancelAndLock
 {
-  logfunction(", 1, @"Received request to cancel RecoveryOS update\n"", v2, v3, v4, v5, v6, v9);
+  logfunction(", 1, @"Received request to cancel RecoveryOS update\n"", v2, v3, v4, v5, v6);
   cancelQueue = [(MSUNRDUpdateBrainController *)self cancelQueue];
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
@@ -400,25 +401,25 @@ void __37__MSUNRDUpdateBrainController_status__block_invoke(uint64_t a1)
 
 void __44__MSUNRDUpdateBrainController_cancelAndLock__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  logfunction(", 1, @"starting to cancel RecoveryOS update\n"", a4, a5, a6, a7, a8, v21);
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x3032000000;
-  v36 = __Block_byref_object_copy__0;
-  v37 = __Block_byref_object_dispose__0;
-  v38 = 0;
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x2020000000;
-  v32 = 1;
-  obj = 0;
+  logfunction(", 1, @"starting to cancel RecoveryOS update\n"", a4, a5, a6, a7, a8);
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x3032000000;
+  v35 = __Block_byref_object_copy__0;
+  v36 = __Block_byref_object_dispose__0;
+  v37 = 0;
   v28 = 0;
-  updated = NRDGetUpdateBrainConnection(&v28, &obj, progressCallback, *(a1 + 32));
-  v10 = v28;
-  objc_storeStrong(&v38, obj);
-  *(v30 + 24) = updated;
-  v17 = (v34 + 5);
-  v16 = v34[5];
+  v29 = &v28;
+  v30 = 0x2020000000;
+  v31 = 1;
+  obj = 0;
+  v27 = 0;
+  updated = NRDGetUpdateBrainConnection(&v27, &obj, progressCallback, *(a1 + 32));
+  v10 = v27;
+  objc_storeStrong(&v37, obj);
+  *(v29 + 24) = updated;
+  v17 = (v33 + 5);
+  v16 = v33[5];
   if ((updated & 1) == 0)
   {
     v20 = @"Non-fatal error connecting to RecoveryOSUpdateBrain: %@\n";
@@ -427,13 +428,13 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  v26 = v34[5];
-  v18 = NRDCancelRecoveryOSUpdate(v10, &v26, progressCallback, *(a1 + 32));
-  objc_storeStrong(v17, v26);
-  *(v30 + 24) = v18;
+  v25 = v33[5];
+  v18 = NRDCancelRecoveryOSUpdate(v10, &v25, progressCallback, *(a1 + 32));
+  objc_storeStrong(v17, v25);
+  *(v29 + 24) = v18;
   if ((v18 & 1) == 0)
   {
-    v16 = v34[5];
+    v16 = v33[5];
     v20 = @"Non-fatal error canceling recoveryOS update: %@\n";
     goto LABEL_6;
   }
@@ -444,15 +445,15 @@ LABEL_6:
   block[2] = __44__MSUNRDUpdateBrainController_cancelAndLock__block_invoke_402;
   block[3] = &unk_100049010;
   block[4] = *(a1 + 32);
-  v23 = v10;
-  v24 = &v29;
-  v25 = &v33;
+  v22 = v10;
+  v23 = &v28;
+  v24 = &v32;
   dispatch_async(v19, block);
 
 LABEL_7:
-  _Block_object_dispose(&v29, 8);
+  _Block_object_dispose(&v28, 8);
 
-  _Block_object_dispose(&v33, 8);
+  _Block_object_dispose(&v32, 8);
 }
 
 void __44__MSUNRDUpdateBrainController_cancelAndLock__block_invoke_402(uint64_t a1)
@@ -461,16 +462,16 @@ void __44__MSUNRDUpdateBrainController_cancelAndLock__block_invoke_402(uint64_t 
 
   if (!v2)
   {
-    logfunction(", 1, @"Acquiring NRD lock\n"", v3, v4, v5, v6, v7, v24);
+    logfunction(", 1, @"Acquiring NRD lock\n"", v3, v4, v5, v6, v7);
     v8 = NRDAcquireActivityLock(*(a1 + 40), progressCallback, *(a1 + 32));
     [*(a1 + 32) setNrdLock:v8];
   }
 
   v9 = *(*(a1 + 56) + 8);
   obj = *(v9 + 40);
-  v27 = 0;
-  v10 = NRDQueryRecoveryOS(*(a1 + 40), 0, 0, &off_100053D10, 0, &v27, &obj, progressCallback, *(a1 + 32));
-  v11 = v27;
+  v25 = 0;
+  v10 = NRDQueryRecoveryOS(*(a1 + 40), 0, 0, &off_100053D10, 0, &v25, &obj, progressCallback, *(a1 + 32));
+  v11 = v25;
   objc_storeStrong((v9 + 40), obj);
   *(*(*(a1 + 48) + 8) + 24) = v10;
   if (v11)
@@ -485,18 +486,104 @@ LABEL_7:
 
   if (*(*(*(a1 + 48) + 8) + 24))
   {
-    logfunction(", 1, @"No recoveryOS is installed\n"", v12, v13, v14, v15, v16, v25);
+    logfunction(", 1, @"No recoveryOS is installed\n"", v12, v13, v14, v15, v16);
     v17 = *(a1 + 32);
     v18 = 0;
     goto LABEL_7;
   }
 
-  logfunction(", 1, @"Installed state of recovery OS is unknown.\n"", v12, v13, v14, v15, v16, v25);
+  logfunction(", 1, @"Installed state of recovery OS is unknown.\n"", v12, v13, v14, v15, v16);
 LABEL_8:
   if ((*(*(*(a1 + 48) + 8) + 24) & 1) == 0)
   {
     logfunction(", 1, @"Non-fatal error querying for RecoveryOS update: %@\n"", v19, v20, v21, v22, v23, *(*(*(a1 + 56) + 8) + 40));
   }
+}
+
+- (id)waitWithTimeout:(int)timeout progressCallback:(void *)callback context:(void *)context releaseLock:(BOOL)lock
+{
+  lockCopy = lock;
+  v13 = @"NO";
+  if (lock)
+  {
+    v13 = @"YES";
+  }
+
+  logfunction(", 1, @"waitWithTimeout:%d releaseLock:%@\n"", callback, context, lock, v6, v7, timeout, v13);
+  stateQueue = [(MSUNRDUpdateBrainController *)self stateQueue];
+  dispatch_assert_queue_not_V2(stateQueue);
+
+  v15 = dispatch_semaphore_create(0);
+  if (callback)
+  {
+    stateQueue2 = [(MSUNRDUpdateBrainController *)self stateQueue];
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = __84__MSUNRDUpdateBrainController_waitWithTimeout_progressCallback_context_releaseLock___block_invoke;
+    block[3] = &unk_100049060;
+    block[4] = self;
+    block[5] = callback;
+    block[6] = context;
+    dispatch_sync(stateQueue2, block);
+  }
+
+  workQueue = [(MSUNRDUpdateBrainController *)self workQueue];
+  v37[0] = _NSConcreteStackBlock;
+  v37[1] = 3221225472;
+  v37[2] = __84__MSUNRDUpdateBrainController_waitWithTimeout_progressCallback_context_releaseLock___block_invoke_423;
+  v37[3] = &unk_100049038;
+  v18 = v15;
+  v38 = v18;
+  dispatch_async(workQueue, v37);
+
+  v19 = dispatch_time(0, 1000000000 * timeout);
+  if (dispatch_semaphore_wait(v18, v19))
+  {
+    logfunction(", 1, @"Timed out waiting for NRD update to finish\n"", v20, v21, v22, v23, v24);
+    v40 = NSDebugDescriptionErrorKey;
+    v41 = @"timed out waiting for NRD update to finish";
+    v25 = [NSDictionary dictionaryWithObjects:&v41 forKeys:&v40 count:1];
+    v26 = [NSError errorWithDomain:@"MobileSoftwareUpdateErrorDomain" code:77 userInfo:v25];
+
+    if (!lockCopy)
+    {
+      goto LABEL_11;
+    }
+  }
+
+  else
+  {
+    v26 = 0;
+    if (!lockCopy)
+    {
+      goto LABEL_11;
+    }
+  }
+
+  nrdLock = [(MSUNRDUpdateBrainController *)self nrdLock];
+
+  if (nrdLock)
+  {
+    logfunction(", 1, @"Releasing nrd lock\n"", v28, v29, v30, v31, v32);
+    nrdLock2 = [(MSUNRDUpdateBrainController *)self nrdLock];
+    NRDReleaseActivityLock(nrdLock2);
+
+    [(MSUNRDUpdateBrainController *)self setNrdLock:0];
+  }
+
+LABEL_11:
+  if (callback)
+  {
+    stateQueue3 = [(MSUNRDUpdateBrainController *)self stateQueue];
+    v36[0] = _NSConcreteStackBlock;
+    v36[1] = 3221225472;
+    v36[2] = __84__MSUNRDUpdateBrainController_waitWithTimeout_progressCallback_context_releaseLock___block_invoke_2;
+    v36[3] = &unk_100049038;
+    v36[4] = self;
+    dispatch_sync(stateQueue3, v36);
+  }
+
+  return v26;
 }
 
 void __84__MSUNRDUpdateBrainController_waitWithTimeout_progressCallback_context_releaseLock___block_invoke(uint64_t a1)
@@ -541,8 +628,7 @@ id __84__MSUNRDUpdateBrainController_waitWithTimeout_progressCallback_context_re
 id __45__MSUNRDUpdateBrainController_saveLastError___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) lastError];
-  v11 = *(a1 + 40);
-  logfunction(", 1, @"Overriding current error:%@ with:%@\n"", v3, v4, v5, v6, v7, v2);
+  logfunction(", 1, @"Overriding current error:%@ with:%@\n"", v3, v4, v5, v6, v7, v2, *(a1 + 40));
 
   v8 = *(a1 + 32);
   v9 = *(a1 + 40);
@@ -567,8 +653,7 @@ id __45__MSUNRDUpdateBrainController_saveLastError___block_invoke(uint64_t a1)
 id __50__MSUNRDUpdateBrainController_saveRecoveryOSInfo___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) currentRecoveryOSInfo];
-  v11 = *(a1 + 40);
-  logfunction(", 1, @"Overriding current RecoveryOS info:%@ with:%@\n"", v3, v4, v5, v6, v7, v2);
+  logfunction(", 1, @"Overriding current RecoveryOS info:%@ with:%@\n"", v3, v4, v5, v6, v7, v2, *(a1 + 40));
 
   v8 = *(a1 + 32);
   v9 = *(a1 + 40);
@@ -596,12 +681,10 @@ id __50__MSUNRDUpdateBrainController_saveRecoveryOSInfo___block_invoke(uint64_t 
 id __83__MSUNRDUpdateBrainController_saveLastSuccessForTargetMainOSBuild_recoveryOSBuild___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) lastSuccessForTargetMainOSBuild];
-  v17 = *(a1 + 40);
-  logfunction(", 1, @"Overriding current LastSuccessForTargetMainOSBuild:%@ with:%@\n"", v3, v4, v5, v6, v7, v2);
+  logfunction(", 1, @"Overriding current LastSuccessForTargetMainOSBuild:%@ with:%@\n"", v3, v4, v5, v6, v7, v2, *(a1 + 40));
 
   v8 = [*(a1 + 32) lastSuccessForTargetRecoveryOSBuild];
-  v18 = *(a1 + 48);
-  logfunction(", 1, @"Overriding current LastSuccessForTargetRecoveryOSBuild:%@ with:%@\n"", v9, v10, v11, v12, v13, v8);
+  logfunction(", 1, @"Overriding current LastSuccessForTargetRecoveryOSBuild:%@ with:%@\n"", v9, v10, v11, v12, v13, v8, *(a1 + 48));
 
   [*(a1 + 32) setLastSuccessForTargetMainOSBuild:*(a1 + 40)];
   v14 = *(a1 + 48);
@@ -629,12 +712,11 @@ id __64__MSUNRDUpdateBrainController_saveMSUUpdateAttributes_andState___block_in
 {
   v2 = +[MSUNRDUpdateBrainController stateToString:](MSUNRDUpdateBrainController, "stateToString:", [*(a1 + 32) state]);
   v3 = [MSUNRDUpdateBrainController stateToString:*(a1 + 48)];
-  logfunction(", 1, @"Overriding current state:%@ with:%@\n"", v4, v5, v6, v7, v8, v2);
+  logfunction(", 1, @"Overriding current state:%@ with:%@\n"", v4, v5, v6, v7, v8, v2, v3);
 
   [*(a1 + 32) setState:*(a1 + 48)];
   v9 = [*(a1 + 32) currentMSUUpdateAttributes];
-  v18 = *(a1 + 40);
-  logfunction(", 1, @"Overriding current MSU Update Attributes:%@ with:%@\n"", v10, v11, v12, v13, v14, v9);
+  logfunction(", 1, @"Overriding current MSU Update Attributes:%@ with:%@\n"", v10, v11, v12, v13, v14, v9, *(a1 + 40));
 
   v15 = *(a1 + 32);
   v16 = *(a1 + 40);
@@ -670,13 +752,13 @@ id __64__MSUNRDUpdateBrainController_saveMSUUpdateAttributes_andState___block_in
 id __41__MSUNRDUpdateBrainController_saveState___block_invoke(uint64_t a1)
 {
   v2 = +[MSUNRDUpdateBrainController stateToString:](MSUNRDUpdateBrainController, "stateToString:", [*(a1 + 32) state]);
-  v11 = [MSUNRDUpdateBrainController stateToString:*(a1 + 40)];
-  logfunction(", 1, @"Overriding current state:%@ with:%@\n"", v3, v4, v5, v6, v7, v2);
+  v3 = [MSUNRDUpdateBrainController stateToString:*(a1 + 40)];
+  logfunction(", 1, @"Overriding current state:%@ with:%@\n"", v4, v5, v6, v7, v8, v2, v3);
 
-  v8 = *(a1 + 40);
-  v9 = *(a1 + 32);
+  v9 = *(a1 + 40);
+  v10 = *(a1 + 32);
 
-  return [v9 setState:v8];
+  return [v10 setState:v9];
 }
 
 - (void)prepareResizeForNeRDUpdate
@@ -685,48 +767,49 @@ id __41__MSUNRDUpdateBrainController_saveState___block_invoke(uint64_t a1)
   v3 = [v2 integerForKey:@"LastFailingResizeRequest"];
   if (v3)
   {
+    v9 = v3;
     logfunction(", 1, @"Last resize request for %ld bytes failed\n"", v4, v5, v6, v7, v8, v3);
-    LOBYTE(v29[0]) = 0;
+    LOBYTE(v28[0]) = 0;
     APFSShouldSealSystemVolume();
     if (&_APFSContainerResizePrepare)
     {
-      if (ramrod_probe_media(0, v9, v10, v11, v12, v13, v14, v15))
+      if (ramrod_probe_media(0))
       {
-        memset(v29, 0, sizeof(v29));
-        ramrod_get_apfs_container_device_node(v29, 0x20uLL);
-        if (LOBYTE(v29[0]))
+        memset(v28, 0, sizeof(v28));
+        ramrod_get_apfs_container_device_node(v28, 0x20uLL);
+        if (LOBYTE(v28[0]))
         {
           SpaceInfo = APFSContainerGetSpaceInfo();
           if (SpaceInfo)
           {
-            logfunction(", 1, @"APFSContainerGetSpaceInfo returned with result:%d\n"", v17, v18, v19, v20, v21, SpaceInfo);
+            logfunction(", 1, @"APFSContainerGetSpaceInfo returned with result:%d\n"", v16, v17, v18, v19, v20, SpaceInfo);
             goto LABEL_12;
           }
 
-          logfunction(", 1, @"APFSContainerGetSpaceInfo for %s returned with size:%llu\n"", v17, v18, v19, v20, v21, v29);
-          logfunction(", 1, @"Calling APFSContainerResizePrepare for %s and %llu bytes\n"", v23, v24, v25, v26, v27, v29);
-          v28 = APFSContainerResizePrepare();
-          v22 = @"APFSContainerResizePrepare returned with result:%d\n";
+          logfunction(", 1, @"APFSContainerGetSpaceInfo for %s returned with size:%llu\n"", v16, v17, v18, v19, v20, v28, 0);
+          logfunction(", 1, @"Calling APFSContainerResizePrepare for %s and %llu bytes\n"", v22, v23, v24, v25, v26, v28, -v9 - 0x4000000);
+          v27 = APFSContainerResizePrepare();
+          v21 = @"APFSContainerResizePrepare returned with result:%d\n";
         }
 
         else
         {
-          v22 = @"Could not find APFS main container\n";
+          v21 = @"Could not find APFS main container\n";
         }
       }
 
       else
       {
-        v22 = @"Ramrod_probe_media failed!\n";
+        v21 = @"Ramrod_probe_media failed!\n";
       }
     }
 
     else
     {
-      v22 = @"APFSContainerResizePrepare is not present\n";
+      v21 = @"APFSContainerResizePrepare is not present\n";
     }
 
-    logfunction("", 1, v22, v11, v12, v13, v14, v15, v28);
+    logfunction("", 1, v21, v10, v11, v12, v13, v14, v27);
   }
 
 LABEL_12:

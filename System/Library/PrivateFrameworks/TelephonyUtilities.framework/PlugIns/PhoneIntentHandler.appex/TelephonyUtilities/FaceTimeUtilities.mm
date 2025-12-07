@@ -45,7 +45,7 @@
 - (void)runIDSQueryForStartCallIntent:(id)intent
 {
   v3 = [(FaceTimeUtilities *)self canonicalAddressesForAddresses:intent];
-  v4 = IntentHandlerDefaultLog();
+  v4 = IntentHandlerDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -56,28 +56,28 @@
   v6 = +[NSNotificationCenter defaultCenter];
   v7 = TUIDSLookupManagerStatusChangedNotification;
   v8 = +[NSOperationQueue mainQueue];
-  v15[0] = _NSConcreteStackBlock;
-  v15[1] = 3221225472;
-  v15[2] = sub_100023984;
-  v15[3] = &unk_10004D158;
+  v16[0] = _NSConcreteStackBlock;
+  v16[1] = 3221225472;
+  v16[2] = sub_100023984;
+  v16[3] = &unk_10004D158;
   v9 = v5;
-  v16 = v9;
-  v10 = [v6 addObserverForName:v7 object:0 queue:v8 usingBlock:v15];
+  v17 = v9;
+  v10 = [v6 addObserverForName:v7 object:0 queue:v8 usingBlock:v16];
 
   v11 = +[TUIDSLookupManager sharedManager];
   [v11 beginQueryWithDestinations:v3];
 
   v12 = dispatch_time(0, 3000000000);
-  dispatch_semaphore_wait(v9, v12);
-  v13 = IntentHandlerDefaultLog();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v13 = dispatch_semaphore_wait(v9, v12);
+  v14 = IntentHandlerDefaultLog(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "ending dispatch semaphore for TUIDSLookupManagerStatusChangedNotification", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "ending dispatch semaphore for TUIDSLookupManagerStatusChangedNotification", buf, 2u);
   }
 
-  v14 = +[NSNotificationCenter defaultCenter];
-  [v14 removeObserver:v10];
+  v15 = +[NSNotificationCenter defaultCenter];
+  [v15 removeObserver:v10];
 }
 
 - (id)canonicalAddressesForAddresses:(id)addresses
@@ -96,18 +96,17 @@
     v8 = *v17;
     do
     {
-      for (i = 0; i != v7; i = i + 1)
+      for (i = 0; i != v7; ++i)
       {
         if (*v17 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
-        v11 = TUCopyIDSCanonicalAddressForDestinationID();
-        [v4 addObject:v11];
+        v10 = TUCopyIDSCanonicalAddressForDestinationID();
+        [v4 addObject:v10];
 
-        v12 = IntentHandlerDefaultLog();
+        v12 = IntentHandlerDefaultLog(v11);
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
           v13 = TUCopyIDSCanonicalAddressForDestinationID();
@@ -191,39 +190,39 @@
   v2 = [IDSService alloc];
   v3 = [v2 initWithService:IDSServiceNameFaceTime];
   v4 = objc_alloc_init(NSMutableSet);
-  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
   accounts = [v3 accounts];
-  v6 = [accounts countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [accounts countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v14 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(accounts);
         }
 
-        vettedAliases = [*(*(&v13 + 1) + 8 * i) vettedAliases];
+        vettedAliases = [*(*(&v14 + 1) + 8 * i) vettedAliases];
         [v4 addObjectsFromArray:vettedAliases];
       }
 
-      v7 = [accounts countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [accounts countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
 
-  v11 = IntentHandlerDefaultLog();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  v12 = IntentHandlerDefaultLog(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
-    sub_1000309D4(v4, v11);
+    sub_1000309D4(v4, v12);
   }
 
   return v4;

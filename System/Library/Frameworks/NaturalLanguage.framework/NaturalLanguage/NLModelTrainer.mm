@@ -76,90 +76,52 @@
 {
   configuration = [(NLModelTrainer *)self configuration];
   options = [configuration options];
-  v5 = BOOLForKeyWithDefault(options, @"UseCRF");
+  BOOLForKeyWithDefault(options, @"UseCRF");
 
   configuration2 = [(NLModelTrainer *)self configuration];
   options2 = [configuration2 options];
-  v8 = BOOLForKeyWithDefault(options2, @"UseRNN");
+  BOOLForKeyWithDefault(options2, @"UseRNN");
 
   configuration3 = [(NLModelTrainer *)self configuration];
   options3 = [configuration3 options];
-  v11 = BOOLForKeyWithDefault(options3, @"UseTransfer");
+  BOOLForKeyWithDefault(options3, @"UseTransfer");
 
-  v12 = getenv("NLUseCRFSuiteMaxEnt");
+  getenv("NLUseCRFSuiteMaxEnt");
   configuration4 = [(NLModelTrainer *)self configuration];
   options4 = [configuration4 options];
-  v15 = [options4 objectForKey:@"Algorithm"];
+  v11 = [options4 objectForKey:@"Algorithm"];
 
-  if (v15)
+  if (v11)
   {
-    v5 = [v15 isEqualToString:@"CRF"];
-    v8 = [v15 isEqualToString:@"RNN"];
-    v11 = [v15 isEqualToString:@"Transfer"];
+    [v11 isEqualToString:@"CRF"];
+    [v11 isEqualToString:@"RNN"];
+    [v11 isEqualToString:@"Transfer"];
   }
 
   configuration5 = [(NLModelTrainer *)self configuration];
   type = [configuration5 type];
 
-  if (type == 1)
+  if (type > 1)
   {
-    v20 = off_1E76288B0;
-    if (v11)
-    {
-      v20 = off_1E76288B8;
-    }
+    v14 = 0;
   }
 
   else
   {
-    if (type)
-    {
-      v22 = 0;
-      goto LABEL_18;
-    }
-
-    v18 = off_1E76288B0;
-    if (v8)
-    {
-      v18 = off_1E76288A8;
-    }
-
-    v19 = off_1E7628898;
-    if (v11)
-    {
-      v19 = off_1E76288C0;
-    }
-
-    if (v12)
-    {
-      v19 = off_1E76288A0;
-    }
-
-    if ((v8 | v5))
-    {
-      v20 = v18;
-    }
-
-    else
-    {
-      v20 = v19;
-    }
+    v14 = objc_opt_class();
   }
 
-  v21 = *v20;
-  v22 = objc_opt_class();
-LABEL_18:
-  v23 = v22;
+  v15 = v14;
 
-  return v22;
+  return v14;
 }
 
 - (void)trainModel
 {
-  v14[1] = *MEMORY[0x1E69E9840];
-  v12 = 0;
+  v13[1] = *MEMORY[0x1E69E9840];
+  v11 = 0;
   v3 = [objc_alloc(-[NLModelTrainer modelImplClass](self "modelImplClass"))];
-  v4 = v12;
+  v4 = v11;
   v5 = v4;
   if (v3)
   {
@@ -175,16 +137,14 @@ LABEL_18:
     if (!v4)
     {
       v9 = MEMORY[0x1E696ABC0];
-      v13 = *MEMORY[0x1E696A578];
-      v14[0] = @"Failed to train model";
-      v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+      v12 = *MEMORY[0x1E696A578];
+      v13[0] = @"Failed to train model";
+      v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
       v5 = [v9 errorWithDomain:@"NLNaturalLanguageErrorDomain" code:9 userInfo:v10];
     }
 
     [(NLModelTrainer *)self setTrainingError:v5];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (NLModel)trainedModel

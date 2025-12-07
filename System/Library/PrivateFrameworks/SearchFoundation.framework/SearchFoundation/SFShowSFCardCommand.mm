@@ -157,7 +157,7 @@
 
 - (id)embeddedCards
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
   card = [(SFShowSFCardCommand *)self card];
 
@@ -166,39 +166,37 @@
     card2 = [(SFShowSFCardCommand *)self card];
     [array addObject:card2];
 
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     card3 = [(SFShowSFCardCommand *)self card];
     cardSections = [card3 cardSections];
 
-    v8 = [cardSections countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v8 = [cardSections countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v16;
+      v10 = *v15;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v16 != v10)
+          if (*v15 != v10)
           {
             objc_enumerationMutation(cardSections);
           }
 
-          embeddedCards = [*(*(&v15 + 1) + 8 * i) embeddedCards];
+          embeddedCards = [*(*(&v14 + 1) + 8 * i) embeddedCards];
           [array addObjectsFromArray:embeddedCards];
         }
 
-        v9 = [cardSections countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v9 = [cardSections countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v9);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return array;
 }

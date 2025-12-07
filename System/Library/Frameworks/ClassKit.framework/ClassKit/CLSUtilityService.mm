@@ -17,12 +17,15 @@
 - (void)getBootstrapMode:(id)mode;
 - (void)getClassKitCatalogEnvironmentWithCompletion:(id)completion;
 - (void)getDevModeWithCompletion:(id)completion;
+- (void)recreateDatabase:(BOOL)database andTerminateDaemonWithCompletion:(id)completion;
 - (void)recreateDatabaseWithCompletion:(id)completion;
 - (void)recreateDevelopmentDatabaseWithCompletion:(id)completion;
 - (void)removeAuthorizationStatus:(unint64_t)status forContextAtPath:(id)path completion:(id)completion;
 - (void)removeAuthorizationStatus:(unint64_t)status forHandoutAssignedItem:(id)item completion:(id)completion;
 - (void)renewCredentialsWithCompletion:(id)completion;
+- (void)setBootstrapMode:(int)mode url:(id)url completion:(id)completion;
 - (void)setClassKitCatalogEnvironment:(int64_t)environment completion:(id)completion;
+- (void)setDevMode:(int)mode completion:(id)completion;
 - (void)statusWithCompletion:(id)completion;
 - (void)syncBootstrapWithCompletion:(id)completion;
 - (void)syncFetchWithCompletion:(id)completion;
@@ -31,6 +34,7 @@
 - (void)syncPushWithCompletion:(id)completion;
 - (void)syncRecreateDevelopmentDatabaseWithCompletion:(id)completion;
 - (void)syncSetClassKitCatalogEnvironment:(int64_t)environment completion:(id)completion;
+- (void)syncSetDevMode:(int)mode completion:(id)completion;
 - (void)syncStatsWithCompletion:(id)completion;
 - (void)topLevelContentStoreCacheDirectoryURLWithCompletion:(id)completion;
 @end
@@ -166,6 +170,30 @@ LABEL_10:
   objc_msgSend_remote_recreateDatabaseWithCompletion_(v11, v13, v14);
 }
 
+- (void)recreateDatabase:(BOOL)database andTerminateDaemonWithCompletion:(id)completion
+{
+  databaseCopy = database;
+  completionCopy = completion;
+  v9 = objc_msgSend_endpointConnection(self, v7, v8);
+  objc_msgSend_addBarrierBlock_(v9, v10, &unk_284A08028);
+
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = sub_236FCA864;
+  v18[3] = &unk_278A17BC0;
+  v11 = completionCopy;
+  v19 = v11;
+  v13 = objc_msgSend_utilityServer_(self, v12, v18);
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = sub_236FCA87C;
+  v16[3] = &unk_278A18BC8;
+  v16[4] = self;
+  v17 = v11;
+  v14 = v11;
+  objc_msgSend_remote_recreateDatabase_andTerminateDaemonWithCompletion_(v13, v15, databaseCopy, v16);
+}
+
 - (void)recreateDevelopmentDatabaseWithCompletion:(id)completion
 {
   completionCopy = completion;
@@ -236,6 +264,28 @@ LABEL_10:
   v5 = completionCopy;
   v7 = objc_msgSend_syncUtilityServer_(self, v6, v9);
   objc_msgSend_remote_getDevModeWithCompletion_(v7, v8, v5);
+}
+
+- (void)setDevMode:(int)mode completion:(id)completion
+{
+  v4 = *&mode;
+  completionCopy = completion;
+  v9 = objc_msgSend_endpointConnection(self, v7, v8);
+  objc_msgSend_addBarrierBlock_(v9, v10, &unk_284A08068);
+
+  v13 = objc_msgSend_utilityServer_(self, v11, completionCopy);
+  objc_msgSend_remote_setDevMode_completion_(v13, v12, v4, completionCopy);
+}
+
+- (void)syncSetDevMode:(int)mode completion:(id)completion
+{
+  v4 = *&mode;
+  completionCopy = completion;
+  v9 = objc_msgSend_endpointConnection(self, v7, v8);
+  objc_msgSend_addBarrierBlock_(v9, v10, &unk_284A08088);
+
+  v13 = objc_msgSend_syncUtilityServer_(self, v11, completionCopy);
+  objc_msgSend_remote_setDevMode_completion_(v13, v12, v4, completionCopy);
 }
 
 - (void)getClassKitCatalogEnvironmentWithCompletion:(id)completion
@@ -589,6 +639,21 @@ LABEL_10:
   v5 = modeCopy;
   v7 = objc_msgSend_utilityServer_(self, v6, v9);
   objc_msgSend_remote_getBootstrapMode_(v7, v8, v5);
+}
+
+- (void)setBootstrapMode:(int)mode url:(id)url completion:(id)completion
+{
+  v6 = *&mode;
+  completionCopy = completion;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = sub_236FCCB18;
+  v14[3] = &unk_278A17BC0;
+  v15 = completionCopy;
+  v9 = completionCopy;
+  urlCopy = url;
+  v12 = objc_msgSend_utilityServer_(self, v11, v14);
+  objc_msgSend_remote_setBootstrapMode_url_completion_(v12, v13, v6, urlCopy, v9);
 }
 
 @end

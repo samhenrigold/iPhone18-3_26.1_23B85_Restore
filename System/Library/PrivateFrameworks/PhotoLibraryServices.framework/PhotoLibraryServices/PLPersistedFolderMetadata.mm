@@ -196,7 +196,7 @@
     v52 = title;
     v49 = v3;
     albums = [(PLManagedFolder *)v25 albums];
-    v27 = [albums count];
+    v27 = objc_msgSend_count(albums);
     v60 = malloc_type_malloc(16 * v27, 0x603215ACuLL);
     if (v27)
     {
@@ -222,7 +222,7 @@
   else
   {
     childUUIDs = [(PLPersistedFolderMetadata *)self childUUIDs];
-    v27 = [childUUIDs count];
+    v27 = objc_msgSend_count(childUUIDs);
 
     v34 = malloc_type_malloc(16 * v27, 0xD9E20C35uLL);
     v35 = v34;
@@ -483,7 +483,7 @@ LABEL_61:
   }
 
   v22 = childUUIDs;
-  v23 = [childUUIDs count];
+  v23 = objc_msgSend_count(childUUIDs);
 
   v32.receiver = selfCopy;
   v32.super_class = PLPersistedFolderMetadata;
@@ -708,7 +708,7 @@ LABEL_12:
   {
     if (v16)
     {
-      v17 = [v13 count];
+      v17 = objc_msgSend_count(v13);
       uuid = [folderCopy uuid];
       *buf = 67109378;
       *v34 = v17;
@@ -789,9 +789,9 @@ uint64_t __116__PLPersistedFolderMetadata_updateChildrenOrderingInFolder_usingCh
 + (BOOL)isValidPath:(id)path
 {
   pathExtension = [path pathExtension];
-  v4 = [pathExtension isEqualToString:PLFolderMetadataExtension];
+  isEqualToString = objc_msgSend_isEqualToString_(pathExtension);
 
-  return v4;
+  return isEqualToString;
 }
 
 @end

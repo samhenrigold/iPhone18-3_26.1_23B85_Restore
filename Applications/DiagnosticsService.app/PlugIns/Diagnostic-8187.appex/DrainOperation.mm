@@ -14,7 +14,7 @@
   v3 = DiagnosticLogHandleForCategory();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    sub_10000B7A4();
+    sub_10000B7A4(self);
   }
 
   if (([(DrainOperation *)self isCancelled]& 1) == 0)
@@ -42,7 +42,7 @@
   v3 = DiagnosticLogHandleForCategory();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    sub_10000B82C();
+    sub_10000B82C(self);
   }
 
   [(DrainOperation *)self finish];
@@ -53,7 +53,7 @@
   v3 = DiagnosticLogHandleForCategory();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    sub_10000B8B4();
+    sub_10000B8B4(self);
   }
 
   [(DrainOperation *)self willChangeValueForKey:@"isFinished"];

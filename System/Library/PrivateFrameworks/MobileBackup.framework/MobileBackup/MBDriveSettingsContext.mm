@@ -20,6 +20,7 @@
 - (NSString)driveSnapshotPropertiesPath;
 - (id)copyWithZone:(_NSZone *)zone;
 - (void)log;
+- (void)setShouldRestoreSystemFiles:(BOOL)files;
 - (void)updatePassword:(id)password;
 @end
 
@@ -43,7 +44,7 @@
       *buf = 138412290;
       v9 = v3;
       _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_FAULT, "Failed to fetch personal persona: %@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"F ", "Failed to fetch personal persona: %@", v3);
     }
 
     v4 = 0;
@@ -127,6 +128,12 @@
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue ^ 1;
+}
+
+- (void)setShouldRestoreSystemFiles:(BOOL)files
+{
+  v4 = [NSNumber numberWithBool:files];
+  [(NSMutableDictionary *)self->_options setObject:v4 forKeyedSubscript:@"RestoreSystemFiles"];
 }
 
 - (BOOL)shouldRestoreSystemFiles
@@ -292,90 +299,90 @@
 
 - (void)log
 {
-  v25.receiver = self;
-  v25.super_class = MBDriveSettingsContext;
-  [(MBSettingsContext *)&v25 log];
+  v26.receiver = self;
+  v26.super_class = MBDriveSettingsContext;
+  [(MBSettingsContext *)&v26 log];
   v3 = MBGetDefaultLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     targetDeviceClass = [(MBDriveSettingsContext *)self targetDeviceClass];
     *buf = 138412290;
-    v27 = targetDeviceClass;
+    v28 = targetDeviceClass;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "TargetDeviceClass: %@", buf, 0xCu);
 
     targetDeviceClass2 = [(MBDriveSettingsContext *)self targetDeviceClass];
-    _MBLog();
+    _MBLog(@"I ", "TargetDeviceClass: %@", targetDeviceClass2);
   }
 
-  v5 = MBGetDefaultLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v6 = MBGetDefaultLog();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     [(MBDriveSettingsContext *)self protocolVersion];
     *buf = 134217984;
-    v27 = v6;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "ProtocolVersion: %0.1f", buf, 0xCu);
+    v28 = v7;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "ProtocolVersion: %0.1f", buf, 0xCu);
     [(MBDriveSettingsContext *)self protocolVersion];
-    _MBLog();
-  }
-
-  v7 = MBGetDefaultLog();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
-  {
-    sourceIdentifier = [(MBDriveSettingsContext *)self sourceIdentifier];
-    *buf = 138412290;
-    v27 = sourceIdentifier;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "SourceIdentifier: %@", buf, 0xCu);
-
-    sourceIdentifier2 = [(MBDriveSettingsContext *)self sourceIdentifier];
-    _MBLog();
+    _MBLog(@"I ", "ProtocolVersion: %0.1f", v8);
   }
 
   v9 = MBGetDefaultLog();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    targetIdentifier = [(MBDriveSettingsContext *)self targetIdentifier];
+    sourceIdentifier = [(MBDriveSettingsContext *)self sourceIdentifier];
     *buf = 138412290;
-    v27 = targetIdentifier;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "TargetIdentifier: %@", buf, 0xCu);
+    v28 = sourceIdentifier;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "SourceIdentifier: %@", buf, 0xCu);
 
-    targetIdentifier2 = [(MBDriveSettingsContext *)self targetIdentifier];
-    _MBLog();
+    sourceIdentifier2 = [(MBDriveSettingsContext *)self sourceIdentifier];
+    _MBLog(@"I ", "SourceIdentifier: %@", sourceIdentifier2);
   }
 
-  v11 = MBGetDefaultLog();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+  v12 = MBGetDefaultLog();
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+  {
+    targetIdentifier = [(MBDriveSettingsContext *)self targetIdentifier];
+    *buf = 138412290;
+    v28 = targetIdentifier;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "TargetIdentifier: %@", buf, 0xCu);
+
+    targetIdentifier2 = [(MBDriveSettingsContext *)self targetIdentifier];
+    _MBLog(@"I ", "TargetIdentifier: %@", targetIdentifier2);
+  }
+
+  v15 = MBGetDefaultLog();
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
     applicationIDs = [(MBDriveSettingsContext *)self applicationIDs];
-    v13 = MBStringWithSet();
+    v17 = MBStringWithSet();
     *buf = 138412290;
-    v27 = v13;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "ApplicationIDs: %@", buf, 0xCu);
+    v28 = v17;
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "ApplicationIDs: %@", buf, 0xCu);
 
     applicationIDs2 = [(MBDriveSettingsContext *)self applicationIDs];
-    v23 = MBStringWithSet();
-    _MBLog();
+    v19 = MBStringWithSet();
+    _MBLog(@"I ", "ApplicationIDs: %@", v19);
   }
 
   options = [(MBDriveSettingsContext *)self options];
-  v16 = [options mutableCopy];
+  v21 = [options mutableCopy];
 
-  v17 = [v16 objectForKeyedSubscript:@"Password"];
+  v22 = [v21 objectForKeyedSubscript:@"Password"];
 
-  if (v17)
+  if (v22)
   {
-    [v16 setObject:@"********" forKeyedSubscript:@"Password"];
+    [v21 setObject:@"********" forKeyedSubscript:@"Password"];
   }
 
-  v18 = MBGetDefaultLog();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+  v23 = MBGetDefaultLog();
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
   {
-    v19 = MBStringWithDictionary();
-    *buf = 138412290;
-    v27 = v19;
-    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "Options: %@", buf, 0xCu);
-
     v24 = MBStringWithDictionary();
-    _MBLog();
+    *buf = 138412290;
+    v28 = v24;
+    _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_INFO, "Options: %@", buf, 0xCu);
+
+    v25 = MBStringWithDictionary();
+    _MBLog(@"I ", "Options: %@", v25);
   }
 }
 

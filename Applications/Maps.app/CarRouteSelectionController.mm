@@ -113,8 +113,8 @@
   if ([focusCopy isFocused])
   {
     routeAnnotationsController = [(CarRouteSelectionController *)self routeAnnotationsController];
-    configuration = [routeAnnotationsController configuration];
-    routes = [configuration routes];
+    v5 = objc_msgSend_configuration(routeAnnotationsController);
+    routes = [v5 routes];
     route = [focusCopy route];
     -[CarRouteSelectionController setFocusedRouteIndex:](self, "setFocusedRouteIndex:", [routes indexOfObject:route]);
   }
@@ -148,9 +148,9 @@
   if ([markerCopy isRouteEta])
   {
     routeAnnotationsController = [(CarRouteSelectionController *)self routeAnnotationsController];
-    configuration = [routeAnnotationsController configuration];
+    v7 = objc_msgSend_configuration(routeAnnotationsController);
 
-    routes = [configuration routes];
+    routes = [v7 routes];
     v15[0] = _NSConcreteStackBlock;
     v15[1] = 3221225472;
     v15[2] = sub_1006753EC;
@@ -167,7 +167,7 @@
         *buf = 134349314;
         selfCopy2 = self;
         v19 = 2112;
-        v20 = configuration;
+        v20 = v7;
         v12 = "[%{public}p] Failed to find selected label marker route index for config: %@";
         v13 = v11;
         v14 = OS_LOG_TYPE_ERROR;
@@ -231,12 +231,12 @@ LABEL_7:
   }
 
   routeAnnotationsController = [(CarRouteSelectionController *)self routeAnnotationsController];
-  configuration = [routeAnnotationsController configuration];
+  v11 = objc_msgSend_configuration(routeAnnotationsController);
 
-  if ([configuration alternateRoutesEnabled])
+  if ([v11 alternateRoutesEnabled])
   {
-    routes = [configuration routes];
-    selectedRoute = [configuration selectedRoute];
+    routes = [v11 routes];
+    selectedRoute = [v11 selectedRoute];
     v14 = &stru_10162A738;
     v15 = [RouteAnnotationsResponder routeAtPoint:viewCopy inMapView:routes withRoutes:selectedRoute selectedRoute:&stru_10162A738 overlappingRouteSelectorBlock:x, y];
 
@@ -256,7 +256,7 @@ LABEL_7:
       _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "[%{public}p] didTapMapView:atPoint: %@. selectedRoute.routeIndex: %lu", &v20, 0x20u);
     }
 
-    routes2 = [configuration routes];
+    routes2 = [v11 routes];
     -[CarRouteSelectionController _selectRouteAtIndex:](self, "_selectRouteAtIndex:", [routes2 indexOfObject:v15]);
   }
 
@@ -268,7 +268,7 @@ LABEL_7:
       v20 = 134349314;
       selfCopy3 = self;
       v22 = 2112;
-      v23 = configuration;
+      v23 = v11;
       _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "[%{public}p] didTapMapView:atPoint: alternate routes on config were not enabled; ignoring call: %@", &v20, 0x16u);
     }
   }
@@ -320,9 +320,9 @@ LABEL_7:
   }
 
   routeAnnotationsController = [(CarRouteSelectionController *)self routeAnnotationsController];
-  configuration = [routeAnnotationsController configuration];
+  v7 = objc_msgSend_configuration(routeAnnotationsController);
 
-  if (index == 0x7FFFFFFFFFFFFFFFLL || ([configuration routes], v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "count"), v8, v9 <= index))
+  if (index == 0x7FFFFFFFFFFFFFFFLL || ([v7 routes], v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "count"), v8, v9 <= index))
   {
     v11 = sub_10009FB80();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
@@ -332,17 +332,17 @@ LABEL_7:
       v35 = 2048;
       indexCopy2 = index;
       v37 = 2112;
-      v38 = configuration;
+      v38 = v7;
       _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "[%{public}p] Could not find route with index %lu in configuration: %@", &v33, 0x20u);
     }
   }
 
   else
   {
-    routes = [configuration routes];
+    routes = [v7 routes];
     v11 = [routes objectAtIndex:index];
 
-    if ([configuration selectedRouteIndex] != index)
+    if ([v7 selectedRouteIndex] != index)
     {
       currentRoute = [(CarRouteSelectionController *)self currentRoute];
       v13 = [currentRoute isEqual:v11];
@@ -687,8 +687,8 @@ LABEL_6:
   *&buf[16] = 0x2020000000;
   v43 = 0x7FFFFFFFFFFFFFFFLL;
   routeAnnotationsController = [(CarRouteSelectionController *)self routeAnnotationsController];
-  configuration = [routeAnnotationsController configuration];
-  routes = [configuration routes];
+  v19 = objc_msgSend_configuration(routeAnnotationsController);
+  routes = [v19 routes];
   v28 = _NSConcreteStackBlock;
   v29 = 3221225472;
   v30 = sub_100676910;
@@ -777,8 +777,8 @@ LABEL_24:
 - (NSArray)focusableRouteItems
 {
   routeAnnotationsController = [(CarRouteSelectionController *)self routeAnnotationsController];
-  configuration = [routeAnnotationsController configuration];
-  if ([configuration alternateRoutesEnabled])
+  v4 = objc_msgSend_configuration(routeAnnotationsController);
+  if ([v4 alternateRoutesEnabled])
   {
     routes = [(CarRouteSelectionController *)self routes];
     v6 = [routes count] < 2;

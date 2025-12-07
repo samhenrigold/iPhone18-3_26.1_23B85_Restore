@@ -239,7 +239,7 @@ uint64_t __76__HKUserDomainConceptPropertyCollection__propertiesWithType_include
 
 - (id)propertyCollectionByMerging:(id)merging options:(unint64_t)options
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   mergingCopy = merging;
   if (![mergingCopy count])
   {
@@ -249,36 +249,36 @@ uint64_t __76__HKUserDomainConceptPropertyCollection__propertiesWithType_include
 
   _propertiesByType = [(HKUserDomainConceptPropertyCollection *)self _propertiesByType];
   _propertiesByType2 = [mergingCopy _propertiesByType];
-  v36 = _propertiesByType;
-  v35 = [_propertiesByType mutableCopy];
+  v35 = _propertiesByType;
+  v34 = [_propertiesByType mutableCopy];
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
   v9 = _propertiesByType2;
-  v10 = [v9 countByEnumeratingWithState:&v41 objects:v46 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v40 objects:v45 count:16];
   if (v10)
   {
     v11 = v10;
     selfCopy2 = self;
-    v33 = mergingCopy;
-    v34 = 0;
-    v12 = *v42;
+    v32 = mergingCopy;
+    v33 = 0;
+    v12 = *v41;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v42 != v12)
+        if (*v41 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v41 + 1) + 8 * i);
+        v14 = *(*(&v40 + 1) + 8 * i);
         v15 = [v9 objectForKeyedSubscript:v14];
         firstObject = [v15 firstObject];
         v17 = objc_opt_class();
 
-        v18 = [v36 objectForKeyedSubscript:v14];
+        v18 = [v35 objectForKeyedSubscript:v14];
         v19 = v18;
         v20 = MEMORY[0x1E695E0F0];
         if (v18)
@@ -292,44 +292,44 @@ uint64_t __76__HKUserDomainConceptPropertyCollection__propertiesWithType_include
 
         if (v22 != v21)
         {
-          [v35 setObject:v22 forKeyedSubscript:v14];
-          v34 = 1;
+          [v34 setObject:v22 forKeyedSubscript:v14];
+          v33 = 1;
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v41 objects:v46 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v40 objects:v45 count:16];
     }
 
     while (v11);
 
     self = selfCopy2;
-    mergingCopy = v33;
-    if (v34)
+    mergingCopy = v32;
+    if (v33)
     {
       v23 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      v36 = 0u;
       v37 = 0u;
       v38 = 0u;
       v39 = 0u;
-      v40 = 0u;
-      allValues = [v35 allValues];
-      v25 = [allValues countByEnumeratingWithState:&v37 objects:v45 count:16];
+      allValues = [v34 allValues];
+      v25 = [allValues countByEnumeratingWithState:&v36 objects:v44 count:16];
       if (v25)
       {
         v26 = v25;
-        v27 = *v38;
+        v27 = *v37;
         do
         {
           for (j = 0; j != v26; ++j)
           {
-            if (*v38 != v27)
+            if (*v37 != v27)
             {
               objc_enumerationMutation(allValues);
             }
 
-            [v23 addObjectsFromArray:*(*(&v37 + 1) + 8 * j)];
+            [v23 addObjectsFromArray:*(*(&v36 + 1) + 8 * j)];
           }
 
-          v26 = [allValues countByEnumeratingWithState:&v37 objects:v45 count:16];
+          v26 = [allValues countByEnumeratingWithState:&v36 objects:v44 count:16];
         }
 
         while (v26);
@@ -348,36 +348,35 @@ uint64_t __76__HKUserDomainConceptPropertyCollection__propertiesWithType_include
 LABEL_25:
 
 LABEL_26:
-  v30 = *MEMORY[0x1E69E9840];
 
   return selfCopy3;
 }
 
 - (id)_propertiesByType
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v4 = self->_properties;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v16;
+    v7 = *v15;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
-        v10 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v9, "type", v15)}];
+        v9 = *(*(&v14 + 1) + 8 * i);
+        v10 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v9, "type", v14)}];
         v11 = [v3 objectForKeyedSubscript:v10];
         if (!v11)
         {
@@ -388,14 +387,13 @@ LABEL_26:
         [v11 addObject:v9];
       }
 
-      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v6);
   }
 
   v12 = [v3 copy];
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }

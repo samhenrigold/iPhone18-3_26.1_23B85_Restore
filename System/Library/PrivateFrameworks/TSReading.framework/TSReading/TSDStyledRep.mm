@@ -172,7 +172,7 @@
   layout = [(TSDRep *)self layout];
   if (layout)
   {
-    [(TSDAbstractLayout *)layout transformInRoot];
+    objc_msgSend_transformInRoot(layout);
   }
 
   else
@@ -517,7 +517,7 @@
     v41 = v40;
     v43 = v42;
     memset(&v53[1], 0, sizeof(CGAffineTransform));
-    [(TSDRep *)self parentLayerInverseTransformInRootForZeroAnchor];
+    objc_msgSend_parentLayerInverseTransformInRootForZeroAnchor(self);
     v44 = TSDCenterOfRect(v37, v39, v41, v43);
     v52 = v53[1];
     TSDTransformConvertForNewOrigin(&v52, v53, v44, v45);
@@ -550,23 +550,23 @@
   if ([shadow isDropShadow])
   {
     TSDMultiplyRectScalar(x, y, width, height, v13);
-    v80 = 0u;
-    v81 = 0u;
-    v78 = 0u;
-    v79 = 0u;
-    v77 = 0u;
-    [(TSDRep *)self computeDirectLayerFrame:&v80 andTransform:&v77];
-    v14 = TSDCenterOfRect(*&v80, *(&v80 + 1), *&v81, *(&v81 + 1));
+    v93 = 0u;
+    v94 = 0u;
+    v91 = 0u;
+    v92 = 0u;
+    v90 = 0u;
+    [(TSDRep *)self computeDirectLayerFrame:&v93 andTransform:&v90];
+    v14 = TSDCenterOfRect(*&v93, *(&v93 + 1), *&v94, *(&v94 + 1));
     v16 = v15;
     [shadow offsetDelta];
-    TSDMultiplyPointScalar(v17, v18, v13);
-    v19 = TSDRoundedPoint();
-    [layer setPosition:{TSDAddPoints(v14, v16, v19)}];
+    v19 = TSDMultiplyPointScalar(v17, v18, v13);
+    v22 = TSDRoundedPoint(v20, v19, v21);
+    [layer setPosition:{TSDAddPoints(v14, v16, v22)}];
     [layer setBounds:TSDRectWithSize()];
-    v74 = v77;
-    v75 = v78;
-    v76 = v79;
-    v20 = &v74;
+    v87 = v90;
+    v88 = v91;
+    v89 = v92;
+    v23 = &v87;
   }
 
   else
@@ -574,14 +574,14 @@
     if ([shadow isContactShadow])
     {
       [(TSDShadow *)[(TSDStyledRep *)self shadow] boundsForRep:self];
-      v25 = TSDMultiplyRectScalar(v21, v22, v23, v24, v13);
-      v29 = TSDCenterOfRect(v25, v26, v27, v28);
-      v31 = v30;
+      v28 = TSDMultiplyRectScalar(v24, v25, v26, v27, v13);
+      v32 = TSDCenterOfRect(v28, v29, v30, v31);
+      v34 = v33;
       [shadow offset];
-      TSDMultiplyPointScalar(0.0, v32, v13);
-      v33 = TSDRoundedPoint();
-      v34 = v29;
-      v35 = v31;
+      v36 = TSDMultiplyPointScalar(0.0, v35, v13);
+      v39 = TSDRoundedPoint(v37, v36, v38);
+      v40 = v32;
+      v41 = v34;
     }
 
     else
@@ -592,50 +592,50 @@
       }
 
       objc_opt_class();
-      v36 = TSUDynamicCast();
+      v42 = TSUDynamicCast();
       [(TSDShadow *)[(TSDStyledRep *)self shadow] boundsForRep:self];
-      v41 = TSDMultiplyRectScalar(v37, v38, v39, v40, v13);
-      v45 = TSDCenterOfRect(v41, v42, v43, v44);
-      v47 = v46;
-      [v36 offsetFromCurve];
-      [v36 curve];
-      if (v48 > 0.0)
+      v47 = TSDMultiplyRectScalar(v43, v44, v45, v46, v13);
+      v51 = TSDCenterOfRect(v47, v48, v49, v50);
+      v53 = v52;
+      [v42 offsetFromCurve];
+      [v42 curve];
+      if (v54 > 0.0)
       {
-        TSDAddPoints(v45, v47, 0.0);
-        v45 = TSDRoundedPoint();
-        v47 = v49;
+        v55 = TSDAddPoints(v51, v53, 0.0);
+        v51 = TSDRoundedPoint(v56, v55, v57);
+        v53 = v58;
       }
 
       [shadow offsetDelta];
-      TSDMultiplyPointScalar(v50, v51, v13);
-      v33 = TSDRoundedPoint();
-      v34 = v45;
-      v35 = v47;
+      v61 = TSDMultiplyPointScalar(v59, v60, v13);
+      v39 = TSDRoundedPoint(v62, v61, v63);
+      v40 = v51;
+      v41 = v53;
     }
 
-    v52 = TSDAddPoints(v34, v35, v33);
-    v54 = v53;
+    v64 = TSDAddPoints(v40, v41, v39);
+    v66 = v65;
     if ([(TSDRep *)self parentRep])
     {
       [[(TSDRep *)self parentRep] layerFrameInScaledCanvas];
-      v52 = v52 - v55;
-      v54 = v54 - v56;
+      v64 = v64 - v67;
+      v66 = v66 - v68;
     }
 
-    [layer setPosition:{v52, v54}];
+    [layer setPosition:{v64, v66}];
     [layer setBounds:TSDRectWithSize()];
-    v57 = *(MEMORY[0x277CBF2C0] + 16);
-    v77 = *MEMORY[0x277CBF2C0];
-    v78 = v57;
-    v79 = *(MEMORY[0x277CBF2C0] + 32);
-    v20 = &v77;
+    v69 = *(MEMORY[0x277CBF2C0] + 16);
+    v90 = *MEMORY[0x277CBF2C0];
+    v91 = v69;
+    v92 = *(MEMORY[0x277CBF2C0] + 32);
+    v23 = &v90;
   }
 
-  [layer setAffineTransform:{v20, v74, v75, v76, v77, v78, v79}];
+  [layer setAffineTransform:{v23, v87, v88, v89, v90, v91, v92}];
 LABEL_13:
   [layer frame];
-  v59 = v58;
-  v61 = v60;
+  v71 = v70;
+  v73 = v72;
   superlayer = [layer superlayer];
   if (superlayer)
   {
@@ -643,8 +643,8 @@ LABEL_13:
     do
     {
       [superlayer2 frame];
-      v59 = TSDAddPoints(v59, v61, v64);
-      v61 = v65;
+      v71 = TSDAddPoints(v71, v73, v76);
+      v73 = v77;
       superlayer2 = [superlayer2 superlayer];
     }
 
@@ -652,12 +652,12 @@ LABEL_13:
   }
 
   [layer position];
-  v67 = v66;
-  v69 = v68;
-  [(TSDCanvas *)[(TSDRep *)self canvas] contentsScale];
-  v71 = TSDRoundedPointForScale(v59, v61, v70);
-  v73 = TSDSubtractPoints(v71, v72, v59);
-  [layer setPosition:{TSDAddPoints(v67, v69, v73)}];
+  v79 = v78;
+  v81 = v80;
+  contentsScale = [(TSDCanvas *)[(TSDRep *)self canvas] contentsScale];
+  v84 = TSDRoundedPointForScale(contentsScale, v71, v73, v83);
+  v86 = TSDSubtractPoints(v84, v85, v71);
+  [layer setPosition:{TSDAddPoints(v79, v81, v86)}];
 }
 
 - (CGImage)newShadowImageWithSize:(CGSize)size unflipped:(BOOL)unflipped withChildren:(BOOL)children
@@ -780,7 +780,7 @@ LABEL_13:
   CGContextTranslateCTM(context, -v32, -v34);
   if (styledLayout)
   {
-    [styledLayout transformInRoot];
+    objc_msgSend_transformInRoot(styledLayout);
   }
 
   else
@@ -865,7 +865,7 @@ LABEL_13:
             styledLayout = [(TSDStyledRep *)self styledLayout];
             if (styledLayout)
             {
-              [styledLayout transformInRoot];
+              objc_msgSend_transformInRoot(styledLayout);
             }
 
             else
@@ -899,7 +899,7 @@ LABEL_13:
               layout = [(TSDRep *)self layout];
               if (layout)
               {
-                [(TSDAbstractLayout *)layout transformInRoot];
+                objc_msgSend_transformInRoot(layout);
               }
 
               else
@@ -942,7 +942,7 @@ LABEL_24:
               parent = [(TSDAbstractLayout *)[(TSDRep *)self layout] parent];
               if (parent)
               {
-                [(TSDAbstractLayout *)parent transformInRoot];
+                objc_msgSend_transformInRoot(parent);
               }
 
               else
@@ -962,7 +962,7 @@ LABEL_24:
             layout2 = [(TSDRep *)self layout];
             if (layout2)
             {
-              [(TSDAbstractLayout *)layout2 transformInRoot];
+              objc_msgSend_transformInRoot(layout2);
             }
 
             else
@@ -1011,7 +1011,7 @@ LABEL_24:
     v14 = styledLayout;
     if (styledLayout)
     {
-      [styledLayout transformInRoot];
+      objc_msgSend_transformInRoot(styledLayout);
     }
 
     else
@@ -1230,130 +1230,130 @@ LABEL_9:
     v10 = v9;
     v11 = objc_alloc_init(TSDTextureSet);
     [(TSDTextureSet *)v11 setIsMagicMove:isMagicMove];
-    v208 = v10;
+    v205 = v10;
     if (![context shouldSeparateShadow] || !v8 || shouldAddMagicMoveObjectOnly & 1 | ((objc_msgSend(v8, "isEnabled") & 1) == 0))
     {
 LABEL_27:
-      memset(&v225, 0, sizeof(v225));
+      memset(&v222, 0, sizeof(v222));
       layout = [(TSDRep *)self layout];
       if (layout)
       {
-        [(TSDAbstractLayout *)layout transformInRoot];
+        objc_msgSend_transformInRoot(layout);
       }
 
       else
       {
-        memset(&v225, 0, sizeof(v225));
+        memset(&v222, 0, sizeof(v222));
       }
 
       mTextureActionAttributes = self->super.mTextureActionAttributes;
       if (mTextureActionAttributes)
       {
-        v121 = [(NSDictionary *)mTextureActionAttributes valueForKey:@"sfx-action-rotation-angle"];
-        if (v121)
+        v118 = [(NSDictionary *)mTextureActionAttributes valueForKey:@"sfx-action-rotation-angle"];
+        if (v118)
         {
-          v122 = v121;
+          v119 = v118;
           [(TSDRep *)self centerForRotation];
-          v124 = v123;
-          v126 = v125;
-          v223 = v225;
-          CGAffineTransformTranslate(&v224, &v223, v123, v125);
-          v225 = v224;
-          [v122 floatValue];
-          v223 = v225;
-          CGAffineTransformRotate(&v224, &v223, v127 * 0.0174532925);
-          v225 = v224;
-          v223 = v224;
-          CGAffineTransformTranslate(&v224, &v223, -v124, -v126);
-          v225 = v224;
+          v121 = v120;
+          v123 = v122;
+          v220 = v222;
+          CGAffineTransformTranslate(&v221, &v220, v120, v122);
+          v222 = v221;
+          [v119 floatValue];
+          v220 = v222;
+          CGAffineTransformRotate(&v221, &v220, v124 * 0.0174532925);
+          v222 = v221;
+          v220 = v221;
+          CGAffineTransformTranslate(&v221, &v220, -v121, -v123);
+          v222 = v221;
         }
       }
 
       if (isMagicMove)
       {
-        v223 = v225;
-        [(TSDRep *)self unRotatedTransform:&v223];
-        v225 = v224;
+        v220 = v222;
+        objc_msgSend_unRotatedTransform_(self);
+        v222 = v221;
       }
 
-      v128 = shouldNotAddContainedReps ^ 1;
+      v125 = shouldNotAddContainedReps ^ 1;
       [(TSDRep *)self naturalBounds];
-      v224 = v225;
-      v230 = CGRectApplyAffineTransform(v229, &v224);
-      v206 = TSDMultiplyRectScalar(v230.origin.x, v230.origin.y, v230.size.width, v230.size.height, v10);
-      v224 = v225;
-      [(TSDStyledRep *)self p_clipRectInRootForTransform:&v224];
-      x = v129;
-      y = v131;
-      width = v133;
-      height = v135;
+      v221 = v222;
+      v227 = CGRectApplyAffineTransform(v226, &v221);
+      v203 = TSDMultiplyRectScalar(v227.origin.x, v227.origin.y, v227.size.width, v227.size.height, v10);
+      v221 = v222;
+      [(TSDStyledRep *)self p_clipRectInRootForTransform:&v221];
+      x = v126;
+      y = v128;
+      width = v130;
+      height = v132;
       if (isMagicMove && [context shouldSeparateReflection] && objc_msgSend(context, "shouldSeparateShadow"))
       {
         [(TSDStyledRep *)self clipRectWithoutEffects];
-        v224 = v225;
-        v232 = CGRectApplyAffineTransform(v231, &v224);
-        x = v232.origin.x;
-        y = v232.origin.y;
-        width = v232.size.width;
-        height = v232.size.height;
+        v221 = v222;
+        v229 = CGRectApplyAffineTransform(v228, &v221);
+        x = v229.origin.x;
+        y = v229.origin.y;
+        width = v229.size.width;
+        height = v229.size.height;
       }
 
       [(TSDStyledRep *)self clipRectWithoutEffects];
-      v224 = v225;
-      v234 = CGRectApplyAffineTransform(v233, &v224);
-      v137 = v234.origin.x;
-      v138 = v234.origin.y;
-      v139 = v234.size.width;
-      v140 = v234.size.height;
-      v234.origin.x = x;
-      v234.origin.y = y;
-      v234.size.width = width;
-      v234.size.height = height;
-      v244.origin.x = v137;
-      v244.origin.y = v138;
-      v244.size.width = v139;
-      v244.size.height = v140;
-      if (!CGRectEqualToRect(v234, v244))
+      v221 = v222;
+      v231 = CGRectApplyAffineTransform(v230, &v221);
+      v134 = v231.origin.x;
+      v135 = v231.origin.y;
+      v136 = v231.size.width;
+      v137 = v231.size.height;
+      v231.origin.x = x;
+      v231.origin.y = y;
+      v231.size.width = width;
+      v231.size.height = height;
+      v241.origin.x = v134;
+      v241.origin.y = v135;
+      v241.size.width = v136;
+      v241.size.height = v137;
+      if (!CGRectEqualToRect(v231, v241))
       {
-        v141 = TSDCenterOfRect(v137, v138, v139, v140);
-        v143 = v142;
-        v144 = TSDCenterOfRect(x, y, width, height);
-        v146 = TSDMultiplySizeScalar(vabdd_f64(v144, v141), vabdd_f64(v145, v143), 2.0);
-        v147 = TSDAddSizes(width, height, v146);
-        x = TSDRectWithCenterAndSize(v141, v143, v147);
-        y = v148;
-        width = v149;
-        height = v150;
+        v138 = TSDCenterOfRect(v134, v135, v136, v137);
+        v140 = v139;
+        v141 = TSDCenterOfRect(x, y, width, height);
+        v143 = TSDMultiplySizeScalar(vabdd_f64(v141, v138), vabdd_f64(v142, v140), 2.0);
+        v144 = TSDAddSizes(width, height, v143);
+        x = TSDRectWithCenterAndSize(v138, v140, v144);
+        y = v145;
+        width = v146;
+        height = v147;
       }
 
-      v235.origin.x = TSDMultiplyRectScalar(x, y, width, height, v208);
-      v236 = CGRectIntegral(v235);
-      v237 = CGRectInset(v236, -1.0, -1.0);
-      v151 = v237.size.width;
-      v152 = v237.size.height;
-      v217[0] = MEMORY[0x277D85DD0];
-      v217[1] = 3221225472;
-      v217[2] = __34__TSDStyledRep_textureForContext___block_invoke_2;
-      v217[3] = &unk_279D49518;
-      v221 = isMagicMove;
-      v218 = v237;
-      v219 = v208;
-      v220 = v225;
-      v217[4] = self;
-      v217[5] = context;
-      v222 = shouldNotAddContainedReps ^ 1;
-      v153 = TSDSubtractPoints(v237.origin.x, v237.origin.y, v206);
-      v154 = [[TSDTexturedRectangle alloc] initWithSize:v217 offset:v151 renderBlock:v152, v153, v154];
-      [(TSDTexturedRectangle *)v154 setTextureType:5];
-      [(TSDTexturedRectangle *)v154 setTextureOpacity:1.0];
+      v232.origin.x = TSDMultiplyRectScalar(x, y, width, height, v205);
+      v233 = CGRectIntegral(v232);
+      v234 = CGRectInset(v233, -1.0, -1.0);
+      v148 = v234.size.width;
+      v149 = v234.size.height;
+      v214[0] = MEMORY[0x277D85DD0];
+      v214[1] = 3221225472;
+      v214[2] = __34__TSDStyledRep_textureForContext___block_invoke_2;
+      v214[3] = &unk_279D49518;
+      v218 = isMagicMove;
+      v215 = v234;
+      v216 = v205;
+      v217 = v222;
+      v214[4] = self;
+      v214[5] = context;
+      v219 = shouldNotAddContainedReps ^ 1;
+      v150 = TSDSubtractPoints(v234.origin.x, v234.origin.y, v203);
+      v151 = [[TSDTexturedRectangle alloc] initWithSize:v214 offset:v148 renderBlock:v149, v150, v151];
+      [(TSDTexturedRectangle *)v151 setTextureType:5];
+      [(TSDTexturedRectangle *)v151 setTextureOpacity:1.0];
       [(TSDStyledRep *)self opacity];
       [(TSDTextureSet *)v11 setTextureOpacity:?];
-      [(TSDTextureSet *)v11 addRenderable:v154];
+      [(TSDTextureSet *)v11 addRenderable:v151];
 
       objc_opt_class();
       [(TSDLayout *)[(TSDRep *)self layout] stroke];
-      v156 = TSUDynamicCast();
-      if ([context shouldSeparateStroke] && v156 && objc_msgSend(v156, "shouldRender"))
+      v153 = TSUDynamicCast();
+      if ([context shouldSeparateStroke] && v153 && objc_msgSend(v153, "shouldRender"))
       {
         [(TSDStyledRep *)self clipRect];
         if (isMagicMove)
@@ -1361,28 +1361,28 @@ LABEL_27:
           [(TSDRep *)self naturalBounds];
         }
 
-        v224 = v225;
-        v238 = CGRectApplyAffineTransform(*&v157, &v224);
-        v239.origin.x = TSDMultiplyRectScalar(v238.origin.x, v238.origin.y, v238.size.width, v238.size.height, v208);
-        v240 = CGRectIntegral(v239);
-        v241 = CGRectInset(v240, -1.0, -1.0);
-        v161 = v241.size.width;
-        v162 = v241.size.height;
-        v211[0] = MEMORY[0x277D85DD0];
-        v211[1] = 3221225472;
-        v211[2] = __34__TSDStyledRep_textureForContext___block_invoke_3;
-        v211[3] = &unk_279D49540;
-        v215 = isMagicMove;
-        v211[4] = self;
-        v212 = v241;
-        v213 = v208;
-        v214 = v225;
-        v216 = v128;
-        v163 = TSDSubtractPoints(v241.origin.x, v241.origin.y, v206);
-        v164 = [[TSDTexturedRectangle alloc] initWithSize:v211 offset:v161 renderBlock:v162, v163, v164];
-        [(TSDTexturedRectangle *)v164 setTextureType:8];
-        [(TSDTexturedRectangle *)v164 setTextureOpacity:1.0];
-        [(TSDTextureSet *)v11 addRenderable:v164];
+        v221 = v222;
+        v235 = CGRectApplyAffineTransform(*&v154, &v221);
+        v236.origin.x = TSDMultiplyRectScalar(v235.origin.x, v235.origin.y, v235.size.width, v235.size.height, v205);
+        v237 = CGRectIntegral(v236);
+        v238 = CGRectInset(v237, -1.0, -1.0);
+        v158 = v238.size.width;
+        v159 = v238.size.height;
+        v208[0] = MEMORY[0x277D85DD0];
+        v208[1] = 3221225472;
+        v208[2] = __34__TSDStyledRep_textureForContext___block_invoke_3;
+        v208[3] = &unk_279D49540;
+        v212 = isMagicMove;
+        v208[4] = self;
+        v209 = v238;
+        v210 = v205;
+        v211 = v222;
+        v213 = v125;
+        v160 = TSDSubtractPoints(v238.origin.x, v238.origin.y, v203);
+        v161 = [[TSDTexturedRectangle alloc] initWithSize:v208 offset:v158 renderBlock:v159, v160, v161];
+        [(TSDTexturedRectangle *)v161 setTextureType:8];
+        [(TSDTexturedRectangle *)v161 setTextureOpacity:1.0];
+        [(TSDTextureSet *)v11 addRenderable:v161];
       }
 
       if ([context shouldSeparateReflection])
@@ -1390,40 +1390,40 @@ LABEL_27:
         reflection = [(TSDStyledRep *)self reflection];
         if (!((reflection == 0) | shouldAddMagicMoveObjectOnly & 1))
         {
-          v167 = reflection;
+          v164 = reflection;
           [-[TSDStyledRep styledLayout](self "styledLayout")];
-          v242.origin.x = TSDMultiplyRectScalar(v168, v169, v170, v171, v208);
-          v243 = CGRectIntegral(v242);
-          v172 = v243.origin.x;
-          v173 = v243.origin.y;
-          v204 = v243.size.height;
-          v207 = v243.size.width;
+          v239.origin.x = TSDMultiplyRectScalar(v165, v166, v167, v168, v205);
+          v240 = CGRectIntegral(v239);
+          v169 = v240.origin.x;
+          v170 = v240.origin.y;
+          v201 = v240.size.height;
+          v204 = v240.size.width;
           [(TSDRep *)self naturalBounds];
           [(TSDRep *)self convertNaturalRectToUnscaledCanvas:?];
-          v175 = v174;
-          v177 = v176;
-          v179 = v178;
-          v181 = v180;
+          v172 = v171;
+          v174 = v173;
+          v176 = v175;
+          v178 = v177;
           [(TSDRep *)self naturalBounds];
-          v186 = TSDCenterRectOverRect(v182, v183, v184, v185, v175, v177, v179, v181);
-          v190 = TSDMultiplyRectScalar(v186, v187, v188, v189, v208);
-          v191 = TSDSubtractPoints(v172, v173, v190);
-          v209[0] = MEMORY[0x277D85DD0];
-          v209[1] = 3221225472;
-          v209[2] = __34__TSDStyledRep_textureForContext___block_invoke_4;
-          v209[3] = &unk_279D49568;
-          *&v209[5] = v172;
-          *&v209[6] = v173;
-          *&v209[7] = v207;
-          *&v209[8] = v204;
-          *&v209[9] = v208;
-          v209[4] = self;
-          v210 = v128;
-          v192 = [[TSDTexturedRectangle alloc] initWithSize:v209 offset:v207 renderBlock:v204, v191, v192];
-          [(TSDTexturedRectangle *)v192 setTextureType:9];
-          [(TSDReflection *)v167 opacity];
-          [(TSDTexturedRectangle *)v192 setTextureOpacity:?];
-          [(TSDTextureSet *)v11 addRenderable:v192];
+          v183 = TSDCenterRectOverRect(v179, v180, v181, v182, v172, v174, v176, v178);
+          v187 = TSDMultiplyRectScalar(v183, v184, v185, v186, v205);
+          v188 = TSDSubtractPoints(v169, v170, v187);
+          v206[0] = MEMORY[0x277D85DD0];
+          v206[1] = 3221225472;
+          v206[2] = __34__TSDStyledRep_textureForContext___block_invoke_4;
+          v206[3] = &unk_279D49568;
+          *&v206[5] = v169;
+          *&v206[6] = v170;
+          *&v206[7] = v204;
+          *&v206[8] = v201;
+          *&v206[9] = v205;
+          v206[4] = self;
+          v207 = v125;
+          v189 = [[TSDTexturedRectangle alloc] initWithSize:v206 offset:v204 renderBlock:v201, v188, v189];
+          [(TSDTexturedRectangle *)v189 setTextureType:9];
+          [(TSDReflection *)v164 opacity];
+          [(TSDTexturedRectangle *)v189 setTextureOpacity:?];
+          [(TSDTextureSet *)v11 addRenderable:v189];
         }
       }
 
@@ -1436,17 +1436,17 @@ LABEL_27:
       return v11;
     }
 
-    *&v225.a = 0uLL;
+    *&v222.a = 0uLL;
     v12 = [context shouldNotAddContainedReps] ^ 1;
     [(TSDShadow *)[(TSDStyledRep *)self shadow] boundsForRep:self];
     v17 = TSDMultiplyRectScalar(v13, v14, v15, v16, v10);
-    v194 = v18;
-    v195 = v17;
+    v191 = v18;
+    v192 = v17;
     [(TSDShadow *)[(TSDStyledRep *)self shadow] boundsInNaturalSpaceForRep:self];
-    v200 = v20;
-    v202 = v19;
-    v196 = v22;
-    v197 = v21;
+    v197 = v20;
+    v199 = v19;
+    v193 = v22;
+    v194 = v21;
     v23 = TSDMultiplyRectScalar(v19, v20, v21, v22, v10);
     v25 = v24;
     v27 = v26;
@@ -1454,7 +1454,7 @@ LABEL_27:
     v30 = TSDRectWithSize();
     v32 = v31;
     v34 = v33;
-    v205 = v35;
+    v202 = v35;
     if ([v8 isCurvedShadow])
     {
       [(TSDRep *)self naturalBounds];
@@ -1463,90 +1463,87 @@ LABEL_27:
       v44 = v43;
       v46 = v45;
       v47 = TSDRectWithSize();
-      v51 = TSDCenterRectOverRect(v40, v42, v44, v46, v47, v48, v49, v50);
-      v52.n128_f64[0] = v44 / v27;
-      v53.n128_f64[0] = v46 / v29;
-      v54.n128_f64[0] = v51 / v27;
-      v57 = TSDRectWithOriginAndSize(v56, v54, v55 / v29, v52, v53);
-      v61 = TSDRectByExpandingBoundingRectToContentRect(v23, v25, v27, v29, v57, v58, v59, v60, 0.2, 0.3, 0.8, 0.7);
-      v65 = v64;
+      TSDCenterRectOverRect(v40, v42, v44, v46, v47, v48, v49, v50);
+      TSDRectWithOriginAndSize();
+      v55 = TSDRectByExpandingBoundingRectToContentRect(v23, v25, v27, v29, v51, v52, v53, v54, 0.2, 0.3, 0.8, 0.7);
+      v59 = v58;
       v30 = 0.2;
       v32 = 0.3;
       *&v34 = 0.8;
-      v205 = 0.7;
+      v202 = 0.7;
     }
 
     else
     {
-      v63 = v29;
-      v65 = v27;
-      v62 = v25;
-      v61 = v23;
+      v57 = v29;
+      v59 = v27;
+      v56 = v25;
+      v55 = v23;
     }
 
-    v199 = v32;
-    v226[0] = MEMORY[0x277D85DD0];
-    v226[1] = 3221225472;
-    v226[2] = __34__TSDStyledRep_textureForContext___block_invoke;
-    v226[3] = &unk_279D494F0;
-    *&v226[6] = v202;
-    *&v226[7] = v200;
-    *&v226[8] = v197;
-    *&v226[9] = v196;
-    v227 = v12;
-    v226[4] = self;
-    v226[5] = v8;
-    *&v226[10] = v61;
-    *&v226[11] = v62;
-    v201 = v65;
-    v203 = v63;
-    *&v226[12] = v65;
-    *&v226[13] = v63;
-    *&v226[14] = v23;
-    *&v226[15] = v25;
-    *&v226[16] = v27;
-    *&v226[17] = v29;
+    v196 = v32;
+    v223[0] = MEMORY[0x277D85DD0];
+    v223[1] = 3221225472;
+    v223[2] = __34__TSDStyledRep_textureForContext___block_invoke;
+    v223[3] = &unk_279D494F0;
+    *&v223[6] = v199;
+    *&v223[7] = v197;
+    *&v223[8] = v194;
+    *&v223[9] = v193;
+    v224 = v12;
+    v223[4] = self;
+    v223[5] = v8;
+    *&v223[10] = v55;
+    *&v223[11] = v56;
+    v198 = v59;
+    v200 = v57;
+    *&v223[12] = v59;
+    *&v223[13] = v57;
+    *&v223[14] = v23;
+    *&v223[15] = v25;
+    *&v223[16] = v27;
+    *&v223[17] = v29;
     if ([v8 isDropShadow])
     {
-      v67 = *&v34;
+      v61 = *&v34;
       [v8 offset];
-      v69 = v68;
+      v63 = v62;
       [v8 angle];
-      TSDOriginRotate(&v225.a, v69, v70 * 0.0174532925);
-      v10 = v208;
-      v71 = TSDMultiplyPointScalar(v225.a, v225.b, v208);
-      v225.a = v71;
-      v225.b = v72;
+      TSDOriginRotate(&v222.a, v63, v64 * 0.0174532925);
+      v10 = v205;
+      v65 = TSDMultiplyPointScalar(v222.a, v222.b, v205);
+      v222.a = v65;
+      v222.b = v66;
       [v8 radius];
-      v74 = v71 - v73 * v208;
-      b = v225.b;
+      v68 = v65 - v67 * v205;
+      b = v222.b;
       [v8 radius];
-      v77 = b - v76 * v208;
-      v32 = v199;
+      v71 = b - v70 * v205;
+      v32 = v196;
     }
 
     else
     {
-      v198 = v30;
-      v10 = v208;
-      v67 = *&v34;
+      v195 = v30;
+      v10 = v205;
+      v61 = *&v34;
       if ([v8 isContactShadow])
       {
         [v8 offset];
-        TSDMultiplyPointScalar(0.0, v78, v208);
-        v79 = TSDRoundedPoint();
+        v73 = TSDMultiplyPointScalar(0.0, v72, v205);
+        v76 = TSDRoundedPoint(v74, v73, v75);
         [(TSDRep *)self naturalBounds];
-        v81 = v80;
-        v83 = v82;
-        v85 = v84;
-        v87 = v86;
+        v78 = v77;
+        v80 = v79;
+        v82 = v81;
+        v84 = v83;
         [(TSDRep *)self naturalBounds];
         [(TSDRep *)self convertNaturalRectToUnscaledCanvas:?];
-        v92 = TSDCenterRectOverRect(v81, v83, v85, v87, v88, v89, v90, v91);
-        v96 = TSDMultiplyRectScalar(v92, v93, v94, v95, v208);
-        v97 = TSDSubtractPoints(v195, v194, v96);
-        v74 = TSDAddPoints(v97, v98, v79);
-        v77 = v99;
+        v89 = TSDCenterRectOverRect(v78, v80, v82, v84, v85, v86, v87, v88);
+        v93 = TSDMultiplyRectScalar(v89, v90, v91, v92, v205);
+        v94 = TSDSubtractPoints(v192, v191, v93);
+        v68 = TSDAddPoints(v94, v95, v76);
+        v71 = v96;
       }
 
       else
@@ -1554,52 +1551,52 @@ LABEL_27:
         if ([v8 isCurvedShadow])
         {
           [(TSDRep *)self naturalBounds];
-          TSDMultiplyRectScalar(v100, v101, v102, v103, v208);
-          v106 = (v201 - v104) * -0.5;
-          v107 = (v203 - v105) * -0.5;
+          TSDMultiplyRectScalar(v97, v98, v99, v100, v205);
+          v103 = (v198 - v101) * -0.5;
+          v104 = (v200 - v102) * -0.5;
           objc_opt_class();
-          v108 = TSUDynamicCast();
-          [v108 curve];
-          if (v109 > 0.0)
+          v105 = TSUDynamicCast();
+          [v105 curve];
+          if (v106 > 0.0)
           {
-            [v108 offsetFromCurve];
-            v111 = TSDMultiplyPointScalar(0.0, v110, v208);
-            v106 = TSDAddPoints(v106, v107, v111);
-            v107 = v112;
+            [v105 offsetFromCurve];
+            v108 = TSDMultiplyPointScalar(0.0, v107, v205);
+            v103 = TSDAddPoints(v103, v104, v108);
+            v104 = v109;
           }
 
           [v8 offsetDelta];
-          v115 = TSDMultiplyPointScalar(v113, v114, v208);
-          v74 = TSDAddPoints(v106, v107, v115);
-          v77 = v116;
+          v112 = TSDMultiplyPointScalar(v110, v111, v205);
+          v68 = TSDAddPoints(v103, v104, v112);
+          v71 = v113;
           goto LABEL_23;
         }
 
-        v74 = *MEMORY[0x277CBF348];
-        v77 = *(MEMORY[0x277CBF348] + 8);
+        v68 = *MEMORY[0x277CBF348];
+        v71 = *(MEMORY[0x277CBF348] + 8);
       }
 
-      v30 = v198;
-      v32 = v199;
+      v30 = v195;
+      v32 = v196;
     }
 
 LABEL_23:
-    v117 = [[TSDTexturedRectangle alloc] initWithSize:v226 offset:v201 renderBlock:v203, v74, v77];
+    v114 = [[TSDTexturedRectangle alloc] initWithSize:v223 offset:v198 renderBlock:v200, v68, v71];
     if ([v8 isContactShadow])
     {
-      v118 = 3;
+      v115 = 3;
     }
 
     else
     {
-      v118 = 2;
+      v115 = 2;
     }
 
-    [(TSDTexturedRectangle *)v117 setTextureType:v118];
+    [(TSDTexturedRectangle *)v114 setTextureType:v115];
     [v8 opacity];
-    [(TSDTexturedRectangle *)v117 setTextureOpacity:?];
-    [(TSDTexturedRectangle *)v117 setContentRect:v30, v32, v67, v205];
-    [(TSDTextureSet *)v11 addRenderable:v117];
+    [(TSDTexturedRectangle *)v114 setTextureOpacity:?];
+    [(TSDTexturedRectangle *)v114 setContentRect:v30, v32, v61, v202];
+    [(TSDTextureSet *)v11 addRenderable:v114];
 
     goto LABEL_27;
   }
@@ -1617,7 +1614,7 @@ void __34__TSDStyledRep_textureForContext___block_invoke(uint64_t a1, CGContextR
     v5 = [*(a1 + 32) layout];
     if (v5)
     {
-      [v5 transformInRoot];
+      objc_msgSend_transformInRoot(v5);
     }
 
     else
@@ -1628,7 +1625,7 @@ void __34__TSDStyledRep_textureForContext___block_invoke(uint64_t a1, CGContextR
     v6 = [*(a1 + 32) layout];
     if (v6)
     {
-      [v6 transformInRoot];
+      objc_msgSend_transformInRoot(v6);
       v7 = v17;
     }
 
@@ -1641,7 +1638,7 @@ void __34__TSDStyledRep_textureForContext___block_invoke(uint64_t a1, CGContextR
     v9 = [*(a1 + 32) layout];
     if (v9)
     {
-      [v9 transformInRoot];
+      objc_msgSend_transformInRoot(v9);
       v10 = v16;
     }
 
@@ -1692,7 +1689,7 @@ uint64_t __34__TSDStyledRep_textureForContext___block_invoke_2(uint64_t a1, CGCo
     v4 = [*(a1 + 32) layout];
     if (v4)
     {
-      [v4 transformInRoot];
+      objc_msgSend_transformInRoot(v4);
     }
 
     else
@@ -1733,7 +1730,7 @@ uint64_t __34__TSDStyledRep_textureForContext___block_invoke_3(uint64_t a1, CGCo
     v4 = [*(a1 + 32) layout];
     if (v4)
     {
-      [v4 transformInRoot];
+      objc_msgSend_transformInRoot(v4);
     }
 
     else
@@ -1764,7 +1761,7 @@ uint64_t __34__TSDStyledRep_textureForContext___block_invoke_4(uint64_t a1, CGCo
   v4 = [*(a1 + 32) layout];
   if (v4)
   {
-    [v4 transformInRoot];
+    objc_msgSend_transformInRoot(v4);
   }
 
   else

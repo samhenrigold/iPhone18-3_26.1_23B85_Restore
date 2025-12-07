@@ -176,11 +176,11 @@
 - (void)_gatheringLogsDidChangeStatusNotification:(id)notification
 {
   name = [notification name];
-  v5 = [name isEqualToString:@"UIStatusBarCarPlayDiagnosticsStartedNotification"];
+  isEqualToString = objc_msgSend_isEqualToString_(name);
 
-  if (self->_currentlyGatheringLogs != v5)
+  if (self->_currentlyGatheringLogs != isEqualToString)
   {
-    self->_currentlyGatheringLogs = v5;
+    self->_currentlyGatheringLogs = isEqualToString;
 
     [(UIStatusBarButtonActionItemView *)self updateContentsAndWidth];
   }

@@ -127,7 +127,7 @@
 - (BOOL)isCarPlayCapable
 {
   v2 = MGGetBoolAnswer();
-  v3 = CarGeneralLogging();
+  v3 = CarGeneralLogging(v2);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
   if (v2)
   {
@@ -156,26 +156,32 @@ LABEL_6:
 {
   if ([(CRCarPlayPreferences *)self isCarPlayCapable])
   {
-    if (([(MCProfileConnection *)self->_profileConnection isVehicleUIAllowed]& 1) != 0)
+    isVehicleUIAllowed = [(MCProfileConnection *)self->_profileConnection isVehicleUIAllowed];
+    if (isVehicleUIAllowed)
     {
       mEMORY[0x1E699C848] = [MEMORY[0x1E699C848] sharedInstance];
-      if (([mEMORY[0x1E699C848] isLostModeActive]& 1) == 0 && ![mEMORY[0x1E699C848] isManagedLostModeActive])
+      isLostModeActive = [mEMORY[0x1E699C848] isLostModeActive];
+      if ((isLostModeActive & 1) == 0)
       {
-        v5 = 1;
-        goto LABEL_12;
+        isLostModeActive = [mEMORY[0x1E699C848] isManagedLostModeActive];
+        if (!isLostModeActive)
+        {
+          v7 = 1;
+          goto LABEL_12;
+        }
       }
 
-      v4 = CarGeneralLogging();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      v6 = CarGeneralLogging(isLostModeActive);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        *v7 = 0;
-        _os_log_impl(&dword_1C81FC000, v4, OS_LOG_TYPE_DEFAULT, "CarPlay disabled by lost mode.", v7, 2u);
+        *v9 = 0;
+        _os_log_impl(&dword_1C81FC000, v6, OS_LOG_TYPE_DEFAULT, "CarPlay disabled by lost mode.", v9, 2u);
       }
     }
 
     else
     {
-      mEMORY[0x1E699C848] = CarGeneralLogging();
+      mEMORY[0x1E699C848] = CarGeneralLogging(isVehicleUIAllowed);
       if (os_log_type_enabled(mEMORY[0x1E699C848], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
@@ -183,10 +189,10 @@ LABEL_6:
       }
     }
 
-    v5 = 0;
+    v7 = 0;
 LABEL_12:
 
-    return v5;
+    return v7;
   }
 
   return 0;

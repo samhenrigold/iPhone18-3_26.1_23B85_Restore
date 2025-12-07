@@ -2,6 +2,7 @@
 + (_RWITCPConnection)TCPConnectionWithLockdownConnection:(_lockdown_connection *)connection;
 + (_RWITCPConnection)TCPConnectionWithSocketPath:(id)path;
 - (_RWITCPConnection)initWithServer:(id)server lockdownConnection:(_lockdown_connection *)connection;
+- (_RWITCPConnection)initWithServer:(id)server socket:(int)socket;
 - (_RWITCPConnectionDelegate)delegate;
 - (void)_closeInputStream;
 - (void)_closeOutputStream;
@@ -22,56 +23,42 @@
 
 + (_RWITCPConnection)TCPConnectionWithSocketPath:(id)path
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   v6 = [defaultManager fileExistsAtPath:pathCopy];
 
   if ((v6 & 1) == 0)
   {
-    v9 = RWIDefaultLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = RWIDefaultLog(v7);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [(_RWITCPConnection *)pathCopy TCPConnectionWithSocketPath:v9];
+      [(_RWITCPConnection *)pathCopy TCPConnectionWithSocketPath:v11];
     }
 
     goto LABEL_9;
   }
 
-  v7 = [pathCopy lengthOfBytesUsingEncoding:4];
-  if (v7 >= 0x68)
+  v8 = [pathCopy lengthOfBytesUsingEncoding:4];
+  v9 = v8;
+  if (v8 >= 0x68)
   {
-    v8 = RWIDefaultLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = RWIDefaultLog(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [(_RWITCPConnection *)pathCopy TCPConnectionWithSocketPath:v7, v8];
+      [(_RWITCPConnection *)pathCopy TCPConnectionWithSocketPath:v9, v10];
     }
 
 LABEL_9:
-    v10 = 0;
+    v12 = 0;
     goto LABEL_10;
   }
 
-  v13 = socket(1, 1, 0);
-  if (v13 == -1)
+  v14 = socket(1, 1, 0);
+  v15 = v14;
+  if (v14 == -1)
   {
-    v15 = RWIDefaultLog();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
-    {
-      v16 = __error();
-      v17 = strerror(*v16);
-      [(_RWITCPConnection *)v17 TCPConnectionWithSocketPath:pathCopy];
-    }
-
-    goto LABEL_9;
-  }
-
-  v22.sa_family = 1;
-  strlcpy(v22.sa_data, [pathCopy UTF8String], 0x68uLL);
-  v14 = strlen(v22.sa_data);
-  if (connect(v13, &v22, v14 + 2) == -1)
-  {
-    v18 = RWIDefaultLog();
+    v18 = RWIDefaultLog(v14);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       v19 = __error();
@@ -79,37 +66,70 @@ LABEL_9:
       [(_RWITCPConnection *)v20 TCPConnectionWithSocketPath:pathCopy];
     }
 
-    close(v13);
     goto LABEL_9;
   }
 
-  v10 = [[self alloc] initWithServer:0 socket:v13];
+  v25.sa_family = 1;
+  strlcpy(v25.sa_data, [pathCopy UTF8String], 0x68uLL);
+  v16 = strlen(v25.sa_data);
+  v17 = connect(v15, &v25, v16 + 2);
+  if (v17 == -1)
+  {
+    v21 = RWIDefaultLog(v17);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    {
+      v22 = __error();
+      v23 = strerror(*v22);
+      [(_RWITCPConnection *)v23 TCPConnectionWithSocketPath:pathCopy];
+    }
+
+    close(v15);
+    goto LABEL_9;
+  }
+
+  v12 = [[self alloc] initWithServer:0 socket:v15];
 LABEL_10:
 
-  v11 = *MEMORY[0x277D85DE8];
+  return v12;
+}
 
-  return v10;
+- (_RWITCPConnection)initWithServer:(id)server socket:(int)socket
+{
+  v4 = *&socket;
+  serverCopy = server;
+  v11.receiver = self;
+  v11.super_class = _RWITCPConnection;
+  v7 = [(_RWITCPConnection *)&v11 init];
+  v8 = v7;
+  if (v7)
+  {
+    [(_RWITCPConnection *)v7 _commonInitializationWithServer:serverCopy socket:v4 type:0];
+    v9 = v8;
+  }
+
+  return v8;
 }
 
 + (_RWITCPConnection)TCPConnectionWithLockdownConnection:(_lockdown_connection *)connection
 {
-  if (lockdown_get_socket() == -1)
+  socket = lockdown_get_socket();
+  if (socket == -1)
   {
-    v6 = RWIDefaultLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = RWIDefaultLog(socket);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [_RWITCPConnection TCPConnectionWithLockdownConnection:v6];
+      [_RWITCPConnection TCPConnectionWithLockdownConnection:v7];
     }
 
-    v5 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v5 = [[self alloc] initWithServer:0 lockdownConnection:connection];
+    v6 = [[self alloc] initWithServer:0 lockdownConnection:connection];
   }
 
-  return v5;
+  return v6;
 }
 
 - (_RWITCPConnection)initWithServer:(id)server lockdownConnection:(_lockdown_connection *)connection
@@ -309,7 +329,7 @@ LABEL_9:
       type = self->_type;
       if (type == 1)
       {
-        v7 = [v4 writeLockdown:self->_connection];
+        v4 = [v4 writeLockdown:self->_connection];
       }
 
       else
@@ -319,23 +339,23 @@ LABEL_9:
           goto LABEL_19;
         }
 
-        v7 = [v4 write:self->_socket];
+        v4 = [v4 write:self->_socket];
       }
 
-      if (v7)
+      if (v4)
       {
-        if (v7 == 2)
+        if (v4 == 2)
         {
           goto LABEL_22;
         }
 
-        if (v7 == 3)
+        if (v4 == 3)
         {
 LABEL_19:
-          v9 = RWIDefaultLog();
-          if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+          v8 = RWIDefaultLog(v4);
+          if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
           {
-            [(_RWITCPConnection *)v9 _handleOutput];
+            [(_RWITCPConnection *)v8 _handleOutput];
           }
 
           [(_RWITCPConnection *)self _shutdown];
@@ -359,11 +379,11 @@ LABEL_22:
 
   else
   {
-    v8 = RWIDefaultLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v7 = RWIDefaultLog(0);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      *v10 = 0;
-      _os_log_impl(&dword_273C9C000, v8, OS_LOG_TYPE_INFO, "_RWITCPConnection outputSource was resumed without anything to write. Why?", v10, 2u);
+      *v9 = 0;
+      _os_log_impl(&dword_273C9C000, v7, OS_LOG_TYPE_INFO, "_RWITCPConnection outputSource was resumed without anything to write. Why?", v9, 2u);
     }
 
     [(_RWITCPConnection *)self _setOutputSourceSuspended:1];
@@ -461,24 +481,22 @@ LABEL_5:
 
 + (void)TCPConnectionWithSocketPath:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138477827;
-  v4 = a1;
-  _os_log_error_impl(&dword_273C9C000, a2, OS_LOG_TYPE_ERROR, "_RWITCPConnection: provided unix domain socket does not exist at path %{private}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138477827;
+  v3 = a1;
+  _os_log_error_impl(&dword_273C9C000, a2, OS_LOG_TYPE_ERROR, "_RWITCPConnection: provided unix domain socket does not exist at path %{private}@", &v2, 0xCu);
 }
 
 + (void)TCPConnectionWithSocketPath:(os_log_t)log .cold.4(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v4 = 138478339;
-  v5 = a1;
-  v6 = 2050;
-  v7 = a2;
-  v8 = 2050;
-  v9 = 104;
-  _os_log_error_impl(&dword_273C9C000, log, OS_LOG_TYPE_ERROR, "_RWITCPConnection: path to unix domain socket at '%{private}@' is too long: path is %{public}lu bytes, but must be less than %{public}lu bytes", &v4, 0x20u);
-  v3 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
+  v3 = 138478339;
+  v4 = a1;
+  v5 = 2050;
+  v6 = a2;
+  v7 = 2050;
+  v8 = 104;
+  _os_log_error_impl(&dword_273C9C000, log, OS_LOG_TYPE_ERROR, "_RWITCPConnection: path to unix domain socket at '%{private}@' is too long: path is %{public}lu bytes, but must be less than %{public}lu bytes", &v3, 0x20u);
 }
 
 @end

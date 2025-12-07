@@ -41,7 +41,7 @@
 
 - (void)setUpTrialForQuery:(id)query
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   queryCopy = query;
   workQueue = [(DDSTrialManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -56,12 +56,12 @@
 
     if (!v9)
     {
-      v10 = DefaultLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = DefaultLog(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = 138412290;
-        v16 = queryCopy;
-        _os_log_impl(&dword_1DF7C6000, v10, OS_LOG_TYPE_DEFAULT, "Setting up trial for query: %@", &v15, 0xCu);
+        v16 = 138412290;
+        v17 = queryCopy;
+        _os_log_impl(&dword_1DF7C6000, v11, OS_LOG_TYPE_DEFAULT, "Setting up trial for query: %@", &v16, 0xCu);
       }
 
       dataSource2 = [(DDSTrialManager *)self dataSource];
@@ -78,7 +78,7 @@
 
       else
       {
-        trialClientByQuery2 = DefaultLog();
+        trialClientByQuery2 = DefaultLog(v14);
         if (os_log_type_enabled(trialClientByQuery2, OS_LOG_TYPE_ERROR))
         {
           [(DDSTrialManager *)queryCopy setUpTrialForQuery:trialClientByQuery2];
@@ -88,8 +88,6 @@
       }
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchTrialAssetForQuery:(id)query callback:(id)callback
@@ -174,15 +172,15 @@ LABEL_3:
       }
     }
 
-    v17 = v14;
+    v18 = v14;
 
-    if (!v17)
+    if (!v18)
     {
       goto LABEL_12;
     }
 
     delegate = [(DDSTrialManager *)self delegate];
-    [delegate trialDidReceiveAsset:assetCopy forQuery:v17];
+    [delegate trialDidReceiveAsset:assetCopy forQuery:v18];
   }
 
   else
@@ -190,14 +188,12 @@ LABEL_3:
 LABEL_9:
 
 LABEL_12:
-    v17 = DefaultLog();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = DefaultLog(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      [(DDSTrialManager *)assetCopy trialClient:clientCopy didReceiveAsset:v17];
+      [(DDSTrialManager *)assetCopy trialClient:clientCopy didReceiveAsset:v18];
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)trialClientDidStop:(id)stop
@@ -247,15 +243,15 @@ LABEL_3:
       }
     }
 
-    v14 = v11;
+    v15 = v11;
 
-    if (!v14)
+    if (!v15)
     {
       goto LABEL_12;
     }
 
     delegate = [(DDSTrialManager *)self delegate];
-    [delegate trialDidStopForQuery:v14];
+    [delegate trialDidStopForQuery:v15];
   }
 
   else
@@ -263,14 +259,12 @@ LABEL_3:
 LABEL_9:
 
 LABEL_12:
-    v14 = DefaultLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = DefaultLog(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      [(DDSTrialManager *)stopCopy trialClientDidStop:v14];
+      [(DDSTrialManager *)stopCopy trialClientDidStop:v15];
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (DDSTrialManagerDelegate)delegate
@@ -282,31 +276,28 @@ LABEL_12:
 
 - (void)setUpTrialForQuery:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1DF7C6000, a2, OS_LOG_TYPE_ERROR, "Failed to create trial client for query: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1DF7C6000, a2, OS_LOG_TYPE_ERROR, "Failed to create trial client for query: %@", &v2, 0xCu);
 }
 
 - (void)trialClient:(os_log_t)log didReceiveAsset:.cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_1DF7C6000, log, OS_LOG_TYPE_ERROR, "Did not handle did receive asset: %@ for client: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_1DF7C6000, log, OS_LOG_TYPE_ERROR, "Did not handle did receive asset: %@ for client: %@", &v3, 0x16u);
 }
 
 - (void)trialClientDidStop:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1DF7C6000, a2, OS_LOG_TYPE_ERROR, "Did not handle trial client did stop: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1DF7C6000, a2, OS_LOG_TYPE_ERROR, "Did not handle trial client did stop: %@", &v2, 0xCu);
 }
 
 @end

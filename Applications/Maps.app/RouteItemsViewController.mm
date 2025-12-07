@@ -12,7 +12,7 @@
 
 - (_TtC4Maps24RouteItemsViewController)initWithAvailableRoutes:(id)routes unavailableRoutes:(id)unavailableRoutes isAllSavedRoutes:(BOOL)savedRoutes
 {
-  sub_100014C84(0, &qword_10190EC50);
+  sub_100014C84(0, &qword_10190EC50, GEOComposedGeometryRoutePersistentData_ptr);
   v6 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   v7 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   return sub_1004F021C(v6, v7, savedRoutes);

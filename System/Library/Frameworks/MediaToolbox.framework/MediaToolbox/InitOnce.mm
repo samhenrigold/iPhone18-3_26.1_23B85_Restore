@@ -5,7 +5,7 @@
 
 void __assetPALoggingHelper_InitOnce_block_invoke()
 {
-  v0 = PrivacyAccountingLibraryCore();
+  v0 = PrivacyAccountingLibraryCore(0);
   _MergedGlobals_72 = v0 != 0;
   if (v0)
   {

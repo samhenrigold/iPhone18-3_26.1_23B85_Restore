@@ -49,14 +49,12 @@
 
 - (id)dictionaryEncoding
 {
-  v8[1] = *MEMORY[0x277D85DE8];
-  v7 = @"priority";
+  v7[1] = *MEMORY[0x277D85DE8];
+  v6 = @"priority";
   *&v2 = self->_priority;
   v3 = [MEMORY[0x277CCABB0] numberWithFloat:v2];
-  v8[0] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v7[0] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
 
   return v4;
 }

@@ -3,6 +3,7 @@
 - (QSSMutableClientSetupInfo)init;
 - (float)endpoint_threshold;
 - (id)copyWithZone:(_NSZone *)zone;
+- (void)setEndpoint_extra_delay:(BOOL)endpoint_extra_delay;
 - (void)setEndpoint_threshold:(float)endpoint_threshold;
 - (void)setSpeech_id:(id)speech_id;
 @end
@@ -12,6 +13,12 @@
 - (void)setSpeech_id:(id)speech_id
 {
   v4 = [speech_id copy];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
+
+- (void)setEndpoint_extra_delay:(BOOL)endpoint_extra_delay
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithBool:endpoint_extra_delay];
   [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 

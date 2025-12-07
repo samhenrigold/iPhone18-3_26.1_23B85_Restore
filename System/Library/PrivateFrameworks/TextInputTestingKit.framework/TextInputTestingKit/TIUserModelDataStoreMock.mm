@@ -35,9 +35,11 @@
   durableLastMigrationDate = self->_durableLastMigrationDate;
   self->_durableLastMigrationDate = distantPast2;
 
-  self->_transientLastMigrationDate = [MEMORY[0x277CBEAA8] distantPast];
+  distantPast3 = [MEMORY[0x277CBEAA8] distantPast];
+  transientLastMigrationDate = self->_transientLastMigrationDate;
+  self->_transientLastMigrationDate = distantPast3;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](distantPast3, transientLastMigrationDate);
 }
 
 - (id)getAllValuesForKey:(id)key forInputMode:(id)mode fromDate:(id)date toDate:(id)toDate

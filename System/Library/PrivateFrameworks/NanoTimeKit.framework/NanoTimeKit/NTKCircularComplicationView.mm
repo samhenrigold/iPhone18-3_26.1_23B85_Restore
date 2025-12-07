@@ -131,7 +131,7 @@
   v10 = v9;
   v12 = v11;
   v14 = v13;
-  [(NTKCircularComplicationView *)self _layoutConstants];
+  objc_msgSend__layoutConstants(self);
   v21.origin.x = v8 + v17;
   v21.origin.y = v10 + v16;
   v21.size.width = v12 - (v17 + v19);

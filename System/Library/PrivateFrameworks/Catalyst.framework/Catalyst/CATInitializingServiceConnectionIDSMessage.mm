@@ -25,23 +25,21 @@
 
 - (NSDictionary)dictionaryValue
 {
-  v14[3] = *MEMORY[0x277D85DE8];
-  v13[0] = @"Content";
+  v13[3] = *MEMORY[0x277D85DE8];
+  v12[0] = @"Content";
   content = [(CATInitializingServiceConnectionIDSMessage *)self content];
   dictionaryValue = [content dictionaryValue];
-  v14[0] = dictionaryValue;
-  v13[1] = @"ContentType";
+  v13[0] = dictionaryValue;
+  v12[1] = @"ContentType";
   v5 = MEMORY[0x277CCABB0];
   content2 = [(CATInitializingServiceConnectionIDSMessage *)self content];
   v7 = [v5 numberWithInteger:{objc_msgSend(content2, "contentType")}];
-  v14[1] = v7;
-  v13[2] = @"InvitationIdentifier";
+  v13[1] = v7;
+  v12[2] = @"InvitationIdentifier";
   invitationIdentifier = [(CATInitializingServiceConnectionIDSMessage *)self invitationIdentifier];
   uUIDString = [invitationIdentifier UUIDString];
-  v14[2] = uUIDString;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:3];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v13[2] = uUIDString;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:3];
 
   return v10;
 }

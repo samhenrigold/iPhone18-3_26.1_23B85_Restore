@@ -16,7 +16,7 @@
   {
     if (dword_100972ED8 <= 50 && (dword_100972ED8 != -1 || _LogCategory_Initialize()))
     {
-      sub_100222C90();
+      sub_100222C90(hashCopy);
     }
 
     goto LABEL_11;
@@ -41,8 +41,7 @@ LABEL_11:
   v10 = CFDictionaryGetTypedValue();
   if (dword_100972ED8 <= 50 && (dword_100972ED8 != -1 || _LogCategory_Initialize()))
   {
-    [v8 length];
-    LogPrintF();
+    LogPrintF(&dword_100972ED8, "-[SDAutoUnlockMacIconCache iconImageDataForHash:]", 50, "Found cached image: %ld bytes, hash: %@, app: %@", [v8 length], hashCopy, v10);
   }
 
   v9 = v8;
@@ -68,8 +67,7 @@ LABEL_18:
   [v13 synchronize];
   if (dword_100972ED8 <= 90 && (dword_100972ED8 != -1 || _LogCategory_Initialize()))
   {
-    [dataCopy length];
-    LogPrintF();
+    LogPrintF(&dword_100972ED8, "-[SDAutoUnlockMacIconCache cacheIconImageData:hash:appName:]", 90, "Cached image: %ld bytes, hash: %@, app: %@", [dataCopy length], hashCopy, nameCopy);
   }
 }
 

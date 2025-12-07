@@ -94,7 +94,7 @@ LABEL_3:
 LABEL_6:
   selfCopy = self;
   sub_100874AC8(v8, v9, string, v7, v11);
-  sub_1000C1014(v7);
+  sub_1000C1014(v7, v11);
 }
 
 - (void)replaceCanvasElementInfo:(id)info withFilesAtURLs:(id)ls allowedTypes:(id)types actionString:(id)string completion:(id)completion
@@ -135,7 +135,7 @@ LABEL_8:
   swift_unknownObjectRetain();
   selfCopy = self;
   sub_100874D00(info, v12, types, v13, string, v11, v15);
-  sub_1000C1014(v11);
+  sub_1000C1014(v11, v15);
   swift_unknownObjectRelease();
 }
 

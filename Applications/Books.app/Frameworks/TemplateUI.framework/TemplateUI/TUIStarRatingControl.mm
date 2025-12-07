@@ -230,13 +230,13 @@ LABEL_4:
     goto LABEL_5;
   }
 
-  if (([nameCopy isEqualToString:self->_foregroundImageName] & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(nameCopy) & 1) == 0)
   {
     objc_storeStrong(&self->_foregroundImageName, name);
     [(TUIStarRatingControl *)self _updateForegroundImage];
   }
 
-  if (([imageNameCopy isEqualToString:self->_backgroundImageName] & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(imageNameCopy) & 1) == 0)
   {
     goto LABEL_4;
   }

@@ -80,28 +80,25 @@
 
 - (const)_ccDigestInfoWithError:(id *)error
 {
-  v16[1] = *MEMORY[0x277D85DE8];
-  v5 = *(self->_iesOperationInternal + 4);
+  v11[1] = *MEMORY[0x277D85DE8];
   objc_opt_class();
-  if (objc_opt_isKindOfClass() & 1) != 0 || (v6 = *(self->_iesOperationInternal + 4), objc_opt_class(), (objc_opt_isKindOfClass()) || (v7 = *(self->_iesOperationInternal + 4), (objc_opt_respondsToSelector() & 1) == 0))
+  if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()) || (objc_opt_respondsToSelector() & 1) == 0)
   {
-    v11 = MEMORY[0x277CCA9B8];
-    v12 = *(self->_iesOperationInternal + 4);
-    v15 = @"SFCryptoServicesErrorDigest";
-    v16[0] = v12;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
-    *error = [v11 errorWithDomain:@"SFCryptoServicesErrorDomain" code:1 userInfo:v13];
+    v7 = MEMORY[0x277CCA9B8];
+    v8 = *(self->_iesOperationInternal + 4);
+    v10 = @"SFCryptoServicesErrorDigest";
+    v11[0] = v8;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    *error = [v7 errorWithDomain:@"SFCryptoServicesErrorDomain" code:1 userInfo:v9];
 
-    v14 = *MEMORY[0x277D85DE8];
     return 0;
   }
 
   else
   {
-    v8 = *(self->_iesOperationInternal + 4);
-    v9 = *MEMORY[0x277D85DE8];
+    v5 = *(self->_iesOperationInternal + 4);
 
-    return [v8 _ccDigestInfo];
+    return [v5 _ccDigestInfo];
   }
 }
 
@@ -260,10 +257,7 @@ LABEL_3:
 
 - (void)setDiffieHellmanOperation:(id)operation
 {
-  v4 = [operation copy];
-  iesOperationInternal = self->_iesOperationInternal;
-  v6 = iesOperationInternal[2];
-  iesOperationInternal[2] = v4;
+  *(self->_iesOperationInternal + 2) = [operation copy];
 
   MEMORY[0x2821F96F8]();
 }
@@ -277,10 +271,7 @@ LABEL_3:
 
 - (void)setEncryptionOperation:(id)operation
 {
-  v4 = [operation copy];
-  iesOperationInternal = self->_iesOperationInternal;
-  v6 = iesOperationInternal[3];
-  iesOperationInternal[3] = v4;
+  *(self->_iesOperationInternal + 3) = [operation copy];
 
   MEMORY[0x2821F96F8]();
 }
@@ -294,10 +285,7 @@ LABEL_3:
 
 - (void)setDigestOperation:(id)operation
 {
-  v4 = [operation copyWithZone:0];
-  iesOperationInternal = self->_iesOperationInternal;
-  v6 = iesOperationInternal[4];
-  iesOperationInternal[4] = v4;
+  *(self->_iesOperationInternal + 4) = [operation copyWithZone:0];
 
   MEMORY[0x2821F96F8]();
 }

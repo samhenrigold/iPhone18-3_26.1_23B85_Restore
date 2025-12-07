@@ -116,12 +116,11 @@ LABEL_22:
   v3 = [(NSString *)self->_serviceName hash];
   sessionFlags = self->_sessionFlags;
   active = self->_active;
-  v6 = *&self->_desiredBandwidth;
-  v10 = v6;
-  v11 = *&self->_preferredChannel;
-  v7 = [(NSArray *)self->_peerContextList hash];
-  v8 = veorq_s8(v10, v11);
-  return *&veor_s8(*v8.i8, *&vextq_s8(v8, v8, 8uLL)) ^ v7 ^ sessionFlags ^ active ^ v3;
+  v9 = *&self->_desiredBandwidth;
+  v10 = *&self->_preferredChannel;
+  v6 = [(NSArray *)self->_peerContextList hash];
+  v7 = veorq_s8(v9, v10);
+  return *&veor_s8(*v7.i8, *&vextq_s8(v7, v7, 8uLL)) ^ v6 ^ sessionFlags ^ active ^ v3;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -199,7 +198,7 @@ LABEL_22:
 
 - (id)serializedRegistrationInfo
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   serviceName = [(CWFAWDLPeerTrafficRegistration *)self serviceName];
   [dictionary setObject:serviceName forKeyedSubscript:@"TR_SRV_NAME"];
@@ -220,30 +219,30 @@ LABEL_22:
   [dictionary setObject:v9 forKeyedSubscript:@"AWDL_TR_CHANNEL"];
 
   v10 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[CWFAWDLPeerTrafficRegistration secondaryPreferredChannel](self, "secondaryPreferredChannel")}];
-  v27 = dictionary;
+  v26 = dictionary;
   [dictionary setObject:v10 forKeyedSubscript:@"AWDL_TR_SEC_CHANNEL"];
 
   array = [MEMORY[0x1E695DF70] array];
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   peerContextList = [(CWFAWDLPeerTrafficRegistration *)self peerContextList];
-  v13 = [peerContextList countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v13 = [peerContextList countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v29;
+    v15 = *v28;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v29 != v15)
+        if (*v28 != v15)
         {
           objc_enumerationMutation(peerContextList);
         }
 
-        v17 = *(*(&v28 + 1) + 8 * i);
+        v17 = *(*(&v27 + 1) + 8 * i);
         dictionary2 = [MEMORY[0x1E695DF90] dictionary];
         mACAddress = [v17 MACAddress];
 
@@ -265,16 +264,14 @@ LABEL_22:
         [array addObject:dictionary2];
       }
 
-      v14 = [peerContextList countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v14 = [peerContextList countByEnumeratingWithState:&v27 objects:v31 count:16];
     }
 
     while (v14);
   }
 
-  [v27 setObject:array forKeyedSubscript:@"TR_PEER_CONTEXTS"];
-  v24 = [v27 copy];
-
-  v25 = *MEMORY[0x1E69E9840];
+  [v26 setObject:array forKeyedSubscript:@"TR_PEER_CONTEXTS"];
+  v24 = [v26 copy];
 
   return v24;
 }

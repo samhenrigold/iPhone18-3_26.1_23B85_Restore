@@ -182,7 +182,7 @@
   return v5 & 1;
 }
 
-uint64_t __33__SUScriptViewController_equals___block_invoke(uint64_t a1)
+void *__33__SUScriptViewController_equals___block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(*(a1 + 32) "nativeViewController")];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -631,7 +631,7 @@ uint64_t __54__SUScriptViewController_inputAccessoryViewController__block_invoke
   return v4;
 }
 
-uint64_t __48__SUScriptViewController_modalPresentationStyle__block_invoke(uint64_t a1)
+void *__48__SUScriptViewController_modalPresentationStyle__block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(*(a1 + 32) "nativeViewController")];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -796,7 +796,7 @@ uint64_t __46__SUScriptViewController_navigationController__block_invoke(uint64_
   return v4;
 }
 
-uint64_t __40__SUScriptViewController_navigationItem__block_invoke(uint64_t a1)
+void *__40__SUScriptViewController_navigationItem__block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(*(a1 + 32) "nativeViewController")];
   if (result)
@@ -841,7 +841,7 @@ uint64_t __40__SUScriptViewController_navigationItem__block_invoke(uint64_t a1)
   return v5;
 }
 
-uint64_t __33__SUScriptViewController_popOver__block_invoke(uint64_t a1)
+void *__33__SUScriptViewController_popOver__block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(objc_msgSend(*(a1 + 32) "nativeViewController")];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -874,7 +874,7 @@ uint64_t __33__SUScriptViewController_popOver__block_invoke(uint64_t a1)
   return v4;
 }
 
-uint64_t __50__SUScriptViewController_presentingViewController__block_invoke(uint64_t a1)
+void *__50__SUScriptViewController_presentingViewController__block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(objc_msgSend(*(a1 + 32) "nativeViewController")];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -1022,7 +1022,7 @@ LABEL_3:
   [v7 throwException:@"Invalid argument"];
 }
 
-uint64_t __52__SUScriptViewController_setModalPresentationStyle___block_invoke(uint64_t a1)
+void *__52__SUScriptViewController_setModalPresentationStyle___block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(MEMORY[0x1E69DC938] "currentDevice")];
   if (result == 1)
@@ -1270,7 +1270,7 @@ void __45__SUScriptViewController_splitViewController__block_invoke(uint64_t a1)
   return array;
 }
 
-uint64_t __38__SUScriptViewController_toolbarItems__block_invoke(uint64_t a1)
+void *__38__SUScriptViewController_toolbarItems__block_invoke(uint64_t a1)
 {
   v14 = *MEMORY[0x1E69E9840];
   v2 = [objc_msgSend(*(a1 + 32) "nativeViewController")];
@@ -1298,7 +1298,7 @@ uint64_t __38__SUScriptViewController_toolbarItems__block_invoke(uint64_t a1)
         [(SUScriptButton *)v8 setNativeButton:v7];
         [*(a1 + 40) addObject:v8];
 
-        ++v6;
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);
@@ -1384,7 +1384,7 @@ void __44__SUScriptViewController_topBackgroundColor__block_invoke(uint64_t a1)
   return v5;
 }
 
-uint64_t __49__SUScriptViewController_transientViewController__block_invoke(uint64_t a1)
+void *__49__SUScriptViewController_transientViewController__block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) nativeViewController];
   objc_opt_class();
@@ -1505,132 +1505,159 @@ void __47__SUScriptViewController_usesBlurredBackground__block_invoke(uint64_t a
 
 - (void)_presentModalViewController:(id)controller withTransition:(id)transition
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   nativeViewController = [(SUScriptViewController *)self nativeViewController];
-  if ([(UIViewController *)nativeViewController parentViewController])
+  if (![(UIViewController *)nativeViewController parentViewController])
   {
-    nativeViewController2 = [controller nativeViewController];
-    if (nativeViewController2)
+    mEMORY[0x1E69D4938] = [MEMORY[0x1E69D4938] sharedConfig];
+    shouldLog = [mEMORY[0x1E69D4938] shouldLog];
+    if ([mEMORY[0x1E69D4938] shouldLogToDisk])
     {
-      v9 = nativeViewController2;
-      if ([nativeViewController2 presentingViewController])
-      {
-        mEMORY[0x1E69D4938] = [MEMORY[0x1E69D4938] sharedConfig];
-        shouldLog = [mEMORY[0x1E69D4938] shouldLog];
-        if ([mEMORY[0x1E69D4938] shouldLogToDisk])
-        {
-          v12 = shouldLog | 2;
-        }
-
-        else
-        {
-          v12 = shouldLog;
-        }
-
-        if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEFAULT))
-        {
-          v12 &= 2u;
-        }
-
-        if (v12)
-        {
-LABEL_24:
-          v34 = 138412546;
-          _className = [(SUScriptViewController *)self _className];
-          v36 = 2112;
-          controllerCopy = controller;
-          LODWORD(v24) = 22;
-          v19 = _os_log_send_and_compose_impl();
-          if (v19)
-          {
-            v20 = v19;
-            [MEMORY[0x1E696AEC0] stringWithCString:v19 encoding:{4, &v34, v24}];
-            free(v20);
-            SSFileLog();
-          }
-        }
-      }
-
-      else
-      {
-        clientInterface = [(SUScriptObject *)self clientInterface];
-        v22 = [MEMORY[0x1E69DD258] transitionSafePerformer:nativeViewController];
-        v26[0] = MEMORY[0x1E69E9820];
-        v26[1] = 3221225472;
-        v27 = __69__SUScriptViewController__presentModalViewController_withTransition___block_invoke;
-        v28 = &unk_1E8165860;
-        v29 = clientInterface;
-        v30 = v9;
-        v31 = v22;
-        selfCopy = self;
-        transitionCopy = transition;
-        objc_opt_class();
-        if (objc_opt_isKindOfClass() & 1) != 0 && (v23 = [v9 firstViewController], objc_opt_class(), (objc_opt_isKindOfClass()))
-        {
-          [v9 setNavigationBarHidden:1];
-          v25[0] = MEMORY[0x1E69E9820];
-          v25[1] = 3221225472;
-          v25[2] = __69__SUScriptViewController__presentModalViewController_withTransition___block_invoke_2;
-          v25[3] = &unk_1E8165888;
-          v25[4] = v26;
-          [v23 prepareWithCompletionBlock:v25];
-        }
-
-        else
-        {
-          v27(v26);
-        }
-      }
+      LODWORD(v17) = shouldLog | 2;
     }
 
     else
     {
-      mEMORY[0x1E69D4938]2 = [MEMORY[0x1E69D4938] sharedConfig];
-      shouldLog2 = [mEMORY[0x1E69D4938]2 shouldLog];
-      if ([mEMORY[0x1E69D4938]2 shouldLogToDisk])
-      {
-        v18 = shouldLog2 | 2;
-      }
-
-      else
-      {
-        v18 = shouldLog2;
-      }
-
-      if (!os_log_type_enabled([mEMORY[0x1E69D4938]2 OSLogObject], OS_LOG_TYPE_DEFAULT))
-      {
-        v18 &= 2u;
-      }
-
-      if (v18)
-      {
-        goto LABEL_24;
-      }
+      LODWORD(v17) = shouldLog;
     }
+
+    oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v17 = v17;
+    }
+
+    else
+    {
+      v17 &= 2u;
+    }
+
+    if (!v17)
+    {
+      return;
+    }
+
+    v36 = 138412546;
+    _className = [(SUScriptViewController *)self _className];
+    v38 = 2112;
+    controllerCopy3 = controller;
+    v14 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &dword_1C21AF000, oSLogObject, 0, "%@: Could not present modal view controller: %@", &v36, 22);
+LABEL_28:
+    if (v14)
+    {
+      v23 = v14;
+      [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:4];
+      free(v23);
+      SSFileLog();
+    }
+
+    return;
   }
 
-  else
+  nativeViewController2 = [controller nativeViewController];
+  if (!nativeViewController2)
+  {
+    mEMORY[0x1E69D4938]2 = [MEMORY[0x1E69D4938] sharedConfig];
+    shouldLog2 = [mEMORY[0x1E69D4938]2 shouldLog];
+    if ([mEMORY[0x1E69D4938]2 shouldLogToDisk])
+    {
+      LODWORD(v21) = shouldLog2 | 2;
+    }
+
+    else
+    {
+      LODWORD(v21) = shouldLog2;
+    }
+
+    oSLogObject2 = [mEMORY[0x1E69D4938]2 OSLogObject];
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+    {
+      v21 = v21;
+    }
+
+    else
+    {
+      v21 &= 2u;
+    }
+
+    if (!v21)
+    {
+      return;
+    }
+
+    v36 = 138412546;
+    _className = [(SUScriptViewController *)self _className];
+    v38 = 2112;
+    controllerCopy3 = controller;
+    v14 = _os_log_send_and_compose_impl(v21, 0, 0, 0, &dword_1C21AF000, oSLogObject2, 0, "%@: Could not create native view controller for: %@", &v36, 22);
+    goto LABEL_28;
+  }
+
+  v9 = nativeViewController2;
+  if ([nativeViewController2 presentingViewController])
   {
     mEMORY[0x1E69D4938]3 = [MEMORY[0x1E69D4938] sharedConfig];
     shouldLog3 = [mEMORY[0x1E69D4938]3 shouldLog];
     if ([mEMORY[0x1E69D4938]3 shouldLogToDisk])
     {
-      v15 = shouldLog3 | 2;
+      LODWORD(v12) = shouldLog3 | 2;
     }
 
     else
     {
-      v15 = shouldLog3;
+      LODWORD(v12) = shouldLog3;
     }
 
-    if (!os_log_type_enabled([mEMORY[0x1E69D4938]3 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject3 = [mEMORY[0x1E69D4938]3 OSLogObject];
+    if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
     {
-      v15 &= 2u;
+      v12 = v12;
     }
 
-    if (v15)
+    else
     {
-      goto LABEL_24;
+      v12 &= 2u;
+    }
+
+    if (v12)
+    {
+      v36 = 138412546;
+      _className = [(SUScriptViewController *)self _className];
+      v38 = 2112;
+      controllerCopy3 = controller;
+      v14 = _os_log_send_and_compose_impl(v12, 0, 0, 0, &dword_1C21AF000, oSLogObject3, 0, "%@: Modal view controller already presented: %@", &v36, 22);
+      goto LABEL_28;
+    }
+  }
+
+  else
+  {
+    clientInterface = [(SUScriptObject *)self clientInterface];
+    v25 = [MEMORY[0x1E69DD258] transitionSafePerformer:nativeViewController];
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 3221225472;
+    v29 = __69__SUScriptViewController__presentModalViewController_withTransition___block_invoke;
+    v30 = &unk_1E8165860;
+    v31 = clientInterface;
+    v32 = v9;
+    v33 = v25;
+    selfCopy = self;
+    transitionCopy = transition;
+    objc_opt_class();
+    if (objc_opt_isKindOfClass() & 1) != 0 && (v26 = [v9 firstViewController], objc_opt_class(), (objc_opt_isKindOfClass()))
+    {
+      [v9 setNavigationBarHidden:1];
+      v27[0] = MEMORY[0x1E69E9820];
+      v27[1] = 3221225472;
+      v27[2] = __69__SUScriptViewController__presentModalViewController_withTransition___block_invoke_2;
+      v27[3] = &unk_1E8165888;
+      v27[4] = v28;
+      [v26 prepareWithCompletionBlock:v27];
+    }
+
+    else
+    {
+      v29(v28);
     }
   }
 }
@@ -1791,7 +1818,7 @@ uint64_t __69__SUScriptViewController__presentModalViewController_withTransition
   return v5;
 }
 
-uint64_t __75__SUScriptViewController_SUScriptVolumeViewAdditions__volumeViewController__block_invoke(uint64_t a1)
+void *__75__SUScriptViewController_SUScriptVolumeViewAdditions__volumeViewController__block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(objc_msgSend(*(a1 + 32) "_parentViewControllerForVolumeViewController")];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -1831,16 +1858,22 @@ uint64_t __91__SUScriptViewController_SUScriptVolumeViewAdditions__dismissVolume
     v6 = [v5 shouldLog];
     if ([v5 shouldLogToDisk])
     {
-      v7 = v6 | 2;
+      LODWORD(v7) = v6 | 2;
     }
 
     else
     {
-      v7 = v6;
+      LODWORD(v7) = v6;
     }
 
-    result = os_log_type_enabled([v5 OSLogObject], OS_LOG_TYPE_DEFAULT);
-    if (!result)
+    v8 = [v5 OSLogObject];
+    result = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+    if (result)
+    {
+      v7 = v7;
+    }
+
+    else
     {
       v7 &= 2u;
     }
@@ -1849,13 +1882,12 @@ uint64_t __91__SUScriptViewController_SUScriptVolumeViewAdditions__dismissVolume
     {
       v10 = 138412290;
       v11 = objc_opt_class();
-      LODWORD(v9) = 12;
-      result = _os_log_send_and_compose_impl();
+      result = _os_log_send_and_compose_impl(v7, 0, 0, 0, &dword_1C21AF000, v8, 0, "%@: Can't dismiss volume view controller; no volume view controller", &v10, 12);
       if (result)
       {
-        v8 = result;
-        [MEMORY[0x1E696AEC0] stringWithCString:result encoding:{4, &v10, v9}];
-        free(v8);
+        v9 = result;
+        [MEMORY[0x1E696AEC0] stringWithCString:result encoding:4];
+        free(v9);
         return SSFileLog();
       }
     }
@@ -1886,7 +1918,7 @@ uint64_t __91__SUScriptViewController_SUScriptVolumeViewAdditions__dismissVolume
   }
 }
 
-uint64_t __92__SUScriptViewController_SUScriptVolumeViewAdditions__presentVolumeViewController_animated___block_invoke(id *a1)
+void *__92__SUScriptViewController_SUScriptVolumeViewAdditions__presentVolumeViewController_animated___block_invoke(id *a1)
 {
   result = [a1[4] _parentViewControllerForVolumeViewController];
   if (result)

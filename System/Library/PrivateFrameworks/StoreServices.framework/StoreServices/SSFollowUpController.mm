@@ -116,7 +116,7 @@ id __62__SSFollowUpController_dismissFollowUpWithIdentifier_account___block_invo
 LABEL_4:
     v5 = [WeakRetained _dismissFollowUpWithIdentifier:*(a1 + 40)];
     v11 = [v5 promiseAdapter];
-    goto LABEL_17;
+    goto LABEL_18;
   }
 
   v12 = +[SSLogConfig sharedFollowUpConfig];
@@ -128,16 +128,21 @@ LABEL_4:
   v13 = [v12 shouldLog];
   if ([v12 shouldLogToDisk])
   {
-    v14 = v13 | 2;
+    LODWORD(v14) = v13 | 2;
   }
 
   else
   {
-    v14 = v13;
+    LODWORD(v14) = v13;
   }
 
   v15 = [v12 OSLogObject];
-  if (!os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+  {
+    v14 = v14;
+  }
+
+  else
   {
     v14 &= 2u;
   }
@@ -150,23 +155,23 @@ LABEL_4:
     v17 = *(a1 + 40);
     v31 = v16;
     v19 = [v18 backingAccount];
-    [v19 identifier];
+    v20 = [v19 identifier];
     v33 = 138544130;
     v34 = v16;
     v35 = 2114;
     v36 = v17;
     v5 = v32;
-    v38 = v37 = 2114;
+    v37 = 2114;
+    v38 = v20;
     v39 = 2114;
     v40 = v7;
-    LODWORD(v30) = 42;
-    v20 = _os_log_send_and_compose_impl();
+    v21 = _os_log_send_and_compose_impl(v14, 0, 0, 0, &dword_1D48BA000, v15, 16, "%{public}@: Refusing to dismiss a pending follow-up. The follow-up was not for the specified account. identifier = %{public}@ | account.identifier = %{public}@ | followUp.accountIdentifier = %{public}@", &v33, 42);
 
-    if (v20)
+    if (v21)
     {
-      v21 = [MEMORY[0x1E696AEC0] stringWithCString:v20 encoding:{4, &v33, v30}];
-      free(v20);
-      SSFileLog(v12, @"%@", v22, v23, v24, v25, v26, v27, v21);
+      v22 = [MEMORY[0x1E696AEC0] stringWithCString:v21 encoding:4];
+      free(v21);
+      SSFileLog(v12, @"%@", v23, v24, v25, v26, v27, v28, v22);
     }
   }
 
@@ -174,10 +179,10 @@ LABEL_4:
   {
   }
 
-  v28 = SSError(@"SSErrorDomain", 100, 0, @"Refusing to dismiss a pending follow-up. The follow-up was not for the specified account.");
-  v11 = [SSPromise promiseWithError:v28];
+  v29 = SSError(@"SSErrorDomain", 100, 0, @"Refusing to dismiss a pending follow-up. The follow-up was not for the specified account.");
+  v11 = [SSPromise promiseWithError:v29];
 
-LABEL_17:
+LABEL_18:
 
   return v11;
 }
@@ -211,7 +216,7 @@ void __54__SSFollowUpController_pendingFollowUpWithIdentifier___block_invoke(uin
   {
     v6 = *(a1 + 32);
 
-    [v6 finishWithError:?];
+    [v6 finishWithError:a3];
   }
 
   else
@@ -294,7 +299,7 @@ LABEL_6:
 
 - (id)_createFollowUpItemForIdentifier:(id)identifier userInfo:(id)info
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   infoCopy = info;
   if (!identifierCopy)
@@ -313,54 +318,58 @@ LABEL_6:
     shouldLog = [v9 shouldLog];
     if ([v9 shouldLogToDisk])
     {
-      v11 = shouldLog | 2;
+      LODWORD(v11) = shouldLog | 2;
     }
 
     else
     {
-      v11 = shouldLog;
+      LODWORD(v11) = shouldLog;
     }
 
     oSLogObject = [v9 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    {
+      v11 = v11;
+    }
+
+    else
     {
       v11 &= 2u;
     }
 
     if (v11)
     {
-      *v23 = 138543618;
-      *&v23[4] = objc_opt_class();
-      *&v23[12] = 2114;
-      *&v23[14] = identifierCopy;
-      v13 = *&v23[4];
-      LODWORD(v22) = 22;
-      v14 = _os_log_send_and_compose_impl();
+      v22 = 138543618;
+      v23 = objc_opt_class();
+      v24 = 2114;
+      v25 = identifierCopy;
+      v13 = v23;
+      v14 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "%{public}@: Failed to create a FLFollowUpItem for %{public}@", &v22, 22);
 
       if (!v14)
       {
-LABEL_16:
+LABEL_17:
 
         v8 = 0;
-        goto LABEL_17;
+        goto LABEL_18;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:{4, v23, v22, *v23, *&v23[16], v24}];
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:4];
       free(v14);
       SSFileLog(v9, @"%@", v15, v16, v17, v18, v19, v20, oSLogObject);
     }
 
-    goto LABEL_16;
+    goto LABEL_17;
   }
 
-LABEL_17:
+LABEL_18:
 
   return v8;
 }
 
 - (id)_createFollowUpItemForRenewCredentialsWithUserInfo:(id)info
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   v4 = getAAFollowUpUserInfoAltDSID();
   v5 = [infoCopy objectForKeyedSubscript:v4];
@@ -377,31 +386,35 @@ LABEL_17:
     shouldLog = [v7 shouldLog];
     if ([v7 shouldLogToDisk])
     {
-      v9 = shouldLog | 2;
+      LODWORD(v9) = shouldLog | 2;
     }
 
     else
     {
-      v9 = shouldLog;
+      LODWORD(v9) = shouldLog;
     }
 
     oSLogObject = [v7 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v9 = v9;
+    }
+
+    else
     {
       v9 &= 2u;
     }
 
     if (v9)
     {
-      LODWORD(v53) = 138543362;
-      *(&v53 + 4) = objc_opt_class();
-      v11 = *(&v53 + 4);
-      LODWORD(v47) = 12;
-      v12 = _os_log_send_and_compose_impl();
+      LODWORD(v52) = 138543362;
+      *(&v52 + 4) = objc_opt_class();
+      v11 = *(&v52 + 4);
+      v12 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &dword_1D48BA000, oSLogObject, 0, "%{public}@: Nil altDSID in userInfo for renew credentials FLFollowUpItem. The user will be asked to sign into their active iTunes account or any iTunes account if no active iTunes account exists.", &v52, 12);
 
       if (v12)
       {
-        v13 = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:{4, &v53, v47}];
+        v13 = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:4];
         free(v12);
         SSFileLog(v7, @"%@", v14, v15, v16, v17, v18, v19, v13);
       }
@@ -412,45 +425,45 @@ LABEL_17:
     }
   }
 
-  v48 = 0;
-  v49 = &v48;
-  v50 = 0x2050000000;
+  v47 = 0;
+  v48 = &v47;
+  v49 = 0x2050000000;
   v20 = getFLFollowUpActionClass_softClass;
-  v51 = getFLFollowUpActionClass_softClass;
+  v50 = getFLFollowUpActionClass_softClass;
   if (!getFLFollowUpActionClass_softClass)
   {
-    *&v53 = MEMORY[0x1E69E9820];
-    *(&v53 + 1) = 3221225472;
-    v54 = __getFLFollowUpActionClass_block_invoke;
-    v55 = &unk_1E84AC2A8;
-    v56 = &v48;
-    __getFLFollowUpActionClass_block_invoke(&v53);
-    v20 = v49[3];
+    *&v52 = MEMORY[0x1E69E9820];
+    *(&v52 + 1) = 3221225472;
+    v53 = __getFLFollowUpActionClass_block_invoke;
+    v54 = &unk_1E84AC2A8;
+    v55 = &v47;
+    __getFLFollowUpActionClass_block_invoke(&v52);
+    v20 = v48[3];
   }
 
   v21 = v20;
-  _Block_object_dispose(&v48, 8);
+  _Block_object_dispose(&v47, 8);
   v22 = objc_alloc_init(v20);
-  v48 = 0;
-  v49 = &v48;
-  v50 = 0x2020000000;
+  v47 = 0;
+  v48 = &v47;
+  v49 = 0x2020000000;
   v23 = getAAFollowUpActionPrimarySymbolLoc_ptr;
-  v51 = getAAFollowUpActionPrimarySymbolLoc_ptr;
+  v50 = getAAFollowUpActionPrimarySymbolLoc_ptr;
   if (!getAAFollowUpActionPrimarySymbolLoc_ptr)
   {
-    *&v53 = MEMORY[0x1E69E9820];
-    *(&v53 + 1) = 3221225472;
-    v54 = __getAAFollowUpActionPrimarySymbolLoc_block_invoke;
-    v55 = &unk_1E84AC2A8;
-    v56 = &v48;
+    *&v52 = MEMORY[0x1E69E9820];
+    *(&v52 + 1) = 3221225472;
+    v53 = __getAAFollowUpActionPrimarySymbolLoc_block_invoke;
+    v54 = &unk_1E84AC2A8;
+    v55 = &v47;
     v24 = AppleAccountLibrary();
     v25 = dlsym(v24, "AAFollowUpActionPrimary");
-    *(v56[1] + 24) = v25;
-    getAAFollowUpActionPrimarySymbolLoc_ptr = *(v56[1] + 24);
-    v23 = v49[3];
+    *(v55[1] + 24) = v25;
+    getAAFollowUpActionPrimarySymbolLoc_ptr = *(v55[1] + 24);
+    v23 = v48[3];
   }
 
-  _Block_object_dispose(&v48, 8);
+  _Block_object_dispose(&v47, 8);
   if (!v23)
   {
     [SSFollowUpController _createFollowUpItemForRenewCredentialsWithUserInfo:];
@@ -466,26 +479,26 @@ LABEL_17:
 
   if (+[SSDevice deviceIsInternalBuild])
   {
-    v48 = 0;
-    v49 = &v48;
-    v50 = 0x2020000000;
+    v47 = 0;
+    v48 = &v47;
+    v49 = 0x2020000000;
     v30 = getAAFollowUpUserInfoClientNameSymbolLoc_ptr;
-    v51 = getAAFollowUpUserInfoClientNameSymbolLoc_ptr;
+    v50 = getAAFollowUpUserInfoClientNameSymbolLoc_ptr;
     if (!getAAFollowUpUserInfoClientNameSymbolLoc_ptr)
     {
-      *&v53 = MEMORY[0x1E69E9820];
-      *(&v53 + 1) = 3221225472;
-      v54 = __getAAFollowUpUserInfoClientNameSymbolLoc_block_invoke;
-      v55 = &unk_1E84AC2A8;
-      v56 = &v48;
+      *&v52 = MEMORY[0x1E69E9820];
+      *(&v52 + 1) = 3221225472;
+      v53 = __getAAFollowUpUserInfoClientNameSymbolLoc_block_invoke;
+      v54 = &unk_1E84AC2A8;
+      v55 = &v47;
       v31 = AppleAccountLibrary();
       v32 = dlsym(v31, "AAFollowUpUserInfoClientName");
-      *(v56[1] + 24) = v32;
-      getAAFollowUpUserInfoClientNameSymbolLoc_ptr = *(v56[1] + 24);
-      v30 = v49[3];
+      *(v55[1] + 24) = v32;
+      getAAFollowUpUserInfoClientNameSymbolLoc_ptr = *(v55[1] + 24);
+      v30 = v48[3];
     }
 
-    _Block_object_dispose(&v48, 8);
+    _Block_object_dispose(&v47, 8);
     if (!v30)
     {
       [SSFollowUpController _createFollowUpItemForRenewCredentialsWithUserInfo:];
@@ -502,50 +515,50 @@ LABEL_17:
     }
   }
 
-  v48 = 0;
-  v49 = &v48;
-  v50 = 0x2050000000;
+  v47 = 0;
+  v48 = &v47;
+  v49 = 0x2050000000;
   v37 = getFLFollowUpItemClass_softClass;
-  v51 = getFLFollowUpItemClass_softClass;
+  v50 = getFLFollowUpItemClass_softClass;
   if (!getFLFollowUpItemClass_softClass)
   {
-    *&v53 = MEMORY[0x1E69E9820];
-    *(&v53 + 1) = 3221225472;
-    v54 = __getFLFollowUpItemClass_block_invoke;
-    v55 = &unk_1E84AC2A8;
-    v56 = &v48;
-    __getFLFollowUpItemClass_block_invoke(&v53);
-    v37 = v49[3];
+    *&v52 = MEMORY[0x1E69E9820];
+    *(&v52 + 1) = 3221225472;
+    v53 = __getFLFollowUpItemClass_block_invoke;
+    v54 = &unk_1E84AC2A8;
+    v55 = &v47;
+    __getFLFollowUpItemClass_block_invoke(&v52);
+    v37 = v48[3];
   }
 
   v38 = v37;
-  _Block_object_dispose(&v48, 8);
+  _Block_object_dispose(&v47, 8);
   v39 = objc_alloc_init(v37);
-  v52 = v22;
-  v40 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v52 count:1];
+  v51 = v22;
+  v40 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v51 count:1];
   [v39 setActions:v40];
 
   [v39 setDisplayStyle:0];
-  v48 = 0;
-  v49 = &v48;
-  v50 = 0x2020000000;
+  v47 = 0;
+  v48 = &v47;
+  v49 = 0x2020000000;
   v41 = getFLGroupIdentifierAccountSymbolLoc_ptr;
-  v51 = getFLGroupIdentifierAccountSymbolLoc_ptr;
+  v50 = getFLGroupIdentifierAccountSymbolLoc_ptr;
   if (!getFLGroupIdentifierAccountSymbolLoc_ptr)
   {
-    *&v53 = MEMORY[0x1E69E9820];
-    *(&v53 + 1) = 3221225472;
-    v54 = __getFLGroupIdentifierAccountSymbolLoc_block_invoke;
-    v55 = &unk_1E84AC2A8;
-    v56 = &v48;
+    *&v52 = MEMORY[0x1E69E9820];
+    *(&v52 + 1) = 3221225472;
+    v53 = __getFLGroupIdentifierAccountSymbolLoc_block_invoke;
+    v54 = &unk_1E84AC2A8;
+    v55 = &v47;
     v42 = CoreFollowUpLibrary();
     v43 = dlsym(v42, "FLGroupIdentifierAccount");
-    *(v56[1] + 24) = v43;
-    getFLGroupIdentifierAccountSymbolLoc_ptr = *(v56[1] + 24);
-    v41 = v49[3];
+    *(v55[1] + 24) = v43;
+    getFLGroupIdentifierAccountSymbolLoc_ptr = *(v55[1] + 24);
+    v41 = v48[3];
   }
 
-  _Block_object_dispose(&v48, 8);
+  _Block_object_dispose(&v47, 8);
   if (!v41)
   {
     [SSFollowUpController _createFollowUpItemForRenewCredentialsWithUserInfo:];
@@ -623,7 +636,7 @@ LABEL_17:
 
 void __61__SSFollowUpController__postFollowUpWithIdentifier_userInfo___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = +[SSLogConfig sharedFollowUpConfig];
   if (!v2)
   {
@@ -658,14 +671,13 @@ void __61__SSFollowUpController__postFollowUpWithIdentifier_userInfo___block_inv
   }
 
   v7 = *(a1 + 32);
-  v16 = 138543362;
-  v17 = v7;
-  LODWORD(v15) = 12;
-  v8 = _os_log_send_and_compose_impl();
+  v15 = 138543362;
+  v16 = v7;
+  v8 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &dword_1D48BA000, v5, 1, "SSFollowUpController: Successfully posted the FLFollowUpItem. identifier = %{public}@", &v15, 12);
 
   if (v8)
   {
-    v5 = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:{4, &v16, v15}];
+    v5 = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:4];
     free(v8);
     SSFileLog(v2, @"%@", v9, v10, v11, v12, v13, v14, v5);
 LABEL_12:
@@ -674,7 +686,7 @@ LABEL_12:
 
 void __61__SSFollowUpController__postFollowUpWithIdentifier_userInfo___block_invoke_56(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = +[SSLogConfig sharedFollowUpConfig];
   if (!v4)
@@ -710,16 +722,15 @@ void __61__SSFollowUpController__postFollowUpWithIdentifier_userInfo___block_inv
   }
 
   v9 = *(a1 + 32);
-  v18 = 138543618;
-  v19 = v9;
-  v20 = 2114;
-  v21 = v3;
-  LODWORD(v17) = 22;
-  v10 = _os_log_send_and_compose_impl();
+  v17 = 138543618;
+  v18 = v9;
+  v19 = 2114;
+  v20 = v3;
+  v10 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &dword_1D48BA000, v7, 16, "SSFollowUpController: Failed to post the FLFollowUpItem. identifier = %{public}@ | error = %{public}@", &v17, 22);
 
   if (v10)
   {
-    v7 = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:{4, &v18, v17}];
+    v7 = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:4];
     free(v10);
     SSFileLog(v4, @"%@", v11, v12, v13, v14, v15, v16, v7);
 LABEL_12:

@@ -33,14 +33,14 @@
   return v16;
 }
 
-uint64_t __51__PLFlatVideoOverlayButton__highlightedButtonImage__block_invoke(uint64_t a1)
+void *__51__PLFlatVideoOverlayButton__highlightedButtonImage__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _createOverlayImageWithBackgroundWhite:0.959999979 backgroundAlpha:0.959999979 glyphAlpha:0.5];
   _highlightedButtonImage_image = result;
   return result;
 }
 
-uint64_t __46__PLFlatVideoOverlayButton__normalButtonImage__block_invoke(uint64_t a1)
+void *__46__PLFlatVideoOverlayButton__normalButtonImage__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _createOverlayImageWithBackgroundWhite:0.959999979 backgroundAlpha:0.959999979 glyphAlpha:0.300000012];
   _normalButtonImage_image = result;

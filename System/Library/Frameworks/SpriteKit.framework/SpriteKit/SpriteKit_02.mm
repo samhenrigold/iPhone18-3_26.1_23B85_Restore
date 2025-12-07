@@ -8,7 +8,7 @@ void sub_21C436658(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void SKCEmitterNode::subclassRecomputeFlags(SKCEmitterNode *this)
+void SKCEmitterNode::subclassRecomputeFlags(SKCNode *this)
 {
   if (*(this + 244))
   {
@@ -105,8 +105,9 @@ void SKCEmitterNode::setBirthRate(SKCEmitterNode *this, float a2)
   }
 }
 
-void SKCEmitterNode::preSimulate(SKCEmitterNode *this, int a2, int a3, float a4)
+void SKCEmitterNode::preSimulate(SKCEmitterNode *this, int a2, uint64_t a3, float a4)
 {
+  v5 = a3;
   v175 = *MEMORY[0x277D85DE8];
   v8 = *(this + 75);
   std::string::basic_string[abi:ne200100]<0>(__p, "birthTime");
@@ -133,11 +134,11 @@ void SKCEmitterNode::preSimulate(SKCEmitterNode *this, int a2, int a3, float a4)
   }
 
   v14 = a2;
-  if (a3 >= 1)
+  if (v5 >= 1)
   {
     v15 = (v9 + 4 * a2);
     v16 = (v11 + 4 * a2);
-    v17 = a3;
+    v17 = v5;
     v18 = (v13 + 4 * a2);
     do
     {
@@ -257,7 +258,8 @@ void SKCEmitterNode::preSimulate(SKCEmitterNode *this, int a2, int a3, float a4)
       v144 = *v134;
       v145 = 0;
       v146 = 1;
-      *&v134[4] = 0uLL;
+      *&v134[12] = 0;
+      *&v134[4] = 0;
       v147 = 1065353216;
       v149 = 0;
       v148 = *v134;
@@ -294,10 +296,10 @@ void SKCEmitterNode::preSimulate(SKCEmitterNode *this, int a2, int a3, float a4)
           operator delete(*v134);
         }
 
-        if (a3 >= 1)
+        if (v5 >= 1)
         {
           v47 = (v46 + 4 * v14);
-          v48 = a3;
+          v48 = v5;
           do
           {
             v49 = *v41;
@@ -320,9 +322,9 @@ void SKCEmitterNode::preSimulate(SKCEmitterNode *this, int a2, int a3, float a4)
         }
       }
 
-      else if (a3 >= 1)
+      else if (v5 >= 1)
       {
-        v69 = a3;
+        v69 = v5;
         do
         {
           v70 = *v40;
@@ -372,12 +374,12 @@ void SKCEmitterNode::preSimulate(SKCEmitterNode *this, int a2, int a3, float a4)
     operator delete(__p[0]);
   }
 
-  if (a3 >= 1)
+  if (v5 >= 1)
   {
     v61 = (v56 + 8 * v14);
     v62 = (v58 + 8 * v14);
     v63 = *(this + 904);
-    v64 = a3;
+    v64 = v5;
     v65 = (v60 + 4 * v14);
     do
     {
@@ -412,10 +414,10 @@ LABEL_48:
       operator delete(__p[0]);
     }
 
-    if (a3 >= 1)
+    if (v5 >= 1)
     {
       v78 = (v77 + 4 * v14);
-      v79 = a3;
+      v79 = v5;
       do
       {
         SKCKeyframeSequence::sample(*(this + 81), *v78++, v75++);
@@ -436,11 +438,11 @@ LABEL_48:
       operator delete(__p[0]);
     }
 
-    if (a3 >= 1)
+    if (v5 >= 1)
     {
       v82 = (v81 + 4 * v14);
       v83 = *(this + 233);
-      v84 = a3;
+      v84 = v5;
       do
       {
         v85 = *v82++;
@@ -471,10 +473,10 @@ LABEL_48:
       operator delete(__p[0]);
     }
 
-    if (a3 >= 1)
+    if (v5 >= 1)
     {
       v90 = (v89 + 4 * v14);
-      v91 = a3;
+      v91 = v5;
       do
       {
         SKCKeyframeSequence::sample(*(this + 82), *v90++, v87++);
@@ -498,10 +500,10 @@ LABEL_48:
         operator delete(__p[0]);
       }
 
-      if (a3 >= 1)
+      if (v5 >= 1)
       {
         v95 = (v94 + 4 * v14);
-        v96 = a3;
+        v96 = v5;
         do
         {
           v97 = *v95++;
@@ -533,10 +535,10 @@ LABEL_48:
       operator delete(__p[0]);
     }
 
-    if (a3 >= 1)
+    if (v5 >= 1)
     {
       v102 = (v101 + 4 * v14);
-      v103 = a3;
+      v103 = v5;
       do
       {
         SKCKeyframeSequence::sample(*(this + 80), *v102++, v99++);
@@ -557,11 +559,11 @@ LABEL_48:
       operator delete(__p[0]);
     }
 
-    if (a3 >= 1)
+    if (v5 >= 1)
     {
       v106 = (v105 + 4 * v14);
       v107 = *(this + 239);
-      v108 = a3;
+      v108 = v5;
       do
       {
         v109 = *v106++;
@@ -592,10 +594,10 @@ LABEL_48:
       operator delete(__p[0]);
     }
 
-    if (a3 >= 1)
+    if (v5 >= 1)
     {
       v114 = (v113 + 4 * v14);
-      v115 = a3;
+      v115 = v5;
       do
       {
         SKCKeyframeSequence::sample(*(this + 79), *v114++, v111++);
@@ -616,11 +618,11 @@ LABEL_48:
       operator delete(__p[0]);
     }
 
-    if (a3 >= 1)
+    if (v5 >= 1)
     {
       v118 = (v117 + 4 * v14);
       v119 = *(this + 210);
-      v120 = a3;
+      v120 = v5;
       do
       {
         v121 = *v118++;
@@ -651,17 +653,17 @@ LABEL_48:
       operator delete(__p[0]);
     }
 
-    if (a3 >= 1)
+    if (v5 >= 1)
     {
       v126 = (v125 + 4 * v14);
       do
       {
         SKCKeyframeSequence::sample(*(this + 78), *v126++, v123->f32);
         ++v123;
-        --a3;
+        --v5;
       }
 
-      while (a3);
+      while (v5);
     }
   }
 
@@ -675,7 +677,7 @@ LABEL_48:
       operator delete(__p[0]);
     }
 
-    if (a3 >= 1)
+    if (v5 >= 1)
     {
       v129 = (v128 + 4 * v14);
       v130 = *(this + 51);
@@ -684,10 +686,10 @@ LABEL_48:
         v131 = *v129++;
         *v123 = vmlaq_n_f32(*v123, v130, a4 - v131);
         ++v123;
-        --a3;
+        --v5;
       }
 
-      while (a3);
+      while (v5);
     }
   }
 
@@ -992,7 +994,7 @@ id SKCShapeNode::getBatchInfo@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t 
   v8 = *(a1 + 656);
   if (v8)
   {
-    [v8 _backingTexture];
+    objc_msgSend__backingTexture(v8);
     *(a3 + 32) = v12;
     if (v13)
     {
@@ -1021,9 +1023,9 @@ id SKCShapeNode::getBatchInfo@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t 
   return result;
 }
 
-void SKCShapeNode::subclassRecomputeFlags(id *this)
+void SKCShapeNode::subclassRecomputeFlags(SKCNode *this)
 {
-  if ((this[82] || [this[85] _usesTimeUniform]) && (*(this + 172) & 1) == 0 && (*(this + 171) & 0x60) != 0)
+  if ((*(this + 82) || [*(this + 85) _usesTimeUniform]) && (*(this + 172) & 1) == 0 && (*(this + 171) & 0x60) != 0)
   {
 
     SKCNode::setFlags(this, 66, 1);
@@ -1075,7 +1077,7 @@ uint64_t SKCShapeNode::getMaxBatchRenderElementCount(SKCShapeNode *this, SKCRend
   }
 }
 
-void SKCShapeNode::addRenderOps(SKCShapeNode *this, unsigned int *a2, uint64_t *a3)
+void SKCShapeNode::addRenderOps(SKCShapeNode *this, unsigned int *a2, unint64_t **a3)
 {
   if (!*(this + 83) && *(this + 151) <= 0.0 && !*(this + 85))
   {
@@ -1114,7 +1116,7 @@ void SKCShapeNode::addRenderOps(SKCShapeNode *this, unsigned int *a2, uint64_t *
       v16 = *(this + 86);
       if (!v16 || *(v16 + 4) < v15)
       {
-        SKCRenderer::getBackingContext(*(a2 + 13), __p);
+        SKCRenderer::getBackingContext(__p, *(a2 + 13));
         if (*(this + 86))
         {
           v17 = *(this + 87);
@@ -1280,10 +1282,10 @@ void SKCShapeNode::addRenderOps(SKCShapeNode *this, unsigned int *a2, uint64_t *
       v77 = *a3;
       v78 = *(a2 + 17);
       LODWORD(__p[0]) = 31;
-      v79 = *(v77 + 16);
-      if (v79 >= *(v77 + 24))
+      v79 = v77[2];
+      if (v79 >= v77[3])
       {
-        v80 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(v77 + 8, __p);
+        v80 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(v77 + 1, __p);
       }
 
       else
@@ -1298,7 +1300,7 @@ void SKCShapeNode::addRenderOps(SKCShapeNode *this, unsigned int *a2, uint64_t *
         *(v79 + 96) = 0;
       }
 
-      *(v77 + 16) = v80;
+      v77[2] = v80;
       *(v80 - 80) = v78;
       *(v80 - 64) = xmmword_21C4B8520;
       *(v80 - 48) = 0x2300000000;
@@ -1333,7 +1335,7 @@ void SKCShapeNode::addRenderOps(SKCShapeNode *this, unsigned int *a2, uint64_t *
       v87 = *(this + 85);
       if (v87)
       {
-        [v87 _backingProgram];
+        objc_msgSend__backingProgram(v87);
         v89 = __p[0];
         v88 = __p[1];
         if (__p[0])
@@ -1355,10 +1357,10 @@ LABEL_49:
           v91 = *a3;
           BackingBlendMode = SKBlendModeGetBackingBlendMode(*(this + 36));
           LODWORD(__p[0]) = 31;
-          v93 = *(v91 + 16);
-          if (v93 >= *(v91 + 24))
+          v93 = v91[2];
+          if (v93 >= v91[3])
           {
-            v94 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(v91 + 8, __p);
+            v94 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(v91 + 1, __p);
           }
 
           else
@@ -1373,7 +1375,7 @@ LABEL_49:
             *(v93 + 96) = 0;
           }
 
-          *(v91 + 16) = v94;
+          v91[2] = v94;
           *(v94 - 80) = v86;
           *(v94 - 64) = BackingBlendMode;
           *(v94 - 60) = xmmword_21C4B9130;
@@ -1414,14 +1416,15 @@ LABEL_49:
             v102 = *(this + 83);
             if (v102)
             {
-              [v102 _backingTexture];
+              objc_msgSend__backingTexture(v102);
               v103 = *__str;
             }
 
             else
             {
               v103 = 0;
-              *__str = 0uLL;
+              *__str = 0;
+              *&__str[8] = 0;
             }
 
             jet_command_buffer::set_fragment_texture(v101, __p, v103);
@@ -1487,7 +1490,7 @@ LABEL_89:
               }
 
               v119 = 4 * SKCShapeNode::_NEW_quadCount(this);
-              SKCRenderer::getBackingContext(*(a2 + 13), &v172);
+              SKCRenderer::getBackingContext(&v172, *(a2 + 13));
               v120 = *(this + 92);
               if (!v120)
               {
@@ -1539,7 +1542,7 @@ LABEL_98:
 
               if (v169.i64[0])
               {
-                [v169.i64[0] _backingProgram];
+                objc_msgSend__backingProgram(v169.i64[0]);
                 v127 = *&__str[8];
                 if (*__str)
                 {
@@ -1564,10 +1567,10 @@ LABEL_105:
                 {
                   v129 = *(a2 + 23);
                   *__str = 31;
-                  v131 = *(v130 + 16);
-                  if (v131 >= *(v130 + 24))
+                  v131 = v130[2];
+                  if (v131 >= v130[3])
                   {
-                    v132 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(v130 + 8, __str);
+                    v132 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(v130 + 1, __str);
                   }
 
                   else
@@ -1582,7 +1585,7 @@ LABEL_105:
                     *(v131 + 96) = 0;
                   }
 
-                  *(v130 + 16) = v132;
+                  v130[2] = v132;
                   v133 = 1;
                   goto LABEL_114;
                 }
@@ -1596,10 +1599,10 @@ LABEL_105:
 
               v133 = HIDWORD(__p[1]);
               *__str = 31;
-              v134 = *(v130 + 16);
-              if (v134 >= *(v130 + 24))
+              v134 = v130[2];
+              if (v134 >= v130[3])
               {
-                v132 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(v130 + 8, __str);
+                v132 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(v130 + 1, __str);
               }
 
               else
@@ -1614,7 +1617,7 @@ LABEL_105:
                 *(v134 + 96) = 0;
               }
 
-              *(v130 + 16) = v132;
+              v130[2] = v132;
 LABEL_114:
               *(v132 - 80) = v129;
               *(v132 - 64) = v133;
@@ -1724,7 +1727,7 @@ LABEL_153:
                   v156 = 6 * (v126 >> 2);
                   if (v126 >> 3 >= 0x683)
                   {
-                    v157 = v156 + 1;
+                    v157 = (v156 + 1);
                   }
 
                   else
@@ -1744,10 +1747,10 @@ LABEL_153:
                   v161 = __p[1];
                   v162 = *(a2 + 52);
                   *__str = 4;
-                  v163 = *(v160 + 16);
-                  if (v163 >= *(v160 + 24))
+                  v163 = v160[2];
+                  if (v163 >= v160[3])
                   {
-                    v164 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(v160 + 8, __str);
+                    v164 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(v160 + 1, __str);
                   }
 
                   else
@@ -1762,7 +1765,7 @@ LABEL_153:
                     *(v163 + 96) = 0;
                   }
 
-                  *(v160 + 16) = v164;
+                  v160[2] = v164;
                   *(v164 - 80) = v162;
                   *(v164 - 64) = v161;
                   *(v164 - 60) = 0;
@@ -1800,14 +1803,15 @@ LABEL_166:
               v146 = *a3;
               if (v169.i64[0])
               {
-                [v169.i64[0] _commandsForBatchOffset:*a2 count:v126];
+                objc_msgSend__commandsForBatchOffset_count_(v169.i64[0]);
                 v147 = *__str;
               }
 
               else
               {
                 v147 = 0;
-                *__str = 0uLL;
+                *__str = 0;
+                *&__str[8] = 0;
               }
 
               jet_command_buffer::add_command_buffer(v146, v147);
@@ -1867,7 +1871,7 @@ LABEL_166:
           v111 = *(this + 85);
           if (v111)
           {
-            [v111 _commandsForBatchOffset:0 count:6];
+            objc_msgSend__commandsForBatchOffset_count_(v111);
             v112 = __p[0];
           }
 
@@ -1930,13 +1934,13 @@ void sub_21C4394A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t jet_command_buffer::draw(uint64_t a1, int a2, int a3, int a4)
+uint64_t jet_command_buffer::draw(unint64_t *a1, int a2, int a3, int a4)
 {
   v10 = 3;
-  v8 = *(a1 + 16);
-  if (v8 >= *(a1 + 24))
+  v8 = a1[2];
+  if (v8 >= a1[3])
   {
-    result = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(a1 + 8, &v10);
+    result = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(a1 + 1, &v10);
   }
 
   else
@@ -1951,7 +1955,7 @@ uint64_t jet_command_buffer::draw(uint64_t a1, int a2, int a3, int a4)
     *(v8 + 96) = 0;
   }
 
-  *(a1 + 16) = result;
+  a1[2] = result;
   *(result - 64) = a2;
   *(result - 60) = a3;
   *(result - 56) = a4;
@@ -2021,7 +2025,7 @@ uint64_t SKCShapeNode::_NEW_copyRenderPathData(SKCShapeNode *this, float32x4_t *
     v24 = *(this + 96);
     v25 = jet_buffer_pool::get_data(v24);
     jet_buffer_pool::get_element_size(v24);
-    v26 = 0.0;
+    v26 = 0;
   }
 
   else
@@ -2030,7 +2034,7 @@ uint64_t SKCShapeNode::_NEW_copyRenderPathData(SKCShapeNode *this, float32x4_t *
     v28 = a2->i64[1];
     v141 = a2[1].i64[1];
     v139 = v28;
-    v26 = a2->f32[0];
+    v26 = a2->i32[0];
   }
 
   v140 = v25;
@@ -2152,15 +2156,15 @@ uint64_t SKCShapeNode::_NEW_copyRenderPathData(SKCShapeNode *this, float32x4_t *
           v56 = v153;
           v57 = v128;
           *(&v59 + 1) = 0x3F80000000000000;
-          v58 = LODWORD(v138);
+          v58 = v138;
           v56.i32[3] = 1.0;
           *v56.f32 = vmovn_s32(vcvtq_s32_f32(vmulq_f32(vmulq_n_f32(v56, v154), v128)));
-          *(v141 + 16 * LODWORD(v138)) = v59;
+          *(v141 + 16 * v138) = v59;
           *(v139 + 4 * v58) = vuzp1_s8(*v56.f32, v55).u32[0];
           *(v140 + 8 * v58) = 0x3F80000000000000;
           *&v59 = vadd_f32(v54, *&v157);
           v60 = v153;
-          v61 = LODWORD(v138);
+          v61 = v138;
           if (v148)
           {
             v62 = 0.0;
@@ -2174,12 +2178,12 @@ uint64_t SKCShapeNode::_NEW_copyRenderPathData(SKCShapeNode *this, float32x4_t *
           DWORD2(v59) = 0;
           *(&v59 + 3) = v62;
           v60.i32[3] = 1.0;
-          *(v141 + 16 * (LODWORD(v138) + 1)) = v59;
+          *(v141 + 16 * (v138 + 1)) = v59;
           *(v139 + 4 * (v61 + 1)) = vuzp1_s8(vmovn_s32(vcvtq_s32_f32(vmulq_f32(vmulq_f32(v60, 0), v128))), *&v59).u32[0];
           *(v140 + 8 * (v61 + 1)) = 0x3F80000000000000;
           *&v63 = vsub_f32(*&v157, v54);
           v64 = v153;
-          v65 = LODWORD(v138);
+          v65 = v138;
           if (v148)
           {
             v66 = 0.0;
@@ -2193,7 +2197,7 @@ uint64_t SKCShapeNode::_NEW_copyRenderPathData(SKCShapeNode *this, float32x4_t *
           DWORD2(v63) = 0;
           *(&v63 + 3) = v66;
           v64.i32[3] = 1.0;
-          *(v141 + 16 * (LODWORD(v138) + 4)) = v63;
+          *(v141 + 16 * (v138 + 4)) = v63;
           v67 = vmovn_s32(vcvtq_s32_f32(vmulq_f32(vmulq_f32(v64, 0), v128)));
           *(v139 + 4 * (v65 + 4)) = vuzp1_s8(v67, v67).u32[0];
           *(v140 + 8 * (v65 + 4)) = 0;
@@ -2201,7 +2205,7 @@ uint64_t SKCShapeNode::_NEW_copyRenderPathData(SKCShapeNode *this, float32x4_t *
           v69 = v153;
           *(&v68 + 1) = 0x3F80000000000000;
           v69.i32[3] = 1.0;
-          v70 = LODWORD(v138) + 5;
+          v70 = v138 + 5;
           *v69.f32 = vmovn_s32(vcvtq_s32_f32(vmulq_f32(vmulq_n_f32(v69, v154), v128)));
           *(v141 + 16 * v70) = v68;
           *(v139 + 4 * v70) = vuzp1_s8(*v69.f32, *&v68).u32[0];
@@ -2218,7 +2222,7 @@ uint64_t SKCShapeNode::_NEW_copyRenderPathData(SKCShapeNode *this, float32x4_t *
 
         *&v72 = vsub_f32(v50, v158);
         v73 = v153;
-        v74 = LODWORD(v138);
+        v74 = v138;
         if (v148)
         {
           v75 = 0.0;
@@ -2233,7 +2237,7 @@ uint64_t SKCShapeNode::_NEW_copyRenderPathData(SKCShapeNode *this, float32x4_t *
         *(&v72 + 3) = v75;
         v73.i32[3] = 1.0;
         v76 = vmovn_s32(vcvtq_s32_f32(vmulq_f32(vmulq_n_f32(v73, v154), v57)));
-        *(v141 + 16 * (LODWORD(v138) + v71)) = v72;
+        *(v141 + 16 * (v138 + v71)) = v72;
         *(v139 + 4 * (v74 + v71)) = vuzp1_s8(v76, *&v72).u32[0];
         *(v140 + 8 * (v74 + v71)) = 0;
         *&v77 = vadd_f32(*&v157, v158);
@@ -2251,7 +2255,7 @@ uint64_t SKCShapeNode::_NEW_copyRenderPathData(SKCShapeNode *this, float32x4_t *
         DWORD2(v77) = 0;
         *(&v77 + 3) = v79;
         v78.i32[3] = 1.0;
-        v80 = LODWORD(v138) + v71 + 1;
+        v80 = v138 + v71 + 1;
         v81 = vmovn_s32(vcvtq_s32_f32(vmulq_f32(vmulq_n_f32(v78, v154), v57)));
         *(v141 + 16 * v80) = v77;
         *(v139 + 4 * v80) = vuzp1_s8(v81, *&v77).u32[0];
@@ -2268,7 +2272,7 @@ uint64_t SKCShapeNode::_NEW_copyRenderPathData(SKCShapeNode *this, float32x4_t *
           *&v87 = vadd_f32(*&v157, v85);
           v88 = *&v156;
           v89 = v153;
-          v90 = LODWORD(v138);
+          v90 = v138;
           if (!v148)
           {
             v88 = 1.0;
@@ -2277,14 +2281,14 @@ uint64_t SKCShapeNode::_NEW_copyRenderPathData(SKCShapeNode *this, float32x4_t *
           DWORD2(v87) = 0;
           *(&v87 + 3) = v88;
           v89.i32[3] = 1.0;
-          *(v141 + 16 * (LODWORD(v138) + v86)) = v87;
+          *(v141 + 16 * (v138 + v86)) = v87;
           *(v139 + 4 * (v90 + v86)) = vuzp1_s8(vmovn_s32(vcvtq_s32_f32(vmulq_f32(vmulq_f32(v89, 0), v128))), v85).u32[0];
           *(v140 + 8 * (v90 + v86)) = 0x3F80000000000000;
           v91 = (v155 - 9);
           *&v92 = vadd_f32(*&v157, v158);
           v93 = *&v156;
           v94 = v153;
-          v95 = LODWORD(v138);
+          v95 = v138;
           if (!v148)
           {
             v93 = 1.0;
@@ -2294,14 +2298,14 @@ uint64_t SKCShapeNode::_NEW_copyRenderPathData(SKCShapeNode *this, float32x4_t *
           *(&v92 + 3) = v93;
           v94.i32[3] = 1.0;
           v96 = vcvtq_s32_f32(vmulq_f32(vmulq_n_f32(v94, v154), v128));
-          *(v141 + 16 * (LODWORD(v138) + v91)) = v92;
+          *(v141 + 16 * (v138 + v91)) = v92;
           *(v139 + 4 * (v95 + v91)) = vuzp1_s8(vmovn_s32(v96), v85).u32[0];
           *(v140 + 8 * (v95 + v91)) = 0x3F80000000000000;
           v97 = (v155 - 6);
           *&v98 = vsub_f32(*&v157, v158);
           v99 = *&v156;
           v100 = v153;
-          v101 = LODWORD(v138);
+          v101 = v138;
           if (!v148)
           {
             v99 = 1.0;
@@ -2311,20 +2315,20 @@ uint64_t SKCShapeNode::_NEW_copyRenderPathData(SKCShapeNode *this, float32x4_t *
           *(&v98 + 3) = v99;
           v100.i32[3] = 1.0;
           v102 = vmovn_s32(vcvtq_s32_f32(vmulq_f32(vmulq_n_f32(v100, v154), v128)));
-          *(v141 + 16 * (LODWORD(v138) + v97)) = v98;
+          *(v141 + 16 * (v138 + v97)) = v98;
           *(v139 + 4 * (v101 + v97)) = vuzp1_s8(v102, v85).u32[0];
           *(v140 + 8 * (v101 + v97)) = 0;
           v103 = (v155 - 5);
           *&v104 = vsub_f32(*&v157, v85);
           v105 = *&v156;
           v106 = v153;
-          v107 = LODWORD(v138);
+          v107 = v138;
           if (!v148)
           {
             v105 = 1.0;
           }
 
-          v108 = LODWORD(v138) + v103;
+          v108 = v138 + v103;
           DWORD2(v104) = 0;
           *(&v104 + 3) = v105;
           v106.i32[3] = 1.0;
@@ -2337,7 +2341,7 @@ uint64_t SKCShapeNode::_NEW_copyRenderPathData(SKCShapeNode *this, float32x4_t *
         *&v110 = vadd_f32(*&v157, v158);
         v111 = *&v156;
         v112 = v153;
-        v113 = LODWORD(v138);
+        v113 = v138;
         if (!v148)
         {
           v111 = 1.0;
@@ -2347,7 +2351,7 @@ uint64_t SKCShapeNode::_NEW_copyRenderPathData(SKCShapeNode *this, float32x4_t *
         *(&v110 + 3) = v111;
         v112.i32[3] = 1.0;
         v114 = vcvtq_s32_f32(vmulq_f32(vmulq_n_f32(v112, v154), v128));
-        *(v141 + 16 * (LODWORD(v138) + v109)) = v110;
+        *(v141 + 16 * (v138 + v109)) = v110;
         *&v116 = vmovn_s32(v114);
         *(v139 + 4 * (v113 + v109)) = vuzp1_s8(*&v116, *&v116).u32[0];
         *(v140 + 8 * (v113 + v109)) = 0x3F80000000000000;
@@ -2355,7 +2359,7 @@ uint64_t SKCShapeNode::_NEW_copyRenderPathData(SKCShapeNode *this, float32x4_t *
         *&v116 = vsub_f32(*&v157, v158);
         v117 = *&v156;
         v118 = v153;
-        v119 = LODWORD(v138);
+        v119 = v138;
         if (!v148)
         {
           v117 = 1.0;
@@ -2363,7 +2367,7 @@ uint64_t SKCShapeNode::_NEW_copyRenderPathData(SKCShapeNode *this, float32x4_t *
 
         DWORD2(v116) = 0;
         *(&v116 + 3) = v117;
-        v120 = LODWORD(v138) + v115;
+        v120 = v138 + v115;
         v118.i32[3] = 1.0;
         v121 = vmovn_s32(vcvtq_s32_f32(vmulq_f32(vmulq_n_f32(v118, v154), v128)));
         *(v141 + 16 * v120) = v116;
@@ -2377,7 +2381,7 @@ uint64_t SKCShapeNode::_NEW_copyRenderPathData(SKCShapeNode *this, float32x4_t *
       }
 
       v31 += v155;
-      LODWORD(v138) += v155;
+      v138 += v155;
     }
 
     v30 = ++v32;
@@ -2386,7 +2390,7 @@ uint64_t SKCShapeNode::_NEW_copyRenderPathData(SKCShapeNode *this, float32x4_t *
   while (v33 > v32);
   v122 = v141;
   *(this + 162) = v156;
-  v123 = (v122 + 16 * LODWORD(v126));
+  v123 = (v122 + 16 * v126);
   result = v31;
   if (v127)
   {
@@ -2622,7 +2626,7 @@ LABEL_12:
     v51 = vsub_f32(v56, v59);
     *a3 = v56;
     a3[1] = v51;
-    v11.f32[0] = -*&v51.i32[1];
+    *v11.i32 = -*&v51.i32[1];
     v52 = vzip1_s32(v11, v51);
     v53 = vmul_f32(v52, v52);
     v53.i32[0] = vadd_f32(v53, vdup_lane_s32(v53, 1)).u32[0];
@@ -2691,7 +2695,7 @@ LABEL_12:
   v34 = 1.0 - *(v6 + 35);
   v35 = vmlaq_n_f32(vmlaq_n_f32(vmlaq_n_f32(v18, v19, v34), v20, v34 * v34), v21, v34 * (v34 * v34)).u64[0];
   v36 = vsub_f32(v11, v35);
-  v11.f32[0] = -*&v36.i32[1];
+  *v11.i32 = -*&v36.i32[1];
   v37 = vzip1_s32(v11, v36);
   v38 = vmul_f32(v37, v37);
   v38.i32[0] = vadd_f32(v38, vdup_lane_s32(v38, 1)).u32[0];
@@ -2904,16 +2908,16 @@ uint64_t *addCurve(float32x4_t *a1, unsigned int a2)
       v72 = vrsqrte_f32(v70);
       v73 = vrsqrts_f32(v70.u32[0], vmul_f32(v72, v72));
       v74 = vmul_n_f32(*v69.f32, vmul_f32(v72, v73).f32[0]);
-      v73.f32[0] = -*&v74.i32[1];
+      *v73.i32 = -*&v74.i32[1];
       v75 = vzip1_s32(v73, v74);
       v76 = vmul_f32(v75, v75);
       v76.i32[0] = vadd_f32(v76, vdup_lane_s32(v76, 1)).u32[0];
       v77 = vrsqrte_f32(v76.u32[0]);
       v78 = vmul_f32(vmul_n_f32(vmul_n_f32(v75, vmul_f32(v77, vrsqrts_f32(v76.u32[0], vmul_f32(v77, v77))).f32[0]), v31), 0x3F0000003F000000);
       v79 = vsub_f32(v71, v5);
-      v76.f32[0] = sqrtf(vaddv_f32(vmul_f32(v79, v79)));
-      v80 = v37 + v76.f32[0];
-      v81 = v36.f32[0] + (v76.f32[0] / a1[10].f32[0]);
+      *v76.i32 = sqrtf(vaddv_f32(vmul_f32(v79, v79)));
+      v80 = v37 + *v76.i32;
+      v81 = v36.f32[0] + (*v76.i32 / a1[10].f32[0]);
       if (v38)
       {
         v82 = vmul_f32(v32, v32);
@@ -3339,12 +3343,12 @@ void addJoin(float32x4_t *a1, float32x2_t a2, double a3, double a4, float32x2_t 
           v406.i32[0] = vadd_f32(v406, vdup_lane_s32(v406, 1)).u32[0];
           v407 = vrsqrte_f32(v406.u32[0]);
           v408 = vmul_f32(v407, vrsqrts_f32(v406.u32[0], vmul_f32(v407, v407)));
-          *&v409 = vmla_n_f32(v856, vmul_n_f32(v405, vmul_f32(v408, vrsqrts_f32(v406.u32[0], vmul_f32(v408, v408))).f32[0]), v795.f32[0]);
+          *&v409 = vmla_n_f32(v856, vmul_n_f32(v405, vmul_f32(v408, vrsqrts_f32(v406.u32[0], vmul_f32(v408, v408))).f32[0]), *v795.i32);
           v410 = vrsqrte_f32(v128.u32[0]);
           v411 = vmul_f32(v410, vrsqrts_f32(v128.u32[0], vmul_f32(v410, v410)));
           v128 = vmul_n_f32(v821, vmul_f32(v411, vrsqrts_f32(v128.u32[0], vmul_f32(v411, v411))).f32[0]);
           *&v412 = v840;
-          *&v413 = vmla_n_f32(v840, v128, v795.f32[0]);
+          *&v413 = vmla_n_f32(v840, v128, *v795.i32);
           if (v16)
           {
             v128.f32[0] = v18;
@@ -3466,7 +3470,7 @@ void addJoin(float32x4_t *a1, float32x2_t a2, double a3, double a4, float32x2_t 
         v132 = vmul_f32(v131, vrsqrts_f32(v128.u32[0], vmul_f32(v131, v131)));
         v133 = vmul_n_f32(v821, vmul_f32(v132, vrsqrts_f32(v128.u32[0], vmul_f32(v132, v132))).f32[0]);
         v134 = vmla_n_f32(v860, v133, v130);
-        v133.f32[0] = -v821.f32[1];
+        *v133.i32 = -*&v821.i32[1];
         v863 = v134;
         v864 = vzip1_s32(v133, v821);
         v861 = v134;
@@ -3481,7 +3485,7 @@ void addJoin(float32x4_t *a1, float32x2_t a2, double a3, double a4, float32x2_t 
         v138 = vmul_f32(v137, vrsqrts_f32(v136.u32[0], vmul_f32(v137, v137)));
         *&v139 = vmul_n_f32(*&v139, vmul_f32(v138, vrsqrts_f32(v136.u32[0], vmul_f32(v138, v138))).f32[0]);
         v140 = vdup_lane_s32(v795, 0);
-        v141 = vmla_n_f32(*&v135, *&v139, v795.f32[0]);
+        v141 = vmla_n_f32(*&v135, *&v139, *v795.i32);
         v816 = v141;
         if (v17)
         {
@@ -3732,7 +3736,7 @@ void addJoin(float32x4_t *a1, float32x2_t a2, double a3, double a4, float32x2_t 
           v434 = vrsqrte_f32(v433.u32[0]);
           v435 = vmul_f32(v434, vrsqrts_f32(v433.u32[0], vmul_f32(v434, v434)));
           v436 = vmul_n_f32(a8, vmul_f32(v435, vrsqrts_f32(v433.u32[0], vmul_f32(v435, v435))).f32[0]);
-          *&v437 = vmla_n_f32(*&v431, v436, v795.f32[0]);
+          *&v437 = vmla_n_f32(*&v431, v436, *v795.i32);
           if (v16)
           {
             v438 = v18;
@@ -3761,7 +3765,7 @@ void addJoin(float32x4_t *a1, float32x2_t a2, double a3, double a4, float32x2_t 
           v444 = vuzp1_s8(v443, *&v431).u32[0];
           *(a1[1].i64[1] + 4 * v442) = v444;
           *(a1[2].i64[0] + 8 * v442) = __PAIR64__(1.0, v834);
-          *&v445 = vmla_n_f32(*&v432, v436, v795.f32[0]);
+          *&v445 = vmla_n_f32(*&v432, v436, *v795.i32);
           *&v447 = v432;
           DWORD2(v447) = 0;
           v446 = a1[1].u32[0] + (v13 - 6);
@@ -3855,7 +3859,7 @@ void addJoin(float32x4_t *a1, float32x2_t a2, double a3, double a4, float32x2_t 
         v756 = vmul_n_f32(a5, vmul_f32(v755, vrsqrts_f32(v753.u32[0], vmul_f32(v755, v755))).f32[0]);
         *&v757 = vmls_lane_f32(v827, v756, v795, 0);
         *&v758 = v810;
-        *&v759 = vmla_n_f32(v810, v756, v795.f32[0]);
+        *&v759 = vmla_n_f32(v810, v756, *v795.i32);
         if (v16)
         {
           v760 = v18;
@@ -4003,7 +4007,7 @@ void addJoin(float32x4_t *a1, float32x2_t a2, double a3, double a4, float32x2_t 
         v238 = vmul_f32(v237, vrsqrts_f32(v234, vmul_f32(v237, v237)));
         v239 = vmul_n_f32(v829, vmul_f32(v238, vrsqrts_f32(v234, vmul_f32(v238, v238))).f32[0]);
         v240 = vmla_n_f32(v860, v239, v236);
-        v239.f32[0] = -v829.f32[1];
+        *v239.i32 = -*&v829.i32[1];
         v863 = v240;
         v864 = vzip1_s32(v239, v829);
         v861 = v240;
@@ -4016,7 +4020,7 @@ void addJoin(float32x4_t *a1, float32x2_t a2, double a3, double a4, float32x2_t 
         v245 = vrsqrte_f32(v244.u32[0]);
         v246 = vmul_f32(v245, vrsqrts_f32(v244.u32[0], vmul_f32(v245, v245)));
         v247 = vmul_n_f32(v243, vmul_f32(v246, vrsqrts_f32(v244.u32[0], vmul_f32(v246, v246))).f32[0]);
-        v248 = vmla_n_f32(*&v241, v247, v795.f32[0]);
+        v248 = vmla_n_f32(*&v241, v247, *v795.i32);
         v811 = v241;
         v817 = v248;
         if (v17)
@@ -4155,7 +4159,7 @@ void addJoin(float32x4_t *a1, float32x2_t a2, double a3, double a4, float32x2_t 
           v717 = vsub_f32(*&v712, v860);
           v718 = vmul_f32(v717, v717);
           v718.i32[0] = vadd_f32(v718, vdup_lane_s32(v718, 1)).u32[0];
-          v719 = vmul_n_f32(v713, v714.f32[0]);
+          v719 = vmul_n_f32(v713, *v714.i32);
           v720 = vrsqrte_f32(v718.u32[0]);
           v721 = vmul_f32(v720, vrsqrts_f32(v718.u32[0], vmul_f32(v720, v720)));
           v722 = vmul_n_f32(v717, vmul_f32(v721, vrsqrts_f32(v718.u32[0], vmul_f32(v721, v721))).f32[0]);
@@ -4235,7 +4239,7 @@ void addJoin(float32x4_t *a1, float32x2_t a2, double a3, double a4, float32x2_t 
         v613.i32[0] = vadd_f32(v613, vdup_lane_s32(v613, 1)).u32[0];
         v614 = vrsqrte_f32(v613.u32[0]);
         v615 = vmul_f32(v614, vrsqrts_f32(v613.u32[0], vmul_f32(v614, v614)));
-        *&v616 = vmla_n_f32(v822, vmul_n_f32(v612, vmul_f32(v615, vrsqrts_f32(v613.u32[0], vmul_f32(v615, v615))).f32[0]), v795.f32[0]);
+        *&v616 = vmla_n_f32(v822, vmul_n_f32(v612, vmul_f32(v615, vrsqrts_f32(v613.u32[0], vmul_f32(v615, v615))).f32[0]), *v795.i32);
         if (v16)
         {
           v617 = v18;
@@ -4270,7 +4274,7 @@ void addJoin(float32x4_t *a1, float32x2_t a2, double a3, double a4, float32x2_t 
         *(a1[2].i64[1] + 16 * v624) = v610;
         *(a1[1].i64[1] + 4 * v624) = v623;
         *(a1[2].i64[0] + 8 * v624) = v834;
-        *&v625 = vmla_n_f32(v858, vmul_n_f32(v829, v609), v795.f32[0]);
+        *&v625 = vmla_n_f32(v858, vmul_n_f32(v829, v609), *v795.i32);
         v626 = a1[1].u32[0] + (v13 - 5);
         DWORD2(v625) = 0;
         *(&v625 + 3) = v617;
@@ -4297,7 +4301,7 @@ void addJoin(float32x4_t *a1, float32x2_t a2, double a3, double a4, float32x2_t 
         *(a1[2].i64[1] + 16 * v632) = v633;
         *(a1[1].i64[1] + 4 * v632) = v623;
         *(a1[2].i64[0] + 8 * v632) = __PAIR64__(1.0, v834);
-        *v619.f32 = vmla_n_f32(v842, vmul_n_f32(v629, vmul_f32(v631, vrsqrts_f32(v619.u32[0], vmul_f32(v631, v631))).f32[0]), v795.f32[0]);
+        *v619.f32 = vmla_n_f32(v842, vmul_n_f32(v629, vmul_f32(v631, vrsqrts_f32(v619.u32[0], vmul_f32(v631, v631))).f32[0]), *v795.i32);
         v634 = a1[1].u32[0] + (v13 + 1);
         v619.i32[2] = 0;
         v619.f32[3] = v617;
@@ -5179,7 +5183,7 @@ LABEL_189:
 
     else
     {
-      v19.f32[0] = 1.0;
+      *v19.i32 = 1.0;
     }
 
     v160 = a1[1].u32[0] + (v13 - 2);
@@ -6199,7 +6203,7 @@ __n128 addCaps(uint64_t a1, double a2, __n128 a3, double a4)
       {
         v236 = v12;
         v246 = v115;
-        v244 = -v6.f32[1];
+        v244 = -*&v6.i32[1];
         v116 = 0.0;
         if (!v11)
         {
@@ -6602,7 +6606,7 @@ BOOL SKCShapeNode::canAppendToCurrentBatch(SKBlendMode *this, SKCRenderInfo *a2)
   v5 = *(this + 82);
   if (v5)
   {
-    [v5 _backingTexture];
+    objc_msgSend__backingTexture(v5);
     v6 = v9;
     if (v10)
     {
@@ -6692,7 +6696,7 @@ void SKCShapeNode::~SKCShapeNode(SKCShapeNode *this)
   SKCNode::~SKCNode(this);
 }
 
-char *std::vector<jet_render_op>::__insert_with_size[abi:ne200100]<std::__wrap_iter<jet_render_op*>,std::__wrap_iter<jet_render_op*>>(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+char *std::vector<jet_render_op>::__insert_with_size[abi:ne200100]<std::__wrap_iter<jet_render_op*>,std::__wrap_iter<jet_render_op*>>(void *a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v5 = a2;
   if (a5 >= 1)
@@ -6705,7 +6709,7 @@ char *std::vector<jet_render_op>::__insert_with_size[abi:ne200100]<std::__wrap_i
       if ((0xAAAAAAAAAAAAAAABLL * ((v10 - a2) >> 6)) >= a5)
       {
         v18 = 3 * a5;
-        std::vector<jet_render_op>::__move_range(a1, a2, a1[1], a2 + 192 * a5);
+        std::vector<jet_render_op>::__move_range(a1, a2, a1[1], &a2[192 * a5]);
         v17 = a3 + (v18 << 6);
       }
 
@@ -6732,7 +6736,7 @@ char *std::vector<jet_render_op>::__insert_with_size[abi:ne200100]<std::__wrap_i
       std::vector<jet_render_op>::__throw_length_error[abi:ne200100]();
     }
 
-    v13 = a2 - v11;
+    v13 = &a2[-v11];
     v14 = 0xAAAAAAAAAAAAAAABLL * ((v9 - v11) >> 6);
     if (2 * v14 > v12)
     {
@@ -7231,12 +7235,12 @@ void sub_21C449C00(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_21C44A664(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_21C44A664(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = SKDisplayLink;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -7310,7 +7314,7 @@ void sub_21C44DC94(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_21C4512C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_21C4512C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -7362,7 +7366,7 @@ void sub_21C451DD8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_21C452694(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_21C452694(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -7408,7 +7412,7 @@ BOOL SKNodeNameMatches(void *a1, void *a2)
   return v5;
 }
 
-void sub_21C452BE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, void **a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, void **a30)
+void sub_21C452BE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, char *a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30)
 {
   std::vector<Token>::__destroy_vector::operator()[abi:ne200100](&a30);
   std::__tree<SKNode * {__strong}>::destroy(&a16, a17);
@@ -7504,24 +7508,24 @@ id std::vector<SKNode * {__strong}>::push_back[abi:ne200100](void *a1, id *a2)
   return result;
 }
 
-void sub_21C453984(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_21C453984(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<UITouch * {__strong}>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void sub_21C4551F8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_21C4551F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__list_imp<SKCRenderSortInfo *>::clear(va);
   _Unwind_Resume(a1);
 }
 
-void sub_21C455540(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_21C455540(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = SKNode;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -7729,9 +7733,9 @@ uint64_t std::vector<Token>::__emplace_back_slow_path<Token>(uint64_t *a1, uint6
   return v14;
 }
 
-void sub_21C45A0B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_21C45A0B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<Token>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -7798,7 +7802,7 @@ void std::__tree<SKNode * {__strong}>::destroy(uint64_t a1, void *a2)
   }
 }
 
-uint64_t std::vector<Token>::__init_with_size[abi:ne200100]<Token*,Token*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<Token>::__init_with_size[abi:ne200100]<Token*,Token*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7808,7 +7812,7 @@ uint64_t std::vector<Token>::__init_with_size[abi:ne200100]<Token*,Token*>(uint6
   return result;
 }
 
-void std::vector<Token>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<Token>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -7818,41 +7822,41 @@ void std::vector<Token>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
   std::vector<jet_render_op>::__throw_length_error[abi:ne200100]();
 }
 
-void *std::__tree<SKNode * {__strong}>::__emplace_unique_key_args<SKNode * {__strong},SKNode * const {__strong}&>(uint64_t a1, unint64_t *a2)
+void *std::__tree<SKNode * {__strong}>::__emplace_unique_key_args<SKNode * {__strong},SKNode * const {__strong}&>(uint64_t a1, unint64_t *a2, id *a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = v3[4];
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
@@ -7875,7 +7879,7 @@ uint64_t std::unique_ptr<std::__tree_node<SKNode * {__strong},void *>,std::__tre
   return a1;
 }
 
-uint64_t std::vector<Token>::__init_with_size[abi:ne200100]<std::__wrap_iter<Token const*>,std::__wrap_iter<Token const*>>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<Token>::__init_with_size[abi:ne200100]<std::__wrap_iter<Token const*>,std::__wrap_iter<Token const*>>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7935,16 +7939,16 @@ uint64_t SKCParticleManager::update(uint64_t this, float a2)
   return this;
 }
 
-void SKCParticleManager::compact(SKCParticleManager *this)
+void SKCParticleManager::compact(uint64_t this)
 {
-  v1 = *(this + 1);
-  v2 = this + 16;
-  if (v1 != this + 16)
+  v1 = *(this + 8);
+  v2 = (this + 16);
+  if (v1 != (this + 16))
   {
     do
     {
-      SKCParticleSystem::compact(*(v1 + 4));
-      v3 = *(v1 + 1);
+      SKCParticleSystem::compact(v1[4]);
+      v3 = v1[1];
       if (v3)
       {
         do
@@ -7960,7 +7964,7 @@ void SKCParticleManager::compact(SKCParticleManager *this)
       {
         do
         {
-          v4 = *(v1 + 2);
+          v4 = v1[2];
           v5 = *v4 == v1;
           v1 = v4;
         }
@@ -8075,41 +8079,41 @@ void SKCParticleManager::~SKCParticleManager(SKCParticleManager *this)
   JUMPOUT(0x21CF0A160);
 }
 
-void *std::__tree<SKCParticleSystem *>::__emplace_unique_key_args<SKCParticleSystem *,SKCParticleSystem * const&>(uint64_t a1, unint64_t *a2)
+void *std::__tree<SKCParticleSystem *>::__emplace_unique_key_args<SKCParticleSystem *,SKCParticleSystem * const&>(uint64_t a1, unint64_t *a2, void *a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = v3[4];
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
@@ -8280,14 +8284,14 @@ LABEL_8:
 
   while (1)
   {
-    v12 = v7[2];
+    v12 = *(v7 + 16);
     v13 = *v12;
     if (*v12 == v7)
     {
       break;
     }
 
-    if ((v7[3] & 1) == 0)
+    if ((*(v7 + 24) & 1) == 0)
     {
       *(v7 + 24) = 1;
       *(v12 + 24) = 0;
@@ -8315,7 +8319,7 @@ LABEL_8:
     v17 = *v7;
     if (*v7 && *(v17 + 24) != 1)
     {
-      v18 = v7[1];
+      v18 = *(v7 + 8);
       if (!v18)
       {
         goto LABEL_55;
@@ -8327,18 +8331,18 @@ LABEL_54:
 LABEL_55:
         *(v17 + 24) = 1;
         *(v7 + 24) = 0;
-        v26 = v17[1];
+        v26 = *(v17 + 8);
         *v7 = v26;
         if (v26)
         {
           *(v26 + 16) = v7;
         }
 
-        v27 = v7[2];
-        v17[2] = v27;
+        v27 = *(v7 + 16);
+        *(v17 + 16) = v27;
         v27[*v27 != v7] = v17;
-        v17[1] = v7;
-        v7[2] = v17;
+        *(v17 + 8) = v7;
+        *(v7 + 16) = v17;
         v18 = v7;
       }
 
@@ -8347,7 +8351,7 @@ LABEL_55:
         v17 = v7;
       }
 
-      v28 = v17[2];
+      v28 = *(v17 + 16);
       *(v17 + 24) = *(v28 + 24);
       *(v28 + 24) = 1;
       *(v18 + 24) = 1;
@@ -8366,14 +8370,14 @@ LABEL_55:
       goto LABEL_72;
     }
 
-    v18 = v7[1];
+    v18 = *(v7 + 8);
     if (v18 && *(v18 + 24) != 1)
     {
       goto LABEL_54;
     }
 
     *(v7 + 24) = 0;
-    v19 = v7[2];
+    v19 = *(v7 + 16);
     if (v19 == result || (v19[3] & 1) == 0)
     {
       goto LABEL_52;
@@ -8383,11 +8387,11 @@ LABEL_49:
     v7 = *(v19[2] + 8 * (*v19[2] == v19));
   }
 
-  if ((v7[3] & 1) == 0)
+  if ((*(v7 + 24) & 1) == 0)
   {
     *(v7 + 24) = 1;
     *(v12 + 24) = 0;
-    v20 = v13[1];
+    v20 = *(v13 + 8);
     *v12 = v20;
     if (v20)
     {
@@ -8395,11 +8399,11 @@ LABEL_49:
     }
 
     v21 = v12[2];
-    v13[2] = v21;
+    *(v13 + 16) = v21;
     v21[*v21 != v12] = v13;
-    v13[1] = v12;
+    *(v13 + 8) = v12;
     v12[2] = v13;
-    v22 = v7[1];
+    v22 = *(v7 + 8);
     if (result == v22)
     {
       result = v7;
@@ -8414,11 +8418,11 @@ LABEL_49:
     goto LABEL_68;
   }
 
-  v24 = v7[1];
+  v24 = *(v7 + 8);
   if (!v24 || *(v24 + 24) == 1)
   {
     *(v7 + 24) = 0;
-    v19 = v7[2];
+    v19 = *(v7 + 16);
     if (*(v19 + 24) != 1 || v19 == result)
     {
 LABEL_52:
@@ -8434,24 +8438,24 @@ LABEL_52:
     goto LABEL_65;
   }
 
-  if (v23[3])
+  if (*(v23 + 24))
   {
-    v24 = v7[1];
+    v24 = *(v7 + 8);
 LABEL_65:
     *(v24 + 24) = 1;
     *(v7 + 24) = 0;
     v32 = *v24;
-    v7[1] = *v24;
+    *(v7 + 8) = *v24;
     if (v32)
     {
       *(v32 + 16) = v7;
     }
 
-    v33 = v7[2];
-    v24[2] = v33;
+    v33 = *(v7 + 16);
+    *(v24 + 16) = v33;
     v33[*v33 != v7] = v24;
     *v24 = v7;
-    v7[2] = v24;
+    *(v7 + 16) = v24;
     v23 = v7;
   }
 
@@ -8461,7 +8465,7 @@ LABEL_68:
     v24 = v7;
   }
 
-  v28 = v24[2];
+  v28 = *(v24 + 16);
   *(v24 + 24) = *(v28 + 24);
   *(v28 + 24) = 1;
   *(v23 + 24) = 1;
@@ -8541,7 +8545,7 @@ void SKC3DNode::ensureRenderer(uint64_t a1, uint64_t a2)
   if (!*(a1 + 560))
   {
     v4 = NSClassFromString(&cfstr_Scnrenderer.isa);
-    SKCRenderer::getBackingContext(*(a2 + 104), &v15);
+    SKCRenderer::getBackingContext(&v15, *(a2 + 104));
     v5 = (*(*v15 + 136))(v15);
     v6 = v15;
     v7 = v16;
@@ -8623,16 +8627,16 @@ double SKC3DNode::getBoundingBox(float32x4_t *this)
   v7.i64[1] = 0x3F0000003F000000;
   v8 = this[21];
   v7.i64[0] = vmulq_f32(vsubq_f32(v7, this[22]), v8).u64[0];
-  v9 = *algn_21C4B92D0;
-  v7.i64[1] = *(&SKCBoundingBoxEmpty + 1);
+  v9 = *&SKCBoundingBoxEmpty[16];
+  v7.i64[1] = *&SKCBoundingBoxEmpty[8];
   *&v9 = 0.5 * v8.f32[0];
   v10 = vmuls_lane_f32(0.5, *v8.f32, 1);
-  v11 = xmmword_21C4B92E0;
+  v11 = *&SKCBoundingBoxEmpty[32];
   *(&v11 + 1) = v10;
   v13[0] = v7;
   v13[1] = v9;
   v13[2] = v11;
-  v13[3] = unk_21C4B92F0;
+  v13[3] = *&SKCBoundingBoxEmpty[48];
   do
   {
     *(&v14 + v6 * 16) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v2, COERCE_FLOAT(v13[v6])), v3, *&v13[v6], 1), v4, v13[v6], 2), v5, v13[v6], 3);
@@ -8659,7 +8663,7 @@ void SKC3DNode::subclassRecomputeFlags(id *this)
   }
 }
 
-void SKC3DNode::addRenderOps(uint64_t a1, uint64_t a2)
+void SKC3DNode::addRenderOps(uint64_t result, uint64_t a2, uint64_t *a3)
 {
   if ((*(a2 + 581) & 2) == 0)
   {
@@ -8667,20 +8671,20 @@ void SKC3DNode::addRenderOps(uint64_t a1, uint64_t a2)
   }
 }
 
-void sub_21C45E5F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_21C45E5F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   std::__function::__value_func<void ()(jet_context *)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void *jet_command_buffer::custom_block(uint64_t a1, uint64_t a2)
+void *jet_command_buffer::custom_block(unint64_t *a1, uint64_t a2)
 {
   v7 = 13;
-  v4 = *(a1 + 16);
-  if (v4 >= *(a1 + 24))
+  v4 = a1[2];
+  if (v4 >= a1[3])
   {
-    v5 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(a1 + 8, &v7);
+    v5 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(a1 + 1, &v7);
   }
 
   else
@@ -8695,7 +8699,7 @@ void *jet_command_buffer::custom_block(uint64_t a1, uint64_t a2)
     *(v4 + 96) = 0;
   }
 
-  *(a1 + 16) = v5;
+  a1[2] = v5;
   return std::function<void ()(jet_context *)>::operator=((v5 - 152), a2);
 }
 
@@ -8705,7 +8709,7 @@ void SKC3DNode::renderCallback(id *a1, jet_context_OpenGL *a2, float32x4_t a3, f
   v9 = a1[70];
   if (v9)
   {
-    [v9 setPlaying:*(a1 + 616)];
+    [v9 setPlaying:{*(a1 + 616), *a3.i64, *a4.i64, *a5.i64, *a6.i64, a7}];
     [a1[70] setLoops:*(a1 + 617)];
     [a1[70] setSceneTime:*(a1 + 74)];
     [a1[70] setPointOfView:a1[76]];
@@ -8918,16 +8922,16 @@ double SKCVideoNode::getBoundingBox(float32x4_t *this)
   v7.i64[1] = 0x3F0000003F000000;
   v8 = this[21];
   v7.i64[0] = vmulq_f32(vsubq_f32(v7, this[22]), v8).u64[0];
-  v9 = *algn_21C4B92D0;
-  v7.i64[1] = *(&SKCBoundingBoxEmpty + 1);
+  v9 = *&SKCBoundingBoxEmpty[16];
+  v7.i64[1] = *&SKCBoundingBoxEmpty[8];
   *&v9 = 0.5 * v8.f32[0];
   v10 = vmuls_lane_f32(0.5, *v8.f32, 1);
-  v11 = xmmword_21C4B92E0;
+  v11 = *&SKCBoundingBoxEmpty[32];
   *(&v11 + 1) = v10;
   v13[0] = v7;
   v13[1] = v9;
   v13[2] = v11;
-  v13[3] = unk_21C4B92F0;
+  v13[3] = *&SKCBoundingBoxEmpty[48];
   do
   {
     *(&v14 + v6 * 16) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v2, COERCE_FLOAT(v13[v6])), v3, *&v13[v6], 1), v4, v13[v6], 2), v5, v13[v6], 3);
@@ -8938,7 +8942,7 @@ double SKCVideoNode::getBoundingBox(float32x4_t *this)
   return *&v14;
 }
 
-void SKCVideoNode::addRenderOps(uint64_t a1, float32x4_t *a2, uint64_t *a3)
+void SKCVideoNode::addRenderOps(uint64_t a1, float32x4_t *a2, unint64_t **a3)
 {
   v45 = *MEMORY[0x277D85DE8];
   v6 = *(a1 + 696);
@@ -8990,10 +8994,10 @@ void SKCVideoNode::addRenderOps(uint64_t a1, float32x4_t *a2, uint64_t *a3)
     {
       v25 = a2[17].i64[1];
       LODWORD(__p.__r_.__value_.__l.__data_) = 31;
-      v26 = *(v24 + 16);
-      if (v26 >= *(v24 + 24))
+      v26 = v24[2];
+      if (v26 >= v24[3])
       {
-        v27 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(v24 + 8, &__p);
+        v27 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(v24 + 1, &__p);
       }
 
       else
@@ -9008,7 +9012,7 @@ void SKCVideoNode::addRenderOps(uint64_t a1, float32x4_t *a2, uint64_t *a3)
         *(v26 + 96) = 0;
       }
 
-      *(v24 + 16) = v27;
+      v24[2] = v27;
       *(v27 - 80) = v25;
       *(v27 - 64) = xmmword_21C4B8530;
       *(v27 - 48) = 0x30000000FLL;
@@ -9025,10 +9029,10 @@ void SKCVideoNode::addRenderOps(uint64_t a1, float32x4_t *a2, uint64_t *a3)
     {
       v28 = a2[10].i64[1];
       LODWORD(__p.__r_.__value_.__l.__data_) = 31;
-      v29 = *(v24 + 16);
-      if (v29 >= *(v24 + 24))
+      v29 = v24[2];
+      if (v29 >= v24[3])
       {
-        v30 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(v24 + 8, &__p);
+        v30 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(v24 + 1, &__p);
       }
 
       else
@@ -9043,7 +9047,7 @@ void SKCVideoNode::addRenderOps(uint64_t a1, float32x4_t *a2, uint64_t *a3)
         *(v29 + 96) = 0;
       }
 
-      *(v24 + 16) = v30;
+      v24[2] = v30;
       *(v30 - 80) = v28;
       *(v30 - 64) = xmmword_21C4B8530;
       *(v30 - 48) = 0x30000000FLL;
@@ -9084,10 +9088,10 @@ void SKCVideoNode::addRenderOps(uint64_t a1, float32x4_t *a2, uint64_t *a3)
     v36 = *a3;
     v37 = a2[25].i64[0];
     LODWORD(__p.__r_.__value_.__l.__data_) = 4;
-    v38 = *(v36 + 16);
-    if (v38 >= *(v36 + 24))
+    v38 = v36[2];
+    if (v38 >= v36[3])
     {
-      v39 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(v36 + 8, &__p);
+      v39 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(v36 + 1, &__p);
     }
 
     else
@@ -9102,7 +9106,7 @@ void SKCVideoNode::addRenderOps(uint64_t a1, float32x4_t *a2, uint64_t *a3)
       *(v38 + 96) = 0;
     }
 
-    *(v36 + 16) = v39;
+    v36[2] = v39;
     *(v39 - 80) = v37;
     *(v39 - 64) = 3;
     *(v39 - 60) = 6 * v21;
@@ -9131,9 +9135,9 @@ void sub_21C460D4C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void SKCVideoNode::updateVideoFrame(SKCVideoNode *this, SKCRenderInfo *a2)
+void SKCVideoNode::updateVideoFrame(SKCVideoNode *this, SKCRenderer **a2)
 {
-  SKCRenderer::getBackingContext(*(a2 + 13), &v8);
+  SKCRenderer::getBackingContext(&v8, a2[13]);
   *(this + 588) = (*(*v8 + 136))(v8) == 1;
   v3 = *(this + 82);
   if (v3)
@@ -9319,69 +9323,69 @@ void SKCVideoNode::setNextVideoFrame(SKCVideoNode *this, CVPixelBufferRef textur
   }
 }
 
-void SKCVideoNode::checkForVideoFrame(SKCVideoNode *this, double a2)
+void SKCVideoNode::checkForVideoFrame(SKCVideoNode *this, double a2, const char *a3)
 {
-  v4 = *(this + 71);
-  if (v4)
+  v5 = *(this + 71);
+  if (v5)
   {
-    v5 = [v4 currentItem];
-    v6 = *(this + 72);
-    if (v6 != v5)
+    v6 = [v5 currentItem];
+    v7 = *(this + 72);
+    if (v7 != v6)
     {
       if (*(this + 81))
       {
-        [v6 removeOutput:?];
-        v7 = *(this + 81);
+        [v7 removeOutput:?];
+        v8 = *(this + 81);
         *(this + 81) = 0;
       }
 
-      objc_storeStrong(this + 72, v5);
+      objc_storeStrong(this + 72, v6);
     }
 
-    if (v5 && !*(this + 81))
+    if (v6 && !*(this + 81))
     {
-      v8 = [MEMORY[0x277CBEB38] dictionary];
-      [v8 setObject:&unk_282E2D528 forKey:*MEMORY[0x277CC4E30]];
+      v9 = [MEMORY[0x277CBEB38] dictionary];
+      [v9 setObject:&unk_282E2D528 forKey:*MEMORY[0x277CC4E30]];
       if (*(this + 588) == 1)
       {
-        v9 = [MEMORY[0x277CCABB0] numberWithBool:1];
-        [v8 setObject:v9 forKey:@"MetalCompatibility"];
+        v10 = [MEMORY[0x277CCABB0] numberWithBool:1];
+        [v9 setObject:v10 forKey:@"MetalCompatibility"];
       }
 
       else
       {
-        v9 = [MEMORY[0x277CCABB0] numberWithBool:1];
-        [v8 setObject:v9 forKey:@"OpenGLESCompatibility"];
+        v10 = [MEMORY[0x277CCABB0] numberWithBool:1];
+        [v9 setObject:v10 forKey:@"OpenGLESCompatibility"];
       }
 
-      v10 = [objc_alloc(MEMORY[0x277CE65D0]) initWithPixelBufferAttributes:v8];
-      v11 = *(this + 81);
-      *(this + 81) = v10;
+      v11 = [objc_alloc(MEMORY[0x277CE65D0]) initWithPixelBufferAttributes:v9];
+      v12 = *(this + 81);
+      *(this + 81) = v11;
 
-      [v5 addOutput:*(this + 81)];
+      [v6 addOutput:*(this + 81)];
     }
   }
 
-  v12 = *(this + 81);
-  if (v12)
+  v13 = *(this + 81);
+  if (v13)
   {
-    v18 = 0uLL;
-    v19 = 0;
-    [v12 itemTimeForHostTime:a2];
-    v13 = *(this + 81);
-    v16 = v18;
+    v19 = 0uLL;
+    v20 = 0;
+    objc_msgSend_itemTimeForHostTime_(v13, a3, a2);
+    v14 = *(this + 81);
     v17 = v19;
-    if ([v13 hasNewPixelBufferForItemTime:&v16])
+    v18 = v20;
+    if ([v14 hasNewPixelBufferForItemTime:&v17])
     {
       if (!*(this + 82))
       {
-        v14 = *(this + 81);
-        v16 = v18;
+        v15 = *(this + 81);
         v17 = v19;
-        v15 = [v14 copyPixelBufferForItemTime:&v16 itemTimeForDisplay:0];
-        if (v15)
+        v18 = v20;
+        v16 = [v15 copyPixelBufferForItemTime:&v17 itemTimeForDisplay:0];
+        if (v16)
         {
-          *(this + 82) = v15;
+          *(this + 82) = v16;
           SKCNode::setFlags(this, 66, 1);
         }
       }
@@ -9389,10 +9393,10 @@ void SKCVideoNode::checkForVideoFrame(SKCVideoNode *this, double a2)
   }
 }
 
-void SKCVideoNode::update(NSObject **this, double a2, float a3)
+void SKCVideoNode::update(SKCVideoNode *this, double a2, float a3)
 {
   SKCNode::update(this, a2, 1.0);
-  v5 = this[87];
+  v5 = *(this + 87);
   v6[0] = MEMORY[0x277D85DD0];
   v6[1] = 3221225472;
   v6[2] = ___ZN12SKCVideoNode6updateEdf_block_invoke;
@@ -9487,20 +9491,20 @@ void SKCVideoNode::~SKCVideoNode(SKCVideoNode *this)
   JUMPOUT(0x21CF0A160);
 }
 
-void *std::list<__CVBuffer *>::list(void *result, uint64_t a2)
+uint64_t *std::list<__CVBuffer *>::list(uint64_t *a1, uint64_t a2)
 {
-  *result = result;
-  result[1] = result;
-  result[2] = 0;
+  *a1 = a1;
+  a1[1] = a1;
+  a1[2] = 0;
   if (a2)
   {
     operator new();
   }
 
-  return result;
+  return a1;
 }
 
-void *std::list<__CVBuffer *>::__move_assign(uint64_t *a1, void *a2)
+void *std::list<__CVBuffer *>::__move_assign(uint64_t *a1, uint64_t *a2)
 {
   result = std::__list_imp<SKCRenderSortInfo *>::clear(a1);
   v5 = a2[2];
@@ -9553,13 +9557,13 @@ uint64_t _SKStartCollectingPerformanceStatisticsForPid(int a1)
 
   else
   {
-    if ((atomic_load_explicit(&_MergedGlobals, memory_order_acquire) & 1) == 0)
+    if ((atomic_load_explicit(_MergedGlobals, memory_order_acquire) & 1) == 0)
     {
       _SKStartCollectingPerformanceStatisticsForPid_cold_1();
     }
 
     v19 = &v18;
-    v8 = std::__hash_table<std::__hash_value_type<int,SKPerformanceDataMapping>,std::__unordered_map_hasher<int,std::__hash_value_type<int,SKPerformanceDataMapping>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,SKPerformanceDataMapping>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,SKPerformanceDataMapping>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(qword_27CDDD170, &v18);
+    v8 = std::__hash_table<std::__hash_value_type<int,SKPerformanceDataMapping>,std::__unordered_map_hasher<int,std::__hash_value_type<int,SKPerformanceDataMapping>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,SKPerformanceDataMapping>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,SKPerformanceDataMapping>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(qword_27CDDD170, &v18, &std::piecewise_construct, &v19);
     v8[3] = v1;
     v8[4] = v3;
     v8[5] = v5;
@@ -9572,9 +9576,9 @@ uint64_t _SKStartCollectingPerformanceStatisticsForPid(int a1)
   return v4;
 }
 
-void sub_21C462F7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21C462F7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9589,7 +9593,7 @@ __n128 __Block_byref_object_copy__3(__n128 *a1, __n128 *a2)
 uint64_t _SKStopCollectingPerformanceStatisticsForPid(int a1)
 {
   v4 = a1;
-  if ((atomic_load_explicit(&_MergedGlobals, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(_MergedGlobals, memory_order_acquire) & 1) == 0)
   {
     _SKStopCollectingPerformanceStatisticsForPid_cold_1();
   }
@@ -9615,7 +9619,7 @@ uint64_t _SKStopCollectingPerformanceStatisticsForPid(int a1)
 uint64_t *_SKGetPerformanceStatisticsForPid(int a1)
 {
   v4 = a1;
-  if ((atomic_load_explicit(&_MergedGlobals, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(_MergedGlobals, memory_order_acquire) & 1) == 0)
   {
     _SKStopCollectingPerformanceStatisticsForPid_cold_1();
   }
@@ -9642,10 +9646,10 @@ uint64_t *_SKGetPerformanceStatisticsForPid(int a1)
   return v1;
 }
 
-void sub_21C4634D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_21C4634D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
-  v6 = v5;
+  va_start(va, a5);
+  v8 = v7;
 
   std::__hash_table<std::__hash_value_type<int,SKPerformanceDataMapping>,std::__unordered_map_hasher<int,std::__hash_value_type<int,SKPerformanceDataMapping>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,SKPerformanceDataMapping>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,SKPerformanceDataMapping>>>::~__hash_table(va);
   _Unwind_Resume(a1);
@@ -9825,13 +9829,5 @@ float _perfEndActions(double a1)
   dword_27CDDD100 = LODWORD(result);
   ++qword_27CDDD0F0;
   ++qword_27CDDD120;
-  return result;
-}
-
-float _perfEndEmitters(double a1)
-{
-  v1 = (a1 - *&qword_27CDDD128) * 1000.0;
-  result = *&dword_27CDDD130 + fmaxf(v1, 0.0);
-  dword_27CDDD130 = LODWORD(result);
   return result;
 }

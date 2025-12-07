@@ -53,8 +53,8 @@
 
   if (v13)
   {
-    v15 = _AFKUserLog();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = _AFKUserLog(v14);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [(AFKMemoryDescriptor *)v11 regID];
       [AFKMemoryDescriptor initWithManager:capacity:buffer:];
@@ -65,8 +65,8 @@
 
   if (outputCnt != 1)
   {
-    v16 = _AFKUserLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = _AFKUserLog(v14);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       [AFKMemoryDescriptor initWithManager:v21 capacity:[(AFKMemoryDescriptor *)v11 regID] buffer:?];
     }
@@ -78,15 +78,14 @@
   if (![(AFKMemoryDescriptor *)v11 mapDescriptor])
   {
 LABEL_12:
-    v14 = 0;
+    v15 = 0;
     goto LABEL_13;
   }
 
-  v14 = v11;
+  v15 = v11;
 LABEL_13:
 
-  v17 = *MEMORY[0x277D85DE8];
-  return v14;
+  return v15;
 }
 
 + (id)withManager:(id)manager capacity:(unint64_t)capacity token:(unint64_t)token
@@ -121,68 +120,65 @@ LABEL_13:
 {
   input[1] = *MEMORY[0x277D85DE8];
   input[0] = [(AFKMemoryDescriptor *)self token];
-  v15 = 0;
-  v16 = 0;
+  v17 = 0;
+  v18 = 0;
   manager = [(AFKMemoryDescriptor *)self manager];
   v4 = IOConnectCallScalarMethod([manager connect], 1u, input, 1u, 0, 0);
 
   if (v4)
   {
-    v11 = _AFKUserLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = _AFKUserLog(v5);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [(AFKMemoryDescriptor *)self regID];
       [AFKMemoryDescriptor mapDescriptor];
     }
-
-    goto LABEL_12;
   }
 
-  manager2 = [(AFKMemoryDescriptor *)self manager];
-  connect = [manager2 connect];
-  v7 = MEMORY[0x23EED2FD0](connect, 0, *MEMORY[0x277D85F48], &v16, &v15, 1);
-
-  if (v7)
+  else
   {
-    v11 = _AFKUserLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    manager2 = [(AFKMemoryDescriptor *)self manager];
+    connect = [manager2 connect];
+    v8 = MEMORY[0x23EED2FD0](connect, 0, *MEMORY[0x277D85F48], &v18, &v17, 1);
+
+    if (v8)
     {
-      [(AFKMemoryDescriptor *)self regID];
-      [AFKMemoryDescriptor mapDescriptor];
+      v13 = _AFKUserLog(v9);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      {
+        [(AFKMemoryDescriptor *)self regID];
+        [AFKMemoryDescriptor mapDescriptor];
+      }
     }
 
-    goto LABEL_12;
-  }
-
-  v8 = v15;
-  self->_buffer = v16;
-  if (v8 != [(AFKMemoryDescriptor *)self capacity])
-  {
-    v11 = _AFKUserLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    else
     {
-      regID = [(AFKMemoryDescriptor *)self regID];
-      v13 = v15;
+      v10 = v17;
+      self->_buffer = v18;
       capacity = [(AFKMemoryDescriptor *)self capacity];
-      *buf = 134218496;
-      v18 = regID;
-      v19 = 2048;
-      v20 = v13;
-      v21 = 2048;
-      v22 = capacity;
-      _os_log_error_impl(&dword_23C487000, v11, OS_LOG_TYPE_ERROR, "0x%llx: IOConnectMapMemory size mismatch:0x%zx,0x%zx", buf, 0x20u);
+      if (v10 == capacity)
+      {
+        return 1;
+      }
+
+      v13 = _AFKUserLog(capacity);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      {
+        regID = [(AFKMemoryDescriptor *)self regID];
+        v15 = v17;
+        capacity2 = [(AFKMemoryDescriptor *)self capacity];
+        *buf = 134218496;
+        v20 = regID;
+        v21 = 2048;
+        v22 = v15;
+        v23 = 2048;
+        v24 = capacity2;
+        _os_log_error_impl(&dword_23C487000, v13, OS_LOG_TYPE_ERROR, "0x%llx: IOConnectMapMemory size mismatch:0x%zx,0x%zx", buf, 0x20u);
+      }
     }
-
-LABEL_12:
-
-    result = 0;
-    goto LABEL_5;
   }
 
-  result = 1;
-LABEL_5:
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 - (void)dealloc
@@ -230,8 +226,8 @@ LABEL_5:
 
   if (v6)
   {
-    v7 = _AFKUserLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _AFKUserLog(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [(AFKMemoryDescriptor *)self regID];
       [AFKMemoryDescriptor setLength:];
@@ -242,8 +238,6 @@ LABEL_5:
   {
     self->_cachedLength = length;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)length
@@ -259,8 +253,8 @@ LABEL_5:
 
     if (v5 || outputCnt != 1)
     {
-      v6 = _AFKUserLog();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = _AFKUserLog(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         regID = [(AFKMemoryDescriptor *)self regID];
         *buf = 134218496;
@@ -269,10 +263,10 @@ LABEL_5:
         v13 = v5;
         v14 = 1024;
         v15 = outputCnt;
-        _os_log_error_impl(&dword_23C487000, v6, OS_LOG_TYPE_ERROR, "0x%llx: kGetLengthMethod:0x%x cnt:%u", buf, 0x18u);
+        _os_log_error_impl(&dword_23C487000, v7, OS_LOG_TYPE_ERROR, "0x%llx: kGetLengthMethod:0x%x cnt:%u", buf, 0x18u);
       }
 
-      result = 0;
+      return 0;
     }
 
     else
@@ -282,7 +276,6 @@ LABEL_5:
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -297,7 +290,7 @@ LABEL_5:
 
   if (v6)
   {
-    v9 = _AFKUserLog();
+    v9 = _AFKUserLog(v7);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [(AFKMemoryDescriptor *)self regID];
@@ -305,7 +298,6 @@ LABEL_5:
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -318,7 +310,7 @@ LABEL_5:
 
   if (v4)
   {
-    v7 = _AFKUserLog();
+    v7 = _AFKUserLog(v5);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [(AFKMemoryDescriptor *)self regID];
@@ -326,7 +318,6 @@ LABEL_5:
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -341,7 +332,7 @@ LABEL_5:
 
   if (v6)
   {
-    v9 = _AFKUserLog();
+    v9 = _AFKUserLog(v7);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [(AFKMemoryDescriptor *)self regID];
@@ -349,7 +340,6 @@ LABEL_5:
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -382,13 +372,6 @@ LABEL_5:
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0(v0, v1, v2, 3.8521e-34);
   OUTLINED_FUNCTION_1(&dword_23C487000, "0x%llx: kCreateMethod:0x%x", v3, v4);
-}
-
-- (void)initWithManager:(unsigned int *)a1 capacity:(uint64_t)a2 buffer:(uint64_t)a3 .cold.2(unsigned int *a1, uint64_t a2, uint64_t a3)
-{
-  v3 = *a1;
-  OUTLINED_FUNCTION_3(3.8521e-34, a1, a2, a3);
-  OUTLINED_FUNCTION_1(&dword_23C487000, "0x%llx: kCreateMethod outputCount %u", v4, v5);
 }
 
 - (void)mapDescriptor

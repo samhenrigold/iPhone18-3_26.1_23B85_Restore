@@ -550,7 +550,7 @@ LABEL_21:
 
 - (id)durationTimeInterval
 {
-  [(ICCameraFile *)self->_cameraFile duration];
+  objc_msgSend_duration(self->_cameraFile, a2);
   if (v3 == 0.0)
   {
     v7.receiver = self;
@@ -561,7 +561,7 @@ LABEL_21:
   else
   {
     v4 = MEMORY[0x1E696AD98];
-    [(ICCameraFile *)self->_cameraFile duration];
+    objc_msgSend_duration(self->_cameraFile);
     durationTimeInterval = [v4 numberWithDouble:?];
   }
 
@@ -1307,7 +1307,7 @@ LABEL_32:
       }
     }
 
-    [fileCopy duration];
+    objc_msgSend_duration(fileCopy);
     if (v14 == 0.0)
     {
       v15 = PLImportGetLog();

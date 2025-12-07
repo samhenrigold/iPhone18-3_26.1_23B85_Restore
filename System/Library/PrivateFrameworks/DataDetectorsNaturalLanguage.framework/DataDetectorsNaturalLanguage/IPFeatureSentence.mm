@@ -73,29 +73,29 @@
 
 - (unint64_t)clusterType
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v3 = [objc_alloc(MEMORY[0x277CCA940]) initWithCapacity:5];
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   fragments = [(IPFeatureSentence *)self fragments];
-  v5 = [fragments countByEnumeratingWithState:&v30 objects:v35 count:16];
+  v5 = [fragments countByEnumeratingWithState:&v29 objects:v34 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v31;
+    v8 = *v30;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v31 != v8)
+        if (*v30 != v8)
         {
           objc_enumerationMutation(fragments);
         }
 
-        clusterType = [*(*(&v30 + 1) + 8 * i) clusterType];
+        clusterType = [*(*(&v29 + 1) + 8 * i) clusterType];
         if (clusterType)
         {
           v11 = clusterType;
@@ -106,7 +106,7 @@
         }
       }
 
-      v6 = [fragments countByEnumeratingWithState:&v30 objects:v35 count:16];
+      v6 = [fragments countByEnumeratingWithState:&v29 objects:v34 count:16];
     }
 
     while (v6);
@@ -126,12 +126,12 @@
     v13 = 0;
   }
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v14 = v3;
-  v15 = [v14 countByEnumeratingWithState:&v26 objects:v34 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v25 objects:v33 count:16];
   if (!v15)
   {
 
@@ -143,17 +143,17 @@ LABEL_26:
   v16 = v15;
   v17 = 0;
   v18 = 0;
-  v19 = *v27;
+  v19 = *v26;
   do
   {
     for (j = 0; j != v16; ++j)
     {
-      if (*v27 != v19)
+      if (*v26 != v19)
       {
         objc_enumerationMutation(v14);
       }
 
-      v21 = *(*(&v26 + 1) + 8 * j);
+      v21 = *(*(&v25 + 1) + 8 * j);
       integerValue = [v21 integerValue];
       v23 = [v14 countForObject:v21];
       if (integerValue != 6 && v23 > v18)
@@ -163,7 +163,7 @@ LABEL_26:
       }
     }
 
-    v16 = [v14 countByEnumeratingWithState:&v26 objects:v34 count:16];
+    v16 = [v14 countByEnumeratingWithState:&v25 objects:v33 count:16];
   }
 
   while (v16);
@@ -175,7 +175,6 @@ LABEL_26:
 
 LABEL_27:
 
-  v24 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
@@ -183,13 +182,13 @@ LABEL_27:
 {
   length = range.length;
   location = range.location;
-  v49 = *MEMORY[0x277D85DE8];
-  v42 = 0u;
+  v50 = *MEMORY[0x277D85DE8];
   v43 = 0u;
   v44 = 0u;
   v45 = 0u;
+  v46 = 0u;
   fragments = [(IPFeatureSentence *)self fragments];
-  v8 = [fragments countByEnumeratingWithState:&v42 objects:v48 count:16];
+  v8 = [fragments countByEnumeratingWithState:&v43 objects:v49 count:16];
   if (!v8)
   {
 
@@ -200,15 +199,14 @@ LABEL_24:
       *confidence = v16;
     }
 
-    result = 1;
-    goto LABEL_27;
+    return 1;
   }
 
   v9 = v8;
   confidenceCopy = confidence;
   v10 = 0;
   v11 = 0;
-  v12 = *v43;
+  v12 = *v44;
   v13 = 0.0;
   v14 = 0.0;
   v15 = 0.0;
@@ -219,17 +217,17 @@ LABEL_24:
     do
     {
       v18 = v10;
-      if (*v43 != v12)
+      if (*v44 != v12)
       {
         objc_enumerationMutation(fragments);
       }
 
-      v19 = *(*(&v42 + 1) + 8 * v17);
-      v51.location = [v19 range];
-      v51.length = v20;
-      v50.location = location;
-      v50.length = length;
-      v21 = NSIntersectionRange(v50, v51);
+      v19 = *(*(&v43 + 1) + 8 * v17);
+      v52.location = [v19 range];
+      v52.length = v20;
+      v51.location = location;
+      v51.length = length;
+      v21 = NSIntersectionRange(v51, v52);
       v10 = v21.length != 0;
       if (v21.length)
       {
@@ -239,8 +237,8 @@ LABEL_24:
         v25 = v24;
         [v19 probability_Proposal];
         v27 = v26;
-        [v19 probability_Confirmation];
-        v29 = v28;
+        probability_Confirmation = [v19 probability_Confirmation];
+        v31 = v30;
         if (IPDebuggingModeEnabled_once_1 != -1)
         {
           [IPFeatureSentence polarityForRange:confidence:];
@@ -249,24 +247,24 @@ LABEL_24:
         v16 = v16 + v23;
         v15 = v15 + v25;
         v14 = v14 + v27;
-        v13 = v13 + v29;
+        v13 = v13 + v31;
         ++v11;
         if (IPDebuggingModeEnabled_sEnabled_1 == 1)
         {
-          v30 = _IPLogHandle;
+          v32 = _IPLogHandle;
           if (!_IPLogHandle)
           {
-            IPInitLogging();
-            v30 = _IPLogHandle;
+            IPInitLogging(probability_Confirmation, v29);
+            v32 = _IPLogHandle;
           }
 
-          if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+          if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
           {
-            v31 = v30;
-            v32 = [(IPFeatureSentence *)self descriptionForFragment:v19];
+            v33 = v32;
+            v34 = [(IPFeatureSentence *)self descriptionForFragment:v19];
             *buf = 138412290;
-            v47 = v32;
-            _os_log_impl(&dword_2485E4000, v31, OS_LOG_TYPE_INFO, "FRAGMENT: %@ #Generic", buf, 0xCu);
+            v48 = v34;
+            _os_log_impl(&dword_2485E4000, v33, OS_LOG_TYPE_INFO, "FRAGMENT: %@ #Generic", buf, 0xCu);
           }
         }
       }
@@ -280,7 +278,7 @@ LABEL_24:
     }
 
     while (v9 != v17);
-    v9 = [fragments countByEnumeratingWithState:&v42 objects:v48 count:16];
+    v9 = [fragments countByEnumeratingWithState:&v43 objects:v49 count:16];
   }
 
   while (v9);
@@ -292,46 +290,43 @@ LABEL_17:
     goto LABEL_24;
   }
 
-  v33 = v11;
-  v34 = v15 / v11;
-  if (v34 > 0.35)
+  v35 = v11;
+  v36 = v15 / v11;
+  if (v36 > 0.35)
   {
     if (confidenceCopy)
     {
-      *confidenceCopy = v34;
+      *confidenceCopy = v36;
     }
 
-    result = 4;
-    goto LABEL_27;
+    return 4;
   }
 
-  v37 = v14 / v33;
-  v38 = v13 / v33;
-  v39 = v13 / v33 + v14 / v33;
+  v38 = v14 / v35;
+  v39 = v13 / v35;
+  v40 = v13 / v35 + v14 / v35;
   confidence = confidenceCopy;
-  if (v39 < 0.66)
+  if (v40 < 0.66)
   {
-    if (v37 > 0.54 && v37 > v38 && v37 > v34)
-    {
-      if (confidenceCopy)
-      {
-        *confidenceCopy = v37;
-      }
-
-      result = 2;
-      goto LABEL_27;
-    }
-
-    v16 = v16 / v33;
-    if (v38 > 0.54 && v38 > v37 && v38 > v34)
+    if (v38 > 0.54 && v38 > v39 && v38 > v36)
     {
       if (confidenceCopy)
       {
         *confidenceCopy = v38;
       }
 
-      result = 3;
-      goto LABEL_27;
+      return 2;
+    }
+
+    v16 = v16 / v35;
+    if (v39 > 0.54 && v39 > v38 && v39 > v36)
+    {
+      if (confidenceCopy)
+      {
+        *confidenceCopy = v39;
+      }
+
+      return 3;
     }
 
     goto LABEL_24;
@@ -339,22 +334,18 @@ LABEL_17:
 
   if (confidenceCopy)
   {
-    *confidenceCopy = v39;
+    *confidenceCopy = v40;
   }
 
-  if (v38 <= v37)
+  if (v39 <= v38)
   {
-    result = 2;
+    return 2;
   }
 
   else
   {
-    result = 3;
+    return 3;
   }
-
-LABEL_27:
-  v36 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 - (unint64_t)polarity
@@ -408,7 +399,7 @@ LABEL_27:
 
 - (BOOL)isQuoteAttributionLine
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   v4 = [IPRegexToolbox regularExpressionWithKey:@"isQuoteAttributionLine" generator:&__block_literal_global_7];
   matchString = [(IPFeature *)self matchString];
@@ -450,10 +441,10 @@ LABEL_9:
     [IPFeatureSentence isQuoteAttributionLine];
   }
 
-  v11 = [IPLocalizedString_bundle_0 localizedStringForKey:@"Sent" value:&stru_285AD0E88 table:@"DataDetectorsNaturalLanguage"];
-  if ([matchString hasPrefix:v11])
+  v10 = [IPLocalizedString_bundle_0 localizedStringForKey:@"Sent" value:&stru_285AD0E88 table:@"DataDetectorsNaturalLanguage"];
+  if ([matchString hasPrefix:v10])
   {
-    v12 = v11;
+    v11 = v10;
   }
 
   else
@@ -463,46 +454,46 @@ LABEL_9:
       [IPFeatureSentence isQuoteAttributionLine];
     }
 
-    v13 = [IPLocalizedString_bundle_0 localizedStringForKey:@"Subject" value:&stru_285AD0E88 table:@"DataDetectorsNaturalLanguage"];
-    if ([matchString hasPrefix:v13])
+    v12 = [IPLocalizedString_bundle_0 localizedStringForKey:@"Subject" value:&stru_285AD0E88 table:@"DataDetectorsNaturalLanguage"];
+    if ([matchString hasPrefix:v12])
     {
-      v12 = v13;
+      v11 = v12;
     }
 
     else
     {
-      v12 = 0;
+      v11 = 0;
     }
   }
 
-  v20 = v11;
-  if (v12 && (v23 = 0u, v24 = 0u, v21 = 0u, v22 = 0u, (v14 = [&unk_285B0FC78 countByEnumeratingWithState:&v21 objects:v25 count:16]) != 0))
+  v19 = v10;
+  if (v11 && (v22 = 0u, v23 = 0u, v20 = 0u, v21 = 0u, (v13 = [&unk_285B0FC78 countByEnumeratingWithState:&v20 objects:v24 count:16]) != 0))
   {
-    v15 = v14;
-    v16 = *v22;
-    v19 = v3;
+    v14 = v13;
+    v15 = *v21;
+    v18 = v3;
     while (2)
     {
-      for (i = 0; i != v15; ++i)
+      for (i = 0; i != v14; ++i)
       {
-        if (*v22 != v16)
+        if (*v21 != v15)
         {
           objc_enumerationMutation(&unk_285B0FC78);
         }
 
-        [matchString rangeOfString:*(*(&v21 + 1) + 8 * i) options:8 range:{objc_msgSend(v12, "length", v19, v20), objc_msgSend(matchString, "length") - objc_msgSend(v12, "length")}];
-        if (v18)
+        [matchString rangeOfString:*(*(&v20 + 1) + 8 * i) options:8 range:{objc_msgSend(v11, "length", v18, v19), objc_msgSend(matchString, "length") - objc_msgSend(v11, "length")}];
+        if (v17)
         {
           v8 = 1;
-          v3 = v19;
+          v3 = v18;
           goto LABEL_34;
         }
       }
 
-      v15 = [&unk_285B0FC78 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v14 = [&unk_285B0FC78 countByEnumeratingWithState:&v20 objects:v24 count:16];
       v8 = 0;
-      v3 = v19;
-      if (v15)
+      v3 = v18;
+      if (v14)
       {
         continue;
       }
@@ -520,7 +511,6 @@ LABEL_34:
 
 LABEL_10:
   objc_autoreleasePoolPop(v3);
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -554,7 +544,7 @@ id __43__IPFeatureSentence_isQuoteAttributionLine__block_invoke()
 
 + (id)buildRegexForType:(id)type languageID:(id)d
 {
-  v29[1] = *MEMORY[0x277D85DE8];
+  v28[1] = *MEMORY[0x277D85DE8];
   typeCopy = type;
   dCopy = d;
   v8 = [objc_alloc(MEMORY[0x277CBEB58]) initWithCapacity:400];
@@ -587,16 +577,16 @@ id __43__IPFeatureSentence_isQuoteAttributionLine__block_invoke()
 
   v17 = objc_autoreleasePoolPush();
   v18 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"self" ascending:1];
-  v29[0] = v18;
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:1];
+  v28[0] = v18;
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:1];
   v20 = [v8 sortedArrayUsingDescriptors:v19];
 
   objc_autoreleasePoolPop(v17);
   v21 = [IPRegexToolbox regexPatternForLanguageID:dCopy eventVocabularyArray:v20];
   v22 = objc_autoreleasePoolPush();
-  v28 = 0;
-  v23 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:v21 options:64 error:&v28];
-  v24 = v28;
+  v27 = 0;
+  v23 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:v21 options:64 error:&v27];
+  v24 = v27;
   objc_autoreleasePoolPop(v22);
   if (v24)
   {
@@ -608,8 +598,6 @@ id __43__IPFeatureSentence_isQuoteAttributionLine__block_invoke()
   {
     v25 = v23;
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v25;
 }

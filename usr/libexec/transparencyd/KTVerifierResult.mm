@@ -4,6 +4,7 @@
 - (KTVerifierResult)initWithUri:(id)uri application:(id)application ktResult:(unint64_t)result transparentData:(id)data loggableDatas:(id)datas;
 - (unint64_t)optInTernaryState;
 - (void)setOptInTernaryState:(unint64_t)state;
+- (void)setSentToIDS:(BOOL)s;
 @end
 
 @implementation KTVerifierResult
@@ -28,6 +29,12 @@
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setSentToIDS:(BOOL)s
+{
+  v4 = [NSNumber numberWithBool:s];
+  objc_setAssociatedObject(self, @"sentToIdsKey", v4, 1);
 }
 
 + (id)resultsForUris:(id)uris application:(id)application failure:(id)failure

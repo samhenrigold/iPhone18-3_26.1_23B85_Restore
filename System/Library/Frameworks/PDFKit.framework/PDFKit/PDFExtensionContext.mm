@@ -33,11 +33,11 @@
 
 void __39__PDFExtensionContext_hostToExtension___block_invoke(id *a1)
 {
-  v125 = [a1[4] extensionViewController];
+  v96 = [a1[4] extensionViewController];
   if ([a1[5] isEqualToString:@"setDocumentData"])
   {
     v2 = [a1[6] objectForKey:@"data"];
-    [v125 setDocumentData:v2];
+    [v96 setDocumentData:v2];
 LABEL_3:
 
     goto LABEL_17;
@@ -47,7 +47,7 @@ LABEL_3:
   {
     v3 = [a1[6] objectForKey:@"string"];
     v4 = [a1[6] objectForKey:@"options"];
-    [v125 findString:v3 withOptions:{objc_msgSend(v4, "unsignedIntegerValue")}];
+    [v96 findString:v3 withOptions:{objc_msgSend(v4, "unsignedIntegerValue")}];
 
 LABEL_6:
     goto LABEL_17;
@@ -55,7 +55,7 @@ LABEL_6:
 
   if ([a1[5] isEqualToString:@"cancelFindString"])
   {
-    [v125 cancelFindString];
+    [v96 cancelFindString];
     goto LABEL_17;
   }
 
@@ -64,7 +64,7 @@ LABEL_6:
     v5 = [a1[6] objectForKey:@"clearHighlights"];
     v6 = [v5 BOOLValue];
 
-    [v125 cancelFindStringWithHighlightsCleared:v6];
+    [v96 cancelFindStringWithHighlightsCleared:v6];
     goto LABEL_17;
   }
 
@@ -73,13 +73,13 @@ LABEL_6:
     v7 = [a1[6] objectForKey:@"searchIndex"];
     v8 = [v7 integerValue];
 
-    [v125 focusOnSearchResultAtIndex:v8];
+    [v96 focusOnSearchResultAtIndex:v8];
     goto LABEL_17;
   }
 
   if ([a1[5] isEqualToString:@"clearSearchHighlights"])
   {
-    [v125 clearSearchHighlights];
+    [v96 clearSearchHighlights];
     goto LABEL_17;
   }
 
@@ -88,7 +88,7 @@ LABEL_6:
     v9 = [a1[6] objectForKey:@"pageIndex"];
     v10 = [v9 integerValue];
 
-    [v125 goToPageIndex:v10];
+    [v96 goToPageIndex:v10];
     goto LABEL_17;
   }
 
@@ -101,70 +101,59 @@ LABEL_6:
     {
       v13 = [v3 objectAtIndex:0];
       [v13 floatValue];
-      v15 = v14;
 
-      v16 = [v3 objectAtIndex:1];
+      v14 = [v3 objectAtIndex:1];
+      [v14 floatValue];
+
+      v15 = [v3 objectAtIndex:2];
+      [v15 floatValue];
+
+      v16 = [v3 objectAtIndex:3];
       [v16 floatValue];
-      v18 = v17;
 
-      v19 = [v3 objectAtIndex:2];
-      [v19 floatValue];
-      v21 = v20;
+      PDFRectMake();
+      v94 = v18;
+      v95 = v17;
+      v92 = v20;
+      v93 = v19;
+      v21 = [v11 objectAtIndex:0];
+      [v21 floatValue];
 
-      v22 = [v3 objectAtIndex:3];
+      v22 = [v11 objectAtIndex:1];
       [v22 floatValue];
-      v24 = v23;
 
-      v25.n128_f64[0] = v15;
-      v26.n128_f64[0] = v18;
-      v27 = PDFRectMake(v25, v26, v21, v24);
-      v123 = v28;
-      v124 = v27;
-      v121 = v30;
-      v122 = v29;
-      v31 = [v11 objectAtIndex:0];
-      [v31 floatValue];
-      v33 = v32;
+      v23 = [v11 objectAtIndex:2];
+      [v23 floatValue];
 
-      v34 = [v11 objectAtIndex:1];
-      [v34 floatValue];
-      v36 = v35;
+      v24 = [v11 objectAtIndex:3];
+      [v24 floatValue];
 
-      v37 = [v11 objectAtIndex:2];
-      [v37 floatValue];
-      v39 = v38;
+      PDFRectMake();
+      v91 = v25;
+      v27 = v26;
+      v29 = v28;
+      v31 = v30;
+      v32 = [v12 objectAtIndex:0];
+      [v32 floatValue];
+      v34 = v33;
 
-      v40 = [v11 objectAtIndex:3];
-      [v40 floatValue];
-      v42 = v41;
+      v35 = [v12 objectAtIndex:1];
+      [v35 floatValue];
+      v37 = v36;
 
-      v43.n128_f64[0] = v33;
-      v44.n128_f64[0] = v36;
-      v120 = PDFRectMake(v43, v44, v39, v42);
+      v38 = [v12 objectAtIndex:2];
+      [v38 floatValue];
+      v40 = v39;
+
+      v41 = [v12 objectAtIndex:3];
+      [v41 floatValue];
+      v43 = v42;
+
+      v44 = [a1[6] objectForKey:@"zoomScale"];
+      [v44 floatValue];
       v46 = v45;
-      v48 = v47;
-      v50 = v49;
-      v51 = [v12 objectAtIndex:0];
-      [v51 floatValue];
-      v53 = v52;
 
-      v54 = [v12 objectAtIndex:1];
-      [v54 floatValue];
-      v56 = v55;
-
-      v57 = [v12 objectAtIndex:2];
-      [v57 floatValue];
-      v59 = v58;
-
-      v60 = [v12 objectAtIndex:3];
-      [v60 floatValue];
-      v62 = v61;
-
-      v63 = [a1[6] objectForKey:@"zoomScale"];
-      [v63 floatValue];
-      v65 = v64;
-
-      [v125 updatePDFViewLayout:v124 scrollViewFrame:v123 safeAreaInsets:v122 zoomScale:{v121, v120, v46, v48, v50, *&v53, *&v56, *&v59, *&v62, *&v65}];
+      [v96 updatePDFViewLayout:v95 scrollViewFrame:v94 safeAreaInsets:v93 zoomScale:{v92, v91, v27, v29, v31, *&v34, *&v37, *&v40, *&v43, *&v46}];
     }
 
     goto LABEL_26;
@@ -172,68 +161,66 @@ LABEL_6:
 
   if ([a1[5] isEqualToString:@"setMinimumZoomScale"])
   {
-    v66 = [a1[6] objectForKey:@"minimumZoomScale"];
-    [v66 floatValue];
-    v68 = v67;
+    v47 = [a1[6] objectForKey:@"minimumZoomScale"];
+    [v47 floatValue];
+    v49 = v48;
 
-    [v125 setMinimumZoomScale:v68];
+    [v96 setMinimumZoomScale:v49];
   }
 
   else if ([a1[5] isEqualToString:@"setMaximumZoomScale"])
   {
-    v69 = [a1[6] objectForKey:@"maximumZoomScale"];
-    [v69 floatValue];
-    v71 = v70;
+    v50 = [a1[6] objectForKey:@"maximumZoomScale"];
+    [v50 floatValue];
+    v52 = v51;
 
-    [v125 setMaximumZoomScale:v71];
+    [v96 setMaximumZoomScale:v52];
   }
 
   else if ([a1[5] isEqualToString:@"handleGesture"])
   {
-    v72 = [a1[6] objectForKey:@"gestureType"];
-    v73 = [v72 integerValue];
+    v53 = [a1[6] objectForKey:@"gestureType"];
+    v54 = [v53 integerValue];
 
-    v74 = [a1[6] objectForKey:@"state"];
-    v75 = [v74 integerValue];
+    v55 = [a1[6] objectForKey:@"state"];
+    v56 = [v55 integerValue];
 
-    v76 = *MEMORY[0x1E695EFF8];
-    v77 = *(MEMORY[0x1E695EFF8] + 8);
-    v78 = [a1[6] objectForKey:@"location"];
-    v79 = v77;
-    v80 = v76;
-    if ([v78 count] == 2)
+    v57 = *MEMORY[0x1E695EFF8];
+    v58 = *(MEMORY[0x1E695EFF8] + 8);
+    v59 = [a1[6] objectForKey:@"location"];
+    v60 = v58;
+    v61 = v57;
+    if ([v59 count] == 2)
     {
-      v81 = [v78 objectAtIndex:0];
-      [v81 floatValue];
-      v83 = v82;
+      v62 = [v59 objectAtIndex:0];
+      [v62 floatValue];
 
-      v84 = [v78 objectAtIndex:1];
-      [v84 floatValue];
-      v86 = v85;
+      v63 = [v59 objectAtIndex:1];
+      [v63 floatValue];
 
-      v80 = PDFPointMake(v83, v86);
-      v79 = v87;
+      PDFPointMake();
+      v61 = v64;
+      v60 = v65;
     }
 
-    v88 = [a1[6] objectForKey:@"locationOfFirstTouch"];
-    if ([v88 count] == 2)
+    v66 = [a1[6] objectForKey:@"locationOfFirstTouch"];
+    if ([v66 count] == 2)
     {
-      v89 = [v88 objectAtIndex:0];
-      [v89 floatValue];
-      v91 = v90;
+      v67 = [v66 objectAtIndex:0];
+      [v67 floatValue];
 
-      v92 = [v88 objectAtIndex:1];
-      [v92 floatValue];
-      v94 = v93;
+      v68 = [v66 objectAtIndex:1];
+      [v68 floatValue];
 
-      v76 = PDFPointMake(v91, v94);
-      v77 = v95;
+      PDFPointMake();
+      v57 = v69;
+      v58 = v70;
     }
 
-    v96 = [a1[6] objectForKey:@"isIndirectTouch"];
-    v97 = [v96 BOOLValue];
+    v71 = [a1[6] objectForKey:@"isIndirectTouch"];
+    v72 = [v71 BOOLValue];
 
-    [v125 handleGesture:v73 state:v75 location:v97 locationOfFirstTouch:v80 isIndirectTouch:{v79, v76, v77}];
+    [v96 handleGesture:v54 state:v56 location:v72 locationOfFirstTouch:v61 isIndirectTouch:{v60, v57, v58}];
   }
 
   else
@@ -241,23 +228,23 @@ LABEL_6:
     if ([a1[5] isEqualToString:@"snapshotViewRect"])
     {
       v3 = [a1[6] objectForKey:@"rect"];
-      v98 = [v3 objectAtIndex:0];
-      [v98 floatValue];
-      v100 = v99;
-      v101 = [v3 objectAtIndex:1];
-      [v101 floatValue];
-      v103 = v102;
-      v104 = [v3 objectAtIndex:2];
-      [v104 floatValue];
-      v106 = v105;
-      v107 = [v3 objectAtIndex:3];
-      [v107 floatValue];
-      v109 = v108;
+      v73 = [v3 objectAtIndex:0];
+      [v73 floatValue];
+      v75 = v74;
+      v76 = [v3 objectAtIndex:1];
+      [v76 floatValue];
+      v78 = v77;
+      v79 = [v3 objectAtIndex:2];
+      [v79 floatValue];
+      v81 = v80;
+      v82 = [v3 objectAtIndex:3];
+      [v82 floatValue];
+      v84 = v83;
 
       v11 = [a1[6] objectForKey:@"width"];
-      v110 = [a1[6] objectForKey:@"afterScreenUpdates"];
+      v85 = [a1[6] objectForKey:@"afterScreenUpdates"];
       [v11 floatValue];
-      [v125 snapshotViewRect:objc_msgSend(v110 forWidth:"BOOLValue") afterScreenUpdates:{v100, v103, v106, v109, v111}];
+      [v96 snapshotViewRect:objc_msgSend(v85 forWidth:"BOOLValue") afterScreenUpdates:{v75, v78, v81, v84, v86}];
 
 LABEL_26:
       goto LABEL_6;
@@ -265,12 +252,12 @@ LABEL_26:
 
     if ([a1[5] isEqualToString:@"copy"])
     {
-      [v125 copy];
+      [v96 copy];
     }
 
     else if ([a1[5] isEqualToString:@"selectAll"])
     {
-      [v125 selectAll];
+      [v96 selectAll];
     }
 
     else
@@ -278,7 +265,7 @@ LABEL_26:
       if ([a1[5] isEqualToString:@"unlockWithPassword"])
       {
         v2 = [a1[6] objectForKey:@"password"];
-        [v125 unlockWithPassword:v2];
+        [v96 unlockWithPassword:v2];
         goto LABEL_3;
       }
 
@@ -294,24 +281,22 @@ LABEL_26:
           v2 = [a1[6] objectForKey:@"location"];
           if ([v2 count] == 2)
           {
-            v112 = [v2 objectAtIndex:0];
-            [v112 floatValue];
-            v114 = v113;
+            v87 = [v2 objectAtIndex:0];
+            [v87 floatValue];
 
-            v115 = [v2 objectAtIndex:1];
-            [v115 floatValue];
-            v117 = v116;
+            v88 = [v2 objectAtIndex:1];
+            [v88 floatValue];
 
-            v118 = PDFPointMake(v114, v117);
+            PDFPointMake();
           }
 
           else
           {
-            v118 = *MEMORY[0x1E695EFF8];
-            v119 = *(MEMORY[0x1E695EFF8] + 8);
+            v89 = *MEMORY[0x1E695EFF8];
+            v90 = *(MEMORY[0x1E695EFF8] + 8);
           }
 
-          [v125 pointerRegionForLocation:{v118, v119}];
+          [v96 pointerRegionForLocation:{v89, v90}];
           goto LABEL_3;
         }
 

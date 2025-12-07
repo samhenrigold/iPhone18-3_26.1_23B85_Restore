@@ -10,15 +10,16 @@
 
 - (BCBatteryDeviceController)init
 {
-  v4.receiver = self;
-  v4.super_class = BCBatteryDeviceController;
-  v2 = [(BCBatteryDeviceController *)&v4 init];
+  v6.receiver = self;
+  v6.super_class = BCBatteryDeviceController;
+  v2 = [(BCBatteryDeviceController *)&v6 init];
+  v4 = v2;
   if (v2)
   {
-    BCRegisterUserNotificationsLogging();
+    BCRegisterUserNotificationsLogging(v2, v3);
   }
 
-  return v2;
+  return v4;
 }
 
 + (id)_sharedPowerSourceController

@@ -2,13 +2,16 @@
 + (id)sharedInstanceWithEnrolledProcesses:(id)processes andProcessPolicies:(id)policies andBand95:(id)band95 andBand80:(id)band80;
 + (int)coalitionIDForPid:(int)pid coalitionID:(unint64_t *)d;
 - (BOOL)fillPIDDictionary:(id)dictionary;
+- (BOOL)isAppleXPCServiceWithRBS:(id)s andPID:(int)d;
 - (BOOL)isXPCServiceExempt:(id)exempt withIssueType:(unsigned __int8)type;
 - (BOOL)modifyTargetProcessMitigationRecords:(id)records;
+- (double)pollPIDs;
 - (id)_initWithEnrolledProcesses:(id)processes andProcessPolicies:(id)policies andBand95:(id)band95 andBand80:(id)band80;
 - (id)fullProcessNameForPid:(int)pid;
 - (id)getMaxRelaunchPollingInterval;
 - (id)getMonitoredList;
 - (id)getPollingInterval;
+- (id)getProcessForPID:(int)d;
 - (id)getProcessForProcessName:(id)name;
 - (id)getProcessForUUID:(id)d;
 - (id)getRelaunchPollingInterval;
@@ -29,6 +32,7 @@
 - (void)notifyObserversOfNewInstances:(id)instances;
 - (void)pollPIDs;
 - (void)pollPenaltyBoxProcessRelaunch;
+- (void)recordTerminationForPID:(int)d;
 - (void)registerForPenaltyBoxRelaunchPolling:(id)polling;
 - (void)schedulePIDPolling;
 - (void)unregisterAllForPenaltyBoxRelaunchPolling;
@@ -45,12 +49,1134 @@ void __38__CSProcessManager_schedulePIDPolling__block_invoke(uint64_t a1)
 
 - (void)pollPIDs
 {
+  selfCopy = self;
+  v275 = *MEMORY[0x277D85DE8];
+  v3 = getMainQueue(self);
+  dispatch_assert_queue_V2(v3);
+
+  v4 = selfCopy->_logger;
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  {
+    [(CSProcessManager *)selfCopy pollPIDs];
+  }
+
+  pollPIDsCount = selfCopy->_pollPIDsCount;
+  if (pollPIDsCount != 255)
+  {
+    selfCopy->_pollPIDsCount = pollPIDsCount + 1;
+  }
+
+  v216 = [MEMORY[0x277CBEB58] set];
+  dictionary = [MEMORY[0x277CBEB38] dictionary];
+  if (selfCopy->_savedPIDPollingInterval != 0.0)
+  {
+    selfCopy->_savedPIDPollingInterval = 0.0;
+    dispatch_suspend(selfCopy->_pollingTimer);
+    pollingTimer = selfCopy->_pollingTimer;
+    v8 = dispatch_walltime(0, (selfCopy->_PIDPollingInterval * 1000000000.0));
+    dispatch_source_set_timer(pollingTimer, v8, (selfCopy->_PIDPollingInterval * 1000000000.0), 0x6FC23AC00uLL);
+    dispatch_resume(selfCopy->_pollingTimer);
+  }
+
+  v9 = selfCopy->_logger;
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  {
+    if (selfCopy->_currentPIDList)
+    {
+      v10 = "not null";
+    }
+
+    else
+    {
+      v10 = "null";
+    }
+
+    *buf = 136315138;
+    *&buf[4] = v10;
+    _os_log_impl(&dword_243DC3000, v9, OS_LOG_TYPE_DEFAULT, "pollPIDs: called, currentPIDList: %s", buf, 0xCu);
+  }
+
+  if ([(CSProcessManager *)selfCopy fillPIDDictionary:dictionary])
+  {
+    if ([dictionary count] >> 31)
+    {
+      v11 = selfCopy->_logger;
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      {
+        [CSProcessManager pollPIDs];
+      }
+
+      v185 = 0x7FFFFFFFLL;
+    }
+
+    else
+    {
+      v185 = [dictionary count];
+    }
+
+    v187 = dictionary;
+    v12 = [dictionary mutableCopy];
+    v254 = 0u;
+    v255 = 0u;
+    v256 = 0u;
+    v257 = 0u;
+    v13 = [(NSMutableDictionary *)selfCopy->_allProcessesMap copy];
+    v14 = [v13 countByEnumeratingWithState:&v254 objects:v274 count:16];
+    p_isa = &selfCopy->super.isa;
+    if (v14)
+    {
+      v15 = v14;
+      obj = 0;
+      v16 = 0;
+      v17 = 0;
+      v18 = 0;
+      v19 = 0;
+      v223 = 0;
+      v211 = *v255;
+      v207 = v13;
+      while (1)
+      {
+        v20 = 0;
+        v209 = v15;
+        do
+        {
+          if (*v255 != v211)
+          {
+            v21 = v20;
+            objc_enumerationMutation(v13);
+            v20 = v21;
+          }
+
+          v215 = v20;
+          v22 = *(*(&v254 + 1) + 8 * v20);
+
+          context = objc_autoreleasePoolPush();
+          if (v22 && ([(NSMutableDictionary *)selfCopy->_allProcessesMap objectForKey:v22], (v23 = objc_claimAutoreleasedReturnValue()) != 0))
+          {
+            v19 = v23;
+            v217 = v22;
+            ++v17;
+            v16 += [v23 xpcService];
+            trackedPIDs = [v19 trackedPIDs];
+            v25 = [trackedPIDs count];
+
+            if (v25)
+            {
+              v200 = v17;
+              v197 = v16;
+              v248 = 0u;
+              v249 = 0u;
+              v246 = 0u;
+              v247 = 0u;
+              trackedPIDs2 = [v19 trackedPIDs];
+              v27 = [trackedPIDs2 countByEnumeratingWithState:&v246 objects:v272 count:16];
+              if (!v27)
+              {
+                goto LABEL_50;
+              }
+
+              v28 = v27;
+              v29 = 0;
+              v30 = *v247;
+              while (1)
+              {
+                v31 = 0;
+                do
+                {
+                  v32 = v29;
+                  if (*v247 != v30)
+                  {
+                    objc_enumerationMutation(trackedPIDs2);
+                  }
+
+                  v29 = *(*(&v246 + 1) + 8 * v31);
+
+                  v33 = objc_autoreleasePoolPush();
+                  v34 = [v12 objectForKey:v29];
+
+                  uuid = [v19 uuid];
+                  v223 = v34;
+                  LODWORD(v34) = [v34 isEqual:uuid];
+
+                  if (!v34)
+                  {
+                    exitMonitors = [v19 exitMonitors];
+                    v38 = [exitMonitors objectForKey:v29];
+
+                    if (v38)
+                    {
+                      v39 = p_isa[5];
+                      if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
+                      {
+                        processName = [v19 processName];
+                        intValue = [v29 intValue];
+                        *buf = 138412546;
+                        *&buf[4] = processName;
+                        *&buf[12] = 1024;
+                        *&buf[14] = intValue;
+                        v42 = v39;
+                        v43 = "pollPIDs: Process %@ was PID: %d before. CSProcess exit handler should fire soon.";
+                        goto LABEL_47;
+                      }
+                    }
+
+                    else
+                    {
+                      [v19 performCleanupOnExitOnPID:{objc_msgSend(v29, "intValue")}];
+                      v39 = p_isa[5];
+                      if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
+                      {
+                        processName = [v19 processName];
+                        intValue2 = [v29 intValue];
+                        *buf = 138412546;
+                        *&buf[4] = processName;
+                        *&buf[12] = 1024;
+                        *&buf[14] = intValue2;
+                        v42 = v39;
+                        v43 = "pollPIDs: Process %@ was PID: %d before and no exit handler, assume pid exited";
+LABEL_47:
+                        _os_log_debug_impl(&dword_243DC3000, v42, OS_LOG_TYPE_DEBUG, v43, buf, 0x12u);
+                      }
+                    }
+
+                    goto LABEL_44;
+                  }
+
+                  if ([v19 resetNonFatalCPUMonitor])
+                  {
+                    v36 = p_isa[5];
+                    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
+                    {
+                      processName2 = [v19 processName];
+                      intValue3 = [v29 intValue];
+                      *buf = 138412546;
+                      *&buf[4] = processName2;
+                      *&buf[12] = 1024;
+                      *&buf[14] = intValue3;
+                      _os_log_debug_impl(&dword_243DC3000, v36, OS_LOG_TYPE_DEBUG, "pollPIDs: Process:%@ (%d) got a non fatal violation, trying to re-arm the monitoring", buf, 0x12u);
+                    }
+
+                    [v216 addObject:v217];
+                  }
+
+                  [v12 removeObjectForKey:v29];
+LABEL_44:
+                  objc_autoreleasePoolPop(v33);
+                  ++v31;
+                }
+
+                while (v28 != v31);
+                v47 = [trackedPIDs2 countByEnumeratingWithState:&v246 objects:v272 count:16];
+                v28 = v47;
+                if (!v47)
+                {
+
+                  selfCopy = p_isa;
+                  v13 = v207;
+LABEL_50:
+
+                  uuid2 = [v19 uuid];
+                  v49 = [v12 allKeysForObject:uuid2];
+
+                  if (v49)
+                  {
+                    v15 = v209;
+                    if ([v49 count])
+                    {
+                      v244 = 0u;
+                      v245 = 0u;
+                      v242 = 0u;
+                      v243 = 0u;
+                      obj = v49;
+                      v50 = [obj countByEnumeratingWithState:&v242 objects:v271 count:16];
+                      if (v50)
+                      {
+                        v51 = v50;
+                        v52 = 0;
+                        v53 = *v243;
+                        do
+                        {
+                          v54 = 0;
+                          v55 = v52;
+                          do
+                          {
+                            if (*v243 != v53)
+                            {
+                              objc_enumerationMutation(obj);
+                            }
+
+                            v52 = *(*(&v242 + 1) + 8 * v54);
+
+                            v56 = selfCopy->_logger;
+                            if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
+                            {
+                              processName3 = [v19 processName];
+                              intValue4 = [v52 intValue];
+                              *buf = 138412546;
+                              *&buf[4] = processName3;
+                              *&buf[12] = 1024;
+                              *&buf[14] = intValue4;
+                              _os_log_impl(&dword_243DC3000, v56, OS_LOG_TYPE_DEFAULT, "pollPIDs: Process:%@ found duplicate process with pid:%d", buf, 0x12u);
+                            }
+
+                            [v19 addNewTrackedPID:{objc_msgSend(v52, "intValue")}];
+                            [v12 removeObjectForKey:v52];
+                            ++v54;
+                            v55 = v52;
+                          }
+
+                          while (v51 != v54);
+                          v51 = [obj countByEnumeratingWithState:&v242 objects:v271 count:16];
+                        }
+
+                        while (v51);
+
+                        v13 = v207;
+                        v15 = v209;
+                      }
+
+                      [v19 setNeedClearRestrictions:1];
+                      v18 = v217;
+                      [v216 addObject:v217];
+                      v16 = v197;
+                      v17 = v200;
+                      goto LABEL_84;
+                    }
+
+                    obj = v49;
+                    v16 = v197;
+                    v17 = v200;
+LABEL_83:
+                    v18 = v217;
+                    goto LABEL_84;
+                  }
+
+                  obj = 0;
+                  v16 = v197;
+                  v17 = v200;
+LABEL_82:
+                  v15 = v209;
+                  goto LABEL_83;
+                }
+              }
+            }
+
+            uuid3 = [v19 uuid];
+            v61 = [v12 allKeysForObject:uuid3];
+
+            if (!v61)
+            {
+              obj = 0;
+              goto LABEL_82;
+            }
+
+            v15 = v209;
+            if (![v61 count])
+            {
+              obj = v61;
+              goto LABEL_83;
+            }
+
+            v252 = 0u;
+            v253 = 0u;
+            v250 = 0u;
+            v251 = 0u;
+            obj = v61;
+            v62 = [obj countByEnumeratingWithState:&v250 objects:v273 count:16];
+            if (v62)
+            {
+              v63 = v62;
+              v201 = v17;
+              v64 = v16;
+              v65 = 0;
+              v66 = *v251;
+              do
+              {
+                v67 = 0;
+                v68 = v65;
+                do
+                {
+                  if (*v251 != v66)
+                  {
+                    objc_enumerationMutation(obj);
+                  }
+
+                  v65 = *(*(&v250 + 1) + 8 * v67);
+
+                  v69 = selfCopy->_logger;
+                  if (os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
+                  {
+                    processName4 = [v19 processName];
+                    intValue5 = [v65 intValue];
+                    *buf = 138412546;
+                    *&buf[4] = processName4;
+                    *&buf[12] = 1024;
+                    *&buf[14] = intValue5;
+                    _os_log_impl(&dword_243DC3000, v69, OS_LOG_TYPE_DEFAULT, "pollPIDs: Process:%@ seems to have relaunched with pid:%d", buf, 0x12u);
+                  }
+
+                  [v19 addNewTrackedPID:{objc_msgSend(v65, "intValue")}];
+                  [v12 removeObjectForKey:v65];
+                  ++v67;
+                  v68 = v65;
+                }
+
+                while (v63 != v67);
+                v63 = [obj countByEnumeratingWithState:&v250 objects:v273 count:16];
+              }
+
+              while (v63);
+
+              v16 = v64;
+              v17 = v201;
+              v13 = v207;
+              v15 = v209;
+            }
+
+            v18 = v217;
+            [v216 addObject:v217];
+          }
+
+          else
+          {
+            v59 = selfCopy->_logger;
+            if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
+            {
+              *buf = 138412290;
+              *&buf[4] = v22;
+              _os_log_error_impl(&dword_243DC3000, v59, OS_LOG_TYPE_ERROR, "pollPIDs: Skipping processNameIdentifier: %@ because its CSProcess is NULL?", buf, 0xCu);
+            }
+
+            v19 = 0;
+            v18 = v22;
+          }
+
+LABEL_84:
+          objc_autoreleasePoolPop(context);
+          v20 = v215 + 1;
+        }
+
+        while (v215 + 1 != v15);
+        v72 = [v13 countByEnumeratingWithState:&v254 objects:v274 count:16];
+        v15 = v72;
+        if (!v72)
+        {
+
+          goto LABEL_90;
+        }
+      }
+    }
+
+    obj = 0;
+    v16 = 0;
+    v17 = 0;
+    v19 = 0;
+    v223 = 0;
+LABEL_90:
+    v202 = v17;
+    v198 = v16;
+
+    location = &selfCopy->_currentPIDList;
+    if (selfCopy->_currentPIDList)
+    {
+      v240 = 0u;
+      v241 = 0u;
+      v238 = 0u;
+      v239 = 0u;
+      v220 = [v12 copy];
+      v73 = [v220 countByEnumeratingWithState:&v238 objects:v270 count:16];
+      if (v73)
+      {
+        v74 = v73;
+        v199 = 0;
+        v75 = 0;
+        v76 = 0;
+        v218 = 0;
+        v77 = *v239;
+        while (1)
+        {
+          for (i = 0; i != v74; ++i)
+          {
+            v79 = v223;
+            v80 = v218;
+            v81 = v75;
+            if (*v239 != v77)
+            {
+              objc_enumerationMutation(v220);
+            }
+
+            v75 = *(*(&v238 + 1) + 8 * i);
+
+            v82 = objc_autoreleasePoolPush();
+            v218 = [*location objectForKey:v75];
+
+            v223 = [v12 objectForKey:v75];
+
+            if (gTargetProcess)
+            {
+              v83 = [p_isa fullProcessNameForPid:{objc_msgSend(v75, "intValue")}];
+
+              if (v83)
+              {
+                if ([v83 isEqualToString:gTargetProcess])
+                {
+                  v84 = p_isa[5];
+                  if (os_log_type_enabled(v84, OS_LOG_TYPE_DEBUG))
+                  {
+                    v85 = gTargetProcess;
+                    intValue6 = [v75 intValue];
+                    *buf = 138412546;
+                    *&buf[4] = v85;
+                    *&buf[12] = 1024;
+                    *&buf[14] = intValue6;
+                    _os_log_debug_impl(&dword_243DC3000, v84, OS_LOG_TYPE_DEBUG, "pollPIDs: Allowing target process of %@ (%d) in newProcessesList", buf, 0x12u);
+                  }
+
+                  v76 = v83;
+                  goto LABEL_106;
+                }
+
+                v76 = v83;
+              }
+
+              else
+              {
+                v76 = 0;
+              }
+            }
+
+            if ([v223 isEqual:v218])
+            {
+              ++v199;
+              [v12 removeObjectForKey:v75];
+            }
+
+LABEL_106:
+            selfCopy = p_isa;
+            objc_autoreleasePoolPop(v82);
+          }
+
+          v74 = [v220 countByEnumeratingWithState:&v238 objects:v270 count:16];
+          if (!v74)
+          {
+
+            goto LABEL_111;
+          }
+        }
+      }
+
+      v199 = 0;
+      v76 = 0;
+      v218 = 0;
+LABEL_111:
+    }
+
+    else
+    {
+      v199 = 0;
+      v76 = 0;
+      v218 = 0;
+    }
+
+    v236 = 0u;
+    v237 = 0u;
+    v234 = 0u;
+    v235 = 0u;
+    v205 = v12;
+    v208 = [v205 countByEnumeratingWithState:&v234 objects:v269 count:16];
+    if (v208)
+    {
+      v87 = 0;
+      daemonJobLabel = 0;
+      v88 = 0;
+      v206 = *v235;
+      v89 = 0x277D46000uLL;
+      while (1)
+      {
+        for (j = 0; j != v208; ++j)
+        {
+          v91 = v76;
+          if (*v235 != v206)
+          {
+            objc_enumerationMutation(v205);
+          }
+
+          v92 = *(*(&v234 + 1) + 8 * j);
+
+          v88 = v92;
+          v221 = objc_autoreleasePoolPush();
+          intValue7 = [v92 intValue];
+          v76 = -[CSProcessManager fullProcessNameForPid:](selfCopy, "fullProcessNameForPid:", [v92 intValue]);
+
+          if (v76)
+          {
+            v210 = j;
+            v94 = *(v89 + 3912);
+            v95 = [MEMORY[0x277CCABB0] numberWithInt:intValue7];
+            v233 = 0;
+            v96 = [v94 handleForIdentifier:v95 error:&v233];
+            v97 = v233;
+
+            v212 = v97;
+            contexta = v96;
+            if (v97)
+            {
+              logger = selfCopy->_logger;
+              if (os_log_type_enabled(logger, OS_LOG_TYPE_ERROR))
+              {
+                *buf = 67109378;
+                *&buf[4] = intValue7;
+                *&buf[8] = 2112;
+                *&buf[10] = v97;
+                _os_log_error_impl(&dword_243DC3000, logger, OS_LOG_TYPE_ERROR, "pollPIDs: Error grabbing RBSProcessHandle (pid%i) to perform isDaemon check %@", buf, 0x12u);
+              }
+
+              goto LABEL_209;
+            }
+
+            identity = [v96 identity];
+            v196 = identity;
+            if (gTargetProcess && [v76 isEqualToString:?])
+            {
+              v102 = selfCopy->_logger;
+              if (os_log_type_enabled(v102, OS_LOG_TYPE_DEBUG))
+              {
+                *buf = 138412546;
+                *&buf[4] = gTargetProcess;
+                *&buf[12] = 1024;
+                *&buf[14] = intValue7;
+                _os_log_debug_impl(&dword_243DC3000, v102, OS_LOG_TYPE_DEBUG, "pollPIDs: Allowing target process of %@ (%d)", buf, 0x12u);
+              }
+
+LABEL_135:
+              v104 = 1;
+LABEL_136:
+
+              if ([identity isDaemon])
+              {
+                daemonJobLabel = [contexta daemonJobLabel];
+                v105 = selfCopy->_logger;
+                if (os_log_type_enabled(v105, OS_LOG_TYPE_DEBUG))
+                {
+                  *buf = 138412546;
+                  *&buf[4] = daemonJobLabel;
+                  *&buf[12] = 1024;
+                  *&buf[14] = intValue7;
+                  v106 = v105;
+                  v107 = "Using daemonJobLabel:%@ for pid: %d";
+                  goto LABEL_142;
+                }
+
+                goto LABEL_152;
+              }
+
+              if ([identity isXPCService])
+              {
+                xpcServiceIdentifier = [contexta xpcServiceIdentifier];
+                daemonJobLabel = convertXPCServiceName(xpcServiceIdentifier);
+
+                v105 = selfCopy->_logger;
+                if (os_log_type_enabled(v105, OS_LOG_TYPE_DEBUG))
+                {
+                  *buf = 138412546;
+                  *&buf[4] = daemonJobLabel;
+                  *&buf[12] = 1024;
+                  *&buf[14] = intValue7;
+                  v106 = v105;
+                  v107 = "Using xpcServiceIdentifier:%@ for pid: %d";
+LABEL_142:
+                  _os_log_debug_impl(&dword_243DC3000, v106, OS_LOG_TYPE_DEBUG, v107, buf, 0x12u);
+                }
+
+LABEL_152:
+
+                if (!daemonJobLabel)
+                {
+                  v117 = selfCopy->_logger;
+                  if (os_log_type_enabled(v117, OS_LOG_TYPE_DEBUG))
+                  {
+                    *buf = 67109120;
+                    *&buf[4] = intValue7;
+                    _os_log_debug_impl(&dword_243DC3000, v117, OS_LOG_TYPE_DEBUG, "Skipping pid: %d since we could not get daemonJobLabel, bundleIDidentifier or name", buf, 8u);
+                  }
+
+                  daemonJobLabel = 0;
+                  goto LABEL_156;
+                }
+              }
+
+              else
+              {
+                v193 = v87;
+                bundle = [contexta bundle];
+                if (bundle)
+                {
+                  v113 = bundle;
+                  bundle2 = [contexta bundle];
+                  identifier = [bundle2 identifier];
+
+                  if (identifier)
+                  {
+                    bundle3 = [contexta bundle];
+                    daemonJobLabel = [bundle3 identifier];
+
+                    v105 = selfCopy->_logger;
+                    if (os_log_type_enabled(v105, OS_LOG_TYPE_DEBUG))
+                    {
+                      *buf = 138412546;
+                      *&buf[4] = daemonJobLabel;
+                      *&buf[12] = 1024;
+                      *&buf[14] = intValue7;
+                      _os_log_debug_impl(&dword_243DC3000, v105, OS_LOG_TYPE_DEBUG, "Using bundleID:%@ for pid: %d", buf, 0x12u);
+                    }
+
+                    v87 = v193;
+                    v89 = 0x277D46000;
+                    goto LABEL_152;
+                  }
+                }
+
+                daemonJobLabel = v76;
+                v120 = selfCopy->_logger;
+                if (os_log_type_enabled(v120, OS_LOG_TYPE_DEBUG))
+                {
+                  *buf = 138412546;
+                  *&buf[4] = daemonJobLabel;
+                  *&buf[12] = 1024;
+                  *&buf[14] = intValue7;
+                  _os_log_debug_impl(&dword_243DC3000, v120, OS_LOG_TYPE_DEBUG, "Using name:%@ for pid: %d", buf, 0x12u);
+                }
+
+                v87 = v193;
+                v89 = 0x277D46000;
+              }
+
+              v119 = [v205 objectForKey:v88];
+
+              v118 = [(CSProcessManager *)selfCopy getProcessForUUID:v119];
+
+              if (v118)
+              {
+                v121 = v88;
+                v122 = v87;
+                v123 = selfCopy->_logger;
+                if (os_log_type_enabled(v123, OS_LOG_TYPE_DEFAULT))
+                {
+                  v124 = v123;
+                  processName5 = [v118 processName];
+                  intValue8 = [v121 intValue];
+                  *buf = 138412546;
+                  *&buf[4] = processName5;
+                  *&buf[12] = 1024;
+                  *&buf[14] = intValue8;
+                  _os_log_impl(&dword_243DC3000, v124, OS_LOG_TYPE_DEFAULT, "pollPIDs: Process:%@ found another new duplicate process with pid:%d", buf, 0x12u);
+                }
+
+                [v118 addNewTrackedPID:{objc_msgSend(v121, "intValue")}];
+                v87 = v122;
+                v88 = v121;
+              }
+
+              else
+              {
+                v127 = [[CSProcess alloc] initWithIdentifier:daemonJobLabel andPID:intValue7];
+                if (v127)
+                {
+                  v118 = v127;
+                  [v205 objectForKey:v88];
+                  v129 = v128 = v104;
+
+                  v191 = v129;
+                  [v118 setUuid:v129];
+                  if (v128)
+                  {
+                    [v118 setProcessName:v76];
+                    v130 = selfCopy->_logger;
+                    v131 = daemonJobLabel;
+                    if (os_log_type_enabled(v130, OS_LOG_TYPE_DEBUG))
+                    {
+                      *buf = 138412546;
+                      *&buf[4] = v76;
+                      *&buf[12] = 2112;
+                      *&buf[14] = daemonJobLabel;
+                      _os_log_debug_impl(&dword_243DC3000, v130, OS_LOG_TYPE_DEBUG, "pollPIDs: name: %@ identifier: %@", buf, 0x16u);
+                    }
+
+                    [(NSMutableDictionary *)selfCopy->_processNameIdentiferByName setObject:daemonJobLabel forKey:v76];
+                  }
+
+                  else
+                  {
+                    v133 = v88;
+                    v134 = v87;
+                    v135 = convertXPCServiceName(v76);
+                    [v118 setProcessName:v135];
+
+                    v136 = selfCopy->_logger;
+                    v131 = daemonJobLabel;
+                    if (os_log_type_enabled(v136, OS_LOG_TYPE_DEBUG))
+                    {
+                      v167 = convertXPCServiceName(v76);
+                      *buf = 138412546;
+                      *&buf[4] = v167;
+                      *&buf[12] = 2112;
+                      *&buf[14] = daemonJobLabel;
+                      _os_log_debug_impl(&dword_243DC3000, v136, OS_LOG_TYPE_DEBUG, "pollPIDs: name: %@ identifier: %@", buf, 0x16u);
+                    }
+
+                    processNameIdentiferByName = selfCopy->_processNameIdentiferByName;
+                    v138 = convertXPCServiceName(v76);
+                    [(NSMutableDictionary *)processNameIdentiferByName setObject:daemonJobLabel forKey:v138];
+
+                    [v118 setXpcService:1];
+                    v87 = v134;
+                    v88 = v133;
+                    v89 = 0x277D46000;
+                  }
+
+                  v139 = [(NSDictionary *)selfCopy->_processPoliciesDict objectForKey:v131];
+                  v190 = v139;
+                  if (v139)
+                  {
+                    [v118 setPolicyBitMask:{objc_msgSend(v139, "intValue")}];
+                  }
+
+                  else if ([(NSSet *)selfCopy->_band95ProcessesSet containsObject:v131])
+                  {
+                    [v118 setBand95Mitigations:1];
+                  }
+
+                  else if ([(NSSet *)selfCopy->_band80ProcessesSet containsObject:v131])
+                  {
+                    [v118 setBand80Mitigations:1];
+                  }
+
+                  v268 = 0u;
+                  v267 = 0u;
+                  memset(buf, 0, sizeof(buf));
+                  if (proc_pidinfo(intValue7, 13, 0, buf, 64) == 64 && !DWORD1(v267))
+                  {
+                    v140 = selfCopy->_logger;
+                    if (os_log_type_enabled(v140, OS_LOG_TYPE_DEBUG))
+                    {
+                      *v259 = 138412546;
+                      *v260 = v76;
+                      *&v260[8] = 1024;
+                      *&v260[10] = intValue7;
+                      _os_log_debug_impl(&dword_243DC3000, v140, OS_LOG_TYPE_DEBUG, "pollPIDs: Auto exempting root process: %@ (%d)", v259, 0x12u);
+                    }
+
+                    [v118 setRootDaemon:1];
+                    [v118 setPolicyBitMask:3];
+                  }
+
+                  [(NSMutableDictionary *)selfCopy->_allProcessesMap setObject:v118 forKey:v131];
+                  [v216 addObject:v131];
+                  v141 = selfCopy->_logger;
+                  if (os_log_type_enabled(v141, OS_LOG_TYPE_DEBUG))
+                  {
+                    [v118 processName];
+                    v164 = v88;
+                    v166 = v165 = v87;
+                    *v259 = 138412546;
+                    *v260 = v166;
+                    *&v260[8] = 1024;
+                    *&v260[10] = intValue7;
+                    _os_log_debug_impl(&dword_243DC3000, v141, OS_LOG_TYPE_DEBUG, "pollPIDs: Tracking process:%@ (%d)", v259, 0x12u);
+
+                    v87 = v165;
+                    v88 = v164;
+                  }
+
+                  [(CSProcessManager *)selfCopy applyRecordsForProcess:v118];
+                  if (!selfCopy->_currentPIDList)
+                  {
+                    v231 = 0u;
+                    v232 = 0u;
+                    v229 = 0u;
+                    v230 = 0u;
+                    trackedPIDs3 = [v118 trackedPIDs];
+                    v143 = [trackedPIDs3 countByEnumeratingWithState:&v229 objects:v265 count:16];
+                    if (v143)
+                    {
+                      v144 = v143;
+                      v192 = v88;
+                      v194 = v87;
+                      v188 = v76;
+                      v145 = 0;
+                      v146 = *v230;
+                      do
+                      {
+                        for (k = 0; k != v144; ++k)
+                        {
+                          v148 = v145;
+                          if (*v230 != v146)
+                          {
+                            objc_enumerationMutation(trackedPIDs3);
+                          }
+
+                          v145 = *(*(&v229 + 1) + 8 * k);
+
+                          intValue9 = [v145 intValue];
+                          *__error() = 0;
+                          v150 = getpriority(9, intValue9);
+                          if (!*__error() && v150 == 1)
+                          {
+                            logger = [(CSProcessManager *)selfCopy logger];
+                            if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
+                            {
+                              processName6 = [v118 processName];
+                              *v259 = 138412546;
+                              *v260 = processName6;
+                              *&v260[8] = 1024;
+                              *&v260[10] = intValue9;
+                              _os_log_impl(&dword_243DC3000, logger, OS_LOG_TYPE_DEFAULT, "pollPIDs: Releasing process:%@ (%d) since it was left in penalty box", v259, 0x12u);
+
+                              selfCopy = p_isa;
+                            }
+
+                            *__error() = 0;
+                            if (setpriority(9, intValue9, 0))
+                            {
+                              v153 = selfCopy->_logger;
+                              if (os_log_type_enabled(v153, OS_LOG_TYPE_ERROR))
+                              {
+                                v224 = *__error();
+                                v154 = __error();
+                                v155 = strerror(*v154);
+                                processName7 = [v118 processName];
+                                *v259 = 67109890;
+                                *v260 = v224;
+                                *&v260[4] = 2080;
+                                *&v260[6] = v155;
+                                v261 = 2112;
+                                v262 = processName7;
+                                v263 = 1024;
+                                v264 = intValue9;
+                                _os_log_error_impl(&dword_243DC3000, v153, OS_LOG_TYPE_ERROR, "pollPIDs: setpriority(PRIO_DARWIN_RUNAWAY_MITIGATION) failed %d (%s) for process:%@ (%d)", v259, 0x22u);
+
+                                selfCopy = p_isa;
+                              }
+                            }
+
+                            else
+                            {
+                              v157 = +[CSMitigationManager sharedInstance];
+                              processName8 = [v118 processName];
+                              [v157 logMitigationAsSignpost:processName8 withPid:intValue9 withIssueType:objc_msgSend(v118 withMitigationType:"issueType") withReason:3 withPenaltyBoxEndTime:{20, 0}];
+
+                              trackedPIDs4 = [v118 trackedPIDs];
+                              v153 = [trackedPIDs4 objectForKeyedSubscript:v145];
+
+                              v160 = +[CSMitigationManager sharedInstance];
+                              longLongValue = [v153 longLongValue];
+                              issueType = [v118 issueType];
+                              v163 = longLongValue;
+                              selfCopy = p_isa;
+                              [v160 logMitigationToPowerLogForProcess:v118 withPid:intValue9 withCoalitionID:v163 withIssueType:issueType withMitigationType:3 withReason:20];
+                            }
+                          }
+                        }
+
+                        v144 = [trackedPIDs3 countByEnumeratingWithState:&v229 objects:v265 count:16];
+                      }
+
+                      while (v144);
+
+                      v76 = v188;
+                      v87 = v194;
+                      v88 = v192;
+                      v89 = 0x277D46000;
+                    }
+                  }
+
+                  v119 = v191;
+                }
+
+                else
+                {
+                  v132 = selfCopy->_logger;
+                  if (os_log_type_enabled(v132, OS_LOG_TYPE_DEBUG))
+                  {
+                    *buf = 138412546;
+                    *&buf[4] = daemonJobLabel;
+                    *&buf[12] = 1024;
+                    *&buf[14] = intValue7;
+                    _os_log_debug_impl(&dword_243DC3000, v132, OS_LOG_TYPE_DEBUG, "Skipping process:%@ (%d) since could not create CSProcess", buf, 0x12u);
+                  }
+
+                  v118 = 0;
+                }
+              }
+            }
+
+            else
+            {
+              if (selfCopy->_monitorFilterBitMap)
+              {
+                v103 = [identity isDaemon] ^ 1;
+              }
+
+              else
+              {
+                v103 = 1;
+              }
+
+              if (gMitigateXPCServices == 1 && (selfCopy->_monitorFilterBitMap & 0x10) != 0)
+              {
+                v109 = [(CSProcessManager *)selfCopy isAppleXPCServiceWithRBS:identity andPID:0];
+                v104 = !v109;
+                if (v109 || ((v103 ^ 1) & 1) != 0)
+                {
+                  goto LABEL_136;
+                }
+              }
+
+              else if (!v103)
+              {
+                goto LABEL_135;
+              }
+
+              v110 = selfCopy->_logger;
+              if (os_log_type_enabled(v110, OS_LOG_TYPE_DEBUG))
+              {
+                monitorFilterBitMap = selfCopy->_monitorFilterBitMap;
+                *buf = 67109376;
+                *&buf[4] = intValue7;
+                *&buf[8] = 1024;
+                *&buf[10] = monitorFilterBitMap;
+                _os_log_debug_impl(&dword_243DC3000, v110, OS_LOG_TYPE_DEBUG, "pollPIDs: Skipping pid: %d since it does not match current filter map 0x%x", buf, 0xEu);
+              }
+
+LABEL_156:
+              v118 = v19;
+              v119 = v223;
+            }
+
+            v19 = v118;
+            v223 = v119;
+LABEL_209:
+            j = v210;
+            v100 = v221;
+            ++v87;
+
+            goto LABEL_210;
+          }
+
+          v99 = selfCopy->_logger;
+          if (os_log_type_enabled(v99, OS_LOG_TYPE_ERROR))
+          {
+            *buf = 67109120;
+            *&buf[4] = intValue7;
+            _os_log_error_impl(&dword_243DC3000, v99, OS_LOG_TYPE_ERROR, "pollPIDs: fullProcessNameForPid failed for pid: %i", buf, 8u);
+          }
+
+          v100 = v221;
+LABEL_210:
+          objc_autoreleasePoolPop(v100);
+        }
+
+        v208 = [v205 countByEnumeratingWithState:&v234 objects:v269 count:16];
+        if (!v208)
+        {
+          v195 = v87;
+          v189 = v76;
+
+          goto LABEL_214;
+        }
+      }
+    }
+
+    v189 = v76;
+    v195 = 0;
+    daemonJobLabel = 0;
+LABEL_214:
+
+    currentPIDList = selfCopy->_currentPIDList;
+    selfCopy->_currentPIDList = 0;
+
+    objc_storeStrong(location, v187);
+    v227 = 0u;
+    v228 = 0u;
+    v225 = 0u;
+    v226 = 0u;
+    allValues = [(NSMutableDictionary *)selfCopy->_allProcessesMap allValues];
+    v170 = [allValues countByEnumeratingWithState:&v225 objects:v258 count:16];
+    if (v170)
+    {
+      v171 = v170;
+      v172 = *v226;
+      do
+      {
+        for (m = 0; m != v171; ++m)
+        {
+          if (*v226 != v172)
+          {
+            objc_enumerationMutation(allValues);
+          }
+
+          v174 = *(*(&v225 + 1) + 8 * m);
+          v175 = objc_autoreleasePoolPush();
+          trackedPIDs5 = [v174 trackedPIDs];
+          v177 = [trackedPIDs5 count];
+
+          if (v177)
+          {
+            energySnapshotNew = [v174 energySnapshotNew];
+            time = [energySnapshotNew time];
+
+            if (!time || ([MEMORY[0x277CBEAA8] now], v180 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v180, "timeIntervalSinceDate:", time), v182 = v181, v180, v182 > 600.0))
+            {
+              [v174 snapshotCPUEnergy];
+            }
+          }
+
+          objc_autoreleasePoolPop(v175);
+        }
+
+        v171 = [allValues countByEnumeratingWithState:&v225 objects:v258 count:16];
+      }
+
+      while (v171);
+    }
+
+    v183 = +[CSMitigationManager sharedInstance];
+    [v183 logPenaltyBoxListAsSignposts];
+
+    [p_isa notifyObserversOfNewInstances:v216];
+    v184 = p_isa[5];
+    if (os_log_type_enabled(v184, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 67110144;
+      *&buf[4] = v186;
+      *&buf[8] = 1024;
+      *&buf[10] = v199;
+      *&buf[14] = 1024;
+      *&buf[16] = v195;
+      *&buf[20] = 1024;
+      *&buf[22] = v202;
+      *&buf[26] = 1024;
+      *&buf[28] = v198;
+      _os_log_impl(&dword_243DC3000, v184, OS_LOG_TYPE_DEFAULT, "pollPIDs: totalPIDs: %d skippedPIDs: %d queryRBSPIDs: %d monitorPIDs: %d xpcServicesPIDs: %d", buf, 0x20u);
+    }
+
+    dictionary = v187;
+  }
+
+  else if (os_log_type_enabled(selfCopy->_logger, OS_LOG_TYPE_ERROR))
+  {
+    [CSProcessManager pollPIDs];
+  }
+}
+
+- (double)pollPIDs
+{
   v6 = *MEMORY[0x277D85DE8];
   v2 = *(self + 16);
   v4 = 134217984;
   v5 = v2;
   _os_log_error_impl(&dword_243DC3000, a2, OS_LOG_TYPE_ERROR, "pollPIDs: Start, interval: %f", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  return result;
 }
 
 + (int)coalitionIDForPid:(int)pid coalitionID:(unint64_t *)d
@@ -155,7 +1281,7 @@ uint64_t __95__CSProcessManager_sharedInstanceWithEnrolledProcesses_andProcessPo
 
 - (void)schedulePIDPolling
 {
-  v3 = getMainQueue();
+  v3 = getMainQueue(self);
   v4 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, v3);
   pollingTimer = self->_pollingTimer;
   self->_pollingTimer = v4;
@@ -188,23 +1314,23 @@ uint64_t __95__CSProcessManager_sharedInstanceWithEnrolledProcesses_andProcessPo
   relaunchPollingUUIDs = self->_relaunchPollingUUIDs;
   self->_relaunchPollingUUIDs = v3;
 
-  v5 = getMainQueue();
-  v6 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, v5);
+  v6 = getMainQueue(v5);
+  v7 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, v6);
   relaunchPollingTimer = self->_relaunchPollingTimer;
-  self->_relaunchPollingTimer = v6;
+  self->_relaunchPollingTimer = v7;
 
   objc_initWeak(&location, self);
-  v8 = self->_relaunchPollingTimer;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __44__CSProcessManager_initRelaunchPollingTimer__block_invoke;
-  v9[3] = &unk_278DF5180;
-  objc_copyWeak(&v10, &location);
-  dispatch_source_set_event_handler(v8, v9);
+  v9 = self->_relaunchPollingTimer;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __44__CSProcessManager_initRelaunchPollingTimer__block_invoke;
+  v10[3] = &unk_278DF5180;
+  objc_copyWeak(&v11, &location);
+  dispatch_source_set_event_handler(v9, v10);
   *&self->_relaunchPollingIntervalStartS = 0x4396000040A00000;
   self->_savedRelaunchPollingIntervalStartS = 0.0;
   self->_relaunchPollingTimerActive = 0;
-  objc_destroyWeak(&v10);
+  objc_destroyWeak(&v11);
   objc_destroyWeak(&location);
 }
 
@@ -216,7 +1342,7 @@ void __44__CSProcessManager_initRelaunchPollingTimer__block_invoke(uint64_t a1)
 
 - (void)importMitigationRecords
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   powerlogRecords = self->_powerlogRecords;
   self->_powerlogRecords = 0;
 
@@ -234,9 +1360,9 @@ void __44__CSProcessManager_initRelaunchPollingTimer__block_invoke(uint64_t a1)
     if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v34 = v8;
-      v35 = 2112;
-      v36 = getDeviceBootTime;
+      v33 = v8;
+      v34 = 2112;
+      v35 = getDeviceBootTime;
       _os_log_impl(&dword_243DC3000, logger, OS_LOG_TYPE_DEFAULT, "importMitigationRecords: Updated startDate (was %@) to deviceBootTime %@", buf, 0x16u);
     }
 
@@ -264,43 +1390,43 @@ void __44__CSProcessManager_initRelaunchPollingTimer__block_invoke(uint64_t a1)
 
   if (self->_powerlogRecords)
   {
-    v24 = getDeviceBootTime;
-    v25 = v8;
-    v26 = currentCalendar;
-    v27 = v6;
+    v23 = getDeviceBootTime;
+    v24 = v8;
+    v25 = currentCalendar;
+    v26 = v6;
     array = [MEMORY[0x277CBEB18] array];
+    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
     v16 = self->_powerlogRecords;
-    v17 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v28 objects:v32 count:16];
+    v17 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v27 objects:v31 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v29;
+      v19 = *v28;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v29 != v19)
+          if (*v28 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          v21 = [*(*(&v28 + 1) + 8 * i) objectForKeyedSubscript:@"PUUID"];
+          v21 = [*(*(&v27 + 1) + 8 * i) objectForKeyedSubscript:@"PUUID"];
           [array addObject:v21];
         }
 
-        v18 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v28 objects:v32 count:16];
+        v18 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v27 objects:v31 count:16];
       }
 
       while (v18);
     }
 
-    currentCalendar = v26;
-    v6 = v27;
-    v8 = v25;
+    currentCalendar = v25;
+    v6 = v26;
+    v8 = v24;
     if ([array count])
     {
       v22 = self->_logger;
@@ -313,16 +1439,14 @@ void __44__CSProcessManager_initRelaunchPollingTimer__block_invoke(uint64_t a1)
       objc_storeStrong(&self->_powerlogRecordsUUIDs, array);
     }
 
-    getDeviceBootTime = v24;
+    getDeviceBootTime = v23;
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerForPenaltyBoxRelaunchPolling:(id)polling
 {
   pollingCopy = polling;
-  v5 = getMainQueue();
+  v5 = getMainQueue(pollingCopy);
   dispatch_assert_queue_V2(v5);
 
   if (([(NSMutableSet *)self->_relaunchPollingUUIDs containsObject:pollingCopy]& 1) != 0)
@@ -359,7 +1483,7 @@ void __44__CSProcessManager_initRelaunchPollingTimer__block_invoke(uint64_t a1)
 - (void)unregisterForPenaltyBoxRelaunchPolling:(id)polling
 {
   pollingCopy = polling;
-  v5 = getMainQueue();
+  v5 = getMainQueue(pollingCopy);
   dispatch_assert_queue_V2(v5);
 
   [(NSMutableSet *)self->_relaunchPollingUUIDs minusSet:pollingCopy];
@@ -378,7 +1502,7 @@ void __44__CSProcessManager_initRelaunchPollingTimer__block_invoke(uint64_t a1)
 
 - (void)unregisterAllForPenaltyBoxRelaunchPolling
 {
-  v3 = getMainQueue();
+  v3 = getMainQueue(self);
   dispatch_assert_queue_V2(v3);
 
   [(NSMutableSet *)self->_relaunchPollingUUIDs removeAllObjects];
@@ -395,10 +1519,58 @@ void __44__CSProcessManager_initRelaunchPollingTimer__block_invoke(uint64_t a1)
   }
 }
 
+- (BOOL)isAppleXPCServiceWithRBS:(id)s andPID:(int)d
+{
+  v4 = *&d;
+  sCopy = s;
+  v7 = sCopy;
+  if (sCopy)
+  {
+    identity = sCopy;
+  }
+
+  else
+  {
+    v11 = MEMORY[0x277D46F48];
+    v12 = [MEMORY[0x277CCABB0] numberWithInt:v4];
+    v15 = 0;
+    v13 = [v11 handleForIdentifier:v12 error:&v15];
+    xpcServiceIdentifier = v15;
+
+    if (xpcServiceIdentifier)
+    {
+      if (os_log_type_enabled(self->_logger, OS_LOG_TYPE_ERROR))
+      {
+        [CSProcessManager isAppleXPCServiceWithRBS:andPID:];
+      }
+
+      identity = 0;
+      v10 = 0;
+      goto LABEL_10;
+    }
+
+    identity = [v13 identity];
+  }
+
+  if ([identity isXPCService])
+  {
+    xpcServiceIdentifier = [identity xpcServiceIdentifier];
+    v10 = [xpcServiceIdentifier hasPrefix:@"com.apple"];
+LABEL_10:
+
+    goto LABEL_11;
+  }
+
+  v10 = 0;
+LABEL_11:
+
+  return v10;
+}
+
 - (void)pollPenaltyBoxProcessRelaunch
 {
-  v52 = *MEMORY[0x277D85DE8];
-  v3 = getMainQueue();
+  v51 = *MEMORY[0x277D85DE8];
+  v3 = getMainQueue(self);
   dispatch_assert_queue_V2(v3);
 
   logger = self->_logger;
@@ -406,7 +1578,7 @@ void __44__CSProcessManager_initRelaunchPollingTimer__block_invoke(uint64_t a1)
   {
     relaunchPollingIntervalS = self->_relaunchPollingIntervalS;
     *buf = 134217984;
-    v51 = relaunchPollingIntervalS;
+    v50 = relaunchPollingIntervalS;
     _os_log_impl(&dword_243DC3000, logger, OS_LOG_TYPE_DEFAULT, "pollPenaltyBoxProcessRelaunch: Start (interval: %f)", buf, 0xCu);
   }
 
@@ -417,26 +1589,26 @@ void __44__CSProcessManager_initRelaunchPollingTimer__block_invoke(uint64_t a1)
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   if ([(CSProcessManager *)self fillPIDDictionary:?])
   {
-    v46 = 0u;
-    v47 = 0u;
-    v44 = 0u;
     v45 = 0u;
+    v46 = 0u;
+    v43 = 0u;
+    v44 = 0u;
     obj = [penaltyBoxProcesses allValues];
-    v9 = [obj countByEnumeratingWithState:&v44 objects:v49 count:16];
+    v9 = [obj countByEnumeratingWithState:&v43 objects:v48 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v45;
+      v11 = *v44;
       while (2)
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v45 != v11)
+          if (*v44 != v11)
           {
             objc_enumerationMutation(obj);
           }
 
-          v13 = *(*(&v44 + 1) + 8 * i);
+          v13 = *(*(&v43 + 1) + 8 * i);
           relaunchPollingUUIDs = self->_relaunchPollingUUIDs;
           uuid = [v13 uuid];
           LODWORD(relaunchPollingUUIDs) = [(NSMutableSet *)relaunchPollingUUIDs containsObject:uuid];
@@ -449,27 +1621,27 @@ void __44__CSProcessManager_initRelaunchPollingTimer__block_invoke(uint64_t a1)
 
             if (v17 && [v17 count])
             {
-              v36 = penaltyBoxProcesses;
-              v42 = 0u;
-              v43 = 0u;
-              v40 = 0u;
+              v35 = penaltyBoxProcesses;
               v41 = 0u;
+              v42 = 0u;
+              v39 = 0u;
+              v40 = 0u;
               v18 = v17;
-              v19 = [v18 countByEnumeratingWithState:&v40 objects:v48 count:16];
+              v19 = [v18 countByEnumeratingWithState:&v39 objects:v47 count:16];
               if (v19)
               {
                 v20 = v19;
-                v21 = *v41;
+                v21 = *v40;
                 do
                 {
                   for (j = 0; j != v20; ++j)
                   {
-                    if (*v41 != v21)
+                    if (*v40 != v21)
                     {
                       objc_enumerationMutation(v18);
                     }
 
-                    v23 = *(*(&v40 + 1) + 8 * j);
+                    v23 = *(*(&v39 + 1) + 8 * j);
                     trackedPIDs = [v13 trackedPIDs];
                     allKeys = [trackedPIDs allKeys];
                     LOBYTE(v23) = [allKeys containsObject:v23];
@@ -482,7 +1654,7 @@ void __44__CSProcessManager_initRelaunchPollingTimer__block_invoke(uint64_t a1)
                         v27 = v26;
                         identifier = [v13 identifier];
                         *buf = 138412290;
-                        v51 = *&identifier;
+                        v50 = *&identifier;
                         _os_log_impl(&dword_243DC3000, v27, OS_LOG_TYPE_DEFAULT, "pollPenaltyBoxProcessRelaunch: found %@", buf, 0xCu);
                       }
 
@@ -491,14 +1663,14 @@ void __44__CSProcessManager_initRelaunchPollingTimer__block_invoke(uint64_t a1)
                     }
                   }
 
-                  v20 = [v18 countByEnumeratingWithState:&v40 objects:v48 count:16];
+                  v20 = [v18 countByEnumeratingWithState:&v39 objects:v47 count:16];
                 }
 
                 while (v20);
               }
 
               objc_autoreleasePoolPop(context);
-              penaltyBoxProcesses = v36;
+              penaltyBoxProcesses = v35;
               goto LABEL_30;
             }
 
@@ -506,7 +1678,7 @@ void __44__CSProcessManager_initRelaunchPollingTimer__block_invoke(uint64_t a1)
           }
         }
 
-        v10 = [obj countByEnumeratingWithState:&v44 objects:v49 count:16];
+        v10 = [obj countByEnumeratingWithState:&v43 objects:v48 count:16];
         if (v10)
         {
           continue;
@@ -555,13 +1727,11 @@ LABEL_30:
   {
     [(CSProcessManager *)self pollPIDs];
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)fillPIDDictionary:(id)dictionary
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   if (!dictionaryCopy)
   {
@@ -608,30 +1778,30 @@ LABEL_13:
     v11 = 0;
     if (v10 >> 2 <= 1)
     {
-      v16 = 1;
+      v15 = 1;
     }
 
     else
     {
-      v16 = v10 >> 2;
+      v15 = v10 >> 2;
     }
 
-    v17 = v9;
+    v16 = v9;
     do
     {
-      v19 = *v17++;
-      v18 = v19;
-      if (v19 >= 1)
+      v18 = *v16++;
+      v17 = v18;
+      if (v18 >= 1)
       {
-        v20 = getProcessUUID(v18);
+        v19 = getProcessUUID(v17);
 
-        if (v20)
+        if (v19)
         {
-          v21 = [MEMORY[0x277CCABB0] numberWithInt:v18];
+          v20 = [MEMORY[0x277CCABB0] numberWithInt:v17];
 
-          [dictionaryCopy setObject:v20 forKey:v21];
-          v11 = v21;
-          v12 = v20;
+          [dictionaryCopy setObject:v19 forKey:v20];
+          v11 = v20;
+          v12 = v19;
         }
 
         else
@@ -639,23 +1809,23 @@ LABEL_13:
           logger = self->_logger;
           if (os_log_type_enabled(logger, OS_LOG_TYPE_ERROR))
           {
-            v23 = logger;
-            v24 = *__error();
+            v22 = logger;
+            v23 = *__error();
             *buf = 67109376;
-            v26 = v24;
-            v27 = 1024;
-            v28 = v18;
-            _os_log_error_impl(&dword_243DC3000, v23, OS_LOG_TYPE_ERROR, "fillPIDDictionary: getProcessUUID() failed %d, so skipping pid: %d", buf, 0xEu);
+            v25 = v23;
+            v26 = 1024;
+            v27 = v17;
+            _os_log_error_impl(&dword_243DC3000, v22, OS_LOG_TYPE_ERROR, "fillPIDDictionary: getProcessUUID() failed %d, so skipping pid: %d", buf, 0xEu);
           }
 
           v12 = 0;
         }
       }
 
-      --v16;
+      --v15;
     }
 
-    while (v16);
+    while (v15);
   }
 
   else
@@ -669,13 +1839,12 @@ LABEL_13:
   v13 = 1;
 LABEL_14:
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 - (void)applyRecordsForProcess:(id)process
 {
-  v77 = *MEMORY[0x277D85DE8];
+  v76 = *MEMORY[0x277D85DE8];
   processCopy = process;
   v5 = processCopy;
   if (self->_targetProcessRecords)
@@ -698,26 +1867,26 @@ LABEL_14:
     if (powerlogRecordsUUIDs)
     {
       array = [MEMORY[0x277CBEB18] array];
+      v66 = 0u;
       v67 = 0u;
       v68 = 0u;
       v69 = 0u;
-      v70 = 0u;
       obj = [(NSMutableArray *)self->_powerlogRecords copy];
-      v15 = [obj countByEnumeratingWithState:&v67 objects:v72 count:16];
+      v15 = [obj countByEnumeratingWithState:&v66 objects:v71 count:16];
       if (v15)
       {
         v16 = v15;
-        v17 = *v68;
+        v17 = *v67;
         do
         {
           for (i = 0; i != v16; ++i)
           {
-            if (*v68 != v17)
+            if (*v67 != v17)
             {
               objc_enumerationMutation(obj);
             }
 
-            v19 = *(*(&v67 + 1) + 8 * i);
+            v19 = *(*(&v66 + 1) + 8 * i);
             v20 = [v19 objectForKeyedSubscript:@"PUUID"];
             uuid2 = [v5 uuid];
             uUIDString2 = [uuid2 UUIDString];
@@ -730,7 +1899,7 @@ LABEL_14:
             }
           }
 
-          v16 = [obj countByEnumeratingWithState:&v67 objects:v72 count:16];
+          v16 = [obj countByEnumeratingWithState:&v66 objects:v71 count:16];
         }
 
         while (v16);
@@ -751,12 +1920,12 @@ LABEL_14:
       uUIDString3 = [uuid3 UUIDString];
       [(NSMutableArray *)v24 removeObject:uUIDString3];
 
-      v60 = 0;
+      v59 = 0;
     }
 
     else
     {
-      v60 = 0;
+      v59 = 0;
       v11 = 0;
     }
   }
@@ -768,51 +1937,51 @@ LABEL_14:
     {
       targetProcessRecords = self->_targetProcessRecords;
       *buf = 138412546;
-      v74 = gTargetProcess;
-      v75 = 2112;
-      v76 = targetProcessRecords;
+      v73 = gTargetProcess;
+      v74 = 2112;
+      v75 = targetProcessRecords;
       _os_log_impl(&dword_243DC3000, logger, OS_LOG_TYPE_DEFAULT, "applyRecordsForProcess: for target process %@, use _targetProcessRecords: %@", buf, 0x16u);
     }
 
     v11 = self->_targetProcessRecords;
-    v60 = 1;
+    v59 = 1;
   }
 
-  v65 = 0u;
-  v66 = 0u;
-  v63 = 0u;
   v64 = 0u;
+  v65 = 0u;
+  v62 = 0u;
+  v63 = 0u;
   v27 = v11;
-  v28 = [(NSArray *)v27 countByEnumeratingWithState:&v63 objects:v71 count:16];
+  v28 = [(NSArray *)v27 countByEnumeratingWithState:&v62 objects:v70 count:16];
   if (v28)
   {
     v30 = v28;
-    v31 = *v64;
+    v31 = *v63;
     *&v29 = 67109120;
-    v59 = v29;
+    v58 = v29;
     do
     {
       for (j = 0; j != v30; ++j)
       {
-        if (*v64 != v31)
+        if (*v63 != v31)
         {
           objc_enumerationMutation(v27);
         }
 
-        v33 = *(*(&v63 + 1) + 8 * j);
+        v33 = *(*(&v62 + 1) + 8 * j);
         v34 = self->_logger;
         if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
         {
           v35 = v34;
           processName = [v5 processName];
           *buf = 138412546;
-          v74 = processName;
-          v75 = 2112;
-          v76 = v33;
+          v73 = processName;
+          v74 = 2112;
+          v75 = v33;
           _os_log_impl(&dword_243DC3000, v35, OS_LOG_TYPE_DEFAULT, "applyRecordsForProcess: process: %@ record: %@", buf, 0x16u);
         }
 
-        v37 = [(NSArray *)v33 objectForKeyedSubscript:@"FatalCount", v59];
+        v37 = [(NSArray *)v33 objectForKeyedSubscript:@"FatalCount", v58];
         intValue = [v37 intValue];
 
         [v5 setCpuFatalCnt:intValue];
@@ -842,7 +2011,7 @@ LABEL_14:
 
             [v5 setPenaltyBoxPending:1];
 LABEL_39:
-            if (v60)
+            if (v59)
             {
               [v5 addPenaltyBoxCoalitionID:{objc_msgSend(v5, "lastCoalitionID")}];
             }
@@ -880,8 +2049,8 @@ LABEL_48:
                 goto LABEL_51;
               }
 
-              *buf = v59;
-              LODWORD(v74) = intValue3;
+              *buf = v58;
+              LODWORD(v73) = intValue3;
               v52 = v56;
               v53 = "applyRecordsForProcess: skipping unknown mitigationType value: %d";
               v54 = 8;
@@ -916,56 +2085,52 @@ LABEL_51:
         [v5 addViolationEvent:objc_msgSend(v57 startTime:"intValue") endTime:{v45 - v48, v45}];
       }
 
-      v30 = [(NSArray *)v27 countByEnumeratingWithState:&v63 objects:v71 count:16];
+      v30 = [(NSArray *)v27 countByEnumeratingWithState:&v62 objects:v70 count:16];
     }
 
     while (v30);
   }
-
-  v58 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notifyObserversOfNewInstances:(id)instances
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   instancesCopy = instances;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v5 = self->_observers;
-  v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [*(*(&v11 + 1) + 8 * v9++) observeNewRunningProcesses:{instancesCopy, v11}];
+        [*(*(&v10 + 1) + 8 * v9++) observeNewRunningProcesses:{instancesCopy, v10}];
       }
 
       while (v7 != v9);
-      v7 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)identiferForName:(id)name
 {
   nameCopy = name;
-  v5 = getMainQueue();
+  v5 = getMainQueue(nameCopy);
   dispatch_assert_queue_V2(v5);
 
   v6 = [(NSMutableDictionary *)self->_processNameIdentiferByName objectForKeyedSubscript:nameCopy];
@@ -997,7 +2162,7 @@ LABEL_6:
 - (id)processNameForIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v5 = getMainQueue();
+  v5 = getMainQueue(identifierCopy);
   dispatch_assert_queue_V2(v5);
 
   v6 = [(CSProcessManager *)self processForIdentifier:identifierCopy];
@@ -1017,30 +2182,30 @@ LABEL_6:
 
 - (id)getProcessForProcessName:(id)name
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   nameCopy = name;
-  v5 = getMainQueue();
+  v5 = getMainQueue(nameCopy);
   dispatch_assert_queue_V2(v5);
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   allValues = [(NSMutableDictionary *)self->_allProcessesMap allValues];
-  v7 = [allValues countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
-    v8 = *v16;
+    v8 = *v15;
     while (2)
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         processName = [v10 processName];
         v12 = [processName isEqualToString:nameCopy];
 
@@ -1051,7 +2216,7 @@ LABEL_6:
         }
       }
 
-      v7 = [allValues countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v7)
       {
         continue;
@@ -1063,37 +2228,35 @@ LABEL_6:
 
 LABEL_11:
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (id)getProcessForUUID:(id)d
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dCopy = d;
-  v5 = getMainQueue();
+  v5 = getMainQueue(dCopy);
   dispatch_assert_queue_V2(v5);
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   allValues = [(NSMutableDictionary *)self->_allProcessesMap allValues];
-  v7 = [allValues countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
-    v8 = *v16;
+    v8 = *v15;
     while (2)
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         uuid = [v10 uuid];
         v12 = [uuid isEqual:dCopy];
 
@@ -1104,7 +2267,7 @@ LABEL_11:
         }
       }
 
-      v7 = [allValues countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v7)
       {
         continue;
@@ -1116,37 +2279,175 @@ LABEL_11:
 
 LABEL_11:
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v7;
+}
+
+- (id)getProcessForPID:(int)d
+{
+  v28 = *MEMORY[0x277D85DE8];
+  v4 = [MEMORY[0x277CCABB0] numberWithInt:*&d];
+  v21 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v5 = [(NSMutableDictionary *)self->_allProcessesMap copy];
+  v6 = [v5 countByEnumeratingWithState:&v21 objects:v27 count:16];
+  if (v6)
+  {
+    v7 = v6;
+    v8 = 0;
+    v9 = 0;
+    v10 = *v22;
+    do
+    {
+      for (i = 0; i != v7; ++i)
+      {
+        v12 = v9;
+        if (*v22 != v10)
+        {
+          objc_enumerationMutation(v5);
+        }
+
+        v9 = *(*(&v21 + 1) + 8 * i);
+
+        if (v9 && ([(NSMutableDictionary *)self->_allProcessesMap objectForKey:v9], (v13 = objc_claimAutoreleasedReturnValue()) != 0))
+        {
+          v8 = v13;
+          trackedPIDs = [v13 trackedPIDs];
+          v15 = [trackedPIDs count];
+
+          if (v15)
+          {
+            trackedPIDs2 = [v8 trackedPIDs];
+            v17 = [trackedPIDs2 objectForKey:v4];
+
+            if (v17)
+            {
+              v8 = v8;
+
+              v5 = v9;
+              v19 = v8;
+              goto LABEL_17;
+            }
+          }
+        }
+
+        else
+        {
+          logger = self->_logger;
+          if (os_log_type_enabled(logger, OS_LOG_TYPE_ERROR))
+          {
+            *buf = 138412290;
+            v26 = v9;
+            _os_log_error_impl(&dword_243DC3000, logger, OS_LOG_TYPE_ERROR, "getProcessForPID: Skipping processNameIdentifier: %@ because its CSProcess is NULL?", buf, 0xCu);
+          }
+
+          v8 = 0;
+        }
+      }
+
+      v7 = [v5 countByEnumeratingWithState:&v21 objects:v27 count:16];
+    }
+
+    while (v7);
+    v19 = 0;
+    v17 = v9;
+LABEL_17:
+  }
+
+  else
+  {
+    v8 = 0;
+    v19 = 0;
+  }
+
+  return v19;
+}
+
+- (void)recordTerminationForPID:(int)d
+{
+  v3 = *&d;
+  v23 = *MEMORY[0x277D85DE8];
+  v5 = [(CSProcessManager *)self getProcessForPID:?];
+  logger = self->_logger;
+  if (v5)
+  {
+    if (os_log_type_enabled(self->_logger, OS_LOG_TYPE_DEFAULT))
+    {
+      v7 = logger;
+      processName = [v5 processName];
+      v19 = 138412546;
+      v20 = processName;
+      v21 = 1024;
+      v22 = v3;
+      _os_log_impl(&dword_243DC3000, v7, OS_LOG_TYPE_DEFAULT, "recordTerminationForPID: Process:%@ (%d) exited", &v19, 0x12u);
+    }
+
+    if ([v5 inPenaltyBox])
+    {
+      v9 = +[CSMitigationManager sharedInstance];
+      processName2 = [v5 processName];
+      [v9 logMitigationAsSignpost:processName2 withPid:v3 withIssueType:objc_msgSend(v5 withMitigationType:"issueType") withReason:3 withPenaltyBoxEndTime:{12, 0}];
+    }
+
+    v11 = +[CSMitigationManager sharedInstance];
+    penaltyBoxProcesses = [v11 penaltyBoxProcesses];
+    allKeys = [penaltyBoxProcesses allKeys];
+
+    uuid = [v5 uuid];
+    LODWORD(penaltyBoxProcesses) = [allKeys containsObject:uuid];
+
+    if (penaltyBoxProcesses)
+    {
+      v15 = self->_logger;
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      {
+        v16 = v15;
+        processName3 = [v5 processName];
+        v19 = 138412290;
+        v20 = processName3;
+        _os_log_impl(&dword_243DC3000, v16, OS_LOG_TYPE_DEFAULT, "recordTerminationForPID: request polling for relaunch of process:%@", &v19, 0xCu);
+      }
+
+      uuid2 = [v5 uuid];
+      [(CSProcessManager *)self registerForPenaltyBoxRelaunchPolling:uuid2];
+    }
+
+    [v5 performCleanupOnExitOnPID:v3];
+  }
+
+  else if (os_log_type_enabled(self->_logger, OS_LOG_TYPE_DEBUG))
+  {
+    [(CSProcessManager *)v3 recordTerminationForPID:?];
+  }
 }
 
 - (void)clearAllCounters
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v3 = getMainQueue();
+  v18 = *MEMORY[0x277D85DE8];
+  v3 = getMainQueue(self);
   dispatch_assert_queue_V2(v3);
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   allValues = [(NSMutableDictionary *)self->_allProcessesMap allValues];
-  v5 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         [v9 setCpuFatalCnt:0];
         [v9 setCpuNonFatalCnt:0];
         [v9 setExitsCnt:0];
@@ -1158,7 +2459,7 @@ LABEL_11:
         [penaltyBoxCoalitionIDs removeAllObjects];
       }
 
-      v6 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
@@ -1169,8 +2470,6 @@ LABEL_11:
 
   powerlogRecordsUUIDs = self->_powerlogRecordsUUIDs;
   self->_powerlogRecordsUUIDs = 0;
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getPollingInterval
@@ -1181,7 +2480,7 @@ LABEL_11:
   v10 = __Block_byref_object_copy__2;
   v11 = __Block_byref_object_dispose__2;
   v12 = 0;
-  v3 = getMainQueue();
+  v3 = getMainQueue(self);
   v6[0] = MEMORY[0x277D85DD0];
   v6[1] = 3221225472;
   v6[2] = __38__CSProcessManager_getPollingInterval__block_invoke;
@@ -1199,10 +2498,7 @@ LABEL_11:
 uint64_t __38__CSProcessManager_getPollingInterval__block_invoke(uint64_t a1, double a2)
 {
   LODWORD(a2) = *(*(a1 + 32) + 16);
-  v3 = [MEMORY[0x277CCABB0] numberWithFloat:a2];
-  v4 = *(*(a1 + 40) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 40) + 8) + 40) = [MEMORY[0x277CCABB0] numberWithFloat:a2];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -1215,7 +2511,7 @@ uint64_t __38__CSProcessManager_getPollingInterval__block_invoke(uint64_t a1, do
   v10 = __Block_byref_object_copy__2;
   v11 = __Block_byref_object_dispose__2;
   v12 = 0;
-  v3 = getMainQueue();
+  v3 = getMainQueue(self);
   v6[0] = MEMORY[0x277D85DD0];
   v6[1] = 3221225472;
   v6[2] = __46__CSProcessManager_getRelaunchPollingInterval__block_invoke;
@@ -1233,10 +2529,7 @@ uint64_t __38__CSProcessManager_getPollingInterval__block_invoke(uint64_t a1, do
 uint64_t __46__CSProcessManager_getRelaunchPollingInterval__block_invoke(uint64_t a1, double a2)
 {
   LODWORD(a2) = *(*(a1 + 32) + 28);
-  v3 = [MEMORY[0x277CCABB0] numberWithFloat:a2];
-  v4 = *(*(a1 + 40) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 40) + 8) + 40) = [MEMORY[0x277CCABB0] numberWithFloat:a2];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -1249,7 +2542,7 @@ uint64_t __46__CSProcessManager_getRelaunchPollingInterval__block_invoke(uint64_
   v10 = __Block_byref_object_copy__2;
   v11 = __Block_byref_object_dispose__2;
   v12 = 0;
-  v3 = getMainQueue();
+  v3 = getMainQueue(self);
   v6[0] = MEMORY[0x277D85DD0];
   v6[1] = 3221225472;
   v6[2] = __49__CSProcessManager_getMaxRelaunchPollingInterval__block_invoke;
@@ -1267,10 +2560,7 @@ uint64_t __46__CSProcessManager_getRelaunchPollingInterval__block_invoke(uint64_
 uint64_t __49__CSProcessManager_getMaxRelaunchPollingInterval__block_invoke(uint64_t a1, double a2)
 {
   LODWORD(a2) = *(*(a1 + 32) + 32);
-  v3 = [MEMORY[0x277CCABB0] numberWithFloat:a2];
-  v4 = *(*(a1 + 40) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 40) + 8) + 40) = [MEMORY[0x277CCABB0] numberWithFloat:a2];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -1278,7 +2568,7 @@ uint64_t __49__CSProcessManager_getMaxRelaunchPollingInterval__block_invoke(uint
 - (void)modifyPollingInterval:(id)interval
 {
   intervalCopy = interval;
-  v4 = getMainQueue();
+  v4 = getMainQueue(intervalCopy);
   dispatch_assert_queue_V2(v4);
 
   PIDPollingInterval = self->_PIDPollingInterval;
@@ -1314,7 +2604,7 @@ uint64_t __49__CSProcessManager_getMaxRelaunchPollingInterval__block_invoke(uint
 - (void)modifyRelaunchPollingInterval:(id)interval
 {
   intervalCopy = interval;
-  v4 = getMainQueue();
+  v4 = getMainQueue(intervalCopy);
   dispatch_assert_queue_V2(v4);
 
   relaunchPollingIntervalStartS = self->_relaunchPollingIntervalStartS;
@@ -1364,7 +2654,7 @@ LABEL_9:
 - (void)modifyMaxRelaunchPollingInterval:(id)interval
 {
   intervalCopy = interval;
-  v4 = getMainQueue();
+  v4 = getMainQueue(intervalCopy);
   dispatch_assert_queue_V2(v4);
 
   [intervalCopy floatValue];
@@ -1386,7 +2676,7 @@ LABEL_9:
 
 - (id)getMonitoredList
 {
-  v3 = getMainQueue();
+  v3 = getMainQueue(self);
   dispatch_assert_queue_V2(v3);
 
   allProcessesMap = self->_allProcessesMap;
@@ -1396,7 +2686,7 @@ LABEL_9:
 
 - (id)fullProcessNameForPid:(int)pid
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (pid < 1 || (bzero(buffer, 0x1000uLL), proc_pidpath(pid, buffer, 0x1000u) < 1))
   {
     v4 = 0;
@@ -1408,14 +2698,12 @@ LABEL_9:
     v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:basename(buffer)];
   }
 
-  v5 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 - (void)clearTargetProcessState
 {
-  v3 = getMainQueue();
+  v3 = getMainQueue(self);
   dispatch_assert_queue_V2(v3);
 
   if (gTargetProcess)
@@ -1435,7 +2723,7 @@ LABEL_9:
 
 - (id)getTargetProcessMitigationRecords
 {
-  v3 = getMainQueue();
+  v3 = getMainQueue(self);
   dispatch_assert_queue_V2(v3);
 
   targetProcessRecords = self->_targetProcessRecords;
@@ -1445,9 +2733,9 @@ LABEL_9:
 
 - (BOOL)modifyTargetProcessMitigationRecords:(id)records
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   recordsCopy = records;
-  v4 = getMainQueue();
+  v4 = getMainQueue(recordsCopy);
   dispatch_assert_queue_V2(v4);
 
   array = [MEMORY[0x277CBEB18] array];
@@ -1457,14 +2745,14 @@ LABEL_9:
     goto LABEL_45;
   }
 
-  v41 = recordsCopy;
-  v42 = array;
-  v61 = 0u;
-  v62 = 0u;
-  v59 = 0u;
+  v40 = recordsCopy;
+  v41 = array;
   v60 = 0u;
+  v61 = 0u;
+  v58 = 0u;
+  v59 = 0u;
   obj = recordsCopy;
-  v6 = [obj countByEnumeratingWithState:&v59 objects:v63 count:16];
+  v6 = [obj countByEnumeratingWithState:&v58 objects:v62 count:16];
   if (!v6)
   {
     v9 = 1;
@@ -1472,25 +2760,25 @@ LABEL_9:
   }
 
   v7 = v6;
-  v8 = *v60;
+  v8 = *v59;
   v9 = 1;
   do
   {
     v10 = 0;
     do
     {
-      if (*v60 != v8)
+      if (*v59 != v8)
       {
         objc_enumerationMutation(obj);
       }
 
-      v11 = *(*(&v59 + 1) + 8 * v10);
+      v11 = *(*(&v58 + 1) + 8 * v10);
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
         if (os_log_type_enabled(self->_logger, OS_LOG_TYPE_ERROR))
         {
-          [(CSProcessManager *)&v57 modifyTargetProcessMitigationRecords:v58];
+          [(CSProcessManager *)&v56 modifyTargetProcessMitigationRecords:v57];
         }
 
         goto LABEL_26;
@@ -1501,7 +2789,7 @@ LABEL_9:
       {
         if (os_log_type_enabled(self->_logger, OS_LOG_TYPE_ERROR))
         {
-          [(CSProcessManager *)&v55 modifyTargetProcessMitigationRecords:v56];
+          [(CSProcessManager *)&v54 modifyTargetProcessMitigationRecords:v55];
         }
 
 LABEL_26:
@@ -1531,38 +2819,38 @@ LABEL_26:
 
                 if (v35)
                 {
-                  [v42 addObject:v11];
+                  [v41 addObject:v11];
                   goto LABEL_27;
                 }
               }
 
               if (os_log_type_enabled(self->_logger, OS_LOG_TYPE_ERROR))
               {
-                [(CSProcessManager *)&v45 modifyTargetProcessMitigationRecords:v46];
+                [(CSProcessManager *)&v44 modifyTargetProcessMitigationRecords:v45];
               }
             }
 
             else if (os_log_type_enabled(self->_logger, OS_LOG_TYPE_ERROR))
             {
-              [(CSProcessManager *)&v47 modifyTargetProcessMitigationRecords:v48];
+              [(CSProcessManager *)&v46 modifyTargetProcessMitigationRecords:v47];
             }
           }
 
           else if (os_log_type_enabled(self->_logger, OS_LOG_TYPE_ERROR))
           {
-            [(CSProcessManager *)&v49 modifyTargetProcessMitigationRecords:v50];
+            [(CSProcessManager *)&v48 modifyTargetProcessMitigationRecords:v49];
           }
         }
 
         else if (os_log_type_enabled(self->_logger, OS_LOG_TYPE_ERROR))
         {
-          [(CSProcessManager *)&v51 modifyTargetProcessMitigationRecords:v52];
+          [(CSProcessManager *)&v50 modifyTargetProcessMitigationRecords:v51];
         }
       }
 
       else if (os_log_type_enabled(self->_logger, OS_LOG_TYPE_ERROR))
       {
-        [(CSProcessManager *)&v53 modifyTargetProcessMitigationRecords:v54];
+        [(CSProcessManager *)&v52 modifyTargetProcessMitigationRecords:v53];
       }
 
       v9 = 0;
@@ -1571,15 +2859,15 @@ LABEL_27:
     }
 
     while (v7 != v10);
-    v36 = [obj countByEnumeratingWithState:&v59 objects:v63 count:16];
+    v36 = [obj countByEnumeratingWithState:&v58 objects:v62 count:16];
     v7 = v36;
   }
 
   while (v36);
 LABEL_44:
 
-  recordsCopy = v41;
-  array = v42;
+  recordsCopy = v40;
+  array = v41;
 LABEL_45:
   v37 = [array count];
   if (v37)
@@ -1590,13 +2878,12 @@ LABEL_45:
   targetProcessRecords = self->_targetProcessRecords;
   self->_targetProcessRecords = v37;
 
-  v39 = *MEMORY[0x277D85DE8];
   return v9 & 1;
 }
 
 - (void)clearMitigationRecords
 {
-  v3 = getMainQueue();
+  v3 = getMainQueue(self);
   dispatch_assert_queue_V2(v3);
 
   powerlogRecords = self->_powerlogRecords;
@@ -1611,9 +2898,9 @@ LABEL_45:
 
 - (int)discoverPidForProcessName:(id)name withError:(id *)error
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   nameCopy = name;
-  v7 = getMainQueue();
+  v7 = getMainQueue(nameCopy);
   dispatch_assert_queue_V2(v7);
 
   v8 = proc_listpids(1u, 0, 0, 0);
@@ -1705,14 +2992,13 @@ LABEL_11:
   logger = self->_logger;
   if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
   {
-    v25[0] = 67109120;
-    v25[1] = v16;
-    _os_log_impl(&dword_243DC3000, logger, OS_LOG_TYPE_DEFAULT, "discoverPidForProcessName: found pid: %d", v25, 8u);
+    v24[0] = 67109120;
+    v24[1] = v16;
+    _os_log_impl(&dword_243DC3000, logger, OS_LOG_TYPE_DEFAULT, "discoverPidForProcessName: found pid: %d", v24, 8u);
   }
 
 LABEL_22:
 
-  v22 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -1756,35 +3042,18 @@ LABEL_22:
 
 - (unsigned)getPollPIDsCount
 {
-  v3 = getMainQueue();
+  v3 = getMainQueue(self);
   dispatch_assert_queue_V2(v3);
 
   return self->_pollPIDsCount;
 }
 
-- (void)isAppleXPCServiceWithRBS:andPID:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4_2();
-  OUTLINED_FUNCTION_4_1(&dword_243DC3000, v0, v1, "isAppleXPCServiceWithRBS: Error grabbing RBSProcessHandle (pid%i) to perform XPC Service check %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
 - (void)recordTerminationForPID:(int)a1 .cold.1(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_debug_impl(&dword_243DC3000, a2, OS_LOG_TYPE_DEBUG, "recordTerminationForPID: Process not found for exited pid (%d)", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)isXPCServiceExempt:withIssueType:.cold.1()
-{
   v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4_2();
-  OUTLINED_FUNCTION_4_1(&dword_243DC3000, v0, v1, "isXPCServiceExempt: Unknown issueType %d for policyBitMask for coalitionName:%@, assuming exempt ");
-  v2 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_debug_impl(&dword_243DC3000, a2, OS_LOG_TYPE_DEBUG, "recordTerminationForPID: Process not found for exited pid (%d)", v2, 8u);
 }
 
 @end

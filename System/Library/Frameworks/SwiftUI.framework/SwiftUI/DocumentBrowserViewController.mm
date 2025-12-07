@@ -92,7 +92,7 @@
   presentingControllerCopy = presentingController;
   sourceControllerCopy = sourceController;
   selfCopy = self;
-  specialized DocumentBrowserViewController.animationController(forPresented:presenting:source:)();
+  specialized DocumentBrowserViewController.animationController(forPresented:presenting:source:)(controllerCopy);
   v13 = v12;
 
   return v13;
@@ -102,7 +102,7 @@
 {
   controllerCopy = controller;
   selfCopy = self;
-  DocumentBrowserViewController.animationController(forDismissed:)();
+  DocumentBrowserViewController.animationController(forDismissed:)(controllerCopy);
   v7 = v6;
 
   return v7;

@@ -8,7 +8,6 @@
 - (void)invalidate
 {
   v2 = *(&self->super.isa + OBJC_IVAR____TtC13AppProtection26DefaultSubjectMonitorToken_invalidationHandler);
-  v3 = *&self->subjectMask[OBJC_IVAR____TtC13AppProtection26DefaultSubjectMonitorToken_invalidationHandler];
   selfCopy = self;
   v2();
 }

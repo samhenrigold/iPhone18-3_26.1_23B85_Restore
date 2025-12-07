@@ -128,19 +128,19 @@ LABEL_13:
 
 void __38__UNCBlueListMonitor__startMonitoring__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x2020000000;
-  v23 = 0;
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x3032000000;
-  v17 = __Block_byref_object_copy__0;
-  v18 = __Block_byref_object_dispose__0;
   v19 = 0;
+  v20 = &v19;
+  v21 = 0x2020000000;
+  v22 = 0;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x3032000000;
+  v16 = __Block_byref_object_copy__0;
+  v17 = __Block_byref_object_dispose__0;
+  v18 = 0;
   v7 = *(a1 + 32);
   v8 = *(v7 + 32);
   block[0] = MEMORY[0x1E69E9820];
@@ -148,26 +148,25 @@ void __38__UNCBlueListMonitor__startMonitoring__block_invoke(uint64_t a1, void *
   block[2] = __38__UNCBlueListMonitor__startMonitoring__block_invoke_13;
   block[3] = &unk_1E85D6E98;
   block[4] = v7;
-  block[5] = &v20;
-  block[6] = &v14;
+  block[5] = &v19;
+  block[6] = &v13;
   dispatch_sync(v8, block);
   v9 = *MEMORY[0x1E6983390];
   if (os_log_type_enabled(*MEMORY[0x1E6983390], OS_LOG_TYPE_DEFAULT))
   {
-    v10 = *(v21 + 24);
-    v11 = v15[5];
+    v10 = *(v20 + 24);
+    v11 = v14[5];
     *buf = 67109376;
-    v25 = v10;
-    v26 = 2048;
-    v27 = v11;
+    v24 = v10;
+    v25 = 2048;
+    v26 = v11;
     _os_log_impl(&dword_1DA7A9000, v9, OS_LOG_TYPE_DEFAULT, "bluelist status changed; budgetExhausted: %d, notifying delegate: %p", buf, 0x12u);
   }
 
-  [v15[5] bluelistStatusChanged];
-  _Block_object_dispose(&v14, 8);
+  [v14[5] bluelistStatusChanged];
+  _Block_object_dispose(&v13, 8);
 
-  _Block_object_dispose(&v20, 8);
-  v12 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v19, 8);
 }
 
 uint64_t __38__UNCBlueListMonitor__startMonitoring__block_invoke_13(void *a1)
@@ -198,10 +197,7 @@ uint64_t __38__UNCBlueListMonitor__startMonitoring__block_invoke_13(void *a1)
   v7 = [v6 BOOLValue];
   *(a1[4] + 8) = v7;
   *(*(a1[5] + 8) + 24) = *(a1[4] + 8);
-  WeakRetained = objc_loadWeakRetained((a1[4] + 40));
-  v9 = *(a1[6] + 8);
-  v10 = *(v9 + 40);
-  *(v9 + 40) = WeakRetained;
+  *(*(a1[6] + 8) + 40) = objc_loadWeakRetained((a1[4] + 40));
 
   return MEMORY[0x1EEE66BB8]();
 }

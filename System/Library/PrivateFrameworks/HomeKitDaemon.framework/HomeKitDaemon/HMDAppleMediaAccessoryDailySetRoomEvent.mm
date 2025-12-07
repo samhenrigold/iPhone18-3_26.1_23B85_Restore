@@ -18,7 +18,7 @@
   v7 = [HMDAppleMediaAccessoryDailySetRoomEvent filterToAllowedRoomName:previousRoom];
   [v3 setObject:v7 forKeyedSubscript:@"PreviousRoom"];
 
-  v8 = [v3 copy];
+  v8 = objc_msgSend_copy(v3);
 
   return v8;
 }
@@ -66,7 +66,7 @@
 
 + (id)filterToAllowedRoomName:(id)name
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v5 = nameCopy;
   if (filterToAllowedRoomName__onceToken == -1)
@@ -83,26 +83,26 @@
     if (v5)
     {
 LABEL_3:
-      v26 = 0u;
-      v27 = 0u;
-      v24 = 0u;
       v25 = 0u;
+      v26 = 0u;
+      v23 = 0u;
+      v24 = 0u;
       v6 = filterToAllowedRoomName__allowedRoomNames;
-      v7 = [v6 countByEnumeratingWithState:&v24 objects:v29 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v23 objects:v28 count:16];
       if (v7)
       {
         v8 = v7;
-        v9 = *v25;
+        v9 = *v24;
 LABEL_5:
         v10 = 0;
         while (1)
         {
-          if (*v25 != v9)
+          if (*v24 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v24 + 1) + 8 * v10);
+          v11 = *(*(&v23 + 1) + 8 * v10);
           v12 = [self localizedStringForRoomName:v11];
           if ([v5 isEqualToString:v12] & 1) != 0 || (objc_msgSend(v5, "isEqualToString:", v11))
           {
@@ -111,7 +111,7 @@ LABEL_5:
 
           if (v8 == ++v10)
           {
-            v8 = [v6 countByEnumeratingWithState:&v24 objects:v29 count:16];
+            v8 = [v6 countByEnumeratingWithState:&v23 objects:v28 count:16];
             if (v8)
             {
               goto LABEL_5;
@@ -126,12 +126,12 @@ LABEL_5:
       {
 LABEL_12:
 
-        v22 = 0u;
-        v23 = 0u;
-        v20 = 0u;
         v21 = 0u;
+        v22 = 0u;
+        v19 = 0u;
+        v20 = 0u;
         v6 = filterToAllowedRoomName__allowedRoomNames;
-        v13 = [v6 countByEnumeratingWithState:&v20 objects:v28 count:16];
+        v13 = [v6 countByEnumeratingWithState:&v19 objects:v27 count:16];
         if (!v13)
         {
           v16 = @"User Defined";
@@ -139,19 +139,19 @@ LABEL_12:
         }
 
         v14 = v13;
-        v15 = *v21;
+        v15 = *v20;
         v16 = @"User Defined";
 LABEL_14:
         v17 = 0;
         while (1)
         {
-          if (*v21 != v15)
+          if (*v20 != v15)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v20 + 1) + 8 * v17);
-          v12 = [self localizedStringForRoomName:{v11, v20}];
+          v11 = *(*(&v19 + 1) + 8 * v17);
+          v12 = [self localizedStringForRoomName:{v11, v19}];
           if ([v5 containsString:v12] & 1) != 0 || (objc_msgSend(v5, "containsString:", v11))
           {
             break;
@@ -159,7 +159,7 @@ LABEL_14:
 
           if (v14 == ++v17)
           {
-            v14 = [v6 countByEnumeratingWithState:&v20 objects:v28 count:16];
+            v14 = [v6 countByEnumeratingWithState:&v19 objects:v27 count:16];
             if (v14)
             {
               goto LABEL_14;
@@ -179,8 +179,6 @@ LABEL_23:
 
   v16 = @"User Defined";
 LABEL_27:
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v16;
 }

@@ -141,9 +141,9 @@
 
 - (void)layoutSubviews
 {
-  v87.receiver = self;
-  v87.super_class = SBUILockOverlayView;
-  [(SBUILockOverlayView *)&v87 layoutSubviews];
+  v97.receiver = self;
+  v97.super_class = SBUILockOverlayView;
+  [(SBUILockOverlayView *)&v97 layoutSubviews];
   [(SBUILockOverlayView *)self bounds];
   v4 = v3;
   v6 = v5;
@@ -259,8 +259,8 @@ LABEL_12:
     v43 = v37 - v36;
     [(UILabel *)*p_titleLabel origin];
     v45 = v44;
-    [(UILabel *)*p_titleLabel size];
-    v41 = SBFloatFloorForScale(v43 + v45 + v46, 0.0);
+    v46 = [(UILabel *)*p_titleLabel size];
+    v41 = SBFloatFloorForScale(v46, v48, v43 + v45 + v47, 0.0);
   }
 
   else
@@ -271,28 +271,28 @@ LABEL_12:
     v41 = v39 + v40;
   }
 
-  v47 = (v21 | v11);
+  v49 = (v21 | v11);
   [(UILabel *)*p_subtitleLabel setFrame:v27, v41, v29, v31];
   [(UIButton *)self->_actionButton frame];
-  if (v21 | v11 && (v21 ? (v48 = &self->_subtitleLabel) : (v48 = &self->_titleLabel), (v47 = *v48) != 0 ? (v49 = v25) : (v49 = 0), v49 == 1))
+  if (v21 | v11 && (v21 ? (v50 = &self->_subtitleLabel) : (v50 = &self->_titleLabel), (v49 = *v50) != 0 ? (v51 = v25) : (v51 = 0), v51 == 1))
   {
     titleLabel = [(UIButton *)self->_actionButton titleLabel];
-    [(UILabel *)v47 _baselineOffsetFromBottom];
-    v52 = v51;
-    [titleLabel _firstLineBaselineOffsetFromBoundsTop];
+    [(UILabel *)v49 _baselineOffsetFromBottom];
     v54 = v53;
+    [titleLabel _firstLineBaselineOffsetFromBoundsTop];
+    v56 = v55;
     [titleLabel origin];
-    v56 = v52 + v54 + v55;
+    v58 = v54 + v56 + v57;
     if (__sb__runningInSpringBoard())
     {
       if (SBFEffectiveDeviceClass() == 2)
       {
-        v57 = 48.0;
+        v59 = 48.0;
       }
 
       else
       {
-        v57 = 43.5;
+        v59 = 43.5;
       }
     }
 
@@ -301,20 +301,20 @@ LABEL_12:
       currentDevice2 = [MEMORY[0x1E69DC938] currentDevice];
       if ([currentDevice2 userInterfaceIdiom] == 1)
       {
-        v57 = 48.0;
+        v59 = 48.0;
       }
 
       else
       {
-        v57 = 43.5;
+        v59 = 43.5;
       }
     }
 
-    v59 = v57 - v56;
-    [(UILabel *)v47 origin];
-    v61 = v60;
-    [(UILabel *)v47 size];
-    SBFloatFloorForScale(v59 + v61 + v62, 0.0);
+    v61 = v59 - v58;
+    [(UILabel *)v49 origin];
+    v63 = v62;
+    v64 = [(UILabel *)v49 size];
+    SBFloatFloorForScale(v64, v66, v61 + v63 + v65, 0.0);
   }
 
   else
@@ -326,33 +326,33 @@ LABEL_12:
   UIRectCenteredXInRect();
   [(UIButton *)self->_actionButton setFrame:?];
   [(SBUILockOverlayView *)self _sizeView:self->_textContainerView forFixedWith:1];
-  [(UIResizableView *)self->_textContainerView frame];
-  v64 = v63;
-  v66 = v65;
-  v67 = SBFloatFloorForScale(v4 * 0.5 - v63 * 0.5, 0.0);
+  frame = [(UIResizableView *)self->_textContainerView frame];
+  v69 = v68;
+  v71 = v70;
+  v75 = SBFloatFloorForScale(frame, v72, v4 * 0.5 - v68 * 0.5, 0.0);
   if (v11)
   {
     font = [(UILabel *)*p_titleLabel font];
     [font descender];
-    v70 = v69;
+    v78 = v77;
 
     if ((v25 & 1) == 0)
     {
       if (!v21)
       {
-        v71 = *p_titleLabel;
+        v79 = *p_titleLabel;
 LABEL_50:
-        font2 = [(UILabel *)v71 font];
+        font2 = [(UILabel *)v79 font];
 LABEL_54:
-        v78 = font2;
+        v86 = font2;
         [font2 descender];
-        v75 = v79;
+        v83 = v87;
 
         goto LABEL_55;
       }
 
 LABEL_49:
-      v71 = *p_subtitleLabel;
+      v79 = *p_subtitleLabel;
       goto LABEL_50;
     }
 
@@ -365,7 +365,7 @@ LABEL_53:
   {
     font3 = [(UILabel *)*p_subtitleLabel font];
     [font3 descender];
-    v70 = v73;
+    v78 = v81;
 
     if ((v25 & 1) == 0)
     {
@@ -375,25 +375,25 @@ LABEL_53:
     goto LABEL_53;
   }
 
-  v75 = 0.0;
-  v70 = 0.0;
+  v83 = 0.0;
+  v78 = 0.0;
   if (v25)
   {
     _actionFont2 = [(SBUILockOverlayView *)self _actionFont];
     [_actionFont2 descender];
-    v70 = v77;
+    v78 = v85;
 
     goto LABEL_53;
   }
 
 LABEL_55:
-  [(UIResizableView *)self->_textContainerView setFrame:v67, SBFloatFloorForScale(v6 * 0.5 - (v66 + fabs(v70) - fabs(v75)) * 0.5, 0.0), v64, v66];
+  [(UIResizableView *)self->_textContainerView setFrame:v75, SBFloatFloorForScale(v73, v74, v6 * 0.5 - (v71 + fabs(v78) - fabs(v83)) * 0.5, 0.0), v69, v71];
   [(UIButton *)self->_actionButton frame];
-  v81 = v80;
-  v83 = v82;
-  v85 = v84;
-  [(UIResizableView *)self->_textContainerView frame];
-  [(UIButton *)self->_actionButton setFrame:SBFloatFloorForScale((v86 - v83) * 0.5, 0.0), v81, v83, v85];
+  v89 = v88;
+  v91 = v90;
+  v93 = v92;
+  frame2 = [(UIResizableView *)self->_textContainerView frame];
+  [(UIButton *)self->_actionButton setFrame:SBFloatFloorForScale(frame2, v96, (v95 - v91) * 0.5, 0.0), v89, v91, v93];
 }
 
 - (id)_titleFont

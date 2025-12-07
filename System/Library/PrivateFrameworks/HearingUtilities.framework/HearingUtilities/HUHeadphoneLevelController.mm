@@ -45,38 +45,38 @@
 
 void __49__HUHeadphoneLevelController__startIDSConnection__block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  if (!AXIDSServicesLibraryCore())
+  v9 = *MEMORY[0x1E69E9840];
+  if (AXIDSServicesLibraryCore(0))
+  {
+    v2 = [getAXIDSServicesClass() sharedInstance];
+    v3 = [v2 containsClient:*(a1 + 32)];
+
+    if (v3)
+    {
+      return;
+    }
+
+    v4 = AXLogIDS();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    {
+      v5 = *(a1 + 32);
+      v7 = 138412290;
+      v8 = v5;
+      _os_log_impl(&dword_1DA5E2000, v4, OS_LOG_TYPE_DEFAULT, "HeadphoneLevelController is starting IDS %@", &v7, 0xCu);
+    }
+
+    v6 = [getAXIDSServicesClass() sharedInstance];
+    [v6 registerForIncomingData:*(a1 + 32)];
+  }
+
+  else
   {
     v6 = AXLogIDS();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __49__HUHeadphoneLevelController__startIDSConnection__block_invoke_cold_1(v6);
     }
-
-    goto LABEL_8;
   }
-
-  v2 = [getAXIDSServicesClass() sharedInstance];
-  v3 = [v2 containsClient:*(a1 + 32)];
-
-  if ((v3 & 1) == 0)
-  {
-    v4 = AXLogIDS();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
-    {
-      v5 = *(a1 + 32);
-      v8 = 138412290;
-      v9 = v5;
-      _os_log_impl(&dword_1DA5E2000, v4, OS_LOG_TYPE_DEFAULT, "HeadphoneLevelController is starting IDS %@", &v8, 0xCu);
-    }
-
-    v6 = [getAXIDSServicesClass() sharedInstance];
-    [v6 registerForIncomingData:*(a1 + 32)];
-LABEL_8:
-  }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (HUHeadphoneLevelController)init
@@ -154,11 +154,13 @@ LABEL_8:
   [(HUHeadphoneLevelController *)&v4 dealloc];
 }
 
-uint64_t __46__HUHeadphoneLevelController_sharedController__block_invoke()
+uint64_t __46__HUHeadphoneLevelController_sharedController__block_invoke(uint64_t a1, uint64_t a2)
 {
-  sharedController_Controller = objc_opt_new();
+  v2 = objc_opt_new();
+  v3 = sharedController_Controller;
+  sharedController_Controller = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v3);
 }
 
 - (id)registerForHeadphoneLevelUpdates:(id)updates
@@ -342,7 +344,7 @@ void __46__HUHeadphoneLevelController_restartADAMTimer__block_invoke(uint64_t a1
 
 - (void)pushValuesToRemoteChangeListeners
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   dataQueue = [(HUHeadphoneLevelController *)self dataQueue];
   dispatch_assert_queue_V2(dataQueue);
 
@@ -351,14 +353,12 @@ void __46__HUHeadphoneLevelController_restartADAMTimer__block_invoke(uint64_t a1
 
   if (anyGizmoLiveHeadphoneLevelEnabled)
   {
-    v9 = @"HUGizmoAudioLevelIdentifier";
+    v8 = @"HUGizmoAudioLevelIdentifier";
     v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[HUHeadphoneLevelController streamingToGizmoAudioLevel](self, "streamingToGizmoAudioLevel")}];
-    v10[0] = v6;
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+    v9[0] = v6;
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
     [(HUHeadphoneLevelController *)self _pushValues:v7 identifier:0x400000];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_pushValues:(id)values identifier:(unint64_t)identifier
@@ -462,7 +462,7 @@ uint64_t __49__HUHeadphoneLevelController_receiveAudioSample___block_invoke(uint
 
 - (id)_sendIDSRequestToCompanion:(id)companion messageIdentifier:(unint64_t)identifier
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   companionCopy = companion;
   payload = [companionCopy payload];
   v8 = [payload objectForKey:@"ax_hearing_should_register_client_key"];
@@ -482,11 +482,11 @@ uint64_t __49__HUHeadphoneLevelController_receiveAudioSample___block_invoke(uint
     }
 
     v12 = MEMORY[0x1E69A4560];
-    v24 = @"HUGizmoIDSRequestDataKey";
-    v25 = MEMORY[0x1E695E118];
+    v23 = @"HUGizmoIDSRequestDataKey";
+    v24 = MEMORY[0x1E695E118];
     v13 = MEMORY[0x1E695DF20];
-    v14 = &v25;
-    v15 = &v24;
+    v14 = &v24;
+    v15 = &v23;
   }
 
   else
@@ -514,14 +514,14 @@ uint64_t __49__HUHeadphoneLevelController_receiveAudioSample___block_invoke(uint
     }
 
     v12 = MEMORY[0x1E69A4560];
-    v22 = @"HUGizmoIDSRequestDataKey";
-    v23 = MEMORY[0x1E695E110];
+    v21 = @"HUGizmoIDSRequestDataKey";
+    v22 = MEMORY[0x1E695E110];
     v13 = MEMORY[0x1E695DF20];
-    v14 = &v23;
-    v15 = &v22;
+    v14 = &v22;
+    v15 = &v21;
   }
 
-  v19 = [v13 dictionaryWithObjects:v14 forKeys:v15 count:{1, v22, v23, v24, v25}];
+  v19 = [v13 dictionaryWithObjects:v14 forKeys:v15 count:{1, v21, v22, v23, v24}];
   v17 = [v12 messagePayloadFromDictionary:v19 andIdentifier:identifier];
 
   if (v17)
@@ -530,7 +530,6 @@ uint64_t __49__HUHeadphoneLevelController_receiveAudioSample___block_invoke(uint
 LABEL_13:
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -589,8 +588,8 @@ LABEL_13:
 
 void __48__HUHeadphoneLevelController__stopIDSConnection__block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  if (AXIDSServicesLibraryCore())
+  v9 = *MEMORY[0x1E69E9840];
+  if (AXIDSServicesLibraryCore(0))
   {
     v2 = [getAXIDSServicesClass() sharedInstance];
     v3 = [v2 containsClient:*(a1 + 32)];
@@ -601,17 +600,15 @@ void __48__HUHeadphoneLevelController__stopIDSConnection__block_invoke(uint64_t 
       if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
         v5 = *(a1 + 32);
-        v8 = 138412290;
-        v9 = v5;
-        _os_log_impl(&dword_1DA5E2000, v4, OS_LOG_TYPE_DEFAULT, "_stopIDSConnection %@", &v8, 0xCu);
+        v7 = 138412290;
+        v8 = v5;
+        _os_log_impl(&dword_1DA5E2000, v4, OS_LOG_TYPE_DEFAULT, "_stopIDSConnection %@", &v7, 0xCu);
       }
 
       v6 = [getAXIDSServicesClass() sharedInstance];
       [v6 deregisterForIncomingData:*(a1 + 32)];
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_publishAudioDataIDSMessage:(id)message
@@ -635,7 +632,7 @@ void __48__HUHeadphoneLevelController__stopIDSConnection__block_invoke(uint64_t 
 
 void __58__HUHeadphoneLevelController__publishAudioDataIDSMessage___block_invoke(uint64_t a1)
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) shouldStreamingDataToGizmo])
   {
     if (([*(a1 + 32) streamingDataToGizmoType] & 0x200000) != 0)
@@ -643,12 +640,12 @@ void __58__HUHeadphoneLevelController__publishAudioDataIDSMessage___block_invoke
       v3 = HCLogSoundMeter();
       if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
       {
-        *v14 = 0;
-        _os_log_impl(&dword_1DA5E2000, v3, OS_LOG_TYPE_INFO, "Publishing audio data(HCMessageIdentifierRemoteHeadphoneLevelUpdates) to Gizmo.", v14, 2u);
+        *v13 = 0;
+        _os_log_impl(&dword_1DA5E2000, v3, OS_LOG_TYPE_INFO, "Publishing audio data(HCMessageIdentifierRemoteHeadphoneLevelUpdates) to Gizmo.", v13, 2u);
       }
 
       v2 = [MEMORY[0x1E69A4560] messagePayloadFromDictionary:*(a1 + 40) andIdentifier:0x200000];
-      if (v2 && AXIDSServicesLibraryCore())
+      if (v2 && AXIDSServicesLibraryCore(0))
       {
         v4 = [getAXIDSServicesClass() sharedInstance];
         v5 = [v4 publishDirectIDSMessage:v2];
@@ -665,22 +662,25 @@ void __58__HUHeadphoneLevelController__publishAudioDataIDSMessage___block_invoke
       v8 = HCLogSoundMeter();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
-        *v14 = 0;
-        _os_log_impl(&dword_1DA5E2000, v8, OS_LOG_TYPE_INFO, "Publishing audio data(HCMessageIdentifierRemoteHeadphoneLevelChangesUpdates) to Gizmo.", v14, 2u);
+        *v13 = 0;
+        _os_log_impl(&dword_1DA5E2000, v8, OS_LOG_TYPE_INFO, "Publishing audio data(HCMessageIdentifierRemoteHeadphoneLevelChangesUpdates) to Gizmo.", v13, 2u);
       }
 
       [*(a1 + 32) setStreamingToGizmoAudioLevel:v6];
-      v15 = @"HUGizmoAudioLevelIdentifier";
+      v14 = @"HUGizmoAudioLevelIdentifier";
       v9 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(*(a1 + 32), "streamingToGizmoAudioLevel")}];
-      v16[0] = v9;
-      v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+      v15[0] = v9;
+      v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
 
       v7 = [MEMORY[0x1E69A4560] messagePayloadFromDictionary:v10 andIdentifier:0x400000];
 
-      if (v7 && AXIDSServicesLibraryCore())
+      if (v7)
       {
-        v11 = [getAXIDSServicesClass() sharedInstance];
-        v12 = [v11 publishDirectIDSMessage:v7];
+        if (AXIDSServicesLibraryCore(0))
+        {
+          v11 = [getAXIDSServicesClass() sharedInstance];
+          v12 = [v11 publishDirectIDSMessage:v7];
+        }
       }
     }
 
@@ -689,8 +689,6 @@ void __58__HUHeadphoneLevelController__publishAudioDataIDSMessage___block_invoke
       v7 = v2;
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)_audioLevelFromAudioDict:(id)dict
@@ -749,7 +747,7 @@ void __65__HUHeadphoneLevelController__publishRequestAudioDataIDSMessage___block
     _os_log_impl(&dword_1DA5E2000, v2, OS_LOG_TYPE_INFO, "Publishing request audio data to Companion.", v5, 2u);
   }
 
-  if (AXIDSServicesLibraryCore())
+  if (AXIDSServicesLibraryCore(0))
   {
     v3 = [getAXIDSServicesClass() sharedInstance];
     v4 = [v3 publishDirectIDSMessage:*(a1 + 32)];
@@ -767,7 +765,7 @@ void __65__HUHeadphoneLevelController__publishRequestAudioDataIDSMessage___block
     goto LABEL_13;
   }
 
-  if (!AXIDSServicesLibraryCore() || !getAXIDSServiceMessageKeySymbolLoc())
+  if (!AXIDSServicesLibraryCore(0) || !getAXIDSServiceMessageKeySymbolLoc())
   {
     v8 = MEMORY[0x1E695E0F8];
 LABEL_7:
@@ -825,13 +823,13 @@ LABEL_13:
     goto LABEL_7;
   }
 
-  ADAFMetadataKeyHAEDataForGauge_cold_1 = getADAFMetadataKeyHAEDataForGauge_cold_1();
-  __53__HUHeadphoneLevelController_didReceiveIncomingData___block_invoke(ADAFMetadataKeyHAEDataForGauge_cold_1);
+  getADAFMetadataKeyHAEDataForGauge_cold_1();
+  __53__HUHeadphoneLevelController_didReceiveIncomingData___block_invoke(v16);
 }
 
 void __53__HUHeadphoneLevelController_didReceiveIncomingData___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) objectForKeyedSubscript:@"HUGizmoIDSRequestDataKey"];
   v3 = [v2 BOOLValue];
 
@@ -870,14 +868,12 @@ void __53__HUHeadphoneLevelController_didReceiveIncomingData___block_invoke(uint
   {
     v9 = [*(a1 + 40) shouldStreamingDataToGizmo];
     v10 = [*(a1 + 40) streamingDataToGizmoType];
-    v12[0] = 67109376;
-    v12[1] = v9;
-    v13 = 2048;
-    v14 = v10;
-    _os_log_impl(&dword_1DA5E2000, v8, OS_LOG_TYPE_INFO, "Receiving request audio data from Gizmo. shouldStreamingDataToGizmo: %i, streamingDataToGizmoType: %llu", v12, 0x12u);
+    v11[0] = 67109376;
+    v11[1] = v9;
+    v12 = 2048;
+    v13 = v10;
+    _os_log_impl(&dword_1DA5E2000, v8, OS_LOG_TYPE_INFO, "Receiving request audio data from Gizmo. shouldStreamingDataToGizmo: %i, streamingDataToGizmoType: %llu", v11, 0x12u);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __53__HUHeadphoneLevelController_didReceiveIncomingData___block_invoke_14(uint64_t a1)
@@ -992,7 +988,7 @@ uint64_t __60__HUHeadphoneLevelController_serverConnectionWasInterrupted__block_
 
 - (void)_mediaPlaybackDidChange:(id)change
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   userInfo = [change userInfo];
   v5 = [userInfo objectForKeyedSubscript:*MEMORY[0x1E69AEAB8]];
   bOOLValue = [v5 BOOLValue];
@@ -1000,25 +996,26 @@ uint64_t __60__HUHeadphoneLevelController_serverConnectionWasInterrupted__block_
   v7 = HCLogSoundMeter();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    v9[0] = 67109376;
-    v9[1] = bOOLValue;
-    v10 = 1024;
+    v8[0] = 67109376;
+    v8[1] = bOOLValue;
+    v9 = 1024;
     isConnectedToIDS = [(HUHeadphoneLevelController *)self isConnectedToIDS];
-    _os_log_impl(&dword_1DA5E2000, v7, OS_LOG_TYPE_INFO, "Receive play back notification. isPlaying %i, isCompanionConnectedToIDS %i", v9, 0xEu);
+    _os_log_impl(&dword_1DA5E2000, v7, OS_LOG_TYPE_INFO, "Receive play back notification. isPlaying %i, isCompanionConnectedToIDS %i", v8, 0xEu);
   }
 
-  if (bOOLValue && ![(HUHeadphoneLevelController *)self isConnectedToIDS])
+  if (bOOLValue)
   {
-    [(HUHeadphoneLevelController *)self _startIDSConnection];
-    [(HUHeadphoneLevelController *)self _unregisterMediaNotification];
+    if (![(HUHeadphoneLevelController *)self isConnectedToIDS])
+    {
+      [(HUHeadphoneLevelController *)self _startIDSConnection];
+      [(HUHeadphoneLevelController *)self _unregisterMediaNotification];
+    }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_automationStartPlayingSampleData:(id)data
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   v5 = HCLogSoundMeter();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
@@ -1038,7 +1035,7 @@ uint64_t __60__HUHeadphoneLevelController_serverConnectionWasInterrupted__block_
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
         *buf = 134217984;
-        v18 = 0x3FB999999999999ALL;
+        v17 = 0x3FB999999999999ALL;
         _os_log_impl(&dword_1DA5E2000, v8, OS_LOG_TYPE_INFO, "Waiting %fs for current automation sample to finish", buf, 0xCu);
       }
 
@@ -1060,9 +1057,9 @@ uint64_t __60__HUHeadphoneLevelController_serverConnectionWasInterrupted__block_
     block[1] = 3221225472;
     block[2] = __64__HUHeadphoneLevelController__automationStartPlayingSampleData___block_invoke;
     block[3] = &unk_1E85C9F88;
-    v16 = v9;
+    v15 = v9;
     block[4] = self;
-    v15 = dataCopy;
+    v14 = dataCopy;
     dispatch_after(v11, dataQueue, block);
   }
 
@@ -1070,8 +1067,6 @@ uint64_t __60__HUHeadphoneLevelController_serverConnectionWasInterrupted__block_
   {
     [(HUHeadphoneLevelController *)self setAutomationSampleData:0];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __64__HUHeadphoneLevelController__automationStartPlayingSampleData___block_invoke(uint64_t a1)
@@ -1094,7 +1089,7 @@ uint64_t __64__HUHeadphoneLevelController__automationStartPlayingSampleData___bl
 
 - (void)_automationPlaySampleData
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   automationSampleData = [(HUHeadphoneLevelController *)self automationSampleData];
   v4 = [automationSampleData count];
 
@@ -1113,32 +1108,32 @@ uint64_t __64__HUHeadphoneLevelController__automationStartPlayingSampleData___bl
     date = [MEMORY[0x1E695DF00] date];
     v13 = [v11 initWithStartDate:date duration:0.100000001];
 
-    v28 = 0;
-    v29 = &v28;
-    v30 = 0x2050000000;
+    v27 = 0;
+    v28 = &v27;
+    v29 = 0x2050000000;
     v14 = getADAMAudioDataAnalysisSampleClass_softClass;
-    v31 = getADAMAudioDataAnalysisSampleClass_softClass;
+    v30 = getADAMAudioDataAnalysisSampleClass_softClass;
     if (!getADAMAudioDataAnalysisSampleClass_softClass)
     {
       *&buf = MEMORY[0x1E69E9820];
       *(&buf + 1) = 3221225472;
-      v35 = __getADAMAudioDataAnalysisSampleClass_block_invoke;
-      v36 = &unk_1E85C9FB0;
-      v37 = &v28;
+      v34 = __getADAMAudioDataAnalysisSampleClass_block_invoke;
+      v35 = &unk_1E85C9FB0;
+      v36 = &v27;
       __getADAMAudioDataAnalysisSampleClass_block_invoke(&buf);
-      v14 = v29[3];
+      v14 = v28[3];
     }
 
     v15 = v14;
-    _Block_object_dispose(&v28, 8);
+    _Block_object_dispose(&v27, 8);
     v16 = [v14 alloc];
     LODWORD(v17) = v8;
     v18 = [MEMORY[0x1E696AD98] numberWithFloat:v17];
     v19 = getADAFMetadataKeyHAEDataForGauge();
-    v32 = v19;
+    v31 = v19;
     v20 = [MEMORY[0x1E696AD98] numberWithBool:v10 != 0.0];
-    v33 = v20;
-    v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+    v32 = v20;
+    v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
     v22 = [v16 initAudioSampleWithType:1751213428 data:v18 dateInterval:v13 metadata:v21];
 
     v23 = HCLogSoundMeter();
@@ -1169,8 +1164,6 @@ uint64_t __64__HUHeadphoneLevelController__automationStartPlayingSampleData___bl
       _os_log_impl(&dword_1DA5E2000, v13, OS_LOG_TYPE_INFO, "No automation sample data left", &buf, 2u);
     }
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 @end

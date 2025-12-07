@@ -9,7 +9,7 @@
 {
   reasonCopy = reason;
 
-  sub_1C5DB9530();
+  sub_1C5DB9530(reasonCopy);
 }
 
 - (NSDictionary)stateDictionary

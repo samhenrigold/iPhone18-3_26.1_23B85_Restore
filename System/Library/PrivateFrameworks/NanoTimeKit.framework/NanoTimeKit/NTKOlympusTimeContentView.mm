@@ -191,7 +191,7 @@
 
     device = [(NTKOlympusTimeContentView *)self device];
     ___LayoutConstants_block_invoke_14(device, v24);
-    [(NTKVictoryLabel *)self->_circularUpperTimeLabel setAdditionalPaddingInsets:v24[0]];
+    [(NTKVictoryLabel *)self->_circularUpperTimeLabel setAdditionalPaddingInsets:*v24];
 
     device2 = [(NTKOlympusTimeContentView *)self device];
     ___LayoutConstants_block_invoke_14(device2, v22);
@@ -213,7 +213,7 @@
 
     device3 = [(NTKOlympusTimeContentView *)self device];
     ___LayoutConstants_block_invoke_14(device3, v21);
-    [(NTKVictoryLabel *)self->_circularLowerTimeLabel setAdditionalPaddingInsets:v21[0]];
+    [(NTKVictoryLabel *)self->_circularLowerTimeLabel setAdditionalPaddingInsets:*v21];
 
     device4 = [(NTKOlympusTimeContentView *)self device];
     ___LayoutConstants_block_invoke_14(device4, v19);
@@ -253,7 +253,7 @@
 
     device = [(NTKOlympusTimeContentView *)self device];
     ___LayoutConstants_block_invoke_14(device, v20);
-    [(NTKVictoryLabel *)self->_fullscreenDigitalUpperTimeLabel setAdditionalPaddingInsets:v20[0]];
+    [(NTKVictoryLabel *)self->_fullscreenDigitalUpperTimeLabel setAdditionalPaddingInsets:*v20];
 
     device2 = [(NTKOlympusTimeContentView *)self device];
     ___LayoutConstants_block_invoke_14(device2, v18);
@@ -275,7 +275,7 @@
 
     device3 = [(NTKOlympusTimeContentView *)self device];
     ___LayoutConstants_block_invoke_14(device3, v17);
-    [(NTKVictoryLabel *)self->_fullscreenDigitalLowerTimeLabel setAdditionalPaddingInsets:v17[0]];
+    [(NTKVictoryLabel *)self->_fullscreenDigitalLowerTimeLabel setAdditionalPaddingInsets:*v17];
 
     device4 = [(NTKOlympusTimeContentView *)self device];
     ___LayoutConstants_block_invoke_14(device4, v15);
@@ -311,7 +311,7 @@
 
     device = [(NTKOlympusTimeContentView *)self device];
     ___LayoutConstants_block_invoke_14(device, v12);
-    [(NTKVictoryLabel *)self->_fullscreenHybridLowerTimeLabel setAdditionalPaddingInsets:v12[0]];
+    [(NTKVictoryLabel *)self->_fullscreenHybridLowerTimeLabel setAdditionalPaddingInsets:*v12];
 
     fontForHybridFullscreen2 = [(NTKOlympusTimeContentView *)self fontForHybridFullscreen];
     [(CLKUIColoringLabel *)self->_fullscreenHybridLowerTimeLabel setFont:fontForHybridFullscreen2];
@@ -444,7 +444,7 @@
   device = self->_device;
   device = [(NTKOlympusTimeContentView *)self device];
   ___LayoutConstants_block_invoke_14(device, v12);
-  v10 = [(NTKVictoryTimeLabel *)v7 initWithTimeLabelOptions:option forDevice:device additionalPaddingInsets:v12[0]];
+  v10 = [(NTKVictoryTimeLabel *)v7 initWithTimeLabelOptions:option forDevice:device additionalPaddingInsets:*v12];
 
   [(NTKDigitalTimeLabel *)v10 setStyle:v6];
 
@@ -1228,7 +1228,7 @@ LABEL_13:
   toBackgroundColorCopy = toBackgroundColor;
   backgroundColorCopy = backgroundColor;
   [(NTKOlympusTimeContentView *)self _applyTransitionFraction:color fromTextColor:toColor toTextColor:fraction];
-  v20 = NTKInterpolateBetweenColors();
+  v20 = NTKInterpolateBetweenColors(fraction);
 
   [(UIButton *)self->_circularLogoButton setTintColor:v20];
   [(UIButton *)self->_fullscreenLogoButton setTintColor:v20];
@@ -1238,10 +1238,10 @@ LABEL_13:
   aBlock[3] = &__block_descriptor_40_e8_f12__0f8l;
   *&aBlock[4] = fraction;
   v21 = _Block_copy(aBlock);
-  v21[2](0.0);
-  v22 = NTKInterpolateBetweenColors();
+  v22 = v21[2](0.0);
+  v23 = NTKInterpolateBetweenColors(v22);
 
-  [(NTKOlympusTimeContentView *)self setBackgroundColor:v22];
+  [(NTKOlympusTimeContentView *)self setBackgroundColor:v23];
 }
 
 float __136__NTKOlympusTimeContentView__applyTransitionFraction_fromColor_toColor_fromBackgroundColor_toBackgroundColor_fromLogoColor_toLogoColor___block_invoke(uint64_t a1, float a2)
@@ -1257,7 +1257,7 @@ float __136__NTKOlympusTimeContentView__applyTransitionFraction_fromColor_toColo
 
 - (void)_applyTransitionFraction:(double)fraction fromTextColor:(id)color toTextColor:(id)textColor
 {
-  v6 = NTKInterpolateBetweenColors();
+  v6 = NTKInterpolateBetweenColors(fraction);
   [(NTKDigitalTimeLabel *)self->_fullscreenHybridUpperTimeLabel setColor:v6];
   [(NTKVictoryLabel *)self->_fullscreenHybridLowerTimeLabel setFillColor:v6];
   [(CLKUIColoringLabel *)self->_fullscreenDigitalUpperTimeLabel setColor:v6];
@@ -1268,7 +1268,7 @@ float __136__NTKOlympusTimeContentView__applyTransitionFraction_fromColor_toColo
 
 + (double)scaleForViewDuringColorChangeTransitionWithFraction:(double)fraction
 {
-  v4 = NTKVictoryTransitionTimingFunction();
+  v4 = NTKVictoryTransitionTimingFunction(self);
   v5 = v4;
   *&v6 = fraction;
   *&v6 = fabsf((*&v6 + -0.4) / 0.4);

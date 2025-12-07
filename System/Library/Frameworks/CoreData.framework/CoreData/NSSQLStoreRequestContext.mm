@@ -1,8 +1,8 @@
 @interface NSSQLStoreRequestContext
 - (BOOL)executeRequestCore:(id *)core;
 - (BOOL)executeRequestUsingConnection:(id)connection;
+- (NSSQLObjectFaultRequestContext)createNestedObjectFaultContextForObjectWithID:(NSSQLObjectFaultRequestContext *)result;
 - (NSSQLStoreRequestContext)initWithRequest:(id)request context:(id)context sqlCore:(id)core;
-- (uint64_t)createNestedObjectFaultContextForObjectWithID:(uint64_t)result;
 - (uint64_t)debugLogLevel;
 - (void)dealloc;
 - (void)setConnection:(uint64_t)connection;
@@ -98,16 +98,16 @@
   }
 }
 
-- (uint64_t)createNestedObjectFaultContextForObjectWithID:(uint64_t)result
+- (NSSQLObjectFaultRequestContext)createNestedObjectFaultContextForObjectWithID:(NSSQLObjectFaultRequestContext *)result
 {
   if (result)
   {
     v3 = result;
     v4 = [NSSQLObjectFaultRequestContext alloc];
-    v5 = *(v3 + 32);
-    v6 = *(v3 + 8);
+    context = v3->super._context;
+    sqlCore = v3->super._sqlCore;
 
-    return [(NSSQLObjectFaultRequestContext *)v4 initWithObjectID:a2 context:v5 sqlCore:v6];
+    return [(NSSQLObjectFaultRequestContext *)v4 initWithObjectID:a2 context:context sqlCore:sqlCore];
   }
 
   return result;
@@ -115,14 +115,14 @@
 
 - (BOOL)executeRequestCore:(id *)core
 {
-  objc_opt_class();
-  NSRequestConcreteImplementation();
+  v5 = objc_opt_class();
+  NSRequestConcreteImplementation(self, a2, v5, v6, v7, v8, v9, v10);
   return 0;
 }
 
 - (BOOL)executeRequestUsingConnection:(id)connection
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v27[1] = *MEMORY[0x1E69E9840];
   newValue = 0;
   isWritingRequest = [(NSSQLStoreRequestContext *)self isWritingRequest];
   if (self)
@@ -137,12 +137,12 @@
 
   [(NSSQLStoreRequestContext *)self setConnection:connection];
   [(NSSQLiteConnection *)connection connect];
-  v19 = 0u;
+  v18 = 0u;
   if (self && (context = self->_context) != 0 && (*(&context->_flags + 3) & 0x20) != 0)
   {
     [(NSSQLiteConnection *)connection currentStats];
-    v19 = v24;
-    v8 = v25;
+    v18 = v23;
+    v8 = v24;
   }
 
   else
@@ -166,16 +166,16 @@
     v10 = [(NSSQLiteConnection *)connection adoptQueryGenerationWithIdentifier:?];
     if (v10)
     {
-      v27 = @"NSSQLiteErrorDomain";
-      v28[0] = [MEMORY[0x1E696AD98] numberWithInt:v10];
-      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
-      v18 = [_NSCoreDataException exceptionWithName:v10 code:@"Database connection failed to adopt query generation" reason:v17 userInfo:?];
-      [(_NSCoreDataException *)v18 _setDomain:?];
-      objc_exception_throw(v18);
+      v26 = @"NSSQLiteErrorDomain";
+      v27[0] = [MEMORY[0x1E696AD98] numberWithInt:v10];
+      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:1];
+      v17 = [_NSCoreDataException exceptionWithName:v10 code:@"Database connection failed to adopt query generation" reason:v16 userInfo:?];
+      [(_NSCoreDataException *)v17 _setDomain:?];
+      objc_exception_throw(v17);
     }
   }
 
-  v12 = [(NSSQLStoreRequestContext *)self executeRequestCore:&newValue, *&v19];
+  v12 = [(NSSQLStoreRequestContext *)self executeRequestCore:&newValue, *&v18];
   if (v9)
   {
     if (!self)
@@ -196,13 +196,13 @@
   v13 = self->_context;
   if (v13 && (*(&v13->_flags + 3) & 0x20) != 0)
   {
+    v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
     [(NSSQLiteConnection *)connection currentStats];
     v14 = self->_context;
-    v21 = vsubq_s64(v24, v20);
-    v22 = v25 - v8;
-    v23 = *(&v25 + 1);
+    v20 = vsubq_s64(v23, v19);
+    v21 = v24 - v8;
+    v22 = *(&v24 + 1);
     [(NSManagedObjectContext *)v14 _updateDatabaseStaticsWithCacheStats:?];
   }
 
@@ -213,7 +213,6 @@
 
 LABEL_23:
   [(NSSQLStoreRequestContext *)self setConnection:?];
-  v15 = *MEMORY[0x1E69E9840];
   return v12;
 }
 

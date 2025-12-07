@@ -201,7 +201,7 @@
   numberOfParticipants = [objc_claimAutoreleasedReturnValue() numberOfParticipants];
   if (viewModel)
   {
-    [viewModel shareCounts];
+    objc_msgSend_shareCounts(viewModel);
   }
 
   else

@@ -388,7 +388,7 @@ LABEL_14:
   v18 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   backdropGroupName = self->_backdropGroupName;
-  if (backdropGroupName != nameCopy && ![(NSString *)backdropGroupName isEqualToString:nameCopy])
+  if (backdropGroupName != nameCopy && (objc_msgSend_isEqualToString_(backdropGroupName) & 1) == 0)
   {
     v6 = [(NSString *)nameCopy copy];
     v7 = self->_backdropGroupName;

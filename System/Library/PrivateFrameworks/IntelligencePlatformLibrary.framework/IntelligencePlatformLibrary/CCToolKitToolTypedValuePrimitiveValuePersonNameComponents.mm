@@ -345,9 +345,9 @@ LABEL_21:
         {
           v26 = [CCToolKitToolTypedValuePrimitiveValuePersonNameComponentsPhoneticRepresentation alloc];
           v27 = CCPBReaderReadDataNoCopy();
-          v38 = 0;
-          v28 = [(CCItemMessage *)v26 initWithData:v27 error:&v38];
-          v10 = v38;
+          v36 = 0;
+          v28 = [(CCItemMessage *)v26 initWithData:v27 error:&v36];
+          v10 = v36;
           phoneticRepresentation = self->_phoneticRepresentation;
           self->_phoneticRepresentation = v28;
 
@@ -385,7 +385,6 @@ LABEL_39:
 
       v30 = objc_opt_class();
       v27 = NSStringFromClass(v30);
-      v31 = *&v6[*v9];
       v10 = CCSkipFieldErrorForMessage();
 LABEL_40:
 
@@ -409,23 +408,22 @@ LABEL_46:
   if (!*&v6[*v9])
   {
     v10 = 0;
-    v36 = 1;
+    v34 = 1;
     goto LABEL_50;
   }
 
 LABEL_47:
-  v32 = objc_opt_class();
-  v33 = NSStringFromClass(v32);
-  v34 = *&v6[*v9];
-  v35 = CCInvalidBufferErrorForMessage();
+  v31 = objc_opt_class();
+  v32 = NSStringFromClass(v31);
+  v33 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
   v10 = 0;
 LABEL_48:
-  v36 = 0;
+  v34 = 0;
 LABEL_50:
 
-  return v36;
+  return v34;
 }
 
 - (CCToolKitToolTypedValuePrimitiveValuePersonNameComponents)initWithNamePrefix:(id)prefix givenName:(id)name middleName:(id)middleName familyName:(id)familyName nameSuffix:(id)suffix nickname:(id)nickname phoneticRepresentation:(id)representation error:(id *)self0

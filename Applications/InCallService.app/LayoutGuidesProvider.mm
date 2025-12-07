@@ -90,71 +90,86 @@
 
 - (void)updateMiddleShelfStateWithIsOpen:(BOOL)open
 {
+  openCopy = open;
   selfCopy = self;
-  sub_100160590();
+  sub_100160590(openCopy);
 }
 
 - (void)updateMiddleShelfStateWithIsOpen:(BOOL)open animation:(id)animation completion:(id)completion
 {
-  v7 = _Block_copy(animation);
-  v8 = _Block_copy(completion);
-  v9 = v8;
-  if (v7)
-  {
-    *(swift_allocObject() + 16) = v7;
-    v7 = sub_1001621B8;
-    if (!v9)
-    {
-      goto LABEL_5;
-    }
-
-    goto LABEL_3;
-  }
-
+  openCopy = open;
+  v8 = _Block_copy(animation);
+  v9 = _Block_copy(completion);
+  v10 = v9;
   if (v8)
   {
+    v11 = swift_allocObject();
+    *(v11 + 16) = v8;
+    v8 = sub_1001621B8;
+    if (v10)
+    {
 LABEL_3:
-    *(swift_allocObject() + 16) = v9;
-    v9 = sub_1001621B8;
+      v12 = swift_allocObject();
+      *(v12 + 16) = v10;
+      v10 = sub_1001621B8;
+      goto LABEL_6;
+    }
   }
 
-LABEL_5:
+  else
+  {
+    v11 = 0;
+    if (v9)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  v12 = 0;
+LABEL_6:
   selfCopy = self;
-  sub_100160624();
-  sub_1000081F4(v9);
-  sub_1000081F4(v7);
+  sub_100160624(openCopy, v8, v11, v10, v12);
+  sub_1000081F4(v10, v12);
+  sub_1000081F4(v8, v11);
 }
 
 - (void)updateMiddleShelfStateWithIsOpen:(BOOL)open contentView:(id)view animation:(id)animation completion:(id)completion
 {
-  v9 = _Block_copy(animation);
-  v10 = _Block_copy(completion);
-  v11 = v10;
-  if (v9)
-  {
-    *(swift_allocObject() + 16) = v9;
-    v9 = sub_1001621B8;
-    if (!v11)
-    {
-      goto LABEL_5;
-    }
-
-    goto LABEL_3;
-  }
-
+  openCopy = open;
+  v10 = _Block_copy(animation);
+  v11 = _Block_copy(completion);
+  v12 = v11;
   if (v10)
   {
+    v13 = swift_allocObject();
+    *(v13 + 16) = v10;
+    v10 = sub_1001621B8;
+    if (v12)
+    {
 LABEL_3:
-    *(swift_allocObject() + 16) = v11;
-    v11 = sub_1001541E8;
+      v14 = swift_allocObject();
+      *(v14 + 16) = v12;
+      v12 = sub_1001541E8;
+      goto LABEL_6;
+    }
   }
 
-LABEL_5:
+  else
+  {
+    v13 = 0;
+    if (v11)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  v14 = 0;
+LABEL_6:
   viewCopy = view;
   selfCopy = self;
-  sub_100160788();
-  sub_1000081F4(v11);
-  sub_1000081F4(v9);
+  sub_100160788(openCopy, view, v10, v13, v12, v14);
+  sub_1000081F4(v12, v14);
+  sub_1000081F4(v10, v13);
 }
 
 - (void)updateMiddleStateWithIsEmpty:(BOOL)empty

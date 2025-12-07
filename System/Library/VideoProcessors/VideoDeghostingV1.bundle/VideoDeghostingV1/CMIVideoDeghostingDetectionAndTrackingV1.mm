@@ -10,6 +10,8 @@
 - (int)resetState;
 - (void)dealloc;
 - (void)setCameraInfoByPortType:(id)type;
+- (void)setSensorBinningFactorHorizontal:(int)horizontal;
+- (void)setSensorBinningFactorVertical:(int)vertical;
 @end
 
 @implementation CMIVideoDeghostingDetectionAndTrackingV1
@@ -102,7 +104,7 @@ LABEL_33:
       greenGhostBrightLightTuningParameters = self->_greenGhostBrightLightTuningParameters;
       if (greenGhostBrightLightTuningParameters)
       {
-        [(CMIVideoDeghostingBrightLightTuningParamsV1 *)greenGhostBrightLightTuningParameters tuningParams];
+        objc_msgSend_tuningParams(greenGhostBrightLightTuningParameters);
       }
 
       else
@@ -210,20 +212,21 @@ LABEL_25:
   resetState = [(CMIVideoDeghostingDetectionV1 *)self->_detection resetState];
   if (resetState)
   {
-    resetState2 = resetState;
+    v6 = resetState;
     sub_1E85C();
   }
 
   else
   {
     resetState2 = [(CMIVideoDeghostingTrackingV1 *)self->_tracking resetState];
+    v6 = resetState2;
     if (resetState2)
     {
-      sub_1E8DC();
+      sub_1E8DC(resetState2);
     }
   }
 
-  return resetState2;
+  return v6;
 }
 
 - (BOOL)_runTrackingOnImage:(__CVBuffer *)image metadataDictionary:(id)dictionary
@@ -274,6 +277,26 @@ LABEL_25:
   typeCopy = type;
   [(CMIVideoDeghostingDetectionV1 *)self->_detection setCameraInfoByPortType:typeCopy];
   [(CMIVideoDeghostingTrackingV1 *)self->_tracking setCameraInfoByPortType:typeCopy];
+}
+
+- (void)setSensorBinningFactorHorizontal:(int)horizontal
+{
+  v3 = *&horizontal;
+  self->_sensorBinningFactorHorizontal = horizontal;
+  [(CMIVideoDeghostingDetectionV1 *)self->_detection setSensorBinningFactorHorizontal:?];
+  tracking = self->_tracking;
+
+  [(CMIVideoDeghostingTrackingV1 *)tracking setSensorBinningFactorHorizontal:v3];
+}
+
+- (void)setSensorBinningFactorVertical:(int)vertical
+{
+  v3 = *&vertical;
+  self->_sensorBinningFactorVertical = vertical;
+  [(CMIVideoDeghostingDetectionV1 *)self->_detection setSensorBinningFactorVertical:?];
+  tracking = self->_tracking;
+
+  [(CMIVideoDeghostingTrackingV1 *)tracking setSensorBinningFactorVertical:v3];
 }
 
 - (int)_extractAndCheckTuningParameters:(id)parameters
@@ -418,34 +441,37 @@ LABEL_12:
 {
   contextCopy = context;
   parametersCopy = parameters;
-  v36.receiver = self;
-  v36.super_class = CMIVideoDeghostingDetectionAndTrackingV1;
-  v11 = [(CMIVideoDeghostingDetectionAndTrackingV1 *)&v36 init];
-  v12 = v11;
-  if (!v11)
+  v52.receiver = self;
+  v52.super_class = CMIVideoDeghostingDetectionAndTrackingV1;
+  v12 = [(CMIVideoDeghostingDetectionAndTrackingV1 *)&v52 init];
+  v13 = v12;
+  if (!v12)
   {
     fig_log_get_emitter();
     sub_4C20();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v36, "<<<< CMIVideoDeghostingDetectionAndTrackingV1 >>>> Fig", "self", "bail", "Unable to initialize CMIVideoDeghostingDetectionAndTrackingV1", "CMIVideoDeghostingDetectionAndTrackingV1.m", 110);
 LABEL_13:
-    FigDebugAssert3();
-    v14 = 0;
     v16 = 0;
-    goto LABEL_20;
+    v18 = 0;
+    goto LABEL_19;
   }
 
-  if ([(CMIVideoDeghostingDetectionAndTrackingV1 *)v11 _extractAndCheckTuningParameters:parametersCopy])
+  v14 = [(CMIVideoDeghostingDetectionAndTrackingV1 *)v12 _extractAndCheckTuningParameters:parametersCopy];
+  if (v14)
   {
-    fig_log_get_emitter();
+    v37 = v14;
+    emitter = fig_log_get_emitter();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", emitter, "<<<< CMIVideoDeghostingDetectionAndTrackingV1 >>>> Fig", "err == 0 ", "bail", "Invalid tuning parameters", "CMIVideoDeghostingDetectionAndTrackingV1.m", 113, v37);
     goto LABEL_13;
   }
 
   dimensionsCopy = dimensions;
-  v35 = contextCopy;
-  v13 = [parametersCopy objectForKeyedSubscript:@"Detection"];
-  v14 = [NSMutableDictionary dictionaryWithDictionary:v13];
-
-  v15 = [parametersCopy objectForKeyedSubscript:@"Tracking"];
+  v50 = contextCopy;
+  v15 = [parametersCopy objectForKeyedSubscript:@"Detection"];
   v16 = [NSMutableDictionary dictionaryWithDictionary:v15];
+
+  v17 = [parametersCopy objectForKeyedSubscript:@"Tracking"];
+  v18 = [NSMutableDictionary dictionaryWithDictionary:v17];
 
   [parametersCopy objectForKeyedSubscript:@"GhostSize"];
   objc_claimAutoreleasedReturnValue();
@@ -460,11 +486,11 @@ LABEL_13:
   [sub_B40C() setObject:? forKeyedSubscript:?];
 
   [parametersCopy objectForKeyedSubscript:@"ContextScoreLambda"];
-  v17 = obj = context;
-  [v14 setObject:v17 forKeyedSubscript:@"ContextScoreLambda"];
+  v19 = obj = context;
+  [v16 setObject:v19 forKeyedSubscript:@"ContextScoreLambda"];
 
-  v18 = [parametersCopy objectForKeyedSubscript:@"ContextPaddingInPixel"];
-  [v14 setObject:v18 forKeyedSubscript:@"ContextPaddingInPixel"];
+  v20 = [parametersCopy objectForKeyedSubscript:@"ContextPaddingInPixel"];
+  [v16 setObject:v20 forKeyedSubscript:@"ContextPaddingInPixel"];
 
   [parametersCopy objectForKeyedSubscript:@"GhostSize"];
   objc_claimAutoreleasedReturnValue();
@@ -478,80 +504,96 @@ LABEL_13:
   objc_claimAutoreleasedReturnValue();
   [sub_B41C() setObject:? forKeyedSubscript:?];
 
-  v19 = [parametersCopy objectForKeyedSubscript:@"ContextScoreLambda"];
-  [v16 setObject:v19 forKeyedSubscript:@"ContextScoreLambda"];
+  v21 = [parametersCopy objectForKeyedSubscript:@"ContextScoreLambda"];
+  [v18 setObject:v21 forKeyedSubscript:@"ContextScoreLambda"];
 
-  v20 = [parametersCopy objectForKeyedSubscript:@"ContextPaddingInPixel"];
-  [v16 setObject:v20 forKeyedSubscript:@"ContextPaddingInPixel"];
+  v22 = [parametersCopy objectForKeyedSubscript:@"ContextPaddingInPixel"];
+  [v18 setObject:v22 forKeyedSubscript:@"ContextPaddingInPixel"];
 
-  objc_storeStrong(&v12->_metalContext, obj);
-  v12->_pastFrameInfoArrayCapacity = (2 * v12->_defaultDetectionPeriod) | 1;
-  v21 = [[NSMutableArray alloc] initWithCapacity:v12->_pastFrameInfoArrayCapacity];
-  pastFrameInfoArray = v12->_pastFrameInfoArray;
-  v12->_pastFrameInfoArray = v21;
+  objc_storeStrong(&v13->_metalContext, obj);
+  v13->_pastFrameInfoArrayCapacity = (2 * v13->_defaultDetectionPeriod) | 1;
+  v23 = [[NSMutableArray alloc] initWithCapacity:v13->_pastFrameInfoArrayCapacity];
+  pastFrameInfoArray = v13->_pastFrameInfoArray;
+  v13->_pastFrameInfoArray = v23;
 
-  if (!v12->_pastFrameInfoArray)
+  if (!v13->_pastFrameInfoArray)
   {
     fig_log_get_emitter();
     sub_4C20();
-    FigDebugAssert3();
-    v31 = 0;
-    contextCopy = v35;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v43, v44, v45, v5, dimensionsCopy.var0, obj, v16, v50);
+    v34 = 0;
+    v16 = v48;
+    contextCopy = v51;
     goto LABEL_10;
   }
 
-  v23 = objc_alloc_init(CMIVideoDeghostingBrightLightTuningParamsV1);
-  greenGhostBrightLightTuningParameters = v12->_greenGhostBrightLightTuningParameters;
-  v12->_greenGhostBrightLightTuningParameters = v23;
+  v25 = objc_alloc_init(CMIVideoDeghostingBrightLightTuningParamsV1);
+  greenGhostBrightLightTuningParameters = v13->_greenGhostBrightLightTuningParameters;
+  v13->_greenGhostBrightLightTuningParameters = v25;
 
-  contextCopy = v35;
-  if (!v12->_greenGhostBrightLightTuningParameters)
+  contextCopy = v50;
+  if (!v13->_greenGhostBrightLightTuningParameters)
   {
     fig_log_get_emitter();
     sub_4C20();
-    FigDebugAssert3();
-    v31 = 0;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v43, v44, v45, v5, dimensionsCopy.var0, obj, v16, v50);
+    v34 = 0;
+    v16 = v49;
     goto LABEL_10;
   }
 
-  v12->_enableDetectionMaskRegistration = FigGetCFPreferenceBooleanWithDefault() != 0;
-  v25 = [[CMIVideoDeghostingDetectionV1 alloc] initWithMetalContext:v35 imageDimensions:dimensionsCopy tuningParameters:v14 enableMaskRegistration:v12->_enableDetectionMaskRegistration];
-  detection = v12->_detection;
-  v12->_detection = v25;
+  v13->_enableDetectionMaskRegistration = FigGetCFPreferenceBooleanWithDefault() != 0;
+  v27 = [[CMIVideoDeghostingDetectionV1 alloc] initWithMetalContext:v50 imageDimensions:dimensionsCopy tuningParameters:v16 enableMaskRegistration:v13->_enableDetectionMaskRegistration];
+  detection = v13->_detection;
+  v13->_detection = v27;
 
-  if (!v12->_detection || (v27 = [[CMIVideoDeghostingTrackingV1 alloc] initWithMetalContext:v35 tuningParameters:v16], tracking = v12->_tracking, v12->_tracking = v27, tracking, !v12->_tracking))
+  if (!v13->_detection)
   {
     fig_log_get_emitter();
     sub_4C20();
-LABEL_19:
-    FigDebugAssert3();
-    goto LABEL_20;
-  }
-
-  if ([(CMIVideoDeghostingDetectionAndTrackingV1 *)v12 resetState])
-  {
-    fig_log_get_emitter();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v39, "<<<< CMIVideoDeghostingDetectionAndTrackingV1 >>>> Fig", "_detection", "bail", "Failed to init CMIVideoDeghostingDetectionV1", "CMIVideoDeghostingDetectionAndTrackingV1.m", 145);
     goto LABEL_19;
   }
 
-  *&v12->_sensorBinningFactorVertical = 0x100000001;
-  v29 = [[CMIMotionSampleRingBufferV1 alloc] initWithMaxCount:66.0];
-  motionSampleRingbuffer = v12->_motionSampleRingbuffer;
-  v12->_motionSampleRingbuffer = v29;
+  v29 = [[CMIVideoDeghostingTrackingV1 alloc] initWithMetalContext:v50 tuningParameters:v18];
+  tracking = v13->_tracking;
+  v13->_tracking = v29;
 
-  if (!v12->_motionSampleRingbuffer)
+  if (!v13->_tracking)
   {
-LABEL_20:
-    v31 = 0;
+    fig_log_get_emitter();
+    sub_4C20();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v40, "<<<< CMIVideoDeghostingDetectionAndTrackingV1 >>>> Fig", "_tracking", "bail", "Failed to init CMIVideoDeghostingTrackingV1", "CMIVideoDeghostingDetectionAndTrackingV1.m", 148);
+    goto LABEL_19;
+  }
+
+  resetState = [(CMIVideoDeghostingDetectionAndTrackingV1 *)v13 resetState];
+  if (resetState)
+  {
+    v41 = resetState;
+    v42 = fig_log_get_emitter();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v42, "<<<< CMIVideoDeghostingDetectionAndTrackingV1 >>>> Fig", "err == 0 ", "bail", "resetState failed", "CMIVideoDeghostingDetectionAndTrackingV1.m", 151, v41);
+    goto LABEL_19;
+  }
+
+  *&v13->_sensorBinningFactorVertical = 0x100000001;
+  v32 = [[CMIMotionSampleRingBufferV1 alloc] initWithMaxCount:66.0];
+  motionSampleRingbuffer = v13->_motionSampleRingbuffer;
+  v13->_motionSampleRingbuffer = v32;
+
+  if (!v13->_motionSampleRingbuffer)
+  {
+LABEL_19:
+    v34 = 0;
     goto LABEL_10;
   }
 
-  [(CMIVideoDeghostingDetectionV1 *)v12->_detection setMotionSampleRingBuffer:?];
-  [(CMIVideoDeghostingTrackingV1 *)v12->_tracking setMotionSampleRingBuffer:v12->_motionSampleRingbuffer];
-  v31 = v12;
+  [(CMIVideoDeghostingDetectionV1 *)v13->_detection setMotionSampleRingBuffer:?];
+  [(CMIVideoDeghostingTrackingV1 *)v13->_tracking setMotionSampleRingBuffer:v13->_motionSampleRingbuffer];
+  v34 = v13;
 LABEL_10:
 
-  return v31;
+  return v34;
 }
 
 - (BOOL)_runDetectionOnImage:(__CVBuffer *)image metadataDictionary:(id)dictionary
@@ -564,46 +606,48 @@ LABEL_10:
 
   [(CMIVideoDeghostingDetectionV1 *)self->_detection setInputPixelBuffer:image];
   [(CMIVideoDeghostingDetectionV1 *)self->_detection setMetadataDictionary:dictionaryCopy];
-  if ([(CMIVideoDeghostingDetectionV1 *)self->_detection process])
+  process = [(CMIVideoDeghostingDetectionV1 *)self->_detection process];
+  if (process)
   {
-    fig_log_get_emitter();
-LABEL_12:
-    FigDebugAssert3();
-    goto LABEL_13;
+    v15 = process;
+    emitter = fig_log_get_emitter();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", emitter, "<<<< CMIVideoDeghostingDetectionAndTrackingV1 >>>> Fig", "err == 0 ", "bail", "Detection failed", "CMIVideoDeghostingDetectionAndTrackingV1.m", 472, v15);
   }
 
-  detectedGhostBoundingBoxes = [(CMIVideoDeghostingDetectionV1 *)self->_detection detectedGhostBoundingBoxes];
-  v8 = [detectedGhostBoundingBoxes count];
-
-  if (v8)
+  else
   {
-    size = CGRectNull.size;
-    rect.origin = CGRectNull.origin;
-    rect.size = size;
-    detectedGhostBoundingBoxes2 = [(CMIVideoDeghostingDetectionV1 *)self->_detection detectedGhostBoundingBoxes];
-    v11 = [detectedGhostBoundingBoxes2 objectAtIndexedSubscript:0];
-    CGRectMakeWithDictionaryRepresentation(v11, &rect);
+    detectedGhostBoundingBoxes = [(CMIVideoDeghostingDetectionV1 *)self->_detection detectedGhostBoundingBoxes];
+    v9 = [detectedGhostBoundingBoxes count];
 
-    if (!CGRectIsEmpty(rect))
+    if (v9)
     {
-      v12 = 1;
-      goto LABEL_7;
-    }
+      size = CGRectNull.size;
+      rect.origin = CGRectNull.origin;
+      rect.size = size;
+      detectedGhostBoundingBoxes2 = [(CMIVideoDeghostingDetectionV1 *)self->_detection detectedGhostBoundingBoxes];
+      v12 = [detectedGhostBoundingBoxes2 objectAtIndexedSubscript:0];
+      CGRectMakeWithDictionaryRepresentation(v12, &rect);
 
-    fig_log_get_emitter();
-    sub_4C20();
-    goto LABEL_12;
+      if (!CGRectIsEmpty(rect))
+      {
+        v13 = 1;
+        goto LABEL_7;
+      }
+
+      fig_log_get_emitter();
+      sub_4C20();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v17, "<<<< CMIVideoDeghostingDetectionAndTrackingV1 >>>> Fig", "!CGRectIsEmpty( boundingBox)", "bail", "Ghost bounding box has zero dimension(s)", "CMIVideoDeghostingDetectionAndTrackingV1.m", 491);
+    }
   }
 
-LABEL_13:
-  v12 = 0;
+  v13 = 0;
 LABEL_7:
   if (gGMFigKTraceEnabled == 1)
   {
     kdebug_trace();
   }
 
-  return v12;
+  return v13;
 }
 
 - (int)_addMotionDataToRingBuffer:(id)buffer

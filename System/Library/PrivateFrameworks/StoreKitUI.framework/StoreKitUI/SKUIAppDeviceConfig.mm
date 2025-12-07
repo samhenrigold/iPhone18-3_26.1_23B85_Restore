@@ -7,7 +7,14 @@
 - (id)timeZone;
 - (unint64_t)preferredVideoFormat;
 - (unint64_t)preferredVideoPreviewFormat;
+- (void)currentSizeClasses;
+- (void)isTimeZoneSet;
+- (void)preferredVideoFormat;
+- (void)preferredVideoPreviewFormat;
 - (void)screenSize;
+- (void)storeFrontCountryCode;
+- (void)systemLanguage;
+- (void)timeZone;
 @end
 
 @implementation SKUIAppDeviceConfig
@@ -157,11 +164,53 @@
   return systemTimeZone;
 }
 
+- (void)isTimeZoneSet
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIAppDeviceConfig isTimeZoneSet]";
+}
+
+- (void)preferredVideoFormat
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIAppDeviceConfig preferredVideoFormat]";
+}
+
+- (void)preferredVideoPreviewFormat
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIAppDeviceConfig preferredVideoPreviewFormat]";
+}
+
 - (void)screenSize
 {
   v2 = *MEMORY[0x277D85DE8];
   v0 = 136446210;
   v1 = "[SKUIAppDeviceConfig screenSize]";
+}
+
+- (void)currentSizeClasses
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIAppDeviceConfig currentSizeClasses]";
+}
+
+- (void)storeFrontCountryCode
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIAppDeviceConfig storeFrontCountryCode]";
+}
+
+- (void)systemLanguage
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIAppDeviceConfig systemLanguage]";
+}
+
+- (void)timeZone
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIAppDeviceConfig timeZone]";
 }
 
 @end

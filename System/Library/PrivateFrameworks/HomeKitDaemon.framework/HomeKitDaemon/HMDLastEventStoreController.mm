@@ -10,7 +10,7 @@
 
 - (void)didRemoveAccessory:(id)accessory
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -19,9 +19,9 @@
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v15 = v8;
-    v16 = 2112;
-    v17 = accessoryCopy;
+    v14 = v8;
+    v15 = 2112;
+    v16 = accessoryCopy;
     _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Removing accessory events, accessory: %@", buf, 0x16u);
   }
 
@@ -31,13 +31,11 @@
   uUIDString = [accessoryCopy UUIDString];
   v12 = [v10 stringWithFormat:@"accessory.%@", uUIDString];
   [eventStore resetWildcardTopics:v12];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didRemoveMediaSystem:(id)system
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   systemCopy = system;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -46,9 +44,9 @@
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v15 = v8;
-    v16 = 2112;
-    v17 = systemCopy;
+    v14 = v8;
+    v15 = 2112;
+    v16 = systemCopy;
     _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Removing media system events, media system: %@", buf, 0x16u);
   }
 
@@ -58,13 +56,11 @@
   uUIDString = [systemCopy UUIDString];
   v12 = [v10 stringWithFormat:@"stereo.%@", uUIDString];
   [eventStore resetWildcardTopics:v12];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didRemoveHome:(id)home
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   homeCopy = home;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -73,9 +69,9 @@
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v15 = v8;
-    v16 = 2112;
-    v17 = homeCopy;
+    v14 = v8;
+    v15 = 2112;
+    v16 = homeCopy;
     _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Removing home events, home: %@", buf, 0x16u);
   }
 
@@ -85,8 +81,6 @@
   uUIDString = [homeCopy UUIDString];
   v12 = [v10 stringWithFormat:@"home.%@", uUIDString];
   [eventStore resetWildcardTopics:v12];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDLastEventStoreController)initWithWithEventStore:(id)store
@@ -118,10 +112,9 @@
 
 void __42__HMDLastEventStoreController_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v4_257689;
-  logCategory__hmf_once_v4_257689 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v4_257689;
+  logCategory__hmf_once_v4_257689 = v0;
 }
 
 @end

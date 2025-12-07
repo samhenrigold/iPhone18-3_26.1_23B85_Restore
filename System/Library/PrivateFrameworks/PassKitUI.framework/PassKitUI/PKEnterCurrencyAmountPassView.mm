@@ -128,7 +128,7 @@ uint64_t __88__PKEnterCurrencyAmountPassView_initWithCurrenyAmount_pass_withdraw
   v8 = v7 + 0.0;
   [(PKEnterCurrencyAmountView *)self->_enterCurrencyAmountView sizeThatFits:width, 1.79769313e308];
   v10 = v8 + v9;
-  [(PKEnterCurrencyAmountPassView *)self _amountPassViewSizeInfoForSize:width, height - (v8 + v9)];
+  objc_msgSend__amountPassViewSizeInfoForSize_(self, width, height - (v8 + v9));
   v11 = *(MEMORY[0x1E695F060] + 8) == 0.0 && *MEMORY[0x1E695F060] == 0.0;
   v12 = v10 + 0.0;
   if (v11)
@@ -145,9 +145,9 @@ uint64_t __88__PKEnterCurrencyAmountPassView_initWithCurrenyAmount_pass_withdraw
 
 - (void)layoutSubviews
 {
-  v32.receiver = self;
-  v32.super_class = PKEnterCurrencyAmountPassView;
-  [(PKEnterCurrencyAmountPassView *)&v32 layoutSubviews];
+  v39.receiver = self;
+  v39.super_class = PKEnterCurrencyAmountPassView;
+  [(PKEnterCurrencyAmountPassView *)&v39 layoutSubviews];
   [(PKEnterCurrencyAmountPassView *)self bounds];
   v4 = v3;
   v6 = v5;
@@ -157,53 +157,59 @@ uint64_t __88__PKEnterCurrencyAmountPassView_initWithCurrenyAmount_pass_withdraw
   v12 = v11;
   [(PKEnterCurrencyAmountPassView *)self _newBalanceHorizontalPadding];
   [(PKEnterValueNewBalanceView *)self->_balanceView sizeThatFits:v8 + v13 * -2.0, 1.79769313e308];
-  [(PKEnterCurrencyAmountPassView *)self _amountPassViewSizeInfoForSize:v8, v10 - v12 - v14];
+  objc_msgSend__amountPassViewSizeInfoForSize_(self, v8, v10 - v12 - v14);
   if (*MEMORY[0x1E695F060] == 0.0 && *(MEMORY[0x1E695F060] + 8) == 0.0)
   {
-    v21 = *(MEMORY[0x1E695F058] + 16);
-    v23 = *(MEMORY[0x1E695F058] + 24);
-    v17 = *MEMORY[0x1E695F058];
-    v19 = *(MEMORY[0x1E695F058] + 8);
+    v28 = *(MEMORY[0x1E695F058] + 16);
+    v30 = *(MEMORY[0x1E695F058] + 24);
+    v24 = *MEMORY[0x1E695F058];
+    v26 = *(MEMORY[0x1E695F058] + 8);
     [(UIImageView *)self->_passView setAlpha:0.0, 0.0];
   }
 
   else
   {
     [(UIImageView *)self->_passView setAlpha:1.0, 0.0];
-    PKSizeAlignedInRect();
-    v17 = v16;
-    v19 = v18;
-    v21 = v20;
-    v23 = v22;
+    v16.n128_u64[0] = 0;
+    v17.n128_f64[0] = v6 + 0.0;
+    v18.n128_u64[0] = 0;
+    v19.n128_f64[0] = v4;
+    v20.n128_f64[0] = v8;
+    v21.n128_u64[0] = 0;
+    PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v16, v18, v19, v17, v20, v21, v22);
+    v24 = v23;
+    v26 = v25;
+    v28 = v27;
+    v30 = v29;
     [(UIImageView *)self->_passView setFrame:?];
   }
 
-  v33.origin.x = v17;
-  v33.origin.y = v19;
-  v33.size.width = v21;
-  v33.size.height = v23;
-  CGRectGetMaxY(v33);
-  v34.origin.x = v4;
-  v34.origin.y = v6;
-  v34.size.width = v8;
-  v34.size.height = v10;
-  CGRectGetMinX(v34);
-  v35.origin.x = v4;
-  v35.origin.y = v6;
-  v35.size.width = v8;
-  v35.size.height = v10;
-  CGRectGetWidth(v35);
+  v40.origin.x = v24;
+  v40.origin.y = v26;
+  v40.size.width = v28;
+  v40.size.height = v30;
+  CGRectGetMaxY(v40);
+  v41.origin.x = v4;
+  v41.origin.y = v6;
+  v41.size.width = v8;
+  v41.size.height = v10;
+  CGRectGetMinX(v41);
+  v42.origin.x = v4;
+  v42.origin.y = v6;
+  v42.size.width = v8;
+  v42.size.height = v10;
+  CGRectGetWidth(v42);
   PKRectCenteredXInRect();
-  v25 = v24;
-  v27 = v26;
-  v29 = v28;
-  v31 = v30;
+  v32 = v31;
+  v34 = v33;
+  v36 = v35;
+  v38 = v37;
   [(PKEnterCurrencyAmountView *)self->_enterCurrencyAmountView setFrame:?];
-  v36.origin.x = v25;
-  v36.origin.y = v27;
-  v36.size.width = v29;
-  v36.size.height = v31;
-  CGRectGetMaxY(v36);
+  v43.origin.x = v32;
+  v43.origin.y = v34;
+  v43.size.width = v36;
+  v43.size.height = v38;
+  CGRectGetMaxY(v43);
   PKRectCenteredXInRect();
   [(PKEnterValueNewBalanceView *)self->_balanceView setFrame:?];
 }

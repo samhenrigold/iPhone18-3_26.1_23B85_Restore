@@ -48,52 +48,52 @@
   isGroupChat = [iMChatItem isGroupChat];
   iMessageService = [MEMORY[0x1E69A5CA0] iMessageService];
 
-  v10 = CKFrameworkBundle();
-  v11 = v10;
+  v11 = CKFrameworkBundle(v10);
+  v12 = v11;
   if (service == iMessageService)
   {
-    v12 = @"PLACEHOLDER_TEXT_VIEW_SATELLITE_MESSAGE";
+    v13 = @"PLACEHOLDER_TEXT_VIEW_SATELLITE_MESSAGE";
   }
 
   else
   {
-    v12 = @"PLACEHOLDER_TEXT_VIEW_SATELLITE_MESSAGE_SMS";
+    v13 = @"PLACEHOLDER_TEXT_VIEW_SATELLITE_MESSAGE_SMS";
   }
 
   if (service == iMessageService)
   {
-    v13 = @"IMESSAGE_SATELLITE_NOT_AVAILABLE";
+    v14 = @"IMESSAGE_SATELLITE_NOT_AVAILABLE";
   }
 
   else
   {
-    v13 = @"SMS_SATELLITE_NOT_AVAILABLE";
+    v14 = @"SMS_SATELLITE_NOT_AVAILABLE";
   }
 
-  v14 = [v10 localizedStringForKey:v12 value:&stru_1F04268F8 table:{@"ChatKit-CarrierPigeon", transcriptEmphasizedFontAttributes}];
+  v15 = [v11 localizedStringForKey:v13 value:&stru_1F04268F8 table:{@"ChatKit-CarrierPigeon", transcriptEmphasizedFontAttributes}];
 
-  v15 = [objc_alloc(MEMORY[0x1E696AD40]) initWithString:v14 attributes:transcriptEmphasizedFontAttributes];
-  v16 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:@"\n"];
-  v17 = objc_alloc(MEMORY[0x1E696AD40]);
-  v18 = CKFrameworkBundle();
-  v19 = v18;
+  v16 = [objc_alloc(MEMORY[0x1E696AD40]) initWithString:v15 attributes:transcriptEmphasizedFontAttributes];
+  v17 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:@"\n"];
+  v18 = objc_alloc(MEMORY[0x1E696AD40]);
+  v19 = CKFrameworkBundle(v18);
+  v20 = v19;
   if (isGroupChat)
   {
-    v20 = @"GROUP_CHATS_SENDING_DISABLED";
+    v21 = @"GROUP_CHATS_SENDING_DISABLED";
   }
 
   else
   {
-    v20 = v13;
+    v21 = v14;
   }
 
-  v21 = [v18 localizedStringForKey:v20 value:&stru_1F04268F8 table:@"ChatKit-CarrierPigeon"];
-  v22 = [v17 initWithString:v21 attributes:transcriptRegularFontAttributes];
+  v22 = [v19 localizedStringForKey:v21 value:&stru_1F04268F8 table:@"ChatKit-CarrierPigeon"];
+  v23 = [v18 initWithString:v22 attributes:transcriptRegularFontAttributes];
 
-  [v15 appendLocalizedFormat:v16];
-  [v15 appendLocalizedFormat:v22];
+  [v16 appendLocalizedFormat:v17];
+  [v16 appendLocalizedFormat:v23];
 
-  return v15;
+  return v16;
 }
 
 + (id)newComposeTranscriptTextForiMessage:(BOOL)message isGroupChat:(BOOL)chat
@@ -106,41 +106,42 @@
   v8 = +[CKUIBehavior sharedBehaviors];
   transcriptRegularFontAttributes = [v8 transcriptRegularFontAttributes];
 
-  v10 = CKFrameworkBundle();
-  v11 = v10;
+  v11 = CKFrameworkBundle(v10);
+  v12 = v11;
   if (messageCopy)
   {
-    v12 = @"PLACEHOLDER_TEXT_VIEW_SATELLITE_MESSAGE";
+    v13 = @"PLACEHOLDER_TEXT_VIEW_SATELLITE_MESSAGE";
   }
 
   else
   {
-    v12 = @"PLACEHOLDER_TEXT_VIEW_SATELLITE_MESSAGE_SMS";
+    v13 = @"PLACEHOLDER_TEXT_VIEW_SATELLITE_MESSAGE_SMS";
   }
 
-  v13 = [v10 localizedStringForKey:v12 value:&stru_1F04268F8 table:@"ChatKit-CarrierPigeon"];
+  v14 = [v11 localizedStringForKey:v13 value:&stru_1F04268F8 table:@"ChatKit-CarrierPigeon"];
 
-  v14 = [objc_alloc(MEMORY[0x1E696AD40]) initWithString:v13 attributes:transcriptEmphasizedFontAttributes];
-  v15 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:@"\n"];
-  v16 = objc_alloc(MEMORY[0x1E696AD40]);
+  v15 = [objc_alloc(MEMORY[0x1E696AD40]) initWithString:v14 attributes:transcriptEmphasizedFontAttributes];
+  v16 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:@"\n"];
+  v17 = objc_alloc(MEMORY[0x1E696AD40]);
+  v18 = v17;
   if (chatCopy)
   {
-    v17 = @"GROUP_CHATS_SENDING_DISABLED";
+    v19 = @"GROUP_CHATS_SENDING_DISABLED";
   }
 
   else
   {
-    v17 = @"IMESSAGE_SATELLITE_NOT_AVAILABLE";
+    v19 = @"IMESSAGE_SATELLITE_NOT_AVAILABLE";
   }
 
-  v18 = CKFrameworkBundle();
-  v19 = [v18 localizedStringForKey:v17 value:&stru_1F04268F8 table:@"ChatKit-CarrierPigeon"];
-  v20 = [v16 initWithString:v19 attributes:transcriptRegularFontAttributes];
+  v20 = CKFrameworkBundle(v17);
+  v21 = [v20 localizedStringForKey:v19 value:&stru_1F04268F8 table:@"ChatKit-CarrierPigeon"];
+  v22 = [v18 initWithString:v21 attributes:transcriptRegularFontAttributes];
 
-  [v14 appendAttributedString:v15];
-  [v14 appendAttributedString:v20];
+  [v15 appendAttributedString:v16];
+  [v15 appendAttributedString:v22];
 
-  return v14;
+  return v15;
 }
 
 @end

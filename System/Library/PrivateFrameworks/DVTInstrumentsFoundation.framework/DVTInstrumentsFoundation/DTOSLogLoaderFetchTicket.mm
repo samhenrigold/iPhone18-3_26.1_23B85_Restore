@@ -191,7 +191,7 @@ LABEL_21:
 
 - (void)prepareAgent:(id)agent loader:(id)loader
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   agentCopy = agent;
   loaderCopy = loader;
   pthread_mutex_lock((loaderCopy + 184));
@@ -206,15 +206,15 @@ LABEL_21:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
     nextOutputBytes = [agentCopy nextOutputBytes];
-    v10 = [nextOutputBytes length];
-    v11 = *(loaderCopy + 124);
-    v12 = 134218496;
-    v13 = v10;
-    v14 = 1024;
-    v15 = v11;
-    v16 = 1024;
-    v17 = HIWORD(v7);
-    _os_log_debug_impl(&dword_247F67000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Data Size: %lu, Rows Sent: %d, Stack depth: %d", &v12, 0x18u);
+    v9 = [nextOutputBytes length];
+    v10 = *(loaderCopy + 124);
+    v11 = 134218496;
+    v12 = v9;
+    v13 = 1024;
+    v14 = v10;
+    v15 = 1024;
+    v16 = HIWORD(v7);
+    _os_log_debug_impl(&dword_247F67000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Data Size: %lu, Rows Sent: %d, Stack depth: %d", &v11, 0x18u);
   }
 
   *(loaderCopy + 124) = 0;
@@ -240,8 +240,6 @@ LABEL_21:
   {
     [agentCopy setFetchComplete:1];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

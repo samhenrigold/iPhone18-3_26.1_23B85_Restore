@@ -51,7 +51,7 @@
 
 void __26__CSBeepCanceller_metrics__block_invoke(uint64_t a1)
 {
-  v28[9] = *MEMORY[0x1E69E9840];
+  v27[9] = *MEMORY[0x1E69E9840];
   v2 = *(*(a1 + 32) + 16);
   v3 = v2[66];
   v4 = v2[67];
@@ -60,52 +60,50 @@ void __26__CSBeepCanceller_metrics__block_invoke(uint64_t a1)
   v7 = v2[70];
   v8 = v2[71];
   v9 = [MEMORY[0x1E696AD98] numberWithInt:{v2[65], @"beepLocation"}];
-  v28[0] = v9;
-  v27[1] = @"statsComputed";
+  v27[0] = v9;
+  v26[1] = @"statsComputed";
   v10 = [MEMORY[0x1E696AD98] numberWithInt:v3];
-  v28[1] = v10;
-  v27[2] = @"beepPower";
+  v27[1] = v10;
+  v26[2] = @"beepPower";
   LODWORD(v11) = v4;
   v12 = [MEMORY[0x1E696AD98] numberWithFloat:v11];
-  v28[2] = v12;
-  v27[3] = @"signalPower";
+  v27[2] = v12;
+  v26[3] = @"signalPower";
   LODWORD(v13) = v5;
   v14 = [MEMORY[0x1E696AD98] numberWithFloat:v13];
-  v28[3] = v14;
-  v27[4] = @"originalPower";
+  v27[3] = v14;
+  v26[4] = @"originalPower";
   LODWORD(v15) = v6;
   v16 = [MEMORY[0x1E696AD98] numberWithFloat:v15];
-  v28[4] = v16;
-  v27[5] = @"absMaxVal";
+  v27[4] = v16;
+  v26[5] = @"absMaxVal";
   LODWORD(v17) = v7;
   v18 = [MEMORY[0x1E696AD98] numberWithFloat:v17];
-  v28[5] = v18;
-  v27[6] = @"above95pcOfMax";
+  v27[5] = v18;
+  v26[6] = @"above95pcOfMax";
   LODWORD(v19) = v8;
   v20 = [MEMORY[0x1E696AD98] numberWithFloat:v19];
-  v28[6] = v20;
-  v27[7] = @"totalInputSamples";
+  v27[6] = v20;
+  v26[7] = @"totalInputSamples";
   v21 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*(*(a1 + 32) + 96)];
-  v28[7] = v21;
-  v27[8] = @"totalOutputSamples";
+  v27[7] = v21;
+  v26[8] = @"totalOutputSamples";
   v22 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*(*(a1 + 32) + 104)];
-  v28[8] = v22;
-  v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:v27 count:9];
+  v27[8] = v22;
+  v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:9];
   v24 = *(*(a1 + 40) + 8);
   v25 = *(v24 + 40);
   *(v24 + 40) = v23;
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)reset
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v8 = "[CSBeepCanceller reset]";
+    v7 = "[CSBeepCanceller reset]";
     _os_log_impl(&dword_1DDA4B000, v3, OS_LOG_TYPE_DEFAULT, "%s Reset beep cancellation", buf, 0xCu);
   }
 
@@ -116,7 +114,6 @@ void __26__CSBeepCanceller_metrics__block_invoke(uint64_t a1)
   block[3] = &unk_1E865CB68;
   block[4] = self;
   dispatch_sync(queue, block);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __24__CSBeepCanceller_reset__block_invoke(uint64_t a1)
@@ -131,12 +128,12 @@ void __24__CSBeepCanceller_reset__block_invoke(uint64_t a1)
 
 - (void)willBeep
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v8 = "[CSBeepCanceller willBeep]";
+    v7 = "[CSBeepCanceller willBeep]";
     _os_log_impl(&dword_1DDA4B000, v3, OS_LOG_TYPE_DEFAULT, "%s It will beep now", buf, 0xCu);
   }
 
@@ -147,7 +144,6 @@ void __24__CSBeepCanceller_reset__block_invoke(uint64_t a1)
   block[3] = &unk_1E865CB68;
   block[4] = self;
   dispatch_sync(queue, block);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __27__CSBeepCanceller_willBeep__block_invoke(uint64_t result)
@@ -214,17 +210,17 @@ void __51__CSBeepCanceller_cancelBeepFromSamples_timestamp___block_invoke(uint64
 
 - (CSBeepCanceller)init
 {
-  v42 = *MEMORY[0x1E69E9840];
-  v37.receiver = self;
-  v37.super_class = CSBeepCanceller;
-  v2 = [(CSBeepCanceller *)&v37 init];
+  v41 = *MEMORY[0x1E69E9840];
+  v36.receiver = self;
+  v36.super_class = CSBeepCanceller;
+  v2 = [(CSBeepCanceller *)&v36 init];
   if (v2)
   {
     v3 = [objc_opt_class() description];
     v4 = v3;
     v5 = dispatch_queue_create([v3 UTF8String], 0);
-    queue = v2->_queue;
-    v2->_queue = v5;
+    v6 = *(v2 + 1);
+    *(v2 + 1) = v5;
 
     v7 = +[CSAsset fallBackAssetResourcePath];
     v8 = [v7 stringByAppendingPathComponent:@"jbl_begin.bin"];
@@ -232,15 +228,15 @@ void __51__CSBeepCanceller_cancelBeepFromSamples_timestamp___block_invoke(uint64
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v39 = "[CSBeepCanceller init]";
-      v40 = 2114;
-      v41 = v8;
+      v38 = "[CSBeepCanceller init]";
+      v39 = 2114;
+      v40 = v8;
       _os_log_impl(&dword_1DDA4B000, v9, OS_LOG_TYPE_DEFAULT, "%s BeepCanceller asset file loading from : %{public}@", buf, 0x16u);
     }
 
-    v36 = 0;
-    v10 = [MEMORY[0x1E695DEF0] dataWithContentsOfFile:v8 options:8 error:&v36];
-    v11 = v36;
+    v35 = 0;
+    v10 = [MEMORY[0x1E695DEF0] dataWithContentsOfFile:v8 options:8 error:&v35];
+    v11 = v35;
     v12 = v11;
     if (v10 && !v11)
     {
@@ -248,31 +244,31 @@ void __51__CSBeepCanceller_cancelBeepFromSamples_timestamp___block_invoke(uint64
       bytes = [v10 bytes];
       v15 = [v10 length];
       v16 = v15 & 0xFFFFFFFFFFFFFFFCLL;
-      p_beepFloatVec = &v2->_beepFloatVec;
-      begin = v2->_beepFloatVec.__begin_;
+      v17 = v2 + 24;
+      v18 = *(v2 + 3);
       v19 = v15 >> 2;
-      cap = v2->_beepFloatVec.__cap_;
-      if (v15 >> 2 > ((cap - begin) >> 2))
+      v20 = *(v2 + 5);
+      if (v15 >> 2 > ((v20 - v18) >> 2))
       {
-        if (begin)
+        if (v18)
         {
-          v2->_beepFloatVec.__end_ = begin;
-          operator delete(begin);
-          cap = 0;
-          p_beepFloatVec->__begin_ = 0;
-          v2->_beepFloatVec.__end_ = 0;
-          v2->_beepFloatVec.__cap_ = 0;
+          *(v2 + 4) = v18;
+          operator delete(v18);
+          v20 = 0;
+          *v17 = 0;
+          *(v2 + 4) = 0;
+          *(v2 + 5) = 0;
         }
 
         if (!(v19 >> 62))
         {
-          v21 = cap >> 1;
-          if (cap >> 1 <= v19)
+          v21 = v20 >> 1;
+          if (v20 >> 1 <= v19)
           {
             v21 = v19;
           }
 
-          if (cap >= 0x7FFFFFFFFFFFFFFCLL)
+          if (v20 >= 0x7FFFFFFFFFFFFFFCLL)
           {
             v22 = 0x3FFFFFFFFFFFFFFFLL;
           }
@@ -282,42 +278,43 @@ void __51__CSBeepCanceller_cancelBeepFromSamples_timestamp___block_invoke(uint64
             v22 = v21;
           }
 
-          std::vector<float>::__vallocate[abi:ne200100](&v2->_beepFloatVec, v22);
+          std::vector<float>::__vallocate[abi:ne200100](v2 + 3, v22);
         }
 
         std::vector<float>::__throw_length_error[abi:ne200100]();
       }
 
-      end = v2->_beepFloatVec.__end_;
-      v25 = end - begin;
-      if (v19 <= end - begin)
+      v24 = *(v2 + 4);
+      v25 = v24 - v18;
+      if (v19 <= (v24 - v18) >> 2)
       {
         if (v15 >= 4)
         {
-          memmove(begin, bytes, v16);
+          memmove(v18, bytes, v16);
         }
 
-        v26 = (begin + v16);
+        v26 = &v18[v16];
       }
 
       else
       {
-        if (end != begin)
+        if (v24 != v18)
         {
-          memmove(begin, bytes, end - begin);
+          memmove(v18, bytes, v24 - v18);
         }
 
-        v27 = v2->_beepFloatVec.__end_;
+        v27 = *(v2 + 4);
         if (v25 != v16)
         {
           v28 = &bytes[v25];
-          v29 = (begin + v16 - end);
-          v27 = v2->_beepFloatVec.__end_;
+          v29 = (&v18[v16] - v24);
+          v27 = *(v2 + 4);
           do
           {
             v30 = *v28;
             v28 += 4;
-            *v27++ = v30;
+            *v27 = v30;
+            v27 += 4;
             v29 -= 4;
           }
 
@@ -327,15 +324,15 @@ void __51__CSBeepCanceller_cancelBeepFromSamples_timestamp___block_invoke(uint64
         v26 = v27;
       }
 
-      v2->_beepFloatVec.__end_ = v26;
+      *(v2 + 4) = v26;
       v31 = CSLogContextFacilityCoreSpeech;
       if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
       {
-        v32 = v26 - p_beepFloatVec->__begin_;
+        v32 = &v26[-*v17] >> 2;
         *buf = 136315394;
-        v39 = "[CSBeepCanceller init]";
-        v40 = 2050;
-        v41 = v32;
+        v38 = "[CSBeepCanceller init]";
+        v39 = 2050;
+        v40 = v32;
         _os_log_impl(&dword_1DDA4B000, v31, OS_LOG_TYPE_DEFAULT, "%s beepVector Size = %{public}lu", buf, 0x16u);
       }
 
@@ -346,9 +343,9 @@ void __51__CSBeepCanceller_cancelBeepFromSamples_timestamp___block_invoke(uint64
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v39 = "[CSBeepCanceller init]";
-      v40 = 2112;
-      v41 = v8;
+      v38 = "[CSBeepCanceller init]";
+      v39 = 2112;
+      v40 = v8;
       _os_log_error_impl(&dword_1DDA4B000, v23, OS_LOG_TYPE_ERROR, "%s Could not read beep file: %@", buf, 0x16u);
     }
 
@@ -360,7 +357,6 @@ void __51__CSBeepCanceller_cancelBeepFromSamples_timestamp___block_invoke(uint64
     v33 = 0;
   }
 
-  v34 = *MEMORY[0x1E69E9840];
   return v33;
 }
 

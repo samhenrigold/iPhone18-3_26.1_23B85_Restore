@@ -190,14 +190,14 @@ LABEL_6:
       modelEspressoV2 = self->_modelEspressoV2;
       if (modelEspressoV2)
       {
-        [(VCPCNNModelEspressoV2 *)modelEspressoV2 outputs];
+        objc_msgSend_outputs(modelEspressoV2);
         v9 = v22;
         v8 = v23;
         v25 = &v22;
         std::vector<VCPEspressoV2Data * {__strong}>::__destroy_vector::operator()[abi:ne200100](&v25);
         if (v8 != v9)
         {
-          [(VCPCNNModelEspressoV2 *)self->_modelEspressoV2 outputs];
+          objc_msgSend_outputs(self->_modelEspressoV2);
           v10 = *v22;
           v25 = &v22;
           std::vector<VCPEspressoV2Data * {__strong}>::__destroy_vector::operator()[abi:ne200100](&v25);
@@ -210,14 +210,14 @@ LABEL_6:
             v13 = self->_modelEspressoV2;
             if (v13)
             {
-              [(VCPCNNModelEspressoV2 *)v13 outputs];
+              objc_msgSend_outputs(v13);
               v14 = v23 - v22;
               v25 = &v22;
               std::vector<VCPEspressoV2Data * {__strong}>::__destroy_vector::operator()[abi:ne200100](&v25);
               if (v14 >= 0x11)
               {
                 v15 = objc_opt_class();
-                [(VCPCNNModelEspressoV2 *)self->_modelEspressoV2 outputs];
+                objc_msgSend_outputs(self->_modelEspressoV2);
                 v16 = [v15 getNSDataFromOuput:*(v22 + 8) isFP16:0];
                 spatialEmbedding = self->_spatialEmbedding;
                 self->_spatialEmbedding = v16;
@@ -225,7 +225,7 @@ LABEL_6:
                 v25 = &v22;
                 std::vector<VCPEspressoV2Data * {__strong}>::__destroy_vector::operator()[abi:ne200100](&v25);
                 v18 = objc_opt_class();
-                [(VCPCNNModelEspressoV2 *)self->_modelEspressoV2 outputs];
+                objc_msgSend_outputs(self->_modelEspressoV2);
                 v19 = [v18 getNSDataFromOuput:*(v22 + 16) isFP16:0];
                 hiddenEmbedding = self->_hiddenEmbedding;
                 self->_hiddenEmbedding = v19;

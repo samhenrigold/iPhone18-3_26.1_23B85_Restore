@@ -10,27 +10,27 @@
 
 - (id)findCategoryWithName:(id)name
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   nameCopy = name;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   categories = [(CalculateUnitCollection *)self categories];
-  v6 = [categories countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [categories countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(categories);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         name = [v9 name];
         v11 = [name isEqualToString:nameCopy];
 
@@ -41,7 +41,7 @@
         }
       }
 
-      v6 = [categories countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [categories countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -53,35 +53,33 @@
 
 LABEL_11:
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return v6;
 }
 
 - (id)findUnitWithName:(id)name
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   nameCopy = name;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   categories = [(CalculateUnitCollection *)self categories];
-  v6 = [categories countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [categories countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(categories);
         }
 
-        v10 = [*(*(&v14 + 1) + 8 * i) findUnitWithName:nameCopy];
+        v10 = [*(*(&v13 + 1) + 8 * i) findUnitWithName:nameCopy];
         if (v10)
         {
           v11 = v10;
@@ -89,7 +87,7 @@ LABEL_11:
         }
       }
 
-      v7 = [categories countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [categories countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v7)
       {
         continue;
@@ -102,47 +100,45 @@ LABEL_11:
   v11 = 0;
 LABEL_11:
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return v11;
 }
 
 - (CalculateUnitCollection)initWithLocales:(id)locales
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   localesCopy = locales;
-  v23.receiver = self;
-  v23.super_class = CalculateUnitCollection;
-  v5 = [(CalculateUnitCollection *)&v23 init];
+  v22.receiver = self;
+  v22.super_class = CalculateUnitCollection;
+  v5 = [(CalculateUnitCollection *)&v22 init];
   if (v5)
   {
     v6 = +[UnitsInfo converterUnits];
-    v18 = localesCopy;
+    v17 = localesCopy;
     v7 = [localesCopy copy];
     [(CalculateUnitCollection *)v5 setLocales:v7];
 
     v8 = objc_opt_new();
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     allKeys = [&unk_1F419A730 allKeys];
-    v10 = [allKeys countByEnumeratingWithState:&v19 objects:v24 count:16];
+    v10 = [allKeys countByEnumeratingWithState:&v18 objects:v23 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v20;
+      v12 = *v19;
       do
       {
         v13 = 0;
         do
         {
-          if (*v20 != v12)
+          if (*v19 != v12)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v14 = [v6 infoForUnitTypeName:*(*(&v19 + 1) + 8 * v13)];
+          v14 = [v6 infoForUnitTypeName:*(*(&v18 + 1) + 8 * v13)];
           if (v14)
           {
             v15 = [CalculateUnitCategory categoryWithTypeInfo:v14 unitsInfo:v6 collection:v5];
@@ -153,17 +149,16 @@ LABEL_11:
         }
 
         while (v11 != v13);
-        v11 = [allKeys countByEnumeratingWithState:&v19 objects:v24 count:16];
+        v11 = [allKeys countByEnumeratingWithState:&v18 objects:v23 count:16];
       }
 
       while (v11);
     }
 
     [(CalculateUnitCollection *)v5 setCategories:v8];
-    localesCopy = v18;
+    localesCopy = v17;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

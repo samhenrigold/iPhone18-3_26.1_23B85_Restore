@@ -20,7 +20,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_1BA35EDCC();
+  sub_1BA35EDCC(selfCopy);
 }
 
 - (void)done

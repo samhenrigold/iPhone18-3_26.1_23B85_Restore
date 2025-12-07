@@ -346,25 +346,33 @@ id __40__MPUTransportButton_hitTest_withEvent___block_invoke(uint64_t a1)
 {
   imageCopy = image;
   transportButtonImage = self->_transportButtonImage;
-  if (transportButtonImage != imageCopy && ([(UIImage *)transportButtonImage isEqual:imageCopy]& 1) == 0)
+  if (transportButtonImage != imageCopy)
   {
-    objc_storeStrong(&self->_transportButtonImage, image);
-    if (self->_shouldInferColorsFromTintColor)
+    v8 = imageCopy;
+    transportButtonImage = [transportButtonImage isEqual:imageCopy];
+    imageCopy = v8;
+    if ((transportButtonImage & 1) == 0)
     {
-      v7 = [(UIImage *)self->_transportButtonImage imageWithRenderingMode:2];
-      [(MPUTransportButton *)self setImage:v7 forState:0];
-    }
+      objc_storeStrong(&self->_transportButtonImage, image);
+      if (self->_shouldInferColorsFromTintColor)
+      {
+        v7 = [(UIImage *)self->_transportButtonImage imageWithRenderingMode:2];
+        [(MPUTransportButton *)self setImage:v7 forState:0];
+      }
 
-    else
-    {
-      [(MPUTransportButton *)self _updateHighlightedTransportButtonImage];
-      [(MPUTransportButton *)self _updateRegularTransportButtonImage];
-      [(MPUTransportButton *)self _updateSelectedTransportButtonImage];
-      [(MPUTransportButton *)self _updateDisabledTransportButtonImage];
+      else
+      {
+        [(MPUTransportButton *)self _updateHighlightedTransportButtonImage];
+        [(MPUTransportButton *)self _updateRegularTransportButtonImage];
+        [(MPUTransportButton *)self _updateSelectedTransportButtonImage];
+        transportButtonImage = [(MPUTransportButton *)self _updateDisabledTransportButtonImage];
+      }
+
+      imageCopy = v8;
     }
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](transportButtonImage, imageCopy);
 }
 
 - (void)_updateDisabledTransportButtonImage

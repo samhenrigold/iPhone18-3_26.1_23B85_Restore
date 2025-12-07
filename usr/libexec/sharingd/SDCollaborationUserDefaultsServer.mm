@@ -13,35 +13,36 @@
   connectionCopy = connection;
   v4 = [connectionCopy valueForEntitlement:@"com.apple.collaboration.userdefaults"];
   objc_opt_class();
-  if (objc_opt_isKindOfClass() & 1) != 0 && ([v4 BOOLValue])
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass & 1) != 0 && (isKindOfClass = [v4 BOOLValue], (isKindOfClass))
   {
-    v5 = share_sheet_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = share_sheet_log(isKindOfClass);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v8 = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "shouldAcceptNewConnection for SDCollaborationUserDefaultsServer: YES", v8, 2u);
+      *v9 = 0;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "shouldAcceptNewConnection for SDCollaborationUserDefaultsServer: YES", v9, 2u);
     }
 
-    v6 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v5 = share_sheet_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = share_sheet_log(isKindOfClass);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      sub_100059974(connectionCopy, v5);
+      sub_100059974(connectionCopy, v6);
     }
 
-    v6 = 0;
+    v7 = 0;
   }
 
-  return v6;
+  return v7;
 }
 
 - (void)connectionEstablished:(id)established
 {
-  v3 = share_sheet_log();
+  v3 = share_sheet_log(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -51,7 +52,7 @@
 
 - (void)connectionInvalidated:(id)invalidated
 {
-  v3 = share_sheet_log();
+  v3 = share_sheet_log(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;

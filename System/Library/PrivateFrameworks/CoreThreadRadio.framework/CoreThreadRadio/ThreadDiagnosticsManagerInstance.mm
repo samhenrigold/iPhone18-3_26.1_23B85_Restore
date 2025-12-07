@@ -14,17 +14,26 @@
 - (unsigned)getPanId;
 - (unsigned)getPartitionId;
 - (void)createDriverInterface:(id)interface;
+- (void)getChannel;
+- (void)getLeaderRouterID;
+- (void)getMLAddress;
+- (void)getMLPrefix;
+- (void)getNwName;
+- (void)getPanId;
+- (void)getPartitionId;
+- (void)getXPanId;
 - (void)handlePeriodicTimer;
 - (void)send_nwdiagnostics_get_req;
 - (void)setupCleanupTimer;
 - (void)startThreadDiagnosticsTimer;
+- (void)updateNCPProperties;
 @end
 
 @implementation ThreadDiagnosticsManagerInstance
 
 - (BOOL)generateThreadDiagnosticsMonitorLogs
 {
-  v3 = *(NetworkDiagnosticsManager::getInstance(self) + 40);
+  v3 = *(NetworkDiagnosticsManager::getInstance(self) + 10);
   dispatch_suspend(self->_tdm_timer);
   v4 = dispatch_time(0, 0);
   dispatch_source_set_timer(self->_tdm_timer, v4, 1000000000 * v3, 0);
@@ -63,10 +72,10 @@
   v3 = *buf;
   v4 = buf[23];
   CtrInternalClientPtr = self->_CtrInternalClientPtr;
-  std::string::basic_string[abi:ne200100]<0>(__p, "isPrimaryResident");
+  std::string::basic_string[abi:ne200100]<0>(&__p, "isPrimaryResident");
   if (CtrInternalClientPtr)
   {
-    [CtrInternalClientPtr getProperty:__p output:&v21];
+    objc_msgSend_getProperty_output_(CtrInternalClientPtr);
     v6 = *buf == 0;
     if ((v4 & 0x80000000) == 0)
     {
@@ -111,7 +120,7 @@ LABEL_13:
     goto LABEL_15;
   }
 
-  operator delete(__p[0]);
+  operator delete(__p);
   if (!v6)
   {
     goto LABEL_13;
@@ -132,10 +141,10 @@ LABEL_6:
   }
 
   v15 = self->_CtrInternalClientPtr;
-  std::string::basic_string[abi:ne200100]<0>(v17, "tdm:periodicdiag:enable");
+  std::string::basic_string[abi:ne200100]<0>(&v17, "tdm:periodicdiag:enable");
   if (v15)
   {
-    [(CtrInternalClient *)v15 getProperty:v17 output:&v21];
+    objc_msgSend_getProperty_output_(v15);
     v16 = *buf == 0;
     if ((v8 & 0x80000000) == 0)
     {
@@ -182,7 +191,7 @@ LABEL_32:
     goto LABEL_16;
   }
 
-  operator delete(v17[0]);
+  operator delete(v17);
   if (!v16)
   {
     goto LABEL_32;
@@ -288,7 +297,7 @@ LABEL_18:
       }
 
       Instance = NetworkDiagnosticsManager::getInstance(v27);
-      v29 = atomic_load((Instance + 11736));
+      v29 = atomic_load(Instance + 11736);
       if (v29)
       {
         v30 = xpc::dict::operator*(v8);
@@ -301,22 +310,22 @@ LABEL_18:
         xpc_dictionary_set_BOOL(v32, "enhancedTlvReq", *(Instance + 11739));
 
         v33 = xpc::dict::operator*(v8);
-        xpc_dictionary_set_uint64(v33, "sendToChildren", *(Instance + 11740));
+        xpc_dictionary_set_uint64(v33, "sendToChildren", *(Instance + 2935));
 
         v34 = xpc::dict::operator*(v8);
-        xpc_dictionary_set_uint64(v34, "routerRspTimeout", *(Instance + 11744));
+        xpc_dictionary_set_uint64(v34, "routerRspTimeout", *(Instance + 2936));
 
         v35 = xpc::dict::operator*(v8);
-        xpc_dictionary_set_uint64(v35, "childRspTimeout", *(Instance + 11748));
+        xpc_dictionary_set_uint64(v35, "childRspTimeout", *(Instance + 2937));
 
         v36 = xpc::dict::operator*(v8);
-        xpc_dictionary_set_uint64(v36, "periodicity", *(Instance + 11760));
+        xpc_dictionary_set_uint64(v36, "periodicity", *(Instance + 2940));
 
         v37 = xpc::dict::operator*(v8);
-        xpc_dictionary_set_uint64(v37, "browseTimeout", *(Instance + 11752));
+        xpc_dictionary_set_uint64(v37, "browseTimeout", *(Instance + 2938));
 
         v38 = xpc::dict::operator*(v8);
-        xpc_dictionary_set_uint64(v38, "resolveTimeout", *(Instance + 11756));
+        xpc_dictionary_set_uint64(v38, "resolveTimeout", *(Instance + 2939));
       }
 
       else
@@ -335,27 +344,27 @@ LABEL_18:
 
         v81 = xpc::dict::operator*(v8);
         v82 = NetworkDiagnosticsManager::getInstance(v81);
-        xpc_dictionary_set_uint64(v81, "sendToChildren", *(v82 + 44));
+        xpc_dictionary_set_uint64(v81, "sendToChildren", *(v82 + 11));
 
         v83 = xpc::dict::operator*(v8);
         v84 = NetworkDiagnosticsManager::getInstance(v83);
-        xpc_dictionary_set_uint64(v83, "routerRspTimeout", *(v84 + 32));
+        xpc_dictionary_set_uint64(v83, "routerRspTimeout", *(v84 + 8));
 
         v85 = xpc::dict::operator*(v8);
         v86 = NetworkDiagnosticsManager::getInstance(v85);
-        xpc_dictionary_set_uint64(v85, "childRspTimeout", *(v86 + 36));
+        xpc_dictionary_set_uint64(v85, "childRspTimeout", *(v86 + 9));
 
         v87 = xpc::dict::operator*(v8);
         v88 = NetworkDiagnosticsManager::getInstance(v87);
-        xpc_dictionary_set_uint64(v87, "periodicity", *(v88 + 40));
+        xpc_dictionary_set_uint64(v87, "periodicity", *(v88 + 10));
 
         v89 = xpc::dict::operator*(v8);
         v90 = NetworkDiagnosticsManager::getInstance(v89);
-        xpc_dictionary_set_uint64(v89, "browseTimeout", *(v90 + 24));
+        xpc_dictionary_set_uint64(v89, "browseTimeout", *(v90 + 6));
 
         v38 = xpc::dict::operator*(v8);
         v91 = NetworkDiagnosticsManager::getInstance(v38);
-        xpc_dictionary_set_uint64(v38, "resolveTimeout", *(v91 + 28));
+        xpc_dictionary_set_uint64(v38, "resolveTimeout", *(v91 + 7));
       }
 
       goto LABEL_31;
@@ -425,7 +434,7 @@ LABEL_18:
     if (v54)
     {
       dispatch_suspend(self->_tdm_timer);
-      *(NetworkDiagnosticsManager::getInstance(v72) + 40) = 0;
+      *(NetworkDiagnosticsManager::getInstance(v72) + 10) = 0;
       v73 = log_get_logging_obg("com.apple.wpantund.tdm", "default");
       if (os_log_type_enabled(v73, OS_LOG_TYPE_INFO))
       {
@@ -443,7 +452,7 @@ LABEL_18:
       goto LABEL_31;
     }
 
-    v100 = *(v71 + 40);
+    v100 = *(v71 + 10);
     if (v66)
     {
       if (!v100)
@@ -485,7 +494,7 @@ LABEL_18:
     else if (v100)
     {
       dispatch_suspend(self->_tdm_timer);
-      *(NetworkDiagnosticsManager::getInstance(v102) + 40) = 0;
+      *(NetworkDiagnosticsManager::getInstance(v102) + 10) = 0;
       v49 = log_get_logging_obg("com.apple.wpantund.tdm", "default");
       if (os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
       {
@@ -505,7 +514,7 @@ LABEL_31:
   v21 = std::string::compare(&v111, "GenerateDiagnostics");
   if (!v21)
   {
-    v39 = *(NetworkDiagnosticsManager::getInstance(v21) + 40);
+    v39 = *(NetworkDiagnosticsManager::getInstance(v21) + 10);
     dispatch_suspend(self->_tdm_timer);
     v41 = NetworkDiagnosticsManager::getInstance(v40);
     v42 = NetworkDiagnosticsManager::getInstance(v41);
@@ -514,7 +523,7 @@ LABEL_31:
     v45 = *(v44 + 49);
     *(v41 + 6736) = 1;
     *(v41 + 6744) = v45;
-    *(v41 + 6740) = v43;
+    *(v41 + 1685) = v43;
     v46 = NetworkDiagnosticsManager::getInstance(v44);
     v47 = NetworkDiagnosticsManager::getInstance(v46);
     *(v47 + 11) = 0;
@@ -538,7 +547,7 @@ LABEL_52:
   v22 = log_get_logging_obg("com.apple.wpantund.tdm", "default");
   if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
   {
-    [(ThreadDiagnosticsManagerInstance *)&std->var0.var1 threadDiagnosticsManagerInstance_MsgHandler:v22 message:?];
+    [(ThreadDiagnosticsManagerInstance *)std threadDiagnosticsManagerInstance_MsgHandler:v22 message:?];
   }
 
   v23 = 1;
@@ -687,10 +696,10 @@ id __58__ThreadDiagnosticsManagerInstance_createDriverInterface___block_invoke_2
   v4 = SBYTE7(v23);
   CtrInternalClientPtr = self->_CtrInternalClientPtr;
   v17.var0 = 0;
-  std::string::basic_string[abi:ne200100]<0>(v15, "NCP:State");
+  std::string::basic_string[abi:ne200100]<0>(&v15, "NCP:State");
   if (CtrInternalClientPtr)
   {
-    [CtrInternalClientPtr getProperty:v15 output:&v17];
+    objc_msgSend_getProperty_output_(CtrInternalClientPtr);
     v6 = LODWORD(__p[0]) == 0;
     if ((v4 & 0x80000000) == 0)
     {
@@ -716,7 +725,7 @@ LABEL_4:
   LOBYTE(__p[1]) = 0;
   if (v16 < 0)
   {
-    operator delete(v15[0]);
+    operator delete(v15);
     if (v6)
     {
       goto LABEL_6;
@@ -726,7 +735,7 @@ LABEL_4:
   else if (v6)
   {
 LABEL_6:
-    any_to_string(&v17, __p);
+    any_to_string(__p, &v17);
     if ((SBYTE7(v23) & 0x80u) == 0)
     {
       v9 = __p;
@@ -804,10 +813,10 @@ LABEL_23:
   retstr->var0.var1.var1 = 0;
   *(&retstr->var0.var1 + 2) = 0;
   v22.var0 = 0;
-  std::string::basic_string[abi:ne200100]<0>(__p, "IPv6:MeshLocalPrefix");
+  std::string::basic_string[abi:ne200100]<0>(&__p, "IPv6:MeshLocalPrefix");
   if (v6)
   {
-    [v6 getProperty:__p output:&v22];
+    objc_msgSend_getProperty_output_(v6);
     v7 = *buf == 0;
     if ((v5 & 0x80000000) == 0)
     {
@@ -817,7 +826,7 @@ LABEL_23:
     goto LABEL_3;
   }
 
-  memset(buf, 0, 32);
+  memset(buf, 0, sizeof(buf));
   v7 = 1;
   if (v5 < 0)
   {
@@ -832,11 +841,11 @@ LABEL_4:
   buf[8] = 0;
   if (v21 < 0)
   {
-    operator delete(__p[0]);
+    operator delete(__p);
     if (v7)
     {
 LABEL_6:
-      any_to_string(&v22, buf);
+      any_to_string(buf, &v22);
       *retstr->var0.var0.var0 = *buf;
       *(&retstr->var0.var1 + 2) = *&buf[16];
       v10 = log_get_logging_obg("com.apple.wpantund.tdm", "default");
@@ -901,10 +910,10 @@ LABEL_16:
   retstr->var0.var1.var1 = 0;
   *(&retstr->var0.var1 + 2) = 0;
   v22.var0 = 0;
-  std::string::basic_string[abi:ne200100]<0>(__p, "IPv6:MeshLocalAddress");
+  std::string::basic_string[abi:ne200100]<0>(&__p, "IPv6:MeshLocalAddress");
   if (v6)
   {
-    [v6 getProperty:__p output:&v22];
+    objc_msgSend_getProperty_output_(v6);
     v7 = *buf == 0;
     if ((v5 & 0x80000000) == 0)
     {
@@ -914,7 +923,7 @@ LABEL_16:
     goto LABEL_3;
   }
 
-  memset(buf, 0, 32);
+  memset(buf, 0, sizeof(buf));
   v7 = 1;
   if (v5 < 0)
   {
@@ -929,11 +938,11 @@ LABEL_4:
   buf[8] = 0;
   if (v21 < 0)
   {
-    operator delete(__p[0]);
+    operator delete(__p);
     if (v7)
     {
 LABEL_6:
-      any_to_string(&v22, buf);
+      any_to_string(buf, &v22);
       *retstr->var0.var0.var0 = *buf;
       *(&retstr->var0.var1 + 2) = *&buf[16];
       v10 = log_get_logging_obg("com.apple.wpantund.tdm", "default");
@@ -998,10 +1007,10 @@ LABEL_16:
   retstr->var0.var1.var1 = 0;
   *(&retstr->var0.var1 + 2) = 0;
   v22.var0 = 0;
-  std::string::basic_string[abi:ne200100]<0>(__p, "Network:Name");
+  std::string::basic_string[abi:ne200100]<0>(&__p, "Network:Name");
   if (v6)
   {
-    [v6 getProperty:__p output:&v22];
+    objc_msgSend_getProperty_output_(v6);
     v7 = *buf == 0;
     if ((v5 & 0x80000000) == 0)
     {
@@ -1011,7 +1020,7 @@ LABEL_16:
     goto LABEL_3;
   }
 
-  memset(buf, 0, 32);
+  memset(buf, 0, sizeof(buf));
   v7 = 1;
   if (v5 < 0)
   {
@@ -1026,11 +1035,11 @@ LABEL_4:
   buf[8] = 0;
   if (v21 < 0)
   {
-    operator delete(__p[0]);
+    operator delete(__p);
     if (v7)
     {
 LABEL_6:
-      any_to_string(&v22, buf);
+      any_to_string(buf, &v22);
       *retstr->var0.var0.var0 = *buf;
       *(&retstr->var0.var1 + 2) = *&buf[16];
       v10 = log_get_logging_obg("com.apple.wpantund.tdm", "default");
@@ -1091,10 +1100,10 @@ LABEL_16:
   v4 = buf[23];
   CtrInternalClientPtr = self->_CtrInternalClientPtr;
   v21.var0 = 0;
-  std::string::basic_string[abi:ne200100]<0>(__p, "Thread:Leader:RouterID");
+  std::string::basic_string[abi:ne200100]<0>(&__p, "Thread:Leader:RouterID");
   if (CtrInternalClientPtr)
   {
-    [CtrInternalClientPtr getProperty:__p output:&v21];
+    objc_msgSend_getProperty_output_(CtrInternalClientPtr);
     v6 = *buf == 0;
     if ((v4 & 0x80000000) == 0)
     {
@@ -1119,7 +1128,7 @@ LABEL_4:
   buf[8] = 0;
   if (v20 < 0)
   {
-    operator delete(__p[0]);
+    operator delete(__p);
     if (v6)
     {
 LABEL_6:
@@ -1172,10 +1181,10 @@ LABEL_14:
   v4 = buf[23];
   CtrInternalClientPtr = self->_CtrInternalClientPtr;
   v21.var0 = 0;
-  std::string::basic_string[abi:ne200100]<0>(__p, "NCP:Channel");
+  std::string::basic_string[abi:ne200100]<0>(&__p, "NCP:Channel");
   if (CtrInternalClientPtr)
   {
-    [CtrInternalClientPtr getProperty:__p output:&v21];
+    objc_msgSend_getProperty_output_(CtrInternalClientPtr);
     v6 = *buf == 0;
     if ((v4 & 0x80000000) == 0)
     {
@@ -1200,7 +1209,7 @@ LABEL_4:
   buf[8] = 0;
   if (v20 < 0)
   {
-    operator delete(__p[0]);
+    operator delete(__p);
     if (v6)
     {
 LABEL_6:
@@ -1253,10 +1262,10 @@ LABEL_14:
   v4 = buf[23];
   CtrInternalClientPtr = self->_CtrInternalClientPtr;
   v21.var0 = 0;
-  std::string::basic_string[abi:ne200100]<0>(__p, "Network:PartitionId");
+  std::string::basic_string[abi:ne200100]<0>(&__p, "Network:PartitionId");
   if (CtrInternalClientPtr)
   {
-    [CtrInternalClientPtr getProperty:__p output:&v21];
+    objc_msgSend_getProperty_output_(CtrInternalClientPtr);
     v6 = *buf == 0;
     if ((v4 & 0x80000000) == 0)
     {
@@ -1281,7 +1290,7 @@ LABEL_4:
   buf[8] = 0;
   if (v20 < 0)
   {
-    operator delete(__p[0]);
+    operator delete(__p);
     if (v6)
     {
 LABEL_6:
@@ -1334,10 +1343,10 @@ LABEL_14:
   v4 = buf[23];
   CtrInternalClientPtr = self->_CtrInternalClientPtr;
   v21.var0 = 0;
-  std::string::basic_string[abi:ne200100]<0>(__p, "Network:PANID");
+  std::string::basic_string[abi:ne200100]<0>(&__p, "Network:PANID");
   if (CtrInternalClientPtr)
   {
-    [CtrInternalClientPtr getProperty:__p output:&v21];
+    objc_msgSend_getProperty_output_(CtrInternalClientPtr);
     v6 = *buf == 0;
     if ((v4 & 0x80000000) == 0)
     {
@@ -1362,7 +1371,7 @@ LABEL_4:
   buf[8] = 0;
   if (v20 < 0)
   {
-    operator delete(__p[0]);
+    operator delete(__p);
     if (v6)
     {
 LABEL_6:
@@ -1415,10 +1424,10 @@ LABEL_14:
   v4 = buf[23];
   CtrInternalClientPtr = self->_CtrInternalClientPtr;
   v21.var0 = 0;
-  std::string::basic_string[abi:ne200100]<0>(__p, "Network:XPANID");
+  std::string::basic_string[abi:ne200100]<0>(&__p, "Network:XPANID");
   if (CtrInternalClientPtr)
   {
-    [CtrInternalClientPtr getProperty:__p output:&v21];
+    objc_msgSend_getProperty_output_(CtrInternalClientPtr);
     v6 = *buf == 0;
     if ((v4 & 0x80000000) == 0)
     {
@@ -1443,7 +1452,7 @@ LABEL_4:
   buf[8] = 0;
   if (v20 < 0)
   {
-    operator delete(__p[0]);
+    operator delete(__p);
     if (v6)
     {
 LABEL_6:
@@ -1493,8 +1502,8 @@ LABEL_14:
 {
   Instance = NetworkDiagnosticsManager::getInstance(self);
   v4 = *(Instance + 11728);
-  v5 = *(Instance + 11712);
-  v6 = *(Instance + 11704);
+  v5 = *(Instance + 1464);
+  v6 = *(Instance + 1463);
   inited = objc_initWeak(&location, self);
   if (v4)
   {
@@ -1509,16 +1518,16 @@ LABEL_14:
         v12 = 36 * v9;
         do
         {
-          v13 = (*(Instance + 11704) + v10);
+          v13 = (*(Instance + 1463) + v10);
           v14 = v13[1];
-          v21 = *v13;
-          v22 = v14;
-          v23 = *(v13 + 8);
+          v22 = *v13;
+          v23 = v14;
+          v24 = *(v13 + 8);
           ctrInternalClientPtr = [v8 CtrInternalClientPtr];
-          v19[0] = v21;
-          v19[1] = v22;
+          v19 = v22;
           v20 = v23;
-          [ctrInternalClientPtr send_diagnostics_req:v19];
+          v21 = v24;
+          objc_msgSend_send_diagnostics_req_(ctrInternalClientPtr);
           if (v17 < 0)
           {
             operator delete(__p);
@@ -1543,7 +1552,7 @@ LABEL_14:
 
 - (BOOL)updateNCPProperties
 {
-  [(ThreadDiagnosticsManagerInstance *)self getMLPrefix];
+  objc_msgSend_getMLPrefix(self, a2);
   size = HIBYTE(v40.__r_.__value_.__r.__words[2]);
   if ((v40.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
   {
@@ -1552,7 +1561,7 @@ LABEL_14:
 
   if (size)
   {
-    [(ThreadDiagnosticsManagerInstance *)self getMLAddress];
+    objc_msgSend_getMLAddress(self);
     v4 = HIBYTE(v39.__r_.__value_.__r.__words[2]);
     if ((v39.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
@@ -1605,7 +1614,7 @@ LABEL_14:
 
       v27->__r_.__value_.__s.__data_[v26] = 0;
       getPanId = [(ThreadDiagnosticsManagerInstance *)self getPanId];
-      [(ThreadDiagnosticsManagerInstance *)self getNwName];
+      objc_msgSend_getNwName(self);
       getPartitionId = [(ThreadDiagnosticsManagerInstance *)self getPartitionId];
       getChannel = [(ThreadDiagnosticsManagerInstance *)self getChannel];
       getLeaderRouterID = [(ThreadDiagnosticsManagerInstance *)self getLeaderRouterID];
@@ -1749,57 +1758,9 @@ void __53__ThreadDiagnosticsManagerInstance_setupCleanupTimer__block_invoke(id a
 
 - (void)handlePeriodicTimer
 {
-  if ([(ThreadDiagnosticsManagerInstance *)self getNCPState]!= 8)
-  {
-    v17 = log_get_logging_obg("com.apple.wpantund.tdm", "default");
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
-    {
-      v22 = 0;
-      v18 = "TDM: handlePeriodicTimer return here as NCP state is not associated";
-      v19 = &v22;
-LABEL_12:
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, v18, v19, 2u);
-    }
-
-LABEL_13:
-
-    return;
-  }
-
-  shouldRunDiagnostics = [(ThreadDiagnosticsManagerInstance *)self shouldRunDiagnostics];
-  if ((shouldRunDiagnostics & 1) == 0)
-  {
-    v17 = log_get_logging_obg("com.apple.wpantund.tdm", "default");
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
-    {
-      *buf = 0;
-      v18 = "TDM: handlePeriodicTimer return here as additional checks failed to run TDM on this device (primary resident or extaddr not in the list)";
-      v19 = buf;
-      goto LABEL_12;
-    }
-
-    goto LABEL_13;
-  }
-
-  Instance = NetworkDiagnosticsManager::getInstance(shouldRunDiagnostics);
-  v5 = NetworkDiagnosticsManager::cleanup(Instance, 0, 1);
-  v6 = NetworkDiagnosticsManager::getInstance(v5);
-  NetworkDiagnosticsManager::initialize(v6);
-  if (![(ThreadDiagnosticsManagerInstance *)self updateNCPProperties])
-  {
-    v7 = log_get_logging_obg("com.apple.wpantund.tdm", "default");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
-    {
-      [(ThreadDiagnosticsManagerInstance *)v7 handlePeriodicTimer:v8];
-    }
-  }
-
-  v15 = NetworkDiagnosticsManager::getInstance([(ThreadDiagnosticsManagerInstance *)self setupCleanupTimer]);
-  NetworkDiagnosticsManager::startDiagnostics(v15);
-  v16 = objc_initWeak(&location, self);
-  [(ThreadDiagnosticsManagerInstance *)self send_nwdiagnostics_get_req];
-
-  objc_destroyWeak(&location);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[ThreadDiagnosticsManagerInstance handlePeriodicTimer]";
+  OUTLINED_FUNCTION_0_3(&_mh_execute_header, self, a3, "%s : TDM failed to update NCP properties", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)startThreadDiagnosticsTimer
@@ -1855,7 +1816,7 @@ void __63__ThreadDiagnosticsManagerInstance_startThreadDiagnosticsTimer__block_i
   }
 }
 
-- (void)threadDiagnosticsManagerInstance_MsgHandler:(os_log_t)log message:.cold.1(uint64_t *a1, uint64_t *a2, os_log_t log)
+- (void)threadDiagnosticsManagerInstance_MsgHandler:(os_log_t)log message:.cold.1(uint64_t **a1, uint64_t *a2, os_log_t log)
 {
   if (*(a1 + 23) < 0)
   {
@@ -1877,6 +1838,76 @@ void __63__ThreadDiagnosticsManagerInstance_startThreadDiagnosticsTimer__block_i
   v6 = 2080;
   v7 = v3;
   _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "Wrong message received from client %s for method %s ", &v4, 0x16u);
+}
+
+- (void)createDriverInterface:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[ThreadDiagnosticsManagerInstance createDriverInterface:]";
+  OUTLINED_FUNCTION_0_3(&_mh_execute_header, a1, a3, "%s: Failed to create tdm send queue, unexpected scenario, asserting...", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)getMLPrefix
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[ThreadDiagnosticsManagerInstance getMLPrefix]";
+  OUTLINED_FUNCTION_0_3(&_mh_execute_header, self, a3, "%s : TDM Failed to get the MLPrefix Property", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)getMLAddress
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[ThreadDiagnosticsManagerInstance getMLAddress]";
+  OUTLINED_FUNCTION_0_3(&_mh_execute_header, self, a3, "%s : TDM Failed to get the MLAddress Property", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)getNwName
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[ThreadDiagnosticsManagerInstance getNwName]";
+  OUTLINED_FUNCTION_0_3(&_mh_execute_header, self, a3, "%s : TDM Failed to get the MLAddress Property", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)getLeaderRouterID
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[ThreadDiagnosticsManagerInstance getLeaderRouterID]";
+  OUTLINED_FUNCTION_0_3(&_mh_execute_header, self, a3, "%s : TDM Failed to get the MLPrefix Property", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)getChannel
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[ThreadDiagnosticsManagerInstance getChannel]";
+  OUTLINED_FUNCTION_0_3(&_mh_execute_header, self, a3, "%s : TDM Failed to get the MLPrefix Property", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)getPartitionId
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[ThreadDiagnosticsManagerInstance getPartitionId]";
+  OUTLINED_FUNCTION_0_3(&_mh_execute_header, self, a3, "%s : TDM Failed to get the MLPrefix Property", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)getPanId
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[ThreadDiagnosticsManagerInstance getPanId]";
+  OUTLINED_FUNCTION_0_3(&_mh_execute_header, self, a3, "%s : TDM Failed to get the MLPrefix Property", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)getXPanId
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[ThreadDiagnosticsManagerInstance getXPanId]";
+  OUTLINED_FUNCTION_0_3(&_mh_execute_header, self, a3, "%s : TDM Failed to get the MLPrefix Property", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)updateNCPProperties
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[ThreadDiagnosticsManagerInstance updateNCPProperties]";
+  OUTLINED_FUNCTION_0_3(&_mh_execute_header, self, a3, "%s : TDM MLPrefix is empty", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

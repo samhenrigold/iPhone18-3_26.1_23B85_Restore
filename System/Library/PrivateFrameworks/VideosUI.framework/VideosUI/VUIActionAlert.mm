@@ -236,7 +236,7 @@ void __63__VUIActionAlert_performWithTargetResponder_completionHandler___block_i
 
     else
     {
-      v6 = VUIDefaultLogObject();
+      v6 = VUIDefaultLogObject(v4);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         __63__VUIActionAlert_performWithTargetResponder_completionHandler___block_invoke_cold_1(v6);

@@ -51,7 +51,7 @@
   v10 = v9;
   [(PXGridInlinePlaybackRecord *)self curationScore];
   v12 = v11;
-  [(PXGridInlinePlaybackRecord *)self bestVideoTimeRange];
+  objc_msgSend_bestVideoTimeRange(self);
   v13 = CMTimeRangeCopyDescription(0, &range);
   [(PXGridInlinePlaybackRecord *)self videoStickerSuggestionScore];
   v15 = v14;

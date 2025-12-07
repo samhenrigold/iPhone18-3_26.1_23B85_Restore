@@ -17,7 +17,7 @@ void __62__AVAsset_PhotosUICore__px_loadDurationWithCompletionHandler___block_in
   {
     if (WeakRetained)
     {
-      [WeakRetained duration];
+      objc_msgSend_duration(WeakRetained);
     }
 
     else

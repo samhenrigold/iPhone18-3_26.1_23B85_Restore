@@ -14,62 +14,62 @@
 
 - (id)_dictionaryRepresentation
 {
-  v40[12] = *MEMORY[0x1E69E9840];
+  v39[12] = *MEMORY[0x1E69E9840];
   roomNames = self->_roomNames;
   null = roomNames;
-  v39[0] = @"roomNames";
+  v38[0] = @"roomNames";
   if (!roomNames)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v40[0] = null;
-  v39[1] = @"homeName";
+  v39[0] = null;
+  v38[1] = @"homeName";
   homeName = self->_homeName;
-  v36 = homeName;
+  v35 = homeName;
   if (!homeName)
   {
     homeName = [MEMORY[0x1E695DFB0] null];
   }
 
-  v40[1] = homeName;
-  v39[2] = @"zoneNames";
+  v39[1] = homeName;
+  v38[2] = @"zoneNames";
   zoneNames = self->_zoneNames;
-  v34 = zoneNames;
+  v33 = zoneNames;
   if (!zoneNames)
   {
     zoneNames = [MEMORY[0x1E695DFB0] null];
   }
 
-  v40[2] = zoneNames;
-  v39[3] = @"accessoryNames";
+  v39[2] = zoneNames;
+  v38[3] = @"accessoryNames";
   accessoryNames = self->_accessoryNames;
-  v33 = accessoryNames;
+  v32 = accessoryNames;
   if (!accessoryNames)
   {
     accessoryNames = [MEMORY[0x1E695DFB0] null];
   }
 
-  v40[3] = accessoryNames;
-  v39[4] = @"serviceNames";
+  v39[3] = accessoryNames;
+  v38[4] = @"serviceNames";
   serviceNames = self->_serviceNames;
-  v32 = serviceNames;
+  v31 = serviceNames;
   if (!serviceNames)
   {
     serviceNames = [MEMORY[0x1E695DFB0] null];
   }
 
-  v40[4] = serviceNames;
-  v39[5] = @"serviceGroups";
+  v39[4] = serviceNames;
+  v38[5] = @"serviceGroups";
   serviceGroups = self->_serviceGroups;
-  v31 = serviceGroups;
+  v30 = serviceGroups;
   if (!serviceGroups)
   {
     serviceGroups = [MEMORY[0x1E695DFB0] null];
   }
 
-  v40[5] = serviceGroups;
-  v39[6] = @"intentFromEntities";
+  v39[5] = serviceGroups;
+  v38[6] = @"intentFromEntities";
   intentFromEntities = self->_intentFromEntities;
   null2 = intentFromEntities;
   if (!intentFromEntities)
@@ -77,9 +77,9 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v26 = null2;
-  v40[6] = null2;
-  v39[7] = @"intentDeviceQuantifier";
+  v25 = null2;
+  v39[6] = null2;
+  v38[7] = @"intentDeviceQuantifier";
   intentDeviceQuantifier = self->_intentDeviceQuantifier;
   null3 = intentDeviceQuantifier;
   if (!intentDeviceQuantifier)
@@ -87,10 +87,10 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v37 = null;
-  v25 = null3;
-  v40[7] = null3;
-  v39[8] = @"destinationDeviceId";
+  v36 = null;
+  v24 = null3;
+  v39[7] = null3;
+  v38[8] = @"destinationDeviceId";
   destinationDeviceId = self->_destinationDeviceId;
   null4 = destinationDeviceId;
   if (!destinationDeviceId)
@@ -98,13 +98,13 @@
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v27 = serviceGroups;
-  v28 = serviceNames;
-  v29 = accessoryNames;
-  v35 = homeName;
-  v24 = null4;
-  v40[8] = null4;
-  v39[9] = @"intentDeviceType";
+  v26 = serviceGroups;
+  v27 = serviceNames;
+  v28 = accessoryNames;
+  v34 = homeName;
+  v23 = null4;
+  v39[8] = null4;
+  v38[9] = @"intentDeviceType";
   intentDeviceType = self->_intentDeviceType;
   null5 = intentDeviceType;
   if (!intentDeviceType)
@@ -113,8 +113,8 @@
   }
 
   v17 = zoneNames;
-  v40[9] = null5;
-  v39[10] = @"intentPlaceHint";
+  v39[9] = null5;
+  v38[10] = @"intentPlaceHint";
   intentPlaceHint = self->_intentPlaceHint;
   null6 = intentPlaceHint;
   if (!intentPlaceHint)
@@ -122,8 +122,8 @@
     null6 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v40[10] = null6;
-  v39[11] = @"intentReference";
+  v39[10] = null6;
+  v38[11] = @"intentReference";
   intentReference = self->_intentReference;
   null7 = intentReference;
   if (!intentReference)
@@ -131,8 +131,8 @@
     null7 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v40[11] = null7;
-  v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v40 forKeys:v39 count:12];
+  v39[11] = null7;
+  v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v39 forKeys:v38 count:12];
   if (intentReference)
   {
     if (intentPlaceHint)
@@ -186,6 +186,10 @@ LABEL_28:
   }
 
 LABEL_32:
+  if (!v30)
+  {
+  }
+
   if (!v31)
   {
   }
@@ -198,11 +202,7 @@ LABEL_32:
   {
   }
 
-  if (!v34)
-  {
-  }
-
-  if (!v36)
+  if (!v35)
   {
   }
 
@@ -210,9 +210,7 @@ LABEL_32:
   {
   }
 
-  v22 = *MEMORY[0x1E69E9840];
-
-  return v30;
+  return v29;
 }
 
 - (id)descriptionAtIndent:(unint64_t)indent
@@ -293,60 +291,59 @@ LABEL_32:
 
 - (INHomeAutomationEntityProvider)initWithCoder:(id)coder
 {
-  v43[2] = *MEMORY[0x1E69E9840];
+  v42[2] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E695DFD8];
   coderCopy = coder;
-  v43[0] = objc_opt_class();
-  v43[1] = objc_opt_class();
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v43 count:2];
+  v42[0] = objc_opt_class();
+  v42[1] = objc_opt_class();
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v42 count:2];
   v6 = [v3 setWithArray:v5];
   v7 = [coderCopy decodeObjectOfClasses:v6 forKey:@"roomNames"];
 
   v8 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"homeName"];
   v9 = MEMORY[0x1E695DFD8];
-  v42[0] = objc_opt_class();
-  v42[1] = objc_opt_class();
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v42 count:2];
-  v11 = [v9 setWithArray:v10];
-  v37 = [coderCopy decodeObjectOfClasses:v11 forKey:@"zoneNames"];
-
-  v12 = MEMORY[0x1E695DFD8];
   v41[0] = objc_opt_class();
   v41[1] = objc_opt_class();
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v41 count:2];
-  v14 = [v12 setWithArray:v13];
-  v36 = [coderCopy decodeObjectOfClasses:v14 forKey:@"accessoryNames"];
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v41 count:2];
+  v11 = [v9 setWithArray:v10];
+  v36 = [coderCopy decodeObjectOfClasses:v11 forKey:@"zoneNames"];
 
-  v15 = MEMORY[0x1E695DFD8];
+  v12 = MEMORY[0x1E695DFD8];
   v40[0] = objc_opt_class();
   v40[1] = objc_opt_class();
-  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v40 count:2];
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v40 count:2];
+  v14 = [v12 setWithArray:v13];
+  v35 = [coderCopy decodeObjectOfClasses:v14 forKey:@"accessoryNames"];
+
+  v15 = MEMORY[0x1E695DFD8];
+  v39[0] = objc_opt_class();
+  v39[1] = objc_opt_class();
+  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:2];
   v17 = [v15 setWithArray:v16];
   v18 = [coderCopy decodeObjectOfClasses:v17 forKey:@"serviceNames"];
 
   v19 = MEMORY[0x1E695DFD8];
-  v39[0] = objc_opt_class();
-  v39[1] = objc_opt_class();
-  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:2];
-  v21 = [v19 setWithArray:v20];
-  v35 = [coderCopy decodeObjectOfClasses:v21 forKey:@"serviceGroups"];
-
-  v22 = MEMORY[0x1E695DFD8];
   v38[0] = objc_opt_class();
   v38[1] = objc_opt_class();
-  v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:2];
-  v24 = [v22 setWithArray:v23];
-  v32 = [coderCopy decodeObjectOfClasses:v24 forKey:@"intentFromEntities"];
+  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:2];
+  v21 = [v19 setWithArray:v20];
+  v34 = [coderCopy decodeObjectOfClasses:v21 forKey:@"serviceGroups"];
 
-  v31 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"intentDeviceQuantifier"];
+  v22 = MEMORY[0x1E695DFD8];
+  v37[0] = objc_opt_class();
+  v37[1] = objc_opt_class();
+  v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v37 count:2];
+  v24 = [v22 setWithArray:v23];
+  v31 = [coderCopy decodeObjectOfClasses:v24 forKey:@"intentFromEntities"];
+
+  v30 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"intentDeviceQuantifier"];
   v25 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"destinationDeviceId"];
   v26 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"intentDeviceType"];
   v27 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"intentPlaceHint"];
   v28 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"intentReference"];
 
-  v34 = [(INHomeAutomationEntityProvider *)self initWithRoomNames:v7 homeName:v8 zoneNames:v37 accessoryNames:v36 serviceNames:v18 serviceGroups:v35 intentFromEntities:v32 intentDeviceQuantifier:v31 destinationDeviceId:v25 intentDeviceType:v26 intentPlaceHint:v27 intentReference:v28];
-  v29 = *MEMORY[0x1E69E9840];
-  return v34;
+  v33 = [(INHomeAutomationEntityProvider *)self initWithRoomNames:v7 homeName:v8 zoneNames:v36 accessoryNames:v35 serviceNames:v18 serviceGroups:v34 intentFromEntities:v31 intentDeviceQuantifier:v30 destinationDeviceId:v25 intentDeviceType:v26 intentPlaceHint:v27 intentReference:v28];
+  return v33;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -364,44 +361,54 @@ LABEL_32:
     {
       v5 = equalCopy;
       roomNames = self->_roomNames;
-      if (roomNames != v5->_roomNames && ![(NSArray *)roomNames isEqual:?])
+      v18 = 0;
+      if (roomNames == v5->_roomNames || [(NSArray *)roomNames isEqual:?])
       {
-        goto LABEL_30;
-      }
-
-      homeName = self->_homeName;
-      if (homeName != v5->_homeName && ![(NSString *)homeName isEqual:?])
-      {
-        goto LABEL_30;
-      }
-
-      zoneNames = self->_zoneNames;
-      if (zoneNames != v5->_zoneNames && ![(NSArray *)zoneNames isEqual:?])
-      {
-        goto LABEL_30;
-      }
-
-      accessoryNames = self->_accessoryNames;
-      if (accessoryNames != v5->_accessoryNames && ![(NSArray *)accessoryNames isEqual:?])
-      {
-        goto LABEL_30;
-      }
-
-      serviceNames = self->_serviceNames;
-      if (serviceNames != v5->_serviceNames && ![(NSArray *)serviceNames isEqual:?])
-      {
-        goto LABEL_30;
-      }
-
-      if (((serviceGroups = self->_serviceGroups, serviceGroups == v5->_serviceGroups) || [(NSArray *)serviceGroups isEqual:?]) && ((intentFromEntities = self->_intentFromEntities, intentFromEntities == v5->_intentFromEntities) || [(NSArray *)intentFromEntities isEqual:?]) && ((intentDeviceQuantifier = self->_intentDeviceQuantifier, intentDeviceQuantifier == v5->_intentDeviceQuantifier) || [(NSString *)intentDeviceQuantifier isEqual:?]) && ((destinationDeviceId = self->_destinationDeviceId, destinationDeviceId == v5->_destinationDeviceId) || [(NSString *)destinationDeviceId isEqual:?]) && ((intentDeviceType = self->_intentDeviceType, intentDeviceType == v5->_intentDeviceType) || [(NSString *)intentDeviceType isEqual:?]) && ((intentPlaceHint = self->_intentPlaceHint, intentPlaceHint == v5->_intentPlaceHint) || [(NSString *)intentPlaceHint isEqual:?]) && ((intentReference = self->_intentReference, intentReference == v5->_intentReference) || [(NSString *)intentReference isEqual:?]))
-      {
-        v18 = 1;
-      }
-
-      else
-      {
-LABEL_30:
-        v18 = 0;
+        homeName = self->_homeName;
+        if (homeName == v5->_homeName || [(NSString *)homeName isEqual:?])
+        {
+          zoneNames = self->_zoneNames;
+          if (zoneNames == v5->_zoneNames || [(NSArray *)zoneNames isEqual:?])
+          {
+            accessoryNames = self->_accessoryNames;
+            if (accessoryNames == v5->_accessoryNames || [(NSArray *)accessoryNames isEqual:?])
+            {
+              serviceNames = self->_serviceNames;
+              if (serviceNames == v5->_serviceNames || [(NSArray *)serviceNames isEqual:?])
+              {
+                serviceGroups = self->_serviceGroups;
+                if (serviceGroups == v5->_serviceGroups || [(NSArray *)serviceGroups isEqual:?])
+                {
+                  intentFromEntities = self->_intentFromEntities;
+                  if (intentFromEntities == v5->_intentFromEntities || [(NSArray *)intentFromEntities isEqual:?])
+                  {
+                    intentDeviceQuantifier = self->_intentDeviceQuantifier;
+                    if (intentDeviceQuantifier == v5->_intentDeviceQuantifier || [(NSString *)intentDeviceQuantifier isEqual:?])
+                    {
+                      destinationDeviceId = self->_destinationDeviceId;
+                      if (destinationDeviceId == v5->_destinationDeviceId || [(NSString *)destinationDeviceId isEqual:?])
+                      {
+                        intentDeviceType = self->_intentDeviceType;
+                        if (intentDeviceType == v5->_intentDeviceType || [(NSString *)intentDeviceType isEqual:?])
+                        {
+                          intentPlaceHint = self->_intentPlaceHint;
+                          if (intentPlaceHint == v5->_intentPlaceHint || [(NSString *)intentPlaceHint isEqual:?])
+                          {
+                            intentReference = self->_intentReference;
+                            if (intentReference == v5->_intentReference || [(NSString *)intentReference isEqual:?])
+                            {
+                              v18 = 1;
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
 

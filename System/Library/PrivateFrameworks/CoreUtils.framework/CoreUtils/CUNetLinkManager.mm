@@ -70,7 +70,7 @@
         ucat = self->_ucat;
       }
 
-      LogPrintF(ucat, "[CUNetLinkManager _monitorSendPacketToEndpoint:]", 0x14u, "Probe sent: %##a, S# %u, T# %u, E# %u\n", v12, v13, v14, v15, v6);
+      LogPrintF(ucat, "[CUNetLinkManager _monitorSendPacketToEndpoint:]", 20, "Probe sent: %##a, S# %u, T# %u, E# %u\n", v12, v13, v14, v15, v6);
     }
   }
 
@@ -90,7 +90,7 @@
         v17 = self->_ucat;
       }
 
-      LogPrintF(v17, "[CUNetLinkManager _monitorSendPacketToEndpoint:]", 0x32u, "### Probe send failed: %##a, S# %u, T# %u, E# %u, %#m\n", v12, v13, v14, v15, v6);
+      LogPrintF(v17, "[CUNetLinkManager _monitorSendPacketToEndpoint:]", 50, "### Probe send failed: %##a, S# %u, T# %u, E# %u, %#m\n", v12, v13, v14, v15, v6);
     }
   }
 
@@ -122,7 +122,7 @@ LABEL_19:
       ucat = self->_ucat;
     }
 
-    LogPrintF(ucat, "[CUNetLinkManager _monitorReadPacket:]", 9u, "Probe recv: %##a, %zu bytes, R# %u, S# %u\n", v4, v5, v6, v7, v10);
+    LogPrintF(ucat, "[CUNetLinkManager _monitorReadPacket:]", 9, "Probe recv: %##a, %zu bytes, R# %u, S# %u\n", v4, v5, v6, v7, v10);
     return;
   }
 
@@ -132,7 +132,7 @@ LABEL_19:
     if (v8->var0 != -1)
     {
 LABEL_4:
-      LogPrintF(v8, "[CUNetLinkManager _monitorReadPacket:]", 0x5Au, "### Probe recv failed: R# %u, %#m\n", v4, v5, v6, v7, self->_rxCount);
+      LogPrintF(v8, "[CUNetLinkManager _monitorReadPacket:]", 90, "### Probe recv failed: R# %u, %#m\n", v4, v5, v6, v7, self->_rxCount);
       return;
     }
 
@@ -175,7 +175,7 @@ LABEL_4:
         ucat = self->_ucat;
       }
 
-      LogPrintF(ucat, "[CUNetLinkManager _monitorSetupSocket:]", 0x5Au, "### Probe socket bad family: %d\n", v3, v4, v5, v6, v7);
+      LogPrintF(ucat, "[CUNetLinkManager _monitorSetupSocket:]", 90, "### Probe socket bad family: %d\n", v3, v4, v5, v6, v7);
       return;
     }
 
@@ -197,7 +197,7 @@ LABEL_4:
       v12 = self->_ucat;
     }
 
-    LogPrintF(v12, "[CUNetLinkManager _monitorSetupSocket:]", 0x1Eu, "Monitor setup socket %s\n", v3, v4, v5, v6, v9);
+    LogPrintF(v12, "[CUNetLinkManager _monitorSetupSocket:]", 30, "Monitor setup socket %s\n", v3, v4, v5, v6, v9);
   }
 
 LABEL_12:
@@ -220,7 +220,7 @@ LABEL_12:
       v24 = self->_ucat;
     }
 
-    LogPrintF(v24, "[CUNetLinkManager _monitorSetupSocket:]", 0x5Au, "### Probe socket create failed (%s): %#m\n", v15, v16, v17, v18, v9);
+    LogPrintF(v24, "[CUNetLinkManager _monitorSetupSocket:]", 90, "### Probe socket create failed (%s): %#m\n", v15, v16, v17, v18, v9);
     return;
   }
 
@@ -232,7 +232,7 @@ LABEL_12:
       if (v23->var0 != -1)
       {
 LABEL_18:
-        LogPrintF(v23, "[CUNetLinkManager _monitorSetupSocket:]", 0x5Au, "### Probe socket NonBlock failed (%s): %#m\n", v19, v20, v21, v22, v9);
+        LogPrintF(v23, "[CUNetLinkManager _monitorSetupSocket:]", 90, "### Probe socket NonBlock failed (%s): %#m\n", v19, v20, v21, v22, v9);
         goto LABEL_23;
       }
 
@@ -254,7 +254,7 @@ LABEL_23:
       if (v29->var0 != -1)
       {
 LABEL_28:
-        LogPrintF(v29, "[CUNetLinkManager _monitorSetupSocket:]", 0x5Au, "### Probe socket SO_NOSIGPIPE failed (%s): %#m\n", v25, v26, v27, v28, v9);
+        LogPrintF(v29, "[CUNetLinkManager _monitorSetupSocket:]", 90, "### Probe socket SO_NOSIGPIPE failed (%s): %#m\n", v25, v26, v27, v28, v9);
         goto LABEL_30;
       }
 
@@ -276,7 +276,7 @@ LABEL_30:
       if (v34->var0 != -1)
       {
 LABEL_35:
-        LogPrintF(v34, "[CUNetLinkManager _monitorSetupSocket:]", 0x5Au, "### Probe socket SO_NOWAKEFROMSLEEP failed (%s): %#m\n", v30, v31, v32, v33, v9);
+        LogPrintF(v34, "[CUNetLinkManager _monitorSetupSocket:]", 90, "### Probe socket SO_NOWAKEFROMSLEEP failed (%s): %#m\n", v30, v31, v32, v33, v9);
         goto LABEL_37;
       }
 
@@ -298,7 +298,7 @@ LABEL_37:
       if (v39->var0 != -1)
       {
 LABEL_44:
-        LogPrintF(v39, "[CUNetLinkManager _monitorSetupSocket:]", 0x5Au, "### Probe socket SO_REUSEPORT failed (%s): %#m\n", v35, v36, v37, v38, v9);
+        LogPrintF(v39, "[CUNetLinkManager _monitorSetupSocket:]", 90, "### Probe socket SO_REUSEPORT failed (%s): %#m\n", v35, v36, v37, v38, v9);
         goto LABEL_46;
       }
 
@@ -341,13 +341,14 @@ LABEL_46:
         v46 = self->_ucat;
       }
 
-      LogPrintF(v46, "[CUNetLinkManager _monitorSetupSocket:]", 0x5Au, "### Probe socket IPV6_V6ONLY failed (%s): %#m\n", v42, v43, v44, v45, v9);
+      LogPrintF(v46, "[CUNetLinkManager _monitorSetupSocket:]", 90, "### Probe socket IPV6_V6ONLY failed (%s): %#m\n", v42, v43, v44, v45, v9);
     }
   }
 
 LABEL_61:
-  *&v68[0].sa_data[10] = 0uLL;
+  *&v68[0].sa_data[10] = 0;
   *&v68[0].sa_data[2] = 0;
+  *&v68[1].sa_data[2] = 0;
   *&v68[0].sa_len = -1978786276;
   *&v68[0].sa_data[6] = *MEMORY[0x1E69E99B8];
   v40 = v14;
@@ -361,7 +362,7 @@ LABEL_62:
       if (v51->var0 != -1)
       {
 LABEL_69:
-        LogPrintF(v51, "[CUNetLinkManager _monitorSetupSocket:]", 0x5Au, "### Probe socket bind failed (%s): %#m\n", v47, v48, v49, v50, v9);
+        LogPrintF(v51, "[CUNetLinkManager _monitorSetupSocket:]", 90, "### Probe socket bind failed (%s): %#m\n", v47, v48, v49, v50, v9);
         goto LABEL_71;
       }
 
@@ -415,7 +416,7 @@ LABEL_71:
       v60 = self->_ucat;
     }
 
-    LogPrintF(v60, "[CUNetLinkManager _monitorSetupSocket:]", 0x5Au, "### Probe socket create read source failed (%s): %#m\n", v53, v54, v55, v56, v9);
+    LogPrintF(v60, "[CUNetLinkManager _monitorSetupSocket:]", 90, "### Probe socket create read source failed (%s): %#m\n", v53, v54, v55, v56, v9);
   }
 
 LABEL_79:
@@ -463,7 +464,7 @@ uint64_t __40__CUNetLinkManager__monitorSetupSocket___block_invoke_2(uint64_t a1
     if (ucat->var0 != -1)
     {
 LABEL_4:
-      LogPrintF(ucat, "[CUNetLinkManager _monitorEnsureStopped]", 0x1Eu, "Monitor stop\n", v2, v3, v4, v5, v13);
+      LogPrintF(ucat, "[CUNetLinkManager _monitorEnsureStopped]", 30, "Monitor stop\n", v2, v3, v4, v5, v13);
       goto LABEL_6;
     }
 
@@ -526,7 +527,7 @@ LABEL_8:
         ucat = self->_ucat;
       }
 
-      LogPrintF(ucat, "[CUNetLinkManager _monitorEnsureStarted]", 0x1Eu, "Monitor start\n", v2, v3, v4, v5, v13);
+      LogPrintF(ucat, "[CUNetLinkManager _monitorEnsureStarted]", 30, "Monitor start\n", v2, v3, v4, v5, v13);
     }
 
 LABEL_12:
@@ -564,7 +565,7 @@ LABEL_12:
     if (ucat->var0 != -1)
     {
 LABEL_6:
-      LogPrintF(ucat, "[CUNetLinkManager _updateEndpoint:state:]", 0x1Eu, "Endpoint state changed: %##a: %s -> %s\n", v7, v8, v9, v10, (v11 + 1));
+      LogPrintF(ucat, "[CUNetLinkManager _updateEndpoint:state:]", 30, "Endpoint state changed: %##a: %s -> %s\n", v7, v8, v9, v10, (v11 + 1));
       v11 = v16;
       goto LABEL_7;
     }
@@ -620,7 +621,7 @@ LABEL_10:
       ucat = self->_ucat;
     }
 
-    LogPrintF(ucat, "[CUNetLinkManager _updateNDP]", 0x5Au, "### Get IPv6 route info failed: %#m\n", v3, v4, v5, v6, v33);
+    LogPrintF(ucat, "[CUNetLinkManager _updateNDP]", 90, "### Get IPv6 route info failed: %#m\n", v3, v4, v5, v6, v33);
     return;
   }
 
@@ -702,7 +703,7 @@ LABEL_11:
         v22 = self->_ucat;
       }
 
-      LogPrintF(v22, "[CUNetLinkManager _updateNDP]", 9u, "ARP/NDP poll %##a: RxExp %llu (%lld), TxExp %llu, RtExp %d, Now %ld\n", v18, v19, v20, v21, v17 + 8);
+      LogPrintF(v22, "[CUNetLinkManager _updateNDP]", 9, "ARP/NDP poll %##a: RxExp %llu (%lld), TxExp %llu, RtExp %d, Now %ld\n", v18, v19, v20, v21, v17 + 8);
 LABEL_20:
       if (v14 == ++v16)
       {
@@ -787,7 +788,7 @@ LABEL_30:
             ucat = self->_ucat;
           }
 
-          LogPrintF(ucat, "[CUNetLinkManager _updateARP]", 0x32u, "updateARP: no AF_LINK", v9, v10, v11, v12, v34);
+          LogPrintF(ucat, "[CUNetLinkManager _updateARP]", 50, "updateARP: no AF_LINK", v9, v10, v11, v12, v34);
           goto LABEL_34;
         }
       }
@@ -834,7 +835,7 @@ LABEL_30:
               {
                 v30 = self->_ucat;
 LABEL_21:
-                LogPrintF(v30, "[CUNetLinkManager _updateARP]", 9u, "ARP/NDP poll %##a: RxExp %llu (%lld), TxExp %llu, RtExp %d, Now %ld\n", v22, v23, v24, v25, v29 + 8);
+                LogPrintF(v30, "[CUNetLinkManager _updateARP]", 9, "ARP/NDP poll %##a: RxExp %llu (%lld), TxExp %llu, RtExp %d, Now %ld\n", v22, v23, v24, v25, v29 + 8);
               }
             }
           }
@@ -869,7 +870,7 @@ LABEL_34:
     if (v33->var0 != -1)
     {
 LABEL_38:
-      LogPrintF(v33, "[CUNetLinkManager _updateARP]", 0x5Au, "### Get IPv4 route info failed: %#m\n", v4, v5, v6, v7, v42);
+      LogPrintF(v33, "[CUNetLinkManager _updateARP]", 90, "### Get IPv4 route info failed: %#m\n", v4, v5, v6, v7, v42);
       return;
     }
 
@@ -890,7 +891,7 @@ LABEL_38:
     if (ucat->var0 != -1)
     {
 LABEL_3:
-      LogPrintF(ucat, "[CUNetLinkManager _updateEndpoints]", 9u, "Update endpoints\n", v2, v3, v4, v5, v24);
+      LogPrintF(ucat, "[CUNetLinkManager _updateEndpoints]", 9, "Update endpoints\n", v2, v3, v4, v5, v24);
       goto LABEL_5;
     }
 
@@ -1094,7 +1095,7 @@ uint64_t __35__CUNetLinkManager_removeEndpoint___block_invoke(uint64_t a1, uint6
     if (*v10 != -1)
     {
 LABEL_3:
-      LogPrintF(v10, "[CUNetLinkManager removeEndpoint:]_block_invoke", 0x1Eu, "Remove endpoint: %##a\n", a5, a6, a7, a8, *(a1 + 40) + 8);
+      LogPrintF(v10, "[CUNetLinkManager removeEndpoint:]_block_invoke", 30, "Remove endpoint: %##a\n", a5, a6, a7, a8, *(a1 + 40) + 8);
       v9 = *(a1 + 32);
       goto LABEL_5;
     }
@@ -1158,7 +1159,7 @@ uint64_t __32__CUNetLinkManager_addEndpoint___block_invoke(uint64_t a1, uint64_t
     if (*v13 != -1)
     {
 LABEL_9:
-      LogPrintF(v13, "[CUNetLinkManager addEndpoint:]_block_invoke", 0x1Eu, "Add endpoint: %##a\n", a5, a6, a7, a8, *(a1 + 32) + 8);
+      LogPrintF(v13, "[CUNetLinkManager addEndpoint:]_block_invoke", 30, "Add endpoint: %##a\n", a5, a6, a7, a8, *(a1 + 32) + 8);
       v12 = *(a1 + 40);
       goto LABEL_11;
     }
@@ -1224,7 +1225,7 @@ LABEL_11:
         ucat = self->_ucat;
       }
 
-      LogPrintF(ucat, "[CUNetLinkManager _invalidated]", 0x1Eu, "Invalidated\n", v5, v6, v7, v8, v11);
+      LogPrintF(ucat, "[CUNetLinkManager _invalidated]", 30, "Invalidated\n", v5, v6, v7, v8, v11);
     }
   }
 }
@@ -1250,7 +1251,7 @@ LABEL_11:
       ucat = self->_ucat;
     }
 
-    LogPrintF(ucat, "[CUNetLinkManager _invalidate]", 0x1Eu, "Invalidate\n", v2, v3, v4, v5, v16);
+    LogPrintF(ucat, "[CUNetLinkManager _invalidate]", 30, "Invalidate\n", v2, v3, v4, v5, v16);
   }
 
 LABEL_6:
@@ -1325,7 +1326,7 @@ uint64_t __28__CUNetLinkManager_activate__block_invoke(uint64_t a1, uint64_t a2,
     if (*v10 != -1)
     {
 LABEL_3:
-      LogPrintF(v10, "[CUNetLinkManager activate]_block_invoke", 0x1Eu, "Activate: poll %d secs (+/- %d), reach %d secs, unreach %d secs\n", a5, a6, a7, a8, 13);
+      LogPrintF(v10, "[CUNetLinkManager activate]_block_invoke", 30, "Activate: poll %d secs (+/- %d), reach %d secs, unreach %d secs\n", a5, a6, a7, a8, 13);
       v9 = *(a1 + 32);
       goto LABEL_5;
     }

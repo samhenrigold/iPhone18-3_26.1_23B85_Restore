@@ -110,7 +110,7 @@ void __67__DKReportManager_reportWithComponentPredicateManifest_completion___blo
 
 void __67__DKReportManager_reportWithComponentPredicateManifest_completion___block_invoke_64(uint64_t a1, void *a2, void *a3)
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [*(a1 + 32) requestsToRetry];
@@ -119,9 +119,9 @@ void __67__DKReportManager_reportWithComponentPredicateManifest_completion___blo
   if (v8)
   {
     v9 = *(a1 + 32);
-    v19 = v6;
-    v10 = [v9 retryInterruptedRequests:0 andWithError:&v19];
-    v11 = v19;
+    v18 = v6;
+    v10 = [v9 retryInterruptedRequests:0 andWithError:&v18];
+    v11 = v18;
 
     v12 = [v5 reportByMergingReport:v10];
 
@@ -132,10 +132,10 @@ void __67__DKReportManager_reportWithComponentPredicateManifest_completion___blo
   if ([*(a1 + 32) isCancelled])
   {
     v13 = MEMORY[0x277CCA9B8];
-    v20 = *MEMORY[0x277CCA450];
+    v19 = *MEMORY[0x277CCA450];
     v14 = DKErrorLocalizedDescriptionForCode(-1003);
-    v21[0] = v14;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+    v20[0] = v14;
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
     v16 = [v13 errorWithDomain:@"DKErrorDomain" code:-1003 userInfo:v15];
 
     v6 = v14;
@@ -154,57 +154,55 @@ LABEL_7:
 
 LABEL_8:
   (*(*(a1 + 40) + 16))();
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)retryInterruptedRequests:(BOOL)requests andWithError:(id *)error
 {
   requestsCopy = requests;
-  v54 = *MEMORY[0x277D85DE8];
-  v49 = 0;
-  v50 = &v49;
-  v51 = 0x2020000000;
-  v52 = 1;
-  v43 = 0;
-  v44 = &v43;
-  v45 = 0x3032000000;
-  v46 = __Block_byref_object_copy_;
-  v47 = __Block_byref_object_dispose_;
+  v53 = *MEMORY[0x277D85DE8];
   v48 = 0;
-  v37 = 0;
-  v38 = &v37;
-  v39 = 0x3032000000;
-  v40 = __Block_byref_object_copy_;
-  v41 = __Block_byref_object_dispose_;
+  v49 = &v48;
+  v50 = 0x2020000000;
+  v51 = 1;
   v42 = 0;
+  v43 = &v42;
+  v44 = 0x3032000000;
+  v45 = __Block_byref_object_copy_;
+  v46 = __Block_byref_object_dispose_;
+  v47 = 0;
+  v36 = 0;
+  v37 = &v36;
+  v38 = 0x3032000000;
+  v39 = __Block_byref_object_copy_;
+  v40 = __Block_byref_object_dispose_;
+  v41 = 0;
   v5 = [MEMORY[0x277CBEB58] set];
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   requestsToRetry = [(DKReportManager *)self requestsToRetry];
-  v7 = [requestsToRetry countByEnumeratingWithState:&v33 objects:v53 count:16];
+  v7 = [requestsToRetry countByEnumeratingWithState:&v32 objects:v52 count:16];
   if (v7)
   {
-    v8 = *v34;
+    v8 = *v33;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v34 != v8)
+        if (*v33 != v8)
         {
           objc_enumerationMutation(requestsToRetry);
         }
 
-        v10 = *(*(&v33 + 1) + 8 * i);
+        v10 = *(*(&v32 + 1) + 8 * i);
         type = [v10 type];
         identifier = [v10 identifier];
         v13 = [DKComponentPredicate componentPredicateWithType:type identifier:identifier];
         [v5 addObject:v13];
       }
 
-      v7 = [requestsToRetry countByEnumeratingWithState:&v33 objects:v53 count:16];
+      v7 = [requestsToRetry countByEnumeratingWithState:&v32 objects:v52 count:16];
     }
 
     while (v7);
@@ -219,26 +217,26 @@ LABEL_8:
   }
 
   v16 = dispatch_semaphore_create(0);
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __57__DKReportManager_retryInterruptedRequests_andWithError___block_invoke;
-  v27[3] = &unk_278F6C1C8;
-  v27[4] = self;
-  v29 = &v43;
-  v30 = &v49;
-  v31 = &v37;
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __57__DKReportManager_retryInterruptedRequests_andWithError___block_invoke;
+  v26[3] = &unk_278F6C1C8;
+  v26[4] = self;
+  v28 = &v42;
+  v29 = &v48;
+  v30 = &v36;
   v17 = v16;
-  v28 = v17;
-  [(DKReportManager *)self sendRequests:v14 serialRequests:1 failOnError:0 completion:v27];
+  v27 = v17;
+  [(DKReportManager *)self sendRequests:v14 serialRequests:1 failOnError:0 completion:v26];
   v18 = dispatch_time(0, 60000000000);
   dispatch_semaphore_wait(v17, v18);
-  if (requestsCopy && (v50[3] & 1) == 0)
+  if (requestsCopy && (v49[3] & 1) == 0)
   {
-    v19 = v38[5];
-    v38[5] = 0;
+    v19 = v37[5];
+    v37[5] = 0;
   }
 
-  v20 = v44[5];
+  v20 = v43[5];
   if (v20)
   {
     *error = v20;
@@ -247,28 +245,27 @@ LABEL_8:
   requestsToRetry2 = [(DKReportManager *)self requestsToRetry];
   [requestsToRetry2 removeAllObjects];
 
-  v22 = v38[5];
-  _Block_object_dispose(&v37, 8);
+  v22 = v37[5];
+  _Block_object_dispose(&v36, 8);
 
-  _Block_object_dispose(&v43, 8);
-  _Block_object_dispose(&v49, 8);
-  v23 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v42, 8);
+  _Block_object_dispose(&v48, 8);
 
   return v22;
 }
 
 void __57__DKReportManager_retryInterruptedRequests_andWithError___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if ([*(a1 + 32) isCancelled])
   {
     v7 = MEMORY[0x277CCA9B8];
-    v22 = *MEMORY[0x277CCA450];
+    v21 = *MEMORY[0x277CCA450];
     v8 = DKErrorLocalizedDescriptionForCode(-1003);
-    v23[0] = v8;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+    v22[0] = v8;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
     v10 = [v7 errorWithDomain:@"DKErrorDomain" code:-1003 userInfo:v9];
     v11 = *(*(a1 + 48) + 8);
     v12 = *(v11 + 40);
@@ -299,8 +296,8 @@ LABEL_8:
   v16 = DiagnosticsKitLogHandleForCategory(1);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    *v21 = 0;
-    _os_log_impl(&dword_248B9D000, v16, OS_LOG_TYPE_DEFAULT, "Finished executing interrupted report components", v21, 2u);
+    *v20 = 0;
+    _os_log_impl(&dword_248B9D000, v16, OS_LOG_TYPE_DEFAULT, "Finished executing interrupted report components", v20, 2u);
   }
 
   v17 = *(*(a1 + 64) + 8);
@@ -309,73 +306,70 @@ LABEL_8:
   v19 = v5;
 
   dispatch_semaphore_signal(*(a1 + 40));
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getRequests:(id)requests
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   requestsCopy = requests;
   planner = [(DKReportManager *)self planner];
   v6 = [planner requestGroupsForPredicateManifest:requestsCopy];
 
   v7 = [MEMORY[0x277CBEB58] set];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   v8 = v6;
-  v9 = [v8 countByEnumeratingWithState:&v25 objects:v30 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v24 objects:v29 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v26;
+    v11 = *v25;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v26 != v11)
+        if (*v25 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v25 + 1) + 8 * i);
+        v13 = *(*(&v24 + 1) + 8 * i);
+        v20 = 0u;
         v21 = 0u;
         v22 = 0u;
         v23 = 0u;
-        v24 = 0u;
         requests = [v13 requests];
-        v15 = [requests countByEnumeratingWithState:&v21 objects:v29 count:16];
+        v15 = [requests countByEnumeratingWithState:&v20 objects:v28 count:16];
         if (v15)
         {
           v16 = v15;
-          v17 = *v22;
+          v17 = *v21;
           do
           {
             for (j = 0; j != v16; ++j)
             {
-              if (*v22 != v17)
+              if (*v21 != v17)
               {
                 objc_enumerationMutation(requests);
               }
 
-              [v7 addObject:*(*(&v21 + 1) + 8 * j)];
+              [v7 addObject:*(*(&v20 + 1) + 8 * j)];
             }
 
-            v16 = [requests countByEnumeratingWithState:&v21 objects:v29 count:16];
+            v16 = [requests countByEnumeratingWithState:&v20 objects:v28 count:16];
           }
 
           while (v16);
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v24 objects:v29 count:16];
     }
 
     while (v10);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -383,78 +377,78 @@ LABEL_8:
 - (void)sendRequests:(id)requests serialRequests:(BOOL)serialRequests failOnError:(BOOL)error completion:(id)completion
 {
   errorCopy = error;
-  v119 = *MEMORY[0x277D85DE8];
+  v118 = *MEMORY[0x277D85DE8];
   requestsCopy = requests;
   completionCopy = completion;
   group = dispatch_group_create();
-  v50 = dispatch_semaphore_create(0);
-  v98 = 0;
-  v99[0] = &v98;
-  v99[1] = 0x2020000000;
-  v100 = 0;
-  v94 = 0;
-  v95 = &v94;
-  v96 = 0x2020000000;
-  v97 = 1;
-  v88 = 0;
-  v89 = &v88;
-  v90 = 0x3032000000;
-  v91 = __Block_byref_object_copy_;
-  v92 = __Block_byref_object_dispose_;
-  array = [MEMORY[0x277CBEA60] array];
-  v93 = [DKReport reportWithComponents:array];
-
-  v82 = 0;
-  v83 = &v82;
-  v84 = 0x3032000000;
-  v85 = __Block_byref_object_copy_;
-  v86 = __Block_byref_object_dispose_;
+  v49 = dispatch_semaphore_create(0);
+  v97 = 0;
+  v98[0] = &v97;
+  v98[1] = 0x2020000000;
+  v99 = 0;
+  v93 = 0;
+  v94 = &v93;
+  v95 = 0x2020000000;
+  v96 = 1;
   v87 = 0;
+  v88 = &v87;
+  v89 = 0x3032000000;
+  v90 = __Block_byref_object_copy_;
+  v91 = __Block_byref_object_dispose_;
+  array = [MEMORY[0x277CBEA60] array];
+  v92 = [DKReport reportWithComponents:array];
+
+  v81 = 0;
+  v82 = &v81;
+  v83 = 0x3032000000;
+  v84 = __Block_byref_object_copy_;
+  v85 = __Block_byref_object_dispose_;
+  v86 = 0;
+  v77 = 0u;
   v78 = 0u;
   v79 = 0u;
   v80 = 0u;
-  v81 = 0u;
   obj = requestsCopy;
-  v47 = [obj countByEnumeratingWithState:&v78 objects:v118 count:16];
-  if (v47)
+  v46 = [obj countByEnumeratingWithState:&v77 objects:v117 count:16];
+  if (v46)
   {
-    v46 = *v79;
-    v49 = *MEMORY[0x277CCA450];
+    v45 = *v78;
+    v48 = *MEMORY[0x277CCA450];
 LABEL_3:
-    v48 = 0;
+    v47 = 0;
     while (1)
     {
-      if (*v79 != v46)
+      if (*v78 != v45)
       {
         objc_enumerationMutation(obj);
       }
 
-      v10 = *(*(&v78 + 1) + 8 * v48);
+      v10 = *(*(&v77 + 1) + 8 * v47);
       if ([(DKReportManager *)self isCancelled])
       {
         break;
       }
 
-      v76 = 0u;
-      v77 = 0u;
-      v74 = 0u;
       v75 = 0u;
+      v76 = 0u;
+      v73 = 0u;
+      v74 = 0u;
       manifest = [v10 manifest];
-      v12 = [manifest countByEnumeratingWithState:&v74 objects:v117 count:16];
-      v52 = manifest;
+      v12 = [manifest countByEnumeratingWithState:&v73 objects:v116 count:16];
+      v51 = manifest;
       if (v12)
       {
-        v53 = *v75;
+        v52 = *v74;
 LABEL_9:
         v13 = 0;
         while (1)
         {
-          if (*v75 != v53)
+          if (*v74 != v52)
           {
-            objc_enumerationMutation(v52);
+            objc_enumerationMutation(v51);
           }
 
-          v14 = *(*(&v74 + 1) + 8 * v13);
+          v14 = *(*(&v73 + 1) + 8 * v13);
           if ([(DKReportManager *)self isCancelled])
           {
             break;
@@ -467,65 +461,65 @@ LABEL_9:
           [v17 setHostServicesDelegate:self];
           if (v17)
           {
-            v72[0] = 0;
-            v72[1] = v72;
-            v72[2] = 0x3032000000;
-            v72[3] = __Block_byref_object_copy_;
-            v72[4] = __Block_byref_object_dispose_;
+            v71[0] = 0;
+            v71[1] = v71;
+            v71[2] = 0x3032000000;
+            v71[3] = __Block_byref_object_copy_;
+            v71[4] = __Block_byref_object_dispose_;
             v18 = MEMORY[0x277CCACA8];
             requestIdentifier = [v17 requestIdentifier];
-            v73 = [v18 stringWithFormat:@"%@", requestIdentifier];
+            v72 = [v18 stringWithFormat:@"%@", requestIdentifier];
 
-            v70[0] = 0;
-            v70[1] = v70;
-            v70[2] = 0x3032000000;
-            v70[3] = __Block_byref_object_copy_;
-            v70[4] = __Block_byref_object_dispose_;
+            v69[0] = 0;
+            v69[1] = v69;
+            v69[2] = 0x3032000000;
+            v69[3] = __Block_byref_object_copy_;
+            v69[4] = __Block_byref_object_dispose_;
             v20 = MEMORY[0x277CCACA8];
             v21 = [v17 description];
-            v71 = [v20 stringWithString:v21];
+            v70 = [v20 stringWithString:v21];
 
-            ++*(v99[0] + 24);
+            ++*(v98[0] + 24);
             v22 = DiagnosticsKitLogHandleForCategory(1);
             if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
             {
               requestIdentifier2 = [v17 requestIdentifier];
-              v24 = *(v99[0] + 24);
+              v24 = *(v98[0] + 24);
               *buf = 138413570;
-              v106 = requestIdentifier2;
-              v107 = 1024;
-              v108 = v24;
-              v109 = 2112;
-              v110 = v17;
-              v111 = 2112;
-              v112 = v14;
-              v113 = 2112;
-              v114 = v10;
-              v115 = 2112;
-              v116 = v17;
+              v105 = requestIdentifier2;
+              v106 = 1024;
+              v107 = v24;
+              v108 = 2112;
+              v109 = v17;
+              v110 = 2112;
+              v111 = v14;
+              v112 = 2112;
+              v113 = v10;
+              v114 = 2112;
+              v115 = v17;
               _os_log_impl(&dword_248B9D000, v22, OS_LOG_TYPE_DEFAULT, "[RID: %@] Starting; count: %d, %@ < %@ < %@; request: %@", buf, 0x3Au);
             }
 
-            v59[0] = MEMORY[0x277D85DD0];
-            v59[1] = 3221225472;
-            v59[2] = __70__DKReportManager_sendRequests_serialRequests_failOnError_completion___block_invoke;
-            v59[3] = &unk_278F6C1F0;
-            v63 = &v88;
-            v64 = &v94;
-            v59[4] = self;
-            v59[5] = v14;
-            v65 = &v82;
-            v66 = &v98;
-            v67 = v72;
+            v58[0] = MEMORY[0x277D85DD0];
+            v58[1] = 3221225472;
+            v58[2] = __70__DKReportManager_sendRequests_serialRequests_failOnError_completion___block_invoke;
+            v58[3] = &unk_278F6C1F0;
+            v62 = &v87;
+            v63 = &v93;
+            v58[4] = self;
+            v58[5] = v14;
+            v64 = &v81;
+            v65 = &v97;
+            v66 = v71;
             v25 = v17;
-            v60 = v25;
-            v68 = v70;
+            v59 = v25;
+            v67 = v69;
             serialRequestsCopy = serialRequests;
             v26 = group;
-            v61 = v26;
-            v27 = v50;
-            v62 = v27;
-            v28 = MEMORY[0x24C1E6340](v59);
+            v60 = v26;
+            v27 = v49;
+            v61 = v27;
+            v28 = MEMORY[0x24C1E6340](v58);
             if (serialRequests)
             {
               generator2 = [v10 generator];
@@ -540,20 +534,20 @@ LABEL_9:
               dispatch_group_enter(v26);
               resourceUsage = [(DKReportManager *)self resourceUsage];
               resources = [v14 resources];
-              v55[0] = MEMORY[0x277D85DD0];
-              v55[1] = 3221225472;
-              v55[2] = __70__DKReportManager_sendRequests_serialRequests_failOnError_completion___block_invoke_78;
-              v55[3] = &unk_278F6C218;
-              v55[4] = self;
-              v55[5] = v10;
-              v56 = v25;
-              v57 = v14;
-              v58 = v28;
-              [resourceUsage executeWhenSafe:resources withCompletion:v55];
+              v54[0] = MEMORY[0x277D85DD0];
+              v54[1] = 3221225472;
+              v54[2] = __70__DKReportManager_sendRequests_serialRequests_failOnError_completion___block_invoke_78;
+              v54[3] = &unk_278F6C218;
+              v54[4] = self;
+              v54[5] = v10;
+              v55 = v25;
+              v56 = v14;
+              v57 = v28;
+              [resourceUsage executeWhenSafe:resources withCompletion:v54];
             }
 
-            _Block_object_dispose(v70, 8);
-            _Block_object_dispose(v72, 8);
+            _Block_object_dispose(v69, 8);
+            _Block_object_dispose(v71, 8);
           }
 
           else
@@ -561,22 +555,22 @@ LABEL_9:
             v31 = DiagnosticsKitLogHandleForCategory(1);
             if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
             {
-              [DKReportManager sendRequests:v103 serialRequests:v99 failOnError:v104 completion:v31];
+              [DKReportManager sendRequests:v102 serialRequests:v98 failOnError:v103 completion:v31];
             }
 
             v32 = MEMORY[0x277CCA9B8];
-            v101 = v49;
+            v100 = v48;
             v33 = DKErrorLocalizedDescriptionForCode(-1001);
-            v102 = v33;
-            v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v102 forKeys:&v101 count:1];
+            v101 = v33;
+            v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v101 forKeys:&v100 count:1];
             v35 = [v32 errorWithDomain:@"DKErrorDomain" code:-1001 userInfo:v34];
-            v36 = v83[5];
-            v83[5] = v35;
+            v36 = v82[5];
+            v82[5] = v35;
           }
 
           if (v12 == ++v13)
           {
-            v12 = [v52 countByEnumeratingWithState:&v74 objects:v117 count:16];
+            v12 = [v51 countByEnumeratingWithState:&v73 objects:v116 count:16];
             if (v12)
             {
               goto LABEL_9;
@@ -587,10 +581,10 @@ LABEL_9:
         }
       }
 
-      if (++v48 == v47)
+      if (++v47 == v46)
       {
-        v47 = [obj countByEnumeratingWithState:&v78 objects:v118 count:16];
-        if (v47)
+        v46 = [obj countByEnumeratingWithState:&v77 objects:v117 count:16];
+        if (v46)
         {
           goto LABEL_3;
         }
@@ -611,25 +605,23 @@ LABEL_9:
     }
   }
 
-  if (errorCopy && (v95[3] & 1) == 0)
+  if (errorCopy && (v94[3] & 1) == 0)
   {
-    v41 = v89[5];
-    v89[5] = 0;
+    v41 = v88[5];
+    v88[5] = 0;
   }
 
-  completionCopy[2](completionCopy, v89[5], v83[5]);
-  _Block_object_dispose(&v82, 8);
+  completionCopy[2](completionCopy, v88[5], v82[5]);
+  _Block_object_dispose(&v81, 8);
 
-  _Block_object_dispose(&v88, 8);
-  _Block_object_dispose(&v94, 8);
-  _Block_object_dispose(&v98, 8);
-
-  v42 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v87, 8);
+  _Block_object_dispose(&v93, 8);
+  _Block_object_dispose(&v97, 8);
 }
 
 void __70__DKReportManager_sendRequests_serialRequests_failOnError_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v5;
@@ -657,17 +649,17 @@ void __70__DKReportManager_sendRequests_serialRequests_failOnError_completion___
     v12 = *(*(*(a1 + 96) + 8) + 24);
     v13 = *(a1 + 48);
     v14 = *(*(*(a1 + 112) + 8) + 40);
-    v18 = 138413314;
-    v19 = v11;
-    v20 = 1024;
-    v21 = v12;
-    v22 = 2112;
-    v23 = v13;
-    v24 = 2112;
-    v25 = v6;
-    v26 = 2112;
-    v27 = v14;
-    _os_log_impl(&dword_248B9D000, v10, OS_LOG_TYPE_DEFAULT, "[RID: %@] Finished; count: %d; Report: %@, error: %@; request: %@", &v18, 0x30u);
+    v17 = 138413314;
+    v18 = v11;
+    v19 = 1024;
+    v20 = v12;
+    v21 = 2112;
+    v22 = v13;
+    v23 = 2112;
+    v24 = v6;
+    v25 = 2112;
+    v26 = v14;
+    _os_log_impl(&dword_248B9D000, v10, OS_LOG_TYPE_DEFAULT, "[RID: %@] Finished; count: %d; Report: %@, error: %@; request: %@", &v17, 0x30u);
   }
 
   v15 = [*(a1 + 32) resourceUsage];
@@ -683,8 +675,6 @@ void __70__DKReportManager_sendRequests_serialRequests_failOnError_completion___
   {
     dispatch_group_leave(*(a1 + 56));
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __70__DKReportManager_sendRequests_serialRequests_failOnError_completion___block_invoke_78(uint64_t a1)
@@ -742,11 +732,10 @@ void __43__DKReportManager_reportersWithCompletion___block_invoke(uint64_t a1)
 
 void __57__DKReportManager_retryInterruptedRequests_andWithError___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_248B9D000, a2, OS_LOG_TYPE_ERROR, "Component execution failed; count: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_248B9D000, a2, OS_LOG_TYPE_ERROR, "Component execution failed; count: %@", &v2, 0xCu);
 }
 
 - (void)sendRequests:(uint8_t *)buf serialRequests:(uint64_t)a2 failOnError:(_DWORD *)a3 completion:(os_log_t)log .cold.1(uint8_t *buf, uint64_t a2, _DWORD *a3, os_log_t log)

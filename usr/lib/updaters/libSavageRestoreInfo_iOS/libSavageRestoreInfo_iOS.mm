@@ -293,12 +293,12 @@ void JasmineIRAddEntitlementsToTATSURequestDict(const __CFDictionary *a1, __CFDi
 
 uint64_t CreateJasmineIRMeasurementDict(const __CFData *a1, CFTypeRef *a2)
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
   v4 = *MEMORY[0x29EDB8ED8];
   v5 = MEMORY[0x29EDB9010];
   v6 = MEMORY[0x29EDB9020];
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x29EDB8ED8], 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
-  memset(v17, 0, sizeof(v17));
+  memset(v16, 0, sizeof(v16));
   v8 = CFDictionaryCreateMutable(0, 0, v5, v6);
   v9 = 0;
   if (v8)
@@ -320,11 +320,11 @@ uint64_t CreateJasmineIRMeasurementDict(const __CFData *a1, CFTypeRef *a2)
       v9 = calloc(Length, 1uLL);
       if (v9)
       {
-        v19.location = 0;
-        v19.length = Length;
-        CFDataGetBytes(a1, v19, v9);
-        _computePatchDigest(v9, Length, v17);
-        v13 = CFDataCreate(v4, v17, 32);
+        v18.location = 0;
+        v18.length = Length;
+        CFDataGetBytes(a1, v18, v9);
+        _computePatchDigest(v9, Length, v16);
+        v13 = CFDataCreate(v4, v16, 32);
         if (v13)
         {
           v14 = v13;
@@ -367,14 +367,13 @@ LABEL_10:
     free(v9);
   }
 
-  v15 = *MEMORY[0x29EDCA608];
   return v11;
 }
 
 uint64_t CreateJasmineIRMeasurementDictVT(const __CFData *a1, CFTypeRef *a2)
 {
-  v23 = *MEMORY[0x29EDCA608];
-  memset(v21, 0, sizeof(v21));
+  v22 = *MEMORY[0x29EDCA608];
+  memset(v20, 0, sizeof(v20));
   v4 = *MEMORY[0x29EDB8ED8];
   v5 = MEMORY[0x29EDB9010];
   v6 = MEMORY[0x29EDB9020];
@@ -404,23 +403,23 @@ uint64_t CreateJasmineIRMeasurementDictVT(const __CFData *a1, CFTypeRef *a2)
     v9 = calloc(Length, 1uLL);
     if (v9)
     {
-      v24.location = 0;
-      v24.length = Length;
-      CFDataGetBytes(a1, v24, v9);
+      v23.location = 0;
+      v23.length = Length;
+      CFDataGetBytes(a1, v23, v9);
       v13 = 0;
       v14 = v9;
       v15 = &qword_299F4D7B0;
       do
       {
         v16 = *v15++;
-        _computePatchDigest(v14, v16, &v22[v13]);
+        _computePatchDigest(v14, v16, &v21[v13]);
         v14 += v16;
         v13 += 32;
       }
 
       while (v13 != 224);
-      _computePatchDigest(v22, 0xE0uLL, v21);
-      v17 = CFDataCreate(v4, v21, 32);
+      _computePatchDigest(v21, 0xE0uLL, v20);
+      v17 = CFDataCreate(v4, v20, 32);
       if (v17)
       {
         v18 = v17;
@@ -461,7 +460,6 @@ LABEL_14:
     free(v9);
   }
 
-  v19 = *MEMORY[0x29EDCA608];
   return v11;
 }
 
@@ -712,13 +710,13 @@ void YonkersAddEntitlementsToTATSURequestDict(const __CFDictionary *a1, __CFDict
 
 uint64_t CreateYonkersMeasurementDict(const __CFData *a1, CFTypeRef *a2)
 {
-  v20 = *MEMORY[0x29EDCA608];
+  v19 = *MEMORY[0x29EDCA608];
   v4 = *MEMORY[0x29EDB8ED8];
   v5 = MEMORY[0x29EDB9010];
   v6 = MEMORY[0x29EDB9020];
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x29EDB8ED8], 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
   *md = 0u;
-  v19 = 0u;
+  v18 = 0u;
   v8 = CFDictionaryCreateMutable(0, 0, v5, v6);
   v9 = 0;
   if (v8)
@@ -740,9 +738,9 @@ uint64_t CreateYonkersMeasurementDict(const __CFData *a1, CFTypeRef *a2)
       v9 = calloc(Length, 1uLL);
       if (v9)
       {
-        v21.location = 0;
-        v21.length = Length;
-        CFDataGetBytes(a1, v21, v9);
+        v20.location = 0;
+        v20.length = Length;
+        CFDataGetBytes(a1, v20, v9);
         if (!(Length >> 20))
         {
           CC_SHA256_Init(&c);
@@ -793,7 +791,6 @@ LABEL_12:
     free(v9);
   }
 
-  v15 = *MEMORY[0x29EDCA608];
   return v11;
 }
 
@@ -1210,7 +1207,7 @@ LABEL_43:
   return Mutable;
 }
 
-__CFString **SavageUpdaterCopyFirmwareWithLogging(const __CFDictionary *a1, uint64_t (*a2)(void, void), uint64_t a3, void *a4)
+__CFString **SavageUpdaterCopyFirmwareWithLogging(const __CFDictionary *a1, uint64_t (*a2)(void, void), uint64_t a3, CFTypeRef *a4)
 {
   logSinkFunc = a2;
   logContext = a3;
@@ -2310,14 +2307,13 @@ const char *SavageRestoreInfoLog(const char *a1, ...)
 {
   va_start(va, a1);
   result = MEMORY[0x2A1C7C4A8](a1);
-  v4 = *MEMORY[0x29EDCA608];
+  v3 = *MEMORY[0x29EDCA608];
   if (logSinkFunc)
   {
     vsnprintf(__str, 0x1000uLL, result, va);
-    result = logSinkFunc(logContext, __str);
+    return logSinkFunc(logContext, __str);
   }
 
-  v2 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -2518,15 +2514,15 @@ LABEL_23:
 
 uint64_t CreateMeasurementDict(const __CFData *a1, CFTypeRef *a2)
 {
-  v22 = *MEMORY[0x29EDCA608];
+  v21 = *MEMORY[0x29EDCA608];
   *buffer = 0;
-  v18 = 0;
+  v17 = 0;
   v4 = *MEMORY[0x29EDB8ED8];
   v5 = MEMORY[0x29EDB9010];
   v6 = MEMORY[0x29EDB9020];
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x29EDB8ED8], 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
   *md = 0u;
-  v21 = 0u;
+  v20 = 0u;
   v8 = CFDictionaryCreateMutable(0, 0, v5, v6);
   v9 = 0;
   if (v8)
@@ -2544,17 +2540,17 @@ uint64_t CreateMeasurementDict(const __CFData *a1, CFTypeRef *a2)
     v11 = 2;
     if (a1 && a2)
     {
-      v23.location = 0;
-      v23.length = 16;
-      CFDataGetBytes(a1, v23, buffer);
+      v22.location = 0;
+      v22.length = 16;
+      CFDataGetBytes(a1, v22, buffer);
       if (*&buffer[4])
       {
         v9 = calloc(*&buffer[4], 1uLL);
         if (v9)
         {
-          v24.length = *&buffer[4];
-          v24.location = 16;
-          CFDataGetBytes(a1, v24, v9);
+          v23.length = *&buffer[4];
+          v23.location = 16;
+          CFDataGetBytes(a1, v23, v9);
           v12 = *&buffer[4];
           if (!(*&buffer[4] >> 20))
           {
@@ -2613,7 +2609,6 @@ LABEL_13:
     free(v9);
   }
 
-  v15 = *MEMORY[0x29EDCA608];
   return v11;
 }
 
@@ -2686,16 +2681,15 @@ void SavageCFDictionarySetData(__CFDictionary *a1, const void *a2, UInt8 *bytes,
 
 uint64_t SavageCFStringToUInt32(const __CFString *a1, _DWORD *a2, int a3)
 {
-  v8 = *MEMORY[0x29EDCA608];
+  v7 = *MEMORY[0x29EDCA608];
   result = CFStringGetCString(a1, buffer, 32, 0x600u);
   if (result)
   {
     *__error() = 0;
     *a2 = strtol(buffer, 0, a3);
-    result = *__error() == 0;
+    return *__error() == 0;
   }
 
-  v6 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -3152,9 +3146,9 @@ LABEL_54:
 uint64_t CreateYonkersRequestDictForTATSU(const __CFDictionary *a1, const __CFDictionary *a2, CFDictionaryRef theDict, uint64_t a4, CFTypeRef *a5)
 {
   Mutable = 0;
-  v129 = 0;
+  v121 = 0;
   key = 0;
-  HIDWORD(v128) = 0;
+  HIDWORD(v120) = 0;
   v6 = 2;
   theDicta = a1;
   if (!a1 || !a2 || !theDict || !a4)
@@ -3224,7 +3218,7 @@ uint64_t CreateYonkersRequestDictForTATSU(const __CFDictionary *a1, const __CFDi
   }
 
   OUTLINED_FUNCTION_5(v22, @"Yonkers,ChipID");
-  CFNumberGetValue(v20, kCFNumberSInt32Type, &v128 + 4);
+  CFNumberGetValue(v20, kCFNumberSInt32Type, &v120 + 4);
   v23 = CFDictionaryGetValue(theDicta, @"Yonkers,ProductionMode");
   if (!v23)
   {
@@ -3238,108 +3232,105 @@ uint64_t CreateYonkersRequestDictForTATSU(const __CFDictionary *a1, const __CFDi
     goto LABEL_96;
   }
 
-  v26 = CFBooleanGetValue(v24);
-  v27 = *MEMORY[0x29EDB8EF8];
-  if (!v26)
+  if (!CFBooleanGetValue(v24))
   {
     v12 = *MEMORY[0x29EDB8EF8];
   }
 
   CFDictionaryAddValue(v10, @"Yonkers,ProductionMode", v12);
-  v28 = CFDictionaryGetValue(theDicta, @"YonkersIsProvisioned");
-  v115 = a5;
-  v31 = !v28 || (v29 = v28, v30 = CFGetTypeID(v28), v30 != CFBooleanGetTypeID()) || CFBooleanGetValue(v29) != 0;
-  v32 = CFDictionaryGetValue(theDicta, @"YonkersIsYmgt");
-  v35 = !v32 || (v33 = v32, v34 = CFGetTypeID(v32), v34 != CFBooleanGetTypeID()) || CFBooleanGetValue(v33) == 0;
-  HIDWORD(v111) = v35;
-  v36 = CFDictionaryGetValue(theDicta, @"Yonkers,WriteECID");
-  v39 = v36 && (v37 = v36, v38 = CFGetTypeID(v36), v38 == CFBooleanGetTypeID()) && CFBooleanGetValue(v37) != 0;
-  v40 = CFDictionaryGetValue(theDicta, @"Yonkers,ECID");
-  if (!v40)
+  v26 = CFDictionaryGetValue(theDicta, @"YonkersIsProvisioned");
+  v107 = a5;
+  v29 = !v26 || (v27 = v26, v28 = CFGetTypeID(v26), v28 != CFBooleanGetTypeID()) || CFBooleanGetValue(v27) != 0;
+  v30 = CFDictionaryGetValue(theDicta, @"YonkersIsYmgt");
+  v33 = !v30 || (v31 = v30, v32 = CFGetTypeID(v30), v32 != CFBooleanGetTypeID()) || CFBooleanGetValue(v31) == 0;
+  HIDWORD(v103) = v33;
+  v34 = CFDictionaryGetValue(theDicta, @"Yonkers,WriteECID");
+  v37 = v34 && (v35 = v34, v36 = CFGetTypeID(v34), v36 == CFBooleanGetTypeID()) && CFBooleanGetValue(v35) != 0;
+  v38 = CFDictionaryGetValue(theDicta, @"Yonkers,ECID");
+  if (!v38)
   {
     goto LABEL_96;
   }
 
-  v41 = CFGetTypeID(v40);
-  v42 = CFDataGetTypeID();
-  if (v41 != v42)
+  v39 = CFGetTypeID(v38);
+  v40 = CFDataGetTypeID();
+  if (v39 != v40)
   {
     goto LABEL_96;
   }
 
-  OUTLINED_FUNCTION_5(v42, @"Yonkers,ECID");
-  v43 = CFDictionaryGetValue(theDicta, @"Yonkers,Nonce");
-  if (!v43)
+  OUTLINED_FUNCTION_5(v40, @"Yonkers,ECID");
+  v41 = CFDictionaryGetValue(theDicta, @"Yonkers,Nonce");
+  if (!v41)
   {
     goto LABEL_96;
   }
 
-  v44 = CFGetTypeID(v43);
-  v45 = CFDataGetTypeID();
-  if (v44 != v45)
+  v42 = CFGetTypeID(v41);
+  v43 = CFDataGetTypeID();
+  if (v42 != v43)
   {
     goto LABEL_96;
   }
 
-  OUTLINED_FUNCTION_5(v45, @"Yonkers,Nonce");
+  OUTLINED_FUNCTION_5(v43, @"Yonkers,Nonce");
   YonkersMeasurementTags = GetYonkersMeasurementTags(theDicta, &key);
-  v47 = key;
+  v45 = key;
   v6 = 17;
   if (!YonkersMeasurementTags && key)
   {
-    v48 = CFDictionaryGetValue(theDict, @"MeasurementDictPatch");
-    v49 = SavageSafeRetain(v48);
-    if (!v49)
+    v46 = CFDictionaryGetValue(theDict, @"MeasurementDictPatch");
+    v47 = SavageSafeRetain(v46);
+    if (!v47)
     {
       goto LABEL_61;
     }
 
-    v50 = v49;
-    v51 = CFGetTypeID(v49);
-    if (v51 == CFDictionaryGetTypeID())
+    v48 = v47;
+    v49 = CFGetTypeID(v47);
+    if (v49 == CFDictionaryGetTypeID())
     {
-      v119 = Mutable;
-      CFDictionaryAddValue(v50, @"EPRO", v12);
-      v52 = CFDictionaryGetValue(theDicta, @"Yonkers,FabRevision");
-      CFDictionaryAddValue(v50, @"FabRevision", v52);
-      v53 = OUTLINED_FUNCTION_0_0();
-      CFDictionaryAddValue(v53, v54, v55);
-      CFRelease(v50);
-      if (v31 || v39)
+      v111 = Mutable;
+      CFDictionaryAddValue(v48, @"EPRO", v12);
+      v50 = CFDictionaryGetValue(theDicta, @"Yonkers,FabRevision");
+      CFDictionaryAddValue(v48, @"FabRevision", v50);
+      v51 = OUTLINED_FUNCTION_0_0();
+      CFDictionaryAddValue(v51, v52, v53);
+      CFRelease(v48);
+      if (v29 || v37)
       {
         goto LABEL_43;
       }
 
       CFDictionaryRemoveValue(v10, key);
-      switch(HIDWORD(v128))
+      switch(HIDWORD(v120))
       {
         case 0x914:
           OUTLINED_FUNCTION_2();
-          if (v93)
+          if (v87)
           {
-            v96 = v95;
+            v89 = v88;
           }
 
           else
           {
-            v96 = 0;
+            v89 = 0;
           }
 
-          v97 = *v94;
-          if (v93)
+          if (v87)
           {
-            v98 = 8;
+            v90 = 8;
           }
 
           else
           {
-            v98 = v95;
+            v90 = v88;
           }
 
           while (1)
           {
             v6 = 17;
-            if (OUTLINED_FUNCTION_1(&unk_299F4D820, v111, v115, v119, theDicta, Value, v128, v129))
+            if (OUTLINED_FUNCTION_1(&unk_299F4D820, v103, v107, v111, theDicta, Value, v120, v121))
             {
               break;
             }
@@ -3349,27 +3340,27 @@ uint64_t CreateYonkersRequestDictForTATSU(const __CFDictionary *a1, const __CFDi
               break;
             }
 
-            v106 = OUTLINED_FUNCTION_3(0, v99, v100, v101, v102, v103, v104, v105, v114, v118, v119, theDictd, v127);
-            if (!v106)
+            v98 = OUTLINED_FUNCTION_3(0, v91, v92, v93, v94, v95, v96, v97, v106, v110, v111, theDictd, v119);
+            if (!v98)
             {
               break;
             }
 
-            v50 = v106;
-            v107 = CFGetTypeID(v106);
-            if (v107 != CFDictionaryGetTypeID())
+            v48 = v98;
+            v99 = CFGetTypeID(v98);
+            if (v99 != CFDictionaryGetTypeID())
             {
 LABEL_94:
-              Mutable = v119;
+              Mutable = v111;
               goto LABEL_95;
             }
 
-            CFDictionarySetValue(v50, @"EPRO", v12);
+            CFDictionarySetValue(v48, @"EPRO", v12);
             OUTLINED_FUNCTION_4();
-            v108 = OUTLINED_FUNCTION_0_0();
-            CFDictionarySetValue(v108, v109, v110);
-            CFRelease(v50);
-            if (++v96 >= v98)
+            v100 = OUTLINED_FUNCTION_0_0();
+            CFDictionarySetValue(v100, v101, v102);
+            CFRelease(v48);
+            if (++v89 >= v90)
             {
               goto LABEL_43;
             }
@@ -3378,31 +3369,30 @@ LABEL_94:
           break;
         case 0x514:
           OUTLINED_FUNCTION_2();
-          if (v75)
+          if (v71)
           {
-            v78 = v77;
+            v73 = v72;
           }
 
           else
           {
-            v78 = 0;
+            v73 = 0;
           }
 
-          v79 = *v76;
-          if (v75)
+          if (v71)
           {
-            v80 = 8;
+            v74 = 8;
           }
 
           else
           {
-            v80 = v77;
+            v74 = v72;
           }
 
           while (1)
           {
             v6 = 17;
-            if (OUTLINED_FUNCTION_1(&unk_299F4D800, v111, v115, v119, theDicta, Value, v128, v129))
+            if (OUTLINED_FUNCTION_1(&unk_299F4D800, v103, v107, v111, theDicta, Value, v120, v121))
             {
               break;
             }
@@ -3412,25 +3402,25 @@ LABEL_94:
               break;
             }
 
-            v88 = OUTLINED_FUNCTION_3(0, v81, v82, v83, v84, v85, v86, v87, v113, v117, v119, theDictc, v126);
-            if (!v88)
+            v82 = OUTLINED_FUNCTION_3(0, v75, v76, v77, v78, v79, v80, v81, v105, v109, v111, theDictc, v118);
+            if (!v82)
             {
               break;
             }
 
-            v50 = v88;
-            v89 = CFGetTypeID(v88);
-            if (v89 != CFDictionaryGetTypeID())
+            v48 = v82;
+            v83 = CFGetTypeID(v82);
+            if (v83 != CFDictionaryGetTypeID())
             {
               goto LABEL_94;
             }
 
-            CFDictionarySetValue(v50, @"EPRO", v12);
+            CFDictionarySetValue(v48, @"EPRO", v12);
             OUTLINED_FUNCTION_4();
-            v90 = OUTLINED_FUNCTION_0_0();
-            CFDictionarySetValue(v90, v91, v92);
-            CFRelease(v50);
-            if (++v78 >= v80)
+            v84 = OUTLINED_FUNCTION_0_0();
+            CFDictionarySetValue(v84, v85, v86);
+            CFRelease(v48);
+            if (++v73 >= v74)
             {
               goto LABEL_43;
             }
@@ -3439,31 +3429,30 @@ LABEL_94:
           break;
         case 0x414:
           OUTLINED_FUNCTION_2();
-          if (v56)
+          if (v54)
           {
-            v59 = v58;
+            v56 = v55;
           }
 
           else
           {
-            v59 = 0;
+            v56 = 0;
           }
 
-          v60 = *v57;
-          if (v56)
+          if (v54)
           {
-            v61 = 6;
+            v57 = 6;
           }
 
           else
           {
-            v61 = v58;
+            v57 = v55;
           }
 
           while (1)
           {
             v6 = 17;
-            if (OUTLINED_FUNCTION_1(&unk_299F4D7E8, v111, v115, v119, theDicta, Value, v128, v129))
+            if (OUTLINED_FUNCTION_1(&unk_299F4D7E8, v103, v107, v111, theDicta, Value, v120, v121))
             {
               break;
             }
@@ -3473,25 +3462,25 @@ LABEL_94:
               break;
             }
 
-            v69 = OUTLINED_FUNCTION_3(0, v62, v63, v64, v65, v66, v67, v68, v112, v116, v119, theDictb, v125);
-            if (!v69)
+            v65 = OUTLINED_FUNCTION_3(0, v58, v59, v60, v61, v62, v63, v64, v104, v108, v111, theDictb, v117);
+            if (!v65)
             {
               break;
             }
 
-            v50 = v69;
-            v70 = CFGetTypeID(v69);
-            if (v70 != CFDictionaryGetTypeID())
+            v48 = v65;
+            v66 = CFGetTypeID(v65);
+            if (v66 != CFDictionaryGetTypeID())
             {
               goto LABEL_94;
             }
 
-            CFDictionarySetValue(v50, @"EPRO", v12);
+            CFDictionarySetValue(v48, @"EPRO", v12);
             OUTLINED_FUNCTION_4();
-            v71 = OUTLINED_FUNCTION_0_0();
-            CFDictionarySetValue(v71, v72, v73);
-            CFRelease(v50);
-            if (++v59 >= v61)
+            v67 = OUTLINED_FUNCTION_0_0();
+            CFDictionarySetValue(v67, v68, v69);
+            CFRelease(v48);
+            if (++v56 >= v57)
             {
               goto LABEL_43;
             }
@@ -3501,33 +3490,33 @@ LABEL_94:
         default:
 LABEL_43:
           YonkersAddEntitlementsToTATSURequestDict(theDicta, v10);
-          Mutable = v119;
+          Mutable = v111;
           v6 = 0;
-          if (!*v115)
+          if (!*v107)
           {
-            *v115 = SavageSafeRetain(v10);
+            *v107 = SavageSafeRetain(v10);
           }
 
           goto LABEL_61;
       }
 
-      Mutable = v119;
+      Mutable = v111;
 LABEL_61:
-      v47 = key;
+      v45 = key;
       goto LABEL_62;
     }
 
 LABEL_95:
-    CFRelease(v50);
+    CFRelease(v48);
 LABEL_96:
     v6 = 17;
     goto LABEL_61;
   }
 
 LABEL_62:
-  if (v47)
+  if (v45)
   {
-    CFRelease(v47);
+    CFRelease(v45);
     key = 0;
   }
 
@@ -3791,23 +3780,14 @@ uint64_t _computeDigestSHA256(const void *a1, unint64_t a2, unsigned __int8 *a3)
 
 void _loadAndMeasureVTFile(const char *a1, unsigned __int8 *a2, CFDataRef *a3)
 {
-  v19 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
   v5 = fopen(a1, "rb");
-  if (!v5)
+  if (v5)
   {
-LABEL_10:
-    v16 = *MEMORY[0x29EDCA608];
-    return;
-  }
-
-  v6 = v5;
-  fseeko(v5, 0, 2);
-  v7 = ftello(v6);
-  if (v7 < 0x100000)
-  {
-    v8 = v7;
-    v9 = calloc(v7, 1uLL);
-    if (v9)
+    v6 = v5;
+    fseeko(v5, 0, 2);
+    v7 = ftello(v6);
+    if (v7 < 0x100000 && (v8 = v7, (v9 = calloc(v7, 1uLL)) != 0))
     {
       v10 = v9;
       fseeko(v6, 0, 0);
@@ -3821,13 +3801,13 @@ LABEL_10:
         do
         {
           v15 = *v14++;
-          _computeDigestSHA256(v13, v15, &v18[v12]);
+          _computeDigestSHA256(v13, v15, &v16[v12]);
           v13 += v15;
           v12 += 32;
         }
 
         while (v12 != 224);
-        _computeDigestSHA256(v18, 0xE0uLL, a2);
+        _computeDigestSHA256(v16, 0xE0uLL, a2);
         if (a3)
         {
           *a3 = CFDataCreate(*MEMORY[0x29EDB8EE0], v10, v8);
@@ -3836,79 +3816,73 @@ LABEL_10:
 
       fclose(v6);
       free(v10);
-      goto LABEL_10;
+    }
+
+    else
+    {
+
+      fclose(v6);
     }
   }
-
-  v17 = *MEMORY[0x29EDCA608];
-
-  fclose(v6);
 }
 
-uint64_t _createDataSignature(uint64_t a1, const void *a2, unint64_t a3, void *a4, size_t *a5, uint64_t *a6)
+uint64_t _createDataSignature(uint64_t a1, const void *a2, unint64_t a3, void *a4, size_t *a5, void *a6)
 {
-  v27 = *MEMORY[0x29EDCA608];
-  memset(v26, 0, sizeof(v26));
-  v11 = MEMORY[0x29C2B6A40]();
+  v23 = *MEMORY[0x29EDCA608];
+  memset(v22, 0, sizeof(v22));
+  v11 = MEMORY[0x29C2B6A40](a1);
   v12 = cczp_bitlen();
   v13 = (((v12 + 7) >> 2) & 0x3FFFFFFFFFFFFFFELL) + 9;
-  v25 = v13;
-  v14 = (32 * *v11) | 0x10;
+  v21 = v13;
   MEMORY[0x2A1C7C4A8](v12);
-  v16 = (&v24 - v15);
+  v15 = (&v20 - v14);
   if (!a6)
   {
-    goto LABEL_13;
+    return 0xFFFFFFFFLL;
   }
 
-  v17 = 0xFFFFFFFFLL;
+  v16 = 0xFFFFFFFFLL;
   if (!a4)
   {
-    goto LABEL_12;
+    return v16;
   }
 
   if (!a5)
   {
-    goto LABEL_12;
+    return v16;
   }
 
-  v17 = 0xFFFFFFFFLL;
+  v16 = 0xFFFFFFFFLL;
   if (!a2 || !a3)
   {
-    goto LABEL_12;
+    return v16;
   }
 
   if (!*a6 || !a6[1])
   {
-LABEL_13:
-    v17 = 0xFFFFFFFFLL;
-    goto LABEL_12;
+    return 0xFFFFFFFFLL;
   }
 
-  v17 = _computeDigestSHA256(a2, a3, v26);
-  *v16 = v11;
-  v19 = *a6;
-  v18 = a6[1];
+  v16 = _computeDigestSHA256(a2, a3, v22);
+  *v15 = v11;
   if (!ccec_der_import_priv())
   {
-    v20 = calloc(1uLL, v13);
-    if (v20)
+    v17 = calloc(1uLL, v13);
+    if (v17)
     {
-      v21 = v20;
+      v18 = v17;
       ccDRBGGetRngState();
       if (!ccec_sign())
       {
-        *a4 = v21;
-        *a5 = v25;
-        printf("Result of creating signature: %d \n", v17);
-        v17 = 0;
+        *a4 = v18;
+        *a5 = v21;
+        printf("Result of creating signature: %d \n", v16);
+        return 0;
       }
     }
   }
 
-LABEL_12:
-  v22 = *MEMORY[0x29EDCA608];
-  return v17;
+  return v16;
 }
 
 uint64_t _loadAndMeasureFile_cold_1(const void *a1, unint64_t a2, unsigned __int8 *a3, uint64_t *a4)
@@ -3923,7 +3897,7 @@ uint64_t _loadAndMeasureFile_cold_1(const void *a1, unint64_t a2, unsigned __int
   return result;
 }
 
-__CFString **SavageUpdaterCopyFirmware(const __CFDictionary *a1, void *a2)
+__CFString **SavageUpdaterCopyFirmware(const __CFDictionary *a1, CFTypeRef *a2)
 {
   v127 = 0;
   v128 = 0;

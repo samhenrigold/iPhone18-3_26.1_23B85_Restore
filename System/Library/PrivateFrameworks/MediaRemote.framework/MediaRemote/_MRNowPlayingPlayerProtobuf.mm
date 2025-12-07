@@ -1,5 +1,6 @@
 @interface _MRNowPlayingPlayerProtobuf
 - (BOOL)isEqual:(id)equal;
+- (id)audioSessionTypeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
@@ -52,20 +53,35 @@
   *&self->_has = *&self->_has & 0xFD | v3;
 }
 
+- (id)audioSessionTypeAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E769B128[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsAudioSessionType:(id)type
 {
   typeCopy = type;
-  if ([typeCopy isEqualToString:@"Default"])
+  if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 0;
   }
 
-  else if ([typeCopy isEqualToString:@"LongForm"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 1;
   }
 
-  else if ([typeCopy isEqualToString:@"Independent"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 2;
   }
@@ -159,51 +175,48 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v9 = toCopy;
+  v6 = toCopy;
   if (self->_identifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_displayName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    audioSessionType = self->_audioSessionType;
     PBDataWriterWriteInt32Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_mxSessionIDs.count)
   {
-    v6 = 0;
+    v5 = 0;
     do
     {
-      v7 = self->_mxSessionIDs.list[v6];
       PBDataWriterWriteInt64Field();
-      toCopy = v9;
-      ++v6;
+      toCopy = v6;
+      ++v5;
     }
 
-    while (v6 < self->_mxSessionIDs.count);
+    while (v5 < self->_mxSessionIDs.count);
   }
 
   if (*&self->_has)
   {
-    audioSessionID = self->_audioSessionID;
     PBDataWriterWriteUint32Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_iconURL)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 }
 
@@ -314,7 +327,6 @@
     }
   }
 
-  v7 = *(equalCopy + 64);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 64) & 2) == 0 || self->_audioSessionType != *(equalCopy + 9))
@@ -331,11 +343,10 @@
   if (!PBRepeatedInt64IsEqual())
   {
 LABEL_19:
-    v10 = 0;
+    v8 = 0;
     goto LABEL_20;
   }
 
-  v8 = *(equalCopy + 64);
   if (*&self->_has)
   {
     if ((*(equalCopy + 64) & 1) == 0 || self->_audioSessionID != *(equalCopy + 8))
@@ -352,17 +363,17 @@ LABEL_19:
   iconURL = self->_iconURL;
   if (iconURL | *(equalCopy + 6))
   {
-    v10 = [(NSString *)iconURL isEqual:?];
+    v8 = [(NSString *)iconURL isEqual:?];
   }
 
   else
   {
-    v10 = 1;
+    v8 = 1;
   }
 
 LABEL_20:
 
-  return v10;
+  return v8;
 }
 
 - (unint64_t)hash

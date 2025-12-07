@@ -1,4 +1,4 @@
-uint64_t Util_AllocRequirement(int a1, uint64_t a2, void *a3)
+uint64_t Util_AllocRequirement(int a1, uint64_t a2, int **a3)
 {
   if (gACMLoggingLevel <= 0xAu)
   {
@@ -337,7 +337,7 @@ LABEL_20:
   return v16;
 }
 
-uint64_t Util_CreateRequirement(int a1, uint64_t a2)
+int *Util_CreateRequirement(int a1, uint64_t a2)
 {
   if (gACMLoggingLevel <= 0xAu)
   {
@@ -611,7 +611,7 @@ LABEL_56:
   return v11;
 }
 
-uint64_t ACMKernContextCreate(void *a1)
+uint64_t ACMKernContextCreate(uint64_t *a1)
 {
   if (_logLevel <= 0xAu)
   {
@@ -692,7 +692,7 @@ uint64_t ACMKernContextDelete(const void *a1, int a2)
   return v5;
 }
 
-uint64_t ACMKernContextAddCredentialWithScope(_OWORD *a1, _DWORD *a2, int a3)
+uint64_t ACMKernContextAddCredentialWithScope(_OWORD *a1, _DWORD *a2, uint64_t a3)
 {
   if (_logLevel <= 0xAu)
   {
@@ -842,7 +842,7 @@ uint64_t ACMKernGlobalContextRemoveCredentialsByType(int a1)
   return v3;
 }
 
-uint64_t ACMKernContextVerifyPolicyAndCopyRequirementEx(_OWORD *a1, char *__s1, _DWORD *a3, unsigned int a4, uint64_t a5, BOOL *a6, int **a7)
+uint64_t ACMKernContextVerifyPolicyAndCopyRequirementEx(_OWORD *a1, char *__s1, _DWORD *a3, uint64_t a4, uint64_t a5, BOOL *a6, int **a7)
 {
   if (_logLevel <= 0xAu)
   {
@@ -869,7 +869,7 @@ uint64_t ACMKernContextVerifyPolicyAndCopyRequirementEx(_OWORD *a1, char *__s1, 
   return v15;
 }
 
-uint64_t ACMKernGlobalContextVerifyPolicyAndCopyRequirementEx(char *a1, _BOOL8 a2, _DWORD *a3, unsigned int a4, BOOL *a5, int **a6)
+uint64_t ACMKernGlobalContextVerifyPolicyAndCopyRequirementEx(char *a1, _BOOL8 a2, _DWORD *a3, uint64_t a4, BOOL *a5, int **a6)
 {
   if (_logLevel <= 0xAu)
   {
@@ -1120,7 +1120,7 @@ uint64_t ACMKernGetEnvironmentVariable(int a1, uint64_t a2, uint64_t a3)
   return v7;
 }
 
-uint64_t ACMKernContextCredentialGetProperty(_OWORD *a1, int a2, int a3, uint64_t a4, uint64_t a5)
+uint64_t ACMKernContextCredentialGetProperty(_OWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (_logLevel <= 0xAu)
   {
@@ -1147,7 +1147,7 @@ uint64_t ACMKernContextCredentialGetProperty(_OWORD *a1, int a2, int a3, uint64_
   return v11;
 }
 
-uint64_t ACMKernContextSetData(_OWORD *a1, int a2, const void *a3, size_t a4)
+uint64_t ACMKernContextSetData(_OWORD *a1, uint64_t a2, const void *a3, size_t a4)
 {
   if (_logLevel <= 0xAu)
   {
@@ -1174,7 +1174,7 @@ uint64_t ACMKernContextSetData(_OWORD *a1, int a2, const void *a3, size_t a4)
   return v9;
 }
 
-uint64_t ACMKernContextGetData(_OWORD *a1, int a2, uint64_t a3, void *a4)
+uint64_t ACMKernContextGetData(_OWORD *a1, uint64_t a2, uint64_t a3, void *a4)
 {
   if (_logLevel <= 0xAu)
   {
@@ -1289,15 +1289,12 @@ void __chkstk_darwin_probe(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, u
   {
     do
     {
-      v10 -= 4096;
-      v11 = *v10;
+      v10 -= 512;
       v9 -= 4096;
     }
 
     while (v9 > 0x1000);
   }
-
-  v12 = v10[-v9];
 }
 
 void LDMShouldEnforceParity(const OSMetaClass *a1, _BYTE *a2)

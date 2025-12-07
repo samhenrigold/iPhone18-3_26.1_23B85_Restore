@@ -93,13 +93,14 @@
           v31 = [delegate2 collaborationItemsRequest:self resolveActivityItem:firstObject3];
           collaborationItems4 = [v31 firstObject];
 
-          if ([SFCollaborationUtilities isInPlaceFileOrURLItemProvider:collaborationItems4])
+          v32 = [SFCollaborationUtilities isInPlaceFileOrURLItemProvider:collaborationItems4];
+          if (v32)
           {
-            v32 = share_sheet_log();
-            if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+            v33 = share_sheet_log(v32);
+            if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&dword_1A9662000, v32, OS_LOG_TYPE_DEFAULT, "Skipping collaboration item inspection because we have multiple file NSItemProviders", buf, 2u);
+              _os_log_impl(&dword_1A9662000, v33, OS_LOG_TYPE_DEFAULT, "Skipping collaboration item inspection because we have multiple file NSItemProviders", buf, 2u);
             }
 
             completionHandler = [(_SFCollaborationItemsRequest *)self completionHandler];
@@ -161,72 +162,72 @@ LABEL_24:
   v20.receiver = self;
   v20.super_class = _SFCollaborationItemsRequest;
   v8 = [(_SFCollaborationItemsRequest *)&v20 init];
+  v9 = v8;
   if (v8)
   {
-    v9 = share_sheet_log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v10 = share_sheet_log(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       *buf = 138477827;
       v22 = itemsCopy;
-      _os_log_impl(&dword_1A9662000, v9, OS_LOG_TYPE_INFO, "New _SFCollaborationItemsRequest for activityItems:%{private}@", buf, 0xCu);
+      _os_log_impl(&dword_1A9662000, v10, OS_LOG_TYPE_INFO, "New _SFCollaborationItemsRequest for activityItems:%{private}@", buf, 0xCu);
     }
 
-    v10 = [itemsCopy copy];
-    activityItems = v8->_activityItems;
-    v8->_activityItems = v10;
+    v11 = [itemsCopy copy];
+    activityItems = v9->_activityItems;
+    v9->_activityItems = v11;
 
-    v12 = [handlerCopy copy];
-    completionHandler = v8->_completionHandler;
-    v8->_completionHandler = v12;
+    v13 = [handlerCopy copy];
+    completionHandler = v9->_completionHandler;
+    v9->_completionHandler = v13;
 
-    v14 = [itemsCopy mutableCopy];
-    remainingActivityItems = v8->_remainingActivityItems;
-    v8->_remainingActivityItems = v14;
+    v15 = [itemsCopy mutableCopy];
+    remainingActivityItems = v9->_remainingActivityItems;
+    v9->_remainingActivityItems = v15;
 
     array = [MEMORY[0x1E695DF70] array];
-    collaborationItems = v8->_collaborationItems;
-    v8->_collaborationItems = array;
+    collaborationItems = v9->_collaborationItems;
+    v9->_collaborationItems = array;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
-  return v8;
+  return v9;
 }
 
 - (void)_addCollaborationItem:(id)item
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   itemCopy = item;
   array = [MEMORY[0x1E695DF70] array];
   array2 = [MEMORY[0x1E695DF70] array];
-  v19 = itemCopy;
-  v22 = [itemCopy type] != 1 && objc_msgSend(itemCopy, "type") != 2;
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
+  v18 = itemCopy;
+  v21 = [itemCopy type] != 1 && objc_msgSend(itemCopy, "type") != 2;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   obj = [(_SFCollaborationItemsRequest *)self remainingActivityItems];
-  v5 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v5 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v25;
+    v7 = *v24;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v25 != v7)
+        if (*v24 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v24 + 1) + 8 * i);
+        v9 = *(*(&v23 + 1) + 8 * i);
         delegate = [(_SFCollaborationItemsRequest *)self delegate];
         v11 = [delegate collaborationItemsRequest:self resolveActivityItem:v9];
 
         firstObject = [v11 firstObject];
         collaborationService = [(_SFCollaborationItemsRequest *)self collaborationService];
         managedFileURL = [(_SFCollaborationItemsRequest *)self managedFileURL];
-        v15 = [SFCollaborationItemInspector inspectActivityItemValue:firstObject activityItem:v9 service:collaborationService shouldInspectFiles:v22 managedFileURL:managedFileURL isURLProviderSupported:[(_SFCollaborationItemsRequest *)self isURLProviderSupported]];
+        v15 = [SFCollaborationItemInspector inspectActivityItemValue:firstObject activityItem:v9 service:collaborationService shouldInspectFiles:v21 managedFileURL:managedFileURL isURLProviderSupported:[(_SFCollaborationItemsRequest *)self isURLProviderSupported]];
 
         if (v15)
         {
@@ -241,7 +242,7 @@ LABEL_24:
         }
       }
 
-      v6 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v6 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
       if (v6)
       {
         continue;
@@ -256,12 +257,10 @@ LABEL_16:
   remainingActivityItems = [(_SFCollaborationItemsRequest *)self remainingActivityItems];
   [remainingActivityItems removeObjectsInArray:array];
 
-  [v19 setSendCopyActivityItems:array];
-  [v19 setSendCopyActivityItemValues:array2];
+  [v18 setSendCopyActivityItems:array];
+  [v18 setSendCopyActivityItemValues:array2];
   collaborationItems = [(_SFCollaborationItemsRequest *)self collaborationItems];
-  [collaborationItems addObject:v19];
-
-  v18 = *MEMORY[0x1E69E9840];
+  [collaborationItems addObject:v18];
 }
 
 @end

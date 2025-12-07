@@ -8,15 +8,15 @@
 
 - (void)prepareForReuse
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C762550);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C762550, &unk_20C1505A0);
   MEMORY[0x28223BE20](v3 - 8);
   v5 = &v10 - v4;
-  v6 = type metadata accessor for TVProgramBrickItemCell();
+  v6 = type metadata accessor for TVProgramBrickItemCell(0);
   v11.receiver = self;
   v11.super_class = v6;
   selfCopy = self;
   [(TVFocusableCollectionViewCell *)&v11 prepareForReuse];
-  v8 = type metadata accessor for ShelfCellItemInfo();
+  v8 = type metadata accessor for ShelfCellItemInfo(0);
   (*(*(v8 - 8) + 56))(v5, 1, 1, v8);
   v9 = OBJC_IVAR____TtC9SeymourUI22TVProgramBrickItemCell_itemInfo;
   swift_beginAccess();
@@ -27,7 +27,7 @@
 - (void)layoutSubviews
 {
   v13.receiver = self;
-  v13.super_class = type metadata accessor for TVProgramBrickItemCell();
+  v13.super_class = type metadata accessor for TVProgramBrickItemCell(0);
   v2 = v13.receiver;
   [(TVProgramBrickItemCell *)&v13 layoutSubviews];
   v3 = *&v2[OBJC_IVAR____TtC9SeymourUI22TVProgramBrickItemCell_floatingView];

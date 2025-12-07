@@ -158,19 +158,19 @@
         v15 = v14;
         v16 = [(RCChronologicalAnnotationView *)self tickMarksForMajorInterval:?];
         v17 = &OBJC_IVAR___RCWaveformSelectionOverlay__enablePlayBarTracking;
-        v78 = +[RCRecorderStyleProvider sharedStyleProvider];
+        v82 = +[RCRecorderStyleProvider sharedStyleProvider];
         traitCollection = [(RCChronologicalAnnotationView *)self traitCollection];
         isUserInterfaceStyleDark = [traitCollection isUserInterfaceStyleDark];
 
-        v75 = +[UIApplication shouldMakeUIForDefaultPNG];
-        v81.origin.x = x;
-        v81.origin.y = y;
-        v81.size.width = width;
-        v81.size.height = height;
-        v76 = CGRectGetWidth(v81);
-        [v78 timeLineTickWidth];
-        v70 = v11 / v15;
-        v72 = v15;
+        v79 = +[UIApplication shouldMakeUIForDefaultPNG];
+        v85.origin.x = x;
+        v85.origin.y = y;
+        v85.size.width = width;
+        v85.size.height = height;
+        v80 = CGRectGetWidth(v85);
+        [v82 timeLineTickWidth];
+        v74 = v11 / v15;
+        v76 = v15;
         v20 = v11 / v15 * v16;
         v21 = v15 / v16;
         v23 = v22;
@@ -182,7 +182,7 @@
           v25 = -v25;
         }
 
-        v68 = v25;
+        v72 = v25;
         if (beginTime >= 0.0)
         {
           v26 = __y[0];
@@ -195,127 +195,127 @@
 
         _timeLabelAttributes = [(RCChronologicalAnnotationView *)self _timeLabelAttributes];
         CurrentContext = UIGraphicsGetCurrentContext();
-        v82.origin.x = x;
-        v82.origin.y = y;
-        v82.size.width = width;
-        v82.size.height = height;
-        CGContextClearRect(CurrentContext, v82);
+        v86.origin.x = x;
+        v86.origin.y = y;
+        v86.size.width = width;
+        v86.size.height = height;
+        CGContextClearRect(CurrentContext, v86);
         CGContextSetLineWidth(CurrentContext, v23);
-        v28 = [v78 timelinePlaybackBackgroundColor:isUserInterfaceStyleDark];
+        v28 = [v82 timelinePlaybackBackgroundColor:isUserInterfaceStyleDark];
         CGContextSetFillColorWithColor(CurrentContext, [v28 CGColor]);
 
-        v83.origin.x = x;
+        v87.origin.x = x;
         v29 = v21;
-        v83.origin.y = y;
-        v83.size.width = width;
-        v83.size.height = height;
-        CGContextFillRect(CurrentContext, v83);
-        v30 = (v20 + 1.0);
-        if (v30 >= -1)
+        v87.origin.y = y;
+        v87.size.width = width;
+        v87.size.height = height;
+        CGContextFillRect(CurrentContext, v87);
+        v32 = (v20 + 1.0);
+        if (v32 >= -1)
         {
-          v31 = v76 / v20;
-          v64 = v76 / v70;
-          v65 = v23 + v23;
-          v32 = v26;
-          v33 = v23 * 0.5;
-          v77 = v76 / v20 * v68;
-          v34 = v30 + 2;
-          v35 = -1;
-          v67 = v23;
-          v69 = 1.0 / v72;
-          v66 = v23 * 0.5;
-          v73 = v31;
+          v33 = v80 / v20;
+          v68 = v80 / v74;
+          v69 = v23 + v23;
+          v34 = v26;
+          v35 = v23 * 0.5;
+          v81 = v80 / v20 * v72;
+          v36 = v32 + 2;
+          v37 = -1;
+          v71 = v23;
+          v73 = 1.0 / v76;
+          v70 = v23 * 0.5;
+          v77 = v33;
           do
           {
-            v36 = v29 * (v32 + v35);
-            if (v36 >= -0.0001 && v36 >= self->_markerClippingRange.beginTime + -0.0001)
+            v38 = v29 * (v34 + v37);
+            if (v38 >= -0.0001 && v38 >= self->_markerClippingRange.beginTime + -0.0001)
             {
-              if (v36 >= self->_markerClippingRange.endTime + -0.0001)
+              if (v38 >= self->_markerClippingRange.endTime + -0.0001)
               {
                 break;
               }
 
-              v38 = v77 + v31 * v35;
-              v39 = RCRoundCoord(v38 - v33);
-              if ((v32 + v35) % v16)
+              v40 = v81 + v33 * v37;
+              v41 = RCRoundCoord(v30, v31, v40 - v35);
+              if ((v34 + v37) % v16)
               {
-                timeLineMinorPlaybackMarkerColor = [v78 timeLineMinorPlaybackMarkerColor];
-                [v78 timeLineMinorTickHeight];
-                v42 = v41;
+                timeLineMinorPlaybackMarkerColor = [v82 timeLineMinorPlaybackMarkerColor];
+                [v82 timeLineMinorTickHeight];
+                v44 = v43;
                 CGContextSetFillColorWithColor(CurrentContext, [timeLineMinorPlaybackMarkerColor CGColor]);
-                v84.origin.y = 0.0;
-                v84.origin.x = v39;
-                v84.size.width = v23;
-                v84.size.height = v42;
-                CGContextFillRect(CurrentContext, v84);
+                v88.origin.y = 0.0;
+                v88.origin.x = v41;
+                v88.size.width = v23;
+                v88.size.height = v44;
+                CGContextFillRect(CurrentContext, v88);
               }
 
               else
               {
-                timeLineMinorPlaybackMarkerColor = [v78 timeLineMajorPlaybackMarkerColor];
+                timeLineMinorPlaybackMarkerColor = [v82 timeLineMajorPlaybackMarkerColor];
                 sharedStyleProvider = [v17 + 480 sharedStyleProvider];
                 [sharedStyleProvider timeLineMajorTickHeight];
-                v45 = v44;
+                v47 = v46;
 
                 CGContextSetFillColorWithColor(CurrentContext, [timeLineMinorPlaybackMarkerColor CGColor]);
-                v85.origin.y = 0.0;
-                v85.origin.x = v39;
-                v85.size.width = v23;
-                v85.size.height = v45;
-                CGContextFillRect(CurrentContext, v85);
-                if (!((v36 < 0.0) | v75 & 1))
+                v89.origin.y = 0.0;
+                v89.origin.x = v41;
+                v89.size.width = v23;
+                v89.size.height = v47;
+                CGContextFillRect(CurrentContext, v89);
+                if (!((v38 < 0.0) | v79 & 1))
                 {
-                  v46 = RCRoundCoord(v38 - v65);
+                  v50 = RCRoundCoord(v48, v49, v40 - v69);
                   sharedStyleProvider2 = [v17 + 480 sharedStyleProvider];
                   [sharedStyleProvider2 timeLineMajorTickHeight];
-                  v49 = v48;
+                  v53 = v52;
 
                   window = [(RCChronologicalAnnotationView *)self window];
-                  v71 = v46;
-                  [(RCChronologicalAnnotationView *)self convertRect:window toView:v46, v49, v64, 1.0];
-                  v51 = v29;
-                  v53 = v52;
-                  v55 = v54;
+                  v75 = v50;
+                  [(RCChronologicalAnnotationView *)self convertRect:window toView:v50, v53, v68, 1.0];
+                  v55 = v29;
                   v57 = v56;
                   v59 = v58;
+                  v61 = v60;
+                  v63 = v62;
                   [window bounds];
-                  v87.origin.x = v53;
-                  v29 = v51;
-                  v87.origin.y = v55;
-                  v87.size.width = v57;
-                  v87.size.height = v59;
-                  v60 = CGRectIntersectsRect(v86, v87);
-                  if (![(RCChronologicalAnnotationView *)self shouldOnlyRenderOnScreenTimeLabels]|| [(RCChronologicalAnnotationView *)self shouldOnlyRenderOnScreenTimeLabels]&& v60)
+                  v91.origin.x = v57;
+                  v29 = v55;
+                  v91.origin.y = v59;
+                  v91.size.width = v61;
+                  v91.size.height = v63;
+                  v64 = CGRectIntersectsRect(v90, v91);
+                  if (![(RCChronologicalAnnotationView *)self shouldOnlyRenderOnScreenTimeLabels]|| [(RCChronologicalAnnotationView *)self shouldOnlyRenderOnScreenTimeLabels]&& v64)
                   {
-                    v61 = v69 * fabs(v36);
-                    v62 = floorf(v61) / v69;
-                    if (v72 < 1.0)
+                    v65 = v73 * fabs(v38);
+                    v66 = floorf(v65) / v73;
+                    if (v76 < 1.0)
                     {
-                      RCLocalizedPlaybackTimeWithMinimumComponents(2uLL, v62, v62);
+                      RCLocalizedPlaybackTimeWithMinimumComponents(2uLL, v66, v66);
                     }
 
                     else
                     {
-                      RCLocalizedDurationWithStyle(1, v62);
+                      RCLocalizedDurationWithStyle(1, v66);
                     }
-                    v63 = ;
-                    [v63 drawAtPoint:_timeLabelAttributes withAttributes:{v71, v49, *&v64}];
+                    v67 = ;
+                    [v67 drawAtPoint:_timeLabelAttributes withAttributes:{v75, v53, *&v68}];
                   }
 
                   v17 = &OBJC_IVAR___RCWaveformSelectionOverlay__enablePlayBarTracking;
-                  v33 = v66;
-                  v23 = v67;
+                  v35 = v70;
+                  v23 = v71;
                 }
 
-                v31 = v73;
+                v33 = v77;
               }
             }
 
-            ++v35;
-            --v34;
+            ++v37;
+            --v36;
           }
 
-          while (v34);
+          while (v36);
         }
       }
     }

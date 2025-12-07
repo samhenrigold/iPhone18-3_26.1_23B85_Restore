@@ -19,52 +19,52 @@
 
 - (id)constructConfidenceCategoryDictionaryForClientModelSuggestions
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   initializeConfidenceCategoryToSuggestionsDictionary = [(ATXSuggestionReranker *)self initializeConfidenceCategoryToSuggestionsDictionary];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   obj = [(ATXSuggestionReranker *)self clientModelPriorityOrder];
-  v22 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
-  if (v22)
+  v21 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
+  if (v21)
   {
-    v21 = *v30;
+    v20 = *v29;
     do
     {
       v4 = 0;
       do
       {
-        if (*v30 != v21)
+        if (*v29 != v20)
         {
           objc_enumerationMutation(obj);
         }
 
-        v23 = v4;
-        v5 = *(*(&v29 + 1) + 8 * v4);
+        v22 = v4;
+        v5 = *(*(&v28 + 1) + 8 * v4);
+        v24 = 0u;
         v25 = 0u;
         v26 = 0u;
         v27 = 0u;
-        v28 = 0u;
         v6 = [(NSDictionary *)self->_clientModelSuggestions objectForKeyedSubscript:v5];
         suggestions = [v6 suggestions];
 
-        v24 = suggestions;
-        v8 = [suggestions countByEnumeratingWithState:&v25 objects:v33 count:16];
+        v23 = suggestions;
+        v8 = [suggestions countByEnumeratingWithState:&v24 objects:v32 count:16];
         if (v8)
         {
           v9 = v8;
-          v10 = *v26;
+          v10 = *v25;
           do
           {
             for (i = 0; i != v9; ++i)
             {
-              if (*v26 != v10)
+              if (*v25 != v10)
               {
-                objc_enumerationMutation(v24);
+                objc_enumerationMutation(v23);
               }
 
-              v12 = *(*(&v25 + 1) + 8 * i);
+              v12 = *(*(&v24 + 1) + 8 * i);
               if (self->_promotedClientModelId && [v5 isEqualToString:?])
               {
                 scoreSpecification = [v12 scoreSpecification];
@@ -78,23 +78,21 @@
               [v17 addObject:v12];
             }
 
-            v9 = [v24 countByEnumeratingWithState:&v25 objects:v33 count:16];
+            v9 = [v23 countByEnumeratingWithState:&v24 objects:v32 count:16];
           }
 
           while (v9);
         }
 
-        v4 = v23 + 1;
+        v4 = v22 + 1;
       }
 
-      while (v23 + 1 != v22);
-      v22 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
+      while (v22 + 1 != v21);
+      v21 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
     }
 
-    while (v22);
+    while (v21);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return initializeConfidenceCategoryToSuggestionsDictionary;
 }
@@ -120,31 +118,31 @@
 - (ATXSuggestionReranker)initWithProactiveSuggestions:(id)suggestions hyperParameters:(id)parameters
 {
   selfCopy = self;
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   suggestionsCopy = suggestions;
   parametersCopy = parameters;
   v6 = objc_opt_new();
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
   v7 = suggestionsCopy;
-  v8 = [v7 countByEnumeratingWithState:&v38 objects:v43 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v37 objects:v42 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v39;
+    v10 = *v38;
     do
     {
       v11 = 0;
       do
       {
-        if (*v39 != v10)
+        if (*v38 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v38 + 1) + 8 * v11);
+        v12 = *(*(&v37 + 1) + 8 * v11);
         v13 = objc_autoreleasePoolPush();
         clientModelSpecification = [v12 clientModelSpecification];
         clientModelId = [clientModelSpecification clientModelId];
@@ -165,34 +163,34 @@
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v38 objects:v43 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v37 objects:v42 count:16];
     }
 
     while (v9);
   }
 
   v19 = objc_opt_new();
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   v20 = v6;
-  v21 = [v20 countByEnumeratingWithState:&v34 objects:v42 count:16];
+  v21 = [v20 countByEnumeratingWithState:&v33 objects:v41 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v35;
+    v23 = *v34;
     do
     {
       v24 = 0;
       do
       {
-        if (*v35 != v23)
+        if (*v34 != v23)
         {
           objc_enumerationMutation(v20);
         }
 
-        v25 = *(*(&v34 + 1) + 8 * v24);
+        v25 = *(*(&v33 + 1) + 8 * v24);
         v26 = [ATXClientModelCacheUpdate alloc];
         v27 = [v20 objectForKeyedSubscript:v25];
         v28 = [(ATXClientModelCacheUpdate *)v26 initWithClientModelId:v25 suggestions:v27 feedbackMetadata:0 responseForRealTimeRequest:0];
@@ -202,14 +200,13 @@
       }
 
       while (v22 != v24);
-      v22 = [v20 countByEnumeratingWithState:&v34 objects:v42 count:16];
+      v22 = [v20 countByEnumeratingWithState:&v33 objects:v41 count:16];
     }
 
     while (v22);
   }
 
   v29 = [(ATXSuggestionReranker *)selfCopy initWithClientModelSuggestions:v19 promoteSuggestionsFromClientModel:0 hyperParameters:parametersCopy];
-  v30 = *MEMORY[0x1E69E9840];
   return v29;
 }
 
@@ -237,37 +234,37 @@
 
 - (id)convertConfidenceCategoryDictionaryToArray:(id)array
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   arrayCopy = array;
   v4 = objc_opt_new();
   v5 = objc_opt_new();
   v6 = 4;
   do
   {
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
-    v23 = v6;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
+    v22 = v6;
     v7 = [MEMORY[0x1E696AD98] numberWithInteger:?];
     v8 = [arrayCopy objectForKeyedSubscript:v7];
 
     obj = v8;
-    v9 = [v8 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v26;
+      v11 = *v25;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v26 != v11)
+          if (*v25 != v11)
           {
             objc_enumerationMutation(obj);
           }
 
-          v13 = *(*(&v25 + 1) + 8 * i);
+          v13 = *(*(&v24 + 1) + 8 * i);
           promotedClientModelId = self->_promotedClientModelId;
           clientModelSpecification = [v13 clientModelSpecification];
           clientModelId = [clientModelSpecification clientModelId];
@@ -286,16 +283,16 @@
           [v17 addObject:v13];
         }
 
-        v10 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v10 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v10);
     }
 
-    v6 = v23 - 1;
+    v6 = v22 - 1;
   }
 
-  while (v23 > 1);
+  while (v22 > 1);
   if ([v4 count])
   {
     v18 = [v4 arrayByAddingObjectsFromArray:v5];
@@ -307,8 +304,6 @@
   }
 
   v19 = v18;
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v19;
 }

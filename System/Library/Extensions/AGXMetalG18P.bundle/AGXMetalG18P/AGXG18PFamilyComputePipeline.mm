@@ -359,7 +359,7 @@ LABEL_16:
       std::__throw_bad_array_new_length[abi:nn200100]();
     }
 
-    std::vector<std::shared_ptr<AGX::HAL300::DynamicLibrary>>::__insert_with_size[abi:nn200100]<std::__wrap_iter<std::shared_ptr<AGX::HAL300::DynamicLibrary> const*>,std::__wrap_iter<std::shared_ptr<AGX::HAL300::DynamicLibrary> const*>>(&v10->_impl.loader_runtime_state.global_binding_table_layout.global_binding_tgbuffers, v10->_impl.dylib_resources.dylibs.__begin_, self->_impl.loader_runtime_state.global_binding_table_layout.global_binding_tgbuffers.mask, self->_impl.dylib_resources.dylibs.__begin_, (self->_impl.dylib_resources.dylibs.__begin_ - self->_impl.loader_runtime_state.global_binding_table_layout.global_binding_tgbuffers.mask) >> 4);
+    std::vector<std::shared_ptr<AGX::HAL300::DynamicLibrary>>::__insert_with_size[abi:nn200100]<std::__wrap_iter<std::shared_ptr<AGX::HAL300::DynamicLibrary> const*>,std::__wrap_iter<std::shared_ptr<AGX::HAL300::DynamicLibrary> const*>>(&v10->_impl.loader_runtime_state.global_binding_table_layout.global_binding_tgbuffers.mask, v10->_impl.dylib_resources.dylibs.__begin_, self->_impl.loader_runtime_state.global_binding_table_layout.global_binding_tgbuffers.mask, self->_impl.dylib_resources.dylibs.__begin_, (self->_impl.dylib_resources.dylibs.__begin_ - self->_impl.loader_runtime_state.global_binding_table_layout.global_binding_tgbuffers.mask) >> 4);
     mask = v10->_impl.loader_runtime_state.global_binding_table_layout.global_binding_tgbuffers.mask;
     begin = p_impl->dylib_resources.dylibs.__begin_;
     while (mask != begin)
@@ -541,7 +541,7 @@ LABEL_67:
     if (([device requiresRaytracingEmulation] & 1) == 0)
     {
       AGX::ComputePipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::computeMaximumRayPayloadSizes(v50);
-      AGX::ComputePipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::createScsPerShaderConfigTable(v50);
+      AGX::ComputePipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::createScsPerShaderConfigTable(v50, device);
       AGX::ComputePipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::constructSpillParamsForIntersection(v50, device[106]);
     }
 

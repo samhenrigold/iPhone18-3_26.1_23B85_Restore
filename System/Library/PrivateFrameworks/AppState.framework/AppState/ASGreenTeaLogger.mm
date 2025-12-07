@@ -23,11 +23,10 @@
 
 - (void)dealloc
 {
-  logger = self->_logger;
   ct_green_tea_logger_destroy();
-  v4.receiver = self;
-  v4.super_class = ASGreenTeaLogger;
-  [(ASGreenTeaLogger *)&v4 dealloc];
+  v3.receiver = self;
+  v3.super_class = ASGreenTeaLogger;
+  [(ASGreenTeaLogger *)&v3 dealloc];
 }
 
 - (void)willAccessLocationForSearch

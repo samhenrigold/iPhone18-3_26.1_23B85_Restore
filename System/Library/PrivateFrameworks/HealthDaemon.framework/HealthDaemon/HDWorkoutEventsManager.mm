@@ -110,38 +110,38 @@ void __124__HDWorkoutEventsManager_takeSessionAssertionWithOwnerIdentifier_activ
 
 void __124__HDWorkoutEventsManager_takeSessionAssertionWithOwnerIdentifier_activityType_sessionIdentifier_eventsDelegate_swimTracker___block_invoke_2(uint64_t a1)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 64);
   v3 = *(a1 + 40);
-  v24 = *(a1 + 48);
+  v23 = *(a1 + 48);
   if (v3)
   {
     v4 = objc_alloc_init(MEMORY[0x277CBEB58]);
+    v28 = 0u;
     v29 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v32 = 0u;
     v5 = _allEventCollectorClasses();
-    v6 = [v5 countByEnumeratingWithState:&v29 objects:v34 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v28 objects:v33 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v30;
+      v8 = *v29;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v30 != v8)
+          if (*v29 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v29 + 1) + 8 * i);
+          v10 = *(*(&v28 + 1) + 8 * i);
           if ([(objc_class *)v10 isAvailableInCurrentHardware]&& [(objc_class *)v10 supportsWorkoutActivityType:v2])
           {
             v11 = [v10 alloc];
             WeakRetained = objc_loadWeakRetained((v3 + 8));
-            v13 = [v11 initWithProfile:WeakRetained delegate:v24];
+            v13 = [v11 initWithProfile:WeakRetained delegate:v23];
 
             v14 = *(v3 + 48);
             v15 = v13;
@@ -156,7 +156,7 @@ void __124__HDWorkoutEventsManager_takeSessionAssertionWithOwnerIdentifier_activ
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v29 objects:v34 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v28 objects:v33 count:16];
       }
 
       while (v7);
@@ -169,10 +169,10 @@ void __124__HDWorkoutEventsManager_takeSessionAssertionWithOwnerIdentifier_activ
   }
 
   [(_HDEventsCollectionAssertion *)*(a1 + 32) setEventCollectors:v4];
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v17 = *(a1 + 32);
   if (v17)
   {
@@ -180,30 +180,28 @@ void __124__HDWorkoutEventsManager_takeSessionAssertionWithOwnerIdentifier_activ
   }
 
   v18 = v17;
-  v19 = [v18 countByEnumeratingWithState:&v25 objects:v33 count:16];
+  v19 = [v18 countByEnumeratingWithState:&v24 objects:v32 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v26;
+    v21 = *v25;
     do
     {
       for (j = 0; j != v20; ++j)
       {
-        if (*v26 != v21)
+        if (*v25 != v21)
         {
           objc_enumerationMutation(v18);
         }
 
-        [*(*(&v25 + 1) + 8 * j) startWithSessionId:*(a1 + 56)];
+        [*(*(&v24 + 1) + 8 * j) startWithSessionId:*(a1 + 56)];
       }
 
-      v20 = [v18 countByEnumeratingWithState:&v25 objects:v33 count:16];
+      v20 = [v18 countByEnumeratingWithState:&v24 objects:v32 count:16];
     }
 
     while (v20);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestPendingEventsThroughDate:(id)date sessionIdentifier:(id)identifier completion:(id)completion
@@ -228,45 +226,45 @@ void __124__HDWorkoutEventsManager_takeSessionAssertionWithOwnerIdentifier_activ
 
 void __87__HDWorkoutEventsManager_requestPendingEventsThroughDate_sessionIdentifier_completion___block_invoke(uint64_t a1)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v2 = dispatch_group_create();
   [*(*(a1 + 32) + 16) activeAssertionsForIdentifier:@"HDWorkoutSessionAssertionIdentifierEventCollection"];
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
-  obj = v37 = 0u;
-  v24 = [obj countByEnumeratingWithState:&v34 objects:v43 count:16];
-  if (v24)
+  obj = v36 = 0u;
+  v23 = [obj countByEnumeratingWithState:&v33 objects:v42 count:16];
+  if (v23)
   {
-    v23 = *v35;
+    v22 = *v34;
     do
     {
       v3 = 0;
       do
       {
-        if (*v35 != v23)
+        if (*v34 != v22)
         {
           objc_enumerationMutation(obj);
         }
 
-        v25 = v3;
-        v4 = *(*(&v34 + 1) + 8 * v3);
+        v24 = v3;
+        v4 = *(*(&v33 + 1) + 8 * v3);
         _HKInitializeLogging();
         v5 = *MEMORY[0x277CCC330];
         if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
         {
           v6 = *(a1 + 32);
           *buf = 138543618;
-          v40 = v6;
-          v41 = 2114;
-          v42 = v4;
+          v39 = v6;
+          v40 = 2114;
+          v41 = v4;
           _os_log_impl(&dword_228986000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Requesting post-stop events collection for active assertion %{public}@", buf, 0x16u);
         }
 
-        v32 = 0u;
-        v33 = 0u;
-        v30 = 0u;
         v31 = 0u;
+        v32 = 0u;
+        v29 = 0u;
+        v30 = 0u;
         if (v4)
         {
           v7 = v4[11];
@@ -278,21 +276,21 @@ void __87__HDWorkoutEventsManager_requestPendingEventsThroughDate_sessionIdentif
         }
 
         v8 = v7;
-        v9 = [v8 countByEnumeratingWithState:&v30 objects:v38 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v29 objects:v37 count:16];
         if (v9)
         {
           v10 = v9;
-          v11 = *v31;
+          v11 = *v30;
           do
           {
             for (i = 0; i != v10; ++i)
             {
-              if (*v31 != v11)
+              if (*v30 != v11)
               {
                 objc_enumerationMutation(v8);
               }
 
-              v13 = *(*(&v30 + 1) + 8 * i);
+              v13 = *(*(&v29 + 1) + 8 * i);
               v14 = [v13 sessionId];
               v15 = *(a1 + 40);
 
@@ -305,36 +303,36 @@ void __87__HDWorkoutEventsManager_requestPendingEventsThroughDate_sessionIdentif
                 {
                   v17 = *(a1 + 32);
                   *buf = 138543618;
-                  v40 = v17;
-                  v41 = 2114;
-                  v42 = v13;
+                  v39 = v17;
+                  v40 = 2114;
+                  v41 = v13;
                   _os_log_impl(&dword_228986000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@: Requesting post-stop events collection for %{public}@", buf, 0x16u);
                 }
 
                 v18 = *(a1 + 48);
-                v28[0] = MEMORY[0x277D85DD0];
-                v28[1] = 3221225472;
-                v28[2] = __87__HDWorkoutEventsManager_requestPendingEventsThroughDate_sessionIdentifier_completion___block_invoke_307;
-                v28[3] = &unk_278613630;
-                v28[4] = *(a1 + 32);
-                v28[5] = v13;
-                v29 = v2;
-                [v13 requestPendingEventsThroughDate:v18 completion:v28];
+                v27[0] = MEMORY[0x277D85DD0];
+                v27[1] = 3221225472;
+                v27[2] = __87__HDWorkoutEventsManager_requestPendingEventsThroughDate_sessionIdentifier_completion___block_invoke_307;
+                v27[3] = &unk_278613630;
+                v27[4] = *(a1 + 32);
+                v27[5] = v13;
+                v28 = v2;
+                [v13 requestPendingEventsThroughDate:v18 completion:v27];
               }
             }
 
-            v10 = [v8 countByEnumeratingWithState:&v30 objects:v38 count:16];
+            v10 = [v8 countByEnumeratingWithState:&v29 objects:v37 count:16];
           }
 
           while (v10);
         }
 
-        v3 = v25 + 1;
+        v3 = v24 + 1;
       }
 
-      while (v25 + 1 != v24);
-      v19 = [obj countByEnumeratingWithState:&v34 objects:v43 count:16];
-      v24 = v19;
+      while (v24 + 1 != v23);
+      v19 = [obj countByEnumeratingWithState:&v33 objects:v42 count:16];
+      v23 = v19;
     }
 
     while (v19);
@@ -345,15 +343,13 @@ void __87__HDWorkoutEventsManager_requestPendingEventsThroughDate_sessionIdentif
   block[1] = 3221225472;
   block[2] = __87__HDWorkoutEventsManager_requestPendingEventsThroughDate_sessionIdentifier_completion___block_invoke_309;
   block[3] = &unk_278613658;
-  v27 = *(a1 + 56);
+  v26 = *(a1 + 56);
   dispatch_group_notify(v2, v20, block);
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __87__HDWorkoutEventsManager_requestPendingEventsThroughDate_sessionIdentifier_completion___block_invoke_307(uint64_t a1, int a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a3;
   _HKInitializeLogging();
   v6 = *MEMORY[0x277CCC330];
@@ -364,30 +360,28 @@ void __87__HDWorkoutEventsManager_requestPendingEventsThroughDate_sessionIdentif
     {
       v8 = *(a1 + 32);
       v9 = *(a1 + 40);
-      v13 = 138543618;
-      v14 = v8;
-      v15 = 2114;
-      v16 = v9;
-      _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: Successfully finished collecting post-stop events pending for %{public}@", &v13, 0x16u);
+      v12 = 138543618;
+      v13 = v8;
+      v14 = 2114;
+      v15 = v9;
+      _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: Successfully finished collecting post-stop events pending for %{public}@", &v12, 0x16u);
     }
   }
 
   else if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    v11 = *(a1 + 32);
-    v12 = *(a1 + 40);
-    v13 = 138543874;
-    v14 = v11;
-    v15 = 2114;
-    v16 = v12;
-    v17 = 2114;
-    v18 = v5;
-    _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "%{public}@: Failed to collect post-stop pending events for %{public}@, error: %{public}@", &v13, 0x20u);
+    v10 = *(a1 + 32);
+    v11 = *(a1 + 40);
+    v12 = 138543874;
+    v13 = v10;
+    v14 = 2114;
+    v15 = v11;
+    v16 = 2114;
+    v17 = v5;
+    _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "%{public}@: Failed to collect post-stop pending events for %{public}@, error: %{public}@", &v12, 0x20u);
   }
 
   dispatch_group_leave(*(a1 + 48));
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __87__HDWorkoutEventsManager_requestPendingEventsThroughDate_sessionIdentifier_completion___block_invoke_309(uint64_t a1)
@@ -403,7 +397,7 @@ uint64_t __87__HDWorkoutEventsManager_requestPendingEventsThroughDate_sessionIde
 
 - (void)updateEventCollectorsForActivityType:(unint64_t)type activityIdentifier:(id)identifier
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   _HKInitializeLogging();
   v7 = MEMORY[0x277CCC330];
@@ -426,11 +420,11 @@ uint64_t __87__HDWorkoutEventsManager_requestPendingEventsThroughDate_sessionIde
       block[1] = 3221225472;
       block[2] = __82__HDWorkoutEventsManager_updateEventCollectorsForActivityType_activityIdentifier___block_invoke;
       block[3] = &unk_278613608;
-      v15 = v9;
+      v14 = v9;
       typeCopy = type;
-      v16 = v10;
+      v15 = v10;
       selfCopy2 = self;
-      v18 = identifierCopy;
+      v17 = identifierCopy;
       dispatch_sync(queue, block);
     }
 
@@ -446,39 +440,37 @@ uint64_t __87__HDWorkoutEventsManager_requestPendingEventsThroughDate_sessionIde
       }
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __82__HDWorkoutEventsManager_updateEventCollectorsForActivityType_activityIdentifier___block_invoke(uint64_t a1)
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
   obj = *(a1 + 32);
-  v28 = [obj countByEnumeratingWithState:&v40 objects:v50 count:16];
-  if (v28)
+  v27 = [obj countByEnumeratingWithState:&v39 objects:v49 count:16];
+  if (v27)
   {
-    v27 = *v41;
+    v26 = *v40;
     do
     {
       v2 = 0;
       do
       {
-        if (*v41 != v27)
+        if (*v40 != v26)
         {
           objc_enumerationMutation(obj);
         }
 
-        v3 = *(*(&v40 + 1) + 8 * v2);
+        v3 = *(*(&v39 + 1) + 8 * v2);
+        v35 = 0u;
         v36 = 0u;
         v37 = 0u;
         v38 = 0u;
-        v39 = 0u;
-        v29 = v3;
-        v30 = v2;
+        v28 = v3;
+        v29 = v2;
         if (v3)
         {
           v4 = *(v3 + 88);
@@ -490,21 +482,21 @@ void __82__HDWorkoutEventsManager_updateEventCollectorsForActivityType_activityI
         }
 
         v5 = v4;
-        v6 = [v5 countByEnumeratingWithState:&v36 objects:v49 count:16];
+        v6 = [v5 countByEnumeratingWithState:&v35 objects:v48 count:16];
         if (v6)
         {
           v7 = v6;
-          v8 = *v37;
+          v8 = *v36;
           do
           {
             for (i = 0; i != v7; ++i)
             {
-              if (*v37 != v8)
+              if (*v36 != v8)
               {
                 objc_enumerationMutation(v5);
               }
 
-              v10 = *(*(&v36 + 1) + 8 * i);
+              v10 = *(*(&v35 + 1) + 8 * i);
               if ([objc_opt_class() supportsWorkoutActivityType:*(a1 + 64)])
               {
                 [*(a1 + 40) addObject:v10];
@@ -516,41 +508,41 @@ void __82__HDWorkoutEventsManager_updateEventCollectorsForActivityType_activityI
               }
             }
 
-            v7 = [v5 countByEnumeratingWithState:&v36 objects:v49 count:16];
+            v7 = [v5 countByEnumeratingWithState:&v35 objects:v48 count:16];
           }
 
           while (v7);
         }
 
-        v34 = 0u;
-        v35 = 0u;
-        v32 = 0u;
         v33 = 0u;
+        v34 = 0u;
+        v31 = 0u;
+        v32 = 0u;
         v11 = _allEventCollectorClasses();
-        v12 = [v11 countByEnumeratingWithState:&v32 objects:v48 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v31 objects:v47 count:16];
         if (v12)
         {
           v13 = v12;
-          v14 = *v33;
+          v14 = *v32;
           do
           {
             for (j = 0; j != v13; ++j)
             {
-              if (*v33 != v14)
+              if (*v32 != v14)
               {
                 objc_enumerationMutation(v11);
               }
 
-              v16 = *(*(&v32 + 1) + 8 * j);
+              v16 = *(*(&v31 + 1) + 8 * j);
               if ([(objc_class *)v16 supportsWorkoutActivityType:*(a1 + 64)])
               {
                 v17 = *(a1 + 40);
-                v31[0] = MEMORY[0x277D85DD0];
-                v31[1] = 3221225472;
-                v31[2] = __82__HDWorkoutEventsManager_updateEventCollectorsForActivityType_activityIdentifier___block_invoke_2;
-                v31[3] = &__block_descriptor_40_e33_B16__0__HDWorkoutEventCollector_8lu32l8;
-                v31[4] = v16;
-                if ([v17 hk_containsObjectPassingTest:v31])
+                v30[0] = MEMORY[0x277D85DD0];
+                v30[1] = 3221225472;
+                v30[2] = __82__HDWorkoutEventsManager_updateEventCollectorsForActivityType_activityIdentifier___block_invoke_2;
+                v30[3] = &__block_descriptor_40_e33_B16__0__HDWorkoutEventCollector_8lu32l8;
+                v30[4] = v16;
+                if ([v17 hk_containsObjectPassingTest:v30])
                 {
                   _HKInitializeLogging();
                   v18 = *MEMORY[0x277CCC330];
@@ -558,9 +550,9 @@ void __82__HDWorkoutEventsManager_updateEventCollectorsForActivityType_activityI
                   {
                     v19 = *(a1 + 48);
                     *buf = 138543618;
-                    v45 = v19;
-                    v46 = 2114;
-                    v47 = v16;
+                    v44 = v19;
+                    v45 = 2114;
+                    v46 = v16;
                     _os_log_impl(&dword_228986000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@: Event collector %{public}@, already exists", buf, 0x16u);
                   }
                 }
@@ -578,83 +570,81 @@ void __82__HDWorkoutEventsManager_updateEventCollectorsForActivityType_activityI
               }
             }
 
-            v13 = [v11 countByEnumeratingWithState:&v32 objects:v48 count:16];
+            v13 = [v11 countByEnumeratingWithState:&v31 objects:v47 count:16];
           }
 
           while (v13);
         }
 
-        [(_HDEventsCollectionAssertion *)v29 setEventCollectors:?];
-        v2 = v30 + 1;
+        [(_HDEventsCollectionAssertion *)v28 setEventCollectors:?];
+        v2 = v29 + 1;
       }
 
-      while (v30 + 1 != v28);
-      v24 = [obj countByEnumeratingWithState:&v40 objects:v50 count:16];
-      v28 = v24;
+      while (v29 + 1 != v27);
+      v24 = [obj countByEnumeratingWithState:&v39 objects:v49 count:16];
+      v27 = v24;
     }
 
     while (v24);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fakeActivityDetection:(id)detection workoutActivity:(id)activity
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   detectionCopy = detection;
   activityCopy = activity;
   [(HDAssertionManager *)self->_assertionManager activeAssertionsForIdentifier:@"HDWorkoutSessionAssertionIdentifierEventCollection"];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
-  obj = v27 = 0u;
-  v8 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
+  obj = v26 = 0u;
+  v8 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v25;
+    v10 = *v24;
     do
     {
       v11 = 0;
       do
       {
-        if (*v25 != v10)
+        if (*v24 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v24 + 1) + 8 * v11);
+        v12 = *(*(&v23 + 1) + 8 * v11);
+        v19 = 0u;
         v20 = 0u;
         v21 = 0u;
         v22 = 0u;
-        v23 = 0u;
         if (v12)
         {
           v12 = v12[11];
         }
 
         v13 = v12;
-        v14 = [v13 countByEnumeratingWithState:&v20 objects:v28 count:16];
+        v14 = [v13 countByEnumeratingWithState:&v19 objects:v27 count:16];
         if (v14)
         {
           v15 = v14;
-          v16 = *v21;
+          v16 = *v20;
           do
           {
             v17 = 0;
             do
             {
-              if (*v21 != v16)
+              if (*v20 != v16)
               {
                 objc_enumerationMutation(v13);
               }
 
-              [*(*(&v20 + 1) + 8 * v17++) fakeActivityDetection:detectionCopy workoutActivity:activityCopy];
+              [*(*(&v19 + 1) + 8 * v17++) fakeActivityDetection:detectionCopy workoutActivity:activityCopy];
             }
 
             while (v15 != v17);
-            v15 = [v13 countByEnumeratingWithState:&v20 objects:v28 count:16];
+            v15 = [v13 countByEnumeratingWithState:&v19 objects:v27 count:16];
           }
 
           while (v15);
@@ -664,24 +654,22 @@ void __82__HDWorkoutEventsManager_updateEventCollectorsForActivityType_activityI
       }
 
       while (v11 != v9);
-      v9 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
+      v9 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
     }
 
     while (v9);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)assertionManager:(id)manager assertionInvalidated:(id)invalidated
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   invalidatedCopy = invalidated;
   dispatch_assert_queue_V2(self->_queue);
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   if (invalidatedCopy)
   {
     v6 = invalidatedCopy[11];
@@ -693,69 +681,65 @@ void __82__HDWorkoutEventsManager_updateEventCollectorsForActivityType_activityI
   }
 
   v7 = v6;
-  v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v14;
+    v10 = *v13;
     do
     {
       v11 = 0;
       do
       {
-        if (*v14 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [*(*(&v13 + 1) + 8 * v11++) stop];
+        [*(*(&v12 + 1) + 8 * v11++) stop];
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v9);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unitTest_setCMWorkoutManager:(id)manager
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v5 = self->_eventCollectors;
-  v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [*(*(&v11 + 1) + 8 * v9++) unitTest_setCMWorkoutManager:{managerCopy, v11}];
+        [*(*(&v10 + 1) + 8 * v9++) unitTest_setCMWorkoutManager:{managerCopy, v10}];
       }
 
       while (v7 != v9);
-      v7 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

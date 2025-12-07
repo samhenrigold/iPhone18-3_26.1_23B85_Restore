@@ -34,7 +34,7 @@
 
 + (void)initialize
 {
-  v2 = VUIDefaultLogObject();
+  v2 = VUIDefaultLogObject(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *v3 = 0;
@@ -66,7 +66,7 @@
   {
     v11 = v2;
     v12 = v3;
-    v5 = VUIDefaultLogObject();
+    v5 = VUIDefaultLogObject(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       *v10 = 0;
@@ -362,7 +362,7 @@ LABEL_23:
 {
   optionsCopy = options;
   contextCopy = context;
-  v8 = VUIDefaultLogObject();
+  v8 = VUIDefaultLogObject(contextCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *v13 = 0;
@@ -403,26 +403,26 @@ LABEL_23:
 
 - (void)appContext:(id)context didFailWithError:(id)error
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   appContext = self->_appContext;
   if (appContext == context)
   {
     self->_appContext = 0;
 
-    v8 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v9 = VUIDefaultLogObject(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v11 = 138412290;
-      v12 = errorCopy;
-      _os_log_impl(&dword_1E323F000, v8, OS_LOG_TYPE_INFO, "VUITVApplicationController - App Context Failed with Error: %@", &v11, 0xCu);
+      v12 = 138412290;
+      v13 = errorCopy;
+      _os_log_impl(&dword_1E323F000, v9, OS_LOG_TYPE_INFO, "VUITVApplicationController - App Context Failed with Error: %@", &v12, 0xCu);
     }
 
     delegate = [(VUITVApplicationController *)self delegate];
     if (delegate && (objc_opt_respondsToSelector() & 1) != 0)
     {
-      v10 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E69DF888] code:3 userInfo:0];
-      [delegate appController:self didFailWithError:v10];
+      v11 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E69DF888] code:3 userInfo:0];
+      [delegate appController:self didFailWithError:v11];
     }
   }
 }
@@ -431,7 +431,7 @@ LABEL_23:
 {
   contextCopy = context;
   optionsCopy = options;
-  v8 = VUIDefaultLogObject();
+  v8 = VUIDefaultLogObject(optionsCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *v11 = 0;
@@ -457,7 +457,7 @@ LABEL_23:
 - (void)appContext:(id)context evaluateAppJavaScriptInContext:(id)inContext
 {
   inContextCopy = inContext;
-  v6 = VUIDefaultLogObject();
+  v6 = VUIDefaultLogObject(inContextCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *v8 = 0;
@@ -612,13 +612,13 @@ void __72__VUITVApplicationController_appContext_needsReloadWithUrgency_options_
     }
 
     [v6 setObject:@"reload" forKeyedSubscript:@"launchContext"];
-    [*(v3 + 2) setJavaScriptLaunchOptions:v6];
+    v11 = [*(v3 + 2) setJavaScriptLaunchOptions:v6];
     *(v3 + 41) = 1;
-    v11 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = VUIDefaultLogObject(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      *v12 = 0;
-      _os_log_impl(&dword_1E323F000, v11, OS_LOG_TYPE_DEFAULT, "VUITVApplicationController - reload js application", v12, 2u);
+      *v13 = 0;
+      _os_log_impl(&dword_1E323F000, v12, OS_LOG_TYPE_DEFAULT, "VUITVApplicationController - reload js application", v13, 2u);
     }
 
     [*(a1 + 32) reload];
@@ -629,7 +629,7 @@ void __72__VUITVApplicationController_appContext_needsReloadWithUrgency_options_
 {
   completionCopy = completion;
   lCopy = l;
-  v10 = VUIDefaultLogObject();
+  v10 = VUIDefaultLogObject(lCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     *v12 = 0;

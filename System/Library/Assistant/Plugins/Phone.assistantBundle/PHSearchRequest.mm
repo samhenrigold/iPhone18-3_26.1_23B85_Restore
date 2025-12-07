@@ -61,15 +61,13 @@
 
   v8 = [voicemailManager2 voicemailsPassingTest:v7];
 
-  v9 = PHDefaultLog();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = PHDefaultLog(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v12 = 134217984;
     v13 = [v8 count];
-    _os_log_impl(&dword_233521000, v9, OS_LOG_TYPE_DEFAULT, "Initial search to voicemail database returned %lu voicemails.", &v12, 0xCu);
+    _os_log_impl(&dword_233521000, v10, OS_LOG_TYPE_DEFAULT, "Initial search to voicemail database returned %lu voicemails.", &v12, 0xCu);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -172,7 +170,7 @@ LABEL_19:
 
 LABEL_20:
   v17 = [array count];
-  v18 = PHDefaultLog();
+  v18 = PHDefaultLog(v17);
   v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
   if (v17)
   {
@@ -212,7 +210,7 @@ LABEL_20:
       distantPast = [MEMORY[0x277CBEAA8] distantPast];
     }
 
-    v35 = distantPast;
+    v36 = distantPast;
 
     if (bOOLValue5)
     {
@@ -225,30 +223,30 @@ LABEL_41:
       }
 
       recentsManager = [(PHSearchRequest *)self recentsManager];
-      v40 = MEMORY[0x277CCAC30];
-      v38 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*MEMORY[0x277CF7D80]];
-      v47[0] = v38;
-      v39 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*MEMORY[0x277CF7D90]];
-      v47[1] = v39;
-      v41 = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:2];
-      v42 = [v40 predicateWithFormat:@"date > %@ AND callType IN %@ AND callStatus IN %@", v35, array, v41];
-      array2 = [recentsManager recentCallsWithPredicate:v42];
+      v41 = MEMORY[0x277CCAC30];
+      v39 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*MEMORY[0x277CF7D80]];
+      v47[0] = v39;
+      v40 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*MEMORY[0x277CF7D90]];
+      v47[1] = v40;
+      v42 = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:2];
+      v43 = [v41 predicateWithFormat:@"date > %@ AND callType IN %@ AND callStatus IN %@", v36, array, v42];
+      array2 = [recentsManager recentCallsWithPredicate:v43];
     }
 
     else
     {
       recentsManager = [(PHSearchRequest *)self recentsManager];
-      v37 = MEMORY[0x277CCAC30];
+      v38 = MEMORY[0x277CCAC30];
       if (!bOOLValue6)
       {
-        v38 = [MEMORY[0x277CCAC30] predicateWithFormat:@"date > %@ AND callType IN %@", v35, array];
-        array2 = [recentsManager recentCallsWithPredicate:v38];
+        v39 = [MEMORY[0x277CCAC30] predicateWithFormat:@"date > %@ AND callType IN %@", v36, array];
+        array2 = [recentsManager recentCallsWithPredicate:v39];
         goto LABEL_40;
       }
 
-      v38 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*MEMORY[0x277CF7DA0]];
-      v39 = [v37 predicateWithFormat:@"date > %@ AND callType IN %@ AND callStatus == %@", v35, array, v38];
-      array2 = [recentsManager recentCallsWithPredicate:v39];
+      v39 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*MEMORY[0x277CF7DA0]];
+      v40 = [v38 predicateWithFormat:@"date > %@ AND callType IN %@ AND callStatus == %@", v36, array, v39];
+      array2 = [recentsManager recentCallsWithPredicate:v40];
     }
 
 LABEL_40:
@@ -261,18 +259,17 @@ LABEL_40:
     _os_log_impl(&dword_233521000, v18, OS_LOG_TYPE_DEFAULT, "No call types requested.", buf, 2u);
   }
 
-  array2 = [MEMORY[0x277CBEA60] array];
+  array3 = [MEMORY[0x277CBEA60] array];
+  array2 = array3;
 LABEL_42:
-  v43 = PHDefaultLog();
-  if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+  v44 = PHDefaultLog(array3);
+  if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
   {
-    v44 = [array2 count];
+    v45 = [array2 count];
     *buf = 134217984;
-    v49 = v44;
-    _os_log_impl(&dword_233521000, v43, OS_LOG_TYPE_DEFAULT, "Initial search to recents database returned %lu calls.", buf, 0xCu);
+    v49 = v45;
+    _os_log_impl(&dword_233521000, v44, OS_LOG_TYPE_DEFAULT, "Initial search to recents database returned %lu calls.", buf, 0xCu);
   }
-
-  v45 = *MEMORY[0x277D85DE8];
 
   return array2;
 }
@@ -308,35 +305,35 @@ LABEL_42:
 
 - (id)labelForPhoneNumber:(id)number
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   numberCopy = number;
   v4 = +[PHAssistantServices sharedContactStore];
-  v22[0] = *MEMORY[0x277CBD098];
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
+  v21[0] = *MEMORY[0x277CBD098];
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
   v6 = [v4 contactForDestinationId:numberCopy keysToFetch:v5];
 
   if (v6)
   {
     v7 = [objc_alloc(MEMORY[0x277CBDB70]) initWithStringValue:numberCopy];
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     phoneNumbers = [v6 phoneNumbers];
-    label = [phoneNumbers countByEnumeratingWithState:&v17 objects:v21 count:16];
+    label = [phoneNumbers countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (label)
     {
-      v10 = *v18;
+      v10 = *v17;
       while (2)
       {
         for (i = 0; i != label; i = i + 1)
         {
-          if (*v18 != v10)
+          if (*v17 != v10)
           {
             objc_enumerationMutation(phoneNumbers);
           }
 
-          v12 = *(*(&v17 + 1) + 8 * i);
+          v12 = *(*(&v16 + 1) + 8 * i);
           value = [v12 value];
           v14 = [value isEqual:v7];
 
@@ -347,7 +344,7 @@ LABEL_42:
           }
         }
 
-        label = [phoneNumbers countByEnumeratingWithState:&v17 objects:v21 count:16];
+        label = [phoneNumbers countByEnumeratingWithState:&v16 objects:v20 count:16];
         if (label)
         {
           continue;
@@ -365,41 +362,39 @@ LABEL_12:
     label = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return label;
 }
 
 - (id)labelForEmailAddress:(id)address
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   addressCopy = address;
   v4 = +[PHAssistantServices sharedContactStore];
-  v21[0] = *MEMORY[0x277CBCFC0];
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
+  v20[0] = *MEMORY[0x277CBCFC0];
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
   v6 = [v4 contactForDestinationId:addressCopy keysToFetch:v5];
 
   if (v6)
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     emailAddresses = [v6 emailAddresses];
-    label = [emailAddresses countByEnumeratingWithState:&v16 objects:v20 count:16];
+    label = [emailAddresses countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (label)
     {
-      v9 = *v17;
+      v9 = *v16;
       while (2)
       {
         for (i = 0; i != label; i = i + 1)
         {
-          if (*v17 != v9)
+          if (*v16 != v9)
           {
             objc_enumerationMutation(emailAddresses);
           }
 
-          v11 = *(*(&v16 + 1) + 8 * i);
+          v11 = *(*(&v15 + 1) + 8 * i);
           value = [v11 value];
           v13 = [value isEqualToString:addressCopy];
 
@@ -410,7 +405,7 @@ LABEL_12:
           }
         }
 
-        label = [emailAddresses countByEnumeratingWithState:&v16 objects:v20 count:16];
+        label = [emailAddresses countByEnumeratingWithState:&v15 objects:v19 count:16];
         if (label)
         {
           continue;
@@ -428,14 +423,12 @@ LABEL_12:
     label = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return label;
 }
 
 - (id)personFromRawAddress:(id)address
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   addressCopy = address;
   person = [MEMORY[0x277D47630] person];
   if ([addressCopy length])
@@ -444,8 +437,8 @@ LABEL_12:
     {
       phone = objc_alloc_init(MEMORY[0x277D472D8]);
       [phone setEmailAddress:addressCopy];
-      v10[0] = phone;
-      v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+      v9[0] = phone;
+      v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
       [person setEmails:v6];
     }
 
@@ -453,8 +446,8 @@ LABEL_12:
     {
       phone = [MEMORY[0x277D47640] phone];
       [phone setNumber:addressCopy];
-      v9 = phone;
-      v6 = [MEMORY[0x277CBEA60] arrayWithObjects:&v9 count:1];
+      v8 = phone;
+      v6 = [MEMORY[0x277CBEA60] arrayWithObjects:&v8 count:1];
       [person setPhones:v6];
     }
   }
@@ -465,8 +458,6 @@ LABEL_12:
     v6 = [phone localizedStringForKey:@"UNKNOWN_CALLER" value:&stru_2848D9220 table:@"General"];
     [person setFullName:v6];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return person;
 }
@@ -537,23 +528,8 @@ LABEL_12:
   callerId = [callCopy callerId];
   contactIdentifier = [callCopy contactIdentifier];
 
-  if (!contactIdentifier)
+  if (!contactIdentifier || (+[PHAssistantServices sharedContactStore](PHAssistantServices, "sharedContactStore"), v14 = objc_claimAutoreleasedReturnValue(), [callCopy contactIdentifier], v15 = v8, v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(MEMORY[0x277CFBC48], "descriptorsForRequiredKeys"), v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v14, "contactForIdentifier:keysToFetch:", v16, v17), v18 = objc_claimAutoreleasedReturnValue(), v17, v16, v8 = v15, v14, objc_msgSend(MEMORY[0x277CFBC48], "createSAPersonFromCNContact:", v18), v19 = objc_claimAutoreleasedReturnValue(), v18, !v19))
   {
-    goto LABEL_3;
-  }
-
-  v14 = +[PHAssistantServices sharedContactStore];
-  [callCopy contactIdentifier];
-  v16 = v15 = v8;
-  descriptorsForRequiredKeys = [MEMORY[0x277CFBC48] descriptorsForRequiredKeys];
-  v18 = [v14 contactForIdentifier:v16 keysToFetch:descriptorsForRequiredKeys];
-
-  v8 = v15;
-  v19 = [MEMORY[0x277CFBC48] createSAPersonFromCNContact:v18];
-
-  if (!v19)
-  {
-LABEL_3:
     v19 = [(PHSearchRequest *)self personFromRawAddress:callerId];
   }
 
@@ -600,7 +576,7 @@ LABEL_3:
 
 - (NSSet)specifiedContactIdentifiers
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   specifiedContactIdentifiers = self->_specifiedContactIdentifiers;
   if (!specifiedContactIdentifiers)
   {
@@ -608,26 +584,26 @@ LABEL_3:
     contacts = [(SAPhoneSearch *)self contacts];
     v6 = [v4 setWithCapacity:{objc_msgSend(contacts, "count")}];
 
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     contacts2 = [(SAPhoneSearch *)self contacts];
-    v8 = [contacts2 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v8 = [contacts2 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v22;
+      v10 = *v21;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v22 != v10)
+          if (*v21 != v10)
           {
             objc_enumerationMutation(contacts2);
           }
 
-          v12 = *(*(&v21 + 1) + 8 * i);
+          v12 = *(*(&v20 + 1) + 8 * i);
           identifier = [v12 identifier];
 
           if (identifier)
@@ -639,7 +615,7 @@ LABEL_3:
           }
         }
 
-        v9 = [contacts2 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v9 = [contacts2 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v9);
@@ -652,36 +628,34 @@ LABEL_3:
     specifiedContactIdentifiers = self->_specifiedContactIdentifiers;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-
   return specifiedContactIdentifiers;
 }
 
 - (void)cacheContactsForVoicemails:(id)voicemails
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   descriptorsForRequiredKeys = [MEMORY[0x277CFBC48] descriptorsForRequiredKeys];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   obj = [(PHSearchRequest *)self voicemails];
-  v5 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     do
     {
       v8 = 0;
       do
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * v8);
+        v9 = *(*(&v15 + 1) + 8 * v8);
         v10 = +[PHAssistantServices sharedContactStore];
         v11 = [v9 contactUsingContactStore:v10 withKeysToFetch:descriptorsForRequiredKeys];
         contactsByVoicemailIdentifier = [(PHSearchRequest *)self contactsByVoicemailIdentifier];
@@ -692,13 +666,11 @@ LABEL_3:
       }
 
       while (v6 != v8);
-      v6 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v6);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)voicemailFilterPredicate
@@ -846,22 +818,20 @@ LABEL_28:
 
 LABEL_29:
 
-  v27 = PHDefaultLog();
-  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+  v28 = PHDefaultLog(v27);
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
   {
-    v28 = [array count];
+    v29 = [array count];
     *buf = 134217984;
-    v42 = v28;
-    _os_log_impl(&dword_233521000, v27, OS_LOG_TYPE_DEFAULT, "After filtering, results contains %lu objects.", buf, 0xCu);
+    v42 = v29;
+    _os_log_impl(&dword_233521000, v28, OS_LOG_TYPE_DEFAULT, "After filtering, results contains %lu objects.", buf, 0xCu);
   }
 
   searchCompleted = [MEMORY[0x277D47668] searchCompleted];
   [searchCompleted setPhoneSearchResults:array];
   dictionary = [searchCompleted dictionary];
-  v31 = [dictionary copy];
-  completionCopy[2](completionCopy, v31);
-
-  v32 = *MEMORY[0x277D85DE8];
+  v32 = [dictionary copy];
+  completionCopy[2](completionCopy, v32);
 }
 
 @end

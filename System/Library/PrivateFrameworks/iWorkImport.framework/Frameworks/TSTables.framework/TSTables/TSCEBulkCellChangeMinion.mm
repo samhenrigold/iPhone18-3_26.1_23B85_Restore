@@ -53,14 +53,14 @@
 
 - (void)markCellRefAsDirty:(const TSCECellRef *)dirty
 {
-  v9 = objc_msgSend_calcEngine(self->_formulasToSet, a2, dirty, v3, v4);
-  objc_msgSend_markCellRefAsDirty_(v9, v6, dirty, v7, v8);
+  v7 = objc_msgSend_calcEngine(self->_formulasToSet, a2, dirty, v3);
+  objc_msgSend_markCellRefAsDirty_(v7, v5, dirty, v6);
 }
 
 - (void)markRangeRefAsDirty:(const TSCERangeRef *)dirty
 {
-  v9 = objc_msgSend_calcEngine(self->_formulasToSet, a2, dirty, v3, v4);
-  objc_msgSend_markRangeRefAsDirty_(v9, v6, dirty, v7, v8);
+  v7 = objc_msgSend_calcEngine(self->_formulasToSet, a2, dirty, v3);
+  objc_msgSend_markRangeRefAsDirty_(v7, v5, dirty, v6);
 }
 
 @end

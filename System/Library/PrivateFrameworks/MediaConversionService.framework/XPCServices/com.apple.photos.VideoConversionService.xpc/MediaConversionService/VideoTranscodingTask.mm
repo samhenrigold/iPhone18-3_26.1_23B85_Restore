@@ -51,7 +51,7 @@
     [*&v6 naturalSize];
     v11 = v13;
     v10 = v14;
-    [*&v6 preferredTransform];
+    objc_msgSend_preferredTransform(*&v6);
     width = v10 * *&buf[16] + *buf * v11;
     height = v10 * v43 + *&buf[8] * v11;
 LABEL_8:
@@ -274,7 +274,7 @@ LABEL_19:
     v5 = asset2;
     if (asset2)
     {
-      [asset2 duration];
+      objc_msgSend_duration(asset2);
     }
 
     else

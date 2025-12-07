@@ -1,27 +1,27 @@
 void sub_EE0(uint64_t a1, uint64_t a2, int a3)
 {
-  v31 = (*(qword_28A18 + 16))();
-  sub_1224("+ IOVoiceTriggerServiceInterestHandler(inMessageType: 0x%x)\n", v5, v6, v7, v8, v9, v10, v11, a3);
+  v9 = (*(qword_28A18[0] + 16))();
+  sub_1224("+ IOVoiceTriggerServiceInterestHandler(inMessageType: 0x%x)\n", a3);
   if ((a2 - 1) <= 0xFFFFFFFD)
   {
-    v19 = +[AppleAOPAudioPlugin sharedPlugin];
-    v20 = [v19 getDeviceFromIOObject:a2];
-    v21 = v20;
-    if (a3 == -469794559 && v20)
+    v5 = +[AppleAOPAudioPlugin sharedPlugin];
+    v6 = [v5 getDeviceFromIOObject:a2];
+    v7 = v6;
+    if (a3 == -469794559 && v6)
     {
-      v22 = clock();
-      sub_1FF8("voice trigger event #%d.\n", v23, v24, v25, v26, v27, v28, v29, ++dword_28A78);
-      v33 = 0;
-      v32 = *"otvabolg";
-      [v21 setLastVoiceTrigEventTime:v22];
-      [v19 changedProperty:&v32 forObject:v21];
+      v8 = clock();
+      sub_1FF8("voice trigger event #%d.\n", ++dword_28A78);
+      v11 = 0;
+      v10 = *"otvabolg";
+      [v7 setLastVoiceTrigEventTime:v8];
+      [v5 changedProperty:&v10 forObject:v7];
     }
   }
 
-  sub_1224("- IOVoiceTriggerServiceInterestHandler()\n", v12, v13, v14, v15, v16, v17, v18, v30);
-  if (v31 == 1)
+  sub_1224("- IOVoiceTriggerServiceInterestHandler()\n");
+  if (v9 == 1)
   {
-    (*(qword_28A18 + 24))(&qword_28A18);
+    (*(qword_28A18[0] + 24))(qword_28A18);
   }
 }
 
@@ -50,6 +50,20 @@ BOOL CADeprecated::CAMutex::Lock(CADeprecated::CAMutex *this)
   }
 
   return v3 == 0;
+}
+
+void sub_11E8(BorealisOwlLog *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+{
+  va_start(va, a8);
+  BorealisOwlLog::GetInstance(a1);
+  BorealisOwlLog::VLog(&dword_4, "+-IOKitObject::%s(type 0x%x) <mConnection: %u>\n", va, v8);
+}
+
+void sub_1224(BorealisOwlLog *a1, ...)
+{
+  va_start(va, a1);
+  BorealisOwlLog::GetInstance(a1);
+  BorealisOwlLog::VLog(&dword_4, a1, va, v2);
 }
 
 void BorealisOwlLog::VLog(BorealisOwlLog *this, char *__format, va_list a3, char *a4)
@@ -96,38 +110,38 @@ void CADeprecated::CAMutex::Unlock(CADeprecated::CAMutex *this)
 
 void sub_14AC(uint64_t a1, uint64_t a2, int a3)
 {
-  v5 = (*(qword_28A18 + 16))(&qword_28A18);
-  sub_1224("+ %s(message type: 0x%x)\n", v6, v7, v8, v9, v10, v11, v12, "IOAudioServiceInterestHandler");
+  v5 = (*(qword_28A18[0] + 16))(qword_28A18);
+  sub_1224("+ %s(message type: 0x%x)\n", "IOAudioServiceInterestHandler", a3);
   if ((a2 - 1) <= 0xFFFFFFFD)
   {
-    v20 = +[AppleAOPAudioPlugin sharedPlugin];
-    v28 = [v20 getDeviceFromIOObject:a2];
-    if (v28)
+    v6 = +[AppleAOPAudioPlugin sharedPlugin];
+    v7 = [v6 getDeviceFromIOObject:a2];
+    if (v7)
     {
       if (a3 == -536870896)
       {
-        sub_1224(" %s() device is dead, removing it.\n", v21, v22, v23, v24, v25, v26, v27, "IOAudioServiceInterestHandler");
-        [v20 removeIODevice:v28];
-        [v28 deactivate];
+        sub_1224(" %s() device is dead, removing it.\n", "IOAudioServiceInterestHandler");
+        [v6 removeIODevice:v7];
+        [v7 deactivate];
       }
 
       else if (a3 == -536870608)
       {
-        sub_1224(" %s() device property change.\n", v21, v22, v23, v24, v25, v26, v27, "IOAudioServiceInterestHandler");
+        sub_1224(" %s() device property change.\n", "IOAudioServiceInterestHandler");
       }
     }
   }
 
-  sub_1224("- %s()\n", v13, v14, v15, v16, v17, v18, v19, "IOAudioServiceInterestHandler");
+  sub_1224("- %s()\n", "IOAudioServiceInterestHandler");
   if (v5)
   {
-    (*(qword_28A18 + 24))(&qword_28A18);
+    (*(qword_28A18[0] + 24))(qword_28A18);
   }
 }
 
-void sub_1674(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1674(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_B96C(va);
   _Unwind_Resume(a1);
 }
@@ -138,10 +152,10 @@ uint64_t AOPAudioDeviceHWManager::HW_IsVoiceTriggerSupported(AOPAudioDeviceHWMan
   if (v1)
   {
     Object = BorealisOwl_IOKitObject::GetObject(v1);
-    v14 = 0;
-    if ((BorealisOwl_IOKitObject::CopyProperty_BOOL(Object, @"voice trigger supported", &v14, v3) & 1) == 0)
+    v7 = 0;
+    if ((BorealisOwl_IOKitObject::CopyProperty_BOOL(Object, @"voice trigger supported", &v7, v3) & 1) == 0)
     {
-      sub_8C70("exception thrown in BorealisOwlDevice::%s:%d : %s\n\n\n", v4, v5, v6, v7, v8, v9, v10, "HW_IsVoiceTriggerSupported");
+      sub_8C70("exception thrown in BorealisOwlDevice::%s:%d : %s\n\n\n", "HW_IsVoiceTriggerSupported", 463, "AOPAudioDeviceHWManager::HW_IsVoiceTriggerSupported() failed to get registry key");
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
         sub_1920C();
@@ -152,15 +166,15 @@ uint64_t AOPAudioDeviceHWManager::HW_IsVoiceTriggerSupported(AOPAudioDeviceHWMan
       exception[2] = 1852797029;
     }
 
-    v11 = v14;
+    v4 = v7;
   }
 
   else
   {
-    v11 = 0;
+    v4 = 0;
   }
 
-  return v11 & 1;
+  return v4 & 1;
 }
 
 uint64_t BorealisOwl_IOKitObject::CopyProperty_BOOL(BorealisOwl_IOKitObject *this, const __CFString *a2, const __CFString *a3, BOOL *a4)
@@ -201,9 +215,9 @@ LABEL_9:
   return 0;
 }
 
-void sub_185C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_185C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_1870(va);
   _Unwind_Resume(a1);
 }
@@ -269,12 +283,12 @@ LABEL_10:
   return v4;
 }
 
-void sub_1A54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1A54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va1, a5);
-  va_start(va, a5);
-  v6 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v10 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
   sub_1F78(va);
   sub_1F78(va1);
   _Unwind_Resume(a1);
@@ -299,14 +313,13 @@ BorealisOwl_IOKitObject *AOPAudioDeviceHWManager::_HW_VoiceTriggerSetControlValu
   result = *(this + 6);
   if (result)
   {
-    v4 = a2;
-    v20[0] = a2;
-    v20[1] = a3;
-    result = BorealisOwl_IOKitObject::CallMethod(result, 3u, v20, 2u, 0, 0, 0, 0, 0, 0);
+    v7[0] = a2;
+    v7[1] = a3;
+    result = BorealisOwl_IOKitObject::CallMethod(result, 3u, v7, 2u, 0, 0, 0, 0, 0, 0);
     if (result)
     {
-      sub_8C70("_HW_VoiceTriggerSetControlValue(0x%x, 0x%x) failed, status: 0x%x\n", v5, v6, v7, v8, v9, v10, v11, v4);
-      sub_8C70("exception thrown in BorealisOwlDevice::%s:%d : %s\n\n\n", v12, v13, v14, v15, v16, v17, v18, "_HW_VoiceTriggerSetControlValue");
+      sub_8C70("_HW_VoiceTriggerSetControlValue(0x%x, 0x%x) failed, status: 0x%x\n", a2, a3, result);
+      sub_8C70("exception thrown in BorealisOwlDevice::%s:%d : %s\n\n\n", "_HW_VoiceTriggerSetControlValue", 304, "AOPAudioDeviceHWManager::_HW_VoiceTriggerSetControlValue: user client method failed");
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
         sub_190E8();
@@ -525,18 +538,25 @@ uint64_t sub_1FB8(uint64_t a1)
   return a1;
 }
 
+void sub_1FF8(BorealisOwlLog *a1, ...)
+{
+  va_start(va, a1);
+  BorealisOwlLog::GetInstance(a1);
+  BorealisOwlLog::VLog((&dword_0 + 3), a1, va, v2);
+}
+
 BorealisOwl_IOKitObject *AOPAudioDeviceHWManager::_HW_VoiceTriggerGetControlValue(AOPAudioDeviceHWManager *this, unint64_t *a2, unint64_t *a3)
 {
   *a3 = 0;
-  v20 = 1;
+  v6 = 1;
   result = *(this + 6);
   if (result)
   {
-    result = BorealisOwl_IOKitObject::CallMethod(result, 2u, a2, 1u, 0, 0, a3, &v20, 0, 0);
+    result = BorealisOwl_IOKitObject::CallMethod(result, 2u, a2, 1u, 0, 0, a3, &v6, 0, 0);
     if (result)
     {
-      sub_8C70("DeviceHWManager::_HW_VoiceTriggerGetControlValue(inControlID: %llu) failing\n", v5, v6, v7, v8, v9, v10, v11, *a2);
-      sub_8C70("exception thrown in BorealisOwlDevice::%s:%d : %s\n\n\n", v12, v13, v14, v15, v16, v17, v18, "_HW_VoiceTriggerGetControlValue");
+      sub_8C70("DeviceHWManager::_HW_VoiceTriggerGetControlValue(inControlID: %llu) failing\n", *a2);
+      sub_8C70("exception thrown in BorealisOwlDevice::%s:%d : %s\n\n\n", "_HW_VoiceTriggerGetControlValue", 416, "AOPAudioDeviceHWManager::_HW_VoiceTriggerGetControlValue: user client method failed");
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
         sub_19078();
@@ -573,11 +593,11 @@ uint64_t AOPAudioDeviceHWManager::HW_VoiceTriggerGetControlValue(AOPAudioDeviceH
 
 uint64_t AOPAudioDeviceHWManager::HW_DisableListening(AOPAudioDeviceHWManager *this)
 {
-  *v11 = xmmword_1CF90;
-  result = BorealisOwl_IOKitObject::CallMethod((this + 8), 5u, v11, 2u, 0, 0, 0, 0, 0, 0);
+  *v3 = xmmword_1CF90;
+  result = BorealisOwl_IOKitObject::CallMethod((this + 8), 5u, v3, 2u, 0, 0, 0, 0, 0, 0);
   if (result)
   {
-    sub_8C70("AOPAudioDeviceHWManager::HW_DisableListening: user client method failed", v2, v3, v4, v5, v6, v7, v8, outputStruct);
+    sub_8C70("AOPAudioDeviceHWManager::HW_DisableListening: user client method failed");
     exception = __cxa_allocate_exception(0x10uLL);
     *exception = off_24B48;
     exception[2] = 1852797029;
@@ -612,9 +632,9 @@ BOOL BorealisOwl_IOKitObject::CopyProperty_UInt64(BorealisOwl_IOKitObject *this,
   return v9;
 }
 
-void sub_2318(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2318(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_1870(va);
   _Unwind_Resume(a1);
 }
@@ -622,10 +642,10 @@ void sub_2318(_Unwind_Exception *a1, uint64_t a2, ...)
 uint64_t AOPAudioDeviceHWManager::HW_GetDeviceInputLatencyFrames(AOPAudioDeviceHWManager *this)
 {
   Object = BorealisOwl_IOKitObject::GetObject((this + 8));
-  v12 = 0;
-  if (!BorealisOwl_IOKitObject::CopyProperty_UInt64(Object, @"device input latency in frames", &v12, v2))
+  v5 = 0;
+  if (!BorealisOwl_IOKitObject::CopyProperty_UInt64(Object, @"device input latency in frames", &v5, v2))
   {
-    sub_8C70("exception thrown in BorealisOwlDevice::%s:%d : %s\n\n\n", v3, v4, v5, v6, v7, v8, v9, "HW_GetDeviceInputLatencyFrames");
+    sub_8C70("exception thrown in BorealisOwlDevice::%s:%d : %s\n\n\n", "HW_GetDeviceInputLatencyFrames", 601, "AOPAudioDeviceHWManager::HW_GetDeviceInputLatencyFrames() failed to get registry key");
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
       sub_195FC();
@@ -636,7 +656,7 @@ uint64_t AOPAudioDeviceHWManager::HW_GetDeviceInputLatencyFrames(AOPAudioDeviceH
     exception[2] = 1852797029;
   }
 
-  return v12;
+  return v5;
 }
 
 uint64_t sub_2440(uint64_t a1, double *a2, unint64_t *a3, void *a4)
@@ -676,9 +696,9 @@ uint64_t sub_2440(uint64_t a1, double *a2, unint64_t *a3, void *a4)
   return 0;
 }
 
-void sub_2560(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_2560(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   sub_B96C(va);
   _Unwind_Resume(a1);
 }
@@ -774,7 +794,7 @@ uint64_t AOPAudioDeviceHWManager::HW_StartIO(AOPAudioDeviceHWManager *this)
   result = BorealisOwl_IOKitObject::CallMethod((this + 8), 2u, 0, 0, 0, 0, 0, 0, 0, 0);
   if (result)
   {
-    sub_8C70("exception thrown in BorealisOwlDevice::%s:%d : %s\n\n\n", v2, v3, v4, v5, v6, v7, v8, "HW_StartIO");
+    sub_8C70("exception thrown in BorealisOwlDevice::%s:%d : %s\n\n\n", "HW_StartIO", 176, "AOPAudioDeviceHWManager::HW_StartIO: user client method failed");
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
       sub_18F98();
@@ -820,10 +840,10 @@ void ReadInputData(unsigned int a1, char *a2, char a3, unsigned int a4, unsigned
 
   v21 = *a9;
   v22 = (*(*v21 + 16))(v21);
-  v30 = v22;
+  v23 = v22;
   if (!a1)
   {
-    sub_8C70("ReadInputData() IOBufferFrameSize == 0 \n", v23, v24, v25, v26, v27, v28, v29, v62);
+    sub_8C70("ReadInputData() IOBufferFrameSize == 0 \n");
     if (a3)
     {
       goto LABEL_15;
@@ -834,83 +854,84 @@ void ReadInputData(unsigned int a1, char *a2, char a3, unsigned int a4, unsigned
 
   if (a2)
   {
-    v67 = *a8;
-    v31 = *(*a8 + 64) / a4;
-    v65 = a5;
-    v66 = v22;
-    if (v31 >= a1)
+    v48 = *a8;
+    v24 = *(*a8 + 64);
+    v25 = v24 / a4;
+    v46 = a5;
+    v47 = v22;
+    if (v25 >= a1)
     {
       if (a1 > 0x1000 && (a3 & 1) == 0)
       {
-        sub_8C70("ReadInputData() requested frames (%d) is very large...continuing\n", v23, v24, v25, v26, v27, v28, v29, a1);
+        sub_8C70("ReadInputData() requested frames (%d) is very large...continuing\n", a1);
       }
     }
 
     else
     {
-      sub_8C70("ReadInputData() requested frames (%d) exceeds max (%d), truncating...\n", v23, v24, v25, v26, v27, v28, v29, a1);
-      a1 = v31;
+      sub_8C70("ReadInputData() requested frames (%d) exceeds max (%d), truncating...\n", a1, v24 / a4);
+      a1 = v25;
     }
 
-    v64 = a1 * a4;
+    v45 = a4;
+    v44 = a1 * a4;
     bzero(a2, a1 * a4);
-    v32 = a6;
-    v33 = *a8;
-    v71 = *(*a8 + 152);
-    v70 = *(*a8 + 160);
-    v69 = *(*a8 + 168);
-    v68 = *(*a8 + 176);
-    if (v69)
+    v26 = a6;
+    v27 = *a8;
+    v50 = *(*a8 + 152);
+    v49 = *(*a8 + 168);
+    if (v49)
     {
-      LODWORD(v34) = v69 - v71;
-      if (v31 >= v69 - v71)
+      LODWORD(v28) = v49 - v50;
+      if (v25 >= v49 - v50)
       {
-        v34 = v34;
+        v28 = v28;
       }
 
       else
       {
-        v34 = v31;
+        v28 = v25;
       }
 
-      v63 = v34;
-      v35 = sub_3038(v33 + 312, a1 + v32, v69 + *(v67 + 72) + *(v67 + 68));
-      v43 = (v33 + 296);
-      if (v35)
+      v43 = v28;
+      v29 = v49 + *(v48 + 72) + *(v48 + 68);
+      v30 = sub_3038(v27 + 312, a1 + v26, v29);
+      v31 = (v27 + 296);
+      if (v30)
       {
-        *v43 = vaddq_s64(*v43, vdupq_n_s64(1uLL));
-      }
-
-      else
-      {
-        ++v43->i64[0];
-        sub_8C70("ReadInputData() Out of Bounds, read @ (%lld) > (%lld) \n", v36, v37, v38, v39, v40, v41, v42, a1 + v32);
-      }
-
-      v44 = *a8;
-      v45 = sub_3038(*a8 + 360, a6, v69 - v63);
-      v53 = (v44 + 344);
-      if (v45)
-      {
-        *v53 = vaddq_s64(*v53, vdupq_n_s64(1uLL));
+        *v31 = vaddq_s64(*v31, vdupq_n_s64(1uLL));
       }
 
       else
       {
-        ++v53->i64[0];
-        sub_8C70("ReadInputData() Out of Bounds, read @ (%lld) < (%lld) \n", v46, v47, v48, v49, v50, v51, v52, a6);
+        ++v31->i64[0];
+        sub_8C70("ReadInputData() Out of Bounds, read @ (%lld) > (%lld) \n", a1 + v26, v29);
+      }
+
+      v32 = *a8;
+      v33 = sub_3038(*a8 + 360, a6, v49 - v43);
+      v34 = (v32 + 344);
+      if (v33)
+      {
+        *v34 = vaddq_s64(*v34, vdupq_n_s64(1uLL));
+      }
+
+      else
+      {
+        ++v34->i64[0];
+        sub_8C70("ReadInputData() Out of Bounds, read @ (%lld) < (%lld) \n", a6, v49 - v43);
       }
     }
 
-    v54 = (v31 & ((v32 % v31) >> 63)) + v32 % v31;
-    if (v54 + a1 <= v31)
+    v35 = (v25 & ((v26 % v25) >> 63)) + v26 % v25;
+    if (v35 + a1 <= v25)
     {
-      v55 = 0;
+      v36 = 0;
     }
 
     else
     {
-      v55 = a1 - (v31 - v54);
+      v36 = a1 - (v25 - v35);
     }
 
     if (a10)
@@ -918,55 +939,55 @@ void ReadInputData(unsigned int a1, char *a2, char a3, unsigned int a4, unsigned
       goto LABEL_40;
     }
 
-    if (v54 + a1 <= v31)
+    if (v35 + a1 <= v25)
     {
-      v56 = a1;
+      v37 = a1;
     }
 
     else
     {
-      v56 = v31 - v54;
+      v37 = v25 - v35;
     }
 
-    v57 = v56 * a4;
-    memcpy(a2, (*(v67 + 56) + v54 * a4), v57);
-    if (v55)
+    v38 = v37 * v45;
+    memcpy(a2, (*(v48 + 56) + v35 * v45), v38);
+    if (v36)
     {
-      memcpy(&a2[v57], *(v67 + 56), v55 * a4);
+      memcpy(&a2[v38], *(v48 + 56), v36 * v45);
     }
 
-    if (v64 < v65)
+    if (v44 < v46)
     {
 LABEL_40:
-      v58 = 0;
+      v39 = 0;
     }
 
     else
     {
-      v59 = 0;
-      v60 = 0;
+      v40 = 0;
+      v41 = 0;
       do
       {
-        v60 ^= *&a2[2 * v59++];
+        v41 ^= *&a2[2 * v40++];
       }
 
-      while (v59 < v64 / v65);
-      v58 = v60;
+      while (v40 < v44 / v46);
+      v39 = v41;
     }
 
-    v61 = *a8;
-    if (sub_30B8(*a8 + 264, v58))
+    v42 = *a8;
+    if (sub_30B8(*a8 + 264, v39))
     {
-      ++*(v61 + 256);
+      ++*(v42 + 256);
     }
 
-    ++*(v61 + 248);
+    ++*(v42 + 248);
     if ((a3 & 1) == 0)
     {
       kdebug_trace();
     }
 
-    if (v66)
+    if (v47)
     {
       goto LABEL_49;
     }
@@ -974,7 +995,7 @@ LABEL_40:
     return;
   }
 
-  sub_8C70("ReadInputData() outBuffer == NULL \n", v23, v24, v25, v26, v27, v28, v29, v62);
+  sub_8C70("ReadInputData() outBuffer == NULL \n");
   if ((a3 & 1) == 0)
   {
 LABEL_14:
@@ -982,16 +1003,16 @@ LABEL_14:
   }
 
 LABEL_15:
-  if (v30)
+  if (v23)
   {
 LABEL_49:
     (*(*v21 + 24))(v21);
   }
 }
 
-void sub_2FC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_2FC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   sub_B96C(va);
   _Unwind_Resume(a1);
 }
@@ -1021,9 +1042,9 @@ uint64_t sub_30B8(uint64_t a1, uint64_t a2)
   return (*(*v2 + 48))(v2, &v4);
 }
 
-void sub_33CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_33CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   sub_B96C(va);
   _Unwind_Resume(a1);
 }
@@ -1033,7 +1054,7 @@ uint64_t AOPAudioDeviceHWManager::HW_StopIO(AOPAudioDeviceHWManager *this)
   result = BorealisOwl_IOKitObject::CallMethod((this + 8), 3u, 0, 0, 0, 0, 0, 0, 0, 0);
   if (result)
   {
-    sub_8C70("exception thrown in BorealisOwlDevice::%s:%d : %s\n\n\n", v2, v3, v4, v5, v6, v7, v8, "HW_StopIO");
+    sub_8C70("exception thrown in BorealisOwlDevice::%s:%d : %s\n\n\n", "HW_StopIO", 184, "AOPAudioDeviceHWManager::HW_StopIO: user client method failed");
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
       sub_19008();
@@ -1050,19 +1071,19 @@ uint64_t AOPAudioDeviceHWManager::HW_StopIO(AOPAudioDeviceHWManager *this)
 uint64_t AOPAudioDeviceHWManager::HW_GetClockDomain(AOPAudioDeviceHWManager *this)
 {
   Object = BorealisOwl_IOKitObject::GetObject((this + 8));
-  v11 = 0;
-  if (BorealisOwl_IOKitObject::CopyProperty_UInt64(Object, @"input clock domain", &v11, v2))
+  v4 = 0;
+  if (BorealisOwl_IOKitObject::CopyProperty_UInt64(Object, @"input clock domain", &v4, v2))
   {
-    return v11;
+    return v4;
   }
 
-  sub_8C70("AOPAudioDeviceHWManager::HW_GetClockDomain() failed to get registry key '%s' (error: 0x%x), assuming clock domain private(0)\n", v3, v4, v5, v6, v7, v8, v9, "input clock domain");
+  sub_8C70("AOPAudioDeviceHWManager::HW_GetClockDomain() failed to get registry key '%s' (error: 0x%x), assuming clock domain private(0)\n", "input clock domain", 1852797029);
   return 0;
 }
 
-void AOPAudioDeviceHWManager::HW_SetVoiceTriggerConfiguration(AOPAudioDeviceHWManager *this, const __CFDictionary *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void AOPAudioDeviceHWManager::HW_SetVoiceTriggerConfiguration(AOPAudioDeviceHWManager *this, const __CFDictionary *a2)
 {
-  sub_1224("+-DeviceHWManager::HW_SetVoiceTriggerConfiguration(theConfigDictionary: %p)\n", a2, a3, a4, a5, a6, a7, a8, a2);
+  sub_1224("+-DeviceHWManager::HW_SetVoiceTriggerConfiguration(theConfigDictionary: %p)\n", a2);
   if (!*(this + 6))
   {
     return;
@@ -1092,8 +1113,8 @@ void AOPAudioDeviceHWManager::HW_SetVoiceTriggerConfiguration(AOPAudioDeviceHWMa
   Value = CFDictionaryGetValue(a2, @"CorealisRTModelVersion");
   if (Value)
   {
-    v12 = CFStringGetTypeID();
-    if (v12 == CFGetTypeID(Value))
+    v6 = CFStringGetTypeID();
+    if (v6 == CFGetTypeID(Value))
     {
       Value = CFStringGetCStringPtr(Value, 0x600u);
     }
@@ -1104,8 +1125,8 @@ void AOPAudioDeviceHWManager::HW_SetVoiceTriggerConfiguration(AOPAudioDeviceHWMa
     }
   }
 
-  v13 = CFDictionaryGetValue(a2, @"CorealisRTModel");
-  if (!v13)
+  v7 = CFDictionaryGetValue(a2, @"CorealisRTModel");
+  if (!v7)
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
@@ -1115,9 +1136,9 @@ void AOPAudioDeviceHWManager::HW_SetVoiceTriggerConfiguration(AOPAudioDeviceHWMa
     goto LABEL_27;
   }
 
-  v14 = v13;
-  v15 = CFDataGetTypeID();
-  if (v15 != CFGetTypeID(v14))
+  v8 = v7;
+  v9 = CFDataGetTypeID();
+  if (v9 != CFGetTypeID(v8))
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
@@ -1127,22 +1148,22 @@ void AOPAudioDeviceHWManager::HW_SetVoiceTriggerConfiguration(AOPAudioDeviceHWMa
 LABEL_27:
     exception = __cxa_allocate_exception(0x10uLL);
     *exception = off_24B48;
-    v41 = 560947818;
+    v21 = 560947818;
     goto LABEL_28;
   }
 
-  v23 = "<unknown>";
+  v10 = "<unknown>";
   if (Value)
   {
-    LOBYTE(v23) = Value;
+    v10 = Value;
   }
 
-  sub_1FF8("AOP Audio updating voice trigger configuration to '%s'\n", v16, v17, v18, v19, v20, v21, v22, v23);
+  sub_1FF8("AOP Audio updating voice trigger configuration to '%s'\n", v10);
   IsConnectionOpen = BorealisOwl_IOKitObject::IsConnectionOpen(*(this + 6));
-  v31 = *(this + 6);
+  v18 = *(this + 6);
   if (IsConnectionOpen)
   {
-    if (!BorealisOwl_IOKitObject::SetConnectionProperty(v31, @"kPropertyConfiguration", a2))
+    if (!BorealisOwl_IOKitObject::SetConnectionProperty(v18, @"kPropertyConfiguration", a2))
     {
       return;
     }
@@ -1150,11 +1171,11 @@ LABEL_27:
     goto LABEL_29;
   }
 
-  BorealisOwl_IOKitObject::OpenConnection(v31, 0, v24, v25, v26, v27, v28, v29);
+  BorealisOwl_IOKitObject::OpenConnection(v18, 0, v11, v12, v13, v14, v15, v16);
   if (BorealisOwl_IOKitObject::SetConnectionProperty(*(this + 6), @"kPropertyConfiguration", a2))
   {
 LABEL_29:
-    sub_8C70("exception thrown in BorealisOwlDevice::%s:%d : %s\n\n\n", v32, v33, v34, v35, v36, v37, v38, "HW_SetVoiceTriggerConfiguration");
+    sub_8C70("exception thrown in BorealisOwlDevice::%s:%d : %s\n\n\n", "HW_SetVoiceTriggerConfiguration", 676, "AOPAudioDeviceHWManager::HW_SetVoiceTriggerConfiguration() failed to set connection property");
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
       sub_197D4();
@@ -1162,20 +1183,19 @@ LABEL_29:
 
     exception = __cxa_allocate_exception(0x10uLL);
     *exception = off_24B48;
-    v41 = 1852797029;
+    v21 = 1852797029;
 LABEL_28:
-    exception[2] = v41;
+    exception[2] = v21;
   }
 
-  v39 = *(this + 6);
+  v19 = *(this + 6);
 
-  BorealisOwl_IOKitObject::CloseConnection(v39);
+  BorealisOwl_IOKitObject::CloseConnection(v19);
 }
 
-void AOPAudioDeviceHWManager::HW_UpdateRingBufferDescription(AOPAudioDeviceHWManager *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void AOPAudioDeviceHWManager::HW_UpdateRingBufferDescription(AOPAudioDeviceHWManager *this)
 {
-  v17 = *(this + 7);
-  sub_1224("+-DeviceHWManager::_HW_UpdateRingBufferDescription() {%p, %p}\n", a2, a3, a4, a5, a6, a7, a8, *(this + 10));
+  sub_1224("+-DeviceHWManager::_HW_UpdateRingBufferDescription() {%p, %p}\n", *(this + 10), *(this + 7));
   if (!*(this + 10) || !*(this + 7))
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
@@ -1189,18 +1209,18 @@ void AOPAudioDeviceHWManager::HW_UpdateRingBufferDescription(AOPAudioDeviceHWMan
   }
 
   *(this + 18) = AOPAudioDeviceHWManager::HW_GetZeroTimeStampWrapFrames(this);
-  *(this + 17) = AOPAudioDeviceHWManager::HW_GetSafetyOffsetFrames(this);
-  v18 = *(this + 18);
-  sub_1FF8("RingBufferDescription {size %dB, zeroTSWrap: %d frames, safety offset %d frames}\n", v9, v10, v11, v12, v13, v14, v15, *(this + 16));
+  SafetyOffsetFrames = AOPAudioDeviceHWManager::HW_GetSafetyOffsetFrames(this);
+  *(this + 17) = SafetyOffsetFrames;
+  sub_1FF8("RingBufferDescription {size %dB, zeroTSWrap: %d frames, safety offset %d frames}\n", *(this + 16), *(this + 18), SafetyOffsetFrames);
 }
 
 uint64_t AOPAudioDeviceHWManager::HW_GetZeroTimeStampWrapFrames(AOPAudioDeviceHWManager *this)
 {
   Object = BorealisOwl_IOKitObject::GetObject((this + 8));
-  v12 = 0;
-  if (!BorealisOwl_IOKitObject::CopyProperty_UInt64(Object, @"zero timestamp wrap frames", &v12, v2))
+  v5 = 0;
+  if (!BorealisOwl_IOKitObject::CopyProperty_UInt64(Object, @"zero timestamp wrap frames", &v5, v2))
   {
-    sub_8C70("exception thrown in BorealisOwlDevice::%s:%d : %s\n\n\n", v3, v4, v5, v6, v7, v8, v9, "HW_GetZeroTimeStampWrapFrames");
+    sub_8C70("exception thrown in BorealisOwlDevice::%s:%d : %s\n\n\n", "HW_GetZeroTimeStampWrapFrames", 558, "AOPAudioDeviceHWManager::HW_GetZeroTimeStampWrapFrames() failed to get registry key");
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
       sub_1951C();
@@ -1211,16 +1231,16 @@ uint64_t AOPAudioDeviceHWManager::HW_GetZeroTimeStampWrapFrames(AOPAudioDeviceHW
     exception[2] = 1852797029;
   }
 
-  return v12;
+  return v5;
 }
 
 uint64_t AOPAudioDeviceHWManager::HW_GetSafetyOffsetFrames(AOPAudioDeviceHWManager *this)
 {
   Object = BorealisOwl_IOKitObject::GetObject((this + 8));
-  v12 = 0;
-  if (!BorealisOwl_IOKitObject::CopyProperty_UInt64(Object, @"driver safety offset in frames", &v12, v2))
+  v5 = 0;
+  if (!BorealisOwl_IOKitObject::CopyProperty_UInt64(Object, @"driver safety offset in frames", &v5, v2))
   {
-    sub_8C70("exception thrown in BorealisOwlDevice::%s:%d : %s\n\n\n", v3, v4, v5, v6, v7, v8, v9, "HW_GetSafetyOffsetFrames");
+    sub_8C70("exception thrown in BorealisOwlDevice::%s:%d : %s\n\n\n", "HW_GetSafetyOffsetFrames", 571, "AOPAudioDeviceHWManager::HW_GetSafetyOffsetFrames() failed to get registry key");
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
       sub_1958C();
@@ -1231,16 +1251,16 @@ uint64_t AOPAudioDeviceHWManager::HW_GetSafetyOffsetFrames(AOPAudioDeviceHWManag
     exception[2] = 1852797029;
   }
 
-  return v12;
+  return v5;
 }
 
 uint64_t AOPAudioDeviceHWManager::HW_GetBytesPerSample(AOPAudioDeviceHWManager *this)
 {
   Object = BorealisOwl_IOKitObject::GetObject((this + 8));
-  v12 = 0;
-  if (!BorealisOwl_IOKitObject::CopyProperty_UInt64(Object, @"bytes per sample", &v12, v2))
+  v5 = 0;
+  if (!BorealisOwl_IOKitObject::CopyProperty_UInt64(Object, @"bytes per sample", &v5, v2))
   {
-    sub_8C70("exception thrown in BorealisOwlDevice::%s:%d : %s\n\n\n", v3, v4, v5, v6, v7, v8, v9, "HW_GetBytesPerSample");
+    sub_8C70("exception thrown in BorealisOwlDevice::%s:%d : %s\n\n\n", "HW_GetBytesPerSample", 506, "AOPAudioDeviceHWManager::HW_GetBytesPerSample() failed to get registry key");
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
       sub_1935C();
@@ -1251,16 +1271,16 @@ uint64_t AOPAudioDeviceHWManager::HW_GetBytesPerSample(AOPAudioDeviceHWManager *
     exception[2] = 1852797029;
   }
 
-  return v12;
+  return v5;
 }
 
 uint64_t AOPAudioDeviceHWManager::HW_GetChannelsPerFrame(AOPAudioDeviceHWManager *this)
 {
   Object = BorealisOwl_IOKitObject::GetObject((this + 8));
-  v12 = 0;
-  if (!BorealisOwl_IOKitObject::CopyProperty_UInt64(Object, @"channels per frame", &v12, v2))
+  v5 = 0;
+  if (!BorealisOwl_IOKitObject::CopyProperty_UInt64(Object, @"channels per frame", &v5, v2))
   {
-    sub_8C70("exception thrown in BorealisOwlDevice::%s:%d : %s\n\n\n", v3, v4, v5, v6, v7, v8, v9, "HW_GetChannelsPerFrame");
+    sub_8C70("exception thrown in BorealisOwlDevice::%s:%d : %s\n\n\n", "HW_GetChannelsPerFrame", 519, "AOPAudioDeviceHWManager::HW_GetChannelsPerFrame() failed to get registry key");
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
       sub_193CC();
@@ -1271,16 +1291,16 @@ uint64_t AOPAudioDeviceHWManager::HW_GetChannelsPerFrame(AOPAudioDeviceHWManager
     exception[2] = 1852797029;
   }
 
-  return v12;
+  return v5;
 }
 
 uint64_t AOPAudioDeviceHWManager::HW_GetFramesPerPacket(AOPAudioDeviceHWManager *this)
 {
   Object = BorealisOwl_IOKitObject::GetObject((this + 8));
-  v12 = 0;
-  if (!BorealisOwl_IOKitObject::CopyProperty_UInt64(Object, @"frames per packet", &v12, v2))
+  v5 = 0;
+  if (!BorealisOwl_IOKitObject::CopyProperty_UInt64(Object, @"frames per packet", &v5, v2))
   {
-    sub_8C70("exception thrown in BorealisOwlDevice::%s:%d : %s\n\n\n", v3, v4, v5, v6, v7, v8, v9, "HW_GetFramesPerPacket");
+    sub_8C70("exception thrown in BorealisOwlDevice::%s:%d : %s\n\n\n", "HW_GetFramesPerPacket", 532, "AOPAudioDeviceHWManager::HW_GetFramesPerPacket() failed to get registry key");
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
       sub_1943C();
@@ -1291,16 +1311,16 @@ uint64_t AOPAudioDeviceHWManager::HW_GetFramesPerPacket(AOPAudioDeviceHWManager 
     exception[2] = 1852797029;
   }
 
-  return v12;
+  return v5;
 }
 
 uint64_t AOPAudioDeviceHWManager::HW_GetInputSamplesPerSec(AOPAudioDeviceHWManager *this)
 {
   Object = BorealisOwl_IOKitObject::GetObject((this + 8));
-  v12 = 0;
-  if (!BorealisOwl_IOKitObject::CopyProperty_UInt64(Object, @"input samples per sec", &v12, v2))
+  v5 = 0;
+  if (!BorealisOwl_IOKitObject::CopyProperty_UInt64(Object, @"input samples per sec", &v5, v2))
   {
-    sub_8C70("exception thrown in BorealisOwlDevice::%s:%d : %s\n\n\n", v3, v4, v5, v6, v7, v8, v9, "HW_GetInputSamplesPerSec");
+    sub_8C70("exception thrown in BorealisOwlDevice::%s:%d : %s\n\n\n", "HW_GetInputSamplesPerSec", 545, "AOPAudioDeviceHWManager::HW_GetInputSamplesPerSec() failed to get registry key");
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
       sub_194AC();
@@ -1311,7 +1331,7 @@ uint64_t AOPAudioDeviceHWManager::HW_GetInputSamplesPerSec(AOPAudioDeviceHWManag
     exception[2] = 1852797029;
   }
 
-  return v12;
+  return v5;
 }
 
 void BorealisOwl_IOKitObject::BorealisOwl_IOKitObject(BorealisOwl_IOKitObject *this)
@@ -1688,9 +1708,9 @@ uint64_t BorealisOwl_IOKitObject::SetProperty_BOOL(BorealisOwl_IOKitObject *this
   return sub_1870(&v6);
 }
 
-void sub_5074(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_5074(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_1870(va);
   _Unwind_Resume(a1);
 }
@@ -1704,9 +1724,9 @@ uint64_t BorealisOwl_IOKitObject::SetProperty_SInt32(BorealisOwl_IOKitObject *th
   return sub_1870(&v6);
 }
 
-void sub_50EC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_50EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_1870(va);
   _Unwind_Resume(a1);
 }
@@ -1720,9 +1740,9 @@ uint64_t BorealisOwl_IOKitObject::SetProperty_UInt32(BorealisOwl_IOKitObject *th
   return sub_1870(&v6);
 }
 
-void sub_5164(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_5164(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_1870(va);
   _Unwind_Resume(a1);
 }
@@ -1780,9 +1800,9 @@ BOOL BorealisOwl_IOKitObject::CopyProperty_SInt32(BorealisOwl_IOKitObject *this,
   return v9;
 }
 
-void sub_5298(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_5298(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_1870(va);
   _Unwind_Resume(a1);
 }
@@ -1813,9 +1833,9 @@ BOOL BorealisOwl_IOKitObject::CopyProperty_UInt32(BorealisOwl_IOKitObject *this,
   return v9;
 }
 
-void sub_5348(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_5348(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_1870(va);
   _Unwind_Resume(a1);
 }
@@ -2005,7 +2025,7 @@ uint64_t BorealisOwl_IOKitObject::CopyMatchingObjectWithPropertyValue(BorealisOw
   return var1;
 }
 
-void sub_5808(_Unwind_Exception *a1, uint64_t a2, BorealisOwl_IOKitObject *a3, char a4, uint64_t a5, uint64_t a6, BorealisOwl_IOKitObject *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19)
+void sub_5808(_Unwind_Exception *a1, uint64_t a2, BorealisOwl_IOKitObject *a3, char a4, uint64_t a5, uint64_t a6, BorealisOwl_IOKitObject *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19)
 {
   BorealisOwl_IOKitIterator::~BorealisOwl_IOKitIterator(&a16);
   BorealisOwl_IOKitObject::~BorealisOwl_IOKitObject(&a19);
@@ -2083,7 +2103,7 @@ uint64_t BorealisOwl_IOKitObject::CopyChildWithIntegerPropertyValues(BorealisOwl
   return var1;
 }
 
-void sub_5AE0(_Unwind_Exception *a1, uint64_t a2, BorealisOwl_IOKitObject *a3, char a4, uint64_t a5, BorealisOwl_IOKitObject *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18)
+void sub_5AE0(_Unwind_Exception *a1, uint64_t a2, BorealisOwl_IOKitObject *a3, char a4, uint64_t a5, BorealisOwl_IOKitObject *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18)
 {
   BorealisOwl_IOKitIterator::~BorealisOwl_IOKitIterator(&a16);
   BorealisOwl_IOKitObject::~BorealisOwl_IOKitObject(&a18);
@@ -2204,7 +2224,7 @@ void BorealisOwl_IOKitObject::OpenConnection(BorealisOwl_IOKitObject *this, uint
       var1 = IOServiceOpen(var1, mach_task_self_, type, p_var2);
       if (var1)
       {
-        v10 = var1;
+        v11 = var1;
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
           sub_18328();
@@ -2212,13 +2232,12 @@ void BorealisOwl_IOKitObject::OpenConnection(BorealisOwl_IOKitObject *this, uint
 
         exception = __cxa_allocate_exception(0x10uLL);
         *exception = off_24B48;
-        exception[2] = v10;
+        exception[2] = v11;
       }
     }
   }
 
-  var2 = this->var2;
-  sub_11E8(var1, type, a3, p_var2, a5, a6, a7, a8, "OpenConnection");
+  sub_11E8(var1, type, a3, p_var2, a5, a6, a7, a8, "OpenConnection", type, this->var2);
 }
 
 uint64_t BorealisOwl_IOKitObject::SetConnectionNotificationPort(BorealisOwl_IOKitObject *this, uint32_t a2, mach_port_t a3, uintptr_t a4)
@@ -2511,10 +2530,11 @@ uint64_t sub_6504(uint64_t a1)
   return a1;
 }
 
-void sub_6548(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_6548(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 8u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 8u);
 }
 
 void CAAudioChannelLayout::CAAudioChannelLayout(CAAudioChannelLayout *this)
@@ -2526,7 +2546,7 @@ void CAAudioChannelLayout::CAAudioChannelLayout(CAAudioChannelLayout *this)
   *this = sub_65A0(0);
 }
 
-_DWORD *sub_65A0(unsigned int a1)
+_DWORD *sub_65A0(uint64_t a1)
 {
   v1 = sub_6D8C(a1, 0x14u);
   v2 = sub_6E00(12, v1);
@@ -2671,7 +2691,7 @@ atomic_uint **CAAudioChannelLayout::operator=(atomic_uint **a1, atomic_uint **a2
   return a1;
 }
 
-void CAAudioChannelLayout::CAAudioChannelLayout(CAAudioChannelLayout *this, unsigned int *a2)
+void CAAudioChannelLayout::CAAudioChannelLayout(CAAudioChannelLayout *this, atomic_uint *a2)
 {
   *this = 0;
   CAAudioChannelLayout::operator=(this, a2);
@@ -2682,7 +2702,7 @@ void CAAudioChannelLayout::CAAudioChannelLayout(CAAudioChannelLayout *this, unsi
   CAAudioChannelLayout::operator=(this, a2);
 }
 
-atomic_uint **CAAudioChannelLayout::operator=(atomic_uint **a1, unsigned int *a2)
+atomic_uint **CAAudioChannelLayout::operator=(atomic_uint **a1, atomic_uint *a2)
 {
   v4 = *a1;
   if (v4)
@@ -3598,9 +3618,9 @@ uint64_t CACFDictionary::AddSInt32(CACFDictionary *this, const __CFString *a2, i
   return v6;
 }
 
-void sub_7ACC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_7ACC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_1870(va);
   _Unwind_Resume(a1);
 }
@@ -3630,9 +3650,9 @@ uint64_t CACFDictionary::AddUInt32(CACFDictionary *this, const __CFString *a2, i
   return v6;
 }
 
-void sub_7B74(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_7B74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_1870(va);
   _Unwind_Resume(a1);
 }
@@ -3662,9 +3682,9 @@ uint64_t CACFDictionary::AddSInt64(CACFDictionary *this, const __CFString *a2, u
   return v6;
 }
 
-void sub_7C1C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_7C1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_1870(va);
   _Unwind_Resume(a1);
 }
@@ -3694,9 +3714,9 @@ uint64_t CACFDictionary::AddUInt64(CACFDictionary *this, const __CFString *a2, u
   return v6;
 }
 
-void sub_7CC4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_7CC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_1870(va);
   _Unwind_Resume(a1);
 }
@@ -3726,9 +3746,9 @@ uint64_t CACFDictionary::AddFloat32(CACFDictionary *this, const __CFString *a2, 
   return v6;
 }
 
-void sub_7D6C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_7D6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_1870(va);
   _Unwind_Resume(a1);
 }
@@ -3758,9 +3778,9 @@ uint64_t CACFDictionary::AddFloat64(CACFDictionary *this, const __CFString *a2, 
   return v6;
 }
 
-void sub_7E14(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_7E14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_1870(va);
   _Unwind_Resume(a1);
 }
@@ -3954,7 +3974,7 @@ void CACFDictionary::PrintToLog(CACFDictionary *this, const __CFString *a2)
 
       else if (v7 == CFDictionaryGetTypeID())
       {
-        CACFDictionary::PrintToLog(values[0][i], (a2 + 1), v8);
+        CACFDictionary::PrintToLog(values[0][i], (a2 + 1));
       }
 
       else if (v7 == CFArrayGetTypeID())
@@ -4006,17 +4026,17 @@ uint64_t sub_8288(uint64_t a1)
   return a1;
 }
 
-void *sub_82C8(void *result, unint64_t a2)
+uint64_t *sub_82C8(uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    sub_8340(result, a2);
+    sub_8340(a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_8324(_Unwind_Exception *exception_object)
@@ -4031,7 +4051,7 @@ void sub_8324(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_8340(uint64_t a1, unint64_t a2)
+void sub_8340(uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -4069,17 +4089,17 @@ void sub_846C()
   v1 = std::bad_array_new_length::bad_array_new_length(exception);
 }
 
-void *sub_84A0(void *result, unint64_t a2)
+uint64_t *sub_84A0(uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    sub_8518(result, a2);
+    sub_8518(a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_84FC(_Unwind_Exception *exception_object)
@@ -4094,7 +4114,7 @@ void sub_84FC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_8518(uint64_t a1, unint64_t a2)
+void sub_8518(uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -4117,11 +4137,11 @@ void sub_8554(uint64_t a1, unint64_t a2)
 void sub_8BA0(uint64_t a1, FILE *a2)
 {
   v3 = *(a1 + 32);
-  v11 = v3;
+  v4 = v3;
   if (a2 && v3)
   {
-    [v3 getDiagonsticData];
-    if (v14 >= 0)
+    objc_msgSend_getDiagonsticData(v3);
+    if (v7 >= 0)
     {
       p_p = &__p;
     }
@@ -4132,7 +4152,7 @@ void sub_8BA0(uint64_t a1, FILE *a2)
     }
 
     fputs(p_p, a2);
-    if (v14 < 0)
+    if (v7 < 0)
     {
       operator delete(__p);
     }
@@ -4140,34 +4160,49 @@ void sub_8BA0(uint64_t a1, FILE *a2)
 
   else
   {
-    sub_8C70("DumpSubsystem(%p, %p) bad argument\n", v4, v5, v6, v7, v8, v9, v10, v3);
+    sub_8C70("DumpSubsystem(%p, %p) bad argument\n", v3, a2);
   }
 }
 
-void sub_90B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_8C34(void *a1)
 {
-  va_start(va, a5);
+  __cxa_begin_catch(a1);
+  sub_8C70("DumpSubsystem: Caught unhandled exception during state dump");
+  __cxa_end_catch();
+  JUMPOUT(0x8C1CLL);
+}
+
+void sub_8C70(BorealisOwlLog *a1, ...)
+{
+  va_start(va, a1);
+  BorealisOwlLog::GetInstance(a1);
+  BorealisOwlLog::VLog(0, a1, va, v2);
+}
+
+void sub_90B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+{
+  va_start(va, a9);
   sub_B96C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_9360(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_9360(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   sub_B96C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_96B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_96B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   sub_B96C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_9C64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_9C64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   sub_B96C(va);
   _Unwind_Resume(a1);
 }
@@ -4180,26 +4215,26 @@ void sub_A468(uint64_t a1)
   if (ControlValue == 1)
   {
     AOPAudioDeviceHWManager::HW_VoiceTriggerSetControlValue(*(*(a1 + 32) + 24), 0, 0);
-    sub_1224("Device::setProperty(kAOPAudioDriverVoiceTriggerConfiguration) stopping voice trigger to set model\n", v17, v18, v19, v20, v21, v22, v23, v46);
+    sub_1224("Device::setProperty(kAOPAudioDriverVoiceTriggerConfiguration) stopping voice trigger to set model\n");
   }
 
-  AOPAudioDeviceHWManager::HW_SetVoiceTriggerConfiguration(*(*(a1 + 32) + 24), *(a1 + 40), v10, v11, v12, v13, v14, v15);
+  AOPAudioDeviceHWManager::HW_SetVoiceTriggerConfiguration(*(*(a1 + 32) + 24), *(a1 + 40));
   CFRelease(*(a1 + 40));
   if (ControlValue == 1)
   {
     AOPAudioDeviceHWManager::HW_VoiceTriggerSetControlValue(*(*(a1 + 32) + 24), 0, 1u);
-    sub_1224("Device::setProperty(kAOPAudioDriverVoiceTriggerConfiguration) restarting voice trigger\n", v31, v32, v33, v34, v35, v36, v37, v46);
+    sub_1224("Device::setProperty(kAOPAudioDriverVoiceTriggerConfiguration) restarting voice trigger\n");
   }
 
-  AOPAudioDeviceHWManager::HW_UpdateRingBufferDescription(*(*(a1 + 32) + 24), v24, v25, v26, v27, v28, v29, v30);
+  AOPAudioDeviceHWManager::HW_UpdateRingBufferDescription(*(*(a1 + 32) + 24));
   [*(a1 + 32) updateStreamDescription];
   [*(a1 + 32) notifyDevicePropertiesChanged];
   [*(*(a1 + 32) + 8) notifyStreamPropertiesChanged];
-  sub_1FF8("Device::setProperty(kAOPAudioDriverVoiceTriggerConfiguration) model updated\n", v38, v39, v40, v41, v42, v43, v44, v46);
-  v48 = 0;
-  v47 = *"ctvabolg";
-  v45 = [*(a1 + 32) plugin];
-  [v45 changedProperty:&v47 forObject:*(a1 + 32)];
+  sub_1FF8("Device::setProperty(kAOPAudioDriverVoiceTriggerConfiguration) model updated\n");
+  v13 = 0;
+  v12 = *"ctvabolg";
+  v11 = [*(a1 + 32) plugin];
+  [v11 changedProperty:&v12 forObject:*(a1 + 32)];
 
   if (v3)
   {
@@ -4220,49 +4255,49 @@ void sub_A62C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a
 void sub_A75C(uint64_t a1)
 {
   v2 = *(*(a1 + 32) + 40);
-  v10 = (*(*v2 + 16))(v2);
-  v11 = *(a1 + 32);
-  if (*(v11 + 76))
+  v3 = (*(*v2 + 16))(v2);
+  v4 = *(a1 + 32);
+  if (*(v4 + 76))
   {
-    sub_1FF8("Device::setProperty(kAOPAudioDriverEnabledChannelMask) HW_StopIO \n", v3, v4, v5, v6, v7, v8, v9, v28);
+    sub_1FF8("Device::setProperty(kAOPAudioDriverEnabledChannelMask) HW_StopIO \n");
     AOPAudioDeviceHWManager::HW_StopIO(*(*(a1 + 32) + 24));
-    v11 = *(a1 + 32);
+    v4 = *(a1 + 32);
   }
 
-  if (*(v11 + 72))
+  if (*(v4 + 72))
   {
-    sub_1FF8("Device::setProperty(kAOPAudioDriverEnabledChannelMask) HW_disableListening \n", v3, v4, v5, v6, v7, v8, v9, v28);
+    sub_1FF8("Device::setProperty(kAOPAudioDriverEnabledChannelMask) HW_disableListening \n");
     AOPAudioDeviceHWManager::HW_DisableListening(*(*(a1 + 32) + 24));
-    v11 = *(a1 + 32);
+    v4 = *(a1 + 32);
   }
 
-  AOPAudioDeviceHWManager::HW_AudioSetControlValue(*(v11 + 24), 0, *(a1 + 40));
-  sub_1FF8("Device::setProperty(kAOPAudioDriverEnabledChannelMask) new value: %d\n", v12, v13, v14, v15, v16, v17, v18, *(a1 + 40));
-  v26 = *(a1 + 32);
-  if (*(v26 + 76))
+  AOPAudioDeviceHWManager::HW_AudioSetControlValue(*(v4 + 24), 0, *(a1 + 40));
+  sub_1FF8("Device::setProperty(kAOPAudioDriverEnabledChannelMask) new value: %d\n", *(a1 + 40));
+  v5 = *(a1 + 32);
+  if (*(v5 + 76))
   {
-    sub_1FF8("Device::setProperty(kAOPAudioDriverEnabledChannelMask) HW_StartIO \n", v19, v20, v21, v22, v23, v24, v25, v29);
+    sub_1FF8("Device::setProperty(kAOPAudioDriverEnabledChannelMask) HW_StartIO \n");
     AOPAudioDeviceHWManager::HW_StartIO(*(*(a1 + 32) + 24));
-    v26 = *(a1 + 32);
+    v5 = *(a1 + 32);
   }
 
-  if (*(v26 + 72) == 1)
+  if (*(v5 + 72) == 1)
   {
-    sub_1FF8("Device::setProperty(kAOPAudioDriverEnabledChannelMask) HW_enableListening\n", v19, v20, v21, v22, v23, v24, v25, v29);
+    sub_1FF8("Device::setProperty(kAOPAudioDriverEnabledChannelMask) HW_enableListening\n");
     AOPAudioDeviceHWManager::HW_EnableListening(*(*(a1 + 32) + 24));
-    v26 = *(a1 + 32);
+    v5 = *(a1 + 32);
   }
 
-  AOPAudioDeviceHWManager::HW_UpdateRingBufferDescription(*(v26 + 24), v19, v20, v21, v22, v23, v24, v25);
+  AOPAudioDeviceHWManager::HW_UpdateRingBufferDescription(*(v5 + 24));
   [*(a1 + 32) updateStreamDescription];
   [*(a1 + 32) notifyDevicePropertiesChanged];
   [*(*(a1 + 32) + 8) notifyStreamPropertiesChanged];
-  v31 = 0;
-  v30 = *"meoabolg";
-  v27 = [*(a1 + 32) plugin];
-  [v27 changedProperty:&v30 forObject:*(a1 + 32)];
+  v8 = 0;
+  v7 = *"meoabolg";
+  v6 = [*(a1 + 32) plugin];
+  [v6 changedProperty:&v7 forObject:*(a1 + 32)];
 
-  if (v10)
+  if (v3)
   {
     (*(*v2 + 24))(v2);
   }
@@ -4278,21 +4313,28 @@ void sub_A974(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a
   _Unwind_Resume(exception_object);
 }
 
-void sub_AEF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_AABC(BorealisOwlLog *a1, ...)
 {
-  va_start(va, a9);
+  va_start(va, a1);
+  BorealisOwlLog::GetInstance(a1);
+  BorealisOwlLog::VLog((&dword_0 + 1), a1, va, v2);
+}
+
+void sub_AEF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
   sub_1FB8(va);
   _Unwind_Resume(a1);
 }
 
-void sub_B064(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_B064(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   sub_B96C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_B60C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
+void sub_B60C(_Unwind_Exception *a1, void *__p, uint64_t a3, int a4, __int16 a5, char a6, char a7, char a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
   std::ios::~ios();
   _Unwind_Resume(a1);
@@ -4321,13 +4363,11 @@ void sub_B7C0(_Unwind_Exception *a1)
 void *operator<<(void *a1, unsigned int *a2)
 {
   sub_C0F4(a1, "  mSizeOfAuxiliaryIOStatus:   ", 30);
-  v4 = *a2;
-  v5 = std::ostream::operator<<();
-  sub_C0F4(v5, "\n", 1);
+  v3 = std::ostream::operator<<();
+  sub_C0F4(v3, "\n", 1);
   sub_C0F4(a1, "  mRealtimeAvailablePastData: ", 30);
-  v6 = *(a2 + 1);
-  v7 = std::ostream::operator<<();
-  sub_C0F4(v7, "\n", 1);
+  v4 = std::ostream::operator<<();
+  sub_C0F4(v4, "\n", 1);
   return a1;
 }
 
@@ -4335,7 +4375,6 @@ _BYTE *sub_B96C(_BYTE *a1)
 {
   if (a1[8] == 1)
   {
-    v2 = *a1;
     (*(**a1 + 24))();
   }
 
@@ -4514,16 +4553,16 @@ void *sub_C0F4(void *a1, uint64_t a2, uint64_t a3)
   if (v13 == 1)
   {
     v6 = a1 + *(*a1 - 24);
-    v7 = *(v6 + 40);
-    v8 = *(v6 + 8);
-    v9 = *(v6 + 144);
+    v7 = *(v6 + 5);
+    v8 = *(v6 + 2);
+    v9 = *(v6 + 36);
     if (v9 == -1)
     {
       std::ios_base::getloc((a1 + *(*a1 - 24)));
       v10 = std::locale::use_facet(&v14, &std::ctype<char>::id);
       v9 = (v10->__vftable[2].~facet_0)(v10, 32);
       std::locale::~locale(&v14);
-      *(v6 + 144) = v9;
+      *(v6 + 36) = v9;
     }
 
     if ((v8 & 0xB0) == 0x20)
@@ -4638,10 +4677,11 @@ void sub_C468(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a
   _Unwind_Resume(exception_object);
 }
 
-void sub_C49C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_C49C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 void sub_C60C(_Unwind_Exception *a1)
@@ -4651,9 +4691,9 @@ void sub_C60C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_CDD4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_CDD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
 
   std::ios::~ios();
   _Unwind_Resume(a1);
@@ -5069,7 +5109,6 @@ void CADeprecated::CAMutex::Unlocker::~Unlocker(CADeprecated::CAMutex::Unlocker 
 {
   if (*(this + 8) == 1)
   {
-    v2 = *this;
     (*(**this + 16))();
   }
 }
@@ -5390,26 +5429,26 @@ void CAXException::~CAXException(std::exception *this)
   operator delete();
 }
 
-CFPropertyListRef CACFPreferences::CopyValue(const __CFString *this, const __CFString *a2, int a3)
+CFPropertyListRef CACFPreferences::CopyValue(const __CFString *this, __CFString *a2, int a3, BOOL a4)
 {
-  v4 = a2;
+  v5 = a2;
   CACFPreferences::Synchronize(a2, a3, 0);
-  v6 = &kCFPreferencesCurrentUser;
-  if (!v4)
+  v7 = &kCFPreferencesCurrentUser;
+  if (!v5)
   {
-    v6 = &kCFPreferencesAnyUser;
+    v7 = &kCFPreferencesAnyUser;
   }
 
-  v7 = *v6;
-  v8 = &kCFPreferencesCurrentHost;
+  v8 = *v7;
+  v9 = &kCFPreferencesCurrentHost;
   if (!a3)
   {
-    v8 = &kCFPreferencesAnyHost;
+    v9 = &kCFPreferencesAnyHost;
   }
 
-  v9 = *v8;
+  v10 = *v9;
 
-  return CFPreferencesCopyValue(this, kCFPreferencesAnyApplication, v7, v9);
+  return CFPreferencesCopyValue(this, kCFPreferencesAnyApplication, v8, v10);
 }
 
 uint64_t CACFPreferences::Synchronize(uint64_t this, int a2, char a3)
@@ -5533,96 +5572,96 @@ LABEL_31:
   return this;
 }
 
-const void *CACFPreferences::CopyStringValue(const __CFString *this, const __CFString *a2, int a3)
+const void *CACFPreferences::CopyStringValue(const __CFString *this, __CFString *a2, int a3, BOOL a4)
 {
-  v3 = CACFPreferences::CopyValue(this, a2, a3);
-  v4 = v3;
-  if (v3)
+  v4 = CACFPreferences::CopyValue(this, a2, a3, a4);
+  v5 = v4;
+  if (v4)
   {
-    v5 = CFGetTypeID(v3);
-    if (v5 != CFStringGetTypeID())
+    v6 = CFGetTypeID(v4);
+    if (v6 != CFStringGetTypeID())
     {
-      CFRelease(v4);
+      CFRelease(v5);
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
       {
-        *v7 = 0;
-        _os_log_impl(&dword_0, &_os_log_default, OS_LOG_TYPE_DEFAULT, " CACFPreferences::CopyStringValue: not a CFString", v7, 2u);
+        *v8 = 0;
+        _os_log_impl(&dword_0, &_os_log_default, OS_LOG_TYPE_DEFAULT, " CACFPreferences::CopyStringValue: not a CFString", v8, 2u);
       }
 
       return 0;
     }
   }
 
-  return v4;
+  return v5;
 }
 
-const void *CACFPreferences::CopyNumberValue(const __CFString *this, const __CFString *a2, int a3)
+const void *CACFPreferences::CopyNumberValue(const __CFString *this, __CFString *a2, int a3, BOOL a4)
 {
-  v3 = CACFPreferences::CopyValue(this, a2, a3);
-  v4 = v3;
-  if (v3)
+  v4 = CACFPreferences::CopyValue(this, a2, a3, a4);
+  v5 = v4;
+  if (v4)
   {
-    v5 = CFGetTypeID(v3);
-    if (v5 != CFNumberGetTypeID())
+    v6 = CFGetTypeID(v4);
+    if (v6 != CFNumberGetTypeID())
     {
-      CFRelease(v4);
+      CFRelease(v5);
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
       {
-        *v7 = 0;
-        _os_log_impl(&dword_0, &_os_log_default, OS_LOG_TYPE_DEFAULT, " CACFPreferences::CopyNumberValue: not a CFNumber", v7, 2u);
+        *v8 = 0;
+        _os_log_impl(&dword_0, &_os_log_default, OS_LOG_TYPE_DEFAULT, " CACFPreferences::CopyNumberValue: not a CFNumber", v8, 2u);
       }
 
       return 0;
     }
   }
 
-  return v4;
+  return v5;
 }
 
-const void *CACFPreferences::CopyArrayValue(const __CFString *this, const __CFString *a2, int a3)
+const void *CACFPreferences::CopyArrayValue(const __CFString *this, __CFString *a2, int a3, BOOL a4)
 {
-  v3 = CACFPreferences::CopyValue(this, a2, a3);
-  v4 = v3;
-  if (v3)
+  v4 = CACFPreferences::CopyValue(this, a2, a3, a4);
+  v5 = v4;
+  if (v4)
   {
-    v5 = CFGetTypeID(v3);
-    if (v5 != CFArrayGetTypeID())
+    v6 = CFGetTypeID(v4);
+    if (v6 != CFArrayGetTypeID())
     {
-      CFRelease(v4);
+      CFRelease(v5);
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
       {
-        *v7 = 0;
-        _os_log_impl(&dword_0, &_os_log_default, OS_LOG_TYPE_DEFAULT, " CACFPreferences::CopyArrayValue: not a CFArray", v7, 2u);
+        *v8 = 0;
+        _os_log_impl(&dword_0, &_os_log_default, OS_LOG_TYPE_DEFAULT, " CACFPreferences::CopyArrayValue: not a CFArray", v8, 2u);
       }
 
       return 0;
     }
   }
 
-  return v4;
+  return v5;
 }
 
-const void *CACFPreferences::CopyDictionaryValue(const __CFString *this, const __CFString *a2, int a3)
+const void *CACFPreferences::CopyDictionaryValue(const __CFString *this, __CFString *a2, int a3, BOOL a4)
 {
-  v3 = CACFPreferences::CopyValue(this, a2, a3);
-  v4 = v3;
-  if (v3)
+  v4 = CACFPreferences::CopyValue(this, a2, a3, a4);
+  v5 = v4;
+  if (v4)
   {
-    v5 = CFGetTypeID(v3);
-    if (v5 != CFDictionaryGetTypeID())
+    v6 = CFGetTypeID(v4);
+    if (v6 != CFDictionaryGetTypeID())
     {
-      CFRelease(v4);
+      CFRelease(v5);
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
       {
-        *v7 = 0;
-        _os_log_impl(&dword_0, &_os_log_default, OS_LOG_TYPE_DEFAULT, " CACFPreferences::CopyDictionaryValue: not a CFDictionary", v7, 2u);
+        *v8 = 0;
+        _os_log_impl(&dword_0, &_os_log_default, OS_LOG_TYPE_DEFAULT, " CACFPreferences::CopyDictionaryValue: not a CFDictionary", v8, 2u);
       }
 
       return 0;
     }
   }
 
-  return v4;
+  return v5;
 }
 
 CFDictionaryRef CACFPreferences::CopyMultipleValues(CACFPreferences *this, const __CFArray *a2, int a3)
@@ -6387,9 +6426,9 @@ uint64_t CACFArray::AppendSInt32(CACFArray *this, int a2)
   return v4;
 }
 
-void sub_F3F4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_F3F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_1870(va);
   _Unwind_Resume(a1);
 }
@@ -6420,9 +6459,9 @@ uint64_t CACFArray::AppendUInt32(CACFArray *this, int a2)
   return v4;
 }
 
-void sub_F4A4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_F4A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_1870(va);
   _Unwind_Resume(a1);
 }
@@ -6453,9 +6492,9 @@ uint64_t CACFArray::AppendSInt64(CACFArray *this, uint64_t a2)
   return v4;
 }
 
-void sub_F554(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_F554(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_1870(va);
   _Unwind_Resume(a1);
 }
@@ -6486,9 +6525,9 @@ uint64_t CACFArray::AppendUInt64(CACFArray *this, uint64_t a2)
   return v4;
 }
 
-void sub_F604(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_F604(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_1870(va);
   _Unwind_Resume(a1);
 }
@@ -6519,9 +6558,9 @@ uint64_t CACFArray::AppendFloat32(CACFArray *this, float a2)
   return v4;
 }
 
-void sub_F6B4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_F6B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_1870(va);
   _Unwind_Resume(a1);
 }
@@ -6552,9 +6591,9 @@ uint64_t CACFArray::AppendFloat64(CACFArray *this, double a2)
   return v4;
 }
 
-void sub_F764(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_F764(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_1870(va);
   _Unwind_Resume(a1);
 }
@@ -6726,9 +6765,9 @@ const __CFArray *CACFArray::InsertSInt32(CACFArray *this, unsigned int a2, int a
   return inserted;
 }
 
-void sub_FA48(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_FA48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_1870(va);
   _Unwind_Resume(a1);
 }
@@ -6758,9 +6797,9 @@ const __CFArray *CACFArray::InsertUInt32(CACFArray *this, unsigned int a2, int a
   return inserted;
 }
 
-void sub_FAF0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_FAF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_1870(va);
   _Unwind_Resume(a1);
 }
@@ -6790,9 +6829,9 @@ const __CFArray *CACFArray::InsertSInt64(CACFArray *this, unsigned int a2, uint6
   return inserted;
 }
 
-void sub_FB98(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_FB98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_1870(va);
   _Unwind_Resume(a1);
 }
@@ -6822,9 +6861,9 @@ const __CFArray *CACFArray::InsertUInt64(CACFArray *this, unsigned int a2, uint6
   return inserted;
 }
 
-void sub_FC40(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_FC40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_1870(va);
   _Unwind_Resume(a1);
 }
@@ -6854,9 +6893,9 @@ const __CFArray *CACFArray::InsertFloat32(CACFArray *this, unsigned int a2, floa
   return inserted;
 }
 
-void sub_FCE8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_FCE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_1870(va);
   _Unwind_Resume(a1);
 }
@@ -6886,9 +6925,9 @@ const __CFArray *CACFArray::InsertFloat64(CACFArray *this, unsigned int a2, doub
   return inserted;
 }
 
-void sub_FD90(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_FD90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_1870(va);
   _Unwind_Resume(a1);
 }
@@ -6971,9 +7010,9 @@ const __CFArray *CACFArray::SetSInt32(const __CFArray **this, unsigned int a2, i
   return v7;
 }
 
-void sub_FF9C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_FF9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_1870(va);
   _Unwind_Resume(a1);
 }
@@ -7004,9 +7043,9 @@ const __CFArray *CACFArray::SetUInt32(const __CFArray **this, unsigned int a2, i
   return v7;
 }
 
-void sub_1005C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1005C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_1870(va);
   _Unwind_Resume(a1);
 }
@@ -7037,9 +7076,9 @@ const __CFArray *CACFArray::SetSInt64(const __CFArray **this, unsigned int a2, u
   return v7;
 }
 
-void sub_1011C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1011C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_1870(va);
   _Unwind_Resume(a1);
 }
@@ -7070,9 +7109,9 @@ const __CFArray *CACFArray::SetUInt64(const __CFArray **this, unsigned int a2, u
   return v7;
 }
 
-void sub_101DC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_101DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_1870(va);
   _Unwind_Resume(a1);
 }
@@ -7103,9 +7142,9 @@ const __CFArray *CACFArray::SetFloat32(const __CFArray **this, unsigned int a2, 
   return v7;
 }
 
-void sub_1029C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1029C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_1870(va);
   _Unwind_Resume(a1);
 }
@@ -7136,9 +7175,9 @@ const __CFArray *CACFArray::SetFloat64(const __CFArray **this, unsigned int a2, 
   return v7;
 }
 
-void sub_1035C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1035C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_1870(va);
   _Unwind_Resume(a1);
 }
@@ -7165,9 +7204,9 @@ void CACFArray::PrintToLog(CACFArray *this, const __CFArray *a2)
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v12 = __b;
-        v13 = 1024;
-        v14 = i;
+        v10 = __b;
+        v11 = 1024;
+        v12 = i;
         _os_log_impl(&dword_0, &_os_log_default, OS_LOG_TYPE_DEFAULT, " %sitem %d", buf, 0x12u);
       }
 
@@ -7190,12 +7229,12 @@ void CACFArray::PrintToLog(CACFArray *this, const __CFArray *a2)
 
       else if (v8 == CFDictionaryGetTypeID())
       {
-        CACFDictionary::PrintToLog(ValueAtIndex, (a2 + 1), v9);
+        CACFDictionary::PrintToLog(ValueAtIndex, (a2 + 1));
       }
 
       else if (v8 == CFArrayGetTypeID())
       {
-        CACFArray::PrintToLog(ValueAtIndex, (a2 + 1), v10);
+        CACFArray::PrintToLog(ValueAtIndex, (a2 + 1));
       }
     }
   }
@@ -7507,7 +7546,7 @@ BOOL CAStreamBasicDescription::IsEqual(CAStreamBasicDescription *this, const Aud
   return 0;
 }
 
-BOOL MinimalSafetyCheck(const AudioStreamBasicDescription *a1)
+uint64_t MinimalSafetyCheck(const AudioStreamBasicDescription *a1)
 {
   result = 0;
   if (a1->mSampleRate >= 0.0 && a1->mSampleRate < 3000000.0)
@@ -8046,8 +8085,9 @@ BOOL sub_11160(double *a1, double *a2, unsigned int a3)
   return sub_11328(a1, a2, v5, 0);
 }
 
-BOOL sub_11328(uint64_t a1, uint64_t a2, int a3, int a4)
+BOOL sub_11328(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
 {
+  v4 = a3;
   if (a4)
   {
     v6.i64[0] = *(a1 + 8);
@@ -8061,7 +8101,7 @@ BOOL sub_11328(uint64_t a1, uint64_t a2, int a3, int a4)
   if (*(a1 + 8) == 1819304813)
   {
     v8 = sub_113CC(a1, a3);
-    return v8 == sub_113CC(a2, a3);
+    return v8 == sub_113CC(a2, v4);
   }
 
   else
@@ -8207,13 +8247,13 @@ CADeprecated::CADispatchQueue *CADeprecated::CADispatchQueue::CADispatchQueue(CA
   return this;
 }
 
-void sub_115B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10)
+void sub_115B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
-  CADeprecated::CAMutex::~CAMutex((v11 + 3));
+  CADeprecated::CAMutex::~CAMutex((v11 + 24));
   a10 = v11;
   sub_127F4(&a10);
   CADeprecated::CAMutex::~CAMutex((v10 + 40));
-  a10 = (v10 + 16);
+  a10 = v10 + 16;
   sub_127F4(&a10);
   _Unwind_Resume(a1);
 }
@@ -8261,19 +8301,19 @@ CADeprecated::CADispatchQueue *CADeprecated::CADispatchQueue::CADispatchQueue(CA
   return this;
 }
 
-void CADeprecated::CADispatchQueue::~CADispatchQueue(CADeprecated::CADispatchQueue *this)
+void CADeprecated::CADispatchQueue::~CADispatchQueue(dispatch_object_t *this)
 {
   *this = off_24BA8;
-  v2 = (this + 16);
+  v2 = (this + 2);
   sub_118A4(this + 2);
-  if (*(this + 17) == *(this + 16))
+  if (this[17] == this[16])
   {
     sub_118A4(this + 16);
-    dispatch_release(*(this + 1));
-    CADeprecated::CAMutex::~CAMutex((this + 152));
-    v11 = (this + 128);
+    dispatch_release(this[1]);
+    CADeprecated::CAMutex::~CAMutex((this + 19));
+    v11 = (this + 16);
     sub_127F4(&v11);
-    CADeprecated::CAMutex::~CAMutex((this + 40));
+    CADeprecated::CAMutex::~CAMutex((this + 5));
     v11 = v2;
     sub_127F4(&v11);
   }
@@ -8343,7 +8383,7 @@ void CADeprecated::CADispatchQueue::DispatchBarrier(uint64_t a1, int a2, dispatc
   }
 }
 
-void CADeprecated::CADispatchQueue::Dispatch(uint64_t a1, uint64_t a2, dispatch_block_t block)
+void CADeprecated::CADispatchQueue::Dispatch(uint64_t a1, unint64_t a2, dispatch_block_t block)
 {
   if (a2)
   {
@@ -8390,7 +8430,7 @@ void CADeprecated::CADispatchQueue::DispatchBarrier(CADeprecated::CADispatchQueu
   }
 }
 
-void CADeprecated::CADispatchQueue::Dispatch(CADeprecated::CADispatchQueue *this, uint64_t a2, void *context, dispatch_function_t work)
+void CADeprecated::CADispatchQueue::Dispatch(CADeprecated::CADispatchQueue *this, unint64_t a2, void *context, dispatch_function_t work)
 {
   if (a2)
   {
@@ -8425,7 +8465,7 @@ void CADeprecated::CADispatchQueue::Dispatch_Global(intptr_t a1, int a2, void *a
   }
 }
 
-void CADeprecated::CADispatchQueue::DispatchAfter_Global(intptr_t a1, uint64_t a2, void *a3)
+void CADeprecated::CADispatchQueue::DispatchAfter_Global(intptr_t a1, unint64_t a2, void *a3)
 {
   global_queue = dispatch_get_global_queue(a1, 0);
   v6 = global_queue;
@@ -8460,7 +8500,7 @@ void CADeprecated::CADispatchQueue::Dispatch_Global(CADeprecated::CADispatchQueu
   }
 }
 
-void CADeprecated::CADispatchQueue::DispatchAfter_Global(CADeprecated::CADispatchQueue *this, uint64_t a2, void *a3, void (__cdecl *a4)(void *), void (*a5)(void *))
+void CADeprecated::CADispatchQueue::DispatchAfter_Global(CADeprecated::CADispatchQueue *this, unint64_t a2, void *a3, void (__cdecl *a4)(void *), void (*a5)(void *))
 {
   global_queue = dispatch_get_global_queue(this, 0);
   v9 = global_queue;
@@ -8492,7 +8532,7 @@ void CADeprecated::CADispatchQueue::Dispatch_Main(int a1, void *a2)
   }
 }
 
-void CADeprecated::CADispatchQueue::DispatchAfter_Main(uint64_t a1, dispatch_block_t block)
+void CADeprecated::CADispatchQueue::DispatchAfter_Main(unint64_t a1, dispatch_block_t block)
 {
   if (a1)
   {
@@ -8522,7 +8562,7 @@ void CADeprecated::CADispatchQueue::Dispatch_Main(CADeprecated::CADispatchQueue 
   }
 }
 
-void CADeprecated::CADispatchQueue::DispatchAfter_Main(CADeprecated::CADispatchQueue *this, void *context, dispatch_function_t work, void (*a4)(void *))
+void CADeprecated::CADispatchQueue::DispatchAfter_Main(unint64_t this, void *context, dispatch_function_t work, void (*a4)(void *))
 {
   if (this)
   {
@@ -8561,7 +8601,7 @@ void CADeprecated::CADispatchQueue::InstallMachPortDeathNotification(uint64_t a1
   v9 = v8;
   v36 = v8;
   v10 = *(a1 + 16);
-  v11 = a1 + 16;
+  v11 = (a1 + 16);
   while (v10 != *(a1 + 24))
   {
     v12 = *(v10 + 8);
@@ -8609,21 +8649,22 @@ LABEL_11:
   }
 }
 
-void sub_12038(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, dispatch_object_t object, uint64_t a10, char a11)
+void sub_12038(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, dispatch_object_t object, uint64_t a10, ...)
 {
+  va_start(va, a10);
   if (object)
   {
     dispatch_release(object);
   }
 
-  sub_B96C(&a11);
+  sub_B96C(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_12060(uint64_t a1, uint64_t a2)
+uint64_t sub_12060(uint64_t *a1, uint64_t a2)
 {
-  v3 = *(a1 + 8);
-  if (v3 >= *(a1 + 16))
+  v3 = a1[1];
+  if (v3 >= a1[2])
   {
     result = sub_12848(a1, a2);
   }
@@ -8641,7 +8682,7 @@ uint64_t sub_12060(uint64_t a1, uint64_t a2)
     result = v3 + 16;
   }
 
-  *(a1 + 8) = result;
+  a1[1] = result;
   return result;
 }
 
@@ -8705,9 +8746,9 @@ LABEL_14:
   }
 }
 
-void sub_121D0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_121D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_B96C(va);
   _Unwind_Resume(a1);
 }
@@ -8734,7 +8775,7 @@ void CADeprecated::CADispatchQueue::InstallMachPortReceiver(uint64_t a1, unsigne
   v9 = v8;
   v36 = v8;
   v10 = *(a1 + 128);
-  v11 = a1 + 128;
+  v11 = (a1 + 128);
   while (v10 != *(a1 + 136))
   {
     v12 = *(v10 + 8);
@@ -8782,14 +8823,15 @@ LABEL_11:
   }
 }
 
-void sub_123D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, dispatch_object_t object, uint64_t a10, char a11)
+void sub_123D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, dispatch_object_t object, uint64_t a10, ...)
 {
+  va_start(va, a10);
   if (object)
   {
     dispatch_release(object);
   }
 
-  sub_B96C(&a11);
+  sub_B96C(va);
   _Unwind_Resume(a1);
 }
 
@@ -8860,9 +8902,9 @@ LABEL_16:
   }
 }
 
-void sub_12534(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_12534(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_B96C(va);
   _Unwind_Resume(a1);
 }
@@ -8879,11 +8921,11 @@ void CADeprecated::CADispatchQueue::RemoveMachPortReceiver(CADeprecated::CADispa
   CADeprecated::CADispatchQueue::RemoveMachPortReceiver(this, a2, v4);
 }
 
-void sub_125C0(uint64_t a1)
+void sub_125C0(uint64_t result)
 {
-  if (*(a1 + 36) == 1)
+  if (*(result + 36) == 1)
   {
-    v2 = mach_port_deallocate(mach_task_self_, *(a1 + 32));
+    v2 = mach_port_deallocate(mach_task_self_, *(result + 32));
     if (v2)
     {
       v4 = v2;
@@ -8897,9 +8939,9 @@ void sub_125C0(uint64_t a1)
     }
   }
 
-  if (*(a1 + 37) == 1)
+  if (*(result + 37) == 1)
   {
-    v3 = mach_port_mod_refs(mach_task_self_, *(a1 + 32), 1u, -1);
+    v3 = mach_port_mod_refs(mach_task_self_, *(result + 32), 1u, -1);
     if (v3)
     {
       while (1)
@@ -8976,16 +9018,16 @@ void sub_127F4(void ***a1)
   }
 }
 
-uint64_t sub_12848(uint64_t a1, uint64_t a2)
+uint64_t sub_12848(uint64_t *a1, uint64_t a2)
 {
-  v2 = (*(a1 + 8) - *a1) >> 4;
+  v2 = (a1[1] - *a1) >> 4;
   v3 = v2 + 1;
   if ((v2 + 1) >> 60)
   {
     sub_837C();
   }
 
-  v6 = *(a1 + 16) - *a1;
+  v6 = a1[2] - *a1;
   if (v6 >> 3 > v3)
   {
     v3 = v6 >> 3;
@@ -9020,14 +9062,14 @@ uint64_t sub_12848(uint64_t a1, uint64_t a2)
   }
 
   *&v18 = v8 + 16;
-  v10 = *(a1 + 8);
+  v10 = a1[1];
   v11 = v8 + *a1 - v10;
   sub_129A8(a1, *a1, v10, v11);
   v12 = *a1;
   *a1 = v11;
-  v13 = *(a1 + 16);
+  v13 = a1[2];
   v15 = v18;
-  *(a1 + 8) = v18;
+  *(a1 + 1) = v18;
   *&v18 = v12;
   *(&v18 + 1) = v13;
   v16 = v12;
@@ -9036,9 +9078,9 @@ uint64_t sub_12848(uint64_t a1, uint64_t a2)
   return v15;
 }
 
-void sub_1294C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1294C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   sub_12AE0(va);
   _Unwind_Resume(a1);
 }
@@ -9354,17 +9396,16 @@ void CAVolumeCurve::AddRange(CAVolumeCurve *this, int a2, int a3, float a4, floa
   if ((v10 & 1) == 0)
   {
 LABEL_25:
-    v15[0] = a2;
-    v15[1] = a3;
-    *&v15[2] = a4;
-    *&v15[3] = a5;
-    sub_13428(v5, v15);
+    v15 = __PAIR64__(a3, a2);
+    v16 = a4;
+    v17 = a5;
+    sub_13428(v5, &v15, &v15);
   }
 
   else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v15[0]) = 0;
-    _os_log_impl(&dword_0, &_os_log_default, OS_LOG_TYPE_DEFAULT, " CAVolumeCurve::AddRange: new point overlaps", v15, 2u);
+    LOWORD(v15) = 0;
+    _os_log_impl(&dword_0, &_os_log_default, OS_LOG_TYPE_DEFAULT, " CAVolumeCurve::AddRange: new point overlaps", &v15, 2u);
   }
 }
 
@@ -9377,7 +9418,7 @@ void CAVolumeCurve::ResetRange(CAVolumeCurve *this)
   *(v1 - 1) = v1;
 }
 
-BOOL CAVolumeCurve::CheckForContinuity(CAVolumeCurve *this)
+uint64_t CAVolumeCurve::CheckForContinuity(CAVolumeCurve *this)
 {
   v1 = *(this + 1);
   v2 = this + 16;
@@ -9429,7 +9470,7 @@ BOOL CAVolumeCurve::CheckForContinuity(CAVolumeCurve *this)
     v1 = v7;
   }
 
-  while (result);
+  while ((result & 1) != 0);
   return result;
 }
 
@@ -9685,55 +9726,5 @@ uint64_t CAVolumeCurve::GetIsApplyingTransferFunction(CAVolumeCurve *this)
   else
   {
     return 0;
-  }
-}
-
-float CAVolumeCurve::ConvertDBToScalar(CAVolumeCurve *this, float a2)
-{
-  v3 = CAVolumeCurve::ConvertDBToRaw(this, a2);
-
-  return CAVolumeCurve::ConvertRawToScalar(this, v3);
-}
-
-uint64_t CAVolumeCurve::ConvertScalarToRaw(CAVolumeCurve *this, float a2)
-{
-  v3 = 0.0;
-  if (*(this + 3))
-  {
-    v4 = *(*(this + 1) + 28);
-  }
-
-  else
-  {
-    v4 = 0;
-  }
-
-  v5 = fmaxf(a2, 0.0);
-  MaximumRaw = CAVolumeCurve::GetMaximumRaw(this);
-  if (*(this + 3))
-  {
-    v3 = *(*(this + 1) + 36);
-  }
-
-  v7 = fminf(v5, 1.0);
-  MaximumDB = CAVolumeCurve::GetMaximumDB(this);
-  v9 = *&MaximumDB - v3;
-  if (*(this + 32) == 1 && v9 > 30.0)
-  {
-    v7 = powf(v7, *(this + 11) / *(this + 10));
-  }
-
-  v11 = llroundf(v7 * (MaximumRaw - v4));
-  v12 = __OFADD__(v4, v11);
-  v13 = v4 + v11;
-  v14 = ((v4 | v11) >> 31) ^ 0x7FFFFFFF;
-  if (v12)
-  {
-    return v14;
-  }
-
-  else
-  {
-    return v13;
   }
 }

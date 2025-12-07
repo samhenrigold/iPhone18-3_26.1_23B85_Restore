@@ -36,7 +36,6 @@
   v13 = v6;
 
   v14 = &v13[OBJC_IVAR___CHUISControlInstanceConfiguration__configuration];
-  v15 = *&v13[OBJC_IVAR___CHUISControlInstanceConfiguration__configuration + 32];
   *v14 = v7;
   v14[1] = v8;
   *(v14 + 1) = v9;
@@ -71,19 +70,24 @@
 
 - (int64_t)hash
 {
-  v6 = *(&self->super.isa + OBJC_IVAR___CHUISControlInstanceConfiguration__configuration);
-  v7 = *(&self->super.isa + OBJC_IVAR___CHUISControlInstanceConfiguration__configuration + 1);
-  v8 = *&self->_configuration[OBJC_IVAR___CHUISControlInstanceConfiguration__configuration];
-  v9 = self->_configuration[OBJC_IVAR___CHUISControlInstanceConfiguration__configuration + 8];
-  v10 = *&self->_configuration[OBJC_IVAR___CHUISControlInstanceConfiguration__configuration + 16];
-  v11 = *&self->_configuration[OBJC_IVAR___CHUISControlInstanceConfiguration__configuration + 24];
+  v3 = *(&self->super.isa + OBJC_IVAR___CHUISControlInstanceConfiguration__configuration + 1);
+  v4 = *&self->_configuration[OBJC_IVAR___CHUISControlInstanceConfiguration__configuration];
+  v5 = self->_configuration[OBJC_IVAR___CHUISControlInstanceConfiguration__configuration + 8];
+  v6 = *&self->_configuration[OBJC_IVAR___CHUISControlInstanceConfiguration__configuration + 16];
+  v7 = *&self->_configuration[OBJC_IVAR___CHUISControlInstanceConfiguration__configuration + 24];
+  v11[72] = *(&self->super.isa + OBJC_IVAR___CHUISControlInstanceConfiguration__configuration);
+  v11[73] = v3;
+  v12 = v4;
+  v13 = v5;
+  v14 = v6;
+  v15 = v7;
   sub_1D9328724();
 
   selfCopy = self;
-  ControlInstanceConfiguration.hash(into:)();
-  v4 = sub_1D9328764();
+  ControlInstanceConfiguration.hash(into:)(v11);
+  v9 = sub_1D9328764();
 
-  return v4;
+  return v9;
 }
 
 - (NSString)description

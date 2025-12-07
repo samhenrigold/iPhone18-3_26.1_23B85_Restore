@@ -8,7 +8,7 @@
 
 - (id)getLocalizedStringWithLanguageCode:(id)code gender:(int64_t)gender key:(id)key
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   codeCopy = code;
   keyCopy = key;
   v10 = *MEMORY[0x277CEF098];
@@ -26,20 +26,18 @@
     }
 
     v13 = v12;
-    v17 = 136315906;
-    v18 = "[SVXLocalizationUtils getLocalizedStringWithLanguageCode:gender:key:]";
-    v19 = 2112;
-    v20 = codeCopy;
-    v21 = 2112;
-    v22 = v13;
-    v23 = 2112;
-    v24 = keyCopy;
-    _os_log_impl(&dword_2695B9000, v11, OS_LOG_TYPE_INFO, "%s getLocalizedStringWith (languageCode: %@, gender: %@, key: %@)", &v17, 0x2Au);
+    v16 = 136315906;
+    v17 = "[SVXLocalizationUtils getLocalizedStringWithLanguageCode:gender:key:]";
+    v18 = 2112;
+    v19 = codeCopy;
+    v20 = 2112;
+    v21 = v13;
+    v22 = 2112;
+    v23 = keyCopy;
+    _os_log_impl(&dword_2695B9000, v11, OS_LOG_TYPE_INFO, "%s getLocalizedStringWith (languageCode: %@, gender: %@, key: %@)", &v16, 0x2Au);
   }
 
   v14 = [(SVXBundleUtilsProtocol *)self->_bundleUtils getLocalizedStringWithBundle:0 table:0 key:keyCopy languageCode:codeCopy gender:gender];
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

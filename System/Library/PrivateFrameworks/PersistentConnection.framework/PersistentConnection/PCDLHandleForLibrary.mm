@@ -13,7 +13,7 @@ uint64_t ___PCDLHandleForLibrary_block_invoke()
 
 void ___PCDLHandleForLibrary_block_invoke_2(uint64_t a1)
 {
-  v26[16] = *MEMORY[0x277D85DE8];
+  v25[16] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = [v2 pathExtension];
   v4 = [MEMORY[0x277CCAA00] defaultManager];
@@ -24,26 +24,26 @@ void ___PCDLHandleForLibrary_block_invoke_2(uint64_t a1)
       ___PCDLHandleForLibrary_block_invoke_2_cold_2();
     }
 
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
     v5 = _PCFrameworkSearchPaths_paths;
-    v6 = [v5 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v23;
+      v8 = *v22;
       while (2)
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v23 != v8)
+          if (*v22 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = [*(*(&v22 + 1) + 8 * i) stringByAppendingPathComponent:{v2, v22}];
+          v10 = [*(*(&v21 + 1) + 8 * i) stringByAppendingPathComponent:{v2, v21}];
           if ([v4 fileExistsAtPath:v10])
           {
             v16 = [v2 stringByDeletingPathExtension];
@@ -53,7 +53,7 @@ void ___PCDLHandleForLibrary_block_invoke_2(uint64_t a1)
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
         if (v7)
         {
           continue;
@@ -77,26 +77,26 @@ LABEL_29:
       ___PCDLHandleForLibrary_block_invoke_2_cold_1();
     }
 
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
     v5 = _PCLibrarySearchPaths_paths;
-    v11 = [v5 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v11 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v23;
+      v13 = *v22;
       while (2)
       {
         for (j = 0; j != v12; ++j)
         {
-          if (*v23 != v13)
+          if (*v22 != v13)
           {
             objc_enumerationMutation(v5);
           }
 
-          v15 = [*(*(&v22 + 1) + 8 * j) stringByAppendingPathComponent:{v2, v22}];
+          v15 = [*(*(&v21 + 1) + 8 * j) stringByAppendingPathComponent:{v2, v21}];
           if ([v4 fileExistsAtPath:v15])
           {
 LABEL_26:
@@ -105,7 +105,7 @@ LABEL_26:
           }
         }
 
-        v12 = [v5 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v12 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
         if (v12)
         {
           continue;
@@ -137,14 +137,12 @@ LABEL_30:
     v20 = *(*(*v18 + 8) + 24);
     if (!v20)
     {
-      ___PCDLHandleForLibrary_block_invoke_2_cold_3(v15, v18, v26);
-      v20 = v26[0];
+      ___PCDLHandleForLibrary_block_invoke_2_cold_3(v15, v18, v25);
+      v20 = v25[0];
     }
   }
 
   CFDictionarySetValue(_PCDLHandleForLibrary_handles, v15, v20);
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void ___PCDLHandleForLibrary_block_invoke_2_cold_3(uint64_t a1, uint64_t a2, void *a3)

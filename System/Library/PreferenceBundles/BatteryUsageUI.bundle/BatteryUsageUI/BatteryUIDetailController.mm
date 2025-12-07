@@ -244,47 +244,36 @@ LABEL_18:
   }
 
   v55 = +[NSMutableArray array];
-  if (self->_appEntry)
+  if (self->_appEntry || (-[BatteryUIDetailController specifier](self, "specifier"), v5 = objc_claimAutoreleasedReturnValue(), [v5 propertyForKey:@"APP_ENERGY_ENTRY"], v6 = objc_claimAutoreleasedReturnValue(), appEntry = self->_appEntry, self->_appEntry = v6, appEntry, v5, self->_appEntry))
   {
-    goto LABEL_4;
-  }
-
-  specifier = [(BatteryUIDetailController *)self specifier];
-  v6 = [specifier propertyForKey:@"APP_ENERGY_ENTRY"];
-  appEntry = self->_appEntry;
-  self->_appEntry = v6;
-
-  if (self->_appEntry)
-  {
-LABEL_4:
     v53 = v2;
-    specifier2 = [(BatteryUIDetailController *)self specifier];
-    name = [specifier2 name];
+    specifier = [(BatteryUIDetailController *)self specifier];
+    name = [specifier name];
     v10 = [PSSpecifier preferenceSpecifierNamed:name target:self set:0 get:0 detail:0 cell:3 edit:0];
 
     v11 = [(NSDictionary *)self->_appEntry objectForKeyedSubscript:@"PLBatteryUIAppBundleIDKey"];
     v54 = PSIDKey;
     [v10 setProperty:v11 forKey:?];
 
-    specifier3 = [(BatteryUIDetailController *)self specifier];
+    specifier2 = [(BatteryUIDetailController *)self specifier];
     v13 = PSLazyIconAppID;
-    v14 = [specifier3 propertyForKey:PSLazyIconAppID];
+    v14 = [specifier2 propertyForKey:PSLazyIconAppID];
 
     if (v14)
     {
-      specifier4 = [(BatteryUIDetailController *)self specifier];
-      v16 = [specifier4 propertyForKey:v13];
+      specifier3 = [(BatteryUIDetailController *)self specifier];
+      v16 = [specifier3 propertyForKey:v13];
       [v10 setProperty:v16 forKey:v13];
     }
 
-    specifier5 = [(BatteryUIDetailController *)self specifier];
+    specifier4 = [(BatteryUIDetailController *)self specifier];
     v18 = PSLazyIconLoading;
-    v19 = [specifier5 propertyForKey:PSLazyIconLoading];
+    v19 = [specifier4 propertyForKey:PSLazyIconLoading];
 
     if (v19)
     {
-      specifier6 = [(BatteryUIDetailController *)self specifier];
-      v21 = [specifier6 propertyForKey:v18];
+      specifier5 = [(BatteryUIDetailController *)self specifier];
+      v21 = [specifier5 propertyForKey:v18];
       [v10 setProperty:v21 forKey:v18];
     }
 
@@ -293,8 +282,8 @@ LABEL_4:
 
     v52 = v10;
     [v55 addObject:v10];
-    specifier7 = [(BatteryUIDetailController *)self specifier];
-    v24 = [specifier7 propertyForKey:@"usageString"];
+    specifier6 = [(BatteryUIDetailController *)self specifier];
+    v24 = [specifier6 propertyForKey:@"usageString"];
 
     v51 = v24;
     v25 = [PSSpecifier groupSpecifierWithName:v24];

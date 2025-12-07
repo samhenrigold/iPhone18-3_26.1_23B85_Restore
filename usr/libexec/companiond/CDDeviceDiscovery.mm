@@ -76,8 +76,7 @@
 - (void)_activated
 {
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  [(CDDeviceDiscovery *)self _startRapportListener];
-  v3 = sub_1000042C0();
+  v3 = sub_1000042C0([(CDDeviceDiscovery *)self _startRapportListener]);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -102,11 +101,11 @@
     self->_rapportDiscovery = 0;
 
     self->_invalidateDone = 1;
-    v6 = sub_1000042C0();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_1000042C0(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Device discovery invalidated.", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Device discovery invalidated.", v8, 2u);
     }
   }
 }
@@ -132,7 +131,7 @@
 {
   if (self->_rapportDiscovery)
   {
-    v3 = sub_1000042C0();
+    v3 = sub_1000042C0(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *v5 = 0;
@@ -157,7 +156,7 @@
 
   else
   {
-    v4 = sub_1000042C0();
+    v4 = sub_1000042C0(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;

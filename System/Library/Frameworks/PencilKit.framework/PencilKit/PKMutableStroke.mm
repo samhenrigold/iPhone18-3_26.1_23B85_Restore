@@ -10,7 +10,7 @@
 {
   y = location.y;
   x = location.x;
-  [(_PKStrokeConcrete *)self _transform];
+  objc_msgSend__transform(self, a2);
   CGAffineTransformInvert(&v11, &v10);
   v9 = vaddq_f64(*&v11.tx, vmlaq_n_f64(vmulq_n_f64(*&v11.c, y), *&v11.a, x));
   _strokeData = [(PKStroke *)self _strokeData];

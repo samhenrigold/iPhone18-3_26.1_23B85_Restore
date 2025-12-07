@@ -91,7 +91,7 @@ void __75__PLPhotoAnalysisMomentGraphService_cancelOperationsWithIdentifiers_rep
 {
   v15 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(*(a1 + 32), "count")}];
+  v4 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:objc_msgSend_count(*(a1 + 32))];
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;

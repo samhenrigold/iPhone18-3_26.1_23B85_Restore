@@ -97,27 +97,27 @@ uint64_t __119__AVFigEndpointFigRoutingContextOutputDeviceTranslator_setOutputDe
 
 - (void)setOutputDevices:(id)devices withOptions:(__CFDictionary *)options onRoutingContext:(OpaqueFigRoutingContext *)context completionHandler:(id)handler
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   Mutable = CFArrayCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9C0]);
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
-  v12 = [devices countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v12 = [devices countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v22;
+    v14 = *v21;
     while (2)
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v22 != v14)
+        if (*v21 != v14)
         {
           objc_enumerationMutation(devices);
         }
 
-        v16 = *(*(&v21 + 1) + 8 * i);
+        v16 = *(*(&v20 + 1) + 8 * i);
         value = 0;
         if (!AVOutputDeviceGetFigEndpoint(v16, &value))
         {
@@ -135,7 +135,7 @@ uint64_t __119__AVFigEndpointFigRoutingContextOutputDeviceTranslator_setOutputDe
         }
       }
 
-      v13 = [devices countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v13 = [devices countByEnumeratingWithState:&v20 objects:v24 count:16];
       if (v13)
       {
         continue;
@@ -148,13 +148,13 @@ uint64_t __119__AVFigEndpointFigRoutingContextOutputDeviceTranslator_setOutputDe
   if (Mutable)
   {
     v17 = AVMakeSelectEndpointsOperation(context, Mutable, options, self->_useRouteConfigUpdatedNotification);
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __120__AVFigEndpointFigRoutingContextOutputDeviceTranslator_setOutputDevices_withOptions_onRoutingContext_completionHandler___block_invoke;
-    v19[3] = &unk_1E794EA68;
-    v19[4] = v17;
-    v19[5] = handler;
-    [(AVRoutingRouteConfigUpdatedFigRoutingContextRouteChangeOperation *)v17 setCompletionBlock:v19];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __120__AVFigEndpointFigRoutingContextOutputDeviceTranslator_setOutputDevices_withOptions_onRoutingContext_completionHandler___block_invoke;
+    v18[3] = &unk_1E794EA68;
+    v18[4] = v17;
+    v18[5] = handler;
+    [(AVRoutingRouteConfigUpdatedFigRoutingContextRouteChangeOperation *)v17 setCompletionBlock:v18];
     [+[AVRoutingGlobalOperationQueue defaultQueue](AVRoutingGlobalOperationQueue "defaultQueue")];
     CFRelease(Mutable);
   }
@@ -164,8 +164,6 @@ uint64_t __119__AVFigEndpointFigRoutingContextOutputDeviceTranslator_setOutputDe
 LABEL_15:
     [AVFigEndpointFigRoutingContextOutputDeviceTranslator setOutputDevice:withOptions:onRoutingContext:completionHandler:];
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __120__AVFigEndpointFigRoutingContextOutputDeviceTranslator_setOutputDevices_withOptions_onRoutingContext_completionHandler___block_invoke(uint64_t a1)
@@ -241,31 +239,26 @@ uint64_t __124__AVFigEndpointFigRoutingContextOutputDeviceTranslator_removeOutpu
 {
   array = [MEMORY[0x1E695DF70] array];
   theArray = 0;
-  VTable = CMBaseObjectGetVTable();
-  v6 = *(*(VTable + 16) + 56);
-  if (v6)
+  v5 = *(*(CMBaseObjectGetVTable() + 16) + 56);
+  if (v5 && !v5(context, &theArray))
   {
-    v7 = *(VTable + 16) + 56;
-    if (!v6(context, &theArray))
+    for (i = 0; ; ++i)
     {
-      for (i = 0; ; ++i)
+      Count = theArray;
+      if (theArray)
       {
-        Count = theArray;
-        if (theArray)
-        {
-          Count = CFArrayGetCount(theArray);
-        }
+        Count = CFArrayGetCount(theArray);
+      }
 
-        if (i >= Count)
-        {
-          break;
-        }
+      if (i >= Count)
+      {
+        break;
+      }
 
-        v10 = [AVOutputDevice outputDeviceWithFigEndpoint:CFArrayGetValueAtIndex(theArray, i)];
-        if (v10)
-        {
-          [array addObject:v10];
-        }
+      v8 = [AVOutputDevice outputDeviceWithFigEndpoint:CFArrayGetValueAtIndex(theArray, i)];
+      if (v8)
+      {
+        [array addObject:v8];
       }
     }
   }

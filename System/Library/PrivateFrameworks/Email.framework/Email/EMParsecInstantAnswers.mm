@@ -48,7 +48,7 @@ void __29__EMParsecInstantAnswers_log__block_invoke(uint64_t a1)
 
 + (id)updatedFlightInformationForInstantAnswer:(id)answer
 {
-  v84 = *MEMORY[0x1E69E9840];
+  v83 = *MEMORY[0x1E69E9840];
   answerCopy = answer;
   flightDepartureDateComponents = [answerCopy flightDepartureDateComponents];
   if (!flightDepartureDateComponents)
@@ -57,14 +57,14 @@ void __29__EMParsecInstantAnswers_log__block_invoke(uint64_t a1)
     goto LABEL_15;
   }
 
-  v66 = answerCopy;
+  v65 = answerCopy;
   flightArrivalDateComponents = [answerCopy flightArrivalDateComponents];
   if (!flightArrivalDateComponents)
   {
     goto LABEL_12;
   }
 
-  flightArrivalAirportCode = [v66 flightArrivalAirportCode];
+  flightArrivalAirportCode = [v65 flightArrivalAirportCode];
   if (!flightArrivalAirportCode)
   {
 LABEL_11:
@@ -73,52 +73,52 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  flightArrivalAirportCode2 = [v66 flightArrivalAirportCode];
-  if ([flightArrivalAirportCode2 length] < 2 || (objc_msgSend(v66, "flightDepartureAirportCode"), (v8 = objc_claimAutoreleasedReturnValue()) == 0))
+  flightArrivalAirportCode2 = [v65 flightArrivalAirportCode];
+  if ([flightArrivalAirportCode2 length] < 2 || (objc_msgSend(v65, "flightDepartureAirportCode"), (v8 = objc_claimAutoreleasedReturnValue()) == 0))
   {
 
     goto LABEL_11;
   }
 
-  flightDepartureAirportCode = [v66 flightDepartureAirportCode];
+  flightDepartureAirportCode = [v65 flightDepartureAirportCode];
   v10 = [flightDepartureAirportCode length];
 
   if (v10 >= 2)
   {
-    v11 = v66;
+    v11 = v65;
     v12 = objc_alloc(MEMORY[0x1E695DEE8]);
-    v58 = [v12 initWithCalendarIdentifier:*MEMORY[0x1E695D850]];
-    flightDepartureTimeZone = [v66 flightDepartureTimeZone];
+    v57 = [v12 initWithCalendarIdentifier:*MEMORY[0x1E695D850]];
+    v13 = objc_msgSend_flightDepartureTimeZone(v65);
 
-    if (flightDepartureTimeZone)
+    if (v13)
     {
-      flightDepartureTimeZone2 = [v66 flightDepartureTimeZone];
-      [v58 setTimeZone:flightDepartureTimeZone2];
+      v14 = objc_msgSend_flightDepartureTimeZone(v65);
+      [v57 setTimeZone:v14];
     }
 
     else
     {
-      v18 = +[EMParsecInstantAnswers log];
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v17 = +[EMParsecInstantAnswers log];
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1C6655000, v18, OS_LOG_TYPE_DEFAULT, "[instant answers][flights api] Received nil flightDepartureTimeZone, using UTC timeZone to initialize Calendar", buf, 2u);
+        _os_log_impl(&dword_1C6655000, v17, OS_LOG_TYPE_DEFAULT, "[instant answers][flights api] Received nil flightDepartureTimeZone, using UTC timeZone to initialize Calendar", buf, 2u);
       }
 
-      v19 = [MEMORY[0x1E695DFE8] timeZoneWithAbbreviation:@"UTC"];
-      [v58 setTimeZone:v19];
+      v18 = [MEMORY[0x1E695DFE8] timeZoneWithAbbreviation:@"UTC"];
+      [v57 setTimeZone:v18];
 
-      v11 = v66;
+      v11 = v65;
     }
 
     flightDepartureDateComponents2 = [v11 flightDepartureDateComponents];
-    v60 = [v58 dateFromComponents:flightDepartureDateComponents2];
+    v59 = [v57 dateFromComponents:flightDepartureDateComponents2];
 
-    flightCarrierCode = [v66 flightCarrierCode];
-    flightNumber = [v66 flightNumber];
-    v57 = [EMParsecInstantAnswers flightInformationWithAirlineCode:flightCarrierCode flightNumber:flightNumber flightDate:v60];
+    flightCarrierCode = [v65 flightCarrierCode];
+    flightNumber = [v65 flightNumber];
+    v56 = [EMParsecInstantAnswers flightInformationWithAirlineCode:flightCarrierCode flightNumber:flightNumber flightDate:v59];
 
-    if (!v57)
+    if (!v56)
     {
       v15 = 0;
 LABEL_83:
@@ -126,66 +126,66 @@ LABEL_83:
       goto LABEL_14;
     }
 
-    v23 = +[EMParsecInstantAnswers log];
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    v22 = +[EMParsecInstantAnswers log];
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
-      v24 = [v57 count];
+      v23 = [v56 count];
       *buf = 134217984;
-      v83 = v24;
-      _os_log_impl(&dword_1C6655000, v23, OS_LOG_TYPE_DEFAULT, "[instant answers][flights api] found %lu events from flights api response", buf, 0xCu);
+      v82 = v23;
+      _os_log_impl(&dword_1C6655000, v22, OS_LOG_TYPE_DEFAULT, "[instant answers][flights api] found %lu events from flights api response", buf, 0xCu);
     }
 
-    v65 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v77 = 0u;
-    v78 = 0u;
-    v75 = 0u;
+    v64 = objc_alloc_init(MEMORY[0x1E695DF70]);
     v76 = 0u;
-    obj = v57;
-    v62 = [obj countByEnumeratingWithState:&v75 objects:v81 count:16];
-    if (v62)
+    v77 = 0u;
+    v74 = 0u;
+    v75 = 0u;
+    obj = v56;
+    v61 = [obj countByEnumeratingWithState:&v74 objects:v80 count:16];
+    if (v61)
     {
-      v61 = *v76;
+      v60 = *v75;
       do
       {
-        for (i = 0; i != v62; ++i)
+        for (i = 0; i != v61; ++i)
         {
-          if (*v76 != v61)
+          if (*v75 != v60)
           {
             objc_enumerationMutation(obj);
           }
 
-          v25 = [*(*(&v75 + 1) + 8 * i) objectForKey:{@"legs", v57}];
-          if (v25)
+          v24 = [*(*(&v74 + 1) + 8 * i) objectForKey:{@"legs", v56}];
+          if (v24)
           {
-            v73 = 0u;
-            v74 = 0u;
-            v71 = 0u;
             v72 = 0u;
-            v63 = v25;
-            v26 = v25;
-            v27 = [v26 countByEnumeratingWithState:&v71 objects:v80 count:16];
-            if (!v27)
+            v73 = 0u;
+            v70 = 0u;
+            v71 = 0u;
+            v62 = v24;
+            v25 = v24;
+            v26 = [v25 countByEnumeratingWithState:&v70 objects:v79 count:16];
+            if (!v26)
             {
               goto LABEL_48;
             }
 
-            v28 = *v72;
+            v27 = *v71;
             while (1)
             {
-              for (j = 0; j != v27; ++j)
+              for (j = 0; j != v26; ++j)
               {
-                if (*v72 != v28)
+                if (*v71 != v27)
                 {
-                  objc_enumerationMutation(v26);
+                  objc_enumerationMutation(v25);
                 }
 
-                v30 = *(*(&v71 + 1) + 8 * j);
-                v31 = [v30 objectForKey:@"departureAirport"];
-                v32 = v31;
-                if (v31)
+                v29 = *(*(&v70 + 1) + 8 * j);
+                v30 = [v29 objectForKey:@"departureAirport"];
+                v31 = v30;
+                if (v30)
                 {
-                  v33 = [v31 objectForKey:@"code"];
-                  if (!v33)
+                  v32 = [v30 objectForKey:@"code"];
+                  if (!v32)
                   {
                     flightDepartureAirportCode2 = +[EMParsecInstantAnswers log];
                     if (os_log_type_enabled(flightDepartureAirportCode2, OS_LOG_TYPE_DEFAULT))
@@ -199,138 +199,138 @@ LABEL_45:
                     goto LABEL_46;
                   }
 
-                  flightDepartureAirportCode2 = [v66 flightDepartureAirportCode];
-                  if (![v33 isEqualToString:flightDepartureAirportCode2])
+                  flightDepartureAirportCode2 = [v65 flightDepartureAirportCode];
+                  if (![v32 isEqualToString:flightDepartureAirportCode2])
                   {
                     goto LABEL_45;
                   }
 
-                  v35 = [v30 objectForKey:@"departureActualTime"];
-                  if (!v35)
+                  v34 = [v29 objectForKey:@"departureActualTime"];
+                  if (!v34)
                   {
                     goto LABEL_45;
                   }
 
-                  v36 = [v30 objectForKey:@"arrivalActualTime"];
-                  v37 = v36 == 0;
+                  v35 = [v29 objectForKey:@"arrivalActualTime"];
+                  v36 = v35 == 0;
 
-                  if (!v37)
+                  if (!v36)
                   {
-                    [v65 addObject:v30];
+                    [v64 addObject:v29];
                   }
                 }
 
                 else
                 {
-                  v33 = +[EMParsecInstantAnswers log];
-                  if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+                  v32 = +[EMParsecInstantAnswers log];
+                  if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 0;
-                    _os_log_impl(&dword_1C6655000, v33, OS_LOG_TYPE_DEFAULT, "[instant answers][flights api] found flight leg with no departure airport", buf, 2u);
+                    _os_log_impl(&dword_1C6655000, v32, OS_LOG_TYPE_DEFAULT, "[instant answers][flights api] found flight leg with no departure airport", buf, 2u);
                   }
                 }
 
 LABEL_46:
               }
 
-              v27 = [v26 countByEnumeratingWithState:&v71 objects:v80 count:16];
-              if (!v27)
+              v26 = [v25 countByEnumeratingWithState:&v70 objects:v79 count:16];
+              if (!v26)
               {
 LABEL_48:
 
-                v25 = v63;
+                v24 = v62;
                 break;
               }
             }
           }
         }
 
-        v62 = [obj countByEnumeratingWithState:&v75 objects:v81 count:16];
+        v61 = [obj countByEnumeratingWithState:&v74 objects:v80 count:16];
       }
 
-      while (v62);
+      while (v61);
     }
 
-    v38 = +[EMParsecInstantAnswers log];
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+    v37 = +[EMParsecInstantAnswers log];
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
     {
-      v39 = [v65 count];
+      v38 = [v64 count];
       *buf = 134217984;
-      v83 = v39;
-      _os_log_impl(&dword_1C6655000, v38, OS_LOG_TYPE_DEFAULT, "[instant answers][flights api] found %lu flight legs with same departure airport and date", buf, 0xCu);
+      v82 = v38;
+      _os_log_impl(&dword_1C6655000, v37, OS_LOG_TYPE_DEFAULT, "[instant answers][flights api] found %lu flight legs with same departure airport and date", buf, 0xCu);
     }
 
-    v69 = 0u;
-    v70 = 0u;
-    v67 = 0u;
     v68 = 0u;
-    v40 = v65;
-    v41 = [v40 countByEnumeratingWithState:&v67 objects:v79 count:16];
-    if (v41)
+    v69 = 0u;
+    v66 = 0u;
+    v67 = 0u;
+    v39 = v64;
+    v40 = [v39 countByEnumeratingWithState:&v66 objects:v78 count:16];
+    if (v40)
     {
-      v42 = 0;
-      v43 = *v68;
-      v44 = 1.79769313e308;
+      v41 = 0;
+      v42 = *v67;
+      v43 = 1.79769313e308;
       do
       {
-        for (k = 0; k != v41; ++k)
+        for (k = 0; k != v40; ++k)
         {
-          if (*v68 != v43)
+          if (*v67 != v42)
           {
-            objc_enumerationMutation(v40);
+            objc_enumerationMutation(v39);
           }
 
-          v46 = *(*(&v67 + 1) + 8 * k);
-          v47 = [v46 objectForKey:{@"departurePublishedTime", v57}];
-          if (v47)
+          v45 = *(*(&v66 + 1) + 8 * k);
+          v46 = [v45 objectForKey:{@"departurePublishedTime", v56}];
+          if (v46)
           {
-            v48 = +[EMParsecInstantAnswers utcFormatter];
-            v49 = [v48 dateFromString:v47];
+            v47 = +[EMParsecInstantAnswers utcFormatter];
+            v48 = [v47 dateFromString:v46];
 
-            if (v49 && ([v49 timeIntervalSinceDate:v60], v51 = fabs(v50), v51 <= v44))
+            if (v48 && ([v48 timeIntervalSinceDate:v59], v50 = fabs(v49), v50 <= v43))
             {
-              v52 = v46;
+              v51 = v45;
 
-              v42 = v52;
+              v41 = v51;
             }
 
             else
             {
-              v51 = v44;
+              v50 = v43;
             }
 
-            v44 = v51;
+            v43 = v50;
           }
         }
 
-        v41 = [v40 countByEnumeratingWithState:&v67 objects:v79 count:16];
+        v40 = [v39 countByEnumeratingWithState:&v66 objects:v78 count:16];
       }
 
-      while (v41);
+      while (v40);
 
-      if (v40 && v42)
+      if (v39 && v41)
       {
-        v53 = [EMParsecInstantAnswers _flightDepartureDateFromUpdatedFlightInformation:v42];
-        v54 = [EMParsecInstantAnswers _flightArrivalDateFromUpdatedFlightInformation:v42];
-        if (v53 && v54)
+        v52 = [EMParsecInstantAnswers _flightDepartureDateFromUpdatedFlightInformation:v41];
+        v53 = [EMParsecInstantAnswers _flightArrivalDateFromUpdatedFlightInformation:v41];
+        if (v52 && v53)
+        {
+          v54 = +[EMParsecInstantAnswers log];
+          if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 0;
+            _os_log_impl(&dword_1C6655000, v54, OS_LOG_TYPE_DEFAULT, "[instant answers][flights api] successfully updated flight instant answer with live info.", buf, 2u);
+          }
+
+          v15 = v41;
+        }
+
+        else
         {
           v55 = +[EMParsecInstantAnswers log];
           if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_1C6655000, v55, OS_LOG_TYPE_DEFAULT, "[instant answers][flights api] successfully updated flight instant answer with live info.", buf, 2u);
-          }
-
-          v15 = v42;
-        }
-
-        else
-        {
-          v56 = +[EMParsecInstantAnswers log];
-          if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
-          {
-            *buf = 0;
-            _os_log_impl(&dword_1C6655000, v56, OS_LOG_TYPE_DEFAULT, "[instant answers][flights api] flightDepartureActualDate or flightArrivalActualDate is nil, skipping live info. update", buf, 2u);
+            _os_log_impl(&dword_1C6655000, v55, OS_LOG_TYPE_DEFAULT, "[instant answers][flights api] flightDepartureActualDate or flightArrivalActualDate is nil, skipping live info. update", buf, 2u);
           }
 
           v15 = 0;
@@ -344,14 +344,14 @@ LABEL_82:
     else
     {
 
-      v42 = 0;
+      v41 = 0;
     }
 
-    v53 = +[EMParsecInstantAnswers log];
-    if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
+    v52 = +[EMParsecInstantAnswers log];
+    if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1C6655000, v53, OS_LOG_TYPE_DEFAULT, "[instant answers][flights api] no matching leg was found from flights api response", buf, 2u);
+      _os_log_impl(&dword_1C6655000, v52, OS_LOG_TYPE_DEFAULT, "[instant answers][flights api] no matching leg was found from flights api response", buf, 2u);
     }
 
     v15 = 0;
@@ -361,10 +361,8 @@ LABEL_82:
 LABEL_13:
   v15 = 0;
 LABEL_14:
-  answerCopy = v66;
+  answerCopy = v65;
 LABEL_15:
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
@@ -451,7 +449,7 @@ LABEL_15:
 + (id)inlineCardWithManageReservationButton:(BOOL)button bodyCardSectionID:(id)d buttonsCardSectionID:(id)iD
 {
   buttonCopy = button;
-  v23[2] = *MEMORY[0x1E69E9840];
+  v22[2] = *MEMORY[0x1E69E9840];
   dCopy = d;
   iDCopy = iD;
   v9 = objc_alloc_init(MEMORY[0x1E69C9F08]);
@@ -473,26 +471,24 @@ LABEL_15:
     [v14 setCommand:v15];
 
     [v14 setUniqueId:2];
-    v23[0] = v12;
-    v23[1] = v14;
-    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:2];
+    v22[0] = v12;
+    v22[1] = v14;
+    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:2];
     [v11 setButtons:v16];
   }
 
   else
   {
-    v22 = v12;
-    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v22 count:1];
+    v21 = v12;
+    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v21 count:1];
     [v11 setButtons:v14];
   }
 
   v17 = objc_alloc_init(MEMORY[0x1E69C9F00]);
-  v21[0] = v9;
-  v21[1] = v11;
-  v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:2];
+  v20[0] = v9;
+  v20[1] = v11;
+  v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:2];
   [v17 setCardSections:v18];
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
@@ -632,33 +628,33 @@ void __38__EMParsecInstantAnswers_utcFormatter__block_invoke()
 
 + (id)sfFlightsToDictionary:(id)dictionary
 {
-  v101 = *MEMORY[0x1E69E9840];
+  v100 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v67 = objc_opt_new();
-  v97 = 0u;
-  v98 = 0u;
-  v95 = 0u;
+  v66 = objc_opt_new();
   v96 = 0u;
+  v97 = 0u;
+  v94 = 0u;
+  v95 = 0u;
   obj = dictionaryCopy;
-  v3 = [obj countByEnumeratingWithState:&v95 objects:v100 count:{16, dictionaryCopy}];
+  v3 = [obj countByEnumeratingWithState:&v94 objects:v99 count:{16, dictionaryCopy}];
   if (v3)
   {
-    v66 = *v96;
+    v65 = *v95;
     do
     {
       v4 = 0;
-      v65 = v3;
+      v64 = v3;
       do
       {
-        if (*v96 != v66)
+        if (*v95 != v65)
         {
           objc_enumerationMutation(obj);
         }
 
-        v70 = v4;
-        v5 = *(*(&v95 + 1) + 8 * v4);
+        v69 = v4;
+        v5 = *(*(&v94 + 1) + 8 * v4);
         context = objc_autoreleasePoolPush();
-        v71 = objc_opt_new();
+        v70 = objc_opt_new();
         flightNumber = [v5 flightNumber];
         v7 = flightNumber;
         if (!flightNumber)
@@ -667,7 +663,7 @@ void __38__EMParsecInstantAnswers_utcFormatter__block_invoke()
           v7 = null;
         }
 
-        [v71 setObject:v7 forKeyedSubscript:@"flightNumber"];
+        [v70 setObject:v7 forKeyedSubscript:@"flightNumber"];
         if (!flightNumber)
         {
         }
@@ -680,33 +676,33 @@ void __38__EMParsecInstantAnswers_utcFormatter__block_invoke()
           v9 = null2;
         }
 
-        [v71 setObject:v9 forKeyedSubscript:@"carrierCode"];
+        [v70 setObject:v9 forKeyedSubscript:@"carrierCode"];
         if (!carrierCode)
         {
         }
 
         carrierWebsite = [v5 carrierWebsite];
-        v88 = objc_opt_new();
-        v93 = 0u;
-        v94 = 0u;
-        v91 = 0u;
+        v87 = objc_opt_new();
         v92 = 0u;
+        v93 = 0u;
+        v90 = 0u;
+        v91 = 0u;
         legs = [v5 legs];
-        v89 = [legs countByEnumeratingWithState:&v91 objects:v99 count:16];
-        if (v89)
+        v88 = [legs countByEnumeratingWithState:&v90 objects:v98 count:16];
+        if (v88)
         {
-          v87 = *v92;
-          v72 = legs;
+          v86 = *v91;
+          v71 = legs;
           do
           {
-            for (i = 0; i != v89; ++i)
+            for (i = 0; i != v88; ++i)
             {
-              if (*v92 != v87)
+              if (*v91 != v86)
               {
-                objc_enumerationMutation(v72);
+                objc_enumerationMutation(v71);
               }
 
-              v13 = *(*(&v91 + 1) + 8 * i);
+              v13 = *(*(&v90 + 1) + 8 * i);
               v14 = objc_opt_new();
               v15 = +[EMParsecInstantAnswers sfFlightStatusToString:](EMParsecInstantAnswers, "sfFlightStatusToString:", [v13 status]);
               v16 = v15;
@@ -904,60 +900,59 @@ void __38__EMParsecInstantAnswers_utcFormatter__block_invoke()
               {
               }
 
-              [v88 addObject:v14];
+              [v87 addObject:v14];
             }
 
-            legs = v72;
-            v89 = [v72 countByEnumeratingWithState:&v91 objects:v99 count:16];
+            legs = v71;
+            v88 = [v71 countByEnumeratingWithState:&v90 objects:v98 count:16];
           }
 
-          while (v89);
+          while (v88);
         }
 
-        v57 = v88;
-        if (!v88)
+        v57 = v87;
+        if (!v87)
         {
           null17 = [MEMORY[0x1E695DFB0] null];
           v57 = null17;
         }
 
-        [v71 setObject:v57 forKeyedSubscript:@"legs"];
-        if (!v88)
+        [v70 setObject:v57 forKeyedSubscript:@"legs"];
+        if (!v87)
         {
         }
 
-        [v67 addObject:v71];
+        [v66 addObject:v70];
 
         objc_autoreleasePoolPop(context);
-        v4 = v70 + 1;
+        v4 = v69 + 1;
       }
 
-      while (v70 + 1 != v65);
-      v3 = [obj countByEnumeratingWithState:&v95 objects:v100 count:16];
+      while (v69 + 1 != v64);
+      v3 = [obj countByEnumeratingWithState:&v94 objects:v99 count:16];
     }
 
     while (v3);
   }
 
-  v58 = [v67 copy];
-  v59 = *MEMORY[0x1E69E9840];
+  v58 = [v66 copy];
 
   return v58;
 }
 
 + (id)flightInformationWithAirlineCode:(id)code flightNumber:(id)number flightDate:(id)date
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   codeCopy = code;
   numberCopy = number;
   dateCopy = date;
   v12 = dateCopy;
-  v49 = 0;
-  v50 = &v49;
-  v51 = 0x3032000000;
-  v52 = __Block_byref_object_copy__10;
-  v53 = __Block_byref_object_dispose__10;
-  v54 = 0;
+  v48 = 0;
+  v49 = &v48;
+  v50 = 0x3032000000;
+  v51 = __Block_byref_object_copy__10;
+  v52 = __Block_byref_object_dispose__10;
+  v53 = 0;
   if (!codeCopy)
   {
     numberCopy = +[EMParsecInstantAnswers log];
@@ -1004,11 +999,11 @@ LABEL_22:
   numberCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@", codeCopy, numberCopy];
   if (!numberCopy)
   {
-    v27 = +[EMParsecInstantAnswers log];
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    v26 = +[EMParsecInstantAnswers log];
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1C6655000, v27, OS_LOG_TYPE_DEFAULT, "[instant answers][flights api] Can't get flightInformation, query is malformed", buf, 2u);
+      _os_log_impl(&dword_1C6655000, v26, OS_LOG_TYPE_DEFAULT, "[instant answers][flights api] Can't get flightInformation, query is malformed", buf, 2u);
     }
 
     goto LABEL_22;
@@ -1027,9 +1022,9 @@ LABEL_22:
     v14 = @"com.apple.undefined";
   }
 
-  v37 = v14;
-  v38 = [MEMORY[0x1E6998648] flightRequestForQuery:numberCopy date:v12 appBundleId:?];
-  if (!v38)
+  v36 = v14;
+  v37 = [MEMORY[0x1E6998648] flightRequestForQuery:numberCopy date:v12 appBundleId:?];
+  if (!v37)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
     [currentHandler handleFailureInMethod:a2 object:self file:@"EMParsecInstantAnswers.m" lineNumber:325 description:{@"Invalid parameter not satisfying: %@", @"request"}];
@@ -1040,31 +1035,31 @@ LABEL_22:
   [v16 setDontPreloadImages:1];
   v17 = [MEMORY[0x1E6998670] sessionWithConfiguration:v16];
   *buf = 0;
-  v44 = buf;
-  v45 = 0x3032000000;
-  v46 = __Block_byref_object_copy__10;
-  v47 = __Block_byref_object_dispose__10;
-  v48 = 0;
+  v43 = buf;
+  v44 = 0x3032000000;
+  v45 = __Block_byref_object_copy__10;
+  v46 = __Block_byref_object_dispose__10;
+  v47 = 0;
   v18 = dispatch_semaphore_create(0);
   v19 = dispatch_time(0, 500000000);
-  v39[0] = MEMORY[0x1E69E9820];
-  v39[1] = 3221225472;
-  v39[2] = __83__EMParsecInstantAnswers_flightInformationWithAirlineCode_flightNumber_flightDate___block_invoke;
-  v39[3] = &unk_1E826F1C0;
-  v41 = &v49;
-  v42 = buf;
+  v38[0] = MEMORY[0x1E69E9820];
+  v38[1] = 3221225472;
+  v38[2] = __83__EMParsecInstantAnswers_flightInformationWithAirlineCode_flightNumber_flightDate___block_invoke;
+  v38[3] = &unk_1E826F1C0;
+  v40 = &v48;
+  v41 = buf;
   v20 = v18;
-  v40 = v20;
-  v21 = [v17 taskWithRequest:v38 completion:v39];
+  v39 = v20;
+  v21 = [v17 taskWithRequest:v37 completion:v38];
   [v21 resume];
   if (dispatch_semaphore_wait(v20, v19))
   {
     v22 = +[EMParsecInstantAnswers log];
     if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
-      *v58 = 67109120;
-      LODWORD(v59) = 500;
-      _os_log_impl(&dword_1C6655000, v22, OS_LOG_TYPE_DEFAULT, "[instant answers][flights api] coreparsec request timed out (timeout = %d ms)", v58, 8u);
+      *v57 = 67109120;
+      LODWORD(v58) = 500;
+      _os_log_impl(&dword_1C6655000, v22, OS_LOG_TYPE_DEFAULT, "[instant answers][flights api] coreparsec request timed out (timeout = %d ms)", v57, 8u);
     }
 
     v23 = MEMORY[0x1E695E0F0];
@@ -1072,51 +1067,50 @@ LABEL_22:
 
   else
   {
-    v28 = +[EMParsecInstantAnswers log];
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+    v27 = +[EMParsecInstantAnswers log];
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
-      v29 = [v50[5] count];
-      *v58 = 134217984;
-      v59 = v29;
-      _os_log_impl(&dword_1C6655000, v28, OS_LOG_TYPE_DEFAULT, "[instant answers][flights api] coreparsec results count = %lu", v58, 0xCu);
+      v28 = [v49[5] count];
+      *v57 = 134217984;
+      v58 = v28;
+      _os_log_impl(&dword_1C6655000, v27, OS_LOG_TYPE_DEFAULT, "[instant answers][flights api] coreparsec results count = %lu", v57, 0xCu);
     }
 
-    if (![v50[5] count])
+    if (![v49[5] count])
     {
-      v30 = *(v44 + 5);
-      if (v30)
+      v29 = *(v43 + 5);
+      if (v29)
       {
-        v56[0] = @"error";
-        v55[0] = @"type";
-        v55[1] = @"errorCode";
-        v31 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v30, "code")}];
-        v56[1] = v31;
-        v55[2] = @"userInfo";
-        userInfo = [*(v44 + 5) userInfo];
-        v56[2] = userInfo;
-        v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v56 forKeys:v55 count:3];
-        v57 = v32;
-        v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v57 count:1];
-        v34 = v50[5];
-        v50[5] = v33;
+        v55[0] = @"error";
+        v54[0] = @"type";
+        v54[1] = @"errorCode";
+        v30 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v29, "code")}];
+        v55[1] = v30;
+        v54[2] = @"userInfo";
+        userInfo = [*(v43 + 5) userInfo];
+        v55[2] = userInfo;
+        v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v55 forKeys:v54 count:3];
+        v56 = v31;
+        v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v56 count:1];
+        v33 = v49[5];
+        v49[5] = v32;
       }
     }
 
-    v23 = v50[5];
+    v23 = v49[5];
   }
 
   _Block_object_dispose(buf, 8);
 LABEL_23:
 
-  _Block_object_dispose(&v49, 8);
-  v25 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v48, 8);
 
   return v23;
 }
 
 void __83__EMParsecInstantAnswers_flightInformationWithAirlineCode_flightNumber_flightDate___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = a4;
   v8 = [v6 flightResults];
@@ -1125,8 +1119,8 @@ void __83__EMParsecInstantAnswers_flightInformationWithAirlineCode_flightNumber_
     v9 = +[EMParsecInstantAnswers log];
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v15) = 0;
-      _os_log_impl(&dword_1C6655000, v9, OS_LOG_TYPE_DEFAULT, "[instant answers][flights api] empty coreparsec response for flight", &v15, 2u);
+      LOWORD(v14) = 0;
+      _os_log_impl(&dword_1C6655000, v9, OS_LOG_TYPE_DEFAULT, "[instant answers][flights api] empty coreparsec response for flight", &v14, 2u);
     }
   }
 
@@ -1141,34 +1135,30 @@ void __83__EMParsecInstantAnswers_flightInformationWithAirlineCode_flightNumber_
     v13 = +[EMParsecInstantAnswers log];
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 138412290;
-      v16 = v7;
-      _os_log_impl(&dword_1C6655000, v13, OS_LOG_TYPE_DEFAULT, "[instant answers][flights api] error when calling coreparsec : %@", &v15, 0xCu);
+      v14 = 138412290;
+      v15 = v7;
+      _os_log_impl(&dword_1C6655000, v13, OS_LOG_TYPE_DEFAULT, "[instant answers][flights api] error when calling coreparsec : %@", &v14, 0xCu);
     }
   }
 
   dispatch_semaphore_signal(*(a1 + 32));
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 + (void)setBundleIdentifier:(id)identifier
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v4 = +[EMParsecInstantAnswers log];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138543362;
-    v9 = identifierCopy;
-    _os_log_impl(&dword_1C6655000, v4, OS_LOG_TYPE_DEFAULT, "[instant answers] updated to use new bundle identifier:%{public}@", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = identifierCopy;
+    _os_log_impl(&dword_1C6655000, v4, OS_LOG_TYPE_DEFAULT, "[instant answers] updated to use new bundle identifier:%{public}@", &v7, 0xCu);
   }
 
   v5 = [identifierCopy copy];
   v6 = s_bundleIdentifier;
   s_bundleIdentifier = v5;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 + (NSString)bundleIdentifier

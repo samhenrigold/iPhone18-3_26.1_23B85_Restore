@@ -18,18 +18,18 @@
 
 - (ClientIdentity)initWithCoder:(id)coder
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v12 = 0;
+  v14 = *MEMORY[0x277D85DE8];
+  v11 = 0;
   coderCopy = coder;
-  v6 = [coder decodeBytesForKey:@"auditToken" returnedLength:&v12];
-  if (v12 == 32)
+  v6 = [coder decodeBytesForKey:@"auditToken" returnedLength:&v11];
+  if (v11 == 32)
   {
     v7 = v6[1];
-    v13 = *v6;
-    v14 = v7;
-    v11[0] = v13;
-    v11[1] = v7;
-    self = [(ClientIdentity *)self initWithAuditToken:v11];
+    v12 = *v6;
+    v13 = v7;
+    v10[0] = v12;
+    v10[1] = v7;
+    self = [(ClientIdentity *)self initWithAuditToken:v10];
     selfCopy = self;
   }
 
@@ -39,16 +39,15 @@
     selfCopy = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
 - (ClientIdentity)initWithAuditToken:(id *)token
 {
-  v48 = *MEMORY[0x277D85DE8];
-  v42.receiver = self;
-  v42.super_class = ClientIdentity;
-  v4 = [(ClientIdentity *)&v42 init];
+  v47 = *MEMORY[0x277D85DE8];
+  v41.receiver = self;
+  v41.super_class = ClientIdentity;
+  v4 = [(ClientIdentity *)&v41 init];
   v5 = v4;
   if (v4)
   {
@@ -68,17 +67,17 @@
     clientName = v5->_clientName;
     v5->_clientName = v9;
 
-    v40[1] = 0;
+    v39[1] = 0;
     v11 = *&token->var0[4];
     buffer = *token->var0;
-    v46 = v11;
+    v45 = v11;
     CPCopyBundleIdentifierAndTeamFromAuditToken();
-    v40[0] = 0;
+    v39[0] = 0;
     v12 = *&token->var0[4];
     buffer = *token->var0;
-    v46 = v12;
-    v13 = [MEMORY[0x277CC1E90] bundleRecordForAuditToken:&buffer error:v40];
-    v14 = v40[0];
+    v45 = v12;
+    v13 = [MEMORY[0x277CC1E90] bundleRecordForAuditToken:&buffer error:v39];
+    v14 = v39[0];
     teamIdentifier = [v13 teamIdentifier];
     teamIdentifier = v5->_teamIdentifier;
     v5->_teamIdentifier = teamIdentifier;
@@ -101,7 +100,7 @@
         if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_ERROR))
         {
           *buf = 67109120;
-          v44 = pidp;
+          v43 = pidp;
           _os_log_impl(&dword_22430B000, v28, OS_LOG_TYPE_ERROR, "Could not find path of process with PID: [%d]", buf, 8u);
         }
       }
@@ -125,7 +124,7 @@
           if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_ERROR))
           {
             *buf = 67109120;
-            v44 = pidp;
+            v43 = pidp;
             _os_log_impl(&dword_22430B000, v29, OS_LOG_TYPE_ERROR, "Could not generate path string for process with pid: [%d]", buf, 8u);
           }
         }
@@ -181,7 +180,6 @@
     }
   }
 
-  v38 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -192,11 +190,11 @@
   if (objc_opt_isKindOfClass())
   {
     v5 = equalCopy;
-    [(ClientIdentity *)self auditToken];
+    objc_msgSend_auditToken(self);
     memset(v12, 0, sizeof(v12));
     if (v5)
     {
-      [v5 auditToken];
+      objc_msgSend_auditToken(v5);
     }
 
     if (LODWORD(v12[2]) == LODWORD(v12[0]))

@@ -16,7 +16,7 @@
 {
   accountCopy = account;
   selfCopy = self;
-  sub_29D4FB99C();
+  sub_29D4FB99C(accountCopy);
 }
 
 - (_TtC13HealthRecords43ClinicalSharingOnboardingTileViewController)initWithNibName:(id)name bundle:(id)bundle

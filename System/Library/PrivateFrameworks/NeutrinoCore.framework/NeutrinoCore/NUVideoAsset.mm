@@ -29,7 +29,7 @@ void __45___NUVideoAsset__loadMediaWithOptions_error___block_invoke(uint64_t a1,
     v19 = v10;
     if (v12)
     {
-      [v12 timeRange];
+      objc_msgSend_timeRange(v12);
     }
 
     else

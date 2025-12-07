@@ -8,7 +8,7 @@
 
 - (BOOL)processExternalAssetRelevanceInferenceWithError:(id *)error progressReporter:(id)reporter shareBackSuggester:(id)suggester
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   reporterCopy = reporter;
   suggesterCopy = suggester;
   v10 = reporterCopy;
@@ -18,7 +18,7 @@
     v13 = os_signpost_id_generate(loggingConnection);
     v14 = loggingConnection;
     v15 = v14;
-    v57 = v13 - 1;
+    v56 = v13 - 1;
     if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
     {
       *buf = 0;
@@ -27,7 +27,7 @@
 
     info = 0;
     mach_timebase_info(&info);
-    v56 = mach_absolute_time();
+    v55 = mach_absolute_time();
     librarySpecificFetchOptions = [(PHPhotoLibrary *)self->_photoLibrary librarySpecificFetchOptions];
     [librarySpecificFetchOptions setIncludeGuestAssets:0];
     v17 = +[PGCurationManager assetPropertySetsForCuration];
@@ -59,17 +59,17 @@ LABEL_49:
       }
 
       *buf = 67109378;
-      *v74 = 58;
-      *&v74[4] = 2080;
-      *&v74[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/ExternalAssetProcessing/PGExternalAssetProcessor.m";
+      *v73 = 58;
+      *&v73[4] = 2080;
+      *&v73[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/ExternalAssetProcessing/PGExternalAssetProcessor.m";
       v20 = MEMORY[0x277D86220];
 LABEL_13:
       _os_log_impl(&dword_22F0FC000, v20, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
       goto LABEL_14;
     }
 
-    v55 = [v19 count];
-    if (!v55)
+    v54 = [v19 count];
+    if (!v54)
     {
       if (![v10 isCancelledWithProgress:1.0])
       {
@@ -89,81 +89,81 @@ LABEL_13:
       }
 
       *buf = 67109378;
-      *v74 = 62;
-      *&v74[4] = 2080;
-      *&v74[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/ExternalAssetProcessing/PGExternalAssetProcessor.m";
+      *v73 = 62;
+      *&v73[4] = 2080;
+      *&v73[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/ExternalAssetProcessing/PGExternalAssetProcessor.m";
       v20 = MEMORY[0x277D86220];
       goto LABEL_13;
     }
 
     spid = v13;
-    v53 = [MEMORY[0x277CBEB58] set];
+    v52 = [MEMORY[0x277CBEB58] set];
     dictionary = [MEMORY[0x277CBEB38] dictionary];
-    v50 = [objc_alloc(MEMORY[0x277D22C88]) initWithProgressReporter:v10];
-    v21 = [v50 childProgressReporterToCheckpoint:0.9];
+    v49 = [objc_alloc(MEMORY[0x277D22C88]) initWithProgressReporter:v10];
+    v21 = [v49 childProgressReporterToCheckpoint:0.9];
     [(PGManagerWorkingContext *)self->_workingContext serviceManager];
     v23 = v22 = v19;
     workingContext = self->_workingContext;
-    v63[0] = MEMORY[0x277D85DD0];
-    v63[1] = 3221225472;
-    v63[2] = __112__PGExternalAssetProcessor_processExternalAssetRelevanceInferenceWithError_progressReporter_shareBackSuggester___block_invoke;
-    v63[3] = &unk_278889AF0;
-    v49 = v21;
-    v64 = v49;
-    v52 = suggesterCopy;
-    v65 = suggesterCopy;
-    v51 = v15;
+    v62[0] = MEMORY[0x277D85DD0];
+    v62[1] = 3221225472;
+    v62[2] = __112__PGExternalAssetProcessor_processExternalAssetRelevanceInferenceWithError_progressReporter_shareBackSuggester___block_invoke;
+    v62[3] = &unk_278889AF0;
+    v48 = v21;
+    v63 = v48;
+    v51 = suggesterCopy;
+    v64 = suggesterCopy;
+    v50 = v15;
     v25 = v15;
-    v66 = v25;
+    v65 = v25;
     selfCopy = self;
     v26 = v23;
     v19 = v22;
-    v48 = v26;
-    v68 = v26;
+    v47 = v26;
+    v67 = v26;
     v27 = v22;
-    v69 = v27;
-    v54 = v53;
-    v70 = v54;
+    v68 = v27;
+    v53 = v52;
+    v69 = v53;
     v28 = dictionary;
-    v71 = v28;
-    [(PGManagerWorkingContext *)workingContext performSynchronousConcurrentGraphReadUsingBlock:v63];
+    v70 = v28;
+    [(PGManagerWorkingContext *)workingContext performSynchronousConcurrentGraphReadUsingBlock:v62];
     v29 = v25;
     if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
       v30 = [v27 count];
       *buf = 134217984;
-      *v74 = v30;
+      *v73 = v30;
       _os_log_impl(&dword_22F0FC000, v29, OS_LOG_TYPE_DEFAULT, "%lu external assets processed", buf, 0xCu);
     }
 
     v31 = v29;
     if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
     {
-      v32 = [v54 count];
+      v32 = [v53 count];
       *buf = 134217984;
-      *v74 = v32;
+      *v73 = v32;
       _os_log_impl(&dword_22F0FC000, v31, OS_LOG_TYPE_DEFAULT, "%lu external assets inferred as relevant", buf, 0xCu);
     }
 
     photoLibrary = self->_photoLibrary;
-    v59[0] = MEMORY[0x277D85DD0];
-    v59[1] = 3221225472;
-    v59[2] = __112__PGExternalAssetProcessor_processExternalAssetRelevanceInferenceWithError_progressReporter_shareBackSuggester___block_invoke_299;
-    v59[3] = &unk_278889B18;
-    v62 = v55;
-    v60 = v27;
-    v47 = v28;
-    v61 = v47;
-    v58 = 0;
-    v11 = [(PHPhotoLibrary *)photoLibrary performChangesAndWait:v59 error:&v58];
-    v34 = v58;
-    suggesterCopy = v52;
+    v58[0] = MEMORY[0x277D85DD0];
+    v58[1] = 3221225472;
+    v58[2] = __112__PGExternalAssetProcessor_processExternalAssetRelevanceInferenceWithError_progressReporter_shareBackSuggester___block_invoke_299;
+    v58[3] = &unk_278889B18;
+    v61 = v54;
+    v59 = v27;
+    v46 = v28;
+    v60 = v46;
+    v57 = 0;
+    v11 = [(PHPhotoLibrary *)photoLibrary performChangesAndWait:v58 error:&v57];
+    v34 = v57;
+    suggesterCopy = v51;
     if ((v11 & 1) == 0)
     {
       if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        *v74 = v34;
+        *v73 = v34;
         _os_log_error_impl(&dword_22F0FC000, v31, OS_LOG_TYPE_ERROR, "Error saving external asset inference to database: %@", buf, 0xCu);
         if (!error)
         {
@@ -187,7 +187,7 @@ LABEL_26:
     if (throughputReportBlock)
     {
       throughputReportBlock2 = [v10 throughputReportBlock];
-      throughputReportBlock2[2](throughputReportBlock2, v55, 0);
+      throughputReportBlock2[2](throughputReportBlock2, v54, 0);
     }
 
     v38 = mach_absolute_time();
@@ -195,7 +195,7 @@ LABEL_26:
     denom = info.denom;
     v41 = v31;
     v42 = v41;
-    if (v57 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v41))
+    if (v56 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v41))
     {
       *buf = 0;
       _os_signpost_emit_with_name_impl(&dword_22F0FC000, v42, OS_SIGNPOST_INTERVAL_END, spid, "ExternalAssetRelevance", "", buf, 2u);
@@ -204,21 +204,21 @@ LABEL_26:
     if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      *v74 = "ExternalAssetRelevance";
-      *&v74[8] = 2048;
-      *&v74[10] = ((((v38 - v56) * numer) / denom) / 1000000.0);
+      *v73 = "ExternalAssetRelevance";
+      *&v73[8] = 2048;
+      *&v73[10] = ((((v38 - v55) * numer) / denom) / 1000000.0);
       _os_log_impl(&dword_22F0FC000, v42, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
     }
 
-    v15 = v51;
+    v15 = v50;
     if ([v10 isCancelledWithProgress:1.0])
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         *buf = 67109378;
-        *v74 = 158;
-        *&v74[4] = 2080;
-        *&v74[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/ExternalAssetProcessing/PGExternalAssetProcessor.m";
+        *v73 = 158;
+        *&v73[4] = 2080;
+        *&v73[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/ExternalAssetProcessing/PGExternalAssetProcessor.m";
         _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
       }
 
@@ -240,9 +240,9 @@ LABEL_26:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 67109378;
-    *v74 = 46;
-    *&v74[4] = 2080;
-    *&v74[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/ExternalAssetProcessing/PGExternalAssetProcessor.m";
+    *v73 = 46;
+    *&v73[4] = 2080;
+    *&v73[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/ExternalAssetProcessing/PGExternalAssetProcessor.m";
     _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
   }
 
@@ -259,79 +259,77 @@ LABEL_26:
 
 LABEL_50:
 
-  v43 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 void __112__PGExternalAssetProcessor_processExternalAssetRelevanceInferenceWithError_progressReporter_shareBackSuggester___block_invoke(uint64_t a1, void *a2)
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v41 = *(a1 + 32);
-  v37 = v3;
-  v45 = [v3 graph];
-  v44 = *(a1 + 40);
-  if (!v44)
+  v39 = *(a1 + 32);
+  v35 = v3;
+  v43 = [v3 graph];
+  v42 = *(a1 + 40);
+  if (!v42)
   {
-    v44 = [PGShareBackSuggester shareBackSuggesterForExternalAssetProcessingWithLoggingConnection:*(a1 + 48) photoLibrary:*(*(a1 + 56) + 16) graph:v45 serviceManager:*(a1 + 64)];
+    v42 = [PGShareBackSuggester shareBackSuggesterForExternalAssetProcessingWithLoggingConnection:*(a1 + 48) photoLibrary:*(*(a1 + 56) + 16) graph:v43 serviceManager:*(a1 + 64)];
   }
 
   v4 = [*(a1 + 40) positiveProcessingValue];
-  v5 = *(a1 + 56);
-  v6 = [objc_opt_class() clusterAssetsToProcess:*(a1 + 72) inPhotoLibrary:*(v5 + 16)];
-  v7 = [v6 count];
+  v5 = [objc_opt_class() clusterAssetsToProcess:*(a1 + 72) inPhotoLibrary:*(*(a1 + 56) + 16)];
+  v6 = [v5 count];
+  v57 = 0u;
+  v58 = 0u;
   v59 = 0u;
   v60 = 0u;
-  v61 = 0u;
-  v62 = 0u;
-  obj = v6;
-  v43 = [obj countByEnumeratingWithState:&v59 objects:v67 count:16];
-  if (!v43)
+  obj = v5;
+  v41 = [obj countByEnumeratingWithState:&v57 objects:v65 count:16];
+  if (!v41)
   {
     goto LABEL_43;
   }
 
-  v9 = 1.0 / v7;
-  v42 = *v60;
-  v10 = 0.0;
-  *&v8 = 138412290;
-  v36 = v8;
-  v39 = v4;
+  v8 = 1.0 / v6;
+  v40 = *v58;
+  v9 = 0.0;
+  *&v7 = 138412290;
+  v34 = v7;
+  v37 = v4;
 LABEL_5:
-  v11 = 0;
+  v10 = 0;
   while (1)
   {
-    if (*v60 != v42)
+    if (*v58 != v40)
     {
       objc_enumerationMutation(obj);
     }
 
-    v12 = *(*(&v59 + 1) + 8 * v11);
-    v13 = objc_autoreleasePoolPush();
-    v58 = 0;
-    v14 = [v44 suggesterResultsForInputs:v12 inGraph:v45 error:&v58];
-    v49 = v58;
-    if (v14)
+    v11 = *(*(&v57 + 1) + 8 * v10);
+    v12 = objc_autoreleasePoolPush();
+    v56 = 0;
+    v13 = [v42 suggesterResultsForInputs:v11 inGraph:v43 error:&v56];
+    v47 = v56;
+    if (v13)
     {
       break;
     }
 
-    v25 = *(a1 + 48);
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v24 = *(a1 + 48);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      *buf = v36;
-      *v64 = v49;
-      _os_log_error_impl(&dword_22F0FC000, v25, OS_LOG_TYPE_ERROR, "PGShareBackSuggesterResults returned from PGShareBackSuggester is nil: %@", buf, 0xCu);
+      *buf = v34;
+      *v62 = v47;
+      _os_log_error_impl(&dword_22F0FC000, v24, OS_LOG_TYPE_ERROR, "PGShareBackSuggesterResults returned from PGShareBackSuggester is nil: %@", buf, 0xCu);
     }
 
-    v24 = 0;
+    v23 = 0;
 LABEL_37:
 
-    objc_autoreleasePoolPop(v13);
-    if (++v11 == v43)
+    objc_autoreleasePoolPop(v12);
+    if (++v10 == v41)
     {
-      v43 = [obj countByEnumeratingWithState:&v59 objects:v67 count:16];
-      if (!v43)
+      v41 = [obj countByEnumeratingWithState:&v57 objects:v65 count:16];
+      if (!v41)
       {
         goto LABEL_43;
       }
@@ -340,44 +338,44 @@ LABEL_37:
     }
   }
 
-  v47 = v11;
-  v48 = v13;
-  v56 = 0u;
-  v57 = 0u;
+  v45 = v10;
+  v46 = v12;
   v54 = 0u;
   v55 = 0u;
-  v46 = v14;
-  v15 = v14;
-  v16 = [v15 countByEnumeratingWithState:&v54 objects:v66 count:16];
-  if (v16)
+  v52 = 0u;
+  v53 = 0u;
+  v44 = v13;
+  v14 = v13;
+  v15 = [v14 countByEnumeratingWithState:&v52 objects:v64 count:16];
+  if (v15)
   {
-    v17 = v16;
-    v18 = 0;
-    v19 = *v55;
+    v16 = v15;
+    v17 = 0;
+    v18 = *v53;
     while (2)
     {
-      for (i = 0; i != v17; ++i)
+      for (i = 0; i != v16; ++i)
       {
-        if (*v55 != v19)
+        if (*v53 != v18)
         {
-          objc_enumerationMutation(v15);
+          objc_enumerationMutation(v14);
         }
 
-        v21 = *(*(&v54 + 1) + 8 * i);
-        v22 = [v21 processingValue];
-        v23 = v22;
-        if ((v22 & v4) != 0)
+        v20 = *(*(&v52 + 1) + 8 * i);
+        v21 = [v20 processingValue];
+        v22 = v21;
+        if ((v21 & v4) != 0)
         {
-          v24 = v21;
-          v18 = v23;
+          v23 = v20;
+          v17 = v22;
           goto LABEL_24;
         }
 
-        v18 |= v22;
+        v17 |= v21;
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v54 objects:v66 count:16];
-      if (v17)
+      v16 = [v14 countByEnumeratingWithState:&v52 objects:v64 count:16];
+      if (v16)
       {
         continue;
       }
@@ -388,83 +386,81 @@ LABEL_37:
 
   else
   {
-    v18 = 0;
+    v17 = 0;
   }
 
-  v24 = 0;
+  v23 = 0;
 LABEL_24:
-  v40 = v15;
+  v38 = v14;
 
-  v52 = 0u;
-  v53 = 0u;
   v50 = 0u;
   v51 = 0u;
-  v26 = v12;
-  v27 = [v26 countByEnumeratingWithState:&v50 objects:v65 count:16];
-  if (!v27)
+  v48 = 0u;
+  v49 = 0u;
+  v25 = v11;
+  v26 = [v25 countByEnumeratingWithState:&v48 objects:v63 count:16];
+  if (!v26)
   {
     goto LABEL_35;
   }
 
-  v28 = v27;
-  v29 = *v51;
+  v27 = v26;
+  v28 = *v49;
   do
   {
-    for (j = 0; j != v28; ++j)
+    for (j = 0; j != v27; ++j)
     {
-      if (*v51 != v29)
+      if (*v49 != v28)
       {
-        objc_enumerationMutation(v26);
+        objc_enumerationMutation(v25);
       }
 
-      v31 = *(*(&v50 + 1) + 8 * j);
-      if (v24)
+      v30 = *(*(&v48 + 1) + 8 * j);
+      if (v23)
       {
-        [*(a1 + 80) addObject:*(*(&v50 + 1) + 8 * j)];
+        [*(a1 + 80) addObject:*(*(&v48 + 1) + 8 * j)];
 LABEL_31:
-        v32 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:{v18, v36}];
-        v33 = *(a1 + 88);
-        v34 = [v31 uuid];
-        [v33 setObject:v32 forKeyedSubscript:v34];
+        v31 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:{v17, v34}];
+        v32 = *(a1 + 88);
+        v33 = [v30 uuid];
+        [v32 setObject:v31 forKeyedSubscript:v33];
 
         continue;
       }
 
-      if (!v49)
+      if (!v47)
       {
         goto LABEL_31;
       }
     }
 
-    v28 = [v26 countByEnumeratingWithState:&v50 objects:v65 count:16];
+    v27 = [v25 countByEnumeratingWithState:&v48 objects:v63 count:16];
   }
 
-  while (v28);
+  while (v27);
 LABEL_35:
 
-  v10 = v9 + v10;
-  if (![v41 isCancelledWithProgress:v10])
+  v9 = v8 + v9;
+  if (![v39 isCancelledWithProgress:v9])
   {
-    v4 = v39;
-    v11 = v47;
-    v13 = v48;
-    v14 = v46;
+    v4 = v37;
+    v10 = v45;
+    v12 = v46;
+    v13 = v44;
     goto LABEL_37;
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 67109378;
-    *v64 = 120;
-    *&v64[4] = 2080;
-    *&v64[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/ExternalAssetProcessing/PGExternalAssetProcessor.m";
+    *v62 = 120;
+    *&v62[4] = 2080;
+    *&v62[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/ExternalAssetProcessing/PGExternalAssetProcessor.m";
     _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
   }
 
-  objc_autoreleasePoolPop(v48);
+  objc_autoreleasePoolPop(v46);
 LABEL_43:
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 void __112__PGExternalAssetProcessor_processExternalAssetRelevanceInferenceWithError_progressReporter_shareBackSuggester___block_invoke_299(uint64_t a1)
@@ -516,35 +512,35 @@ void __112__PGExternalAssetProcessor_processExternalAssetRelevanceInferenceWithE
 
 + (id)clusterAssetsToProcess:(id)process inPhotoLibrary:(id)library
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   processCopy = process;
   v6 = MEMORY[0x277CD98F8];
   librarySpecificFetchOptions = [library librarySpecificFetchOptions];
-  v30 = [v6 fetchMomentUUIDByAssetUUIDForAssets:processCopy options:librarySpecificFetchOptions];
+  v29 = [v6 fetchMomentUUIDByAssetUUIDForAssets:processCopy options:librarySpecificFetchOptions];
 
   v8 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   obj = processCopy;
-  v9 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+  v9 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v32;
+    v11 = *v31;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v32 != v11)
+        if (*v31 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v31 + 1) + 8 * i);
+        v13 = *(*(&v30 + 1) + 8 * i);
         uuid = [v13 uuid];
-        v15 = [v30 objectForKeyedSubscript:uuid];
+        v15 = [v29 objectForKeyedSubscript:uuid];
         v16 = v15;
         if (v15)
         {
@@ -581,15 +577,13 @@ void __112__PGExternalAssetProcessor_processExternalAssetRelevanceInferenceWithE
         [v25 addObject:v13];
       }
 
-      v10 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v10 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
     }
 
     while (v10);
   }
 
   allValues = [v8 allValues];
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return allValues;
 }

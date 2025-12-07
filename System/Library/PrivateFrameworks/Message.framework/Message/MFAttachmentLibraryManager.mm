@@ -2,6 +2,7 @@
 - (MFAttachmentLibraryManager)initWithPrimaryLibrary:(id)library;
 - (id)_dataProviderForAttachmentURL:(id)l error:(id *)error;
 - (id)attachmentsForMessage:(id)message withSchemes:(id)schemes;
+- (id)attachmentsForMessage:(id)message withSchemes:(id)schemes updatingFlags:(BOOL)flags;
 - (void)removeProviderForBaseURL:(id)l;
 @end
 
@@ -105,6 +106,74 @@
   v4 = [(MFAttachmentLibraryManager *)self attachmentsForMessage:message withSchemes:schemes updatingFlags:1];
 
   return v4;
+}
+
+- (id)attachmentsForMessage:(id)message withSchemes:(id)schemes updatingFlags:(BOOL)flags
+{
+  flagsCopy = flags;
+  v29 = *MEMORY[0x1E69E9840];
+  messageCopy = message;
+  schemesCopy = schemes;
+  array = [MEMORY[0x1E695DF70] array];
+  [messageCopy messageBodyIfAvailableUpdatingFlags:flagsCopy];
+  v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v21 = v25 = 0u;
+  obj = [v21 attachments];
+  v10 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+  if (v10)
+  {
+    v11 = *v25;
+    do
+    {
+      for (i = 0; i != v10; ++i)
+      {
+        if (*v25 != v11)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        mimePart = [*(*(&v24 + 1) + 8 * i) mimePart];
+        partURL = [mimePart partURL];
+
+        if (([messageCopy messageFlags] & 8) != 0)
+        {
+          v16 = 0;
+        }
+
+        else
+        {
+          v15 = [(MFAttachmentLibraryManager *)self _dataProviderForAttachmentURL:partURL error:0];
+          objc_opt_class();
+          if (objc_opt_isKindOfClass())
+          {
+            v16 = 0;
+          }
+
+          else
+          {
+            v16 = v21;
+          }
+        }
+
+        if (!schemesCopy || ([partURL scheme], v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(schemesCopy, "containsObject:", v17), v17, (v18 & 1) != 0))
+        {
+          v19 = [(MFAttachmentManager *)self attachmentForURL:partURL withMimeBody:v16 error:0];
+          if (v19)
+          {
+            [array addObject:v19];
+          }
+        }
+      }
+
+      v10 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+    }
+
+    while (v10);
+  }
+
+  return array;
 }
 
 @end

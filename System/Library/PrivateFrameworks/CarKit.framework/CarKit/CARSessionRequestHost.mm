@@ -61,73 +61,73 @@
     v7 = CRLocalizedStringForKey(@"CARPLAY");
   }
 
-  v41 = v7;
+  v44 = v7;
 
   v8 = [propertiesCopy objectForKeyedSubscript:@"wiredIPAddresses"];
-  v38 = CARVerifyStringArray(v8);
+  v41 = CARVerifyStringArray(v8);
 
   v9 = [propertiesCopy objectForKeyedSubscript:@"wirelessIPAddresses"];
-  v37 = CARVerifyStringArray(v9);
+  v40 = CARVerifyStringArray(v9);
 
   v10 = [propertiesCopy objectForKeyedSubscript:@"port"];
-  objc_opt_class();
-  v11 = CARVerifyClass(v10);
+  v11 = objc_opt_class();
+  v12 = CARVerifyClass(v10, v11);
 
-  v36 = v11;
-  integerValue = [v11 integerValue];
-  v13 = [propertiesCopy objectForKeyedSubscript:@"carplayWiFiUUID"];
-  v34 = v13;
-  if (v13)
+  v39 = v12;
+  integerValue = [v12 integerValue];
+  v14 = [propertiesCopy objectForKeyedSubscript:@"carplayWiFiUUID"];
+  v37 = v14;
+  if (v14)
   {
-    v35 = CARVerifyString(v13);
+    v38 = CARVerifyString(v14);
   }
 
   else
   {
-    v35 = 0;
+    v38 = 0;
   }
 
-  v14 = [propertiesCopy objectForKeyedSubscript:@"deviceID"];
-  v33 = CARVerifyString(v14);
+  v15 = [propertiesCopy objectForKeyedSubscript:@"deviceID"];
+  v36 = CARVerifyString(v15);
 
-  v15 = [propertiesCopy objectForKeyedSubscript:@"publicKey"];
-  v16 = CARVerifyString(v15);
+  v16 = [propertiesCopy objectForKeyedSubscript:@"publicKey"];
+  v17 = CARVerifyString(v16);
 
-  v17 = [propertiesCopy objectForKeyedSubscript:@"sourceVersion"];
-  v18 = CARVerifyString(v17);
+  v18 = [propertiesCopy objectForKeyedSubscript:@"sourceVersion"];
+  v19 = CARVerifyString(v18);
 
-  v19 = [propertiesCopy objectForKeyedSubscript:@"supportsMutualAuth"];
-  v20 = CARVerifyBool(v19);
+  v20 = [propertiesCopy objectForKeyedSubscript:@"supportsMutualAuth"];
+  v21 = CARVerifyBool(v20);
 
-  v21 = [propertiesCopy objectForKeyedSubscript:@"authenticationCertificateSerial"];
-  objc_opt_class();
-  v22 = CARVerifyClass(v21);
+  v22 = [propertiesCopy objectForKeyedSubscript:@"authenticationCertificateSerial"];
+  v23 = objc_opt_class();
+  v24 = CARVerifyClass(v22, v23);
 
-  v23 = [propertiesCopy objectForKeyedSubscript:@"pairedVehicleIdentifier"];
-  if (v23)
+  v25 = [propertiesCopy objectForKeyedSubscript:@"pairedVehicleIdentifier"];
+  if (v25)
   {
-    v24 = v23;
-    objc_opt_class();
-    v25 = CARVerifyClass(v24);
+    v26 = v25;
+    v27 = objc_opt_class();
+    v28 = CARVerifyClass(v26, v27);
   }
 
   else
   {
-    v25 = 0;
+    v28 = 0;
   }
 
-  v26 = [propertiesCopy objectForKeyedSubscript:@"wiredCarPlaySimulator"];
-  v27 = CARVerifyBool(v26);
+  v29 = [propertiesCopy objectForKeyedSubscript:@"wiredCarPlaySimulator"];
+  v30 = CARVerifyBool(v29);
 
-  v28 = [propertiesCopy objectForKeyedSubscript:@"remoteDeviceConnected"];
-  v29 = CARVerifyBool(v28);
+  v31 = [propertiesCopy objectForKeyedSubscript:@"remoteDeviceConnected"];
+  v32 = CARVerifyBool(v31);
 
-  BYTE1(v32) = v29;
-  LOBYTE(v32) = v27;
-  LOBYTE(v31) = v20;
-  v40 = [(CARSessionRequestHost *)self initWithDisplayName:v41 wiredIPv6Addresses:v38 wirelessIPv6Addresses:v37 port:integerValue carplayWiFiUUID:v35 deviceIdentifier:v33 publicKey:v16 sourceVersion:v18 supportsMutualAuthentication:v31 authenticationCertificateSerial:v22 pairedVehicleIdentifier:v25 wiredCarPlaySimulator:v32 remoteDeviceConnected:?];
+  BYTE1(v35) = v32;
+  LOBYTE(v35) = v30;
+  LOBYTE(v34) = v21;
+  v43 = [(CARSessionRequestHost *)self initWithDisplayName:v44 wiredIPv6Addresses:v41 wirelessIPv6Addresses:v40 port:integerValue carplayWiFiUUID:v38 deviceIdentifier:v36 publicKey:v17 sourceVersion:v19 supportsMutualAuthentication:v34 authenticationCertificateSerial:v24 pairedVehicleIdentifier:v28 wiredCarPlaySimulator:v35 remoteDeviceConnected:?];
 
-  return v40;
+  return v43;
 }
 
 - (CARSessionRequestHost)initWithCoder:(id)coder

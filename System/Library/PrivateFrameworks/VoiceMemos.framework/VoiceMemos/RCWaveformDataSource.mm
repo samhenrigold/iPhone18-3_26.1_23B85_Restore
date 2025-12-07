@@ -76,7 +76,7 @@
   dispatch_sync(queue, v7);
 }
 
-uint64_t __36__RCWaveformDataSource_addObserver___block_invoke(uint64_t a1)
+void *__36__RCWaveformDataSource_addObserver___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 72) containsObject:*(a1 + 40)];
   if ((result & 1) == 0)
@@ -118,7 +118,7 @@ void __39__RCWaveformDataSource_removeObserver___block_invoke(uint64_t a1)
   dispatch_after(v2, v4, block);
 }
 
-uint64_t __39__RCWaveformDataSource_removeObserver___block_invoke_2(uint64_t a1)
+void *__39__RCWaveformDataSource_removeObserver___block_invoke_2(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 72) count];
   if (!result)
@@ -229,7 +229,7 @@ uint64_t __75__RCWaveformDataSource_finishLoadingWithCompletionTimeout_completio
   v3 = v9[5];
   if (v3)
   {
-    [v3 timeRange];
+    objc_msgSend_timeRange(v3);
     v5 = v4;
   }
 
@@ -254,11 +254,11 @@ void __32__RCWaveformDataSource_duration__block_invoke(uint64_t a1)
 
 - ($F24F406B2B787EFB06265DBA3D28CBD5)timeRangeToHighlight
 {
-  [(RCWaveformDataSource *)self duration];
+  objc_msgSend_duration(self, a2);
 
-  v3 = RCTimeRangeMake(0.0, v2);
-  result.var1 = v4;
-  result.var0 = v3;
+  RCTimeRangeMake();
+  result.var1 = v3;
+  result.var0 = v2;
   return result;
 }
 
@@ -354,15 +354,14 @@ double __46__RCWaveformDataSource_averagePowerLevelsRate__block_invoke(uint64_t 
 
 - (void)saveGeneratedWaveformIfNecessary
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v3 = 136315650;
-  v4 = "[RCWaveformDataSource saveGeneratedWaveformIfNecessary]";
-  v5 = 2112;
-  v6 = @"saved";
-  v7 = 2112;
+  v8 = *MEMORY[0x277D85DE8];
+  v2 = 136315650;
+  v3 = "[RCWaveformDataSource saveGeneratedWaveformIfNecessary]";
+  v4 = 2112;
+  v5 = @"saved";
+  v6 = 2112;
   selfCopy = self;
-  _os_log_debug_impl(&dword_272442000, a2, OS_LOG_TYPE_DEBUG, "%s -- %@ waveform to %@", &v3, 0x20u);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_272442000, a2, OS_LOG_TYPE_DEBUG, "%s -- %@ waveform to %@", &v2, 0x20u);
 }
 
 void __56__RCWaveformDataSource_saveGeneratedWaveformIfNecessary__block_invoke(uint64_t a1, void *a2)
@@ -383,7 +382,7 @@ void __56__RCWaveformDataSource_saveGeneratedWaveformIfNecessary__block_invoke(u
 
     if (lastObject)
     {
-      [lastObject timeRange];
+      objc_msgSend_timeRange(lastObject);
       v6 = v5 + -15.0;
     }
 
@@ -455,9 +454,8 @@ void __57__RCWaveformDataSource_mergeGeneratedWaveformIfNecessary__block_invoke(
 
 void __67__RCWaveformDataSource_updateAccumulatorWaveformSegmentsWithBlock___block_invoke(uint64_t a1)
 {
-  v2 = *(*(a1 + 32) + 8);
-  v3 = (*(*(a1 + 40) + 16))();
-  [*(*(a1 + 32) + 8) setSegments:v3];
+  v2 = (*(*(a1 + 40) + 16))();
+  [*(*(a1 + 32) + 8) setSegments:v2];
 }
 
 - (void)waveformGeneratorDidFinishLoading:(id)loading error:(id)error
@@ -546,53 +544,52 @@ void __67__RCWaveformDataSource_updateAccumulatorWaveformSegmentsWithBlock___blo
 
 - (void)_performObserversBlock:(id)block
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   blockCopy = block;
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x3032000000;
-  v19 = __Block_byref_object_copy__2;
-  v20 = __Block_byref_object_dispose__2;
-  v21 = 0;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = __Block_byref_object_copy__2;
+  v19 = __Block_byref_object_dispose__2;
+  v20 = 0;
   queue = self->_queue;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __47__RCWaveformDataSource__performObserversBlock___block_invoke;
   block[3] = &unk_279E43B70;
   block[4] = self;
-  block[5] = &v16;
+  block[5] = &v15;
   dispatch_sync(queue, block);
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
-  v6 = v17[5];
-  v7 = [v6 countByEnumeratingWithState:&v11 objects:v22 count:16];
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  v6 = v16[5];
+  v7 = [v6 countByEnumeratingWithState:&v10 objects:v21 count:16];
   if (v7)
   {
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        blockCopy[2](blockCopy, *(*(&v11 + 1) + 8 * v9++));
+        blockCopy[2](blockCopy, *(*(&v10 + 1) + 8 * v9++));
       }
 
       while (v7 != v9);
-      v7 = [v6 countByEnumeratingWithState:&v11 objects:v22 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v10 objects:v21 count:16];
     }
 
     while (v7);
   }
 
-  _Block_object_dispose(&v16, 8);
-  v10 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v15, 8);
 }
 
 uint64_t __47__RCWaveformDataSource__performObserversBlock___block_invoke(uint64_t a1)
@@ -622,13 +619,12 @@ uint64_t __47__RCWaveformDataSource__performObserversBlock___block_invoke(uint64
 
 - (void)waveformGeneratorDidFinishLoading:(uint64_t)a1 error:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = "[RCWaveformDataSource waveformGeneratorDidFinishLoading:error:]";
-  v5 = 2112;
-  v6 = a1;
-  _os_log_error_impl(&dword_272442000, a2, OS_LOG_TYPE_ERROR, "%s -- Waveform generator reported loading error! %@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "[RCWaveformDataSource waveformGeneratorDidFinishLoading:error:]";
+  v4 = 2112;
+  v5 = a1;
+  _os_log_error_impl(&dword_272442000, a2, OS_LOG_TYPE_ERROR, "%s -- Waveform generator reported loading error! %@", &v2, 0x16u);
 }
 
 @end

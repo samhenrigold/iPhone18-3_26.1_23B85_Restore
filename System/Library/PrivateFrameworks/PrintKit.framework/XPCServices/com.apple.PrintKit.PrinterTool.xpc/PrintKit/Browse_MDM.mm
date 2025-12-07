@@ -22,8 +22,8 @@
 
 - (void)start
 {
-  sharedConnection = [(objc_class *)off_1000C7B48() sharedConnection];
-  knownAirPrintIPPURLStrings = [sharedConnection knownAirPrintIPPURLStrings];
+  v3 = [off_1000C7B48(self a2)];
+  knownAirPrintIPPURLStrings = [v3 knownAirPrintIPPURLStrings];
 
   session = [(Browse_Implementation *)self session];
   clientBundleIdentifier = [session clientBundleIdentifier];

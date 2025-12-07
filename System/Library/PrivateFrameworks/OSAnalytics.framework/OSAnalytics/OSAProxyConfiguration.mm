@@ -156,7 +156,7 @@ LABEL_14:
 {
   optionsCopy = options;
   atCopy = at;
-  v34[2] = *MEMORY[0x1E69E9840];
+  v33[2] = *MEMORY[0x1E69E9840];
   if ((options & 4) != 0)
   {
     at = OSATimeIntervalApproximate(at);
@@ -238,13 +238,13 @@ LABEL_14:
   }
 
   v21 = +[OSASystemConfiguration sharedInstance];
-  v33[0] = @"os_version";
+  v32[0] = @"os_version";
   productNameVersionBuildString = [v21 productNameVersionBuildString];
-  v33[1] = @"machine_config";
-  v34[0] = productNameVersionBuildString;
+  v32[1] = @"machine_config";
+  v33[0] = productNameVersionBuildString;
   modelCode2 = [v21 modelCode];
-  v34[1] = modelCode2;
-  v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:v33 count:2];
+  v33[1] = modelCode2;
+  v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:v32 count:2];
   v25 = [v24 mutableCopy];
 
   if ([v21 appleInternal])
@@ -280,7 +280,6 @@ LABEL_20:
   [dictionary setValue:v25 forKey:@"proxyingDevice"];
 
 LABEL_23:
-  v31 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -375,7 +374,7 @@ LABEL_23:
 
 - (BOOL)isFile:(id)file validForSubmission:(id)submission reasonableSize:(int64_t)size to:(id)to internalTypes:(id)types result:(const char *)result
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   fileCopy = file;
   submissionCopy = submission;
   toCopy = to;
@@ -418,7 +417,7 @@ LABEL_23:
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
     {
       *buf = 138543362;
-      v57 = fileCopy;
+      v56 = fileCopy;
       _os_log_impl(&dword_1AE4F7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "Logfile '%{public}@' invalid for submission: no type", buf, 0xCu);
     }
 
@@ -429,7 +428,7 @@ LABEL_23:
 
   sizeCopy = size;
   selfCopy = self;
-  v55 = toCopy;
+  v54 = toCopy;
   v23 = getxattr([fileCopy UTF8String], "DoNotSubmit", 0, 0, 0, 0);
   v24 = +[OSASystemConfiguration sharedInstance];
   if ([v24 appleInternal])
@@ -441,12 +440,12 @@ LABEL_23:
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v57 = fileCopy;
+        v56 = fileCopy;
         _os_log_impl(&dword_1AE4F7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Logfile '%@' allowed for submission for testing", buf, 0xCu);
       }
 
       LOBYTE(v26) = 1;
-      toCopy = v55;
+      toCopy = v54;
       goto LABEL_20;
     }
   }
@@ -455,21 +454,21 @@ LABEL_23:
   {
   }
 
-  v54 = v18;
-  v30 = +[OSASystemConfiguration sharedInstance];
-  getLogBlacklist = [v30 getLogBlacklist];
-  v32 = [getLogBlacklist containsObject:submissionCopy];
+  v53 = v18;
+  v29 = +[OSASystemConfiguration sharedInstance];
+  getLogBlacklist = [v29 getLogBlacklist];
+  v31 = [getLogBlacklist containsObject:submissionCopy];
 
-  if (!v32)
+  if (!v31)
   {
-    toCopy = v55;
+    toCopy = v54;
     if (v23 >= 1)
     {
-      v18 = v54;
+      v18 = v53;
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
       {
         *buf = 138543362;
-        v57 = fileCopy;
+        v56 = fileCopy;
         _os_log_impl(&dword_1AE4F7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "Logfile '%{public}@' tagged DoNotSubmit", buf, 0xCu);
       }
 
@@ -482,21 +481,21 @@ LABEL_19:
 
     if (v22 > 0)
     {
-      v33 = 1;
+      v32 = 1;
     }
 
     else
     {
-      v33 = v21;
+      v32 = v21;
     }
 
-    if ((v33 & 1) == 0)
+    if ((v32 & 1) == 0)
     {
-      v18 = v54;
+      v18 = v53;
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
       {
         *buf = 138543362;
-        v57 = fileCopy;
+        v56 = fileCopy;
         _os_log_impl(&dword_1AE4F7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "Logfile '%{public}@' not submittable on opted out device", buf, 0xCu);
       }
 
@@ -505,49 +504,49 @@ LABEL_19:
       goto LABEL_19;
     }
 
-    v34 = +[OSASystemConfiguration sharedInstance];
-    v35 = [v34 getPropsForLogType:submissionCopy];
+    v33 = +[OSASystemConfiguration sharedInstance];
+    v34 = [v33 getPropsForLogType:submissionCopy];
 
-    if (!v35)
+    if (!v34)
     {
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543618;
-        v57 = fileCopy;
-        v58 = 2114;
-        v59 = submissionCopy;
+        v56 = fileCopy;
+        v57 = 2114;
+        v58 = submissionCopy;
         _os_log_impl(&dword_1AE4F7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Logfile '%{public}@' invalid for submission: unknown type %{public}@", buf, 0x16u);
       }
 
-      v38 = "rejected-unregistered";
-      v18 = v54;
+      v37 = "rejected-unregistered";
+      v18 = v53;
       goto LABEL_79;
     }
 
-    if (![(OSAProxyConfiguration *)selfCopy isConfigEnabled:v35])
+    if (![(OSAProxyConfiguration *)selfCopy isConfigEnabled:v34])
     {
-      v18 = v54;
+      v18 = v53;
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543618;
-        v57 = fileCopy;
-        v58 = 2114;
-        v59 = submissionCopy;
+        v56 = fileCopy;
+        v57 = 2114;
+        v58 = submissionCopy;
         _os_log_impl(&dword_1AE4F7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Logfile '%{public}@' type %{public}@ invalid for platform", buf, 0x16u);
       }
 
-      v38 = "rejected-platform";
+      v37 = "rejected-platform";
       goto LABEL_79;
     }
 
-    if ([v55 isEqualToString:@"<transfer>"])
+    if ([v54 isEqualToString:@"<transfer>"])
     {
-      v36 = [v35 objectForKeyedSubscript:@"disabled"];
-      if (!v36)
+      v35 = [v34 objectForKeyedSubscript:@"disabled"];
+      if (!v35)
       {
-        v37 = [v35 objectForKeyedSubscript:@"watchSync"];
+        v36 = [v34 objectForKeyedSubscript:@"watchSync"];
 
-        if (!v37)
+        if (!v36)
         {
           goto LABEL_70;
         }
@@ -555,27 +554,27 @@ LABEL_19:
 LABEL_60:
         v26 = 1;
 LABEL_71:
-        v48 = [v35 objectForKeyedSubscript:@"limit"];
-        intValue = [v48 intValue];
+        v47 = [v34 objectForKeyedSubscript:@"limit"];
+        intValue = [v47 intValue];
 
         if (intValue)
         {
-          v50 = intValue;
+          v49 = intValue;
         }
 
         else
         {
-          v50 = 0x100000;
+          v49 = 0x100000;
         }
 
         if (!v26)
         {
-          v18 = v54;
+          v18 = v53;
           goto LABEL_80;
         }
 
-        v18 = v54;
-        if (v50 >= v52)
+        v18 = v53;
+        if (v49 >= v51)
         {
 LABEL_80:
 
@@ -585,72 +584,72 @@ LABEL_80:
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543618;
-          v57 = fileCopy;
-          v58 = 2048;
-          v59 = v52;
+          v56 = fileCopy;
+          v57 = 2048;
+          v58 = v51;
           _os_log_impl(&dword_1AE4F7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Logfile '%{public}@' is too large (%lld) for submission", buf, 0x16u);
         }
 
-        v38 = "rejected-size";
+        v37 = "rejected-size";
 LABEL_79:
         LOBYTE(v26) = 0;
-        *result = v38;
+        *result = v37;
         goto LABEL_80;
       }
     }
 
     else
     {
-      v39 = [v55 isEqualToString:@"<sync>"];
-      v40 = [v35 objectForKeyedSubscript:@"disabled"];
-      v36 = v40;
-      if (!v39)
+      v38 = [v54 isEqualToString:@"<sync>"];
+      v39 = [v34 objectForKeyedSubscript:@"disabled"];
+      v35 = v39;
+      if (!v38)
       {
-        if (v40)
+        if (v39)
         {
-          v41 = 0;
+          v40 = 0;
         }
 
         else
         {
-          v43 = +[OSASystemConfiguration sharedInstance];
-          if ([v43 appleInternal])
+          v42 = +[OSASystemConfiguration sharedInstance];
+          if ([v42 appleInternal])
           {
-            v41 = 1;
+            v40 = 1;
           }
 
           else
           {
-            v45 = [v35 objectForKeyedSubscript:@"gm"];
-            v41 = v45 != 0;
+            v44 = [v34 objectForKeyedSubscript:@"gm"];
+            v40 = v44 != 0;
           }
         }
 
-        v46 = [v35 objectForKeyedSubscript:@"routing"];
-        if (v46)
+        v45 = [v34 objectForKeyedSubscript:@"routing"];
+        if (v45)
         {
-          v47 = v46;
+          v46 = v45;
         }
 
         else
         {
-          v47 = @"da3";
+          v46 = @"da3";
         }
 
-        if (([(__CFString *)v47 isEqualToString:v55]& 1) == 0 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
+        if (([(__CFString *)v46 isEqualToString:v54]& 1) == 0 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
         {
           *buf = 138544130;
-          v57 = fileCopy;
-          v58 = 2114;
-          v59 = submissionCopy;
-          v60 = 2114;
-          v61 = v55;
-          v62 = 2114;
-          v63 = v47;
+          v56 = fileCopy;
+          v57 = 2114;
+          v58 = submissionCopy;
+          v59 = 2114;
+          v60 = v54;
+          v61 = 2114;
+          v62 = v46;
           _os_log_impl(&dword_1AE4F7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "Warning: Logfile '%{public}@' type %{public}@ routing %{public}@ does not match config %{public}@", buf, 0x2Au);
         }
 
-        if (!v41)
+        if (!v40)
         {
           goto LABEL_70;
         }
@@ -658,18 +657,18 @@ LABEL_79:
         goto LABEL_60;
       }
 
-      if (!v40)
+      if (!v39)
       {
-        v42 = +[OSASystemConfiguration sharedInstance];
-        if ([v42 appleInternal])
+        v41 = +[OSASystemConfiguration sharedInstance];
+        if ([v41 appleInternal])
         {
 
           goto LABEL_60;
         }
 
-        v44 = [v35 objectForKeyedSubscript:@"gm"];
+        v43 = [v34 objectForKeyedSubscript:@"gm"];
 
-        if (v44)
+        if (v43)
         {
           goto LABEL_60;
         }
@@ -684,20 +683,19 @@ LABEL_70:
     goto LABEL_70;
   }
 
-  toCopy = v55;
+  toCopy = v54;
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
-    v57 = fileCopy;
+    v56 = fileCopy;
     _os_log_impl(&dword_1AE4F7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "Logfile '%{public}@' blacklisted from submission", buf, 0xCu);
   }
 
   LOBYTE(v26) = 0;
   *result = "rejected-blacklist";
-  v18 = v54;
+  v18 = v53;
 LABEL_20:
 
-  v28 = *MEMORY[0x1E69E9840];
   return v26;
 }
 

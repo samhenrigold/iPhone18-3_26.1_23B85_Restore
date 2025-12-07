@@ -1,6 +1,7 @@
 @interface CellularStateRelay
 - (NSArray)networkSlicingStates;
 - (id)extendedDescription;
+- (id)initForInternalType:(unsigned __int8)type;
 - (void)setCellBandInfo:(int)info;
 - (void)setCellBandwidth:(int)bandwidth;
 - (void)setCellDualSimStatus:(unsigned __int8)status;
@@ -17,6 +18,7 @@
 - (void)setCellUARFCN:(int)n;
 - (void)setIsNonTerrestrialNetworkActive:(BOOL)active;
 - (void)setIsStewieActive:(BOOL)active;
+- (void)setNetworkSlicingStateAtIndex:(unint64_t)index to:(BOOL)to;
 - (void)setNrFrequencyBand:(char)band;
 - (void)setRatSelectionIsNR:(BOOL)r;
 - (void)updateCellInfo:(id)info;
@@ -30,6 +32,68 @@
   objc_sync_enter(v3);
   v4 = [objc_alloc(MEMORY[0x277CBEA60]) initWithArray:self->_networkSlicingStates];
   objc_sync_exit(v3);
+
+  return v4;
+}
+
+- (id)initForInternalType:(unsigned __int8)type
+{
+  v19 = *MEMORY[0x277D85DE8];
+  v16.receiver = self;
+  v16.super_class = CellularStateRelay;
+  v3 = [(NetworkStateRelay *)&v16 initForInternalType:type];
+  v4 = v3;
+  if (v3)
+  {
+    [v3 setPowerCostDL:255];
+    [v4 setPowerCostUL:255];
+    [v4 setNrFrequencyBand:0xFFFFFFFFLL];
+    v5 = analyticsLogHandle;
+    if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEFAULT))
+    {
+      v6 = *(v4 + 224);
+      *buf = 67109120;
+      LODWORD(v18) = v6;
+      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "Initializing NR frequency band for cell state relay to %d", buf, 8u);
+    }
+
+    [v4 setCellRrcConnected:0];
+    v7 = analyticsLogHandle;
+    if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEFAULT))
+    {
+      if (*(v4 + 227))
+      {
+        v8 = "connected";
+      }
+
+      else
+      {
+        v8 = "idle";
+      }
+
+      *buf = 136315138;
+      v18 = v8;
+      _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "cellRrcConnected (baseline) is %s", buf, 0xCu);
+    }
+
+    v9 = +[CoreTelephonyShim sharedInstance];
+    getNetworkSlicingStates = [v9 getNetworkSlicingStates];
+    v11 = [getNetworkSlicingStates mutableCopy];
+    v12 = v4[27];
+    v4[27] = v11;
+
+    v13 = netepochsLogHandle;
+    if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_INFO))
+    {
+      v14 = v4[27];
+      *buf = 138412290;
+      v18 = v14;
+      _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_INFO, "Initialized _networkSlicingStates to %@", buf, 0xCu);
+    }
+
+    [v4 setIsNonTerrestrialNetworkActive:0];
+    [v4 setIsStewieActive:0];
+  }
 
   return v4;
 }
@@ -61,33 +125,33 @@
 
 - (void)updateCellInfo:(id)info
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   if (infoCopy)
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
+      v44 = 0u;
       v45 = 0u;
       v46 = 0u;
       v47 = 0u;
-      v48 = 0u;
       v5 = infoCopy;
-      v6 = [v5 countByEnumeratingWithState:&v45 objects:v65 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v44 objects:v64 count:16];
       if (v6)
       {
         v7 = v6;
-        v8 = *v46;
+        v8 = *v45;
         while (2)
         {
           for (i = 0; i != v7; ++i)
           {
-            if (*v46 != v8)
+            if (*v45 != v8)
             {
               objc_enumerationMutation(v5);
             }
 
-            v10 = *(*(&v45 + 1) + 8 * i);
+            v10 = *(*(&v44 + 1) + 8 * i);
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
@@ -98,9 +162,9 @@
                 v35 = objc_opt_class();
                 v36 = NSStringFromClass(v35);
                 *buf = 138412546;
-                *v50 = v36;
-                *&v50[8] = 2112;
-                v51 = v10;
+                *v49 = v36;
+                *&v49[8] = 2112;
+                v50 = v10;
                 _os_log_impl(&dword_23255B000, v34, OS_LOG_TYPE_ERROR, "Expected to find class NSDictionary, found class %@, %@", buf, 0x16u);
               }
 
@@ -108,7 +172,7 @@
             }
           }
 
-          v7 = [v5 countByEnumeratingWithState:&v45 objects:v65 count:16];
+          v7 = [v5 countByEnumeratingWithState:&v44 objects:v64 count:16];
           if (v7)
           {
             continue;
@@ -206,36 +270,36 @@
           cellRSRP = [(CellularStateRelay *)self cellRSRP];
           [(CellularStateRelay *)self cellSNR];
           *buf = 67111426;
-          *v50 = cellMCC;
-          *&v50[4] = 1024;
-          *&v50[6] = cellMNC;
-          LOWORD(v51) = 1024;
-          *(&v51 + 2) = cellUARFCN;
-          HIWORD(v51) = 1024;
-          v52 = cellPID;
-          v53 = 1024;
-          v54 = cellBandInfo;
-          v55 = 2112;
-          v56 = cellType;
-          v57 = 1024;
-          v58 = cellBandwidth;
-          v59 = 1024;
-          v60 = cellTAC;
-          v61 = 1024;
-          v62 = cellRSRP;
-          v63 = 2048;
-          v64 = v28;
+          *v49 = cellMCC;
+          *&v49[4] = 1024;
+          *&v49[6] = cellMNC;
+          LOWORD(v50) = 1024;
+          *(&v50 + 2) = cellUARFCN;
+          HIWORD(v50) = 1024;
+          v51 = cellPID;
+          v52 = 1024;
+          v53 = cellBandInfo;
+          v54 = 2112;
+          v55 = cellType;
+          v56 = 1024;
+          v57 = cellBandwidth;
+          v58 = 1024;
+          v59 = cellTAC;
+          v60 = 1024;
+          v61 = cellRSRP;
+          v62 = 2048;
+          v63 = v28;
           _os_log_impl(&dword_23255B000, log, OS_LOG_TYPE_DEFAULT, "CT update cell info: mcc:%d/mnc=%d/uarfcn:%d/pid:%d/bandinfo:%d/type:%@/bandwidth:%d/tac:%d/rsrp:%d/snr:%f", buf, 0x46u);
         }
       }
 
       else
       {
-        v38 = netepochsLogHandle;
+        v37 = netepochsLogHandle;
         if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          _os_log_impl(&dword_23255B000, v38, OS_LOG_TYPE_ERROR, "Expected info to have count > 0", buf, 2u);
+          _os_log_impl(&dword_23255B000, v37, OS_LOG_TYPE_ERROR, "Expected info to have count > 0", buf, 2u);
         }
       }
 
@@ -249,7 +313,7 @@
       v31 = objc_opt_class();
       v32 = NSStringFromClass(v31);
       *buf = 138412290;
-      *v50 = v32;
+      *v49 = v32;
       _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_ERROR, "Expected info to be an NSArray, received %@", buf, 0xCu);
 
 LABEL_42:
@@ -265,8 +329,6 @@ LABEL_42:
       _os_log_impl(&dword_23255B000, v29, OS_LOG_TYPE_ERROR, "Expected info to be non-nil", buf, 2u);
     }
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setNrFrequencyBand:(char)band
@@ -405,39 +467,33 @@ LABEL_42:
 
 - (void)setCellDualSimStatus:(unsigned __int8)status
 {
-  v11 = *MEMORY[0x277D85DE8];
-  if (!status)
-  {
-    goto LABEL_7;
-  }
-
-  cellDualSimStatus = self->_cellDualSimStatus;
-  if (cellDualSimStatus == status)
-  {
-    goto LABEL_7;
-  }
-
-  if (status == 2 && (cellDualSimStatus & 0xFFFFFFFD) != 0)
-  {
-    v6 = netepochsLogHandle;
-    if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
-    {
-      v7 = self->_cellDualSimStatus;
-      v10[0] = 67109120;
-      v10[1] = v7;
-      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "Rejecting dual SIM status update to 'SupportedButUnknown' from current status %d", v10, 8u);
-    }
-
-LABEL_7:
-    v8 = *MEMORY[0x277D85DE8];
-    return;
-  }
-
-  [(CellularStateRelay *)self willChangeValueForKey:@"cellDualSimStatus"];
-  self->_cellDualSimStatus = status;
   v9 = *MEMORY[0x277D85DE8];
+  if (status)
+  {
+    cellDualSimStatus = self->_cellDualSimStatus;
+    if (cellDualSimStatus != status)
+    {
+      if (status == 2 && (cellDualSimStatus & 0xFFFFFFFD) != 0)
+      {
+        v6 = netepochsLogHandle;
+        if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
+        {
+          v7 = self->_cellDualSimStatus;
+          v8[0] = 67109120;
+          v8[1] = v7;
+          _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "Rejecting dual SIM status update to 'SupportedButUnknown' from current status %d", v8, 8u);
+        }
+      }
 
-  [(CellularStateRelay *)self didChangeValueForKey:@"cellDualSimStatus"];
+      else
+      {
+        [(CellularStateRelay *)self willChangeValueForKey:@"cellDualSimStatus"];
+        self->_cellDualSimStatus = status;
+
+        [(CellularStateRelay *)self didChangeValueForKey:@"cellDualSimStatus"];
+      }
+    }
+  }
 }
 
 - (void)setCellNonPreferredMNC:(int)c
@@ -471,6 +527,49 @@ LABEL_7:
 
     [(CellularStateRelay *)self didChangeValueForKey:@"cellRrcConnected"];
   }
+}
+
+- (void)setNetworkSlicingStateAtIndex:(unint64_t)index to:(BOOL)to
+{
+  toCopy = to;
+  v18 = *MEMORY[0x277D85DE8];
+  v7 = self->_networkSlicingStates;
+  objc_sync_enter(v7);
+  if ([(NSMutableArray *)self->_networkSlicingStates count]<= index)
+  {
+    v15 = netepochsLogHandle;
+    if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
+    {
+      v16 = 134217984;
+      indexCopy = index;
+      v12 = "Received request to change network slicing state at invalid index %lu";
+      v13 = v15;
+      v14 = OS_LOG_TYPE_ERROR;
+      goto LABEL_6;
+    }
+  }
+
+  else
+  {
+    networkSlicingStates = self->_networkSlicingStates;
+    v9 = [MEMORY[0x277CCABB0] numberWithBool:toCopy];
+    [(NSMutableArray *)networkSlicingStates replaceObjectAtIndex:index withObject:v9];
+
+    v10 = netepochsLogHandle;
+    if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEBUG))
+    {
+      v11 = self->_networkSlicingStates;
+      v16 = 138412290;
+      indexCopy = v11;
+      v12 = "Network slicing states changed to %@";
+      v13 = v10;
+      v14 = OS_LOG_TYPE_DEBUG;
+LABEL_6:
+      _os_log_impl(&dword_23255B000, v13, v14, v12, &v16, 0xCu);
+    }
+  }
+
+  objc_sync_exit(v7);
 }
 
 - (void)setIsNonTerrestrialNetworkActive:(BOOL)active

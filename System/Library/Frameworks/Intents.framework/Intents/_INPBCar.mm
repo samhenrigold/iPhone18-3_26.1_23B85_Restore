@@ -21,7 +21,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if (self->_carIdentifier)
   {
@@ -62,30 +62,30 @@
   if ([(NSArray *)self->_powerPerConnectors count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v28 = 0u;
     v29 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v32 = 0u;
     v17 = self->_powerPerConnectors;
-    v18 = [(NSArray *)v17 countByEnumeratingWithState:&v29 objects:v33 count:16];
+    v18 = [(NSArray *)v17 countByEnumeratingWithState:&v28 objects:v32 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v30;
+      v20 = *v29;
       do
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v30 != v20)
+          if (*v29 != v20)
           {
             objc_enumerationMutation(v17);
           }
 
-          dictionaryRepresentation3 = [*(*(&v29 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation3 = [*(*(&v28 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation3];
         }
 
-        v19 = [(NSArray *)v17 countByEnumeratingWithState:&v29 objects:v33 count:16];
+        v19 = [(NSArray *)v17 countByEnumeratingWithState:&v28 objects:v32 count:16];
       }
 
       while (v19);
@@ -107,8 +107,6 @@
     v26 = [year copy];
     [dictionary setObject:v26 forKeyedSubscript:@"year"];
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -429,13 +427,12 @@ LABEL_48:
 
 - (void)writeTo:(id)to
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   toCopy = to;
   carIdentifier = [(_INPBCar *)self carIdentifier];
 
   if (carIdentifier)
   {
-    carIdentifier = self->_carIdentifier;
     PBDataWriterWriteStringField();
   }
 
@@ -451,7 +448,6 @@ LABEL_48:
 
   if (displayName)
   {
-    displayName = self->_displayName;
     PBDataWriterWriteStringField();
   }
 
@@ -467,7 +463,6 @@ LABEL_48:
 
   if (make)
   {
-    make = self->_make;
     PBDataWriterWriteStringField();
   }
 
@@ -475,83 +470,77 @@ LABEL_48:
 
   if (model)
   {
-    model = self->_model;
     PBDataWriterWriteStringField();
   }
 
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
-  v37 = 0u;
-  v17 = self->_powerPerConnectors;
-  v18 = [(NSArray *)v17 countByEnumeratingWithState:&v36 objects:v41 count:16];
-  if (v18)
+  v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  v13 = self->_powerPerConnectors;
+  v14 = [(NSArray *)v13 countByEnumeratingWithState:&v28 objects:v33 count:16];
+  if (v14)
   {
-    v19 = v18;
-    v20 = *v37;
+    v15 = v14;
+    v16 = *v29;
     do
     {
-      v21 = 0;
+      v17 = 0;
       do
       {
-        if (*v37 != v20)
+        if (*v29 != v16)
         {
-          objc_enumerationMutation(v17);
+          objc_enumerationMutation(v13);
         }
 
-        v22 = *(*(&v36 + 1) + 8 * v21);
         PBDataWriterWriteSubmessage();
-        ++v21;
+        ++v17;
       }
 
-      while (v19 != v21);
-      v19 = [(NSArray *)v17 countByEnumeratingWithState:&v36 objects:v41 count:16];
+      while (v15 != v17);
+      v15 = [(NSArray *)v13 countByEnumeratingWithState:&v28 objects:v33 count:16];
     }
 
-    while (v19);
+    while (v15);
   }
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
-  v33 = 0u;
-  v23 = self->_supportedChargingConnectors;
-  v24 = [(NSArray *)v23 countByEnumeratingWithState:&v32 objects:v40 count:16];
-  if (v24)
+  v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
+  v18 = self->_supportedChargingConnectors;
+  v19 = [(NSArray *)v18 countByEnumeratingWithState:&v24 objects:v32 count:16];
+  if (v19)
   {
-    v25 = v24;
-    v26 = *v33;
+    v20 = v19;
+    v21 = *v25;
     do
     {
-      v27 = 0;
+      v22 = 0;
       do
       {
-        if (*v33 != v26)
+        if (*v25 != v21)
         {
-          objc_enumerationMutation(v23);
+          objc_enumerationMutation(v18);
         }
 
-        v28 = *(*(&v32 + 1) + 8 * v27);
         PBDataWriterWriteStringField();
-        ++v27;
+        ++v22;
       }
 
-      while (v25 != v27);
-      v25 = [(NSArray *)v23 countByEnumeratingWithState:&v32 objects:v40 count:16];
+      while (v20 != v22);
+      v20 = [(NSArray *)v18 countByEnumeratingWithState:&v24 objects:v32 count:16];
     }
 
-    while (v25);
+    while (v20);
   }
 
   year = [(_INPBCar *)self year];
 
   if (year)
   {
-    year = self->_year;
     PBDataWriterWriteStringField();
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setYear:(id)year

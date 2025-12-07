@@ -551,11 +551,11 @@ LABEL_13:
   return v6;
 }
 
-uint64_t __48__RTVehicleLocationProvider_createCompanionLink__block_invoke(uint64_t result, int a2)
+id *__48__RTVehicleLocationProvider_createCompanionLink__block_invoke(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _resendVehicleEventIfNecessary];
+    return [result[4] _resendVehicleEventIfNecessary];
   }
 
   return result;
@@ -1442,7 +1442,7 @@ void __59__RTVehicleLocationProvider__onVehicleStartedWithDeviceId___block_invok
   v7 = *(a1 + 40);
   if (v7)
   {
-    [v7 clientLocation];
+    objc_msgSend_clientLocation(v7);
     v8 = v21;
   }
 

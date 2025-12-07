@@ -77,7 +77,7 @@
 - (void)viewWillDisappear:(BOOL)disappear
 {
   selfCopy = self;
-  sub_1001DC9A0(disappear);
+  sub_1001DC9A0(disappear, selfCopy, v4);
 }
 
 - (void)viewDidLayoutSubviews
@@ -192,12 +192,12 @@
 - (void)handleNotificationsOffAttentionTap
 {
   selfCopy = self;
-  sub_10021E228();
+  sub_10021E228(0xD000000000000031, 0x800000010057BF90);
 }
 
 - (uint64_t)showPairingIncompleteLearnMore
 {
-  v0 = sub_10007EBC0(&unk_1006B0120);
+  v0 = sub_10007EBC0(&unk_1006B0120, &qword_100552B60);
   __chkstk_darwin(v0 - 8);
   v2 = &v17 - v1;
   v3 = type metadata accessor for URL();
@@ -235,7 +235,7 @@
     v15 = v14;
     sub_10015391C(_swiftEmptyArrayStorage);
     type metadata accessor for OpenExternalURLOptionsKey(0);
-    sub_10021E650(&qword_1006AF360, type metadata accessor for OpenExternalURLOptionsKey);
+    sub_10021E650(&qword_1006AF360, type metadata accessor for OpenExternalURLOptionsKey, &unk_100551F4C);
     isa = Dictionary._bridgeToObjectiveC()().super.isa;
 
     [sharedApplication openURL:v15 options:isa completionHandler:0];

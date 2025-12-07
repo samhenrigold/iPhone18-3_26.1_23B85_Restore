@@ -61,7 +61,7 @@
 
 - (id)_fetchServiceDetailsWithLocalModel:(void *)model
 {
-  v27[2] = *MEMORY[0x277D85DE8];
+  v26[2] = *MEMORY[0x277D85DE8];
   modelCopy = model;
   v2 = objc_alloc_init(MEMORY[0x277CBE410]);
   [v2 setName:@"a"];
@@ -79,15 +79,15 @@
   v7 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%@ in %K", modelCopy, @"serviceGroups_"];
   [v6 setPredicate:v7];
 
-  v27[0] = v2;
-  v27[1] = v4;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:2];
+  v26[0] = v2;
+  v26[1] = v4;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
   [v6 setPropertiesToFetch:v8];
 
   [v6 setResultType:2];
-  v20 = 0;
-  v9 = [v6 execute:&v20];
-  v10 = v20;
+  v19 = 0;
+  v9 = [v6 execute:&v19];
+  v10 = v19;
   if (v9)
   {
     v11 = v9;
@@ -102,22 +102,20 @@
     {
       v15 = HMFGetLogIdentifier();
       [modelCopy hmd_debugIdentifier];
-      v16 = v19 = v12;
+      v16 = v18 = v12;
       *buf = 138543874;
-      v22 = v15;
-      v23 = 2112;
-      v24 = v16;
-      v25 = 2114;
-      v26 = v10;
+      v21 = v15;
+      v22 = 2112;
+      v23 = v16;
+      v24 = 2114;
+      v25 = v10;
       _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch service details for %@: %{public}@", buf, 0x20u);
 
-      v12 = v19;
+      v12 = v18;
     }
 
     objc_autoreleasePoolPop(v12);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -125,7 +123,7 @@
 void __50__MKFCKServiceGroup_importServicesIntoLocalModel___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a1;
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   v4 = a2;
   v5 = v4;
@@ -178,9 +176,9 @@ void __50__MKFCKServiceGroup_importServicesIntoLocalModel___block_invoke(uint64_
       {
         v16 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v39 = v16;
-        v40 = 2112;
-        v41 = v5;
+        v38 = v16;
+        v39 = 2112;
+        v40 = v5;
         _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Invalid service details: %@", buf, 0x16u);
       }
 
@@ -195,9 +193,9 @@ void __50__MKFCKServiceGroup_importServicesIntoLocalModel___block_invoke(uint64_
       [v17 setPredicate:v18];
 
       [v17 setFetchLimit:2];
-      v37 = 0;
-      v19 = [v17 execute:&v37];
-      v20 = v37;
+      v36 = 0;
+      v19 = [v17 execute:&v36];
+      v20 = v36;
       v21 = v20;
       if (v19)
       {
@@ -209,24 +207,24 @@ void __50__MKFCKServiceGroup_importServicesIntoLocalModel___block_invoke(uint64_
           if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
           {
             HMFGetLogIdentifier();
-            v24 = v32 = v21;
-            v31 = [v19 count];
+            v24 = v31 = v21;
+            v30 = [v19 count];
             v25 = [v3 hmd_debugIdentifier];
             *buf = 138544642;
-            v39 = v24;
-            v40 = 2048;
-            v41 = v31;
-            v42 = 2160;
-            v43 = 1752392040;
-            v44 = 2112;
-            v45 = v8;
-            v46 = 2112;
-            v47 = v11;
-            v48 = 2112;
-            v49 = v25;
+            v38 = v24;
+            v39 = 2048;
+            v40 = v30;
+            v41 = 2160;
+            v42 = 1752392040;
+            v43 = 2112;
+            v44 = v8;
+            v45 = 2112;
+            v46 = v11;
+            v47 = 2112;
+            v48 = v25;
             _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_ERROR, "%{public}@Warning: Found %tu local services %{mask.hash}@/%@ for %@", buf, 0x3Eu);
 
-            v21 = v32;
+            v21 = v31;
           }
 
           objc_autoreleasePoolPop(contexta);
@@ -243,23 +241,23 @@ void __50__MKFCKServiceGroup_importServicesIntoLocalModel___block_invoke(uint64_
         if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
         {
           HMFGetLogIdentifier();
-          v28 = v33 = v2;
+          v28 = v32 = v2;
           v29 = [v3 hmd_debugIdentifier];
           *buf = 138544642;
-          v39 = v28;
-          v40 = 2160;
-          v41 = 1752392040;
-          v42 = 2112;
-          v43 = v8;
-          v44 = 2112;
-          v45 = v11;
-          v46 = 2112;
-          v47 = v29;
-          v48 = 2114;
-          v49 = v21;
+          v38 = v28;
+          v39 = 2160;
+          v40 = 1752392040;
+          v41 = 2112;
+          v42 = v8;
+          v43 = 2112;
+          v44 = v11;
+          v45 = 2112;
+          v46 = v29;
+          v47 = 2114;
+          v48 = v21;
           _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch local service %{mask.hash}@/%@ for %@: %{public}@", buf, 0x3Eu);
 
-          v2 = v33;
+          v2 = v32;
         }
 
         objc_autoreleasePoolPop(contextb);
@@ -280,7 +278,6 @@ void __50__MKFCKServiceGroup_importServicesIntoLocalModel___block_invoke(uint64_
 
   context = 0;
 LABEL_30:
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)exportFromLocalModel:(id)model updatedProperties:(id)properties context:(id)context

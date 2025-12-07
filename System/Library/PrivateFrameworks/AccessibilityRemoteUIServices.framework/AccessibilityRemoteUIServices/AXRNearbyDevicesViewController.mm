@@ -7,6 +7,8 @@
 - (void)_showFailedToConnectAlert;
 - (void)deviceDiscoveryManager:(id)manager updatedDevices:(id)devices;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
 @end
 
@@ -29,6 +31,20 @@
 
   tableView = [(AXRNearbyDevicesViewController *)self tableView];
   [tableView registerClass:objc_opt_class() forCellReuseIdentifier:@"NearbyDeviceCell"];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v3.receiver = self;
+  v3.super_class = AXRNearbyDevicesViewController;
+  [(AXRNearbyDevicesViewController *)&v3 viewDidAppear:appear];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v3.receiver = self;
+  v3.super_class = AXRNearbyDevicesViewController;
+  [(AXRNearbyDevicesViewController *)&v3 viewDidDisappear:disappear];
 }
 
 - (void)_connectToDevice:(id)device

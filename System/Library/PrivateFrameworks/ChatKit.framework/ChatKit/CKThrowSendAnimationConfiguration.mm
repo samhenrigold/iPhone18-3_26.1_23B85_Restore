@@ -14,7 +14,7 @@
   functionCopy = function;
   modeCopy = mode;
   groupCopy = group;
-  v29 = sub_1908666D4(duration, time, speed, width, height, finalSize.width, finalSize.height, range.minimum, delegate, functionCopy, modeCopy, groupCopy, reason, v26, v27, v28, SLODWORD(range.maximum), SLODWORD(range.preferred));
+  v29 = sub_1908666D4(delegate, functionCopy, modeCopy, groupCopy, reason, duration, time, speed, width, height, finalSize.width, finalSize.height, range.minimum, v26, v27, v28, SLODWORD(range.maximum), SLODWORD(range.preferred));
   swift_unknownObjectRelease();
   return v29;
 }

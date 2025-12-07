@@ -8,40 +8,40 @@
 
 - (id)brandWithIdentifier:(id)identifier
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
-  v6 = objc_msgSend_sharedRegistry(IMChatRegistry, v4, v5);
-  v8 = objc_msgSend_cachedChatsWithIdentifier_(v6, v7, identifierCopy);
+  v4 = +[IMChatRegistry sharedRegistry];
+  v5 = [v4 cachedChatsWithIdentifier:identifierCopy];
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
-  v22 = 0u;
-  v9 = v8;
-  v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v10, &v21, v25, 16);
-  if (v11)
+  v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v6 = v5;
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  if (v7)
   {
-    v14 = v11;
-    v15 = *v22;
+    v8 = v7;
+    v9 = *v15;
     while (2)
     {
-      for (i = 0; i != v14; ++i)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v22 != v15)
+        if (*v15 != v9)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(v6);
         }
 
-        v17 = objc_msgSend_brandInfo(*(*(&v21 + 1) + 8 * i), v12, v13, v21);
-        if (v17)
+        brandInfo = [*(*(&v14 + 1) + 8 * i) brandInfo];
+        if (brandInfo)
         {
-          v18 = v17;
+          v12 = brandInfo;
           goto LABEL_11;
         }
       }
 
-      v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v12, &v21, v25, 16);
-      if (v14)
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      if (v8)
       {
         continue;
       }
@@ -50,50 +50,48 @@
     }
   }
 
-  v18 = 0;
+  v12 = 0;
 LABEL_11:
 
-  v19 = *MEMORY[0x1E69E9840];
-
-  return v18;
+  return v12;
 }
 
 - (id)brandLogoURLWithIdentifier:(id)identifier
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
-  v6 = objc_msgSend_sharedRegistry(IMChatRegistry, v4, v5);
-  v8 = objc_msgSend_cachedChatsWithIdentifier_(v6, v7, identifierCopy);
+  v4 = +[IMChatRegistry sharedRegistry];
+  v5 = [v4 cachedChatsWithIdentifier:identifierCopy];
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
-  v22 = 0u;
-  v9 = v8;
-  v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v10, &v21, v25, 16);
-  if (v11)
+  v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v6 = v5;
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  if (v7)
   {
-    v14 = v11;
-    v15 = *v22;
+    v8 = v7;
+    v9 = *v15;
     while (2)
     {
-      for (i = 0; i != v14; ++i)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v22 != v15)
+        if (*v15 != v9)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(v6);
         }
 
-        v17 = objc_msgSend_brandLogoURL(*(*(&v21 + 1) + 8 * i), v12, v13, v21);
-        if (v17)
+        brandLogoURL = [*(*(&v14 + 1) + 8 * i) brandLogoURL];
+        if (brandLogoURL)
         {
-          v18 = v17;
+          v12 = brandLogoURL;
           goto LABEL_11;
         }
       }
 
-      v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v12, &v21, v25, 16);
-      if (v14)
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      if (v8)
       {
         continue;
       }
@@ -102,21 +100,19 @@ LABEL_11:
     }
   }
 
-  v18 = 0;
+  v12 = 0;
 LABEL_11:
 
-  v19 = *MEMORY[0x1E69E9840];
-
-  return v18;
+  return v12;
 }
 
 - (id)brandLogoDataWithIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v6 = objc_msgSend_sharedRegistry(IMChatRegistry, v4, v5);
-  v8 = objc_msgSend_brandLogoDataFromChatIdentifier_(v6, v7, identifierCopy);
+  v4 = +[IMChatRegistry sharedRegistry];
+  v5 = [v4 brandLogoDataFromChatIdentifier:identifierCopy];
 
-  return v8;
+  return v5;
 }
 
 @end

@@ -10,6 +10,7 @@
 - (id)uninstalledProfileDataWithIdentifier:(id)identifier targetDevice:(unint64_t)device;
 - (id)uninstalledProfileIdentifiersForDevice:(unint64_t)device;
 - (id)uninstalledProfileWithIdentifier:(id)identifier targetDevice:(unint64_t)device;
+- (void)_createDirectory:(id)directory withIntermediateDirectories:(BOOL)directories;
 - (void)dealloc;
 - (void)removeProfileDataWithIdentifier:(id)identifier fromHoldingTankForDevice:(unint64_t)device;
 @end
@@ -70,7 +71,7 @@ uint64_t __39__MCHoldingTankManifest_sharedManifest__block_invoke()
 - (id)_pathToHoldingTankManifestForDevice:(unint64_t)device
 {
   v3 = [(MCHoldingTankManifest *)self _pathToHoldingTankDirectoryForDevice:device];
-  v4 = MCHoldingTankManifestName();
+  v4 = MCHoldingTankManifestName(v3);
   v5 = [v3 stringByAppendingPathComponent:v4];
 
   return v5;
@@ -92,10 +93,36 @@ uint64_t __39__MCHoldingTankManifest_sharedManifest__block_invoke()
   return v11;
 }
 
+- (void)_createDirectory:(id)directory withIntermediateDirectories:(BOOL)directories
+{
+  directoriesCopy = directories;
+  v14 = *MEMORY[0x1E69E9840];
+  directoryCopy = directory;
+  defaultManager = [MEMORY[0x1E696AC08] defaultManager];
+  if (([defaultManager fileExistsAtPath:directoryCopy isDirectory:0] & 1) == 0)
+  {
+    v9 = 0;
+    [defaultManager createDirectoryAtPath:directoryCopy withIntermediateDirectories:directoriesCopy attributes:0 error:&v9];
+    v7 = v9;
+    if (v7)
+    {
+      v8 = _MCLogObjects;
+      if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 138543618;
+        v11 = directoryCopy;
+        v12 = 2114;
+        v13 = v7;
+        _os_log_impl(&dword_1A795B000, v8, OS_LOG_TYPE_ERROR, "Failed to create directory: %{public}@, error: %{public}@", buf, 0x16u);
+      }
+    }
+  }
+}
+
 - (id)_manifestForDevice:(unint64_t)device createIfNil:(BOOL)nil
 {
   nilCopy = nil;
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v7 = [MCProfile stringForDeviceType:?];
   v8 = [(MCHoldingTankManifest *)self _pathToHoldingTankManifestForDevice:device];
   if (!self->_universalManifest)
@@ -105,9 +132,9 @@ uint64_t __39__MCHoldingTankManifest_sharedManifest__block_invoke()
     self->_universalManifest = v9;
   }
 
-  v24 = 0;
-  v11 = [MEMORY[0x1E695DEF0] dataWithContentsOfFile:v8 options:0 error:&v24];
-  v12 = v24;
+  v23 = 0;
+  v11 = [MEMORY[0x1E695DEF0] dataWithContentsOfFile:v8 options:0 error:&v23];
+  v12 = v23;
   if (v12)
   {
     if (!nilCopy)
@@ -116,17 +143,17 @@ uint64_t __39__MCHoldingTankManifest_sharedManifest__block_invoke()
       if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543618;
-        v26 = v8;
-        v27 = 2114;
-        v28 = v12;
+        v25 = v8;
+        v26 = 2114;
+        v27 = v12;
         _os_log_impl(&dword_1A795B000, v13, OS_LOG_TYPE_DEFAULT, "Failed to pull manifest data from path (this might be normal): %{public}@, error: %{public}@", buf, 0x16u);
       }
     }
   }
 
-  v23 = 0;
-  v14 = [MEMORY[0x1E696AE40] MCSafePropertyListWithData:v11 options:1 format:0 error:&v23];
-  v15 = v23;
+  v22 = 0;
+  v14 = [MEMORY[0x1E696AE40] MCSafePropertyListWithData:v11 options:1 format:0 error:&v22];
+  v15 = v22;
   [(NSMutableDictionary *)self->_universalManifest setObject:v14 forKeyedSubscript:v7];
 
   if (v15)
@@ -135,7 +162,7 @@ uint64_t __39__MCHoldingTankManifest_sharedManifest__block_invoke()
     if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v26 = v15;
+      v25 = v15;
       _os_log_impl(&dword_1A795B000, v16, OS_LOG_TYPE_ERROR, "Failed to serialize manifest data with error: %{public}@", buf, 0xCu);
     }
   }
@@ -152,8 +179,6 @@ uint64_t __39__MCHoldingTankManifest_sharedManifest__block_invoke()
   }
 
   v20 = [(NSMutableDictionary *)self->_universalManifest objectForKeyedSubscript:v7];
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v20;
 }
@@ -193,25 +218,25 @@ uint64_t __39__MCHoldingTankManifest_sharedManifest__block_invoke()
 
 - (id)uninstalledProfileDataWithIdentifier:(id)identifier targetDevice:(unint64_t)device
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v4 = [(MCHoldingTankManifest *)self pathToHoldingTankProfileDataForIdentifier:identifier targetDevice:device createDirectory:0];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   v6 = [defaultManager fileExistsAtPath:v4];
 
   if (v6)
   {
-    v12 = 0;
-    v7 = [MEMORY[0x1E695DEF0] dataWithContentsOfFile:v4 options:0 error:&v12];
-    v8 = v12;
+    v11 = 0;
+    v7 = [MEMORY[0x1E695DEF0] dataWithContentsOfFile:v4 options:0 error:&v11];
+    v8 = v11;
     if (v8)
     {
       v9 = _MCLogObjects;
       if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543618;
-        v14 = v4;
-        v15 = 2114;
-        v16 = v8;
+        v13 = v4;
+        v14 = 2114;
+        v15 = v8;
         _os_log_impl(&dword_1A795B000, v9, OS_LOG_TYPE_ERROR, "Failed to read profile data from path: %{public}@, error: %{public}@", buf, 0x16u);
       }
     }
@@ -222,21 +247,19 @@ uint64_t __39__MCHoldingTankManifest_sharedManifest__block_invoke()
     v7 = 0;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
-
   return v7;
 }
 
 - (BOOL)addPurgatoryProfileData:(id)data identifier:(id)identifier targetDevice:(unint64_t)device outError:(id *)error
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   dataCopy = data;
   v12 = [(MCHoldingTankManifest *)self pathToHoldingTankProfileDataForIdentifier:identifierCopy targetDevice:device createDirectory:1];
-  v20 = 0;
-  v13 = [dataCopy writeToFile:v12 options:0x20000000 error:&v20];
+  v19 = 0;
+  v13 = [dataCopy writeToFile:v12 options:0x20000000 error:&v19];
 
-  v14 = v20;
+  v14 = v19;
   if (v13)
   {
     v15 = [(MCHoldingTankManifest *)self _adjustManifestForDevice:device withIdentifier:identifierCopy addingIdentifier:1 outError:error];
@@ -248,11 +271,11 @@ uint64_t __39__MCHoldingTankManifest_sharedManifest__block_invoke()
     if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543874;
-      v22 = identifierCopy;
-      v23 = 2114;
-      v24 = v12;
-      v25 = 2114;
-      v26 = v14;
+      v21 = identifierCopy;
+      v22 = 2114;
+      v23 = v12;
+      v24 = 2114;
+      v25 = v14;
       _os_log_impl(&dword_1A795B000, v16, OS_LOG_TYPE_ERROR, "Failed to add profile data with identifier: %{public}@ to path: %{public}@ with error: %{public}@", buf, 0x20u);
     }
 
@@ -270,19 +293,18 @@ uint64_t __39__MCHoldingTankManifest_sharedManifest__block_invoke()
     }
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
 - (void)removeProfileDataWithIdentifier:(id)identifier fromHoldingTankForDevice:(unint64_t)device
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v7 = [(MCHoldingTankManifest *)self pathToHoldingTankProfileDataForIdentifier:identifierCopy targetDevice:device createDirectory:1];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v12 = 0;
-  [defaultManager removeItemAtPath:v7 error:&v12];
-  v9 = v12;
+  v11 = 0;
+  [defaultManager removeItemAtPath:v7 error:&v11];
+  v9 = v11;
 
   if (v9)
   {
@@ -290,18 +312,16 @@ uint64_t __39__MCHoldingTankManifest_sharedManifest__block_invoke()
     if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543874;
-      v14 = identifierCopy;
-      v15 = 2114;
-      v16 = v7;
-      v17 = 2114;
-      v18 = v9;
+      v13 = identifierCopy;
+      v14 = 2114;
+      v15 = v7;
+      v16 = 2114;
+      v17 = v9;
       _os_log_impl(&dword_1A795B000, v10, OS_LOG_TYPE_ERROR, "Failed to remove profile data with identifier: %{public}@ from path: %{public}@ with error: %{public}@", buf, 0x20u);
     }
   }
 
   [(MCHoldingTankManifest *)self _adjustManifestForDevice:device withIdentifier:identifierCopy addingIdentifier:0 outError:0];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_adjustManifestForDevice:(unint64_t)device withIdentifier:(id)identifier addingIdentifier:(BOOL)addingIdentifier outError:(id *)error
@@ -338,7 +358,7 @@ uint64_t __39__MCHoldingTankManifest_sharedManifest__block_invoke()
 
 void __91__MCHoldingTankManifest__adjustManifestForDevice_withIdentifier_addingIdentifier_outError___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) _manifestForDevice:*(a1 + 56) createIfNil:*(a1 + 64)];
   v3 = v2;
   if (v2)
@@ -364,15 +384,13 @@ void __91__MCHoldingTankManifest__adjustManifestForDevice_withIdentifier_addingI
       {
         v9 = *(*(*(a1 + 48) + 8) + 40);
         *buf = 138543618;
-        v13 = v5;
-        v14 = 2114;
-        v15 = v9;
+        v12 = v5;
+        v13 = 2114;
+        v14 = v9;
         _os_log_impl(&dword_1A795B000, v8, OS_LOG_TYPE_ERROR, "Failed to write manifest to path: %{public}@ with error: %{public}@", buf, 0x16u);
       }
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 @end

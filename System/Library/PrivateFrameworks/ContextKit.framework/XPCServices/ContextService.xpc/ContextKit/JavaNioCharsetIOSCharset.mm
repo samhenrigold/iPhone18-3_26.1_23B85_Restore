@@ -36,9 +36,9 @@
   if (objc_opt_class() == self)
   {
     v2 = new_JavaUtilHashMap_init();
-    JreStrongAssignAndConsume(&qword_100554A40, v2);
-    v3 = +[JavaNioCharsetIOSCharset getDefaultCharset]_0();
-    JreStrongAssign(&JavaNioCharsetIOSCharset_DEFAULT_CHARSET_, v3);
+    v3 = JreStrongAssignAndConsume(&qword_100554A40, v2);
+    v5 = +[JavaNioCharsetIOSCharset getDefaultCharset]_0(v3, v4);
+    JreStrongAssign(&JavaNioCharsetIOSCharset_DEFAULT_CHARSET_, v5);
     atomic_store(1u, JavaNioCharsetIOSCharset__initialized);
   }
 }
@@ -50,7 +50,7 @@
     sub_10015D9B8();
   }
 
-  PropertyWithNSString = JavaLangSystem_getPropertyWithNSString_(@"file.encoding");
+  PropertyWithNSString = JavaLangSystem_getPropertyWithNSString_(@"file.encoding", a2);
   if (PropertyWithNSString)
   {
     return JavaNioCharsetCharset_forNameUEEWithNSString_(PropertyWithNSString);

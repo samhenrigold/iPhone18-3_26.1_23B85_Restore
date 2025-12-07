@@ -8,26 +8,24 @@
 
 + (id)delegateParamsForAllDelegates
 {
-  v6[3] = *MEMORY[0x1E69E9840];
-  v5[0] = @"com.apple.gamecenter";
-  v5[1] = @"com.apple.mobileme";
-  v6[0] = MEMORY[0x1E695E0F8];
-  v6[1] = MEMORY[0x1E695E0F8];
-  v5[2] = @"com.apple.private.ids";
-  v6[2] = &unk_1F2F24BF8;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:3];
-  v3 = *MEMORY[0x1E69E9840];
+  v5[3] = *MEMORY[0x1E69E9840];
+  v4[0] = @"com.apple.gamecenter";
+  v4[1] = @"com.apple.mobileme";
+  v5[0] = MEMORY[0x1E695E0F8];
+  v5[1] = MEMORY[0x1E695E0F8];
+  v4[2] = @"com.apple.private.ids";
+  v5[2] = &unk_1F2F24BF8;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:v4 count:3];
 
   return v2;
 }
 
 + (id)delegateParamsForiCloudOnly
 {
-  v6[1] = *MEMORY[0x1E69E9840];
-  v5 = @"com.apple.mobileme";
-  v6[0] = MEMORY[0x1E695E0F8];
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-  v3 = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
+  v4 = @"com.apple.mobileme";
+  v5[0] = MEMORY[0x1E695E0F8];
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }

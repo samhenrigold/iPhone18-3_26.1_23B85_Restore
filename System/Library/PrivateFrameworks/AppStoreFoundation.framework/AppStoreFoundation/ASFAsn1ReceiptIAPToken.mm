@@ -115,7 +115,6 @@ LABEL_13:
   if (self)
   {
     selfCopy = self;
-    v3 = self[3];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -138,17 +137,16 @@ LABEL_13:
   selfCopy = self;
   if (self)
   {
-    v2 = *(self + 24);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v4 = *(selfCopy + 24);
-      if (v4)
+      v3 = *(selfCopy + 24);
+      if (v3)
       {
-        v5 = objc_getProperty(v4, v3, 32, 1);
-        if (v5 && !*(v5 + 8) && v5[2] == 2)
+        v4 = objc_getProperty(v3, v2, 32, 1);
+        if (v4 && !*(v4 + 8) && v4[2] == 2)
         {
-          selfCopy = v5[4];
+          selfCopy = v4[4];
 LABEL_11:
 
           return selfCopy;
@@ -157,7 +155,7 @@ LABEL_11:
 
       else
       {
-        v5 = 0;
+        v4 = 0;
       }
 
       selfCopy = 0xFFFFLL;

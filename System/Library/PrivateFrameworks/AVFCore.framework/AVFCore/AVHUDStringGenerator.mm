@@ -443,8 +443,8 @@ LABEL_29:
     if (v12)
     {
       memset(v73, 0, sizeof(v73));
-      [v12 CMTimeRangeValue];
-      [v4 currentTime];
+      objc_msgSend_CMTimeRangeValue(v12);
+      objc_msgSend_currentTime(v4);
       Seconds = CMTimeGetSeconds(&time);
       time = v73[0];
       v14 = CMTimeGetSeconds(&time);
@@ -647,7 +647,7 @@ LABEL_61:
         currentItem2 = [objc_loadWeak(&selfCopy->_player) currentItem];
         if (currentItem2)
         {
-          [currentItem2 currentTime];
+          objc_msgSend_currentTime(currentItem2);
         }
 
         else

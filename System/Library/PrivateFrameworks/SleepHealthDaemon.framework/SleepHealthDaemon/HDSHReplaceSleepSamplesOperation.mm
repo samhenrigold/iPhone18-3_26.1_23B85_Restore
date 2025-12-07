@@ -36,7 +36,7 @@
 
 - (BOOL)performWithProfile:(id)profile transaction:(id)transaction error:(id *)error
 {
-  v87 = *MEMORY[0x277D85DE8];
+  v85 = *MEMORY[0x277D85DE8];
   profileCopy = profile;
   transactionCopy = transaction;
   v10 = profileCopy;
@@ -52,75 +52,74 @@
     v13 = v10;
     sourceManager = [v13 sourceManager];
     source = self->_source;
-    v79 = 0;
-    [sourceManager sourceEntityForClientSource:source createOrUpdateIfNecessary:0 error:&v79];
+    v77 = 0;
+    [sourceManager sourceEntityForClientSource:source createOrUpdateIfNecessary:0 error:&v77];
     v17 = v16 = v12;
-    v18 = v79;
+    v18 = v77;
 
     _HKInitializeLogging();
     v19 = *v16;
     if (v17)
     {
-      v70 = v18;
-      v71 = v13;
+      v68 = v18;
+      v69 = v13;
       errorCopy = error;
-      v74 = v11;
+      v72 = v11;
       if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         v20 = v19;
         v21 = objc_opt_class();
         replacementInterval = self->_replacementInterval;
         *buf = 138543874;
-        v82 = v21;
+        v80 = v21;
+        v81 = 2112;
+        v82 = v17;
         v83 = 2112;
-        v84 = v17;
-        v85 = 2112;
-        v86 = replacementInterval;
+        v84 = replacementInterval;
         v23 = v21;
         _os_log_impl(&dword_269C02000, v20, OS_LOG_TYPE_DEFAULT, "[%{public}@] Deleting sleep samples source: %@, dateInterval: %@", buf, 0x20u);
       }
 
       v24 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCBAB8]];
       v25 = MEMORY[0x277D10B20];
-      v26 = self->_replacementInterval;
-      v27 = HDSampleEntityPredicateForDateInterval();
-      v80[0] = v27;
-      v28 = HDSampleEntityPredicateForDataType();
-      v80[1] = v28;
-      v29 = HDDataEntityPredicateForSourceEntity();
-      v80[2] = v29;
-      v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v80 count:3];
-      v31 = [v25 predicateMatchingAllPredicates:v30];
+      v26 = HDSampleEntityPredicateForDateInterval();
+      v78[0] = v26;
+      v27 = HDSampleEntityPredicateForDataType();
+      v78[1] = v27;
+      v28 = HDDataEntityPredicateForSourceEntity();
+      v78[2] = v28;
+      v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v78 count:3];
+      v30 = [v25 predicateMatchingAllPredicates:v29];
 
-      v78 = 0;
-      v32 = v71;
-      dataManager = [v71 dataManager];
-      v34 = [dataManager deleteDataObjectsOfClass:objc_opt_class() predicate:v31 limit:*MEMORY[0x277D10C08] deletedSampleCount:&v78 notifyObservers:1 generateDeletedObjects:1 recursiveDeleteAuthorizationBlock:0 error:errorCopy];
+      v76 = 0;
+      v31 = v69;
+      dataManager = [v69 dataManager];
+      v33 = [dataManager deleteDataObjectsOfClass:objc_opt_class() predicate:v30 limit:*MEMORY[0x277D10C08] deletedSampleCount:&v76 notifyObservers:1 generateDeletedObjects:1 recursiveDeleteAuthorizationBlock:0 error:errorCopy];
 
       _HKInitializeLogging();
-      v35 = *MEMORY[0x277CCC320];
+      v34 = *MEMORY[0x277CCC320];
       if (os_log_type_enabled(*MEMORY[0x277CCC320], OS_LOG_TYPE_DEFAULT))
       {
-        v36 = v35;
-        v37 = objc_opt_class();
-        v38 = v78;
-        v39 = MEMORY[0x277CCABB0];
-        v69 = v37;
-        v40 = [v39 numberWithBool:v34];
+        v35 = v34;
+        v36 = objc_opt_class();
+        v37 = v76;
+        v38 = MEMORY[0x277CCABB0];
+        v67 = v36;
+        v39 = [v38 numberWithBool:v33];
         *buf = 138543874;
+        v80 = v36;
+        v81 = 2048;
         v82 = v37;
-        v83 = 2048;
-        v84 = v38;
-        v32 = v71;
-        v85 = 2112;
-        v86 = v40;
-        _os_log_impl(&dword_269C02000, v36, OS_LOG_TYPE_DEFAULT, "[%{public}@] Success deleting %ld samples: %@", buf, 0x20u);
+        v31 = v69;
+        v83 = 2112;
+        v84 = v39;
+        _os_log_impl(&dword_269C02000, v35, OS_LOG_TYPE_DEFAULT, "[%{public}@] Success deleting %ld samples: %@", buf, 0x20u);
       }
 
       error = errorCopy;
-      v11 = v74;
+      v11 = v72;
       v12 = MEMORY[0x277CCC320];
-      if (v34)
+      if (v33)
       {
         goto LABEL_9;
       }
@@ -130,109 +129,108 @@
     {
       if (os_log_type_enabled(*v16, OS_LOG_TYPE_ERROR))
       {
-        v63 = v19;
-        v64 = objc_opt_class();
+        v61 = v19;
+        v62 = objc_opt_class();
         *buf = 138543618;
-        v82 = v64;
-        v83 = 2112;
-        v84 = v18;
-        v65 = v64;
-        _os_log_error_impl(&dword_269C02000, v63, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to retrieve source entity for deletion: %@", buf, 0x16u);
+        v80 = v62;
+        v81 = 2112;
+        v82 = v18;
+        v63 = v62;
+        _os_log_error_impl(&dword_269C02000, v61, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to retrieve source entity for deletion: %@", buf, 0x16u);
       }
     }
 
 LABEL_18:
-    LOBYTE(v53) = 0;
+    LOBYTE(v52) = 0;
     goto LABEL_23;
   }
 
 LABEL_9:
-  v41 = v10;
-  sourceManager2 = [v41 sourceManager];
-  v43 = self->_source;
-  v80[0] = 0;
-  v44 = [sourceManager2 sourceEntityForClientSource:v43 createOrUpdateIfNecessary:1 error:v80];
-  v45 = v80[0];
+  v40 = v10;
+  sourceManager2 = [v40 sourceManager];
+  v42 = self->_source;
+  v78[0] = 0;
+  v43 = [sourceManager2 sourceEntityForClientSource:v42 createOrUpdateIfNecessary:1 error:v78];
+  v44 = v78[0];
 
   _HKInitializeLogging();
-  v46 = *v12;
-  if (v44)
+  v45 = *v12;
+  if (v43)
   {
-    v75 = v11;
-    if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+    v73 = v11;
+    if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
     {
-      v47 = v46;
-      v48 = objc_opt_class();
+      v46 = v45;
+      v47 = objc_opt_class();
       *buf = 138543618;
-      v82 = v48;
-      v83 = 2112;
-      v84 = v44;
-      v49 = v48;
-      _os_log_impl(&dword_269C02000, v47, OS_LOG_TYPE_DEFAULT, "[%{public}@] Inserting sleep samples for source: %@", buf, 0x16u);
+      v80 = v47;
+      v81 = 2112;
+      v82 = v43;
+      v48 = v47;
+      _os_log_impl(&dword_269C02000, v46, OS_LOG_TYPE_DEFAULT, "[%{public}@] Inserting sleep samples for source: %@", buf, 0x16u);
     }
 
-    dataProvenanceManager = [v41 dataProvenanceManager];
-    v51 = [dataProvenanceManager localDataProvenanceForSourceEntity:v44 version:0 deviceEntity:0];
+    dataProvenanceManager = [v40 dataProvenanceManager];
+    v50 = [dataProvenanceManager localDataProvenanceForSourceEntity:v43 version:0 deviceEntity:0];
 
-    dataManager2 = [v41 dataManager];
-    v53 = [dataManager2 insertDataObjects:self->_sleepSamples withProvenance:v51 creationDate:0 skipInsertionFilter:error error:CFAbsoluteTimeGetCurrent()];
+    dataManager2 = [v40 dataManager];
+    v52 = [dataManager2 insertDataObjects:self->_sleepSamples withProvenance:v50 creationDate:0 skipInsertionFilter:error error:CFAbsoluteTimeGetCurrent()];
 
     _HKInitializeLogging();
-    v54 = *v12;
+    v53 = *v12;
     if (os_log_type_enabled(*v12, OS_LOG_TYPE_DEFAULT))
     {
-      v55 = v54;
-      v56 = objc_opt_class();
-      v73 = v45;
-      v57 = MEMORY[0x277CCABB0];
-      v58 = v56;
-      v59 = [v57 numberWithBool:v53];
+      v54 = v53;
+      v55 = objc_opt_class();
+      v71 = v44;
+      v56 = MEMORY[0x277CCABB0];
+      v57 = v55;
+      v58 = [v56 numberWithBool:v52];
       *buf = 138543618;
-      v82 = v56;
-      v83 = 2112;
-      v84 = v59;
-      _os_log_impl(&dword_269C02000, v55, OS_LOG_TYPE_DEFAULT, "[%{public}@] Success inserting: %@", buf, 0x16u);
+      v80 = v55;
+      v81 = 2112;
+      v82 = v58;
+      _os_log_impl(&dword_269C02000, v54, OS_LOG_TYPE_DEFAULT, "[%{public}@] Success inserting: %@", buf, 0x16u);
 
-      v45 = v73;
+      v44 = v71;
     }
 
-    v11 = v75;
+    v11 = v73;
   }
 
   else
   {
     if (os_log_type_enabled(*v12, OS_LOG_TYPE_ERROR))
     {
-      v66 = v46;
-      v67 = objc_opt_class();
+      v64 = v45;
+      v65 = objc_opt_class();
       *buf = 138543618;
-      v82 = v67;
-      v83 = 2112;
-      v84 = v45;
-      v68 = v67;
-      _os_log_error_impl(&dword_269C02000, v66, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to retrieve source entity for insertion: %@", buf, 0x16u);
+      v80 = v65;
+      v81 = 2112;
+      v82 = v44;
+      v66 = v65;
+      _os_log_error_impl(&dword_269C02000, v64, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to retrieve source entity for insertion: %@", buf, 0x16u);
     }
 
-    LOBYTE(v53) = 0;
+    LOBYTE(v52) = 0;
   }
 
 LABEL_23:
-  v76[0] = MEMORY[0x277D85DD0];
-  v76[1] = 3221225472;
-  v76[2] = __73__HDSHReplaceSleepSamplesOperation_performWithProfile_transaction_error___block_invoke;
-  v76[3] = &unk_279C830B8;
-  v76[4] = self;
-  v77 = v10;
-  v60 = v10;
-  [v11 onCommit:v76 orRollback:0];
+  v74[0] = MEMORY[0x277D85DD0];
+  v74[1] = 3221225472;
+  v74[2] = __73__HDSHReplaceSleepSamplesOperation_performWithProfile_transaction_error___block_invoke;
+  v74[3] = &unk_279C830B8;
+  v74[4] = self;
+  v75 = v10;
+  v59 = v10;
+  [v11 onCommit:v74 orRollback:0];
 
-  v61 = *MEMORY[0x277D85DE8];
-  return v53;
+  return v52;
 }
 
 void __73__HDSHReplaceSleepSamplesOperation_performWithProfile_transaction_error___block_invoke(uint64_t a1)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
   v4 = v3;
@@ -260,8 +258,8 @@ void __73__HDSHReplaceSleepSamplesOperation_performWithProfile_transaction_error
       *buf = MEMORY[0x277D85DD0];
       *&buf[8] = 3221225472;
       *&buf[16] = __64__HDSHReplaceSleepSamplesOperation__performNanoSyncWithProfile___block_invoke;
-      v33 = &unk_279C83090;
-      v34 = v2;
+      v32 = &unk_279C83090;
+      v33 = v2;
       [v10 syncHealthDataWithOptions:0 reason:v11 accessibilityAssertion:v12 completion:buf];
     }
   }
@@ -272,9 +270,9 @@ void __73__HDSHReplaceSleepSamplesOperation_performWithProfile_transaction_error
   if (v13)
   {
     v16 = [v14 cloudSyncManager];
-    v31 = 0;
-    v17 = [v16 canPerformCloudSyncWithError:&v31];
-    v18 = v31;
+    v30 = 0;
+    v17 = [v16 canPerformCloudSyncWithError:&v30];
+    v18 = v30;
 
     _HKInitializeLogging();
     v19 = *v5;
@@ -298,8 +296,8 @@ void __73__HDSHReplaceSleepSamplesOperation_performWithProfile_transaction_error
       *buf = MEMORY[0x277D85DD0];
       *&buf[8] = 3221225472;
       *&buf[16] = __65__HDSHReplaceSleepSamplesOperation__performCloudSyncWithProfile___block_invoke;
-      v33 = &unk_279C83090;
-      v34 = v13;
+      v32 = &unk_279C83090;
+      v33 = v13;
       [v26 syncWithRequest:v25 reason:v27 completion:buf];
     }
 
@@ -326,56 +324,48 @@ LABEL_14:
   }
 
 LABEL_15:
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void __64__HDSHReplaceSleepSamplesOperation__performNanoSyncWithProfile___block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v5 = a3;
+  v12 = *MEMORY[0x277D85DE8];
+  v4 = a3;
   if ((a2 & 1) == 0)
   {
     _HKInitializeLogging();
-    v6 = *MEMORY[0x277CCC320];
+    v5 = *MEMORY[0x277CCC320];
     if (os_log_type_enabled(*MEMORY[0x277CCC320], OS_LOG_TYPE_ERROR))
     {
-      v8 = *(a1 + 32);
-      v9 = v6;
-      v11 = 138543618;
-      v12 = objc_opt_class();
-      v13 = 2114;
-      v14 = v5;
-      v10 = v12;
-      _os_log_error_impl(&dword_269C02000, v9, OS_LOG_TYPE_ERROR, "[%{public}@] failed to nano sync health data with error: %{public}@", &v11, 0x16u);
+      v6 = v5;
+      v8 = 138543618;
+      v9 = objc_opt_class();
+      v10 = 2114;
+      v11 = v4;
+      v7 = v9;
+      _os_log_error_impl(&dword_269C02000, v6, OS_LOG_TYPE_ERROR, "[%{public}@] failed to nano sync health data with error: %{public}@", &v8, 0x16u);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __65__HDSHReplaceSleepSamplesOperation__performCloudSyncWithProfile___block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v5 = a3;
+  v12 = *MEMORY[0x277D85DE8];
+  v4 = a3;
   if ((a2 & 1) == 0)
   {
     _HKInitializeLogging();
-    v6 = *MEMORY[0x277CCC320];
+    v5 = *MEMORY[0x277CCC320];
     if (os_log_type_enabled(*MEMORY[0x277CCC320], OS_LOG_TYPE_ERROR))
     {
-      v8 = *(a1 + 32);
-      v9 = v6;
-      v11 = 138543618;
-      v12 = objc_opt_class();
-      v13 = 2114;
-      v14 = v5;
-      v10 = v12;
-      _os_log_error_impl(&dword_269C02000, v9, OS_LOG_TYPE_ERROR, "[%{public}@] failed to cloud sync health data with error: %{public}@", &v11, 0x16u);
+      v6 = v5;
+      v8 = 138543618;
+      v9 = objc_opt_class();
+      v10 = 2114;
+      v11 = v4;
+      v7 = v9;
+      _os_log_error_impl(&dword_269C02000, v6, OS_LOG_TYPE_ERROR, "[%{public}@] failed to cloud sync health data with error: %{public}@", &v8, 0x16u);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)transactionContext
@@ -388,12 +378,12 @@ void __65__HDSHReplaceSleepSamplesOperation__performCloudSyncWithProfile___block
 
 - (HDSHReplaceSleepSamplesOperation)initWithCoder:(id)coder
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CBEB98];
   coderCopy = coder;
-  v14[0] = objc_opt_class();
-  v14[1] = objc_opt_class();
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
+  v13[0] = objc_opt_class();
+  v13[1] = objc_opt_class();
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
   v7 = [v4 setWithArray:v6];
   v8 = [coderCopy decodeObjectOfClasses:v7 forKey:@"sleep_samples"];
 
@@ -401,7 +391,6 @@ void __65__HDSHReplaceSleepSamplesOperation__performCloudSyncWithProfile___block
   v10 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"replacement_interval"];
 
   v11 = [(HDSHReplaceSleepSamplesOperation *)self initWithSleepSamplesToInsert:v8 source:v9 replacementInterval:v10 accessibilityAssertion:0];
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 

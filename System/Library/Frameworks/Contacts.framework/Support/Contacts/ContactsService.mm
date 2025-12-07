@@ -31,6 +31,7 @@
 - (void)executeSaveRequest:(id)request withReply:(id)reply;
 - (void)favoritesEntryDictionariesAtPath:(id)path withReply:(id)reply;
 - (void)fetchLimitedAccessContactIdentifiersForBundle:(id)bundle withReply:(id)reply;
+- (void)geminiResultForContact:(id)contact substituteDefaultForDangling:(BOOL)dangling withReply:(id)reply;
 - (void)getBackgroundColorOnImageData:(id)data bitmapFormat:(id)format withReply:(id)reply;
 - (void)getLimitedAccessContactsCountForBundle:(id)bundle withReply:(id)reply;
 - (void)getWatchLimitedAccessSyncDataStartingAtSequenceNumber:(id)number withReply:(id)reply;
@@ -83,7 +84,7 @@
   v24 = 0u;
   if (connectionCopy)
   {
-    [connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy);
   }
 
   v22[0] = v23;
@@ -147,7 +148,7 @@
 
     if (connectionCopy)
     {
-      [connectionCopy auditToken];
+      objc_msgSend_auditToken(connectionCopy);
     }
 
     else
@@ -185,7 +186,7 @@
     v7 = [CNManagedConfiguration alloc];
     if (connectionCopy)
     {
-      [connectionCopy auditToken];
+      objc_msgSend_auditToken(connectionCopy);
     }
 
     else
@@ -234,7 +235,7 @@
   v6 = connection;
   if (connection)
   {
-    [connection auditToken];
+    objc_msgSend_auditToken(connection);
   }
 
   else
@@ -333,7 +334,7 @@
   v6 = connection;
   if (connection)
   {
-    [connection auditToken];
+    objc_msgSend_auditToken(connection);
   }
 
   else
@@ -534,7 +535,7 @@ LABEL_14:
   v6 = connection;
   if (connection)
   {
-    [connection auditToken];
+    objc_msgSend_auditToken(connection);
   }
 
   else
@@ -768,7 +769,7 @@ LABEL_14:
   v9 = connection;
   if (connection)
   {
-    [connection auditToken];
+    objc_msgSend_auditToken(connection);
   }
 
   else
@@ -1202,6 +1203,60 @@ LABEL_14:
   [(ContactsService *)selfCopy performWorkServicingSPI:v10 authenticationFailureHandler:v8];
 }
 
+- (void)geminiResultForContact:(id)contact substituteDefaultForDangling:(BOOL)dangling withReply:(id)reply
+{
+  danglingCopy = dangling;
+  contactCopy = contact;
+  replyCopy = reply;
+  v10 = +[CNEnvironment currentEnvironment];
+  entitlementVerifier = [v10 entitlementVerifier];
+  connection = [(ContactsService *)self connection];
+  v13 = connection;
+  if (connection)
+  {
+    objc_msgSend_auditToken(connection);
+  }
+
+  else
+  {
+    memset(v21, 0, sizeof(v21));
+  }
+
+  v20 = 0;
+  v14 = [entitlementVerifier auditToken:v21 hasBooleanEntitlement:CNEntitlementNameContactsDatabaseInProcess error:&v20];
+  v15 = v20;
+
+  if (v14)
+  {
+    v16 = objc_alloc_init(CNGeminiManager);
+    v19 = 0;
+    v17 = [v16 geminiResultForContact:contactCopy substituteDefaultForDangling:danglingCopy error:&v19];
+    v18 = v19;
+  }
+
+  else
+  {
+    if (v15)
+    {
+      v22[0] = NSUnderlyingErrorKey;
+      v22[1] = NSLocalizedFailureReasonErrorKey;
+      v23[0] = v15;
+      v23[1] = @"Client not authorized";
+      v16 = [NSDictionary dictionaryWithObjects:v23 forKeys:v22 count:2];
+    }
+
+    else
+    {
+      v16 = 0;
+    }
+
+    v18 = [CNErrorFactory errorWithCode:100 userInfo:v16];
+    v17 = 0;
+  }
+
+  replyCopy[2](replyCopy, v17, v18);
+}
+
 - (void)bestSenderIdentityForHandle:(id)handle withReply:(id)reply
 {
   handleCopy = handle;
@@ -1212,7 +1267,7 @@ LABEL_14:
   v11 = connection;
   if (connection)
   {
-    [connection auditToken];
+    objc_msgSend_auditToken(connection);
   }
 
   else

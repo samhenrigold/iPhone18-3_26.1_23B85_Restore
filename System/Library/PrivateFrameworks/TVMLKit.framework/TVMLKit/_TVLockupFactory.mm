@@ -239,7 +239,7 @@ LABEL_32:
         break;
       }
 
-      [v34 tv_cellMetricsValue];
+      objc_msgSend_tv_cellMetricsValue(v34);
       v119 = v106;
       v120 = v107;
       v121 = v108;
@@ -378,7 +378,7 @@ LABEL_78:
       v36 = [a2 _configurationIdentifierForElement:v33];
       if (v36 && ([v87 objectForKeyedSubscript:v36], v37 = objc_claimAutoreleasedReturnValue(), (v38 = v37) != 0))
       {
-        [v37 tv_cellMetricsValue];
+        objc_msgSend_tv_cellMetricsValue(v37);
         v119 = v106;
         v120 = v107;
         v121 = v108;
@@ -398,7 +398,7 @@ LABEL_78:
         [a2 _configureStackingPoster:v89 layout:v38 element:v33 forMetrics:1];
         if (v89)
         {
-          [(_TVStackingPosterView *)v89 cellMetrics];
+          objc_msgSend_cellMetrics(v89);
         }
 
         else
@@ -515,7 +515,7 @@ LABEL_61:
   }
 
   v4 = v76;
-  [v76 tv_cellMetricsValue];
+  objc_msgSend_tv_cellMetricsValue(v76);
 LABEL_79:
 
   return result;
@@ -608,7 +608,7 @@ LABEL_79:
     v31 = v30;
     if (v36)
     {
-      [v36 cellMetrics];
+      objc_msgSend_cellMetrics(v36);
     }
 
     else
@@ -749,7 +749,7 @@ LABEL_6:
     v38 = v37;
     if (v19)
     {
-      [(_TVStackingPosterView *)v19 cellMetrics];
+      objc_msgSend_cellMetrics(v19);
     }
 
     else

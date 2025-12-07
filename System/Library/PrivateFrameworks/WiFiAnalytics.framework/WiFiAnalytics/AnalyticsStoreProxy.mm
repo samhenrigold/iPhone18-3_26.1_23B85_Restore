@@ -7,6 +7,7 @@
 + (id)fetchAll:(id)all moc:(id)moc;
 + (id)fetchFirst:(id)first withPredicate:(id)predicate moc:(id)moc;
 + (id)fetchPropertiesForEntity:(id)entity properties:(id)properties predicate:(id)predicate moc:(id)moc;
++ (id)fetchPropertiesForEntityWithLimitAndSortDescriptor:(id)descriptor properties:(id)properties predicate:(id)predicate fetchLimit:(unint64_t)limit sortDescriptor:(id)sortDescriptor returnDistinct:(BOOL)distinct moc:(id)moc;
 + (id)fetchRequestForEntity:(id)entity;
 + (id)fetchRequestForEntityWithBatchSize:(id)size batchSize:(unint64_t)batchSize prefetch:(id)prefetch;
 + (id)fetchRequestForEntityWithOffset:(id)offset limit:(unint64_t)limit offset:(unint64_t)a5 prefetch:(id)prefetch;
@@ -18,19 +19,19 @@
 
 + (id)fetchAll:(id)all moc:(id)moc
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   allCopy = all;
   mocCopy = moc;
   if (!mocCopy)
   {
-    v12 = WALogCategoryDeviceStoreHandle();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v11 = WALogCategoryDeviceStoreHandle();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446466;
       *&buf[4] = "+[AnalyticsStoreProxy fetchAll:moc:]";
       *&buf[12] = 1024;
       *&buf[14] = 19;
-      _os_log_impl(&dword_1C8460000, v12, OS_LOG_TYPE_ERROR, "%{public}s::%d:moc nil", buf, 0x12u);
+      _os_log_impl(&dword_1C8460000, v11, OS_LOG_TYPE_ERROR, "%{public}s::%d:moc nil", buf, 0x12u);
     }
 
     goto LABEL_7;
@@ -39,17 +40,17 @@
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v18 = __Block_byref_object_copy__2;
-  v19 = __Block_byref_object_dispose__2;
-  v20 = 0;
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __36__AnalyticsStoreProxy_fetchAll_moc___block_invoke;
-  v13[3] = &unk_1E830E5F0;
-  v16 = buf;
-  v14 = allCopy;
-  v15 = mocCopy;
-  [v15 performBlockAndWait:v13];
+  v17 = __Block_byref_object_copy__2;
+  v18 = __Block_byref_object_dispose__2;
+  v19 = 0;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __36__AnalyticsStoreProxy_fetchAll_moc___block_invoke;
+  v12[3] = &unk_1E830E5F0;
+  v15 = buf;
+  v13 = allCopy;
+  v14 = mocCopy;
+  [v14 performBlockAndWait:v12];
   v8 = *(*&buf[8] + 40);
   if (v8 && [v8 count])
   {
@@ -69,8 +70,6 @@ LABEL_7:
     v4 = 0;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
-
   return v4;
 }
 
@@ -85,22 +84,22 @@ void __36__AnalyticsStoreProxy_fetchAll_moc___block_invoke(void *a1)
 
 + (id)createEntity:(id)entity moc:(id)moc
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   entityCopy = entity;
   mocCopy = moc;
   v7 = mocCopy;
   if (!entityCopy)
   {
-    v13 = WALogCategoryDeviceStoreHandle();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v12 = WALogCategoryDeviceStoreHandle();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446466;
       *&buf[4] = "+[AnalyticsStoreProxy createEntity:moc:]";
       *&buf[12] = 1024;
       *&buf[14] = 34;
-      v14 = "%{public}s::%d:entityName nil";
+      v13 = "%{public}s::%d:entityName nil";
 LABEL_14:
-      _os_log_impl(&dword_1C8460000, v13, OS_LOG_TYPE_ERROR, v14, buf, 0x12u);
+      _os_log_impl(&dword_1C8460000, v12, OS_LOG_TYPE_ERROR, v13, buf, 0x12u);
     }
 
 LABEL_15:
@@ -112,14 +111,14 @@ LABEL_6:
 
   if (!mocCopy)
   {
-    v13 = WALogCategoryDeviceStoreHandle();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v12 = WALogCategoryDeviceStoreHandle();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446466;
       *&buf[4] = "+[AnalyticsStoreProxy createEntity:moc:]";
       *&buf[12] = 1024;
       *&buf[14] = 35;
-      v14 = "%{public}s::%d:moc nil";
+      v13 = "%{public}s::%d:moc nil";
       goto LABEL_14;
     }
 
@@ -129,18 +128,18 @@ LABEL_6:
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v27 = __Block_byref_object_copy__2;
-  v28 = __Block_byref_object_dispose__2;
-  v29 = 0;
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __40__AnalyticsStoreProxy_createEntity_moc___block_invoke;
-  v16[3] = &unk_1E830E5F0;
-  v19 = buf;
+  v26 = __Block_byref_object_copy__2;
+  v27 = __Block_byref_object_dispose__2;
+  v28 = 0;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __40__AnalyticsStoreProxy_createEntity_moc___block_invoke;
+  v15[3] = &unk_1E830E5F0;
+  v18 = buf;
   v8 = entityCopy;
-  v17 = v8;
-  v18 = v7;
-  [v18 performBlockAndWait:v16];
+  v16 = v8;
+  v17 = v7;
+  [v17 performBlockAndWait:v15];
   v9 = *(*&buf[8] + 40);
   if (v9)
   {
@@ -149,16 +148,16 @@ LABEL_6:
 
   else
   {
-    v15 = WALogCategoryDeviceStoreHandle();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v14 = WALogCategoryDeviceStoreHandle();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      *v20 = 136446722;
-      v21 = "+[AnalyticsStoreProxy createEntity:moc:]";
-      v22 = 1024;
-      v23 = 42;
-      v24 = 2112;
-      v25 = v8;
-      _os_log_impl(&dword_1C8460000, v15, OS_LOG_TYPE_ERROR, "%{public}s::%d:Error creating entity:%@", v20, 0x1Cu);
+      *v19 = 136446722;
+      v20 = "+[AnalyticsStoreProxy createEntity:moc:]";
+      v21 = 1024;
+      v22 = 42;
+      v23 = 2112;
+      v24 = v8;
+      _os_log_impl(&dword_1C8460000, v14, OS_LOG_TYPE_ERROR, "%{public}s::%d:Error creating entity:%@", v19, 0x1Cu);
     }
   }
 
@@ -170,14 +169,12 @@ LABEL_6:
 
 LABEL_7:
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 void __40__AnalyticsStoreProxy_createEntity_moc___block_invoke(void *a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E695D5B8] insertNewObjectForEntityForName:a1[4] inManagedObjectContext:a1[5]];
   v3 = *(a1[6] + 8);
   v4 = *(v3 + 40);
@@ -188,18 +185,16 @@ void __40__AnalyticsStoreProxy_createEntity_moc___block_invoke(void *a1)
   {
     v7 = a1[4];
     v6 = a1[5];
-    v9 = 136446978;
-    v10 = "+[AnalyticsStoreProxy createEntity:moc:]_block_invoke";
-    v11 = 1024;
-    v12 = 40;
-    v13 = 2112;
-    v14 = v6;
-    v15 = 2112;
-    v16 = v7;
-    _os_log_impl(&dword_1C8460000, v5, OS_LOG_TYPE_DEBUG, "%{public}s::%d:[moc: %@] Inserted new %@", &v9, 0x26u);
+    v8 = 136446978;
+    v9 = "+[AnalyticsStoreProxy createEntity:moc:]_block_invoke";
+    v10 = 1024;
+    v11 = 40;
+    v12 = 2112;
+    v13 = v6;
+    v14 = 2112;
+    v15 = v7;
+    _os_log_impl(&dword_1C8460000, v5, OS_LOG_TYPE_DEBUG, "%{public}s::%d:[moc: %@] Inserted new %@", &v8, 0x26u);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 + (id)fetchFirst:(id)first withPredicate:(id)predicate moc:(id)moc
@@ -225,7 +220,7 @@ void __40__AnalyticsStoreProxy_createEntity_moc___block_invoke(void *a1)
 
 + (id)fetch:(id)fetch withPredicate:(id)predicate moc:(id)moc
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   fetchCopy = fetch;
   predicateCopy = predicate;
   mocCopy = moc;
@@ -234,18 +229,18 @@ void __40__AnalyticsStoreProxy_createEntity_moc___block_invoke(void *a1)
   {
     if (mocCopy)
     {
-      *v51 = 0;
-      *&v51[8] = v51;
-      *&v51[16] = 0x3032000000;
-      v52 = __Block_byref_object_copy__2;
-      v53 = __Block_byref_object_dispose__2;
-      v54 = 0;
-      v35 = 0;
-      v36 = &v35;
-      v37 = 0x3032000000;
-      v38 = __Block_byref_object_copy__2;
-      v39 = __Block_byref_object_dispose__2;
-      v40 = 0;
+      *v50 = 0;
+      *&v50[8] = v50;
+      *&v50[16] = 0x3032000000;
+      v51 = __Block_byref_object_copy__2;
+      v52 = __Block_byref_object_dispose__2;
+      v53 = 0;
+      v34 = 0;
+      v35 = &v34;
+      v36 = 0x3032000000;
+      v37 = __Block_byref_object_copy__2;
+      v38 = __Block_byref_object_dispose__2;
+      v39 = 0;
       if (predicateCopy)
       {
         [fetchCopy setPredicate:predicateCopy];
@@ -255,43 +250,43 @@ void __40__AnalyticsStoreProxy_createEntity_moc___block_invoke(void *a1)
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136446722;
-        v42 = "+[AnalyticsStoreProxy fetch:withPredicate:moc:]";
-        v43 = 1024;
-        v44 = 69;
-        v45 = 2112;
-        v46 = fetchCopy;
+        v41 = "+[AnalyticsStoreProxy fetch:withPredicate:moc:]";
+        v42 = 1024;
+        v43 = 69;
+        v44 = 2112;
+        v45 = fetchCopy;
         _os_log_impl(&dword_1C8460000, v11, OS_LOG_TYPE_DEBUG, "%{public}s::%d:fetch:%@", buf, 0x1Cu);
       }
 
-      v27 = MEMORY[0x1E69E9820];
-      v28 = 3221225472;
-      v29 = __47__AnalyticsStoreProxy_fetch_withPredicate_moc___block_invoke;
-      v30 = &unk_1E830DB20;
-      v33 = v51;
-      v31 = v10;
+      v26 = MEMORY[0x1E69E9820];
+      v27 = 3221225472;
+      v28 = __47__AnalyticsStoreProxy_fetch_withPredicate_moc___block_invoke;
+      v29 = &unk_1E830DB20;
+      v32 = v50;
+      v30 = v10;
       v12 = fetchCopy;
-      v32 = v12;
-      v34 = &v35;
-      [v31 performBlockAndWait:&v27];
-      v13 = v36[5];
+      v31 = v12;
+      v33 = &v34;
+      [v30 performBlockAndWait:&v26];
+      v13 = v35[5];
       v14 = WALogCategoryDeviceStoreHandle();
       v15 = v14;
       if (v13)
       {
         if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
-          localizedDescription = [v36[5] localizedDescription];
-          userInfo = [v36[5] userInfo];
+          localizedDescription = [v35[5] localizedDescription];
+          userInfo = [v35[5] userInfo];
           *buf = 136447234;
-          v42 = "+[AnalyticsStoreProxy fetch:withPredicate:moc:]";
-          v43 = 1024;
-          v44 = 81;
-          v45 = 2112;
-          v46 = v12;
-          v47 = 2112;
-          v48 = localizedDescription;
-          v49 = 2112;
-          v50 = userInfo;
+          v41 = "+[AnalyticsStoreProxy fetch:withPredicate:moc:]";
+          v42 = 1024;
+          v43 = 81;
+          v44 = 2112;
+          v45 = v12;
+          v46 = 2112;
+          v47 = localizedDescription;
+          v48 = 2112;
+          v49 = userInfo;
           _os_log_impl(&dword_1C8460000, v15, OS_LOG_TYPE_ERROR, "%{public}s::%d:Error fetching %@. %@ %@", buf, 0x30u);
         }
       }
@@ -300,17 +295,17 @@ void __40__AnalyticsStoreProxy_createEntity_moc___block_invoke(void *a1)
       {
         if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
         {
-          v16 = *(*&v51[8] + 40);
+          v16 = *(*&v50[8] + 40);
           *buf = 136446722;
-          v42 = "+[AnalyticsStoreProxy fetch:withPredicate:moc:]";
-          v43 = 1024;
-          v44 = 82;
-          v45 = 2112;
-          v46 = v16;
+          v41 = "+[AnalyticsStoreProxy fetch:withPredicate:moc:]";
+          v42 = 1024;
+          v43 = 82;
+          v44 = 2112;
+          v45 = v16;
           _os_log_impl(&dword_1C8460000, v15, OS_LOG_TYPE_DEBUG, "%{public}s::%d:results:%@", buf, 0x1Cu);
         }
 
-        v17 = *(*&v51[8] + 40);
+        v17 = *(*&v50[8] + 40);
         if (v17)
         {
           v12 = v17;
@@ -321,18 +316,18 @@ void __40__AnalyticsStoreProxy_createEntity_moc___block_invoke(void *a1)
         v15 = WALogCategoryDeviceStoreHandle();
         if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
-          localizedDescription2 = [v36[5] localizedDescription];
-          userInfo2 = [v36[5] userInfo];
+          localizedDescription2 = [v35[5] localizedDescription];
+          userInfo2 = [v35[5] userInfo];
           *buf = 136447234;
-          v42 = "+[AnalyticsStoreProxy fetch:withPredicate:moc:]";
-          v43 = 1024;
-          v44 = 83;
-          v45 = 2112;
-          v46 = v12;
-          v47 = 2112;
-          v48 = localizedDescription2;
-          v49 = 2112;
-          v50 = userInfo2;
+          v41 = "+[AnalyticsStoreProxy fetch:withPredicate:moc:]";
+          v42 = 1024;
+          v43 = 83;
+          v44 = 2112;
+          v45 = v12;
+          v46 = 2112;
+          v47 = localizedDescription2;
+          v48 = 2112;
+          v49 = userInfo2;
           _os_log_impl(&dword_1C8460000, v15, OS_LOG_TYPE_ERROR, "%{public}s::%d:Error fetching %@. %@ %@", buf, 0x30u);
         }
       }
@@ -340,8 +335,8 @@ void __40__AnalyticsStoreProxy_createEntity_moc___block_invoke(void *a1)
       v18 = 1;
 LABEL_12:
 
-      _Block_object_dispose(&v35, 8);
-      _Block_object_dispose(v51, 8);
+      _Block_object_dispose(&v34, 8);
+      _Block_object_dispose(v50, 8);
 
       if ((v18 & 1) == 0)
       {
@@ -351,38 +346,36 @@ LABEL_12:
       goto LABEL_13;
     }
 
-    v21 = WALogCategoryDeviceStoreHandle();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v20 = WALogCategoryDeviceStoreHandle();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      *v51 = 136446466;
-      *&v51[4] = "+[AnalyticsStoreProxy fetch:withPredicate:moc:]";
-      *&v51[12] = 1024;
-      *&v51[14] = 61;
-      v22 = "%{public}s::%d:moc request nil";
+      *v50 = 136446466;
+      *&v50[4] = "+[AnalyticsStoreProxy fetch:withPredicate:moc:]";
+      *&v50[12] = 1024;
+      *&v50[14] = 61;
+      v21 = "%{public}s::%d:moc request nil";
       goto LABEL_21;
     }
   }
 
   else
   {
-    v21 = WALogCategoryDeviceStoreHandle();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v20 = WALogCategoryDeviceStoreHandle();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      *v51 = 136446466;
-      *&v51[4] = "+[AnalyticsStoreProxy fetch:withPredicate:moc:]";
-      *&v51[12] = 1024;
-      *&v51[14] = 60;
-      v22 = "%{public}s::%d:fetch request nil";
+      *v50 = 136446466;
+      *&v50[4] = "+[AnalyticsStoreProxy fetch:withPredicate:moc:]";
+      *&v50[12] = 1024;
+      *&v50[14] = 60;
+      v21 = "%{public}s::%d:fetch request nil";
 LABEL_21:
-      _os_log_impl(&dword_1C8460000, v21, OS_LOG_TYPE_ERROR, v22, v51, 0x12u);
+      _os_log_impl(&dword_1C8460000, v20, OS_LOG_TYPE_ERROR, v21, v50, 0x12u);
     }
   }
 
 LABEL_13:
   v12 = 0;
 LABEL_14:
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -399,13 +392,11 @@ void __47__AnalyticsStoreProxy_fetch_withPredicate_moc___block_invoke(void *a1)
   v6 = *(a1[6] + 8);
   v7 = *(v6 + 40);
   *(v6 + 40) = v5;
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 + (id)fetchRequestForEntity:(id)entity
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (entity)
   {
     v3 = [MEMORY[0x1E695D5E0] fetchRequestWithEntityName:?];
@@ -413,27 +404,25 @@ void __47__AnalyticsStoreProxy_fetch_withPredicate_moc___block_invoke(void *a1)
 
   else
   {
-    v6 = WALogCategoryDeviceStoreHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v5 = WALogCategoryDeviceStoreHandle();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v7 = 136446466;
-      v8 = "+[AnalyticsStoreProxy fetchRequestForEntity:]";
-      v9 = 1024;
-      v10 = 91;
-      _os_log_impl(&dword_1C8460000, v6, OS_LOG_TYPE_ERROR, "%{public}s::%d:entityName nil", &v7, 0x12u);
+      v6 = 136446466;
+      v7 = "+[AnalyticsStoreProxy fetchRequestForEntity:]";
+      v8 = 1024;
+      v9 = 91;
+      _os_log_impl(&dword_1C8460000, v5, OS_LOG_TYPE_ERROR, "%{public}s::%d:entityName nil", &v6, 0x12u);
     }
 
     v3 = 0;
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 + (unint64_t)entityCount:(id)count withPredicate:(id)predicate moc:(id)moc
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   countCopy = count;
   predicateCopy = predicate;
   mocCopy = moc;
@@ -447,15 +436,15 @@ void __47__AnalyticsStoreProxy_fetch_withPredicate_moc___block_invoke(void *a1)
     }
 
     *buf = 136446466;
-    v27 = "+[AnalyticsStoreProxy entityCount:withPredicate:moc:]";
-    v28 = 1024;
-    v29 = 101;
-    v17 = "%{public}s::%d:entityName nil";
+    v26 = "+[AnalyticsStoreProxy entityCount:withPredicate:moc:]";
+    v27 = 1024;
+    v28 = 101;
+    v16 = "%{public}s::%d:entityName nil";
 LABEL_12:
-    v18 = v14;
-    v19 = 18;
+    v17 = v14;
+    v18 = 18;
 LABEL_15:
-    _os_log_impl(&dword_1C8460000, v18, OS_LOG_TYPE_ERROR, v17, buf, v19);
+    _os_log_impl(&dword_1C8460000, v17, OS_LOG_TYPE_ERROR, v16, buf, v18);
     goto LABEL_16;
   }
 
@@ -468,10 +457,10 @@ LABEL_15:
     }
 
     *buf = 136446466;
-    v27 = "+[AnalyticsStoreProxy entityCount:withPredicate:moc:]";
-    v28 = 1024;
-    v29 = 102;
-    v17 = "%{public}s::%d:entityName nil";
+    v26 = "+[AnalyticsStoreProxy entityCount:withPredicate:moc:]";
+    v27 = 1024;
+    v28 = 102;
+    v16 = "%{public}s::%d:entityName nil";
     goto LABEL_12;
   }
 
@@ -483,14 +472,14 @@ LABEL_15:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
-      v27 = "+[AnalyticsStoreProxy entityCount:withPredicate:moc:]";
-      v28 = 1024;
-      v29 = 105;
-      v30 = 2112;
-      v31 = countCopy;
-      v17 = "%{public}s::%d:fetch request nil for entity:%@";
-      v18 = v14;
-      v19 = 28;
+      v26 = "+[AnalyticsStoreProxy entityCount:withPredicate:moc:]";
+      v27 = 1024;
+      v28 = 105;
+      v29 = 2112;
+      v30 = countCopy;
+      v16 = "%{public}s::%d:fetch request nil for entity:%@";
+      v17 = v14;
+      v18 = 28;
       goto LABEL_15;
     }
 
@@ -507,29 +496,29 @@ LABEL_20:
     [v11 setPredicate:predicateCopy];
   }
 
-  v25 = 0;
-  v13 = [v10 countForFetchRequest:v12 error:&v25];
-  v14 = v25;
+  v24 = 0;
+  v13 = [v10 countForFetchRequest:v12 error:&v24];
+  v14 = v24;
   if (v14)
   {
-    v20 = WALogCategoryDeviceStoreHandle();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v19 = WALogCategoryDeviceStoreHandle();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       entityName = [v12 entityName];
       localizedDescription = [v14 localizedDescription];
       userInfo = [v14 userInfo];
       *buf = 136447234;
-      v27 = "+[AnalyticsStoreProxy entityCount:withPredicate:moc:]";
-      v28 = 1024;
-      v29 = 119;
-      v30 = 2112;
-      v31 = entityName;
-      v32 = 2112;
-      v33 = localizedDescription;
-      v34 = 2112;
-      v35 = userInfo;
-      v24 = userInfo;
-      _os_log_impl(&dword_1C8460000, v20, OS_LOG_TYPE_ERROR, "%{public}s::%d:Error countForFetchRequest for entity %@. %@ %@", buf, 0x30u);
+      v26 = "+[AnalyticsStoreProxy entityCount:withPredicate:moc:]";
+      v27 = 1024;
+      v28 = 119;
+      v29 = 2112;
+      v30 = entityName;
+      v31 = 2112;
+      v32 = localizedDescription;
+      v33 = 2112;
+      v34 = userInfo;
+      v23 = userInfo;
+      _os_log_impl(&dword_1C8460000, v19, OS_LOG_TYPE_ERROR, "%{public}s::%d:Error countForFetchRequest for entity %@. %@ %@", buf, 0x30u);
     }
 
     goto LABEL_20;
@@ -537,27 +526,26 @@ LABEL_20:
 
 LABEL_7:
 
-  v15 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
 + (id)entity:(id)entity withPredicate:(id)predicate created:(BOOL *)created moc:(id)moc
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   entityCopy = entity;
   predicateCopy = predicate;
   mocCopy = moc;
   v12 = mocCopy;
   if (!entityCopy)
   {
-    v20 = WALogCategoryDeviceStoreHandle();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v19 = WALogCategoryDeviceStoreHandle();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446466;
       *&buf[4] = "+[AnalyticsStoreProxy entity:withPredicate:created:moc:]";
       *&buf[12] = 1024;
       *&buf[14] = 125;
-      _os_log_impl(&dword_1C8460000, v20, OS_LOG_TYPE_ERROR, "%{public}s::%d:entityName nil", buf, 0x12u);
+      _os_log_impl(&dword_1C8460000, v19, OS_LOG_TYPE_ERROR, "%{public}s::%d:entityName nil", buf, 0x12u);
     }
 
     goto LABEL_21;
@@ -565,14 +553,14 @@ LABEL_7:
 
   if (!mocCopy)
   {
-    v20 = WALogCategoryDeviceStoreHandle();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v19 = WALogCategoryDeviceStoreHandle();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446466;
       *&buf[4] = "+[AnalyticsStoreProxy entity:withPredicate:created:moc:]";
       *&buf[12] = 1024;
       *&buf[14] = 126;
-      _os_log_impl(&dword_1C8460000, v20, OS_LOG_TYPE_ERROR, "%{public}s::%d:moc nil", buf, 0x12u);
+      _os_log_impl(&dword_1C8460000, v19, OS_LOG_TYPE_ERROR, "%{public}s::%d:moc nil", buf, 0x12u);
     }
 
 LABEL_21:
@@ -584,20 +572,20 @@ LABEL_21:
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v30 = __Block_byref_object_copy__2;
-  v31 = __Block_byref_object_dispose__2;
-  v32 = 0;
-  v21 = MEMORY[0x1E69E9820];
-  v22 = 3221225472;
-  v23 = __56__AnalyticsStoreProxy_entity_withPredicate_created_moc___block_invoke;
-  v24 = &unk_1E830E8C0;
-  v28 = buf;
+  v29 = __Block_byref_object_copy__2;
+  v30 = __Block_byref_object_dispose__2;
+  v31 = 0;
+  v20 = MEMORY[0x1E69E9820];
+  v21 = 3221225472;
+  v22 = __56__AnalyticsStoreProxy_entity_withPredicate_created_moc___block_invoke;
+  v23 = &unk_1E830E8C0;
+  v27 = buf;
   v13 = entityCopy;
-  v25 = v13;
-  v26 = predicateCopy;
+  v24 = v13;
+  v25 = predicateCopy;
   v14 = v12;
-  v27 = v14;
-  [v14 performBlockAndWait:&v21];
+  v26 = v14;
+  [v14 performBlockAndWait:&v20];
   v15 = *(*&buf[8] + 40);
   if (v15 && [v15 count])
   {
@@ -621,15 +609,13 @@ LABEL_21:
       *created = 1;
     }
 
-    firstObject = [AnalyticsStoreProxy createEntity:v13 moc:v14, v21, v22, v23, v24];
+    firstObject = [AnalyticsStoreProxy createEntity:v13 moc:v14, v20, v21, v22, v23];
   }
 
   v17 = firstObject;
 
   _Block_object_dispose(buf, 8);
 LABEL_13:
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
@@ -672,7 +658,7 @@ void __56__AnalyticsStoreProxy_entity_withPredicate_created_moc___block_invoke(v
 
 + (id)predicateForEntityWithAgeOlderThan:(id)than dateAttribute:(id)attribute olderThan:(double)olderThan
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   thanCopy = than;
   v8 = MEMORY[0x1E695DF00];
   attributeCopy = attribute;
@@ -688,24 +674,22 @@ void __56__AnalyticsStoreProxy_entity_withPredicate_created_moc___block_invoke(v
   {
     v16 = [v14 description];
     *buf = 136446978;
-    v20 = "+[AnalyticsStoreProxy predicateForEntityWithAgeOlderThan:dateAttribute:olderThan:]";
-    v21 = 1024;
-    v22 = 183;
-    v23 = 2112;
-    v24 = thanCopy;
-    v25 = 2112;
-    v26 = v16;
+    v19 = "+[AnalyticsStoreProxy predicateForEntityWithAgeOlderThan:dateAttribute:olderThan:]";
+    v20 = 1024;
+    v21 = 183;
+    v22 = 2112;
+    v23 = thanCopy;
+    v24 = 2112;
+    v25 = v16;
     _os_log_impl(&dword_1C8460000, v15, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:Batch deleted predicate on %@: %@", buf, 0x26u);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
 
 + (BOOL)batchDelete:(id)delete withPredicate:(id)predicate withFetchRequest:(id)request moc:(id)moc
 {
-  v65 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   deleteCopy = delete;
   predicateCopy = predicate;
   requestCopy = request;
@@ -734,56 +718,56 @@ void __56__AnalyticsStoreProxy_entity_withPredicate_created_moc___block_invoke(v
 
   v16 = [objc_alloc(MEMORY[0x1E695D538]) initWithFetchRequest:v14];
   [v16 setResultType:1];
-  v47 = 0;
-  v48 = &v47;
-  v49 = 0x3032000000;
-  v50 = __Block_byref_object_copy__2;
-  v51 = __Block_byref_object_dispose__2;
-  v52 = 0;
-  v41 = 0;
-  v42 = &v41;
-  v43 = 0x3032000000;
-  v44 = __Block_byref_object_copy__2;
-  v45 = __Block_byref_object_dispose__2;
   v46 = 0;
-  v36[0] = MEMORY[0x1E69E9820];
-  v36[1] = 3221225472;
-  v36[2] = __70__AnalyticsStoreProxy_batchDelete_withPredicate_withFetchRequest_moc___block_invoke;
-  v36[3] = &unk_1E830DB20;
-  v39 = &v47;
+  v47 = &v46;
+  v48 = 0x3032000000;
+  v49 = __Block_byref_object_copy__2;
+  v50 = __Block_byref_object_dispose__2;
+  v51 = 0;
+  v40 = 0;
+  v41 = &v40;
+  v42 = 0x3032000000;
+  v43 = __Block_byref_object_copy__2;
+  v44 = __Block_byref_object_dispose__2;
+  v45 = 0;
+  v35[0] = MEMORY[0x1E69E9820];
+  v35[1] = 3221225472;
+  v35[2] = __70__AnalyticsStoreProxy_batchDelete_withPredicate_withFetchRequest_moc___block_invoke;
+  v35[3] = &unk_1E830DB20;
+  v38 = &v46;
   v17 = mocCopy;
-  v37 = v17;
+  v36 = v17;
   v18 = v16;
-  v38 = v18;
-  v40 = &v41;
-  [v17 performBlockAndWait:v36];
-  if (v42[5])
+  v37 = v18;
+  v39 = &v40;
+  [v17 performBlockAndWait:v35];
+  if (v41[5])
   {
     v25 = WALogCategoryDeviceStoreHandle();
     if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
-      localizedDescription = [v42[5] localizedDescription];
-      userInfo = [v42[5] userInfo];
+      localizedDescription = [v41[5] localizedDescription];
+      userInfo = [v41[5] userInfo];
       *buf = 136447490;
-      v54 = "+[AnalyticsStoreProxy batchDelete:withPredicate:withFetchRequest:moc:]";
-      v55 = 1024;
-      v56 = 212;
-      v57 = 2112;
-      v58 = deleteCopy;
-      v59 = 2112;
-      v60 = predicateFormat;
-      v61 = 2112;
-      v62 = localizedDescription;
-      v63 = 2112;
-      v31 = userInfo;
-      v64 = userInfo;
+      v53 = "+[AnalyticsStoreProxy batchDelete:withPredicate:withFetchRequest:moc:]";
+      v54 = 1024;
+      v55 = 212;
+      v56 = 2112;
+      v57 = deleteCopy;
+      v58 = 2112;
+      v59 = predicateFormat;
+      v60 = 2112;
+      v61 = localizedDescription;
+      v62 = 2112;
+      v30 = userInfo;
+      v63 = userInfo;
       _os_log_impl(&dword_1C8460000, v25, OS_LOG_TYPE_ERROR, "%{public}s::%d:Error executing batch delete for entity[%@] predicateFormat[%@]. %@ %@", buf, 0x3Au);
     }
   }
 
   else
   {
-    result = [v48[5] result];
+    result = [v47[5] result];
     v20 = [result count] == 0;
 
     if (v20)
@@ -792,53 +776,53 @@ void __56__AnalyticsStoreProxy_entity_withPredicate_created_moc___block_invoke(v
       goto LABEL_15;
     }
 
-    if ([v48[5] resultType] == 1)
+    if ([v47[5] resultType] == 1)
     {
-      v32[0] = MEMORY[0x1E69E9820];
-      v32[1] = 3221225472;
-      v32[2] = __70__AnalyticsStoreProxy_batchDelete_withPredicate_withFetchRequest_moc___block_invoke_64;
-      v32[3] = &unk_1E830E910;
-      v34 = &v47;
-      v33 = v17;
-      v35 = &v41;
-      [v33 performBlockAndWait:v32];
+      v31[0] = MEMORY[0x1E69E9820];
+      v31[1] = 3221225472;
+      v31[2] = __70__AnalyticsStoreProxy_batchDelete_withPredicate_withFetchRequest_moc___block_invoke_64;
+      v31[3] = &unk_1E830E910;
+      v33 = &v46;
+      v32 = v17;
+      v34 = &v40;
+      [v32 performBlockAndWait:v31];
       v21 = WALogCategoryDeviceStoreHandle();
       if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
       {
-        result2 = [v48[5] result];
+        result2 = [v47[5] result];
         v23 = [result2 count];
         *buf = 136447234;
-        v54 = "+[AnalyticsStoreProxy batchDelete:withPredicate:withFetchRequest:moc:]";
-        v55 = 1024;
-        v56 = 226;
-        v57 = 2048;
-        v58 = v23;
-        v59 = 2112;
-        v60 = deleteCopy;
-        v61 = 2112;
-        v62 = predicateFormat;
+        v53 = "+[AnalyticsStoreProxy batchDelete:withPredicate:withFetchRequest:moc:]";
+        v54 = 1024;
+        v55 = 226;
+        v56 = 2048;
+        v57 = v23;
+        v58 = 2112;
+        v59 = deleteCopy;
+        v60 = 2112;
+        v61 = predicateFormat;
         _os_log_impl(&dword_1C8460000, v21, OS_LOG_TYPE_DEBUG, "%{public}s::%d:Batch deleted %lu MOs of entity[%@] predicateFormat[%@]", buf, 0x30u);
       }
 
       v24 = 1;
-      v25 = v33;
+      v25 = v32;
       goto LABEL_13;
     }
 
     v25 = WALogCategoryDeviceStoreHandle();
     if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
-      resultType = [v48[5] resultType];
+      resultType = [v47[5] resultType];
       *buf = 136447234;
-      v54 = "+[AnalyticsStoreProxy batchDelete:withPredicate:withFetchRequest:moc:]";
-      v55 = 1024;
-      v56 = 215;
-      v57 = 2112;
-      v58 = deleteCopy;
-      v59 = 2112;
-      v60 = predicateFormat;
-      v61 = 2048;
-      v62 = resultType;
+      v53 = "+[AnalyticsStoreProxy batchDelete:withPredicate:withFetchRequest:moc:]";
+      v54 = 1024;
+      v55 = 215;
+      v56 = 2112;
+      v57 = deleteCopy;
+      v58 = 2112;
+      v59 = predicateFormat;
+      v60 = 2048;
+      v61 = resultType;
       _os_log_impl(&dword_1C8460000, v25, OS_LOG_TYPE_ERROR, "%{public}s::%d:Error executing batch delete for entity[%@] predicateFormat[%@]. Unexpected ResultType %lu ", buf, 0x30u);
     }
   }
@@ -847,10 +831,9 @@ void __56__AnalyticsStoreProxy_entity_withPredicate_created_moc___block_invoke(v
 LABEL_13:
 
 LABEL_15:
-  _Block_object_dispose(&v41, 8);
+  _Block_object_dispose(&v40, 8);
 
-  _Block_object_dispose(&v47, 8);
-  v26 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v46, 8);
   return v24;
 }
 
@@ -896,7 +879,7 @@ void __70__AnalyticsStoreProxy_batchDelete_withPredicate_withFetchRequest_moc___
 
 + (BOOL)batchUpdate:(id)update withPredicate:(id)predicate propertiesToUpdate:(id)toUpdate moc:(id)moc
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   updateCopy = update;
   predicateCopy = predicate;
   toUpdateCopy = toUpdate;
@@ -918,39 +901,38 @@ void __70__AnalyticsStoreProxy_batchDelete_withPredicate_withFetchRequest_moc___
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446978;
-      v24 = "+[AnalyticsStoreProxy batchUpdate:withPredicate:propertiesToUpdate:moc:]";
-      v25 = 1024;
-      v26 = 273;
-      v27 = 2112;
-      v28 = updateCopy;
-      v29 = 2112;
-      v30 = toUpdateCopy;
+      v23 = "+[AnalyticsStoreProxy batchUpdate:withPredicate:propertiesToUpdate:moc:]";
+      v24 = 1024;
+      v25 = 273;
+      v26 = 2112;
+      v27 = updateCopy;
+      v28 = 2112;
+      v29 = toUpdateCopy;
       _os_log_impl(&dword_1C8460000, v15, OS_LOG_TYPE_ERROR, "%{public}s::%d:entityName %@ or propertiesToUpdate %@ nil", buf, 0x26u);
     }
   }
 
   else
   {
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __72__AnalyticsStoreProxy_batchUpdate_withPredicate_propertiesToUpdate_moc___block_invoke;
-    v18[3] = &unk_1E830E938;
-    v19 = updateCopy;
-    v20 = toUpdateCopy;
-    v21 = predicateCopy;
-    v22 = mocCopy;
-    [v22 performBlockAndWait:v18];
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __72__AnalyticsStoreProxy_batchUpdate_withPredicate_propertiesToUpdate_moc___block_invoke;
+    v17[3] = &unk_1E830E938;
+    v18 = updateCopy;
+    v19 = toUpdateCopy;
+    v20 = predicateCopy;
+    v21 = mocCopy;
+    [v21 performBlockAndWait:v17];
 
-    v15 = v19;
+    v15 = v18;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 void __72__AnalyticsStoreProxy_batchUpdate_withPredicate_propertiesToUpdate_moc___block_invoke(uint64_t a1)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E695D560] batchUpdateRequestWithEntityName:*(a1 + 32)];
   [v2 setPropertiesToUpdate:*(a1 + 40)];
   [v2 setPredicate:*(a1 + 48)];
@@ -971,9 +953,9 @@ void __72__AnalyticsStoreProxy_batchUpdate_withPredicate_propertiesToUpdate_moc_
 
   [v2 setResultType:1];
   v7 = *(a1 + 56);
-  v23 = 0;
-  v8 = [v7 executeRequest:v2 error:&v23];
-  v9 = v23;
+  v22 = 0;
+  v8 = [v7 executeRequest:v2 error:&v22];
+  v9 = v22;
   v10 = [v8 result];
   v11 = objc_opt_respondsToSelector();
 
@@ -986,9 +968,9 @@ void __72__AnalyticsStoreProxy_batchUpdate_withPredicate_propertiesToUpdate_moc_
     }
 
     *buf = 136446466;
-    v25 = "+[AnalyticsStoreProxy batchUpdate:withPredicate:propertiesToUpdate:moc:]_block_invoke";
-    v26 = 1024;
-    v27 = 268;
+    v24 = "+[AnalyticsStoreProxy batchUpdate:withPredicate:propertiesToUpdate:moc:]_block_invoke";
+    v25 = 1024;
+    v26 = 268;
     v16 = "%{public}s::%d:batchUpdate results empty";
 LABEL_11:
     _os_log_impl(&dword_1C8460000, v15, OS_LOG_TYPE_ERROR, v16, buf, 0x12u);
@@ -1007,60 +989,58 @@ LABEL_11:
     }
 
     *buf = 136446466;
-    v25 = "+[AnalyticsStoreProxy batchUpdate:withPredicate:propertiesToUpdate:moc:]_block_invoke";
-    v26 = 1024;
-    v27 = 265;
+    v24 = "+[AnalyticsStoreProxy batchUpdate:withPredicate:propertiesToUpdate:moc:]_block_invoke";
+    v25 = 1024;
+    v26 = 265;
     v16 = "%{public}s::%d:batchUpdate count is 0";
     goto LABEL_11;
   }
 
   v14 = *(a1 + 56);
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __72__AnalyticsStoreProxy_batchUpdate_withPredicate_propertiesToUpdate_moc___block_invoke_2;
-  v18[3] = &unk_1E830E938;
-  v19 = v8;
-  v20 = *(a1 + 56);
-  v21 = *(a1 + 32);
-  v22 = v4;
-  [v14 performBlockAndWait:v18];
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __72__AnalyticsStoreProxy_batchUpdate_withPredicate_propertiesToUpdate_moc___block_invoke_2;
+  v17[3] = &unk_1E830E938;
+  v18 = v8;
+  v19 = *(a1 + 56);
+  v20 = *(a1 + 32);
+  v21 = v4;
+  [v14 performBlockAndWait:v17];
 
-  v15 = v19;
+  v15 = v18;
 LABEL_12:
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __72__AnalyticsStoreProxy_batchUpdate_withPredicate_propertiesToUpdate_moc___block_invoke_2(uint64_t a1)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v2 = [*(a1 + 32) result];
-  v3 = [v2 countByEnumeratingWithState:&v20 objects:v34 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v19 objects:v33 count:16];
   if (v3)
   {
     v5 = v3;
-    v6 = *v21;
+    v6 = *v20;
     *&v4 = 136447234;
-    v18 = v4;
+    v17 = v4;
     do
     {
       v7 = 0;
       do
       {
-        if (*v21 != v6)
+        if (*v20 != v6)
         {
           objc_enumerationMutation(v2);
         }
 
-        v8 = *(*(&v20 + 1) + 8 * v7);
+        v8 = *(*(&v19 + 1) + 8 * v7);
         v9 = *(a1 + 40);
-        v19 = 0;
-        v10 = [v9 existingObjectWithID:v8 error:{&v19, v18}];
-        v11 = v19;
+        v18 = 0;
+        v10 = [v9 existingObjectWithID:v8 error:{&v18, v17}];
+        v11 = v18;
         [*(a1 + 40) refreshObject:v10 mergeChanges:1];
         v12 = WALogCategoryDeviceStoreHandle();
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
@@ -1069,16 +1049,16 @@ void __72__AnalyticsStoreProxy_batchUpdate_withPredicate_propertiesToUpdate_moc_
           v14 = [v13 count];
           v15 = *(a1 + 48);
           v16 = *(a1 + 56);
-          *buf = v18;
-          v25 = "+[AnalyticsStoreProxy batchUpdate:withPredicate:propertiesToUpdate:moc:]_block_invoke_2";
-          v26 = 1024;
-          v27 = 261;
-          v28 = 2048;
-          v29 = v14;
-          v30 = 2112;
-          v31 = v15;
-          v32 = 2112;
-          v33 = v16;
+          *buf = v17;
+          v24 = "+[AnalyticsStoreProxy batchUpdate:withPredicate:propertiesToUpdate:moc:]_block_invoke_2";
+          v25 = 1024;
+          v26 = 261;
+          v27 = 2048;
+          v28 = v14;
+          v29 = 2112;
+          v30 = v15;
+          v31 = 2112;
+          v32 = v16;
           _os_log_impl(&dword_1C8460000, v12, OS_LOG_TYPE_DEBUG, "%{public}s::%d:Batch updated %lu MOs of entity[%@] predicateFormat[%@]", buf, 0x30u);
         }
 
@@ -1086,18 +1066,16 @@ void __72__AnalyticsStoreProxy_batchUpdate_withPredicate_propertiesToUpdate_moc_
       }
 
       while (v5 != v7);
-      v5 = [v2 countByEnumeratingWithState:&v20 objects:v34 count:16];
+      v5 = [v2 countByEnumeratingWithState:&v19 objects:v33 count:16];
     }
 
     while (v5);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 + (id)fetchPropertiesForEntity:(id)entity properties:(id)properties predicate:(id)predicate moc:(id)moc
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   entityCopy = entity;
   propertiesCopy = properties;
   predicateCopy = predicate;
@@ -1115,45 +1093,142 @@ void __72__AnalyticsStoreProxy_batchUpdate_withPredicate_propertiesToUpdate_moc_
       goto LABEL_4;
     }
 
-    v18 = WALogCategoryDeviceStoreHandle();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v17 = WALogCategoryDeviceStoreHandle();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      v22 = 136446466;
-      v23 = "+[AnalyticsStoreProxy fetchPropertiesForEntity:properties:predicate:moc:]";
-      v24 = 1024;
-      v25 = 286;
-      v19 = "%{public}s::%d:moc nil";
-      v20 = v18;
-      v21 = 18;
+      v21 = 136446466;
+      v22 = "+[AnalyticsStoreProxy fetchPropertiesForEntity:properties:predicate:moc:]";
+      v23 = 1024;
+      v24 = 286;
+      v18 = "%{public}s::%d:moc nil";
+      v19 = v17;
+      v20 = 18;
       goto LABEL_11;
     }
   }
 
   else
   {
-    v18 = WALogCategoryDeviceStoreHandle();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v17 = WALogCategoryDeviceStoreHandle();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      v22 = 136446722;
-      v23 = "+[AnalyticsStoreProxy fetchPropertiesForEntity:properties:predicate:moc:]";
-      v24 = 1024;
-      v25 = 285;
-      v26 = 2112;
-      v27 = entityCopy;
-      v19 = "%{public}s::%d:fetch request nil for entity:%@";
-      v20 = v18;
-      v21 = 28;
+      v21 = 136446722;
+      v22 = "+[AnalyticsStoreProxy fetchPropertiesForEntity:properties:predicate:moc:]";
+      v23 = 1024;
+      v24 = 285;
+      v25 = 2112;
+      v26 = entityCopy;
+      v18 = "%{public}s::%d:fetch request nil for entity:%@";
+      v19 = v17;
+      v20 = 28;
 LABEL_11:
-      _os_log_impl(&dword_1C8460000, v20, OS_LOG_TYPE_ERROR, v19, &v22, v21);
+      _os_log_impl(&dword_1C8460000, v19, OS_LOG_TYPE_ERROR, v18, &v21, v20);
     }
   }
 
   v15 = 0;
 LABEL_4:
 
-  v16 = *MEMORY[0x1E69E9840];
-
   return v15;
+}
+
++ (id)fetchPropertiesForEntityWithLimitAndSortDescriptor:(id)descriptor properties:(id)properties predicate:(id)predicate fetchLimit:(unint64_t)limit sortDescriptor:(id)sortDescriptor returnDistinct:(BOOL)distinct moc:(id)moc
+{
+  distinctCopy = distinct;
+  v37 = *MEMORY[0x1E69E9840];
+  descriptorCopy = descriptor;
+  propertiesCopy = properties;
+  predicateCopy = predicate;
+  sortDescriptorCopy = sortDescriptor;
+  mocCopy = moc;
+  v18 = [AnalyticsStoreProxy fetchRequestForEntity:descriptorCopy];
+  v19 = v18;
+  if (!v18)
+  {
+    v24 = WALogCategoryDeviceStoreHandle();
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136446722;
+      v32 = "+[AnalyticsStoreProxy fetchPropertiesForEntityWithLimitAndSortDescriptor:properties:predicate:fetchLimit:sortDescriptor:returnDistinct:moc:]";
+      v33 = 1024;
+      v34 = 306;
+      v35 = 2112;
+      v36 = descriptorCopy;
+      v26 = "%{public}s::%d:fetch request nil for entity:%@";
+      v27 = v24;
+      v28 = 28;
+LABEL_18:
+      _os_log_impl(&dword_1C8460000, v27, OS_LOG_TYPE_ERROR, v26, buf, v28);
+    }
+
+LABEL_19:
+    v23 = 0;
+    v22 = predicateCopy;
+    goto LABEL_11;
+  }
+
+  if (!mocCopy)
+  {
+    v24 = WALogCategoryDeviceStoreHandle();
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136446466;
+      v32 = "+[AnalyticsStoreProxy fetchPropertiesForEntityWithLimitAndSortDescriptor:properties:predicate:fetchLimit:sortDescriptor:returnDistinct:moc:]";
+      v33 = 1024;
+      v34 = 307;
+      v26 = "%{public}s::%d:moc nil";
+      v27 = v24;
+      v28 = 18;
+      goto LABEL_18;
+    }
+
+    goto LABEL_19;
+  }
+
+  [v18 setResultType:2];
+  [v19 setReturnsDistinctResults:distinctCopy];
+  [v19 setPropertiesToFetch:propertiesCopy];
+  if (sortDescriptorCopy)
+  {
+    v30 = sortDescriptorCopy;
+    v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v30 count:1];
+    [v19 setSortDescriptors:v20];
+  }
+
+  if (limit)
+  {
+    [v19 setFetchLimit:limit];
+  }
+
+  v21 = WALogCategoryDeviceStoreHandle();
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 136446722;
+    v32 = "+[AnalyticsStoreProxy fetchPropertiesForEntityWithLimitAndSortDescriptor:properties:predicate:fetchLimit:sortDescriptor:returnDistinct:moc:]";
+    v33 = 1024;
+    v34 = 321;
+    v35 = 2112;
+    v36 = v19;
+    _os_log_impl(&dword_1C8460000, v21, OS_LOG_TYPE_DEBUG, "%{public}s::%d:request:%@", buf, 0x1Cu);
+  }
+
+  v22 = predicateCopy;
+  v23 = [AnalyticsStoreProxy fetch:v19 withPredicate:predicateCopy moc:mocCopy];
+  v24 = WALogCategoryDeviceStoreHandle();
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 136446722;
+    v32 = "+[AnalyticsStoreProxy fetchPropertiesForEntityWithLimitAndSortDescriptor:properties:predicate:fetchLimit:sortDescriptor:returnDistinct:moc:]";
+    v33 = 1024;
+    v34 = 323;
+    v35 = 2112;
+    v36 = v23;
+    _os_log_impl(&dword_1C8460000, v24, OS_LOG_TYPE_DEBUG, "%{public}s::%d:results:%@", buf, 0x1Cu);
+  }
+
+LABEL_11:
+
+  return v23;
 }
 
 @end

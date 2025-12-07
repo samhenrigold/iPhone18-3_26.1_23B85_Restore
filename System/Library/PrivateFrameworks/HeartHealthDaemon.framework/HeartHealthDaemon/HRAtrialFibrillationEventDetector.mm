@@ -170,10 +170,7 @@
 
 uint64_t __71__HRAtrialFibrillationEventDetector__unitTest_confirmationCycleSamples__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _queue_confirmationCycleSamples];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) _queue_confirmationCycleSamples];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -202,10 +199,7 @@ uint64_t __71__HRAtrialFibrillationEventDetector__unitTest_confirmationCycleSamp
 
 uint64_t __71__HRAtrialFibrillationEventDetector__unitTest_lastAlgorithmVersionUsed__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _queue_lastAlgorithmVersionUsed];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) _queue_lastAlgorithmVersionUsed];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -234,10 +228,7 @@ uint64_t __71__HRAtrialFibrillationEventDetector__unitTest_lastAlgorithmVersionU
 
 uint64_t __71__HRAtrialFibrillationEventDetector__unitTest_latestAnalyzedSampleDate__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _queue_latestAnalyzedSampleDate];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) _queue_latestAnalyzedSampleDate];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -266,10 +257,7 @@ uint64_t __71__HRAtrialFibrillationEventDetector__unitTest_latestAnalyzedSampleD
 
 uint64_t __71__HRAtrialFibrillationEventDetector__unitTest_lastAnalyzedSampleAnchor__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _queue_lastAnalyzedSampleAnchor];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) _queue_lastAnalyzedSampleAnchor];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -295,7 +283,7 @@ uint64_t __71__HRAtrialFibrillationEventDetector__unitTest_lastAnalyzedSampleAnc
   notify_register_dispatch(uTF8String, &self->_settingDidUpdateNotificationToken, queue, handler);
 }
 
-uint64_t __49__HRAtrialFibrillationEventDetector_daemonReady___block_invoke(uint64_t a1)
+void *__49__HRAtrialFibrillationEventDetector_daemonReady___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _queue_detectionDisabled];
   if ((result & 1) == 0)
@@ -344,12 +332,12 @@ uint64_t __78__HRAtrialFibrillationEventDetector_database_protectedDataDidBecome
 
 - (void)samplesAdded:(id)added anchor:(id)anchor
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   anchorCopy = anchor;
   statusManager = self->_statusManager;
-  v24 = 0;
-  v7 = [(HKFeatureStatusManager *)statusManager featureStatusWithError:&v24];
-  v8 = v24;
+  v25 = 0;
+  v7 = [(HKFeatureStatusManager *)statusManager featureStatusWithError:&v25];
+  v8 = v25;
   if (v7)
   {
     v9 = [v7 objectForKeyedSubscript:*MEMORY[0x277CCBEA0]];
@@ -364,31 +352,31 @@ uint64_t __78__HRAtrialFibrillationEventDetector_database_protectedDataDidBecome
       if (bOOLValue2)
       {
         queue = self->_queue;
-        v21[0] = MEMORY[0x277D85DD0];
-        v21[1] = 3221225472;
-        v21[2] = __57__HRAtrialFibrillationEventDetector_samplesAdded_anchor___block_invoke;
-        v21[3] = &unk_278660440;
-        v21[4] = self;
-        v22 = v7;
-        v23 = anchorCopy;
-        dispatch_async(queue, v21);
+        v22[0] = MEMORY[0x277D85DD0];
+        v22[1] = 3221225472;
+        v22[2] = __57__HRAtrialFibrillationEventDetector_samplesAdded_anchor___block_invoke;
+        v22[3] = &unk_278660440;
+        v22[4] = self;
+        v23 = v7;
+        v24 = anchorCopy;
+        dispatch_async(queue, v22);
 
 LABEL_12:
         goto LABEL_13;
       }
 
       _HKInitializeLogging();
-      v19 = *MEMORY[0x277CCC2D8];
+      v20 = *MEMORY[0x277CCC2D8];
       if (!os_log_type_enabled(*MEMORY[0x277CCC2D8], OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_12;
       }
 
-      v16 = v19;
-      v17 = HRLogSensitiveClassName();
+      v16 = v20;
+      v18 = HRLogSensitiveClassName(self, v21);
       *buf = 138543362;
-      v26 = v17;
-      v18 = "[%{public}@] Skipping analysis: this is a Family Setup watch";
+      v27 = v18;
+      v19 = "[%{public}@] Skipping analysis: this is a Family Setup watch";
     }
 
     else
@@ -401,13 +389,13 @@ LABEL_12:
       }
 
       v16 = v15;
-      v17 = HRLogSensitiveClassName();
+      v18 = HRLogSensitiveClassName(self, v17);
       *buf = 138543362;
-      v26 = v17;
-      v18 = "[%{public}@] Skipping analysis: Health app is hidden";
+      v27 = v18;
+      v19 = "[%{public}@] Skipping analysis: Health app is hidden";
     }
 
-    _os_log_impl(&dword_229486000, v16, OS_LOG_TYPE_DEFAULT, v18, buf, 0xCu);
+    _os_log_impl(&dword_229486000, v16, OS_LOG_TYPE_DEFAULT, v19, buf, 0xCu);
 
     goto LABEL_12;
   }
@@ -419,13 +407,11 @@ LABEL_12:
   }
 
 LABEL_13:
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __57__HRAtrialFibrillationEventDetector_samplesAdded_anchor___block_invoke(uint64_t a1)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 16) isCompanionSoftwareVersionTooOld];
   v3 = *(*(a1 + 32) + 16);
   if (v2)
@@ -433,93 +419,89 @@ void __57__HRAtrialFibrillationEventDetector_samplesAdded_anchor___block_invoke(
     [v3 notifyUserThatAntimonyIsUnavailableForiOSVersionIfNeeded];
     _HKInitializeLogging();
     v4 = *MEMORY[0x277CCC2D8];
-    if (os_log_type_enabled(*MEMORY[0x277CCC2D8], OS_LOG_TYPE_DEFAULT))
+    if (!os_log_type_enabled(*MEMORY[0x277CCC2D8], OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *(a1 + 32);
-      v6 = v4;
-      v7 = HRLogSensitiveClassName();
-      v28 = 138543362;
-      v29 = v7;
-      v8 = "[%{public}@] companion device is too old to support watchOS version";
+      return;
+    }
+
+    v5 = *(a1 + 32);
+    v6 = v4;
+    v8 = HRLogSensitiveClassName(v5, v7);
+    v27 = 138543362;
+    v28 = v8;
+    v9 = "[%{public}@] companion device is too old to support watchOS version";
 LABEL_7:
-      _os_log_impl(&dword_229486000, v6, OS_LOG_TYPE_DEFAULT, v8, &v28, 0xCu);
+    _os_log_impl(&dword_229486000, v6, OS_LOG_TYPE_DEFAULT, v9, &v27, 0xCu);
 
 LABEL_8:
-      goto LABEL_9;
-    }
-
-    goto LABEL_9;
-  }
-
-  v9 = [v3 isWatchSoftwareVersionTooOld];
-  v10 = *(a1 + 32);
-  if (v9)
-  {
-    [v10[2] notifyUserThatAntimonyIsUnavailableForWatchOSVersionIfNeeded];
-    _HKInitializeLogging();
-    v11 = *MEMORY[0x277CCC2D8];
-    if (os_log_type_enabled(*MEMORY[0x277CCC2D8], OS_LOG_TYPE_DEFAULT))
-    {
-      v12 = *(a1 + 32);
-      v6 = v11;
-      v7 = HRLogSensitiveClassName();
-      v28 = 138543362;
-      v29 = v7;
-      v8 = "[%{public}@] watch device is too old to support iOS version";
-      goto LABEL_7;
-    }
-
-LABEL_9:
-    v13 = *MEMORY[0x277D85DE8];
     return;
   }
 
-  v14 = [v10 _queue_detectionDisabledWithFeatureStatus:*(a1 + 40)];
-  v15 = *(*(a1 + 32) + 16);
-  if (v14)
+  v10 = [v3 isWatchSoftwareVersionTooOld];
+  v11 = *(a1 + 32);
+  if (v10)
   {
-    v16 = *MEMORY[0x277D85DE8];
+    [v11[2] notifyUserThatAntimonyIsUnavailableForWatchOSVersionIfNeeded];
+    _HKInitializeLogging();
+    v12 = *MEMORY[0x277CCC2D8];
+    if (!os_log_type_enabled(*MEMORY[0x277CCC2D8], OS_LOG_TYPE_DEFAULT))
+    {
+      return;
+    }
 
-    [v15 presentAtrialFibrillationDetectionRescindedAlertIfNeeded];
+    v13 = *(a1 + 32);
+    v6 = v12;
+    v8 = HRLogSensitiveClassName(v13, v14);
+    v27 = 138543362;
+    v28 = v8;
+    v9 = "[%{public}@] watch device is too old to support iOS version";
+    goto LABEL_7;
+  }
+
+  v15 = [v11 _queue_detectionDisabledWithFeatureStatus:*(a1 + 40)];
+  v16 = *(*(a1 + 32) + 16);
+  if (v15)
+  {
+
+    [v16 presentAtrialFibrillationDetectionRescindedAlertIfNeeded];
   }
 
   else
   {
-    [v15 presentAtrialFibrillationDetectionReEnabledAlertIfNeeded];
+    [v16 presentAtrialFibrillationDetectionReEnabledAlertIfNeeded];
     v17 = [*(a1 + 48) integerValue];
     v18 = [*(a1 + 32) _queue_lastAnalyzedSampleAnchor];
     v19 = [v18 integerValue];
 
-    if (v17 < v19)
+    if (v17 >= v19)
+    {
+      v26 = *(a1 + 32);
+
+      [v26 _queue_analyzeTachogramsSinceLastAnchor];
+    }
+
+    else
     {
       _HKInitializeLogging();
       v20 = *MEMORY[0x277CCC2D8];
-      if (!os_log_type_enabled(*MEMORY[0x277CCC2D8], OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(*MEMORY[0x277CCC2D8], OS_LOG_TYPE_DEFAULT))
       {
-        goto LABEL_9;
+        v21 = *(a1 + 32);
+        v6 = v20;
+        v23 = HRLogSensitiveClassName(v21, v22);
+        v24 = HKSensitiveLogItem();
+        v25 = [*(a1 + 32) _queue_lastAnalyzedSampleAnchor];
+        v27 = 138543874;
+        v28 = v23;
+        v29 = 2112;
+        v30 = v24;
+        v31 = 2112;
+        v32 = v25;
+        _os_log_impl(&dword_229486000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Samples added with anchor %@ below last analyzed anchor %@, ignoring", &v27, 0x20u);
+
+        goto LABEL_8;
       }
-
-      v21 = *(a1 + 32);
-      v6 = v20;
-      v22 = HRLogSensitiveClassName();
-      v23 = *(a1 + 48);
-      v24 = HKSensitiveLogItem();
-      v25 = [*(a1 + 32) _queue_lastAnalyzedSampleAnchor];
-      v28 = 138543874;
-      v29 = v22;
-      v30 = 2112;
-      v31 = v24;
-      v32 = 2112;
-      v33 = v25;
-      _os_log_impl(&dword_229486000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Samples added with anchor %@ below last analyzed anchor %@, ignoring", &v28, 0x20u);
-
-      goto LABEL_8;
     }
-
-    v26 = *(a1 + 32);
-    v27 = *MEMORY[0x277D85DE8];
-
-    [v26 _queue_analyzeTachogramsSinceLastAnchor];
   }
 }
 
@@ -573,7 +555,7 @@ uint64_t __91__HRAtrialFibrillationEventDetector__queue_enqueueMaintainanceOpera
 
 uint64_t __76__HRAtrialFibrillationEventDetector__queue_analyzeTachogramsSinceLastAnchor__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v31[3] = *MEMORY[0x277D85DE8];
+  v29[3] = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277D105E0];
   v6 = [MEMORY[0x277CCD920] heartbeatSeriesType];
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 8));
@@ -592,30 +574,28 @@ uint64_t __76__HRAtrialFibrillationEventDetector__queue_analyzeTachogramsSinceLa
 
     v16 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:-172800.0];
     v17 = HDSampleEntityPredicateForStartDate();
-    v18 = *(a1 + 40);
-    v19 = HDDataEntityPredicateForRowID();
-    v20 = objc_loadWeakRetained((*(a1 + 32) + 8));
-    v21 = [v20 sourceManager];
-    v22 = [v21 localDeviceSourceWithError:a3];
+    v18 = HDDataEntityPredicateForRowID();
+    v19 = objc_loadWeakRetained((*(a1 + 32) + 8));
+    v20 = [v19 sourceManager];
+    v21 = [v20 localDeviceSourceWithError:a3];
 
-    v23 = HDDataEntityPredicateForSourceEntity();
-    v24 = MEMORY[0x277D10B20];
-    v31[0] = v17;
-    v31[1] = v19;
-    v31[2] = v23;
-    v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:3];
-    v26 = [v24 predicateMatchingAllPredicates:v25];
+    v22 = HDDataEntityPredicateForSourceEntity();
+    v23 = MEMORY[0x277D10B20];
+    v29[0] = v17;
+    v29[1] = v18;
+    v29[2] = v22;
+    v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:3];
+    v25 = [v23 predicateMatchingAllPredicates:v24];
 
-    [v15 setPredicate:v26];
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __76__HRAtrialFibrillationEventDetector__queue_analyzeTachogramsSinceLastAnchor__block_invoke_2;
-    v29[3] = &unk_278660760;
-    v30 = *(a1 + 48);
-    [v15 enumerateWithError:a3 handler:v29];
+    [v15 setPredicate:v25];
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __76__HRAtrialFibrillationEventDetector__queue_analyzeTachogramsSinceLastAnchor__block_invoke_2;
+    v27[3] = &unk_278660760;
+    v28 = *(a1 + 48);
+    [v15 enumerateWithError:a3 handler:v27];
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -652,12 +632,12 @@ uint64_t __76__HRAtrialFibrillationEventDetector__queue_analyzeTachogramsSinceLa
   if (os_log_type_enabled(*MEMORY[0x277CCC2D8], OS_LOG_TYPE_DEFAULT))
   {
     v12 = v11;
-    v13 = HRLogSensitiveClassName();
-    v14 = [v10 hk_map:&__block_literal_global_333];
+    v14 = HRLogSensitiveClassName(self, v13);
+    v15 = [v10 hk_map:&__block_literal_global_333];
     *buf = 138543618;
-    v18 = v13;
+    v18 = v14;
     v19 = 2112;
-    v20 = v14;
+    v20 = v15;
     _os_log_impl(&dword_229486000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@] Filtered to samples with background context: %@", buf, 0x16u);
   }
 
@@ -670,13 +650,11 @@ uint64_t __76__HRAtrialFibrillationEventDetector__queue_analyzeTachogramsSinceLa
   {
     [(HRAtrialFibrillationEventDetector *)self _queue_setLastAnalyzedSampleAnchor:anchorCopy];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __74__HRAtrialFibrillationEventDetector__queue_seriesSamplesAdded_lastAnchor___block_invoke(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 metadata];
   v5 = [v4 objectForKeyedSubscript:*MEMORY[0x277CCE050]];
@@ -684,15 +662,15 @@ uint64_t __74__HRAtrialFibrillationEventDetector__queue_seriesSamplesAdded_lastA
 
   if (!v6)
   {
-    v12 = [v3 metadata];
-    v13 = [v12 objectForKeyedSubscript:*MEMORY[0x277CCDFA0]];
+    v13 = [v3 metadata];
+    v14 = [v13 objectForKeyedSubscript:*MEMORY[0x277CCDFA0]];
 
-    v14 = *(a1 + 40);
-    v15 = v13;
-    v16 = v15;
-    if (v14 == 1)
+    v15 = *(a1 + 40);
+    v16 = v14;
+    v17 = v16;
+    if (v15 == 1)
     {
-      if (!v15)
+      if (!v16)
       {
 LABEL_14:
         v8 = 1;
@@ -701,7 +679,7 @@ LABEL_15:
         goto LABEL_16;
       }
 
-      v8 = [v15 integerValue];
+      v8 = [v16 integerValue];
 
       if (v8 == 1)
       {
@@ -709,11 +687,11 @@ LABEL_15:
       }
     }
 
-    else if (v14 == 2)
+    else if (v15 == 2)
     {
-      v17 = [v15 integerValue];
+      v18 = [v16 integerValue];
 
-      if (v17 == 2)
+      if (v18 == 2)
       {
         goto LABEL_14;
       }
@@ -724,16 +702,16 @@ LABEL_15:
     }
 
     _HKInitializeLogging();
-    v18 = *MEMORY[0x277CCC2D8];
+    v19 = *MEMORY[0x277CCC2D8];
     v8 = 0;
     if (os_log_type_enabled(*MEMORY[0x277CCC2D8], OS_LOG_TYPE_DEFAULT))
     {
-      v19 = *(a1 + 32);
-      v20 = v18;
-      v21 = HRLogSensitiveClassName();
-      v24 = 138543362;
-      v25 = v21;
-      _os_log_impl(&dword_229486000, v20, OS_LOG_TYPE_DEFAULT, "[%{public}@] Ignoring sample from incompatible tachogram version", &v24, 0xCu);
+      v20 = *(a1 + 32);
+      v21 = v19;
+      v23 = HRLogSensitiveClassName(v20, v22);
+      v25 = 138543362;
+      v26 = v23;
+      _os_log_impl(&dword_229486000, v21, OS_LOG_TYPE_DEFAULT, "[%{public}@] Ignoring sample from incompatible tachogram version", &v25, 0xCu);
 
       v8 = 0;
     }
@@ -748,17 +726,16 @@ LABEL_15:
   {
     v9 = *(a1 + 32);
     v10 = v7;
-    v11 = HRLogSensitiveClassName();
-    v24 = 138543362;
-    v25 = v11;
-    _os_log_impl(&dword_229486000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] Ignoring sample from non-background context", &v24, 0xCu);
+    v12 = HRLogSensitiveClassName(v9, v11);
+    v25 = 138543362;
+    v26 = v12;
+    _os_log_impl(&dword_229486000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] Ignoring sample from non-background context", &v25, 0xCu);
 
     v8 = 0;
   }
 
 LABEL_16:
 
-  v22 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -783,19 +760,17 @@ LABEL_16:
     if (os_log_type_enabled(*MEMORY[0x277CCC2D8], OS_LOG_TYPE_DEFAULT))
     {
       v10 = v9;
-      v11 = HRLogSensitiveClassName();
-      v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(thresholdCopy, "count") - objc_msgSend(v7, "count")}];
+      v12 = HRLogSensitiveClassName(self, v11);
+      v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(thresholdCopy, "count") - objc_msgSend(v7, "count")}];
       *buf = 138543874;
-      v18 = v11;
+      v18 = v12;
       v19 = 2112;
-      v20 = v12;
+      v20 = v13;
       v21 = 2112;
       v22 = v6;
       _os_log_impl(&dword_229486000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] Skipping analysis of %@ samples earlier than threshold date %@", buf, 0x20u);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -868,9 +843,9 @@ uint64_t __84__HRAtrialFibrillationEventDetector__queue_analyzeFilteredSeriesSam
     {
       v6 = *(a1 + 32);
       v7 = v5;
-      v8 = HRLogSensitiveClassName();
+      v9 = HRLogSensitiveClassName(v6, v8);
       v15 = 138543874;
-      v16 = v8;
+      v16 = v9;
       v17 = 2048;
       v18 = [v4 integerValue];
       v19 = 2048;
@@ -885,16 +860,16 @@ uint64_t __84__HRAtrialFibrillationEventDetector__queue_analyzeFilteredSeriesSam
   {
     do
     {
-      v9 = [*(a1 + 40) hk_dequeue];
-      v10 = [*(a1 + 32) _queue_confirmationCycleSamples];
-      v11 = [v10 arrayByAddingObject:v9];
+      v10 = [*(a1 + 40) hk_dequeue];
+      v11 = [*(a1 + 32) _queue_confirmationCycleSamples];
+      v12 = [v11 arrayByAddingObject:v10];
 
-      v12 = [*(a1 + 32) _queue_analyzeCurrentConfirmationCycleSamples:v11 withAlgorithmVersion:v2];
+      v13 = [*(a1 + 32) _queue_analyzeCurrentConfirmationCycleSamples:v12 withAlgorithmVersion:v2];
     }
 
     while ([*(a1 + 40) count]);
     [*(a1 + 32) _queue_setLastAnalyzedSampleAnchor:*(a1 + 48)];
-    if (v12)
+    if (v13)
     {
       [*(a1 + 32) _queue_requestAnotherTachogram];
     }
@@ -905,13 +880,12 @@ uint64_t __84__HRAtrialFibrillationEventDetector__queue_analyzeFilteredSeriesSam
     [*(a1 + 32) _queue_setLastAnalyzedSampleAnchor:*(a1 + 48)];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 - (BOOL)_queue_analyzeCurrentConfirmationCycleSamples:(id)samples withAlgorithmVersion:(int64_t)version
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   queue = self->_queue;
   samplesCopy = samples;
   dispatch_assert_queue_V2(queue);
@@ -919,19 +893,19 @@ uint64_t __84__HRAtrialFibrillationEventDetector__queue_analyzeFilteredSeriesSam
 
   if ([v8 count])
   {
-    v48 = 0;
-    v49 = &v48;
-    v50 = 0x3032000000;
-    v51 = __Block_byref_object_copy__4;
-    v52 = __Block_byref_object_dispose__4;
+    v51 = 0;
+    v52 = &v51;
+    v53 = 0x3032000000;
+    v54 = __Block_byref_object_copy__4;
+    v55 = __Block_byref_object_dispose__4;
     firstObject = [v8 firstObject];
     startDate = [firstObject startDate];
 
-    v42 = 0;
-    v43 = &v42;
-    v44 = 0x3032000000;
-    v45 = __Block_byref_object_copy__4;
-    v46 = __Block_byref_object_dispose__4;
+    v45 = 0;
+    v46 = &v45;
+    v47 = 0x3032000000;
+    v48 = __Block_byref_object_copy__4;
+    v49 = __Block_byref_object_dispose__4;
     firstObject2 = [v8 firstObject];
     endDate = [firstObject2 endDate];
 
@@ -940,56 +914,56 @@ uint64_t __84__HRAtrialFibrillationEventDetector__queue_analyzeFilteredSeriesSam
     v12 = *MEMORY[0x277CCC2D8];
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = HRLogSensitiveClassName();
-      v41[0] = MEMORY[0x277D85DD0];
-      v41[1] = 3221225472;
-      v41[2] = __104__HRAtrialFibrillationEventDetector__queue_analyzeCurrentConfirmationCycleSamples_withAlgorithmVersion___block_invoke;
-      v41[3] = &unk_278660868;
-      v41[4] = &v48;
-      v41[5] = &v42;
-      v14 = [v8 hk_map:v41];
+      v14 = HRLogSensitiveClassName(self, v13);
+      v44[0] = MEMORY[0x277D85DD0];
+      v44[1] = 3221225472;
+      v44[2] = __104__HRAtrialFibrillationEventDetector__queue_analyzeCurrentConfirmationCycleSamples_withAlgorithmVersion___block_invoke;
+      v44[3] = &unk_278660868;
+      v44[4] = &v51;
+      v44[5] = &v45;
+      v15 = [v8 hk_map:v44];
       *buf = 138543618;
-      v55 = v13;
-      v56 = 2112;
-      v57 = v14;
+      v58 = v14;
+      v59 = 2112;
+      v60 = v15;
       _os_log_impl(&dword_229486000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@] Sending sample(s) to analyzer: %@", buf, 0x16u);
     }
 
-    v15 = [(HRAtrialFibrillationEventDetector *)self _processTachograms:v8 withAlgorithmVersion:version];
+    v16 = [(HRAtrialFibrillationEventDetector *)self _processTachograms:v8 withAlgorithmVersion:version];
     analyticsCollector = self->_analyticsCollector;
-    v17 = objc_alloc(MEMORY[0x277CCA970]);
-    v18 = [v17 initWithStartDate:v49[5] endDate:v43[5]];
-    [(HRAtrialFibrillationAnalyticsCollector *)analyticsCollector collectAnalyticsForResult:v15 algorithmVersion:version samplesDateInterval:v18];
+    v18 = objc_alloc(MEMORY[0x277CCA970]);
+    v19 = [v18 initWithStartDate:v52[5] endDate:v46[5]];
+    [(HRAtrialFibrillationAnalyticsCollector *)analyticsCollector collectAnalyticsForResult:v16 algorithmVersion:version samplesDateInterval:v19];
 
     -[HRAtrialFibrillationAnalyticsCollector updateCountAnalyzedTachogramsWithCount:keyValueDomain:](self->_analyticsCollector, "updateCountAnalyzedTachogramsWithCount:keyValueDomain:", [v8 count], self->_syncedKeyValueDomain);
-    v19 = [MEMORY[0x277CCABB0] numberWithInteger:version];
-    [(HRAtrialFibrillationEventDetector *)self _queue_setLastAlgorithmVersionUsed:v19];
+    v20 = [MEMORY[0x277CCABB0] numberWithInteger:version];
+    [(HRAtrialFibrillationEventDetector *)self _queue_setLastAlgorithmVersionUsed:v20];
 
     lastObject = [v8 lastObject];
     endDate2 = [lastObject endDate];
     [(HRAtrialFibrillationEventDetector *)self _queue_setLatestAnalyzedSampleDate:endDate2];
 
-    userShouldBeAlerted = [v15 userShouldBeAlerted];
+    userShouldBeAlerted = [v16 userShouldBeAlerted];
     if (userShouldBeAlerted)
     {
       _HKInitializeLogging();
-      v23 = *v11;
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      v24 = *v11;
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
-        v24 = HRLogSensitiveClassName();
-        uuidsForNextCycle = [v15 uuidsForNextCycle];
+        v26 = HRLogSensitiveClassName(self, v25);
+        uuidsForNextCycle = [v16 uuidsForNextCycle];
         *buf = 138543618;
-        v55 = v24;
-        v56 = 2112;
-        v57 = uuidsForNextCycle;
-        _os_log_impl(&dword_229486000, v23, OS_LOG_TYPE_DEFAULT, "[%{public}@] Result indicated user should be notified, UUIDs for next cycle: %@", buf, 0x16u);
+        v58 = v26;
+        v59 = 2112;
+        v60 = uuidsForNextCycle;
+        _os_log_impl(&dword_229486000, v24, OS_LOG_TYPE_DEFAULT, "[%{public}@] Result indicated user should be notified, UUIDs for next cycle: %@", buf, 0x16u);
       }
 
       firstObject3 = [v8 firstObject];
       endDate3 = [firstObject3 endDate];
       uuidsForNextCycle4 = [v8 hk_foldRightFrom:endDate3 with:&__block_literal_global_346];
 
-      positiveUUIDs = [v15 positiveUUIDs];
+      positiveUUIDs = [v16 positiveUUIDs];
       [(HRAtrialFibrillationEventDetector *)self _queue_alertUserWithDate:uuidsForNextCycle4 positiveTachogramUUIDs:positiveUUIDs];
 
       [(HRAtrialFibrillationEventDetector *)self _queue_endConfirmationCycleIfNeeded];
@@ -997,59 +971,58 @@ uint64_t __84__HRAtrialFibrillationEventDetector__queue_analyzeFilteredSeriesSam
 
     else
     {
-      if (![v15 tachogramShouldBeRequested])
+      if (![v16 tachogramShouldBeRequested])
       {
         _HKInitializeLogging();
-        v35 = *v11;
+        v38 = *v11;
         if (os_log_type_enabled(*v11, OS_LOG_TYPE_DEBUG))
         {
-          v36 = v35;
-          if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
+          v39 = v38;
+          if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
           {
-            v37 = HRLogSensitiveClassName();
-            uuidsForNextCycle2 = [v15 uuidsForNextCycle];
-            [(HRAtrialFibrillationEventDetector *)v37 _queue_analyzeCurrentConfirmationCycleSamples:uuidsForNextCycle2 withAlgorithmVersion:buf];
+            v41 = HRLogSensitiveClassName(self, v40);
+            uuidsForNextCycle2 = [v16 uuidsForNextCycle];
+            [(HRAtrialFibrillationEventDetector *)v41 _queue_analyzeCurrentConfirmationCycleSamples:uuidsForNextCycle2 withAlgorithmVersion:buf];
           }
         }
 
         [(HRAtrialFibrillationEventDetector *)self _queue_endConfirmationCycleIfNeeded];
-        v30 = 0;
+        v32 = 0;
         goto LABEL_19;
       }
 
       _HKInitializeLogging();
-      v31 = *v11;
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+      v33 = *v11;
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
       {
-        v32 = HRLogSensitiveClassName();
-        uuidsForNextCycle3 = [v15 uuidsForNextCycle];
+        v35 = HRLogSensitiveClassName(self, v34);
+        uuidsForNextCycle3 = [v16 uuidsForNextCycle];
         *buf = 138543618;
-        v55 = v32;
-        v56 = 2112;
-        v57 = uuidsForNextCycle3;
-        _os_log_impl(&dword_229486000, v31, OS_LOG_TYPE_DEFAULT, "[%{public}@] Result indicated more samples are needed, UUIDs for next cycle: %@", buf, 0x16u);
+        v58 = v35;
+        v59 = 2112;
+        v60 = uuidsForNextCycle3;
+        _os_log_impl(&dword_229486000, v33, OS_LOG_TYPE_DEFAULT, "[%{public}@] Result indicated more samples are needed, UUIDs for next cycle: %@", buf, 0x16u);
       }
 
-      uuidsForNextCycle4 = [v15 uuidsForNextCycle];
-      v34 = [(HRAtrialFibrillationEventDetector *)self _queue_orderedConfirmationCycleSamplesFromSamples:v8 requestedUUIDs:uuidsForNextCycle4];
-      [(HRAtrialFibrillationEventDetector *)self _queue_setConfirmationCycleSamples:v34];
+      uuidsForNextCycle4 = [v16 uuidsForNextCycle];
+      v37 = [(HRAtrialFibrillationEventDetector *)self _queue_orderedConfirmationCycleSamplesFromSamples:v8 requestedUUIDs:uuidsForNextCycle4];
+      [(HRAtrialFibrillationEventDetector *)self _queue_setConfirmationCycleSamples:v37];
     }
 
-    v30 = userShouldBeAlerted ^ 1;
+    v32 = userShouldBeAlerted ^ 1;
 LABEL_19:
 
-    _Block_object_dispose(&v42, 8);
-    _Block_object_dispose(&v48, 8);
+    _Block_object_dispose(&v45, 8);
+    _Block_object_dispose(&v51, 8);
 
     goto LABEL_20;
   }
 
   [(HRAtrialFibrillationEventDetector *)self _queue_endConfirmationCycleIfNeeded];
-  v30 = 0;
+  v32 = 0;
 LABEL_20:
 
-  v39 = *MEMORY[0x277D85DE8];
-  return v30;
+  return v32;
 }
 
 id __104__HRAtrialFibrillationEventDetector__queue_analyzeCurrentConfirmationCycleSamples_withAlgorithmVersion___block_invoke(uint64_t a1, void *a2)
@@ -1106,19 +1079,17 @@ id __104__HRAtrialFibrillationEventDetector__queue_analyzeCurrentConfirmationCyc
     if (os_log_type_enabled(*MEMORY[0x277CCC2D8], OS_LOG_TYPE_DEFAULT))
     {
       v11 = v10;
-      v12 = HRLogSensitiveClassName();
+      v13 = HRLogSensitiveClassName(self, v12);
       v16 = 138543618;
-      v17 = v12;
+      v17 = v13;
       v18 = 2048;
       versionCopy = version;
       _os_log_impl(&dword_229486000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@] Analyzing tachograms with algorithm version %ld", &v16, 0x16u);
     }
 
-    v13 = [objc_alloc(MEMORY[0x277D13018]) initWithIrregularRhythmVersion:{-[HRAtrialFibrillationEventDetector _currentAlgorithmVersion](self, "_currentAlgorithmVersion")}];
-    v9 = [v13 processTachograms:tachogramsCopy];
+    v14 = [objc_alloc(MEMORY[0x277D13018]) initWithIrregularRhythmVersion:{-[HRAtrialFibrillationEventDetector _currentAlgorithmVersion](self, "_currentAlgorithmVersion")}];
+    v9 = [v14 processTachograms:tachogramsCopy];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -1206,11 +1177,11 @@ id __104__HRAtrialFibrillationEventDetector__queue_analyzeCurrentConfirmationCyc
       if (os_log_type_enabled(*MEMORY[0x277CCC2D8], OS_LOG_TYPE_DEFAULT))
       {
         v10 = v9;
-        v11 = HRLogSensitiveClassName();
-        v12 = [statusCopy objectForKeyedSubscript:v6];
-        unsatisfiedRequirementIdentifiers = [v12 unsatisfiedRequirementIdentifiers];
+        v12 = HRLogSensitiveClassName(self, v11);
+        v13 = [statusCopy objectForKeyedSubscript:v6];
+        unsatisfiedRequirementIdentifiers = [v13 unsatisfiedRequirementIdentifiers];
         v16 = 138543618;
-        v17 = v11;
+        v17 = v12;
         v18 = 2114;
         v19 = unsatisfiedRequirementIdentifiers;
         _os_log_impl(&dword_229486000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] Detection is disabled, unsatisfied usage requirements: %{public}@", &v16, 0x16u);
@@ -1220,7 +1191,6 @@ id __104__HRAtrialFibrillationEventDetector__queue_analyzeCurrentConfirmationCyc
     _unitTest_detectionDisabled = areAllRequirementsSatisfied ^ 1;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return _unitTest_detectionDisabled;
 }
 
@@ -1244,21 +1214,19 @@ id __104__HRAtrialFibrillationEventDetector__queue_analyzeCurrentConfirmationCyc
     if (os_log_type_enabled(*MEMORY[0x277CCC2D8], OS_LOG_TYPE_DEFAULT))
     {
       v4 = v3;
-      v5 = HRLogSensitiveClassName();
+      v6 = HRLogSensitiveClassName(self, v5);
       v7 = 138543362;
-      v8 = v5;
+      v8 = v6;
       _os_log_impl(&dword_229486000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Ending current confirmation cycle", &v7, 0xCu);
     }
 
     [(HRAtrialFibrillationEventDetector *)self _queue_setConfirmationCycleSamples:MEMORY[0x277CBEBF8]];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_requestAnotherTachogram
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   _unitTest_moreTachogramsRequestedHandler = [(HRAtrialFibrillationEventDetector *)self _unitTest_moreTachogramsRequestedHandler];
 
@@ -1266,23 +1234,20 @@ id __104__HRAtrialFibrillationEventDetector__queue_analyzeCurrentConfirmationCyc
   {
     _unitTest_moreTachogramsRequestedHandler2 = [(HRAtrialFibrillationEventDetector *)self _unitTest_moreTachogramsRequestedHandler];
     _unitTest_moreTachogramsRequestedHandler2[2]();
-    v4 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
     _HKInitializeLogging();
-    v5 = *MEMORY[0x277CCC2D8];
+    v4 = *MEMORY[0x277CCC2D8];
     if (os_log_type_enabled(*MEMORY[0x277CCC2D8], OS_LOG_TYPE_DEFAULT))
     {
-      v6 = v5;
-      v7 = HRLogSensitiveClassName();
+      v5 = v4;
+      v7 = HRLogSensitiveClassName(self, v6);
       *buf = 138543362;
-      v11 = v7;
-      _os_log_impl(&dword_229486000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Requesting background sample", buf, 0xCu);
+      v10 = v7;
+      _os_log_impl(&dword_229486000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Requesting background sample", buf, 0xCu);
     }
-
-    v8 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -1359,9 +1324,9 @@ id __104__HRAtrialFibrillationEventDetector__queue_analyzeCurrentConfirmationCyc
             if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
             {
               v35 = v33;
-              v36 = HRLogSensitiveClassName();
+              v37 = HRLogSensitiveClassName(self, v36);
               *buf = 138543362;
-              v47 = v36;
+              v47 = v37;
               _os_log_impl(&dword_229486000, v35, OS_LOG_TYPE_DEFAULT, "[%{public}@] Saved event with associated positive samples", buf, 0xCu);
 
               v15 = v38;
@@ -1417,8 +1382,6 @@ id __104__HRAtrialFibrillationEventDetector__queue_analyzeCurrentConfirmationCyc
       }
     }
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_getProductVersionWithError:(id *)error
@@ -1536,27 +1499,27 @@ uint64_t __85__HRAtrialFibrillationEventDetector__queue_orderedConfirmationCycle
 - (id)_queue_orderedConfirmationCycleSamplesFromSamples:(id)samples requestedUUIDs:(id)ds
 {
   dsCopy = ds;
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __102__HRAtrialFibrillationEventDetector__queue_orderedConfirmationCycleSamplesFromSamples_requestedUUIDs___block_invoke;
-  v12[3] = &unk_2786607F8;
-  v6 = dsCopy;
-  v13 = v6;
-  v7 = [samples hk_filter:v12];
-  v8 = [v7 sortedArrayUsingComparator:&__block_literal_global_359];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __102__HRAtrialFibrillationEventDetector__queue_orderedConfirmationCycleSamplesFromSamples_requestedUUIDs___block_invoke;
+  v13[3] = &unk_2786607F8;
+  v7 = dsCopy;
+  v14 = v7;
+  v8 = [samples hk_filter:v13];
+  v9 = [v8 sortedArrayUsingComparator:&__block_literal_global_359];
 
-  v9 = [v8 count];
-  if (v9 != [v6 count])
+  v10 = [v9 count];
+  if (v10 != [v7 count])
   {
     _HKInitializeLogging();
-    v10 = *MEMORY[0x277CCC2D8];
+    v11 = *MEMORY[0x277CCC2D8];
     if (os_log_type_enabled(*MEMORY[0x277CCC2D8], OS_LOG_TYPE_ERROR))
     {
-      [HRAtrialFibrillationEventDetector _queue_orderedConfirmationCycleSamplesFromSamples:v10 requestedUUIDs:?];
+      [HRAtrialFibrillationEventDetector _queue_orderedConfirmationCycleSamplesFromSamples:v11 requestedUUIDs:self];
     }
   }
 
-  return v8;
+  return v9;
 }
 
 uint64_t __102__HRAtrialFibrillationEventDetector__queue_orderedConfirmationCycleSamplesFromSamples_requestedUUIDs___block_invoke(uint64_t a1, void *a2)
@@ -1580,49 +1543,49 @@ uint64_t __102__HRAtrialFibrillationEventDetector__queue_orderedConfirmationCycl
 
 - (void)_queue_setConfirmationCycleSamples:(id)samples
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   samplesCopy = samples;
   dispatch_assert_queue_V2(self->_queue);
   if (([samplesCopy isEqual:self->_cachedConfirmationCycleSamples] & 1) == 0)
   {
     data = [MEMORY[0x277CBEB28] data];
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
     v7 = samplesCopy;
-    v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v19;
+      v10 = *v18;
       do
       {
         v11 = 0;
         do
         {
-          if (*v19 != v10)
+          if (*v18 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          uUID = [*(*(&v18 + 1) + 8 * v11) UUID];
+          uUID = [*(*(&v17 + 1) + 8 * v11) UUID];
           [data hk_appendBytesWithUUID:uUID];
 
           ++v11;
         }
 
         while (v9 != v11);
-        v9 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v9);
     }
 
     localKeyValueDomain = self->_localKeyValueDomain;
-    v17 = 0;
-    v14 = [(HDKeyValueDomain *)localKeyValueDomain setData:data forKey:@"ConfirmationCycleUUIDs" error:&v17];
-    v15 = v17;
+    v16 = 0;
+    v14 = [(HDKeyValueDomain *)localKeyValueDomain setData:data forKey:@"ConfirmationCycleUUIDs" error:&v16];
+    v15 = v16;
     if ((v14 & 1) == 0)
     {
       _HKInitializeLogging();
@@ -1634,8 +1597,6 @@ uint64_t __102__HRAtrialFibrillationEventDetector__queue_orderedConfirmationCycl
 
     objc_storeStrong(&self->_cachedConfirmationCycleSamples, samples);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_setLastAlgorithmVersionUsed:(id)used
@@ -1854,48 +1815,40 @@ LABEL_5:
 
 void __58__HRAtrialFibrillationEventDetector_diagnosticDescription__block_invoke(uint64_t a1)
 {
-  v12[4] = *MEMORY[0x277D85DE8];
+  v11[4] = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 56) hk_map:&__block_literal_global_364];
   v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Confirmation cycle samples: %@", v2];
   v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"Last algorithm version used: %@", *(*(a1 + 32) + 64), v3];
-  v12[1] = v4;
+  v11[1] = v4;
   v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"Latest analyzed sample date: %@", *(*(a1 + 32) + 72)];
-  v12[2] = v5;
+  v11[2] = v5;
   v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"Last analyzed sample anchor: %@", *(*(a1 + 32) + 80)];
-  v12[3] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:4];
+  v11[3] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:4];
   v8 = [v7 componentsJoinedByString:@"\n"];
   v9 = *(*(a1 + 40) + 8);
   v10 = *(v9 + 40);
   *(v9 + 40) = v8;
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)samplesAdded:anchor:.cold.1()
 {
   OUTLINED_FUNCTION_4();
-  v12 = *MEMORY[0x277D85DE8];
   v2 = v1;
-  OUTLINED_FUNCTION_2_4();
-  v3 = HRLogSensitiveClassName();
+  v3 = OUTLINED_FUNCTION_2_4();
+  v5 = HRLogSensitiveClassName(v3, v4);
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_3(&dword_229486000, v4, v5, "[%{public}@] Failed to retrieve IRN's feature status; skipping analysis after samples added: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_229486000, v6, v7, "[%{public}@] Failed to retrieve IRN's feature status; skipping analysis after samples added: %{public}@", v8, v9, v10, v11);
 }
 
 - (void)_queue_analyzeFilteredSeriesSamples:lastAnchor:.cold.1()
 {
   OUTLINED_FUNCTION_4();
-  v12 = *MEMORY[0x277D85DE8];
   v2 = v1;
-  OUTLINED_FUNCTION_2_4();
-  v3 = HRLogSensitiveClassName();
+  v3 = OUTLINED_FUNCTION_2_4();
+  v5 = HRLogSensitiveClassName(v3, v4);
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_3(&dword_229486000, v4, v5, "[%{public}@] Failed to perform write analysis write transaction: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_229486000, v6, v7, "[%{public}@] Failed to perform write analysis write transaction: %{public}@", v8, v9, v10, v11);
 }
 
 - (void)_queue_analyzeCurrentConfirmationCycleSamples:(uint64_t)a3 withAlgorithmVersion:.cold.1(void *a1, void *a2, uint64_t a3)
@@ -1907,208 +1860,161 @@ void __58__HRAtrialFibrillationEventDetector_diagnosticDescription__block_invoke
 - (void)_currentAlgorithmVersion
 {
   OUTLINED_FUNCTION_4();
-  v12 = *MEMORY[0x277D85DE8];
   v2 = v1;
-  OUTLINED_FUNCTION_2_4();
-  v3 = HRLogSensitiveClassName();
+  v3 = OUTLINED_FUNCTION_2_4();
+  v5 = HRLogSensitiveClassName(v3, v4);
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_3(&dword_229486000, v4, v5, "[%{public}@] Unable to determine current algorithm version, defaulting to 1.0: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_229486000, v6, v7, "[%{public}@] Unable to determine current algorithm version, defaulting to 1.0: %{public}@", v8, v9, v10, v11);
 }
 
 - (void)_queue_detectionDisabled
 {
   OUTLINED_FUNCTION_4();
-  v12 = *MEMORY[0x277D85DE8];
   v2 = v1;
-  OUTLINED_FUNCTION_2_4();
-  v3 = HRLogSensitiveClassName();
+  v3 = OUTLINED_FUNCTION_2_4();
+  v5 = HRLogSensitiveClassName(v3, v4);
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_3(&dword_229486000, v4, v5, "[%{public}@] Failed to retrieve IRN's feature status; reporting 'detection disabled': %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_229486000, v6, v7, "[%{public}@] Failed to retrieve IRN's feature status; reporting 'detection disabled': %{public}@", v8, v9, v10, v11);
 }
 
 - (void)_queue_alertUserWithDate:positiveTachogramUUIDs:.cold.1()
 {
   OUTLINED_FUNCTION_4();
-  v12 = *MEMORY[0x277D85DE8];
   v2 = v1;
-  OUTLINED_FUNCTION_2_4();
-  v3 = HRLogSensitiveClassName();
+  v3 = OUTLINED_FUNCTION_2_4();
+  v5 = HRLogSensitiveClassName(v3, v4);
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_3(&dword_229486000, v4, v5, "[%{public}@] Failed to insert event: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_229486000, v6, v7, "[%{public}@] Failed to insert event: %{public}@", v8, v9, v10, v11);
 }
 
 - (void)_queue_alertUserWithDate:positiveTachogramUUIDs:.cold.2()
 {
   OUTLINED_FUNCTION_4();
-  v12 = *MEMORY[0x277D85DE8];
   v2 = v1;
-  OUTLINED_FUNCTION_2_4();
-  v3 = HRLogSensitiveClassName();
+  v3 = OUTLINED_FUNCTION_2_4();
+  v5 = HRLogSensitiveClassName(v3, v4);
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_3(&dword_229486000, v4, v5, "[%{public}@] Failed to associate samples: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_229486000, v6, v7, "[%{public}@] Failed to associate samples: %{public}@", v8, v9, v10, v11);
 }
 
 - (void)_queue_alertUserWithDate:positiveTachogramUUIDs:.cold.3()
 {
   OUTLINED_FUNCTION_4();
-  v12 = *MEMORY[0x277D85DE8];
   v2 = v1;
-  OUTLINED_FUNCTION_2_4();
-  v3 = HRLogSensitiveClassName();
+  v3 = OUTLINED_FUNCTION_2_4();
+  v5 = HRLogSensitiveClassName(v3, v4);
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_3(&dword_229486000, v4, v5, "[%{public}@] Failed to get current device entity: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_229486000, v6, v7, "[%{public}@] Failed to get current device entity: %{public}@", v8, v9, v10, v11);
 }
 
 - (void)_queue_alertUserWithDate:positiveTachogramUUIDs:.cold.4()
 {
   OUTLINED_FUNCTION_4();
-  v12 = *MEMORY[0x277D85DE8];
   v2 = v1;
-  OUTLINED_FUNCTION_2_4();
-  v3 = HRLogSensitiveClassName();
+  v3 = OUTLINED_FUNCTION_2_4();
+  v5 = HRLogSensitiveClassName(v3, v4);
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_3(&dword_229486000, v4, v5, "[%{public}@] Failed to get version for product: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_229486000, v6, v7, "[%{public}@] Failed to get version for product: %{public}@", v8, v9, v10, v11);
 }
 
 - (void)_queue_confirmationCycleSamples
 {
   OUTLINED_FUNCTION_4();
-  v12 = *MEMORY[0x277D85DE8];
   v2 = v1;
-  OUTLINED_FUNCTION_2_4();
-  v3 = HRLogSensitiveClassName();
+  v3 = OUTLINED_FUNCTION_2_4();
+  v5 = HRLogSensitiveClassName(v3, v4);
   OUTLINED_FUNCTION_1_9();
-  OUTLINED_FUNCTION_3(&dword_229486000, v4, v5, "[%{public}@] Failed to read confirmation cycle UUIDs from protected key value store: %@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_229486000, v6, v7, "[%{public}@] Failed to read confirmation cycle UUIDs from protected key value store: %@", v8, v9, v10, v11);
 }
 
 - (void)_queue_orderedConfirmationCycleSamplesFromUUIDs:.cold.1()
 {
   OUTLINED_FUNCTION_4();
-  v12 = *MEMORY[0x277D85DE8];
   v2 = v1;
-  OUTLINED_FUNCTION_2_4();
-  v3 = HRLogSensitiveClassName();
+  v3 = OUTLINED_FUNCTION_2_4();
+  v5 = HRLogSensitiveClassName(v3, v4);
   OUTLINED_FUNCTION_1_9();
-  OUTLINED_FUNCTION_3(&dword_229486000, v4, v5, "[%{public}@] Failed to read confirmation cycle samples from UUIDs %@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_229486000, v6, v7, "[%{public}@] Failed to read confirmation cycle samples from UUIDs %@", v8, v9, v10, v11);
 }
 
-- (void)_queue_orderedConfirmationCycleSamplesFromSamples:(void *)a1 requestedUUIDs:.cold.1(void *a1)
+- (void)_queue_orderedConfirmationCycleSamplesFromSamples:(void *)a1 requestedUUIDs:(uint64_t)a2 .cold.1(void *a1, uint64_t a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v1 = a1;
-  v2 = HRLogSensitiveClassName();
-  v4 = 138543362;
-  v5 = v2;
-  _os_log_error_impl(&dword_229486000, v1, OS_LOG_TYPE_ERROR, "[%{public}@] Unexpected number of requested confirmation cycle UUIDs", &v4, 0xCu);
-
-  v3 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
+  v3 = a1;
+  v5 = HRLogSensitiveClassName(a2, v4);
+  v6 = 138543362;
+  v7 = v5;
+  _os_log_error_impl(&dword_229486000, v3, OS_LOG_TYPE_ERROR, "[%{public}@] Unexpected number of requested confirmation cycle UUIDs", &v6, 0xCu);
 }
 
 - (void)_queue_setConfirmationCycleSamples:.cold.1()
 {
   OUTLINED_FUNCTION_4();
-  v12 = *MEMORY[0x277D85DE8];
   v2 = v1;
-  OUTLINED_FUNCTION_2_4();
-  v3 = HRLogSensitiveClassName();
+  v3 = OUTLINED_FUNCTION_2_4();
+  v5 = HRLogSensitiveClassName(v3, v4);
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_3(&dword_229486000, v4, v5, "[%{public}@] Failed to set confirmation cycle UUIDs in protected key value store: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_229486000, v6, v7, "[%{public}@] Failed to set confirmation cycle UUIDs in protected key value store: %{public}@", v8, v9, v10, v11);
 }
 
 - (void)_queue_setLastAlgorithmVersionUsed:.cold.1()
 {
   OUTLINED_FUNCTION_4();
-  v12 = *MEMORY[0x277D85DE8];
   v2 = v1;
-  OUTLINED_FUNCTION_2_4();
-  v3 = HRLogSensitiveClassName();
+  v3 = OUTLINED_FUNCTION_2_4();
+  v5 = HRLogSensitiveClassName(v3, v4);
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_3(&dword_229486000, v4, v5, "[%{public}@] Failed to set last used algorithm version in protected key value store: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_229486000, v6, v7, "[%{public}@] Failed to set last used algorithm version in protected key value store: %{public}@", v8, v9, v10, v11);
 }
 
 - (void)_queue_lastAlgorithmVersionUsed
 {
   OUTLINED_FUNCTION_4();
-  v12 = *MEMORY[0x277D85DE8];
   v2 = v1;
-  OUTLINED_FUNCTION_2_4();
-  v3 = HRLogSensitiveClassName();
+  v3 = OUTLINED_FUNCTION_2_4();
+  v5 = HRLogSensitiveClassName(v3, v4);
   OUTLINED_FUNCTION_1_9();
-  OUTLINED_FUNCTION_3(&dword_229486000, v4, v5, "[%{public}@] Failed to read last algorithm version used from protected key value store: %@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_229486000, v6, v7, "[%{public}@] Failed to read last algorithm version used from protected key value store: %@", v8, v9, v10, v11);
 }
 
 - (void)_queue_setLatestAnalyzedSampleDate:.cold.1()
 {
   OUTLINED_FUNCTION_4();
-  v12 = *MEMORY[0x277D85DE8];
   v2 = v1;
-  OUTLINED_FUNCTION_2_4();
-  v3 = HRLogSensitiveClassName();
+  v3 = OUTLINED_FUNCTION_2_4();
+  v5 = HRLogSensitiveClassName(v3, v4);
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_3(&dword_229486000, v4, v5, "[%{public}@] Failed to set last analyzed sample date in protected key value store: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_229486000, v6, v7, "[%{public}@] Failed to set last analyzed sample date in protected key value store: %{public}@", v8, v9, v10, v11);
 }
 
 - (void)_queue_latestAnalyzedSampleDate
 {
   OUTLINED_FUNCTION_4();
-  v12 = *MEMORY[0x277D85DE8];
   v2 = v1;
-  OUTLINED_FUNCTION_2_4();
-  v3 = HRLogSensitiveClassName();
+  v3 = OUTLINED_FUNCTION_2_4();
+  v5 = HRLogSensitiveClassName(v3, v4);
   OUTLINED_FUNCTION_1_9();
-  OUTLINED_FUNCTION_3(&dword_229486000, v4, v5, "[%{public}@] Failed to read last analyzed sample date from protected key value store: %@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_229486000, v6, v7, "[%{public}@] Failed to read last analyzed sample date from protected key value store: %@", v8, v9, v10, v11);
 }
 
 - (void)_queue_setLastAnalyzedSampleAnchor:.cold.1()
 {
   OUTLINED_FUNCTION_4();
-  v12 = *MEMORY[0x277D85DE8];
   v2 = v1;
-  OUTLINED_FUNCTION_2_4();
-  v3 = HRLogSensitiveClassName();
+  v3 = OUTLINED_FUNCTION_2_4();
+  v5 = HRLogSensitiveClassName(v3, v4);
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_3(&dword_229486000, v4, v5, "[%{public}@] Failed to set last analyzed sample anchor in protected key value store: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_229486000, v6, v7, "[%{public}@] Failed to set last analyzed sample anchor in protected key value store: %{public}@", v8, v9, v10, v11);
 }
 
 - (void)_queue_lastAnalyzedSampleAnchor
 {
   OUTLINED_FUNCTION_4();
-  v12 = *MEMORY[0x277D85DE8];
   v2 = v1;
-  OUTLINED_FUNCTION_2_4();
-  v3 = HRLogSensitiveClassName();
+  v3 = OUTLINED_FUNCTION_2_4();
+  v5 = HRLogSensitiveClassName(v3, v4);
   OUTLINED_FUNCTION_1_9();
-  OUTLINED_FUNCTION_3(&dword_229486000, v4, v5, "[%{public}@] Failed to read last analyzed sample anchor from protected key value store: %@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_229486000, v6, v7, "[%{public}@] Failed to read last analyzed sample anchor from protected key value store: %@", v8, v9, v10, v11);
 }
 
 @end

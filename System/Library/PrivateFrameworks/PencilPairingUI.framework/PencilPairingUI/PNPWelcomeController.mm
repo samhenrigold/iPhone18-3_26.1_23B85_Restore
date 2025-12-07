@@ -109,7 +109,7 @@ LABEL_14:
     v4 = @"CONTINUE_BUTTON";
   }
 
-  v5 = PencilPairingUIBundle();
+  v5 = PencilPairingUIBundle(self);
   v9 = [v5 localizedStringForKey:v4 value:&stru_286FDFDB8 table:0];
 
   if (v9)

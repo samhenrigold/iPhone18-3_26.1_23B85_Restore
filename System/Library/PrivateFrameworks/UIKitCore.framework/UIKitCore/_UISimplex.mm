@@ -112,90 +112,96 @@
       v5 = &self->__temp[dimensions * v3++];
       vDSP_vsubD(self->__points, 1, &self->__points[dimensions * v3], 1, v5, 1, dimensions);
       pointCount = self->__pointCount;
+      v7 = pointCount - 1;
     }
 
     while (v3 < pointCount - 1);
-    if (pointCount > 1 && pointCount - 1 < self->__dimensions)
+    if (pointCount > 1)
     {
-      _UIHyperProjectionMatrixForBasis(self->__projection);
+      v8 = self->__dimensions;
+      if (v7 < v8)
+      {
+        _UIHyperProjectionMatrixForBasis(self->__projection, self->__temp, v8, v7, self->__cggetriWorkspace, self->__cggetriWorkspaceSize);
+      }
     }
   }
 
   catlas_dset_NEWLAPACK();
   catlas_dset_NEWLAPACK();
   catlas_dset_NEWLAPACK();
-  _UIHyperKernelBasis(self->__temp);
+  _UIHyperKernelBasis(self->__temp, self->__missingNormals, self->__dimensions, self->__missingNormalCount);
   catlas_dset_NEWLAPACK();
   catlas_dset_NEWLAPACK();
   if (self->__pointCount)
   {
-    v7 = 0;
+    v9 = 0;
     do
     {
       cblas_dcopy_NEWLAPACK();
-      v8 = &self->__temp[self->__dimensions * self->__missingNormalCount];
+      v10 = &self->__temp[self->__dimensions * self->__missingNormalCount];
       cblas_dcopy_NEWLAPACK();
-      v9 = v7 + 1;
+      v11 = v9 + 1;
       cblas_dcopy_NEWLAPACK();
-      v10 = self->__pointCount;
-      if (v10 != 1)
+      v12 = self->__pointCount;
+      if (v12 != 1)
       {
-        v11 = 0;
-        v12 = v10 - 2;
+        v13 = 0;
+        v14 = v12 - 2;
         do
         {
-          vDSP_vsubD(&v8[self->__dimensions * v12], 1, &v8[self->__dimensions * v11], 1, &v8[self->__dimensions * v11], 1, self->__dimensions);
-          ++v11;
+          vDSP_vsubD(&v10[self->__dimensions * v14], 1, &v10[self->__dimensions * v13], 1, &v10[self->__dimensions * v13], 1, self->__dimensions);
+          ++v13;
         }
 
-        while (v11 < self->__pointCount - 1);
+        while (v13 < self->__pointCount - 1);
       }
 
-      v13 = &self->__facetNormals[self->__dimensions * v7];
-      _UIHyperKernelBasis(self->__temp);
-      v14 = self->__dimensions;
-      v15 = &self->__points[v9 % self->__pointCount * v14];
+      v15 = self->__dimensions;
+      v16 = &self->__facetNormals[v15 * v9];
+      _UIHyperKernelBasis(self->__temp, v16, v15, 1);
+      v17 = self->__dimensions;
+      v18 = &self->__points[v11 % self->__pointCount * v17];
       __C = 0.0;
-      vDSP_dotprD(v13, 1, v15, 1, &__C, v14);
-      self->__facetNormalOffsets[v7] = __C;
-      v16 = self->__dimensions;
-      v17 = &self->__points[v16 * v7];
+      vDSP_dotprD(v16, 1, v18, 1, &__C, v17);
+      self->__facetNormalOffsets[v9] = __C;
+      v19 = self->__dimensions;
+      v20 = &self->__points[v19 * v9];
       __C = 0.0;
-      vDSP_dotprD(v13, 1, v17, 1, &__C, v16);
-      v18 = __C;
-      if (__C > self->__facetNormalOffsets[v7])
+      vDSP_dotprD(v16, 1, v20, 1, &__C, v19);
+      v21 = __C;
+      if (__C > self->__facetNormalOffsets[v9])
       {
-        v19 = self->__dimensions;
+        v22 = self->__dimensions;
         __C = -1.0;
-        vDSP_vsmulD(v13, 1, &__C, v13, 1, v19);
+        vDSP_vsmulD(v16, 1, &__C, v16, 1, v22);
         facetNormalOffsets = self->__facetNormalOffsets;
-        v18 = -facetNormalOffsets[v7];
-        facetNormalOffsets[v7] = v18;
+        v21 = -facetNormalOffsets[v9];
+        facetNormalOffsets[v9] = v21;
       }
 
-      v21 = self->__pointCount;
-      ++v7;
+      v24 = self->__pointCount;
+      ++v9;
     }
 
-    while (v9 < v21);
-    if (v21 && self->__facets)
+    while (v11 < v24);
+    if (v24 && self->__facets)
     {
-      v22 = 0;
+      v25 = 0;
       do
       {
-        v23 = [(NSArray *)self->__facets objectAtIndexedSubscript:v22, v18];
-        v24[0] = MEMORY[0x1E69E9820];
-        v24[1] = 3221225472;
-        v24[2] = __32___UISimplex__recomputeMetadata__block_invoke;
-        v24[3] = &unk_1E70F59D8;
-        v24[4] = self;
-        v24[5] = v22;
-        [v23 _mutatePoints:v24];
+        v26 = [(NSArray *)self->__facets objectAtIndexedSubscript:v25, v21];
+        v27[0] = MEMORY[0x1E69E9820];
+        v27[1] = 3221225472;
+        v27[2] = __32___UISimplex__recomputeMetadata__block_invoke;
+        v27[3] = &unk_1E70F59D8;
+        v27[4] = self;
+        v27[5] = v25;
+        [v26 _mutatePoints:v27];
 
-        ++v22;
+        ++v25;
       }
 
-      while (v22 < self->__pointCount);
+      while (v25 < self->__pointCount);
     }
   }
 

@@ -51,7 +51,7 @@
 
 - (uint64_t)wf_validateParametersForAction:()Workflow error:
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v6 = a3;
   parameters = [v6 parameters];
   v8 = [parameters if_map:&__block_literal_global_163];
@@ -60,27 +60,27 @@
   parameters2 = [v6 parameters];
   v11 = [v9 dictionaryWithObjects:parameters2 forKeys:v8];
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   parameters3 = [self parameters];
-  v13 = [parameters3 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v13 = [parameters3 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v13)
   {
     v14 = v13;
-    v24 = v8;
-    v15 = *v26;
+    v23 = v8;
+    v15 = *v25;
     while (2)
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v26 != v15)
+        if (*v25 != v15)
         {
           objc_enumerationMutation(parameters3);
         }
 
-        v17 = *(*(&v25 + 1) + 8 * i);
+        v17 = *(*(&v24 + 1) + 8 * i);
         name = [v17 name];
         v19 = [v11 objectForKeyedSubscript:name];
 
@@ -94,7 +94,7 @@
         }
       }
 
-      v14 = [parameters3 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v14 = [parameters3 countByEnumeratingWithState:&v24 objects:v28 count:16];
       if (v14)
       {
         continue;
@@ -105,7 +105,7 @@
 
     v21 = 1;
 LABEL_11:
-    v8 = v24;
+    v8 = v23;
   }
 
   else
@@ -113,7 +113,6 @@ LABEL_11:
     v21 = 1;
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v21;
 }
 

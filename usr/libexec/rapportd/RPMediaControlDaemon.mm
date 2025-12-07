@@ -49,12 +49,13 @@
   objc_storeStrong(&self->_dispatchQueue, dispatchQueue);
 
   v7 = self->_messenger;
+  v15 = v7;
   if (!v7)
   {
-    v9 = RPErrorF();
+    v17 = RPErrorF(4294960591, "No messenger provided", v9, v10, v11, v12, v13, v14, v20[0]);
     if (dword_1001D4060 <= 90 && (dword_1001D4060 != -1 || _LogCategory_Initialize()))
     {
-      sub_10011CC8C();
+      sub_10011CC8C(v17);
       if (!error)
       {
         goto LABEL_13;
@@ -68,65 +69,74 @@ LABEL_13:
       goto LABEL_14;
     }
 
-    v10 = v9;
-    *error = v9;
+    v18 = v17;
+    *error = v17;
     goto LABEL_13;
   }
 
-  if (dword_1001D4060 <= 30 && (dword_1001D4060 != -1 || _LogCategory_Initialize()))
+  if (dword_1001D4060 <= 30)
   {
-    sub_10011CCCC();
+    if (dword_1001D4060 != -1 || (v7 = _LogCategory_Initialize(), v7))
+    {
+      sub_10011CCCC(v7, v8, v9);
+    }
   }
 
-  v13 = @"statusFlags";
-  v14 = &off_1001B7FA8;
-  v8 = [NSDictionary dictionaryWithObjects:&v14 forKeys:&v13 count:1];
-  v12[0] = _NSConcreteStackBlock;
-  v12[1] = 3221225472;
-  v12[2] = sub_100074924;
-  v12[3] = &unk_1001AB798;
-  v12[4] = self;
-  [(RPMessageable *)v7 registerRequestID:@"_mcc" options:v8 handler:v12];
+  v21 = @"statusFlags";
+  v22 = &off_1001B7FA8;
+  v16 = [NSDictionary dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+  v20[0] = _NSConcreteStackBlock;
+  v20[1] = 3221225472;
+  v20[2] = sub_100074924;
+  v20[3] = &unk_1001AB798;
+  v20[4] = self;
+  [(RPMessageable *)v15 registerRequestID:@"_mcc" options:v16 handler:v20];
 
 LABEL_14:
-  return v7 != 0;
+  return v15 != 0;
 }
 
 - (void)invalidate
 {
-  if (dword_1001D4060 <= 30 && (dword_1001D4060 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_1001D4060 <= 30)
   {
-    sub_10011CCE8();
+    if (dword_1001D4060 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      self = sub_10011CCE8(self, a2, v2);
+    }
   }
 
-  if (self->_movementEndTimer)
+  if (selfCopy->_movementEndTimer)
   {
-    if (dword_1001D4060 <= 30 && (dword_1001D4060 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D4060 <= 30)
     {
-      sub_10011CD04();
+      if (dword_1001D4060 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_10011CD04(self, a2, v2);
+      }
     }
 
-    movementEndCommand = self->_movementEndCommand;
     MRMediaRemoteSendCommand();
-    self->_movementCommand = 3;
-    movementEndTimer = self->_movementEndTimer;
+    selfCopy->_movementCommand = 3;
+    movementEndTimer = selfCopy->_movementEndTimer;
     if (movementEndTimer)
     {
       v5 = movementEndTimer;
       dispatch_source_cancel(v5);
-      v6 = self->_movementEndTimer;
-      self->_movementEndTimer = 0;
+      v6 = selfCopy->_movementEndTimer;
+      selfCopy->_movementEndTimer = 0;
     }
   }
 
-  [(RPMessageable *)self->_messenger deregisterRequestID:@"_mcc"];
-  messenger = self->_messenger;
-  self->_messenger = 0;
+  [(RPMessageable *)selfCopy->_messenger deregisterRequestID:@"_mcc"];
+  messenger = selfCopy->_messenger;
+  selfCopy->_messenger = 0;
 
-  sendInterestEventHandler = self->_sendInterestEventHandler;
-  self->_sendInterestEventHandler = 0;
+  sendInterestEventHandler = selfCopy->_sendInterestEventHandler;
+  selfCopy->_sendInterestEventHandler = 0;
 
-  [(RPMediaControlDaemon *)self _mediaControlEnsureStopped];
+  [(RPMediaControlDaemon *)selfCopy _mediaControlEnsureStopped];
 }
 
 - (void)registeredEventID:(id)d
@@ -164,49 +174,55 @@ LABEL_14:
 
 - (void)_mediaControlEnsureStarted
 {
+  selfCopy = self;
   if (!self->_mediaRemoteCommandObserving)
   {
-    if (dword_1001D4060 <= 30 && (dword_1001D4060 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D4060 <= 30)
     {
-      sub_10011CD20();
+      if (dword_1001D4060 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_10011CD20(self, a2, v2);
+      }
     }
 
     MRMediaRemoteSetWantsSupportedCommandsChangedNotifications();
-    v3 = +[NSNotificationCenter defaultCenter];
-    [v3 addObserver:self selector:"_mediaRemoteSupportedCommandsChanged" name:kMRMediaRemoteSupportedCommandsDidChangeNotification object:0];
-    self->_mediaRemoteCommandObserving = 1;
-    [(RPMediaControlDaemon *)self _mediaRemoteSupportedCommandsGet];
+    v4 = +[NSNotificationCenter defaultCenter];
+    [v4 addObserver:selfCopy selector:"_mediaRemoteSupportedCommandsChanged" name:kMRMediaRemoteSupportedCommandsDidChangeNotification object:0];
+    selfCopy->_mediaRemoteCommandObserving = 1;
+    [(RPMediaControlDaemon *)selfCopy _mediaRemoteSupportedCommandsGet];
   }
 
-  if (self->_mediaRemoteVolumeObserving)
+  if (selfCopy->_mediaRemoteVolumeObserving)
   {
-    if (!self->_sendInterestEventHandler)
+    if (!selfCopy->_sendInterestEventHandler)
     {
       return;
     }
 
-    if (dword_1001D4060 <= 30 && (dword_1001D4060 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D4060 <= 30)
     {
-      sub_10011CD3C();
+      if (dword_1001D4060 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_10011CD3C(self, a2, v2);
+      }
     }
 
-    sendInterestEventHandler = self->_sendInterestEventHandler;
+    sendInterestEventHandler = selfCopy->_sendInterestEventHandler;
     v8 = @"_mcF";
-    v5 = [NSNumber numberWithUnsignedLongLong:self->_mediaControlFlags];
-    v9 = v5;
-    v6 = [NSDictionary dictionaryWithObjects:&v9 forKeys:&v8 count:1];
-    sendInterestEventHandler[2](sendInterestEventHandler, @"_iMC", v6);
+    v6 = [NSNumber numberWithUnsignedLongLong:selfCopy->_mediaControlFlags];
+    v9 = v6;
+    v7 = [NSDictionary dictionaryWithObjects:&v9 forKeys:&v8 count:1];
+    sendInterestEventHandler[2](sendInterestEventHandler, @"_iMC", v7);
   }
 
   else
   {
-    v5 = +[NSNotificationCenter defaultCenter];
-    [v5 addObserver:self selector:"_mediaRemoteVolumeControlChanged:" name:kMRAVEndpointVolumeControlCapabilitiesDidChangeNotification object:0];
-    self->_mediaRemoteVolumeObserving = 1;
-    self->_mediaRemoteVolumeCaps = 0;
+    v6 = +[NSNotificationCenter defaultCenter];
+    [v6 addObserver:selfCopy selector:"_mediaRemoteVolumeControlChanged:" name:kMRAVEndpointVolumeControlCapabilitiesDidChangeNotification object:0];
+    selfCopy->_mediaRemoteVolumeObserving = 1;
+    selfCopy->_mediaRemoteVolumeCaps = 0;
     if (MRAVEndpointGetLocalEndpoint())
     {
-      dispatchQueue = self->_dispatchQueue;
       MRAVEndpointGetVolumeControlCapabilities();
     }
   }
@@ -214,27 +230,31 @@ LABEL_14:
 
 - (void)_mediaControlEnsureStopped
 {
+  selfCopy = self;
   if (self->_mediaRemoteCommandObserving)
   {
-    if (dword_1001D4060 <= 30 && (dword_1001D4060 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D4060 <= 30)
     {
-      sub_10011CDB0();
+      if (dword_1001D4060 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_10011CDB0(self, a2, v2);
+      }
     }
 
     MRMediaRemoteSetWantsSupportedCommandsChangedNotifications();
-    v3 = +[NSNotificationCenter defaultCenter];
-    [v3 removeObserver:self name:kMRMediaRemoteSupportedCommandsDidChangeNotification object:0];
-    self->_mediaRemoteCommandObserving = 0;
-  }
-
-  if (self->_mediaRemoteVolumeObserving)
-  {
     v4 = +[NSNotificationCenter defaultCenter];
-    [v4 removeObserver:self name:kMRAVEndpointVolumeControlCapabilitiesDidChangeNotification object:0];
-    self->_mediaRemoteVolumeObserving = 0;
+    [v4 removeObserver:selfCopy name:kMRMediaRemoteSupportedCommandsDidChangeNotification object:0];
+    selfCopy->_mediaRemoteCommandObserving = 0;
   }
 
-  self->_mediaControlFlags = 0;
+  if (selfCopy->_mediaRemoteVolumeObserving)
+  {
+    v5 = +[NSNotificationCenter defaultCenter];
+    [v5 removeObserver:selfCopy name:kMRAVEndpointVolumeControlCapabilitiesDidChangeNotification object:0];
+    selfCopy->_mediaRemoteVolumeObserving = 0;
+  }
+
+  selfCopy->_mediaControlFlags = 0;
 }
 
 - (void)_mediaControlFlagsUpdate:(unint64_t)update mask:(unint64_t)mask
@@ -245,7 +265,7 @@ LABEL_14:
   {
     if (dword_1001D4060 <= 30 && (dword_1001D4060 != -1 || _LogCategory_Initialize()))
     {
-      sub_10011CDCC();
+      sub_10011CDCC(v5);
     }
 
     self->_mediaControlFlags = v5;
@@ -276,13 +296,16 @@ LABEL_14:
 {
   if (!self->_mediaRemoteCommandGetting)
   {
-    if (dword_1001D4060 <= 30 && (dword_1001D4060 != -1 || _LogCategory_Initialize()))
+    selfCopy = self;
+    if (dword_1001D4060 <= 30)
     {
-      sub_10011CE30();
+      if (dword_1001D4060 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_10011CE30(self, a2, v2);
+      }
     }
 
-    self->_mediaRemoteCommandGetting = 1;
-    dispatchQueue = self->_dispatchQueue;
+    selfCopy->_mediaRemoteCommandGetting = 1;
     MRMediaRemoteGetSupportedCommands();
   }
 }
@@ -308,68 +331,68 @@ LABEL_14:
   Int64Ranged = CFDictionaryGetInt64Ranged();
   if (dword_1001D4060 <= 30 && (dword_1001D4060 != -1 || _LogCategory_Initialize()))
   {
-    sub_10011CF24(Int64Ranged, Int64Ranged);
+    sub_10011CF24(Int64Ranged, Int64Ranged, commandCopy);
   }
 
   switch(Int64Ranged)
   {
-    case 1u:
-    case 2u:
-    case 3u:
-    case 4u:
+    case 1:
+    case 2:
+    case 3:
+    case 4:
       MRMediaRemoteSendCommand();
       goto LABEL_20;
-    case 5u:
+    case 5:
       [(RPMediaControlDaemon *)self _handleGetVolume:commandCopy responseHandler:handlerCopy];
       break;
-    case 6u:
+    case 6:
       [(RPMediaControlDaemon *)self _handleSetVolume:commandCopy responseHandler:handlerCopy];
       break;
-    case 7u:
+    case 7:
       [(RPMediaControlDaemon *)self _handleSkipByRequest:commandCopy responseHandler:handlerCopy];
       break;
-    case 8u:
+    case 8:
       selfCopy2 = self;
-      v9 = 8;
-      v10 = 9;
+      v14 = 8;
+      v15 = 9;
       goto LABEL_10;
-    case 9u:
-    case 0xBu:
+    case 9:
+    case 11:
       MRMediaRemoteSendCommand();
       self->_movementCommand = 3;
       movementEndTimer = self->_movementEndTimer;
       if (movementEndTimer)
       {
-        v13 = movementEndTimer;
-        dispatch_source_cancel(v13);
-        v14 = self->_movementEndTimer;
+        v18 = movementEndTimer;
+        dispatch_source_cancel(v18);
+        v19 = self->_movementEndTimer;
         self->_movementEndTimer = 0;
       }
 
       goto LABEL_20;
-    case 0xAu:
+    case 10:
       selfCopy2 = self;
-      v9 = 10;
-      v10 = 11;
+      v14 = 10;
+      v15 = 11;
 LABEL_10:
-      [(RPMediaControlDaemon *)selfCopy2 _handleMovementCommand:v9 endCommand:v10];
+      [(RPMediaControlDaemon *)selfCopy2 _handleMovementCommand:v14 endCommand:v15];
 LABEL_20:
       (*(handlerCopy + 2))(handlerCopy, &__NSDictionary0__struct, 0, 0);
       break;
-    case 0xCu:
+    case 12:
       [(RPMediaControlDaemon *)self _handleMediaCaptionGet:commandCopy responseHandler:handlerCopy];
       break;
-    case 0xDu:
+    case 13:
       [(RPMediaControlDaemon *)self _handleMediaCaptionSet:commandCopy responseHandler:handlerCopy];
       break;
     default:
-      v11 = RPErrorF();
+      v16 = RPErrorF(4294960582, "Unsupported command: %d", commandCopy, v7, v8, v9, v10, v11, Int64Ranged);
       if (dword_1001D4060 <= 60 && (dword_1001D4060 != -1 || _LogCategory_Initialize()))
       {
-        sub_10011CF88();
+        sub_10011CF88(v16);
       }
 
-      (*(handlerCopy + 2))(handlerCopy, 0, 0, v11);
+      (*(handlerCopy + 2))(handlerCopy, 0, 0, v16);
 
       break;
   }
@@ -379,7 +402,7 @@ LABEL_20:
 {
   getCopy = get;
   handlerCopy = handler;
-  v6 = (off_1001D40D8[0])(1);
+  v6 = off_1001D40D8(1);
   if (v6 > 2)
   {
     v7 = 0;
@@ -407,12 +430,12 @@ LABEL_20:
   setCopy = set;
   handlerCopy = handler;
   Int64Ranged = CFDictionaryGetInt64Ranged();
-  v8 = Int64Ranged;
+  v14 = Int64Ranged;
   if (Int64Ranged > 2)
   {
     if (Int64Ranged == 3)
     {
-      v9 = 0;
+      v15 = 0;
     }
 
     else
@@ -422,40 +445,40 @@ LABEL_20:
         goto LABEL_10;
       }
 
-      v9 = 2 * ((off_1001D40D8[0])(1) != 2);
+      v15 = 2 * (off_1001D40D8(1) != 2);
     }
 
 LABEL_16:
     if (dword_1001D4060 <= 30 && (dword_1001D4060 != -1 || _LogCategory_Initialize()))
     {
-      sub_10011D054(v8);
+      sub_10011D054(v14, v15);
     }
 
-    off_1001D40E0(1, v9);
+    off_1001D40E0(1, v15);
     (*(handlerCopy + 2))(handlerCopy, &__NSDictionary0__struct, 0, 0);
     goto LABEL_20;
   }
 
   if (Int64Ranged == 1)
   {
-    v9 = 1;
+    v15 = 1;
     goto LABEL_16;
   }
 
   if (Int64Ranged == 2)
   {
-    v9 = 2;
+    v15 = 2;
     goto LABEL_16;
   }
 
 LABEL_10:
-  v10 = RPErrorF();
+  v16 = RPErrorF(4294960591, "Bad media caption setting: %d", v8, v9, v10, v11, v12, v13, Int64Ranged);
   if (dword_1001D4060 <= 90 && (dword_1001D4060 != -1 || _LogCategory_Initialize()))
   {
-    sub_10011D014();
+    sub_10011D014(v16);
   }
 
-  (*(handlerCopy + 2))(handlerCopy, 0, 0, v10);
+  (*(handlerCopy + 2))(handlerCopy, 0, 0, v16);
 
 LABEL_20:
 }
@@ -488,7 +511,6 @@ LABEL_20:
     handler[3] = &unk_1001AA970;
     handler[4] = self;
     dispatch_source_set_event_handler(v9, handler);
-    v10 = self->_movementEndTimer;
     CUDispatchTimerSet();
     dispatch_resume(self->_movementEndTimer);
   }
@@ -510,107 +532,107 @@ LABEL_20:
 - (void)_handleGetVolume:(id)volume responseHandler:(id)handler
 {
   handlerCopy = handler;
-  sharedAVSystemController = [off_1001D40D0[0]() sharedAVSystemController];
-  v10 = 0;
-  v6 = [sharedAVSystemController getVolume:&v10 forCategory:@"MediaPlayback"];
+  sharedAVSystemController = [(objc_class *)off_1001D40D0() sharedAVSystemController];
+  v17 = 0;
+  v12 = [sharedAVSystemController getVolume:&v17 forCategory:@"MediaPlayback"];
   if (dword_1001D4060 <= 30 && (dword_1001D4060 != -1 || _LogCategory_Initialize()))
   {
-    sub_10011D0C8(&v10);
-    if (v6)
+    sub_10011D0C8(&v17);
+    if (v12)
     {
       goto LABEL_5;
     }
   }
 
-  else if (v6)
+  else if (v12)
   {
 LABEL_5:
-    v7 = objc_alloc_init(NSMutableDictionary);
-    LODWORD(v8) = v10;
-    v9 = [NSNumber numberWithFloat:v8];
-    [v7 setObject:v9 forKeyedSubscript:@"_vol"];
+    v13 = objc_alloc_init(NSMutableDictionary);
+    LODWORD(v14) = v17;
+    v15 = [NSNumber numberWithFloat:v14];
+    [v13 setObject:v15 forKeyedSubscript:@"_vol"];
 
-    (*(handlerCopy + 2))(handlerCopy, v7, 0, 0);
+    (*(handlerCopy + 2))(handlerCopy, v13, 0, 0);
     goto LABEL_11;
   }
 
-  v7 = RPErrorF();
+  v13 = RPErrorF(4294960596, "AVSystemController getVolume failed", v6, v7, v8, v9, v10, v11, v16);
   if (dword_1001D4060 <= 90 && (dword_1001D4060 != -1 || _LogCategory_Initialize()))
   {
-    sub_10011D114();
+    sub_10011D114(v13);
   }
 
-  (*(handlerCopy + 2))(handlerCopy, 0, 0, v7);
+  (*(handlerCopy + 2))(handlerCopy, 0, 0, v13);
 LABEL_11:
 }
 
 - (void)_handleSetVolume:(id)volume responseHandler:(id)handler
 {
   handlerCopy = handler;
-  v17 = 0;
+  v30 = 0;
   CFDictionaryGetDouble();
-  v6 = v5;
-  if (v5 >= 0.0 && v5 <= 1.0)
+  v12 = *&v11;
+  if (*&v11 >= 0.0 && *&v11 <= 1.0)
   {
     if (dword_1001D4060 <= 30 && (dword_1001D4060 != -1 || _LogCategory_Initialize()))
     {
-      sub_10011D194();
+      sub_10011D194(v12);
     }
 
-    sharedAVSystemController = [off_1001D40D0[0]() sharedAVSystemController];
-    v9 = v6;
-    *&v10 = v9;
-    v11 = [sharedAVSystemController setVolumeTo:@"MediaPlayback" forCategory:v10];
-    if (v11)
+    sharedAVSystemController = [(objc_class *)off_1001D40D0() sharedAVSystemController];
+    v15 = v12;
+    *&v16 = v15;
+    v17 = [sharedAVSystemController setVolumeTo:@"MediaPlayback" forCategory:v16];
+    if (v17)
     {
-      v12 = 0;
+      v24 = 0;
     }
 
     else
     {
-      v12 = -6700;
+      v24 = -6700;
     }
 
-    v17 = v12;
-    if (v11)
+    v30 = v24;
+    if (v17)
     {
-      v16 = 0.0;
-      if (([sharedAVSystemController getVolume:&v16 forCategory:@"MediaPlayback"] & 1) == 0)
+      v29 = 0.0;
+      if (([sharedAVSystemController getVolume:&v29 forCategory:@"MediaPlayback"] & 1) == 0)
       {
         if (dword_1001D4060 <= 90 && (dword_1001D4060 != -1 || _LogCategory_Initialize()))
         {
           sub_10011D214();
         }
 
-        v16 = v9;
+        v29 = v15;
       }
 
-      v13 = objc_alloc_init(NSMutableDictionary);
-      *&v14 = v16;
-      v15 = [NSNumber numberWithFloat:v14];
-      [v13 setObject:v15 forKeyedSubscript:@"_vol"];
+      v25 = objc_alloc_init(NSMutableDictionary);
+      *&v26 = v29;
+      v27 = [NSNumber numberWithFloat:v26];
+      [v25 setObject:v27 forKeyedSubscript:@"_vol"];
 
-      (*(handlerCopy + 2))(handlerCopy, v13, 0, 0);
+      (*(handlerCopy + 2))(handlerCopy, v25, 0, 0);
     }
 
     else
     {
-      v13 = RPErrorF();
+      v25 = RPErrorF(4294960596, "AVSystemController getVolume failed", v18, v19, v20, v21, v22, v23, v28);
       if (dword_1001D4060 <= 90 && (dword_1001D4060 != -1 || _LogCategory_Initialize()))
       {
-        sub_10011D1D4();
+        sub_10011D1D4(v25);
       }
 
-      (*(handlerCopy + 2))(handlerCopy, 0, 0, v13);
+      (*(handlerCopy + 2))(handlerCopy, 0, 0, v25);
     }
   }
 
   else
   {
-    sharedAVSystemController = RPErrorF();
+    sharedAVSystemController = RPErrorF(4294960586, "Volume ouf of range (%f)", v5, v6, v7, v8, v9, v10, v11);
     if (dword_1001D4060 <= 90 && (dword_1001D4060 != -1 || _LogCategory_Initialize()))
     {
-      sub_10011D154();
+      sub_10011D154(sharedAVSystemController);
     }
 
     (*(handlerCopy + 2))(handlerCopy, 0, 0, sharedAVSystemController);

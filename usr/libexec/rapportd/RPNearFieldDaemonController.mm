@@ -24,6 +24,7 @@
 - (void)startPolling:(int64_t)polling context:(id)context;
 - (void)stop;
 - (void)transactionController:(id)controller didBeginTransaction:(id)transaction;
+- (void)transactionController:(id)controller didDetectDeviceNearbyWithInitiatorRole:(BOOL)role;
 - (void)transactionController:(id)controller didFinishTransaction:(id)transaction error:(id)error;
 @end
 
@@ -79,18 +80,22 @@
 
 - (void)invalidate
 {
-  if (dword_1001D34D0 <= 30 && (dword_1001D34D0 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_1001D34D0 <= 30)
   {
-    sub_100116024();
+    if (dword_1001D34D0 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_100116024(self, a2, v2);
+    }
   }
 
-  [(RPNearFieldDaemonController *)self stop];
-  connection = [(RPNearFieldDaemonController *)self connection];
+  [(RPNearFieldDaemonController *)selfCopy stop];
+  connection = [(RPNearFieldDaemonController *)selfCopy connection];
   [connection invalidate];
 
-  [(RPNearFieldDaemonController *)self setConnection:0];
+  [(RPNearFieldDaemonController *)selfCopy setConnection:0];
 
-  [(RPNearFieldDaemonController *)self setTransactionChangedHandler:0];
+  [(RPNearFieldDaemonController *)selfCopy setTransactionChangedHandler:0];
 }
 
 - (void)setEnabled:(BOOL)enabled
@@ -104,11 +109,29 @@
   self->_enabled = enabled;
   if (dword_1001D34D0 <= 30)
   {
+    enabled = enabled;
     if (dword_1001D34D0 != -1)
     {
 LABEL_4:
-      LogPrintF();
-      goto LABEL_6;
+      v6 = "yes";
+      v7 = !enabled;
+      if (enabled)
+      {
+        v8 = "no";
+      }
+
+      else
+      {
+        v8 = "yes";
+      }
+
+      if (v7)
+      {
+        v6 = "no";
+      }
+
+      LogPrintF(&dword_1001D34D0, "[RPNearFieldDaemonController setEnabled:]", 30, "NFC Discovery enabled: %s -> %s\n", v8, v6);
+      goto LABEL_12;
     }
 
     if (_LogCategory_Initialize())
@@ -118,7 +141,7 @@ LABEL_4:
     }
   }
 
-LABEL_6:
+LABEL_12:
   if (enabledCopy)
   {
 
@@ -137,7 +160,7 @@ LABEL_6:
   contextCopy = context;
   if (dword_1001D34D0 <= 30 && (dword_1001D34D0 != -1 || _LogCategory_Initialize()))
   {
-    sub_100116040(contextCopy);
+    sub_100116040(contextCopy, polling);
   }
 
   if (![(RPNearFieldDaemonController *)self isActive])
@@ -172,9 +195,12 @@ LABEL_6:
 
   if (((v9 | v12) & 1) == 0)
   {
-    if (dword_1001D34D0 <= 30 && (dword_1001D34D0 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D34D0 <= 30)
     {
-      sub_1001160AC();
+      if (dword_1001D34D0 != -1 || (v13 = _LogCategory_Initialize(), v13))
+      {
+        sub_1001160AC(v13, v14, v15);
+      }
     }
   }
 
@@ -212,11 +238,15 @@ LABEL_14:
 
 - (void)stop
 {
-  if ([(RPNearFieldDaemonController *)self isActive])
+  isActive = [(RPNearFieldDaemonController *)self isActive];
+  if (isActive)
   {
-    if (dword_1001D34D0 <= 30 && (dword_1001D34D0 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D34D0 <= 30)
     {
-      sub_1001160C8();
+      if (dword_1001D34D0 != -1 || (isActive = _LogCategory_Initialize(), isActive))
+      {
+        sub_1001160C8(isActive, v4, v5);
+      }
     }
 
     [(RPNearFieldDaemonController *)self setIsActive:0];
@@ -247,38 +277,24 @@ LABEL_14:
   contextCopy = context;
   if (dword_1001D34D0 <= 30 && (dword_1001D34D0 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001160E4(self);
+    sub_1001160E4(self, identifierCopy, contextCopy);
   }
 
   [(RPNearFieldDaemonController *)self setCurrentContext:contextCopy];
   currentTransaction = [(RPNearFieldDaemonController *)self currentTransaction];
-  if (!currentTransaction)
-  {
-    goto LABEL_17;
-  }
-
-  v8 = currentTransaction;
-  currentTransaction2 = [(RPNearFieldDaemonController *)self currentTransaction];
-  identifier = [currentTransaction2 identifier];
-  v11 = [identifier isEqual:identifierCopy];
-
-  if (v11)
+  if (currentTransaction && (v8 = currentTransaction, -[RPNearFieldDaemonController currentTransaction](self, "currentTransaction"), v9 = objc_claimAutoreleasedReturnValue(), [v9 identifier], v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v10, "isEqual:", identifierCopy), v10, v9, v8, (v11 & 1) != 0))
   {
     transactionController = [(RPNearFieldDaemonController *)self transactionController];
-    currentTransaction3 = [(RPNearFieldDaemonController *)self currentTransaction];
-    [transactionController invalidateTransaction:currentTransaction3];
+    currentTransaction2 = [(RPNearFieldDaemonController *)self currentTransaction];
+    [transactionController invalidateTransaction:currentTransaction2];
 
     [(RPNearFieldDaemonController *)self _clearCurrentTransaction];
     [(RPNearFieldDaemonController *)self _startTransactionControllerIfNeeded];
   }
 
-  else
+  else if (dword_1001D34D0 <= 90 && (dword_1001D34D0 != -1 || _LogCategory_Initialize()))
   {
-LABEL_17:
-    if (dword_1001D34D0 <= 90 && (dword_1001D34D0 != -1 || _LogCategory_Initialize()))
-    {
-      sub_100116170();
-    }
+    sub_100116170(identifierCopy);
   }
 }
 
@@ -287,50 +303,64 @@ LABEL_17:
   transactionController = [(RPNearFieldDaemonController *)self transactionController];
   isRunning = [transactionController isRunning];
 
-  if ((isRunning & 1) == 0 && [(RPNearFieldDaemonController *)self isActive])
+  if ((isRunning & 1) == 0)
   {
-    if (dword_1001D34D0 <= 30 && (dword_1001D34D0 != -1 || _LogCategory_Initialize()))
+    isActive = [(RPNearFieldDaemonController *)self isActive];
+    if (isActive)
     {
-      sub_1001161B0();
-    }
-
-    if ([(RPNearFieldDaemonController *)self enabled])
-    {
-      currentTransaction = [(RPNearFieldDaemonController *)self currentTransaction];
-
-      if (currentTransaction)
+      if (dword_1001D34D0 <= 30)
       {
-        if (dword_1001D34D0 <= 90 && (dword_1001D34D0 != -1 || _LogCategory_Initialize()))
+        if (dword_1001D34D0 != -1 || (isActive = _LogCategory_Initialize(), isActive))
         {
-          sub_1001161E8();
+          sub_1001161B0(isActive, v6, v7);
         }
       }
 
-      else
+      enabled = [(RPNearFieldDaemonController *)self enabled];
+      if (enabled)
       {
-        transactionController2 = [(RPNearFieldDaemonController *)self transactionController];
+        currentTransaction = [(RPNearFieldDaemonController *)self currentTransaction];
 
-        if (!transactionController2)
+        if (currentTransaction)
         {
-          v7 = [[RPNFCTransactionController alloc] initWithPreferredPollingType:[(RPNearFieldDaemonController *)self currentPreferredPollingType] dispatchQueue:self->_dispatchQueue];
-          transactionController = self->_transactionController;
-          self->_transactionController = v7;
+          if (dword_1001D34D0 <= 90)
+          {
+            if (dword_1001D34D0 != -1 || (v12 = _LogCategory_Initialize(), v12))
+            {
+              sub_1001161E8(v12, v13, v14);
+            }
+          }
         }
 
-        transactionController3 = [(RPNearFieldDaemonController *)self transactionController];
-        [transactionController3 setDataSource:self];
+        else
+        {
+          transactionController2 = [(RPNearFieldDaemonController *)self transactionController];
 
-        transactionController4 = [(RPNearFieldDaemonController *)self transactionController];
-        [transactionController4 setDelegate:self];
+          if (!transactionController2)
+          {
+            v16 = [[RPNFCTransactionController alloc] initWithPreferredPollingType:[(RPNearFieldDaemonController *)self currentPreferredPollingType] dispatchQueue:self->_dispatchQueue];
+            transactionController = self->_transactionController;
+            self->_transactionController = v16;
+          }
 
-        transactionController5 = [(RPNearFieldDaemonController *)self transactionController];
-        [transactionController5 start];
+          transactionController3 = [(RPNearFieldDaemonController *)self transactionController];
+          [transactionController3 setDataSource:self];
+
+          transactionController4 = [(RPNearFieldDaemonController *)self transactionController];
+          [transactionController4 setDelegate:self];
+
+          transactionController5 = [(RPNearFieldDaemonController *)self transactionController];
+          [transactionController5 start];
+        }
       }
-    }
 
-    else if (dword_1001D34D0 <= 90 && (dword_1001D34D0 != -1 || _LogCategory_Initialize()))
-    {
-      sub_1001161CC();
+      else if (dword_1001D34D0 <= 90)
+      {
+        if (dword_1001D34D0 != -1 || (enabled = _LogCategory_Initialize(), enabled))
+        {
+          sub_1001161CC(enabled, v9, v10);
+        }
+      }
     }
   }
 }
@@ -342,9 +372,12 @@ LABEL_17:
 
   if (isRunning)
   {
-    if (dword_1001D34D0 <= 30 && (dword_1001D34D0 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D34D0 <= 30)
     {
-      sub_100116204();
+      if (dword_1001D34D0 != -1 || (v5 = _LogCategory_Initialize(), v5))
+      {
+        sub_100116204(v5, v6, v7);
+      }
     }
 
     transactionController2 = [(RPNearFieldDaemonController *)self transactionController];
@@ -395,7 +428,7 @@ LABEL_17:
   {
     if (dword_1001D34D0 <= 30 && (dword_1001D34D0 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001162BC();
+      sub_1001162BC(transactionCopy);
     }
 
     if ([transactionCopy state] == 2)
@@ -419,6 +452,26 @@ LABEL_17:
   }
 }
 
+- (void)transactionController:(id)controller didDetectDeviceNearbyWithInitiatorRole:(BOOL)role
+{
+  roleCopy = role;
+  currentTransaction = [(RPNearFieldDaemonController *)self currentTransaction];
+
+  if (!currentTransaction)
+  {
+    if (dword_1001D34D0 <= 30)
+    {
+      if (dword_1001D34D0 != -1 || (v7 = _LogCategory_Initialize(), v7))
+      {
+        sub_1001162FC(v7, v8, v9);
+      }
+    }
+
+    _remoteObjectProxy = [(RPNearFieldDaemonController *)self _remoteObjectProxy];
+    [_remoteObjectProxy didDetectDeviceNearbyWithInitiatorRole:roleCopy];
+  }
+}
+
 - (void)transactionController:(id)controller didBeginTransaction:(id)transaction
 {
   transactionCopy = transaction;
@@ -428,7 +481,7 @@ LABEL_17:
   {
     if (dword_1001D34D0 <= 30 && (dword_1001D34D0 != -1 || _LogCategory_Initialize()))
     {
-      sub_100116318();
+      sub_100116318(transactionCopy);
     }
 
     [(RPNearFieldDaemonController *)self setCurrentTransaction:transactionCopy];
@@ -458,7 +511,7 @@ LABEL_17:
     {
       if (dword_1001D34D0 <= 30 && (dword_1001D34D0 != -1 || _LogCategory_Initialize()))
       {
-        sub_100116358();
+        sub_100116358(transactionCopy);
       }
 
       [(RPNearFieldDaemonController *)self _stopTransactionControllerIfNeeded];
@@ -518,7 +571,7 @@ LABEL_17:
           {
             if (dword_1001D34D0 <= 30 && (dword_1001D34D0 != -1 || _LogCategory_Initialize()))
             {
-              sub_100116398();
+              sub_100116398(labelCopy);
             }
 
             LOBYTE(v10) = 1;
@@ -676,14 +729,11 @@ LABEL_15:
 
     if (dword_1001D34D0 <= 30 && (dword_1001D34D0 != -1 || _LogCategory_Initialize()))
     {
-      v19 = v8;
-      v20 = v14;
-      typeCopy = type;
-      LogPrintF();
+      LogPrintF(&dword_1001D34D0, "[RPNearFieldDaemonController transactionController:requestMessageForType:]", 30, "type:%d version:%@ applicationLabel:%@\n", type, v8, v14);
     }
 
-    v16 = [(RPNearFieldDaemonController *)self dataSource:typeCopy];
-    v15 = [v16 createRequestMessageWithApplicationLabel:v14 payload:v7];
+    dataSource = [(RPNearFieldDaemonController *)self dataSource];
+    v15 = [dataSource createRequestMessageWithApplicationLabel:v14 payload:v7];
   }
 
   else

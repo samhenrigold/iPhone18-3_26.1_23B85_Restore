@@ -90,23 +90,35 @@
 - (void)handleEvent:(id)event
 {
   eventCopy = event;
-  if (![(VOTOutputRequestRunner *)self onHold])
+  onHold = [(VOTOutputRequestRunner *)self onHold];
+  v5 = eventCopy;
+  if ((onHold & 1) == 0)
   {
-    v4 = [eventCopy objectForIndex:1];
-    unsignedIntValue = [v4 unsignedIntValue];
+    v6 = [eventCopy objectForIndex:1];
+    unsignedIntValue = [v6 unsignedIntValue];
 
     if (unsignedIntValue == 5)
     {
-      [(VOTOutputRequestRunner *)self _handleNotifications:eventCopy];
+      onHold = [(VOTOutputRequestRunner *)self _handleNotifications:eventCopy];
     }
 
-    else if (unsignedIntValue == 4)
+    else
     {
-      [(VOTOutputRequestRunner *)self _handleProcessActions:eventCopy];
+      v5 = eventCopy;
+      if (unsignedIntValue != 4)
+      {
+        goto LABEL_7;
+      }
+
+      onHold = [(VOTOutputRequestRunner *)self _handleProcessActions:eventCopy];
     }
+
+    v5 = eventCopy;
   }
 
-  _objc_release_x1();
+LABEL_7:
+
+  _objc_release_x1(onHold, v5);
 }
 
 - (void)resume

@@ -96,7 +96,7 @@
 
 + (id)privateCreate:(id)create portUID:(id)d channelNumber:(unsigned int)number
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   createCopy = create;
   dCopy = d;
   v9 = dCopy;
@@ -137,17 +137,16 @@
     v20 = *avas::client::gSessionClientLog(dCopy);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      v23 = 136315394;
-      v24 = "AVAudioSessionChannelImpl.mm";
-      v25 = 1024;
-      v26 = 155;
-      _os_log_impl(&dword_1AC8A4000, v20, OS_LOG_TYPE_ERROR, "%25s:%-5d Unexpected nil channel description", &v23, 0x12u);
+      v22 = 136315394;
+      v23 = "AVAudioSessionChannelImpl.mm";
+      v24 = 1024;
+      v25 = 155;
+      _os_log_impl(&dword_1AC8A4000, v20, OS_LOG_TYPE_ERROR, "%25s:%-5d Unexpected nil channel description", &v22, 0x12u);
     }
 
     v10 = 0;
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

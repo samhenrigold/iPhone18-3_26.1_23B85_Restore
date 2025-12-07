@@ -20,8 +20,8 @@
 {
   selfCopy = self;
   CRLLinkViewHostingRep.getAccessibilityLabelTokens(forUserInput:)(0);
-  sub_1005B981C(&unk_1019F4D80);
-  sub_10001A2F8(&qword_1019F61E0, &unk_1019F4D80);
+  sub_1005B981C(&unk_1019F4D80, &unk_10146CF20);
+  sub_10001A2F8(&qword_1019F61E0, &unk_1019F4D80, &unk_10146CF20, &protocol conformance descriptor for [A]);
   BidirectionalCollection<>.joined(separator:)();
 
   v3 = String._bridgeToObjectiveC()();
@@ -87,7 +87,7 @@
     memset(v3, 0, sizeof(v3));
   }
 
-  sub_10000CAAC(v3, &unk_1019F4D00);
+  sub_10000CAAC(v3, &unk_1019F4D00, &unk_10146E7F0);
 }
 
 - (void)handleFadeOutForZoom
@@ -126,20 +126,20 @@
 - (NSArray)accessibilityCustomActions
 {
   selfCopy = self;
-  v3 = CRLLinkViewHostingRep.accessibilityCustomActions.getter();
+  v5 = CRLLinkViewHostingRep.accessibilityCustomActions.getter(selfCopy, v3, v4);
 
-  if (v3)
+  if (v5)
   {
-    sub_100006370(0, &qword_101A00130);
-    v4.super.isa = Array._bridgeToObjectiveC()().super.isa;
+    sub_100006370(0, &qword_101A00130, UIAccessibilityCustomAction_ptr);
+    v6.super.isa = Array._bridgeToObjectiveC()().super.isa;
   }
 
   else
   {
-    v4.super.isa = 0;
+    v6.super.isa = 0;
   }
 
-  return v4.super.isa;
+  return v6.super.isa;
 }
 
 - (_TtC8Freeform21CRLLinkViewHostingRep)initWithLayout:(id)layout canvas:(id)canvas

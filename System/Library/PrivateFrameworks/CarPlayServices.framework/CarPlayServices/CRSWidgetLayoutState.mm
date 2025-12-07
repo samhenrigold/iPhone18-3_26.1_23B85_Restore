@@ -16,12 +16,11 @@
 
 - (NSArray)widgetStackRows
 {
-  v2 = *(self + OBJC_IVAR___CRSWidgetLayoutState_widgetStackRows);
   type metadata accessor for CRSWidgetStackRow();
 
-  v3 = sub_242FCB31C();
+  v2 = sub_242FCB31C();
 
-  return v3;
+  return v2;
 }
 
 - (CRSWidgetLayoutState)initWithShowWidgets:(BOOL)widgets showWallpaper:(BOOL)wallpaper showSuggestions:(BOOL)suggestions smartRotate:(BOOL)rotate widgetStackRows:(id)rows
@@ -69,27 +68,25 @@
 {
   v4 = sub_242FCB23C();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20]();
-  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v4);
+  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_242FCB22C();
-  v9 = sub_242FC6184();
-  (*(v5 + 8))(v8, v4);
+  v8 = sub_242FC6184(v7);
+  (*(v5 + 8))(v7, v4);
 
-  return v9;
+  return v8;
 }
 
 - (BOOL)saveTo:(id)to error:(id *)error
 {
   v5 = sub_242FCB23C();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  MEMORY[0x28223BE20]();
-  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v5);
+  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_242FCB22C();
   selfCopy = self;
-  CRSWidgetLayoutState.save(to:)();
-  (*(v6 + 8))(v9, v5);
+  CRSWidgetLayoutState.save(to:)(v8);
+  (*(v6 + 8))(v8, v5);
 
   return 1;
 }

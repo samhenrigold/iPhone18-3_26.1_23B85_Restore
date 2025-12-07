@@ -1,209 +1,3 @@
-void sub_2724CC954(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19)
-{
-  if (a2)
-  {
-    v20 = __cxa_begin_catch(a1);
-    v21 = vp::get_log(v20);
-    v22 = os_log_type_enabled(v21, OS_LOG_TYPE_ERROR);
-
-    if (v22)
-    {
-      log_context_info = vp::get_log_context_info(&__p, v19, "vp::services::Audio_Issue_Detector_Impl]", 39);
-      v24 = vp::get_log(log_context_info);
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
-      {
-        vp::get_log_exception_info(&a9);
-      }
-
-      if (a19 < 0)
-      {
-        operator delete(__p);
-      }
-    }
-
-    __cxa_end_catch();
-    JUMPOUT(0x2724CC904);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void vp::services::Audio_Issue_Detector_Impl::set_uplink_mute(vp::services::Audio_Issue_Detector_Impl *this, uint64_t a2)
-{
-  v4 = *MEMORY[0x277D85DE8];
-  if (AudioIssueDetectorLibraryLoader(void)::once != -1)
-  {
-    dispatch_once(&AudioIssueDetectorLibraryLoader(void)::once, &__block_literal_global_181);
-  }
-
-  if (AudioIssueDetectorLibraryLoader(void)::libSym)
-  {
-    AudioIssueDetectorLibraryLoader(void)::libSym(a2);
-  }
-
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-void sub_2724CCB48(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19)
-{
-  if (a2)
-  {
-    v20 = __cxa_begin_catch(a1);
-    v21 = vp::get_log(v20);
-    v22 = os_log_type_enabled(v21, OS_LOG_TYPE_ERROR);
-
-    if (v22)
-    {
-      log_context_info = vp::get_log_context_info(&__p, v19, "vp::services::Audio_Issue_Detector_Impl]", 39);
-      v24 = vp::get_log(log_context_info);
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
-      {
-        vp::get_log_exception_info(&a9);
-      }
-
-      if (a19 < 0)
-      {
-        operator delete(__p);
-      }
-    }
-
-    __cxa_end_catch();
-    JUMPOUT(0x2724CCAFCLL);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void sub_2724CCDA8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *__p, uint64_t a24, int a25, __int16 a26, __int16 a27, uint64_t a28)
-{
-  if (a2)
-  {
-    if (__p)
-    {
-      a24 = __p;
-      operator delete(__p);
-    }
-
-    v30 = __cxa_begin_catch(exception_object);
-    v31 = vp::get_log(v30);
-    v32 = os_log_type_enabled(v31, OS_LOG_TYPE_ERROR);
-
-    if (v32)
-    {
-      log_context_info = vp::get_log_context_info(&a17, v28, "vp::services::Audio_Issue_Detector_Impl::Client]", 47);
-      v34 = vp::get_log(log_context_info);
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
-      {
-        vp::get_log_exception_info(&a9);
-      }
-
-      if (a22 < 0)
-      {
-        operator delete(a17);
-      }
-    }
-
-    __cxa_end_catch();
-    JUMPOUT(0x2724CCD54);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t vp::services::Audio_Issue_Detector_Impl::Client::analyze(vp *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
-{
-  v10 = a1;
-  v33 = *MEMORY[0x277D85DE8];
-  if ((a2 - 1) > 2)
-  {
-    v11 = 51;
-  }
-
-  else
-  {
-    v11 = dword_272756978[a2 - 1];
-  }
-
-  v12 = *(a1 + 1);
-  if (AudioIssueDetectorLibraryLoader(void)::once != -1)
-  {
-    dispatch_once(&AudioIssueDetectorLibraryLoader(void)::once, &__block_literal_global_181);
-  }
-
-  if (AudioIssueDetectorLibraryLoader(void)::libSym)
-  {
-    a1 = AudioIssueDetectorLibraryLoader(void)::libSym(v12, v11, a3, a4, a5, a6);
-    v13 = a1;
-    if (!a1)
-    {
-      result = 1;
-      goto LABEL_24;
-    }
-  }
-
-  else
-  {
-    v13 = -1;
-  }
-
-  v15 = vp::get_log(a1);
-  v16 = os_log_type_enabled(v15, OS_LOG_TYPE_ERROR);
-
-  if (v16)
-  {
-    log_context_info = vp::get_log_context_info(__p, v10, "vp::services::Audio_Issue_Detector_Impl::Client]", 47);
-    v18 = v26;
-    v19 = __p[1];
-    v20 = vp::get_log(log_context_info);
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
-    {
-      if ((v18 & 0x80u) == 0)
-      {
-        v21 = v18;
-      }
-
-      else
-      {
-        v21 = v19;
-      }
-
-      v22 = __p[0];
-      if ((v18 & 0x80u) == 0)
-      {
-        v22 = __p;
-      }
-
-      *buf = 136315650;
-      v28 = v22;
-      if (v21)
-      {
-        v23 = " ";
-      }
-
-      else
-      {
-        v23 = "";
-      }
-
-      v29 = 2080;
-      v30 = v23;
-      v31 = 1024;
-      v32 = v13;
-      _os_log_impl(&dword_2724B4000, v20, OS_LOG_TYPE_ERROR, "%s%sfailed to analyze buffer due to error - %u", buf, 0x1Cu);
-    }
-
-    if (v26 < 0)
-    {
-      operator delete(__p[0]);
-    }
-  }
-
-  result = 0;
-LABEL_24:
-  v24 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
 void sub_2724CD114(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19)
 {
   if (a2)
@@ -237,7 +31,7 @@ void sub_2724CD114(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint
 uint64_t vp::services::Audio_Issue_Detector_Impl::Client::initialize(vp::services::Audio_Issue_Detector_Impl::Client *this)
 {
   v1 = this;
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = *(this + 1);
   if (AudioIssueDetectorLibraryLoader(void)::once != -1)
   {
@@ -250,8 +44,7 @@ uint64_t vp::services::Audio_Issue_Detector_Impl::Client::initialize(vp::service
     v3 = this;
     if (!this)
     {
-      result = 1;
-      goto LABEL_21;
+      return 1;
     }
   }
 
@@ -266,7 +59,7 @@ uint64_t vp::services::Audio_Issue_Detector_Impl::Client::initialize(vp::service
   if (v6)
   {
     log_context_info = vp::get_log_context_info(__p, v1, "vp::services::Audio_Issue_Detector_Impl::Client]", 47);
-    v8 = v16;
+    v8 = v15;
     v9 = __p[1];
     v10 = vp::get_log(log_context_info);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
@@ -288,7 +81,7 @@ uint64_t vp::services::Audio_Issue_Detector_Impl::Client::initialize(vp::service
       }
 
       *buf = 136315650;
-      v18 = v12;
+      v17 = v12;
       if (v11)
       {
         v13 = " ";
@@ -299,23 +92,20 @@ uint64_t vp::services::Audio_Issue_Detector_Impl::Client::initialize(vp::service
         v13 = "";
       }
 
-      v19 = 2080;
-      v20 = v13;
-      v21 = 1024;
-      v22 = v3;
+      v18 = 2080;
+      v19 = v13;
+      v20 = 1024;
+      v21 = v3;
       _os_log_impl(&dword_2724B4000, v10, OS_LOG_TYPE_ERROR, "%s%sfailed to initialize due to error - %u", buf, 0x1Cu);
     }
 
-    if (v16 < 0)
+    if (v15 < 0)
     {
       operator delete(__p[0]);
     }
   }
 
-  result = 0;
-LABEL_21:
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 void sub_2724CD404(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19)
@@ -351,7 +141,7 @@ void sub_2724CD404(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint
 uint64_t vp::services::Audio_Issue_Detector_Impl::Client::set_reporter_ids(vp *a1, uint64_t a2)
 {
   v3 = a1;
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 1);
   if (AudioIssueDetectorLibraryLoader(void)::once != -1)
   {
@@ -364,8 +154,7 @@ uint64_t vp::services::Audio_Issue_Detector_Impl::Client::set_reporter_ids(vp *a
     v5 = a1;
     if (!a1)
     {
-      result = 1;
-      goto LABEL_21;
+      return 1;
     }
   }
 
@@ -380,7 +169,7 @@ uint64_t vp::services::Audio_Issue_Detector_Impl::Client::set_reporter_ids(vp *a
   if (v8)
   {
     log_context_info = vp::get_log_context_info(__p, v3, "vp::services::Audio_Issue_Detector_Impl::Client]", 47);
-    v10 = v18;
+    v10 = v17;
     v11 = __p[1];
     v12 = vp::get_log(log_context_info);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
@@ -402,7 +191,7 @@ uint64_t vp::services::Audio_Issue_Detector_Impl::Client::set_reporter_ids(vp *a
       }
 
       *buf = 136315650;
-      v20 = v14;
+      v19 = v14;
       if (v13)
       {
         v15 = " ";
@@ -413,23 +202,20 @@ uint64_t vp::services::Audio_Issue_Detector_Impl::Client::set_reporter_ids(vp *a
         v15 = "";
       }
 
-      v21 = 2080;
-      v22 = v15;
-      v23 = 1024;
-      v24 = v5;
+      v20 = 2080;
+      v21 = v15;
+      v22 = 1024;
+      v23 = v5;
       _os_log_impl(&dword_2724B4000, v12, OS_LOG_TYPE_ERROR, "%s%sfailed to set reporter IDs due to error - %u", buf, 0x1Cu);
     }
 
-    if (v18 < 0)
+    if (v17 < 0)
     {
       operator delete(__p[0]);
     }
   }
 
-  result = 0;
-LABEL_21:
-  v16 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 void sub_2724CD6FC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19)
@@ -464,7 +250,7 @@ void sub_2724CD6FC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint
 
 uint64_t vp::services::Audio_Issue_Detector_Impl::Client::set_node_format(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v8 = *(a1 + 8);
   v9 = std::string::basic_string[abi:ne200100]<0>(__p, off_279E48C18[a2]);
   if ((a2 - 1) > 2)
@@ -493,75 +279,69 @@ uint64_t vp::services::Audio_Issue_Detector_Impl::Client::set_node_format(uint64
     v11 = -1;
   }
 
-  if (SHIBYTE(v28) < 0)
+  if (SHIBYTE(v27) < 0)
   {
     operator delete(*__p);
   }
 
-  if (v11)
+  if (!v11)
   {
-    v14 = vp::get_log(v9);
-    v15 = os_log_type_enabled(v14, OS_LOG_TYPE_ERROR);
+    return 1;
+  }
 
-    if (v15)
+  v13 = vp::get_log(v9);
+  v14 = os_log_type_enabled(v13, OS_LOG_TYPE_ERROR);
+
+  if (v14)
+  {
+    log_context_info = vp::get_log_context_info(v22, a1, "vp::services::Audio_Issue_Detector_Impl::Client]", 47);
+    v16 = v23;
+    v17 = v22[1];
+    v18 = vp::get_log(log_context_info);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      log_context_info = vp::get_log_context_info(v23, a1, "vp::services::Audio_Issue_Detector_Impl::Client]", 47);
-      v17 = v24;
-      v18 = v23[1];
-      v19 = vp::get_log(log_context_info);
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      if ((v16 & 0x80u) == 0)
       {
-        if ((v17 & 0x80u) == 0)
-        {
-          v20 = v17;
-        }
-
-        else
-        {
-          v20 = v18;
-        }
-
-        v21 = v23[0];
-        if ((v17 & 0x80u) == 0)
-        {
-          v21 = v23;
-        }
-
-        *__p = 136315650;
-        *&__p[4] = v21;
-        if (v20)
-        {
-          v22 = " ";
-        }
-
-        else
-        {
-          v22 = "";
-        }
-
-        v26 = 2080;
-        v27 = v22;
-        v28 = 1024;
-        v29 = v11;
-        _os_log_impl(&dword_2724B4000, v19, OS_LOG_TYPE_ERROR, "%s%sfailed to set node format due to error - %u", __p, 0x1Cu);
+        v19 = v16;
       }
 
-      if (v24 < 0)
+      else
       {
-        operator delete(v23[0]);
+        v19 = v17;
       }
+
+      v20 = v22[0];
+      if ((v16 & 0x80u) == 0)
+      {
+        v20 = v22;
+      }
+
+      *__p = 136315650;
+      *&__p[4] = v20;
+      if (v19)
+      {
+        v21 = " ";
+      }
+
+      else
+      {
+        v21 = "";
+      }
+
+      v25 = 2080;
+      v26 = v21;
+      v27 = 1024;
+      v28 = v11;
+      _os_log_impl(&dword_2724B4000, v18, OS_LOG_TYPE_ERROR, "%s%sfailed to set node format due to error - %u", __p, 0x1Cu);
     }
 
-    result = 0;
+    if (v23 < 0)
+    {
+      operator delete(v22[0]);
+    }
   }
 
-  else
-  {
-    result = 1;
-  }
-
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 void sub_2724CDA50(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *__p, int a24, __int16 a25, uint64_t a26, char a27, char a28, uint64_t a29)
@@ -607,7 +387,6 @@ void vp::services::Audio_Issue_Detector_Impl::Client::~Client(vp::services::Audi
 }
 
 {
-  v3 = *MEMORY[0x277D85DE8];
   v1 = *(this + 1);
   if (AudioIssueDetectorLibraryLoader(void)::once != -1)
   {
@@ -618,8 +397,6 @@ void vp::services::Audio_Issue_Detector_Impl::Client::~Client(vp::services::Audi
   {
     AudioIssueDetectorLibraryLoader(void)::libSym(v1);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2724CDCAC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19)
@@ -661,11 +438,11 @@ uint64_t vp::services::Audio_Hardware_Impl::audio_object_get_property_data(vp::s
   return result;
 }
 
-void sub_2724CDFB0(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2724CDFB0(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  MEMORY[0x2743CBFA0](v7, 0x81C40803F642BLL);
+  MEMORY[0x2743CBFA0](v13, 0x81C40803F642BLL);
   __clang_call_terminate(a1);
 }
 
@@ -690,17 +467,17 @@ void ___ZL19getADASManagerClassv_block_invoke(uint64_t a1)
 
 void *AudioDataAnalysisLibrary(void)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v5[0] = 0;
+  v7 = *MEMORY[0x277D85DE8];
+  v4[0] = 0;
   if (!AudioDataAnalysisLibraryCore(char **)::frameworkLibrary)
   {
-    v5[1] = MEMORY[0x277D85DD0];
-    v5[2] = 3221225472;
-    v5[3] = ___ZL28AudioDataAnalysisLibraryCorePPc_block_invoke;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_279E48BE8;
-    v7 = 0;
+    v4[1] = MEMORY[0x277D85DD0];
+    v4[2] = 3221225472;
+    v4[3] = ___ZL28AudioDataAnalysisLibraryCorePPc_block_invoke;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_279E48BE8;
+    v6 = 0;
     AudioDataAnalysisLibraryCore(char **)::frameworkLibrary = _sl_dlopen();
   }
 
@@ -708,31 +485,27 @@ void *AudioDataAnalysisLibrary(void)
   if (!AudioDataAnalysisLibraryCore(char **)::frameworkLibrary)
   {
     v0 = [MEMORY[0x277CCA890] currentHandler];
-    v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"void *AudioDataAnalysisLibrary()"];
-    [v0 handleFailureInFunction:v4 file:@"Audio_Data_Analysis_Impl.hpp" lineNumber:34 description:{@"%s", v5[0]}];
+    v3 = [MEMORY[0x277CCACA8] stringWithUTF8String:"void *AudioDataAnalysisLibrary()"];
+    [v0 handleFailureInFunction:v3 file:@"Audio_Data_Analysis_Impl.hpp" lineNumber:34 description:{@"%s", v4[0]}];
 
     __break(1u);
     goto LABEL_7;
   }
 
-  v1 = v5[0];
-  if (v5[0])
+  v1 = v4[0];
+  if (v4[0])
   {
 LABEL_7:
     free(v1);
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return v0;
 }
 
 uint64_t ___ZL28AudioDataAnalysisLibraryCorePPc_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   AudioDataAnalysisLibraryCore(char **)::frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -770,9 +543,9 @@ void vp::services::Audio_Data_Analysis_Impl::Settings_Manager::get_volume_limit_
   }
 }
 
-void sub_2724CE448(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2724CE448(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   __clang_call_terminate(a1);
 }
@@ -820,9 +593,9 @@ void vp::services::Audio_Data_Analysis_Impl::Settings_Manager::is_volume_limit_e
   }
 }
 
-void sub_2724CE648(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2724CE648(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   __clang_call_terminate(a1);
 }
@@ -869,7 +642,6 @@ void sub_2724CE8EC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint
     }
 
     __cxa_end_catch();
-    v25 = *(v19 + 8);
     JUMPOUT(0x2724CE814);
   }
 
@@ -878,7 +650,6 @@ void sub_2724CE8EC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint
 
 void vp::services::Audio_Data_Analysis_Impl::Client::~Client(vp::services::Audio_Data_Analysis_Impl::Client *this)
 {
-  v6 = *MEMORY[0x277D85DE8];
   v2 = *(this + 1);
   if (v2 != 560033897 && v2 != 561211748)
   {
@@ -898,8 +669,6 @@ void vp::services::Audio_Data_Analysis_Impl::Client::~Client(vp::services::Audio
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v4);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
@@ -940,7 +709,7 @@ void sub_2724CEB14(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint
 
 void ___Z37AudioDataAnalysisManagerLibraryLoaderv_block_invoke()
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   v0 = dlopen("/usr/lib/libAudioIssueDetector.dylib", 1);
   if (v0)
   {
@@ -949,9 +718,9 @@ void ___Z37AudioDataAnalysisManagerLibraryLoaderv_block_invoke()
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = 136315138;
-    v4 = dlerror();
-    _os_log_error_impl(&dword_2724B4000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "dlerror : libAudioIssueDetector ADAM: %s", &v3, 0xCu);
+    v2 = 136315138;
+    v3 = dlerror();
+    _os_log_error_impl(&dword_2724B4000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "dlerror : libAudioIssueDetector ADAM: %s", &v2, 0xCu);
   }
 
   v0 = dlopen("/usr/local/lib/libAudioIssueDetector.dylib", 1);
@@ -985,19 +754,17 @@ LABEL_5:
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v2 = dlerror();
-    v3 = 136315138;
-    v4 = v2;
-    _os_log_error_impl(&dword_2724B4000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "dlerror : libAudioIssueDetector ADAM: %s", &v3, 0xCu);
+    v1 = dlerror();
+    v2 = 136315138;
+    v3 = v1;
+    _os_log_error_impl(&dword_2724B4000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "dlerror : libAudioIssueDetector ADAM: %s", &v2, 0xCu);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t vp::services::Audio_Data_Analysis_Impl::Client::initialize(vp::services::Audio_Data_Analysis_Impl::Client *this)
 {
   v1 = this;
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = *(this + 1);
   if (AudioDataAnalysisManagerLibraryLoader(void)::once != -1)
   {
@@ -1010,8 +777,7 @@ uint64_t vp::services::Audio_Data_Analysis_Impl::Client::initialize(vp::services
     v3 = this;
     if (!this)
     {
-      result = 1;
-      goto LABEL_21;
+      return 1;
     }
   }
 
@@ -1026,7 +792,7 @@ uint64_t vp::services::Audio_Data_Analysis_Impl::Client::initialize(vp::services
   if (v6)
   {
     log_context_info = vp::get_log_context_info(__p, v1, "vp::services::Audio_Data_Analysis_Impl::Client]", 46);
-    v8 = v16;
+    v8 = v15;
     v9 = __p[1];
     v10 = vp::get_log(log_context_info);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
@@ -1048,7 +814,7 @@ uint64_t vp::services::Audio_Data_Analysis_Impl::Client::initialize(vp::services
       }
 
       *buf = 136315650;
-      v18 = v12;
+      v17 = v12;
       if (v11)
       {
         v13 = " ";
@@ -1059,23 +825,20 @@ uint64_t vp::services::Audio_Data_Analysis_Impl::Client::initialize(vp::services
         v13 = "";
       }
 
-      v19 = 2080;
-      v20 = v13;
-      v21 = 1024;
-      v22 = v3;
+      v18 = 2080;
+      v19 = v13;
+      v20 = 1024;
+      v21 = v3;
       _os_log_impl(&dword_2724B4000, v10, OS_LOG_TYPE_ERROR, "%s%sfailed to initialize due to error - %u", buf, 0x1Cu);
     }
 
-    if (v16 < 0)
+    if (v15 < 0)
     {
       operator delete(__p[0]);
     }
   }
 
-  result = 0;
-LABEL_21:
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 void sub_2724CF160(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19)
@@ -1110,7 +873,6 @@ void sub_2724CF160(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint
 
 uint64_t vp::services::Audio_Data_Analysis_Impl::Client::process(vp::services::Audio_Data_Analysis_Impl::Client *this, uint64_t a2, const AudioBufferList *a3, uint64_t a4, const AudioTimeStamp *a5)
 {
-  v17 = *MEMORY[0x277D85DE8];
   v10 = *(this + 1);
   if (AudioDataAnalysisManagerLibraryLoader(void)::once != -1)
   {
@@ -1122,8 +884,7 @@ uint64_t vp::services::Audio_Data_Analysis_Impl::Client::process(vp::services::A
     v11 = AudioDataAnalysisManagerLibraryLoader(void)::libSym(v10, a2, a3, a4, a5);
     if (!v11)
     {
-      result = 1;
-      goto LABEL_9;
+      return 1;
     }
   }
 
@@ -1137,26 +898,24 @@ uint64_t vp::services::Audio_Data_Analysis_Impl::Client::process(vp::services::A
   if (result)
   {
     v14 = result;
-    v15 = _os_log_pack_fill();
+    v15 = _os_log_pack_fill(result + 40, v13, 0, &dword_2724B4000, "failed to process audio due to error - %u", v16);
     *v15 = 67109120;
     v15[1] = v11;
     caulk::concurrent::messenger::enqueue(*(*(this + 2) + 16), v14);
-    result = 0;
+    return 0;
   }
 
-LABEL_9:
-  v16 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void sub_2724CF3EC(_Unwind_Exception *a1, int a2, uint64_t a3, ...)
+void sub_2724CF3EC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, ...)
 {
-  va_start(va, a3);
+  va_start(va, a4);
   if (a2)
   {
-    v3 = __cxa_begin_catch(a1);
-    v4 = vp::get_log(v3);
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v4 = __cxa_begin_catch(a1);
+    v5 = vp::get_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       vp::get_log_exception_info(va);
     }
@@ -1170,7 +929,7 @@ void sub_2724CF3EC(_Unwind_Exception *a1, int a2, uint64_t a3, ...)
 
 uint64_t vp::services::Audio_Data_Analysis_Impl::Client::create_pcm_node(uint64_t a1, uint64_t a2, const __CFString **a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v11 = *(a1 + 8);
   v12 = applesauce::CF::convert_to<std::string,0>(__p, *a3);
   if (AudioDataAnalysisManagerLibraryLoader(void)::once != -1)
@@ -1189,78 +948,72 @@ uint64_t vp::services::Audio_Data_Analysis_Impl::Client::create_pcm_node(uint64_
     v13 = 560033897;
   }
 
-  if (SHIBYTE(v30) < 0)
+  if (SHIBYTE(v29) < 0)
   {
     operator delete(*__p);
   }
 
-  if (v13)
+  if (!v13)
   {
-    v16 = vp::get_log(v12);
-    v17 = os_log_type_enabled(v16, OS_LOG_TYPE_ERROR);
+    return 1;
+  }
 
-    if (v17)
+  v15 = vp::get_log(v12);
+  v16 = os_log_type_enabled(v15, OS_LOG_TYPE_ERROR);
+
+  if (v16)
+  {
+    log_context_info = vp::get_log_context_info(v24, a1, "vp::services::Audio_Data_Analysis_Impl::Client]", 46);
+    v18 = v25;
+    v19 = v24[1];
+    v20 = vp::get_log(log_context_info);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      log_context_info = vp::get_log_context_info(v25, a1, "vp::services::Audio_Data_Analysis_Impl::Client]", 46);
-      v19 = v26;
-      v20 = v25[1];
-      v21 = vp::get_log(log_context_info);
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      if ((v18 & 0x80u) == 0)
       {
-        if ((v19 & 0x80u) == 0)
-        {
-          v22 = v19;
-        }
-
-        else
-        {
-          v22 = v20;
-        }
-
-        v23 = v25[0];
-        if ((v19 & 0x80u) == 0)
-        {
-          v23 = v25;
-        }
-
-        *__p = 136315650;
-        *&__p[4] = v23;
-        if (v22)
-        {
-          v24 = " ";
-        }
-
-        else
-        {
-          v24 = "";
-        }
-
-        v28 = 2080;
-        v29 = v24;
-        v30 = 1024;
-        v31 = v13;
-        _os_log_impl(&dword_2724B4000, v21, OS_LOG_TYPE_ERROR, "%s%sfailed to create PCM node due to error - %u", __p, 0x1Cu);
+        v21 = v18;
       }
 
-      if (v26 < 0)
+      else
       {
-        operator delete(v25[0]);
+        v21 = v19;
       }
+
+      v22 = v24[0];
+      if ((v18 & 0x80u) == 0)
+      {
+        v22 = v24;
+      }
+
+      *__p = 136315650;
+      *&__p[4] = v22;
+      if (v21)
+      {
+        v23 = " ";
+      }
+
+      else
+      {
+        v23 = "";
+      }
+
+      v27 = 2080;
+      v28 = v23;
+      v29 = 1024;
+      v30 = v13;
+      _os_log_impl(&dword_2724B4000, v20, OS_LOG_TYPE_ERROR, "%s%sfailed to create PCM node due to error - %u", __p, 0x1Cu);
     }
 
-    result = 0;
+    if (v25 < 0)
+    {
+      operator delete(v24[0]);
+    }
   }
 
-  else
-  {
-    result = 1;
-  }
-
-  v15 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
-void sub_2724CF690(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t buf, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20)
+void sub_2724CF690(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t buf, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20)
 {
   if (a2)
   {
@@ -1286,7 +1039,7 @@ void sub_2724CF690(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint
 uint64_t vp::services::Audio_Data_Analysis_Impl::Client::set_application_bundle_id(vp *a1, uint64_t *a2)
 {
   v2 = a1;
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 1);
   v4 = *a2;
   if (AudioDataAnalysisManagerLibraryLoader(void)::once != -1)
@@ -1300,8 +1053,7 @@ uint64_t vp::services::Audio_Data_Analysis_Impl::Client::set_application_bundle_
     v5 = a1;
     if (!a1)
     {
-      result = 1;
-      goto LABEL_21;
+      return 1;
     }
   }
 
@@ -1316,7 +1068,7 @@ uint64_t vp::services::Audio_Data_Analysis_Impl::Client::set_application_bundle_
   if (v8)
   {
     log_context_info = vp::get_log_context_info(__p, v2, "vp::services::Audio_Data_Analysis_Impl::Client]", 46);
-    v10 = v18;
+    v10 = v17;
     v11 = __p[1];
     v12 = vp::get_log(log_context_info);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
@@ -1338,7 +1090,7 @@ uint64_t vp::services::Audio_Data_Analysis_Impl::Client::set_application_bundle_
       }
 
       *buf = 136315650;
-      v20 = v14;
+      v19 = v14;
       if (v13)
       {
         v15 = " ";
@@ -1349,33 +1101,30 @@ uint64_t vp::services::Audio_Data_Analysis_Impl::Client::set_application_bundle_
         v15 = "";
       }
 
-      v21 = 2080;
-      v22 = v15;
-      v23 = 1024;
-      v24 = v5;
+      v20 = 2080;
+      v21 = v15;
+      v22 = 1024;
+      v23 = v5;
       _os_log_impl(&dword_2724B4000, v12, OS_LOG_TYPE_ERROR, "%s%sfailed to set application bundle ID due to error - %u", buf, 0x1Cu);
     }
 
-    if (v18 < 0)
+    if (v17 < 0)
     {
       operator delete(__p[0]);
     }
   }
 
-  result = 0;
-LABEL_21:
-  v16 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
-void sub_2724CF928(_Unwind_Exception *a1, int a2, uint64_t a3, ...)
+void sub_2724CF928(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, ...)
 {
-  va_start(va, a3);
+  va_start(va, a4);
   if (a2)
   {
-    v3 = __cxa_begin_catch(a1);
-    v4 = vp::get_log(v3);
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v4 = __cxa_begin_catch(a1);
+    v5 = vp::get_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       vp::get_log_exception_info(va);
     }
@@ -1390,7 +1139,7 @@ void sub_2724CF928(_Unwind_Exception *a1, int a2, uint64_t a3, ...)
 uint64_t vp::services::Audio_Data_Analysis_Impl::Client::set_reporter_ids(vp *a1, uint64_t a2)
 {
   v3 = a1;
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 1);
   if (AudioDataAnalysisManagerLibraryLoader(void)::once != -1)
   {
@@ -1403,8 +1152,7 @@ uint64_t vp::services::Audio_Data_Analysis_Impl::Client::set_reporter_ids(vp *a1
     v5 = a1;
     if (!a1)
     {
-      result = 1;
-      goto LABEL_21;
+      return 1;
     }
   }
 
@@ -1419,7 +1167,7 @@ uint64_t vp::services::Audio_Data_Analysis_Impl::Client::set_reporter_ids(vp *a1
   if (v8)
   {
     log_context_info = vp::get_log_context_info(__p, v3, "vp::services::Audio_Data_Analysis_Impl::Client]", 46);
-    v10 = v18;
+    v10 = v17;
     v11 = __p[1];
     v12 = vp::get_log(log_context_info);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
@@ -1441,7 +1189,7 @@ uint64_t vp::services::Audio_Data_Analysis_Impl::Client::set_reporter_ids(vp *a1
       }
 
       *buf = 136315650;
-      v20 = v14;
+      v19 = v14;
       if (v13)
       {
         v15 = " ";
@@ -1452,33 +1200,30 @@ uint64_t vp::services::Audio_Data_Analysis_Impl::Client::set_reporter_ids(vp *a1
         v15 = "";
       }
 
-      v21 = 2080;
-      v22 = v15;
-      v23 = 1024;
-      v24 = v5;
+      v20 = 2080;
+      v21 = v15;
+      v22 = 1024;
+      v23 = v5;
       _os_log_impl(&dword_2724B4000, v12, OS_LOG_TYPE_ERROR, "%s%sfailed to set reporter IDs due to error - %u", buf, 0x1Cu);
     }
 
-    if (v18 < 0)
+    if (v17 < 0)
     {
       operator delete(__p[0]);
     }
   }
 
-  result = 0;
-LABEL_21:
-  v16 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
-void sub_2724CFB8C(_Unwind_Exception *a1, int a2, uint64_t a3, ...)
+void sub_2724CFB8C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, ...)
 {
-  va_start(va, a3);
+  va_start(va, a4);
   if (a2)
   {
-    v3 = __cxa_begin_catch(a1);
-    v4 = vp::get_log(v3);
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v4 = __cxa_begin_catch(a1);
+    v5 = vp::get_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       vp::get_log_exception_info(va);
     }
@@ -1505,14 +1250,14 @@ std::__shared_weak_count ***std::unique_ptr<vp::Service_Provider>::~unique_ptr[a
 
 void vp::Service_Provider::~Service_Provider(std::__shared_weak_count **this)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = vp::get_log(this);
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
 
   if (v3)
   {
     log_context_info = vp::get_log_context_info(__p, this, "vp::Service_Provider]", 20);
-    v5 = v17;
+    v5 = v16;
     v6 = __p[1];
     v7 = vp::get_log(log_context_info);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
@@ -1544,13 +1289,13 @@ void vp::Service_Provider::~Service_Provider(std::__shared_weak_count **this)
       }
 
       *buf = 136315394;
-      v19 = v9;
-      v20 = 2080;
-      v21 = v10;
+      v18 = v9;
+      v19 = 2080;
+      v20 = v10;
       _os_log_impl(&dword_2724B4000, v7, OS_LOG_TYPE_DEFAULT, "%s%sdestroyed", buf, 0x16u);
     }
 
-    if (v17 < 0)
+    if (v16 < 0)
     {
       operator delete(__p[0]);
     }
@@ -1586,8 +1331,6 @@ void vp::Service_Provider::~Service_Provider(std::__shared_weak_count **this)
   {
     std::__shared_weak_count::__release_weak(v14);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 std::__shared_weak_count **std::__shared_ptr_pointer<vp::Service_Provider *,std::shared_ptr<vp::Service_Provider>::__shared_ptr_default_delete<vp::Service_Provider,vp::Service_Provider>,std::allocator<vp::Service_Provider>>::__on_zero_shared(uint64_t a1)
@@ -1612,7 +1355,7 @@ void std::__shared_ptr_pointer<vp::Service_Provider *,std::shared_ptr<vp::Servic
 
 uint64_t VoiceProcessorV2::SetChatFlavor(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (VPLogScope(void)::once != -1)
   {
     dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
@@ -1624,11 +1367,11 @@ uint64_t VoiceProcessorV2::SetChatFlavor(uint64_t a1)
     v3 = (*v2 ? *v2 : MEMORY[0x277D86220]);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v7 = 136315394;
-      v8 = "VoiceProcessor_v2.h";
-      v9 = 1024;
-      v10 = 2181;
-      _os_log_impl(&dword_2724B4000, v3, OS_LOG_TYPE_ERROR, "%25s:%-5d  >vp> Chat flavor not supported in this vp version", &v7, 0x12u);
+      v6 = 136315394;
+      v7 = "VoiceProcessor_v2.h";
+      v8 = 1024;
+      v9 = 2181;
+      _os_log_impl(&dword_2724B4000, v3, OS_LOG_TYPE_ERROR, "%25s:%-5d  >vp> Chat flavor not supported in this vp version", &v6, 0x12u);
     }
   }
 
@@ -1643,18 +1386,17 @@ uint64_t VoiceProcessorV2::SetChatFlavor(uint64_t a1)
     CALegacyLog::log(v4, 1, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/VoiceProcessor_v2.h", 2181, "SetChatFlavor", "Chat flavor not supported in this vp version");
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return 0xFFFFFFFFLL;
 }
 
 void CALegacyLog::log(int *a1, int a2, uint64_t a3, char *a4, uint64_t a5, const char *a6, char *__format, ...)
 {
   va_start(va, __format);
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v12 = vsnprintf(__str, 0x400uLL, __format, va);
   if ((v12 & 0x80000000) != 0)
   {
-    goto LABEL_34;
+    return;
   }
 
   if (!a3)
@@ -1662,7 +1404,7 @@ void CALegacyLog::log(int *a1, int a2, uint64_t a3, char *a4, uint64_t a5, const
     LOBYTE(v13) = 31;
 LABEL_7:
     CurrentGregorianDate = CATimeUtilities::GetCurrentGregorianDate(v12);
-    v17 = snprintf(v33, 0x400uLL, "%.2d:%.2d:%.2d.%.3d ", (CurrentGregorianDate >> 24) >> 24, CurrentGregorianDate >> 56, v16, ((v16 - v16) * 1000.0));
+    v17 = snprintf(v32, 0x400uLL, "%.2d:%.2d:%.2d.%.3d ", (CurrentGregorianDate >> 24) >> 24, CurrentGregorianDate >> 56, v16, ((v16 - v16) * 1000.0));
     v14 = v17 & ~(v17 >> 31);
     if ((v13 & 2) == 0)
     {
@@ -1682,25 +1424,25 @@ LABEL_7:
   if ((v13 & 2) != 0)
   {
 LABEL_8:
-    v18 = snprintf(&v33[v14], 1024 - v14, "%s", gPriorityStrings[a2 - 1]);
+    v18 = snprintf(&v32[v14], 1024 - v14, "%s", gPriorityStrings[a2 - 1]);
     v14 += v18 & ~(v18 >> 31);
   }
 
 LABEL_9:
   if ((v13 & 4) != 0)
   {
-    v32[0] = 0;
+    v31[0] = 0;
     v19 = pthread_self();
-    pthread_getname_np(v19, v32, 0x40uLL);
-    if (v32[0])
+    pthread_getname_np(v19, v31, 0x40uLL);
+    if (v31[0])
     {
-      v20 = snprintf(&v33[v14], 1024 - v14, "[%s] ");
+      v20 = snprintf(&v32[v14], 1024 - v14, "[%s] ");
     }
 
     else
     {
       pthread_self();
-      v20 = snprintf(&v33[v14], 1024 - v14, "[%p] ");
+      v20 = snprintf(&v32[v14], 1024 - v14, "[%p] ");
     }
 
     v14 += v20 & ~(v20 >> 31);
@@ -1712,7 +1454,7 @@ LABEL_9:
 LABEL_16:
     if (*(a3 + 24))
     {
-      v21 = &v33[v14];
+      v21 = &v32[v14];
       v22 = 1024 - v14;
       if (a2 >= 3)
       {
@@ -1741,12 +1483,12 @@ LABEL_21:
     if (a4)
     {
       strrchr(a4, 47);
-      v24 = snprintf(&v33[v14], 1024 - v14, "%s:%d: ");
+      v24 = snprintf(&v32[v14], 1024 - v14, "%s:%d: ");
     }
 
     else
     {
-      v24 = snprintf(&v33[v14], 1024 - v14, "%d: ");
+      v24 = snprintf(&v32[v14], 1024 - v14, "%d: ");
     }
 
     v14 += v24 & ~(v24 >> 31);
@@ -1754,17 +1496,17 @@ LABEL_21:
 
   if (a6 && (v13 & 0x10) != 0)
   {
-    v25 = snprintf(&v33[v14], 1024 - v14, "%s: ", a6);
+    v25 = snprintf(&v32[v14], 1024 - v14, "%s: ", a6);
     v14 += v25 & ~(v25 >> 31);
   }
 
-  snprintf(&v33[v14], 1024 - v14, "%s", __str);
-  if (!a3 || (v26 = *(a3 + 56)) == 0 || (fprintf(v26, "%s\n", v33), fflush(*(a3 + 56)), (*(a3 + 64) & 1) == 0))
+  snprintf(&v32[v14], 1024 - v14, "%s", __str);
+  if (!a3 || (v26 = *(a3 + 56)) == 0 || (fprintf(v26, "%s\n", v32), fflush(*(a3 + 56)), (*(a3 + 64) & 1) == 0))
   {
     v27 = *(a1 + 1);
     if (v27)
     {
-      fprintf(v27, "%s\n", v33);
+      fprintf(v27, "%s\n", v32);
       fflush(*(a1 + 1));
     }
 
@@ -1772,39 +1514,36 @@ LABEL_21:
     {
       if (a2 >= 3)
       {
-        v29 = 3;
+        v28 = 3;
       }
 
       else
       {
-        v29 = a2;
+        v28 = a2;
       }
 
-      v30 = *a1;
+      v29 = *a1;
       if (*a1 == 3)
       {
-        puts(v33);
+        puts(v32);
       }
 
-      else if (v30 == 2)
+      else if (v29 == 2)
       {
-        syslog(v29 + 2, "%s", v33);
+        syslog(v28 + 2, "%s", v32);
       }
 
-      else if (v30 == 1)
+      else if (v29 == 1)
       {
         CFLog();
       }
     }
   }
-
-LABEL_34:
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void VoiceProcessorV2::MitigateFrontCameraNoise(VoiceProcessorV2 *this)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v1 = *(this + 20);
   if (v1 == 3 || v1 == 0)
   {
@@ -1835,11 +1574,11 @@ void VoiceProcessorV2::MitigateFrontCameraNoise(VoiceProcessorV2 *this)
         if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
         {
           *buf = 136315650;
-          v12 = "VoiceProcessor_v2.cpp";
-          v13 = 1024;
-          v14 = 3044;
-          v15 = 2048;
-          v16 = v5;
+          v11 = "VoiceProcessor_v2.cpp";
+          v12 = 1024;
+          v13 = 3044;
+          v14 = 2048;
+          v15 = v5;
           _os_log_impl(&dword_2724B4000, v7, OS_LOG_TYPE_INFO, "%25s:%-5d  <vp> mitigate front camera noise; value = %f", buf, 0x1Cu);
         }
       }
@@ -1849,32 +1588,30 @@ void VoiceProcessorV2::MitigateFrontCameraNoise(VoiceProcessorV2 *this)
       {
         if (VPLogScope(void)::once != -1)
         {
-          v10 = *(this + 1588);
+          v9 = *(this + 1588);
           dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-          v8 = v10;
+          v8 = v9;
         }
 
         CALegacyLog::log(v8, 4, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/VoiceProcessor_v2.cpp", 3044, "MitigateFrontCameraNoise", "mitigate front camera noise; value = %f", v5);
       }
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t *AUPropAndParamHelper::AddItemToAUParamList(uint64_t *result, int a2, float a3)
+void AUPropAndParamHelper::AddItemToAUParamList(float **a1, int a2, float a3)
 {
-  v4 = *result;
-  v3 = result[1];
-  v5 = (v3 - *result) >> 3;
+  v4 = *a1;
+  v3 = a1[1];
+  v5 = (v3 - *a1) >> 3;
   v6 = 0;
-  if (v3 != *result)
+  if (v3 != *a1)
   {
     v7 = 1;
     while (1)
     {
-      v8 = v4 + 8 * v6;
-      if (*v8 == a2 && *(v8 + 4) != a3)
+      v8 = &v4[2 * v6];
+      if (*v8 == a2 && v8[1] != a3)
       {
         break;
       }
@@ -1887,13 +1624,13 @@ uint64_t *AUPropAndParamHelper::AddItemToAUParamList(uint64_t *result, int a2, f
     }
 
     *v8 = a2;
-    *(v8 + 4) = a3;
+    v8[1] = a3;
   }
 
 LABEL_8:
   if (v5 == v6)
   {
-    v10 = result[2];
+    v10 = a1[2];
     if (v3 >= v10)
     {
       v11 = v10 - v4;
@@ -1921,11 +1658,9 @@ LABEL_8:
     }
 
     *v3 = a2;
-    *(v3 + 4) = a3;
-    result[1] = v3 + 8;
+    v3[1] = a3;
+    a1[1] = v3 + 2;
   }
-
-  return result;
 }
 
 void std::allocator<std::pair<unsigned int,float>>::allocate_at_least[abi:ne200100](unint64_t a1)
@@ -1940,7 +1675,7 @@ void std::allocator<std::pair<unsigned int,float>>::allocate_at_least[abi:ne2001
 
 void VoiceProcessorV2::ScaleHardwareOutputPresentationLatency(VoiceProcessorV2 *this, AudioObjectID inObjectID)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   if (*(this + 2260) == 1)
   {
     outData = 0.0;
@@ -1964,10 +1699,10 @@ void VoiceProcessorV2::ScaleHardwareOutputPresentationLatency(VoiceProcessorV2 *
         {
           inAddress.mSelector = 136315650;
           *&inAddress.mScope = "VoiceProcessor_v2.cpp";
-          v30 = 1024;
-          v31 = 2029;
-          v32 = 1024;
-          LODWORD(v33) = PropertyData;
+          v29 = 1024;
+          v30 = 2029;
+          v31 = 1024;
+          LODWORD(v32) = PropertyData;
           _os_log_impl(&dword_2724B4000, v7, OS_LOG_TYPE_ERROR, "%25s:%-5d  >vp> error %d getting ref physical device nominal sample rate", &inAddress, 0x18u);
         }
       }
@@ -1995,14 +1730,14 @@ void VoiceProcessorV2::ScaleHardwareOutputPresentationLatency(VoiceProcessorV2 *
           v11 = *(this + 294);
           inAddress.mSelector = 136316162;
           *&inAddress.mScope = "VoiceProcessor_v2.cpp";
-          v30 = 1024;
-          v31 = 2033;
-          v32 = 2048;
-          v33 = outData;
-          v34 = 2048;
-          v35 = v10;
-          v36 = 1024;
-          v37 = v11;
+          v29 = 1024;
+          v30 = 2033;
+          v31 = 2048;
+          v32 = outData;
+          v33 = 2048;
+          v34 = v10;
+          v35 = 1024;
+          v36 = v11;
           _os_log_impl(&dword_2724B4000, v9, OS_LOG_TYPE_DEBUG, "%25s:%-5d  <vp> ref nominal sample rate = %lf; ref sample rate = %lf; output latency before scaling = %u", &inAddress, 0x2Cu);
         }
       }
@@ -2037,10 +1772,10 @@ void VoiceProcessorV2::ScaleHardwareOutputPresentationLatency(VoiceProcessorV2 *
             v16 = *(this + 294);
             inAddress.mSelector = 136315650;
             *&inAddress.mScope = "VoiceProcessor_v2.cpp";
-            v30 = 1024;
-            v31 = 2037;
-            v32 = 1024;
-            LODWORD(v33) = v16;
+            v29 = 1024;
+            v30 = 2037;
+            v31 = 1024;
+            LODWORD(v32) = v16;
             _os_log_impl(&dword_2724B4000, v15, OS_LOG_TYPE_DEBUG, "%25s:%-5d  <vp> output latency after scaling = %u", &inAddress, 0x18u);
           }
         }
@@ -2072,10 +1807,10 @@ void VoiceProcessorV2::ScaleHardwareOutputPresentationLatency(VoiceProcessorV2 *
               v20 = *(this + 289);
               inAddress.mSelector = 136315650;
               *&inAddress.mScope = "VoiceProcessor_v2.cpp";
-              v30 = 1024;
-              v31 = 2040;
-              v32 = 1024;
-              LODWORD(v33) = v20;
+              v29 = 1024;
+              v30 = 2040;
+              v31 = 1024;
+              LODWORD(v32) = v20;
               _os_log_impl(&dword_2724B4000, v19, OS_LOG_TYPE_DEBUG, "%25s:%-5d  <vp> tap stream input latency before scaling = %u", &inAddress, 0x18u);
             }
           }
@@ -2107,10 +1842,10 @@ void VoiceProcessorV2::ScaleHardwareOutputPresentationLatency(VoiceProcessorV2 *
               v24 = *(this + 289);
               inAddress.mSelector = 136315650;
               *&inAddress.mScope = "VoiceProcessor_v2.cpp";
-              v30 = 1024;
-              v31 = 2043;
-              v32 = 1024;
-              LODWORD(v33) = v24;
+              v29 = 1024;
+              v30 = 2043;
+              v31 = 1024;
+              LODWORD(v32) = v24;
               _os_log_impl(&dword_2724B4000, v23, OS_LOG_TYPE_DEBUG, "%25s:%-5d  <vp> tap stream input latency after scaling = %u", &inAddress, 0x18u);
             }
           }
@@ -2131,13 +1866,11 @@ void VoiceProcessorV2::ScaleHardwareOutputPresentationLatency(VoiceProcessorV2 *
       }
     }
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void VoiceProcessorV2::ScaleHardwareOutputSafetyOffsets(VoiceProcessorV2 *this, AudioObjectID inObjectID)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v2 = this + 12288;
   if ((*(this + 16161) & 1) == 0 && *(this + 2260) == 1)
   {
@@ -2161,10 +1894,10 @@ void VoiceProcessorV2::ScaleHardwareOutputSafetyOffsets(VoiceProcessorV2 *this, 
         {
           inAddress.mSelector = 136315650;
           *&inAddress.mScope = "VoiceProcessor_v2.cpp";
+          v29 = 1024;
+          v30 = 1997;
           v31 = 1024;
-          v32 = 1997;
-          v33 = 1024;
-          LODWORD(v34) = PropertyData;
+          LODWORD(v32) = PropertyData;
           _os_log_impl(&dword_2724B4000, v7, OS_LOG_TYPE_ERROR, "%25s:%-5d  >vp> error %d getting ref physical device nominal sample rate", &inAddress, 0x18u);
         }
       }
@@ -2192,14 +1925,14 @@ void VoiceProcessorV2::ScaleHardwareOutputSafetyOffsets(VoiceProcessorV2 *this, 
           v11 = *(this + 296);
           inAddress.mSelector = 136316162;
           *&inAddress.mScope = "VoiceProcessor_v2.cpp";
-          v31 = 1024;
-          v32 = 2001;
+          v29 = 1024;
+          v30 = 2001;
+          v31 = 2048;
+          v32 = outData;
           v33 = 2048;
-          v34 = outData;
-          v35 = 2048;
-          v36 = v10;
-          v37 = 1024;
-          v38 = v11;
+          v34 = v10;
+          v35 = 1024;
+          v36 = v11;
           _os_log_impl(&dword_2724B4000, v9, OS_LOG_TYPE_DEBUG, "%25s:%-5d  <vp> ref nominal sample rate = %lf; ref sample rate = %lf; output safety offset before scaling = %u", &inAddress, 0x2Cu);
         }
       }
@@ -2233,10 +1966,10 @@ void VoiceProcessorV2::ScaleHardwareOutputSafetyOffsets(VoiceProcessorV2 *this, 
             v15 = *(this + 296);
             inAddress.mSelector = 136315650;
             *&inAddress.mScope = "VoiceProcessor_v2.cpp";
+            v29 = 1024;
+            v30 = 2005;
             v31 = 1024;
-            v32 = 2005;
-            v33 = 1024;
-            LODWORD(v34) = v15;
+            LODWORD(v32) = v15;
             _os_log_impl(&dword_2724B4000, v14, OS_LOG_TYPE_DEBUG, "%25s:%-5d  <vp> output safety offset after scaling = %u", &inAddress, 0x18u);
           }
         }
@@ -2259,78 +1992,75 @@ void VoiceProcessorV2::ScaleHardwareOutputSafetyOffsets(VoiceProcessorV2 *this, 
             dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
           }
 
-          v18 = CALog::LogObjIfEnabled(5, VPLogScope(void)::scope);
-          if (v18)
+          v17 = CALog::LogObjIfEnabled(5, VPLogScope(void)::scope);
+          if (v17)
           {
-            v20 = v18;
-            if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+            v19 = v17;
+            if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
             {
-              v21 = *(this + 290);
+              v20 = *(this + 290);
               inAddress.mSelector = 136315650;
               *&inAddress.mScope = "VoiceProcessor_v2.cpp";
+              v29 = 1024;
+              v30 = 2008;
               v31 = 1024;
-              v32 = 2008;
-              v33 = 1024;
-              LODWORD(v34) = v21;
-              _os_log_impl(&dword_2724B4000, v20, OS_LOG_TYPE_DEBUG, "%25s:%-5d  <vp> tap stream input safety offset before scaling = %u", &inAddress, 0x18u);
+              LODWORD(v32) = v20;
+              _os_log_impl(&dword_2724B4000, v19, OS_LOG_TYPE_DEBUG, "%25s:%-5d  <vp> tap stream input safety offset before scaling = %u", &inAddress, 0x18u);
             }
           }
 
-          v22 = *(this + 1588);
-          if (v22 && ((v2[3593] & 1) != 0 || v2[3594] == 1))
+          v21 = *(this + 1588);
+          if (v21 && ((v2[3593] & 1) != 0 || v2[3594] == 1))
           {
             if (VPLogScope(void)::once != -1)
             {
               dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
             }
 
-            CALegacyLog::log(v22, 5, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/VoiceProcessor_v2.cpp", 2008, "ScaleHardwareOutputSafetyOffsets", "tap stream input safety offset before scaling = %u", *(this + 290));
+            CALegacyLog::log(v21, 5, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/VoiceProcessor_v2.cpp", 2008, "ScaleHardwareOutputSafetyOffsets", "tap stream input safety offset before scaling = %u", *(this + 290));
           }
 
-          LODWORD(v19) = *(this + 290);
-          *(this + 290) = (*(this + 74) * v19 / outData);
+          LODWORD(v18) = *(this + 290);
+          *(this + 290) = (*(this + 74) * v18 / outData);
           if (VPLogScope(void)::once != -1)
           {
             dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
           }
 
-          v23 = CALog::LogObjIfEnabled(5, VPLogScope(void)::scope);
-          if (v23)
+          v22 = CALog::LogObjIfEnabled(5, VPLogScope(void)::scope);
+          if (v22)
           {
-            v24 = v23;
-            if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+            v23 = v22;
+            if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
             {
-              v25 = *(this + 290);
+              v24 = *(this + 290);
               inAddress.mSelector = 136315650;
               *&inAddress.mScope = "VoiceProcessor_v2.cpp";
+              v29 = 1024;
+              v30 = 2011;
               v31 = 1024;
-              v32 = 2011;
-              v33 = 1024;
-              LODWORD(v34) = v25;
-              _os_log_impl(&dword_2724B4000, v24, OS_LOG_TYPE_DEBUG, "%25s:%-5d  <vp> tap stream input safety offset after scaling = %u", &inAddress, 0x18u);
+              LODWORD(v32) = v24;
+              _os_log_impl(&dword_2724B4000, v23, OS_LOG_TYPE_DEBUG, "%25s:%-5d  <vp> tap stream input safety offset after scaling = %u", &inAddress, 0x18u);
             }
           }
 
-          v26 = *(this + 1588);
-          if (v26 && ((v2[3593] & 1) != 0 || v2[3594] == 1))
+          v25 = *(this + 1588);
+          if (v25 && ((v2[3593] & 1) != 0 || v2[3594] == 1))
           {
             if (VPLogScope(void)::once != -1)
             {
               dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
             }
 
-            v27 = *(this + 290);
-            CALegacyLog::log(v26, 5, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/VoiceProcessor_v2.cpp", 2011, "ScaleHardwareOutputSafetyOffsets", "tap stream input safety offset after scaling = %u");
+            CALegacyLog::log(v25, 5, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/VoiceProcessor_v2.cpp", 2011, "ScaleHardwareOutputSafetyOffsets", "tap stream input safety offset after scaling = %u");
           }
         }
       }
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t CALog::LogObjIfEnabled(int a1, uint64_t a2)
+uint64_t CALog::LogObjIfEnabled(uint64_t a1, uint64_t a2)
 {
   if (!a2)
   {
@@ -2352,11 +2082,11 @@ uint64_t CALog::LogObjIfEnabled(int a1, uint64_t a2)
 
 void VoiceProcessorV2::UpdateHardwareOutputPresentationLatency(VoiceProcessorV2 *this)
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   v1 = this + 12288;
   if ((*(this + 16161) & 1) == 0)
   {
-    v46 = 1869968496;
+    v45 = 1869968496;
     v3 = *(this + 294);
     if (v3 != *(this + 295))
     {
@@ -2386,12 +2116,12 @@ void VoiceProcessorV2::UpdateHardwareOutputPresentationLatency(VoiceProcessorV2 
               v9 = *v4;
               inAddress.mSelector = 136315906;
               *&inAddress.mScope = "VoiceProcessor_v2.cpp";
-              v51 = 1024;
-              v52 = 1968;
-              v53 = 1024;
-              v54 = PropertyData;
-              v55 = 1024;
-              v56 = v9;
+              v50 = 1024;
+              v51 = 1968;
+              v52 = 1024;
+              v53 = PropertyData;
+              v54 = 1024;
+              v55 = v9;
               _os_log_impl(&dword_2724B4000, v8, OS_LOG_TYPE_ERROR, "%25s:%-5d  >vp> error %d getting streams from ref %u", &inAddress, 0x1Eu);
             }
           }
@@ -2401,9 +2131,9 @@ void VoiceProcessorV2::UpdateHardwareOutputPresentationLatency(VoiceProcessorV2 
           {
             if (VPLogScope(void)::once != -1)
             {
-              v45 = *(this + 1588);
+              v44 = *(this + 1588);
               dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-              v10 = v45;
+              v10 = v44;
             }
 
             CALegacyLog::log(v10, 1, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/VoiceProcessor_v2.cpp", 1968, "getStreamID", "error %d getting streams from ref %u", PropertyData, *v4);
@@ -2430,10 +2160,10 @@ void VoiceProcessorV2::UpdateHardwareOutputPresentationLatency(VoiceProcessorV2 
               {
                 inAddress.mSelector = 136315650;
                 *&inAddress.mScope = "VoiceProcessor_v2.cpp";
-                v51 = 1024;
-                v52 = 1975;
-                v53 = 1024;
-                v54 = valuePtr;
+                v50 = 1024;
+                v51 = 1975;
+                v52 = 1024;
+                v53 = valuePtr;
                 _os_log_impl(&dword_2724B4000, v14, OS_LOG_TYPE_DEBUG, "%25s:%-5d  <vp> stream ID = %u", &inAddress, 0x18u);
               }
             }
@@ -2476,10 +2206,10 @@ void VoiceProcessorV2::UpdateHardwareOutputPresentationLatency(VoiceProcessorV2 
               {
                 inAddress.mSelector = 136315650;
                 *&inAddress.mScope = "VoiceProcessor_v2.cpp";
-                v51 = 1024;
-                v52 = 1862;
-                v53 = 1024;
-                v54 = v17;
+                v50 = 1024;
+                v51 = 1862;
+                v52 = 1024;
+                v53 = v17;
                 _os_log_impl(&dword_2724B4000, v19, OS_LOG_TYPE_ERROR, "%25s:%-5d  >vp> error %d getting stream output latency", &inAddress, 0x18u);
               }
             }
@@ -2500,7 +2230,7 @@ void VoiceProcessorV2::UpdateHardwareOutputPresentationLatency(VoiceProcessorV2 
 
       else
       {
-        PortID = VoiceProcessorV2::getPortID(this, this + 286, &v46);
+        PortID = VoiceProcessorV2::getPortID(this, this + 286, &v45);
         if (!PortID)
         {
           ioDataSize = 0;
@@ -2524,10 +2254,10 @@ void VoiceProcessorV2::UpdateHardwareOutputPresentationLatency(VoiceProcessorV2 
               {
                 inAddress.mSelector = 136315650;
                 *&inAddress.mScope = "VoiceProcessor_v2.cpp";
-                v51 = 1024;
-                v52 = 1879;
-                v53 = 1024;
-                v54 = v23;
+                v50 = 1024;
+                v51 = 1879;
+                v52 = 1024;
+                v53 = v23;
                 _os_log_impl(&dword_2724B4000, v25, OS_LOG_TYPE_ERROR, "%25s:%-5d  >vp> error %d getting owning device ID for the ref port", &inAddress, 0x18u);
               }
             }
@@ -2557,10 +2287,10 @@ void VoiceProcessorV2::UpdateHardwareOutputPresentationLatency(VoiceProcessorV2 
             {
               inAddress.mSelector = 136315650;
               *&inAddress.mScope = "VoiceProcessor_v2.cpp";
-              v51 = 1024;
-              v52 = 1880;
-              v53 = 1024;
-              v54 = ioDataSize;
+              v50 = 1024;
+              v51 = 1880;
+              v52 = 1024;
+              v53 = ioDataSize;
               _os_log_impl(&dword_2724B4000, v28, OS_LOG_TYPE_DEBUG, "%25s:%-5d  <vp> ref physical dev ID = %u", &inAddress, 0x18u);
             }
           }
@@ -2596,10 +2326,10 @@ void VoiceProcessorV2::UpdateHardwareOutputPresentationLatency(VoiceProcessorV2 
               {
                 inAddress.mSelector = 136315650;
                 *&inAddress.mScope = "VoiceProcessor_v2.cpp";
-                v51 = 1024;
-                v52 = 1886;
-                v53 = 1024;
-                v54 = v31;
+                v50 = 1024;
+                v51 = 1886;
+                v52 = 1024;
+                v53 = v31;
                 _os_log_impl(&dword_2724B4000, v33, OS_LOG_TYPE_ERROR, "%25s:%-5d  >vp> error %d getting physical device output latency", &inAddress, 0x18u);
               }
             }
@@ -2621,40 +2351,40 @@ void VoiceProcessorV2::UpdateHardwareOutputPresentationLatency(VoiceProcessorV2 
             *&inAddress.mSelector = 0x696E70746C746E63;
             inAddress.mElement = 0;
             LODWORD(outData) = 4;
-            v40 = AudioObjectGetPropertyData(ioDataSize, &inAddress, 0, 0, &outData, this + 1156);
-            if (v40)
+            v39 = AudioObjectGetPropertyData(ioDataSize, &inAddress, 0, 0, &outData, this + 1156);
+            if (v39)
             {
-              v41 = v40;
+              v40 = v39;
               if (VPLogScope(void)::once != -1)
               {
                 dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
               }
 
-              v42 = CALog::LogObjIfEnabled(1, VPLogScope(void)::scope);
-              if (v42)
+              v41 = CALog::LogObjIfEnabled(1, VPLogScope(void)::scope);
+              if (v41)
               {
-                v43 = v42;
-                if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+                v42 = v41;
+                if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
                 {
                   inAddress.mSelector = 136315650;
                   *&inAddress.mScope = "VoiceProcessor_v2.cpp";
-                  v51 = 1024;
-                  v52 = 1893;
-                  v53 = 1024;
-                  v54 = v41;
-                  _os_log_impl(&dword_2724B4000, v43, OS_LOG_TYPE_ERROR, "%25s:%-5d  >vp> error %d getting tap stream input latency", &inAddress, 0x18u);
+                  v50 = 1024;
+                  v51 = 1893;
+                  v52 = 1024;
+                  v53 = v40;
+                  _os_log_impl(&dword_2724B4000, v42, OS_LOG_TYPE_ERROR, "%25s:%-5d  >vp> error %d getting tap stream input latency", &inAddress, 0x18u);
                 }
               }
 
-              v44 = *(this + 1588);
-              if (v44 && ((v1[3593] & 1) != 0 || v1[3594] == 1))
+              v43 = *(this + 1588);
+              if (v43 && ((v1[3593] & 1) != 0 || v1[3594] == 1))
               {
                 if (VPLogScope(void)::once != -1)
                 {
                   dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
                 }
 
-                CALegacyLog::log(v44, 1, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/VoiceProcessor_v2.cpp", 1893, "UpdateHardwareOutputPresentationLatency", "error %d getting tap stream input latency", v41);
+                CALegacyLog::log(v43, 1, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/VoiceProcessor_v2.cpp", 1893, "UpdateHardwareOutputPresentationLatency", "error %d getting tap stream input latency", v40);
               }
             }
           }
@@ -2677,10 +2407,10 @@ void VoiceProcessorV2::UpdateHardwareOutputPresentationLatency(VoiceProcessorV2 
           v37 = *(this + 294);
           inAddress.mSelector = 136315650;
           *&inAddress.mScope = "VoiceProcessor_v2.cpp";
-          v51 = 1024;
-          v52 = 1903;
-          v53 = 1024;
-          v54 = v37;
+          v50 = 1024;
+          v51 = 1903;
+          v52 = 1024;
+          v53 = v37;
           _os_log_impl(&dword_2724B4000, v36, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> Override aggregate device output latency with stream/physical device output latency= %u", &inAddress, 0x18u);
         }
       }
@@ -2697,13 +2427,11 @@ void VoiceProcessorV2::UpdateHardwareOutputPresentationLatency(VoiceProcessorV2 
       }
     }
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 unint64_t VoiceProcessorV2::getPortID(VoiceProcessorV2 *this, AudioObjectID *a2, const unsigned int *a3)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   valuePtr = 0;
   if (VPLogScope(void)::once != -1)
   {
@@ -2719,10 +2447,10 @@ unint64_t VoiceProcessorV2::getPortID(VoiceProcessorV2 *this, AudioObjectID *a2,
       v8 = *a2;
       buf.mSelector = 136315650;
       *&buf.mScope = "VoiceProcessor_v2.cpp";
-      v37 = 1024;
-      v38 = 1915;
-      v39 = 1024;
-      v40 = v8;
+      v36 = 1024;
+      v37 = 1915;
+      v38 = 1024;
+      v39 = v8;
       _os_log_impl(&dword_2724B4000, v7, OS_LOG_TYPE_DEBUG, "%25s:%-5d  <vp> device ID = %u", &buf, 0x18u);
     }
   }
@@ -2782,12 +2510,12 @@ unint64_t VoiceProcessorV2::getPortID(VoiceProcessorV2 *this, AudioObjectID *a2,
         v16 = *(this + 286);
         buf.mSelector = 136315906;
         *&buf.mScope = "VoiceProcessor_v2.cpp";
-        v37 = 1024;
-        v38 = 1928;
-        v39 = 1024;
-        v40 = PropertyData;
-        v41 = 1024;
-        v42 = v16;
+        v36 = 1024;
+        v37 = 1928;
+        v38 = 1024;
+        v39 = PropertyData;
+        v40 = 1024;
+        v41 = v16;
         _os_log_impl(&dword_2724B4000, v15, OS_LOG_TYPE_ERROR, "%25s:%-5d  >vp> error %d getting connected ports %u", &buf, 0x1Eu);
       }
     }
@@ -2823,10 +2551,10 @@ unint64_t VoiceProcessorV2::getPortID(VoiceProcessorV2 *this, AudioObjectID *a2,
         {
           buf.mSelector = 136315650;
           *&buf.mScope = "VoiceProcessor_v2.cpp";
-          v37 = 1024;
-          v38 = 1938;
-          v39 = 1024;
-          v40 = v27;
+          v36 = 1024;
+          v37 = 1938;
+          v38 = 1024;
+          v39 = v27;
           _os_log_impl(&dword_2724B4000, v29, OS_LOG_TYPE_DEBUG, "%25s:%-5d  <vp> Size of portsArray = %u", &buf, 0x18u);
         }
       }
@@ -2860,10 +2588,10 @@ unint64_t VoiceProcessorV2::getPortID(VoiceProcessorV2 *this, AudioObjectID *a2,
         {
           buf.mSelector = 136315650;
           *&buf.mScope = "VoiceProcessor_v2.cpp";
-          v37 = 1024;
-          v38 = 1936;
-          v39 = 1024;
-          v40 = valuePtr;
+          v36 = 1024;
+          v37 = 1936;
+          v38 = 1024;
+          v39 = valuePtr;
           _os_log_impl(&dword_2724B4000, v21, OS_LOG_TYPE_DEBUG, "%25s:%-5d  <vp> port ID = %u", &buf, 0x18u);
         }
       }
@@ -2882,7 +2610,7 @@ unint64_t VoiceProcessorV2::getPortID(VoiceProcessorV2 *this, AudioObjectID *a2,
 
     CFRelease(outData);
     v26 = valuePtr << 32;
-    goto LABEL_86;
+    return v26 | PropertyData;
   }
 
 LABEL_54:
@@ -2899,8 +2627,8 @@ LABEL_54:
     {
       buf.mSelector = 136315394;
       *&buf.mScope = "VoiceProcessor_v2.cpp";
-      v37 = 1024;
-      v38 = 1942;
+      v36 = 1024;
+      v37 = 1942;
       _os_log_impl(&dword_2724B4000, v24, OS_LOG_TYPE_DEBUG, "%25s:%-5d  <vp> Array of ports is empty", &buf, 0x12u);
     }
   }
@@ -2917,8 +2645,6 @@ LABEL_54:
   }
 
   v26 = 0;
-LABEL_86:
-  v31 = *MEMORY[0x277D85DE8];
   return v26 | PropertyData;
 }
 
@@ -2934,13 +2660,13 @@ _BYTE *VoiceProcessorV2::CorrectHardwareOutputPresentationLatency(_BYTE *this)
 
 void VoiceProcessorV2::UpdateHardwareOutputSafetyOffsets(VoiceProcessorV2 *this)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v1 = this + 12288;
   if ((*(this + 16161) & 1) == 0 && *(this + 294) != *(this + 295))
   {
     v3 = *(this + 296);
-    v36 = 1869968496;
-    PortID = VoiceProcessorV2::getPortID(this, this + 286, &v36);
+    v35 = 1869968496;
+    PortID = VoiceProcessorV2::getPortID(this, this + 286, &v35);
     if (!PortID)
     {
       outData = 0;
@@ -2964,10 +2690,10 @@ void VoiceProcessorV2::UpdateHardwareOutputSafetyOffsets(VoiceProcessorV2 *this)
           {
             inAddress.mSelector = 136315650;
             *&inAddress.mScope = "VoiceProcessor_v2.cpp";
-            v39 = 1024;
-            v40 = 1781;
-            v41 = 1024;
-            v42 = v6;
+            v38 = 1024;
+            v39 = 1781;
+            v40 = 1024;
+            v41 = v6;
             _os_log_impl(&dword_2724B4000, v8, OS_LOG_TYPE_ERROR, "%25s:%-5d  >vp> error %d getting owning device ID for the ref port", &inAddress, 0x18u);
           }
         }
@@ -2997,10 +2723,10 @@ void VoiceProcessorV2::UpdateHardwareOutputSafetyOffsets(VoiceProcessorV2 *this)
         {
           inAddress.mSelector = 136315650;
           *&inAddress.mScope = "VoiceProcessor_v2.cpp";
-          v39 = 1024;
-          v40 = 1783;
-          v41 = 1024;
-          v42 = outData;
+          v38 = 1024;
+          v39 = 1783;
+          v40 = 1024;
+          v41 = outData;
           _os_log_impl(&dword_2724B4000, v11, OS_LOG_TYPE_DEBUG, "%25s:%-5d  <vp> ref physical dev ID = %u", &inAddress, 0x18u);
         }
       }
@@ -3037,10 +2763,10 @@ void VoiceProcessorV2::UpdateHardwareOutputSafetyOffsets(VoiceProcessorV2 *this)
           {
             inAddress.mSelector = 136315650;
             *&inAddress.mScope = "VoiceProcessor_v2.cpp";
-            v39 = 1024;
-            v40 = 1791;
-            v41 = 1024;
-            v42 = v15;
+            v38 = 1024;
+            v39 = 1791;
+            v40 = 1024;
+            v41 = v15;
             _os_log_impl(&dword_2724B4000, v17, OS_LOG_TYPE_ERROR, "%25s:%-5d  >vp> error %d getting physical output device safety offset", &inAddress, 0x18u);
           }
         }
@@ -3050,9 +2776,9 @@ void VoiceProcessorV2::UpdateHardwareOutputSafetyOffsets(VoiceProcessorV2 *this)
         {
           if (VPLogScope(void)::once != -1)
           {
-            v33 = *(this + 1588);
+            v32 = *(this + 1588);
             dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-            v18 = v33;
+            v18 = v32;
           }
 
           CALegacyLog::log(v18, 1, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/VoiceProcessor_v2.cpp", 1791, "UpdateHardwareOutputSafetyOffsets", "error %d getting physical output device safety offset", v15);
@@ -3064,42 +2790,42 @@ void VoiceProcessorV2::UpdateHardwareOutputSafetyOffsets(VoiceProcessorV2 *this)
         *&inAddress.mSelector = 0x696E707473616674;
         inAddress.mElement = 0;
         ioDataSize = 4;
-        v28 = AudioObjectGetPropertyData(outData, &inAddress, 0, 0, &ioDataSize, this + 1160);
-        if (v28)
+        v27 = AudioObjectGetPropertyData(outData, &inAddress, 0, 0, &ioDataSize, this + 1160);
+        if (v27)
         {
-          v29 = v28;
+          v28 = v27;
           if (VPLogScope(void)::once != -1)
           {
             dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
           }
 
-          v30 = VPLogScope(void)::scope;
+          v29 = VPLogScope(void)::scope;
           if (VPLogScope(void)::scope && CALegacyLog::LogEnabled(1, VPLogScope(void)::scope, 0))
           {
-            v31 = (*v30 ? *v30 : MEMORY[0x277D86220]);
-            if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+            v30 = (*v29 ? *v29 : MEMORY[0x277D86220]);
+            if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
             {
               inAddress.mSelector = 136315650;
               *&inAddress.mScope = "VoiceProcessor_v2.cpp";
-              v39 = 1024;
-              v40 = 1800;
-              v41 = 1024;
-              v42 = v29;
-              _os_log_impl(&dword_2724B4000, v31, OS_LOG_TYPE_ERROR, "%25s:%-5d  >vp> error %d getting tap stream input safety offset", &inAddress, 0x18u);
+              v38 = 1024;
+              v39 = 1800;
+              v40 = 1024;
+              v41 = v28;
+              _os_log_impl(&dword_2724B4000, v30, OS_LOG_TYPE_ERROR, "%25s:%-5d  >vp> error %d getting tap stream input safety offset", &inAddress, 0x18u);
             }
           }
 
-          v32 = *(this + 1588);
-          if (v32 && ((v1[3593] & 1) != 0 || v1[3594] == 1))
+          v31 = *(this + 1588);
+          if (v31 && ((v1[3593] & 1) != 0 || v1[3594] == 1))
           {
             if (VPLogScope(void)::once != -1)
             {
-              v34 = *(this + 1588);
+              v33 = *(this + 1588);
               dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-              v32 = v34;
+              v31 = v33;
             }
 
-            CALegacyLog::log(v32, 1, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/VoiceProcessor_v2.cpp", 1800, "UpdateHardwareOutputSafetyOffsets", "error %d getting tap stream input safety offset", v29);
+            CALegacyLog::log(v31, 1, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/VoiceProcessor_v2.cpp", 1800, "UpdateHardwareOutputSafetyOffsets", "error %d getting tap stream input safety offset", v28);
           }
         }
       }
@@ -3120,10 +2846,10 @@ void VoiceProcessorV2::UpdateHardwareOutputSafetyOffsets(VoiceProcessorV2 *this)
           v21 = *v12;
           inAddress.mSelector = 136315650;
           *&inAddress.mScope = "VoiceProcessor_v2.cpp";
-          v39 = 1024;
-          v40 = 1809;
-          v41 = 1024;
-          v42 = v21;
+          v38 = 1024;
+          v39 = 1809;
+          v40 = 1024;
+          v41 = v21;
           _os_log_impl(&dword_2724B4000, v20, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> Override aggregate device output safety offset with physical device output safety offset= %u", &inAddress, 0x18u);
         }
       }
@@ -3153,10 +2879,10 @@ void VoiceProcessorV2::UpdateHardwareOutputSafetyOffsets(VoiceProcessorV2 *this)
           v25 = *(this + 297);
           inAddress.mSelector = 136315650;
           *&inAddress.mScope = "VoiceProcessor_v2.cpp";
-          v39 = 1024;
-          v40 = 1811;
-          v41 = 1024;
-          v42 = v25;
+          v38 = 1024;
+          v39 = 1811;
+          v40 = 1024;
+          v41 = v25;
           _os_log_impl(&dword_2724B4000, v24, OS_LOG_TYPE_DEBUG, "%25s:%-5d  <vp> Output safety offset correction= %d", &inAddress, 0x18u);
         }
       }
@@ -3173,8 +2899,6 @@ void VoiceProcessorV2::UpdateHardwareOutputSafetyOffsets(VoiceProcessorV2 *this)
       }
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 _BYTE *VoiceProcessorV2::CorrectHardwareOutputSafetyOffsets(_BYTE *this)
@@ -3187,14 +2911,15 @@ _BYTE *VoiceProcessorV2::CorrectHardwareOutputSafetyOffsets(_BYTE *this)
   return this;
 }
 
-uint64_t VoiceProcessorV2::RemovePropertyListenerBlock(VoiceProcessorV2 *this, unsigned int a2, uint64_t a3)
+uint64_t VoiceProcessorV2::RemovePropertyListenerBlock(VoiceProcessorV2 *this, uint64_t a2, uint64_t a3)
 {
+  v4 = a2;
   v31 = a2;
   std::mutex::lock((this + 2680));
-  if (std::__hash_table<std::__hash_value_type<unsigned int,std::vector<VoiceProcessorV2::VoiceProcessorPropertyListenerBlockInfo>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::vector<VoiceProcessorV2::VoiceProcessorPropertyListenerBlockInfo>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::vector<VoiceProcessorV2::VoiceProcessorPropertyListenerBlockInfo>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::vector<VoiceProcessorV2::VoiceProcessorPropertyListenerBlockInfo>>>>::find<unsigned int>(this + 542, a2))
+  if (std::__hash_table<std::__hash_value_type<unsigned int,std::vector<VoiceProcessorV2::VoiceProcessorPropertyListenerBlockInfo>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::vector<VoiceProcessorV2::VoiceProcessorPropertyListenerBlockInfo>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::vector<VoiceProcessorV2::VoiceProcessorPropertyListenerBlockInfo>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::vector<VoiceProcessorV2::VoiceProcessorPropertyListenerBlockInfo>>>>::find<unsigned int>(this + 542, v4))
   {
     v32 = &v31;
-    v6 = std::__hash_table<std::__hash_value_type<unsigned int,std::vector<VoiceProcessorV2::VoiceProcessorPropertyListenerBlockInfo>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::vector<VoiceProcessorV2::VoiceProcessorPropertyListenerBlockInfo>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::vector<VoiceProcessorV2::VoiceProcessorPropertyListenerBlockInfo>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::vector<VoiceProcessorV2::VoiceProcessorPropertyListenerBlockInfo>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 542, a2);
+    v6 = std::__hash_table<std::__hash_value_type<unsigned int,std::vector<VoiceProcessorV2::VoiceProcessorPropertyListenerBlockInfo>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::vector<VoiceProcessorV2::VoiceProcessorPropertyListenerBlockInfo>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::vector<VoiceProcessorV2::VoiceProcessorPropertyListenerBlockInfo>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::vector<VoiceProcessorV2::VoiceProcessorPropertyListenerBlockInfo>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 1084, v4, &v32);
     v7 = v6;
     v8 = v6[3];
     v9 = v6[4];
@@ -3439,32 +3164,32 @@ uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,std::vector<Voic
   return result;
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,std::vector<VoiceProcessorV2::VoiceProcessorPropertyListenerBlockInfo>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::vector<VoiceProcessorV2::VoiceProcessorPropertyListenerBlockInfo>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::vector<VoiceProcessorV2::VoiceProcessorPropertyListenerBlockInfo>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::vector<VoiceProcessorV2::VoiceProcessorPropertyListenerBlockInfo>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(void *a1, unsigned int a2)
+uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,std::vector<VoiceProcessorV2::VoiceProcessorPropertyListenerBlockInfo>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::vector<VoiceProcessorV2::VoiceProcessorPropertyListenerBlockInfo>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::vector<VoiceProcessorV2::VoiceProcessorPropertyListenerBlockInfo>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::vector<VoiceProcessorV2::VoiceProcessorPropertyListenerBlockInfo>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(float *a1, unsigned int a2, _DWORD **a3)
 {
-  v2 = a1[1];
-  if (!v2)
+  v3 = *(a1 + 1);
+  if (!v3)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (v2 <= a2)
+    v5 = a2;
+    if (v3 <= a2)
     {
-      v4 = a2 % v2;
+      v5 = a2 % v3;
     }
   }
 
   else
   {
-    v4 = (v2 - 1) & a2;
+    v5 = (v3 - 1) & a2;
   }
 
-  v5 = *(*a1 + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
   {
 LABEL_18:
     operator new();
@@ -3472,44 +3197,44 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v8 = v7[1];
+    if (v8 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v4.u32[0] > 1uLL)
     {
-      if (v7 >= v2)
+      if (v8 >= v3)
       {
-        v7 %= v2;
+        v8 %= v3;
       }
     }
 
     else
     {
-      v7 &= v2 - 1;
+      v8 &= v3 - 1;
     }
 
-    if (v7 != v4)
+    if (v8 != v5)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v7 = *v7;
+    if (!v7)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v6 + 4) != a2)
+  if (*(v7 + 4) != a2)
   {
     goto LABEL_17;
   }
 
-  return v6;
+  return v7;
 }
 
 void std::__destroy_at[abi:ne200100]<vp::Block<void ()(unsigned int)>,0>(const void **a1)
@@ -3644,8 +3369,8 @@ void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_val
 
 uint64_t VoiceProcessorV2::AddPropertyListenerBlock(uint64_t a1, unsigned int a2, const void *a3, uint64_t *a4)
 {
-  v51 = *MEMORY[0x277D85DE8];
-  v47 = a2;
+  v50 = *MEMORY[0x277D85DE8];
+  v46 = a2;
   std::mutex::lock((a1 + 2680));
   if (a2 != 1885957987)
   {
@@ -3658,11 +3383,11 @@ uint64_t VoiceProcessorV2::AddPropertyListenerBlock(uint64_t a1, unsigned int a2
     goto LABEL_22;
   }
 
-  v44 = 0;
+  v43 = 0;
   aBlock = 0;
-  v46 = 0;
+  v45 = 0;
   *buf = 1885957987;
-  v50 = 0;
+  v49 = 0;
   *&buf[8] = 0uLL;
   v8 = *(a1 + 4344);
   if (!*&v8)
@@ -3732,14 +3457,14 @@ LABEL_20:
     goto LABEL_20;
   }
 
-  v48 = &buf[8];
-  std::vector<VoiceProcessorV2::VoiceProcessorPropertyListenerBlockInfo>::__destroy_vector::operator()[abi:ne200100](&v48);
-  *buf = &v44;
+  v47 = &buf[8];
+  std::vector<VoiceProcessorV2::VoiceProcessorPropertyListenerBlockInfo>::__destroy_vector::operator()[abi:ne200100](&v47);
+  *buf = &v43;
   std::vector<VoiceProcessorV2::VoiceProcessorPropertyListenerBlockInfo>::__destroy_vector::operator()[abi:ne200100](buf);
 LABEL_22:
   v15 = *(a1 + 4376) + 1;
   *(a1 + 4376) = v15;
-  v44 = v15;
+  v43 = v15;
   if (a3)
   {
     v16 = _Block_copy(a3);
@@ -3751,8 +3476,8 @@ LABEL_22:
   }
 
   aBlock = v16;
-  *buf = &v47;
-  v17 = std::__hash_table<std::__hash_value_type<unsigned int,std::vector<VoiceProcessorV2::VoiceProcessorPropertyListenerBlockInfo>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::vector<VoiceProcessorV2::VoiceProcessorPropertyListenerBlockInfo>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::vector<VoiceProcessorV2::VoiceProcessorPropertyListenerBlockInfo>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::vector<VoiceProcessorV2::VoiceProcessorPropertyListenerBlockInfo>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((a1 + 4336), v47);
+  *buf = &v46;
+  v17 = std::__hash_table<std::__hash_value_type<unsigned int,std::vector<VoiceProcessorV2::VoiceProcessorPropertyListenerBlockInfo>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::vector<VoiceProcessorV2::VoiceProcessorPropertyListenerBlockInfo>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::vector<VoiceProcessorV2::VoiceProcessorPropertyListenerBlockInfo>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::vector<VoiceProcessorV2::VoiceProcessorPropertyListenerBlockInfo>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((a1 + 4336), v46, buf);
   v18 = v17[4];
   v19 = v17[5];
   if (v18 >= v19)
@@ -3830,7 +3555,7 @@ LABEL_22:
       operator delete(v27);
     }
 
-    v15 = v44;
+    v15 = v43;
   }
 
   else
@@ -3851,9 +3576,9 @@ LABEL_22:
     v34 = (*v33 ? *v33 : MEMORY[0x277D86220]);
     if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
     {
-      v35 = v47;
-      v48 = &v47;
-      v36 = std::__hash_table<std::__hash_value_type<unsigned int,std::vector<VoiceProcessorV2::VoiceProcessorPropertyListenerBlockInfo>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::vector<VoiceProcessorV2::VoiceProcessorPropertyListenerBlockInfo>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::vector<VoiceProcessorV2::VoiceProcessorPropertyListenerBlockInfo>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::vector<VoiceProcessorV2::VoiceProcessorPropertyListenerBlockInfo>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((a1 + 4336), v47);
+      v35 = v46;
+      v47 = &v46;
+      v36 = std::__hash_table<std::__hash_value_type<unsigned int,std::vector<VoiceProcessorV2::VoiceProcessorPropertyListenerBlockInfo>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::vector<VoiceProcessorV2::VoiceProcessorPropertyListenerBlockInfo>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::vector<VoiceProcessorV2::VoiceProcessorPropertyListenerBlockInfo>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::vector<VoiceProcessorV2::VoiceProcessorPropertyListenerBlockInfo>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((a1 + 4336), v46, &v47);
       v37 = (v36[4] - v36[3]) >> 4;
       *buf = 136315906;
       *&buf[4] = "VoiceProcessor_v2.cpp";
@@ -3861,8 +3586,8 @@ LABEL_22:
       *&buf[14] = 1083;
       *&buf[18] = 1024;
       *&buf[20] = v35;
-      LOWORD(v50) = 1024;
-      *(&v50 + 2) = v37;
+      LOWORD(v49) = 1024;
+      *(&v49 + 2) = v37;
       _os_log_impl(&dword_2724B4000, v34, OS_LOG_TYPE_DEBUG, "%25s:%-5d  <vp> Successfully added property listener for property ID %d! listener list size: %d", buf, 0x1Eu);
     }
   }
@@ -3876,9 +3601,9 @@ LABEL_22:
     }
 
     v39 = VPLogScope(void)::scope;
-    v40 = v47;
-    *buf = &v47;
-    v41 = std::__hash_table<std::__hash_value_type<unsigned int,std::vector<VoiceProcessorV2::VoiceProcessorPropertyListenerBlockInfo>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::vector<VoiceProcessorV2::VoiceProcessorPropertyListenerBlockInfo>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::vector<VoiceProcessorV2::VoiceProcessorPropertyListenerBlockInfo>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::vector<VoiceProcessorV2::VoiceProcessorPropertyListenerBlockInfo>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((a1 + 4336), v47);
+    v40 = v46;
+    *buf = &v46;
+    v41 = std::__hash_table<std::__hash_value_type<unsigned int,std::vector<VoiceProcessorV2::VoiceProcessorPropertyListenerBlockInfo>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::vector<VoiceProcessorV2::VoiceProcessorPropertyListenerBlockInfo>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::vector<VoiceProcessorV2::VoiceProcessorPropertyListenerBlockInfo>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::vector<VoiceProcessorV2::VoiceProcessorPropertyListenerBlockInfo>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((a1 + 4336), v46, buf);
     CALegacyLog::log(v38, 5, v39, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/VoiceProcessor_v2.cpp", 1083, "AddPropertyListenerBlock", "Successfully added property listener for property ID %d! listener list size: %d", v40, (v41[4] - v41[3]) >> 4);
   }
 
@@ -3890,15 +3615,14 @@ LABEL_22:
   v11 = 0;
 LABEL_62:
   std::mutex::unlock((a1 + 2680));
-  v42 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
-void sub_2724D4180(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2724D4180(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   VoiceProcessorV2::VoiceProcessorPropertyListenerBlockInfo::~VoiceProcessorPropertyListenerBlockInfo(va);
-  std::mutex::unlock((v4 + 2680));
+  std::mutex::unlock((v7 + 2680));
   _Unwind_Resume(a1);
 }
 
@@ -3929,9 +3653,9 @@ void VoiceProcessorV2::VoiceProcessorPropertyListenerBlockInfo::~VoiceProcessorP
   }
 }
 
-uint64_t VoiceProcessorV2::AppendReferenceSignal(VoiceProcessorV2 *this, AudioBufferList *a2, AudioBufferList *a3, int a4)
+uint64_t VoiceProcessorV2::AppendReferenceSignal(VoiceProcessorV2 *this, AudioBufferList *a2, AudioBufferList *a3, uint64_t a4)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   atomic_fetch_add(this + 625, 1u);
   if (!*(this + 624))
   {
@@ -3985,7 +3709,7 @@ uint64_t VoiceProcessorV2::AppendReferenceSignal(VoiceProcessorV2 *this, AudioBu
     *(this + 3149) = v12;
     if (*(this + 484) != 1)
     {
-      VoiceProcessorV2::LogIOError(this, 11.005, *(this + 3148), v12, 0.0, "appendreferencesignal: not OK to process");
+      VoiceProcessorV2::LogIOError(this, 11.005, *(this + 3148), v12, 0.0, "appendreferencesignal: not OK to process", a3, a4);
       goto LABEL_3;
     }
 
@@ -4001,20 +3725,20 @@ LABEL_41:
 
       VoiceProcessorV2::InjectionOrAdditionFilesCopyPreInjectionABL(v13, a2, a3);
       v14 = *(this + 1914);
-      v31 = 0;
+      v30 = 0;
       v15 = *(v14 + 12);
       v16 = v15 / *(this + 154);
-      v5 = VoiceProcessorV2::FrontEndBlockSizeCheck(this, 1, v15 / *(this + 154), *(this + 125), v14, &v31);
+      v5 = VoiceProcessorV2::FrontEndBlockSizeCheck(this, 1, v15 / *(this + 154), *(this + 125), v14, &v30);
       if (v5)
       {
         goto LABEL_42;
       }
 
-      v17 = v31;
+      v17 = v30;
       if (*(this + 15881) == 1)
       {
-        v18 = v31;
-        if (!v31)
+        v18 = v30;
+        if (!v30)
         {
           v18 = *(this + 125);
         }
@@ -4052,45 +3776,45 @@ LABEL_41:
           VoiceProcessorV2::SaveFilesWriteSignal(this, 0, *(this + 125), v14, a3);
         }
 
-        v30 = *(this + 38);
+        v29 = *(this + 38);
         *buf = *(this + 37);
-        *&buf[16] = v30;
-        v33 = *(this + 78);
+        *&buf[16] = v29;
+        v32 = *(this + 78);
         VoiceProcessorV2::FrontEndFormatConverter(this, buf, *(this + 102), v14, v16, *(this + 129), 0);
       }
     }
 
     else
     {
-      v31 = 0;
+      v30 = 0;
       mDataByteSize = a2->mBuffers[0].mDataByteSize;
-      v25 = mDataByteSize / *(this + 154);
-      v5 = VoiceProcessorV2::FrontEndBlockSizeCheck(this, 1, mDataByteSize / *(this + 154), *(this + 125), a2, &v31);
+      v24 = mDataByteSize / *(this + 154);
+      v5 = VoiceProcessorV2::FrontEndBlockSizeCheck(this, 1, mDataByteSize / *(this + 154), *(this + 125), a2, &v30);
       if (v5)
       {
         goto LABEL_42;
       }
 
-      if (v31)
+      if (v30)
       {
         if ((*(this + 15881) & 1) != 0 || *(this + 15882) == 1)
         {
-          VoiceProcessorV2::SaveFilesWriteSignal(this, 0, v31, a2, a3);
+          VoiceProcessorV2::SaveFilesWriteSignal(this, 0, v30, a2, a3);
         }
 
-        v26 = *(this + 129);
-        if (*v26)
+        v25 = *(this + 129);
+        if (*v25)
         {
-          v27 = 0;
-          v28 = (v26 + 4);
+          v26 = 0;
+          v27 = (v25 + 4);
           do
           {
-            bzero(*v28, *(v28 - 1));
-            ++v27;
-            v28 += 2;
+            bzero(*v27, *(v27 - 1));
+            ++v26;
+            v27 += 2;
           }
 
-          while (v27 < *v26);
+          while (v26 < *v25);
         }
       }
 
@@ -4101,11 +3825,11 @@ LABEL_41:
           VoiceProcessorV2::SaveFilesWriteSignal(this, 0, *(this + 125), a2, a3);
         }
 
-        v29 = *(this + 38);
+        v28 = *(this + 38);
         *buf = *(this + 37);
-        *&buf[16] = v29;
-        v33 = *(this + 78);
-        VoiceProcessorV2::FrontEndFormatConverter(this, buf, *(this + 102), a2, v25, *(this + 129), 0);
+        *&buf[16] = v28;
+        v32 = *(this + 78);
+        VoiceProcessorV2::FrontEndFormatConverter(this, buf, *(this + 102), a2, v24, *(this + 129), 0);
       }
     }
 
@@ -4113,18 +3837,17 @@ LABEL_41:
     goto LABEL_42;
   }
 
-  VoiceProcessorV2::LogIOError(this, 11.006, *(this + 3148), *(this + 3149), 0.0, "appendreferencesignal: failed to acquire uplink reader lock");
+  VoiceProcessorV2::LogIOError(this, 11.006, *(this + 3148), *(this + 3149), 0.0, "appendreferencesignal: failed to acquire uplink reader lock", a3, a4);
 LABEL_3:
   v5 = 4294956433;
 LABEL_42:
   atomic_fetch_add(this + 625, 0xFFFFFFFF);
-  v22 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 uint64_t VoiceProcessorV2::FrontEndBlockSizeCheck(VoiceProcessorV2 *this, int a2, unsigned int a3, unsigned int a4, const AudioBufferList *a5, unsigned int *a6)
 {
-  v102 = *MEMORY[0x277D85DE8];
+  v101 = *MEMORY[0x277D85DE8];
   v8 = this + 12288;
   if (a2)
   {
@@ -4195,10 +3918,10 @@ uint64_t VoiceProcessorV2::FrontEndBlockSizeCheck(VoiceProcessorV2 *this, int a2
             {
               *buf = 136315650;
               *&buf[4] = "VoiceProcessor_v2.cpp";
-              v84 = 1024;
-              v85 = 1325;
-              v86 = 2048;
-              v87 = v44;
+              v83 = 1024;
+              v84 = 1325;
+              v85 = 2048;
+              v86 = v44;
               _os_log_impl(&dword_2724B4000, v51, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  >vp> CoreAudio: ***** VP BLOCK WARNING: BAD BLOCK CONFIG CORRECTED after %.6f seconds *****\n", buf, 0x1Cu);
             }
           }
@@ -4227,14 +3950,14 @@ uint64_t VoiceProcessorV2::FrontEndBlockSizeCheck(VoiceProcessorV2 *this, int a2
             {
               *buf = 136316162;
               *&buf[4] = "VoiceProcessor_v2.cpp";
-              v84 = 1024;
-              v85 = 1329;
-              v86 = 2080;
-              v87 = *&v9;
-              v88 = 1024;
-              v89 = a3;
-              v90 = 1024;
-              v91 = a3;
+              v83 = 1024;
+              v84 = 1329;
+              v85 = 2080;
+              v86 = *&v9;
+              v87 = 1024;
+              v88 = a3;
+              v89 = 1024;
+              v90 = a3;
               _os_log_impl(&dword_2724B4000, v54, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  >vp> append signal (%s): <block size no longer mismatched between expected and actual> num frames received = %u. hwio buff size = %u\n", buf, 0x28u);
             }
           }
@@ -4260,10 +3983,10 @@ uint64_t VoiceProcessorV2::FrontEndBlockSizeCheck(VoiceProcessorV2 *this, int a2
             {
               *buf = 136315650;
               *&buf[4] = "VoiceProcessor_v2.cpp";
-              v84 = 1024;
-              v85 = 1317;
-              v86 = 2048;
-              v87 = v44;
+              v83 = 1024;
+              v84 = 1317;
+              v85 = 2048;
+              v86 = v44;
               _os_log_impl(&dword_2724B4000, v46, OS_LOG_TYPE_ERROR, "%25s:%-5d  >vp> CoreAudio: ***** VP BLOCK SERIOUS ERROR: BAD BLOCK CONFIG CORRECTED after %.6f seconds *****\n", buf, 0x1Cu);
             }
           }
@@ -4292,14 +4015,14 @@ uint64_t VoiceProcessorV2::FrontEndBlockSizeCheck(VoiceProcessorV2 *this, int a2
             {
               *buf = 136316162;
               *&buf[4] = "VoiceProcessor_v2.cpp";
-              v84 = 1024;
-              v85 = 1321;
-              v86 = 2080;
-              v87 = *&v9;
-              v88 = 1024;
-              v89 = a3;
-              v90 = 1024;
-              v91 = a3;
+              v83 = 1024;
+              v84 = 1321;
+              v85 = 2080;
+              v86 = *&v9;
+              v87 = 1024;
+              v88 = a3;
+              v89 = 1024;
+              v90 = a3;
               _os_log_impl(&dword_2724B4000, v49, OS_LOG_TYPE_ERROR, "%25s:%-5d  >vp> append signal (%s): <block size no longer mismatched between expected and actual> num frames received = %u. hwio buff size = %u\n", buf, 0x28u);
             }
           }
@@ -4316,7 +4039,7 @@ uint64_t VoiceProcessorV2::FrontEndBlockSizeCheck(VoiceProcessorV2 *this, int a2
           }
         }
 
-        v24 = 0;
+        return 0;
       }
     }
 
@@ -4331,10 +4054,10 @@ uint64_t VoiceProcessorV2::FrontEndBlockSizeCheck(VoiceProcessorV2 *this, int a2
           v42 = *(this + 1979);
           if (v41 <= v42)
           {
-            goto LABEL_145;
+            return v24;
           }
 
-          v80 = a5;
+          v79 = a5;
           v43 = 15832;
         }
 
@@ -4344,47 +4067,47 @@ uint64_t VoiceProcessorV2::FrontEndBlockSizeCheck(VoiceProcessorV2 *this, int a2
           v42 = *(this + 1980);
           if (v41 <= v42)
           {
-            goto LABEL_145;
+            return v24;
           }
 
-          v80 = a5;
+          v79 = a5;
           v43 = 15840;
         }
 
         *(this + v43) = v42 + 10.0;
         VoiceProcessorV2::LogIOError(this, v10 + 0.002, *(this + 3148), *(this + 3149), a3, "append signal (%s): <block size mismatch>", v9);
-        v79 = v9;
+        v78 = v9;
         if (VPLogScope(void)::once != -1)
         {
           dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
         }
 
-        v77 = a4;
-        v58 = VPLogScope(void)::scope;
+        v76 = a4;
+        v57 = VPLogScope(void)::scope;
         if (VPLogScope(void)::scope && CALegacyLog::LogEnabled(1, VPLogScope(void)::scope, 0))
         {
-          v59 = (*v58 ? *v58 : MEMORY[0x277D86220]);
-          if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
+          v58 = (*v57 ? *v57 : MEMORY[0x277D86220]);
+          if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
           {
             *buf = 136315650;
             *&buf[4] = "VoiceProcessor_v2.cpp";
-            v84 = 1024;
-            v85 = 1283;
-            v86 = 2048;
-            v87 = v41;
-            _os_log_impl(&dword_2724B4000, v59, OS_LOG_TYPE_ERROR, "%25s:%-5d  >vp> CoreAudio: ***** VP BLOCK SERIOUS ERROR: BAD BLOCK CONFIG for over %.6f seconds *****\n", buf, 0x1Cu);
+            v83 = 1024;
+            v84 = 1283;
+            v85 = 2048;
+            v86 = v41;
+            _os_log_impl(&dword_2724B4000, v58, OS_LOG_TYPE_ERROR, "%25s:%-5d  >vp> CoreAudio: ***** VP BLOCK SERIOUS ERROR: BAD BLOCK CONFIG for over %.6f seconds *****\n", buf, 0x1Cu);
           }
         }
 
-        v60 = *(this + 1588);
-        if (v60 && ((v8[3593] & 1) != 0 || v8[3594] == 1))
+        v59 = *(this + 1588);
+        if (v59 && ((v8[3593] & 1) != 0 || v8[3594] == 1))
         {
           if (VPLogScope(void)::once != -1)
           {
             dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
           }
 
-          CALegacyLog::log(v60, 1, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/VoiceProcessor_v2.cpp", 1283, "FrontEndBlockSizeCheck", "CoreAudio: ***** VP BLOCK SERIOUS ERROR: BAD BLOCK CONFIG for over %.6f seconds *****\n", v41);
+          CALegacyLog::log(v59, 1, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/VoiceProcessor_v2.cpp", 1283, "FrontEndBlockSizeCheck", "CoreAudio: ***** VP BLOCK SERIOUS ERROR: BAD BLOCK CONFIG for over %.6f seconds *****\n", v41);
         }
 
         if (VPLogScope(void)::once != -1)
@@ -4392,56 +4115,56 @@ uint64_t VoiceProcessorV2::FrontEndBlockSizeCheck(VoiceProcessorV2 *this, int a2
           dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
         }
 
-        v61 = VPLogScope(void)::scope;
+        v60 = VPLogScope(void)::scope;
         if (VPLogScope(void)::scope && CALegacyLog::LogEnabled(1, VPLogScope(void)::scope, 0))
         {
-          v62 = (*v61 ? *v61 : MEMORY[0x277D86220]);
-          if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+          v61 = (*v60 ? *v60 : MEMORY[0x277D86220]);
+          if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
           {
-            mDataByteSize = v80->mBuffers[0].mDataByteSize;
-            v73 = *(this + 125);
-            v75 = *(this + 126);
-            CAFormatter::CAFormatter(&v82, v12);
-            v63 = v82;
-            CAFormatter::CAFormatter(&v81, v11);
-            v64 = *(this + 3148);
+            mDataByteSize = v79->mBuffers[0].mDataByteSize;
+            v72 = *(this + 125);
+            v74 = *(this + 126);
+            CAFormatter::CAFormatter(&v81, v12);
+            v62 = v81;
+            CAFormatter::CAFormatter(&v80, v11);
+            v63 = *(this + 3148);
             *buf = 136317698;
             *&buf[4] = "VoiceProcessor_v2.cpp";
-            v84 = 1024;
-            v85 = 1291;
-            v86 = 2080;
-            v87 = *&v9;
-            v88 = 1024;
-            v89 = a3;
-            v90 = 1024;
-            v91 = mDataByteSize;
-            v92 = 1024;
-            *v93 = v77;
-            *&v93[4] = 1024;
-            *&v93[6] = v73;
-            v94 = 1024;
-            v95 = v75;
-            v96 = 2080;
-            v97 = v63;
-            v98 = 2080;
-            v99 = v81;
-            v100 = 1024;
-            v101 = v64;
-            _os_log_impl(&dword_2724B4000, v62, OS_LOG_TYPE_ERROR, "%25s:%-5d  >vp> append signal (%s): <block size mismatch btwn expected and actual> num frames received  = %u (data byte size = %u).\t hwio buff size = %u\n\t\thwio ref buff size  = %u.\t hwio mic buff size = %u\n\tmic asbd = %s, ref asbd = %s\n\t\t process callcount = %u\n", buf, 0x54u);
+            v83 = 1024;
+            v84 = 1291;
+            v85 = 2080;
+            v86 = *&v9;
+            v87 = 1024;
+            v88 = a3;
+            v89 = 1024;
+            v90 = mDataByteSize;
+            v91 = 1024;
+            *v92 = v76;
+            *&v92[4] = 1024;
+            *&v92[6] = v72;
+            v93 = 1024;
+            v94 = v74;
+            v95 = 2080;
+            v96 = v62;
+            v97 = 2080;
+            v98 = v80;
+            v99 = 1024;
+            v100 = v63;
+            _os_log_impl(&dword_2724B4000, v61, OS_LOG_TYPE_ERROR, "%25s:%-5d  >vp> append signal (%s): <block size mismatch btwn expected and actual> num frames received  = %u (data byte size = %u).\t hwio buff size = %u\n\t\thwio ref buff size  = %u.\t hwio mic buff size = %u\n\tmic asbd = %s, ref asbd = %s\n\t\t process callcount = %u\n", buf, 0x54u);
+            if (v80)
+            {
+              free(v80);
+            }
+
             if (v81)
             {
               free(v81);
             }
-
-            if (v82)
-            {
-              free(v82);
-            }
           }
         }
 
-        v65 = *(this + 1588);
-        if (v65)
+        v64 = *(this + 1588);
+        if (v64)
         {
           if ((v8[3593] & 1) != 0 || v8[3594] == 1)
           {
@@ -4450,14 +4173,14 @@ uint64_t VoiceProcessorV2::FrontEndBlockSizeCheck(VoiceProcessorV2 *this, int a2
               dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
             }
 
-            v66 = VPLogScope(void)::scope;
-            v67 = v80->mBuffers[0].mDataByteSize;
-            v68 = *(this + 125);
-            v69 = *(this + 126);
+            v65 = VPLogScope(void)::scope;
+            v66 = v79->mBuffers[0].mDataByteSize;
+            v67 = *(this + 125);
+            v68 = *(this + 126);
             CAFormatter::CAFormatter(buf, v12);
-            v70 = *buf;
-            CAFormatter::CAFormatter(&v82, v11);
-            CALegacyLog::log(v65, 1, v66, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/VoiceProcessor_v2.cpp", 1291, "FrontEndBlockSizeCheck", "append signal (%s): <block size mismatch btwn expected and actual> num frames received  = %u (data byte size = %u).\t hwio buff size = %u\n\t\thwio ref buff size  = %u.\t hwio mic buff size = %u\n\tmic asbd = %s, ref asbd = %s\n\t\t process callcount = %u\n", v79, a3, v67, v77, v68, v69, v70, v82, *(this + 3148));
+            v69 = *buf;
+            CAFormatter::CAFormatter(&v81, v11);
+            CALegacyLog::log(v64, 1, v65, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/VoiceProcessor_v2.cpp", 1291, "FrontEndBlockSizeCheck", "append signal (%s): <block size mismatch btwn expected and actual> num frames received  = %u (data byte size = %u).\t hwio buff size = %u\n\t\thwio ref buff size  = %u.\t hwio mic buff size = %u\n\tmic asbd = %s, ref asbd = %s\n\t\t process callcount = %u\n", v78, a3, v66, v76, v67, v68, v69, v81, *(this + 3148));
             goto LABEL_69;
           }
         }
@@ -4484,14 +4207,14 @@ uint64_t VoiceProcessorV2::FrontEndBlockSizeCheck(VoiceProcessorV2 *this, int a2
 
       *(this + v19) = v17;
       *(this + v18) = 0x3FF0000000000000;
-      v78 = v9;
+      v77 = v9;
       VoiceProcessorV2::LogIOError(this, v10 + 0.002, *(this + 3148), *(this + 3149), a3, "append signal (%s): <block size mismatch>", v9);
       if (VPLogScope(void)::once != -1)
       {
         dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
       }
 
-      v76 = a4;
+      v75 = a4;
       v25 = VPLogScope(void)::scope;
       if (VPLogScope(void)::scope && CALegacyLog::LogEnabled(2, VPLogScope(void)::scope, 0))
       {
@@ -4500,8 +4223,8 @@ uint64_t VoiceProcessorV2::FrontEndBlockSizeCheck(VoiceProcessorV2 *this, int a2
         {
           *buf = 136315394;
           *&buf[4] = "VoiceProcessor_v2.cpp";
-          v84 = 1024;
-          v85 = 1247;
+          v83 = 1024;
+          v84 = 1247;
           _os_log_impl(&dword_2724B4000, v26, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  >vp> CoreAudio: ***** VP BLOCK WARNING: TRANSIENT INCORRECT BLOCK CONFIG", buf, 0x12u);
         }
       }
@@ -4529,43 +4252,43 @@ uint64_t VoiceProcessorV2::FrontEndBlockSizeCheck(VoiceProcessorV2 *this, int a2
         if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
         {
           v30 = a5->mBuffers[0].mDataByteSize;
-          v72 = *(this + 125);
-          v74 = *(this + 126);
-          CAFormatter::CAFormatter(&v82, v12);
-          v31 = v82;
-          CAFormatter::CAFormatter(&v81, v11);
+          v71 = *(this + 125);
+          v73 = *(this + 126);
+          CAFormatter::CAFormatter(&v81, v12);
+          v31 = v81;
+          CAFormatter::CAFormatter(&v80, v11);
           v32 = *(this + 3148);
           *buf = 136317698;
           *&buf[4] = "VoiceProcessor_v2.cpp";
-          v84 = 1024;
-          v85 = 1255;
-          v86 = 2080;
-          v87 = *&v9;
-          v88 = 1024;
-          v89 = a3;
-          v90 = 1024;
-          v91 = v30;
-          v92 = 1024;
-          *v93 = v76;
-          *&v93[4] = 1024;
-          *&v93[6] = v72;
-          v94 = 1024;
-          v95 = v74;
-          v96 = 2080;
-          v97 = v31;
-          v98 = 2080;
-          v99 = v81;
-          v100 = 1024;
-          v101 = v32;
+          v83 = 1024;
+          v84 = 1255;
+          v85 = 2080;
+          v86 = *&v9;
+          v87 = 1024;
+          v88 = a3;
+          v89 = 1024;
+          v90 = v30;
+          v91 = 1024;
+          *v92 = v75;
+          *&v92[4] = 1024;
+          *&v92[6] = v71;
+          v93 = 1024;
+          v94 = v73;
+          v95 = 2080;
+          v96 = v31;
+          v97 = 2080;
+          v98 = v80;
+          v99 = 1024;
+          v100 = v32;
           _os_log_impl(&dword_2724B4000, v29, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  >vp> warning: append signal (%s): <transient block size mismatch btwn expected and actual> num frames received  = %u (data byte size = %u).\t hwio buff size = %u\n\t\thwio ref buff size  = %u.\t hwio mic buff size = %u\n\tmic asbd = %s, ref asbd = %s\n\t\t process callcount = %u\n", buf, 0x54u);
+          if (v80)
+          {
+            free(v80);
+          }
+
           if (v81)
           {
             free(v81);
-          }
-
-          if (v82)
-          {
-            free(v82);
           }
         }
       }
@@ -4585,12 +4308,12 @@ uint64_t VoiceProcessorV2::FrontEndBlockSizeCheck(VoiceProcessorV2 *this, int a2
         v37 = *(this + 126);
         CAFormatter::CAFormatter(buf, v12);
         v38 = *buf;
-        CAFormatter::CAFormatter(&v82, v11);
-        CALegacyLog::log(v33, 2, v34, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/VoiceProcessor_v2.cpp", 1255, "FrontEndBlockSizeCheck", "warning: append signal (%s): <transient block size mismatch btwn expected and actual> num frames received  = %u (data byte size = %u).\t hwio buff size = %u\n\t\thwio ref buff size  = %u.\t hwio mic buff size = %u\n\tmic asbd = %s, ref asbd = %s\n\t\t process callcount = %u\n", v78, a3, v35, v76, v36, v37, v38, v82, *(this + 3148));
+        CAFormatter::CAFormatter(&v81, v11);
+        CALegacyLog::log(v33, 2, v34, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/VoiceProcessor_v2.cpp", 1255, "FrontEndBlockSizeCheck", "warning: append signal (%s): <transient block size mismatch btwn expected and actual> num frames received  = %u (data byte size = %u).\t hwio buff size = %u\n\t\thwio ref buff size  = %u.\t hwio mic buff size = %u\n\tmic asbd = %s, ref asbd = %s\n\t\t process callcount = %u\n", v77, a3, v35, v75, v36, v37, v38, v81, *(this + 3148));
 LABEL_69:
-        if (v82)
+        if (v81)
         {
-          free(v82);
+          free(v81);
         }
 
         if (*buf)
@@ -4616,16 +4339,16 @@ LABEL_69:
         v22 = *(this + 3148);
         *buf = 136316418;
         *&buf[4] = "VoiceProcessor_v2.cpp";
-        v84 = 1024;
-        v85 = 1229;
-        v86 = 2080;
-        v87 = *&v9;
-        v88 = 1024;
-        v89 = 0;
-        v90 = 1024;
-        v91 = a4;
-        v92 = 2048;
-        *v93 = v22;
+        v83 = 1024;
+        v84 = 1229;
+        v85 = 2080;
+        v86 = *&v9;
+        v87 = 1024;
+        v88 = 0;
+        v89 = 1024;
+        v90 = a4;
+        v91 = 2048;
+        *v92 = v22;
         _os_log_impl(&dword_2724B4000, v21, OS_LOG_TYPE_DEBUG, "%25s:%-5d  <vp> append signal (%s): <silence optimization, generating zeroes> num frames received = %u.\t hwio buff size = %u\t process callcount = %lu", buf, 0x32u);
       }
     }
@@ -4645,8 +4368,6 @@ LABEL_69:
     *a6 = a4;
   }
 
-LABEL_145:
-  v56 = *MEMORY[0x277D85DE8];
   return v24;
 }
 
@@ -4663,9 +4384,9 @@ void sub_2724D574C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 uint64_t VoiceProcessorV2::FrontEndFormatConverter(VoiceProcessorV2 *this, const CAStreamBasicDescription *a2, unsigned int a3, AudioBuffer *a4, uint64_t a5, AudioBufferList *a6, int a7)
 {
   v7 = a6;
-  v89 = a2;
-  v98 = *MEMORY[0x277D85DE8];
-  v91 = a7;
+  v88 = a2;
+  v97 = *MEMORY[0x277D85DE8];
+  v90 = a7;
   if (a7)
   {
     v10 = 5;
@@ -4677,32 +4398,32 @@ uint64_t VoiceProcessorV2::FrontEndFormatConverter(VoiceProcessorV2 *this, const
   }
 
   mNumberChannels = a4->mNumberChannels;
-  v86 = a5;
+  v85 = a5;
   if (mNumberChannels != 1)
   {
-    v88 = a6;
-    v82 = v81;
-    v84 = a5;
+    v87 = a6;
+    v81 = v80;
+    v83 = a5;
     v12 = 4 * a5;
-    v90 = a4;
-    v13 = (MEMORY[0x28223BE20])();
-    v14 = v81 - ((v12 + 15) & 0x7FFFFFFF0);
-    MEMORY[0x28223BE20](v13);
-    v16 = (v81 - v15);
-    bzero(v14, v12);
-    v83 = v16;
+    p_mData = a4;
+    MEMORY[0x28223BE20](this);
+    v13 = v80 - ((v12 + 15) & 0x7FFFFFFF0);
+    MEMORY[0x28223BE20](v14);
+    v16 = (v80 - v15);
+    bzero(v13, v12);
+    v82 = v16;
     bzero(v16, v12);
-    p_mNumberChannels = &v90->mNumberChannels;
-    v18 = v86;
-    v19 = v90->mNumberChannels;
+    v17 = p_mData;
+    v18 = v85;
+    v19 = *p_mData;
     if (!v19)
     {
 LABEL_25:
-      v7 = v88;
+      v7 = v87;
       if (!a3)
       {
-        *buf = 1.0 / *p_mNumberChannels;
-        MEMORY[0x2743CCE20](v83, 1, buf, v88->mBuffers[0].mData, 1, v84);
+        *buf = 1.0 / *v17;
+        MEMORY[0x2743CCE20](v82, 1, buf, v87->mBuffers[0].mData, 1, v83);
       }
 
       goto LABEL_27;
@@ -4710,14 +4431,14 @@ LABEL_25:
 
     v20 = 0;
     v21 = 0;
-    LODWORD(v85) = ((2 * a3) | (a3 >> 1)) & 3;
-    p_mData = &v90->mData;
-    mBuffers = v88->mBuffers;
+    LODWORD(v84) = ((2 * a3) | (a3 >> 1)) & 3;
+    v22 = p_mData + 1;
+    mBuffers = v87->mBuffers;
     while (1)
     {
-      if (v91 && **(this + 297) == 1886216809 && (*(this + 19) - 27) <= 6)
+      if (v90 && **(this + 297) == 1886216809 && (*(this + 19) - 27) <= 6)
       {
-        if (v85 && ((1 << v20) & v85) == 0)
+        if (v84 && ((1 << v20) & v84) == 0)
         {
           goto LABEL_24;
         }
@@ -4728,37 +4449,37 @@ LABEL_25:
         goto LABEL_24;
       }
 
-      if (v21 >= v88->mNumberBuffers)
+      if (v21 >= v87->mNumberBuffers)
       {
         if (VPLogScope(void)::once != -1)
         {
           dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-          p_mNumberChannels = &v90->mNumberChannels;
+          v17 = p_mData;
         }
 
         v49 = VPLogScope(void)::scope;
         if (VPLogScope(void)::scope)
         {
           v50 = CALegacyLog::LogEnabled(1, VPLogScope(void)::scope, 0);
-          p_mNumberChannels = &v90->mNumberChannels;
+          v17 = p_mData;
           if (v50)
           {
             v51 = (*v49 ? *v49 : MEMORY[0x277D86220]);
             v52 = os_log_type_enabled(v51, OS_LOG_TYPE_ERROR);
-            p_mNumberChannels = &v90->mNumberChannels;
+            v17 = p_mData;
             if (v52)
             {
-              mNumberBuffers = v88->mNumberBuffers;
+              mNumberBuffers = v87->mNumberBuffers;
               *buf = 136315906;
               *&buf[4] = "VoiceProcessor_v2.cpp";
               *&buf[12] = 1024;
               *&buf[14] = 1473;
               *&buf[18] = 1024;
               *&buf[20] = v21;
-              v96 = 1024;
-              v97 = mNumberBuffers;
+              v95 = 1024;
+              v96 = mNumberBuffers;
               _os_log_impl(&dword_2724B4000, v51, OS_LOG_TYPE_ERROR, "%25s:%-5d frontendformatconverter : error dst channel index (%d) goes beyond number of channels in out ABL (%d)", buf, 0x1Eu);
-              p_mNumberChannels = &v90->mNumberChannels;
+              v17 = p_mData;
             }
           }
         }
@@ -4766,17 +4487,17 @@ LABEL_25:
         goto LABEL_25;
       }
 
-      ConvertBufferToFloat32(v89, &p_mData[2 * v20], 0, v14, v18);
+      ConvertBufferToFloat32(v88, &v22[2 * v20], 0, v13, v18);
       if (a3)
       {
-        memcpy(mBuffers[2 * v21 + 1], v14, v12);
+        memcpy(mBuffers[2 * v21 + 1], v13, v12);
       }
 
       else if (v18)
       {
-        v23 = v83;
-        v24 = v84;
-        v25 = (v81 - ((v12 + 15) & 0x7FFFFFFF0));
+        v23 = v82;
+        v24 = v83;
+        v25 = (v80 - ((v12 + 15) & 0x7FFFFFFF0));
         do
         {
           v26 = *v25++;
@@ -4789,8 +4510,8 @@ LABEL_25:
       }
 
       v21 += a3 != 0;
-      p_mNumberChannels = &v90->mNumberChannels;
-      v19 = v90->mNumberChannels;
+      v17 = p_mData;
+      v19 = *p_mData;
 LABEL_24:
       if (++v20 >= v19)
       {
@@ -4801,44 +4522,44 @@ LABEL_24:
 
   if (LODWORD(a4->mData) == 1)
   {
-    ConvertBufferToFloat32(v89, &a4->mData, 0, a6->mBuffers[0].mData, v86);
+    ConvertBufferToFloat32(v88, &a4->mData, 0, a6->mBuffers[0].mData, v85);
     goto LABEL_27;
   }
 
   if (LODWORD(a4->mData) <= v10)
   {
-    v81[1] = v81;
-    v83 = a5;
+    v80[1] = v80;
+    v82 = a5;
     v30 = 4 * a5;
-    v90 = &a4->mData;
-    v31 = MEMORY[0x28223BE20](this);
-    v32 = v81 - ((v30 + 15) & 0x7FFFFFFF0);
-    MEMORY[0x28223BE20](v31);
-    v34 = (v81 - v33);
-    bzero(v32, v30);
-    v82 = v34;
-    v85 = v30;
+    p_mData = &a4->mData;
+    MEMORY[0x28223BE20](this);
+    v31 = v80 - ((v30 + 15) & 0x7FFFFFFF0);
+    MEMORY[0x28223BE20](v32);
+    v34 = (v80 - v33);
+    bzero(v31, v30);
+    v81 = v34;
+    v84 = v30;
     bzero(v34, v30);
-    v35 = v90;
-    v36 = v86;
-    v37 = v90->mNumberChannels;
-    if (!v90->mNumberChannels)
+    v35 = p_mData;
+    v36 = v85;
+    v37 = *p_mData;
+    if (!*p_mData)
     {
       goto LABEL_61;
     }
 
     v38 = 0;
     v39 = 0;
-    LODWORD(v88) = a3 != 0;
-    LODWORD(v84) = ((2 * a3) | (a3 >> 1)) & 3;
+    LODWORD(v87) = a3 != 0;
+    LODWORD(v83) = ((2 * a3) | (a3 >> 1)) & 3;
     mBuffers = &v7->mBuffers[0].mData;
     v40 = v7->mBuffers;
     while (1)
     {
       v41 = 1 << v39;
-      if (v91 && **(this + 297) == 1886216809 && (*(this + 19) - 27) <= 6)
+      if (v90 && **(this + 297) == 1886216809 && (*(this + 19) - 27) <= 6)
       {
-        if (v84 && (v41 & v84) == 0)
+        if (v83 && (v41 & v83) == 0)
         {
           goto LABEL_60;
         }
@@ -4854,32 +4575,32 @@ LABEL_24:
         if (VPLogScope(void)::once != -1)
         {
           dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-          v35 = v90;
+          v35 = p_mData;
         }
 
-        v73 = VPLogScope(void)::scope;
+        v72 = VPLogScope(void)::scope;
         if (VPLogScope(void)::scope)
         {
-          v74 = CALegacyLog::LogEnabled(1, VPLogScope(void)::scope, 0);
-          v35 = v90;
-          if (v74)
+          v73 = CALegacyLog::LogEnabled(1, VPLogScope(void)::scope, 0);
+          v35 = p_mData;
+          if (v73)
           {
-            v75 = (*v73 ? *v73 : MEMORY[0x277D86220]);
-            v76 = os_log_type_enabled(v75, OS_LOG_TYPE_ERROR);
-            v35 = v90;
-            if (v76)
+            v74 = (*v72 ? *v72 : MEMORY[0x277D86220]);
+            v75 = os_log_type_enabled(v74, OS_LOG_TYPE_ERROR);
+            v35 = p_mData;
+            if (v75)
             {
-              v77 = v7->mNumberBuffers;
+              v76 = v7->mNumberBuffers;
               *buf = 136315906;
               *&buf[4] = "VoiceProcessor_v2.cpp";
               *&buf[12] = 1024;
               *&buf[14] = 1410;
               *&buf[18] = 1024;
               *&buf[20] = v38;
-              v96 = 1024;
-              v97 = v77;
-              _os_log_impl(&dword_2724B4000, v75, OS_LOG_TYPE_ERROR, "%25s:%-5d frontendformatconverter : error dst channel index (%d) goes beyond number of channels in out ABL (%d)", buf, 0x1Eu);
-              v35 = v90;
+              v95 = 1024;
+              v96 = v76;
+              _os_log_impl(&dword_2724B4000, v74, OS_LOG_TYPE_ERROR, "%25s:%-5d frontendformatconverter : error dst channel index (%d) goes beyond number of channels in out ABL (%d)", buf, 0x1Eu);
+              v35 = p_mData;
             }
           }
         }
@@ -4888,11 +4609,11 @@ LABEL_61:
         if (!a3)
         {
           *buf = 1.0 / v35->mNumberChannels;
-          MEMORY[0x2743CCE20](v82, 1, buf, v7->mBuffers[0].mData, 1, v83);
+          MEMORY[0x2743CCE20](v81, 1, buf, v7->mBuffers[0].mData, 1, v82);
         }
 
 LABEL_27:
-        if (v91)
+        if (v90)
         {
           if (**(this + 297) == 1886216809)
           {
@@ -4905,7 +4626,7 @@ LABEL_27:
               *&v7[1].mNumberBuffers = v28;
             }
 
-            goto LABEL_92;
+            return v27;
           }
         }
 
@@ -4919,7 +4640,7 @@ LABEL_27:
 
           if (*(this + 2260) == 1 && *(this + 19) == 19)
           {
-            v94 = xmmword_272756300;
+            v93 = xmmword_272756300;
             *&buf[8] = 0;
             *&buf[16] = 0;
             *buf = &buf[8];
@@ -4927,19 +4648,19 @@ LABEL_27:
           }
 
           vp::Audio_Buffer_List_Ref::Audio_Buffer_List_Ref(buf, v7);
-          vp::Audio_Buffer_List_Ref::Audio_Buffer_List_Ref(&v94, v7);
+          vp::Audio_Buffer_List_Ref::Audio_Buffer_List_Ref(&v93, v7);
           v54 = *buf;
-          if (**buf == *v29 && (v55 = v94, v56 = *v94, *v94 == *(this + 503)) && *(this + 504) >= v86)
+          if (**buf == *v29 && (v55 = v93, v56 = *v93, *v93 == *(this + 503)) && *(this + 504) >= v85)
           {
-            v93 = 1065353216;
+            v92 = 1065353216;
             if (v56)
             {
               v57 = 0;
               v58 = 0;
-              v59 = v86;
+              v59 = v85;
               do
               {
-                vDSP_vfill(&v93 + 1, *(*(this + 253) + v57), 1, v59);
+                vDSP_vfill(&v92 + 1, *(*(this + 253) + v57), 1, v59);
                 ++v58;
                 v60 = *(this + 503);
                 v57 += 24;
@@ -4960,11 +4681,11 @@ LABEL_27:
                     v66 = v63;
                     do
                     {
-                      v92 = *(*(*(this + 256) + 24 * v61) + 4 * v65);
-                      if (v92 != 0.0)
+                      v91 = *(*(*(this + 256) + 24 * v61) + 4 * v65);
+                      if (v91 != 0.0)
                       {
                         v67 = *(*(this + 253) + 24 * v61);
-                        MEMORY[0x2743CCE10](*v66, *(v66 - 2), &v92, v67, 1, v67, 1, v59);
+                        MEMORY[0x2743CCE10](*v66, *(v66 - 2), &v91, v67, 1, v67, 1, v59);
                         v62 = *v29;
                       }
 
@@ -4988,7 +4709,7 @@ LABEL_27:
                   v70 = (v55 + 16);
                   do
                   {
-                    MEMORY[0x2743CCE20](*(*(this + 253) + v68), 1, &v93, *v70, *(v70 - 2), v59);
+                    MEMORY[0x2743CCE20](*(*(this + 253) + v68), 1, &v92, *v70, *(v70 - 2), v59);
                     ++v69;
                     v70 += 2;
                     v68 += 24;
@@ -5007,27 +4728,26 @@ LABEL_27:
               dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
             }
 
-            v78 = VPLogScope(void)::scope;
+            v77 = VPLogScope(void)::scope;
             if (VPLogScope(void)::scope && CALegacyLog::LogEnabled(1, VPLogScope(void)::scope, 0))
             {
-              v79 = (*v78 ? *v78 : MEMORY[0x277D86220]);
-              if (os_log_type_enabled(v79, OS_LOG_TYPE_ERROR))
+              v78 = (*v77 ? *v77 : MEMORY[0x277D86220]);
+              if (os_log_type_enabled(v78, OS_LOG_TYPE_ERROR))
               {
-                v80 = v7->mNumberBuffers;
+                v79 = v7->mNumberBuffers;
                 *buf = 136315650;
                 *&buf[4] = "VoiceProcessor_v2.cpp";
                 *&buf[12] = 1024;
                 *&buf[14] = 1545;
                 *&buf[18] = 1024;
-                *&buf[20] = v80;
-                _os_log_impl(&dword_2724B4000, v79, OS_LOG_TYPE_ERROR, "%25s:%-5d failed to downmix %u reference signals", buf, 0x18u);
+                *&buf[20] = v79;
+                _os_log_impl(&dword_2724B4000, v78, OS_LOG_TYPE_ERROR, "%25s:%-5d failed to downmix %u reference signals", buf, 0x18u);
               }
             }
           }
         }
 
-        v27 = 0;
-        goto LABEL_92;
+        return 0;
       }
 
       v42 = v7;
@@ -5038,17 +4758,17 @@ LABEL_27:
       }
 
       v44 = *v43;
-      ConvertBufferToFloat32(v89, v35, v39, v32, v36);
+      ConvertBufferToFloat32(v88, v35, v39, v31, v36);
       if (a3)
       {
-        memcpy(v44, v32, v85);
+        memcpy(v44, v31, v84);
       }
 
       else if (v36)
       {
-        v45 = v82;
-        v46 = v83;
-        v47 = v32;
+        v45 = v81;
+        v46 = v82;
+        v47 = v31;
         do
         {
           v48 = *v47++;
@@ -5060,9 +4780,9 @@ LABEL_27:
         while (v46);
       }
 
-      v38 += v88;
-      v35 = v90;
-      v37 = v90->mNumberChannels;
+      v38 += v87;
+      v35 = p_mData;
+      v37 = *p_mData;
       v7 = v42;
 LABEL_60:
       if (++v39 >= v37)
@@ -5082,15 +4802,13 @@ LABEL_60:
     _os_log_impl(&dword_2724B4000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%25s:%-5d  appendsignal: ERROR too many interleaved channels?! data disagrees with ASBD set during InitializeHWInput", buf, 0x12u);
   }
 
-LABEL_92:
-  v71 = *MEMORY[0x277D85DE8];
   return v27;
 }
 
 double VoiceProcessorV2::FrontEndRefTimeStampHandler(VoiceProcessorV2 *this, double *a2, UInt32 inNumberPCMFrames)
 {
   v4 = a2;
-  v106 = *MEMORY[0x277D85DE8];
+  v104 = *MEMORY[0x277D85DE8];
   v6 = this + 12288;
   v7 = *a2;
   if ((*(this + 1696) & 1) == 0)
@@ -5133,19 +4851,19 @@ double VoiceProcessorV2::FrontEndRefTimeStampHandler(VoiceProcessorV2 *this, dou
           v14 = *(v4 + 2);
           v15 = *(v4 + 14);
           *buf = 136316674;
-          v93 = "VoiceProcessor_v2.cpp";
-          v94 = 1024;
-          v95 = 1583;
+          v91 = "VoiceProcessor_v2.cpp";
+          v92 = 1024;
+          v93 = 1583;
+          v94 = 2048;
+          v95 = v11;
           v96 = 2048;
-          v97 = v11;
+          v97 = v12;
           v98 = 2048;
-          v99 = v12;
+          v99 = v13;
           v100 = 2048;
-          v101 = v13;
-          v102 = 2048;
-          v103 = v14;
-          v104 = 1024;
-          v105 = v15;
+          v101 = v14;
+          v102 = 1024;
+          v103 = v15;
           _os_log_impl(&dword_2724B4000, v10, OS_LOG_TYPE_ERROR, "%25s:%-5d  >vp> ref sample time jumped backwards, expected sample time: %.2lf, input sample time: %.2lf, input host time: %lld, input rate scalar: %.2lf, input flag: %d", buf, 0x40u);
         }
       }
@@ -5158,8 +4876,7 @@ double VoiceProcessorV2::FrontEndRefTimeStampHandler(VoiceProcessorV2 *this, dou
           dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
         }
 
-        v17 = *(this + 213);
-        CALegacyLog::log(v16, 1, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/VoiceProcessor_v2.cpp", 1583, "FrontEndRefTimeStampHandler", "ref sample time jumped backwards, expected sample time: %.2lf, input sample time: %.2lf, input host time: %lld, input rate scalar: %.2lf, input flag: %d", v17, *v4, *(v4 + 1), v4[2], *(v4 + 14));
+        CALegacyLog::log(v16, 1, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/VoiceProcessor_v2.cpp", 1583, "FrontEndRefTimeStampHandler", "ref sample time jumped backwards, expected sample time: %.2lf, input sample time: %.2lf, input host time: %lld, input rate scalar: %.2lf, input flag: %d", *(this + 213), *v4, *(v4 + 1), v4[2], *(v4 + 14));
       }
 
       VoiceProcessorV2::LogIOError(this, 12.008, *(this + 3148), *(this + 3149), 0.0, "ref sample time jumped backwards");
@@ -5169,191 +4886,191 @@ double VoiceProcessorV2::FrontEndRefTimeStampHandler(VoiceProcessorV2 *this, dou
 
   if (inNumberPCMFrames)
   {
-    v18 = *(this + 151);
-    v19 = *(v18 + 120);
-    if (v19 < inNumberPCMFrames)
+    v17 = *(this + 151);
+    v18 = *(v17 + 120);
+    if (v18 < inNumberPCMFrames)
     {
-      v20 = 3;
+      v19 = 3;
 LABEL_29:
-      VoiceProcessorV2::LogIOError(this, 12.001, *(this + 3148), *(this + 3149), v20, "frontendreftshandler: ERROR: Ring Buffer error! %d", v20);
+      VoiceProcessorV2::LogIOError(this, 12.001, *(this + 3148), *(this + 3149), v19, "frontendreftshandler: ERROR: Ring Buffer error! %d", v19);
       goto LABEL_61;
     }
 
-    v90 = *(this + 129);
-    v21 = v7;
-    v22 = v7 + inNumberPCMFrames;
-    v23 = v18 + 136;
-    v24 = *(v18 + 904);
-    v25 = v18 + 136 + 24 * (v24 & 0x1F);
-    v27 = *(v25 + 8);
-    v26 = (v25 + 8);
-    if (v27 > v7 || *(v18 + 908) == 1 && *(v18 + 909) == 1)
+    v88 = *(this + 129);
+    v20 = v7;
+    v21 = v7 + inNumberPCMFrames;
+    v22 = v17 + 136;
+    v23 = *(v17 + 904);
+    v24 = v17 + 136 + 24 * (v23 & 0x1F);
+    v26 = *(v24 + 8);
+    v25 = (v24 + 8);
+    if (v26 > v7 || *(v17 + 908) == 1 && *(v17 + 909) == 1)
     {
-      v28 = v23 + 24 * ((v24 + 1) & 0x1F);
-      *v28 = v21;
-      *(v28 + 8) = v21;
-      *(v28 + 16) = v24 + 1;
-      v29 = v24;
-      atomic_compare_exchange_strong((v18 + 904), &v29, v24 + 1);
-      if (v29 != v24)
+      v27 = v22 + 24 * ((v23 + 1) & 0x1F);
+      *v27 = v20;
+      *(v27 + 8) = v20;
+      *(v27 + 16) = v23 + 1;
+      v28 = v23;
+      atomic_compare_exchange_strong((v17 + 904), &v28, v23 + 1);
+      if (v28 != v23)
       {
-        *(v18 + 904) = v29;
+        *(v17 + 904) = v28;
       }
 
-      *(v18 + 908) = 0;
+      *(v17 + 908) = 0;
     }
 
-    else if (v22 - *(v23 + 24 * (v24 & 0x1F)) > v19)
+    else if (v21 - *(v22 + 24 * (v23 & 0x1F)) > v18)
     {
-      v30 = v22 - v19;
-      v31 = *v26;
-      if (v30 > v31)
+      v29 = v21 - v18;
+      v30 = *v25;
+      if (v29 > v30)
       {
-        v31 = v30;
+        v30 = v29;
       }
 
-      v32 = v23 + 24 * ((v24 + 1) & 0x1F);
-      *v32 = v30;
-      *(v32 + 8) = v31;
-      *(v32 + 16) = v24 + 1;
-      v33 = v24;
-      atomic_compare_exchange_strong((v18 + 904), &v33, v24 + 1);
-      if (v33 != v24)
+      v31 = v22 + 24 * ((v23 + 1) & 0x1F);
+      *v31 = v29;
+      *(v31 + 8) = v30;
+      *(v31 + 16) = v23 + 1;
+      v32 = v23;
+      atomic_compare_exchange_strong((v17 + 904), &v32, v23 + 1);
+      if (v32 != v23)
       {
-        *(v18 + 904) = v33;
+        *(v17 + 904) = v32;
       }
     }
 
-    v34 = *(v18 + 104);
-    v35 = *(v23 + 24 * (*(v18 + 904) & 0x1F) + 8);
-    v36 = *(v18 + 120);
-    v38 = *(v18 + 112);
-    v37 = *(v18 + 116);
-    v91 = v7 + inNumberPCMFrames;
-    v89 = v18 + 136;
-    if (v35 >= v21)
+    v33 = *(v17 + 104);
+    v34 = *(v22 + 24 * (*(v17 + 904) & 0x1F) + 8);
+    v35 = *(v17 + 120);
+    v37 = *(v17 + 112);
+    v36 = *(v17 + 116);
+    v89 = v7 + inNumberPCMFrames;
+    v87 = v17 + 136;
+    if (v34 >= v20)
     {
-      v40 = ((((v21 % v36) >> 63) & v36) + v21 % v36) * v37;
+      v39 = ((((v20 % v35) >> 63) & v35) + v20 % v35) * v36;
     }
 
     else
     {
-      v39 = ((((v35 % v36) >> 63) & v36) + v35 % v36) * v37;
-      v40 = ((((v21 % v36) >> 63) & v36) + v21 % v36) * v37;
-      if (v40 <= v39)
+      v38 = ((((v34 % v35) >> 63) & v35) + v34 % v35) * v36;
+      v39 = ((((v20 % v35) >> 63) & v35) + v20 % v35) * v36;
+      if (v39 <= v38)
       {
-        if (v38 >= 1)
+        if (v37 >= 1)
         {
-          v87 = inNumberPCMFrames;
-          v84 = v4;
-          v46 = v39;
-          v47 = *(v18 + 124) - v39;
-          v48 = v38 + 1;
-          v49 = *(v18 + 104);
+          v85 = inNumberPCMFrames;
+          v82 = v4;
+          v45 = v38;
+          v46 = *(v17 + 124) - v38;
+          v47 = v37 + 1;
+          v48 = *(v17 + 104);
           do
           {
-            v50 = *v49++;
-            bzero((v50 + v46), v47);
-            --v48;
+            v49 = *v48++;
+            bzero((v49 + v45), v46);
+            --v47;
           }
 
-          while (v48 > 1);
-          v51 = v38 + 1;
-          v52 = v34;
-          v4 = v84;
-          v22 = v91;
+          while (v47 > 1);
+          v50 = v37 + 1;
+          v51 = v33;
+          v4 = v82;
+          v21 = v89;
           do
           {
-            v53 = *v52++;
-            bzero(v53, v40);
-            --v51;
+            v52 = *v51++;
+            bzero(v52, v39);
+            --v50;
           }
 
-          while (v51 > 1);
-          inNumberPCMFrames = v87;
+          while (v50 > 1);
+          inNumberPCMFrames = v85;
         }
       }
 
-      else if (v38 >= 1)
+      else if (v37 >= 1)
       {
-        v86 = inNumberPCMFrames;
-        v41 = v39;
-        v42 = v40 - v39;
-        v43 = v38 + 1;
-        v44 = *(v18 + 104);
+        v84 = inNumberPCMFrames;
+        v40 = v38;
+        v41 = v39 - v38;
+        v42 = v37 + 1;
+        v43 = *(v17 + 104);
         do
         {
-          v45 = *v44++;
-          bzero((v45 + v41), v42);
-          --v43;
+          v44 = *v43++;
+          bzero((v44 + v40), v41);
+          --v42;
         }
 
-        while (v43 > 1);
-        inNumberPCMFrames = v86;
-        v22 = v91;
+        while (v42 > 1);
+        inNumberPCMFrames = v84;
+        v21 = v89;
       }
     }
 
-    v54 = *(v18 + 120);
-    v55 = ((((v22 % v54) >> 63) & v54) + v22 % v54) * *(v18 + 116);
-    v56 = *(v18 + 128);
-    v57 = v55 - v40;
-    if (v55 <= v40)
+    v53 = *(v17 + 120);
+    v54 = ((((v21 % v53) >> 63) & v53) + v21 % v53) * *(v17 + 116);
+    v55 = *(v17 + 128);
+    v56 = v54 - v39;
+    if (v54 <= v39)
     {
-      if (v56)
+      if (v55)
       {
-        v58 = v54 - v21 % v54 - (((v21 % v54) >> 63) & v54);
-        CADeprecated::AudioRingBuffer::ConvertAndStore(v18, v40, v90, 0, v58);
-        CADeprecated::AudioRingBuffer::ConvertAndStore(v18, 0, v90, v58 * *(v18 + 72), (((v22 % *(v18 + 120)) >> 63) & *(v18 + 120)) + v22 % *(v18 + 120));
+        v57 = v53 - v20 % v53 - (((v20 % v53) >> 63) & v53);
+        CADeprecated::AudioRingBuffer::ConvertAndStore(v17, v39, v88, 0, v57);
+        CADeprecated::AudioRingBuffer::ConvertAndStore(v17, 0, v88, v57 * *(v17 + 72), (((v21 % *(v17 + 120)) >> 63) & *(v17 + 120)) + v21 % *(v17 + 120));
       }
 
-      else if (v90->mNumberBuffers >= 1)
+      else if (v88->mNumberBuffers >= 1)
       {
-        v88 = inNumberPCMFrames;
-        v85 = v4;
-        v69 = *(v18 + 124) - v40;
-        v70 = v40;
-        v71 = v69;
-        v72 = v90->mNumberBuffers + 1;
-        p_mData = &v90->mBuffers[0].mData;
-        v74 = v34;
+        v86 = inNumberPCMFrames;
+        v83 = v4;
+        v67 = *(v17 + 124) - v39;
+        v68 = v39;
+        v69 = v67;
+        v70 = v88->mNumberBuffers + 1;
+        p_mData = &v88->mBuffers[0].mData;
+        v72 = v33;
         do
         {
-          if (v69 > *(p_mData - 1))
+          if (v67 > *(p_mData - 1))
           {
-            v20 = 5;
-            v4 = v85;
-            inNumberPCMFrames = v88;
+            v19 = 5;
+            v4 = v83;
+            inNumberPCMFrames = v86;
             goto LABEL_29;
           }
 
-          v76 = *p_mData;
+          v74 = *p_mData;
           p_mData += 2;
-          v75 = v76;
-          v77 = *v74++;
-          memcpy((v77 + v70), v75, v69);
-          --v72;
+          v73 = v74;
+          v75 = *v72++;
+          memcpy((v75 + v68), v73, v67);
+          --v70;
         }
 
-        while (v72 > 1);
-        v4 = v85;
-        inNumberPCMFrames = v88;
-        if (v90->mNumberBuffers < 1)
+        while (v70 > 1);
+        v4 = v83;
+        inNumberPCMFrames = v86;
+        if (v88->mNumberBuffers < 1)
         {
           goto LABEL_59;
         }
 
-        v78 = v69 + v55;
-        v79 = v90->mNumberBuffers + 1;
-        v80 = &v90->mBuffers[0].mData;
-        while (v78 <= *(v80 - 1))
+        v76 = v67 + v54;
+        v77 = v88->mNumberBuffers + 1;
+        v78 = &v88->mBuffers[0].mData;
+        while (v76 <= *(v78 - 1))
         {
-          v82 = *v80;
-          v80 += 2;
-          v81 = v82;
-          v83 = *v34++;
-          memcpy(v83, &v81[v71], v55);
-          if (--v79 <= 1)
+          v80 = *v78;
+          v78 += 2;
+          v79 = v80;
+          v81 = *v33++;
+          memcpy(v81, &v79[v69], v54);
+          if (--v77 <= 1)
           {
             goto LABEL_59;
           }
@@ -5365,60 +5082,59 @@ LABEL_29:
 
     else
     {
-      if (v56)
+      if (v55)
       {
-        CADeprecated::AudioRingBuffer::ConvertAndStore(v18, v40, v90, 0, inNumberPCMFrames);
+        CADeprecated::AudioRingBuffer::ConvertAndStore(v17, v39, v88, 0, inNumberPCMFrames);
         goto LABEL_59;
       }
 
-      if (v90->mNumberBuffers >= 1)
+      if (v88->mNumberBuffers >= 1)
       {
-        v64 = v90->mNumberBuffers + 1;
-        v65 = &v90->mBuffers[0].mData;
-        while (v57 <= *(v65 - 1))
+        v62 = v88->mNumberBuffers + 1;
+        v63 = &v88->mBuffers[0].mData;
+        while (v56 <= *(v63 - 1))
         {
-          v67 = *v65;
-          v65 += 2;
-          v66 = v67;
-          v68 = *v34++;
-          memcpy((v68 + v40), v66, v57);
-          if (--v64 <= 1)
+          v65 = *v63;
+          v63 += 2;
+          v64 = v65;
+          v66 = *v33++;
+          memcpy((v66 + v39), v64, v56);
+          if (--v62 <= 1)
           {
             goto LABEL_59;
           }
         }
 
 LABEL_76:
-        v20 = 5;
+        v19 = 5;
         goto LABEL_29;
       }
     }
 
 LABEL_59:
-    v59 = *(v18 + 904);
-    v60 = v89 + 24 * ((v59 + 1) & 0x1F);
-    *v60 = *(v89 + 24 * (v59 & 0x1F));
-    *(v60 + 8) = v91;
-    *(v60 + 16) = v59 + 1;
-    v61 = v59;
-    atomic_compare_exchange_strong((v18 + 904), &v61, v59 + 1);
-    if (v61 != v59)
+    v58 = *(v17 + 904);
+    v59 = v87 + 24 * ((v58 + 1) & 0x1F);
+    *v59 = *(v87 + 24 * (v58 & 0x1F));
+    *(v59 + 8) = v89;
+    *(v59 + 16) = v58 + 1;
+    v60 = v58;
+    atomic_compare_exchange_strong((v17 + 904), &v60, v58 + 1);
+    if (v60 != v58)
     {
-      *(v18 + 904) = v61;
+      *(v17 + 904) = v60;
     }
   }
 
 LABEL_61:
   result = *v4 + inNumberPCMFrames;
   *(this + 213) = result;
-  v63 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 void ConvertBufferToFloat32(const CAStreamBasicDescription *a1, const AudioBuffer *a2, unsigned int a3, float *a4, unsigned int a5)
 {
   v6 = a4;
-  v38 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   mData = a2->mData;
   if (mData)
   {
@@ -5432,7 +5148,6 @@ void ConvertBufferToFloat32(const CAStreamBasicDescription *a1, const AudioBuffe
 
   if (v8)
   {
-    v9 = *MEMORY[0x277D85DE8];
 
     bzero(a4, 4 * a5);
   }
@@ -5440,109 +5155,110 @@ void ConvertBufferToFloat32(const CAStreamBasicDescription *a1, const AudioBuffe
   else
   {
     *buf = 0;
-    v13 = CAStreamBasicDescription::IdentifyCommonPCMFormat(a1, buf);
-    if (v13 && *buf == 2)
+    v12 = CAStreamBasicDescription::IdentifyCommonPCMFormat(a1, buf);
+    if (v12 && *buf == 2)
     {
-      MEMORY[0x28223BE20]();
-      v15 = &buf[-v14];
+      MEMORY[0x28223BE20](v12);
+      v14 = &buf[-v13];
       if (a5)
       {
-        v16 = a5;
-        v17 = a2->mData + 2 * a3;
-        v18 = 2 * a2->mNumberChannels;
-        v19 = v15;
+        v15 = a5;
+        v16 = a2->mData + 2 * a3;
+        v17 = 2 * a2->mNumberChannels;
+        v18 = v14;
         do
         {
-          *v19 = *v17;
-          v19 += 2;
-          v17 = (v17 + v18);
-          --v16;
+          *v18 = *v16;
+          v18 += 2;
+          v16 = (v16 + v17);
+          --v15;
         }
 
-        while (v16);
+        while (v15);
       }
 
       NativeInt16ToFloat32Scaled_ARM();
-LABEL_21:
-      v26 = *MEMORY[0x277D85DE8];
-      return;
     }
 
-    *buf = 0;
-    if (CAStreamBasicDescription::IdentifyCommonPCMFormat(a1, buf) && *buf == 3)
+    else
     {
-      MEMORY[0x28223BE20]();
-      v21 = &buf[-v20];
-      if (a5)
+      *buf = 0;
+      v19 = CAStreamBasicDescription::IdentifyCommonPCMFormat(a1, buf);
+      if (v19 && *buf == 3)
       {
-        v22 = a5;
-        v23 = a2->mData + 4 * a3;
-        v24 = 4 * a2->mNumberChannels;
-        v25 = v21;
-        do
+        MEMORY[0x28223BE20](v19);
+        v21 = &buf[-v20];
+        if (a5)
         {
-          *v25 = *v23;
-          v25 += 4;
-          v23 = (v23 + v24);
-          --v22;
+          v22 = a5;
+          v23 = a2->mData + 4 * a3;
+          v24 = 4 * a2->mNumberChannels;
+          v25 = v21;
+          do
+          {
+            *v25 = *v23;
+            v25 += 4;
+            v23 = (v23 + v24);
+            --v22;
+          }
+
+          while (v22);
         }
 
-        while (v22);
+        NativeInt32ToFloat32Scaled_ARM();
       }
 
-      NativeInt32ToFloat32Scaled_ARM();
-      goto LABEL_21;
-    }
-
-    *buf = 0;
-    if (!CAStreamBasicDescription::IdentifyCommonPCMFormat(a1, buf) || *buf != 1)
-    {
-      if (VPLogScope(void)::once != -1)
+      else
       {
-        dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-      }
-
-      v30 = VPLogScope(void)::scope;
-      if (VPLogScope(void)::scope && CALegacyLog::LogEnabled(5, VPLogScope(void)::scope, 0))
-      {
-        v31 = (*v30 ? *v30 : MEMORY[0x277D86220]);
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+        *buf = 0;
+        if (CAStreamBasicDescription::IdentifyCommonPCMFormat(a1, buf) && *buf == 1)
         {
-          *buf = 136315394;
-          v35 = "VoiceProcessor_v2.cpp";
-          v36 = 1024;
-          v37 = 1364;
-          _os_log_impl(&dword_2724B4000, v31, OS_LOG_TYPE_DEBUG, "%25s:%-5d invalid format", buf, 0x12u);
-        }
-      }
+          v26 = &mData[4 * a3];
+          mNumberChannels = a2->mNumberChannels;
+          if (mNumberChannels == 1)
+          {
 
-      goto LABEL_21;
-    }
+            memcpy(v6, v26, 4 * a5);
+          }
 
-    v27 = &mData[4 * a3];
-    mNumberChannels = a2->mNumberChannels;
-    if (mNumberChannels != 1)
-    {
-      if (a5)
-      {
-        v32 = 4 * mNumberChannels;
-        v33 = a5;
-        do
-        {
-          *v6++ = *v27;
-          v27 = (v27 + v32);
-          --v33;
+          else if (a5)
+          {
+            v30 = 4 * mNumberChannels;
+            v31 = a5;
+            do
+            {
+              *v6++ = *v26;
+              v26 = (v26 + v30);
+              --v31;
+            }
+
+            while (v31);
+          }
         }
 
-        while (v33);
+        else
+        {
+          if (VPLogScope(void)::once != -1)
+          {
+            dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
+          }
+
+          v28 = VPLogScope(void)::scope;
+          if (VPLogScope(void)::scope && CALegacyLog::LogEnabled(5, VPLogScope(void)::scope, 0))
+          {
+            v29 = (*v28 ? *v28 : MEMORY[0x277D86220]);
+            if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+            {
+              *buf = 136315394;
+              v33 = "VoiceProcessor_v2.cpp";
+              v34 = 1024;
+              v35 = 1364;
+              _os_log_impl(&dword_2724B4000, v29, OS_LOG_TYPE_DEBUG, "%25s:%-5d invalid format", buf, 0x12u);
+            }
+          }
+        }
       }
-
-      goto LABEL_21;
     }
-
-    v29 = *MEMORY[0x277D85DE8];
-
-    memcpy(v6, v27, 4 * a5);
   }
 }
 
@@ -5565,12 +5281,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -5584,22 +5300,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -5633,13 +5349,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -5783,7 +5499,7 @@ uint64_t CAStreamBasicDescription::IdentifyCommonPCMFormat(_DWORD *a1, int *a2)
 
 void VoiceProcessorV2::DumpState(VoiceProcessorV2 *this, __sFILE *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v4 = (*(*this + 112))(this);
@@ -5986,8 +5702,8 @@ void VoiceProcessorV2::DumpState(VoiceProcessorV2 *this, __sFILE *a2)
       {
         *buf = 136315394;
         *&buf[4] = "VoiceProcessor_v2.cpp";
-        v22 = 1024;
-        v23 = 6426;
+        v21 = 1024;
+        v22 = 6426;
         _os_log_impl(&dword_2724B4000, v18, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  >vp> VoiceProcessorV2::DumpToFile() - Dump file is not available", buf, 0x12u);
       }
     }
@@ -6003,8 +5719,6 @@ void VoiceProcessorV2::DumpState(VoiceProcessorV2 *this, __sFILE *a2)
       CALegacyLog::log(v19, 2, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/VoiceProcessor_v2.cpp", 6426, "DumpState", "VoiceProcessorV2::DumpToFile() - Dump file is not available");
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void CAX4CCString::CAX4CCString(CAX4CCString *this, unsigned int a2)
@@ -6086,9 +5800,9 @@ LABEL_17:
 
 uint64_t VoiceProcessorV2::SetMode(VoiceProcessorV2 *this, int a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
-  v23 = this + 2408;
-  v24 = (*(*(this + 301) + 16))();
+  v30 = *MEMORY[0x277D85DE8];
+  v22 = this + 2408;
+  v23 = (*(*(this + 301) + 16))();
   atomic_fetch_add(this + 624, 1u);
   while (*(this + 625))
   {
@@ -6128,9 +5842,9 @@ uint64_t VoiceProcessorV2::SetMode(VoiceProcessorV2 *this, int a2)
           if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315394;
-            v26 = "VoiceProcessor_v2.cpp";
-            v27 = 1024;
-            v28 = 732;
+            v25 = "VoiceProcessor_v2.cpp";
+            v26 = 1024;
+            v27 = 732;
             _os_log_impl(&dword_2724B4000, v9, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> Forcing bypass to false due to chat flavor", buf, 0x12u);
           }
         }
@@ -6164,9 +5878,9 @@ uint64_t VoiceProcessorV2::SetMode(VoiceProcessorV2 *this, int a2)
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315394;
-          v26 = "VoiceProcessor_v2.cpp";
-          v27 = 1024;
-          v28 = 747;
+          v25 = "VoiceProcessor_v2.cpp";
+          v26 = 1024;
+          v27 = 747;
           _os_log_impl(&dword_2724B4000, v12, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> Begin self-reinit (SetMode)", buf, 0x12u);
         }
       }
@@ -6195,9 +5909,9 @@ uint64_t VoiceProcessorV2::SetMode(VoiceProcessorV2 *this, int a2)
         if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315394;
-          v26 = "VoiceProcessor_v2.cpp";
-          v27 = 1024;
-          v28 = 749;
+          v25 = "VoiceProcessor_v2.cpp";
+          v26 = 1024;
+          v27 = 749;
           _os_log_impl(&dword_2724B4000, v15, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> End self-reinit (SetMode)", buf, 0x12u);
         }
       }
@@ -6228,11 +5942,11 @@ uint64_t VoiceProcessorV2::SetMode(VoiceProcessorV2 *this, int a2)
     {
       v19 = *(this + 20);
       *buf = 136315650;
-      v26 = "VoiceProcessor_v2.cpp";
-      v27 = 1024;
-      v28 = 752;
-      v29 = 1024;
-      v30 = v19;
+      v25 = "VoiceProcessor_v2.cpp";
+      v26 = 1024;
+      v27 = 752;
+      v28 = 1024;
+      v29 = v19;
       _os_log_impl(&dword_2724B4000, v18, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> operation mode = %i", buf, 0x18u);
     }
   }
@@ -6249,12 +5963,11 @@ uint64_t VoiceProcessorV2::SetMode(VoiceProcessorV2 *this, int a2)
   }
 
   atomic_fetch_add(this + 624, 0xFFFFFFFF);
-  if (v24 == 1)
+  if (v23 == 1)
   {
-    (*(*v23 + 24))(v23);
+    (*(*v22 + 24))(v22);
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -6286,7 +5999,7 @@ uint64_t VoiceProcessorV2::ShouldInteractWithControlCenter(VoiceProcessorV2 *thi
 
 void VoiceProcessorV2::ResetTimestampsAndInitializeVP(VoiceProcessorV2 *this, int a2, double a3, double a4)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v6 = this + 12288;
   if (*(this + 484) == 1)
   {
@@ -6338,11 +6051,11 @@ void VoiceProcessorV2::ResetTimestampsAndInitializeVP(VoiceProcessorV2 *this, in
       v9 = (*v8 ? *v8 : MEMORY[0x277D86220]);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
-        v16 = 136315394;
-        v17 = "VoiceProcessor_v2.cpp";
-        v18 = 1024;
-        v19 = 3245;
-        _os_log_impl(&dword_2724B4000, v9, OS_LOG_TYPE_DEBUG, "%25s:%-5d  <vp> called initialize", &v16, 0x12u);
+        v15 = 136315394;
+        v16 = "VoiceProcessor_v2.cpp";
+        v17 = 1024;
+        v18 = 3245;
+        _os_log_impl(&dword_2724B4000, v9, OS_LOG_TYPE_DEBUG, "%25s:%-5d  <vp> called initialize", &v15, 0x12u);
       }
     }
 
@@ -6351,9 +6064,9 @@ void VoiceProcessorV2::ResetTimestampsAndInitializeVP(VoiceProcessorV2 *this, in
     {
       if (VPLogScope(void)::once != -1)
       {
-        v15 = *(this + 1588);
+        v14 = *(this + 1588);
         dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-        v10 = v15;
+        v10 = v14;
       }
 
       CALegacyLog::log(v10, 5, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/VoiceProcessor_v2.cpp", 3245, "ResetTimestampsAndInitializeVP", "called initialize");
@@ -6390,11 +6103,11 @@ void VoiceProcessorV2::ResetTimestampsAndInitializeVP(VoiceProcessorV2 *this, in
       v12 = (*v11 ? *v11 : MEMORY[0x277D86220]);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
-        v16 = 136315394;
-        v17 = "VoiceProcessor_v2.cpp";
-        v18 = 1024;
-        v19 = 3261;
-        _os_log_impl(&dword_2724B4000, v12, OS_LOG_TYPE_DEBUG, "%25s:%-5d  <vp> called initializedlp", &v16, 0x12u);
+        v15 = 136315394;
+        v16 = "VoiceProcessor_v2.cpp";
+        v17 = 1024;
+        v18 = 3261;
+        _os_log_impl(&dword_2724B4000, v12, OS_LOG_TYPE_DEBUG, "%25s:%-5d  <vp> called initializedlp", &v15, 0x12u);
       }
     }
 
@@ -6418,14 +6131,12 @@ void VoiceProcessorV2::ResetTimestampsAndInitializeVP(VoiceProcessorV2 *this, in
   *(this + 568) = 0;
   *(this + 573) = 0;
   *(this + 571) = 0;
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void CADeprecated::CAMutex::Locker::~Locker(CADeprecated::CAMutex::Locker *this)
 {
   if (*(this + 8) == 1)
   {
-    v2 = *this;
     (*(**this + 24))();
   }
 }
@@ -6441,10 +6152,10 @@ uint64_t VoiceProcessorV2::IsDeviceSupportingAdvancedChatFlavors(VoiceProcessorV
 
 uint64_t VoiceProcessorV2::SetDownLinkVolume(VoiceProcessorV2 *this, float a2)
 {
-  v36 = *MEMORY[0x277D85DE8];
-  CADeprecated::CAAtomicSignaler::PersistentTryer::PersistentTryer(&v28, this + 2496, 400000);
+  v34 = *MEMORY[0x277D85DE8];
+  CADeprecated::CAAtomicSignaler::PersistentTryer::PersistentTryer(&v26, this + 2496, 400000);
   v4 = this + 12288;
-  if (*v28)
+  if (*v26)
   {
     if (VPLogScope(void)::once != -1)
     {
@@ -6459,10 +6170,10 @@ uint64_t VoiceProcessorV2::SetDownLinkVolume(VoiceProcessorV2 *this, float a2)
       {
         *buf = 136315650;
         *&buf[4] = "VoiceProcessor_v2.cpp";
+        v30 = 1024;
+        v31 = 765;
         v32 = 1024;
-        v33 = 765;
-        v34 = 1024;
-        LODWORD(v35) = 400000;
+        LODWORD(v33) = 400000;
         _os_log_impl(&dword_2724B4000, v6, OS_LOG_TYPE_ERROR, "%25s:%-5d  >vp> setdownlinkvolume failed because mSignaler can't be acquired within %u microseconds", buf, 0x18u);
       }
     }
@@ -6497,10 +6208,10 @@ uint64_t VoiceProcessorV2::SetDownLinkVolume(VoiceProcessorV2 *this, float a2)
       {
         *buf = 136315650;
         *&buf[4] = "VoiceProcessor_v2.cpp";
-        v32 = 1024;
-        v33 = 773;
-        v34 = 2048;
-        v35 = a2;
+        v30 = 1024;
+        v31 = 773;
+        v32 = 2048;
+        v33 = a2;
         _os_log_impl(&dword_2724B4000, v11, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> setdownlinkvolume called with: user volume = %f", buf, 0x1Cu);
       }
     }
@@ -6565,10 +6276,10 @@ uint64_t VoiceProcessorV2::SetDownLinkVolume(VoiceProcessorV2 *this, float a2)
           v16 = *(this + 3152);
           *buf = 136315650;
           *&buf[4] = "VoiceProcessor_v2.cpp";
-          v32 = 1024;
-          v33 = 783;
-          v34 = 2048;
-          v35 = v16;
+          v30 = 1024;
+          v31 = 783;
+          v32 = 2048;
+          v33 = v16;
           _os_log_impl(&dword_2724B4000, v15, OS_LOG_TYPE_DEBUG, "%25s:%-5d  <vp> setdownlinkvolume: no need to change volume = %f", buf, 0x1Cu);
         }
       }
@@ -6655,7 +6366,6 @@ uint64_t VoiceProcessorV2::SetDownLinkVolume(VoiceProcessorV2 *this, float a2)
 
       if (*(this + 15881) == 1)
       {
-        v26 = *(this + 447);
         operator new();
       }
     }
@@ -6668,8 +6378,7 @@ uint64_t VoiceProcessorV2::SetDownLinkVolume(VoiceProcessorV2 *this, float a2)
     result = 0;
   }
 
-  atomic_fetch_add(v28 + 1, 0xFFFFFFFF);
-  v27 = *MEMORY[0x277D85DE8];
+  atomic_fetch_add(v26 + 1, 0xFFFFFFFF);
   return result;
 }
 
@@ -7147,15 +6856,15 @@ char *VPChannelConfig::SetChConfig(VPChannelConfig *this, int a2, const char *__
 
 void ___ZN16VoiceProcessorV2C2ERKN2vp7ContextE_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unsigned __int8 *a5)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v5 = *(a1 + 32);
-  v34 = 0;
-  VoiceProcessorV2::ReadDefaultsOverride(@"EnableVPTelephonyMonitor", 0, &v34, 0, a5);
-  v33 = 0;
-  VoiceProcessorV2::ReadDefaultsOverride(@"EnableTelephonyMonitor", 0, &v33, 0, v6);
-  v7 = v34 && v33;
-  v32 = 0;
-  VoiceProcessorV2::ReadDefaultsOverride(@"vp_enable_debug_features", 0, &v32, 0, v8);
+  BYTE2(v30) = 0;
+  VoiceProcessorV2::ReadDefaultsOverride(@"EnableVPTelephonyMonitor", 0, (&v30 + 2), 0, a5);
+  BYTE1(v30) = 0;
+  VoiceProcessorV2::ReadDefaultsOverride(@"EnableTelephonyMonitor", 0, (&v30 + 1), 0, v6);
+  v7 = BYTE2(v30) & BYTE1(v30);
+  LOBYTE(v30) = 0;
+  VoiceProcessorV2::ReadDefaultsOverride(@"vp_enable_debug_features", 0, &v30, 0, v8);
   if (*(v5 + 68))
   {
     v10 = 1;
@@ -7166,8 +6875,8 @@ void ___ZN16VoiceProcessorV2C2ERKN2vp7ContextE_block_invoke(uint64_t a1, uint64_
     v10 = *(v5 + 69);
   }
 
-  v35 = v10 & (v32 || v7);
-  if (!v35)
+  HIBYTE(v30) = v10 & (LOBYTE(v30) | v7 & 1);
+  if (!HIBYTE(v30))
   {
     goto LABEL_24;
   }
@@ -7204,17 +6913,17 @@ void ___ZN16VoiceProcessorV2C2ERKN2vp7ContextE_block_invoke(uint64_t a1, uint64_
       CALegacyLog::log(v13, 5, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpDebug_FileSaving.cpp", 1010, "RereadSaveFilesDefaults", "File-Saving switch turned on");
     }
 
-    v9 = v5 + 15912;
+    v9 = (v5 + 15912);
     *buf = v5;
-    *&buf[8] = &v35;
+    *&buf[8] = &v30 + 3;
     if (atomic_load_explicit((v5 + 15912), memory_order_acquire) != -1)
     {
-      v37 = buf;
-      v36 = &v37;
-      std::__call_once(v9, &v36, std::__call_once_proxy[abi:ne200100]<std::tuple<VoiceProcessorV2::RereadSaveFilesDefaults(void)::$_0 &&>>);
+      v32 = buf;
+      v31 = &v32;
+      std::__call_once(v9, &v31, std::__call_once_proxy[abi:ne200100]<std::tuple<VoiceProcessorV2::RereadSaveFilesDefaults(void)::$_0 &&>>);
     }
 
-    if ((v35 & 1) == 0)
+    if ((HIBYTE(v30) & 1) == 0)
     {
 LABEL_24:
       if (*(v5 + 15882) == 1)
@@ -7249,14 +6958,14 @@ LABEL_24:
           CALegacyLog::log(v16, 5, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpDebug_FileSaving.cpp", 1029, "RereadSaveFilesDefaults", "File-Saving switch turned off");
         }
 
-        v9 = v5 + 15920;
+        v9 = (v5 + 15920);
         *buf = v5;
-        *&buf[8] = &v35;
+        *&buf[8] = &v30 + 3;
         if (atomic_load_explicit((v5 + 15920), memory_order_acquire) != -1)
         {
-          v37 = buf;
-          v36 = &v37;
-          std::__call_once(v9, &v36, std::__call_once_proxy[abi:ne200100]<std::tuple<VoiceProcessorV2::RereadSaveFilesDefaults(void)::$_1 &&>>);
+          v32 = buf;
+          v31 = &v32;
+          std::__call_once(v9, &v31, std::__call_once_proxy[abi:ne200100]<std::tuple<VoiceProcessorV2::RereadSaveFilesDefaults(void)::$_1 &&>>);
         }
       }
     }
@@ -7288,8 +6997,8 @@ LABEL_24:
 
         *&buf[12] = 1024;
         *&buf[14] = 1044;
-        v39 = 2080;
-        v40 = v19;
+        v34 = 2080;
+        v35 = v19;
         _os_log_impl(&dword_2724B4000, v18, OS_LOG_TYPE_DEBUG, "%25s:%-5d  <vp> vp debug features (HUP) are %s", buf, 0x1Cu);
       }
     }
@@ -7337,8 +7046,8 @@ LABEL_24:
           *&buf[4] = "vpDebug_FileSaving.cpp";
           *&buf[12] = 1024;
           *&buf[14] = 1054;
-          v39 = 1024;
-          LODWORD(v40) = v25;
+          v34 = 1024;
+          LODWORD(v35) = v25;
           _os_log_impl(&dword_2724B4000, v24, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> master default exists, enabling file saving level %d", buf, 0x18u);
         }
       }
@@ -7351,7 +7060,6 @@ LABEL_24:
           dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
         }
 
-        v27 = *(v5 + 12720);
         CALegacyLog::log(v26, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpDebug_FileSaving.cpp", 1054, "RereadSaveFilesDefaults", "master default exists, enabling file saving level %d");
       }
     }
@@ -7364,34 +7072,32 @@ LABEL_24:
         dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
       }
 
-      v28 = VPLogScope(void)::scope;
+      v27 = VPLogScope(void)::scope;
       if (VPLogScope(void)::scope && CALegacyLog::LogEnabled(3, VPLogScope(void)::scope, 0))
       {
-        v29 = (*v28 ? *v28 : MEMORY[0x277D86220]);
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+        v28 = (*v27 ? *v27 : MEMORY[0x277D86220]);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315394;
           *&buf[4] = "vpDebug_FileSaving.cpp";
           *&buf[12] = 1024;
           *&buf[14] = 1059;
-          _os_log_impl(&dword_2724B4000, v29, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> master default does not exist, disabling file saving level", buf, 0x12u);
+          _os_log_impl(&dword_2724B4000, v28, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> master default does not exist, disabling file saving level", buf, 0x12u);
         }
       }
 
-      v30 = *(v5 + 12704);
-      if (v30 && ((*(v5 + 15881) & 1) != 0 || *(v5 + 15882) == 1))
+      v29 = *(v5 + 12704);
+      if (v29 && ((*(v5 + 15881) & 1) != 0 || *(v5 + 15882) == 1))
       {
         if (VPLogScope(void)::once != -1)
         {
           dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
         }
 
-        CALegacyLog::log(v30, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpDebug_FileSaving.cpp", 1059, "RereadSaveFilesDefaults", "master default does not exist, disabling file saving level");
+        CALegacyLog::log(v29, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpDebug_FileSaving.cpp", 1059, "RereadSaveFilesDefaults", "master default does not exist, disabling file saving level");
       }
     }
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t std::__function::__value_func<void ()(BOOL)>::~__value_func[abi:ne200100](uint64_t a1)
@@ -7412,11 +7118,25 @@ uint64_t std::__function::__value_func<void ()(BOOL)>::~__value_func[abi:ne20010
 
 uint64_t caulk::details::lifetime_guard_base<VoiceProcessorV2>::~lifetime_guard_base(uint64_t a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (*(a1 + 8))
   {
-    os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
+    v6 = 0;
+    memset(v9, 0, sizeof(v9));
+    v4 = MEMORY[0x277D86220];
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      v5 = 3;
+    }
+
+    else
+    {
+      v5 = 2;
+    }
+
+    v7 = 134217984;
+    v8 = 0;
+    _os_log_send_and_compose_impl(v5, &v6, v9, 80, &dword_2724B4000, v4, 16, "assertion failure: mControlBlock == nullptr -> %llu", &v7);
     _os_crash_msg();
     __break(1u);
   }
@@ -7432,7 +7152,6 @@ uint64_t caulk::details::lifetime_guard_base<VoiceProcessorV2>::~lifetime_guard_
     std::__shared_weak_count::__release_shared[abi:ne200100](v2);
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
@@ -7575,13 +7294,12 @@ uint64_t ABLRingBuffer<float>::~ABLRingBuffer(uint64_t a1)
   return a1;
 }
 
-uint64_t **std::unique_ptr<VoiceProcessor::SampleRateConverter>::reset[abi:ne200100](uint64_t **result, uint64_t *a2)
+void *std::unique_ptr<VoiceProcessor::SampleRateConverter>::reset[abi:ne200100](void *result, uint64_t a2)
 {
   v2 = *result;
   *result = a2;
   if (v2)
   {
-    v3 = *v2;
     AudioSampleRateConverterDispose();
 
     JUMPOUT(0x2743CBFA0);
@@ -7590,7 +7308,7 @@ uint64_t **std::unique_ptr<VoiceProcessor::SampleRateConverter>::reset[abi:ne200
   return result;
 }
 
-void std::vector<std::vector<std::unique_ptr<VPTimeFreqConverter>>>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<std::vector<std::unique_ptr<VPTimeFreqConverter>>>::__destroy_vector::operator()[abi:ne200100](void ****a1)
 {
   v1 = *a1;
   v2 = **a1;
@@ -8284,7 +8002,7 @@ LABEL_10:
 
 void VoiceProcessorV2::~VoiceProcessorV2(VoiceProcessorV2 *this)
 {
-  v132 = *MEMORY[0x277D85DE8];
+  v131 = *MEMORY[0x277D85DE8];
   *this = &unk_2881AFFE8;
   v2 = *(this + 2074);
   if (v2)
@@ -8292,7 +8010,7 @@ void VoiceProcessorV2::~VoiceProcessorV2(VoiceProcessorV2 *this)
     (*(*v2 + 24))(v2);
   }
 
-  caulk::details::lifetime_guard_base<VoiceProcessorV2>::invalidate(this + 16616);
+  caulk::details::lifetime_guard_base<VoiceProcessorV2>::invalidate(this + 2077);
   if (*(this + 15800) == 1)
   {
     fflush(*MEMORY[0x277D85DF8]);
@@ -8415,47 +8133,47 @@ void VoiceProcessorV2::~VoiceProcessorV2(VoiceProcessorV2 *this)
   {
     *&buf[8] = 0uLL;
     *buf = &buf[8];
-    std::to_string(&v129, v11);
+    std::to_string(&v128, v11);
     std::string::basic_string[abi:ne200100]<0>(__p, "vp_mic_clip_detection_presrc_frames");
-    v130 = __p;
-    v12 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(buf, __p);
+    v129 = __p;
+    v12 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(buf, __p, &v129);
     v13 = v12;
     if (*(v12 + 79) < 0)
     {
       operator delete(*(v12 + 56));
     }
 
-    *(v13 + 56) = v129;
-    *(&v129.__r_.__value_.__s + 23) = 0;
-    v129.__r_.__value_.__s.__data_[0] = 0;
-    if (v128 < 0)
+    *(v13 + 56) = v128;
+    *(&v128.__r_.__value_.__s + 23) = 0;
+    v128.__r_.__value_.__s.__data_[0] = 0;
+    if (v127 < 0)
     {
       operator delete(__p[0]);
-      if (SHIBYTE(v129.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v128.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v129.__r_.__value_.__l.__data_);
+        operator delete(v128.__r_.__value_.__l.__data_);
       }
     }
 
-    std::to_string(&v129, *(this + 373));
+    std::to_string(&v128, *(this + 373));
     std::string::basic_string[abi:ne200100]<0>(__p, "vp_mic_clip_detection_postsrc_frames");
-    v130 = __p;
-    v14 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(buf, __p);
+    v129 = __p;
+    v14 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(buf, __p, &v129);
     v15 = v14;
     if (*(v14 + 79) < 0)
     {
       operator delete(*(v14 + 56));
     }
 
-    *(v15 + 56) = v129;
-    *(&v129.__r_.__value_.__s + 23) = 0;
-    v129.__r_.__value_.__s.__data_[0] = 0;
-    if (v128 < 0)
+    *(v15 + 56) = v128;
+    *(&v128.__r_.__value_.__s + 23) = 0;
+    v128.__r_.__value_.__s.__data_[0] = 0;
+    if (v127 < 0)
     {
       operator delete(__p[0]);
-      if (SHIBYTE(v129.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v128.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v129.__r_.__value_.__l.__data_);
+        operator delete(v128.__r_.__value_.__l.__data_);
       }
     }
 
@@ -8796,11 +8514,11 @@ LABEL_128:
   {
     v48 = v45;
     std::__fs::filesystem::__status((this + 12680), buf);
-    if (v129.__r_.__value_.__s.__data_[0])
+    if (v128.__r_.__value_.__s.__data_[0])
     {
       *buf = 0;
       *&buf[8] = v48;
-      if (v129.__r_.__value_.__s.__data_[0] != 255)
+      if (v128.__r_.__value_.__s.__data_[0] != 255)
       {
         std::__fs::filesystem::__remove((this + 12680), buf);
       }
@@ -9410,8 +9128,6 @@ LABEL_128:
   {
     operator delete(*(this + 1));
   }
-
-  v126 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2724DC800(_Unwind_Exception *a1, int a2)
@@ -9424,12 +9140,12 @@ void sub_2724DC800(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
-uint64_t caulk::details::lifetime_guard_base<VoiceProcessorV2>::invalidate(uint64_t result)
+void *caulk::details::lifetime_guard_base<VoiceProcessorV2>::invalidate(void *result)
 {
-  if (*(result + 8))
+  if (result[1])
   {
     v1 = result;
-    _ZNSt3__18optionalIN5caulk9semaphoreEE7emplaceB8ne200100IJEvEERS2_DpOT_((result + 24));
+    _ZNSt3__18optionalIN5caulk9semaphoreEE7emplaceB8ne200100IJEvEERS2_DpOT_((result + 3));
     v2 = v1[2];
     v1[1] = 0;
     v1[2] = 0;
@@ -9445,15 +9161,15 @@ uint64_t caulk::details::lifetime_guard_base<VoiceProcessorV2>::invalidate(uint6
   return result;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t a1, void *a2)
+uint64_t std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t a1, void *a2, _OWORD **a3)
 {
-  v2 = *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v3 = *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(a1, &v5, a2);
+  if (!v3)
   {
     operator new();
   }
 
-  return v2;
+  return v3;
 }
 
 void std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(void *a1)
@@ -9505,7 +9221,7 @@ OpaqueAudioComponentInstance *VoiceProcessorV2::DisposeAU(VoiceProcessorV2 *this
 
 void ___Z37AudioDataAnalysisManagerLibraryLoaderv_block_invoke_143()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v0 = dlopen("/usr/lib/libAudioIssueDetector.dylib", 1);
   if (v0)
   {
@@ -9514,9 +9230,9 @@ void ___Z37AudioDataAnalysisManagerLibraryLoaderv_block_invoke_143()
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v4 = 136315138;
-    v5 = dlerror();
-    _os_log_error_impl(&dword_2724B4000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "dlerror : libAudioIssueDetector ADAM: %s", &v4, 0xCu);
+    v3 = 136315138;
+    v4 = dlerror();
+    _os_log_error_impl(&dword_2724B4000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "dlerror : libAudioIssueDetector ADAM: %s", &v3, 0xCu);
   }
 
   v0 = dlopen("/usr/local/lib/libAudioIssueDetector.dylib", 1);
@@ -9551,13 +9267,11 @@ LABEL_5:
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = dlerror();
-    v4 = 136315138;
-    v5 = v3;
-    _os_log_error_impl(&dword_2724B4000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "dlerror : libAudioIssueDetector ADAM: %s", &v4, 0xCu);
+    v2 = dlerror();
+    v3 = 136315138;
+    v4 = v2;
+    _os_log_error_impl(&dword_2724B4000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "dlerror : libAudioIssueDetector ADAM: %s", &v3, 0xCu);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(uint64_t a1, void *a2, void *a3)
@@ -9606,7 +9320,7 @@ LABEL_9:
   return v5;
 }
 
-uint64_t *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -9700,4 +9414,256 @@ uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocat
   }
 
   return 255;
+}
+
+uint64_t _ZNSt3__18optionalIN5caulk9semaphoreEE7emplaceB8ne200100IJEvEERS2_DpOT_(caulk::semaphore *a1)
+{
+  if (*(a1 + 16) == 1)
+  {
+    a1 = MEMORY[0x2743CB750]();
+    *(a1 + 16) = 0;
+  }
+
+  result = caulk::semaphore::semaphore(a1);
+  *(result + 16) = 1;
+  return result;
+}
+
+uint64_t VoiceProcessorV2::IsGenericRoute(uint64_t this)
+{
+  v1 = this;
+  v2 = 0;
+  LOBYTE(this) = 0;
+  v3 = **(v1 + 2352);
+  v4 = **(v1 + 2376);
+  do
+  {
+    v5 = *&aWphpbphposupot[v2] == v3 && *&aWphpbphposupot[v2 + 24] == v4;
+    this = v5 | (this & 1);
+    v2 += 4;
+  }
+
+  while (v2 != 24);
+  return this;
+}
+
+void VoiceProcessorV2::GetHardwareModelNameForTuning(VoiceProcessorV2 *this, uint64_t a2, int a3)
+{
+  v12 = *MEMORY[0x277D85DE8];
+  if (a3)
+  {
+    v4 = "Generic";
+LABEL_3:
+
+    std::string::basic_string[abi:ne200100]<0>(this, v4);
+    return;
+  }
+
+  if (*(a2 + 60) == 1)
+  {
+    v5 = *(a2 + 56);
+    if ((v5 & 0x100000000) != 0)
+    {
+      v5 = v5;
+    }
+
+    else
+    {
+      v5 = 0;
+    }
+
+    if (v5 > 0)
+    {
+      caulk::make_string(&v10, "AID%d", a2, v5);
+      *&v11[7] = *(&v10.__r_.__value_.__r.__words[1] + 7);
+      *v11 = v10.__r_.__value_.__l.__size_;
+      v6 = HIBYTE(v10.__r_.__value_.__r.__words[2]);
+      size = v10.__r_.__value_.__l.__size_;
+      *this = v10.__r_.__value_.__r.__words[0];
+      *(this + 1) = size;
+      *(this + 15) = *&v11[7];
+      *(this + 23) = v6;
+      return;
+    }
+
+    v4 = "";
+    goto LABEL_3;
+  }
+
+  if (*(a2 + 55) < 0)
+  {
+    v8 = *(a2 + 40);
+    v9 = *(a2 + 32);
+
+    std::string::__init_copy_ctor_external(this, v9, v8);
+  }
+
+  else
+  {
+    *this = *(a2 + 32);
+    *(this + 2) = *(a2 + 48);
+  }
+}
+
+void caulk::make_string(std::string *__return_ptr a1@<X8>, caulk *this@<X0>, const char *a3@<X1>, ...)
+{
+  va_start(va, a3);
+  v5 = vsnprintf(0, 0, this, va);
+  if (v5 <= 0)
+  {
+    a1->__r_.__value_.__r.__words[0] = 0;
+    a1->__r_.__value_.__l.__size_ = 0;
+    a1->__r_.__value_.__r.__words[2] = 0;
+  }
+
+  else
+  {
+    a1->__r_.__value_.__r.__words[0] = 0;
+    a1->__r_.__value_.__l.__size_ = 0;
+    a1->__r_.__value_.__r.__words[2] = 0;
+    std::string::resize(a1, (v5 + 1), 0);
+    v6 = SHIBYTE(a1->__r_.__value_.__r.__words[2]);
+    if (v6 >= 0)
+    {
+      v7 = a1;
+    }
+
+    else
+    {
+      v7 = a1->__r_.__value_.__r.__words[0];
+    }
+
+    if (v6 >= 0)
+    {
+      size = HIBYTE(a1->__r_.__value_.__r.__words[2]);
+    }
+
+    else
+    {
+      size = a1->__r_.__value_.__l.__size_;
+    }
+
+    v9 = vsnprintf(v7, size, this, va);
+    std::string::resize(a1, v9, 0);
+  }
+}
+
+std::string *std::__fs::filesystem::path::path[abi:ne200100]<char const*,void>(std::string *this, std::string **a2)
+{
+  *&this->__r_.__value_.__l.__data_ = 0uLL;
+  this->__r_.__value_.__r.__words[2] = 0;
+  v3 = *a2;
+  v4 = (v3 - 1);
+  do
+  {
+    v5 = v4->__r_.__value_.__s.__data_[1];
+    v4 = (v4 + 1);
+  }
+
+  while (v5);
+  std::string::append[abi:ne200100]<char const*,0>(this, v3, v4);
+  return this;
+}
+
+void sub_2724DD394(_Unwind_Exception *exception_object)
+{
+  if (*(v1 + 23) < 0)
+  {
+    operator delete(*v1);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+std::string *std::string::append[abi:ne200100]<char const*,0>(std::string *this, std::string *__src, std::string *a3)
+{
+  size = SHIBYTE(this->__r_.__value_.__r.__words[2]);
+  v6 = a3 - __src;
+  if ((size & 0x8000000000000000) != 0)
+  {
+    if (a3 == __src)
+    {
+      return this;
+    }
+
+    size = this->__r_.__value_.__l.__size_;
+    v10 = this->__r_.__value_.__r.__words[2];
+    v7 = (v10 & 0x7FFFFFFFFFFFFFFFLL) - 1;
+    v9 = this->__r_.__value_.__r.__words[0];
+    v8 = HIBYTE(v10);
+  }
+
+  else
+  {
+    if (a3 == __src)
+    {
+      return this;
+    }
+
+    v7 = 22;
+    LOBYTE(v8) = *(&this->__r_.__value_.__s + 23);
+    v9 = this;
+  }
+
+  if (v9 > __src || (&v9->__r_.__value_.__l.__data_ + size + 1) <= __src)
+  {
+    if (v7 - size < v6)
+    {
+      std::string::__grow_by(this, v7, size - v7 + v6, size, size, 0, 0);
+      this->__r_.__value_.__l.__size_ = size;
+      LOBYTE(v8) = *(&this->__r_.__value_.__s + 23);
+    }
+
+    v13 = this;
+    if ((v8 & 0x80) != 0)
+    {
+      v13 = this->__r_.__value_.__r.__words[0];
+    }
+
+    v14 = v13 + size;
+    memmove(v13 + size, __src, v6);
+    v14[v6] = 0;
+    v15 = v6 + size;
+    if (SHIBYTE(this->__r_.__value_.__r.__words[2]) < 0)
+    {
+      this->__r_.__value_.__l.__size_ = v15;
+    }
+
+    else
+    {
+      *(&this->__r_.__value_.__s + 23) = v15 & 0x7F;
+    }
+  }
+
+  else
+  {
+    std::string::__init_with_size[abi:ne200100]<char const*,char const*>(__p, __src, a3, v6);
+    if ((v18 & 0x80u) == 0)
+    {
+      v11 = __p;
+    }
+
+    else
+    {
+      v11 = __p[0];
+    }
+
+    if ((v18 & 0x80u) == 0)
+    {
+      v12 = v18;
+    }
+
+    else
+    {
+      v12 = __p[1];
+    }
+
+    std::string::append(this, v11, v12);
+    if (v18 < 0)
+    {
+      operator delete(__p[0]);
+    }
+  }
+
+  return this;
 }

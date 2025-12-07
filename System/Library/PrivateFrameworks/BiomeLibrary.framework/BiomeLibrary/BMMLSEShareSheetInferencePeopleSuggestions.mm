@@ -114,7 +114,7 @@ LABEL_20:
 
 - (id)jsonDictionary
 {
-  v24[5] = *MEMORY[0x1E69E9840];
+  v23[5] = *MEMORY[0x1E69E9840];
   identifier = [(BMMLSEShareSheetInferencePeopleSuggestions *)self identifier];
   sourceBundleId = [(BMMLSEShareSheetInferencePeopleSuggestions *)self sourceBundleId];
   _peopleSuggestionsJSONArray = [(BMMLSEShareSheetInferencePeopleSuggestions *)self _peopleSuggestionsJSONArray];
@@ -122,48 +122,48 @@ LABEL_20:
   trainingDataCollection = [(BMMLSEShareSheetInferencePeopleSuggestions *)self trainingDataCollection];
   jsonDictionary = [trainingDataCollection jsonDictionary];
 
-  v19 = @"identifier";
+  v18 = @"identifier";
   null = identifier;
   if (!identifier)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v17 = null;
-  v24[0] = null;
-  v20 = @"sourceBundleId";
+  v16 = null;
+  v23[0] = null;
+  v19 = @"sourceBundleId";
   null2 = sourceBundleId;
   if (!sourceBundleId)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v24[1] = null2;
-  v21 = @"peopleSuggestions";
+  v23[1] = null2;
+  v20 = @"peopleSuggestions";
   null3 = _peopleSuggestionsJSONArray;
   if (!_peopleSuggestionsJSONArray)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v24[2] = null3;
-  v22 = @"responseType";
+  v23[2] = null3;
+  v21 = @"responseType";
   null4 = v6;
   if (!v6)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v24[3] = null4;
-  v23 = @"trainingDataCollection";
+  v23[3] = null4;
+  v22 = @"trainingDataCollection";
   null5 = jsonDictionary;
   if (!jsonDictionary)
   {
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v24[4] = null5;
-  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:&v19 count:{5, v17}];
+  v23[4] = null5;
+  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v18 count:{5, v16}];
   if (jsonDictionary)
   {
     if (v6)
@@ -221,52 +221,49 @@ LABEL_15:
 LABEL_23:
 
 LABEL_16:
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
 
 - (id)_peopleSuggestionsJSONArray
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   peopleSuggestions = [(BMMLSEShareSheetInferencePeopleSuggestions *)self peopleSuggestions];
-  v5 = [peopleSuggestions countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [peopleSuggestions countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(peopleSuggestions);
         }
 
-        jsonDictionary = [*(*(&v12 + 1) + 8 * i) jsonDictionary];
+        jsonDictionary = [*(*(&v11 + 1) + 8 * i) jsonDictionary];
         [v3 addObject:jsonDictionary];
       }
 
-      v6 = [peopleSuggestions countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [peopleSuggestions countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 - (BMMLSEShareSheetInferencePeopleSuggestions)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v87[1] = *MEMORY[0x1E69E9840];
+  v86[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v6 = [dictionaryCopy objectForKeyedSubscript:@"identifier"];
   if (v6 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
@@ -279,15 +276,15 @@ LABEL_16:
       {
         v23 = objc_alloc(MEMORY[0x1E696ABC0]);
         v24 = *MEMORY[0x1E698F240];
-        v86 = *MEMORY[0x1E696A578];
+        v85 = *MEMORY[0x1E696A578];
         selfCopy = self;
         v26 = objc_alloc(MEMORY[0x1E696AEC0]);
-        v56 = objc_opt_class();
+        v55 = objc_opt_class();
         v27 = v26;
         self = selfCopy;
-        v8 = [v27 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", v56, @"identifier"];
-        v87[0] = v8;
-        v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v87 forKeys:&v86 count:1];
+        v8 = [v27 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", v55, @"identifier"];
+        v86[0] = v8;
+        v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v86 forKeys:&v85 count:1];
         v29 = v23;
         v7 = v28;
         v30 = [v29 initWithDomain:v24 code:2 userInfo:v28];
@@ -301,17 +298,17 @@ LABEL_16:
       goto LABEL_61;
     }
 
-    v64 = v6;
+    v63 = v6;
   }
 
   else
   {
-    v64 = 0;
+    v63 = 0;
   }
 
   v7 = [dictionaryCopy objectForKeyedSubscript:@"sourceBundleId"];
-  v62 = v7;
-  v63 = v6;
+  v61 = v7;
+  v62 = v6;
   if (v7 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
   {
     objc_opt_class();
@@ -321,21 +318,21 @@ LABEL_16:
       {
         v32 = objc_alloc(MEMORY[0x1E696ABC0]);
         v33 = *MEMORY[0x1E698F240];
-        v84 = *MEMORY[0x1E696A578];
+        v83 = *MEMORY[0x1E696A578];
         v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"sourceBundleId"];
-        v85 = v9;
-        v66 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v85 forKeys:&v84 count:1];
+        v84 = v9;
+        v65 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v84 forKeys:&v83 count:1];
         v34 = [v32 initWithDomain:v33 code:2 userInfo:?];
         v8 = 0;
         selfCopy4 = 0;
         *error = v34;
-        errorCopy = v64;
+        errorCopy = v63;
         goto LABEL_58;
       }
 
       v8 = 0;
       selfCopy4 = 0;
-      errorCopy = v64;
+      errorCopy = v63;
       goto LABEL_60;
     }
 
@@ -351,7 +348,7 @@ LABEL_16:
   null = [MEMORY[0x1E695DFB0] null];
   v11 = [v9 isEqual:null];
 
-  v61 = v8;
+  v60 = v8;
   if (v11)
   {
     selfCopy3 = self;
@@ -370,19 +367,19 @@ LABEL_16:
         {
           v44 = objc_alloc(MEMORY[0x1E696ABC0]);
           v45 = *MEMORY[0x1E698F240];
-          v82 = *MEMORY[0x1E696A578];
-          v66 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Expecting %@ as an array", @"peopleSuggestions"];
-          v83 = v66;
-          v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v83 forKeys:&v82 count:1];
+          v81 = *MEMORY[0x1E696A578];
+          v65 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Expecting %@ as an array", @"peopleSuggestions"];
+          v82 = v65;
+          v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v82 forKeys:&v81 count:1];
           v46 = [v44 initWithDomain:v45 code:2 userInfo:v21];
           selfCopy4 = 0;
           *error = v46;
-          errorCopy = v64;
+          errorCopy = v63;
           goto LABEL_57;
         }
 
         selfCopy4 = 0;
-        errorCopy = v64;
+        errorCopy = v63;
         goto LABEL_59;
       }
     }
@@ -390,31 +387,31 @@ LABEL_16:
     selfCopy3 = self;
   }
 
-  v66 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v9, "count")}];
+  v65 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v9, "count")}];
+  v68 = 0u;
   v69 = 0u;
   v70 = 0u;
   v71 = 0u;
-  v72 = 0u;
   v9 = v9;
-  v12 = [v9 countByEnumeratingWithState:&v69 objects:v81 count:16];
+  v12 = [v9 countByEnumeratingWithState:&v68 objects:v80 count:16];
   if (!v12)
   {
     goto LABEL_22;
   }
 
   v13 = v12;
-  v14 = *v70;
-  v58 = dictionaryCopy;
+  v14 = *v69;
+  v57 = dictionaryCopy;
   while (2)
   {
     for (i = 0; i != v13; ++i)
     {
-      if (*v70 != v14)
+      if (*v69 != v14)
       {
         objc_enumerationMutation(v9);
       }
 
-      v16 = *(*(&v69 + 1) + 8 * i);
+      v16 = *(*(&v68 + 1) + 8 * i);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -423,12 +420,12 @@ LABEL_16:
         {
           v36 = objc_alloc(MEMORY[0x1E696ABC0]);
           v37 = *MEMORY[0x1E698F240];
-          v79 = *MEMORY[0x1E696A578];
+          v78 = *MEMORY[0x1E696A578];
           v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type null for element of %@, must not be null", @"peopleSuggestions"];
-          v80 = v17;
+          v79 = v17;
           v38 = MEMORY[0x1E695DF20];
-          v39 = &v80;
-          v40 = &v79;
+          v39 = &v79;
+          v40 = &v78;
 LABEL_37:
           v41 = [v38 dictionaryWithObjects:v39 forKeys:v40 count:1];
           v42 = [v36 initWithDomain:v37 code:2 userInfo:v41];
@@ -436,19 +433,19 @@ LABEL_37:
           *errorCopy3 = v42;
 LABEL_41:
           v21 = v9;
-          dictionaryCopy = v58;
+          dictionaryCopy = v57;
           self = selfCopy3;
-          errorCopy = v64;
+          errorCopy = v63;
           goto LABEL_42;
         }
 
 LABEL_45:
         selfCopy4 = 0;
         v21 = v9;
-        dictionaryCopy = v58;
+        dictionaryCopy = v57;
         self = selfCopy3;
-        errorCopy = v64;
-        v8 = v61;
+        errorCopy = v63;
+        v8 = v60;
         goto LABEL_57;
       }
 
@@ -460,12 +457,12 @@ LABEL_45:
         {
           v36 = objc_alloc(MEMORY[0x1E696ABC0]);
           v37 = *MEMORY[0x1E698F240];
-          v77 = *MEMORY[0x1E696A578];
+          v76 = *MEMORY[0x1E696A578];
           v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"peopleSuggestions"];
-          v78 = v17;
+          v77 = v17;
           v38 = MEMORY[0x1E695DF20];
-          v39 = &v78;
-          v40 = &v77;
+          v39 = &v77;
+          v40 = &v76;
           goto LABEL_37;
         }
 
@@ -474,9 +471,9 @@ LABEL_45:
 
       v17 = v16;
       v18 = [BMMLSEShareSheetInferencePeopleSuggestionsPeopleSuggestion alloc];
-      v68 = 0;
-      v19 = [(BMMLSEShareSheetInferencePeopleSuggestionsPeopleSuggestion *)v18 initWithJSONDictionary:v17 error:&v68];
-      v20 = v68;
+      v67 = 0;
+      v19 = [(BMMLSEShareSheetInferencePeopleSuggestionsPeopleSuggestion *)v18 initWithJSONDictionary:v17 error:&v67];
+      v20 = v67;
       if (v20)
       {
         v41 = v20;
@@ -490,11 +487,11 @@ LABEL_45:
         goto LABEL_41;
       }
 
-      [v66 addObject:v19];
+      [v65 addObject:v19];
     }
 
-    v13 = [v9 countByEnumeratingWithState:&v69 objects:v81 count:16];
-    dictionaryCopy = v58;
+    v13 = [v9 countByEnumeratingWithState:&v68 objects:v80 count:16];
+    dictionaryCopy = v57;
     if (v13)
     {
       continue;
@@ -524,27 +521,27 @@ LABEL_50:
     if (!v41 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
       v47 = 0;
-      errorCopy = v64;
+      errorCopy = v63;
       goto LABEL_53;
     }
 
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v50 = v41;
-      v67 = 0;
-      v47 = [[BMShareEvent alloc] initWithJSONDictionary:v50 error:&v67];
-      v51 = v67;
-      errorCopy = v64;
-      if (v51)
+      v49 = v41;
+      v66 = 0;
+      v47 = [[BMShareEvent alloc] initWithJSONDictionary:v49 error:&v66];
+      v50 = v66;
+      errorCopy = v63;
+      if (v50)
       {
         if (error)
         {
-          v51 = v51;
-          *error = v51;
+          v50 = v50;
+          *error = v50;
         }
 
-        v41 = v50;
+        v41 = v49;
         selfCopy4 = 0;
       }
 
@@ -552,7 +549,7 @@ LABEL_50:
       {
 
 LABEL_53:
-        self = -[BMMLSEShareSheetInferencePeopleSuggestions initWithIdentifier:sourceBundleId:peopleSuggestions:responseType:trainingDataCollection:](self, "initWithIdentifier:sourceBundleId:peopleSuggestions:responseType:trainingDataCollection:", errorCopy, v8, v66, [v21 intValue], v47);
+        self = -[BMMLSEShareSheetInferencePeopleSuggestions initWithIdentifier:sourceBundleId:peopleSuggestions:responseType:trainingDataCollection:](self, "initWithIdentifier:sourceBundleId:peopleSuggestions:responseType:trainingDataCollection:", errorCopy, v8, v65, [v21 intValue], v47);
         selfCopy4 = self;
       }
 
@@ -561,16 +558,16 @@ LABEL_54:
 
     else
     {
-      errorCopy = v64;
+      errorCopy = v63;
       if (error)
       {
-        v60 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v57 = *MEMORY[0x1E698F240];
-        v73 = *MEMORY[0x1E696A578];
+        v59 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v56 = *MEMORY[0x1E698F240];
+        v72 = *MEMORY[0x1E696A578];
         v47 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"trainingDataCollection"];
-        v74 = v47;
-        v52 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v74 forKeys:&v73 count:1];
-        *error = [v60 initWithDomain:v57 code:2 userInfo:v52];
+        v73 = v47;
+        v51 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v73 forKeys:&v72 count:1];
+        *error = [v59 initWithDomain:v56 code:2 userInfo:v51];
 
         selfCopy4 = 0;
         goto LABEL_54;
@@ -578,7 +575,7 @@ LABEL_54:
 
       selfCopy4 = 0;
 LABEL_42:
-      v8 = v61;
+      v8 = v60;
     }
 
     goto LABEL_56;
@@ -600,36 +597,35 @@ LABEL_42:
 
   if (error)
   {
-    v53 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v54 = *MEMORY[0x1E698F240];
-    v75 = *MEMORY[0x1E696A578];
+    v52 = objc_alloc(MEMORY[0x1E696ABC0]);
+    v53 = *MEMORY[0x1E698F240];
+    v74 = *MEMORY[0x1E696A578];
     v41 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"responseType"];
-    v76 = v41;
-    v47 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v76 forKeys:&v75 count:1];
-    v55 = [v53 initWithDomain:v54 code:2 userInfo:v47];
+    v75 = v41;
+    v47 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v75 forKeys:&v74 count:1];
+    v54 = [v52 initWithDomain:v53 code:2 userInfo:v47];
     v21 = 0;
     selfCopy4 = 0;
-    *error = v55;
-    errorCopy = v64;
+    *error = v54;
+    errorCopy = v63;
     goto LABEL_54;
   }
 
   v21 = 0;
   selfCopy4 = 0;
-  errorCopy = v64;
+  errorCopy = v63;
 LABEL_56:
 
 LABEL_57:
 LABEL_58:
 
-  v7 = v62;
+  v7 = v61;
 LABEL_59:
 
-  v6 = v63;
+  v6 = v62;
 LABEL_60:
 
 LABEL_61:
-  v48 = *MEMORY[0x1E69E9840];
   return selfCopy4;
 }
 
@@ -644,7 +640,7 @@ LABEL_61:
 
 - (void)writeTo:(id)to
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if (self->_identifier)
   {
@@ -656,38 +652,37 @@ LABEL_61:
     PBDataWriterWriteStringField();
   }
 
-  v15 = 0u;
-  v16 = 0u;
   v13 = 0u;
   v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v5 = self->_peopleSuggestions;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v12;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * i);
+        v10 = *(*(&v11 + 1) + 8 * i);
         PBDataWriterPlaceMark();
         [v10 writeTo:toCopy];
         PBDataWriterRecallMark();
       }
 
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
 
-  responseType = self->_responseType;
   PBDataWriterWriteUint32Field();
   if (self->_trainingDataCollection)
   {
@@ -695,8 +690,6 @@ LABEL_61:
     [(BMShareEvent *)self->_trainingDataCollection writeTo:toCopy];
     PBDataWriterRecallMark();
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)initByReadFrom:(id)from
@@ -943,60 +936,56 @@ LABEL_51:
 
 + (id)protoFields
 {
-  v10[5] = *MEMORY[0x1E69E9840];
+  v9[5] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"identifier" number:1 type:13 subMessageClass:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"sourceBundleId" number:2 type:13 subMessageClass:{0, v2}];
-  v10[1] = v3;
+  v9[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"peopleSuggestions" number:3 type:14 subMessageClass:objc_opt_class()];
-  v10[2] = v4;
+  v9[2] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"responseType" number:4 type:4 subMessageClass:0];
-  v10[3] = v5;
+  v9[3] = v5;
   v6 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"trainingDataCollection" number:10 type:14 subMessageClass:objc_opt_class()];
-  v10[4] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:5];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v9[4] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:5];
 
   return v7;
 }
 
 + (id)columns
 {
-  v10[5] = *MEMORY[0x1E69E9840];
+  v9[5] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"identifier" dataType:2 requestOnly:0 fieldNumber:1 protoDataType:13 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"sourceBundleId" dataType:2 requestOnly:0 fieldNumber:2 protoDataType:13 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"peopleSuggestions_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_428_86894];
   v5 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"responseType" dataType:0 requestOnly:0 fieldNumber:4 protoDataType:4 convertedType:0];
   v6 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"trainingDataCollection_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_430_86895];
-  v10[0] = v2;
-  v10[1] = v3;
-  v10[2] = v4;
-  v10[3] = v5;
-  v10[4] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:5];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v9[0] = v2;
+  v9[1] = v3;
+  v9[2] = v4;
+  v9[3] = v5;
+  v9[4] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:5];
 
   return v7;
 }
 
-id __53__BMMLSEShareSheetInferencePeopleSuggestions_columns__block_invoke_2(uint64_t a1, void *a2)
+id __53__BMMLSEShareSheetInferencePeopleSuggestions_columns__block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 trainingDataCollection];
-  v4 = [v3 jsonDictionary];
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 trainingDataCollection];
+  v5 = [v4 jsonDictionary];
+  v6 = BMConvertObjectToJSONString();
+
+  return v6;
+}
+
+id __53__BMMLSEShareSheetInferencePeopleSuggestions_columns__block_invoke(uint64_t a1, void *a2, uint64_t a3)
+{
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 _peopleSuggestionsJSONArray];
   v5 = BMConvertObjectToJSONString();
 
   return v5;
-}
-
-id __53__BMMLSEShareSheetInferencePeopleSuggestions_columns__block_invoke(uint64_t a1, void *a2)
-{
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 _peopleSuggestionsJSONArray];
-  v4 = BMConvertObjectToJSONString();
-
-  return v4;
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version

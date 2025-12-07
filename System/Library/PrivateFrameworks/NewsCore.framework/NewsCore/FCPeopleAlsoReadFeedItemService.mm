@@ -34,21 +34,21 @@
 
 - (FCPeopleAlsoReadFeedItemService)initWithConfigurationManager:(id)manager contentContext:(id)context readingHistory:(id)history
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   managerCopy = manager;
   contextCopy = context;
   historyCopy = history;
   if (!managerCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "configurationManager"];
+    v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "configurationManager"];
     *buf = 136315906;
-    v21 = "[FCPeopleAlsoReadFeedItemService initWithConfigurationManager:contentContext:readingHistory:]";
-    v22 = 2080;
-    v23 = "FCPeopleAlsoReadFeedItemService.m";
-    v24 = 1024;
-    v25 = 38;
-    v26 = 2114;
-    v27 = v16;
+    v20 = "[FCPeopleAlsoReadFeedItemService initWithConfigurationManager:contentContext:readingHistory:]";
+    v21 = 2080;
+    v22 = "FCPeopleAlsoReadFeedItemService.m";
+    v23 = 1024;
+    v24 = 38;
+    v25 = 2114;
+    v26 = v15;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (contextCopy)
@@ -64,36 +64,36 @@
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "contentContext"];
+    v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "contentContext"];
     *buf = 136315906;
-    v21 = "[FCPeopleAlsoReadFeedItemService initWithConfigurationManager:contentContext:readingHistory:]";
-    v22 = 2080;
-    v23 = "FCPeopleAlsoReadFeedItemService.m";
-    v24 = 1024;
-    v25 = 39;
-    v26 = 2114;
-    v27 = v17;
+    v20 = "[FCPeopleAlsoReadFeedItemService initWithConfigurationManager:contentContext:readingHistory:]";
+    v21 = 2080;
+    v22 = "FCPeopleAlsoReadFeedItemService.m";
+    v23 = 1024;
+    v24 = 39;
+    v25 = 2114;
+    v26 = v16;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_6:
   if (!historyCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "readingHistory"];
+    v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "readingHistory"];
     *buf = 136315906;
-    v21 = "[FCPeopleAlsoReadFeedItemService initWithConfigurationManager:contentContext:readingHistory:]";
-    v22 = 2080;
-    v23 = "FCPeopleAlsoReadFeedItemService.m";
-    v24 = 1024;
-    v25 = 40;
-    v26 = 2114;
-    v27 = v18;
+    v20 = "[FCPeopleAlsoReadFeedItemService initWithConfigurationManager:contentContext:readingHistory:]";
+    v21 = 2080;
+    v22 = "FCPeopleAlsoReadFeedItemService.m";
+    v23 = 1024;
+    v24 = 40;
+    v25 = 2114;
+    v26 = v17;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v19.receiver = self;
-  v19.super_class = FCPeopleAlsoReadFeedItemService;
-  v12 = [(FCPeopleAlsoReadFeedItemService *)&v19 init];
+  v18.receiver = self;
+  v18.super_class = FCPeopleAlsoReadFeedItemService;
+  v12 = [(FCPeopleAlsoReadFeedItemService *)&v18 init];
   v13 = v12;
   if (v12)
   {
@@ -102,7 +102,6 @@ LABEL_6:
     objc_storeStrong(&v13->_readingHistory, history);
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -175,44 +174,42 @@ void __114__FCPeopleAlsoReadFeedItemService_fetchFeedItemsWithCursor_feedItemHan
 
 void __114__FCPeopleAlsoReadFeedItemService_fetchFeedItemsWithCursor_feedItemHandler_networkEventHandler_completionHandler___block_invoke_3(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v10 = 0u;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v15 = 0u;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v5 = [WeakRetained networkEvents];
 
-  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * v9);
         (*(*(a1 + 32) + 16))();
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
 
   (*(*(a1 + 40) + 16))();
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -33,7 +33,7 @@
   [(EGNode *)&v3 dealloc];
 }
 
-uint64_t __95__EGStillImageProcessorControllerSourceNode_enqueueProcessorControllerFromResourceCoordinator___block_invoke(uint64_t a1, uint64_t a2)
+void *__95__EGStillImageProcessorControllerSourceNode_enqueueProcessorControllerFromResourceCoordinator___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [EGStillImageProcessorControllerSourceNode _emitProcessorController:a2 forType:?];
   if (result)

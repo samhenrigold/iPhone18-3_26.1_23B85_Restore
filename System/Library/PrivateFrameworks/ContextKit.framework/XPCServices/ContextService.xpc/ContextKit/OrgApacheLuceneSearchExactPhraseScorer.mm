@@ -1,6 +1,7 @@
 @interface OrgApacheLuceneSearchExactPhraseScorer
 - (float)score;
 - (id)asTwoPhaseIterator;
+- (int)advanceWithInt:(int)int;
 - (int)docID;
 - (int)nextDoc;
 - (int64_t)cost;
@@ -30,6 +31,19 @@
   nextDoc = [(OrgApacheLuceneSearchConjunctionDISI *)conjunction nextDoc];
 
   return sub_10000EDFC(self, nextDoc);
+}
+
+- (int)advanceWithInt:(int)int
+{
+  conjunction = self->conjunction_;
+  if (!conjunction)
+  {
+    JreThrowNullPointerException();
+  }
+
+  v5 = [(OrgApacheLuceneSearchConjunctionDISI *)conjunction advanceWithInt:*&int];
+
+  return sub_10000EDFC(self, v5);
 }
 
 - (int)docID

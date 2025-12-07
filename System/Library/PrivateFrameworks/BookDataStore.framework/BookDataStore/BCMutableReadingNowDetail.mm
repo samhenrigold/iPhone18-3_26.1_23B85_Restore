@@ -15,7 +15,7 @@
   dCopy = d;
   if (!dCopy)
   {
-    v7 = BDSCloudKitLog();
+    v7 = BDSCloudKitLog(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_1E4708AEC();
@@ -70,7 +70,7 @@ LABEL_7:
 
     else
     {
-      cloudAssetType = BDSCloudKitLog();
+      cloudAssetType = BDSCloudKitLog(0);
       if (os_log_type_enabled(cloudAssetType, OS_LOG_TYPE_ERROR))
       {
         sub_1E47086E4();
@@ -89,7 +89,7 @@ LABEL_7:
   recordCopy = record;
   if (!recordCopy)
   {
-    v10 = BDSCloudKitLog();
+    v10 = BDSCloudKitLog(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_1E4708B20();
@@ -159,21 +159,19 @@ LABEL_7:
   lastEngagedDate = [(BCMutableReadingNowDetail *)self lastEngagedDate];
   [configuredRecordFromAttributes setObject:lastEngagedDate forKey:@"lastEngagedDate"];
 
-  v6 = BDSCloudKitLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = BDSCloudKitLog(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     cloudAssetType = [(BCMutableReadingNowDetail *)self cloudAssetType];
     *buf = 138412546;
     v13 = cloudAssetType;
     v14 = 2112;
     v15 = @"cloudAssetType";
-    _os_log_impl(&dword_1E45E0000, v6, OS_LOG_TYPE_DEFAULT, "BCReadingNowDetail configuredRecordFromAttributes setting cloudAssetType:%@ for %@", buf, 0x16u);
+    _os_log_impl(&dword_1E45E0000, v7, OS_LOG_TYPE_DEFAULT, "BCReadingNowDetail configuredRecordFromAttributes setting cloudAssetType:%@ for %@", buf, 0x16u);
   }
 
   cloudAssetType2 = [(BCMutableReadingNowDetail *)self cloudAssetType];
   [configuredRecordFromAttributes setObject:cloudAssetType2 forKey:@"cloudAssetType"];
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return configuredRecordFromAttributes;
 }

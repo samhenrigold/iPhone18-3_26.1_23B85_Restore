@@ -1,8 +1,8 @@
 @interface NSDate(OFNSDateExtensions)
 + (uint64_t)dateFromISO8601String:()OFNSDateExtensions;
 + (uint64_t)dateFromRFC1123String:()OFNSDateExtensions;
-+ (uint64_t)dateFromString:()OFNSDateExtensions;
 + (uint64_t)dateFromTWTimeString:()OFNSDateExtensions;
++ (void)dateFromString:()OFNSDateExtensions;
 - (uint64_t)shortDescription;
 - (uint64_t)shortDescriptionSinceNow;
 - (uint64_t)shortDescriptionWithTime;
@@ -11,7 +11,7 @@
 
 @implementation NSDate(OFNSDateExtensions)
 
-+ (uint64_t)dateFromString:()OFNSDateExtensions
++ (void)dateFromString:()OFNSDateExtensions
 {
   if (!a3)
   {

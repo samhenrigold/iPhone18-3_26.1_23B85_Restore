@@ -43,7 +43,7 @@
 
 - (id)_createRequestOptionsForRequest:(id)request withDataSource:(id)source
 {
-  v116 = *MEMORY[0x1E69E9840];
+  v115 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   sourceCopy = source;
   v8 = [sourceCopy requestOptionsBuilder:self uiPresentationIdentifierWithActivation:requestCopy activationPresentation:{-[SASRequestOptionsBuilder presentationIdentifier](self, "presentationIdentifier")}];
@@ -62,7 +62,7 @@
       if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v115 = "[SASRequestOptionsBuilder _createRequestOptionsForRequest:withDataSource:]";
+        v114 = "[SASRequestOptionsBuilder _createRequestOptionsForRequest:withDataSource:]";
         _os_log_impl(&dword_1C8137000, v14, OS_LOG_TYPE_DEFAULT, "%s Button Down Event absent. Artificially update timestamp.", buf, 0xCu);
       }
 
@@ -155,8 +155,8 @@ LABEL_20:
 
   if ([requestCopy isDirectActionRequest])
   {
-    v109 = v8;
-    v110 = sourceCopy;
+    v108 = v8;
+    v109 = sourceCopy;
     context6 = [requestCopy context];
     -[SASRequestOptions setDirectActionEvent:](v12, "setDirectActionEvent:", [context6 directActionEvent]);
     payload = [context6 payload];
@@ -230,15 +230,15 @@ LABEL_20:
     }
 
     v53 = MEMORY[0x1E698D0D0];
-    v111[0] = MEMORY[0x1E69E9820];
-    v111[1] = 3221225472;
-    v111[2] = __75__SASRequestOptionsBuilder__createRequestOptionsForRequest_withDataSource___block_invoke;
-    v111[3] = &unk_1E82F35C0;
+    v110[0] = MEMORY[0x1E69E9820];
+    v110[1] = 3221225472;
+    v110[2] = __75__SASRequestOptionsBuilder__createRequestOptionsForRequest_withDataSource___block_invoke;
+    v110[3] = &unk_1E82F35C0;
     v54 = v12;
-    v112 = v54;
-    v113 = v32;
+    v111 = v54;
+    v112 = v32;
     v55 = v32;
-    v56 = [v53 newWithBuilder:v111];
+    v56 = [v53 newWithBuilder:v110];
     [(SASRequestOptions *)v54 setDirectActionApplicationContext:v56];
     AFDirectActionSourceFromSASRequestSource([(SASRequestOptions *)v54 requestSource]);
     [(SASRequestOptions *)v54 directActionEvent];
@@ -246,8 +246,8 @@ LABEL_20:
     v58 = AFDirectActionCreateRequestInfo();
 
     [(SASRequestOptions *)v54 setRequestInfo:v58];
-    v8 = v109;
-    sourceCopy = v110;
+    v8 = v108;
+    sourceCopy = v109;
   }
 
   context7 = [requestCopy context];
@@ -430,8 +430,6 @@ LABEL_69:
     activationIdentifier = [context22 activationIdentifier];
     [(SASRequestOptions *)v12 setActivationPreparationReferenceIdentifier:activationIdentifier];
   }
-
-  v107 = *MEMORY[0x1E69E9840];
 
   return v12;
 }

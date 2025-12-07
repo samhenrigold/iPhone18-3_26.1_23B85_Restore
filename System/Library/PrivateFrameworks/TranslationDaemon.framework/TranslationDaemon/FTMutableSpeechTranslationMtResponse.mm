@@ -5,9 +5,12 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (int)return_code;
 - (void)setAlternative_descriptions:(id)alternative_descriptions;
+- (void)setContains_masked_profanity:(BOOL)contains_masked_profanity;
 - (void)setConversation_id:(id)conversation_id;
+- (void)setIs_final:(BOOL)is_final;
 - (void)setN_best_translated_phrases:(id)n_best_translated_phrases;
 - (void)setRequest_id:(id)request_id;
+- (void)setReturn_code:(int)return_code;
 - (void)setReturn_str:(id)return_str;
 - (void)setTranslation_locale_pair:(id)translation_locale_pair;
 @end
@@ -59,6 +62,12 @@
   return intValue;
 }
 
+- (void)setReturn_code:(int)return_code
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:*&return_code];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
+
 - (void)setReturn_str:(id)return_str
 {
   v4 = [return_str copy];
@@ -85,6 +94,12 @@
   return bOOLValue;
 }
 
+- (void)setIs_final:(BOOL)is_final
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithBool:is_final];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
+
 - (void)setAlternative_descriptions:(id)alternative_descriptions
 {
   v4 = [alternative_descriptions copy];
@@ -97,6 +112,12 @@
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setContains_masked_profanity:(BOOL)contains_masked_profanity
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithBool:contains_masked_profanity];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 @end

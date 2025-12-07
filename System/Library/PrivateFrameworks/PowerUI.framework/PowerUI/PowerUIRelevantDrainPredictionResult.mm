@@ -38,7 +38,6 @@
     v3 = off_2782D4990[scheme - 1];
   }
 
-  predictionSchemeString = self->_predictionSchemeString;
   self->_predictionScheme = scheme;
   self->_predictionSchemeString = &v3->isa;
   MEMORY[0x2821F96F8]();

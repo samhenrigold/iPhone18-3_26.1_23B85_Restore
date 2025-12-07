@@ -16,13 +16,13 @@
 
 - (void)applyContentsToVoiceProfileStorePrefs:(id)prefs
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CCAAC8];
   prefsCopy = prefs;
-  v20 = 0;
-  v6 = [v4 unarchivedObjectOfClass:objc_opt_class() fromData:prefsCopy error:&v20];
+  v19 = 0;
+  v6 = [v4 unarchivedObjectOfClass:objc_opt_class() fromData:prefsCopy error:&v19];
 
-  v7 = v20;
+  v7 = v19;
   if (v7)
   {
     v8 = 1;
@@ -41,9 +41,9 @@
       v10 = v9;
       localizedDescription = [v7 localizedDescription];
       *buf = 136315394;
-      v22 = "[SSRVoiceProfileStorePrefs applyContentsToVoiceProfileStorePrefs:]";
-      v23 = 2112;
-      v24 = localizedDescription;
+      v21 = "[SSRVoiceProfileStorePrefs applyContentsToVoiceProfileStorePrefs:]";
+      v22 = 2112;
+      v23 = localizedDescription;
       _os_log_error_impl(&dword_225E12000, v10, OS_LOG_TYPE_ERROR, "%s Unable to decode blob, not restoring with error %@", buf, 0x16u);
     }
   }
@@ -66,18 +66,16 @@
       if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v22 = "[SSRVoiceProfileStorePrefs applyContentsToVoiceProfileStorePrefs:]";
+        v21 = "[SSRVoiceProfileStorePrefs applyContentsToVoiceProfileStorePrefs:]";
         _os_log_error_impl(&dword_225E12000, v18, OS_LOG_TYPE_ERROR, "%s Empty known users, not restoring", buf, 0xCu);
       }
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getAllContentsOfVoiceProfileStorePrefs
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   CFPreferencesAppSynchronize(@"com.apple.speakerrecognition");
   loadKnownUserVoiceProfiles = [(SSRVoiceProfileStorePrefs *)self loadKnownUserVoiceProfiles];
   if (loadKnownUserVoiceProfiles)
@@ -87,21 +85,21 @@
     v6 = [MEMORY[0x277CCABB0] numberWithInteger:getVoiceProfileStoreVersion];
     v7 = [(SSRVoiceProfileStoreData *)v5 initWithVoiceProfileArray:loadKnownUserVoiceProfiles withVersion:v6];
 
-    v17 = 0;
-    v8 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v7 requiringSecureCoding:1 error:&v17];
-    v9 = v17;
+    v16 = 0;
+    v8 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v7 requiringSecureCoding:1 error:&v16];
+    v9 = v16;
     if (v9 || !v8)
     {
       v12 = *MEMORY[0x277D01970];
       if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
       {
-        v15 = v12;
+        v14 = v12;
         localizedDescription = [v9 localizedDescription];
         *buf = 136315394;
-        v19 = "[SSRVoiceProfileStorePrefs getAllContentsOfVoiceProfileStorePrefs]";
-        v20 = 2112;
-        v21 = localizedDescription;
-        _os_log_error_impl(&dword_225E12000, v15, OS_LOG_TYPE_ERROR, "%s Failed to serialize dict with err %@", buf, 0x16u);
+        v18 = "[SSRVoiceProfileStorePrefs getAllContentsOfVoiceProfileStorePrefs]";
+        v19 = 2112;
+        v20 = localizedDescription;
+        _os_log_error_impl(&dword_225E12000, v14, OS_LOG_TYPE_ERROR, "%s Failed to serialize dict with err %@", buf, 0x16u);
       }
 
       v10 = 0;
@@ -119,14 +117,12 @@
     if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v19 = "[SSRVoiceProfileStorePrefs getAllContentsOfVoiceProfileStorePrefs]";
+      v18 = "[SSRVoiceProfileStorePrefs getAllContentsOfVoiceProfileStorePrefs]";
       _os_log_error_impl(&dword_225E12000, v11, OS_LOG_TYPE_ERROR, "%s Empty known users", buf, 0xCu);
     }
 
     v10 = 0;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

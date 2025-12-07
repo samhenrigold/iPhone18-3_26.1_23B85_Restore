@@ -36,7 +36,7 @@
 
 - (void)matchesForString:(NSString *)string inTextStorage:(NSTextStorage *)storage note:(ICNote *)note ignoreCase:(BOOL)case wholeWords:(BOOL)words startsWith:(BOOL)with completion:(id)completion
 {
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CA5ACE0);
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CA5ACE0, &qword_2154BED90);
   MEMORY[0x28223BE20](v16 - 8);
   v18 = &v28 - v17;
   v19 = _Block_copy(completion);
@@ -70,7 +70,7 @@
 
 - (BOOL)replaceMatches:(id)matches withString:(id)string error:(id *)error
 {
-  sub_2151A6C9C(0, &unk_27CA5AC70);
+  sub_2151A6C9C(0, &unk_27CA5AC70, off_2781A8F18);
   v6 = sub_2154A1F4C();
   v7 = sub_2154A1D6C();
   v9 = v8;
@@ -84,7 +84,7 @@
 {
   HIDWORD(v29) = words;
   stringCopy = string;
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CA5ACE0);
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CA5ACE0, &qword_2154BED90);
   MEMORY[0x28223BE20](v16 - 8);
   v18 = &v29 - v17;
   v19 = _Block_copy(completion);

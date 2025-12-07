@@ -37,7 +37,7 @@
 {
   changeCopy = change;
   selfCopy = self;
-  sub_1006259A4(change);
+  sub_1006259A4(change, selfCopy);
 }
 
 @end

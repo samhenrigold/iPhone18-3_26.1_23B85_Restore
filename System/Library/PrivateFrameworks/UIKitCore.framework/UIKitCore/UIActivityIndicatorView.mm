@@ -596,9 +596,9 @@ LABEL_18:
   {
     if (v11 && v10)
     {
-      v14 = [(_UIActivityIndicatorViewArtworkCacheKey *)v10 isEqual:v11];
+      isEqual = objc_msgSend_isEqual_(v10);
 
-      if (v14)
+      if (isEqual)
       {
         v13 = 0;
         goto LABEL_29;
@@ -643,7 +643,7 @@ LABEL_29:
     {
       if (v22 && v21)
       {
-        v25 = [(_UIActivityIndicatorViewArtworkCacheKey *)v21 isEqual:v22];
+        v25 = objc_msgSend_isEqual_(v21);
 
         if (v25)
         {
@@ -756,7 +756,7 @@ LABEL_42:
   if (color)
   {
     v3 = [(UIActivityIndicatorView *)self _defaultColorForStyle:self->_activityIndicatorViewStyle];
-    LODWORD(color) = ![(UIColor *)color isEqual:v3];
+    LODWORD(color) = objc_msgSend_isEqual_(color) ^ 1;
   }
 
   return color;
@@ -1036,9 +1036,9 @@ LABEL_9:
 
   if (v7 && v6)
   {
-    v8 = [(NSString *)v6 isEqual:v7];
+    isEqual = objc_msgSend_isEqual_(v6, v7, v7);
 
-    if (v8)
+    if (isEqual)
     {
       goto LABEL_13;
     }
@@ -1267,7 +1267,7 @@ LABEL_13:
 
     else
     {
-      v5 = +[UIColor blackColor];
+      v5 = objc_msgSend_blackColor(UIColor);
     }
 
     shadowColor = self->_shadowColor;
@@ -2010,7 +2010,7 @@ LABEL_7:
       if (dyld_program_sdk_at_least() && (-[UIView traitCollection](self, "traitCollection"), v21 = objc_claimAutoreleasedReturnValue(), v22 = [v21 userInterfaceStyle], v21, v22 != 2))
       {
 LABEL_3:
-        v4 = +[UIColor blackColor];
+        v4 = objc_msgSend_blackColor(UIColor, a2);
       }
 
       else

@@ -76,9 +76,9 @@
   bundleContainerCopy = bundleContainer;
   optionsCopy = options;
   infoCopy = info;
-  v28.receiver = self;
-  v28.super_class = MIInstallationJournalEntry;
-  v18 = [(MIInstallationJournalEntry *)&v28 init];
+  v26.receiver = self;
+  v26.super_class = MIInstallationJournalEntry;
+  v18 = [(MIInstallationJournalEntry *)&v26 init];
   if (v18)
   {
     v19 = [identityCopy copy];
@@ -101,8 +101,6 @@
     {
       if (!qword_1000A9720 || *(qword_1000A9720 + 44) >= 5)
       {
-        v24 = v18->_journalEntryID;
-        v25 = v18->_identity;
         MOLogWrite();
       }
     }
@@ -177,9 +175,9 @@
 - (MIInstallationJournalEntry)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v92.receiver = self;
-  v92.super_class = MIInstallationJournalEntry;
-  v5 = [(MIInstallationJournalEntry *)&v92 init];
+  v89.receiver = self;
+  v89.super_class = MIInstallationJournalEntry;
+  v5 = [(MIInstallationJournalEntry *)&v89 init];
   if (!v5)
   {
     v11 = 0;
@@ -199,7 +197,7 @@ LABEL_6:
     v15 = @"Decoded object was missing identity.";
     v16 = 280;
 LABEL_12:
-    sub_100010734("[MIInstallationJournalEntry initWithCoder:]", v16, v14, 186, 0, 0, v15, v8, v72);
+    sub_100010734("[MIInstallationJournalEntry initWithCoder:]", v16, v14, 186, 0, 0, v15, v8, v71);
     goto LABEL_13;
   }
 
@@ -225,7 +223,7 @@ LABEL_12:
   if ((MIIsValidInstallationDomain() & 1) == 0)
   {
     v14 = MIInstallerErrorDomain;
-    v72 = installationDomain;
+    v71 = installationDomain;
     v15 = @"Got invalid installation domain: %lu.";
     v16 = 297;
     goto LABEL_12;
@@ -240,16 +238,16 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  v25 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"installOptions"];
+  v24 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"installOptions"];
   installOptions = v5->_installOptions;
-  v5->_installOptions = v25;
+  v5->_installOptions = v24;
 
-  v27 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"journalEntryID"];
+  v26 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"journalEntryID"];
   journalEntryID = v5->_journalEntryID;
-  v5->_journalEntryID = v27;
+  v5->_journalEntryID = v26;
 
-  v29 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"BundleContainerToken"];
-  if (!v29)
+  v28 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"BundleContainerToken"];
+  if (!v28)
   {
     v14 = MIInstallerErrorDomain;
     v15 = @"Serialized journal entry did not contain bundle container token.";
@@ -257,13 +255,13 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  v30 = v29;
-  v91 = 0;
-  v31 = [(MIInstallationJournalEntry *)v5 _findBundleContainerForToken:v29 error:&v91];
-  v13 = v91;
-  if (!v31)
+  v29 = v28;
+  v88 = 0;
+  v30 = [(MIInstallationJournalEntry *)v5 _findBundleContainerForToken:v28 error:&v88];
+  v13 = v88;
+  if (!v30)
   {
-    v22 = v30;
+    v22 = v29;
     goto LABEL_14;
   }
 
@@ -272,129 +270,129 @@ LABEL_12:
 
   if ([(MIInstallationJournalEntry *)v5 journalPhase]< 2)
   {
-    v76 = v22;
+    v73 = v22;
     if (v22)
     {
       objc_storeStrong(&v5->_existingBundleContainer, v5->_bundleContainer);
     }
 
 LABEL_30:
-    v36 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"linkToParentBundleID"];
+    v35 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"linkToParentBundleID"];
     linkToParentBundleID = v5->_linkToParentBundleID;
-    v5->_linkToParentBundleID = v36;
+    v5->_linkToParentBundleID = v35;
 
-    v38 = objc_opt_new();
-    v39 = [coderCopy decodeArrayOfObjectsOfClass:objc_opt_class() forKey:@"NoLongerPresentContainerTokens"];
+    v37 = objc_opt_new();
+    v38 = [coderCopy decodeArrayOfObjectsOfClass:objc_opt_class() forKey:@"NoLongerPresentContainerTokens"];
+    v83 = 0u;
+    v84 = 0u;
+    v85 = 0u;
     v86 = 0u;
-    v87 = 0u;
-    v88 = 0u;
-    v89 = 0u;
-    v40 = [v39 countByEnumeratingWithState:&v86 objects:v94 count:16];
-    if (v40)
+    v39 = [v38 countByEnumeratingWithState:&v83 objects:v91 count:16];
+    if (v39)
     {
-      v41 = v40;
-      v42 = *v87;
+      v40 = v39;
+      v41 = *v84;
       do
       {
-        for (i = 0; i != v41; i = i + 1)
+        for (i = 0; i != v40; i = i + 1)
         {
-          if (*v87 != v42)
+          if (*v84 != v41)
           {
-            objc_enumerationMutation(v39);
+            objc_enumerationMutation(v38);
           }
 
-          v44 = [[MIPluginDataContainer alloc] initWithToken:*(*(&v86 + 1) + 8 * i) options:0 error:0];
-          if (v44)
+          v43 = [[MIPluginDataContainer alloc] initWithToken:*(*(&v83 + 1) + 8 * i) options:0 error:0];
+          if (v43)
           {
-            [v38 addObject:v44];
+            [v37 addObject:v43];
           }
         }
 
-        v41 = [v39 countByEnumeratingWithState:&v86 objects:v94 count:16];
+        v40 = [v38 countByEnumeratingWithState:&v83 objects:v91 count:16];
       }
 
-      while (v41);
+      while (v40);
     }
 
-    if ([v38 count])
+    if ([v37 count])
     {
-      v45 = [v38 copy];
+      v44 = [v37 copy];
       noLongerPresentAppExtensionDataContainers = v5->_noLongerPresentAppExtensionDataContainers;
-      v5->_noLongerPresentAppExtensionDataContainers = v45;
+      v5->_noLongerPresentAppExtensionDataContainers = v44;
     }
 
-    v47 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"DataContainerToken"];
-    if (v47)
+    v46 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"DataContainerToken"];
+    if (v46)
     {
-      v85 = v13;
-      v48 = [[MIDataContainer alloc] initWithToken:v47 options:0 error:&v85];
-      v49 = v85;
+      v82 = v13;
+      v47 = [[MIDataContainer alloc] initWithToken:v46 options:0 error:&v82];
+      v48 = v82;
 
       dataContainer = v5->_dataContainer;
-      v5->_dataContainer = v48;
+      v5->_dataContainer = v47;
 
       if (!v5->_dataContainer)
       {
-        v13 = sub_100010734("[MIInstallationJournalEntry initWithCoder:]", 374, MIInstallerErrorDomain, 186, v49, 0, @"Expected to find data container but lookup failed.", v51, v72);
+        v13 = sub_100010734("[MIInstallationJournalEntry initWithCoder:]", 374, MIInstallerErrorDomain, 186, v48, 0, @"Expected to find data container but lookup failed.", v50, v71);
 
 LABEL_62:
-        v22 = v76;
+        v22 = v73;
         goto LABEL_14;
       }
 
-      v13 = v49;
+      v13 = v48;
     }
 
-    v75 = v47;
-    v52 = [coderCopy decodeArrayOfObjectsOfClass:objc_opt_class() forKey:@"AppExtensionDataContainerTokens"];
-    [v38 removeAllObjects];
-    v83 = 0u;
-    v84 = 0u;
+    v72 = v46;
+    v51 = [coderCopy decodeArrayOfObjectsOfClass:objc_opt_class() forKey:@"AppExtensionDataContainerTokens"];
+    [v37 removeAllObjects];
+    v80 = 0u;
     v81 = 0u;
-    v82 = 0u;
-    v53 = v52;
-    v54 = [v53 countByEnumeratingWithState:&v81 objects:v93 count:16];
-    if (v54)
+    v78 = 0u;
+    v79 = 0u;
+    v52 = v51;
+    v53 = [v52 countByEnumeratingWithState:&v78 objects:v90 count:16];
+    if (v53)
     {
-      v55 = v54;
-      obj = v53;
-      v78 = *v82;
+      v54 = v53;
+      obj = v52;
+      v75 = *v79;
       while (2)
       {
-        v56 = 0;
-        v57 = v13;
+        v55 = 0;
+        v56 = v13;
         do
         {
-          if (*v82 != v78)
+          if (*v79 != v75)
           {
             objc_enumerationMutation(obj);
           }
 
-          v58 = *(*(&v81 + 1) + 8 * v56);
-          v59 = [MIPluginDataContainer alloc];
-          v80 = v57;
-          v60 = [v59 initWithToken:v58 options:0 error:&v80];
-          v13 = v80;
+          v57 = *(*(&v78 + 1) + 8 * v55);
+          v58 = [MIPluginDataContainer alloc];
+          v77 = v56;
+          v59 = [v58 initWithToken:v57 options:0 error:&v77];
+          v13 = v77;
 
-          if (!v60)
+          if (!v59)
           {
-            v68 = sub_100010734("[MIInstallationJournalEntry initWithCoder:]", 385, MIInstallerErrorDomain, 186, v13, 0, @"Expected to find app extension data container but lookup failed.", v61, v72);
-            v53 = obj;
+            v67 = sub_100010734("[MIInstallationJournalEntry initWithCoder:]", 385, MIInstallerErrorDomain, 186, v13, 0, @"Expected to find app extension data container but lookup failed.", v60, v71);
+            v52 = obj;
             bundle2 = obj;
-            v67 = v75;
+            v66 = v72;
             goto LABEL_60;
           }
 
-          [v38 addObject:v60];
+          [v37 addObject:v59];
 
-          v56 = v56 + 1;
-          v57 = v13;
+          v55 = v55 + 1;
+          v56 = v13;
         }
 
-        while (v55 != v56);
-        v53 = obj;
-        v55 = [obj countByEnumeratingWithState:&v81 objects:v93 count:16];
-        if (v55)
+        while (v54 != v55);
+        v52 = obj;
+        v54 = [obj countByEnumeratingWithState:&v78 objects:v90 count:16];
+        if (v54)
         {
           continue;
         }
@@ -403,74 +401,68 @@ LABEL_62:
       }
     }
 
-    if ([v38 count])
+    if ([v37 count])
     {
-      v62 = [v38 copy];
+      v61 = [v37 copy];
       appExtensionDataContainers = v5->_appExtensionDataContainers;
-      v5->_appExtensionDataContainers = v62;
+      v5->_appExtensionDataContainers = v61;
     }
 
     bundle = [(MIInstallationJournalEntry *)v5 bundle];
-    v79 = v13;
-    v65 = [bundle appExtensionBundlesWithError:&v79];
-    v11 = v79;
+    v76 = v13;
+    v64 = [bundle appExtensionBundlesWithError:&v76];
+    v11 = v76;
 
     appExtensionBundles = v5->_appExtensionBundles;
-    v5->_appExtensionBundles = v65;
+    v5->_appExtensionBundles = v64;
 
-    v67 = v75;
+    v66 = v72;
     if (v5->_appExtensionBundles)
     {
       if (qword_1000A9720 && *(qword_1000A9720 + 44) >= 7)
       {
-        v73 = v5->_journalEntryID;
-        v74 = v5->_identity;
         MOLogWrite();
       }
 
       goto LABEL_6;
     }
 
-    v70 = MIInstallerErrorDomain;
+    v69 = MIInstallerErrorDomain;
     bundle2 = [(MIInstallationJournalEntry *)v5 bundle];
-    v68 = sub_100010734("[MIInstallationJournalEntry initWithCoder:]", 397, v70, 186, v11, 0, @"Failed to locate app extension bundles in bundle %@.", v71, bundle2);
+    v67 = sub_100010734("[MIInstallationJournalEntry initWithCoder:]", 397, v69, 186, v11, 0, @"Failed to locate app extension bundles in bundle %@.", v70, bundle2);
     v13 = v11;
 LABEL_60:
 
-    v13 = v68;
+    v13 = v67;
     goto LABEL_62;
   }
 
   if (!v22)
   {
-    v76 = 0;
+    v73 = 0;
     goto LABEL_30;
   }
 
-  v90 = v13;
-  v32 = [[MIBundleContainer alloc] initWithToken:v22 options:1 error:&v90];
-  v33 = v90;
+  v87 = v13;
+  v31 = [[MIBundleContainer alloc] initWithToken:v22 options:1 error:&v87];
+  v32 = v87;
 
   existingBundleContainer = v5->_existingBundleContainer;
-  v5->_existingBundleContainer = v32;
+  v5->_existingBundleContainer = v31;
 
   if (v5->_existingBundleContainer)
   {
-    v76 = v22;
-    v13 = v33;
+    v73 = v22;
+    v13 = v32;
     goto LABEL_30;
   }
 
-  v13 = sub_100010734("[MIInstallationJournalEntry initWithCoder:]", 332, MIInstallerErrorDomain, 186, v33, 0, @"Expected to find existing bundle container but lookup failed.", v35, v72);
+  v13 = sub_100010734("[MIInstallationJournalEntry initWithCoder:]", 332, MIInstallerErrorDomain, 186, v32, 0, @"Expected to find existing bundle container but lookup failed.", v34, v71);
 
 LABEL_14:
-  if (v5->_identity)
+  if (v5->_identity && MIIsValidInstallationDomain())
   {
-    v23 = v5->_installationDomain;
-    if (MIIsValidInstallationDomain())
-    {
-      [objc_opt_class() _attemptLSUpdateWithDiscoveredStateForIdentity:v5->_identity domain:v5->_installationDomain];
-    }
+    [objc_opt_class() _attemptLSUpdateWithDiscoveredStateForIdentity:v5->_identity domain:v5->_installationDomain];
   }
 
   [coderCopy failWithError:v13];

@@ -48,17 +48,12 @@
 - (void)updateAdjustments
 {
   v3 = +[UITraitCollection currentTraitCollection];
-  userInterfaceStyle = [v3 userInterfaceStyle];
-
-  if (userInterfaceStyle <= 2)
-  {
-    v5 = dword_100025F40[userInterfaceStyle];
-  }
+  [v3 userInterfaceStyle];
 
   adjustmentsURL = [(FMDMovieProxCardMovieView *)self adjustmentsURL];
-  v6 = SFAdjustmentFiltersForAssetTypeAndURL();
+  v4 = SFAdjustmentFiltersForAssetTypeAndURL();
   layer = [(FMDMovieProxCardMovieView *)self layer];
-  [layer setFilters:v6];
+  [layer setFilters:v4];
 }
 
 @end

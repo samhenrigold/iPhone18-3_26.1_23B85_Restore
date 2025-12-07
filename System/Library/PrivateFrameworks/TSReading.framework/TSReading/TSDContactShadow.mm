@@ -255,7 +255,7 @@
     styledLayout = [rep styledLayout];
     if (styledLayout)
     {
-      [styledLayout transformInRoot];
+      objc_msgSend_transformInRoot(styledLayout);
     }
 
     else

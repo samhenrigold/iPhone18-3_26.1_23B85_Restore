@@ -5,6 +5,7 @@
 - (void)onPinch:(id)pinch;
 - (void)onTap:(id)tap;
 - (void)removeFromParentViewController;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
 - (void)viewWillAppear:(BOOL)appear;
 - (void)willEnterForeground;
@@ -64,13 +65,27 @@
   sub_23B2E5554(appear);
 }
 
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  v7.receiver = self;
+  v7.super_class = type metadata accessor for DataScannerViewController();
+  v4 = v7.receiver;
+  [(DataScannerViewController *)&v7 viewDidDisappear:disappearCopy];
+  [*&v4[OBJC_IVAR____TtC9VisionKit25DataScannerViewController_frameProvider] stopRunning];
+  [*&v4[OBJC_IVAR____TtC9VisionKit25DataScannerViewController_guidanceView] hideGuidance];
+  v5 = OBJC_IVAR____TtC9VisionKit25DataScannerViewController_cantFindItemsTimer;
+  [*&v4[OBJC_IVAR____TtC9VisionKit25DataScannerViewController_cantFindItemsTimer] invalidate];
+  v6 = *&v4[v5];
+  *&v4[v5] = 0;
+}
+
 - (void)removeFromParentViewController
 {
   v3.receiver = self;
   v3.super_class = type metadata accessor for DataScannerViewController();
   v2 = v3.receiver;
   [(DataScannerViewController *)&v3 removeFromParentViewController];
-  sub_23B2E6E38();
   [*&v2[OBJC_IVAR____TtC9VisionKit25DataScannerViewController_frameProvider] stopRunning];
 }
 

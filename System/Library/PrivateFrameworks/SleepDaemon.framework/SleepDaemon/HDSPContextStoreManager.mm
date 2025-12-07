@@ -59,7 +59,7 @@
 
 - (id)registerPredicate:(id)predicate identifier:(id)identifier callback:(id)callback
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   predicateCopy = predicate;
   identifierCopy = identifier;
   callbackCopy = callback;
@@ -68,35 +68,33 @@
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543874;
-    v24 = v11;
-    v25 = 2114;
-    v26 = predicateCopy;
-    v27 = 2114;
-    v28 = identifierCopy;
+    v23 = v11;
+    v24 = 2114;
+    v25 = predicateCopy;
+    v26 = 2114;
+    v27 = identifierCopy;
     _os_log_impl(&dword_269B11000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@] registering predicate %{public}@ for identifier %{public}@", buf, 0x20u);
   }
 
   v13 = MEMORY[0x277CFE350];
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __65__HDSPContextStoreManager_registerPredicate_identifier_callback___block_invoke;
-  v19[3] = &unk_279C7B6F0;
-  v21 = callbackCopy;
-  v22 = v11;
-  v20 = identifierCopy;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __65__HDSPContextStoreManager_registerPredicate_identifier_callback___block_invoke;
+  v18[3] = &unk_279C7B6F0;
+  v20 = callbackCopy;
+  v21 = v11;
+  v19 = identifierCopy;
   v14 = callbackCopy;
   v15 = identifierCopy;
-  v16 = [v13 localWakingRegistrationWithIdentifier:v15 contextualPredicate:predicateCopy clientIdentifier:@"com.apple.sleepd.contextstore-registration" callback:v19];
+  v16 = [v13 localWakingRegistrationWithIdentifier:v15 contextualPredicate:predicateCopy clientIdentifier:@"com.apple.sleepd.contextstore-registration" callback:v18];
   [(_CDLocalContext *)self->_context registerCallback:v16];
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
 
 void __65__HDSPContextStoreManager_registerPredicate_identifier_callback___block_invoke(void *a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if ([a2 isEqualToString:a1[4]])
   {
@@ -105,11 +103,11 @@ void __65__HDSPContextStoreManager_registerPredicate_identifier_callback___block
     {
       v7 = a1[6];
       v8 = a1[4];
-      v15 = 138543618;
-      v16 = v7;
-      v17 = 2114;
-      v18 = v8;
-      _os_log_impl(&dword_269B11000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] processing callback with identifier %{public}@", &v15, 0x16u);
+      v14 = 138543618;
+      v15 = v7;
+      v16 = 2114;
+      v17 = v8;
+      _os_log_impl(&dword_269B11000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] processing callback with identifier %{public}@", &v14, 0x16u);
     }
 
     v9 = [v5 objectForKeyedSubscript:*MEMORY[0x277CFE3C0]];
@@ -119,27 +117,24 @@ void __65__HDSPContextStoreManager_registerPredicate_identifier_callback___block
     v13 = [v10 value];
     (*(v11 + 16))(v11, v12, v13);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unregister:(id)unregister
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   unregisterCopy = unregister;
   v5 = HKSPLogForCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138543618;
-    v9 = objc_opt_class();
-    v10 = 2114;
-    v11 = unregisterCopy;
-    v6 = v9;
-    _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] unregistering %{public}@", &v8, 0x16u);
+    v7 = 138543618;
+    v8 = objc_opt_class();
+    v9 = 2114;
+    v10 = unregisterCopy;
+    v6 = v8;
+    _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] unregistering %{public}@", &v7, 0x16u);
   }
 
   [(_CDLocalContext *)self->_context deregisterCallback:unregisterCopy];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (id)healthAppForegroundPredicate
@@ -179,7 +174,7 @@ void __65__HDSPContextStoreManager_registerPredicate_identifier_callback___block
 
 - (void)sleepScheduleStateDidChange:(unint64_t)change previousState:(unint64_t)state reason:(unint64_t)reason
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   if (state != change)
   {
     v7 = HKSPLogForCategory();
@@ -191,13 +186,13 @@ void __65__HDSPContextStoreManager_registerPredicate_identifier_callback___block
       v11 = NSStringFromHKSPSleepScheduleState();
       v12 = NSStringFromHKSPSleepScheduleStateChangeReason();
       *buf = 138544130;
-      v22 = v8;
-      v23 = 2114;
-      v24 = v10;
-      v25 = 2114;
-      v26 = v11;
-      v27 = 2114;
-      v28 = v12;
+      v21 = v8;
+      v22 = 2114;
+      v23 = v10;
+      v24 = 2114;
+      v25 = v11;
+      v26 = 2114;
+      v27 = v12;
       _os_log_impl(&dword_269B11000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] sleep state changed from %{public}@ to %{public}@ (%{public}@)", buf, 0x2Au);
     }
 
@@ -206,10 +201,10 @@ void __65__HDSPContextStoreManager_registerPredicate_identifier_callback___block
       sleepScheduleState = HKSPLogForCategory();
       if (os_log_type_enabled(sleepScheduleState, OS_LOG_TYPE_DEFAULT))
       {
-        v17 = objc_opt_class();
+        v16 = objc_opt_class();
         *buf = 138543362;
-        v22 = v17;
-        v18 = v17;
+        v21 = v16;
+        v17 = v16;
         _os_log_impl(&dword_269B11000, sleepScheduleState, OS_LOG_TYPE_DEFAULT, "[%{public}@] ignoring wake up state as it was not due to normal reason", buf, 0xCu);
       }
     }
@@ -218,18 +213,16 @@ void __65__HDSPContextStoreManager_registerPredicate_identifier_callback___block
     {
       sleepScheduleState = [MEMORY[0x277CFE338] sleepScheduleState];
       v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{change, sleepScheduleState}];
-      v20 = v14;
-      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+      v19 = v14;
+      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
       [(HDSPContextStoreManager *)self _writeSleepInfoToContextStore:v15];
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sleepScheduleModelManager:(id)manager didUpdateSleepScheduleModel:(id)model
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   lastModifiedDate = [modelCopy lastModifiedDate];
 
@@ -238,38 +231,35 @@ void __65__HDSPContextStoreManager_registerPredicate_identifier_callback___block
     v7 = HKSPLogForCategory();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138543618;
-      v12 = objc_opt_class();
-      v13 = 2114;
-      v14 = modelCopy;
-      v8 = v12;
-      _os_log_impl(&dword_269B11000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] didUpdateSleepScheduleModel: %{public}@", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = objc_opt_class();
+      v12 = 2114;
+      v13 = modelCopy;
+      v8 = v11;
+      _os_log_impl(&dword_269B11000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] didUpdateSleepScheduleModel: %{public}@", &v10, 0x16u);
     }
 
     lastModifiedDate2 = [modelCopy lastModifiedDate];
     [(HDSPContextStoreManager *)self updateForScheduleModelModifiedOnDate:lastModifiedDate2];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateForScheduleModelModifiedOnDate:(id)date
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CFE338];
   dateCopy = date;
   sleepScheduleModelDateModified = [v4 sleepScheduleModelDateModified];
-  v9 = sleepScheduleModelDateModified;
-  v10[0] = dateCopy;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = sleepScheduleModelDateModified;
+  v9[0] = dateCopy;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
 
   [(HDSPContextStoreManager *)self _writeSleepInfoToContextStore:v7];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sleepEventIsDue:(id)due
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dueCopy = due;
   v5 = HKSPLogForCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -278,24 +268,22 @@ void __65__HDSPContextStoreManager_registerPredicate_identifier_callback___block
     v7 = v6;
     identifier = [dueCopy identifier];
     *buf = 138543618;
-    v16 = v6;
-    v17 = 2114;
-    v18 = identifier;
+    v15 = v6;
+    v16 = 2114;
+    v17 = identifier;
     _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] sleep event due %{public}@", buf, 0x16u);
   }
 
   sleepEvent = [MEMORY[0x277CFE338] sleepEvent];
   identifier2 = [dueCopy identifier];
-  v14 = identifier2;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
+  v13 = identifier2;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
   [(HDSPContextStoreManager *)self _writeSleepInfoToContextStore:v11];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sleepModeDidChange:(int64_t)change previousMode:(int64_t)mode reason:(unint64_t)reason
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   if (change != mode)
   {
     v7 = HKSPLogForCategory();
@@ -307,121 +295,112 @@ void __65__HDSPContextStoreManager_registerPredicate_identifier_callback___block
       v11 = NSStringFromHKSPSleepMode();
       v12 = NSStringFromHKSPSleepModeChangeReason();
       *buf = 138544130;
-      v23 = v8;
-      v24 = 2114;
-      v25 = v10;
-      v26 = 2114;
-      v27 = v11;
-      v28 = 2114;
-      v29 = v12;
+      v22 = v8;
+      v23 = 2114;
+      v24 = v10;
+      v25 = 2114;
+      v26 = v11;
+      v27 = 2114;
+      v28 = v12;
       _os_log_impl(&dword_269B11000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] sleep mode changed from %{public}@ to %{public}@ (%{public}@)", buf, 0x2Au);
     }
 
     v13 = change != 0;
     sleepModeState = [MEMORY[0x277CFE338] sleepModeState];
     v15 = [MEMORY[0x277CCABB0] numberWithInteger:{change, sleepModeState}];
-    v21[0] = v15;
+    v20[0] = v15;
     sleepModeOn = [MEMORY[0x277CFE338] sleepModeOn];
-    v20[1] = sleepModeOn;
+    v19[1] = sleepModeOn;
     v17 = [MEMORY[0x277CCABB0] numberWithBool:v13];
-    v21[1] = v17;
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
+    v20[1] = v17;
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
     [(HDSPContextStoreManager *)self _writeSleepInfoToContextStore:v18];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_writeSleepInfoToContextStore:(id)store
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   storeCopy = store;
   v5 = HKSPLogForCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v12 = objc_opt_class();
-    v13 = 2114;
-    v14 = storeCopy;
-    v6 = v12;
+    v11 = objc_opt_class();
+    v12 = 2114;
+    v13 = storeCopy;
+    v6 = v11;
     _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] adding %{public}@ to context", buf, 0x16u);
   }
 
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __57__HDSPContextStoreManager__writeSleepInfoToContextStore___block_invoke;
-  v9[3] = &unk_279C7B2D0;
-  v9[4] = self;
-  v10 = storeCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __57__HDSPContextStoreManager__writeSleepInfoToContextStore___block_invoke;
+  v8[3] = &unk_279C7B2D0;
+  v8[4] = self;
+  v9 = storeCopy;
   v7 = storeCopy;
-  [(HDSPContextStoreManager *)self _withLock:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [(HDSPContextStoreManager *)self _withLock:v8];
 }
 
 void __57__HDSPContextStoreManager__writeSleepInfoToContextStore___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
-  v3 = [objc_opt_class() contextualKeyPath];
-  v4 = [*(*(a1 + 32) + 24) objectForKeyedSubscript:v3];
-  v5 = HKSPLogForCategory();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v16 = *MEMORY[0x277D85DE8];
+  v2 = [objc_opt_class() contextualKeyPath];
+  v3 = [*(*(a1 + 32) + 24) objectForKeyedSubscript:v2];
+  v4 = HKSPLogForCategory();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = *(a1 + 32);
-    *v20 = 138543618;
-    *&v20[4] = objc_opt_class();
-    *&v20[12] = 2114;
-    *&v20[14] = v4;
-    v7 = *&v20[4];
-    _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] previous context is %{public}@", v20, 0x16u);
+    *v15 = 138543618;
+    *&v15[4] = objc_opt_class();
+    *&v15[12] = 2114;
+    *&v15[14] = v3;
+    v5 = *&v15[4];
+    _os_log_impl(&dword_269B11000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] previous context is %{public}@", v15, 0x16u);
   }
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v8 = [v4 mutableCopy];
+    v6 = [v3 mutableCopy];
   }
 
   else
   {
-    if (v4)
+    if (v3)
     {
-      v9 = HKSPLogForCategory();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v7 = HKSPLogForCategory();
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        v16 = *(a1 + 32);
-        v17 = objc_opt_class();
-        v18 = v17;
-        v19 = objc_opt_class();
-        *v20 = 138543618;
-        *&v20[4] = v17;
-        *&v20[12] = 2114;
-        *&v20[14] = v19;
-        _os_log_error_impl(&dword_269B11000, v9, OS_LOG_TYPE_ERROR, "[%{public}@] previous context is of unexpected class %{public}@", v20, 0x16u);
+        v12 = objc_opt_class();
+        v13 = v12;
+        v14 = objc_opt_class();
+        *v15 = 138543618;
+        *&v15[4] = v12;
+        *&v15[12] = 2114;
+        *&v15[14] = v14;
+        _os_log_error_impl(&dword_269B11000, v7, OS_LOG_TYPE_ERROR, "[%{public}@] previous context is of unexpected class %{public}@", v15, 0x16u);
       }
     }
 
-    v8 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v6 = objc_alloc_init(MEMORY[0x277CBEB38]);
   }
 
-  v10 = v8;
-  [v8 addEntriesFromDictionary:{*(a1 + 40), *v20, *&v20[16], v21}];
-  v11 = HKSPLogForCategory();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v8 = v6;
+  [v6 addEntriesFromDictionary:{*(a1 + 40), *v15, *&v15[8], v16}];
+  v9 = HKSPLogForCategory();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = *(a1 + 32);
-    v13 = objc_opt_class();
-    *v20 = 138543618;
-    *&v20[4] = v13;
-    *&v20[12] = 2114;
-    *&v20[14] = v10;
-    v14 = v13;
-    _os_log_impl(&dword_269B11000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@] new context is %{public}@", v20, 0x16u);
+    v10 = objc_opt_class();
+    *v15 = 138543618;
+    *&v15[4] = v10;
+    *&v15[12] = 2114;
+    *&v15[14] = v8;
+    v11 = v10;
+    _os_log_impl(&dword_269B11000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] new context is %{public}@", v15, 0x16u);
   }
 
-  [*(*(a1 + 32) + 24) setObject:v10 forKeyedSubscript:v3];
-  v15 = *MEMORY[0x277D85DE8];
+  [*(*(a1 + 32) + 24) setObject:v8 forKeyedSubscript:v2];
 }
 
 - (_CDLocalContext)context

@@ -61,7 +61,7 @@
   equalCopy = equal;
   if (self == equalCopy)
   {
-    v10 = 1;
+    isEqualToString = 1;
   }
 
   else
@@ -72,26 +72,26 @@
       v5 = equalCopy;
       styleKey = [(_UITextFormattingViewControllerEmphasisStyle *)self styleKey];
       styleKey2 = [(_UITextFormattingViewControllerEmphasisStyle *)v5 styleKey];
-      if ([styleKey isEqualToString:styleKey2])
+      if (objc_msgSend_isEqualToString_(styleKey))
       {
         title = [(_UITextFormattingViewControllerEmphasisStyle *)self title];
         title2 = [(_UITextFormattingViewControllerEmphasisStyle *)v5 title];
-        v10 = [title isEqualToString:title2];
+        isEqualToString = objc_msgSend_isEqualToString_(title);
       }
 
       else
       {
-        v10 = 0;
+        isEqualToString = 0;
       }
     }
 
     else
     {
-      v10 = 0;
+      isEqualToString = 0;
     }
   }
 
-  return v10;
+  return isEqualToString;
 }
 
 - (unint64_t)hash

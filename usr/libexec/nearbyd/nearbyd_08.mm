@@ -5,24 +5,23 @@ uint64_t sub_10009067C(const wireless_diagnostics::google::protobuf::Message *a1
     wireless_diagnostics::google::protobuf::internal::LogMessage::LogMessage();
     wireless_diagnostics::google::protobuf::internal::LogMessage::operator<<();
     wireless_diagnostics::google::protobuf::internal::LogFinisher::operator=();
-    wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(v8);
+    wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(v7);
   }
 
-  v4 = **lpsrc;
-  if (v5)
+  if (v4)
   {
-    return sub_100089DB8(a1, v5);
+    return sub_100089DB8(a1, v4);
   }
 
   else
   {
-    return wireless_diagnostics::google::protobuf::internal::ReflectionOps::Merge(lpsrc, a1, v6);
+    return wireless_diagnostics::google::protobuf::internal::ReflectionOps::Merge(lpsrc, a1, v5);
   }
 }
 
-void sub_100090750(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100090750(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -56,17 +55,17 @@ uint64_t sub_1000907FC()
   return qword_1009ED450;
 }
 
-void sub_100090890(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_100090890(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   wireless_diagnostics::google::protobuf::internal::FunctionClosure0::~FunctionClosure0(va);
   _Unwind_Resume(a1);
 }
 
-void sub_100090A18()
+void sub_100090A18(uint64_t a1, uint64_t a2, uint64_t a3, const char *a4)
 {
-  v0 = sub_100092114();
-  wireless_diagnostics::google::protobuf::DescriptorPool::generated_pool(v0);
+  sub_100092114(a1, a2, a3, a4);
+  wireless_diagnostics::google::protobuf::DescriptorPool::generated_pool(v4);
   operator new();
 }
 
@@ -530,527 +529,525 @@ uint64_t sub_100092CD0()
   return result;
 }
 
-uint64_t sub_100093D78()
+uint64_t sub_100093D78(uint64_t a1, uint64_t a2, uint64_t a3, const char *a4)
 {
-  v0 = qword_1009ED940;
+  v4 = qword_1009ED940;
   __dmb(0xBu);
-  if (v0 != 2)
+  if (v4 != 2)
   {
-    v45[1] = sub_100090A18;
-    v46 = 0;
+    v135[1] = sub_100090A18;
+    v136 = 0;
     wireless_diagnostics::google::protobuf::GoogleOnceInitImpl();
-    wireless_diagnostics::google::protobuf::internal::FunctionClosure0::~FunctionClosure0(v45);
+    wireless_diagnostics::google::protobuf::internal::FunctionClosure0::~FunctionClosure0(v135);
   }
 
   if (!qword_1009F9980)
   {
-    (sub_100092114)();
-  }
-
-  v1 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
-  if (!qword_1009F9988)
-  {
-    sub_100092114(v1);
-  }
-
-  v2 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
-  if (!qword_1009F9990)
-  {
-    sub_100092114(v2);
-  }
-
-  v3 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
-  if (!qword_1009F9998)
-  {
-    sub_100092114(v3);
-  }
-
-  v4 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
-  if (!qword_1009F99A0)
-  {
-    sub_100092114(v4);
+    sub_100092114(a1, 0, a3, a4);
   }
 
   v5 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
-  if (!qword_1009F99A8)
+  if (!qword_1009F9988)
   {
-    sub_100092114(v5);
-  }
-
-  v6 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
-  if (!qword_1009F99B0)
-  {
-    sub_100092114(v6);
-  }
-
-  v7 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
-  if (!qword_1009F99B8)
-  {
-    sub_100092114(v7);
+    sub_100092114(v5, 0, v6, v7);
   }
 
   v8 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
-  if (!qword_1009F99C0)
+  if (!qword_1009F9990)
   {
-    sub_100092114(v8);
-  }
-
-  v9 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
-  if (!qword_1009F99C8)
-  {
-    sub_100092114(v9);
-  }
-
-  v10 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
-  if (!qword_1009F99D0)
-  {
-    sub_100092114(v10);
+    sub_100092114(v8, 0, v9, v10);
   }
 
   v11 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
-  if (!qword_1009F99D8)
+  if (!qword_1009F9998)
   {
-    sub_100092114(v11);
-  }
-
-  v12 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
-  if (!qword_1009F99E0)
-  {
-    sub_100092114(v12);
-  }
-
-  v13 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
-  if (!qword_1009F99E8)
-  {
-    sub_100092114(v13);
+    sub_100092114(v11, 0, v12, v13);
   }
 
   v14 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
-  if (!qword_1009F99F0)
+  if (!qword_1009F99A0)
   {
-    sub_100092114(v14);
-  }
-
-  v15 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
-  if (!qword_1009F99F8)
-  {
-    sub_100092114(v15);
-  }
-
-  v16 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
-  if (!qword_1009F9A00)
-  {
-    sub_100092114(v16);
+    sub_100092114(v14, 0, v15, v16);
   }
 
   v17 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
-  if (!qword_1009F9A08)
+  if (!qword_1009F99A8)
   {
-    sub_100092114(v17);
-  }
-
-  v18 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
-  if (!qword_1009F9A10)
-  {
-    sub_100092114(v18);
-  }
-
-  v19 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
-  if (!qword_1009F9A18)
-  {
-    sub_100092114(v19);
+    sub_100092114(v17, 0, v18, v19);
   }
 
   v20 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
-  if (!qword_1009F9A20)
+  if (!qword_1009F99B0)
   {
-    sub_100092114(v20);
-  }
-
-  v21 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
-  if (!qword_1009F9A28)
-  {
-    sub_100092114(v21);
-  }
-
-  v22 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
-  if (!qword_1009F9A30)
-  {
-    sub_100092114(v22);
+    sub_100092114(v20, 0, v21, v22);
   }
 
   v23 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
-  if (!qword_1009F9A38)
+  if (!qword_1009F99B8)
   {
-    sub_100092114(v23);
-  }
-
-  v24 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
-  if (!qword_1009F9A40)
-  {
-    sub_100092114(v24);
-  }
-
-  v25 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
-  if (!qword_1009F9A48)
-  {
-    sub_100092114(v25);
+    sub_100092114(v23, 0, v24, v25);
   }
 
   v26 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
-  if (!qword_1009F9A50)
+  if (!qword_1009F99C0)
   {
-    sub_100092114(v26);
-  }
-
-  v27 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
-  if (!qword_1009F9A58)
-  {
-    sub_100092114(v27);
-  }
-
-  v28 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
-  if (!qword_1009F9A60)
-  {
-    sub_100092114(v28);
+    sub_100092114(v26, 0, v27, v28);
   }
 
   v29 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
-  if (!qword_1009F9A68)
+  if (!qword_1009F99C8)
   {
-    sub_100092114(v29);
-  }
-
-  v30 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
-  if (!qword_1009F9A70)
-  {
-    sub_100092114(v30);
-  }
-
-  v31 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
-  if (!qword_1009F9A78)
-  {
-    sub_100092114(v31);
+    sub_100092114(v29, 0, v30, v31);
   }
 
   v32 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
-  if (!qword_1009F9A80)
+  if (!qword_1009F99D0)
   {
-    sub_100092114(v32);
-  }
-
-  v33 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
-  if (!qword_1009F9A88)
-  {
-    sub_100092114(v33);
-  }
-
-  v34 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
-  if (!qword_1009F9A90)
-  {
-    sub_100092114(v34);
+    sub_100092114(v32, 0, v33, v34);
   }
 
   v35 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
-  if (!qword_1009F9A98)
+  if (!qword_1009F99D8)
   {
-    sub_100092114(v35);
-  }
-
-  v36 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
-  if (!qword_1009F9AA0)
-  {
-    sub_100092114(v36);
-  }
-
-  v37 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
-  if (!qword_1009F9AA8)
-  {
-    sub_100092114(v37);
+    sub_100092114(v35, 0, v36, v37);
   }
 
   v38 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
-  if (!qword_1009F9AB0)
+  if (!qword_1009F99E0)
   {
-    sub_100092114(v38);
-  }
-
-  v39 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
-  if (!qword_1009F9AB8)
-  {
-    sub_100092114(v39);
-  }
-
-  v40 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
-  if (!qword_1009F9AC0)
-  {
-    sub_100092114(v40);
+    sub_100092114(v38, 0, v39, v40);
   }
 
   v41 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
+  if (!qword_1009F99E8)
+  {
+    sub_100092114(v41, 0, v42, v43);
+  }
+
+  v44 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
+  if (!qword_1009F99F0)
+  {
+    sub_100092114(v44, 0, v45, v46);
+  }
+
+  v47 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
+  if (!qword_1009F99F8)
+  {
+    sub_100092114(v47, 0, v48, v49);
+  }
+
+  v50 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
+  if (!qword_1009F9A00)
+  {
+    sub_100092114(v50, 0, v51, v52);
+  }
+
+  v53 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
+  if (!qword_1009F9A08)
+  {
+    sub_100092114(v53, 0, v54, v55);
+  }
+
+  v56 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
+  if (!qword_1009F9A10)
+  {
+    sub_100092114(v56, 0, v57, v58);
+  }
+
+  v59 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
+  if (!qword_1009F9A18)
+  {
+    sub_100092114(v59, 0, v60, v61);
+  }
+
+  v62 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
+  if (!qword_1009F9A20)
+  {
+    sub_100092114(v62, 0, v63, v64);
+  }
+
+  v65 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
+  if (!qword_1009F9A28)
+  {
+    sub_100092114(v65, 0, v66, v67);
+  }
+
+  v68 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
+  if (!qword_1009F9A30)
+  {
+    sub_100092114(v68, 0, v69, v70);
+  }
+
+  v71 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
+  if (!qword_1009F9A38)
+  {
+    sub_100092114(v71, 0, v72, v73);
+  }
+
+  v74 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
+  if (!qword_1009F9A40)
+  {
+    sub_100092114(v74, 0, v75, v76);
+  }
+
+  v77 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
+  if (!qword_1009F9A48)
+  {
+    sub_100092114(v77, 0, v78, v79);
+  }
+
+  v80 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
+  if (!qword_1009F9A50)
+  {
+    sub_100092114(v80, 0, v81, v82);
+  }
+
+  v83 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
+  if (!qword_1009F9A58)
+  {
+    sub_100092114(v83, 0, v84, v85);
+  }
+
+  v86 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
+  if (!qword_1009F9A60)
+  {
+    sub_100092114(v86, 0, v87, v88);
+  }
+
+  v89 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
+  if (!qword_1009F9A68)
+  {
+    sub_100092114(v89, 0, v90, v91);
+  }
+
+  v92 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
+  if (!qword_1009F9A70)
+  {
+    sub_100092114(v92, 0, v93, v94);
+  }
+
+  v95 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
+  if (!qword_1009F9A78)
+  {
+    sub_100092114(v95, 0, v96, v97);
+  }
+
+  v98 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
+  if (!qword_1009F9A80)
+  {
+    sub_100092114(v98, 0, v99, v100);
+  }
+
+  v101 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
+  if (!qword_1009F9A88)
+  {
+    sub_100092114(v101, 0, v102, v103);
+  }
+
+  v104 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
+  if (!qword_1009F9A90)
+  {
+    sub_100092114(v104, 0, v105, v106);
+  }
+
+  v107 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
+  if (!qword_1009F9A98)
+  {
+    sub_100092114(v107, 0, v108, v109);
+  }
+
+  v110 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
+  if (!qword_1009F9AA0)
+  {
+    sub_100092114(v110, 0, v111, v112);
+  }
+
+  v113 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
+  if (!qword_1009F9AA8)
+  {
+    sub_100092114(v113, 0, v114, v115);
+  }
+
+  v116 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
+  if (!qword_1009F9AB0)
+  {
+    sub_100092114(v116, 0, v117, v118);
+  }
+
+  v119 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
+  if (!qword_1009F9AB8)
+  {
+    sub_100092114(v119, 0, v120, v121);
+  }
+
+  v122 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
+  if (!qword_1009F9AC0)
+  {
+    sub_100092114(v122, 0, v123, v124);
+  }
+
+  v125 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
   if (!qword_1009F9AC8)
   {
-    sub_100092114(v41);
+    sub_100092114(v125, 0, v126, v127);
   }
 
-  v42 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
+  v128 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
   if (!qword_1009F9AD0)
   {
-    sub_100092114(v42);
+    sub_100092114(v128, 0, v129, v130);
   }
 
-  v43 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
+  v131 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
   if (!qword_1009F9AD8)
   {
-    sub_100092114(v43);
+    sub_100092114(v131, 0, v132, v133);
   }
 
   return wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
 }
 
-void sub_10009442C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_10009442C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   wireless_diagnostics::google::protobuf::internal::FunctionClosure0::~FunctionClosure0(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_100094488(uint64_t result)
+void sub_100094488(void *a1, uint64_t a2, uint64_t a3, const char *a4)
 {
-  v1 = result;
-  v2 = qword_1009F9998;
+  v5 = qword_1009F9998;
   if (!qword_1009F9998)
   {
-    result = sub_100092114(result);
-    v2 = qword_1009F9998;
+    sub_100092114(a1, a2, a3, a4);
+    v5 = qword_1009F9998;
   }
 
-  v1[3] = v2;
-  v3 = qword_1009F99A0;
+  a1[3] = v5;
+  v6 = qword_1009F99A0;
   if (!qword_1009F99A0)
   {
-    result = sub_100092114(result);
-    v3 = qword_1009F99A0;
+    sub_100092114(a1, a2, a3, a4);
+    v6 = qword_1009F99A0;
   }
 
-  v1[4] = v3;
-  v4 = qword_1009F99B0;
+  a1[4] = v6;
+  v7 = qword_1009F99B0;
   if (!qword_1009F99B0)
   {
-    result = sub_100092114(result);
-    v4 = qword_1009F99B0;
+    sub_100092114(a1, a2, a3, a4);
+    v7 = qword_1009F99B0;
   }
 
-  v1[5] = v4;
-  v5 = qword_1009F99B8;
+  a1[5] = v7;
+  v8 = qword_1009F99B8;
   if (!qword_1009F99B8)
   {
-    result = sub_100092114(result);
-    v5 = qword_1009F99B8;
+    sub_100092114(a1, a2, a3, a4);
+    v8 = qword_1009F99B8;
   }
 
-  v1[6] = v5;
-  v6 = qword_1009F99C0;
+  a1[6] = v8;
+  v9 = qword_1009F99C0;
   if (!qword_1009F99C0)
   {
-    result = sub_100092114(result);
-    v6 = qword_1009F99C0;
+    sub_100092114(a1, a2, a3, a4);
+    v9 = qword_1009F99C0;
   }
 
-  v1[7] = v6;
-  v7 = qword_1009F99C8;
+  a1[7] = v9;
+  v10 = qword_1009F99C8;
   if (!qword_1009F99C8)
   {
-    result = sub_100092114(result);
-    v7 = qword_1009F99C8;
+    sub_100092114(a1, a2, a3, a4);
+    v10 = qword_1009F99C8;
   }
 
-  v1[8] = v7;
-  v8 = qword_1009F99D0;
+  a1[8] = v10;
+  v11 = qword_1009F99D0;
   if (!qword_1009F99D0)
   {
-    result = sub_100092114(result);
-    v8 = qword_1009F99D0;
+    sub_100092114(a1, a2, a3, a4);
+    v11 = qword_1009F99D0;
   }
 
-  v1[9] = v8;
-  v9 = qword_1009F99D8;
+  a1[9] = v11;
+  v12 = qword_1009F99D8;
   if (!qword_1009F99D8)
   {
-    result = sub_100092114(result);
-    v9 = qword_1009F99D8;
+    sub_100092114(a1, a2, a3, a4);
+    v12 = qword_1009F99D8;
   }
 
-  v1[10] = v9;
-  v10 = qword_1009F99E0;
+  a1[10] = v12;
+  v13 = qword_1009F99E0;
   if (!qword_1009F99E0)
   {
-    result = sub_100092114(result);
-    v10 = qword_1009F99E0;
+    sub_100092114(a1, a2, a3, a4);
+    v13 = qword_1009F99E0;
   }
 
-  v1[11] = v10;
-  v11 = qword_1009F99F0;
+  a1[11] = v13;
+  v14 = qword_1009F99F0;
   if (!qword_1009F99F0)
   {
-    result = sub_100092114(result);
-    v11 = qword_1009F99F0;
+    sub_100092114(a1, a2, a3, a4);
+    v14 = qword_1009F99F0;
   }
 
-  v1[12] = v11;
-  v12 = qword_1009F99F8;
+  a1[12] = v14;
+  v15 = qword_1009F99F8;
   if (!qword_1009F99F8)
   {
-    result = sub_100092114(result);
-    v12 = qword_1009F99F8;
+    sub_100092114(a1, a2, a3, a4);
+    v15 = qword_1009F99F8;
   }
 
-  v1[13] = v12;
-  v13 = qword_1009F9A00;
+  a1[13] = v15;
+  v16 = qword_1009F9A00;
   if (!qword_1009F9A00)
   {
-    result = sub_100092114(result);
-    v13 = qword_1009F9A00;
+    sub_100092114(a1, a2, a3, a4);
+    v16 = qword_1009F9A00;
   }
 
-  v1[14] = v13;
-  v14 = qword_1009F9A08;
+  a1[14] = v16;
+  v17 = qword_1009F9A08;
   if (!qword_1009F9A08)
   {
-    result = sub_100092114(result);
-    v14 = qword_1009F9A08;
+    sub_100092114(a1, a2, a3, a4);
+    v17 = qword_1009F9A08;
   }
 
-  v1[15] = v14;
-  v15 = qword_1009F9A28;
+  a1[15] = v17;
+  v18 = qword_1009F9A28;
   if (!qword_1009F9A28)
   {
-    result = sub_100092114(result);
-    v15 = qword_1009F9A28;
+    sub_100092114(a1, a2, a3, a4);
+    v18 = qword_1009F9A28;
   }
 
-  v1[16] = v15;
-  v16 = qword_1009F9A30;
+  a1[16] = v18;
+  v19 = qword_1009F9A30;
   if (!qword_1009F9A30)
   {
-    result = sub_100092114(result);
-    v16 = qword_1009F9A30;
+    sub_100092114(a1, a2, a3, a4);
+    v19 = qword_1009F9A30;
   }
 
-  v1[17] = v16;
-  v17 = qword_1009F9A58;
+  a1[17] = v19;
+  v20 = qword_1009F9A58;
   if (!qword_1009F9A58)
   {
-    result = sub_100092114(result);
-    v17 = qword_1009F9A58;
+    sub_100092114(a1, a2, a3, a4);
+    v20 = qword_1009F9A58;
   }
 
-  v1[18] = v17;
-  v18 = qword_1009F9A60;
+  a1[18] = v20;
+  v21 = qword_1009F9A60;
   if (!qword_1009F9A60)
   {
-    result = sub_100092114(result);
-    v18 = qword_1009F9A60;
+    sub_100092114(a1, a2, a3, a4);
+    v21 = qword_1009F9A60;
   }
 
-  v1[19] = v18;
-  v19 = qword_1009F9A68;
+  a1[19] = v21;
+  v22 = qword_1009F9A68;
   if (!qword_1009F9A68)
   {
-    result = sub_100092114(result);
-    v19 = qword_1009F9A68;
+    sub_100092114(a1, a2, a3, a4);
+    v22 = qword_1009F9A68;
   }
 
-  v1[20] = v19;
-  v20 = qword_1009F9A70;
+  a1[20] = v22;
+  v23 = qword_1009F9A70;
   if (!qword_1009F9A70)
   {
-    result = sub_100092114(result);
-    v20 = qword_1009F9A70;
+    sub_100092114(a1, a2, a3, a4);
+    v23 = qword_1009F9A70;
   }
 
-  v1[21] = v20;
-  v21 = qword_1009F9A88;
+  a1[21] = v23;
+  v24 = qword_1009F9A88;
   if (!qword_1009F9A88)
   {
-    result = sub_100092114(result);
-    v21 = qword_1009F9A88;
+    sub_100092114(a1, a2, a3, a4);
+    v24 = qword_1009F9A88;
   }
 
-  v1[22] = v21;
-  v22 = qword_1009F9A90;
+  a1[22] = v24;
+  v25 = qword_1009F9A90;
   if (!qword_1009F9A90)
   {
-    result = sub_100092114(result);
-    v22 = qword_1009F9A90;
+    sub_100092114(a1, a2, a3, a4);
+    v25 = qword_1009F9A90;
   }
 
-  v1[23] = v22;
-  v23 = qword_1009F9AA8;
+  a1[23] = v25;
+  v26 = qword_1009F9AA8;
   if (!qword_1009F9AA8)
   {
-    result = sub_100092114(result);
-    v23 = qword_1009F9AA8;
+    sub_100092114(a1, a2, a3, a4);
+    v26 = qword_1009F9AA8;
   }
 
-  v1[24] = v23;
-  v24 = qword_1009F9AB0;
+  a1[24] = v26;
+  v27 = qword_1009F9AB0;
   if (!qword_1009F9AB0)
   {
-    result = sub_100092114(result);
-    v24 = qword_1009F9AB0;
+    sub_100092114(a1, a2, a3, a4);
+    v27 = qword_1009F9AB0;
   }
 
-  v1[25] = v24;
-  v25 = qword_1009F9AB8;
+  a1[25] = v27;
+  v28 = qword_1009F9AB8;
   if (!qword_1009F9AB8)
   {
-    result = sub_100092114(result);
-    v25 = qword_1009F9AB8;
+    sub_100092114(a1, a2, a3, a4);
+    v28 = qword_1009F9AB8;
   }
 
-  v1[26] = v25;
-  v26 = qword_1009F9A80;
+  a1[26] = v28;
+  v29 = qword_1009F9A80;
   if (!qword_1009F9A80)
   {
-    result = sub_100092114(result);
-    v26 = qword_1009F9A80;
+    sub_100092114(a1, a2, a3, a4);
+    v29 = qword_1009F9A80;
   }
 
-  v1[27] = v26;
-  v27 = qword_1009F9AC0;
+  a1[27] = v29;
+  v30 = qword_1009F9AC0;
   if (!qword_1009F9AC0)
   {
-    result = sub_100092114(result);
-    v27 = qword_1009F9AC0;
+    sub_100092114(a1, a2, a3, a4);
+    v30 = qword_1009F9AC0;
   }
 
-  v1[28] = v27;
-  v28 = qword_1009F9AC8;
+  a1[28] = v30;
+  v31 = qword_1009F9AC8;
   if (!qword_1009F9AC8)
   {
-    result = sub_100092114(result);
-    v28 = qword_1009F9AC8;
+    sub_100092114(a1, a2, a3, a4);
+    v31 = qword_1009F9AC8;
   }
 
-  v1[29] = v28;
-  v29 = qword_1009F9AA0;
+  a1[29] = v31;
+  v32 = qword_1009F9AA0;
   if (!qword_1009F9AA0)
   {
-    result = sub_100092114(result);
-    v29 = qword_1009F9AA0;
+    sub_100092114(a1, a2, a3, a4);
+    v32 = qword_1009F9AA0;
   }
 
-  v1[30] = v29;
-  v30 = qword_1009F9AD8;
+  a1[30] = v32;
+  v33 = qword_1009F9AD8;
   if (!qword_1009F9AD8)
   {
-    result = sub_100092114(result);
-    v30 = qword_1009F9AD8;
+    sub_100092114(a1, a2, a3, a4);
+    v33 = qword_1009F9AD8;
   }
 
-  v1[31] = v30;
-  return result;
+  a1[31] = v33;
 }
 
 uint64_t sub_100094788(unsigned int a1)
@@ -1729,17 +1726,17 @@ uint64_t sub_10009497C(uint64_t a1, uint64_t a2)
   return wireless_diagnostics::google::protobuf::UnknownFieldSet::MergeFrom((a1 + 8), (a2 + 8));
 }
 
-void sub_1000955E8(uint64_t a1, uint64_t a2, ...)
+void sub_1000955E8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
 {
-  va_start(va, a2);
+  va_start(va, a4);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   JUMPOUT(0x1000955E0);
 }
 
-void sub_1000955FC(void *a1)
+void sub_1000955FC(wireless_diagnostics::google::protobuf::Message *a1)
 {
   *a1 = off_10098E258;
-  v2 = (a1 + 1);
+  v2 = (a1 + 8);
   sub_10009565C(a1);
   wireless_diagnostics::google::protobuf::UnknownFieldSet::~UnknownFieldSet(v2);
 
@@ -1931,7 +1928,7 @@ void *sub_10009565C(void *result)
   return result;
 }
 
-void sub_100095BA4(void *a1)
+void sub_100095BA4(wireless_diagnostics::google::protobuf::Message *a1)
 {
   sub_1000955FC(a1);
 
@@ -7978,24 +7975,23 @@ uint64_t sub_10009A8FC(const wireless_diagnostics::google::protobuf::Message *a1
     wireless_diagnostics::google::protobuf::internal::LogMessage::LogMessage();
     wireless_diagnostics::google::protobuf::internal::LogMessage::operator<<();
     wireless_diagnostics::google::protobuf::internal::LogFinisher::operator=();
-    wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(v8);
+    wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(v7);
   }
 
-  v4 = **lpsrc;
-  if (v5)
+  if (v4)
   {
-    return sub_10009497C(a1, v5);
+    return sub_10009497C(a1, v4);
   }
 
   else
   {
-    return wireless_diagnostics::google::protobuf::internal::ReflectionOps::Merge(lpsrc, a1, v6);
+    return wireless_diagnostics::google::protobuf::internal::ReflectionOps::Merge(lpsrc, a1, v5);
   }
 }
 
-void sub_10009A9D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_10009A9D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -8026,9 +8022,9 @@ uint64_t sub_10009A9E8(uint64_t a1, uint64_t a2)
   return wireless_diagnostics::google::protobuf::UnknownFieldSet::MergeFrom((a1 + 8), (a2 + 8));
 }
 
-void sub_10009AAC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_10009AAC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -8199,9 +8195,9 @@ LABEL_13:
   return wireless_diagnostics::google::protobuf::UnknownFieldSet::MergeFrom((a1 + 8), (a2 + 8));
 }
 
-void sub_10009AD18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_10009AD18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -8563,7 +8559,7 @@ uint64_t sub_10009B448(uint64_t a1, uint64_t a2)
   return wireless_diagnostics::google::protobuf::UnknownFieldSet::MergeFrom((a1 + 8), (a2 + 8));
 }
 
-uint64_t sub_10009B558(uint64_t a1, uint64_t a2)
+uint64_t sub_10009B558(_DWORD *a1, uint64_t a2)
 {
   if (a2 == a1)
   {
@@ -8576,17 +8572,17 @@ uint64_t sub_10009B558(uint64_t a1, uint64_t a2)
   v4 = *(a2 + 24);
   if (v4)
   {
-    sub_100077844((a1 + 16), *(a1 + 24) + v4);
-    memcpy((*(a1 + 16) + 4 * *(a1 + 24)), *(a2 + 16), 4 * *(a2 + 24));
-    *(a1 + 24) += *(a2 + 24);
+    sub_100077844(a1 + 4, a1[6] + v4);
+    memcpy((*(a1 + 2) + 4 * a1[6]), *(a2 + 16), 4 * *(a2 + 24));
+    a1[6] += *(a2 + 24);
   }
 
-  return wireless_diagnostics::google::protobuf::UnknownFieldSet::MergeFrom((a1 + 8), (a2 + 8));
+  return wireless_diagnostics::google::protobuf::UnknownFieldSet::MergeFrom((a1 + 2), (a2 + 8));
 }
 
-void sub_10009B618(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_10009B618(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -8617,9 +8613,9 @@ uint64_t sub_10009B630(_DWORD *a1, uint64_t a2)
   return wireless_diagnostics::google::protobuf::UnknownFieldSet::MergeFrom((a1 + 2), (a2 + 8));
 }
 
-void sub_10009B6EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_10009B6EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -8638,9 +8634,9 @@ uint64_t sub_10009B704(uint64_t a1, uint64_t a2)
   return wireless_diagnostics::google::protobuf::UnknownFieldSet::MergeFrom((a1 + 8), (a2 + 8));
 }
 
-void sub_10009B78C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_10009B78C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -8690,9 +8686,9 @@ uint64_t sub_10009B7A4(_DWORD *a1, uint64_t a2)
   return wireless_diagnostics::google::protobuf::UnknownFieldSet::MergeFrom((a1 + 2), (a2 + 8));
 }
 
-void sub_10009B890(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_10009B890(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }

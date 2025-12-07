@@ -8,19 +8,20 @@
 
 - (void)layoutSubviews
 {
-  v7.receiver = self;
-  v7.super_class = type metadata accessor for MOSuggestionSheetCollectionView();
-  v2 = v7.receiver;
-  layoutSubviews = [(MOSuggestionSheetCollectionView *)&v7 layoutSubviews];
+  v9.receiver = self;
+  v9.super_class = type metadata accessor for MOSuggestionSheetCollectionView();
+  v2 = v9.receiver;
+  layoutSubviews = [(MOSuggestionSheetCollectionView *)&v9 layoutSubviews];
   v4 = (*((swift_isaMask & *v2) + 0x58))(layoutSubviews);
   if (v4)
   {
-    v6 = v4;
+    v7 = v5;
+    v8 = v4;
     v4(v4, v5);
-    outlined consume of (@escaping @callee_guaranteed () -> ())?(v6);
+    v6.n128_f64[0] = outlined consume of (@escaping @callee_guaranteed () -> ())?(v8, v7);
   }
 
-  (*((swift_isaMask & *v2) + 0x60))(0, 0);
+  (*((swift_isaMask & *v2) + 0x60))(0, 0, v6);
 }
 
 - (_TtC16MomentsUIService31MOSuggestionSheetCollectionView)initWithFrame:(CGRect)frame collectionViewLayout:(id)layout

@@ -21,37 +21,37 @@
 
 + (BOOL)copySettingsToSharedContainer
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if (+[PFClientUtil isPodcastsApp](PFClientUtil, "isPodcastsApp") && ([MEMORY[0x1E695E000] settingsAppWritesDirectlyToSharedUserDefaults] & 1) == 0)
   {
     _applePodcastsFoundationSharedUserDefaults = [MEMORY[0x1E695E000] _applePodcastsFoundationSharedUserDefaults];
     v5 = [self defaultSettings:_applePodcastsFoundationSharedUserDefaults];
     allKeys = [v5 allKeys];
 
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v7 = allKeys;
-    v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v8)
     {
       v9 = v8;
       v10 = 0;
-      v11 = *v17;
+      v11 = *v16;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v17 != v11)
+          if (*v16 != v11)
           {
             objc_enumerationMutation(v7);
           }
 
-          v10 |= [self _copyUserDefaultToSharedContainer:*(*(&v16 + 1) + 8 * i) synchronize:{0, v16}];
+          v10 |= [self _copyUserDefaultToSharedContainer:*(*(&v15 + 1) + 8 * i) synchronize:{0, v15}];
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v9);
@@ -73,18 +73,15 @@
     }
 
 LABEL_16:
-    goto LABEL_17;
+    return synchronize;
   }
 
-  synchronize = 0;
-LABEL_17:
-  v14 = *MEMORY[0x1E69E9840];
-  return synchronize;
+  return 0;
 }
 
 + (void)moveUserDefaultToSharedContainer:(id)container
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   containerCopy = container;
   standardUserDefaults = [MEMORY[0x1E695E000] standardUserDefaults];
   v5 = [standardUserDefaults objectForKey:containerCopy];
@@ -99,13 +96,13 @@ LABEL_17:
       v8 = _MTLogCategoryDefault();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = 138412802;
-        v17 = containerCopy;
-        v18 = 2112;
-        v19 = v5;
-        v20 = 2112;
-        v21 = v7;
-        _os_log_impl(&dword_1D8CEC000, v8, OS_LOG_TYPE_DEFAULT, "WARNING: Overwriting shared user default %@ with %@ from %@", &v16, 0x20u);
+        v15 = 138412802;
+        v16 = containerCopy;
+        v17 = 2112;
+        v18 = v5;
+        v19 = 2112;
+        v20 = v7;
+        _os_log_impl(&dword_1D8CEC000, v8, OS_LOG_TYPE_DEFAULT, "WARNING: Overwriting shared user default %@ with %@ from %@", &v15, 0x20u);
       }
     }
 
@@ -127,8 +124,6 @@ LABEL_17:
       [standardUserDefaults3 synchronize];
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 + (id)defaultSettings:(id)settings
@@ -155,7 +150,7 @@ LABEL_17:
 
 void __33__MTPreferences_defaultSettings___block_invoke(uint64_t a1)
 {
-  v12[15] = *MEMORY[0x1E69E9840];
+  v11[15] = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) objectForKey:@"MTContinuousPlaybackAllowed"];
   if (v2)
   {
@@ -168,44 +163,42 @@ void __33__MTPreferences_defaultSettings___block_invoke(uint64_t a1)
   }
 
   v4 = MEMORY[0x1E695E118];
-  v11[0] = @"MTUseCustomColorsKey";
-  v11[1] = @"MTWiFiDownloadOnly";
-  v12[0] = MEMORY[0x1E695E118];
-  v12[1] = MEMORY[0x1E695E118];
-  v11[2] = @"MTSyncSubscriptions";
-  v11[3] = @"MTShowSiriSuggestions";
-  v12[2] = MEMORY[0x1E695E118];
-  v12[3] = MEMORY[0x1E695E118];
-  v11[4] = @"MTPodcastAutoDownloadStateDefaultKey";
-  v11[5] = @"MTCellularDownloadLimitKey";
-  v12[4] = MEMORY[0x1E695E118];
-  v12[5] = &unk_1F54BE030;
-  v11[6] = @"MTPodcastDeletePlayedEpisodesDefaultKey";
-  v11[7] = @"MTHidePlayedEpisodes";
-  v12[6] = &unk_1F54BE048;
-  v12[7] = MEMORY[0x1E695E110];
-  v11[8] = @"MTContinuousPlaybackEnabled";
+  v10[0] = @"MTUseCustomColorsKey";
+  v10[1] = @"MTWiFiDownloadOnly";
+  v11[0] = MEMORY[0x1E695E118];
+  v11[1] = MEMORY[0x1E695E118];
+  v10[2] = @"MTSyncSubscriptions";
+  v10[3] = @"MTShowSiriSuggestions";
+  v11[2] = MEMORY[0x1E695E118];
+  v11[3] = MEMORY[0x1E695E118];
+  v10[4] = @"MTPodcastAutoDownloadStateDefaultKey";
+  v10[5] = @"MTCellularDownloadLimitKey";
+  v11[4] = MEMORY[0x1E695E118];
+  v11[5] = &unk_1F54BE030;
+  v10[6] = @"MTPodcastDeletePlayedEpisodesDefaultKey";
+  v10[7] = @"MTHidePlayedEpisodes";
+  v11[6] = &unk_1F54BE048;
+  v11[7] = MEMORY[0x1E695E110];
+  v10[8] = @"MTContinuousPlaybackEnabled";
   v5 = [MEMORY[0x1E696AD98] numberWithInt:v3];
-  v12[8] = v5;
-  v12[9] = &unk_1F54BE060;
-  v11[9] = @"MTSkipForwardIntervalDefault";
-  v11[10] = @"MTSkipBackwardsIntervalDefault";
-  v12[10] = &unk_1F54BE078;
-  v12[11] = v4;
-  v11[11] = @"MTRemoteSkipInsteadOfNextTrackDefault";
-  v11[12] = @"MTDownloadEpisodesWhenSaving";
-  v12[12] = v4;
-  v11[13] = @"MTPodcastEpisodeLimitDefaultKey";
+  v11[8] = v5;
+  v11[9] = &unk_1F54BE060;
+  v10[9] = @"MTSkipForwardIntervalDefault";
+  v10[10] = @"MTSkipBackwardsIntervalDefault";
+  v11[10] = &unk_1F54BE078;
+  v11[11] = v4;
+  v10[11] = @"MTRemoteSkipInsteadOfNextTrackDefault";
+  v10[12] = @"MTDownloadEpisodesWhenSaving";
+  v11[12] = v4;
+  v10[13] = @"MTPodcastEpisodeLimitDefaultKey";
   v6 = [MEMORY[0x1E696AD98] numberWithLongLong:{objc_msgSend(*(a1 + 40), "defaultEpisodeLimit")}];
-  v12[13] = v6;
-  v11[14] = @"kMTAdvancedPlaybackSettingsEnhanceDialogueEnabledKey";
+  v11[13] = v6;
+  v10[14] = @"kMTAdvancedPlaybackSettingsEnhanceDialogueEnabledKey";
   v7 = [MEMORY[0x1E696AD98] numberWithBool:{+[MTAdvancedPlaybackSettings defaultEnhanceDialogueEnabled](MTAdvancedPlaybackSettings, "defaultEnhanceDialogueEnabled")}];
-  v12[14] = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:15];
+  v11[14] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:15];
   v9 = defaultSettings__defaults;
   defaultSettings__defaults = v8;
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)_copyUserDefaultToSharedContainer:(id)container synchronize:(BOOL)synchronize

@@ -56,7 +56,7 @@
 {
   height = size.height;
   width = size.width;
-  v50[1] = *MEMORY[0x1E69E9840];
+  v51[1] = *MEMORY[0x1E69E9840];
   assetCopy = asset;
   optionsCopy = options;
   handlerCopy = handler;
@@ -65,52 +65,53 @@
   {
     v16 = assetCopy;
     v17 = _PhotoKitAssetForMediaObjectAsset(v16);
+    v18 = v17;
     if (v17)
     {
-      v18 = _PhotoKitMediaProvider();
-      v19 = [v18 requestImageForAsset:v17 targetSize:mode contentMode:optionsCopy options:handlerCopy resultHandler:{width, height}];
+      v19 = _PhotoKitMediaProvider(v17);
+      v20 = [v19 requestImageForAsset:v18 targetSize:mode contentMode:optionsCopy options:handlerCopy resultHandler:{width, height}];
     }
 
     else
     {
-      LODWORD(v19) = atomic_fetch_add(_makeNextRequestID_lastRequestID, 1u);
+      LODWORD(v20) = atomic_fetch_add(_makeNextRequestID_lastRequestID, 1u);
       mediaObject = [v16 mediaObject];
-      v19 = v19;
-      v41 = -[CKMediaObjectImageProvider _imagePreviewForMediaObject:isSynchronous:requestID:](self, "_imagePreviewForMediaObject:isSynchronous:requestID:", mediaObject, [optionsCopy isSynchronous], v19);
-      if (v41)
+      v20 = v20;
+      v42 = -[CKMediaObjectImageProvider _imagePreviewForMediaObject:isSynchronous:requestID:](self, "_imagePreviewForMediaObject:isSynchronous:requestID:", mediaObject, [optionsCopy isSynchronous], v20);
+      if (v42)
       {
         if (IMOSLoggingEnabled())
         {
-          v21 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+          v22 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
           {
-            v22 = [MEMORY[0x1E696AD98] numberWithInteger:v19];
+            v23 = [MEMORY[0x1E696AD98] numberWithInteger:v20];
             transferGUID = [mediaObject transferGUID];
             *buf = 138412546;
-            v46 = v22;
-            v47 = 2112;
-            v48 = transferGUID;
-            _os_log_impl(&dword_19020E000, v21, OS_LOG_TYPE_INFO, "Got non-nil UIImage preview for %@-%@, calling result handler", buf, 0x16u);
+            v47 = v23;
+            v48 = 2112;
+            v49 = transferGUID;
+            _os_log_impl(&dword_19020E000, v22, OS_LOG_TYPE_INFO, "Got non-nil UIImage preview for %@-%@, calling result handler", buf, 0x16u);
           }
         }
 
-        handlerCopy[2](handlerCopy, v41, 0);
+        handlerCopy[2](handlerCopy, v42, 0);
       }
 
       else if (([optionsCopy isSynchronous] & 1) == 0)
       {
         if (IMOSLoggingEnabled())
         {
-          v24 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+          v25 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
           {
-            v25 = [MEMORY[0x1E696AD98] numberWithInteger:v19];
+            v26 = [MEMORY[0x1E696AD98] numberWithInteger:v20];
             transferGUID2 = [mediaObject transferGUID];
             *buf = 138412546;
-            v46 = v25;
-            v47 = 2112;
-            v48 = transferGUID2;
-            _os_log_impl(&dword_19020E000, v24, OS_LOG_TYPE_INFO, "Got nil preview for %@-%@, deferring result handler", buf, 0x16u);
+            v47 = v26;
+            v48 = 2112;
+            v49 = transferGUID2;
+            _os_log_impl(&dword_19020E000, v25, OS_LOG_TYPE_INFO, "Got nil preview for %@-%@, deferring result handler", buf, 0x16u);
           }
         }
 
@@ -118,45 +119,45 @@
         transferGUID3 = [mediaObject transferGUID];
         if (transferGUID3)
         {
-          v27 = [(NSMutableDictionary *)self->_lock_activeRequestIDsByTransferGUID objectForKeyedSubscript:transferGUID3];
-          v28 = v27;
-          if (v27)
+          v28 = [(NSMutableDictionary *)self->_lock_activeRequestIDsByTransferGUID objectForKeyedSubscript:transferGUID3];
+          v29 = v28;
+          if (v28)
           {
-            [v27 addIndex:v19];
+            [v28 addIndex:v20];
           }
 
           else
           {
-            v28 = [objc_alloc(MEMORY[0x1E696AD50]) initWithIndex:v19];
-            [(NSMutableDictionary *)self->_lock_activeRequestIDsByTransferGUID setObject:v28 forKeyedSubscript:transferGUID3];
+            v29 = [objc_alloc(MEMORY[0x1E696AD50]) initWithIndex:v20];
+            [(NSMutableDictionary *)self->_lock_activeRequestIDsByTransferGUID setObject:v29 forKeyedSubscript:transferGUID3];
           }
         }
 
         resultHandlerQueue = [optionsCopy resultHandlerQueue];
-        v30 = resultHandlerQueue;
+        v31 = resultHandlerQueue;
         if (resultHandlerQueue)
         {
-          v31 = resultHandlerQueue;
+          v32 = resultHandlerQueue;
         }
 
         else
         {
-          v31 = MEMORY[0x1E69E96A0];
           v32 = MEMORY[0x1E69E96A0];
+          v33 = MEMORY[0x1E69E96A0];
         }
 
-        v33 = [CKMediaRequestDetails alloc];
-        v42[0] = MEMORY[0x1E69E9820];
-        v42[1] = 3221225472;
-        v42[2] = __96__CKMediaObjectImageProvider_requestImageForAsset_targetSize_contentMode_options_resultHandler___block_invoke;
-        v42[3] = &unk_1E72F7900;
-        v43 = v31;
-        v44 = handlerCopy;
-        v38 = v31;
-        v34 = [(CKMediaRequestDetails *)v33 initWithRequestID:v19 transferGUID:transferGUID3 resultHandler:v42];
+        v34 = [CKMediaRequestDetails alloc];
+        v43[0] = MEMORY[0x1E69E9820];
+        v43[1] = 3221225472;
+        v43[2] = __96__CKMediaObjectImageProvider_requestImageForAsset_targetSize_contentMode_options_resultHandler___block_invoke;
+        v43[3] = &unk_1E72F7900;
+        v44 = v32;
+        v45 = handlerCopy;
+        v39 = v32;
+        v35 = [(CKMediaRequestDetails *)v34 initWithRequestID:v20 transferGUID:transferGUID3 resultHandler:v43];
         lock_requestDetailsByRequestID = self->_lock_requestDetailsByRequestID;
-        v36 = [MEMORY[0x1E696AD98] numberWithInteger:v19];
-        [(NSMutableDictionary *)lock_requestDetailsByRequestID setObject:v34 forKeyedSubscript:v36];
+        v37 = [MEMORY[0x1E696AD98] numberWithInteger:v20];
+        [(NSMutableDictionary *)lock_requestDetailsByRequestID setObject:v35 forKeyedSubscript:v37];
 
         os_unfair_lock_unlock(&self->_lock);
       }
@@ -167,24 +168,24 @@
   {
     if (IMOSLoggingEnabled())
     {
-      v20 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+      v21 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v46 = "[CKMediaObjectImageProvider requestImageForAsset:targetSize:contentMode:options:resultHandler:]";
-        _os_log_impl(&dword_19020E000, v20, OS_LOG_TYPE_INFO, "%s got non-CKMediaObjectBackedAsset PXDisplayAsset!", buf, 0xCu);
+        v47 = "[CKMediaObjectImageProvider requestImageForAsset:targetSize:contentMode:options:resultHandler:]";
+        _os_log_impl(&dword_19020E000, v21, OS_LOG_TYPE_INFO, "%s got non-CKMediaObjectBackedAsset PXDisplayAsset!", buf, 0xCu);
       }
     }
 
     v16 = [MEMORY[0x1E696ABC0] px_genericErrorWithDebugDescription:{@"PXDisplayAsset %@ is not a CKMediaObjectBackedAsset", assetCopy}];
-    v49 = *MEMORY[0x1E6978DF0];
-    v50[0] = v16;
-    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v50 forKeys:&v49 count:1];
-    (handlerCopy)[2](handlerCopy, 0, v17);
-    v19 = 0;
+    v50 = *MEMORY[0x1E6978DF0];
+    v51[0] = v16;
+    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v51 forKeys:&v50 count:1];
+    (handlerCopy)[2](handlerCopy, 0, v18);
+    v20 = 0;
   }
 
-  return v19;
+  return v20;
 }
 
 void __96__CKMediaObjectImageProvider_requestImageForAsset_targetSize_contentMode_options_resultHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -207,7 +208,7 @@ void __96__CKMediaObjectImageProvider_requestImageForAsset_targetSize_contentMod
 
 - (int64_t)requestPlayerItemForVideo:(id)video options:(id)options resultHandler:(id)handler
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   videoCopy = video;
   optionsCopy = options;
   handlerCopy = handler;
@@ -216,27 +217,28 @@ void __96__CKMediaObjectImageProvider_requestImageForAsset_targetSize_contentMod
   {
     if (IMOSLoggingEnabled())
     {
-      v14 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+      v15 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v32 = "[CKMediaObjectImageProvider requestPlayerItemForVideo:options:resultHandler:]";
-        _os_log_impl(&dword_19020E000, v14, OS_LOG_TYPE_INFO, "%s got non-CKMediaObjectBackedAsset PXDisplayAsset!", buf, 0xCu);
+        v33 = "[CKMediaObjectImageProvider requestPlayerItemForVideo:options:resultHandler:]";
+        _os_log_impl(&dword_19020E000, v15, OS_LOG_TYPE_INFO, "%s got non-CKMediaObjectBackedAsset PXDisplayAsset!", buf, 0xCu);
       }
     }
 
     v10 = [MEMORY[0x1E696ABC0] px_genericErrorWithDebugDescription:{@"PXDisplayAsset %@ is not a CKMediaObjectBackedAsset", videoCopy}];
-    v29 = *MEMORY[0x1E6978DF0];
-    v30 = v10;
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
-    handlerCopy[2](handlerCopy, 0, v11);
+    v30 = *MEMORY[0x1E6978DF0];
+    v31 = v10;
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+    handlerCopy[2](handlerCopy, 0, v12);
 LABEL_9:
-    v13 = 0;
+    v14 = 0;
     goto LABEL_10;
   }
 
   v10 = videoCopy;
   v11 = _PhotoKitAssetForMediaObjectAsset(v10);
+  v12 = v11;
   if (!v11)
   {
     mediaObject = [v10 mediaObject];
@@ -244,46 +246,46 @@ LABEL_9:
     if (objc_opt_isKindOfClass())
     {
       asset = [mediaObject asset];
-      v18 = [MEMORY[0x1E69880B0] playerItemWithAsset:asset];
+      v19 = [MEMORY[0x1E69880B0] playerItemWithAsset:asset];
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __78__CKMediaObjectImageProvider_requestPlayerItemForVideo_options_resultHandler___block_invoke;
       block[3] = &unk_1E72EE5D8;
-      v25 = v18;
-      v26 = handlerCopy;
-      v19 = v18;
+      v26 = v19;
+      v27 = handlerCopy;
+      v20 = v19;
       dispatch_async(MEMORY[0x1E69E96A0], block);
       add = atomic_fetch_add(_makeNextRequestID_lastRequestID, 1u);
 
-      v13 = add;
+      v14 = add;
       goto LABEL_10;
     }
 
     if (IMOSLoggingEnabled())
     {
-      v21 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+      v22 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v32 = "[CKMediaObjectImageProvider requestPlayerItemForVideo:options:resultHandler:]";
-        _os_log_impl(&dword_19020E000, v21, OS_LOG_TYPE_INFO, "%s got non-CKMovieMediaObject for movie request!", buf, 0xCu);
+        v33 = "[CKMediaObjectImageProvider requestPlayerItemForVideo:options:resultHandler:]";
+        _os_log_impl(&dword_19020E000, v22, OS_LOG_TYPE_INFO, "%s got non-CKMovieMediaObject for movie request!", buf, 0xCu);
       }
     }
 
-    v22 = [MEMORY[0x1E696ABC0] px_genericErrorWithDebugDescription:{@"CKMediaObject %@ is not a CKMovieMediaObject", mediaObject}];
-    v27 = *MEMORY[0x1E6978DF0];
-    v28 = v22;
-    v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
-    handlerCopy[2](handlerCopy, 0, v23);
+    v23 = [MEMORY[0x1E696ABC0] px_genericErrorWithDebugDescription:{@"CKMediaObject %@ is not a CKMovieMediaObject", mediaObject}];
+    v28 = *MEMORY[0x1E6978DF0];
+    v29 = v23;
+    v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+    handlerCopy[2](handlerCopy, 0, v24);
 
     goto LABEL_9;
   }
 
-  v12 = _PhotoKitMediaProvider();
-  v13 = [v12 requestPlayerItemForVideo:v11 options:optionsCopy resultHandler:handlerCopy];
+  v13 = _PhotoKitMediaProvider(v11);
+  v14 = [v13 requestPlayerItemForVideo:v12 options:optionsCopy resultHandler:handlerCopy];
 
 LABEL_10:
-  return v13;
+  return v14;
 }
 
 - (void)cancelImageRequest:(int64_t)request
@@ -293,8 +295,8 @@ LABEL_10:
   os_unfair_lock_unlock(&self->_lock);
   if (!v5)
   {
-    v6 = _PhotoKitMediaProvider();
-    [v6 cancelImageRequest:request];
+    v7 = _PhotoKitMediaProvider(v6);
+    [v7 cancelImageRequest:request];
   }
 }
 

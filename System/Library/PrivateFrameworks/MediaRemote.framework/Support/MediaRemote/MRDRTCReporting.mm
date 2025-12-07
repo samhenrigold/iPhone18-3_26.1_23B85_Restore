@@ -1,5 +1,6 @@
 @interface MRDRTCReporting
 + (id)sharedInstance;
++ (void)reportRoutePickerInteractionWithDuration:(double)duration success:(BOOL)success;
 - (MRDRTCReporting)init;
 - (OS_dispatch_queue)rtcQueue;
 - (void)reportRoutePickerInteractionWithDuration:(double)duration success:(BOOL)success;
@@ -8,6 +9,13 @@
 @end
 
 @implementation MRDRTCReporting
+
++ (void)reportRoutePickerInteractionWithDuration:(double)duration success:(BOOL)success
+{
+  successCopy = success;
+  v6 = +[MRDRTCReporting sharedInstance];
+  [v6 reportRoutePickerInteractionWithDuration:successCopy success:duration];
+}
 
 + (id)sharedInstance
 {

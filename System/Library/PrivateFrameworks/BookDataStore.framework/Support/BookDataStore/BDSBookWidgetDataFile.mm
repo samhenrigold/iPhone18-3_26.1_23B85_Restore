@@ -39,44 +39,44 @@
 - (id)load
 {
   dataFile = [(BDSBookWidgetDataFile *)self dataFile];
-  v11 = 0;
-  v3 = [dataFile load:&v11];
-  v4 = v11;
+  v12 = 0;
+  v3 = [dataFile load:&v12];
+  v4 = v12;
 
   if (v4)
   {
-    v5 = sub_10000DE28();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = sub_10000DE28(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_1001BD844();
     }
 
 LABEL_4:
-    v6 = 0;
+    v7 = 0;
     goto LABEL_5;
   }
 
   if (!v3)
   {
-    v5 = sub_10000DE28();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_10000DE28(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Didn't find current widget data file, starting fresh.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Didn't find current widget data file, starting fresh.", buf, 2u);
     }
 
     v4 = 0;
     goto LABEL_4;
   }
 
-  v10 = 0;
-  v6 = [NSKeyedUnarchiver unarchivedArrayOfObjectsOfClass:objc_opt_class() fromData:v3 error:&v10];
-  v4 = v10;
-  v8 = sub_10000DE28();
-  v5 = v8;
-  if (!v6)
+  v11 = 0;
+  v7 = [NSKeyedUnarchiver unarchivedArrayOfObjectsOfClass:objc_opt_class() fromData:v3 error:&v11];
+  v4 = v11;
+  v9 = sub_10000DE28(v4);
+  v6 = v9;
+  if (!v7)
   {
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_1001BD8AC();
     }
@@ -84,19 +84,19 @@ LABEL_4:
     goto LABEL_4;
   }
 
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = [v6 count];
+    v10 = [v7 count];
     *buf = 134218242;
-    v13 = v9;
-    v14 = 2112;
-    v15 = v6;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Loading %lu widget datas read from disk: %@", buf, 0x16u);
+    v14 = v10;
+    v15 = 2112;
+    v16 = v7;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Loading %lu widget datas read from disk: %@", buf, 0x16u);
   }
 
 LABEL_5:
 
-  return v6;
+  return v7;
 }
 
 - (void)save:(id)save
@@ -108,45 +108,45 @@ LABEL_5:
 
   encodedData = [v5 encodedData];
   dataFile = [(BDSBookWidgetDataFile *)self dataFile];
-  v17 = 0;
-  v8 = [dataFile save:encodedData error:&v17];
-  v9 = v17;
+  v19 = 0;
+  v8 = [dataFile save:encodedData error:&v19];
+  v9 = v19;
 
-  v10 = sub_10000DE28();
-  v11 = v10;
+  v11 = sub_10000DE28(v10);
+  v12 = v11;
   if (v8)
   {
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Successfully updated current widget data file.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Successfully updated current widget data file.", buf, 2u);
     }
 
 LABEL_10:
 
-    v14 = v9;
+    v15 = v9;
     goto LABEL_11;
   }
 
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
     sub_1001BD914();
   }
 
   dataFile2 = [(BDSBookWidgetDataFile *)self dataFile];
-  v15 = v9;
-  v13 = [dataFile2 remove:&v15];
-  v14 = v15;
+  v17 = v9;
+  v14 = [dataFile2 remove:&v17];
+  v15 = v17;
 
-  if ((v13 & 1) == 0)
+  if ((v14 & 1) == 0)
   {
-    v11 = sub_10000DE28();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = sub_10000DE28(v16);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       sub_1001BD97C();
     }
 
-    v9 = v14;
+    v9 = v15;
     goto LABEL_10;
   }
 

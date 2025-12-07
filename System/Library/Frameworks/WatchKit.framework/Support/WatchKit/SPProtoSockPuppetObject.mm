@@ -279,12 +279,9 @@ LABEL_16:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  type = self->_type;
-  v16 = toCopy;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 0x40) != 0)
   {
-    subtype = self->_subtype;
     PBDataWriterWriteInt32Field();
   }
 
@@ -293,25 +290,24 @@ LABEL_16:
     PBDataWriterWriteSubmessage();
   }
 
-  v7 = v16;
+  v4 = toCopy;
   if (self->_key)
   {
     PBDataWriterWriteStringField();
-    v7 = v16;
+    v4 = toCopy;
   }
 
   if (self->_text)
   {
     PBDataWriterWriteStringField();
-    v7 = v16;
+    v4 = toCopy;
   }
 
   has = self->_has;
   if (has)
   {
-    ndouble = self->_ndouble;
     PBDataWriterWriteDoubleField();
-    v7 = v16;
+    v4 = toCopy;
     has = self->_has;
     if ((has & 8) == 0)
     {
@@ -330,9 +326,8 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  nfloat = self->_nfloat;
   PBDataWriterWriteFloatField();
-  v7 = v16;
+  v4 = toCopy;
   has = self->_has;
   if ((has & 2) == 0)
   {
@@ -346,9 +341,8 @@ LABEL_12:
   }
 
 LABEL_23:
-  nint64 = self->_nint64;
   PBDataWriterWriteInt64Field();
-  v7 = v16;
+  v4 = toCopy;
   has = self->_has;
   if ((has & 0x10) == 0)
   {
@@ -362,9 +356,8 @@ LABEL_13:
   }
 
 LABEL_24:
-  nint32 = self->_nint32;
   PBDataWriterWriteInt32Field();
-  v7 = v16;
+  v4 = toCopy;
   has = self->_has;
   if ((has & 4) == 0)
   {
@@ -375,9 +368,8 @@ LABEL_14:
     }
 
 LABEL_26:
-    nuint32 = self->_nuint32;
     PBDataWriterWriteUint32Field();
-    v7 = v16;
+    v4 = toCopy;
     if ((*&self->_has & 0x80) == 0)
     {
       goto LABEL_16;
@@ -387,9 +379,8 @@ LABEL_26:
   }
 
 LABEL_25:
-  nuint64 = self->_nuint64;
   PBDataWriterWriteUint64Field();
-  v7 = v16;
+  v4 = toCopy;
   has = self->_has;
   if ((has & 0x20) != 0)
   {
@@ -403,14 +394,13 @@ LABEL_15:
   }
 
 LABEL_27:
-  nBOOL = self->_nBOOL;
   PBDataWriterWriteBOOLField();
-  v7 = v16;
+  v4 = toCopy;
 LABEL_16:
   if (self->_object)
   {
     PBDataWriterWriteDataField();
-    v7 = v16;
+    v4 = toCopy;
   }
 }
 
@@ -676,7 +666,6 @@ LABEL_10:
     goto LABEL_49;
   }
 
-  v5 = *(equalCopy + 96);
   if ((*&self->_has & 0x40) != 0)
   {
     if ((*(equalCopy + 96) & 0x40) == 0 || self->_subtype != *(equalCopy + 18))
@@ -714,7 +703,6 @@ LABEL_10:
     }
   }
 
-  v9 = *(equalCopy + 96);
   if (*&self->_has)
   {
     if ((*(equalCopy + 96) & 1) == 0 || self->_ndouble != *(equalCopy + 1))
@@ -801,7 +789,7 @@ LABEL_10:
     }
 
 LABEL_49:
-    v11 = 0;
+    v9 = 0;
     goto LABEL_50;
   }
 
@@ -810,7 +798,6 @@ LABEL_49:
     goto LABEL_49;
   }
 
-  v13 = *(equalCopy + 92);
   if (self->_nBOOL)
   {
     if ((*(equalCopy + 92) & 1) == 0)
@@ -828,17 +815,17 @@ LABEL_46:
   object = self->_object;
   if (object | *(equalCopy + 8))
   {
-    v11 = [(NSData *)object isEqual:?];
+    v9 = [(NSData *)object isEqual:?];
   }
 
   else
   {
-    v11 = 1;
+    v9 = 1;
   }
 
 LABEL_50:
 
-  return v11;
+  return v9;
 }
 
 - (unint64_t)hash

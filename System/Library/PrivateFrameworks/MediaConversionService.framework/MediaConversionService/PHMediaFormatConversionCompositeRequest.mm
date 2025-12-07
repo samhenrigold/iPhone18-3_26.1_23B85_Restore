@@ -42,13 +42,13 @@ void __56__PHMediaFormatConversionCompositeRequest_setupProgress__block_invoke(u
 
 - (void)didFinishProcessing
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v5[0] = MEMORY[0x277D85DD0];
-  v5[1] = 3221225472;
-  v5[2] = __62__PHMediaFormatConversionCompositeRequest_didFinishProcessing__block_invoke;
-  v5[3] = &unk_27989B6A0;
-  v5[4] = self;
-  [(PHMediaFormatConversionCompositeRequest *)self enumerateSubrequests:v5];
+  v9 = *MEMORY[0x277D85DE8];
+  v4[0] = MEMORY[0x277D85DD0];
+  v4[1] = 3221225472;
+  v4[2] = __62__PHMediaFormatConversionCompositeRequest_didFinishProcessing__block_invoke;
+  v4[3] = &unk_27989B6A0;
+  v4[4] = self;
+  [(PHMediaFormatConversionCompositeRequest *)self enumerateSubrequests:v4];
   if ([(PHMediaFormatConversionRequest *)self status]== 5)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -56,8 +56,8 @@ void __56__PHMediaFormatConversionCompositeRequest_setupProgress__block_invoke(u
       error = [(PHMediaFormatConversionRequest *)self error];
       *buf = 138412546;
       selfCopy = self;
-      v8 = 2112;
-      v9 = error;
+      v7 = 2112;
+      v8 = error;
       _os_log_error_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Composite conversion request %@ failed: %@", buf, 0x16u);
     }
   }
@@ -66,13 +66,11 @@ void __56__PHMediaFormatConversionCompositeRequest_setupProgress__block_invoke(u
   {
     [(PHMediaFormatConversionCompositeRequest *)self postProcessSuccessfulCompositeRequest];
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __62__PHMediaFormatConversionCompositeRequest_didFinishProcessing__block_invoke(uint64_t a1, void *a2)
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v4 = a2;
   if ([*(a1 + 32) status] != 5)
   {
@@ -90,10 +88,10 @@ void __62__PHMediaFormatConversionCompositeRequest_didFinishProcessing__block_in
       v8 = [v4 error];
       if (v8)
       {
-        v12 = *MEMORY[0x277CCA7E8];
+        v11 = *MEMORY[0x277CCA7E8];
         v2 = [v4 error];
-        v13[0] = v2;
-        v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+        v12[0] = v2;
+        v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
       }
 
       else
@@ -109,8 +107,6 @@ void __62__PHMediaFormatConversionCompositeRequest_didFinishProcessing__block_in
       }
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)propagateRequestOptionsToSubrequests
@@ -387,7 +383,7 @@ uint64_t __67__PHMediaFormatConversionCompositeRequest_requiresFormatConversion_
   return v2;
 }
 
-uint64_t __71__PHMediaFormatConversionCompositeRequest_areAllSubrequestsPreflighted__block_invoke(uint64_t a1, void *a2)
+void *__71__PHMediaFormatConversionCompositeRequest_areAllSubrequestsPreflighted__block_invoke(uint64_t a1, void *a2)
 {
   v2 = *(*(a1 + 32) + 8);
   if (*(v2 + 24) == 1)

@@ -115,8 +115,8 @@
 
 + (id)conversionEstimatesFromTextureDescriptions:(id)descriptions toFitAvailableMemory:(unint64_t)memory withConverters:(id)converters preferredMaxTextureSize:(int64_t *)size outcome:
 {
-  v68 = v6;
-  v86 = *MEMORY[0x277D85DE8];
+  v67 = v6;
+  v85 = *MEMORY[0x277D85DE8];
   descriptionsCopy = descriptions;
   convertersCopy = converters;
   if (size)
@@ -125,37 +125,37 @@
   }
 
   sizeCopy = size;
-  v61 = descriptionsCopy;
+  v60 = descriptionsCopy;
   if ([descriptionsCopy count])
   {
     if ([convertersCopy count])
     {
-      v67 = objc_opt_new();
+      v66 = objc_opt_new();
+      v75 = 0u;
       v76 = 0u;
       v77 = 0u;
       v78 = 0u;
-      v79 = 0u;
       v10 = descriptionsCopy;
-      v11 = [v10 countByEnumeratingWithState:&v76 objects:v85 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v75 objects:v84 count:16];
       sizeCopy2 = size;
       if (v11)
       {
         v13 = v11;
-        v14 = *v77;
-        v15 = vorr_s8(vdup_lane_s32(v68, 1), v68).u32[0];
+        v14 = *v76;
+        v15 = vorr_s8(vdup_lane_s32(v67, 1), v67).u32[0];
         do
         {
           for (i = 0; i != v13; ++i)
           {
-            if (*v77 != v14)
+            if (*v76 != v14)
             {
               objc_enumerationMutation(v10);
             }
 
-            v17 = *(*(&v76 + 1) + 8 * i);
+            v17 = *(*(&v75 + 1) + 8 * i);
             if (v15)
             {
-              v18 = [RIOTextureConversionEstimate textureDescription:v17 downsampledToTryAndFitDestinationWithinSize:*&v68];
+              v18 = [RIOTextureConversionEstimate textureDescription:v17 downsampledToTryAndFitDestinationWithinSize:*&v67];
               v19 = v18;
               if (sizeCopy2 && [v18 requiresDownsampling])
               {
@@ -172,19 +172,19 @@
             if (v20)
             {
               v21 = [[RIOTextureConversionEstimate alloc] initWithTextureDescription:v19 converter:v20];
-              [v67 addObject:v21];
+              [v66 addObject:v21];
 
               sizeCopy2 = sizeCopy;
             }
           }
 
-          v13 = [v10 countByEnumeratingWithState:&v76 objects:v85 count:16];
+          v13 = [v10 countByEnumeratingWithState:&v75 objects:v84 count:16];
         }
 
         while (v13);
       }
 
-      v22 = [v67 copy];
+      v22 = [v66 copy];
       v23 = [self conversionEstimatesSortedByPeakMemoryUsage:v22];
 
       v24 = [RIOTextureConversionEstimate peakMemoryForConversionEstimates:v23];
@@ -192,8 +192,8 @@
       if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134218240;
-        v82 = v24;
-        v83 = 2048;
+        v81 = v24;
+        v82 = 2048;
         memoryCopy = memory;
         _os_log_impl(&dword_26187B000, v25, OS_LOG_TYPE_DEFAULT, "peakMemory: %lu, availableMemory: %lu", buf, 0x16u);
       }
@@ -208,26 +208,26 @@
           _os_log_impl(&dword_26187B000, v26, OS_LOG_TYPE_DEFAULT, "Need to downsample, calculating...", buf, 2u);
         }
 
-        v66 = objc_opt_new();
+        v65 = objc_opt_new();
+        v71 = 0u;
         v72 = 0u;
         v73 = 0u;
         v74 = 0u;
-        v75 = 0u;
         obj = v23;
-        v69 = [obj countByEnumeratingWithState:&v72 objects:v80 count:16];
-        if (v69)
+        v68 = [obj countByEnumeratingWithState:&v71 objects:v79 count:16];
+        if (v68)
         {
-          v65 = *v73;
+          v64 = *v72;
           do
           {
-            for (j = 0; j != v69; ++j)
+            for (j = 0; j != v68; ++j)
             {
-              if (*v73 != v65)
+              if (*v72 != v64)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v29 = *(*(&v72 + 1) + 8 * j);
+              v29 = *(*(&v71 + 1) + 8 * j);
               v30 = [RIOTextureDescription alloc];
               name = [v29 name];
               [v29 originalSize];
@@ -238,8 +238,8 @@
               v39 = v38;
               downsamplingFactor = [v29 downsamplingFactor];
               fileType = [v29 fileType];
-              LOBYTE(v60) = [v29 generateMipmaps];
-              v42 = [(RIOTextureDescription *)v30 initWithName:name originalSize:originalPixelFormat originalPixelFormat:v36 destinationPixelFormat:destinationPixelFormat downsamplingFactor:v39 fileType:downsamplingFactor generateMipmaps:v33, fileType, v60];
+              LOBYTE(v59) = [v29 generateMipmaps];
+              v42 = [(RIOTextureDescription *)v30 initWithName:name originalSize:originalPixelFormat originalPixelFormat:v36 destinationPixelFormat:destinationPixelFormat downsamplingFactor:v39 fileType:downsamplingFactor generateMipmaps:v33, fileType, v59];
 
               [(RIOTextureDescription *)v42 destinationSize];
               if (v43 >= 17)
@@ -261,16 +261,16 @@
 
               v46 = [RIOTextureConverter preferredConverterFromConverters:convertersCopy forTextureDescription:v42];
               v47 = [[RIOTextureConversionEstimate alloc] initWithTextureDescription:v42 converter:v46];
-              [v66 addObject:v47];
+              [v65 addObject:v47];
             }
 
-            v69 = [obj countByEnumeratingWithState:&v72 objects:v80 count:16];
+            v68 = [obj countByEnumeratingWithState:&v71 objects:v79 count:16];
           }
 
-          while (v69);
+          while (v68);
         }
 
-        v48 = [self conversionEstimatesSortedByPeakMemoryUsage:v66];
+        v48 = [self conversionEstimatesSortedByPeakMemoryUsage:v65];
         if ([RIOTextureConversionEstimate peakMemoryForConversionEstimates:v48]> memory)
         {
 LABEL_48:
@@ -337,36 +337,34 @@ LABEL_48:
     v56 = MEMORY[0x277CBEBF8];
   }
 
-  v58 = *MEMORY[0x277D85DE8];
-
   return v56;
 }
 
 + (unint64_t)peakMemoryForConversionEstimates:(id)estimates
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   estimatesCopy = estimates;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v4 = [estimatesCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = [estimatesCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
     v7 = 0;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(estimatesCopy);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
+        v10 = *(*(&v13 + 1) + 8 * i);
         [v10 estimatedMemoryDelta];
         if (v7 <= v11 + v6)
         {
@@ -376,7 +374,7 @@ LABEL_48:
         v6 += [v10 estimatedMemoryDelta];
       }
 
-      v5 = [estimatesCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [estimatesCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v5);
@@ -387,36 +385,35 @@ LABEL_48:
     v7 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 + (id)heaviestConversionEstimate:(id)estimate withMinimumDestinationSize:
 {
   v4 = v3;
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   estimateCopy = estimate;
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  v6 = [estimateCopy countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v6 = [estimateCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
     v9 = 0;
-    v10 = *v21;
+    v10 = *v20;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v21 != v10)
+        if (*v20 != v10)
         {
           objc_enumerationMutation(estimateCopy);
         }
 
-        v12 = *(*(&v20 + 1) + 8 * i);
+        v12 = *(*(&v19 + 1) + 8 * i);
         weight = [v12 weight];
         if (weight > v8)
         {
@@ -436,7 +433,7 @@ LABEL_48:
         }
       }
 
-      v7 = [estimateCopy countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v7 = [estimateCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v7);
@@ -446,8 +443,6 @@ LABEL_48:
   {
     v9 = 0;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

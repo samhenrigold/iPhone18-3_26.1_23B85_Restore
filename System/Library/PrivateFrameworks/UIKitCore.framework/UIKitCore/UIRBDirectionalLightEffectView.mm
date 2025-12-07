@@ -8,13 +8,14 @@
 
 - (void)layoutSubviews
 {
-  v4.receiver = self;
-  v4.super_class = type metadata accessor for UIRBDirectionalLightEffectView();
-  v2 = v4.receiver;
-  [(UIView *)&v4 layoutSubviews];
-  v3 = *&v2[OBJC_IVAR____TtC5UIKit30UIRBDirectionalLightEffectView_drawingView];
-  [v2 bounds];
-  [v3 setFrame_];
+  type metadata accessor for UIRBDirectionalLightEffectView();
+  v6.receiver = self;
+  v6.super_class = v3;
+  selfCopy = self;
+  [(UIView *)&v6 layoutSubviews];
+  v5 = *(&selfCopy->super.super.super.isa + OBJC_IVAR____TtC5UIKit30UIRBDirectionalLightEffectView_drawingView);
+  [(UIView *)selfCopy bounds:v6.receiver];
+  [v5 setFrame_];
   sub_189230C30();
 }
 

@@ -5,8 +5,8 @@
 - (id)itemIdentifier;
 - (id)itemTitle;
 - (id)storeTrackID;
-- (uint64_t)setValue:()IMAVPlayer forKey:;
 - (void)setCurrentTime:()IMAVPlayer;
+- (void)setValue:()IMAVPlayer forKey:;
 @end
 
 @implementation NSUserActivity(IMAVPlayer)
@@ -67,7 +67,7 @@
   return v2;
 }
 
-- (uint64_t)setValue:()IMAVPlayer forKey:
+- (void)setValue:()IMAVPlayer forKey:
 {
   v11[1] = *MEMORY[0x277D85DE8];
   if (a3)

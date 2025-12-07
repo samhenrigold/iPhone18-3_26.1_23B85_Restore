@@ -382,11 +382,10 @@ LABEL_14:
 
 - (void)_continueButtonTapped
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  v3 = "[TSTravelModeIntroViewController _continueButtonTapped]";
-  _os_log_error_impl(&dword_262AA8000, v0, OS_LOG_TYPE_ERROR, "[E]Failed to send travel metric for travel intro [%@] @%s", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = "[TSTravelModeIntroViewController _continueButtonTapped]";
+  _os_log_error_impl(&dword_262AA8000, v0, OS_LOG_TYPE_ERROR, "[E]Failed to send travel metric for travel intro [%@] @%s", v1, 0x16u);
 }
 
 - (void)_skipButtonTapped:(id)tapped
@@ -416,13 +415,14 @@ LABEL_14:
 
   [v5 setObject:*v7 forKey:@"finalAction"];
   client = self->_client;
-  v12 = 0;
-  v9 = [(CoreTelephonyClient *)client sendTravelBuddyCAEvent:v5 error:&v12];
-  v10 = v12;
+  v13 = 0;
+  v9 = [(CoreTelephonyClient *)client sendTravelBuddyCAEvent:v5 error:&v13];
+  v10 = v13;
+  v11 = v10;
   if ((v9 & 1) == 0)
   {
-    v11 = _TSLogDomain();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = _TSLogDomain(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [TSTravelModeIntroViewController _skipButtonTapped:];
     }
@@ -433,31 +433,31 @@ LABEL_14:
 
 - (id)_getCarrierNameForDefaultDataSub
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   mEMORY[0x277CF96D8] = [MEMORY[0x277CF96D8] sharedManager];
   v3 = [mEMORY[0x277CF96D8] planItemsShouldUpdate:0];
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     carrierName = &stru_28753DF48;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * i);
+        v10 = *(*(&v12 + 1) + 8 * i);
         if ([v10 isActiveDataPlan])
         {
           carrierName = [v10 carrierName];
@@ -465,7 +465,7 @@ LABEL_14:
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v6)
       {
         continue;
@@ -482,8 +482,6 @@ LABEL_14:
 
 LABEL_12:
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return carrierName;
 }
 
@@ -496,11 +494,10 @@ LABEL_12:
 
 - (void)_skipButtonTapped:.cold.1()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  v3 = "[TSTravelModeIntroViewController _skipButtonTapped:]";
-  _os_log_error_impl(&dword_262AA8000, v0, OS_LOG_TYPE_ERROR, "[E]Failed to send travel metric for travel intro [%@] @%s", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = "[TSTravelModeIntroViewController _skipButtonTapped:]";
+  _os_log_error_impl(&dword_262AA8000, v0, OS_LOG_TYPE_ERROR, "[E]Failed to send travel metric for travel intro [%@] @%s", v1, 0x16u);
 }
 
 @end

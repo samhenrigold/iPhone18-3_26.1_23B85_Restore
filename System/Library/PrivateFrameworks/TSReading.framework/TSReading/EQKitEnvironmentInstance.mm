@@ -36,15 +36,15 @@
   return +[EQKitEnvironmentInstance defaultEnvironment]::sInstance;
 }
 
-void __46__EQKitEnvironmentInstance_defaultEnvironment__block_invoke()
+void __46__EQKitEnvironmentInstance_defaultEnvironment__block_invoke(uint64_t a1)
 {
-  v0 = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfURL:{objc_msgSend(MEMORY[0x277CBEBC0], "fileURLWithPath:", objc_msgSend(objc_msgSend(MEMORY[0x277CCA8D8], "bundleForClass:", objc_opt_class()), "pathForResource:ofType:", @"EQKitDefaultEnvironment", @"plist"}];
-  v4 = 0;
+  v1 = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfURL:{objc_msgSend(MEMORY[0x277CBEBC0], "fileURLWithPath:", objc_msgSend(objc_msgSend(MEMORY[0x277CCA8D8], "bundleForClass:", objc_opt_class()), "pathForResource:ofType:", @"EQKitDefaultEnvironment", @"plist"}];
   v5 = 0;
-  v1 = objc_opt_class();
-  v2 = EQKitUtilDynamicCast(v1, [MEMORY[0x277CCAC58] propertyListWithData:v0 options:0 format:&v5 error:&v4]);
-  v3 = [EQKitEnvironmentInstance alloc];
-  +[EQKitEnvironmentInstance defaultEnvironment]::sInstance = [(EQKitEnvironmentInstance *)v3 initWithConfig:v2, v4, v5];
+  v6 = 0;
+  v2 = objc_opt_class();
+  v3 = EQKitUtilDynamicCast(v2, [MEMORY[0x277CCAC58] propertyListWithData:v1 options:0 format:&v6 error:&v5]);
+  v4 = [EQKitEnvironmentInstance alloc];
+  +[EQKitEnvironmentInstance defaultEnvironment]::sInstance = [(EQKitEnvironmentInstance *)v4 initWithConfig:v3, v5, v6];
 }
 
 + (id)dataForEnvironment:(id)environment

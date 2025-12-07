@@ -110,7 +110,7 @@
   viewCopy = view;
   displayingCopy = displaying;
   v15 = v5;
-  sub_1E38947C0();
+  sub_1E38947C0(v15, v16, v6);
 
   (*(v11 + 8))(v6, v9);
 }

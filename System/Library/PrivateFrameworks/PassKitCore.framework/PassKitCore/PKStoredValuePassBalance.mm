@@ -69,9 +69,9 @@
   if (currency && balance)
   {
     currency2 = [balanceCopy currency];
-    v13 = [currency2 isEqualToString:@"XXX"];
+    isEqualToString = objc_msgSend_isEqualToString_(currency2);
 
-    if (v13)
+    if (isEqualToString)
     {
       if (([fieldCopy unitType] + 1) >= 4)
       {
@@ -208,18 +208,14 @@
     }
   }
 
-  else
+  else if (([(NSDecimalNumber *)amount isEqual:?]& 1) == 0)
   {
-    v8 = [(NSDecimalNumber *)amount isEqual:?];
-    if ((v8 & 1) == 0)
-    {
-      goto LABEL_26;
-    }
+    goto LABEL_26;
   }
 
   currencyCode = self->_currencyCode;
-  v10 = v4->_currencyCode;
-  if (currencyCode && v10)
+  v9 = v4->_currencyCode;
+  if (currencyCode && v9)
   {
     if (([(NSString *)currencyCode isEqual:?]& 1) == 0)
     {
@@ -227,38 +223,38 @@
     }
   }
 
-  else if (currencyCode != v10)
+  else if (currencyCode != v9)
   {
     goto LABEL_26;
   }
 
   balanceType = v4->_balanceType;
-  v12 = self->_balanceType;
-  v13 = balanceType;
-  v14 = v13;
-  if (v12 == v13)
+  v11 = self->_balanceType;
+  v12 = balanceType;
+  v13 = v12;
+  if (v11 == v12)
   {
   }
 
   else
   {
-    if (!v12 || !v13)
+    if (!v11 || !v12)
     {
 
       goto LABEL_26;
     }
 
-    v15 = [(NSString *)v12 isEqualToString:v13];
+    isEqualToString = objc_msgSend_isEqualToString_(v11);
 
-    if (!v15)
+    if (!isEqualToString)
     {
       goto LABEL_26;
     }
   }
 
   expiryDate = self->_expiryDate;
-  v17 = v4->_expiryDate;
-  if (expiryDate && v17)
+  v16 = v4->_expiryDate;
+  if (expiryDate && v16)
   {
     if (([(NSDate *)expiryDate isEqual:?]& 1) != 0)
     {
@@ -266,31 +262,31 @@
     }
 
 LABEL_26:
-    v18 = 0;
+    v17 = 0;
     goto LABEL_27;
   }
 
-  if (expiryDate != v17)
+  if (expiryDate != v16)
   {
     goto LABEL_26;
   }
 
 LABEL_28:
   identifier = self->_identifier;
-  v21 = v4->_identifier;
-  if (identifier && v21)
+  v20 = v4->_identifier;
+  if (identifier && v20)
   {
-    v18 = [(NSString *)identifier isEqual:?];
+    v17 = [(NSString *)identifier isEqual:?];
   }
 
   else
   {
-    v18 = identifier == v21;
+    v17 = identifier == v20;
   }
 
 LABEL_27:
 
-  return v18;
+  return v17;
 }
 
 - (unint64_t)hash

@@ -16,7 +16,6 @@ void __cmsmdevicestate_RegisterForDeviceIsChargingNotification_block_invoke(uint
     if (!IOServiceAddInterestNotification(qword_1EB75D378, MatchingService, "IOGeneralInterest", cmsmdeviceState_BatteryStateChanged, 0, &dword_1EB75D374))
     {
       CFProperty = IORegistryEntryCreateCFProperty(MatchingService, @"ExternalConnected", *MEMORY[0x1E695E480], 0);
-      v7 = *MEMORY[0x1E695E4D0];
       byte_1EB75D370 = FigCFEqual();
       if (CFProperty)
       {

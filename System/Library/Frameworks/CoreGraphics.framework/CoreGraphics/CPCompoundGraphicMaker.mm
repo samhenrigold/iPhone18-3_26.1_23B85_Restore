@@ -200,7 +200,7 @@ LABEL_29:
   cluster = self->cluster;
   if (cluster)
   {
-    [(CPCluster *)cluster largestClusterStatistics];
+    objc_msgSend_largestClusterStatistics(cluster, a2);
     v4 = 40 * (v38 + 2);
   }
 
@@ -228,7 +228,7 @@ LABEL_29:
         goto LABEL_31;
       }
 
-      [(CPCluster *)v10 clusterStatisticsAtIndex:v9];
+      objc_msgSend_clusterStatisticsAtIndex_(v10);
       v11 = v37;
       if (v37 >= 2)
       {
@@ -244,8 +244,7 @@ LABEL_29:
 
 LABEL_31:
       v8 = v11 + v8;
-      v9 = (v9 + 1);
-      if (v9 == v6)
+      if (++v9 == v6)
       {
         return v7 & 1;
       }
@@ -538,7 +537,7 @@ LABEL_11:
       cluster = self->cluster;
       if (cluster)
       {
-        [(CPCluster *)cluster differenceClusterStatisticsAtIndex:v8];
+        objc_msgSend_differenceClusterStatisticsAtIndex_(cluster);
         v11 = *(&v19 + 1);
         v10 = *&v20;
       }
@@ -556,10 +555,9 @@ LABEL_11:
         break;
       }
 
-      v8 = (v8 + 1);
-      if (v6 == v8)
+      if (v6 == ++v8)
       {
-        LODWORD(v8) = v6;
+        v8 = v6;
         break;
       }
     }
@@ -574,7 +572,7 @@ LABEL_11:
       v22 = v4;
       v23 = v4;
       v24 = v4;
-      LODWORD(v8) = v8 + [(CPCluster *)self->cluster applyDifferenceHints:&v19 count:2];
+      v8 += [(CPCluster *)self->cluster applyDifferenceHints:&v19 count:2];
     }
 
     else if (v8 >= 2)
@@ -582,7 +580,7 @@ LABEL_11:
       v14 = self->cluster;
       if (v14)
       {
-        [(CPCluster *)v14 differenceClusterStatisticsAtIndex:(v8 - 1)];
+        objc_msgSend_differenceClusterStatisticsAtIndex_(v14);
         v15 = *&v18;
         v14 = self->cluster;
       }
@@ -594,7 +592,7 @@ LABEL_11:
         v15 = 0.0;
       }
 
-      LODWORD(v8) = 1;
+      v8 = 1;
       LODWORD(v19) = 1;
       if (v15 < v3)
       {
@@ -610,7 +608,7 @@ LABEL_11:
 
   else
   {
-    LODWORD(v8) = 0;
+    v8 = 0;
   }
 
   return v8 != 0;

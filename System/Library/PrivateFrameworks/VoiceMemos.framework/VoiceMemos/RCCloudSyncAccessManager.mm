@@ -194,41 +194,39 @@ LABEL_14:
   {
     if (![(RCCloudSyncAccessManager *)self cloudSyncIsAvailable])
     {
-      v7 = OSLogForCategory(@"Default");
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v5 = OSLogForCategory(@"Default");
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        [(RCCloudSyncAccessManager *)self setTccCloudAccess:v7];
+        [(RCCloudSyncAccessManager *)self setTccCloudAccess:v5];
       }
 
-      goto LABEL_14;
+      goto LABEL_13;
     }
 
-    v5 = *MEMORY[0x277D6C190];
-    goto LABEL_11;
+    goto LABEL_10;
   }
 
   if (access == 1)
   {
-    v8 = *MEMORY[0x277D6C190];
-LABEL_11:
+LABEL_10:
     if (TCCAccessSetForBundleId())
     {
       return;
     }
 
-    goto LABEL_12;
+    goto LABEL_11;
   }
 
-  if (access || (v6 = *MEMORY[0x277D6C190], !TCCAccessResetForBundleId()))
+  if (access || !TCCAccessResetForBundleId())
   {
-LABEL_12:
-    v7 = OSLogForCategory(@"Default");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+LABEL_11:
+    v5 = OSLogForCategory(@"Default");
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      [(RCCloudSyncAccessManager *)access setTccCloudAccess:v7];
+      [(RCCloudSyncAccessManager *)access setTccCloudAccess:v5];
     }
 
-LABEL_14:
+LABEL_13:
   }
 }
 
@@ -266,16 +264,15 @@ uint64_t __48__RCCloudSyncAccessManager__availabilityChanged__block_invoke(uint6
 
 - (void)tccCloudAccess
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[RCCloudSyncAccessManager tccCloudAccess]";
-  _os_log_error_impl(&dword_272442000, log, OS_LOG_TYPE_ERROR, "%s -- TCCAccessCopyInformationForBundleId failed", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[RCCloudSyncAccessManager tccCloudAccess]";
+  _os_log_error_impl(&dword_272442000, log, OS_LOG_TYPE_ERROR, "%s -- TCCAccessCopyInformationForBundleId failed", &v1, 0xCu);
 }
 
 - (void)setTccCloudAccess:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = [a1 accountStore];
   if ([v3 aa_isUsingiCloud])
   {
@@ -289,31 +286,28 @@ uint64_t __48__RCCloudSyncAccessManager__availabilityChanged__block_invoke(uint6
 
   v5 = +[RCManagedConfigurationHelper cloudSyncIsAllowed];
   v6 = @"does not";
-  v9 = "[RCCloudSyncAccessManager setTccCloudAccess:]";
-  v8 = 136315650;
-  v10 = 2112;
-  v11 = v4;
+  v8 = "[RCCloudSyncAccessManager setTccCloudAccess:]";
+  v7 = 136315650;
+  v9 = 2112;
+  v10 = v4;
   if (v5)
   {
     v6 = @"does";
   }
 
-  v12 = 2112;
-  v13 = v6;
-  _os_log_error_impl(&dword_272442000, a2, OS_LOG_TYPE_ERROR, "%s -- Attempting to enable cloud sync when not available - User %@ logged in, Managed Configuration %@ allow cloud sync", &v8, 0x20u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v11 = 2112;
+  v12 = v6;
+  _os_log_error_impl(&dword_272442000, a2, OS_LOG_TYPE_ERROR, "%s -- Attempting to enable cloud sync when not available - User %@ logged in, Managed Configuration %@ allow cloud sync", &v7, 0x20u);
 }
 
 - (void)setTccCloudAccess:(int)a1 .cold.2(int a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = "[RCCloudSyncAccessManager setTccCloudAccess:]";
-  v5 = 1024;
-  v6 = a1;
-  _os_log_error_impl(&dword_272442000, a2, OS_LOG_TYPE_ERROR, "%s -- Failed to set TCCCloudAccess to %i\n", &v3, 0x12u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "[RCCloudSyncAccessManager setTccCloudAccess:]";
+  v4 = 1024;
+  v5 = a1;
+  _os_log_error_impl(&dword_272442000, a2, OS_LOG_TYPE_ERROR, "%s -- Failed to set TCCCloudAccess to %i\n", &v2, 0x12u);
 }
 
 @end

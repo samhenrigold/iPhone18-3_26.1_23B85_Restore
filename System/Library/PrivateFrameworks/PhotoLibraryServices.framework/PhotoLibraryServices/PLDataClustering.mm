@@ -3,7 +3,7 @@
 - (PLDataClustering)initWithNumericValueKeypaths:(id)keypaths;
 - (double)createDistancesFlatMatrixForDataset:(id)dataset;
 - (double)createDistancesMatrixForDataset:(id)dataset progressBlock:(id)block;
-- (uint64_t)flatMatrixIndexForRow:(unint64_t)row andColumn:;
+- (unint64_t)flatMatrixIndexForRow:(unint64_t)row andColumn:;
 - (void)freeDistancesMatrix:(double *)matrix forDataset:(id)dataset;
 @end
 
@@ -38,7 +38,7 @@
 
 - (double)createDistancesFlatMatrixForDataset:(id)dataset
 {
-  v5 = [dataset count];
+  v5 = objc_msgSend_count(dataset, a2);
   v6 = malloc_type_malloc(4 * ((v5 * (v5 - 1)) & 0x1FFFFFFFFFFFFFFFLL), 0x100004000313F17uLL);
   distanceBlock = [(PLDataClustering *)self distanceBlock];
   if (v5)
@@ -93,7 +93,7 @@
   return v6;
 }
 
-- (uint64_t)flatMatrixIndexForRow:(unint64_t)row andColumn:
+- (unint64_t)flatMatrixIndexForRow:(unint64_t)row andColumn:
 {
   if (result)
   {
@@ -134,7 +134,7 @@
 
 - (void)freeDistancesMatrix:(double *)matrix forDataset:(id)dataset
 {
-  if ([dataset count])
+  if (objc_msgSend_count(dataset, a2))
   {
     v6 = 0;
     do
@@ -142,7 +142,7 @@
       free(matrix[v6++]);
     }
 
-    while (v6 < [dataset count]);
+    while (v6 < objc_msgSend_count(dataset));
   }
 
   free(matrix);
@@ -150,7 +150,7 @@
 
 - (double)createDistancesMatrixForDataset:(id)dataset progressBlock:(id)block
 {
-  v7 = [dataset count];
+  v7 = objc_msgSend_count(dataset, a2);
   v8 = malloc_type_malloc(8 * v7, 0x80040B8603338uLL);
   if (v7)
   {

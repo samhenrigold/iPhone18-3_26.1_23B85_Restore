@@ -17,14 +17,23 @@
 + (void)setCurrentHostAppIdentifier:(id)identifier;
 + (void)setProtectedAppIdentifiers:(id)identifiers;
 - (BOOL)markAsUsed:(id *)used;
+- (BOOL)propertyAsBool:(unsigned int)bool;
 - (BOOL)propertyAsBool:(unsigned int)bool async:(BOOL)async options:(unsigned int)options error:(id *)error;
+- (BOOL)setProperty:(unsigned int)property asArray:(id)array;
 - (BOOL)setProperty:(unsigned int)property asArray:(id)array async:(BOOL)async options:(unsigned int)options error:(id *)error;
+- (BOOL)setProperty:(unsigned int)property asBool:(BOOL)bool;
 - (BOOL)setProperty:(unsigned int)property asBool:(BOOL)bool async:(BOOL)async options:(unsigned int)options error:(id *)error;
+- (BOOL)setProperty:(unsigned int)property asData:(id)data;
 - (BOOL)setProperty:(unsigned int)property asData:(id)data async:(BOOL)async options:(unsigned int)options error:(id *)error;
+- (BOOL)setProperty:(unsigned int)property asDate:(id)date;
 - (BOOL)setProperty:(unsigned int)property asDate:(id)date async:(BOOL)async options:(unsigned int)options error:(id *)error;
+- (BOOL)setProperty:(unsigned int)property asDictionary:(id)dictionary;
 - (BOOL)setProperty:(unsigned int)property asDictionary:(id)dictionary async:(BOOL)async options:(unsigned int)options error:(id *)error;
+- (BOOL)setProperty:(unsigned int)property asNumber:(id)number;
 - (BOOL)setProperty:(unsigned int)property asNumber:(id)number async:(BOOL)async options:(unsigned int)options error:(id *)error;
+- (BOOL)setProperty:(unsigned int)property asObject:(id)object;
 - (BOOL)setProperty:(unsigned int)property asObject:(id)object async:(BOOL)async options:(unsigned int)options error:(id *)error;
+- (BOOL)setProperty:(unsigned int)property asString:(id)string;
 - (BOOL)setProperty:(unsigned int)property asString:(id)string async:(BOOL)async options:(unsigned int)options error:(id *)error;
 - (FINode)_uiParent;
 - (FINode)initWithCoder:(id)coder;
@@ -37,14 +46,23 @@
 - (NSPersonNameComponents)ownerNameComponents;
 - (NSString)itemIdentifier;
 - (UTType)contentType;
+- (id)copyFromAlias:(unsigned int)alias allowUI:(BOOL)i followAliasChain:(BOOL)chain;
 - (id)fetchTags:(BOOL)tags;
 - (id)nodesToObserve;
+- (id)propertyAsArray:(unsigned int)array;
 - (id)propertyAsArray:(unsigned int)array async:(BOOL)async options:(unsigned int)options error:(id *)error;
+- (id)propertyAsBoolean:(unsigned int)boolean async:(BOOL)async options:(unsigned int)options error:(id *)error;
+- (id)propertyAsData:(unsigned int)data;
 - (id)propertyAsData:(unsigned int)data async:(BOOL)async options:(unsigned int)options error:(id *)error;
+- (id)propertyAsDate:(unsigned int)date;
 - (id)propertyAsDate:(unsigned int)date async:(BOOL)async options:(unsigned int)options error:(id *)error;
+- (id)propertyAsDictionary:(unsigned int)dictionary;
 - (id)propertyAsDictionary:(unsigned int)dictionary async:(BOOL)async options:(unsigned int)options error:(id *)error;
+- (id)propertyAsNSObject:(unsigned int)object;
 - (id)propertyAsNSObject:(unsigned int)object async:(BOOL)async options:(unsigned int)options error:(id *)error;
+- (id)propertyAsNumber:(unsigned int)number;
 - (id)propertyAsNumber:(unsigned int)number async:(BOOL)async options:(unsigned int)options error:(id *)error;
+- (id)propertyAsString:(unsigned int)string;
 - (id)propertyAsString:(unsigned int)string async:(BOOL)async options:(unsigned int)options error:(id *)error;
 - (id)shortDescription;
 - (unint64_t)nodeIs:(unint64_t)is error:(id *)error;
@@ -67,10 +85,9 @@
 
 - (id)nodesToObserve
 {
-  v5[1] = *MEMORY[0x1E69E9840];
-  v5[0] = self;
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[1] = *MEMORY[0x1E69E9840];
+  v4[0] = self;
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:1];
 
   return v2;
 }
@@ -345,7 +362,7 @@ LABEL_8:
 
 + (void)fiNodeFromItem:(id)item inFPv2Domain:(id)domain completion:(id)completion
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   itemCopy = item;
   domainCopy = domain;
   completionCopy = completion;
@@ -359,10 +376,10 @@ LABEL_4:
 
       v14 = FPItemManagerInstance();
       itemID = [itemCopy itemID];
-      v26[0] = MEMORY[0x1E69E9820];
-      v26[1] = 3321888768;
-      v26[2] = __49__FINode_fiNodeFromItem_inFPv2Domain_completion___block_invoke;
-      v26[3] = &__block_descriptor_56_ea8_32c62_ZTSKZ49__FINode_fiNodeFromItem_inFPv2Domain_completion__E3__0_e29_v24__0__NSArray_8__NSError_16l;
+      v25[0] = MEMORY[0x1E69E9820];
+      v25[1] = 3321888768;
+      v25[2] = __49__FINode_fiNodeFromItem_inFPv2Domain_completion___block_invoke;
+      v25[3] = &__block_descriptor_56_ea8_32c62_ZTSKZ49__FINode_fiNodeFromItem_inFPv2Domain_completion__E3__0_e29_v24__0__NSArray_8__NSError_16l;
       v16 = itemCopy;
       *buf = v16;
       v17 = domainCopy;
@@ -370,13 +387,13 @@ LABEL_4:
       v18 = MEMORY[0x1E692D6D0](completionCopy);
       *&buf[16] = v18;
       v19 = v16;
-      v27 = v19;
+      v26 = v19;
       v20 = v17;
-      v28 = v20;
-      v29 = MEMORY[0x1E692D6D0](v18);
-      [v14 fetchParentsForItemID:itemID recursively:1 completionHandler:v26];
+      v27 = v20;
+      v28 = MEMORY[0x1E692D6D0](v18);
+      [v14 fetchParentsForItemID:itemID recursively:1 completionHandler:v25];
 
-      v13 = v27;
+      v13 = v26;
     }
 
     else
@@ -402,58 +419,56 @@ LABEL_4:
 
   v11 = FPProviderDomainClass();
   providerDomainID = [itemCopy providerDomainID];
-  v30 = 0;
-  domainCopy = [v11 providerDomainWithID:providerDomainID cachePolicy:1 error:&v30];
-  v10 = v30;
+  v29 = 0;
+  domainCopy = [v11 providerDomainWithID:providerDomainID cachePolicy:1 error:&v29];
+  v10 = v29;
 
   if (domainCopy)
   {
     goto LABEL_4;
   }
 
-  v24 = LogObj(4);
-  if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+  v23 = LogObj(4);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
   {
     providerDomainID2 = [itemCopy providerDomainID];
     *buf = 138412546;
     *&buf[4] = providerDomainID2;
     *&buf[12] = 2112;
     *&buf[14] = v10;
-    _os_log_impl(&dword_1E5674000, v24, OS_LOG_TYPE_ERROR, "Failed to get provider domain for %@: %@", buf, 0x16u);
+    _os_log_impl(&dword_1E5674000, v23, OS_LOG_TYPE_ERROR, "Failed to get provider domain for %@: %@", buf, 0x16u);
   }
 
   domainCopy = 0;
   completionCopy[2](completionCopy, 0, v10);
 LABEL_10:
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __49__FINode_fiNodeFromItem_inFPv2Domain_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   v6 = a2;
   v7 = a3;
   v8 = v6;
   v9 = v7;
-  v42 = v8;
+  v41 = v8;
   if (v9)
   {
     v10 = LogObj(4);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = [*(a1 + 32) displayName];
-      *&v43 = &stru_1F5F42870;
+      *&v42 = &stru_1F5F42870;
       CFRetain(&stru_1F5F42870);
-      TString::SetStringRefAsImmutable(&v43, v11);
+      TString::SetStringRefAsImmutable(&v42, v11);
 
-      v12 = SanitizedStr(&v43);
+      v12 = SanitizedStr(&v42);
       *buf = 138543618;
       *&buf[4] = v12;
-      v47 = 2114;
-      *v48 = v9;
+      v46 = 2114;
+      *v47 = v9;
       _os_log_impl(&dword_1E5674000, v10, OS_LOG_TYPE_ERROR, "Failed to get the parent items for: %{public}@, error: %{public}@", buf, 0x16u);
-      TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v43);
+      TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v42);
     }
 
     (*(*(a1 + 48) + 16))();
@@ -464,9 +479,9 @@ void __49__FINode_fiNodeFromItem_inFPv2Domain_completion___block_invoke(uint64_t
   {
     v14 = [v8 count];
     v15 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    *&v43 = *(a1 + 40);
-    v41 = v15;
-    *(&v43 + 1) = v41;
+    *&v42 = *(a1 + 40);
+    v40 = v15;
+    *(&v42 + 1) = v40;
     if (v14)
     {
       v16 = 0;
@@ -477,7 +492,7 @@ void __49__FINode_fiNodeFromItem_inFPv2Domain_completion___block_invoke(uint64_t
       v16 = *(a1 + 32);
     }
 
-    v44 = v16;
+    v43 = v16;
     v17 = +[FINode providerDomainsContainer];
     TNodeFromFINode(v17);
     v18 = [(FINode *)v17 iteratorWithOptions:4];
@@ -485,9 +500,9 @@ void __49__FINode_fiNodeFromItem_inFPv2Domain_completion___block_invoke(uint64_t
     if (!v19)
     {
 LABEL_15:
-      [FIProviderDomain providerDomainForDomain:v43, v41];
+      [FIProviderDomain providerDomainForDomain:v42, v40];
       objc_claimAutoreleasedReturnValue();
-      v54[0] = v44 == 0;
+      v53[0] = v43 == 0;
       std::allocate_shared[abi:ne200100]<TFSInfo,std::allocator<TFSInfo>,FIProviderDomain * {__strong},FPItem * const {__strong}&,BOOL,0>();
     }
 
@@ -501,12 +516,12 @@ LABEL_15:
         v21 = v3;
       }
 
-      [*(&v43 + 1) setObject:v21 forKeyedSubscript:v19];
+      [*(&v42 + 1) setObject:v21 forKeyedSubscript:v19];
       if (!v20)
       {
       }
 
-      v22 = [v43 isEqual:v20];
+      v22 = [v42 isEqual:v20];
 
       if (v22)
       {
@@ -536,15 +551,15 @@ LABEL_15:
     else if (v19)
     {
       v27 = TNodeFromFINode(v19);
-      IDContainerIteratorAdaptor<NSMutableArray<FPItem *>>::NSForwardIterator<NSMutableArray<FPItem *>>::NSForwardIterator(&v43, v26);
-      IDContainerIteratorAdaptor<NSMutableArray<FPItem *>>::NSForwardIterator<NSMutableArray<FPItem *>>::NSForwardIterator(buf, &v43, 1);
+      IDContainerIteratorAdaptor<NSMutableArray<FPItem *>>::NSForwardIterator<NSMutableArray<FPItem *>>::NSForwardIterator(&v42, v26);
+      IDContainerIteratorAdaptor<NSMutableArray<FPItem *>>::NSForwardIterator<NSMutableArray<FPItem *>>::NSForwardIterator(buf, &v42, 1);
 
       while (1)
       {
-        IDContainerIteratorAdaptor<NSMutableArray<FPItem *>>::IDContainerIteratorAdaptor(&v43, -1, v26);
-        if (*buf == v43)
+        IDContainerIteratorAdaptor<NSMutableArray<FPItem *>>::IDContainerIteratorAdaptor(&v42, -1, v26);
+        if (*buf == v42)
         {
-          v28 = v53 == v45;
+          v28 = v52 == v44;
 
           if (v28)
           {
@@ -557,43 +572,43 @@ LABEL_15:
         {
         }
 
-        v29 = *(*&v48[2] + 8 * v52);
+        v29 = *(*&v47[2] + 8 * v51);
         v30 = static_objc_cast<NSString,objc_object * {__strong}>(v29);
 
-        TNode::FindFPv2Child(v27, v30, &v43);
-        v27 = TNodeFromFINode(v43);
+        TNode::FindFPv2Child(&v42, v27, v30);
+        v27 = TNodeFromFINode(v42);
 
         if (!v27)
         {
           break;
         }
 
-        v31 = v52;
-        if (v52 >= v51 - 1)
+        v31 = v51;
+        if (v51 >= v50 - 1)
         {
-          v32 = [*buf countByEnumeratingWithState:&buf[8] objects:v50 count:4];
+          v32 = [*buf countByEnumeratingWithState:&buf[8] objects:v49 count:4];
           v31 = -1;
-          v51 = v32;
-          v52 = -1;
+          v50 = v32;
+          v51 = -1;
         }
 
-        if (v50[4] != *v49)
+        if (v49[4] != *v48)
         {
           objc_enumerationMutation(*buf);
-          v31 = v52;
+          v31 = v51;
         }
 
-        v52 = v31 + 1;
-        ++v53;
+        v51 = v31 + 1;
+        ++v52;
       }
 
       v33 = LogObj(4);
       if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
       {
         v34 = +[FINode fiNodeFromItem:inFPv2Domain:completion:]::$_0::operator() const(NSArray<FPItem *> *,NSError *)::{lambda(NSArray<FPItem *> *,FPItem *)#1}::operator()(v26, v30);
-        LODWORD(v43) = 138543362;
-        *(&v43 + 4) = v34;
-        _os_log_impl(&dword_1E5674000, v33, OS_LOG_TYPE_ERROR, "Failed to find FINodes in FPItem parent chain: '%{public}@'", &v43, 0xCu);
+        LODWORD(v42) = 138543362;
+        *(&v42 + 4) = v34;
+        _os_log_impl(&dword_1E5674000, v33, OS_LOG_TYPE_ERROR, "Failed to find FINodes in FPItem parent chain: '%{public}@'", &v42, 0xCu);
       }
 
       v13 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A768] code:-8062 userInfo:0];
@@ -616,18 +631,16 @@ LABEL_36:
         v37 = +[FINode fiNodeFromItem:inFPv2Domain:completion:]::$_0::operator() const(NSArray<FPItem *> *,NSError *)::{lambda(NSArray<FPItem *> *,FPItem *)#1}::operator()(v26, *(a1 + 32));
         *buf = 138543874;
         *&buf[4] = v36;
-        v47 = 2114;
-        *v48 = v37;
-        *&v48[8] = 2114;
-        v49 = v41;
+        v46 = 2114;
+        *v47 = v37;
+        *&v47[8] = 2114;
+        v48 = v40;
         _os_log_impl(&dword_1E5674000, v35, OS_LOG_TYPE_ERROR, "Failed to find FINode for the domain. DS doesn't know about it yet: %{public}@. path: %{public}@, known domains: %{public}@", buf, 0x20u);
       }
 
       (*(*(a1 + 48) + 16))();
     }
   }
-
-  v40 = *MEMORY[0x1E69E9840];
 }
 
 + (id)dataSeparatedICloudLibrariesContainer
@@ -696,7 +709,7 @@ LABEL_36:
 {
   if (error)
   {
-    *error = ErrorWithOSStatus(-8058, 0);
+    *error = ErrorWithOSStatus(4294959238, 0);
   }
 
   return 0;
@@ -706,7 +719,7 @@ LABEL_36:
 {
   if (error)
   {
-    *error = ErrorWithOSStatus(-8058, 0);
+    *error = ErrorWithOSStatus(4294959238, 0);
   }
 
   return 0;
@@ -716,7 +729,7 @@ LABEL_36:
 {
   if (error)
   {
-    *error = ErrorWithOSStatus(-8058, 0);
+    *error = ErrorWithOSStatus(4294959238, 0);
   }
 
   return 0;
@@ -780,18 +793,17 @@ LABEL_36:
 
 - (FINode)_uiParent
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = LogObj(5);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     v4 = [(FINode *)self description];
-    v8 = 138543362;
-    v9 = v4;
-    _os_log_impl(&dword_1E5674000, v3, OS_LOG_TYPE_ERROR, "FINode _uiParent is deprecated and will be removed in the near future: %{public}@", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v4;
+    _os_log_impl(&dword_1E5674000, v3, OS_LOG_TYPE_ERROR, "FINode _uiParent is deprecated and will be removed in the near future: %{public}@", &v7, 0xCu);
   }
 
   parent = [(FINode *)self parent];
-  v6 = *MEMORY[0x1E69E9840];
 
   return parent;
 }
@@ -833,80 +845,179 @@ LABEL_36:
 {
   if (error)
   {
-    *error = ErrorWithOSStatus(-8051, 0);
+    *error = ErrorWithOSStatus(4294959245, 0);
   }
 
   return 0;
+}
+
+- (id)propertyAsNumber:(unsigned int)number
+{
+  v3 = *&number;
+  v5 = pthread_main_np() != 0;
+
+  return [(FINode *)self propertyAsNumber:v3 async:v5 options:0 error:0];
 }
 
 - (id)propertyAsDate:(unsigned int)date async:(BOOL)async options:(unsigned int)options error:(id *)error
 {
   if (error)
   {
-    *error = ErrorWithOSStatus(-8051, 0);
+    *error = ErrorWithOSStatus(4294959245, 0);
   }
 
   return 0;
+}
+
+- (id)propertyAsDate:(unsigned int)date
+{
+  v3 = *&date;
+  v5 = pthread_main_np() != 0;
+
+  return [(FINode *)self propertyAsDate:v3 async:v5 options:0 error:0];
 }
 
 - (id)propertyAsString:(unsigned int)string async:(BOOL)async options:(unsigned int)options error:(id *)error
 {
   if (error)
   {
-    *error = ErrorWithOSStatus(-8051, 0);
+    *error = ErrorWithOSStatus(4294959245, 0);
   }
 
   return 0;
+}
+
+- (id)propertyAsString:(unsigned int)string
+{
+  v3 = *&string;
+  v5 = pthread_main_np() != 0;
+
+  return [(FINode *)self propertyAsString:v3 async:v5 options:0 error:0];
 }
 
 - (id)propertyAsArray:(unsigned int)array async:(BOOL)async options:(unsigned int)options error:(id *)error
 {
   if (error)
   {
-    *error = ErrorWithOSStatus(-8051, 0);
+    *error = ErrorWithOSStatus(4294959245, 0);
   }
 
   return 0;
+}
+
+- (id)propertyAsArray:(unsigned int)array
+{
+  v3 = *&array;
+  v5 = pthread_main_np() != 0;
+
+  return [(FINode *)self propertyAsArray:v3 async:v5 options:0 error:0];
 }
 
 - (id)propertyAsNSObject:(unsigned int)object async:(BOOL)async options:(unsigned int)options error:(id *)error
 {
   if (error)
   {
-    *error = ErrorWithOSStatus(-8051, 0);
+    *error = ErrorWithOSStatus(4294959245, 0);
   }
 
   return 0;
+}
+
+- (id)propertyAsNSObject:(unsigned int)object
+{
+  v3 = *&object;
+  v5 = pthread_main_np() != 0;
+
+  return [(FINode *)self propertyAsNSObject:v3 async:v5 options:0 error:0];
 }
 
 - (id)propertyAsDictionary:(unsigned int)dictionary async:(BOOL)async options:(unsigned int)options error:(id *)error
 {
   if (error)
   {
-    *error = ErrorWithOSStatus(-8051, 0);
+    *error = ErrorWithOSStatus(4294959245, 0);
   }
 
   return 0;
+}
+
+- (id)propertyAsDictionary:(unsigned int)dictionary
+{
+  v3 = *&dictionary;
+  v5 = pthread_main_np() != 0;
+
+  return [(FINode *)self propertyAsDictionary:v3 async:v5 options:0 error:0];
 }
 
 - (BOOL)propertyAsBool:(unsigned int)bool async:(BOOL)async options:(unsigned int)options error:(id *)error
 {
   if (error)
   {
-    *error = ErrorWithOSStatus(-8051, 0);
+    *error = ErrorWithOSStatus(4294959245, 0);
   }
 
   return 0;
+}
+
+- (id)propertyAsBoolean:(unsigned int)boolean async:(BOOL)async options:(unsigned int)options error:(id *)error
+{
+  v14 = 0;
+  v7 = [(FINode *)self propertyAsBool:*&boolean async:async options:*&options error:&v14];
+  v8 = v14;
+  v9 = v8;
+  if (v8)
+  {
+    if (error)
+    {
+      v10 = v8;
+      v11 = 0;
+      *error = v9;
+    }
+
+    else
+    {
+      v11 = 0;
+    }
+  }
+
+  else
+  {
+    v12 = MEMORY[0x1E695E110];
+    if (v7)
+    {
+      v12 = MEMORY[0x1E695E118];
+    }
+
+    v11 = v12;
+  }
+
+  return v11;
+}
+
+- (BOOL)propertyAsBool:(unsigned int)bool
+{
+  v3 = *&bool;
+  v5 = pthread_main_np() != 0;
+
+  return [(FINode *)self propertyAsBool:v3 async:v5 options:0 error:0];
 }
 
 - (id)propertyAsData:(unsigned int)data async:(BOOL)async options:(unsigned int)options error:(id *)error
 {
   if (error)
   {
-    *error = ErrorWithOSStatus(-8051, 0);
+    *error = ErrorWithOSStatus(4294959245, 0);
   }
 
   return 0;
+}
+
+- (id)propertyAsData:(unsigned int)data
+{
+  v3 = *&data;
+  v5 = pthread_main_np() != 0;
+
+  return [(FINode *)self propertyAsData:v3 async:v5 options:0 error:0];
 }
 
 - (BOOL)setProperty:(unsigned int)property asNumber:(id)number async:(BOOL)async options:(unsigned int)options error:(id *)error
@@ -917,12 +1028,12 @@ LABEL_36:
   {
     if (numberCopy)
     {
-      v10 = -8051;
+      v10 = 4294959245;
     }
 
     else
     {
-      v10 = -8072;
+      v10 = 4294959224;
     }
 
     *error = ErrorWithOSStatus(v10, 0);
@@ -931,54 +1042,108 @@ LABEL_36:
   return 0;
 }
 
+- (BOOL)setProperty:(unsigned int)property asNumber:(id)number
+{
+  v4 = *&property;
+  numberCopy = number;
+  LOBYTE(v4) = [(FINode *)self setProperty:v4 asNumber:numberCopy async:pthread_main_np() != 0 options:0 error:0];
+
+  return v4;
+}
+
 - (BOOL)setProperty:(unsigned int)property asDate:(id)date async:(BOOL)async options:(unsigned int)options error:(id *)error
 {
   if (error)
   {
-    *error = ErrorWithOSStatus(-8051, 0);
+    *error = ErrorWithOSStatus(4294959245, 0);
   }
 
   return 0;
+}
+
+- (BOOL)setProperty:(unsigned int)property asDate:(id)date
+{
+  v4 = *&property;
+  dateCopy = date;
+  LOBYTE(v4) = [(FINode *)self setProperty:v4 asDate:dateCopy async:pthread_main_np() != 0 options:0 error:0];
+
+  return v4;
 }
 
 - (BOOL)setProperty:(unsigned int)property asString:(id)string async:(BOOL)async options:(unsigned int)options error:(id *)error
 {
   if (error)
   {
-    *error = ErrorWithOSStatus(-8051, 0);
+    *error = ErrorWithOSStatus(4294959245, 0);
   }
 
   return 0;
+}
+
+- (BOOL)setProperty:(unsigned int)property asString:(id)string
+{
+  v4 = *&property;
+  stringCopy = string;
+  LOBYTE(v4) = [(FINode *)self setProperty:v4 asString:stringCopy async:pthread_main_np() != 0 options:0 error:0];
+
+  return v4;
 }
 
 - (BOOL)setProperty:(unsigned int)property asArray:(id)array async:(BOOL)async options:(unsigned int)options error:(id *)error
 {
   if (error)
   {
-    *error = ErrorWithOSStatus(-8051, 0);
+    *error = ErrorWithOSStatus(4294959245, 0);
   }
 
   return 0;
+}
+
+- (BOOL)setProperty:(unsigned int)property asArray:(id)array
+{
+  v4 = *&property;
+  arrayCopy = array;
+  LOBYTE(v4) = [(FINode *)self setProperty:v4 asArray:arrayCopy async:pthread_main_np() != 0 options:0 error:0];
+
+  return v4;
 }
 
 - (BOOL)setProperty:(unsigned int)property asDictionary:(id)dictionary async:(BOOL)async options:(unsigned int)options error:(id *)error
 {
   if (error)
   {
-    *error = ErrorWithOSStatus(-8051, 0);
+    *error = ErrorWithOSStatus(4294959245, 0);
   }
 
   return 0;
+}
+
+- (BOOL)setProperty:(unsigned int)property asDictionary:(id)dictionary
+{
+  v4 = *&property;
+  dictionaryCopy = dictionary;
+  LOBYTE(v4) = [(FINode *)self setProperty:v4 asDictionary:dictionaryCopy async:pthread_main_np() != 0 options:0 error:0];
+
+  return v4;
 }
 
 - (BOOL)setProperty:(unsigned int)property asBool:(BOOL)bool async:(BOOL)async options:(unsigned int)options error:(id *)error
 {
   if (error)
   {
-    *error = ErrorWithOSStatus(-8051, 0);
+    *error = ErrorWithOSStatus(4294959245, 0);
   }
 
   return 0;
+}
+
+- (BOOL)setProperty:(unsigned int)property asBool:(BOOL)bool
+{
+  boolCopy = bool;
+  v5 = *&property;
+  v7 = pthread_main_np() != 0;
+
+  return [(FINode *)self setProperty:v5 asBool:boolCopy async:v7 options:0 error:0];
 }
 
 - (BOOL)setProperty:(unsigned int)property asData:(id)data async:(BOOL)async options:(unsigned int)options error:(id *)error
@@ -989,18 +1154,27 @@ LABEL_36:
   {
     if (dataCopy)
     {
-      v10 = -8051;
+      v10 = 4294959245;
     }
 
     else
     {
-      v10 = -8072;
+      v10 = 4294959224;
     }
 
     *error = ErrorWithOSStatus(v10, 0);
   }
 
   return 0;
+}
+
+- (BOOL)setProperty:(unsigned int)property asData:(id)data
+{
+  v4 = *&property;
+  dataCopy = data;
+  LOBYTE(v4) = [(FINode *)self setProperty:v4 asData:dataCopy async:pthread_main_np() != 0 options:0 error:0];
+
+  return v4;
 }
 
 - (BOOL)setProperty:(unsigned int)property asObject:(id)object async:(BOOL)async options:(unsigned int)options error:(id *)error
@@ -1011,18 +1185,27 @@ LABEL_36:
   {
     if (objectCopy)
     {
-      v10 = -8051;
+      v10 = 4294959245;
     }
 
     else
     {
-      v10 = -8072;
+      v10 = 4294959224;
     }
 
     *error = ErrorWithOSStatus(v10, 0);
   }
 
   return 0;
+}
+
+- (BOOL)setProperty:(unsigned int)property asObject:(id)object
+{
+  v4 = *&property;
+  objectCopy = object;
+  LOBYTE(v4) = [(FINode *)self setProperty:v4 asObject:objectCopy async:pthread_main_np() != 0 options:0 error:0];
+
+  return v4;
 }
 
 + (id)sizeFolder:(id)folder
@@ -1067,11 +1250,25 @@ LABEL_36:
   return v12;
 }
 
+- (id)copyFromAlias:(unsigned int)alias allowUI:(BOOL)i followAliasChain:(BOOL)chain
+{
+  v7 = 0;
+  v5 = NodeCopyFromAlias([(FINode *)self nodeRef], i, chain, &v7, 0, alias);
+  result = 0;
+  if (!v5)
+  {
+    [FINode nodeFromNodeRef:v7];
+    return objc_claimAutoreleasedReturnValue();
+  }
+
+  return result;
+}
+
 - (BOOL)markAsUsed:(id *)used
 {
   if (used)
   {
-    *used = ErrorWithOSStatus(-8058, 0);
+    *used = ErrorWithOSStatus(4294959238, 0);
   }
 
   return 0;

@@ -10,7 +10,7 @@
   requestCopy = request;
   taskCopy = task;
   selfCopy = self;
-  sub_24F2D85AC(requestCopy, taskCopy, redirect, error);
+  sub_24F2D85AC(requestCopy, taskCopy, redirect, error, v12);
 }
 
 - (_TtC12GameStoreKit40LegacyMediaAuthenticationProtocolHandler)init

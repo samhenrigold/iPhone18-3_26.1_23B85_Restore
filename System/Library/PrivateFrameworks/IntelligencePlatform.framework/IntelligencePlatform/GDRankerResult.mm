@@ -31,7 +31,7 @@
 
 - (GDRankerResult)initWithCoder:(id)coder
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = objc_opt_class();
   v6 = NSStringFromSelector(sel_span);
@@ -70,9 +70,9 @@
       if (!error)
       {
         v19 = MEMORY[0x1E696ABC0];
-        v25 = *MEMORY[0x1E696A578];
-        v26[0] = @"GDRankerResult rankedEntities is nil";
-        v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+        v24 = *MEMORY[0x1E696A578];
+        v25[0] = @"GDRankerResult rankedEntities is nil";
+        v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
         v21 = [v19 errorWithDomain:@"GDErrorDomain" code:9 userInfo:v20];
         [coderCopy failWithError:v21];
       }
@@ -86,7 +86,6 @@
     selfCopy = 0;
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

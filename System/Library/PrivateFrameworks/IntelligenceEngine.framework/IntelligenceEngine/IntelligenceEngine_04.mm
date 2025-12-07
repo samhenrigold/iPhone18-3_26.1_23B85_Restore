@@ -1,85 +1,3 @@
-unsigned __int8 *google::protobuf::io::EpsCopyOutputStream::WriteStringMaybeAliased(google::protobuf::io::EpsCopyOutputStream *a1, int a2, const void **a3, char *a4)
-{
-  v4 = *(a3 + 23);
-  if ((v4 & 0x8000000000000000) == 0 || (v4 = a3[1], v4 <= 127))
-  {
-    v5 = *a1;
-    v6 = 8 * a2;
-    if ((8 * a2) >= 0x80)
-    {
-      v8 = 2;
-      v9 = 3;
-      v10 = 4;
-      if (v6 >> 28)
-      {
-        v10 = 5;
-      }
-
-      if (v6 >= 0x200000)
-      {
-        v9 = v10;
-      }
-
-      if (v6 >= 0x4000)
-      {
-        v8 = v9;
-      }
-
-      if ((v5 + ~&a4[v8] + 16) >= v4)
-      {
-        *a4 = v6 | 0x82;
-        v11 = v6 >> 7;
-        if (v6 >> 14)
-        {
-          v7 = (a4 + 2);
-          do
-          {
-            *(v7 - 1) = v11 | 0x80;
-            v12 = v11 >> 7;
-            ++v7;
-            v13 = v11 >> 14;
-            v11 >>= 7;
-          }
-
-          while (v13);
-          *(v7 - 1) = v12;
-        }
-
-        else
-        {
-          a4[1] = v11;
-          v7 = (a4 + 2);
-        }
-
-LABEL_18:
-        *v7 = v4;
-        v14 = (v7 + 1);
-        if (*(a3 + 23) >= 0)
-        {
-          v15 = a3;
-        }
-
-        else
-        {
-          v15 = *a3;
-        }
-
-        memcpy(v14, v15, v4);
-        return &v14[v4];
-      }
-    }
-
-    else if (v5 - a4 + 14 >= v4)
-    {
-      *a4 = v6 | 2;
-      v7 = (a4 + 1);
-      goto LABEL_18;
-    }
-  }
-
-  return google::protobuf::io::EpsCopyOutputStream::WriteStringMaybeAliasedOutline(a1, a2, a3, a4);
-}
-
 uint64_t protobuf::Intelligence_Meta::ByteSizeLong(protobuf::Intelligence_Meta *this)
 {
   v1 = *(this + 4);
@@ -141,9 +59,8 @@ LABEL_12:
   return v2;
 }
 
-void protobuf::Intelligence_Meta::CheckTypeAndMergeFrom(atomic_ullong **this, char **lpsrc)
+void protobuf::Intelligence_Meta::CheckTypeAndMergeFrom(protobuf::Intelligence_Meta *this, const google::protobuf::MessageLite *lpsrc)
 {
-  v4 = **lpsrc;
   {
     __assert_rtn("down_cast", "casts.h", 92, "f == nullptr || dynamic_cast<To>(f) != nullptr");
   }
@@ -151,7 +68,7 @@ void protobuf::Intelligence_Meta::CheckTypeAndMergeFrom(atomic_ullong **this, ch
   protobuf::Intelligence_Meta::MergeFrom(this, lpsrc);
 }
 
-void protobuf::Intelligence_Meta::MergeFrom(atomic_ullong **this, atomic_ullong **a2)
+void protobuf::Intelligence_Meta::MergeFrom(protobuf::Intelligence_Meta *this, const protobuf::Intelligence_Meta *a2)
 {
   if (a2 == this)
   {
@@ -161,7 +78,7 @@ void protobuf::Intelligence_Meta::MergeFrom(atomic_ullong **this, atomic_ullong 
     google::protobuf::internal::LogMessage::~LogMessage(&v14[0].__r_.__value_.__l.__data_);
   }
 
-  v5 = a2[1];
+  v5 = *(a2 + 1);
   if (v5)
   {
     google::protobuf::internal::InternalMetadataWithArenaLite::DoMergeFrom(this + 1, v5 & 0xFFFFFFFFFFFFFFFELL);
@@ -172,14 +89,14 @@ void protobuf::Intelligence_Meta::MergeFrom(atomic_ullong **this, atomic_ullong 
   {
     if (v6)
     {
-      v7 = this[3];
+      v7 = *(this + 3);
       *(this + 4) |= 1u;
-      v8 = a2[3];
+      v8 = *(a2 + 3);
       if (v7 != v8)
       {
         if (v7 == &google::protobuf::internal::fixed_address_empty_string)
         {
-          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((this + 3), v8);
+          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 3, v8);
         }
 
         std::string::operator=(v7, v8);
@@ -188,11 +105,11 @@ void protobuf::Intelligence_Meta::MergeFrom(atomic_ullong **this, atomic_ullong 
 
     if ((v6 & 2) != 0)
     {
-      v11 = this[4];
-      v10 = (this + 4);
+      v11 = *(this + 4);
+      v10 = (this + 32);
       v9 = v11;
       *(v10 - 4) |= 2u;
-      v12 = a2[4];
+      v12 = *(a2 + 4);
       if (v11 != v12)
       {
         if (v9 == &google::protobuf::internal::fixed_address_empty_string)
@@ -206,14 +123,14 @@ void protobuf::Intelligence_Meta::MergeFrom(atomic_ullong **this, atomic_ullong 
   }
 }
 
-void sub_254CCABF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CCABF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-void protobuf::Intelligence_Meta::CopyFrom(atomic_ullong **this, atomic_ullong **a2)
+void protobuf::Intelligence_Meta::CopyFrom(protobuf::Intelligence_Meta *this, const protobuf::Intelligence_Meta *a2)
 {
   if (a2 != this)
   {
@@ -405,7 +322,7 @@ protobuf::Intelligence_KeyValueParameter *protobuf::Intelligence_KeyValueParamet
     v7 = *(a2 + 15);
     if (v7 != &google::protobuf::internal::fixed_address_empty_string)
     {
-      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 120, v7);
+      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 15, v7);
     }
   }
 
@@ -415,7 +332,7 @@ protobuf::Intelligence_KeyValueParameter *protobuf::Intelligence_KeyValueParamet
     v8 = *(a2 + 16);
     if (v8 != &google::protobuf::internal::fixed_address_empty_string)
     {
-      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 128, v8);
+      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 16, v8);
     }
   }
 
@@ -425,7 +342,7 @@ protobuf::Intelligence_KeyValueParameter *protobuf::Intelligence_KeyValueParamet
     v9 = *(a2 + 17);
     if (v9 != &google::protobuf::internal::fixed_address_empty_string)
     {
-      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 136, v9);
+      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 17, v9);
     }
   }
 
@@ -435,7 +352,7 @@ protobuf::Intelligence_KeyValueParameter *protobuf::Intelligence_KeyValueParamet
     v10 = *(a2 + 18);
     if (v10 != &google::protobuf::internal::fixed_address_empty_string)
     {
-      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 144, v10);
+      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 18, v10);
     }
   }
 
@@ -445,7 +362,7 @@ protobuf::Intelligence_KeyValueParameter *protobuf::Intelligence_KeyValueParamet
     v11 = *(a2 + 19);
     if (v11 != &google::protobuf::internal::fixed_address_empty_string)
     {
-      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 152, v11);
+      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 19, v11);
     }
   }
 
@@ -465,7 +382,7 @@ void sub_254CCB09C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void protobuf::Intelligence_KeyValueParameter::~Intelligence_KeyValueParameter(protobuf::Intelligence_KeyValueParameter *this)
+void protobuf::Intelligence_KeyValueParameter::~Intelligence_KeyValueParameter(google::protobuf::internal::ArenaImpl **this)
 {
   *this = &unk_286719640;
   protobuf::Intelligence_KeyValueParameter::SharedDtor(this);
@@ -706,7 +623,7 @@ LABEL_27:
   }
 
   v9 = *(this + 8);
-  v8 = this + 8;
+  v8 = (this + 8);
   *(v8 + 2) = 0;
   if (v9)
   {
@@ -717,21 +634,21 @@ LABEL_27:
 
 google::protobuf::internal *protobuf::Intelligence_KeyValueParameter::_InternalParse(uint64_t a1, google::protobuf::internal *a2, google::protobuf::internal::EpsCopyInputStream *this)
 {
-  v67 = a2;
+  v63 = a2;
   v5 = 0;
-  if ((google::protobuf::internal::EpsCopyInputStream::DoneWithCheck(this, &v67, *(this + 23)) & 1) == 0)
+  if ((google::protobuf::internal::EpsCopyInputStream::DoneWithCheck(this, &v63, *(this + 23)) & 1) == 0)
   {
     while (2)
     {
-      TagFallback = (v67 + 1);
-      LODWORD(v8) = *v67;
-      if (*v67 < 0)
+      TagFallback = (v63 + 1);
+      LODWORD(v8) = *v63;
+      if (*v63 < 0)
       {
         v8 = (v8 + (*TagFallback << 7) - 128);
         if (*TagFallback < 0)
         {
-          TagFallback = google::protobuf::internal::ReadTagFallback(v67, v8);
-          v67 = TagFallback;
+          TagFallback = google::protobuf::internal::ReadTagFallback(v63, v8);
+          v63 = TagFallback;
           if (!TagFallback)
           {
             goto LABEL_3;
@@ -751,7 +668,7 @@ LABEL_8:
               v9 = *(a1 + 120);
               if (v9 == &google::protobuf::internal::fixed_address_empty_string)
               {
-                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(a1 + 120, &google::protobuf::internal::fixed_address_empty_string);
+                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((a1 + 120), &google::protobuf::internal::fixed_address_empty_string);
               }
 
               goto LABEL_98;
@@ -784,10 +701,10 @@ LABEL_8:
               v16 = (v18 << 7) + v16 - 128;
               if (v18 < 0)
               {
-                v63 = google::protobuf::internal::VarintParseSlow64(TagFallback, v16);
-                v67 = v63;
-                *(a1 + 168) = v64;
-                if (!v63)
+                v59 = google::protobuf::internal::VarintParseSlow64(TagFallback, v16);
+                v63 = v59;
+                *(a1 + 168) = v60;
+                if (!v59)
                 {
                   goto LABEL_112;
                 }
@@ -797,7 +714,7 @@ LABEL_8:
               {
                 v17 = (TagFallback + 2);
 LABEL_31:
-                v67 = v17;
+                v63 = v17;
                 *(a1 + 168) = v16;
               }
 
@@ -820,10 +737,10 @@ LABEL_31:
               v19 = (v21 << 7) + v19 - 128;
               if (v21 < 0)
               {
-                v65 = google::protobuf::internal::VarintParseSlow64(TagFallback, v19);
-                v67 = v65;
-                *(a1 + 185) = v66 != 0;
-                if (!v65)
+                v61 = google::protobuf::internal::VarintParseSlow64(TagFallback, v19);
+                v63 = v61;
+                *(a1 + 185) = v62 != 0;
+                if (!v61)
                 {
                   goto LABEL_112;
                 }
@@ -833,7 +750,7 @@ LABEL_31:
               {
                 v20 = (TagFallback + 2);
 LABEL_36:
-                v67 = v20;
+                v63 = v20;
                 *(a1 + 185) = v19 != 0;
               }
 
@@ -848,7 +765,7 @@ LABEL_36:
               v9 = *(a1 + 128);
               if (v9 == &google::protobuf::internal::fixed_address_empty_string)
               {
-                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(a1 + 128, &google::protobuf::internal::fixed_address_empty_string);
+                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((a1 + 128), &google::protobuf::internal::fixed_address_empty_string);
               }
 
               goto LABEL_98;
@@ -858,11 +775,11 @@ LABEL_36:
                 goto LABEL_102;
               }
 
-              v23 = TagFallback - 1;
+              v23 = (TagFallback - 1);
               while (1)
               {
                 v24 = (v23 + 1);
-                v67 = (v23 + 1);
+                v63 = (v23 + 1);
                 v25 = *(a1 + 40);
                 if (!v25)
                 {
@@ -882,13 +799,12 @@ LABEL_50:
                   }
 
                   *v25 = v27 + 1;
-                  v29 = google::protobuf::Arena::CreateMaybeMessage<protobuf::Intelligence_KeyValueParameter>(*(a1 + 24));
-                  LODWORD(v28) = v29;
-                  v30 = *(a1 + 32);
-                  v31 = *(a1 + 40) + 8 * v30;
-                  *(a1 + 32) = v30 + 1;
-                  *(v31 + 8) = v29;
-                  v24 = v67;
+                  v28 = google::protobuf::Arena::CreateMaybeMessage<protobuf::Intelligence_KeyValueParameter>(*(a1 + 24));
+                  v29 = *(a1 + 32);
+                  v30 = *(a1 + 40) + 8 * v29;
+                  *(a1 + 32) = v29 + 1;
+                  *(v30 + 8) = v28;
+                  v24 = v63;
                   goto LABEL_52;
                 }
 
@@ -896,7 +812,7 @@ LABEL_50:
                 v28 = *&v25[2 * v26 + 2];
 LABEL_52:
                 v23 = google::protobuf::internal::ParseContext::ParseMessage<protobuf::Intelligence_KeyValueParameter>(this, v28, v24);
-                v67 = v23;
+                v63 = v23;
                 if (!v23)
                 {
                   goto LABEL_112;
@@ -916,57 +832,56 @@ LABEL_52:
                 goto LABEL_102;
               }
 
-              v41 = TagFallback - 1;
+              v39 = (TagFallback - 1);
               while (1)
               {
-                v42 = (v41 + 1);
-                v67 = (v41 + 1);
-                v43 = *(a1 + 64);
-                if (!v43)
+                v40 = (v39 + 1);
+                v63 = (v39 + 1);
+                v41 = *(a1 + 64);
+                if (!v41)
                 {
                   break;
                 }
 
-                v44 = *(a1 + 56);
-                v45 = *v43;
-                if (v44 >= *v43)
+                v42 = *(a1 + 56);
+                v43 = *v41;
+                if (v42 >= *v41)
                 {
-                  if (v45 == *(a1 + 60))
+                  if (v43 == *(a1 + 60))
                   {
 LABEL_76:
-                    google::protobuf::internal::RepeatedPtrFieldBase::Reserve((a1 + 48), v45 + 1);
-                    v43 = *(a1 + 64);
-                    v45 = *v43;
+                    google::protobuf::internal::RepeatedPtrFieldBase::Reserve((a1 + 48), v43 + 1);
+                    v41 = *(a1 + 64);
+                    v43 = *v41;
                   }
 
-                  *v43 = v45 + 1;
-                  v47 = google::protobuf::Arena::CreateMaybeMessage<protobuf::Intelligence_KeyValueParameter>(*(a1 + 48));
-                  LODWORD(v46) = v47;
-                  v48 = *(a1 + 56);
-                  v49 = *(a1 + 64) + 8 * v48;
-                  *(a1 + 56) = v48 + 1;
-                  *(v49 + 8) = v47;
-                  v42 = v67;
+                  *v41 = v43 + 1;
+                  v44 = google::protobuf::Arena::CreateMaybeMessage<protobuf::Intelligence_KeyValueParameter>(*(a1 + 48));
+                  v45 = *(a1 + 56);
+                  v46 = *(a1 + 64) + 8 * v45;
+                  *(a1 + 56) = v45 + 1;
+                  *(v46 + 8) = v44;
+                  v40 = v63;
                   goto LABEL_78;
                 }
 
-                *(a1 + 56) = v44 + 1;
-                v46 = *&v43[2 * v44 + 2];
+                *(a1 + 56) = v42 + 1;
+                v44 = *&v41[2 * v42 + 2];
 LABEL_78:
-                v41 = google::protobuf::internal::ParseContext::ParseMessage<protobuf::Intelligence_KeyValueParameter>(this, v46, v42);
-                v67 = v41;
-                if (!v41)
+                v39 = google::protobuf::internal::ParseContext::ParseMessage<protobuf::Intelligence_KeyValueParameter>(this, v44, v40);
+                v63 = v39;
+                if (!v39)
                 {
                   goto LABEL_112;
                 }
 
-                if (*this <= v41 || *v41 != 58)
+                if (*this <= v39 || *v39 != 58)
                 {
                   goto LABEL_100;
                 }
               }
 
-              v45 = *(a1 + 60);
+              v43 = *(a1 + 60);
               goto LABEL_76;
             case 8u:
               if (v8 != 66)
@@ -978,7 +893,7 @@ LABEL_78:
               v9 = *(a1 + 136);
               if (v9 == &google::protobuf::internal::fixed_address_empty_string)
               {
-                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(a1 + 136, &google::protobuf::internal::fixed_address_empty_string);
+                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((a1 + 136), &google::protobuf::internal::fixed_address_empty_string);
               }
 
               goto LABEL_98;
@@ -992,7 +907,7 @@ LABEL_78:
               v9 = *(a1 + 144);
               if (v9 == &google::protobuf::internal::fixed_address_empty_string)
               {
-                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(a1 + 144, &google::protobuf::internal::fixed_address_empty_string);
+                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((a1 + 144), &google::protobuf::internal::fixed_address_empty_string);
               }
 
               goto LABEL_98;
@@ -1014,10 +929,10 @@ LABEL_78:
               v13 = (v15 << 7) + v13 - 128;
               if (v15 < 0)
               {
-                v61 = google::protobuf::internal::VarintParseSlow64(TagFallback, v13);
-                v67 = v61;
-                *(a1 + 184) = v62 != 0;
-                if (!v61)
+                v57 = google::protobuf::internal::VarintParseSlow64(TagFallback, v13);
+                v63 = v57;
+                *(a1 + 184) = v58 != 0;
+                if (!v57)
                 {
                   goto LABEL_112;
                 }
@@ -1027,7 +942,7 @@ LABEL_78:
               {
                 v14 = (TagFallback + 2);
 LABEL_26:
-                v67 = v14;
+                v63 = v14;
                 *(a1 + 184) = v13 != 0;
               }
 
@@ -1038,57 +953,56 @@ LABEL_26:
                 goto LABEL_102;
               }
 
-              v50 = TagFallback - 1;
+              v47 = (TagFallback - 1);
               while (1)
               {
-                v51 = (v50 + 1);
-                v67 = (v50 + 1);
-                v52 = *(a1 + 88);
-                if (!v52)
+                v48 = (v47 + 1);
+                v63 = (v47 + 1);
+                v49 = *(a1 + 88);
+                if (!v49)
                 {
                   break;
                 }
 
-                v53 = *(a1 + 80);
-                v54 = *v52;
-                if (v53 >= *v52)
+                v50 = *(a1 + 80);
+                v51 = *v49;
+                if (v50 >= *v49)
                 {
-                  if (v54 == *(a1 + 84))
+                  if (v51 == *(a1 + 84))
                   {
 LABEL_89:
-                    google::protobuf::internal::RepeatedPtrFieldBase::Reserve((a1 + 72), v54 + 1);
-                    v52 = *(a1 + 88);
-                    v54 = *v52;
+                    google::protobuf::internal::RepeatedPtrFieldBase::Reserve((a1 + 72), v51 + 1);
+                    v49 = *(a1 + 88);
+                    v51 = *v49;
                   }
 
-                  *v52 = v54 + 1;
-                  v56 = google::protobuf::Arena::CreateMaybeMessage<protobuf::Intelligence_KeyValueParameter>(*(a1 + 72));
-                  LODWORD(v55) = v56;
-                  v57 = *(a1 + 80);
-                  v58 = *(a1 + 88) + 8 * v57;
-                  *(a1 + 80) = v57 + 1;
-                  *(v58 + 8) = v56;
-                  v51 = v67;
+                  *v49 = v51 + 1;
+                  v52 = google::protobuf::Arena::CreateMaybeMessage<protobuf::Intelligence_KeyValueParameter>(*(a1 + 72));
+                  v53 = *(a1 + 80);
+                  v54 = *(a1 + 88) + 8 * v53;
+                  *(a1 + 80) = v53 + 1;
+                  *(v54 + 8) = v52;
+                  v48 = v63;
                   goto LABEL_91;
                 }
 
-                *(a1 + 80) = v53 + 1;
-                v55 = *&v52[2 * v53 + 2];
+                *(a1 + 80) = v50 + 1;
+                v52 = *&v49[2 * v50 + 2];
 LABEL_91:
-                v50 = google::protobuf::internal::ParseContext::ParseMessage<protobuf::Intelligence_KeyValueParameter>(this, v55, v51);
-                v67 = v50;
-                if (!v50)
+                v47 = google::protobuf::internal::ParseContext::ParseMessage<protobuf::Intelligence_KeyValueParameter>(this, v52, v48);
+                v63 = v47;
+                if (!v47)
                 {
                   goto LABEL_112;
                 }
 
-                if (*this <= v50 || *v50 != 90)
+                if (*this <= v47 || *v47 != 90)
                 {
                   goto LABEL_100;
                 }
               }
 
-              v54 = *(a1 + 84);
+              v51 = *(a1 + 84);
               goto LABEL_89;
             case 0xCu:
               if (v8 != 97)
@@ -1101,7 +1015,7 @@ LABEL_91:
               v5 |= 0x80u;
               *(a1 + 176) = v12;
 LABEL_42:
-              v67 = v11;
+              v63 = v11;
               goto LABEL_100;
             case 0xDu:
               if (v8 != 106)
@@ -1113,11 +1027,11 @@ LABEL_42:
               v9 = *(a1 + 152);
               if (v9 == &google::protobuf::internal::fixed_address_empty_string)
               {
-                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(a1 + 152, &google::protobuf::internal::fixed_address_empty_string);
+                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((a1 + 152), &google::protobuf::internal::fixed_address_empty_string);
               }
 
 LABEL_98:
-              v59 = google::protobuf::internal::InlineGreedyStringParser(v9, TagFallback, this);
+              v55 = google::protobuf::internal::InlineGreedyStringParser(v9, TagFallback, this);
               goto LABEL_99;
             case 0xEu:
               if (v8 != 114)
@@ -1125,30 +1039,30 @@ LABEL_98:
                 goto LABEL_102;
               }
 
-              v32 = TagFallback - 1;
+              v31 = (TagFallback - 1);
               break;
             default:
 LABEL_102:
               if (v8)
               {
-                v60 = (v8 & 7) == 4;
+                v56 = (v8 & 7) == 4;
               }
 
               else
               {
-                v60 = 1;
+                v56 = 1;
               }
 
-              if (v60)
+              if (v56)
               {
                 *(this + 20) = v8 - 1;
                 goto LABEL_3;
               }
 
-              v59 = google::protobuf::internal::UnknownFieldParse(v8, (a1 + 8), TagFallback, this);
+              v55 = google::protobuf::internal::UnknownFieldParse(v8, (a1 + 8), TagFallback, this);
 LABEL_99:
-              v67 = v59;
-              if (!v59)
+              v63 = v55;
+              if (!v55)
               {
 LABEL_112:
                 TagFallback = 0;
@@ -1156,7 +1070,7 @@ LABEL_112:
               }
 
 LABEL_100:
-              if (google::protobuf::internal::EpsCopyInputStream::DoneWithCheck(this, &v67, *(this + 23)))
+              if (google::protobuf::internal::EpsCopyInputStream::DoneWithCheck(this, &v63, *(this + 23)))
               {
                 goto LABEL_2;
               }
@@ -1166,75 +1080,74 @@ LABEL_100:
 
           while (1)
           {
-            v33 = (v32 + 1);
-            v67 = (v32 + 1);
-            v34 = *(a1 + 112);
-            if (!v34)
+            v32 = (v31 + 1);
+            v63 = (v31 + 1);
+            v33 = *(a1 + 112);
+            if (!v33)
             {
               break;
             }
 
-            v35 = *(a1 + 104);
-            v36 = *v34;
-            if (v35 >= *v34)
+            v34 = *(a1 + 104);
+            v35 = *v33;
+            if (v34 >= *v33)
             {
-              if (v36 == *(a1 + 108))
+              if (v35 == *(a1 + 108))
               {
 LABEL_63:
-                google::protobuf::internal::RepeatedPtrFieldBase::Reserve((a1 + 96), v36 + 1);
-                v34 = *(a1 + 112);
-                v36 = *v34;
+                google::protobuf::internal::RepeatedPtrFieldBase::Reserve((a1 + 96), v35 + 1);
+                v33 = *(a1 + 112);
+                v35 = *v33;
               }
 
-              *v34 = v36 + 1;
-              v38 = google::protobuf::Arena::CreateMaybeMessage<protobuf::Intelligence_KeyValueParameter>(*(a1 + 96));
-              LODWORD(v37) = v38;
-              v39 = *(a1 + 104);
-              v40 = *(a1 + 112) + 8 * v39;
-              *(a1 + 104) = v39 + 1;
-              *(v40 + 8) = v38;
-              v33 = v67;
+              *v33 = v35 + 1;
+              v36 = google::protobuf::Arena::CreateMaybeMessage<protobuf::Intelligence_KeyValueParameter>(*(a1 + 96));
+              v37 = *(a1 + 104);
+              v38 = *(a1 + 112) + 8 * v37;
+              *(a1 + 104) = v37 + 1;
+              *(v38 + 8) = v36;
+              v32 = v63;
               goto LABEL_65;
             }
 
-            *(a1 + 104) = v35 + 1;
-            v37 = *&v34[2 * v35 + 2];
+            *(a1 + 104) = v34 + 1;
+            v36 = *&v33[2 * v34 + 2];
 LABEL_65:
-            v32 = google::protobuf::internal::ParseContext::ParseMessage<protobuf::Intelligence_KeyValueParameter>(this, v37, v33);
-            v67 = v32;
-            if (!v32)
+            v31 = google::protobuf::internal::ParseContext::ParseMessage<protobuf::Intelligence_KeyValueParameter>(this, v36, v32);
+            v63 = v31;
+            if (!v31)
             {
               goto LABEL_112;
             }
 
-            if (*this <= v32 || *v32 != 114)
+            if (*this <= v31 || *v31 != 114)
             {
               goto LABEL_100;
             }
           }
 
-          v36 = *(a1 + 108);
+          v35 = *(a1 + 108);
           goto LABEL_63;
         }
 
-        TagFallback = (v67 + 2);
+        TagFallback = (v63 + 2);
       }
 
       break;
     }
 
-    v67 = TagFallback;
+    v63 = TagFallback;
     goto LABEL_8;
   }
 
 LABEL_2:
-  TagFallback = v67;
+  TagFallback = v63;
 LABEL_3:
   *(a1 + 16) |= v5;
   return TagFallback;
 }
 
-char *google::protobuf::internal::ParseContext::ParseMessage<protobuf::Intelligence_KeyValueParameter>(google::protobuf::internal::EpsCopyInputStream *this, uint64_t a2, google::protobuf::internal *a3)
+google::protobuf::internal *google::protobuf::internal::ParseContext::ParseMessage<protobuf::Intelligence_KeyValueParameter>(google::protobuf::internal::EpsCopyInputStream *this, uint64_t a2, google::protobuf::internal *a3)
 {
   v6 = *a3;
   v7 = *a3;
@@ -1283,7 +1196,7 @@ char *google::protobuf::internal::ParseContext::ParseMessage<protobuf::Intellige
   return result;
 }
 
-unsigned __int8 *protobuf::Intelligence_KeyValueParameter::InternalSerializeWithCachedSizesToArray(protobuf::Intelligence_KeyValueParameter *this, char *a2, google::protobuf::io::EpsCopyOutputStream *a3)
+char *protobuf::Intelligence_KeyValueParameter::InternalSerializeWithCachedSizesToArray(protobuf::Intelligence_KeyValueParameter *this, char *a2, google::protobuf::io::EpsCopyOutputStream *a3)
 {
   v4 = a2;
   v6 = *(this + 4);
@@ -1422,7 +1335,7 @@ LABEL_7:
         v12 = v10 >> 7;
         if (v10 >> 14)
         {
-          v11 = (v4 + 3);
+          v11 = v4 + 3;
           do
           {
             *(v11 - 1) = v12 | 0x80;
@@ -1439,14 +1352,14 @@ LABEL_7:
         else
         {
           v4[2] = v12;
-          v11 = (v4 + 3);
+          v11 = v4 + 3;
         }
       }
 
       else
       {
         v4[1] = v10;
-        v11 = (v4 + 2);
+        v11 = v4 + 2;
       }
 
       v4 = protobuf::Intelligence_KeyValueParameter::InternalSerializeWithCachedSizesToArray(v9, v11, a3);
@@ -1472,7 +1385,7 @@ LABEL_7:
         v20 = v18 >> 7;
         if (v18 >> 14)
         {
-          v19 = (v4 + 3);
+          v19 = v4 + 3;
           do
           {
             *(v19 - 1) = v20 | 0x80;
@@ -1489,14 +1402,14 @@ LABEL_7:
         else
         {
           v4[2] = v20;
-          v19 = (v4 + 3);
+          v19 = v4 + 3;
         }
       }
 
       else
       {
         v4[1] = v18;
-        v19 = (v4 + 2);
+        v19 = v4 + 2;
       }
 
       v4 = protobuf::Intelligence_KeyValueParameter::InternalSerializeWithCachedSizesToArray(v17, v19, a3);
@@ -1559,7 +1472,7 @@ LABEL_49:
         v31 = v29 >> 7;
         if (v29 >> 14)
         {
-          v30 = (v4 + 3);
+          v30 = v4 + 3;
           do
           {
             *(v30 - 1) = v31 | 0x80;
@@ -1576,14 +1489,14 @@ LABEL_49:
         else
         {
           v4[2] = v31;
-          v30 = (v4 + 3);
+          v30 = v4 + 3;
         }
       }
 
       else
       {
         v4[1] = v29;
-        v30 = (v4 + 2);
+        v30 = v4 + 2;
       }
 
       v4 = protobuf::Intelligence_KeyValueParameter::InternalSerializeWithCachedSizesToArray(v28, v30, a3);
@@ -1627,7 +1540,7 @@ LABEL_49:
         v40 = v38 >> 7;
         if (v38 >> 14)
         {
-          v39 = (v4 + 3);
+          v39 = v4 + 3;
           do
           {
             *(v39 - 1) = v40 | 0x80;
@@ -1644,14 +1557,14 @@ LABEL_49:
         else
         {
           v4[2] = v40;
-          v39 = (v4 + 3);
+          v39 = v4 + 3;
         }
       }
 
       else
       {
         v4[1] = v38;
-        v39 = (v4 + 2);
+        v39 = v4 + 2;
       }
 
       v4 = protobuf::Intelligence_KeyValueParameter::InternalSerializeWithCachedSizesToArray(v37, v39, a3);
@@ -1954,150 +1867,144 @@ LABEL_43:
   return result;
 }
 
-std::string *protobuf::Intelligence_KeyValueParameter::CheckTypeAndMergeFrom(atomic_ullong **this, char **lpsrc)
+void protobuf::Intelligence_KeyValueParameter::CheckTypeAndMergeFrom(protobuf::Intelligence_KeyValueParameter *this, const google::protobuf::MessageLite *lpsrc)
 {
-  v4 = **lpsrc;
   {
     __assert_rtn("down_cast", "casts.h", 92, "f == nullptr || dynamic_cast<To>(f) != nullptr");
   }
 
-  return protobuf::Intelligence_KeyValueParameter::MergeFrom(this, lpsrc);
+  protobuf::Intelligence_KeyValueParameter::MergeFrom(this, lpsrc);
 }
 
-std::string *protobuf::Intelligence_KeyValueParameter::MergeFrom(atomic_ullong **this, atomic_ullong **a2)
+void protobuf::Intelligence_KeyValueParameter::MergeFrom(protobuf::Intelligence_KeyValueParameter *this, const protobuf::Intelligence_KeyValueParameter *a2)
 {
   if (a2 == this)
   {
-    google::protobuf::internal::LogMessage::LogMessage(v19, 3, "/Library/Caches/com.apple.xbs/Sources/SiriIntelligenceEngine/fileformat/intelligence.pb.cc", 1550);
-    v4 = google::protobuf::internal::LogMessage::operator<<(v19, "CHECK failed: (&from) != (this): ");
-    google::protobuf::internal::LogFinisher::operator=(&v18, &v4->__r_.__value_.__l.__data_);
-    google::protobuf::internal::LogMessage::~LogMessage(&v19[0].__r_.__value_.__l.__data_);
+    google::protobuf::internal::LogMessage::LogMessage(v18, 3, "/Library/Caches/com.apple.xbs/Sources/SiriIntelligenceEngine/fileformat/intelligence.pb.cc", 1550);
+    v4 = google::protobuf::internal::LogMessage::operator<<(v18, "CHECK failed: (&from) != (this): ");
+    google::protobuf::internal::LogFinisher::operator=(&v17, &v4->__r_.__value_.__l.__data_);
+    google::protobuf::internal::LogMessage::~LogMessage(&v18[0].__r_.__value_.__l.__data_);
   }
 
-  v5 = a2[1];
+  v5 = *(a2 + 1);
   if (v5)
   {
     google::protobuf::internal::InternalMetadataWithArenaLite::DoMergeFrom(this + 1, v5 & 0xFFFFFFFFFFFFFFFELL);
   }
 
-  google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobuf::RepeatedPtrField<protobuf::Intelligence_KeyValueParameter>::TypeHandler>((this + 3));
-  google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobuf::RepeatedPtrField<protobuf::Intelligence_KeyValueParameter>::TypeHandler>((this + 6));
-  google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobuf::RepeatedPtrField<protobuf::Intelligence_KeyValueParameter>::TypeHandler>((this + 9));
-  result = google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobuf::RepeatedPtrField<protobuf::Intelligence_KeyValueParameter>::TypeHandler>((this + 12));
-  v7 = *(a2 + 4);
-  if (v7)
+  google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobuf::RepeatedPtrField<protobuf::Intelligence_KeyValueParameter>::TypeHandler>((this + 24), a2 + 24);
+  google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobuf::RepeatedPtrField<protobuf::Intelligence_KeyValueParameter>::TypeHandler>((this + 48), a2 + 48);
+  google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobuf::RepeatedPtrField<protobuf::Intelligence_KeyValueParameter>::TypeHandler>((this + 72), a2 + 72);
+  google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobuf::RepeatedPtrField<protobuf::Intelligence_KeyValueParameter>::TypeHandler>((this + 96), a2 + 96);
+  v6 = *(a2 + 4);
+  if (v6)
   {
-    if (v7)
+    if (v6)
     {
-      result = (this + 15);
-      v8 = this[15];
+      v7 = *(this + 15);
       *(this + 4) |= 1u;
-      v9 = a2[15];
-      if (v8 != v9)
+      v8 = *(a2 + 15);
+      if (v7 != v8)
       {
-        if (v8 == &google::protobuf::internal::fixed_address_empty_string)
+        if (v7 == &google::protobuf::internal::fixed_address_empty_string)
         {
-          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(result, v9);
+          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 15, v8);
         }
 
-        result = std::string::operator=(v8, v9);
+        std::string::operator=(v7, v8);
       }
     }
 
-    if ((v7 & 2) != 0)
+    if ((v6 & 2) != 0)
     {
-      result = (this + 16);
-      v10 = this[16];
+      v9 = *(this + 16);
       *(this + 4) |= 2u;
-      v11 = a2[16];
-      if (v10 != v11)
+      v10 = *(a2 + 16);
+      if (v9 != v10)
       {
-        if (v10 == &google::protobuf::internal::fixed_address_empty_string)
+        if (v9 == &google::protobuf::internal::fixed_address_empty_string)
         {
-          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(result, v11);
+          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 16, v10);
         }
 
-        result = std::string::operator=(v10, v11);
+        std::string::operator=(v9, v10);
       }
     }
 
-    if ((v7 & 4) != 0)
+    if ((v6 & 4) != 0)
     {
-      result = (this + 17);
-      v12 = this[17];
+      v11 = *(this + 17);
       *(this + 4) |= 4u;
-      v13 = a2[17];
-      if (v12 != v13)
+      v12 = *(a2 + 17);
+      if (v11 != v12)
       {
-        if (v12 == &google::protobuf::internal::fixed_address_empty_string)
+        if (v11 == &google::protobuf::internal::fixed_address_empty_string)
         {
-          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(result, v13);
+          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 17, v12);
         }
 
-        result = std::string::operator=(v12, v13);
+        std::string::operator=(v11, v12);
       }
     }
 
-    if ((v7 & 8) != 0)
+    if ((v6 & 8) != 0)
     {
-      result = (this + 18);
-      v14 = this[18];
+      v13 = *(this + 18);
       *(this + 4) |= 8u;
-      v15 = a2[18];
-      if (v14 != v15)
+      v14 = *(a2 + 18);
+      if (v13 != v14)
       {
-        if (v14 == &google::protobuf::internal::fixed_address_empty_string)
+        if (v13 == &google::protobuf::internal::fixed_address_empty_string)
         {
-          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(result, v15);
+          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 18, v14);
         }
 
-        result = std::string::operator=(v14, v15);
+        std::string::operator=(v13, v14);
       }
     }
 
-    if ((v7 & 0x10) != 0)
+    if ((v6 & 0x10) != 0)
     {
-      result = (this + 19);
-      v16 = this[19];
+      v15 = *(this + 19);
       *(this + 4) |= 0x10u;
-      v17 = a2[19];
-      if (v16 != v17)
+      v16 = *(a2 + 19);
+      if (v15 != v16)
       {
-        if (v16 == &google::protobuf::internal::fixed_address_empty_string)
+        if (v15 == &google::protobuf::internal::fixed_address_empty_string)
         {
-          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(result, v17);
+          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 19, v16);
         }
 
-        result = std::string::operator=(v16, v17);
+        std::string::operator=(v15, v16);
       }
     }
 
-    if ((v7 & 0x20) != 0)
+    if ((v6 & 0x20) != 0)
     {
-      this[20] = a2[20];
-      if ((v7 & 0x40) == 0)
+      *(this + 20) = *(a2 + 20);
+      if ((v6 & 0x40) == 0)
       {
 LABEL_32:
-        if ((v7 & 0x80) == 0)
+        if ((v6 & 0x80) == 0)
         {
 LABEL_34:
-          *(this + 4) |= v7;
+          *(this + 4) |= v6;
           goto LABEL_35;
         }
 
 LABEL_33:
-        this[22] = a2[22];
+        *(this + 22) = *(a2 + 22);
         goto LABEL_34;
       }
     }
 
-    else if ((v7 & 0x40) == 0)
+    else if ((v6 & 0x40) == 0)
     {
       goto LABEL_32;
     }
 
-    this[21] = a2[21];
-    if ((v7 & 0x80) == 0)
+    *(this + 21) = *(a2 + 21);
+    if ((v6 & 0x80) == 0)
     {
       goto LABEL_34;
     }
@@ -2106,42 +2013,37 @@ LABEL_33:
   }
 
 LABEL_35:
-  if ((v7 & 0x300) != 0)
+  if ((v6 & 0x300) != 0)
   {
-    if ((v7 & 0x100) != 0)
+    if ((v6 & 0x100) != 0)
     {
       *(this + 184) = *(a2 + 184);
     }
 
-    if ((v7 & 0x200) != 0)
+    if ((v6 & 0x200) != 0)
     {
       *(this + 185) = *(a2 + 185);
     }
 
-    *(this + 4) |= v7;
+    *(this + 4) |= v6;
   }
-
-  return result;
 }
 
-void sub_254CCC8B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CCC8B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-std::string *protobuf::Intelligence_KeyValueParameter::CopyFrom(std::string *this, atomic_ullong **a2)
+void protobuf::Intelligence_KeyValueParameter::CopyFrom(protobuf::Intelligence_KeyValueParameter *this, const protobuf::Intelligence_KeyValueParameter *a2)
 {
   if (a2 != this)
   {
-    v4 = this;
     protobuf::Intelligence_KeyValueParameter::Clear(this);
 
-    return protobuf::Intelligence_KeyValueParameter::MergeFrom(v4, a2);
+    protobuf::Intelligence_KeyValueParameter::MergeFrom(this, a2);
   }
-
-  return this;
 }
 
 double protobuf::Intelligence_KeyValueParameter::InternalSwap(protobuf::Intelligence_KeyValueParameter *this, protobuf::Intelligence_KeyValueParameter *a2)
@@ -2397,7 +2299,7 @@ protobuf::Intelligence_Undo *protobuf::Intelligence_Undo::Intelligence_Undo(prot
     v6 = *(a2 + 6);
     if (v6 != &google::protobuf::internal::fixed_address_empty_string)
     {
-      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 48, v6);
+      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 6, v6);
     }
   }
 
@@ -2465,7 +2367,7 @@ void protobuf::Intelligence_Undo::Clear(protobuf::Intelligence_Undo *this)
   }
 
   v4 = *(this + 8);
-  v3 = this + 8;
+  v3 = (this + 8);
   *(v3 + 2) = 0;
   if (v4)
   {
@@ -2574,7 +2476,7 @@ LABEL_24:
         v17 = *(a1 + 48);
         if (v17 == &google::protobuf::internal::fixed_address_empty_string)
         {
-          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(a1 + 48, &google::protobuf::internal::fixed_address_empty_string);
+          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((a1 + 48), &google::protobuf::internal::fixed_address_empty_string);
         }
 
         result = google::protobuf::internal::InlineGreedyStringParser(v17, v7, this);
@@ -2614,7 +2516,7 @@ LABEL_6:
   return result;
 }
 
-unsigned __int8 *protobuf::Intelligence_Undo::InternalSerializeWithCachedSizesToArray(const void ***this, char *a2, google::protobuf::io::EpsCopyOutputStream *a3)
+char *protobuf::Intelligence_Undo::InternalSerializeWithCachedSizesToArray(const void ***this, char *a2, google::protobuf::io::EpsCopyOutputStream *a3)
 {
   v4 = a2;
   if (this[2])
@@ -2767,7 +2669,6 @@ uint64_t protobuf::Intelligence_Undo::ByteSizeLong(protobuf::Intelligence_Undo *
 
 void protobuf::Intelligence_Undo::CheckTypeAndMergeFrom(protobuf::Intelligence_Undo *this, const google::protobuf::MessageLite *lpsrc)
 {
-  v4 = **lpsrc;
   {
     __assert_rtn("down_cast", "casts.h", 92, "f == nullptr || dynamic_cast<To>(f) != nullptr");
   }
@@ -2795,7 +2696,7 @@ void protobuf::Intelligence_Undo::MergeFrom(protobuf::Intelligence_Undo *this, c
   if (*(a2 + 16))
   {
     v8 = *(this + 6);
-    v7 = this + 48;
+    v7 = (this + 48);
     v6 = v8;
     *(v7 - 8) |= 1u;
     v9 = *(a2 + 6);
@@ -2811,9 +2712,9 @@ void protobuf::Intelligence_Undo::MergeFrom(protobuf::Intelligence_Undo *this, c
   }
 }
 
-void sub_254CCD5E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CCD5E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -2991,7 +2892,7 @@ protobuf::Intelligence_DialogResponse *protobuf::Intelligence_DialogResponse::In
     v7 = *(a2 + 15);
     if (v7 != &google::protobuf::internal::fixed_address_empty_string)
     {
-      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 120, v7);
+      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 15, v7);
     }
   }
 
@@ -3001,7 +2902,7 @@ protobuf::Intelligence_DialogResponse *protobuf::Intelligence_DialogResponse::In
     v8 = *(a2 + 16);
     if (v8 != &google::protobuf::internal::fixed_address_empty_string)
     {
-      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 128, v8);
+      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 16, v8);
     }
   }
 
@@ -3011,7 +2912,7 @@ protobuf::Intelligence_DialogResponse *protobuf::Intelligence_DialogResponse::In
     v9 = *(a2 + 17);
     if (v9 != &google::protobuf::internal::fixed_address_empty_string)
     {
-      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 136, v9);
+      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 17, v9);
     }
   }
 
@@ -3021,7 +2922,7 @@ protobuf::Intelligence_DialogResponse *protobuf::Intelligence_DialogResponse::In
     v10 = *(a2 + 18);
     if (v10 != &google::protobuf::internal::fixed_address_empty_string)
     {
-      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 144, v10);
+      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 18, v10);
     }
   }
 
@@ -3031,7 +2932,7 @@ protobuf::Intelligence_DialogResponse *protobuf::Intelligence_DialogResponse::In
     v11 = *(a2 + 19);
     if (v11 != &google::protobuf::internal::fixed_address_empty_string)
     {
-      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 152, v11);
+      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 19, v11);
     }
   }
 
@@ -3041,7 +2942,7 @@ protobuf::Intelligence_DialogResponse *protobuf::Intelligence_DialogResponse::In
     v12 = *(a2 + 20);
     if (v12 != &google::protobuf::internal::fixed_address_empty_string)
     {
-      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 160, v12);
+      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 20, v12);
     }
   }
 
@@ -3051,7 +2952,7 @@ protobuf::Intelligence_DialogResponse *protobuf::Intelligence_DialogResponse::In
     v13 = *(a2 + 21);
     if (v13 != &google::protobuf::internal::fixed_address_empty_string)
     {
-      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 168, v13);
+      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 21, v13);
     }
   }
 
@@ -3061,7 +2962,7 @@ protobuf::Intelligence_DialogResponse *protobuf::Intelligence_DialogResponse::In
     v14 = *(a2 + 22);
     if (v14 != &google::protobuf::internal::fixed_address_empty_string)
     {
-      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 176, v14);
+      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 22, v14);
     }
   }
 
@@ -3071,7 +2972,7 @@ protobuf::Intelligence_DialogResponse *protobuf::Intelligence_DialogResponse::In
     v15 = *(a2 + 23);
     if (v15 != &google::protobuf::internal::fixed_address_empty_string)
     {
-      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 184, v15);
+      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 23, v15);
     }
   }
 
@@ -3081,7 +2982,7 @@ protobuf::Intelligence_DialogResponse *protobuf::Intelligence_DialogResponse::In
     v16 = *(a2 + 24);
     if (v16 != &google::protobuf::internal::fixed_address_empty_string)
     {
-      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 192, v16);
+      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 24, v16);
     }
   }
 
@@ -3091,7 +2992,7 @@ protobuf::Intelligence_DialogResponse *protobuf::Intelligence_DialogResponse::In
     v17 = *(a2 + 25);
     if (v17 != &google::protobuf::internal::fixed_address_empty_string)
     {
-      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 200, v17);
+      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 25, v17);
     }
   }
 
@@ -3101,7 +3002,7 @@ protobuf::Intelligence_DialogResponse *protobuf::Intelligence_DialogResponse::In
     v18 = *(a2 + 26);
     if (v18 != &google::protobuf::internal::fixed_address_empty_string)
     {
-      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 208, v18);
+      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 26, v18);
     }
   }
 
@@ -3111,7 +3012,7 @@ protobuf::Intelligence_DialogResponse *protobuf::Intelligence_DialogResponse::In
     v19 = *(a2 + 27);
     if (v19 != &google::protobuf::internal::fixed_address_empty_string)
     {
-      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 216, v19);
+      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 27, v19);
     }
   }
 
@@ -3121,7 +3022,7 @@ protobuf::Intelligence_DialogResponse *protobuf::Intelligence_DialogResponse::In
     v20 = *(a2 + 28);
     if (v20 != &google::protobuf::internal::fixed_address_empty_string)
     {
-      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 224, v20);
+      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 28, v20);
     }
   }
 
@@ -3141,12 +3042,12 @@ void sub_254CCDB48(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void protobuf::Intelligence_DialogResponse::~Intelligence_DialogResponse(protobuf::Intelligence_DialogResponse *this)
+void protobuf::Intelligence_DialogResponse::~Intelligence_DialogResponse(google::protobuf::internal::ArenaImpl **this)
 {
   *this = &unk_286719760;
   protobuf::Intelligence_DialogResponse::SharedDtor(this);
   google::protobuf::RepeatedPtrField<protobuf::Intelligence_KeyValueParameter>::~RepeatedPtrField(this + 12);
-  google::protobuf::RepeatedPtrField<std::string>::~RepeatedPtrField(this + 72);
+  google::protobuf::RepeatedPtrField<std::string>::~RepeatedPtrField(this + 9);
   google::protobuf::RepeatedPtrField<protobuf::Intelligence_KeyValueParameter>::~RepeatedPtrField(this + 6);
   google::protobuf::RepeatedPtrField<protobuf::Intelligence_KeyValueParameter>::~RepeatedPtrField(this + 3);
   google::protobuf::internal::InternalMetadataWithArenaBase<std::string,google::protobuf::internal::InternalMetadataWithArenaLite>::~InternalMetadataWithArenaBase(this + 1);
@@ -3770,7 +3671,7 @@ LABEL_8:
               v9 = *(a1 + 120);
               if (v9 == &google::protobuf::internal::fixed_address_empty_string)
               {
-                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(a1 + 120, &google::protobuf::internal::fixed_address_empty_string);
+                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((a1 + 120), &google::protobuf::internal::fixed_address_empty_string);
               }
 
               goto LABEL_124;
@@ -3784,7 +3685,7 @@ LABEL_8:
               v9 = *(a1 + 128);
               if (v9 == &google::protobuf::internal::fixed_address_empty_string)
               {
-                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(a1 + 128, &google::protobuf::internal::fixed_address_empty_string);
+                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((a1 + 128), &google::protobuf::internal::fixed_address_empty_string);
               }
 
               goto LABEL_124;
@@ -3798,7 +3699,7 @@ LABEL_8:
               v9 = *(a1 + 136);
               if (v9 == &google::protobuf::internal::fixed_address_empty_string)
               {
-                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(a1 + 136, &google::protobuf::internal::fixed_address_empty_string);
+                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((a1 + 136), &google::protobuf::internal::fixed_address_empty_string);
               }
 
               goto LABEL_124;
@@ -3812,7 +3713,7 @@ LABEL_8:
               v9 = *(a1 + 144);
               if (v9 == &google::protobuf::internal::fixed_address_empty_string)
               {
-                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(a1 + 144, &google::protobuf::internal::fixed_address_empty_string);
+                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((a1 + 144), &google::protobuf::internal::fixed_address_empty_string);
               }
 
               goto LABEL_124;
@@ -3826,7 +3727,7 @@ LABEL_8:
               v9 = *(a1 + 152);
               if (v9 == &google::protobuf::internal::fixed_address_empty_string)
               {
-                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(a1 + 152, &google::protobuf::internal::fixed_address_empty_string);
+                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((a1 + 152), &google::protobuf::internal::fixed_address_empty_string);
               }
 
               goto LABEL_124;
@@ -3876,7 +3777,7 @@ LABEL_103:
               v9 = *(a1 + 160);
               if (v9 == &google::protobuf::internal::fixed_address_empty_string)
               {
-                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(a1 + 160, &google::protobuf::internal::fixed_address_empty_string);
+                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((a1 + 160), &google::protobuf::internal::fixed_address_empty_string);
               }
 
               goto LABEL_124;
@@ -3890,7 +3791,7 @@ LABEL_103:
               v9 = *(a1 + 168);
               if (v9 == &google::protobuf::internal::fixed_address_empty_string)
               {
-                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(a1 + 168, &google::protobuf::internal::fixed_address_empty_string);
+                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((a1 + 168), &google::protobuf::internal::fixed_address_empty_string);
               }
 
               goto LABEL_124;
@@ -3904,7 +3805,7 @@ LABEL_103:
               v9 = *(a1 + 176);
               if (v9 == &google::protobuf::internal::fixed_address_empty_string)
               {
-                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(a1 + 176, &google::protobuf::internal::fixed_address_empty_string);
+                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((a1 + 176), &google::protobuf::internal::fixed_address_empty_string);
               }
 
               goto LABEL_124;
@@ -3954,7 +3855,7 @@ LABEL_53:
               v9 = *(a1 + 184);
               if (v9 == &google::protobuf::internal::fixed_address_empty_string)
               {
-                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(a1 + 184, &google::protobuf::internal::fixed_address_empty_string);
+                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((a1 + 184), &google::protobuf::internal::fixed_address_empty_string);
               }
 
               goto LABEL_124;
@@ -3968,7 +3869,7 @@ LABEL_53:
               v9 = *(a1 + 192);
               if (v9 == &google::protobuf::internal::fixed_address_empty_string)
               {
-                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(a1 + 192, &google::protobuf::internal::fixed_address_empty_string);
+                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((a1 + 192), &google::protobuf::internal::fixed_address_empty_string);
               }
 
               goto LABEL_124;
@@ -3978,7 +3879,7 @@ LABEL_53:
                 goto LABEL_128;
               }
 
-              v19 = TagFallback - 1;
+              v19 = (TagFallback - 1);
               while (1)
               {
                 v20 = (v19 + 1);
@@ -4039,7 +3940,7 @@ LABEL_45:
               v9 = *(a1 + 200);
               if (v9 == &google::protobuf::internal::fixed_address_empty_string)
               {
-                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(a1 + 200, &google::protobuf::internal::fixed_address_empty_string);
+                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((a1 + 200), &google::protobuf::internal::fixed_address_empty_string);
               }
 
               goto LABEL_124;
@@ -4049,7 +3950,7 @@ LABEL_45:
                 goto LABEL_128;
               }
 
-              v11 = TagFallback - 1;
+              v11 = (TagFallback - 1);
               while (1)
               {
                 v12 = (v11 + 1);
@@ -4180,7 +4081,7 @@ LABEL_70:
               v9 = *(a1 + 208);
               if (v9 == &google::protobuf::internal::fixed_address_empty_string)
               {
-                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(a1 + 208, &google::protobuf::internal::fixed_address_empty_string);
+                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((a1 + 208), &google::protobuf::internal::fixed_address_empty_string);
               }
 
               goto LABEL_124;
@@ -4194,7 +4095,7 @@ LABEL_70:
               v9 = *(a1 + 216);
               if (v9 == &google::protobuf::internal::fixed_address_empty_string)
               {
-                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(a1 + 216, &google::protobuf::internal::fixed_address_empty_string);
+                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((a1 + 216), &google::protobuf::internal::fixed_address_empty_string);
               }
 
               goto LABEL_124;
@@ -4244,7 +4145,7 @@ LABEL_114:
               v9 = *(a1 + 224);
               if (v9 == &google::protobuf::internal::fixed_address_empty_string)
               {
-                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(a1 + 224, &google::protobuf::internal::fixed_address_empty_string);
+                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((a1 + 224), &google::protobuf::internal::fixed_address_empty_string);
               }
 
 LABEL_124:
@@ -4256,7 +4157,7 @@ LABEL_124:
                 goto LABEL_128;
               }
 
-              v39 = TagFallback - 2;
+              v39 = (TagFallback - 2);
               break;
             default:
 LABEL_128:
@@ -4364,7 +4265,7 @@ LABEL_3:
   return TagFallback;
 }
 
-unsigned __int8 *protobuf::Intelligence_DialogResponse::InternalSerializeWithCachedSizesToArray(protobuf::Intelligence_DialogResponse *this, char *a2, google::protobuf::io::EpsCopyOutputStream *a3)
+char *protobuf::Intelligence_DialogResponse::InternalSerializeWithCachedSizesToArray(protobuf::Intelligence_DialogResponse *this, char *a2, google::protobuf::io::EpsCopyOutputStream *a3)
 {
   v4 = a2;
   v6 = *(this + 4);
@@ -5280,7 +5181,6 @@ LABEL_51:
 
 void protobuf::Intelligence_DialogResponse::CheckTypeAndMergeFrom(protobuf::Intelligence_DialogResponse *this, const google::protobuf::MessageLite *lpsrc)
 {
-  v4 = **lpsrc;
   {
     __assert_rtn("down_cast", "casts.h", 92, "f == nullptr || dynamic_cast<To>(f) != nullptr");
   }
@@ -5320,7 +5220,7 @@ void protobuf::Intelligence_DialogResponse::MergeFrom(protobuf::Intelligence_Dia
       {
         if (v7 == &google::protobuf::internal::fixed_address_empty_string)
         {
-          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 120, v8);
+          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 15, v8);
         }
 
         std::string::operator=(v7, v8);
@@ -5336,7 +5236,7 @@ void protobuf::Intelligence_DialogResponse::MergeFrom(protobuf::Intelligence_Dia
       {
         if (v9 == &google::protobuf::internal::fixed_address_empty_string)
         {
-          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 128, v10);
+          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 16, v10);
         }
 
         std::string::operator=(v9, v10);
@@ -5352,7 +5252,7 @@ void protobuf::Intelligence_DialogResponse::MergeFrom(protobuf::Intelligence_Dia
       {
         if (v11 == &google::protobuf::internal::fixed_address_empty_string)
         {
-          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 136, v12);
+          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 17, v12);
         }
 
         std::string::operator=(v11, v12);
@@ -5368,7 +5268,7 @@ void protobuf::Intelligence_DialogResponse::MergeFrom(protobuf::Intelligence_Dia
       {
         if (v13 == &google::protobuf::internal::fixed_address_empty_string)
         {
-          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 144, v14);
+          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 18, v14);
         }
 
         std::string::operator=(v13, v14);
@@ -5384,7 +5284,7 @@ void protobuf::Intelligence_DialogResponse::MergeFrom(protobuf::Intelligence_Dia
       {
         if (v15 == &google::protobuf::internal::fixed_address_empty_string)
         {
-          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 152, v16);
+          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 19, v16);
         }
 
         std::string::operator=(v15, v16);
@@ -5400,7 +5300,7 @@ void protobuf::Intelligence_DialogResponse::MergeFrom(protobuf::Intelligence_Dia
       {
         if (v17 == &google::protobuf::internal::fixed_address_empty_string)
         {
-          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 160, v18);
+          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 20, v18);
         }
 
         std::string::operator=(v17, v18);
@@ -5416,7 +5316,7 @@ void protobuf::Intelligence_DialogResponse::MergeFrom(protobuf::Intelligence_Dia
       {
         if (v19 == &google::protobuf::internal::fixed_address_empty_string)
         {
-          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 168, v20);
+          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 21, v20);
         }
 
         std::string::operator=(v19, v20);
@@ -5432,7 +5332,7 @@ void protobuf::Intelligence_DialogResponse::MergeFrom(protobuf::Intelligence_Dia
       {
         if (v21 == &google::protobuf::internal::fixed_address_empty_string)
         {
-          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 176, v22);
+          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 22, v22);
         }
 
         std::string::operator=(v21, v22);
@@ -5451,7 +5351,7 @@ void protobuf::Intelligence_DialogResponse::MergeFrom(protobuf::Intelligence_Dia
       {
         if (v23 == &google::protobuf::internal::fixed_address_empty_string)
         {
-          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 184, v24);
+          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 23, v24);
         }
 
         std::string::operator=(v23, v24);
@@ -5467,7 +5367,7 @@ void protobuf::Intelligence_DialogResponse::MergeFrom(protobuf::Intelligence_Dia
       {
         if (v25 == &google::protobuf::internal::fixed_address_empty_string)
         {
-          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 192, v26);
+          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 24, v26);
         }
 
         std::string::operator=(v25, v26);
@@ -5483,7 +5383,7 @@ void protobuf::Intelligence_DialogResponse::MergeFrom(protobuf::Intelligence_Dia
       {
         if (v27 == &google::protobuf::internal::fixed_address_empty_string)
         {
-          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 200, v28);
+          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 25, v28);
         }
 
         std::string::operator=(v27, v28);
@@ -5499,7 +5399,7 @@ void protobuf::Intelligence_DialogResponse::MergeFrom(protobuf::Intelligence_Dia
       {
         if (v29 == &google::protobuf::internal::fixed_address_empty_string)
         {
-          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 208, v30);
+          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 26, v30);
         }
 
         std::string::operator=(v29, v30);
@@ -5515,7 +5415,7 @@ void protobuf::Intelligence_DialogResponse::MergeFrom(protobuf::Intelligence_Dia
       {
         if (v31 == &google::protobuf::internal::fixed_address_empty_string)
         {
-          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 216, v32);
+          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 27, v32);
         }
 
         std::string::operator=(v31, v32);
@@ -5531,7 +5431,7 @@ void protobuf::Intelligence_DialogResponse::MergeFrom(protobuf::Intelligence_Dia
       {
         if (v33 == &google::protobuf::internal::fixed_address_empty_string)
         {
-          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 224, v34);
+          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 28, v34);
         }
 
         std::string::operator=(v33, v34);
@@ -5559,9 +5459,9 @@ void protobuf::Intelligence_DialogResponse::MergeFrom(protobuf::Intelligence_Dia
   }
 }
 
-void sub_254CCFD5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CCFD5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -6049,7 +5949,7 @@ protobuf::Intelligence_BehaviorResponse *protobuf::Intelligence_BehaviorResponse
 
 void sub_254CD0644(_Unwind_Exception *a1)
 {
-  google::protobuf::RepeatedPtrField<std::string>::~RepeatedPtrField(v1 + 48);
+  google::protobuf::RepeatedPtrField<std::string>::~RepeatedPtrField((v1 + 48));
   google::protobuf::RepeatedPtrField<protobuf::Intelligence_KeyValueParameter>::~RepeatedPtrField((v1 + 24));
   google::protobuf::internal::InternalMetadataWithArenaBase<std::string,google::protobuf::internal::InternalMetadataWithArenaLite>::~InternalMetadataWithArenaBase(v2);
   _Unwind_Resume(a1);
@@ -6083,7 +5983,7 @@ protobuf::Intelligence_BehaviorResponse *protobuf::Intelligence_BehaviorResponse
     v7 = *(a2 + 9);
     if (v7 != &google::protobuf::internal::fixed_address_empty_string)
     {
-      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 72, v7);
+      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 9, v7);
     }
   }
 
@@ -6093,7 +5993,7 @@ protobuf::Intelligence_BehaviorResponse *protobuf::Intelligence_BehaviorResponse
     v8 = *(a2 + 10);
     if (v8 != &google::protobuf::internal::fixed_address_empty_string)
     {
-      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 80, v8);
+      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 10, v8);
     }
   }
 
@@ -6103,7 +6003,7 @@ protobuf::Intelligence_BehaviorResponse *protobuf::Intelligence_BehaviorResponse
     v9 = *(a2 + 11);
     if (v9 != &google::protobuf::internal::fixed_address_empty_string)
     {
-      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 88, v9);
+      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 11, v9);
     }
   }
 
@@ -6113,7 +6013,7 @@ protobuf::Intelligence_BehaviorResponse *protobuf::Intelligence_BehaviorResponse
     v10 = *(a2 + 12);
     if (v10 != &google::protobuf::internal::fixed_address_empty_string)
     {
-      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 96, v10);
+      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 12, v10);
     }
   }
 
@@ -6123,7 +6023,7 @@ protobuf::Intelligence_BehaviorResponse *protobuf::Intelligence_BehaviorResponse
     v11 = *(a2 + 13);
     if (v11 != &google::protobuf::internal::fixed_address_empty_string)
     {
-      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 104, v11);
+      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 13, v11);
     }
   }
 
@@ -6133,7 +6033,7 @@ protobuf::Intelligence_BehaviorResponse *protobuf::Intelligence_BehaviorResponse
     v12 = *(a2 + 14);
     if (v12 != &google::protobuf::internal::fixed_address_empty_string)
     {
-      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 112, v12);
+      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 14, v12);
     }
   }
 
@@ -6143,7 +6043,7 @@ protobuf::Intelligence_BehaviorResponse *protobuf::Intelligence_BehaviorResponse
     v13 = *(a2 + 15);
     if (v13 != &google::protobuf::internal::fixed_address_empty_string)
     {
-      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 120, v13);
+      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 15, v13);
     }
   }
 
@@ -6153,7 +6053,7 @@ protobuf::Intelligence_BehaviorResponse *protobuf::Intelligence_BehaviorResponse
     v14 = *(a2 + 16);
     if (v14 != &google::protobuf::internal::fixed_address_empty_string)
     {
-      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 128, v14);
+      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 16, v14);
     }
   }
 
@@ -6163,7 +6063,7 @@ protobuf::Intelligence_BehaviorResponse *protobuf::Intelligence_BehaviorResponse
     v15 = *(a2 + 17);
     if (v15 != &google::protobuf::internal::fixed_address_empty_string)
     {
-      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 136, v15);
+      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 17, v15);
     }
   }
 
@@ -6173,7 +6073,7 @@ protobuf::Intelligence_BehaviorResponse *protobuf::Intelligence_BehaviorResponse
     v16 = *(a2 + 18);
     if (v16 != &google::protobuf::internal::fixed_address_empty_string)
     {
-      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 144, v16);
+      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 18, v16);
     }
   }
 
@@ -6195,13 +6095,13 @@ protobuf::Intelligence_BehaviorResponse *protobuf::Intelligence_BehaviorResponse
   return this;
 }
 
-void sub_254CD08EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CD08EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
-  google::protobuf::RepeatedPtrField<std::string>::~RepeatedPtrField(v5);
-  google::protobuf::RepeatedPtrField<protobuf::Intelligence_KeyValueParameter>::~RepeatedPtrField((v3 + 24));
-  google::protobuf::internal::InternalMetadataWithArenaBase<std::string,google::protobuf::internal::InternalMetadataWithArenaLite>::~InternalMetadataWithArenaBase(v4);
+  google::protobuf::RepeatedPtrField<std::string>::~RepeatedPtrField(v7);
+  google::protobuf::RepeatedPtrField<protobuf::Intelligence_KeyValueParameter>::~RepeatedPtrField((v5 + 24));
+  google::protobuf::internal::InternalMetadataWithArenaBase<std::string,google::protobuf::internal::InternalMetadataWithArenaLite>::~InternalMetadataWithArenaBase(v6);
   _Unwind_Resume(a1);
 }
 
@@ -6327,7 +6227,7 @@ void protobuf::Intelligence_BehaviorResponse::~Intelligence_BehaviorResponse(pro
     }
   }
 
-  google::protobuf::RepeatedPtrField<std::string>::~RepeatedPtrField(this + 48);
+  google::protobuf::RepeatedPtrField<std::string>::~RepeatedPtrField(this + 6);
   google::protobuf::RepeatedPtrField<protobuf::Intelligence_KeyValueParameter>::~RepeatedPtrField(this + 3);
   google::protobuf::internal::InternalMetadataWithArenaBase<std::string,google::protobuf::internal::InternalMetadataWithArenaLite>::~InternalMetadataWithArenaBase(this + 1);
 }
@@ -6659,9 +6559,9 @@ LABEL_58:
   }
 }
 
-void sub_254CD0EEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CD0EEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -6702,7 +6602,7 @@ LABEL_8:
               v9 = *(a1 + 72);
               if (v9 == &google::protobuf::internal::fixed_address_empty_string)
               {
-                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(a1 + 72, &google::protobuf::internal::fixed_address_empty_string);
+                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((a1 + 72), &google::protobuf::internal::fixed_address_empty_string);
               }
 
               goto LABEL_81;
@@ -6716,7 +6616,7 @@ LABEL_8:
               v9 = *(a1 + 80);
               if (v9 == &google::protobuf::internal::fixed_address_empty_string)
               {
-                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(a1 + 80, &google::protobuf::internal::fixed_address_empty_string);
+                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((a1 + 80), &google::protobuf::internal::fixed_address_empty_string);
               }
 
               goto LABEL_81;
@@ -6730,7 +6630,7 @@ LABEL_8:
               v9 = *(a1 + 88);
               if (v9 == &google::protobuf::internal::fixed_address_empty_string)
               {
-                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(a1 + 88, &google::protobuf::internal::fixed_address_empty_string);
+                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((a1 + 88), &google::protobuf::internal::fixed_address_empty_string);
               }
 
               goto LABEL_81;
@@ -6744,7 +6644,7 @@ LABEL_8:
               v9 = *(a1 + 96);
               if (v9 == &google::protobuf::internal::fixed_address_empty_string)
               {
-                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(a1 + 96, &google::protobuf::internal::fixed_address_empty_string);
+                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((a1 + 96), &google::protobuf::internal::fixed_address_empty_string);
               }
 
               goto LABEL_81;
@@ -6758,7 +6658,7 @@ LABEL_8:
               v9 = *(a1 + 104);
               if (v9 == &google::protobuf::internal::fixed_address_empty_string)
               {
-                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(a1 + 104, &google::protobuf::internal::fixed_address_empty_string);
+                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((a1 + 104), &google::protobuf::internal::fixed_address_empty_string);
               }
 
               goto LABEL_81;
@@ -6808,7 +6708,7 @@ LABEL_52:
               v9 = *(a1 + 112);
               if (v9 == &google::protobuf::internal::fixed_address_empty_string)
               {
-                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(a1 + 112, &google::protobuf::internal::fixed_address_empty_string);
+                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((a1 + 112), &google::protobuf::internal::fixed_address_empty_string);
               }
 
               goto LABEL_81;
@@ -6822,7 +6722,7 @@ LABEL_52:
               v9 = *(a1 + 120);
               if (v9 == &google::protobuf::internal::fixed_address_empty_string)
               {
-                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(a1 + 120, &google::protobuf::internal::fixed_address_empty_string);
+                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((a1 + 120), &google::protobuf::internal::fixed_address_empty_string);
               }
 
               goto LABEL_81;
@@ -6836,7 +6736,7 @@ LABEL_52:
               v9 = *(a1 + 128);
               if (v9 == &google::protobuf::internal::fixed_address_empty_string)
               {
-                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(a1 + 128, &google::protobuf::internal::fixed_address_empty_string);
+                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((a1 + 128), &google::protobuf::internal::fixed_address_empty_string);
               }
 
               goto LABEL_81;
@@ -6846,7 +6746,7 @@ LABEL_52:
                 goto LABEL_85;
               }
 
-              v11 = TagFallback - 1;
+              v11 = (TagFallback - 1);
               while (1)
               {
                 v12 = (v11 + 1);
@@ -6915,7 +6815,7 @@ LABEL_32:
               v9 = *(a1 + 136);
               if (v9 == &google::protobuf::internal::fixed_address_empty_string)
               {
-                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(a1 + 136, &google::protobuf::internal::fixed_address_empty_string);
+                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((a1 + 136), &google::protobuf::internal::fixed_address_empty_string);
               }
 
               goto LABEL_81;
@@ -6929,7 +6829,7 @@ LABEL_32:
               v9 = *(a1 + 144);
               if (v9 == &google::protobuf::internal::fixed_address_empty_string)
               {
-                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(a1 + 144, &google::protobuf::internal::fixed_address_empty_string);
+                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((a1 + 144), &google::protobuf::internal::fixed_address_empty_string);
               }
 
 LABEL_81:
@@ -7114,7 +7014,7 @@ LABEL_3:
   return TagFallback;
 }
 
-unsigned __int8 *protobuf::Intelligence_BehaviorResponse::InternalSerializeWithCachedSizesToArray(protobuf::Intelligence_BehaviorResponse *this, char *a2, google::protobuf::io::EpsCopyOutputStream *a3)
+char *protobuf::Intelligence_BehaviorResponse::InternalSerializeWithCachedSizesToArray(protobuf::Intelligence_BehaviorResponse *this, char *a2, google::protobuf::io::EpsCopyOutputStream *a3)
 {
   v4 = a2;
   v6 = *(this + 4);
@@ -7705,7 +7605,6 @@ LABEL_32:
 
 void protobuf::Intelligence_BehaviorResponse::CheckTypeAndMergeFrom(protobuf::Intelligence_BehaviorResponse *this, const google::protobuf::MessageLite *lpsrc)
 {
-  v4 = **lpsrc;
   {
     __assert_rtn("down_cast", "casts.h", 92, "f == nullptr || dynamic_cast<To>(f) != nullptr");
   }
@@ -7743,7 +7642,7 @@ void protobuf::Intelligence_BehaviorResponse::MergeFrom(protobuf::Intelligence_B
       {
         if (v7 == &google::protobuf::internal::fixed_address_empty_string)
         {
-          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 72, v8);
+          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 9, v8);
         }
 
         std::string::operator=(v7, v8);
@@ -7759,7 +7658,7 @@ void protobuf::Intelligence_BehaviorResponse::MergeFrom(protobuf::Intelligence_B
       {
         if (v9 == &google::protobuf::internal::fixed_address_empty_string)
         {
-          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 80, v10);
+          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 10, v10);
         }
 
         std::string::operator=(v9, v10);
@@ -7775,7 +7674,7 @@ void protobuf::Intelligence_BehaviorResponse::MergeFrom(protobuf::Intelligence_B
       {
         if (v11 == &google::protobuf::internal::fixed_address_empty_string)
         {
-          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 88, v12);
+          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 11, v12);
         }
 
         std::string::operator=(v11, v12);
@@ -7791,7 +7690,7 @@ void protobuf::Intelligence_BehaviorResponse::MergeFrom(protobuf::Intelligence_B
       {
         if (v13 == &google::protobuf::internal::fixed_address_empty_string)
         {
-          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 96, v14);
+          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 12, v14);
         }
 
         std::string::operator=(v13, v14);
@@ -7807,7 +7706,7 @@ void protobuf::Intelligence_BehaviorResponse::MergeFrom(protobuf::Intelligence_B
       {
         if (v15 == &google::protobuf::internal::fixed_address_empty_string)
         {
-          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 104, v16);
+          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 13, v16);
         }
 
         std::string::operator=(v15, v16);
@@ -7823,7 +7722,7 @@ void protobuf::Intelligence_BehaviorResponse::MergeFrom(protobuf::Intelligence_B
       {
         if (v17 == &google::protobuf::internal::fixed_address_empty_string)
         {
-          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 112, v18);
+          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 14, v18);
         }
 
         std::string::operator=(v17, v18);
@@ -7839,7 +7738,7 @@ void protobuf::Intelligence_BehaviorResponse::MergeFrom(protobuf::Intelligence_B
       {
         if (v19 == &google::protobuf::internal::fixed_address_empty_string)
         {
-          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 120, v20);
+          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 15, v20);
         }
 
         std::string::operator=(v19, v20);
@@ -7855,7 +7754,7 @@ void protobuf::Intelligence_BehaviorResponse::MergeFrom(protobuf::Intelligence_B
       {
         if (v21 == &google::protobuf::internal::fixed_address_empty_string)
         {
-          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 128, v22);
+          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 16, v22);
         }
 
         std::string::operator=(v21, v22);
@@ -7874,7 +7773,7 @@ void protobuf::Intelligence_BehaviorResponse::MergeFrom(protobuf::Intelligence_B
       {
         if (v23 == &google::protobuf::internal::fixed_address_empty_string)
         {
-          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 136, v24);
+          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 17, v24);
         }
 
         std::string::operator=(v23, v24);
@@ -7890,7 +7789,7 @@ void protobuf::Intelligence_BehaviorResponse::MergeFrom(protobuf::Intelligence_B
       {
         if (v25 == &google::protobuf::internal::fixed_address_empty_string)
         {
-          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 144, v26);
+          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 18, v26);
         }
 
         std::string::operator=(v25, v26);
@@ -7929,9 +7828,9 @@ void protobuf::Intelligence_BehaviorResponse::MergeFrom(protobuf::Intelligence_B
   }
 }
 
-void sub_254CD2268(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CD2268(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -8305,7 +8204,7 @@ protobuf::Intelligence_ReferenceResponse *protobuf::Intelligence_ReferenceRespon
 
 void sub_254CD292C(_Unwind_Exception *a1)
 {
-  google::protobuf::RepeatedPtrField<std::string>::~RepeatedPtrField(v1 + 24);
+  google::protobuf::RepeatedPtrField<std::string>::~RepeatedPtrField((v1 + 24));
   google::protobuf::internal::InternalMetadataWithArenaBase<std::string,google::protobuf::internal::InternalMetadataWithArenaLite>::~InternalMetadataWithArenaBase(v2);
   _Unwind_Resume(a1);
 }
@@ -8334,7 +8233,7 @@ protobuf::Intelligence_ReferenceResponse *protobuf::Intelligence_ReferenceRespon
     v7 = *(a2 + 6);
     if (v7 != &google::protobuf::internal::fixed_address_empty_string)
     {
-      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 48, v7);
+      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 6, v7);
     }
   }
 
@@ -8344,7 +8243,7 @@ protobuf::Intelligence_ReferenceResponse *protobuf::Intelligence_ReferenceRespon
     v8 = *(a2 + 7);
     if (v8 != &google::protobuf::internal::fixed_address_empty_string)
     {
-      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 56, v8);
+      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 7, v8);
     }
   }
 
@@ -8354,7 +8253,7 @@ protobuf::Intelligence_ReferenceResponse *protobuf::Intelligence_ReferenceRespon
     v9 = *(a2 + 8);
     if (v9 != &google::protobuf::internal::fixed_address_empty_string)
     {
-      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 64, v9);
+      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 8, v9);
     }
   }
 
@@ -8364,7 +8263,7 @@ protobuf::Intelligence_ReferenceResponse *protobuf::Intelligence_ReferenceRespon
     v10 = *(a2 + 9);
     if (v10 != &google::protobuf::internal::fixed_address_empty_string)
     {
-      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 72, v10);
+      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 9, v10);
     }
   }
 
@@ -8374,7 +8273,7 @@ protobuf::Intelligence_ReferenceResponse *protobuf::Intelligence_ReferenceRespon
     v11 = *(a2 + 10);
     if (v11 != &google::protobuf::internal::fixed_address_empty_string)
     {
-      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 80, v11);
+      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 10, v11);
     }
   }
 
@@ -8384,7 +8283,7 @@ protobuf::Intelligence_ReferenceResponse *protobuf::Intelligence_ReferenceRespon
     v12 = *(a2 + 11);
     if (v12 != &google::protobuf::internal::fixed_address_empty_string)
     {
-      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 88, v12);
+      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 11, v12);
     }
   }
 
@@ -8394,7 +8293,7 @@ protobuf::Intelligence_ReferenceResponse *protobuf::Intelligence_ReferenceRespon
     v13 = *(a2 + 12);
     if (v13 != &google::protobuf::internal::fixed_address_empty_string)
     {
-      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 96, v13);
+      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 12, v13);
     }
   }
 
@@ -8404,7 +8303,7 @@ protobuf::Intelligence_ReferenceResponse *protobuf::Intelligence_ReferenceRespon
     v14 = *(a2 + 13);
     if (v14 != &google::protobuf::internal::fixed_address_empty_string)
     {
-      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 104, v14);
+      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 13, v14);
     }
   }
 
@@ -8414,7 +8313,7 @@ protobuf::Intelligence_ReferenceResponse *protobuf::Intelligence_ReferenceRespon
     v15 = *(a2 + 14);
     if (v15 != &google::protobuf::internal::fixed_address_empty_string)
     {
-      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 112, v15);
+      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 14, v15);
     }
   }
 
@@ -8424,7 +8323,7 @@ protobuf::Intelligence_ReferenceResponse *protobuf::Intelligence_ReferenceRespon
     v16 = *(a2 + 15);
     if (v16 != &google::protobuf::internal::fixed_address_empty_string)
     {
-      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 120, v16);
+      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 15, v16);
     }
   }
 
@@ -8434,7 +8333,7 @@ protobuf::Intelligence_ReferenceResponse *protobuf::Intelligence_ReferenceRespon
     v17 = *(a2 + 16);
     if (v17 != &google::protobuf::internal::fixed_address_empty_string)
     {
-      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 128, v17);
+      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 16, v17);
     }
   }
 
@@ -8573,7 +8472,7 @@ void protobuf::Intelligence_ReferenceResponse::~Intelligence_ReferenceResponse(p
     MEMORY[0x259C29D90](v16, 0x1012C40EC159624);
   }
 
-  google::protobuf::RepeatedPtrField<std::string>::~RepeatedPtrField(this + 24);
+  google::protobuf::RepeatedPtrField<std::string>::~RepeatedPtrField(this + 3);
   google::protobuf::internal::InternalMetadataWithArenaBase<std::string,google::protobuf::internal::InternalMetadataWithArenaLite>::~InternalMetadataWithArenaBase(this + 1);
 }
 
@@ -8942,7 +8841,7 @@ LABEL_8:
               v9 = *(a1 + 48);
               if (v9 == &google::protobuf::internal::fixed_address_empty_string)
               {
-                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(a1 + 48, &google::protobuf::internal::fixed_address_empty_string);
+                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((a1 + 48), &google::protobuf::internal::fixed_address_empty_string);
               }
 
               goto LABEL_66;
@@ -8956,7 +8855,7 @@ LABEL_8:
               v9 = *(a1 + 56);
               if (v9 == &google::protobuf::internal::fixed_address_empty_string)
               {
-                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(a1 + 56, &google::protobuf::internal::fixed_address_empty_string);
+                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((a1 + 56), &google::protobuf::internal::fixed_address_empty_string);
               }
 
               goto LABEL_66;
@@ -8970,7 +8869,7 @@ LABEL_8:
               v9 = *(a1 + 64);
               if (v9 == &google::protobuf::internal::fixed_address_empty_string)
               {
-                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(a1 + 64, &google::protobuf::internal::fixed_address_empty_string);
+                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((a1 + 64), &google::protobuf::internal::fixed_address_empty_string);
               }
 
               goto LABEL_66;
@@ -8984,7 +8883,7 @@ LABEL_8:
               v9 = *(a1 + 72);
               if (v9 == &google::protobuf::internal::fixed_address_empty_string)
               {
-                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(a1 + 72, &google::protobuf::internal::fixed_address_empty_string);
+                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((a1 + 72), &google::protobuf::internal::fixed_address_empty_string);
               }
 
               goto LABEL_66;
@@ -8998,7 +8897,7 @@ LABEL_8:
               v9 = *(a1 + 80);
               if (v9 == &google::protobuf::internal::fixed_address_empty_string)
               {
-                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(a1 + 80, &google::protobuf::internal::fixed_address_empty_string);
+                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((a1 + 80), &google::protobuf::internal::fixed_address_empty_string);
               }
 
               goto LABEL_66;
@@ -9048,7 +8947,7 @@ LABEL_42:
               v9 = *(a1 + 88);
               if (v9 == &google::protobuf::internal::fixed_address_empty_string)
               {
-                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(a1 + 88, &google::protobuf::internal::fixed_address_empty_string);
+                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((a1 + 88), &google::protobuf::internal::fixed_address_empty_string);
               }
 
               goto LABEL_66;
@@ -9062,7 +8961,7 @@ LABEL_42:
               v9 = *(a1 + 96);
               if (v9 == &google::protobuf::internal::fixed_address_empty_string)
               {
-                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(a1 + 96, &google::protobuf::internal::fixed_address_empty_string);
+                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((a1 + 96), &google::protobuf::internal::fixed_address_empty_string);
               }
 
               goto LABEL_66;
@@ -9076,7 +8975,7 @@ LABEL_42:
               v9 = *(a1 + 104);
               if (v9 == &google::protobuf::internal::fixed_address_empty_string)
               {
-                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(a1 + 104, &google::protobuf::internal::fixed_address_empty_string);
+                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((a1 + 104), &google::protobuf::internal::fixed_address_empty_string);
               }
 
               goto LABEL_66;
@@ -9090,7 +8989,7 @@ LABEL_42:
               v9 = *(a1 + 112);
               if (v9 == &google::protobuf::internal::fixed_address_empty_string)
               {
-                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(a1 + 112, &google::protobuf::internal::fixed_address_empty_string);
+                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((a1 + 112), &google::protobuf::internal::fixed_address_empty_string);
               }
 
               goto LABEL_66;
@@ -9112,7 +9011,7 @@ LABEL_42:
               v9 = *(a1 + 120);
               if (v9 == &google::protobuf::internal::fixed_address_empty_string)
               {
-                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(a1 + 120, &google::protobuf::internal::fixed_address_empty_string);
+                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((a1 + 120), &google::protobuf::internal::fixed_address_empty_string);
               }
 
               goto LABEL_66;
@@ -9126,7 +9025,7 @@ LABEL_42:
               v9 = *(a1 + 128);
               if (v9 == &google::protobuf::internal::fixed_address_empty_string)
               {
-                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(a1 + 128, &google::protobuf::internal::fixed_address_empty_string);
+                google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((a1 + 128), &google::protobuf::internal::fixed_address_empty_string);
               }
 
 LABEL_66:
@@ -9251,7 +9150,7 @@ LABEL_3:
   return TagFallback;
 }
 
-unsigned __int8 *protobuf::Intelligence_ReferenceResponse::InternalSerializeWithCachedSizesToArray(protobuf::Intelligence_ReferenceResponse *this, char *a2, google::protobuf::io::EpsCopyOutputStream *a3)
+char *protobuf::Intelligence_ReferenceResponse::InternalSerializeWithCachedSizesToArray(protobuf::Intelligence_ReferenceResponse *this, char *a2, google::protobuf::io::EpsCopyOutputStream *a3)
 {
   v4 = a2;
   v6 = *(this + 4);
@@ -9724,9 +9623,8 @@ LABEL_28:
   return v4;
 }
 
-void protobuf::Intelligence_ReferenceResponse::CheckTypeAndMergeFrom(atomic_ullong **this, char **lpsrc)
+void protobuf::Intelligence_ReferenceResponse::CheckTypeAndMergeFrom(protobuf::Intelligence_ReferenceResponse *this, const google::protobuf::MessageLite *lpsrc)
 {
-  v4 = **lpsrc;
   {
     __assert_rtn("down_cast", "casts.h", 92, "f == nullptr || dynamic_cast<To>(f) != nullptr");
   }
@@ -9734,7 +9632,7 @@ void protobuf::Intelligence_ReferenceResponse::CheckTypeAndMergeFrom(atomic_ullo
   protobuf::Intelligence_ReferenceResponse::MergeFrom(this, lpsrc);
 }
 
-void protobuf::Intelligence_ReferenceResponse::MergeFrom(atomic_ullong **this, atomic_ullong **a2)
+void protobuf::Intelligence_ReferenceResponse::MergeFrom(protobuf::Intelligence_ReferenceResponse *this, const protobuf::Intelligence_ReferenceResponse *a2)
 {
   if (a2 == this)
   {
@@ -9744,26 +9642,26 @@ void protobuf::Intelligence_ReferenceResponse::MergeFrom(atomic_ullong **this, a
     google::protobuf::internal::LogMessage::~LogMessage(&v30[0].__r_.__value_.__l.__data_);
   }
 
-  v5 = a2[1];
+  v5 = *(a2 + 1);
   if (v5)
   {
     google::protobuf::internal::InternalMetadataWithArenaLite::DoMergeFrom(this + 1, v5 & 0xFFFFFFFFFFFFFFFELL);
   }
 
-  google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobuf::RepeatedPtrField<std::string>::TypeHandler>((this + 3), (a2 + 3));
+  google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobuf::RepeatedPtrField<std::string>::TypeHandler>(this + 24, a2 + 24);
   v6 = *(a2 + 4);
   if (v6)
   {
     if (v6)
     {
-      v7 = this[6];
+      v7 = *(this + 6);
       *(this + 4) |= 1u;
-      v8 = a2[6];
+      v8 = *(a2 + 6);
       if (v7 != v8)
       {
         if (v7 == &google::protobuf::internal::fixed_address_empty_string)
         {
-          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((this + 6), v8);
+          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 6, v8);
         }
 
         std::string::operator=(v7, v8);
@@ -9772,14 +9670,14 @@ void protobuf::Intelligence_ReferenceResponse::MergeFrom(atomic_ullong **this, a
 
     if ((v6 & 2) != 0)
     {
-      v9 = this[7];
+      v9 = *(this + 7);
       *(this + 4) |= 2u;
-      v10 = a2[7];
+      v10 = *(a2 + 7);
       if (v9 != v10)
       {
         if (v9 == &google::protobuf::internal::fixed_address_empty_string)
         {
-          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((this + 7), v10);
+          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 7, v10);
         }
 
         std::string::operator=(v9, v10);
@@ -9788,14 +9686,14 @@ void protobuf::Intelligence_ReferenceResponse::MergeFrom(atomic_ullong **this, a
 
     if ((v6 & 4) != 0)
     {
-      v11 = this[8];
+      v11 = *(this + 8);
       *(this + 4) |= 4u;
-      v12 = a2[8];
+      v12 = *(a2 + 8);
       if (v11 != v12)
       {
         if (v11 == &google::protobuf::internal::fixed_address_empty_string)
         {
-          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((this + 8), v12);
+          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 8, v12);
         }
 
         std::string::operator=(v11, v12);
@@ -9804,14 +9702,14 @@ void protobuf::Intelligence_ReferenceResponse::MergeFrom(atomic_ullong **this, a
 
     if ((v6 & 8) != 0)
     {
-      v13 = this[9];
+      v13 = *(this + 9);
       *(this + 4) |= 8u;
-      v14 = a2[9];
+      v14 = *(a2 + 9);
       if (v13 != v14)
       {
         if (v13 == &google::protobuf::internal::fixed_address_empty_string)
         {
-          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((this + 9), v14);
+          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 9, v14);
         }
 
         std::string::operator=(v13, v14);
@@ -9820,14 +9718,14 @@ void protobuf::Intelligence_ReferenceResponse::MergeFrom(atomic_ullong **this, a
 
     if ((v6 & 0x10) != 0)
     {
-      v15 = this[10];
+      v15 = *(this + 10);
       *(this + 4) |= 0x10u;
-      v16 = a2[10];
+      v16 = *(a2 + 10);
       if (v15 != v16)
       {
         if (v15 == &google::protobuf::internal::fixed_address_empty_string)
         {
-          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((this + 10), v16);
+          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 10, v16);
         }
 
         std::string::operator=(v15, v16);
@@ -9836,14 +9734,14 @@ void protobuf::Intelligence_ReferenceResponse::MergeFrom(atomic_ullong **this, a
 
     if ((v6 & 0x20) != 0)
     {
-      v17 = this[11];
+      v17 = *(this + 11);
       *(this + 4) |= 0x20u;
-      v18 = a2[11];
+      v18 = *(a2 + 11);
       if (v17 != v18)
       {
         if (v17 == &google::protobuf::internal::fixed_address_empty_string)
         {
-          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((this + 11), v18);
+          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 11, v18);
         }
 
         std::string::operator=(v17, v18);
@@ -9852,14 +9750,14 @@ void protobuf::Intelligence_ReferenceResponse::MergeFrom(atomic_ullong **this, a
 
     if ((v6 & 0x40) != 0)
     {
-      v19 = this[12];
+      v19 = *(this + 12);
       *(this + 4) |= 0x40u;
-      v20 = a2[12];
+      v20 = *(a2 + 12);
       if (v19 != v20)
       {
         if (v19 == &google::protobuf::internal::fixed_address_empty_string)
         {
-          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((this + 12), v20);
+          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 12, v20);
         }
 
         std::string::operator=(v19, v20);
@@ -9868,14 +9766,14 @@ void protobuf::Intelligence_ReferenceResponse::MergeFrom(atomic_ullong **this, a
 
     if ((v6 & 0x80) != 0)
     {
-      v21 = this[13];
+      v21 = *(this + 13);
       *(this + 4) |= 0x80u;
-      v22 = a2[13];
+      v22 = *(a2 + 13);
       if (v21 != v22)
       {
         if (v21 == &google::protobuf::internal::fixed_address_empty_string)
         {
-          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((this + 13), v22);
+          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 13, v22);
         }
 
         std::string::operator=(v21, v22);
@@ -9887,14 +9785,14 @@ void protobuf::Intelligence_ReferenceResponse::MergeFrom(atomic_ullong **this, a
   {
     if ((v6 & 0x100) != 0)
     {
-      v23 = this[14];
+      v23 = *(this + 14);
       *(this + 4) |= 0x100u;
-      v24 = a2[14];
+      v24 = *(a2 + 14);
       if (v23 != v24)
       {
         if (v23 == &google::protobuf::internal::fixed_address_empty_string)
         {
-          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((this + 14), v24);
+          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 14, v24);
         }
 
         std::string::operator=(v23, v24);
@@ -9903,14 +9801,14 @@ void protobuf::Intelligence_ReferenceResponse::MergeFrom(atomic_ullong **this, a
 
     if ((v6 & 0x200) != 0)
     {
-      v25 = this[15];
+      v25 = *(this + 15);
       *(this + 4) |= 0x200u;
-      v26 = a2[15];
+      v26 = *(a2 + 15);
       if (v25 != v26)
       {
         if (v25 == &google::protobuf::internal::fixed_address_empty_string)
         {
-          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((this + 15), v26);
+          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 15, v26);
         }
 
         std::string::operator=(v25, v26);
@@ -9919,14 +9817,14 @@ void protobuf::Intelligence_ReferenceResponse::MergeFrom(atomic_ullong **this, a
 
     if ((v6 & 0x400) != 0)
     {
-      v27 = this[16];
+      v27 = *(this + 16);
       *(this + 4) |= 0x400u;
-      v28 = a2[16];
+      v28 = *(a2 + 16);
       if (v27 != v28)
       {
         if (v27 == &google::protobuf::internal::fixed_address_empty_string)
         {
-          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((this + 16), v28);
+          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 16, v28);
         }
 
         std::string::operator=(v27, v28);

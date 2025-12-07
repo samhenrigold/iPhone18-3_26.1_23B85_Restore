@@ -344,20 +344,20 @@ LABEL_14:
   height = size.height;
   width = size.width;
   [AKGeometryHelper adjustOriginalExifOrientationOnAnnotation:self flatteningOriginalModelExif:orientation];
-  [AKGeometryHelper affineTransformFlatteningOriginalModelExif:orientation withOriginalModelSize:width, height];
+  objc_msgSend_affineTransformFlatteningOriginalModelExif_withOriginalModelSize_(AKGeometryHelper, width, height);
   [(AKArrowAnnotation *)self startPoint];
-  v9 = v8;
-  v11 = v10;
+  v8 = v7;
+  v10 = v9;
   [(AKArrowAnnotation *)self endPoint];
-  v13 = v12;
-  v15 = v14;
+  v12 = v11;
+  v14 = v13;
   [(AKArrowAnnotation *)self midPoint];
-  v16 = v11 * 0.0 + 0.0 * v9 + 0.0;
-  v17 = v15 * 0.0 + 0.0 * v13 + 0.0;
-  v20 = v18 * 0.0 + 0.0 * v19 + 0.0;
-  [(AKArrowAnnotation *)self setStartPoint:v16, v16];
-  [(AKArrowAnnotation *)self setEndPoint:v17, v17];
-  [(AKArrowAnnotation *)self setMidPoint:v20, v20];
+  v15 = v10 * 0.0 + 0.0 * v8 + 0.0;
+  v16 = v14 * 0.0 + 0.0 * v12 + 0.0;
+  v19 = v17 * 0.0 + 0.0 * v18 + 0.0;
+  [(AKArrowAnnotation *)self setStartPoint:v15, v15];
+  [(AKArrowAnnotation *)self setEndPoint:v16, v16];
+  [(AKArrowAnnotation *)self setMidPoint:v19, v19];
 }
 
 - (void)translateBy:(CGPoint)by

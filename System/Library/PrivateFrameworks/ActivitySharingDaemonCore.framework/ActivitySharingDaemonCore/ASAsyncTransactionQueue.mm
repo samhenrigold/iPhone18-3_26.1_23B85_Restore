@@ -27,7 +27,7 @@
 
 - (void)performTransaction:(id)transaction
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   transactionCopy = transaction;
   uUID = [MEMORY[0x277CCAD78] UUID];
   uUIDString = [uUID UUIDString];
@@ -38,30 +38,28 @@
   {
     description = self->_description;
     *buf = 138543618;
-    v17 = description;
-    v18 = 2114;
-    v19 = uUIDString;
+    v16 = description;
+    v17 = 2114;
+    v18 = uUIDString;
     _os_log_impl(&dword_23E5E3000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Transaction created with identifier: %{public}@", buf, 0x16u);
   }
 
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __46__ASAsyncTransactionQueue_performTransaction___block_invoke;
-  v13[3] = &unk_278C4BA30;
-  v13[4] = self;
-  v14 = uUIDString;
-  v15 = transactionCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __46__ASAsyncTransactionQueue_performTransaction___block_invoke;
+  v12[3] = &unk_278C4BA30;
+  v12[4] = self;
+  v13 = uUIDString;
+  v14 = transactionCopy;
   v9 = transactionCopy;
   v10 = uUIDString;
-  v11 = MEMORY[0x23EF0EB00](v13);
+  v11 = MEMORY[0x23EF0EB00](v12);
   dispatch_async(self->_lockingQueue, v11);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __46__ASAsyncTransactionQueue_performTransaction___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   ASLoggingInitialize();
   v2 = MEMORY[0x277CE8FE8];
   v3 = *MEMORY[0x277CE8FE8];
@@ -70,23 +68,23 @@ void __46__ASAsyncTransactionQueue_performTransaction___block_invoke(uint64_t a1
     v4 = *(a1 + 40);
     v5 = *(*(a1 + 32) + 24);
     *buf = 138543618;
-    v23 = v5;
-    v24 = 2114;
-    v25 = v4;
+    v22 = v5;
+    v23 = 2114;
+    v24 = v4;
     _os_log_impl(&dword_23E5E3000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] Transaction starting, identifier: %{public}@", buf, 0x16u);
   }
 
   v6 = dispatch_semaphore_create(0);
   v7 = [MEMORY[0x277D10678] transactionWithOwner:*(a1 + 32) activityName:*(*(a1 + 32) + 24)];
   v8 = *(*(a1 + 32) + 16);
-  v16 = MEMORY[0x277D85DD0];
-  v17 = 3221225472;
-  v18 = __46__ASAsyncTransactionQueue_performTransaction___block_invoke_296;
-  v19 = &unk_278C4BDC8;
-  v21 = *(a1 + 48);
+  v15 = MEMORY[0x277D85DD0];
+  v16 = 3221225472;
+  v17 = __46__ASAsyncTransactionQueue_performTransaction___block_invoke_296;
+  v18 = &unk_278C4BDC8;
+  v20 = *(a1 + 48);
   v9 = v6;
-  v20 = v9;
-  dispatch_async(v8, &v16);
+  v19 = v9;
+  dispatch_async(v8, &v15);
   v10 = dispatch_time(0, 600000000000);
   if (dispatch_semaphore_wait(v9, v10))
   {
@@ -106,13 +104,11 @@ void __46__ASAsyncTransactionQueue_performTransaction___block_invoke(uint64_t a1
     v13 = *(a1 + 40);
     v14 = *(*(a1 + 32) + 24);
     *buf = 138543618;
-    v23 = v14;
-    v24 = 2114;
-    v25 = v13;
+    v22 = v14;
+    v23 = 2114;
+    v24 = v13;
     _os_log_impl(&dword_23E5E3000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@] Transaction finished, identifier: %{public}@", buf, 0x16u);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __46__ASAsyncTransactionQueue_performTransaction___block_invoke_296(uint64_t a1)
@@ -128,15 +124,14 @@ void __46__ASAsyncTransactionQueue_performTransaction___block_invoke_296(uint64_
 
 void __46__ASAsyncTransactionQueue_performTransaction___block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = *(*a1 + 24);
   v4 = *(a2 + 40);
-  v6 = 138543618;
-  v7 = v3;
-  v8 = 2114;
-  v9 = v4;
-  _os_log_error_impl(&dword_23E5E3000, log, OS_LOG_TYPE_ERROR, "[%{public}@] Transaction lock operation timed out! identifier: %{public}@", &v6, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138543618;
+  v6 = v3;
+  v7 = 2114;
+  v8 = v4;
+  _os_log_error_impl(&dword_23E5E3000, log, OS_LOG_TYPE_ERROR, "[%{public}@] Transaction lock operation timed out! identifier: %{public}@", &v5, 0x16u);
 }
 
 @end

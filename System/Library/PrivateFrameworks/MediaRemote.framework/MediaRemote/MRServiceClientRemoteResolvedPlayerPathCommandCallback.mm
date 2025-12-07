@@ -5,7 +5,7 @@
 
 void ___MRServiceClientRemoteResolvedPlayerPathCommandCallback_block_invoke(void *a1, void *a2)
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = a1[4];
   v5 = _MRLogForCategory(0xAuLL);
@@ -20,12 +20,12 @@ void ___MRServiceClientRemoteResolvedPlayerPathCommandCallback_block_invoke(void
         v23 = a1[6];
         v10 = [MEMORY[0x1E695DF00] date];
         [v10 timeIntervalSinceDate:a1[7]];
-        v32 = 138543874;
-        v33 = v22;
-        v34 = 2114;
-        v35 = v23;
-        v36 = 2048;
-        v37 = v24;
+        v31 = 138543874;
+        v32 = v22;
+        v33 = 2114;
+        v34 = v23;
+        v35 = 2048;
+        v36 = v24;
         v12 = "Response: %{public}@<%{public}@> returned in %.4lf seconds";
         v13 = v5;
         v14 = 32;
@@ -45,14 +45,14 @@ void ___MRServiceClientRemoteResolvedPlayerPathCommandCallback_block_invoke(void
     v17 = a1[4];
     v10 = [MEMORY[0x1E695DF00] date];
     [v10 timeIntervalSinceDate:a1[7]];
-    v32 = 138544130;
-    v33 = v16;
-    v34 = 2114;
-    v35 = v15;
-    v36 = 2114;
-    v37 = v17;
-    v38 = 2048;
-    v39 = v18;
+    v31 = 138544130;
+    v32 = v16;
+    v33 = 2114;
+    v34 = v15;
+    v35 = 2114;
+    v36 = v17;
+    v37 = 2048;
+    v38 = v18;
     v12 = "Response: %{public}@<%{public}@> returned for %{public}@ in %.4lf seconds";
 LABEL_10:
     v13 = v5;
@@ -71,14 +71,14 @@ LABEL_10:
     v20 = a1[6];
     v10 = [MEMORY[0x1E695DF00] date];
     [v10 timeIntervalSinceDate:a1[7]];
-    v32 = 138544130;
-    v33 = v19;
-    v34 = 2114;
-    v35 = v20;
-    v36 = 2112;
-    v37 = v3;
-    v38 = 2048;
-    v39 = v21;
+    v31 = 138544130;
+    v32 = v19;
+    v33 = 2114;
+    v34 = v20;
+    v35 = 2112;
+    v36 = v3;
+    v37 = 2048;
+    v38 = v21;
     v12 = "Response: %{public}@<%{public}@> returned <%@> in %.4lf seconds";
     goto LABEL_10;
   }
@@ -90,27 +90,26 @@ LABEL_10:
     v9 = a1[4];
     v10 = [MEMORY[0x1E695DF00] date];
     [v10 timeIntervalSinceDate:a1[7]];
-    v32 = 138544386;
-    v33 = v8;
-    v34 = 2114;
-    v35 = v7;
-    v36 = 2112;
-    v37 = v3;
-    v38 = 2114;
-    v39 = v9;
-    v40 = 2048;
-    v41 = v11;
+    v31 = 138544386;
+    v32 = v8;
+    v33 = 2114;
+    v34 = v7;
+    v35 = 2112;
+    v36 = v3;
+    v37 = 2114;
+    v38 = v9;
+    v39 = 2048;
+    v40 = v11;
     v12 = "Response: %{public}@<%{public}@> returned <%@> for %{public}@ in %.4lf seconds";
     v13 = v5;
     v14 = 52;
 LABEL_13:
-    _os_log_impl(&dword_1A2860000, v13, OS_LOG_TYPE_DEFAULT, v12, &v32, v14);
+    _os_log_impl(&dword_1A2860000, v13, OS_LOG_TYPE_DEFAULT, v12, &v31, v14);
   }
 
 LABEL_14:
 
   (*(a1[8] + 16))(a1[8], v3, v25, v26, v27, v28, v29, v30);
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t ___MRServiceClientRemoteResolvedPlayerPathCommandCallback_block_invoke_70(uint64_t a1)
@@ -125,27 +124,27 @@ uint64_t ___MRServiceClientRemoteResolvedPlayerPathCommandCallback_block_invoke_
   return v2();
 }
 
-void ___MRServiceClientRemoteResolvedPlayerPathCommandCallback_block_invoke_2(void *a1)
+void ___MRServiceClientRemoteResolvedPlayerPathCommandCallback_block_invoke_2(uint64_t a1)
 {
-  v2 = _MRLogForCategory(0);
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v1 = _MRLogForCategory(0);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    ___MRServiceClientOriginCommandCallback_block_invoke_2_cold_1(a1);
+    ___MRServiceClientOriginCommandCallback_block_invoke_2_cold_1();
   }
 }
 
-void ___MRServiceClientRemoteResolvedPlayerPathCommandCallback_block_invoke_74(void *a1)
+void ___MRServiceClientRemoteResolvedPlayerPathCommandCallback_block_invoke_74(uint64_t a1)
 {
-  v2 = _MRLogForCategory(0);
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v1 = _MRLogForCategory(0);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    ___MRServiceClientOriginCommandCallback_block_invoke_2_cold_1(a1);
+    ___MRServiceClientOriginCommandCallback_block_invoke_2_cold_1();
   }
 
-  v3 = _MRLogForCategory(0);
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+  v2 = _MRLogForCategory(0);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
   {
-    ___MRServiceClientOriginCommandCallback_block_invoke_64_cold_2(a1);
+    ___MRServiceClientOriginCommandCallback_block_invoke_64_cold_2();
   }
 }
 

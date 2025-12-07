@@ -92,32 +92,32 @@
 
 - (BOOL)_setFolderByIdCacheFromCurrentCache
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v3 = [(NSMutableDictionary *)self->_folderCache objectForKeyedSubscript:@"ASFolders"];
   v4 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(v3, "count")}];
   folderByIdCache = self->_folderByIdCache;
   self->_folderByIdCache = v4;
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   v6 = v3;
-  v7 = [v6 countByEnumeratingWithState:&v27 objects:v37 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v26 objects:v36 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v28;
+    v9 = *v27;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v28 != v9)
+        if (*v27 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v27 + 1) + 8 * i);
+        v11 = *(*(&v26 + 1) + 8 * i);
         serverID = [v11 serverID];
         if (serverID)
         {
@@ -136,11 +136,11 @@
               serverID3 = [v11 serverID];
               parentID2 = [v11 parentID];
               *buf = 138412802;
-              v32 = v22;
-              v33 = 2112;
-              v34 = serverID3;
-              v35 = 2112;
-              v36 = parentID2;
+              v31 = v22;
+              v32 = 2112;
+              v33 = serverID3;
+              v34 = 2112;
+              v35 = parentID2;
               _os_log_impl(&dword_24A0AC000, v20, v21, "Discarding folder in cache [%@] with the same server ID [%@] and parent ID [%@]", buf, 0x20u);
             }
 
@@ -154,7 +154,7 @@
         [(NSMutableDictionary *)v17 setObject:v11 forKeyedSubscript:serverID4];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v27 objects:v37 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v26 objects:v36 count:16];
       if (v8)
       {
         continue;
@@ -167,13 +167,12 @@
   v19 = 1;
 LABEL_14:
 
-  v25 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
 - (id)_deviceIdInCache
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   _folderCacheFilename = [(ASFolderHierarchy *)self _folderCacheFilename];
   stringByExpandingTildeInPath = [_folderCacheFilename stringByExpandingTildeInPath];
 
@@ -182,9 +181,9 @@ LABEL_14:
 
   if (v5 && (v6 = open([stringByExpandingTildeInPath fileSystemRepresentation], 0), (v6 & 0x80000000) == 0) && (v7 = v6, flockWithProcessAssertion(), v8 = objc_msgSend(objc_alloc(MEMORY[0x277CBEA90]), "initWithContentsOfFile:", stringByExpandingTildeInPath), flockWithProcessAssertion(), close(v7), v8))
   {
-    v16 = 0;
-    v9 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:v8 error:&v16];
-    v10 = v16;
+    v15 = 0;
+    v9 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:v8 error:&v15];
+    v10 = v15;
     if (!v9)
     {
       v11 = DALoggingwithCategory();
@@ -192,7 +191,7 @@ LABEL_14:
       if (os_log_type_enabled(v11, v12))
       {
         *buf = 138412290;
-        v18 = v10;
+        v17 = v10;
         _os_log_impl(&dword_24A0AC000, v11, v12, "Unable to read data to decode deviceId: %@", buf, 0xCu);
       }
     }
@@ -205,14 +204,12 @@ LABEL_14:
     v13 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
 - (id)folderCache
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   folderCache = self->_folderCache;
   if (!folderCache)
   {
@@ -239,11 +236,11 @@ LABEL_14:
         v31 = __error();
         v32 = strerror(*v31);
         *buf = 138412802;
-        v51 = v29;
-        v52 = 2112;
-        v53 = stringByExpandingTildeInPath;
-        v54 = 2080;
-        v55 = v32;
+        v50 = v29;
+        v51 = 2112;
+        v52 = stringByExpandingTildeInPath;
+        v53 = 2080;
+        v54 = v32;
         _os_log_impl(&dword_24A0AC000, v10, v28, "%@ couldn't open file for reading %@ %s", buf, 0x20u);
       }
 
@@ -263,9 +260,9 @@ LABEL_38:
       goto LABEL_39;
     }
 
-    v49 = 0;
-    v11 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:v10 error:&v49];
-    v46 = v49;
+    v48 = 0;
+    v11 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:v10 error:&v48];
+    v45 = v48;
     if (!v11)
     {
       v12 = DALoggingwithCategory();
@@ -273,13 +270,13 @@ LABEL_38:
       if (os_log_type_enabled(v12, v13))
       {
         *buf = 138412290;
-        v51 = v46;
+        v50 = v45;
         _os_log_impl(&dword_24A0AC000, v12, v13, "Unable to read data to decode folder cache: %@", buf, 0xCu);
       }
     }
 
-    v48 = [v11 decodeObjectOfClass:objc_opt_class() forKey:@"deviceId"];
-    v47 = [v11 decodeObjectOfClass:objc_opt_class() forKey:@"deviceType"];
+    v47 = [v11 decodeObjectOfClass:objc_opt_class() forKey:@"deviceId"];
+    v46 = [v11 decodeObjectOfClass:objc_opt_class() forKey:@"deviceType"];
     WeakRetained = objc_loadWeakRetained(&self->_account);
     taskManager = [WeakRetained taskManager];
     deviceType = [taskManager deviceType];
@@ -296,7 +293,7 @@ LABEL_38:
 
     if (self->_folderCache && [(ASFolderHierarchy *)self _setFolderByIdCacheFromCurrentCache])
     {
-      if (v48 && (asDeviceID(), v25 = objc_claimAutoreleasedReturnValue(), v26 = [v48 isEqualToString:v25], v25, (v26 & 1) != 0))
+      if (v47 && (asDeviceID(), v25 = objc_claimAutoreleasedReturnValue(), v26 = [v47 isEqualToString:v25], v25, (v26 & 1) != 0))
       {
         v27 = 0;
       }
@@ -309,25 +306,25 @@ LABEL_38:
         {
           v35 = asDeviceID();
           *buf = 138412546;
-          v51 = v48;
-          v52 = 2112;
-          v53 = v35;
+          v50 = v47;
+          v51 = 2112;
+          v52 = v35;
           _os_log_impl(&dword_24A0AC000, v33, v34, "Found an outdated deviceId %@ in folder hierarchy (compared to current device id of %@)", buf, 0x16u);
         }
 
         v27 = 1;
       }
 
-      if (v47 && deviceType && ([deviceType isEqualToString:v47] & 1) == 0)
+      if (v46 && deviceType && ([deviceType isEqualToString:v46] & 1) == 0)
       {
         v36 = DALoggingwithCategory();
         v37 = *(MEMORY[0x277D03988] + 6);
         if (os_log_type_enabled(v36, v37))
         {
           *buf = 138412546;
-          v51 = v47;
-          v52 = 2112;
-          v53 = deviceType;
+          v50 = v46;
+          v51 = 2112;
+          v52 = deviceType;
           _os_log_impl(&dword_24A0AC000, v36, v37, "Found an outdated deviceType %@ in the folder hierarchy (compared to current device type of %@)", buf, 0x16u);
         }
       }
@@ -378,7 +375,6 @@ LABEL_37:
   }
 
 LABEL_39:
-  v44 = *MEMORY[0x277D85DE8];
 
   return folderCache;
 }
@@ -434,33 +430,33 @@ LABEL_39:
 
 - (void)_setFolderPathsFromCurrentCache
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   folderCache = [(ASFolderHierarchy *)self folderCache];
   v4 = [(NSMutableDictionary *)self->_folderCache objectForKeyedSubscript:@"FoldersExternalClientsCareAboutKey"];
   v5 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v4, "count")}];
   v6 = objc_autoreleasePoolPush();
   v7 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(v4, "count")}];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v8 = v4;
-  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v17;
+    v11 = *v16;
     do
     {
       v12 = 0;
       do
       {
-        if (*v17 != v11)
+        if (*v16 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = [(NSMutableDictionary *)self->_folderByIdCache objectForKeyedSubscript:*(*(&v16 + 1) + 8 * v12), v16];
+        v13 = [(NSMutableDictionary *)self->_folderByIdCache objectForKeyedSubscript:*(*(&v15 + 1) + 8 * v12), v15];
         v14 = [(ASFolderHierarchy *)self _pathForFolder:v13 usingCache:v7 foldersById:self->_folderByIdCache];
 
         if (v14)
@@ -472,7 +468,7 @@ LABEL_39:
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v10);
@@ -480,42 +476,40 @@ LABEL_39:
 
   objc_autoreleasePoolPop(v6);
   [(ASFolderHierarchy *)self _setSavedFolderPathsThatExternalClientsCareAbout:v5];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)foldersUnderFolderWithID:(id)d
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   dCopy = d;
   array = [MEMORY[0x277CBEB18] array];
   folders = [(ASFolderHierarchy *)self folders];
   v6 = [(ASFolderHierarchy *)self folderForID:dCopy];
   if (v6)
   {
-    v20 = dCopy;
+    v19 = dCopy;
     [array addObject:v6];
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
-    v19 = folders;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
+    v18 = folders;
     v7 = folders;
-    v8 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v23;
+      v10 = *v22;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v23 != v10)
+          if (*v22 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v22 + 1) + 8 * i);
+          v12 = *(*(&v21 + 1) + 8 * i);
           if (v12)
           {
             v13 = v12;
@@ -551,29 +545,27 @@ LABEL_16:
           ;
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v9);
     }
 
-    folders = v19;
-    dCopy = v20;
+    folders = v18;
+    dCopy = v19;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return array;
 }
 
 - (id)_pathForFolder:(id)folder usingCache:(id)cache foldersById:(id)id
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   folderCopy = folder;
   cacheCopy = cache;
   idCopy = id;
   serverID = [folderCopy serverID];
-  v39 = cacheCopy;
+  v38 = cacheCopy;
   v11 = [cacheCopy objectForKeyedSubscript:serverID];
 
   if (v11)
@@ -587,9 +579,9 @@ LABEL_16:
     if (displayName)
     {
       parentID = [folderCopy parentID];
-      v15 = [v39 objectForKeyedSubscript:parentID];
+      v15 = [v38 objectForKeyedSubscript:parentID];
       v16 = objc_opt_new();
-      v38 = folderCopy;
+      v37 = folderCopy;
       if (parentID)
       {
         while (([parentID isEqualToString:@"0"] & 1) == 0 && !v15)
@@ -598,7 +590,7 @@ LABEL_16:
           v17 = [idCopy objectForKeyedSubscript:parentID];
           parentID2 = [v17 parentID];
 
-          v15 = [v39 objectForKeyedSubscript:parentID2];
+          v15 = [v38 objectForKeyedSubscript:parentID2];
           parentID = parentID2;
           if (!parentID2)
           {
@@ -606,37 +598,37 @@ LABEL_16:
           }
         }
 
-        v36 = parentID;
+        v35 = parentID;
       }
 
       else
       {
 LABEL_8:
-        v36 = 0;
+        v35 = 0;
       }
 
-      v37 = displayName;
-      v42 = 0u;
-      v43 = 0u;
-      v40 = 0u;
+      v36 = displayName;
       v41 = 0u;
-      v35 = v16;
+      v42 = 0u;
+      v39 = 0u;
+      v40 = 0u;
+      v34 = v16;
       reverseObjectEnumerator = [v16 reverseObjectEnumerator];
-      v20 = [reverseObjectEnumerator countByEnumeratingWithState:&v40 objects:v44 count:16];
+      v20 = [reverseObjectEnumerator countByEnumeratingWithState:&v39 objects:v43 count:16];
       if (v20)
       {
         v21 = v20;
-        v22 = *v41;
+        v22 = *v40;
         do
         {
           for (i = 0; i != v21; ++i)
           {
-            if (*v41 != v22)
+            if (*v40 != v22)
             {
               objc_enumerationMutation(reverseObjectEnumerator);
             }
 
-            v24 = *(*(&v40 + 1) + 8 * i);
+            v24 = *(*(&v39 + 1) + 8 * i);
             v25 = [idCopy objectForKeyedSubscript:v24];
             v26 = v25;
             if (v25)
@@ -655,31 +647,31 @@ LABEL_8:
                 v15 = [displayName2 copy];
               }
 
-              [v39 setObject:v15 forKeyedSubscript:v24];
+              [v38 setObject:v15 forKeyedSubscript:v24];
             }
           }
 
-          v21 = [reverseObjectEnumerator countByEnumeratingWithState:&v40 objects:v44 count:16];
+          v21 = [reverseObjectEnumerator countByEnumeratingWithState:&v39 objects:v43 count:16];
         }
 
         while (v21);
       }
 
-      displayName = v37;
+      displayName = v36;
       if (v15)
       {
-        v30 = [v15 stringByAppendingFormat:@"/%@", v37];
+        v30 = [v15 stringByAppendingFormat:@"/%@", v36];
       }
 
       else
       {
-        v30 = v37;
+        v30 = v36;
       }
 
       v31 = v30;
-      folderCopy = v38;
-      serverID2 = [v38 serverID];
-      [v39 setObject:v31 forKeyedSubscript:serverID2];
+      folderCopy = v37;
+      serverID2 = [v37 serverID];
+      [v38 setObject:v31 forKeyedSubscript:serverID2];
 
       v12 = v31;
     }
@@ -690,14 +682,12 @@ LABEL_8:
     }
   }
 
-  v33 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
 - (void)_identityMatchAndSetFoldersThatExternalClientsCareAbout:(id)about
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   aboutCopy = about;
   v5 = DALoggingwithCategory();
   v6 = *(MEMORY[0x277D03988] + 6);
@@ -712,26 +702,26 @@ LABEL_8:
     v7 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(aboutCopy, "count")}];
     context = objc_autoreleasePoolPush();
     v8 = objc_opt_new();
+    v29 = 0u;
     v30 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v33 = 0u;
     folders = [(ASFolderHierarchy *)self folders];
-    v10 = [folders countByEnumeratingWithState:&v30 objects:v36 count:16];
+    v10 = [folders countByEnumeratingWithState:&v29 objects:v35 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v31;
+      v12 = *v30;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v31 != v12)
+          if (*v30 != v12)
           {
             objc_enumerationMutation(folders);
           }
 
-          v14 = *(*(&v30 + 1) + 8 * i);
+          v14 = *(*(&v29 + 1) + 8 * i);
           v15 = [(ASFolderHierarchy *)self _pathForFolder:v14 usingCache:v8 foldersById:self->_folderByIdCache];
           if (v15)
           {
@@ -739,7 +729,7 @@ LABEL_8:
           }
         }
 
-        v11 = [folders countByEnumeratingWithState:&v30 objects:v36 count:16];
+        v11 = [folders countByEnumeratingWithState:&v29 objects:v35 count:16];
       }
 
       while (v11);
@@ -747,26 +737,26 @@ LABEL_8:
 
     objc_autoreleasePoolPop(context);
     v16 = [objc_alloc(MEMORY[0x277CBEB58]) initWithCapacity:{objc_msgSend(aboutCopy, "count")}];
+    v25 = 0u;
     v26 = 0u;
     v27 = 0u;
     v28 = 0u;
-    v29 = 0u;
     v17 = aboutCopy;
-    v18 = [v17 countByEnumeratingWithState:&v26 objects:v35 count:16];
+    v18 = [v17 countByEnumeratingWithState:&v25 objects:v34 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v27;
+      v20 = *v26;
       do
       {
         for (j = 0; j != v19; ++j)
         {
-          if (*v27 != v20)
+          if (*v26 != v20)
           {
             objc_enumerationMutation(v17);
           }
 
-          v22 = [v7 objectForKeyedSubscript:*(*(&v26 + 1) + 8 * j)];
+          v22 = [v7 objectForKeyedSubscript:*(*(&v25 + 1) + 8 * j)];
           serverID = [v22 serverID];
 
           if (serverID)
@@ -775,7 +765,7 @@ LABEL_8:
           }
         }
 
-        v19 = [v17 countByEnumeratingWithState:&v26 objects:v35 count:16];
+        v19 = [v17 countByEnumeratingWithState:&v25 objects:v34 count:16];
       }
 
       while (v19);
@@ -783,8 +773,6 @@ LABEL_8:
 
     [(ASFolderHierarchy *)self setFolderIdsThatExternalClientsCareAbout:v16];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_blowAwayFolderCacheWithoutSavingOldFolderPaths
@@ -805,33 +793,33 @@ LABEL_8:
 
 - (void)_pruneBadFolderIdsThatExternalClientsCareAbout
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = [(NSMutableDictionary *)self->_folderCache objectForKeyedSubscript:@"FoldersExternalClientsCareAboutKey"];
   v4 = v3;
   if (v3)
   {
     v5 = [v3 mutableCopy];
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     v6 = v4;
-    v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v15;
+      v9 = *v14;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v14 + 1) + 8 * i);
-          v12 = [(NSMutableDictionary *)self->_folderByIdCache objectForKeyedSubscript:v11, v14];
+          v11 = *(*(&v13 + 1) + 8 * i);
+          v12 = [(NSMutableDictionary *)self->_folderByIdCache objectForKeyedSubscript:v11, v13];
 
           if (!v12)
           {
@@ -839,7 +827,7 @@ LABEL_8:
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v8);
@@ -847,13 +835,11 @@ LABEL_8:
 
     [(NSMutableDictionary *)self->_folderCache setObject:v5 forKeyedSubscript:@"FoldersExternalClientsCareAboutKey"];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setFolderCache:(id)cache
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   cacheCopy = cache;
   if (self->_folderCache != cacheCopy)
   {
@@ -895,11 +881,11 @@ LABEL_8:
           v20 = __error();
           v21 = strerror(*v20);
           *buf = 138412802;
-          v24 = v18;
-          v25 = 2112;
-          v26 = _folderCacheFilename;
-          v27 = 2080;
-          v28 = v21;
+          v23 = v18;
+          v24 = 2112;
+          v25 = _folderCacheFilename;
+          v26 = 2080;
+          v27 = v21;
           _os_log_impl(&dword_24A0AC000, v16, v17, "%@ couldn't open file for writing to %@ %s", buf, 0x20u);
         }
       }
@@ -919,8 +905,6 @@ LABEL_8:
       [(ASFolderHierarchy *)self _blowAwayFolderCacheWithoutSavingOldFolderPaths];
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setFolderCache:(id)cache
@@ -937,7 +921,7 @@ LABEL_8:
 
 + (void)cleanUpFilesForAccountWithId:(id)id
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   idCopy = id;
   v5 = [self _folderCacheFilenameWithId:idCopy];
   v6 = v5;
@@ -954,13 +938,13 @@ LABEL_8:
         v13 = v12;
         v14 = __error();
         v15 = strerror(*v14);
-        v17 = 138412802;
-        v18 = v12;
-        v19 = 2112;
-        v20 = v6;
-        v21 = 2080;
-        v22 = v15;
-        _os_log_impl(&dword_24A0AC000, v10, v11, "%@ couldn't open file for deletion %@ %s", &v17, 0x20u);
+        v16 = 138412802;
+        v17 = v12;
+        v18 = 2112;
+        v19 = v6;
+        v20 = 2080;
+        v21 = v15;
+        _os_log_impl(&dword_24A0AC000, v10, v11, "%@ couldn't open file for deletion %@ %s", &v16, 0x20u);
       }
     }
 
@@ -975,8 +959,6 @@ LABEL_8:
       close(v8);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)folderIdsThatExternalClientsCareAbout
@@ -989,7 +971,7 @@ LABEL_8:
 
 - (id)folderIdsThatExternalClientsCareAboutForDataclasses:(int64_t)dataclasses
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   folderIdsThatExternalClientsCareAbout = [(ASFolderHierarchy *)self folderIdsThatExternalClientsCareAbout];
   v6 = folderIdsThatExternalClientsCareAbout;
   if (dataclasses == 127 || !folderIdsThatExternalClientsCareAbout)
@@ -1000,27 +982,27 @@ LABEL_8:
   else
   {
     v7 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(folderIdsThatExternalClientsCareAbout, "count")}];
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
     v8 = v6;
-    v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v19;
+      v11 = *v18;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v19 != v11)
+          if (*v18 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v18 + 1) + 8 * i);
-          v14 = [(ASFolderHierarchy *)self folderForID:v13, v18];
+          v13 = *(*(&v17 + 1) + 8 * i);
+          v14 = [(ASFolderHierarchy *)self folderForID:v13, v17];
           v15 = v14;
           if (v14 && ([v14 dataclass] & dataclasses) != 0)
           {
@@ -1028,14 +1010,12 @@ LABEL_8:
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v10);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -1092,7 +1072,7 @@ LABEL_8:
 
 - (id)folderIdsForPersistentPushForDataclasses:(int64_t)dataclasses clientID:(id)d
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v6 = [(ASFolderHierarchy *)self folderIdsForPersistentPushForClientID:d];
   v7 = v6;
   if (dataclasses == 127 || !v6)
@@ -1103,27 +1083,27 @@ LABEL_8:
   else
   {
     v8 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(v6, "count")}];
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     v9 = v7;
-    v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v20;
+      v12 = *v19;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v20 != v12)
+          if (*v19 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v19 + 1) + 8 * i);
-          v15 = [(ASFolderHierarchy *)self folderForID:v14, v19];
+          v14 = *(*(&v18 + 1) + 8 * i);
+          v15 = [(ASFolderHierarchy *)self folderForID:v14, v18];
           v16 = v15;
           if (v15 && ([v15 dataclass] & dataclasses) != 0)
           {
@@ -1131,14 +1111,12 @@ LABEL_8:
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v11);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

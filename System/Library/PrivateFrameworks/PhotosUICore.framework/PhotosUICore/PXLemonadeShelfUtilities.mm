@@ -7,7 +7,7 @@
 - (_TtC12PhotosUICore24PXLemonadeShelfUtilities)init
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for PXLemonadeShelfUtilities();
+  v3.super_class = type metadata accessor for PXLemonadeShelfUtilities(self, a2);
   return [(PXLemonadeShelfUtilities *)&v3 init];
 }
 

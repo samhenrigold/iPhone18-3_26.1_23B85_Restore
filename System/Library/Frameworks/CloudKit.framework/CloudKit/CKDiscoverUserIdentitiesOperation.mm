@@ -53,7 +53,7 @@
 - (void)setUserIdentityDiscoveredBlock:(void *)userIdentityDiscoveredBlock
 {
   v6 = userIdentityDiscoveredBlock;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -84,7 +84,7 @@ LABEL_9:
 
 - (void)userIdentityDiscoveredBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -121,7 +121,7 @@ LABEL_9:
 - (void)setDiscoverUserIdentitiesCompletionBlock:(void *)discoverUserIdentitiesCompletionBlock
 {
   v6 = discoverUserIdentitiesCompletionBlock;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -152,7 +152,7 @@ LABEL_9:
 
 - (void)discoverUserIdentitiesCompletionBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -210,28 +210,28 @@ LABEL_9:
 
 - (BOOL)CKOperationShouldRun:(id *)run
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   v5 = objc_msgSend_userIdentityLookupInfos(self, a2, run);
-  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v29, v33, 16);
+  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v28, v32, 16);
   if (v7)
   {
     v8 = v7;
-    v9 = *v30;
+    v9 = *v29;
     while (2)
     {
       v10 = 0;
       do
       {
-        if (*v30 != v9)
+        if (*v29 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v29 + 1) + 8 * v10);
+        v11 = *(*(&v28 + 1) + 8 * v10);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
@@ -249,7 +249,7 @@ LABEL_9:
       }
 
       while (v8 != v10);
-      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v12, &v29, v33, 16);
+      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v12, &v28, v32, 16);
       if (v8)
       {
         continue;
@@ -268,9 +268,9 @@ LABEL_9:
 
     if (v22)
     {
-      v28.receiver = self;
-      v28.super_class = CKDiscoverUserIdentitiesOperation;
-      LOBYTE(v15) = [(CKOperation *)&v28 CKOperationShouldRun:run];
+      v27.receiver = self;
+      v27.super_class = CKDiscoverUserIdentitiesOperation;
+      LOBYTE(v15) = [(CKOperation *)&v27 CKOperationShouldRun:run];
     }
 
     else
@@ -280,13 +280,12 @@ LABEL_15:
     }
   }
 
-  v26 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
 - (void)handleUserIdentityDiscoveryForLookupInfo:(id)info userIdentity:(id)identity
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   identityCopy = identity;
   if (self)
@@ -331,9 +330,9 @@ LABEL_15:
 
     if (v21 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
     {
-      v31 = 138412290;
-      v32 = infoCopy;
-      _os_signpost_emit_with_name_impl(&dword_1883EA000, v16, OS_SIGNPOST_EVENT, v21, "CKDiscoverUserIdentitiesOperation", "User identity discovered for %@", &v31, 0xCu);
+      v30 = 138412290;
+      v31 = infoCopy;
+      _os_signpost_emit_with_name_impl(&dword_1883EA000, v16, OS_SIGNPOST_EVENT, v21, "CKDiscoverUserIdentitiesOperation", "User identity discovered for %@", &v30, 0xCu);
     }
   }
 
@@ -347,13 +346,11 @@ LABEL_15:
     v29 = objc_msgSend_userIdentityDiscoveredBlock(self, v27, v28);
     (v29)[2](v29, identityCopy, infoCopy);
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_finishOnCallbackQueueWithError:(id)error
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (self)
   {
@@ -408,27 +405,27 @@ LABEL_15:
 
     if (v19)
     {
-      v45 = 0u;
-      v46 = 0u;
-      v43 = 0u;
       v44 = 0u;
+      v45 = 0u;
+      v42 = 0u;
+      v43 = 0u;
       v20 = objc_msgSend_userIdentityLookupInfos(self, v17, v18);
-      v22 = objc_msgSend_countByEnumeratingWithState_objects_count_(v20, v21, &v43, v48, 16);
+      v22 = objc_msgSend_countByEnumeratingWithState_objects_count_(v20, v21, &v42, v47, 16);
       if (v22)
       {
         v25 = v22;
-        v26 = *v44;
+        v26 = *v43;
         do
         {
           v27 = 0;
           do
           {
-            if (*v44 != v26)
+            if (*v43 != v26)
             {
               objc_enumerationMutation(v20);
             }
 
-            v28 = *(*(&v43 + 1) + 8 * v27);
+            v28 = *(*(&v42 + 1) + 8 * v27);
             v29 = objc_msgSend_discoveredLookupInfos(self, v23, v24);
             v31 = objc_msgSend_containsObject_(v29, v30, v28);
 
@@ -442,7 +439,7 @@ LABEL_15:
           }
 
           while (v25 != v27);
-          v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(v20, v23, &v43, v48, 16);
+          v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(v20, v23, &v42, v47, 16);
         }
 
         while (v25);
@@ -462,16 +459,14 @@ LABEL_15:
   }
 
   objc_msgSend_setUserIdentityDiscoveredBlock_(self, v34, 0);
-  v42.receiver = self;
-  v42.super_class = CKDiscoverUserIdentitiesOperation;
-  [(CKOperation *)&v42 _finishOnCallbackQueueWithError:errorCopy];
-
-  v41 = *MEMORY[0x1E69E9840];
+  v41.receiver = self;
+  v41.super_class = CKDiscoverUserIdentitiesOperation;
+  [(CKOperation *)&v41 _finishOnCallbackQueueWithError:errorCopy];
 }
 
 - (void)ckSignpostBegin
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   if (self)
   {
     signpost = self->super._signpost;
@@ -524,28 +519,26 @@ LABEL_15:
       v36 = CKStringForDiscretionaryNetworkBehavior(v35);
       v39 = objc_msgSend_qualityOfService(self, v37, v38);
       v41 = CKStringForQOS(v39, v40);
-      v43 = 138413570;
-      v44 = v17;
-      v45 = 2112;
-      v46 = v20;
-      v47 = 2112;
-      v48 = v26;
-      v49 = 2114;
-      v50 = v29;
-      v51 = 2114;
-      v52 = v36;
-      v53 = 2114;
-      v54 = v41;
-      _os_signpost_emit_with_name_impl(&dword_1883EA000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v14, "CKDiscoverUserIdentitiesOperation", "ID=%{signpost.description:attribute}@ Container=%{signpost.description:attribute}@ GroupID=%{signpost.description:attribute}@ GroupName=%{signpost.description:attribute,public}@ Behavior=%{signpost.description:attribute,public}@ QoS=%{signpost.description:attribute,public}@ ", &v43, 0x3Eu);
+      v42 = 138413570;
+      v43 = v17;
+      v44 = 2112;
+      v45 = v20;
+      v46 = 2112;
+      v47 = v26;
+      v48 = 2114;
+      v49 = v29;
+      v50 = 2114;
+      v51 = v36;
+      v52 = 2114;
+      v53 = v41;
+      _os_signpost_emit_with_name_impl(&dword_1883EA000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v14, "CKDiscoverUserIdentitiesOperation", "ID=%{signpost.description:attribute}@ Container=%{signpost.description:attribute}@ GroupID=%{signpost.description:attribute}@ GroupName=%{signpost.description:attribute,public}@ Behavior=%{signpost.description:attribute,public}@ QoS=%{signpost.description:attribute,public}@ ", &v42, 0x3Eu);
     }
   }
-
-  v42 = *MEMORY[0x1E69E9840];
 }
 
 - (void)ckSignpostEndWithError:(id)error
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (self)
   {
@@ -589,13 +582,11 @@ LABEL_15:
 
     if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
     {
-      v18 = 138412290;
-      v19 = errorCopy;
-      _os_signpost_emit_with_name_impl(&dword_1883EA000, v11, OS_SIGNPOST_INTERVAL_END, v16, "CKDiscoverUserIdentitiesOperation", "Error=%{signpost.description:attribute}@ ", &v18, 0xCu);
+      v17 = 138412290;
+      v18 = errorCopy;
+      _os_signpost_emit_with_name_impl(&dword_1883EA000, v11, OS_SIGNPOST_INTERVAL_END, v16, "CKDiscoverUserIdentitiesOperation", "Error=%{signpost.description:attribute}@ ", &v17, 0xCu);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (id)activityCreate

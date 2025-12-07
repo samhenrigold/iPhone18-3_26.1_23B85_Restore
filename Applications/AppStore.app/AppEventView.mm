@@ -12,7 +12,7 @@
 - (_TtC8AppStore12AppEventView)initWithCoder:(id)coder
 {
   v4 = OBJC_IVAR____TtC8AppStore12AppEventView_clickAction;
-  v5 = sub_10002849C(&unk_10097B3D0);
+  v5 = sub_10002849C(&unk_10097B3D0, "α\b");
   (*(*(v5 - 8) + 56))(self + v4, 1, 1, v5);
   v6 = self + OBJC_IVAR____TtC8AppStore12AppEventView_initialLongPressLocation;
   *v6 = 0;
@@ -46,7 +46,7 @@
   width = fits.width;
   v6 = type metadata accessor for AppEventCardLayout(0);
   __chkstk_darwin(v6 - 8);
-  v8 = &v20 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = (&v20 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
   v9 = qword_10096D5D8;
   selfCopy = self;
   if (v9 != -1)
@@ -54,11 +54,11 @@
     swift_once();
   }
 
-  sub_100772570(&unk_1009CEDC8, selfCopy, width, height);
+  sub_100772570();
   v12 = v11;
   v13 = *(&selfCopy->super.super.super.isa + OBJC_IVAR____TtC8AppStore12AppEventView_appEventCardView);
   sub_100629FBC(v8);
-  sub_100770A88(v13, v8);
+  sub_100770A88(v13, v8, width, height);
   v15 = v14;
   v17 = v16;
   sub_1001A9220(v8);
@@ -84,7 +84,7 @@
   selfCopy = self;
   v9 = sub_1001A88A4(recognizerCopy, touchCopy);
 
-  return v9 & 1;
+  return v9;
 }
 
 @end

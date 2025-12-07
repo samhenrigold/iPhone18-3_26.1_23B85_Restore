@@ -17,7 +17,7 @@ uint64_t sub_1D9C1D594(double a1, double a2)
   v54 = (&v49 - v11);
   MEMORY[0x1EEE9AC00](v12);
   v55 = (&v49 - v13);
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECB52770);
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECB52770, &unk_1D9C8FF10);
   MEMORY[0x1EEE9AC00](v14 - 8);
   v52 = &v49 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v16);
@@ -31,17 +31,17 @@ uint64_t sub_1D9C1D594(double a1, double a2)
   v26 = *(v2 + *(type metadata accessor for Argos_Protos_Queryflow_ParseConfig(0) + 20));
   v27 = OBJC_IVAR____TtCV12VisualLookUp34Argos_Protos_Queryflow_ParseConfigP33_7F9C57E29FAA1A94E975A43DED566DE513_StorageClass__imageResizeConfig;
   swift_beginAccess();
-  sub_1D99AB100(v26 + v27, v25, &qword_1ECB52770);
+  sub_1D99AB100(v26 + v27, v25, &qword_1ECB52770, &unk_1D9C8FF10);
   v28 = *(v6 + 48);
   v29 = v5;
   LODWORD(v5) = v28(v25, 1, v5);
-  sub_1D99A6AE0(v25, &qword_1ECB52770);
+  sub_1D99A6AE0(v25, &qword_1ECB52770, &unk_1D9C8FF10);
   if (v5 == 1)
   {
     goto LABEL_20;
   }
 
-  sub_1D99AB100(v26 + v27, v22, &qword_1ECB52770);
+  sub_1D99AB100(v26 + v27, v22, &qword_1ECB52770, &unk_1D9C8FF10);
   v30 = v28;
   v31 = v27;
   if (v28(v22, 1, v29) == 1)
@@ -51,7 +51,7 @@ uint64_t sub_1D9C1D594(double a1, double a2)
     sub_1D9C7D3BC();
     if (v30(v22, 1, v29) != 1)
     {
-      sub_1D99A6AE0(v22, &qword_1ECB52770);
+      sub_1D99A6AE0(v22, &qword_1ECB52770, &unk_1D9C8FF10);
     }
   }
 
@@ -69,7 +69,7 @@ uint64_t sub_1D9C1D594(double a1, double a2)
   }
 
   v34 = v53;
-  sub_1D99AB100(v26 + v31, v53, &qword_1ECB52770);
+  sub_1D99AB100(v26 + v31, v53, &qword_1ECB52770, &unk_1D9C8FF10);
   if (v30(v34, 1, v29) == 1)
   {
     v35 = v54;
@@ -77,7 +77,7 @@ uint64_t sub_1D9C1D594(double a1, double a2)
     sub_1D9C7D3BC();
     if (v30(v34, 1, v29) != 1)
     {
-      sub_1D99A6AE0(v34, &qword_1ECB52770);
+      sub_1D99A6AE0(v34, &qword_1ECB52770, &unk_1D9C8FF10);
     }
   }
 
@@ -97,7 +97,7 @@ uint64_t sub_1D9C1D594(double a1, double a2)
   v37 = v31;
   v38 = v26 + v31;
   v39 = v50;
-  sub_1D99AB100(v38, v50, &qword_1ECB52770);
+  sub_1D99AB100(v38, v50, &qword_1ECB52770, &unk_1D9C8FF10);
   if (v30(v39, 1, v29) == 1)
   {
     v40 = v51;
@@ -108,7 +108,7 @@ uint64_t sub_1D9C1D594(double a1, double a2)
     v43 = v52;
     if (!v41)
     {
-      sub_1D99A6AE0(v42, &qword_1ECB52770);
+      sub_1D99A6AE0(v42, &qword_1ECB52770, &unk_1D9C8FF10);
     }
   }
 
@@ -129,7 +129,7 @@ LABEL_20:
 
   else
   {
-    sub_1D99AB100(v26 + v37, v43, &qword_1ECB52770);
+    sub_1D99AB100(v26 + v37, v43, &qword_1ECB52770, &unk_1D9C8FF10);
     if (v30(v43, 1, v29) == 1)
     {
       v45 = v49;
@@ -137,7 +137,7 @@ LABEL_20:
       sub_1D9C7D3BC();
       if (v30(v43, 1, v29) != 1)
       {
-        sub_1D99A6AE0(v43, &qword_1ECB52770);
+        sub_1D99A6AE0(v43, &qword_1ECB52770, &unk_1D9C8FF10);
       }
     }
 
@@ -252,14 +252,14 @@ LABEL_7:
   return CGRectGetHeight(v52) * v50 >= v46;
 }
 
-uint64_t sub_1D9C1DF84(_BYTE *a1, uint64_t a2)
+void sub_1D9C1DF84(_BYTE *a1, uint64_t a2)
 {
   v5 = type metadata accessor for Argos_Protos_Queryflow_DomainParseConfig(0);
   v6 = *(v5 - 8);
   MEMORY[0x1EEE9AC00](v5);
-  v8 = v27 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = v26 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v9);
-  v11 = v27 - v10;
+  v11 = v26 - v10;
   LOBYTE(a1) = *a1;
   v12 = *(v2 + *(type metadata accessor for Argos_Protos_Queryflow_ParseConfig(0) + 20));
   swift_beginAccess();
@@ -272,8 +272,8 @@ uint64_t sub_1D9C1DF84(_BYTE *a1, uint64_t a2)
 
     v21 = sub_1D9C1E364(v8, v11, type metadata accessor for Argos_Protos_Queryflow_DomainParseConfig);
     MEMORY[0x1EEE9AC00](v21);
-    v27[-2] = v11;
-    v22 = sub_1D9BE8938(sub_1D9C1E3CC, &v27[-4], a2);
+    v26[-2] = v11;
+    v22 = sub_1D9BE8938(sub_1D9C1E3CC, &v26[-4], a2);
     v23 = sub_1D9C1E30C(v22);
 
     v24 = *&v23;
@@ -292,50 +292,49 @@ uint64_t sub_1D9C1DF84(_BYTE *a1, uint64_t a2)
       }
     }
 
-    return sub_1D9C1D534(v11, type metadata accessor for Argos_Protos_Queryflow_DomainParseConfig);
+    sub_1D9C1D534(v11, type metadata accessor for Argos_Protos_Queryflow_DomainParseConfig);
   }
 
   else
   {
 
-    return swift_beginAccess();
+    swift_beginAccess();
   }
 }
 
-uint64_t sub_1D9C1E240@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+void sub_1D9C1E240(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   v4 = *(a1 + 16);
   v5 = *(a1 + 24);
   v6 = *(a2 + *(type metadata accessor for Argos_Protos_Queryflow_DomainParseConfig(0) + 20));
   v7 = OBJC_IVAR____TtCV12VisualLookUp40Argos_Protos_Queryflow_DomainParseConfigP33_7F9C57E29FAA1A94E975A43DED566DE513_StorageClass__ontologyBoxScoreThresholds;
-  result = swift_beginAccess();
-  v9 = *(v6 + v7);
-  if (*(v9 + 16))
+  swift_beginAccess();
+  v8 = *(v6 + v7);
+  if (*(v8 + 16))
   {
 
-    v10 = sub_1D99ED894(v4, v5);
-    if (v11)
+    v9 = sub_1D99ED894(v4, v5);
+    if (v10)
     {
-      v12 = *(*(v9 + 56) + 4 * v10);
+      v11 = *(*(v8 + 56) + 4 * v9);
     }
 
     else
     {
-      v12 = 0;
+      v11 = 0;
     }
 
-    v13 = v11 ^ 1;
+    v12 = v10 ^ 1;
   }
 
   else
   {
-    v12 = 0;
-    v13 = 1;
+    v11 = 0;
+    v12 = 1;
   }
 
-  *a3 = v12;
-  *(a3 + 4) = v13 & 1;
-  return result;
+  *a3 = v11;
+  *(a3 + 4) = v12 & 1;
 }
 
 unint64_t sub_1D9C1E30C(uint64_t a1)
@@ -676,12 +675,12 @@ void sub_1D9C1FEFC()
   }
 }
 
-uint64_t sub_1D9C20018(uint64_t a1)
+void sub_1D9C20018(uint64_t a1)
 {
   v1 = *(a1 + 16);
   if (v1)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECB54588);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECB54588, &qword_1D9C9F870);
     v3 = sub_1D9C7E3CC();
     v4 = 0;
     v5 = v3 + 56;
@@ -694,12 +693,12 @@ uint64_t sub_1D9C20018(uint64_t a1)
       sub_1D9A72740(v6);
       sub_1D9C7DD6C();
 
-      result = sub_1D9C7E93C();
+      v7 = sub_1D9C7E93C();
       v8 = ~(-1 << *(v3 + 32));
-      v9 = result & v8;
-      v10 = (result & v8) >> 6;
+      v9 = v7 & v8;
+      v10 = (v7 & v8) >> 6;
       v11 = *(v5 + 8 * v10);
-      v12 = 1 << (result & v8);
+      v12 = 1 << (v7 & v8);
       if ((v12 & v11) != 0)
       {
         while (1)
@@ -1157,19 +1156,12 @@ LABEL_117:
 LABEL_4:
       if (++v4 == v24)
       {
-        return v3;
+        return;
       }
     }
 
     __break(1u);
   }
-
-  else
-  {
-    return MEMORY[0x1E69E7CD0];
-  }
-
-  return result;
 }
 
 uint64_t sub_1D9C208D0(uint64_t a1)
@@ -1177,7 +1169,7 @@ uint64_t sub_1D9C208D0(uint64_t a1)
   v1 = *(a1 + 16);
   if (v1)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECB54580);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECB54580, &qword_1D9C9F868);
     v3 = sub_1D9C7E3CC();
     v4 = 0;
     v5 = v3 + 56;
@@ -1278,7 +1270,7 @@ uint64_t sub_1D9C20A68(uint64_t a1)
   v1 = *(a1 + 16);
   if (v1)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECB53410);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECB53410, &unk_1D9C95400);
     v3 = sub_1D9C7E3CC();
     v4 = 0;
     v5 = v3 + 56;
@@ -1368,7 +1360,7 @@ float faiss::fvec_norms_L2(faiss *this, faiss *a2, unint64_t a3, uint64_t a4)
   return result;
 }
 
-void faiss::fvec_norms_L2sqr(faiss *this, faiss *a2, unint64_t a3, uint64_t a4)
+void faiss::fvec_norms_L2sqr(float *this, faiss *a2, unint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -1376,8 +1368,7 @@ void faiss::fvec_norms_L2sqr(faiss *this, faiss *a2, unint64_t a3, uint64_t a4)
     v8 = 4 * a3;
     do
     {
-      *this = faiss::fvec_norm_L2sqr(a2, a3);
-      this = (this + 4);
+      *this++ = faiss::fvec_norm_L2sqr(a2, a3);
       a2 = (a2 + v8);
       --v4;
     }
@@ -1386,7 +1377,7 @@ void faiss::fvec_norms_L2sqr(faiss *this, faiss *a2, unint64_t a3, uint64_t a4)
   }
 }
 
-void faiss::fvec_renorm_L2(unint64_t this, uint64_t a2, float *a3, float *a4)
+void faiss::fvec_renorm_L2(unint64_t this, uint64_t a2, unint64_t a3, float *a4)
 {
   if (a2)
   {
@@ -1395,7 +1386,7 @@ void faiss::fvec_renorm_L2(unint64_t this, uint64_t a2, float *a3, float *a4)
     v9 = a3;
     do
     {
-      v10 = faiss::fvec_norm_L2sqr(&a3[v7 * this], this);
+      v10 = faiss::fvec_norm_L2sqr((a3 + 4 * v7 * this), this);
       if (v10 > 0.0 && this)
       {
         v11 = 1.0 / sqrtf(v10);
@@ -1412,14 +1403,14 @@ void faiss::fvec_renorm_L2(unint64_t this, uint64_t a2, float *a3, float *a4)
       }
 
       ++v7;
-      v9 = (v9 + v8);
+      v9 += v8;
     }
 
     while (v7 != a2);
   }
 }
 
-void faiss::knn_inner_product(uint64_t a1, const float *a2, unint64_t a3, unint64_t a4, uint64_t a5, int8x16_t *a6)
+void faiss::knn_inner_product(uint64_t a1, const float *a2, unint64_t a3, unint64_t a4, unint64_t a5, int8x16_t *a6)
 {
   v8 = a6->u64[1];
   if (v8 >= faiss::distance_compute_min_k_reservoir)
@@ -1779,21 +1770,28 @@ LABEL_45:
   }
 }
 
-void faiss::knn_L2sqr(uint64_t a1, const float *a2, unint64_t a3, unint64_t a4, uint64_t a5, int8x16_t *a6)
+void sub_1D9C215B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
 {
-  v6 = a5;
-  v9 = a6->u64[1];
-  if (v9 >= faiss::distance_compute_min_k_reservoir)
+  va_start(va, a27);
+  faiss::ReservoirResultHandler<faiss::CMin<float,long long>>::~ReservoirResultHandler(va);
+  _Unwind_Resume(a1);
+}
+
+void faiss::knn_L2sqr(faiss *a1, faiss *a2, unint64_t a3, unint64_t a4, unint64_t a5, int8x16_t *a6, uint64_t a7)
+{
+  v7 = a5;
+  v10 = a6->u64[1];
+  if (v10 >= faiss::distance_compute_min_k_reservoir)
   {
-    v66 = a6->i64[0];
-    v67 = vextq_s8(a6[1], a6[1], 8uLL);
-    *v70 = 0u;
+    v67 = a6->i64[0];
+    v68 = vextq_s8(a6[1], a6[1], 8uLL);
     *v71 = 0u;
-    v72 = 0u;
+    *v72 = 0u;
+    v73 = 0u;
     __p = 0u;
-    v74 = 0;
-    v68 = v9;
-    v69 = (2 * v9 + 15) & 0xFFFFFFFFFFFFFFF0;
+    v75 = 0;
+    v69 = v10;
+    v70 = (2 * v10 + 15) & 0xFFFFFFFFFFFFFFF0;
     if (faiss::distance_compute_blas_threshold <= a4)
     {
       if (a4 && a5)
@@ -1804,66 +1802,66 @@ void faiss::knn_L2sqr(uint64_t a1, const float *a2, unint64_t a3, unint64_t a4, 
 
     else
     {
-      faiss::ReservoirResultHandler<faiss::CMin<float,long long>>::SingleResultHandler::SingleResultHandler(&alpha, &v66);
+      faiss::ReservoirResultHandler<faiss::CMin<float,long long>>::SingleResultHandler::SingleResultHandler(&alpha, &v67);
       if (a4)
       {
-        v50 = 0;
+        v51 = 0;
         do
         {
-          v51 = alpha;
-          v52 = *(alpha + 24);
-          v53 = *(alpha + 32);
-          if (v52 >= v53)
+          v52 = alpha;
+          v53 = *(alpha + 24);
+          v54 = *(alpha + 32);
+          if (v53 >= v54)
           {
             __assert_rtn("ReservoirTopN", "ResultHandler.h", 148, "n < capacity");
           }
 
-          v80[0] = v76;
-          v80[1] = v78;
-          v80[2] = 0;
-          v80[3] = v52;
-          v80[4] = v53;
-          v81 = 2139095039;
-          v82 = v50;
-          if (v6)
+          v81[0] = v77;
+          v81[1] = v79;
+          v81[2] = 0;
+          v81[3] = v53;
+          v81[4] = v54;
+          v82 = 2139095039;
+          v83 = v51;
+          if (v7)
           {
-            v54 = 0;
-            v55 = a2;
+            v55 = 0;
+            v56 = a2;
             do
             {
-              v56 = faiss::fvec_L2sqr((a1 + 4 * v50 * a3), v55, a3);
-              faiss::ReservoirTopN<faiss::CMax<float,long long>>::add(v80, v54++, v56);
-              v55 += a3;
+              v57 = faiss::fvec_L2sqr((a1 + 4 * v51 * a3), v56, a3);
+              faiss::ReservoirTopN<faiss::CMax<float,long long>>::add(v81, v55++, v57);
+              v56 += a3;
             }
 
-            while (v6 != v54);
-            v51 = alpha;
-            v57 = v82;
-            v52 = *(alpha + 24);
+            while (v7 != v55);
+            v52 = alpha;
+            v58 = v83;
+            v53 = *(alpha + 24);
           }
 
           else
           {
-            v57 = v50;
+            v58 = v51;
           }
 
-          faiss::ReservoirTopN<faiss::CMax<float,long long>>::to_result(v80, (*(v51 + 8) + 4 * v57 * v52), (*(v51 + 16) + 8 * v57 * v52));
-          ++v50;
+          faiss::ReservoirTopN<faiss::CMax<float,long long>>::to_result(v81, (*(v52 + 8) + 4 * v58 * v53), (*(v52 + 16) + 8 * v58 * v53));
+          ++v51;
         }
 
-        while (v50 != a4);
+        while (v51 != a4);
       }
 
-      if (v78)
+      if (v79)
       {
-        v79 = v78;
-        operator delete(v78);
+        v80 = v79;
+        operator delete(v79);
       }
 
-      if (v76)
+      if (v77)
       {
-        v77 = v76;
-        operator delete(v76);
+        v78 = v77;
+        operator delete(v77);
       }
     }
 
@@ -1873,29 +1871,29 @@ void faiss::knn_L2sqr(uint64_t a1, const float *a2, unint64_t a3, unint64_t a4, 
       operator delete(__p);
     }
 
-    if (v71[1])
+    if (v72[1])
     {
-      *&v72 = v71[1];
-      operator delete(v71[1]);
+      *&v73 = v72[1];
+      operator delete(v72[1]);
     }
 
-    if (v70[0])
+    if (v71[0])
     {
-      v70[1] = v70[0];
-      operator delete(v70[0]);
+      v71[1] = v71[0];
+      operator delete(v71[0]);
     }
   }
 
   else
   {
-    v11 = a6[1].i64[0];
-    v10 = a6[1].i64[1];
-    v66 = a6->i64[0];
-    b = v11;
-    v61 = v10;
-    v67.i64[0] = v10;
-    v67.i64[1] = v11;
-    v68 = v9;
+    v12 = a6[1].i64[0];
+    v11 = a6[1].i64[1];
+    v67 = a6->i64[0];
+    b = v12;
+    v62 = v11;
+    v68.i64[0] = v11;
+    v68.i64[1] = v12;
+    v69 = v10;
     if (faiss::distance_compute_blas_threshold > a4)
     {
       if (!a4)
@@ -1903,68 +1901,68 @@ void faiss::knn_L2sqr(uint64_t a1, const float *a2, unint64_t a3, unint64_t a4, 
         return;
       }
 
-      v12 = 0;
-      v13 = b;
-      v14 = v10;
+      v13 = 0;
+      v14 = b;
+      v15 = v11;
       while (1)
       {
-        if (v9)
+        if (v10)
         {
-          v15 = v14;
-          v16 = v13;
-          v17 = v9;
+          v16 = v15;
+          v17 = v14;
+          v18 = v10;
           do
           {
-            *v15++ = 2139095039;
-            *v16 = -1;
-            v16 += 2;
-            --v17;
+            *v16++ = 2139095039;
+            *v17 = -1;
+            v17 += 2;
+            --v18;
           }
 
-          while (v17);
+          while (v18);
         }
 
-        v65 = v12;
-        v18 = (v61 + 4 * v12 * v9);
-        v19 = &b[2 * v12 * v9];
-        v20 = a3;
-        if (!v6)
+        v66 = v13;
+        v19 = (v62 + 4 * v13 * v10);
+        v20 = &b[2 * v13 * v10];
+        v21 = a3;
+        if (!v7)
         {
           goto LABEL_25;
         }
 
-        v21 = 0;
-        v22 = (a1 + 4 * v12 * a3);
-        v23 = v18 - 1;
-        v24 = v19 - 2;
-        v25 = a2;
+        v22 = 0;
+        v23 = (a1 + 4 * v13 * a3);
+        v24 = v19 - 1;
+        v25 = v20 - 2;
+        v26 = a2;
         do
         {
-          v26 = faiss::fvec_L2sqr(v22, v25, v20);
-          if (*v18 <= v26)
+          v27 = faiss::fvec_L2sqr(v23, v26, v21);
+          if (*v19 <= v27)
           {
             goto LABEL_24;
           }
 
-          if (v9 < 2)
+          if (v10 < 2)
           {
-            v27 = 1;
+            v28 = 1;
             goto LABEL_23;
           }
 
-          v28 = 3;
-          v29 = 2;
-          v30 = 1;
+          v29 = 3;
+          v30 = 2;
+          v31 = 1;
           while (1)
           {
-            if (v29 == v9)
+            if (v30 == v10)
             {
-              v31 = v23[v9];
+              v32 = v24[v10];
 LABEL_17:
-              v32 = v31;
-              v33 = v19 - 2;
-              v28 = v29;
-              if (v31 < v26)
+              v33 = v32;
+              v34 = v20 - 2;
+              v29 = v30;
+              if (v32 < v27)
               {
                 break;
               }
@@ -1972,81 +1970,81 @@ LABEL_17:
               goto LABEL_20;
             }
 
-            v31 = v23[v29];
-            v32 = v18[v29];
-            if (v31 > v32)
+            v32 = v24[v30];
+            v33 = v19[v30];
+            if (v32 > v33)
             {
               goto LABEL_17;
             }
 
-            v33 = v19;
-            if (v32 < v26)
+            v34 = v20;
+            if (v33 < v27)
             {
               break;
             }
 
 LABEL_20:
-            v23[v30] = v32;
-            *&v24[2 * v30] = *&v33[2 * v29];
-            v27 = v28;
-            v29 = 2 * v28;
-            v28 = (2 * v28) | 1;
-            v30 = v27;
-            if (v29 > v9)
+            v24[v31] = v33;
+            *&v25[2 * v31] = *&v34[2 * v30];
+            v28 = v29;
+            v30 = 2 * v29;
+            v29 = (2 * v29) | 1;
+            v31 = v28;
+            if (v30 > v10)
             {
               goto LABEL_23;
             }
           }
 
-          v27 = v30;
+          v28 = v31;
 LABEL_23:
-          v23[v27] = v26;
-          *&v24[2 * v27] = v21;
+          v24[v28] = v27;
+          *&v25[2 * v28] = v22;
 LABEL_24:
-          v20 = a3;
-          v25 += a3;
-          ++v21;
+          v21 = a3;
+          v26 += a3;
+          ++v22;
         }
 
-        while (v21 != a5);
+        while (v22 != a5);
 LABEL_25:
-        if (!v9)
+        if (!v10)
         {
-          v35 = 0;
-          v6 = a5;
+          v36 = 0;
+          v7 = a5;
           goto LABEL_45;
         }
 
-        v34 = 0;
         v35 = 0;
-        v36 = v18 - 1;
-        v37 = v19 - 2;
-        v6 = a5;
+        v36 = 0;
+        v37 = v19 - 1;
+        v38 = v20 - 2;
+        v7 = a5;
         while (2)
         {
-          v38 = *v18;
           v39 = *v19;
-          v40 = v9 - v34;
-          v41 = v36[v9 - v34];
-          if (v9 - v34 < 2)
+          v40 = *v20;
+          v41 = v10 - v35;
+          v42 = v37[v10 - v35];
+          if (v10 - v35 < 2)
           {
-            v42 = 1;
+            v43 = 1;
             goto LABEL_40;
           }
 
-          v43 = 3;
-          v44 = 2;
-          v45 = 1;
+          v44 = 3;
+          v45 = 2;
+          v46 = 1;
           while (2)
           {
-            if (v44 == v40)
+            if (v45 == v41)
             {
-              v46 = v36[v40];
+              v47 = v37[v41];
 LABEL_33:
-              v47 = v46;
-              v48 = v19 - 2;
-              v43 = v44;
-              if (v41 > v46)
+              v48 = v47;
+              v49 = v20 - 2;
+              v44 = v45;
+              if (v42 > v47)
               {
                 break;
               }
@@ -2054,24 +2052,24 @@ LABEL_33:
               goto LABEL_36;
             }
 
-            v46 = v36[v44];
-            v47 = v18[v44];
-            if (v46 > v47)
+            v47 = v37[v45];
+            v48 = v19[v45];
+            if (v47 > v48)
             {
               goto LABEL_33;
             }
 
-            v48 = v19;
-            if (v41 <= v47)
+            v49 = v20;
+            if (v42 <= v48)
             {
 LABEL_36:
-              v36[v45] = v47;
-              *&v37[2 * v45] = *&v48[2 * v44];
-              v42 = v43;
-              v44 = 2 * v43;
-              v43 = (2 * v43) | 1;
-              v45 = v42;
-              if (v44 > v40)
+              v37[v46] = v48;
+              *&v38[2 * v46] = *&v49[2 * v45];
+              v43 = v44;
+              v45 = 2 * v44;
+              v44 = (2 * v44) | 1;
+              v46 = v43;
+              if (v45 > v41)
               {
                 goto LABEL_39;
               }
@@ -2082,21 +2080,21 @@ LABEL_36:
             break;
           }
 
-          v42 = v45;
+          v43 = v46;
 LABEL_39:
-          v41 = v36[v40];
+          v42 = v37[v41];
 LABEL_40:
-          v36[v42] = v41;
-          *&v37[2 * v42] = *&v37[2 * v40];
-          v49 = v9 + ~v35;
-          v18[v49] = v38;
-          *&v19[2 * v49] = v39;
-          if (v39 != -1)
+          v37[v43] = v42;
+          *&v38[2 * v43] = *&v38[2 * v41];
+          v50 = v10 + ~v36;
+          v19[v50] = v39;
+          *&v20[2 * v50] = v40;
+          if (v40 != -1)
           {
-            ++v35;
+            ++v36;
           }
 
-          if (++v34 != v9)
+          if (++v35 != v10)
           {
             continue;
           }
@@ -2105,23 +2103,23 @@ LABEL_40:
         }
 
 LABEL_45:
-        memmove(v18, &v18[v9 - v35], 4 * v35);
-        memmove(v19, &v19[2 * v9 + -2 * v35], 8 * v35);
-        if (v35 < v9)
+        memmove(v19, &v19[v10 - v36], 4 * v36);
+        memmove(v20, &v20[2 * v10 + -2 * v36], 8 * v36);
+        if (v36 < v10)
         {
           do
           {
-            v14[v35] = 2139095039;
-            *&v13[2 * v35++] = -1;
+            v15[v36] = 2139095039;
+            *&v14[2 * v36++] = -1;
           }
 
-          while (v9 != v35);
+          while (v10 != v36);
         }
 
-        v12 = v65 + 1;
-        v13 += 2 * v9;
-        v14 += v9;
-        if (v65 + 1 == a4)
+        v13 = v66 + 1;
+        v14 += 2 * v10;
+        v15 += v10;
+        if (v66 + 1 == a4)
         {
           return;
         }
@@ -2135,15 +2133,16 @@ LABEL_45:
   }
 }
 
-void sub_1D9C220D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30)
+void sub_1D9C220D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, ...)
 {
-  MEMORY[0x1DA73F3F0](v31, 0x1000C8052888210);
-  MEMORY[0x1DA73F3F0](v30, 0x1000C8052888210);
-  faiss::ReservoirResultHandler<faiss::CMin<float,long long>>::~ReservoirResultHandler(&a30);
+  va_start(va, a29);
+  MEMORY[0x1DA73F3F0](v30, 0x1000C8052888210, a3, a4, a5, a6, a7, a8);
+  MEMORY[0x1DA73F3F0](v29, 0x1000C8052888210);
+  faiss::ReservoirResultHandler<faiss::CMin<float,long long>>::~ReservoirResultHandler(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t faiss::range_search_L2sqr(faiss *this, const float *a2, unint64_t a3, unint64_t a4, uint64_t a5, faiss::RangeSearchResult *a6, float a7, faiss::RangeSearchResult *a8)
+uint64_t **faiss::range_search_L2sqr(faiss *this, faiss *a2, unint64_t a3, unint64_t a4, unint64_t a5, faiss::RangeSearchResult *a6, float a7, faiss::RangeSearchResult *a8)
 {
   v18 = a6;
   v19 = a7;
@@ -2201,16 +2200,16 @@ uint64_t faiss::range_search_L2sqr(faiss *this, const float *a2, unint64_t a3, u
   return faiss::RangeSearchResultHandler<faiss::CMax<float,long long>>::~RangeSearchResultHandler(&v18);
 }
 
-void sub_1D9C225C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_1D9C225C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
-  MEMORY[0x1DA73F3F0](v17, 0x1000C8052888210);
-  MEMORY[0x1DA73F3F0](v16, 0x1000C8052888210);
+  va_start(va, a23);
+  MEMORY[0x1DA73F3F0](v24, 0x1000C8052888210, a3, a4, a5, a6, a7, a8);
+  MEMORY[0x1DA73F3F0](v23, 0x1000C8052888210);
   faiss::RangeSearchResultHandler<faiss::CMax<float,long long>>::~RangeSearchResultHandler(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t faiss::range_search_inner_product(faiss *this, const float *a2, unint64_t a3, unint64_t a4, uint64_t a5, faiss::RangeSearchResult *a6, float a7, faiss::RangeSearchResult *a8)
+uint64_t **faiss::range_search_inner_product(faiss *this, const float *a2, unint64_t a3, unint64_t a4, unint64_t a5, faiss::RangeSearchResult *a6, float a7, faiss::RangeSearchResult *a8)
 {
   v18 = a6;
   v19 = a7;
@@ -2268,14 +2267,14 @@ uint64_t faiss::range_search_inner_product(faiss *this, const float *a2, unint64
   return faiss::RangeSearchResultHandler<faiss::CMax<float,long long>>::~RangeSearchResultHandler(&v18);
 }
 
-void sub_1D9C228F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_1D9C228F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   faiss::RangeSearchResultHandler<faiss::CMax<float,long long>>::~RangeSearchResultHandler(va);
   _Unwind_Resume(a1);
 }
 
-void faiss::fvec_inner_products_by_idx(faiss *this, float *a2, const float *a3, const float *a4, unint64_t a5, uint64_t a6, uint64_t a7)
+void faiss::fvec_inner_products_by_idx(float *this, float *a2, const float *a3, const float *a4, unint64_t a5, uint64_t a6, uint64_t a7)
 {
   if (a6)
   {
@@ -2315,7 +2314,7 @@ void faiss::fvec_inner_products_by_idx(faiss *this, float *a2, const float *a3, 
   }
 }
 
-void faiss::fvec_L2sqr_by_idx(faiss *this, float *a2, const float *a3, const float *a4, unint64_t a5, uint64_t a6, uint64_t a7)
+void faiss::fvec_L2sqr_by_idx(float *this, float *a2, const float *a3, const float *a4, unint64_t a5, uint64_t a6, uint64_t a7)
 {
   if (a6)
   {
@@ -2890,7 +2889,7 @@ LABEL_44:
   return result;
 }
 
-uint64_t faiss::pairwise_L2sqr(uint64_t this, uint64_t a2, faiss *a3, uint64_t a4, float *a5, float *a6, float *a7, uint64_t a8, uint64_t a9, uint64_t a10)
+const float *faiss::pairwise_L2sqr(const float *this, uint64_t a2, faiss *a3, uint64_t a4, faiss *a5, float *a6, float *a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a2 && a4)
   {
@@ -3298,6 +3297,19 @@ void sub_1D9C23830(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
+uint64_t *std::vector<long long>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
+{
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  if (a2)
+  {
+    std::vector<long long>::__vallocate[abi:ne200100](a1, a2);
+  }
+
+  return a1;
+}
+
 void sub_1D9C238A8(_Unwind_Exception *exception_object)
 {
   v3 = *v1;
@@ -3310,21 +3322,21 @@ void sub_1D9C238A8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void faiss::ReservoirTopN<faiss::CMin<float,long long>>::add(uint64_t a1, uint64_t a2, float a3)
+void faiss::ReservoirTopN<faiss::CMin<float,long long>>::add(uint64_t result, uint64_t a2, float a3)
 {
-  if (*(a1 + 40) < a3)
+  if (*(result + 40) < a3)
   {
-    v6 = *(a1 + 16);
-    if (v6 == *(a1 + 32))
+    v6 = *(result + 16);
+    if (v6 == *(result + 32))
     {
-      faiss::ReservoirTopN<faiss::CMin<float,long long>>::shrink_fuzzy(a1);
-      v6 = *(a1 + 16);
+      faiss::ReservoirTopN<faiss::CMin<float,long long>>::shrink_fuzzy(result);
+      v6 = *(result + 16);
     }
 
-    v7 = *(a1 + 8);
-    *(*a1 + 4 * v6) = a3;
+    v7 = *(result + 8);
+    *(*result + 4 * v6) = a3;
     *(v7 + 8 * v6) = a2;
-    *(a1 + 16) = v6 + 1;
+    *(result + 16) = v6 + 1;
   }
 }
 
@@ -3927,10 +3939,10 @@ void faiss::ReservoirResultHandler<faiss::CMin<float,long long>>::begin_multiple
   }
 }
 
-void faiss::ReservoirResultHandler<faiss::CMin<float,long long>>::add_results(void *a1, unint64_t a2, unint64_t a3, uint64_t a4)
+void faiss::ReservoirResultHandler<faiss::CMin<float,long long>>::add_results(void *result, unint64_t a2, unint64_t a3, uint64_t a4)
 {
-  v5 = a1[5];
-  v4 = a1[6];
+  v5 = result[5];
+  v4 = result[6];
   if (v5 < v4)
   {
     v10 = 4 * (a3 - a2);
@@ -3938,8 +3950,8 @@ void faiss::ReservoirResultHandler<faiss::CMin<float,long long>>::add_results(vo
     {
       if (a3 > a2)
       {
-        v11 = v5 - a1[5];
-        v12 = a1[13] + 48 * v11;
+        v11 = v5 - result[5];
+        v12 = result[13] + 48 * v11;
         v13 = (a4 + v10 * v11);
         v14 = a2;
         do
@@ -3949,7 +3961,7 @@ void faiss::ReservoirResultHandler<faiss::CMin<float,long long>>::add_results(vo
         }
 
         while (a3 != v14);
-        v4 = a1[6];
+        v4 = result[6];
       }
 
       ++v5;
@@ -3996,20 +4008,20 @@ void std::vector<float>::resize(std::vector<unsigned int> *this, std::vector<uns
   }
 }
 
-void std::vector<long long>::resize(void *a1, unint64_t a2)
+void std::vector<long long>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 3;
+  v2 = (result[1] - *result) >> 3;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    std::vector<long long>::__append(a1, a2 - v2);
+    std::vector<long long>::__append(result, a2 - v2);
   }
 }
 
@@ -4378,21 +4390,21 @@ LABEL_23:
   return result;
 }
 
-void faiss::ReservoirTopN<faiss::CMax<float,long long>>::add(uint64_t a1, uint64_t a2, float a3)
+void faiss::ReservoirTopN<faiss::CMax<float,long long>>::add(uint64_t result, uint64_t a2, float a3)
 {
-  if (*(a1 + 40) > a3)
+  if (*(result + 40) > a3)
   {
-    v6 = *(a1 + 16);
-    if (v6 == *(a1 + 32))
+    v6 = *(result + 16);
+    if (v6 == *(result + 32))
     {
-      faiss::ReservoirTopN<faiss::CMax<float,long long>>::shrink_fuzzy(a1);
-      v6 = *(a1 + 16);
+      faiss::ReservoirTopN<faiss::CMax<float,long long>>::shrink_fuzzy(result);
+      v6 = *(result + 16);
     }
 
-    v7 = *(a1 + 8);
-    *(*a1 + 4 * v6) = a3;
+    v7 = *(result + 8);
+    *(*result + 4 * v6) = a3;
     *(v7 + 8 * v6) = a2;
-    *(a1 + 16) = v6 + 1;
+    *(result + 16) = v6 + 1;
   }
 }
 
@@ -4976,10 +4988,10 @@ void faiss::ReservoirResultHandler<faiss::CMax<float,long long>>::begin_multiple
   }
 }
 
-void faiss::ReservoirResultHandler<faiss::CMax<float,long long>>::add_results(void *a1, unint64_t a2, unint64_t a3, uint64_t a4)
+void faiss::ReservoirResultHandler<faiss::CMax<float,long long>>::add_results(void *result, unint64_t a2, unint64_t a3, uint64_t a4)
 {
-  v5 = a1[5];
-  v4 = a1[6];
+  v5 = result[5];
+  v4 = result[6];
   if (v5 < v4)
   {
     v10 = 4 * (a3 - a2);
@@ -4987,8 +4999,8 @@ void faiss::ReservoirResultHandler<faiss::CMax<float,long long>>::add_results(vo
     {
       if (a3 > a2)
       {
-        v11 = v5 - a1[5];
-        v12 = a1[13] + 48 * v11;
+        v11 = v5 - result[5];
+        v12 = result[13] + 48 * v11;
         v13 = (a4 + v10 * v11);
         v14 = a2;
         do
@@ -4998,7 +5010,7 @@ void faiss::ReservoirResultHandler<faiss::CMax<float,long long>>::add_results(vo
         }
 
         while (a3 != v14);
-        v4 = a1[6];
+        v4 = result[6];
       }
 
       ++v5;
@@ -5028,25 +5040,25 @@ void *faiss::ReservoirResultHandler<faiss::CMax<float,long long>>::end_multiple(
   return result;
 }
 
-uint64_t faiss::RangeSearchResultHandler<faiss::CMax<float,long long>>::~RangeSearchResultHandler(uint64_t a1)
+uint64_t **faiss::RangeSearchResultHandler<faiss::CMax<float,long long>>::~RangeSearchResultHandler(uint64_t **a1)
 {
-  v2 = (a1 + 32);
-  if (*(a1 + 40) != *(a1 + 32))
+  v2 = (a1 + 4);
+  if (a1[5] != a1[4])
   {
-    faiss::RangeSearchPartialResult::merge((a1 + 32), 1);
+    faiss::RangeSearchPartialResult::merge(a1 + 4, 1);
   }
 
-  v3 = *(a1 + 56);
+  v3 = a1[7];
   if (v3)
   {
-    *(a1 + 64) = v3;
+    a1[8] = v3;
     operator delete(v3);
   }
 
   v4 = *v2;
   if (*v2)
   {
-    *(a1 + 40) = v4;
+    a1[5] = v4;
     operator delete(v4);
   }
 
@@ -5066,16 +5078,16 @@ void faiss::RangeSearchResultHandler<faiss::CMax<float,long long>>::SingleResult
   faiss::BufferList::~BufferList(a1);
 }
 
-faiss::BufferList *faiss::RangeSearchResultHandler<faiss::CMax<float,long long>>::add_results(faiss::BufferList *result, uint64_t a2, unint64_t a3, uint64_t a4)
+void *faiss::RangeSearchResultHandler<faiss::CMax<float,long long>>::add_results(void *result, uint64_t a2, unint64_t a3, uint64_t a4)
 {
   v6 = result;
   v20 = a2;
-  v7 = *(result + 7);
+  v7 = result[7];
   v8 = *(result + 20);
-  v9 = *(result + 8);
+  v9 = result[8];
   if (v8 < (v9 - v7) >> 3 && *(v7 + 8 * v8) == a2)
   {
-    v19 = *(*(result + 4) + 8 * v8);
+    v19 = *(result[4] + 8 * v8);
     v10 = v8 + 1;
   }
 
@@ -5086,14 +5098,14 @@ faiss::BufferList *faiss::RangeSearchResultHandler<faiss::CMax<float,long long>>
       operator new();
     }
 
-    v19 = **(result + 4);
+    v19 = *result[4];
     v10 = 1;
   }
 
   *(result + 20) = v10;
-  for (i = *(result + 2); i < *(v6 + 3); ++i)
+  for (i = result[2]; i < *(v6 + 24); ++i)
   {
-    v12 = *(v6 + 2);
+    v12 = *(v6 + 16);
     v13 = v20;
     result = faiss::RangeSearchPartialResult::new_result(v19, i);
     v14 = v20;
@@ -5105,7 +5117,7 @@ faiss::BufferList *faiss::RangeSearchResultHandler<faiss::CMax<float,long long>>
       {
         v17 = *v16++;
         v18 = v17;
-        if (*(v6 + 2) > v17)
+        if (*(v6 + 8) > v17)
         {
           result = faiss::RangeQueryResult::add(v15, v18, v14);
         }
@@ -5179,7 +5191,7 @@ void std::vector<faiss::RangeSearchPartialResult *>::push_back[abi:ne200100](uin
   *(a1 + 8) = v6;
 }
 
-void std::vector<unsigned long>::push_back[abi:ne200100](const void **a1, void *a2)
+void std::vector<unsigned long>::push_back[abi:ne200100](const void **a1, uint64_t *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -5228,7 +5240,7 @@ void std::vector<unsigned long>::push_back[abi:ne200100](const void **a1, void *
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 8;
   }
 
   a1[1] = v6;
@@ -5244,16 +5256,14 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<faiss::RangeSearchPar
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-faiss::BufferList *faiss::RangeSearchResultHandler<faiss::CMin<float,long long>>::add_results(faiss::BufferList *result, uint64_t a2, unint64_t a3, uint64_t a4)
+void faiss::RangeSearchResultHandler<faiss::CMin<float,long long>>::add_results(uint64_t a1, unint64_t a2, unint64_t a3, uint64_t a4)
 {
-  v6 = result;
-  v20 = a2;
-  v7 = *(result + 7);
-  v8 = *(result + 20);
-  v9 = *(result + 8);
+  v7 = *(a1 + 56);
+  v8 = *(a1 + 80);
+  v9 = *(a1 + 64);
   if (v8 < (v9 - v7) >> 3 && *(v7 + 8 * v8) == a2)
   {
-    v19 = *(*(result + 4) + 8 * v8);
+    v19 = *(*(a1 + 32) + 8 * v8);
     v10 = v8 + 1;
   }
 
@@ -5264,28 +5274,27 @@ faiss::BufferList *faiss::RangeSearchResultHandler<faiss::CMin<float,long long>>
       operator new();
     }
 
-    v19 = **(result + 4);
+    v19 = **(a1 + 32);
     v10 = 1;
   }
 
-  *(result + 20) = v10;
-  for (i = *(result + 2); i < *(v6 + 3); ++i)
+  *(a1 + 80) = v10;
+  for (i = *(a1 + 16); i < *(a1 + 24); ++i)
   {
-    v12 = *(v6 + 2);
-    v13 = v20;
-    result = faiss::RangeSearchPartialResult::new_result(v19, i);
-    v14 = v20;
-    if (v20 < a3)
+    v12 = *(a1 + 16);
+    v13 = faiss::RangeSearchPartialResult::new_result(v19, i);
+    v14 = a2;
+    if (a2 < a3)
     {
-      v15 = result;
-      v16 = (a4 + 4 * (a3 - v13) * (i - v12));
+      v15 = v13;
+      v16 = (a4 + 4 * (a3 - a2) * (i - v12));
       do
       {
         v17 = *v16++;
         v18 = v17;
-        if (*(v6 + 2) < v17)
+        if (*(a1 + 8) < v17)
         {
-          result = faiss::RangeQueryResult::add(v15, v18, v14);
+          faiss::RangeQueryResult::add(v15, v18, v14);
         }
 
         ++v14;
@@ -5294,8 +5303,6 @@ faiss::BufferList *faiss::RangeSearchResultHandler<faiss::CMin<float,long long>>
       while (a3 != v14);
     }
   }
-
-  return result;
 }
 
 uint64_t *faiss::HeapArray<faiss::CMin<float,long long>>::heapify(uint64_t *result)
@@ -5326,7 +5333,7 @@ uint64_t *faiss::HeapArray<faiss::CMin<float,long long>>::heapify(uint64_t *resu
 
       ++v2;
       v4 += v5;
-      v3 += v5;
+      v3 += 4 * v5;
     }
 
     while (v2 != v1);
@@ -5803,7 +5810,7 @@ uint64_t *faiss::HeapArray<faiss::CMax<float,long long>>::heapify(uint64_t *resu
 
       ++v2;
       v4 += v5;
-      v3 += v5;
+      v3 += 4 * v5;
     }
 
     while (v2 != v1);
@@ -6280,7 +6287,7 @@ uint64_t *faiss::HeapArray<faiss::CMin<int,long long>>::heapify(uint64_t *result
 
       ++v2;
       v4 += v5;
-      v3 += v5;
+      v3 += 4 * v5;
     }
 
     while (v2 != v1);
@@ -6757,7 +6764,7 @@ uint64_t *faiss::HeapArray<faiss::CMax<int,long long>>::heapify(uint64_t *result
 
       ++v2;
       v4 += v5;
-      v3 += v5;
+      v3 += 4 * v5;
     }
 
     while (v2 != v1);
@@ -7672,8 +7679,7 @@ uint64_t faiss::byte_rand(faiss *this, unsigned __int8 *a2)
 
 std::string *faiss::get_compile_options@<X0>(std::string *a1@<X8>)
 {
-  a1->__r_.__value_.__r.__words[0] = 0;
-  a1->__r_.__value_.__l.__size_ = 0;
+  *&a1->__r_.__value_.__l.__data_ = 0uLL;
   a1->__r_.__value_.__r.__words[2] = 0;
   std::string::append(a1, "OPTIMIZE ");
   return std::string::append(a1, "NEON");
@@ -8086,7 +8092,7 @@ void sub_1D9C28024(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void faiss::ranklist_intersection_size(faiss *this, uint64_t a2, faiss *a3, uint64_t a4, const uint64_t *a5)
+void faiss::ranklist_intersection_size(faiss *this, const void *a2, faiss *a3, const void *a4, const uint64_t *a5)
 {
   do
   {
@@ -8129,10 +8135,11 @@ double faiss::imbalance_factor(faiss *this, int *a2, const int *a3)
   return v4 * this / (v5 * v5);
 }
 
-double faiss::imbalance_factor(faiss *this, int a2, uint64_t *a3, const uint64_t *a4)
+double faiss::imbalance_factor(faiss *this, unsigned int a2, uint64_t *a3, const uint64_t *a4)
 {
   v6 = this;
-  std::vector<int>::vector[abi:ne200100](__p, a2);
+  v20 = 0;
+  std::vector<int>::vector[abi:ne200100](__p, a2, &v20);
   v9 = __p[0];
   if (v6 >= 1)
   {
@@ -8368,7 +8375,7 @@ uint64_t faiss::fvec_argsort(unint64_t this, uint64_t a2, const float *a3, unint
   }
 }
 
-uint64_t faiss::fvecs_maybe_subsample(faiss *this, int **a2, unint64_t *a3, uint64_t a4, const float *a5, std::mersenne_twister_engine<unsigned int, 32, 624, 397, 31, 2567483615, 11, 4294967295, 7, 2636928640, 15, 4022730752, 18, 1812433253>::result_type a6)
+uint64_t faiss::fvecs_maybe_subsample(faiss *this, int **a2, unint64_t a3, uint64_t a4, const float *a5, std::mersenne_twister_engine<unsigned int, 32, 624, 397, 31, 2567483615, 11, 4294967295, 7, 2636928640, 15, 4022730752, 18, 1812433253>::result_type a6)
 {
   v7 = *a2;
   if (v7 > a3)
@@ -8443,12 +8450,12 @@ unint64_t faiss::real_to_binary(unint64_t this, uint64_t a2, const float *a3, un
   return this;
 }
 
-unint64_t faiss::hash_bytes(faiss *this, uint64_t a2)
+uint64_t faiss::hash_bytes(faiss *this, uint64_t a2)
 {
   v2 = *this << 7;
   if (a2 >= 1)
   {
-    v3 = (a2 + 1);
+    v3 = a2 + 1;
     do
     {
       v4 = *this;
@@ -8463,29 +8470,17 @@ unint64_t faiss::hash_bytes(faiss *this, uint64_t a2)
   return v2 ^ a2;
 }
 
-void *std::vector<int>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<int>::vector[abi:ne200100](uint64_t *a1, unint64_t a2, int *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<float>::__vallocate[abi:ne200100](result, a2);
+    std::vector<float>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
-}
-
-{
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
-  if (a2)
-  {
-    std::vector<float>::__vallocate[abi:ne200100](result, a2);
-  }
-
-  return result;
+  return a1;
 }
 
 void sub_1D9C28A88(_Unwind_Exception *exception_object)
@@ -8498,6 +8493,19 @@ void sub_1D9C28A88(_Unwind_Exception *exception_object)
   }
 
   _Unwind_Resume(exception_object);
+}
+
+uint64_t *std::vector<int>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
+{
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  if (a2)
+  {
+    std::vector<float>::__vallocate[abi:ne200100](a1, a2);
+  }
+
+  return a1;
 }
 
 void sub_1D9C28B00(_Unwind_Exception *exception_object)
@@ -8570,7 +8578,7 @@ LABEL_2:
         *v88 = v91;
         *v90 = v89;
         v97 = v10;
-        v98 = (v10 + 1);
+        v98 = v10 + 1;
         result = v89;
         if (v96 < v95)
         {
@@ -8581,14 +8589,14 @@ LABEL_2:
       else
       {
         v97 = v10;
-        v98 = (v10 + 2);
+        v98 = v10 + 2;
         result = *v10;
         if (v96 >= v93)
         {
           *v10 = v89;
           v10[1] = v94;
           v97 = v10 + 1;
-          v98 = (v10 + 2);
+          v98 = v10 + 2;
           result = v94;
           if (v96 >= v95)
           {
@@ -9194,7 +9202,7 @@ LABEL_81:
 
       if (v56 >= *(v14 + 4 * *(a2 - 1)))
       {
-        v71 = v10 + 1;
+        v71 = (v10 + 1);
         do
         {
           v10 = v71;
@@ -9203,7 +9211,7 @@ LABEL_81:
             break;
           }
 
-          ++v71;
+          v71 += 8;
         }
 
         while (v56 >= *(v14 + 4 * *v10));
@@ -9672,19 +9680,19 @@ LABEL_35:
   return v37 + 1 == a2;
 }
 
-void *faiss::RangeSearchResult::RangeSearchResult(void *this, uint64_t a2, int a3)
+faiss::RangeSearchResult *faiss::RangeSearchResult::RangeSearchResult(faiss::RangeSearchResult *this, uint64_t a2, int a3)
 {
   *this = &unk_1F5536F58;
-  this[1] = a2;
+  *(this + 1) = a2;
   if (a3)
   {
     operator new[]();
   }
 
-  this[2] = 0;
-  this[3] = 0;
-  this[4] = 0;
-  this[5] = 0x40000;
+  *(this + 2) = 0;
+  *(this + 3) = 0;
+  *(this + 4) = 0;
+  *(this + 5) = 0x40000;
   return this;
 }
 
@@ -9802,40 +9810,4 @@ void *faiss::BufferList::BufferList(void *this, uint64_t a2)
   this[3] = 0;
   this[4] = a2;
   return this;
-}
-
-void faiss::BufferList::~BufferList(faiss::BufferList *this)
-{
-  v3 = (this + 8);
-  v2 = *(this + 1);
-  if (v3[1] != v2)
-  {
-    v4 = 0;
-    v5 = 0;
-    do
-    {
-      if (*&v2[v4])
-      {
-        MEMORY[0x1DA73F3F0](*&v2[v4], 0x1000C8000313F17);
-        v2 = *(this + 1);
-      }
-
-      if (*&v2[v4 + 8])
-      {
-        MEMORY[0x1DA73F3F0](*&v2[v4 + 8], 0x1000C8052888210);
-        v2 = *(this + 1);
-      }
-
-      ++v5;
-      v4 += 16;
-    }
-
-    while (v5 < (*(this + 2) - v2) >> 4);
-  }
-
-  if (v2)
-  {
-    *(this + 2) = v2;
-    operator delete(v2);
-  }
 }

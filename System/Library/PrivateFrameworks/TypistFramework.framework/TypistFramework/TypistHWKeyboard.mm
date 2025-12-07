@@ -14,11 +14,14 @@
 - (id)pressKeycodes:(id)keycodes;
 - (id)usagePairsForText:(id)text;
 - (unsigned)getHIDKeyboardType;
+- (void)_insertCharacterForKeyCode:(unsigned __int16)code logOutput:(id)output;
+- (void)_insertKey:(unsigned __int16)key logOutput:(id)output;
 - (void)_insertStaticKeys;
 - (void)_setupCharacterToKeycodeMap;
 - (void)dealloc;
 - (void)detach;
 - (void)pressAndHoldKeys:(id)keys forDuration:(double)duration withValidation:(id)validation after:(double)after;
+- (void)pressKeycode:(unsigned __int16)keycode;
 - (void)setHidKeyboardType:(unsigned int)type;
 - (void)setKeyboardLanguage:(id)language;
 - (void)setModifierCharMap;
@@ -60,28 +63,33 @@
 
   keyboardLanguage2 = [(TypistHWKeyboard *)self keyboardLanguage];
   keyboardLanguageString = [(TypistHWKeyboard *)self keyboardLanguageString];
-  TYLog(@"Keyboard language set to [%@ - %@]", v11, v12, v13, v14, v15, v16, v17, keyboardLanguage2);
+  TYLog(@"Keyboard language set to [%@ - %@]", v12, v13, v14, v15, v16, v17, v18, keyboardLanguage2, keyboardLanguageString);
 }
 
 - (void)setHidKeyboardType:(unsigned int)type
 {
   self->_hidKeyboardType = type;
-  if (type <= 2)
+  if (type > 2)
+  {
+    v3 = @"kIOHIDStandardTypeUnspecified";
+  }
+
+  else
   {
     v3 = *(&off_279DF46D0 + type);
   }
 
   hidKeyboardType = [(TypistHWKeyboard *)self hidKeyboardType];
-  TYLog(@"Setting hidKeyboardType: [%u - %@]", v5, v6, v7, v8, v9, v10, v11, hidKeyboardType);
+  TYLog(@"Setting hidKeyboardType: [%u - %@]", v5, v6, v7, v8, v9, v10, v11, hidKeyboardType, v3);
 }
 
 - (TypistHWKeyboard)initWithLanguage:(id)language
 {
-  v45[5] = *MEMORY[0x277D85DE8];
+  v44[5] = *MEMORY[0x277D85DE8];
   languageCopy = language;
-  v43.receiver = self;
-  v43.super_class = TypistHWKeyboard;
-  v5 = [(TypistHWKeyboard *)&v43 init];
+  v42.receiver = self;
+  v42.super_class = TypistHWKeyboard;
+  v5 = [(TypistHWKeyboard *)&v42 init];
   if (!v5)
   {
     goto LABEL_6;
@@ -92,7 +100,7 @@
   {
     v38 = @"[TypistHWKeyboard]: No keyboard language has been provided.";
 LABEL_9:
-    TYLogl(OS_LOG_TYPE_ERROR, v38, v6, v7, v8, v9, v10, v11, v41);
+    TYLogl(OS_LOG_TYPE_ERROR, v38, v6, v7, v8, v9, v10, v11, v40);
 LABEL_10:
     v37 = 0;
     goto LABEL_11;
@@ -103,7 +111,7 @@ LABEL_10:
 
   if (!v13)
   {
-    v41 = languageCopy;
+    v40 = languageCopy;
     v38 = @"[TypistHWKeyboard]: Unrecognized Keyboard Language Identifier (%@)";
     goto LABEL_9;
   }
@@ -115,28 +123,28 @@ LABEL_10:
   v15 = +[TypistHWKeyboard _convertKeyboardLanguageToHIDCountryCode:](TypistHWKeyboard, "_convertKeyboardLanguageToHIDCountryCode:", [keyboardLanguage integerValue]);
   [(TypistHWKeyboard *)v5 setKeyboardCountryCode:v15];
 
-  v44[0] = @"PrimaryUsagePage";
-  v44[1] = @"PrimaryUsage";
-  v45[0] = &unk_288029550;
-  v45[1] = &unk_288029568;
-  v44[2] = @"KeyboardLanguage";
+  v43[0] = @"PrimaryUsagePage";
+  v43[1] = @"PrimaryUsage";
+  v44[0] = &unk_288029550;
+  v44[1] = &unk_288029568;
+  v43[2] = @"KeyboardLanguage";
   keyboardLanguageString = [(TypistHWKeyboard *)v5 keyboardLanguageString];
-  v45[2] = keyboardLanguageString;
-  v44[3] = @"StandardType";
+  v44[2] = keyboardLanguageString;
+  v43[3] = @"StandardType";
   v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{-[TypistHWKeyboard hidKeyboardType](v5, "hidKeyboardType")}];
-  v45[3] = v17;
-  v44[4] = @"CountryCode";
+  v44[3] = v17;
+  v43[4] = @"CountryCode";
   keyboardCountryCode = [(TypistHWKeyboard *)v5 keyboardCountryCode];
-  v45[4] = keyboardCountryCode;
-  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:v44 count:5];
+  v44[4] = keyboardCountryCode;
+  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:v43 count:5];
   [(TypistHWKeyboard *)v5 setPropertyDictionary:v19];
 
   v20 = objc_alloc(MEMORY[0x277CCACA8]);
   v21 = MEMORY[0x277CCAAA0];
   propertyDictionary = [(TypistHWKeyboard *)v5 propertyDictionary];
-  v42 = 0;
-  v23 = [v21 dataWithJSONObject:propertyDictionary options:0 error:&v42];
-  v24 = v42;
+  v41 = 0;
+  v23 = [v21 dataWithJSONObject:propertyDictionary options:0 error:&v41];
+  v24 = v41;
   v25 = [v20 initWithData:v23 encoding:4];
   [(TypistHWKeyboard *)v5 setPropertyDictionaryString:v25];
 
@@ -152,7 +160,7 @@ LABEL_10:
   [(TypistHWKeyboard *)v5 setHardwareKeyboard:GSKeyboardCreate()];
   if (![(TypistHWKeyboard *)v5 hardwareKeyboard])
   {
-    TYLogl(OS_LOG_TYPE_FAULT, @"GSKeyboardCreate failed to allocate memory to layout [%@] for language [%@].", v29, v30, v31, v32, v33, v34, v28);
+    TYLogl(OS_LOG_TYPE_FAULT, @"GSKeyboardCreate failed to allocate memory to layout [%@] for language [%@].", v29, v30, v31, v32, v33, v34, v28, languageCopy);
 
     goto LABEL_10;
   }
@@ -168,7 +176,6 @@ LABEL_6:
   v37 = v5;
 LABEL_11:
 
-  v39 = *MEMORY[0x277D85DE8];
   return v37;
 }
 
@@ -182,7 +189,7 @@ LABEL_11:
 
 - (void)setModifierCharMap
 {
-  v27[10] = *MEMORY[0x277D85DE8];
+  v26[10] = *MEMORY[0x277D85DE8];
   v10 = _AXSFullKeyboardAccessEnabled();
   v11 = @"YES - Tab key is treated as modifier";
   if (!v10)
@@ -193,74 +200,235 @@ LABEL_11:
   TYLog(@"TypistHWKeyboard: _AXSFullKeyboardAccessEnabled: %@", v3, v4, v5, v6, v7, v8, v9, v11);
   if (v10)
   {
-    v26[0] = @"⌥";
-    v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"%x, %x", -[TypistHWKeyboard usagePage](self, "usagePage"), 226];
-    v27[0] = v23;
-    v26[1] = @"⇧";
-    v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"%x, %x", -[TypistHWKeyboard usagePage](self, "usagePage"), 225];
-    v27[1] = v22;
-    v26[2] = @"⌘";
+    v25[0] = @"⌥";
+    v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"%x, %x", -[TypistHWKeyboard usagePage](self, "usagePage"), 226];
+    v26[0] = v22;
+    v25[1] = @"⇧";
+    v21 = [MEMORY[0x277CCACA8] stringWithFormat:@"%x, %x", -[TypistHWKeyboard usagePage](self, "usagePage"), 225];
+    v26[1] = v21;
+    v25[2] = @"⌘";
     v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"%x, %x", -[TypistHWKeyboard usagePage](self, "usagePage"), 227];
-    v27[2] = v12;
-    v26[3] = @"⌃";
+    v26[2] = v12;
+    v25[3] = @"⌃";
     v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"%x, %x", -[TypistHWKeyboard usagePage](self, "usagePage"), 224];
-    v27[3] = v13;
-    v26[4] = @"⌨";
+    v26[3] = v13;
+    v25[4] = @"⌨";
     v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"%x, %x", 255, 3];
-    v27[4] = v14;
-    v26[5] = @"⇥";
+    v26[4] = v14;
+    v25[5] = @"⇥";
     v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"%x, %x", -[TypistHWKeyboard usagePage](self, "usagePage"), 43];
-    v27[5] = v15;
-    v26[6] = @"⇩";
+    v26[5] = v15;
+    v25[6] = @"⇩";
     v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"%x, %x", -[TypistHWKeyboard usagePage](self, "usagePage"), 229];
-    v27[6] = v16;
-    v26[7] = @"⎇";
+    v26[6] = v16;
+    v25[7] = @"⎇";
     v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"%x, %x", -[TypistHWKeyboard usagePage](self, "usagePage"), 230];
-    v27[7] = v17;
-    v26[8] = @"⊞";
+    v26[7] = v17;
+    v25[8] = @"⊞";
     v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"%x, %x", -[TypistHWKeyboard usagePage](self, "usagePage"), 231];
-    v27[8] = v18;
-    v26[9] = @"⌄";
+    v26[8] = v18;
+    v25[9] = @"⌄";
     v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"%x, %x", -[TypistHWKeyboard usagePage](self, "usagePage"), 228];
-    v27[9] = v19;
-    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:10];
+    v26[9] = v19;
+    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:10];
     [(TypistHWKeyboard *)self setModifierCharMap:v20];
   }
 
   else
   {
-    v24[0] = @"⌥";
-    v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"%x, %x", -[TypistHWKeyboard usagePage](self, "usagePage"), 226];
-    v25[0] = v23;
-    v24[1] = @"⇧";
-    v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"%x, %x", -[TypistHWKeyboard usagePage](self, "usagePage"), 225];
-    v25[1] = v22;
-    v24[2] = @"⌘";
+    v23[0] = @"⌥";
+    v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"%x, %x", -[TypistHWKeyboard usagePage](self, "usagePage"), 226];
+    v24[0] = v22;
+    v23[1] = @"⇧";
+    v21 = [MEMORY[0x277CCACA8] stringWithFormat:@"%x, %x", -[TypistHWKeyboard usagePage](self, "usagePage"), 225];
+    v24[1] = v21;
+    v23[2] = @"⌘";
     v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"%x, %x", -[TypistHWKeyboard usagePage](self, "usagePage"), 227];
-    v25[2] = v12;
-    v24[3] = @"⌃";
+    v24[2] = v12;
+    v23[3] = @"⌃";
     v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"%x, %x", -[TypistHWKeyboard usagePage](self, "usagePage"), 224];
-    v25[3] = v13;
-    v24[4] = @"⌨";
+    v24[3] = v13;
+    v23[4] = @"⌨";
     v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"%x, %x", 255, 3];
-    v25[4] = v14;
-    v24[5] = @"⇩";
+    v24[4] = v14;
+    v23[5] = @"⇩";
     v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"%x, %x", -[TypistHWKeyboard usagePage](self, "usagePage"), 229];
-    v25[5] = v15;
-    v24[6] = @"⎇";
+    v24[5] = v15;
+    v23[6] = @"⎇";
     v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"%x, %x", -[TypistHWKeyboard usagePage](self, "usagePage"), 230];
-    v25[6] = v16;
-    v24[7] = @"⊞";
+    v24[6] = v16;
+    v23[7] = @"⊞";
     v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"%x, %x", -[TypistHWKeyboard usagePage](self, "usagePage"), 231];
-    v25[7] = v17;
-    v24[8] = @"⌄";
+    v24[7] = v17;
+    v23[8] = @"⌄";
     v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"%x, %x", -[TypistHWKeyboard usagePage](self, "usagePage"), 228];
-    v25[8] = v18;
-    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:9];
+    v24[8] = v18;
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:9];
     [(TypistHWKeyboard *)self setModifierCharMap:v19];
   }
+}
 
-  v21 = *MEMORY[0x277D85DE8];
+- (void)_insertKey:(unsigned __int16)key logOutput:(id)output
+{
+  keyCopy = key;
+  v33 = *MEMORY[0x277D85DE8];
+  outputCopy = output;
+  if ([(TypistHWKeyboard *)self hardwareKeyboard])
+  {
+    v13 = malloc_type_calloc(1uLL, 0xA2uLL, 0x10000402B2F1F51uLL);
+    v31 = 0;
+    [(TypistHWKeyboard *)self hardwareKeyboard];
+    GSKeyboardTranslateKeyExtended();
+    [(TypistHWKeyboard *)self hardwareKeyboard:&v31];
+    ModifierState = GSKeyboardGetModifierState();
+    v15 = [MEMORY[0x277CCACA8] stringWithCharacters:v13 + 30 length:v13[29]];
+    if (v15)
+    {
+      characterToKeycodeMap = [(TypistHWKeyboard *)self characterToKeycodeMap];
+      v17 = [characterToKeycodeMap objectForKeyedSubscript:v15];
+
+      v18 = @"No";
+      if ((ModifierState & 0x2000000) != 0)
+      {
+        v19 = @"Yes - skipping";
+      }
+
+      else
+      {
+        v19 = @"No";
+      }
+
+      if (v17)
+      {
+        v18 = @"Yes - skipping";
+      }
+
+      [outputCopy appendFormat:@"keyCode: %#x, unmodifiedCharacters: %@, dead key: %@, key exists: %@\n", keyCopy, v15, v19, v18];
+      if ((ModifierState & 0x2000000) == 0 && !v17)
+      {
+        characterToKeycodeMap2 = [(TypistHWKeyboard *)self characterToKeycodeMap];
+        keyCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"%x, %x", -[TypistHWKeyboard usagePage](self, "usagePage"), keyCopy];
+        [characterToKeycodeMap2 setObject:keyCopy forKey:v15];
+      }
+    }
+
+    v31 = 0;
+    v32[0] = 0;
+    free(v13);
+    v22 = malloc_type_calloc(1uLL, 0xA2uLL, 0x10000402B2F1F51uLL);
+    [(TypistHWKeyboard *)self hardwareKeyboard];
+    GSKeyboardTranslateKeyExtended();
+    [(TypistHWKeyboard *)self hardwareKeyboard:&v31];
+    GSKeyboardTranslateKeyExtended();
+    [(TypistHWKeyboard *)self hardwareKeyboard:&v31];
+    v23 = GSKeyboardGetModifierState();
+    v24 = [MEMORY[0x277CCACA8] stringWithCharacters:v32 length:v31];
+
+    if (v24)
+    {
+      characterToKeycodeMap3 = [(TypistHWKeyboard *)self characterToKeycodeMap];
+      v26 = [characterToKeycodeMap3 objectForKeyedSubscript:v24];
+
+      v27 = @"No";
+      if ((v23 & 0x2000000) != 0)
+      {
+        v28 = @"Yes - skipping";
+      }
+
+      else
+      {
+        v28 = @"No";
+      }
+
+      if (v26)
+      {
+        v27 = @"Yes - skipping";
+      }
+
+      [outputCopy appendFormat:@"keyCode: %#x, shiftModifiedCharacters: %@, dead key: %@, key exists: %@\n", keyCopy, v24, v28, v27];
+      if ((v23 & 0x2000000) == 0 && !v26)
+      {
+        characterToKeycodeMap4 = [(TypistHWKeyboard *)self characterToKeycodeMap];
+        keyCopy2 = [MEMORY[0x277CCACA8] stringWithFormat:@"%x, %x/%x, %x", -[TypistHWKeyboard usagePage](self, "usagePage"), 225, -[TypistHWKeyboard usagePage](self, "usagePage"), keyCopy];
+        [characterToKeycodeMap4 setObject:keyCopy2 forKey:v24];
+      }
+    }
+
+    free(v22);
+  }
+
+  else
+  {
+    TYLogl(OS_LOG_TYPE_ERROR, @"No hardware keyboard reference is attached. It may have been detached.", v7, v8, v9, v10, v11, v12);
+  }
+}
+
+- (void)_insertCharacterForKeyCode:(unsigned __int16)code logOutput:(id)output
+{
+  codeCopy = code;
+  outputCopy = output;
+  if (codeCopy > 42)
+  {
+    switch(codeCopy)
+    {
+      case '+':
+        characterToKeycodeMap = [(TypistHWKeyboard *)self characterToKeycodeMap];
+        v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"%x, %x", -[TypistHWKeyboard usagePage](self, "usagePage"), 43];
+        v9 = @"⇥";
+        goto LABEL_16;
+      case ',':
+        characterToKeycodeMap = [(TypistHWKeyboard *)self characterToKeycodeMap];
+        v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"%x, %x", -[TypistHWKeyboard usagePage](self, "usagePage"), 44];
+        v9 = @" ";
+        goto LABEL_16;
+      case '9':
+        characterToKeycodeMap = [(TypistHWKeyboard *)self characterToKeycodeMap];
+        v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"%x, %x", -[TypistHWKeyboard usagePage](self, "usagePage"), 57];
+        v9 = @"⇪";
+        goto LABEL_16;
+    }
+  }
+
+  else
+  {
+    switch(codeCopy)
+    {
+      case '(':
+        characterToKeycodeMap = [(TypistHWKeyboard *)self characterToKeycodeMap];
+        v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"%x, %x", -[TypistHWKeyboard usagePage](self, "usagePage"), 40];
+        v9 = @"⏎";
+        goto LABEL_16;
+      case ')':
+        characterToKeycodeMap = [(TypistHWKeyboard *)self characterToKeycodeMap];
+        v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"%x, %x", -[TypistHWKeyboard usagePage](self, "usagePage"), 41];
+        v9 = @"␛";
+        goto LABEL_16;
+      case '*':
+        characterToKeycodeMap = [(TypistHWKeyboard *)self characterToKeycodeMap];
+        v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"%x, %x", -[TypistHWKeyboard usagePage](self, "usagePage"), 42];
+        v9 = @"⌫";
+LABEL_16:
+        [characterToKeycodeMap setObject:v8 forKey:v9];
+
+        goto LABEL_17;
+    }
+  }
+
+  if ((codeCopy - 58) > 0x35)
+  {
+    [(TypistHWKeyboard *)self _insertKey:codeCopy logOutput:outputCopy];
+  }
+
+  else
+  {
+    v13 = codeCopy - 2357;
+    v10 = [MEMORY[0x277CCACA8] stringWithCharacters:&v13 length:1];
+    characterToKeycodeMap2 = [(TypistHWKeyboard *)self characterToKeycodeMap];
+    codeCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"%x, %x", -[TypistHWKeyboard usagePage](self, "usagePage"), codeCopy];
+    [characterToKeycodeMap2 setObject:codeCopy forKey:v10];
+  }
+
+LABEL_17:
 }
 
 - (void)_insertStaticKeys
@@ -418,7 +586,7 @@ LABEL_10:
     [(TypistHWKeyboard *)self setHardwareKeyboard:0];
   }
 
-  TYLog(@"Detaching hardware keyboard. Tearing down recapInlineplayer.", v4, v5, v6, v7, v8, v9, v10, v11);
+  TYLog(@"Detaching hardware keyboard. Tearing down recapInlineplayer.", v4, v5, v6, v7, v8, v9, v10);
 
   +[TypistKeyboardUtilities tearDownRecapInlinePlayer];
 }
@@ -429,18 +597,18 @@ LABEL_10:
   [(TypistHWKeyboard *)self pressDuration];
   v6 = v5;
   [(TypistHWKeyboard *)self typeInterval];
-  TYLog(@"TypistHWKeyboard: Generated usage pairs with %fs pressDuration, %fs typeInterval", v7, v8, v9, v10, v11, v12, v13, v6);
-  v14 = MEMORY[0x277D44358];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __44__TypistHWKeyboard_generateKeystrokeStream___block_invoke;
-  v18[3] = &unk_279DF4628;
-  v18[4] = self;
-  v19 = streamCopy;
-  v15 = streamCopy;
-  v16 = [v14 eventStreamWithEventActions:v18];
+  TYLog(@"TypistHWKeyboard: Generated usage pairs with %fs pressDuration, %fs typeInterval", v7, v8, v9, v10, v11, v12, v13, v6, v14);
+  v15 = MEMORY[0x277D44358];
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __44__TypistHWKeyboard_generateKeystrokeStream___block_invoke;
+  v19[3] = &unk_279DF4628;
+  v19[4] = self;
+  v20 = streamCopy;
+  v16 = streamCopy;
+  v17 = [v15 eventStreamWithEventActions:v19];
 
-  return v16;
+  return v17;
 }
 
 void __44__TypistHWKeyboard_generateKeystrokeStream___block_invoke(uint64_t a1, void *a2)
@@ -523,7 +691,7 @@ void __44__TypistHWKeyboard_generateKeystrokeStream___block_invoke(uint64_t a1, 
   streamCopy = stream;
   if (![(TypistHWKeyboard *)self hardwareKeyboard])
   {
-    TYLogl(OS_LOG_TYPE_ERROR, @"No hardware keyboard reference is attached. It may have been detached.", v7, v8, v9, v10, v11, v12, v55);
+    TYLogl(OS_LOG_TYPE_ERROR, @"No hardware keyboard reference is attached. It may have been detached.", v7, v8, v9, v10, v11, v12);
     v21 = 0;
     goto LABEL_35;
   }
@@ -535,12 +703,12 @@ void __44__TypistHWKeyboard_generateKeystrokeStream___block_invoke(uint64_t a1, 
   v14 = MEMORY[0x277CCABB0];
   [(TypistHWKeyboard *)self pressDuration];
   v15 = [v14 numberWithDouble:?];
-  v63 = [v13 stringFromNumber:v15];
+  v62 = [v13 stringFromNumber:v15];
 
   v16 = MEMORY[0x277CCABB0];
   [(TypistHWKeyboard *)self typeInterval];
   v17 = [v16 numberWithDouble:?];
-  v62 = [v13 stringFromNumber:v17];
+  v61 = [v13 stringFromNumber:v17];
 
   v18 = [streamCopy stringByReplacingOccurrencesOfString:@"\t" withString:@"⇥"];
   v19 = [v18 stringByReplacingOccurrencesOfString:@"\n" withString:@"⏎"];
@@ -554,14 +722,14 @@ void __44__TypistHWKeyboard_generateKeystrokeStream___block_invoke(uint64_t a1, 
     goto LABEL_34;
   }
 
-  v57 = v13;
-  v58 = streamCopy;
+  v56 = v13;
+  v57 = streamCopy;
   v35 = 0;
   v36 = 0;
-  v60 = intervalCopy;
+  v59 = intervalCopy;
   selfCopy = self;
-  v61 = v21;
-  v64 = modifierCharMap;
+  v60 = v21;
+  v63 = modifierCharMap;
   do
   {
     v37 = [v19 graphemeAtIndex:v35];
@@ -595,8 +763,8 @@ void __44__TypistHWKeyboard_generateKeystrokeStream___block_invoke(uint64_t a1, 
       if (!v43)
       {
         TYLogl(OS_LOG_TYPE_ERROR, @"The character %@ is not in the character map and cannot be normalized to a known character.", v44, v45, v46, v47, v48, v49, v37);
-        v21 = v61;
-        modifierCharMap = v64;
+        v21 = v60;
+        modifierCharMap = v63;
 LABEL_27:
 
         goto LABEL_28;
@@ -608,20 +776,20 @@ LABEL_27:
 
       if ([v52 length])
       {
-        intervalCopy = v60;
+        intervalCopy = v59;
         if (v36)
         {
           [v36 appendFormat:@"/%@/%@", v52, v43];
 LABEL_23:
           self = selfCopy;
 
-          v21 = v61;
+          v21 = v60;
 LABEL_24:
-          modifierCharMap = v64;
+          modifierCharMap = v63;
           if (intervalCopy)
           {
-            v56 = v62;
-            [v36 appendFormat:@" %@ wait %@ ", v63];
+            v55 = v61;
+            [v36 appendFormat:@" %@ wait %@ ", v62];
           }
 
           [v21 appendString:v36];
@@ -630,16 +798,16 @@ LABEL_24:
           goto LABEL_27;
         }
 
-        v56 = v43;
+        v55 = v43;
         v53 = [objc_alloc(MEMORY[0x277CCAB68]) initWithFormat:@"bx %@/%@", v52];
       }
 
       else
       {
-        intervalCopy = v60;
+        intervalCopy = v59;
         if (v36)
         {
-          [v36 appendFormat:@"/%@", v43, v56];
+          [v36 appendFormat:@"/%@", v43, v55];
           goto LABEL_23;
         }
 
@@ -672,8 +840,8 @@ LABEL_28:
     [v21 appendString:v36];
   }
 
-  v13 = v57;
-  streamCopy = v58;
+  v13 = v56;
+  streamCopy = v57;
 LABEL_34:
   TYLog(@"Hardware keystroke stream: %@", v28, v29, v30, v31, v32, v33, v34, v21);
 
@@ -684,7 +852,7 @@ LABEL_35:
 
 - (id)pressKeycodes:(id)keycodes
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   keycodesCopy = keycodes;
   v5 = objc_opt_new();
   v6 = objc_alloc_init(MEMORY[0x277CCABB8]);
@@ -694,34 +862,34 @@ LABEL_35:
   v7 = MEMORY[0x277CCABB0];
   [(TypistHWKeyboard *)self pressDuration];
   v8 = [v7 numberWithDouble:?];
-  v45 = [v6 stringFromNumber:v8];
+  v44 = [v6 stringFromNumber:v8];
 
   v9 = MEMORY[0x277CCABB0];
   [(TypistHWKeyboard *)self typeInterval];
   v10 = [v9 numberWithDouble:?];
-  v44 = [v6 stringFromNumber:v10];
+  v43 = [v6 stringFromNumber:v10];
 
-  v49 = 0u;
-  v50 = 0u;
-  v47 = 0u;
   v48 = 0u;
+  v49 = 0u;
+  v46 = 0u;
+  v47 = 0u;
   v11 = keycodesCopy;
-  v46 = [v11 countByEnumeratingWithState:&v47 objects:v52 count:16];
-  if (v46)
+  v45 = [v11 countByEnumeratingWithState:&v46 objects:v51 count:16];
+  if (v45)
   {
-    v42 = *v48;
-    v43 = v5;
+    v41 = *v47;
+    v42 = v5;
     obj = v11;
     do
     {
-      for (i = 0; i != v46; ++i)
+      for (i = 0; i != v45; ++i)
       {
-        if (*v48 != v42)
+        if (*v47 != v41)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v47 + 1) + 8 * i);
+        v13 = *(*(&v46 + 1) + 8 * i);
         v14 = objc_opt_new();
         if ([v13 count] != 1)
         {
@@ -751,15 +919,15 @@ LABEL_35:
           while (v15 < [v13 count] - 1);
         }
 
-        v5 = v43;
-        [v43 appendFormat:@"bx %@ %@ wait %@ ", v14, v45, v44];
+        v5 = v42;
+        [v42 appendFormat:@"bx %@ %@ wait %@ ", v14, v44, v43];
       }
 
       v11 = obj;
-      v46 = [obj countByEnumeratingWithState:&v47 objects:v52 count:16];
+      v45 = [obj countByEnumeratingWithState:&v46 objects:v51 count:16];
     }
 
-    while (v46);
+    while (v45);
   }
 
   if ([v5 length])
@@ -768,10 +936,10 @@ LABEL_35:
     propertyDictionaryString = [(TypistHWKeyboard *)self propertyDictionaryString];
     v29 = [v27 stringWithFormat:@"sender %@ %@", propertyDictionaryString, v5];
 
-    TYLog(@"TypistHWKeyboard - pressKeycodes: keystroke stream generated for input: [%@]\n%@", v30, v31, v32, v33, v34, v35, v36, v11);
+    TYLog(@"TypistHWKeyboard - pressKeycodes: keystroke stream generated for input: [%@]\n%@", v30, v31, v32, v33, v34, v35, v36, v11, v5);
     v37 = [[TYRecapCommand alloc] initWithCommandType:1 commandString:v29 commandDescription:0];
-    v51 = v37;
-    v38 = [MEMORY[0x277CBEA60] arrayWithObjects:&v51 count:1];
+    v50 = v37;
+    v38 = [MEMORY[0x277CBEA60] arrayWithObjects:&v50 count:1];
     [TypistKeyboardUtilities launchRecap:v38];
   }
 
@@ -781,9 +949,23 @@ LABEL_35:
     v29 = 0;
   }
 
-  v39 = *MEMORY[0x277D85DE8];
-
   return v29;
+}
+
+- (void)pressKeycode:(unsigned __int16)keycode
+{
+  keycodeCopy = keycode;
+  v18[1] = *MEMORY[0x277D85DE8];
+  keycode = [MEMORY[0x277CCACA8] stringWithFormat:@"bx %x, %x", -[TypistHWKeyboard usagePage](self, "usagePage"), keycode];
+  v6 = MEMORY[0x277CCACA8];
+  propertyDictionaryString = [(TypistHWKeyboard *)self propertyDictionaryString];
+  v8 = [v6 stringWithFormat:@"sender %@ %@", propertyDictionaryString, keycode];
+
+  TYLog(@"TypistHWKeyboard - pressKeycode: keystroke stream generated for input: [%ui]\n%@", v9, v10, v11, v12, v13, v14, v15, keycodeCopy, keycode);
+  v16 = [[TYRecapCommand alloc] initWithCommandType:1 commandString:v8 commandDescription:0];
+  v18[0] = v16;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
+  [TypistKeyboardUtilities launchRecap:v17];
 }
 
 - (void)typeString:(id)string
@@ -844,7 +1026,7 @@ LABEL_35:
 
   [v13 appendFormat:@" %f", *&duration];
   v20 = [[TYRecapCommand alloc] initWithCommandType:1 commandString:v13 commandDescription:0];
-  TYLog(@"TypistHWKeyboard - pressAndHoldKeys: keystroke stream generated for input: [%@]\n%@", v21, v22, v23, v24, v25, v26, v27, keysCopy);
+  TYLog(@"TypistHWKeyboard - pressAndHoldKeys: keystroke stream generated for input: [%@]\n%@", v21, v22, v23, v24, v25, v26, v27, keysCopy, v13);
   v28 = dispatch_queue_create("launchRecapQueue", 0);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
@@ -889,75 +1071,73 @@ void __70__TypistHWKeyboard_pressAndHoldKeys_forDuration_withValidation_after___
 
 void __39__TypistHWKeyboard__getModifierMaskMap__block_invoke(uint64_t a1)
 {
-  v37[16] = *MEMORY[0x277D85DE8];
-  v35 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:0];
-  v36[0] = v35;
-  v37[0] = &stru_288014100;
-  v34 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:0x20000];
-  v36[1] = v34;
-  v33 = [MEMORY[0x277CCACA8] stringWithFormat:@"%x, %x", objc_msgSend(*(a1 + 32), "usagePage"), 225];
-  v37[1] = v33;
-  v32 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:0x80000];
-  v36[2] = v32;
-  v31 = [MEMORY[0x277CCACA8] stringWithFormat:@"%x, %x", objc_msgSend(*(a1 + 32), "usagePage"), 226];
-  v37[2] = v31;
-  v30 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:0x100000];
-  v36[3] = v30;
-  v29 = [MEMORY[0x277CCACA8] stringWithFormat:@"%x, %x", objc_msgSend(*(a1 + 32), "usagePage"), 224];
-  v37[3] = v29;
-  v28 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:0x10000];
-  v36[4] = v28;
-  v27 = [MEMORY[0x277CCACA8] stringWithFormat:@"%x, %x", objc_msgSend(*(a1 + 32), "usagePage"), 227];
-  v37[4] = v27;
-  v26 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:655360];
-  v36[5] = v26;
-  v25 = [MEMORY[0x277CCACA8] stringWithFormat:@"%x, %x/%x, %x", objc_msgSend(*(a1 + 32), "usagePage"), 225, objc_msgSend(*(a1 + 32), "usagePage"), 226];
-  v37[5] = v25;
-  v24 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:1179648];
-  v36[6] = v24;
-  v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"%x, %x/%x, %x", objc_msgSend(*(a1 + 32), "usagePage"), 225, objc_msgSend(*(a1 + 32), "usagePage"), 224];
-  v37[6] = v23;
-  v22 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:196608];
-  v36[7] = v22;
-  v21 = [MEMORY[0x277CCACA8] stringWithFormat:@"%x, %x/%x, %x", objc_msgSend(*(a1 + 32), "usagePage"), 225, objc_msgSend(*(a1 + 32), "usagePage"), 227];
-  v37[7] = v21;
-  v20 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:1572864];
-  v36[8] = v20;
-  v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"%x, %x/%x, %x", objc_msgSend(*(a1 + 32), "usagePage"), 226, objc_msgSend(*(a1 + 32), "usagePage"), 224];
-  v37[8] = v19;
-  v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:589824];
-  v36[9] = v18;
-  v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"%x, %x/%x, %x", objc_msgSend(*(a1 + 32), "usagePage"), 226, objc_msgSend(*(a1 + 32), "usagePage"), 227];
-  v37[9] = v17;
-  v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:1114112];
-  v36[10] = v16;
-  v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"%x, %x/%x, %x", objc_msgSend(*(a1 + 32), "usagePage"), 224, objc_msgSend(*(a1 + 32), "usagePage"), 227];
-  v37[10] = v15;
-  v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:1703936];
-  v36[11] = v14;
-  v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"%x, %x/%x, %x/%x, %x", objc_msgSend(*(a1 + 32), "usagePage"), 225, objc_msgSend(*(a1 + 32), "usagePage"), 226, objc_msgSend(*(a1 + 32), "usagePage"), 224];
-  v37[11] = v13;
-  v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:720896];
-  v36[12] = v12;
-  v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"%x, %x/%x, %x/%x, %x", objc_msgSend(*(a1 + 32), "usagePage"), 225, objc_msgSend(*(a1 + 32), "usagePage"), 226, objc_msgSend(*(a1 + 32), "usagePage"), 227];
-  v37[12] = v11;
-  v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:1245184];
-  v36[13] = v10;
+  v36[16] = *MEMORY[0x277D85DE8];
+  v34 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:0];
+  v35[0] = v34;
+  v36[0] = &stru_288014100;
+  v33 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:0x20000];
+  v35[1] = v33;
+  v32 = [MEMORY[0x277CCACA8] stringWithFormat:@"%x, %x", objc_msgSend(*(a1 + 32), "usagePage"), 225];
+  v36[1] = v32;
+  v31 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:0x80000];
+  v35[2] = v31;
+  v30 = [MEMORY[0x277CCACA8] stringWithFormat:@"%x, %x", objc_msgSend(*(a1 + 32), "usagePage"), 226];
+  v36[2] = v30;
+  v29 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:0x100000];
+  v35[3] = v29;
+  v28 = [MEMORY[0x277CCACA8] stringWithFormat:@"%x, %x", objc_msgSend(*(a1 + 32), "usagePage"), 224];
+  v36[3] = v28;
+  v27 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:0x10000];
+  v35[4] = v27;
+  v26 = [MEMORY[0x277CCACA8] stringWithFormat:@"%x, %x", objc_msgSend(*(a1 + 32), "usagePage"), 227];
+  v36[4] = v26;
+  v25 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:655360];
+  v35[5] = v25;
+  v24 = [MEMORY[0x277CCACA8] stringWithFormat:@"%x, %x/%x, %x", objc_msgSend(*(a1 + 32), "usagePage"), 225, objc_msgSend(*(a1 + 32), "usagePage"), 226];
+  v36[5] = v24;
+  v23 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:1179648];
+  v35[6] = v23;
+  v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"%x, %x/%x, %x", objc_msgSend(*(a1 + 32), "usagePage"), 225, objc_msgSend(*(a1 + 32), "usagePage"), 224];
+  v36[6] = v22;
+  v21 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:196608];
+  v35[7] = v21;
+  v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"%x, %x/%x, %x", objc_msgSend(*(a1 + 32), "usagePage"), 225, objc_msgSend(*(a1 + 32), "usagePage"), 227];
+  v36[7] = v20;
+  v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:1572864];
+  v35[8] = v19;
+  v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"%x, %x/%x, %x", objc_msgSend(*(a1 + 32), "usagePage"), 226, objc_msgSend(*(a1 + 32), "usagePage"), 224];
+  v36[8] = v18;
+  v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:589824];
+  v35[9] = v17;
+  v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"%x, %x/%x, %x", objc_msgSend(*(a1 + 32), "usagePage"), 226, objc_msgSend(*(a1 + 32), "usagePage"), 227];
+  v36[9] = v16;
+  v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:1114112];
+  v35[10] = v15;
+  v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"%x, %x/%x, %x", objc_msgSend(*(a1 + 32), "usagePage"), 224, objc_msgSend(*(a1 + 32), "usagePage"), 227];
+  v36[10] = v14;
+  v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:1703936];
+  v35[11] = v13;
+  v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"%x, %x/%x, %x/%x, %x", objc_msgSend(*(a1 + 32), "usagePage"), 225, objc_msgSend(*(a1 + 32), "usagePage"), 226, objc_msgSend(*(a1 + 32), "usagePage"), 224];
+  v36[11] = v12;
+  v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:720896];
+  v35[12] = v11;
+  v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"%x, %x/%x, %x/%x, %x", objc_msgSend(*(a1 + 32), "usagePage"), 225, objc_msgSend(*(a1 + 32), "usagePage"), 226, objc_msgSend(*(a1 + 32), "usagePage"), 227];
+  v36[12] = v10;
+  v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:1245184];
+  v35[13] = v9;
   v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"%x, %x/%x, %x/%x, %x", objc_msgSend(*(a1 + 32), "usagePage"), 225, objc_msgSend(*(a1 + 32), "usagePage"), 224, objc_msgSend(*(a1 + 32), "usagePage"), 227];
-  v37[13] = v2;
+  v36[13] = v2;
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:1638400];
-  v36[14] = v3;
+  v35[14] = v3;
   v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"%x, %x/%x, %x/%x, %x", objc_msgSend(*(a1 + 32), "usagePage"), 226, objc_msgSend(*(a1 + 32), "usagePage"), 224, objc_msgSend(*(a1 + 32), "usagePage"), 227];
-  v37[14] = v4;
+  v36[14] = v4;
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:1769472];
-  v36[15] = v5;
+  v35[15] = v5;
   v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"%x, %x/%x, %x/%x, %x/%x, %x", objc_msgSend(*(a1 + 32), "usagePage"), 225, objc_msgSend(*(a1 + 32), "usagePage"), 226, objc_msgSend(*(a1 + 32), "usagePage"), 224, objc_msgSend(*(a1 + 32), "usagePage"), 227];
-  v37[15] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:16];
+  v36[15] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:v35 count:16];
   v8 = _getModifierMaskMap_modifierMaskMapDictionary;
   _getModifierMaskMap_modifierMaskMapDictionary = v7;
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 + (unsigned)_convertHIDKeyboardTypeToGSKeyboardType:(unsigned int)type
@@ -1009,14 +1189,14 @@ void __39__TypistHWKeyboard__getModifierMaskMap__block_invoke(uint64_t a1)
   return v2;
 }
 
-void __44__TypistHWKeyboard_keyboardLanguageValueMap__block_invoke(uint64_t a1)
+void __44__TypistHWKeyboard_keyboardLanguageValueMap__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = objc_opt_new();
-  v3 = keyboardLanguageValueMap_layoutMap;
-  keyboardLanguageValueMap_layoutMap = v2;
+  v3 = objc_opt_new();
+  v4 = keyboardLanguageValueMap_layoutMap;
+  keyboardLanguageValueMap_layoutMap = v3;
 
-  v4 = [*(a1 + 32) keyboardLayoutValueMap];
-  [v4 enumerateKeysAndObjectsUsingBlock:&__block_literal_global];
+  v5 = [*(a1 + 32) keyboardLayoutValueMap];
+  [v5 enumerateKeysAndObjectsUsingBlock:&__block_literal_global];
 }
 
 + (id)keyboardLayoutValueMap
@@ -1033,92 +1213,90 @@ void __44__TypistHWKeyboard_keyboardLanguageValueMap__block_invoke(uint64_t a1)
 
 void __42__TypistHWKeyboard_keyboardLayoutValueMap__block_invoke()
 {
-  v4[40] = *MEMORY[0x277D85DE8];
-  v3[0] = &unk_288029580;
-  v3[1] = &unk_288029550;
-  v4[0] = @"ABC";
-  v4[1] = @"German";
-  v3[2] = &unk_288029598;
-  v3[3] = &unk_2880295B0;
-  v4[2] = @"French";
-  v4[3] = @"ABC";
-  v3[4] = &unk_2880295C8;
-  v3[5] = &unk_2880295E0;
-  v4[4] = @"ABC";
-  v4[5] = @"US";
-  v3[6] = &unk_288029568;
-  v3[7] = &unk_2880295F8;
-  v4[6] = @"British";
-  v4[7] = @"Spanish";
-  v3[8] = &unk_288029610;
-  v3[9] = &unk_288029628;
-  v4[8] = @"Swedish";
-  v4[9] = @"Italian";
-  v3[10] = &unk_288029640;
-  v3[11] = &unk_288029658;
-  v4[10] = @"Canadian";
-  v4[11] = @"ABC";
-  v3[12] = &unk_288029670;
-  v3[13] = &unk_288029688;
-  v4[12] = @"Danish";
-  v4[13] = @"Belgian";
-  v3[14] = &unk_2880296A0;
-  v3[15] = &unk_2880296B8;
-  v4[14] = @"Norwegian";
-  v4[15] = @"ABC";
-  v3[16] = &unk_2880296D0;
-  v3[17] = &unk_2880296E8;
-  v4[16] = @"Dutch";
-  v4[17] = @"Swiss German";
-  v3[18] = &unk_288029700;
-  v3[19] = &unk_288029718;
-  v4[18] = @"ABC";
-  v4[19] = @"ABC";
-  v3[20] = &unk_288029730;
-  v3[21] = &unk_288029748;
-  v4[20] = @"Bulgarian";
-  v4[21] = @"Croatian";
-  v3[22] = &unk_288029760;
-  v3[23] = &unk_288029778;
-  v4[22] = @"Croatian-Standard";
-  v4[23] = @"Czech";
-  v3[24] = &unk_288029790;
-  v3[25] = &unk_2880297A8;
-  v4[24] = @"ABC";
-  v4[25] = @"ABC";
-  v3[26] = &unk_2880297C0;
-  v3[27] = &unk_2880297D8;
-  v4[26] = @"Icelandic";
-  v4[27] = @"Hungarian";
-  v3[28] = &unk_2880297F0;
-  v3[29] = &unk_288029808;
-  v4[28] = @"Polish";
-  v4[29] = @"Portuguese";
-  v3[30] = &unk_288029820;
-  v3[31] = &unk_288029838;
-  v4[30] = @"ABC";
-  v4[31] = @"Romanian";
-  v3[32] = &unk_288029850;
-  v3[33] = &unk_288029868;
-  v4[32] = @"Russian";
-  v4[33] = @"Slovak";
-  v3[34] = &unk_288029880;
-  v3[35] = &unk_288029898;
-  v4[34] = @"ABC";
-  v4[35] = @"Turkish-QWERTY-PC";
-  v3[36] = &unk_2880298B0;
-  v3[37] = &unk_2880298C8;
-  v4[36] = @"Turkish-QWERTY";
-  v4[37] = @"Ukrainian";
-  v3[38] = &unk_2880298E0;
-  v3[39] = &unk_2880298F8;
-  v4[38] = @"Turkish-Standard";
-  v4[39] = @"ABC";
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:40];
+  v3[40] = *MEMORY[0x277D85DE8];
+  v2[0] = &unk_288029580;
+  v2[1] = &unk_288029550;
+  v3[0] = @"ABC";
+  v3[1] = @"German";
+  v2[2] = &unk_288029598;
+  v2[3] = &unk_2880295B0;
+  v3[2] = @"French";
+  v3[3] = @"ABC";
+  v2[4] = &unk_2880295C8;
+  v2[5] = &unk_2880295E0;
+  v3[4] = @"ABC";
+  v3[5] = @"US";
+  v2[6] = &unk_288029568;
+  v2[7] = &unk_2880295F8;
+  v3[6] = @"British";
+  v3[7] = @"Spanish";
+  v2[8] = &unk_288029610;
+  v2[9] = &unk_288029628;
+  v3[8] = @"Swedish";
+  v3[9] = @"Italian";
+  v2[10] = &unk_288029640;
+  v2[11] = &unk_288029658;
+  v3[10] = @"Canadian";
+  v3[11] = @"ABC";
+  v2[12] = &unk_288029670;
+  v2[13] = &unk_288029688;
+  v3[12] = @"Danish";
+  v3[13] = @"Belgian";
+  v2[14] = &unk_2880296A0;
+  v2[15] = &unk_2880296B8;
+  v3[14] = @"Norwegian";
+  v3[15] = @"ABC";
+  v2[16] = &unk_2880296D0;
+  v2[17] = &unk_2880296E8;
+  v3[16] = @"Dutch";
+  v3[17] = @"Swiss German";
+  v2[18] = &unk_288029700;
+  v2[19] = &unk_288029718;
+  v3[18] = @"ABC";
+  v3[19] = @"ABC";
+  v2[20] = &unk_288029730;
+  v2[21] = &unk_288029748;
+  v3[20] = @"Bulgarian";
+  v3[21] = @"Croatian";
+  v2[22] = &unk_288029760;
+  v2[23] = &unk_288029778;
+  v3[22] = @"Croatian-Standard";
+  v3[23] = @"Czech";
+  v2[24] = &unk_288029790;
+  v2[25] = &unk_2880297A8;
+  v3[24] = @"ABC";
+  v3[25] = @"ABC";
+  v2[26] = &unk_2880297C0;
+  v2[27] = &unk_2880297D8;
+  v3[26] = @"Icelandic";
+  v3[27] = @"Hungarian";
+  v2[28] = &unk_2880297F0;
+  v2[29] = &unk_288029808;
+  v3[28] = @"Polish";
+  v3[29] = @"Portuguese";
+  v2[30] = &unk_288029820;
+  v2[31] = &unk_288029838;
+  v3[30] = @"ABC";
+  v3[31] = @"Romanian";
+  v2[32] = &unk_288029850;
+  v2[33] = &unk_288029868;
+  v3[32] = @"Russian";
+  v3[33] = @"Slovak";
+  v2[34] = &unk_288029880;
+  v2[35] = &unk_288029898;
+  v3[34] = @"ABC";
+  v3[35] = @"Turkish-QWERTY-PC";
+  v2[36] = &unk_2880298B0;
+  v2[37] = &unk_2880298C8;
+  v3[36] = @"Turkish-QWERTY";
+  v3[37] = @"Ukrainian";
+  v2[38] = &unk_2880298E0;
+  v2[39] = &unk_2880298F8;
+  v3[38] = @"Turkish-Standard";
+  v3[39] = @"ABC";
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:40];
   v1 = keyboardLayoutValueMap_countryCodeMap;
   keyboardLayoutValueMap_countryCodeMap = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_convertKeyboardLanguageToHIDCountryCode:(int64_t)code
@@ -1137,92 +1315,90 @@ void __42__TypistHWKeyboard_keyboardLayoutValueMap__block_invoke()
 
 void __61__TypistHWKeyboard__convertKeyboardLanguageToHIDCountryCode___block_invoke()
 {
-  v4[40] = *MEMORY[0x277D85DE8];
+  v3[40] = *MEMORY[0x277D85DE8];
+  v2[0] = &unk_288029580;
+  v2[1] = &unk_288029550;
   v3[0] = &unk_288029580;
-  v3[1] = &unk_288029550;
-  v4[0] = &unk_288029580;
-  v4[1] = &unk_288029628;
-  v3[2] = &unk_288029598;
-  v3[3] = &unk_2880295B0;
-  v4[2] = &unk_288029610;
-  v4[3] = &unk_2880296B8;
-  v3[4] = &unk_2880295C8;
-  v3[5] = &unk_2880295E0;
-  v4[4] = &unk_288029688;
-  v4[5] = &unk_288029880;
-  v3[6] = &unk_288029568;
-  v3[7] = &unk_2880295F8;
-  v4[6] = &unk_288029868;
-  v4[7] = &unk_2880297C0;
-  v3[8] = &unk_288029610;
-  v3[9] = &unk_288029628;
-  v4[8] = &unk_2880297D8;
-  v4[9] = &unk_2880296A0;
-  v3[10] = &unk_288029640;
-  v3[11] = &unk_288029658;
-  v4[10] = &unk_2880295C8;
-  v4[11] = &unk_288029910;
-  v3[12] = &unk_288029670;
-  v3[13] = &unk_288029688;
-  v4[12] = &unk_288029568;
-  v4[13] = &unk_288029598;
-  v3[14] = &unk_2880296A0;
-  v3[15] = &unk_2880296B8;
-  v4[14] = &unk_288029718;
-  v4[15] = &unk_2880296D0;
-  v3[16] = &unk_2880296D0;
-  v3[17] = &unk_2880296E8;
-  v4[16] = &unk_288029700;
-  v4[17] = &unk_288029808;
-  v3[18] = &unk_288029700;
-  v3[19] = &unk_288029718;
-  v4[18] = &unk_288029838;
-  v4[19] = &unk_288029550;
-  v3[20] = &unk_288029730;
-  v3[21] = &unk_288029748;
-  v4[20] = &unk_288029928;
-  v4[21] = &unk_288029898;
-  v3[22] = &unk_288029778;
-  v3[23] = &unk_288029790;
-  v4[22] = &unk_2880295E0;
-  v4[23] = &unk_288029640;
-  v3[24] = &unk_2880297A8;
-  v3[25] = &unk_2880297C0;
-  v4[24] = &unk_288029658;
-  v4[25] = &unk_288029940;
-  v3[26] = &unk_2880297D8;
-  v3[27] = &unk_2880297F0;
-  v4[26] = &unk_288029670;
-  v4[27] = &unk_288029748;
-  v3[28] = &unk_288029808;
-  v3[29] = &unk_288029820;
-  v4[28] = &unk_288029778;
-  v4[29] = &unk_288029730;
-  v3[30] = &unk_288029838;
-  v3[31] = &unk_288029850;
-  v4[30] = &unk_288029958;
-  v4[31] = &unk_288029790;
-  v3[32] = &unk_288029868;
-  v3[33] = &unk_288029880;
-  v4[32] = &unk_2880297A8;
-  v4[33] = &unk_288029970;
-  v3[34] = &unk_288029898;
+  v3[1] = &unk_288029628;
+  v2[2] = &unk_288029598;
+  v2[3] = &unk_2880295B0;
+  v3[2] = &unk_288029610;
+  v3[3] = &unk_2880296B8;
+  v2[4] = &unk_2880295C8;
+  v2[5] = &unk_2880295E0;
+  v3[4] = &unk_288029688;
+  v3[5] = &unk_288029880;
+  v2[6] = &unk_288029568;
+  v2[7] = &unk_2880295F8;
+  v3[6] = &unk_288029868;
+  v3[7] = &unk_2880297C0;
+  v2[8] = &unk_288029610;
+  v2[9] = &unk_288029628;
+  v3[8] = &unk_2880297D8;
+  v3[9] = &unk_2880296A0;
+  v2[10] = &unk_288029640;
+  v2[11] = &unk_288029658;
+  v3[10] = &unk_2880295C8;
+  v3[11] = &unk_288029910;
+  v2[12] = &unk_288029670;
+  v2[13] = &unk_288029688;
+  v3[12] = &unk_288029568;
+  v3[13] = &unk_288029598;
+  v2[14] = &unk_2880296A0;
+  v2[15] = &unk_2880296B8;
+  v3[14] = &unk_288029718;
+  v3[15] = &unk_2880296D0;
+  v2[16] = &unk_2880296D0;
+  v2[17] = &unk_2880296E8;
+  v3[16] = &unk_288029700;
+  v3[17] = &unk_288029808;
+  v2[18] = &unk_288029700;
+  v2[19] = &unk_288029718;
+  v3[18] = &unk_288029838;
+  v3[19] = &unk_288029550;
+  v2[20] = &unk_288029730;
+  v2[21] = &unk_288029748;
+  v3[20] = &unk_288029928;
+  v3[21] = &unk_288029898;
+  v2[22] = &unk_288029778;
+  v2[23] = &unk_288029790;
+  v3[22] = &unk_2880295E0;
+  v3[23] = &unk_288029640;
+  v2[24] = &unk_2880297A8;
+  v2[25] = &unk_2880297C0;
+  v3[24] = &unk_288029658;
+  v3[25] = &unk_288029940;
+  v2[26] = &unk_2880297D8;
+  v2[27] = &unk_2880297F0;
+  v3[26] = &unk_288029670;
+  v3[27] = &unk_288029748;
+  v2[28] = &unk_288029808;
+  v2[29] = &unk_288029820;
+  v3[28] = &unk_288029778;
+  v3[29] = &unk_288029730;
+  v2[30] = &unk_288029838;
+  v2[31] = &unk_288029850;
+  v3[30] = &unk_288029958;
+  v3[31] = &unk_288029790;
+  v2[32] = &unk_288029868;
+  v2[33] = &unk_288029880;
+  v3[32] = &unk_2880297A8;
+  v3[33] = &unk_288029970;
+  v2[34] = &unk_288029898;
+  v2[35] = &unk_2880298B0;
+  v3[34] = &unk_288029850;
   v3[35] = &unk_2880298B0;
-  v4[34] = &unk_288029850;
-  v4[35] = &unk_2880298B0;
-  v3[36] = &unk_2880298C8;
-  v3[37] = &unk_2880298E0;
-  v4[36] = &unk_288029988;
-  v4[37] = &unk_2880298B0;
-  v3[38] = &unk_2880298F8;
-  v3[39] = &unk_288029760;
-  v4[38] = &unk_2880296E8;
-  v4[39] = &unk_288029898;
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:40];
+  v2[36] = &unk_2880298C8;
+  v2[37] = &unk_2880298E0;
+  v3[36] = &unk_288029988;
+  v3[37] = &unk_2880298B0;
+  v2[38] = &unk_2880298F8;
+  v2[39] = &unk_288029760;
+  v3[38] = &unk_2880296E8;
+  v3[39] = &unk_288029898;
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:40];
   v1 = _convertKeyboardLanguageToHIDCountryCode__countryCodeMap;
   _convertKeyboardLanguageToHIDCountryCode__countryCodeMap = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 + (id)convertHIDCountryCodeToLanguage:(int64_t)language
@@ -1241,84 +1417,82 @@ void __61__TypistHWKeyboard__convertKeyboardLanguageToHIDCountryCode___block_inv
 
 void __52__TypistHWKeyboard_convertHIDCountryCodeToLanguage___block_invoke()
 {
-  v4[36] = *MEMORY[0x277D85DE8];
+  v3[36] = *MEMORY[0x277D85DE8];
+  v2[0] = &unk_288029580;
+  v2[1] = &unk_288029628;
   v3[0] = &unk_288029580;
-  v3[1] = &unk_288029628;
-  v4[0] = &unk_288029580;
-  v4[1] = &unk_288029550;
-  v3[2] = &unk_288029610;
-  v3[3] = &unk_2880296B8;
-  v4[2] = &unk_288029598;
-  v4[3] = &unk_2880295B0;
-  v3[4] = &unk_288029688;
-  v3[5] = &unk_288029880;
-  v4[4] = &unk_2880295C8;
-  v4[5] = &unk_2880295E0;
-  v3[6] = &unk_288029868;
-  v3[7] = &unk_2880297C0;
-  v4[6] = &unk_288029568;
-  v4[7] = &unk_2880295F8;
-  v3[8] = &unk_2880297D8;
-  v3[9] = &unk_2880296A0;
-  v4[8] = &unk_288029610;
-  v4[9] = &unk_288029628;
-  v3[10] = &unk_2880295C8;
-  v3[11] = &unk_288029568;
-  v4[10] = &unk_288029640;
-  v4[11] = &unk_288029670;
-  v3[12] = &unk_288029598;
-  v3[13] = &unk_288029718;
-  v4[12] = &unk_288029688;
-  v4[13] = &unk_2880296A0;
-  v3[14] = &unk_2880296D0;
-  v3[15] = &unk_288029700;
-  v4[14] = &unk_2880296B8;
-  v4[15] = &unk_2880296D0;
-  v3[16] = &unk_288029808;
-  v3[17] = &unk_288029838;
-  v4[16] = &unk_2880296E8;
-  v4[17] = &unk_288029700;
-  v3[18] = &unk_288029550;
-  v3[19] = &unk_288029898;
-  v4[18] = &unk_288029718;
-  v4[19] = &unk_288029760;
-  v3[20] = &unk_2880295E0;
-  v3[21] = &unk_288029640;
-  v4[20] = &unk_288029778;
-  v4[21] = &unk_288029790;
-  v3[22] = &unk_288029658;
-  v3[23] = &unk_288029670;
-  v4[22] = &unk_2880297A8;
-  v4[23] = &unk_2880297D8;
-  v3[24] = &unk_288029748;
-  v3[25] = &unk_288029778;
-  v4[24] = &unk_2880297F0;
-  v4[25] = &unk_288029808;
-  v3[26] = &unk_288029730;
-  v3[27] = &unk_288029790;
-  v4[26] = &unk_288029820;
-  v4[27] = &unk_288029850;
-  v3[28] = &unk_2880297A8;
-  v3[29] = &unk_288029850;
-  v4[28] = &unk_288029868;
-  v4[29] = &unk_288029898;
-  v3[30] = &unk_2880298B0;
-  v3[31] = &unk_288029988;
-  v4[30] = &unk_2880298E0;
-  v4[31] = &unk_2880298C8;
-  v3[32] = &unk_288029970;
-  v3[33] = &unk_288029958;
-  v4[32] = &unk_288029880;
-  v4[33] = &unk_288029838;
-  v3[34] = &unk_288029928;
-  v3[35] = &unk_288029910;
-  v4[34] = &unk_288029730;
-  v4[35] = &unk_288029658;
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:36];
+  v3[1] = &unk_288029550;
+  v2[2] = &unk_288029610;
+  v2[3] = &unk_2880296B8;
+  v3[2] = &unk_288029598;
+  v3[3] = &unk_2880295B0;
+  v2[4] = &unk_288029688;
+  v2[5] = &unk_288029880;
+  v3[4] = &unk_2880295C8;
+  v3[5] = &unk_2880295E0;
+  v2[6] = &unk_288029868;
+  v2[7] = &unk_2880297C0;
+  v3[6] = &unk_288029568;
+  v3[7] = &unk_2880295F8;
+  v2[8] = &unk_2880297D8;
+  v2[9] = &unk_2880296A0;
+  v3[8] = &unk_288029610;
+  v3[9] = &unk_288029628;
+  v2[10] = &unk_2880295C8;
+  v2[11] = &unk_288029568;
+  v3[10] = &unk_288029640;
+  v3[11] = &unk_288029670;
+  v2[12] = &unk_288029598;
+  v2[13] = &unk_288029718;
+  v3[12] = &unk_288029688;
+  v3[13] = &unk_2880296A0;
+  v2[14] = &unk_2880296D0;
+  v2[15] = &unk_288029700;
+  v3[14] = &unk_2880296B8;
+  v3[15] = &unk_2880296D0;
+  v2[16] = &unk_288029808;
+  v2[17] = &unk_288029838;
+  v3[16] = &unk_2880296E8;
+  v3[17] = &unk_288029700;
+  v2[18] = &unk_288029550;
+  v2[19] = &unk_288029898;
+  v3[18] = &unk_288029718;
+  v3[19] = &unk_288029760;
+  v2[20] = &unk_2880295E0;
+  v2[21] = &unk_288029640;
+  v3[20] = &unk_288029778;
+  v3[21] = &unk_288029790;
+  v2[22] = &unk_288029658;
+  v2[23] = &unk_288029670;
+  v3[22] = &unk_2880297A8;
+  v3[23] = &unk_2880297D8;
+  v2[24] = &unk_288029748;
+  v2[25] = &unk_288029778;
+  v3[24] = &unk_2880297F0;
+  v3[25] = &unk_288029808;
+  v2[26] = &unk_288029730;
+  v2[27] = &unk_288029790;
+  v3[26] = &unk_288029820;
+  v3[27] = &unk_288029850;
+  v2[28] = &unk_2880297A8;
+  v2[29] = &unk_288029850;
+  v3[28] = &unk_288029868;
+  v3[29] = &unk_288029898;
+  v2[30] = &unk_2880298B0;
+  v2[31] = &unk_288029988;
+  v3[30] = &unk_2880298E0;
+  v3[31] = &unk_2880298C8;
+  v2[32] = &unk_288029970;
+  v2[33] = &unk_288029958;
+  v3[32] = &unk_288029880;
+  v3[33] = &unk_288029838;
+  v2[34] = &unk_288029928;
+  v2[35] = &unk_288029910;
+  v3[34] = &unk_288029730;
+  v3[35] = &unk_288029658;
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:36];
   v1 = convertHIDCountryCodeToLanguage__countryCodeMap;
   convertHIDCountryCodeToLanguage__countryCodeMap = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getPropertyDictionaryString
@@ -1415,10 +1589,9 @@ void __38__TypistHWKeyboard_Deprecated_detach___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) emulatedKeyboard];
   CFRunLoopGetMain();
-  v2 = *MEMORY[0x277CBF058];
   IOHIDUserDeviceUnscheduleFromRunLoop();
-  v3 = [*(a1 + 32) keyboardCountryCode];
-  [v3 unsignedIntValue];
+  v2 = [*(a1 + 32) keyboardCountryCode];
+  [v2 unsignedIntValue];
   GSEventSetHardwareKeyboardAttached();
 
   CFRelease([*(a1 + 32) emulatedKeyboard]);
@@ -1429,42 +1602,40 @@ void __38__TypistHWKeyboard_Deprecated_detach___block_invoke(uint64_t a1)
   [*(a1 + 32) setTypistHWKeyboardQueue:0];
   [*(a1 + 32) setGroup:0];
   [*(a1 + 32) setEmulatedModel:0];
-  v4 = dispatch_time(0, 200000000);
+  v3 = dispatch_time(0, 200000000);
   if (*(a1 + 40))
   {
-    v5 = *(a1 + 40);
+    v4 = *(a1 + 40);
   }
 
   else
   {
-    v5 = &__block_literal_global_88;
+    v4 = &__block_literal_global_88;
   }
 
-  v6 = MEMORY[0x277D85CD0];
+  v5 = MEMORY[0x277D85CD0];
 
-  dispatch_after(v4, v6, v5);
+  dispatch_after(v3, v5, v4);
 }
 
 void __46__TypistHWKeyboard_Deprecated_modifierCharMap__block_invoke()
 {
-  v8[4] = *MEMORY[0x277D85DE8];
-  v7[0] = @"⌥";
+  v7[4] = *MEMORY[0x277D85DE8];
+  v6[0] = @"⌥";
   v0 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:4];
-  v8[0] = v0;
-  v7[1] = @"⇧";
+  v7[0] = v0;
+  v6[1] = @"⇧";
   v1 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:2];
-  v8[1] = v1;
-  v7[2] = @"⌘";
+  v7[1] = v1;
+  v6[2] = @"⌘";
   v2 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:8];
-  v8[2] = v2;
-  v7[3] = @"⌃";
+  v7[2] = v2;
+  v6[3] = @"⌃";
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:1];
-  v8[3] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:4];
+  v7[3] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:4];
   v5 = modifierCharMap_modifierCharMap;
   modifierCharMap_modifierCharMap = v4;
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __53__TypistHWKeyboard_Deprecated_typeString_completion___block_invoke(void *a1)
@@ -1520,16 +1691,16 @@ void __58__TypistHWKeyboard_Deprecated_pressAndHoldKey_completion___block_invoke
 
 void __61__TypistHWKeyboard_Deprecated_releaseKeyPressWithCompletion___block_invoke(uint64_t a1)
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:{0, @"keyCode"}];
-  v10[1] = @"modifier";
-  v11[0] = v3;
+  v9[1] = @"modifier";
+  v10[0] = v3;
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:0];
-  v11[1] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
-  v12[0] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v10[1] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
+  v11[0] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
   [v2 typeKeyStrokeStream:v6];
 
   v7 = dispatch_time(0, 200000000);
@@ -1544,7 +1715,6 @@ void __61__TypistHWKeyboard_Deprecated_releaseKeyPressWithCompletion___block_inv
   }
 
   dispatch_after(v7, MEMORY[0x277D85CD0], v8);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __51__TypistHWKeyboard_Deprecated_keyboardCountryCodes__block_invoke()

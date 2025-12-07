@@ -24,9 +24,9 @@
   result = [PKCAAnimatedLayoutTracker alloc];
   if (result)
   {
-    v1.receiver = result;
-    v1.super_class = PKCAAnimatedLayoutTracker;
-    return objc_msgSendSuper2(&v1, sel_init);
+    v2.receiver = result;
+    v2.super_class = PKCAAnimatedLayoutTracker;
+    return objc_msgSendSuper2(&v2, sel_init);
   }
 
   return result;
@@ -64,7 +64,7 @@
 
   selfCopy = self;
   v2 = selfCopy;
-  v3 = *(selfCopy + 5);
+  v3 = selfCopy[5];
   if (!v3)
   {
     return selfCopy;

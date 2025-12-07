@@ -97,7 +97,7 @@ void __66__TRICKQueryLog_logQueryWithRecordType_predicate_sortDescriptors___bloc
 
 - (void)_logQueryWithRecordType:(id)type predicate:(id)predicate sortDescriptors:(id)descriptors guardedData:(id)data
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   predicateCopy = predicate;
   descriptorsCopy = descriptors;
@@ -132,9 +132,9 @@ void __66__TRICKQueryLog_logQueryWithRecordType_predicate_sortDescriptors___bloc
       if (v22)
       {
         v23 = dataCopy[3];
-        v28 = 0;
-        v24 = [v23 writeData:v22 error:&v28];
-        v25 = v28;
+        v27 = 0;
+        v24 = [v23 writeData:v22 error:&v27];
+        v25 = v27;
         if (v24)
         {
           [dataCopy[3] synchronizeAndReturnError:0];
@@ -146,7 +146,7 @@ void __66__TRICKQueryLog_logQueryWithRecordType_predicate_sortDescriptors___bloc
           if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v30 = v25;
+            v29 = v25;
             _os_log_error_impl(&dword_26F567000, v26, OS_LOG_TYPE_ERROR, "Failed to log CKQuery: %@", buf, 0xCu);
           }
         }
@@ -157,13 +157,11 @@ void __66__TRICKQueryLog_logQueryWithRecordType_predicate_sortDescriptors___bloc
   }
 
   objc_autoreleasePoolPop(v14);
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_openFileIfNeededWithGuardedData:(id)data
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v5 = objc_autoreleasePoolPush();
   if ((*(dataCopy + 8) & 1) == 0 && !*(dataCopy + 3))
@@ -189,7 +187,7 @@ void __66__TRICKQueryLog_logQueryWithRecordType_predicate_sortDescriptors___bloc
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v54 = v15;
+      v53 = v15;
       _os_log_impl(&dword_26F567000, v16, OS_LOG_TYPE_DEFAULT, "Logging CK queries: %{public}@", buf, 0xCu);
     }
 
@@ -199,13 +197,13 @@ void __66__TRICKQueryLog_logQueryWithRecordType_predicate_sortDescriptors___bloc
       v25 = TRILogCategory_Server();
       if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
-        v40 = __error();
-        v41 = strerror(*v40);
-        v42 = *__error();
+        v39 = __error();
+        v40 = strerror(*v39);
+        v41 = *__error();
         *buf = 136315394;
-        v54 = v41;
-        v55 = 1024;
-        v56 = v42;
+        v53 = v40;
+        v54 = 1024;
+        v55 = v41;
         _os_log_error_impl(&dword_26F567000, v25, OS_LOG_TYPE_ERROR, "Failed to open CKQueryLog: %s (%d)", buf, 0x12u);
       }
 
@@ -219,9 +217,9 @@ void __66__TRICKQueryLog_logQueryWithRecordType_predicate_sortDescriptors___bloc
       *(dataCopy + 3) = v18;
 
       v20 = *(dataCopy + 3);
-      v51 = 0;
-      v21 = [v20 readDataUpToLength:0x20000 error:&v51];
-      v46 = v51;
+      v50 = 0;
+      v21 = [v20 readDataUpToLength:0x20000 error:&v50];
+      v45 = v50;
       if (v21)
       {
         if ([v21 length] < 0x20000)
@@ -229,55 +227,55 @@ void __66__TRICKQueryLog_logQueryWithRecordType_predicate_sortDescriptors___bloc
           v28 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v21 encoding:4];
           if (v28)
           {
-            v44 = v14;
-            v45 = v7;
+            v43 = v14;
+            v44 = v7;
             v29 = objc_opt_new();
             v30 = *(dataCopy + 2);
             *(dataCopy + 2) = v29;
 
-            v43 = v28;
+            v42 = v28;
             v31 = [v28 componentsSeparatedByString:@"\n"];
+            v46 = 0u;
             v47 = 0u;
             v48 = 0u;
             v49 = 0u;
-            v50 = 0u;
-            v32 = [v31 countByEnumeratingWithState:&v47 objects:v52 count:16];
+            v32 = [v31 countByEnumeratingWithState:&v46 objects:v51 count:16];
             if (v32)
             {
               v33 = v32;
-              v34 = *v48;
+              v34 = *v47;
               do
               {
                 for (i = 0; i != v33; ++i)
                 {
-                  if (*v48 != v34)
+                  if (*v47 != v34)
                   {
                     objc_enumerationMutation(v31);
                   }
 
-                  v36 = *(*(&v47 + 1) + 8 * i);
+                  v36 = *(*(&v46 + 1) + 8 * i);
                   if ([v36 length])
                   {
                     [*(dataCopy + 2) addObject:v36];
                   }
                 }
 
-                v33 = [v31 countByEnumeratingWithState:&v47 objects:v52 count:16];
+                v33 = [v31 countByEnumeratingWithState:&v46 objects:v51 count:16];
               }
 
               while (v33);
             }
 
-            v14 = v44;
-            v7 = v45;
-            v24 = v46;
-            v28 = v43;
+            v14 = v43;
+            v7 = v44;
+            v24 = v45;
+            v28 = v42;
           }
 
           else
           {
             v37 = TRILogCategory_Server();
-            v24 = v46;
+            v24 = v45;
             if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
             {
               *buf = 0;
@@ -304,18 +302,18 @@ void __66__TRICKQueryLog_logQueryWithRecordType_predicate_sortDescriptors___bloc
           *(dataCopy + 3) = 0;
 
           *(dataCopy + 8) = 1;
-          v24 = v46;
+          v24 = v45;
         }
       }
 
       else
       {
         v26 = TRILogCategory_Server();
-        v24 = v46;
+        v24 = v45;
         if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v54 = v46;
+          v53 = v45;
           _os_log_error_impl(&dword_26F567000, v26, OS_LOG_TYPE_ERROR, "Failed to load CKQueryLog: %{public}@", buf, 0xCu);
         }
 
@@ -328,8 +326,6 @@ void __66__TRICKQueryLog_logQueryWithRecordType_predicate_sortDescriptors___bloc
   }
 
   objc_autoreleasePoolPop(v5);
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 @end

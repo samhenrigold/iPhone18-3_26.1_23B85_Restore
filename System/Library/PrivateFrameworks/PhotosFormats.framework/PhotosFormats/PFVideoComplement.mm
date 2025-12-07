@@ -566,7 +566,7 @@ LABEL_18:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v12 = [v6 mutableCopy];
+      v12 = objc_msgSend_mutableCopy(v6);
     }
 
     else
@@ -703,10 +703,10 @@ LABEL_4:
 
     if (v3)
     {
-      [v3 videoDuration];
+      objc_msgSend_videoDuration(v3);
       *&self->_originalVideoDuration.value = v6;
       self->_originalVideoDuration.epoch = v7;
-      [v3 imageDisplayTime];
+      objc_msgSend_imageDisplayTime(v3);
     }
 
     else

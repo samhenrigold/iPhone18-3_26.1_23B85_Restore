@@ -14,7 +14,7 @@ void sub_1D460EAF0()
   }
 }
 
-uint64_t static String.stk_localized(_:tableName:value:comment:)()
+uint64_t static String.stk_localized(_:tableName:value:comment:)(uint64_t a1)
 {
   if (qword_1EE08A660 != -1)
   {
@@ -24,7 +24,7 @@ uint64_t static String.stk_localized(_:tableName:value:comment:)()
   return sub_1D460ECB8();
 }
 
-uint64_t String.stk_localized.getter()
+uint64_t String.stk_localized.getter(uint64_t a1)
 {
   if (qword_1EE08A660 != -1)
   {

@@ -93,7 +93,7 @@
   location = range.location;
   v11 = sub_AB31C0();
   v12 = *(v11 - 8);
-  __chkstk_darwin(v11);
+  __chkstk_darwin();
   v14 = &v19 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_AB3150();
   viewCopy = view;

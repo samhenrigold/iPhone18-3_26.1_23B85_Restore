@@ -6,7 +6,7 @@
 
 - (WADeviceAnalytics_UsageStats)initWithUniqueMO:(id)o
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   oCopy = o;
   if (!oCopy)
   {
@@ -21,18 +21,18 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
       *buf = 136446466;
-      v13 = "[WADeviceAnalytics_UsageStats initWithUniqueMO:]";
-      v14 = 1024;
-      v15 = 89;
+      v12 = "[WADeviceAnalytics_UsageStats initWithUniqueMO:]";
+      v13 = 1024;
+      v14 = 89;
       _os_log_impl(&dword_1C8460000, v8, OS_LOG_TYPE_FAULT, "%{public}s::%d:UniqueMO does not contain Usage Properties", buf, 0x12u);
     }
 
     goto LABEL_5;
   }
 
-  v11.receiver = self;
-  v11.super_class = WADeviceAnalytics_UsageStats;
-  self = [(WADeviceAnalytics_UsageStats *)&v11 init];
+  v10.receiver = self;
+  v10.super_class = WADeviceAnalytics_UsageStats;
+  self = [(WADeviceAnalytics_UsageStats *)&v10 init];
   if (self)
   {
     v5 = [oCopy valueForKey:@"latestCompleteWeekUsageSeconds"];
@@ -51,7 +51,6 @@ LABEL_5:
 
 LABEL_6:
 
-  v9 = *MEMORY[0x1E69E9840];
   return self;
 }
 

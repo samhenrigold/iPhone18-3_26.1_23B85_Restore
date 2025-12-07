@@ -20,30 +20,28 @@
 
 void __35__TKSEPClientToken_builtinTokenIDs__block_invoke()
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (+[TKSEPKey hasSEP])
   {
     v0 = *MEMORY[0x1E697AED0];
-    v8 = *MEMORY[0x1E697AEE0];
-    v9 = v0;
+    v7 = *MEMORY[0x1E697AEE0];
+    v8 = v0;
     v1 = MEMORY[0x1E695DEC8];
-    v2 = &v8;
+    v2 = &v7;
     v3 = 2;
   }
 
   else
   {
-    v7 = *MEMORY[0x1E697AED0];
+    v6 = *MEMORY[0x1E697AED0];
     v1 = MEMORY[0x1E695DEC8];
-    v2 = &v7;
+    v2 = &v6;
     v3 = 1;
   }
 
-  v4 = [v1 arrayWithObjects:v2 count:{v3, v7, v8, v9}];
+  v4 = [v1 arrayWithObjects:v2 count:{v3, v6, v7, v8}];
   v5 = builtinTokenIDs_tokenIDs;
   builtinTokenIDs_tokenIDs = v4;
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)handlesTokenID:(id)d

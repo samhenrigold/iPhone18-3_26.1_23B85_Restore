@@ -1,4 +1,5 @@
 @interface PSSGResourceOptions
++ (id)optionsWithDefaultStride:(unsigned int)stride supportedStrides:(id)strides setupSupported:(BOOL)supported baseMSGSyncID:(id)d;
 + (id)optionsWithoutStrides;
 - (BOOL)isEqual:(id)equal;
 - (PSSGResourceOptions)initWithDefaultStride:(unsigned int)stride supportedStrides:(id)strides setupSupported:(BOOL)supported baseMSGSyncID:(id)d;
@@ -6,6 +7,17 @@
 @end
 
 @implementation PSSGResourceOptions
+
++ (id)optionsWithDefaultStride:(unsigned int)stride supportedStrides:(id)strides setupSupported:(BOOL)supported baseMSGSyncID:(id)d
+{
+  supportedCopy = supported;
+  v8 = *&stride;
+  dCopy = d;
+  stridesCopy = strides;
+  v11 = [[PSSGResourceOptions alloc] initWithDefaultStride:v8 supportedStrides:stridesCopy setupSupported:supportedCopy baseMSGSyncID:dCopy];
+
+  return v11;
+}
 
 + (id)optionsWithoutStrides
 {

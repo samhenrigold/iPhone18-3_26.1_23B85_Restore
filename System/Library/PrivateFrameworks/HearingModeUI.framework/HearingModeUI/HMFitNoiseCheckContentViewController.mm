@@ -60,6 +60,7 @@
 - (void)updateUIForResultFail;
 - (void)updateUIForResultPass;
 - (void)updateVolume;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
 @end
 
@@ -220,6 +221,19 @@ uint64_t __62__HMFitNoiseCheckContentViewController_initWithDeviceAddress___bloc
   [navigationItem setRightBarButtonItem:cancelButton];
 }
 
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = HMFitNoiseCheckContentViewController;
+  [(OBBaseWelcomeController *)&v5 viewDidDisappear:disappear];
+  NSLog(&cfstr_FitNoiseCheckV.isa);
+  defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+  [defaultCenter removeObserver:self];
+
+  [(HMFitNoiseCheckContentViewController *)self fitCheckStopped];
+  [(HMFitNoiseCheckContentViewController *)self stopNoiseCheck];
+}
+
 - (void)setupNotifications
 {
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
@@ -311,38 +325,37 @@ uint64_t __62__HMFitNoiseCheckContentViewController_initWithDeviceAddress___bloc
 
 - (void)setupConstraints
 {
-  v26[5] = *MEMORY[0x277D85DE8];
-  v17 = MEMORY[0x277CCAAD0];
+  v25[5] = *MEMORY[0x277D85DE8];
+  v16 = MEMORY[0x277CCAAD0];
   heightAnchor = [(HMFitNoiseCheckTopView *)self->_fitNoiseCheckTopView heightAnchor];
   contentView = [(HMFitNoiseCheckContentViewController *)self contentView];
   heightAnchor2 = [contentView heightAnchor];
-  v22 = [heightAnchor constraintLessThanOrEqualToAnchor:heightAnchor2];
-  v26[0] = v22;
+  v21 = [heightAnchor constraintLessThanOrEqualToAnchor:heightAnchor2];
+  v25[0] = v21;
   leadingAnchor = [(HMFitNoiseCheckTopView *)self->_fitNoiseCheckTopView leadingAnchor];
   contentView2 = [(HMFitNoiseCheckContentViewController *)self contentView];
   leadingAnchor2 = [contentView2 leadingAnchor];
-  v18 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v26[1] = v18;
+  v17 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+  v25[1] = v17;
   trailingAnchor = [(HMFitNoiseCheckTopView *)self->_fitNoiseCheckTopView trailingAnchor];
   contentView3 = [(HMFitNoiseCheckContentViewController *)self contentView];
   trailingAnchor2 = [contentView3 trailingAnchor];
-  v13 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v26[2] = v13;
+  v12 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+  v25[2] = v12;
   centerXAnchor = [(HMFitNoiseCheckTopView *)self->_fitNoiseCheckTopView centerXAnchor];
   contentView4 = [(HMFitNoiseCheckContentViewController *)self contentView];
   centerXAnchor2 = [contentView4 centerXAnchor];
   v5 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-  v26[3] = v5;
+  v25[3] = v5;
   centerYAnchor = [(HMFitNoiseCheckTopView *)self->_fitNoiseCheckTopView centerYAnchor];
   contentView5 = [(HMFitNoiseCheckContentViewController *)self contentView];
   centerYAnchor2 = [contentView5 centerYAnchor];
   v9 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-  v26[4] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:5];
-  [v17 activateConstraints:v10];
+  v25[4] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:5];
+  [v16 activateConstraints:v10];
 
   [(HMFitNoiseCheckTopView *)self->_fitNoiseCheckTopView layoutIfNeeded];
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setupButtonTray
@@ -524,34 +537,32 @@ LABEL_5:
 void __64__HMFitNoiseCheckContentViewController_updateUIForFitCheckReady__block_invoke(uint64_t a1)
 {
   [*(*(a1 + 32) + 1408) transitionToCheckReady];
-  v2 = *(a1 + 32);
-  v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v4 = [v3 localizedStringForKey:@"%@ will check the fit in each ear and measure background noise." value:&stru_286444CA0 table:0];
+  v2 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v3 = [v2 localizedStringForKey:@"%@ will check the fit in each ear and measure background noise." value:&stru_286444CA0 table:0];
 
-  v16 = [MEMORY[0x277CCACA8] localizedStringWithFormat:v4, *(*(a1 + 32) + 1432)];
+  v14 = [MEMORY[0x277CCACA8] localizedStringWithFormat:v3, *(*(a1 + 32) + 1432)];
+
+  v4 = [*(a1 + 32) headerView];
+  [v4 setTitle:v14];
 
   v5 = [*(a1 + 32) headerView];
-  [v5 setTitle:v16];
-
-  v6 = [*(a1 + 32) headerView];
-  v7 = *(a1 + 32);
-  v8 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v9 = [v8 localizedStringForKey:@"Music will play during the check. This is not the hearing test." value:&stru_286444CA0 table:0];
-  [v6 setDetailText:v9];
+  v6 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v7 = [v6 localizedStringForKey:@"Music will play during the check. This is not the hearing test." value:&stru_286444CA0 table:0];
+  [v5 setDetailText:v7];
 
   [*(*(a1 + 32) + 1256) hidesBusyIndicator];
   [*(*(a1 + 32) + 1256) setEnabled:1];
   [*(*(a1 + 32) + 1416) setAlpha:0.0];
-  v10 = *(*(a1 + 32) + 1256);
-  v11 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v12 = [v11 localizedStringForKey:@"Start the Check" value:&stru_286444CA0 table:0];
-  [v10 setTitle:v12 forState:0];
+  v8 = *(*(a1 + 32) + 1256);
+  v9 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v10 = [v9 localizedStringForKey:@"Start the Check" value:&stru_286444CA0 table:0];
+  [v8 setTitle:v10 forState:0];
 
   [*(a1 + 32) clearDebugView];
-  v13 = [*(a1 + 32) view];
-  v14 = [v13 window];
-  v15 = [v14 windowScene];
-  [v15 _setSystemVolumeHUDEnabled:0];
+  v11 = [*(a1 + 32) view];
+  v12 = [v11 window];
+  v13 = [v12 windowScene];
+  [v13 _setSystemVolumeHUDEnabled:0];
 }
 
 - (void)updateUIForOngoingFitCheck
@@ -568,19 +579,17 @@ void __64__HMFitNoiseCheckContentViewController_updateUIForFitCheckReady__block_
 void __66__HMFitNoiseCheckContentViewController_updateUIForOngoingFitCheck__block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) headerView];
-  v3 = *(a1 + 32);
-  v4 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v5 = [v4 localizedStringForKey:@"Checking fit and noise." value:&stru_286444CA0 table:0];
-  [v2 setTitle:v5];
+  v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v4 = [v3 localizedStringForKey:@"Checking fit and noise." value:&stru_286444CA0 table:0];
+  [v2 setTitle:v4];
 
-  v6 = *(a1 + 32);
-  v7 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v8 = [v7 localizedStringForKey:@"Do not remove %@." value:&stru_286444CA0 table:0];
+  v5 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v6 = [v5 localizedStringForKey:@"Do not remove %@." value:&stru_286444CA0 table:0];
 
-  v10 = [MEMORY[0x277CCACA8] localizedStringWithFormat:v8, *(*(a1 + 32) + 1432)];
+  v8 = [MEMORY[0x277CCACA8] localizedStringWithFormat:v6, *(*(a1 + 32) + 1432)];
 
-  v9 = [*(a1 + 32) headerView];
-  [v9 setDetailText:v10];
+  v7 = [*(a1 + 32) headerView];
+  [v7 setDetailText:v8];
 
   [*(*(a1 + 32) + 1256) showsBusyIndicator];
   [*(*(a1 + 32) + 1416) setAlpha:0.0];
@@ -599,11 +608,10 @@ void __66__HMFitNoiseCheckContentViewController_updateUIForOngoingFitCheck__bloc
 
 void __68__HMFitNoiseCheckContentViewController_updateUIForOngoingNoiseCheck__block_invoke(uint64_t a1)
 {
-  v5 = [*(a1 + 32) headerView];
-  v2 = *(a1 + 32);
-  v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v4 = [v3 localizedStringForKey:@"Checking fit and noise." value:&stru_286444CA0 table:0];
-  [v5 setTitle:v4];
+  v3 = [*(a1 + 32) headerView];
+  v1 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v2 = [v1 localizedStringForKey:@"Checking fit and noise." value:&stru_286444CA0 table:0];
+  [v3 setTitle:v2];
 }
 
 - (void)updateUIForFitCheckRetry
@@ -624,44 +632,42 @@ void __64__HMFitNoiseCheckContentViewController_updateUIForFitCheckRetry__block_
   v3 = *(a1 + 32);
   v2 = *(a1 + 40);
   v4 = *(v3 + 1408);
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __64__HMFitNoiseCheckContentViewController_updateUIForFitCheckRetry__block_invoke_2;
-  v16[3] = &unk_2796F3E00;
-  v16[4] = v3;
-  [v4 transitionToFitCheckResultWithBudState:v2 actionStringBlock:v16];
-  v5 = *(a1 + 32);
-  v6 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v7 = [v6 localizedStringForKey:@"You can improve fit by adjusting the position of your %@ or changing the ear tip size." value:&stru_286444CA0 table:0];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __64__HMFitNoiseCheckContentViewController_updateUIForFitCheckRetry__block_invoke_2;
+  v15[3] = &unk_2796F3E00;
+  v15[4] = v3;
+  [v4 transitionToFitCheckResultWithBudState:v2 actionStringBlock:v15];
+  v5 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v6 = [v5 localizedStringForKey:@"You can improve fit by adjusting the position of your %@ or changing the ear tip size." value:&stru_286444CA0 table:0];
 
-  v8 = [MEMORY[0x277CCACA8] localizedStringWithFormat:v7, *(*(a1 + 32) + 1432)];
+  v7 = [MEMORY[0x277CCACA8] localizedStringWithFormat:v6, *(*(a1 + 32) + 1432)];
 
-  v9 = [*(a1 + 32) headerView];
-  [v9 setDetailText:v8];
+  v8 = [*(a1 + 32) headerView];
+  [v8 setDetailText:v7];
 
   [*(*(a1 + 32) + 1256) hidesBusyIndicator];
   [*(*(a1 + 32) + 1256) setEnabled:1];
-  v10 = *(*(a1 + 32) + 1256);
-  v11 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v12 = [v11 localizedStringForKey:@"Check Fit and Noise Again" value:&stru_286444CA0 table:0];
-  [v10 setTitle:v12 forState:0];
+  v9 = *(*(a1 + 32) + 1256);
+  v10 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v11 = [v10 localizedStringForKey:@"Check Fit and Noise Again" value:&stru_286444CA0 table:0];
+  [v9 setTitle:v11 forState:0];
 
-  v13 = *(a1 + 32);
-  v14 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v15 = [v14 localizedStringForKey:@"How to Change Ear Tips" value:&stru_286444CA0 table:0];
-  [v13 updateHeaderButton:v15];
+  v12 = *(a1 + 32);
+  v13 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v14 = [v13 localizedStringForKey:@"How to Change Ear Tips" value:&stru_286444CA0 table:0];
+  [v12 updateHeaderButton:v14];
 }
 
 void __64__HMFitNoiseCheckContentViewController_updateUIForFitCheckRetry__block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
-  v4 = a2;
-  v8 = [v3 headerView];
-  v5 = *(a1 + 32);
-  v6 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v7 = [v6 localizedStringForKey:v4 value:&stru_286444CA0 table:0];
+  v2 = *(a1 + 32);
+  v3 = a2;
+  v6 = [v2 headerView];
+  v4 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v5 = [v4 localizedStringForKey:v3 value:&stru_286444CA0 table:0];
 
-  [v8 setTitle:v7];
+  [v6 setTitle:v5];
 }
 
 - (void)updateUIForFitCheckTutorial
@@ -678,29 +684,27 @@ void __64__HMFitNoiseCheckContentViewController_updateUIForFitCheckRetry__block_
 void __67__HMFitNoiseCheckContentViewController_updateUIForFitCheckTutorial__block_invoke(uint64_t a1)
 {
   [*(*(a1 + 32) + 1408) transitionToFitNudging];
-  v2 = *(a1 + 32);
-  v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v4 = [v3 localizedStringForKey:@"Change Your %@’s Ear Tips" value:&stru_286444CA0 table:0];
+  v2 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v3 = [v2 localizedStringForKey:@"Change Your %@’s Ear Tips" value:&stru_286444CA0 table:0];
 
-  v15 = [MEMORY[0x277CCACA8] localizedStringWithFormat:v4, *(*(a1 + 32) + 1432)];
+  v13 = [MEMORY[0x277CCACA8] localizedStringWithFormat:v3, *(*(a1 + 32) + 1432)];
+
+  v4 = [*(a1 + 32) headerView];
+  [v4 setTitle:v13];
 
   v5 = [*(a1 + 32) headerView];
-  [v5 setTitle:v15];
-
-  v6 = [*(a1 + 32) headerView];
-  v7 = MEMORY[0x277CCACA8];
-  v8 = *(a1 + 32);
-  v9 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v10 = [v9 localizedStringForKey:@"Many people can improve the fit of their %@ by trying a larger ear tip." value:&stru_286444CA0 table:0];
-  v11 = [v7 localizedStringWithFormat:v10, *(*(a1 + 32) + 1440)];
-  [v6 setDetailText:v11];
+  v6 = MEMORY[0x277CCACA8];
+  v7 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v8 = [v7 localizedStringForKey:@"Many people can improve the fit of their %@ by trying a larger ear tip." value:&stru_286444CA0 table:0];
+  v9 = [v6 localizedStringWithFormat:v8, *(*(a1 + 32) + 1440)];
+  [v5 setDetailText:v9];
 
   [*(*(a1 + 32) + 1256) hidesBusyIndicator];
   [*(*(a1 + 32) + 1256) setEnabled:1];
-  v12 = *(*(a1 + 32) + 1256);
-  v13 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v14 = [v13 localizedStringForKey:@"Check Fit and Noise Again" value:&stru_286444CA0 table:0];
-  [v12 setTitle:v14 forState:0];
+  v10 = *(*(a1 + 32) + 1256);
+  v11 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v12 = [v11 localizedStringForKey:@"Check Fit and Noise Again" value:&stru_286444CA0 table:0];
+  [v10 setTitle:v12 forState:0];
 }
 
 - (void)updateUIForNoiseCheckNudgingStart
@@ -718,27 +722,25 @@ void __73__HMFitNoiseCheckContentViewController_updateUIForNoiseCheckNudgingStar
 {
   [*(*(a1 + 32) + 1408) transitionToNoiseNudging];
   v2 = [*(a1 + 32) headerView];
-  v3 = *(a1 + 32);
-  v4 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v5 = [v4 localizedStringForKey:@"Find a quiet place and check again." value:&stru_286444CA0 table:0];
-  [v2 setTitle:v5];
+  v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v4 = [v3 localizedStringForKey:@"Find a quiet place and check again." value:&stru_286444CA0 table:0];
+  [v2 setTitle:v4];
 
-  v6 = [*(a1 + 32) headerView];
-  v7 = *(a1 + 32);
-  v8 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v9 = [v8 localizedStringForKey:@"Too much background noise can cause inaccurate test results in your test. The hearing test will be paused if it gets too loud." value:&stru_286444CA0 table:0];
-  [v6 setDetailText:v9];
+  v5 = [*(a1 + 32) headerView];
+  v6 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v7 = [v6 localizedStringForKey:@"Too much background noise can cause inaccurate test results in your test. The hearing test will be paused if it gets too loud." value:&stru_286444CA0 table:0];
+  [v5 setDetailText:v7];
 
   [*(*(a1 + 32) + 1256) setEnabled:0];
-  v10 = *(*(a1 + 32) + 1256);
-  v11 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v12 = [v11 localizedStringForKey:@"Check Fit and Noise Again" value:&stru_286444CA0 table:0];
-  [v10 setTitle:v12 forState:0];
+  v8 = *(*(a1 + 32) + 1256);
+  v9 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v10 = [v9 localizedStringForKey:@"Check Fit and Noise Again" value:&stru_286444CA0 table:0];
+  [v8 setTitle:v10 forState:0];
 
-  v13 = *(a1 + 32);
-  v15 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v14 = [v15 localizedStringForKey:@"Suggestions to Reduce Noise" value:&stru_286444CA0 table:0];
-  [v13 updateHeaderButton:v14];
+  v11 = *(a1 + 32);
+  v13 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v12 = [v13 localizedStringForKey:@"Suggestions to Reduce Noise" value:&stru_286444CA0 table:0];
+  [v11 updateHeaderButton:v12];
 }
 
 - (void)updateUIForNoiseCheckNudgingStop
@@ -755,28 +757,26 @@ void __73__HMFitNoiseCheckContentViewController_updateUIForNoiseCheckNudgingStar
 void __72__HMFitNoiseCheckContentViewController_updateUIForNoiseCheckNudgingStop__block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) headerView];
-  v3 = *(a1 + 32);
-  v4 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v5 = [v4 localizedStringForKey:@"Find a quiet place and check again." value:&stru_286444CA0 table:0];
-  [v2 setTitle:v5];
+  v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v4 = [v3 localizedStringForKey:@"Find a quiet place and check again." value:&stru_286444CA0 table:0];
+  [v2 setTitle:v4];
 
-  v6 = [*(a1 + 32) headerView];
-  v7 = *(a1 + 32);
-  v8 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v9 = [v8 localizedStringForKey:@"Too much background noise can cause inaccurate test results in your test. The hearing test will be paused if it gets too loud." value:&stru_286444CA0 table:0];
-  [v6 setDetailText:v9];
+  v5 = [*(a1 + 32) headerView];
+  v6 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v7 = [v6 localizedStringForKey:@"Too much background noise can cause inaccurate test results in your test. The hearing test will be paused if it gets too loud." value:&stru_286444CA0 table:0];
+  [v5 setDetailText:v7];
 
   [*(*(a1 + 32) + 1256) hidesBusyIndicator];
   [*(*(a1 + 32) + 1256) setEnabled:1];
-  v10 = *(*(a1 + 32) + 1256);
-  v11 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v12 = [v11 localizedStringForKey:@"Check Fit and Noise Again" value:&stru_286444CA0 table:0];
-  [v10 setTitle:v12 forState:0];
+  v8 = *(*(a1 + 32) + 1256);
+  v9 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v10 = [v9 localizedStringForKey:@"Check Fit and Noise Again" value:&stru_286444CA0 table:0];
+  [v8 setTitle:v10 forState:0];
 
-  v13 = *(a1 + 32);
-  v15 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v14 = [v15 localizedStringForKey:@"Suggestions to Reduce Noise" value:&stru_286444CA0 table:0];
-  [v13 updateHeaderButton:v14];
+  v11 = *(a1 + 32);
+  v13 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v12 = [v13 localizedStringForKey:@"Suggestions to Reduce Noise" value:&stru_286444CA0 table:0];
+  [v11 updateHeaderButton:v12];
 }
 
 - (void)updateUIForResultPass
@@ -797,39 +797,37 @@ void __61__HMFitNoiseCheckContentViewController_updateUIForResultPass__block_inv
   v3 = *(a1 + 32);
   v2 = *(a1 + 40);
   v4 = *(v3 + 1408);
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __61__HMFitNoiseCheckContentViewController_updateUIForResultPass__block_invoke_2;
-  v13[3] = &unk_2796F3E00;
-  v13[4] = v3;
-  [v4 transitionToFitCheckResultWithBudState:v2 actionStringBlock:v13];
-  v5 = *(a1 + 32);
-  v6 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v7 = [v6 localizedStringForKey:@"Don’t remove or adjust your %@ until you finish the hearing test." value:&stru_286444CA0 table:0];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __61__HMFitNoiseCheckContentViewController_updateUIForResultPass__block_invoke_2;
+  v12[3] = &unk_2796F3E00;
+  v12[4] = v3;
+  [v4 transitionToFitCheckResultWithBudState:v2 actionStringBlock:v12];
+  v5 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v6 = [v5 localizedStringForKey:@"Don’t remove or adjust your %@ until you finish the hearing test." value:&stru_286444CA0 table:0];
 
-  v8 = [MEMORY[0x277CCACA8] localizedStringWithFormat:v7, *(*(a1 + 32) + 1432)];
+  v7 = [MEMORY[0x277CCACA8] localizedStringWithFormat:v6, *(*(a1 + 32) + 1432)];
 
-  v9 = [*(a1 + 32) headerView];
-  [v9 setDetailText:v8];
+  v8 = [*(a1 + 32) headerView];
+  [v8 setDetailText:v7];
 
   [*(*(a1 + 32) + 1256) hidesBusyIndicator];
   [*(*(a1 + 32) + 1256) setEnabled:1];
-  v10 = *(*(a1 + 32) + 1256);
-  v11 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v12 = [v11 localizedStringForKey:@"Next" value:&stru_286444CA0 table:0];
-  [v10 setTitle:v12 forState:0];
+  v9 = *(*(a1 + 32) + 1256);
+  v10 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v11 = [v10 localizedStringForKey:@"Next" value:&stru_286444CA0 table:0];
+  [v9 setTitle:v11 forState:0];
 }
 
 void __61__HMFitNoiseCheckContentViewController_updateUIForResultPass__block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
-  v4 = a2;
-  v8 = [v3 headerView];
-  v5 = *(a1 + 32);
-  v6 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v7 = [v6 localizedStringForKey:v4 value:&stru_286444CA0 table:0];
+  v2 = *(a1 + 32);
+  v3 = a2;
+  v6 = [v2 headerView];
+  v4 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v5 = [v4 localizedStringForKey:v3 value:&stru_286444CA0 table:0];
 
-  [v8 setTitle:v7];
+  [v6 setTitle:v5];
 }
 
 - (void)updateUIForResultFail
@@ -850,37 +848,35 @@ void __61__HMFitNoiseCheckContentViewController_updateUIForResultFail__block_inv
   v3 = *(a1 + 32);
   v2 = *(a1 + 40);
   v4 = *(v3 + 1408);
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __61__HMFitNoiseCheckContentViewController_updateUIForResultFail__block_invoke_2;
-  v12[3] = &unk_2796F3E00;
-  v12[4] = v3;
-  [v4 transitionToFitCheckResultWithBudState:v2 actionStringBlock:v12];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __61__HMFitNoiseCheckContentViewController_updateUIForResultFail__block_invoke_2;
+  v11[3] = &unk_2796F3E00;
+  v11[4] = v3;
+  [v4 transitionToFitCheckResultWithBudState:v2 actionStringBlock:v11];
   v5 = [*(a1 + 32) headerView];
-  v6 = *(a1 + 32);
-  v7 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v8 = [v7 localizedStringForKey:@"You may be able to make further adjustments to get a better fit." value:&stru_286444CA0 table:0];
-  [v5 setDetailText:v8];
+  v6 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v7 = [v6 localizedStringForKey:@"You may be able to make further adjustments to get a better fit." value:&stru_286444CA0 table:0];
+  [v5 setDetailText:v7];
 
   [*(*(a1 + 32) + 1256) hidesBusyIndicator];
   [*(*(a1 + 32) + 1256) setEnabled:1];
   [*(*(a1 + 32) + 1416) setAlpha:1.0];
-  v9 = *(*(a1 + 32) + 1256);
-  v10 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v11 = [v10 localizedStringForKey:@"Check Fit and Noise Again" value:&stru_286444CA0 table:0];
-  [v9 setTitle:v11 forState:0];
+  v8 = *(*(a1 + 32) + 1256);
+  v9 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v10 = [v9 localizedStringForKey:@"Check Fit and Noise Again" value:&stru_286444CA0 table:0];
+  [v8 setTitle:v10 forState:0];
 }
 
 void __61__HMFitNoiseCheckContentViewController_updateUIForResultFail__block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
-  v4 = a2;
-  v8 = [v3 headerView];
-  v5 = *(a1 + 32);
-  v6 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v7 = [v6 localizedStringForKey:v4 value:&stru_286444CA0 table:0];
+  v2 = *(a1 + 32);
+  v3 = a2;
+  v6 = [v2 headerView];
+  v4 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v5 = [v4 localizedStringForKey:v3 value:&stru_286444CA0 table:0];
 
-  [v8 setTitle:v7];
+  [v6 setTitle:v5];
 }
 
 - (BOOL)budsInEar
@@ -937,36 +933,36 @@ void __61__HMFitNoiseCheckContentViewController_updateUIForResultFail__block_inv
 
 - (BOOL)ringtoneActive
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   calls = [(CXCallObserver *)self->_callObserver calls];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v3 = [calls countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = [calls countByEnumeratingWithState:&v11 objects:v15 count:16];
   v4 = "No";
   if (v3)
   {
     v5 = v3;
     v6 = 0;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(calls);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * i);
+        v9 = *(*(&v11 + 1) + 8 * i);
         if (([v9 hasConnected] & 1) == 0 && (objc_msgSend(v9, "hasEnded") & 1) == 0 && (objc_msgSend(v9, "isOnHold") & 1) == 0)
         {
           v6 |= [v9 isOutgoing] ^ 1;
         }
       }
 
-      v5 = [calls countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [calls countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
@@ -983,7 +979,6 @@ void __61__HMFitNoiseCheckContentViewController_updateUIForResultFail__block_inv
 
   NSLog(&cfstr_FitNoiseCheckR.isa, v4);
 
-  v10 = *MEMORY[0x277D85DE8];
   return v6 & 1;
 }
 
@@ -1085,73 +1080,67 @@ void __53__HMFitNoiseCheckContentViewController_startPreCheck__block_invoke(uint
 {
   v2 = MEMORY[0x277D75110];
   v3 = MEMORY[0x277CCACA8];
-  v4 = *(a1 + 32);
-  v5 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v6 = [v5 localizedStringForKey:@"Place %@ In Both Ears" value:&stru_286444CA0 table:0];
-  v7 = [v3 localizedStringWithFormat:v6, *(*(a1 + 32) + 1440)];
-  v8 = [v2 alertControllerWithTitle:v7 message:&stru_286444CA0 preferredStyle:1];
+  v4 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v5 = [v4 localizedStringForKey:@"Place %@ In Both Ears" value:&stru_286444CA0 table:0];
+  v6 = [v3 localizedStringWithFormat:v5, *(*(a1 + 32) + 1440)];
+  v7 = [v2 alertControllerWithTitle:v6 message:&stru_286444CA0 preferredStyle:1];
 
-  v9 = MEMORY[0x277D750F8];
-  v10 = *(a1 + 32);
-  v11 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v12 = [v11 localizedStringForKey:@"OK" value:&stru_286444CA0 table:0];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __53__HMFitNoiseCheckContentViewController_startPreCheck__block_invoke_2;
-  v14[3] = &unk_2796F3E50;
-  v14[4] = *(a1 + 32);
-  v13 = [v9 actionWithTitle:v12 style:0 handler:v14];
-  [v8 addAction:v13];
+  v8 = MEMORY[0x277D750F8];
+  v9 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v10 = [v9 localizedStringForKey:@"OK" value:&stru_286444CA0 table:0];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __53__HMFitNoiseCheckContentViewController_startPreCheck__block_invoke_2;
+  v12[3] = &unk_2796F3E50;
+  v12[4] = *(a1 + 32);
+  v11 = [v8 actionWithTitle:v10 style:0 handler:v12];
+  [v7 addAction:v11];
 
-  [*(a1 + 32) presentViewController:v8 animated:1 completion:0];
+  [*(a1 + 32) presentViewController:v7 animated:1 completion:0];
 }
 
 void __53__HMFitNoiseCheckContentViewController_startPreCheck__block_invoke_3(uint64_t a1)
 {
   v2 = MEMORY[0x277D75110];
-  v3 = *(a1 + 32);
-  v4 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v5 = [v4 localizedStringForKey:@"End Call To Continue Test" value:&stru_286444CA0 table:0];
-  v6 = [v2 alertControllerWithTitle:v5 message:&stru_286444CA0 preferredStyle:1];
+  v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v4 = [v3 localizedStringForKey:@"End Call To Continue Test" value:&stru_286444CA0 table:0];
+  v5 = [v2 alertControllerWithTitle:v4 message:&stru_286444CA0 preferredStyle:1];
 
-  v7 = MEMORY[0x277D750F8];
-  v8 = *(a1 + 32);
-  v9 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v10 = [v9 localizedStringForKey:@"OK" value:&stru_286444CA0 table:0];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __53__HMFitNoiseCheckContentViewController_startPreCheck__block_invoke_4;
-  v12[3] = &unk_2796F3E50;
-  v12[4] = *(a1 + 32);
-  v11 = [v7 actionWithTitle:v10 style:0 handler:v12];
-  [v6 addAction:v11];
+  v6 = MEMORY[0x277D750F8];
+  v7 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v8 = [v7 localizedStringForKey:@"OK" value:&stru_286444CA0 table:0];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __53__HMFitNoiseCheckContentViewController_startPreCheck__block_invoke_4;
+  v10[3] = &unk_2796F3E50;
+  v10[4] = *(a1 + 32);
+  v9 = [v6 actionWithTitle:v8 style:0 handler:v10];
+  [v5 addAction:v9];
 
-  [*(a1 + 32) presentViewController:v6 animated:1 completion:0];
+  [*(a1 + 32) presentViewController:v5 animated:1 completion:0];
 }
 
 void __53__HMFitNoiseCheckContentViewController_startPreCheck__block_invoke_5(uint64_t a1)
 {
   v2 = MEMORY[0x277D75110];
   v3 = MEMORY[0x277CCACA8];
-  v4 = *(a1 + 32);
-  v5 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v6 = [v5 localizedStringForKey:@"Switch Audio Output to %@ to Continue" value:&stru_286444CA0 table:0];
-  v7 = [v3 localizedStringWithFormat:v6, *(*(a1 + 32) + 1440)];
-  v8 = [v2 alertControllerWithTitle:v7 message:&stru_286444CA0 preferredStyle:1];
+  v4 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v5 = [v4 localizedStringForKey:@"Switch Audio Output to %@ to Continue" value:&stru_286444CA0 table:0];
+  v6 = [v3 localizedStringWithFormat:v5, *(*(a1 + 32) + 1440)];
+  v7 = [v2 alertControllerWithTitle:v6 message:&stru_286444CA0 preferredStyle:1];
 
-  v9 = MEMORY[0x277D750F8];
-  v10 = *(a1 + 32);
-  v11 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v12 = [v11 localizedStringForKey:@"OK" value:&stru_286444CA0 table:0];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __53__HMFitNoiseCheckContentViewController_startPreCheck__block_invoke_6;
-  v14[3] = &unk_2796F3E50;
-  v14[4] = *(a1 + 32);
-  v13 = [v9 actionWithTitle:v12 style:0 handler:v14];
-  [v8 addAction:v13];
+  v8 = MEMORY[0x277D750F8];
+  v9 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v10 = [v9 localizedStringForKey:@"OK" value:&stru_286444CA0 table:0];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __53__HMFitNoiseCheckContentViewController_startPreCheck__block_invoke_6;
+  v12[3] = &unk_2796F3E50;
+  v12[4] = *(a1 + 32);
+  v11 = [v8 actionWithTitle:v10 style:0 handler:v12];
+  [v7 addAction:v11];
 
-  [*(a1 + 32) presentViewController:v8 animated:1 completion:0];
+  [*(a1 + 32) presentViewController:v7 animated:1 completion:0];
 }
 
 - (void)startFitCheck
@@ -1190,7 +1179,7 @@ void __53__HMFitNoiseCheckContentViewController_startPreCheck__block_invoke_5(ui
 
 void __53__HMFitNoiseCheckContentViewController_startFitCheck__block_invoke(uint64_t a1)
 {
-  v16[4] = *MEMORY[0x277D85DE8];
+  v15[4] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (*(v2 + 1288))
   {
@@ -1208,28 +1197,26 @@ void __53__HMFitNoiseCheckContentViewController_startFitCheck__block_invoke(uint
   if (*(v4 + 1288) == 1 && !*(v4 + 1348))
   {
     NSLog(&cfstr_FitNoiseCheckF_0.isa);
-    v15[0] = @"sealLeft";
+    v14[0] = @"sealLeft";
     *&v5 = *(*(a1 + 32) + 1340) + -1.0;
     v6 = [MEMORY[0x277CCABB0] numberWithFloat:v5];
-    v16[0] = v6;
-    v15[1] = @"sealRight";
+    v15[0] = v6;
+    v14[1] = @"sealRight";
     *&v7 = *(*(a1 + 32) + 1340) + -1.0;
     v8 = [MEMORY[0x277CCABB0] numberWithFloat:v7];
-    v16[1] = v8;
-    v15[2] = @"confidenceLeft";
+    v15[1] = v8;
+    v14[2] = @"confidenceLeft";
     *&v9 = *(*(a1 + 32) + 1344) + -1.0;
     v10 = [MEMORY[0x277CCABB0] numberWithFloat:v9];
-    v16[2] = v10;
-    v15[3] = @"confidenceRight";
+    v15[2] = v10;
+    v14[3] = @"confidenceRight";
     *&v11 = *(*(a1 + 32) + 1344) + -1.0;
     v12 = [MEMORY[0x277CCABB0] numberWithFloat:v11];
-    v16[3] = v12;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:4];
+    v15[3] = v12;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:4];
 
     [*(a1 + 32) updateFitCheckResult:v13];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void *__53__HMFitNoiseCheckContentViewController_startFitCheck__block_invoke_2(uint64_t a1, double a2)
@@ -1472,15 +1459,15 @@ uint64_t __55__HMFitNoiseCheckContentViewController_fitCheckStopped__block_invok
 
 - (void)startVolumeObserver
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   mEMORY[0x277D26E58] = [MEMORY[0x277D26E58] sharedAVSystemController];
   v4 = MEMORY[0x277D26DE8];
-  v18[0] = *MEMORY[0x277D26DE8];
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
+  v17[0] = *MEMORY[0x277D26DE8];
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
   v6 = *MEMORY[0x277D26DD0];
-  v17 = 0;
-  [mEMORY[0x277D26E58] setAttribute:v5 forKey:v6 error:&v17];
-  v7 = v17;
+  v16 = 0;
+  [mEMORY[0x277D26E58] setAttribute:v5 forKey:v6 error:&v16];
+  v7 = v16;
 
   if (v7)
   {
@@ -1494,20 +1481,18 @@ uint64_t __55__HMFitNoiseCheckContentViewController_fitCheckStopped__block_invok
     objc_initWeak(&location, self);
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
     v10 = *v4;
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __59__HMFitNoiseCheckContentViewController_startVolumeObserver__block_invoke;
-    v14[3] = &unk_2796F3E78;
-    objc_copyWeak(&v15, &location);
-    v11 = [defaultCenter addObserverForName:v10 object:0 queue:0 usingBlock:v14];
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __59__HMFitNoiseCheckContentViewController_startVolumeObserver__block_invoke;
+    v13[3] = &unk_2796F3E78;
+    objc_copyWeak(&v14, &location);
+    v11 = [defaultCenter addObserverForName:v10 object:0 queue:0 usingBlock:v13];
     systemVolumeObserver = self->_systemVolumeObserver;
     self->_systemVolumeObserver = v11;
 
-    objc_destroyWeak(&v15);
+    objc_destroyWeak(&v14);
     objc_destroyWeak(&location);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __59__HMFitNoiseCheckContentViewController_startVolumeObserver__block_invoke(uint64_t a1, void *a2)
@@ -1661,7 +1646,7 @@ void __62__HMFitNoiseCheckContentViewController_startNoiseCheckNudging__block_in
     {
       if (result != 1)
       {
-        goto LABEL_12;
+        goto LABEL_9;
       }
 
 LABEL_8:
@@ -1684,11 +1669,9 @@ LABEL_7:
     goto LABEL_8;
   }
 
-LABEL_12:
-  noiseCheckResult = self->_noiseCheckResult;
 LABEL_9:
-  v5 = [(HMFitNoiseCheckContentViewController *)self getResultString:?];
-  [(NSMutableDictionary *)self->_detailDictionary setObject:v5 forKeyedSubscript:@"noiseCheckResult"];
+  v4 = [(HMFitNoiseCheckContentViewController *)self getResultString:?];
+  [(NSMutableDictionary *)self->_detailDictionary setObject:v4 forKeyedSubscript:@"noiseCheckResult"];
 }
 
 - (void)stopFitNoiseCheck
@@ -1910,25 +1893,23 @@ void __65__HMFitNoiseCheckContentViewController_audioRouteChangedHandler___block
 {
   v2 = MEMORY[0x277D75110];
   v3 = MEMORY[0x277CCACA8];
-  v4 = *(a1 + 32);
-  v5 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v6 = [v5 localizedStringForKey:@"Switch Audio Output to %@ to Continue" value:&stru_286444CA0 table:0];
-  v7 = [v3 localizedStringWithFormat:v6, *(*(a1 + 32) + 1440)];
-  v8 = [v2 alertControllerWithTitle:v7 message:&stru_286444CA0 preferredStyle:1];
+  v4 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v5 = [v4 localizedStringForKey:@"Switch Audio Output to %@ to Continue" value:&stru_286444CA0 table:0];
+  v6 = [v3 localizedStringWithFormat:v5, *(*(a1 + 32) + 1440)];
+  v7 = [v2 alertControllerWithTitle:v6 message:&stru_286444CA0 preferredStyle:1];
 
-  v9 = MEMORY[0x277D750F8];
-  v10 = *(a1 + 32);
-  v11 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v12 = [v11 localizedStringForKey:@"OK" value:&stru_286444CA0 table:0];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __65__HMFitNoiseCheckContentViewController_audioRouteChangedHandler___block_invoke_2;
-  v14[3] = &unk_2796F3E50;
-  v14[4] = *(a1 + 32);
-  v13 = [v9 actionWithTitle:v12 style:0 handler:v14];
-  [v8 addAction:v13];
+  v8 = MEMORY[0x277D750F8];
+  v9 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v10 = [v9 localizedStringForKey:@"OK" value:&stru_286444CA0 table:0];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __65__HMFitNoiseCheckContentViewController_audioRouteChangedHandler___block_invoke_2;
+  v12[3] = &unk_2796F3E50;
+  v12[4] = *(a1 + 32);
+  v11 = [v8 actionWithTitle:v10 style:0 handler:v12];
+  [v7 addAction:v11];
 
-  [*(a1 + 32) presentViewController:v8 animated:1 completion:0];
+  [*(a1 + 32) presentViewController:v7 animated:1 completion:0];
 }
 
 - (void)inEarStatusChangedHandler:(id)handler
@@ -1963,25 +1944,23 @@ void __66__HMFitNoiseCheckContentViewController_inEarStatusChangedHandler___bloc
 {
   v2 = MEMORY[0x277D75110];
   v3 = MEMORY[0x277CCACA8];
-  v4 = *(a1 + 32);
-  v5 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v6 = [v5 localizedStringForKey:@"Place %@ In Both Ears" value:&stru_286444CA0 table:0];
-  v7 = [v3 localizedStringWithFormat:v6, *(*(a1 + 32) + 1440)];
-  v8 = [v2 alertControllerWithTitle:v7 message:&stru_286444CA0 preferredStyle:1];
+  v4 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v5 = [v4 localizedStringForKey:@"Place %@ In Both Ears" value:&stru_286444CA0 table:0];
+  v6 = [v3 localizedStringWithFormat:v5, *(*(a1 + 32) + 1440)];
+  v7 = [v2 alertControllerWithTitle:v6 message:&stru_286444CA0 preferredStyle:1];
 
-  v9 = MEMORY[0x277D750F8];
-  v10 = *(a1 + 32);
-  v11 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v12 = [v11 localizedStringForKey:@"OK" value:&stru_286444CA0 table:0];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __66__HMFitNoiseCheckContentViewController_inEarStatusChangedHandler___block_invoke_2;
-  v14[3] = &unk_2796F3E50;
-  v14[4] = *(a1 + 32);
-  v13 = [v9 actionWithTitle:v12 style:0 handler:v14];
-  [v8 addAction:v13];
+  v8 = MEMORY[0x277D750F8];
+  v9 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v10 = [v9 localizedStringForKey:@"OK" value:&stru_286444CA0 table:0];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __66__HMFitNoiseCheckContentViewController_inEarStatusChangedHandler___block_invoke_2;
+  v12[3] = &unk_2796F3E50;
+  v12[4] = *(a1 + 32);
+  v11 = [v8 actionWithTitle:v10 style:0 handler:v12];
+  [v7 addAction:v11];
 
-  [*(a1 + 32) presentViewController:v8 animated:1 completion:0];
+  [*(a1 + 32) presentViewController:v7 animated:1 completion:0];
 }
 
 - (void)deviceDisconnectionHandler:(id)handler
@@ -2044,7 +2023,7 @@ void __66__HMFitNoiseCheckContentViewController_inEarStatusChangedHandler___bloc
 
 - (void)setupDebugView
 {
-  v26[4] = *MEMORY[0x277D85DE8];
+  v25[4] = *MEMORY[0x277D85DE8];
   if (self->_debugMode)
   {
     NSLog(&cfstr_FitNoiseCheckS_15.isa, a2);
@@ -2068,30 +2047,28 @@ void __66__HMFitNoiseCheckContentViewController_inEarStatusChangedHandler___bloc
     headerView = [(HMFitNoiseCheckContentViewController *)self headerView];
     [headerView addSubview:self->_resultDetailLabel];
 
-    v20 = MEMORY[0x277CCAAD0];
+    v19 = MEMORY[0x277CCAAD0];
     heightAnchor = [(UILabel *)self->_resultDetailLabel heightAnchor];
-    v24 = [heightAnchor constraintEqualToConstant:150.0];
-    v26[0] = v24;
+    v23 = [heightAnchor constraintEqualToConstant:150.0];
+    v25[0] = v23;
     leadingAnchor = [(UILabel *)self->_resultDetailLabel leadingAnchor];
     contentView = [(HMFitNoiseCheckContentViewController *)self contentView];
     leadingAnchor2 = [contentView leadingAnchor];
     v9 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-    v26[1] = v9;
+    v25[1] = v9;
     trailingAnchor = [(UILabel *)self->_resultDetailLabel trailingAnchor];
     contentView2 = [(HMFitNoiseCheckContentViewController *)self contentView];
     trailingAnchor2 = [contentView2 trailingAnchor];
     v13 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-    v26[2] = v13;
+    v25[2] = v13;
     topAnchor = [(UILabel *)self->_resultDetailLabel topAnchor];
     headerView2 = [(HMFitNoiseCheckContentViewController *)self headerView];
     bottomAnchor = [headerView2 bottomAnchor];
     v17 = [topAnchor constraintEqualToAnchor:bottomAnchor];
-    v26[3] = v17;
-    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:4];
-    [v20 activateConstraints:v18];
+    v25[3] = v17;
+    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:4];
+    [v19 activateConstraints:v18];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)showDebugResult

@@ -10,14 +10,15 @@
 
 - (AVCDOSDataOutputStorage)initWithDataOutput:(id)output
 {
-  v6.receiver = self;
-  v6.super_class = AVCDOSDataOutputStorage;
-  v4 = [(AVCDOSDataOutputStorage *)&v6 init];
+  v8.receiver = self;
+  v8.super_class = AVCDOSDataOutputStorage;
+  v4 = [(AVCDOSDataOutputStorage *)&v8 init];
   if (v4)
   {
     v4->_dataOutput = output;
-    v4->_synchronizedDataQueue = objc_alloc_init(MEMORY[0x1E695DF70]);
-    if ((AVCaptureIsRunningInMediaserverd() & 1) == 0)
+    v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v4->_synchronizedDataQueue = v5;
+    if ((AVCaptureIsRunningInMediaserverd(v5, v6) & 1) == 0)
     {
       v4->_delegateOverrideCallbackQueue = dispatch_queue_create([objc_msgSend(MEMORY[0x1E696AEC0] stringWithFormat:@"com.apple.avfoundation.dataoutputsynchronizer.dataoutputqueue_%@_%@", v4->_dataOutput, objc_msgSend(objc_msgSend(MEMORY[0x1E696AFB0], "UUID"), "UUIDString")), "UTF8String"], 0);
     }
@@ -61,7 +62,7 @@
     v7 = [(NSMutableArray *)[(AVCDOSDataOutputStorage *)self synchronizedDataQueue] objectAtIndexedSubscript:0];
     if (v7)
     {
-      [v7 timestamp];
+      objc_msgSend_timestamp(v7);
       goto LABEL_10;
     }
 
@@ -76,7 +77,7 @@ LABEL_9:
     return 0;
   }
 
-  [v5 adjustedTimestamp];
+  objc_msgSend_adjustedTimestamp(v5);
   if ((v25 & 1) == 0)
   {
     return 0;
@@ -88,7 +89,7 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  [v6 adjustedTimestamp];
+  objc_msgSend_adjustedTimestamp(v6);
 LABEL_10:
   v26 = time1;
   time1 = *timestamp;
@@ -126,7 +127,7 @@ LABEL_10:
           v15 = *(*(&v19 + 1) + 8 * i);
           if (v15)
           {
-            [*(*(&v19 + 1) + 8 * i) adjustedTimestamp];
+            objc_msgSend_adjustedTimestamp(*(*(&v19 + 1) + 8 * i));
             if (v17)
             {
               [v9 minusSet:{objc_msgSend(v15, "handledMetadataObjectTypes")}];

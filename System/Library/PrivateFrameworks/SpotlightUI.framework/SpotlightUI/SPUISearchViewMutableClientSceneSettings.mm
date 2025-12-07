@@ -22,8 +22,11 @@
 - (void)setKeyboardProtectorHeight:(double)height;
 - (void)setSearchBarCornerRadius:(double)radius;
 - (void)setSearchBarSize:(CGSize)size;
+- (void)setSearchHeaderBackgroundContextID:(unsigned int)d;
 - (void)setSearchHeaderBackgroundLayerRenderID:(unint64_t)d;
+- (void)setSearchHeaderBlurContextID:(unsigned int)d;
 - (void)setSearchHeaderBlurLayerRenderID:(unint64_t)d;
+- (void)setSearchHeaderContextID:(unsigned int)d;
 - (void)setSearchHeaderLayerRenderID:(unint64_t)d;
 @end
 
@@ -78,6 +81,14 @@
   return unsignedLongLongValue;
 }
 
+- (void)setSearchHeaderContextID:(unsigned int)d
+{
+  v3 = *&d;
+  otherSettings = [(FBSSettings *)self otherSettings];
+  v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v3];
+  [otherSettings setObject:v4 forSetting:1002];
+}
+
 - (unsigned)searchHeaderContextID
 {
   otherSettings = [(FBSSettings *)self otherSettings];
@@ -95,6 +106,14 @@
   }
 
   return unsignedIntValue;
+}
+
+- (void)setSearchHeaderBackgroundContextID:(unsigned int)d
+{
+  v3 = *&d;
+  otherSettings = [(FBSSettings *)self otherSettings];
+  v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v3];
+  [otherSettings setObject:v4 forSetting:1004];
 }
 
 - (void)setSearchHeaderBackgroundLayerRenderID:(unint64_t)d
@@ -343,6 +362,14 @@
   otherSettings = [(FBSSettings *)self otherSettings];
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:d];
   [otherSettings setObject:v4 forSetting:1011];
+}
+
+- (void)setSearchHeaderBlurContextID:(unsigned int)d
+{
+  v3 = *&d;
+  otherSettings = [(FBSSettings *)self otherSettings];
+  v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v3];
+  [otherSettings setObject:v4 forSetting:1012];
 }
 
 - (id)copyWithZone:(_NSZone *)zone

@@ -60,7 +60,7 @@
     {
       v12 = self->_behavior;
       behavior2 = [(TUIElementBehaviorArgumentsMap *)v8 behavior];
-      LODWORD(v12) = [(NSString *)v12 isEqualToString:behavior2];
+      LODWORD(v12) = objc_msgSend_isEqualToString_(v12);
 
       if (!v12)
       {

@@ -271,13 +271,13 @@ LABEL_5:
 {
   if (encoding && MEMORY[0x1DA6E0380](encoding, a2) == MEMORY[0x1E69E9E80])
   {
-    v7.receiver = self;
-    v7.super_class = SSItemContentRating;
-    v5 = [(SSItemContentRating *)&v7 init];
+    v8.receiver = self;
+    v8.super_class = SSItemContentRating;
+    v5 = [(SSItemContentRating *)&v8 init];
     if (v5)
     {
-      objc_opt_class();
-      v5->_dictionary = SSXPCDictionaryCopyCFObjectWithClass(encoding, "0");
+      v7 = objc_opt_class();
+      v5->_dictionary = SSXPCDictionaryCopyCFObjectWithClass(encoding, "0", v7);
     }
   }
 

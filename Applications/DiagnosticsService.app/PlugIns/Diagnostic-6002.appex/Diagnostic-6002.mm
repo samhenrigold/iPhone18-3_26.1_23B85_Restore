@@ -111,7 +111,7 @@ LABEL_6:
   return v7;
 }
 
-const __CFString *ecStatusCheck(void)
+__CFString *ecStatusCheck(void)
 {
   [@"com.apple.sensors.cam" UTF8String];
   if (!exclaves_sensor_create())
@@ -229,15 +229,16 @@ uint64_t setBit(uint64_t result, int a2, unsigned int *a3)
   return result;
 }
 
-void updateJasperValidationStatus(int a1, void *a2)
+void updateJasperValidationStatus(uint64_t result, void *a2)
 {
-  if ((a1 & 0x400) != 0)
+  v3 = result;
+  if ((result & 0x400) != 0)
   {
     sub_1000027F0(a2, 40, @"JASPER_VC_PROJECTOR_NOT_ACTIVE");
-    if ((a1 & 0x1000) == 0)
+    if ((v3 & 0x1000) == 0)
     {
 LABEL_3:
-      if ((a1 & 0x8000) == 0)
+      if ((v3 & 0x8000) == 0)
       {
         goto LABEL_4;
       }
@@ -246,16 +247,16 @@ LABEL_3:
     }
   }
 
-  else if ((a1 & 0x1000) == 0)
+  else if ((result & 0x1000) == 0)
   {
     goto LABEL_3;
   }
 
   sub_1000027F0(a2, 41, @"JASPER_VC_BRICK");
-  if ((a1 & 0x8000) == 0)
+  if ((v3 & 0x8000) == 0)
   {
 LABEL_4:
-    if ((a1 & 0x20000) == 0)
+    if ((v3 & 0x20000) == 0)
     {
       goto LABEL_5;
     }
@@ -265,10 +266,10 @@ LABEL_4:
 
 LABEL_13:
   sub_1000027F0(a2, 42, @"JASPER_VC_PROJECTOR_FAULT");
-  if ((a1 & 0x20000) == 0)
+  if ((v3 & 0x20000) == 0)
   {
 LABEL_5:
-    if ((a1 & 0x40000) == 0)
+    if ((v3 & 0x40000) == 0)
     {
       goto LABEL_6;
     }
@@ -278,10 +279,10 @@ LABEL_5:
 
 LABEL_14:
   sub_1000027F0(a2, 43, @"JASPER_VC_SW_SAFETY");
-  if ((a1 & 0x40000) == 0)
+  if ((v3 & 0x40000) == 0)
   {
 LABEL_6:
-    if ((a1 & 0x80000) == 0)
+    if ((v3 & 0x80000) == 0)
     {
       goto LABEL_7;
     }
@@ -291,10 +292,10 @@ LABEL_6:
 
 LABEL_15:
   sub_1000027F0(a2, 44, @"JASPER_VC_OVERHEAT");
-  if ((a1 & 0x80000) == 0)
+  if ((v3 & 0x80000) == 0)
   {
 LABEL_7:
-    if ((a1 & 0x100000) == 0)
+    if ((v3 & 0x100000) == 0)
     {
       goto LABEL_8;
     }
@@ -304,17 +305,17 @@ LABEL_7:
 
 LABEL_16:
   sub_1000027F0(a2, 45, @"JASPER_VC_POWERSUPPLY");
-  if ((a1 & 0x100000) == 0)
+  if ((v3 & 0x100000) == 0)
   {
 LABEL_8:
-    if ((a1 & 0x200000) == 0)
+    if ((v3 & 0x200000) == 0)
     {
       goto LABEL_9;
     }
 
 LABEL_18:
     sub_1000027F0(a2, 47, @"JASPER_VC_SENSOR_MONITOR");
-    if ((a1 & 0x400000) == 0)
+    if ((v3 & 0x400000) == 0)
     {
       return;
     }
@@ -324,13 +325,13 @@ LABEL_18:
 
 LABEL_17:
   sub_1000027F0(a2, 46, @"JASPER_VC_SENSOR_STATUS");
-  if ((a1 & 0x200000) != 0)
+  if ((v3 & 0x200000) != 0)
   {
     goto LABEL_18;
   }
 
 LABEL_9:
-  if ((a1 & 0x400000) == 0)
+  if ((v3 & 0x400000) == 0)
   {
     return;
   }
@@ -807,7 +808,7 @@ __CFString *ConvertDataToHexString(const __CFData *a1)
   return i;
 }
 
-uint64_t HxISPCaptureDeviceController::FindGroup(HxISPCaptureDeviceController *this, int a2)
+uint64_t HxISPCaptureDeviceController::FindGroup(HxISPCaptureDeviceController *this, unsigned int a2)
 {
   if (!*(this + 536))
   {
@@ -2231,7 +2232,7 @@ void sub_100006E2C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-_BYTE *sub_100007090(_BYTE *a1, char *__s)
+void *sub_100007090(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -2245,13 +2246,13 @@ _BYTE *sub_100007090(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -2342,7 +2343,7 @@ HxISPCaptureDeviceController *DeviceCMInterface::releaseInterface(DeviceCMInterf
   return result;
 }
 
-uint64_t DeviceCMInterface::setRgbConfiguration(uint64_t a1, uint64_t a2, uint64_t a3)
+DeviceCMInterface *DeviceCMInterface::setRgbConfiguration(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if ((a2 & 0x80000000) != 0 || (v3 = *(a1 + 16)) == 0)
   {
@@ -3983,13 +3984,13 @@ LABEL_17:
   return v7;
 }
 
-uint64_t DeviceCMInterface::setPearlDepthConfiguration(uint64_t a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5)
+uint64_t DeviceCMInterface::setPearlDepthConfiguration(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v23 = a3;
   valuePtr = a2;
   if (!*(a1 + 16))
   {
-    v19 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/DepthDiagnostics/Common/DeviceCMInterface.mm"];
+    v19 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/DepthDiagnostics/Common/DeviceCMInterface.mm", a4, a5];
     v20 = [v19 lastPathComponent];
     v21 = [NSString stringWithFormat:@"plugin CM controller is nil"];
     NSLog(@"<ERROR %@: %@:%d> %@", @"Diagnostic_FW_Status_iOS", v20, 1049, v21, v23, valuePtr);
@@ -3998,6 +3999,7 @@ uint64_t DeviceCMInterface::setPearlDepthConfiguration(uint64_t a1, uint64_t a2,
     return v14;
   }
 
+  v6 = a4;
   Mutable = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
   v9 = CFNumberCreate(kCFAllocatorDefault, kCFNumberIntType, &valuePtr);
   v10 = CFNumberCreate(kCFAllocatorDefault, kCFNumberIntType, &v23);
@@ -4006,7 +4008,7 @@ uint64_t DeviceCMInterface::setPearlDepthConfiguration(uint64_t a1, uint64_t a2,
   CFRelease(v9);
   CFRelease(v10);
   v11 = &kFigCapturePortType_FrontFacingCamera;
-  if (!a4)
+  if (!v6)
   {
     v11 = &kFigCapturePortType_FrontFacingInfraredCamera;
   }
@@ -4676,7 +4678,7 @@ uint64_t DeviceCMInterface::enableDefaultDepthStream(DeviceCMInterface *this)
   return v1;
 }
 
-DeviceCMInterface *DeviceCMInterface::setPearlMultiCam(DeviceCMInterface *this)
+uint64_t DeviceCMInterface::setPearlMultiCam(DeviceCMInterface *this)
 {
   v2 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/DepthDiagnostics/Common/DeviceCMInterface.mm"];
   v3 = [v2 lastPathComponent];
@@ -4734,7 +4736,7 @@ DeviceCMInterface *DeviceCMInterface::setPearlMultiCam(DeviceCMInterface *this)
   return v11;
 }
 
-uint64_t DeviceCMInterface::enableSyncForEnumeratedStreams(DeviceCMInterface *this, int a2)
+uint64_t DeviceCMInterface::enableSyncForEnumeratedStreams(DeviceCMInterface *this, unsigned int a2)
 {
   if (!this->var2 || this->var3.var2 < 0 || this->var3.var3 < 0)
   {
@@ -5457,7 +5459,7 @@ DeviceCMInterface *DeviceCMInterface::getJasperResistance(DeviceCMInterface *thi
   return v4;
 }
 
-DeviceCMInterface *DeviceCMInterface::getPearlFloodProjectorFault(DeviceCMInterface *this, unint64_t *a2)
+uint64_t DeviceCMInterface::getPearlFloodProjectorFault(DeviceCMInterface *this, unint64_t *a2)
 {
   number = 0;
   valuePtr = 0;
@@ -5504,7 +5506,7 @@ DeviceCMInterface *DeviceCMInterface::getPearlFloodProjectorFault(DeviceCMInterf
   return v6;
 }
 
-DeviceCMInterface *DeviceCMInterface::getStructuredProjectorFault(DeviceCMInterface *this, unint64_t *a2)
+uint64_t DeviceCMInterface::getStructuredProjectorFault(DeviceCMInterface *this, unint64_t *a2)
 {
   valuePtr = 0;
   number = 0;
@@ -5639,10 +5641,10 @@ DeviceCMInterface *DeviceCMInterface::forceSaveWideJasperCalib(DeviceCMInterface
   return v2;
 }
 
-DeviceCMInterface *DeviceCMInterface::setRgbjConfiguration(DeviceCMInterface *this, unsigned int a2, unsigned int a3, uint64_t a4)
+DeviceCMInterface *DeviceCMInterface::setRgbjConfiguration(DeviceCMInterface *this, unsigned int a2, uint64_t a3, uint64_t a4)
 {
   v16[0] = @"RgbjConfigurationFeatureVectorSize";
-  v6 = [NSNumber numberWithUnsignedInt:?];
+  v6 = [NSNumber numberWithUnsignedInt:a3];
   v16[1] = @"RgbjConfigurationDilutionRate";
   v17[0] = v6;
   v7 = [NSNumber numberWithUnsignedInt:a4];
@@ -5740,7 +5742,7 @@ void sub_100011130(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t DeviceCMInterface::getPearlRigelSerialNumber(uint64_t a1, void *a2)
+DeviceCMInterface *DeviceCMInterface::getPearlRigelSerialNumber(uint64_t a1, void *a2)
 {
   v15 = 0;
   v3 = *(a1 + 16);
@@ -5911,9 +5913,9 @@ LABEL_14:
   }
 }
 
-void sub_100011F78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, void *a4, ...)
+void sub_100011F78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5, uint64_t a6, void *a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
 
   sub_100012050(va);
   sub_100012050(&STACK[0x250]);
@@ -6002,7 +6004,7 @@ void sub_100012EA0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_100013764(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26)
+void sub_100013764(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26)
 {
   if (*(v27 - 105) < 0)
   {
@@ -6092,7 +6094,7 @@ void sub_100015B54(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t sub_100015C3C@<X0>(char *__s@<X1>, const void **a2@<X0>, void **a3@<X8>)
+void *sub_100015C3C@<X0>(char *__s@<X1>, const void **a2@<X0>, void ***a3@<X8>)
 {
   if (*(a2 + 23) >= 0)
   {
@@ -6264,11 +6266,11 @@ void sub_10001927C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 void sub_100019298(uint64_t a1)
 {
   v1 = *(a1 + 32);
-  sub_100007090(v2, "handleResume Thread1");
-  [v1 log:v2];
+  sub_100007090(&v2, "handleResume Thread1");
+  [v1 log:&v2];
   if (v3 < 0)
   {
-    operator delete(v2[0]);
+    operator delete(v2);
   }
 
   operator new();
@@ -6950,48 +6952,48 @@ void sub_10001CE50(uint64_t a1)
   operator delete();
 }
 
-uint64_t *sub_10001CE9C(uint64_t a1, int *a2)
+uint64_t *sub_10001CE9C(uint64_t a1, int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 32);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t *sub_10001CF74(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *sub_10001CF74(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -7017,12 +7019,12 @@ uint64_t *sub_10001CFCC(uint64_t *result, uint64_t *a2)
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -7036,22 +7038,22 @@ uint64_t *sub_10001CFCC(uint64_t *result, uint64_t *a2)
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -7085,13 +7087,13 @@ uint64_t *sub_10001CFCC(uint64_t *result, uint64_t *a2)
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -7133,7 +7135,7 @@ uint64_t *sub_10001CFCC(uint64_t *result, uint64_t *a2)
   return result;
 }
 
-uint64_t sub_10001D168(uint64_t result, unint64_t a2)
+uint64_t sub_10001D168(uint64_t a1, unint64_t a2)
 {
   if (a2 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -7145,11 +7147,11 @@ uint64_t sub_10001D168(uint64_t result, unint64_t a2)
     operator new();
   }
 
-  *(result + 8) = 0;
-  *(result + 16) = 0;
-  *result = 0;
-  *(result + 23) = a2;
-  return result;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *a1 = 0;
+  *(a1 + 23) = a2;
+  return a1;
 }
 
 void sub_10001D1F4(uint64_t a1, unint64_t a2)

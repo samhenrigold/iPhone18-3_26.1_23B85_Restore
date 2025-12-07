@@ -15,34 +15,34 @@
 
 - (id)accessibilityElements
 {
-  v23 = *MEMORY[0x29EDCA608];
-  v21 = 0;
+  v22 = *MEMORY[0x29EDCA608];
+  v20 = 0;
   objc_opt_class();
   v3 = [(CardViewCellAccessibility *)self safeValueForKey:@"stackView"];
   v4 = __UIAccessibilityCastAsClass();
 
   array = [MEMORY[0x29EDB8DE8] array];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v16 = v4;
+  v15 = v4;
   arrangedSubviews = [v4 arrangedSubviews];
-  v7 = [arrangedSubviews countByEnumeratingWithState:&v17 objects:v22 count:16];
+  v7 = [arrangedSubviews countByEnumeratingWithState:&v16 objects:v21 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v18;
+    v9 = *v17;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(arrangedSubviews);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
+        v11 = *(*(&v16 + 1) + 8 * i);
         MEMORY[0x29C2D3B90](@"Diagnostics.CardStackSubviewContainer");
         if (objc_opt_isKindOfClass())
         {
@@ -55,13 +55,11 @@
         }
       }
 
-      v8 = [arrangedSubviews countByEnumeratingWithState:&v17 objects:v22 count:16];
+      v8 = [arrangedSubviews countByEnumeratingWithState:&v16 objects:v21 count:16];
     }
 
     while (v8);
   }
-
-  v14 = *MEMORY[0x29EDCA608];
 
   return array;
 }

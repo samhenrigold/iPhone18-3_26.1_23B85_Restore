@@ -740,7 +740,7 @@ LABEL_8:
     currentSheet = [(SCATModernMenuViewController *)self currentSheet];
   }
 
-  v112 = currentSheet;
+  v116 = currentSheet;
   height = CGSizeZero.height;
   [menuView sizeThatFits:1 includeTip:{CGSizeZero.width, height}];
   v16 = v15;
@@ -748,7 +748,7 @@ LABEL_8:
   [menuView sizeThatFits:0 includeTip:{CGSizeZero.width, height}];
   v20 = v19;
   v22 = v21;
-  if (![v112 presentationMode])
+  if (![v116 presentationMode])
   {
     menu = [(SCATModernMenuViewController *)self menu];
     popoverPosition = [menu popoverPosition];
@@ -761,7 +761,7 @@ LABEL_8:
     }
   }
 
-  if ([v112 presentationMode] == 1)
+  if ([v116 presentationMode] == 1)
   {
     menu2 = [(SCATModernMenuViewController *)self menu];
     -[SCATModernMenuViewController _positionForMenuDockPosition:size:](self, "_positionForMenuDockPosition:size:", [menu2 dockPosition], v20, v22);
@@ -774,11 +774,11 @@ LABEL_12:
     goto LABEL_81;
   }
 
-  [(SCATModernMenuViewController *)self _rectToClearIfNeededForSheet:v112];
+  [(SCATModernMenuViewController *)self _rectToClearIfNeededForSheet:v116];
   v27 = v26;
   v29 = v28;
-  v109 = v30;
-  v110 = v31;
+  v113 = v30;
+  v114 = v31;
   tipObject = [(SCATModernMenuViewController *)self tipObject];
   v32 = tipObject != 0;
   menu3 = [(SCATModernMenuViewController *)self menu];
@@ -808,14 +808,14 @@ LABEL_12:
   }
 
 LABEL_15:
-  v102 = v29;
-  v103 = v27;
-  v104 = v18;
+  v106 = v29;
+  v107 = v27;
+  v108 = v18;
   positionCopy = position;
-  if (-[SCATModernMenuViewController tipObject](self, "tipObject") == 2 && ([v112 alternateTipElement], v44 = objc_claimAutoreleasedReturnValue(), v44, v44))
+  if (-[SCATModernMenuViewController tipObject](self, "tipObject") == 2 && ([v116 alternateTipElement], v44 = objc_claimAutoreleasedReturnValue(), v44, v44))
   {
     directionCopy2 = direction;
-    alternateTipElement = [v112 alternateTipElement];
+    alternateTipElement = [v116 alternateTipElement];
 
     menu2 = alternateTipElement;
   }
@@ -832,7 +832,7 @@ LABEL_15:
   menu5 = [(SCATModernMenuViewController *)self menu];
   v51 = [v49 scatUIContextForDisplayID:{objc_msgSend(menu5, "currentDisplayID")}];
 
-  v107 = v51;
+  v111 = v51;
   v52 = v51;
   v53 = screenPoint;
   [v52 bounds];
@@ -840,11 +840,11 @@ LABEL_15:
   v59 = v55;
   v60 = v56;
   v61 = v57;
-  v98 = v22;
-  v99 = v16;
+  v102 = v22;
+  v103 = v16;
   if (tipObject)
   {
-    v62 = v104;
+    v62 = v108;
   }
 
   else
@@ -863,37 +863,37 @@ LABEL_15:
   }
 
   MidX = CGRectGetMidX(*&v54);
-  v114.origin.x = v58;
-  v114.origin.y = v59;
-  v114.size.width = v60;
-  v114.size.height = v61;
+  v118.origin.x = v58;
+  v118.origin.y = v59;
+  v118.size.width = v60;
+  v118.size.height = v61;
   rect2 = v63;
   v65 = v63 * 0.5;
   v40 = MidX - v63 * 0.5;
-  v108 = CGRectGetMidY(v114) - v62 * 0.5;
+  v112 = CGRectGetMidY(v118) - v62 * 0.5;
   v66 = (menu2 | screenPoint) != 0;
-  if (menu2 && ([menu2 scatFrame], v115.origin.x = sub_1000427AC(v67, v68, v69, v70), !CGRectIsEmpty(v115)))
+  if (menu2 && (v67 = [menu2 scatFrame], v119.origin.x = sub_1000427AC(v67, v68, v69, v70, v71, v72), !CGRectIsEmpty(v119)))
   {
-    [menu2 scatFrame];
-    [HNDScreen convertRect:v107 toView:sub_1000427AC(v75, v76, v77, v78)];
-    v73 = v71 + v79;
-    v74 = v72 + v80;
+    scatFrame = [menu2 scatFrame];
+    [HNDScreen convertRect:v111 toView:sub_1000427AC(scatFrame, v78, v79, v80, v81, v82)];
+    v75 = v73 + v83;
+    v76 = v74 + v84;
   }
 
   else if (screenPoint)
   {
     [screenPoint pointValue];
-    [HNDScreen convertPoint:v107 toView:?];
-    v73 = v71;
-    v74 = v72;
+    [HNDScreen convertPoint:v111 toView:?];
+    v75 = v73;
+    v76 = v74;
   }
 
   else
   {
-    v73 = v40 + v60;
-    v72 = v108;
-    v74 = v61 + v108;
-    v71 = MidX - v63 * 0.5;
+    v75 = v40 + v60;
+    v74 = v112;
+    v76 = v61 + v112;
+    v73 = MidX - v63 * 0.5;
   }
 
   tip = tipCopy;
@@ -906,152 +906,152 @@ LABEL_15:
     goto LABEL_51;
   }
 
-  v81 = v62 + v74;
-  v82 = (v72 + v74) * 0.5;
-  if (v62 + v82 > v61)
+  v85 = v62 + v76;
+  v86 = (v74 + v76) * 0.5;
+  if (v62 + v86 > v61)
   {
-    v82 = 0.0;
+    v86 = 0.0;
   }
 
-  v83 = v72 <= v62;
-  if (v72 > v62)
+  v87 = v74 <= v62;
+  if (v74 > v62)
   {
-    v84 = v72 - v62;
+    v88 = v74 - v62;
   }
 
   else
   {
-    v84 = v82;
+    v88 = v86;
   }
 
-  v43 = v81 <= v61 || v83;
-  if (v81 <= v61)
+  v43 = v85 <= v61 || v87;
+  if (v85 <= v61)
   {
-    v84 = v74;
+    v88 = v76;
   }
 
-  v108 = v84;
-  v42 = (v71 + v73) * 0.5;
+  v112 = v88;
+  v42 = (v73 + v75) * 0.5;
   if (v42 - v65 >= 0.0 && v65 + v42 <= v60)
   {
     v40 = v42 - v65;
 LABEL_51:
-    v86 = v103;
-    v87 = v109;
+    v90 = v107;
+    v91 = v113;
     goto LABEL_52;
   }
 
-  v86 = v103;
-  v87 = v109;
-  if (v63 + v71 <= v60)
+  v90 = v107;
+  v91 = v113;
+  if (v63 + v73 <= v60)
   {
-    v40 = v71;
+    v40 = v73;
   }
 
-  else if (v73 > v63)
+  else if (v75 > v63)
   {
-    v40 = v60 - (v60 - v73) - v63;
+    v40 = v60 - (v60 - v75) - v63;
   }
 
 LABEL_52:
-  v116.origin.x = v86;
-  v116.origin.y = v102;
-  v116.size.width = v87;
-  v88 = v110;
-  v116.size.height = v110;
-  if (!CGRectIsNull(v116))
+  v120.origin.x = v90;
+  v120.origin.y = v106;
+  v120.size.width = v91;
+  v92 = v114;
+  v120.size.height = v114;
+  if (!CGRectIsNull(v120))
   {
-    v117.origin.x = v86;
-    v117.origin.y = v102;
-    v117.size.width = v87;
-    v117.size.height = v110;
-    v119.origin.x = v40;
-    v119.origin.y = v108;
-    v119.size.width = rect2;
-    v119.size.height = v62;
-    if (CGRectIntersectsRect(v117, v119))
+    v121.origin.x = v90;
+    v121.origin.y = v106;
+    v121.size.width = v91;
+    v121.size.height = v114;
+    v123.origin.x = v40;
+    v123.origin.y = v112;
+    v123.size.width = rect2;
+    v123.size.height = v62;
+    if (CGRectIntersectsRect(v121, v123))
     {
       if (tipObject)
       {
-        v89 = v43;
+        v93 = v43;
       }
 
       else
       {
-        v89 = 0;
+        v93 = 0;
       }
 
-      if (v89)
+      if (v93)
       {
-        v90 = v102 + v110;
-        if ([(SCATModernMenuViewController *)self _menuFrameIsValid:v40, v102 + v110, v99, v104])
+        v94 = v106 + v114;
+        if ([(SCATModernMenuViewController *)self _menuFrameIsValid:v40, v106 + v114, v103, v108])
         {
 LABEL_59:
           v32 = 1;
 LABEL_69:
-          v92 = v40;
+          v96 = v40;
           tip = tipCopy;
 LABEL_79:
-          v41 = v90;
-          v40 = v92;
+          v41 = v94;
+          v40 = v96;
           goto LABEL_80;
         }
 
-        v90 = v102 - v104;
-        v104 = [(SCATModernMenuViewController *)self _menuFrameIsValid:v40, v102 - v104, v99, v104];
-        v88 = v110;
-        if ((v43 || tipObject == 0) | v104 & 1)
+        v94 = v106 - v108;
+        v108 = [(SCATModernMenuViewController *)self _menuFrameIsValid:v40, v106 - v108, v103, v108];
+        v92 = v114;
+        if ((v43 || tipObject == 0) | v108 & 1)
         {
-          if (v104)
+          if (v108)
           {
             goto LABEL_59;
           }
 
 LABEL_70:
-          v93 = 0;
-          v92 = v40;
+          v97 = 0;
+          v96 = v40;
           do
           {
-            if (v93)
+            if (v97)
             {
-              [(SCATModernMenuViewController *)self _positionForMenuPopoverPosition:v93 size:v20, v98];
-              v92 = v94;
-              v90 = v95;
-              v118.origin.x = v86;
-              v118.origin.y = v102;
-              v118.size.width = v109;
-              v118.size.height = v110;
-              v120.origin.x = v92;
-              v120.origin.y = v90;
-              v120.size.width = v20;
-              v120.size.height = v98;
-              v96 = CGRectIntersectsRect(v118, v120);
-              v97 = !v96;
-              v32 &= v96;
+              [(SCATModernMenuViewController *)self _positionForMenuPopoverPosition:v97 size:v20, v102];
+              v96 = v98;
+              v94 = v99;
+              v122.origin.x = v90;
+              v122.origin.y = v106;
+              v122.size.width = v113;
+              v122.size.height = v114;
+              v124.origin.x = v96;
+              v124.origin.y = v94;
+              v124.size.width = v20;
+              v124.size.height = v102;
+              v100 = CGRectIntersectsRect(v122, v124);
+              v101 = !v100;
+              v32 &= v100;
             }
 
             else
             {
-              v97 = 0;
+              v101 = 0;
             }
 
-            if (v93 > 7)
+            if (v97 > 7)
             {
               break;
             }
 
-            ++v93;
+            ++v97;
           }
 
-          while (!v97);
-          if (!v97)
+          while (!v101);
+          if (!v101)
           {
-            v90 = v108;
+            v94 = v112;
           }
 
-          v41 = v90;
+          v41 = v94;
           tip = tipCopy;
-          if (!v97)
+          if (!v101)
           {
             goto LABEL_80;
           }
@@ -1062,21 +1062,21 @@ LABEL_70:
 
       else
       {
-        v90 = v108;
+        v94 = v112;
         if (v43 || tipObject == 0)
         {
           goto LABEL_70;
         }
       }
 
-      v90 = v102 - v104;
-      if ([(SCATModernMenuViewController *)self _menuFrameIsValid:v40, v102 - v104, v99, v104])
+      v94 = v106 - v108;
+      if ([(SCATModernMenuViewController *)self _menuFrameIsValid:v40, v106 - v108, v103, v108])
       {
         goto LABEL_69;
       }
 
-      v90 = v102 + v88;
-      if ([(SCATModernMenuViewController *)self _menuFrameIsValid:v40, v102 + v88, v99, v104])
+      v94 = v106 + v92;
+      if ([(SCATModernMenuViewController *)self _menuFrameIsValid:v40, v106 + v92, v103, v108])
       {
         goto LABEL_69;
       }
@@ -1085,7 +1085,7 @@ LABEL_70:
     }
   }
 
-  v41 = v108;
+  v41 = v112;
 LABEL_80:
 
 LABEL_81:

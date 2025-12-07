@@ -3,13 +3,13 @@
 - (NSNumber)_countForKeyPath:()NSKeyValueCoding;
 - (id)valueForKey:()NSKeyValueCoding;
 - (id)valueForKeyPath:()NSKeyValueCoding;
-- (uint64_t)_avgForKeyPath:()NSKeyValueCoding;
-- (uint64_t)setValue:()NSKeyValueCoding forKey:;
+- (void)_avgForKeyPath:()NSKeyValueCoding;
 - (void)_distinctUnionOfArraysForKeyPath:()NSKeyValueCoding;
 - (void)_distinctUnionOfObjectsForKeyPath:()NSKeyValueCoding;
 - (void)_distinctUnionOfSetsForKeyPath:()NSKeyValueCoding;
 - (void)_maxForKeyPath:()NSKeyValueCoding;
 - (void)_minForKeyPath:()NSKeyValueCoding;
+- (void)setValue:()NSKeyValueCoding forKey:;
 @end
 
 @implementation NSSet(NSKeyValueCoding)
@@ -22,7 +22,7 @@
   v5 = +[NSDecimalNumber zero];
   if (v5)
   {
-    [(NSDecimalNumber *)v5 decimalValue];
+    objc_msgSend_decimalValue(v5);
   }
 
   else
@@ -54,7 +54,7 @@
         if (v10)
         {
           LODWORD(v13) = 0;
-          [v10 decimalValue];
+          objc_msgSend_decimalValue(v10, 0, 0, v13);
           _NSDecimalAdd(&v19, &v19, &v12, 3);
         }
 
@@ -73,7 +73,7 @@
   return [NSDecimalNumber decimalNumberWithDecimal:&v12];
 }
 
-- (uint64_t)_avgForKeyPath:()NSKeyValueCoding
+- (void)_avgForKeyPath:()NSKeyValueCoding
 {
   result = [self count];
   if (result)
@@ -358,7 +358,7 @@
   return v9;
 }
 
-- (uint64_t)setValue:()NSKeyValueCoding forKey:
+- (void)setValue:()NSKeyValueCoding forKey:
 {
   v16 = *MEMORY[0x1E69E9840];
   v12 = 0u;
@@ -380,7 +380,8 @@
           objc_enumerationMutation(self);
         }
 
-        [*(*(&v12 + 1) + 8 * v10++) setValue:a3 forKey:a4];
+        [*(*(&v12 + 1) + 8 * v10) setValue:a3 forKey:a4];
+        v10 = v10 + 1;
       }
 
       while (v8 != v10);

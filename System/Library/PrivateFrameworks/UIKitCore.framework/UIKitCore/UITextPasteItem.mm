@@ -223,11 +223,11 @@ void __35__UITextPasteItem_setDefaultResult__block_invoke_2(uint64_t a1, void *a
   return v18;
 }
 
-uint64_t __94__UITextPasteItem_attributedStringFromAttributedString_preservingAttributes_addingAttributes___block_invoke(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+id *__94__UITextPasteItem_attributedStringFromAttributedString_preservingAttributes_addingAttributes___block_invoke(id *result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a2)
   {
-    return [*(result + 32) addAttribute:*(result + 40) value:a2 range:{a3, a4}];
+    return [result[4] addAttribute:result[5] value:a2 range:{a3, a4}];
   }
 
   return result;

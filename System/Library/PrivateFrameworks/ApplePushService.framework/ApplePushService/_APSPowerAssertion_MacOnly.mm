@@ -96,7 +96,7 @@
   {
     if (v6)
     {
-      sub_10010AA44(self);
+      sub_10010AA44();
     }
   }
 
@@ -104,7 +104,7 @@
   {
     if (v6)
     {
-      sub_10010AAB4(self);
+      sub_10010AAB4();
     }
 
     v27[0] = @"AssertType";
@@ -156,7 +156,7 @@
     v14 = +[APSLog power];
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
-      sub_10010ABB8(self);
+      sub_10010ABB8();
     }
 
     timer = self->_timer;
@@ -174,7 +174,7 @@
       v19 = +[APSLog power];
       if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
       {
-        sub_10010AC38(self);
+        sub_10010AC38();
       }
 
       byte_1001BF758 = 1;
@@ -312,7 +312,7 @@
     v3 = +[APSLog power];
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      sub_10010AFC4(self);
+      sub_10010AFC4();
     }
 
     if (qword_1001BF748 == self)
@@ -322,7 +322,7 @@
         v5 = +[APSLog power];
         if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
         {
-          sub_10010B0B8(self);
+          sub_10010B0B8();
         }
       }
 
@@ -333,7 +333,7 @@
           v6 = +[APSLog power];
           if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
           {
-            sub_10010B13C(self);
+            sub_10010B13C();
           }
 
           +[NSDate timeIntervalSinceReferenceDate];
@@ -351,7 +351,7 @@
       v4 = +[APSLog power];
       if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
       {
-        sub_10010B034(self);
+        sub_10010B034();
       }
 
       [objc_opt_class() _lingerAfterLastPowerAssertionIsReleased];
@@ -362,7 +362,7 @@
       v8 = +[APSLog power];
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
-        sub_10010B1AC(self);
+        sub_10010B1AC();
       }
 
       dispatch_source_set_timer(self->_timer, 0xFFFFFFFFFFFFFFFFLL, 0, 0);

@@ -84,60 +84,58 @@
 - (id)lastActiveDate
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, _s10Foundation4DateVSgMR);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v14 - v5;
+  v5 = &v13 - v4;
   selfCopy = self;
-  PDRDevice.lastActiveDate()(v6);
+  PDRDevice.lastActiveDate()(v5);
 
-  v8 = type metadata accessor for Date();
-  v9 = *(v8 - 8);
-  v10 = (*(v9 + 48))(v6, 1, v8);
-  v11 = 0;
-  if (v10 != 1)
+  v7 = type metadata accessor for Date();
+  v8 = *(v7 - 8);
+  v9 = (*(v8 + 48))(v5, 1, v7);
+  v10 = 0;
+  if (v9 != 1)
   {
     isa = Date._bridgeToObjectiveC()().super.isa;
-    (*(v9 + 8))(v6, v8);
-    v11 = isa;
+    (*(v8 + 8))(v5, v7);
+    v10 = isa;
   }
 
-  return v11;
+  return v10;
 }
 
 - (id)bluetoothIdentifier
 {
   v3 = type metadata accessor for UUID();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x28223BE20](v3);
-  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   selfCopy = self;
-  PDRDevice.bluetoothIdentifier()(v7);
+  PDRDevice.bluetoothIdentifier()(v6);
 
-  v9.super.isa = UUID._bridgeToObjectiveC()().super.isa;
-  (*(v4 + 8))(v7, v3);
+  v8.super.isa = UUID._bridgeToObjectiveC()().super.isa;
+  (*(v4 + 8))(v6, v3);
 
-  return v9.super.isa;
+  return v8.super.isa;
 }
 
 - (NSUUID)pairingID
 {
-  objc_opt_class();
-  OUTLINED_FUNCTION_0();
+  v2 = objc_opt_class();
+  OUTLINED_FUNCTION_0(v2);
   return 0;
 }
 
 - (id)valueForProperty:(id)property
 {
-  objc_opt_class();
-  OUTLINED_FUNCTION_0();
+  v3 = objc_opt_class();
+  OUTLINED_FUNCTION_0(v3);
   return 0;
 }
 
 - (id)propertyNames
 {
-  objc_opt_class();
-  OUTLINED_FUNCTION_0();
+  v2 = objc_opt_class();
+  OUTLINED_FUNCTION_0(v2);
   return 0;
 }
 

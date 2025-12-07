@@ -1,13 +1,25 @@
 @interface FAFetchFamilyPhotoRequest
 - (FAFetchFamilyPhotoRequest)init;
 - (FAFetchFamilyPhotoRequest)initWithConnectionProvider:(id)provider;
+- (FAFetchFamilyPhotoRequest)initWithFamilyMemberDSID:(id)d size:(unint64_t)size localFallback:(BOOL)fallback;
 - (FAFetchFamilyPhotoRequest)initWithFamilyMemberDSID:(id)d size:(unint64_t)size localFallback:(BOOL)fallback connectionProvider:(id)provider;
+- (FAFetchFamilyPhotoRequest)initWithFamilyMemberHashedDSID:(id)d size:(unint64_t)size localFallback:(BOOL)fallback;
 - (FAFetchFamilyPhotoRequest)initWithFamilyMemberHashedDSID:(id)d size:(unint64_t)size localFallback:(BOOL)fallback connectionProvider:(id)provider;
 - (id)requestOptions;
 - (void)startRequestWithCompletionHandler:(id)handler;
 @end
 
 @implementation FAFetchFamilyPhotoRequest
+
+- (FAFetchFamilyPhotoRequest)initWithFamilyMemberDSID:(id)d size:(unint64_t)size localFallback:(BOOL)fallback
+{
+  fallbackCopy = fallback;
+  dCopy = d;
+  v9 = +[_FAFamilyCircleRequestConnectionProvider sharedInstance];
+  v10 = [(FAFetchFamilyPhotoRequest *)self initWithFamilyMemberDSID:dCopy size:size localFallback:fallbackCopy connectionProvider:v9];
+
+  return v10;
+}
 
 - (FAFetchFamilyPhotoRequest)initWithFamilyMemberDSID:(id)d size:(unint64_t)size localFallback:(BOOL)fallback connectionProvider:(id)provider
 {
@@ -22,6 +34,16 @@
   }
 
   return v12;
+}
+
+- (FAFetchFamilyPhotoRequest)initWithFamilyMemberHashedDSID:(id)d size:(unint64_t)size localFallback:(BOOL)fallback
+{
+  fallbackCopy = fallback;
+  dCopy = d;
+  v9 = +[_FAFamilyCircleRequestConnectionProvider sharedInstance];
+  v10 = [(FAFetchFamilyPhotoRequest *)self initWithFamilyMemberHashedDSID:dCopy size:size localFallback:fallbackCopy connectionProvider:v9];
+
+  return v10;
 }
 
 - (FAFetchFamilyPhotoRequest)initWithFamilyMemberHashedDSID:(id)d size:(unint64_t)size localFallback:(BOOL)fallback connectionProvider:(id)provider
@@ -107,7 +129,7 @@
 - (void)startRequestWithCompletionHandler:(id)handler
 {
   handlerCopy = handler;
-  v5 = _FALogSystem();
+  v5 = _FALogSystem(handlerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -137,18 +159,17 @@
 
 void __63__FAFetchFamilyPhotoRequest_startRequestWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = _FALogSystem();
+  v4 = _FALogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_1B70B0000, v4, OS_LOG_TYPE_DEFAULT, "FARemoveFamilyMemberRequest: Error from service - %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1B70B0000, v4, OS_LOG_TYPE_DEFAULT, "FARemoveFamilyMemberRequest: Error from service - %@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

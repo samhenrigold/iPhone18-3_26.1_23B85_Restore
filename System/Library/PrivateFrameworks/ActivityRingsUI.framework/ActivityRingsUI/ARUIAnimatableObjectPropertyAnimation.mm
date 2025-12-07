@@ -107,7 +107,7 @@ double __78__ARUIAnimatableObjectPropertyAnimation_timingFunctionForMediaTimingF
 
 - (id)_startValue
 {
-  OUTLINED_FUNCTION_1_0();
+  OUTLINED_FUNCTION_1_0(self, a2);
   OUTLINED_FUNCTION_0_0();
   NSRequestConcreteImplementation();
   return 0;
@@ -115,7 +115,7 @@ double __78__ARUIAnimatableObjectPropertyAnimation_timingFunctionForMediaTimingF
 
 - (id)_endValue
 {
-  OUTLINED_FUNCTION_1_0();
+  OUTLINED_FUNCTION_1_0(self, a2);
   OUTLINED_FUNCTION_0_0();
   NSRequestConcreteImplementation();
   return 0;
@@ -123,7 +123,7 @@ double __78__ARUIAnimatableObjectPropertyAnimation_timingFunctionForMediaTimingF
 
 - (id)_currentValue
 {
-  OUTLINED_FUNCTION_1_0();
+  OUTLINED_FUNCTION_1_0(self, a2);
   OUTLINED_FUNCTION_0_0();
   NSRequestConcreteImplementation();
   return 0;
@@ -131,7 +131,7 @@ double __78__ARUIAnimatableObjectPropertyAnimation_timingFunctionForMediaTimingF
 
 - (void)_setStartValue:(id)value
 {
-  OUTLINED_FUNCTION_1_0();
+  OUTLINED_FUNCTION_1_0(self, a2);
   OUTLINED_FUNCTION_0_0();
 
   NSRequestConcreteImplementation();
@@ -139,7 +139,7 @@ double __78__ARUIAnimatableObjectPropertyAnimation_timingFunctionForMediaTimingF
 
 - (void)_setEndValue:(id)value
 {
-  OUTLINED_FUNCTION_1_0();
+  OUTLINED_FUNCTION_1_0(self, a2);
   OUTLINED_FUNCTION_0_0();
 
   NSRequestConcreteImplementation();
@@ -147,7 +147,7 @@ double __78__ARUIAnimatableObjectPropertyAnimation_timingFunctionForMediaTimingF
 
 - (void)_setCurrentValue:(id)value
 {
-  OUTLINED_FUNCTION_1_0();
+  OUTLINED_FUNCTION_1_0(self, a2);
   OUTLINED_FUNCTION_0_0();
 
   NSRequestConcreteImplementation();
@@ -155,7 +155,7 @@ double __78__ARUIAnimatableObjectPropertyAnimation_timingFunctionForMediaTimingF
 
 - (void)_updateWithProgress:(float)progress
 {
-  OUTLINED_FUNCTION_1_0();
+  OUTLINED_FUNCTION_1_0(self, a2);
   OUTLINED_FUNCTION_0_0();
 
   NSRequestConcreteImplementation();
@@ -163,7 +163,7 @@ double __78__ARUIAnimatableObjectPropertyAnimation_timingFunctionForMediaTimingF
 
 - (id)valueByAddingCurrentValueToValue:(id)value
 {
-  OUTLINED_FUNCTION_1_0();
+  OUTLINED_FUNCTION_1_0(self, a2);
   OUTLINED_FUNCTION_0_0();
   NSRequestConcreteImplementation();
   return 0;

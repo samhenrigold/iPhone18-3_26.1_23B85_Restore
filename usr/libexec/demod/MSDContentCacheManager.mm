@@ -74,40 +74,40 @@
 
 - (void)clearCache
 {
-  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
   fileDownloadCachePaths = [(MSDContentCacheManager *)self fileDownloadCachePaths];
-  v4 = [fileDownloadCachePaths countByEnumeratingWithState:&v16 objects:v22 count:16];
+  v4 = [fileDownloadCachePaths countByEnumeratingWithState:&v17 objects:v23 count:16];
   if (v4)
   {
     v6 = v4;
-    v7 = *v17;
+    v7 = *v18;
     *&v5 = 138543362;
-    v15 = v5;
+    v16 = v5;
     do
     {
       v8 = 0;
       do
       {
-        if (*v17 != v7)
+        if (*v18 != v7)
         {
           objc_enumerationMutation(fileDownloadCachePaths);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * v8);
+        v9 = *(*(&v17 + 1) + 8 * v8);
         fileManager = [(MSDContentCacheManager *)self fileManager];
         v11 = [fileManager fileExistsAtPath:v9];
 
         if (v11)
         {
-          v12 = sub_100063A54();
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+          v13 = sub_100063A54(v12);
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
           {
-            *buf = v15;
-            v21 = v9;
-            _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Clearing the cache at path: %{public}@", buf, 0xCu);
+            *buf = v16;
+            v22 = v9;
+            _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Clearing the cache at path: %{public}@", buf, 0xCu);
           }
 
           fileManager2 = [(MSDContentCacheManager *)self fileManager];
@@ -121,7 +121,7 @@
       }
 
       while (v6 != v8);
-      v6 = [fileDownloadCachePaths countByEnumeratingWithState:&v16 objects:v22 count:16];
+      v6 = [fileDownloadCachePaths countByEnumeratingWithState:&v17 objects:v23 count:16];
     }
 
     while (v6);
@@ -133,60 +133,60 @@
 - (void)clearCacheExceptFileHashes:(id)hashes
 {
   hashesCopy = hashes;
-  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
   fileDownloadCachePaths = [(MSDContentCacheManager *)self fileDownloadCachePaths];
-  v6 = [fileDownloadCachePaths countByEnumeratingWithState:&v20 objects:v26 count:16];
+  v6 = [fileDownloadCachePaths countByEnumeratingWithState:&v21 objects:v27 count:16];
   if (v6)
   {
     v8 = v6;
-    v9 = *v21;
+    v9 = *v22;
     *&v7 = 138543362;
-    v17 = v7;
+    v18 = v7;
     do
     {
       v10 = 0;
       do
       {
-        if (*v21 != v9)
+        if (*v22 != v9)
         {
           objc_enumerationMutation(fileDownloadCachePaths);
         }
 
-        v11 = *(*(&v20 + 1) + 8 * v10);
+        v11 = *(*(&v21 + 1) + 8 * v10);
         fileManager = [(MSDContentCacheManager *)self fileManager];
         v13 = [fileManager fileExistsAtPath:v11];
 
         if (v13)
         {
-          v14 = sub_100063A54();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+          v15 = sub_100063A54(v14);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
           {
-            *buf = v17;
-            v25 = v11;
-            _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Clearing the cache at path: %{public}@", buf, 0xCu);
+            *buf = v18;
+            v26 = v11;
+            _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Clearing the cache at path: %{public}@", buf, 0xCu);
           }
 
-          v15 = +[NSFileManager defaultManager];
-          v16 = [v15 contentsOfDirectoryAtPath:v11 error:0];
+          v16 = +[NSFileManager defaultManager];
+          v17 = [v16 contentsOfDirectoryAtPath:v11 error:0];
 
-          v18[0] = _NSConcreteStackBlock;
-          v18[1] = 3221225472;
-          v18[2] = sub_1000A0F2C;
-          v18[3] = &unk_10016BF50;
-          v18[4] = v11;
-          v18[5] = self;
-          v19 = hashesCopy;
-          [v16 enumerateObjectsUsingBlock:v18];
+          v19[0] = _NSConcreteStackBlock;
+          v19[1] = 3221225472;
+          v19[2] = sub_1000A0F2C;
+          v19[3] = &unk_10016BF50;
+          v19[4] = v11;
+          v19[5] = self;
+          v20 = hashesCopy;
+          [v17 enumerateObjectsUsingBlock:v19];
         }
 
         v10 = v10 + 1;
       }
 
       while (v8 != v10);
-      v8 = [fileDownloadCachePaths countByEnumeratingWithState:&v20 objects:v26 count:16];
+      v8 = [fileDownloadCachePaths countByEnumeratingWithState:&v21 objects:v27 count:16];
     }
 
     while (v8);
@@ -210,11 +210,11 @@
 
       if (![cacheCopy isEqualToString:hexStringRepresentation])
       {
-        sub_1000E6204();
+        sub_1000E6204(v10);
         v17 = 0;
 LABEL_17:
 
-        v18 = 0;
+        v19 = 0;
         goto LABEL_13;
       }
     }
@@ -225,13 +225,13 @@ LABEL_17:
     if (v14)
     {
       fileManager2 = [(MSDContentCacheManager *)self fileManager];
-      v24 = 0;
-      v16 = [fileManager2 removeItemAtPath:locationCopy error:&v24];
-      v17 = v24;
+      v26 = 0;
+      v16 = [fileManager2 removeItemAtPath:locationCopy error:&v26];
+      v17 = v26;
 
       if ((v16 & 1) == 0)
       {
-        hexStringRepresentation = sub_100063A54();
+        hexStringRepresentation = sub_100063A54(v18);
         if (os_log_type_enabled(hexStringRepresentation, OS_LOG_TYPE_ERROR))
         {
           sub_1000E62A4();
@@ -246,15 +246,15 @@ LABEL_17:
       v17 = 0;
     }
 
-    v19 = v17;
+    v20 = v17;
     fileManager3 = [(MSDContentCacheManager *)self fileManager];
-    v23 = v17;
-    v21 = [fileManager3 copyItemAtPath:v10 toPath:locationCopy error:&v23];
-    v17 = v23;
+    v25 = v17;
+    v22 = [fileManager3 copyItemAtPath:v10 toPath:locationCopy error:&v25];
+    v17 = v25;
 
-    if ((v21 & 1) == 0)
+    if ((v22 & 1) == 0)
     {
-      hexStringRepresentation = sub_100063A54();
+      hexStringRepresentation = sub_100063A54(v23);
       if (os_log_type_enabled(hexStringRepresentation, OS_LOG_TYPE_ERROR))
       {
         sub_1000E6318();
@@ -263,18 +263,18 @@ LABEL_17:
       goto LABEL_17;
     }
 
-    v18 = 1;
+    v19 = 1;
   }
 
   else
   {
-    v18 = 0;
+    v19 = 0;
     v17 = 0;
   }
 
 LABEL_13:
 
-  return v18;
+  return v19;
 }
 
 - (id)fileCachePathFromSourcePath:(id)path forBackgroundDownload:(BOOL)download
@@ -430,8 +430,8 @@ LABEL_9:
   v5 = [(MSDContentCacheManager *)self findFileInCache:cacheCopy];
   if (!v5)
   {
-    v11 = sub_100063A54();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = sub_100063A54(0);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       sub_1000E638C();
     }
@@ -441,35 +441,35 @@ LABEL_9:
   }
 
   fileManager = [(MSDContentCacheManager *)self fileManager];
-  v13 = 0;
-  v7 = [fileManager removeItemAtPath:v5 error:&v13];
-  v8 = v13;
+  v14 = 0;
+  v7 = [fileManager removeItemAtPath:v5 error:&v14];
+  v8 = v14;
 
   if ((v7 & 1) == 0)
   {
-    v11 = sub_100063A54();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = sub_100063A54(v9);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       localizedDescription = [v8 localizedDescription];
       *buf = 138543874;
-      v15 = cacheCopy;
-      v16 = 2114;
-      v17 = v5;
-      v18 = 2114;
-      v19 = localizedDescription;
-      _os_log_error_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "Failed to delete hash: %{public}@ with path: %{public}@ from cache; error: %{public}@", buf, 0x20u);
+      v16 = cacheCopy;
+      v17 = 2114;
+      v18 = v5;
+      v19 = 2114;
+      v20 = localizedDescription;
+      _os_log_error_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "Failed to delete hash: %{public}@ with path: %{public}@ from cache; error: %{public}@", buf, 0x20u);
     }
 
 LABEL_10:
 
-    v9 = 0;
+    v10 = 0;
     goto LABEL_4;
   }
 
-  v9 = 1;
+  v10 = 1;
 LABEL_4:
 
-  return v9;
+  return v10;
 }
 
 - (void)createDownloadCacheFolders
@@ -594,12 +594,12 @@ LABEL_4:
 
   if (v4)
   {
-    v5 = sub_100063A54();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100063A54(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138543362;
-      v12 = @"/var/MSDWorkContainer/.MSD_cache_manifest";
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Clearing the cache at path: %{public}@", &v11, 0xCu);
+      v13 = 138543362;
+      v14 = @"/var/MSDWorkContainer/.MSD_cache_manifest";
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Clearing the cache at path: %{public}@", &v13, 0xCu);
     }
 
     fileManager2 = [(MSDContentCacheManager *)self fileManager];
@@ -607,16 +607,16 @@ LABEL_4:
   }
 
   fileManager3 = [(MSDContentCacheManager *)self fileManager];
-  v8 = [fileManager3 fileExistsAtPath:@"/var/MSDWorkContainer/.MSD_cache_content_plist"];
+  v9 = [fileManager3 fileExistsAtPath:@"/var/MSDWorkContainer/.MSD_cache_content_plist"];
 
-  if (v8)
+  if (v9)
   {
-    v9 = sub_100063A54();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v11 = sub_100063A54(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138543362;
-      v12 = @"/var/MSDWorkContainer/.MSD_cache_content_plist";
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Clearing the cache at path: %{public}@", &v11, 0xCu);
+      v13 = 138543362;
+      v14 = @"/var/MSDWorkContainer/.MSD_cache_content_plist";
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Clearing the cache at path: %{public}@", &v13, 0xCu);
     }
 
     fileManager4 = [(MSDContentCacheManager *)self fileManager];

@@ -70,9 +70,11 @@
 
 uint64_t __33__ICURLBag__knownOptionalBagKeys__block_invoke()
 {
-  _knownOptionalBagKeys_sKnownOptionalBagKeys = [MEMORY[0x1E695DFD8] setWithObjects:{@"auth-can-post", @"isExplicitContentAgeVerificationRequired", @"ExplicitContentBadgeTreatment", @"ios-app-url", @"storefront-header-suffix", @"subscription-storefront-header-suffix", @"aps-sampling-percentage", @"clientIDDomains", @"ios-app-download-retry-count", @"lyricsOnByDefaultDisabled", @"md-domains", @"min-artist-update-polling-frequency-secs", @"ratingWarningThreshold", @"ratingWarningTitle", @"ratingWarningText", @"TLSSamplingPercentage", @"TLSSamplingSessionDuration", @"TFOSamplingPercentage", @"TFOSamplingSessionDuration", @"fuseHeaderEnrichment", @"fuseCarrierMccMncList", @"isExplicitMusicDisallowed", @"musicFriends", @"enhanced-audio", 0}];
+  v0 = [MEMORY[0x1E695DFD8] setWithObjects:{@"auth-can-post", @"isExplicitContentAgeVerificationRequired", @"ExplicitContentBadgeTreatment", @"ios-app-url", @"storefront-header-suffix", @"subscription-storefront-header-suffix", @"aps-sampling-percentage", @"clientIDDomains", @"ios-app-download-retry-count", @"lyricsOnByDefaultDisabled", @"md-domains", @"min-artist-update-polling-frequency-secs", @"ratingWarningThreshold", @"ratingWarningTitle", @"ratingWarningText", @"TLSSamplingPercentage", @"TLSSamplingSessionDuration", @"TFOSamplingPercentage", @"TFOSamplingSessionDuration", @"fuseHeaderEnrichment", @"fuseCarrierMccMncList", @"isExplicitMusicDisallowed", @"musicFriends", @"enhanced-audio", 0}];
+  v1 = _knownOptionalBagKeys_sKnownOptionalBagKeys;
+  _knownOptionalBagKeys_sKnownOptionalBagKeys = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (id)_knownOptionalBagKeys

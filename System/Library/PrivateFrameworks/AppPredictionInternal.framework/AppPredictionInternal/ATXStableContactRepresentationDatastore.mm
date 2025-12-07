@@ -38,25 +38,23 @@
 
 - (id)cnContactForCnContactId:(id)id rawIdentifier:(id)identifier
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v7 = *MEMORY[0x277CBD098];
-  v16 = *MEMORY[0x277CBD018];
-  v17 = v7;
-  v18 = *MEMORY[0x277CBCFC0];
+  v15 = *MEMORY[0x277CBD018];
+  v16 = v7;
+  v17 = *MEMORY[0x277CBCFC0];
   v8 = MEMORY[0x277CBEA60];
   idCopy = id;
-  v10 = [v8 arrayWithObjects:&v16 count:3];
+  v10 = [v8 arrayWithObjects:&v15 count:3];
   v11 = objc_alloc(MEMORY[0x277D3A088]);
-  v12 = [v11 initWithContactStore:self->_contactStore keysToFetch:{v10, v16, v17, v18, v19}];
+  v12 = [v11 initWithContactStore:self->_contactStore keysToFetch:{v10, v15, v16, v17, v18}];
   v13 = [v12 contactWithIdentifier:idCopy];
 
   if (identifierCopy && !v13)
   {
     v13 = [v12 resolveContactIfPossibleFromContactIdentifierString:identifierCopy pickFirstOfMultiple:1];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -177,25 +175,26 @@ id __93__ATXStableContactRepresentationDatastore_updateAndGetStableContactIdenti
 {
   idCopy = id;
   identifierCopy = identifier;
+  v8 = identifierCopy;
   if (idCopy)
   {
-    v8 = [(ATXStableContactRepresentationDatastore *)self updateAndGetStableContactIdentifier:idCopy rawIdentifier:identifierCopy];
-    v9 = [[ATXStableContactRepresentation alloc] initWithStableContactIdentifier:v8 cnContactId:idCopy rawIdentifier:identifierCopy];
+    v9 = [(ATXStableContactRepresentationDatastore *)self updateAndGetStableContactIdentifier:idCopy rawIdentifier:identifierCopy];
+    v10 = [[ATXStableContactRepresentation alloc] initWithStableContactIdentifier:v9 cnContactId:idCopy rawIdentifier:v8];
   }
 
   else
   {
-    v10 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = __atxlog_handle_notification_management(identifierCopy);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      *v12 = 0;
-      _os_log_impl(&dword_2263AA000, v10, OS_LOG_TYPE_DEFAULT, "cnContactId provided is nil", v12, 2u);
+      *v13 = 0;
+      _os_log_impl(&dword_2263AA000, v11, OS_LOG_TYPE_DEFAULT, "cnContactId provided is nil", v13, 2u);
     }
 
-    v9 = 0;
+    v10 = 0;
   }
 
-  return v9;
+  return v10;
 }
 
 - (id)stableContactRepresentationForStableContactIdentifier:(id)identifier
@@ -209,7 +208,7 @@ id __93__ATXStableContactRepresentationDatastore_updateAndGetStableContactIdenti
 
   else
   {
-    v7 = __atxlog_handle_notification_management();
+    v7 = __atxlog_handle_notification_management(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *v9 = 0;
@@ -224,31 +223,31 @@ id __93__ATXStableContactRepresentationDatastore_updateAndGetStableContactIdenti
 
 - (id)refreshCnContactIdsGivenContactEntities:(id)entities
 {
-  v36[3] = *MEMORY[0x277D85DE8];
+  v35[3] = *MEMORY[0x277D85DE8];
   entitiesCopy = entities;
   v5 = objc_opt_new();
   contactStore = self->_contactStore;
   v7 = objc_alloc(MEMORY[0x277CBDA70]);
   v8 = *MEMORY[0x277CBD098];
-  v36[0] = *MEMORY[0x277CBD018];
-  v36[1] = v8;
-  v36[2] = *MEMORY[0x277CBCFC0];
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:3];
+  v35[0] = *MEMORY[0x277CBD018];
+  v35[1] = v8;
+  v35[2] = *MEMORY[0x277CBCFC0];
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:3];
   v10 = [v7 initWithKeysToFetch:v9];
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __83__ATXStableContactRepresentationDatastore_refreshCnContactIdsGivenContactEntities___block_invoke;
-  v27[3] = &unk_278599BD8;
-  v27[4] = self;
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __83__ATXStableContactRepresentationDatastore_refreshCnContactIdsGivenContactEntities___block_invoke;
+  v26[3] = &unk_278599BD8;
+  v26[4] = self;
   v11 = entitiesCopy;
-  v28 = v11;
+  v27 = v11;
   v12 = v5;
-  v29 = v12;
-  [(CNContactStore *)contactStore enumerateContactsWithFetchRequest:v10 error:0 usingBlock:v27];
+  v28 = v12;
+  [(CNContactStore *)contactStore enumerateContactsWithFetchRequest:v10 error:0 usingBlock:v26];
 
   v13 = [v11 count];
   v14 = [v12 count];
-  v15 = __atxlog_handle_notification_management();
+  v15 = __atxlog_handle_notification_management(v14);
   v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
   if (v13 == v14)
   {
@@ -256,9 +255,9 @@ id __93__ATXStableContactRepresentationDatastore_updateAndGetStableContactIdenti
     {
       v17 = [v12 count];
       *buf = 136315394;
-      v31 = "[ATXStableContactRepresentationDatastore refreshCnContactIdsGivenContactEntities:]";
-      v32 = 2048;
-      v33 = v17;
+      v30 = "[ATXStableContactRepresentationDatastore refreshCnContactIdsGivenContactEntities:]";
+      v31 = 2048;
+      v32 = v17;
       v18 = "%s: returning number of contactEntitesSeen = %lu";
       v19 = v15;
       v20 = 22;
@@ -272,21 +271,20 @@ LABEL_6:
     v21 = [v11 count];
     v22 = [v12 count];
     *buf = 136315650;
-    v31 = "[ATXStableContactRepresentationDatastore refreshCnContactIdsGivenContactEntities:]";
-    v32 = 2048;
-    v33 = v21;
-    v34 = 2048;
-    v35 = v22;
+    v30 = "[ATXStableContactRepresentationDatastore refreshCnContactIdsGivenContactEntities:]";
+    v31 = 2048;
+    v32 = v21;
+    v33 = 2048;
+    v34 = v22;
     v18 = "%s: received %ld contact entities, but only found %ld associated contacts";
     v19 = v15;
     v20 = 32;
     goto LABEL_6;
   }
 
-  v23 = v29;
+  v23 = v28;
   v24 = v12;
 
-  v25 = *MEMORY[0x277D85DE8];
   return v12;
 }
 

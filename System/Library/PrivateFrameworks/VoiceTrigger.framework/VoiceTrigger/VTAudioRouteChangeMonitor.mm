@@ -133,7 +133,7 @@ uint64_t __64__VTAudioRouteChangeMonitor_updateExternalRouteConnectionStatus__bl
   dispatch_async(_CMSessionDispatchQueue, block);
 }
 
-uint64_t __55__VTAudioRouteChangeMonitor__startMonitoringWithQueue___block_invoke(uint64_t a1)
+void *__55__VTAudioRouteChangeMonitor__startMonitoringWithQueue___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _updateHearstConnectionStatus];
   *(*(a1 + 32) + 24) = result;

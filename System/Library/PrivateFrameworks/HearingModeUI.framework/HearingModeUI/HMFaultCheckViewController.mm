@@ -220,7 +220,7 @@ LABEL_13:
 
 - (void)updateContentView
 {
-  v35[3] = *MEMORY[0x277D85DE8];
+  v34[3] = *MEMORY[0x277D85DE8];
   systemBackgroundColor = [MEMORY[0x277D75348] systemBackgroundColor];
   contentView = [(HMFaultCheckViewController *)self contentView];
   [contentView setBackgroundColor:systemBackgroundColor];
@@ -260,7 +260,7 @@ LABEL_13:
     [(AnyHearingFeatureContentProvider *)v13 faultcheckUnknownImage];
   }
   v15 = ;
-  v30 = v15;
+  v29 = v15;
   if ([(AnyHearingFeatureContentProvider *)v14 featureFlag])
   {
     v16 = v15;
@@ -271,33 +271,31 @@ LABEL_13:
     v16 = v12;
   }
 
-  v34 = v16;
+  v33 = v16;
 
-  v17 = [objc_alloc(MEMORY[0x277D755E8]) initWithImage:v34];
+  v17 = [objc_alloc(MEMORY[0x277D755E8]) initWithImage:v33];
   [v17 setContentMode:1];
   [v17 setTranslatesAutoresizingMaskIntoConstraints:0];
   contentView2 = [(HMFaultCheckViewController *)self contentView];
   [contentView2 addSubview:v17];
 
-  v29 = MEMORY[0x277CCAAD0];
+  v28 = MEMORY[0x277CCAAD0];
   centerXAnchor = [v17 centerXAnchor];
   contentView3 = [(HMFaultCheckViewController *)self contentView];
   centerXAnchor2 = [contentView3 centerXAnchor];
   v20 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-  v35[0] = v20;
+  v34[0] = v20;
   topAnchor = [v17 topAnchor];
   contentView4 = [(HMFaultCheckViewController *)self contentView];
   topAnchor2 = [contentView4 topAnchor];
   [topAnchor constraintEqualToAnchor:topAnchor2];
-  v24 = v31 = v14;
-  v35[1] = v24;
+  v24 = v30 = v14;
+  v34[1] = v24;
   heightAnchor = [v17 heightAnchor];
   v26 = [heightAnchor constraintEqualToConstant:300.0];
-  v35[2] = v26;
-  v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:3];
-  [v29 activateConstraints:v27];
-
-  v28 = *MEMORY[0x277D85DE8];
+  v34[2] = v26;
+  v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:3];
+  [v28 activateConstraints:v27];
 }
 
 - (void)updateButtonTray

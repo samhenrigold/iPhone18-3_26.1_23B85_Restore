@@ -468,7 +468,7 @@ LABEL_60:
           while (v25);
         }
 
-        if ([v24 count])
+        if (objc_msgSend_count(v24))
         {
           [v54 setObject:v24 forKeyedSubscript:v59];
         }
@@ -904,13 +904,13 @@ LABEL_77:
   v93 = 0;
   v19 = [v81 executeQuery:v16 error:&v93];
   v15 = v93;
-  if (v15 || ![v19 count])
+  if (v15 || !objc_msgSend_count(v19))
   {
     v24 = qword_10020B650;
     if (os_log_type_enabled(qword_10020B650, OS_LOG_TYPE_ERROR))
     {
       v63 = v24;
-      v64 = [v19 count];
+      v64 = objc_msgSend_count(v19);
       *buf = 138412802;
       v95 = v16;
       v96 = 2112;
@@ -1138,7 +1138,7 @@ LABEL_57:
         v51 = &off_1001CA1F8;
         if (!v15)
         {
-          if ([v78 count])
+          if (objc_msgSend_count(v78))
           {
             v51 = &off_1001CA210;
           }
@@ -1508,7 +1508,7 @@ LABEL_17:
 {
   medatataCopy = medatata;
   v6 = [qword_10020B638 objectForKeyedSubscript:name];
-  if ([v6 count])
+  if (objc_msgSend_count(v6))
   {
     v7 = [medatataCopy mutableCopy];
     v15 = 0u;
@@ -1599,20 +1599,10 @@ LABEL_10:
 {
   eventsCopy = events;
   v62 = objc_alloc_init(NSMutableArray);
-  if (!+[_DASConfig isInternalBuild])
-  {
-    goto LABEL_13;
-  }
-
-  firstObject = [eventsCopy firstObject];
-  stream = [firstObject stream];
-  v6 = +[_DKSystemEventStreams deviceIsPluggedInStream];
-  v7 = [stream isEqual:v6];
-
-  if (v7)
+  if (+[_DASConfig isInternalBuild](_DASConfig, "isInternalBuild") && ([eventsCopy firstObject], v4 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v4, "stream"), v5 = objc_claimAutoreleasedReturnValue(), +[_DKSystemEventStreams deviceIsPluggedInStream](_DKSystemEventStreams, "deviceIsPluggedInStream"), v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v5, "isEqual:", v6), v6, v5, v4, v7))
   {
     [eventsCopy sortUsingComparator:&stru_1001B77A0];
-    v8 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [eventsCopy count]);
+    v8 = [NSMutableArray arrayWithCapacity:objc_msgSend_count(eventsCopy)];
     v74 = 0u;
     v75 = 0u;
     v72 = 0u;
@@ -1669,7 +1659,6 @@ LABEL_10:
 
   else
   {
-LABEL_13:
     v60 = 0;
   }
 
@@ -1696,8 +1685,8 @@ LABEL_13:
         v22 = objc_autoreleasePoolPush();
         if (([objc_opt_class() shouldExcludeEvent:v21] & 1) == 0)
         {
-          stream2 = [v21 stream];
-          name = [stream2 name];
+          stream = [v21 stream];
+          name = [stream name];
 
           v24 = objc_opt_class();
           startDate2 = [v21 startDate];
@@ -1722,9 +1711,9 @@ LABEL_13:
           v33 = [NSDictionary dictionaryWithObjects:v82 forKeys:v81 count:3];
           v34 = [v33 mutableCopy];
 
-          stream3 = [v21 stream];
+          stream2 = [v21 stream];
           v36 = +[_DKSystemEventStreams nextEventForTopOffProtectionStream];
-          LODWORD(v30) = [stream3 isEqual:v36];
+          LODWORD(v30) = [stream2 isEqual:v36];
 
           if (v30)
           {
@@ -1737,9 +1726,9 @@ LABEL_13:
 
           else
           {
-            stream4 = [v21 stream];
+            stream3 = [v21 stream];
             v42 = +[_DKSystemEventStreams nextEventForTopOffProtectionStream];
-            v43 = [stream4 isEqual:v42];
+            v43 = [stream3 isEqual:v42];
 
             if (v43)
             {
@@ -1762,17 +1751,7 @@ LABEL_13:
               metadata2 = [v21 metadata];
               v48 = [v46 metadataWitDisallowedKeysRemoveForMedatata:metadata2 forStreamName:name];
 
-              if (!+[_DASConfig isInternalBuild])
-              {
-                goto LABEL_30;
-              }
-
-              firstObject2 = [obj firstObject];
-              stream5 = [firstObject2 stream];
-              v51 = +[_DKSystemEventStreams deviceIsPluggedInStream];
-              v52 = [stream5 isEqual:v51];
-
-              if (v52)
+              if (+[_DASConfig isInternalBuild](_DASConfig, "isInternalBuild") && ([obj firstObject], v49 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v49, "stream"), v50 = objc_claimAutoreleasedReturnValue(), +[_DKSystemEventStreams deviceIsPluggedInStream](_DKSystemEventStreams, "deviceIsPluggedInStream"), v51 = objc_claimAutoreleasedReturnValue(), v52 = objc_msgSend(v50, "isEqual:", v51), v51, v50, v49, v52))
               {
                 v53 = [v48 mutableCopy];
                 v54 = [v60 objectAtIndexedSubscript:v61];
@@ -1797,7 +1776,6 @@ LABEL_13:
 
               else
               {
-LABEL_30:
                 v57 = 0;
               }
 
@@ -1994,13 +1972,13 @@ LABEL_10:
   bCopy = b;
   v11 = +[NSDate distantPast];
   v52 = bUsageCopy;
-  if ([usageCopy count])
+  if (objc_msgSend_count(usageCopy))
   {
     v12 = 0;
     v13 = 0;
     v14 = 0;
     v56 = bCopy;
-    while (v13 < [bUsageCopy count])
+    while (v13 < objc_msgSend_count(bUsageCopy, aCopy))
     {
       v51 = v14;
       v15 = [usageCopy objectAtIndexedSubscript:v12];
@@ -2075,7 +2053,7 @@ LABEL_10:
       v14 = endDate5;
       bUsageCopy = v52;
       bCopy = v56;
-      if (v12 >= [usageCopy count])
+      if (v12 >= objc_msgSend_count(usageCopy))
       {
         goto LABEL_22;
       }
@@ -2092,7 +2070,7 @@ LABEL_10:
   }
 
 LABEL_22:
-  if (v12 >= [usageCopy count])
+  if (v12 >= objc_msgSend_count(usageCopy, aCopy))
   {
     v36 = v50;
   }
@@ -2125,14 +2103,14 @@ LABEL_22:
       while (v41 < 0.0);
       ++v12;
 
-      v42 = v12 >= [usageCopy count];
+      v42 = v12 >= objc_msgSend_count(usageCopy);
       v35 = usageCopy;
     }
 
     while (!v42);
   }
 
-  for (i = v52; v13 < [v52 count]; i = v52)
+  for (i = v52; v13 < objc_msgSend_count(v52); i = v52)
   {
     v58 = endDate5;
     v44 = [i objectAtIndexedSubscript:v13];
@@ -2257,7 +2235,7 @@ LABEL_22:
     v9 = [_DKEventQuery eventQueryWithPredicate:v6 eventStreams:v8 offset:0 limit:32 sortDescriptors:0];
 
     v10 = [v4 executeQuery:v9 error:0];
-    if (![v10 count])
+    if (!objc_msgSend_count(v10))
     {
       break;
     }
@@ -2351,7 +2329,7 @@ LABEL_7:
 
   [objc_opt_class() loadParameters];
   experimentsToWrite = [objc_opt_class() experimentsToWrite];
-  v7 = [experimentsToWrite count];
+  v7 = objc_msgSend_count(experimentsToWrite);
   v8 = qword_10020B650;
   v9 = os_log_type_enabled(qword_10020B650, OS_LOG_TYPE_INFO);
   if (v7)
@@ -2801,7 +2779,7 @@ LABEL_15:
     }
   }
 
-  else if ([v15 count])
+  else if (objc_msgSend_count(v15))
   {
     v17 = 0;
     do
@@ -2816,7 +2794,7 @@ LABEL_15:
       [endDate timeIntervalSince1970];
       v25 = [NSDate dateWithTimeIntervalSince1970:floor(v24 / 300.0) * 300.0];
 
-      if (++v17 < [v15 count])
+      if (++v17 < objc_msgSend_count(v15))
       {
         while (1)
         {
@@ -2838,7 +2816,7 @@ LABEL_15:
 
           ++v17;
           v25 = v34;
-          if (v17 >= [v15 count])
+          if (v17 >= objc_msgSend_count(v15))
           {
             goto LABEL_13;
           }
@@ -2851,7 +2829,7 @@ LABEL_13:
       [v111 addObject:v35];
     }
 
-    while (v17 < [v15 count]);
+    while (v17 < objc_msgSend_count(v15));
   }
 
   objc_autoreleasePoolPop(context);
@@ -2870,7 +2848,7 @@ LABEL_13:
       sub_100126758();
     }
 
-    v39 = [v111 count];
+    v39 = objc_msgSend_count(v111);
     if (*&qword_10020A198 <= v39)
     {
       v102 = objc_autoreleasePoolPush();
@@ -2963,14 +2941,14 @@ LABEL_13:
           while (v51);
         }
 
-        v72 = [v49 count];
+        v72 = objc_msgSend_count(v49);
         v42 = v108 + 256;
         v41 = v113;
       }
 
       while (v72 == 256);
       v37 = v103;
-      if ([v113 count])
+      if (objc_msgSend_count(v113))
       {
         v73 = 0;
         do
@@ -2985,7 +2963,7 @@ LABEL_13:
           [endDate4 timeIntervalSince1970];
           v81 = [NSDate dateWithTimeIntervalSince1970:floor(v80 / 300.0) * 300.0];
 
-          if (++v73 < [v113 count])
+          if (++v73 < objc_msgSend_count(v113))
           {
             while (1)
             {
@@ -3007,7 +2985,7 @@ LABEL_13:
 
               ++v73;
               v81 = v90;
-              if (v73 >= [v113 count])
+              if (v73 >= objc_msgSend_count(v113))
               {
                 goto LABEL_47;
               }
@@ -3020,11 +2998,11 @@ LABEL_47:
           [v103 addObject:v91];
         }
 
-        while (v73 < [v113 count]);
+        while (v73 < objc_msgSend_count(v113));
       }
 
       objc_autoreleasePoolPop(v102);
-      if ([v103 count])
+      if (objc_msgSend_count(v103))
       {
         v92 = [_DASDaemonLogger logForCategory:@"dataCollection"];
         if (os_log_type_enabled(v92, OS_LOG_TYPE_DEBUG))

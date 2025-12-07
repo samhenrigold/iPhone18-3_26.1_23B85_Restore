@@ -33,7 +33,7 @@
   selfCopy = self;
   DOCBrowserNavigationDataSource.currentViewControllers.getter();
 
-  type metadata accessor for NSMutableAttributedString(0, lazy cache variable for type metadata for UIViewController);
+  type metadata accessor for NSMutableAttributedString(0, lazy cache variable for type metadata for UIViewController, 0x277D75D28);
   v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v3.super.isa;
@@ -41,7 +41,7 @@
 
 - (void)setCurrentViewControllers:(id)controllers
 {
-  type metadata accessor for NSMutableAttributedString(0, lazy cache variable for type metadata for UIViewController);
+  type metadata accessor for NSMutableAttributedString(0, lazy cache variable for type metadata for UIViewController, 0x277D75D28);
   v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
   DOCBrowserNavigationDataSource.currentViewControllers.setter(v4);
@@ -172,7 +172,7 @@
 - (void)hierarchyController:(id)controller prepareControllersFor:(id)for :(id)a5 isUserInteraction:(BOOL)interaction isBrowsingTrash:(BOOL)trash completion:(id)completion
 {
   v13 = _Block_copy(completion);
-  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for DOCConcreteLocation);
+  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for DOCConcreteLocation, 0x277D05EA8);
   v14 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   v15 = swift_allocObject();
   *(v15 + 16) = v13;
@@ -190,7 +190,7 @@
 
 - (void)hierarchyController:(id)controller didSet:(id)set animated:(BOOL)animated
 {
-  type metadata accessor for NSMutableAttributedString(0, lazy cache variable for type metadata for UIViewController);
+  type metadata accessor for NSMutableAttributedString(0, lazy cache variable for type metadata for UIViewController, 0x277D75D28);
   v7 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
   DOCBrowserNavigationDataSource.didSetViewControllers(_:effectiveViewControllers:animated:)(v7, 0, animated);
@@ -215,7 +215,7 @@
 - (void)hierarchyController:(id)controller willReplaceTrailingLocations:(int64_t)locations with:(id)with animated:(BOOL)animated completion:(id)completion
 {
   v11 = _Block_copy(completion);
-  type metadata accessor for NSMutableAttributedString(0, lazy cache variable for type metadata for UIViewController);
+  type metadata accessor for NSMutableAttributedString(0, lazy cache variable for type metadata for UIViewController, 0x277D75D28);
   v12 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   _Block_copy(v11);
   controllerCopy = controller;
@@ -227,7 +227,7 @@
 
 - (void)hierarchyController:(id)controller didReplaceTrailingLocations:(int64_t)locations with:(id)with animated:(BOOL)animated
 {
-  type metadata accessor for NSMutableAttributedString(0, lazy cache variable for type metadata for UIViewController);
+  type metadata accessor for NSMutableAttributedString(0, lazy cache variable for type metadata for UIViewController, 0x277D75D28);
   v10 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   controllerCopy = controller;
   selfCopy = self;
@@ -271,7 +271,7 @@
 
 - (void)hierarchyController:(id)controller didUpdateLastDisplayedLocationPath:(id)path anchorLocation:(id)location source:(id)source
 {
-  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for DOCConcreteLocation);
+  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for DOCConcreteLocation, 0x277D05EA8);
   v9 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   v10 = MEMORY[0x277D85000];
   v11 = *((*MEMORY[0x277D85000] & *self) + 0xA8);

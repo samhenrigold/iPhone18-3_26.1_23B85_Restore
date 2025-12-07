@@ -25,7 +25,7 @@ void __45___MTLCommandBuffer_presentDrawable_options___block_invoke(uint64_t a1,
   v4 = *(a1 + 40);
 }
 
-intptr_t __37___MTLCommandBuffer_presentDrawable___block_invoke(uint64_t a1, void *a2)
+void *__37___MTLCommandBuffer_presentDrawable___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 error];
   if (result)
@@ -49,7 +49,7 @@ intptr_t __37___MTLCommandBuffer_presentDrawable___block_invoke(uint64_t a1, voi
   return result;
 }
 
-intptr_t __44___MTLCommandBuffer_presentDrawable_atTime___block_invoke(double *a1, void *a2)
+void *__44___MTLCommandBuffer_presentDrawable_atTime___block_invoke(double *a1, void *a2)
 {
   result = [a2 error];
   if (result)
@@ -74,7 +74,7 @@ intptr_t __44___MTLCommandBuffer_presentDrawable_atTime___block_invoke(double *a
   return result;
 }
 
-intptr_t __58___MTLCommandBuffer_presentDrawable_afterMinimumDuration___block_invoke(double *a1, void *a2)
+void *__58___MTLCommandBuffer_presentDrawable_afterMinimumDuration___block_invoke(double *a1, void *a2)
 {
   result = [a2 error];
   if (result)

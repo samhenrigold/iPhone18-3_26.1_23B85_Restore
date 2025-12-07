@@ -9,11 +9,9 @@
 {
   v3 = objc_alloc(MEMORY[0x1E696AEC0]);
   v4 = [objc_opt_class() description];
-  process = self->_process;
-  state = self->_state;
-  v7 = [v3 initWithFormat:@"<%@| process:%@ oldState:%@ newState:%@ exitEvent:%@>", v4, process, self->_previousState, state, self->_exitEvent];
+  v5 = [v3 initWithFormat:@"<%@| process:%@ oldState:%@ newState:%@ exitEvent:%@>", v4, self->_process, self->_previousState, self->_state, self->_exitEvent];
 
-  return v7;
+  return v5;
 }
 
 + (id)updateWithState:(id)state previousState:(id)previousState exitEvent:(id)event

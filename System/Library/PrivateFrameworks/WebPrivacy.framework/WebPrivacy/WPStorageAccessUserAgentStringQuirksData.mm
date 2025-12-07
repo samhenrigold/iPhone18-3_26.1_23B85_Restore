@@ -6,78 +6,77 @@
 
 - (WPStorageAccessUserAgentStringQuirksData)initWithQuirks:(id)quirks
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   quirksCopy = quirks;
-  v29.receiver = self;
-  v29.super_class = WPStorageAccessUserAgentStringQuirksData;
-  v14 = [(WPStorageAccessUserAgentStringQuirksData *)&v29 init];
-  if (v14)
+  v30.receiver = self;
+  v30.super_class = WPStorageAccessUserAgentStringQuirksData;
+  v15 = [(WPStorageAccessUserAgentStringQuirksData *)&v30 init];
+  if (v15)
   {
+    v24 = 0;
+    v25 = &v24;
+    v26 = 0x3032000000;
+    v27 = __Block_byref_object_copy__1;
+    v28 = __Block_byref_object_dispose__1;
+    v29 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(quirksCopy, "count")}];
+    v21 = 0;
+    v22[0] = &v21;
+    v22[1] = 0x2020000000;
     v23 = 0;
-    v24 = &v23;
-    v25 = 0x3032000000;
-    v26 = __Block_byref_object_copy__1;
-    v27 = __Block_byref_object_dispose__1;
-    v28 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(quirksCopy, "count")}];
-    v20 = 0;
-    v21[0] = &v20;
-    v21[1] = 0x2020000000;
-    v22 = 0;
-    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
     v4 = quirksCopy;
-    v5 = [v4 countByEnumeratingWithState:&v16 objects:v30 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v17 objects:v31 count:16];
     if (v5)
     {
-      v6 = *v17;
+      v6 = *v18;
       do
       {
         v7 = 0;
         do
         {
-          if (*v17 != v6)
+          if (*v18 != v6)
           {
             objc_enumerationMutation(v4);
           }
 
-          v8 = *(*(&v16 + 1) + 8 * v7);
-          v15[0] = MEMORY[0x277D85DD0];
-          v15[1] = 3221225472;
-          v15[2] = __59__WPStorageAccessUserAgentStringQuirksData_initWithQuirks___block_invoke;
-          v15[3] = &unk_279EAF548;
-          v15[4] = &v20;
-          v15[5] = &v23;
-          [v8 enumerateKeysAndObjectsUsingBlock:v15];
+          v8 = *(*(&v17 + 1) + 8 * v7);
+          v16[0] = MEMORY[0x277D85DD0];
+          v16[1] = 3221225472;
+          v16[2] = __59__WPStorageAccessUserAgentStringQuirksData_initWithQuirks___block_invoke;
+          v16[3] = &unk_279EAF548;
+          v16[4] = &v21;
+          v16[5] = &v24;
+          [v8 enumerateKeysAndObjectsUsingBlock:v16];
 
           ++v7;
         }
 
         while (v5 != v7);
-        v5 = [v4 countByEnumeratingWithState:&v16 objects:v30 count:16];
+        v5 = [v4 countByEnumeratingWithState:&v17 objects:v31 count:16];
       }
 
       while (v5);
     }
 
-    objc_storeStrong(&v14->_quirks, v24[5]);
-    if (*(v21[0] + 24))
+    objc_storeStrong(&v15->_quirks, v25[5]);
+    if (*(v22[0] + 24))
     {
-      v9 = WPOSLogServer();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v11 = WPOSLogServer(v9, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        [(WPStorageAccessUserAgentStringQuirksData *)v21 initWithQuirks:v9];
+        [(WPStorageAccessUserAgentStringQuirksData *)v22 initWithQuirks:v11];
       }
     }
 
-    v10 = v14;
-    _Block_object_dispose(&v20, 8);
-    _Block_object_dispose(&v23, 8);
+    v12 = v15;
+    _Block_object_dispose(&v21, 8);
+    _Block_object_dispose(&v24, 8);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-  return v14;
+  return v15;
 }
 
 void __59__WPStorageAccessUserAgentStringQuirksData_initWithQuirks___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -99,12 +98,11 @@ void __59__WPStorageAccessUserAgentStringQuirksData_initWithQuirks___block_invok
 
 - (void)initWithQuirks:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   v2 = *(*a1 + 24);
-  v4[0] = 67109120;
-  v4[1] = v2;
-  _os_log_error_impl(&dword_273D20000, a2, OS_LOG_TYPE_ERROR, "WPStorageAccessUserAgentStringQuirksData initWithQuirks: skipped %d entries due to unexpected class types", v4, 8u);
-  v3 = *MEMORY[0x277D85DE8];
+  v3[0] = 67109120;
+  v3[1] = v2;
+  _os_log_error_impl(&dword_273D20000, a2, OS_LOG_TYPE_ERROR, "WPStorageAccessUserAgentStringQuirksData initWithQuirks: skipped %d entries due to unexpected class types", v3, 8u);
 }
 
 @end

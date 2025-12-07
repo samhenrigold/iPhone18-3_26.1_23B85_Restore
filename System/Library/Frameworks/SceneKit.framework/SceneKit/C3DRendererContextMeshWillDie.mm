@@ -3,16 +3,16 @@
 
 @implementation C3DRendererContextMeshWillDie
 
-void ___C3DRendererContextMeshWillDie_block_invoke(uint64_t a1)
+void ___C3DRendererContextMeshWillDie_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v2 = *(a1 + 32);
-  v3[0] = MEMORY[0x277D85DD0];
-  v3[1] = 0x40000000;
-  v3[2] = ___C3DRendererContextMeshWillDie_block_invoke_2;
-  v3[3] = &__block_descriptor_tmp_27;
-  v3[4] = v2;
-  v4 = *(a1 + 40);
-  C3DRendererContextExecuteOnContext(v2, v3);
+  v7 = *(a1 + 32);
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 0x40000000;
+  v8[2] = ___C3DRendererContextMeshWillDie_block_invoke_2;
+  v8[3] = &__block_descriptor_tmp_27;
+  v8[4] = v7;
+  v9 = *(a1 + 40);
+  C3DRendererContextExecuteOnContext(v7, v8);
   C3DRendererContextReleaseContext(*(a1 + 32));
   CFRelease(*(a1 + 32));
 }

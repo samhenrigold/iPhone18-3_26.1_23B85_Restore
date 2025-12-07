@@ -2,6 +2,7 @@
 - (BOOL)has_unsuggested_alternatives;
 - (FTMutableRecognitionPhraseTokensAlternatives)init;
 - (id)copyWithZone:(_NSZone *)zone;
+- (void)setHas_unsuggested_alternatives:(BOOL)has_unsuggested_alternatives;
 - (void)setTok_phrases:(id)tok_phrases;
 @end
 
@@ -44,6 +45,12 @@
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setHas_unsuggested_alternatives:(BOOL)has_unsuggested_alternatives
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithBool:has_unsuggested_alternatives];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 @end

@@ -310,7 +310,7 @@
     [(NSMutableSet *)scenesDisablingIdleTimer addObject:tokenCopy];
   }
 
-  else if ([(NSMutableSet *)scenesDisablingIdleTimer containsObject:tokenCopy])
+  else if (objc_msgSend_containsObject_(scenesDisablingIdleTimer))
   {
     [(NSMutableSet *)self->_scenesDisablingIdleTimer removeObject:tokenCopy];
   }
@@ -386,7 +386,7 @@ LABEL_39:
 LABEL_3:
   identityToken = [sceneCopy identityToken];
   presentedScenes = self->_presentedScenes;
-  if (presentedScenes && [(NSMutableArray *)presentedScenes containsObject:identityToken])
+  if (presentedScenes && objc_msgSend_containsObject_(presentedScenes))
   {
     [(SBSystemUISceneDefaultPresenter *)a2 presentScene:sceneCopy viewControllerBuilderBlock:?];
   }
@@ -554,7 +554,7 @@ LABEL_35:
   }
 
   identityToken = [sceneCopy identityToken];
-  if ([(NSMutableArray *)self->_presentedScenes containsObject:identityToken])
+  if (objc_msgSend_containsObject_(self->_presentedScenes))
   {
     WeakRetained = objc_loadWeakRetained(&self->_presentingDelegate);
     if (objc_opt_respondsToSelector())
@@ -684,7 +684,7 @@ LABEL_26:
 
   v7 = objc_loadWeakRetained(&self->_targetDisplayConfiguration);
 
-  if (!v7 && [(NSMutableArray *)self->_presentedScenes containsObject:identityToken])
+  if (!v7 && objc_msgSend_containsObject_(self->_presentedScenes))
   {
     WeakRetained = [(NSMutableDictionary *)self->_sceneToPresentationBinderMap objectForKey:identityToken];
     displayConfiguration = [WeakRetained displayConfiguration];
@@ -729,7 +729,7 @@ LABEL_4:
   if (WeakRetained)
   {
     v9 = WeakRetained;
-    v10 = [(NSMutableArray *)self->_presentedScenes containsObject:identityToken];
+    v10 = objc_msgSend_containsObject_(self->_presentedScenes);
 
     if (v10)
     {
@@ -781,7 +781,7 @@ LABEL_4:
     if (v12)
     {
       v13 = v12;
-      v14 = [(NSMutableArray *)self->_presentedScenes containsObject:identityToken];
+      v14 = objc_msgSend_containsObject_(self->_presentedScenes);
 
       if (v14)
       {
@@ -1024,7 +1024,7 @@ void __73__SBSystemUISceneDefaultPresenter_descriptionBuilderWithMultilinePrefix
     if (v11)
     {
       v12 = v11;
-      v13 = [(NSMutableArray *)self->_presentedScenes containsObject:identityToken];
+      v13 = objc_msgSend_containsObject_(self->_presentedScenes);
 
       if (!v13)
       {
@@ -1158,7 +1158,7 @@ LABEL_27:
     if (v7)
     {
       v8 = v7;
-      v9 = [(NSMutableArray *)self->_presentedScenes containsObject:identityToken];
+      v9 = objc_msgSend_containsObject_(self->_presentedScenes);
 
       if (!v9)
       {
@@ -1205,7 +1205,7 @@ LABEL_11:
     if (v10)
     {
       v11 = v10;
-      v12 = [(NSMutableArray *)self->_presentedScenes containsObject:identityToken];
+      v12 = objc_msgSend_containsObject_(self->_presentedScenes);
 
       if (v12)
       {

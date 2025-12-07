@@ -133,7 +133,7 @@ LABEL_5:
   [(PKSqueezePaletteViewExpandedEraserToolLayout *)self setLayoutConstraints:v33];
 
   v34 = objc_loadWeakRetained(&self->_paletteView);
-  [(PKSqueezePaletteView *)v34 updateUIStartAngle:1 endAngle:v41[3] clockwise:v7 animated:?];
+  [(PKSqueezePaletteView *)v34 updateUIStartAngle:v41[3] endAngle:v7 clockwise:1u animated:?];
 
   [v6 addTarget:self action:sel__didTapDrawingTool_ forControlEvents:64];
   objc_destroyWeak(v39);

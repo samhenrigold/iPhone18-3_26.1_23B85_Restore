@@ -266,10 +266,7 @@ LABEL_26:
 
 uint64_t __45__UNNotificationAttachment_addSecurityScope___block_invoke(void *a1)
 {
-  v2 = [[UNSecurityScopedURL alloc] initFileURLWithPath:a1[5] sandboxExtensionClass:a1[6]];
-  v3 = a1[4];
-  v4 = *(v3 + 8);
-  *(v3 + 8) = v2;
+  *(a1[4] + 8) = [[UNSecurityScopedURL alloc] initFileURLWithPath:a1[5] sandboxExtensionClass:a1[6]];
 
   return MEMORY[0x1EEE66BB8]();
 }

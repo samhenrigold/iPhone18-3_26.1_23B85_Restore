@@ -90,36 +90,34 @@
 
 - (NSDictionary)dictionaryRepresentation
 {
-  v17[6] = *MEMORY[0x1E69E9840];
-  v16[0] = @"playerStartTime";
+  v16[6] = *MEMORY[0x1E69E9840];
+  v15[0] = @"playerStartTime";
   v3 = MEMORY[0x1E696AD98];
   [(MRTranscriptAlignment *)self playerStartTime];
   v4 = [v3 numberWithDouble:?];
-  v17[0] = v4;
-  v16[1] = @"playerEndTime";
+  v16[0] = v4;
+  v15[1] = @"playerEndTime";
   v5 = MEMORY[0x1E696AD98];
   [(MRTranscriptAlignment *)self playerEndTime];
   v6 = [v5 numberWithDouble:?];
-  v17[1] = v6;
-  v16[2] = @"referenceStartTime";
+  v16[1] = v6;
+  v15[2] = @"referenceStartTime";
   v7 = MEMORY[0x1E696AD98];
   [(MRTranscriptAlignment *)self referenceStartTime];
   v8 = [v7 numberWithDouble:?];
-  v17[2] = v8;
-  v16[3] = @"referenceEndTime";
+  v16[2] = v8;
+  v15[3] = @"referenceEndTime";
   v9 = MEMORY[0x1E696AD98];
   [(MRTranscriptAlignment *)self referenceEndTime];
   v10 = [v9 numberWithDouble:?];
-  v17[3] = v10;
-  v16[4] = @"matchedBeginning";
+  v16[3] = v10;
+  v15[4] = @"matchedBeginning";
   v11 = [MEMORY[0x1E696AD98] numberWithBool:{-[MRTranscriptAlignment matchedBeginning](self, "matchedBeginning")}];
-  v17[4] = v11;
-  v16[5] = @"matchedEnd";
+  v16[4] = v11;
+  v15[5] = @"matchedEnd";
   v12 = [MEMORY[0x1E696AD98] numberWithBool:{-[MRTranscriptAlignment matchedEnd](self, "matchedEnd")}];
-  v17[5] = v12;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:6];
-
-  v14 = *MEMORY[0x1E69E9840];
+  v16[5] = v12;
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:6];
 
   return v13;
 }

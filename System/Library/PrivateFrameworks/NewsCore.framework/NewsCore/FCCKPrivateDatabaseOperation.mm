@@ -23,43 +23,32 @@
 
 - (BOOL)validateOperation
 {
-  v17 = *MEMORY[0x1E69E9840];
-  v8.receiver = self;
-  v8.super_class = FCCKPrivateDatabaseOperation;
-  validateOperation = [(FCOperation *)&v8 validateOperation];
+  v16 = *MEMORY[0x1E69E9840];
+  v7.receiver = self;
+  v7.super_class = FCCKPrivateDatabaseOperation;
+  validateOperation = [(FCOperation *)&v7 validateOperation];
   database = [(FCCKPrivateDatabaseOperation *)self database];
 
   if (!database && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"can't execute a private database operation without a database"];
+    v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"can't execute a private database operation without a database"];
     *buf = 136315906;
-    v10 = "[FCCKPrivateDatabaseOperation validateOperation]";
-    v11 = 2080;
-    v12 = "FCCKPrivateDatabaseOperation.m";
-    v13 = 1024;
-    v14 = 48;
-    v15 = 2114;
-    v16 = v7;
+    v9 = "[FCCKPrivateDatabaseOperation validateOperation]";
+    v10 = 2080;
+    v11 = "FCCKPrivateDatabaseOperation.m";
+    v12 = 1024;
+    v13 = 48;
+    v14 = 2114;
+    v15 = v6;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  if (database)
-  {
-    result = validateOperation;
-  }
-
-  else
-  {
-    result = 0;
-  }
-
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return database && validateOperation;
 }
 
 - (BOOL)canRetryWithError:(id)error retryAfter:(id *)after
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (![errorCopy fc_hasIdentityStillSyncingError])
   {
@@ -75,9 +64,9 @@
           v24 = v23;
           shortOperationDescription = [(FCOperation *)self shortOperationDescription];
           *buf = 138543618;
-          v37 = shortOperationDescription;
-          v38 = 2114;
-          v39 = fc_zoneIDsWithIdentityLossError;
+          v36 = shortOperationDescription;
+          v37 = 2114;
+          v38 = fc_zoneIDsWithIdentityLossError;
           _os_log_impl(&dword_1B63EF000, v24, OS_LOG_TYPE_DEFAULT, "%{public}@ encountered identity loss error, will delete zones: %{public}@", buf, 0x16u);
         }
 
@@ -91,13 +80,13 @@
         [(FCCKPrivateDeleteRecordZonesOperation *)v21 setSecureDatabaseOnly:1];
         [(FCCKPrivateDatabaseOperation *)v21 setSkipPreflight:1];
         [(FCCKPrivateDatabaseOperation *)v21 setIdentityLossResponse:0];
-        v32[0] = MEMORY[0x1E69E9820];
-        v32[1] = 3221225472;
-        v32[2] = __61__FCCKPrivateDatabaseOperation_canRetryWithError_retryAfter___block_invoke_9;
-        v32[3] = &unk_1E7C37750;
-        v33 = v26;
+        v31[0] = MEMORY[0x1E69E9820];
+        v31[1] = 3221225472;
+        v31[2] = __61__FCCKPrivateDatabaseOperation_canRetryWithError_retryAfter___block_invoke_9;
+        v31[3] = &unk_1E7C37750;
+        v32 = v26;
         v28 = v26;
-        [(FCCKPrivateDeleteRecordZonesOperation *)v21 setDeleteRecordZonesCompletionBlock:v32];
+        [(FCCKPrivateDeleteRecordZonesOperation *)v21 setDeleteRecordZonesCompletionBlock:v31];
         [(FCOperation *)self associateChildOperation:v21];
         [(FCOperation *)v21 start];
         v29 = v28;
@@ -116,7 +105,7 @@
               v12 = v11;
               shortOperationDescription2 = [(FCOperation *)self shortOperationDescription];
               *buf = 138543362;
-              v37 = shortOperationDescription2;
+              v36 = shortOperationDescription2;
               _os_log_impl(&dword_1B63EF000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@ encountered identity loss error, will ignore", buf, 0xCu);
             }
           }
@@ -130,7 +119,7 @@
           v16 = v15;
           shortOperationDescription3 = [(FCOperation *)self shortOperationDescription];
           *buf = 138543362;
-          v37 = shortOperationDescription3;
+          v36 = shortOperationDescription3;
           _os_log_impl(&dword_1B63EF000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@ encountered identity loss error, will rebuild database", buf, 0xCu);
         }
 
@@ -143,14 +132,14 @@
         [(FCCKSecureDatabaseResetOperation *)fc_zoneIDsWithIdentityLossError setDeleteZones:1];
         [(FCCKSecureDatabaseResetOperation *)fc_zoneIDsWithIdentityLossError setRestoreSecureSentinel:1];
         [(FCCKSecureDatabaseResetOperation *)fc_zoneIDsWithIdentityLossError setRestoreZoneContents:1];
-        v34[0] = MEMORY[0x1E69E9820];
-        v34[1] = 3221225472;
-        v34[2] = __61__FCCKPrivateDatabaseOperation_canRetryWithError_retryAfter___block_invoke;
-        v34[3] = &unk_1E7C36C80;
-        v34[4] = self;
-        v35 = v18;
+        v33[0] = MEMORY[0x1E69E9820];
+        v33[1] = 3221225472;
+        v33[2] = __61__FCCKPrivateDatabaseOperation_canRetryWithError_retryAfter___block_invoke;
+        v33[3] = &unk_1E7C36C80;
+        v33[4] = self;
+        v34 = v18;
         v21 = v18;
-        [(FCCKSecureDatabaseResetOperation *)fc_zoneIDsWithIdentityLossError setResetCompletionHandler:v34];
+        [(FCCKSecureDatabaseResetOperation *)fc_zoneIDsWithIdentityLossError setResetCompletionHandler:v33];
         [(FCOperation *)self associateChildOperation:fc_zoneIDsWithIdentityLossError];
         [(FCOperation *)fc_zoneIDsWithIdentityLossError start];
         v22 = v21;
@@ -180,7 +169,6 @@ LABEL_3:
   v9 = 1;
 LABEL_20:
 
-  v30 = *MEMORY[0x1E69E9840];
   return v9;
 }
 

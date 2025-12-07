@@ -98,28 +98,34 @@
   v9 = v8;
   if (v7)
   {
-    *(swift_allocObject() + 16) = v7;
+    v10 = swift_allocObject();
+    *(v10 + 16) = v7;
     v7 = sub_1B1B20A18;
-    if (!v9)
+    if (v9)
     {
-      goto LABEL_5;
-    }
-
-    goto LABEL_3;
-  }
-
-  if (v8)
-  {
 LABEL_3:
-    *(swift_allocObject() + 16) = v9;
-    v9 = sub_1B1B20A10;
+      v11 = swift_allocObject();
+      *(v11 + 16) = v9;
+      v9 = sub_1B1B20A10;
+      goto LABEL_6;
+    }
   }
 
-LABEL_5:
+  else
+  {
+    v10 = 0;
+    if (v8)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  v11 = 0;
+LABEL_6:
   selfCopy = self;
   sub_1B1B44D98();
-  sub_1B1A949B4(v9);
-  sub_1B1A949B4(v7);
+  sub_1B1A949B4(v9, v11);
+  sub_1B1A949B4(v7, v10);
 }
 
 - (void)cancelDownloadingThen:(id)then
@@ -136,18 +142,21 @@ LABEL_5:
   v4 = _Block_copy(then);
   if (v4)
   {
-    *(swift_allocObject() + 16) = v4;
-    v5 = sub_1B1A95AD0;
+    v5 = v4;
+    v6 = swift_allocObject();
+    *(v6 + 16) = v5;
+    v7 = sub_1B1A95AD0;
   }
 
   else
   {
-    v5 = 0;
+    v7 = 0;
+    v6 = 0;
   }
 
   selfCopy = self;
   sub_1B1B46570();
-  sub_1B1A949B4(v5);
+  sub_1B1A949B4(v7, v6);
 }
 
 @end

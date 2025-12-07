@@ -531,7 +531,7 @@ void __46__ICAttachmentAudioModel_assetWithCompletion___block_invoke_60(uint64_t
         v12 = v11;
         if (v11)
         {
-          [v11 timeRange];
+          objc_msgSend_timeRange(v11);
         }
 
         else
@@ -549,7 +549,7 @@ void __46__ICAttachmentAudioModel_assetWithCompletion___block_invoke_60(uint64_t
         {
           if (v4)
           {
-            [v4 timeRange];
+            objc_msgSend_timeRange(v4);
           }
 
           else
@@ -590,7 +590,7 @@ void __46__ICAttachmentAudioModel_assetWithCompletion___block_invoke_60(uint64_t
     v24 = *(v27 + 32);
     if (v26)
     {
-      [v26 duration];
+      objc_msgSend_duration(v26);
     }
 
     else
@@ -695,12 +695,12 @@ void __51__ICAttachmentAudioModel_updateFileBasedAttributes__block_invoke_2(uint
   if (*(a1 + 32))
   {
     v2 = [*(a1 + 40) attachment];
-    [v2 duration];
+    objc_msgSend_duration(v2);
     v4 = v3;
     v5 = *(a1 + 32);
     if (v5)
     {
-      [v5 duration];
+      objc_msgSend_duration(v5);
     }
 
     else
@@ -715,14 +715,14 @@ void __51__ICAttachmentAudioModel_updateFileBasedAttributes__block_invoke_2(uint
       v7 = *(a1 + 32);
       if (v7)
       {
-        [v7 duration];
+        objc_msgSend_duration(v7);
         Seconds = 0.0;
         if ((BYTE4(v15) & 0x1D) == 1)
         {
           v9 = *(a1 + 32);
           if (v9)
           {
-            [v9 duration];
+            objc_msgSend_duration(v9);
           }
 
           else
@@ -777,9 +777,9 @@ void __51__ICAttachmentAudioModel_updateFileBasedAttributes__block_invoke_2(uint
 - (BOOL)needsTranscription
 {
   selfCopy = self;
-  v3 = ICAttachmentAudioModel.needsTranscription.getter();
+  v4 = ICAttachmentAudioModel.needsTranscription.getter(selfCopy, v3);
 
-  return v3 & 1;
+  return v4 & 1;
 }
 
 - (void)transformNewlyAddedMediaAttachment
@@ -824,21 +824,21 @@ void __51__ICAttachmentAudioModel_updateFileBasedAttributes__block_invoke_2(uint
 {
   v4 = sub_2150A3A00();
   v5 = *(v4 - 8);
-  v6 = MEMORY[0x28223BE20](v4);
-  v8 = &v15 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v6);
-  v10 = &v15 - v9;
+  v7 = MEMORY[0x28223BE20](v4, v6);
+  v9 = &v17 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v7, v10);
+  v12 = &v17 - v11;
   sub_2150A39C0();
   selfCopy = self;
   sub_2150A39E0();
   sub_2150A39D0();
 
-  v12 = *(v5 + 8);
-  v12(v8, v4);
-  v13 = sub_2150A39A0();
-  v12(v10, v4);
+  v14 = *(v5 + 8);
+  v14(v9, v4);
+  v15 = sub_2150A39A0();
+  v14(v12, v4);
 
-  return v13;
+  return v15;
 }
 
 - (void)audioDocument

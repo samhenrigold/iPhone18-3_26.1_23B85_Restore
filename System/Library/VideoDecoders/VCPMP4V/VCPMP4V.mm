@@ -1,4 +1,4 @@
-uint64_t NewMB(void *a1)
+uint64_t NewMB(uint64_t *a1)
 {
   v2 = MEM_NewClear(24);
   *a1 = v2;
@@ -57,57 +57,50 @@ uint64_t FillMB(uint64_t result, unsigned __int8 *a2, unsigned int a3)
   return result;
 }
 
-unsigned __int8 *Reconstruct_8x8(unsigned __int8 *result, int a2, unsigned __int8 *a3, int a4, int16x4_t *a5, int a6, int a7, int a8, double a9, int32x4_t a10, int32x4_t a11, int a12, unsigned __int8 *a13)
+unsigned __int8 *Reconstruct_8x8(unsigned __int8 *result, int a2, unsigned __int8 *a3, int a4, int16x4_t *a5, int a6, int a7, int a8, double d0_0, int32x4_t q1_0, int32x4_t a11, int a9, unsigned __int8 *a10)
 {
   v15 = result;
-  v22 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (a8)
   {
-    Get_QuarterPel_MSFT(a3, a4, a6, a7, a12, a13, 8, v21);
-    result = AddResidueTo_8x8(a5, v21, v15, a2, a13);
-LABEL_3:
-    v16 = *MEMORY[0x277D85DE8];
-    return result;
+    Get_QuarterPel_MSFT(a3, a4, a6, a7, a9, a10, 8u, v16);
+    return AddResidueTo_8x8(a5, v16, v15, a2, a10);
   }
 
-  if (a7 | a6)
+  else if (a7 | a6)
   {
     if (a6 != 1 || a7)
     {
       if (a6 || a7 != 1)
       {
-        if (a6 != 1 || a7 != 1)
+        if (a6 == 1 && a7 == 1)
         {
-          goto LABEL_3;
+
+          return MC_2H_2V(result, a2, a3, a4, a5, 2 - a9, a10);
         }
-
-        v20 = *MEMORY[0x277D85DE8];
-
-        return MC_2H_2V(result, a2, a3, a4, a5, 2 - a12, a13);
       }
 
       else
       {
-        v19 = *MEMORY[0x277D85DE8];
 
-        return MC_1H_2V(result, a2, a3, a4, a5, 1 - a12, a13, a9, a10, a11);
+        return MC_1H_2V(result, a2, a3, a4, a5, 1 - a9, a10, d0_0, q1_0, a11);
       }
     }
 
     else
     {
-      v17 = *MEMORY[0x277D85DE8];
 
-      return MC_2H_1V(result, a2, a3, a4, a5, 1 - a12, a13);
+      return MC_2H_1V(result, a2, a3, a4, a5, 1 - a9, a10);
     }
   }
 
   else
   {
-    v18 = *MEMORY[0x277D85DE8];
 
-    return MC_1H_1V(result, a2, a3, a4, a5, a13);
+    return MC_1H_1V(result, a2, a3, a4, a5, a10);
   }
+
+  return result;
 }
 
 uint64_t MC_1H_1V(unsigned __int8 *a1, int a2, const unsigned __int8 *a3, int a4, const __int16 *a5, const unsigned __int8 *a6)
@@ -293,23 +286,21 @@ uint64_t AddResidueTo_8x8(uint64_t result, unsigned __int8 *a2, unsigned __int8 
 
 uint64_t Reconstruct_16x16(unsigned __int8 *a1, int a2, unsigned __int8 *a3, int a4, __int16 *a5, int a6, int a7, int a8, int a9, unsigned __int8 *a10)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (a8)
   {
-    Get_QuarterPel_MSFT(a3, a4, a6, a7, a9, a10, 16, v15);
+    Get_QuarterPel_MSFT(a3, a4, a6, a7, a9, a10, 0x10u, v14);
   }
 
   else
   {
-    Get_HalfPel(a3, a4, a6, a7, a9, 16, v15);
+    Get_HalfPel(a3, a4, a6, a7, a9, 0x10u, v14);
   }
 
-  result = AddResidueTo_16x16(a5, v15, a1, a2, a10);
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
+  return AddResidueTo_16x16(a5, v14, a1, a2, a10);
 }
 
-uint64_t Get_HalfPel(uint64_t result, int a2, int a3, int a4, int a5, int a6, unsigned __int8 *a7)
+uint64_t Get_HalfPel(uint64_t result, int a2, int a3, int a4, int a5, unsigned int a6, unsigned __int8 *a7)
 {
   v7 = a2;
   v8 = a2 - a6;
@@ -566,7 +557,7 @@ unsigned __int8 *GetBlockToFrame(unsigned __int8 *result, int a2, unsigned __int
 
 uint64_t GetResidue_8x8(__int16 *a1, unsigned __int8 *a2, unsigned __int8 *a3, int a4, unsigned __int8 *a5, int a6, int a7, int a8, char a9, int a10, unsigned __int8 *a11)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v14 = a2;
@@ -574,22 +565,20 @@ uint64_t GetResidue_8x8(__int16 *a1, unsigned __int8 *a2, unsigned __int8 *a3, i
 
   else
   {
-    v14 = &v17;
+    v14 = &v16;
   }
 
   if (a9)
   {
-    Get_QuarterPel_MSFT(a3, a4, a7, a8, a10, a11, 8, v14);
+    Get_QuarterPel_MSFT(a3, a4, a7, a8, a10, a11, 8u, v14);
   }
 
   else
   {
-    Get_HalfPel(a3, a4, a7, a8, a10, 8, v14);
+    Get_HalfPel(a3, a4, a7, a8, a10, 8u, v14);
   }
 
-  result = GetResidueFrom_8x8(a1, v14, a5, a6);
-  v16 = *MEMORY[0x277D85DE8];
-  return result;
+  return GetResidueFrom_8x8(a1, v14, a5, a6);
 }
 
 uint64_t GetResidueFrom_8x8(uint64_t result, unsigned __int8 *a2, unsigned __int8 *a3, int a4)
@@ -617,7 +606,7 @@ uint64_t GetResidueFrom_8x8(uint64_t result, unsigned __int8 *a2, unsigned __int
 
 uint64_t GetResidue_16x16(__int16 *a1, unsigned __int8 *a2, unsigned __int8 *a3, int a4, unsigned __int8 *a5, int a6, int a7, int a8, char a9, int a10, unsigned __int8 *a11)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v14 = a2;
@@ -625,17 +614,17 @@ uint64_t GetResidue_16x16(__int16 *a1, unsigned __int8 *a2, unsigned __int8 *a3,
 
   else
   {
-    v14 = &v20;
+    v14 = &v19;
   }
 
   if (a9)
   {
-    result = Get_QuarterPel_MSFT(a3, a4, a7, a8, a10, a11, 16, v14);
+    result = Get_QuarterPel_MSFT(a3, a4, a7, a8, a10, a11, 0x10u, v14);
   }
 
   else
   {
-    result = Get_HalfPel(a3, a4, a7, a8, a10, 16, v14);
+    result = Get_HalfPel(a3, a4, a7, a8, a10, 0x10u, v14);
   }
 
   v16 = 0;
@@ -664,7 +653,6 @@ uint64_t GetResidue_16x16(__int16 *a1, unsigned __int8 *a2, unsigned __int8 *a3,
   }
 
   while (v16 != 256);
-  v19 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -801,19 +789,19 @@ uint64_t AddResidue_8x8(uint64_t result, int a2, __int16 *a3, const unsigned __i
   return result;
 }
 
-unsigned __int8 *Get_QuarterPel_MSFT(unsigned __int8 *result, int a2, int a3, int a4, int a5, const unsigned __int8 *a6, int a7, unsigned __int8 *a8)
+uint64_t Get_QuarterPel_MSFT(uint64_t result, int a2, int a3, int a4, int a5, const unsigned __int8 *a6, unsigned int a7, unsigned __int8 *a8)
 {
   v8 = a8;
-  v86 = *MEMORY[0x277D85DE8];
+  v85 = *MEMORY[0x277D85DE8];
   if (a4 | a3)
   {
     if (a3)
     {
       if (a7 != -1)
       {
-        v14 = ~a7 + a2;
-        v15 = &result[-v14];
-        v16 = &v83;
+        v14 = (~a7 + a2);
+        v15 = (result - v14);
+        v16 = &v82;
         v17 = a7;
         do
         {
@@ -835,7 +823,7 @@ unsigned __int8 *Get_QuarterPel_MSFT(unsigned __int8 *result, int a2, int a3, in
           }
 
           v21 = *v19;
-          v15 = (v19 + 1);
+          v15 = v19 + 1;
           *v16++ = v21;
           v17 = v18 - 1;
         }
@@ -847,7 +835,7 @@ unsigned __int8 *Get_QuarterPel_MSFT(unsigned __int8 *result, int a2, int a3, in
       {
         if (a4)
         {
-          v22 = v85;
+          v22 = v84;
           v23 = a7;
           v24 = a5;
           v25 = a6;
@@ -863,70 +851,70 @@ unsigned __int8 *Get_QuarterPel_MSFT(unsigned __int8 *result, int a2, int a3, in
           v26 = 0;
         }
 
-        result = Get_HalfPel_Left(&v83, v22, v23, v24, v25, v26);
+        result = Get_HalfPel_Left(&v82, v22, v23, v24, v25, v26);
       }
 
       else
       {
-        result = Get_HalfPel_Left(&v83, v82, a7, a5, a6, 1);
+        result = Get_HalfPel_Left(&v82, v81, a7, a5, a6, 1);
         if (a3 == 3)
         {
           if (a4)
           {
             if (a7 != -1)
             {
-              v61 = v85;
-              v62 = v82;
-              v63 = &v83;
-              v64 = a7;
+              v60 = v84;
+              v61 = v81;
+              v62 = &v82;
+              v63 = a7;
               do
               {
-                v65 = v64;
-                ++v63;
+                v64 = v63;
+                ++v62;
                 if (a7)
                 {
-                  v66 = a7;
+                  v65 = a7;
                   do
                   {
-                    v68 = *v63++;
-                    v67 = v68;
-                    v69 = *v62++;
-                    *v61++ = (v69 - a5 + v67 + 1) >> 1;
-                    --v66;
+                    v67 = *v62++;
+                    v66 = v67;
+                    v68 = *v61++;
+                    *v60++ = (v68 - a5 + v66 + 1) >> 1;
+                    --v65;
                   }
 
-                  while (v66);
+                  while (v65);
                 }
 
-                v64 = v65 - 1;
+                v63 = v64 - 1;
               }
 
-              while (v65);
+              while (v64);
             }
           }
 
           else if (a7)
           {
-            v76 = v84;
-            v77 = v82;
-            v78 = a7;
-            v79 = v8;
+            v75 = v83;
+            v76 = v81;
+            v77 = a7;
+            v78 = v8;
             do
             {
-              ++v76;
-              v80 = a7;
+              ++v75;
+              v79 = a7;
               do
               {
-                v81 = *v77++;
-                *v79++ = (v81 - a5 + *(v76++ - 1) + 1) >> 1;
-                --v80;
+                v80 = *v76++;
+                *v78++ = (v80 - a5 + *(v75++ - 1) + 1) >> 1;
+                --v79;
               }
 
-              while (v80);
-              --v78;
+              while (v79);
+              --v77;
             }
 
-            while (v78);
+            while (v77);
           }
         }
 
@@ -936,9 +924,9 @@ unsigned __int8 *Get_QuarterPel_MSFT(unsigned __int8 *result, int a2, int a3, in
           {
             if (a7 != -1)
             {
-              v37 = v85;
-              v38 = v82;
-              v39 = &v83;
+              v37 = v84;
+              v38 = v81;
+              v39 = &v82;
               v40 = a7;
               do
               {
@@ -968,26 +956,26 @@ unsigned __int8 *Get_QuarterPel_MSFT(unsigned __int8 *result, int a2, int a3, in
 
           else if (a7)
           {
-            v70 = v82;
-            v71 = &v83;
-            v72 = a7;
-            v73 = v8;
+            v69 = v81;
+            v70 = &v82;
+            v71 = a7;
+            v72 = v8;
             do
             {
-              ++v71;
-              v74 = a7;
+              ++v70;
+              v73 = a7;
               do
               {
-                v75 = *v70++;
-                *v73++ = (v75 - a5 + *(v71++ - 1) + 1) >> 1;
-                --v74;
+                v74 = *v69++;
+                *v72++ = (v74 - a5 + *(v70++ - 1) + 1) >> 1;
+                --v73;
               }
 
-              while (v74);
-              --v72;
+              while (v73);
+              --v71;
             }
 
-            while (v72);
+            while (v71);
           }
         }
       }
@@ -996,13 +984,13 @@ unsigned __int8 *Get_QuarterPel_MSFT(unsigned __int8 *result, int a2, int a3, in
     else if (a7 != -1)
     {
       v31 = a2 - a7;
-      v32 = &result[-v31];
-      v33 = v85;
+      v32 = (result - v31);
+      v33 = v84;
       v34 = a7;
       do
       {
         v35 = v34;
-        v32 += v31;
+        v32 = (v32 + v31);
         if (a7 >= 8)
         {
           v36 = a7 >> 3;
@@ -1011,7 +999,7 @@ unsigned __int8 *Get_QuarterPel_MSFT(unsigned __int8 *result, int a2, int a3, in
             *v33 = *v32;
             *(v33 + 4) = *(v32 + 4);
             v33 += 8;
-            v32 += 8;
+            ++v32;
             --v36;
           }
 
@@ -1027,11 +1015,11 @@ unsigned __int8 *Get_QuarterPel_MSFT(unsigned __int8 *result, int a2, int a3, in
     switch(a4)
     {
       case 1:
-        result = Get_HalfPel_Bottom(v85, &v83, a7, a5, a6, 0);
+        result = Get_HalfPel_Bottom(v84, &v82, a7, a5, a6, 0);
         if (a7)
         {
-          v53 = &v83;
-          v54 = v85;
+          v53 = &v82;
+          v54 = v84;
           v55 = a7;
           do
           {
@@ -1054,11 +1042,11 @@ unsigned __int8 *Get_QuarterPel_MSFT(unsigned __int8 *result, int a2, int a3, in
 
         break;
       case 3:
-        result = Get_HalfPel_Bottom(v85, &v83, a7, a5, a6, 0);
+        result = Get_HalfPel_Bottom(v84, &v82, a7, a5, a6, 0);
         if (a7)
         {
-          v46 = &v85[a7];
-          v47 = &v83;
+          v46 = &v84[a7];
+          v47 = &v82;
           v48 = a7;
           do
           {
@@ -1081,19 +1069,18 @@ unsigned __int8 *Get_QuarterPel_MSFT(unsigned __int8 *result, int a2, int a3, in
 
         break;
       case 2:
-        result = Get_HalfPel_Bottom(v85, v8, a7, a5, a6, 0);
-        break;
+        return Get_HalfPel_Bottom(v84, v8, a7, a5, a6, 0);
     }
   }
 
   else if (a7)
   {
     v27 = a2 - a7;
-    v28 = &result[-v27];
+    v28 = (result - v27);
     v29 = a7;
     do
     {
-      v28 += v27;
+      v28 = (v28 + v27);
       if (a7 >= 8)
       {
         v30 = a7 >> 3;
@@ -1102,7 +1089,7 @@ unsigned __int8 *Get_QuarterPel_MSFT(unsigned __int8 *result, int a2, int a3, in
           *v8 = *v28;
           *(v8 + 4) = *(v28 + 4);
           v8 += 8;
-          v28 += 8;
+          ++v28;
           --v30;
         }
 
@@ -1115,11 +1102,10 @@ unsigned __int8 *Get_QuarterPel_MSFT(unsigned __int8 *result, int a2, int a3, in
     while (v29);
   }
 
-  v60 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t Blinear_8th(uint64_t result, int a2, int a3, int a4, int a5, int a6, unsigned __int8 *a7)
+uint64_t Blinear_8th(uint64_t result, int a2, int a3, int a4, int a5, unsigned int a6, unsigned __int8 *a7)
 {
   v7 = a2;
   v8 = a2 - a6;
@@ -1868,8 +1854,8 @@ __int16 *Feed8x8To16x16(__int16 *result, int a2, __int16 *a3)
 
 void InterpolateFrame(unsigned __int8 *a1, unsigned __int8 *a2, unsigned __int8 *a3, int a4, int a5, unsigned int a6, unsigned int a7, int a8, uint64_t a9)
 {
-  v299 = __PAIR64__(a6, a7);
-  *&v332[414] = *MEMORY[0x277D85DE8];
+  v298 = __PAIR64__(a6, a7);
+  v326 = *MEMORY[0x277D85DE8];
   if (a5 / a8 >= 1)
   {
     v9 = a8;
@@ -1878,48 +1864,48 @@ void InterpolateFrame(unsigned __int8 *a1, unsigned __int8 *a2, unsigned __int8 
     v12 = 0;
     v13 = a8;
     v14 = ~a8 + a4;
-    v278 = &v305[a8];
-    v297 = a4 / a8;
-    v282 = a5 / a8;
-    v283 = -v14;
-    v294 = a8;
+    v277 = &v304[a8];
+    v296 = a4 / a8;
+    v281 = a5 / a8;
+    v282 = -v14;
+    v293 = a8;
     __n = (a8 + 1);
-    v288 = a8 + 3;
+    v287 = a8 + 3;
     v15 = v14;
-    v290 = a8 >> 3;
+    v289 = a8 >> 3;
     v16 = a9;
-    v277 = &v327[(a8 + 1)];
-    v279 = &v326[(a8 + 1)];
-    v280 = a4;
+    v276 = &v325[(a8 + 1) + 1];
+    v278 = &v325[(a8 + 1)];
+    v279 = a4;
     v17 = a4 - a8;
-    v281 = a8 - a4;
-    v301 = (a8 - 1) + 1;
-    v286 = a8 + 4;
-    v302 = v17;
-    v287 = v15;
+    v280 = a8 - a4;
+    v300 = (a8 - 1) + 1;
+    v285 = a8 + 4;
+    v301 = v17;
+    v286 = v15;
     while (1)
     {
-      v284 = v12;
-      if (v297 >= 1)
+      v283 = v12;
+      if (v296 >= 1)
       {
         break;
       }
 
 LABEL_267:
-      v12 = v284 + 1;
-      if (v284 + 1 == v282)
+      v12 = v283 + 1;
+      if (v283 + 1 == v281)
       {
-        goto LABEL_268;
+        return;
       }
     }
 
     v18 = 0;
-    v296 = v12 * v280;
+    v295 = v12 * v279;
     while (1)
     {
-      v19 = (v18 + v296) * v294;
+      v19 = (v18 + v295) * v293;
       v20 = &a1[v19];
-      v300 = v18;
+      v299 = v18;
       if (v16 > 2)
       {
         break;
@@ -1927,26 +1913,26 @@ LABEL_267:
 
       if (v16 == 1)
       {
-        v62 = HIDWORD(v299);
-        if (SHIDWORD(v299) >= 1)
+        v62 = HIDWORD(v298);
+        if (SHIDWORD(v298) >= 1)
         {
           v62 = 1;
         }
 
-        v63 = v299;
-        if (v299 >= 1)
+        v63 = v298;
+        if (v298 >= 1)
         {
           v63 = 1;
         }
 
-        v299 = __PAIR64__(v62, v63);
+        v298 = __PAIR64__(v62, v63);
         Get_HalfPel(&a1[v19], v10, v62, v63, 0, v9, __src);
         goto LABEL_55;
       }
 
       if (v16 == 2)
       {
-        Blinear_8th(&a1[v19], v10, 2 * HIDWORD(v299), 2 * v299, 0, v9, __src);
+        Blinear_8th(&a1[v19], v10, 2 * HIDWORD(v298), 2 * v298, 0, v9, __src);
         goto LABEL_55;
       }
 
@@ -1959,19 +1945,19 @@ LABEL_56:
         do
         {
           memcpy(v64, v65, v13);
-          v17 = v302;
-          v65 += v301;
-          v64 += v301 + v302;
+          v17 = v301;
+          v65 += v300;
+          v64 += v300 + v301;
           --v66;
         }
 
         while (v66);
       }
 
-      v18 = v300 + 1;
+      v18 = v299 + 1;
       v10 = a4;
       v16 = a9;
-      if (v300 + 1 == v297)
+      if (v299 + 1 == v296)
       {
         goto LABEL_267;
       }
@@ -1981,42 +1967,42 @@ LABEL_56:
     {
       if (v16 == 4)
       {
-        Get_QuarterPel_MSFT(&a1[v19], v10, SHIDWORD(v299), v299, 0, v11, v9, __src);
+        Get_QuarterPel_MSFT(&a1[v19], v10, SHIDWORD(v298), v298, 0, v11, v9, __src);
       }
 
       else if (v16 == 5)
       {
-        bzero(v326, 0x211uLL);
-        bzero(v324, 0x211uLL);
-        v323 = 0;
+        bzero(v325, 0x211uLL);
+        bzero(v323, 0x211uLL);
+        v322 = 0;
         v22.i32[1] = 0;
-        v321 = 0u;
-        v322 = 0u;
-        v319 = 0u;
         v320 = 0u;
-        v317 = 0u;
+        v321 = 0u;
         v318 = 0u;
-        v315 = 0u;
+        v319 = 0u;
         v316 = 0u;
-        v313 = 0u;
+        v317 = 0u;
         v314 = 0u;
-        v311 = 0u;
+        v315 = 0u;
         v312 = 0u;
-        v309 = 0u;
+        v313 = 0u;
         v310 = 0u;
-        v307 = 0u;
+        v311 = 0u;
         v308 = 0u;
-        *v305 = 0u;
+        v309 = 0u;
         v306 = 0u;
+        v307 = 0u;
+        *v304 = 0u;
+        v305 = 0u;
         v23 = __n;
         v24.i64[0] = 0xFF000000FFLL;
         v24.i64[1] = 0xFF000000FFLL;
         v25 = xmmword_27791E3E0;
-        v291 = v19;
+        v290 = v19;
         if ((v9 & 0x80000000) == 0)
         {
           v26 = 0;
-          v27 = &v329;
+          v27 = &v325[72];
           v28 = __n;
           do
           {
@@ -2028,7 +2014,7 @@ LABEL_56:
 
           while (v28);
           v29 = 0;
-          v30 = v326;
+          v30 = v325;
           v9 = a8;
           v24.i64[0] = 0xFF000000FFLL;
           v24.i64[1] = 0xFF000000FFLL;
@@ -2039,7 +2025,7 @@ LABEL_56:
             for (i = 74; i != 71; --i)
             {
               v30[v31] = v30[i];
-              v326[23 * v29 + 4 + v13 + v31++] = v326[23 * v29 - 2 + v13 + i];
+              v325[23 * v29 + 4 + v13 + v31++] = v325[23 * v29 - 2 + v13 + i];
             }
 
             ++v29;
@@ -2049,9 +2035,9 @@ LABEL_56:
           while (v29 != __n);
         }
 
-        if (SHIDWORD(v299) > 1)
+        if (SHIDWORD(v298) > 1)
         {
-          if (HIDWORD(v299) == 2)
+          if (HIDWORD(v298) == 2)
           {
             if (v9 < 0)
             {
@@ -2059,8 +2045,8 @@ LABEL_56:
             }
 
             v99 = 0;
-            v100 = v330;
-            v101 = v325;
+            v100 = &v325[73];
+            v101 = v324;
             do
             {
               if (v9)
@@ -2107,7 +2093,7 @@ LABEL_56:
 
               ++v99;
               v101 += 23;
-              v100 = (v100 + 23);
+              v100 += 23;
             }
 
             while (v99 != __n);
@@ -2115,7 +2101,7 @@ LABEL_56:
 
           else
           {
-            if (HIDWORD(v299) != 3)
+            if (HIDWORD(v298) != 3)
             {
               goto LABEL_109;
             }
@@ -2126,8 +2112,8 @@ LABEL_56:
             }
 
             v67 = 0;
-            v68 = v305;
-            v69 = v330;
+            v68 = v304;
+            v69 = &v325[73];
             do
             {
               if (v9)
@@ -2174,14 +2160,14 @@ LABEL_56:
 
               ++v67;
               v68 += 17;
-              v69 = (v69 + 23);
+              v69 += 23;
             }
 
             while (v67 != __n);
             v77 = 0;
-            v78 = v305;
-            v79 = v330;
-            v80 = v325;
+            v78 = v304;
+            v79 = &v325[73];
+            v80 = v324;
             do
             {
               if (v9)
@@ -2214,9 +2200,9 @@ LABEL_56:
 
         else
         {
-          if (HIDWORD(v299))
+          if (HIDWORD(v298))
           {
-            if (HIDWORD(v299) != 1)
+            if (HIDWORD(v298) != 1)
             {
               goto LABEL_109;
             }
@@ -2224,8 +2210,8 @@ LABEL_56:
             if ((v9 & 0x80000000) == 0)
             {
               v33 = 0;
-              v34 = v305;
-              v35 = v330;
+              v34 = v304;
+              v35 = &v325[73];
               do
               {
                 if (v9)
@@ -2272,14 +2258,14 @@ LABEL_56:
 
                 ++v33;
                 v34 += 17;
-                v35 = (v35 + 23);
+                v35 += 23;
               }
 
               while (v33 != __n);
               v44 = 0;
-              v45 = v305;
-              v46 = &v329;
-              v47 = v325;
+              v45 = v304;
+              v46 = &v325[72];
+              v47 = v324;
               do
               {
                 if (v9)
@@ -2312,20 +2298,20 @@ LABEL_56:
 
 LABEL_114:
             v111 = 0;
-            v112 = v326;
-            v113 = v332;
-            v114 = v288;
-            v115 = v286;
-            v15 = v287;
+            v112 = v325;
+            v113 = &v325[115];
+            v114 = v287;
+            v115 = v285;
+            v15 = v286;
             do
             {
               if (v9 >= 1)
               {
-                v116 = &v326[23 * v115];
+                v116 = &v325[23 * v115];
                 v117 = v113;
                 v118 = v112;
                 v119 = v13;
-                v120 = &v326[23 * v114];
+                v120 = &v325[23 * v114];
                 do
                 {
                   v121 = *v117++;
@@ -2346,11 +2332,11 @@ LABEL_114:
             }
 
             while (v111 != 3);
-            if (v299 <= 1)
+            if (v298 <= 1)
             {
-              if (v299)
+              if (v298)
               {
-                if (v299 != 1)
+                if (v298 != 1)
                 {
                   goto LABEL_177;
                 }
@@ -2358,8 +2344,8 @@ LABEL_114:
                 if (v9 >= 1)
                 {
                   v123 = 0;
-                  v124 = v331;
-                  v125 = v328;
+                  v124 = &v325[92];
+                  v125 = &v325[69];
                   do
                   {
                     v126 = 0;
@@ -2405,7 +2391,7 @@ LABEL_114:
                         LOBYTE(v136) = 0;
                       }
 
-                      v305[17 * v123 + v126++] = v136;
+                      v304[17 * v123 + v126++] = v136;
                       ++v128;
                       ++v127;
                     }
@@ -2418,9 +2404,9 @@ LABEL_114:
 
                   while (v123 != v13);
                   v139 = 0;
-                  v140 = v324;
-                  v141 = v305;
-                  v142 = v328;
+                  v140 = v323;
+                  v141 = v304;
+                  v142 = &v325[69];
                   do
                   {
                     v143 = v142;
@@ -2450,8 +2436,8 @@ LABEL_114:
 
               else if (v9 >= 1)
               {
-                v177 = v324;
-                v178 = v328;
+                v177 = v323;
+                v178 = &v325[69];
                 v179 = v13;
                 do
                 {
@@ -2466,13 +2452,13 @@ LABEL_114:
               }
 
 LABEL_180:
-              v17 = v302;
+              v17 = v301;
               v11 = a3;
-              v19 = v291;
+              v19 = v290;
               goto LABEL_56;
             }
 
-            if (v299 == 2)
+            if (v298 == 2)
             {
               if (v9 < 1)
               {
@@ -2480,8 +2466,8 @@ LABEL_180:
               }
 
               v180 = 0;
-              v181 = v331;
-              v182 = v328;
+              v181 = &v325[92];
+              v182 = &v325[69];
               do
               {
                 v183 = 0;
@@ -2527,7 +2513,7 @@ LABEL_180:
                     LOBYTE(v193) = 0;
                   }
 
-                  v324[23 * v180 + v183++] = v193;
+                  v323[23 * v180 + v183++] = v193;
                   ++v185;
                   ++v184;
                 }
@@ -2543,7 +2529,7 @@ LABEL_180:
 
             else
             {
-              if (v299 != 3)
+              if (v298 != 3)
               {
                 goto LABEL_177;
               }
@@ -2554,8 +2540,8 @@ LABEL_180:
               }
 
               v150 = 0;
-              v151 = v331;
-              v152 = v328;
+              v151 = &v325[92];
+              v152 = &v325[69];
               do
               {
                 v153 = 0;
@@ -2601,7 +2587,7 @@ LABEL_180:
                     LOBYTE(v163) = 0;
                   }
 
-                  v305[17 * v150 + v153++] = v163;
+                  v304[17 * v150 + v153++] = v163;
                   ++v155;
                   ++v154;
                 }
@@ -2614,9 +2600,9 @@ LABEL_180:
 
               while (v150 != v13);
               v166 = 0;
-              v167 = v324;
-              v168 = v305;
-              v169 = v331;
+              v167 = v323;
+              v168 = v304;
+              v169 = &v325[92];
               do
               {
                 v170 = v169;
@@ -2646,7 +2632,7 @@ LABEL_177:
             if (v9 >= 1)
             {
               v196 = 0;
-              v197 = v324;
+              v197 = v323;
               v198 = v13;
               do
               {
@@ -2667,8 +2653,8 @@ LABEL_177:
             goto LABEL_114;
           }
 
-          v97 = &v329;
-          v96 = v325;
+          v97 = &v325[72];
+          v96 = v324;
           v98 = __n;
           do
           {
@@ -2689,8 +2675,8 @@ LABEL_177:
 LABEL_109:
         if ((v9 & 0x80000000) == 0)
         {
-          v109 = v325;
-          v110 = v328;
+          v109 = v324;
+          v110 = &v325[69];
           do
           {
             if (v9)
@@ -2712,11 +2698,11 @@ LABEL_109:
       goto LABEL_55;
     }
 
-    if (!v299)
+    if (!v298)
     {
       if (v9)
       {
-        v88 = &v20[v281];
+        v88 = &v20[v280];
         v89 = __src;
         v90 = v9;
         do
@@ -2724,7 +2710,7 @@ LABEL_109:
           v88 += v17;
           if (v9 >= 8)
           {
-            v91 = v290;
+            v91 = v289;
             do
             {
               *v89 = *v88;
@@ -2748,8 +2734,8 @@ LABEL_109:
 
     if (v9 != -1)
     {
-      v55 = &v20[v283];
-      v56 = v326;
+      v55 = &v20[v282];
+      v56 = v325;
       v57 = v9;
       do
       {
@@ -2757,7 +2743,7 @@ LABEL_109:
         v59 = &v55[v15];
         if (v9 >= 8)
         {
-          v60 = v290;
+          v60 = v289;
           do
           {
             *v56 = *v59;
@@ -2779,28 +2765,28 @@ LABEL_109:
       while (v58);
     }
 
-    if (v299 == 0x200000000)
+    if (v298 == 0x200000000)
     {
-      Get_HalfPel_Left(v326, __src, v9, 0, v11, 0);
+      Get_HalfPel_Left(v325, __src, v9, 0, v11, 0);
     }
 
     else
     {
-      switch(v299)
+      switch(v298)
       {
         case 2uLL:
-          v92 = v326;
+          v92 = v325;
           v93 = v9;
           v94 = v11;
           v95 = 1;
           break;
         case 1uLL:
-          Get_HalfPel_Bottom(v326, v324, v9, 0, v11, 1);
+          Get_HalfPel_Bottom(v325, v323, v9, 0, v11, 1);
           if (v9)
           {
             v199 = __src;
-            v200 = v324;
-            v201 = v326;
+            v200 = v323;
+            v201 = v325;
             v202 = v9;
             do
             {
@@ -2822,13 +2808,13 @@ LABEL_109:
 
           goto LABEL_55;
         case 3uLL:
-          Get_HalfPel_Bottom(v326, v324, v9, 0, v11, 1);
+          Get_HalfPel_Bottom(v325, v323, v9, 0, v11, 1);
           if (v9)
           {
             v205 = __src;
-            v206 = v324;
+            v206 = v323;
             v207 = v9;
-            v208 = v279;
+            v208 = v278;
             do
             {
               ++v208;
@@ -2849,12 +2835,12 @@ LABEL_109:
 
           goto LABEL_55;
         case 0x100000000uLL:
-          Get_HalfPel_Left(v326, v324, v9, 0, v11, 0);
+          Get_HalfPel_Left(v325, v323, v9, 0, v11, 0);
           if (v9)
           {
             v211 = __src;
-            v212 = v324;
-            v213 = v326;
+            v212 = v323;
+            v213 = v325;
             v214 = v9;
             do
             {
@@ -2876,13 +2862,13 @@ LABEL_109:
 
           goto LABEL_55;
         case 0x300000000uLL:
-          Get_HalfPel_Left(v326, v324, v9, 0, v11, 0);
+          Get_HalfPel_Left(v325, v323, v9, 0, v11, 0);
           if (v9)
           {
             v217 = __src;
-            v218 = v324;
+            v218 = v323;
             v219 = v9;
-            v220 = v327;
+            v220 = &v325[1];
             do
             {
               ++v220;
@@ -2903,20 +2889,20 @@ LABEL_109:
 
           goto LABEL_55;
         default:
-          if (v299 != 2)
+          if (v298 != 2)
           {
-            if (v299 == 1)
+            if (v298 == 1)
             {
-              Get_HalfPel_Left(v326, v305, v9, 0, v11, 1);
-              Get_HalfPel_Bottom(v305, v304, v9, 0, v11, 0);
-              switch(HIDWORD(v299))
+              Get_HalfPel_Left(v325, v304, v9, 0, v11, 1);
+              Get_HalfPel_Bottom(v304, v303, v9, 0, v11, 0);
+              switch(HIDWORD(v298))
               {
                 case 2:
                   if (v9)
                   {
                     v223 = __src;
-                    v224 = v304;
-                    v225 = v305;
+                    v224 = v303;
+                    v225 = v304;
                     v226 = v9;
                     do
                     {
@@ -2939,14 +2925,14 @@ LABEL_109:
 
                   break;
                 case 1:
-                  Get_HalfPel_Bottom(v326, v324, v9, 0, v11, 1);
+                  Get_HalfPel_Bottom(v325, v323, v9, 0, v11, 1);
                   if (v9)
                   {
                     v248 = __src;
-                    v249 = v324;
-                    v250 = v304;
-                    v251 = v305;
-                    v252 = v326;
+                    v249 = v323;
+                    v250 = v303;
+                    v251 = v304;
+                    v252 = v325;
                     v253 = v9;
                     do
                     {
@@ -2971,15 +2957,15 @@ LABEL_109:
 
                   break;
                 case 3:
-                  Get_HalfPel_Bottom(v327, v324, v9, 0, v11, 1);
+                  Get_HalfPel_Bottom(&v325[1], v323, v9, 0, v11, 1);
                   if (v9)
                   {
                     v262 = __src;
-                    v263 = v324;
-                    v264 = v304;
-                    v265 = v305;
+                    v263 = v323;
+                    v264 = v303;
+                    v265 = v304;
                     v266 = v9;
-                    v267 = v327;
+                    v267 = &v325[1];
                     do
                     {
                       v268 = 0;
@@ -3007,22 +2993,22 @@ LABEL_109:
 
             else
             {
-              if (v299 != 3)
+              if (v298 != 3)
               {
                 goto LABEL_56;
               }
 
-              Get_HalfPel_Left(v326, v305, v9, 0, v11, 1);
-              Get_HalfPel_Bottom(v305, v304, v9, 0, v11, 0);
-              switch(HIDWORD(v299))
+              Get_HalfPel_Left(v325, v304, v9, 0, v11, 1);
+              Get_HalfPel_Bottom(v304, v303, v9, 0, v11, 0);
+              switch(HIDWORD(v298))
               {
                 case 2:
                   if (v9)
                   {
                     v240 = __src;
-                    v241 = v304;
+                    v241 = v303;
                     v242 = v9;
-                    v243 = v278;
+                    v243 = v277;
                     do
                     {
                       v244 = v9;
@@ -3044,15 +3030,15 @@ LABEL_109:
 
                   break;
                 case 1:
-                  Get_HalfPel_Bottom(v326, v324, v9, 0, v11, 1);
+                  Get_HalfPel_Bottom(v325, v323, v9, 0, v11, 1);
                   if (v9)
                   {
                     v255 = __src;
-                    v256 = v304;
-                    v257 = v324;
+                    v256 = v303;
+                    v257 = v323;
                     v258 = v9;
-                    v259 = v279;
-                    v260 = v278;
+                    v259 = v278;
+                    v260 = v277;
                     do
                     {
                       v261 = 0;
@@ -3076,15 +3062,15 @@ LABEL_109:
 
                   break;
                 case 3:
-                  Get_HalfPel_Bottom(v327, v324, v9, 0, v11, 1);
+                  Get_HalfPel_Bottom(&v325[1], v323, v9, 0, v11, 1);
                   if (v9)
                   {
                     v269 = __src;
-                    v270 = v324;
-                    v271 = v304;
+                    v270 = v323;
+                    v271 = v303;
                     v272 = v9;
-                    v273 = v277;
-                    v274 = v278;
+                    v273 = v276;
+                    v274 = v277;
                     do
                     {
                       v275 = 0;
@@ -3113,31 +3099,31 @@ LABEL_109:
             goto LABEL_55;
           }
 
-          Get_HalfPel_Left(v326, v324, v9, 0, v11, 1);
-          v92 = v324;
-          if (HIDWORD(v299) != 2)
+          Get_HalfPel_Left(v325, v323, v9, 0, v11, 1);
+          v92 = v323;
+          if (HIDWORD(v298) != 2)
           {
-            Get_HalfPel_Bottom(v324, v305, v9, 0, v11, 0);
-            if ((HIDWORD(v299) | 2) == 3)
+            Get_HalfPel_Bottom(v323, v304, v9, 0, v11, 0);
+            if ((HIDWORD(v298) | 2) == 3)
             {
-              if (HIDWORD(v299) == 1)
+              if (HIDWORD(v298) == 1)
               {
-                v231 = v326;
+                v231 = v325;
               }
 
               else
               {
-                v231 = v327;
+                v231 = &v325[1];
               }
 
-              Get_HalfPel_Bottom(v231, v304, v9, 0, v11, 1);
+              Get_HalfPel_Bottom(v231, v303, v9, 0, v11, 1);
             }
 
             if (v9)
             {
               v232 = __src;
-              v233 = v305;
-              v234 = v304;
+              v233 = v304;
+              v234 = v303;
               v235 = v9;
               do
               {
@@ -3171,12 +3157,9 @@ LABEL_109:
     }
 
 LABEL_55:
-    v17 = v302;
+    v17 = v301;
     goto LABEL_56;
   }
-
-LABEL_268:
-  v276 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t InterpolateWarpedPix(uint64_t result, int a2, int a3, int a4, int a5, int a6, int a7, int *a8, int *a9, unsigned __int8 *a10)
@@ -3332,7 +3315,7 @@ double SetGMCWarpingParams(int a1, int a2, int *a3, int *a4, int a5, int a6, dou
   return result;
 }
 
-uint64_t GetPowerOf2(int a1)
+uint64_t GetPowerOf2(unsigned int a1)
 {
   if (a1 < 2)
   {
@@ -3344,7 +3327,7 @@ uint64_t GetPowerOf2(int a1)
   {
     v1 = (v1 + 1);
     v2 = a1 > 3;
-    a1 = a1 >> 1;
+    a1 >>= 1;
   }
 
   while (v2);
@@ -4955,22 +4938,20 @@ uint64_t DecHeaderVOS(uint64_t a1, uint64_t a2)
   {
     v6 = v4 - 8;
     *(a1 + 4) = v4 - 8;
-    v14 = *a1;
-    v11 = *a1 >> (v4 - 8);
-    v12 = v11 & *(a1 + 56);
-    *(a2 + 101) = v11 & *(a1 + 56);
-    v13 = v2 + 40;
-    *(a1 + 156) = v13;
+    v12 = *a1;
+    *(a2 + 101) = (*a1 >> (v4 - 8)) & *(a1 + 56);
+    v11 = v2 + 40;
+    *(a1 + 156) = v11;
     if ((v4 - 8) >= 0x20)
     {
       v6 = v4 - 40;
-      v15 = (v14 >> (v4 - 40)) & *(a1 + 152);
+      v13 = (v12 >> (v4 - 40)) & *(a1 + 152);
       goto LABEL_20;
     }
 
     if (v4 == 8)
     {
-      v15 = 0;
+      v13 = 0;
       v4 = 32;
       goto LABEL_13;
     }
@@ -4988,59 +4969,59 @@ uint64_t DecHeaderVOS(uint64_t a1, uint64_t a2)
     v9 = *(a1 + 8);
     if (v3 > v8 || 32 * v9 > v8)
     {
-      v14 = 0;
+      v12 = 0;
       *(a1 + 8) = v9 + 1;
       *a1 = 0;
     }
 
     else
     {
-      v14 = bswap32(*(*(a1 + 16) + 4 * v9));
-      *a1 = v14;
+      v12 = bswap32(*(*(a1 + 16) + 4 * v9));
+      *a1 = v12;
       *(a1 + 8) = v9 + 1;
-      v7 |= *(a1 + 4 * v5 + 24) & (v14 >> v6);
+      v7 |= *(a1 + 4 * v5 + 24) & (v12 >> v6);
     }
 
     *(a2 + 101) = v7;
-    v13 = v2 + 40;
-    *(a1 + 156) = v13;
+    v11 = v2 + 40;
+    *(a1 + 156) = v11;
     LODWORD(v4) = 32 - v6;
   }
 
   v4 = v4;
-  v15 = (v14 << v4) & *(a1 + 152);
+  v13 = (v12 << v4) & *(a1 + 152);
 LABEL_13:
-  v16 = *(a1 + 160);
-  v17 = *(a1 + 8);
-  if (v13 > v16 || 32 * v17 > v16)
+  v14 = *(a1 + 160);
+  v15 = *(a1 + 8);
+  if (v11 > v14 || 32 * v15 > v14)
   {
-    *(a1 + 8) = v17 + 1;
+    *(a1 + 8) = v15 + 1;
     *a1 = 0;
   }
 
   else
   {
-    v19 = bswap32(*(*(a1 + 16) + 4 * v17));
-    *a1 = v19;
-    *(a1 + 8) = v17 + 1;
-    v15 |= *(a1 + 4 * v4 + 24) & (v19 >> v6);
+    v17 = bswap32(*(*(a1 + 16) + 4 * v15));
+    *a1 = v17;
+    *(a1 + 8) = v15 + 1;
+    v13 |= *(a1 + 4 * v4 + 24) & (v17 >> v6);
   }
 
 LABEL_20:
   *(a1 + 4) = v6 + 32;
   if (v6)
   {
-    v20 = *(a1 + 8);
+    v18 = *(a1 + 8);
     *(a1 + 4) = v6;
-    *(a1 + 8) = v20 - 1;
-    if (*(a1 + 160) >= (32 * (v20 - 1)))
+    *(a1 + 8) = v18 - 1;
+    if (*(a1 + 160) >= (32 * (v18 - 1)))
     {
-      *a1 = bswap32(*(*(a1 + 16) + 4 * (v20 - 2)));
+      *a1 = bswap32(*(*(a1 + 16) + 4 * (v18 - 2)));
     }
   }
 
   *(a1 + 156) = v3;
-  if (v15 == 434)
+  if (v13 == 434)
   {
     EatUserData(a1);
   }

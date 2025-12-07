@@ -56,7 +56,7 @@
 
   v4 = [(NSString *)self->input_ length];
 
-  return sub_10014C720(self, input, 0, v4);
+  return sub_10014C720(&self->super.isa, input, 0, v4);
 }
 
 - (id)resetWithJavaLangCharSequence:(id)sequence
@@ -68,7 +68,7 @@
 
   v5 = [sequence length];
 
-  return sub_10014C720(self, sequence, 0, v5);
+  return sub_10014C720(&self->super.isa, sequence, 0, v5);
 }
 
 - (id)usePatternWithJavaUtilRegexPattern:(id)pattern

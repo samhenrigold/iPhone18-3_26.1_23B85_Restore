@@ -1,5 +1,7 @@
 @interface JavaUtilArrays_ArrayList
 - (BOOL)containsWithId:(id)id;
+- (id)getWithInt:(int)int;
+- (id)setWithInt:(int)int withId:(id)id;
 - (id)toArray;
 - (id)toArrayWithNSObjectArray:(id)array;
 - (int)indexOfWithId:(id)id;
@@ -57,6 +59,23 @@ LABEL_12:
 
   while (*v9++);
   return v7;
+}
+
+- (id)getWithInt:(int)int
+{
+  a = self->a_;
+  if (!a)
+  {
+    JreThrowNullPointerException();
+  }
+
+  size = a->super.size_;
+  if (int < 0 || size <= int)
+  {
+    IOSArray_throwOutOfBoundsWithMsg(size, *&int);
+  }
+
+  return (&a->elementType_)[int];
 }
 
 - (int)indexOfWithId:(id)id
@@ -185,6 +204,24 @@ LABEL_18:
 
 LABEL_16:
   LODWORD(v6) = -1;
+  return v6;
+}
+
+- (id)setWithInt:(int)int withId:(id)id
+{
+  a = self->a_;
+  if (!a)
+  {
+    JreThrowNullPointerException();
+  }
+
+  if (int < 0 || (v5 = self->a_, a->super.size_ <= int))
+  {
+    IOSArray_throwOutOfBoundsWithMsg(a->super.size_, *&int);
+  }
+
+  v6 = (&a->elementType_)[int];
+  IOSObjectArray_Set(v5, int, id);
   return v6;
 }
 

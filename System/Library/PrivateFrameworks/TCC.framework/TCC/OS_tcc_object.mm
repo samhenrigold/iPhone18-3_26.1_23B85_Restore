@@ -6,13 +6,12 @@
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 134218242;
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 134218242;
   selfCopy = self;
-  v6 = 2080;
+  v5 = 2080;
   ClassName = object_getClassName(self);
-  _os_log_debug_impl(&dword_1B1686000, a2, OS_LOG_TYPE_DEBUG, "disposing: %p(%s)", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1B1686000, a2, OS_LOG_TYPE_DEBUG, "disposing: %p(%s)", &v3, 0x16u);
 }
 
 @end

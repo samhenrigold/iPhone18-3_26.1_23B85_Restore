@@ -28,13 +28,13 @@
 
 - (NSString)encodedCLIPFeatureVector
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (+[PGUserDefaults enableMomentCLIPFeatureGraphIngest])
   {
     v3 = [[PGMomentIngestCLIPFeatureVectorExtractor alloc] initWithIngestMomentContainer:self];
-    v11 = 0;
-    v4 = [(PGMomentIngestCLIPFeatureVectorExtractor *)v3 extractCLIPFeatureVectorWithError:&v11];
-    v5 = v11;
+    v10 = 0;
+    v4 = [(PGMomentIngestCLIPFeatureVectorExtractor *)v3 extractCLIPFeatureVectorWithError:&v10];
+    v5 = v10;
     if (v4)
     {
       v6 = [PGMomentIngestCLIPFeatureVectorExtractor encodeCLIPFeatureVector:v4];
@@ -47,9 +47,9 @@
       {
         uuid = [(PGGraphIngestMomentContainer *)self uuid];
         *buf = 138412546;
-        v13 = uuid;
-        v14 = 2112;
-        v15 = v5;
+        v12 = uuid;
+        v13 = 2112;
+        v14 = v5;
         _os_log_error_impl(&dword_22F0FC000, curationLoggingConnection, OS_LOG_TYPE_ERROR, "Failed to extract moment CLIP feature vector for moment with uuid: %@, error: %@", buf, 0x16u);
       }
 
@@ -61,8 +61,6 @@
   {
     v6 = &stru_2843F5C58;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -129,99 +127,91 @@ void __58__PGGraphIngestMomentContainer_happensAtSensitiveLocation__block_invoke
 
 - (double)facesProcessedRatio
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   allItems = [(CLSInvestigationPhotoKitFeeder *)self->_feeder allItems];
   v4 = [allItems count];
 
-  if (v4)
+  if (!v4)
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
-    v15 = 0u;
-    allItems2 = [(CLSInvestigationPhotoKitFeeder *)self->_feeder allItems];
-    v6 = [allItems2 countByEnumeratingWithState:&v14 objects:v18 count:16];
-    if (v6)
-    {
-      v7 = v6;
-      v8 = 0;
-      v9 = *v15;
-      do
-      {
-        for (i = 0; i != v7; ++i)
-        {
-          if (*v15 != v9)
-          {
-            objc_enumerationMutation(allItems2);
-          }
+    return 1.0;
+  }
 
-          v8 += [*(*(&v14 + 1) + 8 * i) clsIsFaceProcessed];
+  v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  allItems2 = [(CLSInvestigationPhotoKitFeeder *)self->_feeder allItems];
+  v6 = [allItems2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  if (v6)
+  {
+    v7 = v6;
+    v8 = 0;
+    v9 = *v14;
+    do
+    {
+      for (i = 0; i != v7; ++i)
+      {
+        if (*v14 != v9)
+        {
+          objc_enumerationMutation(allItems2);
         }
 
-        v7 = [allItems2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 += [*(*(&v13 + 1) + 8 * i) clsIsFaceProcessed];
       }
 
-      while (v7);
-      v11 = v8;
+      v7 = [allItems2 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
-    else
-    {
-      v11 = 0.0;
-    }
-
-    result = v11 / v4;
+    while (v7);
+    v11 = v8;
   }
 
   else
   {
-    result = 1.0;
+    v11 = 0.0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return v11 / v4;
 }
 
 - (double)scenesProcessedRatio
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   scenesProcessedRatioAsNumber = self->_scenesProcessedRatioAsNumber;
-  if (scenesProcessedRatioAsNumber)
+  if (!scenesProcessedRatioAsNumber)
   {
-LABEL_14:
-    [(NSNumber *)scenesProcessedRatioAsNumber doubleValue];
-    goto LABEL_15;
-  }
+    allItems = [(CLSInvestigationPhotoKitFeeder *)self->_feeder allItems];
+    v5 = [allItems count];
 
-  allItems = [(CLSInvestigationPhotoKitFeeder *)self->_feeder allItems];
-  v5 = [allItems count];
+    if (!v5)
+    {
+      return 1.0;
+    }
 
-  if (v5)
-  {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     allItems2 = [(CLSInvestigationPhotoKitFeeder *)self->_feeder allItems];
-    v7 = [allItems2 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v7 = [allItems2 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v7)
     {
       v8 = v7;
       v9 = 0;
-      v10 = *v18;
+      v10 = *v17;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v18 != v10)
+          if (*v17 != v10)
           {
             objc_enumerationMutation(allItems2);
           }
 
-          v9 += [*(*(&v17 + 1) + 8 * i) clsIsSceneProcessed];
+          v9 += [*(*(&v16 + 1) + 8 * i) clsIsSceneProcessed];
         }
 
-        v8 = [allItems2 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v8 = [allItems2 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v8);
@@ -238,12 +228,9 @@ LABEL_14:
     self->_scenesProcessedRatioAsNumber = v14;
 
     scenesProcessedRatioAsNumber = self->_scenesProcessedRatioAsNumber;
-    goto LABEL_14;
   }
 
-  result = 1.0;
-LABEL_15:
-  v16 = *MEMORY[0x277D85DE8];
+  [(NSNumber *)scenesProcessedRatioAsNumber doubleValue];
   return result;
 }
 
@@ -257,26 +244,26 @@ LABEL_15:
 
 - (BOOL)hasAssetsWithInterestingScenes
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   allItems = [(CLSInvestigationPhotoKitFeeder *)self->_feeder allItems];
-  v3 = [allItems countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [allItems countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
-    v4 = *v10;
+    v4 = *v9;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v10 != v4)
+        if (*v9 != v4)
         {
           objc_enumerationMutation(allItems);
         }
 
-        v6 = *(*(&v9 + 1) + 8 * i);
+        v6 = *(*(&v8 + 1) + 8 * i);
         if ([v6 clsIsUtility] & 1) == 0 && (objc_msgSend(v6, "clsHasInterestingScenes"))
         {
           LOBYTE(v3) = 1;
@@ -284,7 +271,7 @@ LABEL_15:
         }
       }
 
-      v3 = [allItems countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v3 = [allItems countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (v3)
       {
         continue;
@@ -296,33 +283,32 @@ LABEL_15:
 
 LABEL_12:
 
-  v7 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 - (BOOL)hasHigherThanImprovedAssets
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   allItems = [(CLSInvestigationPhotoKitFeeder *)self->_feeder allItems];
-  v3 = [allItems countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [allItems countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
-    v4 = *v12;
+    v4 = *v11;
     v5 = *MEMORY[0x277D3C770];
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v12 != v4)
+        if (*v11 != v4)
         {
           objc_enumerationMutation(allItems);
         }
 
-        v7 = *(*(&v11 + 1) + 8 * i);
+        v7 = *(*(&v10 + 1) + 8 * i);
         [v7 clsContentScore];
         if (v8 > v5 && ![v7 clsIsUtility])
         {
@@ -331,7 +317,7 @@ LABEL_12:
         }
       }
 
-      v3 = [allItems countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v3 = [allItems countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v3)
       {
         continue;
@@ -343,62 +329,55 @@ LABEL_12:
 
 LABEL_12:
 
-  v9 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 - (double)inhabitationScore
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   numberOfItems = [(CLSInvestigationPhotoKitFeeder *)self->_feeder numberOfItems];
-  if (numberOfItems)
+  if (!numberOfItems)
   {
-    v4 = numberOfItems;
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
-    v15 = 0u;
-    allItems = [(CLSInvestigationPhotoKitFeeder *)self->_feeder allItems];
-    v6 = [allItems countByEnumeratingWithState:&v14 objects:v18 count:16];
-    if (v6)
-    {
-      v7 = v6;
-      v8 = 0;
-      v9 = *v15;
-      do
-      {
-        for (i = 0; i != v7; ++i)
-        {
-          if (*v15 != v9)
-          {
-            objc_enumerationMutation(allItems);
-          }
+    return 0.0;
+  }
 
-          v8 += [*(*(&v14 + 1) + 8 * i) clsIsInhabited];
+  v4 = numberOfItems;
+  v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  allItems = [(CLSInvestigationPhotoKitFeeder *)self->_feeder allItems];
+  v6 = [allItems countByEnumeratingWithState:&v13 objects:v17 count:16];
+  if (v6)
+  {
+    v7 = v6;
+    v8 = 0;
+    v9 = *v14;
+    do
+    {
+      for (i = 0; i != v7; ++i)
+      {
+        if (*v14 != v9)
+        {
+          objc_enumerationMutation(allItems);
         }
 
-        v7 = [allItems countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 += [*(*(&v13 + 1) + 8 * i) clsIsInhabited];
       }
 
-      while (v7);
-      v11 = v8;
+      v7 = [allItems countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
-    else
-    {
-      v11 = 0.0;
-    }
-
-    result = v11 / v4;
+    while (v7);
+    v11 = v8;
   }
 
   else
   {
-    result = 0.0;
+    v11 = 0.0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return v11 / v4;
 }
 
 - (unint64_t)totalNumberOfPersons
@@ -417,34 +396,34 @@ LABEL_12:
 
 - (unint64_t)numberOfItemsWithPersons
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   allItems = [(CLSInvestigationPhotoKitFeeder *)self->_feeder allItems];
-  v3 = [allItems countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [allItems countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = 0;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(allItems);
         }
 
-        if ([*(*(&v10 + 1) + 8 * i) clsPeopleCount])
+        if ([*(*(&v9 + 1) + 8 * i) clsPeopleCount])
         {
           ++v5;
         }
       }
 
-      v4 = [allItems countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [allItems countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
@@ -455,7 +434,6 @@ LABEL_12:
     v5 = 0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -469,7 +447,7 @@ LABEL_12:
 
 - (id)assetsInExtendedCuration
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   assetsInExtendedCuration = self->_assetsInExtendedCuration;
   if (!assetsInExtendedCuration)
   {
@@ -480,8 +458,8 @@ LABEL_12:
     v7 = [MEMORY[0x277CCAC30] predicateWithFormat:@"highlightBeingExtendedAssets != nil"];
     [librarySpecificFetchOptions setInternalPredicate:v7];
 
-    v13[0] = *MEMORY[0x277CD9AA8];
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+    v12[0] = *MEMORY[0x277CD9AA8];
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
     [librarySpecificFetchOptions setFetchPropertySets:v8];
 
     [librarySpecificFetchOptions setShouldPrefetchCount:1];
@@ -492,8 +470,6 @@ LABEL_12:
 
     assetsInExtendedCuration = self->_assetsInExtendedCuration;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return assetsInExtendedCuration;
 }

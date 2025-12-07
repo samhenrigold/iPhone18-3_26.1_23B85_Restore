@@ -238,9 +238,9 @@ void __44__PKPeerPaymentMessagesMultiActionView_init__block_invoke_3(uint64_t a1
 
 - (void)layoutSubviews
 {
-  v30.receiver = self;
-  v30.super_class = PKPeerPaymentMessagesMultiActionView;
-  [(PKPeerPaymentMessagesMultiActionView *)&v30 layoutSubviews];
+  v43.receiver = self;
+  v43.super_class = PKPeerPaymentMessagesMultiActionView;
+  [(PKPeerPaymentMessagesMultiActionView *)&v43 layoutSubviews];
   [(PKPeerPaymentMessagesMultiActionView *)self bounds];
   memset(&slice, 0, sizeof(slice));
   UIRectCenteredXInRect();
@@ -268,11 +268,11 @@ void __44__PKPeerPaymentMessagesMultiActionView_init__block_invoke_3(uint64_t a1
 
   [(PKPeerPaymentMessagesMultiActionView *)self _heightForPrimaryButtonForAvailableSize:v8, v10, 0, 0, 0, 0];
   v17 = v16;
-  v31.origin.x = v4;
-  v31.origin.y = v6;
-  v31.size.width = v8;
-  v31.size.height = v10;
-  CGRectDivide(v31, &v27, &remainder, v17, v15);
+  v44.origin.x = v4;
+  v44.origin.y = v6;
+  v44.size.width = v8;
+  v44.size.height = v10;
+  CGRectDivide(v44, &v40, &remainder, v17, v15);
   if (leadingAction)
   {
     v18 = trailingAction == 0;
@@ -287,8 +287,8 @@ void __44__PKPeerPaymentMessagesMultiActionView_init__block_invoke_3(uint64_t a1
   {
     if (leadingAction | trailingAction)
     {
-      CGRectGetWidth(v27);
-      Height = CGRectGetHeight(v27);
+      CGRectGetWidth(v40);
+      Height = CGRectGetHeight(v40);
       v20 = 37;
       if (!leadingAction)
       {
@@ -315,13 +315,15 @@ void __44__PKPeerPaymentMessagesMultiActionView_init__block_invoke_3(uint64_t a1
       v22 = CGRectMinXEdge;
     }
 
-    CGRectGetWidth(remainder);
-    PKFloatRoundToPixel();
-    v24 = v23 * 0.5;
-    CGRectDivide(v27, &slice, &v27, v23 * 0.5, v22);
+    Width = CGRectGetWidth(remainder);
+    v24.n128_u64[0] = -15.0;
+    v25.n128_f64[0] = Width + -15.0;
+    PKFloatRoundToPixel(v25, v24);
+    v27 = v26 * 0.5;
+    CGRectDivide(v40, &slice, &v40, v26 * 0.5, v22);
     [(UIButton *)self->_leadingButton setFrame:slice.origin.x, slice.origin.y, slice.size.width, slice.size.height];
-    CGRectDivide(v27, &slice, &v27, 15.0, v22);
-    CGRectDivide(v27, &slice, &v27, v24, v22);
+    CGRectDivide(v40, &slice, &v40, 15.0, v22);
+    CGRectDivide(v40, &slice, &v40, v27, v22);
     [(UIButton *)self->_trailingButton setFrame:slice.origin.x, slice.origin.y, slice.size.width, slice.size.height];
   }
 
@@ -329,9 +331,17 @@ void __44__PKPeerPaymentMessagesMultiActionView_init__block_invoke_3(uint64_t a1
   {
     CGRectDivide(remainder, &slice, &remainder, 16.0, v15);
     [(UIButton *)self->_centerButton sizeThatFits:remainder.size.width, remainder.size.height];
-    CGRectDivide(remainder, &slice, &remainder, v25, v15);
+    v29 = v28;
+    v31 = *&v30;
+    CGRectDivide(remainder, &slice, &remainder, v30, v15);
     centerButton = self->_centerButton;
-    PKSizeAlignedInRect();
+    v33.n128_u64[0] = *&slice.origin.x;
+    v34.n128_u64[0] = *&slice.origin.y;
+    v35.n128_u64[0] = *&slice.size.width;
+    v36.n128_u64[0] = *&slice.size.height;
+    v37.n128_u64[0] = v29;
+    v38.n128_u64[0] = v31;
+    PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v37, v38, v33, v34, v35, v36, v39);
     [(UIButton *)centerButton setFrame:?];
   }
 

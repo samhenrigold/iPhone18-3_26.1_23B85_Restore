@@ -17,14 +17,14 @@
 {
   v9 = sub_1D78B3294();
   v10 = *(v9 - 8);
-  MEMORY[0x1EEE9AC00](v9);
-  v12 = &v16 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v9, v11);
+  v13 = &v17 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1D78B3254();
   viewCopy = view;
   selfCopy = self;
-  LOBYTE(interaction) = sub_1D7785834(v12, interaction);
+  LOBYTE(interaction) = sub_1D7785834(v13, interaction);
 
-  (*(v10 + 8))(v12, v9);
+  (*(v10 + 8))(v13, v9);
   return interaction & 1;
 }
 

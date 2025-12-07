@@ -1,5 +1,6 @@
 @interface ALAssetRepresentationPrivate
 + (int)_fileDescriptorForPersistentURL:(id)l;
++ (int)_updateFileDescriptor:(int)descriptor forPersistentURL:(id)l;
 + (void)_clearFileDescriptorQueue;
 + (void)_setupFileDescriptorQueue;
 - (ALAssetRepresentationPrivate)initWithManagedAsset:(id)asset sidecar:(id)sidecar extension:(id)extension library:(id)library;
@@ -77,7 +78,7 @@ uint64_t __53__ALAssetRepresentationPrivate__performBlockAndWait___block_invoke_
   v2 = [*(*(a1 + 32) + 48) objectWithObjectID:{objc_msgSend(*(*(a1 + 32) + 24), "objectID")}];
   v3 = [v2 sidecarWithResourceObjectID:{objc_msgSend(*(*(a1 + 32) + 32), "objectID")}];
   v4 = *(a1 + 32);
-  v5 = v4[3];
+  v5 = *(v4 + 24);
   if (v5 != v2)
   {
 
@@ -85,28 +86,16 @@ uint64_t __53__ALAssetRepresentationPrivate__performBlockAndWait___block_invoke_
     v4 = *(a1 + 32);
   }
 
-  v6 = v4[4];
+  v6 = *(v4 + 32);
   if (v6 != v3)
   {
 
     *(*(a1 + 32) + 32) = v3;
-    v4 = *(a1 + 32);
-    v7 = v4[4];
   }
 
-  v8 = v4[3];
-  v9 = *(*(a1 + 40) + 16);
-  v11 = v4[5];
-  v10 = v4[6];
+  v7 = *(*(a1 + 40) + 16);
 
-  return v9();
-}
-
-void __53__ALAssetRepresentationPrivate__performBlockAndWait___block_invoke_4(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  v3 = objc_opt_class();
-  NSLog(&cfstr_InvalidAttempt.isa, v3, *(a1 + 32));
+  return v7();
 }
 
 - (BOOL)_isVideo
@@ -127,7 +116,7 @@ void __53__ALAssetRepresentationPrivate__performBlockAndWait___block_invoke_4(ui
   return v2;
 }
 
-uint64_t __40__ALAssetRepresentationPrivate__isVideo__block_invoke(uint64_t a1)
+void *__40__ALAssetRepresentationPrivate__isVideo__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 24) isVideo];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -152,7 +141,7 @@ uint64_t __40__ALAssetRepresentationPrivate__isVideo__block_invoke(uint64_t a1)
   return v2;
 }
 
-uint64_t __40__ALAssetRepresentationPrivate__isImage__block_invoke(uint64_t a1)
+void *__40__ALAssetRepresentationPrivate__isImage__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 24) isPhoto];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -192,35 +181,35 @@ uint64_t __40__ALAssetRepresentationPrivate__isImage__block_invoke(uint64_t a1)
 
 + (void)_clearFileDescriptorQueue
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = objc_opt_class();
   objc_sync_enter(v2);
   if (__persistentURLQueue && [__persistentURLQueue count])
   {
-    v11 = 0u;
-    v12 = 0u;
-    v9 = 0u;
     v10 = 0u;
+    v11 = 0u;
+    v8 = 0u;
+    v9 = 0u;
     v3 = __persistentURLQueue;
-    v4 = [__persistentURLQueue countByEnumeratingWithState:&v9 objects:v13 count:16];
+    v4 = [__persistentURLQueue countByEnumeratingWithState:&v8 objects:v12 count:16];
     if (v4)
     {
-      v5 = *v10;
+      v5 = *v9;
       do
       {
         for (i = 0; i != v4; ++i)
         {
-          if (*v10 != v5)
+          if (*v9 != v5)
           {
             objc_enumerationMutation(v3);
           }
 
-          v7 = *(*(&v9 + 1) + 8 * i);
+          v7 = *(*(&v8 + 1) + 8 * i);
           close([objc_msgSend(__fileDescriptorDictionary objectForKey:{v7), "intValue"}]);
           [__fileDescriptorDictionary removeObjectForKey:v7];
         }
 
-        v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+        v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
       }
 
       while (v4);
@@ -230,7 +219,48 @@ uint64_t __40__ALAssetRepresentationPrivate__isImage__block_invoke(uint64_t a1)
   }
 
   objc_sync_exit(v2);
-  v8 = *MEMORY[0x277D85DE8];
+}
+
++ (int)_updateFileDescriptor:(int)descriptor forPersistentURL:(id)l
+{
+  v5 = *&descriptor;
+  +[ALAssetRepresentationPrivate _setupFileDescriptorQueue];
+  v6 = objc_opt_class();
+  objc_sync_enter(v6);
+  v7 = [__fileDescriptorDictionary objectForKey:l];
+  v8 = v7;
+  if (v7)
+  {
+    if ([v7 intValue] != v5)
+    {
+      close(v5);
+      LODWORD(v5) = [v8 intValue];
+    }
+
+    v9 = [__persistentURLQueue indexOfObject:l];
+    v10 = [__persistentURLQueue count];
+    if (v9 != 0x7FFFFFFFFFFFFFFFLL && v9 != v10 - 1)
+    {
+      [__persistentURLQueue exchangeObjectAtIndex:v9 withObjectAtIndex:?];
+    }
+  }
+
+  else
+  {
+    if ([__persistentURLQueue count] >= 0xA)
+    {
+      v11 = [__persistentURLQueue objectAtIndex:0];
+      close([objc_msgSend(__fileDescriptorDictionary objectForKey:{v11), "intValue"}]);
+      [__fileDescriptorDictionary removeObjectForKey:v11];
+      [__persistentURLQueue removeObject:v11];
+    }
+
+    [__persistentURLQueue addObject:l];
+    [__fileDescriptorDictionary setObject:objc_msgSend(MEMORY[0x277CCABB0] forKey:{"numberWithInt:", v5), l}];
+  }
+
+  objc_sync_exit(v6);
+  return v5;
 }
 
 + (int)_fileDescriptorForPersistentURL:(id)l

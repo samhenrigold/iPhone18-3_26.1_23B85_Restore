@@ -44,9 +44,9 @@
     +[_MUISearchResultsSuggesterDocumentsConfiguration documentTypeFilterQuery];
   }
 
-  v0 = documentTypeFilterQuery_documentQueryString;
+  v1 = documentTypeFilterQuery_documentQueryString;
 
-  return v0;
+  return v1;
 }
 
 - (id)suggestionFilterQueryWithPhraseManager:(id)manager senderFilterQuery:(id)query

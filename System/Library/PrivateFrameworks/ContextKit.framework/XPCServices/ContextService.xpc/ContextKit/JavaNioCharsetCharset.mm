@@ -2,7 +2,6 @@
 + (void)initialize;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isRegistered;
-- (NSString)description;
 - (id)decodeWithJavaNioByteBuffer:(id)buffer;
 - (id)encodeWithNSString:(id)string;
 - (int)compareToWithId:(id)id;
@@ -77,7 +76,6 @@ LABEL_9:
   objc_opt_class();
   if (!id)
   {
-    canonicalName = self->canonicalName_;
     JreThrowNullPointerException();
   }
 
@@ -86,15 +84,15 @@ LABEL_9:
     JreThrowClassCastException();
   }
 
-  v5 = self->canonicalName_;
-  if (!v5)
+  canonicalName = self->canonicalName_;
+  if (!canonicalName)
   {
     JreThrowNullPointerException();
   }
 
   v6 = *(id + 1);
 
-  return [(NSString *)v5 compareToIgnoreCase:v6];
+  return [(NSString *)canonicalName compareToIgnoreCase:v6];
 }
 
 - (BOOL)isEqual:(id)equal
@@ -108,8 +106,7 @@ LABEL_9:
   objc_opt_class();
   if (!equal)
   {
-    canonicalName = self->canonicalName_;
-    goto LABEL_11;
+    goto LABEL_10;
   }
 
   if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -117,16 +114,16 @@ LABEL_9:
     JreThrowClassCastException();
   }
 
-  v5 = self->canonicalName_;
-  if (!v5)
+  canonicalName = self->canonicalName_;
+  if (!canonicalName)
   {
-LABEL_11:
+LABEL_10:
     JreThrowNullPointerException();
   }
 
   v6 = *(equal + 1);
 
-  return [(NSString *)v5 isEqual:v6];
+  return [(NSString *)canonicalName isEqual:v6];
 }
 
 - (unint64_t)hash
@@ -138,13 +135,6 @@ LABEL_11:
   }
 
   return [(NSString *)canonicalName hash];
-}
-
-- (NSString)description
-{
-  v3 = [-[JavaNioCharsetCharset getClass](self "getClass")];
-  canonicalName = self->canonicalName_;
-  return JreStrcat("$C$C", v4, v5, v6, v7, v8, v9, v10, v3);
 }
 
 - (void)dealloc

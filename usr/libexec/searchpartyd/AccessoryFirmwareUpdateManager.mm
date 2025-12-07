@@ -8,44 +8,42 @@
 - (void)findMyAccessoryFirmwareUpdateManager:(id)manager didFailWithError:(id)error forDevice:(id)device
 {
   v8 = sub_1000BC4D4(&qword_1016980D0, &unk_10138F3B0);
-  v9 = *(*(v8 - 8) + 64);
   __chkstk_darwin(v8 - 8);
-  v11 = &v16 - v10;
+  v10 = &v15 - v9;
   if (device)
   {
     static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-    v12 = type metadata accessor for UUID();
-    (*(*(v12 - 8) + 56))(v11, 0, 1, v12);
+    v11 = type metadata accessor for UUID();
+    (*(*(v11 - 8) + 56))(v10, 0, 1, v11);
   }
 
   else
   {
-    v13 = type metadata accessor for UUID();
-    (*(*(v13 - 8) + 56))(v11, 1, 1, v13);
+    v12 = type metadata accessor for UUID();
+    (*(*(v12 - 8) + 56))(v10, 1, 1, v12);
   }
 
   managerCopy = manager;
   errorCopy = error;
 
-  sub_101056E3C(errorCopy, v11);
+  sub_101056E3C(errorCopy, v10);
 
-  sub_10000B3A8(v11, &qword_1016980D0, &unk_10138F3B0);
+  sub_10000B3A8(v10, &qword_1016980D0, &unk_10138F3B0);
 }
 
 - (void)findMyAccessoryFirmwareUpdateManager:(id)manager firmwareUpdateRequestForDevice:(id)device completedWithError:(id)error
 {
   v7 = type metadata accessor for UUID();
   v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
   __chkstk_darwin(v7);
-  v11 = &v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
   managerCopy = manager;
 
   errorCopy = error;
-  sub_101057240(v11, error);
+  sub_101057240(v10, error);
 
-  (*(v8 + 8))(v11, v7);
+  (*(v8 + 8))(v10, v7);
 }
 
 @end

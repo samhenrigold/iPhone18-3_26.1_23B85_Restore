@@ -2,9 +2,13 @@
 - (BOOL)isEqual:(id)equal;
 - (NSString)key;
 - (NSString)runSource;
+- (id)completeFailReasonAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)regionEligibilityAsString:(int)string;
+- (id)requestTypeAsString:(int)string;
+- (id)resultTypeAsString:(int)string;
 - (int)StringAsCompleteFailReason:(id)reason;
 - (int)StringAsRegionEligibility:(id)eligibility;
 - (int)StringAsRequestType:(id)type;
@@ -467,7 +471,6 @@ LABEL_26:
     }
   }
 
-  v7 = *(equalCopy + 86);
   if ((*&self->_has & 0x200) != 0)
   {
     if ((*(equalCopy + 86) & 0x200) == 0)
@@ -475,7 +478,6 @@ LABEL_26:
       goto LABEL_30;
     }
 
-    v19 = *(equalCopy + 168);
     if (self->_completed)
     {
       if ((*(equalCopy + 168) & 1) == 0)
@@ -519,7 +521,6 @@ LABEL_26:
     }
   }
 
-  v11 = *(equalCopy + 86);
   if ((*&self->_has & 0x400) != 0)
   {
     if ((*(equalCopy + 86) & 0x400) == 0)
@@ -527,7 +528,6 @@ LABEL_26:
       goto LABEL_30;
     }
 
-    v20 = *(equalCopy + 169);
     if (self->_didRunRemotely)
     {
       if ((*(equalCopy + 169) & 1) == 0)
@@ -554,7 +554,6 @@ LABEL_26:
       goto LABEL_30;
     }
 
-    v21 = *(equalCopy + 170);
     if (self->_isInvalidatedSystemAction)
     {
       if ((*(equalCopy + 170) & 1) == 0)
@@ -607,16 +606,16 @@ LABEL_26:
     }
   }
 
-  v16 = *(equalCopy + 86);
+  v14 = *(equalCopy + 86);
   if (*&self->_has)
   {
-    if ((v16 & 1) == 0 || self->_completeFailReason != *(equalCopy + 10))
+    if ((v14 & 1) == 0 || self->_completeFailReason != *(equalCopy + 10))
     {
       goto LABEL_30;
     }
   }
 
-  else if (v16)
+  else if (v14)
   {
     goto LABEL_30;
   }
@@ -664,16 +663,16 @@ LABEL_26:
   }
 
   has = self->_has;
-  v28 = *(equalCopy + 86);
+  v23 = *(equalCopy + 86);
   if ((has & 0x80) != 0)
   {
-    if ((v28 & 0x80) == 0 || self->_runErrorCode != *(equalCopy + 29))
+    if ((v23 & 0x80) == 0 || self->_runErrorCode != *(equalCopy + 29))
     {
       goto LABEL_30;
     }
   }
 
-  else if ((v28 & 0x80) != 0)
+  else if ((v23 & 0x80) != 0)
   {
     goto LABEL_30;
   }
@@ -693,86 +692,86 @@ LABEL_26:
 
   if ((has & 2) != 0)
   {
-    if ((v28 & 2) == 0 || self->_inputTokenLength != *(equalCopy + 18))
+    if ((v23 & 2) == 0 || self->_inputTokenLength != *(equalCopy + 18))
     {
       goto LABEL_30;
     }
   }
 
-  else if ((v28 & 2) != 0)
+  else if ((v23 & 2) != 0)
   {
     goto LABEL_30;
   }
 
   if ((has & 8) != 0)
   {
-    if ((v28 & 8) == 0 || self->_outputTokenLength != *(equalCopy + 25))
+    if ((v23 & 8) == 0 || self->_outputTokenLength != *(equalCopy + 25))
     {
       goto LABEL_30;
     }
   }
 
-  else if ((v28 & 8) != 0)
+  else if ((v23 & 8) != 0)
   {
     goto LABEL_30;
   }
 
   if ((has & 0x20) != 0)
   {
-    if ((v28 & 0x20) == 0 || self->_requestType != *(equalCopy + 27))
+    if ((v23 & 0x20) == 0 || self->_requestType != *(equalCopy + 27))
     {
       goto LABEL_30;
     }
   }
 
-  else if ((v28 & 0x20) != 0)
+  else if ((v23 & 0x20) != 0)
   {
     goto LABEL_30;
   }
 
   if ((has & 0x10) != 0)
   {
-    if ((v28 & 0x10) == 0 || self->_regionEligibility != *(equalCopy + 26))
+    if ((v23 & 0x10) == 0 || self->_regionEligibility != *(equalCopy + 26))
     {
       goto LABEL_30;
     }
   }
 
-  else if ((v28 & 0x10) != 0)
+  else if ((v23 & 0x10) != 0)
   {
     goto LABEL_30;
   }
 
   if ((has & 0x40) != 0)
   {
-    if ((v28 & 0x40) == 0 || self->_resultType != *(equalCopy + 28))
+    if ((v23 & 0x40) == 0 || self->_resultType != *(equalCopy + 28))
     {
       goto LABEL_30;
     }
   }
 
-  else if ((v28 & 0x40) != 0)
+  else if ((v23 & 0x40) != 0)
   {
     goto LABEL_30;
   }
 
   if ((has & 4) == 0)
   {
-    v17 = (v28 & 4) == 0;
+    v15 = (v23 & 4) == 0;
     goto LABEL_31;
   }
 
-  if ((v28 & 4) != 0 && self->_numFollowUp == *(equalCopy + 24))
+  if ((v23 & 4) != 0 && self->_numFollowUp == *(equalCopy + 24))
   {
-    v17 = 1;
+    v15 = 1;
     goto LABEL_31;
   }
 
 LABEL_30:
-  v17 = 0;
+  v15 = 0;
 LABEL_31:
 
-  return v17;
+  return v15;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -1197,132 +1196,127 @@ LABEL_46:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v19 = toCopy;
+  v7 = toCopy;
   if (self->_key)
   {
     PBDataWriterWriteStringField();
-    toCopy = v19;
+    toCopy = v7;
   }
 
   if (self->_runSource)
   {
     PBDataWriterWriteStringField();
-    toCopy = v19;
+    toCopy = v7;
   }
 
   if ((*&self->_has & 0x200) != 0)
   {
-    completed = self->_completed;
     PBDataWriterWriteBOOLField();
-    toCopy = v19;
+    toCopy = v7;
   }
 
   if (self->_actionIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v19;
+    toCopy = v7;
   }
 
   if (self->_shortcutSource)
   {
     PBDataWriterWriteStringField();
-    toCopy = v19;
+    toCopy = v7;
   }
 
   if (self->_automationType)
   {
     PBDataWriterWriteStringField();
-    toCopy = v19;
+    toCopy = v7;
   }
 
   has = self->_has;
   if ((has & 0x400) != 0)
   {
-    didRunRemotely = self->_didRunRemotely;
     PBDataWriterWriteBOOLField();
-    toCopy = v19;
+    toCopy = v7;
     has = self->_has;
   }
 
   if ((has & 0x800) != 0)
   {
-    isInvalidatedSystemAction = self->_isInvalidatedSystemAction;
     PBDataWriterWriteBOOLField();
-    toCopy = v19;
+    toCopy = v7;
   }
 
   if (self->_galleryIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v19;
+    toCopy = v7;
   }
 
   if (self->_externalBundleIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v19;
+    toCopy = v7;
   }
 
   if (self->_externalActionIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v19;
+    toCopy = v7;
   }
 
   if (self->_shortcutsId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v19;
+    toCopy = v7;
   }
 
   if (*&self->_has)
   {
-    completeFailReason = self->_completeFailReason;
     PBDataWriterWriteInt32Field();
-    toCopy = v19;
+    toCopy = v7;
   }
 
   if (self->_baseModel)
   {
     PBDataWriterWriteStringField();
-    toCopy = v19;
+    toCopy = v7;
   }
 
   if (self->_adapterModel)
   {
     PBDataWriterWriteStringField();
-    toCopy = v19;
+    toCopy = v7;
   }
 
   if (self->_safetyModel)
   {
     PBDataWriterWriteStringField();
-    toCopy = v19;
+    toCopy = v7;
   }
 
   if (self->_modelDestination)
   {
     PBDataWriterWriteStringField();
-    toCopy = v19;
+    toCopy = v7;
   }
 
   if (self->_runErrorDomain)
   {
     PBDataWriterWriteStringField();
-    toCopy = v19;
+    toCopy = v7;
   }
 
-  v10 = self->_has;
-  if ((v10 & 0x80) != 0)
+  v6 = self->_has;
+  if ((v6 & 0x80) != 0)
   {
-    runErrorCode = self->_runErrorCode;
     PBDataWriterWriteInt32Field();
-    toCopy = v19;
-    v10 = self->_has;
-    if ((v10 & 0x100) == 0)
+    toCopy = v7;
+    v6 = self->_has;
+    if ((v6 & 0x100) == 0)
     {
 LABEL_39:
-      if ((v10 & 2) == 0)
+      if ((v6 & 2) == 0)
       {
         goto LABEL_40;
       }
@@ -1336,14 +1330,13 @@ LABEL_39:
     goto LABEL_39;
   }
 
-  runLatency = self->_runLatency;
   PBDataWriterWriteFloatField();
-  toCopy = v19;
-  v10 = self->_has;
-  if ((v10 & 2) == 0)
+  toCopy = v7;
+  v6 = self->_has;
+  if ((v6 & 2) == 0)
   {
 LABEL_40:
-    if ((v10 & 8) == 0)
+    if ((v6 & 8) == 0)
     {
       goto LABEL_41;
     }
@@ -1352,14 +1345,13 @@ LABEL_40:
   }
 
 LABEL_51:
-  inputTokenLength = self->_inputTokenLength;
   PBDataWriterWriteUint32Field();
-  toCopy = v19;
-  v10 = self->_has;
-  if ((v10 & 8) == 0)
+  toCopy = v7;
+  v6 = self->_has;
+  if ((v6 & 8) == 0)
   {
 LABEL_41:
-    if ((v10 & 0x20) == 0)
+    if ((v6 & 0x20) == 0)
     {
       goto LABEL_42;
     }
@@ -1368,14 +1360,13 @@ LABEL_41:
   }
 
 LABEL_52:
-  outputTokenLength = self->_outputTokenLength;
   PBDataWriterWriteUint32Field();
-  toCopy = v19;
-  v10 = self->_has;
-  if ((v10 & 0x20) == 0)
+  toCopy = v7;
+  v6 = self->_has;
+  if ((v6 & 0x20) == 0)
   {
 LABEL_42:
-    if ((v10 & 0x10) == 0)
+    if ((v6 & 0x10) == 0)
     {
       goto LABEL_43;
     }
@@ -1384,14 +1375,13 @@ LABEL_42:
   }
 
 LABEL_53:
-  requestType = self->_requestType;
   PBDataWriterWriteInt32Field();
-  toCopy = v19;
-  v10 = self->_has;
-  if ((v10 & 0x10) == 0)
+  toCopy = v7;
+  v6 = self->_has;
+  if ((v6 & 0x10) == 0)
   {
 LABEL_43:
-    if ((v10 & 0x40) == 0)
+    if ((v6 & 0x40) == 0)
     {
       goto LABEL_44;
     }
@@ -1400,14 +1390,13 @@ LABEL_43:
   }
 
 LABEL_54:
-  regionEligibility = self->_regionEligibility;
   PBDataWriterWriteInt32Field();
-  toCopy = v19;
-  v10 = self->_has;
-  if ((v10 & 0x40) == 0)
+  toCopy = v7;
+  v6 = self->_has;
+  if ((v6 & 0x40) == 0)
   {
 LABEL_44:
-    if ((v10 & 4) == 0)
+    if ((v6 & 4) == 0)
     {
       goto LABEL_46;
     }
@@ -1416,15 +1405,13 @@ LABEL_44:
   }
 
 LABEL_55:
-  resultType = self->_resultType;
   PBDataWriterWriteInt32Field();
-  toCopy = v19;
+  toCopy = v7;
   if ((*&self->_has & 4) != 0)
   {
 LABEL_45:
-    numFollowUp = self->_numFollowUp;
     PBDataWriterWriteUint32Field();
-    toCopy = v19;
+    toCopy = v7;
   }
 
 LABEL_46:
@@ -1744,42 +1731,42 @@ LABEL_49:
 - (int)StringAsResultType:(id)type
 {
   typeCopy = type;
-  if ([typeCopy isEqualToString:@"UseModelResultTypeAutomatic"])
+  if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 0;
   }
 
-  else if ([typeCopy isEqualToString:@"UseModelResultTypeText"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 1;
   }
 
-  else if ([typeCopy isEqualToString:@"UseModelResultTypeNumber"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 2;
   }
 
-  else if ([typeCopy isEqualToString:@"UseModelResultTypeDate"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 3;
   }
 
-  else if ([typeCopy isEqualToString:@"UseModelResultTypeBoolean"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 4;
   }
 
-  else if ([typeCopy isEqualToString:@"UseModelResultTypeList"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 5;
   }
 
-  else if ([typeCopy isEqualToString:@"UseModelResultTypeDictionary"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 6;
   }
 
-  else if ([typeCopy isEqualToString:@"UseModelResultTypeEntities"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 7;
   }
@@ -1787,6 +1774,21 @@ LABEL_49:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)resultTypeAsString:(int)string
+{
+  if (string >= 8)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E83788C0[string];
   }
 
   return v4;
@@ -1823,14 +1825,37 @@ LABEL_49:
 - (int)StringAsRegionEligibility:(id)eligibility
 {
   eligibilityCopy = eligibility;
-  if ([eligibilityCopy isEqualToString:@"UseModelRegionEligibilityDefault"])
+  if (objc_msgSend_isEqualToString_(eligibilityCopy))
   {
-    v4 = 0;
+    isEqualToString = 0;
   }
 
   else
   {
-    v4 = [eligibilityCopy isEqualToString:@"UseModelRegionEligibilityChina"];
+    isEqualToString = objc_msgSend_isEqualToString_(eligibilityCopy);
+  }
+
+  return isEqualToString;
+}
+
+- (id)regionEligibilityAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"UseModelRegionEligibilityChina";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"UseModelRegionEligibilityDefault";
   }
 
   return v4;
@@ -1867,22 +1892,22 @@ LABEL_49:
 - (int)StringAsRequestType:(id)type
 {
   typeCopy = type;
-  if ([typeCopy isEqualToString:@"UseModelRequestTypeTextOnly"])
+  if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 0;
   }
 
-  else if ([typeCopy isEqualToString:@"UseModelRequestTypeMultimodalImage"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 1;
   }
 
-  else if ([typeCopy isEqualToString:@"UseModelRequestTypeMultimodalDocument"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 2;
   }
 
-  else if ([typeCopy isEqualToString:@"UseModelRequestTypeMultimodalBoth"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 3;
   }
@@ -1890,6 +1915,21 @@ LABEL_49:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)requestTypeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E83788A0[string];
   }
 
   return v4;
@@ -1986,52 +2026,52 @@ LABEL_49:
 - (int)StringAsCompleteFailReason:(id)reason
 {
   reasonCopy = reason;
-  if ([reasonCopy isEqualToString:@"RunActionFailReasonUnknown"])
+  if (objc_msgSend_isEqualToString_(reasonCopy))
   {
     v4 = -1;
   }
 
-  else if ([reasonCopy isEqualToString:@"RunActionFailReasonModelGeneratedUnsafeV1"])
+  else if (objc_msgSend_isEqualToString_(reasonCopy))
   {
     v4 = 0;
   }
 
-  else if ([reasonCopy isEqualToString:@"RunActionFailReasonModelGeneratedUnsafeV2"])
+  else if (objc_msgSend_isEqualToString_(reasonCopy))
   {
     v4 = 1;
   }
 
-  else if ([reasonCopy isEqualToString:@"RunActionFailReasonModelGeneratedHandleWithCareV2"])
+  else if (objc_msgSend_isEqualToString_(reasonCopy))
   {
     v4 = 2;
   }
 
-  else if ([reasonCopy isEqualToString:@"RunActionFailReasonSafetyGuardrail"])
+  else if (objc_msgSend_isEqualToString_(reasonCopy))
   {
     v4 = 3;
   }
 
-  else if ([reasonCopy isEqualToString:@"RunActionFailReasonDenyList"])
+  else if (objc_msgSend_isEqualToString_(reasonCopy))
   {
     v4 = 4;
   }
 
-  else if ([reasonCopy isEqualToString:@"RunActionFailReasonScriptValidator"])
+  else if (objc_msgSend_isEqualToString_(reasonCopy))
   {
     v4 = 5;
   }
 
-  else if ([reasonCopy isEqualToString:@"RunActionFailReasonLanguageRecognizer"])
+  else if (objc_msgSend_isEqualToString_(reasonCopy))
   {
     v4 = 6;
   }
 
-  else if ([reasonCopy isEqualToString:@"RunActionFailReasonInputImageSanitizer"])
+  else if (objc_msgSend_isEqualToString_(reasonCopy))
   {
     v4 = 7;
   }
 
-  else if ([reasonCopy isEqualToString:@"RunActionFailReasonInputTextSCMLAdapterViolation"])
+  else if (objc_msgSend_isEqualToString_(reasonCopy))
   {
     v4 = 8;
   }
@@ -2039,6 +2079,21 @@ LABEL_49:
   else
   {
     v4 = -1;
+  }
+
+  return v4;
+}
+
+- (id)completeFailReasonAsString:(int)string
+{
+  if ((string + 1) >= 0xA)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E8378850[string + 1];
   }
 
   return v4;

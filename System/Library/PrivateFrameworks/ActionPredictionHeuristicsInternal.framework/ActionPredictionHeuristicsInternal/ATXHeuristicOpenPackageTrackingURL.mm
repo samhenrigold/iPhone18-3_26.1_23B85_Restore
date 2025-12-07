@@ -17,7 +17,7 @@
 
 - (id)heuristicResultWithEnvironment:(id)environment
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   environmentCopy = environment;
   v5 = [ATXHeuristicClipboardUtilities alloc];
   heuristicDevice = [environmentCopy heuristicDevice];
@@ -30,84 +30,83 @@
 
   if (v10)
   {
-    v11 = __atxlog_handle_context_heuristic();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = __atxlog_handle_context_heuristic(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_23E3EA000, v11, OS_LOG_TYPE_DEFAULT, "heuristicResultWithEnvironment: Suppressing action for package tracking number copied from Safari.", buf, 2u);
+      _os_log_impl(&dword_23E3EA000, v12, OS_LOG_TYPE_DEFAULT, "heuristicResultWithEnvironment: Suppressing action for package tracking number copied from Safari.", buf, 2u);
     }
 
-    v12 = objc_opt_new();
+    v13 = objc_opt_new();
   }
 
   else
   {
-    v13 = [(ATXHeuristicOpenPackageTrackingURL *)self packageTrackingNumbersFromDataDetectorResults:dataDetectors];
+    v14 = [(ATXHeuristicOpenPackageTrackingURL *)self packageTrackingNumbersFromDataDetectorResults:dataDetectors];
 
-    v14 = __atxlog_handle_context_heuristic();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v16 = __atxlog_handle_context_heuristic(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v37 = v13;
-      _os_log_impl(&dword_23E3EA000, v14, OS_LOG_TYPE_DEFAULT, "heuristicResultWithEnvironment: results:%@", buf, 0xCu);
+      v40 = v14;
+      _os_log_impl(&dword_23E3EA000, v16, OS_LOG_TYPE_DEFAULT, "heuristicResultWithEnvironment: results:%@", buf, 0xCu);
     }
 
-    if ([v13 count] == 1)
+    v17 = [v14 count];
+    if (v17 == 1)
     {
-      firstObject = [v13 firstObject];
-      v16 = [firstObject objectForKeyedSubscript:@"trackingNumber"];
-      v17 = [firstObject objectForKeyedSubscript:@"urlEncodedTrackingNumber"];
-      v18 = [firstObject objectForKeyedSubscript:@"companyName"];
-      v34 = v17;
-      v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"https://trackingshipment.apple.com/?Company=%@&TrackingNumber=%@", v18, v17];
-      v20 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v21 = MEMORY[0x277CCACA8];
-      v33 = v20;
-      v22 = [v20 localizedStringForKey:@"OPEN_PACKAGE_TRACKING_LINK_TITLE" value:&stru_2850AD368 table:0];
-      v23 = [v21 localizedStringWithFormat:v22, v18];
+      firstObject = [v14 firstObject];
+      v19 = [firstObject objectForKeyedSubscript:@"trackingNumber"];
+      v20 = [firstObject objectForKeyedSubscript:@"urlEncodedTrackingNumber"];
+      v21 = [firstObject objectForKeyedSubscript:@"companyName"];
+      v37 = v20;
+      v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"https://trackingshipment.apple.com/?Company=%@&TrackingNumber=%@", v21, v20];
+      v23 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v24 = MEMORY[0x277CCACA8];
+      v36 = v23;
+      v25 = [v23 localizedStringForKey:@"OPEN_PACKAGE_TRACKING_LINK_TITLE" value:&stru_2850AD368 table:0];
+      v26 = [v24 localizedStringWithFormat:v25, v21];
 
-      v24 = MEMORY[0x277CEB2C8];
-      v25 = *MEMORY[0x277CCA850];
-      v26 = objc_opt_new();
-      v27 = [v24 atx_userActivityActionWithTitle:v23 subtitle:v16 bundleID:@"com.apple.mobilesafari" activityType:v25 urlString:v19 userInfo:v26 heuristicName:@"openPackageTrackingUrl"];
+      v27 = MEMORY[0x277CEB2C8];
+      v28 = *MEMORY[0x277CCA850];
+      v29 = objc_opt_new();
+      v30 = [v27 atx_userActivityActionWithTitle:v26 subtitle:v19 bundleID:@"com.apple.mobilesafari" activityType:v28 urlString:v22 userInfo:v29 heuristicName:@"openPackageTrackingUrl"];
 
-      if (v27)
+      if (v30)
       {
-        v35 = v27;
-        v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v35 count:1];
-        v12 = [(ATXHeuristicClipboardUtilities *)v7 resultWithActions:v28 predictionReasons:0x4000000];
+        v38 = v30;
+        v32 = [MEMORY[0x277CBEA60] arrayWithObjects:&v38 count:1];
+        v13 = [(ATXHeuristicClipboardUtilities *)v7 resultWithActions:v32 predictionReasons:0x4000000];
       }
 
       else
       {
-        v30 = __atxlog_handle_context_heuristic();
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+        v34 = __atxlog_handle_context_heuristic(v31);
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
         {
-          [(ATXHeuristicOpenPackageTrackingURL *)v19 heuristicResultWithEnvironment:v30];
+          [(ATXHeuristicOpenPackageTrackingURL *)v22 heuristicResultWithEnvironment:v34];
         }
 
-        v12 = objc_opt_new();
+        v13 = objc_opt_new();
       }
     }
 
     else
     {
-      v29 = __atxlog_handle_context_heuristic();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+      v33 = __atxlog_handle_context_heuristic(v17);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_23E3EA000, v29, OS_LOG_TYPE_DEFAULT, "heuristicResultWithEnvironment: Suppressing action prediction for package tracking number because did not detect exactly 1 URL.", buf, 2u);
+        _os_log_impl(&dword_23E3EA000, v33, OS_LOG_TYPE_DEFAULT, "heuristicResultWithEnvironment: Suppressing action prediction for package tracking number because did not detect exactly 1 URL.", buf, 2u);
       }
 
-      v12 = objc_opt_new();
+      v13 = objc_opt_new();
     }
 
-    dataDetectors = v13;
+    dataDetectors = v14;
   }
 
-  v31 = *MEMORY[0x277D85DE8];
-
-  return v12;
+  return v13;
 }
 
 uint64_t __84__ATXHeuristicOpenPackageTrackingURL_packageTrackingNumbersFromDataDetectorResults___block_invoke(uint64_t a1, void *a2)
@@ -120,11 +119,10 @@ uint64_t __84__ATXHeuristicOpenPackageTrackingURL_packageTrackingNumbersFromData
 
 - (void)heuristicResultWithEnvironment:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_23E3EA000, a2, OS_LOG_TYPE_ERROR, "ATXHeuristicOpenPackageTrackingURL heuristicResultWithEnvironment: Action created from URL %@ is nil. No results returned", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_23E3EA000, a2, OS_LOG_TYPE_ERROR, "ATXHeuristicOpenPackageTrackingURL heuristicResultWithEnvironment: Action created from URL %@ is nil. No results returned", &v2, 0xCu);
 }
 
 @end

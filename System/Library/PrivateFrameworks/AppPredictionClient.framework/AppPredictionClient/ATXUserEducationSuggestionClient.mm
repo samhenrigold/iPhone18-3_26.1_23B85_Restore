@@ -26,14 +26,14 @@
   return v2;
 }
 
-void __50__ATXUserEducationSuggestionClient_sharedInstance__block_invoke()
+void __50__ATXUserEducationSuggestionClient_sharedInstance__block_invoke(uint64_t a1)
 {
-  v0 = objc_autoreleasePoolPush();
-  v1 = objc_opt_new();
-  v2 = sharedInstance__pasExprOnceResult_15;
-  sharedInstance__pasExprOnceResult_15 = v1;
+  v1 = objc_autoreleasePoolPush();
+  v2 = objc_opt_new();
+  v3 = sharedInstance__pasExprOnceResult_15;
+  sharedInstance__pasExprOnceResult_15 = v2;
 
-  objc_autoreleasePoolPop(v0);
+  objc_autoreleasePoolPop(v1);
 }
 
 - (ATXUserEducationSuggestionClient)init

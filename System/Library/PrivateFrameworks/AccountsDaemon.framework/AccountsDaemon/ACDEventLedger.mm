@@ -79,10 +79,10 @@ uint64_t __30__ACDEventLedger_sharedLedger__block_invoke()
 
   if (recordEvent__logDatabaseTransactions == 1)
   {
-    v12 = _ACDSaveLogSystem();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v13 = _ACDSaveLogSystem(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      [(ACDEventLedger *)eventCopy recordEvent:v12];
+      [(ACDEventLedger *)eventCopy recordEvent:v13];
     }
   }
 }
@@ -140,11 +140,10 @@ uint64_t __30__ACDEventLedger_recordEvent___block_invoke()
 
 - (void)recordEvent:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_221D2F000, a2, OS_LOG_TYPE_DEBUG, "%@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_221D2F000, a2, OS_LOG_TYPE_DEBUG, "%@", &v2, 0xCu);
 }
 
 - (void)simulateCrashWithMessage:.cold.1()

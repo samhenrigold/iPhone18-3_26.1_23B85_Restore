@@ -1,3 +1,250 @@
+void sub_1001BE458(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19)
+{
+  if (a18 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (SHIBYTE(a12) < 0)
+  {
+    operator delete(a10);
+  }
+
+  if (a2 == 1)
+  {
+    __cxa_begin_catch(a1);
+    if (v19)
+    {
+      if (qword_1004E53D0 >> 1 == 0x595588BD12BF6FE8 || (boost::system::detail::generic_cat_holder<void>::instance[6])(&boost::system::detail::generic_cat_holder<void>::instance, 12))
+      {
+        v23 = 3;
+      }
+
+      else
+      {
+        v23 = 2;
+      }
+
+      *v19 = 12;
+      v19[1] = &boost::system::detail::generic_cat_holder<void>::instance;
+      v19[2] = v23;
+      a19 = *v20;
+      *v20 = 0;
+      boost::intrusive_ptr<boost::filesystem::detail::dir_itr_imp>::~intrusive_ptr(&a19);
+      __cxa_end_catch();
+      JUMPOUT(0x1001BE370);
+    }
+
+    __cxa_rethrow();
+  }
+
+  JUMPOUT(0x1001BE448);
+}
+
+void sub_1001BE540(void *a1, int a2)
+{
+  if (a2)
+  {
+    __clang_call_terminate(a1);
+  }
+
+  JUMPOUT(0x1001BE450);
+}
+
+void boost::filesystem::detail::directory_iterator_increment(boost::filesystem::detail *this, boost::filesystem::directory_iterator *a2, boost::system::error_code *a3)
+{
+  if (a2)
+  {
+    *a2 = 0;
+    *(a2 + 1) = 0;
+    *(a2 + 2) = 0;
+  }
+
+  memset(&v33, 0, sizeof(v33));
+  v34 = 0;
+  v35 = 0;
+  v5 = *this;
+  v6 = *(*this + 48);
+  while (1)
+  {
+    *v28 = 0;
+    *__error() = 0;
+    v7 = sysconf(91);
+    if (v7 < 0)
+    {
+      *__error() = 0;
+      v13 = readdir(v6);
+      *v28 = v13;
+      if (v13)
+      {
+LABEL_14:
+        std::string::__assign_external(&v33, v13->d_name);
+        memset(&v32, 0, sizeof(v32));
+        v34 = 0;
+        v35 = 0 >> 96;
+        goto LABEL_15;
+      }
+
+      v12 = *__error();
+      if (v12)
+      {
+        goto LABEL_31;
+      }
+    }
+
+    else
+    {
+      v8 = *(v5 + 56);
+      if (!v8)
+      {
+        v21 = malloc(v20 + 25);
+        *(v5 + 56) = v21;
+        if (!v21)
+        {
+          v12 = 12;
+LABEL_31:
+          *&v32.__r_.__value_.__l.__data_ = 0uLL;
+          if (qword_1004E53B8 >> 1 == 0x595588BD12BF6FE8 || (boost::system::detail::system_cat_holder<void>::instance[6])(&boost::system::detail::system_cat_holder<void>::instance, v12))
+          {
+            v14 = 3;
+          }
+
+          else
+          {
+            v14 = 2;
+          }
+
+          LODWORD(v32.__r_.__value_.__l.__data_) = v12;
+          v32.__r_.__value_.__l.__size_ = &boost::system::detail::system_cat_holder<void>::instance;
+          v32.__r_.__value_.__r.__words[2] = v14;
+          goto LABEL_9;
+        }
+
+        v8 = v21;
+        bzero(v21, v20 + 25);
+      }
+
+      v12 = readdir_r(v6, v8, v28);
+      if (v12)
+      {
+        goto LABEL_31;
+      }
+    }
+
+    v13 = *v28;
+    if (*v28)
+    {
+      goto LABEL_14;
+    }
+
+    boost::filesystem::detail::dir_itr_close(&v32, (v5 + 48), (v5 + 56));
+    LODWORD(v12) = v32.__r_.__value_.__l.__data_;
+    v14 = v32.__r_.__value_.__r.__words[2];
+LABEL_9:
+    v34 = *(v32.__r_.__value_.__r.__words + 4);
+    v35 = HIDWORD(v32.__r_.__value_.__r.__words[1]);
+    if ((v14 & 1) != 0 && (v14 != 1 || v12))
+    {
+      v31 = *this;
+      v26 = v31;
+      *this = 0;
+      boost::filesystem::path::parent_path(&v32, (v26 + 8), v9, v10, v11);
+      if (!a2)
+      {
+        exception = __cxa_allocate_exception(0x30uLL);
+        *v28 = v12;
+        *&v28[4] = v34;
+        v29 = v35;
+        v30 = v14;
+        boost::filesystem::filesystem_error::filesystem_error(exception, "boost::filesystem::directory_iterator::operator++", &v32, v28);
+      }
+
+      *a2 = v12;
+      *(a2 + 4) = v34;
+      *(a2 + 3) = v35;
+      *(a2 + 2) = v14;
+      if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v32.__r_.__value_.__l.__data_);
+      }
+
+      v22 = &v31;
+      goto LABEL_42;
+    }
+
+LABEL_15:
+    v5 = *this;
+    v6 = *(*this + 48);
+    if (!v6)
+    {
+      v32.__r_.__value_.__r.__words[0] = *this;
+      *this = 0;
+      v22 = &v32;
+LABEL_42:
+      boost::intrusive_ptr<boost::filesystem::detail::dir_itr_imp>::~intrusive_ptr(v22);
+      goto LABEL_46;
+    }
+
+    v15 = v33.__r_.__value_.__r.__words[0];
+    if ((v33.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v16 = &v33;
+    }
+
+    else
+    {
+      v16 = v33.__r_.__value_.__r.__words[0];
+    }
+
+    if (v16->__r_.__value_.__s.__data_[0] != 46)
+    {
+      break;
+    }
+
+    v17 = (v33.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v33 : v33.__r_.__value_.__r.__words[0];
+    v18 = v17->__r_.__value_.__s.__data_[1];
+    if (v18)
+    {
+      if (v18 != 46)
+      {
+        break;
+      }
+
+      v19 = (v33.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v33 : v33.__r_.__value_.__r.__words[0];
+      if (v19->__r_.__value_.__s.__data_[2])
+      {
+        break;
+      }
+    }
+  }
+
+  if (SHIBYTE(v33.__r_.__value_.__r.__words[2]) < 0)
+  {
+    std::string::__init_copy_ctor_external(&v32, v33.__r_.__value_.__l.__data_, v33.__r_.__value_.__l.__size_);
+  }
+
+  else
+  {
+    v32 = v33;
+  }
+
+  boost::filesystem::path::remove_filename((v5 + 8), v15, v10, v11);
+  boost::filesystem::path::append_v4((v5 + 8), &v32, v23, v24);
+  *&v25 = 0xFFFF00000000;
+  *(&v25 + 1) = 0xFFFF00000000;
+  *(v5 + 32) = v25;
+  if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v32.__r_.__value_.__l.__data_);
+  }
+
+LABEL_46:
+  if (SHIBYTE(v33.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v33.__r_.__value_.__l.__data_);
+  }
+}
+
 void sub_1001BE9EC(_Unwind_Exception *a1, int a2)
 {
   if (a2)
@@ -8,7 +255,7 @@ void sub_1001BE9EC(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
-void *boost::filesystem::path::parent_path@<X0>(boost::filesystem::path *this@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, unint64_t *a4@<X3>, void *a5@<X8>)
+uint64_t *boost::filesystem::path::parent_path@<X0>(uint64_t *__return_ptr a1@<X8>, boost::filesystem::path *this@<X0>, uint64_t a3@<X1>, uint64_t a4@<X2>, unint64_t *a5@<X3>)
 {
   v6 = this;
   if (*(this + 23) < 0)
@@ -16,9 +263,9 @@ void *boost::filesystem::path::parent_path@<X0>(boost::filesystem::path *this@<X
     v6 = *this;
   }
 
-  parent_path_size = boost::filesystem::path::find_parent_path_size(this, a2, a3, a4);
+  parent_path_size = boost::filesystem::path::find_parent_path_size(this, a3, a4, a5);
 
-  return std::string::__init_with_size[abi:ne200100]<char const*,char const*>(a5, v6, &parent_path_size[v6], parent_path_size);
+  return std::string::__init_with_size[abi:ne200100]<char const*,char const*>(a1, v6, &parent_path_size[v6], parent_path_size);
 }
 
 boost::filesystem::detail::dir_itr_imp **boost::filesystem::detail::recursive_directory_iterator_construct(void ***a1, std::string *a2, boost::filesystem::path *a3, boost::filesystem::path *a4, boost::system::error_code *a5)
@@ -104,24 +351,24 @@ LABEL_18:
   return boost::intrusive_ptr<boost::filesystem::detail::dir_itr_imp>::~intrusive_ptr(&v17);
 }
 
-void sub_1001BEBDC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1001BEBDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void **);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void **);
   boost::intrusive_ptr<boost::filesystem::detail::recur_dir_itr_imp>::~intrusive_ptr(va);
   boost::intrusive_ptr<boost::filesystem::detail::dir_itr_imp>::~intrusive_ptr(va1);
   _Unwind_Resume(a1);
 }
 
-void *std::vector<boost::filesystem::directory_iterator>::push_back[abi:ne200100](void *result, void *a2)
+boost::filesystem::detail::dir_itr_imp ***std::vector<boost::filesystem::directory_iterator>::push_back[abi:ne200100](boost::filesystem::detail::dir_itr_imp ***result, boost::filesystem::detail::dir_itr_imp **a2)
 {
   v3 = result;
   v5 = result[1];
   v4 = result[2];
   if (v5 >= v4)
   {
-    v7 = (v5 - *result) >> 3;
+    v7 = v5 - *result;
     if ((v7 + 1) >> 61)
     {
       std::vector<std::string>::__throw_length_error[abi:ne200100]();
@@ -163,7 +410,7 @@ void *std::vector<boost::filesystem::directory_iterator>::push_back[abi:ne200100
     v13[2] = v12 + 8;
     v13[3] = &v11[8 * v10];
     std::vector<boost::filesystem::directory_iterator>::__swap_out_circular_buffer(v3, v13);
-    v6 = *(v3 + 8);
+    v6 = v3[1];
     result = std::__split_buffer<boost::filesystem::directory_iterator>::~__split_buffer(v13);
   }
 
@@ -175,13 +422,13 @@ void *std::vector<boost::filesystem::directory_iterator>::push_back[abi:ne200100
     result[1] = v6;
   }
 
-  *(v3 + 8) = v6;
+  v3[1] = v6;
   return result;
 }
 
-void sub_1001BED40(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1001BED40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<boost::filesystem::directory_iterator>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -313,7 +560,7 @@ double boost::filesystem::detail::recursive_directory_iterator_increment(uint64_
     if ((*(v5 + 32) & 2) != 0 || v20 != 4)
     {
 LABEL_6:
-      boost::filesystem::directory_entry::get_status((*(*(v5 + 16) - 8) + 8), &v22, &v25);
+      boost::filesystem::directory_entry::get_status(&v25, (*(*(v5 + 16) - 8) + 8), &v22);
       if ((v23 & 1) != 0 && (v23 != 1 || v22))
       {
         *&v20 = 2;
@@ -442,7 +689,7 @@ LABEL_55:
   return result;
 }
 
-void sub_1001BF300(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, boost::filesystem::detail::dir_itr_imp *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t (***a13)(boost::system::detail::generic_error_category *__hidden this), boost::filesystem::detail::dir_itr_imp *a14)
+void sub_1001BF300(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t (***a13)(boost::system::detail::generic_error_category *__hidden this), uint64_t a14)
 {
   boost::intrusive_ptr<boost::filesystem::detail::dir_itr_imp>::~intrusive_ptr(&a9);
   if (a2 == 2)
@@ -460,21 +707,21 @@ void sub_1001BF300(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint
 
 void *boost::system::detail::generic_error_category::message@<X0>(int __errnum@<W1>, void *a2@<X8>)
 {
-  v4 = strerror(__errnum);
-  if (v4)
+  v3 = strerror(__errnum);
+  if (v3)
   {
-    v5 = v4;
+    v4 = v3;
   }
 
   else
   {
-    v5 = "Unknown error";
+    v4 = "Unknown error";
   }
 
-  return std::string::basic_string[abi:ne200100]<0>(a2, v5);
+  return std::string::basic_string[abi:ne200100]<0>(a2, v4);
 }
 
-const char *boost::system::detail::generic_error_category::message(boost::system::detail::generic_error_category *this, int __errnum, char *a3, uint64_t a4)
+char *boost::system::detail::generic_error_category::message(boost::system::detail::generic_error_category *this, int __errnum, char *a3, uint64_t a4)
 {
   v4 = a3;
   if (a4)
@@ -499,28 +746,28 @@ const char *boost::system::detail::generic_error_category::message(boost::system
   return v4;
 }
 
-uint64_t boost::system::operator==(uint64_t *a1, unsigned int *a2)
+uint64_t boost::system::operator==(unsigned int *a1, uint64_t a2)
 {
-  v4 = a1[2];
+  v4 = *(a1 + 2);
   if (v4)
   {
     if (v4 == 1)
     {
       v5 = boost::system::error_code::operator std::error_code(a1);
       v7 = v6;
-      v16[0] = v5;
-      v16[1] = v6;
-      v14 = boost::system::error_condition::operator std::error_condition(a2);
-      v15 = v8;
-      if (((*(*v7 + 32))(v7, v5, &v14) & 1) == 0)
+      v15[0] = v5;
+      v15[1] = v6;
+      v13 = boost::system::error_condition::operator std::error_condition(a2);
+      v14 = v8;
+      if (((*(*v7 + 32))(v7, v5, &v13) & 1) == 0)
       {
-        return (*(*v15 + 40))(v15, v16, v14);
+        return (*(*v14 + 40))(v14, v15, v13);
       }
 
       return 1;
     }
 
-    v10 = a1[1];
+    v10 = *(a1 + 1);
   }
 
   else
@@ -533,9 +780,9 @@ uint64_t boost::system::operator==(uint64_t *a1, unsigned int *a2)
     return 1;
   }
 
-  if (*(a2 + 1))
+  if (*(a2 + 8))
   {
-    v11 = *(a2 + 1);
+    v11 = *(a2 + 8);
   }
 
   else
@@ -543,10 +790,9 @@ uint64_t boost::system::operator==(uint64_t *a1, unsigned int *a2)
     v11 = &boost::system::detail::generic_cat_holder<void>::instance;
   }
 
-  v12 = *a2;
-  v13 = (*v11)[3];
+  v12 = (*v11)[3];
 
-  return v13();
+  return v12();
 }
 
 unint64_t boost::system::error_code::operator std::error_code(uint64_t *a1)
@@ -556,53 +802,52 @@ unint64_t boost::system::error_code::operator std::error_code(uint64_t *a1)
   {
     if (v1 == 1)
     {
-      v3 = *a1;
-      v2 = a1[1];
-      v4 = *a1 & 0xFFFFFFFF00000000;
+      v2 = *a1;
+      v3 = *a1 & 0xFFFFFFFF00000000;
     }
 
     else
     {
-      LODWORD(v3) = *a1;
-      v5 = a1[1];
-      v6 = *(v5 + 8);
-      if (v6 == 0xB2AB117A257EDFD1)
+      LODWORD(v2) = *a1;
+      v4 = a1[1];
+      v5 = *(v4 + 8);
+      if (v5 == 0xB2AB117A257EDFD1)
       {
         std::system_category();
       }
 
-      else if (v6 == 0xB2AB117A257EDFD0)
+      else if (v5 == 0xB2AB117A257EDFD0)
       {
         std::generic_category();
       }
 
-      else if (!atomic_load_explicit((v5 + 16), memory_order_acquire))
+      else if (!atomic_load_explicit((v4 + 16), memory_order_acquire))
       {
-        v7 = operator new(0x10uLL);
-        v8 = 0;
-        *v7 = off_1004C8268;
-        v7[1] = v5;
-        atomic_compare_exchange_strong((v5 + 16), &v8, v7);
-        if (v8)
+        v6 = operator new(0x10uLL);
+        v7 = 0;
+        *v6 = off_1004C8268;
+        v6[1] = v4;
+        atomic_compare_exchange_strong((v4 + 16), &v7, v6);
+        if (v7)
         {
-          (*(*v7 + 8))(v7);
-          v4 = 0;
-          return v4 | v3;
+          (*(*v6 + 8))(v6);
+          v3 = 0;
+          return v3 | v2;
         }
       }
 
-      v4 = 0;
+      v3 = 0;
     }
   }
 
   else
   {
     std::system_category();
-    v4 = 0;
-    LODWORD(v3) = 0;
+    v3 = 0;
+    LODWORD(v2) = 0;
   }
 
-  return v4 | v3;
+  return v3 | v2;
 }
 
 uint64_t boost::system::error_condition::operator std::error_condition(unsigned int *a1)
@@ -667,7 +912,7 @@ uint64_t boost::system::detail::std_category::equivalent(boost::system::detail::
   {
     v8 = *(this + 1);
     val = a3->__val_;
-    v19 = v8;
+    v17 = v8;
     return ((*v8)[2])(v8, a2, &val);
   }
 
@@ -707,24 +952,22 @@ uint64_t boost::system::detail::std_category::equivalent(boost::system::detail::
   {
 LABEL_13:
     val = a3->__val_;
-    v19 = &boost::system::detail::generic_cat_holder<void>::instance;
+    v17 = &boost::system::detail::generic_cat_holder<void>::instance;
     goto LABEL_14;
   }
 
-  v10 = a3->__cat_;
-  v11 = v10->~error_category;
-  if (v12)
+  if (v10)
   {
-    v13 = v12[1];
+    v11 = v10[1];
     val = a3->__val_;
-    v19 = v13;
+    v17 = v11;
 LABEL_14:
     v8 = *(this + 1);
     return ((*v8)[2])(v8, a2, &val);
   }
 
-  v15 = (*(*this + 24))(this, a2);
-  return a3->__cat_ == v16 && a3->__val_ == v15;
+  v13 = (*(*this + 24))(this, a2);
+  return a3->__cat_ == v14 && a3->__val_ == v13;
 }
 
 uint64_t boost::system::detail::std_category::equivalent(boost::system::detail::std_category *this, const std::error_code *a2, uint64_t a3)
@@ -734,7 +977,7 @@ uint64_t boost::system::detail::std_category::equivalent(boost::system::detail::
   {
     val = a2->__val_;
     v11 = *(this + 1);
-    v32 = 0;
+    v30 = 0;
     if (v11[1] >> 1 == 0x595588BD12BF6FE8)
     {
       v12 = val != 0;
@@ -754,10 +997,10 @@ uint64_t boost::system::detail::std_category::equivalent(boost::system::detail::
       v15 = 3;
     }
 
-    LODWORD(v32) = val;
-    v33 = v11;
-    v34 = v15;
-    return ((*v13)[3])(v13, &v32, a3);
+    LODWORD(v30) = val;
+    v31 = v11;
+    v32 = v15;
+    return ((*v13)[3])(v13, &v30, a3);
   }
 
   explicit = std::generic_category();
@@ -798,77 +1041,75 @@ uint64_t boost::system::detail::std_category::equivalent(boost::system::detail::
   {
     v8 = qword_1004E53D0;
 LABEL_20:
-    v23 = a2->__val_;
-    v32 = 0;
+    v21 = a2->__val_;
+    v30 = 0;
     if (v8 >> 1 == 0x595588BD12BF6FE8)
     {
-      v24 = v23 != 0;
+      v22 = v21 != 0;
     }
 
     else
     {
-      v24 = (boost::system::detail::generic_cat_holder<void>::instance[6])(&boost::system::detail::generic_cat_holder<void>::instance, v23);
+      v22 = (boost::system::detail::generic_cat_holder<void>::instance[6])(&boost::system::detail::generic_cat_holder<void>::instance, v21);
     }
 
-    v25 = 2;
-    if (v24)
+    v23 = 2;
+    if (v22)
     {
-      v25 = 3;
+      v23 = 3;
     }
 
-    LODWORD(v32) = v23;
-    v33 = &boost::system::detail::generic_cat_holder<void>::instance;
-    v34 = v25;
+    LODWORD(v30) = v21;
+    v31 = &boost::system::detail::generic_cat_holder<void>::instance;
+    v32 = v23;
     goto LABEL_36;
   }
 
-  v17 = a2->__cat_;
-  v18 = v17->~error_category;
-  if (v19)
+  if (v17)
   {
-    v20 = a2->__val_;
-    v21 = v19[1];
-    v32 = 0;
-    if (v21[1] >> 1 == 0x595588BD12BF6FE8)
+    v18 = a2->__val_;
+    v19 = v17[1];
+    v30 = 0;
+    if (v19[1] >> 1 == 0x595588BD12BF6FE8)
     {
-      v22 = v20 != 0;
+      v20 = v18 != 0;
     }
 
     else
     {
-      v22 = ((*v21)[6])(v21, v20);
+      v20 = ((*v19)[6])(v19, v18);
     }
 
-    v31 = 2;
-    if (v22)
+    v29 = 2;
+    if (v20)
     {
-      v31 = 3;
+      v29 = 3;
     }
 
-    LODWORD(v32) = v20;
-    v33 = v21;
-    v34 = v31;
+    LODWORD(v30) = v18;
+    v31 = v19;
+    v32 = v29;
 LABEL_36:
     v13 = *(this + 1);
-    return ((*v13)[3])(v13, &v32, a3);
+    return ((*v13)[3])(v13, &v30, a3);
   }
 
-  v26 = *(this + 1);
-  v27 = v26 == &boost::system::detail::generic_cat_holder<void>::instance;
-  v28 = v26[1] == qword_1004E53D0;
+  v24 = *(this + 1);
+  v25 = v24 == &boost::system::detail::generic_cat_holder<void>::instance;
+  v26 = v24[1] == qword_1004E53D0;
   if (!qword_1004E53D0)
   {
-    v28 = v27;
+    v26 = v25;
   }
 
-  if (!v28)
+  if (!v26)
   {
     return 0;
   }
 
-  v29 = *(*v9 + 40);
+  v27 = *(*v9 + 40);
 
-  return v29(v9, a2, a3);
+  return v27(v9, a2, a3);
 }
 
 uint64_t boost::filesystem::detail::anonymous namespace::path_max(boost::filesystem::detail::_anonymous_namespace_ *this)
@@ -947,15 +1188,15 @@ void *std::string::__init_with_size[abi:ne200100]<char const*,char const*>(void 
   return __dst;
 }
 
-boost::filesystem::detail::dir_itr_imp **std::vector<boost::filesystem::directory_iterator>::__swap_out_circular_buffer(uint64_t a1, void *a2)
+boost::filesystem::detail::dir_itr_imp **std::vector<boost::filesystem::directory_iterator>::__swap_out_circular_buffer(boost::filesystem::detail::dir_itr_imp ***a1, void *a2)
 {
   result = *a1;
-  v5 = *(a1 + 8);
-  v7 = (a2[1] + result - v5);
+  v5 = a1[1];
+  v7 = result + a2[1] - v5;
   if (v5 != result)
   {
     v8 = result;
-    v9 = (a2[1] + result - v5);
+    v9 = (result + a2[1] - v5);
     do
     {
       *v9++ = *v8;
@@ -974,13 +1215,13 @@ boost::filesystem::detail::dir_itr_imp **std::vector<boost::filesystem::director
 
   a2[1] = v7;
   *a1 = v7;
-  *(a1 + 8) = result;
+  a1[1] = result;
   a2[1] = result;
-  v10 = *(a1 + 8);
-  *(a1 + 8) = a2[2];
+  v10 = a1[1];
+  a1[1] = a2[2];
   a2[2] = v10;
-  v11 = *(a1 + 16);
-  *(a1 + 16) = a2[3];
+  v11 = a1[2];
+  a1[2] = a2[3];
   a2[3] = v11;
   *a2 = a2[1];
   return result;
@@ -1038,7 +1279,7 @@ boost::filesystem::detail::dir_itr_imp **boost::intrusive_ptr<boost::filesystem:
 
 void boost::filesystem::detail::dir_itr_imp::~dir_itr_imp(boost::filesystem::detail::dir_itr_imp *this)
 {
-  boost::filesystem::detail::dir_itr_close(this + 6, this + 7, v2);
+  boost::filesystem::detail::dir_itr_close(v2, this + 6, this + 7);
   if (*(this + 31) < 0)
   {
     operator delete(*(this + 1));
@@ -1083,7 +1324,7 @@ void std::vector<boost::filesystem::directory_iterator>::__destroy_vector::opera
   }
 }
 
-void boost::filesystem::detail::absolute(std::string::size_type *this@<X0>, std::string *a2@<X1>, const boost::filesystem::path *a3@<X2>, boost::system::error_code *a4@<X3>, uint64_t a5@<X8>)
+void boost::filesystem::detail::absolute(std::string::size_type *this@<X0>, std::string *a2@<X1>, const boost::filesystem::path *a3@<X2>, uint64_t a4@<X8>, unint64_t *a5@<X3>)
 {
   if (a3)
   {
@@ -1092,7 +1333,7 @@ void boost::filesystem::detail::absolute(std::string::size_type *this@<X0>, std:
     *(a3 + 2) = 0;
   }
 
-  boost::filesystem::path::find_root_directory(this, a2, a3, a4);
+  boost::filesystem::path::find_root_directory(this, a2, a3, a5);
   if (v9)
   {
     if (*(this + 23) < 0)
@@ -1100,13 +1341,13 @@ void boost::filesystem::detail::absolute(std::string::size_type *this@<X0>, std:
       v12 = *this;
       v13 = this[1];
 
-      std::string::__init_copy_ctor_external(a5, v12, v13);
+      std::string::__init_copy_ctor_external(a4, v12, v13);
     }
 
     else
     {
-      *a5 = *this;
-      *(a5 + 16) = this[2];
+      *a4 = *this;
+      *(a4 + 16) = this[2];
     }
 
     return;
@@ -1114,12 +1355,12 @@ void boost::filesystem::detail::absolute(std::string::size_type *this@<X0>, std:
 
   if (SHIBYTE(a2->__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v47, a2->__r_.__value_.__l.__data_, a2->__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v46, a2->__r_.__value_.__l.__data_, a2->__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v47 = *a2;
+    v46 = *a2;
   }
 
   boost::filesystem::path::find_root_directory(a2, v9, v10, v11);
@@ -1130,34 +1371,34 @@ void boost::filesystem::detail::absolute(std::string::size_type *this@<X0>, std:
 
   if (!a3)
   {
-    boost::filesystem::detail::current_path(0, &v46);
-    boost::filesystem::detail::absolute(&__p, a2, &v46, 0, v44);
-    if (SHIBYTE(v47.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v47.__r_.__value_.__l.__data_);
-    }
-
-    v47 = __p;
-    *(&__p.__r_.__value_.__s + 23) = 0;
-    __p.__r_.__value_.__s.__data_[0] = 0;
+    boost::filesystem::detail::current_path(&v45, 0);
+    boost::filesystem::detail::absolute(a2, &v45, 0, &__p);
     if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(v46.__r_.__value_.__l.__data_);
     }
 
+    v46 = __p;
+    *(&__p.__r_.__value_.__s + 23) = 0;
+    __p.__r_.__value_.__s.__data_[0] = 0;
+    if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v45.__r_.__value_.__l.__data_);
+    }
+
     goto LABEL_13;
   }
 
-  boost::filesystem::detail::current_path(a3, &__p);
+  boost::filesystem::detail::current_path(&__p, a3);
   v24 = *(a3 + 2);
   if ((v24 & 1) != 0 && (v24 != 1 || *a3))
   {
-    memset(&v46, 0, sizeof(v46));
+    memset(&v45, 0, sizeof(v45));
   }
 
   else
   {
-    boost::filesystem::detail::absolute(&v46, a2, &__p, a3, v16);
+    boost::filesystem::detail::absolute(a2, &__p, a3, &v45);
   }
 
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -1165,14 +1406,14 @@ void boost::filesystem::detail::absolute(std::string::size_type *this@<X0>, std:
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v47.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v47.__r_.__value_.__l.__data_);
+    operator delete(v46.__r_.__value_.__l.__data_);
   }
 
-  v47 = v46;
-  v45 = *(a3 + 2);
-  if ((v45 & 1) == 0 || v45 == 1 && !*a3)
+  v46 = v45;
+  v44 = *(a3 + 2);
+  if ((v44 & 1) == 0 || v44 == 1 && !*a3)
   {
 LABEL_13:
     v17 = *(this + 23);
@@ -1183,29 +1424,29 @@ LABEL_13:
 
     if (v17)
     {
-      *a5 = 0;
-      *(a5 + 8) = 0;
-      *(a5 + 16) = 0;
+      *a4 = 0;
+      *(a4 + 8) = 0;
+      *(a4 + 16) = 0;
       if (boost::filesystem::path::find_root_name_size(this, v14, v15, v16))
       {
-        boost::filesystem::path::root_name(this, v18, v19, v20, &__p);
+        boost::filesystem::path::root_name(&__p, this, v18, v19, v20);
       }
 
       else
       {
-        boost::filesystem::path::root_name(&v47, v18, v19, v20, &__p);
+        boost::filesystem::path::root_name(&__p, &v46, v18, v19, v20);
       }
 
-      if (*(a5 + 23) < 0)
+      if (*(a4 + 23) < 0)
       {
-        operator delete(*a5);
+        operator delete(*a4);
       }
 
-      *a5 = __p;
+      *a4 = __p;
       boost::filesystem::path::find_root_directory(this, v21, v22, v23);
       if (v25)
       {
-        boost::filesystem::path::root_directory(this, v25, v26, v27, &__p);
+        boost::filesystem::path::root_directory(&__p, this, v25, v26, v27);
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
           p_p = &__p;
@@ -1226,12 +1467,12 @@ LABEL_13:
           size = __p.__r_.__value_.__l.__size_;
         }
 
-        std::string::append(a5, p_p, size);
+        std::string::append(a4, p_p, size);
       }
 
       else
       {
-        boost::filesystem::path::root_directory(&v47, 0, v26, v27, &__p);
+        boost::filesystem::path::root_directory(&__p, &v46, 0, v26, v27);
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
           v33 = &__p;
@@ -1252,14 +1493,14 @@ LABEL_13:
           v34 = __p.__r_.__value_.__l.__size_;
         }
 
-        std::string::append(a5, v33, v34);
+        std::string::append(a4, v33, v34);
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__p.__r_.__value_.__l.__data_);
         }
 
-        boost::filesystem::path::relative_path(&v47, v35, v36, v37, &__p);
-        boost::filesystem::path::append_v4(a5, &__p, v38, v39);
+        boost::filesystem::path::relative_path(&__p, &v46, v35, v36, v37);
+        boost::filesystem::path::append_v4(a4, &__p, v38, v39);
       }
 
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -1267,7 +1508,7 @@ LABEL_13:
         operator delete(__p.__r_.__value_.__l.__data_);
       }
 
-      boost::filesystem::path::relative_path(this, v30, v31, v32, &__p);
+      boost::filesystem::path::relative_path(&__p, this, v30, v31, v32);
       v42 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
       v43 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
       if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
@@ -1277,7 +1518,7 @@ LABEL_13:
 
       if (v42)
       {
-        boost::filesystem::path::append_v4(a5, &__p, v40, v41);
+        boost::filesystem::path::append_v4(a4, &__p, v40, v41);
         v43 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
       }
 
@@ -1289,20 +1530,20 @@ LABEL_13:
 
     else
     {
-      *a5 = v47;
-      memset(&v47, 0, sizeof(v47));
+      *a4 = v46;
+      memset(&v46, 0, sizeof(v46));
     }
 
     goto LABEL_65;
   }
 
-  *a5 = 0;
-  *(a5 + 8) = 0;
-  *(a5 + 16) = 0;
+  *a4 = 0;
+  *(a4 + 8) = 0;
+  *(a4 + 16) = 0;
 LABEL_65:
-  if (SHIBYTE(v47.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v47.__r_.__value_.__l.__data_);
+    operator delete(v46.__r_.__value_.__l.__data_);
   }
 }
 
@@ -1321,7 +1562,7 @@ void sub_1001C0570(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *boost::filesystem::path::root_name@<X0>(boost::filesystem::path *this@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, unint64_t *a4@<X3>, void *a5@<X8>)
+uint64_t *boost::filesystem::path::root_name@<X0>(uint64_t *__return_ptr a1@<X8>, boost::filesystem::path *this@<X0>, uint64_t a3@<X1>, uint64_t a4@<X2>, unint64_t *a5@<X3>)
 {
   v6 = this;
   if (*(this + 23) < 0)
@@ -1329,36 +1570,36 @@ void *boost::filesystem::path::root_name@<X0>(boost::filesystem::path *this@<X0>
     v6 = *this;
   }
 
-  root_name_size = boost::filesystem::path::find_root_name_size(this, a2, a3, a4);
+  root_name_size = boost::filesystem::path::find_root_name_size(this, a3, a4, a5);
 
-  return std::string::__init_with_size[abi:ne200100]<char const*,char const*>(a5, v6, v6 + root_name_size, root_name_size);
+  return std::string::__init_with_size[abi:ne200100]<char const*,char const*>(a1, v6, v6 + root_name_size, root_name_size);
 }
 
-void *boost::filesystem::path::root_directory@<X0>(boost::filesystem::path *this@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, unint64_t *a4@<X3>, void *a5@<X8>)
+uint64_t *boost::filesystem::path::root_directory@<X0>(uint64_t *__return_ptr a1@<X8>, boost::filesystem::path *this@<X0>, uint64_t a3@<X1>, uint64_t a4@<X2>, unint64_t *a5@<X3>)
 {
   v5 = this;
-  root_directory = boost::filesystem::path::find_root_directory(this, a2, a3, a4);
+  root_directory = boost::filesystem::path::find_root_directory(this, a3, a4, a5);
   if (*(v5 + 23) < 0)
   {
     v5 = *v5;
   }
 
-  return std::string::__init_with_size[abi:ne200100]<char const*,char const*>(a5, &root_directory[v5], &root_directory[v5 + v8], v8);
+  return std::string::__init_with_size[abi:ne200100]<char const*,char const*>(a1, &root_directory[v5], &root_directory[v5 + v8], v8);
 }
 
-void *boost::filesystem::path::relative_path@<X0>(boost::filesystem::path *this@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, unint64_t *a4@<X3>, void *a5@<X8>)
+uint64_t *boost::filesystem::path::relative_path@<X0>(uint64_t *__return_ptr a1@<X8>, boost::filesystem::path *this@<X0>, uint64_t a3@<X1>, uint64_t a4@<X2>, unint64_t *a5@<X3>)
 {
   v5 = this;
-  relative_path = boost::filesystem::path::find_relative_path(this, a2, a3, a4);
+  relative_path = boost::filesystem::path::find_relative_path(this, a3, a4, a5);
   if (*(v5 + 23) < 0)
   {
     v5 = *v5;
   }
 
-  return std::string::__init_with_size[abi:ne200100]<char const*,char const*>(a5, &relative_path[v5], &relative_path[v5 + v8], v8);
+  return std::string::__init_with_size[abi:ne200100]<char const*,char const*>(a1, &relative_path[v5], &relative_path[v5 + v8], v8);
 }
 
-void boost::filesystem::detail::canonical(std::string *this@<X0>, std::string *a2@<X1>, const boost::filesystem::path *a3@<X2>, boost::system::error_code *a4@<X3>, uint64_t a5@<X8>)
+void boost::filesystem::detail::canonical(std::string *this@<X0>, std::string *a2@<X1>, const boost::filesystem::path *a3@<X2>, uint64_t a4@<X8>, unint64_t *a5@<X3>)
 {
   if (a3)
   {
@@ -1377,10 +1618,10 @@ void boost::filesystem::detail::canonical(std::string *this@<X0>, std::string *a
     v72 = *this;
   }
 
-  boost::filesystem::path::find_root_directory(this, a2, a3, a4);
+  boost::filesystem::path::find_root_directory(this, a2, a3, a5);
   if (!v10)
   {
-    boost::filesystem::detail::absolute(this, a2, a3, v9, &v66);
+    boost::filesystem::detail::absolute(this, a2, a3, &v66, v9);
     if (SHIBYTE(v72.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(v72.__r_.__value_.__l.__data_);
@@ -1393,16 +1634,16 @@ void boost::filesystem::detail::canonical(std::string *this@<X0>, std::string *a
       if ((v58 & 1) != 0 && (v58 != 1 || *a3))
       {
 LABEL_107:
-        *a5 = 0;
-        *(a5 + 8) = 0;
-        *(a5 + 16) = 0;
+        *a4 = 0;
+        *(a4 + 8) = 0;
+        *(a4 + 16) = 0;
         goto LABEL_108;
       }
     }
   }
 
   memset(&v71, 0, sizeof(v71));
-  boost::filesystem::detail::status(&v72, &v71, &v70);
+  boost::filesystem::detail::status(&v70, &v72, &v71);
   if (v70 == 1)
   {
     if (qword_1004E53D0 >> 1 == 0x595588BD12BF6FE8 || (v14 = 2, (boost::system::detail::generic_cat_holder<void>::instance[6])(&boost::system::detail::generic_cat_holder<void>::instance, 2)))
@@ -1421,17 +1662,17 @@ LABEL_107:
     goto LABEL_105;
   }
 
-  v15 = boost::filesystem::path::root_path(&v72, v11, v12, v13, &__p);
+  v15 = boost::filesystem::path::root_path(&__p, &v72, v11, v12, v13);
   v16 = boost::filesystem::detail::dot_path(v15);
   v18 = boost::filesystem::detail::dot_dot_path(v16);
-  *a5 = 0;
-  *(a5 + 8) = 0;
-  *(a5 + 16) = 0;
+  *a4 = 0;
+  *(a4 + 8) = 0;
+  *(a4 + 16) = 0;
   v19 = 40;
   while (2)
   {
-    boost::filesystem::path::begin(&v72, v17, &v66);
-    boost::filesystem::path::end(&v72, &v62);
+    boost::filesystem::path::begin(&v66, &v72, v17);
+    boost::filesystem::path::end(&v62, &v72);
     while (1)
     {
       if (v67 == v64 && v68 == v65)
@@ -1447,9 +1688,9 @@ LABEL_107:
 
       if (!boost::filesystem::path::compare_v4(&v66, v18, v23, v17))
       {
-        if (boost::filesystem::path::compare_v4(a5, &__p, v24, v25))
+        if (boost::filesystem::path::compare_v4(a4, &__p, v24, v25))
         {
-          boost::filesystem::path::remove_filename(a5, v22, v23, v17);
+          boost::filesystem::path::remove_filename(a4, v22, v23, v17);
         }
 
         goto LABEL_75;
@@ -1477,16 +1718,16 @@ LABEL_107:
 
       if (v26->__r_.__value_.__s.__data_[0] == 47)
       {
-        std::string::push_back(a5, 47);
+        std::string::push_back(a4, 47);
         goto LABEL_75;
       }
 
 LABEL_32:
-      boost::filesystem::path::append_v4(a5, &v66, v24, v25);
-      boost::filesystem::path::find_root_directory(a5, v27, v28, v29);
+      boost::filesystem::path::append_v4(a4, &v66, v24, v25);
+      boost::filesystem::path::find_root_directory(a4, v27, v28, v29);
       if (v22)
       {
-        boost::filesystem::detail::symlink_status(a5, a3, &__str);
+        boost::filesystem::detail::symlink_status(&__str, a4, a3);
         if (a3)
         {
           v30 = *(a3 + 2);
@@ -1509,7 +1750,7 @@ LABEL_75:
 
     if (v19)
     {
-      boost::filesystem::detail::read_symlink(a5, a3, &__str);
+      boost::filesystem::detail::read_symlink(&__str, a4, a3);
       if (a3)
       {
         v31 = *(a3 + 2);
@@ -1521,7 +1762,7 @@ LABEL_75:
         }
       }
 
-      boost::filesystem::path::remove_filename(a5, v22, v23, v17);
+      boost::filesystem::path::remove_filename(a4, v22, v23, v17);
       boost::filesystem::path::find_root_directory(&__str, v32, v33, v34);
       if (v35)
       {
@@ -1540,7 +1781,7 @@ LABEL_75:
         }
 
         std::string::operator=(&v72, &__str);
-        boost::filesystem::path::root_path(&v72, v41, v42, v43, &v60);
+        boost::filesystem::path::root_path(&v60, &v72, v41, v42, v43);
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__p.__r_.__value_.__l.__data_);
@@ -1554,14 +1795,14 @@ LABEL_75:
       boost::filesystem::path::remove_trailing_separator(&__str);
       if (boost::filesystem::path::compare_v4(&__str, v16, v46, v47))
       {
-        if (*(a5 + 23) < 0)
+        if (*(a4 + 23) < 0)
         {
-          std::string::__init_copy_ctor_external(&v60, *a5, *(a5 + 8));
+          std::string::__init_copy_ctor_external(&v60, *a4, *(a4 + 8));
         }
 
         else
         {
-          v60 = *a5;
+          v60 = *a4;
         }
 
         boost::filesystem::path::append_v4(&v60, &__str, v23, v17);
@@ -1636,16 +1877,16 @@ LABEL_77:
 
     if (v45 == 15)
     {
-      if (*(a5 + 23) < 0)
+      if (*(a4 + 23) < 0)
       {
-        **a5 = 0;
-        *(a5 + 8) = 0;
+        **a4 = 0;
+        *(a4 + 8) = 0;
       }
 
       else
       {
-        *a5 = 0;
-        *(a5 + 23) = 0;
+        *a4 = 0;
+        *(a4 + 23) = 0;
       }
 
       continue;
@@ -1659,9 +1900,9 @@ LABEL_77:
     v45 = 1;
   }
 
-  else if (*(a5 + 23) < 0)
+  else if (*(a4 + 23) < 0)
   {
-    operator delete(*a5);
+    operator delete(*a4);
   }
 
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -1710,14 +1951,14 @@ void sub_1001C0D14(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-int *boost::filesystem::detail::status@<X0>(boost::filesystem::detail *this@<X0>, const boost::filesystem::path *a2@<X1>, int *a3@<X8>)
+int *boost::filesystem::detail::status@<X0>(uint64_t *__return_ptr a1@<X8>, boost::filesystem::detail *this@<X0>, const boost::filesystem::path *a3@<X1>)
 {
-  v5 = this;
-  if (a2)
+  v4 = this;
+  if (a3)
   {
-    *a2 = 0;
-    *(a2 + 1) = 0;
-    *(a2 + 2) = 0;
+    *a3 = 0;
+    *(a3 + 1) = 0;
+    *(a3 + 2) = 0;
   }
 
   if (*(this + 23) < 0)
@@ -1725,187 +1966,187 @@ int *boost::filesystem::detail::status@<X0>(boost::filesystem::detail *this@<X0>
     this = *this;
   }
 
-  result = stat(this, &v24);
+  result = stat(this, &v23);
   if (result)
   {
     result = __error();
-    v8 = *result;
-    if (a2)
+    v7 = *result;
+    if (a3)
     {
       if (qword_1004E53B8 >> 1 == 0x595588BD12BF6FE8)
       {
-        result = (v8 != 0);
+        result = (v7 != 0);
       }
 
       else
       {
-        result = (boost::system::detail::system_cat_holder<void>::instance[6])(&boost::system::detail::system_cat_holder<void>::instance, v8);
+        result = (boost::system::detail::system_cat_holder<void>::instance[6])(&boost::system::detail::system_cat_holder<void>::instance, v7);
       }
 
-      v18 = 2;
+      v17 = 2;
       if (result)
       {
-        v18 = 3;
+        v17 = 3;
       }
 
-      *a2 = v8;
-      *(a2 + 1) = 0;
-      *(a2 + 1) = &boost::system::detail::system_cat_holder<void>::instance;
-      *(a2 + 2) = v18;
-      if (v8 == 20)
+      *a3 = v7;
+      *(a3 + 1) = 0;
+      *(a3 + 1) = &boost::system::detail::system_cat_holder<void>::instance;
+      *(a3 + 2) = v17;
+      if (v7 == 20)
       {
-        v19 = 0;
-      }
-
-      else
-      {
-        v19 = 0xFFFF;
-      }
-
-      v17 = v8 == 2 || v8 == 20;
-      if (v8 == 2)
-      {
-        v16 = 0;
+        v18 = 0;
       }
 
       else
       {
-        v16 = v19;
+        v18 = 0xFFFF;
+      }
+
+      v16 = v7 == 2 || v7 == 20;
+      if (v7 == 2)
+      {
+        v15 = 0;
+      }
+
+      else
+      {
+        v15 = v18;
       }
     }
 
     else
     {
-      if (v8 != 2 && v8 != 20)
+      if (v7 != 2 && v7 != 20)
       {
         exception = __cxa_allocate_exception(0x30uLL);
-        v23[0] = 0;
+        v22[0] = 0;
         if (qword_1004E53B8 >> 1 == 0x595588BD12BF6FE8)
         {
-          v21 = v8 != 0;
+          v20 = v7 != 0;
         }
 
         else
         {
-          v21 = (boost::system::detail::system_cat_holder<void>::instance[6])(&boost::system::detail::system_cat_holder<void>::instance, v8);
+          v20 = (boost::system::detail::system_cat_holder<void>::instance[6])(&boost::system::detail::system_cat_holder<void>::instance, v7);
         }
 
-        v22 = 2;
-        LODWORD(v23[0]) = v8;
-        if (v21)
+        v21 = 2;
+        LODWORD(v22[0]) = v7;
+        if (v20)
         {
-          v22 = 3;
+          v21 = 3;
         }
 
-        v23[1] = &boost::system::detail::system_cat_holder<void>::instance;
-        v23[2] = v22;
-        boost::filesystem::filesystem_error::filesystem_error(exception, "boost::filesystem::status", v5, v23);
+        v22[1] = &boost::system::detail::system_cat_holder<void>::instance;
+        v22[2] = v21;
+        boost::filesystem::filesystem_error::filesystem_error(exception, "boost::filesystem::status", v4, v22);
       }
 
-      v16 = 0;
-      v17 = 1;
+      v15 = 0;
+      v16 = 1;
     }
   }
 
   else
   {
-    v9 = (v24.st_mode - 4096) >> 12;
-    if (v9 > 4)
+    v8 = (v23.st_mode - 4096) >> 12;
+    if (v8 > 4)
     {
-      if (v9 == 5)
+      if (v8 == 5)
       {
-        v16 = v24.st_mode & 0xFFF;
-        v17 = 5;
+        v15 = v23.st_mode & 0xFFF;
+        v16 = 5;
         goto LABEL_50;
       }
 
-      v10 = v24.st_mode & 0xFFF;
-      v11 = 2;
-      if (v9 == 11)
+      v9 = v23.st_mode & 0xFFF;
+      v10 = 2;
+      if (v8 == 11)
       {
-        v12 = 8;
+        v11 = 8;
       }
 
       else
       {
-        v12 = 10;
+        v11 = 10;
       }
 
-      if (v9 == 11)
+      if (v8 == 11)
       {
-        v13 = v24.st_mode & 0xFFF;
+        v12 = v23.st_mode & 0xFFF;
       }
 
       else
       {
-        v13 = 0xFFFF;
+        v12 = 0xFFFF;
       }
 
-      v14 = v9 == 7;
+      v13 = v8 == 7;
     }
 
     else
     {
-      if (!v9)
+      if (!v8)
       {
-        v16 = v24.st_mode & 0xFFF;
-        v17 = 7;
+        v15 = v23.st_mode & 0xFFF;
+        v16 = 7;
         goto LABEL_50;
       }
 
-      v10 = v24.st_mode & 0xFFF;
-      v11 = 6;
-      if (v9 == 3)
+      v9 = v23.st_mode & 0xFFF;
+      v10 = 6;
+      if (v8 == 3)
       {
-        v12 = 3;
+        v11 = 3;
       }
 
       else
       {
-        v12 = 10;
+        v11 = 10;
       }
 
-      if (v9 == 3)
+      if (v8 == 3)
       {
-        v13 = v24.st_mode & 0xFFF;
+        v12 = v23.st_mode & 0xFFF;
       }
 
       else
       {
-        v13 = 0xFFFF;
+        v12 = 0xFFFF;
       }
 
-      v14 = v9 == 1;
+      v13 = v8 == 1;
     }
 
-    if (v14)
-    {
-      v17 = v11;
-    }
-
-    else
-    {
-      v17 = v12;
-    }
-
-    if (v14)
+    if (v13)
     {
       v16 = v10;
     }
 
     else
     {
-      v16 = v13;
+      v16 = v11;
+    }
+
+    if (v13)
+    {
+      v15 = v9;
+    }
+
+    else
+    {
+      v15 = v12;
     }
   }
 
 LABEL_50:
-  *a3 = v17;
-  a3[1] = v16;
+  *a1 = v16;
+  *(a1 + 1) = v15;
   return result;
 }
 
-void *boost::filesystem::path::root_path@<X0>(boost::filesystem::path *this@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, unint64_t *a4@<X3>, void *a5@<X8>)
+uint64_t *boost::filesystem::path::root_path@<X0>(uint64_t *__return_ptr a1@<X8>, boost::filesystem::path *this@<X0>, uint64_t a3@<X1>, uint64_t a4@<X2>, unint64_t *a5@<X3>)
 {
   v6 = this;
   if (*(this + 23) < 0)
@@ -1913,19 +2154,19 @@ void *boost::filesystem::path::root_path@<X0>(boost::filesystem::path *this@<X0>
     v6 = *this;
   }
 
-  root_path_size = boost::filesystem::path::find_root_path_size(this, a2, a3, a4);
+  root_path_size = boost::filesystem::path::find_root_path_size(this, a3, a4, a5);
 
-  return std::string::__init_with_size[abi:ne200100]<char const*,char const*>(a5, v6, &root_path_size[v6], root_path_size);
+  return std::string::__init_with_size[abi:ne200100]<char const*,char const*>(a1, v6, &root_path_size[v6], root_path_size);
 }
 
-int *boost::filesystem::detail::symlink_status@<X0>(boost::filesystem::detail *this@<X0>, const boost::filesystem::path *a2@<X1>, int *a3@<X8>)
+int *boost::filesystem::detail::symlink_status@<X0>(uint64_t *__return_ptr a1@<X8>, boost::filesystem::detail *this@<X0>, const boost::filesystem::path *a3@<X1>)
 {
-  v5 = this;
-  if (a2)
+  v4 = this;
+  if (a3)
   {
-    *a2 = 0;
-    *(a2 + 1) = 0;
-    *(a2 + 2) = 0;
+    *a3 = 0;
+    *(a3 + 1) = 0;
+    *(a3 + 2) = 0;
   }
 
   if (*(this + 23) < 0)
@@ -1933,333 +2174,332 @@ int *boost::filesystem::detail::symlink_status@<X0>(boost::filesystem::detail *t
     this = *this;
   }
 
-  result = lstat(this, &v24);
+  result = lstat(this, &v23);
   if (result)
   {
     result = __error();
-    v8 = *result;
-    if (a2)
+    v7 = *result;
+    if (a3)
     {
       if (qword_1004E53B8 >> 1 == 0x595588BD12BF6FE8)
       {
-        result = (v8 != 0);
+        result = (v7 != 0);
       }
 
       else
       {
-        result = (boost::system::detail::system_cat_holder<void>::instance[6])(&boost::system::detail::system_cat_holder<void>::instance, v8);
+        result = (boost::system::detail::system_cat_holder<void>::instance[6])(&boost::system::detail::system_cat_holder<void>::instance, v7);
       }
 
-      v18 = 2;
+      v17 = 2;
       if (result)
       {
-        v18 = 3;
+        v17 = 3;
       }
 
-      *a2 = v8;
-      *(a2 + 1) = 0;
-      *(a2 + 1) = &boost::system::detail::system_cat_holder<void>::instance;
-      *(a2 + 2) = v18;
-      if (v8 == 20)
+      *a3 = v7;
+      *(a3 + 1) = 0;
+      *(a3 + 1) = &boost::system::detail::system_cat_holder<void>::instance;
+      *(a3 + 2) = v17;
+      if (v7 == 20)
       {
-        v19 = 0;
-      }
-
-      else
-      {
-        v19 = 0xFFFF;
-      }
-
-      v17 = v8 == 2 || v8 == 20;
-      if (v8 == 2)
-      {
-        v16 = 0;
+        v18 = 0;
       }
 
       else
       {
-        v16 = v19;
+        v18 = 0xFFFF;
+      }
+
+      v16 = v7 == 2 || v7 == 20;
+      if (v7 == 2)
+      {
+        v15 = 0;
+      }
+
+      else
+      {
+        v15 = v18;
       }
     }
 
     else
     {
-      if (v8 != 2 && v8 != 20)
+      if (v7 != 2 && v7 != 20)
       {
         exception = __cxa_allocate_exception(0x30uLL);
-        v23[0] = 0;
+        v22[0] = 0;
         if (qword_1004E53B8 >> 1 == 0x595588BD12BF6FE8)
         {
-          v21 = v8 != 0;
+          v20 = v7 != 0;
         }
 
         else
         {
-          v21 = (boost::system::detail::system_cat_holder<void>::instance[6])(&boost::system::detail::system_cat_holder<void>::instance, v8);
+          v20 = (boost::system::detail::system_cat_holder<void>::instance[6])(&boost::system::detail::system_cat_holder<void>::instance, v7);
         }
 
-        v22 = 2;
-        LODWORD(v23[0]) = v8;
-        if (v21)
+        v21 = 2;
+        LODWORD(v22[0]) = v7;
+        if (v20)
         {
-          v22 = 3;
+          v21 = 3;
         }
 
-        v23[1] = &boost::system::detail::system_cat_holder<void>::instance;
-        v23[2] = v22;
-        boost::filesystem::filesystem_error::filesystem_error(exception, "boost::filesystem::symlink_status", v5, v23);
+        v22[1] = &boost::system::detail::system_cat_holder<void>::instance;
+        v22[2] = v21;
+        boost::filesystem::filesystem_error::filesystem_error(exception, "boost::filesystem::symlink_status", v4, v22);
       }
 
-      v16 = 0;
-      v17 = 1;
+      v15 = 0;
+      v16 = 1;
     }
   }
 
   else
   {
-    v9 = (v24.st_mode - 4096) >> 12;
-    if (v9 <= 4)
+    v8 = (v23.st_mode - 4096) >> 12;
+    if (v8 <= 4)
     {
-      if (!v9)
+      if (!v8)
       {
-        v16 = v24.st_mode & 0xFFF;
-        v17 = 7;
+        v15 = v23.st_mode & 0xFFF;
+        v16 = 7;
         goto LABEL_57;
       }
 
-      v10 = v24.st_mode & 0xFFF;
-      v11 = 6;
-      if (v9 == 3)
+      v9 = v23.st_mode & 0xFFF;
+      v10 = 6;
+      if (v8 == 3)
       {
-        v12 = 3;
+        v11 = 3;
       }
 
       else
       {
-        v12 = 10;
+        v11 = 10;
       }
 
-      if (v9 == 3)
+      if (v8 == 3)
       {
-        v13 = v24.st_mode & 0xFFF;
+        v12 = v23.st_mode & 0xFFF;
       }
 
       else
       {
-        v13 = 0xFFFF;
+        v12 = 0xFFFF;
       }
 
-      v14 = v9 == 1;
+      v13 = v8 == 1;
     }
 
     else
     {
-      v10 = v24.st_mode & 0xFFF;
-      if ((v24.st_mode - 4096) >> 12 > 8)
+      v9 = v23.st_mode & 0xFFF;
+      if ((v23.st_mode - 4096) >> 12 > 8)
       {
-        v11 = 4;
-        if (v9 == 11)
+        v10 = 4;
+        if (v8 == 11)
         {
-          v12 = 8;
+          v11 = 8;
         }
 
         else
         {
-          v12 = 10;
+          v11 = 10;
         }
 
-        if (v9 == 11)
+        if (v8 == 11)
         {
-          v13 = v24.st_mode & 0xFFF;
+          v12 = v23.st_mode & 0xFFF;
         }
 
         else
         {
-          v13 = 0xFFFF;
+          v12 = 0xFFFF;
         }
 
-        v14 = v9 == 9;
+        v13 = v8 == 9;
       }
 
       else
       {
-        v11 = 5;
-        if (v9 == 7)
+        v10 = 5;
+        if (v8 == 7)
         {
-          v12 = 2;
+          v11 = 2;
         }
 
         else
         {
-          v12 = 10;
+          v11 = 10;
         }
 
-        if (v9 == 7)
+        if (v8 == 7)
         {
-          v13 = v24.st_mode & 0xFFF;
+          v12 = v23.st_mode & 0xFFF;
         }
 
         else
         {
-          v13 = 0xFFFF;
+          v12 = 0xFFFF;
         }
 
-        v14 = v9 == 5;
+        v13 = v8 == 5;
       }
     }
 
-    if (v14)
-    {
-      v17 = v11;
-    }
-
-    else
-    {
-      v17 = v12;
-    }
-
-    if (v14)
+    if (v13)
     {
       v16 = v10;
     }
 
     else
     {
-      v16 = v13;
+      v16 = v11;
+    }
+
+    if (v13)
+    {
+      v15 = v9;
+    }
+
+    else
+    {
+      v15 = v12;
     }
   }
 
 LABEL_57:
-  *a3 = v17;
-  a3[1] = v16;
+  *a1 = v16;
+  *(a1 + 1) = v15;
   return result;
 }
 
-void boost::filesystem::detail::read_symlink(const char **this@<X0>, const boost::filesystem::path *a2@<X1>, std::string *a3@<X8>)
+void boost::filesystem::detail::read_symlink(std::string *__return_ptr a1@<X8>, const char **this@<X0>, const boost::filesystem::path *a3@<X1>)
 {
-  a3->__r_.__value_.__r.__words[0] = 0;
-  a3->__r_.__value_.__l.__size_ = 0;
-  a3->__r_.__value_.__r.__words[2] = 0;
+  *&a1->__r_.__value_.__l.__data_ = 0uLL;
+  a1->__r_.__value_.__r.__words[2] = 0;
   if (*(this + 23) >= 0)
   {
-    v7 = this;
+    v6 = this;
   }
 
   else
   {
-    v7 = *this;
+    v6 = *this;
   }
 
-  v8 = readlink(v7, v23, 0x400uLL);
-  if ((v8 & 0x8000000000000000) != 0)
+  v7 = readlink(v6, v22, 0x400uLL);
+  if ((v7 & 0x8000000000000000) != 0)
   {
 LABEL_24:
-    v14 = *__error();
-    if (!a2)
+    v13 = *__error();
+    if (!a3)
     {
       exception = __cxa_allocate_exception(0x30uLL);
-      v20 = 0;
+      v19 = 0;
       if (qword_1004E53B8 >> 1 == 0x595588BD12BF6FE8)
       {
-        v16 = v14 != 0;
+        v15 = v13 != 0;
       }
 
       else
       {
-        v16 = (boost::system::detail::system_cat_holder<void>::instance[6])(&boost::system::detail::system_cat_holder<void>::instance, v14);
+        v15 = (boost::system::detail::system_cat_holder<void>::instance[6])(&boost::system::detail::system_cat_holder<void>::instance, v13);
       }
 
-      v17 = 2;
-      LODWORD(v20) = v14;
-      if (v16)
+      v16 = 2;
+      LODWORD(v19) = v13;
+      if (v15)
       {
-        v17 = 3;
+        v16 = 3;
       }
 
-      v21 = &boost::system::detail::system_cat_holder<void>::instance;
-      v22 = v17;
-      boost::filesystem::filesystem_error::filesystem_error(exception, "boost::filesystem::read_symlink", this, &v20);
+      v20 = &boost::system::detail::system_cat_holder<void>::instance;
+      v21 = v16;
+      boost::filesystem::filesystem_error::filesystem_error(exception, "boost::filesystem::read_symlink", this, &v19);
     }
 
-    boost::system::error_code::assign(a2, v14, &boost::system::detail::system_cat_holder<void>::instance);
+    boost::system::error_code::assign(a3, v13, &boost::system::detail::system_cat_holder<void>::instance);
   }
 
-  else if (v8 >= 0x400)
+  else if (v7 >= 0x400)
   {
     for (i = 2048; ; i *= 2)
     {
-      v10 = operator new[](i);
-      v11 = readlink(v7, v10, i);
-      if ((v11 & 0x8000000000000000) != 0)
+      v9 = operator new[](i);
+      v10 = readlink(v6, v9, i);
+      if ((v10 & 0x8000000000000000) != 0)
       {
-        operator delete[](v10);
+        operator delete[](v9);
         goto LABEL_24;
       }
 
-      if (v11 < i)
+      if (v10 < i)
       {
         break;
       }
 
-      operator delete[](v10);
+      operator delete[](v9);
       if (i > 0x4000)
       {
-        if (!a2)
+        if (!a3)
         {
-          v18 = __cxa_allocate_exception(0x30uLL);
-          v20 = 0;
+          v17 = __cxa_allocate_exception(0x30uLL);
+          v19 = 0;
           if ((qword_1004E53B8 & 0xFFFFFFFFFFFFFFFELL) == 0xB2AB117A257EDFD0 || (boost::system::detail::system_cat_holder<void>::instance[6])(&boost::system::detail::system_cat_holder<void>::instance, 63))
           {
-            v19 = 3;
+            v18 = 3;
           }
 
           else
           {
-            v19 = 2;
+            v18 = 2;
           }
 
-          LODWORD(v20) = 63;
-          v21 = &boost::system::detail::system_cat_holder<void>::instance;
-          v22 = v19;
-          boost::filesystem::filesystem_error::filesystem_error(v18, "boost::filesystem::read_symlink", this, &v20);
+          LODWORD(v19) = 63;
+          v20 = &boost::system::detail::system_cat_holder<void>::instance;
+          v21 = v18;
+          boost::filesystem::filesystem_error::filesystem_error(v17, "boost::filesystem::read_symlink", this, &v19);
         }
 
         if ((qword_1004E53B8 & 0xFFFFFFFFFFFFFFFELL) == 0xB2AB117A257EDFD0 || (boost::system::detail::system_cat_holder<void>::instance[6])(&boost::system::detail::system_cat_holder<void>::instance, 63))
         {
-          v13 = 3;
+          v12 = 3;
         }
 
         else
         {
-          v13 = 2;
+          v12 = 2;
         }
 
-        *a2 = 63;
-        *(a2 + 1) = &boost::system::detail::system_cat_holder<void>::instance;
-        *(a2 + 2) = v13;
+        *a3 = 63;
+        *(a3 + 1) = &boost::system::detail::system_cat_holder<void>::instance;
+        *(a3 + 2) = v12;
         return;
       }
     }
 
-    std::string::__assign_trivial[abi:ne200100]<char const*,char const*>(a3, v10, &v10[v11], v11);
-    if (a2)
+    std::string::__assign_trivial[abi:ne200100]<char const*,char const*>(a1, v9, &v9[v10], v10);
+    if (a3)
     {
-      *a2 = 0;
-      *(a2 + 1) = 0;
-      *(a2 + 2) = 0;
+      *a3 = 0;
+      *(a3 + 1) = 0;
+      *(a3 + 2) = 0;
     }
 
-    operator delete[](v10);
+    operator delete[](v9);
   }
 
   else
   {
-    std::string::__assign_trivial[abi:ne200100]<char const*,char const*>(a3, v23, &v23[v8], v8);
-    if (a2)
+    std::string::__assign_trivial[abi:ne200100]<char const*,char const*>(a1, v22, &v22[v7], v7);
+    if (a3)
     {
-      *a2 = 0;
-      *(a2 + 1) = 0;
-      *(a2 + 2) = 0;
+      *a3 = 0;
+      *(a3 + 1) = 0;
+      *(a3 + 2) = 0;
     }
   }
 }
@@ -2279,12 +2519,12 @@ void boost::filesystem::detail::copy(boost::filesystem::detail *this, std::strin
   v8 = this;
   if ((a3 & 0x1600) != 0)
   {
-    boost::filesystem::detail::symlink_status(this, a4, &v69);
+    boost::filesystem::detail::symlink_status(&v69, this, a4);
   }
 
   else
   {
-    boost::filesystem::detail::status(this, a4, &v69);
+    boost::filesystem::detail::status(&v69, this, a4);
   }
 
   if (a4)
@@ -2318,7 +2558,7 @@ void boost::filesystem::detail::copy(boost::filesystem::detail *this, std::strin
         goto LABEL_132;
       }
 
-      boost::filesystem::detail::current_path(a4, &v68);
+      boost::filesystem::detail::current_path(&v68, a4);
       if (a4 && (v27 = *(a4 + 2), (v27 & 1) != 0) && (v27 != 1 || *a4))
       {
         v62 = 0;
@@ -2326,8 +2566,8 @@ void boost::filesystem::detail::copy(boost::filesystem::detail *this, std::strin
 
       else
       {
-        boost::filesystem::path::parent_path(v8, v25, v26, v23, &__p);
-        boost::filesystem::detail::absolute(&__p, &v68, a4, v28, v66);
+        boost::filesystem::path::parent_path(&__p, v8, v25, v26, v23);
+        boost::filesystem::detail::absolute(&__p, &v68, a4, v66, v28);
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__p.__r_.__value_.__l.__data_);
@@ -2340,11 +2580,11 @@ void boost::filesystem::detail::copy(boost::filesystem::detail *this, std::strin
 
         else
         {
-          boost::filesystem::path::parent_path(a2, v29, v30, v23, &__p);
+          boost::filesystem::path::parent_path(&__p, a2, v29, v30, v23);
           boost::filesystem::path::find_root_directory(&__p, v32, v33, v34);
           if (!v35)
           {
-            boost::filesystem::detail::absolute(&__p, &v68, a4, v23, &v64);
+            boost::filesystem::detail::absolute(&__p, &v68, a4, &v64, v23);
             if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
             {
               operator delete(__p.__r_.__value_.__l.__data_);
@@ -2361,7 +2601,7 @@ void boost::filesystem::detail::copy(boost::filesystem::detail *this, std::strin
             }
           }
 
-          boost::filesystem::detail::relative(v66, &__p, a4, v23, &v64);
+          boost::filesystem::detail::relative(&v64, v66, &__p, a4, v23);
           if (SHIBYTE(v69.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(v69.__r_.__value_.__l.__data_);
@@ -2379,7 +2619,7 @@ LABEL_120:
             v38 = boost::filesystem::detail::dot_path(v36);
             if (boost::filesystem::path::compare_v4(&v69, v38, v39, v40))
             {
-              boost::filesystem::path::filename_v4(v8, v41, v42, v43, &v64);
+              boost::filesystem::path::filename_v4(&v64, v8, v41, v42, v43);
               boost::filesystem::path::append_v4(&v69, &v64, v44, v45);
               if (SHIBYTE(v64.__r_.__value_.__r.__words[2]) < 0)
               {
@@ -2389,7 +2629,7 @@ LABEL_120:
 
             else
             {
-              boost::filesystem::path::filename_v4(v8, v41, v42, v43, &v64);
+              boost::filesystem::path::filename_v4(&v64, v8, v41, v42, v43);
               if (SHIBYTE(v69.__r_.__value_.__r.__words[2]) < 0)
               {
                 operator delete(v69.__r_.__value_.__l.__data_);
@@ -2445,12 +2685,12 @@ LABEL_132:
       memset(&v69, 0, sizeof(v69));
       if ((a3 & 0x400) != 0)
       {
-        boost::filesystem::detail::symlink_status(a2, &v69, &v68);
+        boost::filesystem::detail::symlink_status(&v68, a2, &v69);
       }
 
       else
       {
-        boost::filesystem::detail::status(a2, &v69, &v68);
+        boost::filesystem::detail::status(&v68, a2, &v69);
       }
 
       if (LODWORD(v68.__r_.__value_.__l.__data_) != 3)
@@ -2469,8 +2709,8 @@ LABEL_132:
         goto LABEL_84;
       }
 
-      boost::filesystem::path::filename_v4(v8, v17, v18, v19, v66);
-      boost::filesystem::operator/(v66, a2, v58, v59, &v68);
+      boost::filesystem::path::filename_v4(v66, v8, v17, v18, v19);
+      boost::filesystem::operator/(&v68, v66, a2, v58, v59);
       boost::filesystem::detail::copy_file(v8, &v68, a3, a4, v60);
       if (SHIBYTE(v68.__r_.__value_.__r.__words[2]) < 0)
       {
@@ -2520,12 +2760,12 @@ LABEL_137:
 
     if ((a3 & 0x400) != 0)
     {
-      boost::filesystem::detail::symlink_status(a2, &v69, &v68);
+      boost::filesystem::detail::symlink_status(&v68, a2, &v69);
     }
 
     else
     {
-      boost::filesystem::detail::status(a2, &v69, &v68);
+      boost::filesystem::detail::status(&v68, a2, &v69);
     }
 
     if (LODWORD(v68.__r_.__value_.__l.__data_) == 1)
@@ -2574,7 +2814,7 @@ LABEL_84:
               break;
             }
 
-            boost::filesystem::path::filename_v4((v51 + 8), v47, v48, v49, v66);
+            boost::filesystem::path::filename_v4(v66, (v51 + 8), v47, v48, v49);
             if (*(a2 + 23) < 0)
             {
               std::string::__init_copy_ctor_external(&v68, *a2, a2[1]);
@@ -2681,7 +2921,7 @@ void sub_1001C1E70(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void boost::filesystem::detail::copy_symlink(const char **this, const boost::filesystem::path *a2, const boost::filesystem::path *a3, boost::system::error_code *a4)
 {
-  boost::filesystem::detail::read_symlink(this, a3, &__p);
+  boost::filesystem::detail::read_symlink(&__p, this, a3);
   if (!a3 || (v7 = *(a3 + 2), (v7 & 1) == 0) || v7 == 1 && !*a3)
   {
     boost::filesystem::detail::create_symlink(&__p, a2, a3, v6);
@@ -2703,15 +2943,14 @@ void sub_1001C2028(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void boost::filesystem::detail::current_path(boost::filesystem::detail *this@<X0>, std::string *a2@<X8>)
+void boost::filesystem::detail::current_path(std::string *__return_ptr a1@<X8>, boost::filesystem::detail *this@<X0>)
 {
-  a2->__r_.__value_.__r.__words[0] = 0;
-  a2->__r_.__value_.__l.__size_ = 0;
-  a2->__r_.__value_.__r.__words[2] = 0;
-  v5 = getcwd(v11, 0x400uLL);
-  if (v5)
+  *&a1->__r_.__value_.__l.__data_ = 0uLL;
+  a1->__r_.__value_.__r.__words[2] = 0;
+  v4 = getcwd(v10, 0x400uLL);
+  if (v4)
   {
-    std::string::__assign_external(a2, v5);
+    std::string::__assign_external(a1, v4);
     if (this)
     {
       *this = 0;
@@ -2724,27 +2963,27 @@ void boost::filesystem::detail::current_path(boost::filesystem::detail *this@<X0
   {
     for (i = 2048; ; i *= 2)
     {
-      v7 = operator new[](i);
-      if (getcwd(v7, i))
+      v6 = operator new[](i);
+      if (getcwd(v6, i))
       {
         break;
       }
 
-      v8 = boost::filesystem::detail::current_path(boost::system::error_code *)::local::getcwd_error(this);
-      operator delete[](v7);
-      if (v8)
+      v7 = boost::filesystem::detail::current_path(boost::system::error_code *)::local::getcwd_error(this);
+      operator delete[](v6);
+      if (v7)
       {
         return;
       }
 
       if (i > 0x4000)
       {
-        boost::filesystem::emit_error(0x3F, this, "boost::filesystem::current_path", v9);
+        boost::filesystem::emit_error(0x3F, this, "boost::filesystem::current_path", v8);
         return;
       }
     }
 
-    std::string::__assign_external(a2, v7);
+    std::string::__assign_external(a1, v6);
     if (this)
     {
       *this = 0;
@@ -2752,7 +2991,7 @@ void boost::filesystem::detail::current_path(boost::filesystem::detail *this@<X0
       *(this + 2) = 0;
     }
 
-    operator delete[](v7);
+    operator delete[](v6);
   }
 }
 
@@ -2766,28 +3005,28 @@ void sub_1001C2168(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void boost::filesystem::detail::relative(boost::filesystem::detail *this@<X0>, const boost::filesystem::path *a2@<X1>, const boost::filesystem::path *a3@<X2>, boost::system::error_code *a4@<X3>, std::string *a5@<X8>)
+void boost::filesystem::detail::relative(std::string *__return_ptr a1@<X8>, boost::filesystem::detail *this@<X0>, const boost::filesystem::path *a3@<X1>, const boost::filesystem::path *a4@<X2>, unint64_t *a5@<X3>)
 {
-  if (a3)
+  if (a4)
   {
-    *a3 = 0;
-    *(a3 + 1) = 0;
-    *(a3 + 2) = 0;
+    *a4 = 0;
+    *(a4 + 1) = 0;
+    *(a4 + 2) = 0;
   }
 
   memset(&v19, 0, sizeof(v19));
   memset(&__p, 0, sizeof(__p));
-  boost::filesystem::path::find_root_directory(this, a2, a3, a4);
+  boost::filesystem::path::find_root_directory(this, a3, a4, a5);
   if (v9)
   {
-    boost::filesystem::path::find_root_directory(a2, v9, v10, v11);
+    boost::filesystem::path::find_root_directory(a3, v9, v10, v11);
     if (v12)
     {
       goto LABEL_10;
     }
   }
 
-  boost::filesystem::detail::current_path(&v19, &v17);
+  boost::filesystem::detail::current_path(&v17, &v19);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -2797,7 +3036,7 @@ void boost::filesystem::detail::relative(boost::filesystem::detail *this@<X0>, c
   if ((v19.__r_.__value_.__s.__data_[16] & 1) == 0 || v19.__r_.__value_.__r.__words[2] == 1 && !LODWORD(v19.__r_.__value_.__l.__data_))
   {
 LABEL_10:
-    boost::filesystem::detail::weakly_canonical(a2, &__p, &v19, &v16);
+    boost::filesystem::detail::weakly_canonical(&v16, a3, &__p, &v19);
     if ((v19.__r_.__value_.__s.__data_[16] & 1) != 0 && (v19.__r_.__value_.__r.__words[2] != 1 || LODWORD(v19.__r_.__value_.__l.__data_)))
     {
       boost::filesystem::detail::relative(&v16);
@@ -2805,10 +3044,10 @@ LABEL_10:
 
     else
     {
-      boost::filesystem::detail::weakly_canonical(this, &__p, &v19, &v15);
+      boost::filesystem::detail::weakly_canonical(&v15, this, &__p, &v19);
       if ((v19.__r_.__value_.__s.__data_[16] & 1) == 0 || v19.__r_.__value_.__r.__words[2] == 1 && !LODWORD(v19.__r_.__value_.__l.__data_))
       {
-        boost::filesystem::path::lexically_relative(&v15, &v16, v13, a5);
+        boost::filesystem::path::lexically_relative(&v15, &v16, v13, a1);
         if (SHIBYTE(v15.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(v15.__r_.__value_.__l.__data_);
@@ -2826,17 +3065,17 @@ LABEL_10:
     }
   }
 
-  if (!a3)
+  if (!a4)
   {
     exception = __cxa_allocate_exception(0x30uLL);
     v17 = v19;
-    boost::filesystem::filesystem_error::filesystem_error(exception, "boost::filesystem::relative", this, a2, &v17);
+    boost::filesystem::filesystem_error::filesystem_error(exception, "boost::filesystem::relative", this, a3, &v17);
   }
 
-  *a3 = v19;
-  a5->__r_.__value_.__l.__size_ = 0;
-  a5->__r_.__value_.__r.__words[2] = 0;
-  a5->__r_.__value_.__r.__words[0] = 0;
+  *a4 = v19;
+  a1->__r_.__value_.__l.__size_ = 0;
+  a1->__r_.__value_.__r.__words[2] = 0;
+  a1->__r_.__value_.__r.__words[0] = 0;
 LABEL_20:
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -3132,20 +3371,19 @@ void sub_1001C27F8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void boost::filesystem::operator/(boost::filesystem::path *a1@<X1>, uint64_t a2@<X0>, uint64_t a3@<X2>, unint64_t *a4@<X3>, std::string *a5@<X8>)
+void boost::filesystem::operator/(std::string *__return_ptr a1@<X8>, boost::filesystem::path *a2@<X1>, uint64_t a3@<X0>, uint64_t a4@<X2>, unint64_t *a5@<X3>)
 {
-  if (*(a2 + 23) < 0)
+  if (*(a3 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external(a5, *a2, *(a2 + 8));
+    std::string::__init_copy_ctor_external(a1, *a3, *(a3 + 8));
   }
 
   else
   {
-    *&a5->__r_.__value_.__l.__data_ = *a2;
-    a5->__r_.__value_.__r.__words[2] = *(a2 + 16);
+    *a1 = *a3;
   }
 
-  boost::filesystem::path::append_v4(a5, a1, a3, a4);
+  boost::filesystem::path::append_v4(a1, a2, a4, a5);
 }
 
 void sub_1001C2888(_Unwind_Exception *exception_object)
@@ -3210,7 +3448,7 @@ LABEL_17:
   {
     v12 = *__error();
     memset(&v15, 0, 24);
-    boost::filesystem::detail::status(this, &v15, &v16);
+    boost::filesystem::detail::status(&v16, this, &v15);
     if (v16 != 3)
     {
       boost::filesystem::emit_error(v12, this, a3, "boost::filesystem::create_directory", v13);
@@ -3248,7 +3486,7 @@ uint64_t boost::filesystem::detail::create_directories(std::string *this, const 
       *(a2 + 2) = 0;
     }
 
-    v6 = boost::filesystem::path::end(this, &v44);
+    v6 = boost::filesystem::path::end(&v44, this);
     if (SHIBYTE(v44.__r_.__value_.__r.__words[2]) < 0)
     {
       std::string::__init_copy_ctor_external(&v42, v44.__r_.__value_.__l.__data_, v44.__r_.__value_.__l.__size_);
@@ -3273,7 +3511,7 @@ uint64_t boost::filesystem::detail::create_directories(std::string *this, const 
     v8 = boost::filesystem::detail::dot_path(v6);
     v9 = boost::filesystem::detail::dot_dot_path(v8);
     memset(&v40, 0, sizeof(v40));
-    boost::filesystem::path::filename_v4(&v41, v10, v11, v12, &__p);
+    boost::filesystem::path::filename_v4(&__p, &v41, v10, v11, v12);
     while (1)
     {
       boost::filesystem::path::find_relative_path(&v41, v13, v14, v15);
@@ -3292,7 +3530,7 @@ LABEL_28:
 
       if (v19 && boost::filesystem::path::compare_v4(&__p, v8, v17, v18) && boost::filesystem::path::compare_v4(&__p, v9, v17, v18))
       {
-        boost::filesystem::detail::status(&v41, &v40, &v38);
+        boost::filesystem::detail::status(&v38, &v41, &v40);
         if (v38 == 3)
         {
           goto LABEL_28;
@@ -3306,7 +3544,7 @@ LABEL_28:
 
       boost::filesystem::path::iterator::decrement_v4(&v42.__r_.__value_.__l.__data_, v16, v17, v18);
       boost::filesystem::path::remove_filename(&v41, v20, v21, v22);
-      boost::filesystem::path::filename_v4(&v41, v23, v24, v25, &v37);
+      boost::filesystem::path::filename_v4(&v37, &v41, v23, v24, v25);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__p.__r_.__value_.__l.__data_);
@@ -3592,7 +3830,7 @@ uint64_t boost::filesystem::detail::current_path(boost::filesystem::detail *this
   return result;
 }
 
-BOOL boost::filesystem::detail::equivalent(const char **this, const boost::filesystem::path *a2, const boost::filesystem::path *a3, boost::system::error_code *a4)
+BOOL boost::filesystem::detail::equivalent(boost::filesystem::detail *this, const boost::filesystem::path *a2, const boost::filesystem::path *a3, boost::system::error_code *a4)
 {
   if (*(a2 + 23) >= 0)
   {
@@ -3693,9 +3931,9 @@ uint64_t boost::filesystem::detail::hard_link_count(boost::filesystem::detail *t
   return -1;
 }
 
-void boost::filesystem::detail::initial_path(boost::filesystem::detail *this@<X0>, std::string *a2@<X8>)
+void boost::filesystem::detail::initial_path(boost::filesystem::detail *this@<X0>, std::string *a3@<X8>)
 {
-  if ((atomic_load_explicit(&_MergedGlobals_16, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(_MergedGlobals_16, memory_order_acquire) & 1) == 0)
   {
     v5 = this;
     boost::filesystem::detail::initial_path();
@@ -3720,7 +3958,7 @@ void boost::filesystem::detail::initial_path(boost::filesystem::detail *this@<X0
 
   else
   {
-    boost::filesystem::detail::current_path(this, &v6);
+    boost::filesystem::detail::current_path(&v6, this);
     if (byte_10052D7E8[23] < 0)
     {
       operator delete(*byte_10052D7E8);
@@ -3731,13 +3969,13 @@ void boost::filesystem::detail::initial_path(boost::filesystem::detail *this@<X0
 
   if (byte_10052D7E8[23] < 0)
   {
-    std::string::__init_copy_ctor_external(a2, *byte_10052D7E8, *&byte_10052D7E8[8]);
+    std::string::__init_copy_ctor_external(a3, *byte_10052D7E8, *&byte_10052D7E8[8]);
   }
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *byte_10052D7E8;
-    a2->__r_.__value_.__r.__words[2] = *&byte_10052D7E8[16];
+    *&a3->__r_.__value_.__l.__data_ = *byte_10052D7E8;
+    a3->__r_.__value_.__r.__words[2] = *&byte_10052D7E8[16];
   }
 }
 
@@ -3882,44 +4120,44 @@ int *boost::filesystem::detail::permissions(int *result, unsigned int a2, uint64
   {
     v4 = a2;
     v5 = result;
-    v16 = 0uLL;
-    v17 = 0;
+    v15 = 0uLL;
+    v16 = 0;
     if ((a2 & 0x4000) != 0)
     {
-      result = boost::filesystem::detail::symlink_status(result, &v16, &v14);
+      result = boost::filesystem::detail::symlink_status(&v14, result, &v15);
     }
 
     else
     {
-      result = boost::filesystem::detail::status(result, &v16, &v14);
+      result = boost::filesystem::detail::status(&v14, result, &v15);
     }
 
-    if ((v17 & 1) != 0 && (v17 != 1 || v16))
+    if ((v16 & 1) != 0 && (v16 != 1 || v15))
     {
       if (a3)
       {
-        *a3 = v16;
-        v8 = v17;
+        *a3 = v15;
+        v8 = v16;
 LABEL_25:
         *(a3 + 16) = v8;
         return result;
       }
 
       exception = __cxa_allocate_exception(0x30uLL);
-      v12 = v16;
-      v13 = v17;
+      v12 = v15;
+      v13 = v16;
       boost::filesystem::filesystem_error::filesystem_error(exception, "boost::filesystem::permissions", v5, &v12);
 LABEL_34:
     }
 
     if ((v4 & 0x1000) != 0)
     {
-      v4 |= v15;
+      v4 |= HIDWORD(v14);
     }
 
     else if ((v4 & 0x2000) != 0)
     {
-      v4 = v15 & ~v4;
+      v4 = HIDWORD(v14) & ~v4;
     }
 
     if (*(v5 + 23) >= 0)
@@ -3989,38 +4227,38 @@ LABEL_34:
   return result;
 }
 
-void boost::filesystem::detail::weakly_canonical(std::string *this@<X0>, std::string *a2@<X1>, std::string *a3@<X2>, std::string *a4@<X8>)
+void boost::filesystem::detail::weakly_canonical(std::string *__return_ptr a1@<X8>, std::string *this@<X0>, std::string *a3@<X1>, std::string *a4@<X2>)
 {
-  v7 = this;
-  memset(&v39, 0, sizeof(v39));
-  v9 = boost::filesystem::path::end(this, &v37);
-  if (SHIBYTE(v37.__r_.__value_.__r.__words[2]) < 0)
+  v6 = this;
+  memset(&v38, 0, sizeof(v38));
+  v8 = boost::filesystem::path::end(&v36, this);
+  if (SHIBYTE(v36.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v35, v37.__r_.__value_.__l.__data_, v37.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v34, v36.__r_.__value_.__l.__data_, v36.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v35 = v37;
+    v34 = v36;
   }
 
-  v36 = v38;
-  if (SHIBYTE(v7->__r_.__value_.__r.__words[2]) < 0)
+  v35 = v37;
+  if (SHIBYTE(v6->__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v34, v7->__r_.__value_.__l.__data_, v7->__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v33, v6->__r_.__value_.__l.__data_, v6->__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v34 = *v7;
+    v33 = *v6;
   }
 
   while (1)
   {
-    size = HIBYTE(v34.__r_.__value_.__r.__words[2]);
-    if ((v34.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    size = HIBYTE(v33.__r_.__value_.__r.__words[2]);
+    if ((v33.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      size = v34.__r_.__value_.__l.__size_;
+      size = v33.__r_.__value_.__l.__size_;
     }
 
     if (!size)
@@ -4028,87 +4266,87 @@ void boost::filesystem::detail::weakly_canonical(std::string *this@<X0>, std::st
       goto LABEL_13;
     }
 
-    v9 = boost::filesystem::detail::status(&v34, &v39, &v32);
-    if (LODWORD(v32.__r_.__value_.__l.__data_) != 1)
+    v8 = boost::filesystem::detail::status(&v31, &v33, &v38);
+    if (LODWORD(v31.__r_.__value_.__l.__data_) != 1)
     {
       break;
     }
 
-    boost::filesystem::path::remove_filename(&v34, v11, v12, v13);
-    boost::filesystem::path::iterator::decrement_v4(&v35.__r_.__value_.__l.__data_, v14, v15, v16);
+    boost::filesystem::path::remove_filename(&v33, v10, v11, v12);
+    boost::filesystem::path::iterator::decrement_v4(&v34.__r_.__value_.__l.__data_, v13, v14, v15);
   }
 
-  if (LODWORD(v32.__r_.__value_.__l.__data_))
+  if (LODWORD(v31.__r_.__value_.__l.__data_))
   {
 LABEL_13:
-    v17 = boost::filesystem::detail::dot_path(v9);
-    v20 = boost::filesystem::detail::dot_dot_path(v17);
-    v21 = 0;
+    v16 = boost::filesystem::detail::dot_path(v8);
+    v19 = boost::filesystem::detail::dot_dot_path(v16);
+    v20 = 0;
     memset(&__p, 0, sizeof(__p));
-    while (v36 != v38 || *(&v36 + 1) != *(&v38 + 1))
+    while (v35 != v37 || *(&v35 + 1) != *(&v37 + 1))
     {
-      boost::filesystem::path::append_v4(&__p, &v35, v18, v19);
-      v21 = v21 || !boost::filesystem::path::compare_v4(&v35, v17, v24, v25) || !boost::filesystem::path::compare_v4(&v35, v20, v24, v25);
-      boost::filesystem::path::iterator::increment_v4(&v35, v23, v24, v25);
+      boost::filesystem::path::append_v4(&__p, &v34, v17, v18);
+      v20 = v20 || !boost::filesystem::path::compare_v4(&v34, v16, v23, v24) || !boost::filesystem::path::compare_v4(&v34, v19, v23, v24);
+      boost::filesystem::path::iterator::increment_v4(&v34, v22, v23, v24);
     }
 
-    v26 = HIBYTE(v34.__r_.__value_.__r.__words[2]);
-    if ((v34.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    v25 = HIBYTE(v33.__r_.__value_.__r.__words[2]);
+    if ((v33.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      v26 = v34.__r_.__value_.__l.__size_;
+      v25 = v33.__r_.__value_.__l.__size_;
     }
 
-    if (!v26)
+    if (!v25)
     {
       goto LABEL_37;
     }
 
-    boost::filesystem::detail::canonical(&v34, a2, &v39, v19, &v32);
-    if (SHIBYTE(v34.__r_.__value_.__r.__words[2]) < 0)
+    boost::filesystem::detail::canonical(&v33, a3, &v38, &v31, v18);
+    if (SHIBYTE(v33.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v34.__r_.__value_.__l.__data_);
+      operator delete(v33.__r_.__value_.__l.__data_);
     }
 
-    v34 = v32;
-    if ((v39.__r_.__value_.__s.__data_[16] & 1) != 0 && (v39.__r_.__value_.__r.__words[2] != 1 || LODWORD(v39.__r_.__value_.__l.__data_)))
+    v33 = v31;
+    if ((v38.__r_.__value_.__s.__data_[16] & 1) != 0 && (v38.__r_.__value_.__r.__words[2] != 1 || LODWORD(v38.__r_.__value_.__l.__data_)))
     {
-      if (!a3)
+      if (!a4)
       {
         exception = __cxa_allocate_exception(0x30uLL);
-        v32 = v39;
-        boost::filesystem::filesystem_error::filesystem_error(exception, "boost::filesystem::weakly_canonical", &v34, &v32);
+        v31 = v38;
+        boost::filesystem::filesystem_error::filesystem_error(exception, "boost::filesystem::weakly_canonical", &v33, &v31);
       }
 
-      *a3 = v39;
+      *a4 = v38;
     }
 
     else
     {
-      v29 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+      v28 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
       if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
       {
-        v29 = __p.__r_.__value_.__l.__size_;
+        v28 = __p.__r_.__value_.__l.__size_;
       }
 
-      if (v29)
+      if (v28)
       {
-        boost::filesystem::path::append_v4(&v34, &__p, v27, v28);
-        if (v21)
+        boost::filesystem::path::append_v4(&v33, &__p, v26, v27);
+        if (v20)
         {
-          v7 = &v34;
+          v6 = &v33;
 LABEL_37:
-          boost::filesystem::path::lexically_normal_v4(v7, v19, a4);
+          boost::filesystem::path::lexically_normal_v4(v6, v18, a1);
           goto LABEL_40;
         }
       }
 
-      *a4 = v34;
-      a4 = &v34;
+      *a1 = v33;
+      a1 = &v33;
     }
 
-    a4->__r_.__value_.__r.__words[0] = 0;
-    a4->__r_.__value_.__l.__size_ = 0;
-    a4->__r_.__value_.__r.__words[2] = 0;
+    a1->__r_.__value_.__r.__words[0] = 0;
+    a1->__r_.__value_.__l.__size_ = 0;
+    a1->__r_.__value_.__r.__words[2] = 0;
 LABEL_40:
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
@@ -4118,31 +4356,31 @@ LABEL_40:
     goto LABEL_42;
   }
 
-  if (!a3)
+  if (!a4)
   {
-    v30 = __cxa_allocate_exception(0x30uLL);
-    __p = v39;
-    boost::filesystem::filesystem_error::filesystem_error(v30, "boost::filesystem::weakly_canonical", &v34, &__p);
+    v29 = __cxa_allocate_exception(0x30uLL);
+    __p = v38;
+    boost::filesystem::filesystem_error::filesystem_error(v29, "boost::filesystem::weakly_canonical", &v33, &__p);
   }
 
-  *a3 = v39;
-  a4->__r_.__value_.__l.__size_ = 0;
-  a4->__r_.__value_.__r.__words[2] = 0;
-  a4->__r_.__value_.__r.__words[0] = 0;
+  *a4 = v38;
+  a1->__r_.__value_.__l.__size_ = 0;
+  a1->__r_.__value_.__r.__words[2] = 0;
+  a1->__r_.__value_.__r.__words[0] = 0;
 LABEL_42:
+  if (SHIBYTE(v33.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v33.__r_.__value_.__l.__data_);
+  }
+
   if (SHIBYTE(v34.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v34.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v35.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v36.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v35.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v37.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v37.__r_.__value_.__l.__data_);
+    operator delete(v36.__r_.__value_.__l.__data_);
   }
 }
 
@@ -4183,7 +4421,7 @@ double boost::filesystem::detail::remove(boost::filesystem::detail *this, const 
 
   v13 = 0uLL;
   v14 = 0;
-  boost::filesystem::detail::symlink_status(this, &v13, &v11);
+  boost::filesystem::detail::symlink_status(&v11, this, &v13);
   if (v11 != 1)
   {
     if (v11 == 3)
@@ -4264,7 +4502,7 @@ uint64_t boost::filesystem::detail::anonymous namespace::remove_all_impl(boost::
 {
   v27 = 0uLL;
   v28 = 0;
-  boost::filesystem::detail::symlink_status(this, &v27, &v25);
+  boost::filesystem::detail::symlink_status(&v25, this, &v27);
   result = 0;
   v7 = v25;
   if (v25 != 1)
@@ -4446,7 +4684,7 @@ void boost::filesystem::detail::rename(const std::__fs::filesystem::path *this, 
   }
 }
 
-uint64_t boost::filesystem::detail::resize_file(boost::filesystem::detail *this, int64_t a2, boost::filesystem::path *a3, boost::system::error_code *a4, const char *a5)
+uint64_t boost::filesystem::detail::resize_file(boost::filesystem::detail *this, off_t a2, boost::filesystem::path *a3, boost::system::error_code *a4, const char *a5)
 {
   v6 = this;
   if (a2 < 0)
@@ -4480,7 +4718,7 @@ uint64_t boost::filesystem::detail::resize_file(boost::filesystem::detail *this,
 
 uint64_t boost::filesystem::detail::space@<X0>(boost::filesystem::detail *this@<X0>, const boost::filesystem::path *a2@<X1>, void *a3@<X8>)
 {
-  v5 = this;
+  v4 = this;
   a3[1] = -1;
   a3[2] = -1;
   *a3 = -1;
@@ -4496,13 +4734,13 @@ uint64_t boost::filesystem::detail::space@<X0>(boost::filesystem::detail *this@<
     this = *this;
   }
 
-  result = statfs(this, &v11);
+  result = statfs(this, &v10);
   if (result)
   {
     result = *__error();
     if (result)
     {
-      return boost::filesystem::emit_error(result, v5, a2, "boost::filesystem::space", v8);
+      return boost::filesystem::emit_error(result, v4, a2, "boost::filesystem::space", v7);
     }
   }
 
@@ -4513,11 +4751,11 @@ uint64_t boost::filesystem::detail::space@<X0>(boost::filesystem::detail *this@<
     *(a2 + 2) = 0;
   }
 
-  f_bsize = v11.f_bsize;
-  v10 = v11.f_bfree * v11.f_bsize;
-  *a3 = v11.f_blocks * v11.f_bsize;
-  a3[1] = v10;
-  a3[2] = v11.f_bavail * f_bsize;
+  f_bsize = v10.f_bsize;
+  v9 = v10.f_bfree * v10.f_bsize;
+  *a3 = v10.f_blocks * v10.f_bsize;
+  a3[1] = v9;
+  a3[2] = v10.f_bavail * f_bsize;
   return result;
 }
 
@@ -4530,62 +4768,62 @@ void boost::filesystem::detail::temp_directory_path(boost::filesystem::detail *t
     *(this + 2) = 0;
   }
 
-  v5 = getenv("TMPDIR");
-  if (!v5)
+  v4 = getenv("TMPDIR");
+  if (!v4)
   {
-    v5 = getenv("TMP");
-    if (!v5)
+    v4 = getenv("TMP");
+    if (!v4)
     {
-      v5 = getenv("TEMP");
-      if (!v5)
+      v4 = getenv("TEMP");
+      if (!v4)
       {
-        v5 = getenv("TEMPDIR");
+        v4 = getenv("TEMPDIR");
       }
     }
   }
 
-  if (v5)
+  if (v4)
   {
-    v6 = v5;
+    v5 = v4;
   }
 
   else
   {
-    v6 = "/tmp";
+    v5 = "/tmp";
   }
 
-  std::string::basic_string[abi:ne200100]<0>(__p, v6);
-  v8 = HIBYTE(v12);
-  if (v12 < 0)
+  std::string::basic_string[abi:ne200100]<0>(__p, v5);
+  v7 = HIBYTE(v11);
+  if (v11 < 0)
   {
-    v8 = __p[1];
+    v7 = __p[1];
   }
 
-  if (!v8)
+  if (!v7)
   {
     goto LABEL_20;
   }
 
-  boost::filesystem::detail::status(__p, this, &v10);
-  if (!this || (v9 = *(this + 2), (v9 & 1) == 0) || v9 == 1 && !*this)
+  boost::filesystem::detail::status(&v9, __p, this);
+  if (!this || (v8 = *(this + 2), (v8 & 1) == 0) || v8 == 1 && !*this)
   {
-    if (v10 == 3)
+    if (v9 == 3)
     {
 LABEL_18:
       *a2 = *__p;
-      *(a2 + 16) = v12;
+      *(a2 + 16) = v11;
       return;
     }
 
 LABEL_20:
-    boost::filesystem::emit_error(0x14, __p, this, "boost::filesystem::temp_directory_path", v7);
+    boost::filesystem::emit_error(0x14, __p, this, "boost::filesystem::temp_directory_path", v6);
     goto LABEL_18;
   }
 
   *a2 = 0;
   *(a2 + 8) = 0;
   *(a2 + 16) = 0;
-  if (SHIBYTE(v12) < 0)
+  if (SHIBYTE(v11) < 0)
   {
     operator delete(__p[0]);
   }
@@ -4601,7 +4839,7 @@ void sub_1001C4498(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void boost::filesystem::detail::system_complete(boost::filesystem::detail *this@<X0>, const boost::filesystem::path *a2@<X1>, boost::system::error_code *a3@<X2>, unint64_t *a4@<X3>, std::string *a5@<X8>)
+void boost::filesystem::detail::system_complete(boost::filesystem::detail *this@<X0>, std::string *a2@<X8>, uint64_t a3@<X1>, uint64_t a4@<X2>, unint64_t *a5@<X3>)
 {
   v7 = *(this + 23);
   v8 = v7;
@@ -4612,12 +4850,12 @@ void boost::filesystem::detail::system_complete(boost::filesystem::detail *this@
 
   if (v7)
   {
-    boost::filesystem::path::find_root_directory(this, a2, a3, a4);
+    boost::filesystem::path::find_root_directory(this, a3, a4, a5);
     if (!v9)
     {
-      boost::filesystem::detail::current_path(0, &v15);
+      boost::filesystem::detail::current_path(&v15, 0);
       boost::filesystem::path::append_v4(&v15, this, v13, v14);
-      *&a5->__r_.__value_.__l.__data_ = *&v15.__r_.__value_.__l.__data_;
+      *&a2->__r_.__value_.__l.__data_ = *&v15.__r_.__value_.__l.__data_;
       v10 = v15.__r_.__value_.__r.__words[2];
       goto LABEL_12;
     }
@@ -4627,17 +4865,17 @@ void boost::filesystem::detail::system_complete(boost::filesystem::detail *this@
 
   if ((v8 & 0x80) == 0)
   {
-    *&a5->__r_.__value_.__l.__data_ = *this;
+    *&a2->__r_.__value_.__l.__data_ = *this;
     v10 = *(this + 2);
 LABEL_12:
-    a5->__r_.__value_.__r.__words[2] = v10;
+    a2->__r_.__value_.__r.__words[2] = v10;
     return;
   }
 
   v11 = *this;
   v12 = *(this + 1);
 
-  std::string::__init_copy_ctor_external(a5, v11, v12);
+  std::string::__init_copy_ctor_external(a2, v11, v12);
 }
 
 void sub_1001C4570(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -4650,10 +4888,10 @@ void sub_1001C4570(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *boost::filesystem::path::filename_v4@<X0>(boost::filesystem::path *this@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, unint64_t *a4@<X3>, void *a5@<X8>)
+uint64_t *boost::filesystem::path::filename_v4@<X0>(uint64_t *__return_ptr a1@<X8>, boost::filesystem::path *this@<X0>, uint64_t a3@<X1>, uint64_t a4@<X2>, unint64_t *a5@<X3>)
 {
   v5 = this;
-  filename_v4_size = boost::filesystem::path::find_filename_v4_size(this, a2, a3, a4);
+  filename_v4_size = boost::filesystem::path::find_filename_v4_size(this, a3, a4, a5);
   v8 = *(v5 + 23);
   if (v8 < 0)
   {
@@ -4662,7 +4900,7 @@ void *boost::filesystem::path::filename_v4@<X0>(boost::filesystem::path *this@<X
     v8 = *(v9 + 1);
   }
 
-  return std::string::__init_with_size[abi:ne200100]<char const*,char const*>(a5, v5 + v8 - filename_v4_size, v5 + v8, filename_v4_size);
+  return std::string::__init_with_size[abi:ne200100]<char const*,char const*>(a1, v5 + v8 - filename_v4_size, v5 + v8, filename_v4_size);
 }
 
 ssize_t boost::filesystem::detail::anonymous namespace::copy_file_data_read_write(boost::filesystem::detail::_anonymous_namespace_ *this)
@@ -5132,7 +5370,7 @@ void boost::filesystem::path::append_v4(boost::filesystem::path *this, const boo
         __n = *a2;
       }
 
-      boost::filesystem::path::append_v4(this, &__n);
+      boost::filesystem::path::append_v4(this, &__n, v6, a4);
       if (SHIBYTE(__n.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__n.__r_.__value_.__l.__data_);
@@ -5266,7 +5504,7 @@ const char *anonymous namespace::find_root_directory_start(_anonymous_namespace_
   return a2;
 }
 
-void boost::filesystem::path::append_v4(std::string *this, char *__src, std::string *a3, unint64_t *a4)
+void boost::filesystem::path::append_v4(std::string *this, std::string *__src, std::string *a3, unint64_t *a4)
 {
   if (__src != a3)
   {
@@ -5278,7 +5516,7 @@ void boost::filesystem::path::append_v4(std::string *this, char *__src, std::str
       {
         size = this->__r_.__value_.__l.__size_;
 LABEL_11:
-        if (v8 + size > __src)
+        if ((v8 + size) > __src)
         {
           std::string::__init_with_size[abi:ne200100]<char const*,char const*>(__n, __src, a3, a3 - __src);
           boost::filesystem::path::append_v4(this, __n, v14, v15);
@@ -5332,12 +5570,12 @@ LABEL_11:
     if (!memcmp(v13, __src, __n[0]))
     {
 LABEL_22:
-      if (__src[v12] != 47)
+      if (__src->__r_.__value_.__s.__data_[v12] != 47)
       {
         boost::filesystem::path::append_separator_if_needed(this);
       }
 
-      std::string::append[abi:ne200100]<char const*,0>(this, &__src[v12], a3);
+      std::string::append[abi:ne200100]<char const*,0>(this, (__src + v12), a3);
     }
 
     else
@@ -5368,7 +5606,7 @@ void sub_1001C50A4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t boost::filesystem::path::compare_v3(std::string *this, std::string *a2, uint64_t a3, unint64_t *a4)
 {
-  boost::filesystem::path::begin(this, a4, &v14);
+  boost::filesystem::path::begin(&v14, this, a4);
   memset(v13, 0, 24);
   v13[3] = this;
   size = SHIBYTE(this->__r_.__value_.__r.__words[2]);
@@ -5378,7 +5616,7 @@ uint64_t boost::filesystem::path::compare_v3(std::string *this, std::string *a2,
   }
 
   v13[4] = size;
-  boost::filesystem::path::begin(a2, v6, &__p);
+  boost::filesystem::path::begin(&__p, a2, v6);
   memset(v11, 0, 24);
   v11[3] = a2;
   v8 = HIBYTE(a2->__r_.__value_.__r.__words[2]);
@@ -5402,7 +5640,7 @@ uint64_t boost::filesystem::path::compare_v3(std::string *this, std::string *a2,
   return v9;
 }
 
-uint64_t boost::filesystem::detail::lex_compare_v3(std::string *a1, uint64_t a2, std::string *a3, uint64_t a4)
+uint64_t boost::filesystem::detail::lex_compare_v3(std::string *a1, uint64_t a2, uint64_t ***a3, uint64_t a4)
 {
   data = a1[1].__r_.__value_.__l.__data_;
   size = a1[1].__r_.__value_.__l.__size_;
@@ -5415,11 +5653,11 @@ LABEL_16:
     v9 = size;
   }
 
-  else if (a3[1].__r_.__value_.__r.__words[0] != *(a4 + 24) || a3[1].__r_.__value_.__l.__size_ != *(a4 + 32))
+  else if (a3[3] != *(a4 + 24) || a3[4] != *(a4 + 32))
   {
-    while ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a1, &a3->__r_.__value_.__l.__data_) & 0x80) == 0)
+    while ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a1, a3) & 0x80) == 0)
     {
-      if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a3, &a1->__r_.__value_.__l.__data_) & 0x80) != 0)
+      if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a3, a1) & 0x80) != 0)
       {
         return 1;
       }
@@ -5435,7 +5673,7 @@ LABEL_16:
         goto LABEL_16;
       }
 
-      if (a3[1].__r_.__value_.__r.__words[0] == *(a4 + 24) && a3[1].__r_.__value_.__l.__size_ == *(a4 + 32))
+      if (a3[3] == *(a4 + 24) && a3[4] == *(a4 + 32))
       {
         goto LABEL_17;
       }
@@ -5450,7 +5688,7 @@ LABEL_17:
     return 1;
   }
 
-  if (a3[1].__r_.__value_.__r.__words[0] != *(a4 + 24) || a3[1].__r_.__value_.__l.__size_ != *(a4 + 32))
+  if (a3[3] != *(a4 + 24) || a3[4] != *(a4 + 32))
   {
     return 0xFFFFFFFFLL;
   }
@@ -5458,13 +5696,12 @@ LABEL_17:
   return 0;
 }
 
-std::string *boost::filesystem::path::begin@<X0>(std::string *this@<X0>, unint64_t *a2@<X3>, std::string *a3@<X8>)
+std::string *boost::filesystem::path::begin@<X0>(std::string *__return_ptr a1@<X8>, std::string *this@<X0>, unint64_t *a3@<X3>)
 {
   v3 = this;
-  a3->__r_.__value_.__r.__words[0] = 0;
-  a3->__r_.__value_.__l.__size_ = 0;
-  a3->__r_.__value_.__r.__words[2] = 0;
-  a3[1].__r_.__value_.__r.__words[0] = this;
+  *&a1->__r_.__value_.__l.__data_ = 0uLL;
+  a1->__r_.__value_.__r.__words[2] = 0;
+  a1[1].__r_.__value_.__r.__words[0] = this;
   v5 = SHIBYTE(this->__r_.__value_.__r.__words[2]);
   size = this->__r_.__value_.__l.__size_;
   if (v5 >= 0)
@@ -5477,7 +5714,7 @@ std::string *boost::filesystem::path::begin@<X0>(std::string *this@<X0>, unint64
     v7 = this->__r_.__value_.__l.__size_;
   }
 
-  a3[1].__r_.__value_.__l.__size_ = 0;
+  a1[1].__r_.__value_.__l.__size_ = 0;
   if (v5 < 0)
   {
     if (!size)
@@ -5508,7 +5745,7 @@ std::string *boost::filesystem::path::begin@<X0>(std::string *this@<X0>, unint64
   v9 = this;
   if (this < v7)
   {
-    a3[1].__r_.__value_.__l.__size_ = this;
+    a1[1].__r_.__value_.__l.__size_ = this;
     v8 = 1;
     goto LABEL_13;
   }
@@ -5547,7 +5784,7 @@ LABEL_10:
     v9 = 0;
 LABEL_13:
     this = std::string::basic_string(&v15, v3, v9, v8, &v16);
-    *a3 = v15;
+    *a1 = v15;
     return this;
   }
 
@@ -5583,25 +5820,25 @@ LABEL_13:
   return this;
 }
 
-uint64_t boost::filesystem::path::end@<X0>(uint64_t this@<X0>, void *a2@<X8>)
+uint64_t *boost::filesystem::path::end@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t *this@<X0>)
 {
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
-  a2[3] = this;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  a1[3] = this;
   v2 = *(this + 23);
   if (v2 < 0)
   {
-    v2 = *(this + 8);
+    v2 = this[1];
   }
 
-  a2[4] = v2;
+  a1[4] = v2;
   return this;
 }
 
 uint64_t boost::filesystem::path::compare_v4(std::string *this, std::string *a2, uint64_t a3, unint64_t *a4)
 {
-  boost::filesystem::path::begin(this, a4, &v14);
+  boost::filesystem::path::begin(&v14, this, a4);
   memset(v13, 0, 24);
   v13[3] = this;
   size = SHIBYTE(this->__r_.__value_.__r.__words[2]);
@@ -5611,7 +5848,7 @@ uint64_t boost::filesystem::path::compare_v4(std::string *this, std::string *a2,
   }
 
   v13[4] = size;
-  boost::filesystem::path::begin(a2, v6, &__p);
+  boost::filesystem::path::begin(&__p, a2, v6);
   memset(v11, 0, 24);
   v11[3] = a2;
   v8 = HIBYTE(a2->__r_.__value_.__r.__words[2]);
@@ -5635,7 +5872,7 @@ uint64_t boost::filesystem::path::compare_v4(std::string *this, std::string *a2,
   return v9;
 }
 
-uint64_t boost::filesystem::detail::lex_compare_v4(std::string *a1, uint64_t a2, std::string *a3, uint64_t a4)
+uint64_t boost::filesystem::detail::lex_compare_v4(std::string *a1, uint64_t a2, uint64_t ***a3, uint64_t a4)
 {
   data = a1[1].__r_.__value_.__l.__data_;
   size = a1[1].__r_.__value_.__l.__size_;
@@ -5648,11 +5885,11 @@ LABEL_16:
     v9 = size;
   }
 
-  else if (a3[1].__r_.__value_.__r.__words[0] != *(a4 + 24) || a3[1].__r_.__value_.__l.__size_ != *(a4 + 32))
+  else if (a3[3] != *(a4 + 24) || a3[4] != *(a4 + 32))
   {
-    while ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a1, &a3->__r_.__value_.__l.__data_) & 0x80) == 0)
+    while ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a1, a3) & 0x80) == 0)
     {
-      if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a3, &a1->__r_.__value_.__l.__data_) & 0x80) != 0)
+      if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a3, a1) & 0x80) != 0)
       {
         return 1;
       }
@@ -5668,7 +5905,7 @@ LABEL_16:
         goto LABEL_16;
       }
 
-      if (a3[1].__r_.__value_.__r.__words[0] == *(a4 + 24) && a3[1].__r_.__value_.__l.__size_ == *(a4 + 32))
+      if (a3[3] == *(a4 + 24) && a3[4] == *(a4 + 32))
       {
         goto LABEL_17;
       }
@@ -5683,7 +5920,7 @@ LABEL_17:
     return 1;
   }
 
-  if (a3[1].__r_.__value_.__r.__words[0] != *(a4 + 24) || a3[1].__r_.__value_.__l.__size_ != *(a4 + 32))
+  if (a3[3] != *(a4 + 24) || a3[4] != *(a4 + 32))
   {
     return 0xFFFFFFFFLL;
   }
@@ -5750,74 +5987,73 @@ const char *boost::filesystem::path::find_parent_path_size(boost::filesystem::pa
     v5 = *(v4 + 1);
   }
 
-  v20 = 0;
+  v19 = 0;
   v7 = *(v4 + 23);
-  v8 = *v4;
-  if (v5 >= v20)
+  if (v5 >= v19)
   {
-    v9 = v20;
+    v8 = v19;
   }
 
   else
   {
-    v9 = v5;
+    v8 = v5;
   }
 
   if (v7 >= 0)
   {
-    v10 = v4;
+    v9 = v4;
   }
 
   else
   {
-    v10 = *v4;
+    v9 = *v4;
   }
 
-  v11 = v10 - 1;
-  v12 = v5;
-  while (v12 > v20)
+  v10 = v9 - 1;
+  v11 = v5;
+  while (v11 > v19)
   {
-    v13 = v12 - 1;
-    v14 = (v12--)[v11];
-    if (v14 == 47)
+    v12 = v11 - 1;
+    v13 = (v11--)[v10];
+    if (v13 == 47)
     {
-      v9 = v13 + 1;
+      v8 = v12 + 1;
       break;
     }
   }
 
-  if (v9 >= v20)
+  if (v8 >= v19)
   {
-    v15 = v20;
+    v14 = v19;
   }
 
   else
   {
-    v15 = v9;
+    v14 = v8;
   }
 
   if (v7 >= 0)
   {
-    v16 = v4;
+    v15 = v4;
   }
 
   else
   {
-    v16 = *v4;
+    v15 = *v4;
   }
 
-  v17 = v16 - 1;
-  v18 = v9;
-  while (v18 > v20)
+  v16 = v15 - 1;
+  v17 = v8;
+  while (v17 > v19)
   {
-    if (v18[v17] != 47)
+    if (v17[v16] != 47)
     {
-      return v18;
+      return v17;
     }
 
-    if (root_directory_start == --v18)
+    if (root_directory_start == --v17)
     {
-      if (v5 == v9)
+      if (v5 == v8)
       {
         return root_directory_start;
       }
@@ -5829,14 +6065,14 @@ const char *boost::filesystem::path::find_parent_path_size(boost::filesystem::pa
     }
   }
 
-  if (v5 == v9)
+  if (v5 == v8)
   {
     return 0;
   }
 
   else
   {
-    return v15;
+    return v14;
   }
 }
 
@@ -5892,7 +6128,7 @@ std::string *boost::filesystem::path::replace_extension(std::string *this, const
     size = this->__r_.__value_.__l.__size_;
   }
 
-  boost::filesystem::path::extension_v4(this, a4, &__p);
+  boost::filesystem::path::extension_v4(&__p, this, a4);
   v7 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
   {
@@ -6039,19 +6275,12 @@ const char *boost::filesystem::path::find_root_directory(boost::filesystem::path
     this = *this;
     v5 = *(v4 + 1);
   }
-
-  if ((*(v4 + 23) & 0x8000000000000000) != 0)
-  {
-    v7 = *(v4 + 1);
-  }
-
-  return result;
 }
 
 const char *boost::filesystem::path::find_relative_path(boost::filesystem::path *this, uint64_t a2, uint64_t a3, unint64_t *a4)
 {
   v4 = this;
-  v14 = 0;
+  v13 = 0;
   v5 = *(this + 23);
   if ((v5 & 0x8000000000000000) != 0)
   {
@@ -6059,15 +6288,13 @@ const char *boost::filesystem::path::find_relative_path(boost::filesystem::path 
     v5 = *(v4 + 1);
   }
 
-  result = v14;
+  result = v13;
   v8 = *(v4 + 23);
   if ((v8 & 0x8000000000000000) != 0)
   {
     v9 = *(v4 + 1);
     if (root_directory_start >= v9)
     {
-LABEL_16:
-      v13 = *(v4 + 1);
       return result;
     }
   }
@@ -6082,7 +6309,7 @@ LABEL_16:
   }
 
   v10 = root_directory_start + 1;
-  if (v9 <= (root_directory_start + 1))
+  if (v9 <= root_directory_start + 1)
   {
     result = root_directory_start + 1;
   }
@@ -6103,14 +6330,8 @@ LABEL_16:
     v12 = (v10++)[v11];
     if (v12 != 47)
     {
-      result = v10 - 1;
-      break;
+      return v10 - 1;
     }
-  }
-
-  if ((v8 & 0x80000000) != 0)
-  {
-    goto LABEL_16;
   }
 
   return result;
@@ -6126,7 +6347,7 @@ void boost::filesystem::path::filename_v3(boost::filesystem::path *this@<X0>, un
     v5 = *(v3 + 1);
   }
 
-  v28 = 0;
+  v27 = 0;
   if (root_directory_start >= v5)
   {
     LOBYTE(v7) = *(v3 + 23);
@@ -6182,7 +6403,7 @@ void boost::filesystem::path::filename_v3(boost::filesystem::path *this@<X0>, un
   }
 
 LABEL_16:
-  if (v28 == v5)
+  if (v27 == v5)
   {
     root_directory_start = 0;
     if ((v7 & 0x80) == 0)
@@ -6198,45 +6419,44 @@ LABEL_18:
     goto LABEL_19;
   }
 
-  v14 = *v3;
-  if (v5 >= v28)
+  if (v5 >= v27)
   {
-    v15 = v28;
+    v14 = v27;
   }
 
   else
   {
-    v15 = v5;
+    v14 = v5;
   }
 
   if ((v7 & 0x80u) == 0)
   {
-    v16 = v3;
+    v15 = v3;
   }
 
   else
   {
-    v16 = *v3;
+    v15 = *v3;
   }
 
-  v17 = v16 - 1;
-  v18 = v5;
-  while (v18 > v28)
+  v16 = v15 - 1;
+  v17 = v5;
+  while (v17 > v27)
   {
-    v19 = v18 - 1;
-    v20 = v17[v18--];
-    if (v20 == 47)
+    v18 = v17 - 1;
+    v19 = v16[v17--];
+    if (v19 == 47)
     {
-      v15 = v19 + 1;
+      v14 = v18 + 1;
       break;
     }
   }
 
-  v5 -= v15;
+  v5 -= v14;
   if (v5)
   {
 LABEL_47:
-    root_directory_start = v15;
+    root_directory_start = v14;
     if ((v7 & 0x80) == 0)
     {
       goto LABEL_19;
@@ -6245,43 +6465,43 @@ LABEL_47:
     goto LABEL_18;
   }
 
-  if (v15 <= v28)
+  if (v14 <= v27)
   {
     goto LABEL_46;
   }
 
-  v21 = (v15 - 1);
-  v22 = (v7 & 0x80u) == 0 ? v3 : *v3;
-  if (v21[v22] != 47)
+  v20 = (v14 - 1);
+  v21 = (v7 & 0x80u) == 0 ? v3 : *v3;
+  if (v20[v21] != 47)
   {
     goto LABEL_46;
   }
 
-  if (v21 >= root_directory_start)
+  if (v20 >= root_directory_start)
   {
-    v21 = root_directory_start;
+    v20 = root_directory_start;
   }
 
-  v23 = v22 - 2;
-  v24 = v15;
+  v22 = v21 - 2;
+  v23 = v14;
   while (1)
   {
-    v25 = (v24 - 1);
-    if (v24 - 1 <= root_directory_start)
+    v24 = (v23 - 1);
+    if (v23 - 1 <= root_directory_start)
     {
       break;
     }
 
-    v26 = v23[v24--];
-    if (v26 != 47)
+    v25 = v22[v23--];
+    if (v25 != 47)
     {
       goto LABEL_45;
     }
   }
 
-  v25 = v21;
+  v24 = v20;
 LABEL_45:
-  if (v25 == root_directory_start)
+  if (v24 == root_directory_start)
   {
 LABEL_46:
     v5 = 0;
@@ -6291,7 +6511,7 @@ LABEL_46:
   if (byte_10052D81F < 0)
   {
 
-    std::string::__init_copy_ctor_external(a3, v27, *(&v27 + 1));
+    std::string::__init_copy_ctor_external(a3, v26, *(&v26 + 1));
   }
 
   else
@@ -6400,16 +6620,16 @@ void sub_1001C5DBC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-std::string *boost::filesystem::path::stem_v4@<X0>(boost::filesystem::path *this@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, unint64_t *a4@<X3>, uint64_t a5@<X8>)
+std::string *boost::filesystem::path::stem_v4@<X0>(boost::filesystem::path *this@<X0>, uint64_t a2@<X8>, uint64_t a3@<X1>, uint64_t a4@<X2>, unint64_t *a5@<X3>)
 {
-  boost::filesystem::path::filename_v4(this, a2, a3, a4, a5);
+  boost::filesystem::path::filename_v4(a2, this, a3, a4, a5);
   if (result)
   {
     if (result)
     {
-      v11 = *(a5 + 23);
-      v12 = (v11 & 0x80u) == 0 ? a5 : *a5;
-      v13 = (v11 & 0x80u) == 0 ? *(a5 + 23) : *(a5 + 8);
+      v11 = *(a2 + 23);
+      v12 = (v11 & 0x80u) == 0 ? a2 : *a2;
+      v13 = (v11 & 0x80u) == 0 ? *(a2 + 23) : *(a2 + 8);
       if (v13)
       {
         v14 = v13 + v12;
@@ -6424,13 +6644,13 @@ std::string *boost::filesystem::path::stem_v4@<X0>(boost::filesystem::path *this
             if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
             {
               v17 = v11;
-              v18 = a5 + v11;
+              v18 = a2 + v11;
               if (v17 < 0)
               {
-                v18 = *a5 + *(a5 + 8);
+                v18 = *a2 + *(a2 + 8);
               }
 
-              return std::string::erase(a5, v13, v18 - v14);
+              return std::string::erase(a2, v13, v18 - v14);
             }
 
             return result;
@@ -6515,12 +6735,11 @@ void sub_1001C5F74(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void boost::filesystem::path::extension_v4(boost::filesystem::path *this@<X0>, unint64_t *a2@<X3>, std::string *a3@<X8>)
+void boost::filesystem::path::extension_v4(std::string *__return_ptr a1@<X8>, boost::filesystem::path *this@<X0>, unint64_t *a3@<X3>)
 {
   v3 = this;
-  a3->__r_.__value_.__r.__words[0] = 0;
-  a3->__r_.__value_.__l.__size_ = 0;
-  a3->__r_.__value_.__r.__words[2] = 0;
+  *&a1->__r_.__value_.__l.__data_ = 0uLL;
+  a1->__r_.__value_.__r.__words[2] = 0;
   v5 = *(this + 23);
   if ((v5 & 0x8000000000000000) != 0)
   {
@@ -6528,57 +6747,56 @@ void boost::filesystem::path::extension_v4(boost::filesystem::path *this@<X0>, u
     v5 = *(v3 + 1);
   }
 
-  v18 = 0;
+  v17 = 0;
   v6 = *(v3 + 23);
-  v7 = *v3;
-  if (v5 >= v18)
+  if (v5 >= v17)
   {
-    v8 = v18;
+    v7 = v17;
   }
 
   else
   {
-    v8 = v5;
+    v7 = v5;
   }
 
   if (v6 >= 0)
   {
-    v9 = v3;
+    v8 = v3;
   }
 
   else
   {
-    v9 = *v3;
+    v8 = *v3;
   }
 
-  v10 = v9 - 1;
-  v11 = v5;
-  while (v11 > v18)
+  v9 = v8 - 1;
+  v10 = v5;
+  while (v10 > v17)
   {
-    v12 = v11 - 1;
-    v13 = (v11--)[v10];
-    if (v13 == 47)
+    v11 = v10 - 1;
+    v12 = (v10--)[v9];
+    if (v12 == 47)
     {
-      v8 = v12 + 1;
+      v7 = v11 + 1;
       break;
     }
   }
 
-  v14 = (v5 - v8);
-  if (v5 != v8)
+  v13 = (v5 - v7);
+  if (v5 != v7)
   {
-    v15 = v6 >= 0 ? v3 : *v3;
-    if (v8[v15] != 46 || v14 != 1 && (v14 != 2 || v8[v15 + 1] != 46))
+    v14 = v6 >= 0 ? v3 : *v3;
+    if (v7[v14] != 46 || v13 != 1 && (v13 != 2 || v7[v14 + 1] != 46))
     {
-      v16 = 0;
-      while (&v5[v16] > v8)
+      v15 = 0;
+      while (&v5[v15] > v7)
       {
-        v17 = v5[v15 - 1 + v16--];
-        if (v17 == 46)
+        v16 = v5[v14 - 1 + v15--];
+        if (v16 == 46)
         {
-          if (&v5[v16] > v8)
+          if (&v5[v15] > v7)
           {
-            std::string::__assign_trivial[abi:ne200100]<char const*,char const*>(a3, &v5[v16 + v15], &v5[v15], -v16);
+            std::string::__assign_trivial[abi:ne200100]<char const*,char const*>(a1, &v5[v15 + v14], &v5[v14], -v15);
           }
 
           return;
@@ -6600,14 +6818,14 @@ void sub_1001C60BC(_Unwind_Exception *exception_object)
 
 void boost::filesystem::path::lexically_relative(std::string *this@<X0>, const boost::filesystem::path *a2@<X1>, unint64_t *a3@<X3>, std::string *a4@<X8>)
 {
-  boost::filesystem::path::begin(this, a3, &v47);
+  boost::filesystem::path::begin(&v47, this, a3);
   size = SHIBYTE(this->__r_.__value_.__r.__words[2]);
   if ((size & 0x8000000000000000) != 0)
   {
     size = this->__r_.__value_.__l.__size_;
   }
 
-  boost::filesystem::path::begin(a2, v7, &v45);
+  boost::filesystem::path::begin(&v45, a2, v7);
   if (*(a2 + 23) >= 0)
   {
     v11 = *(a2 + 23);
@@ -6935,7 +7153,7 @@ void boost::filesystem::path::lexically_normal_v3(boost::filesystem::path *this@
       while (v22 > v7)
       {
         v23 = v22 - 1;
-        v24 = *(v21 + v22--);
+        v24 = v21[v22--];
         if (v24 == 47)
         {
           v10 = v23 + 1;
@@ -6948,7 +7166,7 @@ void boost::filesystem::path::lexically_normal_v3(boost::filesystem::path *this@
         if (v10 > v7)
         {
           v9 = (v18 & 0x80000000) == 0 ? a3 : a3->__r_.__value_.__r.__words[0];
-          if (*(v9 + v10 - 1) == 47)
+          if (v9->__r_.__value_.__s.__data_[v10 - 1] == 47)
           {
             --v10;
           }
@@ -7124,7 +7342,7 @@ void boost::filesystem::path::lexically_normal_v4(boost::filesystem::path *this@
       while (v21 > v7)
       {
         v22 = v21 - 1;
-        v23 = *(v20 + v21--);
+        v23 = v20[v21--];
         if (v23 == 47)
         {
           v10 = v22 + 1;
@@ -7137,7 +7355,7 @@ void boost::filesystem::path::lexically_normal_v4(boost::filesystem::path *this@
         if (v10 > v7)
         {
           v9 = (v17 & 0x80000000) == 0 ? a3 : a3->__r_.__value_.__r.__words[0];
-          if (*(v9 + v10 - 1) == 47)
+          if (v9->__r_.__value_.__s.__data_[v10 - 1] == 47)
           {
             --v10;
           }
@@ -7309,7 +7527,7 @@ void sub_1001C6B60(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(void *a1, void **a2)
+uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(uint64_t ***a1, char *a2)
 {
   v2 = *(a1 + 23);
   v3 = a1[1];
@@ -7319,7 +7537,7 @@ uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocat
     v2 = v3;
   }
 
-  v4 = *(a2 + 23);
+  v4 = a2[23];
   if (v4 >= 0)
   {
     v5 = a2;
@@ -7332,12 +7550,12 @@ uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocat
 
   if (v4 >= 0)
   {
-    v6 = *(a2 + 23);
+    v6 = a2[23];
   }
 
   else
   {
-    v6 = a2[1];
+    v6 = *(a2 + 1);
   }
 
   return std::operator<=>[abi:ne200100]<char,std::char_traits<char>>(a1, v2, v5, v6);
@@ -7747,15 +7965,15 @@ void boost::filesystem::path::iterator::decrement_v3(char **this, uint64_t a2, u
   }
 
   v34 = 0;
-  v9 = *(v4 + 4);
+  v9 = v4[4];
   if (root_directory_start >= v6 || v9 != root_directory_start)
   {
     if (v6 >= 2 && v9 == v6)
     {
-      v12 = *(v4 + 3);
-      v13 = v6 - 1;
+      v12 = v4[3];
+      v13 = (v6 - 1);
       v14 = v12;
-      if (*(v12 + 23) < 0)
+      if (v12[23] < 0)
       {
         v14 = *v12;
       }
@@ -7772,7 +7990,7 @@ void boost::filesystem::path::iterator::decrement_v3(char **this, uint64_t a2, u
           v15 = v6 - 1;
         }
 
-        if (*(v12 + 23) < 0)
+        if (v12[23] < 0)
         {
           v12 = *v12;
         }
@@ -7797,7 +8015,7 @@ void boost::filesystem::path::iterator::decrement_v3(char **this, uint64_t a2, u
 LABEL_25:
         if (v17 != root_directory_start)
         {
-          *(v4 + 4) = v13;
+          v4[4] = v13;
 
           return;
         }
@@ -7816,10 +8034,10 @@ LABEL_25:
 
       if (v20 - root_directory_start == 2)
       {
-        *(v4 + 4) = root_directory_start;
+        v4[4] = root_directory_start;
         if (*(v4 + 23) < 0)
         {
-          *(v4 + 1) = 1;
+          v4[1] = 1;
           v4 = *v4;
         }
 
@@ -7832,9 +8050,9 @@ LABEL_25:
         return;
       }
 
-      v22 = *(v4 + 3);
+      v22 = v4[3];
       v23 = v22;
-      if (*(v22 + 23) < 0)
+      if (v22[23] < 0)
       {
         v23 = *v22;
       }
@@ -7843,9 +8061,9 @@ LABEL_25:
       if (v24 != 47)
       {
         v25 = *v22;
-        if (*(v22 + 23) >= 0)
+        if (v22[23] >= 0)
         {
-          v25 = *(v4 + 3);
+          v25 = v4[3];
         }
 
         v26 = v21 - 1;
@@ -7869,8 +8087,8 @@ LABEL_25:
 
         v30 = v34;
 LABEL_47:
-        *(v4 + 4) = v30;
-        if (*(v22 + 23) < 0)
+        v4[4] = v30;
+        if (v22[23] < 0)
         {
           v22 = *v22;
         }
@@ -7881,15 +8099,15 @@ LABEL_47:
         }
 
         v32 = &v21[-v19];
-        v31 = (v22 + v30);
+        v31 = &v30[v22];
         v33 = &v21[v22];
         goto LABEL_41;
       }
     }
   }
 
-  *(v4 + 4) = 0;
-  v31 = *(v4 + 3);
+  v4[4] = 0;
+  v31 = v4[3];
   if (v31[23] < 0)
   {
     v31 = *v31;
@@ -7915,15 +8133,15 @@ void boost::filesystem::path::iterator::decrement_v4(char **this, uint64_t a2, u
   }
 
   v34 = 0;
-  v9 = *(v4 + 4);
+  v9 = v4[4];
   if (root_directory_start >= v6 || v9 != root_directory_start)
   {
     if (v6 >= 2 && v9 == v6)
     {
-      v12 = *(v4 + 3);
-      v13 = v6 - 1;
+      v12 = v4[3];
+      v13 = (v6 - 1);
       v14 = v12;
-      if (*(v12 + 23) < 0)
+      if (v12[23] < 0)
       {
         v14 = *v12;
       }
@@ -7940,7 +8158,7 @@ void boost::filesystem::path::iterator::decrement_v4(char **this, uint64_t a2, u
           v15 = v6 - 1;
         }
 
-        if (*(v12 + 23) < 0)
+        if (v12[23] < 0)
         {
           v12 = *v12;
         }
@@ -7965,11 +8183,11 @@ void boost::filesystem::path::iterator::decrement_v4(char **this, uint64_t a2, u
 LABEL_25:
         if (v17 != root_directory_start)
         {
-          *(v4 + 4) = v13;
+          v4[4] = v13;
           if (*(v4 + 23) < 0)
           {
             **v4 = 0;
-            *(v4 + 1) = 0;
+            v4[1] = 0;
           }
 
           else
@@ -7995,10 +8213,10 @@ LABEL_25:
 
       if (v20 - root_directory_start == 2)
       {
-        *(v4 + 4) = root_directory_start;
+        v4[4] = root_directory_start;
         if (*(v4 + 23) < 0)
         {
-          *(v4 + 1) = 1;
+          v4[1] = 1;
           v4 = *v4;
         }
 
@@ -8011,9 +8229,9 @@ LABEL_25:
         return;
       }
 
-      v22 = *(v4 + 3);
+      v22 = v4[3];
       v23 = v22;
-      if (*(v22 + 23) < 0)
+      if (v22[23] < 0)
       {
         v23 = *v22;
       }
@@ -8022,9 +8240,9 @@ LABEL_25:
       if (v24 != 47)
       {
         v25 = *v22;
-        if (*(v22 + 23) >= 0)
+        if (v22[23] >= 0)
         {
-          v25 = *(v4 + 3);
+          v25 = v4[3];
         }
 
         v26 = v21 - 1;
@@ -8048,8 +8266,8 @@ LABEL_25:
 
         v30 = v34;
 LABEL_47:
-        *(v4 + 4) = v30;
-        if (*(v22 + 23) < 0)
+        v4[4] = v30;
+        if (v22[23] < 0)
         {
           v22 = *v22;
         }
@@ -8060,15 +8278,15 @@ LABEL_47:
         }
 
         v32 = &v21[-v19];
-        v31 = (v22 + v30);
+        v31 = &v30[v22];
         v33 = &v21[v22];
         goto LABEL_41;
       }
     }
   }
 
-  *(v4 + 4) = 0;
-  v31 = *(v4 + 3);
+  v4[4] = 0;
+  v31 = v4[3];
   if (v31[23] < 0)
   {
     v31 = *v31;
@@ -8107,13 +8325,13 @@ const std::locale::facet *boost::filesystem::path::codecvt(boost::filesystem::pa
 
 void boost::filesystem::path::imbue(const std::locale *this@<X0>, std::locale *a2@<X8>)
 {
-  v5 = operator new(8uLL);
-  if (v6)
+  v4 = operator new(8uLL);
+  if (v5)
   {
-    std::locale::locale(a2, v6);
-    std::locale::~locale(v6);
+    std::locale::locale(a2, v5);
+    std::locale::~locale(v5);
 
-    operator delete(v7);
+    operator delete(v6);
   }
 
   else
@@ -8123,12 +8341,12 @@ void boost::filesystem::path::imbue(const std::locale *this@<X0>, std::locale *a
 
 void anonymous namespace::default_locale(std::locale *a1@<X8>)
 {
-  std::locale::locale(&v5);
-  v3 = operator new(0x18uLL);
-  boost::filesystem::detail::utf8_codecvt_facet::utf8_codecvt_facet(v3, 0);
-  v4 = std::locale::id::__get(&std::codecvt<wchar_t,char,__mbstate_t>::id);
-  std::locale::__install_ctor(a1, &v5, v3, v4);
-  std::locale::~locale(&v5);
+  std::locale::locale(&v4);
+  v2 = operator new(0x18uLL);
+  boost::filesystem::detail::utf8_codecvt_facet::utf8_codecvt_facet(v2, 0);
+  v3 = std::locale::id::__get(&std::codecvt<wchar_t,char,__mbstate_t>::id);
+  std::locale::__install_ctor(a1, &v4, v2, v3);
+  std::locale::~locale(&v4);
 }
 
 void sub_1001C76C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::locale a10)
@@ -8240,7 +8458,7 @@ void boost::filesystem::detail::utf8_codecvt_facet::~utf8_codecvt_facet(std::cod
   operator delete(v1);
 }
 
-uint64_t boost::filesystem::detail::utf8_codecvt_facet::do_in(uint64_t a1, uint64_t a2, char *a3, unsigned __int8 *a4, char **a5, unsigned int *a6, unsigned int *a7, unsigned int **a8)
+uint64_t boost::filesystem::detail::utf8_codecvt_facet::do_in(uint64_t a1, uint64_t a2, char *a3, char *a4, char **a5, unsigned int *a6, unsigned int *a7, unsigned int **a8)
 {
   if (a3 == a4 || a6 == a7)
   {
@@ -8649,151 +8867,107 @@ const char *ot::Mac::rcp2_m154_status_string(ot::Mac *this)
 
 void ot::Mac::Mac::LogVendorRCP2(ot::Mac::Mac *a1, ot::Mac::TxFrame *a2, const char *a3, unsigned __int8 a4, unsigned __int8 a5, int a6)
 {
-  v121 = a1;
-  v120 = a2;
-  v119 = a3;
-  v118 = a4;
-  v117 = a5;
-  v116 = a6;
-  v114 = a1;
+  v109 = a1;
+  v108 = a2;
+  v107 = a3;
+  v106 = a4;
+  v105 = a5;
+  v104 = a6;
+  v102 = a1;
   Rcp2FrameVersion = ot::Mac::TxFrame::GetRcp2FrameVersion(a2);
   if ((Rcp2FrameVersion - 2) <= 2)
   {
-    v102 = v118;
-    v103 = v117;
-    v104 = 0.25 * ot::Mac::TxFrame::GetTxPower(v120);
-    TxRetryCount = ot::Mac::TxFrame::GetTxRetryCount(v120);
-    v106 = otThreadErrorToString(v116);
-    v100 = v125;
-    ot::Mac::Frame::ToInfoString(v120, v125);
-    v107 = ot::String<(unsigned short)150>::AsCString(v125);
-    v101 = 100;
-    v108 = ot::Mac::Mac::GetCcaFailureRatePercent(v114) / 0x64;
-    v109 = ot::Mac::Mac::GetCcaFailureRatePercent(v114) % 0x64;
-    v110 = v119;
-    v111 = ot::Mac::rcp2_m154_status_string(*(v120 + 57));
-    v112 = *(v120 + 57);
-    v113 = &v43;
-    v44 = v117;
-    v45 = v104;
-    v46 = TxRetryCount;
-    v47 = v106;
-    v48 = v107;
-    v49 = v108;
-    v50 = v109;
-    v51 = v119;
-    v52 = v111;
-    v53 = v112;
-    Antenna = ot::Mac::TxFrame::GetAntenna(v120);
-    ot::Logger::LogAtLevel<(ot::LogLevel)4>("Mac", "Frame tx attempt %d/%d failed, txPower=%f, retryCount=%d, error:%s, %s, ccaFailureRate:%d.%02d%%%s, RCP2Status=%s (0x%02X) antenna=%d", v118, v6, v7, v8, v9, v10, v118);
+    v90 = v106;
+    v91 = v105;
+    v92 = 0.25 * ot::Mac::TxFrame::GetTxPower(v108);
+    TxRetryCount = ot::Mac::TxFrame::GetTxRetryCount(v108);
+    v94 = otThreadErrorToString(v104);
+    v88 = v113;
+    ot::Mac::Frame::ToInfoString(v108, v113);
+    v95 = ot::String<(unsigned short)150>::AsCString(v113);
+    v89 = 100;
+    v96 = ot::Mac::Mac::GetCcaFailureRatePercent(v102) / 0x64;
+    v97 = ot::Mac::Mac::GetCcaFailureRatePercent(v102) % 0x64;
+    v98 = v107;
+    v99 = ot::Mac::rcp2_m154_status_string(*(v108 + 57));
+    v100 = *(v108 + 57);
+    Antenna = ot::Mac::TxFrame::GetAntenna(v108);
+    v101 = v45;
+    ot::Logger::LogAtLevel<(ot::LogLevel)4>("Mac", "Frame tx attempt %d/%d failed, txPower=%f, retryCount=%d, error:%s, %s, ccaFailureRate:%d.%02d%%%s, RCP2Status=%s (0x%02X) antenna=%d", v106, v7, v8, v9, v10, v11, v106, v105, *&v92, TxRetryCount, v94, v95, v96, v97, v107, v99, v100, Antenna);
     goto LABEL_6;
   }
 
   if (Rcp2FrameVersion == 5)
   {
 LABEL_6:
-    v87 = v118;
-    v88 = v117;
-    v89 = 0.25 * ot::Mac::TxFrame::GetTxPower(v120);
-    v90 = ot::Mac::TxFrame::GetTxRetryCount(v120);
-    v91 = otThreadErrorToString(v116);
-    v85 = v124;
-    ot::Mac::Frame::ToInfoString(v120, v124);
-    v92 = ot::String<(unsigned short)150>::AsCString(v85);
-    CcaFailureRatePercent = ot::Mac::Mac::GetCcaFailureRatePercent(v114);
-    v86 = 100;
-    v93 = CcaFailureRatePercent / 0x64;
-    v12 = ot::Mac::Mac::GetCcaFailureRatePercent(v114);
-    v94 = v12 % v86;
-    v95 = v119;
-    v96 = ot::Mac::rcp2_m154_status_string(*(v120 + 57));
-    v97 = *(v120 + 57);
-    v98 = ot::Mac::TxFrame::GetAntenna(v120);
-    PcapMode = ot::Mac::TxFrame::GetPcapMode(v120);
-    v99 = &v43;
-    v44 = v88;
-    v45 = v89;
-    v46 = v90;
-    v47 = v91;
-    v48 = v92;
-    v49 = v93;
-    v50 = v94;
-    v51 = v95;
-    v52 = v96;
-    v53 = v97;
-    Antenna = v98;
-    v55 = PcapMode;
-    ot::Logger::LogAtLevel<(ot::LogLevel)4>("Mac", "Frame tx attempt %d/%d failed, txPower=%f, retryCount=%d, error:%s, %s, ccaFailureRate:%d.%02d%%%s, RCP2Status=%s (0x%02X) antenna=%d, pcap mode=%d", v88, v87, v14, v15, v16, v17, v87);
-    v18 = ot::Mac::TxFrame::GetPcapMode(v120);
-    ot::Mac::Mac::UpdatePcapStats(v114, v18, v19, v20, v21, v22, v23, v24);
+    v75 = v106;
+    v76 = v105;
+    v77 = 0.25 * ot::Mac::TxFrame::GetTxPower(v108);
+    v78 = ot::Mac::TxFrame::GetTxRetryCount(v108);
+    v79 = otThreadErrorToString(v104);
+    v73 = v112;
+    ot::Mac::Frame::ToInfoString(v108, v112);
+    v80 = ot::String<(unsigned short)150>::AsCString(v73);
+    CcaFailureRatePercent = ot::Mac::Mac::GetCcaFailureRatePercent(v102);
+    v74 = 100;
+    v81 = CcaFailureRatePercent / 0x64;
+    v13 = ot::Mac::Mac::GetCcaFailureRatePercent(v102);
+    v82 = v13 % v74;
+    v83 = v107;
+    v84 = ot::Mac::rcp2_m154_status_string(*(v108 + 57));
+    v85 = *(v108 + 57);
+    v86 = ot::Mac::TxFrame::GetAntenna(v108);
+    PcapMode = ot::Mac::TxFrame::GetPcapMode(v108);
+    v87 = v45;
+    ot::Logger::LogAtLevel<(ot::LogLevel)4>("Mac", "Frame tx attempt %d/%d failed, txPower=%f, retryCount=%d, error:%s, %s, ccaFailureRate:%d.%02d%%%s, RCP2Status=%s (0x%02X) antenna=%d, pcap mode=%d", v76, v75, v15, v16, v17, v18, v75, v76, *&v77, v78, v79, v80, v81, v82, v83, v84, v85, v86, PcapMode);
+    v19 = ot::Mac::TxFrame::GetPcapMode(v108);
+    ot::Mac::Mac::UpdatePcapStats(v102, v19, v20, v21, v22, v23, v24, v25);
     return;
   }
 
   if (Rcp2FrameVersion == 6)
   {
-    v71 = v118;
-    v72 = v117;
-    v73 = 0.25 * ot::Mac::TxFrame::GetTxPower(v120);
-    v74 = ot::Mac::TxFrame::GetTxRetryCount(v120);
-    v75 = otThreadErrorToString(v116);
-    RCPTimeStamp = ot::Mac::TxFrame::GetRCPTimeStamp(v120);
-    v69 = v123;
-    ot::Mac::Frame::ToInfoString(v120, v123);
-    v77 = ot::String<(unsigned short)150>::AsCString(v123);
-    v70 = 100;
-    v78 = ot::Mac::Mac::GetCcaFailureRatePercent(v114) / 0x64;
-    v79 = ot::Mac::Mac::GetCcaFailureRatePercent(v114) % 0x64;
-    v80 = v119;
-    v81 = ot::Mac::rcp2_m154_status_string(*(v120 + 57));
-    v82 = *(v120 + 57);
-    v83 = ot::Mac::TxFrame::GetAntenna(v120);
-    v84 = &v43;
-    v44 = v117;
-    v45 = v73;
-    v46 = v74;
-    v47 = v75;
-    v48 = RCPTimeStamp;
-    v49 = v77;
-    v50 = v78;
-    v51 = v79;
-    v52 = v119;
-    v53 = v81;
-    Antenna = v82;
-    v55 = v83;
-    v56 = ot::Mac::TxFrame::GetPcapMode(v120);
-    ot::Logger::LogAtLevel<(ot::LogLevel)4>("Mac", "Frame tx attempt %d/%d failed, txPower=%f, retryCount=%d, error:%s, rcpTs:%u, %s, ccaFailureRate:%d.%02d%%%s, RCP2Status=%s (0x%02X) antenna=%d, pcap mode=%d", v74, v117, v118, v25, v26, v27, v118);
-    v28 = ot::Mac::TxFrame::GetPcapMode(v120);
-    ot::Mac::Mac::UpdatePcapStats(v114, v28, v29, v30, v31, v32, v33, v34);
+    v59 = v106;
+    v60 = v105;
+    v61 = 0.25 * ot::Mac::TxFrame::GetTxPower(v108);
+    v62 = ot::Mac::TxFrame::GetTxRetryCount(v108);
+    v63 = otThreadErrorToString(v104);
+    RCPTimeStamp = ot::Mac::TxFrame::GetRCPTimeStamp(v108);
+    v57 = v111;
+    ot::Mac::Frame::ToInfoString(v108, v111);
+    v65 = ot::String<(unsigned short)150>::AsCString(v111);
+    v58 = 100;
+    v66 = ot::Mac::Mac::GetCcaFailureRatePercent(v102) / 0x64;
+    v67 = ot::Mac::Mac::GetCcaFailureRatePercent(v102) % 0x64;
+    v68 = v107;
+    v69 = ot::Mac::rcp2_m154_status_string(*(v108 + 57));
+    v70 = *(v108 + 57);
+    v71 = ot::Mac::TxFrame::GetAntenna(v108);
+    v26 = ot::Mac::TxFrame::GetPcapMode(v108);
+    v72 = v45;
+    ot::Logger::LogAtLevel<(ot::LogLevel)4>("Mac", "Frame tx attempt %d/%d failed, txPower=%f, retryCount=%d, error:%s, rcpTs:%u, %s, ccaFailureRate:%d.%02d%%%s, RCP2Status=%s (0x%02X) antenna=%d, pcap mode=%d", v62, v105, v106, v27, v28, v29, v106, v105, *&v61, v62, v63, RCPTimeStamp, v65, v66, v67, v107, v69, v70, v71, v26);
+    v30 = ot::Mac::TxFrame::GetPcapMode(v108);
+    ot::Mac::Mac::UpdatePcapStats(v102, v30, v31, v32, v33, v34, v35, v36);
   }
 
   else
   {
-    v59 = v118;
-    v60 = v117;
-    v61 = 0.25 * ot::Mac::TxFrame::GetTxPower(v120);
-    v62 = ot::Mac::TxFrame::GetTxRetryCount(v120);
-    v63 = otThreadErrorToString(v116);
-    v57 = v122;
-    ot::Mac::Frame::ToInfoString(v120, v122);
-    v64 = ot::String<(unsigned short)150>::AsCString(v122);
-    v58 = 100;
-    v65 = ot::Mac::Mac::GetCcaFailureRatePercent(v114) / 0x64;
-    v66 = ot::Mac::Mac::GetCcaFailureRatePercent(v114) % 0x64;
-    v67 = v119;
-    v35 = ot::Mac::rcp2_m154_status_string(*(v120 + 57));
-    v36 = *(v120 + 57);
-    v68 = &v43;
-    v44 = v117;
-    v45 = v61;
-    v46 = v62;
-    v47 = v63;
-    v48 = v64;
-    v49 = v65;
-    v50 = v66;
-    v51 = v119;
-    v52 = v35;
-    v53 = v36;
-    ot::Logger::LogAtLevel<(ot::LogLevel)4>("Mac", "Frame tx attempt %d/%d failed, txPower=%f, retryCount=%d, error:%s, %s, ccaFailureRate:%d.%02d%%%s, RCP2Status=%s (0x%02X)", v37, v38, v39, v40, v41, v42, v118);
+    v47 = v106;
+    v48 = v105;
+    v49 = 0.25 * ot::Mac::TxFrame::GetTxPower(v108);
+    v50 = ot::Mac::TxFrame::GetTxRetryCount(v108);
+    v51 = otThreadErrorToString(v104);
+    v45[14] = v110;
+    ot::Mac::Frame::ToInfoString(v108, v110);
+    v52 = ot::String<(unsigned short)150>::AsCString(v110);
+    v46 = 100;
+    v53 = ot::Mac::Mac::GetCcaFailureRatePercent(v102) / 0x64;
+    v54 = ot::Mac::Mac::GetCcaFailureRatePercent(v102) % 0x64;
+    v55 = v107;
+    v37 = ot::Mac::rcp2_m154_status_string(*(v108 + 57));
+    v38 = *(v108 + 57);
+    v56 = v45;
+    ot::Logger::LogAtLevel<(ot::LogLevel)4>("Mac", "Frame tx attempt %d/%d failed, txPower=%f, retryCount=%d, error:%s, %s, ccaFailureRate:%d.%02d%%%s, RCP2Status=%s (0x%02X)", v39, v40, v41, v42, v43, v44, v106, v105, *&v49, v50, v51, v52, v53, v54, v107, v37, v38);
   }
 }
 
@@ -8883,7 +9057,7 @@ uint64_t ot::Spinel::RadioSpinel::GetVendorRFState(ot::Spinel::RadioSpinel *this
   v7 = this;
   v6 = a2;
   v5 = a3;
-  v4 = ot::Spinel::RadioSpinel::Set(this, 15538, "L", 0);
+  v4 = ot::Spinel::RadioSpinel::Set(this, 0x3CB2u, "L", 0);
   ot::Spinel::mRFStateCallback = v6;
   ot::Spinel::mRFStateContext = v5;
   return v4;
@@ -8891,42 +9065,42 @@ uint64_t ot::Spinel::RadioSpinel::GetVendorRFState(ot::Spinel::RadioSpinel *this
 
 uint64_t ot::Spinel::RadioSpinel::GetVendorDutyCycle(ot::Spinel::RadioSpinel *a1, uint64_t a2)
 {
-  v4 = ot::Spinel::RadioSpinel::Get(a1, 15395, "LLbb", a2, a2 + 4, a2 + 8, a2 + 9);
+  v4 = ot::Spinel::RadioSpinel::Get(a1, 0x3C23u, "LLbb", a2, a2 + 4, a2 + 8, a2 + 9);
   ot::Spinel::Logger::LogIfFail1(a1, "Get Duty Cycle failed", v4);
   return v4;
 }
 
 uint64_t ot::Spinel::RadioSpinel::GetVendorRxOnIdleUseQOSPercentagePolicyConfig(ot::Spinel::RadioSpinel *this, BOOL *a2)
 {
-  v4 = ot::Spinel::RadioSpinel::Get(this, 15396, "b", a2);
+  v4 = ot::Spinel::RadioSpinel::Get(this, 0x3C24u, "b", a2);
   ot::Spinel::Logger::LogIfFail1(this, "Get Vendor RX_ON_IDLE_USE_QOS_PERCENTAGE_POLICY Config", v4);
   return v4;
 }
 
 uint64_t ot::Spinel::RadioSpinel::GetTimelineLogLevel(ot::Spinel::RadioSpinel *this, unsigned __int8 *a2)
 {
-  v4 = ot::Spinel::RadioSpinel::Get(this, 15516, "C", a2);
+  v4 = ot::Spinel::RadioSpinel::Get(this, 0x3C9Cu, "C", a2);
   ot::Spinel::Logger::LogIfFail1(this, "Get Timeline log level failed", v4);
   return v4;
 }
 
 uint64_t ot::Spinel::RadioSpinel::GetVendorCoexCollectionDuration(ot::Spinel::RadioSpinel *this, unsigned __int16 *a2)
 {
-  v4 = ot::Spinel::RadioSpinel::Get(this, 15517, "S", a2);
+  v4 = ot::Spinel::RadioSpinel::Get(this, 0x3C9Du, "S", a2);
   ot::Spinel::Logger::LogIfFail1(this, "Get Coex Collection Duration failed", v4);
   return v4;
 }
 
 uint64_t ot::Spinel::RadioSpinel::GetVendorCoexCounter(ot::Spinel::RadioSpinel *a1, uint64_t a2)
 {
-  v4 = ot::Spinel::RadioSpinel::Get(a1, 15518, "t(CSSSSSSSSSSSSS)", a2, a2 + 1, a2 + 3, a2 + 5, a2 + 7, a2 + 9, a2 + 11, a2 + 13, a2 + 15, a2 + 17, a2 + 19, a2 + 21, a2 + 23, a2 + 25);
+  v4 = ot::Spinel::RadioSpinel::Get(a1, 0x3C9Eu, "t(CSSSSSSSSSSSSS)", a2, a2 + 1, a2 + 3, a2 + 5, a2 + 7, a2 + 9, a2 + 11, a2 + 13, a2 + 15, a2 + 17, a2 + 19, a2 + 21, a2 + 23, a2 + 25);
   ot::Spinel::Logger::LogIfFail1(a1, "Get Coex Counters failed", v4);
   return v4;
 }
 
-uint64_t ot::Spinel::RadioSpinel::GetVendorCoexStateEvent(const char **this, void (*a2)(unsigned __int8, unsigned __int8 *), uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t ot::Spinel::RadioSpinel::GetVendorCoexStateEvent(const char **this, void (*a2)(unsigned __int8, unsigned __int8 *))
 {
-  otLogInfoPlat("%s: success go to GetVendorCoexStateEvent", a2, a3, a4, a5, a6, a7, a8, "GetVendorCoexStateEvent");
+  otLogInfoPlat("%s: success go to GetVendorCoexStateEvent", "GetVendorCoexStateEvent");
   ot::Spinel::mCoexStateCallback = a2;
   ot::Spinel::Logger::LogIfFail1(this, "Get Coex State Event failed", 0);
   return 0;
@@ -8948,37 +9122,34 @@ uint64_t ot::Spinel::RadioSpinel::SetVendorRxOnIdleUseQOSPercentagePolicyConfig(
 
 uint64_t ot::Spinel::RadioSpinel::SetTimelineLogLevel(ot::Spinel::RadioSpinel *this, unsigned __int8 a2)
 {
-  v4 = ot::Spinel::RadioSpinel::Set(this, 15516, "C", a2);
+  v4 = ot::Spinel::RadioSpinel::Set(this, 0x3C9Cu, "C", a2);
   ot::Spinel::Logger::LogIfFail1(this, "Set Timeline log level failed", v4);
   return v4;
 }
 
 uint64_t ot::Spinel::RadioSpinel::SetVendorCoexCollectionDuration(ot::Spinel::RadioSpinel *this, unsigned __int16 a2)
 {
-  v4 = ot::Spinel::RadioSpinel::Set(this, 15517, "S", a2);
+  v4 = ot::Spinel::RadioSpinel::Set(this, 0x3C9Du, "S", a2);
   ot::Spinel::Logger::LogIfFail1(this, "Set Coex Collection Duration failed", v4);
   return v4;
 }
 
 uint64_t ot::Spinel::RadioSpinel::SetVendorCoexCollection(ot::Spinel::RadioSpinel *this, char a2)
 {
-  v4 = ot::Spinel::RadioSpinel::Set(this, 15518, "b", a2 & 1);
+  v4 = ot::Spinel::RadioSpinel::Set(this, 0x3C9Eu, "b", a2 & 1);
   ot::Spinel::Logger::LogIfFail1(this, "Set Coex Collection failed", v4);
   return v4;
 }
 
-uint64_t otPlatVendorGetRFState(uint64_t a1, void (*a2)(unsigned __int8, unsigned __int8 *, void *), uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t otPlatVendorGetRFState(uint64_t a1, void (*a2)(unsigned __int8, unsigned __int8 *, void *), uint64_t a3)
 {
-  otLogInfoPlat("otPlatVendorGetRFState", a2, a3, a4, a5, a6, a7, a8, v10);
+  otLogInfoPlat("otPlatVendorGetRFState");
   RadioSpinel = ot::Posix::Radio::GetRadioSpinel(&sRadio);
   return ot::Spinel::RadioSpinel::GetVendorRFState(RadioSpinel, a2, a3);
 }
 
-uint64_t otPlatVendorSetDutyCycle(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t otPlatVendorSetDutyCycle(uint64_t a1, unsigned int a2, unsigned int a3, char a4)
 {
-  v13 = a2;
-  v12 = a3;
-  v11 = a4;
   if (!a2)
   {
     goto LABEL_13;
@@ -8988,22 +9159,22 @@ uint64_t otPlatVendorSetDutyCycle(uint64_t a1, uint64_t a2, uint64_t a3, uint64_
   {
     if (a3 % 0x3A98 || a3 < 0x3A98 || a3 > 0xE6B68)
     {
-      otLogInfoPlat("BT Load: Invalid interval time! y value should be MULTIPLE of 15000us and max value can be 63*15000=945000.", a2, a3, a4, a5, a6, a7, a8, v10);
+      otLogInfoPlat("BT Load: Invalid interval time! y value should be MULTIPLE of 15000us and max value can be 63*15000=945000.");
       return 7;
     }
 
-    if (a3 < a2 || (a3 - a2) < 0x64)
+    if (a3 < a2 || a3 - a2 < 0x64)
     {
-      otLogInfoPlat("BT Load: Invalid Input! Requirement: X < Y and Y - X > 100", a2, a3, a4, a5, a6, a7, a8, v10);
+      otLogInfoPlat("BT Load: Invalid Input! Requirement: X < Y and Y - X > 100");
       return 7;
     }
 
 LABEL_13:
     RadioSpinel = ot::Posix::Radio::GetRadioSpinel(&sRadio);
-    return ot::Spinel::RadioSpinel::SetVendorDutyCycle(RadioSpinel, v13, v12, v11 & 1);
+    return ot::Spinel::RadioSpinel::SetVendorDutyCycle(RadioSpinel, a2, a3, a4 & 1);
   }
 
-  otLogInfoPlat("BT Load: Invalid high duty time! x value should be MULTIPLE of 1250us and max value can be 15*1250=18750.", a2, a3, a4, a5, a6, a7, a8, v10);
+  otLogInfoPlat("BT Load: Invalid high duty time! x value should be MULTIPLE of 1250us and max value can be 15*1250=18750.");
   return 7;
 }
 
@@ -9295,36 +9466,36 @@ uint64_t ot::Cli::Vendor::ProcessGetCoexCounter(ot::Cli::Vendor *this, ot::Utils
 
 uint64_t ot::Cli::Vendor::ProcessSetDutyCycle(ot::Cli::Vendor *this, ot::Utils::CmdLineParser **a2, unsigned __int8 *a3)
 {
-  v17 = this;
-  v16 = a2;
-  v15 = 0;
-  v14 = 0;
-  v13 = 0;
-  v12 = 0;
-  v15 = ot::Utils::CmdLineParser::Arg::ParseAsUint32(a2, &v14, a3);
-  if (!v15)
+  v13 = this;
+  v12 = a2;
+  v11 = 0;
+  v10 = 0;
+  v9 = 0;
+  v8 = 0;
+  v11 = ot::Utils::CmdLineParser::Arg::ParseAsUint32(a2, &v10, a3);
+  if (!v11)
   {
-    if (!v14)
+    if (!v10)
     {
       ot::Cli::Utils::OutputLine(this, "Disable Duty Cycle functionality");
 LABEL_7:
       InstancePtr = ot::Cli::Utils::GetInstancePtr(this);
-      return otPlatVendorSetDutyCycle(InstancePtr, v14, v13, v12, v6, v7, v8, v9);
+      return otPlatVendorSetDutyCycle(InstancePtr, v10, v9, v8);
     }
 
-    v15 = ot::Utils::CmdLineParser::Arg::ParseAsUint32(v16 + 1, &v13, v3);
-    if (!v15)
+    v11 = ot::Utils::CmdLineParser::Arg::ParseAsUint32(v12 + 1, &v9, v3);
+    if (!v11)
     {
-      v15 = ot::Utils::CmdLineParser::Arg::ParseAsBool(v16 + 2, &v12, v4);
-      if (!v15)
+      v11 = ot::Utils::CmdLineParser::Arg::ParseAsBool(v12 + 2, &v8, v4);
+      if (!v11)
       {
-        ot::Cli::Utils::OutputLine(this, "Set high duty = %uus, interval = %uus, datapullalign = %u", v14, v13, v12);
+        ot::Cli::Utils::OutputLine(this, "Set high duty = %uus, interval = %uus, datapullalign = %u", v10, v9, v8);
         goto LABEL_7;
       }
     }
   }
 
-  return v15;
+  return v11;
 }
 
 uint64_t ot::Utils::CmdLineParser::Arg::ParseAsUint32(ot::Utils::CmdLineParser **this, char *a2, unsigned __int8 *a3)
@@ -9366,7 +9537,7 @@ uint64_t ot::Cli::Vendor::ProcessSetTimelineLogLevel(ot::Cli::Vendor *this, ot::
       v7 = otPlatVendorSetTimelineLogLevel(InstancePtr, v6);
       if (!v7)
       {
-        persist_timelinelog_level();
+        persist_timelinelog_level(v6);
       }
     }
   }
@@ -9460,10 +9631,10 @@ void sub_1001CB024(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void xpc::dict::object_proxy::operator=(uint64_t a1@<X0>, id *a2@<X1>, void *a3@<X8>)
+void xpc::dict::object_proxy::operator=(id **a1@<X0>, id *a2@<X1>, void *a3@<X8>)
 {
   v6 = xpc::dict::operator*(*a1);
-  v7 = *(a1 + 8);
+  v7 = a1[1];
   v8 = *a2;
   xpc_dictionary_set_value(v6, v7, v8);
 
@@ -9473,7 +9644,7 @@ void xpc::dict::object_proxy::operator=(uint64_t a1@<X0>, id *a2@<X1>, void *a3@
   *a2 = v9;
 }
 
-void sub_1001CBB10(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, void *a27, uint64_t a28, int a29, __int16 a30, char a31, char a32, void *__p, uint64_t a34, int a35, __int16 a36, char a37, char a38, uint64_t a39, uint64_t a40, id location, void *a42, uint64_t a43, int a44, __int16 a45, char a46, char a47)
+void sub_1001CBB10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, void *a27, uint64_t a28, int a29, __int16 a30, char a31, char a32, void *__p, uint64_t a34, int a35, __int16 a36, char a37, char a38, uint64_t a39, uint64_t a40, id location, void *a42, uint64_t a43, int a44, __int16 a45, char a46, char a47)
 {
   if (v49 < 0)
   {
@@ -9482,7 +9653,7 @@ void sub_1001CBB10(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
   if (a40)
   {
-    (*(*a40 + 8))(a40);
+    (*(*a40 + 8))(a40, a2, a3, a4, a5, a6, a7, a8);
   }
 
   objc_destroyWeak(&location);
@@ -9553,7 +9724,7 @@ uint64_t boost::any_cast<unsigned char>(void *a1)
     v3.__vftable = 0;
     std::bad_cast::bad_cast(&v3);
     v3.__vftable = off_1004C1D50;
-    boost::throw_exception<boost::bad_any_cast>();
+    boost::throw_exception<boost::bad_any_cast>(&v3);
   }
 
   return *v1;
@@ -9588,180 +9759,4 @@ void sub_1001CF4B4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   }
 
   _Unwind_Resume(exception_object);
-}
-
-void sub_1001CFD8C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, void *a19, uint64_t a20, int a21, __int16 a22, char a23, char a24, uint64_t a25, void *a26, void *__p, uint64_t a28, int a29, __int16 a30, char a31, char a32, uint64_t a33, uint64_t a34, id location)
-{
-  v38 = v37;
-
-  operator delete(v36);
-  if (a32 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (a34)
-  {
-    (*(*a34 + 8))(a34);
-  }
-
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_1001D0298(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, id location, void *__p, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35)
-{
-  if (a28 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (v38 < 0)
-  {
-    operator delete(v36);
-  }
-
-  if (a21)
-  {
-    (*(*a21 + 8))(a21);
-  }
-
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_1001D0B48(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, uint64_t a28, id location, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35)
-{
-  if (v37 < 0)
-  {
-    operator delete(v36);
-  }
-
-  if (a28)
-  {
-    (*(*a28 + 8))(a28);
-  }
-
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_1001D154C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, uint64_t a37, uint64_t a38, int a39, __int16 a40, char a41, char a42, uint64_t a43, void *a44, uint64_t a45, int a46, __int16 a47, char a48, char a49, uint64_t a50, uint64_t a51, uint64_t a52, int a53, __int16 a54, char a55, char a56, uint64_t a57, void *a58, uint64_t a59, int a60, __int16 a61, char a62, char a63)
-{
-  if (a21 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (a63 < 0)
-  {
-    operator delete(a58);
-  }
-
-  if (*(v66 - 89) < 0)
-  {
-    operator delete(*(v66 - 112));
-  }
-
-  v68 = *(v66 - 184);
-  if (v68)
-  {
-    (*(*v68 + 8))(v68);
-  }
-
-  v69 = *(v66 - 176);
-  if (v69)
-  {
-    (*(*v69 + 8))(v69);
-  }
-
-  if (v65 < 0)
-  {
-    operator delete(v64);
-  }
-
-  objc_destroyWeak((v66 - 168));
-  _Unwind_Resume(a1);
-}
-
-void sub_1001D2218(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, void *a28, uint64_t a29, int a30, __int16 a31, char a32, char a33, uint64_t a34, uint64_t a35, void *a36, uint64_t a37, int a38, __int16 a39, char a40, char a41)
-{
-  v44 = *(v42 - 96);
-  if (v44)
-  {
-    (*(*v44 + 8))(v44);
-  }
-
-  objc_destroyWeak((v42 - 88));
-  _Unwind_Resume(a1);
-}
-
-void sub_1001D2A58(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, int a21, __int16 a22, char a23, char a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30, void *a31, uint64_t a32, int a33, __int16 a34, char a35, char a36, void *a37, uint64_t a38, int a39, __int16 a40, char a41, char a42, void *a43, uint64_t a44, int a45, __int16 a46, char a47, char a48, void *a49, uint64_t a50, int a51, __int16 a52, char a53, char a54)
-{
-  if (*(v55 - 121) < 0)
-  {
-    operator delete(*(v55 - 144));
-  }
-
-  std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::destroy(v55 - 184, *(v55 - 176));
-
-  objc_destroyWeak((v55 - 160));
-  _Unwind_Resume(a1);
-}
-
-void sub_1001D2E10(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (a21 < 0)
-  {
-    operator delete(a16);
-  }
-
-  objc_destroyWeak((v22 - 24));
-  _Unwind_Resume(a1);
-}
-
-void sub_1001D354C(_Unwind_Exception *a1, int a2)
-{
-  if (a2)
-  {
-    __clang_call_terminate(a1);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void sub_1001D38F0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
-{
-  if (a17 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_1001D3F30(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, id location)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (a22)
-  {
-    (*(*a22 + 8))(a22);
-  }
-
-  if (a28 < 0)
-  {
-    operator delete(a23);
-  }
-
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
 }

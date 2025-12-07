@@ -189,7 +189,7 @@ LABEL_27:
       operator delete(v47);
     }
 
-    [(CRCTCCVNLPOrientationDecoder *)self _buildModernizedActivationMatrices:outputCopy];
+    objc_msgSend__buildModernizedActivationMatrices_(self);
     v43 = 0;
     v44 = 0uLL;
     aBlock[0] = MEMORY[0x1E69E9820];
@@ -492,7 +492,7 @@ uint64_t __150__CRCTCCVNLPOrientationDecoder_decodeOutput_imageSize_shouldDecode
   v51 = arrayCopy;
   if (arrayCopy)
   {
-    [arrayCopy output_label_prob_map];
+    objc_msgSend_output_label_prob_map(arrayCopy);
     v52 = v78;
     v8 = v83;
     v64 = v82;

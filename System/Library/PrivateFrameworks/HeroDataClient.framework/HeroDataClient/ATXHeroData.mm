@@ -3,6 +3,7 @@
 + (id)copyClipMetadata:(id)metadata;
 - (ATXHeroData)initWithCoder:(id)coder;
 - (ATXHeroData)initWithPredictedAdamId:(unint64_t)id bundleId:(id)bundleId latitude:(double)latitude longitude:(double)longitude radiusInMeters:(unint64_t)meters rank:(unint64_t)rank isTouristApp:(BOOL)app score:(double)self0 urlHash:(id)self1 clipMetadata:(id)self2 poiCategory:(id)self3 poiMuid:(id)self4;
+- (ATXHeroData)initWithPredictedBundleId:(id)id latitude:(double)latitude longitude:(double)longitude radiusInMeters:(unint64_t)meters rank:(unint64_t)rank isTouristApp:(BOOL)app;
 - (ATXHeroData)initWithProto:(id)proto;
 - (ATXHeroData)initWithProtoData:(id)data;
 - (BOOL)checkAndReportDecodingFailureIfNeededForBOOL:(BOOL)l key:(id)key coder:(id)coder errorDomain:(id)domain errorCode:(int64_t)code;
@@ -58,9 +59,18 @@
   return v26;
 }
 
+- (ATXHeroData)initWithPredictedBundleId:(id)id latitude:(double)latitude longitude:(double)longitude radiusInMeters:(unint64_t)meters rank:(unint64_t)rank isTouristApp:(BOOL)app
+{
+  appCopy = app;
+  v14 = [id copy];
+  v15 = [(ATXHeroData *)self initWithPredictedAdamId:-1 bundleId:v14 latitude:meters longitude:rank radiusInMeters:appCopy rank:0 isTouristApp:latitude score:longitude urlHash:0 clipMetadata:0];
+
+  return v15;
+}
+
 - (BOOL)checkAndReportDecodingFailureIfNeededForid:(id)forid key:(id)key coder:(id)coder errorDomain:(id)domain errorCode:(int64_t)code
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   keyCopy = key;
   coderCopy = coder;
   domainCopy = domain;
@@ -77,11 +87,11 @@
     if (([coderCopy containsValueForKey:keyCopy] & 1) == 0)
     {
       v16 = objc_alloc(MEMORY[0x277CCA9B8]);
-      v22 = *MEMORY[0x277CCA450];
-      v17 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Failed to decode key %@", keyCopy, v22];
-      v23[0] = v17;
+      v21 = *MEMORY[0x277CCA450];
+      v17 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Failed to decode key %@", keyCopy, v21];
+      v22[0] = v17;
       v14 = 1;
-      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
       v19 = [v16 initWithDomain:domainCopy code:code userInfo:v18];
 
       [coderCopy failWithError:v19];
@@ -92,13 +102,12 @@
   v14 = 0;
 LABEL_7:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 - (BOOL)checkAndReportDecodingFailureIfNeededForBOOL:(BOOL)l key:(id)key coder:(id)coder errorDomain:(id)domain errorCode:(int64_t)code
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   keyCopy = key;
   coderCopy = coder;
   domainCopy = domain;
@@ -115,11 +124,11 @@ LABEL_7:
     if (([coderCopy containsValueForKey:keyCopy] & 1) == 0)
     {
       v16 = objc_alloc(MEMORY[0x277CCA9B8]);
-      v22 = *MEMORY[0x277CCA450];
-      v17 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Failed to decode key %@", keyCopy, v22];
-      v23[0] = v17;
+      v21 = *MEMORY[0x277CCA450];
+      v17 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Failed to decode key %@", keyCopy, v21];
+      v22[0] = v17;
       v14 = 1;
-      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
       v19 = [v16 initWithDomain:domainCopy code:code userInfo:v18];
 
       [coderCopy failWithError:v19];
@@ -130,13 +139,12 @@ LABEL_7:
   v14 = 0;
 LABEL_7:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 - (BOOL)checkAndReportDecodingFailureIfNeededFordouble:(double)fordouble key:(id)key coder:(id)coder errorDomain:(id)domain errorCode:(int64_t)code
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   keyCopy = key;
   coderCopy = coder;
   domainCopy = domain;
@@ -153,11 +161,11 @@ LABEL_7:
     if (([coderCopy containsValueForKey:keyCopy] & 1) == 0)
     {
       v16 = objc_alloc(MEMORY[0x277CCA9B8]);
-      v22 = *MEMORY[0x277CCA450];
-      v17 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Failed to decode key %@", keyCopy, v22];
-      v23[0] = v17;
+      v21 = *MEMORY[0x277CCA450];
+      v17 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Failed to decode key %@", keyCopy, v21];
+      v22[0] = v17;
       v14 = 1;
-      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
       v19 = [v16 initWithDomain:domainCopy code:code userInfo:v18];
 
       [coderCopy failWithError:v19];
@@ -168,7 +176,6 @@ LABEL_7:
   v14 = 0;
 LABEL_7:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -563,7 +570,7 @@ LABEL_10:
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
     {
-      [ATXHeroData initWithProto:];
+      [ATXHeroData initWithProto:?];
     }
 
     goto LABEL_10;
@@ -750,28 +757,27 @@ LABEL_13:
   return v9;
 }
 
-- (void)initWithProto:.cold.1()
+- (void)initWithProto:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
-  OUTLINED_FUNCTION_0(&dword_252300000, MEMORY[0x277D86220], v2, "%@: tried to initialize with an incompatible proto", v3, v4, v5, v6, 2u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v2;
+  OUTLINED_FUNCTION_0(&dword_252300000, MEMORY[0x277D86220], v3, "%@: tried to initialize with an incompatible proto", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 - (void)initWithProto:(uint64_t)a3 .cold.2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_252300000, MEMORY[0x277D86220], a3, "Could not de-serialize clip metadata from recently engaged protobufs: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_252300000, MEMORY[0x277D86220], a3, "Could not de-serialize clip metadata from recently engaged protobufs: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)proto
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_252300000, MEMORY[0x277D86220], a3, "Could not serialize clip metadata via protobufs: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_0(&dword_252300000, MEMORY[0x277D86220], a3, "Could not serialize clip metadata via protobufs: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

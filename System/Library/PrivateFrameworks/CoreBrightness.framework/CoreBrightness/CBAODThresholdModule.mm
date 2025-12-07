@@ -190,8 +190,6 @@
       _os_log_debug_impl(&dword_1DE8E5000, v3, OS_LOG_TYPE_DEBUG, "AOD dim lux threshold overrided to %f", v15, 0xCu);
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
@@ -332,8 +330,7 @@
     }
   }
 
-  *MEMORY[0x1E69E9840];
-  return v15 & 1;
+  return v15;
 }
 
 - (id)copyPropertyForKey:(id)key
@@ -403,11 +400,10 @@
       [(NSMutableArray *)self->_alsServiceClients addObject:client];
     }
 
-    v7 = 1;
+    return 1;
   }
 
-  *MEMORY[0x1E69E9840];
-  return v7 & 1;
+  return v7;
 }
 
 - (BOOL)removeHIDServiceClient:(__IOHIDServiceClient *)client
@@ -443,11 +439,10 @@
     }
 
     [(NSMutableArray *)self->_alsServiceClients removeObject:client];
-    v7 = 1;
+    return 1;
   }
 
-  *MEMORY[0x1E69E9840];
-  return v7 & 1;
+  return v7;
 }
 
 - (void)reevaluateALSThresholds
@@ -622,7 +617,7 @@
     v28 = +[CBAODState sharedInstance];
     if (v28)
     {
-      [(CBAODState *)v28 darkerCurve];
+      objc_msgSend_darkerCurve(v28);
     }
 
     else
@@ -635,7 +630,7 @@
     v27 = +[CBAODState sharedInstance];
     if (v27)
     {
-      [(CBAODState *)v27 darkerCurve];
+      objc_msgSend_darkerCurve(v27);
     }
 
     else
@@ -729,8 +724,6 @@
       }
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (id)copyPdeltaThresholdsForLux:(float)lux
@@ -860,7 +853,6 @@
   v25 = [objc_alloc(MEMORY[0x1E695DF20]) initWithObjectsAndKeys:{v27, @"ALSBrightenPdeltaSlow", v26, @"ALSDimPdeltaSlow", 0}];
   MEMORY[0x1E69E5920](v27);
   MEMORY[0x1E69E5920](v26);
-  *MEMORY[0x1E69E9840];
   return v25;
 }
 

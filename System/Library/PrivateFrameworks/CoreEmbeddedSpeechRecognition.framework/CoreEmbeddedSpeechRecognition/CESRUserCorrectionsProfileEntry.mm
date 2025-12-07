@@ -299,25 +299,24 @@ LABEL_9:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v9 = toCopy;
+  v6 = toCopy;
   if (self->_correctedText)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_pronunciationData)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 2) != 0)
   {
-    spellingCorrectionsCount = self->_spellingCorrectionsCount;
     PBDataWriterWriteUint32Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 4) == 0)
     {
@@ -336,15 +335,13 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  tap2editCorrectionsCount = self->_tap2editCorrectionsCount;
   PBDataWriterWriteUint32Field();
-  toCopy = v9;
+  toCopy = v6;
   if (*&self->_has)
   {
 LABEL_8:
-    alternativesCorrectionsCount = self->_alternativesCorrectionsCount;
     PBDataWriterWriteUint32Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_9:

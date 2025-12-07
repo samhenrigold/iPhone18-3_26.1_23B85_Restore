@@ -23,7 +23,7 @@
   *v14 = v8;
   v14[1] = v10;
   v16.receiver = self;
-  v16.super_class = type metadata accessor for ConfigurationStorefrontValidator();
+  v16.super_class = type metadata accessor for ConfigurationStorefrontValidator(0);
   return [(APConfigurationStorefrontValidator *)&v16 init];
 }
 

@@ -63,7 +63,7 @@ void __32__VUIPreference_ignoreHTTPCache__block_invoke()
     }
   }
 
-  v5 = VUIDefaultLogObject();
+  v5 = VUIDefaultLogObject(AppBooleanValue);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     __32__VUIPreference_ignoreHTTPCache__block_invoke_cold_1(v5);

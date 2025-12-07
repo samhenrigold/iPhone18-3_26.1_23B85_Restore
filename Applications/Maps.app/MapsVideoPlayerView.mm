@@ -253,7 +253,7 @@ LABEL_12:
   v14 = player3;
   if (player3)
   {
-    [player3 currentTime];
+    objc_msgSend_currentTime(player3);
   }
 
   else
@@ -269,7 +269,7 @@ LABEL_12:
 
   if (itemCopy)
   {
-    [itemCopy duration];
+    objc_msgSend_duration(itemCopy);
   }
 
   else

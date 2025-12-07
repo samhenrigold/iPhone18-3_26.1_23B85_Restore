@@ -236,38 +236,12 @@ LABEL_30:
   v15.receiver = self;
   v15.super_class = CRDiagnosticsData;
   v2 = [(CRDiagnosticsData *)&v15 init];
-  if (!v2)
+  if (!v2 || (+[NSDate date], v3 = objc_claimAutoreleasedReturnValue(), date = v2->_date, v2->_date = v3, date, [(CRDiagnosticsData *)v2 date], v5 = objc_claimAutoreleasedReturnValue(), CRStringForDate(), v6 = objc_claimAutoreleasedReturnValue(), timestamp = v2->_timestamp, v2->_timestamp = v6, timestamp, v5, v8 = objc_alloc_init(NSMutableArray), attachmentURLs = v2->_attachmentURLs, v2->_attachmentURLs = v8, attachmentURLs, [(CRDiagnosticsData *)v2 date], v10 = objc_claimAutoreleasedReturnValue(), [CRDiagnosticsData makeDiagnosticsFolderForTime:v10], v11 = objc_claimAutoreleasedReturnValue(), baseFolderURL = v2->_baseFolderURL, v2->_baseFolderURL = v11, baseFolderURL, v10, [(CRDiagnosticsData *)v2 baseFolderURL], v13 = objc_claimAutoreleasedReturnValue(), v13, v13))
   {
-    goto LABEL_3;
+    v13 = v2;
   }
 
-  v3 = +[NSDate date];
-  date = v2->_date;
-  v2->_date = v3;
-
-  date = [(CRDiagnosticsData *)v2 date];
-  v6 = CRStringForDate();
-  timestamp = v2->_timestamp;
-  v2->_timestamp = v6;
-
-  v8 = objc_alloc_init(NSMutableArray);
-  attachmentURLs = v2->_attachmentURLs;
-  v2->_attachmentURLs = v8;
-
-  date2 = [(CRDiagnosticsData *)v2 date];
-  v11 = [CRDiagnosticsData makeDiagnosticsFolderForTime:date2];
-  baseFolderURL = v2->_baseFolderURL;
-  v2->_baseFolderURL = v11;
-
-  baseFolderURL = [(CRDiagnosticsData *)v2 baseFolderURL];
-
-  if (baseFolderURL)
-  {
-LABEL_3:
-    baseFolderURL = v2;
-  }
-
-  return baseFolderURL;
+  return v13;
 }
 
 - (void)_markPurgeable:(id)purgeable

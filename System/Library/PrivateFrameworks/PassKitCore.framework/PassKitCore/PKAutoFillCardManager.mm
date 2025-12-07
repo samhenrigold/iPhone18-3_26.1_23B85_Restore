@@ -28,23 +28,23 @@
 {
   v2 = [objc_alloc(MEMORY[0x1E69A8A30]) initWithSize:64.0 scale:{64.0, PKScreenScale()}];
   v3 = objc_alloc(MEMORY[0x1E69A8A00]);
-  v4 = PKAppIconUTI();
-  v5 = [v3 initWithType:v4];
+  v5 = PKAppIconUTI(v3, v4);
+  v6 = [v3 initWithType:v5];
 
-  v6 = [v5 prepareImageForDescriptor:v2];
-  cGImage = [v6 CGImage];
+  v7 = [v6 prepareImageForDescriptor:v2];
+  cGImage = [v7 CGImage];
   if (cGImage)
   {
-    v8 = CFRetain(cGImage);
-    v9 = CFAutorelease(v8);
+    v9 = CFRetain(cGImage);
+    v10 = CFAutorelease(v9);
   }
 
   else
   {
-    v9 = 0;
+    v10 = 0;
   }
 
-  return v9;
+  return v10;
 }
 
 - (PKAutoFillCardManager)init
@@ -501,9 +501,9 @@ uint64_t __52__PKAutoFillCardManager__defaultSortForDescriptors___block_invoke(u
   v6 = a3;
   v7 = [*(*(a1 + 32) + 8) defaultPaymentPassUniqueIdentifier];
   v8 = [v5 passUniqueIdentifier];
-  v9 = [v8 isEqualToString:v7];
+  isEqualToString = objc_msgSend_isEqualToString_(v8);
 
-  if (v9)
+  if (isEqualToString)
   {
     v10 = -1;
   }
@@ -511,7 +511,7 @@ uint64_t __52__PKAutoFillCardManager__defaultSortForDescriptors___block_invoke(u
   else
   {
     v11 = [v6 passUniqueIdentifier];
-    v12 = [v11 isEqualToString:v7];
+    v12 = objc_msgSend_isEqualToString_(v11);
 
     if (v12)
     {
@@ -821,9 +821,9 @@ LABEL_18:
         goto LABEL_19;
       }
 
-      v13 = [v10 isEqualToString:v11];
+      isEqualToString = objc_msgSend_isEqualToString_(v10);
 
-      if ((v13 & 1) == 0)
+      if ((isEqualToString & 1) == 0)
       {
         goto LABEL_18;
       }

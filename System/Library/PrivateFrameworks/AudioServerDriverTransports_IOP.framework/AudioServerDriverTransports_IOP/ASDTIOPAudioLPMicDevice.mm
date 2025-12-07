@@ -12,7 +12,10 @@
 - (BOOL)updateFromStreamDescription;
 - (id).cxx_construct;
 - (id)getZeroTimestampBlock;
+- (int)performPowerStateIdle:(int)idle;
+- (int)performPowerStatePrepare:(int)prepare;
 - (int)performPowerStatePrewarm:(int)prewarm;
+- (int)setupIsolatedIOForStream:(id)stream frameSize:(unsigned int)size useCase:(unint64_t)case;
 - (int)teardownIsolatedIOForStream:(id)stream useCase:(unint64_t)case;
 - (unsigned)availablePastDataFrames;
 - (unsigned)ioBufferSizeFrames;
@@ -25,69 +28,63 @@
 
 + (id)enableListeningPropertyForService:(id)service
 {
-  v12[4] = *MEMORY[0x277D85DE8];
+  v11[4] = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   v4 = *MEMORY[0x277CEFC28];
-  v11[0] = *MEMORY[0x277CEFC58];
-  v11[1] = v4;
-  v12[0] = @"ASDTIOPAudioCMEnableProperty";
-  v12[1] = &unk_285359B20;
+  v10[0] = *MEMORY[0x277CEFC58];
+  v10[1] = v4;
+  v11[0] = @"ASDTIOPAudioCMEnableProperty";
+  v11[1] = &unk_285359B20;
   v5 = *MEMORY[0x277CEFC38];
-  v12[2] = serviceCopy;
+  v11[2] = serviceCopy;
   v6 = *MEMORY[0x277CEFC30];
-  v11[2] = v5;
-  v11[3] = v6;
+  v10[2] = v5;
+  v10[3] = v6;
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:1];
-  v12[3] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:4];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v11[3] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:4];
 
   return v8;
 }
 
 + (id)enableListeningOnGesturePropertyForService:(id)service
 {
-  v12[4] = *MEMORY[0x277D85DE8];
+  v11[4] = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   v4 = *MEMORY[0x277CEFC28];
-  v11[0] = *MEMORY[0x277CEFC58];
-  v11[1] = v4;
-  v12[0] = @"ASDTIOPAudioCMEnableProperty";
-  v12[1] = &unk_285359B38;
+  v10[0] = *MEMORY[0x277CEFC58];
+  v10[1] = v4;
+  v11[0] = @"ASDTIOPAudioCMEnableProperty";
+  v11[1] = &unk_285359B38;
   v5 = *MEMORY[0x277CEFC38];
-  v12[2] = serviceCopy;
+  v11[2] = serviceCopy;
   v6 = *MEMORY[0x277CEFC30];
-  v11[2] = v5;
-  v11[3] = v6;
+  v10[2] = v5;
+  v10[3] = v6;
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:1];
-  v12[3] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:4];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v11[3] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:4];
 
   return v8;
 }
 
 + (id)ioServiceDependenciesForConfig:(id)config
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   configCopy = config;
   asdtServiceID = [configCopy asdtServiceID];
   v5 = [(ASDTIOServiceManager *)ASDTIOPAudioLPMicServiceManager dependencyForID:asdtServiceID andConfiguration:configCopy];
 
   if (v5)
   {
-    v9[0] = v5;
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+    v8[0] = v5;
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
   }
 
   else
   {
     v6 = 0;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -109,13 +106,13 @@
 
 - (BOOL)subclassInitWithConfig:(id)config
 {
-  v16 = *MEMORY[0x277D85DE8];
   configCopy = config;
   ASDT::IOUserClient::SetAlwaysLoadPropertiesFromRegistry(self->_lpMicUserClient.__ptr_);
-  if ((ASDT::IOUserClient::OpenConnection(self->_lpMicUserClient.__ptr_) & 1) == 0)
+  v5 = ASDT::IOUserClient::OpenConnection(self->_lpMicUserClient.__ptr_);
+  if ((v5 & 1) == 0)
   {
-    v13 = ASDTIOPLogType();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v19 = ASDTIOPLogType(v5, v6);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       [(ASDAudioDevice *)self deviceUID];
       objc_claimAutoreleasedReturnValue();
@@ -126,17 +123,17 @@
   }
 
   modelName = [(ASDAudioDevice *)self modelName];
-  v6 = [modelName isEqualToString:@"AOP Audio-1"];
+  v8 = [modelName isEqualToString:@"AOP Audio-1"];
 
-  if (v6)
+  if (v8)
   {
     [(ASDAudioDevice *)self setModelName:@"ASDTIOPAudioLPMicDevice"];
   }
 
   deviceName = [(ASDAudioDevice *)self deviceName];
-  v8 = [deviceName isEqualToString:@"AOP Audio-1"];
+  v10 = [deviceName isEqualToString:@"AOP Audio-1"];
 
-  if (v8)
+  if (v10)
   {
     [(ASDAudioDevice *)self setDeviceName:@"AOP Audio"];
   }
@@ -157,8 +154,8 @@
 
   if ((firstObject & 1) == 0)
   {
-    v13 = ASDTIOPLogType();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v19 = ASDTIOPLogType(v14, v15);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       [(ASDAudioDevice *)self deviceUID];
       objc_claimAutoreleasedReturnValue();
@@ -168,10 +165,11 @@
     goto LABEL_17;
   }
 
-  if (![(ASDTIOPAudioLPMicDevice *)self setupCustomProperties:configCopy])
+  v16 = [(ASDTIOPAudioLPMicDevice *)self setupCustomProperties:configCopy];
+  if ((v16 & 1) == 0)
   {
-    v13 = ASDTIOPLogType();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v19 = ASDTIOPLogType(v16, v17);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       [(ASDAudioDevice *)self deviceUID];
       objc_claimAutoreleasedReturnValue();
@@ -187,7 +185,6 @@ LABEL_17:
   updateFromStreamDescription = [(ASDTIOPAudioLPMicDevice *)self updateFromStreamDescription];
 LABEL_18:
 
-  v14 = *MEMORY[0x277D85DE8];
   return updateFromStreamDescription;
 }
 
@@ -210,7 +207,7 @@ LABEL_18:
 
 - (BOOL)setupCustomProperties:(id)properties
 {
-  v35[8] = *MEMORY[0x277D85DE8];
+  v36[8] = *MEMORY[0x277D85DE8];
   propertiesCopy = properties;
   HistoricDataSupported = ASDT::IOPAudio::LPMic::UserClient::GetHistoricDataSupported(self->_lpMicUserClient.__ptr_);
   if (![propertiesCopy asdtAddNonSecurePathEnable])
@@ -229,128 +226,126 @@ LABEL_18:
     [(ASDTAudioDevice *)self addCustomProperty:nonSecureInputEnableProperty2];
 
 LABEL_4:
-    v9 = *MEMORY[0x277CEFC28];
-    v33[0] = *MEMORY[0x277CEFC58];
-    v8 = v33[0];
-    v33[1] = v9;
-    v10 = *MEMORY[0x277CEFC00];
-    v11 = MEMORY[0x277CBEC28];
-    v34[1] = &unk_285359B50;
-    v34[2] = MEMORY[0x277CBEC28];
-    v12 = *MEMORY[0x277CEFC18];
-    v33[4] = *MEMORY[0x277CEFC10];
-    v34[0] = @"ASDTPListProperty";
-    v33[2] = v10;
-    v33[3] = v12;
-    v13 = *MEMORY[0x277CEFC60];
-    v34[3] = @"com.apple.private.audio.hal.aop-audio.user-access";
-    v34[4] = v13;
-    v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:5];
-    v35[0] = v23;
-    v31[0] = v8;
-    v31[1] = v9;
-    v32[0] = @"ASDTRawProperty";
-    v32[1] = &unk_285359B68;
-    v32[2] = v11;
-    v31[2] = v10;
-    v31[3] = v12;
-    v22 = [MEMORY[0x277CBEA90] dataWithBytes:&HistoricDataSupported length:4];
-    v32[3] = v22;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:4];
-    v35[1] = v14;
-    v29[0] = v8;
-    v29[1] = v9;
-    v30[0] = @"ASDTIOPAudioLPMicUInt32Property";
-    v30[1] = &unk_285359B80;
-    v29[2] = v10;
-    v30[2] = v11;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:3];
-    v35[2] = v15;
-    v27[0] = v8;
-    v27[1] = v9;
-    v28[0] = @"ASDTIOPAudioLPMicUInt32Property";
-    v28[1] = &unk_285359B98;
-    v27[2] = v10;
-    v28[2] = v11;
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:3];
-    v35[3] = v16;
-    v25[0] = v8;
-    v25[1] = v9;
-    v26[0] = @"ASDTIOPAudioLPMicUInt32Property";
-    v26[1] = &unk_285359BB0;
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:2];
-    v35[4] = v17;
-    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:5];
+    v11 = *MEMORY[0x277CEFC28];
+    v34[0] = *MEMORY[0x277CEFC58];
+    v10 = v34[0];
+    v34[1] = v11;
+    v12 = *MEMORY[0x277CEFC00];
+    v13 = MEMORY[0x277CBEC28];
+    v35[1] = &unk_285359B50;
+    v35[2] = MEMORY[0x277CBEC28];
+    v14 = *MEMORY[0x277CEFC18];
+    v34[4] = *MEMORY[0x277CEFC10];
+    v35[0] = @"ASDTPListProperty";
+    v34[2] = v12;
+    v34[3] = v14;
+    v15 = *MEMORY[0x277CEFC60];
+    v35[3] = @"com.apple.private.audio.hal.aop-audio.user-access";
+    v35[4] = v15;
+    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:v34 count:5];
+    v36[0] = v24;
+    v32[0] = v10;
+    v32[1] = v11;
+    v33[0] = @"ASDTRawProperty";
+    v33[1] = &unk_285359B68;
+    v33[2] = v13;
+    v32[2] = v12;
+    v32[3] = v14;
+    v23 = [MEMORY[0x277CBEA90] dataWithBytes:&HistoricDataSupported length:4];
+    v33[3] = v23;
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:4];
+    v36[1] = v16;
+    v30[0] = v10;
+    v30[1] = v11;
+    v31[0] = @"ASDTIOPAudioLPMicUInt32Property";
+    v31[1] = &unk_285359B80;
+    v30[2] = v12;
+    v31[2] = v13;
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:3];
+    v36[2] = v17;
+    v28[0] = v10;
+    v28[1] = v11;
+    v29[0] = @"ASDTIOPAudioLPMicUInt32Property";
+    v29[1] = &unk_285359B98;
+    v28[2] = v12;
+    v29[2] = v13;
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:3];
+    v36[3] = v18;
+    v26[0] = v10;
+    v26[1] = v11;
+    v27[0] = @"ASDTIOPAudioLPMicUInt32Property";
+    v27[1] = &unk_285359BB0;
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:2];
+    v36[4] = v19;
+    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:5];
 
-    v19 = [(ASDTAudioDevice *)self addCustomProperties:v18];
+    v21 = [(ASDTAudioDevice *)self addCustomProperties:v20];
     goto LABEL_5;
   }
 
-  v18 = ASDTIOPLogType();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+  v20 = ASDTIOPLogType(v7, v8);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
   {
     [(ASDAudioDevice *)self deviceUID];
     objc_claimAutoreleasedReturnValue();
     [ASDTIOPAudioLPMicDevice setupCustomProperties:];
   }
 
-  v19 = 0;
+  v21 = 0;
 LABEL_5:
 
-  v20 = *MEMORY[0x277D85DE8];
-  return v19;
+  return v21;
 }
 
 - (BOOL)updateFromStreamDescription
 {
-  v12 = *MEMORY[0x277D85DE8];
-  if ([(ASDAudioDevice *)self isRunning])
+  v15 = *MEMORY[0x277D85DE8];
+  isRunning = [(ASDAudioDevice *)self isRunning];
+  if (isRunning)
   {
-    v3 = ASDTIOPLogType();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = ASDTIOPLogType(isRunning, v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [(ASDAudioDevice *)self deviceUID];
       objc_claimAutoreleasedReturnValue();
       [ASDTIOPAudioLPMicDevice updateFromStreamDescription];
     }
-
-    goto LABEL_11;
   }
 
-  memset(&v11, 0, sizeof(v11));
-  if ((ASDT::IOPAudio::LPMic::UserClient::GetStreamDescription(self->_lpMicUserClient.__ptr_, &v11) & 1) == 0)
+  else
   {
-    v8 = ASDTIOPLogType();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    memset(&v14, 0, sizeof(v14));
+    StreamDescription = ASDT::IOPAudio::LPMic::UserClient::GetStreamDescription(self->_lpMicUserClient.__ptr_, &v14);
+    if (StreamDescription)
     {
-      [(ASDAudioDevice *)self deviceUID];
-      objc_claimAutoreleasedReturnValue();
-      [ASDTIOPAudioLPMicDevice updateFromStreamDescription];
+      v8 = [MEMORY[0x277CCABB0] numberWithDouble:v14.var0];
+      v13 = v8;
+      v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v13 count:1];
+      [(ASDAudioDevice *)self setSamplingRates:v9];
+
+      inputStream = [(ASDTIOPAudioLPMicDevice *)self inputStream];
+      LOBYTE(v9) = [inputStream updateFromStreamDescription:&v14];
+
+      if (v9)
+      {
+        [(ASDTAudioDevice *)self setSamplingRate:v14.var0];
+        return 1;
+      }
     }
 
-    goto LABEL_11;
+    else
+    {
+      v12 = ASDTIOPLogType(StreamDescription, v7);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      {
+        [(ASDAudioDevice *)self deviceUID];
+        objc_claimAutoreleasedReturnValue();
+        [ASDTIOPAudioLPMicDevice updateFromStreamDescription];
+      }
+    }
   }
 
-  v4 = [MEMORY[0x277CCABB0] numberWithDouble:v11.var0];
-  v10 = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v10 count:1];
-  [(ASDAudioDevice *)self setSamplingRates:v5];
-
-  inputStream = [(ASDTIOPAudioLPMicDevice *)self inputStream];
-  LOBYTE(v5) = [inputStream updateFromStreamDescription:&v11];
-
-  if ((v5 & 1) == 0)
-  {
-LABEL_11:
-    result = 0;
-    goto LABEL_12;
-  }
-
-  [(ASDTAudioDevice *)self setSamplingRate:v11.var0];
-  result = 1;
-LABEL_12:
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 - (unsigned)timestampPeriod
@@ -434,8 +429,8 @@ LABEL_12:
 
     else
     {
-      v7 = ASDTIOPLogType();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = ASDTIOPLogType(SupportedChannelMask, v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         deviceUID = [(ASDAudioDevice *)self deviceUID];
         *buf = 138412802;
@@ -444,28 +439,78 @@ LABEL_12:
         maskCopy = mask;
         v16 = 1024;
         v17 = v11;
-        _os_log_error_impl(&dword_2416E9000, v7, OS_LOG_TYPE_ERROR, "%@: Bad enabled channel mask value: %x; supported %x", buf, 0x18u);
+        _os_log_error_impl(&dword_2416E9000, v8, OS_LOG_TYPE_ERROR, "%@: Bad enabled channel mask value: %x; supported %x", buf, 0x18u);
       }
 
       LOBYTE(SupportedChannelMask) = 0;
     }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return SupportedChannelMask;
+}
+
+- (int)performPowerStateIdle:(int)idle
+{
+  v3 = *&idle;
+  ASDT::IOMemoryMap::Release(&self->_lpMicEngineStatus);
+  v6.receiver = self;
+  v6.super_class = ASDTIOPAudioLPMicDevice;
+  return [(ASDTAudioDevice *)&v6 performPowerStateIdle:v3];
+}
+
+- (int)performPowerStatePrepare:(int)prepare
+{
+  v12 = *MEMORY[0x277D85DE8];
+  ptr = self->_lpMicUserClient.__ptr_;
+  if (!ptr)
+  {
+    [ASDTIOPAudioLPMicDevice performPowerStatePrepare:];
+  }
+
+  v5 = *&prepare;
+  if (prepare != 1970303090)
+  {
+    if (prepare == 1685090418)
+    {
+      ASDT::IOPAudio::LPMic::UserClient::StopIO(ptr);
+    }
+
+    goto LABEL_6;
+  }
+
+  ASDT::IOPAudio::LPMic::UserClient::MapEngineStatus(ptr, v11);
+  ASDT::IOMemoryMap::operator=();
+  v6 = MEMORY[0x245CEDC00](v11);
+  if (*&self->_anon_2a0[56])
+  {
+LABEL_6:
+    v10.receiver = self;
+    v10.super_class = ASDTIOPAudioLPMicDevice;
+    return [(ASDTAudioDevice *)&v10 performPowerStatePrepare:v5];
+  }
+
+  v9 = ASDTIOPLogType(v6, v7);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+  {
+    [(ASDAudioDevice *)self deviceUID];
+    objc_claimAutoreleasedReturnValue();
+    [ASDTIOPAudioLPMicDevice performPowerStatePrepare:];
+  }
+
+  return 2003329396;
 }
 
 - (int)performPowerStatePrewarm:(int)prewarm
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9.receiver = self;
-  v9.super_class = ASDTIOPAudioLPMicDevice;
-  result = [(ASDTAudioDevice *)&v9 performPowerStatePrewarm:?];
+  v11 = *MEMORY[0x277D85DE8];
+  v10.receiver = self;
+  v10.super_class = ASDTIOPAudioLPMicDevice;
+  result = [(ASDTAudioDevice *)&v10 performPowerStatePrewarm:?];
   if (!result)
   {
     if (prewarm != 1970304877)
     {
-      goto LABEL_5;
+      return 0;
     }
 
     ptr = self->_lpMicUserClient.__ptr_;
@@ -474,27 +519,26 @@ LABEL_12:
       [ASDTIOPAudioLPMicDevice performPowerStatePrewarm:];
     }
 
-    if (!ASDT::IOPAudio::LPMic::UserClient::StartIO(ptr))
+    started = ASDT::IOPAudio::LPMic::UserClient::StartIO(ptr);
+    if (!started)
     {
-      v7 = ASDTIOPLogType();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v9 = ASDTIOPLogType(started, v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         [(ASDAudioDevice *)self deviceUID];
         objc_claimAutoreleasedReturnValue();
         [ASDTIOPAudioLPMicDevice performPowerStatePrewarm:];
       }
 
-      result = 1852990585;
+      return 1852990585;
     }
 
     else
     {
-LABEL_5:
-      result = 0;
+      return 0;
     }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -516,44 +560,58 @@ LABEL_5:
 
 uint64_t __48__ASDTIOPAudioLPMicDevice_getZeroTimestampBlock__block_invoke(uint64_t a1, double *a2, unint64_t *a3, unint64_t *a4)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = **(a1 + 40);
-  if (v5)
+  if (!v5)
   {
-    if ((ASDT::IOPAudio::LPMic::EngineStatus::Snapshot(v5, &v15) & 1) == 0)
-    {
-      v9 = ASDTIOPLogType();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
-      {
-        WeakRetained = objc_loadWeakRetained((a1 + 32));
-        v11 = [WeakRetained deviceUID];
-        __48__ASDTIOPAudioLPMicDevice_getZeroTimestampBlock__block_invoke_cold_1(v11, v16, v9, WeakRetained);
-      }
-    }
+    return 1937010544;
+  }
 
-    if (v15.var2)
+  v9 = ASDT::IOPAudio::LPMic::EngineStatus::Snapshot(v5, &v16);
+  if ((v9 & 1) == 0)
+  {
+    v11 = ASDTIOPLogType(v9, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v12 = (v15.var1 - v15.var0 + 1);
+      WeakRetained = objc_loadWeakRetained((a1 + 32));
+      v13 = [WeakRetained deviceUID];
+      __48__ASDTIOPAudioLPMicDevice_getZeroTimestampBlock__block_invoke_cold_1(v13, v17, v11, WeakRetained);
     }
+  }
 
-    else
-    {
-      v12 = 0.0;
-    }
-
-    result = 0;
-    *a2 = v12;
-    *a3 = v15.var2;
-    *a4 = v15.var3;
+  if (v16.var2)
+  {
+    v14 = (v16.var1 - v16.var0 + 1);
   }
 
   else
   {
-    result = 1937010544;
+    v14 = 0.0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
+  result = 0;
+  *a2 = v14;
+  *a3 = v16.var2;
+  *a4 = v16.var3;
   return result;
+}
+
+- (int)setupIsolatedIOForStream:(id)stream frameSize:(unsigned int)size useCase:(unint64_t)case
+{
+  v6 = *&size;
+  streamCopy = stream;
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    v8 = [streamCopy setupIsolatedIOForUseCase:case withFrameSize:v6];
+  }
+
+  else
+  {
+    v8 = 561214578;
+  }
+
+  return v8;
 }
 
 - (int)teardownIsolatedIOForStream:(id)stream useCase:(unint64_t)case
@@ -590,7 +648,7 @@ uint64_t __48__ASDTIOPAudioLPMicDevice_getZeroTimestampBlock__block_invoke(uint6
 
 void __48__ASDTIOPAudioLPMicDevice_exclavesStatusTracker__block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (asdt_exclaves_available())
   {
     v2 = [*(a1 + 32) exclavesSensorName];
@@ -607,7 +665,7 @@ void __48__ASDTIOPAudioLPMicDevice_exclavesStatusTracker__block_invoke(uint64_t 
       operator new();
     }
 
-    v12 = v4;
+    v13 = v4;
     if (v4)
     {
       memmove(&__dst, v3, v4);
@@ -617,21 +675,21 @@ void __48__ASDTIOPAudioLPMicDevice_exclavesStatusTracker__block_invoke(uint64_t 
     ASDT::Exclaves::StatusTracker::Create();
     v6 = *(a1 + 32);
     v7 = *(v6 + 760);
-    *(v6 + 760) = v10;
+    *(v6 + 760) = v11;
     if (v7)
     {
       (*(*v7 + 8))(v7);
     }
 
-    if (v12 < 0)
+    if (v13 < 0)
     {
       operator delete(__dst);
     }
 
     if (!*(*(a1 + 32) + 760))
     {
-      v8 = ASDTIOPLogType();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v10 = ASDTIOPLogType(v8, v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         [*(a1 + 32) deviceUID];
         objc_claimAutoreleasedReturnValue();
@@ -639,8 +697,6 @@ void __48__ASDTIOPAudioLPMicDevice_exclavesStatusTracker__block_invoke(uint64_t 
       }
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (ASDTIOPAudioLPMicStream)inputStream

@@ -30,54 +30,52 @@
 
 - (void)_accessibilityLoadAccessibilityInformation
 {
-  v21 = *MEMORY[0x29EDCA608];
-  v19.receiver = self;
-  v19.super_class = STUIStatusBarIndicatorItemAccessibility;
-  [(STUIStatusBarIndicatorItemAccessibility *)&v19 _accessibilityLoadAccessibilityInformation];
+  v20 = *MEMORY[0x29EDCA608];
+  v18.receiver = self;
+  v18.super_class = STUIStatusBarIndicatorItemAccessibility;
+  [(STUIStatusBarIndicatorItemAccessibility *)&v18 _accessibilityLoadAccessibilityInformation];
   LOBYTE(location) = 0;
   objc_opt_class();
   v3 = [(STUIStatusBarIndicatorItemAccessibility *)self safeValueForKey:@"displayItems"];
-  v10 = __UIAccessibilityCastAsClass();
+  v9 = __UIAccessibilityCastAsClass();
 
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  obj = [v10 allValues];
-  v4 = [obj countByEnumeratingWithState:&v15 objects:v20 count:16];
+  obj = [v9 allValues];
+  v4 = [obj countByEnumeratingWithState:&v14 objects:v19 count:16];
   if (v4)
   {
-    v5 = *v16;
+    v5 = *v15;
     v6 = MEMORY[0x29EDCA5F8];
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v16 != v5)
+        if (*v15 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = [*(*(&v15 + 1) + 8 * i) safeValueForKey:{@"view", v10}];
+        v8 = [*(*(&v14 + 1) + 8 * i) safeValueForKey:{@"view", v9}];
         [v8 setIsAccessibilityElement:1];
         objc_initWeak(&location, self);
-        v12[0] = v6;
-        v12[1] = 3221225472;
-        v12[2] = __85__STUIStatusBarIndicatorItemAccessibility__accessibilityLoadAccessibilityInformation__block_invoke;
-        v12[3] = &unk_29F306E80;
-        objc_copyWeak(&v13, &location);
-        [v8 _setAccessibilityLabelBlock:v12];
-        objc_destroyWeak(&v13);
+        v11[0] = v6;
+        v11[1] = 3221225472;
+        v11[2] = __85__STUIStatusBarIndicatorItemAccessibility__accessibilityLoadAccessibilityInformation__block_invoke;
+        v11[3] = &unk_29F306E80;
+        objc_copyWeak(&v12, &location);
+        [v8 _setAccessibilityLabelBlock:v11];
+        objc_destroyWeak(&v12);
         objc_destroyWeak(&location);
       }
 
-      v4 = [obj countByEnumeratingWithState:&v15 objects:v20 count:16];
+      v4 = [obj countByEnumeratingWithState:&v14 objects:v19 count:16];
     }
 
     while (v4);
   }
-
-  v9 = *MEMORY[0x29EDCA608];
 }
 
 id __85__STUIStatusBarIndicatorItemAccessibility__accessibilityLoadAccessibilityInformation__block_invoke(uint64_t a1)

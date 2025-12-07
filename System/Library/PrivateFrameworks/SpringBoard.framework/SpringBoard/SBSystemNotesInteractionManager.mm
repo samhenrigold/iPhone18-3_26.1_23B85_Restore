@@ -338,7 +338,7 @@ void __62__SBSystemNotesInteractionManager_dismissAnimated_completion___block_in
   v2 = SBLogSystemNotes();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    __62__SBSystemNotesInteractionManager_dismissAnimated_completion___block_invoke_2_cold_1();
+    __62__SBSystemNotesInteractionManager_dismissAnimated_completion___block_invoke_2_cold_1(a1);
   }
 
   v6[0] = MEMORY[0x277D85DD0];
@@ -359,7 +359,7 @@ void __62__SBSystemNotesInteractionManager_dismissAnimated_completion___block_in
   v2 = SBLogSystemNotes();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    __62__SBSystemNotesInteractionManager_dismissAnimated_completion___block_invoke_25_cold_1();
+    __62__SBSystemNotesInteractionManager_dismissAnimated_completion___block_invoke_25_cold_1(a1);
   }
 
   v3 = (a1 + 32);
@@ -379,7 +379,7 @@ void __62__SBSystemNotesInteractionManager_dismissAnimated_completion___block_in
   v6 = SBLogSystemNotes();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    __62__SBSystemNotesInteractionManager_dismissAnimated_completion___block_invoke_25_cold_2();
+    __62__SBSystemNotesInteractionManager_dismissAnimated_completion___block_invoke_25_cold_2((a1 + 32), a1);
   }
 }
 
@@ -931,43 +931,43 @@ LABEL_22:
   fingerSwipeGestureTuningSettings = [(SBSystemNotesSettings *)self->_pipSettings fingerSwipeGestureTuningSettings];
   [fingerSwipeGestureTuningSettings maximumActiveDistance:1];
   v10 = v9;
-  [fingerSwipeGestureTuningSettings maximumActiveDistance:0];
-  v12 = ceil(fmax(v10, v11) * SBMainScreenPointsPerMillimeter());
+  v11 = [fingerSwipeGestureTuningSettings maximumActiveDistance:0];
+  v14 = ceil(fmax(v10, v12) * SBMainScreenPointsPerMillimeter(v11, v13));
   pencilSwipeGestureTuningSettings = [(SBSystemNotesSettings *)self->_pipSettings pencilSwipeGestureTuningSettings];
   [pencilSwipeGestureTuningSettings cornerVerticalEdgeLength];
-  v15 = v14;
+  v17 = v16;
 
-  v16 = fmax(v15, v12);
+  v18 = fmax(v17, v14);
   if (v3)
   {
-    v17 = v12;
+    v19 = v14;
   }
 
   else
   {
-    v17 = v8;
+    v19 = v8;
   }
 
   if (!v3)
   {
-    v16 = v15;
+    v18 = v17;
   }
 
   if (v4)
   {
-    v18 = v16;
+    v20 = v18;
   }
 
   else
   {
-    v18 = v17;
+    v20 = v19;
   }
 
   windowSceneManager = [SBApp windowSceneManager];
   embeddedDisplayWindowScene = [windowSceneManager embeddedDisplayWindowScene];
 
   pictureInPictureManager = [embeddedDisplayWindowScene pictureInPictureManager];
-  [pictureInPictureManager applyStashedPictureInPicturePadding:1 forPIPSource:{v5, v6, v18, v7}];
+  [pictureInPictureManager applyStashedPictureInPicturePadding:1 forPIPSource:{v5, v6, v20, v7}];
 }
 
 - (void)_cancelGestureIfNecessary:(id)necessary reason:(id)reason
@@ -1053,7 +1053,7 @@ void __61__SBSystemNotesInteractionManager__updateFailureRequirements__block_inv
     if (state == 1)
     {
       v9 = [(SBSystemNotesInteractionManager *)self _cornerForGestureRecognizer:gestureCopy];
-      v10 = SBLogSystemGesture();
+      v10 = SBLogSystemGesture(v9);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         v17 = 134217984;
@@ -1365,13 +1365,13 @@ LABEL_27:
   }
 }
 
-uint64_t __71__SBSystemNotesInteractionManager__handleNonInteractiveSwipeInGesture___block_invoke(uint64_t result)
+void *__71__SBSystemNotesInteractionManager__handleNonInteractiveSwipeInGesture___block_invoke(void *result)
 {
-  v1 = *(result + 32);
-  if (*(result + 40) == *(v1 + 144) && *(v1 + 136) == 2)
+  v1 = result[4];
+  if (*(result + 10) == *(v1 + 144) && *(v1 + 136) == 2)
   {
     *(v1 + 136) = 3;
-    return [*(*(result + 32) + 8) interactionManager:*(result + 32) requestsNotesDismissalForSource:3 animated:1];
+    return [*(result[4] + 8) interactionManager:result[4] requestsNotesDismissalForSource:3 animated:1];
   }
 
   return result;
@@ -2040,47 +2040,46 @@ LABEL_38:
 LABEL_42:
 }
 
-uint64_t __119__SBSystemNotesInteractionManager__interactionController_updateScaleInteractorForSwipeToDismiss_pipSize_forPanGesture___block_invoke(uint64_t a1, uint64_t a2)
+void __119__SBSystemNotesInteractionManager__interactionController_updateScaleInteractorForSwipeToDismiss_pipSize_forPanGesture___block_invoke(uint64_t a1, uint64_t a2)
 {
-  result = [*(a1 + 32) _pointForGestureCorner:a2];
-  v7 = *(a1 + 48);
+  [*(a1 + 32) _pointForGestureCorner:a2];
+  v6 = *(a1 + 48);
   if (a2 == 4)
   {
-    if (v7 <= v5)
+    if (v6 <= v4)
     {
       goto LABEL_7;
     }
   }
 
-  else if (v7 >= v5)
+  else if (v6 >= v4)
   {
 LABEL_7:
-    v11 = *(*(a1 + 40) + 8);
-    v10 = fmin(*(v11 + 24), 0.0);
+    v10 = *(*(a1 + 40) + 8);
+    v9 = fmin(*(v10 + 24), 0.0);
     goto LABEL_8;
   }
 
-  if (*(a1 + 56) >= v6)
+  if (*(a1 + 56) >= v5)
   {
     goto LABEL_7;
   }
 
-  v8 = *(*(*(a1 + 40) + 8) + 24);
-  result = UIDistanceBetweenPoints();
-  v10 = fmin(v8, v9);
-  v11 = *(*(a1 + 40) + 8);
+  v7 = *(*(*(a1 + 40) + 8) + 24);
+  UIDistanceBetweenPoints();
+  v9 = fmin(v7, v8);
+  v10 = *(*(a1 + 40) + 8);
 LABEL_8:
-  *(v11 + 24) = v10;
-  return result;
+  *(v10 + 24) = v9;
 }
 
-uint64_t __119__SBSystemNotesInteractionManager__interactionController_updateScaleInteractorForSwipeToDismiss_pipSize_forPanGesture___block_invoke_2(uint64_t result)
+void *__119__SBSystemNotesInteractionManager__interactionController_updateScaleInteractorForSwipeToDismiss_pipSize_forPanGesture___block_invoke_2(void *result)
 {
-  v1 = *(result + 32);
-  if (*(v1 + 96) == 3 && *(result + 40) == *(v1 + 104))
+  v1 = result[4];
+  if (__PAIR128__(result[5], 3) == __PAIR128__(*(v1 + 104), *(v1 + 96)))
   {
     *(v1 + 96) = 0;
-    return [*(*(result + 32) + 8) interactionManager:*(result + 32) requestsNotesDismissalForSource:1 animated:0];
+    return [*(result[4] + 8) interactionManager:result[4] requestsNotesDismissalForSource:1 animated:0];
   }
 
   return result;
@@ -2141,7 +2140,7 @@ uint64_t __119__SBSystemNotesInteractionManager__interactionController_updateSca
   OUTLINED_FUNCTION_1_25();
   v0 = _SBFLoggingMethodProem();
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_7(&dword_21ED4E000, v1, v2, "[%{public}@][Gesture] nil content!", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_7(&dword_21ED4E000, v1, v2, "[%{public}@][Gesture] nil content!", v3, v4, v5, v6);
 }
 
 - (void)dismissAnimated:completion:.cold.2()
@@ -2150,7 +2149,7 @@ uint64_t __119__SBSystemNotesInteractionManager__interactionController_updateSca
   OUTLINED_FUNCTION_1_25();
   v0 = _SBFLoggingMethodProem();
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_7(&dword_21ED4E000, v1, v2, "[%{public}@][Gesture] nil container!", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_7(&dword_21ED4E000, v1, v2, "[%{public}@][Gesture] nil container!", v3, v4, v5, v6);
 }
 
 - (void)dismissAnimated:completion:.cold.3()
@@ -2173,28 +2172,28 @@ uint64_t __119__SBSystemNotesInteractionManager__interactionController_updateSca
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0x12u);
 }
 
-void __62__SBSystemNotesInteractionManager_dismissAnimated_completion___block_invoke_2_cold_1()
+void __62__SBSystemNotesInteractionManager_dismissAnimated_completion___block_invoke_2_cold_1(uint64_t a1)
 {
-  v0 = _SBFLoggingMethodProem();
+  v1 = _SBFLoggingMethodProem();
   OUTLINED_FUNCTION_0_56();
   OUTLINED_FUNCTION_0_4();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x12u);
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x12u);
 }
 
-void __62__SBSystemNotesInteractionManager_dismissAnimated_completion___block_invoke_25_cold_1()
+void __62__SBSystemNotesInteractionManager_dismissAnimated_completion___block_invoke_25_cold_1(uint64_t a1)
 {
-  v0 = _SBFLoggingMethodProem();
+  v1 = _SBFLoggingMethodProem();
   OUTLINED_FUNCTION_0_56();
   OUTLINED_FUNCTION_0_4();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x12u);
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x12u);
 }
 
-void __62__SBSystemNotesInteractionManager_dismissAnimated_completion___block_invoke_25_cold_2()
+void __62__SBSystemNotesInteractionManager_dismissAnimated_completion___block_invoke_25_cold_2(void *a1, uint64_t a2)
 {
-  v0 = _SBFLoggingMethodProem();
+  v2 = _SBFLoggingMethodProem();
   OUTLINED_FUNCTION_0_56();
   OUTLINED_FUNCTION_0_4();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x12u);
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x12u);
 }
 
 - (void)_handleInteractiveSwipeInGesture:.cold.1()

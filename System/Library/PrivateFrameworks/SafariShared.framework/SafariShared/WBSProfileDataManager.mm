@@ -39,15 +39,16 @@
   dCopy = d;
   identifierCopy = identifier;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
+  v9 = defaultManager;
   if (dCopy)
   {
     defaultManager2 = [MEMORY[0x1E696AC08] defaultManager];
-    v9 = [defaultManager2 safari_profileDirectoryURLWithID:dCopy createIfNeeded:0];
-    v20 = 0;
-    [defaultManager removeItemAtURL:v9 error:&v20];
-    v10 = v20;
+    v11 = [defaultManager2 safari_profileDirectoryURLWithID:dCopy createIfNeeded:0];
+    v22 = 0;
+    [v9 removeItemAtURL:v11 error:&v22];
+    v12 = v22;
 
-    if (!v10)
+    if (!v12)
     {
       if (identifierCopy)
       {
@@ -60,25 +61,25 @@
 
   else
   {
-    v10 = 0;
+    v12 = 0;
   }
 
-  v14 = WBS_LOG_CHANNEL_PREFIXProfiles();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+  v16 = WBS_LOG_CHANNEL_PREFIXProfiles(defaultManager, v8);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
-    [(WBSProfileDataManager *)dCopy didRemoveProfileWithServerID:v14 profileIdentifier:v10];
+    [(WBSProfileDataManager *)dCopy didRemoveProfileWithServerID:v16 profileIdentifier:v12];
   }
 
   if (identifierCopy)
   {
 LABEL_4:
     defaultManager3 = [MEMORY[0x1E696AC08] defaultManager];
-    v12 = [defaultManager3 safari_profileDirectoryURLWithID:identifierCopy createIfNeeded:0];
-    v19 = 0;
-    [defaultManager removeItemAtURL:v12 error:&v19];
-    v13 = v19;
+    v14 = [defaultManager3 safari_profileDirectoryURLWithID:identifierCopy createIfNeeded:0];
+    v21 = 0;
+    [v9 removeItemAtURL:v14 error:&v21];
+    v15 = v21;
 
-    if (!v13)
+    if (!v15)
     {
       goto LABEL_13;
     }
@@ -87,24 +88,24 @@ LABEL_4:
   }
 
 LABEL_10:
-  v13 = 0;
+  v15 = 0;
 LABEL_11:
-  v15 = WBS_LOG_CHANNEL_PREFIXProfiles();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+  v17 = WBS_LOG_CHANNEL_PREFIXProfiles(defaultManager, v8);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
   {
-    [(WBSProfileDataManager *)identifierCopy didRemoveProfileWithServerID:v15 profileIdentifier:v13];
+    [(WBSProfileDataManager *)identifierCopy didRemoveProfileWithServerID:v17 profileIdentifier:v15];
   }
 
 LABEL_13:
   +[WBSParsecDSession clearAllParsecFeedbackAndEngagedCompletions];
-  v16 = +[WBSSiriIntelligenceDonor sharedInstance];
-  [v16 removeAllCoreSpotlightHistoryDataDonatedBySafariForProfileWithIdentifier:identifierCopy];
+  v18 = +[WBSSiriIntelligenceDonor sharedInstance];
+  [v18 removeAllCoreSpotlightHistoryDataDonatedBySafariForProfileWithIdentifier:identifierCopy];
 
-  v17 = +[WBSSiriIntelligenceDonor sharedInstance];
-  [v17 removeAllCoreSpotlightTabDataDonatedBySafariForProfileWithIdentifier:identifierCopy];
+  v19 = +[WBSSiriIntelligenceDonor sharedInstance];
+  [v19 removeAllCoreSpotlightTabDataDonatedBySafariForProfileWithIdentifier:identifierCopy];
 
-  v18 = +[WBSIgnoredSiriSuggestedSitesController sharedController];
-  [v18 removeIgnoredSiriSuggestedSitesInProfile:identifierCopy];
+  v20 = +[WBSIgnoredSiriSuggestedSitesController sharedController];
+  [v20 removeIgnoredSiriSuggestedSitesInProfile:identifierCopy];
 }
 
 - (void)didRemoveProfile:(id)profile
@@ -121,7 +122,7 @@ LABEL_13:
   v4 = a2;
   v5 = [a3 safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_1_4(&dword_1BB6F3000, v6, v7, "Failed to remove profile directory with server id %{public}@ with error %{public}@", v8, v9, v10, v11, v12);
+  OUTLINED_FUNCTION_1_4(&dword_1BB6F3000, v6, v7, "Failed to remove profile directory with server id %{public}@ with error %{public}@", v8, v9, v10, v11);
 }
 
 - (void)didRemoveProfileWithServerID:(void *)a3 profileIdentifier:.cold.2(uint64_t a1, void *a2, void *a3)
@@ -129,7 +130,7 @@ LABEL_13:
   v4 = a2;
   v5 = [a3 safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_1_4(&dword_1BB6F3000, v6, v7, "Failed to remove profile directory with identifier %{public}@ with error %{public}@", v8, v9, v10, v11, v12);
+  OUTLINED_FUNCTION_1_4(&dword_1BB6F3000, v6, v7, "Failed to remove profile directory with identifier %{public}@ with error %{public}@", v8, v9, v10, v11);
 }
 
 @end

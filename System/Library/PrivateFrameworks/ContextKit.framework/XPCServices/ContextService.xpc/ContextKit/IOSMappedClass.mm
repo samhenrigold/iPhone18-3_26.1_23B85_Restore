@@ -33,9 +33,9 @@
   v3 = +[NSMutableDictionary dictionary];
   sub_100280AC0(self, v3, 0, 1);
   allValues = [v3 allValues];
-  v5 = JavaLangReflectMethod_class_();
+  v6 = JavaLangReflectMethod_class_(allValues, v5);
 
-  return [IOSObjectArray arrayWithNSArray:allValues type:v5];
+  return [IOSObjectArray arrayWithNSArray:allValues type:v6];
 }
 
 - (id)getConstructors
@@ -43,9 +43,9 @@
   v3 = +[NSMutableDictionary dictionary];
   sub_100280AC0(self, v3, 1, 1);
   allValues = [v3 allValues];
-  v5 = JavaLangReflectMethod_class_();
+  v6 = JavaLangReflectMethod_class_(allValues, v5);
 
-  return [IOSObjectArray arrayWithNSArray:allValues type:v5];
+  return [IOSObjectArray arrayWithNSArray:allValues type:v6];
 }
 
 @end

@@ -58,10 +58,10 @@
 
 + (id)reachabilityForInternetConnection
 {
-  v4[2] = *MEMORY[0x277D85DE8];
-  v4[1] = 0;
-  v4[0] = 528;
-  v2 = [self reachabilityWithAddress:v4];
+  v6 = *MEMORY[0x277D85DE8];
+  v5 = 0;
+  v4 = 528;
+  v2 = [self reachabilityWithAddress:?];
 
   return v2;
 }
@@ -147,7 +147,7 @@
   flags = 0;
   if (SCNetworkReachabilityGetFlags(self->_reachabilityRef, &flags))
   {
-    return [(APRKReachability *)self networkStatusForFlags:flags];
+    return [(APRKReachability *)self networkStatusForFlags:?];
   }
 
   else

@@ -1,6 +1,7 @@
 @interface REMReminderPredicateDescriptor
 + (id)andPredicateDescriptorWithDescriptors:(id)descriptors;
 + (id)orPredicateDescriptorWithDescriptors:(id)descriptors;
++ (id)predicateDescriptorForRemindersWithCompleted:(BOOL)completed;
 + (id)predicateDescriptorForRemindersWithDisplayDateBetween:(id)between and:(id)and;
 + (id)predicateDescriptorForRemindersWithDisplayDateOnOrAfter:(id)after;
 + (id)predicateDescriptorForRemindersWithDisplayDateOnOrBefore:(id)before;
@@ -127,6 +128,15 @@
   [(REMReminderPredicateDescriptor *)v7 setEndingDueDate:andCopy];
 
   return v7;
+}
+
++ (id)predicateDescriptorForRemindersWithCompleted:(BOOL)completed
+{
+  completedCopy = completed;
+  v4 = [[REMReminderPredicateDescriptor alloc] initWithType:6];
+  [(REMReminderPredicateDescriptor *)v4 setCompleted:completedCopy];
+
+  return v4;
 }
 
 + (id)predicateDescriptorForRemindersWithTitleEquals:(id)equals
@@ -591,20 +601,18 @@ LABEL_35:
 
 - (void)initWithCoder:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_fault_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_FAULT, "Unknown REMReminderPredicateDescriptorType %ld", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_fault_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_FAULT, "Unknown REMReminderPredicateDescriptorType %ld", &v2, 0xCu);
 }
 
 - (void)initWithCoder:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_fault_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_FAULT, "Unknown REMReminderPredicateDescriptorTextMatching %ld", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_fault_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_FAULT, "Unknown REMReminderPredicateDescriptorTextMatching %ld", &v2, 0xCu);
 }
 
 @end

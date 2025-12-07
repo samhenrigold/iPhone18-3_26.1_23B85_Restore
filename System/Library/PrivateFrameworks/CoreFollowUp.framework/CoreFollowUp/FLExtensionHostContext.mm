@@ -73,25 +73,22 @@ void __59__FLExtensionHostContext__extensionAuxiliaryVendorProtocol__block_invok
 
 - (void)extensionDidFinish
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v3 = _FLLogSystem();
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = _FLLogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315138;
-    v7 = "[FLExtensionHostContext extensionDidFinish]";
-    _os_log_impl(&dword_22E696000, v3, OS_LOG_TYPE_DEFAULT, "-- %s --", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[FLExtensionHostContext extensionDidFinish]";
+    _os_log_impl(&dword_22E696000, v3, OS_LOG_TYPE_DEFAULT, "-- %s --", &v5, 0xCu);
   }
 
-  [(FLExtensionHostContext *)self extensionDidFinishWithUserInfo:0 completionHandler:0];
-  v4 = _FLLogSystem();
+  v4 = _FLLogSystem([(FLExtensionHostContext *)self extensionDidFinishWithUserInfo:0 completionHandler:0]);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315138;
-    v7 = "[FLExtensionHostContext extensionDidFinish]";
-    _os_log_impl(&dword_22E696000, v4, OS_LOG_TYPE_DEFAULT, "-- %s -- DONE.", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[FLExtensionHostContext extensionDidFinish]";
+    _os_log_impl(&dword_22E696000, v4, OS_LOG_TYPE_DEFAULT, "-- %s -- DONE.", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)extensionDidFinishWithUserInfo:(id)info completionHandler:(id)handler
@@ -99,7 +96,7 @@ void __59__FLExtensionHostContext__extensionAuxiliaryVendorProtocol__block_invok
   v15 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   infoCopy = info;
-  v8 = _FLLogSystem();
+  v8 = _FLLogSystem(infoCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v13 = 136315138;
@@ -108,7 +105,7 @@ void __59__FLExtensionHostContext__extensionAuxiliaryVendorProtocol__block_invok
   }
 
   delegate = [(FLExtensionHostContext *)self delegate];
-  v10 = _FLLogSystem();
+  v10 = _FLLogSystem(delegate);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v13 = 138412290;
@@ -117,15 +114,13 @@ void __59__FLExtensionHostContext__extensionAuxiliaryVendorProtocol__block_invok
   }
 
   [delegate extensionDidFinishWithUserInfo:infoCopy completionHandler:handlerCopy];
-  v11 = _FLLogSystem();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = _FLLogSystem(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     v13 = 136315138;
     v14 = "[FLExtensionHostContext extensionDidFinishWithUserInfo:completionHandler:]";
-    _os_log_impl(&dword_22E696000, v11, OS_LOG_TYPE_DEFAULT, "-- %s -- DONE.", &v13, 0xCu);
+    _os_log_impl(&dword_22E696000, v12, OS_LOG_TYPE_DEFAULT, "-- %s -- DONE.", &v13, 0xCu);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (FLExtensionHostContextInterface)delegate

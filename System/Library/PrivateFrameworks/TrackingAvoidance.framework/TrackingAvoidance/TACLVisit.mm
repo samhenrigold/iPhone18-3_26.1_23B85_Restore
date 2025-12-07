@@ -281,7 +281,7 @@ LABEL_30:
 
 - (id)descriptionDictionary
 {
-  v20[8] = *MEMORY[0x277D85DE8];
+  v19[8] = *MEMORY[0x277D85DE8];
   if ([(TACLVisit *)self hasArrivalDate])
   {
     arrivalDate = [(TACLVisit *)self arrivalDate];
@@ -304,28 +304,28 @@ LABEL_30:
     getDateString2 = @"-";
   }
 
-  v19[0] = @"EventType";
+  v18[0] = @"EventType";
   v7 = objc_opt_class();
   v8 = NSStringFromClass(v7);
-  v20[0] = v8;
-  v19[1] = @"Latitude";
+  v19[0] = v8;
+  v18[1] = @"Latitude";
   v9 = [MEMORY[0x277CCABB0] numberWithDouble:self->_coordinate.latitude];
-  v20[1] = v9;
-  v19[2] = @"Longitude";
+  v19[1] = v9;
+  v18[2] = @"Longitude";
   v10 = [MEMORY[0x277CCABB0] numberWithDouble:self->_coordinate.longitude];
-  v20[2] = v10;
-  v19[3] = @"HorizontalAccuracy";
+  v19[2] = v10;
+  v18[3] = @"HorizontalAccuracy";
   v11 = [MEMORY[0x277CCABB0] numberWithDouble:self->_horizontalAccuracy];
-  v20[3] = v11;
-  v20[4] = getDateString;
-  v19[4] = @"ArrivalDate";
-  v19[5] = @"DepartureDate";
-  v20[5] = getDateString2;
-  v19[6] = @"Date";
+  v19[3] = v11;
+  v19[4] = getDateString;
+  v18[4] = @"ArrivalDate";
+  v18[5] = @"DepartureDate";
+  v19[5] = getDateString2;
+  v18[6] = @"Date";
   detectionDate = [(TACLVisit *)self detectionDate];
   getDateString3 = [detectionDate getDateString];
-  v20[6] = getDateString3;
-  v19[7] = @"Confidence";
+  v19[6] = getDateString3;
+  v18[7] = @"Confidence";
   confidence = self->_confidence;
   if (confidence > 2)
   {
@@ -337,10 +337,8 @@ LABEL_30:
     v15 = off_279DD1D70[confidence];
   }
 
-  v20[7] = v15;
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:8];
-
-  v17 = *MEMORY[0x277D85DE8];
+  v19[7] = v15;
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:8];
 
   return v16;
 }
@@ -405,7 +403,7 @@ LABEL_30:
 
 - (NSDateInterval)dateInterval
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if ([(TACLVisit *)self isTemporalOrderSensical])
   {
     v3 = objc_alloc(MEMORY[0x277CCA970]);
@@ -422,23 +420,21 @@ LABEL_30:
       v8 = v7;
       arrivalDate2 = [(TACLVisit *)self arrivalDate];
       departureDate2 = [(TACLVisit *)self departureDate];
-      v14[0] = 68289539;
-      v14[1] = 0;
-      v15 = 2082;
-      v16 = "";
-      v17 = 2113;
-      v18 = arrivalDate2;
-      v19 = 2113;
-      v20 = departureDate2;
-      _os_log_impl(&dword_26F2E2000, v8, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#TACLVisit attempted to create dateInterval with nonsensical arrival and departure dates, arrivalDate:%{private}@, departureDate:%{private}@}", v14, 0x26u);
+      v13[0] = 68289539;
+      v13[1] = 0;
+      v14 = 2082;
+      v15 = "";
+      v16 = 2113;
+      v17 = arrivalDate2;
+      v18 = 2113;
+      v19 = departureDate2;
+      _os_log_impl(&dword_26F2E2000, v8, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#TACLVisit attempted to create dateInterval with nonsensical arrival and departure dates, arrivalDate:%{private}@, departureDate:%{private}@}", v13, 0x26u);
     }
 
     v11 = objc_alloc(MEMORY[0x277CCA970]);
     arrivalDate = [(TACLVisit *)self arrivalDate];
     v6 = [v11 initWithStartDate:arrivalDate duration:0.0];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

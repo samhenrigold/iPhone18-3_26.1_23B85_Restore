@@ -11,6 +11,7 @@
 - (void)listenEngineDidStartWithInputFormat:(id)format;
 - (void)listenEngineFailedToStartWithError:(id)error;
 - (void)receivedBuffer:(id)buffer atTime:(id)time;
+- (void)receivedBuffer:(id)buffer atTime:(id)time isFile:(BOOL)file;
 - (void)receivedCompletion:(id)completion;
 - (void)receivedError:(id)error fromDetector:(id)detector;
 - (void)receivedObservation:(id)observation forDetector:(id)detector;
@@ -54,7 +55,7 @@
 
   sub_23D6549C0(v7);
 
-  sub_23D662DF0(&qword_27E2E04E0, type metadata accessor for AXSDSoundDetectionType);
+  sub_23D662DF0(&qword_27E2E04E0, type metadata accessor for AXSDSoundDetectionType, &unk_23D6892EC);
   v8 = sub_23D685A10();
 
   return v8;
@@ -63,7 +64,7 @@
 - (void)startListening
 {
   selfCopy = self;
-  sub_23D65AACC();
+  sub_23D65AACC(selfCopy, v2, v3, v4, v5, v6, v7, v8, v9);
 }
 
 - (void)startListeningToTrainDetector:(id)detector
@@ -157,6 +158,19 @@
   v8.super.super.isa = bufferCopy;
   v8.super._impl = timeCopy;
   AXSDKShotNSRecordingControllerImplementation.receivedBuffer(_:at:)(v8, selfCopy);
+}
+
+- (void)receivedBuffer:(id)buffer atTime:(id)time isFile:(BOOL)file
+{
+  fileCopy = file;
+  bufferCopy = buffer;
+  timeCopy = time;
+  selfCopy = self;
+  v11 = selfCopy;
+  v13 = selfCopy;
+  v12.super.super.isa = bufferCopy;
+  v12.super._impl = timeCopy;
+  AXSDKShotNSRecordingControllerImplementation.receivedBuffer(_:at:isFile:)(v12, fileCopy, v11);
 }
 
 - (BOOL)listenEngineShouldResumeAfterAudioSessionInterruption

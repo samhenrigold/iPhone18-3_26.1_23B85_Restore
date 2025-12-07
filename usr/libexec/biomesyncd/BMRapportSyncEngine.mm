@@ -3,10 +3,13 @@
 - (BMRapportSyncEngine)initWithQueue:(id)queue primarySyncManager:(id)manager rapportManager:(id)rapportManager atomBatchChunkerPolicy:(id)policy primaryDatabase:(id)database;
 - (BOOL)rapportManager:(id)manager isDeviceSupported:(id)supported;
 - (id)accountFromRapportOptions:(id)options;
+- (id)buildAtomBatchRequestWithIsReciprocal:(BOOL)reciprocal syncReason:(unint64_t)reason sequenceNumber:(unint64_t)number transportType:(unint64_t)type device:(id)device;
 - (id)fetchAtomBatchesRequestHandler;
 - (void)_startServerWithCompletion:(id)completion;
 - (void)completeRequest:(id)request deliveredToDevices:(id)devices withErrors:(id)errors;
 - (void)completeRequestIfDeliveredToAllNearbyDevices:(id)devices;
+- (void)fetchAtomBatchesFromDevices:(id)devices isReciprocal:(BOOL)reciprocal reason:(unint64_t)reason activity:(id)activity completionHandler:(id)handler;
+- (void)fetchAtomBatchesIsReciprocal:(BOOL)reciprocal reason:(unint64_t)reason activity:(id)activity completionHandler:(id)handler;
 - (void)finishRequest:(id)request toDevice:(id)device withError:(id)error peerInfo:(id)info peerStatusTracker:(id)tracker;
 - (void)handleFetchAtomBatchesResponse:(id)response options:(id)options error:(id)error fromDevice:(id)device forRequest:(id)request isReciprocal:(BOOL)reciprocal;
 - (void)rapportManager:(id)manager didDiscoverBMRapportDevice:(id)device;
@@ -397,6 +400,201 @@ LABEL_9:
   }
 }
 
+- (void)fetchAtomBatchesIsReciprocal:(BOOL)reciprocal reason:(unint64_t)reason activity:(id)activity completionHandler:(id)handler
+{
+  reciprocalCopy = reciprocal;
+  activityCopy = activity;
+  handlerCopy = handler;
+  dispatch_assert_queue_V2(self->_queue);
+  if (self->_currentRequest)
+  {
+    v12 = [NSError errorWithDomain:@"BMRapportErrorDomain" code:14 userInfo:0];
+    v40 = v12;
+    v13 = [NSArray arrayWithObjects:&v40 count:1];
+    handlerCopy[2](handlerCopy, &__NSArray0__struct, v13);
+  }
+
+  else
+  {
+    objc_initWeak(&location, self);
+    v26 = +[NSUUID UUID];
+    v35[0] = _NSConcreteStackBlock;
+    v35[1] = 3221225472;
+    v35[2] = sub_10000A7B0;
+    v35[3] = &unk_100078C60;
+    objc_copyWeak(v36, &location);
+    v37 = reciprocalCopy;
+    v35[4] = self;
+    v36[1] = reason;
+    v25 = objc_retainBlock(v35);
+    v14 = [[BMRapportRequest alloc] initWithUUID:v26 activity:activityCopy requestBlock:v25 queue:self->_queue completionHandler:handlerCopy];
+    objc_initWeak(&from, v14);
+    v31[0] = _NSConcreteStackBlock;
+    v31[1] = 3221225472;
+    v31[2] = sub_10000A94C;
+    v31[3] = &unk_100078C88;
+    objc_copyWeak(&v32, &location);
+    objc_copyWeak(&v33, &from);
+    v31[4] = self;
+    [(BMRapportRequest *)v14 setRequestTimeoutHandler:v31];
+    sessionContext = [(BMSyncSessionMetricsCollector *)self->_metricsCollector sessionContext];
+    [(BMRapportRequest *)v14 setSessionContext:sessionContext];
+
+    metricsCollector = self->_metricsCollector;
+    sessionContext2 = [(BMRapportRequest *)v14 sessionContext];
+    sessionID = [sessionContext2 sessionID];
+    [(BMSyncSessionMetricsCollector *)metricsCollector recordSessionStart:sessionID transport:2 reason:reason isReciprocal:reciprocalCopy];
+
+    objc_storeStrong(&self->_currentRequest, v14);
+    v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
+    discoveredDevices = [(BMRapportManager *)self->_rapportManager discoveredDevices];
+    v20 = [discoveredDevices countByEnumeratingWithState:&v27 objects:v39 count:16];
+    if (v20)
+    {
+      v21 = *v28;
+      do
+      {
+        v22 = 0;
+        do
+        {
+          if (*v28 != v21)
+          {
+            objc_enumerationMutation(discoveredDevices);
+          }
+
+          v23 = *(*(&v27 + 1) + 8 * v22);
+          v24 = objc_autoreleasePoolPush();
+          [(BMRapportSyncEngine *)self runRequest:v14 onDevice:v23];
+          objc_autoreleasePoolPop(v24);
+          v22 = v22 + 1;
+        }
+
+        while (v20 != v22);
+        v20 = [discoveredDevices countByEnumeratingWithState:&v27 objects:v39 count:16];
+      }
+
+      while (v20);
+    }
+
+    [(BMRapportManager *)self->_rapportManager startWithCompletion:0];
+    objc_destroyWeak(&v33);
+    objc_destroyWeak(&v32);
+    objc_destroyWeak(&from);
+
+    objc_destroyWeak(v36);
+    objc_destroyWeak(&location);
+  }
+}
+
+- (void)fetchAtomBatchesFromDevices:(id)devices isReciprocal:(BOOL)reciprocal reason:(unint64_t)reason activity:(id)activity completionHandler:(id)handler
+{
+  reciprocalCopy = reciprocal;
+  devicesCopy = devices;
+  activityCopy = activity;
+  handlerCopy = handler;
+  dispatch_assert_queue_V2(self->_queue);
+  if (self->_currentRequest)
+  {
+    v12 = [NSError errorWithDomain:@"BMRapportErrorDomain" code:14 userInfo:0];
+    v53 = v12;
+    v13 = [NSArray arrayWithObjects:&v53 count:1];
+    handlerCopy[2](handlerCopy, &__NSArray0__struct, v13);
+  }
+
+  else
+  {
+    selfCopy = self;
+    objc_initWeak(&location, self);
+    v31 = +[NSUUID UUID];
+    v44[0] = _NSConcreteStackBlock;
+    v44[1] = 3221225472;
+    v44[2] = sub_10000AF90;
+    v44[3] = &unk_100078C60;
+    objc_copyWeak(v45, &location);
+    v46 = reciprocalCopy;
+    v44[4] = self;
+    v45[1] = reason;
+    v30 = objc_retainBlock(v44);
+    v34 = [[BMRapportRequest alloc] initWithUUID:v31 activity:activityCopy requestBlock:v30 queue:self->_queue completionHandler:handlerCopy];
+    objc_initWeak(&from, v34);
+    v40[0] = _NSConcreteStackBlock;
+    v40[1] = 3221225472;
+    v40[2] = sub_10000B120;
+    v40[3] = &unk_100078C88;
+    objc_copyWeak(&v41, &location);
+    objc_copyWeak(&v42, &from);
+    v40[4] = self;
+    [(BMRapportRequest *)v34 setRequestTimeoutHandler:v40];
+    sessionContext = [(BMSyncSessionMetricsCollector *)self->_metricsCollector sessionContext];
+    [(BMRapportRequest *)v34 setSessionContext:sessionContext];
+
+    metricsCollector = self->_metricsCollector;
+    sessionContext2 = [(BMRapportRequest *)v34 sessionContext];
+    sessionID = [sessionContext2 sessionID];
+    [(BMSyncSessionMetricsCollector *)metricsCollector recordSessionStart:sessionID transport:2 reason:reason isReciprocal:reciprocalCopy];
+
+    v38 = 0u;
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
+    discoveredDevices = [(BMRapportManager *)selfCopy->_rapportManager discoveredDevices];
+    v20 = [discoveredDevices countByEnumeratingWithState:&v36 objects:v52 count:16];
+    if (v20)
+    {
+      v21 = *v37;
+      do
+      {
+        for (i = 0; i != v20; i = i + 1)
+        {
+          if (*v37 != v21)
+          {
+            objc_enumerationMutation(discoveredDevices);
+          }
+
+          v23 = *(*(&v36 + 1) + 8 * i);
+          v24 = objc_autoreleasePoolPush();
+          rapportIdentifier = [v23 rapportIdentifier];
+          v26 = [devicesCopy containsObject:rapportIdentifier];
+
+          if (v26)
+          {
+            v27 = __biome_log_for_category();
+            if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+            {
+              siteSuffix = [(BMRapportSyncEngine *)selfCopy siteSuffix];
+              rapportIdentifier2 = [v23 rapportIdentifier];
+              *buf = 138412546;
+              v49 = siteSuffix;
+              v50 = 2112;
+              v51 = rapportIdentifier2;
+              _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "BMRapportSyncEngine%@: Specified Rapport device %@ found, sending sync request", buf, 0x16u);
+            }
+
+            [(BMRapportSyncEngine *)selfCopy runRequest:v34 onDevice:v23];
+          }
+
+          objc_autoreleasePoolPop(v24);
+        }
+
+        v20 = [discoveredDevices countByEnumeratingWithState:&v36 objects:v52 count:16];
+      }
+
+      while (v20);
+    }
+
+    [(BMRapportManager *)selfCopy->_rapportManager startWithCompletion:0];
+    objc_destroyWeak(&v42);
+    objc_destroyWeak(&v41);
+    objc_destroyWeak(&from);
+
+    objc_destroyWeak(v45);
+    objc_destroyWeak(&location);
+  }
+}
+
 - (void)sendFetchAtomBatchesRequest:(id)request toDevice:(id)device forRequest:(id)forRequest
 {
   requestCopy = request;
@@ -416,6 +614,49 @@ LABEL_9:
   v14 = forRequestCopy;
   v15 = deviceCopy;
   [(BMRapportManager *)rapportManager sendRequest:@"com.apple.biomesyncd.fetchAtomBatches" request:dictionaryRepresentation toDevice:v15 responseHandler:v16];
+}
+
+- (id)buildAtomBatchRequestWithIsReciprocal:(BOOL)reciprocal syncReason:(unint64_t)reason sequenceNumber:(unint64_t)number transportType:(unint64_t)type device:(id)device
+{
+  reciprocalCopy = reciprocal;
+  deviceCopy = device;
+  account = [deviceCopy account];
+  v14 = [(BMRapportSyncEngine *)self createDistributedSyncManagerForAccount:account];
+
+  if (v14)
+  {
+    v23 = [v14 clockVectorForStreamsSupportingTransportType:type direction:1 device:deviceCopy];
+    v15 = [BMMultiStreamVectorClockConverter multiStreamTimestampClockVectorToVectorClock:v23];
+    v16 = [v14 rangeClockVectorForStreamsSupportingTransportType:type direction:1 device:deviceCopy];
+    v17 = objc_opt_new();
+    [v17 setProtocolVersion:{-[BMRapportSyncEngine protocolVersion](self, "protocolVersion")}];
+    [v14 peerStatusTracker];
+    v19 = v18 = reciprocalCopy;
+    v20 = [v19 localDeviceUpdatingIfNeccesaryWithProtocolVersion:{-[BMRapportSyncEngine protocolVersion](self, "protocolVersion")}];
+    [v17 setPeer:v20];
+
+    [v17 setWalltime:CFAbsoluteTimeGetCurrent()];
+    [v17 setSyncReason:reason];
+    [v17 setBatchSize:0x200000];
+    [v17 setBatchSequenceNumber:number];
+    [v17 setVectorClock:v15];
+    [v17 setRangeClockVectors:v16];
+    [v17 setIsReciprocalRequest:v18];
+    [v17 setAtomBatchVersion:2];
+  }
+
+  else
+  {
+    v21 = __biome_log_for_category();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    {
+      sub_100047A04();
+    }
+
+    v17 = 0;
+  }
+
+  return v17;
 }
 
 - (void)registerRequests

@@ -1,4 +1,3090 @@
-btSliderConstraint *btSliderConstraint::setParam(btSliderConstraint *this, int a2, float a3, int a4)
+void btSequentialImpulseConstraintSolver::convertContact(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v6 = *(a2 + 784);
+  v7 = *(a2 + 792);
+  inited = btSequentialImpulseConstraintSolver::getOrInitSolverBody(a1, v6);
+  v140 = v7;
+  v9 = btSequentialImpulseConstraintSolver::getOrInitSolverBody(a1, v7);
+  v10 = *(a1 + 24);
+  v136 = (v10 + 224 * v9);
+  v137 = (v10 + 224 * inited);
+  if (v137[8].f32[0] != 0.0 || v137[8].f32[1] != 0.0 || v137[8].f32[2] != 0.0 || v136[8].f32[0] != 0.0 || v136[8].f32[1] != 0.0 || v136[8].f32[2] != 0.0)
+  {
+    v11 = *(a2 + 800);
+    if (v11 >= 1)
+    {
+      v12 = 0;
+      v13 = a2 + 16;
+      v139 = 1;
+      v138 = v6;
+      while (1)
+      {
+        v14 = v13 + 192 * v12;
+        if (*(v14 + 80) <= *(a2 + 808))
+        {
+          break;
+        }
+
+LABEL_78:
+        if (++v12 >= v11)
+        {
+          return;
+        }
+      }
+
+      v144 = 0;
+      v15 = *(a1 + 44);
+      v16 = v15;
+      if (v15 == *(a1 + 48))
+      {
+        v17 = v15 ? 2 * v15 : 1;
+        v16 = *(a1 + 44);
+        if (v15 < v17)
+        {
+          if (v17)
+          {
+            v18 = btAlignedAllocInternal(160 * v17, 16);
+          }
+
+          else
+          {
+            v18 = 0;
+          }
+
+          v19 = *(a1 + 44);
+          if (v19 >= 1)
+          {
+            v20 = 0;
+            v21 = 160 * v19;
+            do
+            {
+              v22 = (v18 + v20);
+              v23 = (*(a1 + 56) + v20);
+              *v22 = *v23;
+              v22[1] = v23[1];
+              v22[2] = v23[2];
+              v22[3] = v23[3];
+              v22[4] = v23[4];
+              v22[5] = v23[5];
+              v24 = v23[6];
+              v25 = v23[7];
+              v26 = v23[9];
+              v22[8] = v23[8];
+              v22[9] = v26;
+              v22[6] = v24;
+              v22[7] = v25;
+              v20 += 160;
+            }
+
+            while (v21 != v20);
+          }
+
+          v27 = *(a1 + 56);
+          if (v27 && *(a1 + 64) == 1)
+          {
+            btAlignedFreeInternal(v27);
+          }
+
+          *(a1 + 64) = 1;
+          *(a1 + 56) = v18;
+          *(a1 + 48) = v17;
+          v16 = *(a1 + 44);
+        }
+      }
+
+      *(a1 + 44) = v16 + 1;
+      v28 = *(a1 + 56) + 160 * v15;
+      *(v28 + 152) = inited;
+      *(v28 + 156) = v9;
+      *(v28 + 136) = v14;
+      btSequentialImpulseConstraintSolver::setupContactConstraint(a1, v28, inited, v9, v14, a3, &v143, &v144, &v144 + 1, &v146, &v145);
+      *(v28 + 148) = *(a1 + 108);
+      v31 = 0uLL;
+      v32 = 0uLL;
+      if (v137[13].i64[0])
+      {
+        v32 = vaddq_f32(v137[12], v137[5]);
+      }
+
+      v33 = v138;
+      if (v136[13].i64[0])
+      {
+        v31 = vaddq_f32(v136[12], v136[5]);
+      }
+
+      if (*(v14 + 88) <= 0.0 || v139 < 1)
+      {
+LABEL_55:
+        if (*(a3 + 64) & 0x20) != 0 && (*(v14 + 120))
+        {
+          v88 = *(&v144 + 1);
+          btSequentialImpulseConstraintSolver::addFrictionConstraint(a1, (v14 + 160), inited, v9, v15, v14, &v146, &v145, *(&v144 + 1), *(v14 + 136), *(v14 + 144), v132, v134);
+          if ((*(a3 + 64) & 0x10) != 0)
+          {
+            btSequentialImpulseConstraintSolver::addFrictionConstraint(a1, (v14 + 176), inited, v9, v15, v14, &v146, &v145, v88, *(v14 + 140), *(v14 + 148), v133, v135);
+          }
+
+          btSequentialImpulseConstraintSolver::setFrictionConstraintImpulse(a1, v28, inited, v9, v14, a3, v89);
+        }
+
+        else
+        {
+          v90 = *(v14 + 64);
+          v91 = vsubq_f32(v143, vmulq_n_f32(v90, *&v144));
+          v91.i32[3] = 0;
+          *(v14 + 160) = v91;
+          v92 = *(a3 + 64);
+          if ((v92 & 0x40) != 0 || (v93 = vmulq_f32(v91, v91), v94 = vadd_f32(vpadd_f32(*v93.i8, *v93.i8), *&vextq_s8(v93, v93, 8uLL)).f32[0], v94 <= 0.00000011921))
+          {
+            v100 = v90.f32[1];
+            v101 = fabsf(v90.f32[2]) <= 0.70711;
+            v102 = (v100 * v100) + (v90.f32[0] * v90.f32[0]);
+            v103 = 1.0 / sqrtf(v102);
+            v104 = -(v90.f32[1] * v103);
+            v105 = v90.f32[0] * v103;
+            v106 = -(v90.f32[2] * (v90.f32[0] * v103));
+            v107 = v90.f32[2] * v104;
+            v108 = v102 * v103;
+            v109 = (v90.f32[2] * v90.f32[2]) + (v100 * v100);
+            v110 = 1.0 / sqrtf(v109);
+            v111 = -(v90.f32[2] * v110);
+            v112 = v90.f32[1] * v110;
+            v113 = v109 * v110;
+            v114 = -(v90.f32[0] * (v90.f32[1] * v110));
+            v115 = v111 * v90.f32[0];
+            if (v101)
+            {
+              v111 = v105;
+              v112 = 0.0;
+            }
+
+            else
+            {
+              v104 = 0.0;
+            }
+
+            if (v101)
+            {
+              v113 = v106;
+              v116 = v107;
+            }
+
+            else
+            {
+              v116 = v114;
+            }
+
+            if (v101)
+            {
+              v115 = v108;
+            }
+
+            *(v14 + 160) = v104;
+            *(v14 + 164) = v111;
+            *(v14 + 168) = v112;
+            *(v14 + 176) = v113;
+            *(v14 + 180) = v116;
+            *(v14 + 184) = v115;
+            v117 = *(&v144 + 1);
+            if ((v92 & 0x10) != 0)
+            {
+              applyAnisotropicFriction(v138, (v14 + 176), 1);
+              applyAnisotropicFriction(v140, (v14 + 176), 1);
+              btSequentialImpulseConstraintSolver::addFrictionConstraint(a1, (v14 + 176), inited, v9, v15, v14, &v146, &v145, v117, 0.0, 0.0, v132, v134);
+            }
+
+            applyAnisotropicFriction(v138, (v14 + 160), 1);
+            applyAnisotropicFriction(v140, (v14 + 160), 1);
+            btSequentialImpulseConstraintSolver::addFrictionConstraint(a1, (v14 + 160), inited, v9, v15, v14, &v146, &v145, v117, 0.0, 0.0, v132, v134);
+            if ((~*(a3 + 64) & 0x50) == 0)
+            {
+              *(v14 + 120) = 1;
+            }
+          }
+
+          else
+          {
+            v95 = vmulq_n_f32(v91, 1.0 / sqrtf(v94));
+            *(v14 + 160) = v95;
+            v96 = *(&v144 + 1);
+            if ((*(a3 + 64) & 0x10) != 0)
+            {
+              v97 = vsubq_f32(vmulq_f32(vextq_s8(vextq_s8(v90, v90, 0xCuLL), v90, 8uLL), v95), vmulq_f32(v90, vextq_s8(vextq_s8(v95, v95, 0xCuLL), v95, 8uLL)));
+              v98 = vextq_s8(vextq_s8(v97, v97, 0xCuLL), v97, 8uLL);
+              v98.i32[3] = 0;
+              v99 = vmulq_f32(v98, v98);
+              *(v14 + 176) = vmulq_n_f32(v98, 1.0 / sqrtf(vadd_f32(*&vextq_s8(v99, v99, 8uLL), vpadd_f32(*v99.i8, *v99.i8)).f32[0]));
+              applyAnisotropicFriction(v138, (v14 + 176), 1);
+              applyAnisotropicFriction(v140, (v14 + 176), 1);
+              v33 = v138;
+              btSequentialImpulseConstraintSolver::addFrictionConstraint(a1, (v14 + 176), inited, v9, v15, v14, &v146, &v145, v96, 0.0, 0.0, v132, v134);
+            }
+
+            applyAnisotropicFriction(v33, (v14 + 160), 1);
+            applyAnisotropicFriction(v140, (v14 + 160), 1);
+            btSequentialImpulseConstraintSolver::addFrictionConstraint(a1, (v14 + 160), inited, v9, v15, v14, &v146, &v145, v96, 0.0, 0.0, v132, v134);
+          }
+        }
+
+        v11 = *(a2 + 800);
+        v13 = a2 + 16;
+        goto LABEL_78;
+      }
+
+      v35 = vsubq_f32(v31, v32);
+      v35.n128_u32[3] = 0;
+      v36 = vmulq_f32(v35, v35);
+      v37 = sqrtf(vadd_f32(*&vextq_s8(v36, v36, 8uLL), vpadd_f32(*v36.i8, *v36.i8)).f32[0]);
+      if (v37 > *(a3 + 80))
+      {
+        v38 = vmulq_n_f32(v35, 1.0 / v37);
+        v142 = v38;
+        if ((*(v138 + 192) & 2) != 0)
+        {
+          v39 = *(v138 + 1);
+          v39.i32[3] = 0;
+          v40 = *(v138 + 2);
+          v40.i32[3] = 0;
+          v41 = *(v138 + 3);
+          v41.i32[3] = 0;
+          v42 = vmulq_f32(*(v138 + 11), vaddq_f32(vaddq_f32(vmulq_n_f32(v39, v38.var0.var0[0]), vmulq_lane_f32(v40, *v38.var0.var0, 1)), vmulq_laneq_f32(v41, v38, 2)));
+          v43 = vmulq_f32(v42, *(v138 + 1));
+          v44 = vmulq_f32(v42, *(v138 + 2));
+          v45 = vmulq_f32(v42, *(v138 + 3));
+          v45.i32[3] = 0;
+          *v38.var0.var0 = vadd_f32(vpadd_f32(*v43.i8, *v44.i8), vzip1_s32(*&vextq_s8(v43, v43, 8uLL), *&vextq_s8(v44, v44, 8uLL)));
+          *&v38.var0.var0[2] = vpadd_f32(vpadd_f32(*v45.i8, *&vextq_s8(v45, v45, 8uLL)), 0);
+          v142 = v38;
+        }
+
+        if ((*(v140 + 192) & 2) != 0)
+        {
+          v46 = *(v140 + 1);
+          v46.i32[3] = 0;
+          v47 = *(v140 + 2);
+          v47.i32[3] = 0;
+          v48 = *(v140 + 3);
+          v48.i32[3] = 0;
+          v49 = vmulq_f32(*(v140 + 11), vaddq_f32(vaddq_f32(vmulq_n_f32(v46, v38.var0.var0[0]), vmulq_lane_f32(v47, *v38.var0.var0, 1)), vmulq_laneq_f32(v48, v38, 2)));
+          v50 = vmulq_f32(v49, *(v140 + 1));
+          v51 = vmulq_f32(v49, *(v140 + 2));
+          v52 = vmulq_f32(v49, *(v140 + 3));
+          v52.i32[3] = 0;
+          *v38.var0.var0 = vadd_f32(vpadd_f32(*v50.i8, *v51.i8), vzip1_s32(*&vextq_s8(v50, v50, 8uLL), *&vextq_s8(v51, v51, 8uLL)));
+          *&v38.var0.var0[2] = vpadd_f32(vpadd_f32(*v52.i8, *&vextq_s8(v52, v52, 8uLL)), 0);
+          v142 = v38;
+        }
+
+        v53 = vmulq_f32(v38, v38);
+        v54 = vpadd_f32(*v53.i8, *v53.i8);
+        v55 = vextq_s8(v53, v53, 8uLL);
+        v55.n128_f64[0] = sqrtf(vadd_f32(v54, v55.n128_u64[0]).f32[0]);
+        if (v55.n128_f64[0] <= 0.001)
+        {
+          goto LABEL_54;
+        }
+
+        v56 = &v142;
+LABEL_53:
+        btSequentialImpulseConstraintSolver::addRollingFrictionConstraint(a1, v56, inited, v9, v15, v14, v29, v30, v55, 0.0, 0.0, v132, v134);
+LABEL_54:
+        v139 = 0;
+        goto LABEL_55;
+      }
+
+      btSequentialImpulseConstraintSolver::addRollingFrictionConstraint(a1, (v14 + 64), inited, v9, v15, v14, v29, v30, v35, 0.0, 0.0, v132, v134);
+      v57 = *(v14 + 72);
+      if (fabsf(v57) <= 0.70711)
+      {
+        v63 = *(v14 + 64);
+        v64 = *(v14 + 68);
+        v65 = (v64 * v64) + (v63 * v63);
+        v66 = 1.0 / sqrtf(v65);
+        v142.var0.var0[0] = -(v64 * v66);
+        v142.var0.var0[1] = v63 * v66;
+        v142.var0.var0[2] = 0.0;
+        v141.var0.var0[0] = -(v57 * (v63 * v66));
+        v141.var0.var0[1] = v57 * v142.var0.var0[0];
+        v62 = v65 * v66;
+      }
+
+      else
+      {
+        v59 = *(v14 + 64);
+        v58 = *(v14 + 68);
+        v60 = (v57 * v57) + (v58 * v58);
+        v61 = 1.0 / sqrtf(v60);
+        v142.var0.var0[0] = 0.0;
+        v142.var0.var0[1] = -(v57 * v61);
+        v142.var0.var0[2] = v58 * v61;
+        v141.var0.var0[0] = v60 * v61;
+        v141.var0.var0[1] = -(v59 * (v58 * v61));
+        v62 = v142.var0.var0[1] * v59;
+      }
+
+      v141.var0.var0[2] = v62;
+      v67 = *(v138 + 48);
+      if ((v67 & 2) != 0)
+      {
+        v68 = *(v138 + 1);
+        v68.i32[3] = 0;
+        v69 = *(v138 + 2);
+        v69.i32[3] = 0;
+        v70 = *(v138 + 3);
+        v70.i32[3] = 0;
+        v71 = vmulq_f32(*(v138 + 11), vaddq_f32(vaddq_f32(vmulq_n_f32(v68, v142.var0.var0[0]), vmulq_lane_f32(v69, *v142.var0.var0, 1)), vmulq_laneq_f32(v70, v142, 2)));
+        v72 = vmulq_f32(v71, *(v138 + 1));
+        v73 = vmulq_f32(v71, *(v138 + 2));
+        v74 = vmulq_f32(v71, *(v138 + 3));
+        v74.i32[3] = 0;
+        *v72.var0.var0 = vadd_f32(vpadd_f32(*v72.var0.var0, *v73.i8), vzip1_s32(*&vextq_s8(v72, v72, 8uLL), *&vextq_s8(v73, v73, 8uLL)));
+        *&v72.var0.var0[2] = vpadd_f32(vpadd_f32(*v74.i8, *&vextq_s8(v74, v74, 8uLL)), 0);
+        v142 = v72;
+      }
+
+      v75 = *(v140 + 48);
+      if ((v75 & 2) != 0)
+      {
+        v118 = *(v140 + 1);
+        v118.i32[3] = 0;
+        v119 = *(v140 + 2);
+        v119.i32[3] = 0;
+        v120 = *(v140 + 3);
+        v120.i32[3] = 0;
+        v121 = vmulq_f32(*(v140 + 11), vaddq_f32(vaddq_f32(vmulq_n_f32(v118, v142.var0.var0[0]), vmulq_lane_f32(v119, *v142.var0.var0, 1)), vmulq_laneq_f32(v120, v142, 2)));
+        v122 = vmulq_f32(v121, *(v140 + 1));
+        v123 = vmulq_f32(v121, *(v140 + 2));
+        v124 = vmulq_f32(v121, *(v140 + 3));
+        v124.i32[3] = 0;
+        *v122.var0.var0 = vadd_f32(vpadd_f32(*v122.var0.var0, *v123.i8), vzip1_s32(*&vextq_s8(v122, v122, 8uLL), *&vextq_s8(v123, v123, 8uLL)));
+        *&v122.var0.var0[2] = vpadd_f32(vpadd_f32(*v124.i8, *&vextq_s8(v124, v124, 8uLL)), 0);
+        v142 = v122;
+        if ((v67 & 2) == 0)
+        {
+LABEL_47:
+          if ((v75 & 2) == 0)
+          {
+LABEL_49:
+            v83 = vmulq_f32(v142, v142);
+            v84 = vpadd_f32(*v83.i8, *v83.i8);
+            v85 = vextq_s8(v83, v83, 8uLL);
+            v85.n128_f64[0] = sqrtf(vadd_f32(v84, v85.n128_u64[0]).f32[0]);
+            if (v85.n128_f64[0] > 0.001)
+            {
+              btSequentialImpulseConstraintSolver::addRollingFrictionConstraint(a1, &v142, inited, v9, v15, v14, v29, v30, v85, 0.0, 0.0, v132, v134);
+            }
+
+            v86 = vmulq_f32(v141, v141);
+            v87 = vpadd_f32(*v86.i8, *v86.i8);
+            v55 = vextq_s8(v86, v86, 8uLL);
+            v55.n128_f64[0] = sqrtf(vadd_f32(v87, v55.n128_u64[0]).f32[0]);
+            if (v55.n128_f64[0] <= 0.001)
+            {
+              goto LABEL_54;
+            }
+
+            v56 = &v141;
+            goto LABEL_53;
+          }
+
+LABEL_48:
+          v76 = *(v140 + 1);
+          v76.i32[3] = 0;
+          v77 = *(v140 + 2);
+          v77.i32[3] = 0;
+          v78 = *(v140 + 3);
+          v78.i32[3] = 0;
+          v79 = vmulq_f32(*(v140 + 11), vaddq_f32(vaddq_f32(vmulq_n_f32(v76, v141.var0.var0[0]), vmulq_lane_f32(v77, *v141.var0.var0, 1)), vmulq_laneq_f32(v78, v141, 2)));
+          v80 = vmulq_f32(v79, *(v140 + 1));
+          v81 = vmulq_f32(v79, *(v140 + 2));
+          v82 = vmulq_f32(v79, *(v140 + 3));
+          v82.i32[3] = 0;
+          *v80.var0.var0 = vadd_f32(vpadd_f32(*v80.var0.var0, *v81.i8), vzip1_s32(*&vextq_s8(v80, v80, 8uLL), *&vextq_s8(v81, v81, 8uLL)));
+          *&v80.var0.var0[2] = vpadd_f32(vpadd_f32(*v82.i8, *&vextq_s8(v82, v82, 8uLL)), 0);
+          v141 = v80;
+          goto LABEL_49;
+        }
+      }
+
+      else if ((v67 & 2) == 0)
+      {
+        goto LABEL_47;
+      }
+
+      v125 = *(v138 + 1);
+      v125.i32[3] = 0;
+      v126 = *(v138 + 2);
+      v126.i32[3] = 0;
+      v127 = *(v138 + 3);
+      v127.i32[3] = 0;
+      v128 = vmulq_f32(*(v138 + 11), vaddq_f32(vaddq_f32(vmulq_n_f32(v125, v141.var0.var0[0]), vmulq_lane_f32(v126, *v141.var0.var0, 1)), vmulq_laneq_f32(v127, v141, 2)));
+      v129 = vmulq_f32(v128, *(v138 + 1));
+      v130 = vmulq_f32(v128, *(v138 + 2));
+      v131 = vmulq_f32(v128, *(v138 + 3));
+      v131.i32[3] = 0;
+      *v129.var0.var0 = vadd_f32(vpadd_f32(*v129.var0.var0, *v130.i8), vzip1_s32(*&vextq_s8(v129, v129, 8uLL), *&vextq_s8(v130, v130, 8uLL)));
+      *&v129.var0.var0[2] = vpadd_f32(vpadd_f32(*v131.i8, *&vextq_s8(v131, v131, 8uLL)), 0);
+      v141 = v129;
+      if ((v75 & 2) == 0)
+      {
+        goto LABEL_49;
+      }
+
+      goto LABEL_48;
+    }
+  }
+}
+
+float32x2_t applyAnisotropicFriction(float32x4_t *a1, float32x4_t *a2, int a3)
+{
+  if (a1)
+  {
+    if ((a1[12].i32[0] & a3) != 0)
+    {
+      v3 = a1[1];
+      v3.i32[3] = 0;
+      v4 = a1[2];
+      v4.i32[3] = 0;
+      v5 = a1[3];
+      v5.i32[3] = 0;
+      v6 = vmulq_f32(a1[11], vaddq_f32(vaddq_f32(vmulq_n_f32(v3, COERCE_FLOAT(*a2)), vmulq_lane_f32(v4, *a2->f32, 1)), vmulq_laneq_f32(v5, *a2, 2)));
+      v7 = vmulq_f32(v6, a1[1]);
+      v8 = vmulq_f32(v6, a1[2]);
+      v9 = vmulq_f32(v6, a1[3]);
+      v9.i32[3] = 0;
+      *v7.i8 = vadd_f32(vpadd_f32(*v7.i8, *v8.i8), vzip1_s32(*&vextq_s8(v7, v7, 8uLL), *&vextq_s8(v8, v8, 8uLL)));
+      result = vpadd_f32(vpadd_f32(*v9.i8, *&vextq_s8(v9, v9, 8uLL)), 0);
+      v7.u64[1] = result;
+      *a2 = v7;
+    }
+  }
+
+  return result;
+}
+
+double btSequentialImpulseConstraintSolver::solveGroupCacheFriendlySetup(btSequentialImpulseConstraintSolver *this, btCollisionObject **a2, int a3, uint64_t *a4, unsigned int a5, _DWORD **a6, int a7, uint64_t a8)
+{
+  v12 = a2;
+  *(this + 74) = 0;
+  v14 = a3;
+  if (a3 >= 1)
+  {
+    v15 = a3;
+    v16 = a2;
+    do
+    {
+      v17 = *v16++;
+      *(v17 + 240) = -1;
+      --v15;
+    }
+
+    while (v15);
+  }
+
+  v18 = *(this + 4);
+  if (v18 <= a3)
+  {
+    v18 = a3 + 1;
+    if (a3 == -1)
+    {
+      v19 = 0;
+    }
+
+    else
+    {
+      v19 = btAlignedAllocInternal(224 * v18, 16);
+    }
+
+    v20 = *(this + 3);
+    if (v20 >= 1)
+    {
+      v21 = 0;
+      v22 = 224 * v20;
+      do
+      {
+        v23 = *(this + 3) + v21;
+        v24 = v19 + v21;
+        *v24 = *v23;
+        *(v24 + 16) = *(v23 + 16);
+        *(v24 + 32) = *(v23 + 32);
+        *(v24 + 48) = *(v23 + 48);
+        *(v24 + 64) = *(v23 + 64);
+        *(v24 + 80) = *(v23 + 80);
+        *(v24 + 96) = *(v23 + 96);
+        *(v24 + 112) = *(v23 + 112);
+        *(v24 + 128) = *(v23 + 128);
+        *(v24 + 144) = *(v23 + 144);
+        *(v24 + 160) = *(v23 + 160);
+        *(v24 + 176) = *(v23 + 176);
+        *(v24 + 192) = *(v23 + 192);
+        *(v24 + 208) = *(v23 + 208);
+        v21 += 224;
+      }
+
+      while (v22 != v21);
+    }
+
+    v25 = *(this + 3);
+    if (v25 && *(this + 32) == 1)
+    {
+      btAlignedFreeInternal(v25);
+    }
+
+    *(this + 32) = 1;
+    *(this + 3) = v19;
+    *(this + 4) = v18;
+  }
+
+  v26 = *(this + 3);
+  if ((v26 & 0x80000000) != 0)
+  {
+    if (v18 < 0)
+    {
+      v27 = *(this + 3);
+      if (v27 && *(this + 32) == 1)
+      {
+        btAlignedFreeInternal(v27);
+      }
+
+      *(this + 32) = 1;
+      *(this + 3) = 0;
+      *(this + 4) = 0;
+    }
+
+    v28 = 224 * v26;
+    v29 = v26 + 1;
+    do
+    {
+      v30 = *(this + 3) + v28;
+      *(v30 + 208) = 0;
+      *(v30 + 176) = 0uLL;
+      *(v30 + 192) = 0uLL;
+      *(v30 + 144) = 0uLL;
+      *(v30 + 160) = 0uLL;
+      *(v30 + 112) = 0uLL;
+      *(v30 + 128) = 0uLL;
+      *(v30 + 80) = 0uLL;
+      *(v30 + 96) = 0uLL;
+      *(v30 + 48) = 0uLL;
+      *(v30 + 64) = 0uLL;
+      *(v30 + 16) = 0uLL;
+      *(v30 + 32) = 0uLL;
+      v28 += 224;
+      *v30 = 0uLL;
+      LODWORD(v30) = v29++;
+    }
+
+    while (v30);
+    v18 = *(this + 4);
+  }
+
+  *(this + 3) = 0;
+  if (v18)
+  {
+    v31 = *(this + 3);
+    v32 = 1;
+  }
+
+  else
+  {
+    v33 = btAlignedAllocInternal(224, 16);
+    v31 = v33;
+    v34 = *(this + 3);
+    if (v34 >= 1)
+    {
+      v35 = 0;
+      v36 = 224 * v34;
+      do
+      {
+        v37 = *(this + 3) + v35;
+        v38 = v33 + v35;
+        *v38 = *v37;
+        *(v38 + 16) = *(v37 + 16);
+        *(v38 + 32) = *(v37 + 32);
+        *(v38 + 48) = *(v37 + 48);
+        *(v38 + 64) = *(v37 + 64);
+        *(v38 + 80) = *(v37 + 80);
+        *(v38 + 96) = *(v37 + 96);
+        *(v38 + 112) = *(v37 + 112);
+        *(v38 + 128) = *(v37 + 128);
+        *(v38 + 144) = *(v37 + 144);
+        *(v38 + 160) = *(v37 + 160);
+        *(v38 + 176) = *(v37 + 176);
+        *(v38 + 192) = *(v37 + 192);
+        *(v38 + 208) = *(v37 + 208);
+        v35 += 224;
+      }
+
+      while (v36 != v35);
+    }
+
+    v39 = *(this + 3);
+    if (v39 && *(this + 32) == 1)
+    {
+      btAlignedFreeInternal(v39);
+    }
+
+    *(this + 32) = 1;
+    *(this + 3) = v31;
+    *(this + 4) = 1;
+    v32 = *(this + 3) + 1;
+  }
+
+  *(this + 3) = v32;
+  *(v31 + 208) = 0;
+  *(v31 + 176) = 0u;
+  *(v31 + 192) = 0u;
+  *(v31 + 144) = 0u;
+  *(v31 + 160) = 0u;
+  *(v31 + 112) = 0u;
+  *(v31 + 128) = 0u;
+  *(v31 + 80) = 0u;
+  *(v31 + 96) = 0u;
+  *(v31 + 48) = 0u;
+  *(v31 + 64) = 0u;
+  *(v31 + 16) = 0u;
+  *(v31 + 32) = 0u;
+  *v31 = 0u;
+  v40 = *(this + 3);
+  *(v40 + 64) = 0u;
+  *(v40 + 80) = 0u;
+  *(v40 + 144) = 0u;
+  *(v40 + 160) = 0u;
+  *v40 = xmmword_21C27F910;
+  *(v40 + 16) = xmmword_21C27F8C0;
+  *(v40 + 32) = xmmword_21C27F600;
+  *(v40 + 48) = 0;
+  *(v40 + 56) = 0;
+  *(v40 + 128) = 0;
+  *(v40 + 136) = 0;
+  *(v40 + 208) = 0;
+  *(v40 + 96) = xmmword_21C280340;
+  *(v40 + 112) = xmmword_21C280340;
+  *(v40 + 176) = 0u;
+  *(v40 + 192) = 0u;
+  if (a3 >= 1)
+  {
+    do
+    {
+      inited = btSequentialImpulseConstraintSolver::getOrInitSolverBody(this, *v12);
+      v43 = *v12;
+      if (*v12)
+      {
+        v44 = (*(*v12 + 66) & 2) == 0;
+      }
+
+      else
+      {
+        v44 = 1;
+      }
+
+      if (!v44)
+      {
+        v45 = *(v43 + 96);
+        if (v45 != 0.0)
+        {
+          v46 = inited;
+          v47 = *(this + 3);
+          v48 = 0uLL;
+          if ((*(v43 + 576) & 2) != 0)
+          {
+            btRigidBody::computeGyroscopicForce(&v190, *v12, *(a8 + 76), v42);
+            v48 = v190;
+            v45 = *(v43 + 96);
+          }
+
+          v49 = (v47 + 224 * v46);
+          v50 = vmulq_n_f32(vmulq_n_f32(*(v43 + 29), v45), COERCE_FLOAT(*(a8 + 12)));
+          v50.i32[3] = 0;
+          v51 = v49[12];
+          v49[11] = vaddq_f32(v49[11], v50);
+          v52 = vsubq_f32(*(v43 + 30), v48);
+          v52.i32[3] = 0;
+          v53 = *(v43 + 19);
+          v54 = *(v43 + 20);
+          v53.i32[3] = 0;
+          v54.i32[3] = 0;
+          v55 = *(v43 + 21);
+          v55.i32[3] = 0;
+          v56 = vmulq_n_f32(vaddq_f32(vmulq_laneq_f32(v55, v52, 2), vaddq_f32(vmulq_n_f32(v53, v52.f32[0]), vmulq_lane_f32(v54, *v52.f32, 1))), COERCE_FLOAT(*(a8 + 12)));
+          v56.i32[3] = 0;
+          v49[12] = vaddq_f32(v51, v56);
+        }
+      }
+
+      ++v12;
+      --v14;
+    }
+
+    while (v14);
+  }
+
+  v188 = a7;
+  if (a7 >= 1)
+  {
+    v57 = a7;
+    v58 = a6;
+    do
+    {
+      v59 = *v58++;
+      (*(*v59 + 16))(v59);
+      v59[14] = 0;
+      --v57;
+    }
+
+    while (v57);
+  }
+
+  v60 = *(this + 67);
+  if (v60 < a7 && *(this + 68) < a7)
+  {
+    if (a7)
+    {
+      v61 = btAlignedAllocInternal(8 * a7, 16);
+      v60 = *(this + 67);
+    }
+
+    else
+    {
+      v61 = 0;
+    }
+
+    if (v60 >= 1)
+    {
+      v62 = 0;
+      v63 = 8 * v60;
+      do
+      {
+        *(v61 + v62) = *(*(this + 35) + v62);
+        v62 += 8;
+      }
+
+      while (v63 != v62);
+    }
+
+    v64 = *(this + 35);
+    if (v64 && *(this + 288) == 1)
+    {
+      btAlignedFreeInternal(v64);
+    }
+
+    *(this + 288) = 1;
+    *(this + 35) = v61;
+    *(this + 68) = a7;
+  }
+
+  *(this + 67) = a7;
+  if (a7 < 1)
+  {
+    v66 = 0;
+  }
+
+  else
+  {
+    v65 = 0;
+    v66 = 0;
+    do
+    {
+      v67 = *(this + 35);
+      v68 = a6[v65];
+      v69 = *(v68 + 8);
+      if (v69)
+      {
+        v69[2] = 0u;
+        v69[3] = 0u;
+        *v69 = 0u;
+        v69[1] = 0u;
+        v68 = a6[v65];
+      }
+
+      v70 = (v67 + v65 * 8);
+      if (*(v68 + 28) == 1)
+      {
+        (*(*v68 + 32))(v68, v70);
+        v71 = *v70;
+      }
+
+      else
+      {
+        v71 = 0;
+        *v70 = 0;
+      }
+
+      v66 += v71;
+      ++v65;
+    }
+
+    while (a7 != v65);
+  }
+
+  v189 = a8;
+  v72 = *(this + 19);
+  if (v72 < v66 && *(this + 20) < v66)
+  {
+    if (v66)
+    {
+      v73 = btAlignedAllocInternal(160 * v66, 16);
+      v72 = *(this + 19);
+    }
+
+    else
+    {
+      v73 = 0;
+    }
+
+    if (v72 >= 1)
+    {
+      v74 = 0;
+      v75 = 160 * v72;
+      do
+      {
+        v76 = (v73 + v74);
+        v77 = (*(this + 11) + v74);
+        *v76 = *v77;
+        v76[1] = v77[1];
+        v76[2] = v77[2];
+        v76[3] = v77[3];
+        v76[4] = v77[4];
+        v76[5] = v77[5];
+        v78 = v77[6];
+        v79 = v77[7];
+        v80 = v77[9];
+        v76[8] = v77[8];
+        v76[9] = v80;
+        v76[6] = v78;
+        v76[7] = v79;
+        v74 += 160;
+      }
+
+      while (v75 != v74);
+    }
+
+    v81 = *(this + 11);
+    if (v81 && *(this + 96) == 1)
+    {
+      btAlignedFreeInternal(v81);
+    }
+
+    *(this + 96) = 1;
+    *(this + 11) = v73;
+    *(this + 20) = v66;
+  }
+
+  *(this + 19) = v66;
+  if (a7 >= 1)
+  {
+    v82 = 0;
+    v83 = 0;
+    v84 = *(this + 35);
+    do
+    {
+      v85 = (v84 + 8 * v82);
+      v86 = *v85;
+      if (*v85)
+      {
+        v87 = *(this + 11);
+        v88 = a6[v82];
+        v89 = *(v88 + 5);
+        v90 = *(v88 + 6);
+        v91 = btSequentialImpulseConstraintSolver::getOrInitSolverBody(this, v89);
+        v92 = btSequentialImpulseConstraintSolver::getOrInitSolverBody(this, v90);
+        v93 = v88[8];
+        if (v93 <= 0)
+        {
+          v93 = *(v189 + 20);
+        }
+
+        if (v93 > *(this + 74))
+        {
+          *(this + 74) = v93;
+        }
+
+        v94 = *(this + 3);
+        if (*v85 >= 1)
+        {
+          v95 = 0;
+          v96 = (v87 + 160 * v83 + 156);
+          do
+          {
+            *(v96 - 11) = 0uLL;
+            *(v96 - 15) = 0uLL;
+            *(v96 - 3) = 0uLL;
+            *(v96 - 7) = 0uLL;
+            *(v96 - 19) = 0uLL;
+            *(v96 - 23) = 0uLL;
+            *(v96 - 27) = 0uLL;
+            *(v96 - 31) = 0uLL;
+            *(v96 - 35) = 0uLL;
+            *(v96 - 39) = 0uLL;
+            *(v96 - 9) = -2.84809454e-306;
+            *(v96 - 15) = 0;
+            *(v96 - 1) = v91;
+            *v96 = v92;
+            *(v96 - 3) = v93;
+            ++v95;
+            v96 += 40;
+          }
+
+          while (v95 < *v85);
+        }
+
+        v97 = (v87 + 160 * v83);
+        v98 = (v94 + 224 * v91);
+        v99 = (v94 + 224 * v92);
+        v98[4] = 0uLL;
+        v98[5] = 0uLL;
+        v98[9] = 0uLL;
+        v98[10] = 0uLL;
+        v99[4] = 0uLL;
+        v99[5] = 0uLL;
+        v99[9] = 0uLL;
+        v99[10] = 0uLL;
+        v100 = *(v189 + 32);
+        v190.f32[0] = 1.0 / *(v189 + 12);
+        v190.i32[1] = v100;
+        v190.i64[1] = &v97[1];
+        v191 = v97;
+        v192 = v97 + 3;
+        v193 = v97 + 2;
+        v194 = 40;
+        v195 = v97 + 7;
+        v97[7].i32[1] = *(v189 + 40);
+        v200 = *(v189 + 4);
+        v196 = &v97[7].i8[4];
+        v197 = &v97[7].i8[8];
+        v198 = &v97[7].i8[12];
+        v199 = *(v189 + 20);
+        (*(*a6[v82] + 40))(a6[v82], &v190);
+        if (*v85 >= 1)
+        {
+          v101 = 0;
+          do
+          {
+            v102 = *(a6[v82] + 6);
+            if (v97[7].f32[3] >= v102)
+            {
+              v97[7].f32[3] = v102;
+            }
+
+            v103 = -v102;
+            if (v97[7].f32[2] <= v103)
+            {
+              v97[7].f32[2] = v103;
+            }
+
+            v97[8].i64[1] = v88;
+            v104 = *(v88 + 5);
+            v105 = *v97;
+            v106 = v97[1];
+            v107 = vmulq_f32(v104[19], *v97);
+            v108 = vmulq_f32(*v97, v104[20]);
+            v109 = vmulq_f32(*v97, v104[21]);
+            v109.i32[3] = 0;
+            *v107.f32 = vadd_f32(vpadd_f32(*v107.f32, *v108.i8), vzip1_s32(*&vextq_s8(v107, v107, 8uLL), *&vextq_s8(v108, v108, 8uLL)));
+            *&v107.u32[2] = vpadd_f32(vpadd_f32(*v109.i8, *&vextq_s8(v109, v109, 8uLL)), 0);
+            v97[4] = vmulq_f32(v107, v104[39]);
+            v110 = *(v88 + 6);
+            v111 = v97[2];
+            v112 = v97[3];
+            v113 = vmulq_f32(v110[19], v111);
+            v114 = vmulq_f32(v111, v110[20]);
+            v115 = vmulq_f32(v111, v110[21]);
+            v115.i32[3] = 0;
+            *v113.f32 = vadd_f32(vpadd_f32(*v113.f32, *v114.i8), vzip1_s32(*&vextq_s8(v113, v113, 8uLL), *&vextq_s8(v114, v114, 8uLL)));
+            *&v113.u32[2] = vpadd_f32(vpadd_f32(*v115.i8, *&vextq_s8(v115, v115, 8uLL)), 0);
+            v97[5] = vmulq_f32(v113, v110[39]);
+            v116 = vmulq_n_f32(v106, *(v89 + 384));
+            v116.i32[3] = 0;
+            v117 = vmulq_f32(v105, *(v89 + 304));
+            v118 = vmulq_f32(v105, *(v89 + 320));
+            v119 = vmulq_f32(v105, *(v89 + 336));
+            v119.i32[3] = 0;
+            *v117.f32 = vadd_f32(vpadd_f32(*v117.f32, *v118.i8), vzip1_s32(*&vextq_s8(v117, v117, 8uLL), *&vextq_s8(v118, v118, 8uLL)));
+            *&v117.u32[2] = vpadd_f32(vpadd_f32(*v119.i8, *&vextq_s8(v119, v119, 8uLL)), 0);
+            v120 = vmulq_n_f32(v112, *(v90 + 384));
+            v120.i32[3] = 0;
+            v121 = vmulq_f32(v111, *(v90 + 304));
+            v122 = vmulq_f32(v111, *(v90 + 320));
+            v123 = vmulq_f32(v111, *(v90 + 336));
+            v123.i32[3] = 0;
+            *v121.f32 = vadd_f32(vpadd_f32(*v121.f32, *v122.i8), vzip1_s32(*&vextq_s8(v121, v121, 8uLL), *&vextq_s8(v122, v122, 8uLL)));
+            *&v121.u32[2] = vpadd_f32(vpadd_f32(*v123.i8, *&vextq_s8(v123, v123, 8uLL)), 0);
+            v124 = vmulq_f32(v106, v116);
+            v125 = vmulq_f32(v105, v117);
+            *v124.i8 = vadd_f32(vadd_f32(*&vextq_s8(v124, v124, 8uLL), vpadd_f32(*v124.i8, *v124.i8)), vadd_f32(*&vextq_s8(v125, v125, 8uLL), vpadd_f32(*v125.i8, *v125.i8)));
+            v126 = vmulq_f32(v112, v120);
+            *v124.i8 = vadd_f32(*v124.i8, vadd_f32(*&vextq_s8(v126, v126, 8uLL), vpadd_f32(*v126.i8, *v126.i8)));
+            v127 = vmulq_f32(v111, v121);
+            *v124.i32 = vadd_f32(*v124.i8, vadd_f32(*&vextq_s8(v127, v127, 8uLL), vpadd_f32(*v127.i8, *v127.i8))).f32[0];
+            *v127.i32 = fabsf(*v124.i32);
+            v128 = 1.0 / *v124.i32;
+            if (*v127.i32 <= 0.00000011921)
+            {
+              v128 = 0.0;
+            }
+
+            v97[6].f32[3] = v128;
+            v129 = vmulq_f32(v106, *(v89 + 352));
+            v130 = vmulq_f32(v105, *(v89 + 368));
+            *v130.i8 = vadd_f32(vadd_f32(vpadd_f32(*v129.i8, *v129.i8), *&vextq_s8(v129, v129, 8uLL)), vadd_f32(vpadd_f32(*v130.i8, *v130.i8), *&vextq_s8(v130, v130, 8uLL)));
+            v131 = vmulq_f32(v112, *(v90 + 352));
+            v132 = vmulq_f32(v111, *(v90 + 368));
+            v97[7].f32[0] = (v128 * v97[7].f32[0]) + (v128 * (0.0 - (v200 * vadd_f32(*v130.i8, vadd_f32(vadd_f32(vpadd_f32(*v131.i8, *v131.i8), *&vextq_s8(v131, v131, 8uLL)), vadd_f32(vpadd_f32(*v132.i8, *v132.i8), *&vextq_s8(v132, v132, 8uLL)))).f32[0])));
+            v97[6].i32[1] = 0;
+            ++v101;
+            v97 += 10;
+          }
+
+          while (v101 < *v85);
+        }
+
+        v84 = *(this + 35);
+        v86 = *(v84 + 8 * v82);
+      }
+
+      v83 += v86;
+      ++v82;
+    }
+
+    while (v82 != v188);
+  }
+
+  v133 = a4;
+  if (a5 >= 1)
+  {
+    v134 = a5;
+    do
+    {
+      v135 = *v133++;
+      btSequentialImpulseConstraintSolver::convertContact(this, v135, v189);
+      --v134;
+    }
+
+    while (v134);
+  }
+
+  v136 = *(this + 19);
+  v137 = *(this + 11);
+  v138 = *(this + 27);
+  LODWORD(v139) = *(this + 51);
+  if (v139 < v136 && *(this + 52) < v136)
+  {
+    if (v136)
+    {
+      v140 = btAlignedAllocInternal(4 * v136, 16);
+      LODWORD(v139) = *(this + 51);
+    }
+
+    else
+    {
+      v140 = 0;
+    }
+
+    v141 = *(this + 27);
+    if (v139 < 1)
+    {
+      if (!v141)
+      {
+LABEL_117:
+        *(this + 224) = 1;
+        *(this + 27) = v140;
+        *(this + 52) = v136;
+        goto LABEL_118;
+      }
+    }
+
+    else
+    {
+      v139 = v139;
+      v142 = v140;
+      v143 = *(this + 27);
+      do
+      {
+        v144 = *v143++;
+        *v142++ = v144;
+        --v139;
+      }
+
+      while (v139);
+    }
+
+    if (*(this + 224) == 1)
+    {
+      btAlignedFreeInternal(v141);
+    }
+
+    *(this + 27) = 0;
+    goto LABEL_117;
+  }
+
+LABEL_118:
+  *(this + 51) = v136;
+  if ((*(v189 + 64) & 0x10) != 0)
+  {
+    v147 = 2 * v137;
+    LODWORD(v148) = *(this + 43);
+    if (v148 >= 2 * v137 || *(this + 44) >= v147)
+    {
+      goto LABEL_148;
+    }
+
+    if (v137)
+    {
+      v149 = btAlignedAllocInternal(8 * v137, 16);
+      LODWORD(v148) = *(this + 43);
+    }
+
+    else
+    {
+      v149 = 0;
+    }
+
+    v154 = *(this + 23);
+    if (v148 < 1)
+    {
+      if (!v154)
+      {
+LABEL_147:
+        *(this + 192) = 1;
+        *(this + 23) = v149;
+        *(this + 44) = v147;
+LABEL_148:
+        *(this + 43) = v147;
+        goto LABEL_149;
+      }
+    }
+
+    else
+    {
+      v148 = v148;
+      v155 = v149;
+      v156 = *(this + 23);
+      do
+      {
+        v157 = *v156++;
+        *v155++ = v157;
+        --v148;
+      }
+
+      while (v148);
+    }
+
+    if (*(this + 192) == 1)
+    {
+      btAlignedFreeInternal(v154);
+    }
+
+    *(this + 23) = 0;
+    goto LABEL_147;
+  }
+
+  LODWORD(v145) = *(this + 43);
+  if (v145 >= v137 || *(this + 44) >= v137)
+  {
+    goto LABEL_142;
+  }
+
+  if (v137)
+  {
+    v146 = btAlignedAllocInternal(4 * v137, 16);
+    LODWORD(v145) = *(this + 43);
+  }
+
+  else
+  {
+    v146 = 0;
+  }
+
+  v150 = *(this + 23);
+  if (v145 >= 1)
+  {
+    v145 = v145;
+    v151 = v146;
+    v152 = *(this + 23);
+    do
+    {
+      v153 = *v152++;
+      *v151++ = v153;
+      --v145;
+    }
+
+    while (v145);
+    goto LABEL_138;
+  }
+
+  if (v150)
+  {
+LABEL_138:
+    if (*(this + 192) == 1)
+    {
+      btAlignedFreeInternal(v150);
+    }
+
+    *(this + 23) = 0;
+  }
+
+  *(this + 192) = 1;
+  *(this + 23) = v146;
+  *(this + 44) = v137;
+LABEL_142:
+  *(this + 43) = v137;
+LABEL_149:
+  LODWORD(v158) = *(this + 59);
+  if (v158 < v138 && *(this + 60) < v138)
+  {
+    if (v138)
+    {
+      v159 = btAlignedAllocInternal(4 * v138, 16);
+      LODWORD(v158) = *(this + 59);
+    }
+
+    else
+    {
+      v159 = 0;
+    }
+
+    v160 = *(this + 31);
+    if (v158 < 1)
+    {
+      if (!v160)
+      {
+LABEL_162:
+        *(this + 256) = 1;
+        *(this + 31) = v159;
+        *(this + 60) = v138;
+        goto LABEL_163;
+      }
+    }
+
+    else
+    {
+      v158 = v158;
+      v161 = v159;
+      v162 = *(this + 31);
+      do
+      {
+        v163 = *v162++;
+        *v161++ = v163;
+        --v158;
+      }
+
+      while (v158);
+    }
+
+    if (*(this + 256) == 1)
+    {
+      btAlignedFreeInternal(v160);
+    }
+
+    *(this + 31) = 0;
+    goto LABEL_162;
+  }
+
+LABEL_163:
+  *(this + 59) = v138;
+  if (v136 >= 1)
+  {
+    v164 = 0;
+    v165 = vdupq_n_s64(v136 - 1);
+    v166 = xmmword_21C27F630;
+    v167 = xmmword_21C27F640;
+    v168 = (*(this + 27) + 8);
+    v169 = vdupq_n_s64(4uLL);
+    do
+    {
+      v170 = vmovn_s64(vcgeq_u64(v165, v167));
+      if (vuzp1_s16(v170, *v165.i8).u8[0])
+      {
+        *(v168 - 2) = v164;
+      }
+
+      if (vuzp1_s16(v170, *&v165).i8[2])
+      {
+        *(v168 - 1) = v164 + 1;
+      }
+
+      if (vuzp1_s16(*&v165, vmovn_s64(vcgeq_u64(v165, *&v166))).i32[1])
+      {
+        *v168 = v164 + 2;
+        v168[1] = v164 + 3;
+      }
+
+      v164 += 4;
+      v166 = vaddq_s64(v166, v169);
+      v167 = vaddq_s64(v167, v169);
+      v168 += 4;
+    }
+
+    while (((v136 + 3) & 0xFFFFFFFC) != v164);
+  }
+
+  if (v137 >= 1)
+  {
+    v171 = 0;
+    v172 = vdupq_n_s64(v137 - 1);
+    v173 = xmmword_21C27F630;
+    v174 = xmmword_21C27F640;
+    v175 = (*(this + 23) + 8);
+    v176 = vdupq_n_s64(4uLL);
+    do
+    {
+      v177 = vmovn_s64(vcgeq_u64(v172, v174));
+      if (vuzp1_s16(v177, *v172.i8).u8[0])
+      {
+        *(v175 - 2) = v171;
+      }
+
+      if (vuzp1_s16(v177, *&v172).i8[2])
+      {
+        *(v175 - 1) = v171 + 1;
+      }
+
+      if (vuzp1_s16(*&v172, vmovn_s64(vcgeq_u64(v172, *&v173))).i32[1])
+      {
+        *v175 = v171 + 2;
+        v175[1] = v171 + 3;
+      }
+
+      v171 += 4;
+      v173 = vaddq_s64(v173, v176);
+      v174 = vaddq_s64(v174, v176);
+      v175 += 4;
+    }
+
+    while (((v137 + 3) & 0xFFFFFFFC) != v171);
+  }
+
+  if (v138 >= 1)
+  {
+    v178 = 0;
+    v179 = vdupq_n_s64(v138 - 1);
+    v180 = xmmword_21C27F630;
+    v181 = xmmword_21C27F640;
+    v182 = (*(this + 31) + 8);
+    v183 = vdupq_n_s64(4uLL);
+    do
+    {
+      v184 = vmovn_s64(vcgeq_u64(v179, v181));
+      if (vuzp1_s16(v184, *v179.i8).u8[0])
+      {
+        *(v182 - 2) = v178;
+      }
+
+      if (vuzp1_s16(v184, *&v179).i8[2])
+      {
+        *(v182 - 1) = v178 + 1;
+      }
+
+      if (vuzp1_s16(*&v179, vmovn_s64(vcgeq_u64(v179, *&v180))).i32[1])
+      {
+        *v182 = v178 + 2;
+        v182[1] = v178 + 3;
+      }
+
+      v178 += 4;
+      v180 = vaddq_s64(v180, v183);
+      v181 = vaddq_s64(v181, v183);
+      v182 += 4;
+    }
+
+    while (((v138 + 3) & 0xFFFFFFFC) != v178);
+  }
+
+  return 0.0;
+}
+
+double btSequentialImpulseConstraintSolver::solveSingleIteration(btSequentialImpulseConstraintSolver *this, __int32 a2, int a3, int a4, int a5, int a6, void *a7, int a8, uint64_t a9)
+{
+  v9 = a8;
+  v12 = this;
+  if (*(a9 + 64))
+  {
+    v13 = *(this + 19);
+    v14 = *(this + 11);
+    v15 = *(this + 27);
+    if (v13 >= 1)
+    {
+      v16 = 0;
+      v17 = *(this + 27);
+      do
+      {
+        v18 = *(v17 + 4 * v16);
+        this = btSequentialImpulseConstraintSolver::btRandInt2(v12, v16 + 1);
+        v17 = *(v12 + 27);
+        *(v17 + 4 * v16) = *(v17 + 4 * this);
+        *(v17 + 4 * this) = v18;
+        ++v16;
+      }
+
+      while (v13 != v16);
+    }
+
+    v9 = a8;
+    if (*(a9 + 20) > a2)
+    {
+      if (v14 >= 1)
+      {
+        v19 = 0;
+        v20 = *(v12 + 23);
+        do
+        {
+          v21 = *(v20 + 4 * v19);
+          this = btSequentialImpulseConstraintSolver::btRandInt2(v12, v19 + 1);
+          v20 = *(v12 + 23);
+          *(v20 + 4 * v19) = *(v20 + 4 * this);
+          *(v20 + 4 * this) = v21;
+          ++v19;
+        }
+
+        while (v14 != v19);
+      }
+
+      if (v15 >= 1)
+      {
+        v22 = 0;
+        v23 = *(v12 + 31);
+        do
+        {
+          v24 = *(v23 + 4 * v22);
+          this = btSequentialImpulseConstraintSolver::btRandInt2(v12, v22 + 1);
+          v23 = *(v12 + 31);
+          *(v23 + 4 * v22) = *(v23 + 4 * this);
+          *(v23 + 4 * this) = v24;
+          ++v22;
+        }
+
+        while (v15 != v22);
+      }
+    }
+  }
+
+  v25 = *(v12 + 19);
+  if (*(a9 + 65))
+  {
+    if (v25 >= 1)
+    {
+      for (i = 0; i < v25; ++i)
+      {
+        v49 = (*(v12 + 11) + 160 * *(*(v12 + 27) + 4 * i));
+        if (v49[9].i32[0] > a2)
+        {
+          btSequentialImpulseConstraintSolver::resolveSingleConstraintRowGeneric(this, (*(v12 + 3) + 224 * v49[9].i32[2]), (*(v12 + 3) + 224 * v49[9].i32[3]), v49);
+          v25 = *(v12 + 19);
+        }
+      }
+    }
+
+    if (*(a9 + 20) > a2)
+    {
+      if (v9 >= 1)
+      {
+        v50 = v9;
+        do
+        {
+          if (*(*a7 + 28) == 1)
+          {
+            inited = btSequentialImpulseConstraintSolver::getOrInitSolverBody(v12, *(*a7 + 40));
+            v52 = btSequentialImpulseConstraintSolver::getOrInitSolverBody(v12, *(*a7 + 48));
+            this = (*(**a7 + 48))(*a7, *(v12 + 3) + 224 * inited, *(v12 + 3) + 224 * v52, *(a9 + 12));
+          }
+
+          ++a7;
+          --v50;
+        }
+
+        while (v50);
+      }
+
+      v53 = *(a9 + 64);
+      v54 = *(v12 + 11);
+      if ((v53 & 0x200) != 0)
+      {
+        if (v54 >= 1)
+        {
+          v71 = 0;
+          v72 = (v53 >> 4) & 1;
+          do
+          {
+            v73 = (*(v12 + 7) + 160 * *(*(v12 + 23) + 4 * v71));
+            btSequentialImpulseConstraintSolver::resolveSingleConstraintRowLowerLimit(this, (*(v12 + 3) + 224 * v73[9].i32[2]), (*(v12 + 3) + 224 * v73[9].i32[3]), v73);
+            v74 = v73[6].f32[1];
+            if (v74 > 0.0)
+            {
+              v75 = (*(v12 + 15) + 160 * *(*(v12 + 31) + 4 * (v71 << v72)));
+              v76 = v75[6].f32[2];
+              v75[7].f32[2] = -(v76 * v74);
+              v75[7].f32[3] = v74 * v76;
+              btSequentialImpulseConstraintSolver::resolveSingleConstraintRowGeneric(this, (*(v12 + 3) + 224 * v75[9].i32[2]), (*(v12 + 3) + 224 * v75[9].i32[3]), v75);
+              if ((*(a9 + 64) & 0x10) != 0)
+              {
+                v77 = (*(v12 + 15) + 160 * *(*(v12 + 31) + 4 * (v71 << v72) + 4));
+                v78 = v77[6].f32[2];
+                v77[7].f32[2] = -(v78 * v74);
+                v77[7].f32[3] = v74 * v78;
+                btSequentialImpulseConstraintSolver::resolveSingleConstraintRowGeneric(this, (*(v12 + 3) + 224 * v77[9].i32[2]), (*(v12 + 3) + 224 * v77[9].i32[3]), v77);
+              }
+            }
+
+            ++v71;
+          }
+
+          while (v54 != v71);
+        }
+      }
+
+      else
+      {
+        if (v54 >= 1)
+        {
+          v55 = 0;
+          v56 = 4 * v54;
+          do
+          {
+            v57 = (*(v12 + 7) + 160 * *(*(v12 + 23) + v55));
+            btSequentialImpulseConstraintSolver::resolveSingleConstraintRowLowerLimit(this, (*(v12 + 3) + 224 * v57[9].i32[2]), (*(v12 + 3) + 224 * v57[9].i32[3]), v57);
+            v55 += 4;
+          }
+
+          while (v56 != v55);
+        }
+
+        v58 = *(v12 + 27);
+        if (v58 >= 1)
+        {
+          v59 = 0;
+          v60 = 4 * v58;
+          do
+          {
+            v61 = (*(v12 + 15) + 160 * *(*(v12 + 31) + v59));
+            v62 = *(*(v12 + 7) + 160 * v61[9].i32[1] + 100);
+            if (v62 > 0.0)
+            {
+              v63 = v61[6].f32[2];
+              v61[7].f32[2] = -(v63 * v62);
+              v61[7].f32[3] = v62 * v63;
+              btSequentialImpulseConstraintSolver::resolveSingleConstraintRowGeneric(this, (*(v12 + 3) + 224 * v61[9].i32[2]), (*(v12 + 3) + 224 * v61[9].i32[3]), v61);
+            }
+
+            v59 += 4;
+          }
+
+          while (v60 != v59);
+        }
+
+        v64 = *(v12 + 35);
+        if (v64 >= 1)
+        {
+          v65 = 0;
+          v66 = 160 * v64;
+          do
+          {
+            v67 = (*(v12 + 19) + v65);
+            v68 = *(*(v12 + 7) + 160 * v67[9].i32[1] + 100);
+            if (v68 > 0.0)
+            {
+              v69 = v67[6].f32[2];
+              v70 = v68 * v69;
+              if (v70 > v69)
+              {
+                v70 = v67[6].f32[2];
+              }
+
+              v67[7].f32[2] = -v70;
+              v67[7].f32[3] = v70;
+              btSequentialImpulseConstraintSolver::resolveSingleConstraintRowGeneric(this, (*(v12 + 3) + 224 * v67[9].i32[2]), (*(v12 + 3) + 224 * v67[9].i32[3]), v67);
+            }
+
+            v65 += 160;
+          }
+
+          while (v66 != v65);
+        }
+      }
+    }
+  }
+
+  else
+  {
+    if (v25 >= 1)
+    {
+      for (j = 0; j < v25; ++j)
+      {
+        v27 = (*(v12 + 11) + 160 * *(*(v12 + 27) + 4 * j));
+        if (v27[9].i32[0] > a2)
+        {
+          btSequentialImpulseConstraintSolver::resolveSingleConstraintRowGeneric(this, (*(v12 + 3) + 224 * v27[9].i32[2]), (*(v12 + 3) + 224 * v27[9].i32[3]), v27);
+          v25 = *(v12 + 19);
+        }
+      }
+    }
+
+    if (*(a9 + 20) > a2)
+    {
+      if (v9 >= 1)
+      {
+        v28 = v9;
+        do
+        {
+          if (*(*a7 + 28) == 1)
+          {
+            v29 = btSequentialImpulseConstraintSolver::getOrInitSolverBody(v12, *(*a7 + 40));
+            v30 = btSequentialImpulseConstraintSolver::getOrInitSolverBody(v12, *(*a7 + 48));
+            this = (*(**a7 + 48))(*a7, *(v12 + 3) + 224 * v29, *(v12 + 3) + 224 * v30, *(a9 + 12));
+          }
+
+          ++a7;
+          --v28;
+        }
+
+        while (v28);
+      }
+
+      v31 = *(v12 + 11);
+      if (v31 >= 1)
+      {
+        v32 = 0;
+        v33 = 4 * v31;
+        do
+        {
+          v34 = (*(v12 + 7) + 160 * *(*(v12 + 23) + v32));
+          btSequentialImpulseConstraintSolver::resolveSingleConstraintRowLowerLimit(this, (*(v12 + 3) + 224 * v34[9].i32[2]), (*(v12 + 3) + 224 * v34[9].i32[3]), v34);
+          v32 += 4;
+        }
+
+        while (v33 != v32);
+      }
+
+      v35 = *(v12 + 27);
+      if (v35 >= 1)
+      {
+        v36 = 0;
+        v37 = 4 * v35;
+        do
+        {
+          v38 = (*(v12 + 15) + 160 * *(*(v12 + 31) + v36));
+          v39 = *(*(v12 + 7) + 160 * v38[9].i32[1] + 100);
+          if (v39 > 0.0)
+          {
+            v40 = v38[6].f32[2];
+            v38[7].f32[2] = -(v40 * v39);
+            v38[7].f32[3] = v39 * v40;
+            btSequentialImpulseConstraintSolver::resolveSingleConstraintRowGeneric(this, (*(v12 + 3) + 224 * v38[9].i32[2]), (*(v12 + 3) + 224 * v38[9].i32[3]), v38);
+          }
+
+          v36 += 4;
+        }
+
+        while (v37 != v36);
+      }
+
+      v41 = *(v12 + 35);
+      if (v41 >= 1)
+      {
+        v42 = 0;
+        v43 = 160 * v41;
+        do
+        {
+          v44 = (*(v12 + 19) + v42);
+          v45 = *(*(v12 + 7) + 160 * v44[9].i32[1] + 100);
+          if (v45 > 0.0)
+          {
+            v46 = v44[6].f32[2];
+            v47 = v45 * v46;
+            if (v47 > v46)
+            {
+              v47 = v44[6].f32[2];
+            }
+
+            v44[7].f32[2] = -v47;
+            v44[7].f32[3] = v47;
+            btSequentialImpulseConstraintSolver::resolveSingleConstraintRowGeneric(this, (*(v12 + 3) + 224 * v44[9].i32[2]), (*(v12 + 3) + 224 * v44[9].i32[3]), v44);
+          }
+
+          v42 += 160;
+        }
+
+        while (v43 != v42);
+      }
+    }
+  }
+
+  return 0.0;
+}
+
+void btSequentialImpulseConstraintSolver::solveGroupCacheFriendlySplitImpulseIterations(uint64_t a1, float32x4_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+{
+  if (*(a9 + 44))
+  {
+    v11 = *(a9 + 20);
+    if (*(a9 + 65))
+    {
+      if (v11 >= 1)
+      {
+        for (i = 0; i < v11; ++i)
+        {
+          v18 = *(a1 + 44);
+          if (v18 >= 1)
+          {
+            v19 = 0;
+            v20 = 4 * v18;
+            do
+            {
+              v21 = (*(a1 + 56) + 160 * *(*(a1 + 184) + v19));
+              a2 = btSequentialImpulseConstraintSolver::resolveSplitPenetrationImpulseCacheFriendly(a2, a1, (*(a1 + 24) + 224 * v21[9].i32[2]), (*(a1 + 24) + 224 * v21[9].i32[3]), v21);
+              v19 += 4;
+            }
+
+            while (v20 != v19);
+            v11 = *(a9 + 20);
+          }
+        }
+      }
+    }
+
+    else if (v11 >= 1)
+    {
+      for (j = 0; j < v11; ++j)
+      {
+        v13 = *(a1 + 44);
+        if (v13 >= 1)
+        {
+          v14 = 0;
+          v15 = 4 * v13;
+          do
+          {
+            v16 = (*(a1 + 56) + 160 * *(*(a1 + 184) + v14));
+            a2 = btSequentialImpulseConstraintSolver::resolveSplitPenetrationImpulseCacheFriendly(a2, a1, (*(a1 + 24) + 224 * v16[9].i32[2]), (*(a1 + 24) + 224 * v16[9].i32[3]), v16);
+            v14 += 4;
+          }
+
+          while (v15 != v14);
+          v11 = *(a9 + 20);
+        }
+      }
+    }
+  }
+}
+
+double btSequentialImpulseConstraintSolver::solveGroupCacheFriendlyIterations(btSequentialImpulseConstraintSolver *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, int a7, uint64_t a8)
+{
+  (*(*a1 + 48))(a1, a2, a3, a4, a5);
+  if (*(a1 + 74) <= *(a8 + 20))
+  {
+    v16 = *(a8 + 20);
+  }
+
+  else
+  {
+    v16 = *(a1 + 74);
+  }
+
+  if (v16 >= 1)
+  {
+    for (i = 0; i != v16; ++i)
+    {
+      btSequentialImpulseConstraintSolver::solveSingleIteration(a1, i, v12, v13, v14, v15, a6, a7, a8);
+    }
+  }
+
+  return 0.0;
+}
+
+double btSequentialImpulseConstraintSolver::solveGroupCacheFriendlyFinish(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, btTransform *a5, __n128 a6)
+{
+  v8 = *(a4 + 64);
+  if ((v8 & 4) != 0)
+  {
+    v9 = *(a1 + 44);
+    if (v9 >= 1)
+    {
+      v10 = *(a1 + 120);
+      v11 = (*(a1 + 56) + 148);
+      do
+      {
+        v12 = *(v11 - 3);
+        v13 = *v11;
+        v14 = *(v10 + 160 * *v11 + 100);
+        v12[31] = *(v11 - 12);
+        v12[32] = v14;
+        if ((v8 & 0x10) != 0)
+        {
+          v12[33] = *(v10 + 260 + 160 * v13);
+        }
+
+        v11 += 40;
+        --v9;
+      }
+
+      while (v9);
+    }
+  }
+
+  v15 = *(a1 + 76);
+  if (v15 >= 1)
+  {
+    v16 = 0;
+    v17 = 160 * v15;
+    do
+    {
+      v18 = (*(a1 + 88) + v16);
+      v19 = v18[8].i64[1];
+      v20 = *(v19 + 64);
+      if (v20)
+      {
+        v21 = vmulq_n_f32(vmulq_f32(*(*(v19 + 40) + 400), vmulq_n_f32(v18[1], v18[6].f32[1])), 1.0 / *(a4 + 12));
+        v21.i32[3] = 0;
+        v22 = v20[1];
+        *v20 = vaddq_f32(*v20, v21);
+        v23 = vmulq_n_f32(vmulq_f32(*(*(v19 + 48) + 400), vmulq_n_f32(v18[3], v18[6].f32[1])), 1.0 / *(a4 + 12));
+        v23.i32[3] = 0;
+        v24 = v20[3];
+        v20[2] = vaddq_f32(v20[2], v23);
+        v25 = vmulq_n_f32(vmulq_n_f32(vmulq_f32(*v18, *(*(v19 + 40) + 624)), v18[6].f32[1]), 1.0 / *(a4 + 12));
+        v25.i32[3] = 0;
+        v20[1] = vaddq_f32(v22, v25);
+        v26 = vmulq_n_f32(vmulq_n_f32(vmulq_f32(v18[2], *(*(v19 + 48) + 624)), v18[6].f32[1]), 1.0 / *(a4 + 12));
+        v26.i32[3] = 0;
+        v20[3] = vaddq_f32(v24, v26);
+      }
+
+      v27 = v18[6].f32[1];
+      *(v19 + 56) = v27;
+      if (fabsf(v27) >= *(v19 + 24))
+      {
+        *(v19 + 28) = 0;
+      }
+
+      v16 += 160;
+    }
+
+    while (v17 != v16);
+  }
+
+  v28 = *(a1 + 12);
+  if (v28 >= 1)
+  {
+    v29 = 0;
+    v30 = 0;
+    v31 = *(a1 + 24);
+    do
+    {
+      if (*(v31 + v29 + 208))
+      {
+        if (*(a4 + 44))
+        {
+          a6.n128_u32[0] = *(a4 + 12);
+          btSolverBody::writebackVelocityAndTransform((v31 + v29), a6.n128_f64[0], *(a4 + 52), a2, a3, a4, a5);
+        }
+
+        else
+        {
+          v32 = (v31 + v29);
+          v33 = vaddq_f32(v32[12], v32[5]);
+          v32[11] = vaddq_f32(v32[11], v32[4]);
+          v32[12] = v33;
+        }
+
+        *(*(*(a1 + 24) + v29 + 208) + 352) = *(*(a1 + 24) + v29 + 176);
+        v34 = (*(a1 + 24) + v29);
+        a6 = v34[12];
+        *(v34[13].n128_u64[0] + 368) = a6;
+        if (*(a4 + 44))
+        {
+          v35 = *(a1 + 24) + v29;
+          v36 = *(v35 + 208);
+          *(v36 + 16) = *v35;
+          *(v36 + 32) = *(v35 + 16);
+          *(v36 + 48) = *(v35 + 32);
+          a6 = *(v35 + 48);
+          *(v36 + 64) = a6;
+        }
+
+        v31 = *(a1 + 24);
+        *(*(v31 + v29 + 208) + 240) = -1;
+        v28 = *(a1 + 12);
+      }
+
+      ++v30;
+      v29 += 224;
+    }
+
+    while (v30 < v28);
+  }
+
+  if ((*(a1 + 44) & 0x80000000) != 0 && (*(a1 + 48) & 0x80000000) != 0)
+  {
+    v37 = *(a1 + 56);
+    if (v37 && *(a1 + 64) == 1)
+    {
+      btAlignedFreeInternal(v37);
+    }
+
+    *(a1 + 64) = 1;
+    *(a1 + 56) = 0;
+    *(a1 + 48) = 0;
+  }
+
+  *(a1 + 44) = 0;
+  if ((*(a1 + 76) & 0x80000000) != 0 && (*(a1 + 80) & 0x80000000) != 0)
+  {
+    v38 = *(a1 + 88);
+    if (v38 && *(a1 + 96) == 1)
+    {
+      btAlignedFreeInternal(v38);
+    }
+
+    *(a1 + 96) = 1;
+    *(a1 + 88) = 0;
+    *(a1 + 80) = 0;
+  }
+
+  *(a1 + 76) = 0;
+  if ((*(a1 + 108) & 0x80000000) != 0 && (*(a1 + 112) & 0x80000000) != 0)
+  {
+    v39 = *(a1 + 120);
+    if (v39 && *(a1 + 128) == 1)
+    {
+      btAlignedFreeInternal(v39);
+    }
+
+    *(a1 + 128) = 1;
+    *(a1 + 120) = 0;
+    *(a1 + 112) = 0;
+  }
+
+  *(a1 + 108) = 0;
+  if ((*(a1 + 140) & 0x80000000) != 0 && (*(a1 + 144) & 0x80000000) != 0)
+  {
+    v40 = *(a1 + 152);
+    if (v40 && *(a1 + 160) == 1)
+    {
+      btAlignedFreeInternal(v40);
+    }
+
+    *(a1 + 160) = 1;
+    *(a1 + 152) = 0;
+    *(a1 + 144) = 0;
+  }
+
+  *(a1 + 140) = 0;
+  if ((*(a1 + 12) & 0x80000000) != 0 && (*(a1 + 16) & 0x80000000) != 0)
+  {
+    v41 = *(a1 + 24);
+    if (v41 && *(a1 + 32) == 1)
+    {
+      btAlignedFreeInternal(v41);
+    }
+
+    *(a1 + 32) = 1;
+    *(a1 + 24) = 0;
+    *(a1 + 16) = 0;
+  }
+
+  *(a1 + 12) = 0;
+  return 0.0;
+}
+
+double btSolverBody::writebackVelocityAndTransform(btSolverBody *this, double result, float a3, uint64_t a4, uint64_t a5, uint64_t a6, btTransform *a7)
+{
+  if (*(this + 26))
+  {
+    v8 = vaddq_f32(*(this + 12), *(this + 5));
+    *(this + 11) = vaddq_f32(*(this + 11), *(this + 4));
+    *(this + 12) = v8;
+    if (*(this + 36) != 0.0 || *(this + 37) != 0.0 || *(this + 38) != 0.0 || *(this + 40) != 0.0 || *(this + 41) != 0.0 || *(this + 42) != 0.0)
+    {
+      v9 = vmulq_n_f32(*(this + 10), a3);
+      v9.i32[3] = 0;
+      v12 = v9;
+      btTransformUtil::integrateTransform(this, (this + 144), &v12, &v13, *&result, a7);
+      v10 = v13.var0[1];
+      *this = v13.var0[0];
+      *(this + 1) = v10;
+      result = *v13.var0[2].var0.var0;
+      v11 = v14;
+      *(this + 2) = v13.var0[2];
+      *(this + 3) = v11;
+    }
+  }
+
+  return result;
+}
+
+double btSequentialImpulseConstraintSolver::solveGroup(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+{
+  (*(*a1 + 64))(a1);
+  (*(*a1 + 72))(a1, a2, a3, a4, a5, a6, a7, a8, a9);
+  (*(*a1 + 56))(a1, a2, a3, a8);
+  return 0.0;
+}
+
+double btSliderConstraint::initParams(btSliderConstraint *this)
+{
+  *&this->var19 = xmmword_21C2A4650;
+  *&this->var23 = xmmword_21C2A4660;
+  *&this->var27 = xmmword_21C2A4660;
+  *&this->var39 = xmmword_21C2A4670;
+  *&this->var43 = xmmword_21C2A4670;
+  *&this->var31 = xmmword_21C2A4670;
+  *&this->var35 = xmmword_21C2A4670;
+  LOBYTE(this[1].var12) = 0;
+  this[1].var15.var0.var0[0].var0.var0[2] = 0.0;
+  *&this[1].var15.var0.var0[0].var0.var0[3] = 0;
+  *(&this[1].var12 + 4) = 0;
+  *&this[1].var14 = 0;
+  this->var14 = 1;
+  v1 = (this->var8 + 16);
+  v2 = (this->var9 + 16);
+  this->var49[0].var0.var0.var0[0] = 0.0;
+  return btSliderConstraint::calculateTransforms(this, v1, v2);
+}
+
+double btSliderConstraint::calculateTransforms(btSliderConstraint *this, const btTransform *a2, const btTransform *a3)
+{
+  var18_low = LOBYTE(this->var18);
+  if ((var18_low & 1) != 0 || !this->var13)
+  {
+    v34 = a2->var0.var0[1];
+    v35 = *(this->var15.var0.var0 + 4);
+    v36 = *(&this->var15.var0.var0[1] + 4);
+    v35.i32[3] = 0;
+    v36.i32[3] = 0;
+    v38 = *(&this->var15.var0.var0[2] + 4);
+    v37 = *(&this->var15.var1 + 4);
+    v38.i32[3] = 0;
+    v39 = a2->var0.var0[2];
+    v40 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v35, v34.f32[0]), v36, *v34.f32, 1), v38, v34, 2);
+    v41 = vmulq_f32(a2->var0.var0[0], v37);
+    v42 = vmulq_f32(v34, v37);
+    v43 = vmulq_f32(v39, v37);
+    v44 = vextq_s8(v42, v42, 8uLL).u64[0];
+    v43.i32[3] = 0;
+    v45 = vpadd_f32(*v41.i8, *v42.i8);
+    v33 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v35, COERCE_FLOAT(*a2->var0.var0)), v36, *a2->var0.var0[0].var0.var0, 1), v38, a2->var0.var0[0], 2);
+    v46 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v35, v39.f32[0]), v36, *v39.f32, 1), v38, v39, 2);
+    *v47.f32 = vadd_f32(v45, vzip1_s32(*&vextq_s8(v41, v41, 8uLL), v44));
+    *&v47.u32[2] = vpadd_f32(vpadd_f32(*v43.i8, *&vextq_s8(v43, v43, 8uLL)), 0);
+    v18 = vaddq_f32(a2->var1, v47);
+    v19 = &this->var54.var0.var0[2];
+    p_var1 = &this->var54.var1;
+    this->var54.var0.var0[2] = v33;
+    this->var54.var1 = v40;
+    p_var55 = &this->var55;
+    this->var55 = v46;
+    this->var56 = v18;
+    v48 = a3->var0.var0[1];
+    v49 = *(this->var16.var0.var0 + 4);
+    v50 = *(&this->var16.var0.var0[1] + 4);
+    v49.i32[3] = 0;
+    v50.i32[3] = 0;
+    v51 = *(&this->var16.var0.var0[2] + 4);
+    v52 = *(&this->var16.var1 + 4);
+    v51.i32[3] = 0;
+    v53 = a3->var0.var0[2];
+    v54 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v49, v48.f32[0]), v50, *v48.f32, 1), v51, v48, 2);
+    v55 = vmulq_f32(a3->var0.var0[0], v52);
+    v56 = vmulq_f32(v48, v52);
+    v57 = vmulq_f32(v53, v52);
+    v57.i32[3] = 0;
+    *v35.f32 = vadd_f32(vpadd_f32(*v55.i8, *v56.i8), vzip1_s32(*&vextq_s8(v55, v55, 8uLL), *&vextq_s8(v56, v56, 8uLL)));
+    *&v35.u32[2] = vpadd_f32(vpadd_f32(*v57.i8, *&vextq_s8(v57, v57, 8uLL)), 0);
+    v32 = vaddq_f32(a3->var1, v35);
+    this->var57 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v49, COERCE_FLOAT(*a3->var0.var0)), v50, *a3->var0.var0[0].var0.var0, 1), v51, a3->var0.var0[0], 2);
+    this->var58 = v54;
+    this->var59 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v49, v53.f32[0]), v50, *v53.f32, 1), v51, v53, 2);
+    this->var60 = v32;
+    this->var62 = v18;
+    v33.var0.var0[1] = v40.var0.var0[0];
+    *&this->var63 = v32;
+    *&v33.var0.var0[2] = LODWORD(v46.var0.var0[0]);
+    this->var61 = v33;
+    if (var18_low)
+    {
+      goto LABEL_6;
+    }
+  }
+
+  else
+  {
+    v4 = a3->var0.var0[1];
+    v5 = *(this->var16.var0.var0 + 4);
+    v6 = *(&this->var16.var0.var0[1] + 4);
+    v5.i32[3] = 0;
+    v6.i32[3] = 0;
+    v8 = *(&this->var16.var0.var0[2] + 4);
+    v7 = *(&this->var16.var1 + 4);
+    v8.i32[3] = 0;
+    v9 = a3->var0.var0[2];
+    v10 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v5, v4.f32[0]), v6, *v4.f32, 1), v8, v4, 2);
+    v11 = vmulq_f32(a3->var0.var0[0], v7);
+    v12 = vmulq_f32(v4, v7);
+    v13 = vmulq_f32(v9, v7);
+    v14 = vextq_s8(v12, v12, 8uLL).u64[0];
+    v13.i32[3] = 0;
+    v15 = vpadd_f32(*v11.i8, *v12.i8);
+    v33 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v5, COERCE_FLOAT(*a3->var0.var0)), v6, *a3->var0.var0[0].var0.var0, 1), v8, a3->var0.var0[0], 2);
+    v16 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v5, v9.f32[0]), v6, *v9.f32, 1), v8, v9, 2);
+    *v17.f32 = vadd_f32(v15, vzip1_s32(*&vextq_s8(v11, v11, 8uLL), v14));
+    *&v17.u32[2] = vpadd_f32(vpadd_f32(*v13.i8, *&vextq_s8(v13, v13, 8uLL)), 0);
+    v18 = vaddq_f32(a3->var1, v17);
+    v19 = &this->var54.var0.var0[2];
+    p_var1 = &this->var54.var1;
+    this->var54.var0.var0[2] = v33;
+    this->var54.var1 = v10;
+    p_var55 = &this->var55;
+    this->var55 = v16;
+    this->var56 = v18;
+    v22 = a2->var0.var0[1];
+    v23 = *(this->var15.var0.var0 + 4);
+    v24 = *(&this->var15.var0.var0[1] + 4);
+    v23.i32[3] = 0;
+    v24.i32[3] = 0;
+    v25 = *(&this->var15.var0.var0[2] + 4);
+    v26 = *(&this->var15.var1 + 4);
+    v25.i32[3] = 0;
+    v27 = a2->var0.var0[2];
+    v28 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v23, v22.f32[0]), v24, *v22.f32, 1), v25, v22, 2);
+    v29 = vmulq_f32(a2->var0.var0[0], v26);
+    v30 = vmulq_f32(v22, v26);
+    v31 = vmulq_f32(v27, v26);
+    v31.i32[3] = 0;
+    *v5.f32 = vadd_f32(vpadd_f32(*v29.i8, *v30.i8), vzip1_s32(*&vextq_s8(v29, v29, 8uLL), *&vextq_s8(v30, v30, 8uLL)));
+    *&v5.u32[2] = vpadd_f32(vpadd_f32(*v31.i8, *&vextq_s8(v31, v31, 8uLL)), 0);
+    v32 = vaddq_f32(a2->var1, v5);
+    this->var57 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v23, COERCE_FLOAT(*a2->var0.var0)), v24, *a2->var0.var0[0].var0.var0, 1), v25, a2->var0.var0[0], 2);
+    this->var58 = v28;
+    this->var59 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v23, v27.f32[0]), v24, *v27.f32, 1), v25, v27, 2);
+    this->var60 = v32;
+    this->var62 = v18;
+    v33.var0.var0[1] = v10.var0.var0[0];
+    *&this->var63 = v32;
+    *&v33.var0.var0[2] = LODWORD(v16.var0.var0[0]);
+    this->var61 = v33;
+  }
+
+  if (!this->var13)
+  {
+    v58 = vsubq_f32(v18, v32);
+    goto LABEL_8;
+  }
+
+LABEL_6:
+  v58 = vsubq_f32(v32, v18);
+LABEL_8:
+  v59 = 0;
+  v58.i32[3] = 0;
+  *&this->var71 = v58;
+  v60 = vmulq_f32(v33, v58);
+  v61 = vmulq_n_f32(v33, vadd_f32(vpadd_f32(*v60.i8, *v60.i8), *&vextq_s8(v60, v60, 8uLL)).f32[0]);
+  v61.i32[3] = 0;
+  v62 = vaddq_f32(v18, v61);
+  *&this->var67 = v62;
+  do
+  {
+    v62.i32[0] = LODWORD(v19->var0.var0[v59]);
+    v62.i32[1] = LODWORD(p_var1->var0.var0[v59]);
+    v62.i32[2] = LODWORD(p_var55->var0.var0[v59]);
+    v63 = vmulq_f32(v62, v58);
+    v64 = vpadd_f32(*v63.i8, *v63.i8);
+    v62 = vextq_s8(v63, v63, 8uLL);
+    *v62.f32 = vadd_f32(v64, *v62.f32);
+    *(&this[1].var0 + v59 * 4) = v62.i32[0];
+    ++v59;
+  }
+
+  while (v59 != 3);
+  return *v62.i64;
+}
+
+void btSliderConstraint::btSliderConstraint(btSliderConstraint *this, btRigidBody *a2, btRigidBody *a3, const btTransform *a4, const btTransform *a5, char a6)
+{
+  btTypedConstraint::btTypedConstraint(this, 7, a2, a3);
+  *v9 = &unk_282DCAED0;
+  *(v9 + 72) = 0;
+  *(v9 + 80) = *a4;
+  *(v9 + 144) = *a5;
+  *(v9 + 208) = a6;
+  btSliderConstraint::initParams(v9);
+}
+
+void btSliderConstraint::btSliderConstraint(btSliderConstraint *this, float32x4_t *a2, const btTransform *a3, char a4)
+{
+  FixedBody = btTypedConstraint::getFixedBody(this);
+  btTypedConstraint::btTypedConstraint(this, 7, FixedBody, a2);
+  this->var0 = &unk_282DCAED0;
+  this->var13 = 0;
+  v9 = a3->var0.var0[0];
+  *(this->var16.var0.var0 + 4) = a3->var0.var0[0];
+  v10 = a3->var0.var0[1];
+  *(&this->var16.var0.var0[1] + 4) = v10;
+  v11 = a3->var0.var0[2];
+  *(&this->var16.var0.var0[2] + 4) = v11;
+  var1 = a3->var1;
+  *(&this->var16.var1 + 4) = var1;
+  LOBYTE(this->var18) = a4;
+  v13 = a2[1];
+  v14 = a2[2];
+  v15 = a2[3];
+  v16 = vmulq_f32(var1, v13);
+  v17 = vmulq_f32(var1, v14);
+  *v16.f32 = vadd_f32(vzip1_s32(*&vextq_s8(v16, v16, 8uLL), *&vextq_s8(v17, v17, 8uLL)), vpadd_f32(*v16.f32, *v17.i8));
+  v18 = vmulq_f32(var1, v15);
+  v18.i32[3] = 0;
+  *&v16.u32[2] = vpadd_f32(vpadd_f32(*v18.i8, *&vextq_s8(v18, v18, 8uLL)), 0);
+  v11.i32[3] = 0;
+  v19 = vaddq_f32(a2[4], v16);
+  v10.i32[3] = 0;
+  v9.i32[3] = 0;
+  *(this->var15.var0.var0 + 4) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v9, v13.f32[0]), v10, *v13.f32, 1), v11, v13, 2);
+  *(&this->var15.var0.var0[1] + 4) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v9, v14.f32[0]), v10, *v14.f32, 1), v11, v14, 2);
+  *(&this->var15.var0.var0[2] + 4) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v9, v15.f32[0]), v10, *v15.f32, 1), v11, v15, 2);
+  *(&this->var15.var1 + 4) = v19;
+  btSliderConstraint::initParams(v20);
+}
+
+btSliderConstraint *btSliderConstraint::getInfo1(btSliderConstraint *result, int32x2_t *a2)
+{
+  if (result->var13)
+  {
+    v3 = 0;
+    a2->i32[0] = 0;
+LABEL_9:
+    a2->i32[1] = v3;
+    return result;
+  }
+
+  v4 = result;
+  *a2 = 0x200000004;
+  *v5.i64 = btSliderConstraint::calculateTransforms(result, (result->var8 + 16), (result->var9 + 16));
+  btSliderConstraint::testAngLimits(v4, v5, v6, v7);
+  result = btSliderConstraint::testLinLimits(v4);
+  if ((v4->var48 & 1) != 0 || LOBYTE(v4[1].var12) == 1)
+  {
+    *a2 = vadd_s32(*a2, 0xFFFFFFFF00000001);
+  }
+
+  if ((v4->var48 & 0x100) != 0 || LOBYTE(v4[1].var15.var0.var0[0].var0.var0[1]) == 1)
+  {
+    v8 = a2->i32[1];
+    ++a2->i32[0];
+    v3 = v8 - 1;
+    goto LABEL_9;
+  }
+
+  return result;
+}
+
+void btSliderConstraint::testAngLimits(btSliderConstraint *this, float32x4_t a2, float32x4_t a3, float32x4_t a4)
+{
+  this[1].var10 = 0.0;
+  BYTE1(this->var48) = 0;
+  var21 = this->var21;
+  var22 = this->var22;
+  if (var21 <= var22)
+  {
+    a3.i32[0] = LODWORD(this->var54.var0.var0[2].var0.var0[1]);
+    a3.i32[1] = LODWORD(this->var54.var1.var0.var0[1]);
+    a3.i32[2] = LODWORD(this->var55.var0.var0[1]);
+    a2.i32[0] = LODWORD(this->var54.var0.var0[2].var0.var0[2]);
+    a2.i32[1] = LODWORD(this->var54.var1.var0.var0[2]);
+    a2.i32[2] = LODWORD(this->var55.var0.var0[2]);
+    a4.i32[0] = LODWORD(this->var57.var0.var0[1]);
+    a4.i32[1] = LODWORD(this->var58.var0.var0[1]);
+    a4.i32[2] = LODWORD(this->var59.var0.var0[1]);
+    v7 = vmulq_f32(a2, a4);
+    v8 = vmulq_f32(a3, a4);
+    v9 = atan2f(vadd_f32(vpadd_f32(*v7.i8, *v7.i8), *&vextq_s8(v7, v7, 8uLL)).f32[0], vadd_f32(vpadd_f32(*v8.i8, *v8.i8), *&vextq_s8(v8, v8, 8uLL)).f32[0]);
+    v10 = v9;
+    if (var21 < var22)
+    {
+      if (v9 >= var21)
+      {
+        if (v9 > var22)
+        {
+          v12 = fmodf(v9 - var22, 6.2832);
+          if (v12 >= -3.1416)
+          {
+            if (v12 > 3.1416)
+            {
+              v12 = v12 + -6.2832;
+            }
+          }
+
+          else
+          {
+            v12 = v12 + 6.2832;
+          }
+
+          v15 = fabsf(v12);
+          v16 = fmodf(v10 - var21, 6.2832);
+          if (v16 >= -3.1416)
+          {
+            if (v16 > 3.1416)
+            {
+              v16 = v16 + -6.2832;
+            }
+          }
+
+          else
+          {
+            v16 = v16 + 6.2832;
+          }
+
+          if (fabsf(v16) < v15)
+          {
+            v10 = v10 + -6.2832;
+          }
+        }
+      }
+
+      else
+      {
+        v11 = fmodf(var21 - v9, 6.2832);
+        if (v11 >= -3.1416)
+        {
+          if (v11 > 3.1416)
+          {
+            v11 = v11 + -6.2832;
+          }
+        }
+
+        else
+        {
+          v11 = v11 + 6.2832;
+        }
+
+        v13 = fabsf(v11);
+        v14 = fmodf(var22 - v10, 6.2832);
+        if (v14 >= -3.1416)
+        {
+          if (v14 > 3.1416)
+          {
+            v14 = v14 + -6.2832;
+          }
+        }
+
+        else
+        {
+          v14 = v14 + 6.2832;
+        }
+
+        if (v13 >= fabsf(v14))
+        {
+          v10 = v10 + 6.2832;
+        }
+      }
+    }
+
+    *(&this[1].var9 + 1) = v10;
+    if (v10 < var21 || (var21 = var22, v10 > var22))
+    {
+      this[1].var10 = v10 - var21;
+      BYTE1(this->var48) = 1;
+    }
+  }
+}
+
+btSliderConstraint *btSliderConstraint::testLinLimits(btSliderConstraint *this)
+{
+  LOBYTE(this->var48) = 0;
+  v1 = *&this[1].var0;
+  *&this[1].var9 = v1;
+  var19 = this->var19;
+  var20 = this->var20;
+  if (var19 > var20)
+  {
+    goto LABEL_2;
+  }
+
+  if (v1 <= var20)
+  {
+    if (v1 >= var19)
+    {
+LABEL_2:
+      LODWORD(this[1].var0) = 0;
+      return this;
+    }
+
+    v4 = v1 - var19;
+  }
+
+  else
+  {
+    v4 = v1 - var20;
+  }
+
+  *&this[1].var0 = v4;
+  LOBYTE(this->var48) = 1;
+  return this;
+}
+
+void btSliderConstraint::getInfo2(float32x4_t *a1, uint64_t a2, int8x16_t a3, double a4, double a5, float32x4_t a6, float32x4_t a7)
+{
+  v7 = a1[2].i64[1];
+  a3.i32[0] = v7[24].i32[0];
+  btSliderConstraint::getInfo2NonVirtual(a1, a2, v7 + 1, (a1[3].i64[0] + 16), v7 + 22, (a1[3].i64[0] + 352), a3, *(a1[3].i64[0] + 384), a5, a6, a7);
+}
+
+void btSliderConstraint::getInfo2NonVirtual(float32x4_t *this, uint64_t a2, float32x4_t *a3, float32x4_t *a4, float32x4_t *a5, float32x4_t *a6, int8x16_t a7, float a8, double a9, float32x4_t a10, float32x4_t a11)
+{
+  v15 = *(a2 + 40);
+  if (this[13].i8[0])
+  {
+    v16 = 1.0;
+  }
+
+  else
+  {
+    v16 = -1.0;
+  }
+
+  v17 = fminf(*a7.i32, a8) < 0.00000011921;
+  v18 = *a7.i32 + a8;
+  v19 = a8 / v18;
+  if (v18 <= 0.0)
+  {
+    v19 = 0.5;
+  }
+
+  *a7.i32 = 1.0 - v19;
+  a10.i32[0] = this[59].i32[0];
+  a10.i32[1] = this[60].i32[0];
+  v20 = a10;
+  v20.i32[2] = this[61].i32[0];
+  a11.i32[0] = this[63].i32[0];
+  a11.i32[1] = this[64].i32[0];
+  v21 = a11;
+  v21.i32[2] = this[65].i32[0];
+  v22 = this[4].u8[9];
+  if (v22 == 1)
+  {
+    v23 = vmulq_n_f32(v20, v19);
+    v23.i32[3] = 0;
+    v24 = vmulq_n_f32(v21, *a7.i32);
+    v24.i32[3] = 0;
+    v25 = vaddq_f32(v23, v24);
+    v26 = vmulq_f32(v25, v25);
+    _Q22 = vmulq_n_f32(v25, 1.0 / sqrtf(vadd_f32(*&vextq_s8(v26, v26, 8uLL), vpadd_f32(*v26.i8, *v26.i8)).f32[0]));
+    _S6 = _Q22.i32[1];
+    if (fabsf(_Q22.f32[2]) <= 0.70711)
+    {
+      v42 = vmuls_lane_f32(_Q22.f32[1], *_Q22.f32, 1) + (_Q22.f32[0] * _Q22.f32[0]);
+      v43 = 1.0 / sqrtf(v42);
+      *&v39 = -(_Q22.f32[1] * v43);
+      v34 = v43 * _Q22.f32[0];
+      v199.i32[0] = v39;
+      v199.f32[1] = v43 * _Q22.f32[0];
+      v199.i32[2] = 0;
+      v36 = -(_Q22.f32[2] * (v43 * _Q22.f32[0]));
+      v37 = _Q22.f32[2] * *&v39;
+      v198.f32[0] = v36;
+      v198.f32[1] = _Q22.f32[2] * *&v39;
+      v38 = v42 * v43;
+      v198.f32[2] = v42 * v43;
+      v35 = 0.0;
+    }
+
+    else
+    {
+      __asm { FMLA            S16, S6, V22.S[1] }
+
+      v33 = 1.0 / sqrtf(_S16);
+      v199.i32[0] = 0;
+      v34 = -(_Q22.f32[2] * v33);
+      v35 = vmuls_lane_f32(v33, *_Q22.f32, 1);
+      *(v199.i64 + 4) = __PAIR64__(LODWORD(v35), LODWORD(v34));
+      v36 = _S16 * v33;
+      v37 = -(_Q22.f32[0] * v35);
+      v198.f32[0] = _S16 * v33;
+      v198.f32[1] = v37;
+      v38 = v34 * _Q22.f32[0];
+      v198.f32[2] = v34 * _Q22.f32[0];
+      v39 = 0;
+    }
+  }
+
+  else
+  {
+    v39 = this[59].i32[1];
+    v34 = this[60].f32[1];
+    v35 = this[61].f32[1];
+    v40.i64[0] = __PAIR64__(LODWORD(v34), v39);
+    v40.i64[1] = LODWORD(v35);
+    v36 = this[59].f32[2];
+    v37 = this[60].f32[2];
+    v38 = this[61].f32[2];
+    v41.i64[0] = __PAIR64__(LODWORD(v37), LODWORD(v36));
+    v41.i64[1] = LODWORD(v38);
+    v198 = v41;
+    v199 = v40;
+    _Q22 = v20;
+  }
+
+  v44 = this[66];
+  v45 = this[62];
+  v46 = *(a2 + 16);
+  *v46 = v39;
+  v46[1] = LODWORD(v34);
+  v46[2] = LODWORD(v35);
+  v47 = 4 * v15;
+  v46[v15] = LODWORD(v36);
+  v48 = 4 * v15 + 4;
+  *(v46 + v48) = LODWORD(v37);
+  v49 = 4 * v15 + 8;
+  *(v46 + v49) = v38;
+  v50 = *(a2 + 32);
+  *v50 = -*&v39;
+  v50[1] = -v34;
+  v50[2] = -v35;
+  v50[v15] = -v36;
+  *(v50 + v48) = -v37;
+  *(v50 + v49) = -v38;
+  v51 = this[20].i32[2];
+  v52 = this[19].f32[1];
+  if ((v51 & 0x80) == 0)
+  {
+    v52 = v52 * *(a2 + 4);
+  }
+
+  *v53.f32 = vext_s8(*a10.f32, *&vextq_s8(v20, v20, 8uLL), 4uLL);
+  v53.i64[1] = a10.i64[0];
+  *v54.f32 = vext_s8(*a11.f32, *&vextq_s8(v21, v21, 8uLL), 4uLL);
+  v54.i64[1] = a11.i64[0];
+  v55 = v52 * *a2;
+  v56 = vsubq_f32(vmulq_f32(v20, v54), vmulq_f32(v53, v21));
+  v57 = vextq_s8(vextq_s8(v56, v56, 0xCuLL), v56, 8uLL);
+  v57.i32[3] = 0;
+  v58 = v199;
+  v59 = vmulq_f32(v199, v57);
+  v60 = *(a2 + 48);
+  *v60 = v55 * vadd_f32(vpadd_f32(*v59.i8, *v59.i8), *&vextq_s8(v59, v59, 8uLL)).f32[0];
+  v61 = v198;
+  v62 = vmulq_f32(v198, v57);
+  v60[v15] = v55 * vadd_f32(vpadd_f32(*v62.i8, *v62.i8), *&vextq_s8(v62, v62, 8uLL)).f32[0];
+  if ((v51 & 0x40) != 0)
+  {
+    v63 = this[20].i32[0];
+    v64 = *(a2 + 56);
+    *v64 = v63;
+    v64[v15] = v63;
+  }
+
+  v65 = vsubq_f32(v44, v45);
+  v66 = a3[3];
+  v67 = a4[3];
+  v68 = 2 * v15;
+  v69 = 3 * v15;
+  v197 = 0uLL;
+  v70 = &v46[2 * v15];
+  v71 = &v46[3 * v15];
+  if (v22)
+  {
+    v72 = vsubq_f32(this[66], v67);
+    v72.i32[3] = 0;
+    v73 = vmulq_f32(_Q22, v72);
+    v74 = vmulq_n_f32(_Q22, vadd_f32(vpadd_f32(*v73.i8, *v73.i8), *&vextq_s8(v73, v73, 8uLL)).f32[0]);
+    v74.i32[3] = 0;
+    v75 = vsubq_f32(this[62], v66);
+    v75.i32[3] = 0;
+    v76 = vmulq_f32(_Q22, v75);
+    v77 = vmulq_n_f32(_Q22, vadd_f32(vpadd_f32(*v76.i8, *v76.i8), *&vextq_s8(v76, v76, 8uLL)).f32[0]);
+    v77.i32[3] = 0;
+    v78 = vsubq_f32(v75, v77);
+    v79 = v78;
+    v79.i32[3] = 0;
+    v80 = vmulq_n_f32(_Q22, this[75].f32[0] - this[72].f32[0]);
+    v80.i32[3] = 0;
+    v81 = vmulq_n_f32(v78, *a7.i32);
+    v82 = vsubq_f32(vaddq_f32(v80, v77), v74);
+    v83 = vmulq_n_f32(v82, v19);
+    v83.i32[3] = 0;
+    v84 = vsubq_f32(v72, v74);
+    v85 = vaddq_f32(v79, v83);
+    v86 = vsubq_f32(v84, vmulq_n_f32(v82, *a7.i32));
+    v86.i32[3] = 0;
+    v87 = vmulq_n_f32(v84, v19);
+    v87.i32[3] = 0;
+    v81.i32[3] = 0;
+    v58 = vaddq_f32(v87, v81);
+    v88 = vmulq_f32(v58, v58);
+    v89 = vadd_f32(vpadd_f32(*v88.i8, *v88.i8), *&vextq_s8(v88, v88, 8uLL)).f32[0];
+    if (v89 <= 0.00000011921)
+    {
+      v58.i32[0] = this[59].i32[1];
+      v58.i32[1] = this[60].i32[1];
+      v58.i32[2] = this[61].i32[1];
+    }
+
+    else
+    {
+      v58 = vmulq_n_f32(v58, 1.0 / sqrtf(v89));
+    }
+
+    v106 = 0;
+    v107 = vextq_s8(vextq_s8(v58, v58, 0xCuLL), v58, 8uLL);
+    v108 = vsubq_f32(vmulq_f32(_Q22, v107), vmulq_f32(vextq_s8(vextq_s8(_Q22, _Q22, 0xCuLL), _Q22, 8uLL), v58));
+    v61 = vextq_s8(vextq_s8(v108, v108, 0xCuLL), v108, 8uLL);
+    v61.i32[3] = 0;
+    v198 = v61;
+    v199 = v58;
+    v109 = vextq_s8(vextq_s8(v85, v85, 0xCuLL), v85, 8uLL);
+    v110 = vsubq_f32(vmulq_f32(v85, v107), vmulq_f32(v109, v58));
+    v111 = vextq_s8(vextq_s8(v86, v86, 0xCuLL), v86, 8uLL);
+    v112 = vsubq_f32(vmulq_f32(v107, v86), vmulq_f32(v111, v58));
+    v113 = vextq_s8(vextq_s8(v112, v112, 0xCuLL), v112, 8uLL);
+    v113.i32[3] = 0;
+    v197 = v113;
+    v70[2] = v110.i32[0];
+    *v70 = vextq_s8(v110, a7, 4uLL).u64[0];
+    do
+    {
+      v50[v68 + v106] = -v197.f32[v106];
+      ++v106;
+    }
+
+    while (v106 != 3);
+    v114 = vextq_s8(vextq_s8(v61, v61, 0xCuLL), v61, 8uLL);
+    v115 = vsubq_f32(vmulq_f32(v85, v114), vmulq_f32(v109, v61));
+    v116 = vextq_s8(vextq_s8(v115, v115, 0xCuLL), v115, 8uLL);
+    v116.i32[3] = 0;
+    v117 = vsubq_f32(vmulq_f32(v114, v86), vmulq_f32(v111, v61));
+    v118 = vextq_s8(vextq_s8(v117, v117, 0xCuLL), v117, 8uLL);
+    v118.i32[3] = 0;
+    v197 = v118;
+    if (v17 && this[20].i8[5] == 1)
+    {
+      v197 = vmulq_n_f32(v118, *a7.i32);
+      v116 = vmulq_n_f32(v116, v19);
+    }
+
+    v119 = 0;
+    *v71 = v116.i64[0];
+    v71[2] = v116.i32[2];
+    do
+    {
+      v50[v69 + v119] = -v197.f32[v119];
+      ++v119;
+    }
+
+    while (v119 != 3);
+    v120 = 0;
+    v101 = *(a2 + 8);
+    v121 = v101 + 4 * v68;
+    *v121 = v199.i64[0];
+    *(v121 + 8) = v199.i32[2];
+    v122 = v101 + 4 * v69;
+    *v122 = v198.i64[0];
+    *(v122 + 8) = v198.i32[2];
+    v104 = *(a2 + 24);
+    do
+    {
+      *(v104 + 4 * v68 + v120 * 4) = -v199.f32[v120];
+      ++v120;
+    }
+
+    while (v120 != 3);
+    for (i = 0; i != 3; ++i)
+    {
+      *(v104 + 4 * v69 + i * 4) = -v198.f32[i];
+    }
+
+    v91 = 0uLL;
+  }
+
+  else
+  {
+    v90 = 0;
+    v91 = vsubq_f32(v67, v66);
+    v91.i32[3] = 0;
+    v92 = vextq_s8(vextq_s8(v91, v91, 0xCuLL), v91, 8uLL);
+    v93 = vsubq_f32(vmulq_f32(vextq_s8(vextq_s8(v58, v58, 0xCuLL), v58, 8uLL), v91), vmulq_f32(v58, v92));
+    v94 = vextq_s8(vextq_s8(v93, v93, 0xCuLL), v93, 8uLL);
+    v94.i32[3] = 0;
+    v196 = v94;
+    do
+    {
+      *&v70[v90] = v19 * *&v196.i32[v90];
+      ++v90;
+    }
+
+    while (v90 != 3);
+    for (j = 0; j != 3; ++j)
+    {
+      v50[v68 + j] = *a7.i32 * *&v196.i32[j];
+    }
+
+    v96 = 0;
+    v97 = vsubq_f32(vmulq_f32(vextq_s8(vextq_s8(v61, v61, 0xCuLL), v61, 8uLL), v91), vmulq_f32(v61, v92));
+    v98 = vextq_s8(vextq_s8(v97, v97, 0xCuLL), v97, 8uLL);
+    v98.i32[3] = 0;
+    v196 = v98;
+    do
+    {
+      *&v71[v96] = v19 * *&v196.i32[v96];
+      ++v96;
+    }
+
+    while (v96 != 3);
+    for (k = 0; k != 3; ++k)
+    {
+      v50[v69 + k] = *a7.i32 * *&v196.i32[k];
+    }
+
+    v100 = 0;
+    v101 = *(a2 + 8);
+    v102 = v101 + 4 * v68;
+    *v102 = v199.i64[0];
+    *(v102 + 8) = v199.i32[2];
+    v103 = v101 + 4 * v69;
+    *v103 = v198.i64[0];
+    *(v103 + 8) = v198.i32[2];
+    v104 = *(a2 + 24);
+    do
+    {
+      *(v104 + 4 * v68 + v100 * 4) = -v199.f32[v100];
+      ++v100;
+    }
+
+    while (v100 != 3);
+    for (m = 0; m != 3; ++m)
+    {
+      *(v104 + 4 * v69 + m * 4) = -v198.f32[m];
+    }
+
+    v86 = 0uLL;
+    v85 = 0uLL;
+  }
+
+  v65.i32[3] = 0;
+  v124 = this[18].f32[1];
+  if ((v51 & 0x20) == 0)
+  {
+    v124 = v124 * *(a2 + 4);
+  }
+
+  v125 = v124 * *a2;
+  v126 = vmulq_f32(v58, v65);
+  v60[v68] = v125 * vadd_f32(vpadd_f32(*v126.i8, *v126.i8), *&vextq_s8(v126, v126, 8uLL)).f32[0];
+  v127 = vmulq_f32(v61, v65);
+  v60[v69] = v125 * vadd_f32(vpadd_f32(*v127.i8, *v127.i8), *&vextq_s8(v127, v127, 8uLL)).f32[0];
+  if ((v51 & 0x10) != 0)
+  {
+    v128 = this[19].i32[0];
+    v129 = *(a2 + 56);
+    *(v129 + 4 * v68) = v128;
+    *(v129 + 4 * v69) = v128;
+  }
+
+  v130 = this[20].u8[4];
+  v131 = _Q22.f32[2];
+  if (v130 == 1)
+  {
+    v132 = v16 * this[72].f32[0];
+    v133 = v132 <= 0.0;
+    v134 = this[76].u8[0];
+  }
+
+  else
+  {
+    v134 = this[76].u8[0];
+    if (v134 != 1)
+    {
+      v154 = 4;
+      goto LABEL_92;
+    }
+
+    v133 = 0;
+    v132 = 0.0;
+  }
+
+  v135 = v47;
+  v136 = v47;
+  *(v101 + v136 * 4) = _Q22.i64[0];
+  v137 = (4 * v15) | 2;
+  *(v101 + 4 * v137) = _Q22.i32[2];
+  *(v104 + v136 * 4) = vneg_f32(*_Q22.f32);
+  *(v104 + 4 * v137) = -_Q22.f32[2];
+  if (v22)
+  {
+    if (v17)
+    {
+      goto LABEL_57;
+    }
+
+    v138.i64[0] = vextq_s8(_Q22, _Q22, 4uLL).u64[0];
+    v138.i64[1] = _Q22.i64[0];
+    v139 = vmulq_f32(v138, v85);
+    v140 = vsubq_f32(vmulq_f32(v138, v86), vmulq_f32(_Q22, vextq_s8(vextq_s8(v86, v86, 0xCuLL), v86, 8uLL)));
+    v141 = vextq_s8(vextq_s8(v140, v140, 0xCuLL), v140, 8uLL);
+    v141.i32[3] = 0;
+    v142 = vsubq_f32(v139, vmulq_f32(_Q22, vextq_s8(vextq_s8(v85, v85, 0xCuLL), v85, 8uLL)));
+    *&v46[v136] = vextq_s8(v142, v142, 4uLL).u64[0];
+    v46[v137] = v142.i32[0];
+    v197 = v141;
+    *&v50[v136] = vneg_f32(*v141.i8);
+    v143 = -*&v141.i32[2];
+  }
+
+  else
+  {
+    v144 = vsubq_f32(vmulq_f32(vextq_s8(vextq_s8(_Q22, _Q22, 0xCuLL), _Q22, 8uLL), v91), vmulq_f32(_Q22, vextq_s8(vextq_s8(v91, v91, 0xCuLL), v91, 8uLL)));
+    v145 = vextq_s8(v144, v144, 4uLL).u64[0];
+    *&v46[v136] = vmul_n_f32(v145, v19);
+    *&v46[v137] = v19 * *v144.i32;
+    *&v50[v136] = vmul_n_f32(v145, *a7.i32);
+    v143 = *a7.i32 * *v144.i32;
+  }
+
+  v50[v137] = v143;
+LABEL_57:
+  v146 = this[13].f32[1];
+  v147 = this[13].f32[2];
+  v60[v135] = 0.0;
+  v148 = *(a2 + 64);
+  v149 = *(a2 + 72);
+  *(v148 + 4 * v135) = 0;
+  *(v149 + 4 * v135) = 0;
+  if (v146 == v147)
+  {
+    v150 = v130;
+  }
+
+  else
+  {
+    v150 = 0;
+  }
+
+  v151 = (a2 + 4);
+  if ((v51 & 0x200) != 0)
+  {
+    v151 = &this[16].f32[1];
+  }
+
+  v152 = *v151;
+  if (v134 && (v150 & 1) == 0)
+  {
+    v194 = _Q22;
+    if (v51)
+    {
+      *(*(a2 + 56) + 4 * v135) = this[15].i32[0];
+    }
+
+    MotorFactor = btTypedConstraint::getMotorFactor(this, this[75].f32[0], this[13].f32[1], this[13].f32[2], this[76].f32[1], v152 * *a2);
+    v60 = *(a2 + 48);
+    v60[v135] = v60[v135] + (-(v16 * MotorFactor) * this[76].f32[1]);
+    v148 = *(a2 + 64);
+    v149 = *(a2 + 72);
+    *(v148 + 4 * v135) = *(v148 + 4 * v135) - (this[76].f32[2] * *a2);
+    *(v149 + 4 * v135) = *(v149 + 4 * v135) + (this[76].f32[2] * *a2);
+    _Q22 = v194;
+  }
+
+  if (!v130)
+  {
+    goto LABEL_91;
+  }
+
+  v60[v135] = v60[v135] + ((v152 * *a2) * v132);
+  if (this[20].i8[9])
+  {
+    *(*(a2 + 56) + 4 * v135) = this[17].i32[0];
+  }
+
+  if (v146 == v147)
+  {
+    *(v148 + 4 * v135) = -8388609;
+LABEL_76:
+    *(v149 + 4 * v135) = 2139095039;
+    goto LABEL_77;
+  }
+
+  if (!v133)
+  {
+    *(v148 + 4 * v135) = 0;
+    goto LABEL_76;
+  }
+
+  *(v148 + 4 * v135) = -8388609;
+  *(v149 + 4 * v135) = 0;
+LABEL_77:
+  v155 = this[16].f32[3];
+  if ((1.0 - v155) < 0.0 || (1.0 - v155) > 0.0)
+  {
+    v157 = vmulq_f32(_Q22, *a5);
+    v158 = vmulq_f32(_Q22, *a6);
+    v159 = v16 * vsub_f32(vadd_f32(vpadd_f32(*v157.i8, *v157.i8), *&vextq_s8(v157, v157, 8uLL)), vadd_f32(vpadd_f32(*v158.i8, *v158.i8), *&vextq_s8(v158, v158, 8uLL))).f32[0];
+    v156 = v60[v135];
+    v160 = -(vabds_f32(1.0, v155) * v159);
+    if (v133)
+    {
+      if (v159 >= 0.0 || v160 <= v156)
+      {
+        goto LABEL_90;
+      }
+    }
+
+    else if (v159 <= 0.0 || v160 >= v156)
+    {
+      goto LABEL_90;
+    }
+
+    v60[v135] = v160;
+    v156 = v160;
+  }
+
+  else
+  {
+    v156 = v60[v135];
+  }
+
+LABEL_90:
+  v60[v135] = this[16].f32[1] * v156;
+LABEL_91:
+  v154 = 5;
+LABEL_92:
+  v163 = this[20].u8[5];
+  if (v163 == 1)
+  {
+    v164 = this[75].f32[2];
+    v165 = v164 > 0.0;
+    v166 = this[77].u8[0];
+  }
+
+  else
+  {
+    v166 = this[77].u8[0];
+    if (v166 != 1)
+    {
+      return;
+    }
+
+    v165 = 0;
+    v164 = 0.0;
+  }
+
+  v167 = *(a2 + 40) * v154;
+  v168 = *(a2 + 16);
+  v169 = 4 * v167;
+  *(v168 + v169) = _Q22.i64[0];
+  v170 = 4 * v167 + 8;
+  *(v168 + v170) = _Q22.i32[2];
+  v171 = *(a2 + 32);
+  *(v171 + v169) = vneg_f32(*_Q22.f32);
+  *(v171 + v170) = -v131;
+  v172 = this[13].f32[3];
+  v173 = this[14].f32[0];
+  if (v172 == v173)
+  {
+    v174 = v163;
+  }
+
+  else
+  {
+    v174 = 0;
+  }
+
+  v175 = this[20].i32[2];
+  v176 = (a2 + 4);
+  if ((v175 & 0x800) != 0)
+  {
+    v176 = &this[17].f32[1];
+  }
+
+  v177 = *v176;
+  if (v166 && (v174 & 1) == 0)
+  {
+    v195 = _Q22;
+    if ((v175 & 4) != 0)
+    {
+      *(*(a2 + 56) + 4 * v167) = this[16].i32[0];
+      v179 = this[13].f32[3];
+      v178 = this[14].f32[0];
+    }
+
+    else
+    {
+      v178 = this[14].f32[0];
+      v179 = this[13].f32[3];
+    }
+
+    v180 = btTypedConstraint::getMotorFactor(this, this[75].f32[1], v179, v178, this[77].f32[1], v177 * *a2);
+    v60 = *(a2 + 48);
+    v60[v167] = v180 * this[77].f32[1];
+    v181 = *(a2 + 72);
+    *(*(a2 + 64) + 4 * v167) = -(this[77].f32[2] * *a2);
+    *(v181 + 4 * v167) = this[77].f32[2] * *a2;
+    _Q22 = v195;
+  }
+
+  if (v163)
+  {
+    v60[v167] = v60[v167] + ((v177 * *a2) * v164);
+    if ((this[20].i8[9] & 4) != 0)
+    {
+      *(*(a2 + 56) + 4 * v167) = this[18].i32[0];
+    }
+
+    v182 = -3.4028e38;
+    v183 = 0.0;
+    if (v165)
+    {
+      v184 = 0.0;
+    }
+
+    else
+    {
+      v184 = -3.4028e38;
+    }
+
+    if (v172 != v173)
+    {
+      v182 = v184;
+    }
+
+    if (v172 == v173 || v165)
+    {
+      v183 = 3.4028e38;
+    }
+
+    v185 = *(a2 + 72);
+    *(*(a2 + 64) + 4 * v167) = v182;
+    *(v185 + 4 * v167) = v183;
+    v186 = this[17].f32[3];
+    if ((1.0 - v186) < 0.0 || (1.0 - v186) > 0.0)
+    {
+      v188 = vmulq_f32(_Q22, *(this[2].i64[1] + 368));
+      v189 = vmulq_f32(_Q22, *(this[3].i64[0] + 368));
+      v190 = vsub_f32(vadd_f32(vpadd_f32(*v188.i8, *v188.i8), *&vextq_s8(v188, v188, 8uLL)), vadd_f32(vpadd_f32(*v189.i8, *v189.i8), *&vextq_s8(v189, v189, 8uLL))).f32[0];
+      v187 = v60[v167];
+      v191 = -(vabds_f32(1.0, v186) * v190);
+      if (v165)
+      {
+        if (v190 >= 0.0 || v191 <= v187)
+        {
+          goto LABEL_130;
+        }
+      }
+
+      else if (v190 <= 0.0 || v191 >= v187)
+      {
+        goto LABEL_130;
+      }
+
+      v60[v167] = v191;
+      v187 = v191;
+    }
+
+    else
+    {
+      v187 = v60[v167];
+    }
+
+LABEL_130:
+    v60[v167] = this[17].f32[1] * v187;
+  }
+}
+
+btSliderConstraint *btSliderConstraint::setParam(btSliderConstraint *this, int a2, float a3, unsigned int a4)
 {
   switch(a2)
   {
@@ -97,7 +3183,7 @@ btSliderConstraint *btSliderConstraint::setParam(btSliderConstraint *this, int a
   return this;
 }
 
-float btSliderConstraint::getParam(btSliderConstraint *this, int a2, int a3)
+float btSliderConstraint::getParam(btSliderConstraint *this, int a2, unsigned int a3)
 {
   switch(a2)
   {
@@ -435,7 +3521,7 @@ void btRigidBody::~btRigidBody(btRigidBody *this)
   *(this + 70) = 0;
   *(this + 548) = 0;
 
-  C3DSceneSourcePerformConsistencyCheck(this);
+  C3DSceneSourcePerformConsistencyCheck();
 }
 
 {
@@ -448,72 +3534,72 @@ void btTypedConstraint::getFixedBody()
 {
   if (__cxa_guard_acquire(_MergedGlobals_5))
   {
-    v0[0] = 0;
-    v0[1] = 0;
-    btRigidBody::btRigidBody(&unk_27CDDB2D0, 0, 0, v0, 0.0);
+    v0 = 0uLL;
+    btRigidBody::btRigidBody(&unk_27CDDB2D0, 0, 0, &v0, 0.0);
     __cxa_atexit(btRigidBody::~btRigidBody, &unk_27CDDB2D0, &dword_21BEF7000);
     __cxa_guard_release(_MergedGlobals_5);
   }
 }
 
-uint64_t btDiscreteDynamicsWorld::btDiscreteDynamicsWorld(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t btDiscreteDynamicsWorld::btDiscreteDynamicsWorld(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   btDynamicsWorld::btDynamicsWorld(a1, a2, a3);
-  v7 = 0;
-  *v8 = &unk_282DCAFA0;
-  *(v8 + 292) = 0;
-  *(v8 + 324) = 0;
-  *(v8 + 380) = 0;
-  *(v8 + 420) = 0;
-  *(v8 + 256) = 1;
-  *(v8 + 248) = 0;
-  *(v8 + 236) = 0;
-  *(v8 + 240) = 0;
-  *(v8 + 264) = 0;
-  *(v8 + 272) = a4;
-  *(v8 + 312) = 1;
-  *(v8 + 304) = 0;
-  *(v8 + 344) = 1;
-  *(v8 + 336) = 0;
-  *(v8 + 352) = xmmword_21C2A4690;
-  *(v8 + 368) = 0;
-  *(v8 + 374) = 0;
-  *(v8 + 400) = 1;
-  *(v8 + 392) = 0;
-  *(v8 + 408) = 0;
-  *(v8 + 440) = 1;
-  *(v8 + 432) = 0;
+  v8 = 0;
+  *v9 = &unk_282DCAFA0;
+  *(v9 + 292) = 0;
+  *(v9 + 324) = 0;
+  *(v9 + 380) = 0;
+  *(v9 + 420) = 0;
+  *(v9 + 256) = 1;
+  *(v9 + 248) = 0;
+  *(v9 + 236) = 0;
+  *(v9 + 240) = 0;
+  *(v9 + 264) = 0;
+  *(v9 + 272) = a4;
+  *(v9 + 312) = 1;
+  *(v9 + 304) = 0;
+  *(v9 + 344) = 1;
+  *(v9 + 336) = 0;
+  *(v9 + 352) = xmmword_21C2A4690;
+  *(v9 + 368) = 0;
+  *(v9 + 374) = 0;
+  *(v9 + 400) = 1;
+  *(v9 + 392) = 0;
+  *(v9 + 408) = 0;
+  *(v9 + 440) = 1;
+  *(v9 + 432) = 0;
   if (!a4)
   {
-    v9 = btAlignedAllocInternal(320, 16);
-    *(a1 + 272) = btSequentialImpulseConstraintSolver::btSequentialImpulseConstraintSolver(v9);
-    v7 = 1;
+    v10 = btAlignedAllocInternal(320, 16);
+    btSequentialImpulseConstraintSolver::btSequentialImpulseConstraintSolver(v10);
+    *(a1 + 272) = v11;
+    v8 = 1;
   }
 
-  *(a1 + 373) = v7;
-  v10 = btAlignedAllocInternal(112, 16);
-  btSimulationIslandManager::btSimulationIslandManager(v10);
-  *(a1 + 280) = v11;
+  *(a1 + 373) = v8;
+  v12 = btAlignedAllocInternal(112, 16);
+  btSimulationIslandManager::btSimulationIslandManager(v12);
+  *(a1 + 280) = v13;
   *(a1 + 372) = 1;
-  v12 = btAlignedAllocInternal(152, 16);
-  v13 = *(a1 + 272);
-  *v12 = &unk_282DCB248;
-  *(v12 + 8) = 0;
-  *(v12 + 16) = v13;
-  *(v12 + 24) = 0;
-  *(v12 + 32) = 0;
-  *(v12 + 40) = 0;
-  *(v12 + 48) = a2;
-  *(v12 + 80) = 1;
-  *(v12 + 72) = 0;
-  *(v12 + 60) = 0;
-  *(v12 + 112) = 1;
-  *(v12 + 104) = 0;
-  *(v12 + 92) = 0;
-  *(v12 + 144) = 1;
-  *(v12 + 136) = 0;
-  *(v12 + 124) = 0;
-  *(a1 + 264) = v12;
+  v14 = btAlignedAllocInternal(152, 16);
+  v15 = *(a1 + 272);
+  *v14 = &unk_282DCB248;
+  *(v14 + 8) = 0;
+  *(v14 + 16) = v15;
+  *(v14 + 24) = 0;
+  *(v14 + 32) = 0;
+  *(v14 + 40) = 0;
+  *(v14 + 48) = a2;
+  *(v14 + 80) = 1;
+  *(v14 + 72) = 0;
+  *(v14 + 60) = 0;
+  *(v14 + 112) = 1;
+  *(v14 + 104) = 0;
+  *(v14 + 92) = 0;
+  *(v14 + 144) = 1;
+  *(v14 + 136) = 0;
+  *(v14 + 124) = 0;
+  *(a1 + 264) = v14;
   return a1;
 }
 
@@ -615,15 +3701,15 @@ void btDiscreteDynamicsWorld::~btDiscreteDynamicsWorld(btDiscreteDynamicsWorld *
   btAlignedFreeInternal(v1);
 }
 
-void btDiscreteDynamicsWorld::saveKinematicState(btDiscreteDynamicsWorld *this, __n128 a2, uint64_t a3, uint64_t a4, uint64_t a5, float *a6)
+void btDiscreteDynamicsWorld::saveKinematicState(uint64_t this, __n128 a2, uint64_t a3, uint64_t a4, uint64_t a5, float *a6)
 {
-  v6 = *(this + 3);
+  v6 = *(this + 12);
   if (v6 >= 1)
   {
     v7 = a2.n128_u32[0];
     for (i = 0; i < v6; ++i)
     {
-      v10 = *(*(this + 3) + 8 * i);
+      v10 = *(*(this + 24) + 8 * i);
       if (v10)
       {
         v11 = (*(v10 + 264) & 2) == 0;
@@ -638,7 +3724,7 @@ void btDiscreteDynamicsWorld::saveKinematicState(btDiscreteDynamicsWorld *this, 
       {
         a2.n128_u32[0] = v7;
         a2 = btRigidBody::saveKinematicState(v10, a2, a3, a4, a5, a6);
-        v6 = *(this + 3);
+        v6 = *(this + 12);
       }
     }
   }
@@ -1271,19 +4357,19 @@ uint64_t btDiscreteDynamicsWorld::clearForces(uint64_t this)
   return this;
 }
 
-void btDiscreteDynamicsWorld::applyGravity(btDiscreteDynamicsWorld *this)
+void btDiscreteDynamicsWorld::applyGravity(uint64_t this)
 {
-  v1 = *(this + 81);
+  v1 = *(this + 324);
   if (v1 >= 1)
   {
     for (i = 0; i < v1; ++i)
     {
-      v4 = *(*(this + 42) + 8 * i);
+      v4 = *(*(this + 336) + 8 * i);
       v5 = *(v4 + 244);
       if (v5 != 2 && v5 != 5)
       {
         btRigidBody::applyGravity(v4);
-        v1 = *(this + 81);
+        v1 = *(this + 324);
       }
     }
   }
@@ -1295,7 +4381,7 @@ uint64_t btDiscreteDynamicsWorld::synchronizeSingleMotionState(uint64_t this, bt
   {
     if ((*(a2 + 232) & 3) == 0)
     {
-      btTransformUtil::integrateTransform(a2 + 5, (a2 + 144), a2 + 10, &v6, *(this + 368) * *(a2 + 70), a5);
+      btTransformUtil::integrateTransform((a2 + 80), (a2 + 144), a2 + 10, &v6, *(this + 368) * *(a2 + 70), a5);
       return (*(**(a2 + 67) + 24))(*(a2 + 67), &v6);
     }
   }
@@ -1632,7 +4718,7 @@ void btDiscreteDynamicsWorld::createPredictiveContacts(btDiscreteDynamicsWorld *
                 v47[4] = v49;
               }
 
-              C3DSceneSourcePerformConsistencyCheck(v61);
+              C3DSceneSourcePerformConsistencyCheck();
             }
           }
         }
@@ -1737,21 +4823,21 @@ btCollisionObject *btDiscreteDynamicsWorld::updateActivationState(btCollisionObj
   return this;
 }
 
-void btDiscreteDynamicsWorld::setGravity(btVector3 *this, float32x4_t *a2)
+void btDiscreteDynamicsWorld::setGravity(float32x4_t *this, float32x4_t *a2)
 {
   this[22] = *a2;
-  v2 = LODWORD(this[20].var0.var0[1]);
+  v2 = this[20].i32[1];
   if (v2 >= 1)
   {
     for (i = 0; i < v2; ++i)
     {
-      v6 = *(*this[21].var0.var0 + 8 * i);
+      v6 = *(this[21].i64[0] + 8 * i);
       v7 = *(v6 + 244);
       v8 = v7 == 2 || v7 == 5;
       if (!v8 && (*(v6 + 576) & 1) == 0)
       {
         btRigidBody::setGravity(v6, a2);
-        v2 = LODWORD(this[20].var0.var0[1]);
+        v2 = this[20].i32[1];
       }
     }
   }
@@ -1784,11 +4870,11 @@ uint64_t btDiscreteDynamicsWorld::removeRigidBody(btDiscreteDynamicsWorld *this,
   return btCollisionWorld::removeCollisionObject(this, v4);
 }
 
-void btDiscreteDynamicsWorld::addRigidBody(float32x4_t *this, btRigidBody *a2)
+void btDiscreteDynamicsWorld::addRigidBody(const btVector3 *this, btRigidBody *a2)
 {
   if ((*(a2 + 232) & 3) == 0 && (*(a2 + 576) & 1) == 0)
   {
-    btRigidBody::setGravity(a2, this + 22);
+    btRigidBody::setGravity(a2, &this[22]);
   }
 
   if (*(a2 + 26))
@@ -1800,8 +4886,8 @@ void btDiscreteDynamicsWorld::addRigidBody(float32x4_t *this, btRigidBody *a2)
 
     else
     {
-      v4 = this[20].i32[1];
-      if (v4 == this[20].i32[2])
+      v4 = LODWORD(this[20].var0.var0[1]);
+      if (v4 == LODWORD(this[20].var0.var0[2]))
       {
         v5 = v4 ? 2 * v4 : 1;
         if (v4 < v5)
@@ -1809,7 +4895,7 @@ void btDiscreteDynamicsWorld::addRigidBody(float32x4_t *this, btRigidBody *a2)
           if (v5)
           {
             v6 = btAlignedAllocInternal(8 * v5, 16);
-            v4 = this[20].i32[1];
+            v4 = LODWORD(this[20].var0.var0[1]);
           }
 
           else
@@ -1822,28 +4908,28 @@ void btDiscreteDynamicsWorld::addRigidBody(float32x4_t *this, btRigidBody *a2)
             v7 = 0;
             do
             {
-              *(v6 + v7) = *(this[21].i64[0] + v7);
+              *(v6 + v7) = *(*this[21].var0.var0 + v7);
               v7 += 8;
             }
 
             while (8 * v4 != v7);
           }
 
-          v8 = this[21].i64[0];
-          if (v8 && this[21].i8[8] == 1)
+          v8 = *this[21].var0.var0;
+          if (v8 && LOBYTE(this[21].var0.var0[2]) == 1)
           {
             btAlignedFreeInternal(v8);
-            v4 = this[20].i32[1];
+            v4 = LODWORD(this[20].var0.var0[1]);
           }
 
-          this[21].i8[8] = 1;
-          this[21].i64[0] = v6;
-          this[20].i32[2] = v5;
+          LOBYTE(this[21].var0.var0[2]) = 1;
+          *this[21].var0.var0 = v6;
+          LODWORD(this[20].var0.var0[2]) = v5;
         }
       }
 
-      *(this[21].i64[0] + 8 * v4) = a2;
-      this[20].i32[1] = v4 + 1;
+      *(*this[21].var0.var0 + 8 * v4) = a2;
+      LODWORD(this[20].var0.var0[1]) = v4 + 1;
     }
 
     if ((*(a2 + 58) & 3) != 0)
@@ -1866,17 +4952,17 @@ void btDiscreteDynamicsWorld::addRigidBody(float32x4_t *this, btRigidBody *a2)
       v10 = -1;
     }
 
-    v11 = *(this->i64[0] + 72);
+    v11 = *(*this->var0.var0 + 72);
 
     v11(this, a2, v9, v10, 0);
   }
 }
 
-void btDiscreteDynamicsWorld::addRigidBody(float32x4_t *this, btRigidBody *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void btDiscreteDynamicsWorld::addRigidBody(const btVector3 *this, btRigidBody *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if ((*(a2 + 232) & 3) == 0 && (*(a2 + 576) & 1) == 0)
   {
-    btRigidBody::setGravity(a2, this + 22);
+    btRigidBody::setGravity(a2, &this[22]);
   }
 
   if (*(a2 + 26))
@@ -1888,8 +4974,8 @@ void btDiscreteDynamicsWorld::addRigidBody(float32x4_t *this, btRigidBody *a2, u
 
     else
     {
-      v10 = this[20].i32[1];
-      if (v10 == this[20].i32[2])
+      v10 = LODWORD(this[20].var0.var0[1]);
+      if (v10 == LODWORD(this[20].var0.var0[2]))
       {
         v11 = v10 ? 2 * v10 : 1;
         if (v10 < v11)
@@ -1897,7 +4983,7 @@ void btDiscreteDynamicsWorld::addRigidBody(float32x4_t *this, btRigidBody *a2, u
           if (v11)
           {
             v12 = btAlignedAllocInternal(8 * v11, 16);
-            v10 = this[20].i32[1];
+            v10 = LODWORD(this[20].var0.var0[1]);
           }
 
           else
@@ -1910,31 +4996,31 @@ void btDiscreteDynamicsWorld::addRigidBody(float32x4_t *this, btRigidBody *a2, u
             v13 = 0;
             do
             {
-              *(v12 + v13) = *(this[21].i64[0] + v13);
+              *(v12 + v13) = *(*this[21].var0.var0 + v13);
               v13 += 8;
             }
 
             while (8 * v10 != v13);
           }
 
-          v14 = this[21].i64[0];
-          if (v14 && this[21].i8[8] == 1)
+          v14 = *this[21].var0.var0;
+          if (v14 && LOBYTE(this[21].var0.var0[2]) == 1)
           {
             btAlignedFreeInternal(v14);
-            v10 = this[20].i32[1];
+            v10 = LODWORD(this[20].var0.var0[1]);
           }
 
-          this[21].i8[8] = 1;
-          this[21].i64[0] = v12;
-          this[20].i32[2] = v11;
+          LOBYTE(this[21].var0.var0[2]) = 1;
+          *this[21].var0.var0 = v12;
+          LODWORD(this[20].var0.var0[2]) = v11;
         }
       }
 
-      *(this[21].i64[0] + 8 * v10) = a2;
-      this[20].i32[1] = v10 + 1;
+      *(*this[21].var0.var0 + 8 * v10) = a2;
+      LODWORD(this[20].var0.var0[1]) = v10 + 1;
     }
 
-    v15 = *(this->i64[0] + 72);
+    v15 = *(*this->var0.var0 + 72);
 
     v15(this, a2, a3, a4, a5);
   }
@@ -1960,10 +5046,10 @@ btCollisionObject *btDiscreteDynamicsWorld::activateAllBodies(btCollisionObject 
   return this;
 }
 
-void btDiscreteDynamicsWorld::addConstraint(btDiscreteDynamicsWorld *this, btRigidBody **a2, int a3)
+void btDiscreteDynamicsWorld::addConstraint(_DWORD *this, btRigidBody **a2, int a3)
 {
-  v6 = *(this + 73);
-  if (v6 == *(this + 74))
+  v6 = this[73];
+  if (v6 == this[74])
   {
     v7 = v6 ? 2 * v6 : 1;
     if (v6 < v7)
@@ -1971,7 +5057,7 @@ void btDiscreteDynamicsWorld::addConstraint(btDiscreteDynamicsWorld *this, btRig
       if (v7)
       {
         v8 = btAlignedAllocInternal(8 * v7, 16);
-        v6 = *(this + 73);
+        v6 = this[73];
       }
 
       else
@@ -1995,17 +5081,17 @@ void btDiscreteDynamicsWorld::addConstraint(btDiscreteDynamicsWorld *this, btRig
       if (v10 && *(this + 312) == 1)
       {
         btAlignedFreeInternal(v10);
-        v6 = *(this + 73);
+        v6 = this[73];
       }
 
       *(this + 312) = 1;
       *(this + 38) = v8;
-      *(this + 74) = v7;
+      this[74] = v7;
     }
   }
 
   *(*(this + 38) + 8 * v6) = a2;
-  *(this + 73) = v6 + 1;
+  this[73] = v6 + 1;
   if (a3)
   {
     btRigidBody::addConstraintRef(a2[5], a2);
@@ -2023,10 +5109,10 @@ uint64_t btDiscreteDynamicsWorld::removeConstraint(btDiscreteDynamicsWorld *this
   return btRigidBody::removeConstraintRef(*(v3 + 6), v3);
 }
 
-void btDiscreteDynamicsWorld::addAction(uint64_t a1, uint64_t a2)
+void btDiscreteDynamicsWorld::addAction(_DWORD *result, uint64_t a2)
 {
-  v4 = *(a1 + 380);
-  if (v4 == *(a1 + 384))
+  v4 = result[95];
+  if (v4 == result[96])
   {
     v5 = v4 ? 2 * v4 : 1;
     if (v4 < v5)
@@ -2034,7 +5120,7 @@ void btDiscreteDynamicsWorld::addAction(uint64_t a1, uint64_t a2)
       if (v5)
       {
         v6 = btAlignedAllocInternal(8 * v5, 16);
-        v4 = *(a1 + 380);
+        v4 = result[95];
       }
 
       else
@@ -2047,28 +5133,28 @@ void btDiscreteDynamicsWorld::addAction(uint64_t a1, uint64_t a2)
         v7 = 0;
         do
         {
-          *(v6 + v7) = *(*(a1 + 392) + v7);
+          *(v6 + v7) = *(*(result + 49) + v7);
           v7 += 8;
         }
 
         while (8 * v4 != v7);
       }
 
-      v8 = *(a1 + 392);
-      if (v8 && *(a1 + 400) == 1)
+      v8 = *(result + 49);
+      if (v8 && *(result + 400) == 1)
       {
         btAlignedFreeInternal(v8);
-        v4 = *(a1 + 380);
+        v4 = result[95];
       }
 
-      *(a1 + 400) = 1;
-      *(a1 + 392) = v6;
-      *(a1 + 384) = v5;
+      *(result + 400) = 1;
+      *(result + 49) = v6;
+      result[96] = v5;
     }
   }
 
-  *(*(a1 + 392) + 8 * v4) = a2;
-  *(a1 + 380) = v4 + 1;
+  *(*(result + 49) + 8 * v4) = a2;
+  result[95] = v4 + 1;
 }
 
 uint64_t btDiscreteDynamicsWorld::solveConstraints(uint64_t a1, uint64_t a2)
@@ -2477,7 +5563,7 @@ void btDiscreteDynamicsWorld::integrateTransforms(btDiscreteDynamicsWorld *this,
       btRigidBody::predictIntegratedTransform(v9, v23 * a2, &v43, v20, v21, v22);
       *(v9 + 280) = 0;
       btRigidBody::proceedToTransform(v9, &v43);
-      C3DSceneSourcePerformConsistencyCheck(v44);
+      C3DSceneSourcePerformConsistencyCheck();
 LABEL_16:
       if (++v8 >= *(this + 81))
       {
@@ -2485,7 +5571,7 @@ LABEL_16:
       }
     }
 
-    C3DSceneSourcePerformConsistencyCheck(v44);
+    C3DSceneSourcePerformConsistencyCheck();
 LABEL_15:
     btRigidBody::proceedToTransform(v9, &v43);
     goto LABEL_16;
@@ -2563,34 +5649,34 @@ LABEL_17:
   }
 }
 
-void btDiscreteDynamicsWorld::predictUnconstraintMotion(btDiscreteDynamicsWorld *this, float a2)
+void btDiscreteDynamicsWorld::predictUnconstraintMotion(uint64_t this, float a2)
 {
-  v2 = *(this + 81);
+  v2 = *(this + 324);
   if (v2 >= 1)
   {
     for (i = 0; i < v2; ++i)
     {
-      v6 = *(*(this + 42) + 8 * i);
+      v6 = *(*(this + 336) + 8 * i);
       if ((*(v6 + 232) & 3) == 0)
       {
-        btRigidBody::applyDamping(*(*(this + 42) + 8 * i), a2);
+        btRigidBody::applyDamping(*(*(this + 336) + 8 * i), a2);
         btRigidBody::predictIntegratedTransform(v6, a2, (v6 + 80), v7, v8, v9);
-        v2 = *(this + 81);
+        v2 = *(this + 324);
       }
     }
   }
 }
 
-void btDiscreteDynamicsWorld::setConstraintSolver(void ***this, void **a2)
+void btDiscreteDynamicsWorld::setConstraintSolver(uint64_t this, btConstraintSolver *a2)
 {
   if (*(this + 373) == 1)
   {
-    btAlignedFreeInternal(this[34]);
+    btAlignedFreeInternal(*(this + 272));
   }
 
   *(this + 373) = 0;
-  this[34] = a2;
-  this[33][2] = a2;
+  *(this + 272) = a2;
+  *(*(this + 264) + 16) = a2;
 }
 
 uint64_t btDiscreteDynamicsWorld::getConstraint(btDiscreteDynamicsWorld *this, int a2)
@@ -2774,14 +5860,14 @@ void InplaceSolverIslandCallback::~InplaceSolverIslandCallback(InplaceSolverIsla
   JUMPOUT(0x21CF07610);
 }
 
-void InplaceSolverIslandCallback::processIsland(InplaceSolverIslandCallback *this, btCollisionObject **a2, int a3, btPersistentManifold **a4, int a5, int a6)
+void InplaceSolverIslandCallback::processIsland(unsigned int *this, btCollisionObject **a2, unsigned int a3, btPersistentManifold **a4, unsigned int a5, int a6)
 {
   if (a6 < 0)
   {
     goto LABEL_21;
   }
 
-  v10 = *(this + 8);
+  v10 = this[8];
   if (v10 < 1)
   {
     LODWORD(v11) = 0;
@@ -2856,8 +5942,8 @@ LABEL_21:
   {
     v17 = 0;
     v18 = a3;
-    v20 = *(this + 15);
-    v19 = *(this + 16);
+    v20 = this[15];
+    v19 = this[16];
     do
     {
       if (v20 == v19)
@@ -2877,7 +5963,7 @@ LABEL_21:
           if (v21)
           {
             v22 = btAlignedAllocInternal(8 * v21, 16);
-            LODWORD(v19) = *(this + 15);
+            LODWORD(v19) = this[15];
           }
 
           else
@@ -2901,13 +5987,13 @@ LABEL_21:
           if (v24 && *(this + 80) == 1)
           {
             btAlignedFreeInternal(v24);
-            LODWORD(v19) = *(this + 15);
+            LODWORD(v19) = this[15];
           }
 
           *(this + 80) = 1;
           *(this + 9) = v22;
           v20 = v19;
-          *(this + 16) = v21;
+          this[16] = v21;
           goto LABEL_42;
         }
 
@@ -2917,7 +6003,7 @@ LABEL_21:
       v21 = v19;
 LABEL_42:
       *(*(this + 9) + 8 * v20++) = a2[v17];
-      *(this + 15) = v20;
+      this[15] = v20;
       ++v17;
       v19 = v21;
     }
@@ -2929,8 +6015,8 @@ LABEL_42:
   {
     v25 = 0;
     v26 = a5;
-    v28 = *(this + 23);
-    v27 = *(this + 24);
+    v28 = this[23];
+    v27 = this[24];
     do
     {
       if (v28 == v27)
@@ -2950,7 +6036,7 @@ LABEL_42:
           if (v29)
           {
             v30 = btAlignedAllocInternal(8 * v29, 16);
-            LODWORD(v27) = *(this + 23);
+            LODWORD(v27) = this[23];
           }
 
           else
@@ -2974,13 +6060,13 @@ LABEL_42:
           if (v32 && *(this + 112) == 1)
           {
             btAlignedFreeInternal(v32);
-            LODWORD(v27) = *(this + 23);
+            LODWORD(v27) = this[23];
           }
 
           *(this + 112) = 1;
           *(this + 13) = v30;
           v28 = v27;
-          *(this + 24) = v29;
+          this[24] = v29;
           goto LABEL_62;
         }
 
@@ -2990,7 +6076,7 @@ LABEL_42:
       v29 = v27;
 LABEL_62:
       *(*(this + 13) + 8 * v28++) = a4[v25];
-      *(this + 23) = v28;
+      this[23] = v28;
       ++v25;
       v27 = v29;
     }
@@ -3001,8 +6087,8 @@ LABEL_62:
   if (v14 > 0)
   {
     v33 = 0;
-    v35 = *(this + 31);
-    v34 = *(this + 32);
+    v35 = this[31];
+    v34 = this[32];
     while (1)
     {
       if (v35 == v34)
@@ -3022,7 +6108,7 @@ LABEL_62:
           if (v36)
           {
             v37 = btAlignedAllocInternal(8 * v36, 16);
-            LODWORD(v34) = *(this + 31);
+            LODWORD(v34) = this[31];
           }
 
           else
@@ -3046,13 +6132,13 @@ LABEL_62:
           if (v39 && *(this + 144) == 1)
           {
             btAlignedFreeInternal(v39);
-            LODWORD(v34) = *(this + 31);
+            LODWORD(v34) = this[31];
           }
 
           *(this + 144) = 1;
           *(this + 17) = v37;
           v35 = v34;
-          *(this + 32) = v36;
+          this[32] = v36;
           goto LABEL_82;
         }
 
@@ -3062,7 +6148,7 @@ LABEL_62:
       v36 = v34;
 LABEL_82:
       *(*(this + 17) + 8 * v35++) = *(v12 + 8 * v33);
-      *(this + 31) = v35;
+      this[31] = v35;
       ++v33;
       v34 = v36;
       if (v33 == v14)
@@ -3072,9 +6158,9 @@ LABEL_82:
     }
   }
 
-  v35 = *(this + 31);
+  v35 = this[31];
 LABEL_85:
-  if (*(this + 23) + v35 > *(*(this + 1) + 72))
+  if ((this[23] + v35) > *(*(this + 1) + 72))
   {
 
     InplaceSolverIslandCallback::processConstraints(this);
@@ -3127,7 +6213,7 @@ float btClosestNotMeConvexResultCallback::addSingleResult(uint64_t a1, uint64_t 
   return result;
 }
 
-uint64_t btAlignedObjectArray<btTypedConstraint *>::quickSortInternal<btSortConstraintOnIslandPredicate>(uint64_t a1, uint64_t a2, int a3, int a4)
+uint64_t btAlignedObjectArray<btTypedConstraint *>::quickSortInternal<btSortConstraintOnIslandPredicate>(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
 {
   do
   {
@@ -3159,7 +6245,7 @@ uint64_t btAlignedObjectArray<btTypedConstraint *>::quickSortInternal<btSortCons
 
       while (v16 < v14);
       v17 = v11 + 8 * v13;
-      a3 = v13 - 1;
+      a3 = (v13 - 1);
       v18 = v10 + 1;
       v19 = (v11 + 8 * v10);
       do
@@ -3199,7 +6285,7 @@ uint64_t btAlignedObjectArray<btTypedConstraint *>::quickSortInternal<btSortCons
     while (a3 <= v10);
     if (v10 > v8)
     {
-      result = btAlignedObjectArray<btTypedConstraint *>::quickSortInternal<btSortConstraintOnIslandPredicate>(a1, a2);
+      result = btAlignedObjectArray<btTypedConstraint *>::quickSortInternal<btSortConstraintOnIslandPredicate>(a1, a2, v8, v10);
     }
   }
 
@@ -3375,7 +6461,7 @@ float32x4_t btRigidBody::updateInertiaTensor(btRigidBody *this)
   v6.i32[3] = 0;
   v7 = vmulq_f32(v1, v4);
   *v8.f32 = vzip2_s32(*v2.f32, *v3.f32);
-  v8.i64[1] = vdup_lane_s32(*v4.f32, 1).u32[0];
+  v8.i64[1] = vdup_lane_s32(*v4.i8, 1).u32[0];
   v5.i64[1] = v4.u32[0];
   v9 = vmulq_f32(v1, v3);
   result = vmulq_f32(v2, v1);
@@ -3397,7 +6483,7 @@ __n128 btRigidBody::saveKinematicState(btRigidBody *this, __n128 result, uint64_
     v12 = *(this + 67);
     if (v12)
     {
-      (*(*v12 + 16))(v12, this + 16);
+      (*(*v12 + 16))(v12, this + 16, a4, a5, a6);
     }
 
     v13 = vmulq_n_f32(vsubq_f32(*(this + 4), *(this + 8)), 1.0 / v10);
@@ -3548,28 +6634,28 @@ double btRigidBody::setCenterOfMassTransform(btRigidBody *this, const btTransfor
   return result;
 }
 
-btRigidBody *btRigidBody::computeGyroscopicForce@<X0>(btRigidBody *this@<X0>, float a2@<S0>, float32x4_t *a3@<X8>, float32x4_t _Q2@<Q2>)
+float *btRigidBody::computeGyroscopicForce@<X0>(float32x4_t *__return_ptr a1@<X8>, float *this@<X0>, float a3@<S0>, float32x4_t _Q2@<Q2>)
 {
   __asm { FMOV            V2.2S, #1.0 }
 
-  *_Q2.f32 = vdiv_f32(*_Q2.f32, *(this + 448));
-  _Q2.f32[2] = 1.0 / *(this + 114);
-  v8 = *(this + 1);
-  v9 = *(this + 2);
-  v10 = *(this + 3);
+  *_Q2.f32 = vdiv_f32(*_Q2.f32, *(this + 112));
+  _Q2.f32[2] = 1.0 / this[114];
+  v8 = *(this + 4);
+  v9 = *(this + 8);
+  v10 = *(this + 12);
   v11 = vmulq_f32(_Q2, v9);
   v12 = vtrn1q_s32(v8, v9);
   *v9.f32 = vzip2_s32(*v8.f32, *v9.f32);
   v13 = vmulq_f32(_Q2, v10);
   v14 = vzip2q_s64(v12, v10);
-  v9.i64[1] = vdup_lane_s32(*v10.f32, 1).u32[0];
+  v9.i64[1] = vdup_lane_s32(*v10.i8, 1).u32[0];
   v14.i32[3] = 0;
   v12.i64[1] = v10.u32[0];
   v15 = vmulq_f32(v8, _Q2);
   v16 = vmulq_n_f32(v12, v11.f32[0]);
   v17 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v12, v15.f32[0]), v9, *v15.f32, 1), v14, v15, 2);
   v18 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v12, v13.f32[0]), v9, *v13.f32, 1), v14, v13, 2);
-  v19 = *(this + 23);
+  v19 = *(this + 92);
   v20 = vmulq_f32(v17, v19);
   v21 = vmulq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(v16, v9, *v11.f32, 1), v14, v11, 2), v19);
   v22 = vmulq_f32(v18, v19);
@@ -3584,12 +6670,12 @@ btRigidBody *btRigidBody::computeGyroscopicForce@<X0>(btRigidBody *this@<X0>, fl
   v24.i32[3] = 0;
   v25 = vmulq_f32(v24, v24);
   v26 = vadd_f32(vpadd_f32(*v25.i8, *v25.i8), *&vextq_s8(v25, v25, 8uLL)).f32[0];
-  if (v26 > (a2 * a2))
+  if (v26 > (a3 * a3))
   {
-    v24 = vmulq_n_f32(v24, (1.0 / sqrtf(v26)) * a2);
+    v24 = vmulq_n_f32(v24, (1.0 / sqrtf(v26)) * a3);
   }
 
-  *a3 = v24;
+  *a1 = v24;
   return this;
 }
 
@@ -3892,7 +6978,7 @@ void btRaycastVehicle::~btRaycastVehicle(btRaycastVehicle *this)
   JUMPOUT(0x21CF07610);
 }
 
-uint64_t btRaycastVehicle::addWheel(uint64_t a1, __int128 *a2, __int128 *a3, __int128 *a4, __int128 *a5, char a6, float a7, float a8)
+btWheelInfo *btRaycastVehicle::addWheel(uint64_t a1, __int128 *a2, __int128 *a3, __int128 *a4, __int128 *a5, char a6, float a7, float a8)
 {
   v12 = *a2;
   v13 = *a3;
@@ -4332,21 +7418,21 @@ uint64_t btRaycastVehicle::updateVehicle(float32x4_t **this, __n128 a2, float32x
   return result;
 }
 
-void btRaycastVehicle::updateSuspension(btRaycastVehicle *this, float a2)
+void btRaycastVehicle::updateSuspension(uint64_t this, float a2)
 {
-  v2 = *(this + 51);
+  v2 = *(this + 204);
   if (v2 >= 1)
   {
     v4 = 0;
     v5 = 0;
-    v6 = 1.0 / *(*(this + 22) + 384);
+    v6 = 1.0 / *(*(this + 176) + 384);
     do
     {
-      v7 = *(this + 27) + v4;
+      v7 = *(this + 216) + v4;
       v8 = 0.0;
       if (*(v7 + 96) == 1)
       {
-        v9 = *(v7 + 236) * (btWheelInfo::getSuspensionRestLength((*(this + 27) + v4)) - *(v7 + 32));
+        v9 = *(v7 + 236) * (btWheelInfo::getSuspensionRestLength((*(this + 216) + v4)) - *(v7 + 32));
         v10 = *(v7 + 300);
         if (v10 >= 0.0)
         {
@@ -4364,7 +7450,7 @@ void btRaycastVehicle::updateSuspension(btRaycastVehicle *this, float a2)
           v8 = 0.0;
         }
 
-        v2 = *(this + 51);
+        v2 = *(this + 204);
       }
 
       *(v7 + 304) = v8;
@@ -4907,9 +7993,8 @@ void btActionInterface::getFixedBody()
 {
   if (__cxa_guard_acquire(_MergedGlobals_6))
   {
-    v0[0] = 0;
-    v0[1] = 0;
-    btRigidBody::btRigidBody(&unk_27CDDB5A0, 0, 0, v0, 0.0);
+    v0 = 0uLL;
+    btRigidBody::btRigidBody(&unk_27CDDB5A0, 0, 0, &v0, 0.0);
     __cxa_atexit(btRigidBody::~btRigidBody, &unk_27CDDB5A0, &dword_21BEF7000);
     __cxa_guard_release(_MergedGlobals_6);
   }
@@ -5167,15 +8252,16 @@ uint64_t HullLibrary::extrudable(HullLibrary *this, float a2)
   return result;
 }
 
-unint64_t HullLibrary::FindSimplex(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
+unint64_t HullLibrary::FindSimplex(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
+  v5 = a3;
   v39 = *MEMORY[0x277D85DE8];
   v36 = xmmword_21C2A4720;
   v7 = maxdirsterid<btVector3>(a2, a3, &v36, a4);
   v8.i64[0] = 0x8000000080000000;
   v8.i64[1] = 0x8000000080000000;
   v35 = veorq_s8(v36, v8);
-  v9 = maxdirsterid<btVector3>(a2, a3, &v35, a4);
+  v9 = maxdirsterid<btVector3>(a2, v5, &v35, a4);
   v10 = vsubq_f32(*(a2 + 16 * v7), *(a2 + 16 * v9));
   v10.i32[3] = 0;
   v36 = v10;
@@ -5206,13 +8292,13 @@ LABEL_6:
   v25.f32[0] = sqrtf(v25.f32[0]);
   v37 = vmulq_n_f32(vbslq_s8(vdupq_lane_s32(*&vcgtq_f32(v22, v25), 0), v18, v20), 1.0 / fmaxf(v22.f32[0], v25.f32[0]));
   v38 = v20;
-  v26 = maxdirsterid<btVector3>(a2, a3, &v37, a4);
+  v26 = maxdirsterid<btVector3>(a2, v5, &v37, a4);
   if (v26 == v7 || (v27 = v26, v26 == v11))
   {
     v28.i64[0] = 0x8000000080000000;
     v28.i64[1] = 0x8000000080000000;
     v35 = veorq_s8(v37, v28);
-    v27 = maxdirsterid<btVector3>(a2, a3, &v35, a4);
+    v27 = maxdirsterid<btVector3>(a2, v5, &v35, a4);
   }
 
   v13 = -1;
@@ -5235,13 +8321,13 @@ LABEL_6:
   v32 = vmulq_f32(v31, v31);
   v37 = v29;
   v38 = vmulq_n_f32(v31, 1.0 / sqrtf(vadd_f32(*&vextq_s8(v32, v32, 8uLL), vpadd_f32(*v32.i8, *v32.i8)).f32[0]));
-  v33 = maxdirsterid<btVector3>(a2, a3, &v38, a4);
+  v33 = maxdirsterid<btVector3>(a2, v5, &v38, a4);
   if (v33 == v27 || v33 == v7 || v33 == v11)
   {
     v34.i64[0] = 0x8000000080000000;
     v34.i64[1] = 0x8000000080000000;
     v35 = veorq_s8(v38, v34);
-    v33 = maxdirsterid<btVector3>(a2, a3, &v35, a4);
+    v33 = maxdirsterid<btVector3>(a2, v5, &v35, a4);
   }
 
   v13 = -1;
@@ -5260,7 +8346,7 @@ LABEL_6:
   return v13 | (v14 << 32);
 }
 
-uint64_t maxdirsterid<btVector3>(uint64_t a1, int a2, int8x16_t *a3, uint64_t a4)
+uint64_t maxdirsterid<btVector3>(uint64_t a1, int a2, float32x4_t *a3, uint64_t a4)
 {
   v7 = *(a4 + 16);
   v8 = xmmword_21C27F8C0;
@@ -6904,2920 +9990,4 @@ LABEL_100:
   a6[7].var0.var0[2] = v93;
   *a5 = 8;
   return v8 != 0;
-}
-
-void HullLibrary::BringOutYourDead(HullLibrary *this, const btVector3 *a2, unsigned int a3, btVector3 *a4, unsigned int *a5, unsigned int *a6, int a7)
-{
-  v14 = *(this + 9);
-  if (v14 < 1)
-  {
-    v16 = 0;
-  }
-
-  else
-  {
-    v15 = 4 * v14;
-    v16 = btAlignedAllocInternal(4 * v14, 16);
-    bzero(v16, v15);
-    if (*(this + 9) >= 1)
-    {
-      v17 = 0;
-      v18 = *(this + 6);
-      do
-      {
-        *(v16 + v17) = *(v18 + 4 * v17);
-        ++v17;
-      }
-
-      while (v17 < *(this + 9));
-    }
-  }
-
-  if (a3 < 1)
-  {
-    v19 = 0;
-  }
-
-  else
-  {
-    v19 = btAlignedAllocInternal(4 * a3, 16);
-    bzero(v19, 4 * a3);
-  }
-
-  bzero(v19, 4 * a3);
-  *a5 = 0;
-  if (a7 < 1)
-  {
-    if (!v19)
-    {
-      goto LABEL_24;
-    }
-  }
-
-  else
-  {
-    v20 = 0;
-    do
-    {
-      v21 = a6[v20];
-      v22 = *(v19 + v21);
-      if (v22)
-      {
-        a6[v20] = v22 - 1;
-      }
-
-      else
-      {
-        v23 = *a5;
-        a6[v20] = v23;
-        v24 = &a2[v21];
-        v25 = &a4[v23];
-        v25->var0.var0[0] = v24->var0.var0[0];
-        v25->var0.var0[1] = v24->var0.var0[1];
-        v25->var0.var0[2] = v24->var0.var0[2];
-        v26 = *(this + 9);
-        if (v26 >= 1)
-        {
-          for (i = 0; i < v26; ++i)
-          {
-            if (*(v16 + i) == v21)
-            {
-              *(*(this + 6) + 4 * i) = v23;
-              v26 = *(this + 9);
-            }
-          }
-        }
-
-        v28 = v23 + 1;
-        *a5 = v28;
-        *(v19 + v21) = v28;
-      }
-
-      ++v20;
-    }
-
-    while (v20 != a7);
-  }
-
-  btAlignedFreeInternal(v19);
-LABEL_24:
-  if (v16)
-  {
-
-    btAlignedFreeInternal(v16);
-  }
-}
-
-uint64_t HullLibrary::ReleaseResult(uint64_t a1, uint64_t a2)
-{
-  if (*(a2 + 12))
-  {
-    *(a2 + 4) = 0;
-    v3 = *(a2 + 24);
-    if (v3 && *(a2 + 32) == 1)
-    {
-      btAlignedFreeInternal(v3);
-    }
-
-    *(a2 + 32) = 1;
-    *(a2 + 24) = 0;
-    *(a2 + 12) = 0;
-    *(a2 + 16) = 0;
-  }
-
-  if (*(a2 + 52))
-  {
-    *(a2 + 44) = 0;
-    v4 = *(a2 + 64);
-    if (v4 && *(a2 + 72) == 1)
-    {
-      btAlignedFreeInternal(v4);
-    }
-
-    *(a2 + 72) = 1;
-    *(a2 + 64) = 0;
-    *(a2 + 52) = 0;
-    *(a2 + 56) = 0;
-  }
-
-  return 0;
-}
-
-unint64_t btConvexHullInternal::Int128::operator*(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a1 + 8);
-  if (v2 >= 0)
-  {
-    v3 = *a1;
-  }
-
-  else
-  {
-    v3 = -*a1;
-  }
-
-  if (a2 >= 0)
-  {
-    v4 = a2;
-  }
-
-  else
-  {
-    v4 = -a2;
-  }
-
-  v5 = v2 ^ a2;
-  result = btConvexHullInternal::Int128::mul(v3, v4);
-  if (v5 < 0)
-  {
-    return -result;
-  }
-
-  return result;
-}
-
-unint64_t btConvexHullInternal::Int128::mul(uint64_t this, uint64_t a2)
-{
-  if (this >= 0)
-  {
-    v2 = this;
-  }
-
-  else
-  {
-    v2 = -this;
-  }
-
-  if (a2 >= 0)
-  {
-    v3 = a2;
-  }
-
-  else
-  {
-    v3 = -a2;
-  }
-
-  if ((a2 ^ this) >= 0)
-  {
-    return v3 * v2 + (((HIDWORD(v3) * v2) + (v3 * HIDWORD(v2))) << 32);
-  }
-
-  else
-  {
-    return -(v3 * v2 + (((HIDWORD(v3) * v2) + (v3 * HIDWORD(v2))) << 32));
-  }
-}
-
-uint64_t btConvexHullInternal::Rational64::compare(uint64_t a1, uint64_t a2)
-{
-  v3 = *(a1 + 16);
-  v4 = *(a2 + 16);
-  result = (v3 - v4);
-  if (v3 == v4)
-  {
-    if (v3)
-    {
-      v7 = btConvexHullInternal::Int128::mul(*a1, *(a2 + 8));
-      v9 = v8;
-      v10 = btConvexHullInternal::Int128::mul(*(a1 + 8), *a2);
-      if (v7 >= v10)
-      {
-        v12 = v7 > v10;
-      }
-
-      else
-      {
-        v12 = -1;
-      }
-
-      if (v9 <= v11)
-      {
-        v13 = v12;
-      }
-
-      else
-      {
-        v13 = 1;
-      }
-
-      if (v9 >= v11)
-      {
-        v14 = v13;
-      }
-
-      else
-      {
-        v14 = -1;
-      }
-
-      return (v14 * v3);
-    }
-
-    else
-    {
-      return 0;
-    }
-  }
-
-  return result;
-}
-
-uint64_t btConvexHullInternal::Rational128::compare(btConvexHullInternal::Rational128 *this, const btConvexHullInternal::Rational128 *a2)
-{
-  v4 = *(this + 8);
-  v5 = *(a2 + 8);
-  if (v4 != v5)
-  {
-    return (v4 - v5);
-  }
-
-  if (!v4)
-  {
-    return 0;
-  }
-
-  v18 = v2;
-  v19 = v3;
-  if (*(this + 36) == 1)
-  {
-    return -btConvexHullInternal::Rational128::compare(a2, *this * v4);
-  }
-
-  btConvexHullInternal::DMul<btConvexHullInternal::Int128,unsigned long long>::mul(*this, *(this + 1), *(a2 + 2), *(a2 + 3), &v16, &v14);
-  btConvexHullInternal::DMul<btConvexHullInternal::Int128,unsigned long long>::mul(*(this + 2), *(this + 3), *a2, *(a2 + 1), &v12, &v10);
-  if (v15 < v11)
-  {
-    goto LABEL_8;
-  }
-
-  if (v15 > v11)
-  {
-LABEL_10:
-    v9 = 1;
-    return (*(this + 8) * v9);
-  }
-
-  if (v14 >= v10)
-  {
-    if (v14 > v10)
-    {
-      goto LABEL_10;
-    }
-
-    if (v17 >= v13)
-    {
-      if (v17 <= v13)
-      {
-        v9 = v16 > v12;
-        if (v16 < v12)
-        {
-          v9 = -1;
-        }
-
-        return (*(this + 8) * v9);
-      }
-
-      goto LABEL_10;
-    }
-  }
-
-LABEL_8:
-  v9 = -1;
-  return (*(this + 8) * v9);
-}
-
-uint64_t btConvexHullInternal::Rational128::compare(btConvexHullInternal::Rational128 *this, uint64_t a2)
-{
-  if (*(this + 36) == 1)
-  {
-    v3 = *this * *(this + 8);
-    v4 = v3 <= a2;
-    if (v3 >= a2)
-    {
-      v5 = 0;
-    }
-
-    else
-    {
-      v5 = -1;
-    }
-
-    if (v4)
-    {
-      return v5;
-    }
-
-    else
-    {
-      return 1;
-    }
-  }
-
-  else
-  {
-    if (a2 < 1)
-    {
-      v6 = *(this + 8);
-      if ((a2 & 0x8000000000000000) == 0)
-      {
-        return v6;
-      }
-
-      if ((v6 & 0x80000000) == 0)
-      {
-        return 1;
-      }
-
-      a2 = -a2;
-    }
-
-    else
-    {
-      LODWORD(v6) = *(this + 8);
-      if (v6 < 1)
-      {
-        return 0xFFFFFFFFLL;
-      }
-    }
-
-    v7 = btConvexHullInternal::Int128::operator*(this + 16, a2);
-    v9 = *(this + 1);
-    if (v9 >= v8)
-    {
-      if (v9 > v8)
-      {
-        v10 = 1;
-      }
-
-      else
-      {
-        v10 = *this > v7;
-        if (*this < v7)
-        {
-          v10 = -1;
-        }
-      }
-    }
-
-    else
-    {
-      v10 = -1;
-    }
-
-    return (v6 * v10);
-  }
-}
-
-unint64_t btConvexHullInternal::DMul<btConvexHullInternal::Int128,unsigned long long>::mul(btConvexHullInternal::Int128 *a1, btConvexHullInternal::Int128 *a2, uint64_t a3, uint64_t a4, unint64_t *a5, void *a6)
-{
-  v12 = btConvexHullInternal::Int128::mul(a1, a3);
-  v14 = v13;
-  v15 = btConvexHullInternal::Int128::mul(a1, a4);
-  v17 = v16;
-  v18 = btConvexHullInternal::Int128::mul(a2, a3);
-  v20 = v19;
-  result = btConvexHullInternal::Int128::mul(a2, a4);
-  v23 = result + v17;
-  v24 = __CFADD__(result, v17);
-  v25 = __CFADD__(__CFADD__(v18, v15), v23);
-  v26 = __CFADD__(v18, v15) + v23;
-  v25 |= __CFADD__(v20, v26);
-  v26 += v20;
-  v27 = v24 + v25 + v22;
-  v28 = v26 == -1;
-  v29 = __CFADD__(v18 + v15, v14);
-  if (__CFADD__(v18 + v15, v14))
-  {
-    ++v26;
-  }
-
-  *a5 = v12;
-  a5[1] = v18 + v15 + v14;
-  *a6 = v26;
-  a6[1] = v27 + (v29 & v28);
-  return result;
-}
-
-uint64_t btConvexHullInternal::newEdgePair(_DWORD *a1, uint64_t a2, uint64_t a3)
-{
-  btConvexHullInternal::Pool<btConvexHullInternal::Edge>::newObject((a1 + 16));
-  v7 = v6;
-  btConvexHullInternal::Pool<btConvexHullInternal::Edge>::newObject((a1 + 16));
-  v8 = a1[40];
-  *(v7 + 40) = v8;
-  *(v9 + 40) = v8;
-  *(v7 + 16) = v9;
-  *(v7 + 24) = a3;
-  *(v9 + 16) = v7;
-  *(v9 + 24) = a2;
-  *(v7 + 32) = 0;
-  *(v9 + 32) = 0;
-  v10 = a1[44];
-  v11 = a1[45];
-  a1[44] = v10 + 1;
-  if (v10 >= v11)
-  {
-    a1[45] = v10 + 1;
-  }
-
-  return v7;
-}
-
-double btConvexHullInternal::Pool<btConvexHullInternal::Edge>::newObject(uint64_t a1)
-{
-  v2 = *(a1 + 16);
-  if (!v2)
-  {
-    v3 = *(a1 + 8);
-    if (v3)
-    {
-      *(a1 + 8) = *(v3 + 16);
-      v2 = *v3;
-    }
-
-    else
-    {
-      v3 = btAlignedAllocInternal(24, 16);
-      v4 = *(a1 + 24);
-      *(v3 + 8) = v4;
-      *(v3 + 16) = 0;
-      v2 = btAlignedAllocInternal(48 * v4, 16);
-      *v3 = v2;
-      *(v3 + 16) = *a1;
-      *a1 = v3;
-    }
-
-    v5 = *(v3 + 8);
-    if (v5 >= 1)
-    {
-      v6 = 0;
-      v7 = vdupq_n_s64(v5 - 1);
-      v8 = 0x100000000;
-      v9 = (v2 + 48);
-      do
-      {
-        v10 = vmovn_s64(vcgeq_u64(v7, vorrq_s8(vdupq_n_s64(v6), xmmword_21C27F640)));
-        v11 = vadd_s32(v8, 0x100000001);
-        if (v10.i8[0])
-        {
-          if (v11.i32[0] >= v5)
-          {
-            v12 = 0;
-          }
-
-          else
-          {
-            v12 = v9;
-          }
-
-          *(v9 - 6) = v12;
-        }
-
-        if (v10.i8[4])
-        {
-          v13 = v9 + 6;
-          if (v11.i32[1] >= v5)
-          {
-            v13 = 0;
-          }
-
-          *v9 = v13;
-        }
-
-        v6 += 2;
-        v8 = vadd_s32(v8, 0x200000002);
-        v9 += 12;
-      }
-
-      while (((v5 + 1) & 0xFFFFFFFE) != v6);
-    }
-  }
-
-  *(a1 + 16) = *v2;
-  result = 0.0;
-  *(v2 + 16) = 0u;
-  *(v2 + 32) = 0u;
-  *v2 = 0u;
-  return result;
-}
-
-uint64_t btConvexHullInternal::mergeProjection(uint64_t a1, uint64_t *a2, uint64_t **a3, uint64_t ***a4, uint64_t **a5)
-{
-  v5 = a2[3];
-  v6 = a3[2];
-  if (*(v5 + 104) == *(v6 + 26) && *(v5 + 108) == *(v6 + 27))
-  {
-    v7 = v6[1];
-    if (v7 == v6)
-    {
-      *a4 = v5;
-      v67 = v6[2];
-      result = 0;
-      if (v67)
-      {
-        v6 = *(v67 + 24);
-      }
-
-      goto LABEL_78;
-    }
-
-    v8 = *v6;
-    *v7 = *v6;
-    v8[1] = v7;
-    if (v6 == *a3)
-    {
-      v9 = *(v8 + 26);
-      v10 = *(v7 + 26);
-      v11 = v8;
-      if (v9 >= v10)
-      {
-        if (v9 != v10 || (v11 = v8, *(v8 + 27) >= *(v7 + 27)))
-        {
-          v11 = v7;
-        }
-      }
-
-      *a3 = v11;
-    }
-
-    if (v6 == a3[1])
-    {
-      v12 = *(v8 + 26);
-      v13 = *(v7 + 26);
-      if (v12 <= v13 && (v12 != v13 || *(v8 + 27) <= *(v7 + 27)))
-      {
-        v8 = v7;
-      }
-
-      a3[1] = v8;
-    }
-  }
-
-  v14 = 0;
-  v15 = 0;
-  v17 = *a2;
-  v16 = a2[1];
-  v18 = 1;
-  v20 = *a3;
-  v19 = a3[1];
-  v21 = v16;
-  v22 = v19;
-  v23 = 1;
-  do
-  {
-    v24 = v23;
-    v6 = v15;
-    v25 = v14;
-    v26 = *(v21 + 104);
-    v27 = (*(v22 + 26) - v26) * v18;
-    if (v27 < 1)
-    {
-      if (v27 < 0)
-      {
-        v51 = (v24 & 1) == 0;
-LABEL_57:
-        v52 = *(v22 + 27);
-        v53 = v22[v51];
-        v54 = v21;
-        while (1)
-        {
-          v21 = v54;
-          v55 = v27;
-          v56 = *(v54 + 108);
-          v57 = v52 - v56;
-          if (v53 != v22)
-          {
-            v58 = *(v53 + 108) - v52;
-            if (v58 >= 0)
-            {
-              v59 = *(v53 + 104);
-              v60 = *(v22 + 26);
-              if (v59 == v60 || (v61 = (v59 - v60) * v18, v61 < 0) && v58 * v55 <= v61 * v57)
-              {
-                v27 = (v59 - *(v21 + 104)) * v18;
-                v22 = v22[v51];
-                goto LABEL_57;
-              }
-            }
-          }
-
-          v54 = *(v21 + v51 * 8);
-          if (v54 == v21)
-          {
-            break;
-          }
-
-          v62 = *(v54 + 104);
-          v27 = (*(v22 + 26) - v62) * v18;
-          if ((v27 & 0x80000000) == 0)
-          {
-            break;
-          }
-
-          v63 = *(v54 + 108) - v56;
-          if (v63 < 1)
-          {
-            break;
-          }
-
-          v64 = *(v21 + 104);
-          if (v62 != v64)
-          {
-            v65 = (v62 - v64) * v18;
-            if ((v65 & 0x80000000) == 0 || v63 * v55 >= v65 * v57)
-            {
-              break;
-            }
-          }
-        }
-
-        v15 = v22;
-        v14 = v21;
-      }
-
-      else
-      {
-        v44 = *(v21 + 108);
-        if (v24)
-        {
-          v45 = 8;
-        }
-
-        else
-        {
-          v45 = 0;
-        }
-
-        v46 = v21;
-        do
-        {
-          v14 = v46;
-          v46 = *(v46 + v45);
-          if (v46 == v21)
-          {
-            break;
-          }
-
-          if (*(v46 + 104) != v26)
-          {
-            break;
-          }
-
-          v47 = *(v46 + 108) <= v44;
-          v44 = *(v46 + 108);
-        }
-
-        while (v47);
-        v48 = *(v22 + 27);
-        v49 = (v24 & 1) == 0;
-        v50 = v22;
-        do
-        {
-          v15 = v50;
-          v50 = v50[v49];
-          if (v50 == v22)
-          {
-            break;
-          }
-
-          if (*(v50 + 26) != v26)
-          {
-            break;
-          }
-
-          v47 = *(v50 + 27) < v48;
-          v48 = *(v50 + 27);
-        }
-
-        while (!v47);
-      }
-    }
-
-    else
-    {
-      v28 = (v24 & 1) != 0;
-      v14 = v21;
-      while (1)
-      {
-        v15 = v22;
-        v29 = *(v22 + 27);
-        v30 = v27;
-        while (1)
-        {
-          v31 = *(v14 + 108);
-          v32 = v29 - v31;
-          v33 = *(v14 + v28 * 8);
-          if (v33 == v14)
-          {
-            break;
-          }
-
-          v34 = *(v33 + 108);
-          v35 = __OFSUB__(v34, v31);
-          v36 = v34 - v31;
-          if (!((v36 < 0) ^ v35 | (v36 == 0)))
-          {
-            break;
-          }
-
-          v37 = *(v33 + 104);
-          v38 = *(v14 + 104);
-          if (v37 != v38)
-          {
-            v39 = (v37 - v38) * v18;
-            if ((v39 & 0x80000000) == 0 || v36 * v30 > v39 * v32)
-            {
-              break;
-            }
-          }
-
-          v30 = (*(v15 + 26) - v37) * v18;
-          v14 = *(v14 + v28 * 8);
-        }
-
-        v22 = v15[v28];
-        if (v22 == v15)
-        {
-          break;
-        }
-
-        v40 = *(v22 + 26);
-        v27 = (v40 - *(v14 + 104)) * v18;
-        if (v27 < 1)
-        {
-          break;
-        }
-
-        v41 = *(v22 + 27) - v29;
-        if ((v41 & 0x80000000) == 0)
-        {
-          break;
-        }
-
-        v42 = *(v15 + 26);
-        if (v40 != v42)
-        {
-          v43 = (v40 - v42) * v18;
-          if ((v43 & 0x80000000) == 0 || v41 * v30 >= v43 * v32)
-          {
-            break;
-          }
-        }
-      }
-    }
-
-    v23 = 0;
-    v18 = -1;
-    v21 = *a2;
-    v22 = *a3;
-  }
-
-  while ((v24 & 1) != 0);
-  *(v14 + 8) = v15;
-  *v15 = v14;
-  *v25 = v6;
-  v6[1] = v25;
-  if (*(v20 + 26) < *(v17 + 104))
-  {
-    *a2 = v20;
-  }
-
-  if (*(v19 + 26) >= *(v16 + 104))
-  {
-    a2[1] = v19;
-  }
-
-  a2[3] = a3[3];
-  *a4 = v25;
-  result = 1;
-LABEL_78:
-  *a5 = v6;
-  return result;
-}
-
-void btConvexHullInternal::computeInternal(uint64_t a1, int a2, int a3, uint64_t a4)
-{
-  v5 = a3 - a2;
-  if (a3 == a2)
-  {
-    *a4 = 0u;
-    *(a4 + 16) = 0u;
-  }
-
-  else if (v5 == 2)
-  {
-    v7 = *(*(a1 + 144) + 8 * a2);
-    v8 = v7 + 128;
-    v10 = *(v7 + 104);
-    v9 = *(v7 + 108);
-    v12 = *(v7 + 232);
-    v11 = *(v7 + 236);
-    if (v10 == v12 && v9 == v11)
-    {
-      v33 = *(v7 + 112);
-      v34 = *(v7 + 240);
-      v35 = v33 <= v34;
-      if (v33 == v34)
-      {
-        goto LABEL_5;
-      }
-
-      v36 = v33 > v34;
-      if (v35)
-      {
-        v22 = *(*(a1 + 144) + 8 * a2);
-      }
-
-      else
-      {
-        v22 = v7 + 128;
-      }
-
-      *(v7 + (v36 << 7)) = v7 + (v36 << 7);
-      *(v22 + 8) = v22;
-      if (!v35)
-      {
-        v8 = v7;
-      }
-
-      *a4 = v22;
-      *(a4 + 8) = v22;
-      v23 = v22;
-      v7 = v22;
-    }
-
-    else
-    {
-      v14 = v10 == v12;
-      if (v9 >= v11)
-      {
-        v14 = 0;
-      }
-
-      v17 = v10 < v12;
-      v15 = v10 < v12;
-      v16 = v17 || v14;
-      v17 = v9 < v11;
-      *v7 = v8;
-      *(v7 + 8) = v8;
-      *(v7 + 128) = v7;
-      *(v7 + 136) = v7;
-      v18 = v9 == v11 && v15;
-      if (v17)
-      {
-        v18 = 1;
-      }
-
-      if (v16)
-      {
-        v19 = v7;
-      }
-
-      else
-      {
-        v19 = v7 + 128;
-      }
-
-      if (v16)
-      {
-        v20 = v7 + 128;
-      }
-
-      else
-      {
-        v20 = v7;
-      }
-
-      *a4 = v19;
-      *(a4 + 8) = v20;
-      v21 = v18 == 0;
-      if (v18)
-      {
-        v22 = v7;
-      }
-
-      else
-      {
-        v22 = v7 + 128;
-      }
-
-      if (v21)
-      {
-        v23 = v7;
-      }
-
-      else
-      {
-        v23 = v7 + 128;
-      }
-    }
-
-    *(a4 + 16) = v22;
-    *(a4 + 24) = v23;
-    v37 = btConvexHullInternal::newEdgePair(a1, v7, v8);
-    *v37 = v37;
-    v37[1] = v37;
-    *(v7 + 16) = v37;
-    v38 = v37[2];
-    *v38 = v38;
-    v38[1] = v38;
-    *(v8 + 16) = v38;
-  }
-
-  else
-  {
-    if (v5 == 1)
-    {
-      v7 = *(*(a1 + 144) + 8 * a2);
-LABEL_5:
-      *(v7 + 8) = v7;
-      *(v7 + 16) = 0;
-      *v7 = v7;
-      *a4 = v7;
-      *(a4 + 8) = v7;
-      *(a4 + 16) = v7;
-      *(a4 + 24) = v7;
-      return;
-    }
-
-    v25 = ((v5 + (v5 >> 31)) >> 1) + a2;
-    if (v5 / 2 + a2 < a3)
-    {
-      v26 = *(a1 + 144);
-      v27 = *(v26 + 8 * v25 - 8);
-      v28 = v27[26];
-      v29 = v27[27];
-      v30 = v27[28];
-      v31 = v25;
-      do
-      {
-        v32 = *(v26 + 8 * v31);
-        if (v32[26] != v28)
-        {
-          break;
-        }
-
-        if (v32[27] != v29)
-        {
-          break;
-        }
-
-        if (v32[28] != v30)
-        {
-          break;
-        }
-
-        ++v31;
-      }
-
-      while (v31 < a3);
-    }
-
-    btConvexHullInternal::computeInternal(a1);
-    memset(v39, 0, sizeof(v39));
-    btConvexHullInternal::computeInternal(a1);
-    btConvexHullInternal::merge(a1, a4, v39);
-  }
-}
-
-void btConvexHullInternal::merge(_DWORD *a1, uint64_t a2, uint64_t a3)
-{
-  if (!*(a3 + 8))
-  {
-    return;
-  }
-
-  if (!*(a2 + 8))
-  {
-    v32 = *(a3 + 16);
-    *a2 = *a3;
-    *(a2 + 16) = v32;
-    return;
-  }
-
-  --a1[40];
-  v127 = 0;
-  v128 = 0;
-  if (btConvexHullInternal::mergeProjection(a1, a2, a3, &v128, &v127))
-  {
-    v4 = v127;
-    v96 = *(v127 + 26);
-    v5 = v96;
-    v7 = *(v128 + 26);
-    v6 = *(v128 + 27);
-    v8 = v96 - v7;
-    v111 = *(v127 + 27);
-    v9 = v111;
-    v10 = v111 - v6;
-    v94 = *(v127 + 28);
-    v11 = *(v128 + 28);
-    v12 = v94 - v11;
-    v13 = v7 - v96;
-    v14 = v8 * v12;
-    v123 = (v96 - v7) | (v10 << 32);
-    v124 = v12 | 0xFFFFFFFF00000000;
-    v15 = v10 * v12;
-    v16 = -(v8 * v8) - v10 * v10;
-    v101 = v128;
-    v17 = v128[2];
-    v118 = 0;
-    v18 = &xmmword_21C2A4000;
-    v106 = v14;
-    if (v17)
-    {
-      v99 = v127;
-      v19 = 0;
-      v20 = v17;
-      v103 = v6;
-      do
-      {
-        v21 = v20[3];
-        v22 = v21[26] - v7;
-        v23 = v21[27] - v6;
-        if (!(v23 * v13 + v10 * v22) && v22 * v14 + v15 * v23 + v16 * (v21[28] - v11) >= 1)
-        {
-          if (!v19 || (v121 = xmmword_21C2A4790, v24 = v10, v25 = v13, v26 = v19, v27 = v16, v28 = v15, v29 = v11, Orientation = btConvexHullInternal::getOrientation(v19, v20, &v123, &v121), v19 = v26, v13 = v25, v10 = v24, v11 = v29, v15 = v28, v16 = v27, v14 = v106, v9 = v111, v5 = v96, v83 = Orientation == 1, v6 = v103, v83))
-          {
-            v19 = v20;
-          }
-        }
-
-        v20 = *v20;
-      }
-
-      while (v20 != v17);
-      v118 = v19;
-      v31 = v19 != 0;
-      v4 = v99;
-      v18 = &xmmword_21C2A4000;
-    }
-
-    else
-    {
-      v31 = 0;
-    }
-
-    v36 = v4[2];
-    v115 = 0;
-    if (v36)
-    {
-      v37 = v4;
-      v38 = 0;
-      v104 = v18[121];
-      v39 = v36;
-      do
-      {
-        v40 = v39[3];
-        v41 = v40[26] - v5;
-        v42 = v40[27] - v9;
-        if (!(v42 * v13 + v10 * v41) && v41 * v14 + v15 * v42 + v16 * (v40[28] - v94) >= 1)
-        {
-          if (!v38 || (v121 = v104, v43 = btConvexHullInternal::getOrientation(v38, v39, &v123, &v121), v14 = v106, v9 = v111, v5 = v96, v43 == 2))
-          {
-            v38 = v39;
-          }
-        }
-
-        v39 = *v39;
-      }
-
-      while (v39 != v36);
-      v115 = v38;
-      v44 = v38 != 0;
-      v4 = v37;
-    }
-
-    else
-    {
-      v44 = 0;
-    }
-
-    v33 = v101;
-    v35 = v96;
-    if (!v31 && !v44)
-    {
-      goto LABEL_32;
-    }
-
-    btConvexHullInternal::findEdgeForCoplanarFaces(a1, v101, v4, &v118, &v115, 0, 0);
-    if (v118)
-    {
-      v33 = v118[3];
-      v128 = v33;
-    }
-
-    if (v115)
-    {
-      v4 = v115[3];
-      v127 = v4;
-      v35 = *(v4 + 26);
-      v111 = *(v4 + 27);
-      v45 = *(v4 + 28);
-    }
-
-    else
-    {
-LABEL_32:
-      v45 = v94;
-    }
-
-    v34 = (v45 + 1);
-  }
-
-  else
-  {
-    v4 = v127;
-    v33 = v128;
-    v111 = *(v127 + 27);
-    v34 = *(v127 + 28);
-    v35 = (*(v127 + 26) + 1);
-  }
-
-  v107 = 0;
-  v108 = 0;
-  v95 = 0;
-  v97 = 0;
-  v109 = 0;
-  v110 = 0;
-  v102 = v33;
-  v105 = 0;
-  v98 = 0;
-  v46 = 1;
-  v47 = v33;
-  v100 = v4;
-  v48 = v4;
-  while (1)
-  {
-    v49 = *(v47 + 26);
-    v50 = *(v47 + 27);
-    v51 = *(v48 + 26) - v49;
-    v52 = *(v48 + 27) - v50;
-    v53 = *(v47 + 28);
-    v54 = *(v48 + 28) - v53;
-    v55 = v35;
-    LODWORD(v49) = v35 - v49;
-    LODWORD(v50) = v111 - v50;
-    v56 = v34;
-    LODWORD(v53) = v34 - v53;
-    v126[0] = v51 | (v52 << 32);
-    v126[1] = v54 | 0xFFFFFFFF00000000;
-    v123 = v54 * v50 - v52 * v53;
-    v124 = v51 * v53 - v54 * v49;
-    v125 = v52 * v49 - v51 * v50;
-    *&v121 = v125 * v52 - v124 * v54;
-    *(&v121 + 1) = v123 * v54 - v125 * v51;
-    v122 = v124 * v51 - v123 * v52;
-    v118 = 0;
-    v119 = 0;
-    v120 = 0;
-    MaxAngle = btConvexHullInternal::findMaxAngle(a1, 0, v47, v126, &v123, &v121, &v118);
-    v115 = 0;
-    v116 = 0;
-    v117 = 0;
-    v58 = btConvexHullInternal::findMaxAngle(a1, 1, v48, v126, &v123, &v121, &v115);
-    if (!(MaxAngle | v58))
-    {
-      v84 = btConvexHullInternal::newEdgePair(a1, v47, v48);
-      *v84 = v84;
-      v84[1] = v84;
-      v47[2] = v84;
-      v85 = v84[2];
-      *v85 = v85;
-      v85[1] = v85;
-      v48[2] = v85;
-      return;
-    }
-
-    v59 = v58;
-    if (MaxAngle)
-    {
-      v60 = -1;
-    }
-
-    else
-    {
-      v60 = 1;
-    }
-
-    if (MaxAngle && v58)
-    {
-      v60 = btConvexHullInternal::Rational64::compare(&v118, &v115);
-    }
-
-    if ((v46 & 1) == 0)
-    {
-      if (v60 < 0)
-      {
-        if (v120 < 0 && !v119)
-        {
-          v114 = MaxAngle;
-          v63 = v105;
-          v35 = v55;
-          v65 = v107;
-          v62 = v109;
-          v73 = v110;
-          goto LABEL_70;
-        }
-      }
-
-      else if (v117 < 0 && !v116)
-      {
-        v64 = v108;
-        v62 = v109;
-        v63 = v105;
-        v65 = v107;
-        goto LABEL_48;
-      }
-    }
-
-    v61 = btConvexHullInternal::newEdgePair(a1, v47, v48);
-    v62 = v61;
-    v63 = v61;
-    if (v109)
-    {
-      v109[1] = v61;
-      v63 = v105;
-    }
-
-    *v61 = v109;
-    v64 = v61[2];
-    v65 = v64;
-    if (v108)
-    {
-      *v108 = v64;
-      v65 = v107;
-    }
-
-    v64[1] = v108;
-LABEL_48:
-    v113 = v59;
-    v114 = MaxAngle;
-    v66 = v59;
-    if (v60)
-    {
-      if (v60 < 0)
-      {
-        goto LABEL_62;
-      }
-    }
-
-    else
-    {
-      v67 = v65;
-      v68 = v63;
-      btConvexHullInternal::findEdgeForCoplanarFaces(a1, v128, v127, &v114, &v113, 0, 0);
-      v63 = v68;
-      v65 = v67;
-      v66 = v113;
-    }
-
-    if (v66)
-    {
-      v69 = v110;
-      if (v110)
-      {
-        v112 = v63;
-        v70 = v65;
-        v71 = *v110;
-        if (*v110 != v59)
-        {
-          do
-          {
-            v72 = *v71;
-            btConvexHullInternal::removeEdgePair(a1, v71);
-            v71 = v72;
-          }
-
-          while (v72 != v59);
-        }
-
-        v65 = v70;
-        v63 = v112;
-        if (!v64)
-        {
-          goto LABEL_69;
-        }
-
-LABEL_68:
-        *v69 = v65;
-        v65[1] = v69;
-        v65 = 0;
-        *v64 = v59;
-        *(v59 + 8) = v64;
-        v66 = v113;
-      }
-
-      else
-      {
-        if (v64)
-        {
-          v69 = *(v59 + 8);
-          v95 = v65;
-          goto LABEL_68;
-        }
-
-        v95 = v59;
-      }
-
-LABEL_69:
-      v108 = 0;
-      v35 = *(v127 + 26);
-      v111 = *(v127 + 27);
-      v56 = *(v127 + 28);
-      v73 = *(v66 + 16);
-      v127 = *(v66 + 24);
-      goto LABEL_70;
-    }
-
-LABEL_62:
-    v108 = v64;
-    v35 = v55;
-    v73 = v110;
-LABEL_70:
-    if (v60 > 0 || (v74 = v114) == 0)
-    {
-      v47 = v128;
-      v81 = v100;
-      v80 = v102;
-      v34 = v56;
-      goto LABEL_84;
-    }
-
-    if (v98)
-    {
-      v75 = v63;
-      v76 = v65;
-      v78 = (v98 + 8);
-      v77 = *(v98 + 8);
-      if (v77 != MaxAngle)
-      {
-        do
-        {
-          v79 = v77[1];
-          btConvexHullInternal::removeEdgePair(a1, v77);
-          v77 = v79;
-        }
-
-        while (v79 != MaxAngle);
-      }
-
-      if (!v62)
-      {
-        v80 = v102;
-        v65 = v76;
-        v63 = v75;
-        goto LABEL_83;
-      }
-
-      v63 = v75;
-      *v75 = v98;
-      v80 = v102;
-      v65 = v76;
-    }
-
-    else
-    {
-      if (!v62)
-      {
-        v97 = MaxAngle;
-        v80 = v102;
-        goto LABEL_83;
-      }
-
-      v82 = *MaxAngle;
-      *v63 = *MaxAngle;
-      v78 = (v82 + 1);
-      v97 = v63;
-      v80 = v102;
-    }
-
-    *v78 = v63;
-    *MaxAngle = v62;
-    v62[1] = MaxAngle;
-    v74 = v114;
-    v63 = 0;
-LABEL_83:
-    v62 = 0;
-    v35 = *(v128 + 26);
-    v111 = *(v128 + 27);
-    v34 = *(v128 + 28);
-    v47 = *(v74 + 24);
-    v98 = *(v74 + 16);
-    v128 = v47;
-    v81 = v100;
-LABEL_84:
-    v48 = v127;
-    v83 = v47 == v80 && v127 == v81;
-    if (v83)
-    {
-      break;
-    }
-
-    v109 = v62;
-    v110 = v73;
-    v107 = v65;
-    v46 = 0;
-    v105 = v63;
-  }
-
-  if (!v98)
-  {
-    *v63 = v62;
-    v62[1] = v63;
-    v128[2] = v62;
-    if (v73)
-    {
-      goto LABEL_97;
-    }
-
-    goto LABEL_102;
-  }
-
-  v86 = v63;
-  v87 = v65;
-  v88 = *(v98 + 8);
-  if (v88 != v97)
-  {
-    do
-    {
-      v89 = v88[1];
-      btConvexHullInternal::removeEdgePair(a1, v88);
-      v88 = v89;
-    }
-
-    while (v89 != v97);
-  }
-
-  v65 = v87;
-  if (v62)
-  {
-    *v86 = v98;
-    *(v98 + 8) = v86;
-    *v97 = v62;
-    v62[1] = v97;
-  }
-
-  if (!v73)
-  {
-LABEL_102:
-    *v108 = v65;
-    v65[1] = v108;
-    v127[2] = v108;
-    return;
-  }
-
-LABEL_97:
-  v90 = v65;
-  v91 = v73;
-  v92 = *v73;
-  if (*v73 != v95)
-  {
-    do
-    {
-      v93 = *v92;
-      btConvexHullInternal::removeEdgePair(a1, v92);
-      v92 = v93;
-    }
-
-    while (v93 != v95);
-  }
-
-  if (v108)
-  {
-    *v91 = v90;
-    v90[1] = v91;
-    *v108 = v95;
-    v95[1] = v108;
-  }
-}
-
-uint64_t btConvexHullInternal::getOrientation(void *a1, uint64_t a2, _DWORD *a3, _DWORD *a4)
-{
-  v4 = a1[1];
-  if (*a1 != a2)
-  {
-    return v4 == a2;
-  }
-
-  if (v4 != a2)
-  {
-    return 2;
-  }
-
-  v7 = a3[1];
-  v6 = a3[2];
-  v8 = a4[1];
-  v9 = a4[2];
-  v10 = v6 * v8 - v7 * v9;
-  v11 = *a3 * v9 - *a4 * v6;
-  v12 = *a4 * v7 - *a3 * v8;
-  v13 = a1[3];
-  v14 = *(a2 + 24);
-  v15 = *(*(a2 + 16) + 24);
-  v16 = v15[26];
-  v17 = v15[27];
-  LODWORD(v15) = v15[28];
-  if (((v14[28] - v15) * (v13[27] - v17) - (v14[27] - v17) * (v13[28] - v15)) * v10 + ((v14[27] - v17) * (v13[26] - v16) - (v14[26] - v16) * (v13[27] - v17)) * v12 + ((v14[26] - v16) * (v13[28] - v15) - (v14[28] - v15) * (v13[26] - v16)) * v11 <= 0)
-  {
-    return 1;
-  }
-
-  else
-  {
-    return 2;
-  }
-}
-
-void *btConvexHullInternal::findMaxAngle(uint64_t a1, int a2, uint64_t a3, _DWORD *a4, void *a5, void *a6, uint64_t a7)
-{
-  v7 = *(a3 + 16);
-  if (v7)
-  {
-    v15 = 0;
-    v16 = *(a3 + 16);
-    while (*(v16 + 40) <= *(a1 + 160))
-    {
-LABEL_19:
-      v16 = *v16;
-      if (v16 == v7)
-      {
-        return v15;
-      }
-    }
-
-    v17 = *(v16 + 24);
-    v18 = v17[26] - *(a3 + 104);
-    v19 = v17[27] - *(a3 + 108);
-    v20 = v17[28] - *(a3 + 112);
-    v29[0] = v18 | (v19 << 32);
-    v29[1] = v20 | 0xFFFFFFFF00000000;
-    v21 = *a6 * v18 + a6[1] * v19 + a6[2] * v20;
-    if (v21 < 1)
-    {
-      if (v21 < 0)
-      {
-        v22 = 0;
-        v28 = -1;
-        v21 = -v21;
-        v23 = 1;
-      }
-
-      else
-      {
-        v21 = 0;
-        v23 = 0;
-        v28 = 0;
-        v22 = 1;
-      }
-    }
-
-    else
-    {
-      v22 = 0;
-      v28 = 1;
-      v23 = -1;
-    }
-
-    v24 = *a5 * v18 + a5[1] * v19 + a5[2] * v20;
-    *&v27 = v21;
-    if (v24 <= 0)
-    {
-      if ((v24 & 0x8000000000000000) == 0)
-      {
-        *(&v27 + 1) = 0;
-        if (v22)
-        {
-LABEL_18:
-          v7 = *(a3 + 16);
-          goto LABEL_19;
-        }
-
-LABEL_11:
-        if (!v15 || (v25 = btConvexHullInternal::Rational64::compare(&v27, a7), v25 < 0))
-        {
-          *a7 = v27;
-          *(a7 + 16) = v28;
-          v15 = v16;
-        }
-
-        else if (!v25 && (btConvexHullInternal::getOrientation(v15, v16, a4, v29) != 2) != a2)
-        {
-          v15 = v16;
-        }
-
-        goto LABEL_18;
-      }
-
-      v28 = v23;
-      v24 = -v24;
-    }
-
-    *(&v27 + 1) = v24;
-    goto LABEL_11;
-  }
-
-  return 0;
-}
-
-uint64_t btConvexHullInternal::findEdgeForCoplanarFaces(uint64_t a1, int *a2, int *a3, uint64_t *a4, uint64_t *a5, unsigned int *a6, unsigned int *a7)
-{
-  v9 = *a5;
-  v10 = a2;
-  if (*a4)
-  {
-    v10 = *(*a4 + 24);
-  }
-
-  v148 = *a4;
-  v11 = v10[26];
-  v12 = v10[27];
-  v13 = v10[28];
-  v14 = a3;
-  if (v9)
-  {
-    v14 = *(v9 + 24);
-  }
-
-  v15 = v14[26];
-  v16 = v14[27];
-  v17 = v14[28];
-  v18 = a2[26];
-  v19 = a2[27];
-  v20 = a3[26] - v18;
-  v21 = a3[27] - v19;
-  v22 = a2[28];
-  v23 = a3[28] - v22;
-  if (v148)
-  {
-    v24 = v148;
-  }
-
-  else
-  {
-    v24 = v9;
-  }
-
-  v25 = *(v24 + 24);
-  v26 = v25[26] - v18;
-  v27 = v25[27] - v19;
-  LODWORD(v25) = v25[28] - v22;
-  v28 = v27 * v23 - v25 * v21;
-  v29 = v25 * v20 - v26 * v23;
-  result = (v26 * v21 - v27 * v20);
-  v31 = result;
-  v32 = v22 * result + v18 * v28 + v19 * v29;
-  v33 = result * v21 - v29 * v23;
-  v34 = v28 * v23 - result * v20;
-  v35 = v29 * v20 - v28 * v21;
-  v36 = v33 * v11 + v34 * v12 + v35 * v13;
-  v157 = v35;
-  v147 = a5;
-  if (!v148 || *(v148 + 24) == a6)
-  {
-    v42 = v9;
-  }
-
-  else
-  {
-    v37 = *(*(v148 + 16) + 8);
-    v39 = *(v37 + 24);
-    v38 = (v37 + 24);
-    v40 = v39[26];
-    v41 = v39[27];
-    result = v39[28];
-    if (v40 * v28 + v41 * v29 + result * v31 >= v32)
-    {
-      v94 = *(a1 + 160);
-      do
-      {
-        v95 = v33 * v40 + v34 * v41 + v35 * result;
-        if (*(v37 + 40) == v94 || v95 <= v36)
-        {
-          break;
-        }
-
-        v36 = v95;
-        *a4 = v37;
-        v97 = *v38;
-        v11 = v97[26];
-        v12 = v97[27];
-        v13 = v97[28];
-        if (v97 == a6)
-        {
-          break;
-        }
-
-        v37 = *(*(v37 + 16) + 8);
-        v38 = (v37 + 24);
-        v98 = *(v37 + 24);
-        v40 = v98[26];
-        v41 = v98[27];
-        result = v98[28];
-      }
-
-      while (v40 * v28 + v41 * v29 + result * v31 >= v32);
-    }
-
-    v42 = *a5;
-    v35 = v29 * v20 - v28 * v21;
-  }
-
-  v43 = v33 * v15 + v34 * v16 + v35 * v17;
-  if (v42)
-  {
-    if (*(v42 + 24) == a7 || (v44 = **(v42 + 16), v46 = *(v44 + 24), v45 = (v44 + 24), v47 = v46[26], v48 = v46[27], result = v47 * v28 + v48 * v29, v49 = v46[28], result + v49 * v31 < v32))
-    {
-LABEL_16:
-      v50 = v42;
-    }
-
-    else
-    {
-      v99 = *(a1 + 160);
-      do
-      {
-        v50 = v42;
-        v42 = v44;
-        if (*(v44 + 40) == v99 || v33 * v47 + v34 * v48 + v35 * v49 <= v43)
-        {
-          break;
-        }
-
-        v43 = v33 * v47 + v34 * v48 + v35 * v49;
-        *v147 = v44;
-        v101 = *v45;
-        v15 = v101[26];
-        v16 = v101[27];
-        v17 = v101[28];
-        if (v101 == a7)
-        {
-          goto LABEL_16;
-        }
-
-        v44 = **(v44 + 16);
-        v102 = **(v42 + 16);
-        v103 = *(v102 + 24);
-        v45 = (v102 + 24);
-        v47 = v103[26];
-        v48 = v103[27];
-        v49 = v103[28];
-        result = v47 * v28 + v48 * v29 + v49 * v31;
-        v50 = v42;
-      }
-
-      while (result >= v32);
-    }
-  }
-
-  else
-  {
-    v50 = 0;
-  }
-
-  v51 = v43 - v36;
-  v153 = v21;
-  v154 = v20;
-  v151 = v33;
-  v152 = v23;
-  v145 = v29;
-  v146 = v28;
-  v144 = v31;
-  v150 = v34;
-  if (v43 - v36 < 1)
-  {
-    if ((v51 & 0x8000000000000000) == 0)
-    {
-      return result;
-    }
-
-    v104 = v15;
-    v105 = v17;
-    v106 = v16;
-    v107 = v43 - v36;
-    v143 = v9;
-LABEL_97:
-    v159 = v105;
-    v161 = v104;
-    v156 = v106;
-    while (1)
-    {
-      v108 = (v104 - v11) * v20 + (v106 - v12) * v21 + (v105 - v13) * v23;
-      if (v50)
-      {
-        if (*(v50 + 24) != a7)
-        {
-          v109 = *(*(v50 + 8) + 16);
-          if (*(v109 + 40) > *(a1 + 160))
-          {
-            v110 = *(v109 + 24);
-            v111 = v110[26];
-            v112 = v110[27];
-            v113 = v110[28];
-            v114 = v33 * (v111 - v104) + v34 * (v112 - v106) + v35 * (v113 - v105);
-            v115 = (v111 - v104) * v20 + (v112 - v106) * v21 + (v113 - v105) * v23;
-            if (v114)
-            {
-              if (v114 < 0)
-              {
-                v116 = v115 <= 0;
-                if ((v115 & 0x80000000) != 0)
-                {
-                  v117 = -v115;
-                }
-
-                else
-                {
-                  v117 = 0;
-                }
-
-                v118 = (v115 >> 31) & 1;
-                if (v115 <= 0)
-                {
-                  v115 = v117;
-                }
-
-                if (v116)
-                {
-                  v119 = v118;
-                }
-
-                else
-                {
-                  v119 = -1;
-                }
-
-                v170 = v119;
-                v168 = v115;
-                v169 = -v114;
-                v149 = (v104 - v11) * v20 + (v106 - v12) * v21 + (v105 - v13) * v23;
-                if (v108 < 1)
-                {
-                  v122 = v107;
-                  if ((v108 & 0x80000000) != 0)
-                  {
-                    v167 = -1;
-                    v121 = -v108;
-                    v120 = 1;
-                  }
-
-                  else
-                  {
-                    v121 = 0;
-                    v120 = 0;
-                    v167 = 0;
-                  }
-                }
-
-                else
-                {
-                  v167 = 1;
-                  v120 = -1;
-                  v121 = (v104 - v11) * v20 + (v106 - v12) * v21 + (v105 - v13) * v23;
-                  v122 = v107;
-                }
-
-                v123 = v50;
-                v165 = v121;
-                v124 = v122;
-                if (v122 <= 0)
-                {
-                  if (v122 < 0)
-                  {
-                    v167 = v120;
-                    v124 = -v122;
-                  }
-
-                  else
-                  {
-                    v124 = 0;
-                  }
-                }
-
-                v166 = v124;
-                result = btConvexHullInternal::Rational64::compare(&v168, &v165);
-                LODWORD(v21) = v153;
-                LODWORD(v20) = v154;
-                v33 = v151;
-                LODWORD(v23) = v152;
-                v35 = v157;
-                v105 = v159;
-                v104 = v161;
-                v106 = v156;
-                v50 = v123;
-                v108 = v149;
-                v34 = v150;
-                if (result < 1)
-                {
-LABEL_151:
-                  v107 = v33 * (v111 - v11) + v34 * (v112 - v12) + v35 * (v113 - v13);
-                  if (v50 == v143)
-                  {
-                    v50 = 0;
-                  }
-
-                  else
-                  {
-                    v50 = v109;
-                  }
-
-                  *v147 = v50;
-                  v104 = v111;
-                  v106 = v112;
-                  v105 = v113;
-                  goto LABEL_97;
-                }
-              }
-            }
-
-            else if (v115 > 0)
-            {
-              goto LABEL_151;
-            }
-          }
-        }
-      }
-
-      v125 = *a4;
-      if (!*a4)
-      {
-        return result;
-      }
-
-      if (*(v125 + 24) == a6)
-      {
-        return result;
-      }
-
-      v126 = *(*(v125 + 16) + 8);
-      if (*(v126 + 40) <= *(a1 + 160))
-      {
-        return result;
-      }
-
-      v127 = *(v126 + 24);
-      v128 = v127[26];
-      v129 = v127[27];
-      v130 = v128 - v11;
-      v131 = v129 - v12;
-      v132 = v127[28];
-      if (v146 * (v128 - v11) + v145 * (v129 - v12) + v144 * (v132 - v13))
-      {
-        return result;
-      }
-
-      v133 = v33 * (v104 - v128) + v34 * (v106 - v129) + v35 * (v105 - v132);
-      if ((v133 & 0x8000000000000000) == 0)
-      {
-        return result;
-      }
-
-      v134 = v33 * v130 + v34 * v131 + v35 * (v132 - v13);
-      v135 = v130 * v20 + v131 * v21 + (v132 - v13) * v23;
-      if (v134)
-      {
-        if ((v134 & 0x8000000000000000) == 0)
-        {
-          return result;
-        }
-
-        v136 = v135 <= 0;
-        if ((v135 & 0x80000000) != 0)
-        {
-          v137 = -v135;
-        }
-
-        else
-        {
-          v137 = 0;
-        }
-
-        v138 = (v135 >> 31) & 1;
-        if (v135 <= 0)
-        {
-          v135 = v137;
-        }
-
-        if (v136)
-        {
-          v139 = v138;
-        }
-
-        else
-        {
-          v139 = -1;
-        }
-
-        v170 = v139;
-        v168 = v135;
-        v169 = -v134;
-        if (v108 < 1)
-        {
-          if ((v108 & 0x80000000) != 0)
-          {
-            v167 = -1;
-            v108 = -v108;
-            v140 = 1;
-          }
-
-          else
-          {
-            v108 = 0;
-            v140 = 0;
-            v167 = 0;
-          }
-        }
-
-        else
-        {
-          v167 = 1;
-          v140 = -1;
-        }
-
-        v165 = v108;
-        if (v107 <= 0)
-        {
-          if (v107 < 0)
-          {
-            v167 = v140;
-            v107 = -v107;
-          }
-
-          else
-          {
-            v107 = 0;
-          }
-        }
-
-        v166 = v107;
-        result = btConvexHullInternal::Rational64::compare(&v168, &v165);
-        LODWORD(v21) = v153;
-        LODWORD(v20) = v154;
-        v33 = v151;
-        LODWORD(v23) = v152;
-        v34 = v150;
-        v35 = v157;
-        v105 = v159;
-        v104 = v161;
-        v106 = v156;
-        if ((result & 0x80000000) == 0)
-        {
-          return result;
-        }
-      }
-
-      else if (v135 <= 0)
-      {
-        return result;
-      }
-
-      *a4 = v126;
-      v141 = *(v126 + 24);
-      LODWORD(v11) = v141[26];
-      LODWORD(v12) = v141[27];
-      LODWORD(v13) = v141[28];
-      v50 = *v147;
-      v107 = v133;
-    }
-  }
-
-  v142 = a7;
-  v52 = v15;
-  v53 = v17;
-  v54 = v16;
-  v55 = v148;
-  while (1)
-  {
-    v56 = *a4;
-    v155 = v54;
-    while (1)
-    {
-      v57 = ((v52 - v11) * v20 + (v54 - v12) * v21 + (v53 - v13) * v23);
-      if (!v56)
-      {
-        break;
-      }
-
-      if (v56[3] == a6)
-      {
-        break;
-      }
-
-      v58 = *(*v56 + 16);
-      if (*(v58 + 40) <= *(a1 + 160))
-      {
-        break;
-      }
-
-      v59 = *(v58 + 24);
-      v60 = v59[26];
-      v61 = v59[27];
-      v62 = v59[28];
-      v63 = v33 * (v60 - v11) + v34 * (v61 - v12) + v35 * (v62 - v13);
-      v64 = (v60 - v11) * v20 + (v61 - v12) * v21 + (v62 - v13) * v23;
-      if (v63)
-      {
-        if ((v63 & 0x8000000000000000) == 0)
-        {
-          break;
-        }
-
-        v158 = v12;
-        v160 = v13;
-        v65 = v64 <= 0;
-        if ((v64 & 0x80000000) != 0)
-        {
-          v66 = -v64;
-        }
-
-        else
-        {
-          v66 = 0;
-        }
-
-        v67 = (v64 >> 31) & 1;
-        if (v64 <= 0)
-        {
-          v64 = v66;
-        }
-
-        if (v65)
-        {
-          v68 = v67;
-        }
-
-        else
-        {
-          v68 = -1;
-        }
-
-        v170 = v68;
-        v168 = v64;
-        v169 = -v63;
-        v69 = v11;
-        if (v57 < 1)
-        {
-          if ((v57 & 0x80000000) != 0)
-          {
-            v167 = -1;
-            v71 = -v57;
-            v70 = 1;
-          }
-
-          else
-          {
-            v71 = 0;
-            v70 = 0;
-            v167 = 0;
-          }
-        }
-
-        else
-        {
-          v167 = 1;
-          v70 = -1;
-          v71 = v57;
-        }
-
-        v72 = v53;
-        v73 = v52;
-        v165 = v71;
-        v74 = v51;
-        if (v51 <= 0)
-        {
-          if (v51 < 0)
-          {
-            v167 = v70;
-            v74 = -v51;
-          }
-
-          else
-          {
-            v74 = 0;
-          }
-        }
-
-        v166 = v74;
-        v75 = v51;
-        v76 = btConvexHullInternal::Rational64::compare(&v168, &v165);
-        v51 = v75;
-        LODWORD(v21) = v153;
-        LODWORD(v20) = v154;
-        v33 = v151;
-        LODWORD(v23) = v152;
-        v52 = v73;
-        v11 = v69;
-        v35 = v157;
-        v12 = v158;
-        v13 = v160;
-        v54 = v155;
-        v53 = v72;
-        v55 = v148;
-        v34 = v150;
-        if (v76 < 0)
-        {
-          break;
-        }
-      }
-
-      else if ((v64 & 0x80000000) == 0)
-      {
-        break;
-      }
-
-      v51 = v33 * (v52 - v60) + v34 * (v54 - v61) + v35 * (v53 - v62);
-      if (v56 == v55)
-      {
-        v56 = 0;
-      }
-
-      else
-      {
-        v56 = v58;
-      }
-
-      *a4 = v56;
-      v11 = v60;
-      v12 = v61;
-      v13 = v62;
-    }
-
-    result = v51;
-    v77 = *v147;
-    if (!*v147)
-    {
-      return result;
-    }
-
-    if (*(v77 + 24) == v142)
-    {
-      return result;
-    }
-
-    v78 = **(v77 + 16);
-    if (*(v78 + 40) <= *(a1 + 160))
-    {
-      return result;
-    }
-
-    v79 = *(v78 + 24);
-    v80 = v79[26];
-    v81 = v79[27];
-    v82 = v80 - v52;
-    v83 = v81 - v54;
-    v84 = v79[28];
-    if (v146 * v82 + v145 * (v81 - v54) + v144 * (v84 - v53))
-    {
-      return result;
-    }
-
-    v85 = v33 * (v80 - v11) + v34 * (v81 - v12) + v35 * (v84 - v13);
-    if (v85 < 1)
-    {
-      return result;
-    }
-
-    v86 = v33 * v82 + v34 * v83 + v35 * (v84 - v53);
-    v87 = v82 * v20 + v83 * v21 + (v84 - v53) * v23;
-    if (!v86)
-    {
-      if ((v87 & 0x80000000) != 0)
-      {
-        goto LABEL_77;
-      }
-
-      return result;
-    }
-
-    if ((v86 & 0x8000000000000000) == 0)
-    {
-      return result;
-    }
-
-    v88 = v87 <= 0;
-    if ((v87 & 0x80000000) != 0)
-    {
-      v89 = -v87;
-    }
-
-    else
-    {
-      v89 = 0;
-    }
-
-    v90 = (v87 >> 31) & 1;
-    if (v87 <= 0)
-    {
-      v87 = v89;
-    }
-
-    if (v88)
-    {
-      v91 = v90;
-    }
-
-    else
-    {
-      v91 = -1;
-    }
-
-    v170 = v91;
-    v168 = v87;
-    v169 = -v86;
-    if (v57 < 1)
-    {
-      if ((v57 & 0x80000000) != 0)
-      {
-        v167 = -1;
-        v57 = -v57;
-        v92 = 1;
-      }
-
-      else
-      {
-        v57 = 0;
-        v92 = 0;
-        v167 = 0;
-      }
-    }
-
-    else
-    {
-      v167 = 1;
-      v92 = -1;
-    }
-
-    v165 = v57;
-    if (v51 <= 0)
-    {
-      if (v51 < 0)
-      {
-        v167 = v92;
-        result = -v51;
-      }
-
-      else
-      {
-        result = 0;
-      }
-    }
-
-    v166 = result;
-    result = btConvexHullInternal::Rational64::compare(&v168, &v165);
-    LODWORD(v21) = v153;
-    LODWORD(v20) = v154;
-    v33 = v151;
-    LODWORD(v23) = v152;
-    v34 = v150;
-    v35 = v157;
-    if (result <= 0)
-    {
-      return result;
-    }
-
-LABEL_77:
-    *v147 = v78;
-    v93 = *(v78 + 24);
-    v52 = v93[26];
-    v54 = v93[27];
-    v53 = v93[28];
-    v51 = v85;
-  }
-}
-
-double btConvexHullInternal::removeEdgePair(uint64_t a1, void *a2)
-{
-  v2 = *a2;
-  v3 = a2[2];
-  if (*a2 == a2)
-  {
-    v2 = 0;
-  }
-
-  else
-  {
-    v4 = a2[1];
-    v2[1] = v4;
-    *v4 = v2;
-  }
-
-  *(v3[3] + 16) = v2;
-  v5 = *v3;
-  if (*v3 == v3)
-  {
-    v5 = 0;
-  }
-
-  else
-  {
-    v6 = v3[1];
-    v5[1] = v6;
-    *v6 = v5;
-  }
-
-  *(a2[3] + 16) = v5;
-  result = 0.0;
-  a2[4] = 0;
-  *a2 = 0u;
-  *(a2 + 1) = 0u;
-  *a2 = *(a1 + 80);
-  *(a1 + 80) = a2;
-  v3[4] = 0;
-  *v3 = 0u;
-  *(v3 + 1) = 0u;
-  *v3 = *(a1 + 80);
-  *(a1 + 80) = v3;
-  --*(a1 + 176);
-  return result;
-}
-
-void btConvexHullInternal::compute(float32x4_t *this, char *a2, char a3, int a4, int a5, double a6, double a7, double a8, int32x4_t a9, int32x4_t a10)
-{
-  if (a3)
-  {
-    if (a5 >= 1)
-    {
-      v15 = xmmword_21C2A47B0;
-      v16 = xmmword_21C2A47A0;
-      v17 = (a2 + 16);
-      v18 = a5;
-      do
-      {
-        *v19.f32 = vcvt_f32_f64(*(v17 - 1));
-        a9.i64[0] = *v17;
-        *a9.i32 = *v17;
-        v19.i64[1] = a9.u32[0];
-        v16 = vminq_f32(v16, v19);
-        v15 = vmaxq_f32(v15, v19);
-        v17 = (v17 + a4);
-        --v18;
-      }
-
-      while (v18);
-      goto LABEL_11;
-    }
-  }
-
-  else if (a5 >= 1)
-  {
-    v15 = xmmword_21C2A47B0;
-    v16 = xmmword_21C2A47A0;
-    v20 = (a2 + 8);
-    v21 = a5;
-    do
-    {
-      v22.i64[0] = *(v20 - 1);
-      v22.i32[2] = *v20;
-      v20 = (v20 + a4);
-      v22.i64[1] = v22.u32[2];
-      v16 = vminq_f32(v16, v22);
-      v15 = vmaxq_f32(v15, v22);
-      --v21;
-    }
-
-    while (v21);
-    goto LABEL_11;
-  }
-
-  v16 = xmmword_21C2A47A0;
-  v15 = xmmword_21C2A47B0;
-LABEL_11:
-  v23 = vsubq_f32(v15, v16);
-  v24 = v23.f32[1];
-  if (v23.f32[0] >= v23.f32[1])
-  {
-    v25 = v23.f32[0];
-  }
-
-  else
-  {
-    v25 = v23.f32[1];
-  }
-
-  if (v23.f32[0] < v23.f32[1])
-  {
-    v24 = v23.f32[0];
-  }
-
-  v23.i32[3] = 0;
-  v26 = v23.f32[0] >= v23.f32[1];
-  v27 = v23.f32[0] < v23.f32[1];
-  if (v25 < v23.f32[2])
-  {
-    v27 = 2;
-  }
-
-  if (v24 >= v23.f32[2])
-  {
-    v26 = 2;
-  }
-
-  if (v27 + 1 < 3)
-  {
-    v28 = v27 + 1;
-  }
-
-  else
-  {
-    v28 = v27 - 2;
-  }
-
-  if (v26 == v27)
-  {
-    v26 = v28;
-  }
-
-  this[10].i32[1] = v26;
-  this[10].i32[2] = 3 - (v26 + v27);
-  this[10].i32[3] = v27;
-  a9.i32[0] = (4 - (v26 + v27)) % 3;
-  a10.i32[0] = v27;
-  v29 = vmulq_f32(vbslq_s8(vdupq_lane_s32(*&vceqq_s32(a9, a10), 0), vdupq_n_s32(0x38CD47F8u), vdupq_n_s32(0xB8CD47F8)), v23);
-  *this = v29;
-  v23.i64[0] = 0;
-  v30 = v29;
-  *v30.i32 = 1.0 / v29.f32[0];
-  v31 = vbslq_s8(vdupq_lane_s32(*&vmvnq_s8(vceqq_f32(v29, v23)), 0), v30, v29);
-  if (v31.f32[1] != 0.0)
-  {
-    v31.f32[1] = 1.0 / v31.f32[1];
-  }
-
-  if (v31.f32[2] != 0.0)
-  {
-    v31.f32[2] = 1.0 / v31.f32[2];
-  }
-
-  v32 = vaddq_f32(v16, v15);
-  v33.i64[0] = 0x3F0000003F000000;
-  v33.i64[1] = 0x3F0000003F000000;
-  v34 = vmulq_f32(v32, v33);
-  v34.i32[3] = 0;
-  this[1] = v34;
-  v64 = 1;
-  v63 = 0;
-  HIDWORD(v62) = 0;
-  if ((a5 & 0x80000000) == 0)
-  {
-    if (!a5)
-    {
-      LODWORD(v62) = 0;
-      goto LABEL_43;
-    }
-
-    v59 = v31;
-    v35 = btAlignedAllocInternal(16 * a5, 16);
-    v31 = v59;
-    v64 = 1;
-    v63 = v35;
-    HIDWORD(v62) = a5;
-  }
-
-  LODWORD(v62) = a5;
-  if (a3)
-  {
-    if (a5 < 1)
-    {
-      goto LABEL_43;
-    }
-
-    v36 = 0;
-    v38 = this[10].i32[2];
-    v37 = this[10].i32[3];
-    v39 = this[10].i32[1];
-    v40 = (a2 + 16);
-    v41 = v63 + 8;
-    do
-    {
-      *&v42 = *v40;
-      *v60.f32 = vcvt_f32_f64(*(v40 - 2));
-      v60.i64[1] = v42;
-      v43 = vsubq_f32(v60, this[1]);
-      v43.i32[3] = 0;
-      v60 = vmulq_f32(v31, v43);
-      *(v41 - 2) = v60.f32[v38];
-      *(v41 - 1) = v60.f32[v37];
-      *v41 = v60.f32[v39];
-      v41[1] = v36;
-      v41 += 4;
-      ++v36;
-      v40 = (v40 + a4);
-    }
-
-    while (a5 != v36);
-  }
-
-  else
-  {
-    if (a5 < 1)
-    {
-      goto LABEL_43;
-    }
-
-    v44 = 0;
-    v46 = this[10].i32[2];
-    v45 = this[10].i32[3];
-    v47 = this[10].i32[1];
-    v48 = (a2 + 8);
-    v49 = v63 + 8;
-    do
-    {
-      v60.i64[0] = *(v48 - 1);
-      v60.i64[1] = *v48;
-      v50 = vsubq_f32(v60, this[1]);
-      v50.i32[3] = 0;
-      v60 = vmulq_f32(v31, v50);
-      *(v49 - 2) = v60.f32[v46];
-      *(v49 - 1) = v60.f32[v45];
-      *v49 = v60.f32[v47];
-      v49[1] = v44;
-      v49 += 4;
-      ++v44;
-      v48 = (v48 + a4);
-    }
-
-    while (a5 != v44);
-  }
-
-  if (a5 >= 2)
-  {
-    btAlignedObjectArray<btConvexHullInternal::Point32>::quickSortInternal<pointCmp>(v61, &v60, 0, a5 - 1);
-  }
-
-LABEL_43:
-  this[2].i64[1] = this[2].i64[0];
-  this[3].i64[0] = 0;
-  this[3].i32[2] = a5;
-  v51 = this[8].i32[1];
-  if (v51 < a5)
-  {
-    v52 = v51;
-    if (this[8].i32[2] < a5)
-    {
-      if (a5)
-      {
-        v53 = btAlignedAllocInternal(8 * a5, 16);
-        v51 = this[8].i32[1];
-      }
-
-      else
-      {
-        v53 = 0;
-      }
-
-      if (v51 >= 1)
-      {
-        v54 = 0;
-        v55 = 8 * v51;
-        do
-        {
-          *(v53 + v54) = *(this[9].i64[0] + v54);
-          v54 += 8;
-        }
-
-        while (v55 != v54);
-      }
-
-      v56 = this[9].i64[0];
-      if (v56 && this[9].i8[8] == 1)
-      {
-        btAlignedFreeInternal(v56);
-      }
-
-      this[9].i8[8] = 1;
-      this[9].i64[0] = v53;
-      this[8].i32[2] = a5;
-    }
-
-    do
-    {
-      *(this[9].i64[0] + 8 * v52++) = 0;
-    }
-
-    while (a5 != v52);
-  }
-
-  this[8].i32[1] = a5;
-  if (a5 >= 1)
-  {
-    v57 = 0;
-    do
-    {
-      btConvexHullInternal::Pool<btConvexHullInternal::Vertex>::newObject(&this[2]);
-      *(v58 + 16) = 0;
-      *(v58 + 104) = *(v63 + v57);
-      *(v58 + 120) = -1;
-      *(this[9].i64[0] + 8 * v57++) = v58;
-    }
-
-    while (v57 != a5);
-  }
-
-  if (v63 && v64 == 1)
-  {
-    btAlignedFreeInternal(v63);
-  }
-
-  v64 = 1;
-  v63 = 0;
-  v62 = 0;
-  this[4].i64[1] = this[4].i64[0];
-  this[5].i64[0] = 0;
-  this[5].i32[2] = 6 * a5;
-  this[11].i64[0] = 0;
-  this[10].i32[0] = -3;
-  memset(&v60, 0, 32);
-  btConvexHullInternal::computeInternal(this, 0, a5, &v60);
-  this[11].i64[1] = v60.i64[0];
-  if (v63)
-  {
-    if (v64 == 1)
-    {
-      btAlignedFreeInternal(v63);
-    }
-  }
-}
-
-double btConvexHullInternal::Pool<btConvexHullInternal::Vertex>::newObject(uint64_t a1)
-{
-  v2 = *(a1 + 16);
-  if (!v2)
-  {
-    v3 = *(a1 + 8);
-    if (v3)
-    {
-      *(a1 + 8) = *(v3 + 16);
-      v2 = *v3;
-    }
-
-    else
-    {
-      v3 = btAlignedAllocInternal(24, 16);
-      v4 = *(a1 + 24);
-      *(v3 + 8) = v4;
-      *(v3 + 16) = 0;
-      v2 = btAlignedAllocInternal(v4 << 7, 16);
-      *v3 = v2;
-      *(v3 + 16) = *a1;
-      *a1 = v3;
-    }
-
-    v5 = *(v3 + 8);
-    if (v5 >= 1)
-    {
-      v6 = 0;
-      v7 = vdupq_n_s64(v5 - 1);
-      v8 = 0x100000000;
-      v9 = (v2 + 128);
-      do
-      {
-        v10 = vmovn_s64(vcgeq_u64(v7, vorrq_s8(vdupq_n_s64(v6), xmmword_21C27F640)));
-        v11 = vadd_s32(v8, 0x100000001);
-        if (v10.i8[0])
-        {
-          if (v11.i32[0] >= v5)
-          {
-            v12 = 0;
-          }
-
-          else
-          {
-            v12 = v9;
-          }
-
-          *(v9 - 16) = v12;
-        }
-
-        if (v10.i8[4])
-        {
-          v13 = v9 + 16;
-          if (v11.i32[1] >= v5)
-          {
-            v13 = 0;
-          }
-
-          *v9 = v13;
-        }
-
-        v6 += 2;
-        v8 = vadd_s32(v8, 0x200000002);
-        v9 += 32;
-      }
-
-      while (((v5 + 1) & 0xFFFFFFFE) != v6);
-    }
-  }
-
-  *(a1 + 16) = *v2;
-  result = 0.0;
-  *(v2 + 32) = 0;
-  *v2 = 0u;
-  *(v2 + 16) = 0u;
-  *(v2 + 120) = -1;
-  return result;
-}
-
-float32x4_t btConvexHullInternal::getBtNormal@<Q0>(float32x4_t *a1@<X0>, int *a2@<X1>, float32x4_t *a3@<X8>)
-{
-  v3 = a2[11];
-  v5 = a1[10].i32[1];
-  v4 = a1[10].i32[2];
-  v16.f32[v4] = a2[10];
-  v6 = a1[10].i32[3];
-  v16.f32[v6] = v3;
-  v16.f32[v5] = a2[12];
-  v7 = v16;
-  v8 = *a1;
-  v9 = a2[15];
-  v16.f32[v4] = a2[14];
-  v10 = vmulq_f32(v8, v7);
-  v16.f32[v6] = v9;
-  v16.f32[v5] = a2[16];
-  v11 = vmulq_f32(v16, v8);
-  v12 = vmlaq_f32(vnegq_f32(vmulq_f32(v11, vextq_s8(vextq_s8(v10, v10, 0xCuLL), v10, 8uLL))), v10, vextq_s8(vextq_s8(v11, v11, 0xCuLL), v11, 8uLL));
-  v13 = vextq_s8(vextq_s8(v12, v12, 0xCuLL), v12, 8uLL);
-  v13.i32[3] = 0;
-  v14 = vmulq_f32(v13, v13);
-  result = vmulq_n_f32(v13, 1.0 / sqrtf(vadd_f32(*&vextq_s8(v14, v14, 8uLL), vpadd_f32(*v14.i8, *v14.i8)).f32[0]));
-  *a3 = result;
-  return result;
-}
-
-double btConvexHullInternal::getCoordinates@<D0>(float32x4_t *a1@<X0>, int *a2@<X1>, float32x4_t *a3@<X8>)
-{
-  if ((a2[29] & 0x80000000) == 0)
-  {
-    v15.f32[a1[10].i32[2]] = a2[26];
-LABEL_4:
-    v15.f32[a1[10].i32[3]] = a2[27];
-    goto LABEL_5;
-  }
-
-  v6 = btConvexHullInternal::Int128::toScalar((a2 + 10));
-  v7 = btConvexHullInternal::Int128::toScalar((a2 + 22));
-  v8 = a2[29];
-  v15.f32[a1[10].i32[2]] = v6 / v7;
-  if ((v8 & 0x80000000) == 0)
-  {
-    goto LABEL_4;
-  }
-
-  v11 = btConvexHullInternal::Int128::toScalar((a2 + 14));
-  v12 = btConvexHullInternal::Int128::toScalar((a2 + 22));
-  v13 = a2[29];
-  v15.f32[a1[10].i32[3]] = v11 / v12;
-  if (v13 < 0)
-  {
-    v14 = btConvexHullInternal::Int128::toScalar((a2 + 18));
-    v9 = v14 / btConvexHullInternal::Int128::toScalar((a2 + 22));
-    goto LABEL_6;
-  }
-
-LABEL_5:
-  v9 = a2[28];
-LABEL_6:
-  v15.f32[a1[10].i32[1]] = v9;
-  result = *v15.i64;
-  *a3 = vmlaq_f32(a1[1], v15, *a1);
-  return result;
 }

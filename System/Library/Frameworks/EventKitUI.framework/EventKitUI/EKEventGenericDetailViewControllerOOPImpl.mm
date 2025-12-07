@@ -23,7 +23,7 @@
   *(v7 + 4) = 0u;
   *(v7 + 10) = 0;
   *(&self->super.super.super.isa + OBJC_IVAR____TtC10EventKitUI41EKEventGenericDetailViewControllerOOPImpl_oopContentBackgroundColor) = 0;
-  type metadata accessor for EKEventGenericDetailOOPHostViewModel();
+  type metadata accessor for EKEventGenericDetailOOPHostViewModel(0);
   *(&self->super.super.super.isa + OBJC_IVAR____TtC10EventKitUI41EKEventGenericDetailViewControllerOOPImpl_hostViewModel) = sub_1D35C2538(v4, v6);
   v9.receiver = self;
   v9.super_class = type metadata accessor for EKEventGenericDetailViewControllerOOPImpl();

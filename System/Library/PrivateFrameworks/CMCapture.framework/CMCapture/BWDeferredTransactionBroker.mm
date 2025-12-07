@@ -39,14 +39,14 @@
 
 - (void)_openTransaction:(uint64_t)transaction pid:(uint64_t)pid name:
 {
-  if (self)
+  if (result)
   {
     if (a2 >= 5)
     {
       [BWDeferredTransactionBroker _openTransaction:pid:name:];
     }
 
-    [(BWDeferredTransactionBroker *)self _openTransaction:a2 pid:transaction name:pid];
+    [(BWDeferredTransactionBroker *)result _openTransaction:a2 pid:transaction name:pid];
   }
 }
 

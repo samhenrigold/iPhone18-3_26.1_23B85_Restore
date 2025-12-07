@@ -121,30 +121,29 @@ LABEL_8:
 
 - (void)configurationWithParameters:()SceneProviding .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_1(&dword_1D29CC000, a2, a3, "Storyboard name not provided for scene ID: %{public}@ falling back to view controller name.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_1(&dword_1D29CC000, a2, a3, "Storyboard name not provided for scene ID: %{public}@ falling back to view controller name.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)configurationWithParameters:()SceneProviding .cold.2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_1(&dword_1D29CC000, a2, a3, "No view controller class available scene ID: %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_1(&dword_1D29CC000, a2, a3, "No view controller class available scene ID: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)extensionViewControllerClassForSceneRole:()SceneProviding .cold.1(uint64_t a1, NSObject *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v3 = 136315906;
-  v4 = "viewControllerClass";
-  v5 = 2080;
-  v6 = "/Library/Caches/com.apple.xbs/Sources/ExtensionKit/ExtensionKit/Source/Util/EXExtension+UserInterfaceConfiguration.m";
-  v7 = 1024;
-  v8 = 65;
-  v9 = 2114;
-  v10 = a1;
-  v2 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
+  v2 = 136315906;
+  v3 = "viewControllerClass";
+  v4 = 2080;
+  v5 = "/Library/Caches/com.apple.xbs/Sources/ExtensionKit/ExtensionKit/Source/Util/EXExtension+UserInterfaceConfiguration.m";
+  v6 = 1024;
+  v7 = 65;
+  v8 = 2114;
+  v9 = a1;
 }
 
 @end

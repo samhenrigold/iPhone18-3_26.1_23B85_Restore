@@ -56,7 +56,7 @@
 - (void)performOperation
 {
   selfCopy = self;
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   if (self)
   {
     self = self->_recipeListIDs;
@@ -80,9 +80,9 @@
       }
 
       *buf = 138543618;
-      v26 = shortOperationDescription;
-      v27 = 2114;
-      v28 = recipeListIDs;
+      v25 = shortOperationDescription;
+      v26 = 2114;
+      v27 = recipeListIDs;
       _os_log_impl(&dword_1B63EF000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ will fetch from recipe list IDs: %{public}@", buf, 0x16u);
     }
 
@@ -138,12 +138,12 @@
       FCProcessIsMemoryConstrained();
     }
 
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __42__FCRecipeItemsOperation_performOperation__block_invoke_10;
-    v23[3] = &unk_1E7C36D40;
-    v23[4] = selfCopy;
-    v16 = [MEMORY[0x1E695DEC8] fc_array:v23];
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __42__FCRecipeItemsOperation_performOperation__block_invoke_10;
+    v22[3] = &unk_1E7C36D40;
+    v22[4] = selfCopy;
+    v16 = [MEMORY[0x1E695DEC8] fc_array:v22];
     [(FCCKBatchedMultiFetchQueryOperation *)v7 setRecordSpecs:v16];
 
     newValue[0] = MEMORY[0x1E69E9820];
@@ -157,58 +157,54 @@
     }
 
     objc_initWeak(buf, v7);
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __42__FCRecipeItemsOperation_performOperation__block_invoke_6;
-    v20[3] = &unk_1E7C406A0;
-    v20[4] = selfCopy;
-    objc_copyWeak(&v21, buf);
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __42__FCRecipeItemsOperation_performOperation__block_invoke_6;
+    v19[3] = &unk_1E7C406A0;
+    v19[4] = selfCopy;
+    objc_copyWeak(&v20, buf);
     if (v7)
     {
-      objc_setProperty_nonatomic_copy(v7, v18, v20, 464);
+      objc_setProperty_nonatomic_copy(v7, v18, v19, 464);
     }
 
     [(FCOperation *)selfCopy associateChildOperation:v7];
     [(FCOperation *)v7 start];
-    objc_destroyWeak(&v21);
+    objc_destroyWeak(&v20);
     objc_destroyWeak(buf);
   }
 
   else
   {
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __42__FCRecipeItemsOperation_performOperation__block_invoke;
-    v24[3] = &unk_1E7C36EA0;
-    v24[4] = selfCopy;
-    __42__FCRecipeItemsOperation_performOperation__block_invoke(v24);
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __42__FCRecipeItemsOperation_performOperation__block_invoke;
+    v23[3] = &unk_1E7C36EA0;
+    v23[4] = selfCopy;
+    __42__FCRecipeItemsOperation_performOperation__block_invoke(v23);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __42__FCRecipeItemsOperation_performOperation__block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = FCOperationLog;
   if (os_log_type_enabled(FCOperationLog, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = v2;
     v5 = [v3 shortOperationDescription];
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ will end early because there are no recipe list IDs", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ will end early because there are no recipe list IDs", &v7, 0xCu);
   }
 
-  result = [*(a1 + 32) finishedPerformingOperationWithError:0];
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) finishedPerformingOperationWithError:0];
 }
 
 void __42__FCRecipeItemsOperation_performOperation__block_invoke_10(uint64_t a1, void *a2)
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = objc_opt_new();
   v6 = v4;
@@ -218,8 +214,8 @@ void __42__FCRecipeItemsOperation_performOperation__block_invoke_10(uint64_t a1,
     objc_setProperty_nonatomic_copy(v6, v7, MEMORY[0x1E695E0F0], 24);
   }
 
-  v21[0] = @"recipeIDs";
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:1];
+  v20[0] = @"recipeIDs";
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:1];
   if (v6)
   {
     objc_setProperty_nonatomic_copy(v6, v8, v9, 32);
@@ -259,8 +255,6 @@ void __42__FCRecipeItemsOperation_performOperation__block_invoke_10(uint64_t a1,
   }
 
   [v3 addObject:v12];
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __42__FCRecipeItemsOperation_performOperation__block_invoke_2(uint64_t a1, void *a2, void *a3)

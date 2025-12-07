@@ -1464,7 +1464,7 @@ LABEL_10:
       OUTLINED_FUNCTION_10();
       OUTLINED_FUNCTION_4_2();
       OUTLINED_FUNCTION_8_0();
-      OUTLINED_FUNCTION_6_0(&dword_1DB56E000, v0, v1, " [%s] %s:%d CMBlockBufferCreateWithMemoryBlock failed with error '%d'", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_6_0(&dword_1DB56E000, v0, v1, " [%s] %s:%d CMBlockBufferCreateWithMemoryBlock failed with error '%d'", v2, v3, v4, v5);
     }
   }
 
@@ -1482,7 +1482,7 @@ LABEL_10:
       OUTLINED_FUNCTION_10();
       OUTLINED_FUNCTION_4_2();
       OUTLINED_FUNCTION_8_0();
-      OUTLINED_FUNCTION_6_0(&dword_1DB56E000, v0, v1, " [%s] %s:%d VCCryptor_Encrypt failed with error '%d'", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_6_0(&dword_1DB56E000, v0, v1, " [%s] %s:%d VCCryptor_Encrypt failed with error '%d'", v2, v3, v4, v5);
     }
   }
 
@@ -1498,7 +1498,7 @@ LABEL_10:
     {
       OUTLINED_FUNCTION_1_0();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d CMBlockBufferGetDataPointer failed", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d CMBlockBufferGetDataPointer failed", v2, v3, v4, v5);
     }
   }
 
@@ -1514,7 +1514,7 @@ LABEL_10:
     {
       OUTLINED_FUNCTION_1_0();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d VCCryptor_Encrypt produced non-contiguous buffer", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d VCCryptor_Encrypt produced non-contiguous buffer", v2, v3, v4, v5);
     }
   }
 
@@ -1532,7 +1532,7 @@ LABEL_10:
       OUTLINED_FUNCTION_10();
       OUTLINED_FUNCTION_4_2();
       OUTLINED_FUNCTION_8_0();
-      OUTLINED_FUNCTION_6_0(&dword_1DB56E000, v0, v1, " [%s] %s:%d CMBlockBufferCreateWithMemoryBlock failed with error '%d'", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_6_0(&dword_1DB56E000, v0, v1, " [%s] %s:%d CMBlockBufferCreateWithMemoryBlock failed with error '%d'", v2, v3, v4, v5);
     }
   }
 
@@ -1550,7 +1550,7 @@ LABEL_10:
       OUTLINED_FUNCTION_10();
       OUTLINED_FUNCTION_4_2();
       OUTLINED_FUNCTION_8_0();
-      OUTLINED_FUNCTION_6_0(&dword_1DB56E000, v0, v1, " [%s] %s:%d VCCryptor_Decrypt failed with error '%d'", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_6_0(&dword_1DB56E000, v0, v1, " [%s] %s:%d VCCryptor_Decrypt failed with error '%d'", v2, v3, v4, v5);
     }
   }
 
@@ -1566,7 +1566,7 @@ LABEL_10:
     {
       OUTLINED_FUNCTION_1_0();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d CMBlockBufferGetDataPointer failed", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d CMBlockBufferGetDataPointer failed", v2, v3, v4, v5);
     }
   }
 
@@ -1582,7 +1582,7 @@ LABEL_10:
     {
       OUTLINED_FUNCTION_1_0();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d VCCryptor_Decrypt produced non-contiguous buffer", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d VCCryptor_Decrypt produced non-contiguous buffer", v2, v3, v4, v5);
     }
   }
 

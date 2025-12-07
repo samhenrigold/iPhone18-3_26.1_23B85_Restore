@@ -148,7 +148,7 @@
 
 - (void)writeTo:(id)to
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   toCopy = to;
   if (self->_applicationContainer)
   {
@@ -157,48 +157,44 @@
 
   if (*&self->_has)
   {
-    applicationContainerEnvironment = self->_applicationContainerEnvironment;
     PBDataWriterWriteInt32Field();
   }
 
-  v17 = 0u;
-  v18 = 0u;
+  v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v6 = self->_applicationBundles;
-  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v7, &v15, v19, 16);
-  if (v8)
+  v12 = 0u;
+  v13 = 0u;
+  v5 = self->_applicationBundles;
+  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v12, v16, 16);
+  if (v7)
   {
-    v9 = v8;
-    v10 = *v16;
+    v8 = v7;
+    v9 = *v13;
     do
     {
-      v11 = 0;
+      v10 = 0;
       do
       {
-        if (*v16 != v10)
+        if (*v13 != v9)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v5);
         }
 
-        v12 = *(*(&v15 + 1) + 8 * v11);
         PBDataWriterWriteStringField();
-        ++v11;
+        ++v10;
       }
 
-      while (v9 != v11);
-      v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v13, &v15, v19, 16);
+      while (v8 != v10);
+      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v11, &v12, v16, 16);
     }
 
-    while (v9);
+    while (v8);
   }
 
   if (self->_userPrivacySettings)
   {
     PBDataWriterWriteSubmessage();
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
@@ -242,7 +238,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v5 = objc_opt_class();
   v7 = objc_msgSend_allocWithZone_(v5, v6, zone);
   v10 = objc_msgSend_init(v7, v8, v9);
@@ -256,30 +252,30 @@
     *(v10 + 40) |= 1u;
   }
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   v14 = self->_applicationBundles;
-  v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v15, &v28, v32, 16);
+  v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v15, &v27, v31, 16);
   if (v16)
   {
     v18 = v16;
-    v19 = *v29;
+    v19 = *v28;
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v29 != v19)
+        if (*v28 != v19)
         {
           objc_enumerationMutation(v14);
         }
 
-        v21 = objc_msgSend_copyWithZone_(*(*(&v28 + 1) + 8 * i), v17, zone, v28);
+        v21 = objc_msgSend_copyWithZone_(*(*(&v27 + 1) + 8 * i), v17, zone, v27);
         objc_msgSend_addApplicationBundle_(v10, v22, v21);
       }
 
-      v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v17, &v28, v32, 16);
+      v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v17, &v27, v31, 16);
     }
 
     while (v18);
@@ -289,7 +285,6 @@
   v25 = *(v10 + 32);
   *(v10 + 32) = v24;
 
-  v26 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -312,7 +307,6 @@
     }
   }
 
-  v10 = *(equalCopy + 40);
   if (*&self->_has)
   {
     if ((equalCopy[5] & 1) == 0 || self->_applicationContainerEnvironment != *(equalCopy + 6))
@@ -329,17 +323,17 @@ LABEL_13:
   }
 
   applicationBundles = self->_applicationBundles;
-  v12 = equalCopy[1];
-  if (applicationBundles | v12 && !objc_msgSend_isEqual_(applicationBundles, v7, v12))
+  v11 = equalCopy[1];
+  if (applicationBundles | v11 && !objc_msgSend_isEqual_(applicationBundles, v7, v11))
   {
     goto LABEL_13;
   }
 
   userPrivacySettings = self->_userPrivacySettings;
-  v14 = equalCopy[4];
-  if (userPrivacySettings | v14)
+  v13 = equalCopy[4];
+  if (userPrivacySettings | v13)
   {
-    isEqual = objc_msgSend_isEqual_(userPrivacySettings, v7, v14);
+    isEqual = objc_msgSend_isEqual_(userPrivacySettings, v7, v13);
   }
 
   else
@@ -372,7 +366,7 @@ LABEL_14:
 
 - (void)mergeFrom:(id)from
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   v6 = *(fromCopy + 2);
   if (v6)
@@ -386,29 +380,29 @@ LABEL_14:
     *&self->_has |= 1u;
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v7 = *(fromCopy + 1);
-  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v8, &v18, v22, 16);
+  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v8, &v17, v21, 16);
   if (v9)
   {
     v11 = v9;
-    v12 = *v19;
+    v12 = *v18;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v19 != v12)
+        if (*v18 != v12)
         {
           objc_enumerationMutation(v7);
         }
 
-        objc_msgSend_addApplicationBundle_(self, v10, *(*(&v18 + 1) + 8 * i), v18);
+        objc_msgSend_addApplicationBundle_(self, v10, *(*(&v17 + 1) + 8 * i), v17);
       }
 
-      v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v10, &v18, v22, 16);
+      v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v10, &v17, v21, 16);
     }
 
     while (v11);
@@ -428,8 +422,6 @@ LABEL_14:
   {
     objc_msgSend_setUserPrivacySettings_(self, v14, v16);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -76,16 +76,16 @@
 
   else
   {
-    v8 = sub_100004778();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_100004778(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       uniqueProxyIdentifier2 = [messageCopy uniqueProxyIdentifier];
       allCalls = [(CSDRelayController *)self allCalls];
-      v11 = 138412546;
-      v12 = uniqueProxyIdentifier2;
-      v13 = 2112;
-      v14 = allCalls;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "[WARN] Could not find call with uniqueProxyIdentifier %@. All current calls: %@", &v11, 0x16u);
+      v12 = 138412546;
+      v13 = uniqueProxyIdentifier2;
+      v14 = 2112;
+      v15 = allCalls;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "[WARN] Could not find call with uniqueProxyIdentifier %@. All current calls: %@", &v12, 0x16u);
     }
   }
 }
@@ -104,16 +104,16 @@
 
   else
   {
-    v8 = sub_100004778();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_100004778(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       uniqueProxyIdentifier2 = [messageCopy uniqueProxyIdentifier];
       allCalls = [(CSDRelayController *)self allCalls];
-      v11 = 138412546;
-      v12 = uniqueProxyIdentifier2;
-      v13 = 2112;
-      v14 = allCalls;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "[WARN] Could not find call with uniqueProxyIdentifier %@. All current calls: %@", &v11, 0x16u);
+      v12 = 138412546;
+      v13 = uniqueProxyIdentifier2;
+      v14 = 2112;
+      v15 = allCalls;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "[WARN] Could not find call with uniqueProxyIdentifier %@. All current calls: %@", &v12, 0x16u);
     }
   }
 }
@@ -133,23 +133,23 @@
     if (isTinCanProvider)
     {
       [messageCopy messageSendTime];
-      v11 = v10;
-      [v7 uplinkMutedSetTime];
-      if (v11 <= v12)
+      v12 = v11;
+      uplinkMutedSetTime = [v7 uplinkMutedSetTime];
+      if (v12 <= v14)
       {
-        v16 = sub_100004778();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+        v18 = sub_100004778(uplinkMutedSetTime);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
           [messageCopy messageSendTime];
-          v18 = v17;
+          v20 = v19;
           [v7 uplinkMutedSetTime];
-          v20 = 138412802;
-          v21 = messageCopy;
-          v22 = 2048;
-          v23 = v18;
+          v22 = 138412802;
+          v23 = messageCopy;
           v24 = 2048;
-          v25 = v19;
-          _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Ignoring %@ because messageSendTime (%f) <= call.uplinkMutedSetTime (%f)", &v20, 0x20u);
+          v25 = v20;
+          v26 = 2048;
+          v27 = v21;
+          _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Ignoring %@ because messageSendTime (%f) <= call.uplinkMutedSetTime (%f)", &v22, 0x20u);
         }
       }
 
@@ -169,16 +169,16 @@
 
   else
   {
-    v13 = sub_100004778();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v15 = sub_100004778(v8);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       uniqueProxyIdentifier2 = [messageCopy uniqueProxyIdentifier];
       allCalls = [(CSDRelayController *)self allCalls];
-      v20 = 138412546;
-      v21 = uniqueProxyIdentifier2;
-      v22 = 2112;
-      v23 = allCalls;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "[WARN] Could not find call with uniqueProxyIdentifier %@. All current calls: %@", &v20, 0x16u);
+      v22 = 138412546;
+      v23 = uniqueProxyIdentifier2;
+      v24 = 2112;
+      v25 = allCalls;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "[WARN] Could not find call with uniqueProxyIdentifier %@. All current calls: %@", &v22, 0x16u);
     }
   }
 }
@@ -196,16 +196,16 @@
 
   else
   {
-    v7 = sub_100004778();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100004778(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       uniqueProxyIdentifier2 = [messageCopy uniqueProxyIdentifier];
       allCalls = [(CSDRelayController *)self allCalls];
-      v10 = 138412546;
-      v11 = uniqueProxyIdentifier2;
-      v12 = 2112;
-      v13 = allCalls;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "[WARN] Could not find call with uniqueProxyIdentifier %@. All current calls: %@", &v10, 0x16u);
+      v11 = 138412546;
+      v12 = uniqueProxyIdentifier2;
+      v13 = 2112;
+      v14 = allCalls;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "[WARN] Could not find call with uniqueProxyIdentifier %@. All current calls: %@", &v11, 0x16u);
     }
   }
 }
@@ -267,7 +267,7 @@ LABEL_13:
     }
   }
 
-  v9 = sub_100004778();
+  v9 = sub_100004778(requestActionType);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10 = 138412290;

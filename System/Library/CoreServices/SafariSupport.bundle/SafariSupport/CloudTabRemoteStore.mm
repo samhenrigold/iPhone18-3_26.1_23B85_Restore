@@ -24,17 +24,17 @@
     sub_10007D330();
   }
 
-  v1 = qword_100154008;
+  v2 = qword_100154008;
 
-  return v1;
+  return v2;
 }
 
 - (CloudTabRemoteStore)initWithContainer:(id)container
 {
   containerCopy = container;
-  v17.receiver = self;
-  v17.super_class = CloudTabRemoteStore;
-  v6 = [(CloudRemoteStore *)&v17 init];
+  v19.receiver = self;
+  v19.super_class = CloudTabRemoteStore;
+  v6 = [(CloudRemoteStore *)&v19 init];
   v7 = v6;
   if (v6)
   {
@@ -48,22 +48,22 @@
 
     if (!v7->_threadUnsafeDatabase)
     {
-      v11 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v13 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v11, v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         sub_1000676FC();
       }
     }
 
-    v12 = objc_opt_new();
+    v14 = objc_opt_new();
     cloudTabsOperationQueue = v7->_cloudTabsOperationQueue;
-    v7->_cloudTabsOperationQueue = v12;
+    v7->_cloudTabsOperationQueue = v14;
 
     [(NSOperationQueue *)v7->_cloudTabsOperationQueue setQualityOfService:17];
-    v14 = [NSString stringWithFormat:@"com.apple.Safari.CloudBookmarks.CloudTabRemoteStore.%@.%p.operationQueue", objc_opt_class(), v7];
-    [(NSOperationQueue *)v7->_cloudTabsOperationQueue setName:v14];
+    v16 = [NSString stringWithFormat:@"com.apple.Safari.CloudBookmarks.CloudTabRemoteStore.%@.%p.operationQueue", objc_opt_class(), v7];
+    [(NSOperationQueue *)v7->_cloudTabsOperationQueue setName:v16];
 
-    v15 = v7;
+    v17 = v7;
   }
 
   return v7;
@@ -73,19 +73,20 @@
 {
   handlerCopy = handler;
   groupCopy = group;
-  v8 = [[WBSCloudKitOperationRetryManager alloc] initWithLog:sub_100001B78()];
-  [(CloudTabRemoteStore *)self _createCloudTabsRecordZoneInOperationGroup:groupCopy withRetryManager:v8 completionHandler:handlerCopy];
+  v8 = [WBSCloudKitOperationRetryManager alloc];
+  v10 = [v8 initWithLog:{sub_100001B78(v8, v9)}];
+  [(CloudTabRemoteStore *)self _createCloudTabsRecordZoneInOperationGroup:groupCopy withRetryManager:v10 completionHandler:handlerCopy];
 }
 
 - (void)fetchCloudTabsZoneSubscriptionInOperationGroup:(id)group withCompletionHandler:(id)handler
 {
   groupCopy = group;
   handlerCopy = handler;
-  v8 = sub_100001B78();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = sub_100001B78(handlerCopy, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Fetching CloudTabs zone subscription", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Fetching CloudTabs zone subscription", buf, 2u);
   }
 
   internalQueue = self->super._internalQueue;
@@ -93,11 +94,11 @@
   block[1] = 3221225472;
   block[2] = sub_100079C04;
   block[3] = &unk_100130E50;
-  v13 = groupCopy;
-  v14 = handlerCopy;
+  v14 = groupCopy;
+  v15 = handlerCopy;
   block[4] = self;
-  v10 = groupCopy;
-  v11 = handlerCopy;
+  v11 = groupCopy;
+  v12 = handlerCopy;
   dispatch_async(internalQueue, block);
 }
 
@@ -105,28 +106,29 @@
 {
   groupCopy = group;
   handlerCopy = handler;
-  objc_initWeak(&location, self);
-  v8 = sub_100001B78();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  inited = objc_initWeak(&location, self);
+  v10 = sub_100001B78(inited, v9);
+  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+  if (v11)
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Saving CloudTabs zone subscription", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Saving CloudTabs zone subscription", buf, 2u);
   }
 
-  v9 = [CloudTabRemoteStore _zoneID]_0();
+  v12 = [CloudTabRemoteStore _zoneID]_0(v11);
   cloudTabsOperationQueue = self->_cloudTabsOperationQueue;
-  v13[0] = _NSConcreteStackBlock;
-  v13[1] = 3221225472;
-  v13[2] = sub_10007A090;
-  v13[3] = &unk_100130EA0;
-  v11 = handlerCopy;
-  v15 = v11;
-  objc_copyWeak(&v16, &location);
-  v12 = groupCopy;
-  v14 = v12;
-  [(CloudRemoteStore *)self _saveRecordZoneSubscriptionForZoneID:v9 subscriptionID:@"CloudTabsZoneSubscription" inOperationGroup:v12 operationQueue:cloudTabsOperationQueue completionHandler:v13];
+  v16[0] = _NSConcreteStackBlock;
+  v16[1] = 3221225472;
+  v16[2] = sub_10007A090;
+  v16[3] = &unk_100130EA0;
+  v14 = handlerCopy;
+  v18 = v14;
+  objc_copyWeak(&v19, &location);
+  v15 = groupCopy;
+  v17 = v15;
+  [(CloudRemoteStore *)self _saveRecordZoneSubscriptionForZoneID:v12 subscriptionID:@"CloudTabsZoneSubscription" inOperationGroup:v15 operationQueue:cloudTabsOperationQueue completionHandler:v16];
 
-  objc_destroyWeak(&v16);
+  objc_destroyWeak(&v19);
   objc_destroyWeak(&location);
 }
 
@@ -137,48 +139,48 @@
   blockCopy = block;
   deletedBlockCopy = deletedBlock;
   handlerCopy = handler;
-  v17 = sub_100001B78();
-  v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
+  v18 = sub_100001B78(handlerCopy, v17);
+  v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
   if (tokenCopy)
   {
-    if (v18)
+    if (v19)
     {
       *buf = 138543362;
-      v35 = tokenCopy;
-      v19 = "Fetching record changes with server change token %{public}@.";
-      v20 = v17;
-      v21 = 12;
+      v36 = tokenCopy;
+      v20 = "Fetching record changes with server change token %{public}@.";
+      v21 = v18;
+      v22 = 12;
 LABEL_6:
-      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, v19, buf, v21);
+      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, v20, buf, v22);
     }
   }
 
-  else if (v18)
+  else if (v19)
   {
     *buf = 0;
-    v19 = "Fetching all records.";
-    v20 = v17;
-    v21 = 2;
+    v20 = "Fetching all records.";
+    v21 = v18;
+    v22 = 2;
     goto LABEL_6;
   }
 
   internalQueue = self->super._internalQueue;
-  v28[0] = _NSConcreteStackBlock;
-  v28[1] = 3221225472;
-  v28[2] = sub_10007A4EC;
-  v28[3] = &unk_100130F90;
-  v28[4] = self;
-  v29 = tokenCopy;
-  v30 = groupCopy;
-  v31 = blockCopy;
-  v32 = deletedBlockCopy;
-  v33 = handlerCopy;
-  v23 = handlerCopy;
-  v24 = groupCopy;
-  v25 = deletedBlockCopy;
-  v26 = blockCopy;
-  v27 = tokenCopy;
-  dispatch_async(internalQueue, v28);
+  v29[0] = _NSConcreteStackBlock;
+  v29[1] = 3221225472;
+  v29[2] = sub_10007A4EC;
+  v29[3] = &unk_100130F90;
+  v29[4] = self;
+  v30 = tokenCopy;
+  v31 = groupCopy;
+  v32 = blockCopy;
+  v33 = deletedBlockCopy;
+  v34 = handlerCopy;
+  v24 = handlerCopy;
+  v25 = groupCopy;
+  v26 = deletedBlockCopy;
+  v27 = blockCopy;
+  v28 = tokenCopy;
+  dispatch_async(internalQueue, v29);
 }
 
 - (void)saveCloudTabsRecordBatch:(id)batch createCloudTabsZoneIfMissing:(BOOL)missing inOperationGroup:(id)group completionHandler:(id)handler
@@ -186,31 +188,31 @@ LABEL_6:
   batchCopy = batch;
   groupCopy = group;
   handlerCopy = handler;
-  objc_initWeak(&location, self);
-  v13 = sub_100001B78();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  inited = objc_initWeak(&location, self);
+  v15 = sub_100001B78(inited, v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = [batchCopy count];
+    v16 = [batchCopy count];
     *buf = 134217984;
-    v26 = v14;
-    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Saving record batch of size: %lu", buf, 0xCu);
+    v28 = v16;
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Saving record batch of size: %lu", buf, 0xCu);
   }
 
-  v18[0] = _NSConcreteStackBlock;
-  v18[1] = 3221225472;
-  v18[2] = sub_10007A6DC;
-  v18[3] = &unk_100130F18;
-  objc_copyWeak(&v22, &location);
-  v15 = handlerCopy;
-  v21 = v15;
+  v20[0] = _NSConcreteStackBlock;
+  v20[1] = 3221225472;
+  v20[2] = sub_10007A6DC;
+  v20[3] = &unk_100130F18;
+  objc_copyWeak(&v24, &location);
+  v17 = handlerCopy;
+  v23 = v17;
   missingCopy = missing;
-  v16 = groupCopy;
-  v19 = v16;
-  v17 = batchCopy;
-  v20 = v17;
-  [(CloudTabRemoteStore *)self _saveCloudTabsRecordBatch:v17 inOperationGroup:v16 completionHandler:v18];
+  v18 = groupCopy;
+  v21 = v18;
+  v19 = batchCopy;
+  v22 = v19;
+  [(CloudTabRemoteStore *)self _saveCloudTabsRecordBatch:v19 inOperationGroup:v18 completionHandler:v20];
 
-  objc_destroyWeak(&v22);
+  objc_destroyWeak(&v24);
   objc_destroyWeak(&location);
 }
 
@@ -220,97 +222,98 @@ LABEL_6:
   groupCopy = group;
   handlerCopy = handler;
   v11 = [recordsCopy count];
-  v12 = sub_100001B78();
-  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+  v13 = sub_100001B78(v11, v12);
+  v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
   if (v11)
   {
-    v29 = groupCopy;
-    if (v13)
+    v32 = groupCopy;
+    if (v14)
     {
-      v14 = v12;
+      v15 = v13;
       *buf = 134217984;
-      v45 = [recordsCopy count];
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Deleting %lu records.", buf, 0xCu);
+      v48 = [recordsCopy count];
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Deleting %lu records.", buf, 0xCu);
     }
 
-    v32 = handlerCopy;
-    v15 = [recordsCopy safari_arrayByGroupingIntoArraysWithMaxCount:100];
-    v16 = [v15 count];
-    if (v16 >= 2)
+    v35 = handlerCopy;
+    v16 = [recordsCopy safari_arrayByGroupingIntoArraysWithMaxCount:100];
+    v17 = [v16 count];
+    v19 = v17;
+    if (v17 >= 2)
     {
-      v17 = sub_100001B78();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v20 = sub_100001B78(v17, v18);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = v17;
-        v19 = [recordsCopy count];
+        v21 = v20;
+        v22 = [recordsCopy count];
         *buf = 134218240;
-        v45 = v19;
-        v46 = 2048;
-        v47 = v16;
-        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Grouping delete requests for %lu objects into %lu batches", buf, 0x16u);
+        v48 = v22;
+        v49 = 2048;
+        v50 = v19;
+        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Grouping delete requests for %lu objects into %lu batches", buf, 0x16u);
       }
     }
 
-    v30 = recordsCopy;
-    v20 = [NSMutableSet setWithArray:v15];
-    v21 = +[NSMutableArray array];
-    v22 = [NSMutableArray arrayWithCapacity:v16];
-    v39 = 0u;
-    v40 = 0u;
-    v41 = 0u;
+    v33 = recordsCopy;
+    v23 = [NSMutableSet setWithArray:v16];
+    v24 = +[NSMutableArray array];
+    v25 = [NSMutableArray arrayWithCapacity:v19];
     v42 = 0u;
-    obj = v15;
-    v23 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
-    if (v23)
+    v43 = 0u;
+    v44 = 0u;
+    v45 = 0u;
+    obj = v16;
+    v26 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
+    if (v26)
     {
-      v24 = v23;
-      v25 = *v40;
+      v27 = v26;
+      v28 = *v43;
       do
       {
-        v26 = 0;
+        v29 = 0;
         do
         {
-          if (*v40 != v25)
+          if (*v43 != v28)
           {
             objc_enumerationMutation(obj);
           }
 
-          v27 = *(*(&v39 + 1) + 8 * v26);
-          v33[0] = _NSConcreteStackBlock;
-          v33[1] = 3221225472;
-          v33[2] = sub_10007ADE8;
-          v33[3] = &unk_100130F68;
-          v34 = v21;
-          v35 = v20;
-          v36 = v27;
+          v30 = *(*(&v42 + 1) + 8 * v29);
+          v36[0] = _NSConcreteStackBlock;
+          v36[1] = 3221225472;
+          v36[2] = sub_10007ADE8;
+          v36[3] = &unk_100130F68;
+          v37 = v24;
+          v38 = v23;
+          v39 = v30;
           selfCopy = self;
-          v38 = v32;
-          v28 = [(CloudTabRemoteStore *)self _operationToDeleteCloudTabRecordIDs:v27 completionHandler:v33];
-          [v22 addObject:v28];
+          v41 = v35;
+          v31 = [(CloudTabRemoteStore *)self _operationToDeleteCloudTabRecordIDs:v30 completionHandler:v36];
+          [v25 addObject:v31];
 
-          v26 = v26 + 1;
+          v29 = v29 + 1;
         }
 
-        while (v24 != v26);
-        v24 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
+        while (v27 != v29);
+        v27 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
       }
 
-      while (v24);
+      while (v27);
     }
 
-    groupCopy = v29;
-    [(CloudRemoteStore *)self _addModifyRecordsOperations:v22 inOperationGroup:v29 operationQueue:self->_cloudTabsOperationQueue];
+    groupCopy = v32;
+    [(CloudRemoteStore *)self _addModifyRecordsOperations:v25 inOperationGroup:v32 operationQueue:self->_cloudTabsOperationQueue];
 
-    recordsCopy = v30;
-    handlerCopy = v32;
+    recordsCopy = v33;
+    handlerCopy = v35;
   }
 
   else
   {
-    if (v13)
+    if (v14)
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "No records to delete.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "No records to delete.", buf, 2u);
     }
 
     (*(handlerCopy + 2))(handlerCopy, 0);
@@ -321,11 +324,11 @@ LABEL_6:
 {
   groupCopy = group;
   handlerCopy = handler;
-  v8 = sub_100001B78();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = sub_100001B78(handlerCopy, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Deleting CloudTabs zone", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Deleting CloudTabs zone", buf, 2u);
   }
 
   internalQueue = self->super._internalQueue;
@@ -333,11 +336,11 @@ LABEL_6:
   block[1] = 3221225472;
   block[2] = sub_10007B054;
   block[3] = &unk_100130E50;
-  v13 = groupCopy;
-  v14 = handlerCopy;
+  v14 = groupCopy;
+  v15 = handlerCopy;
   block[4] = self;
-  v10 = groupCopy;
-  v11 = handlerCopy;
+  v11 = groupCopy;
+  v12 = handlerCopy;
   dispatch_async(internalQueue, block);
 }
 
@@ -346,12 +349,12 @@ LABEL_6:
   groupCopy = group;
   managerCopy = manager;
   handlerCopy = handler;
-  objc_initWeak(&location, self);
-  v11 = sub_100001B78();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  inited = objc_initWeak(&location, self);
+  v13 = sub_100001B78(inited, v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Creating CloudTabs zone", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Creating CloudTabs zone", buf, 2u);
   }
 
   internalQueue = self->super._internalQueue;
@@ -359,17 +362,17 @@ LABEL_6:
   block[1] = 3221225472;
   block[2] = sub_10007B4D4;
   block[3] = &unk_100131260;
-  v17 = managerCopy;
-  v13 = managerCopy;
-  objc_copyWeak(&v21, &location);
+  v19 = managerCopy;
+  v15 = managerCopy;
+  objc_copyWeak(&v23, &location);
   selfCopy = self;
-  v20 = handlerCopy;
-  v18 = groupCopy;
-  v14 = groupCopy;
-  v15 = handlerCopy;
+  v22 = handlerCopy;
+  v20 = groupCopy;
+  v16 = groupCopy;
+  v17 = handlerCopy;
   dispatch_async(internalQueue, block);
 
-  objc_destroyWeak(&v21);
+  objc_destroyWeak(&v23);
   objc_destroyWeak(&location);
 }
 
@@ -378,10 +381,11 @@ LABEL_6:
   handlerCopy = handler;
   groupCopy = group;
   batchCopy = batch;
-  v13 = +[NSMutableArray array];
+  v15 = +[NSMutableArray array];
   v11 = +[NSMutableArray array];
-  v12 = [[WBSCloudKitOperationRetryManager alloc] initWithLog:sub_100001B78()];
-  [(CloudTabRemoteStore *)self _saveCloudTabsRecordBatch:batchCopy previouslySavedRecords:v13 previouslyDeletedRecordIDs:v11 retryManager:v12 inOperationGroup:groupCopy completionHandler:handlerCopy];
+  v12 = [WBSCloudKitOperationRetryManager alloc];
+  v14 = [v12 initWithLog:{sub_100001B78(v12, v13)}];
+  [(CloudTabRemoteStore *)self _saveCloudTabsRecordBatch:batchCopy previouslySavedRecords:v15 previouslyDeletedRecordIDs:v11 retryManager:v14 inOperationGroup:groupCopy completionHandler:handlerCopy];
 }
 
 - (void)_saveCloudTabsRecordBatch:(id)batch previouslySavedRecords:(id)records previouslyDeletedRecordIDs:(id)ds retryManager:(id)manager inOperationGroup:(id)group completionHandler:(id)handler
@@ -392,56 +396,56 @@ LABEL_6:
   managerCopy = manager;
   groupCopy = group;
   handlerCopy = handler;
-  objc_initWeak(&location, self);
-  v20 = sub_100001B78();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+  inited = objc_initWeak(&location, self);
+  v22 = sub_100001B78(inited, v21);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
-    v21 = [batchCopy count];
+    v23 = [batchCopy count];
     LODWORD(buf) = 134217984;
-    *(&buf + 4) = v21;
-    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Saving record batch with %lu records", &buf, 0xCu);
+    *(&buf + 4) = v23;
+    _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Saving record batch with %lu records", &buf, 0xCu);
   }
 
-  v22 = [[CKModifyRecordsOperation alloc] initWithRecordsToSave:batchCopy recordIDsToDelete:0];
-  [v22 setSavePolicy:1];
+  v24 = [[CKModifyRecordsOperation alloc] initWithRecordsToSave:batchCopy recordIDsToDelete:0];
+  [v24 setSavePolicy:1];
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v46 = 0x2020000000;
-  v47 = 0;
+  v48 = 0x2020000000;
+  v49 = 0;
   +[NSMutableArray array];
-  v40[0] = _NSConcreteStackBlock;
-  v40[1] = 3221225472;
-  v40[2] = sub_10007BECC;
-  v40[3] = &unk_100130FE0;
-  v40[4] = self;
-  v23 = p_buf = &buf;
-  v41 = v23;
-  [v22 setPerRecordCompletionBlock:v40];
-  v31[0] = _NSConcreteStackBlock;
-  v31[1] = 3221225472;
-  v31[2] = sub_10007C150;
-  v31[3] = &unk_100131080;
-  v31[4] = self;
-  v30 = recordsCopy;
-  v32 = v30;
-  v24 = dsCopy;
-  v33 = v24;
-  v25 = handlerCopy;
-  v37 = v25;
-  v38 = &buf;
-  v26 = batchCopy;
-  v34 = v26;
-  v27 = managerCopy;
-  v35 = v27;
-  v28 = groupCopy;
+  v42[0] = _NSConcreteStackBlock;
+  v42[1] = 3221225472;
+  v42[2] = sub_10007BECC;
+  v42[3] = &unk_100130FE0;
+  v42[4] = self;
+  v25 = p_buf = &buf;
+  v43 = v25;
+  [v24 setPerRecordCompletionBlock:v42];
+  v33[0] = _NSConcreteStackBlock;
+  v33[1] = 3221225472;
+  v33[2] = sub_10007C150;
+  v33[3] = &unk_100131080;
+  v33[4] = self;
+  v32 = recordsCopy;
+  v34 = v32;
+  v26 = dsCopy;
+  v35 = v26;
+  v27 = handlerCopy;
+  v39 = v27;
+  v40 = &buf;
+  v28 = batchCopy;
   v36 = v28;
-  objc_copyWeak(&v39, &location);
-  [v22 setModifyRecordsCompletionBlock:v31];
-  v44 = v22;
-  v29 = [NSArray arrayWithObjects:&v44 count:1];
-  [(CloudRemoteStore *)self _addModifyRecordsOperations:v29 inOperationGroup:v28 operationQueue:self->_cloudTabsOperationQueue];
+  v29 = managerCopy;
+  v37 = v29;
+  v30 = groupCopy;
+  v38 = v30;
+  objc_copyWeak(&v41, &location);
+  [v24 setModifyRecordsCompletionBlock:v33];
+  v46 = v24;
+  v31 = [NSArray arrayWithObjects:&v46 count:1];
+  [(CloudRemoteStore *)self _addModifyRecordsOperations:v31 inOperationGroup:v30 operationQueue:self->_cloudTabsOperationQueue];
 
-  objc_destroyWeak(&v39);
+  objc_destroyWeak(&v41);
   _Block_object_dispose(&buf, 8);
 
   objc_destroyWeak(&location);

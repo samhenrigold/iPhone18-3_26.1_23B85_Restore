@@ -54,26 +54,26 @@
 
   if (v8)
   {
-    [v5 length];
-    MEMORY[0x28223BE20]();
-    v10 = &v15 - v9;
-    *(&v15 - v9) = 3972;
+    v9 = [v5 length];
+    MEMORY[0x28223BE20](v9);
+    v11 = &v15 - v10;
+    *(&v15 - v10) = 3972;
     if ([v5 length])
     {
-      v11 = 0;
+      v12 = 0;
       do
       {
-        *&v10[2 * v11 + 2] = [v5 characterAtIndex:v11] - 80;
-        ++v11;
+        *&v11[2 * v12 + 2] = [v5 characterAtIndex:v12] - 80;
+        ++v12;
       }
 
-      while (v11 < [v5 length]);
+      while (v12 < [v5 length]);
     }
 
-    v12 = [MEMORY[0x277CCACA8] stringWithCharacters:v10 length:{objc_msgSend(v5, "length") + 1}];
+    v13 = [MEMORY[0x277CCACA8] stringWithCharacters:v11 length:{objc_msgSend(v5, "length") + 1}];
     v16.receiver = self;
     v16.super_class = TypistKeyboardTibetan;
-    v6 = [(TypistKeyboard *)&v16 generateKeystrokeStream:v12];
+    v6 = [(TypistKeyboard *)&v16 generateKeystrokeStream:v13];
   }
 
   else
@@ -83,8 +83,6 @@ LABEL_9:
   }
 
 LABEL_10:
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

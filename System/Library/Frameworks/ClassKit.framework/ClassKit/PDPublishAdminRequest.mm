@@ -571,31 +571,31 @@ LABEL_69:
       if (v12)
       {
         selfCopy = self;
-        v38 = payloadCopy;
-        v41 = adminRequestAccount;
-        v47 = 0u;
-        v48 = 0u;
-        v45 = 0u;
+        v37 = payloadCopy;
+        v40 = adminRequestAccount;
         v46 = 0u;
+        v47 = 0u;
+        v44 = 0u;
+        v45 = 0u;
         obj = [person roleLocations];
         v13 = v9;
-        v43 = [obj countByEnumeratingWithState:&v45 objects:v49 count:16];
-        if (v43)
+        v42 = [obj countByEnumeratingWithState:&v44 objects:v48 count:16];
+        if (v42)
         {
-          v14 = *v46;
+          v14 = *v45;
           v15 = &CLSLogAsset_ptr;
-          v39 = database;
-          v40 = v13;
+          v38 = database;
+          v39 = v13;
           do
           {
-            for (i = 0; i != v43; i = i + 1)
+            for (i = 0; i != v42; i = i + 1)
             {
-              if (*v46 != v14)
+              if (*v45 != v14)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v17 = *(*(&v45 + 1) + 8 * i);
+              v17 = *(*(&v44 + 1) + 8 * i);
               if ([v17 hasRoleType] && !objc_msgSend(v17, "hasRoleId") || objc_msgSend(v17, "hasRoleId") && (v18 = objc_opt_class(), objc_msgSend(v17, "roleId"), v19 = objc_claimAutoreleasedReturnValue(), LOBYTE(v18) = objc_msgSend(database, "entityExistsByClass:identity:", v18, v19), v19, (v18 & 1) == 0))
               {
                 v20 = v15;
@@ -614,7 +614,7 @@ LABEL_69:
                 }
 
                 locationId = [v17 locationId];
-                parentRequestId = [v41 parentRequestId];
+                parentRequestId = [v40 parentRequestId];
                 v28 = [NSString stringWithFormat:@"%@-%@-%@-%@", personId, v25, locationId, parentRequestId];
 
                 [v17 setRoleId:v28];
@@ -622,21 +622,20 @@ LABEL_69:
                 [_init setObjectID:v28];
                 [_init setType:{objc_msgSend(v17, "roleType")}];
                 [_init setPrivileges:&__NSArray0__struct];
-                v13 = v40;
-                [v40 addObject:_init];
+                v13 = v39;
+                [v39 addObject:_init];
 
                 person = v22;
                 v14 = v21;
                 v15 = v20;
-                database = v39;
+                database = v38;
               }
 
-              v30 = v15[96];
-              v31 = objc_opt_class();
+              v30 = objc_opt_class();
               locationId2 = [v17 locationId];
-              LOBYTE(v31) = [database entityExistsByClass:v31 identity:locationId2];
+              LOBYTE(v30) = [database entityExistsByClass:v30 identity:locationId2];
 
-              if ((v31 & 1) == 0)
+              if ((v30 & 1) == 0)
               {
                 _init2 = [objc_alloc(v15[96]) _init];
                 locationId3 = [v17 locationId];
@@ -647,26 +646,26 @@ LABEL_69:
               }
             }
 
-            v43 = [obj countByEnumeratingWithState:&v45 objects:v49 count:16];
+            v42 = [obj countByEnumeratingWithState:&v44 objects:v48 count:16];
           }
 
-          while (v43);
+          while (v42);
         }
 
         [database insertOrUpdateObjects:v13];
         self = selfCopy;
-        payloadCopy = v38;
+        payloadCopy = v37;
         v9 = v13;
-        adminRequestAccount = v41;
+        adminRequestAccount = v40;
       }
     }
   }
 
-  v44.receiver = self;
-  v44.super_class = PDPublishAdminRequest;
-  v35 = [(PDASMPayloadOperation *)&v44 processAdminRequestAccountPayload:payloadCopy];
+  v43.receiver = self;
+  v43.super_class = PDPublishAdminRequest;
+  v34 = [(PDASMPayloadOperation *)&v43 processAdminRequestAccountPayload:payloadCopy];
 
-  return v35;
+  return v34;
 }
 
 - (BOOL)processPayloadFromResponse:(id)response error:(id *)error

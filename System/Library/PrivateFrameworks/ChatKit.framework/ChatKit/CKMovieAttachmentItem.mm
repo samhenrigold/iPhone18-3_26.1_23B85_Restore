@@ -369,7 +369,7 @@ void __55__CKMovieAttachmentItem_generatePreviewWithCompletion___block_invoke_3(
       v18 = v17;
       if (firstObject)
       {
-        [firstObject preferredTransform];
+        objc_msgSend_preferredTransform(firstObject);
       }
 
       else
@@ -413,35 +413,36 @@ void __55__CKMovieAttachmentItem_generatePreviewWithCompletion___block_invoke_3(
 
 - (id)previewItemTitle
 {
-  if ([(CKMovieAttachmentItem *)self isJellyfishVideo])
+  isJellyfishVideo = [(CKMovieAttachmentItem *)self isJellyfishVideo];
+  if (isJellyfishVideo)
   {
-    v3 = CKFrameworkBundle();
-    v4 = v3;
-    v5 = @"ANIMOJI";
+    v4 = CKFrameworkBundle(isJellyfishVideo);
+    v5 = v4;
+    v6 = @"ANIMOJI";
   }
 
   else
   {
     fileURL = [(CKAttachmentItem *)self fileURL];
     lastPathComponent = [fileURL lastPathComponent];
-    v8 = [lastPathComponent isEqualToString:@"Video Message.mov"];
+    v9 = [lastPathComponent isEqualToString:@"Video Message.mov"];
 
-    v3 = CKFrameworkBundle();
-    v4 = v3;
-    if (v8)
+    v4 = CKFrameworkBundle(v10);
+    v5 = v4;
+    if (v9)
     {
-      v5 = @"PREVIEW_TITLE_VIDEO_MESSAGE";
+      v6 = @"PREVIEW_TITLE_VIDEO_MESSAGE";
     }
 
     else
     {
-      v5 = @"PREVIEW_TITLE_VIDEO";
+      v6 = @"PREVIEW_TITLE_VIDEO";
     }
   }
 
-  v9 = [v3 localizedStringForKey:v5 value:&stru_1F04268F8 table:@"ChatKit"];
+  v11 = [v4 localizedStringForKey:v6 value:&stru_1F04268F8 table:@"ChatKit"];
 
-  return v9;
+  return v11;
 }
 
 @end

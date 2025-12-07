@@ -86,16 +86,16 @@
 
 - (id)_propertiesWithPageId:(id)id displayReason:(id)reason
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   idCopy = id;
   reasonCopy = reason;
   if (reasonCopy)
   {
     displayReason = reasonCopy;
 LABEL_4:
-    v19 = @"displayReason";
-    v20[0] = displayReason;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+    v18 = @"displayReason";
+    v19[0] = displayReason;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
     goto LABEL_5;
   }
 
@@ -107,17 +107,17 @@ LABEL_4:
 
   v9 = MEMORY[0x1E695E0F8];
 LABEL_5:
-  v17[0] = @"app";
-  v17[1] = @"eventType";
+  v16[0] = @"app";
+  v16[1] = @"eventType";
   v10 = *MEMORY[0x1E698C6E0];
-  v18[0] = @"commerce-app";
-  v18[1] = v10;
-  v17[2] = @"hostApp";
+  v17[0] = @"commerce-app";
+  v17[1] = v10;
+  v16[2] = @"hostApp";
   appID = [(AMSUIPaymentVerificationMetrics *)self appID];
-  v18[2] = appID;
-  v18[3] = v9;
-  v17[3] = @"pageDetails";
-  v17[4] = @"pageId";
+  v17[2] = appID;
+  v17[3] = v9;
+  v16[3] = @"pageDetails";
+  v16[4] = @"pageId";
   if (idCopy)
   {
     v12 = idCopy;
@@ -128,20 +128,18 @@ LABEL_5:
     v12 = &stru_1F3921360;
   }
 
-  v17[5] = @"pageType";
+  v16[5] = @"pageType";
   v13 = *MEMORY[0x1E698C6D0];
-  v18[4] = v12;
-  v18[5] = v13;
-  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:6];
-
-  v15 = *MEMORY[0x1E69E9840];
+  v17[4] = v12;
+  v17[5] = v13;
+  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:6];
 
   return v14;
 }
 
 - (id)_propertiesWithTargetId:(id)id pageId:(id)pageId displayReason:(id)reason
 {
-  v24[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   idCopy = id;
   pageIdCopy = pageId;
   reasonCopy = reason;
@@ -149,9 +147,9 @@ LABEL_5:
   {
     displayReason = reasonCopy;
 LABEL_4:
-    v23 = @"displayReason";
-    v24[0] = displayReason;
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+    v22 = @"displayReason";
+    v23[0] = displayReason;
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
     goto LABEL_5;
   }
 
@@ -163,21 +161,21 @@ LABEL_4:
 
   v12 = MEMORY[0x1E695E0F8];
 LABEL_5:
-  v21[0] = @"actionDetails";
-  v21[1] = @"actionType";
-  v22[0] = v12;
-  v22[1] = @"navigate";
-  v21[2] = @"app";
-  v21[3] = @"eventType";
+  v20[0] = @"actionDetails";
+  v20[1] = @"actionType";
+  v21[0] = v12;
+  v21[1] = @"navigate";
+  v20[2] = @"app";
+  v20[3] = @"eventType";
   v13 = *MEMORY[0x1E698C6D8];
-  v22[2] = @"commerce-app";
-  v22[3] = v13;
-  v21[4] = @"hostApp";
+  v21[2] = @"commerce-app";
+  v21[3] = v13;
+  v20[4] = @"hostApp";
   appID = [(AMSUIPaymentVerificationMetrics *)self appID];
-  v22[4] = appID;
-  v22[5] = v12;
-  v21[5] = @"pageDetails";
-  v21[6] = @"pageId";
+  v21[4] = appID;
+  v21[5] = v12;
+  v20[5] = @"pageDetails";
+  v20[6] = @"pageId";
   if (pageIdCopy)
   {
     v15 = pageIdCopy;
@@ -189,10 +187,10 @@ LABEL_5:
   }
 
   v16 = *MEMORY[0x1E698C6D0];
-  v22[6] = v15;
-  v22[7] = v16;
-  v21[7] = @"pageType";
-  v21[8] = @"targetId";
+  v21[6] = v15;
+  v21[7] = v16;
+  v20[7] = @"pageType";
+  v20[8] = @"targetId";
   if (idCopy)
   {
     v17 = idCopy;
@@ -203,12 +201,10 @@ LABEL_5:
     v17 = &stru_1F3921360;
   }
 
-  v21[9] = @"targetType";
-  v22[8] = v17;
-  v22[9] = @"button";
-  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:10];
-
-  v19 = *MEMORY[0x1E69E9840];
+  v20[9] = @"targetType";
+  v21[8] = v17;
+  v21[9] = @"button";
+  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:10];
 
   return v18;
 }

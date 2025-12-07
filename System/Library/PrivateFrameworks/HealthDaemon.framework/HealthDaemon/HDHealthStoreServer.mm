@@ -29,6 +29,7 @@
 - (void)remote_clientResumedWithCompletion:(id)completion;
 - (void)remote_clientWillSuspendWithCompletion:(id)completion;
 - (void)remote_closeTransactionWithDataTypes:(id)types anchor:(id)anchor ackTime:(id)time completion:(id)completion;
+- (void)remote_createQueryServerEndpointForIdentifier:(id)identifier queryUUID:(id)d configuration:(id)configuration forceReactivation:(BOOL)reactivation completion:(id)completion;
 - (void)remote_createTaskServerEndpointForIdentifier:(id)identifier pluginURL:(id)l taskUUID:(id)d instanceUUID:(id)iD configuration:(id)configuration completion:(id)completion;
 - (void)remote_deleteAllSamplesWithTypes:(id)types sourceBundleIdentifier:(id)identifier options:(unint64_t)options completion:(id)completion;
 - (void)remote_deleteClientSourceWithCompletion:(id)completion;
@@ -53,6 +54,7 @@
 - (void)remote_relateSamples:(id)samples withObject:(id)object subObject:(id)subObject type:(unint64_t)type behavior:(unint64_t)behavior completion:(id)completion;
 - (void)remote_removePreferredUnitForType:(id)type completion:(id)completion;
 - (void)remote_replaceWorkout:(id)workout withWorkout:(id)withWorkout completion:(id)completion;
+- (void)remote_requestAuthorizationToShareTypes:(id)types readTypes:(id)readTypes shouldPrompt:(BOOL)prompt completion:(id)completion;
 - (void)remote_requestConceptReadAuthorizationForType:(id)type filter:(id)filter completion:(id)completion;
 - (void)remote_requestPerObjectReadAuthorizationForType:(id)type filter:(id)filter completion:(id)completion;
 - (void)remote_restoreEntitlement:(id)entitlement completion:(id)completion;
@@ -125,7 +127,7 @@ void __45__HDHealthStoreServer__serverActivityChanged__block_invoke(uint64_t a1)
 
 - (void)invalidate
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   mEMORY[0x277D10AF8] = [MEMORY[0x277D10AF8] sharedDiagnosticManager];
   [mEMORY[0x277D10AF8] removeObject:self];
 
@@ -146,37 +148,35 @@ void __45__HDHealthStoreServer__serverActivityChanged__block_invoke(uint64_t a1)
   allValues = [(NSMutableDictionary *)self->_taskServerEndpointsByUUID allValues];
   [(NSMutableDictionary *)self->_taskServerEndpointsByUUID removeAllObjects];
   os_unfair_lock_unlock(&self->_lock);
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v8 = allValues;
-  v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v15;
+    v11 = *v14;
     do
     {
       v12 = 0;
       do
       {
-        if (*v15 != v11)
+        if (*v14 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        [*(*(&v14 + 1) + 8 * v12++) invalidate];
+        [*(*(&v13 + 1) + 8 * v12++) invalidate];
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v10);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_authenticateWithGuard:(id)guard completion:(id)completion
@@ -275,7 +275,7 @@ LABEL_4:
 
     objc_storeStrong(&v17->_connectionQueue, queue);
     objc_storeStrong(&v17->_client, client);
-    v20 = [configurationCopy copy];
+    v20 = objc_msgSend_copy(configurationCopy);
     configuration = v17->_configuration;
     v17->_configuration = v20;
 
@@ -387,14 +387,14 @@ LABEL_9:
 
 - (void)remote_createTaskServerEndpointForIdentifier:(id)identifier pluginURL:(id)l taskUUID:(id)d instanceUUID:(id)iD configuration:(id)configuration completion:(id)completion
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   if (!completion)
   {
     goto LABEL_21;
   }
 
-  v44 = 0;
+  v43 = 0;
   completionCopy = completion;
   v16 = identifierCopy;
   lCopy = l;
@@ -412,7 +412,7 @@ LABEL_9:
     v29 = MEMORY[0x277CCA9B8];
     v30 = @"Nil task server identifier";
 LABEL_14:
-    [v29 hk_assignError:&v44 code:3 format:v30];
+    [v29 hk_assignError:&v43 code:3 format:v30];
 LABEL_15:
     v31 = 0;
     goto LABEL_16;
@@ -432,8 +432,8 @@ LABEL_15:
     goto LABEL_14;
   }
 
-  v43 = configurationCopy;
-  if (lCopy && (-[HDHealthStoreServer daemon](self, "daemon"), v22 = objc_claimAutoreleasedReturnValue(), [v22 taskServerRegistry], v23 = objc_claimAutoreleasedReturnValue(), v24 = objc_msgSend(v23, "loadTaskServersFromPluginAtURL:error:", lCopy, &v44), v23, v22, !v24))
+  v42 = configurationCopy;
+  if (lCopy && (-[HDHealthStoreServer daemon](self, "daemon"), v22 = objc_claimAutoreleasedReturnValue(), [v22 taskServerRegistry], v23 = objc_claimAutoreleasedReturnValue(), v24 = objc_msgSend(v23, "loadTaskServersFromPluginAtURL:error:", lCopy, &v43), v23, v22, !v24))
   {
     v31 = 0;
   }
@@ -456,16 +456,16 @@ LABEL_9:
 
       else
       {
-        v42 = MEMORY[0x277CCA9B8];
+        v41 = MEMORY[0x277CCA9B8];
         uUIDString = [dCopy UUIDString];
         instanceUUID2 = [v25 instanceUUID];
         uUIDString2 = [instanceUUID2 UUIDString];
-        [v42 hk_assignError:&v44 code:3 format:{@"Task server endpoint for '%@' already exists (for instance '%@')", uUIDString, uUIDString2}];
+        [v41 hk_assignError:&v43 code:3 format:{@"Task server endpoint for '%@' already exists (for instance '%@')", uUIDString, uUIDString2}];
 
         v28 = 0;
       }
 
-      v21 = v43;
+      v21 = v42;
       v31 = v28;
 
       goto LABEL_16;
@@ -473,15 +473,15 @@ LABEL_9:
 
     daemon = [(HDHealthStoreServer *)self daemon];
     taskServerRegistry = [daemon taskServerRegistry];
-    v31 = [taskServerRegistry createTaskServerEndpointForIdentifier:v16 taskUUID:dCopy instanceUUID:iDCopy configuration:v43 client:self->_client connectionQueue:self->_connectionQueue error:&v44];
+    v31 = [taskServerRegistry createTaskServerEndpointForIdentifier:v16 taskUUID:dCopy instanceUUID:iDCopy configuration:v42 client:self->_client connectionQueue:self->_connectionQueue error:&v43];
 
     if (v31)
     {
       os_unfair_lock_lock(&self->_lock);
-      v41 = [(NSMutableDictionary *)self->_taskServerEndpointsByUUID objectForKeyedSubscript:dCopy];
-      if (v41)
+      v40 = [(NSMutableDictionary *)self->_taskServerEndpointsByUUID objectForKeyedSubscript:dCopy];
+      if (v40)
       {
-        v25 = v41;
+        v25 = v40;
         os_unfair_lock_unlock(&self->_lock);
 
         goto LABEL_9;
@@ -495,10 +495,10 @@ LABEL_9:
     }
   }
 
-  v21 = v43;
+  v21 = v42;
 LABEL_16:
 
-  v32 = v44;
+  v32 = v43;
   if (!v31)
   {
     _HKInitializeLogging();
@@ -506,9 +506,9 @@ LABEL_16:
     if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      v46 = v16;
-      v47 = 2114;
-      v48 = v32;
+      v45 = v16;
+      v46 = 2114;
+      v47 = v32;
       _os_log_error_impl(&dword_228986000, v33, OS_LOG_TYPE_ERROR, "Failed to create task server endpoint for identifier %{public}@: %{public}@", buf, 0x16u);
     }
   }
@@ -517,7 +517,6 @@ LABEL_16:
   completionCopy[2](completionCopy, listenerEndpoint, v32);
 
 LABEL_21:
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (void)taskServerDidFailToInitializeForUUID:(id)d
@@ -545,6 +544,33 @@ LABEL_21:
   [(NSMutableDictionary *)v7 setObject:0 forKeyedSubscript:taskUUID2];
   os_unfair_lock_unlock(&self->_lock);
   [v9 invalidate];
+}
+
+- (void)remote_createQueryServerEndpointForIdentifier:(id)identifier queryUUID:(id)d configuration:(id)configuration forceReactivation:(BOOL)reactivation completion:(id)completion
+{
+  reactivationCopy = reactivation;
+  completionCopy = completion;
+  configurationCopy = configuration;
+  dCopy = d;
+  identifierCopy = identifier;
+  os_unfair_lock_lock(&self->_lock);
+  queryControlServer = self->_queryControlServer;
+  if (!queryControlServer)
+  {
+    v17 = [[HDQueryControlServer alloc] initWithParentServer:self connectionQueue:self->_connectionQueue];
+    v18 = self->_queryControlServer;
+    self->_queryControlServer = v17;
+
+    queryControlServer = self->_queryControlServer;
+  }
+
+  v19 = queryControlServer;
+  os_unfair_lock_unlock(&self->_lock);
+  v22 = 0;
+  v20 = [(HDQueryControlServer *)v19 createQueryServerEndpointForIdentifier:identifierCopy queryUUID:dCopy configuration:configurationCopy forceReactivation:reactivationCopy error:&v22];
+
+  v21 = v22;
+  completionCopy[2](completionCopy, v20, v21);
 }
 
 - (void)performIfAuthorizedToSaveObjectTypes:(id)types usingBlock:(id)block errorHandler:(id)handler
@@ -830,7 +856,7 @@ void __82__HDHealthStoreServer_remote_recalibrateEstimatesForSampleType_atDate_c
 
 void __89__HDHealthStoreServer_remote_requestPerObjectReadAuthorizationForType_filter_completion___block_invoke_2(uint64_t a1, void *a2, int a3, void *a4)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a4;
   if (v8)
@@ -839,9 +865,9 @@ void __89__HDHealthStoreServer_remote_requestPerObjectReadAuthorizationForType_f
     v9 = HKLogAuthorization();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v14 = 138543362;
-      v15 = v8;
-      _os_log_error_impl(&dword_228986000, v9, OS_LOG_TYPE_ERROR, "Failed to determine object authorization status: %{public}@", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = v8;
+      _os_log_error_impl(&dword_228986000, v9, OS_LOG_TYPE_ERROR, "Failed to determine object authorization status: %{public}@", &v13, 0xCu);
     }
   }
 
@@ -852,13 +878,11 @@ void __89__HDHealthStoreServer_remote_requestPerObjectReadAuthorizationForType_f
     v12 = [v10 objectAuthorizationPromptHandler];
     [v11 handleObjectAuthorizationRequestsWithPromptHandler:v12 objectType:*(a1 + 40) completion:&__block_literal_global_230];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __89__HDHealthStoreServer_remote_requestPerObjectReadAuthorizationForType_filter_completion___block_invoke_362(uint64_t a1, char a2, void *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = a3;
   if ((a2 & 1) == 0)
   {
@@ -866,13 +890,11 @@ void __89__HDHealthStoreServer_remote_requestPerObjectReadAuthorizationForType_f
     v5 = HKLogAuthorization();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v7 = 138543362;
-      v8 = v4;
-      _os_log_error_impl(&dword_228986000, v5, OS_LOG_TYPE_ERROR, "Failed to handle object authorization request: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v4;
+      _os_log_error_impl(&dword_228986000, v5, OS_LOG_TYPE_ERROR, "Failed to handle object authorization request: %{public}@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remote_requestConceptReadAuthorizationForType:(id)type filter:(id)filter completion:(id)completion
@@ -916,7 +938,7 @@ void __89__HDHealthStoreServer_remote_requestPerObjectReadAuthorizationForType_f
 
 void __87__HDHealthStoreServer_remote_requestConceptReadAuthorizationForType_filter_completion___block_invoke(uint64_t a1, void *a2, int a3, void *a4)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a4;
   if (v8)
@@ -925,9 +947,9 @@ void __87__HDHealthStoreServer_remote_requestConceptReadAuthorizationForType_fil
     v9 = HKLogAuthorization();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v14 = 138543362;
-      v15 = v8;
-      _os_log_error_impl(&dword_228986000, v9, OS_LOG_TYPE_ERROR, "Failed to determine object authorization status: %{public}@", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = v8;
+      _os_log_error_impl(&dword_228986000, v9, OS_LOG_TYPE_ERROR, "Failed to determine object authorization status: %{public}@", &v13, 0xCu);
     }
   }
 
@@ -938,13 +960,11 @@ void __87__HDHealthStoreServer_remote_requestConceptReadAuthorizationForType_fil
     v12 = [v10 objectAuthorizationPromptHandler];
     [v11 handleHealthConceptAuthorizationRequestsWithPromptHandler:v12 objectType:*(a1 + 40) completion:&__block_literal_global_368];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __87__HDHealthStoreServer_remote_requestConceptReadAuthorizationForType_filter_completion___block_invoke_366(uint64_t a1, char a2, void *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = a3;
   if ((a2 & 1) == 0)
   {
@@ -952,41 +972,114 @@ void __87__HDHealthStoreServer_remote_requestConceptReadAuthorizationForType_fil
     v5 = HKLogAuthorization();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v7 = 138543362;
-      v8 = v4;
-      _os_log_error_impl(&dword_228986000, v5, OS_LOG_TYPE_ERROR, "Failed to handle object authorization request: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v4;
+      _os_log_error_impl(&dword_228986000, v5, OS_LOG_TYPE_ERROR, "Failed to handle object authorization request: %{public}@", &v6, 0xCu);
     }
   }
+}
 
-  v6 = *MEMORY[0x277D85DE8];
+- (void)remote_requestAuthorizationToShareTypes:(id)types readTypes:(id)readTypes shouldPrompt:(BOOL)prompt completion:(id)completion
+{
+  promptCopy = prompt;
+  typesCopy = types;
+  readTypesCopy = readTypes;
+  completionCopy = completion;
+  if (completionCopy)
+  {
+    if (promptCopy && (-[HDHealthStoreClient process](self->_client, "process"), v13 = objc_claimAutoreleasedReturnValue(), v14 = [v13 isWidgetKitExtension], v13, v14))
+    {
+      v15 = [MEMORY[0x277CCA9B8] hk_error:111 format:@"Unable to prompt for authorization using this type of extension ignoring request."];;
+      completionCopy[2](completionCopy, 0, v15);
+    }
+
+    else
+    {
+      v30 = typesCopy;
+      process = [(HDHealthStoreClient *)self->_client process];
+      isExtension = [process isExtension];
+
+      WeakRetained = objc_loadWeakRetained(&self->_daemon);
+      behavior = [WeakRetained behavior];
+      isAppleWatch = [behavior isAppleWatch];
+
+      sourceBundleIdentifier = [(HDHealthStoreClient *)self->_client sourceBundleIdentifier];
+      v22 = objc_loadWeakRetained(&self->_daemon);
+      analyticsSubmissionCoordinator = [v22 analyticsSubmissionCoordinator];
+      [analyticsSubmissionCoordinator authorization_reportAuthRequestsFromBundleIdentifier:sourceBundleIdentifier isExtension:isExtension isAppleWatch:isAppleWatch shouldPrompt:promptCopy];
+
+      v24 = 0;
+      if (isExtension && (isAppleWatch & 1) == 0)
+      {
+        aBlock[0] = MEMORY[0x277D85DD0];
+        aBlock[1] = 3221225472;
+        aBlock[2] = __97__HDHealthStoreServer_remote_requestAuthorizationToShareTypes_readTypes_shouldPrompt_completion___block_invoke;
+        aBlock[3] = &unk_27862DC18;
+        aBlock[4] = self;
+        v41 = sourceBundleIdentifier;
+        v24 = _Block_copy(aBlock);
+      }
+
+      v39 = 0;
+      v25 = [(HDHealthStoreServer *)self clientSourceWithError:&v39];
+      v26 = v39;
+      if (v25)
+      {
+        v29 = sourceBundleIdentifier;
+        clientAuthorizationOracle = self->_clientAuthorizationOracle;
+        v31[0] = MEMORY[0x277D85DD0];
+        v31[1] = 3221225472;
+        v31[2] = __97__HDHealthStoreServer_remote_requestAuthorizationToShareTypes_readTypes_shouldPrompt_completion___block_invoke_374;
+        v31[3] = &unk_27862DC40;
+        v34 = completionCopy;
+        v31[4] = self;
+        v32 = v30;
+        v33 = readTypesCopy;
+        v35 = v24;
+        v36 = promptCopy;
+        v37 = isAppleWatch;
+        v38 = isExtension;
+        v28 = clientAuthorizationOracle;
+        sourceBundleIdentifier = v29;
+        [(HDClientAuthorizationOracle *)v28 updateDefaultAuthorizationStatusesForSource:v25 completion:v31];
+      }
+
+      else
+      {
+        completionCopy[2](completionCopy, 0, v26);
+      }
+
+      typesCopy = v30;
+    }
+  }
 }
 
 void __97__HDHealthStoreServer_remote_requestAuthorizationToShareTypes_readTypes_shouldPrompt_completion___block_invoke(uint64_t a1, void *a2, int a3, void *a4, void *a5)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v9 = a2;
   v10 = a4;
   v11 = a5;
   if (a3)
   {
-    v21 = MEMORY[0x277D85DD0];
-    v22 = 3221225472;
-    v23 = __97__HDHealthStoreServer_remote_requestAuthorizationToShareTypes_readTypes_shouldPrompt_completion___block_invoke_2;
-    v24 = &unk_2786173C8;
+    v20 = MEMORY[0x277D85DD0];
+    v21 = 3221225472;
+    v22 = __97__HDHealthStoreServer_remote_requestAuthorizationToShareTypes_readTypes_shouldPrompt_completion___block_invoke_2;
+    v23 = &unk_2786173C8;
     v12 = *(a1 + 32);
-    v25 = *(a1 + 40);
+    v24 = *(a1 + 40);
     v13 = v11;
-    v26 = v13;
+    v25 = v13;
     if (v12)
     {
       v14 = *(v12 + 88);
-      v15 = &v21;
+      v15 = &v20;
       v16 = v9;
       v17 = [v14 sourceBundleIdentifier];
       v18 = [*(v12 + 72) authorizationManager];
       [v18 openAppForAuthorization:v17 sessionIdentifier:v16 completion:v15];
 
-      v13 = v26;
+      v13 = v25;
     }
   }
 
@@ -999,20 +1092,18 @@ void __97__HDHealthStoreServer_remote_requestAuthorizationToShareTypes_readTypes
       if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v28 = v10;
+        v27 = v10;
         _os_log_error_impl(&dword_228986000, v19, OS_LOG_TYPE_ERROR, "Failed to determine whether authorization is necessary: %{public}@", buf, 0xCu);
       }
     }
 
     [*(*(a1 + 32) + 56) handleAuthorizationRequestsWithPromptHandler:0 requestCompletionHandler:0];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __97__HDHealthStoreServer_remote_requestAuthorizationToShareTypes_readTypes_shouldPrompt_completion___block_invoke_2(uint64_t a1, char a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if ((a2 & 1) == 0)
   {
@@ -1024,26 +1115,24 @@ void __97__HDHealthStoreServer_remote_requestAuthorizationToShareTypes_readTypes
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         v8 = *(a1 + 32);
-        v11 = 138412546;
-        v12 = v8;
-        v13 = 2114;
-        v14 = v5;
-        _os_log_error_impl(&dword_228986000, v7, OS_LOG_TYPE_ERROR, "Unable to launch host app %@ for authorization: %{public}@", &v11, 0x16u);
+        v10 = 138412546;
+        v11 = v8;
+        v12 = 2114;
+        v13 = v5;
+        _os_log_error_impl(&dword_228986000, v7, OS_LOG_TYPE_ERROR, "Unable to launch host app %@ for authorization: %{public}@", &v10, 0x16u);
       }
     }
 
     else if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v9 = *(a1 + 32);
-      v11 = 138412290;
-      v12 = v9;
-      _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_DEFAULT, "Did not launch host app %@ for authorization", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v9;
+      _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_DEFAULT, "Did not launch host app %@ for authorization", &v10, 0xCu);
     }
 
     (*(*(a1 + 40) + 16))();
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __97__HDHealthStoreServer_remote_requestAuthorizationToShareTypes_readTypes_shouldPrompt_completion___block_invoke_374(uint64_t a1, char a2)
@@ -1055,25 +1144,24 @@ void __97__HDHealthStoreServer_remote_requestAuthorizationToShareTypes_readTypes
     {
       if ((*(a1 + 73) & 1) != 0 || (*(a1 + 74) & 1) == 0)
       {
-        v6 = [(HDHealthStoreServer *)*(a1 + 32) _authorizationPromptHandler];
-        [*(*(a1 + 32) + 56) handleAuthorizationRequestsWithPromptHandler:v6 requestCompletionHandler:0];
+        v5 = [(HDHealthStoreServer *)*(a1 + 32) _authorizationPromptHandler];
+        [*(*(a1 + 32) + 56) handleAuthorizationRequestsWithPromptHandler:v5 requestCompletionHandler:0];
       }
     }
 
     else
     {
-      v5 = *(*(a1 + 32) + 56);
+      v4 = *(*(a1 + 32) + 56);
 
-      [v5 handleAuthorizationRequestsWithPromptHandler:0 requestCompletionHandler:0];
+      [v4 handleAuthorizationRequestsWithPromptHandler:0 requestCompletionHandler:0];
     }
   }
 
   else
   {
-    v3 = *(a1 + 56);
-    v4 = *(*(a1 + 56) + 16);
+    v3 = *(*(a1 + 56) + 16);
 
-    v4();
+    v3();
   }
 }
 
@@ -1215,7 +1303,7 @@ void __50__HDHealthStoreServer__authorizationPromptHandler__block_invoke(uint64_
 
 void __50__HDHealthStoreServer__authorizationPromptHandler__block_invoke_2(uint64_t *a1, int a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = v5;
   if (a2)
@@ -1232,19 +1320,17 @@ void __50__HDHealthStoreServer__authorizationPromptHandler__block_invoke_2(uint6
       v8 = *MEMORY[0x277CCC2B0];
       if (os_log_type_enabled(*MEMORY[0x277CCC2B0], OS_LOG_TYPE_ERROR))
       {
-        v10 = a1[4];
-        v11 = 138543618;
-        v12 = v10;
-        v13 = 2114;
-        v14 = v6;
-        _os_log_error_impl(&dword_228986000, v8, OS_LOG_TYPE_ERROR, "%{public}@: Authentication failed: %{public}@.", &v11, 0x16u);
+        v9 = a1[4];
+        v10 = 138543618;
+        v11 = v9;
+        v12 = 2114;
+        v13 = v6;
+        _os_log_error_impl(&dword_228986000, v8, OS_LOG_TYPE_ERROR, "%{public}@: Authentication failed: %{public}@.", &v10, 0x16u);
       }
     }
 
     (*(a1[6] + 16))();
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)objectAuthorizationPromptHandler
@@ -1278,7 +1364,7 @@ void __55__HDHealthStoreServer_objectAuthorizationPromptHandler__block_invoke(ui
 
 void __55__HDHealthStoreServer_objectAuthorizationPromptHandler__block_invoke_2(uint64_t *a1, char a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (v5)
   {
@@ -1286,12 +1372,12 @@ void __55__HDHealthStoreServer_objectAuthorizationPromptHandler__block_invoke_2(
     v6 = HKLogAuthorization();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v9 = a1[4];
-      v11 = 138543618;
-      v12 = v9;
-      v13 = 2114;
-      v14 = v5;
-      _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "%{public}@: Authentication failed: %{public}@.", &v11, 0x16u);
+      v8 = a1[4];
+      v10 = 138543618;
+      v11 = v8;
+      v12 = 2114;
+      v13 = v5;
+      _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "%{public}@: Authentication failed: %{public}@.", &v10, 0x16u);
     }
 
 LABEL_9:
@@ -1306,10 +1392,10 @@ LABEL_9:
     v6 = HKLogAuthorization();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v10 = a1[4];
-      v11 = 138543362;
-      v12 = v10;
-      _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "%{public}@: Authentication failed: User fail.", &v11, 0xCu);
+      v9 = a1[4];
+      v10 = 138543362;
+      v11 = v9;
+      _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "%{public}@: Authentication failed: User fail.", &v10, 0xCu);
     }
 
     goto LABEL_9;
@@ -1319,7 +1405,6 @@ LABEL_9:
   [v7 clientRemote_presentAuthorizationWithSession:a1[5] completion:a1[6]];
 
 LABEL_10:
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remote_saveDataObjects:(id)objects skipInsertionFilter:(BOOL)filter creationDateOverride:(id)override handler:(id)handler
@@ -1350,7 +1435,7 @@ LABEL_10:
 
 - (void)_saveDataObjects:(void *)objects sourceEntity:(void *)entity sourceVersion:(char)version skipInsertionFilter:(void *)filter databaseAssertion:(void *)assertion handler:(void *)handler creationDate:
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   v15 = a2;
   objectsCopy = objects;
   entityCopy = entity;
@@ -1362,66 +1447,66 @@ LABEL_10:
     if (!objectsCopy)
     {
       [MEMORY[0x277CCA890] currentHandler];
-      v39 = v38 = handlerCopy;
-      [v39 handleFailureInMethod:sel__saveDataObjects_sourceEntity_sourceVersion_skipInsertionFilter_databaseAssertion_handler_creationDate_ object:self file:@"HDHealthStoreServer.m" lineNumber:1164 description:{@"Invalid parameter not satisfying: %@", @"sourceEntity != nil"}];
+      v38 = v37 = handlerCopy;
+      [v38 handleFailureInMethod:sel__saveDataObjects_sourceEntity_sourceVersion_skipInsertionFilter_databaseAssertion_handler_creationDate_ object:self file:@"HDHealthStoreServer.m" lineNumber:1164 description:{@"Invalid parameter not satisfying: %@", @"sourceEntity != nil"}];
 
-      handlerCopy = v38;
+      handlerCopy = v37;
     }
 
-    v56 = 0;
-    v21 = [(HDHealthStoreServer *)self _objectsToInsertWithObjects:v15 error:&v56];
-    v22 = v56;
+    v55 = 0;
+    v21 = [(HDHealthStoreServer *)self _objectsToInsertWithObjects:v15 error:&v55];
+    v22 = v55;
     v23 = v22;
     if (v21)
     {
-      v40 = v22;
-      v45 = v15;
-      v48[0] = MEMORY[0x277D85DD0];
-      v48[1] = 3221225472;
-      v48[2] = __126__HDHealthStoreServer__saveDataObjects_sourceEntity_sourceVersion_skipInsertionFilter_databaseAssertion_handler_creationDate___block_invoke;
-      v48[3] = &unk_27862DD58;
-      v48[4] = self;
+      v39 = v22;
+      v44 = v15;
+      v47[0] = MEMORY[0x277D85DD0];
+      v47[1] = 3221225472;
+      v47[2] = __126__HDHealthStoreServer__saveDataObjects_sourceEntity_sourceVersion_skipInsertionFilter_databaseAssertion_handler_creationDate___block_invoke;
+      v47[3] = &unk_27862DD58;
+      v47[4] = self;
       v24 = v21;
-      v49 = v24;
-      v44 = objectsCopy;
-      v50 = objectsCopy;
-      v43 = entityCopy;
-      v51 = entityCopy;
+      v48 = v24;
+      v43 = objectsCopy;
+      v49 = objectsCopy;
+      v42 = entityCopy;
+      v50 = entityCopy;
       versionCopy = version;
-      v52 = filterCopy;
-      v41 = handlerCopy;
-      v53 = handlerCopy;
-      v42 = assertionCopy;
-      v54 = assertionCopy;
-      v46[0] = MEMORY[0x277D85DD0];
-      v46[1] = 3221225472;
-      v46[2] = __126__HDHealthStoreServer__saveDataObjects_sourceEntity_sourceVersion_skipInsertionFilter_databaseAssertion_handler_creationDate___block_invoke_2;
-      v46[3] = &unk_2786200D0;
-      v47 = v54;
-      [self _performIfAuthorizedToSaveObjects:v24 usingBlock:v48 errorHandler:v46];
+      v51 = filterCopy;
+      v40 = handlerCopy;
+      v52 = handlerCopy;
+      v41 = assertionCopy;
+      v53 = assertionCopy;
+      v45[0] = MEMORY[0x277D85DD0];
+      v45[1] = 3221225472;
+      v45[2] = __126__HDHealthStoreServer__saveDataObjects_sourceEntity_sourceVersion_skipInsertionFilter_databaseAssertion_handler_creationDate___block_invoke_2;
+      v45[3] = &unk_2786200D0;
+      v46 = v53;
+      [self _performIfAuthorizedToSaveObjects:v24 usingBlock:v47 errorHandler:v45];
       v25 = [MEMORY[0x277CCD720] quantityTypeForIdentifier:*MEMORY[0x277CCC970]];
       v26 = v24;
       v27 = v25;
+      v56 = 0u;
       v57 = 0u;
       v58 = 0u;
       v59 = 0u;
-      v60 = 0u;
       v28 = v26;
-      v29 = [v28 countByEnumeratingWithState:&v57 objects:v61 count:16];
+      v29 = [v28 countByEnumeratingWithState:&v56 objects:v60 count:16];
       if (v29)
       {
         v30 = v29;
-        v31 = *v58;
+        v31 = *v57;
         while (2)
         {
           for (i = 0; i != v30; ++i)
           {
-            if (*v58 != v31)
+            if (*v57 != v31)
             {
               objc_enumerationMutation(v28);
             }
 
-            v33 = *(*(&v57 + 1) + 8 * i);
+            v33 = *(*(&v56 + 1) + 8 * i);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -1439,7 +1524,7 @@ LABEL_10:
             }
           }
 
-          v30 = [v28 countByEnumeratingWithState:&v57 objects:v61 count:16];
+          v30 = [v28 countByEnumeratingWithState:&v56 objects:v60 count:16];
           if (v30)
           {
             continue;
@@ -1450,12 +1535,12 @@ LABEL_10:
       }
 
 LABEL_17:
-      objectsCopy = v44;
-      v15 = v45;
-      entityCopy = v43;
-      handlerCopy = v41;
-      assertionCopy = v42;
-      v23 = v40;
+      objectsCopy = v43;
+      v15 = v44;
+      entityCopy = v42;
+      handlerCopy = v40;
+      assertionCopy = v41;
+      v23 = v39;
     }
 
     else
@@ -1463,16 +1548,14 @@ LABEL_17:
       (*(assertionCopy + 2))(assertionCopy, 0, v22);
     }
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 void __105__HDHealthStoreServer__saveValidatedDataObjects_skipInsertionFilter_transactionIdentifier_final_handler___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
-  v17 = 0;
-  v3 = [v2 clientSourceWithError:&v17];
-  v4 = v17;
+  v16 = 0;
+  v3 = [v2 clientSourceWithError:&v16];
+  v4 = v16;
   v5 = *(a1 + 32);
   if (!v3)
   {
@@ -1496,29 +1579,24 @@ void __105__HDHealthStoreServer__saveValidatedDataObjects_skipInsertionFilter_tr
       v9 = [MEMORY[0x277CCA9B8] hk_error:4 description:@"Authorization from parent application required"];
     }
 
-    goto LABEL_12;
+    goto LABEL_11;
   }
 
   v6 = *(a1 + 40);
   v7 = *(a1 + 64);
-  v16 = v4;
-  v8 = [(HDHealthStoreServer *)v5 _queue_insertObjects:v6 sourceEntity:v3 sourceVersionOverride:0 shouldJournal:0 skipInsertionFilter:v7 databaseAssertion:0 error:&v16 creationDate:0];
-  v9 = v16;
+  v15 = v4;
+  v8 = [(HDHealthStoreServer *)v5 _queue_insertObjects:v6 sourceEntity:v3 sourceVersionOverride:0 shouldJournal:0 skipInsertionFilter:v7 databaseAssertion:0 error:&v15 creationDate:0];
+  v9 = v15;
 
   if ((v8 & 1) == 0 && ([v9 hk_isDatabaseAccessibilityError] & 1) == 0)
   {
-LABEL_12:
+LABEL_11:
     v14 = *(*(a1 + 56) + 16);
-    goto LABEL_15;
-  }
-
-  if ((*(a1 + 65) & 1) == 0)
-  {
-    v15 = *(a1 + 48);
+    goto LABEL_12;
   }
 
   v14 = *(*(a1 + 56) + 16);
-LABEL_15:
+LABEL_12:
   v14();
 }
 
@@ -1604,7 +1682,7 @@ LABEL_13:
 
 - (void)remote_saveDataObjects:(id)objects skipInsertionFilter:(BOOL)filter transactionIdentifier:(id)identifier final:(BOOL)final handler:(id)handler
 {
-  v73 = *MEMORY[0x277D85DE8];
+  v72 = *MEMORY[0x277D85DE8];
   objectsCopy = objects;
   identifierCopy = identifier;
   handlerCopy = handler;
@@ -1612,21 +1690,21 @@ LABEL_13:
   if (handlerCopy)
   {
     v15 = v14;
-    v65 = 0;
-    v66 = &v65;
-    v67 = 0x3032000000;
-    v68 = __Block_byref_object_copy__192;
-    v69 = __Block_byref_object_dispose__192;
-    v70 = 0;
     v64 = 0;
-    v39 = [(HDHealthStoreServer *)&self->super.isa _objectsToInsertWithObjects:objectsCopy error:&v64];
-    objc_storeStrong(&v70, v64);
-    if (!v39)
+    v65 = &v64;
+    v66 = 0x3032000000;
+    v67 = __Block_byref_object_copy__192;
+    v68 = __Block_byref_object_dispose__192;
+    v69 = 0;
+    v63 = 0;
+    v38 = [(HDHealthStoreServer *)&self->super.isa _objectsToInsertWithObjects:objectsCopy error:&v63];
+    objc_storeStrong(&v69, v63);
+    if (!v38)
     {
-      (*(handlerCopy + 2))(handlerCopy, 0, 0, v66[5]);
+      (*(handlerCopy + 2))(handlerCopy, 0, 0, v65[5]);
 LABEL_24:
 
-      _Block_object_dispose(&v65, 8);
+      _Block_object_dispose(&v64, 8);
       goto LABEL_25;
     }
 
@@ -1649,66 +1727,66 @@ LABEL_20:
     {
       database2 = [(HDProfile *)profile database];
       v21 = +[HDDatabaseTransactionContext contextForWritingProtectedData];
-      v22 = v66;
-      v63 = v66[5];
-      v18 = [database2 beginExtendedTransactionWithContext:v21 transactionTimeout:&v63 continuationTimeout:30.0 error:2.0];
-      objc_storeStrong(v22 + 5, v63);
+      v22 = v65;
+      v62 = v65[5];
+      v18 = [database2 beginExtendedTransactionWithContext:v21 transactionTimeout:&v62 continuationTimeout:30.0 error:2.0];
+      objc_storeStrong(v22 + 5, v62);
 
       if (!v18)
       {
-        v19 = v66[5];
+        v19 = v65[5];
         goto LABEL_20;
       }
     }
 
-    v59 = 0;
-    v60 = &v59;
-    v61 = 0x2020000000;
-    v62 = 0;
-    v53 = 0;
-    v54 = &v53;
-    v55 = 0x3032000000;
-    v56 = __Block_byref_object_copy__192;
-    v57 = __Block_byref_object_dispose__192;
     v58 = 0;
-    v23 = v66[5];
-    v66[5] = 0;
+    v59 = &v58;
+    v60 = 0x2020000000;
+    v61 = 0;
+    v52 = 0;
+    v53 = &v52;
+    v54 = 0x3032000000;
+    v55 = __Block_byref_object_copy__192;
+    v56 = __Block_byref_object_dispose__192;
+    v57 = 0;
+    v23 = v65[5];
+    v65[5] = 0;
 
-    v24 = v66;
-    obj = v66[5];
-    v43[0] = MEMORY[0x277D85DD0];
-    v43[1] = 3221225472;
-    v43[2] = __102__HDHealthStoreServer_remote_saveDataObjects_skipInsertionFilter_transactionIdentifier_final_handler___block_invoke;
-    v43[3] = &unk_27862DD30;
-    v43[4] = self;
-    v44 = v39;
+    v24 = v65;
+    obj = v65[5];
+    v42[0] = MEMORY[0x277D85DD0];
+    v42[1] = 3221225472;
+    v42[2] = __102__HDHealthStoreServer_remote_saveDataObjects_skipInsertionFilter_transactionIdentifier_final_handler___block_invoke;
+    v42[3] = &unk_27862DD30;
+    v42[4] = self;
+    v43 = v38;
     filterCopy = filter;
-    v50 = v15;
+    v49 = v15;
     v25 = v18;
     finalCopy = final;
-    v45 = v25;
-    v46 = &v53;
-    v47 = &v59;
-    v48 = &v65;
-    v26 = [v25 performInTransactionWithErrorOut:&obj block:v43];
+    v44 = v25;
+    v45 = &v52;
+    v46 = &v58;
+    v47 = &v64;
+    v26 = [v25 performInTransactionWithErrorOut:&obj block:v42];
     objc_storeStrong(v24 + 5, obj);
     if ((v26 & 1) == 0)
     {
-      v27 = v54[5];
-      v54[5] = 0;
+      v27 = v53[5];
+      v53[5] = 0;
     }
 
-    v28 = v54[5];
+    v28 = v53[5];
     if (!v28)
     {
-      v29 = v66;
-      if (v66[5])
+      v29 = v65;
+      if (v65[5])
       {
         v30 = [MEMORY[0x277CCA9B8] hk_error:100 description:@"Rollback due to performInTransactionWithErrorOut:block: failed"];
-        v41 = 0;
-        v31 = [v25 rollbackDueToError:v30 errorOut:&v41];
-        v32 = v41;
-        v33 = v41;
+        v40 = 0;
+        v31 = [v25 rollbackDueToError:v30 errorOut:&v40];
+        v32 = v40;
+        v33 = v40;
         if ((v31 & 1) == 0)
         {
           _HKInitializeLogging();
@@ -1716,49 +1794,47 @@ LABEL_20:
           if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
           {
             *buf = 138543362;
-            v72 = v33;
+            v71 = v33;
             _os_log_error_impl(&dword_228986000, v34, OS_LOG_TYPE_ERROR, "Failed to roll back extended transaction: %{public}@", buf, 0xCu);
           }
 
-          objc_storeStrong(v66 + 5, v32);
+          objc_storeStrong(v65 + 5, v32);
         }
 
-        if (!v66[5])
+        if (!v65[5])
         {
           v35 = [MEMORY[0x277CCA9B8] hk_error:100 description:@"Save transaction failed with an unknown error."];
-          v36 = v66[5];
-          v66[5] = v35;
+          v36 = v65[5];
+          v65[5] = v35;
         }
       }
 
       else
       {
-        v42 = 0;
-        [v25 commitWithErrorOut:&v42];
-        v37 = v42;
+        v41 = 0;
+        [v25 commitWithErrorOut:&v41];
+        v37 = v41;
         v30 = v29[5];
         v29[5] = v37;
       }
 
-      v28 = v54[5];
+      v28 = v53[5];
     }
 
-    (*(handlerCopy + 2))(handlerCopy, v28, *(v60 + 24), v66[5]);
+    (*(handlerCopy + 2))(handlerCopy, v28, *(v59 + 24), v65[5]);
 
-    _Block_object_dispose(&v53, 8);
-    _Block_object_dispose(&v59, 8);
+    _Block_object_dispose(&v52, 8);
+    _Block_object_dispose(&v58, 8);
 
     goto LABEL_24;
   }
 
 LABEL_25:
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_objectsToInsertWithObjects:(uint64_t)objects error:
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v5 = a2;
   if (!self)
   {
@@ -1779,29 +1855,29 @@ LABEL_17:
     goto LABEL_18;
   }
 
-  v23 = v5;
+  v22 = v5;
   [MEMORY[0x277CCD6F0] hd_allObjectsToInsertWithObjects:v5];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
-  v6 = v29 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v6 = v28 = 0u;
+  v7 = [v6 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v7)
   {
     v8 = v7;
     obj = v6;
-    v25 = *v27;
+    v24 = *v26;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
         objectsCopy = objects;
-        if (*v27 != v25)
+        if (*v26 != v24)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v26 + 1) + 8 * i);
+        v11 = *(*(&v25 + 1) + 8 * i);
         applicationSDKVersionToken = [self[10] applicationSDKVersionToken];
         [v11 _setSourceRevision:0];
         entitlements = [self[11] entitlements];
@@ -1823,7 +1899,7 @@ LABEL_17:
       }
 
       v6 = obj;
-      v8 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v8 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
       if (v8)
       {
         continue;
@@ -1836,10 +1912,8 @@ LABEL_17:
   v19 = v6;
 LABEL_15:
 
-  v5 = v23;
+  v5 = v22;
 LABEL_18:
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
@@ -1945,45 +2019,42 @@ uint64_t __126__HDHealthStoreServer__saveDataObjects_sourceEntity_sourceVersion_
 
 uint64_t __150__HDHealthStoreServer__queue_insertObjects_sourceEntity_sourceVersionOverride_shouldJournal_skipInsertionFilter_databaseAssertion_error_creationDate___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v4 = [(HDHealthStoreServer *)*(a1 + 32) _queue_objectsByProvenanceForInsertion:*(a1 + 48) sourceEntity:*(a1 + 56) sourceVersionOverride:a3 error:?];
   if (v4)
   {
     v5 = [*(*(a1 + 32) + 72) dataManager];
+    v16 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
-    v21 = 0u;
-    v22 = 0u;
     v6 = v4;
-    v7 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v20;
+      v9 = *v17;
       while (2)
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v20 != v9)
+          if (*v17 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v19 + 1) + 8 * i);
-          v12 = v6;
-          v16 = v5;
-          v17 = *(a1 + 64);
-          v18 = *(a1 + 72);
-          LODWORD(v11) = HKWithAutoreleasePool();
+          v11 = v6;
+          v15 = v5;
+          v12 = HKWithAutoreleasePool();
 
-          if (!v11)
+          if (!v12)
           {
             v13 = 0;
             goto LABEL_14;
           }
         }
 
-        v8 = [v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v8 = [v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
         if (v8)
         {
           continue;
@@ -2008,13 +2079,12 @@ LABEL_14:
     v13 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 - (id)_queue_objectsByProvenanceForInsertion:(void *)insertion sourceEntity:(void *)entity sourceVersionOverride:(uint64_t)override error:
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   v8 = a2;
   insertionCopy = insertion;
   entityCopy = entity;
@@ -2031,7 +2101,7 @@ LABEL_14:
       v15 = currentDeviceProductType;
     }
 
-    v58 = v15;
+    v57 = v15;
 
     currentOSBuild = [behavior currentOSBuild];
     v17 = currentOSBuild;
@@ -2041,13 +2111,13 @@ LABEL_14:
       v18 = currentOSBuild;
     }
 
-    v57 = v18;
+    v56 = v18;
 
-    v63 = 0uLL;
-    v64 = 0;
+    v62 = 0uLL;
+    v63 = 0;
     if (behavior)
     {
-      [behavior currentOSVersionStruct];
+      objc_msgSend_currentOSVersionStruct(behavior);
     }
 
     if (entityCopy)
@@ -2061,38 +2131,38 @@ LABEL_14:
       sourceVersion = [client sourceVersion];
     }
 
-    v43 = behavior;
-    v40 = entityCopy;
-    v41 = insertionCopy;
-    v55 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(insertionCopy, "persistentID")}];
+    v42 = behavior;
+    v39 = entityCopy;
+    v40 = insertionCopy;
+    v54 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(insertionCopy, "persistentID")}];
     dictionary = [MEMORY[0x277CBEB38] dictionary];
     deviceManager = [self[9] deviceManager];
     contributorManager = [self[9] contributorManager];
+    v58 = 0u;
     v59 = 0u;
     v60 = 0u;
     v61 = 0u;
-    v62 = 0u;
-    v42 = v8;
+    v41 = v8;
     obj = v8;
-    v52 = [obj countByEnumeratingWithState:&v59 objects:v67 count:16];
-    if (v52)
+    v51 = [obj countByEnumeratingWithState:&v58 objects:v66 count:16];
+    if (v51)
     {
+      v45 = 0;
       v46 = 0;
-      v47 = 0;
       selfCopy = self;
-      v51 = *v60;
-      v49 = *MEMORY[0x277CCC530];
+      v50 = *v59;
+      v48 = *MEMORY[0x277CCC530];
       v20 = dictionary;
       while (2)
       {
-        for (i = 0; i != v52; ++i)
+        for (i = 0; i != v51; ++i)
         {
-          if (*v60 != v51)
+          if (*v59 != v50)
           {
             objc_enumerationMutation(obj);
           }
 
-          v22 = *(*(&v59 + 1) + 8 * i);
+          v22 = *(*(&v58 + 1) + 8 * i);
           device = [v22 device];
           if (device)
           {
@@ -2105,14 +2175,14 @@ LABEL_14:
 
           else
           {
-            v25 = v47;
-            if (!v47)
+            v25 = v46;
+            if (!v46)
             {
               v25 = [deviceManager deviceEntityForNoDeviceWithError:override];
             }
 
             v24 = v25;
-            v47 = v24;
+            v46 = v24;
             if (!v24)
             {
 LABEL_32:
@@ -2131,7 +2201,7 @@ LABEL_32:
           }
 
           metadata = [v22 metadata];
-          v27 = [metadata objectForKeyedSubscript:v49];
+          v27 = [metadata objectForKeyedSubscript:v48];
           if (v27)
           {
             v28 = v27;
@@ -2139,23 +2209,23 @@ LABEL_32:
 
           else
           {
-            name = v46;
-            if (!v46)
+            name = v45;
+            if (!v45)
             {
-              localTimeZone = [v43 localTimeZone];
+              localTimeZone = [v42 localTimeZone];
               name = [localTimeZone name];
             }
 
             v28 = name;
-            v46 = v28;
+            v45 = v28;
           }
 
           defaultContributorReference = [contributorManager defaultContributorReference];
           currentSyncIdentityPersistentID = [selfCopy[9] currentSyncIdentityPersistentID];
           v33 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v24, "persistentID")}];
-          *buf = v63;
-          v66 = v64;
-          v34 = [HDDataOriginProvenance dataProvenanceWithSyncProvenance:0 syncIdentity:currentSyncIdentityPersistentID productType:v58 systemBuild:v57 operatingSystemVersion:buf sourceVersion:sourceVersion timeZoneName:v28 sourceID:v55 deviceID:v33 contributorReference:defaultContributorReference];
+          *buf = v62;
+          v65 = v63;
+          v34 = [HDDataOriginProvenance dataProvenanceWithSyncProvenance:0 syncIdentity:currentSyncIdentityPersistentID productType:v57 systemBuild:v56 operatingSystemVersion:buf sourceVersion:sourceVersion timeZoneName:v28 sourceID:v54 deviceID:v33 contributorReference:defaultContributorReference];
 
           v20 = dictionary;
           v35 = [dictionary objectForKeyedSubscript:v34];
@@ -2168,8 +2238,8 @@ LABEL_32:
           [v35 addObject:v22];
         }
 
-        v52 = [obj countByEnumeratingWithState:&v59 objects:v67 count:16];
-        if (v52)
+        v51 = [obj countByEnumeratingWithState:&v58 objects:v66 count:16];
+        if (v51)
         {
           continue;
         }
@@ -2180,25 +2250,23 @@ LABEL_32:
 
     else
     {
+      v45 = 0;
       v46 = 0;
-      v47 = 0;
       v20 = dictionary;
     }
 
     v37 = v20;
 LABEL_37:
 
-    insertionCopy = v41;
-    v8 = v42;
-    entityCopy = v40;
+    insertionCopy = v40;
+    v8 = v41;
+    entityCopy = v39;
   }
 
   else
   {
     v37 = 0;
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 
   return v37;
 }
@@ -2213,47 +2281,44 @@ uint64_t __150__HDHealthStoreServer__queue_insertObjects_sourceEntity_sourceVers
 
 uint64_t __150__HDHealthStoreServer__queue_insertObjects_sourceEntity_sourceVersionOverride_shouldJournal_skipInsertionFilter_databaseAssertion_error_creationDate___block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = v5;
   if (*(a1 + 72))
   {
     v7 = [(HDHealthStoreServer *)*(a1 + 32) _queue_objectsByProvenanceForInsertion:*(a1 + 48) sourceEntity:*(a1 + 56) sourceVersionOverride:a3 error:?];
     v8 = [*(*(a1 + 32) + 72) dataManager];
+    v21 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
-    v26 = 0u;
-    v27 = 0u;
     v9 = v7;
-    v10 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v25;
+      v12 = *v22;
       while (2)
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v25 != v12)
+          if (*v22 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v24 + 1) + 8 * i);
-          v15 = v9;
-          v21 = v8;
-          v22 = *(a1 + 64);
-          v23 = *(a1 + 73);
-          LODWORD(v14) = HKWithAutoreleasePool();
+          v14 = v9;
+          v20 = v8;
+          v15 = HKWithAutoreleasePool();
 
-          if (!v14)
+          if (!v15)
           {
             v16 = 0;
             goto LABEL_16;
           }
         }
 
-        v11 = [v15 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v11 = [v14 countByEnumeratingWithState:&v21 objects:v25 count:16];
         if (v11)
         {
           continue;
@@ -2293,7 +2358,6 @@ LABEL_16:
     v16 = 0;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -2360,16 +2424,16 @@ uint64_t __67__HDHealthStoreServer__permissionBlockForRestrictedSourceEntities__
   return v9;
 }
 
-uint64_t __67__HDHealthStoreServer__permissionBlockForRestrictedSourceEntities___block_invoke_3(uint64_t result, int a2)
+void *__67__HDHealthStoreServer__permissionBlockForRestrictedSourceEntities___block_invoke_3(void *result, int a2)
 {
-  *(*(*(result + 56) + 8) + 24) = 1;
+  *(*(*(result + 7) + 8) + 24) = 1;
   if (a2)
   {
     v2 = result;
-    if (*(result + 32))
+    if (*(result + 4))
     {
-      result = [*(result + 40) isSubsetOfSet:*(result + 48)];
-      *(*(*(v2 + 56) + 8) + 24) = result;
+      result = [*(result + 5) isSubsetOfSet:*(result + 6)];
+      *(*(v2[7] + 8) + 24) = result;
     }
   }
 
@@ -2486,7 +2550,7 @@ LABEL_11:
 
 - (void)remote_deleteDataObjectsOfType:(id)type matchingFilter:(id)filter options:(unint64_t)options handler:(id)handler
 {
-  v28[1] = *MEMORY[0x277D85DE8];
+  v27[1] = *MEMORY[0x277D85DE8];
   typeCopy = type;
   filterCopy = filter;
   handlerCopy = handler;
@@ -2494,25 +2558,25 @@ LABEL_11:
   {
     clientAuthorizationOracle = self->_clientAuthorizationOracle;
     v15 = MEMORY[0x277CBEB98];
-    v28[0] = typeCopy;
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:1];
+    v27[0] = typeCopy;
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:1];
     v17 = [v15 setWithArray:v16];
     queue = self->_queue;
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __85__HDHealthStoreServer_remote_deleteDataObjectsOfType_matchingFilter_options_handler___block_invoke;
-    v23[3] = &unk_27862DE48;
-    v23[4] = self;
-    v26 = handlerCopy;
-    v24 = filterCopy;
-    v25 = typeCopy;
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __85__HDHealthStoreServer_remote_deleteDataObjectsOfType_matchingFilter_options_handler___block_invoke;
+    v22[3] = &unk_27862DE48;
+    v22[4] = self;
+    v25 = handlerCopy;
+    v23 = filterCopy;
+    v24 = typeCopy;
     optionsCopy = options;
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __85__HDHealthStoreServer_remote_deleteDataObjectsOfType_matchingFilter_options_handler___block_invoke_3;
-    v21[3] = &unk_2786200D0;
-    v22 = v26;
-    [(HDClientAuthorizationOracle *)clientAuthorizationOracle performIfAuthorizedToDeleteObjectsWithTypes:v17 onQueue:queue usingBlock:v23 errorHandler:v21];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __85__HDHealthStoreServer_remote_deleteDataObjectsOfType_matchingFilter_options_handler___block_invoke_3;
+    v20[3] = &unk_2786200D0;
+    v21 = v25;
+    [(HDClientAuthorizationOracle *)clientAuthorizationOracle performIfAuthorizedToDeleteObjectsWithTypes:v17 onQueue:queue usingBlock:v22 errorHandler:v20];
   }
 
   else
@@ -2523,8 +2587,6 @@ LABEL_11:
       (*(handlerCopy + 2))(handlerCopy, 0, 0, v19);
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __85__HDHealthStoreServer_remote_deleteDataObjectsOfType_matchingFilter_options_handler___block_invoke(uint64_t a1, int a2)
@@ -2822,7 +2884,7 @@ void __81__HDHealthStoreServer__remote_saveObjects_deleteObjects_associations_co
 
 - (void)remote_setBackgroundDeliveryFrequency:(int64_t)frequency forDataType:(id)type handler:(id)handler
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   handlerCopy = handler;
   applicationSDKVersionToken = [(HKHealthStoreConfiguration *)self->_configuration applicationSDKVersionToken];
@@ -2846,22 +2908,22 @@ void __81__HDHealthStoreServer__remote_saveObjects_deleteObjects_associations_co
     v21 = *MEMORY[0x277CCC288];
     if (os_log_type_enabled(*MEMORY[0x277CCC288], OS_LOG_TYPE_ERROR))
     {
-      v33 = *MEMORY[0x277CCC1A8];
+      v32 = *MEMORY[0x277CCC1A8];
       *buf = 138543362;
-      v41 = v33;
+      v40 = v32;
       _os_log_error_impl(&dword_228986000, v21, OS_LOG_TYPE_ERROR, "Missing %{public}@ entitlement.", buf, 0xCu);
     }
 
     dataManager = [(HDProfile *)self->_profile dataManager];
     client = self->_client;
-    v38[0] = MEMORY[0x277D85DD0];
-    v38[1] = 3221225472;
-    v38[2] = __81__HDHealthStoreServer_remote_setBackgroundDeliveryFrequency_forDataType_handler___block_invoke;
-    v38[3] = &unk_278613658;
-    v39 = handlerCopy;
-    [dataManager setBackgroundObserverFrequency:client forDataType:0 frequency:frequency appSDKVersionToken:applicationSDKVersionToken completion:v38];
+    v37[0] = MEMORY[0x277D85DD0];
+    v37[1] = 3221225472;
+    v37[2] = __81__HDHealthStoreServer_remote_setBackgroundDeliveryFrequency_forDataType_handler___block_invoke;
+    v37[3] = &unk_278613658;
+    v38 = handlerCopy;
+    [dataManager setBackgroundObserverFrequency:client forDataType:0 frequency:frequency appSDKVersionToken:applicationSDKVersionToken completion:v37];
 
-    name = v39;
+    name = v38;
     goto LABEL_19;
   }
 
@@ -2880,7 +2942,7 @@ void __81__HDHealthStoreServer__remote_saveObjects_deleteObjects_associations_co
       if (os_log_type_enabled(*MEMORY[0x277CCC288], OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v41 = name;
+        v40 = name;
         _os_log_error_impl(&dword_228986000, v30, OS_LOG_TYPE_ERROR, "Unable to get bundle ID for %{public}@", buf, 0xCu);
         if (!handlerCopy)
         {
@@ -2901,14 +2963,14 @@ void __81__HDHealthStoreServer__remote_saveObjects_deleteObjects_associations_co
 
     dataManager2 = [(HDProfile *)self->_profile dataManager];
     v28 = self->_client;
-    v36[0] = MEMORY[0x277D85DD0];
-    v36[1] = 3221225472;
-    v36[2] = __81__HDHealthStoreServer_remote_setBackgroundDeliveryFrequency_forDataType_handler___block_invoke_453;
-    v36[3] = &unk_278613658;
-    v37 = handlerCopy;
-    [dataManager2 setBackgroundObserverFrequency:v28 forDataType:typeCopy frequency:frequency appSDKVersionToken:applicationSDKVersionToken completion:v36];
+    v35[0] = MEMORY[0x277D85DD0];
+    v35[1] = 3221225472;
+    v35[2] = __81__HDHealthStoreServer_remote_setBackgroundDeliveryFrequency_forDataType_handler___block_invoke_453;
+    v35[3] = &unk_278613658;
+    v36 = handlerCopy;
+    [dataManager2 setBackgroundObserverFrequency:v28 forDataType:typeCopy frequency:frequency appSDKVersionToken:applicationSDKVersionToken completion:v35];
 
-    name = v37;
+    name = v36;
 LABEL_19:
 
     goto LABEL_20;
@@ -2918,11 +2980,11 @@ LABEL_19:
   v16 = *MEMORY[0x277CCC288];
   if (os_log_type_enabled(*MEMORY[0x277CCC288], OS_LOG_TYPE_ERROR))
   {
-    v34 = v16;
-    v35 = [typeCopy description];
+    v33 = v16;
+    v34 = [typeCopy description];
     *buf = 138543362;
-    v41 = v35;
-    _os_log_error_impl(&dword_228986000, v34, OS_LOG_TYPE_ERROR, "%{public}@ data type is not supported for Background Delivery", buf, 0xCu);
+    v40 = v34;
+    _os_log_error_impl(&dword_228986000, v33, OS_LOG_TYPE_ERROR, "%{public}@ data type is not supported for Background Delivery", buf, 0xCu);
 
     if (!handlerCopy)
     {
@@ -2945,8 +3007,6 @@ LABEL_10:
   }
 
 LABEL_20:
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 void __81__HDHealthStoreServer_remote_setBackgroundDeliveryFrequency_forDataType_handler___block_invoke(uint64_t a1)
@@ -3051,29 +3111,29 @@ void __98__HDHealthStoreServer_remote_deleteAllSamplesWithTypes_sourceBundleIden
     {
       if (*(a1 + 40))
       {
-        v7 = [*(*(a1 + 48) + 72) sourceManager];
-        v8 = *(a1 + 40);
-        v20 = 0;
-        v9 = [v7 allSourcesForBundleIdentifier:v8 error:&v20];
-        v10 = v20;
-        v11 = v20;
+        v6 = [*(*(a1 + 48) + 72) sourceManager];
+        v7 = *(a1 + 40);
+        v19 = 0;
+        v8 = [v6 allSourcesForBundleIdentifier:v7 error:&v19];
+        v9 = v19;
+        v10 = v19;
 
-        v12 = v9 != 0;
-        if (!v9)
+        v11 = v8 != 0;
+        if (!v8)
         {
-          objc_storeStrong((*(*(a1 + 56) + 8) + 40), v10);
+          objc_storeStrong((*(*(a1 + 56) + 8) + 40), v9);
         }
       }
 
       else
       {
-        v9 = 0;
-        v12 = 1;
+        v8 = 0;
+        v11 = 1;
       }
 
-      v2 = [(HDHealthStoreServer *)*(a1 + 48) _permissionBlockForRestrictedSourceEntities:v9];
+      v2 = [(HDHealthStoreServer *)*(a1 + 48) _permissionBlockForRestrictedSourceEntities:v8];
 
-      if (!v12)
+      if (!v11)
       {
         goto LABEL_14;
       }
@@ -3084,27 +3144,26 @@ void __98__HDHealthStoreServer_remote_deleteAllSamplesWithTypes_sourceBundleIden
       v2 = 0;
     }
 
-    v13 = [*(*(a1 + 48) + 72) dataManager];
-    v14 = *(a1 + 32);
-    v15 = *(a1 + 40);
-    v16 = (*(a1 + 72) >> 1) & 1;
-    v17 = *(*(a1 + 56) + 8);
-    obj = *(v17 + 40);
-    v18 = [v13 deleteSamplesWithTypes:v14 sourceBundleIdentifier:v15 userRequested:v16 recursiveDeleteAuthorizationBlock:v2 error:&obj];
-    objc_storeStrong((v17 + 40), obj);
-    *(*(*(a1 + 64) + 8) + 24) = v18;
+    v12 = [*(*(a1 + 48) + 72) dataManager];
+    v13 = *(a1 + 32);
+    v14 = *(a1 + 40);
+    v15 = (*(a1 + 72) >> 1) & 1;
+    v16 = *(*(a1 + 56) + 8);
+    obj = *(v16 + 40);
+    v17 = [v12 deleteSamplesWithTypes:v13 sourceBundleIdentifier:v14 userRequested:v15 recursiveDeleteAuthorizationBlock:v2 error:&obj];
+    objc_storeStrong((v16 + 40), obj);
+    *(*(*(a1 + 64) + 8) + 24) = v17;
 
 LABEL_14:
     return;
   }
 
-  v3 = *(a1 + 48);
-  v4 = [MEMORY[0x277CCA9B8] hk_errorForInvalidArgument:@"@" class:objc_opt_class() selector:*(a1 + 80) format:@"sampleTypes may not be empty"];
-  v5 = *(*(a1 + 56) + 8);
-  v6 = *(v5 + 40);
-  *(v5 + 40) = v4;
+  v3 = [MEMORY[0x277CCA9B8] hk_errorForInvalidArgument:@"@" class:objc_opt_class() selector:*(a1 + 80) format:@"sampleTypes may not be empty"];
+  v4 = *(*(a1 + 56) + 8);
+  v5 = *(v4 + 40);
+  *(v4 + 40) = v3;
 
-  MEMORY[0x2821F96F8](v4, v6);
+  MEMORY[0x2821F96F8](v3, v5);
 }
 
 - (void)remote_deleteClientSourceWithCompletion:(id)completion
@@ -3132,16 +3191,16 @@ LABEL_14:
 
 void __63__HDHealthStoreServer_remote_deleteClientSourceWithCompletion___block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) client];
   v3 = [v2 sourceBundleIdentifier];
 
   if (v3)
   {
     v4 = [*(*(a1 + 32) + 72) sourceManager];
-    v18 = 0;
-    v5 = [v4 deleteSourceWithBundleIdentifier:v3 error:&v18];
-    v6 = v18;
+    v16 = 0;
+    v5 = [v4 deleteSourceWithBundleIdentifier:v3 error:&v16];
+    v6 = v16;
 
     _HKInitializeLogging();
     v7 = *MEMORY[0x277CCC2A0];
@@ -3161,9 +3220,9 @@ LABEL_8:
       v11 = [v9 process];
       v12 = [v11 name];
       *buf = 138543618;
-      v20 = v12;
-      v21 = 2114;
-      v22 = v3;
+      v18 = v12;
+      v19 = 2114;
+      v20 = v3;
       _os_log_impl(&dword_228986000, v10, OS_LOG_TYPE_DEFAULT, "Client %{public}@ deleted source %{public}@", buf, 0x16u);
     }
 
@@ -3174,29 +3233,27 @@ LABEL_8:
         goto LABEL_8;
       }
 
-      v17 = *(*(a1 + 32) + 88);
+      v15 = *(*(a1 + 32) + 88);
       v10 = v7;
-      v11 = [v17 process];
+      v11 = [v15 process];
       v12 = [v11 name];
       *buf = 138543874;
-      v20 = v12;
+      v18 = v12;
+      v19 = 2114;
+      v20 = v3;
       v21 = 2114;
-      v22 = v3;
-      v23 = 2114;
-      v24 = v6;
+      v22 = v6;
       _os_log_error_impl(&dword_228986000, v10, OS_LOG_TYPE_ERROR, "Client %{public}@ failed to deleted source %{public}@: %{public}@", buf, 0x20u);
     }
 
     goto LABEL_8;
   }
 
-  v13 = *(a1 + 32);
-  v14 = *(a1 + 40);
-  v15 = [MEMORY[0x277CCA9B8] hk_errorForNilArgument:@"bundleIdentifier" class:objc_opt_class() selector:*(a1 + 48)];
-  (*(v14 + 16))(v14, 0, v15);
+  v13 = *(a1 + 40);
+  v14 = [MEMORY[0x277CCA9B8] hk_errorForNilArgument:@"bundleIdentifier" class:objc_opt_class() selector:*(a1 + 48)];
+  (*(v13 + 16))(v13, 0, v14);
 
 LABEL_9:
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remote_deleteObjectsWithUUIDs:(id)ds options:(unint64_t)options completion:(id)completion
@@ -3257,25 +3314,24 @@ void __72__HDHealthStoreServer_remote_deleteObjectsWithUUIDs_options_completion_
       v2 = 0;
     }
 
-    v7 = [*(*(a1 + 40) + 72) dataManager];
-    v8 = *(a1 + 32);
-    v9 = (*(a1 + 64) >> 1) & 1;
-    v10 = *(*(a1 + 56) + 8);
-    obj = *(v10 + 40);
-    v11 = [v7 deleteSamplesWithUUIDs:v8 userRequested:v9 recursiveDeleteAuthorizationBlock:v2 error:&obj];
-    objc_storeStrong((v10 + 40), obj);
-    *(*(*(a1 + 48) + 8) + 24) = v11;
+    v6 = [*(*(a1 + 40) + 72) dataManager];
+    v7 = *(a1 + 32);
+    v8 = (*(a1 + 64) >> 1) & 1;
+    v9 = *(*(a1 + 56) + 8);
+    obj = *(v9 + 40);
+    v10 = [v6 deleteSamplesWithUUIDs:v7 userRequested:v8 recursiveDeleteAuthorizationBlock:v2 error:&obj];
+    objc_storeStrong((v9 + 40), obj);
+    *(*(*(a1 + 48) + 8) + 24) = v10;
   }
 
   else
   {
-    v3 = *(a1 + 40);
-    v4 = [MEMORY[0x277CCA9B8] hk_errorForInvalidArgument:@"@" class:objc_opt_class() selector:*(a1 + 72) format:@"uuids array may not be empty"];
-    v5 = *(*(a1 + 56) + 8);
-    v6 = *(v5 + 40);
-    *(v5 + 40) = v4;
+    v3 = [MEMORY[0x277CCA9B8] hk_errorForInvalidArgument:@"@" class:objc_opt_class() selector:*(a1 + 72) format:@"uuids array may not be empty"];
+    v4 = *(*(a1 + 56) + 8);
+    v5 = *(v4 + 40);
+    *(v4 + 40) = v3;
 
-    MEMORY[0x2821F96F8](v4, v6);
+    MEMORY[0x2821F96F8](v3, v5);
   }
 }
 
@@ -3352,20 +3408,18 @@ uint64_t __70__HDHealthStoreServer_remote_fetchCharacteristicWithDataType_handle
 
 void __70__HDHealthStoreServer_remote_fetchCharacteristicWithDataType_handler___block_invoke_3(uint64_t a1, void *a2)
 {
-  v6 = a2;
-  v3 = [v6 hk_isAuthorizationDeniedError];
-  v4 = *(a1 + 32);
-  if (v3)
+  v4 = a2;
+  if ([v4 hk_isAuthorizationDeniedError])
   {
-    v5 = 0;
+    v3 = 0;
   }
 
   else
   {
-    v5 = v6;
+    v3 = v4;
   }
 
-  (*(*(a1 + 32) + 16))(*(a1 + 32), 0, v5);
+  (*(*(a1 + 32) + 16))(*(a1 + 32), 0, v3);
 }
 
 - (void)remote_setCharacteristic:(id)characteristic forDataType:(id)type handler:(id)handler
@@ -3400,42 +3454,39 @@ void __70__HDHealthStoreServer_remote_fetchCharacteristicWithDataType_handler___
 
 void __68__HDHealthStoreServer_remote_setCharacteristic_forDataType_handler___block_invoke(void *a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (a1[4])
   {
     v2 = [*(a1[5] + 72) userCharacteristicsManager];
     v3 = a1[6];
     v4 = a1[4];
-    v12 = 0;
-    [v2 setUserCharacteristic:v3 forType:v4 error:&v12];
-    v5 = v12;
+    v10 = 0;
+    [v2 setUserCharacteristic:v3 forType:v4 error:&v10];
+    v5 = v10;
 
     v6 = *(a1[7] + 16);
   }
 
   else
   {
-    v7 = a1[5];
     v5 = [MEMORY[0x277CCA9B8] hk_errorForInvalidArgument:@"@" class:objc_opt_class() selector:a1[8] format:@"dataType may not be nil"];
     _HKInitializeLogging();
-    v8 = *MEMORY[0x277CCC2B0];
+    v7 = *MEMORY[0x277CCC2B0];
     if (os_log_type_enabled(*MEMORY[0x277CCC2B0], OS_LOG_TYPE_ERROR))
     {
-      v10 = a1[4];
-      v11 = v8;
+      v8 = a1[4];
+      v9 = v7;
       *buf = 134218242;
-      v14 = [v10 code];
-      v15 = 2114;
-      v16 = v5;
-      _os_log_error_impl(&dword_228986000, v11, OS_LOG_TYPE_ERROR, "Error setting characteristic for data type %ld: %{public}@", buf, 0x16u);
+      v12 = [v8 code];
+      v13 = 2114;
+      v14 = v5;
+      _os_log_error_impl(&dword_228986000, v9, OS_LOG_TYPE_ERROR, "Error setting characteristic for data type %ld: %{public}@", buf, 0x16u);
     }
 
     v6 = *(a1[7] + 16);
   }
 
   v6();
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remote_fetchModificationDateForCharacteristicWithDataType:(id)type handler:(id)handler
@@ -3467,35 +3518,32 @@ void __68__HDHealthStoreServer_remote_setCharacteristic_forDataType_handler___bl
 
 void __89__HDHealthStoreServer_remote_fetchModificationDateForCharacteristicWithDataType_handler___block_invoke(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (a1[4])
   {
     v2 = [*(a1[5] + 72) userCharacteristicsManager];
     v3 = a1[4];
-    v9 = 0;
-    v4 = [v2 modificationDateForCharacteristicWithType:v3 error:&v9];
-    v5 = v9;
+    v7 = 0;
+    v4 = [v2 modificationDateForCharacteristicWithType:v3 error:&v7];
+    v5 = v7;
 
     (*(a1[6] + 16))();
   }
 
   else
   {
-    v6 = a1[5];
     v4 = [MEMORY[0x277CCA9B8] hk_errorForInvalidArgument:@"@" class:objc_opt_class() selector:a1[7] format:@"dataType may not be nil"];
     _HKInitializeLogging();
-    v7 = *MEMORY[0x277CCC2B0];
+    v6 = *MEMORY[0x277CCC2B0];
     if (os_log_type_enabled(*MEMORY[0x277CCC2B0], OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v11 = v4;
-      _os_log_error_impl(&dword_228986000, v7, OS_LOG_TYPE_ERROR, "Error retrieving modification date for data type: %{public}@", buf, 0xCu);
+      v9 = v4;
+      _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "Error retrieving modification date for data type: %{public}@", buf, 0xCu);
     }
 
     (*(a1[6] + 16))();
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remote_fetchServerURLForAssetType:(id)type completion:(id)completion
@@ -3525,13 +3573,12 @@ void __89__HDHealthStoreServer_remote_fetchModificationDateForCharacteristicWith
 
 void __68__HDHealthStoreServer_remote_fetchServerURLForAssetType_completion___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = ASServerURLForAssetType();
-  v4 = 0;
-  v5 = *(a1 + 40);
-  if (v5)
+  v2 = ASServerURLForAssetType();
+  v3 = 0;
+  v4 = *(a1 + 40);
+  if (v4)
   {
-    (*(v5 + 16))(v5, v3, v4);
+    (*(v4 + 16))(v4, v2, v3);
   }
 }
 
@@ -3576,15 +3623,13 @@ uint64_t __68__HDHealthStoreServer_remote_fetchServerURLForAssetType_completion_
 
 uint64_t __67__HDHealthStoreServer_remote_setServerURL_forAssetType_completion___block_invoke(void *a1)
 {
-  v2 = a1[4];
-  v3 = a1[5];
   ASSetAssetServerURLForAssetType();
   result = a1[6];
   if (result)
   {
-    v5 = *(result + 16);
+    v3 = *(result + 16);
 
-    return v5();
+    return v3();
   }
 
   return result;
@@ -3626,7 +3671,7 @@ uint64_t __67__HDHealthStoreServer_remote_setServerURL_forAssetType_completion__
 
 - (void)remote_clientWillSuspendWithCompletion:(id)completion
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   _HKInitializeLogging();
   v5 = HKLogProcessState();
@@ -3639,9 +3684,9 @@ uint64_t __67__HDHealthStoreServer_remote_setServerURL_forAssetType_completion__
     {
       process = [(HDHealthStoreClient *)self->_client process];
       bundleIdentifier = [process bundleIdentifier];
-      v11 = 138543362;
-      v12 = bundleIdentifier;
-      _os_log_debug_impl(&dword_228986000, v7, OS_LOG_TYPE_DEBUG, "HDHealthStoreServer suspending connection with %{public}@", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = bundleIdentifier;
+      _os_log_debug_impl(&dword_228986000, v7, OS_LOG_TYPE_DEBUG, "HDHealthStoreServer suspending connection with %{public}@", &v10, 0xCu);
     }
   }
 
@@ -3656,13 +3701,11 @@ uint64_t __67__HDHealthStoreServer_remote_setServerURL_forAssetType_completion__
 
     completionCopy[2](completionCopy, 1, 0);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remote_clientResumedWithCompletion:(id)completion
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   _HKInitializeLogging();
   v5 = HKLogProcessState();
@@ -3676,7 +3719,7 @@ uint64_t __67__HDHealthStoreServer_remote_setServerURL_forAssetType_completion__
       process = [(HDHealthStoreClient *)self->_client process];
       bundleIdentifier = [process bundleIdentifier];
       *buf = 138543362;
-      v15 = bundleIdentifier;
+      v14 = bundleIdentifier;
       _os_log_debug_impl(&dword_228986000, v7, OS_LOG_TYPE_DEBUG, "HDHealthStoreServer resuming connection with %{public}@", buf, 0xCu);
     }
   }
@@ -3684,16 +3727,14 @@ uint64_t __67__HDHealthStoreServer_remote_setServerURL_forAssetType_completion__
   if (completionCopy)
   {
     queue = self->_queue;
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __58__HDHealthStoreServer_remote_clientResumedWithCompletion___block_invoke;
-    v12[3] = &unk_278614E28;
-    v12[4] = self;
-    v13 = completionCopy;
-    dispatch_sync(queue, v12);
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __58__HDHealthStoreServer_remote_clientResumedWithCompletion___block_invoke;
+    v11[3] = &unk_278614E28;
+    v11[4] = self;
+    v12 = completionCopy;
+    dispatch_sync(queue, v11);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __58__HDHealthStoreServer_remote_clientResumedWithCompletion___block_invoke(uint64_t a1)
@@ -3752,7 +3793,7 @@ void __58__HDHealthStoreServer_remote_clientResumedWithCompletion___block_invoke
 
 uint64_t __66__HDHealthStoreServer__holdActiveClientTransactionWithCompletion___block_invoke(uint64_t a1, int a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v4 = HKLogProcessState();
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
@@ -3762,28 +3803,27 @@ uint64_t __66__HDHealthStoreServer__holdActiveClientTransactionWithCompletion___
     v6 = HKLogProcessState();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      v9 = "canceled";
-      v10 = *(a1 + 32);
+      v8 = "canceled";
+      v9 = *(a1 + 32);
       if (a2)
       {
-        v9 = "timed out";
+        v8 = "timed out";
       }
 
-      v11 = 138412546;
-      v12 = v10;
-      v13 = 2080;
-      v14 = v9;
-      _os_log_debug_impl(&dword_228986000, v6, OS_LOG_TYPE_DEBUG, "Client resume transaction timer for %@ %s", &v11, 0x16u);
+      v10 = 138412546;
+      v11 = v9;
+      v12 = 2080;
+      v13 = v8;
+      _os_log_debug_impl(&dword_228986000, v6, OS_LOG_TYPE_DEBUG, "Client resume transaction timer for %@ %s", &v10, 0x16u);
     }
   }
 
   result = *(a1 + 40);
   if (result)
   {
-    result = (*(result + 16))(result, 1, 0);
+    return (*(result + 16))(result, 1, 0);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -3903,14 +3943,14 @@ void __70__HDHealthStoreServer_unitPreferencesManagerDidUpdateUnitPreferences___
 
 - (void)remote_setAllHealthDataAccessForSiri:(int64_t)siri completion:(id)completion
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   client = self->_client;
   v8 = *MEMORY[0x277CCB888];
   v9 = *MEMORY[0x277CCBD68];
-  v25 = 0;
-  v10 = [(HDHealthStoreClient *)client hasRequiredArrayEntitlement:v8 containing:v9 error:&v25];
-  v11 = v25;
+  v24 = 0;
+  v10 = [(HDHealthStoreClient *)client hasRequiredArrayEntitlement:v8 containing:v9 error:&v24];
+  v11 = v24;
   if (v10)
   {
     v12 = [HDKeyValueDomain alloc];
@@ -3920,9 +3960,9 @@ void __70__HDHealthStoreServer_unitPreferencesManagerDidUpdateUnitPreferences___
 
     v16 = [MEMORY[0x277CCABB0] numberWithInteger:siri];
     v17 = *MEMORY[0x277CCE550];
-    v24 = v11;
-    v18 = [(HDKeyValueDomain *)v15 setNumber:v16 forKey:v17 error:&v24];
-    v19 = v24;
+    v23 = v11;
+    v18 = [(HDKeyValueDomain *)v15 setNumber:v16 forKey:v17 error:&v23];
+    v19 = v23;
 
     if (v18)
     {
@@ -3949,10 +3989,10 @@ void __70__HDHealthStoreServer_unitPreferencesManagerDidUpdateUnitPreferences___
       {
         *buf = 138543874;
         selfCopy2 = self;
-        v28 = 2114;
-        v29 = v17;
-        v30 = 2114;
-        v31 = v19;
+        v27 = 2114;
+        v28 = v17;
+        v29 = 2114;
+        v30 = v19;
         _os_log_error_impl(&dword_228986000, v22, OS_LOG_TYPE_ERROR, "%{public}@: Unable to persist %{public}@: %{public}@", buf, 0x20u);
       }
 
@@ -3965,13 +4005,11 @@ void __70__HDHealthStoreServer_unitPreferencesManagerDidUpdateUnitPreferences___
     (completionCopy)[2](completionCopy, 0, v11);
     v19 = v11;
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remote_getAllHealthDataAccessForSiriWithCompletion:(id)completion
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   sourceBundleIdentifier = [(HDHealthStoreClient *)self->_client sourceBundleIdentifier];
   v6 = [sourceBundleIdentifier isEqualToString:*MEMORY[0x277CCE558]];
@@ -3983,9 +4021,9 @@ LABEL_5:
     client = self->_client;
     v10 = *MEMORY[0x277CCB888];
     v11 = *MEMORY[0x277CCBD58];
-    v30 = 0;
-    v12 = [(HDHealthStoreClient *)client hasRequiredArrayEntitlement:v10 containing:v11 error:&v30];
-    v13 = v30;
+    v29 = 0;
+    v12 = [(HDHealthStoreClient *)client hasRequiredArrayEntitlement:v10 containing:v11 error:&v29];
+    v13 = v29;
     if (!v12)
     {
       completionCopy[2](completionCopy, 0, v13);
@@ -4001,9 +4039,9 @@ LABEL_18:
     v17 = [(HDKeyValueDomain *)v14 initWithCategory:5 domainName:v15 profile:profile];
 
     v18 = *MEMORY[0x277CCE550];
-    v29 = v13;
-    v19 = [(HDKeyValueDomain *)v17 numberForKey:v18 error:&v29];
-    v20 = v29;
+    v28 = v13;
+    v19 = [(HDKeyValueDomain *)v17 numberForKey:v18 error:&v28];
+    v20 = v28;
 
     if (v19)
     {
@@ -4032,8 +4070,8 @@ LABEL_18:
         {
           *buf = 138543618;
           selfCopy3 = self;
-          v34 = 2114;
-          v35 = v20;
+          v33 = 2114;
+          v34 = v20;
           _os_log_error_impl(&dword_228986000, v27, OS_LOG_TYPE_ERROR, "%{public}@: Getting the value for key value domain failed with error: %{public}@", buf, 0x16u);
         }
 
@@ -4063,9 +4101,9 @@ LABEL_17:
     goto LABEL_18;
   }
 
-  v31 = 0;
-  v7 = [(HDHealthStoreServer *)self clientSourceWithError:&v31];
-  v8 = v31;
+  v30 = 0;
+  v7 = [(HDHealthStoreServer *)self clientSourceWithError:&v30];
+  v8 = v30;
   if (v7)
   {
 
@@ -4074,17 +4112,15 @@ LABEL_17:
 
   completionCopy[2](completionCopy, 0, v8);
 LABEL_19:
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)conceptIndexManagerDidBecomeQuiescent:(id)quiescent samplesProcessedCount:(int64_t)count
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   client = self->_client;
-  v14 = 0;
-  v7 = [(HDHealthStoreClient *)client verifyHealthRecordsPermissionGrantedWithError:&v14];
-  v8 = v14;
+  v13 = 0;
+  v7 = [(HDHealthStoreClient *)client verifyHealthRecordsPermissionGrantedWithError:&v13];
+  v8 = v13;
   if (v7)
   {
     _clientRemoteObjectProxy = [(HDHealthStoreServer *)self _clientRemoteObjectProxy];
@@ -4107,18 +4143,17 @@ LABEL_19:
     {
       v12 = HKSensitiveLogItem();
       *buf = 138543362;
-      v16 = v12;
+      v15 = v12;
       _os_log_impl(&dword_228986000, _clientRemoteObjectProxy, OS_LOG_TYPE_INFO, "Dropping concept index manager quiescence notification with permission error %{public}@", buf, 0xCu);
     }
   }
 
 LABEL_7:
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remote_splitTotalCalories:(double)calories timeInterval:(double)interval withCompletion:(id)completion
 {
-  v30[1] = *MEMORY[0x277D85DE8];
+  v29[1] = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
@@ -4128,7 +4163,7 @@ LABEL_7:
   caloriesCopy = calories;
   intervalCopy = interval;
   v9 = completionCopy;
-  v27 = v9;
+  v26 = v9;
   v10 = _Block_copy(aBlock);
   v11 = MEMORY[0x277CCD800];
   v12 = [MEMORY[0x277CCD720] quantityTypeForIdentifier:*MEMORY[0x277CCC990]];
@@ -4139,25 +4174,23 @@ LABEL_7:
   v17 = [MEMORY[0x277CBEAA8] now];
   v18 = [v11 quantitySampleWithType:v12 quantity:v15 startDate:v16 endDate:v17];
 
-  v30[0] = v18;
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:1];
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __77__HDHealthStoreServer_remote_splitTotalCalories_timeInterval_withCompletion___block_invoke_2;
-  v24[3] = &unk_27862DF60;
-  v25 = v10;
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __77__HDHealthStoreServer_remote_splitTotalCalories_timeInterval_withCompletion___block_invoke_3;
-  v22[3] = &unk_2786200D0;
-  v20 = v25;
-  v23 = v20;
+  v29[0] = v18;
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:1];
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __77__HDHealthStoreServer_remote_splitTotalCalories_timeInterval_withCompletion___block_invoke_2;
+  v23[3] = &unk_27862DF60;
+  v24 = v10;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __77__HDHealthStoreServer_remote_splitTotalCalories_timeInterval_withCompletion___block_invoke_3;
+  v21[3] = &unk_2786200D0;
+  v20 = v24;
+  v22 = v20;
   if (self)
   {
-    [(HDClientAuthorizationOracle *)self->_clientAuthorizationOracle performIfAuthorizedToReadObjects:v19 onQueue:self->_queue usingBlock:v24 errorHandler:v22];
+    [(HDClientAuthorizationOracle *)self->_clientAuthorizationOracle performIfAuthorizedToReadObjects:v19 onQueue:self->_queue usingBlock:v23 errorHandler:v21];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __77__HDHealthStoreServer_remote_splitTotalCalories_timeInterval_withCompletion___block_invoke(uint64_t a1, uint64_t a2)
@@ -4398,12 +4431,12 @@ void __62__HDHealthStoreServer_remote_addSamples_toWorkout_completion___block_in
   {
     v3 = [*(a1 + 32) hk_map:&__block_literal_global_549];
     v4 = [*(a1 + 40) UUID];
-    v13 = 0;
-    v5 = [*(a1 + 48) profile];
     v12 = 0;
-    v6 = [HDAssociationEntity associateSampleUUIDs:v3 withSampleUUID:v4 type:0 behavior:0 destinationSubObjectReference:0 lastInsertedEntityID:&v13 profile:v5 error:&v12];
-    v7 = v13;
-    v8 = v12;
+    v5 = [*(a1 + 48) profile];
+    v11 = 0;
+    v6 = [HDAssociationEntity associateSampleUUIDs:v3 withSampleUUID:v4 type:0 behavior:0 destinationSubObjectReference:0 lastInsertedEntityID:&v12 profile:v5 error:&v11];
+    v7 = v12;
+    v8 = v11;
 
     if (v6)
     {
@@ -4416,28 +4449,27 @@ void __62__HDHealthStoreServer_remote_addSamples_toWorkout_completion___block_in
 
   else
   {
-    v10 = *(a1 + 56);
-    v11 = *(*(a1 + 56) + 16);
+    v10 = *(*(a1 + 56) + 16);
 
-    v11();
+    v10();
   }
 }
 
 - (void)remote_replaceWorkout:(id)workout withWorkout:(id)withWorkout completion:(id)completion
 {
-  v61[1] = *MEMORY[0x277D85DE8];
+  v60[1] = *MEMORY[0x277D85DE8];
   workoutCopy = workout;
   withWorkoutCopy = withWorkout;
   completionCopy = completion;
-  v54 = 0;
+  v53 = 0;
   if (!self)
   {
     v12 = 0;
     goto LABEL_18;
   }
 
-  v11 = [(HDHealthStoreClient *)self->_client hasRequiredEntitlement:*MEMORY[0x277CCC8B0] error:&v54];
-  v12 = v54;
+  v11 = [(HDHealthStoreClient *)self->_client hasRequiredEntitlement:*MEMORY[0x277CCC8B0] error:&v53];
+  v12 = v53;
   if (!v11)
   {
 LABEL_18:
@@ -4445,66 +4477,66 @@ LABEL_18:
     goto LABEL_19;
   }
 
-  v49 = withWorkoutCopy;
-  v50 = workoutCopy;
+  v48 = withWorkoutCopy;
+  v49 = workoutCopy;
   uUID = [workoutCopy UUID];
   v14 = HDDataEntityPredicateForDataUUID();
   profile = [(HDHealthStoreServer *)self profile];
   database = [profile database];
-  v53 = 0;
-  v17 = [(HDHealthEntity *)HDWorkoutEntity anyWithPredicate:v14 healthDatabase:database error:&v53];
-  v18 = v53;
+  v52 = 0;
+  v17 = [(HDHealthEntity *)HDWorkoutEntity anyWithPredicate:v14 healthDatabase:database error:&v52];
+  v18 = v52;
 
   if (v17 || !v18)
   {
-    v47 = v17;
-    v48 = v12;
+    v46 = v17;
+    v47 = v12;
     uUID2 = [withWorkoutCopy UUID];
     v20 = HDDataEntityPredicateForDataUUID();
     profile2 = [(HDHealthStoreServer *)self profile];
     database2 = [profile2 database];
-    v52 = v18;
-    v23 = [(HDHealthEntity *)HDWorkoutEntity anyWithPredicate:v20 healthDatabase:database2 error:&v52];
-    v24 = v52;
+    v51 = v18;
+    v23 = [(HDHealthEntity *)HDWorkoutEntity anyWithPredicate:v20 healthDatabase:database2 error:&v51];
+    v24 = v51;
 
     if (v24)
     {
       completionCopy[2](completionCopy, 0, v24);
       v18 = v24;
-      workoutCopy = v50;
-      withWorkoutCopy = v49;
-      v17 = v47;
+      workoutCopy = v49;
+      withWorkoutCopy = v48;
+      v17 = v46;
     }
 
     else
     {
-      v25 = v50;
-      v26 = v49;
+      v25 = v49;
+      v26 = v48;
       v27 = completionCopy;
       aBlock[0] = MEMORY[0x277D85DD0];
       aBlock[1] = 3221225472;
       aBlock[2] = __93__HDHealthStoreServer__completionHandlerForReplaceWithOriginalWorkout_newWorkout_completion___block_invoke;
       aBlock[3] = &unk_278619590;
       v28 = v25;
-      v56 = v28;
+      v55 = v28;
       v29 = v26;
-      v57 = v29;
+      v56 = v29;
       selfCopy = self;
       v30 = v27;
-      v59 = v30;
+      v58 = v30;
       v31 = _Block_copy(aBlock);
       v32 = v23;
       v33 = _Block_copy(v31);
 
-      v46 = v32;
+      v45 = v32;
       if (v32)
       {
         v33[2](v33, 1, 0);
         v18 = 0;
-        withWorkoutCopy = v49;
-        workoutCopy = v50;
-        v17 = v47;
-        v12 = v48;
+        withWorkoutCopy = v48;
+        workoutCopy = v49;
+        v17 = v46;
+        v12 = v47;
       }
 
       else
@@ -4515,16 +4547,16 @@ LABEL_18:
 
         profile3 = [(HDHealthStoreServer *)self profile];
         sourceManager = [profile3 sourceManager];
-        v51 = 0;
-        v45 = bundleIdentifier;
-        v39 = [sourceManager localSourceForBundleIdentifier:bundleIdentifier copyIfNecessary:1 error:&v51];
-        v18 = v51;
+        v50 = 0;
+        v44 = bundleIdentifier;
+        v39 = [sourceManager localSourceForBundleIdentifier:bundleIdentifier copyIfNecessary:1 error:&v50];
+        v18 = v50;
 
-        v12 = v48;
+        v12 = v47;
         if (v39)
         {
-          v60 = v29;
-          v40 = [MEMORY[0x277CBEA60] arrayWithObjects:&v60 count:1];
+          v59 = v29;
+          v40 = [MEMORY[0x277CBEA60] arrayWithObjects:&v59 count:1];
           sourceRevision2 = [v28 sourceRevision];
           version = [sourceRevision2 version];
           [(HDHealthStoreServer *)self _saveDataObjects:v40 sourceEntity:v39 sourceVersion:version handler:v33];
@@ -4532,83 +4564,78 @@ LABEL_18:
 
         else
         {
-          v61[0] = v29;
-          v40 = [MEMORY[0x277CBEA60] arrayWithObjects:v61 count:1];
+          v60[0] = v29;
+          v40 = [MEMORY[0x277CBEA60] arrayWithObjects:v60 count:1];
           [(HDHealthStoreServer *)self remote_saveDataObjects:v40 skipInsertionFilter:0 creationDateOverride:0 handler:v33];
         }
 
         v43 = v39;
-        withWorkoutCopy = v49;
-        workoutCopy = v50;
-        v17 = v47;
+        withWorkoutCopy = v48;
+        workoutCopy = v49;
+        v17 = v46;
       }
 
-      v23 = v46;
+      v23 = v45;
     }
   }
 
   else
   {
     completionCopy[2](completionCopy, 0, v18);
-    workoutCopy = v50;
+    workoutCopy = v49;
   }
 
 LABEL_19:
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 void __93__HDHealthStoreServer__completionHandlerForReplaceWithOriginalWorkout_newWorkout_completion___block_invoke(uint64_t a1, int a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
     v5 = [*(a1 + 48) profile];
-    v18 = 0;
-    LOBYTE(v3) = [HDWorkoutEntity copySampleAssociationsFromWorkout:v3 toWorkout:v4 profile:v5 error:&v18];
-    v6 = v18;
+    v15 = 0;
+    LOBYTE(v3) = [HDWorkoutEntity copySampleAssociationsFromWorkout:v3 toWorkout:v4 profile:v5 error:&v15];
+    v6 = v15;
 
     if (v3)
     {
       v7 = *(a1 + 48);
-      v19 = *(a1 + 32);
-      v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:1];
+      v16 = *(a1 + 32);
+      v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:1];
       [v7 remote_deleteDataObjects:v8 options:0 handler:*(a1 + 56)];
     }
 
     else
     {
       _HKInitializeLogging();
-      v12 = *MEMORY[0x277CCC330];
+      v10 = *MEMORY[0x277CCC330];
       if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
       {
-        v14 = *(a1 + 32);
-        v15 = v12;
-        v16 = [v14 UUID];
-        v17 = [*(a1 + 40) UUID];
+        v11 = *(a1 + 32);
+        v12 = v10;
+        v13 = [v11 UUID];
+        v14 = [*(a1 + 40) UUID];
         *buf = 138543874;
-        v21 = v16;
-        v22 = 2114;
-        v23 = v17;
-        v24 = 2114;
-        v25 = v6;
-        _os_log_error_impl(&dword_228986000, v15, OS_LOG_TYPE_ERROR, "Unable to copy sample associations from workout with UUID %{public}@ to workout with UUID %{public}@: %{public}@", buf, 0x20u);
+        v18 = v13;
+        v19 = 2114;
+        v20 = v14;
+        v21 = 2114;
+        v22 = v6;
+        _os_log_error_impl(&dword_228986000, v12, OS_LOG_TYPE_ERROR, "Unable to copy sample associations from workout with UUID %{public}@ to workout with UUID %{public}@: %{public}@", buf, 0x20u);
       }
 
       (*(*(a1 + 56) + 16))();
     }
-
-    v13 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v9 = *(a1 + 56);
-    v10 = *(*(a1 + 56) + 16);
-    v11 = *MEMORY[0x277D85DE8];
+    v9 = *(*(a1 + 56) + 16);
 
-    v10();
+    v9();
   }
 }
 
@@ -4740,7 +4767,7 @@ void __72__HDHealthStoreServer_remote_recoverActiveWorkoutSessionWithCompletion_
 
 - (void)remote_setMirroredWorkoutSessionObserverStateToEnabled:(BOOL)enabled completion:(id)completion
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   profile = [(HDHealthStoreServer *)self profile];
   workoutManager = [profile workoutManager];
@@ -4748,17 +4775,17 @@ void __72__HDHealthStoreServer_remote_recoverActiveWorkoutSessionWithCompletion_
   if (workoutManager)
   {
     queue = self->_queue;
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __89__HDHealthStoreServer_remote_setMirroredWorkoutSessionObserverStateToEnabled_completion___block_invoke;
-    v13[3] = &unk_278614138;
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __89__HDHealthStoreServer_remote_setMirroredWorkoutSessionObserverStateToEnabled_completion___block_invoke;
+    v12[3] = &unk_278614138;
     enabledCopy = enabled;
-    v14 = workoutManager;
+    v13 = workoutManager;
     selfCopy = self;
-    v16 = completionCopy;
-    dispatch_async(queue, v13);
+    v15 = completionCopy;
+    dispatch_async(queue, v12);
 
-    hk_featureUnavailableForProfileError = v14;
+    hk_featureUnavailableForProfileError = v13;
   }
 
   else
@@ -4775,8 +4802,6 @@ void __72__HDHealthStoreServer_remote_recoverActiveWorkoutSessionWithCompletion_
     hk_featureUnavailableForProfileError = [MEMORY[0x277CCA9B8] hk_featureUnavailableForProfileError];
     (*(completionCopy + 2))(completionCopy, 0, hk_featureUnavailableForProfileError);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __89__HDHealthStoreServer_remote_setMirroredWorkoutSessionObserverStateToEnabled_completion___block_invoke(uint64_t a1)
@@ -4801,21 +4826,21 @@ uint64_t __89__HDHealthStoreServer_remote_setMirroredWorkoutSessionObserverState
 
 - (void)remote_relateReplaceRatingOfExertionSample:(id)sample toWorkout:(id)workout workoutActivity:(id)activity samples:(id)samples completion:(id)completion
 {
-  v32[1] = *MEMORY[0x277D85DE8];
+  v31[1] = *MEMORY[0x277D85DE8];
   sampleCopy = sample;
   workoutCopy = workout;
   activityCopy = activity;
   samplesCopy = samples;
   completionCopy = completion;
-  v31 = 0;
+  v30 = 0;
   if (!self)
   {
     v19 = 0;
     goto LABEL_11;
   }
 
-  v18 = [(HDHealthStoreClient *)self->_client hasRequiredEntitlement:*MEMORY[0x277CCC8B0] error:&v31];
-  v19 = v31;
+  v18 = [(HDHealthStoreClient *)self->_client hasRequiredEntitlement:*MEMORY[0x277CCC8B0] error:&v30];
+  v19 = v30;
   if (!v18)
   {
 LABEL_11:
@@ -4848,25 +4873,24 @@ LABEL_9:
     }
   }
 
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __111__HDHealthStoreServer_remote_relateReplaceRatingOfExertionSample_toWorkout_workoutActivity_samples_completion___block_invoke;
-  v29[3] = &unk_27862DFD0;
-  v29[4] = self;
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __111__HDHealthStoreServer_remote_relateReplaceRatingOfExertionSample_toWorkout_workoutActivity_samples_completion___block_invoke;
+  v28[3] = &unk_27862DFD0;
+  v28[4] = self;
   v24 = completionCopy;
-  v30 = v24;
-  [samplesCopy enumerateObjectsUsingBlock:v29];
-  v32[0] = sampleCopy;
-  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:1];
+  v29 = v24;
+  [samplesCopy enumerateObjectsUsingBlock:v28];
+  v31[0] = sampleCopy;
+  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:1];
   [(HDHealthStoreServer *)self remote_relateSamples:v25 withObject:workoutCopy subObject:activityCopy type:1 behavior:0 completion:v24];
 
 LABEL_12:
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __111__HDHealthStoreServer_remote_relateReplaceRatingOfExertionSample_toWorkout_workoutActivity_samples_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 quantityType];
   v5 = [v4 code];
@@ -4879,18 +4903,16 @@ void __111__HDHealthStoreServer_remote_relateReplaceRatingOfExertionSample_toWor
     if (([v7 _isAppleWatch] & 1) != 0 || (objc_msgSend(v7, "bundleIdentifier"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "isEqual:", *MEMORY[0x277CCE340]), v8, v9))
     {
       v10 = *(a1 + 32);
-      v15[0] = v3;
-      v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
-      v13[0] = MEMORY[0x277D85DD0];
-      v13[1] = 3221225472;
-      v13[2] = __111__HDHealthStoreServer_remote_relateReplaceRatingOfExertionSample_toWorkout_workoutActivity_samples_completion___block_invoke_2;
-      v13[3] = &unk_2786130D8;
-      v14 = *(a1 + 40);
-      [v10 remote_deleteDataObjects:v11 options:0 handler:v13];
+      v14[0] = v3;
+      v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+      v12[0] = MEMORY[0x277D85DD0];
+      v12[1] = 3221225472;
+      v12[2] = __111__HDHealthStoreServer_remote_relateReplaceRatingOfExertionSample_toWorkout_workoutActivity_samples_completion___block_invoke_2;
+      v12[3] = &unk_2786130D8;
+      v13 = *(a1 + 40);
+      [v10 remote_deleteDataObjects:v11 options:0 handler:v12];
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __111__HDHealthStoreServer_remote_relateReplaceRatingOfExertionSample_toWorkout_workoutActivity_samples_completion___block_invoke_2(uint64_t result, char a2)
@@ -4955,19 +4977,18 @@ void __90__HDHealthStoreServer_remote_relateSamples_withObject_subObject_type_be
     v6 = a1[9];
     v7 = a1[10];
     v8 = a1[7];
-    v12 = 0;
-    [v3 associateObjects:v4 withObject:v5 type:v6 behavior:v7 destinationSubObject:v8 error:&v12];
-    v9 = v12;
+    v11 = 0;
+    [v3 associateObjects:v4 withObject:v5 type:v6 behavior:v7 destinationSubObject:v8 error:&v11];
+    v9 = v11;
 
     (*(a1[8] + 16))();
   }
 
   else
   {
-    v10 = a1[8];
-    v11 = *(a1[8] + 16);
+    v10 = *(a1[8] + 16);
 
-    v11();
+    v10();
   }
 }
 
@@ -4999,7 +5020,7 @@ void __90__HDHealthStoreServer_remote_relateSamples_withObject_subObject_type_be
 
 - (void)workoutManager:(id)manager didUpdateCurrentWorkout:(id)workout
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   workoutCopy = workout;
   if ([(HDHealthStoreServer *)workoutCopy sessionType]== 1)
   {
@@ -5033,9 +5054,9 @@ void __90__HDHealthStoreServer_remote_relateSamples_withObject_subObject_type_be
 
       os_unfair_lock_unlock(&self->_lock);
       [v11 invalidate];
-      v22 = 0;
-      v16 = [(HDHealthStoreServer *)workoutCopy taskServerConfigurationForRecoveryWithError:&v22];
-      v17 = v22;
+      v21 = 0;
+      v16 = [(HDHealthStoreServer *)workoutCopy taskServerConfigurationForRecoveryWithError:&v21];
+      v17 = v21;
       if (v16)
       {
         _clientRemoteObjectProxy = [(HDHealthStoreServer *)self _clientRemoteObjectProxy];
@@ -5061,15 +5082,13 @@ void __90__HDHealthStoreServer_remote_relateSamples_withObject_subObject_type_be
         {
           *buf = 138543618;
           selfCopy = self;
-          v25 = 2112;
-          v26 = v17;
+          v24 = 2112;
+          v25 = v17;
           _os_log_error_impl(&dword_228986000, v20, OS_LOG_TYPE_ERROR, "[mirroring] %{public}@: Error occurred while retrieving task configuration for remote session: %@", buf, 0x16u);
         }
       }
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 @end

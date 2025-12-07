@@ -80,7 +80,7 @@ LABEL_32:
         *buf = 134217984;
         *&buf[4] = state;
         _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "Invalid state to notify:%ld", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"E ", "Invalid state to notify:%ld", state);
       }
 
       __assert_rtn("[MBBackupLifecyclePluginNotifier _notifyPluginsOfState:engineError:error:]", "MBBackupPluginLifecycleNotifier.m", 68, "0");
@@ -165,7 +165,7 @@ LABEL_18:
       *&buf[22] = 2112;
       v25 = v15;
       _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, "Notified backup plugins for state transition:%ld -> %ld engine:%@", buf, 0x20u);
-      _MBLog();
+      _MBLog(@"I ", "Notified backup plugins for state transition:%ld -> %ld engine:%@", v10, state, v15);
     }
 
     [(MBBackupLifecyclePluginNotifier *)self setLastNotifiedState:state];

@@ -3,7 +3,7 @@
 + (id)_solariumMaterialForColor:(id)color traitCollection:(id)collection;
 + (id)_systemGreenEffect;
 + (id)materialForSystemColorName:(id)name;
-+ (id)vibrancyEffectWithA:(double)a B:(double)b C:(double)c D:(double)d E:(double)e F:(double)f;
++ (id)vibrancyEffectWithA:(double)a B:(double)b C:(double)c D:(double)d E:(double)e F:;
 - (_UIMaterial)initWithVibrancy:(int64_t)vibrancy forBlurEffectStyle:(int64_t)style;
 - (_UIMaterial)initWithVibrantVisualEffect:(id)effect;
 - (id)description;
@@ -15,20 +15,20 @@
 
 + (id)_systemGreenEffect
 {
-  v0 = objc_opt_self();
+  v1 = objc_opt_self();
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __33___UIMaterial__systemGreenEffect__block_invoke;
   block[3] = &__block_descriptor_40_e5_v8__0l;
-  block[4] = v0;
+  block[4] = v1;
   if (qword_1ED49B930 != -1)
   {
     dispatch_once(&qword_1ED49B930, block);
   }
 
-  v1 = qword_1ED49B928;
+  v2 = qword_1ED49B928;
 
-  return v1;
+  return v2;
 }
 
 + (_UIMaterial)_labelMaterial
@@ -74,34 +74,34 @@
   return blurCopy;
 }
 
-+ (id)vibrancyEffectWithA:(double)a B:(double)b C:(double)c D:(double)d E:(double)e F:(double)f
++ (id)vibrancyEffectWithA:(double)a B:(double)b C:(double)c D:(double)d E:(double)e F:
 {
   objc_opt_self();
-  v12 = a / 100.0;
-  v13 = b / 100.0;
-  v14 = c / 100.0;
-  v15 = d / 100.0;
-  v16 = e / 100.0;
-  v29 = v12;
-  v28 = xmmword_18A67C7A0;
-  v31 = v13;
-  v30 = xmmword_18A67C820;
-  v33 = v14;
-  v32 = xmmword_18A67C830;
-  v20 = xmmword_18A67C7A0;
-  v34 = xmmword_18A65AB30;
-  v35 = 0;
-  v21 = v15;
-  v22 = xmmword_18A67C820;
-  v23 = v16;
-  v24 = xmmword_18A67C830;
-  v17 = f / 100.0;
-  v25 = v17;
-  v26 = xmmword_18A65AB30;
-  v27 = 0;
-  v18 = [UIVibrancyEffect _vibrantEffectWithLightCAColorMatrix:&v28 darkCAColorMatrix:&v20 alpha:1.0];
+  v13 = a2 / 100.0;
+  v14 = a / 100.0;
+  v15 = b / 100.0;
+  v16 = c / 100.0;
+  v17 = d / 100.0;
+  v30 = v13;
+  v29 = xmmword_18A67C7A0;
+  v32 = v14;
+  v31 = xmmword_18A67C820;
+  v34 = v15;
+  v33 = xmmword_18A67C830;
+  v21 = xmmword_18A67C7A0;
+  v35 = xmmword_18A65AB30;
+  v36 = 0;
+  v22 = v16;
+  v23 = xmmword_18A67C820;
+  v24 = v17;
+  v25 = xmmword_18A67C830;
+  v18 = e / 100.0;
+  v26 = v18;
+  v27 = xmmword_18A65AB30;
+  v28 = 0;
+  v19 = [UIVibrancyEffect _vibrantEffectWithLightCAColorMatrix:&v29 darkCAColorMatrix:&v21 alpha:1.0];
 
-  return v18;
+  return v19;
 }
 
 - (id)initWithVisualEffect:(id *)effect
@@ -137,7 +137,7 @@
 - (_UIMaterial)initWithVibrantVisualEffect:(id)effect
 {
   effectCopy = effect;
-  if ((_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_VibrancyDebug, @"VibrancyDebug") & 1) == 0 && byte_1ED48B1BC)
+  if (!_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_VibrancyDebug, @"VibrancyDebug") && byte_1ED48B1BC)
   {
     v5 = +[_UIMaterial _systemGreenEffect];
 

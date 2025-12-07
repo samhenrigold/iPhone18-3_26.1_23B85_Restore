@@ -12,7 +12,7 @@
   v5 = [(HMDCompositeSettingStringConstraint *)&v9 init];
   if (v5)
   {
-    v6 = [valuesCopy copy];
+    v6 = objc_msgSend_copy(valuesCopy);
     validValues = v5->_validValues;
     v5->_validValues = v6;
   }

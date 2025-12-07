@@ -17,29 +17,29 @@
 
 - (id)accessibilityLabel
 {
-  v17[1] = *MEMORY[0x29EDCA608];
+  v18[1] = *MEMORY[0x29EDCA608];
   objc_opt_class();
   v3 = [(CNAvatarViewAccessibility *)self safeValueForKey:@"contact"];
   v4 = __UIAccessibilityCastAsClass();
 
   v5 = [MEMORY[0x29EDB8BA8] descriptorForRequiredKeysForStyle:0];
-  v17[0] = v5;
-  v6 = [MEMORY[0x29EDB8D80] arrayWithObjects:v17 count:1];
+  v18[0] = v5;
+  v6 = [MEMORY[0x29EDB8D80] arrayWithObjects:v18 count:1];
 
-  if (v4 && (([v4 areKeysAvailable:v6] & 1) != 0 || (objc_msgSend(v4, "identifier"), v7 = objc_claimAutoreleasedReturnValue(), v7, !v7) || (accessibilityContactStore(), v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v4, "identifier"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "unifiedContactWithIdentifier:keysToFetch:error:", v9, v6, 0), v10 = objc_claimAutoreleasedReturnValue(), v4, v9, v8, (v4 = v10) != 0)) && (objc_msgSend(MEMORY[0x29EDB8BA8], "stringFromContact:style:", v4, 0), (v11 = objc_claimAutoreleasedReturnValue()) != 0))
+  if (v4 && (([v4 areKeysAvailable:v6] & 1) != 0 || (objc_msgSend(v4, "identifier"), v7 = objc_claimAutoreleasedReturnValue(), v7, !v7) || (accessibilityContactStore(v8), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v4, "identifier"), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "unifiedContactWithIdentifier:keysToFetch:error:", v10, v6, 0), v11 = objc_claimAutoreleasedReturnValue(), v4, v10, v9, (v4 = v11) != 0)) && (objc_msgSend(MEMORY[0x29EDB8BA8], "stringFromContact:style:", v4, 0), (v12 = objc_claimAutoreleasedReturnValue()) != 0))
   {
-    v12 = v11;
-    v13 = MEMORY[0x29EDBA0F8];
-    v14 = accessibilityLocalizedString(@"person.photo");
-    v15 = [v13 stringWithFormat:v14, v12];
+    v13 = v12;
+    v14 = MEMORY[0x29EDBA0F8];
+    v15 = accessibilityLocalizedString(@"person.photo");
+    v16 = [v14 stringWithFormat:v15, v13];
   }
 
   else
   {
-    v15 = accessibilityLocalizedString(@"person.photo.unknown");
+    v16 = accessibilityLocalizedString(@"person.photo.unknown");
   }
 
-  return v15;
+  return v16;
 }
 
 - (BOOL)accessibilityElementsHidden

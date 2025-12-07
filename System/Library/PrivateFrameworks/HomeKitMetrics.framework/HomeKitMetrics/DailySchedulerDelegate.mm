@@ -9,7 +9,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_22B0BB874();
+  sub_22B0BB874(runner);
   swift_unknownObjectRelease();
 }
 

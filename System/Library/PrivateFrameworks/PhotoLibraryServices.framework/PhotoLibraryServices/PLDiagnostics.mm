@@ -47,7 +47,7 @@
     v44 = dictionary;
     v45 = blockCopy;
     v46 = contextCopy;
-    v47 = [v13 count];
+    v47 = objc_msgSend_count(v13);
     v48 = 0u;
     v49 = 0u;
     v50 = 0u;
@@ -99,10 +99,10 @@
     v26 = v47;
     v27 = v18 / v47;
     v28 = [v15 valueForKeyPath:@"cachedCount"];
-    if ([v28 count])
+    if (objc_msgSend_count(v28))
     {
       dictionary = v44;
-      if ([v28 count] == 1)
+      if (objc_msgSend_count(v28) == 1)
       {
         firstObject = [v28 firstObject];
         integerValue = [firstObject integerValue];
@@ -112,8 +112,8 @@
       else
       {
         firstObject = [v28 sortedArrayUsingSelector:sel_compare_];
-        v31 = [v28 count];
-        v32 = [firstObject count] >> 1;
+        v31 = objc_msgSend_count(v28);
+        v32 = objc_msgSend_count(firstObject) >> 1;
         if (v31)
         {
           v37 = [firstObject objectAtIndex:v32];
@@ -602,32 +602,32 @@ void __73__PLDiagnostics__fallBackTapToRadarWithTitle_description_radarComponent
         }
 
         v9 = *(*(&v11 + 1) + 8 * i);
-        if ([v9 isEqualToString:@"iPhone"])
+        if (objc_msgSend_isEqualToString_(v9))
         {
           v6 |= 1uLL;
         }
 
-        else if ([v9 isEqualToString:@"iPad"])
+        else if (objc_msgSend_isEqualToString_(v9))
         {
           v6 |= 2uLL;
         }
 
-        else if ([v9 isEqualToString:@"Watch"])
+        else if (objc_msgSend_isEqualToString_(v9))
         {
           v6 |= 4uLL;
         }
 
-        else if ([v9 isEqualToString:@"AppleTV"])
+        else if (objc_msgSend_isEqualToString_(v9))
         {
           v6 |= 8uLL;
         }
 
-        else if ([v9 isEqualToString:@"HomePod"])
+        else if (objc_msgSend_isEqualToString_(v9))
         {
           v6 |= 0x10uLL;
         }
 
-        else if ([v9 isEqualToString:@"Mac"])
+        else if (objc_msgSend_isEqualToString_(v9))
         {
           v6 |= 0x20uLL;
         }
@@ -652,12 +652,12 @@ void __73__PLDiagnostics__fallBackTapToRadarWithTitle_description_radarComponent
   processInfo = [MEMORY[0x1E696AE30] processInfo];
   processName = [processInfo processName];
 
-  if ([processName isEqualToString:@"assetsd"] & 1) != 0 || (objc_msgSend(processName, "isEqualToString:", @"photolibraryd"))
+  if (objc_msgSend_isEqualToString_(processName) & 1) != 0 || (objc_msgSend_isEqualToString_(processName))
   {
     v4 = @"Photos Library Service";
   }
 
-  else if ([processName isEqualToString:@"photoanalysisd"])
+  else if (objc_msgSend_isEqualToString_(processName))
   {
     v4 = @"Photos Analysis Service";
   }
@@ -798,7 +798,7 @@ void __115__PLDiagnostics__tapToRadarKitDraftWithTitle_description_radarComponen
   descriptionCopy = description;
   reasonCopy = reason;
   attachmentsCopy = attachments;
-  if (([self tapToRadarKitDisabled] & 1) != 0 || !TapToRadarKitLibraryCore())
+  if (([self tapToRadarKitDisabled] & 1) != 0 || !TapToRadarKitLibraryCore(0))
   {
     [self _fallBackTapToRadarWithTitle:titleCopy description:descriptionCopy radarComponent:component];
   }
@@ -1038,7 +1038,7 @@ uint64_t __77__PLDiagnostics_enumerateDiagnosticsURLsIncludingPropertyiesForKeys
   v10 = *MEMORY[0x1E69E9840];
   v3 = a3;
   v4 = [v3 domain];
-  if ([v4 isEqualToString:*MEMORY[0x1E696A250]])
+  if (objc_msgSend_isEqualToString_(v4))
   {
     v5 = [v3 code];
 

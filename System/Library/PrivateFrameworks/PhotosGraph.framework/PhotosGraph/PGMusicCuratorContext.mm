@@ -129,7 +129,6 @@
 
   v5 = OBJC_IVAR___PGMusicCuratorContext_musicCurationOverrideDictionary;
   swift_beginAccess();
-  v6 = *(self + v5);
   *(self + v5) = v4;
 }
 
@@ -149,14 +148,11 @@
 
 - (NSString)genre
 {
-  v2 = (self + OBJC_IVAR___PGMusicCuratorContext_genre);
   swift_beginAccess();
-  v4 = *v2;
-  v3 = v2[1];
 
-  v5 = sub_22F740DF0();
+  v2 = sub_22F740DF0();
 
-  return v5;
+  return v2;
 }
 
 - (void)setGenre:(id)genre
@@ -165,7 +161,6 @@
   v6 = v5;
   v7 = (self + OBJC_IVAR___PGMusicCuratorContext_genre);
   swift_beginAccess();
-  v8 = v7[1];
   *v7 = v4;
   v7[1] = v6;
 }
@@ -186,19 +181,16 @@
 
 - (PGFlexMusicSongProviderProtocol)flexSongProvider
 {
-  v3 = OBJC_IVAR___PGMusicCuratorContext_flexSongProvider;
   swift_beginAccess();
-  v4 = *(self + v3);
-  v5 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v5;
+  return v2;
 }
 
 - (void)setFlexSongProvider:(id)provider
 {
   v5 = OBJC_IVAR___PGMusicCuratorContext_flexSongProvider;
   swift_beginAccess();
-  v6 = *(self + v5);
   *(self + v5) = provider;
   swift_unknownObjectRetain();
   swift_unknownObjectRelease();

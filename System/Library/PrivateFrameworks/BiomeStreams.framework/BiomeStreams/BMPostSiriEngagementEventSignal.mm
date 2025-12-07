@@ -14,33 +14,33 @@
 - (BMPostSiriEngagementEventSignal)initWithDomain:(id)domain action:(id)action isPostSiriEngagement:(BOOL)engagement pseDelta:(id)delta pseContentsDictionary:(id)dictionary
 {
   engagementCopy = engagement;
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   domainCopy = domain;
   actionCopy = action;
   deltaCopy = delta;
   dictionaryCopy = dictionary;
   v12 = objc_opt_new();
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   v13 = dictionaryCopy;
-  v14 = [v13 countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v30;
+    v16 = *v29;
     do
     {
       v17 = 0;
       do
       {
-        if (*v30 != v16)
+        if (*v29 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v29 + 1) + 8 * v17);
+        v18 = *(*(&v28 + 1) + 8 * v17);
         v19 = [BMPostSiriEngagementEventSignalContent alloc];
         v20 = [v13 objectForKeyedSubscript:v18];
         v21 = [(BMPostSiriEngagementEventSignalContent *)v19 initWithKey:v18 value:v20];
@@ -50,14 +50,13 @@
       }
 
       while (v15 != v17);
-      v15 = [v13 countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v15);
   }
 
   v22 = [(BMPostSiriEngagementEventSignal *)self initWithDomain:domainCopy action:actionCopy isPostSiriEngagement:engagementCopy pseDelta:deltaCopy pseContents:v12];
-  v23 = *MEMORY[0x1E69E9840];
   return v22;
 }
 
@@ -306,7 +305,7 @@ LABEL_49:
 
 - (void)writeTo:(id)to
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if (self->_domain)
   {
@@ -320,54 +319,51 @@ LABEL_49:
 
   if (self->_hasIsPostSiriEngagement)
   {
-    isPostSiriEngagement = self->_isPostSiriEngagement;
     PBDataWriterWriteBOOLField();
   }
 
   if (self->_pseDelta)
   {
-    v17 = 0;
+    v15 = 0;
     PBDataWriterPlaceMark();
     [(BMPostSiriEngagementEventSignalDeltaEvent *)self->_pseDelta writeTo:toCopy];
     PBDataWriterRecallMark();
   }
 
-  v15 = 0u;
-  v16 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v6 = self->_pseContents;
-  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v13 objects:v18 count:16];
-  if (v7)
+  v11 = 0u;
+  v12 = 0u;
+  v5 = self->_pseContents;
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v11 objects:v16 count:16];
+  if (v6)
   {
-    v8 = v7;
-    v9 = *v14;
+    v7 = v6;
+    v8 = *v12;
     do
     {
-      v10 = 0;
+      v9 = 0;
       do
       {
-        if (*v14 != v9)
+        if (*v12 != v8)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v13 + 1) + 8 * v10);
-        v17 = 0;
+        v10 = *(*(&v11 + 1) + 8 * v9);
+        v15 = 0;
         PBDataWriterPlaceMark();
-        [v11 writeTo:{toCopy, v13}];
+        [v10 writeTo:{toCopy, v11}];
         PBDataWriterRecallMark();
-        ++v10;
+        ++v9;
       }
 
-      while (v8 != v10);
-      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v13 objects:v18 count:16];
+      while (v7 != v9);
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v11 objects:v16 count:16];
     }
 
-    while (v8);
+    while (v7);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version

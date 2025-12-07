@@ -39,7 +39,7 @@
 
 - (void)transformResolutionResultForIntent:(id)intent intentSlotDescription:(id)description withOptionsProvider:(id)provider completion:(id)completion
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   intentCopy = intent;
   descriptionCopy = description;
   completionCopy = completion;
@@ -115,35 +115,35 @@
     codableEnum = [v27 codableEnum];
     if (codableEnum)
     {
-      v41 = v27;
-      v42 = facadePropertyName;
+      v40 = v27;
+      v41 = facadePropertyName;
       selfCopy = self;
-      v44 = descriptionCopy;
+      v43 = descriptionCopy;
       v29 = objc_alloc(MEMORY[0x1E695DF70]);
       values = [codableEnum values];
       v31 = [v29 initWithCapacity:{objc_msgSend(values, "count")}];
 
-      v47 = 0u;
-      v48 = 0u;
-      v45 = 0u;
       v46 = 0u;
-      v40 = codableEnum;
+      v47 = 0u;
+      v44 = 0u;
+      v45 = 0u;
+      v39 = codableEnum;
       values2 = [codableEnum values];
-      v33 = [values2 countByEnumeratingWithState:&v45 objects:v49 count:16];
+      v33 = [values2 countByEnumeratingWithState:&v44 objects:v48 count:16];
       if (v33)
       {
         v34 = v33;
-        v35 = *v46;
+        v35 = *v45;
         do
         {
           for (i = 0; i != v34; ++i)
           {
-            if (*v46 != v35)
+            if (*v45 != v35)
             {
               objc_enumerationMutation(values2);
             }
 
-            v37 = *(*(&v45 + 1) + 8 * i);
+            v37 = *(*(&v44 + 1) + 8 * i);
             if ([v37 index])
             {
               v38 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v37, "index")}];
@@ -151,7 +151,7 @@
             }
           }
 
-          v34 = [values2 countByEnumeratingWithState:&v45 objects:v49 count:16];
+          v34 = [values2 countByEnumeratingWithState:&v44 objects:v48 count:16];
         }
 
         while (v34);
@@ -165,10 +165,10 @@
       [(INIntentResolutionResult *)selfCopy setDisambiguationItems:v31];
       completionCopy[2](completionCopy, selfCopy);
 
-      descriptionCopy = v44;
-      v27 = v41;
-      facadePropertyName = v42;
-      codableEnum = v40;
+      descriptionCopy = v43;
+      v27 = v40;
+      facadePropertyName = v41;
+      codableEnum = v39;
     }
 
     else
@@ -181,8 +181,6 @@
   {
     completionCopy[2](completionCopy, self);
   }
-
-  v39 = *MEMORY[0x1E69E9840];
 }
 
 @end

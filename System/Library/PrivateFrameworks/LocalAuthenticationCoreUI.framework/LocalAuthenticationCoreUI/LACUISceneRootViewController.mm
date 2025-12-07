@@ -2,6 +2,7 @@
 - (LACUISceneRootViewController)initWithScene:(id)scene;
 - (void)dealloc;
 - (void)handleSceneButton:(int64_t)button;
+- (void)present:(id)present animated:(BOOL)animated completion:(id)completion;
 @end
 
 @implementation LACUISceneRootViewController
@@ -29,6 +30,16 @@
   v4.receiver = self;
   v4.super_class = LACUISceneRootViewController;
   [(LACUISceneRootViewController *)&v4 dealloc];
+}
+
+- (void)present:(id)present animated:(BOOL)animated completion:(id)completion
+{
+  if (!completion)
+  {
+    completion = &__block_literal_global_8;
+  }
+
+  [(LACUISceneRootViewController *)self presentViewController:present animated:animated completion:completion];
 }
 
 - (void)handleSceneButton:(int64_t)button

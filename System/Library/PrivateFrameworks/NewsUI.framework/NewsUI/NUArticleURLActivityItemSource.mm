@@ -104,12 +104,12 @@ LABEL_8:
   {
     headline4 = [(NUArticleActivityItemSource *)self headline];
     shortExcerpt2 = [headline4 shortExcerpt];
-    v19 = [(NUHTMLBuilder *)v14 appendText:shortExcerpt2];
+    v20 = [(NUHTMLBuilder *)v14 appendText:shortExcerpt2];
 
-    v20 = [(NUHTMLBuilder *)v14 appendText:@" "];
+    v17 = [(NUHTMLBuilder *)v14 appendText:@" "];
   }
 
-  v21 = NUBundle();
+  v21 = NUBundle(v17);
   v22 = [v21 localizedStringForKey:@"Read the full story" value:&stru_286E03B58 table:0];
   articleURL = [(NUArticleURLActivityItemSource *)self articleURL];
   absoluteString = [articleURL absoluteString];
@@ -126,17 +126,15 @@ LABEL_8:
     nss_MarketingPageURL = [MEMORY[0x277CBEBC0] nss_MarketingPageURL];
     absoluteString2 = [nss_MarketingPageURL absoluteString];
 
-    appendBreak3 = [(NUHTMLBuilder *)v29 appendBreak];
-    v33 = NUBundle();
-    v34 = [v33 localizedStringForKey:@"Shared from" value:&stru_286E03B58 table:0];
-    v35 = [(NUHTMLBuilder *)v29 appendText:v34];
+    v32 = NUBundle([(NUHTMLBuilder *)v29 appendBreak]);
+    v33 = [v32 localizedStringForKey:@"Shared from" value:&stru_286E03B58 table:0];
+    v34 = [(NUHTMLBuilder *)v29 appendText:v33];
 
-    v36 = [(NUHTMLBuilder *)v29 appendText:@" "];
-    v37 = NUBundle();
-    v38 = [v37 localizedStringForKey:@"Apple News" value:&stru_286E03B58 table:0];
-    v39 = [(NUHTMLBuilder *)v29 appendLink:v38 withURL:absoluteString2];
+    v35 = NUBundle([(NUHTMLBuilder *)v29 appendText:@" "]);
+    v36 = [v35 localizedStringForKey:@"Apple News" value:&stru_286E03B58 table:0];
+    v37 = [(NUHTMLBuilder *)v29 appendLink:v36 withURL:absoluteString2];
 
-    v40 = [(NUHTMLBuilder *)v11 appendParagraph:v29];
+    v38 = [(NUHTMLBuilder *)v11 appendParagraph:v29];
   }
 
   fullHTML = [(NUHTMLBuilder *)v11 fullHTML];

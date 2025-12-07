@@ -71,24 +71,24 @@ void __38__REPipedLocationDonor_setConnection___block_invoke(uint64_t a1)
 
   objc_storeStrong((v2 + 16), *(a1 + 40));
   v5 = *(*(a1 + 32) + 16);
-  v6 = REPipedLocationDonorInterface();
-  [v5 setRemoteObjectInterface:v6];
+  v7 = REPipedLocationDonorInterface(v6);
+  [v5 setRemoteObjectInterface:v7];
 
-  v7 = *(*(a1 + 32) + 16);
-  v8 = REPipedLocationReceiverInterface();
-  [v7 setExportedInterface:v8];
+  v8 = *(*(a1 + 32) + 16);
+  v10 = REPipedLocationReceiverInterface(v9);
+  [v8 setExportedInterface:v10];
 
   [*(*(a1 + 32) + 16) setExportedObject:?];
   objc_initWeak(&location, *(a1 + 32));
-  v9 = *(*(a1 + 32) + 16);
-  v10 = MEMORY[0x277D85DD0];
-  v11 = 3221225472;
-  v12 = __38__REPipedLocationDonor_setConnection___block_invoke_2;
-  v13 = &unk_2785F9A90;
-  objc_copyWeak(&v14, &location);
-  [v9 setInvalidationHandler:&v10];
+  v11 = *(*(a1 + 32) + 16);
+  v12 = MEMORY[0x277D85DD0];
+  v13 = 3221225472;
+  v14 = __38__REPipedLocationDonor_setConnection___block_invoke_2;
+  v15 = &unk_2785F9A90;
+  objc_copyWeak(&v16, &location);
+  [v11 setInvalidationHandler:&v12];
   [*(*(a1 + 32) + 16) resume];
-  objc_destroyWeak(&v14);
+  objc_destroyWeak(&v16);
   objc_destroyWeak(&location);
 }
 
@@ -100,7 +100,7 @@ void __38__REPipedLocationDonor_setConnection___block_invoke_2(uint64_t a1)
 
 - (void)updateLocation:(id)location
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   locationCopy = location;
   v6 = RELogForDomain(5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
@@ -116,15 +116,13 @@ void __38__REPipedLocationDonor_setConnection___block_invoke_2(uint64_t a1)
   [(NSLock *)self->_locationAccessLock unlock];
   [objc_opt_class() _saveLocationIntoDefaultsWithLocation:locationCopy];
   observers = self->_observers;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __39__REPipedLocationDonor_updateLocation___block_invoke;
-  v11[3] = &unk_2785FD6F8;
-  v12 = locationCopy;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __39__REPipedLocationDonor_updateLocation___block_invoke;
+  v10[3] = &unk_2785FD6F8;
+  v11 = locationCopy;
   v9 = locationCopy;
-  [(REObserverStore *)observers enumerateObserversWithBlock:v11];
-
-  v10 = *MEMORY[0x277D85DE8];
+  [(REObserverStore *)observers enumerateObserversWithBlock:v10];
 }
 
 - (CLLocation)location
@@ -209,20 +207,18 @@ LABEL_7:
 
 + (void)_locationFromDefaults
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_22859F000, a2, OS_LOG_TYPE_ERROR, "REPipedLocationDonor: Failed to decode last location with error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_22859F000, a2, OS_LOG_TYPE_ERROR, "REPipedLocationDonor: Failed to decode last location with error: %@", &v2, 0xCu);
 }
 
 + (void)_saveLocationIntoDefaultsWithLocation:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_22859F000, a2, OS_LOG_TYPE_ERROR, "REPipedLocationDonor: Failed to serialize location: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_22859F000, a2, OS_LOG_TYPE_ERROR, "REPipedLocationDonor: Failed to serialize location: %@", &v2, 0xCu);
 }
 
 @end

@@ -1006,12 +1006,14 @@ LABEL_9:
 {
   v2 = [(CRLCanvasInteractiveCanvasControllerAccessibility *)self crlaxValueForKey:@"canvasEditor"];
   v3 = NSProtocolFromString(@"CRLCanvasEditor");
-  if (([v2 conformsToProtocol:v3] & 1) == 0)
+  v4 = [v2 conformsToProtocol:v3];
+  if ((v4 & 1) == 0)
   {
-    if (CRLAccessibilityShouldPerformValidationChecks())
+    ShouldPerformValidationChecks = CRLAccessibilityShouldPerformValidationChecks(v4, v5);
+    if (ShouldPerformValidationChecks)
     {
-      ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch();
-      if (__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"Object doesn't conform to CRLCanvasEditor protocol!", v5, v6, v7, v8, v9, v11))
+      ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch(ShouldPerformValidationChecks);
+      if (__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"Object doesn't conform to CRLCanvasEditor protocol!", v8, v9, v10, v11, v12, v14))
       {
         abort();
       }
@@ -1659,13 +1661,13 @@ LABEL_19:
 {
   y = point.y;
   x = point.x;
-  v29 = 0;
-  v28 = 0;
-  v6 = [(CRLCanvasInteractiveCanvasControllerAccessibility *)self hitKnobAtPoint:1 inputType:&v28 returningRep:?];
-  v7 = v28;
+  v35 = 0;
+  v34 = 0;
+  v6 = [(CRLCanvasInteractiveCanvasControllerAccessibility *)self hitKnobAtPoint:1 inputType:&v34 returningRep:?];
+  v7 = v34;
   v8 = objc_opt_class();
-  v9 = __CRLAccessibilityCastAsSafeCategory(v8, v6, 1, &v29);
-  if (v29 == 1)
+  v9 = __CRLAccessibilityCastAsSafeCategory(v8, v6, 1, &v35);
+  if (v35 == 1)
   {
     goto LABEL_21;
   }
@@ -1684,30 +1686,30 @@ LABEL_14:
     {
       [(CRLCanvasInteractiveCanvasControllerAccessibility *)self hitRep:x, y];
     }
-    v20 = ;
+    v23 = ;
     goto LABEL_18;
   }
 
-  if (CRLAccessibilityShouldPerformValidationChecks() && !v7 && (ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch(), __CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"A knob was hit, but no rep returned!", v12, v13, v14, v15, v16, v28)) || (v17 = [v10 crlaxKnobTag], v18 = objc_msgSend(v10, "crlaxNodeIndex"), objc_msgSend(v10, "crlaxIdentifier"), v19 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "crlaxKnobElementForTag:index:identifier:", v17, v18, v19), v20 = objc_claimAutoreleasedReturnValue(), v19, CRLAccessibilityShouldPerformValidationChecks()) && !v20 && (v21 = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch(), __CRLAccessibilityHandleValidationErrorWithDescription(v21, 0, @"Knob element not found!", v22, v23, v24, v25, v26, v28)))
+  if ((ShouldPerformValidationChecks = CRLAccessibilityShouldPerformValidationChecks(v11, v12), ShouldPerformValidationChecks) && !v7 && (ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch(ShouldPerformValidationChecks), __CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"A knob was hit, but no rep returned!", v15, v16, v17, v18, v19, v34)) || (v20 = [v10 crlaxKnobTag], v21 = objc_msgSend(v10, "crlaxNodeIndex"), objc_msgSend(v10, "crlaxIdentifier"), v22 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "crlaxKnobElementForTag:index:identifier:", v20, v21, v22), v23 = objc_claimAutoreleasedReturnValue(), v22, v26 = CRLAccessibilityShouldPerformValidationChecks(v24, v25), v26) && !v23 && (v27 = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch(v26), __CRLAccessibilityHandleValidationErrorWithDescription(v27, 0, @"Knob element not found!", v28, v29, v30, v31, v32, v34)))
   {
 LABEL_21:
     abort();
   }
 
-  if (![(CRLCanvasInteractiveCanvasControllerAccessibility *)self crlaxRespondsToSelector:"crlaxKnobElementIsAccessibilityElement:" fromExtrasProtocol:&OBJC_PROTOCOL___CRLCanvasInteractiveCanvasControllerAccessibilityExtras]|| ![(CRLCanvasInteractiveCanvasControllerAccessibility *)self crlaxKnobElementIsAccessibilityElement:v20])
+  if (![(CRLCanvasInteractiveCanvasControllerAccessibility *)self crlaxRespondsToSelector:"crlaxKnobElementIsAccessibilityElement:" fromExtrasProtocol:&OBJC_PROTOCOL___CRLCanvasInteractiveCanvasControllerAccessibilityExtras]|| ![(CRLCanvasInteractiveCanvasControllerAccessibility *)self crlaxKnobElementIsAccessibilityElement:v23])
   {
 
     goto LABEL_14;
   }
 
-  if (!v20)
+  if (!v23)
   {
     goto LABEL_14;
   }
 
 LABEL_18:
 
-  return v20;
+  return v23;
 }
 
 - (void)crlaxSelectRep:(id)rep
@@ -2099,25 +2101,25 @@ LABEL_18:
     v10 = v9;
 
     [crlaxTarget frameInUnscaledCanvas];
-    if (v14 > v10 || v13 > v8)
+    if (v15 > v10 || v14 > v8)
     {
-      v16 = v11;
       v17 = v12;
-      if (v14 >= v10)
+      v18 = v13;
+      if (v15 >= v10)
       {
-        v10 = v14;
+        v10 = v15;
       }
 
-      if (v13 >= v8)
+      if (v14 >= v8)
       {
-        v8 = v13;
+        v8 = v14;
       }
 
       crlaxTarget3 = [(CRLCanvasInteractiveCanvasControllerAccessibility *)self crlaxTarget];
-      [crlaxTarget3 zoomWithAnimationToUnscaledRect:v16 withDuration:{v17, v10, v8, 0.0}];
+      [crlaxTarget3 zoomWithAnimationToUnscaledRect:v17 withDuration:{v18, v10, v8, 0.0}];
     }
 
-    CRLAccessibilityPostLayoutChangedNotification(crlaxTarget);
+    CRLAccessibilityPostLayoutChangedNotification(crlaxTarget, v11);
   }
 
   return crlaxTarget != 0;

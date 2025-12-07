@@ -24,7 +24,7 @@
   [PXStoryTransformedTimeline transformedRectForOriginalClipInfo:sel_transformedRectForOriginalClipInfo_originalRect_ originalRect:?];
   if ((info->var3 & 4) != 0)
   {
-    if (([(PXStoryResizedTimeline *)self options]& 1) == 0)
+    if ((objc_msgSend_options(self) & 1) == 0)
     {
       [(PXStoryResizedTimeline *)self originalSize];
       PXSizeGetAspectRatio();
@@ -64,9 +64,9 @@
   v6 = NSStringFromCGSize(v13);
   [(PXStoryResizedTimeline *)self targetSize];
   v7 = NSStringFromCGSize(v14);
-  options = [(PXStoryResizedTimeline *)self options];
+  v8 = objc_msgSend_options(self);
   originalTimeline = [(PXStoryDerivedTimeline *)self originalTimeline];
-  v10 = [v3 initWithFormat:@"<%@ %p; %@ => %@; options: %lx; Original Timeline:\n\t%@>", v5, self, v6, v7, options, originalTimeline];
+  v10 = [v3 initWithFormat:@"<%@ %p; %@ => %@; options: %lx; Original Timeline:\n\t%@>", v5, self, v6, v7, v8, originalTimeline];
 
   return v10;
 }

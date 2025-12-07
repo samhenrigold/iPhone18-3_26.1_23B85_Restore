@@ -52,7 +52,7 @@
 - (void)didFailToResolveCollectionWithError:(id)error withFetchedCollection:(id)collection
 {
   swift_getKeyPath();
-  sub_10039749C(&unk_10191CE80, type metadata accessor for UserGuideContentController);
+  sub_10039749C(&unk_10191CE80, type metadata accessor for UserGuideContentController, &unk_1011FFA94);
   selfCopy = self;
   ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
 }

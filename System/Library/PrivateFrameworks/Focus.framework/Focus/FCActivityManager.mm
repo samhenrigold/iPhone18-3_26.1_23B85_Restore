@@ -77,10 +77,11 @@
 
 + (void)initialize
 {
-  if (objc_opt_class() == self)
+  v3 = objc_opt_class();
+  if (v3 == self)
   {
 
-    FCRegisterLogging();
+    FCRegisterLogging(v3, v4);
   }
 }
 
@@ -223,28 +224,28 @@ void __42__FCActivityManager_sharedActivityManager__block_invoke()
 BOOL __43__FCActivityManager_isDefaultConfiguration__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   v5 = a2;
-  if ([v5 isPlaceholder] & 1) != 0 || (objc_msgSend(v5, "activityIdentifier"), v6 = objc_claimAutoreleasedReturnValue(), v7 = *MEMORY[0x277D05830], v8 = BSEqualStrings(), v6, (v8))
+  if ([v5 isPlaceholder] & 1) != 0 || (objc_msgSend(v5, "activityIdentifier"), v6 = objc_claimAutoreleasedReturnValue(), v7 = BSEqualStrings(), v6, (v7))
   {
-    v9 = 0;
+    v8 = 0;
   }
 
   else
   {
     if (objc_opt_respondsToSelector())
     {
-      v10 = [v5 _dndMode];
-      v9 = ([v10 semanticType] - 3) < 0xFFFFFFFFFFFFFFFELL;
+      v9 = [v5 _dndMode];
+      v8 = ([v9 semanticType] - 3) < 0xFFFFFFFFFFFFFFFELL;
     }
 
     else
     {
-      v9 = 1;
+      v8 = 1;
     }
 
-    *a4 = v9;
+    *a4 = v8;
   }
 
-  return v9;
+  return v8;
 }
 
 - (NSString)localizedTerminationDescriptionForActiveActivity
@@ -579,7 +580,7 @@ LABEL_11:
 
 - (void)modeSelectionService:(id)service didReceiveUpdatedActiveModeAssertion:(id)assertion stateUpdate:(id)update
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   assertionCopy = assertion;
   updateCopy = update;
@@ -588,16 +589,15 @@ LABEL_11:
   {
     v12 = v11;
     v13 = [(FCActivityManager *)self description];
-    v17 = 138543618;
-    v18 = v13;
-    v19 = 2114;
-    v20 = assertionCopy;
-    _os_log_impl(&dword_24B876000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@] Did receive updated active mode assertion: %{public}@", &v17, 0x16u);
+    v15 = 138543618;
+    v16 = v13;
+    v17 = 2114;
+    v18 = assertionCopy;
+    _os_log_impl(&dword_24B876000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@] Did receive updated active mode assertion: %{public}@", &v15, 0x16u);
   }
 
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  activeModeAssertion = selfCopy->_activeModeAssertion;
   if ((BSEqualObjects() & 1) == 0)
   {
     [(FCActivityManager *)selfCopy _invalidateActiveModeAssertion];
@@ -605,13 +605,11 @@ LABEL_11:
 
   [(FCActivityManager *)selfCopy _updateWithActiveModeAssertionIfNecessary:assertionCopy stateUpdate:updateCopy];
   objc_sync_exit(selfCopy);
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)modeSelectionService:(id)service didReceiveModesUpdate:(id)update
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   updateCopy = update;
   v8 = FCLogActivities;
@@ -619,13 +617,13 @@ LABEL_11:
   {
     v9 = v8;
     v10 = [(FCActivityManager *)self description];
-    v14 = 138543874;
-    v15 = v10;
-    v16 = 2050;
-    v17 = [updateCopy count];
-    v18 = 2114;
-    v19 = updateCopy;
-    _os_log_impl(&dword_24B876000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] Did receive all modes [%{public}lu] update: %{public}@", &v14, 0x20u);
+    v13 = 138543874;
+    v14 = v10;
+    v15 = 2050;
+    v16 = [updateCopy count];
+    v17 = 2114;
+    v18 = updateCopy;
+    _os_log_impl(&dword_24B876000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] Did receive all modes [%{public}lu] update: %{public}@", &v13, 0x20u);
   }
 
   selfCopy = self;
@@ -636,13 +634,11 @@ LABEL_11:
 
   [(FCActivityManager *)selfCopy _updateActivitiesWithModes:updateCopy];
   objc_sync_exit(selfCopy);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)lifetimeDetailsProvider:(id)provider didUpdateAvailableLifetimeDetails:(id)details
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   providerCopy = provider;
   detailsCopy = details;
   v8 = FCLogActivities;
@@ -651,35 +647,35 @@ LABEL_11:
     v9 = v8;
     v10 = [(FCActivityManager *)self description];
     *buf = 138543618;
-    v24 = v10;
-    v25 = 2114;
-    v26 = detailsCopy;
+    v23 = v10;
+    v24 = 2114;
+    v25 = detailsCopy;
     _os_log_impl(&dword_24B876000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] Did receive updated available lifetime details: %{public}@", buf, 0x16u);
   }
 
   selfCopy = self;
   objc_sync_enter(selfCopy);
   objc_storeStrong(&selfCopy->_activeLifetimeDetailsCollection, details);
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   _availableActivities = [(FCActivityManager *)selfCopy _availableActivities];
-  v13 = [_availableActivities countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v13 = [_availableActivities countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v13)
   {
-    v14 = *v19;
+    v14 = *v18;
     do
     {
       v15 = 0;
       do
       {
-        if (*v19 != v14)
+        if (*v18 != v14)
         {
           objc_enumerationMutation(_availableActivities);
         }
 
-        v16 = *(*(&v18 + 1) + 8 * v15);
+        v16 = *(*(&v17 + 1) + 8 * v15);
         if ((objc_opt_respondsToSelector() & 1) != 0 && [v16 supportsDiscreteLifetimes])
         {
           [(FCActivityManager *)selfCopy _updateActivity:v16 withLifetimeDetailsCollection:selfCopy->_activeLifetimeDetailsCollection];
@@ -689,35 +685,32 @@ LABEL_11:
       }
 
       while (v13 != v15);
-      v13 = [_availableActivities countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v13 = [_availableActivities countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v13);
   }
 
   objc_sync_exit(selfCopy);
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)activitySuggestionClient:(id)client didSuggestConfiguredActivity:(id)activity
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   activityCopy = activity;
   v6 = FCLogActivities;
   if (os_log_type_enabled(FCLogActivities, OS_LOG_TYPE_DEFAULT))
   {
     v7 = v6;
     v8 = [(FCActivityManager *)self description];
-    v10 = 138543618;
-    v11 = v8;
-    v12 = 2114;
-    v13 = activityCopy;
-    _os_log_impl(&dword_24B876000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Did receive updated activity suggestion: %{public}@", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v8;
+    v11 = 2114;
+    v12 = activityCopy;
+    _os_log_impl(&dword_24B876000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Did receive updated activity suggestion: %{public}@", &v9, 0x16u);
   }
 
   [(FCActivityManager *)self _updateActivitySuggestion:activityCopy];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didShowSuggestedActivity:(id)activity location:(int64_t)location
@@ -828,33 +821,33 @@ LABEL_11:
 
 - (void)_enumerateObserversRespondingToSelector:(SEL)selector usingBlock:(id)block
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   if (blockCopy)
   {
     v6 = self->_observers;
     objc_sync_enter(v6);
     v7 = [(NSHashTable *)self->_observers copy];
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v8 = v7;
-    v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v9)
     {
-      v10 = *v15;
+      v10 = *v14;
       do
       {
         v11 = 0;
         do
         {
-          if (*v15 != v10)
+          if (*v14 != v10)
           {
             objc_enumerationMutation(v8);
           }
 
-          v12 = *(*(&v14 + 1) + 8 * v11);
+          v12 = *(*(&v13 + 1) + 8 * v11);
           if (objc_opt_respondsToSelector())
           {
             blockCopy[2](blockCopy, v12);
@@ -864,7 +857,7 @@ LABEL_11:
         }
 
         while (v9 != v11);
-        v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v9);
@@ -872,52 +865,49 @@ LABEL_11:
 
     objc_sync_exit(v6);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateCreationDateOfActivity:(id)activity
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   activityCopy = activity;
   if (activityCopy)
   {
     if (objc_opt_respondsToSelector())
     {
       activityIdentifier = [activityCopy activityIdentifier];
-      v6 = *MEMORY[0x277D05830];
-      v7 = BSEqualStrings();
+      v6 = BSEqualStrings();
 
-      if ((v7 & 1) == 0)
+      if ((v6 & 1) == 0)
       {
         _modeSelectionService = [(FCActivityManager *)self _modeSelectionService];
         activityIdentifier2 = [activityCopy activityIdentifier];
-        v17 = 0;
-        v10 = [_modeSelectionService modeConfigurationForModeIdentifier:activityIdentifier2 error:&v17];
-        v11 = v17;
+        v15 = 0;
+        v9 = [_modeSelectionService modeConfigurationForModeIdentifier:activityIdentifier2 error:&v15];
+        v10 = v15;
 
-        if (v10)
+        if (v9)
         {
-          created = [v10 created];
+          created = [v9 created];
           [activityCopy _setActivityCreationDate:created];
         }
 
         else
         {
-          v13 = FCLogActivities;
-          if (v11)
+          v12 = FCLogActivities;
+          if (v10)
           {
             if (os_log_type_enabled(FCLogActivities, OS_LOG_TYPE_ERROR))
             {
-              v14 = v13;
-              v15 = [(FCActivityManager *)self description];
+              v13 = v12;
+              v14 = [(FCActivityManager *)self description];
               *buf = 138543874;
-              v19 = v15;
+              v17 = v14;
+              v18 = 2114;
+              v19 = activityCopy;
               v20 = 2114;
-              v21 = activityCopy;
-              v22 = 2114;
-              v23 = v11;
-              _os_log_error_impl(&dword_24B876000, v14, OS_LOG_TYPE_ERROR, "[%{public}@] Encountered error requesting mode configuration: activity: %{public}@; error: %{public}@", buf, 0x20u);
+              v21 = v10;
+              _os_log_error_impl(&dword_24B876000, v13, OS_LOG_TYPE_ERROR, "[%{public}@] Encountered error requesting mode configuration: activity: %{public}@; error: %{public}@", buf, 0x20u);
             }
           }
 
@@ -929,8 +919,6 @@ LABEL_11:
       }
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_notifyObserversOfAvailableActivitiesChange
@@ -957,19 +945,19 @@ void __64__FCActivityManager__notifyObserversOfAvailableActivitiesChange__block_
 
 - (void)_updateActivitiesWithModes:(id)modes
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   modesCopy = modes;
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  v36 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v34 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v35 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v33 = objc_alloc_init(MEMORY[0x277CBEB18]);
   allValues = [(NSMutableDictionary *)selfCopy->_allActivitiesByIdentifier allValues];
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
   v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   obj = modesCopy;
-  v6 = [obj countByEnumeratingWithState:&v44 objects:v53 count:16];
+  v6 = [obj countByEnumeratingWithState:&v43 objects:v52 count:16];
   if (!v6)
   {
 
@@ -977,24 +965,24 @@ void __64__FCActivityManager__notifyObserversOfAvailableActivitiesChange__block_
   }
 
   v7 = 0;
-  v8 = *v45;
+  v8 = *v44;
   do
   {
     for (i = 0; i != v6; ++i)
     {
-      if (*v45 != v8)
+      if (*v44 != v8)
       {
         objc_enumerationMutation(obj);
       }
 
-      v10 = *(*(&v44 + 1) + 8 * i);
+      v10 = *(*(&v43 + 1) + 8 * i);
       visibility = [v10 visibility];
-      v43[0] = MEMORY[0x277D85DD0];
-      v43[1] = 3221225472;
-      v43[2] = __48__FCActivityManager__updateActivitiesWithModes___block_invoke;
-      v43[3] = &unk_279013CD0;
-      v43[4] = v10;
-      v12 = [allValues bs_firstObjectPassingTest:v43];
+      v42[0] = MEMORY[0x277D85DD0];
+      v42[1] = 3221225472;
+      v42[2] = __48__FCActivityManager__updateActivitiesWithModes___block_invoke;
+      v42[3] = &unk_279013CD0;
+      v42[4] = v10;
+      v12 = [allValues bs_firstObjectPassingTest:v42];
       v13 = v12;
       if (v12)
       {
@@ -1038,11 +1026,11 @@ void __64__FCActivityManager__notifyObserversOfAvailableActivitiesChange__block_
 LABEL_18:
         if (visibility != 1)
         {
-          [v34 addObject:v14];
+          [v33 addObject:v14];
         }
 
         activityIdentifier = [(_FCActivity *)v14 activityIdentifier];
-        [v36 setObject:v14 forKey:activityIdentifier];
+        [v35 setObject:v14 forKey:activityIdentifier];
 
         if ((v15 & 1) == 0)
         {
@@ -1051,16 +1039,16 @@ LABEL_18:
           {
             v18 = [(FCActivityManager *)selfCopy description];
             *buf = 138543618;
-            v50 = v18;
-            v51 = 2114;
-            v52 = v13;
+            v49 = v18;
+            v50 = 2114;
+            v51 = v13;
             _os_log_debug_impl(&dword_24B876000, v17, OS_LOG_TYPE_DEBUG, "[%{public}@] Activity didn't change from cached value: %{public}@", buf, 0x16u);
           }
         }
       }
     }
 
-    v6 = [obj countByEnumeratingWithState:&v44 objects:v53 count:16];
+    v6 = [obj countByEnumeratingWithState:&v43 objects:v52 count:16];
   }
 
   while (v6);
@@ -1073,11 +1061,11 @@ LABEL_18:
 
 LABEL_29:
   v20 = [(NSArray *)selfCopy->_availableActivities count];
-  v19 = v20 != [v34 count];
+  v19 = v20 != [v33 count];
 LABEL_30:
-  objc_storeStrong(&selfCopy->_allActivitiesByIdentifier, v36);
-  [v34 sortUsingFunction:_FCSortRealizedAndPlaceholderActivities context:0];
-  [(FCActivityManager *)selfCopy _setAvailableActivities:v34];
+  objc_storeStrong(&selfCopy->_allActivitiesByIdentifier, v35);
+  [v33 sortUsingFunction:_FCSortRealizedAndPlaceholderActivities context:0];
+  [(FCActivityManager *)selfCopy _setAvailableActivities:v33];
   activityUniqueIdentifier = [(FCActivityDescribing *)selfCopy->_activeActivity activityUniqueIdentifier];
   v22 = [(FCActivityManager *)selfCopy _activityForUniqueIdentifier:activityUniqueIdentifier];
   [(FCActivityManager *)selfCopy _updateActiveActivity:v22];
@@ -1102,25 +1090,25 @@ LABEL_30:
     }
   }
 
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   v25 = [(NSMapTable *)selfCopy->_locationsToSuggestedActivitiesOrNull copy];
-  v26 = [v25 countByEnumeratingWithState:&v38 objects:v48 count:16];
+  v26 = [v25 countByEnumeratingWithState:&v37 objects:v47 count:16];
   if (v26)
   {
-    v27 = *v39;
+    v27 = *v38;
     do
     {
       for (j = 0; j != v26; ++j)
       {
-        if (*v39 != v27)
+        if (*v38 != v27)
         {
           objc_enumerationMutation(v25);
         }
 
-        v29 = *(*(&v38 + 1) + 8 * j);
+        v29 = *(*(&v37 + 1) + 8 * j);
         v30 = [(NSMapTable *)selfCopy->_locationsToSuggestedActivitiesOrNull objectForKey:v29];
         if (objc_opt_respondsToSelector())
         {
@@ -1131,14 +1119,13 @@ LABEL_30:
         }
       }
 
-      v26 = [v25 countByEnumeratingWithState:&v38 objects:v48 count:16];
+      v26 = [v25 countByEnumeratingWithState:&v37 objects:v47 count:16];
     }
 
     while (v26);
   }
 
   objc_sync_exit(selfCopy);
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __48__FCActivityManager__updateActivitiesWithModes___block_invoke(uint64_t a1, void *a2)
@@ -1152,15 +1139,15 @@ uint64_t __48__FCActivityManager__updateActivitiesWithModes___block_invoke(uint6
 
 - (id)_availableActivities
 {
-  v10[4] = *MEMORY[0x277D85DE8];
+  v9[4] = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (!selfCopy->_availableActivities)
   {
     _modeSelectionService = [(FCActivityManager *)selfCopy _modeSelectionService];
-    v10[0] = 0;
-    v4 = [_modeSelectionService allModesWithError:v10];
-    v5 = v10[0];
+    v9[0] = 0;
+    v4 = [_modeSelectionService allModesWithError:v9];
+    v5 = v9[0];
     if (v5)
     {
       allObjects = FCLogActivities;
@@ -1182,7 +1169,6 @@ uint64_t __48__FCActivityManager__updateActivitiesWithModes___block_invoke(uint6
   objc_sync_exit(selfCopy);
 
   availableActivities = selfCopy->_availableActivities;
-  v8 = *MEMORY[0x277D85DE8];
 
   return availableActivities;
 }
@@ -1237,7 +1223,7 @@ uint64_t __48__FCActivityManager__updateActivitiesWithModes___block_invoke(uint6
 
 - (void)_updateWithActiveModeAssertionIfNecessary:(id)necessary stateUpdate:(id)update
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   necessaryCopy = necessary;
   updateCopy = update;
   selfCopy = self;
@@ -1249,11 +1235,11 @@ uint64_t __48__FCActivityManager__updateActivitiesWithModes___block_invoke(uint6
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       v11 = [(FCActivityManager *)selfCopy description];
-      v16 = 138543618;
-      v17 = v11;
-      v18 = 2114;
-      v19 = necessaryCopy;
-      _os_log_impl(&dword_24B876000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] Updating active mode assertion: %{public}@", &v16, 0x16u);
+      v15 = 138543618;
+      v16 = v11;
+      v17 = 2114;
+      v18 = necessaryCopy;
+      _os_log_impl(&dword_24B876000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] Updating active mode assertion: %{public}@", &v15, 0x16u);
     }
 
     objc_storeStrong(&selfCopy->_activeModeAssertion, necessary);
@@ -1275,8 +1261,6 @@ uint64_t __48__FCActivityManager__updateActivitiesWithModes___block_invoke(uint6
   }
 
   objc_sync_exit(selfCopy);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateActiveModeAssertionIfNecessary
@@ -1288,16 +1272,16 @@ uint64_t __48__FCActivityManager__updateActivitiesWithModes___block_invoke(uint6
 
 - (void)_updateLifetimeForActiveActivity
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (selfCopy->_activeModeAssertion)
   {
     _lifetimeDetailsProvider = [(FCActivityManager *)selfCopy _lifetimeDetailsProvider];
     details = [(DNDModeAssertion *)selfCopy->_activeModeAssertion details];
-    v14 = 0;
-    v5 = [_lifetimeDetailsProvider lifetimeDetailsForAssertionDetails:details error:&v14];
-    v6 = v14;
+    v12 = 0;
+    v5 = [_lifetimeDetailsProvider lifetimeDetailsForAssertionDetails:details error:&v12];
+    v6 = v12;
 
     if (v5)
     {
@@ -1316,14 +1300,14 @@ uint64_t __48__FCActivityManager__updateActivitiesWithModes___block_invoke(uint6
       identifier = FCLogActivities;
       if (os_log_type_enabled(identifier, OS_LOG_TYPE_ERROR))
       {
-        v12 = [(FCActivityManager *)selfCopy description];
+        v10 = [(FCActivityManager *)selfCopy description];
         activeModeAssertion = selfCopy->_activeModeAssertion;
         *buf = 138543874;
-        v16 = v12;
+        v14 = v10;
+        v15 = 2114;
+        v16 = activeModeAssertion;
         v17 = 2114;
-        v18 = activeModeAssertion;
-        v19 = 2114;
-        v20 = v6;
+        v18 = v6;
         _os_log_error_impl(&dword_24B876000, identifier, OS_LOG_TYPE_ERROR, "[%{public}@] Encountered error requesting lifetime details for active mode assertion: activeModeAssertion: %{public}@; error: %{public}@", buf, 0x20u);
       }
 
@@ -1338,24 +1322,21 @@ LABEL_10:
   v8 = 0;
 LABEL_11:
   [(FCActivityManager *)selfCopy _setLifetimeForActiveActivity:v8];
-  activeActivity = selfCopy->_activeActivity;
   if ((objc_opt_respondsToSelector() & 1) != 0 && [(FCActivityDescribing *)selfCopy->_activeActivity supportsDiscreteLifetimes])
   {
-    v10 = selfCopy->_activeActivity;
+    activeActivity = selfCopy->_activeActivity;
     if (selfCopy->_activeLifetimeDetailsCollection)
     {
-      [(FCActivityManager *)selfCopy _updateActivity:v10 withLifetimeDetailsCollection:?];
+      [(FCActivityManager *)selfCopy _updateActivity:activeActivity withLifetimeDetailsCollection:?];
     }
 
     else
     {
-      [(FCActivityManager *)selfCopy _updateActivity:v10 withLifetimeDetails:v5];
+      [(FCActivityManager *)selfCopy _updateActivity:activeActivity withLifetimeDetails:v5];
     }
   }
 
   objc_sync_exit(selfCopy);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateLifetimeForActiveActivityIfNecessary
@@ -1556,7 +1537,7 @@ uint64_t __70__FCActivityManager__lifetimeForLifetimeDetailsIdentifier_ofActivit
 
 - (void)_updateActiveActivity:(id)activity
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   activityCopy = activity;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -1567,9 +1548,9 @@ uint64_t __70__FCActivityManager__lifetimeForLifetimeDetailsIdentifier_ofActivit
     {
       v8 = [(FCActivityManager *)selfCopy description];
       *buf = 138543618;
-      v13 = v8;
-      v14 = 2114;
-      v15 = activityCopy;
+      v12 = v8;
+      v13 = 2114;
+      v14 = activityCopy;
       _os_log_impl(&dword_24B876000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Updating active activity: %{public}@", buf, 0x16u);
     }
 
@@ -1587,8 +1568,6 @@ uint64_t __70__FCActivityManager__lifetimeForLifetimeDetailsIdentifier_ofActivit
   }
 
   objc_sync_exit(selfCopy);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __43__FCActivityManager__updateActiveActivity___block_invoke(uint64_t a1)
@@ -1643,22 +1622,21 @@ void __43__FCActivityManager__updateActiveActivity___block_invoke_111(uint64_t a
 
 - (void)_setLifetimeForActiveActivity:(id)activity
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   activityCopy = activity;
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  lifetimeOfActiveActivity = selfCopy->_lifetimeOfActiveActivity;
   if ((BSEqualObjects() & 1) == 0)
   {
-    v8 = FCLogActivities;
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v7 = FCLogActivities;
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = [(FCActivityManager *)selfCopy description];
+      v8 = [(FCActivityManager *)selfCopy description];
       *buf = 138543618;
-      v13 = v9;
-      v14 = 2114;
-      v15 = activityCopy;
-      _os_log_impl(&dword_24B876000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Updating lifetime of active activity: %{public}@", buf, 0x16u);
+      v11 = v8;
+      v12 = 2114;
+      v13 = activityCopy;
+      _os_log_impl(&dword_24B876000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Updating lifetime of active activity: %{public}@", buf, 0x16u);
     }
 
     objc_storeStrong(&selfCopy->_lifetimeOfActiveActivity, activity);
@@ -1671,8 +1649,6 @@ void __43__FCActivityManager__updateActiveActivity___block_invoke_111(uint64_t a
   }
 
   objc_sync_exit(selfCopy);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __51__FCActivityManager__setLifetimeForActiveActivity___block_invoke(uint64_t a1)
@@ -1700,7 +1676,7 @@ void __51__FCActivityManager__setLifetimeForActiveActivity___block_invoke_2(uint
 
 - (void)_setActiveActivity:(id)activity withLifetime:(id)lifetime reason:(id)reason
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   activityCopy = activity;
   lifetimeCopy = lifetime;
   reasonCopy = reason;
@@ -1720,14 +1696,14 @@ void __51__FCActivityManager__setLifetimeForActiveActivity___block_invoke_2(uint
   {
   }
 
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = 3221225472;
-  v35[2] = __60__FCActivityManager__setActiveActivity_withLifetime_reason___block_invoke;
-  v35[3] = &unk_279013D48;
-  v35[4] = self;
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __60__FCActivityManager__setActiveActivity_withLifetime_reason___block_invoke;
+  v34[3] = &unk_279013D48;
+  v34[4] = self;
   v14 = lifetimeCopy;
-  v36 = v14;
-  v15 = MEMORY[0x24C24D280](v35);
+  v35 = v14;
+  v15 = MEMORY[0x24C24D280](v34);
   if (activityCopy)
   {
     selfCopy = self;
@@ -1743,33 +1719,33 @@ void __51__FCActivityManager__setLifetimeForActiveActivity___block_invoke_2(uint
       {
         v21 = [(FCActivityManager *)selfCopy description];
         *buf = 138544130;
-        v38 = v21;
-        v39 = 2114;
-        v40 = activityCopy;
-        v41 = 2114;
-        v42 = v14;
-        v43 = 2114;
-        v44 = reasonCopy;
+        v37 = v21;
+        v38 = 2114;
+        v39 = activityCopy;
+        v40 = 2114;
+        v41 = v14;
+        v42 = 2114;
+        v43 = reasonCopy;
         _os_log_impl(&dword_24B876000, v20, OS_LOG_TYPE_DEFAULT, "[%{public}@] Activating activity: activity: %{public}@; lifetime: %{public}@; reason: %{public}@", buf, 0x2Au);
       }
 
-      v34 = 0;
-      v22 = (v15)[2](v15, activityCopy, v14, &v34);
-      v20 = v34;
+      v33 = 0;
+      v22 = (v15)[2](v15, activityCopy, v14, &v33);
+      v20 = v33;
       if ((v22 & 1) == 0)
       {
         v23 = FCLogActivities;
         if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
-          v32 = [(FCActivityManager *)selfCopy description];
+          v31 = [(FCActivityManager *)selfCopy description];
           *buf = 138544130;
-          v38 = v32;
-          v39 = 2114;
-          v40 = activityCopy;
-          v41 = 2114;
-          v42 = v14;
-          v43 = 2114;
-          v44 = v20;
+          v37 = v31;
+          v38 = 2114;
+          v39 = activityCopy;
+          v40 = 2114;
+          v41 = v14;
+          v42 = 2114;
+          v43 = v20;
           _os_log_error_impl(&dword_24B876000, v23, OS_LOG_TYPE_ERROR, "[%{public}@] Encountered error activating activity: activity: %{public}@; lifetime: %{public}@; error: %{public}@", buf, 0x2Au);
         }
       }
@@ -1777,14 +1753,14 @@ void __51__FCActivityManager__setLifetimeForActiveActivity___block_invoke_2(uint
 
     else if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v30 = [(FCActivityManager *)selfCopy description];
+      v29 = [(FCActivityManager *)selfCopy description];
       availableActivities = selfCopy->_availableActivities;
       *buf = 138543874;
-      v38 = v30;
-      v39 = 2114;
-      v40 = activityCopy;
-      v41 = 2114;
-      v42 = availableActivities;
+      v37 = v29;
+      v38 = 2114;
+      v39 = activityCopy;
+      v40 = 2114;
+      v41 = availableActivities;
       _os_log_error_impl(&dword_24B876000, v20, OS_LOG_TYPE_ERROR, "[%{public}@] Attempt to activate activity not in collection: activity: %{public}@; availableActivities: %{public}@", buf, 0x20u);
     }
 
@@ -1799,15 +1775,15 @@ void __51__FCActivityManager__setLifetimeForActiveActivity___block_invoke_2(uint
       v25 = v24;
       v26 = [(FCActivityManager *)self description];
       *buf = 138543618;
-      v38 = v26;
-      v39 = 2114;
-      v40 = reasonCopy;
+      v37 = v26;
+      v38 = 2114;
+      v39 = reasonCopy;
       _os_log_impl(&dword_24B876000, v25, OS_LOG_TYPE_DEFAULT, "[%{public}@] Deactivating all activities: reason: %{public}@", buf, 0x16u);
     }
 
-    v33 = 0;
-    v27 = (v15)[2](v15, 0, v14, &v33);
-    selfCopy = v33;
+    v32 = 0;
+    v27 = (v15)[2](v15, 0, v14, &v32);
+    selfCopy = v32;
     if ((v27 & 1) == 0)
     {
       v28 = FCLogActivities;
@@ -1819,7 +1795,6 @@ void __51__FCActivityManager__setLifetimeForActiveActivity___block_invoke_2(uint
   }
 
 LABEL_21:
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __60__FCActivityManager__setActiveActivity_withLifetime_reason___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
@@ -1872,7 +1847,7 @@ LABEL_13:
       v19 = FCLogActivities;
       if (os_log_type_enabled(FCLogActivities, OS_LOG_TYPE_ERROR))
       {
-        __60__FCActivityManager__setActiveActivity_withLifetime_reason___block_invoke_cold_1((a1 + 32), v19, a1);
+        __60__FCActivityManager__setActiveActivity_withLifetime_reason___block_invoke_cold_1(a1 + 32, v19);
       }
 
       v17 = 0;
@@ -1928,7 +1903,7 @@ LABEL_20:
 
 - (void)_deactivateActivity:(id)activity reason:(id)reason
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   activityCopy = activity;
   reasonCopy = reason;
   _activeActivity = [(FCActivityManager *)self _activeActivity];
@@ -1970,16 +1945,16 @@ LABEL_3:
     v15 = v14;
     v16 = [(FCActivityManager *)self description];
     *buf = 138543618;
-    v23 = v16;
-    v24 = 2114;
-    v25 = reasonCopy;
+    v22 = v16;
+    v23 = 2114;
+    v24 = reasonCopy;
     _os_log_impl(&dword_24B876000, v15, OS_LOG_TYPE_DEFAULT, "[%{public}@] Deactivating active activity: reason: %{public}@", buf, 0x16u);
   }
 
   uUID = [(DNDModeAssertion *)self->_activeModeAssertion UUID];
-  v21 = 0;
-  v18 = [_modeSelectionService invalidateModeAssertionWithUUID:uUID error:&v21];
-  v19 = v21;
+  v20 = 0;
+  v18 = [_modeSelectionService invalidateModeAssertionWithUUID:uUID error:&v20];
+  v19 = v20;
 
   if ((v18 & 1) == 0 && os_log_type_enabled(FCLogActivities, OS_LOG_TYPE_ERROR))
   {
@@ -1987,7 +1962,6 @@ LABEL_3:
   }
 
 LABEL_15:
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_notifyObserversOfLifetimeChangeForActivity:(id)activity
@@ -2022,7 +1996,7 @@ void __65__FCActivityManager__notifyObserversOfLifetimeChangeForActivity___block
 
 - (void)_updateActivity:(id)activity withLifetimeDescriptions:(id)descriptions
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   activityCopy = activity;
   descriptionsCopy = descriptions;
   if (objc_opt_respondsToSelector())
@@ -2038,22 +2012,22 @@ void __65__FCActivityManager__notifyObserversOfLifetimeChangeForActivity___block
         v11 = v10;
         v12 = [(FCActivityManager *)self description];
         *buf = 138543874;
-        v17 = v12;
-        v18 = 2114;
-        v19 = activityCopy;
-        v20 = 2114;
-        v21 = descriptionsCopy;
+        v16 = v12;
+        v17 = 2114;
+        v18 = activityCopy;
+        v19 = 2114;
+        v20 = descriptionsCopy;
         _os_log_impl(&dword_24B876000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@] Updating lifetime descriptions for activity: activity: %{public}@; lifetime descriptions: %{public}@", buf, 0x20u);
       }
 
       [activityCopy _setActivityLifetimeDescriptions:descriptionsCopy];
-      v14[0] = MEMORY[0x277D85DD0];
-      v14[1] = 3221225472;
-      v14[2] = __62__FCActivityManager__updateActivity_withLifetimeDescriptions___block_invoke;
-      v14[3] = &unk_279013D98;
-      v14[4] = self;
-      v15 = activityCopy;
-      dispatch_async(MEMORY[0x277D85CD0], v14);
+      v13[0] = MEMORY[0x277D85DD0];
+      v13[1] = 3221225472;
+      v13[2] = __62__FCActivityManager__updateActivity_withLifetimeDescriptions___block_invoke;
+      v13[3] = &unk_279013D98;
+      v13[4] = self;
+      v14 = activityCopy;
+      dispatch_async(MEMORY[0x277D85CD0], v13);
     }
   }
 
@@ -2061,8 +2035,6 @@ void __65__FCActivityManager__notifyObserversOfLifetimeChangeForActivity___block
   {
     [FCActivityManager _updateActivity:withLifetimeDescriptions:];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateActivity:(id)activity withLifetimeDetails:(id)details
@@ -2133,42 +2105,42 @@ LABEL_13:
 
 - (void)_updateActivity:(id)activity withLifetimeDetailsCollection:(id)collection
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   activityCopy = activity;
   collectionCopy = collection;
   if (objc_opt_respondsToSelector())
   {
     v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
     v9 = collectionCopy;
-    v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v19;
+      v12 = *v18;
       do
       {
         v13 = 0;
         do
         {
-          if (*v19 != v12)
+          if (*v18 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v18 + 1) + 8 * v13);
+          v14 = *(*(&v17 + 1) + 8 * v13);
           v15 = [_FCActivityLifetime alloc];
-          v16 = [(_FCActivityLifetime *)v15 initWithLifetimeDetails:v14, v18];
+          v16 = [(_FCActivityLifetime *)v15 initWithLifetimeDetails:v14, v17];
           [v8 addObject:v16];
 
           ++v13;
         }
 
         while (v11 != v13);
-        v11 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v11);
@@ -2181,8 +2153,6 @@ LABEL_13:
   {
     [FCActivityManager _updateActivity:withLifetimeDescriptions:];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateLifetimesAlternativeDescription:(id)description forActivity:(id)activity
@@ -2279,40 +2249,39 @@ void __71__FCActivityManager__updateLifetimesAlternativeDescriptionForActivity__
 
 - (void)_updateLifetimesAlternativeDescriptionsForAvailableActivities
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   _availableActivities = [(FCActivityManager *)selfCopy _availableActivities];
-  v4 = [_availableActivities countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v4 = [_availableActivities countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v4)
   {
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(_availableActivities);
         }
 
-        [(FCActivityManager *)selfCopy _updateLifetimesAlternativeDescriptionForActivity:*(*(&v8 + 1) + 8 * v6++)];
+        [(FCActivityManager *)selfCopy _updateLifetimesAlternativeDescriptionForActivity:*(*(&v7 + 1) + 8 * v6++)];
       }
 
       while (v4 != v6);
-      v4 = [_availableActivities countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [_availableActivities countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
 
   objc_sync_exit(selfCopy);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_isSyncedAssertion:(id)assertion
@@ -2342,7 +2311,7 @@ void __71__FCActivityManager__updateLifetimesAlternativeDescriptionForActivity__
 
 - (void)_updateSuggestedActivity:(id)activity forLocation:(int64_t)location
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   activityCopy = activity;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -2389,11 +2358,11 @@ void __71__FCActivityManager__updateLifetimesAlternativeDescriptionForActivity__
 
       v19 = v18;
       *buf = 138543874;
-      v27 = v17;
-      v28 = 2114;
-      v29 = activityCopy;
-      v30 = 2114;
-      v31 = v19;
+      v26 = v17;
+      v27 = 2114;
+      v28 = activityCopy;
+      v29 = 2114;
+      v30 = v19;
       _os_log_impl(&dword_24B876000, v16, OS_LOG_TYPE_DEFAULT, "[%{public}@] Updating suggested activity: %{public}@ (%{public}@)", buf, 0x20u);
     }
 
@@ -2412,17 +2381,16 @@ void __71__FCActivityManager__updateLifetimesAlternativeDescriptionForActivity__
     v23 = [MEMORY[0x277CCABB0] numberWithInteger:location];
     [(NSMapTable *)v22 setObject:v21 forKey:v23];
 
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __58__FCActivityManager__updateSuggestedActivity_forLocation___block_invoke;
-    v25[3] = &unk_279013E10;
-    v25[4] = selfCopy;
-    v25[5] = location;
-    dispatch_async(MEMORY[0x277D85CD0], v25);
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __58__FCActivityManager__updateSuggestedActivity_forLocation___block_invoke;
+    v24[3] = &unk_279013E10;
+    v24[4] = selfCopy;
+    v24[5] = location;
+    dispatch_async(MEMORY[0x277D85CD0], v24);
   }
 
   objc_sync_exit(selfCopy);
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __58__FCActivityManager__updateSuggestedActivity_forLocation___block_invoke(uint64_t a1)
@@ -2540,15 +2508,15 @@ LABEL_9:
 
 - (void)_drivingTriggerDidChange
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = FCLogActivities;
   if (os_log_type_enabled(FCLogActivities, OS_LOG_TYPE_DEFAULT))
   {
     v4 = v3;
     v5 = [(FCActivityManager *)self description];
-    v10 = 138543362;
-    v11 = v5;
-    _os_log_impl(&dword_24B876000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Driving trigger did change", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v5;
+    _os_log_impl(&dword_24B876000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Driving trigger did change", &v9, 0xCu);
   }
 
   selfCopy = self;
@@ -2558,7 +2526,6 @@ LABEL_9:
   [(FCActivityManager *)selfCopy _updateLifetimesAlternativeDescriptionForActivity:v8];
 
   objc_sync_exit(selfCopy);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __45__FCActivityManager__drivingTriggerDidChange__block_invoke(uint64_t a1, void *a2)
@@ -2593,7 +2560,7 @@ uint64_t __45__FCActivityManager__drivingTriggerDidChange__block_invoke(uint64_t
 
 - (id)activityWithIdentifier:(id)identifier
 {
-  v14[4] = *MEMORY[0x277D85DE8];
+  v13[4] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   if ([identifierCopy length])
   {
@@ -2603,9 +2570,9 @@ uint64_t __45__FCActivityManager__drivingTriggerDidChange__block_invoke(uint64_t
     if (!allActivitiesByIdentifier)
     {
       _modeSelectionService = [(FCActivityManager *)selfCopy _modeSelectionService];
-      v14[0] = 0;
-      v8 = [_modeSelectionService allModesWithError:v14];
-      v9 = v14[0];
+      v13[0] = 0;
+      v8 = [_modeSelectionService allModesWithError:v13];
+      v9 = v13[0];
       if (v9)
       {
         allObjects = FCLogActivities;
@@ -2634,8 +2601,6 @@ uint64_t __45__FCActivityManager__drivingTriggerDidChange__block_invoke(uint64_t
   {
     v11 = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -2681,54 +2646,41 @@ uint64_t __45__FCActivityManager__drivingTriggerDidChange__block_invoke(uint64_t
 
 void __41__FCActivityManager__initWithIdentifier___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v3 = *(a1 + 32);
-  v4 = a2;
-  v5 = [OUTLINED_FUNCTION_6() description];
+  v3 = a2;
+  v4 = [OUTLINED_FUNCTION_6() description];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_24B876000, v6, v7, "[%{public}@] Error adding selection update listener: %{public}@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_24B876000, v5, v6, "[%{public}@] Error adding selection update listener: %{public}@", v7, v8, v9, v10);
 }
 
 void __41__FCActivityManager__initWithIdentifier___block_invoke_cold_2(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = a2;
   v4 = [v2 description];
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(&dword_24B876000, v3, OS_LOG_TYPE_DEBUG, "[%{public}@] Added selection update listener", v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_24B876000, v3, OS_LOG_TYPE_DEBUG, "[%{public}@] Added selection update listener", v5, 0xCu);
 }
 
 - (void)setActivity:(void *)a1 active:(void *)a2 withLifetime:reason:.cold.1(void *a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 description];
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_12(&dword_24B876000, v5, v6, "[%{public}@] Activating a nil activity isn't permitted – ignoring", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_12(&dword_24B876000, v5, v6, "[%{public}@] Activating a nil activity isn't permitted – ignoring", v7, v8, v9, v10);
 }
 
 - (void)_updateCreationDateOfActivity:.cold.1()
 {
   OUTLINED_FUNCTION_7();
-  v12 = *MEMORY[0x277D85DE8];
   v2 = v1;
   v3 = [OUTLINED_FUNCTION_6() description];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_11(&dword_24B876000, v4, v5, "[%{public}@] Failed to obtain mode configuration for activity: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_11(&dword_24B876000, v4, v5, "[%{public}@] Failed to obtain mode configuration for activity: %{public}@", v6, v7, v8, v9);
 }
 
 void __64__FCActivityManager__notifyObserversOfAvailableActivitiesChange__block_invoke_cold_1(uint64_t a1, void *a2, uint64_t a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 32);
   v5 = a2;
   v6 = [v4 description];
@@ -2736,8 +2688,6 @@ void __64__FCActivityManager__notifyObserversOfAvailableActivitiesChange__block_
   OUTLINED_FUNCTION_10();
   OUTLINED_FUNCTION_4();
   _os_log_debug_impl(v8, v9, v10, v11, v12, 0x16u);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateActivitiesWithModes:(os_log_t)log .cold.1(void *a1, uint8_t *buf, os_log_t log)
@@ -2756,22 +2706,17 @@ void __64__FCActivityManager__notifyObserversOfAvailableActivitiesChange__block_
 
 void __43__FCActivityManager__updateActiveActivity___block_invoke_2_cold_1(uint64_t a1, void *a2, uint64_t a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v5 = *(a1 + 32);
-  v6 = a2;
-  v7 = [v5 description];
-  v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@: %p", objc_opt_class(), a3];
-  v9 = *(*(a1 + 32) + 120);
+  v4 = *(a1 + 32);
+  v5 = a2;
+  v6 = [v4 description];
+  v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@: %p", objc_opt_class(), a3];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_4();
-  _os_log_debug_impl(v10, v11, v12, v13, v14, 0x20u);
-
-  v15 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v8, v9, v10, v11, v12, 0x20u);
 }
 
 void __43__FCActivityManager__updateActiveActivity___block_invoke_111_cold_1(uint64_t a1, void *a2, uint64_t a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 32);
   v5 = a2;
   v6 = [v4 description];
@@ -2779,152 +2724,113 @@ void __43__FCActivityManager__updateActiveActivity___block_invoke_111_cold_1(uin
   OUTLINED_FUNCTION_10();
   OUTLINED_FUNCTION_4();
   _os_log_debug_impl(v8, v9, v10, v11, v12, 0x16u);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __51__FCActivityManager__setLifetimeForActiveActivity___block_invoke_2_cold_1(uint64_t a1, void *a2, uint64_t a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v5 = *(a1 + 32);
-  v6 = a2;
-  v7 = [v5 description];
-  v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@: %p", objc_opt_class(), a3];
-  v9 = *(*(a1 + 32) + 72);
+  v4 = *(a1 + 32);
+  v5 = a2;
+  v6 = [v4 description];
+  v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@: %p", objc_opt_class(), a3];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_4();
-  _os_log_debug_impl(v10, v11, v12, v13, v14, 0x20u);
-
-  v15 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v8, v9, v10, v11, v12, 0x20u);
 }
 
 - (void)_setActiveActivity:(void *)a1 withLifetime:(void *)a2 reason:(uint64_t)a3 .cold.1(void *a1, void *a2, uint64_t a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = [a2 description];
   OUTLINED_FUNCTION_3();
-  v10 = 2114;
-  v11 = a3;
-  OUTLINED_FUNCTION_8(&dword_24B876000, v5, v7, "[%{public}@] Encountered error deactivating all activites: %{public}@", v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v9 = 2114;
+  v10 = a3;
+  OUTLINED_FUNCTION_8(&dword_24B876000, v5, v7, "[%{public}@] Encountered error deactivating all activites: %{public}@", v8);
 }
 
-void __60__FCActivityManager__setActiveActivity_withLifetime_reason___block_invoke_cold_1(uint64_t *a1, void *a2, uint64_t a3)
+void __60__FCActivityManager__setActiveActivity_withLifetime_reason___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v5 = *a1;
-  v6 = a2;
-  v7 = [OUTLINED_FUNCTION_6() description];
-  v8 = *(a3 + 40);
+  v3 = a2;
+  v4 = [OUTLINED_FUNCTION_6() description];
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_1(&dword_24B876000, v9, v10, "[%{public}@] Failed to retrieve dndLifetimeDetails from provided lifetime: %{public}@", v11, v12, v13, v14, v16);
-
-  v15 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_24B876000, v5, v6, "[%{public}@] Failed to retrieve dndLifetimeDetails from provided lifetime: %{public}@", v7, v8, v9, v10);
 }
 
 - (void)_deactivateActivity:reason:.cold.1()
 {
   OUTLINED_FUNCTION_7();
-  v12 = *MEMORY[0x277D85DE8];
   v2 = v1;
   v3 = [OUTLINED_FUNCTION_6() description];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_24B876000, v4, v5, "[%{public}@] Encountered error deactivating activity: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_24B876000, v4, v5, "[%{public}@] Encountered error deactivating activity: %{public}@", v6, v7, v8, v9);
 }
 
 - (void)_deactivateActivity:reason:.cold.2()
 {
   OUTLINED_FUNCTION_7();
-  v12 = *MEMORY[0x277D85DE8];
   v2 = v1;
   v3 = [OUTLINED_FUNCTION_6() description];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_24B876000, v4, v5, "[%{public}@] Encountered error deactivating activity: '%{public}@' isn't the active activity", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_24B876000, v4, v5, "[%{public}@] Encountered error deactivating activity: '%{public}@' isn't the active activity", v6, v7, v8, v9);
 }
 
 - (void)_deactivateActivity:(void *)a1 reason:(void *)a2 .cold.3(void *a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 description];
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_12(&dword_24B876000, v5, v6, "[%{public}@] Encountered error deactivating activity: no active mode assertion", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_12(&dword_24B876000, v5, v6, "[%{public}@] Encountered error deactivating activity: no active mode assertion", v7, v8, v9, v10);
 }
 
 void __65__FCActivityManager__notifyObserversOfLifetimeChangeForActivity___block_invoke_cold_1(uint64_t a1, void *a2, uint64_t a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v5 = *(a1 + 32);
-  v6 = a2;
-  v7 = [v5 description];
-  v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@: %p", objc_opt_class(), a3];
-  v9 = *(a1 + 40);
+  v4 = *(a1 + 32);
+  v5 = a2;
+  v6 = [v4 description];
+  v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@: %p", objc_opt_class(), a3];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_4();
-  _os_log_debug_impl(v10, v11, v12, v13, v14, 0x20u);
-
-  v15 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v8, v9, v10, v11, v12, 0x20u);
 }
 
 - (void)_updateActivity:withLifetimeDescriptions:.cold.1()
 {
   OUTLINED_FUNCTION_7();
-  v12 = *MEMORY[0x277D85DE8];
   v2 = v1;
   v3 = [OUTLINED_FUNCTION_6() description];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_24B876000, v4, v5, "[%{public}@] Lifetime descriptions can't be updated for activity: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_24B876000, v4, v5, "[%{public}@] Lifetime descriptions can't be updated for activity: %{public}@", v6, v7, v8, v9);
 }
 
 void __71__FCActivityManager__updateLifetimesAlternativeDescriptionForActivity___block_invoke_cold_1(uint64_t a1, void *a2, uint64_t a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v5 = *(a1 + 32);
-  v6 = a2;
-  v7 = [v5 description];
-  v8 = *(a1 + 40);
+  v13 = *MEMORY[0x277D85DE8];
+  v4 = *(a1 + 32);
+  v5 = a2;
+  v6 = [v4 description];
   OUTLINED_FUNCTION_3();
-  v12 = 2114;
-  v13 = v9;
-  v14 = 2114;
-  v15 = a3;
-  _os_log_error_impl(&dword_24B876000, v6, OS_LOG_TYPE_ERROR, "[%{public}@] Encountered error fetching car automatic DND preference: activity: %{public}@; error: %{public}@", v11, 0x20u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = 2114;
+  v10 = v7;
+  v11 = 2114;
+  v12 = a3;
+  _os_log_error_impl(&dword_24B876000, v5, OS_LOG_TYPE_ERROR, "[%{public}@] Encountered error fetching car automatic DND preference: activity: %{public}@; error: %{public}@", v8, 0x20u);
 }
 
 void __58__FCActivityManager__updateSuggestedActivity_forLocation___block_invoke_2_cold_1(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v3 = *(a1 + 32);
-  v4 = a2;
-  v5 = [OUTLINED_FUNCTION_6() description];
+  v3 = a2;
+  v4 = [OUTLINED_FUNCTION_6() description];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_11(&dword_24B876000, v6, v7, "[%{public}@] Notifying observer of suggested activity change: %{public}@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_11(&dword_24B876000, v5, v6, "[%{public}@] Notifying observer of suggested activity change: %{public}@", v7, v8, v9, v10);
 }
 
 - (void)_updateActivitySuggestion:.cold.1()
 {
   OUTLINED_FUNCTION_7();
-  v12 = *MEMORY[0x277D85DE8];
   v2 = v1;
   v3 = [OUTLINED_FUNCTION_6() description];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_24B876000, v4, v5, "[%{public}@] Failed to find activity for suggestion: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_24B876000, v4, v5, "[%{public}@] Failed to find activity for suggestion: %{public}@", v6, v7, v8, v9);
 }
 
 @end

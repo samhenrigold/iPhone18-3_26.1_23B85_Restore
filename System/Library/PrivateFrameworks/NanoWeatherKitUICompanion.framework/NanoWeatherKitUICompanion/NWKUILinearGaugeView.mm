@@ -375,7 +375,7 @@ void __38__NWKUILinearGaugeView_layoutSubviews__block_invoke_10(uint64_t a1, voi
 
 - (id)_cgColorsFromColorIndices:(id)indices
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   indicesCopy = indices;
   array = [MEMORY[0x277CBEB18] array];
   if ([indicesCopy count] == 1)
@@ -391,30 +391,30 @@ void __38__NWKUILinearGaugeView_layoutSubviews__block_invoke_10(uint64_t a1, voi
 
   else
   {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     firstObject2 = indicesCopy;
-    v9 = [firstObject2 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v9 = [firstObject2 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v18;
+      v11 = *v17;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v18 != v11)
+          if (*v17 != v11)
           {
             objc_enumerationMutation(firstObject2);
           }
 
-          color3 = [*(*(&v17 + 1) + 8 * i) color];
+          color3 = [*(*(&v16 + 1) + 8 * i) color];
           [array addObject:{objc_msgSend(color3, "CGColor")}];
         }
 
-        v10 = [firstObject2 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v10 = [firstObject2 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v10);
@@ -422,7 +422,6 @@ void __38__NWKUILinearGaugeView_layoutSubviews__block_invoke_10(uint64_t a1, voi
   }
 
   v14 = [array copy];
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -485,7 +484,7 @@ LABEL_9:
 
 - (void)_gradientLocationInformationForGaugeWithHeight:(double)height colorIndices:(id)indices handler:(id)handler
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   indicesCopy = indices;
   handlerCopy = handler;
   firstObject = [indicesCopy firstObject];
@@ -499,12 +498,12 @@ LABEL_9:
   [(NWKUILinearGaugeView *)self layoutConstants];
   v17 = v16;
   array = [MEMORY[0x277CBEB18] array];
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
   v19 = indicesCopy;
-  v20 = [v19 countByEnumeratingWithState:&v37 objects:v41 count:16];
+  v20 = [v19 countByEnumeratingWithState:&v36 objects:v40 count:16];
   if (v20)
   {
     v21 = v20;
@@ -513,19 +512,19 @@ LABEL_9:
     v24 = v17 * 0.5 + 0.5;
     v25 = (height + v24 * -2.0) / height;
     v26 = v24 / height;
-    v27 = *v38;
+    v27 = *v37;
     v28 = 1.79769313e308;
     do
     {
       for (i = 0; i != v21; ++i)
       {
         v30 = v28;
-        if (*v38 != v27)
+        if (*v37 != v27)
         {
           objc_enumerationMutation(v19);
         }
 
-        [*(*(&v37 + 1) + 8 * i) value];
+        [*(*(&v36 + 1) + 8 * i) value];
         v28 = v31;
         v32 = (v31 - v30) * 0.5;
         if (v30 == 1.79769313e308)
@@ -552,7 +551,7 @@ LABEL_9:
         }
       }
 
-      v21 = [v19 countByEnumeratingWithState:&v37 objects:v41 count:16];
+      v21 = [v19 countByEnumeratingWithState:&v36 objects:v40 count:16];
     }
 
     while (v21);
@@ -564,7 +563,6 @@ LABEL_9:
   }
 
   handlerCopy[2](handlerCopy, array, v22);
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setNeedsUpdateGauge

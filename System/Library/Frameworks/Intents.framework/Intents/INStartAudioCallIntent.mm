@@ -1,4 +1,5 @@
 @interface INStartAudioCallIntent
+- (BOOL)configureAttributeSet:(id)set includingData:(BOOL)data;
 - (INCallDestinationType)destinationType;
 - (INStartAudioCallIntent)initWithDestinationType:(INCallDestinationType)destinationType contacts:(NSArray *)contacts;
 - (INStartCallRequestMetadata)callRequestMetadata;
@@ -29,13 +30,13 @@
 
 - (id)_subtitleWithLocalizer:(id)localizer fromBundleURL:(id)l
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   localizerCopy = localizer;
   lCopy = l;
   preferredCallProvider = [(INStartAudioCallIntent *)self preferredCallProvider];
   if ((preferredCallProvider - 2) < 2 || !preferredCallProvider)
   {
-    [(INIntent *)&v41 _subtitleWithLocalizer:localizerCopy fromBundleURL:lCopy, self, INStartAudioCallIntent, v42.receiver, v42.super_class, v43.receiver, v43.super_class];
+    [(INIntent *)&v40 _subtitleWithLocalizer:localizerCopy fromBundleURL:lCopy, self, INStartAudioCallIntent, v41.receiver, v41.super_class, v42.receiver, v42.super_class];
     value = LABEL_18:;
     goto LABEL_19;
   }
@@ -60,43 +61,43 @@
   if (type != 2)
   {
 LABEL_23:
-    [(INIntent *)&v42 _subtitleWithLocalizer:localizerCopy fromBundleURL:lCopy, v41.receiver, v41.super_class, self, INStartAudioCallIntent, v43.receiver, v43.super_class];
+    [(INIntent *)&v41 _subtitleWithLocalizer:localizerCopy fromBundleURL:lCopy, v40.receiver, v40.super_class, self, INStartAudioCallIntent, v42.receiver, v42.super_class];
     goto LABEL_18;
   }
 
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
   v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   contacts3 = [(INStartAudioCallIntent *)self contacts];
   firstObject2 = [contacts3 firstObject];
   aliases = [firstObject2 aliases];
 
-  v18 = [aliases countByEnumeratingWithState:&v44 objects:v48 count:16];
+  v18 = [aliases countByEnumeratingWithState:&v43 objects:v47 count:16];
   if (!v18)
   {
 
 LABEL_25:
-    [(INIntent *)&v43 _subtitleWithLocalizer:localizerCopy fromBundleURL:lCopy, v41.receiver, v41.super_class, v42.receiver, v42.super_class, self, INStartAudioCallIntent];
+    [(INIntent *)&v42 _subtitleWithLocalizer:localizerCopy fromBundleURL:lCopy, v40.receiver, v40.super_class, v41.receiver, v41.super_class, self, INStartAudioCallIntent];
     goto LABEL_18;
   }
 
   v19 = v18;
   v20 = 0;
-  v21 = *v45;
+  v21 = *v44;
   do
   {
     for (i = 0; i != v19; ++i)
     {
-      if (*v45 != v21)
+      if (*v44 != v21)
       {
         objc_enumerationMutation(aliases);
       }
 
-      v20 |= [*(*(&v44 + 1) + 8 * i) type] == 2;
+      v20 |= [*(*(&v43 + 1) + 8 * i) type] == 2;
     }
 
-    v19 = [aliases countByEnumeratingWithState:&v44 objects:v48 count:16];
+    v19 = [aliases countByEnumeratingWithState:&v43 objects:v47 count:16];
   }
 
   while (v19);
@@ -133,24 +134,24 @@ LABEL_25:
 
     if (!lowercaseString)
     {
-      v33 = CPPhoneNumberCopyNetworkCountryCode();
-      if (!v33)
+      v32 = CPPhoneNumberCopyNetworkCountryCode();
+      if (!v32)
       {
-        v33 = CPPhoneNumberCopyHomeCountryCode();
+        v32 = CPPhoneNumberCopyHomeCountryCode();
       }
 
-      lowercaseString = v33;
+      lowercaseString = v32;
     }
 
     contacts5 = [(INStartAudioCallIntent *)self contacts];
     firstObject4 = [contacts5 firstObject];
     personHandle3 = [firstObject4 personHandle];
     [personHandle3 value];
-    v37 = PNCreateFormattedStringWithCountry();
+    v36 = PNCreateFormattedStringWithCountry();
 
-    if ([v37 length])
+    if ([v36 length])
     {
-      value = v37;
+      value = v36;
     }
 
     else
@@ -163,9 +164,66 @@ LABEL_25:
   }
 
 LABEL_19:
-  v28 = *MEMORY[0x1E69E9840];
 
   return value;
+}
+
+- (BOOL)configureAttributeSet:(id)set includingData:(BOOL)data
+{
+  dataCopy = data;
+  v26 = *MEMORY[0x1E69E9840];
+  setCopy = set;
+  contacts = [(INStartAudioCallIntent *)self contacts];
+  v8 = objc_opt_new();
+  v21 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v9 = contacts;
+  v10 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  if (v10)
+  {
+    v11 = v10;
+    v12 = *v22;
+    do
+    {
+      v13 = 0;
+      do
+      {
+        if (*v22 != v12)
+        {
+          objc_enumerationMutation(v9);
+        }
+
+        v14 = INPersonToCSPerson(*(*(&v21 + 1) + 8 * v13));
+        if (v14)
+        {
+          [v8 addObject:v14];
+        }
+
+        ++v13;
+      }
+
+      while (v11 != v13);
+      v11 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    }
+
+    while (v11);
+  }
+
+  [setCopy setPrimaryRecipients:v8];
+  v15 = NSStringFromSelector(sel_displayName);
+  v16 = [v8 valueForKey:v15];
+  [setCopy setRecipientNames:v16];
+
+  v17 = [v8 valueForKeyPath:@"handles.@distinctUnionOfArrays.self"];
+  [setCopy setRecipientAddresses:v17];
+
+  v20.receiver = self;
+  v20.super_class = INStartAudioCallIntent;
+  v18 = [(INIntent *)&v20 configureAttributeSet:setCopy includingData:dataCopy];
+
+  return v18;
 }
 
 - (id)_currentParameterCombination
@@ -179,27 +237,11 @@ LABEL_19:
   _nonNilParameters2 = [(INIntent *)self _nonNilParameters];
   v7 = [_nonNilParameters2 containsObject:@"preferredCallProvider"];
 
-  if (!v7)
+  if (!v7 || (-[INIntent _parameterCombinations](self, "_parameterCombinations"), v8 = objc_claimAutoreleasedReturnValue(), [v8 objectForKey:v4], _currentParameterCombination = objc_claimAutoreleasedReturnValue(), v8, !_currentParameterCombination) && (objc_msgSend(v4, "removeObject:", @"preferredCallProvider"), -[INIntent _parameterCombinations](self, "_parameterCombinations"), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "objectForKey:", v4), _currentParameterCombination = objc_claimAutoreleasedReturnValue(), v10, !_currentParameterCombination))
   {
-    goto LABEL_4;
-  }
-
-  _parameterCombinations = [(INIntent *)self _parameterCombinations];
-  _currentParameterCombination = [_parameterCombinations objectForKey:v4];
-
-  if (!_currentParameterCombination)
-  {
-    [v4 removeObject:@"preferredCallProvider"];
-    _parameterCombinations2 = [(INIntent *)self _parameterCombinations];
-    _currentParameterCombination = [_parameterCombinations2 objectForKey:v4];
-
-    if (!_currentParameterCombination)
-    {
-LABEL_4:
-      v12.receiver = self;
-      v12.super_class = INStartAudioCallIntent;
-      _currentParameterCombination = [(INIntent *)&v12 _currentParameterCombination];
-    }
+    v12.receiver = self;
+    v12.super_class = INStartAudioCallIntent;
+    _currentParameterCombination = [(INIntent *)&v12 _currentParameterCombination];
   }
 
   return _currentParameterCombination;
@@ -207,10 +249,10 @@ LABEL_4:
 
 - (id)_validParameterCombinationsWithSchema:(id)schema
 {
-  v23 = *MEMORY[0x1E69E9840];
-  v21.receiver = self;
-  v21.super_class = INStartAudioCallIntent;
-  v4 = [(INIntent *)&v21 _validParameterCombinationsWithSchema:schema];
+  v22 = *MEMORY[0x1E69E9840];
+  v20.receiver = self;
+  v20.super_class = INStartAudioCallIntent;
+  v4 = [(INIntent *)&v20 _validParameterCombinationsWithSchema:schema];
   v5 = [MEMORY[0x1E695DFA8] set];
   if ([(INStartAudioCallIntent *)self preferredCallProvider])
   {
@@ -225,32 +267,32 @@ LABEL_4:
   if ([v5 count])
   {
     v6 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(v4, "count")}];
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     allKeys = [v4 allKeys];
-    v8 = [allKeys countByEnumeratingWithState:&v17 objects:v22 count:16];
+    v8 = [allKeys countByEnumeratingWithState:&v16 objects:v21 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v18;
+      v10 = *v17;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v18 != v10)
+          if (*v17 != v10)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v12 = *(*(&v17 + 1) + 8 * i);
+          v12 = *(*(&v16 + 1) + 8 * i);
           v13 = [v4 objectForKey:v12];
           v14 = [v12 setByAddingObjectsFromSet:v5];
           [v6 setObject:v13 forKey:v14];
         }
 
-        v9 = [allKeys countByEnumeratingWithState:&v17 objects:v22 count:16];
+        v9 = [allKeys countByEnumeratingWithState:&v16 objects:v21 count:16];
       }
 
       while (v9);
@@ -261,8 +303,6 @@ LABEL_4:
   {
     v6 = v4;
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -282,8 +322,8 @@ LABEL_4:
 
 - (id)_dictionaryRepresentation
 {
-  v12[2] = *MEMORY[0x1E69E9840];
-  v11[0] = @"destinationType";
+  v11[2] = *MEMORY[0x1E69E9840];
+  v10[0] = @"destinationType";
   destinationType = [(INStartAudioCallIntent *)self destinationType];
   if ((destinationType - 1) > 4)
   {
@@ -296,8 +336,8 @@ LABEL_4:
   }
 
   v5 = v4;
-  v11[1] = @"contacts";
-  v12[0] = v5;
+  v10[1] = @"contacts";
+  v11[0] = v5;
   contacts = [(INStartAudioCallIntent *)self contacts];
   null = contacts;
   if (!contacts)
@@ -305,13 +345,11 @@ LABEL_4:
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v12[1] = null;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v11[1] = null;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
   if (!contacts)
   {
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

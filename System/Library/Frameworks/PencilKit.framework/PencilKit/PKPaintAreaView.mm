@@ -182,7 +182,7 @@ LABEL_22:
   result = self->_currentPaintSurfaceObject;
   if (result)
   {
-    return [(CGAffineTransform *)result strokeTransform];
+    return objc_msgSend_strokeTransform(result, a3);
   }
 
   v4 = MEMORY[0x1E695EFD0];

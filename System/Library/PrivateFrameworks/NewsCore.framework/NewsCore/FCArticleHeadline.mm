@@ -71,9 +71,9 @@ void __46__FCArticleHeadline__simulateTopStoriesBadges__block_invoke()
   metadataCopy = metadata;
   channelCopy = channel;
   managerCopy = manager;
-  v94.receiver = self;
-  v94.super_class = FCArticleHeadline;
-  v11 = [(FCHeadline *)&v94 init];
+  v89.receiver = self;
+  v89.super_class = FCArticleHeadline;
+  v11 = [(FCHeadline *)&v89 init];
   if (v11)
   {
     v12 = [channelCopy copy];
@@ -131,33 +131,32 @@ void __46__FCArticleHeadline__simulateTopStoriesBadges__block_invoke()
     if (thumbnail)
     {
       thumbnailMetadata = [metadataCopy thumbnailMetadata];
-      v42 = *(v40 + 1);
       if (thumbnailMetadata)
       {
-        v43 = ((thumbnailMetadata >> 8) & 0xFFFFFFF);
+        v42 = ((thumbnailMetadata >> 8) & 0xFFFFFFF);
       }
 
       else
       {
-        v43 = v40[1];
+        v42 = v40[1];
       }
 
       if (thumbnailMetadata)
       {
-        v44 = (thumbnailMetadata >> 36);
+        v43 = (thumbnailMetadata >> 36);
       }
 
       else
       {
-        v44 = *v40;
+        v43 = *v40;
       }
 
       thumbnail2 = [metadataCopy thumbnail];
-      v46 = [managerCopy assetHandleForCKAssetURLString:thumbnail2 lifetimeHint:0];
+      v45 = [managerCopy assetHandleForCKAssetURLString:thumbnail2 lifetimeHint:0];
 
-      v47 = [FCHeadlineThumbnail headlineThumbnailWithAssetHandle:v46 thumbnailSize:v44, v43];
+      v46 = [FCHeadlineThumbnail headlineThumbnailWithAssetHandle:v45 thumbnailSize:v43, v42];
       thumbnail = v11->_thumbnail;
-      v11->_thumbnail = v47;
+      v11->_thumbnail = v46;
     }
 
     thumbnailHQ = [metadataCopy thumbnailHQ];
@@ -165,33 +164,32 @@ void __46__FCArticleHeadline__simulateTopStoriesBadges__block_invoke()
     if (thumbnailHQ)
     {
       thumbnailHQMetadata = [metadataCopy thumbnailHQMetadata];
-      v51 = *(v40 + 1);
       if (thumbnailHQMetadata)
       {
-        v52 = ((thumbnailHQMetadata >> 8) & 0xFFFFFFF);
+        v50 = ((thumbnailHQMetadata >> 8) & 0xFFFFFFF);
       }
 
       else
       {
-        v52 = v40[1];
+        v50 = v40[1];
       }
 
       if (thumbnailHQMetadata)
       {
-        v53 = (thumbnailHQMetadata >> 36);
+        v51 = (thumbnailHQMetadata >> 36);
       }
 
       else
       {
-        v53 = *v40;
+        v51 = *v40;
       }
 
       thumbnailHQ2 = [metadataCopy thumbnailHQ];
-      v55 = [managerCopy assetHandleForCKAssetURLString:thumbnailHQ2 lifetimeHint:0];
+      v53 = [managerCopy assetHandleForCKAssetURLString:thumbnailHQ2 lifetimeHint:0];
 
-      v56 = [FCHeadlineThumbnail headlineThumbnailWithAssetHandle:v55 thumbnailSize:v53, v52];
+      v54 = [FCHeadlineThumbnail headlineThumbnailWithAssetHandle:v53 thumbnailSize:v51, v50];
       thumbnailHQ = v11->_thumbnailHQ;
-      v11->_thumbnailHQ = v56;
+      v11->_thumbnailHQ = v54;
     }
 
     thumbnailMedium = [metadataCopy thumbnailMedium];
@@ -199,33 +197,32 @@ void __46__FCArticleHeadline__simulateTopStoriesBadges__block_invoke()
     if (thumbnailMedium)
     {
       thumbnailMediumMetadata = [metadataCopy thumbnailMediumMetadata];
-      v60 = *(v40 + 1);
       if (thumbnailMediumMetadata)
       {
-        v61 = ((thumbnailMediumMetadata >> 8) & 0xFFFFFFF);
+        v58 = ((thumbnailMediumMetadata >> 8) & 0xFFFFFFF);
       }
 
       else
       {
-        v61 = v40[1];
+        v58 = v40[1];
       }
 
       if (thumbnailMediumMetadata)
       {
-        v62 = (thumbnailMediumMetadata >> 36);
+        v59 = (thumbnailMediumMetadata >> 36);
       }
 
       else
       {
-        v62 = *v40;
+        v59 = *v40;
       }
 
       thumbnailHQ3 = [metadataCopy thumbnailHQ];
-      v64 = [managerCopy assetHandleForCKAssetURLString:thumbnailHQ3 lifetimeHint:0];
+      v61 = [managerCopy assetHandleForCKAssetURLString:thumbnailHQ3 lifetimeHint:0];
 
-      v65 = [FCHeadlineThumbnail headlineThumbnailWithAssetHandle:v64 thumbnailSize:v62, v61];
-      v66 = v11->_thumbnailHQ;
-      v11->_thumbnailHQ = v65;
+      v62 = [FCHeadlineThumbnail headlineThumbnailWithAssetHandle:v61 thumbnailSize:v59, v58];
+      v63 = v11->_thumbnailHQ;
+      v11->_thumbnailHQ = v62;
     }
 
     thumbnailHQ4 = [metadataCopy thumbnailHQ];
@@ -233,33 +230,32 @@ void __46__FCArticleHeadline__simulateTopStoriesBadges__block_invoke()
     if (thumbnailHQ4)
     {
       thumbnailHQMetadata2 = [metadataCopy thumbnailHQMetadata];
-      v69 = *(v40 + 1);
       if (thumbnailHQMetadata2)
       {
-        v70 = ((thumbnailHQMetadata2 >> 8) & 0xFFFFFFF);
+        v66 = ((thumbnailHQMetadata2 >> 8) & 0xFFFFFFF);
       }
 
       else
       {
-        v70 = v40[1];
+        v66 = v40[1];
       }
 
       if (thumbnailHQMetadata2)
       {
-        v71 = (thumbnailHQMetadata2 >> 36);
+        v67 = (thumbnailHQMetadata2 >> 36);
       }
 
       else
       {
-        v71 = *v40;
+        v67 = *v40;
       }
 
       thumbnailHQ5 = [metadataCopy thumbnailHQ];
-      v73 = [managerCopy assetHandleForCKAssetURLString:thumbnailHQ5 lifetimeHint:0];
+      v69 = [managerCopy assetHandleForCKAssetURLString:thumbnailHQ5 lifetimeHint:0];
 
-      v74 = [FCHeadlineThumbnail headlineThumbnailWithAssetHandle:v73 thumbnailSize:v71, v70];
-      v75 = v11->_thumbnailHQ;
-      v11->_thumbnailHQ = v74;
+      v70 = [FCHeadlineThumbnail headlineThumbnailWithAssetHandle:v69 thumbnailSize:v67, v66];
+      v71 = v11->_thumbnailHQ;
+      v11->_thumbnailHQ = v70;
 
       v11->_hasThumbnail = 1;
     }
@@ -269,56 +265,55 @@ void __46__FCArticleHeadline__simulateTopStoriesBadges__block_invoke()
     if (thumbnailUltraHQ)
     {
       thumbnailUltraHQMetadata = [metadataCopy thumbnailUltraHQMetadata];
-      v78 = *(v40 + 1);
       if (thumbnailUltraHQMetadata)
       {
-        v79 = ((thumbnailUltraHQMetadata >> 8) & 0xFFFFFFF);
+        v74 = ((thumbnailUltraHQMetadata >> 8) & 0xFFFFFFF);
       }
 
       else
       {
-        v79 = v40[1];
+        v74 = v40[1];
       }
 
       if (thumbnailUltraHQMetadata)
       {
-        v80 = (thumbnailUltraHQMetadata >> 36);
+        v75 = (thumbnailUltraHQMetadata >> 36);
       }
 
       else
       {
-        v80 = *v40;
+        v75 = *v40;
       }
 
       thumbnailUltraHQ2 = [metadataCopy thumbnailUltraHQ];
-      v82 = [managerCopy assetHandleForCKAssetURLString:thumbnailUltraHQ2 lifetimeHint:0];
+      v77 = [managerCopy assetHandleForCKAssetURLString:thumbnailUltraHQ2 lifetimeHint:0];
 
-      v83 = [FCHeadlineThumbnail headlineThumbnailWithAssetHandle:v82 thumbnailSize:v80, v79];
+      v78 = [FCHeadlineThumbnail headlineThumbnailWithAssetHandle:v77 thumbnailSize:v75, v74];
       thumbnailUltraHQ = v11->_thumbnailUltraHQ;
-      v11->_thumbnailUltraHQ = v83;
+      v11->_thumbnailUltraHQ = v78;
 
       v11->_hasThumbnail = 1;
     }
 
     videoURL = [metadataCopy videoURL];
-    v86 = [videoURL length];
-    if (v86)
+    v81 = [videoURL length];
+    if (v81)
     {
-      v87 = [MEMORY[0x1E695DFF8] URLWithString:videoURL];
+      v82 = [MEMORY[0x1E695DFF8] URLWithString:videoURL];
     }
 
     else
     {
-      v87 = 0;
+      v82 = 0;
     }
 
-    objc_storeStrong(&v11->_videoURL, v87);
-    if (v86)
+    objc_storeStrong(&v11->_videoURL, v82);
+    if (v81)
     {
     }
 
-    v88 = v11->_thumbnail || v11->_thumbnailMedium || v11->_thumbnailHQ || v11->_thumbnailUltraHQ != 0;
-    v11->_hasThumbnail = v88;
+    v83 = v11->_thumbnail || v11->_thumbnailMedium || v11->_thumbnailHQ || v11->_thumbnailUltraHQ != 0;
+    v11->_hasThumbnail = v83;
     v11->_paid = [metadataCopy isPaid];
     v11->_bundlePaid = [metadataCopy isPaid];
     routeURL = [metadataCopy routeURL];
@@ -328,15 +323,15 @@ void __46__FCArticleHeadline__simulateTopStoriesBadges__block_invoke()
     contentURL = [metadataCopy contentURL];
     if (contentURL)
     {
-      v92 = [MEMORY[0x1E695DFF8] URLWithString:contentURL];
+      v87 = [MEMORY[0x1E695DFF8] URLWithString:contentURL];
     }
 
     else
     {
-      v92 = 0;
+      v87 = 0;
     }
 
-    objc_storeStrong(&v11->_contentURL, v92);
+    objc_storeStrong(&v11->_contentURL, v87);
     if (contentURL)
     {
     }
@@ -350,7 +345,7 @@ void __46__FCArticleHeadline__simulateTopStoriesBadges__block_invoke()
 
 - (FCArticleHeadline)initWithArticleRecord:(id)record articleInterestToken:(id)token sourceChannel:(id)channel parentIssue:(id)issue storyStyleConfigs:(id)configs storyTypeTimeout:(int64_t)timeout rapidUpdatesTimeout:(int64_t)updatesTimeout assetManager:(id)self0 experimentalTitleProvider:(id)self1
 {
-  v349 = *MEMORY[0x1E69E9840];
+  v348 = *MEMORY[0x1E69E9840];
   recordCopy = record;
   tokenCopy = token;
   channelCopy = channel;
@@ -360,24 +355,24 @@ void __46__FCArticleHeadline__simulateTopStoriesBadges__block_invoke()
   providerCopy = provider;
   if (!recordCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v289 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "articleRecord"];
+    v288 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "articleRecord"];
     *buf = 136315906;
     *&buf[4] = "[FCArticleHeadline initWithArticleRecord:articleInterestToken:sourceChannel:parentIssue:storyStyleConfigs:storyTypeTimeout:rapidUpdatesTimeout:assetManager:experimentalTitleProvider:]";
     *&buf[12] = 2080;
     *&buf[14] = "FCArticleHeadline.m";
     *&buf[22] = 1024;
-    LODWORD(v347) = 265;
-    WORD2(v347) = 2114;
-    *(&v347 + 6) = v289;
+    LODWORD(v346) = 265;
+    WORD2(v346) = 2114;
+    *(&v346 + 6) = v288;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v344.receiver = self;
-  v344.super_class = FCArticleHeadline;
-  v22 = [(FCHeadline *)&v344 init];
+  v343.receiver = self;
+  v343.super_class = FCArticleHeadline;
+  v22 = [(FCHeadline *)&v343 init];
   if (v22)
   {
-    v338 = issueCopy;
+    v337 = issueCopy;
     context = objc_autoreleasePoolPush();
     objc_storeStrong(&v22->_articleRecord, record);
     objc_storeStrong(&v22->_articleInterestToken, token);
@@ -396,20 +391,20 @@ void __46__FCArticleHeadline__simulateTopStoriesBadges__block_invoke()
 
     if ((v27 & 1) == 0 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v290 = objc_alloc(MEMORY[0x1E696AEC0]);
-      v291 = objc_opt_class();
-      v292 = NSStringFromClass(v291);
+      v289 = objc_alloc(MEMORY[0x1E696AEC0]);
+      v290 = objc_opt_class();
+      v291 = NSStringFromClass(v290);
       sourceChannelTagID2 = [(NTPBArticleRecord *)v22->_articleRecord sourceChannelTagID];
       identifier2 = [(FCChannelProviding *)v22->_sourceChannel identifier];
-      v294 = [v290 initWithFormat:@"Attempting to initialize a %@ with mismatched articleRecord sourceChannelTagID : %@ and sourceChannel identifier : %@", v292, sourceChannelTagID2, identifier2];
+      v293 = [v289 initWithFormat:@"Attempting to initialize a %@ with mismatched articleRecord sourceChannelTagID : %@ and sourceChannel identifier : %@", v291, sourceChannelTagID2, identifier2];
       *buf = 136315906;
       *&buf[4] = "[FCArticleHeadline initWithArticleRecord:articleInterestToken:sourceChannel:parentIssue:storyStyleConfigs:storyTypeTimeout:rapidUpdatesTimeout:assetManager:experimentalTitleProvider:]";
       *&buf[12] = 2080;
       *&buf[14] = "FCArticleHeadline.m";
       *&buf[22] = 1024;
-      LODWORD(v347) = 296;
-      WORD2(v347) = 2114;
-      *(&v347 + 6) = v294;
+      LODWORD(v346) = 296;
+      WORD2(v346) = 2114;
+      *(&v346 + 6) = v293;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
     }
 
@@ -417,7 +412,7 @@ void __46__FCArticleHeadline__simulateTopStoriesBadges__block_invoke()
     identifier3 = [base identifier];
 
     objc_storeStrong(&v22->_identifier, identifier3);
-    v340 = identifier3;
+    v339 = identifier3;
     objc_storeStrong(&v22->_articleID, identifier3);
     v22->_featureCandidate = [recordCopy isFeatureCandidate];
     referencedArticleID = [recordCopy referencedArticleID];
@@ -464,7 +459,7 @@ void __46__FCArticleHeadline__simulateTopStoriesBadges__block_invoke()
     if (providerCopy)
     {
       experimentalTitles = [recordCopy experimentalTitles];
-      v54 = [providerCopy headlineMetadataFromTitle:v52 fromExperimentalTitles:experimentalTitles forArticleID:v340];
+      v54 = [providerCopy headlineMetadataFromTitle:v52 fromExperimentalTitles:experimentalTitles forArticleID:v339];
       experimentalTitleMetadata = v22->_experimentalTitleMetadata;
       v22->_experimentalTitleMetadata = v54;
 
@@ -484,44 +479,44 @@ void __46__FCArticleHeadline__simulateTopStoriesBadges__block_invoke()
     v59 = *(&v22->super.super.isa + v57);
     *(&v22->super.super.isa + v57) = chosenTitle;
 
-    v339 = channelCopy;
+    v338 = channelCopy;
     if (![(NSString *)v22->_title length])
     {
       v60 = FCDefaultLog;
       if (os_log_type_enabled(FCDefaultLog, OS_LOG_TYPE_ERROR))
       {
-        v296 = v60;
+        v295 = v60;
         title2 = [recordCopy title];
-        v298 = title2;
+        v297 = title2;
         if (title2)
         {
-          v299 = title2;
+          v298 = title2;
         }
 
         else
         {
-          v299 = @"nil";
+          v298 = @"nil";
         }
 
         experimentalTitles2 = [recordCopy experimentalTitles];
-        v301 = experimentalTitles2;
+        v300 = experimentalTitles2;
         *buf = 138543874;
         if (experimentalTitles2)
         {
-          v302 = experimentalTitles2;
+          v301 = experimentalTitles2;
         }
 
         else
         {
-          v302 = @"nil";
+          v301 = @"nil";
         }
 
-        *&buf[4] = v340;
+        *&buf[4] = v339;
         *&buf[12] = 2114;
-        *&buf[14] = v299;
+        *&buf[14] = v298;
         *&buf[22] = 2114;
-        *&v347 = v302;
-        _os_log_error_impl(&dword_1B63EF000, v296, OS_LOG_TYPE_ERROR, "Headline article [%{public}@] was assigned an empty title! Original record had title=[%{public}@] experimentalTitles=[%{public}@]", buf, 0x20u);
+        *&v346 = v301;
+        _os_log_error_impl(&dword_1B63EF000, v295, OS_LOG_TYPE_ERROR, "Headline article [%{public}@] was assigned an empty title! Original record had title=[%{public}@] experimentalTitles=[%{public}@]", buf, 0x20u);
       }
     }
 
@@ -594,7 +589,7 @@ void __46__FCArticleHeadline__simulateTopStoriesBadges__block_invoke()
       v85 = (thumbnailMediumMetadata >> 36);
     }
 
-    v324 = v85;
+    v323 = v85;
     thumbnailHQMetadata = [recordCopy thumbnailHQMetadata];
     v87 = v76;
     v88 = v77;
@@ -604,8 +599,8 @@ void __46__FCArticleHeadline__simulateTopStoriesBadges__block_invoke()
       v88 = (thumbnailHQMetadata >> 36);
     }
 
-    v322 = v88;
-    v325 = v87;
+    v321 = v88;
+    v324 = v87;
     thumbnailUltraHQMetadata = [recordCopy thumbnailUltraHQMetadata];
     v90 = v76;
     v91 = v77;
@@ -615,8 +610,8 @@ void __46__FCArticleHeadline__simulateTopStoriesBadges__block_invoke()
       v91 = (thumbnailUltraHQMetadata >> 36);
     }
 
-    v320 = v91;
-    v323 = v90;
+    v319 = v91;
+    v322 = v90;
     thumbnailWidgetLQMetadata = [recordCopy thumbnailWidgetLQMetadata];
     v93 = v76;
     v94 = v77;
@@ -626,8 +621,8 @@ void __46__FCArticleHeadline__simulateTopStoriesBadges__block_invoke()
       v94 = (thumbnailWidgetLQMetadata >> 36);
     }
 
-    v318 = v94;
-    v321 = v93;
+    v317 = v94;
+    v320 = v93;
     thumbnailWidgetMetadata = [recordCopy thumbnailWidgetMetadata];
     v96 = v76;
     v97 = v77;
@@ -637,9 +632,9 @@ void __46__FCArticleHeadline__simulateTopStoriesBadges__block_invoke()
       v97 = (thumbnailWidgetMetadata >> 36);
     }
 
-    v317 = v97;
-    v319 = v96;
-    v327 = v67;
+    v316 = v97;
+    v318 = v96;
+    v326 = v67;
     thumbnailWidgetHQMetadata = [recordCopy thumbnailWidgetHQMetadata];
     if (thumbnailWidgetHQMetadata)
     {
@@ -648,28 +643,28 @@ void __46__FCArticleHeadline__simulateTopStoriesBadges__block_invoke()
     }
 
     thumbnailLQURL = [recordCopy thumbnailLQURL];
-    v337 = [recordCopy generateThumbnailAssetHandleForURL:thumbnailLQURL withAssetManager:managerCopy];
+    v336 = [recordCopy generateThumbnailAssetHandleForURL:thumbnailLQURL withAssetManager:managerCopy];
 
     thumbnailURL = [recordCopy thumbnailURL];
-    v336 = [recordCopy generateThumbnailAssetHandleForURL:thumbnailURL withAssetManager:managerCopy];
+    v335 = [recordCopy generateThumbnailAssetHandleForURL:thumbnailURL withAssetManager:managerCopy];
 
     thumbnailMediumURL = [recordCopy thumbnailMediumURL];
-    v335 = [recordCopy generateThumbnailAssetHandleForURL:thumbnailMediumURL withAssetManager:managerCopy];
+    v334 = [recordCopy generateThumbnailAssetHandleForURL:thumbnailMediumURL withAssetManager:managerCopy];
 
     thumbnailHQURL = [recordCopy thumbnailHQURL];
-    v334 = [recordCopy generateThumbnailAssetHandleForURL:thumbnailHQURL withAssetManager:managerCopy];
+    v333 = [recordCopy generateThumbnailAssetHandleForURL:thumbnailHQURL withAssetManager:managerCopy];
 
     thumbnailUltraHQURL = [recordCopy thumbnailUltraHQURL];
-    v333 = [recordCopy generateThumbnailAssetHandleForURL:thumbnailUltraHQURL withAssetManager:managerCopy];
+    v332 = [recordCopy generateThumbnailAssetHandleForURL:thumbnailUltraHQURL withAssetManager:managerCopy];
 
     thumbnailWidgetLQURL = [recordCopy thumbnailWidgetLQURL];
-    v332 = [recordCopy generateThumbnailAssetHandleForURL:thumbnailWidgetLQURL withAssetManager:managerCopy];
+    v331 = [recordCopy generateThumbnailAssetHandleForURL:thumbnailWidgetLQURL withAssetManager:managerCopy];
 
     thumbnailWidgetURL = [recordCopy thumbnailWidgetURL];
-    v331 = [recordCopy generateThumbnailAssetHandleForURL:thumbnailWidgetURL withAssetManager:managerCopy];
+    v330 = [recordCopy generateThumbnailAssetHandleForURL:thumbnailWidgetURL withAssetManager:managerCopy];
 
     thumbnailWidgetHQURL = [recordCopy thumbnailWidgetHQURL];
-    v326 = [recordCopy generateThumbnailAssetHandleForURL:thumbnailWidgetHQURL withAssetManager:managerCopy];
+    v325 = [recordCopy generateThumbnailAssetHandleForURL:thumbnailWidgetHQURL withAssetManager:managerCopy];
 
     shortExcerpt = [recordCopy shortExcerpt];
     shortExcerpt = v22->_shortExcerpt;
@@ -824,10 +819,10 @@ void __46__FCArticleHeadline__simulateTopStoriesBadges__block_invoke()
     {
     }
 
-    v330 = contentURL;
+    v329 = contentURL;
     videoURL = [recordCopy videoURL];
     v165 = [videoURL length];
-    v316 = videoURL;
+    v315 = videoURL;
     if (v165)
     {
       v166 = [MEMORY[0x1E695DFF8] URLWithString:videoURL];
@@ -886,7 +881,7 @@ void __46__FCArticleHeadline__simulateTopStoriesBadges__block_invoke()
     v189 = v188;
 
     objc_opt_self();
-    v315 = videoCallToActionURL;
+    v314 = videoCallToActionURL;
     if (qword_1EDB268F0 != -1)
     {
       dispatch_once(&qword_1EDB268F0, &__block_literal_global_53);
@@ -918,7 +913,7 @@ void __46__FCArticleHeadline__simulateTopStoriesBadges__block_invoke()
     behaviorFlags = [recordCopy behaviorFlags];
     LOWORD(behaviorFlags) = behaviorFlags;
     v22->_behaviorFlags = behaviorFlags;
-    v342 = managerCopy;
+    v341 = managerCopy;
     if (behaviorFlags)
     {
       if (v189 >= updatesTimeout)
@@ -937,7 +932,7 @@ void __46__FCArticleHeadline__simulateTopStoriesBadges__block_invoke()
           *&buf[12] = 2114;
           *&buf[14] = v200;
           *&buf[22] = 2114;
-          *&v347 = v201;
+          *&v346 = v201;
           _os_log_impl(&dword_1B63EF000, v198, OS_LOG_TYPE_DEFAULT, "Headline will ignore rapid-updates flag due to rapid-updates timeout, articleID=%{public}@, lastModified=%{public}@, timeout=%{public}@", buf, 0x20u);
 
           v195 = 0;
@@ -969,7 +964,7 @@ void __46__FCArticleHeadline__simulateTopStoriesBadges__block_invoke()
     v22->_minimumNewsVersion = [recordCopy minimumNewsVersion];
     v22->_paid = [recordCopy isPaid];
     v22->_bundlePaid = [recordCopy isBundlePaid];
-    v22->_canBePurchased = [v339 isPurchaseSetup];
+    v22->_canBePurchased = [v338 isPurchaseSetup];
     v22->_issueOnly = [recordCopy isIssueOnly];
     layeredCover = [recordCopy layeredCover];
     v203 = [layeredCover copy];
@@ -1000,13 +995,13 @@ void __46__FCArticleHeadline__simulateTopStoriesBadges__block_invoke()
     {
       articleRecirculationConfigurationURL = [recordCopy articleRecirculationConfigurationURL];
 
-      v212 = v330;
+      v212 = v329;
       if (!articleRecirculationConfigurationURL)
       {
 LABEL_83:
-        v329 = tokenCopy;
+        v328 = tokenCopy;
         v215 = recordCopy;
-        v216 = v342;
+        v216 = v341;
         v217 = MEMORY[0x1E695DFF8];
         narrativeTrackFullURL = [v215 narrativeTrackFullURL];
         v219 = [v217 fc_safeURLWithString:narrativeTrackFullURL];
@@ -1017,14 +1012,14 @@ LABEL_83:
           narrativeTrackMetadata = [v215 narrativeTrackMetadata];
           if (narrativeTrackMetadata)
           {
-            v345 = 0;
-            v314 = narrativeTrackMetadata;
-            v222 = [MEMORY[0x1E695DF20] fc_dictionaryFromJSON:narrativeTrackMetadata error:&v345];
-            v223 = v345;
+            v344 = 0;
+            v313 = narrativeTrackMetadata;
+            v222 = [MEMORY[0x1E695DF20] fc_dictionaryFromJSON:narrativeTrackMetadata error:&v344];
+            v223 = v344;
             if (v222)
             {
-              v310 = v223;
-              v313 = v220;
+              v309 = v223;
+              v312 = v220;
               v224 = [v222 objectForKeyedSubscript:@"description"];
               excerpt = v22->_excerpt;
               v22->_excerpt = v224;
@@ -1042,15 +1037,15 @@ LABEL_83:
               *buf = MEMORY[0x1E69E9820];
               *&buf[8] = 3221225472;
               *&buf[16] = __72__FCArticleHeadline__adoptNarrativeTrackFromArticleRecord_assetManager___block_invoke_48;
-              *&v347 = &unk_1E7C36D40;
-              v309 = v230;
-              *(&v347 + 1) = v309;
+              *&v346 = &unk_1E7C36D40;
+              v308 = v230;
+              *(&v346 + 1) = v308;
               v232 = [v231 fc_array:buf];
               narrativeTrackBuddyArticleIDs = v22->_narrativeTrackBuddyArticleIDs;
               v22->_narrativeTrackBuddyArticleIDs = v232;
 
               [v215 narrativeTrackFullIdentifier];
-              v312 = v311 = v216;
+              v311 = v310 = v216;
               if (v216)
               {
                 v234 = v216[14];
@@ -1062,13 +1057,13 @@ LABEL_83:
               }
 
               v235 = v234;
-              v236 = [FCArticleHeadline _tempOverrideMIMETypeForURL:v313];
-              v237 = [v235 assetWithIdentifier:v312 remoteURL:v313 overrideMIMEType:v236];
+              v236 = [FCArticleHeadline _tempOverrideMIMETypeForURL:v312];
+              v237 = [v235 assetWithIdentifier:v311 remoteURL:v312 overrideMIMEType:v236];
 
               v238 = [FCArticleAudioTrack alloc];
               v239 = [v222 objectForKeyedSubscript:@"fullTrackDuration"];
               [v239 doubleValue];
-              v308 = v237;
+              v307 = v237;
               v240 = [(FCArticleAudioTrack *)v238 initWithType:0 asset:v237 duration:?];
               narrativeTrack = v22->_narrativeTrack;
               v22->_narrativeTrack = v240;
@@ -1079,25 +1074,25 @@ LABEL_83:
 
               if (v244)
               {
-                v307 = v82;
+                v306 = v82;
                 v245 = v84;
                 v246 = v79;
                 v247 = v81;
                 narrativeTrackSampleIdentifier = [v215 narrativeTrackSampleIdentifier];
-                v249 = v311;
-                v305 = routeURL;
+                v249 = v310;
+                v304 = routeURL;
                 v250 = v78;
-                if (v311)
+                if (v310)
                 {
-                  v249 = v311[14];
+                  v249 = v310[14];
                 }
 
                 v251 = v249;
                 v252 = [FCArticleHeadline _tempOverrideMIMETypeForURL:v244];
-                v306 = narrativeTrackSampleIdentifier;
+                v305 = narrativeTrackSampleIdentifier;
                 v253 = [v251 assetWithIdentifier:narrativeTrackSampleIdentifier remoteURL:v244 overrideMIMEType:v252];
 
-                v304 = [FCArticleAudioTrack alloc];
+                v303 = [FCArticleAudioTrack alloc];
                 v254 = [v222 objectForKeyedSubscript:@"sampleTrackDuration"];
                 [v254 doubleValue];
                 v256 = v255;
@@ -1106,17 +1101,17 @@ LABEL_83:
                 v259 = v258;
                 v260 = [v222 objectForKeyedSubscript:@"sampleTrackEmbeddedUpsellEndTime"];
                 [v260 doubleValue];
-                v262 = [(FCArticleAudioTrack *)v304 initWithType:0 asset:v253 duration:v256 embeddedUpsellStartTime:v259 embeddedUpsellEndTime:v261];
+                v262 = [(FCArticleAudioTrack *)v303 initWithType:0 asset:v253 duration:v256 embeddedUpsellStartTime:v259 embeddedUpsellEndTime:v261];
                 narrativeTrackSample = v22->_narrativeTrackSample;
                 v22->_narrativeTrackSample = v262;
 
-                routeURL = v305;
-                v264 = v306;
+                routeURL = v304;
+                v264 = v305;
                 v78 = v250;
                 v81 = v247;
                 v79 = v246;
                 v84 = v245;
-                v82 = v307;
+                v82 = v306;
               }
 
               else
@@ -1130,10 +1125,10 @@ LABEL_83:
               narrativeTrackTextRanges = v22->_narrativeTrackTextRanges;
               v22->_narrativeTrackTextRanges = narrativeTrackTextRanges;
 
-              v212 = v330;
-              v265 = v310;
-              v216 = v311;
-              v220 = v313;
+              v212 = v329;
+              v265 = v309;
+              v216 = v310;
+              v220 = v312;
             }
 
             else
@@ -1141,14 +1136,14 @@ LABEL_83:
               *buf = MEMORY[0x1E69E9820];
               *&buf[8] = 3221225472;
               *&buf[16] = __72__FCArticleHeadline__adoptNarrativeTrackFromArticleRecord_assetManager___block_invoke_47;
-              *&v347 = &unk_1E7C36C58;
-              *(&v347 + 1) = v22;
+              *&v346 = &unk_1E7C36C58;
+              *(&v346 + 1) = v22;
               v265 = v223;
-              v348 = v223;
+              v347 = v223;
               __72__FCArticleHeadline__adoptNarrativeTrackFromArticleRecord_assetManager___block_invoke_47(buf);
             }
 
-            narrativeTrackMetadata = v314;
+            narrativeTrackMetadata = v313;
           }
 
           else
@@ -1156,66 +1151,66 @@ LABEL_83:
             *buf = MEMORY[0x1E69E9820];
             *&buf[8] = 3221225472;
             *&buf[16] = __72__FCArticleHeadline__adoptNarrativeTrackFromArticleRecord_assetManager___block_invoke_2;
-            *&v347 = &unk_1E7C36EA0;
-            *(&v347 + 1) = v22;
+            *&v346 = &unk_1E7C36EA0;
+            *(&v346 + 1) = v22;
             __72__FCArticleHeadline__adoptNarrativeTrackFromArticleRecord_assetManager___block_invoke_2(buf);
           }
         }
 
         objc_autoreleasePoolPop(context);
-        v269 = [FCHeadlineThumbnail headlineThumbnailWithAssetHandle:v337 thumbnailSize:v79, v78];
+        v269 = [FCHeadlineThumbnail headlineThumbnailWithAssetHandle:v336 thumbnailSize:v79, v78];
         thumbnailLQ = v22->_thumbnailLQ;
         v22->_thumbnailLQ = v269;
 
-        v271 = [FCHeadlineThumbnail headlineThumbnailWithAssetHandle:v336 thumbnailSize:v82, v81];
+        v271 = [FCHeadlineThumbnail headlineThumbnailWithAssetHandle:v335 thumbnailSize:v82, v81];
         thumbnail = v22->_thumbnail;
         v22->_thumbnail = v271;
 
-        v273 = [FCHeadlineThumbnail headlineThumbnailWithAssetHandle:v335 thumbnailSize:v324, v84];
+        v273 = [FCHeadlineThumbnail headlineThumbnailWithAssetHandle:v334 thumbnailSize:v323, v84];
         thumbnailMedium = v22->_thumbnailMedium;
         v22->_thumbnailMedium = v273;
 
-        v325 = [FCHeadlineThumbnail headlineThumbnailWithAssetHandle:v334 thumbnailSize:v322, v325];
+        v324 = [FCHeadlineThumbnail headlineThumbnailWithAssetHandle:v333 thumbnailSize:v321, v324];
         thumbnailHQ = v22->_thumbnailHQ;
-        v22->_thumbnailHQ = v325;
+        v22->_thumbnailHQ = v324;
 
-        v323 = [FCHeadlineThumbnail headlineThumbnailWithAssetHandle:v333 thumbnailSize:v320, v323];
+        v322 = [FCHeadlineThumbnail headlineThumbnailWithAssetHandle:v332 thumbnailSize:v319, v322];
         thumbnailUltraHQ = v22->_thumbnailUltraHQ;
-        v22->_thumbnailUltraHQ = v323;
+        v22->_thumbnailUltraHQ = v322;
 
-        v321 = [FCHeadlineThumbnail headlineThumbnailWithAssetHandle:v332 thumbnailSize:v318, v321];
+        v320 = [FCHeadlineThumbnail headlineThumbnailWithAssetHandle:v331 thumbnailSize:v317, v320];
         thumbnailWidgetLQ = v22->_thumbnailWidgetLQ;
-        v22->_thumbnailWidgetLQ = v321;
+        v22->_thumbnailWidgetLQ = v320;
 
-        v319 = [FCHeadlineThumbnail headlineThumbnailWithAssetHandle:v331 thumbnailSize:v317, v319];
+        v318 = [FCHeadlineThumbnail headlineThumbnailWithAssetHandle:v330 thumbnailSize:v316, v318];
         thumbnailWidget = v22->_thumbnailWidget;
-        v22->_thumbnailWidget = v319;
+        v22->_thumbnailWidget = v318;
 
-        v283 = [FCHeadlineThumbnail headlineThumbnailWithAssetHandle:v326 thumbnailSize:v77, v76];
+        v283 = [FCHeadlineThumbnail headlineThumbnailWithAssetHandle:v325 thumbnailSize:v77, v76];
         thumbnailWidgetHQ = v22->_thumbnailWidgetHQ;
         v22->_thumbnailWidgetHQ = v283;
 
         if (v22->_thumbnailLQ)
         {
           v285 = 1;
-          tokenCopy = v329;
-          issueCopy = v338;
-          channelCopy = v339;
+          tokenCopy = v328;
+          issueCopy = v337;
+          channelCopy = v338;
         }
 
         else
         {
-          tokenCopy = v329;
+          tokenCopy = v328;
           if (v22->_thumbnail || v22->_thumbnailMedium)
           {
             v285 = 1;
-            issueCopy = v338;
-            channelCopy = v339;
+            issueCopy = v337;
+            channelCopy = v338;
           }
 
           else
           {
-            issueCopy = v338;
+            issueCopy = v337;
             if (v22->_thumbnailHQ)
             {
               v285 = 1;
@@ -1226,12 +1221,12 @@ LABEL_83:
               v285 = v22->_thumbnailUltraHQ != 0;
             }
 
-            channelCopy = v339;
+            channelCopy = v338;
           }
         }
 
         v22->_hasThumbnail = v285;
-        managerCopy = v342;
+        managerCopy = v341;
         if (!v22->_halfLife)
         {
           halfLife = 21600000;
@@ -1245,15 +1240,15 @@ LABEL_83:
 
         if (v22->_videoURL && [(FCArticleHeadline *)v22 contentType]!= 2 && v22->_videoURL && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
-          v303 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"The videoURL field should only be set for ANF articles"];
+          v302 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"The videoURL field should only be set for ANF articles"];
           *buf = 136315906;
           *&buf[4] = "[FCArticleHeadline initWithArticleRecord:articleInterestToken:sourceChannel:parentIssue:storyStyleConfigs:storyTypeTimeout:rapidUpdatesTimeout:assetManager:experimentalTitleProvider:]";
           *&buf[12] = 2080;
           *&buf[14] = "FCArticleHeadline.m";
           *&buf[22] = 1024;
-          LODWORD(v347) = 521;
-          WORD2(v347) = 2114;
-          *(&v347 + 6) = v303;
+          LODWORD(v346) = 521;
+          WORD2(v346) = 2114;
+          *(&v346 + 6) = v302;
           _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
         }
 
@@ -1261,16 +1256,16 @@ LABEL_83:
       }
 
       articleRecirculationConfigurationURL2 = [recordCopy articleRecirculationConfigurationURL];
-      v211 = [v342 assetHandleForCKAssetURLString:articleRecirculationConfigurationURL2 lifetimeHint:2];
+      v211 = [v341 assetHandleForCKAssetURLString:articleRecirculationConfigurationURL2 lifetimeHint:2];
     }
 
     else
     {
       v209 = FCCKLocalizedArticleArticleRecirculationConfigurationKey();
-      articleRecirculationConfigurationURL2 = [FCRecordFieldURLProtocol URLForRecordID:v340 fieldName:v209];
+      articleRecirculationConfigurationURL2 = [FCRecordFieldURLProtocol URLForRecordID:v339 fieldName:v209];
 
-      v211 = [v342 assetHandleForURL:articleRecirculationConfigurationURL2 lifetimeHint:2];
-      v212 = v330;
+      v211 = [v341 assetHandleForURL:articleRecirculationConfigurationURL2 lifetimeHint:2];
+      v212 = v329;
     }
 
     articleRecirculationConfigAssetHandle = v22->_articleRecirculationConfigAssetHandle;
@@ -1281,13 +1276,12 @@ LABEL_83:
 
 LABEL_114:
 
-  v287 = *MEMORY[0x1E69E9840];
   return v22;
 }
 
 - (FCArticleHeadline)initWithArticleRecordData:(id)data sourceChannel:(id)channel parentIssue:(id)issue storyStyleConfigs:(id)configs storyTypeTimeout:(int64_t)timeout rapidUpdatesTimeout:(int64_t)updatesTimeout assetManager:(id)manager experimentalTitleProvider:(id)self0
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   channelCopy = channel;
   issueCopy = issue;
@@ -1307,20 +1301,19 @@ LABEL_114:
     {
       dataCopy = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"failed to parse data %@", dataCopy];
       *buf = 136315906;
-      v28 = "[FCArticleHeadline initWithArticleRecordData:sourceChannel:parentIssue:storyStyleConfigs:storyTypeTimeout:rapidUpdatesTimeout:assetManager:experimentalTitleProvider:]";
-      v29 = 2080;
-      v30 = "FCArticleHeadline.m";
-      v31 = 1024;
-      v32 = 537;
-      v33 = 2114;
-      v34 = dataCopy;
+      v27 = "[FCArticleHeadline initWithArticleRecordData:sourceChannel:parentIssue:storyStyleConfigs:storyTypeTimeout:rapidUpdatesTimeout:assetManager:experimentalTitleProvider:]";
+      v28 = 2080;
+      v29 = "FCArticleHeadline.m";
+      v30 = 1024;
+      v31 = 537;
+      v32 = 2114;
+      v33 = dataCopy;
       _os_log_fault_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "*** Assertion failure (Identifier: ReferredArticleDecode) : %s %s:%d %{public}@", buf, 0x26u);
     }
 
     selfCopy = 0;
   }
 
-  v24 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -1572,79 +1565,73 @@ void __36__FCArticleHeadline_contentManifest__block_invoke(uint64_t a1, void *a2
 
 void __72__FCArticleHeadline__adoptNarrativeTrackFromArticleRecord_assetManager___block_invoke_2(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = FCDefaultLog;
   if (os_log_type_enabled(FCDefaultLog, OS_LOG_TYPE_ERROR))
   {
-    v4 = *(a1 + 32);
-    v5 = v2;
-    v6 = [v4 articleID];
-    v7 = 138543362;
-    v8 = v6;
-    _os_log_error_impl(&dword_1B63EF000, v5, OS_LOG_TYPE_ERROR, "article %{public}@ has a narrative track URL but no metadata", &v7, 0xCu);
+    v3 = *(a1 + 32);
+    v4 = v2;
+    v5 = [v3 articleID];
+    v6 = 138543362;
+    v7 = v5;
+    _os_log_error_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_ERROR, "article %{public}@ has a narrative track URL but no metadata", &v6, 0xCu);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 void __72__FCArticleHeadline__adoptNarrativeTrackFromArticleRecord_assetManager___block_invoke_47(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v2 = FCDefaultLog;
   if (os_log_type_enabled(FCDefaultLog, OS_LOG_TYPE_ERROR))
   {
-    v4 = *(a1 + 32);
-    v5 = v2;
-    v6 = [v4 articleID];
-    v7 = *(a1 + 40);
-    v8 = 138543618;
-    v9 = v6;
-    v10 = 2114;
-    v11 = v7;
-    _os_log_error_impl(&dword_1B63EF000, v5, OS_LOG_TYPE_ERROR, "failed to parse narrative track metadata for %{public}@ with error: %{public}@", &v8, 0x16u);
+    v3 = *(a1 + 32);
+    v4 = v2;
+    v5 = [v3 articleID];
+    v6 = *(a1 + 40);
+    v7 = 138543618;
+    v8 = v5;
+    v9 = 2114;
+    v10 = v6;
+    _os_log_error_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_ERROR, "failed to parse narrative track metadata for %{public}@ with error: %{public}@", &v7, 0x16u);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 void __72__FCArticleHeadline__adoptNarrativeTrackFromArticleRecord_assetManager___block_invoke_48(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = [*(*(&v11 + 1) + 8 * v8) objectForKeyedSubscript:{@"articleID", v11}];
+        v9 = [*(*(&v10 + 1) + 8 * v8) objectForKeyedSubscript:{@"articleID", v10}];
         [v3 fc_safelyAddObject:v9];
 
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 + (__CFString)_tempOverrideMIMETypeForURL:(uint64_t)l

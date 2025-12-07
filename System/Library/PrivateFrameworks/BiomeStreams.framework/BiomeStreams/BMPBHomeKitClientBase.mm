@@ -110,51 +110,48 @@
 {
   toCopy = to;
   has = self->_has;
-  v9 = toCopy;
+  v6 = toCopy;
   if (has)
   {
-    absoluteTimestamp = self->_absoluteTimestamp;
     PBDataWriterWriteDoubleField();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    duration = self->_duration;
     PBDataWriterWriteDoubleField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_homeUniqueIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if ((*&self->_has & 4) != 0)
   {
-    homeOccupancy = self->_homeOccupancy;
     PBDataWriterWriteInt32Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_source)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_clientName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_eventCorrelationIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 }
 
@@ -259,7 +256,6 @@
   }
 
   has = self->_has;
-  v6 = *(equalCopy + 64);
   if (has)
   {
     if ((*(equalCopy + 64) & 1) == 0 || self->_absoluteTimestamp != *(equalCopy + 1))
@@ -292,14 +288,13 @@
     if (![(NSString *)homeUniqueIdentifier isEqual:?])
     {
 LABEL_26:
-      v12 = 0;
+      v10 = 0;
       goto LABEL_27;
     }
 
     has = self->_has;
   }
 
-  v8 = *(equalCopy + 64);
   if ((has & 4) != 0)
   {
     if ((*(equalCopy + 64) & 4) == 0 || self->_homeOccupancy != *(equalCopy + 10))
@@ -331,17 +326,17 @@ LABEL_26:
   eventCorrelationIdentifier = self->_eventCorrelationIdentifier;
   if (eventCorrelationIdentifier | *(equalCopy + 4))
   {
-    v12 = [(NSString *)eventCorrelationIdentifier isEqual:?];
+    v10 = [(NSString *)eventCorrelationIdentifier isEqual:?];
   }
 
   else
   {
-    v12 = 1;
+    v10 = 1;
   }
 
 LABEL_27:
 
-  return v12;
+  return v10;
 }
 
 - (unint64_t)hash

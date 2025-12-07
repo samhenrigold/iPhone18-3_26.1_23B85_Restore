@@ -1235,7 +1235,7 @@ LABEL_9:
   width = size.width;
   v6 = SBSystemNotesMinimumWindowSize();
   v8 = v7;
-  v9 = SBSystemNotesMaximumWindowSize();
+  v11 = SBSystemNotesMaximumWindowSize(v9, v10);
   if (width < v6 || height < v8)
   {
     self->_preferredSceneContentSize.width = v6;
@@ -1245,7 +1245,7 @@ LABEL_9:
   else
   {
     p_preferredSceneContentSize = &self->_preferredSceneContentSize;
-    if (width <= v9 && height <= v10)
+    if (width <= v11 && height <= v12)
     {
       p_preferredSceneContentSize->width = width;
       self->_preferredSceneContentSize.height = height;
@@ -1253,8 +1253,8 @@ LABEL_9:
 
     else
     {
-      p_preferredSceneContentSize->width = v9;
-      self->_preferredSceneContentSize.height = v10;
+      p_preferredSceneContentSize->width = v11;
+      self->_preferredSceneContentSize.height = v12;
     }
   }
 
@@ -1386,7 +1386,7 @@ LABEL_11:
   v5 = [objc_alloc(MEMORY[0x277D75B90]) initWithView:self->_nubView];
   v6 = [MEMORY[0x277D75860] effectWithPreview:v5];
   contentView = [(SBNubView *)self->_nubView contentView];
-  [contentView frame];
+  objc_msgSend_frame(contentView);
   v9 = v8;
   v11 = v10;
   v13 = v12;

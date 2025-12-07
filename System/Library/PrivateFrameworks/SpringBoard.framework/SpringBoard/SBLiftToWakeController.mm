@@ -27,7 +27,7 @@
 {
   if (!self->_screenOn)
   {
-    v3 = SBLogLiftToWake();
+    v3 = SBLogLiftToWake(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
       [(SBLiftToWakeController *)v3 _screenTurnedOn];
@@ -198,7 +198,7 @@ void __68__SBLiftToWakeController_acquireBumpToWakeEnableAssertionForReason___bl
 - (void)_ignoredTransition:(int64_t)transition
 {
   v9 = *MEMORY[0x277D85DE8];
-  v5 = SBLogLiftToWake();
+  v5 = SBLogLiftToWake(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     if ((transition - 1) > 3)
@@ -223,7 +223,7 @@ void __68__SBLiftToWakeController_acquireBumpToWakeEnableAssertionForReason___bl
 {
   if (self->_screenOn)
   {
-    v3 = SBLogLiftToWake();
+    v3 = SBLogLiftToWake(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
       [(SBLiftToWakeController *)v3 _screenTurnedOff];
@@ -270,7 +270,7 @@ void __68__SBLiftToWakeController_acquireBumpToWakeEnableAssertionForReason___bl
   else
   {
     self->_isEnabled = isWakeGestureAvailable;
-    v4 = SBLogLiftToWake();
+    v4 = SBLogLiftToWake(isWakeGestureAvailable);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = NSStringFromBOOL();
@@ -352,18 +352,18 @@ void __68__SBLiftToWakeController_acquireBumpToWakeEnableAssertionForReason___bl
   v12 = [userInfo objectForKey:*MEMORY[0x277D67A10]];
   intValue = [v12 intValue];
 
-  v14 = SBLogLiftToWake();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  v15 = SBLogLiftToWake(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
-    [(SBLiftToWakeController *)changedCopy _handleBacklightLevelChanged:v14];
+    [(SBLiftToWakeController *)changedCopy _handleBacklightLevelChanged:v15];
   }
 
-  v16 = v11 > 0.0 && v8 <= 0.0;
+  v17 = v11 > 0.0 && v8 <= 0.0;
   if (intValue != 13)
   {
     if (v8 <= 0.0 || v11 > 0.0)
     {
-      if (v16)
+      if (v17)
       {
         [(SBLiftToWakeController *)self _screenTurnedOn];
       }
@@ -378,23 +378,27 @@ void __68__SBLiftToWakeController_acquireBumpToWakeEnableAssertionForReason___bl
 
 - (void)_startObservingIfNecessary
 {
-  if (!self->_observingCMWakeGestureManager && self->_isEnabled && [(NSHashTable *)self->_observers count])
+  if (!self->_observingCMWakeGestureManager && self->_isEnabled)
   {
-    self->_wakeGestureState = 0;
-    v3 = SBLogLiftToWake();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    v3 = [(NSHashTable *)self->_observers count];
+    if (v3)
     {
-      *v6 = 0;
-      _os_log_impl(&dword_21ED4E000, v3, OS_LOG_TYPE_INFO, "Starting to observe the CMWakeGestureManager.", v6, 2u);
+      self->_wakeGestureState = 0;
+      v4 = SBLogLiftToWake(v3);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+      {
+        *v7 = 0;
+        _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_INFO, "Starting to observe the CMWakeGestureManager.", v7, 2u);
+      }
+
+      self->_observingCMWakeGestureManager = 1;
+      mEMORY[0x277CC1D78] = [MEMORY[0x277CC1D78] sharedManager];
+      wakeGestureManager = self->_wakeGestureManager;
+      self->_wakeGestureManager = mEMORY[0x277CC1D78];
+
+      [(CMWakeGestureManager *)self->_wakeGestureManager setDelegate:self];
+      [(CMWakeGestureManager *)self->_wakeGestureManager startWakeGestureUpdates];
     }
-
-    self->_observingCMWakeGestureManager = 1;
-    mEMORY[0x277CC1D78] = [MEMORY[0x277CC1D78] sharedManager];
-    wakeGestureManager = self->_wakeGestureManager;
-    self->_wakeGestureManager = mEMORY[0x277CC1D78];
-
-    [(CMWakeGestureManager *)self->_wakeGestureManager setDelegate:self];
-    [(CMWakeGestureManager *)self->_wakeGestureManager startWakeGestureUpdates];
   }
 
   [(SBLiftToWakeController *)self _startObservingBumpsIfNecessary];
@@ -410,11 +414,11 @@ void __68__SBLiftToWakeController_acquireBumpToWakeEnableAssertionForReason___bl
     wakeGestureManager = self->_wakeGestureManager;
     self->_wakeGestureManager = 0;
 
-    v4 = SBLogLiftToWake();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v5 = SBLogLiftToWake(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      *v5 = 0;
-      _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_INFO, "Stopped observing the CMWakeGestureManager.", v5, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_INFO, "Stopped observing the CMWakeGestureManager.", v6, 2u);
     }
   }
 }
@@ -425,7 +429,7 @@ void __68__SBLiftToWakeController_acquireBumpToWakeEnableAssertionForReason___bl
   if (self->_observingCMWakeGestureManager)
   {
     isActive = [(BSCompoundAssertion *)self->_bumpToWakeAssertions isActive];
-    v4 = SBLogLiftToWake();
+    v4 = SBLogLiftToWake(isActive);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       v5[0] = 67109120;
@@ -439,7 +443,7 @@ void __68__SBLiftToWakeController_acquireBumpToWakeEnableAssertionForReason___bl
 
 - (void)_stopObservingBumpsIfNecessary
 {
-  v3 = SBLogLiftToWake();
+  v3 = SBLogLiftToWake(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *v4 = 0;
@@ -451,119 +455,119 @@ void __68__SBLiftToWakeController_acquireBumpToWakeEnableAssertionForReason___bl
 
 - (void)_sendTransitionToObservers:(int64_t)observers deviceOrientation:(int64_t)orientation
 {
-  v22 = *MEMORY[0x277D85DE8];
-  BSDispatchQueueAssertMain();
-  v7 = SBLogLiftToWake();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v23 = *MEMORY[0x277D85DE8];
+  v7 = BSDispatchQueueAssertMain();
+  v8 = SBLogLiftToWake(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     if ((observers - 1) > 3)
     {
-      v8 = @"<unknown>";
+      v9 = @"<unknown>";
     }
 
     else
     {
-      v8 = off_2783B69A8[observers - 1];
+      v9 = off_2783B69A8[observers - 1];
     }
 
     *buf = 138412290;
-    v21 = v8;
-    _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "SBLiftToWakeController: sending to observers: %@", buf, 0xCu);
+    v22 = v9;
+    _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "SBLiftToWakeController: sending to observers: %@", buf, 0xCu);
   }
 
-  v17 = 0u;
   v18 = 0u;
-  v15 = 0u;
+  v19 = 0u;
   v16 = 0u;
-  v9 = [(NSHashTable *)self->_observers copy];
-  v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
-  if (v10)
+  v17 = 0u;
+  v10 = [(NSHashTable *)self->_observers copy];
+  v11 = [v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  if (v11)
   {
-    v11 = v10;
-    v12 = *v16;
+    v12 = v11;
+    v13 = *v17;
     do
     {
-      v13 = 0;
+      v14 = 0;
       do
       {
-        if (*v16 != v12)
+        if (*v17 != v13)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(v10);
         }
 
-        v14 = *(*(&v15 + 1) + 8 * v13);
+        v15 = *(*(&v16 + 1) + 8 * v14);
         if (objc_opt_respondsToSelector())
         {
-          [v14 liftToWakeController:self didObserveTransition:observers deviceOrientation:orientation];
+          [v15 liftToWakeController:self didObserveTransition:observers deviceOrientation:orientation];
         }
 
-        ++v13;
+        ++v14;
       }
 
-      while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      while (v12 != v14);
+      v12 = [v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
-    while (v11);
+    while (v12);
   }
 }
 
 - (void)_sendIgnoredTransitionToObservers:(int64_t)observers
 {
-  v20 = *MEMORY[0x277D85DE8];
-  BSDispatchQueueAssertMain();
-  v5 = SBLogLiftToWake();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v21 = *MEMORY[0x277D85DE8];
+  v5 = BSDispatchQueueAssertMain();
+  v6 = SBLogLiftToWake(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     if ((observers - 1) > 3)
     {
-      v6 = @"<unknown>";
+      v7 = @"<unknown>";
     }
 
     else
     {
-      v6 = off_2783B69A8[observers - 1];
+      v7 = off_2783B69A8[observers - 1];
     }
 
     *buf = 138412290;
-    v19 = v6;
-    _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "SBLiftToWakeController: sending ignored transition to observers: %@", buf, 0xCu);
+    v20 = v7;
+    _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "SBLiftToWakeController: sending ignored transition to observers: %@", buf, 0xCu);
   }
 
-  v15 = 0u;
   v16 = 0u;
-  v13 = 0u;
+  v17 = 0u;
   v14 = 0u;
-  v7 = [(NSHashTable *)self->_observers copy];
-  v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
-  if (v8)
+  v15 = 0u;
+  v8 = [(NSHashTable *)self->_observers copy];
+  v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  if (v9)
   {
-    v9 = v8;
-    v10 = *v14;
+    v10 = v9;
+    v11 = *v15;
     do
     {
-      v11 = 0;
+      v12 = 0;
       do
       {
-        if (*v14 != v10)
+        if (*v15 != v11)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v8);
         }
 
-        v12 = *(*(&v13 + 1) + 8 * v11);
+        v13 = *(*(&v14 + 1) + 8 * v12);
         if (objc_opt_respondsToSelector())
         {
-          [v12 liftToWakeController:self didIgnoreTransition:observers];
+          [v13 liftToWakeController:self didIgnoreTransition:observers];
         }
 
-        ++v11;
+        ++v12;
       }
 
-      while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      while (v10 != v12);
+      v10 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
-    while (v9);
+    while (v10);
   }
 }
 
@@ -623,18 +627,18 @@ void __68__SBLiftToWakeController_acquireBumpToWakeEnableAssertionForReason___bl
 
 void __71__SBLiftToWakeController_wakeGestureManager_didUpdateWakeGestureEvent___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 56);
-  v3 = SBLogLiftToWake();
+  v3 = SBLogLiftToWake(a1);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 48);
     v5 = BSDeviceOrientationDescription();
-    v20 = 67109378;
-    v21 = v4;
-    v22 = 2112;
-    v23 = v5;
-    _os_log_impl(&dword_21ED4E000, v3, OS_LOG_TYPE_DEFAULT, "SBLiftToWakeController: updated wake gesture state received:%d %@", &v20, 0x12u);
+    v22 = 67109378;
+    v23 = v4;
+    v24 = 2112;
+    v25 = v5;
+    _os_log_impl(&dword_21ED4E000, v3, OS_LOG_TYPE_DEFAULT, "SBLiftToWakeController: updated wake gesture state received:%d %@", &v22, 0x12u);
   }
 
   v6 = *(a1 + 32);
@@ -650,26 +654,27 @@ void __71__SBLiftToWakeController_wakeGestureManager_didUpdateWakeGestureEvent__
       if (*(a1 + 48) != 1)
       {
 LABEL_23:
-        v17 = 4;
+        v19 = 4;
 LABEL_29:
-        [v10 _ignoredTransition:v17];
+        [v10 _ignoredTransition:v19];
         return;
       }
 
-      if ([*(v10 + 56) wakeEventOccurred])
+      v11 = [*(v10 + 56) wakeEventOccurred];
+      if (v11)
       {
         v10 = *(a1 + 32);
-        v11 = 4;
+        v12 = 4;
 LABEL_13:
-        [v10 _sendTransitionToObservers:v11 deviceOrientation:v2];
+        [v10 _sendTransitionToObservers:v12 deviceOrientation:v2];
         return;
       }
 
-      v16 = SBLogLiftToWake();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v18 = SBLogLiftToWake(v11);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v20) = 0;
-        _os_log_impl(&dword_21ED4E000, v16, OS_LOG_TYPE_DEFAULT, "debounce filter rejected bump event", &v20, 2u);
+        LOWORD(v22) = 0;
+        _os_log_impl(&dword_21ED4E000, v18, OS_LOG_TYPE_DEFAULT, "debounce filter rejected bump event", &v22, 2u);
       }
     }
 
@@ -677,56 +682,57 @@ LABEL_13:
     goto LABEL_23;
   }
 
-  if (![*(v9 + 32) supportLiftToWake])
+  v13 = [*(v9 + 32) supportLiftToWake];
+  if (!v13)
   {
     goto LABEL_27;
   }
 
-  v12 = *(a1 + 48);
-  if ((v12 - 2) < 2)
+  v14 = *(a1 + 48);
+  if ((v14 - 2) < 2)
   {
     v10 = *(a1 + 32);
     if ((v7 & 0xFFFFFFFFFFFFFFFELL) != 2 && *(v10 + 40) == 1)
     {
-      v11 = 3;
+      v12 = 3;
       goto LABEL_13;
     }
 
     goto LABEL_28;
   }
 
-  if (v12 != 1)
+  if (v14 != 1)
   {
-    v18 = SBLogLiftToWake();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v20 = SBLogLiftToWake(v13);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = *(a1 + 48);
-      v20 = 67109120;
-      v21 = v19;
-      _os_log_impl(&dword_21ED4E000, v18, OS_LOG_TYPE_DEFAULT, "SBLiftToWakeController: wake gesture state not handled -- were we supposed to receive %d ?", &v20, 8u);
+      v21 = *(a1 + 48);
+      v22 = 67109120;
+      v23 = v21;
+      _os_log_impl(&dword_21ED4E000, v20, OS_LOG_TYPE_DEFAULT, "SBLiftToWakeController: wake gesture state not handled -- were we supposed to receive %d ?", &v22, 8u);
     }
 
 LABEL_27:
     v10 = *(a1 + 32);
 LABEL_28:
-    v17 = 0;
+    v19 = 0;
     goto LABEL_29;
   }
 
-  v13 = *(a1 + 32);
-  if (v13[40])
+  v15 = *(a1 + 32);
+  if (v15[40])
   {
-    v14 = 2;
+    v16 = 2;
   }
 
   else
   {
-    v14 = 1;
+    v16 = 1;
   }
 
-  [v13 _sendTransitionToObservers:v14 deviceOrientation:v2];
-  v15 = [MEMORY[0x277CCAB98] defaultCenter];
-  [v15 postNotificationName:*MEMORY[0x277D67A78] object:*(a1 + 32)];
+  [v15 _sendTransitionToObservers:v16 deviceOrientation:v2];
+  v17 = [MEMORY[0x277CCAB98] defaultCenter];
+  [v17 postNotificationName:*MEMORY[0x277D67A78] object:*(a1 + 32)];
 }
 
 - (void)_handleBacklightLevelChanged:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)

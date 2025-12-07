@@ -50,7 +50,7 @@
 - (void)updateConstraints
 {
   selfCopy = self;
-  sub_20D078E54();
+  sub_20D078E54(selfCopy);
 }
 
 - (void)startTransitionToTargetViewState:(int64_t)state

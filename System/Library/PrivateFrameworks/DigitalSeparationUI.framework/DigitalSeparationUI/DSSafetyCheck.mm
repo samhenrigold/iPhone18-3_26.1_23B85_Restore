@@ -5,7 +5,6 @@
 + (id)safetyCheckViewController;
 + (void)authForSafetyCheckWithPresentingViewController:(id)controller safetyCheckController:(id)checkController;
 + (void)isChildOrTeenAccountWithCompletion:(id)completion;
-+ (void)isManagedAccount;
 + (void)presentSafetyCheckWithViewController:(id)controller navigationController:(id)navigationController;
 + (void)showHSA2UpgradeWithPresentingViewController:(id)controller safetyCheckController:(id)checkController;
 + (void)showManagedAccountAlertWithPresentingViewController:(id)controller;
@@ -161,7 +160,7 @@ LABEL_12:
 
 void __86__DSSafetyCheck_authForSafetyCheckWithPresentingViewController_safetyCheckController___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = DSLog_3;
   if (!os_log_type_enabled(DSLog_3, OS_LOG_TYPE_INFO))
@@ -176,11 +175,11 @@ LABEL_6:
     block[1] = 3221225472;
     block[2] = __86__DSSafetyCheck_authForSafetyCheckWithPresentingViewController_safetyCheckController___block_invoke_355;
     block[3] = &unk_278F75868;
-    v11 = *(a1 + 32);
-    v12 = *(a1 + 40);
-    v9 = *(a1 + 48);
-    v7 = v9;
-    v13 = v9;
+    v10 = *(a1 + 32);
+    v11 = *(a1 + 40);
+    v8 = *(a1 + 48);
+    v7 = v8;
+    v12 = v8;
     dispatch_async(MEMORY[0x277D85CD0], block);
 
     if (!v5)
@@ -192,7 +191,7 @@ LABEL_6:
   }
 
   *buf = 67109120;
-  v15 = a2;
+  v14 = a2;
   _os_log_impl(&dword_248C7E000, v6, OS_LOG_TYPE_INFO, "Asked user to auth for Safety Check on entry with success: %d", buf, 8u);
   if (a2)
   {
@@ -212,8 +211,6 @@ LABEL_7:
   }
 
 LABEL_9:
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __86__DSSafetyCheck_authForSafetyCheckWithPresentingViewController_safetyCheckController___block_invoke_355(uint64_t a1)
@@ -251,7 +248,7 @@ void __75__DSSafetyCheck_presentSafetyCheckWithViewController_navigationControll
   [v0 appDidLaunch];
 }
 
-uint64_t __75__DSSafetyCheck_presentSafetyCheckWithViewController_navigationController___block_invoke_2(uint64_t a1, int a2)
+void *__75__DSSafetyCheck_presentSafetyCheckWithViewController_navigationController___block_invoke_2(uint64_t a1, int a2)
 {
   if (a2)
   {
@@ -263,13 +260,11 @@ uint64_t __75__DSSafetyCheck_presentSafetyCheckWithViewController_navigationCont
 
 id __75__DSSafetyCheck_presentSafetyCheckWithViewController_navigationController___block_invoke_3(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v5 = @"entrypoint";
+  v5[1] = *MEMORY[0x277D85DE8];
+  v4 = @"entrypoint";
   v1 = [*(a1 + 32) entryMethod];
-  v6[0] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x277D85DE8];
+  v5[0] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -289,7 +284,7 @@ id __75__DSSafetyCheck_presentSafetyCheckWithViewController_navigationController
 
 void __52__DSSafetyCheck_isChildOrTeenAccountWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -305,25 +300,25 @@ void __52__DSSafetyCheck_isChildOrTeenAccountWithCompletion___block_invoke(uint6
   }
 
   [v5 members];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v9 = v19 = 0u;
-  v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v9 = v18 = 0u;
+  v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v17;
+    v12 = *v16;
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v17 != v12)
+        if (*v16 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v16 + 1) + 8 * i);
+        v14 = *(*(&v15 + 1) + 8 * i);
         if ([v14 isMe] && objc_msgSend(v14, "memberType"))
         {
           (*(*(a1 + 32) + 16))();
@@ -332,7 +327,7 @@ void __52__DSSafetyCheck_isChildOrTeenAccountWithCompletion___block_invoke(uint6
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v11)
       {
         continue;
@@ -344,8 +339,6 @@ void __52__DSSafetyCheck_isChildOrTeenAccountWithCompletion___block_invoke(uint6
 
   (*(*(a1 + 32) + 16))();
 LABEL_15:
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)isManagedAccount
@@ -580,52 +573,11 @@ LABEL_7:
   [v14 startPresentationWithNavigationController:*(a1 + 40)];
 }
 
-+ (void)authForSafetyCheckWithPresentingViewController:safetyCheckController:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_248C7E000, v0, v1, "Cannot evaluate authentication policy for Safety Check, error %@, returning.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __86__DSSafetyCheck_authForSafetyCheckWithPresentingViewController_safetyCheckController___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_248C7E000, v0, v1, "Error while evaluating authentication policy for Safety Check, error %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __52__DSSafetyCheck_isChildOrTeenAccountWithCompletion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_248C7E000, v0, v1, "Failed to fetch family members, error %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)isManagedAccount
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_248C7E000, v0, v1, "Failed to fetch AK Account, error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __83__DSSafetyCheck_showHSA2UpgradeWithPresentingViewController_safetyCheckController___block_invoke_3_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_248C7E000, v0, v1, "Failed to complete HSA2 repair with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 void __69__DSSafetyCheck_startReviewDeviceAccessWithPresentingViewController___block_invoke_2_cold_1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_0(&dword_248C7E000, a2, a3, "Failed to fetch all device access methods (%@), bailing...", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0(&dword_248C7E000, a2, a3, "Failed to fetch all device access methods (%@), bailing...", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

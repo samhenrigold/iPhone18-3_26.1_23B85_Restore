@@ -7,7 +7,7 @@
 
 - (id)mainReturningError
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   store = [(HMDBackingStoreOperation *)self store];
   local = [store local];
   _begin = [local _begin];
@@ -17,26 +17,26 @@
     goto LABEL_13;
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   recordNames = [(HMDBackingStoreCacheDeleteRecordOperation *)self recordNames];
-  v7 = [recordNames countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v7 = [recordNames countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v23;
+    v9 = *v22;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v23 != v9)
+        if (*v22 != v9)
         {
           objc_enumerationMutation(recordNames);
         }
 
-        v11 = *(*(&v22 + 1) + 8 * i);
+        v11 = *(*(&v21 + 1) + 8 * i);
         store2 = [(HMDBackingStoreOperation *)self store];
         local2 = [store2 local];
         group = [(HMDBackingStoreCacheDeleteRecordOperation *)self group];
@@ -49,7 +49,7 @@
         }
       }
 
-      v8 = [recordNames countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v8 = [recordNames countByEnumeratingWithState:&v21 objects:v25 count:16];
       if (v8)
       {
         continue;
@@ -72,8 +72,6 @@ LABEL_13:
   }
 
   v19 = _begin;
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v19;
 }

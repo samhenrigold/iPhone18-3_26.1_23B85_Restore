@@ -55,11 +55,11 @@
     goto LABEL_10;
   }
 
-  [MTRBaseDevice _responseDataForCommand:valueCopy clusterID:2049 commandID:11 error:error];
+  objc_msgSend__responseDataForCommand_clusterID_commandID_error_(MTRBaseDevice);
   if (v14)
   {
     sub_2393C5AAC(v13);
-    sub_2393C5ADC(v13, *(v14 + 1), *(v14 + 3));
+    sub_2393C5ADC(v13, *(v14 + 8), *(v14 + 24));
     v8 = sub_2393C6FD0(v13, 256);
     if (!v8)
     {
@@ -116,23 +116,23 @@ LABEL_6:
 - (ChipError)_setFieldsFromDecodableStruct:(const void *)struct
 {
   v4 = objc_opt_new();
-  sub_238E8477C(struct, v23);
-  while (sub_238E847D0(v23))
+  sub_238E8477C(v26, struct);
+  while (sub_238E847D0(v26))
   {
     v5 = objc_opt_new();
-    v6 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v24];
+    v6 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v27];
     [v5 setCcdid:v6];
 
-    if (v25[0] == 1 && (sub_238DE36B8(v25)[16] & 1) != 0)
+    if (v28[0] == 1 && (sub_238DE36B8(v28, v7)[16] & 1) != 0)
     {
-      v7 = sub_238DE36B8(v25);
-      if ((v7[16] & 1) == 0)
+      v9 = sub_238DE36B8(v28, v8);
+      if ((v9[16] & 1) == 0)
       {
         sub_238EA195C();
       }
 
-      v8 = [MEMORY[0x277CBEA90] dataWithBytes:*v7 length:*(v7 + 1)];
-      [v5 setClientCertificate:v8];
+      v10 = [MEMORY[0x277CBEA90] dataWithBytes:*v9 length:*(v9 + 1)];
+      [v5 setClientCertificate:v10];
     }
 
     else
@@ -140,34 +140,34 @@ LABEL_6:
       [v5 setClientCertificate:0];
     }
 
-    if (v26[0] == 1)
+    if (v29[0] == 1)
     {
-      v9 = objc_opt_new();
-      v10 = sub_238DE36B8(v26);
-      sub_2393C5AAC(v20);
-      v18 = 0;
-      v19 = 0;
-      sub_2393C5BDC(v20, v10);
+      v11 = objc_opt_new();
+      v13 = sub_238DE36B8(v29, v12);
+      sub_2393C5AAC(v23);
       v21 = 0;
       v22 = 0;
-      while (sub_238EA1A80(&v18) && sub_238EA49F4(&v18))
+      sub_2393C5BDC(v23, v13);
+      v24 = 0;
+      v25 = 0;
+      while (sub_238EA1A80(&v21) && sub_238EA49F4(&v21))
       {
-        v11 = [MEMORY[0x277CBEA90] dataWithBytes:v21 length:v22];
-        [v9 addObject:v11];
+        v14 = [MEMORY[0x277CBEA90] dataWithBytes:v24 length:v25];
+        [v11 addObject:v14];
       }
 
-      if (v18 != 33)
+      if (v21 != 33)
       {
-        v12 = v18;
-        if (v18)
+        v15 = v21;
+        if (v21)
         {
-          v14 = v19;
+          v17 = v22;
 
           goto LABEL_23;
         }
       }
 
-      [v5 setIntermediateCertificates:v9];
+      [v5 setIntermediateCertificates:v11];
     }
 
     else
@@ -175,30 +175,30 @@ LABEL_6:
       [v5 setIntermediateCertificates:0];
     }
 
-    v13 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v26[80]];
-    [v5 setFabricIndex:v13];
+    v16 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v29[80]];
+    [v5 setFabricIndex:v16];
 
     [v4 addObject:v5];
   }
 
-  if (LODWORD(v23[0]) == 33 || (v12 = v23[0], !LODWORD(v23[0])))
+  if (LODWORD(v26[0]) == 33 || (v15 = v26[0], !LODWORD(v26[0])))
   {
     [(MTRTLSCertificateManagementClusterFindClientCertificateResponseParams *)self setCertificateDetails:v4];
 
-    v14 = 0;
-    v12 = 0;
+    v17 = 0;
+    v15 = 0;
     goto LABEL_24;
   }
 
-  v14 = v23[1];
+  v17 = v26[1];
 LABEL_23:
 
 LABEL_24:
-  v15 = v12;
-  v16 = v14;
-  result.mFile = v16;
-  result.mError = v15;
-  result.mLine = HIDWORD(v15);
+  v18 = v15;
+  v19 = v17;
+  result.mFile = v19;
+  result.mError = v18;
+  result.mLine = HIDWORD(v18);
   return result;
 }
 

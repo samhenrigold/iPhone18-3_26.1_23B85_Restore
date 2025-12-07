@@ -228,7 +228,7 @@
 
 - (void)_addCPUUsageToSample:(id)sample
 {
-  v35[4] = *MEMORY[0x277D85DE8];
+  v34[4] = *MEMORY[0x277D85DE8];
   sampleCopy = sample;
   *out_processor_infoCnt = 0;
   out_processor_info = 0;
@@ -239,7 +239,7 @@
     if (out_processor_infoCnt[0])
     {
       v6 = 0;
-      v29 = 0;
+      v28 = 0;
       v7 = 0.0;
       v8 = 0.0;
       do
@@ -250,7 +250,7 @@
         {
           v11 = 100.0 - v9.u32[2] / v10 * 100.0;
           v12 = v9.u32[3] / v10 * 100.0;
-          ++v29;
+          ++v28;
         }
 
         else
@@ -259,19 +259,19 @@
           v12 = 0.0;
         }
 
-        v34[0] = @"CPU_TotalLoad";
+        v33[0] = @"CPU_TotalLoad";
         v13 = [MEMORY[0x277CCABB0] numberWithDouble:v11];
-        v35[0] = v13;
-        v34[1] = @"CPU_UserLoad";
+        v34[0] = v13;
+        v33[1] = @"CPU_UserLoad";
         v14 = [MEMORY[0x277CCABB0] numberWithDouble:-1.0];
-        v35[1] = v14;
-        v34[2] = @"CPU_SystemLoad";
+        v34[1] = v14;
+        v33[2] = @"CPU_SystemLoad";
         v15 = [MEMORY[0x277CCABB0] numberWithDouble:-1.0];
-        v35[2] = v15;
-        v34[3] = @"CPU_NiceLoad";
+        v34[2] = v15;
+        v33[3] = @"CPU_NiceLoad";
         v16 = [MEMORY[0x277CCABB0] numberWithDouble:v12];
-        v35[3] = v16;
-        v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:v34 count:4];
+        v34[3] = v16;
+        v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:4];
         [array insertObject:v17 atIndex:0];
 
         v7 = v7 + v11;
@@ -284,31 +284,31 @@
 
     else
     {
-      v29 = 0;
+      v28 = 0;
       v8 = 0.0;
       v7 = 0.0;
     }
 
     mach_vm_deallocate(*MEMORY[0x277D85F48], self->_savedTicks->cpu_ticks, 16 * self->_cpuCount);
     self->_savedTicks = out_processor_info;
-    v32[0] = @"CPU_TotalLoad";
+    v31[0] = @"CPU_TotalLoad";
     v18 = [MEMORY[0x277CCABB0] numberWithDouble:v7];
-    v33[0] = v18;
-    v32[1] = @"CPU_UserLoad";
+    v32[0] = v18;
+    v31[1] = @"CPU_UserLoad";
     v19 = [MEMORY[0x277CCABB0] numberWithDouble:-1.0];
-    v33[1] = v19;
-    v32[2] = @"CPU_SystemLoad";
+    v32[1] = v19;
+    v31[2] = @"CPU_SystemLoad";
     v20 = [MEMORY[0x277CCABB0] numberWithDouble:-1.0];
-    v33[2] = v20;
-    v32[3] = @"CPU_NiceLoad";
+    v32[2] = v20;
+    v31[3] = @"CPU_NiceLoad";
     v21 = [MEMORY[0x277CCABB0] numberWithDouble:v8];
-    v33[3] = v21;
-    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:4];
+    v32[3] = v21;
+    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:4];
 
     v23 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:out_processor_infoCnt[0]];
     [sampleCopy setObject:v23 forKeyedSubscript:@"CPUCount"];
 
-    v24 = [MEMORY[0x277CCABB0] numberWithInt:v29];
+    v24 = [MEMORY[0x277CCABB0] numberWithInt:v28];
     [sampleCopy setObject:v24 forKeyedSubscript:@"EnabledCPUs"];
 
     [sampleCopy setObject:array forKeyedSubscript:@"PerCPUUsage"];
@@ -319,8 +319,6 @@
     0x20 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v19 | 0x20];
     [sampleCopy setObject:0x20 forKeyedSubscript:@"Type"];
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleSysmonProcessTable:(id)table startTime:(unint64_t)time endTime:(unint64_t)endTime
@@ -659,37 +657,36 @@ LABEL_16:
     v4 = objc_opt_new();
     v5 = +[DTSysmonTapSupportedAttributes localProcessAttributesMap];
     processAttributes2 = [(DTSysmonTapConfig *)self->_config processAttributes];
-    v70[0] = MEMORY[0x277D85DD0];
-    v70[1] = 3221225472;
-    v70[2] = sub_247FFE674;
-    v70[3] = &unk_278EF3EC8;
-    v71 = v5;
+    v67[0] = MEMORY[0x277D85DD0];
+    v67[1] = 3221225472;
+    v67[2] = sub_247FFE674;
+    v67[3] = &unk_278EF3EC8;
+    v68 = v5;
     v7 = v4;
-    v72 = v7;
+    v69 = v7;
     v8 = v5;
-    [processAttributes2 enumerateObjectsUsingBlock:v70];
+    [processAttributes2 enumerateObjectsUsingBlock:v67];
 
     processAttributes = self->_processAttributes;
     self->_processAttributes = v7;
     v10 = v7;
 
-    v69[5] = MEMORY[0x277D85DD0];
-    v69[6] = 3221225472;
-    v69[7] = sub_247FFE6E4;
-    v69[8] = &unk_278EF4420;
-    v69[9] = self;
+    v66[5] = MEMORY[0x277D85DD0];
+    v66[6] = 3221225472;
+    v66[7] = sub_247FFE6E4;
+    v66[8] = &unk_278EF4420;
+    v66[9] = self;
     v11 = sysmon_request_create();
     processRequest = self->_processRequest;
     self->_processRequest = v11;
 
     v13 = self->_processAttributes;
-    v69[0] = MEMORY[0x277D85DD0];
-    v69[1] = 3221225472;
-    v69[2] = sub_247FFE7CC;
-    v69[3] = &unk_278EF4448;
-    v69[4] = self;
-    [(NSArray *)v13 enumerateObjectsUsingBlock:v69];
-    v14 = self->_processRequest;
+    v66[0] = MEMORY[0x277D85DD0];
+    v66[1] = 3221225472;
+    v66[2] = sub_247FFE7CC;
+    v66[3] = &unk_278EF4448;
+    v66[4] = self;
+    [(NSArray *)v13 enumerateObjectsUsingBlock:v66];
     [(DTSysmonTapConfig *)self->_config sampleInterval];
     sysmon_request_set_interval();
   }
@@ -698,40 +695,39 @@ LABEL_16:
 
   if (systemAttributes)
   {
-    v16 = objc_opt_new();
-    v17 = +[DTSysmonTapSupportedAttributes localSystemAttributesMap];
+    v15 = objc_opt_new();
+    v16 = +[DTSysmonTapSupportedAttributes localSystemAttributesMap];
     systemAttributes2 = [(DTSysmonTapConfig *)self->_config systemAttributes];
-    v66[0] = MEMORY[0x277D85DD0];
-    v66[1] = 3221225472;
-    v66[2] = sub_247FFE834;
-    v66[3] = &unk_278EF3EC8;
-    v67 = v17;
+    v63[0] = MEMORY[0x277D85DD0];
+    v63[1] = 3221225472;
+    v63[2] = sub_247FFE834;
+    v63[3] = &unk_278EF3EC8;
+    v64 = v16;
+    v18 = v15;
+    v65 = v18;
     v19 = v16;
-    v68 = v19;
-    v20 = v17;
-    [systemAttributes2 enumerateObjectsUsingBlock:v66];
+    [systemAttributes2 enumerateObjectsUsingBlock:v63];
 
     systemAttributes = self->_systemAttributes;
-    self->_systemAttributes = v19;
-    v22 = v19;
+    self->_systemAttributes = v18;
+    v21 = v18;
 
-    v65[5] = MEMORY[0x277D85DD0];
-    v65[6] = 3221225472;
-    v65[7] = sub_247FFE8A4;
-    v65[8] = &unk_278EF4420;
-    v65[9] = self;
-    v23 = sysmon_request_create();
+    v62[5] = MEMORY[0x277D85DD0];
+    v62[6] = 3221225472;
+    v62[7] = sub_247FFE8A4;
+    v62[8] = &unk_278EF4420;
+    v62[9] = self;
+    v22 = sysmon_request_create();
     systemRequest = self->_systemRequest;
-    self->_systemRequest = v23;
+    self->_systemRequest = v22;
 
-    v25 = self->_systemAttributes;
-    v65[0] = MEMORY[0x277D85DD0];
-    v65[1] = 3221225472;
-    v65[2] = sub_247FFE98C;
-    v65[3] = &unk_278EF4448;
-    v65[4] = self;
-    [(NSArray *)v25 enumerateObjectsUsingBlock:v65];
-    v26 = self->_systemRequest;
+    v24 = self->_systemAttributes;
+    v62[0] = MEMORY[0x277D85DD0];
+    v62[1] = 3221225472;
+    v62[2] = sub_247FFE98C;
+    v62[3] = &unk_278EF4448;
+    v62[4] = self;
+    [(NSArray *)v24 enumerateObjectsUsingBlock:v62];
     [(DTSysmonTapConfig *)self->_config sampleInterval];
     sysmon_request_set_interval();
   }
@@ -740,40 +736,39 @@ LABEL_16:
 
   if (coalitionAttributes)
   {
-    v28 = objc_opt_new();
-    v29 = +[DTSysmonTapSupportedAttributes localCoalitionAttributesMap];
+    v26 = objc_opt_new();
+    v27 = +[DTSysmonTapSupportedAttributes localCoalitionAttributesMap];
     coalitionAttributes2 = [(DTSysmonTapConfig *)self->_config coalitionAttributes];
-    v62[0] = MEMORY[0x277D85DD0];
-    v62[1] = 3221225472;
-    v62[2] = sub_247FFE9F4;
-    v62[3] = &unk_278EF3EC8;
-    v63 = v29;
-    v31 = v28;
-    v64 = v31;
-    v32 = v29;
-    [coalitionAttributes2 enumerateObjectsUsingBlock:v62];
+    v59[0] = MEMORY[0x277D85DD0];
+    v59[1] = 3221225472;
+    v59[2] = sub_247FFE9F4;
+    v59[3] = &unk_278EF3EC8;
+    v60 = v27;
+    v29 = v26;
+    v61 = v29;
+    v30 = v27;
+    [coalitionAttributes2 enumerateObjectsUsingBlock:v59];
 
     coalitionAttributes = self->_coalitionAttributes;
-    self->_coalitionAttributes = v31;
-    v34 = v31;
+    self->_coalitionAttributes = v29;
+    v32 = v29;
 
-    v61[5] = MEMORY[0x277D85DD0];
-    v61[6] = 3221225472;
-    v61[7] = sub_247FFEA64;
-    v61[8] = &unk_278EF4420;
-    v61[9] = self;
-    v35 = sysmon_request_create();
+    v58[5] = MEMORY[0x277D85DD0];
+    v58[6] = 3221225472;
+    v58[7] = sub_247FFEA64;
+    v58[8] = &unk_278EF4420;
+    v58[9] = self;
+    v33 = sysmon_request_create();
     coalitionRequest = self->_coalitionRequest;
-    self->_coalitionRequest = v35;
+    self->_coalitionRequest = v33;
 
-    v37 = self->_coalitionAttributes;
-    v61[0] = MEMORY[0x277D85DD0];
-    v61[1] = 3221225472;
-    v61[2] = sub_247FFEB4C;
-    v61[3] = &unk_278EF4448;
-    v61[4] = self;
-    [(NSArray *)v37 enumerateObjectsUsingBlock:v61];
-    v38 = self->_coalitionRequest;
+    v35 = self->_coalitionAttributes;
+    v58[0] = MEMORY[0x277D85DD0];
+    v58[1] = 3221225472;
+    v58[2] = sub_247FFEB4C;
+    v58[3] = &unk_278EF4448;
+    v58[4] = self;
+    [(NSArray *)v35 enumerateObjectsUsingBlock:v58];
     [(DTSysmonTapConfig *)self->_config sampleInterval];
     sysmon_request_set_interval();
   }
@@ -783,62 +778,62 @@ LABEL_16:
   {
     out_processor_info = 0;
     out_processor_infoCnt = 0;
-    v39 = MEMORY[0x24C1C3A30]();
-    v40 = host_processor_info(v39, 1, &self->_cpuCount, &out_processor_info, &out_processor_infoCnt);
-    if (v40)
+    v36 = MEMORY[0x24C1C3A30]();
+    v37 = host_processor_info(v36, 1, &self->_cpuCount, &out_processor_info, &out_processor_infoCnt);
+    if (v37)
     {
-      v41 = v40;
-      v42 = [DTTapStatusMemo alloc];
-      [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to sample host processor basic info: %d", v41];
+      v38 = v37;
+      v39 = [DTTapStatusMemo alloc];
+      [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to sample host processor basic info: %d", v38];
     }
 
     else
     {
-      v43 = mach_vm_deallocate(*MEMORY[0x277D85F48], out_processor_info, 4 * out_processor_infoCnt);
-      v44 = MEMORY[0x24C1C3A30](v43);
-      v45 = host_processor_info(v44, 2, &self->_cpuCount, &self->_savedTicks, &out_processor_infoCnt);
-      if (!v45)
+      v40 = mach_vm_deallocate(*MEMORY[0x277D85F48], out_processor_info, 4 * out_processor_infoCnt);
+      v41 = MEMORY[0x24C1C3A30](v40);
+      v42 = host_processor_info(v41, 2, &self->_cpuCount, &self->_savedTicks, &out_processor_infoCnt);
+      if (!v42)
       {
         goto LABEL_13;
       }
 
-      v46 = v45;
-      v42 = [DTTapStatusMemo alloc];
-      [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to sample host processor cpu usage: %d", v46];
+      v43 = v42;
+      v39 = [DTTapStatusMemo alloc];
+      [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to sample host processor cpu usage: %d", v43];
     }
-    v47 = ;
-    v48 = [(DTTapStatusMemo *)v42 initWithStatus:0x80000000 notice:v47];
+    v44 = ;
+    v45 = [(DTTapStatusMemo *)v39 initWithStatus:0x80000000 notice:v44];
 
     WeakRetained = objc_loadWeakRetained(&self->_tap);
-    v50 = [WeakRetained _handleStatusMemo:v48];
+    v47 = [WeakRetained _handleStatusMemo:v45];
 
 LABEL_13:
     self->_lastWindowPurgeTime = mach_absolute_time();
     if (!self->_systemRequest)
     {
       sampleInterval = [(DTSysmonTapConfig *)self->_config sampleInterval];
-      v52 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, self->_serialQ);
+      v49 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, self->_serialQ);
       pollTimer = self->_pollTimer;
-      self->_pollTimer = v52;
+      self->_pollTimer = v49;
 
-      v54 = self->_pollTimer;
+      v51 = self->_pollTimer;
       handler[0] = MEMORY[0x277D85DD0];
       handler[1] = 3221225472;
       handler[2] = sub_247FFEBB4;
       handler[3] = &unk_278EF1070;
       handler[4] = self;
-      dispatch_source_set_event_handler(v54, handler);
-      v55 = self->_pollTimer;
-      v56 = dispatch_time(0, sampleInterval);
-      dispatch_source_set_timer(v55, v56, sampleInterval, 0x989680uLL);
+      dispatch_source_set_event_handler(v51, handler);
+      v52 = self->_pollTimer;
+      v53 = dispatch_time(0, sampleInterval);
+      dispatch_source_set_timer(v52, v53, sampleInterval, 0x989680uLL);
       dispatch_resume(self->_pollTimer);
     }
   }
 
-  v57 = mach_absolute_time();
-  self->_systemLastSampleTime = v57;
-  self->_coalitionLastSampleTime = v57;
-  self->_processLastSampleTime = v57;
+  v54 = mach_absolute_time();
+  self->_systemLastSampleTime = v54;
+  self->_coalitionLastSampleTime = v54;
+  self->_processLastSampleTime = v54;
   if (self->_processRequest)
   {
     sysmon_request_execute();

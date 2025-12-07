@@ -1,5 +1,6 @@
 @interface TSDgPTPUnicastLinkLayerPtPPort
 + (id)diagnosticInfoForService:(id)service;
+- (TSDgPTPUnicastLinkLayerPtPPort)initWithService:(id)service pid:(int)pid;
 - (id)_destinationAddressString;
 - (id)_destinationMACAddress;
 - (id)_sourceAddressString;
@@ -7,6 +8,22 @@
 @end
 
 @implementation TSDgPTPUnicastLinkLayerPtPPort
+
+- (TSDgPTPUnicastLinkLayerPtPPort)initWithService:(id)service pid:(int)pid
+{
+  v9.receiver = self;
+  v9.super_class = TSDgPTPUnicastLinkLayerPtPPort;
+  v4 = [(TSDgPTPFDPtPPort *)&v9 initWithService:service pid:*&pid];
+  v5 = v4;
+  if (v4)
+  {
+    _destinationMACAddress = [(TSDgPTPUnicastLinkLayerPtPPort *)v4 _destinationMACAddress];
+    destinationMACAddress = v5->_destinationMACAddress;
+    v5->_destinationMACAddress = _destinationMACAddress;
+  }
+
+  return v5;
+}
 
 - (id)_sourceAddressString
 {

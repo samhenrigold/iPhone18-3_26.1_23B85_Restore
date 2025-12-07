@@ -919,7 +919,7 @@ uint64_t __101__RTLearnedLocationReconcilerPerVisit_collapseReconciledVisitsToLo
   [v9 performBlockAndWait:v11];
 }
 
-unint64_t __62__RTLearnedLocationReconcilerPerVisit_collapseVisits_context___block_invoke(id *a1)
+void *__62__RTLearnedLocationReconcilerPerVisit_collapseVisits_context___block_invoke(id *a1)
 {
   v38[1] = *MEMORY[0x277D85DE8];
   result = [a1[4] count];
@@ -1223,268 +1223,268 @@ void __90__RTLearnedLocationReconcilerPerVisit__visitsWithContext_predicate_sort
   }
 }
 
-void __136__RTLearnedLocationReconcilerPerVisit_Metrics__submitMetricsOnReconciledGraphDensity_algorithm_persistenceManager_managedObjectContext___block_invoke(uint64_t a1)
+void __136__RTLearnedLocationReconcilerPerVisit_Metrics__submitMetricsOnReconciledGraphDensity_algorithm_persistenceManager_managedObjectContext___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v111[1] = *MEMORY[0x277D85DE8];
-  v2 = objc_opt_new();
-  v3 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"entryDate" ascending:1];
-  v4 = +[RTLearnedVisitMO fetchRequest];
-  v5 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K == $RT_CURRENT_DEVICE", @"device"];
-  [v4 setPredicate:v5];
+  v112[1] = *MEMORY[0x277D85DE8];
+  v3 = objc_opt_new();
+  v4 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"entryDate" ascending:1];
+  v5 = +[RTLearnedVisitMO fetchRequest];
+  v6 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K == $RT_CURRENT_DEVICE", @"device"];
+  [v5 setPredicate:v6];
 
-  v111[0] = v3;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v111 count:1];
-  [v4 setSortDescriptors:v6];
+  v112[0] = v4;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v112 count:1];
+  [v5 setSortDescriptors:v7];
 
-  v7 = *(a1 + 32);
-  v103 = 0;
-  v8 = [v7 executeFetchRequest:v4 error:&v103];
-  v9 = v103;
-  if (!v9)
+  v8 = *(a1 + 32);
+  v104 = 0;
+  v9 = [v8 executeFetchRequest:v5 error:&v104];
+  v10 = v104;
+  if (!v10)
   {
-    v89 = a1;
-    v84 = v4;
-    v85 = v3;
-    v92 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:-4838400.0];
-    v82 = [v8 count];
-    v83 = v8;
-    v99 = 0u;
+    v90 = a1;
+    v85 = v5;
+    v86 = v4;
+    v93 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:-4838400.0];
+    v83 = [v9 count];
+    v84 = v9;
     v100 = 0u;
     v101 = 0u;
     v102 = 0u;
-    v10 = v8;
-    v11 = [v10 countByEnumeratingWithState:&v99 objects:v110 count:16];
-    if (v11)
+    v103 = 0u;
+    v11 = v9;
+    v12 = [v11 countByEnumeratingWithState:&v100 objects:v111 count:16];
+    if (v12)
     {
-      v12 = v11;
-      v13 = 0;
-      v14 = *v100;
+      v13 = v12;
+      v14 = 0;
+      v15 = *v101;
       do
       {
-        v15 = v10;
-        for (i = 0; i != v12; ++i)
+        v16 = v11;
+        for (i = 0; i != v13; ++i)
         {
-          if (*v100 != v14)
+          if (*v101 != v15)
           {
-            objc_enumerationMutation(v15);
+            objc_enumerationMutation(v16);
           }
 
-          v17 = [*(*(&v99 + 1) + 8 * i) entryDate];
-          v18 = [v17 isOnOrAfter:v92];
+          v18 = [*(*(&v100 + 1) + 8 * i) entryDate];
+          v19 = [v18 isOnOrAfter:v93];
 
-          v13 += v18;
+          v14 += v19;
         }
 
-        v10 = v15;
-        v12 = [v15 countByEnumeratingWithState:&v99 objects:v110 count:16];
+        v11 = v16;
+        v13 = [v16 countByEnumeratingWithState:&v100 objects:v111 count:16];
       }
 
-      while (v12);
+      while (v13);
     }
 
     else
     {
-      v13 = 0;
+      v14 = 0;
     }
 
-    v19 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K != $RT_CURRENT_DEVICE", @"device"];
-    v20 = +[RTLearnedVisitMO fetchRequest];
-    v3 = v85;
-    v109 = v85;
-    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v109 count:1];
-    [v20 setSortDescriptors:v21];
+    v20 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K != $RT_CURRENT_DEVICE", @"device"];
+    v21 = +[RTLearnedVisitMO fetchRequest];
+    v4 = v86;
+    v110 = v86;
+    v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v110 count:1];
+    [v21 setSortDescriptors:v22];
 
-    [v20 setPredicate:v19];
-    v22 = *(v89 + 32);
-    v98 = 0;
-    v23 = [v22 executeFetchRequest:v20 error:&v98];
-    v9 = v98;
-    if (!v9)
+    [v21 setPredicate:v20];
+    v23 = *(v90 + 32);
+    v99 = 0;
+    v24 = [v23 executeFetchRequest:v21 error:&v99];
+    v10 = v99;
+    if (!v10)
     {
-      v77 = v10;
-      v79 = v2;
-      v80 = v23;
-      v78 = v20;
-      v96 = 0u;
+      v78 = v11;
+      v80 = v3;
+      v81 = v24;
+      v79 = v21;
       v97 = 0u;
-      v94 = 0u;
+      v98 = 0u;
       v95 = 0u;
-      obj = *(v89 + 40);
-      v90 = [obj countByEnumeratingWithState:&v94 objects:v108 count:16];
-      v81 = v19;
-      v24 = 0;
+      v96 = 0u;
+      obj = *(v90 + 40);
+      v91 = [obj countByEnumeratingWithState:&v95 objects:v109 count:16];
+      v82 = v20;
       v25 = 0;
       v26 = 0;
       v27 = 0;
-      if (v90)
+      v28 = 0;
+      if (v91)
       {
-        v87 = *v95;
+        v88 = *v96;
         do
         {
-          for (j = 0; j != v90; ++j)
+          for (j = 0; j != v91; ++j)
           {
-            if (*v95 != v87)
+            if (*v96 != v88)
             {
               objc_enumerationMutation(obj);
             }
 
-            v29 = *(*(&v94 + 1) + 8 * j);
-            v30 = [v29 device];
-            v31 = [*(v89 + 32) currentDevice];
-            v32 = [v30 isEqual:v31];
+            v30 = *(*(&v95 + 1) + 8 * j);
+            v31 = [v30 device];
+            v32 = [*(v90 + 32) currentDevice];
+            v33 = [v31 isEqual:v32];
 
-            v33 = [v29 entryDate];
-            v34 = [v33 isOnOrAfter:v92];
+            v34 = [v30 entryDate];
+            v35 = [v34 isOnOrAfter:v93];
 
-            if (v32)
+            if (v33)
             {
-              v25 += v34;
+              v26 += v35;
             }
 
             else
             {
-              v24 += v34;
+              v25 += v35;
             }
 
-            if (v32)
+            if (v33)
+            {
+              ++v28;
+            }
+
+            else
             {
               ++v27;
             }
-
-            else
-            {
-              ++v26;
-            }
           }
 
-          v90 = [obj countByEnumeratingWithState:&v94 objects:v108 count:16];
+          v91 = [obj countByEnumeratingWithState:&v95 objects:v109 count:16];
         }
 
-        while (v90);
+        while (v91);
       }
 
-      v35 = [MEMORY[0x277CBEB18] arrayWithArray:v77];
-      [v35 addObjectsFromArray:v80];
-      v3 = v85;
-      v107 = v85;
-      v36 = [MEMORY[0x277CBEA60] arrayWithObjects:&v107 count:1];
-      [v35 sortUsingDescriptors:v36];
+      v36 = [MEMORY[0x277CBEB18] arrayWithArray:v78];
+      [v36 addObjectsFromArray:v81];
+      v4 = v86;
+      v108 = v86;
+      v37 = [MEMORY[0x277CBEA60] arrayWithObjects:&v108 count:1];
+      [v36 sortUsingDescriptors:v37];
 
-      v91 = v35;
-      v37 = [v35 firstObject];
-      v38 = [v37 creationDate];
+      v92 = v36;
+      v38 = [v36 firstObject];
+      v39 = [v38 creationDate];
 
-      v88 = v38;
-      [v38 timeIntervalSinceReferenceDate];
-      v40 = v39;
-      v105 = @"RT_CURRENT_DEVICE";
-      v41 = [*(v89 + 32) currentDevice];
-      v106 = v41;
-      v42 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v106 forKeys:&v105 count:1];
-      v43 = [v81 predicateWithSubstitutionVariables:v42];
+      v89 = v39;
+      [v39 timeIntervalSinceReferenceDate];
+      v41 = v40;
+      v106 = @"RT_CURRENT_DEVICE";
+      v42 = [*(v90 + 32) currentDevice];
+      v107 = v42;
+      v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v107 forKeys:&v106 count:1];
+      v44 = [v82 predicateWithSubstitutionVariables:v43];
 
-      v44 = [*(v89 + 40) filteredArrayUsingPredicate:v43];
-      v104 = v85;
-      v45 = [MEMORY[0x277CBEA60] arrayWithObjects:&v104 count:1];
-      v46 = [v44 sortedArrayUsingDescriptors:v45];
+      v45 = [*(v90 + 40) filteredArrayUsingPredicate:v44];
+      v105 = v86;
+      v46 = [MEMORY[0x277CBEA60] arrayWithObjects:&v105 count:1];
+      v47 = [v45 sortedArrayUsingDescriptors:v46];
 
-      v47 = [v46 firstObject];
-      v48 = [v47 creationDate];
+      v48 = [v47 firstObject];
+      v49 = [v48 creationDate];
 
-      v76 = v48;
-      [v48 timeIntervalSinceReferenceDate];
-      v50 = v27 + v26;
-      v51 = 0.0;
-      if (v82 < 1)
+      v77 = v49;
+      [v49 timeIntervalSinceReferenceDate];
+      v51 = v28 + v27;
+      v52 = 0.0;
+      if (v83 < 1)
       {
-        v52 = INFINITY;
-        v53 = 0.0;
+        v53 = INFINITY;
+        v54 = 0.0;
       }
 
       else
       {
-        v52 = ((v50 - v82) / v82 * 100.0);
-        v53 = ((v82 - v27) / v82 * 100.0);
+        v53 = ((v51 - v83) / v83 * 100.0);
+        v54 = ((v83 - v28) / v83 * 100.0);
       }
 
-      v54 = v40 - v49;
-      if (v13 >= 1)
+      v55 = v41 - v50;
+      if (v14 >= 1)
       {
-        v55 = (v25 + v24) / v13;
+        v56 = (v26 + v25) / v14;
       }
 
       else
       {
-        v55 = 1.0;
+        v56 = 1.0;
       }
 
-      v56 = 0.0;
-      if (v50 >= 1)
+      v57 = 0.0;
+      if (v51 >= 1)
       {
-        v57 = v27 / v50;
-        v51 = (v57 * 100.0);
-        v56 = ((1.0 - v57) * 100.0);
+        v58 = v28 / v51;
+        v52 = (v58 * 100.0);
+        v57 = ((1.0 - v58) * 100.0);
       }
 
-      v58 = +[RTDeviceMO fetchRequest];
-      v59 = *(v89 + 32);
-      v93 = 0;
-      v60 = [v59 countForFetchRequest:v58 error:&v93];
-      v61 = v93;
-      v62 = [*(v89 + 48) mirroringDelegateStateForStoreType:1] == 1;
-      v63 = [MEMORY[0x277CCABB0] numberWithDouble:v52];
-      [v79 setObject:v63 forKeyedSubscript:@"reconciledGraphVisitCountImprovement"];
+      v59 = +[RTDeviceMO fetchRequest];
+      v60 = *(v90 + 32);
+      v94 = 0;
+      v61 = [v60 countForFetchRequest:v59 error:&v94];
+      v62 = v94;
+      v63 = [*(v90 + 48) mirroringDelegateStateForStoreType:1] == 1;
+      v64 = [MEMORY[0x277CCABB0] numberWithDouble:v53];
+      [v80 setObject:v64 forKeyedSubscript:@"reconciledGraphVisitCountImprovement"];
 
-      v64 = [MEMORY[0x277CCABB0] numberWithDouble:v51];
-      [v79 setObject:v64 forKeyedSubscript:@"reconciledGraphVisitContributionThisDevice"];
+      v65 = [MEMORY[0x277CCABB0] numberWithDouble:v52];
+      [v80 setObject:v65 forKeyedSubscript:@"reconciledGraphVisitContributionThisDevice"];
 
-      v65 = [MEMORY[0x277CCABB0] numberWithDouble:v56];
-      [v79 setObject:v65 forKeyedSubscript:@"reconciledGraphVisitContributionOtherDevices"];
+      v66 = [MEMORY[0x277CCABB0] numberWithDouble:v57];
+      [v80 setObject:v66 forKeyedSubscript:@"reconciledGraphVisitContributionOtherDevices"];
 
-      v66 = [MEMORY[0x277CCABB0] numberWithDouble:v53];
-      [v79 setObject:v66 forKeyedSubscript:@"reconciledGraphVisitLoss"];
+      v67 = [MEMORY[0x277CCABB0] numberWithDouble:v54];
+      [v80 setObject:v67 forKeyedSubscript:@"reconciledGraphVisitLoss"];
 
-      v67 = [MEMORY[0x277CCABB0] numberWithDouble:v55];
-      [v79 setObject:v67 forKeyedSubscript:@"reconciledGraphDensity"];
+      v68 = [MEMORY[0x277CCABB0] numberWithDouble:v56];
+      [v80 setObject:v68 forKeyedSubscript:@"reconciledGraphDensity"];
 
-      v68 = [MEMORY[0x277CCABB0] numberWithDouble:v40];
-      [v79 setObject:v68 forKeyedSubscript:@"ageOfOldestVisit"];
+      v69 = [MEMORY[0x277CCABB0] numberWithDouble:v41];
+      [v80 setObject:v69 forKeyedSubscript:@"ageOfOldestVisit"];
 
-      v69 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(v89 + 56)];
-      [v79 setObject:v69 forKeyedSubscript:@"algorithmType"];
+      v70 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(v90 + 56)];
+      [v80 setObject:v70 forKeyedSubscript:@"algorithmType"];
 
-      v70 = [MEMORY[0x277CCABB0] numberWithDouble:v54];
-      [v79 setObject:v70 forKeyedSubscript:@"ageDifferenceOldestVisit"];
+      v71 = [MEMORY[0x277CCABB0] numberWithDouble:v55];
+      [v80 setObject:v71 forKeyedSubscript:@"ageDifferenceOldestVisit"];
 
-      v71 = [MEMORY[0x277CCABB0] numberWithBool:v62];
-      [v79 setObject:v71 forKeyedSubscript:@"syncEnabled"];
+      v72 = [MEMORY[0x277CCABB0] numberWithBool:v63];
+      [v80 setObject:v72 forKeyedSubscript:@"syncEnabled"];
 
-      if (v60 == 1)
+      if (v61 == 1)
       {
-        v72 = MEMORY[0x277CBEC28];
+        v73 = MEMORY[0x277CBEC28];
       }
 
       else
       {
-        v72 = MEMORY[0x277CBEC38];
+        v73 = MEMORY[0x277CBEC38];
       }
 
-      [v79 setObject:v72 forKeyedSubscript:@"multiDevice"];
-      v73 = objc_alloc(MEMORY[0x277CCACA8]);
-      v74 = [v73 initWithCString:RTAnalyticsEventReconciliationGraphDensity encoding:1];
-      log_analytics_submission(v74, v79);
-      v75 = [MEMORY[0x277CCACA8] stringWithFormat:@"com.apple.%@", v74];
+      [v80 setObject:v73 forKeyedSubscript:@"multiDevice"];
+      v74 = objc_alloc(MEMORY[0x277CCACA8]);
+      v75 = [v74 initWithCString:RTAnalyticsEventReconciliationGraphDensity encoding:1];
+      log_analytics_submission(v75, v80);
+      v76 = [MEMORY[0x277CCACA8] stringWithFormat:@"com.apple.%@", v75];
       AnalyticsSendEvent();
 
-      v2 = v79;
-      v23 = v80;
-      v19 = v81;
-      v9 = 0;
-      v20 = v78;
+      v3 = v80;
+      v24 = v81;
+      v20 = v82;
+      v10 = 0;
+      v21 = v79;
     }
 
-    v8 = v83;
-    v4 = v84;
+    v9 = v84;
+    v5 = v85;
   }
 }
 

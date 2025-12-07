@@ -11,97 +11,97 @@
 
 - (void)setUp
 {
-  v16.receiver = self;
-  v16.super_class = IMCloudKitEventNotificationManagerRuntimeTest;
-  [(IMRuntimeTest *)&v16 setUp];
-  objc_msgSend_setDefaultTestDuration_(self, v3, v4, 1.0);
-  v7 = objc_msgSend_singletonOverride(IMCloudKitHooks, v5, v6);
-  objc_msgSend_setCloudKitHooks_(self, v8, v7);
+  v7.receiver = self;
+  v7.super_class = IMCloudKitEventNotificationManagerRuntimeTest;
+  [(IMRuntimeTest *)&v7 setUp];
+  [(IMCloudKitEventNotificationManagerRuntimeTest *)self setDefaultTestDuration:1.0];
+  v3 = +[IMCloudKitHooks singletonOverride];
+  [(IMCloudKitEventNotificationManagerRuntimeTest *)self setCloudKitHooks:v3];
 
-  v11 = objc_msgSend_sharedInstance(IMCloudKitEventNotificationManager, v9, v10);
-  objc_msgSend_addEventHandler_(v11, v12, self);
+  v4 = +[IMCloudKitEventNotificationManager sharedInstance];
+  [v4 addEventHandler:self];
 
-  v13 = objc_opt_class();
-  v14 = NSStringFromClass(v13);
-  objc_msgSend_testLog_(self, v15, @"Setting up test: %@", v14);
+  v5 = objc_opt_class();
+  v6 = NSStringFromClass(v5);
+  [(IMRuntimeTest *)self testLog:@"Setting up test: %@", v6];
 }
 
 - (void)tearDown
 {
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
-  objc_msgSend_testLog_(self, v5, @"Tearing down test: %@", v4);
+  [(IMRuntimeTest *)self testLog:@"Tearing down test: %@", v4];
 
-  v8 = objc_msgSend_sharedInstance(IMCloudKitEventNotificationManager, v6, v7);
-  objc_msgSend_removeEventHandler_(v8, v9, self);
+  v5 = +[IMCloudKitEventNotificationManager sharedInstance];
+  [v5 removeEventHandler:self];
 
-  v12 = objc_msgSend_cloudKitHooks(self, v10, v11);
-  v13 = objc_alloc_init(IMCloudKitMockSyncState);
-  objc_msgSend_setTestState_(v12, v14, v13);
+  cloudKitHooks = [(IMCloudKitEventNotificationManagerRuntimeTest *)self cloudKitHooks];
+  v7 = objc_alloc_init(IMCloudKitMockSyncState);
+  [cloudKitHooks setTestState:v7];
 
-  objc_msgSend_setCloudKitHooks_(self, v15, 0);
-  v16.receiver = self;
-  v16.super_class = IMCloudKitEventNotificationManagerRuntimeTest;
-  [(IMRuntimeTest *)&v16 tearDown];
+  [(IMCloudKitEventNotificationManagerRuntimeTest *)self setCloudKitHooks:0];
+  v8.receiver = self;
+  v8.super_class = IMCloudKitEventNotificationManagerRuntimeTest;
+  [(IMRuntimeTest *)&v8 tearDown];
 }
 
 - (id)createSyncStatisticsForMockSyncState:(id)state
 {
   stateCopy = state;
-  v6 = objc_msgSend_IMCloudKitSyncControllerSyncState(stateCopy, v4, v5);
-  objc_msgSend_IMCloudKitSyncControllerSyncRecordType(stateCopy, v7, v8);
+  [stateCopy IMCloudKitSyncControllerSyncState];
+  [stateCopy IMCloudKitSyncControllerSyncRecordType];
 
-  return MEMORY[0x1EEE66B58](IMCloudKitSyncStatistics, sel__createSyncStatisticsDictionaryForSyncControllerSyncState_syncType_count_max_unresolved_, v6);
+  return MEMORY[0x1EEE66B58](IMCloudKitSyncStatistics, sel__createSyncStatisticsDictionaryForSyncControllerSyncState_syncType_count_max_unresolved_);
 }
 
 - (void)updateMockSyncState
 {
-  v4 = objc_msgSend_cloudKitHooks(self, a2, v2);
-  v33 = objc_msgSend_testState(v4, v5, v6);
+  cloudKitHooks = [(IMCloudKitEventNotificationManagerRuntimeTest *)self cloudKitHooks];
+  testState = [cloudKitHooks testState];
 
-  objc_msgSend_setIMCloudKitSyncDate_(v33, v7, 0);
-  objc_msgSend_setIMCloudKitIsSyncing_(v33, v8, 1);
-  objc_msgSend_setIMCloudKitSyncControllerSyncType_(v33, v9, 2);
-  objc_msgSend_setIMCloudKitIsEligibleForTruthZone_(v33, v10, 1);
-  objc_msgSend_setIMCloudKitSyncingEnabled_(v33, v11, 1);
-  objc_msgSend_setIMCloudKitSyncControllerSyncRecordType_(v33, v12, 1);
-  objc_msgSend_willUpdateSyncState_(self, v13, v33);
-  v15 = objc_msgSend_createSyncStatisticsForMockSyncState_(self, v14, v33);
-  objc_msgSend_willSendSyncState_withSyncStatistics_(self, v16, v33, v15);
-  v19 = objc_msgSend_cloudKitHooks(self, v17, v18);
-  objc_msgSend_setSyncStats_(v19, v20, v15);
+  [testState setIMCloudKitSyncDate:0];
+  [testState setIMCloudKitIsSyncing:1];
+  [testState setIMCloudKitSyncControllerSyncType:2];
+  [testState setIMCloudKitIsEligibleForTruthZone:1];
+  [testState setIMCloudKitSyncingEnabled:1];
+  [testState setIMCloudKitSyncControllerSyncRecordType:1];
+  [(IMCloudKitEventNotificationManagerRuntimeTest *)self willUpdateSyncState:testState];
+  v4 = [(IMCloudKitEventNotificationManagerRuntimeTest *)self createSyncStatisticsForMockSyncState:testState];
+  [(IMCloudKitEventNotificationManagerRuntimeTest *)self willSendSyncState:testState withSyncStatistics:v4];
+  cloudKitHooks2 = [(IMCloudKitEventNotificationManagerRuntimeTest *)self cloudKitHooks];
+  [cloudKitHooks2 setSyncStats:v4];
 
-  v23 = objc_msgSend_sharedInstance(IMCloudKitHooks, v21, v22);
-  v26 = objc_msgSend_syncStateDictionary(v23, v24, v25);
-  objc_msgSend_testLog_(self, v27, @"Updated mock sync state to: %@, with sync stats: %@", v26, v15);
+  v6 = +[IMCloudKitHooks sharedInstance];
+  syncStateDictionary = [v6 syncStateDictionary];
+  [(IMRuntimeTest *)self testLog:@"Updated mock sync state to: %@, with sync stats: %@", syncStateDictionary, v4];
 
-  v30 = objc_msgSend_cloudKitHooks(self, v28, v29);
-  objc_msgSend_sendSyncChangedEvent(v30, v31, v32);
+  cloudKitHooks3 = [(IMCloudKitEventNotificationManagerRuntimeTest *)self cloudKitHooks];
+  [cloudKitHooks3 sendSyncChangedEvent];
 }
 
 - (void)sendSyncStateChangedEvent
 {
-  objc_msgSend_updateMockSyncState(self, a2, v2);
-  v6 = objc_msgSend_sharedInstance(IMCloudKitHooks, v4, v5);
-  v9 = objc_msgSend_syncStateDictionary(v6, v7, v8);
-  objc_msgSend_testLog_(self, v10, @"Sending fake syncState dictionary: %@", v9);
+  [(IMCloudKitEventNotificationManagerRuntimeTest *)self updateMockSyncState];
+  v3 = +[IMCloudKitHooks sharedInstance];
+  syncStateDictionary = [v3 syncStateDictionary];
+  [(IMRuntimeTest *)self testLog:@"Sending fake syncState dictionary: %@", syncStateDictionary];
 
-  v15 = objc_msgSend_cloudKitHooks(self, v11, v12);
-  objc_msgSend_sendSyncChangedEvent(v15, v13, v14);
+  cloudKitHooks = [(IMCloudKitEventNotificationManagerRuntimeTest *)self cloudKitHooks];
+  [cloudKitHooks sendSyncChangedEvent];
 }
 
 - (void)startTest
 {
-  objc_msgSend_defaultTestDuration(self, a2, v2);
-  objc_msgSend_testLog_(self, v4, @"Running test for %f seconds", v5);
-  objc_msgSend_updateMockSyncState(self, v6, v7);
-  objc_msgSend_defaultTestDuration(self, v8, v9);
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = sub_1A8397118;
-  v11[3] = &unk_1E780FCB0;
-  v11[4] = self;
-  objc_msgSend_dispatchAfter_block_(self, v10, v11);
+  [(IMCloudKitEventNotificationManagerRuntimeTest *)self defaultTestDuration];
+  [(IMRuntimeTest *)self testLog:@"Running test for %f seconds", v3];
+  [(IMCloudKitEventNotificationManagerRuntimeTest *)self updateMockSyncState];
+  [(IMCloudKitEventNotificationManagerRuntimeTest *)self defaultTestDuration];
+  v4[0] = MEMORY[0x1E69E9820];
+  v4[1] = 3221225472;
+  v4[2] = sub_1A8397118;
+  v4[3] = &unk_1E780FCB0;
+  v4[4] = self;
+  [(IMRuntimeTest *)self dispatchAfter:v4 block:?];
 }
 
 @end

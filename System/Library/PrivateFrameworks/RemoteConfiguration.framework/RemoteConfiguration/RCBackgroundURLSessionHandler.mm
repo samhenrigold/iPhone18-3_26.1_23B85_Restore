@@ -26,28 +26,26 @@
   sessionIdentifier = [backgroundFetchConfiguration sessionIdentifier];
   [(RCBackgroundURLSessionHandler *)self setSessionIdentifier:sessionIdentifier];
 
-  v10 = RCSharedLog();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = RCSharedLog(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     sessionIdentifier2 = [backgroundFetchConfiguration sessionIdentifier];
     *buf = 138543362;
     v17 = sessionIdentifier2;
-    _os_log_impl(&dword_2179FC000, v10, OS_LOG_TYPE_DEFAULT, "RCBackgroundURLSessionHandler will reestablish background URL session, id: %{public}@", buf, 0xCu);
+    _os_log_impl(&dword_2179FC000, v11, OS_LOG_TYPE_DEFAULT, "RCBackgroundURLSessionHandler will reestablish background URL session, id: %{public}@", buf, 0xCu);
   }
 
   v15 = 0;
-  v12 = [RCURLSession backgroundSessionForFetchConfig:backgroundFetchConfiguration delegateReference:&v15];
-  v13 = v15;
-  [v13 addObserver:self];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = [RCURLSession backgroundSessionForFetchConfig:backgroundFetchConfiguration delegateReference:&v15];
+  v14 = v15;
+  [v14 addObserver:self];
 }
 
 - (void)networkSessionDidFinishWithTasks:(id)tasks
 {
   v47 = *MEMORY[0x277D85DE8];
   tasksCopy = tasks;
-  v4 = RCSharedLog();
+  v4 = RCSharedLog(tasksCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     sessionIdentifier = [(RCBackgroundURLSessionHandler *)self sessionIdentifier];
@@ -98,19 +96,19 @@
         v12 = [allHeaderFields objectForKeyedSubscript:@"Cache-Control"];
         v13 = [v12 rc_numberFollowingString:@"max-age="];
 
-        if (!v13 || ([v13 doubleValue], v14 == 0.0))
+        if (!v13 || (v14 = [v13 doubleValue], v15 == 0.0))
         {
-          v15 = RCSharedLog();
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+          v16 = RCSharedLog(v14);
+          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
           {
-            v16 = [httpResponse URL];
-            absoluteString = [v16 absoluteString];
+            v17 = [httpResponse URL];
+            absoluteString = [v17 absoluteString];
             identifier = [v8 identifier];
             *v38 = 138543618;
             v39 = absoluteString;
             v40 = 2114;
             v41 = identifier;
-            _os_log_impl(&dword_2179FC000, v15, OS_LOG_TYPE_DEFAULT, "max-age missing from Cache-Control header for URL: %{public}@, taskID: %{public}@", v38, 0x16u);
+            _os_log_impl(&dword_2179FC000, v16, OS_LOG_TYPE_DEFAULT, "max-age missing from Cache-Control header for URL: %{public}@, taskID: %{public}@", v38, 0x16u);
           }
 
           v13 = 0;
@@ -146,15 +144,14 @@
   _Block_object_dispose(v36, 8);
 
   _Block_object_dispose(buf, 8);
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __66__RCBackgroundURLSessionHandler_networkSessionDidFinishWithTasks___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = a2;
-  v7 = RCSharedLog();
+  v7 = RCSharedLog(v6);
   v8 = v7;
   if (v5)
   {
@@ -169,9 +166,9 @@ void __66__RCBackgroundURLSessionHandler_networkSessionDidFinishWithTasks___bloc
     v9 = [*(a1 + 32) identifier];
     v10 = [*(a1 + 40) sessionIdentifier];
     *buf = 138543618;
-    v22 = v9;
-    v23 = 2114;
-    v24 = v10;
+    v21 = v9;
+    v22 = 2114;
+    v23 = v10;
     _os_log_impl(&dword_2179FC000, v8, OS_LOG_TYPE_DEFAULT, "Successfully parsed response data for task (%{public}@) of network session (%{public}@)", buf, 0x16u);
   }
 
@@ -180,18 +177,16 @@ void __66__RCBackgroundURLSessionHandler_networkSessionDidFinishWithTasks___bloc
   v13 = [(RCBackgroundTaskResult *)v11 initWithTaskIdentifier:v12 configurationResourcesByRequestKey:v6 error:v5];
 
   v14 = *(*(*(a1 + 56) + 8) + 40);
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __66__RCBackgroundURLSessionHandler_networkSessionDidFinishWithTasks___block_invoke_8;
-  v18[3] = &unk_27822F288;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __66__RCBackgroundURLSessionHandler_networkSessionDidFinishWithTasks___block_invoke_8;
+  v17[3] = &unk_27822F288;
   v15 = *(a1 + 64);
-  v19 = v13;
-  v20 = v15;
+  v18 = v13;
+  v19 = v15;
   v16 = v13;
-  [v14 performWithLockSync:v18];
+  [v14 performWithLockSync:v17];
   dispatch_group_leave(*(a1 + 48));
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __66__RCBackgroundURLSessionHandler_networkSessionDidFinishWithTasks___block_invoke_2(uint64_t a1)
@@ -208,18 +203,16 @@ void __66__RCBackgroundURLSessionHandler_networkSessionDidFinishWithTasks___bloc
 
 void __66__RCBackgroundURLSessionHandler_networkSessionDidFinishWithTasks___block_invoke_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v6 = [*(a1 + 32) identifier];
   v7 = [*(a1 + 40) sessionIdentifier];
-  v9 = 138543874;
-  v10 = v6;
-  v11 = 2114;
-  v12 = v7;
-  v13 = 2114;
-  v14 = a2;
-  _os_log_error_impl(&dword_2179FC000, a3, OS_LOG_TYPE_ERROR, "Failed to parse response data for task (%{public}@) of network session (%{public}@), error: %{public}@", &v9, 0x20u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8 = 138543874;
+  v9 = v6;
+  v10 = 2114;
+  v11 = v7;
+  v12 = 2114;
+  v13 = a2;
+  _os_log_error_impl(&dword_2179FC000, a3, OS_LOG_TYPE_ERROR, "Failed to parse response data for task (%{public}@) of network session (%{public}@), error: %{public}@", &v8, 0x20u);
 }
 
 @end

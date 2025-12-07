@@ -10,11 +10,10 @@
 
 - (void)unlock
 {
-  v9 = *MEMORY[0x1E69E9840];
   lockTitle = [self lockTitle];
-  OUTLINED_FUNCTION_0_5(&dword_1E1168000, v2, v3, "Shared lock %{public}@ has been released", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = lockTitle;
+  OUTLINED_FUNCTION_0_5(&dword_1E1168000, v2, v3, "Shared lock %{public}@ has been released", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 + (id)newSharedLockWithDescription:(id)description
@@ -45,11 +44,10 @@
 
 - (void)lock
 {
-  v9 = *MEMORY[0x1E69E9840];
   lockTitle = [self lockTitle];
-  OUTLINED_FUNCTION_0_5(&dword_1E1168000, v2, v3, "Shared lock %{public}@ has been taken", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = lockTitle;
+  OUTLINED_FUNCTION_0_5(&dword_1E1168000, v2, v3, "Shared lock %{public}@ has been taken", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 - (void)performBlockUnderLock:(id)lock

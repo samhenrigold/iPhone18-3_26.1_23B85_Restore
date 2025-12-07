@@ -1,8 +1,10 @@
 @interface _INPBWorkoutAssociatedItem
 - (BOOL)isEqual:(id)equal;
 - (_INPBWorkoutAssociatedItem)initWithCoder:(id)coder;
+- (id)contentRatingAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)itemLabelAsString:(int)string;
 - (int)StringAsContentRating:(id)rating;
 - (int)StringAsItemLabel:(id)label;
 - (unint64_t)hash;
@@ -255,7 +257,6 @@ LABEL_21:
   toCopy = to;
   if ([(_INPBWorkoutAssociatedItem *)self hasContentRating])
   {
-    contentRating = self->_contentRating;
     PBDataWriterWriteInt32Field();
   }
 
@@ -263,25 +264,23 @@ LABEL_21:
 
   if (itemID)
   {
-    itemID = self->_itemID;
     PBDataWriterWriteStringField();
   }
 
   if ([(_INPBWorkoutAssociatedItem *)self hasItemLabel])
   {
-    itemLabel = self->_itemLabel;
     PBDataWriterWriteInt32Field();
   }
 
   itemName = [(_INPBWorkoutAssociatedItem *)self itemName];
 
-  v9 = toCopy;
+  v6 = toCopy;
   if (itemName)
   {
     itemName2 = [(_INPBWorkoutAssociatedItem *)self itemName];
     PBDataWriterWriteSubmessage();
 
-    v9 = toCopy;
+    v6 = toCopy;
   }
 }
 
@@ -316,6 +315,21 @@ LABEL_21:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)itemLabelAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7288738[string];
   }
 
   return v4;
@@ -371,6 +385,29 @@ LABEL_21:
   else
   {
     v4 = [ratingCopy isEqualToString:@"explicit"];
+  }
+
+  return v4;
+}
+
+- (id)contentRatingAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"explicit";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"clean";
   }
 
   return v4;

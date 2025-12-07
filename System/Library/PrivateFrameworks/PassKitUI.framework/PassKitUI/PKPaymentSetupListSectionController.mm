@@ -75,7 +75,7 @@ void __59__PKPaymentSetupListSectionController_initWithIdentifiers___block_invok
   {
     subtitleCellConfiguration = [MEMORY[0x1E69DCC28] subtitleCellConfiguration];
     textProperties = [subtitleCellConfiguration textProperties];
-    v20 = PKOBKListSubtitleCellTitleFont();
+    v20 = PKOBKListSubtitleCellTitleFont(textProperties);
     [textProperties setFont:v20];
 
     secondaryTextProperties = [subtitleCellConfiguration secondaryTextProperties];
@@ -102,7 +102,7 @@ LABEL_47:
 
     subtitleCellConfiguration = [MEMORY[0x1E69DCC28] cellConfiguration];
     textProperties2 = [subtitleCellConfiguration textProperties];
-    v12 = PKOBKListInlineCellTitleFont();
+    v12 = PKOBKListInlineCellTitleFont(textProperties2);
     [textProperties2 setFont:v12];
 
     secondaryTextProperties3 = [subtitleCellConfiguration secondaryTextProperties];
@@ -110,7 +110,7 @@ LABEL_47:
     [secondaryTextProperties3 setColor:secondaryLabelColor2];
 
     secondaryTextProperties2 = [subtitleCellConfiguration secondaryTextProperties];
-    icon = PKOBKListInlineCellSubtitleFont();
+    icon = PKOBKListInlineCellSubtitleFont(secondaryTextProperties2);
     [secondaryTextProperties2 setFont:icon];
     v17 = 1.0;
     v18 = 15.0;

@@ -5,6 +5,7 @@
 - (void)prepareForActivationWithContext:(id)context completion:(id)completion;
 - (void)selectedSeriesChanged:(id)changed;
 - (void)toggleAudiographPlaybackState:(id)state;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -53,6 +54,47 @@
 
   v4 = +[NSNotificationCenter defaultCenter];
   [v4 addObserver:self selector:"toggleAudiographPlaybackState:" name:@"ToggleAudiographPlaybackState" object:0];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v19.receiver = self;
+  v19.super_class = AXSBUIAudiographRootViewController;
+  [(AXSBUIAudiographRootViewController *)&v19 viewDidAppear:appear];
+  [(AXSBUIAudiographRootViewController *)self _setupRemoteProxy];
+  chartDescriptor = [(AXSBUIAudiographRootViewController *)self chartDescriptor];
+  series = [chartDescriptor series];
+  v6 = [series count];
+
+  if (v6 <= 1)
+  {
+    v7 = &off_100029FC8;
+  }
+
+  else
+  {
+    v7 = &off_100029FB0;
+  }
+
+  UIAccessibilityPostNotification(0x432u, v7);
+  v8 = [AXSBUIAudiographNavigationController alloc];
+  hostingController = [(AXSBUIAudiographRootViewController *)self hostingController];
+  v10 = [(AXSBUIAudiographNavigationController *)v8 initWithRootViewController:hostingController];
+
+  [(AXSBUIAudiographNavigationController *)v10 setDismissDelegate:self];
+  v11 = sub_10000CCD4(@"AXAudiographExplorer.title");
+  hostingController2 = [(AXSBUIAudiographRootViewController *)self hostingController];
+  navigationItem = [hostingController2 navigationItem];
+  [navigationItem setTitle:v11];
+
+  v14 = [UIBarButtonItem alloc];
+  v15 = sub_10000CCD4(@"AXAudiographExplorer.done");
+  v16 = [v14 initWithTitle:v15 style:2 target:self action:"dismiss"];
+  hostingController3 = [(AXSBUIAudiographRootViewController *)self hostingController];
+  navigationItem2 = [hostingController3 navigationItem];
+  [navigationItem2 setRightBarButtonItem:v16];
+
+  [(AXSBUIAudiographRootViewController *)self presentViewController:v10 animated:0 completion:0];
 }
 
 - (void)selectedSeriesChanged:(id)changed

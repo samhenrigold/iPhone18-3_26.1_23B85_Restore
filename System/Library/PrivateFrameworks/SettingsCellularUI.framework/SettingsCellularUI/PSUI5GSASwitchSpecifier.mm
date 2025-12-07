@@ -4,6 +4,7 @@
 - (id)is5GSAEnabled;
 - (void)checkNRStatusAndDisableIfNeeded;
 - (void)refreshSpecifiersInHostController;
+- (void)set5GSAEnabled:(BOOL)enabled;
 - (void)set5GSASwitch:(id)switch specifier:(id)specifier;
 @end
 
@@ -54,6 +55,47 @@
   bOOLValue = [switch BOOLValue];
 
   [(PSUI5GSASwitchSpecifier *)self set5GSAEnabled:bOOLValue];
+}
+
+- (void)set5GSAEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v16 = *MEMORY[0x277D85DE8];
+  v5 = +[PSUI5GStandaloneCache sharedInstance];
+  v6 = [v5 set5GSAEnabled:enabledCopy forContext:self->_subscriptionContext];
+
+  getLogger = [(PSUI5GSASwitchSpecifier *)self getLogger];
+  v8 = getLogger;
+  if (v6)
+  {
+    if (os_log_type_enabled(getLogger, OS_LOG_TYPE_ERROR))
+    {
+      subscriptionContext = self->_subscriptionContext;
+      v12 = 138412546;
+      v13 = subscriptionContext;
+      v14 = 2112;
+      v15 = v6;
+      _os_log_error_impl(&dword_2658DE000, v8, OS_LOG_TYPE_ERROR, "Failed to activate 5G SA for service: %@, error: %@", &v12, 0x16u);
+    }
+  }
+
+  else if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
+  {
+    v10 = @"Disabled";
+    v11 = self->_subscriptionContext;
+    if (enabledCopy)
+    {
+      v10 = @"Enabled";
+    }
+
+    v12 = 138412546;
+    v13 = v10;
+    v14 = 2112;
+    v15 = v11;
+    _os_log_impl(&dword_2658DE000, v8, OS_LOG_TYPE_DEFAULT, "Successfully set 5G SA state to: %@ for service: %@", &v12, 0x16u);
+  }
+
+  [(PSUI5GSASwitchSpecifier *)self refreshSpecifiersInHostController];
 }
 
 - (id)groupFooterText

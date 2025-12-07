@@ -22,6 +22,7 @@
 - (void)removeObjectForKey:(id)key;
 - (void)removeObjectsForKeys:(id)keys;
 - (void)saveWithCompletionHandler:(id)handler;
+- (void)setBoolValue:(BOOL)value forKey:(id)key;
 - (void)setObject:(id)object forKey:(id)key;
 - (void)setObjects:(id)objects forKeys:(id)keys;
 - (void)setOptionBackupEnabled:(BOOL)enabled;
@@ -56,22 +57,22 @@
     unsignedIntegerValue2 = [v15 unsignedIntegerValue];
 
     v16 = CFAbsoluteTimeGetCurrent();
-    v17 = RCSharedLog();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+    v18 = RCSharedLog(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
       name2 = [(RCKeyValueStore *)self name];
       *buf = 138412546;
       v48 = name2;
       v49 = 2048;
       v50 = (v16 - Current) * 1000.0;
-      _os_log_debug_impl(&dword_2179FC000, v17, OS_LOG_TYPE_DEBUG, "Loaded %@ cache in %f ms", buf, 0x16u);
+      _os_log_debug_impl(&dword_2179FC000, v18, OS_LOG_TYPE_DEBUG, "Loaded %@ cache in %f ms", buf, 0x16u);
     }
 
     if (unsignedIntegerValue == 1)
     {
       if (unsignedIntegerValue2 == [(RCKeyValueStore *)self clientVersion])
       {
-        v18 = dictionary;
+        v19 = dictionary;
       }
 
       else
@@ -87,7 +88,7 @@
           }
         }
 
-        if (-[RCKeyValueStore _shouldMigrateOnUpgrade](self, "_shouldMigrateOnUpgrade") && (-[RCKeyValueStore migrator](self, "migrator"), v20 = objc_claimAutoreleasedReturnValue(), v21 = [v20 keyValueStore:self canMigrateFromVersion:unsignedIntegerValue2], v20, v21))
+        if (-[RCKeyValueStore _shouldMigrateOnUpgrade](self, "_shouldMigrateOnUpgrade") && (-[RCKeyValueStore migrator](self, "migrator"), v21 = objc_claimAutoreleasedReturnValue(), v22 = [v21 keyValueStore:self canMigrateFromVersion:unsignedIntegerValue2], v21, v22))
         {
           v35 = v11;
           v36 = v10;
@@ -98,45 +99,45 @@
           v41 = 0u;
           v42 = 0u;
           allKeys = [dictionary allKeys];
-          v23 = [allKeys copy];
+          v24 = [allKeys copy];
 
-          v24 = [v23 countByEnumeratingWithState:&v41 objects:v46 count:16];
-          if (v24)
+          v25 = [v24 countByEnumeratingWithState:&v41 objects:v46 count:16];
+          if (v25)
           {
-            v25 = v24;
-            v26 = *v42;
+            v26 = v25;
+            v27 = *v42;
             do
             {
-              for (i = 0; i != v25; ++i)
+              for (i = 0; i != v26; ++i)
               {
-                if (*v42 != v26)
+                if (*v42 != v27)
                 {
-                  objc_enumerationMutation(v23);
+                  objc_enumerationMutation(v24);
                 }
 
-                v28 = *(*(&v41 + 1) + 8 * i);
-                v29 = [dictionary objectForKey:v28];
+                v29 = *(*(&v41 + 1) + 8 * i);
+                v30 = [dictionary objectForKey:v29];
                 migrator2 = [(RCKeyValueStore *)self migrator];
-                v31 = [migrator2 keyValueStore:self migrateObject:v29 forKey:v28 fromVersion:unsignedIntegerValue2];
+                v32 = [migrator2 keyValueStore:self migrateObject:v30 forKey:v29 fromVersion:unsignedIntegerValue2];
 
-                if (v31)
+                if (v32)
                 {
-                  [dictionary setObject:v31 forKey:v28];
+                  [dictionary setObject:v32 forKey:v29];
                 }
 
                 else
                 {
-                  [dictionary removeObjectForKey:v28];
+                  [dictionary removeObjectForKey:v29];
                 }
               }
 
-              v25 = [v23 countByEnumeratingWithState:&v41 objects:v46 count:16];
+              v26 = [v24 countByEnumeratingWithState:&v41 objects:v46 count:16];
             }
 
-            while (v25);
+            while (v26);
           }
 
-          v18 = dictionary;
+          v19 = dictionary;
           v8 = v37;
           v5 = v38;
           v11 = v35;
@@ -146,7 +147,7 @@
         else
         {
           [(RCKeyValueStore *)self _clearStore];
-          v18 = 0;
+          v19 = 0;
         }
 
         v12 = v39;
@@ -156,18 +157,16 @@
     else
     {
       [(RCKeyValueStore *)self _clearStore];
-      v18 = 0;
+      v19 = 0;
     }
   }
 
   else
   {
-    v18 = 0;
+    v19 = 0;
   }
 
-  v32 = *MEMORY[0x277D85DE8];
-
-  return v18;
+  return v19;
 }
 
 - (id)allKeys
@@ -497,28 +496,28 @@ uint64_t __35__RCKeyValueStore_removeAllObjects__block_invoke(uint64_t a1)
 
 uint64_t __50__RCKeyValueStore_updateObjectsForKeys_withBlock___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v15;
+    v5 = *v14;
     do
     {
       v6 = 0;
       do
       {
-        if (*v15 != v5)
+        if (*v14 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v14 + 1) + 8 * v6);
+        v7 = *(*(&v13 + 1) + 8 * v6);
         v8 = [*(a1 + 40) objectsByKey];
         v9 = [v8 objectForKey:v7];
 
@@ -533,15 +532,13 @@ uint64_t __50__RCKeyValueStore_updateObjectsForKeys_withBlock___block_invoke(uin
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v4);
   }
 
-  result = [*(a1 + 40) setNeedSave:1];
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 40) setNeedSave:1];
 }
 
 - (id)objectForKey:(id)key
@@ -560,6 +557,15 @@ uint64_t __50__RCKeyValueStore_updateObjectsForKeys_withBlock___block_invoke(uin
   v6 = [objectsByKey rc_subdictionaryForKeys:keysCopy];
 
   return v6;
+}
+
+- (void)setBoolValue:(BOOL)value forKey:(id)key
+{
+  valueCopy = value;
+  v6 = MEMORY[0x277CCABB0];
+  keyCopy = key;
+  v8 = [v6 numberWithBool:valueCopy];
+  [(RCKeyValueStore *)self setObject:v8 forKey:keyCopy];
 }
 
 - (BOOL)BOOLValueForKey:(id)key
@@ -622,17 +628,17 @@ uint64_t __50__RCKeyValueStore_updateObjectsForKeys_withBlock___block_invoke(uin
 
 void __51__RCKeyValueStore__saveAsyncWithCompletionHandler___block_invoke(uint64_t a1)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   if ([*(a1 + 32) _persistOnlyInMemoryEnabled])
   {
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __51__RCKeyValueStore__saveAsyncWithCompletionHandler___block_invoke_2;
-    v28[3] = &unk_27822F2D8;
-    v29 = *(a1 + 40);
-    __51__RCKeyValueStore__saveAsyncWithCompletionHandler___block_invoke_2(v28);
-    v3 = v29;
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v30[2] = __51__RCKeyValueStore__saveAsyncWithCompletionHandler___block_invoke_2;
+    v30[3] = &unk_27822F2D8;
+    v31 = *(a1 + 40);
+    __51__RCKeyValueStore__saveAsyncWithCompletionHandler___block_invoke_2(v30);
+    v3 = v31;
     goto LABEL_24;
   }
 
@@ -666,20 +672,21 @@ void __51__RCKeyValueStore__saveAsyncWithCompletionHandler___block_invoke(uint64
     [v10 setObject:v11 forKeyedSubscript:@"clientVersion"];
 
     [v10 setObject:v3 forKeyedSubscript:@"data"];
-    v27 = 0;
-    v12 = [MEMORY[0x277CCAC58] dataWithPropertyList:v10 format:200 options:0 error:&v27];
-    v13 = v27;
+    v29 = 0;
+    v12 = [MEMORY[0x277CCAC58] dataWithPropertyList:v10 format:200 options:0 error:&v29];
+    v13 = v29;
     if (v13)
     {
-      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      v14 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
+      if (v14)
       {
         __51__RCKeyValueStore__saveAsyncWithCompletionHandler___block_invoke_cold_1(v2, v13);
       }
 
-      v14 = RCSharedLog();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = RCSharedLog(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        __51__RCKeyValueStore__saveAsyncWithCompletionHandler___block_invoke_cold_2(v2, v13, v14);
+        __51__RCKeyValueStore__saveAsyncWithCompletionHandler___block_invoke_cold_2(v2, v13, v15);
       }
     }
 
@@ -694,33 +701,33 @@ LABEL_21:
 
       [*v2 setStoreSize:{objc_msgSend(v12, "length")}];
       Current = CFAbsoluteTimeGetCurrent();
-      v14 = [MEMORY[0x277CBEBC0] fileURLWithPath:v9];
-      [v12 writeToURL:v14 atomically:1];
-      v16 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(*v2, "_isBackupEnabled") ^ 1}];
-      v17 = *MEMORY[0x277CBE878];
-      v26 = 0;
-      v18 = [v14 setResourceValue:v16 forKey:v17 error:&v26];
-      v25 = v26;
+      v15 = [MEMORY[0x277CBEBC0] fileURLWithPath:v9];
+      [v12 writeToURL:v15 atomically:1];
+      v17 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(*v2, "_isBackupEnabled") ^ 1}];
+      v18 = *MEMORY[0x277CBE878];
+      v28 = 0;
+      v19 = [v15 setResourceValue:v17 forKey:v18 error:&v28];
+      v27 = v28;
 
-      if ((v18 & 1) == 0)
+      if ((v19 & 1) == 0)
       {
-        v19 = RCSharedLog();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+        v21 = RCSharedLog(v20);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
         {
           __51__RCKeyValueStore__saveAsyncWithCompletionHandler___block_invoke_cold_3();
         }
       }
 
-      v20 = CFAbsoluteTimeGetCurrent();
-      v21 = RCSharedLog();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+      v22 = CFAbsoluteTimeGetCurrent();
+      v24 = RCSharedLog(v23);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
       {
-        v24 = [*v2 name];
+        v26 = [*v2 name];
         *buf = 138412546;
-        v31 = v24;
-        v32 = 2048;
-        v33 = v20 - Current;
-        _os_log_debug_impl(&dword_2179FC000, v21, OS_LOG_TYPE_DEBUG, "Saved %@ cache in %f ms", buf, 0x16u);
+        v33 = v26;
+        v34 = 2048;
+        v35 = v22 - Current;
+        _os_log_debug_impl(&dword_2179FC000, v24, OS_LOG_TYPE_DEBUG, "Saved %@ cache in %f ms", buf, 0x16u);
       }
 
       [*v2 _logCacheStatus];
@@ -730,15 +737,13 @@ LABEL_21:
   }
 
 LABEL_22:
-  v22 = *(a1 + 40);
-  if (v22)
+  v25 = *(a1 + 40);
+  if (v25)
   {
-    (*(v22 + 16))();
+    (*(v25 + 16))();
   }
 
 LABEL_24:
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __51__RCKeyValueStore__saveAsyncWithCompletionHandler___block_invoke_2(uint64_t a1)
@@ -754,16 +759,14 @@ uint64_t __51__RCKeyValueStore__saveAsyncWithCompletionHandler___block_invoke_2(
 
 - (void)_logCacheStatus
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = vcvts_n_f32_u64(self, 0x14uLL);
   name = [a2 name];
-  v7 = 138412546;
-  v8 = name;
-  v9 = 2048;
-  v10 = v4;
-  _os_log_debug_impl(&dword_2179FC000, a3, OS_LOG_TYPE_DEBUG, "Cache Status:\n* Cache name:\t\t%@\n* Total size (MB):\t%2.4f\n*", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138412546;
+  v7 = name;
+  v8 = 2048;
+  v9 = v4;
+  _os_log_debug_impl(&dword_2179FC000, a3, OS_LOG_TYPE_DEBUG, "Cache Status:\n* Cache name:\t\t%@\n* Total size (MB):\t%2.4f\n*", &v6, 0x16u);
 }
 
 - (void)_queueSave
@@ -820,114 +823,90 @@ uint64_t __51__RCKeyValueStore__saveAsyncWithCompletionHandler___block_invoke_2(
 
 - (void)setObject:forKey:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "key"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3(&dword_2179FC000, MEMORY[0x277D86220], v1, "*** Assertion failure: %s %s:%d %{public}@", v2, v3, v4, v5, "key", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_2179FC000, MEMORY[0x277D86220], v1, "*** Assertion failure: %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)setObjects:forKeys:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "objects"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3(&dword_2179FC000, MEMORY[0x277D86220], v1, "*** Assertion failure: %s %s:%d %{public}@", v2, v3, v4, v5, "objects", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_2179FC000, MEMORY[0x277D86220], v1, "*** Assertion failure: %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)setObjects:forKeys:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "keys"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3(&dword_2179FC000, MEMORY[0x277D86220], v1, "*** Assertion failure: %s %s:%d %{public}@", v2, v3, v4, v5, "keys", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_2179FC000, MEMORY[0x277D86220], v1, "*** Assertion failure: %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)addEntriesFromDictionary:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "otherDictionary"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3(&dword_2179FC000, MEMORY[0x277D86220], v1, "*** Assertion failure: %s %s:%d %{public}@", v2, v3, v4, v5, "otherDictionary", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_2179FC000, MEMORY[0x277D86220], v1, "*** Assertion failure: %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)_loadFromDisk
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"must have a migrator in order to migrate between KVS client versions"];
-  v2 = 136315906;
-  v3 = "[RCKeyValueStore _loadFromDisk]";
-  v4 = 2080;
-  v5 = "/Library/Caches/com.apple.xbs/Sources/RemoteConfiguration/RemoteConfiguration/Persistence/RCKeyValueStore.m";
-  v6 = 1024;
-  v7 = 330;
-  v8 = 2114;
-  v9 = v0;
-  _os_log_error_impl(&dword_2179FC000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "*** Assertion failure: %s %s:%d %{public}@", &v2, 0x26u);
-
-  v1 = *MEMORY[0x277D85DE8];
+  v1 = 136315906;
+  v2 = "[RCKeyValueStore _loadFromDisk]";
+  v3 = 2080;
+  v4 = "/Library/Caches/com.apple.xbs/Sources/RemoteConfiguration/RemoteConfiguration/Persistence/RCKeyValueStore.m";
+  v5 = 1024;
+  v6 = 330;
+  v7 = 2114;
+  v8 = v0;
+  _os_log_error_impl(&dword_2179FC000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "*** Assertion failure: %s %s:%d %{public}@", &v1, 0x26u);
 }
 
 void __51__RCKeyValueStore__saveAsyncWithCompletionHandler___block_invoke_cold_1(id *a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
   v4 = objc_alloc(MEMORY[0x277CCACA8]);
   v5 = [*a1 name];
-  v13 = a2;
-  v6 = [v4 initWithFormat:@"failed to serialize %@ key-value store plist with error: %@"];
+  v6 = [v4 initWithFormat:@"failed to serialize %@ key-value store plist with error: %@", v5, a2];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3(&dword_2179FC000, MEMORY[0x277D86220], v7, "*** Assertion failure: %s %s:%d %{public}@", v8, v9, v10, v11, v5, v13, 2u);
-
-  v12 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_2179FC000, MEMORY[0x277D86220], v7, "*** Assertion failure: %s %s:%d %{public}@", v8, v9, v10, v11, v12, v13);
 }
 
 void __51__RCKeyValueStore__saveAsyncWithCompletionHandler___block_invoke_cold_2(id *a1, uint64_t a2, NSObject *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v5 = [*a1 name];
   OUTLINED_FUNCTION_4();
-  v8 = a2;
-  _os_log_error_impl(&dword_2179FC000, a3, OS_LOG_TYPE_ERROR, "failed to serialize %{public}@ key-value store plist with error: %{public}@", v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v7 = a2;
+  _os_log_error_impl(&dword_2179FC000, a3, OS_LOG_TYPE_ERROR, "failed to serialize %{public}@ key-value store plist with error: %{public}@", v6, 0x16u);
 }
 
 void __51__RCKeyValueStore__saveAsyncWithCompletionHandler___block_invoke_cold_3()
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
-  v4 = v0;
-  _os_log_error_impl(&dword_2179FC000, v1, OS_LOG_TYPE_ERROR, "Failed to set backup status for %{public}@ -- %{public}@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = v0;
+  _os_log_error_impl(&dword_2179FC000, v1, OS_LOG_TYPE_ERROR, "Failed to set backup status for %{public}@ -- %{public}@", v2, 0x16u);
 }
 
 - (void)_initializeStoreDirectoryWithName:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v1 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"failed to create cache directory with error: %@"];
+  v1 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"failed to create cache directory with error: %@", a1];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3(&dword_2179FC000, MEMORY[0x277D86220], v2, "*** Assertion failure: %s %s:%d %{public}@", v3, v4, v5, v6, a1, v9, 2u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_2179FC000, MEMORY[0x277D86220], v2, "*** Assertion failure: %s %s:%d %{public}@", v3, v4, v5, v6, v7, v8);
 }
 
 @end

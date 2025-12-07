@@ -95,25 +95,26 @@ LABEL_7:
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v12 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+    v13 = __atxlog_handle_notification_management(isKindOfClass);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
     {
-      [(ATXDigestTimeline *)self initWithProto:v12];
+      [(ATXDigestTimeline *)self initWithProto:v13];
     }
 
     goto LABEL_7;
   }
 
-  v5 = protoCopy;
-  bundleId = [v5 bundleId];
-  appMarqueeGroups = [v5 appMarqueeGroups];
-  v8 = [ATXUserNotificationDigestNotificationGroup groupsFromProtos:appMarqueeGroups];
-  nonAppMarqueeGroups = [v5 nonAppMarqueeGroups];
+  v6 = protoCopy;
+  bundleId = [v6 bundleId];
+  appMarqueeGroups = [v6 appMarqueeGroups];
+  v9 = [ATXUserNotificationDigestNotificationGroup groupsFromProtos:appMarqueeGroups];
+  nonAppMarqueeGroups = [v6 nonAppMarqueeGroups];
 
-  v10 = [ATXUserNotificationDigestNotificationGroup groupsFromProtos:nonAppMarqueeGroups];
-  self = [(ATXUserNotificationAppDigest *)self initWithBundleId:bundleId appMarqueeGroups:v8 nonAppMarqueeGroups:v10];
+  v11 = [ATXUserNotificationDigestNotificationGroup groupsFromProtos:nonAppMarqueeGroups];
+  self = [(ATXUserNotificationAppDigest *)self initWithBundleId:bundleId appMarqueeGroups:v9 nonAppMarqueeGroups:v11];
 
   selfCopy = self;
 LABEL_8:

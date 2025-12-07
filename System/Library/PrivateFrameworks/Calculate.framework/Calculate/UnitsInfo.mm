@@ -110,11 +110,11 @@ void __27__UnitsInfo_converterUnits__block_invoke()
 
 - (UnitsInfo)initWithDictionary:(id)dictionary
 {
-  v198 = *MEMORY[0x1E69E9840];
+  v197 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v190.receiver = self;
-  v190.super_class = UnitsInfo;
-  v5 = [(UnitsInfo *)&v190 init];
+  v189.receiver = self;
+  v189.super_class = UnitsInfo;
+  v5 = [(UnitsInfo *)&v189 init];
   if (!v5)
   {
     goto LABEL_123;
@@ -140,23 +140,23 @@ void __27__UnitsInfo_converterUnits__block_invoke()
   v13 = objc_opt_new();
   [unitTypeToInfo addObject:v13];
 
-  v134 = objc_opt_new();
+  v133 = objc_opt_new();
+  v185 = 0u;
   v186 = 0u;
   v187 = 0u;
   v188 = 0u;
-  v189 = 0u;
-  v126 = dictionaryCopy;
+  v125 = dictionaryCopy;
   obj = dictionaryCopy;
   v14 = 0x1EDC2B000;
-  v138 = [obj countByEnumeratingWithState:&v186 objects:v197 count:16];
-  if (!v138)
+  v137 = [obj countByEnumeratingWithState:&v185 objects:v196 count:16];
+  if (!v137)
   {
-    v135 = 0;
+    v134 = 0;
     goto LABEL_63;
   }
 
-  v135 = 0;
-  v136 = *v187;
+  v134 = 0;
+  v135 = *v186;
   v15 = @"BaseNumerator";
   v16 = @"BaseDenominator";
   do
@@ -164,16 +164,16 @@ void __27__UnitsInfo_converterUnits__block_invoke()
     v17 = 0;
     do
     {
-      if (*v187 != v136)
+      if (*v186 != v135)
       {
         objc_enumerationMutation(obj);
       }
 
-      v142 = v17;
-      v18 = *(*(&v186 + 1) + 8 * v17);
+      v141 = v17;
+      v18 = *(*(&v185 + 1) + 8 * v17);
       v19 = [obj objectForKeyedSubscript:v18];
       v20 = objc_opt_new();
-      [v20 setUnitType:++v135];
+      [v20 setUnitType:++v134];
       [v20 setName:v18];
       [v20 setDecompositionCoefficient:{1, 0x3040000000000000}];
       v21 = [v19 objectForKeyedSubscript:@"BaseDecomposition"];
@@ -205,33 +205,33 @@ void __27__UnitsInfo_converterUnits__block_invoke()
       unitTypeToInfo2 = [(UnitsInfo *)v5 unitTypeToInfo];
       [unitTypeToInfo2 addObject:v20];
 
-      v148 = objc_opt_new();
+      v147 = objc_opt_new();
       [v20 setUnits:?];
-      v184 = 0u;
-      v185 = 0u;
-      v182 = 0u;
       v183 = 0u;
+      v184 = 0u;
+      v181 = 0u;
+      v182 = 0u;
       v24 = v19;
-      v25 = [v24 countByEnumeratingWithState:&v182 objects:v196 count:16];
+      v25 = [v24 countByEnumeratingWithState:&v181 objects:v195 count:16];
       v14 = 0x1EDC2B000uLL;
       if (v25)
       {
         v26 = v25;
-        v27 = *v183;
-        v144 = *v183;
-        v146 = v24;
+        v27 = *v182;
+        v143 = *v182;
+        v145 = v24;
         do
         {
           v28 = 0;
-          v150 = v26;
+          v149 = v26;
           do
           {
-            if (*v183 != v27)
+            if (*v182 != v27)
             {
               objc_enumerationMutation(v24);
             }
 
-            v29 = *(*(&v182 + 1) + 8 * v28);
+            v29 = *(*(&v181 + 1) + 8 * v28);
             if (([v14 + 4080 shouldSkipUnitName:v29] & 1) == 0)
             {
               v30 = [v24 objectForKeyedSubscript:v29];
@@ -240,7 +240,7 @@ void __27__UnitsInfo_converterUnits__block_invoke()
 
               v33 = objc_opt_new();
               [v33 setUnitID:v32];
-              [v33 setUnitType:v135];
+              [v33 setUnitType:v134];
               [v33 setName:v29];
               [v33 setTypeInfo:v20];
               v34 = [v30 objectForKeyedSubscript:@"Inverted"];
@@ -338,16 +338,16 @@ LABEL_34:
               unitIDToInfo3 = [(UnitsInfo *)v5 unitIDToInfo];
               [unitIDToInfo3 addObject:v33];
 
-              [v148 addObject:v33];
-              [v134 addObject:v29];
-              LODWORD(v165[0]) = 0;
+              [v147 addObject:v33];
+              [v133 addObject:v29];
+              LODWORD(v164[0]) = 0;
               v15 = v44;
               v47 = [v30 objectForKeyedSubscript:v44];
 
               if (v47)
               {
                 v48 = [v30 objectForKeyedSubscript:v44];
-                v49 = __bid128_from_string([v48 UTF8String], 4, v165);
+                v49 = __bid128_from_string([v48 UTF8String], 4, v164);
                 [v33 setBaseNumerator:{v49, v50}];
               }
 
@@ -357,20 +357,20 @@ LABEL_34:
               if (v51)
               {
                 v52 = [v30 objectForKeyedSubscript:v43];
-                v53 = __bid128_from_string([v52 UTF8String], 4, v165);
+                v53 = __bid128_from_string([v52 UTF8String], 4, v164);
                 [v33 setBaseDenominator:{v53, v54}];
               }
 
               baseUnit = [v20 baseUnit];
-              v27 = v144;
-              if (baseUnit || (v56 = [v33 baseNumerator], !__bid128_quiet_equal(v56, v57, 1uLL, 0x3040000000000000uLL, v165)))
+              v27 = v143;
+              if (baseUnit || (v56 = [v33 baseNumerator], !__bid128_quiet_equal(v56, v57, 1uLL, 0x3040000000000000uLL, v164)))
               {
               }
 
               else
               {
                 baseDenominator = [v33 baseDenominator];
-                if (__bid128_quiet_equal(baseDenominator, v59, 1uLL, 0x3040000000000000uLL, v165))
+                if (__bid128_quiet_equal(baseDenominator, v59, 1uLL, 0x3040000000000000uLL, v164))
                 {
                   [v33 setIsBaseUnit:1];
                   [v20 setBaseUnit:v33];
@@ -378,87 +378,87 @@ LABEL_34:
               }
 
               v14 = 0x1EDC2B000;
-              v24 = v146;
-              v26 = v150;
+              v24 = v145;
+              v26 = v149;
             }
 
             ++v28;
           }
 
           while (v26 != v28);
-          v60 = [v24 countByEnumeratingWithState:&v182 objects:v196 count:16];
+          v60 = [v24 countByEnumeratingWithState:&v181 objects:v195 count:16];
           v26 = v60;
         }
 
         while (v60);
       }
 
-      v17 = v142 + 1;
+      v17 = v141 + 1;
     }
 
-    while ((v142 + 1) != v138);
-    v138 = [obj countByEnumeratingWithState:&v186 objects:v197 count:16];
+    while ((v141 + 1) != v137);
+    v137 = [obj countByEnumeratingWithState:&v185 objects:v196 count:16];
   }
 
-  while (v138);
+  while (v137);
 LABEL_63:
 
-  v180 = 0u;
-  v181 = 0u;
-  v178 = 0u;
   v179 = 0u;
-  v129 = obj;
-  v128 = [v129 countByEnumeratingWithState:&v178 objects:v195 count:16];
-  if (v128)
+  v180 = 0u;
+  v177 = 0u;
+  v178 = 0u;
+  v128 = obj;
+  v127 = [v128 countByEnumeratingWithState:&v177 objects:v194 count:16];
+  if (v127)
   {
-    v127 = *v179;
+    v126 = *v178;
     do
     {
       v61 = 0;
       do
       {
-        if (*v179 != v127)
+        if (*v178 != v126)
         {
           v62 = v61;
-          objc_enumerationMutation(v129);
+          objc_enumerationMutation(v128);
           v61 = v62;
         }
 
-        v130 = v61;
-        v63 = *(*(&v178 + 1) + 8 * v61);
-        v64 = [v129 objectForKeyedSubscript:v63];
-        v139 = [v64 objectForKeyedSubscript:@"BaseDecomposition"];
-        if (v139)
+        v129 = v61;
+        v63 = *(*(&v177 + 1) + 8 * v61);
+        v64 = [v128 objectForKeyedSubscript:v63];
+        v138 = [v64 objectForKeyedSubscript:@"BaseDecomposition"];
+        if (v138)
         {
-          v151 = v64;
-          v176 = 0u;
-          v177 = 0u;
-          v174 = 0u;
+          v150 = v64;
           v175 = 0u;
-          v172 = 0u;
+          v176 = 0u;
           v173 = 0u;
-          v170 = 0u;
+          v174 = 0u;
           v171 = 0u;
+          v172 = 0u;
+          v169 = 0u;
+          v170 = 0u;
+          v165 = 0u;
           v166 = 0u;
           v167 = 0u;
           v168 = 0u;
-          v169 = 0u;
-          v65 = [v139 countByEnumeratingWithState:&v166 objects:v194 count:16];
+          v65 = [v138 countByEnumeratingWithState:&v165 objects:v193 count:16];
           if (v65)
           {
             v66 = v65;
-            v67 = *v167;
+            v67 = *v166;
             do
             {
               for (i = 0; i != v66; ++i)
               {
-                if (*v167 != v67)
+                if (*v166 != v67)
                 {
-                  objc_enumerationMutation(v139);
+                  objc_enumerationMutation(v138);
                 }
 
-                v69 = *(*(&v166 + 1) + 8 * i);
-                v70 = [v139 objectForKeyedSubscript:v69];
+                v69 = *(*(&v165 + 1) + 8 * i);
+                v70 = [v138 objectForKeyedSubscript:v69];
                 if ([v69 isEqualToString:@"Coefficient"])
                 {
                   intValue = [v70 intValue];
@@ -493,14 +493,14 @@ LABEL_63:
                   unitTypeNameToInfo2 = [unitNameToInfo2 objectForKeyedSubscript:v69];
 
                   v77 = v67;
-                  v78 = &v170 + 2 * [unitTypeNameToInfo2 unitType];
+                  v78 = &v169 + 2 * [unitTypeNameToInfo2 unitType];
                   *v78 = [unitTypeNameToInfo2 unitID];
                   v78[1] = [v70 intValue];
                   v67 = v77;
                 }
               }
 
-              v66 = [v139 countByEnumeratingWithState:&v166 objects:v194 count:16];
+              v66 = [v138 countByEnumeratingWithState:&v165 objects:v193 count:16];
             }
 
             while (v66);
@@ -508,50 +508,50 @@ LABEL_63:
 
           unitTypeNameToInfo3 = [(UnitsInfo *)v5 unitTypeNameToInfo];
           v80 = [unitTypeNameToInfo3 objectForKeyedSubscript:v63];
-          v165[4] = v174;
-          v165[5] = v175;
-          v165[6] = v176;
-          v165[7] = v177;
-          v165[0] = v170;
-          v165[1] = v171;
-          v165[2] = v172;
-          v165[3] = v173;
-          [v80 setDecomposition:v165];
+          v164[4] = v173;
+          v164[5] = v174;
+          v164[6] = v175;
+          v164[7] = v176;
+          v164[0] = v169;
+          v164[1] = v170;
+          v164[2] = v171;
+          v164[3] = v172;
+          [v80 setDecomposition:v164];
 
           v14 = 0x1EDC2B000uLL;
-          v64 = v151;
+          v64 = v150;
         }
 
-        v163 = 0u;
-        v164 = 0u;
-        v161 = 0u;
         v162 = 0u;
+        v163 = 0u;
+        v160 = 0u;
+        v161 = 0u;
         v81 = v64;
-        v82 = [v81 countByEnumeratingWithState:&v161 objects:v193 count:16];
+        v82 = [v81 countByEnumeratingWithState:&v160 objects:v192 count:16];
         if (v82)
         {
           v83 = v82;
-          v84 = *v162;
-          v131 = *v162;
-          v132 = v81;
+          v84 = *v161;
+          v130 = *v161;
+          v131 = v81;
           do
           {
             v85 = 0;
-            v133 = v83;
+            v132 = v83;
             do
             {
-              if (*v162 != v84)
+              if (*v161 != v84)
               {
                 objc_enumerationMutation(v81);
               }
 
-              v86 = *(*(&v161 + 1) + 8 * v85);
+              v86 = *(*(&v160 + 1) + 8 * v85);
               if (([v14 + 4080 shouldSkipUnitName:v86] & 1) == 0)
               {
-                v147 = v85;
-                v149 = [v81 objectForKeyedSubscript:v86];
-                v87 = [v149 objectForKeyedSubscript:@"BestEquivalent"];
-                v145 = v87;
+                v146 = v85;
+                v148 = [v81 objectForKeyedSubscript:v86];
+                v87 = [v148 objectForKeyedSubscript:@"BestEquivalent"];
+                v144 = v87;
                 if (v87)
                 {
                   v88 = v87;
@@ -568,8 +568,8 @@ LABEL_63:
                 v92 = [unitNameToInfo4 objectForKeyedSubscript:v86];
                 [v92 setBestEquivalent:v90];
 
-                v93 = [v149 objectForKeyedSubscript:@"NextSmallest"];
-                v143 = v93;
+                v93 = [v148 objectForKeyedSubscript:@"NextSmallest"];
+                v142 = v93;
                 if (v93)
                 {
                   v94 = v93;
@@ -587,34 +587,34 @@ LABEL_63:
                 obja = v96;
                 [v98 setNextSmallest:v96];
 
-                v99 = [v149 objectForKeyedSubscript:@"Subunits"];
+                v99 = [v148 objectForKeyedSubscript:@"Subunits"];
                 if (v99)
                 {
-                  v152 = v86;
+                  v151 = v86;
                   v100 = v5;
                   v101 = objc_opt_new();
+                  v156 = 0u;
                   v157 = 0u;
                   v158 = 0u;
                   v159 = 0u;
-                  v160 = 0u;
-                  v137 = v99;
+                  v136 = v99;
                   v102 = v99;
-                  v103 = [v102 countByEnumeratingWithState:&v157 objects:v192 count:16];
+                  v103 = [v102 countByEnumeratingWithState:&v156 objects:v191 count:16];
                   if (v103)
                   {
                     v104 = v103;
-                    v105 = *v158;
+                    v105 = *v157;
                     do
                     {
                       for (j = 0; j != v104; ++j)
                       {
                         v107 = v90;
-                        if (*v158 != v105)
+                        if (*v157 != v105)
                         {
                           objc_enumerationMutation(v102);
                         }
 
-                        v108 = *(*(&v157 + 1) + 8 * j);
+                        v108 = *(*(&v156 + 1) + 8 * j);
                         unitNameToInfo7 = [(UnitsInfo *)v100 unitNameToInfo];
                         v110 = [unitNameToInfo7 objectForKeyedSubscript:v108];
 
@@ -626,13 +626,13 @@ LABEL_63:
 
                         else
                         {
-                          NSLog(&cfstr_WarningUnitTyp.isa, v152, v108);
+                          NSLog(&cfstr_WarningUnitTyp.isa, v151, v108);
                         }
 
                         v90 = v107;
                       }
 
-                      v104 = [v102 countByEnumeratingWithState:&v157 objects:v192 count:16];
+                      v104 = [v102 countByEnumeratingWithState:&v156 objects:v191 count:16];
                     }
 
                     while (v104);
@@ -640,88 +640,87 @@ LABEL_63:
 
                   v5 = v100;
                   unitNameToInfo8 = [(UnitsInfo *)v100 unitNameToInfo];
-                  v113 = [unitNameToInfo8 objectForKeyedSubscript:v152];
+                  v113 = [unitNameToInfo8 objectForKeyedSubscript:v151];
                   [v113 setSubunitIDs:v101];
 
                   v14 = 0x1EDC2B000;
-                  v84 = v131;
-                  v81 = v132;
-                  v83 = v133;
-                  v99 = v137;
+                  v84 = v130;
+                  v81 = v131;
+                  v83 = v132;
+                  v99 = v136;
                 }
 
-                v85 = v147;
+                v85 = v146;
               }
 
               ++v85;
             }
 
             while (v85 != v83);
-            v83 = [v81 countByEnumeratingWithState:&v161 objects:v193 count:16];
+            v83 = [v81 countByEnumeratingWithState:&v160 objects:v192 count:16];
           }
 
           while (v83);
         }
 
-        v61 = v130 + 1;
+        v61 = v129 + 1;
       }
 
-      while (v130 + 1 != v128);
-      v128 = [v129 countByEnumeratingWithState:&v178 objects:v195 count:16];
+      while (v129 + 1 != v127);
+      v127 = [v128 countByEnumeratingWithState:&v177 objects:v194 count:16];
     }
 
-    while (v128);
+    while (v127);
   }
 
   v114 = objc_opt_new();
+  v152 = 0u;
   v153 = 0u;
   v154 = 0u;
   v155 = 0u;
-  v156 = 0u;
   unitIDToInfo4 = [(UnitsInfo *)v5 unitIDToInfo];
-  v116 = [unitIDToInfo4 countByEnumeratingWithState:&v153 objects:v191 count:16];
+  v116 = [unitIDToInfo4 countByEnumeratingWithState:&v152 objects:v190 count:16];
   if (v116)
   {
     v117 = v116;
-    v118 = *v154;
+    v118 = *v153;
     do
     {
       for (k = 0; k != v117; ++k)
       {
-        if (*v154 != v118)
+        if (*v153 != v118)
         {
           objc_enumerationMutation(unitIDToInfo4);
         }
 
-        [(UnitsInfo *)v5 populateSubunitIDs:*(*(&v153 + 1) + 8 * k) forUnit:*(*(&v153 + 1) + 8 * k) visited:v114];
+        [(UnitsInfo *)v5 populateSubunitIDs:*(*(&v152 + 1) + 8 * k) forUnit:*(*(&v152 + 1) + 8 * k) visited:v114];
         [v114 removeAllObjects];
       }
 
-      v117 = [unitIDToInfo4 countByEnumeratingWithState:&v153 objects:v191 count:16];
+      v117 = [unitIDToInfo4 countByEnumeratingWithState:&v152 objects:v190 count:16];
     }
 
     while (v117);
   }
 
-  v120 = [v134 copy];
+  v120 = [v133 copy];
   unitNames = v5->_unitNames;
   v5->_unitNames = v120;
 
-  v5->_unitTypeCount = v135;
+  v5->_unitTypeCount = v134;
   unitIDToInfo5 = [(UnitsInfo *)v5 unitIDToInfo];
   v5->_unitCount = [unitIDToInfo5 count];
 
   v123 = v5;
-  dictionaryCopy = v126;
+  dictionaryCopy = v125;
 LABEL_123:
 
-  v124 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (void)populateSubunitIDs:(id)ds forUnit:(id)unit visited:(id)visited
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   unitCopy = unit;
   visitedCopy = visited;
@@ -732,41 +731,39 @@ LABEL_123:
     allSubunitIDs = [unitCopy allSubunitIDs];
     [allSubunitIDs addObject:v11];
 
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     subunitIDs = [dsCopy subunitIDs];
-    v14 = [subunitIDs countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v14 = [subunitIDs countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v21;
+      v16 = *v20;
       do
       {
         v17 = 0;
         do
         {
-          if (*v21 != v16)
+          if (*v20 != v16)
           {
             objc_enumerationMutation(subunitIDs);
           }
 
-          v18 = -[UnitsInfo infoForUnitID:](self, "infoForUnitID:", [*(*(&v20 + 1) + 8 * v17) intValue]);
+          v18 = -[UnitsInfo infoForUnitID:](self, "infoForUnitID:", [*(*(&v19 + 1) + 8 * v17) intValue]);
           [(UnitsInfo *)self populateSubunitIDs:v18 forUnit:unitCopy visited:visitedCopy];
 
           ++v17;
         }
 
         while (v15 != v17);
-        v15 = [subunitIDs countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v15 = [subunitIDs countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v15);
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 + (UnitsInfo)unitsInfoWithDictionary:(id)dictionary

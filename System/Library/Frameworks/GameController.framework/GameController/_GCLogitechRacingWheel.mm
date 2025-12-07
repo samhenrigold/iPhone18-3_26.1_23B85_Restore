@@ -11,7 +11,7 @@
 
 - (_GCLogitechRacingWheel)initWithService:(unsigned int)service
 {
-  v214[2] = *MEMORY[0x1E69E9840];
+  v213[2] = *MEMORY[0x1E69E9840];
   v3 = IOHIDDeviceCreate(*MEMORY[0x1E695E480], service);
   if (v3)
   {
@@ -20,22 +20,22 @@
     v6 = IOHIDDeviceGetProperty(v4, @"ProductID");
     if ([v5 unsignedIntValue] == 1133 && objc_msgSend(v6, "unsignedIntValue") == 49774)
     {
-      v196 = v6;
-      v197 = v5;
+      v195 = v6;
+      v196 = v5;
       v7 = 0;
     }
 
     else if ([v5 unsignedIntValue] == 1133 && objc_msgSend(v6, "unsignedIntValue") == 49766)
     {
-      v196 = v6;
-      v197 = v5;
+      v195 = v6;
+      v196 = v5;
       v7 = 1;
     }
 
     else if ([v5 unsignedIntValue] == 1133 && objc_msgSend(v6, "unsignedIntValue") == 49762)
     {
-      v196 = v6;
-      v197 = v5;
+      v195 = v6;
+      v196 = v5;
       v7 = 2;
     }
 
@@ -50,8 +50,8 @@ LABEL_26:
         goto LABEL_27;
       }
 
-      v196 = v6;
-      v197 = v5;
+      v195 = v6;
+      v196 = v5;
       v7 = 3;
     }
 
@@ -80,7 +80,7 @@ LABEL_26:
     }
 
     [v13 setProductCategory:v15];
-    v195 = v14;
+    v194 = v14;
     [v14 setVendorName:{IOHIDDeviceGetProperty(v4, @"Product"}];
     v16 = [(_GCDevicePhysicalInputElementParameters *)_GCDevicePhysicalInputDirectionPadElementParameters parametersWithIdentifier:@"dpad"];
     v17 = [MEMORY[0x1E695DFD8] setWithObject:@"Direction Pad"];
@@ -95,7 +95,7 @@ LABEL_26:
     [(_GCDevicePhysicalInputDirectionPadElementParameters *)v16 setEventUpValueField:?];
     [(_GCDevicePhysicalInputDirectionPadElementParameters *)v16 setEventDownValueField:?];
     [(_GCDevicePhysicalInputDirectionPadElementParameters *)v16 setEventLeftValueField:?];
-    v211 = v16;
+    v210 = v16;
     [(_GCDevicePhysicalInputDirectionPadElementParameters *)v16 setEventRightValueField:?];
     v23 = [(_GCDevicePhysicalInputElementParameters *)_GCDevicePhysicalInputButtonElementParameters parametersWithIdentifier:@"button.a"];
     v24 = [MEMORY[0x1E695DFD8] setWithObject:@"Button A"];
@@ -108,7 +108,7 @@ LABEL_26:
     [(_GCDevicePhysicalInputElementParameters *)v23 setSymbol:v28, v29];
 
     [(_GCDevicePhysicalInputButtonElementParameters *)v23 setAnalog:?];
-    v210 = v23;
+    v209 = v23;
     [(_GCDevicePhysicalInputButtonElementParameters *)v23 setEventPressedValueField:?];
     v30 = [(_GCDevicePhysicalInputElementParameters *)_GCDevicePhysicalInputButtonElementParameters parametersWithIdentifier:@"button.b"];
     v31 = [MEMORY[0x1E695DFD8] setWithObject:@"Button B"];
@@ -121,7 +121,7 @@ LABEL_26:
     [(_GCDevicePhysicalInputElementParameters *)v30 setSymbol:v35, v36];
 
     [(_GCDevicePhysicalInputButtonElementParameters *)v30 setAnalog:?];
-    v209 = v30;
+    v208 = v30;
     [(_GCDevicePhysicalInputButtonElementParameters *)v30 setEventPressedValueField:?];
     v37 = [(_GCDevicePhysicalInputElementParameters *)_GCDevicePhysicalInputButtonElementParameters parametersWithIdentifier:@"button.x"];
     v38 = [MEMORY[0x1E695DFD8] setWithObject:@"Button X"];
@@ -134,7 +134,7 @@ LABEL_26:
     [(_GCDevicePhysicalInputElementParameters *)v37 setSymbol:v42, v43];
 
     [(_GCDevicePhysicalInputButtonElementParameters *)v37 setAnalog:?];
-    v208 = v37;
+    v207 = v37;
     [(_GCDevicePhysicalInputButtonElementParameters *)v37 setEventPressedValueField:?];
     v44 = [(_GCDevicePhysicalInputElementParameters *)_GCDevicePhysicalInputButtonElementParameters parametersWithIdentifier:@"button.y"];
     v45 = [MEMORY[0x1E695DFD8] setWithObject:@"Button Y"];
@@ -147,7 +147,7 @@ LABEL_26:
     [(_GCDevicePhysicalInputElementParameters *)v44 setSymbol:v49, v50];
 
     [(_GCDevicePhysicalInputButtonElementParameters *)v44 setAnalog:?];
-    v207 = v44;
+    v206 = v44;
     [(_GCDevicePhysicalInputButtonElementParameters *)v44 setEventPressedValueField:?];
     v51 = [(_GCDevicePhysicalInputElementParameters *)_GCDevicePhysicalInputButtonElementParameters parametersWithIdentifier:@"button.l2"];
     v52 = [MEMORY[0x1E695DFD8] setWithObject:@"Left Trigger"];
@@ -157,7 +157,7 @@ LABEL_26:
     [(_GCDevicePhysicalInputElementParameters *)v51 setLocalizedName:v54, v55];
 
     [(_GCDevicePhysicalInputButtonElementParameters *)v51 setAnalog:?];
-    v201 = v51;
+    v200 = v51;
     [(_GCDevicePhysicalInputButtonElementParameters *)v51 setEventPressedValueField:?];
     v56 = [(_GCDevicePhysicalInputElementParameters *)_GCDevicePhysicalInputButtonElementParameters parametersWithIdentifier:@"button.r2"];
     v57 = [MEMORY[0x1E695DFD8] setWithObject:@"Right Trigger"];
@@ -167,7 +167,7 @@ LABEL_26:
     [(_GCDevicePhysicalInputElementParameters *)v56 setLocalizedName:v59, v60];
 
     [(_GCDevicePhysicalInputButtonElementParameters *)v56 setAnalog:?];
-    v200 = v56;
+    v199 = v56;
     [(_GCDevicePhysicalInputButtonElementParameters *)v56 setEventPressedValueField:?];
     v61 = [(_GCDevicePhysicalInputElementParameters *)_GCDevicePhysicalInputButtonElementParameters parametersWithIdentifier:@"button.l3"];
     v62 = [MEMORY[0x1E695DFD8] setWithObject:@"Left Thumbstick Button"];
@@ -177,7 +177,7 @@ LABEL_26:
     [(_GCDevicePhysicalInputElementParameters *)v61 setLocalizedName:v64, v65];
 
     [(_GCDevicePhysicalInputButtonElementParameters *)v61 setAnalog:?];
-    v206 = v61;
+    v205 = v61;
     [(_GCDevicePhysicalInputButtonElementParameters *)v61 setEventPressedValueField:?];
     v66 = [(_GCDevicePhysicalInputElementParameters *)_GCDevicePhysicalInputButtonElementParameters parametersWithIdentifier:@"button.r3"];
     v67 = [MEMORY[0x1E695DFD8] setWithObject:@"Right Thumbstick Button"];
@@ -187,7 +187,7 @@ LABEL_26:
     [(_GCDevicePhysicalInputElementParameters *)v66 setLocalizedName:v69, v70];
 
     [(_GCDevicePhysicalInputButtonElementParameters *)v66 setAnalog:?];
-    v205 = v66;
+    v204 = v66;
     [(_GCDevicePhysicalInputButtonElementParameters *)v66 setEventPressedValueField:?];
     v71 = [(_GCDevicePhysicalInputElementParameters *)_GCDevicePhysicalInputButtonElementParameters parametersWithIdentifier:@"leftPaddle"];
     v72 = [MEMORY[0x1E695DFD8] setWithObjects:{@"Left Paddle", @"Left Shoulder", 0}];
@@ -197,7 +197,7 @@ LABEL_26:
     [(_GCDevicePhysicalInputElementParameters *)v71 setLocalizedName:v74, v75];
 
     [(_GCDevicePhysicalInputButtonElementParameters *)v71 setAnalog:?];
-    v204 = v71;
+    v203 = v71;
     [(_GCDevicePhysicalInputButtonElementParameters *)v71 setEventPressedValueField:?];
     v76 = [(_GCDevicePhysicalInputElementParameters *)_GCDevicePhysicalInputButtonElementParameters parametersWithIdentifier:@"rightPaddle"];
     v77 = [MEMORY[0x1E695DFD8] setWithObjects:{@"Right Paddle", @"Right Shoulder", 0}];
@@ -207,7 +207,7 @@ LABEL_26:
     [(_GCDevicePhysicalInputElementParameters *)v76 setLocalizedName:v79, v80];
 
     [(_GCDevicePhysicalInputButtonElementParameters *)v76 setAnalog:?];
-    v203 = v76;
+    v202 = v76;
     [(_GCDevicePhysicalInputButtonElementParameters *)v76 setEventPressedValueField:?];
     v81 = [(_GCDevicePhysicalInputElementParameters *)_GCDevicePhysicalInputButtonElementParameters parametersWithIdentifier:@"button.home"];
     v82 = [MEMORY[0x1E695DFD8] setWithObject:@"Button Home"];
@@ -232,7 +232,7 @@ LABEL_26:
     [(_GCDevicePhysicalInputElementParameters *)v88 setSymbol:v93, v94];
 
     [(_GCDevicePhysicalInputButtonElementParameters *)v88 setAnalog:?];
-    v199 = v88;
+    v198 = v88;
     [(_GCDevicePhysicalInputButtonElementParameters *)v88 setEventPressedValueField:?];
     v95 = [(_GCDevicePhysicalInputElementParameters *)_GCDevicePhysicalInputButtonElementParameters parametersWithIdentifier:@"button.options"];
     v96 = [MEMORY[0x1E695DFD8] setWithObject:@"Button Options"];
@@ -245,7 +245,7 @@ LABEL_26:
     [(_GCDevicePhysicalInputElementParameters *)v95 setSymbol:v100, v101];
 
     [(_GCDevicePhysicalInputButtonElementParameters *)v95 setAnalog:?];
-    v198 = v95;
+    v197 = v95;
     [(_GCDevicePhysicalInputButtonElementParameters *)v95 setEventPressedValueField:?];
     v102 = [(_GCDevicePhysicalInputElementParameters *)_GCDevicePhysicalInputButtonElementParameters parametersWithIdentifier:@"button.share"];
     v103 = [MEMORY[0x1E695DFD8] setWithObject:@"Button Share"];
@@ -258,7 +258,7 @@ LABEL_26:
     [(_GCDevicePhysicalInputElementParameters *)v102 setSymbol:v107, v108];
 
     [(_GCDevicePhysicalInputButtonElementParameters *)v102 setAnalog:?];
-    v193 = v102;
+    v192 = v102;
     [(_GCDevicePhysicalInputButtonElementParameters *)v102 setEventPressedValueField:?];
     v109 = [(_GCDevicePhysicalInputElementParameters *)_GCDevicePhysicalInputButtonElementParameters parametersWithIdentifier:@"pedal.accelerator"];
     v110 = [MEMORY[0x1E695DFD8] setWithObject:@"Accelerator Pedal"];
@@ -306,116 +306,115 @@ LABEL_26:
     [(_GCDevicePhysicalInputElementParameters *)v129 setLocalizedName:v132, v133];
 
     [(_GCGearShifterElementParameters *)v129 setEventShifterValueField:?];
-    v187 = objc_opt_new();
-    v194 = v81;
-    v191 = v114;
-    v192 = v109;
-    v189 = v124;
-    v190 = v119;
-    v188 = v129;
+    v186 = objc_opt_new();
+    v193 = v81;
+    v190 = v114;
+    v191 = v109;
+    v188 = v124;
+    v189 = v119;
+    v187 = v129;
     if (self->_mode)
     {
-      v176 = MEMORY[0x1E695DFA8];
-      v185 = [[_GCDevicePhysicalInputDirectionPadElement alloc] initWithParameters:v211];
-      v183 = [[_GCDevicePhysicalInputButtonElement alloc] initWithParameters:v210];
-      v174 = [[_GCDevicePhysicalInputButtonElement alloc] initWithParameters:v209];
-      v181 = [[_GCDevicePhysicalInputButtonElement alloc] initWithParameters:v208];
-      v172 = [[_GCDevicePhysicalInputButtonElement alloc] initWithParameters:v207];
-      v170 = [[_GCDevicePhysicalInputButtonElement alloc] initWithParameters:v201];
-      v168 = [[_GCDevicePhysicalInputButtonElement alloc] initWithParameters:v200];
-      v166 = [[_GCDevicePhysicalInputButtonElement alloc] initWithParameters:v206];
-      v179 = [[_GCDevicePhysicalInputButtonElement alloc] initWithParameters:v205];
-      v164 = [[_GCDevicePhysicalInputButtonElement alloc] initWithParameters:v204];
-      v162 = [[_GCDevicePhysicalInputButtonElement alloc] initWithParameters:v203];
-      v160 = [[_GCDevicePhysicalInputButtonElement alloc] initWithParameters:v81];
+      v175 = MEMORY[0x1E695DFA8];
+      v184 = [[_GCDevicePhysicalInputDirectionPadElement alloc] initWithParameters:v210];
+      v182 = [[_GCDevicePhysicalInputButtonElement alloc] initWithParameters:v209];
+      v173 = [[_GCDevicePhysicalInputButtonElement alloc] initWithParameters:v208];
+      v180 = [[_GCDevicePhysicalInputButtonElement alloc] initWithParameters:v207];
+      v171 = [[_GCDevicePhysicalInputButtonElement alloc] initWithParameters:v206];
+      v169 = [[_GCDevicePhysicalInputButtonElement alloc] initWithParameters:v200];
+      v167 = [[_GCDevicePhysicalInputButtonElement alloc] initWithParameters:v199];
+      v165 = [[_GCDevicePhysicalInputButtonElement alloc] initWithParameters:v205];
+      v178 = [[_GCDevicePhysicalInputButtonElement alloc] initWithParameters:v204];
+      v163 = [[_GCDevicePhysicalInputButtonElement alloc] initWithParameters:v203];
+      v161 = [[_GCDevicePhysicalInputButtonElement alloc] initWithParameters:v202];
+      v159 = [[_GCDevicePhysicalInputButtonElement alloc] initWithParameters:v81];
       v134 = [[_GCDevicePhysicalInputButtonElement alloc] initWithParameters:v109];
       v135 = [[_GCDevicePhysicalInputButtonElement alloc] initWithParameters:v114];
       v136 = [[_GCDevicePhysicalInputButtonElement alloc] initWithParameters:v119];
       v137 = [[GCGearShifterElement alloc] initWithParameters:v129];
       v138 = [[GCSteeringWheelElement alloc] initWithParameters:v124];
-      v177 = [v176 setWithObjects:{v185, v183, v174, v181, v172, v170, v168, v166, v179, v164, v162, v160, v134, v135, v136, v137, v138, 0}];
+      v176 = [v175 setWithObjects:{v184, v182, v173, v180, v171, v169, v167, v165, v178, v163, v161, v159, v134, v135, v136, v137, v138, 0}];
 
       if (self->_mode == 2)
       {
-        v139 = v177;
-        v141 = v200;
-        v140 = v201;
-        v142 = v198;
-        v143 = v199;
-        v144 = v193;
+        v139 = v176;
+        v141 = v199;
+        v140 = v200;
+        v142 = v197;
+        v143 = v198;
+        v144 = v192;
 LABEL_25:
         v153 = v139;
-        v154 = [[_GCDevicePhysicalInput alloc] initWithFacade:v187 elements:v139];
+        v154 = [[_GCDevicePhysicalInput alloc] initWithFacade:v186 elements:v139];
         v155 = [[_GCDevicePhysicalInputComponent alloc] initWithIdentifier:&stru_1F4E3B4E0 defaultPhysicalInput:v154];
         [(_GCDevicePhysicalInputComponent *)v155 setGamepadEventSource:self];
 
-        v214[0] = v195;
-        v214[1] = v155;
-        v156 = [MEMORY[0x1E695DEC8] arrayWithObjects:v214 count:2];
-        v213.receiver = self;
-        v213.super_class = _GCLogitechRacingWheel;
-        v157 = [(GCRacingWheel *)&v213 initWithComponents:v156];
+        v213[0] = v194;
+        v213[1] = v155;
+        v156 = [MEMORY[0x1E695DEC8] arrayWithObjects:v213 count:2];
+        v212.receiver = self;
+        v212.super_class = _GCLogitechRacingWheel;
+        v157 = [(GCRacingWheel *)&v212 initWithComponents:v156];
 
         IOHIDDeviceActivate(v157->_device);
         v8 = v157;
 
         self = v8;
-        v5 = v197;
-        v6 = v196;
+        v5 = v196;
+        v6 = v195;
         goto LABEL_26;
       }
 
       v142 = v95;
       v152 = [[_GCDevicePhysicalInputButtonElement alloc] initWithParameters:v95];
-      [v177 addObject:v152];
+      [v176 addObject:v152];
 
-      v144 = v193;
-      v150 = [[_GCDevicePhysicalInputButtonElement alloc] initWithParameters:v193];
-      v139 = v177;
-      [v177 addObject:v150];
-      v143 = v199;
-      v141 = v200;
+      v144 = v192;
+      v150 = [[_GCDevicePhysicalInputButtonElement alloc] initWithParameters:v192];
+      v139 = v176;
+      [v176 addObject:v150];
+      v143 = v198;
+      v141 = v199;
     }
 
     else
     {
-      v180 = MEMORY[0x1E695DFD8];
-      v178 = [[_GCDevicePhysicalInputDirectionPadElement alloc] initWithParameters:v211];
-      v202 = [[_GCDevicePhysicalInputButtonElement alloc] initWithParameters:v210];
-      v186 = [[_GCDevicePhysicalInputButtonElement alloc] initWithParameters:v209];
-      v184 = [[_GCDevicePhysicalInputButtonElement alloc] initWithParameters:v208];
-      v175 = [[_GCDevicePhysicalInputButtonElement alloc] initWithParameters:v207];
-      v173 = [[_GCDevicePhysicalInputButtonElement alloc] initWithParameters:v206];
-      v182 = [[_GCDevicePhysicalInputButtonElement alloc] initWithParameters:v205];
-      v167 = [[_GCDevicePhysicalInputButtonElement alloc] initWithParameters:v204];
-      v171 = [[_GCDevicePhysicalInputButtonElement alloc] initWithParameters:v203];
-      v169 = [[_GCDevicePhysicalInputButtonElement alloc] initWithParameters:v81];
-      v165 = [[_GCDevicePhysicalInputButtonElement alloc] initWithParameters:v199];
+      v179 = MEMORY[0x1E695DFD8];
+      v177 = [[_GCDevicePhysicalInputDirectionPadElement alloc] initWithParameters:v210];
+      v201 = [[_GCDevicePhysicalInputButtonElement alloc] initWithParameters:v209];
+      v185 = [[_GCDevicePhysicalInputButtonElement alloc] initWithParameters:v208];
+      v183 = [[_GCDevicePhysicalInputButtonElement alloc] initWithParameters:v207];
+      v174 = [[_GCDevicePhysicalInputButtonElement alloc] initWithParameters:v206];
+      v172 = [[_GCDevicePhysicalInputButtonElement alloc] initWithParameters:v205];
+      v181 = [[_GCDevicePhysicalInputButtonElement alloc] initWithParameters:v204];
+      v166 = [[_GCDevicePhysicalInputButtonElement alloc] initWithParameters:v203];
+      v170 = [[_GCDevicePhysicalInputButtonElement alloc] initWithParameters:v202];
+      v168 = [[_GCDevicePhysicalInputButtonElement alloc] initWithParameters:v81];
+      v164 = [[_GCDevicePhysicalInputButtonElement alloc] initWithParameters:v198];
       v145 = [[_GCDevicePhysicalInputButtonElement alloc] initWithParameters:v95];
-      v163 = [[_GCDevicePhysicalInputButtonElement alloc] initWithParameters:v109];
-      v161 = [[_GCDevicePhysicalInputButtonElement alloc] initWithParameters:v114];
+      v162 = [[_GCDevicePhysicalInputButtonElement alloc] initWithParameters:v109];
+      v160 = [[_GCDevicePhysicalInputButtonElement alloc] initWithParameters:v114];
       v146 = [[_GCDevicePhysicalInputButtonElement alloc] initWithParameters:v119];
       v147 = [[GCGearShifterElement alloc] initWithParameters:v129];
       v148 = [GCSteeringWheelElement alloc];
       v149 = v124;
-      v150 = v178;
+      v150 = v177;
       v151 = [(GCSteeringWheelElement *)v148 initWithParameters:v149];
-      v139 = [v180 setWithObjects:{v178, v202, v186, v184, v175, v173, v182, v167, v171, v169, v165, v145, v163, v161, v146, v147, v151, 0}];
+      v139 = [v179 setWithObjects:{v177, v201, v185, v183, v174, v172, v181, v166, v170, v168, v164, v145, v162, v160, v146, v147, v151, 0}];
 
-      v143 = v199;
-      v141 = v200;
+      v143 = v198;
+      v141 = v199;
       v142 = v95;
-      v144 = v193;
+      v144 = v192;
     }
 
-    v140 = v201;
+    v140 = v200;
     goto LABEL_25;
   }
 
   v8 = 0;
 LABEL_27:
 
-  v158 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -437,7 +436,7 @@ LABEL_27:
 - (BOOL)acquireDeviceWithError:(id *)error
 {
   v21[2] = *MEMORY[0x1E69E9840];
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(self, a2))
   {
     [_GCLogitechRacingWheel acquireDeviceWithError:?];
   }
@@ -458,45 +457,46 @@ LABEL_27:
       *error = [v6 errorWithDomain:@"IOKitErrorDomain" code:v7 userInfo:v9];
     }
 
-    goto LABEL_6;
+    return 0;
   }
 
-  if (self->_mode != 3 || (*&v17[3] = 0, *v17 = 1016, (v11 = IOHIDDeviceSetReport(self->_device, kIOHIDReportTypeOutput, 248, v17, 7)) == 0))
+  if (self->_mode == 3)
   {
-    result = 1;
-    self->_isOpen = 1;
-    goto LABEL_13;
-  }
-
-  v12 = v11;
-  if (gc_isInternalBuild())
-  {
-    [_GCLogitechRacingWheel acquireDeviceWithError:v12];
-    if (!error)
+    *&v17[3] = 0;
+    *v17 = 1016;
+    v11 = IOHIDDeviceSetReport(self->_device, kIOHIDReportTypeOutput, 248, v17, 7);
+    if (v11)
     {
-      goto LABEL_6;
+      v13 = v11;
+      if (gc_isInternalBuild(v11, v12))
+      {
+        [_GCLogitechRacingWheel acquireDeviceWithError:v13];
+        if (!error)
+        {
+          return 0;
+        }
+      }
+
+      else if (!error)
+      {
+        return 0;
+      }
+
+      v14 = MEMORY[0x1E696ABC0];
+      v15 = *MEMORY[0x1E696A588];
+      v18[0] = *MEMORY[0x1E696A578];
+      v18[1] = v15;
+      v19[0] = @"Aquire device failed";
+      v19[1] = @"Failed to switch wheel mode to 900 degrses.";
+      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:2];
+      *error = [v14 errorWithDomain:@"IOKitErrorDomain" code:0 userInfo:v16];
+
+      return 0;
     }
-
-    goto LABEL_11;
   }
 
-  if (error)
-  {
-LABEL_11:
-    v13 = MEMORY[0x1E696ABC0];
-    v14 = *MEMORY[0x1E696A588];
-    v18[0] = *MEMORY[0x1E696A578];
-    v18[1] = v14;
-    v19[0] = @"Aquire device failed";
-    v19[1] = @"Failed to switch wheel mode to 900 degrses.";
-    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:2];
-    *error = [v13 errorWithDomain:@"IOKitErrorDomain" code:0 userInfo:v15];
-  }
-
-LABEL_6:
-  result = 0;
-LABEL_13:
-  v16 = *MEMORY[0x1E69E9840];
+  result = 1;
+  self->_isOpen = 1;
   return result;
 }
 
@@ -583,31 +583,28 @@ LABEL_9:
 
 - (void)acquireDeviceWithError:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v2 = getGCLogger();
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = getGCLogger(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 56);
-    v5 = 138412290;
-    v6 = v3;
-    _os_log_impl(&dword_1D2CD5000, v2, OS_LOG_TYPE_INFO, "Aquire device: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v3;
+    _os_log_impl(&dword_1D2CD5000, v2, OS_LOG_TYPE_INFO, "Aquire device: %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
-- (void)acquireDeviceWithError:(int)a1 .cold.2(int a1)
+- (void)acquireDeviceWithError:(uint64_t)a1 .cold.2(uint64_t a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v2 = getGCLogger();
+  v1 = a1;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = getGCLogger(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    v4[0] = 67109120;
-    v4[1] = a1;
-    _os_log_error_impl(&dword_1D2CD5000, v2, OS_LOG_TYPE_ERROR, "Error issuing wheel mode switch command: %{mach.errno}d", v4, 8u);
+    v3[0] = 67109120;
+    v3[1] = v1;
+    _os_log_error_impl(&dword_1D2CD5000, v2, OS_LOG_TYPE_ERROR, "Error issuing wheel mode switch command: %{mach.errno}d", v3, 8u);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 @end

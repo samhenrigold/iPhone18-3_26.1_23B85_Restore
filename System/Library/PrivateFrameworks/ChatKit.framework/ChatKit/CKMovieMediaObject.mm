@@ -137,15 +137,15 @@ uint64_t __30__CKMovieMediaObject_UTITypes__block_invoke_2(uint64_t a1, uint64_t
 
 void __37__CKMovieMediaObject_isAutoloopVideo__block_invoke(uint64_t a1)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) asset];
   if (v2)
   {
-    v21 = 0;
-    v22 = 0;
-    v3 = [MEMORY[0x1E69C0928] readMetadataType:4 fromAVAsset:v2 value:&v22 error:&v21];
-    v4 = v22;
-    v5 = v21;
+    v27 = 0;
+    v28 = 0;
+    v3 = [MEMORY[0x1E69C0928] readMetadataType:4 fromAVAsset:v2 value:&v28 error:&v27];
+    v4 = v28;
+    v5 = v27;
     if (v4)
     {
       v6 = v3;
@@ -186,57 +186,57 @@ void __37__CKMovieMediaObject_isAutoloopVideo__block_invoke(uint64_t a1)
     {
       v11 = [*(a1 + 32) asset];
       *buf = 138412802;
-      v24 = v4;
-      v25 = 2112;
-      v26 = v5;
-      v27 = 2112;
-      v28 = v11;
+      v30 = v4;
+      v31 = 2112;
+      v32 = v5;
+      v33 = 2112;
+      v34 = v11;
       _os_log_impl(&dword_19020E000, v10, OS_LOG_TYPE_DEBUG, "Failed to load video playback style {styleIdentifier: %@, error: %@, asset: %@}", buf, 0x20u);
     }
   }
 
   if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
   {
-    v16 = [*(a1 + 32) asset];
-    _CKLog();
+    v22 = [*(a1 + 32) asset];
+    _CKLog(2u, @"Failed to load video playback style {styleIdentifier: %@, error: %@, asset: %@}", v12, v13, v14, v15, v16, v17, v4);
   }
 
-  if (!_os_feature_enabled_impl() || (v12 = objc_loadWeakRetained((a1 + 40)), v13 = [v12 _assetContainsMetadataKey:@"MMRY"], v12, (v13 & 1) == 0))
+  if (!_os_feature_enabled_impl() || (v18 = objc_loadWeakRetained((a1 + 40)), v19 = [v18 _assetContainsMetadataKey:@"MMRY"], v18, (v19 & 1) == 0))
   {
     WeakRetained = objc_loadWeakRetained((a1 + 40));
     v9 = [WeakRetained _assetContainsMetadataKey:@"GREY"];
 
     v8 = 0;
-    v14 = v9;
+    v20 = v9;
     goto LABEL_22;
   }
 
   v9 = 0;
   v8 = 1;
 LABEL_20:
-  v14 = 1;
+  v20 = 1;
 LABEL_22:
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __37__CKMovieMediaObject_isAutoloopVideo__block_invoke_223;
   block[3] = &unk_1E72F0310;
   block[4] = *(a1 + 32);
-  v18 = v14;
-  v19 = v9;
-  v20 = v8;
+  v24 = v20;
+  v25 = v9;
+  v26 = v8;
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __37__CKMovieMediaObject_isAutoloopVideo__block_invoke_223(uint64_t result)
+unsigned __int8 *__37__CKMovieMediaObject_isAutoloopVideo__block_invoke_223(unsigned __int8 *result)
 {
-  v1 = *(result + 32);
-  v2 = *(result + 40);
+  v1 = *(result + 4);
+  v2 = result[40];
   if (*(v1 + 177) != v2)
   {
     *(v1 + 177) = v2;
-    *(*(result + 32) + 178) = *(result + 41);
-    *(*(result + 32) + 179) = *(result + 42);
-    return [*(result + 32) postPreviewDidChangeNotifications];
+    *(*(result + 4) + 178) = result[41];
+    *(*(result + 4) + 179) = result[42];
+    return [*(result + 4) postPreviewDidChangeNotifications];
   }
 
   return result;
@@ -402,10 +402,10 @@ LABEL_7:
   top = insets.top;
   height = size.height;
   width = size.width;
-  v52 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   v8 = MEMORY[0x193AF5ED0]("kCMTimeZero", @"CoreMedia");
-  v48 = *v8;
-  v49 = *(v8 + 16);
+  v52 = *v8;
+  v53 = *(v8 + 16);
   [(CKMovieMediaObject *)self pxSize];
   v10 = v9;
   v12 = v11;
@@ -450,8 +450,8 @@ LABEL_7:
     v25 = ceil(v10 * v23);
     [v22 setAppliesPreferredTrackTransform:1];
     [v22 setMaximumSize:{v25, v24}];
-    *buf = v48;
-    *&buf[16] = v49;
+    *buf = v52;
+    *&buf[16] = v53;
     cGImage = [v22 copyCGImageAtTime:buf actualTime:0 error:0];
   }
 
@@ -497,44 +497,42 @@ LABEL_7:
           v35 = OSLogHandleForIMFoundationCategory();
           if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
           {
-            v54.width = v29;
-            v54.height = 1.0 / v15 * v27;
-            v36 = NSStringFromCGSize(v54);
-            v55.width = width;
-            v55.height = height;
-            v37 = NSStringFromCGSize(v55);
+            v58.width = v29;
+            v58.height = 1.0 / v15 * v27;
+            v36 = NSStringFromCGSize(v58);
+            v59.width = width;
+            v59.height = height;
+            v37 = NSStringFromCGSize(v59);
             *buf = 138412802;
             *&buf[4] = v36;
             *&buf[12] = 2048;
             *&buf[14] = v28;
             *&buf[22] = 2112;
-            v51 = v37;
+            v55 = v37;
             _os_log_impl(&dword_19020E000, v35, OS_LOG_TYPE_DEBUG, "Scale thumbnail of size (%@) by with image scale %f to try to fill target (%@)", buf, 0x20u);
           }
         }
 
         if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
         {
-          v56.width = v29;
-          v56.height = v30;
-          v38 = NSStringFromCGSize(v56);
-          v57.width = width;
-          v57.height = height;
-          v44 = NSStringFromCGSize(v57);
-          v43 = v28;
-          v42 = v38;
-          _CKLog();
+          v60.width = v29;
+          v60.height = v30;
+          v38 = NSStringFromCGSize(v60);
+          v61.width = width;
+          v61.height = height;
+          v48 = NSStringFromCGSize(v61);
+          _CKLog(2u, @"Scale thumbnail of size (%@) by with image scale %f to try to fill target (%@)", v39, v40, v41, v42, v43, v44, v38);
         }
       }
     }
 
-    v39 = [objc_alloc(MEMORY[0x1E69DCAB8]) initWithCGImage:cGImage scale:objc_msgSend(v17 orientation:{"imageOrientation"), v28}];
+    v45 = [objc_alloc(MEMORY[0x1E69DCAB8]) initWithCGImage:cGImage scale:objc_msgSend(v17 orientation:{"imageOrientation"), v28}];
 
-    if (![(CKMovieMediaObject *)self isJellyfishVideo]&& ![(CKMovieMediaObject *)self isAutoloopVideo]|| [(CKMovieMediaObject *)self isMultitrackMemoriesVideo:v42])
+    if (![(CKMovieMediaObject *)self isJellyfishVideo]&& ![(CKMovieMediaObject *)self isAutoloopVideo]|| [(CKMovieMediaObject *)self isMultitrackMemoriesVideo])
     {
-      v40 = [objc_opt_class() playButtonPreviewForUIImage:v39 scale:v15 contentAlignmentInsets:{top, left, bottom, right}];
+      v46 = [objc_opt_class() playButtonPreviewForUIImage:v45 scale:v15 contentAlignmentInsets:{top, left, bottom, right}];
 
-      v39 = v40;
+      v45 = v46;
     }
 
     CFRelease(cGImage);
@@ -542,10 +540,10 @@ LABEL_7:
 
   else
   {
-    v39 = v17;
+    v45 = v17;
   }
 
-  return v39;
+  return v45;
 }
 
 + (CGImage)playButtonPreviewForCGImage:(CGImage *)image scale:(double)scale isFromMe:(BOOL)me
@@ -782,34 +780,35 @@ LABEL_7:
 
 - (id)previewItemTitle
 {
-  if ([(CKMovieMediaObject *)self isJellyfishVideo])
+  isJellyfishVideo = [(CKMovieMediaObject *)self isJellyfishVideo];
+  if (isJellyfishVideo)
   {
-    v3 = CKFrameworkBundle();
-    v4 = v3;
-    v5 = @"PREVIEW_TITLE_ANIMOJI";
+    v4 = CKFrameworkBundle(isJellyfishVideo);
+    v5 = v4;
+    v6 = @"PREVIEW_TITLE_ANIMOJI";
   }
 
   else
   {
     filename = [(CKMediaObject *)self filename];
-    v7 = [filename isEqualToString:@"Video Message.mov"];
+    v8 = [filename isEqualToString:@"Video Message.mov"];
 
-    v3 = CKFrameworkBundle();
-    v4 = v3;
-    if (v7)
+    v4 = CKFrameworkBundle(v9);
+    v5 = v4;
+    if (v8)
     {
-      v5 = @"PREVIEW_TITLE_VIDEO_MESSAGE";
+      v6 = @"PREVIEW_TITLE_VIDEO_MESSAGE";
     }
 
     else
     {
-      v5 = @"PREVIEW_TITLE_VIDEO";
+      v6 = @"PREVIEW_TITLE_VIDEO";
     }
   }
 
-  v8 = [v3 localizedStringForKey:v5 value:&stru_1F04268F8 table:@"ChatKit"];
+  v10 = [v4 localizedStringForKey:v6 value:&stru_1F04268F8 table:@"ChatKit"];
 
-  return v8;
+  return v10;
 }
 
 - (CGSize)pxSize
@@ -885,7 +884,7 @@ LABEL_6:
     [lastObject naturalSize];
     v9 = v8;
     v11 = v10;
-    [lastObject preferredTransform];
+    objc_msgSend_preferredTransform(lastObject);
     v13.origin.x = v6;
     v13.origin.y = v7;
     v13.size.width = v9;

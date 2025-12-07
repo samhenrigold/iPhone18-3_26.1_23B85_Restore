@@ -37,7 +37,6 @@ LABEL_8:
   if (error)
   {
     v8 = SESDefaultLogObject();
-    v9 = *MEMORY[0x1E69E5148];
     *error = SESCreateAndLogError();
 
     error = 0;
@@ -56,16 +55,15 @@ LABEL_9:
     v7 = objc_opt_new();
     objc_storeStrong((v7 + 128), data);
     *(v7 + 120) = 0;
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
-    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     if (DERParseSequenceSpec())
     {
       if (error)
       {
         v8 = SESDefaultLogObject();
-        v9 = *MEMORY[0x1E69E5148];
         base64 = [dataCopy base64];
         *error = SESCreateAndLogError();
 LABEL_14:
@@ -86,20 +84,19 @@ LABEL_15:
       }
 
       v8 = SESDefaultLogObject();
-      v13 = *MEMORY[0x1E69E5148];
-      base64 = [MEMORY[0x1E695DEF0] dataWithDERItem:&v20];
-      v10Base64 = [base64 base64];
+      base64 = [MEMORY[0x1E695DEF0] dataWithDERItem:&v16];
+      v9Base64 = [base64 base64];
     }
 
     else
     {
       if (!DERParseSequenceSpec())
       {
-        *(v7 + 168) = v18;
-        v17 = v21;
-        *(v7 + 184) = v19;
-        *(v7 + 136) = v20;
-        *(v7 + 152) = v17;
+        *(v7 + 168) = v14;
+        v13 = v17;
+        *(v7 + 184) = v15;
+        *(v7 + 136) = v16;
+        *(v7 + 152) = v13;
         *(v7 + 200) = 0u;
         error = v7;
         goto LABEL_15;
@@ -111,9 +108,8 @@ LABEL_15:
       }
 
       v8 = SESDefaultLogObject();
-      v15 = *MEMORY[0x1E69E5148];
-      base64 = [MEMORY[0x1E695DEF0] dataWithDERItem:&v18];
-      v10Base64 = [base64 base64];
+      base64 = [MEMORY[0x1E695DEF0] dataWithDERItem:&v14];
+      v9Base64 = [base64 base64];
     }
 
     *error = SESCreateAndLogError();
@@ -123,8 +119,7 @@ LABEL_15:
 
   if (error)
   {
-    v11 = SESDefaultLogObject();
-    v12 = *MEMORY[0x1E69E5148];
+    v10 = SESDefaultLogObject();
     *error = SESCreateAndLogError();
 
     error = 0;
@@ -138,39 +133,38 @@ LABEL_16:
 + (id)_withExportedBlob:(id)blob error:(id *)error
 {
   blobCopy = blob;
-  v33 = 0;
-  v34 = 0;
-  v35 = 0;
+  v29 = 0;
+  v30 = 0;
+  v31 = 0;
   dERItem = [blobCopy DERItem];
-  v32 = v7;
+  v28 = v7;
   if (!DERDecodeItem())
   {
+    v21 = 0;
+    v22 = &v21;
+    v23 = 0x3010000000;
     v25 = 0;
-    v26 = &v25;
-    v27 = 0x3010000000;
-    v29 = 0;
-    v30 = 0;
-    v28 = &unk_1C7CBAD23;
-    if (DERDecodeSequenceContentWithBlock() || !v26[5])
+    v26 = 0;
+    v24 = &unk_1C7CBAD23;
+    if (DERDecodeSequenceContentWithBlock() || !v22[5])
     {
       if (!error)
       {
 LABEL_10:
-        _Block_object_dispose(&v25, 8);
+        _Block_object_dispose(&v21, 8);
         goto LABEL_11;
       }
 
-      v10 = SESDefaultLogObject();
-      v11 = *MEMORY[0x1E69E5148];
+      v9 = SESDefaultLogObject();
       base64 = [blobCopy base64];
-      v13 = SESCreateAndLogError();
+      v11 = SESCreateAndLogError();
     }
 
     else
     {
-      v10 = objc_opt_new();
-      objc_storeStrong((v10 + 128), blob);
-      *(v10 + 120) = 1;
+      v9 = objc_opt_new();
+      objc_storeStrong((v9 + 128), blob);
+      *(v9 + 120) = 1;
       if (DERParseSequenceSpec())
       {
         if (!error)
@@ -179,26 +173,25 @@ LABEL_10:
         }
 
         base64 = SESDefaultLogObject();
-        v15 = *MEMORY[0x1E69E5148];
-        v16 = [MEMORY[0x1E695DEF0] dataWithDERItem:v26 + 4];
-        base642 = [v16 base64];
+        v13 = [MEMORY[0x1E695DEF0] dataWithDERItem:v22 + 4];
+        base642 = [v13 base64];
         *error = SESCreateAndLogError();
 
         goto LABEL_8;
       }
 
-      v17 = DERLengthOfEncodedSequence() + 32;
-      v18 = v26[5];
-      v19 = v18 >= v17;
-      v20 = v18 - v17;
-      if (v19)
+      v14 = DERLengthOfEncodedSequence() + 32;
+      v15 = v22[5];
+      v16 = v15 >= v14;
+      v17 = v15 - v14;
+      if (v16)
       {
-        v22 = v26 + 4;
-        v26[4] += v17;
-        v22[1] = v20;
+        v18 = v22 + 4;
+        v22[4] += v14;
+        v18[1] = v17;
         DERParseSequenceSpec();
-        *(v10 + 200) = 0u;
-        error = v10;
+        *(v9 + 200) = 0u;
+        error = v9;
         goto LABEL_9;
       }
 
@@ -210,11 +203,10 @@ LABEL_9:
       }
 
       base64 = SESDefaultLogObject();
-      v21 = *MEMORY[0x1E69E5148];
-      v13 = SESCreateAndLogError();
+      v11 = SESCreateAndLogError();
     }
 
-    *error = v13;
+    *error = v11;
 LABEL_8:
 
     error = 0;
@@ -224,7 +216,6 @@ LABEL_8:
   if (error)
   {
     v8 = SESDefaultLogObject();
-    v9 = *MEMORY[0x1E69E5148];
     base643 = [blobCopy base64];
     *error = SESCreateAndLogError();
 

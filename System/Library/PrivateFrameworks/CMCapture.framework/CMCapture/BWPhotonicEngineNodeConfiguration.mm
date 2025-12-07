@@ -497,7 +497,7 @@
       v134 = 0u;
       v135 = 0u;
       portTypesWithGeometricDistortionCorrectionEnabled = self->_portTypesWithGeometricDistortionCorrectionEnabled;
-      v29 = OUTLINED_FUNCTION_22_18(learnedNRMode, v22, v23, v24, v25, v26, v27, v28, v113, v115, v117, v121, obj, v129, v130, v131, 0, 0, 0, 0, 0, 0, 0, 0, v136, v137, v138, v139, v140, v141, v142, v143, v144, v145, v146, v147, v148, v149, v150, v151, v152);
+      v29 = OUTLINED_FUNCTION_22_18(learnedNRMode, v22, v23, v24, v25, v26, v27, v28, v113, v115, v117, v121, obj, v129, v130, v131, 0, 0, 0, 0, 0, 0, 0, 0, v136, v137, v138, v139, v140, v141, v142, v143, v144, v145, v146, v147, v148, v149, v150, v151);
       if (v29)
       {
         v30 = v29;
@@ -514,7 +514,7 @@
             v33 = [learnedNRMode setObject:&unk_1F224A8D0 forKeyedSubscript:*(*(&v132 + 1) + 8 * i)];
           }
 
-          v30 = OUTLINED_FUNCTION_22_18(v33, v34, v35, v36, v37, v38, v39, v40, v114, v116, v118, v122, obja, v129, v130, v131, v132, *(&v132 + 1), v133, *(&v133 + 1), v134, *(&v134 + 1), v135, *(&v135 + 1), v136, v137, v138, v139, v140, v141, v142, v143, v144, v145, v146, v147, v148, v149, v150, v151, v152);
+          v30 = OUTLINED_FUNCTION_22_18(v33, v34, v35, v36, v37, v38, v39, v40, v114, v116, v118, v122, obja, v129, v130, v131, v132, *(&v132 + 1), v133, *(&v133 + 1), v134, *(&v134 + 1), v135, *(&v135 + 1), v136, v137, v138, v139, v140, v141, v142, v143, v144, v145, v146, v147, v148, v149, v150, v151);
         }
 
         while (v30);
@@ -637,27 +637,27 @@
     }
 
     v119 = v54;
+    v152 = 0u;
     v153 = 0u;
     v154 = 0u;
     v155 = 0u;
-    v156 = 0u;
     OUTLINED_FUNCTION_20_17();
     objb = v55;
     v56 = [v55 countByEnumeratingWithState:? objects:? count:?];
     if (v56)
     {
       v57 = v56;
-      v58 = *v154;
+      v58 = *v153;
       do
       {
         for (j = 0; j != v57; ++j)
         {
-          if (*v154 != v58)
+          if (*v153 != v58)
           {
             objc_enumerationMutation(objb);
           }
 
-          v60 = [(NSDictionary *)self->_providedInferenceAttachedMediaByMode objectForKeyedSubscript:*(*(&v153 + 1) + 8 * j)];
+          v60 = [(NSDictionary *)self->_providedInferenceAttachedMediaByMode objectForKeyedSubscript:*(*(&v152 + 1) + 8 * j)];
           OUTLINED_FUNCTION_16_32();
           OUTLINED_FUNCTION_19_25();
           v62 = [v61 countByEnumeratingWithState:? objects:? count:?];
@@ -898,22 +898,22 @@ LABEL_142:
     [dictionary setObject:&unk_1F224C200 forKeyedSubscript:0x1F21AAE10];
   }
 
-  v155 = 0u;
-  v156 = 0u;
-  v153 = 0u;
   v154 = 0u;
+  v155 = 0u;
+  v152 = 0u;
+  v153 = 0u;
   OUTLINED_FUNCTION_20_17();
   v120 = v83;
   objc = [v83 countByEnumeratingWithState:? objects:? count:?];
   if (objc)
   {
-    v124 = *v154;
+    v124 = *v153;
     do
     {
       v84 = 0;
       do
       {
-        if (*v154 != v124)
+        if (*v153 != v124)
         {
           objc_enumerationMutation(v120);
         }
@@ -1290,9 +1290,13 @@ LABEL_6:
     }
   }
 
-  if ([objc_msgSend(settings "captureSettings")] && (objc_msgSend(type, "isEqualToString:", objc_msgSend(objc_msgSend(settings, "captureSettings"), "masterPortType")) & 1) == 0 && objc_msgSend(v7, "expectedUltraHighResFrameCaptureCount") > 0)
+  if ([objc_msgSend(settings "captureSettings")])
   {
-    LODWORD(resolutionFlavor) = 2;
+    [objc_msgSend(settings "captureSettings")];
+    if ((objc_msgSend_isEqualToString_(type) & 1) == 0 && [v7 expectedUltraHighResFrameCaptureCount] > 0)
+    {
+      LODWORD(resolutionFlavor) = 2;
+    }
   }
 
   if (([v7 captureFlags] & 4) != 0)
@@ -1613,28 +1617,28 @@ LABEL_5:
 {
   if ([objc_msgSend(settings "captureSettings")])
   {
-    LOBYTE(v7) = [objc_msgSend(objc_msgSend(settings "captureSettings")] ^ 1;
+    LOBYTE(v6) = objc_msgSend_isEqualToString_([objc_msgSend(settings "captureSettings")]) ^ 1;
   }
 
   else
   {
-    v7 = [(BWPhotonicEngineNodeConfiguration *)self _isInferenceGenerationRequiredForSettings:settings];
-    if (v7)
+    v6 = [(BWPhotonicEngineNodeConfiguration *)self _isInferenceGenerationRequiredForSettings:settings];
+    if (v6)
     {
       if ([(BWPhotonicEngineNodeConfiguration *)self isRedEyeReductionFlashCapture:settings])
       {
 
-        LOBYTE(v7) = [(BWPhotonicEngineNodeConfiguration *)self isSWFRFlashCapture:settings];
+        LOBYTE(v6) = [(BWPhotonicEngineNodeConfiguration *)self isSWFRFlashCapture:settings];
       }
 
       else
       {
-        LOBYTE(v7) = 1;
+        LOBYTE(v6) = 1;
       }
     }
   }
 
-  return v7;
+  return v6;
 }
 
 - (BOOL)shouldProvideInferencesForAttachedMediaMode:(int)mode settings:(id)settings
@@ -1730,7 +1734,8 @@ LABEL_5:
   LOBYTE(v10) = (captureFlags & 0x4000000000) == 0 && v8;
   if ((captureFlags & 0x4000000000) != 0 && v8)
   {
-    if ([type isEqualToString:{objc_msgSend(objc_msgSend(settings, "captureSettings"), "masterPortType")}])
+    [objc_msgSend(settings "captureSettings")];
+    if (objc_msgSend_isEqualToString_(type))
     {
       LOBYTE(v10) = 1;
     }
@@ -1934,50 +1939,50 @@ LABEL_43:
 
 - (id)harvestStillImageInferencesFromSampleBuffer:(opaqueCMSampleBuffer *)buffer stillImageSettings:(id)settings enabledInferenceMasks:(id)masks
 {
-  v52 = objc_alloc_init(BWStillImageInferences);
-  if (v52)
+  v55 = objc_alloc_init(BWStillImageInferences);
+  if (v55)
   {
     settingsCopy = settings;
     selfCopy = self;
-    v62 = 0u;
+    v65 = 0u;
+    v66 = 0u;
     v63 = 0u;
-    v60 = 0u;
-    v61 = 0u;
-    v9 = [masks countByEnumeratingWithState:&v60 objects:v59 count:16];
+    v64 = 0u;
+    v9 = [masks countByEnumeratingWithState:&v63 objects:v62 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v61;
+      v11 = *v64;
       key = *off_1E798A3C8;
-      v49 = *v61;
+      v52 = *v64;
       bufferCopy = buffer;
       do
       {
         v12 = 0;
-        v50 = v10;
+        v53 = v10;
         do
         {
-          if (*v61 != v11)
+          if (*v64 != v11)
           {
             objc_enumerationMutation(masks);
           }
 
-          v13 = *(*(&v60 + 1) + 8 * v12);
+          v13 = *(*(&v63 + 1) + 8 * v12);
           v14 = [BWInferenceEngineController inferenceMaskSbufFromSbuf:buffer attachedMediaKey:v13];
           if (v14)
           {
             v15 = v14;
             ImageBuffer = CMSampleBufferGetImageBuffer(v14);
-            [(BWStillImageInferences *)v52 addInferenceBuffer:ImageBuffer metadata:CMGetAttachment(v15 inferenceAttachedMediaKey:key, 0), v13];
+            [(BWStillImageInferences *)v55 addInferenceBuffer:ImageBuffer metadata:CMGetAttachment(v15 inferenceAttachedMediaKey:key, 0), v13];
           }
 
           else
           {
             FrameworkRadarComponent = FigCaptureGetFrameworkRadarComponent();
-            LODWORD(v69[0]) = 0;
+            LODWORD(v72[0]) = 0;
             type = OS_LOG_TYPE_DEFAULT;
             os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-            v19 = v69[0];
+            v19 = v72[0];
             if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT))
             {
               v20 = v19;
@@ -1990,140 +1995,140 @@ LABEL_43:
 
             if (v20)
             {
-              LODWORD(v68[0]) = 136315394;
-              *(v68 + 4) = "[BWPhotonicEngineNodeConfiguration(Utilities) harvestStillImageInferencesFromSampleBuffer:stillImageSettings:enabledInferenceMasks:]";
-              WORD6(v68[0]) = 2112;
-              *(v68 + 14) = v13;
+              LODWORD(v71[0]) = 136315394;
+              *(v71 + 4) = "[BWPhotonicEngineNodeConfiguration(Utilities) harvestStillImageInferencesFromSampleBuffer:stillImageSettings:enabledInferenceMasks:]";
+              WORD6(v71[0]) = 2112;
+              *(v71 + 14) = v13;
               _os_log_send_and_compose_impl();
             }
 
             fig_log_call_emit_and_clean_up_after_send_and_compose();
-            LODWORD(v64) = 138412290;
-            *(&v64 + 4) = v13;
+            LODWORD(v67) = 138412290;
+            *(&v67 + 4) = v13;
             v21 = _os_log_send_and_compose_impl();
             FigCapturePleaseFileRadar(FrameworkRadarComponent, v21, 0, 0, "/Library/Caches/com.apple.xbs/Sources/CameraCapture/CMCapture/Sources/Graph/Nodes/BWPhotonicEngineNodeUtilities.m", 1240, @"LastShownDate:BWPhotonicEngineNodeUtilities.m:1240", @"LastShownBuild:BWPhotonicEngineNodeUtilities.m:1240", 0);
             free(v21);
             buffer = bufferCopy;
-            v11 = v49;
-            v10 = v50;
+            v11 = v52;
+            v10 = v53;
           }
 
           ++v12;
         }
 
         while (v10 != v12);
-        v10 = [masks countByEnumeratingWithState:&v60 objects:v59 count:16];
+        v10 = [masks countByEnumeratingWithState:&v63 objects:v62 count:16];
       }
 
       while (v10);
     }
 
-    v56 = 0u;
+    v59 = 0u;
+    v60 = 0u;
     v57 = 0u;
-    v54 = 0u;
-    v55 = 0u;
-    *&v64 = 0x1F219E990;
-    *(&v64 + 1) = 0x1F219E9B0;
-    v65 = 0x1F219E5F0;
-    v66 = 0x1F219E6F0;
-    v67 = 0x1F219E710;
-    v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v64 count:5];
-    v23 = [v22 countByEnumeratingWithState:&v54 objects:v53 count:16];
+    v58 = 0u;
+    *&v67 = 0x1F219E990;
+    *(&v67 + 1) = 0x1F219E9B0;
+    v68 = 0x1F219E5F0;
+    v69 = 0x1F219E6F0;
+    v70 = 0x1F219E710;
+    v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v67 count:5];
+    v23 = [v22 countByEnumeratingWithState:&v57 objects:v56 count:16];
     if (v23)
     {
-      v24 = v23;
-      v25 = *v55;
+      v25 = v23;
+      v26 = *v58;
       do
       {
-        for (i = 0; i != v24; ++i)
+        for (i = 0; i != v25; ++i)
         {
-          if (*v55 != v25)
+          if (*v58 != v26)
           {
             objc_enumerationMutation(v22);
           }
 
-          v27 = *(*(&v54 + 1) + 8 * i);
-          v28 = BWInferenceTypeForInferenceAttachmentKey(v27);
-          AttachedInference = BWInferenceGetAttachedInference(buffer, v28, v27);
-          if ([v27 isEqualToString:0x1F219E5F0] && !objc_msgSend(AttachedInference, "count"))
+          v28 = *(*(&v57 + 1) + 8 * i);
+          v29 = BWInferenceTypeForInferenceAttachmentKey(v28, v24);
+          AttachedInference = BWInferenceGetAttachedInference(buffer, v29, v28);
+          if (objc_msgSend_isEqualToString_(v28) && ![AttachedInference count])
           {
-            v30 = BWInferenceTypeForInferenceAttachmentKey(v27);
-            AttachedInference = BWInferenceGetAttachedInference(buffer, v30, @"VisionFaceDetectionObservations");
+            v32 = BWInferenceTypeForInferenceAttachmentKey(v28, v31);
+            AttachedInference = BWInferenceGetAttachedInference(buffer, v32, @"VisionFaceDetectionObservations");
           }
 
-          [(BWStillImageInferences *)v52 addInference:AttachedInference inferenceAttachmentKey:v27];
+          [(BWStillImageInferences *)v55 addInference:AttachedInference inferenceAttachmentKey:v28];
         }
 
-        v24 = [v22 countByEnumeratingWithState:&v54 objects:v53 count:16];
+        v25 = [v22 countByEnumeratingWithState:&v57 objects:v56 count:16];
       }
 
-      while (v24);
+      while (v25);
     }
 
-    v31 = [(BWPhotonicEngineNodeConfiguration *)selfCopy inferenceAttachedMediaRequiredForSettings:settingsCopy inferences:v52];
+    v33 = [(BWPhotonicEngineNodeConfiguration *)selfCopy inferenceAttachedMediaRequiredForSettings:settingsCopy inferences:v55];
     dictionary = [MEMORY[0x1E695DF90] dictionary];
-    v69[0] = @"PersonSemanticsSkin";
-    v69[1] = 0x1F21AAD30;
-    v69[2] = 0x1F21AABB0;
-    v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:v69 count:3];
-    memset(v68, 0, sizeof(v68));
-    v34 = [v33 countByEnumeratingWithState:v68 objects:&v64 count:16];
-    if (v34)
+    v72[0] = @"PersonSemanticsSkin";
+    v72[1] = 0x1F21AAD30;
+    v72[2] = 0x1F21AABB0;
+    v35 = [MEMORY[0x1E695DEC8] arrayWithObjects:v72 count:3];
+    memset(v71, 0, sizeof(v71));
+    v36 = [v35 countByEnumeratingWithState:v71 objects:&v67 count:16];
+    if (v36)
     {
-      v35 = v34;
-      v36 = **&v68[1];
+      v37 = v36;
+      v38 = **&v71[1];
       do
       {
-        for (j = 0; j != v35; ++j)
+        for (j = 0; j != v37; ++j)
         {
-          if (**&v68[1] != v36)
+          if (**&v71[1] != v38)
           {
-            objc_enumerationMutation(v33);
+            objc_enumerationMutation(v35);
           }
 
-          v38 = *(*(&v68[0] + 1) + 8 * j);
-          if ([v31 containsObject:v38])
+          v40 = *(*(&v71[0] + 1) + 8 * j);
+          if ([v33 containsObject:v40])
           {
-            v39 = [BWInferenceEngineController inferenceMaskSbufFromSbuf:buffer attachedMediaKey:v38];
-            v40 = BWMetadataAttachmentKeyForAttachedMediaKey(v38);
-            v41 = CMGetAttachment(v39, v40, 0);
-            if (v41)
+            v41 = [BWInferenceEngineController inferenceMaskSbufFromSbuf:buffer attachedMediaKey:v40];
+            v43 = BWMetadataAttachmentKeyForAttachedMediaKey(v40, v42);
+            v44 = CMGetAttachment(v41, v43, 0);
+            if (v44)
             {
-              [dictionary setObject:v41 forKeyedSubscript:v38];
+              [dictionary setObject:v44 forKeyedSubscript:v40];
             }
           }
         }
 
-        v35 = [v33 countByEnumeratingWithState:v68 objects:&v64 count:16];
+        v37 = [v35 countByEnumeratingWithState:v71 objects:&v67 count:16];
       }
 
-      while (v35);
+      while (v37);
     }
 
     if ([dictionary count])
     {
-      v42 = dictionary;
+      v45 = dictionary;
     }
 
     else
     {
-      v42 = 0;
+      v45 = 0;
     }
 
-    [(BWStillImageInferences *)v52 addInferenceAttachedMediaMetadata:v42];
-    v43 = [CMGetAttachment(buffer @"StillSettings"];
+    [(BWStillImageInferences *)v55 addInferenceAttachedMediaMetadata:v45];
+    v46 = [CMGetAttachment(buffer @"StillSettings"];
     if (([(BWPhotonicEngineNodeConfiguration *)selfCopy semanticStyleRenderingEnabled]& 1) != 0 || [(BWPhotonicEngineNodeConfiguration *)selfCopy smartStyleRenderingVersion]>= 1)
     {
-      v44 = [objc_msgSend(v43 "metadata")];
-      if (!v44)
+      v47 = [objc_msgSend(v46 "metadata")];
+      if (!v47)
       {
-        v44 = [BWInferenceEngineController smartCameraClassificationsFromSbuf:buffer];
+        v47 = [BWInferenceEngineController smartCameraClassificationsFromSbuf:buffer];
       }
 
-      [objc_msgSend(v43 "metadata")];
-      if ([objc_msgSend(v43 "metadata")])
+      [objc_msgSend(v46 "metadata")];
+      if ([objc_msgSend(v46 "metadata")])
       {
-        [objc_msgSend(v43 "metadata")];
+        [objc_msgSend(v46 "metadata")];
       }
     }
   }
@@ -2133,7 +2138,7 @@ LABEL_43:
     [BWPhotonicEngineNodeConfiguration(Utilities) harvestStillImageInferencesFromSampleBuffer:stillImageSettings:enabledInferenceMasks:];
   }
 
-  return v52;
+  return v55;
 }
 
 - (uint64_t)stillImageFusionScheme
@@ -3405,7 +3410,7 @@ LABEL_11:
   v6 = [-[BWPhotonicEngineNodeConfiguration providedInferenceAttachedMediaByMode](self) objectForKeyedSubscript:&unk_1F22463F0];
   v7 = [inferences inferenceForAttachmentKey:0x1F219E710];
   v8 = [MEMORY[0x1E695DF70] arrayWithArray:v6];
-  v16 = OUTLINED_FUNCTION_2_0(v8, v9, v10, v11, v12, v13, v14, v15, v30, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60, 0);
+  v16 = OUTLINED_FUNCTION_2_0(v8, v9, v10, v11, v12, v13, v14, v15, v30, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60);
   if (v16)
   {
     v17 = v16;
@@ -3427,7 +3432,7 @@ LABEL_11:
         }
       }
 
-      v17 = OUTLINED_FUNCTION_2_0(v21, v22, v23, v24, v25, v26, v27, v28, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61, v62);
+      v17 = OUTLINED_FUNCTION_2_0(v21, v22, v23, v24, v25, v26, v27, v28, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61);
     }
 
     while (v17);
@@ -3448,19 +3453,28 @@ LABEL_11:
   }
 
   v14 = CMGetAttachment(processing, *off_1E798A3C8, 0);
-  v30 = *(MEMORY[0x1E695F050] + 16);
-  v31 = *MEMORY[0x1E695F050];
-  v32 = *MEMORY[0x1E695F050];
+  v39 = *(MEMORY[0x1E695F050] + 16);
+  v40 = *MEMORY[0x1E695F050];
+  v41 = *MEMORY[0x1E695F050];
   CGRectIfPresent = FigCFDictionaryGetCGRectIfPresent();
   v16 = (CGRectIfPresent | FigCFDictionaryGetCGRectIfPresent());
   v17 = BWPixelBufferDimensionsFromSampleBuffer(processing);
   if (v16)
   {
     v18 = v17;
-    v19 = (v13 * v17) | ((v13 * SHIDWORD(v17)) << 32);
-    FigCaptureMetadataUtilitiesNormalizeCropRect(*&v31, *(&v31 + 1), *&v30, *(&v30 + 1));
-    FigCaptureMetadataUtilitiesDenormalizeCropRect(v20, v21, v22, v23);
-    FigCaptureMetadataUtilitiesUpdateMetadataForStillImageCrop(v14, v19, v18, *&v32, *(&v32 + 1), *&v30, *(&v30 + 1), v24, v25, v26, v27);
+    v19 = HIDWORD(v17);
+    v20 = (v13 * v17);
+    v21 = (v13 * SHIDWORD(v17));
+    v22 = v20 | (v21 << 32);
+    FigCaptureMetadataUtilitiesNormalizeCropRect(*&v40, *(&v40 + 1), *&v39, *(&v39 + 1), v20, v21);
+    FigCaptureMetadataUtilitiesDenormalizeCropRect(v23, v24, v25, v26, v18, v19);
+    v28 = v27;
+    v30 = v29;
+    v32 = v31;
+    v34.n128_u64[0] = *(&v41 + 1);
+    v33.n128_u64[0] = v41;
+    v35.n128_u64[0] = v39;
+    FigCaptureMetadataUtilitiesUpdateMetadataForStillImageCrop(v14, v22, v18, v33, v34, v35, *(&v39 + 1), v28, v30, v32, v36);
   }
 
   if (([objc_msgSend(settings captureSettings] & 1) == 0 && (objc_msgSend(objc_msgSend(settings, "captureSettings"), "captureFlags") & 0x100000000) != 0)
@@ -3468,8 +3482,8 @@ LABEL_11:
     v13 = v13 + v13;
   }
 
-  *&v28 = v13;
-  [v14 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithFloat:", v28), *off_1E798A708}];
+  *&v37 = v13;
+  [v14 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithFloat:", v37), *off_1E798A708}];
   return 0;
 }
 

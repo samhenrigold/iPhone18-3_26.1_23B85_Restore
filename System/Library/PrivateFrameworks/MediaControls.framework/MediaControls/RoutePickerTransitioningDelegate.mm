@@ -20,7 +20,7 @@
 
 - (id)animationControllerForPresentedController:(id)controller presentingController:(id)presentingController sourceController:(id)sourceController
 {
-  type metadata accessor for RoutePickerPresentationAnimationController();
+  type metadata accessor for RoutePickerPresentationAnimationController(0, a2);
   v6 = sub_1A22C45DC(0, controller);
 
   return v6;
@@ -28,7 +28,7 @@
 
 - (id)animationControllerForDismissedController:(id)controller
 {
-  type metadata accessor for RoutePickerPresentationAnimationController();
+  type metadata accessor for RoutePickerPresentationAnimationController(0, a2);
   v4 = sub_1A22C45DC(1, controller);
 
   return v4;

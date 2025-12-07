@@ -116,38 +116,44 @@ void __42__HFHomeSettingsVisibilityArbitrator_init__block_invoke_2(uint64_t a1)
 
 - (void)_reloadVisibilityStateIncludingInstallState:(BOOL)state
 {
-  v29 = *MEMORY[0x277D85DE8];
-  if (!state)
+  v28 = *MEMORY[0x277D85DE8];
+  if (state)
   {
-    [(HFHomeSettingsVisibilityArbitrator *)self setHomesConfigured:CFPreferencesGetAppBooleanValue(@"kHomesConfigured", @"com.apple.homed", 0) != 0];
-    AppBooleanValue = CFPreferencesGetAppBooleanValue(@"kIncomingInvitesPresent", @"com.apple.homed", 0);
-    v6 = CFPreferencesGetAppBooleanValue(@"kDisplayResetButton", @"com.apple.HomeSettings", 0);
-    v7 = HFLogForCategory(0);
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
-    {
-      v8 = objc_opt_class();
-      v9 = NSStringFromSelector(a2);
-      *location = 138413314;
-      *&location[4] = v8;
-      v21 = 2112;
-      v22 = v9;
-      v23 = 1024;
-      homesConfigured = [(HFHomeSettingsVisibilityArbitrator *)self homesConfigured];
-      v25 = 1024;
-      v26 = AppBooleanValue != 0;
-      v27 = 1024;
-      v28 = v6 != 0;
-      _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "%@:%@ homesConfigured: %{BOOL}d invitesExist: %{BOOL}d displayResetButton: %{BOOL}d", location, 0x28u);
-    }
+    objc_initWeak(location, self);
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __82__HFHomeSettingsVisibilityArbitrator__reloadVisibilityStateIncludingInstallState___block_invoke;
+    v17[3] = &unk_277DF4460;
+    objc_copyWeak(&v18, location);
+    [(HFHomeSettingsVisibilityArbitrator *)self _queryHomeAppInstallStateWithCompletion:v17];
+    objc_destroyWeak(&v18);
+    objc_destroyWeak(location);
+    return;
+  }
 
-    if (v6)
-    {
-      v10 = 1;
-LABEL_22:
-      [(HFHomeSettingsVisibilityArbitrator *)self setVisibilityState:v10];
-      goto LABEL_23;
-    }
+  [(HFHomeSettingsVisibilityArbitrator *)self setHomesConfigured:CFPreferencesGetAppBooleanValue(@"kHomesConfigured", @"com.apple.homed", 0) != 0];
+  AppBooleanValue = CFPreferencesGetAppBooleanValue(@"kIncomingInvitesPresent", @"com.apple.homed", 0);
+  v6 = CFPreferencesGetAppBooleanValue(@"kDisplayResetButton", @"com.apple.HomeSettings", 0);
+  v7 = HFLogForCategory(0);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = objc_opt_class();
+    v9 = NSStringFromSelector(a2);
+    *location = 138413314;
+    *&location[4] = v8;
+    v20 = 2112;
+    v21 = v9;
+    v22 = 1024;
+    homesConfigured = [(HFHomeSettingsVisibilityArbitrator *)self homesConfigured];
+    v24 = 1024;
+    v25 = AppBooleanValue != 0;
+    v26 = 1024;
+    v27 = v6 != 0;
+    _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "%@:%@ homesConfigured: %{BOOL}d invitesExist: %{BOOL}d displayResetButton: %{BOOL}d", location, 0x28u);
+  }
 
+  if (!v6)
+  {
     v11 = [(HFHomeSettingsVisibilityArbitrator *)self homeAppInstallState]== 2;
     homesConfigured2 = [(HFHomeSettingsVisibilityArbitrator *)self homesConfigured];
     if (v11)
@@ -208,17 +214,9 @@ LABEL_22:
     goto LABEL_22;
   }
 
-  objc_initWeak(location, self);
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __82__HFHomeSettingsVisibilityArbitrator__reloadVisibilityStateIncludingInstallState___block_invoke;
-  v18[3] = &unk_277DF4460;
-  objc_copyWeak(&v19, location);
-  [(HFHomeSettingsVisibilityArbitrator *)self _queryHomeAppInstallStateWithCompletion:v18];
-  objc_destroyWeak(&v19);
-  objc_destroyWeak(location);
-LABEL_23:
-  v17 = *MEMORY[0x277D85DE8];
+  v10 = 1;
+LABEL_22:
+  [(HFHomeSettingsVisibilityArbitrator *)self setVisibilityState:v10];
 }
 
 void __82__HFHomeSettingsVisibilityArbitrator__reloadVisibilityStateIncludingInstallState___block_invoke(uint64_t a1)
@@ -321,7 +319,7 @@ uint64_t __78__HFHomeSettingsVisibilityArbitrator__queryHomeAppInstallStateWithC
   dispatch_async(MEMORY[0x277D85CD0], v6);
 }
 
-uint64_t __63__HFHomeSettingsVisibilityArbitrator_applicationsDidUninstall___block_invoke(uint64_t a1)
+void *__63__HFHomeSettingsVisibilityArbitrator_applicationsDidUninstall___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) indexOfObjectPassingTest:&__block_literal_global_26_2];
   if (result != 0x7FFFFFFFFFFFFFFFLL)
@@ -356,7 +354,7 @@ uint64_t __63__HFHomeSettingsVisibilityArbitrator_applicationsDidUninstall___blo
   dispatch_async(MEMORY[0x277D85CD0], v6);
 }
 
-uint64_t __61__HFHomeSettingsVisibilityArbitrator_applicationsDidInstall___block_invoke(uint64_t a1)
+void *__61__HFHomeSettingsVisibilityArbitrator_applicationsDidInstall___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) indexOfObjectPassingTest:&__block_literal_global_28_7];
   if (result != 0x7FFFFFFFFFFFFFFFLL)

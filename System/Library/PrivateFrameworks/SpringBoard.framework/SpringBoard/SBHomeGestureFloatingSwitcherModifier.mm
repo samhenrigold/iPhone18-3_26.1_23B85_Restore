@@ -271,7 +271,7 @@ LABEL_11:
 
 - (id)_updateForGestureDidEndWithEvent:(id)event
 {
-  v85 = *MEMORY[0x277D85DE8];
+  v86 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   if (!self->_gestureHasBegun)
   {
@@ -297,192 +297,197 @@ LABEL_11:
   currentFinalDestination = [(SBHomeGestureFinalDestinationSwitcherModifier *)self->_finalDestinationModifier currentFinalDestination];
   finalDestinationReason = [(SBHomeGestureFinalDestinationSwitcherModifier *)self->_finalDestinationModifier finalDestinationReason];
   v10 = objc_alloc_init(SBSwitcherModifierEventResponse);
-  if (([eventCopy isCanceled] & 1) == 0 && objc_msgSend(eventCopy, "touchType") == 1)
+  isCanceled = [eventCopy isCanceled];
+  if ((isCanceled & 1) == 0)
   {
-    homeGestureSettings = [(SBHomeGestureFloatingSwitcherModifier *)self homeGestureSettings];
-    v12 = homeGestureSettings;
-    if (currentFinalDestination == 4 && self->_selectedAppLayout && [homeGestureSettings injectGestureVelocityForZoomDown])
+    isCanceled = [eventCopy touchType];
+    if (isCanceled == 1)
     {
-      visibleAppLayouts = [(SBHomeGestureFloatingSwitcherModifier *)self visibleAppLayouts];
-      [eventCopy velocityInContainerView];
-      v15 = v14;
-      v17 = v16;
-      [(SBHomeGestureFloatingSwitcherModifier *)self switcherViewBounds];
-      v19 = v18;
-      homeGestureSettings2 = [(SBHomeGestureFloatingSwitcherModifier *)self homeGestureSettings];
-      v21 = [(SBHomeGestureFloatingSwitcherModifier *)self currentVelocityValueForVisibleAppLayout:self->_selectedAppLayout key:@"transform"];
-      v22 = v21;
-      if (v21)
+      homeGestureSettings = [(SBHomeGestureFloatingSwitcherModifier *)self homeGestureSettings];
+      v13 = homeGestureSettings;
+      if (currentFinalDestination == 4 && self->_selectedAppLayout && [homeGestureSettings injectGestureVelocityForZoomDown])
       {
-        [v21 CATransform3DValue];
-        CATransform3DGetAffineTransform(&v81, &v84);
-        a = v81.a;
-      }
-
-      else
-      {
-        a = 0.0;
-      }
-
-      [homeGestureSettings2 scaleVelocityPercentOfGestureVelocityYDividedByViewHeight];
-      v25 = v17 / v19 * v24;
-      if ([homeGestureSettings2 onlyInjectVelocityForShortFlicks] && fabs(a / v25) >= 0.15)
-      {
-        v26 = 0;
-      }
-
-      else
-      {
-        selfCopy = self;
-        v65 = v22;
-        v67 = finalDestinationReason;
-        v68 = v10;
-        v69 = eventCopy;
-        v26 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:2];
-        v70 = homeGestureSettings2;
-        [homeGestureSettings2 maximumScaleVelocity];
-        memset(&v84, 0, sizeof(v84));
-        SBVelocityMatrixForUniform2DScaling();
-        v79 = 0u;
-        v80 = 0u;
-        v77 = 0u;
-        v78 = 0u;
-        v66 = visibleAppLayouts;
-        v27 = visibleAppLayouts;
-        v28 = [v27 countByEnumeratingWithState:&v77 objects:v83 count:16];
-        if (v28)
+        visibleAppLayouts = [(SBHomeGestureFloatingSwitcherModifier *)self visibleAppLayouts];
+        [eventCopy velocityInContainerView];
+        v16 = v15;
+        v18 = v17;
+        [(SBHomeGestureFloatingSwitcherModifier *)self switcherViewBounds];
+        v20 = v19;
+        homeGestureSettings2 = [(SBHomeGestureFloatingSwitcherModifier *)self homeGestureSettings];
+        v22 = [(SBHomeGestureFloatingSwitcherModifier *)self currentVelocityValueForVisibleAppLayout:self->_selectedAppLayout key:@"transform"];
+        v23 = v22;
+        if (v22)
         {
-          v29 = v28;
-          v30 = *v78;
-          do
-          {
-            for (i = 0; i != v29; ++i)
-            {
-              if (*v78 != v30)
-              {
-                objc_enumerationMutation(v27);
-              }
-
-              v32 = *(*(&v77 + 1) + 8 * i);
-              v33 = [SBInjectVelocitySwitcherEventResponse alloc];
-              v76 = v84;
-              v34 = [MEMORY[0x277CCAE60] valueWithCATransform3D:&v76];
-              v35 = [(SBInjectVelocitySwitcherEventResponse *)v33 initWithVelocity:v34 forKey:@"transform" appLayout:v32];
-              [v26 addObject:v35];
-            }
-
-            v29 = [v27 countByEnumeratingWithState:&v77 objects:v83 count:16];
-          }
-
-          while (v29);
-        }
-
-        v36 = [(SBHomeGestureFloatingSwitcherModifier *)selfCopy currentVelocityValueForVisibleAppLayout:selfCopy->_selectedAppLayout key:@"position"];
-        v63 = v36;
-        if (v36)
-        {
-          [v36 CGPointValue];
-          v38 = v37;
-          v40 = v39;
+          objc_msgSend_CATransform3DValue(v22);
+          CATransform3DGetAffineTransform(&v82, &v85);
+          a = v82.a;
         }
 
         else
         {
-          v38 = *MEMORY[0x277CBF348];
-          v40 = *(MEMORY[0x277CBF348] + 8);
+          a = 0.0;
         }
 
-        [v70 positionVelocityXPercentOfGestureVelocityX];
-        v42 = v41;
-        [v70 positionVelocityYPercentOfGestureVelocityY];
-        v44 = v43;
-        v72 = 0u;
-        v73 = 0u;
-        v74 = 0u;
-        v75 = 0u;
-        v45 = v27;
-        v46 = [v45 countByEnumeratingWithState:&v72 objects:v82 count:16];
-        if (v46)
+        [homeGestureSettings2 scaleVelocityPercentOfGestureVelocityYDividedByViewHeight];
+        v26 = v18 / v20 * v25;
+        if ([homeGestureSettings2 onlyInjectVelocityForShortFlicks] && fabs(a / v26) >= 0.15)
         {
-          v47 = v46;
-          v48 = fabs(v38);
-          if (fabs(v15) >= v48)
-          {
-            v49 = v15;
-          }
+          v27 = 0;
+        }
 
-          else
+        else
+        {
+          selfCopy = self;
+          v66 = v23;
+          v68 = finalDestinationReason;
+          v69 = v10;
+          v70 = eventCopy;
+          v27 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:2];
+          v71 = homeGestureSettings2;
+          [homeGestureSettings2 maximumScaleVelocity];
+          memset(&v85, 0, sizeof(v85));
+          SBVelocityMatrixForUniform2DScaling();
+          v80 = 0u;
+          v81 = 0u;
+          v78 = 0u;
+          v79 = 0u;
+          v67 = visibleAppLayouts;
+          v28 = visibleAppLayouts;
+          v29 = [v28 countByEnumeratingWithState:&v78 objects:v84 count:16];
+          if (v29)
           {
-            v49 = v38;
-          }
-
-          if (fabs(v49) >= v48)
-          {
-            v50 = v17;
-          }
-
-          else
-          {
-            v50 = v40;
-          }
-
-          v51 = v44 * v50;
-          v52 = v42 * v49;
-          v53 = *v73;
-          do
-          {
-            for (j = 0; j != v47; ++j)
+            v30 = v29;
+            v31 = *v79;
+            do
             {
-              if (*v73 != v53)
+              for (i = 0; i != v30; ++i)
               {
-                objc_enumerationMutation(v45);
+                if (*v79 != v31)
+                {
+                  objc_enumerationMutation(v28);
+                }
+
+                v33 = *(*(&v78 + 1) + 8 * i);
+                v34 = [SBInjectVelocitySwitcherEventResponse alloc];
+                v77 = v85;
+                v35 = [MEMORY[0x277CCAE60] valueWithCATransform3D:&v77];
+                v36 = [(SBInjectVelocitySwitcherEventResponse *)v34 initWithVelocity:v35 forKey:@"transform" appLayout:v33];
+                [v27 addObject:v36];
               }
 
-              v55 = *(*(&v72 + 1) + 8 * j);
-              v56 = [SBInjectVelocitySwitcherEventResponse alloc];
-              v57 = [MEMORY[0x277CCAE60] valueWithCGPoint:{v52, v51}];
-              v58 = [(SBInjectVelocitySwitcherEventResponse *)v56 initWithVelocity:v57 forKey:@"position" appLayout:v55];
-              [v26 addObject:v58];
+              v30 = [v28 countByEnumeratingWithState:&v78 objects:v84 count:16];
             }
 
-            v47 = [v45 countByEnumeratingWithState:&v72 objects:v82 count:16];
+            while (v30);
           }
 
-          while (v47);
+          v37 = [(SBHomeGestureFloatingSwitcherModifier *)selfCopy currentVelocityValueForVisibleAppLayout:selfCopy->_selectedAppLayout key:@"position"];
+          v64 = v37;
+          if (v37)
+          {
+            [v37 CGPointValue];
+            v39 = v38;
+            v41 = v40;
+          }
+
+          else
+          {
+            v39 = *MEMORY[0x277CBF348];
+            v41 = *(MEMORY[0x277CBF348] + 8);
+          }
+
+          [v71 positionVelocityXPercentOfGestureVelocityX];
+          v43 = v42;
+          [v71 positionVelocityYPercentOfGestureVelocityY];
+          v45 = v44;
+          v73 = 0u;
+          v74 = 0u;
+          v75 = 0u;
+          v76 = 0u;
+          v46 = v28;
+          v47 = [v46 countByEnumeratingWithState:&v73 objects:v83 count:16];
+          if (v47)
+          {
+            v48 = v47;
+            v49 = fabs(v39);
+            if (fabs(v16) >= v49)
+            {
+              v50 = v16;
+            }
+
+            else
+            {
+              v50 = v39;
+            }
+
+            if (fabs(v50) >= v49)
+            {
+              v51 = v18;
+            }
+
+            else
+            {
+              v51 = v41;
+            }
+
+            v52 = v45 * v51;
+            v53 = v43 * v50;
+            v54 = *v74;
+            do
+            {
+              for (j = 0; j != v48; ++j)
+              {
+                if (*v74 != v54)
+                {
+                  objc_enumerationMutation(v46);
+                }
+
+                v56 = *(*(&v73 + 1) + 8 * j);
+                v57 = [SBInjectVelocitySwitcherEventResponse alloc];
+                v58 = [MEMORY[0x277CCAE60] valueWithCGPoint:{v53, v52}];
+                v59 = [(SBInjectVelocitySwitcherEventResponse *)v57 initWithVelocity:v58 forKey:@"position" appLayout:v56];
+                [v27 addObject:v59];
+              }
+
+              v48 = [v46 countByEnumeratingWithState:&v73 objects:v83 count:16];
+            }
+
+            while (v48);
+          }
+
+          v10 = v69;
+          eventCopy = v70;
+          homeGestureSettings2 = v71;
+          self = selfCopy;
+          currentFinalDestination = 4;
+          finalDestinationReason = v68;
+          visibleAppLayouts = v67;
+          v23 = v66;
         }
 
-        v10 = v68;
-        eventCopy = v69;
-        homeGestureSettings2 = v70;
-        self = selfCopy;
-        currentFinalDestination = 4;
-        finalDestinationReason = v67;
-        visibleAppLayouts = v66;
-        v22 = v65;
-      }
-
-      if ([v26 count])
-      {
-        [(SBChainableModifierEventResponse *)v10 addChildResponses:v26];
+        if ([v27 count])
+        {
+          [(SBChainableModifierEventResponse *)v10 addChildResponses:v27];
+        }
       }
     }
   }
 
-  v59 = SBLogSystemGestureAppSwitcher();
-  if (os_log_type_enabled(v59, OS_LOG_TYPE_INFO))
+  v60 = SBLogSystemGestureAppSwitcher(isCanceled);
+  if (os_log_type_enabled(v60, OS_LOG_TYPE_INFO))
   {
-    v60 = NSStringFromSBHomeGestureFinalDestination(currentFinalDestination);
-    LODWORD(v84.m11) = 138412802;
-    *(&v84.m11 + 4) = v60;
-    WORD2(v84.m12) = 2048;
-    *(&v84.m12 + 6) = currentFinalDestination;
-    HIWORD(v84.m13) = 2112;
-    *&v84.m14 = finalDestinationReason;
-    _os_log_impl(&dword_21ED4E000, v59, OS_LOG_TYPE_INFO, "Floating Home Gesture Modifier - Final Response: %@ (%lu), Reason: %@", &v84, 0x20u);
+    v61 = NSStringFromSBHomeGestureFinalDestination(currentFinalDestination);
+    LODWORD(v85.m11) = 138412802;
+    *(&v85.m11 + 4) = v61;
+    WORD2(v85.m12) = 2048;
+    *(&v85.m12 + 6) = currentFinalDestination;
+    HIWORD(v85.m13) = 2112;
+    *&v85.m14 = finalDestinationReason;
+    _os_log_impl(&dword_21ED4E000, v60, OS_LOG_TYPE_INFO, "Floating Home Gesture Modifier - Final Response: %@ (%lu), Reason: %@", &v85, 0x20u);
   }
 
-  v61 = [(SBHomeGestureFloatingSwitcherModifier *)self _responseForActivatingFinalDestination:currentFinalDestination];
-  [(SBChainableModifierEventResponse *)v10 addChildResponse:v61];
+  v62 = [(SBHomeGestureFloatingSwitcherModifier *)self _responseForActivatingFinalDestination:currentFinalDestination];
+  [(SBChainableModifierEventResponse *)v10 addChildResponse:v62];
 
   return v10;
 }
@@ -905,7 +910,7 @@ LABEL_30:
   return result;
 }
 
-uint64_t __55__SBHomeGestureFloatingSwitcherModifier_frameForIndex___block_invoke(void *a1)
+void *__55__SBHomeGestureFloatingSwitcherModifier_frameForIndex___block_invoke(void *a1)
 {
   result = [*(a1[4] + 152) frameForIndex:a1[6]];
   v3 = *(a1[5] + 8);
@@ -957,7 +962,7 @@ uint64_t __55__SBHomeGestureFloatingSwitcherModifier_frameForIndex___block_invok
   return result;
 }
 
-uint64_t __55__SBHomeGestureFloatingSwitcherModifier_scaleForIndex___block_invoke(void *a1)
+void *__55__SBHomeGestureFloatingSwitcherModifier_scaleForIndex___block_invoke(void *a1)
 {
   result = [*(a1[4] + 152) scaleForIndex:a1[6]];
   *(*(a1[5] + 8) + 24) = v3;
@@ -1361,13 +1366,14 @@ uint64_t __55__SBHomeGestureFloatingSwitcherModifier_scaleForIndex___block_invok
 
 - (BOOL)_hasPausedEnoughForFlyIn
 {
-  if ([(SBHomeGestureFinalDestinationSwitcherModifier *)self->_finalDestinationModifier hasSeenAccelerationDipForAppSwitcher])
+  hasSeenAccelerationDipForAppSwitcher = [(SBHomeGestureFinalDestinationSwitcherModifier *)self->_finalDestinationModifier hasSeenAccelerationDipForAppSwitcher];
+  if (hasSeenAccelerationDipForAppSwitcher)
   {
     return 1;
   }
 
-  v4 = *&kCardFlyInDelayAfterEnteringAppSwitcher_0;
-  return self->_gestureHoldTimer > (v4 * SBScreenMaximumFramesPerSecond());
+  v6 = *&kCardFlyInDelayAfterEnteringAppSwitcher_0;
+  return self->_gestureHoldTimer > (v6 * SBScreenMaximumFramesPerSecond(hasSeenAccelerationDipForAppSwitcher, v4));
 }
 
 - (void)_displayLinkFired:(id)fired
@@ -1579,7 +1585,7 @@ void __94__SBHomeGestureFloatingSwitcherModifier__beginAnimatingMultitaskingProp
 
 - (void)_applyPrototypeSettings
 {
-  v3 = SBMainScreenPointsPerMillimeter();
+  v3 = SBMainScreenPointsPerMillimeter(self, a2);
   homeGestureSettings = [(SBHomeGestureFloatingSwitcherModifier *)self homeGestureSettings];
   [homeGestureSettings normalizedDistanceYThresholdForUnconditionalHomeInSlideOver];
   kHomeGestureNormalizedDistanceYThresholdForUnconditionalHome_1 = v4;

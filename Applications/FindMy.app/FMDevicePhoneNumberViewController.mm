@@ -24,7 +24,7 @@
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  v12 = sub_10030A0B0(viewCopy);
+  v12 = sub_10030A0B0(viewCopy, v9);
 
   (*(v7 + 8))(v9, v6);
 
@@ -34,7 +34,7 @@
 - (void)nextAction
 {
   selfCopy = self;
-  sub_10030CE08();
+  sub_10030CE08(selfCopy);
 }
 
 - (void)handleUseEmailAction

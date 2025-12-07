@@ -30,7 +30,7 @@
 
 - (void)updateValuesAndTitles
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v3 = [(PSUICellularPlanManagerCache *)self->_planManagerCache planFromReference:self->_planReference];
   v4 = MEMORY[0x277CBEB18];
   predefinedLabels = [(PSUICellularPlanManagerCache *)self->_planManagerCache predefinedLabels];
@@ -51,30 +51,30 @@
   }
 
   v12 = objc_opt_new();
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v13 = v6;
-  v14 = [v13 countByEnumeratingWithState:&v22 objects:v30 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v21 objects:v29 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v23;
+    v16 = *v22;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v23 != v16)
+        if (*v22 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        label = [*(*(&v22 + 1) + 8 * i) label];
+        label = [*(*(&v21 + 1) + 8 * i) label];
         [v12 addObject:label];
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v22 objects:v30 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v21 objects:v29 count:16];
     }
 
     while (v15);
@@ -84,9 +84,9 @@
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v27 = v13;
-    v28 = 2112;
-    v29 = v12;
+    v26 = v13;
+    v27 = 2112;
+    v28 = v12;
     _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "updating values and titles: %@ %@", buf, 0x16u);
   }
 
@@ -101,30 +101,26 @@
     v20 = MEMORY[0x277CBEC38];
   }
 
-  [(PSUICellularPlanLabelSpecifier *)self setProperty:v20 forKey:*MEMORY[0x277D3FF38], v22];
-
-  v21 = *MEMORY[0x277D85DE8];
+  [(PSUICellularPlanLabelSpecifier *)self setProperty:v20 forKey:*MEMORY[0x277D3FF38], v21];
 }
 
 - (id)cellularPlanLabel:(id)label
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   [(PSUICellularPlanLabelSpecifier *)self updateValuesAndTitles];
   v4 = [(PSUICellularPlanManagerCache *)self->_planManagerCache planFromReference:self->_planReference];
   getLogger = [(PSUICellularPlanLabelSpecifier *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
     userLabel = [v4 userLabel];
-    v10 = 138412546;
-    v11 = userLabel;
-    v12 = 2112;
-    v13 = v4;
-    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "displaying user label %@ for plan item %@", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = userLabel;
+    v11 = 2112;
+    v12 = v4;
+    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "displaying user label %@ for plan item %@", &v9, 0x16u);
   }
 
   userLabel2 = [v4 userLabel];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return userLabel2;
 }

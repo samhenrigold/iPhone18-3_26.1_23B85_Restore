@@ -132,7 +132,7 @@
   self->_activeMenuItems = v4;
 }
 
-uint64_t __71__AVMobilePlaybackRateMenuController__reconstructPlaybackRateMenuItems__block_invoke(uint64_t a1)
+void *__71__AVMobilePlaybackRateMenuController__reconstructPlaybackRateMenuItems__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isSynthesized];
   if ((result & 1) == 0)

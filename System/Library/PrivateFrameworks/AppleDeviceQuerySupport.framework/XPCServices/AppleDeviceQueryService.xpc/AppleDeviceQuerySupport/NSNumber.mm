@@ -1,6 +1,7 @@
 @interface NSNumber
 + (id)BOOLFromData:(id)data needNegate:(BOOL)negate;
 + (id)integerFromCInt:(unint64_t)int size:(unint64_t)size isSigned:(BOOL)signed needSwap:(BOOL)swap;
++ (id)integerFromData:(id)data size:(unint64_t)size truncate:(int64_t)truncate isSigned:(BOOL)signed needSwap:(BOOL)swap;
 @end
 
 @implementation NSNumber
@@ -137,6 +138,74 @@ LABEL_27:
 LABEL_36:
 
   return v24;
+}
+
++ (id)integerFromData:(id)data size:(unint64_t)size truncate:(int64_t)truncate isSigned:(BOOL)signed needSwap:(BOOL)swap
+{
+  swapCopy = swap;
+  signedCopy = signed;
+  dataCopy = data;
+  v13 = dataCopy;
+  v32 = 0;
+  if (dataCopy)
+  {
+    v14 = [dataCopy length];
+    v15 = v14;
+    v17 = v14 > 8 || v14 > size;
+    if (v17)
+    {
+      v18 = @"LSB";
+      if (!truncate)
+      {
+        v18 = @"MSB";
+      }
+
+      v30 = v18;
+      [NSNumber numberWithUnsignedLong:v14];
+      v19 = v31 = swapCopy;
+      v20 = [NSNumber numberWithUnsignedLong:size];
+      v29 = [NSNumber numberWithUnsignedLong:8];
+      ZhuGeLog(524800, "/Library/Caches/com.apple.xbs/Sources/ZhuGe_Service/ZhuGeCommon/NSNumber+ZhuGe.m", "+[NSNumber(ZhuGe) integerFromData:size:truncate:isSigned:needSwap:]", 122, @"Data %@ might be truncated(data size %@, required size %@, maximum supported size %@)", v21, v22, v23, v30);
+
+      swapCopy = v31;
+    }
+
+    sizeCopy = 8;
+    if (size < 8)
+    {
+      sizeCopy = size;
+    }
+
+    if (v17)
+    {
+      v25 = sizeCopy;
+    }
+
+    else
+    {
+      v25 = v15;
+    }
+
+    if (truncate == 1)
+    {
+      v26 = &v15[-v25];
+    }
+
+    else
+    {
+      v26 = 0;
+    }
+
+    [v13 getBytes:&v32 range:v26];
+    v27 = [self integerFromCInt:v32 size:size isSigned:signedCopy needSwap:swapCopy];
+  }
+
+  else
+  {
+    v27 = 0;
+  }
+
+  return v27;
 }
 
 + (id)BOOLFromData:(id)data needNegate:(BOOL)negate

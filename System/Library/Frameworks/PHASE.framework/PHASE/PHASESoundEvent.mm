@@ -411,14 +411,15 @@
   }
 }
 
-void __41__PHASESoundEvent_prepareWithCompletion___block_invoke(uint64_t a1, uint64_t a2, char a3)
+void __41__PHASESoundEvent_prepareWithCompletion___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v18 = *MEMORY[0x277D85DE8];
   v5 = *(a1 + 32);
   if (v5)
   {
+    v6 = a3;
     [v5 setPrepareState:2];
-    if (a2 == 1 && (a3 & 1) == 0)
+    if (a2 == 1 && (v6 & 1) == 0)
     {
       [*(a1 + 32) registerTapSources];
     }
@@ -427,7 +428,7 @@ void __41__PHASESoundEvent_prepareWithCompletion___block_invoke(uint64_t a1, uin
   v7 = *(a1 + 40);
   if (v7)
   {
-    v7 = (*(v7 + 2))(v7, a2);
+    v7 = (*(v7 + 2))(v7, a2, a3);
   }
 
   v8 = **(Phase::Logger::GetInstance(v7) + 448);
@@ -511,7 +512,7 @@ void __41__PHASESoundEvent_prepareWithCompletion___block_invoke(uint64_t a1, uin
     v15 = v13;
     v39 = 0;
     v38 = 1;
-    v16 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v14, 72, &v39, &v38);
+    v16 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v14, 0x48uLL, &v39, &v38);
     if (!v16)
     {
       Instance = Phase::Logger::GetInstance(0);
@@ -763,7 +764,7 @@ void __42__PHASESoundEvent_startAtTime_completion___block_invoke(uint64_t a1, ui
       v6 = **(v5 + 8);
       v13 = 0;
       v12 = 1;
-      v7 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v6, 32, &v13, &v12);
+      v7 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v6, 0x20uLL, &v13, &v12);
       if (!v7)
       {
         Instance = Phase::Logger::GetInstance(0);
@@ -827,7 +828,7 @@ void __42__PHASESoundEvent_startAtTime_completion___block_invoke(uint64_t a1, ui
       v9 = **(v7 + 8);
       v16 = 0;
       v15 = 1;
-      v10 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v9, 40, &v16, &v15);
+      v10 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v9, 0x28uLL, &v16, &v15);
       if (!v10)
       {
         Instance = Phase::Logger::GetInstance(0);
@@ -914,7 +915,7 @@ void __42__PHASESoundEvent_startAtTime_completion___block_invoke(uint64_t a1, ui
       v14 = **(v13 + 8);
       v21 = 0;
       v20 = 1;
-      v15 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v14, 32, &v21, &v20);
+      v15 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v14, 0x20uLL, &v21, &v20);
       if (!v15)
       {
         v17 = Phase::Logger::GetInstance(0);
@@ -1588,7 +1589,7 @@ LABEL_33:
     v12 = **(v9 + 8);
     v36 = 0;
     v35 = 1;
-    v13 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v12, 64, &v36, &v35);
+    v13 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v12, 0x40uLL, &v36, &v35);
     if (!v13)
     {
       Instance = Phase::Logger::GetInstance(0);
@@ -2740,7 +2741,7 @@ LABEL_20:
   v28 = **(v19 + 8);
   v42 = 0;
   v41 = 1;
-  v29 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v28, 72, &v42, &v41);
+  v29 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v28, 0x48uLL, &v42, &v41);
   if (!v29)
   {
     Instance = Phase::Logger::GetInstance(0);

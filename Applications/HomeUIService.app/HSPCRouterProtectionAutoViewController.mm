@@ -3,6 +3,7 @@
 - (HSPCRouterProtectionAutoViewController)initWithCoordinator:(id)coordinator configurationDelegate:(id)delegate;
 - (HUConfigurationViewControllerDelegate)delegate;
 - (void)_updateNetworkProtection:(int64_t)protection andFinishWithActionResult:(unint64_t)result;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation HSPCRouterProtectionAutoViewController
@@ -62,6 +63,15 @@
   }
 
   return v19;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = HSPCRouterProtectionAutoViewController;
+  [(HSPCRouterProtectionAutoViewController *)&v5 viewWillAppear:appear];
+  delegate = [(HSPCRouterProtectionAutoViewController *)self delegate];
+  [delegate viewControllerWillAppear:self];
 }
 
 - (BOOL)_hasNetworkCustomizableAccessories

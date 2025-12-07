@@ -25,6 +25,7 @@
 - (int64_t)port;
 - (uint64_t)_highestDiscoveryModeForConfiguration:(uint64_t)configuration;
 - (void)adjustOutputDeviceVolume:(int64_t)volume outputDeviceUID:(id)d details:(id)details queue:(id)queue completion:(id)completion;
+- (void)connectWithOptions:(unsigned int)options;
 - (void)connectWithOptions:(unsigned int)options userInfo:(id)info completion:(id)completion;
 - (void)createHostedEndpointWithOutputDeviceUIDs:(id)ds details:(id)details queue:(id)queue completion:(id)completion;
 - (void)disconnect:(id)disconnect;
@@ -37,6 +38,7 @@
 - (void)removeFromParentGroup:(id)group queue:(id)queue completion:(id)completion;
 - (void)requestGroupSessionWithDetails:(id)details queue:(id)queue completion:(id)completion;
 - (void)requestMicrophoneConnectionWithDetails:(id)details queue:(id)queue completion:(id)completion;
+- (void)sendButtonEvent:(_MRHIDButtonEvent)event;
 - (void)sendClientUpdatesConfigMessage;
 - (void)sendCustomData:(id)data withName:(id)name;
 - (void)setConnectionStateCallback:(id)callback withQueue:(id)queue;
@@ -44,6 +46,7 @@
 - (void)setCustomDataCallback:(id)callback withQueue:(id)queue;
 - (void)setDeviceInfoChangedCallback:(id)callback withQueue:(id)queue;
 - (void)setDiscoveryMode:(unsigned int)mode forConfiguration:(id)configuration;
+- (void)setDiscoveryMode:(unsigned int)mode forToken:(id)token;
 - (void)setDiscoveryOutputDevicesChangedCallback:(id)callback forToken:(id)token;
 - (void)setListeningMode:(id)mode outputDeviceUID:(id)d queue:(id)queue completion:(id)completion;
 - (void)setNameCallback:(id)callback withQueue:(id)queue;
@@ -664,6 +667,17 @@
   objc_exception_throw(v16);
 }
 
+- (void)sendButtonEvent:(_MRHIDButtonEvent)event
+{
+  v3 = MEMORY[0x1E695DF30];
+  v4 = *MEMORY[0x1E695D930];
+  v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s is abstract", *&event.var2, "-[MRExternalDevice sendButtonEvent:]"];
+  v6 = [v3 exceptionWithName:v4 reason:v5 userInfo:0];
+  v7 = v6;
+
+  objc_exception_throw(v6);
+}
+
 - (void)sendCustomData:(id)data withName:(id)name
 {
   dataCopy = data;
@@ -735,6 +749,16 @@
   objc_exception_throw(v7);
 }
 
+- (void)connectWithOptions:(unsigned int)options
+{
+  v3 = *&options;
+  v7[1] = *MEMORY[0x1E69E9840];
+  v6 = @"MRExternalDeviceConnectionReasonUserInfoKey";
+  v7[0] = @"Deprecated";
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  [(MRExternalDevice *)self connectWithOptions:v3 userInfo:v5];
+}
+
 - (void)connectWithOptions:(unsigned int)options userInfo:(id)info completion:(id)completion
 {
   infoCopy = info;
@@ -776,6 +800,28 @@
   objc_sync_exit(selfCopy);
 
   return v5;
+}
+
+- (void)setDiscoveryMode:(unsigned int)mode forToken:(id)token
+{
+  v4 = *&mode;
+  tokenCopy = token;
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  if (!selfCopy->_discoveryModes)
+  {
+    v7 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    discoveryModes = selfCopy->_discoveryModes;
+    selfCopy->_discoveryModes = v7;
+  }
+
+  v9 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v4];
+  [(NSMutableDictionary *)selfCopy->_discoveryModes setObject:v9 forKeyedSubscript:tokenCopy];
+
+  v10 = [(NSMutableDictionary *)selfCopy->_discoveryConfigurations objectForKeyedSubscript:tokenCopy];
+  [(MRExternalDevice *)selfCopy setDiscoveryMode:[(MRExternalDevice *)selfCopy _highestDiscoveryModeForConfiguration:v10] forConfiguration:v10];
+
+  objc_sync_exit(selfCopy);
 }
 
 - (uint64_t)_highestDiscoveryModeForConfiguration:(uint64_t)configuration
@@ -854,56 +900,54 @@
 
 - (void)notifyDiscoveryOutputDevicesChanged:(id)changed forConfiguration:(id)configuration
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   changedCopy = changed;
   configurationCopy = configuration;
   v8 = objc_alloc_init(MEMORY[0x1E695DF70]);
   selfCopy = self;
   objc_sync_enter(selfCopy);
   discoveryOutputDevicesCallbacks = selfCopy->_discoveryOutputDevicesCallbacks;
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __73__MRExternalDevice_notifyDiscoveryOutputDevicesChanged_forConfiguration___block_invoke;
-  v22[3] = &unk_1E769E980;
-  v22[4] = selfCopy;
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __73__MRExternalDevice_notifyDiscoveryOutputDevicesChanged_forConfiguration___block_invoke;
+  v21[3] = &unk_1E769E980;
+  v21[4] = selfCopy;
   v11 = configurationCopy;
-  v23 = v11;
+  v22 = v11;
   v12 = v8;
-  v24 = v12;
-  [(NSMutableDictionary *)discoveryOutputDevicesCallbacks enumerateKeysAndObjectsUsingBlock:v22];
+  v23 = v12;
+  [(NSMutableDictionary *)discoveryOutputDevicesCallbacks enumerateKeysAndObjectsUsingBlock:v21];
 
   objc_sync_exit(selfCopy);
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v13 = v12;
-  v14 = [v13 countByEnumeratingWithState:&v18 objects:v25 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v17 objects:v24 count:16];
   if (v14)
   {
-    v15 = *v19;
+    v15 = *v18;
     do
     {
       v16 = 0;
       do
       {
-        if (*v19 != v15)
+        if (*v18 != v15)
         {
           objc_enumerationMutation(v13);
         }
 
-        (*(*(*(&v18 + 1) + 8 * v16) + 16))(*(*(&v18 + 1) + 8 * v16));
+        (*(*(*(&v17 + 1) + 8 * v16) + 16))(*(*(&v17 + 1) + 8 * v16));
         ++v16;
       }
 
       while (v14 != v16);
-      v14 = [v13 countByEnumeratingWithState:&v18 objects:v25 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v17 objects:v24 count:16];
     }
 
     while (v14);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __73__MRExternalDevice_notifyDiscoveryOutputDevicesChanged_forConfiguration___block_invoke(void *a1, void *a2, void *a3)

@@ -116,7 +116,7 @@ uint64_t __47__PLCoreAnalyticsEventManager_publishAllEvents__block_invoke(uint64
   }
 }
 
-uint64_t __52__PLCoreAnalyticsEventManager_publishEventWithName___block_invoke(uint64_t a1)
+void *__52__PLCoreAnalyticsEventManager_publishEventWithName___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 8) count];
   if (result)
@@ -462,24 +462,24 @@ LABEL_8:
 LABEL_9:
 }
 
-void __82__PLCoreAnalyticsEventManager__setPayloadValue_forKey_onEventWithName_eventBlock___block_invoke(uint64_t a1)
+void __82__PLCoreAnalyticsEventManager__setPayloadValue_forKey_onEventWithName_eventBlock___block_invoke(void *a1)
 {
-  v2 = (*(*(a1 + 56) + 16))();
+  v2 = (*(a1[7] + 16))();
   if (v2)
   {
     v6 = v2;
     objc_opt_class();
     isKindOfClass = objc_opt_isKindOfClass();
-    v4 = *(a1 + 48);
+    v4 = a1[6];
     if (isKindOfClass)
     {
-      v5 = build_error_event_string(*(a1 + 40));
+      v5 = build_error_event_string(a1[5]);
       [v6 addKey:v4 value:v5];
     }
 
     else
     {
-      [v6 addKey:*(a1 + 48) value:*(a1 + 40)];
+      [v6 addKey:a1[6] value:a1[5]];
     }
 
     v2 = v6;

@@ -5,6 +5,7 @@
 - (id)mergedIntervals;
 - (uint64_t)mergedIntervals;
 - (void)insertInterval:(id)interval;
+- (void)insertIntervalWithStartTime:(double)time endTime:(double)endTime;
 - (void)mergedIntervals;
 @end
 
@@ -20,6 +21,29 @@
   }
 
   return 0;
+}
+
+- (void)insertIntervalWithStartTime:(double)time endTime:(double)endTime
+{
+  ptr = self->_tree.__ptr_;
+  if (endTime >= time)
+  {
+    endTimeCopy = time;
+  }
+
+  else
+  {
+    endTimeCopy = endTime;
+  }
+
+  if (time < endTime)
+  {
+    time = endTime;
+  }
+
+  v6[0] = endTimeCopy;
+  v6[1] = time;
+  HKIntervalTree<double>::insertInterval(ptr, v6);
 }
 
 - (void)insertInterval:(id)interval
@@ -94,17 +118,15 @@
 
 - (id)mergedIntervals
 {
-  v8[4] = *MEMORY[0x1E69E9840];
-  v7 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v7[4] = *MEMORY[0x1E69E9840];
+  v6 = objc_alloc_init(MEMORY[0x1E695DF70]);
   ptr = self->_tree.__ptr_;
-  v8[0] = &unk_1F05F2BD0;
-  v8[1] = &v7;
-  v8[3] = v8;
-  HKIntervalTree<double>::_enumeratePreOrder(ptr, *ptr, v8);
-  std::__function::__value_func<void ()(HKIntervalTreeNode<double> *)>::~__value_func[abi:ne200100](v8);
-  v4 = [v7 copy];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v7[0] = &unk_1F05F2BD0;
+  v7[1] = &v6;
+  v7[3] = v7;
+  HKIntervalTree<double>::_enumeratePreOrder(ptr, *ptr, v7);
+  std::__function::__value_func<void ()(HKIntervalTreeNode<double> *)>::~__value_func[abi:ne200100](v7);
+  v4 = [v6 copy];
 
   return v4;
 }

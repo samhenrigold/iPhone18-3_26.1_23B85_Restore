@@ -11,9 +11,9 @@
     +[RMLog(storeKeychainController) storeKeychainController];
   }
 
-  v1 = storeKeychainController_result;
+  v2 = storeKeychainController_result;
 
-  return v1;
+  return v2;
 }
 
 @end

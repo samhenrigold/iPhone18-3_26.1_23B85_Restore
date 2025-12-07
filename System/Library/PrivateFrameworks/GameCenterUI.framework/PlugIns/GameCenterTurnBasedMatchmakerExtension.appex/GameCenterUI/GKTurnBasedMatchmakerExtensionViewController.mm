@@ -7,6 +7,8 @@
 - (void)quitTurnBasedMatch:(id)match;
 - (void)refreshMatches;
 - (void)setInitialState:(id)state withReply:(id)reply;
+- (void)setShowPlay:(BOOL)play;
+- (void)setShowQuit:(BOOL)quit;
 - (void)turnBasedViewController:(id)controller didFailWithError:(id)error;
 - (void)turnBasedViewController:(id)controller didFindMatch:(id)match;
 - (void)turnBasedViewController:(id)controller playerQuitForMatch:(id)match;
@@ -146,6 +148,22 @@ LABEL_17:
   [(GKTurnBasedMatchmakerExtensionViewController *)self setMatchRequest:v14];
 
 LABEL_18:
+}
+
+- (void)setShowPlay:(BOOL)play
+{
+  playCopy = play;
+  self->_showPlay = play;
+  turnBasedViewController = [(GKTurnBasedMatchmakerExtensionViewController *)self turnBasedViewController];
+  [turnBasedViewController setShowPlay:playCopy];
+}
+
+- (void)setShowQuit:(BOOL)quit
+{
+  quitCopy = quit;
+  self->_showQuit = quit;
+  turnBasedViewController = [(GKTurnBasedMatchmakerExtensionViewController *)self turnBasedViewController];
+  [turnBasedViewController setShowQuit:quitCopy];
 }
 
 - (void)refreshMatches

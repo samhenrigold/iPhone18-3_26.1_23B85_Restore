@@ -718,7 +718,7 @@ LABEL_13:
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1_2() callStackSymbols];
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_3(&dword_24DE53000, v4, v5, "Deferring popViewController:animated:\n%@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_0_3(&dword_24DE53000, v4, v5, "Deferring popViewController:animated:\n%@", v6, v7, v8, v9);
 }
 
 - (void)popToViewController:(void *)a1 animated:.cold.1(void *a1)
@@ -726,7 +726,7 @@ LABEL_13:
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1_2() callStackSymbols];
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_3(&dword_24DE53000, v4, v5, "Deferring popToViewController:animated:\n%@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_0_3(&dword_24DE53000, v4, v5, "Deferring popToViewController:animated:\n%@", v6, v7, v8, v9);
 }
 
 - (void)popToRootViewControllerAnimated:(void *)a1 .cold.1(void *a1)
@@ -734,7 +734,7 @@ LABEL_13:
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1_2() callStackSymbols];
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_3(&dword_24DE53000, v4, v5, "Deferring popToRootViewControllerAnimated:\n%@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_0_3(&dword_24DE53000, v4, v5, "Deferring popToRootViewControllerAnimated:\n%@", v6, v7, v8, v9);
 }
 
 - (void)pushViewController:(void *)a1 animated:.cold.1(void *a1)
@@ -742,7 +742,7 @@ LABEL_13:
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1_2() callStackSymbols];
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_3(&dword_24DE53000, v4, v5, "Deferring pushViewController:animated:\n%@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_0_3(&dword_24DE53000, v4, v5, "Deferring pushViewController:animated:\n%@", v6, v7, v8, v9);
 }
 
 @end

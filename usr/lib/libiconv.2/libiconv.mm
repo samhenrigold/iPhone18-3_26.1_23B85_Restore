@@ -1,44 +1,44 @@
 uint64_t __bsd___iconv_open(const char *a1, uint64_t a2, uint64_t *a3)
 {
-  v12 = a3;
-  v4 = *__error();
-  v5 = _citrus_iconv_open(&v12);
-  if (v5)
+  v13 = a3;
+  v5 = *__error();
+  v6 = _citrus_iconv_open(&v13, a2, a1);
+  if (v6)
   {
-    if (v5 == 2)
+    if (v6 == 2)
     {
-      v6 = 22;
+      v7 = 22;
     }
 
     else
     {
-      v6 = v5;
+      v7 = v6;
     }
 
-    *__error() = v6;
+    *__error() = v7;
     return -1;
   }
 
   else
   {
-    *__error() = v4;
-    v8 = strcasestr(a1, "//IGNORE") != 0;
-    v9 = *v12;
-    *(v9 + 72) = v8;
-    *(v9 + 88) = 1;
-    v10 = strcasestr(a1, "//TRANSLIT") != 0;
-    result = v12;
-    v11 = *v12;
-    *(v11 + 73) = v10;
-    *(v11 + 80) = 0;
+    *__error() = v5;
+    v9 = strcasestr(a1, "//IGNORE") != 0;
+    v10 = *v13;
+    *(v10 + 72) = v9;
+    *(v10 + 88) = 1;
+    v11 = strcasestr(a1, "//TRANSLIT") != 0;
+    result = v13;
+    v12 = *v13;
+    *(v12 + 73) = v11;
+    *(v12 + 80) = 0;
   }
 
   return result;
 }
 
-uint64_t _citrus_iconv_open(void **a1)
+uint64_t _citrus_iconv_open(void **a1, uint64_t a2, uint64_t a3)
 {
-  v36 = *MEMORY[0x29EDCA608];
+  v38 = *MEMORY[0x29EDCA608];
   pthread_rwlock_wrlock(&ci_lock);
   if ((isinit & 1) == 0)
   {
@@ -46,7 +46,7 @@ uint64_t _citrus_iconv_open(void **a1)
     shared_unused = 0;
     qword_2A18B8C30 = &shared_unused;
     shared_max_reuse = -1;
-    if (issetugid() || (v8 = getenv("ICONV_MAX_REUSE")) == 0)
+    if (issetugid() || (v9 = getenv("ICONV_MAX_REUSE")) == 0)
     {
       if ((shared_max_reuse & 0x80000000) == 0)
       {
@@ -58,7 +58,7 @@ LABEL_5:
 
     else
     {
-      shared_max_reuse = atoi(v8);
+      shared_max_reuse = atoi(v9);
       if ((shared_max_reuse & 0x80000000) == 0)
       {
         goto LABEL_5;
@@ -72,23 +72,23 @@ LABEL_5:
 LABEL_6:
   pthread_rwlock_unlock(&ci_lock);
   __strlcpy_chk();
-  v2 = strstr(__s1, "//");
-  if (v2)
+  v4 = strstr(__s1, "//");
+  if (v4)
   {
-    *v2 = 0;
+    *v4 = 0;
   }
 
   __strlcpy_chk();
-  v3 = strstr(__s, "//");
-  if (v3)
+  v5 = strstr(__s, "//");
+  if (v5)
   {
-    *v3 = 0;
+    *v5 = 0;
   }
 
   if (!__s1[0] || !strcasecmp(__s1, "char"))
   {
     locale_charset();
-    v4 = 0;
+    v6 = 0;
 LABEL_15:
     __strlcpy_chk();
     goto LABEL_16;
@@ -97,11 +97,11 @@ LABEL_15:
   if (!strcasecmp(__s1, "wchar_t"))
   {
     nl_langinfo(0);
-    v4 = 1;
+    v6 = 1;
     goto LABEL_15;
   }
 
-  v4 = 0;
+  v6 = 0;
 LABEL_16:
   if (!__s[0] || !strcasecmp(__s, "char"))
   {
@@ -111,7 +111,7 @@ LABEL_16:
 
   if (!strcasecmp(__s, "wchar_t"))
   {
-    v4 |= 2u;
+    v6 |= 2u;
     nl_langinfo(0);
 LABEL_21:
     __strlcpy_chk();
@@ -119,106 +119,105 @@ LABEL_21:
 
   if (strchr(__s1, 47) || strchr(__s, 47))
   {
-    v5 = 22;
-    goto LABEL_25;
+    return 22;
   }
 
   snprintf(__str, 0x400uLL, "%s/%s", __s1, __s);
   pthread_rwlock_wrlock(&ci_lock);
-  v9 = (&shared_pool + 8 * _string_hash_func(__str, 0x65u));
-  v10 = *v9;
-  if (*v9)
+  v10 = (&shared_pool + 8 * _string_hash_func(__str, 0x65u));
+  v11 = *v10;
+  if (*v10)
   {
-    while (strcmp(*(v10 + 64), __str))
+    while (strcmp(*(v11 + 64), __str))
     {
-      v10 = *(v10 + 16);
-      if (!v10)
+      v11 = *(v11 + 16);
+      if (!v11)
       {
         goto LABEL_33;
       }
     }
 
-    v19 = *(v10 + 56);
-    if (!v19)
+    v21 = *(v11 + 56);
+    if (!v21)
     {
-      v20 = *(v10 + 32);
-      v21 = *(v10 + 40);
-      v22 = (v20 + 40);
-      if (!v20)
+      v22 = *(v11 + 32);
+      v23 = *(v11 + 40);
+      v24 = (v22 + 40);
+      if (!v22)
       {
-        v22 = &qword_2A18B8C30;
+        v24 = &qword_2A18B8C30;
       }
 
-      *v22 = v21;
-      *v21 = v20;
+      *v24 = v23;
+      *v23 = v22;
       --shared_num_unused;
     }
 
-    v23 = v19 + 1;
+    v25 = v21 + 1;
     goto LABEL_57;
   }
 
 LABEL_33:
-  if (v4 == 3)
+  if (v6 == 3)
   {
-    v11 = "iconv_none";
+    v12 = "iconv_none";
   }
 
   else
   {
-    v11 = "iconv_std";
+    v12 = "iconv_std";
   }
 
-  v12 = strlen(__str);
-  v13 = malloc_type_malloc(v12 + 97, 0x10B0040813AC877uLL);
-  if (!v13)
+  v13 = strlen(__str);
+  v14 = malloc_type_malloc(v13 + 97, 0x10B0040813AC877uLL);
+  if (!v14)
   {
-    v5 = *__error();
-    if (v5)
+    v7 = *__error();
+    if (v7)
     {
 LABEL_46:
       pthread_rwlock_unlock(&ci_lock);
-      goto LABEL_25;
+      return v7;
     }
 
     goto LABEL_53;
   }
 
-  v10 = v13;
-  v13[6] = 0;
-  v14 = (v13 + 6);
-  v15 = v13 + 12;
-  *v10 = 0;
-  *(v10 + 8) = 0;
-  *(v10 + 64) = v15;
-  memcpy(v15, __str, v12 + 1);
-  module = _citrus_load_module(v14, v11);
+  v11 = v14;
+  v14[6] = 0;
+  v15 = (v14 + 6);
+  v16 = v14 + 12;
+  *v11 = 0;
+  *(v11 + 8) = 0;
+  *(v11 + 64) = v16;
+  memcpy(v16, __str, v13 + 1);
+  module = _citrus_load_module(v15, v12);
   if (module)
   {
     goto LABEL_38;
   }
 
-  getops = _citrus_find_getops(*v14, v11, "iconv");
+  getops = _citrus_find_getops(*v15, v12, "iconv");
   if (getops)
   {
-    v29 = getops;
-    v30 = malloc_type_malloc(0x28uLL, 0x800402FCC0CB6uLL);
-    *v10 = v30;
-    if (v30)
+    v31 = getops;
+    v32 = malloc_type_malloc(0x28uLL, 0x800402FCC0CB6uLL);
+    *v11 = v32;
+    if (v32)
     {
-      module = v29();
+      module = v31();
       if (module)
       {
 LABEL_38:
-        v5 = module;
+        v7 = module;
         goto LABEL_39;
       }
 
-      v31 = *v10;
-      v32 = **v10;
-      if (v32 && v31[1] && v31[2] && v31[3] && v31[4])
+      v33 = *v11;
+      v34 = **v11;
+      if (v34 && v33[1] && v33[2] && v33[3] && v33[4])
       {
-        module = v32(v10, __s1, __s);
+        module = v34(v11, __s1, __s);
         if (!module)
         {
           goto LABEL_54;
@@ -227,96 +226,94 @@ LABEL_38:
         goto LABEL_38;
       }
 
-      v5 = 22;
+      v7 = 22;
     }
 
     else
     {
-      v5 = *__error();
+      v7 = *__error();
     }
   }
 
   else
   {
-    v5 = 102;
+    v7 = 102;
   }
 
 LABEL_39:
-  v17 = *v14;
-  if (*v14)
+  v19 = *v15;
+  if (*v15)
   {
-    v18 = *v10;
-    if (*v10)
+    v20 = *v11;
+    if (*v11)
     {
-      if (*(v10 + 8))
+      if (*(v11 + 8))
       {
-        (v18[1])(v10);
-        v18 = *v10;
+        (v20[1])(v11);
+        v20 = *v11;
       }
 
-      free(v18);
-      v17 = *v14;
+      free(v20);
+      v19 = *v15;
     }
 
-    _citrus_unload_module(v17);
+    _citrus_unload_module(v19, v18);
   }
 
-  free(v10);
-  if (v5)
+  free(v11);
+  if (v7)
   {
     goto LABEL_46;
   }
 
 LABEL_53:
-  v10 = 0;
+  v11 = 0;
 LABEL_54:
-  v24 = *v9;
-  *(v10 + 16) = *v9;
-  if (v24)
+  v26 = *v10;
+  *(v11 + 16) = *v10;
+  if (v26)
   {
-    *(v24 + 24) = v10 + 16;
+    *(v26 + 24) = v11 + 16;
   }
 
-  *v9 = v10;
-  *(v10 + 24) = v9;
-  v23 = 1;
+  *v10 = v11;
+  *(v11 + 24) = v10;
+  v25 = 1;
 LABEL_57:
-  *(v10 + 56) = v23;
+  *(v11 + 56) = v25;
   pthread_rwlock_unlock(&ci_lock);
-  v25 = *a1;
+  v27 = *a1;
   if (*a1)
   {
-    v26 = 0;
+    v28 = 0;
   }
 
   else
   {
-    v27 = malloc_type_malloc(0x20uLL, 0x10A00409968B0C6uLL);
-    if (!v27)
+    v29 = malloc_type_malloc(0x20uLL, 0x10A00409968B0C6uLL);
+    if (!v29)
     {
-      v5 = *__error();
-      release_shared(v10);
-      goto LABEL_25;
+      v7 = *__error();
+      release_shared(v11);
+      return v7;
     }
 
-    v25 = v27;
-    *a1 = v27;
-    v26 = v27;
+    v27 = v29;
+    *a1 = v29;
+    v28 = v29;
   }
 
-  *v25 = v10;
-  v5 = (*(*v10 + 16))(v25);
-  v25[2] = 0;
-  *(v25 + 6) = v4;
-  if (v5)
+  *v27 = v11;
+  v7 = (*(*v11 + 16))(v27);
+  v27[2] = 0;
+  *(v27 + 6) = v6;
+  if (v7)
   {
-    release_shared(v10);
-    free(v26);
+    release_shared(v11);
+    free(v28);
   }
 
-LABEL_25:
-  v6 = *MEMORY[0x29EDCA608];
-  return v5;
+  return v7;
 }
 
 uint64_t _string_hash_func(const char *a1, unsigned int a2)
@@ -415,67 +412,67 @@ void _citrus_iconv_close(uint64_t *a1)
 uint64_t release_shared(uint64_t a1)
 {
   pthread_rwlock_wrlock(&ci_lock);
-  v2 = *(a1 + 56) - 1;
-  *(a1 + 56) = v2;
-  if (!v2)
+  v3 = *(a1 + 56) - 1;
+  *(a1 + 56) = v3;
+  if (!v3)
   {
-    v3 = shared_num_unused;
-    v4 = ++shared_num_unused;
+    v4 = shared_num_unused;
+    v5 = ++shared_num_unused;
     *(a1 + 32) = 0;
-    v5 = qword_2A18B8C30;
+    v6 = qword_2A18B8C30;
     *(a1 + 40) = qword_2A18B8C30;
-    *v5 = a1;
+    *v6 = a1;
     qword_2A18B8C30 = a1 + 32;
-    v6 = shared_max_reuse;
-    if (v3 >= shared_max_reuse)
+    v7 = shared_max_reuse;
+    if (v4 >= shared_max_reuse)
     {
       do
       {
-        v7 = &qword_2A18B8C30;
-        v8 = shared_unused;
-        v9 = *(shared_unused + 32);
-        v10 = *(shared_unused + 40);
-        if (v9)
+        v8 = &qword_2A18B8C30;
+        v9 = shared_unused;
+        v10 = *(shared_unused + 32);
+        v11 = *(shared_unused + 40);
+        if (v10)
         {
-          v7 = (v9 + 40);
+          v8 = (v10 + 40);
         }
 
-        *v7 = v10;
-        *v10 = v9;
-        v11 = v8[2];
-        v12 = v8[3];
-        if (v11)
+        *v8 = v11;
+        *v11 = v10;
+        v12 = v9[2];
+        v13 = v9[3];
+        if (v12)
         {
-          *(v11 + 24) = v12;
+          *(v12 + 24) = v13;
         }
 
-        *v12 = v11;
-        shared_num_unused = --v4;
-        v13 = v8[6];
-        if (v13)
+        *v13 = v12;
+        shared_num_unused = --v5;
+        v14 = v9[6];
+        if (v14)
         {
-          v14 = *v8;
-          if (*v8)
+          v15 = *v9;
+          if (*v9)
           {
-            if (v8[1])
+            if (v9[1])
             {
-              (v14)[1](v8);
-              v14 = *v8;
+              (v15)[1](v9);
+              v15 = *v9;
             }
 
-            free(v14);
-            v13 = v8[6];
+            free(v15);
+            v14 = v9[6];
           }
 
-          _citrus_unload_module(v13);
-          v4 = shared_num_unused;
-          v6 = shared_max_reuse;
+          _citrus_unload_module(v14, v2);
+          v5 = shared_num_unused;
+          v7 = shared_max_reuse;
         }
 
-        free(v8);
+        free(v9);
       }
 
-      while (v4 > v6);
+      while (v5 > v7);
     }
   }
 
@@ -1357,51 +1354,51 @@ uint64_t _citrus_csmapper_open()
   v8 = v7;
   v10 = v9;
   v11 = v0;
-  v52 = *MEMORY[0x29EDCA608];
+  v51 = *MEMORY[0x29EDCA608];
   area = _citrus_mapper_create_area(&maparea, "/usr/share/i18n/csmapper");
   if (area)
   {
-    goto LABEL_2;
+    return area;
   }
 
-  v15 = _citrus_lookup_simple("/usr/share/i18n/csmapper/charset.alias", v10, v45, 0x400uLL, 1);
+  v14 = _citrus_lookup_simple("/usr/share/i18n/csmapper/charset.alias", v10, v44, 0x400uLL, 1);
+  if (v14)
+  {
+    v10 = v14;
+  }
+
+  v15 = _citrus_lookup_simple("/usr/share/i18n/csmapper/charset.alias", v8, v43, 0x400uLL, 1);
   if (v15)
   {
-    v10 = v15;
-  }
-
-  v16 = _citrus_lookup_simple("/usr/share/i18n/csmapper/charset.alias", v8, v44, 0x400uLL, 1);
-  if (v16)
-  {
-    v8 = v16;
+    v8 = v15;
   }
 
   if (!strcmp(v10, v8))
   {
-    v18 = maparea;
+    v17 = maparea;
     pthread_rwlock_wrlock(&ma_lock);
-    v19 = csm_none;
+    v18 = csm_none;
     if (!csm_none)
     {
-      area = _citrus_mapper_open_direct(v18, &csm_none, "mapper_none", &unk_298ECAC52);
+      area = _citrus_mapper_open_direct(v17, &csm_none, "mapper_none", &unk_298ECAC52);
       if (area)
       {
         goto LABEL_20;
       }
 
       _citrus_mapper_set_persistent(csm_none);
-      v19 = csm_none;
+      v18 = csm_none;
     }
 
     area = 0;
-    *v11 = v19;
+    *v11 = v18;
 LABEL_20:
     pthread_rwlock_unlock(&ma_lock);
     if (!v4 || area)
     {
       if (area)
       {
-        goto LABEL_2;
+        return area;
       }
     }
 
@@ -1412,16 +1409,16 @@ LABEL_20:
 
     area = 0;
     *v2 = 1;
-    goto LABEL_2;
+    return area;
   }
 
   *v2 = 0;
   snprintf(__str, 0x400uLL, "%s/%s", v10, v8);
-  v17 = _citrus_mapper_open(maparea, v11, __str);
-  if (v17 != 2)
+  v16 = _citrus_mapper_open(maparea, v11, __str);
+  if (v16 != 2)
   {
-    area = v17;
-    if (!v17)
+    area = v16;
+    if (!v16)
     {
       area = 0;
       if (v4)
@@ -1430,82 +1427,82 @@ LABEL_20:
       }
     }
 
-    goto LABEL_2;
+    return area;
   }
 
   if (v6)
   {
-    goto LABEL_69;
+    return 2;
   }
 
-  v37[0] = 0;
-  v40 = 0;
-  v41 = 0;
-  v38 = 0;
+  v36[0] = 0;
   v39 = 0;
-  v50[0] = 0uLL;
-  v49 = 0;
+  v40 = 0;
+  v37 = 0;
+  v38 = 0;
+  v49[0] = 0uLL;
   v48 = 0;
-  v20 = _citrus_map_file(v50, "/usr/share/i18n/csmapper/charset.pivot.pvdb");
-  if (v20 == 2)
+  v47 = 0;
+  v19 = _citrus_map_file(v49, "/usr/share/i18n/csmapper/charset.pivot.pvdb");
+  if (v19 == 2)
   {
-    v21 = 0;
+    v20 = 0;
 LABEL_47:
-    v37[1] = 0;
-    v38 = 0;
-    v37[0] = 0;
-    memset(v50, 0, 512);
-    v30 = _citrus_lookup_seq_open(&v38, "/usr/share/i18n/csmapper/charset.pivot", 1);
-    if (v30)
+    v36[1] = 0;
+    v37 = 0;
+    v36[0] = 0;
+    memset(v49, 0, 512);
+    v29 = _citrus_lookup_seq_open(&v37, "/usr/share/i18n/csmapper/charset.pivot", 1);
+    if (v29)
     {
-      area = v30;
+      area = v29;
     }
 
     else
     {
-      v31 = _citrus_lookup_seq_lookup(v38);
-      if (v31)
+      v30 = _citrus_lookup_seq_lookup(v37);
+      if (v30)
       {
-        area = v31;
-        v32 = -1;
+        area = v30;
+        v31 = -1;
       }
 
       else
       {
-        v32 = -1;
+        v31 = -1;
 LABEL_52:
-        v33 = parse_line(v50, v37);
-        if (v33 || (v40 = 0, v41 = 0, v39 = 0, v33 = _citrus_lookup_seq_open(&v41, "/usr/share/i18n/csmapper/charset.pivot", 1), v33))
+        v32 = parse_line(v49, v36);
+        if (v32 || (v39 = 0, v40 = 0, v38 = 0, v32 = _citrus_lookup_seq_open(&v40, "/usr/share/i18n/csmapper/charset.pivot", 1), v32))
         {
-          area = v33;
+          area = v32;
         }
 
         else
         {
-          v34 = _citrus_lookup_seq_lookup(v41);
-          if (!v34)
+          v33 = _citrus_lookup_seq_lookup(v40);
+          if (!v33)
           {
-            memset(v46, 0, 512);
+            memset(v45, 0, 512);
             do
             {
-              v34 = parse_line(v46, &v39);
-              if (v34)
+              v33 = parse_line(v45, &v38);
+              if (v33)
               {
                 break;
               }
 
-              if (!strcmp(v8, v46))
+              if (!strcmp(v8, v45))
               {
-                v51 += v47;
-                _citrus_lookup_seq_close(v41);
-                v35 = v51;
-                if (v51 < v32)
+                v50 += v46;
+                _citrus_lookup_seq_close(v40);
+                v34 = v50;
+                if (v50 < v31)
                 {
                   __strlcpy_chk();
-                  v32 = v35;
+                  v31 = v34;
                 }
 
-                area = _citrus_lookup_seq_next(v38);
+                area = _citrus_lookup_seq_next(v37);
                 if (!area)
                 {
                   goto LABEL_52;
@@ -1514,22 +1511,22 @@ LABEL_52:
                 goto LABEL_65;
               }
 
-              v34 = _citrus_lookup_seq_next(v41);
+              v33 = _citrus_lookup_seq_next(v40);
             }
 
-            while (!v34);
+            while (!v33);
           }
 
-          area = v34;
-          _citrus_lookup_seq_close(v41);
+          area = v33;
+          _citrus_lookup_seq_close(v40);
         }
       }
 
 LABEL_65:
-      _citrus_lookup_seq_close(v38);
+      _citrus_lookup_seq_close(v37);
       if (area == 2)
       {
-        if (v32 == -1)
+        if (v31 == -1)
         {
           area = 2;
         }
@@ -1538,7 +1535,7 @@ LABEL_65:
         {
           __strlcpy_chk();
           area = 0;
-          v21 = v32;
+          v20 = v31;
         }
       }
     }
@@ -1549,60 +1546,60 @@ LABEL_71:
       goto LABEL_72;
     }
 
-    goto LABEL_2;
+    return area;
   }
 
-  area = v20;
-  v21 = 0;
-  if (v20)
+  area = v19;
+  v20 = 0;
+  if (v19)
   {
     goto LABEL_46;
   }
 
-  v22 = _citrus_db_open(v37, v50, "CSPIVOT", _citrus_db_hash_std, 0);
+  v21 = _citrus_db_open(v36, v49, "CSPIVOT", _citrus_db_hash_std, 0);
+  if (v21)
+  {
+    area = v21;
+    _citrus_unmap_file(v49);
+    v20 = 0;
+    goto LABEL_46;
+  }
+
+  v22 = open_subdb(&v40, v36[0], v10);
   if (v22)
   {
     area = v22;
-    _citrus_unmap_file(v50);
-    v21 = 0;
-    goto LABEL_46;
-  }
-
-  v23 = open_subdb(&v41, v37[0], v10);
-  if (v23)
-  {
-    area = v23;
-    v21 = 0;
+    v20 = 0;
     goto LABEL_45;
   }
 
-  number_of_entries = _citrus_db_get_number_of_entries(v41);
+  number_of_entries = _citrus_db_get_number_of_entries(v40);
   if (number_of_entries < 1)
   {
     area = 0;
-    v21 = -1;
+    v20 = -1;
     goto LABEL_44;
   }
 
-  v25 = number_of_entries;
-  v26 = 0;
-  v21 = -1;
+  v24 = number_of_entries;
+  v25 = 0;
+  v20 = -1;
   while (1)
   {
-    entry = _citrus_db_get_entry(v41, v26, &v48, &v39);
+    entry = _citrus_db_get_entry(v40, v25, &v47, &v38);
     if (entry)
     {
       goto LABEL_41;
     }
 
-    if (v40 != 4)
+    if (v39 != 4)
     {
       goto LABEL_43;
     }
 
-    v28 = *v39;
-    snprintf(v46, 0x800uLL, "%.*s", v49, v48);
-    entry = open_subdb(&v38, v37[0], v46);
+    v27 = *v38;
+    snprintf(v45, 0x800uLL, "%.*s", v48, v47);
+    entry = open_subdb(&v37, v36[0], v45);
     if (entry)
     {
 LABEL_41:
@@ -1610,40 +1607,40 @@ LABEL_41:
       goto LABEL_44;
     }
 
-    if (!_citrus_db_lookup_by_string(v38, v8, &v39, 0))
+    if (!_citrus_db_lookup_by_string(v37, v8, &v38, 0))
     {
       break;
     }
 
 LABEL_38:
-    _citrus_db_close(v38);
-    if (v25 == ++v26)
+    _citrus_db_close(v37);
+    if (v24 == ++v25)
     {
       area = 0;
       goto LABEL_44;
     }
   }
 
-  if (v40 == 4)
+  if (v39 == 4)
   {
-    v29 = bswap32(*v39) + bswap32(v28);
-    if (v29 < v21)
+    v28 = bswap32(*v38) + bswap32(v27);
+    if (v28 < v20)
     {
       __strlcpy_chk();
-      v21 = v29;
+      v20 = v28;
     }
 
     goto LABEL_38;
   }
 
-  _citrus_db_close(v38);
+  _citrus_db_close(v37);
 LABEL_43:
   area = 79;
 LABEL_44:
-  _citrus_db_close(v41);
+  _citrus_db_close(v40);
 LABEL_45:
-  _citrus_db_close(v37[0]);
-  _citrus_unmap_file(v50);
+  _citrus_db_close(v36[0]);
+  _citrus_unmap_file(v49);
   if (area)
   {
 LABEL_46:
@@ -1655,33 +1652,27 @@ LABEL_46:
     goto LABEL_71;
   }
 
-  if (v21 == -1)
+  if (v20 == -1)
   {
-LABEL_69:
-    area = 2;
-    goto LABEL_2;
+    return 2;
   }
 
 LABEL_72:
-  v36 = open_serial_mapper(maparea, v11, v10, v42, v8);
-  area = v36;
-  if (v4 && !v36)
+  v35 = open_serial_mapper(maparea, v11, v10, v41, v8);
+  area = v35;
+  if (v4 && !v35)
   {
-    *v4 = v21;
+    *v4 = v20;
   }
 
-LABEL_2:
-  v13 = *MEMORY[0x29EDCA608];
   return area;
 }
 
 uint64_t open_serial_mapper(uint64_t a1, uint64_t a2, const char *a3, const char *a4, const char *a5)
 {
-  v10 = *MEMORY[0x29EDCA608];
+  v9 = *MEMORY[0x29EDCA608];
   snprintf(__str, 0x400uLL, "%s/%s,%s/%s", a3, a4, a4, a5);
-  result = _citrus_mapper_open_direct(a1, a2, "mapper_serial", __str);
-  v8 = *MEMORY[0x29EDCA608];
-  return result;
+  return _citrus_mapper_open_direct(a1, a2, "mapper_serial", __str);
 }
 
 uint64_t open_subdb(void *a1, uint64_t *a2, char *__s)
@@ -1699,27 +1690,36 @@ uint64_t open_subdb(void *a1, uint64_t *a2, char *__s)
 
 uint64_t parse_line(uint64_t a1, uint64_t a2)
 {
-  v16 = *MEMORY[0x29EDCA608];
+  v15 = *MEMORY[0x29EDCA608];
   v3 = *a2;
-  v14 = *(a2 + 8);
-  v4 = _citrus_bcs_skip_ws_len(v3, &v14);
-  if (v14 && (v5 = v4, v6 = _citrus_bcs_skip_nonws_len(v4, &v14), v14) && (v7 = v6, v8 = _citrus_bcs_skip_ws_len(v6, &v14), v14))
+  v13 = *(a2 + 8);
+  v4 = _citrus_bcs_skip_ws_len(v3, &v13);
+  if (!v13)
   {
-    v9 = v8;
-    v10 = _citrus_bcs_skip_nonws_len(v8, &v14);
-    snprintf(a1, 0x400uLL, "%.*s", v7 - v5, v5);
-    snprintf(__str, 0x14uLL, "%.*s", v10 - v9, v9);
-    v11 = _citrus_bcs_strtoul(__str, 0, 0);
-    result = 0;
-    *(a1 + 1024) = v11;
+    return 79;
   }
 
-  else
+  v5 = v4;
+  v6 = _citrus_bcs_skip_nonws_len(v4, &v13);
+  if (!v13)
   {
-    result = 79;
+    return 79;
   }
 
-  v13 = *MEMORY[0x29EDCA608];
+  v7 = v6;
+  v8 = _citrus_bcs_skip_ws_len(v6, &v13);
+  if (!v13)
+  {
+    return 79;
+  }
+
+  v9 = v8;
+  v10 = _citrus_bcs_skip_nonws_len(v8, &v13);
+  snprintf(a1, 0x400uLL, "%.*s", v7 - v5, v5);
+  snprintf(__str, 0x14uLL, "%.*s", v10 - v9, v9);
+  v11 = _citrus_bcs_strtoul(__str, 0, 0);
+  result = 0;
+  *(a1 + 1024) = v11;
   return result;
 }
 
@@ -2071,7 +2071,7 @@ uint64_t _citrus_db_factory_create(void *a1, uint64_t a2, uint64_t a3)
 
 void _citrus_db_factory_free(void ***a1)
 {
-  v3 = a1 + 1;
+  v3 = (a1 + 1);
   v2 = a1[1];
   if (v2)
   {
@@ -2402,38 +2402,37 @@ char *_citrus_esdb_alias(uint64_t a1, char *a2, size_t a3)
   return result;
 }
 
-uint64_t _citrus_esdb_open(uint64_t a1, uint64_t a2)
+uint64_t _citrus_esdb_open(uint64_t a1, char *a2)
 {
-  v31 = *MEMORY[0x29EDCA608];
-  v22[0] = 0;
-  v22[1] = 0;
+  v30 = *MEMORY[0x29EDCA608];
+  v21[0] = 0;
+  v21[1] = 0;
   snprintf(__str, 0x400uLL, "%s/%s", "/usr/share/i18n/esdb", "esdb.alias");
-  v4 = _citrus_lookup_simple(__str, a2, v29, 0x400uLL, 1);
+  v4 = _citrus_lookup_simple(__str, a2, v28, 0x400uLL, 1);
   if (v4)
   {
     a2 = v4;
   }
 
   snprintf(__str, 0x400uLL, "%s/%s", "/usr/share/i18n/esdb", "esdb.dir");
-  v5 = _citrus_lookup_simple(__str, a2, v28, 0x400uLL, 1);
+  v5 = _citrus_lookup_simple(__str, a2, v27, 0x400uLL, 1);
   if (!v5)
   {
-    v6 = 2;
-    goto LABEL_13;
+    return 2;
   }
 
   snprintf(__str, 0x400uLL, "%s/%s", "/usr/share/i18n/esdb", v5);
-  v6 = _citrus_map_file(v22, __str);
+  v6 = _citrus_map_file(v21, __str);
   if (!v6)
   {
     __s1 = 0;
-    v26 = 0;
+    v25 = 0;
+    v22 = 0;
     v23 = 0;
-    v24 = 0;
-    v6 = _citrus_db_open(&v26, v22, "ESDB", _citrus_db_hash_std, 0);
+    v6 = _citrus_db_open(&v25, v21, "ESDB", _citrus_db_hash_std, 0);
     if (!v6)
     {
-      v7 = _citrus_db_lookup32_by_string(v26, "version", &v23, 0);
+      v7 = _citrus_db_lookup32_by_string(v25, "version", &v22, 0);
       if (v7)
       {
 LABEL_7:
@@ -2441,17 +2440,17 @@ LABEL_7:
         goto LABEL_8;
       }
 
-      if (v23 == 1)
+      if (v22 == 1)
       {
-        v7 = _citrus_db_lookup_string_by_string(v26, "encoding", &__s1, 0);
+        v7 = _citrus_db_lookup_string_by_string(v25, "encoding", &__s1, 0);
         if (v7)
         {
           goto LABEL_7;
         }
 
-        v10 = strdup(__s1);
-        *a1 = v10;
-        if (!v10)
+        v9 = strdup(__s1);
+        *a1 = v9;
+        if (!v9)
         {
           LODWORD(v6) = *__error();
           goto LABEL_8;
@@ -2459,16 +2458,16 @@ LABEL_7:
 
         *(a1 + 8) = 0;
         *(a1 + 16) = 0;
-        v11 = _citrus_db_lookup_string_by_string(v26, "variable", &__s1, 0);
-        if (v11 != 2)
+        v10 = _citrus_db_lookup_string_by_string(v25, "variable", &__s1, 0);
+        if (v10 != 2)
         {
-          LODWORD(v6) = v11;
-          if (v11)
+          LODWORD(v6) = v10;
+          if (v10)
           {
 LABEL_28:
             free(*a1);
 LABEL_8:
-            _citrus_db_close(v26);
+            _citrus_db_close(v25);
             if (v6 == 2)
             {
               v6 = 79;
@@ -2482,18 +2481,18 @@ LABEL_8:
             goto LABEL_11;
           }
 
-          v12 = __s1;
+          v11 = __s1;
           *(a1 + 16) = strlen(__s1) + 1;
-          v13 = strdup(v12);
-          *(a1 + 8) = v13;
-          if (!v13)
+          v12 = strdup(v11);
+          *(a1 + 8) = v12;
+          if (!v12)
           {
             LODWORD(v6) = *__error();
             goto LABEL_28;
           }
         }
 
-        LODWORD(v6) = _citrus_db_lookup32_by_string(v26, "num_charsets", &v24, 0);
+        LODWORD(v6) = _citrus_db_lookup32_by_string(v25, "num_charsets", &v23, 0);
         if (v6)
         {
 LABEL_21:
@@ -2501,58 +2500,58 @@ LABEL_21:
           goto LABEL_28;
         }
 
-        *(a1 + 24) = v24;
-        v14 = _citrus_db_lookup32_by_string(v26, "invalid", &v23 + 1, 0);
-        if (v14 == 2)
+        *(a1 + 24) = v23;
+        v13 = _citrus_db_lookup32_by_string(v25, "invalid", &v22 + 1, 0);
+        if (v13 == 2)
         {
           *(a1 + 40) = 0;
         }
 
         else
         {
-          LODWORD(v6) = v14;
-          if (v14)
+          LODWORD(v6) = v13;
+          if (v13)
           {
             goto LABEL_21;
           }
 
-          v15 = HIDWORD(v23);
+          v14 = HIDWORD(v22);
           *(a1 + 40) = 1;
-          *(a1 + 44) = v15;
+          *(a1 + 44) = v14;
         }
 
-        v16 = malloc_type_malloc(16 * v24, 0x101004082113244uLL);
-        *(a1 + 32) = v16;
-        if (!v16)
+        v15 = malloc_type_malloc(16 * v23, 0x101004082113244uLL);
+        *(a1 + 32) = v15;
+        if (!v15)
         {
           LODWORD(v6) = *__error();
           goto LABEL_21;
         }
 
-        if (v24)
+        if (v23)
         {
+          v16 = 0;
           v17 = 0;
-          v18 = 0;
           while (1)
           {
-            snprintf(__s, 0x64uLL, "csid_%d", v18);
-            v19 = _citrus_db_lookup32_by_string(v26, __s, &v24 + 1, 0);
-            if (v19 || (*(*(a1 + 32) + v17) = HIDWORD(v24), snprintf(__s, 0x64uLL, "csname_%d", v18), (v19 = _citrus_db_lookup_string_by_string(v26, __s, &__s1, 0)) != 0))
+            snprintf(__s, 0x64uLL, "csid_%d", v17);
+            v18 = _citrus_db_lookup32_by_string(v25, __s, &v23 + 1, 0);
+            if (v18 || (*(*(a1 + 32) + v16) = HIDWORD(v23), snprintf(__s, 0x64uLL, "csname_%d", v17), (v18 = _citrus_db_lookup_string_by_string(v25, __s, &__s1, 0)) != 0))
             {
-              LODWORD(v6) = v19;
+              LODWORD(v6) = v18;
               goto LABEL_41;
             }
 
-            v20 = strdup(__s1);
-            *(*(a1 + 32) + v17 + 8) = v20;
-            if (!v20)
+            v19 = strdup(__s1);
+            *(*(a1 + 32) + v16 + 8) = v19;
+            if (!v19)
             {
               break;
             }
 
-            ++v18;
-            v17 += 16;
-            if (v18 >= v24)
+            ++v17;
+            v16 += 16;
+            if (v17 >= v23)
             {
               goto LABEL_37;
             }
@@ -2560,16 +2559,16 @@ LABEL_21:
 
           LODWORD(v6) = *__error();
 LABEL_41:
-          if (v17)
+          if (v16)
           {
-            v21 = v17 - 8;
+            v20 = v16 - 8;
             do
             {
-              free(*(*(a1 + 32) + v21));
-              v21 -= 16;
+              free(*(*(a1 + 32) + v20));
+              v20 -= 16;
             }
 
-            while (v21 != -8);
+            while (v20 != -8);
           }
 
           free(*(a1 + 32));
@@ -2577,23 +2576,21 @@ LABEL_41:
         }
 
 LABEL_37:
-        _citrus_db_close(v26);
+        _citrus_db_close(v25);
         v6 = 0;
       }
 
       else
       {
-        _citrus_db_close(v26);
+        _citrus_db_close(v25);
         v6 = 79;
       }
     }
 
 LABEL_11:
-    _citrus_unmap_file(v22);
+    _citrus_unmap_file(v21);
   }
 
-LABEL_13:
-  v8 = *MEMORY[0x29EDCA608];
   return v6;
 }
 
@@ -2644,25 +2641,25 @@ void _citrus_esdb_free_list(void **a1, uint64_t a2)
 
 uint64_t _citrus_esdb_get_list(void *a1, uint64_t *a2, char a3)
 {
-  v25 = *MEMORY[0x29EDCA608];
+  v24 = *MEMORY[0x29EDCA608];
+  v20 = 0;
   v21 = 0;
-  v22 = 0;
-  v6 = _citrus_lookup_seq_open(&v22, "/usr/share/i18n/esdb/esdb.alias", 1);
+  v6 = _citrus_lookup_seq_open(&v21, "/usr/share/i18n/esdb/esdb.alias", 1);
   if (v6)
   {
-    goto LABEL_26;
+    return v6;
   }
 
-  v6 = _citrus_lookup_seq_open(&v21, "/usr/share/i18n/esdb/esdb.dir", 1);
+  v6 = _citrus_lookup_seq_open(&v20, "/usr/share/i18n/esdb/esdb.dir", 1);
   if (v6)
   {
     goto LABEL_25;
   }
 
-  number_of_entries = _citrus_lookup_get_number_of_entries(v22);
-  v8 = _citrus_lookup_get_number_of_entries(v21) + number_of_entries;
-  _citrus_lookup_seq_rewind(v22);
+  number_of_entries = _citrus_lookup_get_number_of_entries(v21);
+  v8 = _citrus_lookup_get_number_of_entries(v20) + number_of_entries;
   _citrus_lookup_seq_rewind(v21);
+  _citrus_lookup_seq_rewind(v20);
   v9 = malloc_type_malloc(8 * v8, 0x10040436913F5uLL);
   v10 = 0;
   if (!v9)
@@ -2680,7 +2677,7 @@ LABEL_22:
 
   while (1)
   {
-    v11 = _citrus_lookup_seq_next(v22);
+    v11 = _citrus_lookup_seq_next(v21);
     if (v11)
     {
       break;
@@ -2706,7 +2703,7 @@ LABEL_22:
 
   while (1)
   {
-    v13 = _citrus_lookup_seq_next(v21);
+    v13 = _citrus_lookup_seq_next(v20);
     if (v13)
     {
       break;
@@ -2737,7 +2734,7 @@ LABEL_22:
       snprintf(__str, 0x400uLL, "%s/%.*s");
 LABEL_17:
       _citrus_bcs_convert_to_upper(__str);
-      v16 = _citrus_lookup_seq_lookup(v22);
+      v16 = _citrus_lookup_seq_lookup(v21);
       if (v16)
       {
         v6 = v16;
@@ -2764,8 +2761,8 @@ LABEL_17:
     goto LABEL_22;
   }
 
-  v20 = malloc_type_realloc(v9, 8 * v10, 0x10040436913F5uLL);
-  if (!v20)
+  v19 = malloc_type_realloc(v9, 8 * v10, 0x10040436913F5uLL);
+  if (!v19)
   {
     v6 = 12;
 LABEL_23:
@@ -2774,14 +2771,12 @@ LABEL_23:
   }
 
   v6 = 0;
-  *a1 = v20;
+  *a1 = v19;
   *a2 = v10;
 LABEL_24:
-  _citrus_lookup_seq_close(v21);
+  _citrus_lookup_seq_close(v20);
 LABEL_25:
-  _citrus_lookup_seq_close(v22);
-LABEL_26:
-  v18 = *MEMORY[0x29EDCA608];
+  _citrus_lookup_seq_close(v21);
   return v6;
 }
 
@@ -2801,61 +2796,61 @@ uint64_t _citrus_lookup_factory_convert()
   v0 = MEMORY[0x2A1C7C4A8]();
   v2 = v1;
   v3 = v0;
-  v25 = *MEMORY[0x29EDCA608];
-  v20 = 0;
-  v21 = 0;
-  __n = 0;
+  v24 = *MEMORY[0x29EDCA608];
   v19 = 0;
-  v4 = _citrus_db_factory_create(&v21, _citrus_db_hash_std, 0);
+  v20 = 0;
+  __n = 0;
+  v18 = 0;
+  v4 = _citrus_db_factory_create(&v20, _citrus_db_hash_std, 0);
   if (!v4)
   {
     while (1)
     {
       v5 = fgetln(v2, &__n);
-      v6 = v21;
+      v6 = v20;
       if (!v5)
       {
         break;
       }
 
       v7 = v5;
-      v22 = __n;
+      v21 = __n;
       v8 = memchr(v5, 35, __n);
       if (v8)
       {
-        v22 = v8 - v7;
+        v21 = v8 - v7;
       }
 
-      v9 = _citrus_bcs_skip_ws_len(v7, &v22);
-      if (v22)
+      v9 = _citrus_bcs_skip_ws_len(v7, &v21);
+      if (v21)
       {
         v10 = v9;
-        v11 = _citrus_bcs_skip_nonws_len(v9, &v22);
+        v11 = _citrus_bcs_skip_nonws_len(v9, &v21);
         if (v11 != v10)
         {
           v12 = v11;
           snprintf(__str, 0x800uLL, "%.*s", v11 - v10, v10);
           _citrus_bcs_convert_to_lower(__str);
-          v13 = _citrus_bcs_skip_ws_len(v12, &v22);
-          _citrus_bcs_trunc_rws_len(v13, &v22);
-          snprintf(__s1, 0x800uLL, "%.*s", v22, v13);
+          v13 = _citrus_bcs_skip_ws_len(v12, &v21);
+          _citrus_bcs_trunc_rws_len(v13, &v21);
+          snprintf(__s1, 0x800uLL, "%.*s", v21, v13);
           v4 = _citrus_db_factory_add_string_by_string(v6, __str, __s1);
           if (v4)
           {
-            _citrus_db_factory_free(v21);
-            goto LABEL_17;
+            _citrus_db_factory_free(v20);
+            return v4;
           }
         }
       }
     }
 
-    v14 = _citrus_db_factory_calc_size(v21);
+    v14 = _citrus_db_factory_calc_size(v20);
     v15 = malloc_type_malloc(v14, 0xB33F8DA7uLL);
     if (v15)
     {
-      v19 = v15;
-      v20 = v14;
-      v4 = _citrus_db_factory_serialize(v6, "LOOKUP", &v19);
+      v18 = v15;
+      v19 = v14;
+      v4 = _citrus_db_factory_serialize(v6, "LOOKUP", &v18);
     }
 
     else
@@ -2863,49 +2858,46 @@ uint64_t _citrus_lookup_factory_convert()
       v4 = *__error();
     }
 
-    _citrus_db_factory_free(v21);
+    _citrus_db_factory_free(v20);
     if (!v4)
     {
-      if (fwrite(v19, v20, 1uLL, v3) == 1)
+      if (fwrite(v18, v19, 1uLL, v3) == 1)
       {
-        v4 = 0;
+        return 0;
       }
 
       else
       {
-        v4 = *__error();
+        return *__error();
       }
     }
   }
 
-LABEL_17:
-  v16 = *MEMORY[0x29EDCA608];
   return v4;
 }
 
 uint64_t _citrus_lookup_seq_open(void *a1, char *a2, int a3)
 {
-  v15 = *MEMORY[0x29EDCA608];
+  v14 = *MEMORY[0x29EDCA608];
   v6 = malloc_type_malloc(0x68uLL, 0x10B20404D61ED97uLL);
   if (!v6)
   {
-    v8 = *__error();
-    goto LABEL_12;
+    return *__error();
   }
 
   v7 = v6;
   v6[7] = 0;
   v6[8] = 0;
   *(v6 + 12) = a3;
-  v13 = 0uLL;
+  v12 = 0uLL;
   snprintf(__str, 0x400uLL, "%s.db", a2);
-  v8 = _citrus_map_file(&v13, __str);
+  v8 = _citrus_map_file(&v12, __str);
   if (!v8)
   {
-    v9 = _citrus_db_open(v7, &v13, "LOOKUP", _citrus_db_hash_std, 0);
+    v9 = _citrus_db_open(v7, &v12, "LOOKUP", _citrus_db_hash_std, 0);
     if (!v9)
     {
-      *(v7 + 1) = v13;
+      *(v7 + 1) = v12;
       *(v7 + 6) = _citrus_db_get_number_of_entries(*v7);
       *(v7 + 7) = 0;
       *(v7 + 13) = 1;
@@ -2917,7 +2909,7 @@ uint64_t _citrus_lookup_seq_open(void *a1, char *a2, int a3)
     }
 
     v8 = v9;
-    _citrus_unmap_file(&v13);
+    _citrus_unmap_file(&v12);
   }
 
   if (v8 == 2)
@@ -2934,13 +2926,11 @@ LABEL_11:
       v7[12] = v10;
       v8 = 0;
       *a1 = v7;
-      goto LABEL_12;
+      return v8;
     }
   }
 
   free(v7);
-LABEL_12:
-  v11 = *MEMORY[0x29EDCA608];
   return v8;
 }
 
@@ -3055,7 +3045,7 @@ uint64_t seq_next_db(uint64_t a1, char **a2, void *a3)
 
 void *seq_close_db(void **a1)
 {
-  v1 = (a1 + 1);
+  v1 = a1 + 1;
   _citrus_db_close(*a1);
 
   return _citrus_unmap_file(v1);
@@ -3131,7 +3121,7 @@ uint64_t seq_next_plain(uint64_t a1, unsigned __int8 **a2, unsigned __int8 **a3)
   return result;
 }
 
-uint64_t seq_lookup_plain(uint64_t a1, const char *a2, void *a3)
+uint64_t seq_lookup_plain(uint64_t a1, const char *a2, uint64_t *a3)
 {
   *(a1 + 52) = 0;
   free(*(a1 + 56));
@@ -3181,8 +3171,8 @@ uint64_t seq_get_num_entries_plain(uint64_t a1)
 
 uint64_t _citrus_mapper_create_area(void *a1, const char *a2)
 {
-  v12 = *MEMORY[0x29EDCA608];
-  memset(&v10, 0, sizeof(v10));
+  v11 = *MEMORY[0x29EDCA608];
+  memset(&v9, 0, sizeof(v9));
   pthread_rwlock_wrlock(&cm_lock);
   if (*a1)
   {
@@ -3192,26 +3182,26 @@ uint64_t _citrus_mapper_create_area(void *a1, const char *a2)
   else
   {
     snprintf(__str, 0x400uLL, "%s/%s", a2, "mapper.dir");
-    v4 = stat(__str, &v10);
+    v4 = stat(__str, &v9);
     if (!v4)
     {
-      v7 = malloc_type_malloc(0x330uLL, 0x30040220BCB0CuLL);
-      if (v7)
+      v6 = malloc_type_malloc(0x330uLL, 0x30040220BCB0CuLL);
+      if (v6)
       {
-        v8 = v7;
-        v9 = strdup(a2);
-        v8[101] = v9;
-        if (v9)
+        v7 = v6;
+        v8 = strdup(a2);
+        v7[101] = v8;
+        if (v8)
         {
-          bzero(v8, 0x328uLL);
+          bzero(v7, 0x328uLL);
           v4 = 0;
-          *a1 = v8;
+          *a1 = v7;
         }
 
         else
         {
           v4 = *__error();
-          free(v8);
+          free(v7);
         }
       }
 
@@ -3223,7 +3213,6 @@ uint64_t _citrus_mapper_create_area(void *a1, const char *a2)
   }
 
   pthread_rwlock_unlock(&cm_lock);
-  v5 = *MEMORY[0x29EDCA608];
   return v4;
 }
 
@@ -3251,41 +3240,41 @@ uint64_t mapper_open(uint64_t a1, void *a2, const char *a3, const char *a4)
   getops = _citrus_find_getops(*v10, a3, "mapper");
   if (!getops)
   {
-    v12 = 102;
+    v13 = 102;
     goto LABEL_4;
   }
 
-  v15 = getops;
-  v16 = malloc_type_malloc(0x20uLL, 0x8004018A671A6uLL);
-  *v9 = v16;
-  if (!v16)
+  v16 = getops;
+  v17 = malloc_type_malloc(0x20uLL, 0x8004018A671A6uLL);
+  *v9 = v17;
+  if (!v17)
   {
 LABEL_18:
-    v12 = *__error();
+    v13 = *__error();
     goto LABEL_4;
   }
 
-  module = v15();
+  module = v16();
   if (!module)
   {
-    v17 = *v9;
-    if (!**v9 || !v17[1] || !v17[2] || !v17[3])
+    v18 = *v9;
+    if (!**v9 || !v18[1] || !v18[2] || !v18[3])
     {
-      v12 = 22;
+      v13 = 22;
       goto LABEL_4;
     }
 
-    v18 = malloc_type_malloc(0x18uLL, 0x1000040504FFAC1uLL);
-    v9[3] = v18;
-    if (v18)
+    v19 = malloc_type_malloc(0x18uLL, 0x1000040504FFAC1uLL);
+    v9[3] = v19;
+    if (v19)
     {
-      v19 = v18;
-      v20 = strlen(a4);
-      v12 = (**v9)(a1, v9, *(a1 + 808), a4, v20 + 1, v19, 24);
-      if (!v12)
+      v20 = v19;
+      v21 = strlen(a4);
+      v13 = (**v9)(a1, v9, *(a1 + 808), a4, v21 + 1, v20, 24);
+      if (!v13)
       {
         *a2 = v9;
-        return v12;
+        return v13;
       }
 
       goto LABEL_4;
@@ -3295,10 +3284,10 @@ LABEL_18:
   }
 
 LABEL_3:
-  v12 = module;
+  v13 = module;
 LABEL_4:
-  mapper_close(v9);
-  return v12;
+  mapper_close(v9, v12);
+  return v13;
 }
 
 uint64_t _citrus_mapper_get_mapdir_from_key(char *a1)
@@ -3328,47 +3317,47 @@ uint64_t _citrus_mapper_get_mapdir_from_key(char *a1)
 
 uint64_t _citrus_mapper_open(uint64_t a1, uint64_t *a2, char *a3)
 {
-  v29 = *MEMORY[0x29EDCA608];
+  v28 = *MEMORY[0x29EDCA608];
   pthread_rwlock_wrlock(&cm_lock);
   v6 = (a1 + 8 * _string_hash_func(a3, 0x65u));
   v7 = *v6;
   if (!*v6)
   {
 LABEL_4:
+    v21 = 0;
     v22 = 0;
-    v23 = 0;
     v8 = *(a1 + 808);
-    v26 = 0uLL;
+    v25 = 0uLL;
     snprintf(__str, 0x400uLL, "%s/%s", v8, "mapper.dir");
-    v9 = _citrus_map_file(&v26, __str);
+    v9 = _citrus_map_file(&v25, __str);
     if (v9)
     {
       v10 = v9;
       goto LABEL_20;
     }
 
-    v24 = v26;
-    v25 = 0;
-    v11 = _citrus_memory_stream_matchline(&v24, a3, &v23, 0);
+    v23 = v25;
+    v24 = 0;
+    v11 = _citrus_memory_stream_matchline(&v23, a3, &v22, 0);
     if (v11)
     {
-      if ((v23 - 1024) > 0xFFFFFFFFFFFFFC00)
+      if ((v22 - 1024) > 0xFFFFFFFFFFFFFC00)
       {
         v12 = v11;
-        v13 = _citrus_bcs_skip_nonws_len(v11, &v23);
+        v13 = _citrus_bcs_skip_nonws_len(v11, &v22);
         v14 = v13 - v12 + 1;
         __strlcpy_chk();
-        v15 = _citrus_bcs_skip_ws_len(v13, &v23);
-        strlcpy(&v27[v14], v15, v23 + 1);
-        _citrus_unmap_file(&v26);
+        v15 = _citrus_bcs_skip_ws_len(v13, &v22);
+        strlcpy(&v26[v14], v15, v22 + 1);
+        _citrus_unmap_file(&v25);
         pthread_rwlock_unlock(&cm_lock);
-        v10 = mapper_open(a1, &v22, v27, &v27[v14]);
+        v10 = mapper_open(a1, &v21, v26, &v26[v14]);
         pthread_rwlock_wrlock(&cm_lock);
         if (!v10)
         {
           v16 = strdup(a3);
-          v17 = v22;
-          *(v22 + 56) = v16;
+          v17 = v21;
+          *(v21 + 56) = v16;
           if (v16)
           {
             *(v17 + 48) = 1;
@@ -3413,7 +3402,7 @@ LABEL_4:
       v10 = 2;
     }
 
-    _citrus_unmap_file(&v26);
+    _citrus_unmap_file(&v25);
     goto LABEL_20;
   }
 
@@ -3431,19 +3420,18 @@ LABEL_4:
   *a2 = v7;
 LABEL_20:
   pthread_rwlock_unlock(&cm_lock);
-  v20 = *MEMORY[0x29EDCA608];
   return v10;
 }
 
-void _citrus_mapper_close(uint64_t a1)
+void _citrus_mapper_close(uint64_t result)
 {
-  if (!a1)
+  if (!result)
   {
     return;
   }
 
   pthread_rwlock_wrlock(&cm_lock);
-  v2 = *(a1 + 48);
+  v2 = *(result + 48);
   if (v2 != -1)
   {
     v3 = __OFSUB__(v2, 1);
@@ -3453,22 +3441,22 @@ void _citrus_mapper_close(uint64_t a1)
 LABEL_8:
       pthread_rwlock_unlock(&cm_lock);
 
-      mapper_close(a1);
+      mapper_close(result, v7);
       return;
     }
 
-    *(a1 + 48) = v4;
+    *(result + 48) = v4;
     if (!v4)
     {
-      v5 = *(a1 + 32);
-      v6 = *(a1 + 40);
+      v5 = *(result + 32);
+      v6 = *(result + 40);
       if (v5)
       {
         *(v5 + 40) = v6;
       }
 
       *v6 = v5;
-      free(*(a1 + 56));
+      free(*(result + 56));
       goto LABEL_8;
     }
   }
@@ -3476,25 +3464,25 @@ LABEL_8:
   pthread_rwlock_unlock(&cm_lock);
 }
 
-void mapper_close(void *a1)
+void mapper_close(void *a1, uint64_t a2)
 {
-  v2 = *(a1 + 2);
-  if (v2)
+  v3 = *(a1 + 2);
+  if (v3)
   {
-    v3 = *a1;
+    v4 = *a1;
     if (*a1)
     {
       if (*(a1 + 1))
       {
-        (v3)[1](a1);
-        v3 = *a1;
+        (v4)[1](a1);
+        v4 = *a1;
       }
 
-      free(v3);
-      v2 = *(a1 + 2);
+      free(v4);
+      v3 = *(a1 + 2);
     }
 
-    _citrus_unload_module(v2);
+    _citrus_unload_module(v3, a2);
   }
 
   free(*(a1 + 3));
@@ -3723,16 +3711,14 @@ void *_citrus_unmap_file(uint64_t a1)
 
 void *_citrus_find_getops(void *a1, const char *a2, const char *a3)
 {
-  v7 = *MEMORY[0x29EDCA608];
+  v6 = *MEMORY[0x29EDCA608];
   snprintf(__str, 0x400uLL, "_citrus_%s_%s_getops", a2, a3);
-  result = dlsym(a1, __str);
-  v5 = *MEMORY[0x29EDCA608];
-  return result;
+  return dlsym(a1, __str);
 }
 
 uint64_t _citrus_load_module(void *a1, const char *a2)
 {
-  v13 = *MEMORY[0x29EDCA608];
+  v12 = *MEMORY[0x29EDCA608];
   if (!_pathI18nModule)
   {
     v4 = getenv("PATH_I18NMODULE");
@@ -3741,8 +3727,7 @@ uint64_t _citrus_load_module(void *a1, const char *a2)
       _pathI18nModule = strdup(v5);
       if (!_pathI18nModule)
       {
-        result = 12;
-        goto LABEL_10;
+        return 12;
       }
     }
 
@@ -3770,16 +3755,14 @@ uint64_t _citrus_load_module(void *a1, const char *a2)
     {
       v10 = dlerror();
       printf("%s", v10);
-      result = 22;
+      return 22;
     }
   }
 
-LABEL_10:
-  v11 = *MEMORY[0x29EDCA608];
   return result;
 }
 
-void *_citrus_unload_module(void *result)
+void *_citrus_unload_module(void *result, uint64_t a2)
 {
   if (result)
   {
@@ -3832,7 +3815,7 @@ uint64_t _citrus_NONE_stdenc_init(uint64_t a1, char *a2, unint64_t a3, uint64_t 
   return result;
 }
 
-uint64_t _citrus_NONE_stdenc_mbtocs(uint64_t a1, _DWORD *a2, _DWORD *a3, void *a4, uint64_t a5, uint64_t a6, _BOOL8 *a7, uint64_t a8)
+uint64_t _citrus_NONE_stdenc_mbtocs(uint64_t a1, _DWORD *a2, _DWORD *a3, void *a4, uint64_t a5, uint64_t a6, _BOOL8 *a7, void (**a8)(void))
 {
   if (a5)
   {
@@ -3844,7 +3827,6 @@ uint64_t _citrus_NONE_stdenc_mbtocs(uint64_t a1, _DWORD *a2, _DWORD *a3, void *a
     *a7 = v10;
     if (a8 && *a8)
     {
-      v11 = *(a8 + 16);
       (*a8)();
     }
   }
@@ -4001,12 +3983,12 @@ uint64_t _citrus_pivot_factory_convert()
   v0 = MEMORY[0x2A1C7C4A8]();
   v2 = v1;
   v3 = v0;
-  v44 = *MEMORY[0x29EDCA608];
+  v43 = *MEMORY[0x29EDCA608];
+  v33 = 0;
   v34 = 0;
-  v35 = 0;
   __n = 0;
-  v36 = 0;
-  v37 = &v36;
+  v35 = 0;
+  v36 = &v35;
   while (1)
   {
     v4 = fgetln(v2, &__n);
@@ -4016,36 +3998,36 @@ uint64_t _citrus_pivot_factory_convert()
     }
 
     v5 = v4;
-    v39 = __n;
+    v38 = __n;
     v6 = memchr(v4, 35, __n);
     if (v6)
     {
-      v39 = v6 - v5;
+      v38 = v6 - v5;
     }
 
-    v7 = _citrus_bcs_skip_ws_len(v5, &v39);
-    if (v39)
+    v7 = _citrus_bcs_skip_ws_len(v5, &v38);
+    if (v38)
     {
       v8 = v7;
-      v9 = _citrus_bcs_skip_nonws_len(v7, &v39);
+      v9 = _citrus_bcs_skip_nonws_len(v7, &v38);
       if (v9 != v8)
       {
         v10 = v9;
-        snprintf(&v42, 0x800uLL, "%.*s", v9 - v8, v8);
-        v11 = _citrus_bcs_skip_ws_len(v10, &v39);
-        if (v39)
+        snprintf(&v41, 0x800uLL, "%.*s", v9 - v8, v8);
+        v11 = _citrus_bcs_skip_ws_len(v10, &v38);
+        if (v38)
         {
           v12 = v11;
-          v13 = _citrus_bcs_skip_nonws_len(v11, &v39);
+          v13 = _citrus_bcs_skip_nonws_len(v11, &v38);
           if (v13 != v12)
           {
             v14 = v13;
             __endptr = 0;
             snprintf(__str, 0x800uLL, "%.*s", v13 - v12, v12);
-            v15 = _citrus_bcs_skip_ws_len(v14, &v39);
-            _citrus_bcs_trunc_rws_len(v15, &v39);
-            snprintf(v40, 0x800uLL, "%.*s", v39, v15);
-            v16 = strtoul(v40, &__endptr, 0);
+            v15 = _citrus_bcs_skip_ws_len(v14, &v38);
+            _citrus_bcs_trunc_rws_len(v15, &v38);
+            snprintf(v39, 0x800uLL, "%.*s", v38, v15);
+            v16 = strtoul(v39, &__endptr, 0);
             if (*__endptr)
             {
               v22 = 79;
@@ -4053,10 +4035,10 @@ uint64_t _citrus_pivot_factory_convert()
             }
 
             v17 = v16;
-            v18 = v36;
-            if (v36)
+            v18 = v35;
+            if (v35)
             {
-              while (_citrus_bcs_strcasecmp(*v18, &v42))
+              while (_citrus_bcs_strcasecmp(*v18, &v41))
               {
                 v18 = *(v18 + 16);
                 if (!v18)
@@ -4077,7 +4059,7 @@ LABEL_13:
               }
 
               v18 = v19;
-              v20 = strdup(&v42);
+              v20 = strdup(&v41);
               *v18 = v20;
               if (!v20)
               {
@@ -4093,13 +4075,13 @@ LABEL_13:
 LABEL_34:
                 free(v18);
 LABEL_35:
-                free_src(&v36);
-                goto LABEL_36;
+                free_src(&v35);
+                return v22;
               }
 
               *(v18 + 16) = 0;
-              *v37 = v18;
-              v37 = (v18 + 16);
+              *v36 = v18;
+              v36 = (v18 + 16);
             }
 
             v22 = _citrus_db_factory_add32_by_string(*(v18 + 8), __str, v17);
@@ -4114,8 +4096,8 @@ LABEL_35:
   }
 
   *__str = 0;
-  v43 = 0;
   v42 = 0;
+  v41 = 0;
   v23 = _citrus_db_factory_create(__str, _citrus_db_hash_std, 0);
   if (v23)
   {
@@ -4123,8 +4105,8 @@ LABEL_35:
     goto LABEL_35;
   }
 
-  v24 = v36;
-  if (v36)
+  v24 = v35;
+  if (v35)
   {
     while (1)
     {
@@ -4136,10 +4118,10 @@ LABEL_35:
         break;
       }
 
-      v42 = v26;
-      v43 = v25;
-      v28 = _citrus_db_factory_serialize(*(v24 + 8), "CSPIVSUB", &v42);
-      if (v28 || (v28 = _citrus_db_factory_add_by_string(*__str, *v24, &v42, 1), v28))
+      v41 = v26;
+      v42 = v25;
+      v28 = _citrus_db_factory_serialize(*(v24 + 8), "CSPIVSUB", &v41);
+      if (v28 || (v28 = _citrus_db_factory_add_by_string(*__str, *v24, &v41, 1), v28))
       {
         v22 = v28;
         goto LABEL_39;
@@ -4160,9 +4142,9 @@ LABEL_27:
     v30 = malloc_type_malloc(v29, 0xF0B2E3D5uLL);
     if (v30)
     {
-      v34 = v30;
-      v35 = v29;
-      v22 = _citrus_db_factory_serialize(*__str, "CSPIVOT", &v34);
+      v33 = v30;
+      v34 = v29;
+      v22 = _citrus_db_factory_serialize(*__str, "CSPIVOT", &v33);
       v27 = 0;
       goto LABEL_39;
     }
@@ -4174,22 +4156,20 @@ LABEL_27:
 LABEL_39:
   free(v27);
   _citrus_db_factory_free(*__str);
-  free_src(&v36);
+  free_src(&v35);
   if (!v22)
   {
-    if (fwrite(v34, v35, 1uLL, v3) == 1)
+    if (fwrite(v33, v34, 1uLL, v3) == 1)
     {
-      v22 = 0;
+      return 0;
     }
 
     else
     {
-      v22 = *__error();
+      return *__error();
     }
   }
 
-LABEL_36:
-  v31 = *MEMORY[0x29EDCA608];
   return v22;
 }
 
@@ -4212,35 +4192,33 @@ void free_src(uint64_t *a1)
 
 uint64_t _citrus_prop_parse_variable(unsigned __int8 **a1, uint64_t a2, uint64_t a3, unint64_t a4)
 {
-  v34 = *MEMORY[0x29EDCA608];
-  v26 = a3;
-  v27 = a4;
-  v28 = 0;
-  _citrus_memory_stream_skip_ws(&v26);
-  v7 = v27;
-  v6 = v28;
-  if (v28 >= v27)
+  v33 = *MEMORY[0x29EDCA608];
+  v25 = a3;
+  v26 = a4;
+  v27 = 0;
+  _citrus_memory_stream_skip_ws(&v25);
+  v7 = v26;
+  v6 = v27;
+  if (v27 >= v26)
   {
-LABEL_63:
-    v12 = 0;
-    goto LABEL_65;
+    return 0;
   }
 
   do
   {
-    v28 = v6 + 1;
-    v8 = v26;
-    if (!*(v26 + v6))
+    v27 = v6 + 1;
+    v8 = v25;
+    if (!*(v25 + v6))
     {
-      goto LABEL_63;
+      return 0;
     }
 
     v9 = 0;
-    v28 = v6;
-    v29 = 0;
-    v31 = 0;
-    v32 = 0;
+    v27 = v6;
+    v28 = 0;
     v30 = 0;
+    v31 = 0;
+    v29 = 0;
     do
     {
       if (v6 >= v7)
@@ -4250,7 +4228,7 @@ LABEL_63:
 
       else
       {
-        v28 = v6 + 1;
+        v27 = v6 + 1;
         v10 = *(v8 + v6++);
         if (v10 == 95)
         {
@@ -4264,13 +4242,13 @@ LABEL_63:
       }
 
 LABEL_13:
-      v33[v9++] = v10;
+      v32[v9++] = v10;
     }
 
     while (v9 != 256);
     if (v6 < v7)
     {
-      v28 = v6 + 1;
+      v27 = v6 + 1;
       v10 = *(v8 + v6);
       if (v10 != 95)
       {
@@ -4278,7 +4256,7 @@ LABEL_13:
         goto LABEL_18;
       }
 
-      goto LABEL_64;
+      return 22;
     }
 
     v10 = -1;
@@ -4286,163 +4264,161 @@ LABEL_18:
     v12 = 22;
     if (v10 - 58 > 0xFFFFFFF5 || (v10 & 0xDFu) - 91 > 0xFFFFFFE5)
     {
-      break;
+      return v12;
     }
 
     v9 = 256;
 LABEL_21:
     if (v10 != -1 && v6)
     {
-      v28 = v6 - 1;
+      v27 = v6 - 1;
     }
 
-    v33[v9] = 0;
+    v32[v9] = 0;
     v13 = *a1;
     if (!*a1)
     {
-LABEL_64:
-      v12 = 22;
-      break;
+      return 22;
     }
 
     v14 = a1 + 2;
-    while (_citrus_bcs_strcasecmp(v33, v13))
+    while (_citrus_bcs_strcasecmp(v32, v13))
     {
       v13 = v14[1];
       v14 += 3;
       if (!v13)
       {
-        goto LABEL_64;
+        return 22;
       }
     }
 
-    _citrus_memory_stream_skip_ws(&v26);
-    v15 = v28;
-    if (v28 < v27)
+    _citrus_memory_stream_skip_ws(&v25);
+    v15 = v27;
+    if (v27 < v26)
     {
-      ++v28;
-      v16 = *(v26 + v15);
+      ++v27;
+      v16 = *(v25 + v15);
       if (v16 != 58 && v16 != 61)
       {
-        v28 = v15;
+        v27 = v15;
       }
     }
 
     v17 = *(v14 - 2);
     v18 = *(&readers + v17);
-LABEL_34:
-    LODWORD(v31) = v17;
-    v32 = 0;
-    LODWORD(v29) = v17;
-    v30 = 0;
-    v19 = v18(&v26, &v31);
-    if (v19)
+    while (2)
     {
-LABEL_66:
-      v12 = v19;
-      break;
-    }
-
-    _citrus_memory_stream_skip_ws(&v26);
-    v20 = v28;
-    if (v28 >= v27)
-    {
-      goto LABEL_41;
-    }
-
-    ++v28;
-    v21 = *(v26 + v20);
-    if (v17 >= 2 && v21 == 45)
-    {
-      v19 = v18(&v26, &v29);
+      LODWORD(v30) = v17;
+      v31 = 0;
+      LODWORD(v28) = v17;
+      v29 = 0;
+      v19 = v18(&v25, &v30);
       if (v19)
       {
-        goto LABEL_66;
+        return v19;
       }
 
-      _citrus_memory_stream_skip_ws(&v26);
-      v22 = v28;
-      if (v28 < v27)
+      _citrus_memory_stream_skip_ws(&v25);
+      v20 = v27;
+      if (v27 >= v26)
       {
-        ++v28;
-        v21 = *(v26 + v22);
-        goto LABEL_42;
+        goto LABEL_41;
       }
+
+      ++v27;
+      v21 = *(v25 + v20);
+      if (v17 >= 2 && v21 == 45)
+      {
+        v19 = v18(&v25, &v28);
+        if (v19)
+        {
+          return v19;
+        }
+
+        _citrus_memory_stream_skip_ws(&v25);
+        v22 = v27;
+        if (v27 < v26)
+        {
+          ++v27;
+          v21 = *(v25 + v22);
+          goto LABEL_42;
+        }
 
 LABEL_41:
-      v21 = -1;
-    }
+        v21 = -1;
+      }
 
 LABEL_42:
-    if (v17 > 1)
-    {
-      if (v17 == 2)
+      if (v17 > 1)
       {
-        v23 = (*v14)(a2, v13, v32, v30);
+        if (v17 == 2)
+        {
+          v23 = (*v14)(a2, v13, v31, v29);
+        }
+
+        else
+        {
+          if (v17 != 3)
+          {
+LABEL_67:
+            abort();
+          }
+
+          v23 = (*v14)(a2, v13, v31, v29);
+        }
+      }
+
+      else if (v17)
+      {
+        if (v17 != 1)
+        {
+          goto LABEL_67;
+        }
+
+        v23 = (*v14)(a2, v13, v31);
       }
 
       else
       {
-        if (v17 != 3)
-        {
-LABEL_67:
-          abort();
-        }
-
-        v23 = (*v14)(a2, v13, v32, v30);
+        v23 = (*v14)(a2, v13, v31);
       }
-    }
 
-    else if (v17)
-    {
-      if (v17 != 1)
+      v12 = v23;
+      if (v30 == 1)
       {
-        goto LABEL_67;
+        free(v31);
       }
 
-      v23 = (*v14)(a2, v13, v32);
-    }
+      if (v28 == 1)
+      {
+        free(v29);
+      }
 
-    else
-    {
-      v23 = (*v14)(a2, v13, v32);
-    }
+      if (v12)
+      {
+        return v12;
+      }
 
-    v12 = v23;
-    if (v31 == 1)
-    {
-      free(v32);
-    }
+      if (v21 == 44)
+      {
+        continue;
+      }
 
-    if (v29 == 1)
-    {
-      free(v30);
-    }
-
-    if (v12)
-    {
       break;
     }
 
-    if (v21 == 44)
+    if (v21 != -1 && v21 != 59 && v27)
     {
-      goto LABEL_34;
+      --v27;
     }
 
-    if (v21 != -1 && v21 != 59 && v28)
-    {
-      --v28;
-    }
-
-    _citrus_memory_stream_skip_ws(&v26);
+    _citrus_memory_stream_skip_ws(&v25);
     v12 = 0;
-    v7 = v27;
-    v6 = v28;
+    v7 = v26;
+    v6 = v27;
   }
 
-  while (v28 < v27);
-LABEL_65:
-  v24 = *MEMORY[0x29EDCA608];
+  while (v27 < v26);
   return v12;
 }
 
@@ -5098,11 +5074,11 @@ LABEL_9:
   return result;
 }
 
-void *_citrus_prop_read_chr_common(void *a1, int *a2, unsigned int a3, int a4)
+void *_citrus_prop_read_chr_common(void *a1, int *a2, signed int a3, int a4)
 {
   v7 = 0;
-  v8 = 0xFF / a3;
-  v9 = 0xFF % a3;
+  v8 = 0xFFu / a3;
+  v9 = 0xFFu % a3;
   v11 = a1[1];
   v10 = a1[2];
   while (1)
@@ -5269,27 +5245,27 @@ void _citrus_stdenc_close(__int128 *a1)
       }
 
       free(*(a1 + 3));
-      _citrus_unload_module(*(a1 + 2));
+      _citrus_unload_module(*(a1 + 2), v5);
     }
 
     else
     {
-      v5 = *(a1 + 1);
+      v6 = *(a1 + 1);
       if (v3)
       {
-        if (v5)
+        if (v6)
         {
-          v6 = v3[1];
-          if (v6)
+          v7 = v3[1];
+          if (v7)
           {
-            v6(a1);
+            v7(a1);
           }
         }
 
         free(*(a1 + 3));
       }
 
-      else if (v5)
+      else if (v6)
       {
         _citrus_stdenc_close_cold_1();
       }

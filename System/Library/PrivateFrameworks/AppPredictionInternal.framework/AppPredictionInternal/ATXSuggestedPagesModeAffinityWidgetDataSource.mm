@@ -20,116 +20,116 @@
 
   if (v11)
   {
-    v12 = objc_opt_new();
+    v13 = objc_opt_new();
     isiPad = [MEMORY[0x277D42590] isiPad];
-    v14 = MEMORY[0x277CBEBF8];
+    v15 = MEMORY[0x277CBEBF8];
     if (isiPad)
     {
-      v15 = [(ATXSuggestedPagesModeAffinityWidgetDataSource *)self fetchWidgetsPassingThresholdForMode:environment forSize:2];
-      v16 = v15;
-      if (v15)
+      v16 = [(ATXSuggestedPagesModeAffinityWidgetDataSource *)self fetchWidgetsPassingThresholdForMode:environment forSize:2];
+      v17 = v16;
+      if (v16)
       {
-        v17 = v15;
+        v18 = v16;
       }
 
       else
       {
-        v17 = v14;
+        v18 = v15;
       }
 
-      [v12 addObjectsFromArray:v17];
+      [v13 addObjectsFromArray:v18];
     }
 
-    v18 = [(ATXSuggestedPagesModeAffinityWidgetDataSource *)self fetchWidgetsPassingThresholdForMode:environment forSize:1];
-    v19 = v18;
-    if (v18)
+    v19 = [(ATXSuggestedPagesModeAffinityWidgetDataSource *)self fetchWidgetsPassingThresholdForMode:environment forSize:1];
+    v20 = v19;
+    if (v19)
     {
-      v20 = v18;
+      v21 = v19;
     }
 
     else
     {
-      v20 = v14;
+      v21 = v15;
     }
 
-    [v12 addObjectsFromArray:v20];
+    [v13 addObjectsFromArray:v21];
 
-    v21 = [(ATXSuggestedPagesModeAffinityWidgetDataSource *)self fetchWidgetsPassingThresholdForMode:environment forSize:0];
-    v22 = v21;
-    if (v21)
+    v22 = [(ATXSuggestedPagesModeAffinityWidgetDataSource *)self fetchWidgetsPassingThresholdForMode:environment forSize:0];
+    v23 = v22;
+    if (v22)
     {
-      v23 = v21;
+      v24 = v22;
     }
 
     else
     {
-      v23 = v14;
+      v24 = v15;
     }
 
-    [v12 addObjectsFromArray:v23];
+    [v13 addObjectsFromArray:v24];
   }
 
   else
   {
-    v24 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v25 = __atxlog_handle_modes(v12);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
-      [ATXSuggestedPagesModeAffinityWidgetDataSource provideWidgetsForPageType:type environment:v24];
+      [ATXSuggestedPagesModeAffinityWidgetDataSource provideWidgetsForPageType:type environment:v25];
     }
 
-    v12 = 0;
+    v13 = 0;
   }
 
-  return v12;
+  return v13;
 }
 
 - (id)fetchWidgetsPassingThresholdForMode:(unint64_t)mode forSize:(unint64_t)size
 {
-  v97 = *MEMORY[0x277D85DE8];
+  v101 = *MEMORY[0x277D85DE8];
   [(ATXSuggestedPagesModeAffinityWidgetDataSource *)self _fetchScoreThresholdForWidgetModeAffinityModel];
   v8 = v7;
   v9 = +[ATXModeEntityScorerServer sharedInstance];
   v10 = [v9 rankedWidgetsForMode:mode];
 
-  v89[0] = MEMORY[0x277D85DD0];
-  v89[1] = 3221225472;
-  v89[2] = __93__ATXSuggestedPagesModeAffinityWidgetDataSource_fetchWidgetsPassingThresholdForMode_forSize___block_invoke;
-  v89[3] = &unk_2785A1728;
+  v93[0] = MEMORY[0x277D85DD0];
+  v93[1] = 3221225472;
+  v93[2] = __93__ATXSuggestedPagesModeAffinityWidgetDataSource_fetchWidgetsPassingThresholdForMode_forSize___block_invoke;
+  v93[3] = &unk_2785A1728;
   selfCopy = self;
-  v89[4] = self;
-  v82 = [v10 _pas_mappedArrayWithTransform:v89];
+  v93[4] = self;
+  v86 = [v10 _pas_mappedArrayWithTransform:v93];
   v11 = objc_opt_new();
-  v84 = objc_opt_new();
-  v75 = objc_opt_new();
-  v85 = 0u;
-  v86 = 0u;
-  v87 = 0u;
-  v88 = 0u;
+  v88 = objc_opt_new();
+  v79 = objc_opt_new();
+  v89 = 0u;
+  v90 = 0u;
+  v91 = 0u;
+  v92 = 0u;
   obj = v10;
-  v81 = [obj countByEnumeratingWithState:&v85 objects:v96 count:16];
-  if (!v81)
+  v85 = [obj countByEnumeratingWithState:&v89 objects:v100 count:16];
+  if (!v85)
   {
     goto LABEL_38;
   }
 
-  v80 = *v86;
+  v84 = *v90;
   *&v12 = 138412802;
-  v73 = v12;
+  v77 = v12;
   sizeCopy = size;
-  v77 = v11;
+  v81 = v11;
   while (2)
   {
-    for (i = 0; i != v81; ++i)
+    for (i = 0; i != v85; ++i)
     {
-      if (*v86 != v80)
+      if (*v90 != v84)
       {
         objc_enumerationMutation(obj);
       }
 
-      v14 = *(*(&v85 + 1) + 8 * i);
+      v14 = *(*(&v89 + 1) + 8 * i);
       v15 = objc_autoreleasePoolPush();
       v16 = [v11 count];
-      if ([v84 count] + v16 == 4)
+      if ([v88 count] + v16 == 4)
       {
         objc_autoreleasePoolPop(v15);
         goto LABEL_38;
@@ -158,19 +158,19 @@
       [v17 setPredictionSource:@"Mode Entity"];
       [v17 setRequiresAppLaunch:1];
       v27 = [(ATXSuggestedPagesModeAffinityWidgetDataSource *)selfCopy _widgetIdentifierWithoutIntentForWidget:v17];
-      LOBYTE(extensionIdentity2) = [v82 containsObject:v27];
+      LOBYTE(extensionIdentity2) = [v86 containsObject:v27];
 
       if (extensionIdentity2)
       {
         scoreMetadata2 = [v14 scoreMetadata];
         featureVector = [scoreMetadata2 featureVector];
 
-        v30 = [featureVector objectForKeyedSubscript:@"correlationEntitySpecificFeatures"];
-        v31 = [v30 objectForKeyedSubscript:@"parentAppGlobalPrior"];
+        v31 = [featureVector objectForKeyedSubscript:@"correlationEntitySpecificFeatures"];
+        v32 = [v31 objectForKeyedSubscript:@"parentAppGlobalPrior"];
 
-        v78 = [featureVector objectForKeyedSubscript:@"correlationNumLocalOccurrences"];
-        v32 = [featureVector objectForKeyedSubscript:@"correlationEntitySpecificFeatures"];
-        v83 = [v32 objectForKeyedSubscript:@"widgetGlobalPrior"];
+        v82 = [featureVector objectForKeyedSubscript:@"correlationNumLocalOccurrences"];
+        v33 = [featureVector objectForKeyedSubscript:@"correlationEntitySpecificFeatures"];
+        v87 = [v33 objectForKeyedSubscript:@"widgetGlobalPrior"];
 
         widget4 = [v14 widget];
         extensionIdentity3 = [widget4 extensionIdentity];
@@ -178,75 +178,75 @@
 
         if (containerBundleIdentifier2)
         {
-          v36 = [v84 objectForKeyedSubscript:containerBundleIdentifier2];
-          if (v36)
+          v37 = [v88 objectForKeyedSubscript:containerBundleIdentifier2];
+          if (v37)
           {
-            v37 = v36;
-            [v83 doubleValue];
-            v39 = v38;
-            v40 = [v75 objectForKeyedSubscript:containerBundleIdentifier2];
-            [v40 doubleValue];
-            v42 = v41;
+            v38 = v37;
+            [v87 doubleValue];
+            v40 = v39;
+            v41 = [v79 objectForKeyedSubscript:containerBundleIdentifier2];
+            [v41 doubleValue];
+            v43 = v42;
 
-            if (v39 > v42)
+            if (v40 > v43)
             {
-              v43 = __atxlog_handle_modes();
-              v11 = v77;
-              if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
+              v45 = __atxlog_handle_modes(v44);
+              v11 = v81;
+              if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
               {
                 *buf = 138412290;
-                v91 = containerBundleIdentifier2;
-                _os_log_impl(&dword_2263AA000, v43, OS_LOG_TYPE_INFO, "ATXSuggestedPagesModeAffinityWidgetDataSource: replacing widget prediction since this widget from the app (%@) has higher global popularity", buf, 0xCu);
+                v95 = containerBundleIdentifier2;
+                _os_log_impl(&dword_2263AA000, v45, OS_LOG_TYPE_INFO, "ATXSuggestedPagesModeAffinityWidgetDataSource: replacing widget prediction since this widget from the app (%@) has higher global popularity", buf, 0xCu);
               }
 
-              [v75 setObject:v83 forKeyedSubscript:containerBundleIdentifier2];
-              v44 = [v84 objectForKeyedSubscript:containerBundleIdentifier2];
-              [v44 score];
+              [v79 setObject:v87 forKeyedSubscript:containerBundleIdentifier2];
+              v46 = [v88 objectForKeyedSubscript:containerBundleIdentifier2];
+              [v46 score];
               [v17 setScore:?];
 
-              v45 = [v84 objectForKeyedSubscript:containerBundleIdentifier2];
-              predictionSource = [v45 predictionSource];
+              v47 = [v88 objectForKeyedSubscript:containerBundleIdentifier2];
+              predictionSource = [v47 predictionSource];
               [v17 setPredictionSource:predictionSource];
 
-              [v84 setObject:v17 forKeyedSubscript:containerBundleIdentifier2];
+              [v88 setObject:v17 forKeyedSubscript:containerBundleIdentifier2];
               size = sizeCopy;
-              v47 = v78;
+              v49 = v82;
               goto LABEL_33;
             }
           }
         }
 
-        [v31 doubleValue];
-        v11 = v77;
-        v47 = v78;
-        if (v50 <= 8.0 || [v78 integerValue] < 1)
+        [v32 doubleValue];
+        v11 = v81;
+        v49 = v82;
+        if (v52 <= 8.0 || (v53 = [v82 integerValue], v53 < 1))
         {
-          [v31 doubleValue];
-          if (v56 <= 5.0 || ([v83 doubleValue], v57 < 0.0005))
+          [v32 doubleValue];
+          if (v59 <= 5.0 || (v60 = [v87 doubleValue], v61 < 0.0005))
           {
             scoreMetadata3 = [v14 scoreMetadata];
             [scoreMetadata3 score];
-            v60 = v59;
+            v64 = v63;
 
             size = sizeCopy;
-            if (v60 <= v8)
+            if (v64 <= v8)
             {
 LABEL_33:
 
               goto LABEL_34;
             }
 
-            v61 = __atxlog_handle_modes();
-            if (os_log_type_enabled(v61, OS_LOG_TYPE_INFO))
+            v66 = __atxlog_handle_modes(v65);
+            if (os_log_type_enabled(v66, OS_LOG_TYPE_INFO))
             {
               identifier = [v14 identifier];
               scoreMetadata4 = [v14 scoreMetadata];
               [scoreMetadata4 score];
               *buf = 138412546;
-              v91 = identifier;
-              v92 = 2048;
-              v93 = v64;
-              _os_log_impl(&dword_2263AA000, v61, OS_LOG_TYPE_INFO, "ATXSuggestedPagesModeAffinityWidgetDataSource: %@ passes widget mode affinity threshold with score: %f", buf, 0x16u);
+              v95 = identifier;
+              v96 = 2048;
+              v97 = v69;
+              _os_log_impl(&dword_2263AA000, v66, OS_LOG_TYPE_INFO, "ATXSuggestedPagesModeAffinityWidgetDataSource: %@ passes widget mode affinity threshold with score: %f", buf, 0x16u);
 
               size = sizeCopy;
             }
@@ -257,77 +257,77 @@ LABEL_33:
             }
 
 LABEL_27:
-            v11 = v77;
-            [v77 addObject:v17];
+            v11 = v81;
+            [v81 addObject:v17];
             goto LABEL_33;
           }
 
-          v65 = __atxlog_handle_modes();
-          if (os_log_type_enabled(v65, OS_LOG_TYPE_INFO))
+          v70 = __atxlog_handle_modes(v60);
+          if (os_log_type_enabled(v70, OS_LOG_TYPE_INFO))
           {
             identifier2 = [v14 identifier];
-            [v83 doubleValue];
-            v68 = v67;
-            [v31 doubleValue];
-            *buf = v73;
-            v91 = identifier2;
-            v92 = 2048;
-            v93 = v68;
-            v94 = 2048;
-            v95 = v69;
-            _os_log_impl(&dword_2263AA000, v65, OS_LOG_TYPE_INFO, "ATXSuggestedPagesModeAffinityWidgetDataSource: %@ has widget popularity: %f and passes parent app global prior threshold with score: %f", buf, 0x20u);
+            [v87 doubleValue];
+            v73 = v72;
+            [v32 doubleValue];
+            *buf = v77;
+            v95 = identifier2;
+            v96 = 2048;
+            v97 = v73;
+            v98 = 2048;
+            v99 = v74;
+            _os_log_impl(&dword_2263AA000, v70, OS_LOG_TYPE_INFO, "ATXSuggestedPagesModeAffinityWidgetDataSource: %@ has widget popularity: %f and passes parent app global prior threshold with score: %f", buf, 0x20u);
           }
 
-          [v31 doubleValue];
+          [v32 doubleValue];
           [v17 setScore:?];
-          v54 = v17;
-          v55 = @"Widget Popularity";
+          v57 = v17;
+          v58 = @"Widget Popularity";
         }
 
         else
         {
-          v51 = __atxlog_handle_modes();
-          if (os_log_type_enabled(v51, OS_LOG_TYPE_INFO))
+          v54 = __atxlog_handle_modes(v53);
+          if (os_log_type_enabled(v54, OS_LOG_TYPE_INFO))
           {
             identifier3 = [v14 identifier];
-            [v31 doubleValue];
+            [v32 doubleValue];
             *buf = 138412546;
-            v91 = identifier3;
-            v92 = 2048;
-            v93 = v53;
-            _os_log_impl(&dword_2263AA000, v51, OS_LOG_TYPE_INFO, "ATXSuggestedPagesModeAffinityWidgetDataSource: %@ has local engagement and passes parent app global prior threshold with score: %f", buf, 0x16u);
+            v95 = identifier3;
+            v96 = 2048;
+            v97 = v56;
+            _os_log_impl(&dword_2263AA000, v54, OS_LOG_TYPE_INFO, "ATXSuggestedPagesModeAffinityWidgetDataSource: %@ has local engagement and passes parent app global prior threshold with score: %f", buf, 0x16u);
           }
 
-          [v31 doubleValue];
+          [v32 doubleValue];
           [v17 setScore:?];
-          v54 = v17;
-          v55 = @"Global Mode Entity";
+          v57 = v17;
+          v58 = @"Global Mode Entity";
         }
 
-        [v54 setPredictionSource:v55];
+        [v57 setPredictionSource:v58];
         size = sizeCopy;
         if (containerBundleIdentifier2)
         {
 LABEL_32:
-          [v75 setObject:v83 forKeyedSubscript:containerBundleIdentifier2];
-          [v84 setObject:v17 forKeyedSubscript:containerBundleIdentifier2];
-          v11 = v77;
+          [v79 setObject:v87 forKeyedSubscript:containerBundleIdentifier2];
+          [v88 setObject:v17 forKeyedSubscript:containerBundleIdentifier2];
+          v11 = v81;
           goto LABEL_33;
         }
 
         goto LABEL_27;
       }
 
-      featureVector = __atxlog_handle_modes();
+      featureVector = __atxlog_handle_modes(v28);
       if (os_log_type_enabled(featureVector, OS_LOG_TYPE_INFO))
       {
         identifier4 = [v14 identifier];
         CHSWidgetFamilyFromATXStackLayoutSize();
-        v49 = NSStringFromWidgetFamily();
+        v51 = NSStringFromWidgetFamily();
         *buf = 138543618;
-        v91 = identifier4;
-        v92 = 2114;
-        v93 = v49;
+        v95 = identifier4;
+        v96 = 2114;
+        v97 = v51;
         _os_log_impl(&dword_2263AA000, featureVector, OS_LOG_TYPE_INFO, "ATXSuggestedPagesModeAffinityWidgetDataSource: %{public}@ widget does not exist in the preferred size: %{public}@ for this suggested page type", buf, 0x16u);
       }
 
@@ -336,8 +336,8 @@ LABEL_34:
       objc_autoreleasePoolPop(v15);
     }
 
-    v81 = [obj countByEnumeratingWithState:&v85 objects:v96 count:16];
-    if (v81)
+    v85 = [obj countByEnumeratingWithState:&v89 objects:v100 count:16];
+    if (v85)
     {
       continue;
     }
@@ -347,10 +347,8 @@ LABEL_34:
 
 LABEL_38:
 
-  allValues = [v84 allValues];
+  allValues = [v88 allValues];
   [v11 addObjectsFromArray:allValues];
-
-  v71 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -422,13 +420,11 @@ id __93__ATXSuggestedPagesModeAffinityWidgetDataSource_fetchWidgetsPassingThresh
 
 - (void)provideWidgetsForPageType:(uint64_t)a1 environment:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = NSStringFromATXSuggestedPageType();
-  v5 = 138543362;
-  v6 = v3;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXSuggestedPagesModeAffinityWidgetDataSource: No mode affinity model found for suggested page type: %{public}@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138543362;
+  v5 = v3;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXSuggestedPagesModeAffinityWidgetDataSource: No mode affinity model found for suggested page type: %{public}@", &v4, 0xCu);
 }
 
 @end

@@ -1,10 +1,11 @@
-id generateHashForDataAtLocationAsData(void *a1, int a2, uint64_t a3)
+id generateHashForDataAtLocationAsData(void *a1, uint64_t a2, uint64_t a3)
 {
+  v4 = a2;
   v5 = a1;
   v6 = [NSFileHandle fileHandleForReadingFromURL:v5 error:a3];
   v7 = v6;
   v8 = 0;
-  if (a2 && v6)
+  if (v4 && v6)
   {
     v45 = 0u;
     v46 = 0u;
@@ -69,7 +70,7 @@ id generateHashForDataAtLocationAsData(void *a1, int a2, uint64_t a3)
   return v8;
 }
 
-id generateHashForDataAtLocation(void *a1, int a2, uint64_t a3)
+id generateHashForDataAtLocation(void *a1, uint64_t a2, uint64_t a3)
 {
   v3 = generateHashForDataAtLocationAsData(a1, a2, a3);
   v4 = v3;
@@ -97,7 +98,7 @@ id generateHashForDataAtLocation(void *a1, int a2, uint64_t a3)
   return v6;
 }
 
-id generateBase64HashForDataAtLocation(void *a1, int a2, uint64_t a3)
+id generateBase64HashForDataAtLocation(void *a1, uint64_t a2, uint64_t a3)
 {
   v3 = generateHashForDataAtLocationAsData(a1, a2, a3);
   v4 = v3;
@@ -153,9 +154,9 @@ void CFDictionaryBuildKeySetTicket(__CFDictionary *a1, const void *a2, const __C
   CFRelease(Mutable);
 }
 
-void sub_100001C58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100001C58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -641,10 +642,7 @@ id sub_10000A2E8(uint64_t a1)
 
 uint64_t sub_10000A4C0(uint64_t a1)
 {
-  v2 = [NSArray arrayWithArray:*(*(a1 + 32) + 8)];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [NSArray arrayWithArray:*(*(a1 + 32) + 8)];
 
   return _objc_release_x1();
 }
@@ -887,9 +885,9 @@ LABEL_53:
   *(a1[7] + 5) = 0;
 }
 
-void sub_10000E83C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10000E83C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -992,7 +990,7 @@ void sub_10000EBF4()
   v0 = v1[0];
   if (!qword_100038F98)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
@@ -1005,13 +1003,12 @@ LABEL_7:
 
 uint64_t sub_10000ECF0(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100038F98 = result;
   return result;
 }
 
-const __CFString *sub_10000ED64(uint64_t a1)
+Class sub_10000ED64(uint64_t a1)
 {
   sub_10000EBF4();
   result = objc_getClass("CSCoreSpeechServices");
@@ -1023,7 +1020,7 @@ const __CFString *sub_10000ED64(uint64_t a1)
 
   else
   {
-    v3 = sub_100015160();
+    sub_100015160();
     return MapPreferenceSuiteToString(v3);
   }
 
@@ -1194,47 +1191,48 @@ NSDictionary *sub_10000EF10(uint64_t a1)
   return [NSDictionary dictionaryWithDictionary:v3];
 }
 
-uint64_t AUSandboxPlatformInitWithBundleIdentifierHomeDirectory(void *a1)
+uint64_t AUSandboxPlatformInitWithBundleIdentifierHomeDirectory(void *a1, const char *a2)
 {
-  v1 = a1;
-  if (!v1)
+  v2 = a1;
+  if (!v2)
   {
-    v1 = &_os_log_default;
     v2 = &_os_log_default;
+    v3 = &_os_log_default;
   }
 
-  v3 = v1;
-  bzero(v7, 0x400uLL);
-  v4 = v3;
+  v4 = v2;
+  bzero(v8, 0x400uLL);
+  v5 = v4;
   if (_set_user_dir_suffix())
   {
-    if (confstr(65537, v7, 0x400uLL))
+    if (confstr(65537, v8, 0x400uLL))
     {
-      v5 = 0;
+      v6 = 0;
       goto LABEL_11;
     }
 
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_100015208();
     }
   }
 
-  else if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     sub_100015188();
   }
 
-  v5 = 1;
+  v6 = 1;
 LABEL_11:
 
-  return v5;
+  return v6;
 }
 
-void sub_10000F778(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000F778(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 8u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 8u);
 }
 
 NSDictionary *sub_10000F878(uint64_t a1)
@@ -1390,9 +1388,9 @@ id sub_100012648(uint64_t a1, void *a2)
   return [v10 didFind:a2 == 0 info:v4 updateAvailable:v11 needsDownload:v12 error:a2];
 }
 
-void sub_100012A38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100012A38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1478,15 +1476,14 @@ id sub_100012FD0(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 
   v3 = *(a1 + 32);
-  v4 = *(v3 + 8);
   if (!a2)
   {
     return sub_1000162CC(v3, *(v3 + 8));
   }
 
-  v5 = *(v3 + 8);
+  v4 = *(v3 + 8);
 
-  return [v5 personalizationRequest:a2];
+  return [v4 personalizationRequest:a2];
 }
 
 id sub_100013244(uint64_t a1, uint64_t a2, _BYTE *a3)
@@ -1656,6 +1653,20 @@ id sub_1000150F4(NSString *a1, _BYTE *a2, void *a3)
   NSLog(a1);
   *a2 = -1;
   return [a3 sendCommand:99 payload:a2 payload_length:1];
+}
+
+void sub_100015188()
+{
+  LODWORD(v6) = 67109120;
+  HIDWORD(v6) = *__error();
+  sub_10000F778(&_mh_execute_header, v0, v1, "failed to set temporary directory suffix: %d", v2, v3, v4, v5, v6);
+}
+
+void sub_100015208()
+{
+  LODWORD(v6) = 67109120;
+  HIDWORD(v6) = *__error();
+  sub_10000F778(&_mh_execute_header, v0, v1, "failed to initialize temporary directory: %d", v2, v3, v4, v5, v6);
 }
 
 void sub_10001572C(uint64_t a1)

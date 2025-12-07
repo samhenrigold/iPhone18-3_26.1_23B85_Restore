@@ -83,45 +83,45 @@
 - (id)_determinePushEnvironment
 {
   v2 = +[CKContainer MSDCloudKitContainer];
-  v10 = 0;
-  v3 = [v2 serverPreferredPushEnvironmentWithError:&v10];
-  v4 = v10;
+  v11 = 0;
+  v3 = [v2 serverPreferredPushEnvironmentWithError:&v11];
+  v4 = v11;
 
   if (v3)
   {
-    v5 = v4 == 0;
+    v6 = v4 == 0;
   }
 
   else
   {
-    v5 = 0;
+    v6 = 0;
   }
 
-  v6 = v3;
-  if (!v5)
+  v7 = v3;
+  if (!v6)
   {
-    v7 = sub_100030FE4();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = sub_100030FE4(v5);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      sub_10002281C(v4, v7);
+      sub_10002281C(v4, v8);
     }
 
-    v6 = APSEnvironmentProduction;
+    v7 = APSEnvironmentProduction;
     if (v3)
     {
-      v6 = v3;
+      v7 = v3;
     }
   }
 
-  v8 = v6;
+  v9 = v7;
 
-  return v8;
+  return v9;
 }
 
 - (void)connection:(id)connection didReceivePublicToken:(id)token
 {
   tokenCopy = token;
-  v5 = sub_100030FE4();
+  v5 = sub_100030FE4(tokenCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = [tokenCopy base64EncodedStringWithOptions:0];
@@ -134,7 +134,7 @@
 - (void)connection:(id)connection didReceiveIncomingMessage:(id)message
 {
   messageCopy = message;
-  v6 = sub_100030FE4();
+  v6 = sub_100030FE4(messageCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -148,7 +148,7 @@
   if (v8)
   {
     userInfo = [messageCopy userInfo];
-    v10 = sub_100030FE4();
+    v10 = sub_100030FE4(userInfo);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
@@ -196,7 +196,7 @@
 {
   statusCopy = status;
   connectionCopy = connection;
-  v6 = sub_100030FE4();
+  v6 = sub_100030FE4(connectionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 138412546;

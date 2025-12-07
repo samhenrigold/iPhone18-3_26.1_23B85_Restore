@@ -9,7 +9,7 @@
   v4 = *__swift_project_boxed_opaque_existential_1((self + 32), *(self + 56));
   if (a3)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
     v5 = swift_allocError();
     *v6 = a3;
     v7 = a3;
@@ -19,8 +19,8 @@
 
   else
   {
-    type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for HKQuantityType);
-    type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for HKUnit);
+    type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for HKQuantityType, 0x277CCD830);
+    type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for HKUnit, 0x277CCDAB0);
     lazy protocol witness table accessor for type HKQuantityType and conformance NSObject();
     **(*(v4 + 64) + 40) = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
 

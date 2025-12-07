@@ -75,8 +75,8 @@
 {
   if ([(_UIEditMenuContainerView *)self dismissesOnViewportResize])
   {
-    presentation = [(_UIEditMenuContainerView *)self presentation];
-    displayedMenu = [presentation displayedMenu];
+    v3 = objc_msgSend_presentation(self);
+    displayedMenu = [v3 displayedMenu];
 
     if (displayedMenu)
     {
@@ -175,14 +175,14 @@
   else if (!self->_didDismissFromGesture)
   {
     self->_didDismissFromGesture = 1;
-    presentation = [(_UIEditMenuContainerView *)self presentation];
-    [presentation hideMenuWithReason:0];
+    v5 = objc_msgSend_presentation(self);
+    [v5 hideMenuWithReason:0];
   }
 }
 
 - (BOOL)touchFallbackView:(id)view shouldHitTestAtLocation:(CGPoint)location withEvent:(id)event
 {
-  v5 = [(_UIEditMenuContainerView *)self presentation:view];
+  v5 = objc_msgSend_presentation(self, a2, view, event, location.x, location.y);
   displayedMenu = [v5 displayedMenu];
   v7 = displayedMenu != 0;
 
@@ -231,8 +231,8 @@ LABEL_2:
       {
         if ([(_UIEditMenuContainerView *)self ignoresPassthroughInPresentationSource])
         {
-          presentation = [(_UIEditMenuContainerView *)self presentation];
-          sourceView = [presentation sourceView];
+          v11 = objc_msgSend_presentation(self);
+          sourceView = [v11 sourceView];
 
           [(UIView *)self setUserInteractionEnabled:0];
           window = [(UIView *)self window];

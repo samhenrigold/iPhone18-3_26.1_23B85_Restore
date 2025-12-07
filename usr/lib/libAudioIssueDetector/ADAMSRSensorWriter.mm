@@ -54,11 +54,11 @@
 
 - (ADAMSRSensorWriter)initWithSensorType:(int)type bundleIdentifier:(id)identifier
 {
-  v31 = *MEMORY[0x29EDCA608];
+  v30 = *MEMORY[0x29EDCA608];
   identifierCopy = identifier;
-  v22.receiver = self;
-  v22.super_class = ADAMSRSensorWriter;
-  v8 = [(ADAMSRSensorWriter *)&v22 init];
+  v21.receiver = self;
+  v21.super_class = ADAMSRSensorWriter;
+  v8 = [(ADAMSRSensorWriter *)&v21 init];
   if (!v8)
   {
     goto LABEL_21;
@@ -100,11 +100,11 @@
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v24 = "ADAMSensorKitWriterFactory.mm";
-      v25 = 1024;
-      v26 = 22;
-      v27 = 2112;
-      *v28 = v12;
+      v23 = "ADAMSensorKitWriterFactory.mm";
+      v24 = 1024;
+      v25 = 22;
+      v26 = 2112;
+      *v27 = v12;
       _os_log_impl(&dword_296C34000, v13, OS_LOG_TYPE_ERROR, "%25s:%-5d failed to create SRWriter for %@", buf, 0x1Cu);
     }
   }
@@ -116,13 +116,13 @@ LABEL_14:
     v16 = v8->_writer;
     if (v16)
     {
-      v19[0] = MEMORY[0x29EDCA5F8];
-      v19[1] = 3221225472;
-      v19[2] = __58__ADAMSRSensorWriter_initWithSensorType_bundleIdentifier___block_invoke;
-      v19[3] = &unk_29EE526B0;
-      v20 = v8;
-      v21 = identifierCopy;
-      [(SRSensorWriter *)v16 bundleEligibility:v21 completion:v19];
+      v18[0] = MEMORY[0x29EDCA5F8];
+      v18[1] = 3221225472;
+      v18[2] = __58__ADAMSRSensorWriter_initWithSensorType_bundleIdentifier___block_invoke;
+      v18[3] = &unk_29EE526B0;
+      v19 = v8;
+      v20 = identifierCopy;
+      [(SRSensorWriter *)v16 bundleEligibility:v20 completion:v18];
     }
   }
 
@@ -137,27 +137,26 @@ LABEL_14:
     if (os_log_type_enabled(ADAM::get_log(void)::adam_os_log, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136316162;
-      v24 = "ADAMSRSensorWriter.mm";
-      v25 = 1024;
-      v26 = 64;
-      v27 = 1040;
-      *v28 = 18;
-      *&v28[4] = 2080;
-      *&v28[6] = "ADAMSRSensorWriter]";
-      v29 = 2048;
-      v30 = v8;
+      v23 = "ADAMSRSensorWriter.mm";
+      v24 = 1024;
+      v25 = 64;
+      v26 = 1040;
+      *v27 = 18;
+      *&v27[4] = 2080;
+      *&v27[6] = "ADAMSRSensorWriter]";
+      v28 = 2048;
+      v29 = v8;
       _os_log_impl(&dword_296C34000, v15, OS_LOG_TYPE_DEBUG, "[%s:%-5d %.*s:%p] No bundle identifier check for Siri use case", buf, 0x2Cu);
     }
   }
 
 LABEL_21:
-  v17 = *MEMORY[0x29EDCA608];
   return v8;
 }
 
 void __58__ADAMSRSensorWriter_initWithSensorType_bundleIdentifier___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v30 = *MEMORY[0x29EDCA608];
+  v29 = *MEMORY[0x29EDCA608];
   v5 = a3;
   v6 = v5;
   v7 = *(a1 + 32);
@@ -175,19 +174,19 @@ void __58__ADAMSRSensorWriter_initWithSensorType_bundleIdentifier___block_invoke
       {
         v12 = *(a1 + 32);
         v13 = *(a1 + 40);
-        v18 = 136316418;
-        v19 = "ADAMSRSensorWriter.mm";
-        v20 = 1024;
-        v21 = 81;
-        v22 = 1040;
-        v23 = 18;
-        v24 = 2080;
-        v25 = "ADAMSRSensorWriter]";
-        v26 = 2048;
-        v27 = v12;
-        v28 = 2112;
-        v29 = v13;
-        _os_log_impl(&dword_296C34000, v11, OS_LOG_TYPE_INFO, "[%s:%-5d %.*s:%p] Bundle identifier %@ is not eligible", &v18, 0x36u);
+        v17 = 136316418;
+        v18 = "ADAMSRSensorWriter.mm";
+        v19 = 1024;
+        v20 = 81;
+        v21 = 1040;
+        v22 = 18;
+        v23 = 2080;
+        v24 = "ADAMSRSensorWriter]";
+        v25 = 2048;
+        v26 = v12;
+        v27 = 2112;
+        v28 = v13;
+        _os_log_impl(&dword_296C34000, v11, OS_LOG_TYPE_INFO, "[%s:%-5d %.*s:%p] Bundle identifier %@ is not eligible", &v17, 0x36u);
       }
     }
 
@@ -202,19 +201,19 @@ void __58__ADAMSRSensorWriter_initWithSensorType_bundleIdentifier___block_invoke
       {
         v15 = *(a1 + 32);
         v16 = [v6 debugDescription];
-        v18 = 136316418;
-        v19 = "ADAMSRSensorWriter.mm";
-        v20 = 1024;
-        v21 = 86;
-        v22 = 1040;
-        v23 = 18;
-        v24 = 2080;
-        v25 = "ADAMSRSensorWriter]";
-        v26 = 2048;
-        v27 = v15;
-        v28 = 2112;
-        v29 = v16;
-        _os_log_impl(&dword_296C34000, v14, OS_LOG_TYPE_INFO, "[%s:%-5d %.*s:%p] Error getting bundle identifier eligibility from SensorKit: %@", &v18, 0x36u);
+        v17 = 136316418;
+        v18 = "ADAMSRSensorWriter.mm";
+        v19 = 1024;
+        v20 = 86;
+        v21 = 1040;
+        v22 = 18;
+        v23 = 2080;
+        v24 = "ADAMSRSensorWriter]";
+        v25 = 2048;
+        v26 = v15;
+        v27 = 2112;
+        v28 = v16;
+        _os_log_impl(&dword_296C34000, v14, OS_LOG_TYPE_INFO, "[%s:%-5d %.*s:%p] Error getting bundle identifier eligibility from SensorKit: %@", &v17, 0x36u);
       }
     }
   }
@@ -231,23 +230,21 @@ void __58__ADAMSRSensorWriter_initWithSensorType_bundleIdentifier___block_invoke
     {
       v9 = *(a1 + 32);
       v10 = *(a1 + 40);
-      v18 = 136316418;
-      v19 = "ADAMSRSensorWriter.mm";
-      v20 = 1024;
-      v21 = 74;
-      v22 = 1040;
-      v23 = 18;
-      v24 = 2080;
-      v25 = "ADAMSRSensorWriter]";
-      v26 = 2048;
-      v27 = v9;
-      v28 = 2112;
-      v29 = v10;
-      _os_log_impl(&dword_296C34000, v8, OS_LOG_TYPE_DEBUG, "[%s:%-5d %.*s:%p] Bundle identifier %@ is eligible", &v18, 0x36u);
+      v17 = 136316418;
+      v18 = "ADAMSRSensorWriter.mm";
+      v19 = 1024;
+      v20 = 74;
+      v21 = 1040;
+      v22 = 18;
+      v23 = 2080;
+      v24 = "ADAMSRSensorWriter]";
+      v25 = 2048;
+      v26 = v9;
+      v27 = 2112;
+      v28 = v10;
+      _os_log_impl(&dword_296C34000, v8, OS_LOG_TYPE_DEBUG, "[%s:%-5d %.*s:%p] Bundle identifier %@ is eligible", &v17, 0x36u);
     }
   }
-
-  v17 = *MEMORY[0x29EDCA608];
 }
 
 @end

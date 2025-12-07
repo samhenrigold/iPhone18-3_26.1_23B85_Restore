@@ -1,13 +1,13 @@
-id RXOSLog()
+id RXOSLog(uint64_t a1)
 {
   if (qword_100020DE8 != -1)
   {
     sub_100012674();
   }
 
-  v1 = qword_100020DE0;
+  v2 = qword_100020DE0;
 
-  return v1;
+  return v2;
 }
 
 void sub_100001864(id a1)
@@ -37,29 +37,30 @@ CFMutableStringRef RDLanguageAssets::createLocaleIDFromLanguage(CFStringRef theS
 
 const __CFDictionary *RDLanguageAssets::CopyInstallationStatus(RDLanguageAssets *this)
 {
-  v8 = 0;
+  v9 = 0;
   if (qword_100020DF8 != -1)
   {
     sub_100012688();
   }
 
-  v1 = [qword_100020DF0 copyInstallationStatusForLangaugesWithError:&v8];
-  v2 = RXOSLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v1 = [qword_100020DF0 copyInstallationStatusForLangaugesWithError:&v9];
+  v2 = RXOSLog(v1);
+  v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
+  if (v3)
   {
     *buf = 138412290;
-    v10 = v1;
+    v11 = v1;
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "InstallationStatus resultStatus=%@", buf, 0xCu);
   }
 
-  if (v8)
+  if (v9)
   {
-    v3 = RXOSLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = RXOSLog(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v10 = v8;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "InstallationStatus failed with: %@", buf, 0xCu);
+      v11 = v9;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "InstallationStatus failed with: %@", buf, 0xCu);
     }
   }
 
@@ -69,10 +70,10 @@ const __CFDictionary *RDLanguageAssets::CopyInstallationStatus(RDLanguageAssets 
   }
 
   MutableCopy = CFDictionaryCreateMutableCopy(kCFAllocatorDefault, 0, v1);
-  v5 = RXGetAssetFallbackLocales();
-  if (v5)
+  v6 = RXGetAssetFallbackLocales();
+  if (v6)
   {
-    RDLanguageAssets::addAliasLocalesToResultStatus(v5, MutableCopy, v6);
+    RDLanguageAssets::addAliasLocalesToResultStatus(v6, MutableCopy, v7);
   }
 
   CFRelease(v1);
@@ -119,7 +120,7 @@ CFTypeRef RDLanguageAssets::InstallAndCopyQuasarModelPathForLanguage(const __CFS
   LocaleIDFromLanguage = RDLanguageAssets::createLocaleIDFromLanguage(this, a2);
   v4 = RXGetAssetFallbackLocaleIdentifier();
   CFRelease(LocaleIDFromLanguage);
-  v10 = 0;
+  v11 = 0;
   if (qword_100020DF8 != -1)
   {
     sub_100012688();
@@ -135,25 +136,26 @@ CFTypeRef RDLanguageAssets::InstallAndCopyQuasarModelPathForLanguage(const __CFS
     v5 = this;
   }
 
-  v6 = [qword_100020DF0 copyInstalledQuasarModelPathForLanguage:v5 error:&v10];
-  v7 = RXOSLog();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  v6 = [qword_100020DF0 copyInstalledQuasarModelPathForLanguage:v5 error:&v11];
+  v7 = RXOSLog(v6);
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_INFO);
+  if (v8)
   {
     *buf = 138412546;
-    v12 = this;
-    v13 = 2112;
-    v14 = v6;
+    v13 = this;
+    v14 = 2112;
+    v15 = v6;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "InstallAndCopyQuasarModelPathForLanguage language=%@ resultPath=%@", buf, 0x16u);
   }
 
-  if (v10)
+  if (v11)
   {
-    v8 = RXOSLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = RXOSLog(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v12 = v10;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "InstallAndCopyQuasarModelPathForLanguage failed with: %@", buf, 0xCu);
+      v13 = v11;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "InstallAndCopyQuasarModelPathForLanguage failed with: %@", buf, 0xCu);
     }
   }
 
@@ -196,7 +198,8 @@ CFTypeRef RDLanguageAssets::CopyInstalledAssetPathForLanguage(const __CFString *
   v7 = [qword_100020DF0 copyInstalledAssetPathForLangaugeWithError:LanguageFromLocaleID error:&v11];
   if (v7)
   {
-    v8 = CFRetain(v7);
+    v7 = CFRetain(v7);
+    v8 = v7;
   }
 
   else
@@ -206,7 +209,7 @@ CFTypeRef RDLanguageAssets::CopyInstalledAssetPathForLanguage(const __CFString *
 
   if (v11)
   {
-    v9 = RXOSLog();
+    v9 = RXOSLog(v7);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
@@ -264,21 +267,23 @@ CFTypeRef RDLanguageAssets::CopyInstalledAssetSupportedTasksForLanguage(const __
   }
 
   LanguageFromLocaleID = RDLanguageAssets::createLanguageFromLocaleID(v5, v4);
-  v11 = 0;
+  v12 = 0;
   if (qword_100020DF8 != -1)
   {
     sub_100012688();
   }
 
-  v7 = [qword_100020DF0 copyInstalledAssetSupportedTasksForLangaugeWithError:LanguageFromLocaleID error:&v11];
-  if (v11)
+  v7 = [qword_100020DF0 copyInstalledAssetSupportedTasksForLangaugeWithError:LanguageFromLocaleID error:&v12];
+  v8 = v7;
+  if (v12)
   {
-    v8 = RXOSLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = RXOSLog(v7);
+    v7 = os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
+    if (v7)
     {
       *buf = 138412290;
-      v13 = v11;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "CopyAssetSupportedTasks failed with: %@", buf, 0xCu);
+      v14 = v12;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "CopyAssetSupportedTasks failed with: %@", buf, 0xCu);
     }
   }
 
@@ -292,17 +297,17 @@ CFTypeRef RDLanguageAssets::CopyInstalledAssetSupportedTasksForLanguage(const __
     CFRelease(v5);
   }
 
-  v9 = RXOSLog();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  v10 = RXOSLog(v7);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v13 = v7;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "RDLanguageAssets: supportedTasks:%@", buf, 0xCu);
+    v14 = v8;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "RDLanguageAssets: supportedTasks:%@", buf, 0xCu);
   }
 
-  if (v7)
+  if (v8)
   {
-    return CFRetain(v7);
+    return CFRetain(v8);
   }
 
   else
@@ -313,74 +318,12 @@ CFTypeRef RDLanguageAssets::CopyInstalledAssetSupportedTasksForLanguage(const __
 
 void RDLanguageAssets::CancelDownloadForLanguage(RDLanguageAssets *this, const __CFString *a2)
 {
-  v3 = RXOSLog();
+  v3 = RXOSLog(this);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v7 = this;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "CancelDownloadForLanguage language=%@", buf, 0xCu);
-  }
-
-  v5 = 0;
-  if (qword_100020DF8 != -1)
-  {
-    sub_10001269C();
-  }
-
-  [qword_100020DF0 cancelDownloadForLanguage:this error:&v5];
-  if (v5)
-  {
-    v4 = RXOSLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 138412290;
-      v7 = v5;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "CancelDownloadForLanguage failed with: %@", buf, 0xCu);
-    }
-  }
-}
-
-id RDLanguageAssets::PurgeInstalledQuasarAssets(RDLanguageAssets *this)
-{
-  v5 = 0;
-  if (qword_100020DF8 != -1)
-  {
-    sub_100012688();
-  }
-
-  v1 = [qword_100020DF0 purgeInstalledAssetsWithError:&v5];
-  v2 = RXOSLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 138412290;
-    v7 = v1;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Assets purged %@", buf, 0xCu);
-  }
-
-  if (v5)
-  {
-    v3 = RXOSLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 138412290;
-      v7 = v5;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "PurgeInstalledQuasarAssets failed with: %@", buf, 0xCu);
-    }
-  }
-
-  return [v1 intValue];
-}
-
-void RDLanguageAssets::SetPurgeabilityForLanguages(RDLanguageAssets *this, const __CFArray *a2)
-{
-  v4 = RXOSLog();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
-  {
-    *buf = 138412546;
     v8 = this;
-    v9 = 1024;
-    v10 = a2;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "SetPurgeabilityForLanguages languages=%@%d", buf, 0x12u);
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "CancelDownloadForLanguage language=%@", buf, 0xCu);
   }
 
   v6 = 0;
@@ -389,22 +332,85 @@ void RDLanguageAssets::SetPurgeabilityForLanguages(RDLanguageAssets *this, const
     sub_10001269C();
   }
 
-  [qword_100020DF0 setPurgeabilityForLanguages:this withPurgeability:a2 error:&v6];
+  v4 = [qword_100020DF0 cancelDownloadForLanguage:this error:&v6];
   if (v6)
   {
-    v5 = RXOSLog();
+    v5 = RXOSLog(v4);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
       v8 = v6;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "SetPurgeabilityForLanguages failed with: %@", buf, 0xCu);
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "CancelDownloadForLanguage failed with: %@", buf, 0xCu);
+    }
+  }
+}
+
+id RDLanguageAssets::PurgeInstalledQuasarAssets(RDLanguageAssets *this)
+{
+  v6 = 0;
+  if (qword_100020DF8 != -1)
+  {
+    sub_100012688();
+  }
+
+  v1 = [qword_100020DF0 purgeInstalledAssetsWithError:&v6];
+  v2 = RXOSLog(v1);
+  v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
+  if (v3)
+  {
+    *buf = 138412290;
+    v8 = v1;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Assets purged %@", buf, 0xCu);
+  }
+
+  if (v6)
+  {
+    v4 = RXOSLog(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 138412290;
+      v8 = v6;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "PurgeInstalledQuasarAssets failed with: %@", buf, 0xCu);
+    }
+  }
+
+  return [v1 intValue];
+}
+
+void RDLanguageAssets::SetPurgeabilityForLanguages(RDLanguageAssets *this, const __CFArray *a2)
+{
+  v4 = RXOSLog(this);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  {
+    *buf = 138412546;
+    v9 = this;
+    v10 = 1024;
+    v11 = a2;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "SetPurgeabilityForLanguages languages=%@%d", buf, 0x12u);
+  }
+
+  v7 = 0;
+  if (qword_100020DF8 != -1)
+  {
+    sub_10001269C();
+  }
+
+  v5 = [qword_100020DF0 setPurgeabilityForLanguages:this withPurgeability:a2 error:&v7];
+  if (v7)
+  {
+    v6 = RXOSLog(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 138412290;
+      v9 = v7;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "SetPurgeabilityForLanguages failed with: %@", buf, 0xCu);
     }
   }
 }
 
 id RDLanguageAssets::RemovePeerForProgressCallback(_xpc_connection_s *a1)
 {
-  v2 = RXOSLog();
+  v2 = RXOSLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v4[0] = 67109120;
@@ -422,7 +428,7 @@ id RDLanguageAssets::RemovePeerForProgressCallback(_xpc_connection_s *a1)
 
 id RDLanguageAssets::AddPeerForProgressCallback(_xpc_connection_s *a1)
 {
-  v2 = RXOSLog();
+  v2 = RXOSLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v4[0] = 67109120;
@@ -440,7 +446,7 @@ id RDLanguageAssets::AddPeerForProgressCallback(_xpc_connection_s *a1)
 
 void sub_100002580(id a1)
 {
-  v1 = RXOSLog();
+  v1 = RXOSLog(a1);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
     *v2 = 0;
@@ -459,7 +465,7 @@ void sub_100002D44(id a1)
 
 void sub_100002ED8(uint64_t a1)
 {
-  v2 = RXOSLog();
+  v2 = RXOSLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     if (*(a1 + 40))
@@ -483,8 +489,7 @@ void sub_100002ED8(uint64_t a1)
     {
       v4 = *(a1 + 32);
 LABEL_13:
-      [v4 setCatalogDownloadInProgress:1];
-      v9 = RXOSLog();
+      v9 = RXOSLog([v4 setCatalogDownloadInProgress:1]);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
@@ -512,7 +517,7 @@ LABEL_13:
       goto LABEL_13;
     }
 
-    v8 = RXOSLog();
+    v8 = RXOSLog(v4);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -533,8 +538,7 @@ id sub_100003118(int a1)
 
 void sub_10000317C(uint64_t a1, uint64_t a2)
 {
-  [*(a1 + 32) setCatalogDownloadInProgress:0];
-  v4 = RXOSLog();
+  v4 = RXOSLog([*(a1 + 32) setCatalogDownloadInProgress:0]);
   v5 = v4;
   if (!a2)
   {
@@ -640,34 +644,36 @@ id sub_100003CCC(void *a1)
 {
   v1 = [a1 stringByAppendingPathComponent:@"mini.json"];
   v2 = +[NSFileManager defaultManager];
-  if ([v2 fileExistsAtPath:v1])
+  v3 = [v2 fileExistsAtPath:v1];
+  if (v3)
   {
-    v3 = [NSData dataWithContentsOfFile:v1];
-    if (!v3)
+    v4 = [NSData dataWithContentsOfFile:v1];
+    if (!v4)
     {
-      v5 = RXOSLog();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v7 = RXOSLog(0);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v12 = v1;
-        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "could not read contents from : %@", buf, 0xCu);
+        v14 = v1;
+        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "could not read contents from : %@", buf, 0xCu);
       }
 
-      v7 = 0;
+      v9 = 0;
       goto LABEL_19;
     }
 
-    v10 = 0;
-    v4 = [NSJSONSerialization JSONObjectWithData:v3 options:0 error:&v10];
-    v5 = v10;
-    if (v5)
+    v12 = 0;
+    v5 = [NSJSONSerialization JSONObjectWithData:v4 options:0 error:&v12];
+    v6 = v12;
+    v7 = v6;
+    if (v6)
     {
-      v6 = RXOSLog();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v8 = RXOSLog(v6);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v12 = v1;
-        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%@ : not a valid json", buf, 0xCu);
+        v14 = v1;
+        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%@ : not a valid json", buf, 0xCu);
       }
     }
 
@@ -676,31 +682,31 @@ id sub_100003CCC(void *a1)
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        v7 = 0;
+        v9 = 0;
         goto LABEL_18;
       }
 
-      v6 = [v4 objectForKey:@"model-info"];
+      v8 = [v5 objectForKey:@"model-info"];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v8 = [v6 objectForKey:@"tasks"];
+        v10 = [v8 objectForKey:@"tasks"];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v7 = [v8 containsObject:@"DictationCC"];
+          v9 = [v10 containsObject:@"DictationCC"];
         }
 
         else
         {
-          v7 = 0;
+          v9 = 0;
         }
 
         goto LABEL_17;
       }
     }
 
-    v7 = 0;
+    v9 = 0;
 LABEL_17:
 
 LABEL_18:
@@ -709,25 +715,25 @@ LABEL_19:
     goto LABEL_20;
   }
 
-  v3 = RXOSLog();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = RXOSLog(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v12 = @"mini.json";
-    v13 = 2112;
-    v14 = v1;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%@ does not exist at: %@ ", buf, 0x16u);
+    v14 = @"mini.json";
+    v15 = 2112;
+    v16 = v1;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%@ does not exist at: %@ ", buf, 0x16u);
   }
 
-  v7 = 0;
+  v9 = 0;
 LABEL_20:
 
-  return v7;
+  return v9;
 }
 
-void sub_100004454(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100004454(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -741,16 +747,16 @@ void sub_100004474(void *a1)
   objc_storeStrong((*(a1[6] + 8) + 40), obj);
 }
 
-void sub_100004A84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100004A84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -770,48 +776,48 @@ void sub_100004AB0(uint64_t a1)
       return;
     }
 
-    v6 = RXOSLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = RXOSLog(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = *(a1 + 40);
+      v8 = *(a1 + 40);
       *buf = 138412290;
-      v26 = v7;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Catalog download is in progress, caching %@", buf, 0xCu);
+      v27 = v8;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Catalog download is in progress, caching %@", buf, 0xCu);
     }
 
-    v8 = [*(a1 + 32) requestedLanguagesForDownload];
-    [v8 addObject:*(a1 + 40)];
+    v9 = [*(a1 + 32) requestedLanguagesForDownload];
+    [v9 addObject:*(a1 + 40)];
 
-    v9 = *(*(a1 + 48) + 8);
-    v10 = *(v9 + 40);
-    *(v9 + 40) = 0;
+    v10 = *(*(a1 + 48) + 8);
+    v11 = *(v10 + 40);
+    *(v10 + 40) = 0;
 
-    v23 = NSLocalizedFailureReasonErrorKey;
-    v24 = @"Catalog download in progress";
-    v11 = [NSDictionary dictionaryWithObjects:&v24 forKeys:&v23 count:1];
-    v12 = [NSError errorWithDomain:@"kRXAssetDownloadErrorDomain" code:100 userInfo:v11];
-    v13 = *(*(a1 + 56) + 8);
-    v14 = *(v13 + 40);
-    *(v13 + 40) = v12;
+    v24 = NSLocalizedFailureReasonErrorKey;
+    v25 = @"Catalog download in progress";
+    v12 = [NSDictionary dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+    v13 = [NSError errorWithDomain:@"kRXAssetDownloadErrorDomain" code:100 userInfo:v12];
+    v14 = *(*(a1 + 56) + 8);
+    v15 = *(v14 + 40);
+    *(v14 + 40) = v13;
     goto LABEL_8;
   }
 
-  v15 = *(a1 + 40);
-  v22 = 0;
-  v16 = [v3 _installedAssetForLanguage:v15 error:&v22];
-  v11 = v22;
-  v17 = [v16 _es_quasarModelPath];
-  v18 = [v17 copy];
-  v19 = *(*(a1 + 48) + 8);
-  v20 = *(v19 + 40);
-  *(v19 + 40) = v18;
+  v16 = *(a1 + 40);
+  v23 = 0;
+  v17 = [v3 _installedAssetForLanguage:v16 error:&v23];
+  v12 = v23;
+  v18 = [v17 _es_quasarModelPath];
+  v19 = [v18 copy];
+  v20 = *(*(a1 + 48) + 8);
+  v21 = *(v20 + 40);
+  *(v20 + 40) = v19;
 
   if (!*(*(*(a1 + 48) + 8) + 40))
   {
-    v21 = *(*(a1 + 56) + 8);
-    v11 = v11;
-    v14 = *(v21 + 40);
-    *(v21 + 40) = v11;
+    v22 = *(*(a1 + 56) + 8);
+    v12 = v12;
+    v15 = *(v22 + 40);
+    *(v22 + 40) = v12;
 LABEL_8:
   }
 }
@@ -839,32 +845,33 @@ void sub_100004E44(uint64_t a1)
     v4 = [*(a1 + 32) results];
     v5 = *(a1 + 40);
     v6 = *(a1 + 48);
-    v9 = 0;
-    v7 = [v5 _installedAssetFromFoundAssets:v4 language:v6 error:&v9];
-    v2 = v9;
+    v10 = 0;
+    v7 = [v5 _installedAssetFromFoundAssets:v4 language:v6 error:&v10];
+    v8 = v10;
+    v2 = v8;
     if (!v7)
     {
-      v8 = RXOSLog();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = RXOSLog(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v11 = v2;
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Remote fetch asset fetch got assets but none have been installed yet: %@", buf, 0xCu);
+        v12 = v2;
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Remote fetch asset fetch got assets but none have been installed yet: %@", buf, 0xCu);
       }
     }
 
     goto LABEL_9;
   }
 
-  v2 = RXOSLog();
+  v2 = RXOSLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     v3 = *(a1 + 32);
     v4 = [*(a1 + 40) _errorStringForQueryResult:*(a1 + 56)];
     *buf = 138412546;
-    v11 = v3;
-    v12 = 2112;
-    v13 = v4;
+    v12 = v3;
+    v13 = 2112;
+    v14 = v4;
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_ERROR, "Async asset query failed for query=%@, error=%@", buf, 0x16u);
 LABEL_9:
   }
@@ -874,62 +881,63 @@ void sub_100006220(uint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = [v3 isStalled];
-  v5 = RXOSLog();
-  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
-  if (v4)
+  v5 = v4;
+  v6 = RXOSLog(v4);
+  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+  if (v5)
   {
-    if (v6)
+    if (v7)
     {
-      v23 = 134218240;
-      v24 = COERCE_DOUBLE([v3 totalWritten]);
-      v25 = 2048;
-      v26 = [v3 totalExpected];
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Asset Download Progress stalled at %lld of %lld bytes", &v23, 0x16u);
+      v24 = 134218240;
+      v25 = COERCE_DOUBLE([v3 totalWritten]);
+      v26 = 2048;
+      v27 = [v3 totalExpected];
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Asset Download Progress stalled at %lld of %lld bytes", &v24, 0x16u);
     }
 
     if ([*(a1 + 32) sendCallback])
     {
-      v7 = *(a1 + 32);
-      v8 = [*(a1 + 40) _es_language];
-      v9 = [v3 totalWritten];
-      *&v10 = [v3 totalExpected];
-      v11 = @"Stalled";
-      LODWORD(v12) = -1.0;
-      v13 = v7;
+      v8 = *(a1 + 32);
+      v9 = [*(a1 + 40) _es_language];
+      v10 = [v3 totalWritten];
+      *&v11 = [v3 totalExpected];
+      v12 = @"Stalled";
+      LODWORD(v13) = -1.0;
       v14 = v8;
-      *&v15 = v9;
+      v15 = v9;
+      *&v16 = v10;
 LABEL_10:
-      [v13 _sendDownloadCallbackDictionaryWithLanguage:v14 downloadPhase:v11 timeRemaining:0 bytesWritten:v12 bytesTotal:v15 error:v10];
+      [v14 _sendDownloadCallbackDictionaryWithLanguage:v15 downloadPhase:v12 timeRemaining:0 bytesWritten:v13 bytesTotal:v16 error:v11];
     }
   }
 
   else
   {
-    if (v6)
+    if (v7)
     {
-      v16 = [v3 totalWritten];
-      v17 = (v16 / [v3 totalExpected]);
+      v17 = [v3 totalWritten];
+      v18 = (v17 / [v3 totalExpected]);
       [v3 expectedTimeRemaining];
-      v23 = 134218240;
-      v24 = v17;
-      v25 = 2048;
-      v26 = v18;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Asset Download progress: %.2f percent , ~%.2f seconds remaining", &v23, 0x16u);
+      v24 = 134218240;
+      v25 = v18;
+      v26 = 2048;
+      v27 = v19;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Asset Download progress: %.2f percent , ~%.2f seconds remaining", &v24, 0x16u);
     }
 
     if ([*(a1 + 32) sendCallback])
     {
-      v19 = *(a1 + 32);
-      v8 = [*(a1 + 40) _es_language];
+      v20 = *(a1 + 32);
+      v9 = [*(a1 + 40) _es_language];
       [v3 expectedTimeRemaining];
-      v21 = v20;
-      v22 = [v3 totalWritten];
-      *&v10 = [v3 totalExpected];
-      v11 = @"Downloading";
-      v13 = v19;
-      v14 = v8;
-      *&v12 = v21;
-      *&v15 = v22;
+      v22 = v21;
+      v23 = [v3 totalWritten];
+      *&v11 = [v3 totalExpected];
+      v12 = @"Downloading";
+      v14 = v20;
+      v15 = v9;
+      *&v13 = v22;
+      *&v16 = v23;
       goto LABEL_10;
     }
   }
@@ -939,51 +947,52 @@ void sub_100006430(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
-    if ([*(a1 + 32) sendCallback])
+    v4 = [*(a1 + 32) sendCallback];
+    if (v4)
     {
-      v4 = *(a1 + 32);
-      v5 = [*(a1 + 40) _es_language];
-      v6 = [*(a1 + 32) _errorStringForDownloadResult:a2];
-      LODWORD(v7) = -1.0;
+      v5 = *(a1 + 32);
+      v6 = [*(a1 + 40) _es_language];
+      v7 = [*(a1 + 32) _errorStringForDownloadResult:a2];
       LODWORD(v8) = -1.0;
       LODWORD(v9) = -1.0;
-      [v4 _sendDownloadCallbackDictionaryWithLanguage:v5 downloadPhase:@"DownloadFailed" timeRemaining:v6 bytesWritten:v7 bytesTotal:v8 error:v9];
+      LODWORD(v10) = -1.0;
+      [v5 _sendDownloadCallbackDictionaryWithLanguage:v6 downloadPhase:@"DownloadFailed" timeRemaining:v7 bytesWritten:v8 bytesTotal:v9 error:v10];
     }
 
-    v10 = RXOSLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = RXOSLog(v4);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v11 = [*(a1 + 32) _errorStringForDownloadResult:a2];
-      v17 = 138412290;
-      v18 = v11;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "Asset download failed: %@", &v17, 0xCu);
+      v12 = [*(a1 + 32) _errorStringForDownloadResult:a2];
+      v18 = 138412290;
+      v19 = v12;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "Asset download failed: %@", &v18, 0xCu);
     }
 
     goto LABEL_10;
   }
 
-  v12 = RXOSLog();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = RXOSLog(a1);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v17) = 0;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Asset download successful", &v17, 2u);
+    LOWORD(v18) = 0;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Asset download successful", &v18, 2u);
   }
 
   if ([*(a1 + 32) sendCallback])
   {
-    v13 = *(a1 + 32);
-    v10 = [*(a1 + 40) _es_language];
-    LODWORD(v14) = -1.0;
+    v14 = *(a1 + 32);
+    v11 = [*(a1 + 40) _es_language];
     LODWORD(v15) = -1.0;
     LODWORD(v16) = -1.0;
-    [v13 _sendDownloadCallbackDictionaryWithLanguage:v10 downloadPhase:@"Downloaded" timeRemaining:0 bytesWritten:v14 bytesTotal:v15 error:v16];
+    LODWORD(v17) = -1.0;
+    [v14 _sendDownloadCallbackDictionaryWithLanguage:v11 downloadPhase:@"Downloaded" timeRemaining:0 bytesWritten:v15 bytesTotal:v16 error:v17];
 LABEL_10:
   }
 }
 
 void sub_1000065E8(uint64_t a1, uint64_t a2)
 {
-  v4 = RXOSLog();
+  v4 = RXOSLog(a1);
   v5 = v4;
   if (a2)
   {
@@ -1072,7 +1081,7 @@ LABEL_18:
   }
 
   v6 = v5;
-  v7 = RXOSLog();
+  v7 = RXOSLog(v5);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     *buf = 134217984;
@@ -1095,9 +1104,9 @@ LABEL_19:
   return a1;
 }
 
-void sub_100006AE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100006AE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1105,11 +1114,11 @@ void sub_100006AE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_100006AF8(uint64_t a1, void *a2, _BYTE *a3)
 {
   v5 = a2;
-  v6 = RXOSLog();
+  v6 = RXOSLog(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v18 = v5;
+    v19 = v5;
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Purging asset for CacheDelete: %@", buf, 0xCu);
   }
 
@@ -1117,20 +1126,20 @@ void sub_100006AF8(uint64_t a1, void *a2, _BYTE *a3)
   if (v7)
   {
     v8 = [NSNumber numberWithInteger:v7, @"MAPurgeResult"];
-    v16 = v8;
-    v9 = [NSDictionary dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+    v17 = v8;
+    v9 = [NSDictionary dictionaryWithObjects:&v17 forKeys:&v16 count:1];
     v10 = [NSError errorWithDomain:@"kRXAssetDownloadErrorDomain" code:102 userInfo:v9];
     v11 = *(*(a1 + 32) + 8);
     v12 = *(v11 + 40);
     *(v11 + 40) = v10;
 
-    v13 = RXOSLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = RXOSLog(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v14 = *(*(*(a1 + 32) + 8) + 40);
+      v15 = *(*(*(a1 + 32) + 8) + 40);
       *buf = 138412290;
-      v18 = v14;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "Purging failed: %@", buf, 0xCu);
+      v19 = v15;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "Purging failed: %@", buf, 0xCu);
     }
 
     *a3 = 1;
@@ -1169,9 +1178,9 @@ void sub_100008084(void *a1)
   }
 }
 
-void sub_1000082E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000082E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1216,7 +1225,7 @@ void sub_1000094F8(uint64_t a1)
   v10 = 0;
   [SFSpeechAssetManager setAssetsPurgeability:v2 forLanguages:v3 error:&v10];
   v4 = v10;
-  v5 = RXOSLog();
+  v5 = RXOSLog(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = *(a1 + 40);
@@ -1235,16 +1244,16 @@ void sub_1000094F8(uint64_t a1)
   *(v8 + 40) = v4;
 }
 
-void sub_1000098A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000098A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -1269,11 +1278,11 @@ void sub_1000098D0(void *a1)
   }
 }
 
-void sub_100009E54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100009E54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 96), 8);
+  _Block_object_dispose((v16 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1315,93 +1324,94 @@ void sub_10000A408(uint64_t a1, uint64_t a2, char a3)
 
 void sub_10000A4D8(uint64_t a1)
 {
-  if ([*(a1 + 32) _isActiveDownloadForLanguage:*(a1 + 40) downloadId:*(a1 + 64)])
+  v2 = [*(a1 + 32) _isActiveDownloadForLanguage:*(a1 + 40) downloadId:*(a1 + 64)];
+  if (v2)
   {
-    v2 = fmin(*(a1 + 56) / 100.0, 1.0);
-    v3 = +[NSDate date];
-    [v3 timeIntervalSinceDate:*(a1 + 48)];
-    v5 = v4;
+    v3 = fmin(*(a1 + 56) / 100.0, 1.0);
+    v4 = +[NSDate date];
+    [v4 timeIntervalSinceDate:*(a1 + 48)];
+    v6 = v5;
 
-    v6 = -1.0;
-    if (v2 > 0.0)
+    v7 = -1.0;
+    if (v3 > 0.0)
     {
-      v7 = 0.0;
-      if (v5 >= 0.0)
+      v8 = 0.0;
+      if (v6 >= 0.0)
       {
-        v7 = v5;
+        v8 = v6;
       }
 
-      v8 = v7;
-      v6 = (1.0 - v2) * v8 / v2;
+      v9 = v8;
+      v7 = (1.0 - v3) * v9 / v3;
     }
 
-    v9 = *(a1 + 68) * v2;
-    v10 = *(a1 + 32);
-    v11 = *(a1 + 40);
+    v10 = *(a1 + 68) * v3;
+    v11 = *(a1 + 32);
+    v12 = *(a1 + 40);
     if (*(a1 + 72))
     {
-      [v10 _stalledDownloadForLanguage:v11];
-      v12 = RXOSLog();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v13 = RXOSLog([v11 _stalledDownloadForLanguage:v12]);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = (v9 / *(a1 + 68));
-        v14 = *(a1 + 64);
-        v15 = [*(a1 + 32) _downloadStatusDescription];
-        v29 = 134218754;
-        *v30 = v13;
-        *&v30[8] = 2048;
-        *&v30[10] = v6;
-        v31 = 1024;
-        v32 = v14;
-        v33 = 2112;
+        v14 = (v10 / *(a1 + 68));
+        v15 = *(a1 + 64);
+        v16 = [*(a1 + 32) _downloadStatusDescription];
+        v31 = 134218754;
+        *v32 = v14;
+        *&v32[8] = 2048;
+        *&v32[10] = v7;
+        v33 = 1024;
         v34 = v15;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Asset Download Progress stalled at : %.2f ratio , ~%.2f seconds remaining, downloadId=%d, %@", &v29, 0x26u);
+        v35 = 2112;
+        v36 = v16;
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Asset Download Progress stalled at : %.2f ratio , ~%.2f seconds remaining, downloadId=%d, %@", &v31, 0x26u);
       }
 
       if ([*(a1 + 32) _sendCallback])
       {
-        v19 = *(a1 + 32);
-        v20 = *(a1 + 40);
-        LODWORD(v18) = *(a1 + 68);
-        v21 = @"Stalled";
-        LODWORD(v16) = -1.0;
+        v20 = *(a1 + 32);
+        v21 = *(a1 + 40);
+        LODWORD(v19) = *(a1 + 68);
+        v22 = @"Stalled";
+        LODWORD(v17) = -1.0;
 LABEL_20:
-        *&v17 = v9;
-        [v19 _sendDownloadCallbackDictionaryWithLanguage:v20 downloadPhase:v21 timeRemaining:0 bytesWritten:v16 bytesTotal:v17 error:v18];
+        *&v18 = v10;
+        [v20 _sendDownloadCallbackDictionaryWithLanguage:v21 downloadPhase:v22 timeRemaining:0 bytesWritten:v17 bytesTotal:v18 error:v19];
       }
     }
 
     else
     {
-      if ([v10 _isDownloadingStalledForLanguage:v11])
+      v26 = [v11 _isDownloadingStalledForLanguage:v12];
+      if (v26)
       {
-        [*(a1 + 32) _resumeStalledDownloadForLanguage:*(a1 + 40)];
+        v26 = [*(a1 + 32) _resumeStalledDownloadForLanguage:*(a1 + 40)];
       }
 
-      v25 = RXOSLog();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+      v27 = RXOSLog(v26);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
-        v26 = (v9 / *(a1 + 68));
-        v27 = *(a1 + 64);
-        v28 = [*(a1 + 32) _downloadStatusDescription];
-        v29 = 134218754;
-        *v30 = v26;
-        *&v30[8] = 2048;
-        *&v30[10] = v6;
-        v31 = 1024;
-        v32 = v27;
-        v33 = 2112;
-        v34 = v28;
-        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Asset Download progress: %.2f ratio , ~%.2f seconds remaining, downloadId=%d, %@", &v29, 0x26u);
+        v28 = (v10 / *(a1 + 68));
+        v29 = *(a1 + 64);
+        v30 = [*(a1 + 32) _downloadStatusDescription];
+        v31 = 134218754;
+        *v32 = v28;
+        *&v32[8] = 2048;
+        *&v32[10] = v7;
+        v33 = 1024;
+        v34 = v29;
+        v35 = 2112;
+        v36 = v30;
+        _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Asset Download progress: %.2f ratio , ~%.2f seconds remaining, downloadId=%d, %@", &v31, 0x26u);
       }
 
       if ([*(a1 + 32) _sendCallback])
       {
-        v19 = *(a1 + 32);
-        v20 = *(a1 + 40);
-        LODWORD(v18) = *(a1 + 68);
-        v21 = @"Downloading";
-        *&v16 = v6;
+        v20 = *(a1 + 32);
+        v21 = *(a1 + 40);
+        LODWORD(v19) = *(a1 + 68);
+        v22 = @"Downloading";
+        *&v17 = v7;
         goto LABEL_20;
       }
     }
@@ -1409,16 +1419,16 @@ LABEL_20:
 
   else
   {
-    v22 = RXOSLog();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v23 = RXOSLog(v2);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
-      v23 = *(a1 + 64);
-      v24 = [*(a1 + 32) _downloadStatusDescription];
-      v29 = 67109378;
-      *v30 = v23;
-      *&v30[4] = 2112;
-      *&v30[6] = v24;
-      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Ignoring non-active asset download progress downloadId=%d, %@", &v29, 0x12u);
+      v24 = *(a1 + 64);
+      v25 = [*(a1 + 32) _downloadStatusDescription];
+      v31 = 67109378;
+      *v32 = v24;
+      *&v32[4] = 2112;
+      *&v32[6] = v25;
+      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Ignoring non-active asset download progress downloadId=%d, %@", &v31, 0x12u);
     }
   }
 }
@@ -1448,104 +1458,106 @@ void sub_10000A7F8(uint64_t a1, void *a2, void *a3)
 
 void sub_10000A8E4(uint64_t a1)
 {
-  if ([*(a1 + 32) _isActiveDownloadForLanguage:*(a1 + 40) downloadId:*(a1 + 64)])
+  v2 = [*(a1 + 32) _isActiveDownloadForLanguage:*(a1 + 40) downloadId:*(a1 + 64)];
+  if (v2)
   {
     [*(a1 + 32) _endAllDownloadsForLanguage:*(a1 + 40)];
-    v2 = *(a1 + 48);
+    v3 = *(a1 + 48);
     if ([*(a1 + 56) length])
     {
-      v3 = sub_10000B448(*(a1 + 56), 0, @"DictationCC");
+      v4 = sub_10000B448(*(a1 + 56), 0, @"DictationCC");
     }
 
     else
     {
-      v3 = 0;
+      v4 = 0;
     }
 
-    if ([*(a1 + 56) length] && (v3 & 1) == 0)
+    v7 = [*(a1 + 56) length];
+    if (v7 && (v4 & 1) == 0)
     {
-      v33 = NSLocalizedFailureReasonErrorKey;
-      v34 = @"Asset is incompatible";
-      v6 = [NSDictionary dictionaryWithObjects:&v34 forKeys:&v33 count:1];
-      v7 = [NSError errorWithDomain:@"kRXAssetDownloadErrorDomain" code:101 userInfo:v6];
+      v36 = NSLocalizedFailureReasonErrorKey;
+      v37 = @"Asset is incompatible";
+      v8 = [NSDictionary dictionaryWithObjects:&v37 forKeys:&v36 count:1];
+      v9 = [NSError errorWithDomain:@"kRXAssetDownloadErrorDomain" code:101 userInfo:v8];
 
-      v2 = v7;
+      v3 = v9;
     }
 
-    v8 = RXOSLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = RXOSLog(v7);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = *(a1 + 56);
-      v10 = *(a1 + 64);
-      v11 = [*(a1 + 32) _downloadStatusDescription];
-      v25 = 138413314;
-      *v26 = v9;
-      *&v26[8] = 2112;
-      *&v26[10] = v2;
-      v27 = 1024;
-      v28 = v3;
-      v29 = 1024;
-      v30 = v10;
-      v31 = 2112;
-      v32 = v11;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Asset downloaded, assetPath=%@, error=%@, isCompatibleAsset=%d, downloadId=%d, %@", &v25, 0x2Cu);
+      v11 = *(a1 + 56);
+      v12 = *(a1 + 64);
+      v13 = [*(a1 + 32) _downloadStatusDescription];
+      v28 = 138413314;
+      *v29 = v11;
+      *&v29[8] = 2112;
+      *&v29[10] = v3;
+      v30 = 1024;
+      v31 = v4;
+      v32 = 1024;
+      v33 = v12;
+      v34 = 2112;
+      v35 = v13;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Asset downloaded, assetPath=%@, error=%@, isCompatibleAsset=%d, downloadId=%d, %@", &v28, 0x2Cu);
     }
 
-    v12 = RXOSLog();
-    v13 = v12;
-    if (v3)
+    v15 = RXOSLog(v14);
+    v16 = v15;
+    if (v4)
     {
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v25) = 0;
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Asset download successful", &v25, 2u);
+        LOWORD(v28) = 0;
+        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Asset download successful", &v28, 2u);
       }
 
-      v14 = *(a1 + 68);
+      v17 = *(a1 + 68);
       if ([*(a1 + 32) _sendCallback])
       {
-        LODWORD(v16) = *(a1 + 68);
-        LODWORD(v15) = v14;
-        [*(a1 + 32) _sendDownloadCallbackDictionaryWithLanguage:*(a1 + 40) downloadPhase:@"Downloading" timeRemaining:0 bytesWritten:0.0 bytesTotal:v15 error:v16];
-        LODWORD(v17) = *(a1 + 68);
-        LODWORD(v18) = v14;
-        [*(a1 + 32) _sendDownloadCallbackDictionaryWithLanguage:*(a1 + 40) downloadPhase:@"Downloaded" timeRemaining:0 bytesWritten:0.0 bytesTotal:v18 error:v17];
+        LODWORD(v19) = *(a1 + 68);
+        LODWORD(v18) = v17;
+        [*(a1 + 32) _sendDownloadCallbackDictionaryWithLanguage:*(a1 + 40) downloadPhase:@"Downloading" timeRemaining:0 bytesWritten:0.0 bytesTotal:v18 error:v19];
+        LODWORD(v20) = *(a1 + 68);
+        LODWORD(v21) = v17;
+        [*(a1 + 32) _sendDownloadCallbackDictionaryWithLanguage:*(a1 + 40) downloadPhase:@"Downloaded" timeRemaining:0 bytesWritten:0.0 bytesTotal:v21 error:v20];
       }
     }
 
     else
     {
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v25) = 0;
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "Asset download failed", &v25, 2u);
+        LOWORD(v28) = 0;
+        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "Asset download failed", &v28, 2u);
       }
 
       if ([*(a1 + 32) _sendCallback])
       {
-        v20 = *(a1 + 32);
-        v19 = *(a1 + 40);
-        v21 = [v2 description];
-        LODWORD(v22) = -1.0;
-        LODWORD(v23) = -1.0;
-        LODWORD(v24) = -1.0;
-        [v20 _sendDownloadCallbackDictionaryWithLanguage:v19 downloadPhase:@"DownloadFailed" timeRemaining:v21 bytesWritten:v22 bytesTotal:v23 error:v24];
+        v23 = *(a1 + 32);
+        v22 = *(a1 + 40);
+        v24 = [v3 description];
+        LODWORD(v25) = -1.0;
+        LODWORD(v26) = -1.0;
+        LODWORD(v27) = -1.0;
+        [v23 _sendDownloadCallbackDictionaryWithLanguage:v22 downloadPhase:@"DownloadFailed" timeRemaining:v24 bytesWritten:v25 bytesTotal:v26 error:v27];
       }
     }
   }
 
   else
   {
-    v2 = RXOSLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = RXOSLog(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = *(a1 + 64);
-      v5 = [*(a1 + 32) _downloadStatusDescription];
-      v25 = 67109378;
-      *v26 = v4;
-      *&v26[4] = 2112;
-      *&v26[6] = v5;
-      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Ignoring non-active asset download downloadId=%d, %@", &v25, 0x12u);
+      v5 = *(a1 + 64);
+      v6 = [*(a1 + 32) _downloadStatusDescription];
+      v28 = 67109378;
+      *v29 = v5;
+      *&v29[4] = 2112;
+      *&v29[6] = v6;
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Ignoring non-active asset download downloadId=%d, %@", &v28, 0x12u);
     }
   }
 }
@@ -1558,51 +1570,53 @@ id sub_10000B448(void *a1, void *a2, void *a3)
   {
     v7 = [v5 stringByAppendingPathComponent:@"mini.json"];
     v8 = +[NSFileManager defaultManager];
-    if (([v8 fileExistsAtPath:v7] & 1) == 0)
+    v9 = [v8 fileExistsAtPath:v7];
+    if ((v9 & 1) == 0)
     {
-      v9 = RXOSLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = RXOSLog(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v32 = @"mini.json";
-        v33 = 2112;
-        v34 = v7;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%@ does not exist at: %@ ", buf, 0x16u);
+        v34 = @"mini.json";
+        v35 = 2112;
+        v36 = v7;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%@ does not exist at: %@ ", buf, 0x16u);
       }
 
-      v13 = 0;
+      v15 = 0;
       goto LABEL_26;
     }
 
-    v9 = [NSData dataWithContentsOfFile:v7];
-    if (!v9)
+    v10 = [NSData dataWithContentsOfFile:v7];
+    if (!v10)
     {
-      v11 = RXOSLog();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v13 = RXOSLog(0);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v32 = v7;
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "could not read contents from : %@", buf, 0xCu);
+        v34 = v7;
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "could not read contents from : %@", buf, 0xCu);
       }
 
-      v13 = 0;
+      v15 = 0;
       goto LABEL_25;
     }
 
-    v30 = 0;
-    v10 = [NSJSONSerialization JSONObjectWithData:v9 options:0 error:&v30];
-    v11 = v30;
-    if (v11)
+    v32 = 0;
+    v11 = [NSJSONSerialization JSONObjectWithData:v10 options:0 error:&v32];
+    v12 = v32;
+    v13 = v12;
+    if (v12)
     {
-      v12 = RXOSLog();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v14 = RXOSLog(v12);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v32 = v7;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%@ : not a valid json", buf, 0xCu);
+        v34 = v7;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%@ : not a valid json", buf, 0xCu);
       }
 
-      v13 = 0;
+      v15 = 0;
     }
 
     else
@@ -1610,58 +1624,58 @@ id sub_10000B448(void *a1, void *a2, void *a3)
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        v13 = 0;
+        v15 = 0;
         goto LABEL_24;
       }
 
-      v12 = v10;
-      v14 = +[_EARSpeechRecognizer minimumSupportedConfigurationVersion];
-      [v14 floatValue];
-      v16 = v15;
+      v14 = v11;
+      v16 = +[_EARSpeechRecognizer minimumSupportedConfigurationVersion];
+      [v16 floatValue];
+      v18 = v17;
 
-      v17 = +[_EARSpeechRecognizer maximumSupportedConfigurationVersion];
-      [v17 floatValue];
-      v19 = v18;
+      v19 = +[_EARSpeechRecognizer maximumSupportedConfigurationVersion];
+      [v19 floatValue];
+      v21 = v20;
 
-      v20 = [v12 objectForKey:@"version-major"];
+      v22 = [v14 objectForKey:@"version-major"];
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) != 0 && ([v20 floatValue], v21 >= v16) && (objc_msgSend(v20, "floatValue"), v22 <= v19))
+      if ((objc_opt_isKindOfClass() & 1) != 0 && ([v22 floatValue], v23 >= v18) && (objc_msgSend(v22, "floatValue"), v24 <= v21))
       {
-        v29 = [v12 objectForKey:@"model-info"];
+        v31 = [v14 objectForKey:@"model-info"];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v27 = v29;
-          v28 = [v27 objectForKey:@"version"];
+          v29 = v31;
+          v30 = [v29 objectForKey:@"version"];
           objc_opt_class();
           isKindOfClass = objc_opt_isKindOfClass();
           if (a2 && (isKindOfClass & 1) != 0)
           {
-            *a2 = v28;
+            *a2 = v30;
           }
 
-          v25 = [v27 objectForKey:@"tasks"];
-          v26 = v25;
-          if ([v28 length] && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+          v27 = [v29 objectForKey:@"tasks"];
+          v28 = v27;
+          if ([v30 length] && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
           {
-            v13 = [v25 containsObject:v6];
+            v15 = [v27 containsObject:v6];
           }
 
           else
           {
-            v13 = 0;
+            v15 = 0;
           }
         }
 
         else
         {
-          v13 = 0;
+          v15 = 0;
         }
       }
 
       else
       {
-        v13 = 0;
+        v15 = 0;
       }
     }
 
@@ -1672,17 +1686,17 @@ LABEL_26:
     goto LABEL_27;
   }
 
-  v7 = RXOSLog();
+  v7 = RXOSLog(0);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "empty quasarModelPath", buf, 2u);
   }
 
-  v13 = 0;
+  v15 = 0;
 LABEL_27:
 
-  return v13;
+  return v15;
 }
 
 void RDMinions::LockReader(uint64_t a1, void *a2, void *a3, void *a4)
@@ -1690,7 +1704,7 @@ void RDMinions::LockReader(uint64_t a1, void *a2, void *a3, void *a4)
   v17 = a2;
   v7 = a3;
   v8 = a4;
-  sub_10000DE44(a1 + 120, &v17);
+  sub_10000DE44(a1 + 120, &v17, &v17);
   v9 = dispatch_get_global_queue(0, 0);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
@@ -1741,21 +1755,21 @@ void sub_10000BA10(uint64_t a1)
   _Block_object_dispose(v12, 8);
 }
 
-void sub_10000BB70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_10000BB70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_10000BBA4(unint64_t *a1)
+void sub_10000BBA4(void *a1)
 {
   v2 = a1[7];
   v3 = *(v2 + 128);
   if (!v3)
   {
 LABEL_7:
-    v6 = RXOSLog();
+    v6 = RXOSLog(a1);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
@@ -1791,7 +1805,7 @@ LABEL_6:
   if (!*(v2 + 168))
   {
     sub_10000E404(v2 + 120, a1 + 4);
-    sub_10000DE44(v2 + 144, a1 + 4);
+    sub_10000DE44(v2 + 144, a1 + 4, a1 + 4);
 LABEL_10:
     v7 = a1 + 5;
     v8 = 1;
@@ -1801,10 +1815,10 @@ LABEL_10:
   v7 = a1 + 6;
   if (*(*(a1[6] + 8) + 24) == 1)
   {
-    v9 = RXOSLog();
+    v9 = RXOSLog(a1);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v10[0] = 0;
+      *v10 = 0;
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "daemon waiting for read lock", v10, 2u);
     }
 
@@ -1816,18 +1830,18 @@ LABEL_11:
 
 id RDMinions::Summon(RDMinions *this)
 {
-  val[0] = 0;
+  val = 0;
   if (*(this + 11))
   {
-    val[0] = *(*(this + 9) + 32);
-    sub_10000E404(this + 72, val);
-    v2 = RXOSLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    val = *(*(this + 9) + 32);
+    v2 = sub_10000E404(this + 72, &val);
+    v3 = RXOSLog(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v3 = [val[0] processIdentifier];
+      v4 = [val processIdentifier];
       LODWORD(buf) = 67109120;
-      DWORD1(buf) = v3;
-      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_ERROR, "minion(%d) recycled.", &buf, 8u);
+      DWORD1(buf) = v4;
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "minion(%d) recycled.", &buf, 8u);
     }
   }
 
@@ -1835,75 +1849,75 @@ id RDMinions::Summon(RDMinions *this)
   {
     memset(out, 0, sizeof(out));
     uuid_generate(out);
-    v4 = [[NSXPCConnection alloc] initWithServiceName:@"com.apple.SpeechRecognitionCore.speechrecognitiond"];
-    v5 = val[0];
-    val[0] = v4;
+    v5 = [[NSXPCConnection alloc] initWithServiceName:@"com.apple.SpeechRecognitionCore.speechrecognitiond"];
+    v6 = val;
+    val = v5;
 
-    if (val[0])
+    if (val)
     {
-      v6 = [[NSUUID alloc] initWithUUIDBytes:out];
-      [val[0] _setUUID:v6];
+      v8 = [[NSUUID alloc] initWithUUIDBytes:out];
+      [val _setUUID:v8];
 
-      v7 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___SRDBrokerProtocol];
-      [val[0] setRemoteObjectInterface:v7];
+      v9 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___SRDBrokerProtocol];
+      [val setRemoteObjectInterface:v9];
 
-      objc_initWeak(&location, val[0]);
-      v8 = val[0];
-      v19[0] = _NSConcreteStackBlock;
-      v19[1] = 3221225472;
-      v19[2] = sub_10000C14C;
-      v19[3] = &unk_10001D020;
-      objc_copyWeak(&v20, &location);
-      [v8 setInvalidationHandler:v19];
-      [val[0] resume];
+      objc_initWeak(&location, val);
+      v10 = val;
+      v22[0] = _NSConcreteStackBlock;
+      v22[1] = 3221225472;
+      v22[2] = sub_10000C14C;
+      v22[3] = &unk_10001D020;
+      objc_copyWeak(&v23, &location);
+      [v10 setInvalidationHandler:v22];
+      [val resume];
       *&buf = 0;
       *(&buf + 1) = &buf;
-      v24 = 0x3032000000;
-      v25 = sub_10000C474;
-      v26 = sub_10000C484;
-      v27 = 0;
-      v9 = [val[0] synchronousRemoteObjectProxyWithErrorHandler:&stru_10001D060];
-      v18[0] = _NSConcreteStackBlock;
-      v18[1] = 3221225472;
-      v18[2] = sub_10000C490;
-      v18[3] = &unk_10001D088;
-      v18[4] = &buf;
-      [v9 brokerIntro:@"Hello" reply:v18];
-      v10 = os_transaction_create();
-      val[2] = val;
-      v11 = sub_10000F208(this + 96, val);
-      v12 = v11[5];
-      v11[5] = v10;
+      v28 = 0x3032000000;
+      v29 = sub_10000C474;
+      v30 = sub_10000C484;
+      v31 = 0;
+      v11 = [val synchronousRemoteObjectProxyWithErrorHandler:&stru_10001D060];
+      v21[0] = _NSConcreteStackBlock;
+      v21[1] = 3221225472;
+      v21[2] = sub_10000C490;
+      v21[3] = &unk_10001D088;
+      v21[4] = &buf;
+      [v11 brokerIntro:@"Hello" reply:v21];
+      v12 = os_transaction_create();
+      p_val = &val;
+      v13 = sub_10000F208(this + 96, &val, &unk_100014EE0, &p_val);
+      v14 = v13[5];
+      v13[5] = v12;
 
       _Block_object_dispose(&buf, 8);
-      objc_destroyWeak(&v20);
+      objc_destroyWeak(&v23);
       objc_destroyWeak(&location);
     }
 
     else
     {
-      v13 = RXOSLog();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v16 = RXOSLog(v7);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         LODWORD(buf) = 136315138;
         *(&buf + 4) = out;
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "Unable to create new minion instance %s", &buf, 0xCu);
+        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "Unable to create new minion instance %s", &buf, 0xCu);
       }
     }
 
-    v14 = RXOSLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v17 = RXOSLog(v15);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = [val[0] processIdentifier];
+      v18 = [val processIdentifier];
       LODWORD(buf) = 67109120;
-      DWORD1(buf) = v15;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "minion(%d) created.", &buf, 8u);
+      DWORD1(buf) = v18;
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "minion(%d) created.", &buf, 8u);
     }
   }
 
-  v16 = val[0];
+  v19 = val;
 
-  return v16;
+  return v19;
 }
 
 void sub_10000C14C(uint64_t a1)
@@ -1915,12 +1929,12 @@ void sub_10000C14C(uint64_t a1)
 void sub_10000C1A8(void *a1)
 {
   v1 = a1;
-  v17 = v1;
-  v2 = RXOSLog();
+  v19 = v1;
+  v2 = RXOSLog(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v19[0] = v1;
+    v21[0] = v1;
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Releasing minion %p\n", buf, 0xCu);
   }
 
@@ -1936,24 +1950,24 @@ void sub_10000C1A8(void *a1)
       }
 
 LABEL_12:
-      if (sub_10000E404(v3 + 104, &v17))
+      if (sub_10000E404(v3 + 104, &v19))
       {
-        sub_10000DE44(v3 + 128, &v17);
-        v11 = RXOSLog();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        v16 = sub_10000DE44(v3 + 128, &v19, &v19);
+        v12 = RXOSLog(v16);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
-          v15 = [v17 processIdentifier];
-          v16 = (v3 + 32);
+          v17 = [v19 processIdentifier];
+          v18 = (v3 + 32);
           if (*(v3 + 55) < 0)
           {
-            v16 = *v16;
+            v18 = *v18;
           }
 
           *buf = 67109378;
-          LODWORD(v19[0]) = v15;
-          WORD2(v19[0]) = 2080;
-          *(v19 + 6) = v16;
-          v14 = "daemon(%d) [%s] is now idle (was batch).";
+          LODWORD(v21[0]) = v17;
+          WORD2(v21[0]) = 2080;
+          *(v21 + 6) = v18;
+          v15 = "daemon(%d) [%s] is now idle (was batch).";
           goto LABEL_25;
         }
 
@@ -1993,7 +2007,7 @@ LABEL_26:
       }
     }
 
-    while (v4[8] != v17)
+    while (v4[8] != v19)
     {
       v5 = v4[1];
       if (v5)
@@ -2031,24 +2045,24 @@ LABEL_26:
     if (!v10)
     {
       sub_10000F11C((v3 + 80), v4 + 4);
-      sub_10000DE44(v3 + 128, &v17);
-      v11 = RXOSLog();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v11 = sub_10000DE44(v3 + 128, &v19, &v19);
+      v12 = RXOSLog(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = [v17 processIdentifier];
-        v13 = (v3 + 32);
+        v13 = [v19 processIdentifier];
+        v14 = (v3 + 32);
         if (*(v3 + 55) < 0)
         {
-          v13 = *v13;
+          v14 = *v14;
         }
 
         *buf = 67109378;
-        LODWORD(v19[0]) = v12;
-        WORD2(v19[0]) = 2080;
-        *(v19 + 6) = v13;
-        v14 = "daemon(%d) [%s] is now idle (was live).";
+        LODWORD(v21[0]) = v13;
+        WORD2(v21[0]) = 2080;
+        *(v21 + 6) = v14;
+        v15 = "daemon(%d) [%s] is now idle (was live).";
 LABEL_25:
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, v14, buf, 0x12u);
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, v15, buf, 0x12u);
       }
 
       goto LABEL_26;
@@ -2085,15 +2099,15 @@ void RDRecognizers::RDRecognizers(RDRecognizers *this)
   notify_register_dispatch("com.apple.sessionagent.screenIsUnlocked", &v1, &_dispatch_main_q, &stru_10001D0E8);
 }
 
-void sub_10000C590(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_10000C590(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
 
   sub_10000F338(va);
   _Unwind_Resume(a1);
 }
 
-unint64_t RDRecognizers::UpdateRecognizer(uint64_t a1, void *a2, void *a3)
+unint64_t RDRecognizers::UpdateRecognizer(uint64_t *a1, void *a2, void *a3)
 {
   v6 = a2;
   v7 = a3;
@@ -2101,12 +2115,12 @@ unint64_t RDRecognizers::UpdateRecognizer(uint64_t a1, void *a2, void *a3)
   v16 = xpc_dictionary_get_value(v7, kRDKeyWantFeedback[0]);
   if (v16)
   {
-    if ((int64 & 0x8000000000000000) != 0 || (v17 = *a1, int64 >= 0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 8) - *a1) >> 3)))
+    if ((int64 & 0x8000000000000000) != 0 || (v17 = *a1, int64 >= 0xCCCCCCCCCCCCCCCDLL * ((a1[1] - *a1) >> 3)))
     {
-      v19 = *(a1 + 32);
+      v19 = a1[4];
       if (v19)
       {
-        *(a1 + 32) = v19 - 1;
+        a1[4] = v19 - 1;
         v17 = *a1;
         v20 = 40 * int64 + 40;
         do
@@ -2121,9 +2135,9 @@ unint64_t RDRecognizers::UpdateRecognizer(uint64_t a1, void *a2, void *a3)
 
       else
       {
-        v25 = *(a1 + 8);
+        v25 = a1[1];
         int64 = 0xCCCCCCCCCCCCCCCDLL * ((v25 - *a1) >> 3);
-        v26 = *(a1 + 16);
+        v26 = a1[2];
         if (v25 >= v26)
         {
           if (int64 + 1 > 0x666666666666666)
@@ -2162,7 +2176,7 @@ unint64_t RDRecognizers::UpdateRecognizer(uint64_t a1, void *a2, void *a3)
           *(v31 + 32) = 0;
           v39[2] = 40 * int64 + 40;
           sub_10000F3B8(a1, v39);
-          v27 = *(a1 + 8);
+          v27 = a1[1];
           sub_10000F4F0(v39);
         }
 
@@ -2170,15 +2184,15 @@ unint64_t RDRecognizers::UpdateRecognizer(uint64_t a1, void *a2, void *a3)
         {
           *v25 = 0;
           v25[4] = 0;
-          v27 = v25 + 5;
+          v27 = (v25 + 5);
         }
 
-        *(a1 + 8) = v27;
+        a1[1] = v27;
         v17 = *a1;
       }
 
-      v32 = *(a1 + 24);
-      *(a1 + 24) = v32 + 1;
+      v32 = *(a1 + 6);
+      *(a1 + 6) = v32 + 1;
       *(v17 + 40 * int64 + 16) = v32;
       v18 = 1;
     }
@@ -2230,7 +2244,7 @@ LABEL_40:
     goto LABEL_41;
   }
 
-  if ((int64 & 0x8000000000000000) == 0 && int64 < 0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 8) - *a1) >> 3))
+  if ((int64 & 0x8000000000000000) == 0 && int64 < 0xCCCCCCCCCCCCCCCDLL * ((a1[1] - *a1) >> 3))
   {
     v22 = *a1 + 40 * int64;
     v23 = *(v22 + 32);
@@ -2243,7 +2257,7 @@ LABEL_40:
     v24 = *v22;
     *v22 = 0;
 
-    ++*(a1 + 32);
+    ++a1[4];
     goto LABEL_40;
   }
 
@@ -2254,12 +2268,13 @@ LABEL_41:
   return int64;
 }
 
-void sub_10000C938(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void sub_10000C938(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  v9 = CFStringCreateWithFormatAndArguments(0, 0, @"Received invalid recognizer ID in UpdateRecognizer %lld", &a9);
-  ExternalRepresentation = CFStringCreateExternalRepresentation(0, v9, 0x8000100u, 0);
-  CFRelease(v9);
-  v11 = RXOSLog();
+  va_start(va, a8);
+  v8 = CFStringCreateWithFormatAndArguments(0, 0, @"Received invalid recognizer ID in UpdateRecognizer %lld", va);
+  ExternalRepresentation = CFStringCreateExternalRepresentation(0, v8, 0x8000100u, 0);
+  CFRelease(v8);
+  v11 = RXOSLog(v10);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
     *buf = 68157954;
@@ -2318,7 +2333,7 @@ void sub_10000CB58(void *a1)
 {
   v1 = a1;
   v4 = v1;
-  v2 = RXOSLog();
+  v2 = RXOSLog(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -2333,7 +2348,7 @@ void sub_10000CCC4(uint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = *(a1 + 32);
-  v90 = v4;
+  v93 = v4;
   xdict = v3;
   type = xpc_get_type(xdict);
   if (type != &_xpc_type_error)
@@ -2455,9 +2470,9 @@ void sub_10000CCC4(uint64_t a1, void *a2)
           v26 = xpc_array_get_string(v22, i);
           v27 = CFStringCreateWithCStringNoCopy(0, v26, 0x8000100u, kCFAllocatorNull);
           MutableCopy = CFStringCreateMutableCopy(0, 0, v27);
-          v97.length = CFStringGetLength(v27);
-          v97.location = 0;
-          CFStringFindAndReplace(MutableCopy, @"_", @"-", v97, 0);
+          v101.length = CFStringGetLength(v27);
+          v101.location = 0;
+          CFStringFindAndReplace(MutableCopy, @"_", @"-", v101, 0);
           if (RXEngineTypeForLocaleIdentifier() == 1)
           {
             CFArrayAppendValue(Mutable, MutableCopy);
@@ -2465,18 +2480,18 @@ void sub_10000CCC4(uint64_t a1, void *a2)
 
           CFRelease(MutableCopy);
           v29 = CFStringCreateMutableCopy(0, 0, v27);
-          v98.length = CFStringGetLength(v27);
-          v98.location = 0;
-          CFStringFindAndReplace(v29, @"-", @"_", v98, 0);
+          v102.length = CFStringGetLength(v27);
+          v102.location = 0;
+          CFStringFindAndReplace(v29, @"-", @"_", v102, 0);
           CFRelease(v27);
           v30 = RXGetAssetFallbackLocaleIdentifier();
           CFRelease(v29);
           if (v30)
           {
             v31 = CFStringCreateMutableCopy(0, 0, v30);
-            v99.length = CFStringGetLength(v30);
-            v99.location = 0;
-            CFStringFindAndReplace(v31, @"_", @"-", v99, 0);
+            v103.length = CFStringGetLength(v30);
+            v103.location = 0;
+            CFStringFindAndReplace(v31, @"_", @"-", v103, 0);
             if (RXEngineTypeForLocaleIdentifier() == 1)
             {
               CFArrayAppendValue(Mutable, v31);
@@ -2528,17 +2543,17 @@ LABEL_63:
         {
           if (int64 == 999)
           {
-            v80 = RXOSLog();
-            if (os_log_type_enabled(v80, OS_LOG_TYPE_DEFAULT))
+            v83 = RXOSLog(999);
+            if (os_log_type_enabled(v83, OS_LOG_TYPE_DEFAULT))
             {
               pid = xpc_connection_get_pid(v4);
-              sub_1000126EC(buf, pid, v80);
+              sub_1000126EC(buf, pid, v83);
             }
 
             abort();
           }
 
-          v21 = RXOSLog();
+          v21 = RXOSLog(int64);
           if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
           {
             *buf = 67109376;
@@ -2559,7 +2574,7 @@ LABEL_96:
         +[_TtC39com_apple_SpeechRecognitionCore_brokerd16VCVocabularySync sync];
         reply = xpc_dictionary_create_reply(xdict);
         v39 = xpc_dictionary_get_string(xdict, kRDKeyLocale[0]);
-        sub_10000E1A4(&v89, v39);
+        sub_10000E1A4(&v92, v39);
         if ((xpc_dictionary_get_uint64(xdict, kRDKeyOptions[0]) & 0x400000) != 0)
         {
           v40 = ".q";
@@ -2575,28 +2590,28 @@ LABEL_96:
           v40 = ".n";
         }
 
-        std::string::append(&v89, v40);
+        std::string::append(&v92, v40);
 LABEL_72:
-        if ((v89.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        if ((v92.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v57 = &v89;
+          v57 = &v92;
         }
 
         else
         {
-          v57 = v89.__r_.__value_.__r.__words[0];
+          v57 = v92.__r_.__value_.__r.__words[0];
         }
 
         sub_10000E1A4(buf, v57);
         __p[0] = buf;
-        v58 = sub_10000E9A8(&sMinions, buf);
+        v58 = sub_10000E9A8(&sMinions, buf, &unk_100014EE0, __p);
         if ((buf[23] & 0x80000000) != 0)
         {
           operator delete(*buf);
         }
 
         v59 = (v58 + 56);
-        v88 = 0;
+        v91 = 0;
         v60 = *(v58 + 79);
         if (v60 < 0)
         {
@@ -2611,52 +2626,52 @@ LABEL_72:
 
         if (!xpc_dictionary_get_BOOL(xdict, kRDKeyLiveAudio[0]))
         {
-          v88 = RDMinions::Summon((v58 + 56));
-          if (!v88)
+          v91 = RDMinions::Summon((v58 + 56));
+          if (!v91)
           {
             goto LABEL_107;
           }
 
-          sub_10000DE44(v58 + 104, &v88);
-          v72 = RXOSLog();
-          if (os_log_type_enabled(v72, OS_LOG_TYPE_INFO))
+          v73 = sub_10000DE44(v58 + 104, &v91, &v91);
+          v74 = RXOSLog(v73);
+          if (os_log_type_enabled(v74, OS_LOG_TYPE_INFO))
           {
             *buf = 134217984;
-            *&buf[4] = v88;
-            _os_log_impl(&_mh_execute_header, v72, OS_LOG_TYPE_INFO, "BrokerConnection: Summoning new batch minion %p", buf, 0xCu);
+            *&buf[4] = v91;
+            _os_log_impl(&_mh_execute_header, v74, OS_LOG_TYPE_INFO, "BrokerConnection: Summoning new batch minion %p", buf, 0xCu);
           }
 
-          v73 = v88;
+          v75 = v91;
 LABEL_105:
-          if (v73)
+          if (v75)
           {
             __p[0] = 0;
             __p[1] = __p;
-            v84 = 0x3032000000;
-            v85 = sub_10000C474;
-            v86 = sub_10000C484;
-            v87 = 0;
-            v78 = [v73 remoteObjectProxy];
+            v87 = 0x3032000000;
+            v88 = sub_10000C474;
+            v89 = sub_10000C484;
+            v90 = 0;
+            v81 = [v75 remoteObjectProxy];
             *buf = _NSConcreteStackBlock;
             *&buf[8] = 3221225472;
             *&buf[16] = sub_10000E25C;
             *&buf[24] = &unk_10001D138;
-            v95 = __p;
-            v79 = reply;
-            v92 = v79;
-            v93 = v88;
-            v94 = v4;
-            v96 = v59;
-            [v78 brokerIntro:@"Hello" reply:buf];
+            v99 = __p;
+            v82 = reply;
+            v96 = v82;
+            v97 = v91;
+            v98 = v4;
+            v100 = v59;
+            [v81 brokerIntro:@"Hello" reply:buf];
 
             _Block_object_dispose(__p, 8);
             reply = 0;
           }
 
 LABEL_107:
-          if (SHIBYTE(v89.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v92.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v89.__r_.__value_.__l.__data_);
+            operator delete(v92.__r_.__value_.__l.__data_);
           }
 
 LABEL_64:
@@ -2681,69 +2696,70 @@ LABEL_64:
 
         sub_10000E1A4(__p, v63);
         *buf = __p;
-        v64 = sub_10000EDF4(v58 + 80, __p);
-        if (*(v64 + 64))
+        v64 = sub_10000EDF4((v58 + 80), __p, &unk_100014EE0, buf, &v94);
+        v65 = v64;
+        if (v64[8])
         {
-          v65 = RXOSLog();
-          if (!os_log_type_enabled(v65, OS_LOG_TYPE_DEFAULT))
+          v66 = RXOSLog(v64);
+          if (!os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
           {
             goto LABEL_103;
           }
 
-          v66 = *(v64 + 64);
-          v67 = [v66 processIdentifier];
-          v68 = __p;
-          if (v84 < 0)
+          v67 = v65[8];
+          v68 = [v67 processIdentifier];
+          v69 = __p;
+          if (v87 < 0)
           {
-            v68 = __p[0];
+            v69 = __p[0];
           }
 
           *buf = 134218498;
-          *&buf[4] = v66;
+          *&buf[4] = v67;
           *&buf[12] = 1024;
-          *&buf[14] = v67;
+          *&buf[14] = v68;
           *&buf[18] = 2080;
-          *&buf[20] = v68;
-          v69 = "BrokerConnection: Using existing live minion %p[%d] for audio device %s";
-          v70 = v65;
-          v71 = 28;
+          *&buf[20] = v69;
+          v70 = "BrokerConnection: Using existing live minion %p[%d] for audio device %s";
+          v71 = v66;
+          v72 = 28;
         }
 
         else
         {
-          v74 = RDMinions::Summon(v59);
-          v75 = *(v64 + 64);
-          *(v64 + 64) = v74;
+          v76 = RDMinions::Summon(v59);
+          v77 = v65[8];
+          v65[8] = v76;
 
-          v65 = RXOSLog();
-          if (!os_log_type_enabled(v65, OS_LOG_TYPE_DEFAULT))
+          v66 = RXOSLog(v78);
+          if (!os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
           {
             goto LABEL_103;
           }
 
-          v76 = *(v64 + 64);
-          v77 = __p;
-          if (v84 < 0)
+          v79 = v65[8];
+          v80 = __p;
+          if (v87 < 0)
           {
-            v77 = __p[0];
+            v80 = __p[0];
           }
 
           *buf = 134218242;
-          *&buf[4] = v76;
+          *&buf[4] = v79;
           *&buf[12] = 2080;
-          *&buf[14] = v77;
-          v69 = "BrokerConnection: Summoning new live minion %p for audio device %s";
-          v70 = v65;
-          v71 = 22;
+          *&buf[14] = v80;
+          v70 = "BrokerConnection: Summoning new live minion %p for audio device %s";
+          v71 = v66;
+          v72 = 22;
         }
 
-        _os_log_impl(&_mh_execute_header, v70, OS_LOG_TYPE_DEFAULT, v69, buf, v71);
+        _os_log_impl(&_mh_execute_header, v71, OS_LOG_TYPE_DEFAULT, v70, buf, v72);
 LABEL_103:
 
-        v73 = *(v64 + 64);
-        v88 = v73;
-        ++*(v64 + 56);
-        if (SHIBYTE(v84) < 0)
+        v75 = v65[8];
+        v91 = v75;
+        ++v65[7];
+        if (SHIBYTE(v87) < 0)
         {
           operator delete(__p[0]);
         }
@@ -2755,7 +2771,7 @@ LABEL_103:
   v11 = xdict == &_xpc_error_connection_invalid || xdict == &_xpc_error_connection_interrupted;
   if (v11)
   {
-    v12 = RXOSLog();
+    v12 = RXOSLog(type);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       v13 = xpc_connection_get_pid(v4);
@@ -2817,14 +2833,14 @@ LABEL_103:
       RDLanguageAssets::RemovePeerForProgressCallback(v4);
     }
 
-    sub_10000E404(&qword_100020E20, &v90);
+    sub_10000E404(&qword_100020E20, &v93);
     sub_10000E8A4(context, context[1]);
     operator delete();
   }
 
   if (xdict == &_xpc_error_termination_imminent)
   {
-    v20 = RXOSLog();
+    v20 = RXOSLog(type);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
@@ -2836,48 +2852,48 @@ LABEL_103:
 LABEL_97:
 }
 
-void *sub_10000DE44(uint64_t a1, unint64_t *a2)
+void *sub_10000DE44(uint64_t a1, unint64_t *a2, id *a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = v3[4];
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t *sub_10000DF30(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *sub_10000DF30(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -2925,12 +2941,12 @@ uint64_t *sub_10000E008(uint64_t *result, uint64_t *a2)
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -2944,22 +2960,22 @@ uint64_t *sub_10000E008(uint64_t *result, uint64_t *a2)
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -2993,13 +3009,13 @@ uint64_t *sub_10000E008(uint64_t *result, uint64_t *a2)
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -3041,7 +3057,7 @@ uint64_t *sub_10000E008(uint64_t *result, uint64_t *a2)
   return result;
 }
 
-_BYTE *sub_10000E1A4(_BYTE *a1, char *__s)
+void *sub_10000E1A4(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -3055,13 +3071,13 @@ _BYTE *sub_10000E1A4(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -3070,7 +3086,7 @@ void sub_10000E25C(uint64_t a1, void *a2)
   v4 = a2;
   objc_storeStrong((*(*(a1 + 56) + 8) + 40), a2);
   v5 = [*(*(*(a1 + 56) + 8) + 40) _endpoint];
-  v6 = RXOSLog();
+  v6 = RXOSLog(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -3083,7 +3099,7 @@ void sub_10000E25C(uint64_t a1, void *a2)
   xpc_dictionary_set_uint64(*(a1 + 32), kRDKeyObjectID[0], *(a1 + 40));
   context = xpc_connection_get_context(*(a1 + 48));
   *buf = a1 + 40;
-  v8 = sub_10000F02C(context, (a1 + 40));
+  v8 = sub_10000F02C(context, (a1 + 40), &unk_100014EE0, buf);
   ++v8[5];
   RDMinions::LockReader(*(a1 + 64), *(a1 + 40), *(a1 + 48), *(a1 + 32));
 }
@@ -3121,7 +3137,7 @@ uint64_t sub_10000E404(uint64_t a1, unint64_t *a2)
   return 1;
 }
 
-uint64_t *sub_10000E474(uint64_t **a1, uint64_t a2)
+uint64_t *sub_10000E474(uint64_t **a1, id *a2)
 {
   v3 = sub_10000E4B0(a1, a2);
 
@@ -3259,31 +3275,30 @@ LABEL_8:
 
   while (1)
   {
-    v12 = v7[2];
+    v12 = *(v7 + 16);
     v13 = *v12;
-    v14 = *(v7 + 24);
     if (*v12 == v7)
     {
       break;
     }
 
-    if ((v7[3] & 1) == 0)
+    if ((*(v7 + 24) & 1) == 0)
     {
       *(v7 + 24) = 1;
       *(v12 + 24) = 0;
-      v15 = v12[1];
-      v16 = *v15;
-      v12[1] = *v15;
-      if (v16)
+      v14 = v12[1];
+      v15 = *v14;
+      v12[1] = *v14;
+      if (v15)
       {
-        *(v16 + 16) = v12;
+        *(v15 + 16) = v12;
       }
 
-      v17 = v12[2];
-      v15[2] = v17;
-      v17[*v17 != v12] = v15;
-      *v15 = v12;
-      v12[2] = v15;
+      v16 = v12[2];
+      v14[2] = v16;
+      v16[*v16 != v12] = v14;
+      *v14 = v12;
+      v12[2] = v14;
       if (result == *v7)
       {
         result = v7;
@@ -3292,173 +3307,173 @@ LABEL_8:
       v7 = *(*v7 + 8);
     }
 
-    v18 = *v7;
-    if (*v7 && *(v18 + 24) != 1)
+    v17 = *v7;
+    if (*v7 && *(v17 + 24) != 1)
     {
-      v19 = v7[1];
-      if (!v19)
+      v18 = *(v7 + 8);
+      if (!v18)
       {
         goto LABEL_55;
       }
 
 LABEL_54:
-      if (*(v19 + 24) == 1)
+      if (*(v18 + 24) == 1)
       {
 LABEL_55:
-        *(v18 + 24) = 1;
+        *(v17 + 24) = 1;
         *(v7 + 24) = 0;
-        v27 = v18[1];
-        *v7 = v27;
-        if (v27)
+        v26 = *(v17 + 8);
+        *v7 = v26;
+        if (v26)
         {
-          *(v27 + 16) = v7;
+          *(v26 + 16) = v7;
         }
 
-        v28 = v7[2];
-        v18[2] = v28;
-        v28[*v28 != v7] = v18;
-        v18[1] = v7;
-        v7[2] = v18;
-        v19 = v7;
+        v27 = *(v7 + 16);
+        *(v17 + 16) = v27;
+        v27[*v27 != v7] = v17;
+        *(v17 + 8) = v7;
+        *(v7 + 16) = v17;
+        v18 = v7;
       }
 
       else
       {
-        v18 = v7;
+        v17 = v7;
       }
 
-      v29 = v18[2];
-      *(v18 + 24) = *(v29 + 24);
-      *(v29 + 24) = 1;
-      *(v19 + 24) = 1;
-      v30 = *(v29 + 8);
-      v31 = *v30;
-      *(v29 + 8) = *v30;
-      if (v31)
+      v28 = *(v17 + 16);
+      *(v17 + 24) = *(v28 + 24);
+      *(v28 + 24) = 1;
+      *(v18 + 24) = 1;
+      v29 = *(v28 + 8);
+      v30 = *v29;
+      *(v28 + 8) = *v29;
+      if (v30)
       {
-        *(v31 + 16) = v29;
+        *(v30 + 16) = v28;
       }
 
-      v32 = *(v29 + 16);
-      v30[2] = v32;
-      v32[*v32 != v29] = v30;
-      *v30 = v29;
+      v31 = *(v28 + 16);
+      v29[2] = v31;
+      v31[*v31 != v28] = v29;
+      *v29 = v28;
       goto LABEL_72;
     }
 
-    v19 = v7[1];
-    if (v19 && *(v19 + 24) != 1)
+    v18 = *(v7 + 8);
+    if (v18 && *(v18 + 24) != 1)
     {
       goto LABEL_54;
     }
 
     *(v7 + 24) = 0;
-    v20 = v7[2];
-    if (v20 == result || (v20[3] & 1) == 0)
+    v19 = *(v7 + 16);
+    if (v19 == result || (v19[3] & 1) == 0)
     {
       goto LABEL_52;
     }
 
 LABEL_49:
-    v7 = *(v20[2] + 8 * (*v20[2] == v20));
+    v7 = *(v19[2] + 8 * (*v19[2] == v19));
   }
 
-  if ((v7[3] & 1) == 0)
+  if ((*(v7 + 24) & 1) == 0)
   {
     *(v7 + 24) = 1;
     *(v12 + 24) = 0;
-    v21 = v13[1];
-    *v12 = v21;
-    if (v21)
+    v20 = *(v13 + 8);
+    *v12 = v20;
+    if (v20)
     {
-      *(v21 + 16) = v12;
+      *(v20 + 16) = v12;
     }
 
-    v22 = v12[2];
-    v13[2] = v22;
-    v22[*v22 != v12] = v13;
-    v13[1] = v12;
+    v21 = v12[2];
+    *(v13 + 16) = v21;
+    v21[*v21 != v12] = v13;
+    *(v13 + 8) = v12;
     v12[2] = v13;
-    v23 = v7[1];
-    if (result == v23)
+    v22 = *(v7 + 8);
+    if (result == v22)
     {
       result = v7;
     }
 
-    v7 = *v23;
+    v7 = *v22;
   }
 
-  v24 = *v7;
-  if (*v7 && *(v24 + 24) != 1)
+  v23 = *v7;
+  if (*v7 && *(v23 + 24) != 1)
   {
     goto LABEL_68;
   }
 
-  v25 = v7[1];
-  if (!v25 || *(v25 + 24) == 1)
+  v24 = *(v7 + 8);
+  if (!v24 || *(v24 + 24) == 1)
   {
     *(v7 + 24) = 0;
-    v20 = v7[2];
-    if (*(v20 + 24) != 1 || v20 == result)
+    v19 = *(v7 + 16);
+    if (*(v19 + 24) != 1 || v19 == result)
     {
 LABEL_52:
-      *(v20 + 24) = 1;
+      *(v19 + 24) = 1;
       return result;
     }
 
     goto LABEL_49;
   }
 
-  if (!v24)
+  if (!v23)
   {
     goto LABEL_65;
   }
 
-  if (v24[3])
+  if (*(v23 + 24))
   {
-    v25 = v7[1];
+    v24 = *(v7 + 8);
 LABEL_65:
-    *(v25 + 24) = 1;
+    *(v24 + 24) = 1;
     *(v7 + 24) = 0;
-    v33 = *v25;
-    v7[1] = *v25;
-    if (v33)
+    v32 = *v24;
+    *(v7 + 8) = *v24;
+    if (v32)
     {
-      *(v33 + 16) = v7;
+      *(v32 + 16) = v7;
     }
 
-    v34 = v7[2];
-    v25[2] = v34;
-    v34[*v34 != v7] = v25;
-    *v25 = v7;
-    v7[2] = v25;
-    v24 = v7;
+    v33 = *(v7 + 16);
+    *(v24 + 16) = v33;
+    v33[*v33 != v7] = v24;
+    *v24 = v7;
+    *(v7 + 16) = v24;
+    v23 = v7;
   }
 
   else
   {
 LABEL_68:
-    v25 = v7;
+    v24 = v7;
   }
 
-  v29 = v25[2];
-  *(v25 + 24) = *(v29 + 24);
-  *(v29 + 24) = 1;
-  *(v24 + 24) = 1;
-  v30 = *v29;
-  v35 = *(*v29 + 8);
-  *v29 = v35;
-  if (v35)
+  v28 = *(v24 + 16);
+  *(v24 + 24) = *(v28 + 24);
+  *(v28 + 24) = 1;
+  *(v23 + 24) = 1;
+  v29 = *v28;
+  v34 = *(*v28 + 8);
+  *v28 = v34;
+  if (v34)
   {
-    *(v35 + 16) = v29;
+    *(v34 + 16) = v28;
   }
 
-  v36 = *(v29 + 16);
-  v30[2] = v36;
-  v36[*v36 != v29] = v30;
-  v30[1] = v29;
+  v35 = *(v28 + 16);
+  v29[2] = v35;
+  v35[*v35 != v28] = v29;
+  v29[1] = v28;
 LABEL_72:
-  *(v29 + 16) = v30;
+  *(v28 + 16) = v29;
   return result;
 }
 
@@ -3485,20 +3500,20 @@ std::logic_error *sub_10000E974(std::logic_error *a1, const char *a2)
   return result;
 }
 
-uint64_t sub_10000E9A8(uint64_t a1, const void **a2)
+uint64_t sub_10000E9A8(uint64_t **a1, const void **a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = *sub_10000EABC(a1, &v4, a2);
-  if (!v2)
+  v4 = *sub_10000EABC(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
-uint64_t sub_10000EABC(uint64_t a1, uint64_t *a2, const void **a3)
+uint64_t *sub_10000EABC(uint64_t a1, const void ***a2, const void **a3)
 {
-  v5 = a1 + 8;
+  v5 = (a1 + 8);
   v4 = *(a1 + 8);
   if (v4)
   {
@@ -3507,7 +3522,7 @@ uint64_t sub_10000EABC(uint64_t a1, uint64_t *a2, const void **a3)
       while (1)
       {
         v8 = v4;
-        if (!sub_10000EBA4(a1, a3, (v4 + 32)))
+        if (!sub_10000EBA4(a1, a3, v4 + 4))
         {
           break;
         }
@@ -3520,13 +3535,13 @@ uint64_t sub_10000EABC(uint64_t a1, uint64_t *a2, const void **a3)
         }
       }
 
-      if (!sub_10000EBA4(a1, (v8 + 32), a3))
+      if (!sub_10000EBA4(a1, v8 + 4, a3))
       {
         break;
       }
 
-      v5 = v8 + 8;
-      v4 = *(v8 + 8);
+      v5 = v8 + 1;
+      v4 = v8[1];
     }
 
     while (v4);
@@ -3534,7 +3549,7 @@ uint64_t sub_10000EABC(uint64_t a1, uint64_t *a2, const void **a3)
 
   else
   {
-    v8 = a1 + 8;
+    v8 = (a1 + 8);
   }
 
 LABEL_9:
@@ -3542,7 +3557,7 @@ LABEL_9:
   return v5;
 }
 
-uint64_t sub_10000EB58(uint64_t a1)
+char **sub_10000EB58(char **a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -3685,15 +3700,15 @@ void sub_10000EDA4(uint64_t a1)
   }
 }
 
-uint64_t sub_10000EDF4(uint64_t a1, const void **a2)
+void *sub_10000EDF4(uint64_t **a1, const void **a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v2 = *sub_10000EABC(a1, &v4, a2);
-  if (!v2)
+  v5 = *sub_10000EABC(a1, &v7, a2);
+  if (!v5)
   {
     sub_10000EE9C();
   }
 
-  return v2;
+  return v5;
 }
 
 uint64_t sub_10000EF3C(uint64_t a1)
@@ -3731,41 +3746,41 @@ void *sub_10000EF88(_BYTE *__dst, void *__src, unint64_t a3)
   return memmove(__dst, __src, v3);
 }
 
-void *sub_10000F02C(uint64_t a1, unint64_t *a2)
+void *sub_10000F02C(uint64_t a1, unint64_t *a2, uint64_t a3, id **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = v4[4];
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -3827,41 +3842,41 @@ uint64_t sub_10000F178(uint64_t a1, const void **a2)
   return v6;
 }
 
-void *sub_10000F208(uint64_t a1, unint64_t *a2)
+void *sub_10000F208(uint64_t a1, unint64_t *a2, uint64_t a3, id **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = v4[4];
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -3998,39 +4013,37 @@ uint64_t static VCVocabularySync.listenForExternalChanges()()
 {
   v1 = sub_1000128A4();
   v2 = *(v1 - 8);
-  v3 = *(v2 + 64);
-  __chkstk_darwin();
-  v5 = &v18 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = sub_1000128C4();
-  v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  __chkstk_darwin();
-  v10 = &v18 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v1);
+  v4 = &v16 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = sub_1000128C4();
+  v6 = *(v5 - 8);
+  __chkstk_darwin(v5);
+  v8 = &v16 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   result = swift_beginAccess();
   if ((byte_100020EF0 & 1) == 0)
   {
-    v19 = v6;
-    v12 = [objc_opt_self() defaultCenter];
-    v20 = v0;
+    v17 = v5;
+    v10 = [objc_opt_self() defaultCenter];
+    v18 = v0;
     sub_10000F908(&qword_100020D60, &unk_100014F00);
-    v13 = sub_100012984();
-    v14 = [objc_opt_self() defaultStore];
-    [v12 addObserver:v13 selector:"ubiquitousKeyValueStoreDidChange:" name:NSUbiquitousKeyValueStoreDidChangeExternallyNotification object:v14];
+    v11 = sub_100012984();
+    v12 = [objc_opt_self() defaultStore];
+    [v10 addObserver:v11 selector:"ubiquitousKeyValueStoreDidChange:" name:NSUbiquitousKeyValueStoreDidChangeExternallyNotification object:v12];
 
     swift_unknownObjectRelease();
-    (*(v2 + 104))(v5, enum case for VCLogging.Category.vocabulary(_:), v1);
+    (*(v2 + 104))(v4, enum case for VCLogging.Category.vocabulary(_:), v1);
     sub_100012894();
-    (*(v2 + 8))(v5, v1);
-    v15 = sub_1000128B4();
-    v16 = sub_100012924();
-    if (os_log_type_enabled(v15, v16))
+    (*(v2 + 8))(v4, v1);
+    v13 = sub_1000128B4();
+    v14 = sub_100012924();
+    if (os_log_type_enabled(v13, v14))
     {
-      v17 = swift_slowAlloc();
-      *v17 = 0;
-      _os_log_impl(&_mh_execute_header, v15, v16, "VCVocabularySync.listenForExternalChanges() New observer added.", v17, 2u);
+      v15 = swift_slowAlloc();
+      *v15 = 0;
+      _os_log_impl(&_mh_execute_header, v13, v14, "VCVocabularySync.listenForExternalChanges() New observer added.", v15, 2u);
     }
 
-    result = (*(v7 + 8))(v10, v19);
+    result = (*(v6 + 8))(v8, v17);
     byte_100020EF0 = 1;
   }
 
@@ -4042,7 +4055,6 @@ uint64_t sub_10000F908(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -4064,14 +4076,14 @@ id VCVocabularySync.init()()
   return objc_msgSendSuper2(&v2, "init");
 }
 
-id VCVocabularySync.__deallocating_deinit()
+id VCVocabularySync.__deallocating_deinit(uint64_t a1, uint64_t a2)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for VCVocabularySync();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v4.receiver = v2;
+  v4.super_class = type metadata accessor for VCVocabularySync();
+  return objc_msgSendSuper2(&v4, "dealloc");
 }
 
-uint64_t sub_10000FB3C(uint64_t a1, unint64_t a2, uint64_t *a3)
+unint64_t sub_10000FB3C(uint64_t a1, unint64_t a2, uint64_t *a3)
 {
 
   v6 = sub_10000FC08(v11, 0, 0, 1, a1, a2);
@@ -4171,11 +4183,9 @@ LABEL_8:
 
 char *sub_10000FD14(uint64_t a1, unint64_t a2)
 {
-  v4 = sub_10000FD60(a1, a2);
+  v3 = sub_10000FD60(a1, a2);
   sub_10000FE90(&off_10001D158);
-  result = v4;
-  v3 = *(v4 + 2) - 1;
-  return result;
+  return v3;
 }
 
 char *sub_10000FD60(uint64_t a1, unint64_t a2)
@@ -4275,7 +4285,6 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (result && v5 <= *(v3 + 24) >> 1)
   {
@@ -4289,15 +4298,15 @@ LABEL_16:
 
   if (v4 <= v5)
   {
-    v12 = v4 + v2;
+    v11 = v4 + v2;
   }
 
   else
   {
-    v12 = v4;
+    v11 = v4;
   }
 
-  result = sub_10000FFF0(result, v12, 1, v3);
+  result = sub_10000FFF0(result, v11, 1, v3);
   v3 = result;
   if (!*(v6 + 16))
   {
@@ -4312,15 +4321,15 @@ LABEL_13:
   }
 
 LABEL_5:
-  v8 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v8 < v2)
+  v7 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v7 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v8 + 32), (v6 + 32), v2);
+  memcpy((v3 + v7 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -4329,12 +4338,12 @@ LABEL_14:
     return result;
   }
 
-  v9 = *(v3 + 16);
-  v10 = __OFADD__(v9, v2);
-  v11 = v9 + v2;
-  if (!v10)
+  v8 = *(v3 + 16);
+  v9 = __OFADD__(v8, v2);
+  v10 = v8 + v2;
+  if (!v9)
   {
-    *(v3 + 16) = v11;
+    *(v3 + 16) = v10;
     goto LABEL_14;
   }
 
@@ -4479,433 +4488,425 @@ unint64_t sub_100010128(uint64_t a1, uint64_t a2)
 uint64_t _s39com_apple_SpeechRecognitionCore_brokerd16VCVocabularySyncC4syncyyFZ_0()
 {
   v0 = sub_100012814();
-  v191 = *(v0 - 8);
-  v192 = v0;
-  v1 = *(v191 + 64);
-  (__chkstk_darwin)();
-  v190 = v177 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v3 = (*(*(sub_10000F908(&qword_100020DB0, &qword_100014F68) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  (__chkstk_darwin)();
-  v193 = (v177 - v4);
-  v5 = sub_10000F908(&qword_100020DB8, &qword_100014F70);
-  v6 = *(v5 - 8);
-  v203 = v5;
-  v204 = v6;
-  v7 = *(v6 + 64);
-  v8 = (__chkstk_darwin)();
-  v187 = (v177 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v181 = *(v0 - 8);
+  v182 = v0;
+  __chkstk_darwin(v0);
+  v180 = v167 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v2 = sub_10000F908(&qword_100020DB0, &qword_100014F68);
+  __chkstk_darwin(v2 - 8);
+  v183 = (v167 - v3);
+  v4 = sub_10000F908(&qword_100020DB8, &qword_100014F70);
+  v5 = *(v4 - 8);
+  v193 = v4;
+  v194 = v5;
+  v6 = __chkstk_darwin(v4);
+  v177 = (v167 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v8 = __chkstk_darwin(v6);
+  v176 = (v167 - v9);
   v10 = __chkstk_darwin(v8);
-  v186 = (v177 - v11);
+  v175 = v167 - v11;
   v12 = __chkstk_darwin(v10);
-  v185 = v177 - v13;
+  v192 = v167 - v13;
   v14 = __chkstk_darwin(v12);
-  v202 = v177 - v15;
-  v16 = __chkstk_darwin(v14);
-  v18 = v177 - v17;
-  __chkstk_darwin(v16);
-  v189 = v177 - v19;
-  v20 = sub_1000128A4();
-  v21 = *(v20 - 8);
-  v22 = v21[8];
-  __chkstk_darwin(v20);
-  v24 = v177 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v205 = sub_1000128C4();
-  v25 = *(v205 - 8);
-  v26 = *(v25 + 64);
-  v27 = __chkstk_darwin(v205);
-  v182 = v177 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v16 = v167 - v15;
+  __chkstk_darwin(v14);
+  v179 = v167 - v17;
+  v18 = sub_1000128A4();
+  v19 = *(v18 - 8);
+  __chkstk_darwin(v18);
+  v21 = v167 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v195 = sub_1000128C4();
+  v22 = *(v195 - 8);
+  v23 = __chkstk_darwin(v195);
+  v172 = v167 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v25 = __chkstk_darwin(v23);
+  v174 = v167 - v26;
+  v27 = __chkstk_darwin(v25);
+  v171 = v167 - v28;
   v29 = __chkstk_darwin(v27);
-  v184 = v177 - v30;
+  v173 = v167 - v30;
   v31 = __chkstk_darwin(v29);
-  v181 = v177 - v32;
+  v178 = v167 - v32;
   v33 = __chkstk_darwin(v31);
-  v183 = v177 - v34;
-  v35 = __chkstk_darwin(v33);
-  v188 = v177 - v36;
-  v37 = __chkstk_darwin(v35);
-  v39 = v177 - v38;
-  v40 = __chkstk_darwin(v37);
-  v42 = v177 - v41;
-  v43 = __chkstk_darwin(v40);
-  v45 = v177 - v44;
-  __chkstk_darwin(v43);
-  v47 = v177 - v46;
-  v48 = v21[13];
-  v194 = enum case for VCLogging.Category.vocabulary(_:);
-  v195 = v48;
-  v196 = v21 + 13;
-  v48(v24);
+  v35 = v167 - v34;
+  v36 = __chkstk_darwin(v33);
+  v38 = v167 - v37;
+  v39 = __chkstk_darwin(v36);
+  v41 = v167 - v40;
+  __chkstk_darwin(v39);
+  v43 = v167 - v42;
+  v44 = *(v19 + 104);
+  v184 = enum case for VCLogging.Category.vocabulary(_:);
+  v185 = v44;
+  v186 = v19 + 104;
+  v44(v21);
   sub_100012894();
-  v49 = v21[1];
-  v198 = v21 + 1;
-  v199 = v20;
-  v197 = v49;
-  v49(v24, v20);
-  v50 = sub_1000128B4();
-  v51 = sub_100012924();
-  if (os_log_type_enabled(v50, v51))
+  v45 = *(v19 + 8);
+  v188 = v19 + 8;
+  v189 = v18;
+  v187 = v45;
+  v45(v21, v18);
+  v46 = sub_1000128B4();
+  v47 = sub_100012924();
+  if (os_log_type_enabled(v46, v47))
   {
-    v52 = swift_slowAlloc();
-    *v52 = 0;
-    _os_log_impl(&_mh_execute_header, v50, v51, "VCVocabularySync.sync() ###", v52, 2u);
+    v48 = swift_slowAlloc();
+    *v48 = 0;
+    _os_log_impl(&_mh_execute_header, v46, v47, "VCVocabularySync.sync() ###", v48, 2u);
   }
 
-  v200 = *(v25 + 8);
-  v201 = v25 + 8;
-  v200(v47, v205);
+  v190 = *(v22 + 8);
+  v191 = v22 + 8;
+  v190(v43, v195);
   sub_100012864();
-  v53 = sub_100012854();
-  v54 = sub_100012834();
-  v55 = sub_100012854();
-  v56 = sub_100012824();
+  v49 = sub_100012854();
+  v50 = sub_100012834();
+  v51 = sub_100012854();
+  v52 = sub_100012824();
 
-  if (v56)
+  if (v52)
   {
-    v189 = v53;
-    v57 = objc_opt_self();
-    v58 = [v57 defaultStore];
-    [v58 synchronize];
+    v179 = v49;
+    v53 = objc_opt_self();
+    v54 = [v53 defaultStore];
+    [v54 synchronize];
 
-    v178 = v57;
-    v59 = [v57 defaultStore];
-    v177[1] = "atus";
-    v60 = sub_1000128D4();
-    v61 = [v59 dataForKey:v60];
+    v168 = v53;
+    v55 = [v53 defaultStore];
+    v167[1] = "atus";
+    v56 = sub_1000128D4();
+    v57 = [v55 dataForKey:v56];
 
-    v62 = v204;
-    v180 = v54;
-    if (v61)
+    v58 = v194;
+    v170 = v50;
+    if (v57)
     {
-      v63 = sub_1000127E4();
-      v65 = v64;
+      v59 = sub_1000127E4();
+      v61 = v60;
 
       isa = sub_1000127D4().super.isa;
-      v206 = 0;
-      v67 = [(objc_class *)isa decompressedDataUsingAlgorithm:0 error:&v206];
+      v196 = 0;
+      v63 = [(objc_class *)isa decompressedDataUsingAlgorithm:0 error:&v196];
 
-      v68 = v206;
-      v69 = v188;
-      if (v67)
+      v64 = v196;
+      v65 = v178;
+      if (v63)
       {
-        v70 = sub_1000127E4();
-        v72 = v71;
+        v66 = sub_1000127E4();
+        v68 = v67;
 
-        v73 = sub_100012754();
-        v74 = *(v73 + 48);
-        v75 = *(v73 + 52);
+        sub_100012754();
         swift_allocObject();
         sub_100012744();
         sub_10000F908(&qword_100020D90, "lA");
-        sub_100012498(&qword_100020DC8, &qword_100020DD0);
+        sub_100012498(&qword_100020DC8, &qword_100020DD0, &protocol conformance descriptor for VCVocabularyEntry, &protocol conformance descriptor for <A> [A]);
         sub_100012734();
-        v179 = 0;
-        sub_100012350(v63, v65);
+        v169 = 0;
+        sub_100012350(v59, v61);
 
-        sub_100012350(v70, v72);
+        sub_100012350(v66, v68);
       }
 
       else
       {
-        v107 = v68;
+        v100 = v64;
         sub_1000127C4();
 
         swift_willThrow();
-        v108 = v199;
-        v195(v24, v194, v199);
+        v101 = v189;
+        v185(v21, v184, v189);
         sub_100012894();
-        v197(v24, v108);
+        v187(v21, v101);
         swift_errorRetain();
-        v109 = sub_1000128B4();
-        v110 = sub_100012914();
+        v102 = sub_1000128B4();
+        v103 = sub_100012914();
 
-        if (os_log_type_enabled(v109, v110))
+        if (os_log_type_enabled(v102, v103))
         {
-          v111 = swift_slowAlloc();
-          v112 = swift_slowAlloc();
-          *v111 = 138543362;
+          v104 = swift_slowAlloc();
+          v105 = swift_slowAlloc();
+          *v104 = 138543362;
           swift_errorRetain();
-          v113 = _swift_stdlib_bridgeErrorToNSError();
-          *(v111 + 4) = v113;
-          *v112 = v113;
-          _os_log_impl(&_mh_execute_header, v109, v110, "VCVocabularySync.sync(): Failed to decompress or decode cloudData. %{public}@", v111, 0xCu);
-          sub_1000123EC(v112, &qword_100020DA8, "nA");
+          v106 = _swift_stdlib_bridgeErrorToNSError();
+          *(v104 + 4) = v106;
+          *v105 = v106;
+          _os_log_impl(&_mh_execute_header, v102, v103, "VCVocabularySync.sync(): Failed to decompress or decode cloudData. %{public}@", v104, 0xCu);
+          sub_1000123EC(v105, &qword_100020DA8, "nA");
 
-          v69 = v188;
+          v65 = v178;
 
-          sub_100012350(v63, v65);
+          sub_100012350(v59, v61);
         }
 
         else
         {
-          sub_100012350(v63, v65);
+          sub_100012350(v59, v61);
         }
 
-        v62 = v204;
-        v179 = 0;
-        v200(v184, v205);
+        v58 = v194;
+        v169 = 0;
+        v190(v174, v195);
       }
 
-      v104 = v185;
+      v97 = v175;
     }
 
     else
     {
-      v100 = v199;
-      v195(v24, v194, v199);
+      v93 = v189;
+      v185(v21, v184, v189);
       sub_100012894();
-      v197(v24, v100);
-      v101 = sub_1000128B4();
-      v102 = sub_100012924();
-      v103 = os_log_type_enabled(v101, v102);
-      v104 = v185;
-      v69 = v188;
-      if (v103)
+      v187(v21, v93);
+      v94 = sub_1000128B4();
+      v95 = sub_100012924();
+      v96 = os_log_type_enabled(v94, v95);
+      v97 = v175;
+      v65 = v178;
+      if (v96)
       {
-        v105 = swift_slowAlloc();
-        *v105 = 0;
-        _os_log_impl(&_mh_execute_header, v101, v102, "VCVocabularySync.sync(): cloudData is nil", v105, 2u);
+        v98 = swift_slowAlloc();
+        *v98 = 0;
+        _os_log_impl(&_mh_execute_header, v94, v95, "VCVocabularySync.sync(): cloudData is nil", v98, 2u);
       }
 
-      v200(v39, v205);
-      v179 = 0;
+      v190(v35, v195);
+      v169 = 0;
     }
 
-    v114 = v190;
+    v107 = v180;
     sub_100012804();
-    v115 = v193;
+    v108 = v183;
     sub_1000127F4();
-    v116 = v191;
-    v117 = v114;
-    v118 = v192;
-    (*(v191 + 8))(v117, v192);
-    (*(v116 + 56))(v115, 0, 1, v118);
+    v109 = v181;
+    v110 = v107;
+    v111 = v182;
+    (*(v181 + 8))(v110, v182);
+    (*(v109 + 56))(v108, 0, 1, v111);
     sub_100012874();
-    sub_100012520(&qword_100020DC0);
-    v119 = v202;
+    sub_100012520(&qword_100020DC0, &protocol conformance descriptor for VCVocabularyEntry);
+    v112 = v192;
     sub_100012904();
 
-    sub_1000123EC(v115, &qword_100020DB0, &qword_100014F68);
-    v120 = v199;
-    v195(v24, v194, v199);
+    sub_1000123EC(v108, &qword_100020DB0, &qword_100014F68);
+    v113 = v189;
+    v185(v21, v184, v189);
     sub_100012894();
-    v197(v24, v120);
-    v121 = v62[2];
-    v122 = v119;
-    v123 = v203;
-    v121(v104, v122, v203);
-    v124 = sub_1000128B4();
-    v125 = sub_100012924();
-    if (os_log_type_enabled(v124, v125))
+    v187(v21, v113);
+    v114 = v58[2];
+    v115 = v112;
+    v116 = v193;
+    v114(v97, v115, v193);
+    v117 = sub_1000128B4();
+    v118 = sub_100012924();
+    if (os_log_type_enabled(v117, v118))
     {
-      v126 = swift_slowAlloc();
-      v127 = swift_slowAlloc();
-      v206 = v127;
-      *v126 = 136315138;
-      v128 = sub_100012884();
-      v130 = v129;
-      v131 = v104;
-      v132 = *(v204 + 8);
-      v132(v131, v203);
-      v133 = sub_10000FB3C(v128, v130, &v206);
-      v62 = v204;
+      v119 = swift_slowAlloc();
+      v120 = swift_slowAlloc();
+      v196 = v120;
+      *v119 = 136315138;
+      v121 = sub_100012884();
+      v123 = v122;
+      v124 = v97;
+      v125 = *(v194 + 8);
+      v125(v124, v193);
+      v126 = sub_10000FB3C(v121, v123, &v196);
+      v58 = v194;
 
-      *(v126 + 4) = v133;
-      _os_log_impl(&_mh_execute_header, v124, v125, "VCVocabularySync.sync() mergeResult: %s", v126, 0xCu);
-      sub_10001244C(v127);
+      *(v119 + 4) = v126;
+      _os_log_impl(&_mh_execute_header, v117, v118, "VCVocabularySync.sync() mergeResult: %s", v119, 0xCu);
+      sub_10001244C(v120);
 
-      v123 = v203;
+      v116 = v193;
 
-      v134 = v188;
+      v127 = v178;
     }
 
     else
     {
 
-      v135 = v104;
-      v132 = v62[1];
-      v132(v135, v123);
-      v134 = v69;
+      v128 = v97;
+      v125 = v58[1];
+      v125(v128, v116);
+      v127 = v65;
     }
 
-    v200(v134, v205);
-    v136 = v186;
-    v121(v186, v202, v123);
-    v137 = v62[11];
-    v138 = v137(v136, v123);
-    v139 = enum case for VCArrayMergeResult.bothNeedUpdates<A>(_:);
-    if (v138 == enum case for VCArrayMergeResult.onlySelfNeedsUpdates<A>(_:) || v138 == enum case for VCArrayMergeResult.bothNeedUpdates<A>(_:))
+    v190(v127, v195);
+    v129 = v176;
+    v114(v176, v192, v116);
+    v130 = v58[11];
+    v131 = v130(v129, v116);
+    v132 = enum case for VCArrayMergeResult.bothNeedUpdates<A>(_:);
+    if (v131 == enum case for VCArrayMergeResult.onlySelfNeedsUpdates<A>(_:) || v131 == enum case for VCArrayMergeResult.bothNeedUpdates<A>(_:))
     {
-      v193 = v132;
-      (*(v204 + 96))(v136, v123);
-      v141._rawValue = *v136;
-      sub_100012844(v141);
+      v183 = v125;
+      (*(v194 + 96))(v129, v116);
+      v134._rawValue = *v129;
+      sub_100012844(v134);
 
-      v142 = v199;
-      v195(v24, v194, v199);
-      v143 = v183;
+      v135 = v189;
+      v185(v21, v184, v189);
+      v136 = v173;
       sub_100012894();
-      v197(v24, v142);
-      v144 = sub_1000128B4();
-      v145 = sub_100012924();
-      if (os_log_type_enabled(v144, v145))
+      v187(v21, v135);
+      v137 = sub_1000128B4();
+      v138 = sub_100012924();
+      if (os_log_type_enabled(v137, v138))
       {
-        v146 = swift_slowAlloc();
-        *v146 = 0;
-        _os_log_impl(&_mh_execute_header, v144, v145, "VCVocabularySync.sync(): Local data set", v146, 2u);
-        v123 = v203;
+        v139 = swift_slowAlloc();
+        *v139 = 0;
+        _os_log_impl(&_mh_execute_header, v137, v138, "VCVocabularySync.sync(): Local data set", v139, 2u);
+        v116 = v193;
       }
 
-      v200(v143, v205);
-      v140 = v187;
-      v132 = v193;
+      v190(v136, v195);
+      v133 = v177;
+      v125 = v183;
     }
 
     else
     {
-      v132(v136, v123);
-      v140 = v187;
+      v125(v129, v116);
+      v133 = v177;
     }
 
-    v121(v140, v202, v123);
-    v147 = v137(v140, v123);
-    if (v147 != enum case for VCArrayMergeResult.onlyOtherNeedsUpdates<A>(_:) && v147 != v139)
+    v114(v133, v192, v116);
+    v140 = v130(v133, v116);
+    if (v140 != enum case for VCArrayMergeResult.onlyOtherNeedsUpdates<A>(_:) && v140 != v132)
     {
-      v132(v202, v123);
+      v125(v192, v116);
 
-      return (v132)(v140, v123);
+      return (v125)(v133, v116);
     }
 
-    (*(v204 + 96))(v140, v123);
-    v148 = *v140;
-    v149 = sub_100012784();
-    v150 = *(v149 + 48);
-    v151 = *(v149 + 52);
+    (*(v194 + 96))(v133, v116);
+    v141 = *v133;
+    sub_100012784();
     swift_allocObject();
     sub_100012774();
-    v206 = v148;
+    v196 = v141;
     sub_10000F908(&qword_100020D90, "lA");
-    sub_100012498(&qword_100020D98, &qword_100020DA0);
-    v152 = v179;
-    v153 = sub_100012764();
-    if (v152)
+    sub_100012498(&qword_100020D98, &qword_100020DA0, &protocol conformance descriptor for VCVocabularyEntry, &protocol conformance descriptor for <A> [A]);
+    v142 = v169;
+    v143 = sub_100012764();
+    if (v142)
     {
 
 LABEL_37:
-      v155 = v199;
-      v195(v24, v194, v199);
-      v156 = v182;
+      v145 = v189;
+      v185(v21, v184, v189);
+      v146 = v172;
       sub_100012894();
-      v197(v24, v155);
+      v187(v21, v145);
       swift_errorRetain();
-      v157 = sub_1000128B4();
-      v158 = sub_100012914();
+      v147 = sub_1000128B4();
+      v148 = sub_100012914();
 
-      if (os_log_type_enabled(v157, v158))
+      if (os_log_type_enabled(v147, v148))
       {
-        v159 = swift_slowAlloc();
-        v160 = swift_slowAlloc();
-        *v159 = 138412290;
+        v149 = swift_slowAlloc();
+        v150 = swift_slowAlloc();
+        *v149 = 138412290;
         swift_errorRetain();
-        v161 = _swift_stdlib_bridgeErrorToNSError();
-        *(v159 + 4) = v161;
-        *v160 = v161;
-        _os_log_impl(&_mh_execute_header, v157, v158, "VCVocabularySync.sync(): Failed to update cloud %@", v159, 0xCu);
-        sub_1000123EC(v160, &qword_100020DA8, "nA");
+        v151 = _swift_stdlib_bridgeErrorToNSError();
+        *(v149 + 4) = v151;
+        *v150 = v151;
+        _os_log_impl(&_mh_execute_header, v147, v148, "VCVocabularySync.sync(): Failed to update cloud %@", v149, 0xCu);
+        sub_1000123EC(v150, &qword_100020DA8, "nA");
       }
 
-      v200(v156, v205);
-      return (v132)(v202, v203);
+      v190(v146, v195);
+      return (v125)(v192, v193);
     }
 
-    v162 = v153;
-    v163 = v154;
+    v152 = v143;
+    v153 = v144;
 
-    v164 = sub_1000127D4().super.isa;
-    v206 = 0;
-    v165 = [(objc_class *)v164 compressedDataUsingAlgorithm:0 error:&v206];
+    v154 = sub_1000127D4().super.isa;
+    v196 = 0;
+    v155 = [(objc_class *)v154 compressedDataUsingAlgorithm:0 error:&v196];
 
-    if (!v165)
+    if (!v155)
     {
-      v176 = v206;
+      v166 = v196;
       sub_1000127C4();
 
       swift_willThrow();
-      sub_100012350(v162, v163);
+      sub_100012350(v152, v153);
       goto LABEL_37;
     }
 
-    v166 = v132;
-    v167 = v206;
-    v168 = [v178 defaultStore];
-    v169 = v165;
-    v170 = sub_1000128D4();
-    [v168 setObject:v169 forKey:v170];
+    v156 = v125;
+    v157 = v196;
+    v158 = [v168 defaultStore];
+    v159 = v155;
+    v160 = sub_1000128D4();
+    [v158 setObject:v159 forKey:v160];
 
-    v171 = v199;
-    v195(v24, v194, v199);
-    v172 = v181;
+    v161 = v189;
+    v185(v21, v184, v189);
+    v162 = v171;
     sub_100012894();
-    v197(v24, v171);
-    v173 = sub_1000128B4();
-    v174 = sub_100012924();
-    if (os_log_type_enabled(v173, v174))
+    v187(v21, v161);
+    v163 = sub_1000128B4();
+    v164 = sub_100012924();
+    if (os_log_type_enabled(v163, v164))
     {
-      v175 = swift_slowAlloc();
-      *v175 = 0;
-      _os_log_impl(&_mh_execute_header, v173, v174, "VCVocabularySync.sync(): Cloud data set", v175, 2u);
+      v165 = swift_slowAlloc();
+      *v165 = 0;
+      _os_log_impl(&_mh_execute_header, v163, v164, "VCVocabularySync.sync(): Cloud data set", v165, 2u);
     }
 
-    sub_100012350(v162, v163);
-    v200(v172, v205);
-    return v166(v202, v203);
+    sub_100012350(v152, v153);
+    v190(v162, v195);
+    return v156(v192, v193);
   }
 
   else
   {
-    v76 = v190;
+    v69 = v180;
     sub_100012804();
-    v77 = v193;
+    v70 = v183;
     sub_1000127F4();
-    v78 = v54;
-    v79 = v191;
-    v80 = v76;
-    v81 = v192;
-    (*(v191 + 8))(v80, v192);
-    (*(v79 + 56))(v77, 0, 1, v81);
-    v82 = v78;
+    v71 = v50;
+    v72 = v181;
+    v73 = v69;
+    v74 = v182;
+    (*(v181 + 8))(v73, v182);
+    (*(v72 + 56))(v70, 0, 1, v74);
+    v75 = v71;
     sub_100012874();
-    sub_100012520(&qword_100020DC0);
-    v83 = v189;
+    sub_100012520(&qword_100020DC0, &protocol conformance descriptor for VCVocabularyEntry);
+    v76 = v179;
     sub_100012904();
-    sub_1000123EC(v77, &qword_100020DB0, &qword_100014F68);
-    v84 = v204;
-    v85 = v83;
-    v86 = v203;
-    (*(v204 + 16))(v18, v85, v203);
-    if ((*(v84 + 88))(v18, v86) == enum case for VCArrayMergeResult.bothNeedUpdates<A>(_:))
+    sub_1000123EC(v70, &qword_100020DB0, &qword_100014F68);
+    v77 = v194;
+    v78 = v76;
+    v79 = v193;
+    (*(v194 + 16))(v16, v78, v193);
+    if ((*(v77 + 88))(v16, v79) == enum case for VCArrayMergeResult.bothNeedUpdates<A>(_:))
     {
-      (*(v84 + 96))(v18, v86);
-      v87 = *v18;
-      v88 = v199;
-      v195(v24, v194, v199);
+      (*(v77 + 96))(v16, v79);
+      v80 = *v16;
+      v81 = v189;
+      v185(v21, v184, v189);
       sub_100012894();
-      v197(v24, v88);
+      v187(v21, v81);
 
-      v89 = sub_1000128B4();
-      v90 = v82;
-      v91 = sub_100012924();
-      if (os_log_type_enabled(v89, v91))
+      v82 = sub_1000128B4();
+      v83 = v75;
+      v84 = sub_100012924();
+      if (os_log_type_enabled(v82, v84))
       {
-        v92 = swift_slowAlloc();
-        *v92 = 134349312;
-        v93 = *(v90 + 16);
+        v85 = swift_slowAlloc();
+        *v85 = 134349312;
+        v86 = *(v83 + 16);
 
-        *(v92 + 4) = v93;
+        *(v85 + 4) = v86;
 
-        *(v92 + 12) = 2050;
-        *(v92 + 14) = v87[2];
+        *(v85 + 12) = 2050;
+        *(v85 + 14) = v80[2];
 
-        _os_log_impl(&_mh_execute_header, v89, v91, "VCVocabularySync.sync(): syncVocabularyEntries is false. mergeResult == .bothNeedUpdates. oldEntriesCount: %{public}ld, newEntriesCount: %{public}ld", v92, 0x16u);
+        _os_log_impl(&_mh_execute_header, v82, v84, "VCVocabularySync.sync(): syncVocabularyEntries is false. mergeResult == .bothNeedUpdates. oldEntriesCount: %{public}ld, newEntriesCount: %{public}ld", v85, 0x16u);
       }
 
       else
@@ -4914,33 +4915,33 @@ LABEL_37:
         swift_bridgeObjectRelease_n();
       }
 
-      v200(v45, v205);
-      v106._rawValue = v87;
-      sub_100012844(v106);
+      v190(v41, v195);
+      v99._rawValue = v80;
+      sub_100012844(v99);
 
-      return (*(v84 + 8))(v189, v203);
+      return (*(v77 + 8))(v179, v193);
     }
 
     else
     {
 
-      v94 = *(v84 + 8);
-      v94(v18, v86);
-      v95 = v199;
-      v195(v24, v194, v199);
+      v87 = *(v77 + 8);
+      v87(v16, v79);
+      v88 = v189;
+      v185(v21, v184, v189);
       sub_100012894();
-      v197(v24, v95);
-      v96 = sub_1000128B4();
-      v97 = sub_100012924();
-      if (os_log_type_enabled(v96, v97))
+      v187(v21, v88);
+      v89 = sub_1000128B4();
+      v90 = sub_100012924();
+      if (os_log_type_enabled(v89, v90))
       {
-        v98 = swift_slowAlloc();
-        *v98 = 0;
-        _os_log_impl(&_mh_execute_header, v96, v97, "VCVocabularySync.sync(): syncVocabularyEntries is false. No change.", v98, 2u);
+        v91 = swift_slowAlloc();
+        *v91 = 0;
+        _os_log_impl(&_mh_execute_header, v89, v90, "VCVocabularySync.sync(): syncVocabularyEntries is false. No change.", v91, 2u);
       }
 
-      v200(v42, v205);
-      return v94(v189, v86);
+      v190(v38, v195);
+      return v87(v179, v79);
     }
   }
 }
@@ -4949,67 +4950,65 @@ uint64_t sub_1000118F4()
 {
   v0 = sub_1000128A4();
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
   __chkstk_darwin(v0);
-  v4 = &v39 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = sub_1000128C4();
-  v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  v8 = __chkstk_darwin(v5);
-  v10 = &v39 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = __chkstk_darwin(v8);
-  v13 = &v39 - v12;
-  v14 = __chkstk_darwin(v11);
-  v16 = &v39 - v15;
-  __chkstk_darwin(v14);
-  v18 = &v39 - v17;
-  v19 = sub_1000127A4();
-  if (v19)
+  v3 = &v37 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = sub_1000128C4();
+  v5 = *(v4 - 8);
+  v6 = __chkstk_darwin(v4);
+  v8 = &v37 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = __chkstk_darwin(v6);
+  v11 = &v37 - v10;
+  v12 = __chkstk_darwin(v9);
+  v14 = &v37 - v13;
+  __chkstk_darwin(v12);
+  v16 = &v37 - v15;
+  v17 = sub_1000127A4();
+  if (v17)
   {
-    v20 = v19;
-    v40 = sub_1000128E4();
-    v41 = v21;
+    v18 = v17;
+    v38 = sub_1000128E4();
+    v39 = v19;
     sub_100012954();
-    if (*(v20 + 16) && (v22 = sub_1000100E4(v42), (v23 & 1) != 0))
+    if (*(v18 + 16) && (v20 = sub_1000100E4(v40), (v21 & 1) != 0))
     {
-      sub_100012564(*(v20 + 56) + 32 * v22, v43);
-      sub_1000125C4(v42);
+      sub_100012564(*(v18 + 56) + 32 * v20, v41);
+      sub_1000125C4(v40);
 
       if (swift_dynamicCast())
       {
-        v24 = v40;
-        (*(v1 + 104))(v4, enum case for VCLogging.Category.vocabulary(_:), v0);
-        v25 = (v1 + 8);
-        if (v24 == 2)
+        v22 = v38;
+        (*(v1 + 104))(v3, enum case for VCLogging.Category.vocabulary(_:), v0);
+        v23 = (v1 + 8);
+        if (v22 == 2)
         {
           sub_100012894();
-          (*v25)(v4, v0);
-          v26 = sub_1000128B4();
-          v27 = sub_100012914();
-          if (os_log_type_enabled(v26, v27))
+          (*v23)(v3, v0);
+          v24 = sub_1000128B4();
+          v25 = sub_100012914();
+          if (os_log_type_enabled(v24, v25))
           {
-            v28 = swift_slowAlloc();
-            *v28 = 0;
-            _os_log_impl(&_mh_execute_header, v26, v27, "VCVocabularySync.ubiquitousKeyValueStoreDidChange quota violation.", v28, 2u);
+            v26 = swift_slowAlloc();
+            *v26 = 0;
+            _os_log_impl(&_mh_execute_header, v24, v25, "VCVocabularySync.ubiquitousKeyValueStoreDidChange quota violation.", v26, 2u);
           }
 
-          return (*(v6 + 8))(v18, v5);
+          return (*(v5 + 8))(v16, v4);
         }
 
         else
         {
           sub_100012894();
-          (*v25)(v4, v0);
-          v36 = sub_1000128B4();
-          v37 = sub_100012924();
-          if (os_log_type_enabled(v36, v37))
+          (*v23)(v3, v0);
+          v34 = sub_1000128B4();
+          v35 = sub_100012924();
+          if (os_log_type_enabled(v34, v35))
           {
-            v38 = swift_slowAlloc();
-            *v38 = 0;
-            _os_log_impl(&_mh_execute_header, v36, v37, "VCVocabularySync.ubiquitousKeyValueStoreDidChange", v38, 2u);
+            v36 = swift_slowAlloc();
+            *v36 = 0;
+            _os_log_impl(&_mh_execute_header, v34, v35, "VCVocabularySync.ubiquitousKeyValueStoreDidChange", v36, 2u);
           }
 
-          (*(v6 + 8))(v16, v5);
+          (*(v5 + 8))(v14, v4);
           return _s39com_apple_SpeechRecognitionCore_brokerd16VCVocabularySyncC4syncyyFZ_0();
         }
       }
@@ -5018,75 +5017,71 @@ uint64_t sub_1000118F4()
     else
     {
 
-      sub_1000125C4(v42);
+      sub_1000125C4(v40);
     }
 
-    (*(v1 + 104))(v4, enum case for VCLogging.Category.vocabulary(_:), v0);
+    (*(v1 + 104))(v3, enum case for VCLogging.Category.vocabulary(_:), v0);
     sub_100012894();
-    (*(v1 + 8))(v4, v0);
-    v30 = sub_1000128B4();
-    v31 = sub_100012914();
-    if (os_log_type_enabled(v30, v31))
+    (*(v1 + 8))(v3, v0);
+    v28 = sub_1000128B4();
+    v29 = sub_100012914();
+    if (os_log_type_enabled(v28, v29))
     {
-      v32 = swift_slowAlloc();
-      *v32 = 0;
-      _os_log_impl(&_mh_execute_header, v30, v31, "VCVocabularySync.ubiquitousKeyValueStoreDidChange reasonForChange is nil.", v32, 2u);
+      v30 = swift_slowAlloc();
+      *v30 = 0;
+      _os_log_impl(&_mh_execute_header, v28, v29, "VCVocabularySync.ubiquitousKeyValueStoreDidChange reasonForChange is nil.", v30, 2u);
     }
 
-    return (*(v6 + 8))(v13, v5);
+    return (*(v5 + 8))(v11, v4);
   }
 
   else
   {
-    (*(v1 + 104))(v4, enum case for VCLogging.Category.vocabulary(_:), v0);
+    (*(v1 + 104))(v3, enum case for VCLogging.Category.vocabulary(_:), v0);
     sub_100012894();
-    (*(v1 + 8))(v4, v0);
-    v33 = sub_1000128B4();
-    v34 = sub_100012914();
-    if (os_log_type_enabled(v33, v34))
+    (*(v1 + 8))(v3, v0);
+    v31 = sub_1000128B4();
+    v32 = sub_100012914();
+    if (os_log_type_enabled(v31, v32))
     {
-      v35 = swift_slowAlloc();
-      *v35 = 0;
-      _os_log_impl(&_mh_execute_header, v33, v34, "VCVocabularySync.ubiquitousKeyValueStoreDidChange userInfo is nil.", v35, 2u);
+      v33 = swift_slowAlloc();
+      *v33 = 0;
+      _os_log_impl(&_mh_execute_header, v31, v32, "VCVocabularySync.ubiquitousKeyValueStoreDidChange userInfo is nil.", v33, 2u);
     }
 
-    return (*(v6 + 8))(v10, v5);
+    return (*(v5 + 8))(v8, v4);
   }
 }
 
 uint64_t _s39com_apple_SpeechRecognitionCore_brokerd16VCVocabularySyncC35removeAllVocabularyEntriesFromCloudyyFZ_0()
 {
   v0 = sub_1000128A4();
-  v1 = *(*(v0 - 8) + 64);
   __chkstk_darwin(v0);
-  v2 = sub_1000128C4();
-  v3 = *(*(v2 - 8) + 64);
-  __chkstk_darwin(v2);
-  v4 = sub_100012784();
-  v5 = *(v4 + 48);
-  v6 = *(v4 + 52);
+  v1 = sub_1000128C4();
+  __chkstk_darwin(v1);
+  sub_100012784();
   swift_allocObject();
   sub_100012774();
   sub_10000F908(&qword_100020D90, "lA");
-  sub_100012498(&qword_100020D98, &qword_100020DA0);
-  v7 = sub_100012764();
-  v9 = v8;
+  sub_100012498(&qword_100020D98, &qword_100020DA0, &protocol conformance descriptor for VCVocabularyEntry, &protocol conformance descriptor for <A> [A]);
+  v2 = sub_100012764();
+  v4 = v3;
 
-  v10 = [objc_opt_self() defaultStore];
+  v5 = [objc_opt_self() defaultStore];
   isa = sub_1000127D4().super.isa;
-  v12 = sub_1000128D4();
-  [v10 setData:isa forKey:v12];
+  v7 = sub_1000128D4();
+  [v5 setData:isa forKey:v7];
 
-  return sub_100012350(v7, v9);
+  return sub_100012350(v2, v4);
 }
 
-uint64_t sub_100012350(uint64_t a1, unint64_t a2)
+uint64_t sub_100012350(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v3;
     }
   }
 }
@@ -5096,7 +5091,6 @@ uint64_t sub_1000123A4(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -5111,24 +5105,26 @@ uint64_t sub_1000123EC(uint64_t a1, uint64_t *a2, uint64_t *a3)
   return a1;
 }
 
-uint64_t sub_10001244C(uint64_t *a1)
+uint64_t sub_10001244C(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
-uint64_t sub_100012498(unint64_t *a1, unint64_t *a2)
+uint64_t sub_100012498(unint64_t *a1, unint64_t *a2, uint64_t a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
   {
     sub_1000123A4(&qword_100020D90, "lA");
-    sub_100012520(a2);
+    sub_100012520(a2, a3);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -5136,7 +5132,7 @@ uint64_t sub_100012498(unint64_t *a1, unint64_t *a2)
   return result;
 }
 
-uint64_t sub_100012520(unint64_t *a1)
+uint64_t sub_100012520(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)

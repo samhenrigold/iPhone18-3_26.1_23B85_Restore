@@ -167,7 +167,7 @@ void __56__ISLivePhotoPlaybackBehavior__handleDidSeekToBeginning__block_invoke_2
     v14 = 0u;
     v15 = 0u;
     v13 = 0u;
-    [(ISLivePhotoPlaybackBehavior *)self playbackTimeRange];
+    objc_msgSend_playbackTimeRange(self);
     v12 = **&MEMORY[0x277CC0898];
     range.start = v12;
     [(ISBehavior *)self setVideoForwardPlaybackEndTime:&range];

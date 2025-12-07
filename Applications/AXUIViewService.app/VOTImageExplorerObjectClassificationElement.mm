@@ -1,9 +1,24 @@
 @interface VOTImageExplorerObjectClassificationElement
+- (VOTImageExplorerObjectClassificationElement)initWithImageView:(id)view forFeature:(id)feature withMatchingScenes:(id)scenes hasFlippedYAxis:(BOOL)axis objectIndex:(int64_t)index;
 - (id)accessibilityValue;
 - (id)axObjectLabel;
 @end
 
 @implementation VOTImageExplorerObjectClassificationElement
+
+- (VOTImageExplorerObjectClassificationElement)initWithImageView:(id)view forFeature:(id)feature withMatchingScenes:(id)scenes hasFlippedYAxis:(BOOL)axis objectIndex:(int64_t)index
+{
+  axisCopy = axis;
+  scenesCopy = scenes;
+  v16.receiver = self;
+  v16.super_class = VOTImageExplorerObjectClassificationElement;
+  v13 = [(VOTImageExplorerElement *)&v16 initWithImageView:view forFeature:feature hasFlippedYAxis:axisCopy];
+  matchingScenes = v13->_matchingScenes;
+  v13->_matchingScenes = scenesCopy;
+
+  v13->_objectIndex = index;
+  return v13;
+}
 
 - (id)accessibilityValue
 {

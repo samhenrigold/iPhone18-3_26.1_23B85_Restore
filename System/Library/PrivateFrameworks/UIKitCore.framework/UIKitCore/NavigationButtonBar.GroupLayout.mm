@@ -62,11 +62,11 @@
 
 - (void)_groupDidUpdateItems:(id)items removedItems:(id)removedItems
 {
-  sub_188A34624(0, &qword_1ED48E8C0);
+  sub_188A34624(0, &qword_1ED48E8C0, off_1E70E94D0);
   v6 = sub_18A4A7548();
   itemsCopy = items;
   selfCopy = self;
-  sub_188CF57A4(itemsCopy, v6);
+  sub_188CF57A4(itemsCopy, v6, v9);
 }
 
 - (_TtCC5UIKit19NavigationButtonBar11GroupLayout)init

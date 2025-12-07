@@ -82,7 +82,7 @@
 
 - (int64_t)addSample:(id *)sample outputSamples:(id)samples[8] error:(id *)error
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   workingSetCount = self->_workingSetCount;
   if (workingSetCount < 1)
   {
@@ -109,15 +109,15 @@
       v30 = *MEMORY[0x277CCC308];
       if (os_log_type_enabled(*MEMORY[0x277CCC308], OS_LOG_TYPE_ERROR))
       {
-        LODWORD(v34) = 138543362;
-        *(&v34 + 4) = v29;
-        _os_log_error_impl(&dword_228986000, v30, OS_LOG_TYPE_ERROR, "Failed to process overlapping samples: %{public}@", &v34, 0xCu);
+        LODWORD(v33) = 138543362;
+        *(&v33 + 4) = v29;
+        _os_log_error_impl(&dword_228986000, v30, OS_LOG_TYPE_ERROR, "Failed to process overlapping samples: %{public}@", &v33, 0xCu);
       }
 
       self->_loggedDuplicatedSample = 1;
     }
 
-    goto LABEL_36;
+    return 0;
   }
 
   if (workingSetCount == 1)
@@ -142,8 +142,7 @@ LABEL_23:
       self->_workingSet[0].sourceID = sample->var4;
       *&self->_workingSet[0].startTime = v19;
       *&self->_workingSet[0].sampleValue = v20;
-      v21 = 1;
-      goto LABEL_41;
+      return 1;
     }
 
     if (var1 - var0 > 0.000001)
@@ -173,13 +172,12 @@ LABEL_23:
     v31 = *MEMORY[0x277CCC308];
     if (os_log_type_enabled(*MEMORY[0x277CCC308], OS_LOG_TYPE_ERROR))
     {
-      LODWORD(v34) = 138543362;
-      *(&v34 + 4) = v17;
-      _os_log_error_impl(&dword_228986000, v31, OS_LOG_TYPE_ERROR, "Failed to process overlapping samples: %{public}@", &v34, 0xCu);
+      LODWORD(v33) = 138543362;
+      *(&v33 + 4) = v17;
+      _os_log_error_impl(&dword_228986000, v31, OS_LOG_TYPE_ERROR, "Failed to process overlapping samples: %{public}@", &v33, 0xCu);
     }
 
-    v21 = -1;
-    goto LABEL_41;
+    return -1;
   }
 
 LABEL_24:
@@ -193,33 +191,29 @@ LABEL_24:
   v25 = sample->var0;
   if (self->_anchorTime >= sample->var0)
   {
-LABEL_36:
-    v21 = 0;
-    goto LABEL_41;
+    return 0;
   }
 
   v21 = 0;
   do
   {
-    v36 = 0;
+    v35 = 0;
+    v33 = 0u;
     v34 = 0u;
-    v35 = 0u;
-    [(HDQuantitySampleOverlapProcessor *)&v34 _overlapSampleToEdge:v25];
-    if (*(&v34 + 1) - *&v34 > 0.000001)
+    [(HDQuantitySampleOverlapProcessor *)&v33 _overlapSampleToEdge:v25];
+    if (*(&v33 + 1) - *&v33 > 0.000001)
     {
       v26 = &samples[v21++];
-      v27 = v35;
-      *&v26->var0 = v34;
+      v27 = v34;
+      *&v26->var0 = v33;
       *&v26->var2 = v27;
-      v26->var4 = v36;
+      v26->var4 = v35;
     }
 
     v25 = sample->var0;
   }
 
   while (self->_anchorTime < sample->var0 && v21 < 8);
-LABEL_41:
-  v32 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
@@ -412,20 +406,20 @@ LABEL_36:
 - (BOOL)fetchOverlapProcessSamplesFrom:(id *)from setAnchorTime:(BOOL)time errorOut:(id *)out handler:(id)handler
 {
   timeCopy = time;
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   if (timeCopy)
   {
     [(HDQuantitySampleOverlapProcessor *)self resetAnchorTime:from->var0];
   }
 
-  v24 = 0;
+  v23 = 0;
   v11 = *&from->var2;
-  v22[0] = *&from->var0;
-  v22[1] = v11;
+  v21[0] = *&from->var0;
+  v21[1] = v11;
   var4 = from->var4;
-  v12 = [(HDQuantitySampleOverlapProcessor *)self addSample:v22 outputSamples:v25 error:&v24];
-  v13 = v24;
+  v12 = [(HDQuantitySampleOverlapProcessor *)self addSample:v21 outputSamples:v24 error:&v23];
+  v13 = v23;
   v14 = v13;
   if (v12 == -1)
   {
@@ -451,9 +445,9 @@ LABEL_8:
     goto LABEL_12;
   }
 
-  v21 = v13;
-  v15 = handlerCopy[2](handlerCopy, v12, v25, &v21);
-  v16 = v21;
+  v20 = v13;
+  v15 = handlerCopy[2](handlerCopy, v12, v24, &v20);
+  v16 = v20;
 
   if ((v15 & 1) == 0)
   {
@@ -474,20 +468,19 @@ LABEL_8:
   v17 = 1;
 LABEL_13:
 
-  v19 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
 - (BOOL)fetchFinalOverlapSamplesWithErrorOut:(id *)out handler:(id)handler
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   v7 = 0;
   while (1)
   {
-    v16 = v7;
-    v8 = [(HDQuantitySampleOverlapProcessor *)self finishWithRemainingSamples:v17 error:&v16];
-    v9 = v16;
+    v15 = v7;
+    v8 = [(HDQuantitySampleOverlapProcessor *)self finishWithRemainingSamples:v16 error:&v15];
+    v9 = v15;
 
     if (!v8)
     {
@@ -514,9 +507,9 @@ LABEL_11:
       goto LABEL_13;
     }
 
-    v15 = v9;
-    v10 = handlerCopy[2](handlerCopy, v8, v17, &v15);
-    v7 = v15;
+    v14 = v9;
+    v10 = handlerCopy[2](handlerCopy, v8, v16, &v14);
+    v7 = v14;
 
     if ((v10 & 1) == 0)
     {
@@ -540,7 +533,6 @@ LABEL_10:
   v12 = 1;
 LABEL_13:
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 

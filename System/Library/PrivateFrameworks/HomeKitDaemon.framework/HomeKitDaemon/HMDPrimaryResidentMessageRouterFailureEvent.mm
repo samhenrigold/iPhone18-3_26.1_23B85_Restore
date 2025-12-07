@@ -8,11 +8,11 @@
 
 - (id)attributeDescriptions
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   messageName = [(HMDPrimaryResidentMessageRouterFailureEvent *)self messageName];
   v5 = [v3 initWithName:@"messageName" value:messageName];
-  v15[0] = v5;
+  v14[0] = v5;
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   failureType = [(HMDPrimaryResidentMessageRouterFailureEvent *)self failureType];
   integerValue = [failureType integerValue];
@@ -28,26 +28,22 @@
 
   v10 = v9;
   v11 = [v6 initWithName:@"failureType" value:v10];
-  v15[1] = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v14[1] = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
 
   return v12;
 }
 
 - (NSDictionary)coreAnalyticsEventDictionary
 {
-  v9[2] = *MEMORY[0x277D85DE8];
-  v8[0] = @"messageName";
+  v8[2] = *MEMORY[0x277D85DE8];
+  v7[0] = @"messageName";
   messageName = [(HMDPrimaryResidentMessageRouterFailureEvent *)self messageName];
-  v8[1] = @"failureType";
-  v9[0] = messageName;
+  v7[1] = @"failureType";
+  v8[0] = messageName;
   failureType = [(HMDPrimaryResidentMessageRouterFailureEvent *)self failureType];
-  v9[1] = failureType;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v8[1] = failureType;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
 
   return v5;
 }

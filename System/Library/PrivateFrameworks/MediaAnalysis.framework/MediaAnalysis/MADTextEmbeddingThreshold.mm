@@ -167,49 +167,52 @@ LABEL_13:
 
 - (int)_loadResources
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if (self->_plan)
   {
-    return 0;
+    LODWORD(v2) = 0;
   }
 
-  aBlock[0] = MEMORY[0x1E69E9820];
-  aBlock[1] = 3221225472;
-  aBlock[2] = __43__MADTextEmbeddingThreshold__loadResources__block_invoke;
-  aBlock[3] = &unk_1E834DFE0;
-  aBlock[4] = self;
-  v3 = _Block_copy(aBlock);
-  v4 = VCPSignPostPersistentLog();
-  v5 = os_signpost_id_generate(v4);
-
-  v6 = VCPSignPostPersistentLog();
-  v7 = v6;
-  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
+  else
   {
-    *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v7, OS_SIGNPOST_INTERVAL_BEGIN, v5, "MADTextEmbeddingThreshold_loadResources", " enableTelemetry=YES ", buf, 2u);
-  }
+    aBlock[0] = MEMORY[0x1E69E9820];
+    aBlock[1] = 3221225472;
+    aBlock[2] = __43__MADTextEmbeddingThreshold__loadResources__block_invoke;
+    aBlock[3] = &unk_1E834DFE0;
+    aBlock[4] = self;
+    v3 = _Block_copy(aBlock);
+    v4 = VCPSignPostPersistentLog(v3);
+    v5 = os_signpost_id_generate(v4);
 
-  v2 = v3[2](v3);
-  v8 = VCPSignPostPersistentLog();
-  v9 = v8;
-  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
-  {
-    v10 = qos_class_self();
-    v11 = VCPMAQoSDescription(v10);
-    v12 = v11;
-    uTF8String = [v11 UTF8String];
-    v14 = "Failure";
-    if (!v2)
+    v7 = VCPSignPostPersistentLog(v6);
+    v8 = v7;
+    if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
     {
-      v14 = "Success";
+      *buf = 0;
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v5, "MADTextEmbeddingThreshold_loadResources", " enableTelemetry=YES ", buf, 2u);
     }
 
-    *buf = 136446466;
-    v18 = uTF8String;
-    v19 = 2082;
-    v20 = v14;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v9, OS_SIGNPOST_INTERVAL_END, v5, "MADTextEmbeddingThreshold_loadResources", "QoS=%{public, signpost.telemetry:string1}s Status=%{public, signpost.telemetry:string2}s  enableTelemetry=YES ", buf, 0x16u);
+    v2 = v3[2](v3);
+    v9 = VCPSignPostPersistentLog(v2);
+    v10 = v9;
+    if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
+    {
+      v11 = qos_class_self();
+      v12 = VCPMAQoSDescription(v11);
+      v13 = v12;
+      uTF8String = [v12 UTF8String];
+      v15 = "Failure";
+      if (!v2)
+      {
+        v15 = "Success";
+      }
+
+      *buf = 136446466;
+      v19 = uTF8String;
+      v20 = 2082;
+      v21 = v15;
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v10, OS_SIGNPOST_INTERVAL_END, v5, "MADTextEmbeddingThreshold_loadResources", "QoS=%{public, signpost.telemetry:string1}s Status=%{public, signpost.telemetry:string2}s  enableTelemetry=YES ", buf, 0x16u);
+    }
   }
 
   return v2;
@@ -294,7 +297,7 @@ LABEL_2:
   return v3;
 }
 
-uint64_t __42__MADTextEmbeddingThreshold_loadResources__block_invoke(uint64_t a1)
+void *__42__MADTextEmbeddingThreshold_loadResources__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _loadResources];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -326,10 +329,10 @@ uint64_t __42__MADTextEmbeddingThreshold_loadResources__block_invoke(uint64_t a1
 
 - (int)_processEmbedding:(id)embedding bias:(float *)bias scale:(float *)scale threshold:(float *)threshold
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   embeddingCopy = embedding;
-  _loadResources = [(MADTextEmbeddingThreshold *)self _loadResources];
-  if (_loadResources)
+  LODWORD(v11) = [(MADTextEmbeddingThreshold *)self _loadResources];
+  if (v11)
   {
     if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
@@ -344,47 +347,47 @@ uint64_t __42__MADTextEmbeddingThreshold_loadResources__block_invoke(uint64_t a1
     aBlock[1] = 3221225472;
     aBlock[2] = __68__MADTextEmbeddingThreshold__processEmbedding_bias_scale_threshold___block_invoke;
     aBlock[3] = &unk_1E834E008;
-    v26 = embeddingCopy;
+    v27 = embeddingCopy;
     selfCopy = self;
     biasCopy = bias;
     scaleCopy = scale;
     thresholdCopy = threshold;
     v12 = _Block_copy(aBlock);
-    v13 = VCPSignPostPersistentLog();
+    v13 = VCPSignPostPersistentLog(v12);
     v14 = os_signpost_id_generate(v13);
 
-    v15 = VCPSignPostPersistentLog();
-    v16 = v15;
-    if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
+    v16 = VCPSignPostPersistentLog(v15);
+    v17 = v16;
+    if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v16, OS_SIGNPOST_INTERVAL_BEGIN, v14, "MADTextEmbeddingThreshold_processEmbedding", " enableTelemetry=YES ", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v17, OS_SIGNPOST_INTERVAL_BEGIN, v14, "MADTextEmbeddingThreshold_processEmbedding", " enableTelemetry=YES ", buf, 2u);
     }
 
-    _loadResources = v12[2](v12);
-    v17 = VCPSignPostPersistentLog();
-    v18 = v17;
-    if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
+    v11 = v12[2](v12);
+    v18 = VCPSignPostPersistentLog(v11);
+    v19 = v18;
+    if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
     {
-      v19 = qos_class_self();
-      v20 = VCPMAQoSDescription(v19);
-      v21 = v20;
-      uTF8String = [v20 UTF8String];
-      v23 = "Failure";
-      if (!_loadResources)
+      v20 = qos_class_self();
+      v21 = VCPMAQoSDescription(v20);
+      v22 = v21;
+      uTF8String = [v21 UTF8String];
+      v24 = "Failure";
+      if (!v11)
       {
-        v23 = "Success";
+        v24 = "Success";
       }
 
       *buf = 136446466;
-      v32 = uTF8String;
-      v33 = 2082;
-      v34 = v23;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v18, OS_SIGNPOST_INTERVAL_END, v14, "MADTextEmbeddingThreshold_processEmbedding", "QoS=%{public, signpost.telemetry:string1}s Status=%{public, signpost.telemetry:string2}s  enableTelemetry=YES ", buf, 0x16u);
+      v33 = uTF8String;
+      v34 = 2082;
+      v35 = v24;
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v19, OS_SIGNPOST_INTERVAL_END, v14, "MADTextEmbeddingThreshold_processEmbedding", "QoS=%{public, signpost.telemetry:string1}s Status=%{public, signpost.telemetry:string2}s  enableTelemetry=YES ", buf, 0x16u);
     }
   }
 
-  return _loadResources;
+  return v11;
 }
 
 uint64_t __68__MADTextEmbeddingThreshold__processEmbedding_bias_scale_threshold___block_invoke(uint64_t a1)
@@ -534,7 +537,7 @@ uint64_t __68__MADTextEmbeddingThreshold__processEmbedding_bias_scale_threshold_
   return scale;
 }
 
-uint64_t __67__MADTextEmbeddingThreshold_processEmbedding_bias_scale_threshold___block_invoke(uint64_t a1)
+void *__67__MADTextEmbeddingThreshold_processEmbedding_bias_scale_threshold___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _processEmbedding:*(a1 + 40) bias:*(a1 + 56) scale:*(a1 + 64) threshold:*(a1 + 72)];
   *(*(*(a1 + 48) + 8) + 24) = result;

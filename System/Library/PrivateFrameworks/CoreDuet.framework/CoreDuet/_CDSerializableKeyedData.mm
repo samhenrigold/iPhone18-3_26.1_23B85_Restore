@@ -5,10 +5,10 @@
 + (unsigned)byteChecksumOfData:(id)data;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)setData:(uint64_t)data;
+- (char)serializeTo:(unint64_t)to maxSize:(char *)size success:;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)initWithKey:(void *)key data:(void *)data error:;
 - (unint64_t)serializeData:(id)data withChecksum:(unsigned __int8)checksum to:(void *)to;
-- (unint64_t)serializeTo:(unint64_t)to maxSize:(char *)size success:;
 @end
 
 @implementation _CDSerializableKeyedData
@@ -121,14 +121,12 @@
 
 + (id)errorForInvalidKeyEncoding
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696ABC0];
-  v7 = *MEMORY[0x1E696A588];
-  v8[0] = @"Keys must allow NSUTF8Encoding";
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v6 = *MEMORY[0x1E696A588];
+  v7[0] = @"Keys must allow NSUTF8Encoding";
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   v4 = [v2 errorWithDomain:@"com.apple.coreduet.serializableKeyedData" code:0 userInfo:v3];
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -198,13 +196,12 @@ LABEL_14:
   return v17;
 }
 
-- (unint64_t)serializeTo:(unint64_t)to maxSize:(char *)size success:
+- (char)serializeTo:(unint64_t)to maxSize:(char *)size success:
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if (!self)
   {
-    v9 = 0;
-    goto LABEL_12;
+    return 0;
   }
 
   if (*(self + 18) == 1)
@@ -230,14 +227,14 @@ LABEL_14:
     v10 = [objc_opt_class() log];
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v15 = *(self + 24);
-      v16 = 138543874;
-      v17 = v15;
-      v18 = 1024;
+      v14 = *(self + 24);
+      v15 = 138543874;
+      v16 = v14;
+      v17 = 1024;
       toCopy = to;
-      v20 = 1024;
-      v21 = v9;
-      _os_log_error_impl(&dword_191750000, v10, OS_LOG_TYPE_ERROR, "Data for key %{public}@ does not fit in %d bytes (it is %d)", &v16, 0x18u);
+      v19 = 1024;
+      v20 = v9;
+      _os_log_error_impl(&dword_191750000, v10, OS_LOG_TYPE_ERROR, "Data for key %{public}@ does not fit in %d bytes (it is %d)", &v15, 0x18u);
     }
 
     if (size)
@@ -248,8 +245,6 @@ LABEL_11:
     }
   }
 
-LABEL_12:
-  v13 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -313,7 +308,7 @@ LABEL_6:
   return selfCopy;
 }
 
-- (void)isEqual:(_BYTE *)a3 .cold.1(void *a1, void *a2, _BYTE *a3)
+- (void)isEqual:(unsigned __int8 *)a3 .cold.1(void *a1, void *a2, unsigned __int8 *a3)
 {
   self = a1;
   if (a2)
@@ -376,22 +371,6 @@ LABEL_6:
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-+ (void)dataDeseralizedFrom:maxSize:checksum:bytesRead:.cold.2()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)dataDeseralizedFrom:maxSize:checksum:bytesRead:.cold.3()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

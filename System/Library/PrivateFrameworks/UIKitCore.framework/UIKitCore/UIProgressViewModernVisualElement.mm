@@ -45,13 +45,13 @@
     dispatch_once(&qword_1ED49A9C8, &__block_literal_global_565);
   }
 
-  return _MergedGlobals_11_9;
+  return _MergedGlobals_11_9[0];
 }
 
 uint64_t __63__UIProgressViewModernVisualElement_usesLegacySubviewStructure__block_invoke()
 {
   result = dyld_program_sdk_at_least();
-  _MergedGlobals_11_9 = result ^ 1;
+  _MergedGlobals_11_9[0] = result ^ 1;
   return result;
 }
 
@@ -141,7 +141,7 @@ LABEL_14:
   v41 = trackTintColor;
   _appropriateTrackImage = [MEMORY[0x1E695DEC8] arrayWithObjects:&v41 count:1];
 LABEL_15:
-  if (![_appropriateTrackImage isEqual:self->_trackColors] || (-[UIImageView image](self->_trackView, "image"), v20 = objc_claimAutoreleasedReturnValue(), v20, !v20))
+  if (!objc_msgSend_isEqual_(_appropriateTrackImage) || ([(UIImageView *)self->_trackView image], v20 = objc_claimAutoreleasedReturnValue(), v20, !v20))
   {
     objc_storeStrong(&self->_trackColors, _appropriateTrackImage);
     v21 = self->_trackView;
@@ -174,7 +174,7 @@ LABEL_19:
     _inheritedInteractionTintColor = [(UIView *)self _inheritedInteractionTintColor];
     if (!_inheritedInteractionTintColor)
     {
-      _appropriateProgressImage = +[UIColor blackColor];
+      _appropriateProgressImage = objc_msgSend_blackColor(UIColor);
       v37 = 0.0;
       v38 = 0.0;
       v35 = 0.0;
@@ -209,7 +209,7 @@ LABEL_29:
   v39 = _appropriateProgressImage;
   v30 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v39 count:1];
 LABEL_30:
-  if (![v30 isEqual:self->_progressColors] || (-[UIImageView image](self->_progressView, "image"), v31 = objc_claimAutoreleasedReturnValue(), v31, !v31))
+  if (!objc_msgSend_isEqual_(v30) || ([(UIImageView *)self->_progressView image], v31 = objc_claimAutoreleasedReturnValue(), v31, !v31))
   {
     objc_storeStrong(&self->_progressColors, v30);
     v32 = self->_progressView;

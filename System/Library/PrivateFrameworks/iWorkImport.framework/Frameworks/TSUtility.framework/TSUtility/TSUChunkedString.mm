@@ -880,7 +880,7 @@ LABEL_75:
         while (v18 < v3);
       }
 
-      sub_2770678D4(&self->_chunks, self->_chunks.__begin_ + 16 * location + 16 * v34, self->_chunks.__begin_ + v35);
+      sub_2770678D4(&self->_chunks, self->_chunks.__begin_ + location + v34, self->_chunks.__begin_ + v35);
       if (v41)
       {
         sub_2770679A4(v41);

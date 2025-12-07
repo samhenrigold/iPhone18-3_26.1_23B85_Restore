@@ -159,28 +159,28 @@
     if (sub_100007C2C())
     {
       v11 = [v5 specifierForID:@"SOFTWARE_UPDATE_LINK"];
-      [v5 removeObject:v11];
+      objc_msgSend_removeObject_(v5);
 
       v12 = [v5 specifierForID:@"AIRPLANE_AND_DND_GROUP_ID"];
-      [v5 removeObject:v12];
+      objc_msgSend_removeObject_(v5);
 
       v13 = [v5 specifierForID:@"AIRPLANE_MODE_ID"];
-      [v5 removeObject:v13];
+      objc_msgSend_removeObject_(v5);
 
       v14 = [v5 specifierForID:@"DO_NOT_DISTURB_ID"];
-      [v5 removeObject:v14];
+      objc_msgSend_removeObject_(v5);
 
       v15 = [v5 specifierForID:@"FOCUS_ID"];
-      [v5 removeObject:v15];
+      objc_msgSend_removeObject_(v5);
 
       v16 = [v5 specifierForID:@"USAGE_LINK"];
-      [v5 removeObject:v16];
+      objc_msgSend_removeObject_(v5);
 
       v17 = [v5 specifierForID:@"ManagedConfigurationList"];
-      [v5 removeObject:v17];
+      objc_msgSend_removeObject_(v5);
 
       v18 = [v5 specifierForID:@"RESET_ID"];
-      [v5 removeObject:v18];
+      objc_msgSend_removeObject_(v5);
     }
 
     v19 = [[NSUUID alloc] initWithUUIDString:@"FFDA9C57-8508-4B50-B6D8-EEE862251FC0"];
@@ -197,7 +197,7 @@
     }
 
     v22 = [v5 specifierForID:v21];
-    [v5 removeObject:v22];
+    objc_msgSend_removeObject_(v5);
 
     v23 = +[MCProfileConnection sharedConnection];
     v24 = [v23 effectiveBoolValueForSetting:MCFeatureScreenShotAllowed];
@@ -205,10 +205,10 @@
     if (v24 == 2)
     {
       v25 = [v5 specifierForID:@"BUTTON_CHORD_CELL_ID"];
-      [v5 removeObject:v25];
+      objc_msgSend_removeObject_(v5);
 
       activeWatch = [v5 specifierForID:@"BUTTON_CHORD_GROUP_ID"];
-      [v5 removeObject:activeWatch];
+      objc_msgSend_removeObject_(v5);
     }
 
     else
@@ -234,7 +234,7 @@
     if (!_os_feature_enabled_impl() || (+[COSGeneralSettingsController _dictationAutoPunctuationSupportedLanguages], v34 = objc_claimAutoreleasedReturnValue(), v34, !v34))
     {
       v35 = [v5 specifierForID:@"DICTATION_AUTO_PUNCTUATION_CELL_ID"];
-      [v5 removeObject:v35];
+      objc_msgSend_removeObject_(v5);
     }
 
     [(COSGeneralSettingsController *)self _prepareDictationFooterForSpecifier:v33];
@@ -248,7 +248,7 @@
       }
 
       v37 = [v5 specifierForID:@"RESET"];
-      [v5 removeObject:v37];
+      objc_msgSend_removeObject_(v5);
     }
 
     v38 = *&self->super.BPSListController_opaque[v3];

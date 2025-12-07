@@ -66,46 +66,47 @@ uint64_t __56__TIKeyboardApplicationStateMonitor_ignoreAppExtension___block_invo
 
 - (BOOL)threadUnsafeFlushChangesToDiskWithImmediacy:(BOOL)immediacy
 {
-  v19 = *MEMORY[0x277D85DE8];
-  if (immediacy || (-[TIKeyboardApplicationStateMonitor timeOfLastFlushToDisk](self, "timeOfLastFlushToDisk"), v4 = objc_claimAutoreleasedReturnValue(), [v4 timeIntervalSinceNow], v6 = fabs(v5), v4, v6 >= 120.0))
+  v18 = *MEMORY[0x277D85DE8];
+  if (!immediacy)
   {
-    applicationStateDatabase = [(TIKeyboardApplicationStateMonitor *)self applicationStateDatabase];
-    databaseLocation = [(TIKeyboardApplicationStateMonitor *)self databaseLocation];
-    v10 = [applicationStateDatabase writeToURL:databaseLocation atomically:1];
+    timeOfLastFlushToDisk = [(TIKeyboardApplicationStateMonitor *)self timeOfLastFlushToDisk];
+    [timeOfLastFlushToDisk timeIntervalSinceNow];
+    v6 = fabs(v5);
 
-    databaseLocation2 = [(TIKeyboardApplicationStateMonitor *)self databaseLocation];
-    v12 = [databaseLocation2 setResourceValue:*MEMORY[0x277CBE7F0] forKey:*MEMORY[0x277CBE7F8] error:0];
-
-    date = [MEMORY[0x277CBEAA8] date];
-    [(TIKeyboardApplicationStateMonitor *)self setTimeOfLastFlushToDisk:date];
-
-    if (TICanLogMessageAtLevel_onceToken != -1)
+    if (v6 < 120.0)
     {
-      dispatch_once(&TICanLogMessageAtLevel_onceToken, &__block_literal_global_24093);
+      return 1;
     }
-
-    if (TICanLogMessageAtLevel_logLevel >= 2)
-    {
-      v14 = TIOSLogFacility();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
-      {
-        v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Flushed changes to disk", "-[TIKeyboardApplicationStateMonitor threadUnsafeFlushChangesToDiskWithImmediacy:]"];
-        *buf = 138412290;
-        v18 = v16;
-        _os_log_debug_impl(&dword_22CA55000, v14, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
-      }
-    }
-
-    result = v10 & v12;
   }
 
-  else
+  applicationStateDatabase = [(TIKeyboardApplicationStateMonitor *)self applicationStateDatabase];
+  databaseLocation = [(TIKeyboardApplicationStateMonitor *)self databaseLocation];
+  v10 = [applicationStateDatabase writeToURL:databaseLocation atomically:1];
+
+  databaseLocation2 = [(TIKeyboardApplicationStateMonitor *)self databaseLocation];
+  v12 = [databaseLocation2 setResourceValue:*MEMORY[0x277CBE7F0] forKey:*MEMORY[0x277CBE7F8] error:0];
+
+  date = [MEMORY[0x277CBEAA8] date];
+  [(TIKeyboardApplicationStateMonitor *)self setTimeOfLastFlushToDisk:date];
+
+  if (TICanLogMessageAtLevel_onceToken != -1)
   {
-    result = 1;
+    dispatch_once(&TICanLogMessageAtLevel_onceToken, &__block_literal_global_24093);
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-  return result;
+  if (TICanLogMessageAtLevel_logLevel >= 2)
+  {
+    v14 = TIOSLogFacility();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    {
+      v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Flushed changes to disk", "-[TIKeyboardApplicationStateMonitor threadUnsafeFlushChangesToDiskWithImmediacy:]"];
+      *buf = 138412290;
+      v17 = v15;
+      _os_log_debug_impl(&dword_22CA55000, v14, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+    }
+  }
+
+  return v10 & v12;
 }
 
 - (id)databaseLocation
@@ -130,7 +131,7 @@ void __53__TIKeyboardApplicationStateMonitor_databaseLocation__block_invoke()
 
 - (void)keyboardNoLongerInUse
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = TIGetCurrentTime();
   activeStateDataLock = [(TIKeyboardApplicationStateMonitor *)self activeStateDataLock];
   v5 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:1.0];
@@ -158,9 +159,9 @@ void __53__TIKeyboardApplicationStateMonitor_databaseLocation__block_invoke()
         v12 = TIOSLogFacility();
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
         {
-          v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Recorded keyboard usage time data", "-[TIKeyboardApplicationStateMonitor keyboardNoLongerInUse]"];
+          v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Recorded keyboard usage time data", "-[TIKeyboardApplicationStateMonitor keyboardNoLongerInUse]"];
           *buf = 138412290;
-          v17 = v15;
+          v16 = v14;
           _os_log_debug_impl(&dword_22CA55000, v12, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
@@ -169,8 +170,6 @@ void __53__TIKeyboardApplicationStateMonitor_databaseLocation__block_invoke()
     activeStateDataLock2 = [(TIKeyboardApplicationStateMonitor *)self activeStateDataLock];
     [activeStateDataLock2 unlock];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)keyboardInUse
@@ -199,7 +198,7 @@ void __53__TIKeyboardApplicationStateMonitor_databaseLocation__block_invoke()
 
 - (void)logOutKeyboardActivity:(double)activity
 {
-  v108 = *MEMORY[0x277D85DE8];
+  v107 = *MEMORY[0x277D85DE8];
   v5 = TIGetCurrentTime();
   activeStateDataLock = [(TIKeyboardApplicationStateMonitor *)self activeStateDataLock];
   v7 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:1.0];
@@ -231,9 +230,9 @@ void __53__TIKeyboardApplicationStateMonitor_databaseLocation__block_invoke()
       v14 = TIOSLogFacility();
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
-        v75 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s App went background without dismissing keyboard", "-[TIKeyboardApplicationStateMonitor logOutKeyboardActivity:]"];
+        v74 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s App went background without dismissing keyboard", "-[TIKeyboardApplicationStateMonitor logOutKeyboardActivity:]"];
         *buf = 138412290;
-        v107 = v75;
+        v106 = v74;
         _os_log_debug_impl(&dword_22CA55000, v14, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -242,12 +241,12 @@ void __53__TIKeyboardApplicationStateMonitor_databaseLocation__block_invoke()
   v15 = MEMORY[0x277CCABB0];
   [(TIKeyboardApplicationStateMonitor *)self activeAppStartTime];
   v17 = [v15 numberWithDouble:activity - v16];
-  v105[0] = v17;
-  v104[0] = @"appTime";
-  v104[1] = @"keyboardTimes";
+  v104[0] = v17;
+  v103[0] = @"appTime";
+  v103[1] = @"keyboardTimes";
   keyboardUsageTimes2 = [(TIKeyboardApplicationStateMonitor *)self keyboardUsageTimes];
-  v105[1] = keyboardUsageTimes2;
-  v104[2] = @"startDate";
+  v104[1] = keyboardUsageTimes2;
+  v103[2] = @"startDate";
   activeAppStartDate = [(TIKeyboardApplicationStateMonitor *)self activeAppStartDate];
   if (activeAppStartDate)
   {
@@ -259,8 +258,8 @@ void __53__TIKeyboardApplicationStateMonitor_databaseLocation__block_invoke()
     activeAppStartDate2 = @"unknown";
   }
 
-  v105[2] = activeAppStartDate2;
-  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v105 forKeys:v104 count:3];
+  v104[2] = activeAppStartDate2;
+  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v104 forKeys:v103 count:3];
   if (activeAppStartDate)
   {
   }
@@ -272,22 +271,22 @@ void __53__TIKeyboardApplicationStateMonitor_databaseLocation__block_invoke()
   [databaseInUseLock lock];
 
   applicationStateDatabase = [(TIKeyboardApplicationStateMonitor *)self applicationStateDatabase];
-  v76 = v22;
+  v75 = v22;
   if (applicationStateDatabase)
   {
     v26 = applicationStateDatabase;
 LABEL_19:
     v29 = objc_alloc_init(MEMORY[0x277CBEB38]);
     v30 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:-345600.0];
-    v96[0] = MEMORY[0x277D85DD0];
-    v96[1] = 3221225472;
-    v96[2] = __60__TIKeyboardApplicationStateMonitor_logOutKeyboardActivity___block_invoke;
-    v96[3] = &unk_278732298;
+    v95[0] = MEMORY[0x277D85DD0];
+    v95[1] = 3221225472;
+    v95[2] = __60__TIKeyboardApplicationStateMonitor_logOutKeyboardActivity___block_invoke;
+    v95[3] = &unk_278732298;
     v31 = v30;
-    v97 = v31;
+    v96 = v31;
     activeAppBundleID3 = v29;
-    v98 = activeAppBundleID3;
-    [v26 enumerateKeysAndObjectsUsingBlock:v96];
+    v97 = activeAppBundleID3;
+    [v26 enumerateKeysAndObjectsUsingBlock:v95];
     activeAppBundleID = [(TIKeyboardApplicationStateMonitor *)self activeAppBundleID];
     v34 = [activeAppBundleID3 objectForKey:activeAppBundleID];
 
@@ -298,8 +297,8 @@ LABEL_19:
 
     else
     {
-      v103 = v22;
-      [MEMORY[0x277CBEA60] arrayWithObjects:&v103 count:1];
+      v102 = v22;
+      [MEMORY[0x277CBEA60] arrayWithObjects:&v102 count:1];
     }
     v35 = ;
     activeAppBundleID2 = [(TIKeyboardApplicationStateMonitor *)self activeAppBundleID];
@@ -320,11 +319,11 @@ LABEL_19:
     goto LABEL_19;
   }
 
-  v73 = MEMORY[0x277CBEAC0];
-  v102 = v22;
-  v26 = [MEMORY[0x277CBEA60] arrayWithObjects:&v102 count:1];
+  v72 = MEMORY[0x277CBEAC0];
+  v101 = v22;
+  v26 = [MEMORY[0x277CBEA60] arrayWithObjects:&v101 count:1];
   activeAppBundleID3 = [(TIKeyboardApplicationStateMonitor *)self activeAppBundleID];
-  v31 = [v73 dictionaryWithObject:v26 forKey:activeAppBundleID3];
+  v31 = [v72 dictionaryWithObject:v26 forKey:activeAppBundleID3];
   [(TIKeyboardApplicationStateMonitor *)self setApplicationStateDatabase:v31];
 LABEL_23:
 
@@ -335,86 +334,86 @@ LABEL_23:
   v39 = objc_alloc_init(MEMORY[0x277CBEB58]);
   [(TIKeyboardApplicationStateMonitor *)self setImSuppressingBundleIDs:v39];
 
-  v94 = 0u;
-  v95 = 0u;
-  v92 = 0u;
   v93 = 0u;
+  v94 = 0u;
+  v91 = 0u;
+  v92 = 0u;
   applicationStateDatabase2 = [(TIKeyboardApplicationStateMonitor *)self applicationStateDatabase];
   allKeys = [applicationStateDatabase2 allKeys];
 
   obj = allKeys;
-  v80 = [allKeys countByEnumeratingWithState:&v92 objects:v101 count:16];
-  if (v80)
+  v79 = [allKeys countByEnumeratingWithState:&v91 objects:v100 count:16];
+  if (v79)
   {
     selfCopy = self;
-    v79 = *v93;
+    v78 = *v92;
     do
     {
-      for (i = 0; i != v80; ++i)
+      for (i = 0; i != v79; ++i)
       {
-        if (*v93 != v79)
+        if (*v92 != v78)
         {
           objc_enumerationMutation(obj);
         }
 
-        v43 = *(*(&v92 + 1) + 8 * i);
+        v43 = *(*(&v91 + 1) + 8 * i);
         applicationStateDatabase3 = [(TIKeyboardApplicationStateMonitor *)self applicationStateDatabase];
-        v81 = v43;
+        v80 = v43;
         v45 = [applicationStateDatabase3 objectForKeyedSubscript:v43];
 
-        v90 = 0u;
-        v91 = 0u;
-        v88 = 0u;
         v89 = 0u;
+        v90 = 0u;
+        v87 = 0u;
+        v88 = 0u;
         v46 = v45;
-        v47 = [v46 countByEnumeratingWithState:&v88 objects:v100 count:16];
+        v47 = [v46 countByEnumeratingWithState:&v87 objects:v99 count:16];
         if (v47)
         {
           v48 = v47;
-          v82 = i;
+          v81 = i;
           v49 = 0;
-          v50 = *v89;
+          v50 = *v88;
           v51 = 0.0;
           v52 = 0.0;
           do
           {
-            v83 = v49;
+            v82 = v49;
             for (j = 0; j != v48; ++j)
             {
-              if (*v89 != v50)
+              if (*v88 != v50)
               {
                 objc_enumerationMutation(v46);
               }
 
-              v54 = *(*(&v88 + 1) + 8 * j);
+              v54 = *(*(&v87 + 1) + 8 * j);
               v55 = [v54 objectForKeyedSubscript:@"appTime"];
               [v55 doubleValue];
               v57 = v56;
 
-              v86 = 0u;
-              v87 = 0u;
-              v84 = 0u;
               v85 = 0u;
+              v86 = 0u;
+              v83 = 0u;
+              v84 = 0u;
               v58 = [v54 objectForKeyedSubscript:@"keyboardTimes"];
-              v59 = [v58 countByEnumeratingWithState:&v84 objects:v99 count:16];
+              v59 = [v58 countByEnumeratingWithState:&v83 objects:v98 count:16];
               if (v59)
               {
                 v60 = v59;
-                v61 = *v85;
+                v61 = *v84;
                 do
                 {
                   for (k = 0; k != v60; ++k)
                   {
-                    if (*v85 != v61)
+                    if (*v84 != v61)
                     {
                       objc_enumerationMutation(v58);
                     }
 
-                    [*(*(&v84 + 1) + 8 * k) doubleValue];
+                    [*(*(&v83 + 1) + 8 * k) doubleValue];
                     v52 = v52 + v63;
                   }
 
-                  v60 = [v58 countByEnumeratingWithState:&v84 objects:v99 count:16];
+                  v60 = [v58 countByEnumeratingWithState:&v83 objects:v98 count:16];
                 }
 
                 while (v60);
@@ -423,14 +422,14 @@ LABEL_23:
               v51 = v51 + v57;
             }
 
-            v49 = v83 + v48;
-            v48 = [v46 countByEnumeratingWithState:&v88 objects:v100 count:16];
+            v49 = v82 + v48;
+            v48 = [v46 countByEnumeratingWithState:&v87 objects:v99 count:16];
           }
 
           while (v48);
           v64 = v49;
           self = selfCopy;
-          i = v82;
+          i = v81;
         }
 
         else
@@ -443,14 +442,14 @@ LABEL_23:
         if (v52 / v51 < self->_appActivityKeyboardUsageFractionThreshold && v51 / v64 > self->_appActivityTimeDurationThreshold)
         {
           imSuppressingBundleIDs = [(TIKeyboardApplicationStateMonitor *)self imSuppressingBundleIDs];
-          [imSuppressingBundleIDs addObject:v81];
+          [imSuppressingBundleIDs addObject:v80];
         }
       }
 
-      v80 = [obj countByEnumeratingWithState:&v92 objects:v101 count:16];
+      v79 = [obj countByEnumeratingWithState:&v91 objects:v100 count:16];
     }
 
-    while (v80);
+    while (v79);
   }
 
   [(TIKeyboardApplicationStateMonitor *)self setActiveAppBundleID:0];
@@ -459,15 +458,15 @@ LABEL_23:
     dispatch_once(&TICanLogMessageAtLevel_onceToken, &__block_literal_global_24093);
   }
 
-  v21 = v76;
+  v21 = v75;
   if (TICanLogMessageAtLevel_logLevel >= 2)
   {
     v66 = TIOSLogFacility();
     if (os_log_type_enabled(v66, OS_LOG_TYPE_DEBUG))
     {
-      v74 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Wrote out app usage data", "-[TIKeyboardApplicationStateMonitor logOutKeyboardActivity:]"];
+      v73 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Wrote out app usage data", "-[TIKeyboardApplicationStateMonitor logOutKeyboardActivity:]"];
       *buf = 138412290;
-      v107 = v74;
+      v106 = v73;
       _os_log_debug_impl(&dword_22CA55000, v66, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
   }
@@ -487,36 +486,34 @@ LABEL_23:
   }
 
 LABEL_57:
-
-  v72 = *MEMORY[0x277D85DE8];
 }
 
 void __60__TIKeyboardApplicationStateMonitor_logOutKeyboardActivity___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v16 = a2;
+  v21 = *MEMORY[0x277D85DE8];
+  v15 = a2;
   v5 = a3;
   v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v7 = v5;
-  v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v18;
+    v10 = *v17;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v18 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v17 + 1) + 8 * i);
+        v12 = *(*(&v16 + 1) + 8 * i);
         v13 = [v12 objectForKey:@"startDate"];
         v14 = [v13 compare:*(a1 + 32)];
 
@@ -526,7 +523,7 @@ void __60__TIKeyboardApplicationStateMonitor_logOutKeyboardActivity___block_invo
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v9);
@@ -534,15 +531,13 @@ void __60__TIKeyboardApplicationStateMonitor_logOutKeyboardActivity___block_invo
 
   if ([v6 count])
   {
-    [*(a1 + 40) setObject:v6 forKey:v16];
+    [*(a1 + 40) setObject:v6 forKey:v15];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startANewKeyboardActivity:(id)activity
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   activityCopy = activity;
   activeStateDataLock = [(TIKeyboardApplicationStateMonitor *)self activeStateDataLock];
   v6 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:1.0];
@@ -584,9 +579,9 @@ void __60__TIKeyboardApplicationStateMonitor_logOutKeyboardActivity___block_invo
             v17 = TIOSLogFacility();
             if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
             {
-              v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Notify delegate of keyboard unlikely app launch", "-[TIKeyboardApplicationStateMonitor startANewKeyboardActivity:]"];
+              v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Notify delegate of keyboard unlikely app launch", "-[TIKeyboardApplicationStateMonitor startANewKeyboardActivity:]"];
               *buf = 138412290;
-              v21 = v19;
+              v20 = v18;
               _os_log_debug_impl(&dword_22CA55000, v17, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
             }
           }
@@ -596,8 +591,6 @@ void __60__TIKeyboardApplicationStateMonitor_logOutKeyboardActivity___block_invo
       }
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __63__TIKeyboardApplicationStateMonitor_startANewKeyboardActivity___block_invoke(uint64_t a1)
@@ -664,9 +657,9 @@ void __63__TIKeyboardApplicationStateMonitor_startANewKeyboardActivity___block_i
       v13 = TIOSLogFacility();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
-        v40 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s New app state for (%@), isFront: %@, state: %@, isFrontmost: %d", "-[TIKeyboardApplicationStateMonitor handleApplicationStateChange:]", v7, v10, v11, v12];
+        v39 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s New app state for (%@), isFront: %@, state: %@, isFrontmost: %d", "-[TIKeyboardApplicationStateMonitor handleApplicationStateChange:]", v7, v10, v11, v12];
         LODWORD(buf) = 138412290;
-        *(&buf + 4) = v40;
+        *(&buf + 4) = v39;
         _os_log_debug_impl(&dword_22CA55000, v13, OS_LOG_TYPE_DEBUG, "%@", &buf, 0xCu);
       }
     }
@@ -681,11 +674,11 @@ void __63__TIKeyboardApplicationStateMonitor_startANewKeyboardActivity___block_i
       v14 = TIOSLogFacility();
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
-        v41 = MEMORY[0x277CCACA8];
+        v40 = MEMORY[0x277CCACA8];
         foregroundApps = [(TIKeyboardApplicationStateMonitor *)self foregroundApps];
-        v43 = [v41 stringWithFormat:@"%s Initial foreground apps: %@", "-[TIKeyboardApplicationStateMonitor handleApplicationStateChange:]", foregroundApps];
+        v42 = [v40 stringWithFormat:@"%s Initial foreground apps: %@", "-[TIKeyboardApplicationStateMonitor handleApplicationStateChange:]", foregroundApps];
         LODWORD(buf) = 138412290;
-        *(&buf + 4) = v43;
+        *(&buf + 4) = v42;
         _os_log_debug_impl(&dword_22CA55000, v14, OS_LOG_TYPE_DEBUG, "%@", &buf, 0xCu);
       }
     }
@@ -717,9 +710,9 @@ LABEL_104:
         v25 = TIOSLogFacility();
         if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
         {
-          v44 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Multiple apps foreground, no activity tracking will take place", "-[TIKeyboardApplicationStateMonitor handleApplicationStateChange:]"];
+          v43 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Multiple apps foreground, no activity tracking will take place", "-[TIKeyboardApplicationStateMonitor handleApplicationStateChange:]"];
           LODWORD(buf) = 138412290;
-          *(&buf + 4) = v44;
+          *(&buf + 4) = v43;
           _os_log_debug_impl(&dword_22CA55000, v25, OS_LOG_TYPE_DEBUG, "%@", &buf, 0xCu);
         }
 
@@ -744,9 +737,9 @@ LABEL_103:
           v28 = TIOSLogFacility();
           if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
           {
-            v48 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Foreground app set now empty", "-[TIKeyboardApplicationStateMonitor handleApplicationStateChange:]"];
+            v47 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Foreground app set now empty", "-[TIKeyboardApplicationStateMonitor handleApplicationStateChange:]"];
             LODWORD(buf) = 138412290;
-            *(&buf + 4) = v48;
+            *(&buf + 4) = v47;
             _os_log_debug_impl(&dword_22CA55000, v28, OS_LOG_TYPE_DEBUG, "%@", &buf, 0xCu);
           }
         }
@@ -759,13 +752,13 @@ LABEL_103:
       v8 = activeAppBundleID;
       if (activeAppBundleID)
       {
-        v31 = [activeAppBundleID isEqualToString:v7];
+        isEqualToString = objc_msgSend_isEqualToString_(activeAppBundleID);
         if (TICanLogMessageAtLevel_onceToken != -1)
         {
           dispatch_once(&TICanLogMessageAtLevel_onceToken, &__block_literal_global_24093);
         }
 
-        if (v31)
+        if (isEqualToString)
         {
           if (v12)
           {
@@ -794,9 +787,9 @@ LABEL_109:
             v38 = TIOSLogFacility();
             if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
             {
-              v53 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Record activity for foreground app that is now background", "-[TIKeyboardApplicationStateMonitor handleApplicationStateChange:]"];
+              v52 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Record activity for foreground app that is now background", "-[TIKeyboardApplicationStateMonitor handleApplicationStateChange:]"];
               LODWORD(buf) = 138412290;
-              *(&buf + 4) = v53;
+              *(&buf + 4) = v52;
               _os_log_debug_impl(&dword_22CA55000, v38, OS_LOG_TYPE_DEBUG, "%@", &buf, 0xCu);
             }
           }
@@ -830,9 +823,9 @@ LABEL_109:
             v35 = TIOSLogFacility();
             if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
             {
-              v52 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Record activity of app that went background directly", "-[TIKeyboardApplicationStateMonitor handleApplicationStateChange:]"];
+              v51 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Record activity of app that went background directly", "-[TIKeyboardApplicationStateMonitor handleApplicationStateChange:]"];
               LODWORD(buf) = 138412290;
-              *(&buf + 4) = v52;
+              *(&buf + 4) = v51;
               _os_log_debug_impl(&dword_22CA55000, v35, OS_LOG_TYPE_DEBUG, "%@", &buf, 0xCu);
             }
           }
@@ -861,9 +854,9 @@ LABEL_109:
           v34 = TIOSLogFacility();
           if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
           {
-            v51 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Start recording activity for new foreground app", "-[TIKeyboardApplicationStateMonitor handleApplicationStateChange:]"];
+            v50 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Start recording activity for new foreground app", "-[TIKeyboardApplicationStateMonitor handleApplicationStateChange:]"];
             LODWORD(buf) = 138412290;
-            *(&buf + 4) = v51;
+            *(&buf + 4) = v50;
             _os_log_debug_impl(&dword_22CA55000, v34, OS_LOG_TYPE_DEBUG, "%@", &buf, 0xCu);
           }
         }
@@ -901,11 +894,11 @@ LABEL_98:
       v25 = TIOSLogFacility();
       if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
       {
-        v45 = MEMORY[0x277CCACA8];
+        v44 = MEMORY[0x277CCACA8];
         foregroundApps8 = [(TIKeyboardApplicationStateMonitor *)self foregroundApps];
-        v47 = [v45 stringWithFormat:@"%s Current foreground apps: %@", "-[TIKeyboardApplicationStateMonitor handleApplicationStateChange:]", foregroundApps8];
+        v46 = [v44 stringWithFormat:@"%s Current foreground apps: %@", "-[TIKeyboardApplicationStateMonitor handleApplicationStateChange:]", foregroundApps8];
         LODWORD(buf) = 138412290;
-        *(&buf + 4) = v47;
+        *(&buf + 4) = v46;
         _os_log_debug_impl(&dword_22CA55000, v25, OS_LOG_TYPE_DEBUG, "%@", &buf, 0xCu);
       }
 
@@ -929,9 +922,9 @@ LABEL_98:
           v22 = TIOSLogFacility();
           if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
           {
-            v50 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Multiple apps - Foreground app went away", "-[TIKeyboardApplicationStateMonitor handleApplicationStateChange:]"];
+            v49 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Multiple apps - Foreground app went away", "-[TIKeyboardApplicationStateMonitor handleApplicationStateChange:]"];
             LODWORD(buf) = 138412290;
-            *(&buf + 4) = v50;
+            *(&buf + 4) = v49;
             _os_log_debug_impl(&dword_22CA55000, v22, OS_LOG_TYPE_DEBUG, "%@", &buf, 0xCu);
           }
         }
@@ -966,9 +959,9 @@ LABEL_98:
           v21 = TIOSLogFacility();
           if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
           {
-            v49 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Multiple apps - Background app is now foreground", "-[TIKeyboardApplicationStateMonitor handleApplicationStateChange:]"];
+            v48 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Multiple apps - Background app is now foreground", "-[TIKeyboardApplicationStateMonitor handleApplicationStateChange:]"];
             LODWORD(buf) = 138412290;
-            *(&buf + 4) = v49;
+            *(&buf + 4) = v48;
             _os_log_debug_impl(&dword_22CA55000, v21, OS_LOG_TYPE_DEBUG, "%@", &buf, 0xCu);
           }
         }
@@ -1000,8 +993,8 @@ LABEL_47:
     goto LABEL_48;
   }
 
-  dlerror();
-  abort_report_np();
+  v53 = dlerror();
+  abort_report_np("%s", v53);
 LABEL_111:
   dispatch_once(&TICanLogMessageAtLevel_onceToken, &__block_literal_global_24093);
 LABEL_6:
@@ -1020,13 +1013,11 @@ LABEL_6:
   }
 
 LABEL_105:
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (void)applicationUninstalled:(id)uninstalled
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   object = [uninstalled object];
   databaseInUseLock = [(TIKeyboardApplicationStateMonitor *)self databaseInUseLock];
   [databaseInUseLock lock];
@@ -1049,30 +1040,30 @@ LABEL_105:
     }
   }
 
-  v22 = v7;
+  v21 = v7;
   v10 = [v7 mutableCopy];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
-  v23 = object;
+  v22 = object;
   v11 = object;
-  v12 = [v11 countByEnumeratingWithState:&v25 objects:v31 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v24 objects:v30 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v26;
+    v14 = *v25;
     do
     {
       v15 = 0;
       do
       {
-        if (*v26 != v14)
+        if (*v25 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v25 + 1) + 8 * v15);
+        v16 = *(*(&v24 + 1) + 8 * v15);
         if (TICanLogMessageAtLevel_onceToken != -1)
         {
           dispatch_once(&TICanLogMessageAtLevel_onceToken, &__block_literal_global_24093);
@@ -1083,9 +1074,9 @@ LABEL_105:
           v17 = TIOSLogFacility();
           if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
           {
-            v24 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Deleting data for bundle ID (%@)", "-[TIKeyboardApplicationStateMonitor applicationUninstalled:]", v16];
+            v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Deleting data for bundle ID (%@)", "-[TIKeyboardApplicationStateMonitor applicationUninstalled:]", v16];
             *buf = 138412290;
-            v30 = v24;
+            v29 = v23;
             _os_log_debug_impl(&dword_22CA55000, v17, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
           }
         }
@@ -1098,7 +1089,7 @@ LABEL_105:
       }
 
       while (v13 != v15);
-      v13 = [v11 countByEnumeratingWithState:&v25 objects:v31 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v24 objects:v30 count:16];
     }
 
     while (v13);
@@ -1108,12 +1099,10 @@ LABEL_105:
   [(TIKeyboardApplicationStateMonitor *)self setApplicationStateDatabase:v19];
 
   [(TIKeyboardApplicationStateMonitor *)self threadUnsafeFlushChangesToDiskWithImmediacy:1];
-  object = v23;
+  object = v22;
 LABEL_18:
   databaseInUseLock2 = [(TIKeyboardApplicationStateMonitor *)self databaseInUseLock];
   [databaseInUseLock2 unlock];
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (TIKeyboardApplicationStateMonitor)initWithAppActivityTimeDurationThreshold:(double)threshold keyboardUsageFractionThreshold:(double)fractionThreshold

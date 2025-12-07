@@ -19,7 +19,7 @@
   objectCopy = object;
   if (elementCopy)
   {
-    objc_msgSend_index(elementCopy, v7, v9, v10, v11);
+    objc_msgSend_index(elementCopy, v9, v10, v11);
   }
 
   else

@@ -17,7 +17,7 @@
   if (options)
   {
     type metadata accessor for LaunchOptionsKey(0);
-    sub_100007284(&qword_100767FE8, type metadata accessor for LaunchOptionsKey);
+    sub_100007284(&qword_100767FE8, type metadata accessor for LaunchOptionsKey, &unk_10062D314);
     optionsCopy = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
@@ -36,7 +36,7 @@
   v10 = &v16 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
   type metadata accessor for OpenURLOptionsKey(0);
-  sub_100007284(&qword_100767FF8, type metadata accessor for OpenURLOptionsKey);
+  sub_100007284(&qword_100767FF8, type metadata accessor for OpenURLOptionsKey, &unk_10062D2D0);
   v11 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   applicationCopy = application;
   selfCopy = self;

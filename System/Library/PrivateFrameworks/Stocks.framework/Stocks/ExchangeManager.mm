@@ -27,9 +27,11 @@
 
 uint64_t __32__ExchangeManager_sharedManager__block_invoke()
 {
-  sharedManager_sharedManager = objc_opt_new();
+  v0 = objc_opt_new();
+  v1 = sharedManager_sharedManager;
+  sharedManager_sharedManager = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (ExchangeManager)init

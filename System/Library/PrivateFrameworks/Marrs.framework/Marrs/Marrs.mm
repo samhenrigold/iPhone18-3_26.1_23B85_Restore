@@ -174,7 +174,7 @@ uint64_t _GLOBAL__sub_I_CbRPredictorPlugin_cpp()
   return __cxa_atexit(v0, &SYS_COMB_WEIGHT_2, &dword_2227A9000);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -188,13 +188,13 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -462,11 +462,11 @@ uint64_t _GLOBAL__sub_I_MROrchestrator_cpp()
 
 void _GLOBAL__sub_I_MRREntity_cpp()
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11[62] = *MEMORY[0x277D85DE8];
   memcpy(v11, &unk_2784B52F8, 0x1E0uLL);
   std::map<marrs::mrr::mr::EntityType,char const*>::map[abi:ne200100](&marrs::mrr::mr::MRREntity::EntityTypeStr, v11, 30);
   __cxa_atexit(std::map<marrs::mrr::mr::EntityType,char const*>::~map[abi:ne200100], &marrs::mrr::mr::MRREntity::EntityTypeStr, &dword_2227A9000);
-  memcpy(v11, &unk_2784B54D8, sizeof(v11));
+  memcpy(v11, &unk_2784B54D8, 0x1F0uLL);
   std::map<marrs::mrr::mr::EntityType,char const*>::map[abi:ne200100](&marrs::mrr::mr::MRREntity::MatchingSpanLabelStr, v11, 31);
   __cxa_atexit(std::map<marrs::mrr::mr::EntityType,char const*>::~map[abi:ne200100], &marrs::mrr::mr::MRREntity::MatchingSpanLabelStr, &dword_2227A9000);
   v0 = 0;
@@ -578,21 +578,21 @@ LABEL_14:
     {
       __cxa_atexit(std::map<marrs::mrr::mr::EntitySource,char const*>::~map[abi:ne200100], &marrs::mrr::mr::MRREntity::EntitySourceToStrMap, &dword_2227A9000);
       std::string::basic_string[abi:ne200100]<0>(v11, "book");
-      v11[6] = 26;
-      std::string::basic_string[abi:ne200100]<0>(&v11[8], "album");
-      v11[14] = 9;
-      std::string::basic_string[abi:ne200100]<0>(&v11[16], "landmark");
-      v11[22] = 2;
-      std::string::basic_string[abi:ne200100]<0>(&v11[24], "dogs");
-      v11[30] = 27;
-      std::string::basic_string[abi:ne200100]<0>(&v11[32], "cats");
-      v11[38] = 27;
-      std::string::basic_string[abi:ne200100]<0>(&v11[40], "nature");
-      v11[46] = 27;
-      std::string::basic_string[abi:ne200100]<0>(&v11[48], "packagedProducts");
-      v11[54] = 28;
-      std::string::basic_string[abi:ne200100]<0>(&v11[56], "art");
-      v11[62] = 29;
+      LODWORD(v11[3]) = 26;
+      std::string::basic_string[abi:ne200100]<0>(&v11[4], "album");
+      LODWORD(v11[7]) = 9;
+      std::string::basic_string[abi:ne200100]<0>(&v11[8], "landmark");
+      LODWORD(v11[11]) = 2;
+      std::string::basic_string[abi:ne200100]<0>(&v11[12], "dogs");
+      LODWORD(v11[15]) = 27;
+      std::string::basic_string[abi:ne200100]<0>(&v11[16], "cats");
+      LODWORD(v11[19]) = 27;
+      std::string::basic_string[abi:ne200100]<0>(&v11[20], "nature");
+      LODWORD(v11[23]) = 27;
+      std::string::basic_string[abi:ne200100]<0>(&v11[24], "packagedProducts");
+      LODWORD(v11[27]) = 28;
+      std::string::basic_string[abi:ne200100]<0>(&v11[28], "art");
+      LODWORD(v11[31]) = 29;
       qword_280AC2AE0 = 0;
       qword_280AC2AD8 = 0;
       marrs::mrr::mr::MRREntity::SearchObjectTypeToEntityTypeMap = &qword_280AC2AD8;
@@ -622,26 +622,26 @@ void sub_2227ABCA8(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3
   }
 }
 
-void *std::map<marrs::mrr::mr::EntityType,char const*>::map[abi:ne200100](void *result, int *a2, uint64_t a3)
+uint64_t **std::map<marrs::mrr::mr::EntityType,char const*>::map[abi:ne200100](uint64_t **a1, int *a2, uint64_t a3)
 {
-  result[1] = 0;
-  result[2] = 0;
-  *result = result + 1;
+  a1[1] = 0;
+  a1[2] = 0;
+  *a1 = (a1 + 1);
   if (a3)
   {
     v3 = a2;
     v4 = 0;
-    v5 = result + 1;
+    v5 = a1 + 1;
     while (1)
     {
-      v6 = result + 1;
-      if (v5 == result + 1)
+      v6 = a1 + 1;
+      if (v5 == a1 + 1)
       {
         goto LABEL_9;
       }
 
       v7 = v4;
-      v8 = result + 1;
+      v8 = a1 + 1;
       if (v4)
       {
         do
@@ -669,21 +669,21 @@ void *std::map<marrs::mrr::mr::EntityType,char const*>::map[abi:ne200100](void *
       if (*(v6 + 8) < *v3)
       {
 LABEL_9:
-        v11 = v4 ? v6 + 1 : result + 1;
+        v11 = v4 ? v6 + 1 : a1 + 1;
       }
 
       else
       {
-        v11 = result + 1;
+        v11 = a1 + 1;
         if (v4)
         {
-          v11 = result + 1;
+          v11 = a1 + 1;
           while (1)
           {
             while (1)
             {
               v12 = v4;
-              v13 = *(v4 + 32);
+              v13 = *(v4 + 8);
               if (v10 >= v13)
               {
                 break;
@@ -724,12 +724,12 @@ LABEL_13:
         break;
       }
 
-      v5 = *result;
-      v4 = result[1];
+      v5 = *a1;
+      v4 = a1[1];
     }
   }
 
-  return result;
+  return a1;
 }
 
 uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<void *> *>(uint64_t *result, uint64_t *a2)
@@ -740,12 +740,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -759,22 +759,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -808,13 +808,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -932,34 +932,34 @@ void std::string::__init_copy_ctor_external(std::string *this, const std::string
 
 void _GLOBAL__sub_I_MRREntityNLUGraphParsingUtil_mm()
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v0 = objc_autoreleasePoolPush();
   v1 = siri::ontology::oname::graph::ontology_init::common_EmailAddress(v0);
-  v26[0] = *(v1 + 9);
+  v25[0] = *(v1 + 9);
   v2 = siri::ontology::oname::graph::ontology_init::common_PhoneNumber(v1);
-  v26[1] = *(v2 + 9);
+  v25[1] = *(v2 + 9);
   v3 = siri::ontology::oname::graph::ontology_init::common_Uri(v2);
-  v26[2] = *(v3 + 9);
+  v25[2] = *(v3 + 9);
   v4 = siri::ontology::oname::graph::ontology_init::common_LocalisedString(v3);
-  v26[3] = *(v4 + 9);
+  v25[3] = *(v4 + 9);
   v5 = siri::ontology::oname::graph::ontology_init::common_Group(v4);
-  v26[4] = *(v5 + 9);
+  v25[4] = *(v5 + 9);
   v6 = siri::ontology::oname::graph::ontology_init::common_Person(v5);
-  v26[5] = *(v6 + 9);
+  v25[5] = *(v6 + 9);
   v7 = siri::ontology::oname::graph::ontology_init::common_MediaItem(v6);
-  v26[6] = *(v7 + 9);
+  v25[6] = *(v7 + 9);
   v8 = siri::ontology::oname::graph::ontology_init::common_SearchObject(v7);
-  v26[7] = *(v8 + 9);
+  v25[7] = *(v8 + 9);
   v9 = siri::ontology::oname::graph::ontology_init::common_UserEntity(v8);
-  v26[8] = *(v9 + 9);
+  v25[8] = *(v9 + 9);
   v10 = siri::ontology::oname::graph::ontology_init::common_App(v9);
-  v26[9] = *(v10 + 9);
+  v25[9] = *(v10 + 9);
   v11 = siri::ontology::oname::graph::ontology_init::common_Window(v10);
-  v26[10] = *(v11 + 9);
+  v25[10] = *(v11 + 9);
   v12 = siri::ontology::oname::graph::ontology_init::common_Setting(v11);
   v13 = 0;
   v14 = 0;
-  v26[11] = *(v12 + 36);
+  v25[11] = *(v12 + 36);
   qword_280AC2CC0 = 0;
   qword_280AC2CB8 = 0;
   v15 = &qword_280AC2CB8;
@@ -998,7 +998,7 @@ void _GLOBAL__sub_I_MRREntityNLUGraphParsingUtil_mm()
         while (v19);
       }
 
-      v20 = v26[v14];
+      v20 = v25[v14];
       if (*(v17 + 7) >= v20)
       {
         if (v13)
@@ -1073,12 +1073,11 @@ LABEL_14:
   __cxa_atexit(v24, &marrs::mrr::mr::homeAutomationAccessoryNameString, &dword_2227A9000);
   std::string::basic_string[abi:ne200100](&marrs::mrr::mr::homeAutomationServiceNameString, [*MEMORY[0x277D5F580] UTF8String], objc_msgSend(*MEMORY[0x277D5F580], "lengthOfBytesUsingEncoding:", 4));
   __cxa_atexit(v24, &marrs::mrr::mr::homeAutomationServiceNameString, &dword_2227A9000);
-  v25 = *MEMORY[0x277D85DE8];
 
   objc_autoreleasePoolPop(v0);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100](_BYTE *__dst, void *__src, size_t __len)
+void *std::string::basic_string[abi:ne200100](void *__dst, void *__src, size_t __len)
 {
   if (__len >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -1090,13 +1089,13 @@ _BYTE *std::string::basic_string[abi:ne200100](_BYTE *__dst, void *__src, size_t
     operator new();
   }
 
-  __dst[23] = __len;
+  *(__dst + 23) = __len;
   if (__len)
   {
     memmove(__dst, __src, __len);
   }
 
-  __dst[__len] = 0;
+  *(__dst + __len) = 0;
   return __dst;
 }
 
@@ -1369,14 +1368,14 @@ void sub_2227ACDC4(_Unwind_Exception *a1)
 
 uint64_t RepetitionPredictorBase::readConfig(uint64_t a1, const void **a2)
 {
-  v59 = *MEMORY[0x277D85DE8];
-  v56.__loc_ = 0;
-  v56.__vftable = &unk_2835DF150;
-  v55.__sb_.__extbufnext_ = 0;
-  std::ios_base::init(&v56, v55.__sb_.__extbuf_min_);
-  v58 = -1;
-  v57 = 0;
-  MEMORY[0x223DC2070](v55.__sb_.__extbuf_min_);
+  v58 = *MEMORY[0x277D85DE8];
+  v55.__loc_ = 0;
+  v55.__vftable = &unk_2835DF150;
+  v54.__sb_.__extbufnext_ = 0;
+  std::ios_base::init(&v55, v54.__sb_.__extbuf_min_);
+  v57 = -1;
+  v56 = 0;
+  MEMORY[0x223DC2070](v54.__sb_.__extbuf_min_);
   if (*(a2 + 23) >= 0)
   {
     v3 = *(a2 + 23);
@@ -1387,15 +1386,15 @@ uint64_t RepetitionPredictorBase::readConfig(uint64_t a1, const void **a2)
     v3 = a2[1];
   }
 
-  std::string::basic_string[abi:ne200100](&v35, v3 + 1);
-  if ((v35.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  std::string::basic_string[abi:ne200100](&v34, v3 + 1);
+  if ((v34.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v4 = &v35;
+    v4 = &v34;
   }
 
   else
   {
-    v4 = v35.__r_.__value_.__r.__words[0];
+    v4 = v34.__r_.__value_.__r.__words[0];
   }
 
   if (v3)
@@ -1414,81 +1413,81 @@ uint64_t RepetitionPredictorBase::readConfig(uint64_t a1, const void **a2)
   }
 
   *(&v4->__r_.__value_.__l.__data_ + v3) = 47;
-  v6 = std::string::append(&v35, "uic.config");
+  v6 = std::string::append(&v34, "uic.config");
   v8 = *&v6->__r_.__value_.__l.__data_;
   __s.__r_.__value_.__r.__words[2] = v6->__r_.__value_.__r.__words[2];
   *&__s.__r_.__value_.__l.__data_ = v8;
   v6->__r_.__value_.__l.__size_ = 0;
   v6->__r_.__value_.__r.__words[2] = 0;
   v6->__r_.__value_.__r.__words[0] = 0;
-  if (SHIBYTE(v35.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v34.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v35.__r_.__value_.__l.__data_);
+    operator delete(v34.__r_.__value_.__l.__data_);
   }
 
-  std::fstream::open(&v55, &__s, v7);
-  if (!*(&v55.__sb_.__st_._mbstateL + 9))
+  std::fstream::open(&v54, &__s, v7);
+  if (!*(&v54.__sb_.__st_._mbstateL + 9))
   {
-    std::fstream::close(&v55);
+    std::fstream::close(&v54);
     exception = __cxa_allocate_exception(0x30uLL);
-    std::string::basic_string[abi:ne200100]<0>(&v35, "#Model failed to load config");
+    std::string::basic_string[abi:ne200100]<0>(&v34, "#Model failed to load config");
     std::string::basic_string[abi:ne200100]<0>(&buf, "QueryRewrite");
-    ConfigLoadingError::ConfigLoadingError(exception, &v35, &buf, "/Library/Caches/com.apple.xbs/Sources/Marrs/QueryRewrite.subproj/QueryRewrite/Common/Predictor/src/RepetitionPredictorBase.cpp", 20);
+    ConfigLoadingError::ConfigLoadingError(exception, &v34, &buf, "/Library/Caches/com.apple.xbs/Sources/Marrs/QueryRewrite.subproj/QueryRewrite/Common/Predictor/src/RepetitionPredictorBase.cpp", 20);
   }
 
-  memset(&v43, 0, sizeof(v43));
+  memset(&v42, 0, sizeof(v42));
   v9 = (&buf_4 + 4);
-  v10 = &v48;
-  v41[0] = 0;
-  v41[1] = 0;
-  v42 = 0;
+  v10 = &v47;
+  v40[0] = 0;
+  v40[1] = 0;
+  v41 = 0;
   memset(&__str, 0, sizeof(__str));
-  v11 = &v35.__r_.__value_.__s.__data_[16];
-  v34 = *MEMORY[0x277D82820];
-  v33 = *(MEMORY[0x277D82820] + 24);
+  v11 = &v34.__r_.__value_.__s.__data_[16];
+  v33 = *MEMORY[0x277D82820];
+  v32 = *(MEMORY[0x277D82820] + 24);
   while (1)
   {
-    std::ios_base::getloc((&v55 + *(v55.__sb_.__extbuf_ - 3)));
-    v12 = std::locale::use_facet(&v35, MEMORY[0x277D82680]);
+    std::ios_base::getloc((&v54 + *(v54.__sb_.__extbuf_ - 3)));
+    v12 = std::locale::use_facet(&v34, MEMORY[0x277D82680]);
     v13 = (v12->__vftable[2].~facet_0)(v12, 10);
-    std::locale::~locale(&v35);
-    std::getline[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v55, &v43, v13);
-    if ((v55.__sb_.__extbuf_min_[*(v55.__sb_.__extbuf_ - 3) + 8] & 5) != 0)
+    std::locale::~locale(&v34);
+    std::getline[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v54, &v42, v13);
+    if ((v54.__sb_.__extbuf_min_[*(v54.__sb_.__extbuf_ - 3) + 8] & 5) != 0)
     {
       break;
     }
 
-    MEMORY[0x223DC2220](&v39);
-    v45 = 0x4000;
-    std::locale::locale(&v46, &v39);
-    buf = v45;
-    std::locale::locale(v9, &v46);
-    boost::algorithm::trim_right_if<std::string,boost::algorithm::detail::is_classifiedF>(&v43, &buf);
+    MEMORY[0x223DC2220](&v38);
+    v44 = 0x4000;
+    std::locale::locale(&v45, &v38);
+    buf = v44;
+    std::locale::locale(v9, &v45);
+    boost::algorithm::trim_right_if<std::string,boost::algorithm::detail::is_classifiedF>(&v42, &buf);
     std::locale::~locale(v9);
-    LODWORD(v47) = v45;
-    std::locale::locale(v10, &v46);
-    if ((v43.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    LODWORD(v46) = v44;
+    std::locale::locale(v10, &v45);
+    if ((v42.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v14 = &v43;
+      v14 = &v42;
     }
 
     else
     {
-      v14 = v43.__r_.__value_.__r.__words[0];
+      v14 = v42.__r_.__value_.__r.__words[0];
     }
 
-    if ((v43.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    if ((v42.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      size = SHIBYTE(v43.__r_.__value_.__r.__words[2]);
+      size = SHIBYTE(v42.__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      size = v43.__r_.__value_.__l.__size_;
+      size = v42.__r_.__value_.__l.__size_;
     }
 
-    LODWORD(v35.__r_.__value_.__l.__data_) = v47;
-    std::locale::locale(&v35.__r_.__value_.__r.__words[1], v10);
+    LODWORD(v34.__r_.__value_.__l.__data_) = v46;
+    std::locale::locale(&v34.__r_.__value_.__r.__words[1], v10);
     if (size)
     {
       v16 = v10;
@@ -1499,8 +1498,8 @@ uint64_t RepetitionPredictorBase::readConfig(uint64_t a1, const void **a2)
       while (1)
       {
         v21 = v20->__r_.__value_.__s.__data_[0];
-        v22 = std::locale::use_facet(&v35.__r_.__value_.__r.__words[1], MEMORY[0x277D82680]);
-        if ((v21 & 0x80) != 0 || (*(&v22[1].~facet + v21) & v35.__r_.__value_.__l.__data_) == 0)
+        v22 = std::locale::use_facet(&v34.__r_.__value_.__r.__words[1], MEMORY[0x277D82680]);
+        if ((v21 & 0x80) != 0 || (*(&v22[1].~facet + v21) & v34.__r_.__value_.__l.__data_) == 0)
         {
           break;
         }
@@ -1523,35 +1522,35 @@ uint64_t RepetitionPredictorBase::readConfig(uint64_t a1, const void **a2)
       v20 = v14;
     }
 
-    if ((v43.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    if ((v42.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v23 = &v43;
+      v23 = &v42;
     }
 
     else
     {
-      v23 = v43.__r_.__value_.__r.__words[0];
+      v23 = v42.__r_.__value_.__r.__words[0];
     }
 
-    std::string::erase(&v43, v14 - v23, v20 - v14);
-    std::locale::~locale(&v35.__r_.__value_.__r.__words[1]);
+    std::string::erase(&v42, v14 - v23, v20 - v14);
+    std::locale::~locale(&v34.__r_.__value_.__r.__words[1]);
     std::locale::~locale(v10);
-    std::locale::~locale(&v46);
-    std::locale::~locale(&v39);
-    v24 = HIBYTE(v43.__r_.__value_.__r.__words[2]);
-    if ((v43.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    std::locale::~locale(&v45);
+    std::locale::~locale(&v38);
+    v24 = HIBYTE(v42.__r_.__value_.__r.__words[2]);
+    if ((v42.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      v24 = v43.__r_.__value_.__l.__size_;
+      v24 = v42.__r_.__value_.__l.__size_;
     }
 
     if (v24)
     {
-      std::istringstream::basic_istringstream[abi:ne200100](&v35, &v43);
-      std::operator>>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v35, v41);
-      std::operator>>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v35, &__str);
-      if ((*(&v36[1].__locale_ + *(v35.__r_.__value_.__r.__words[0] - 24)) & 5) == 0)
+      std::istringstream::basic_istringstream[abi:ne200100](&v34, &v42);
+      std::operator>>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v34, v40);
+      std::operator>>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v34, &__str);
+      if ((*(&v35[1].__locale_ + *(v34.__r_.__value_.__r.__words[0] - 24)) & 5) == 0)
       {
-        v25 = *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<void>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(a1 + 160, &v47, v41);
+        v25 = *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<void>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(a1 + 160, &v46, v40);
         if (!v25)
         {
           operator new();
@@ -1561,10 +1560,10 @@ uint64_t RepetitionPredictorBase::readConfig(uint64_t a1, const void **a2)
         v26 = QRLoggerForCategory(0);
         if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
         {
-          v27 = v41;
-          if (v42 < 0)
+          v27 = v40;
+          if (v41 < 0)
           {
-            v27 = v41[0];
+            v27 = v40[0];
           }
 
           p_str = &__str;
@@ -1575,32 +1574,32 @@ uint64_t RepetitionPredictorBase::readConfig(uint64_t a1, const void **a2)
 
           buf = 136315650;
           buf_4 = "readConfig";
-          v51 = 2080;
-          v52 = v27;
-          v53 = 2080;
-          v54 = p_str;
+          v50 = 2080;
+          v51 = v27;
+          v52 = 2080;
+          v53 = p_str;
           _os_log_impl(&dword_2227A9000, v26, OS_LOG_TYPE_INFO, "%s #Model config: %s : %s", &buf, 0x20u);
         }
       }
 
-      v35.__r_.__value_.__r.__words[0] = v34;
-      *(v35.__r_.__value_.__r.__words + *(v34 - 24)) = v33;
-      v35.__r_.__value_.__r.__words[2] = MEMORY[0x277D82878] + 16;
-      if (v37 < 0)
+      v34.__r_.__value_.__r.__words[0] = v33;
+      *(v34.__r_.__value_.__r.__words + *(v33 - 24)) = v32;
+      v34.__r_.__value_.__r.__words[2] = MEMORY[0x277D82878] + 16;
+      if (v36 < 0)
       {
-        operator delete(v36[7].__locale_);
+        operator delete(v35[7].__locale_);
       }
 
-      v35.__r_.__value_.__r.__words[2] = MEMORY[0x277D82868] + 16;
-      std::locale::~locale(v36);
+      v34.__r_.__value_.__r.__words[2] = MEMORY[0x277D82868] + 16;
+      std::locale::~locale(v35);
       std::istream::~istream();
-      MEMORY[0x223DC2270](&v38);
+      MEMORY[0x223DC2270](&v37);
     }
   }
 
   if (!std::filebuf::close())
   {
-    std::ios_base::clear((&v55 + *(v55.__sb_.__extbuf_ - 3)), *&v55.__sb_.__extbuf_min_[*(v55.__sb_.__extbuf_ - 3) + 8] | 4);
+    std::ios_base::clear((&v54 + *(v54.__sb_.__extbuf_ - 3)), *&v54.__sb_.__extbuf_min_[*(v54.__sb_.__extbuf_ - 3) + 8] | 4);
   }
 
   if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
@@ -1608,14 +1607,14 @@ uint64_t RepetitionPredictorBase::readConfig(uint64_t a1, const void **a2)
     operator delete(__str.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v42) < 0)
+  if (SHIBYTE(v41) < 0)
   {
-    operator delete(v41[0]);
+    operator delete(v40[0]);
   }
 
-  if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v42.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v43.__r_.__value_.__l.__data_);
+    operator delete(v42.__r_.__value_.__l.__data_);
   }
 
   if (SHIBYTE(__s.__r_.__value_.__r.__words[2]) < 0)
@@ -1623,11 +1622,9 @@ uint64_t RepetitionPredictorBase::readConfig(uint64_t a1, const void **a2)
     operator delete(__s.__r_.__value_.__l.__data_);
   }
 
-  MEMORY[0x223DC2080](v55.__sb_.__extbuf_min_);
+  MEMORY[0x223DC2080](v54.__sb_.__extbuf_min_);
   std::iostream::~basic_iostream();
-  result = MEMORY[0x223DC2270](&v56);
-  v30 = *MEMORY[0x277D85DE8];
-  return result;
+  return MEMORY[0x223DC2270](&v55);
 }
 
 void sub_2227AD618(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, std::locale a58, void *a59, uint64_t a60, uint64_t a61, void *a62, uint64_t a63)
@@ -1640,12 +1637,12 @@ void sub_2227AD618(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   if (a26 < 0)
   {
     operator delete(a21);
-    if ((v73 & 1) == 0)
+    if ((v67 & 1) == 0)
     {
 LABEL_8:
-      if (a72 < 0)
+      if (a66 < 0)
       {
-        operator delete(a68);
+        operator delete(a65);
       }
 
       std::fstream::~fstream(&STACK[0x220]);
@@ -1653,16 +1650,16 @@ LABEL_8:
     }
   }
 
-  else if (!v73)
+  else if (!v67)
   {
     goto LABEL_8;
   }
 
-  __cxa_free_exception(v72);
+  __cxa_free_exception(v66);
   goto LABEL_8;
 }
 
-uint64_t std::string::basic_string[abi:ne200100](uint64_t result, unint64_t a2)
+uint64_t std::string::basic_string[abi:ne200100](uint64_t a1, unint64_t a2)
 {
   if (a2 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -1674,33 +1671,28 @@ uint64_t std::string::basic_string[abi:ne200100](uint64_t result, unint64_t a2)
     operator new();
   }
 
-  *(result + 8) = 0;
-  *(result + 16) = 0;
-  *result = 0;
-  *(result + 23) = a2;
-  return result;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *a1 = 0;
+  *(a1 + 23) = a2;
+  return a1;
 }
 
 void std::fstream::open(std::fstream *this, const std::string *__s, std::ios_base::openmode __mode)
 {
-  if ((__s->__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  v4 = std::filebuf::open();
+  v5 = (this + *(this->__sb_.__extbuf_ - 3));
+  if (v4)
   {
-    v4 = __s->__r_.__value_.__r.__words[0];
-  }
-
-  v5 = std::filebuf::open();
-  v6 = (this + *(this->__sb_.__extbuf_ - 3));
-  if (v5)
-  {
-    v7 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v7 = v6->__rdstate_ | 4;
+    v6 = v5->__rdstate_ | 4;
   }
 
-  std::ios_base::clear(v6, v7);
+  std::ios_base::clear(v5, v6);
 }
 
 void boost::algorithm::trim_right_if<std::string,boost::algorithm::detail::is_classifiedF>(std::string *a1, const std::locale *a2)
@@ -1726,7 +1718,7 @@ void boost::algorithm::trim_right_if<std::string,boost::algorithm::detail::is_cl
     size = a1->__r_.__value_.__l.__size_;
   }
 
-  v6 = &v4[size];
+  v6 = (v4 + size);
   locale = a2->__locale_;
   std::locale::locale(&v15, a2 + 1);
   v16 = locale;
@@ -1735,7 +1727,7 @@ void boost::algorithm::trim_right_if<std::string,boost::algorithm::detail::is_cl
   while (size)
   {
     v8 = size;
-    v9 = v4[size - 1];
+    v9 = v4->__r_.__value_.__s.__data_[size - 1];
     v10 = std::locale::use_facet(&v17, v7);
     if ((v9 & 0x80) != 0)
     {
@@ -1743,12 +1735,12 @@ void boost::algorithm::trim_right_if<std::string,boost::algorithm::detail::is_cl
       break;
     }
 
-    --v6;
+    v6 = (v6 - 1);
     v11 = *(&v10[1].~facet + v9);
     size = v8 - 1;
     if ((v11 & v16) == 0)
     {
-      v4 += v8;
+      v4 = (v4 + v8);
       break;
     }
   }
@@ -1770,7 +1762,7 @@ void boost::algorithm::trim_right_if<std::string,boost::algorithm::detail::is_cl
     v12 = a1->__r_.__value_.__l.__size_;
   }
 
-  std::string::erase(a1, v4 - v13, &v13[v12] - v4);
+  std::string::erase(a1, v4 - v13, v13 + v12 - v4);
   std::locale::~locale(&v15);
 }
 
@@ -1979,7 +1971,6 @@ void sub_2227ADD34(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5,
   if ((*(v9 + *(v11 - 24) + 36) & 1) == 0)
   {
     __cxa_end_catch();
-    v12 = *v9;
     JUMPOUT(0x2227ADCF4);
   }
 
@@ -2101,7 +2092,7 @@ LABEL_28:
   return v5;
 }
 
-uint64_t std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::string>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
+char **std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::string>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](char **a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -2446,35 +2437,35 @@ void *std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__
   return v11;
 }
 
-BOOL SymbolMapper::set(int8x8_t *a1, void *a2)
+void SymbolMapper::set(int8x8_t *a1, void *a2, int a3)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a2);
-  v5 = v4;
-  v6 = a1[5];
-  if (!*&v6)
+  v5 = std::__string_hash<char>::operator()[abi:ne200100](a2);
+  v6 = v5;
+  v7 = a1[5];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*&a1[4] + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*&a1[4] + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     operator new();
@@ -2482,63 +2473,60 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  result = std::equal_to<std::string>::operator()[abi:ne200100](v11 + 2, a2);
-  if (!result)
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](v12 + 2, a2))
   {
     goto LABEL_17;
   }
-
-  return result;
 }
 
-void RepetitionPredictorBase::loadCostMatrix(int8x8_t *a1, const void **a2)
+void RepetitionPredictorBase::loadCostMatrix(uint64_t a1, const void **a2)
 {
-  v148 = *MEMORY[0x277D85DE8];
+  v146 = *MEMORY[0x277D85DE8];
   std::string::basic_string[abi:ne200100]<0>(&__p, "cost_matrix_file");
-  v4 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::find<std::string>(&a1[20], &__p);
+  v4 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::find<std::string>(a1 + 160, &__p);
   if (SHIBYTE(__p.__sb_.__extbufend_) < 0)
   {
     operator delete(__p.__sb_.__extbuf_);
   }
 
-  if (&a1[21] == v4)
+  if (a1 + 168 == v4)
   {
     exception = __cxa_allocate_exception(0x30uLL);
     std::string::basic_string[abi:ne200100]<0>(&__p, "#Model No cost matrix file specified");
-    std::string::basic_string[abi:ne200100]<0>(v125, "QueryRewrite");
-    ConfigLoadingError::ConfigLoadingError(exception, &__p, v125, "/Library/Caches/com.apple.xbs/Sources/Marrs/QueryRewrite.subproj/QueryRewrite/Common/Predictor/src/RepetitionPredictorBase.cpp", 62);
+    std::string::basic_string[abi:ne200100]<0>(v123, "QueryRewrite");
+    ConfigLoadingError::ConfigLoadingError(exception, &__p, v123, "/Library/Caches/com.apple.xbs/Sources/Marrs/QueryRewrite.subproj/QueryRewrite/Common/Predictor/src/RepetitionPredictorBase.cpp", 62);
   }
 
   if (*(a2 + 23) >= 0)
@@ -2578,8 +2566,8 @@ void RepetitionPredictorBase::loadCostMatrix(int8x8_t *a1, const void **a2)
   }
 
   *&p_p[v5] = 47;
-  std::string::basic_string[abi:ne200100]<0>(v125, "cost_matrix_file");
-  v8 = std::map<std::string,std::string>::at(&a1[20], &v125[0].__locale_);
+  std::string::basic_string[abi:ne200100]<0>(v123, "cost_matrix_file");
+  v8 = std::map<std::string,std::string>::at(a1 + 160, &v123[0].__locale_);
   v9 = *(v8 + 23);
   if (v9 >= 0)
   {
@@ -2608,9 +2596,9 @@ void RepetitionPredictorBase::loadCostMatrix(int8x8_t *a1, const void **a2)
   v12->__r_.__value_.__l.__size_ = 0;
   v12->__r_.__value_.__r.__words[2] = 0;
   v12->__r_.__value_.__r.__words[0] = 0;
-  if (SBYTE7(v126) < 0)
+  if (SBYTE7(v124) < 0)
   {
-    operator delete(v125[0].__locale_);
+    operator delete(v123[0].__locale_);
   }
 
   if (SHIBYTE(__p.__sb_.__extbufend_) < 0)
@@ -2618,54 +2606,48 @@ void RepetitionPredictorBase::loadCostMatrix(int8x8_t *a1, const void **a2)
     operator delete(__p.__sb_.__extbuf_);
   }
 
-  *v141 = 0u;
-  *v142 = 0u;
-  v143 = 1065353216;
-  std::string::basic_string[abi:ne200100]<0>(&v139, "");
-  v145.__loc_ = 0;
+  *v139 = 0u;
+  *v140 = 0u;
+  v141 = 1065353216;
+  std::string::basic_string[abi:ne200100]<0>(&v137, "");
+  v143.__loc_ = 0;
   __p.__sb_.__extbuf_ = &unk_2835DF128;
-  v145.__vftable = &unk_2835DF150;
+  v143.__vftable = &unk_2835DF150;
   __p.__sb_.__extbufnext_ = 0;
-  std::ios_base::init(&v145, __p.__sb_.__extbuf_min_);
-  v147 = -1;
-  v146 = 0;
+  std::ios_base::init(&v143, __p.__sb_.__extbuf_min_);
+  v145 = -1;
+  v144 = 0;
   MEMORY[0x223DC2070](__p.__sb_.__extbuf_min_);
-  if (a1[4])
+  if (*(a1 + 32))
   {
-    std::__hash_table<std::__hash_value_type<unsigned int,std::unordered_map<unsigned int,float>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::unordered_map<unsigned int,float>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::unordered_map<unsigned int,float>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::unordered_map<unsigned int,float>>>>::__deallocate_node(*&a1[3]);
-    a1[3] = 0;
-    v15 = a1[2];
+    std::__hash_table<std::__hash_value_type<unsigned int,std::unordered_map<unsigned int,float>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::unordered_map<unsigned int,float>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::unordered_map<unsigned int,float>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::unordered_map<unsigned int,float>>>>::__deallocate_node(*(a1 + 24));
+    *(a1 + 24) = 0;
+    v15 = *(a1 + 16);
     if (v15)
     {
-      v16 = 0;
-      do
+      for (i = 0; i != v15; ++i)
       {
-        *(*&a1[1] + 8 * v16++) = 0;
+        *(*(a1 + 8) + 8 * i) = 0;
       }
-
-      while (*&v15 != v16);
     }
 
-    a1[4] = 0;
+    *(a1 + 32) = 0;
   }
 
-  if (a1[18])
+  if (*(a1 + 144))
   {
-    std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__deallocate_node(*&a1[17]);
-    a1[17] = 0;
-    v17 = a1[16];
+    std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__deallocate_node(*(a1 + 136));
+    *(a1 + 136) = 0;
+    v17 = *(a1 + 128);
     if (v17)
     {
-      v18 = 0;
-      do
+      for (j = 0; j != v17; ++j)
       {
-        *(*&a1[15] + 8 * v18++) = 0;
+        *(*(a1 + 120) + 8 * j) = 0;
       }
-
-      while (*&v17 != v18);
     }
 
-    a1[18] = 0;
+    *(a1 + 144) = 0;
   }
 
   std::fstream::open(&__p, &__s, v14);
@@ -2680,117 +2662,116 @@ void RepetitionPredictorBase::loadCostMatrix(int8x8_t *a1, const void **a2)
   }
 
   v19 = 0;
-  memset(&v138, 0, sizeof(v138));
-  v136[1] = 0;
-  v136[0] = 0;
-  v137 = 0;
+  memset(&v136, 0, sizeof(v136));
   v134[1] = 0;
   v134[0] = 0;
   v135 = 0;
-  v132[0] = 0;
   v132[1] = 0;
+  v132[0] = 0;
   v133 = 0;
+  v130[0] = 0;
+  v130[1] = 0;
   v131 = 0;
-  v20 = *(MEMORY[0x277D82820] + 24);
-  v115 = v20;
-  v116 = *MEMORY[0x277D82820];
-  v118 = a1;
+  v129 = 0;
+  v113 = *(MEMORY[0x277D82820] + 24);
+  v114 = *MEMORY[0x277D82820];
+  v116 = a1;
 LABEL_37:
   std::ios_base::getloc((&__p + *(__p.__sb_.__extbuf_ - 3)));
-  v21 = std::locale::use_facet(v125, MEMORY[0x277D82680]);
-  v22 = (v21->__vftable[2].~facet_0)(v21, 10);
-  std::locale::~locale(v125);
-  std::getline[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&__p, &v138, v22);
+  v20 = std::locale::use_facet(v123, MEMORY[0x277D82680]);
+  v21 = (v20->__vftable[2].~facet_0)(v20, 10);
+  std::locale::~locale(v123);
+  std::getline[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&__p, &v136, v21);
   if ((__p.__sb_.__extbuf_min_[*(__p.__sb_.__extbuf_ - 3) + 8] & 5) == 0)
   {
-    std::istringstream::basic_istringstream[abi:ne200100](v125, &v138);
-    std::operator>>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v125, v136);
-    std::operator>>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v125, v136);
-    std::operator>>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v125, v134);
-    std::operator>>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v125, v132);
-    v23 = MEMORY[0x223DC20B0](v125, &v131);
-    if ((*(v23 + *(*v23 - 24) + 32) & 5) != 0)
+    std::istringstream::basic_istringstream[abi:ne200100](v123, &v136);
+    std::operator>>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v123, v134);
+    std::operator>>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v123, v134);
+    std::operator>>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v123, v132);
+    std::operator>>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v123, v130);
+    v22 = MEMORY[0x223DC20B0](v123, &v129);
+    if ((*(v22 + *(*v22 - 24) + 32) & 5) != 0)
     {
       goto LABEL_97;
     }
 
-    if (!std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::find<std::string>(&a1[15], v134))
+    if (!std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::find<std::string>((a1 + 120), v132))
     {
-      SymbolMapper::set(a1 + 11, v134);
+      SymbolMapper::set((a1 + 88), v132, v19);
       v19 = (v19 + 1);
     }
 
-    if (!std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::find<std::string>(&a1[15], v132))
+    if (!std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::find<std::string>((a1 + 120), v130))
     {
-      SymbolMapper::set(a1 + 11, v132);
+      SymbolMapper::set((a1 + 88), v130, v19);
       v19 = (v19 + 1);
     }
 
-    v24 = v131;
-    v25 = SymbolMapper::mapPhone(&a1[11], v134);
-    std::to_string(&v123, v25);
-    v26 = std::string::append(&v123, ",");
-    v27 = *&v26->__r_.__value_.__l.__data_;
-    v124.__r_.__value_.__r.__words[2] = v26->__r_.__value_.__r.__words[2];
-    *&v124.__r_.__value_.__l.__data_ = v27;
-    v26->__r_.__value_.__l.__size_ = 0;
-    v26->__r_.__value_.__r.__words[2] = 0;
-    v26->__r_.__value_.__r.__words[0] = 0;
-    v28 = SymbolMapper::mapPhone(&a1[11], v132);
-    std::to_string(&v122, v28);
-    v29 = v19;
-    if ((v122.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    v23 = v129;
+    v24 = SymbolMapper::mapPhone(a1 + 88, v132);
+    std::to_string(&v121, v24);
+    v25 = std::string::append(&v121, ",");
+    v26 = *&v25->__r_.__value_.__l.__data_;
+    v122.__r_.__value_.__r.__words[2] = v25->__r_.__value_.__r.__words[2];
+    *&v122.__r_.__value_.__l.__data_ = v26;
+    v25->__r_.__value_.__l.__size_ = 0;
+    v25->__r_.__value_.__r.__words[2] = 0;
+    v25->__r_.__value_.__r.__words[0] = 0;
+    v27 = SymbolMapper::mapPhone(a1 + 88, v130);
+    std::to_string(&v120, v27);
+    v28 = v19;
+    if ((v120.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v30 = &v122;
+      v29 = &v120;
     }
 
     else
     {
-      v30 = v122.__r_.__value_.__r.__words[0];
+      v29 = v120.__r_.__value_.__r.__words[0];
     }
 
-    if ((v122.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    if ((v120.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      size = HIBYTE(v122.__r_.__value_.__r.__words[2]);
+      size = HIBYTE(v120.__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      size = v122.__r_.__value_.__l.__size_;
+      size = v120.__r_.__value_.__l.__size_;
     }
 
-    v32 = std::string::append(&v124, v30, size);
-    *v120 = *v32;
-    v32->__r_.__value_.__l.__size_ = 0;
-    v32->__r_.__value_.__r.__words[2] = 0;
-    v32->__r_.__value_.__r.__words[0] = 0;
-    v33 = std::__string_hash<char>::operator()[abi:ne200100](v120);
-    v34 = v33;
-    v35 = v141[1];
-    if (!v141[1])
+    v31 = std::string::append(&v122, v29, size);
+    *v118 = *v31;
+    v31->__r_.__value_.__l.__size_ = 0;
+    v31->__r_.__value_.__r.__words[2] = 0;
+    v31->__r_.__value_.__r.__words[0] = 0;
+    v32 = std::__string_hash<char>::operator()[abi:ne200100](v118);
+    v33 = v32;
+    v34 = v139[1];
+    if (!v139[1])
     {
       goto LABEL_65;
     }
 
-    v36 = vcnt_s8(v141[1]);
-    v36.i16[0] = vaddlv_u8(v36);
-    v37 = v36.u32[0];
-    if (v36.u32[0] > 1uLL)
+    v35 = vcnt_s8(v139[1]);
+    v35.i16[0] = vaddlv_u8(v35);
+    v36 = v35.u32[0];
+    if (v35.u32[0] > 1uLL)
     {
-      v38 = v33;
-      if (v33 >= v141[1])
+      v37 = v32;
+      if (v32 >= v139[1])
       {
-        v38 = v33 % v141[1];
+        v37 = v32 % v139[1];
       }
     }
 
     else
     {
-      v38 = (v141[1] - 1) & v33;
+      v37 = (v139[1] - 1) & v32;
     }
 
-    v39 = *(v141[0] + v38);
-    if (!v39 || (v40 = *v39) == 0)
+    v38 = *(v139[0] + v37);
+    if (!v38 || (v39 = *v38) == 0)
     {
 LABEL_65:
       operator new();
@@ -2798,16 +2779,21 @@ LABEL_65:
 
     while (1)
     {
-      v41 = v40[1];
-      if (v41 == v34)
+      v40 = v39[1];
+      if (v40 == v33)
       {
-        if (std::equal_to<std::string>::operator()[abi:ne200100](v40 + 2, v120))
+        if (std::equal_to<std::string>::operator()[abi:ne200100](v39 + 2, v118))
         {
-          v59 = v120[23];
-          *(v40 + 10) = v24;
-          if (v59 < 0)
+          v58 = v118[23];
+          *(v39 + 10) = v23;
+          if (v58 < 0)
           {
-            operator delete(*v120);
+            operator delete(*v118);
+          }
+
+          if (SHIBYTE(v120.__r_.__value_.__r.__words[2]) < 0)
+          {
+            operator delete(v120.__r_.__value_.__l.__data_);
           }
 
           if (SHIBYTE(v122.__r_.__value_.__r.__words[2]) < 0)
@@ -2815,52 +2801,47 @@ LABEL_65:
             operator delete(v122.__r_.__value_.__l.__data_);
           }
 
-          if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v121.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v124.__r_.__value_.__l.__data_);
+            operator delete(v121.__r_.__value_.__l.__data_);
           }
 
-          if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
+          v41 = std::__string_hash<char>::operator()[abi:ne200100](v132);
+          v42 = *(v116 + 56);
+          if (v42)
           {
-            operator delete(v123.__r_.__value_.__l.__data_);
-          }
-
-          v42 = std::__string_hash<char>::operator()[abi:ne200100](v134);
-          v43 = v118[7];
-          if (v43)
-          {
-            v44 = v42;
-            v45 = vcnt_s8(v43);
-            v45.i16[0] = vaddlv_u8(v45);
-            v46 = v45.u32[0];
-            if (v45.u32[0] > 1uLL)
+            v43 = v41;
+            v44 = vcnt_s8(v42);
+            v44.i16[0] = vaddlv_u8(v44);
+            v45 = v44.u32[0];
+            if (v44.u32[0] > 1uLL)
             {
-              v47 = v42;
-              v48 = v118;
-              if (v42 >= *&v43)
+              v46 = v41;
+              v47 = v116;
+              if (v41 >= *&v42)
               {
-                v47 = v42 % *&v43;
+                v46 = v41 % *&v42;
               }
             }
 
             else
             {
-              v47 = (*&v43 - 1) & v42;
-              v48 = v118;
+              v46 = (*&v42 - 1) & v41;
+              v47 = v116;
             }
 
-            v49 = *(*&v48[6] + 8 * v47);
-            if (v49)
+            v48 = *(*(v47 + 48) + 8 * v46);
+            if (v48)
             {
-              v50 = *v49;
-              if (*v49)
+              v49 = *v48;
+              if (*v48)
               {
                 do
                 {
-                  v51 = v50[1];
-                  if (v51 == v44)
+                  v50 = v49[1];
+                  if (v50 == v43)
                   {
-                    if (std::equal_to<std::string>::operator()[abi:ne200100](v50 + 2, v134))
+                    if (std::equal_to<std::string>::operator()[abi:ne200100](v49 + 2, v132))
                     {
                       goto LABEL_96;
                     }
@@ -2868,150 +2849,150 @@ LABEL_65:
 
                   else
                   {
-                    if (v46 > 1)
+                    if (v45 > 1)
                     {
-                      if (v51 >= *&v43)
+                      if (v50 >= *&v42)
                       {
-                        v51 %= *&v43;
+                        v50 %= *&v42;
                       }
                     }
 
                     else
                     {
-                      v51 &= *&v43 - 1;
+                      v50 &= *&v42 - 1;
                     }
 
-                    if (v51 != v47)
+                    if (v50 != v46)
                     {
                       break;
                     }
                   }
 
-                  v50 = *v50;
+                  v49 = *v49;
                 }
 
-                while (v50);
+                while (v49);
               }
             }
           }
 
-          memset(v120, 0, sizeof(v120));
-          v121 = 1065353216;
-          v124.__r_.__value_.__r.__words[0] = v134;
-          v52 = std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std::string,float>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,float>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,float>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<std::string,float>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v118[6], v134);
-          v53 = v52;
-          if (v52[8])
+          memset(v118, 0, sizeof(v118));
+          v119 = 1065353216;
+          v122.__r_.__value_.__r.__words[0] = v132;
+          v51 = std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std::string,float>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,float>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,float>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<std::string,float>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((v116 + 48), v132, &v122);
+          v52 = v51;
+          if (v51[8])
           {
-            std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__deallocate_node(v52[7]);
-            v53[7] = 0;
-            v54 = v53[6];
-            if (v54)
+            std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__deallocate_node(v51[7]);
+            v52[7] = 0;
+            v53 = v52[6];
+            if (v53)
             {
-              for (i = 0; i != v54; ++i)
+              for (k = 0; k != v53; ++k)
               {
-                *(v53[5] + 8 * i) = 0;
+                *(v52[5] + 8 * k) = 0;
               }
             }
 
-            v53[8] = 0;
+            v52[8] = 0;
           }
 
-          *v120 = 0;
-          v56 = v53[5];
-          v53[5] = 0;
-          if (v56)
+          *v118 = 0;
+          v55 = v52[5];
+          v52[5] = 0;
+          if (v55)
           {
-            operator delete(v56);
+            operator delete(v55);
           }
 
-          v53[6] = 0;
-          v53[7] = 0;
-          v53[8] = 0;
-          *(v53 + 18) = 1065353216;
+          v52[6] = 0;
+          v52[7] = 0;
+          v52[8] = 0;
+          *(v52 + 18) = 1065353216;
           std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__deallocate_node(0);
 LABEL_96:
-          v57 = v131;
-          *v120 = v134;
-          a1 = v118;
-          v58 = std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std::string,float>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,float>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,float>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<std::string,float>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v118[6], v134);
-          v19 = v29;
-          *v120 = v132;
-          *(std::__hash_table<std::__hash_value_type<std::string,float>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,float>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,float>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v58 + 5, v132) + 10) = v57;
+          v56 = v129;
+          *v118 = v132;
+          a1 = v116;
+          v57 = std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std::string,float>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,float>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,float>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<std::string,float>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((v116 + 48), v132, v118);
+          v19 = v28;
+          *v118 = v130;
+          *(std::__hash_table<std::__hash_value_type<std::string,float>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,float>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,float>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v57 + 5, v130, v118) + 10) = v56;
 LABEL_97:
-          v125[0].__locale_ = v116;
-          *(&v125[0].__locale_ + *(v116 - 3)) = v115;
-          *&v126 = MEMORY[0x277D82878] + 16;
-          if (v129 < 0)
+          v123[0].__locale_ = v114;
+          *(&v123[0].__locale_ + *(v114 - 3)) = v113;
+          *&v124 = MEMORY[0x277D82878] + 16;
+          if (v127 < 0)
           {
-            operator delete(v128);
+            operator delete(v126);
           }
 
-          *&v126 = MEMORY[0x277D82868] + 16;
-          std::locale::~locale(&v126 + 1);
+          *&v124 = MEMORY[0x277D82868] + 16;
+          std::locale::~locale(&v124 + 1);
           std::istream::~istream();
-          MEMORY[0x223DC2270](&v130);
+          MEMORY[0x223DC2270](&v128);
           goto LABEL_37;
         }
       }
 
       else
       {
-        if (v37 > 1)
+        if (v36 > 1)
         {
-          if (v41 >= v35)
+          if (v40 >= v34)
           {
-            v41 %= v35;
+            v40 %= v34;
           }
         }
 
         else
         {
-          v41 &= v35 - 1;
+          v40 &= v34 - 1;
         }
 
-        if (v41 != v38)
+        if (v40 != v37)
         {
           goto LABEL_65;
         }
       }
 
-      v40 = *v40;
-      if (!v40)
+      v39 = *v39;
+      if (!v39)
       {
         goto LABEL_65;
       }
     }
   }
 
-  std::string::basic_string[abi:ne200100]<0>(v125, "<eps>");
-  std::string::operator=(&a1[11], v125);
-  v60 = std::__string_hash<char>::operator()[abi:ne200100](v125);
-  v61 = a1[16];
-  if (!*&v61)
+  std::string::basic_string[abi:ne200100]<0>(v123, "<eps>");
+  std::string::operator=((a1 + 88), v123);
+  v59 = std::__string_hash<char>::operator()[abi:ne200100](v123);
+  v60 = *(a1 + 128);
+  if (!*&v60)
   {
     goto LABEL_120;
   }
 
-  v62 = v60;
-  v63 = vcnt_s8(v61);
-  v63.i16[0] = vaddlv_u8(v63);
-  v64 = v63.u32[0];
-  if (v63.u32[0] > 1uLL)
+  v61 = v59;
+  v62 = vcnt_s8(v60);
+  v62.i16[0] = vaddlv_u8(v62);
+  v63 = v62.u32[0];
+  if (v62.u32[0] > 1uLL)
   {
-    v65 = v60;
-    if (v60 >= *&v61)
+    v64 = v59;
+    if (v59 >= *&v60)
     {
-      v65 = v60 % *&v61;
+      v64 = v59 % *&v60;
     }
   }
 
   else
   {
-    v65 = (*&v61 - 1) & v60;
+    v64 = (*&v60 - 1) & v59;
   }
 
-  v66 = *(*&a1[15] + 8 * v65);
-  if (!v66 || (v67 = *v66) == 0)
+  v65 = *(*(a1 + 120) + 8 * v64);
+  if (!v65 || (v66 = *v65) == 0)
   {
 LABEL_120:
     std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
@@ -3019,47 +3000,47 @@ LABEL_120:
 
   while (1)
   {
-    v68 = v67[1];
-    if (v68 == v62)
+    v67 = v66[1];
+    if (v67 == v61)
     {
       break;
     }
 
-    if (v64 > 1)
+    if (v63 > 1)
     {
-      if (v68 >= *&v61)
+      if (v67 >= *&v60)
       {
-        v68 %= *&v61;
+        v67 %= *&v60;
       }
     }
 
     else
     {
-      v68 &= *&v61 - 1;
+      v67 &= *&v60 - 1;
     }
 
-    if (v68 != v65)
+    if (v67 != v64)
     {
       goto LABEL_120;
     }
 
 LABEL_119:
-    v67 = *v67;
-    if (!v67)
+    v66 = *v66;
+    if (!v66)
     {
       goto LABEL_120;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](v67 + 2, v125))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](v66 + 2, v123))
   {
     goto LABEL_119;
   }
 
-  a1[14].i32[0] = *(v67 + 10);
-  if (SBYTE7(v126) < 0)
+  *(a1 + 112) = *(v66 + 10);
+  if (SBYTE7(v124) < 0)
   {
-    operator delete(v125[0].__locale_);
+    operator delete(v123[0].__locale_);
   }
 
   if (!std::filebuf::close())
@@ -3067,214 +3048,214 @@ LABEL_119:
     std::ios_base::clear((&__p + *(__p.__sb_.__extbuf_ - 3)), *&__p.__sb_.__extbuf_min_[*(__p.__sb_.__extbuf_ - 3) + 8] | 4);
   }
 
-  v117 = a1[18];
-  if (v117.i32[0] >= 1)
+  v115 = *(a1 + 144);
+  if (v115 >= 1)
   {
-    v69 = 0;
+    v68 = 0;
     do
     {
-      *&v125[0].__locale_ = 0u;
-      v126 = 0u;
-      v127 = 1065353216;
-      LODWORD(v124.__r_.__value_.__l.__data_) = v69;
-      *v120 = &v124;
-      v70 = std::__hash_table<std::__hash_value_type<unsigned int,std::unordered_map<unsigned int,float>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::unordered_map<unsigned int,float>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::unordered_map<unsigned int,float>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::unordered_map<unsigned int,float>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(&v118[1], v69);
-      v71 = v70;
-      if (v70[6])
+      *&v123[0].__locale_ = 0u;
+      v124 = 0u;
+      v125 = 1065353216;
+      LODWORD(v122.__r_.__value_.__l.__data_) = v68;
+      *v118 = &v122;
+      v69 = std::__hash_table<std::__hash_value_type<unsigned int,std::unordered_map<unsigned int,float>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::unordered_map<unsigned int,float>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::unordered_map<unsigned int,float>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::unordered_map<unsigned int,float>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>((v116 + 8), v68, v118);
+      v70 = v69;
+      if (v69[6])
       {
-        v72 = v70[5];
-        if (v72)
+        v71 = v69[5];
+        if (v71)
         {
           do
           {
-            v73 = *v72;
-            operator delete(v72);
-            v72 = v73;
+            v72 = *v71;
+            operator delete(v71);
+            v71 = v72;
           }
 
-          while (v73);
+          while (v72);
         }
 
-        v71[5] = 0;
-        v74 = v71[4];
-        if (v74)
+        v70[5] = 0;
+        v73 = v70[4];
+        if (v73)
         {
-          for (j = 0; j != v74; ++j)
+          for (m = 0; m != v73; ++m)
           {
-            *(v71[3] + 8 * j) = 0;
+            *(v70[3] + 8 * m) = 0;
           }
         }
 
-        v71[6] = 0;
+        v70[6] = 0;
       }
 
-      locale = v125[0].__locale_;
-      v125[0].__locale_ = 0;
-      v77 = v71[3];
-      v71[3] = locale;
-      if (v77)
+      locale = v123[0].__locale_;
+      v123[0].__locale_ = 0;
+      v76 = v70[3];
+      v70[3] = locale;
+      if (v76)
       {
-        operator delete(v77);
+        operator delete(v76);
       }
 
-      v78 = v125[1].__locale_;
-      v79 = v126;
-      v71[5] = v126;
-      v71[4] = v78;
-      v125[1].__locale_ = 0;
-      v80 = *(&v126 + 1);
-      v71[6] = *(&v126 + 1);
-      *(v71 + 14) = v127;
-      if (v80)
+      v77 = v123[1].__locale_;
+      v78 = v124;
+      v70[5] = v124;
+      v70[4] = v77;
+      v123[1].__locale_ = 0;
+      v79 = *(&v124 + 1);
+      v70[6] = *(&v124 + 1);
+      *(v70 + 14) = v125;
+      if (v79)
       {
-        v81 = *(v79 + 8);
-        if ((v78 & (v78 - 1)) != 0)
+        v80 = *(v78 + 8);
+        if ((v77 & (v77 - 1)) != 0)
         {
-          if (v81 >= v78)
+          if (v80 >= v77)
           {
-            v81 %= v78;
+            v80 %= v77;
           }
         }
 
         else
         {
-          v81 &= v78 - 1;
+          v80 &= v77 - 1;
         }
 
-        *(v71[3] + 8 * v81) = v71 + 5;
-        v126 = 0uLL;
+        *(v70[3] + 8 * v80) = v70 + 5;
+        v124 = 0uLL;
       }
 
-      std::__hash_table<std::__hash_value_type<unsigned int,float>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,float>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,float>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,float>>>::~__hash_table(v125);
-      ++v69;
+      std::__hash_table<std::__hash_value_type<unsigned int,float>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,float>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,float>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,float>>>::~__hash_table(v123);
+      ++v68;
     }
 
-    while (v69 != v117.i32[0]);
-    v82 = 0;
+    while (v68 != v115);
+    v81 = 0;
     do
     {
-      v83 = 0;
+      v82 = 0;
       do
       {
-        std::to_string(&v124, v82);
-        v84 = std::string::append(&v124, ",");
-        v85 = *&v84->__r_.__value_.__l.__data_;
-        *&v120[16] = *(&v84->__r_.__value_.__l + 2);
-        *v120 = v85;
-        v84->__r_.__value_.__l.__size_ = 0;
-        v84->__r_.__value_.__r.__words[2] = 0;
-        v84->__r_.__value_.__r.__words[0] = 0;
-        std::to_string(&v123, v83);
-        if ((v123.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        std::to_string(&v122, v81);
+        v83 = std::string::append(&v122, ",");
+        v84 = *&v83->__r_.__value_.__l.__data_;
+        *&v118[16] = *(&v83->__r_.__value_.__l + 2);
+        *v118 = v84;
+        v83->__r_.__value_.__l.__size_ = 0;
+        v83->__r_.__value_.__r.__words[2] = 0;
+        v83->__r_.__value_.__r.__words[0] = 0;
+        std::to_string(&v121, v82);
+        if ((v121.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v86 = &v123;
+          v85 = &v121;
         }
 
         else
         {
-          v86 = v123.__r_.__value_.__r.__words[0];
+          v85 = v121.__r_.__value_.__r.__words[0];
         }
 
-        if ((v123.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        if ((v121.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v87 = HIBYTE(v123.__r_.__value_.__r.__words[2]);
+          v86 = HIBYTE(v121.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v87 = v123.__r_.__value_.__l.__size_;
+          v86 = v121.__r_.__value_.__l.__size_;
         }
 
-        v88 = std::string::append(v120, v86, v87);
-        *&v125[0].__locale_ = *&v88->__r_.__value_.__l.__data_;
-        *&v126 = *(&v88->__r_.__value_.__l + 2);
-        v88->__r_.__value_.__l.__size_ = 0;
-        v88->__r_.__value_.__r.__words[2] = 0;
-        v88->__r_.__value_.__r.__words[0] = 0;
-        if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
+        v87 = std::string::append(v118, v85, v86);
+        *&v123[0].__locale_ = *&v87->__r_.__value_.__l.__data_;
+        *&v124 = *(&v87->__r_.__value_.__l + 2);
+        v87->__r_.__value_.__l.__size_ = 0;
+        v87->__r_.__value_.__r.__words[2] = 0;
+        v87->__r_.__value_.__r.__words[0] = 0;
+        if (SHIBYTE(v121.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v123.__r_.__value_.__l.__data_);
+          operator delete(v121.__r_.__value_.__l.__data_);
         }
 
-        if ((v120[23] & 0x80000000) != 0)
+        if ((v118[23] & 0x80000000) != 0)
         {
-          operator delete(*v120);
+          operator delete(*v118);
         }
 
-        if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v122.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v124.__r_.__value_.__l.__data_);
+          operator delete(v122.__r_.__value_.__l.__data_);
         }
 
-        v89 = std::__string_hash<char>::operator()[abi:ne200100](v125);
-        v90 = v141[1];
-        if (v141[1])
+        v88 = std::__string_hash<char>::operator()[abi:ne200100](v123);
+        v89 = v139[1];
+        if (v139[1])
         {
-          v91 = v89;
-          v92 = vcnt_s8(v141[1]);
-          v92.i16[0] = vaddlv_u8(v92);
-          v93 = v92.u32[0];
-          if (v92.u32[0] > 1uLL)
+          v90 = v88;
+          v91 = vcnt_s8(v139[1]);
+          v91.i16[0] = vaddlv_u8(v91);
+          v92 = v91.u32[0];
+          if (v91.u32[0] > 1uLL)
           {
-            v94 = v89;
-            if (v89 >= v141[1])
+            v93 = v88;
+            if (v88 >= v139[1])
             {
-              v94 = v89 % v141[1];
+              v93 = v88 % v139[1];
             }
           }
 
           else
           {
-            v94 = (v141[1] - 1) & v89;
+            v93 = (v139[1] - 1) & v88;
           }
 
-          v95 = *(v141[0] + v94);
-          if (v95)
+          v94 = *(v139[0] + v93);
+          if (v94)
           {
-            v96 = *v95;
-            if (*v95)
+            v95 = *v94;
+            if (*v94)
             {
               do
               {
-                v97 = v96[1];
-                if (v91 == v97)
+                v96 = v95[1];
+                if (v90 == v96)
                 {
-                  if (std::equal_to<std::string>::operator()[abi:ne200100](v96 + 2, v125))
+                  if (std::equal_to<std::string>::operator()[abi:ne200100](v95 + 2, v123))
                   {
-                    v98 = std::__hash_table<std::__hash_value_type<std::string,float>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,float>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,float>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,float>>>::find<std::string>(v141, v125);
-                    if (!v98)
+                    v97 = std::__hash_table<std::__hash_value_type<std::string,float>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,float>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,float>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,float>>>::find<std::string>(v139, v123);
+                    if (!v97)
                     {
                       std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
                     }
 
-                    v99 = *(v98 + 10);
-                    LODWORD(v124.__r_.__value_.__l.__data_) = v82;
-                    *v120 = &v124;
-                    v100 = std::__hash_table<std::__hash_value_type<unsigned int,std::unordered_map<unsigned int,float>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::unordered_map<unsigned int,float>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::unordered_map<unsigned int,float>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::unordered_map<unsigned int,float>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(&v118[1], v82);
-                    v101 = v100[4];
-                    if (!*&v101)
+                    v98 = *(v97 + 10);
+                    LODWORD(v122.__r_.__value_.__l.__data_) = v81;
+                    *v118 = &v122;
+                    v99 = std::__hash_table<std::__hash_value_type<unsigned int,std::unordered_map<unsigned int,float>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::unordered_map<unsigned int,float>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::unordered_map<unsigned int,float>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::unordered_map<unsigned int,float>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>((v116 + 8), v81, v118);
+                    v100 = v99[4];
+                    if (!*&v100)
                     {
                       goto LABEL_191;
                     }
 
-                    v102 = vcnt_s8(v101);
-                    v102.i16[0] = vaddlv_u8(v102);
-                    if (v102.u32[0] > 1uLL)
+                    v101 = vcnt_s8(v100);
+                    v101.i16[0] = vaddlv_u8(v101);
+                    if (v101.u32[0] > 1uLL)
                     {
-                      v103 = v83;
-                      if (*&v101 <= v83)
+                      v102 = v82;
+                      if (*&v100 <= v82)
                       {
-                        v103 = v83 % v101.i32[0];
+                        v102 = v82 % v100.i32[0];
                       }
                     }
 
                     else
                     {
-                      v103 = (*&v101 + 0x7FFFFFFFLL) & v83;
+                      v102 = (*&v100 + 0x7FFFFFFFLL) & v82;
                     }
 
-                    v104 = *(v100[3] + 8 * v103);
-                    if (!v104 || (v105 = *v104) == 0)
+                    v103 = *(v99[3] + 8 * v102);
+                    if (!v103 || (v104 = *v103) == 0)
                     {
 LABEL_191:
                       operator new();
@@ -3282,39 +3263,39 @@ LABEL_191:
 
                     while (1)
                     {
-                      v106 = v105[1];
-                      if (v106 == v83)
+                      v105 = v104[1];
+                      if (v105 == v82)
                       {
-                        if (v83 == *(v105 + 4))
+                        if (v82 == *(v104 + 4))
                         {
-                          *(v105 + 5) = v99;
+                          *(v104 + 5) = v98;
                           goto LABEL_192;
                         }
                       }
 
                       else
                       {
-                        if (v102.u32[0] > 1uLL)
+                        if (v101.u32[0] > 1uLL)
                         {
-                          if (v106 >= *&v101)
+                          if (v105 >= *&v100)
                           {
-                            v106 %= *&v101;
+                            v105 %= *&v100;
                           }
                         }
 
                         else
                         {
-                          v106 &= *&v101 - 1;
+                          v105 &= *&v100 - 1;
                         }
 
-                        if (v106 != v103)
+                        if (v105 != v102)
                         {
                           goto LABEL_191;
                         }
                       }
 
-                      v105 = *v105;
-                      if (!v105)
+                      v104 = *v104;
+                      if (!v104)
                       {
                         goto LABEL_191;
                       }
@@ -3324,47 +3305,52 @@ LABEL_191:
 
                 else
                 {
-                  if (v93 > 1)
+                  if (v92 > 1)
                   {
-                    if (v97 >= v90)
+                    if (v96 >= v89)
                     {
-                      v97 %= v90;
+                      v96 %= v89;
                     }
                   }
 
                   else
                   {
-                    v97 &= v90 - 1;
+                    v96 &= v89 - 1;
                   }
 
-                  if (v97 != v94)
+                  if (v96 != v93)
                   {
                     break;
                   }
                 }
 
-                v96 = *v96;
+                v95 = *v95;
               }
 
-              while (v96);
+              while (v95);
             }
           }
         }
 
 LABEL_192:
-        if (SBYTE7(v126) < 0)
+        if (SBYTE7(v124) < 0)
         {
-          operator delete(v125[0].__locale_);
+          operator delete(v123[0].__locale_);
         }
 
-        ++v83;
+        ++v82;
       }
 
-      while (v83 != (v117.i32[0] & 0x7FFFFFFF));
-      ++v82;
+      while (v82 != (v115 & 0x7FFFFFFF));
+      ++v81;
     }
 
-    while (v82 != v117.i32[0]);
+    while (v81 != v115);
+  }
+
+  if (SHIBYTE(v131) < 0)
+  {
+    operator delete(v130[0]);
   }
 
   if (SHIBYTE(v133) < 0)
@@ -3377,70 +3363,63 @@ LABEL_192:
     operator delete(v134[0]);
   }
 
-  if (SHIBYTE(v137) < 0)
+  a1 = v116;
+  if (SHIBYTE(v136.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v136[0]);
-  }
-
-  a1 = v118;
-  if (SHIBYTE(v138.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v138.__r_.__value_.__l.__data_);
+    operator delete(v136.__r_.__value_.__l.__data_);
   }
 
 LABEL_204:
   MEMORY[0x223DC2080](__p.__sb_.__extbuf_min_);
   std::iostream::~basic_iostream();
-  MEMORY[0x223DC2270](&v145);
-  if (v140 < 0)
+  MEMORY[0x223DC2270](&v143);
+  if (v138 < 0)
   {
-    operator delete(v139);
+    operator delete(v137);
   }
 
-  std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__deallocate_node(v142[0]);
-  v107 = v141[0];
-  v141[0] = 0;
-  if (v107)
+  std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__deallocate_node(v140[0]);
+  v106 = v139[0];
+  v139[0] = 0;
+  if (v106)
   {
-    operator delete(v107);
+    operator delete(v106);
   }
 
-  if (!*&a1[4] || !*&a1[18])
+  if (!*(a1 + 32) || !*(a1 + 144))
   {
-    v113 = __cxa_allocate_exception(0x30uLL);
+    v111 = __cxa_allocate_exception(0x30uLL);
     std::string::basic_string[abi:ne200100]<0>(&__p, "#Model Failed to load confMatrix file");
-    std::string::basic_string[abi:ne200100]<0>(v125, "QueryRewrite");
-    ConfigLoadingError::ConfigLoadingError(v113, &__p, v125, "/Library/Caches/com.apple.xbs/Sources/Marrs/QueryRewrite.subproj/QueryRewrite/Common/Predictor/src/RepetitionPredictorBase.cpp", 68);
+    std::string::basic_string[abi:ne200100]<0>(v123, "QueryRewrite");
+    ConfigLoadingError::ConfigLoadingError(v111, &__p, v123, "/Library/Caches/com.apple.xbs/Sources/Marrs/QueryRewrite.subproj/QueryRewrite/Common/Predictor/src/RepetitionPredictorBase.cpp", 68);
   }
 
-  v108 = QRLoggerForCategory(0);
-  if (os_log_type_enabled(v108, OS_LOG_TYPE_INFO))
+  v107 = QRLoggerForCategory(0);
+  if (os_log_type_enabled(v107, OS_LOG_TYPE_INFO))
   {
-    v109 = a1[18];
+    v108 = *(a1 + 144);
     LODWORD(__p.__sb_.__extbuf_) = 136315394;
     *(&__p.__sb_.__extbuf_ + 4) = "loadCostMatrix";
     WORD2(__p.__sb_.__extbufnext_) = 2048;
-    *(&__p.__sb_.__extbufnext_ + 6) = v109;
-    _os_log_impl(&dword_2227A9000, v108, OS_LOG_TYPE_INFO, "%s #Model symbol map size: %zu", &__p, 0x16u);
+    *(&__p.__sb_.__extbufnext_ + 6) = v108;
+    _os_log_impl(&dword_2227A9000, v107, OS_LOG_TYPE_INFO, "%s #Model symbol map size: %zu", &__p, 0x16u);
   }
 
-  v110 = QRLoggerForCategory(0);
-  if (os_log_type_enabled(v110, OS_LOG_TYPE_INFO))
+  v109 = QRLoggerForCategory(0);
+  if (os_log_type_enabled(v109, OS_LOG_TYPE_INFO))
   {
-    v111 = a1[4];
+    v110 = *(a1 + 32);
     LODWORD(__p.__sb_.__extbuf_) = 136315394;
     *(&__p.__sb_.__extbuf_ + 4) = "loadCostMatrix";
     WORD2(__p.__sb_.__extbufnext_) = 2048;
-    *(&__p.__sb_.__extbufnext_ + 6) = v111;
-    _os_log_impl(&dword_2227A9000, v110, OS_LOG_TYPE_INFO, "%s #Model cost_matrix size: %lu", &__p, 0x16u);
+    *(&__p.__sb_.__extbufnext_ + 6) = v110;
+    _os_log_impl(&dword_2227A9000, v109, OS_LOG_TYPE_INFO, "%s #Model cost_matrix size: %lu", &__p, 0x16u);
   }
 
   if (SHIBYTE(__s.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__s.__r_.__value_.__l.__data_);
   }
-
-  v112 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2227AFB5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, void *a27, uint64_t a28, uint64_t a29, void *a30, uint64_t a31, uint64_t a32, void *a33, uint64_t a34, uint64_t a35, uint64_t a36, void *__p, uint64_t a38, int a39, __int16 a40, char a41, char a42)
@@ -3656,7 +3635,6 @@ BOOL std::equal_to<std::string>::operator()[abi:ne200100](void *a1, void *a2)
     a1 = *a1;
   }
 
-  v6 = *a2;
   if (v5 < 0)
   {
     a2 = *a2;
@@ -3745,35 +3723,35 @@ LABEL_6:
   }
 }
 
-void *std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std::string,float>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,float>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,float>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<std::string,float>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, void *a2)
+void *std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std::string,float>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,float>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,float>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<std::string,float>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(float *a1, void *a2, __int128 **a3)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_hash<char>::operator()[abi:ne200100](a2);
+  v6 = v5;
+  v7 = *(a1 + 2);
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     operator new();
@@ -3781,49 +3759,49 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](v12 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
-void sub_2227B09CC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2227B09CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::unordered_map<std::string,float>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::unordered_map<std::string,float>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -4072,7 +4050,7 @@ LABEL_41:
     LODWORD(v145.__r_.__value_.__l.__data_) = v42;
     v58 = [v29 objectForKey:@"owlEmbeddingsTaskId"];
     v59 = v58;
-    std::string::basic_string[abi:ne200100]<0>(&v145.__r_.__value_.__s.__data_[8], [v58 UTF8String]);
+    std::string::basic_string[abi:ne200100]<0>(&v145.__r_.__value_.__l.__size_, [v58 UTF8String]);
     if ((v126[23] & 0x80000000) != 0)
     {
       std::string::__init_copy_ctor_external(&v147, *v126, *&v126[8]);
@@ -4243,25 +4221,35 @@ LABEL_41:
   *(v109 + 288) = 0;
   *(v109 + 272) = v109 + 280;
   std::__fs::filesystem::operator/[abi:ne200100](&__str, a2, &marrs::mrr::mr::configFileName);
-  std::ifstream::basic_ifstream(&__p);
+  if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    p_str = &__str;
+  }
+
+  else
+  {
+    p_str = __str.__r_.__value_.__r.__words[0];
+  }
+
+  std::ifstream::basic_ifstream(&__p, p_str);
   if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__str.__r_.__value_.__l.__data_);
   }
 
   std::string::__init_with_sentinel[abi:ne200100]<std::istreambuf_iterator<char>,std::istreambuf_iterator<char>>(&v125, *(&v134[0].__r_.__value_.__r.__words[1] + *(__p.__r_.__value_.__r.__words[0] - 24)));
-  v63 = MRRLoggerForCategory(2);
-  if (os_log_type_enabled(v63, OS_LOG_TYPE_INFO))
+  v64 = MRRLoggerForCategory(2);
+  if (os_log_type_enabled(v64, OS_LOG_TYPE_INFO))
   {
-    v64 = &v125;
+    v65 = &v125;
     if ((v125.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      v64 = v125.__r_.__value_.__r.__words[0];
+      v65 = v125.__r_.__value_.__r.__words[0];
     }
 
     LODWORD(__str.__r_.__value_.__l.__data_) = 136315138;
-    *(__str.__r_.__value_.__r.__words + 4) = v64;
-    _os_log_impl(&dword_2227A9000, v63, OS_LOG_TYPE_INFO, "Loaded MR Config - %s", &__str, 0xCu);
+    *(__str.__r_.__value_.__r.__words + 4) = v65;
+    _os_log_impl(&dword_2227A9000, v64, OS_LOG_TYPE_INFO, "Loaded MR Config - %s", &__str, 0xCu);
   }
 
   if (*(v109 + 111) < 0)
@@ -4348,21 +4336,21 @@ LABEL_41:
     operator delete(*v126);
   }
 
-  v65 = MEMORY[0x277CCACA8];
-  v66 = SHIBYTE(v122.__r_.__value_.__r.__words[2]);
-  v67 = v122.__r_.__value_.__r.__words[0];
-  v68 = [MEMORY[0x277CCACA8] defaultCStringEncoding];
-  if (v66 >= 0)
+  v66 = MEMORY[0x277CCACA8];
+  v67 = SHIBYTE(v122.__r_.__value_.__r.__words[2]);
+  v68 = v122.__r_.__value_.__r.__words[0];
+  v69 = [MEMORY[0x277CCACA8] defaultCStringEncoding];
+  if (v67 >= 0)
   {
-    v69 = &v122;
+    v70 = &v122;
   }
 
   else
   {
-    v69 = v67;
+    v70 = v68;
   }
 
-  v108 = [v65 stringWithCString:v69 encoding:v68];
+  v108 = [v66 stringWithCString:v70 encoding:v69];
   v105 = [MEMORY[0x277CCAA00] defaultManager];
   if (([v105 fileExistsAtPath:v108] & 1) == 0)
   {
@@ -4373,54 +4361,54 @@ LABEL_41:
   }
 
   v114 = [objc_alloc(MEMORY[0x277CBEAC0]) initWithJSON:v108];
-  v70 = [v114 allKeys];
+  v71 = [v114 allKeys];
   *&v152.__r_.__value_.__r.__words[1] = 0uLL;
   v152.__r_.__value_.__r.__words[0] = &v152.__r_.__value_.__l.__size_;
   memset(v126, 0, sizeof(v126));
   v127 = 0u;
   v128 = 0u;
-  obj = v70;
-  v71 = [obj countByEnumeratingWithState:v126 objects:&__str count:16];
-  if (v71)
+  obj = v71;
+  v72 = [obj countByEnumeratingWithState:v126 objects:&__str count:16];
+  if (v72)
   {
     v112 = **&v126[16];
     do
     {
-      for (i = 0; i != v71; ++i)
+      for (i = 0; i != v72; ++i)
       {
         if (**&v126[16] != v112)
         {
           objc_enumerationMutation(obj);
         }
 
-        v73 = *(*&v126[8] + 8 * i);
-        v74 = [v114 objectForKey:v73];
-        if ([v74 count])
+        v74 = *(*&v126[8] + 8 * i);
+        v75 = [v114 objectForKey:v74];
+        if ([v75 count])
         {
-          [v74 objectAtIndex:0];
+          [v75 objectAtIndex:0];
           [objc_claimAutoreleasedReturnValue() floatValue];
           std::__allocate_at_least[abi:ne200100]<std::allocator<float>>(1uLL);
         }
 
-        v75 = v73;
-        std::string::basic_string[abi:ne200100]<0>(&v130, [v73 UTF8String]);
-        v76 = *std::__tree<std::__value_type<std::string,std::vector<MDMentionOverride>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<MDMentionOverride>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<MDMentionOverride>>>>::__find_equal<std::string>(&v152, &v129, &v130);
-        if (!v76)
+        v76 = v74;
+        std::string::basic_string[abi:ne200100]<0>(&v130, [v74 UTF8String]);
+        v77 = *std::__tree<std::__value_type<std::string,std::vector<MDMentionOverride>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<MDMentionOverride>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<MDMentionOverride>>>>::__find_equal<std::string>(&v152, &v129, &v130);
+        if (!v77)
         {
           operator new();
         }
 
-        std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>((v76 + 56), 0, 0, 0);
+        std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>((v77 + 56), 0, 0, 0);
         if (SHIBYTE(v130.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(v130.__r_.__value_.__l.__data_);
         }
       }
 
-      v71 = [obj countByEnumeratingWithState:v126 objects:&__str count:16];
+      v72 = [obj countByEnumeratingWithState:v126 objects:&__str count:16];
     }
 
-    while (v71);
+    while (v72);
   }
 
   v119[0] = 0;
@@ -4437,24 +4425,24 @@ LABEL_41:
   std::__tree<std::__value_type<std::string,std::vector<float>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<float>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<float>>>>::destroy(v119[0]);
   if (*(v109 + 120))
   {
-    v77 = MEMORY[0x277CCACA8];
-    v78 = SHIBYTE(v120.__r_.__value_.__r.__words[2]);
-    v79 = v120.__r_.__value_.__r.__words[0];
-    v80 = [MEMORY[0x277CCACA8] defaultCStringEncoding];
-    if (v78 >= 0)
+    v78 = MEMORY[0x277CCACA8];
+    v79 = SHIBYTE(v120.__r_.__value_.__r.__words[2]);
+    v80 = v120.__r_.__value_.__r.__words[0];
+    v81 = [MEMORY[0x277CCACA8] defaultCStringEncoding];
+    if (v79 >= 0)
     {
-      v81 = &v120;
+      v82 = &v120;
     }
 
     else
     {
-      v81 = v79;
+      v82 = v80;
     }
 
-    v82 = [v77 stringWithCString:v81 encoding:v80];
-    v115 = v82;
+    v83 = [v78 stringWithCString:v82 encoding:v81];
+    v115 = v83;
     v117 = [MEMORY[0x277CCAA00] defaultManager];
-    if (([v117 fileExistsAtPath:v82] & 1) == 0)
+    if (([v117 fileExistsAtPath:v83] & 1) == 0)
     {
       v102 = __cxa_allocate_exception(0x10uLL);
       std::operator+<char>();
@@ -4462,65 +4450,66 @@ LABEL_41:
       __cxa_throw(v102, MEMORY[0x277D82760], MEMORY[0x277D82600]);
     }
 
-    v83 = [objc_alloc(MEMORY[0x277CBEAC0]) initWithJSON:v82];
-    v84 = v83;
-    v85 = [v83 objectForKey:@"start"];
-    v86 = 0;
-    *&v126[8] = 0uLL;
+    v84 = [objc_alloc(MEMORY[0x277CBEAC0]) initWithJSON:v83];
+    v85 = v84;
+    v86 = [v84 objectForKey:@"start"];
+    v87 = 0;
+    *&v126[8] = 0;
+    *&v126[16] = 0;
     *v126 = &v126[8];
-    while (v86 < [v85 count])
+    while (v87 < [v86 count])
     {
-      v87 = [v85 objectAtIndexedSubscript:v86];
-      v88 = v87;
-      std::string::basic_string[abi:ne200100]<0>(&v131, [v87 UTF8String]);
+      v88 = [v86 objectAtIndexedSubscript:v87];
+      v89 = v88;
+      std::string::basic_string[abi:ne200100]<0>(&v131, [v88 UTF8String]);
 
-      std::__tree<std::string,marrs::mrr::mr::CaseInsensitiveCompare,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(v126, &v131);
-      v83 = v84;
+      std::__tree<std::string,marrs::mrr::mr::CaseInsensitiveCompare,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(v126, &v131, &v131);
+      v84 = v85;
       if (SHIBYTE(v131.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(v131.__r_.__value_.__l.__data_);
       }
 
-      ++v86;
+      ++v87;
     }
 
-    v89 = [v83 objectForKey:@"end"];
-    v90 = 0;
+    v90 = [v84 objectForKey:@"end"];
+    v91 = 0;
     *&v131.__r_.__value_.__r.__words[1] = 0uLL;
     v131.__r_.__value_.__r.__words[0] = &v131.__r_.__value_.__l.__size_;
-    while (v90 < [v89 count])
+    while (v91 < [v90 count])
     {
-      v91 = [v89 objectAtIndexedSubscript:v90];
-      v92 = v91;
-      std::string::basic_string[abi:ne200100]<0>(&v152, [v91 UTF8String]);
+      v92 = [v90 objectAtIndexedSubscript:v91];
+      v93 = v92;
+      std::string::basic_string[abi:ne200100]<0>(&v152, [v92 UTF8String]);
 
-      std::__tree<std::string,marrs::mrr::mr::CaseInsensitiveCompare,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(&v131, &v152);
-      v83 = v84;
+      std::__tree<std::string,marrs::mrr::mr::CaseInsensitiveCompare,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(&v131, &v152, &v152);
+      v84 = v85;
       if (SHIBYTE(v152.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(v152.__r_.__value_.__l.__data_);
       }
 
-      ++v90;
+      ++v91;
     }
 
-    v93 = [v83 objectForKey:@"stopwords"];
-    v94 = 0;
+    v94 = [v84 objectForKey:@"stopwords"];
+    v95 = 0;
     *&v152.__r_.__value_.__r.__words[1] = 0uLL;
     v152.__r_.__value_.__r.__words[0] = &v152.__r_.__value_.__l.__size_;
-    while (v94 < [v93 count])
+    while (v95 < [v94 count])
     {
-      v95 = [v93 objectAtIndexedSubscript:v94];
-      v96 = v95;
-      std::string::basic_string[abi:ne200100]<0>(&v130, [v95 UTF8String]);
+      v96 = [v94 objectAtIndexedSubscript:v95];
+      v97 = v96;
+      std::string::basic_string[abi:ne200100]<0>(&v130, [v96 UTF8String]);
 
-      std::__tree<std::string,marrs::mrr::mr::CaseInsensitiveCompare,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(&v152, &v130);
+      std::__tree<std::string,marrs::mrr::mr::CaseInsensitiveCompare,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(&v152, &v130, &v130);
       if (SHIBYTE(v130.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(v130.__r_.__value_.__l.__data_);
       }
 
-      ++v94;
+      ++v95;
     }
 
     *&__str.__r_.__value_.__r.__words[1] = 0uLL;
@@ -4555,13 +4544,13 @@ LABEL_41:
     std::__tree<std::string>::destroy(v147.__r_.__value_.__l.__data_);
     std::__tree<std::string>::destroy(v145.__r_.__value_.__l.__size_);
     std::__tree<std::string>::destroy(__str.__r_.__value_.__l.__size_);
-    v97 = MRRLoggerForCategory(2);
-    if (os_log_type_enabled(v97, OS_LOG_TYPE_INFO))
+    v98 = MRRLoggerForCategory(2);
+    if (os_log_type_enabled(v98, OS_LOG_TYPE_INFO))
     {
-      v98 = *(v109 + 176);
+      v99 = *(v109 + 176);
       LODWORD(__str.__r_.__value_.__l.__data_) = 134217984;
-      *(__str.__r_.__value_.__r.__words + 4) = v98;
-      _os_log_impl(&dword_2227A9000, v97, OS_LOG_TYPE_INFO, "start words used size = %lu", &__str, 0xCu);
+      *(__str.__r_.__value_.__r.__words + 4) = v99;
+      _os_log_impl(&dword_2227A9000, v98, OS_LOG_TYPE_INFO, "start words used size = %lu", &__str, 0xCu);
     }
   }
 
@@ -4600,30 +4589,29 @@ LABEL_41:
   MEMORY[0x223DC2080](&__p.__r_.__value_.__r.__words[2]);
   std::istream::~istream();
   MEMORY[0x223DC2270](&v143);
-  v99 = *MEMORY[0x277D85DE8];
   return v109;
 }
 
-void sub_2227B2094(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10, char **a11, char **a12, char **a13, uint64_t a14, void **a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void **a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *a26, void *a27, uint64_t a28, uint64_t a29, uint64_t a30, void *a31, uint64_t a32, int a33, __int16 a34, char a35, char a36, uint64_t a37, void *a38, uint64_t a39, int a40, __int16 a41, char a42, char a43, uint64_t a44, void *a45, uint64_t a46, int a47, __int16 a48, char a49, char a50, uint64_t a51, void *a52, uint64_t a53, int a54, __int16 a55, char a56, char a57, uint64_t a58, void *a59, uint64_t a60, int a61, __int16 a62, char a63)
+void sub_2227B2094(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, char **a11, char **a12, char **a13, uint64_t a14, void **a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void **a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *a26, void *a27, uint64_t a28, uint64_t a29, uint64_t a30, void *a31, uint64_t a32, int a33, __int16 a34, char a35, char a36, uint64_t a37, void *a38, uint64_t a39, int a40, __int16 a41, char a42, char a43, uint64_t a44, void *a45, uint64_t a46, int a47, __int16 a48, char a49, char a50, uint64_t a51, void *a52, uint64_t a53, int a54, __int16 a55, char a56, char a57, uint64_t a58, void *a59, uint64_t a60, int a61, __int16 a62, char a63)
 {
-  if (a72 < 0)
+  if (a68 < 0)
   {
     operator delete(__p);
-    if ((v75 & 1) == 0)
+    if ((v71 & 1) == 0)
     {
 LABEL_6:
 
       if (a2 == 2)
       {
         exception_ptr = __cxa_get_exception_ptr(a1);
-        MEMORY[0x223DC1F30](&a73, exception_ptr);
+        MEMORY[0x223DC1F30](&a69, exception_ptr);
         __cxa_begin_catch(a1);
-        v79 = MRRLoggerForCategory(2);
-        if (os_log_type_enabled(v79, OS_LOG_TYPE_ERROR))
+        v75 = MRRLoggerForCategory(2);
+        if (os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
         {
           LODWORD(STACK[0x420]) = 136315138;
           STACK[0x424] = "Error parsing visible text matching keywrods json";
-          _os_log_impl(&dword_2227A9000, v79, OS_LOG_TYPE_ERROR, "ConfigLoadingError - %s", &STACK[0x420], 0xCu);
+          _os_log_impl(&dword_2227A9000, v75, OS_LOG_TYPE_ERROR, "ConfigLoadingError - %s", &STACK[0x420], 0xCu);
         }
 
         exception = __cxa_allocate_exception(0x30uLL);
@@ -4635,20 +4623,20 @@ LABEL_6:
       if (a2 == 1)
       {
         __cxa_get_exception_ptr(a1);
-        a73 = (MEMORY[0x277D82920] + 16);
+        a69 = (MEMORY[0x277D82920] + 16);
         __cxa_begin_catch(a1);
-        v81 = MRRLoggerForCategory(2);
-        if (os_log_type_enabled(v81, OS_LOG_TYPE_ERROR))
+        v77 = MRRLoggerForCategory(2);
+        if (os_log_type_enabled(v77, OS_LOG_TYPE_ERROR))
         {
           LODWORD(STACK[0x420]) = 136315138;
           STACK[0x424] = "Unknown exception thrown during loading of visible text matching keywords";
-          _os_log_impl(&dword_2227A9000, v81, OS_LOG_TYPE_ERROR, "ConfigLoadingError - %s", &STACK[0x420], 0xCu);
+          _os_log_impl(&dword_2227A9000, v77, OS_LOG_TYPE_ERROR, "ConfigLoadingError - %s", &STACK[0x420], 0xCu);
         }
 
-        v82 = __cxa_allocate_exception(0x30uLL);
+        v78 = __cxa_allocate_exception(0x30uLL);
         std::string::basic_string[abi:ne200100]<0>(&STACK[0x420], "Unknown exception thrown during loading of visible text matching keywords");
         std::string::basic_string[abi:ne200100]<0>(&__p, "MultimodalReferenceResolution");
-        ConfigLoadingError::ConfigLoadingError(v82, &STACK[0x420], &__p, "/Library/Caches/com.apple.xbs/Sources/Marrs/MultimodalReferenceResolution.subproj/MultimodalReferenceResolution/MentionResolver/ModelBasedMR/ModelBasedMR.cpp", 67);
+        ConfigLoadingError::ConfigLoadingError(v78, &STACK[0x420], &__p, "/Library/Caches/com.apple.xbs/Sources/Marrs/MultimodalReferenceResolution.subproj/MultimodalReferenceResolution/MentionResolver/ModelBasedMR/ModelBasedMR.cpp", 67);
       }
 
       if (a36 < 0)
@@ -4676,12 +4664,12 @@ LABEL_6:
         operator delete(a59);
       }
 
-      if (a70 < 0)
+      if (a66 < 0)
       {
         operator delete(a65);
       }
 
-      std::ifstream::~ifstream(&a74);
+      std::ifstream::~ifstream(&a70);
       MEMORY[0x223DC2270](&STACK[0x388]);
       std::__tree<std::__value_type<std::string,std::vector<float>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<float>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<float>>>>::destroy(*a10);
       marrs::inference_engine::EspressoModule::~EspressoModule((a21 + 24));
@@ -4699,18 +4687,18 @@ LABEL_6:
     }
   }
 
-  else if (!v75)
+  else if (!v71)
   {
     goto LABEL_6;
   }
 
-  __cxa_free_exception(v74);
+  __cxa_free_exception(v70);
   goto LABEL_6;
 }
 
-void sub_2227B2868(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10, char **a11, char **a12, char **a13, uint64_t a14, void **a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void **a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *a31, uint64_t a32, int a33, __int16 a34, char a35, char a36, uint64_t a37, void *a38, uint64_t a39, int a40, __int16 a41, char a42, char a43, uint64_t a44, void *a45, uint64_t a46, int a47, __int16 a48, char a49, char a50, uint64_t a51, void *a52, uint64_t a53, int a54, __int16 a55, char a56, char a57, uint64_t a58, void *a59, uint64_t a60, int a61, __int16 a62, char a63)
+void sub_2227B2868(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, char **a11, char **a12, char **a13, uint64_t a14, void **a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void **a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *a31, uint64_t a32, int a33, __int16 a34, char a35, char a36, uint64_t a37, void *a38, uint64_t a39, int a40, __int16 a41, char a42, char a43, uint64_t a44, void *a45, uint64_t a46, int a47, __int16 a48, char a49, char a50, uint64_t a51, void *a52, uint64_t a53, int a54, __int16 a55, char a56, char a57, uint64_t a58, void *a59, uint64_t a60, int a61, __int16 a62, char a63)
 {
-  if (a73 < 0)
+  if (a68 < 0)
   {
     operator delete(__p);
   }
@@ -4718,10 +4706,10 @@ void sub_2227B2868(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   if (SLOBYTE(STACK[0x437]) < 0)
   {
     operator delete(STACK[0x420]);
-    if ((v76 & 1) == 0)
+    if ((v71 & 1) == 0)
     {
 LABEL_8:
-      std::exception::~exception(&a74);
+      std::exception::~exception(&a69);
       __cxa_end_catch();
       if (a36 < 0)
       {
@@ -4748,12 +4736,12 @@ LABEL_8:
         operator delete(a59);
       }
 
-      if (a70 < 0)
+      if (a66 < 0)
       {
         operator delete(a65);
       }
 
-      std::ifstream::~ifstream(&a75);
+      std::ifstream::~ifstream(&a70);
       MEMORY[0x223DC2270](&STACK[0x388]);
       std::__tree<std::__value_type<std::string,std::vector<float>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<float>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<float>>>>::destroy(*a10);
       marrs::inference_engine::EspressoModule::~EspressoModule((a21 + 24));
@@ -4771,46 +4759,46 @@ LABEL_8:
     }
   }
 
-  else if (!v76)
+  else if (!v71)
   {
     goto LABEL_8;
   }
 
-  __cxa_free_exception(v75);
+  __cxa_free_exception(v70);
   goto LABEL_8;
 }
 
 void sub_2227B2948(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, void *a24, uint64_t a25, void *a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, void *__p, uint64_t a63)
 {
-  std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::vector<float>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::vector<float>>,void *>>>>::~unique_ptr[abi:ne200100](&a68);
-  if (a67 < 0)
+  std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::vector<float>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::vector<float>>,void *>>>>::~unique_ptr[abi:ne200100](&a66);
+  if (a65 < 0)
   {
     operator delete(__p);
   }
 
-  if (v68)
+  if (v66)
   {
-    operator delete(v68);
+    operator delete(v66);
   }
 
-  std::__tree<std::__value_type<std::string,std::vector<float>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<float>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<float>>>>::destroy(*(v70 - 136));
+  std::__tree<std::__value_type<std::string,std::vector<float>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<float>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<float>>>>::destroy(*(v68 - 136));
   if (a2 == 2)
   {
     exception_ptr = __cxa_get_exception_ptr(a1);
     MEMORY[0x223DC1F30](&a28, exception_ptr);
     __cxa_begin_catch(a1);
-    v74 = MRRLoggerForCategory(2);
-    if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
+    v72 = MRRLoggerForCategory(2);
+    if (os_log_type_enabled(v72, OS_LOG_TYPE_ERROR))
     {
-      *(v70 - 144) = 136315138;
+      *(v68 - 144) = 136315138;
       STACK[0x4A4] = "Error parsing category embeddings json";
-      _os_log_impl(&dword_2227A9000, v74, OS_LOG_TYPE_ERROR, "ConfigLoadingError - %s", (v70 - 144), 0xCu);
+      _os_log_impl(&dword_2227A9000, v72, OS_LOG_TYPE_ERROR, "ConfigLoadingError - %s", (v68 - 144), 0xCu);
     }
 
     exception = __cxa_allocate_exception(0x30uLL);
-    std::string::basic_string[abi:ne200100]<0>((v70 - 144), "Error parsing category embeddings json");
+    std::string::basic_string[abi:ne200100]<0>((v68 - 144), "Error parsing category embeddings json");
     std::string::basic_string[abi:ne200100]<0>(&__p, "MultimodalReferenceResolution");
-    ConfigLoadingError::ConfigLoadingError(exception, v70 - 144, &__p, "/Library/Caches/com.apple.xbs/Sources/Marrs/MultimodalReferenceResolution.subproj/MultimodalReferenceResolution/MentionResolver/ModelBasedMR/ModelBasedMR.cpp", 50);
+    ConfigLoadingError::ConfigLoadingError(exception, v68 - 144, &__p, "/Library/Caches/com.apple.xbs/Sources/Marrs/MultimodalReferenceResolution.subproj/MultimodalReferenceResolution/MentionResolver/ModelBasedMR/ModelBasedMR.cpp", 50);
   }
 
   JUMPOUT(0x2227B2ADCLL);
@@ -4826,17 +4814,17 @@ void sub_2227B2988()
   JUMPOUT(0x2227B29BCLL);
 }
 
-void sub_2227B2BE0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10, char **a11, char **a12, char **a13, uint64_t a14, void **a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void **a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, std::exception a28, uint64_t a29, uint64_t a30, void *a31, uint64_t a32, int a33, __int16 a34, char a35, char a36, uint64_t a37, void *a38, uint64_t a39, int a40, __int16 a41, char a42, char a43, uint64_t a44, void *a45, uint64_t a46, int a47, __int16 a48, char a49, char a50, uint64_t a51, void *a52, uint64_t a53, int a54, __int16 a55, char a56, char a57, uint64_t a58, void *a59, uint64_t a60, int a61, __int16 a62, char a63)
+void sub_2227B2BE0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, char **a11, char **a12, char **a13, uint64_t a14, void **a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void **a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, std::exception a28, uint64_t a29, uint64_t a30, void *a31, uint64_t a32, int a33, __int16 a34, char a35, char a36, uint64_t a37, void *a38, uint64_t a39, int a40, __int16 a41, char a42, char a43, uint64_t a44, void *a45, uint64_t a46, int a47, __int16 a48, char a49, char a50, uint64_t a51, void *a52, uint64_t a53, int a54, __int16 a55, char a56, char a57, uint64_t a58, void *a59, uint64_t a60, int a61, __int16 a62, char a63)
 {
-  if (a74 < 0)
+  if (a68 < 0)
   {
     operator delete(__p);
   }
 
-  if (*(v77 - 121) < 0)
+  if (*(v71 - 121) < 0)
   {
-    operator delete(*(v77 - 144));
-    if ((v76 & 1) == 0)
+    operator delete(*(v71 - 144));
+    if ((v70 & 1) == 0)
     {
 LABEL_8:
       std::exception::~exception(&a28);
@@ -4866,12 +4854,12 @@ LABEL_8:
         operator delete(a59);
       }
 
-      if (a70 < 0)
+      if (a66 < 0)
       {
         operator delete(a65);
       }
 
-      std::ifstream::~ifstream(&a75);
+      std::ifstream::~ifstream(&a69);
       MEMORY[0x223DC2270](&STACK[0x388]);
       std::__tree<std::__value_type<std::string,std::vector<float>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<float>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<float>>>>::destroy(*a10);
       marrs::inference_engine::EspressoModule::~EspressoModule((a21 + 24));
@@ -4889,12 +4877,12 @@ LABEL_8:
     }
   }
 
-  else if (!v76)
+  else if (!v70)
   {
     goto LABEL_8;
   }
 
-  __cxa_free_exception(v75);
+  __cxa_free_exception(v69);
   goto LABEL_8;
 }
 
@@ -4908,26 +4896,26 @@ void sub_2227B2D94(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
-uint64_t marrs::inference_engine::EspressoModule::EspressoModule(uint64_t a1, uint64_t *a2, int a3)
+uint64_t marrs::inference_engine::EspressoModule::EspressoModule(uint64_t a1, uint64_t a2, int a3)
 {
   if (a3 == 16)
   {
-    v5 = 65552;
+    v4 = 65552;
   }
 
   else
   {
-    v5 = 65568;
+    v4 = 65568;
   }
 
-  *(a1 + 32) = v5;
+  *(a1 + 32) = v4;
   context = espresso_create_context();
   *a1 = context;
   if (!context)
   {
     exception = __cxa_allocate_exception(0x10uLL);
     MEMORY[0x223DC1F10](exception, "Could not deserialise espresso context.");
-    goto LABEL_12;
+    goto LABEL_10;
   }
 
   plan = espresso_create_plan();
@@ -4936,59 +4924,53 @@ uint64_t marrs::inference_engine::EspressoModule::EspressoModule(uint64_t a1, ui
   {
     exception = __cxa_allocate_exception(0x10uLL);
     MEMORY[0x223DC1F10](exception, "Could not create espresso plan.");
-LABEL_12:
+LABEL_10:
     __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
-  if (*(a2 + 23) < 0)
+  v7 = espresso_plan_add_network();
+  if (v7)
   {
-    v8 = *a2;
-  }
-
-  v9 = *(a1 + 32);
-  v10 = espresso_plan_add_network();
-  if (v10)
-  {
-    v13 = v10;
-    v14 = __cxa_allocate_exception(0x10uLL);
+    v10 = v7;
+    v11 = __cxa_allocate_exception(0x10uLL);
     std::operator+<char>();
-    v15 = std::string::append(&v22, " with error code");
-    v16 = *&v15->__r_.__value_.__l.__data_;
-    v23.__r_.__value_.__r.__words[2] = v15->__r_.__value_.__r.__words[2];
-    *&v23.__r_.__value_.__l.__data_ = v16;
-    v15->__r_.__value_.__l.__size_ = 0;
-    v15->__r_.__value_.__r.__words[2] = 0;
-    v15->__r_.__value_.__r.__words[0] = 0;
-    std::to_string(&v21, v13);
-    if ((v21.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    v12 = std::string::append(&v19, " with error code");
+    v13 = *&v12->__r_.__value_.__l.__data_;
+    v20.__r_.__value_.__r.__words[2] = v12->__r_.__value_.__r.__words[2];
+    *&v20.__r_.__value_.__l.__data_ = v13;
+    v12->__r_.__value_.__l.__size_ = 0;
+    v12->__r_.__value_.__r.__words[2] = 0;
+    v12->__r_.__value_.__r.__words[0] = 0;
+    std::to_string(&v18, v10);
+    if ((v18.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v17 = &v21;
+      v14 = &v18;
     }
 
     else
     {
-      v17 = v21.__r_.__value_.__r.__words[0];
+      v14 = v18.__r_.__value_.__r.__words[0];
     }
 
-    if ((v21.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    if ((v18.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      size = HIBYTE(v21.__r_.__value_.__r.__words[2]);
+      size = HIBYTE(v18.__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      size = v21.__r_.__value_.__l.__size_;
+      size = v18.__r_.__value_.__l.__size_;
     }
 
-    v19 = std::string::append(&v23, v17, size);
-    v20 = *&v19->__r_.__value_.__l.__data_;
-    v25 = v19->__r_.__value_.__r.__words[2];
-    v24 = v20;
-    v19->__r_.__value_.__l.__size_ = 0;
-    v19->__r_.__value_.__r.__words[2] = 0;
-    v19->__r_.__value_.__r.__words[0] = 0;
-    MEMORY[0x223DC1F20](v14, &v24);
-    __cxa_throw(v14, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+    v16 = std::string::append(&v20, v14, size);
+    v17 = *&v16->__r_.__value_.__l.__data_;
+    v22 = v16->__r_.__value_.__r.__words[2];
+    v21 = v17;
+    v16->__r_.__value_.__l.__size_ = 0;
+    v16->__r_.__value_.__r.__words[2] = 0;
+    v16->__r_.__value_.__r.__words[0] = 0;
+    MEMORY[0x223DC1F20](v11, &v21);
+    __cxa_throw(v11, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
   return a1;
@@ -5200,7 +5182,7 @@ void std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__
   }
 }
 
-uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::unordered_map<std::string,float>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::unordered_map<std::string,float>>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
+char **std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::unordered_map<std::string,float>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::unordered_map<std::string,float>>,void *>>>>::~unique_ptr[abi:ne200100](char **a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -5217,35 +5199,35 @@ uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std
   return a1;
 }
 
-void *std::__hash_table<std::__hash_value_type<std::string,float>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,float>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,float>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, void *a2)
+void *std::__hash_table<std::__hash_value_type<std::string,float>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,float>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,float>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, void *a2, __int128 **a3)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_hash<char>::operator()[abi:ne200100](a2);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     operator new();
@@ -5253,44 +5235,44 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](v12 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
 void std::vector<std::string>::clear[abi:ne200100](void ***a1)
@@ -5434,23 +5416,23 @@ uint64_t std::__hash_table<std::__hash_value_type<unsigned int,float>,std::__uno
   return a1;
 }
 
-uint64_t *std::ifstream::basic_ifstream(uint64_t *a1)
+uint64_t *std::ifstream::basic_ifstream(uint64_t *a1, uint64_t a2)
 {
   a1[59] = 0;
-  v2 = MEMORY[0x277D82858] + 64;
+  v3 = MEMORY[0x277D82858] + 64;
   a1[53] = MEMORY[0x277D82858] + 64;
-  v3 = *(MEMORY[0x277D82808] + 16);
-  v4 = *(MEMORY[0x277D82808] + 8);
-  *a1 = v4;
-  *(a1 + *(v4 - 24)) = v3;
+  v4 = *(MEMORY[0x277D82808] + 16);
+  v5 = *(MEMORY[0x277D82808] + 8);
+  *a1 = v5;
+  *(a1 + *(v5 - 24)) = v4;
   a1[1] = 0;
-  v5 = (a1 + *(*a1 - 24));
-  std::ios_base::init(v5, a1 + 2);
-  v6 = MEMORY[0x277D82858] + 24;
-  v5[1].__vftable = 0;
-  v5[1].__fmtflags_ = -1;
-  *a1 = v6;
-  a1[53] = v2;
+  v6 = (a1 + *(*a1 - 24));
+  std::ios_base::init(v6, a1 + 2);
+  v7 = MEMORY[0x277D82858] + 24;
+  v6[1].__vftable = 0;
+  v6[1].__fmtflags_ = -1;
+  *a1 = v7;
+  a1[53] = v3;
   MEMORY[0x223DC2070](a1 + 2);
   if (!std::filebuf::open())
   {
@@ -5509,32 +5491,32 @@ void sub_2227B3B88(void *a1)
   __cxa_rethrow();
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,std::unordered_map<unsigned int,float>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::unordered_map<unsigned int,float>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::unordered_map<unsigned int,float>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::unordered_map<unsigned int,float>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(void *a1, unsigned int a2)
+uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,std::unordered_map<unsigned int,float>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::unordered_map<unsigned int,float>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::unordered_map<unsigned int,float>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::unordered_map<unsigned int,float>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(float *a1, unsigned int a2, _DWORD **a3)
 {
-  v2 = a1[1];
-  if (!v2)
+  v3 = *(a1 + 1);
+  if (!v3)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (v2 <= a2)
+    v5 = a2;
+    if (v3 <= a2)
     {
-      v4 = a2 % v2;
+      v5 = a2 % v3;
     }
   }
 
   else
   {
-    v4 = (v2 - 1) & a2;
+    v5 = (v3 - 1) & a2;
   }
 
-  v5 = *(*a1 + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
   {
 LABEL_18:
     operator new();
@@ -5542,49 +5524,49 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v8 = v7[1];
+    if (v8 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v4.u32[0] > 1uLL)
     {
-      if (v7 >= v2)
+      if (v8 >= v3)
       {
-        v7 %= v2;
+        v8 %= v3;
       }
     }
 
     else
     {
-      v7 &= v2 - 1;
+      v8 &= v3 - 1;
     }
 
-    if (v7 != v4)
+    if (v8 != v5)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v7 = *v7;
+    if (!v7)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v6 + 4) != a2)
+  if (*(v7 + 4) != a2)
   {
     goto LABEL_17;
   }
 
-  return v6;
+  return v7;
 }
 
-void sub_2227B3FFC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2227B3FFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned int,std::unordered_map<unsigned int,float>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned int,std::unordered_map<unsigned int,float>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -5747,7 +5729,7 @@ void marrs::mrr::mr::MROrchestrator::~MROrchestrator(void **this)
   marrs::mrr::mr::ModelBasedMR::~ModelBasedMR((this + 1));
 }
 
-uint64_t std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::vector<MDMentionOverride>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::vector<MDMentionOverride>>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
+char **std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::vector<MDMentionOverride>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::vector<MDMentionOverride>>,void *>>>>::~unique_ptr[abi:ne200100](char **a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -5874,8 +5856,7 @@ void std::__tree<std::__value_type<std::string,std::vector<marrs::mrr::mr::Verba
 
 std::string *std::__fs::filesystem::path::path[abi:ne200100]<std::string,void>(std::string *a1, std::string *a2)
 {
-  a1->__r_.__value_.__r.__words[0] = 0;
-  a1->__r_.__value_.__l.__size_ = 0;
+  *&a1->__r_.__value_.__l.__data_ = 0uLL;
   a1->__r_.__value_.__r.__words[2] = 0;
   v3 = SHIBYTE(a2->__r_.__value_.__r.__words[2]);
   size = a2->__r_.__value_.__l.__size_;
@@ -6058,14 +6039,6 @@ void std::__destroy_at[abi:ne200100]<std::pair<std::string const,std::vector<flo
   }
 }
 
-void marrs::inference_engine::EspressoModule::~EspressoModule(marrs::inference_engine::EspressoModule *this)
-{
-  v2 = *(this + 1);
-  espresso_plan_destroy();
-  v3 = *this;
-  espresso_context_destroy();
-}
-
 void std::__allocate_at_least[abi:ne200100]<std::allocator<float>>(unint64_t a1)
 {
   if (!(a1 >> 62))
@@ -6076,7 +6049,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<float>>(unint64_t a1)
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void *std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(void *result, char *__src, char *a3, unint64_t a4)
+void **std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -6151,7 +6124,7 @@ void *std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(void
   return result;
 }
 
-void std::vector<float>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<float>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 62))
   {
@@ -6218,16 +6191,16 @@ void marrs::mrr::md::MRRVisualAndScreenMentionDetector::~MRRVisualAndScreenMenti
   JUMPOUT(0x223DC2360);
 }
 
-uint64_t **std::__tree<std::__value_type<std::string,std::vector<float>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<float>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<float>>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<std::string,std::vector<float>>,std::__tree_node<std::__value_type<std::string,std::vector<float>>,void *> *,long>>(uint64_t **result, uint64_t *a2, uint64_t *a3)
+void *std::__tree<std::__value_type<std::string,std::vector<float>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<float>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<float>>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<std::string,std::vector<float>>,std::__tree_node<std::__value_type<std::string,std::vector<float>>,void *> *,long>>(void *result, uint64_t *a2, uint64_t *a3)
 {
   v5 = result;
   if (result[2])
   {
     v6 = *result;
-    v8 = result + 1;
+    v8 = (result + 1);
     v7 = result[1];
-    *result = (result + 1);
-    v7[2] = 0;
+    *result = result + 1;
+    *(v7 + 16) = 0;
     result[1] = 0;
     result[2] = 0;
     if (v6[1])
@@ -6258,8 +6231,8 @@ uint64_t **std::__tree<std::__value_type<std::string,std::vector<float>>,std::__
           }
 
           v11 = *v8;
-          v12 = v5 + 1;
-          v13 = v5 + 1;
+          v12 = (v5 + 1);
+          v13 = (v5 + 1);
           if (*v8)
           {
             do
@@ -6343,14 +6316,14 @@ LABEL_16:
   return result;
 }
 
-void sub_2227B50F4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2227B50F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::vector<float>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::vector<float>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -6372,7 +6345,7 @@ void sub_2227B5190(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *std::__tree<std::string>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<std::string>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -6390,54 +6363,54 @@ uint64_t *std::__tree<std::string>::__insert_node_at(uint64_t **a1, uint64_t a2,
   return result;
 }
 
-uint64_t std::__tree<std::string,marrs::mrr::mr::CaseInsensitiveCompare,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(uint64_t a1, uint64_t a2)
+uint64_t *std::__tree<std::string,marrs::mrr::mr::CaseInsensitiveCompare,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(uint64_t **a1, uint64_t a2, uint64_t a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v5 = a1[1];
+  if (!v5)
   {
 LABEL_13:
-    std::__tree<std::string,marrs::mrr::mr::CaseInsensitiveCompare,std::allocator<std::string>>::__construct_node<std::string const&>();
+    std::__tree<std::string,marrs::mrr::mr::CaseInsensitiveCompare,std::allocator<std::string>>::__construct_node<std::string const&>(v13, a1, a3);
   }
 
   if (*(a2 + 23) >= 0)
   {
-    v3 = a2;
+    v6 = a2;
   }
 
   else
   {
-    v3 = *a2;
+    v6 = *a2;
   }
 
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v7 = v2[4];
-      v5 = v2 + 4;
-      v6 = v7;
-      v8 = (*(v5 + 23) >= 0 ? v5 : v6);
-      if ((strcasecmp(v3, v8) & 0x80000000) == 0)
+      v7 = v5;
+      v10 = v5[4];
+      v8 = v5 + 4;
+      v9 = v10;
+      v11 = (*(v8 + 23) >= 0 ? v8 : v9);
+      if ((strcasecmp(v6, v11) & 0x80000000) == 0)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v5 = *v7;
+      if (!*v7)
       {
         goto LABEL_13;
       }
     }
 
-    result = strcasecmp(v8, v3);
+    result = strcasecmp(v11, v6);
     if ((result & 0x80000000) == 0)
     {
       return result;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v5 = v7[1];
+    if (!v5)
     {
       goto LABEL_13;
     }
@@ -6451,7 +6424,7 @@ void sub_2227B535C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t **std::__tree<std::string,marrs::mrr::mr::CaseInsensitiveCompare,std::allocator<std::string>>::__assign_multi<std::__tree_const_iterator<std::string,std::__tree_node<std::string,void *> *,long>>(uint64_t **result, void *a2, void *a3)
+uint64_t ***std::__tree<std::string,marrs::mrr::mr::CaseInsensitiveCompare,std::allocator<std::string>>::__assign_multi<std::__tree_const_iterator<std::string,std::__tree_node<std::string,void *> *,long>>(uint64_t ***result, void *a2, void *a3)
 {
   v5 = result;
   if (result[2])
@@ -6459,7 +6432,7 @@ uint64_t **std::__tree<std::string,marrs::mrr::mr::CaseInsensitiveCompare,std::a
     v6 = *result;
     v7 = result[1];
     *result = (result + 1);
-    v7[2] = 0;
+    *(v7 + 16) = 0;
     result[1] = 0;
     result[2] = 0;
     if (v6[1])
@@ -6535,15 +6508,15 @@ uint64_t **std::__tree<std::string,marrs::mrr::mr::CaseInsensitiveCompare,std::a
 
   if (a2 != a3)
   {
-    std::__tree<std::string,marrs::mrr::mr::CaseInsensitiveCompare,std::allocator<std::string>>::__construct_node<std::string const&>();
+    std::__tree<std::string,marrs::mrr::mr::CaseInsensitiveCompare,std::allocator<std::string>>::__construct_node<std::string const&>(&v15, v5, (a2 + 4));
   }
 
   return result;
 }
 
-void sub_2227B5514(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2227B5514(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__tree<std::string,marrs::mrr::mr::CaseInsensitiveCompare,std::allocator<std::string>>::_DetachedTreeCache::~_DetachedTreeCache[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -6728,53 +6701,63 @@ void *marrs::mrr::mr::OrdinalFilter::OrdinalFilter(uint64_t a1, uint64_t a2, __i
   }
 
   std::__fs::filesystem::operator/[abi:ne200100](v214, a2, &marrs::mrr::mr::filterConfigFileName);
-  std::ifstream::basic_ifstream(&__str);
+  if (v214[23] >= 0)
+  {
+    v23 = v214;
+  }
+
+  else
+  {
+    v23 = *v214;
+  }
+
+  std::ifstream::basic_ifstream(&__str, v23);
   if ((v214[23] & 0x80000000) != 0)
   {
     operator delete(*v214);
   }
 
   std::string::__init_with_sentinel[abi:ne200100]<std::istreambuf_iterator<char>,std::istreambuf_iterator<char>>(&v166, *(&__str + *(__str.__r_.__value_.__r.__words[0] - 24) + 40));
-  v23 = MRRLoggerForCategory(2);
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+  v24 = MRRLoggerForCategory(2);
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
   {
-    v24 = &v166;
+    v25 = &v166;
     if ((v166.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      v24 = v166.__r_.__value_.__r.__words[0];
+      v25 = v166.__r_.__value_.__r.__words[0];
     }
 
     *v214 = 136315138;
-    *&v214[4] = v24;
-    _os_log_impl(&dword_2227A9000, v23, OS_LOG_TYPE_DEBUG, "[Verbal MR] Loaded MR Config - %s", v214, 0xCu);
+    *&v214[4] = v25;
+    _os_log_impl(&dword_2227A9000, v24, OS_LOG_TYPE_DEBUG, "[Verbal MR] Loaded MR Config - %s", v214, 0xCu);
   }
 
-  v25 = MRRLoggerForCategory(2);
-  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+  v26 = MRRLoggerForCategory(2);
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
   {
-    v26 = &v167;
+    v27 = &v167;
     if ((v167.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      v26 = v167.__r_.__value_.__r.__words[0];
+      v27 = v167.__r_.__value_.__r.__words[0];
     }
 
     if ((v169.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v27 = &v169;
+      v28 = &v169;
     }
 
     else
     {
-      v27 = v169.__r_.__value_.__r.__words[0];
+      v28 = v169.__r_.__value_.__r.__words[0];
     }
 
     *v214 = 67109634;
     *&v214[4] = v168;
     *&v214[8] = 2080;
-    *&v214[10] = v26;
+    *&v214[10] = v27;
     *&v214[18] = 2080;
-    *&v214[20] = v27;
-    _os_log_impl(&dword_2227A9000, v25, OS_LOG_TYPE_DEBUG, "[Verbal MR] Verbal MR Config Parameters - mrType: %u,version: %s, ordinalAssetPath: %s", v214, 0x1Cu);
+    *&v214[20] = v28;
+    _os_log_impl(&dword_2227A9000, v26, OS_LOG_TYPE_DEBUG, "[Verbal MR] Verbal MR Config Parameters - mrType: %u,version: %s, ordinalAssetPath: %s", v214, 0x1Cu);
   }
 
   std::__fs::filesystem::operator/[abi:ne200100](__sz, a2, &marrs::mrr::mr::assetSubDirectoryPath);
@@ -6804,21 +6787,21 @@ void *marrs::mrr::mr::OrdinalFilter::OrdinalFilter(uint64_t a1, uint64_t a2, __i
     operator delete(__sz[0].__r_.__value_.__l.__data_);
   }
 
-  v28 = MEMORY[0x277CCACA8];
-  v29 = SHIBYTE(v165.__r_.__value_.__r.__words[2]);
-  v30 = v165.__r_.__value_.__r.__words[0];
-  v31 = [MEMORY[0x277CCACA8] defaultCStringEncoding];
-  if (v29 >= 0)
+  v29 = MEMORY[0x277CCACA8];
+  v30 = SHIBYTE(v165.__r_.__value_.__r.__words[2]);
+  v31 = v165.__r_.__value_.__r.__words[0];
+  v32 = [MEMORY[0x277CCACA8] defaultCStringEncoding];
+  if (v30 >= 0)
   {
-    v32 = &v165;
+    v33 = &v165;
   }
 
   else
   {
-    v32 = v30;
+    v33 = v31;
   }
 
-  v145 = [v28 stringWithCString:v32 encoding:v31];
+  v145 = [v29 stringWithCString:v33 encoding:v32];
   v141 = [MEMORY[0x277CCAA00] defaultManager];
   if (([v141 fileExistsAtPath:v145] & 1) == 0)
   {
@@ -6828,7 +6811,7 @@ void *marrs::mrr::mr::OrdinalFilter::OrdinalFilter(uint64_t a1, uint64_t a2, __i
     __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
-  v33 = [objc_alloc(MEMORY[0x277CBEAC0]) initWithJSON:v145];
+  v34 = [objc_alloc(MEMORY[0x277CBEAC0]) initWithJSON:v145];
   v159 = &v160;
   v160 = 0;
   v163 = 0;
@@ -6841,10 +6824,10 @@ void *marrs::mrr::mr::OrdinalFilter::OrdinalFilter(uint64_t a1, uint64_t a2, __i
   v194[1] = 0;
   v194[0] = 0;
   v193 = v194;
-  v34 = v33;
-  v140 = v33;
-  v144 = [v33 objectForKey:@"ordinalKeywords"];
-  v142 = [v34 objectForKey:@"ordinalPatternTemplateMap"];
+  v35 = v34;
+  v140 = v34;
+  v144 = [v34 objectForKey:@"ordinalKeywords"];
+  v142 = [v35 objectForKey:@"ordinalPatternTemplateMap"];
   v191 = 0u;
   v192 = 0u;
   v189 = 0u;
@@ -6864,50 +6847,50 @@ void *marrs::mrr::mr::OrdinalFilter::OrdinalFilter(uint64_t a1, uint64_t a2, __i
         }
 
         v151 = *(*(&v189 + 1) + 8 * i);
-        v35 = [obj objectForKey:?];
+        v36 = [obj objectForKey:?];
         memset(v182, 0, 24);
         v185 = 0u;
         v186 = 0u;
         v187 = 0u;
         v188 = 0u;
-        v155 = v35;
-        v36 = [v155 countByEnumeratingWithState:&v185 objects:__sz count:16];
-        if (v36)
+        v155 = v36;
+        v37 = [v155 countByEnumeratingWithState:&v185 objects:__sz count:16];
+        if (v37)
         {
-          v37 = *v186;
+          v38 = *v186;
           do
           {
-            for (j = 0; j != v36; ++j)
+            for (j = 0; j != v37; ++j)
             {
-              if (*v186 != v37)
+              if (*v186 != v38)
               {
                 objc_enumerationMutation(v155);
               }
 
-              v39 = *(*(&v185 + 1) + 8 * j);
-              v40 = [v39 objectForKey:@"synonyms"];
-              v41 = 0;
+              v40 = *(*(&v185 + 1) + 8 * j);
+              v41 = [v40 objectForKey:@"synonyms"];
+              v42 = 0;
               *(&v176 + 1) = 0;
               *&v177 = 0;
               *&v176 = &v176 + 8;
-              while ([v40 count] > v41)
+              while ([v41 count] > v42)
               {
-                v42 = [v40 objectAtIndexedSubscript:v41];
-                v43 = v42;
-                std::string::basic_string[abi:ne200100]<0>(&__p, [v42 UTF8String]);
+                v43 = [v41 objectAtIndexedSubscript:v42];
+                v44 = v43;
+                std::string::basic_string[abi:ne200100]<0>(&__p, [v43 UTF8String]);
 
-                std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(&v176, &__p.__r_.__value_.__l.__data_);
+                std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(&v176, &__p.__r_.__value_.__l.__data_, &__p);
                 if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
                 {
                   operator delete(__p.__r_.__value_.__l.__data_);
                 }
 
-                ++v41;
+                ++v42;
               }
 
-              v44 = [v39 objectForKey:@"semantic"];
-              v45 = v44;
-              std::string::basic_string[abi:ne200100]<0>(&v170, [v44 UTF8String]);
+              v45 = [v40 objectForKey:@"semantic"];
+              v46 = v45;
+              std::string::basic_string[abi:ne200100]<0>(&v170, [v45 UTF8String]);
 
               if (SHIBYTE(v170.__r_.__value_.__r.__words[2]) < 0)
               {
@@ -6920,45 +6903,45 @@ void *marrs::mrr::mr::OrdinalFilter::OrdinalFilter(uint64_t a1, uint64_t a2, __i
               }
 
               std::set<std::string>::set[abi:ne200100](v211, &v176);
-              v46 = [v39 objectForKey:@"index"];
-              [v46 floatValue];
-              v212 = v47;
+              v47 = [v40 objectForKey:@"index"];
+              [v47 floatValue];
+              v212 = v48;
 
-              v48 = v182[1];
+              v49 = v182[1];
               if (v182[1] >= v182[2])
               {
-                v50 = 0x6DB6DB6DB6DB6DB7 * ((v182[1] - v182[0]) >> 3);
-                v51 = v50 + 1;
-                if ((v50 + 1) > 0x492492492492492)
+                v51 = 0x6DB6DB6DB6DB6DB7 * ((v182[1] - v182[0]) >> 3);
+                v52 = v51 + 1;
+                if ((v51 + 1) > 0x492492492492492)
                 {
                   std::vector<std::string>::__throw_length_error[abi:ne200100]();
                 }
 
-                if (0xDB6DB6DB6DB6DB6ELL * ((v182[2] - v182[0]) >> 3) > v51)
+                if (0xDB6DB6DB6DB6DB6ELL * ((v182[2] - v182[0]) >> 3) > v52)
                 {
-                  v51 = 0xDB6DB6DB6DB6DB6ELL * ((v182[2] - v182[0]) >> 3);
+                  v52 = 0xDB6DB6DB6DB6DB6ELL * ((v182[2] - v182[0]) >> 3);
                 }
 
                 if ((0x6DB6DB6DB6DB6DB7 * ((v182[2] - v182[0]) >> 3)) >= 0x249249249249249)
                 {
-                  v52 = 0x492492492492492;
+                  v53 = 0x492492492492492;
                 }
 
                 else
                 {
-                  v52 = v51;
+                  v53 = v52;
                 }
 
                 v209 = v182;
-                if (v52)
+                if (v53)
                 {
-                  std::__allocate_at_least[abi:ne200100]<std::allocator<marrs::mrr::mr::VerbalKeywordEntry>>(v52);
+                  std::__allocate_at_least[abi:ne200100]<std::allocator<marrs::mrr::mr::VerbalKeywordEntry>>(v53);
                 }
 
-                v54 = 8 * ((v182[1] - v182[0]) >> 3);
+                v55 = 8 * ((v182[1] - v182[0]) >> 3);
                 v207[0] = 0;
-                v207[1] = v54;
-                v208 = v54;
+                v207[1] = v55;
+                v208 = v55;
                 if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
                 {
                   std::string::__init_copy_ctor_external((8 * ((v182[1] - v182[0]) >> 3)), __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
@@ -6966,75 +6949,75 @@ void *marrs::mrr::mr::OrdinalFilter::OrdinalFilter(uint64_t a1, uint64_t a2, __i
 
                 else
                 {
-                  v55 = *&__p.__r_.__value_.__l.__data_;
+                  v56 = *&__p.__r_.__value_.__l.__data_;
                   *(8 * ((v182[1] - v182[0]) >> 3) + 0x10) = *(&__p.__r_.__value_.__l + 2);
-                  *v54 = v55;
+                  *v55 = v56;
                 }
 
-                std::set<std::string>::set[abi:ne200100]((v54 + 24), v211);
-                *(56 * v50 + 0x30) = v212;
+                std::set<std::string>::set[abi:ne200100]((v55 + 24), v211);
+                *(56 * v51 + 0x30) = v212;
                 *&v208 = v208 + 56;
-                v56 = v182[1];
-                v57 = v182[0];
-                v58 = (v207[1] + v182[0] - v182[1]);
+                v57 = v182[1];
+                v58 = v182[0];
+                v59 = (v207[1] + v182[0] - v182[1]);
                 if (v182[0] != v182[1])
                 {
-                  v59 = 0;
+                  v60 = 0;
                   do
                   {
-                    v60 = v58 + v59;
-                    v61 = (v57 + v59);
-                    v62 = *(&v57->__r_.__value_.__l.__data_ + v59);
-                    *(v60 + 2) = *(&v57->__r_.__value_.__l + v59 + 16);
-                    *v60 = v62;
-                    v61[1] = 0;
-                    v61[2] = 0;
-                    *v61 = 0;
-                    *(v60 + 3) = *(&v57[1].__r_.__value_.__l.__data_ + v59);
-                    v63 = (&v57[1].__r_.__value_.__l.__size_ + v59);
-                    v64 = *v63;
-                    *(&v58[1].__r_.__value_.__l.__size_ + v59) = *v63;
-                    v65 = &v58[1].__r_.__value_.__l.__size_ + v59;
-                    v66 = v57[1].__r_.__value_.__r.__words[v59 / 8 + 2];
-                    *(v60 + 5) = v66;
-                    if (v66)
+                    v61 = v59 + v60;
+                    v62 = (v58 + v60);
+                    v63 = *(&v58->__r_.__value_.__l.__data_ + v60);
+                    *(v61 + 2) = *(&v58->__r_.__value_.__l + v60 + 16);
+                    *v61 = v63;
+                    v62[1] = 0;
+                    v62[2] = 0;
+                    *v62 = 0;
+                    *(v61 + 3) = *(&v58[1].__r_.__value_.__l.__data_ + v60);
+                    v64 = (&v58[1].__r_.__value_.__l.__size_ + v60);
+                    v65 = *v64;
+                    *(&v59[1].__r_.__value_.__l.__size_ + v60) = *v64;
+                    v66 = &v59[1].__r_.__value_.__l.__size_ + v60;
+                    v67 = v58[1].__r_.__value_.__r.__words[v60 / 8 + 2];
+                    *(v61 + 5) = v67;
+                    if (v67)
                     {
-                      *(v64 + 16) = v65;
-                      v61[3] = v63;
-                      *v63 = 0;
-                      v57[1].__r_.__value_.__r.__words[v59 / 8 + 2] = 0;
+                      *(v65 + 16) = v66;
+                      v62[3] = v64;
+                      *v64 = 0;
+                      v58[1].__r_.__value_.__r.__words[v60 / 8 + 2] = 0;
                     }
 
                     else
                     {
-                      *(v60 + 3) = v65;
+                      *(v61 + 3) = v66;
                     }
 
-                    *(&v58[2].__r_.__value_.__l.__data_ + v59) = *(&v57[2].__r_.__value_.__l.__data_ + v59);
-                    v59 += 56;
+                    *(&v59[2].__r_.__value_.__l.__data_ + v60) = *(&v58[2].__r_.__value_.__l.__data_ + v60);
+                    v60 += 56;
                   }
 
-                  while ((v57 + v59) != v56);
+                  while ((v58 + v60) != v57);
                   do
                   {
-                    std::allocator<marrs::mrr::mr::VerbalKeywordEntry>::destroy[abi:ne200100](v57);
-                    v57 = (v57 + 56);
+                    std::allocator<marrs::mrr::mr::VerbalKeywordEntry>::destroy[abi:ne200100](v58);
+                    v58 = (v58 + 56);
                   }
 
-                  while (v57 != v56);
+                  while (v58 != v57);
                 }
 
-                v67 = v182[0];
-                v68 = v182[2];
-                v182[0] = v58;
+                v68 = v182[0];
+                v69 = v182[2];
+                v182[0] = v59;
                 v157 = v208;
                 *&v182[1] = v208;
-                *&v208 = v67;
-                *(&v208 + 1) = v68;
-                v207[1] = v67;
-                v207[0] = v67;
+                *&v208 = v68;
+                *(&v208 + 1) = v69;
+                v207[1] = v68;
+                v207[0] = v68;
                 std::__split_buffer<marrs::mrr::mr::VerbalKeywordEntry>::~__split_buffer(v207);
-                v53 = v157;
+                v54 = v157;
               }
 
               else
@@ -7046,17 +7029,17 @@ void *marrs::mrr::mr::OrdinalFilter::OrdinalFilter(uint64_t a1, uint64_t a2, __i
 
                 else
                 {
-                  v49 = *&__p.__r_.__value_.__l.__data_;
+                  v50 = *&__p.__r_.__value_.__l.__data_;
                   v182[1]->__r_.__value_.__r.__words[2] = __p.__r_.__value_.__r.__words[2];
-                  *&v48->__r_.__value_.__l.__data_ = v49;
+                  *&v49->__r_.__value_.__l.__data_ = v50;
                 }
 
-                std::set<std::string>::set[abi:ne200100](v48[1].__r_.__value_.__r.__words, v211);
-                LODWORD(v48[2].__r_.__value_.__l.__data_) = v212;
-                v53 = (v48 + 56);
+                std::set<std::string>::set[abi:ne200100](v49[1].__r_.__value_.__r.__words, v211);
+                LODWORD(v49[2].__r_.__value_.__l.__data_) = v212;
+                v54 = (v49 + 56);
               }
 
-              v182[1] = v53;
+              v182[1] = v54;
               std::__tree<std::string>::destroy(v211[1]);
               if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
               {
@@ -7071,18 +7054,18 @@ void *marrs::mrr::mr::OrdinalFilter::OrdinalFilter(uint64_t a1, uint64_t a2, __i
               std::__tree<std::string>::destroy(*(&v176 + 1));
             }
 
-            v36 = [v155 countByEnumeratingWithState:&v185 objects:__sz count:16];
+            v37 = [v155 countByEnumeratingWithState:&v185 objects:__sz count:16];
           }
 
-          while (v36);
+          while (v37);
         }
 
-        v69 = v151;
+        v70 = v151;
         std::string::basic_string[abi:ne200100]<0>(v207, [v151 UTF8String]);
-        v70 = v196[0];
+        v71 = v196[0];
         if (!v196[0])
         {
-LABEL_107:
+LABEL_110:
           operator new();
         }
 
@@ -7090,34 +7073,34 @@ LABEL_107:
         {
           while (1)
           {
-            v71 = v70;
-            if (!std::less<void>::operator()[abi:ne200100]<std::string const&,std::string const&>(v207, &v70[1].__r_.__value_.__l.__size_))
+            v72 = v71;
+            if (!std::less<void>::operator()[abi:ne200100]<std::string const&,std::string const&>(v207, v71 + 4))
             {
               break;
             }
 
-            v70 = *v71;
-            if (!*v71)
+            v71 = *v72;
+            if (!*v72)
             {
-              goto LABEL_107;
+              goto LABEL_110;
             }
           }
 
-          if (!std::less<void>::operator()[abi:ne200100]<std::string const&,std::string const&>(v71 + 4, v207))
+          if (!std::less<void>::operator()[abi:ne200100]<std::string const&,std::string const&>(v72 + 4, v207))
           {
             break;
           }
 
-          v70 = v71[1];
-          if (!v70)
+          v71 = v72[1];
+          if (!v71)
           {
-            goto LABEL_107;
+            goto LABEL_110;
           }
         }
 
-        if (v71 + 7 != v182)
+        if (v72 + 7 != v182)
         {
-          std::vector<marrs::mrr::mr::VerbalKeywordEntry>::__assign_with_size[abi:ne200100]<marrs::mrr::mr::VerbalKeywordEntry*,marrs::mrr::mr::VerbalKeywordEntry*>(v71 + 7, v182[0], v182[1], 0x6DB6DB6DB6DB6DB7 * ((v182[1] - v182[0]) >> 3));
+          std::vector<marrs::mrr::mr::VerbalKeywordEntry>::__assign_with_size[abi:ne200100]<marrs::mrr::mr::VerbalKeywordEntry*,marrs::mrr::mr::VerbalKeywordEntry*>(v72 + 7, v182[0], v182[1], 0x6DB6DB6DB6DB6DB7 * ((v182[1] - v182[0]) >> 3));
         }
 
         if (SBYTE7(v208) < 0)
@@ -7153,117 +7136,117 @@ LABEL_107:
         }
 
         v152 = *(&v182[1]->__r_.__value_.__l.__data_ + k);
-        v72 = [v149 objectForKey:?];
+        v73 = [v149 objectForKey:?];
         v180 = 0;
         v181 = 0uLL;
         v176 = 0u;
         v177 = 0u;
         v178 = 0u;
         v179 = 0u;
-        v156 = v72;
-        v73 = [v156 countByEnumeratingWithState:&v176 objects:v207 count:16];
-        if (v73)
+        v156 = v73;
+        v74 = [v156 countByEnumeratingWithState:&v176 objects:v207 count:16];
+        if (v74)
         {
-          v74 = *v177;
+          v75 = *v177;
           do
           {
-            for (m = 0; m != v73; ++m)
+            for (m = 0; m != v74; ++m)
             {
-              if (*v177 != v74)
+              if (*v177 != v75)
               {
                 objc_enumerationMutation(v156);
               }
 
-              v76 = *(*(&v176 + 1) + 8 * m);
-              v77 = [v76 objectForKey:@"patterns"];
-              v78 = 0;
+              v77 = *(*(&v176 + 1) + 8 * m);
+              v78 = [v77 objectForKey:@"patterns"];
+              v79 = 0;
               v175[0] = 0;
               v175[1] = 0;
               v174 = v175;
-              while ([v77 count] > v78)
+              while ([v78 count] > v79)
               {
-                v79 = [v77 objectAtIndexedSubscript:v78];
-                v80 = v79;
-                std::string::basic_string[abi:ne200100]<0>(&v170, [v79 UTF8String]);
+                v80 = [v78 objectAtIndexedSubscript:v79];
+                v81 = v80;
+                std::string::basic_string[abi:ne200100]<0>(&v170, [v80 UTF8String]);
 
-                std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(&v174, &v170.__r_.__value_.__l.__data_);
+                std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(&v174, &v170.__r_.__value_.__l.__data_, &v170);
                 if (SHIBYTE(v170.__r_.__value_.__r.__words[2]) < 0)
                 {
                   operator delete(v170.__r_.__value_.__l.__data_);
                 }
 
-                ++v78;
+                ++v79;
               }
 
-              v81 = [v76 objectForKey:@"entity_types"];
-              v82 = 0;
+              v82 = [v77 objectForKey:@"entity_types"];
+              v83 = 0;
               v173[0] = 0;
               v173[1] = 0;
               v172 = v173;
-              while ([v81 count] > v82)
+              while ([v82 count] > v83)
               {
-                v83 = [v81 objectAtIndexedSubscript:v82];
-                v84 = v83;
-                std::string::basic_string[abi:ne200100]<0>(&v170, [v83 UTF8String]);
+                v84 = [v82 objectAtIndexedSubscript:v83];
+                v85 = v84;
+                std::string::basic_string[abi:ne200100]<0>(&v170, [v84 UTF8String]);
 
-                std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(&v172, &v170.__r_.__value_.__l.__data_);
+                std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(&v172, &v170.__r_.__value_.__l.__data_, &v170);
                 if (SHIBYTE(v170.__r_.__value_.__r.__words[2]) < 0)
                 {
                   operator delete(v170.__r_.__value_.__l.__data_);
                 }
 
-                ++v82;
+                ++v83;
               }
 
               std::set<std::string>::set[abi:ne200100](&v170, &v172);
               std::set<std::string>::set[abi:ne200100](v171, &v174);
-              v85 = v181;
+              v86 = v181;
               if (v181 >= *(&v181 + 1))
               {
-                v87 = 0xAAAAAAAAAAAAAAABLL * ((v181 - v180) >> 4) + 1;
-                if (v87 > 0x555555555555555)
+                v88 = 0xAAAAAAAAAAAAAAABLL * ((v181 - v180) >> 4) + 1;
+                if (v88 > 0x555555555555555)
                 {
                   std::vector<std::string>::__throw_length_error[abi:ne200100]();
                 }
 
-                if (0x5555555555555556 * ((*(&v181 + 1) - v180) >> 4) > v87)
+                if (0x5555555555555556 * ((*(&v181 + 1) - v180) >> 4) > v88)
                 {
-                  v87 = 0x5555555555555556 * ((*(&v181 + 1) - v180) >> 4);
+                  v88 = 0x5555555555555556 * ((*(&v181 + 1) - v180) >> 4);
                 }
 
                 if (0xAAAAAAAAAAAAAAABLL * ((*(&v181 + 1) - v180) >> 4) >= 0x2AAAAAAAAAAAAAALL)
                 {
-                  v88 = 0x555555555555555;
+                  v89 = 0x555555555555555;
                 }
 
                 else
                 {
-                  v88 = v87;
+                  v89 = v88;
                 }
 
                 v200 = &v180;
-                if (v88)
+                if (v89)
                 {
-                  std::__allocate_at_least[abi:ne200100]<std::allocator<marrs::mrr::mr::VerbalPatternEntry>>(v88);
+                  std::__allocate_at_least[abi:ne200100]<std::allocator<marrs::mrr::mr::VerbalPatternEntry>>(v89);
                 }
 
-                v89 = (16 * ((v181 - v180) >> 4));
+                v90 = (16 * ((v181 - v180) >> 4));
                 __s = 0;
-                v198 = v89;
-                v199 = v89;
-                std::set<std::string>::set[abi:ne200100](v89, &v170);
-                std::set<std::string>::set[abi:ne200100](v89 + 3, v171);
+                v198 = v90;
+                v199 = v90;
+                std::set<std::string>::set[abi:ne200100](v90, &v170);
+                std::set<std::string>::set[abi:ne200100](v90 + 3, v171);
                 *&v199 = v199 + 48;
-                v91 = v180;
-                v90 = v181;
+                v92 = v180;
+                v91 = v181;
                 v201[0] = &v180;
                 v201[1] = &v203;
                 v201[2] = &v204;
-                v92 = v180;
-                v93 = v180 + v198 - v181;
-                v204 = v93;
-                v203 = v93;
-                v94 = v93;
+                v93 = v180;
+                v94 = (v180 + v198 - v181);
+                v204 = v94;
+                v203 = v94;
+                v95 = v94;
                 if (v180 == v181)
                 {
                   v202 = 1;
@@ -7273,85 +7256,85 @@ LABEL_107:
                 {
                   do
                   {
-                    *v94 = *v92;
-                    v95 = v92 + 1;
-                    v96 = v92[1];
-                    v94[1] = v96;
-                    v97 = v94 + 1;
-                    v98 = v92[2];
-                    v94[2] = v98;
-                    if (v98)
+                    *v95 = *v93;
+                    v96 = v93 + 1;
+                    v97 = v93[1];
+                    v95[1] = v97;
+                    v98 = v95 + 1;
+                    v99 = v93[2];
+                    v95[2] = v99;
+                    if (v99)
                     {
-                      *(v96 + 16) = v97;
-                      *v92 = v95;
-                      *v95 = 0;
-                      v92[2] = 0;
+                      *(v97 + 16) = v98;
+                      *v93 = v96;
+                      *v96 = 0;
+                      v93[2] = 0;
                     }
 
                     else
                     {
-                      *v94 = v97;
+                      *v95 = v98;
                     }
 
-                    v94[3] = v92[3];
-                    v99 = v92 + 4;
-                    v100 = v92[4];
-                    v94[4] = v100;
-                    v101 = v94 + 4;
-                    v102 = v92[5];
-                    v94[5] = v102;
-                    if (v102)
+                    v95[3] = v93[3];
+                    v100 = v93 + 4;
+                    v101 = v93[4];
+                    v95[4] = v101;
+                    v102 = v95 + 4;
+                    v103 = v93[5];
+                    v95[5] = v103;
+                    if (v103)
                     {
-                      *(v100 + 16) = v101;
-                      v92[3] = v99;
-                      *v99 = 0;
-                      v92[5] = 0;
+                      *(v101 + 16) = v102;
+                      v93[3] = v100;
+                      *v100 = 0;
+                      v93[5] = 0;
                     }
 
                     else
                     {
-                      v94[3] = v101;
+                      v95[3] = v102;
                     }
 
-                    v92 += 6;
-                    v94 = (v204 + 48);
-                    v204 += 48;
+                    v93 += 6;
+                    v95 = v204 + 6;
+                    v204 += 6;
                   }
 
-                  while (v92 != v90);
+                  while (v93 != v91);
                   v202 = 1;
                   do
                   {
-                    std::__tree<std::string>::destroy(*(v91 + 32));
-                    std::__tree<std::string>::destroy(*(v91 + 8));
-                    v91 += 48;
+                    std::__tree<std::string>::destroy(v92[4]);
+                    std::__tree<std::string>::destroy(v92[1]);
+                    v92 += 6;
                   }
 
-                  while (v91 != v90);
+                  while (v92 != v91);
                 }
 
                 std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<marrs::mrr::mr::VerbalPatternEntry>,marrs::mrr::mr::VerbalPatternEntry*>>::~__exception_guard_exceptions[abi:ne200100](v201);
-                v103 = v180;
-                v104 = *(&v181 + 1);
-                v180 = v93;
+                v104 = v180;
+                v105 = *(&v181 + 1);
+                v180 = v94;
                 v158 = v199;
                 v181 = v199;
-                *&v199 = v103;
-                *(&v199 + 1) = v104;
-                v198 = v103;
-                __s = v103;
+                *&v199 = v104;
+                *(&v199 + 1) = v105;
+                v198 = v104;
+                __s = v104;
                 std::__split_buffer<marrs::mrr::mr::VerbalPatternEntry>::~__split_buffer(&__s);
-                v86 = v158;
+                v87 = v158;
               }
 
               else
               {
                 std::set<std::string>::set[abi:ne200100](v181, &v170);
-                std::set<std::string>::set[abi:ne200100]((v85 + 24), v171);
-                v86 = v85 + 48;
+                std::set<std::string>::set[abi:ne200100]((v86 + 24), v171);
+                v87 = v86 + 48;
               }
 
-              *&v181 = v86;
+              *&v181 = v87;
               std::__tree<std::string>::destroy(v171[1]);
               std::__tree<std::string>::destroy(v170.__r_.__value_.__l.__size_);
               std::__tree<std::string>::destroy(v173[0]);
@@ -7359,18 +7342,18 @@ LABEL_107:
               std::__tree<std::string>::destroy(v175[0]);
             }
 
-            v73 = [v156 countByEnumeratingWithState:&v176 objects:v207 count:16];
+            v74 = [v156 countByEnumeratingWithState:&v176 objects:v207 count:16];
           }
 
-          while (v73);
+          while (v74);
         }
 
-        v105 = v152;
+        v106 = v152;
         std::string::basic_string[abi:ne200100]<0>(&__s, [v152 UTF8String]);
-        v106 = v194[0];
+        v107 = v194[0];
         if (!v194[0])
         {
-LABEL_165:
+LABEL_168:
           operator new();
         }
 
@@ -7378,34 +7361,34 @@ LABEL_165:
         {
           while (1)
           {
-            v107 = v106;
-            if (!std::less<void>::operator()[abi:ne200100]<std::string const&,std::string const&>(&__s, v106 + 4))
+            v108 = v107;
+            if (!std::less<void>::operator()[abi:ne200100]<std::string const&,std::string const&>(&__s, v107 + 4))
             {
               break;
             }
 
-            v106 = *v107;
-            if (!*v107)
+            v107 = *v108;
+            if (!*v108)
             {
-              goto LABEL_165;
+              goto LABEL_168;
             }
           }
 
-          if (!std::less<void>::operator()[abi:ne200100]<std::string const&,std::string const&>(v107 + 4, &__s))
+          if (!std::less<void>::operator()[abi:ne200100]<std::string const&,std::string const&>(v108 + 4, &__s))
           {
             break;
           }
 
-          v106 = v107[1];
-          if (!v106)
+          v107 = v108[1];
+          if (!v107)
           {
-            goto LABEL_165;
+            goto LABEL_168;
           }
         }
 
-        if (v107 + 7 != &v180)
+        if (v108 + 7 != &v180)
         {
-          std::vector<marrs::mrr::mr::VerbalPatternEntry>::__assign_with_size[abi:ne200100]<marrs::mrr::mr::VerbalPatternEntry*,marrs::mrr::mr::VerbalPatternEntry*>(v107 + 7, v180, v181, 0xAAAAAAAAAAAAAAABLL * ((v181 - v180) >> 4));
+          std::vector<marrs::mrr::mr::VerbalPatternEntry>::__assign_with_size[abi:ne200100]<marrs::mrr::mr::VerbalPatternEntry*,marrs::mrr::mr::VerbalPatternEntry*>(v108 + 7, v180, v181, 0xAAAAAAAAAAAAAAABLL * ((v181 - v180) >> 4));
         }
 
         if (SBYTE7(v199) < 0)
@@ -7423,85 +7406,85 @@ LABEL_165:
     while (v139);
   }
 
-  v108 = v195;
+  v109 = v195;
   if (v161)
   {
-    v109 = v159;
+    v110 = v159;
     v159 = &v160;
     v160[2] = 0;
     v160 = 0;
     v161 = 0;
-    if (v109[1])
+    if (v110[1])
     {
-      v110 = v109[1];
+      v111 = v110[1];
     }
 
     else
     {
-      v110 = v109;
+      v111 = v110;
     }
 
     v170.__r_.__value_.__r.__words[0] = &v159;
-    v170.__r_.__value_.__l.__size_ = v110;
-    v170.__r_.__value_.__r.__words[2] = v110;
-    if (!v110 || (v170.__r_.__value_.__l.__size_ = std::__tree<std::__value_type<std::string,std::vector<float>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<float>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<float>>>>::_DetachedTreeCache::__detach_next(v110), v108 == v196))
+    v170.__r_.__value_.__l.__size_ = v111;
+    v170.__r_.__value_.__r.__words[2] = v111;
+    if (!v111 || (v170.__r_.__value_.__l.__size_ = std::__tree<std::__value_type<std::string,std::vector<float>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<float>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<float>>>>::_DetachedTreeCache::__detach_next(v111), v109 == v196))
     {
-      v116 = v108;
+      v117 = v109;
     }
 
     else
     {
       do
       {
-        std::string::operator=((v110 + 32), (v108 + 4));
-        if (v110 != v108)
+        std::string::operator=((v111 + 32), (v109 + 4));
+        if (v111 != v109)
         {
-          std::vector<marrs::mrr::mr::VerbalKeywordEntry>::__assign_with_size[abi:ne200100]<marrs::mrr::mr::VerbalKeywordEntry*,marrs::mrr::mr::VerbalKeywordEntry*>((v110 + 56), v108[7], v108[8], 0x6DB6DB6DB6DB6DB7 * ((v108[8] - v108[7]) >> 3));
+          std::vector<marrs::mrr::mr::VerbalKeywordEntry>::__assign_with_size[abi:ne200100]<marrs::mrr::mr::VerbalKeywordEntry*,marrs::mrr::mr::VerbalKeywordEntry*>((v111 + 56), v109[7], v109[8], 0x6DB6DB6DB6DB6DB7 * ((v109[8] - v109[7]) >> 3));
         }
 
-        v111 = v170.__r_.__value_.__r.__words[2];
-        v112 = v160;
-        v113 = &v160;
+        v112 = v170.__r_.__value_.__r.__words[2];
+        v113 = v160;
         v114 = &v160;
+        v115 = &v160;
         if (v160)
         {
           do
           {
             while (1)
             {
-              v114 = v112;
-              if (!std::less<void>::operator()[abi:ne200100]<std::string const&,std::string const&>(v111 + 4, v112 + 4))
+              v115 = v113;
+              if (!std::less<void>::operator()[abi:ne200100]<std::string const&,std::string const&>(v112 + 4, v113 + 4))
               {
                 break;
               }
 
-              v112 = *v114;
-              v113 = v114;
-              if (!*v114)
+              v113 = *v115;
+              v114 = v115;
+              if (!*v115)
               {
-                goto LABEL_186;
+                goto LABEL_189;
               }
             }
 
-            v112 = v114[1];
+            v113 = v115[1];
           }
 
-          while (v112);
-          v113 = v114 + 1;
+          while (v113);
+          v114 = v115 + 1;
         }
 
-LABEL_186:
-        *v111 = 0;
-        v111[1] = 0;
-        v111[2] = v114;
-        *v113 = v111;
+LABEL_189:
+        *v112 = 0;
+        v112[1] = 0;
+        v112[2] = v115;
+        *v114 = v112;
         if (*v159)
         {
           v159 = *v159;
-          v111 = *v113;
+          v112 = *v114;
         }
 
-        std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<void *> *>(v160, v111);
+        std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<void *> *>(v160, v112);
         ++v161;
         v170.__r_.__value_.__r.__words[2] = v170.__r_.__value_.__l.__size_;
         if (v170.__r_.__value_.__l.__size_)
@@ -7509,135 +7492,135 @@ LABEL_186:
           v170.__r_.__value_.__l.__size_ = std::__tree<std::__value_type<std::string,std::vector<float>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<float>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<float>>>>::_DetachedTreeCache::__detach_next(v170.__r_.__value_.__l.__size_);
         }
 
-        v115 = v108[1];
-        if (v115)
+        v116 = v109[1];
+        if (v116)
         {
           do
           {
-            v116 = v115;
-            v115 = *v115;
+            v117 = v116;
+            v116 = *v116;
           }
 
-          while (v115);
+          while (v116);
         }
 
         else
         {
           do
           {
-            v116 = v108[2];
-            v117 = *v116 == v108;
-            v108 = v116;
+            v117 = v109[2];
+            v118 = *v117 == v109;
+            v109 = v117;
           }
 
-          while (!v117);
+          while (!v118);
         }
 
-        v110 = v170.__r_.__value_.__r.__words[2];
+        v111 = v170.__r_.__value_.__r.__words[2];
         if (v170.__r_.__value_.__r.__words[2])
         {
-          v117 = v116 == v196;
+          v118 = v117 == v196;
         }
 
         else
         {
-          v117 = 1;
+          v118 = 1;
         }
 
-        v108 = v116;
+        v109 = v117;
       }
 
-      while (!v117);
+      while (!v118);
     }
 
     std::__tree<std::__value_type<std::string,std::vector<marrs::mrr::mr::VerbalKeywordEntry>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<marrs::mrr::mr::VerbalKeywordEntry>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<marrs::mrr::mr::VerbalKeywordEntry>>>>::_DetachedTreeCache::~_DetachedTreeCache[abi:ne200100](&v170);
-    v108 = v116;
+    v109 = v117;
   }
 
-  if (v108 != v196)
+  if (v109 != v196)
   {
     operator new();
   }
 
-  v118 = v193;
+  v119 = v193;
   if (v164)
   {
-    v119 = v162;
+    v120 = v162;
     v162 = &v163;
     v163[2] = 0;
     v163 = 0;
     v164 = 0;
-    if (v119[1])
+    if (v120[1])
     {
-      v120 = v119[1];
+      v121 = v120[1];
     }
 
     else
     {
-      v120 = v119;
+      v121 = v120;
     }
 
     v170.__r_.__value_.__r.__words[0] = &v162;
-    v170.__r_.__value_.__l.__size_ = v120;
-    v170.__r_.__value_.__r.__words[2] = v120;
-    if (!v120 || (v170.__r_.__value_.__l.__size_ = std::__tree<std::__value_type<std::string,std::vector<float>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<float>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<float>>>>::_DetachedTreeCache::__detach_next(v120), v118 == v194))
+    v170.__r_.__value_.__l.__size_ = v121;
+    v170.__r_.__value_.__r.__words[2] = v121;
+    if (!v121 || (v170.__r_.__value_.__l.__size_ = std::__tree<std::__value_type<std::string,std::vector<float>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<float>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<float>>>>::_DetachedTreeCache::__detach_next(v121), v119 == v194))
     {
-      v126 = v118;
+      v127 = v119;
     }
 
     else
     {
       do
       {
-        std::string::operator=((v120 + 32), (v118 + 4));
-        if (v120 != v118)
+        std::string::operator=((v121 + 32), (v119 + 4));
+        if (v121 != v119)
         {
-          std::vector<marrs::mrr::mr::VerbalPatternEntry>::__assign_with_size[abi:ne200100]<marrs::mrr::mr::VerbalPatternEntry*,marrs::mrr::mr::VerbalPatternEntry*>((v120 + 56), v118[7], v118[8], 0xAAAAAAAAAAAAAAABLL * ((v118[8] - v118[7]) >> 4));
+          std::vector<marrs::mrr::mr::VerbalPatternEntry>::__assign_with_size[abi:ne200100]<marrs::mrr::mr::VerbalPatternEntry*,marrs::mrr::mr::VerbalPatternEntry*>((v121 + 56), v119[7], v119[8], 0xAAAAAAAAAAAAAAABLL * ((v119[8] - v119[7]) >> 4));
         }
 
-        v121 = v170.__r_.__value_.__r.__words[2];
-        v122 = v163;
-        v123 = &v163;
+        v122 = v170.__r_.__value_.__r.__words[2];
+        v123 = v163;
         v124 = &v163;
+        v125 = &v163;
         if (v163)
         {
           do
           {
             while (1)
             {
-              v124 = v122;
-              if (!std::less<void>::operator()[abi:ne200100]<std::string const&,std::string const&>(v121 + 4, v122 + 4))
+              v125 = v123;
+              if (!std::less<void>::operator()[abi:ne200100]<std::string const&,std::string const&>(v122 + 4, v123 + 4))
               {
                 break;
               }
 
-              v122 = *v124;
-              v123 = v124;
-              if (!*v124)
+              v123 = *v125;
+              v124 = v125;
+              if (!*v125)
               {
-                goto LABEL_219;
+                goto LABEL_222;
               }
             }
 
-            v122 = v124[1];
+            v123 = v125[1];
           }
 
-          while (v122);
-          v123 = v124 + 1;
+          while (v123);
+          v124 = v125 + 1;
         }
 
-LABEL_219:
-        *v121 = 0;
-        v121[1] = 0;
-        v121[2] = v124;
-        *v123 = v121;
+LABEL_222:
+        *v122 = 0;
+        v122[1] = 0;
+        v122[2] = v125;
+        *v124 = v122;
         if (*v162)
         {
           v162 = *v162;
-          v121 = *v123;
+          v122 = *v124;
         }
 
-        std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<void *> *>(v163, v121);
+        std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<void *> *>(v163, v122);
         ++v164;
         v170.__r_.__value_.__r.__words[2] = v170.__r_.__value_.__l.__size_;
         if (v170.__r_.__value_.__l.__size_)
@@ -7645,52 +7628,52 @@ LABEL_219:
           v170.__r_.__value_.__l.__size_ = std::__tree<std::__value_type<std::string,std::vector<float>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<float>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<float>>>>::_DetachedTreeCache::__detach_next(v170.__r_.__value_.__l.__size_);
         }
 
-        v125 = v118[1];
-        if (v125)
+        v126 = v119[1];
+        if (v126)
         {
           do
           {
-            v126 = v125;
-            v125 = *v125;
+            v127 = v126;
+            v126 = *v126;
           }
 
-          while (v125);
+          while (v126);
         }
 
         else
         {
           do
           {
-            v126 = v118[2];
-            v117 = *v126 == v118;
-            v118 = v126;
+            v127 = v119[2];
+            v118 = *v127 == v119;
+            v119 = v127;
           }
 
-          while (!v117);
+          while (!v118);
         }
 
-        v120 = v170.__r_.__value_.__r.__words[2];
+        v121 = v170.__r_.__value_.__r.__words[2];
         if (v170.__r_.__value_.__r.__words[2])
         {
-          v127 = v126 == v194;
+          v128 = v127 == v194;
         }
 
         else
         {
-          v127 = 1;
+          v128 = 1;
         }
 
-        v118 = v126;
+        v119 = v127;
       }
 
-      while (!v127);
+      while (!v128);
     }
 
     std::__tree<std::__value_type<std::string,std::vector<marrs::mrr::mr::VerbalPatternEntry>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<marrs::mrr::mr::VerbalPatternEntry>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<marrs::mrr::mr::VerbalPatternEntry>>>>::_DetachedTreeCache::~_DetachedTreeCache[abi:ne200100](&v170);
-    v118 = v126;
+    v119 = v127;
   }
 
-  if (v118 != v194)
+  if (v119 != v194)
   {
     operator new();
   }
@@ -7699,14 +7682,14 @@ LABEL_219:
   std::__tree<std::__value_type<std::string,std::vector<marrs::mrr::mr::VerbalKeywordEntry>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<marrs::mrr::mr::VerbalKeywordEntry>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<marrs::mrr::mr::VerbalKeywordEntry>>>>::destroy(v196[0]);
 
   std::__tree<std::__value_type<std::string,std::vector<marrs::mrr::mr::VerbalKeywordEntry>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<marrs::mrr::mr::VerbalKeywordEntry>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<marrs::mrr::mr::VerbalKeywordEntry>>>>::destroy(v143[21]);
-  v128 = v160;
+  v129 = v160;
   v143[20] = v159;
-  v143[21] = v128;
-  v129 = v161;
+  v143[21] = v129;
+  v130 = v161;
   v143[22] = v161;
-  if (v129)
+  if (v130)
   {
-    v128[2] = v137;
+    v129[2] = v137;
     v159 = &v160;
     v160 = 0;
     v161 = 0;
@@ -7718,15 +7701,15 @@ LABEL_219:
   }
 
   std::__tree<std::__value_type<std::string,std::vector<marrs::mrr::mr::VerbalPatternEntry>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<marrs::mrr::mr::VerbalPatternEntry>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<marrs::mrr::mr::VerbalPatternEntry>>>>::destroy(v143[24]);
-  v130 = v163;
+  v131 = v163;
   v143[23] = v162;
-  v143[24] = v130;
-  v131 = v164;
+  v143[24] = v131;
+  v132 = v164;
   v143[25] = v164;
-  if (v131)
+  if (v132)
   {
-    v130[2] = v138;
-    v130 = 0;
+    v131[2] = v138;
+    v131 = 0;
     v162 = &v163;
     v163 = 0;
     v164 = 0;
@@ -7737,7 +7720,7 @@ LABEL_219:
     v143[23] = v138;
   }
 
-  std::__tree<std::__value_type<std::string,std::vector<marrs::mrr::mr::VerbalPatternEntry>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<marrs::mrr::mr::VerbalPatternEntry>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<marrs::mrr::mr::VerbalPatternEntry>>>>::destroy(v130);
+  std::__tree<std::__value_type<std::string,std::vector<marrs::mrr::mr::VerbalPatternEntry>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<marrs::mrr::mr::VerbalPatternEntry>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<marrs::mrr::mr::VerbalPatternEntry>>>>::destroy(v131);
   std::__tree<std::__value_type<std::string,std::vector<marrs::mrr::mr::VerbalKeywordEntry>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<marrs::mrr::mr::VerbalKeywordEntry>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<marrs::mrr::mr::VerbalKeywordEntry>>>>::destroy(v160);
   if (SHIBYTE(v165.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -7764,7 +7747,6 @@ LABEL_219:
     operator delete(v167.__r_.__value_.__l.__data_);
   }
 
-  v133 = *MEMORY[0x277D85DE8];
   return v143;
 }
 
@@ -7836,12 +7818,12 @@ void sub_2227B7934(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void *std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(uint64_t a1, const void **a2)
+uint64_t *std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(uint64_t **a1, const void **a2, uint64_t a3)
 {
-  result = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<void>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(a1, &v3, a2);
+  result = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<void>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(a1, &v7, a2);
   if (!*result)
   {
-    std::__tree<std::string>::__construct_node<std::string const&>();
+    std::__tree<std::string>::__construct_node<std::string const&>(v6, a1, a3);
   }
 
   return result;
@@ -7896,18 +7878,18 @@ void *std::set<std::string>::set[abi:ne200100](void *a1, const void ***a2)
 LABEL_8:
         if (!v6)
         {
-          v15 = v3;
+          v16 = v3;
 LABEL_14:
-          std::__tree<std::string>::__construct_node<std::string const&>();
+          std::__tree<std::string>::__construct_node<std::string const&>(v15, a1, (v5 + 4));
         }
 
-        v15 = v7;
+        v16 = v7;
         v11 = v7 + 1;
       }
 
       else
       {
-        v11 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<void>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(a1, &v15, v5 + 4);
+        v11 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<void>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(a1, &v16, v5 + 4);
       }
 
       if (!*v11)
@@ -7975,7 +7957,7 @@ uint64_t std::__split_buffer<marrs::mrr::mr::VerbalKeywordEntry>::~__split_buffe
   return a1;
 }
 
-void std::vector<marrs::mrr::mr::VerbalKeywordEntry>::__assign_with_size[abi:ne200100]<marrs::mrr::mr::VerbalKeywordEntry*,marrs::mrr::mr::VerbalKeywordEntry*>(std::string **a1, std::string *__str, std::string *a3, unint64_t a4)
+void std::vector<marrs::mrr::mr::VerbalKeywordEntry>::__assign_with_size[abi:ne200100]<marrs::mrr::mr::VerbalKeywordEntry*,marrs::mrr::mr::VerbalKeywordEntry*>(uint64_t *a1, std::string *__str, std::string *a3, unint64_t a4)
 {
   v8 = a1[2];
   v9 = *a1;
@@ -8049,7 +8031,7 @@ void std::vector<marrs::mrr::mr::VerbalKeywordEntry>::__assign_with_size[abi:ne2
   }
 }
 
-void std::vector<marrs::mrr::mr::VerbalKeywordEntry>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<marrs::mrr::mr::VerbalKeywordEntry>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x492492492492493)
   {
@@ -8165,7 +8147,7 @@ uint64_t std::__split_buffer<marrs::mrr::mr::VerbalPatternEntry>::~__split_buffe
   return a1;
 }
 
-void std::vector<marrs::mrr::mr::VerbalPatternEntry>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<marrs::mrr::mr::VerbalPatternEntry>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x555555555555556)
   {
@@ -8175,7 +8157,7 @@ void std::vector<marrs::mrr::mr::VerbalPatternEntry>::__vallocate[abi:ne200100](
   std::vector<std::string>::__throw_length_error[abi:ne200100]();
 }
 
-void std::vector<marrs::mrr::mr::VerbalPatternEntry>::__assign_with_size[abi:ne200100]<marrs::mrr::mr::VerbalPatternEntry*,marrs::mrr::mr::VerbalPatternEntry*>(uint64_t *a1, uint64_t a2, uint64_t **a3, unint64_t a4)
+void std::vector<marrs::mrr::mr::VerbalPatternEntry>::__assign_with_size[abi:ne200100]<marrs::mrr::mr::VerbalPatternEntry*,marrs::mrr::mr::VerbalPatternEntry*>(uint64_t ****a1, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   v8 = a1[2];
   v9 = *a1;
@@ -8248,8 +8230,8 @@ void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<marr
       std::set<std::string>::set[abi:ne200100](v4, v6);
       std::set<std::string>::set[abi:ne200100](v4 + 3, v6 + 3);
       v6 += 6;
-      v4 = v11 + 6;
-      v11 += 6;
+      v4 = (v11 + 48);
+      v11 += 48;
     }
 
     while (v6 != a3);
@@ -8277,7 +8259,7 @@ uint64_t std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::vec
   return a1;
 }
 
-uint64_t std::vector<marrs::mrr::mr::VerbalKeywordEntry>::__init_with_size[abi:ne200100]<marrs::mrr::mr::VerbalKeywordEntry*,marrs::mrr::mr::VerbalKeywordEntry*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<marrs::mrr::mr::VerbalKeywordEntry>::__init_with_size[abi:ne200100]<marrs::mrr::mr::VerbalKeywordEntry*,marrs::mrr::mr::VerbalKeywordEntry*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -8311,7 +8293,7 @@ uint64_t std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::set
   return a1;
 }
 
-uint64_t **std::__tree<std::string>::__assign_multi<std::__tree_const_iterator<std::string,std::__tree_node<std::string,void *> *,long>>(uint64_t **result, void *a2, void *a3)
+uint64_t ***std::__tree<std::string>::__assign_multi<std::__tree_const_iterator<std::string,std::__tree_node<std::string,void *> *,long>>(uint64_t ***result, void *a2, void *a3)
 {
   v5 = result;
   if (result[2])
@@ -8319,7 +8301,7 @@ uint64_t **std::__tree<std::string>::__assign_multi<std::__tree_const_iterator<s
     v6 = *result;
     v7 = result[1];
     *result = (result + 1);
-    v7[2] = 0;
+    *(v7 + 16) = 0;
     result[1] = 0;
     result[2] = 0;
     if (v6[1])
@@ -8395,15 +8377,15 @@ uint64_t **std::__tree<std::string>::__assign_multi<std::__tree_const_iterator<s
 
   if (a2 != a3)
   {
-    std::__tree<std::string>::__construct_node<std::string const&>();
+    std::__tree<std::string>::__construct_node<std::string const&>(&v15, v5, (a2 + 4));
   }
 
   return result;
 }
 
-void sub_2227B8550(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2227B8550(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__tree<std::string,marrs::mrr::mr::CaseInsensitiveCompare,std::allocator<std::string>>::_DetachedTreeCache::~_DetachedTreeCache[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -8487,51 +8469,50 @@ LABEL_25:
 uint64_t sub_2227B86DC(void (*a1)(uint64_t), uint64_t a2, uint64_t a3)
 {
   v4 = v3;
-  v21 = a1;
-  v22 = a2;
-  v20 = sub_22282FEF4();
-  v6 = *(v20 - 8);
-  v7 = *(v6 + 64);
-  MEMORY[0x28223BE20](v20);
-  v9 = &v17 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = *(a3 + 16);
-  v11 = MEMORY[0x277D84F90];
-  if (!v10)
+  v20 = a1;
+  v21 = a2;
+  v19 = sub_22282FEF4();
+  v6 = *(v19 - 8);
+  MEMORY[0x28223BE20](v19);
+  v8 = &v16 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = *(a3 + 16);
+  v10 = MEMORY[0x277D84F90];
+  if (!v9)
   {
-    return v11;
+    return v10;
   }
 
-  v23 = MEMORY[0x277D84F90];
-  sub_2227C07C8(0, v10, 0);
-  v11 = v23;
-  v19 = (*(v6 + 80) + 32) & ~*(v6 + 80);
-  v12 = a3 + v19;
-  v18 = (v6 + 32);
-  v13 = *(v6 + 72);
+  v22 = MEMORY[0x277D84F90];
+  sub_2227C07C8(0, v9, 0);
+  v10 = v22;
+  v18 = (*(v6 + 80) + 32) & ~*(v6 + 80);
+  v11 = a3 + v18;
+  v17 = (v6 + 32);
+  v12 = *(v6 + 72);
   while (1)
   {
-    v21(v12);
+    v20(v11);
     if (v4)
     {
       break;
     }
 
     v4 = 0;
-    v23 = v11;
-    v15 = *(v11 + 16);
-    v14 = *(v11 + 24);
-    if (v15 >= v14 >> 1)
+    v22 = v10;
+    v14 = *(v10 + 16);
+    v13 = *(v10 + 24);
+    if (v14 >= v13 >> 1)
     {
-      sub_2227C07C8(v14 > 1, v15 + 1, 1);
-      v11 = v23;
+      sub_2227C07C8((v13 > 1), v14 + 1, 1);
+      v10 = v22;
     }
 
-    *(v11 + 16) = v15 + 1;
-    (*v18)(v11 + v19 + v15 * v13, v9, v20);
-    v12 += v13;
-    if (!--v10)
+    *(v10 + 16) = v14 + 1;
+    (*v17)(v10 + v18 + v14 * v12, v8, v19);
+    v11 += v12;
+    if (!--v9)
     {
-      return v11;
+      return v10;
     }
   }
 
@@ -8542,128 +8523,118 @@ uint64_t sub_2227B86DC(void (*a1)(uint64_t), uint64_t a2, uint64_t a3)
 uint64_t sub_2227B8898()
 {
   v0 = sub_2228300E4();
-  v1 = OUTLINED_FUNCTION_0(v0);
-  v3 = v2;
-  v5 = *(v4 + 64);
-  MEMORY[0x28223BE20](v1);
+  OUTLINED_FUNCTION_0();
+  v2 = v1;
+  MEMORY[0x28223BE20](v3);
   OUTLINED_FUNCTION_1();
-  v8 = v7 - v6;
+  v6 = v5 - v4;
+  v7 = MEMORY[0x277D84F90];
   v9 = MEMORY[0x277D84F90];
-  v11 = MEMORY[0x277D84F90];
   sub_222830174();
-  sub_2227B8970(v8, v9, &v11);
-  (*(v3 + 8))(v8, v0);
-  return v11;
+  sub_2227B8970(v6, v7, &v9);
+  (*(v2 + 8))(v6, v0);
+  return v9;
 }
 
 void sub_2227B8970(uint64_t a1, uint64_t a2, uint64_t *a3)
 {
-  v77 = a3;
-  v78 = a2;
+  v72 = a3;
+  v73 = a2;
   v4 = sub_222830034();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  v7 = MEMORY[0x28223BE20](v4);
-  v69 = &v61 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v7);
-  v68 = &v61 - v9;
-  v10 = sub_222830064();
-  v66 = *(v10 - 8);
-  v67 = v10;
-  v11 = *(v66 + 64);
-  MEMORY[0x28223BE20](v10);
-  v65 = &v61 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D01B748, &qword_2228320A8);
-  v14 = *(v13 - 8);
-  v15 = *(v14 + 64);
-  MEMORY[0x28223BE20](v13);
-  v17 = &v61 - v16;
-  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D01B750, &qword_2228320B0);
-  v19 = *(*(v18 - 8) + 64);
-  v20 = MEMORY[0x28223BE20](v18 - 8);
-  v22 = &v61 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v20);
-  v24 = &v61 - v23;
-  __swift_storeEnumTagSinglePayload(&v61 - v23, 1, 1, v4);
-  __swift_storeEnumTagSinglePayload(v22, 1, 1, v4);
-  v25 = sub_2228300B4();
-  sub_2227BA108(v22);
-  sub_2227BA108(v24);
-  v26 = sub_2227BDAF8(v25);
+  v6 = MEMORY[0x28223BE20](v4);
+  v64 = &v56 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v6);
+  v63 = &v56 - v8;
+  v9 = sub_222830064();
+  v61 = *(v9 - 8);
+  v62 = v9;
+  MEMORY[0x28223BE20](v9);
+  v60 = &v56 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D01B748, &qword_2228320A8);
+  v12 = *(v11 - 8);
+  MEMORY[0x28223BE20](v11);
+  v14 = &v56 - v13;
+  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D01B750, &qword_2228320B0);
+  v16 = MEMORY[0x28223BE20](v15 - 8);
+  v18 = &v56 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v16);
+  v20 = &v56 - v19;
+  __swift_storeEnumTagSinglePayload(&v56 - v19, 1, 1, v4);
+  __swift_storeEnumTagSinglePayload(v18, 1, 1, v4);
+  v21 = sub_2228300B4();
+  sub_2227BA108(v18);
+  sub_2227BA108(v20);
+  v22 = sub_2227BDAF8(v21);
 
-  v27 = *(v26 + 16);
-  if (v27)
+  v23 = *(v22 + 16);
+  if (v23)
   {
-    v62 = v5;
-    v63 = v4;
-    v64 = a1;
-    v28 = *(v13 + 48);
-    v76 = *(v14 + 80);
-    v29 = (v76 + 32) & ~v76;
-    v61 = v26;
-    v30 = v26 + v29;
-    v70 = *(v78 + 16);
-    v71 = v70 + 1;
-    v31 = *(v14 + 72);
-    v75 = xmmword_222832090;
-    v32 = v13;
-    v73 = v17;
-    v74 = v13;
-    v72 = v29;
+    v57 = v5;
+    v58 = v4;
+    v59 = a1;
+    v24 = *(v11 + 48);
+    v71 = *(v12 + 80);
+    v25 = (v71 + 32) & ~v71;
+    v56 = v22;
+    v26 = v22 + v25;
+    v65 = *(v73 + 16);
+    v66 = v65 + 1;
+    v27 = *(v12 + 72);
+    v70 = xmmword_222832090;
+    v28 = v11;
+    v68 = v14;
+    v69 = v11;
+    v67 = v25;
     while (1)
     {
-      sub_2227BA170(v30, v17);
+      sub_2227BA170(v26, v14);
       __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D01B758, &qword_2228320B8);
-      v33 = swift_allocObject();
-      *(v33 + 16) = v75;
-      v34 = v33 + v29;
-      v35 = *(v32 + 48);
-      v36 = sub_222830014();
-      (*(*(v36 - 8) + 32))(v34, v17, v36);
-      v37 = sub_2228300E4();
-      v38 = *(v37 - 8);
-      v39 = *(v38 + 16);
-      v79 = v37;
-      v39(v34 + v35, &v17[v28]);
-      v40 = v78;
+      v29 = swift_allocObject();
+      *(v29 + 16) = v70;
+      v30 = v29 + v25;
+      v31 = *(v28 + 48);
+      v32 = sub_222830014();
+      (*(*(v32 - 8) + 32))(v30, v14, v32);
+      v33 = sub_2228300E4();
+      v34 = *(v33 - 8);
+      v35 = *(v34 + 16);
+      v74 = v33;
+      v35(v30 + v31, &v14[v24]);
+      v36 = v73;
 
-      if (!swift_isUniquelyReferenced_nonNull_native() || (v41 = *(v40 + 24) >> 1, v42 = v40, v41 <= v70))
+      if (!swift_isUniquelyReferenced_nonNull_native() || (v37 = *(v36 + 24) >> 1, v38 = v36, v37 <= v65))
       {
-        if (*(v40 + 16) > v71)
-        {
-          v43 = *(v40 + 16);
-        }
-
         sub_2227BF9E8();
-        v42 = v44;
-        v41 = *(v44 + 24) >> 1;
+        v38 = v39;
+        v37 = *(v39 + 24) >> 1;
       }
 
-      if (v41 <= *(v42 + 16))
+      if (v37 <= *(v38 + 16))
       {
         break;
       }
 
-      v45 = v27;
-      v46 = v72;
-      v32 = v74;
+      v40 = v23;
+      v41 = v67;
+      v28 = v69;
       swift_arrayInitWithCopy();
 
-      ++*(v42 + 16);
-      v17 = v73;
-      sub_2227B8970(&v73[v28], v42, v77);
-      v29 = v46;
+      ++*(v38 + 16);
+      v14 = v68;
+      sub_2227B8970(&v68[v24], v38, v72);
+      v25 = v41;
 
-      (*(v38 + 8))(&v17[v28], v79);
-      v30 += v31;
-      v27 = v45 - 1;
-      if (v45 == 1)
+      (*(v34 + 8))(&v14[v24], v74);
+      v26 += v27;
+      v23 = v40 - 1;
+      if (v40 == 1)
       {
 
-        v47 = v78;
-        v4 = v63;
-        v5 = v62;
-        goto LABEL_12;
+        v42 = v73;
+        v4 = v58;
+        v5 = v57;
+        goto LABEL_10;
       }
     }
 
@@ -8673,47 +8644,47 @@ void sub_2227B8970(uint64_t a1, uint64_t a2, uint64_t *a3)
   else
   {
 
-    v47 = v78;
-LABEL_12:
-    v48 = v65;
+    v42 = v73;
+LABEL_10:
+    v43 = v60;
     sub_2228300D4();
-    v49 = v68;
+    v44 = v63;
     sub_222830044();
-    (*(v66 + 8))(v48, v67);
-    v50 = v69;
+    (*(v61 + 8))(v43, v62);
+    v45 = v64;
     sub_222830024();
     sub_2227BA1E0();
-    LOBYTE(v48) = sub_222830284();
-    v51 = *(v5 + 8);
-    v51(v50, v4);
-    v51(v49, v4);
-    if ((v48 & 1) == 0)
+    LOBYTE(v43) = sub_222830284();
+    v46 = *(v5 + 8);
+    v46(v45, v4);
+    v46(v44, v4);
+    if ((v43 & 1) == 0)
     {
-      v52 = sub_2228300A4();
-      if (v53)
+      v47 = sub_2228300A4();
+      if (v48)
       {
-        v54 = v52;
-        v55 = v53;
-        v56 = HIBYTE(v53) & 0xF;
-        if ((v53 & 0x2000000000000000) == 0)
+        v49 = v47;
+        v50 = v48;
+        v51 = HIBYTE(v48) & 0xF;
+        if ((v48 & 0x2000000000000000) == 0)
         {
-          v56 = v52 & 0xFFFFFFFFFFFFLL;
+          v51 = v47 & 0xFFFFFFFFFFFFLL;
         }
 
-        if (v56)
+        if (v51)
         {
 
-          v57 = v77;
+          v52 = v72;
           sub_2227B9EF8();
-          v58 = *(*v57 + 16);
-          sub_2227B9F44(v58);
-          v59 = *v57;
-          *(v59 + 16) = v58 + 1;
-          v60 = (v59 + 24 * v58);
-          v60[4] = v54;
-          v60[5] = v55;
-          v60[6] = v47;
-          *v57 = v59;
+          v53 = *(*v52 + 16);
+          sub_2227B9F44(v53);
+          v54 = *v52;
+          *(v54 + 16) = v53 + 1;
+          v55 = (v54 + 24 * v53);
+          v55[4] = v49;
+          v55[5] = v50;
+          v55[6] = v42;
+          *v52 = v54;
         }
 
         else
@@ -8724,93 +8695,88 @@ LABEL_12:
   }
 }
 
-void sub_2227B8F74()
+void sub_2227B8F74(uint64_t a1)
 {
   OUTLINED_FUNCTION_4();
-  v1 = v0;
-  v38 = sub_2228300E4();
-  v2 = OUTLINED_FUNCTION_0(v38);
+  v2 = v1;
+  v32 = sub_2228300E4();
+  OUTLINED_FUNCTION_0();
   v4 = v3;
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](v2);
+  MEMORY[0x28223BE20](v5);
   OUTLINED_FUNCTION_1();
-  v9 = v8 - v7;
-  v10 = sub_222830154();
-  v11 = *(v10 + 16);
-  if (v11)
+  v8 = v7 - v6;
+  v9 = sub_222830154();
+  v10 = *(v9 + 16);
+  if (v10)
   {
-    v34 = v10;
-    v35 = v1;
-    v13 = *(v4 + 16);
-    v12 = v4 + 16;
-    v14 = *(v12 + 64);
+    v28 = v9;
+    v29 = v2;
+    v11 = v4 + 16;
     OUTLINED_FUNCTION_3();
-    v17 = v15 + v16;
-    v36 = *(v12 + 56);
-    v37 = v18;
-    v19 = (v12 - 8);
-    v20 = MEMORY[0x277D84F90];
+    v14 = v12 + v13;
+    v30 = *(v11 + 56);
+    v31 = v15;
+    v16 = (v11 - 8);
+    v17 = MEMORY[0x277D84F90];
     while (1)
     {
-      v21 = v12;
-      v37(v9, v17, v38);
-      v22 = sub_222830084();
-      (*v19)(v9, v38);
-      v23 = *(v22 + 16);
-      v24 = *(v20 + 16);
-      if (__OFADD__(v24, v23))
+      v18 = v11;
+      v31(v8, v14, v32);
+      v19 = sub_222830084();
+      (*v16)(v8, v32);
+      v20 = *(v19 + 16);
+      v21 = *(v17 + 16);
+      if (__OFADD__(v21, v20))
       {
         break;
       }
 
-      if (!swift_isUniquelyReferenced_nonNull_native() || v24 + v23 > *(v20 + 24) >> 1)
+      if (!swift_isUniquelyReferenced_nonNull_native() || v21 + v20 > *(v17 + 24) >> 1)
       {
         sub_2227BFAB4();
-        v20 = v25;
+        v17 = v22;
       }
 
-      if (*(v22 + 16))
+      if (*(v19 + 16))
       {
-        v26 = (*(v20 + 24) >> 1) - *(v20 + 16);
-        v27 = *(sub_22282FEF4() - 8);
-        if (v26 < v23)
+        v23 = (*(v17 + 24) >> 1) - *(v17 + 16);
+        sub_22282FEF4();
+        if (v23 < v20)
         {
           goto LABEL_19;
         }
 
-        v28 = (*(v27 + 80) + 32) & ~*(v27 + 80);
-        v29 = *(v27 + 72);
         swift_arrayInitWithCopy();
 
-        v12 = v21;
-        if (v23)
+        v11 = v18;
+        if (v20)
         {
-          v30 = *(v20 + 16);
-          v31 = __OFADD__(v30, v23);
-          v32 = v30 + v23;
-          if (v31)
+          v24 = *(v17 + 16);
+          v25 = __OFADD__(v24, v20);
+          v26 = v24 + v20;
+          if (v25)
           {
             goto LABEL_20;
           }
 
-          *(v20 + 16) = v32;
+          *(v17 + 16) = v26;
         }
       }
 
       else
       {
 
-        if (v23)
+        if (v20)
         {
           goto LABEL_18;
         }
       }
 
-      v17 += v36;
-      if (!--v11)
+      v14 += v30;
+      if (!--v10)
       {
 
-        v1 = v35;
+        v2 = v29;
         goto LABEL_16;
       }
     }
@@ -8827,11 +8793,11 @@ LABEL_20:
   else
   {
 
-    v20 = MEMORY[0x277D84F90];
+    v17 = MEMORY[0x277D84F90];
 LABEL_16:
-    MEMORY[0x28223BE20](v33);
-    *(&v34 - 2) = v1;
-    sub_2227B86DC(sub_2227B9F84, (&v34 - 4), v20);
+    MEMORY[0x28223BE20](v27);
+    *(&v28 - 2) = v2;
+    sub_2227B86DC(sub_2227B9F84, (&v28 - 4), v17);
 
     OUTLINED_FUNCTION_2();
   }
@@ -8839,55 +8805,51 @@ LABEL_16:
 
 uint64_t sub_2227B9204@<X0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
 {
-  v11[4] = a2;
+  v10[4] = a2;
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D01B740, &qword_2228320A0);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = v11 - v5;
-  v7 = sub_22282FED4();
-  v11[2] = v8;
-  v11[3] = v7;
-  v11[1] = sub_22282FE74();
+  v5 = v10 - v4;
+  v6 = sub_22282FED4();
+  v10[2] = v7;
+  v10[3] = v6;
+  v10[1] = sub_22282FE74();
   sub_22282FEE4();
   sub_22282FE84();
-  v9 = sub_22282FE94();
-  (*(*(v9 - 8) + 16))(v6, a1, v9);
-  __swift_storeEnumTagSinglePayload(v6, 0, 1, v9);
+  v8 = sub_22282FE94();
+  (*(*(v8 - 8) + 16))(v5, a1, v8);
+  __swift_storeEnumTagSinglePayload(v5, 0, 1, v8);
   sub_22282FE64();
   sub_22282FEA4();
   return sub_22282FEB4();
 }
 
-void sub_2227B9378()
+void sub_2227B9378(uint64_t a1, uint64_t a2)
 {
   OUTLINED_FUNCTION_4();
-  v1 = v0;
   v3 = v2;
-  v4 = sub_22282FEF4();
-  v5 = OUTLINED_FUNCTION_0(v4);
-  v66 = v6;
-  v67 = v5;
-  v8 = *(v7 + 64);
-  MEMORY[0x28223BE20](v5);
+  v5 = v4;
+  sub_22282FEF4();
+  OUTLINED_FUNCTION_0();
+  v55 = v6;
+  MEMORY[0x28223BE20](v6);
   OUTLINED_FUNCTION_1();
-  v68 = v10 - v9;
-  v64 = sub_2228300E4();
-  v11 = OUTLINED_FUNCTION_0(v64);
-  v13 = v12;
-  v15 = *(v14 + 64);
+  v56 = v8 - v7;
+  v53 = sub_2228300E4();
+  OUTLINED_FUNCTION_0();
+  v10 = v9;
   MEMORY[0x28223BE20](v11);
   OUTLINED_FUNCTION_1();
-  v18 = v17 - v16;
-  v19 = *(sub_222830154() + 16);
-  v59 = v3;
-  v60 = v1;
-  if (!v19)
+  v14 = v13 - v12;
+  v15 = *(sub_222830154() + 16);
+  v48 = v5;
+  v49 = v3;
+  if (!v15)
   {
 
-    v28 = MEMORY[0x277D84F90];
+    v22 = MEMORY[0x277D84F90];
 LABEL_16:
-    v39 = *(v28 + 16);
-    if (!v39)
+    v31 = *(v22 + 16);
+    if (!v31)
     {
 LABEL_31:
 
@@ -8895,134 +8857,127 @@ LABEL_31:
       return;
     }
 
-    v40 = *(v66 + 16);
-    v41 = *(v66 + 80);
     OUTLINED_FUNCTION_3();
-    v43 = v28 + v42;
-    v63 = *(v44 + 56);
-    v65 = v45;
-    v46 = (v44 - 8);
-    v47 = MEMORY[0x277D84F90];
+    v33 = v22 + v32;
+    v52 = *(v34 + 56);
+    v54 = v35;
+    v36 = (v34 - 8);
+    v37 = MEMORY[0x277D84F90];
     while (1)
     {
-      v65(v68, v43, v67);
-      if (sub_22282FE74() == v3 && v48 == v1)
+      v54(v56, v33, v55);
+      if (sub_22282FE74() == v5 && v38 == v3)
       {
         break;
       }
 
-      v50 = sub_222830514();
+      v40 = sub_222830514();
 
-      if (v50)
+      if (v40)
       {
         goto LABEL_25;
       }
 
-      (*v46)(v68, v67);
+      (*v36)(v56, v55);
 LABEL_30:
-      v43 += v63;
-      if (!--v39)
+      v33 += v52;
+      if (!--v31)
       {
         goto LABEL_31;
       }
     }
 
 LABEL_25:
-    v51 = sub_22282FED4();
-    v53 = v52;
+    v41 = sub_22282FED4();
+    v43 = v42;
     if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
     {
-      v56 = *(v47 + 16);
       sub_2227BFB74();
-      v47 = v57;
+      v37 = v46;
     }
 
-    v54 = *(v47 + 16);
-    if (v54 >= *(v47 + 24) >> 1)
+    v44 = *(v37 + 16);
+    if (v44 >= *(v37 + 24) >> 1)
     {
       sub_2227BFB74();
-      v47 = v58;
+      v37 = v47;
     }
 
-    (*v46)(v68, v67);
-    *(v47 + 16) = v54 + 1;
-    v55 = v47 + 16 * v54;
-    *(v55 + 32) = v51;
-    *(v55 + 40) = v53;
-    v3 = v59;
-    v1 = v60;
+    (*v36)(v56, v55);
+    *(v37 + 16) = v44 + 1;
+    v45 = v37 + 16 * v44;
+    *(v45 + 32) = v41;
+    *(v45 + 40) = v43;
+    v5 = v48;
+    v3 = v49;
     goto LABEL_30;
   }
 
-  v21 = *(v13 + 16);
-  v20 = v13 + 16;
-  v22 = *(v20 + 64);
+  v16 = v10 + 16;
   OUTLINED_FUNCTION_3();
-  v25 = v23 + v24;
-  v61 = *(v20 + 56);
-  v62 = v26;
-  v27 = (v20 - 8);
-  v28 = MEMORY[0x277D84F90];
+  v19 = v17 + v18;
+  v50 = *(v16 + 56);
+  v51 = v20;
+  v21 = (v16 - 8);
+  v22 = MEMORY[0x277D84F90];
   while (1)
   {
-    v29 = v20;
-    v62(v18, v25, v64);
-    v30 = sub_222830084();
-    (*v27)(v18, v64);
-    v31 = *(v30 + 16);
-    v32 = *(v28 + 16);
-    if (__OFADD__(v32, v31))
+    v23 = v16;
+    v51(v14, v19, v53);
+    v24 = sub_222830084();
+    (*v21)(v14, v53);
+    v25 = *(v24 + 16);
+    v26 = *(v22 + 16);
+    if (__OFADD__(v26, v25))
     {
       break;
     }
 
-    if (!swift_isUniquelyReferenced_nonNull_native() || v32 + v31 > *(v28 + 24) >> 1)
+    if (!swift_isUniquelyReferenced_nonNull_native() || v26 + v25 > *(v22 + 24) >> 1)
     {
       sub_2227BFAB4();
-      v28 = v33;
+      v22 = v27;
     }
 
-    if (*(v30 + 16))
+    if (*(v24 + 16))
     {
-      if ((*(v28 + 24) >> 1) - *(v28 + 16) < v31)
+      if ((*(v22 + 24) >> 1) - *(v22 + 16) < v25)
       {
         goto LABEL_34;
       }
 
-      v34 = (*(v66 + 80) + 32) & ~*(v66 + 80);
-      v35 = *(v66 + 72);
       swift_arrayInitWithCopy();
 
-      v20 = v29;
-      if (v31)
+      v16 = v23;
+      if (v25)
       {
-        v36 = *(v28 + 16);
-        v37 = __OFADD__(v36, v31);
-        v38 = v36 + v31;
-        if (v37)
+        v28 = *(v22 + 16);
+        v29 = __OFADD__(v28, v25);
+        v30 = v28 + v25;
+        if (v29)
         {
           goto LABEL_35;
         }
 
-        *(v28 + 16) = v38;
+        *(v22 + 16) = v30;
       }
     }
 
     else
     {
 
-      v20 = v29;
-      if (v31)
+      v16 = v23;
+      if (v25)
       {
         goto LABEL_33;
       }
     }
 
-    v25 += v61;
-    if (!--v19)
+    v19 += v50;
+    if (!--v15)
     {
 
-      v1 = v60;
+      v3 = v49;
       goto LABEL_16;
     }
   }
@@ -9036,32 +8991,30 @@ LABEL_35:
   __break(1u);
 }
 
-void sub_2227B979C()
+void sub_2227B979C(uint64_t a1, uint64_t a2)
 {
   OUTLINED_FUNCTION_4();
-  v0 = sub_2228300E4();
-  v1 = OUTLINED_FUNCTION_0(v0);
-  v3 = v2;
-  v5 = *(v4 + 64);
-  MEMORY[0x28223BE20](v1);
+  v2 = sub_2228300E4();
+  OUTLINED_FUNCTION_0();
+  v4 = v3;
+  MEMORY[0x28223BE20](v5);
   OUTLINED_FUNCTION_1();
   v8 = v7 - v6;
   v9 = *(sub_222830154() + 16);
   if (v9)
   {
-    v12 = *(v3 + 16);
-    v11 = v3 + 16;
+    v12 = *(v4 + 16);
+    v11 = v4 + 16;
     v10 = v12;
-    v13 = *(v11 + 64);
     OUTLINED_FUNCTION_3();
-    v16 = v14 + v15;
-    v17 = *(v11 + 56);
+    v15 = v13 + v14;
+    v16 = *(v11 + 56);
     do
     {
-      v10(v8, v16, v0);
+      v10(v8, v15, v2);
       sub_222830094();
       sub_2228300A4();
-      if (v18)
+      if (v17)
       {
 
         sub_222830094();
@@ -9069,8 +9022,8 @@ void sub_2227B979C()
         sub_2228300C4();
       }
 
-      (*(v11 - 8))(v8, v0);
-      v16 += v17;
+      (*(v11 - 8))(v8, v2);
+      v15 += v16;
       --v9;
     }
 
@@ -9085,116 +9038,109 @@ void sub_2227B979C()
   }
 }
 
-void sub_2227B990C()
+void sub_2227B990C(uint64_t a1, uint64_t a2)
 {
   OUTLINED_FUNCTION_4();
-  v58 = v1;
-  v59 = v2;
-  v3 = sub_222830064();
-  v4 = OUTLINED_FUNCTION_0(v3);
-  v6 = v5;
-  v8 = *(v7 + 64);
-  MEMORY[0x28223BE20](v4);
+  v49 = v3;
+  v50 = v4;
+  v5 = sub_222830064();
+  OUTLINED_FUNCTION_0();
+  v7 = v6;
+  MEMORY[0x28223BE20](v8);
   OUTLINED_FUNCTION_1();
-  v62 = v10 - v9;
+  v53 = v10 - v9;
   v11 = sub_222830014();
-  v12 = OUTLINED_FUNCTION_0(v11);
-  v14 = v13;
-  v16 = *(v15 + 64);
-  v17 = MEMORY[0x28223BE20](v12);
-  v61 = v54 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v17);
-  v20 = v54 - v19;
-  v21 = sub_2228300E4();
-  v22 = OUTLINED_FUNCTION_0(v21);
-  v66 = v23;
-  v25 = *(v24 + 64);
-  MEMORY[0x28223BE20](v22);
+  OUTLINED_FUNCTION_0();
+  v13 = v12;
+  v15 = MEMORY[0x28223BE20](v14);
+  v52 = v45 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v15);
+  v18 = v45 - v17;
+  v19 = sub_2228300E4();
+  OUTLINED_FUNCTION_0();
+  v57 = v20;
+  MEMORY[0x28223BE20](v21);
   OUTLINED_FUNCTION_1();
-  v28 = v27 - v26;
-  v29 = sub_222830194();
-  v30 = *(v29 + 48);
-  v31 = *(v29 + 52);
+  v24 = v23 - v22;
+  sub_222830194();
   swift_allocObject();
-  v32 = sub_222830184();
-  v60 = v0;
-  v33 = sub_222830154();
-  v34 = sub_2227B9CA4(1, v33);
-  v38 = (v37 >> 1) - v36;
-  v65 = v32;
-  v63 = v3;
-  v56 = v20;
-  if (v37 >> 1 == v36)
+  v25 = sub_222830184();
+  v51 = v2;
+  v26 = sub_222830154();
+  v27 = sub_2227B9CA4(1, v26);
+  v31 = (v30 >> 1) - v29;
+  v56 = v25;
+  v54 = v5;
+  v47 = v18;
+  if (v30 >> 1 == v29)
   {
     swift_unknownObjectRelease();
   }
 
   else
   {
-    if ((v37 >> 1) <= v36)
+    if ((v30 >> 1) <= v29)
     {
       __break(1u);
       return;
     }
 
-    v54[1] = v34;
-    v55 = v11;
-    v57 = v6;
-    v64 = v14;
-    v39 = v66 + 16;
-    v66 = *(v66 + 16);
-    v40 = *(v39 + 56);
-    v41 = v35 + v36 * v40;
+    v45[1] = v27;
+    v46 = v11;
+    v48 = v7;
+    v55 = v13;
+    v32 = v57 + 16;
+    v57 = *(v57 + 16);
+    v33 = *(v32 + 56);
+    v34 = v28 + v29 * v33;
     do
     {
-      (v66)(v28, v41, v21);
-      sub_2227B9D3C();
-      (*(v39 - 8))(v28, v21);
-      v41 += v40;
-      --v38;
+      (v57)(v24, v34, v19);
+      sub_2227B9D3C(v24, v25);
+      (*(v32 - 8))(v24, v19);
+      v34 += v33;
+      --v31;
     }
 
-    while (v38);
+    while (v31);
     swift_unknownObjectRelease();
-    v11 = v55;
-    v14 = v64;
-    v6 = v57;
+    v11 = v46;
+    v13 = v55;
+    v7 = v48;
   }
 
-  v42 = *(sub_222830144() + 16);
-  if (v42)
+  v35 = *(sub_222830144() + 16);
+  if (v35)
   {
-    v44 = *(v14 + 16);
-    v43 = v14 + 16;
-    v45 = *(v43 + 64);
+    v36 = v13 + 16;
     OUTLINED_FUNCTION_3();
-    v55 = v46;
-    v48 = v46 + v47;
-    v59 = *(v43 + 56);
-    v60 = v49;
-    v57 = v6 + 1;
-    v58 = (v43 - 8);
-    v50 = v56;
-    v64 = v43;
-    v51 = v61;
+    v46 = v37;
+    v39 = v37 + v38;
+    v50 = *(v36 + 56);
+    v51 = v40;
+    v48 = v7 + 1;
+    v49 = (v36 - 8);
+    v41 = v47;
+    v55 = v36;
+    v42 = v52;
     do
     {
-      v60(v50, v48, v11);
-      v52 = v62;
+      v51(v41, v39, v11);
+      v43 = v53;
       sub_22282FFE4();
-      v66 = sub_222830004();
+      v57 = sub_222830004();
       sub_22282FFF4();
       sub_22282FFD4();
-      v53 = *v58;
-      (*v58)(v50, v11);
+      v44 = *v49;
+      (*v49)(v41, v11);
       sub_222830104();
-      (*v57)(v52, v63);
-      v53(v51, v11);
-      v48 += v59;
-      --v42;
+      (*v48)(v43, v54);
+      v44(v42, v11);
+      v39 += v50;
+      --v35;
     }
 
-    while (v42);
+    while (v35);
   }
 
   OUTLINED_FUNCTION_2();
@@ -9228,28 +9174,26 @@ uint64_t sub_2227B9CA4(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_2227B9D3C()
+void sub_2227B9D3C(uint64_t a1, uint64_t a2)
 {
   OUTLINED_FUNCTION_4();
-  v0 = sub_222830064();
-  v1 = OUTLINED_FUNCTION_0(v0);
-  v3 = v2;
-  v5 = *(v4 + 64);
-  MEMORY[0x28223BE20](v1);
+  v2 = sub_222830064();
+  OUTLINED_FUNCTION_0();
+  v4 = v3;
+  MEMORY[0x28223BE20](v5);
   OUTLINED_FUNCTION_1();
   v8 = v7 - v6;
   v9 = sub_2228300E4();
-  v10 = OUTLINED_FUNCTION_0(v9);
-  v12 = v11;
-  v14 = *(v13 + 64);
-  MEMORY[0x28223BE20](v10);
+  OUTLINED_FUNCTION_0();
+  v11 = v10;
+  MEMORY[0x28223BE20](v12);
   OUTLINED_FUNCTION_1();
-  v17 = v16 - v15;
+  v15 = v14 - v13;
   sub_222830074();
-  if (v18)
+  if (v16)
   {
     sub_2228300A4();
-    if (v19)
+    if (v17)
     {
 
       sub_222830134();
@@ -9259,7 +9203,7 @@ void sub_2227B9D3C()
     {
       sub_2228300D4();
       sub_222830114();
-      (*(v3 + 8))(v8, v0);
+      (*(v4 + 8))(v8, v2);
     }
   }
 
@@ -9270,7 +9214,7 @@ void sub_2227B9D3C()
 
   sub_222830084();
   sub_222830094();
-  (*(v12 + 8))(v17, v9);
+  (*(v11 + 8))(v15, v9);
   OUTLINED_FUNCTION_2();
 }
 
@@ -9281,15 +9225,14 @@ void sub_2227B9EF8()
   *v0 = v1;
   if (!isUniquelyReferenced_nonNull_native)
   {
-    v3 = *(v1 + 16);
     sub_2227BF8E8();
-    *v0 = v4;
+    *v0 = v3;
   }
 }
 
-void sub_2227B9F44(uint64_t a1)
+void sub_2227B9F44(uint64_t result)
 {
-  if (a1 + 1 > *(*v1 + 24) >> 1)
+  if (result + 1 > *(*v1 + 24) >> 1)
   {
     sub_2227BF8E8();
     *v1 = v2;
@@ -9301,7 +9244,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -9327,8 +9269,7 @@ LABEL_9:
 
   if ((a2 & 0x8000000000000000) == 0)
   {
-    v5 = *(sub_2228300E4() - 8);
-    v6 = (*(v5 + 80) + 32) & ~*(v5 + 80);
+    sub_2228300E4();
   }
 
 LABEL_10:
@@ -9400,340 +9341,339 @@ unint64_t sub_2227BA1E0()
 uint64_t sub_2227BA298(__int128 *a1, void *a2)
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D01B768, &qword_2228320C8);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v112 - v7;
-  v9 = *(a1 + 1);
-  v127 = *(a1 + 2);
-  v128 = v9;
-  v10 = *a1;
-  v11 = *(a1 + 3);
-  v125 = *(a1 + 4);
-  v126 = v11;
-  v12 = a1[1];
-  v123 = *a1;
-  *v124 = v12;
-  *&v124[9] = *(a1 + 25);
-  v115 = v10;
+  v7 = v111 - v6;
+  v8 = *(a1 + 1);
+  v126 = *(a1 + 2);
+  v127 = v8;
+  v9 = *a1;
+  v10 = *(a1 + 3);
+  v124 = *(a1 + 4);
+  v125 = v10;
+  v11 = a1[1];
+  v122 = *a1;
+  *v123 = v11;
+  *&v123[9] = *(a1 + 25);
+  v114 = v9;
 
-  sub_2227BAB74(&v127, v129, &qword_27D01B770, &qword_2228320D0);
-  sub_2227BAB74(&v125, v129, &qword_27D01B770, &qword_2228320D0);
-  sub_2227BAB74(&v128, v129, &qword_27D01B778, &qword_2228320D8);
-  sub_2227BAB74(&v126, v129, &qword_27D01B780, &qword_2228320E0);
-  v116 = a2;
-  v117 = sub_2227C0DBC(a2);
-  if (v13)
+  sub_2227BAB74(&v126, v128, &qword_27D01B770, &qword_2228320D0);
+  sub_2227BAB74(&v124, v128, &qword_27D01B770, &qword_2228320D0);
+  sub_2227BAB74(&v127, v128, &qword_27D01B778, &qword_2228320D8);
+  sub_2227BAB74(&v125, v128, &qword_27D01B780, &qword_2228320E0);
+  v115 = a2;
+  v116 = sub_2227C0DBC(a2);
+  if (v12)
   {
-    v14 = v13;
-    LODWORD(v113) = *(a1 + 40);
-    v15 = sub_2227C1DB8();
-    v16 = *(v15 + 16);
-    v112[1] = v15;
-    if (v16)
+    v13 = v12;
+    LODWORD(v112) = *(a1 + 40);
+    v14 = sub_2227C1DB8();
+    v15 = *(v14 + 16);
+    v111[1] = v14;
+    if (v15)
     {
-      v17 = v15;
-      v114 = sub_22282FE24();
-      v18 = (v17 + 48);
-      v118 = MEMORY[0x277D84F90];
+      v16 = v14;
+      v113 = sub_22282FE24();
+      v17 = (v16 + 48);
+      v117 = MEMORY[0x277D84F90];
       do
       {
-        v20 = *(v18 - 2);
-        v19 = *(v18 - 1);
-        v21 = *v18;
-        *&v129[0] = v117;
-        *(&v129[0] + 1) = v14;
-        v121 = v20;
-        v122 = v19;
-        v22 = OUTLINED_FUNCTION_3_0();
-        __swift_storeEnumTagSinglePayload(v22, v23, v24, v114);
+        v19 = *(v17 - 2);
+        v18 = *(v17 - 1);
+        v20 = *v17;
+        *&v128[0] = v116;
+        *(&v128[0] + 1) = v13;
+        v120 = v19;
+        v121 = v18;
+        v21 = OUTLINED_FUNCTION_3_0();
+        __swift_storeEnumTagSinglePayload(v21, v22, v23, v113);
         sub_2227BAC14();
 
         OUTLINED_FUNCTION_0_0();
         sub_222830434();
         OUTLINED_FUNCTION_4_0();
-        v26 = v25;
-        sub_2227BAC68(v8, &qword_27D01B768, &qword_2228320C8);
-        if ((v26 & 1) != 0 || (v129 ^ v2) < 0x4000)
+        v25 = v24;
+        sub_2227BAC68(v7, &qword_27D01B768, &qword_2228320C8);
+        if ((v25 & 1) != 0 || (v128 ^ v2) < 0x4000)
         {
         }
 
         else
         {
-          v27 = sub_2227C11B8(v20, v19, v21);
+          v26 = sub_2227C11B8(v19, v18, v20);
 
-          v28 = OUTLINED_FUNCTION_7();
+          v27 = OUTLINED_FUNCTION_7();
           OUTLINED_FUNCTION_5();
           isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
           if (isUniquelyReferenced_nonNull_native)
           {
-            v32 = v118;
+            v31 = v117;
           }
 
           else
           {
-            OUTLINED_FUNCTION_1_0(&v132);
-            v32 = isUniquelyReferenced_nonNull_native;
+            OUTLINED_FUNCTION_1_0();
+            v31 = isUniquelyReferenced_nonNull_native;
           }
 
-          v34 = *(v32 + 16);
-          v33 = *(v32 + 24);
-          if (v34 >= v33 >> 1)
+          v33 = *(v31 + 16);
+          v32 = *(v31 + 24);
+          if (v33 >= v32 >> 1)
           {
-            OUTLINED_FUNCTION_6(v33);
+            OUTLINED_FUNCTION_6(v32);
             sub_2227BFC64();
-            v32 = isUniquelyReferenced_nonNull_native;
+            v31 = isUniquelyReferenced_nonNull_native;
           }
 
-          *(v32 + 16) = v34 + 1;
-          OUTLINED_FUNCTION_2_0(isUniquelyReferenced_nonNull_native, v30, v31, v32);
-          v37 = v35 + v34 * v36;
-          *(v37 + 32) = v27;
-          *(v37 + 40) = v28;
-          *(v37 + 48) = v129;
-          *(v37 + 56) = v2;
-          *(v37 + 64) = 1;
-          *(v37 + 65) = v113;
+          *(v31 + 16) = v33 + 1;
+          OUTLINED_FUNCTION_2_0(isUniquelyReferenced_nonNull_native, v29, v30, v31);
+          v36 = v34 + v33 * v35;
+          *(v36 + 32) = v26;
+          *(v36 + 40) = v27;
+          *(v36 + 48) = v128;
+          *(v36 + 56) = v2;
+          *(v36 + 64) = 1;
+          *(v36 + 65) = v112;
         }
 
-        v18 += 3;
-        --v16;
+        v17 += 3;
+        --v15;
       }
 
-      while (v16);
+      while (v15);
     }
 
     else
     {
-      v118 = MEMORY[0x277D84F90];
+      v117 = MEMORY[0x277D84F90];
     }
 
-    v43 = v127;
-    v44 = *(v127 + 16);
-    v114 = v14;
-    if (v44)
+    v42 = v126;
+    v43 = *(v126 + 16);
+    v113 = v13;
+    if (v43)
     {
-      v45 = sub_22282FE24();
-      v46 = (v43 + 40);
+      v44 = sub_22282FE24();
+      v45 = (v42 + 40);
       do
       {
-        v47 = *(v46 - 1);
-        v48 = *v46;
-        *&v129[0] = v117;
-        *(&v129[0] + 1) = v14;
+        v46 = *(v45 - 1);
+        v47 = *v45;
+        *&v128[0] = v116;
+        *(&v128[0] + 1) = v13;
+        v120 = v46;
         v121 = v47;
-        v122 = v48;
-        v49 = OUTLINED_FUNCTION_3_0();
-        __swift_storeEnumTagSinglePayload(v49, v50, v51, v45);
+        v48 = OUTLINED_FUNCTION_3_0();
+        __swift_storeEnumTagSinglePayload(v48, v49, v50, v44);
         sub_2227BAC14();
 
         OUTLINED_FUNCTION_0_0();
         sub_222830434();
         OUTLINED_FUNCTION_4_0();
-        v53 = v52;
-        sub_2227BAC68(v8, &qword_27D01B768, &qword_2228320C8);
+        v52 = v51;
+        sub_2227BAC68(v7, &qword_27D01B768, &qword_2228320C8);
 
-        if ((v53 & 1) == 0 && (v129 ^ v2) >= 0x4000)
+        if ((v52 & 1) == 0 && (v128 ^ v2) >= 0x4000)
         {
 
-          v54 = OUTLINED_FUNCTION_7();
+          v53 = OUTLINED_FUNCTION_7();
           OUTLINED_FUNCTION_5();
-          v55 = swift_isUniquelyReferenced_nonNull_native();
-          if (v55)
+          v54 = swift_isUniquelyReferenced_nonNull_native();
+          if (v54)
           {
-            v58 = v118;
+            v57 = v117;
           }
 
           else
           {
-            OUTLINED_FUNCTION_1_0(&v132);
-            v58 = v55;
+            OUTLINED_FUNCTION_1_0();
+            v57 = v54;
           }
 
-          v60 = *(v58 + 16);
-          v59 = *(v58 + 24);
-          if (v60 >= v59 >> 1)
+          v59 = *(v57 + 16);
+          v58 = *(v57 + 24);
+          if (v59 >= v58 >> 1)
           {
-            OUTLINED_FUNCTION_6(v59);
+            OUTLINED_FUNCTION_6(v58);
             sub_2227BFC64();
-            v58 = v55;
+            v57 = v54;
           }
 
-          *(v58 + 16) = v60 + 1;
-          OUTLINED_FUNCTION_2_0(v55, v56, v57, v58);
-          v63 = v61 + v60 * v62;
-          *(v63 + 32) = v115;
-          *(v63 + 40) = v54;
-          *(v63 + 48) = v129;
-          *(v63 + 56) = v2;
-          *(v63 + 64) = 2;
-          *(v63 + 65) = v113;
-          v14 = v114;
+          *(v57 + 16) = v59 + 1;
+          OUTLINED_FUNCTION_2_0(v54, v55, v56, v57);
+          v62 = v60 + v59 * v61;
+          *(v62 + 32) = v114;
+          *(v62 + 40) = v53;
+          *(v62 + 48) = v128;
+          *(v62 + 56) = v2;
+          *(v62 + 64) = 2;
+          *(v62 + 65) = v112;
+          v13 = v113;
         }
 
-        v46 += 2;
-        --v44;
+        v45 += 2;
+        --v43;
       }
 
-      while (v44);
+      while (v43);
     }
 
-    v64 = sub_2227C1E10();
-    v65 = *(v64 + 16);
-    v113 = v64;
-    if (v65)
+    v63 = sub_2227C1E10();
+    v64 = *(v63 + 16);
+    v112 = v63;
+    if (v64)
     {
-      v66 = v64;
-      v67 = sub_22282FE24();
-      v2 = v66 + 40;
-      v115 = v67;
+      v65 = v63;
+      v66 = sub_22282FE24();
+      v2 = v65 + 40;
+      v114 = v66;
       do
       {
-        v68 = *(v2 - 8);
-        v69 = *v2;
-        *&v129[0] = v117;
-        *(&v129[0] + 1) = v14;
+        v67 = *(v2 - 8);
+        v68 = *v2;
+        *&v128[0] = v116;
+        *(&v128[0] + 1) = v13;
+        v120 = v67;
         v121 = v68;
-        v122 = v69;
-        v70 = OUTLINED_FUNCTION_3_0();
-        __swift_storeEnumTagSinglePayload(v70, v71, v72, v67);
+        v69 = OUTLINED_FUNCTION_3_0();
+        __swift_storeEnumTagSinglePayload(v69, v70, v71, v66);
         sub_2227BAC14();
 
         OUTLINED_FUNCTION_0_0();
-        v73 = sub_222830434();
-        v75 = v74;
-        v77 = v76;
-        sub_2227BAC68(v8, &qword_27D01B768, &qword_2228320C8);
+        v72 = sub_222830434();
+        v74 = v73;
+        v76 = v75;
+        sub_2227BAC68(v7, &qword_27D01B768, &qword_2228320C8);
 
-        if ((v77 & 1) == 0 && (v73 ^ v75) >= 0x4000)
+        if ((v76 & 1) == 0 && (v72 ^ v74) >= 0x4000)
         {
-          v78 = v123;
-          v79 = v124[24];
-          v80 = OUTLINED_FUNCTION_7();
+          v77 = v122;
+          v78 = v123[24];
+          v79 = OUTLINED_FUNCTION_7();
 
           OUTLINED_FUNCTION_5();
-          v81 = swift_isUniquelyReferenced_nonNull_native();
-          if (v81)
+          v80 = swift_isUniquelyReferenced_nonNull_native();
+          if (v80)
           {
-            v84 = v118;
+            v83 = v117;
           }
 
           else
           {
-            OUTLINED_FUNCTION_1_0(&v132);
-            v84 = v81;
+            OUTLINED_FUNCTION_1_0();
+            v83 = v80;
           }
 
-          v86 = *(v84 + 16);
-          v85 = *(v84 + 24);
-          if (v86 >= v85 >> 1)
+          v85 = *(v83 + 16);
+          v84 = *(v83 + 24);
+          if (v85 >= v84 >> 1)
           {
-            OUTLINED_FUNCTION_6(v85);
+            OUTLINED_FUNCTION_6(v84);
             sub_2227BFC64();
-            v84 = v81;
+            v83 = v80;
           }
 
-          *(v84 + 16) = v86 + 1;
-          OUTLINED_FUNCTION_2_0(v81, v82, v83, v84);
-          v89 = v87 + v86 * v88;
-          *(v89 + 32) = v78;
-          *(v89 + 40) = v80;
-          *(v89 + 48) = v73;
-          *(v89 + 56) = v75;
-          *(v89 + 64) = 3;
-          *(v89 + 65) = v79;
-          v14 = v114;
-          v67 = v115;
+          *(v83 + 16) = v85 + 1;
+          OUTLINED_FUNCTION_2_0(v80, v81, v82, v83);
+          v88 = v86 + v85 * v87;
+          *(v88 + 32) = v77;
+          *(v88 + 40) = v79;
+          *(v88 + 48) = v72;
+          *(v88 + 56) = v74;
+          *(v88 + 64) = 3;
+          *(v88 + 65) = v78;
+          v13 = v113;
+          v66 = v114;
         }
 
         v2 += 16;
-        --v65;
+        --v64;
       }
 
-      while (v65);
+      while (v64);
     }
 
-    v90 = *&v124[16];
-    v91 = *(*&v124[16] + 16);
-    if (v91)
+    v89 = *&v123[16];
+    v90 = *(*&v123[16] + 16);
+    if (v90)
     {
-      v115 = sub_22282FE24();
+      v114 = sub_22282FE24();
 
-      v92 = (v90 + 40);
-      v113 = v90;
+      v91 = (v89 + 40);
+      v112 = v89;
       do
       {
-        v93 = *(v92 - 1);
-        v94 = *v92;
-        v121 = v117;
-        v122 = v14;
+        v92 = *(v91 - 1);
+        v93 = *v91;
+        v120 = v116;
+        v121 = v13;
+        v118 = v92;
         v119 = v93;
-        v120 = v94;
-        v95 = OUTLINED_FUNCTION_3_0();
-        __swift_storeEnumTagSinglePayload(v95, v96, v97, v115);
+        v94 = OUTLINED_FUNCTION_3_0();
+        __swift_storeEnumTagSinglePayload(v94, v95, v96, v114);
         sub_2227BAC14();
 
         OUTLINED_FUNCTION_0_0();
         sub_222830434();
         OUTLINED_FUNCTION_4_0();
-        v99 = v98;
-        sub_2227BAC68(v8, &qword_27D01B768, &qword_2228320C8);
-        if ((v99 & 1) != 0 || (&v121 ^ v2) < 0x4000)
+        v98 = v97;
+        sub_2227BAC68(v7, &qword_27D01B768, &qword_2228320C8);
+        if ((v98 & 1) != 0 || (&v120 ^ v2) < 0x4000)
         {
         }
 
         else
         {
-          v100 = v124[24];
-          v129[0] = v123;
-          v129[1] = *v124;
-          v130 = v90;
-          v131 = v124[24];
-          v101 = sub_2227C18B8(v93, v94, v129);
+          v99 = v123[24];
+          v128[0] = v122;
+          v128[1] = *v123;
+          v129 = v89;
+          v130 = v123[24];
+          v100 = sub_2227C18B8(v92, v93, v128);
 
-          if (v101)
+          if (v100)
           {
-            v114 = OUTLINED_FUNCTION_7();
+            v113 = OUTLINED_FUNCTION_7();
             OUTLINED_FUNCTION_5();
-            v102 = swift_isUniquelyReferenced_nonNull_native();
-            if (v102)
+            v101 = swift_isUniquelyReferenced_nonNull_native();
+            if (v101)
             {
-              v105 = v118;
+              v104 = v117;
             }
 
             else
             {
-              OUTLINED_FUNCTION_1_0(&v132);
-              v105 = v102;
+              OUTLINED_FUNCTION_1_0();
+              v104 = v101;
             }
 
-            v107 = *(v105 + 16);
-            v106 = *(v105 + 24);
-            if (v107 >= v106 >> 1)
+            v106 = *(v104 + 16);
+            v105 = *(v104 + 24);
+            if (v106 >= v105 >> 1)
             {
-              OUTLINED_FUNCTION_6(v106);
+              OUTLINED_FUNCTION_6(v105);
               sub_2227BFC64();
-              v105 = v102;
+              v104 = v101;
             }
 
-            *(v105 + 16) = v107 + 1;
-            OUTLINED_FUNCTION_2_0(v102, v103, v104, v105);
-            v110 = v108 + v107 * v109;
-            v111 = v114;
-            *(v110 + 32) = v101;
-            *(v110 + 40) = v111;
-            *(v110 + 48) = &v121;
-            *(v110 + 56) = v2;
-            *(v110 + 64) = 0;
-            *(v110 + 65) = v100;
-            v90 = v113;
+            *(v104 + 16) = v106 + 1;
+            OUTLINED_FUNCTION_2_0(v101, v102, v103, v104);
+            v109 = v107 + v106 * v108;
+            v110 = v113;
+            *(v109 + 32) = v100;
+            *(v109 + 40) = v110;
+            *(v109 + 48) = &v120;
+            *(v109 + 56) = v2;
+            *(v109 + 64) = 0;
+            *(v109 + 65) = v99;
+            v89 = v112;
           }
         }
 
-        v92 += 2;
-        --v91;
+        v91 += 2;
+        --v90;
       }
 
-      while (v91);
+      while (v90);
     }
 
     return OUTLINED_FUNCTION_5();
@@ -9746,22 +9686,71 @@ uint64_t sub_2227BA298(__int128 *a1, void *a2)
       swift_once();
     }
 
-    v38 = sub_222830274();
-    __swift_project_value_buffer(v38, qword_27D01BC00);
-    v39 = sub_222830254();
-    v40 = sub_2228303A4();
-    if (os_log_type_enabled(v39, v40))
+    v37 = sub_222830274();
+    __swift_project_value_buffer(v37, qword_27D01BC00);
+    v38 = sub_222830254();
+    v39 = sub_2228303A4();
+    if (os_log_type_enabled(v38, v39))
     {
-      v41 = swift_slowAlloc();
-      *v41 = 0;
-      _os_log_impl(&dword_2227A9000, v39, v40, "Could not extract utterance from tokenChain, unable to generate matches", v41, 2u);
-      MEMORY[0x223DC2B60](v41, -1, -1);
+      v40 = swift_slowAlloc();
+      *v40 = 0;
+      _os_log_impl(&dword_2227A9000, v38, v39, "Could not extract utterance from tokenChain, unable to generate matches", v40, 2u);
+      MEMORY[0x223DC2B60](v40, -1, -1);
     }
 
-    sub_2227BAC68(&v128, &qword_27D01B778, &qword_2228320D8);
-    sub_2227BAC68(&v127, &qword_27D01B770, &qword_2228320D0);
-    sub_2227BAC68(&v126, &qword_27D01B780, &qword_2228320E0);
-    sub_2227BAC68(&v125, &qword_27D01B770, &qword_2228320D0);
+    sub_2227BAC68(&v127, &qword_27D01B778, &qword_2228320D8);
+    sub_2227BAC68(&v126, &qword_27D01B770, &qword_2228320D0);
+    sub_2227BAC68(&v125, &qword_27D01B780, &qword_2228320E0);
+    sub_2227BAC68(&v124, &qword_27D01B770, &qword_2228320D0);
     return MEMORY[0x277D84F90];
   }
+}
+
+uint64_t sub_2227BAB74(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
+{
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
+  (*(*(v6 - 8) + 16))(a2, a1, v6);
+  return a2;
+}
+
+uint64_t __swift_project_value_buffer(uint64_t a1, uint64_t a2)
+{
+  if ((*(*(a1 - 8) + 82) & 2) != 0)
+  {
+    return *a2;
+  }
+
+  return a2;
+}
+
+unint64_t sub_2227BAC14()
+{
+  result = qword_27D01B738;
+  if (!qword_27D01B738)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27D01B738);
+  }
+
+  return result;
+}
+
+uint64_t sub_2227BAC68(uint64_t a1, uint64_t *a2, uint64_t *a3)
+{
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(a2, a3);
+  (*(*(v4 - 8) + 8))(a1, v4);
+  return a1;
+}
+
+void OUTLINED_FUNCTION_1_0()
+{
+
+  sub_2227BFC64();
+}
+
+id OUTLINED_FUNCTION_7()
+{
+  v2 = *(v0 - 280);
+
+  return v2;
 }

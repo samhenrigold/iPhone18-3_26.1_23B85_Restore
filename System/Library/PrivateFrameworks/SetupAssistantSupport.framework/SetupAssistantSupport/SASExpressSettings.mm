@@ -1,8 +1,11 @@
 @interface SASExpressSettings
 - (BOOL)isEqual:(id)equal;
+- (id)appearanceModeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)displayZoomOptionAsString:(int)string;
+- (id)iPadMultitaskingModeAsString:(int)string;
 - (int)StringAsAppearanceMode:(id)mode;
 - (int)StringAsDisplayZoomOption:(id)option;
 - (int)StringAsIPadMultitaskingMode:(id)mode;
@@ -181,6 +184,21 @@
   }
 }
 
+- (id)appearanceModeAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_278846288 + (string - 1));
+  }
+
+  return v4;
+}
+
 - (int)StringAsAppearanceMode:(id)mode
 {
   modeCopy = mode;
@@ -233,6 +251,26 @@
   }
 
   self->_has = (*&self->_has & 0xFFFFFFFD | v3);
+}
+
+- (id)displayZoomOptionAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"STANDARD";
+  }
+
+  else if (string == 2)
+  {
+    v4 = @"ZOOMED";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsDisplayZoomOption:(id)option
@@ -356,6 +394,29 @@
   }
 
   self->_has = (*&self->_has & 0xFFFFFFFB | v3);
+}
+
+- (id)iPadMultitaskingModeAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"AppsAndFullScreen";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"Fullscreen";
+  }
+
+  return v4;
 }
 
 - (int)StringAsIPadMultitaskingMode:(id)mode
@@ -747,8 +808,6 @@ LABEL_71:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  version = self->_version;
-  v27 = toCopy;
   PBDataWriterWriteUint32Field();
   if (self->_watchMigrationData)
   {
@@ -763,7 +822,6 @@ LABEL_71:
   has = self->_has;
   if ((*&has & 0x10) != 0)
   {
-    deviceAnalyticsOptIn = self->_deviceAnalyticsOptIn;
     PBDataWriterWriteBOOLField();
     has = self->_has;
     if ((*&has & 8) == 0)
@@ -783,7 +841,6 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  appAnalyticsOptIn = self->_appAnalyticsOptIn;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x80) == 0)
@@ -798,7 +855,6 @@ LABEL_8:
   }
 
 LABEL_47:
-  locationServicesOptIn = self->_locationServicesOptIn;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x40) == 0)
@@ -813,7 +869,6 @@ LABEL_9:
   }
 
 LABEL_48:
-  findMyOptIn = self->_findMyOptIn;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x400) == 0)
@@ -828,7 +883,6 @@ LABEL_10:
   }
 
 LABEL_49:
-  siriOptIn = self->_siriOptIn;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x100) == 0)
@@ -843,7 +897,6 @@ LABEL_11:
   }
 
 LABEL_50:
-  screenTimeEnabled = self->_screenTimeEnabled;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x2000) == 0)
@@ -858,7 +911,6 @@ LABEL_12:
   }
 
 LABEL_51:
-  softwareUpdateAutoUpdateEnabled = self->_softwareUpdateAutoUpdateEnabled;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x1000) == 0)
@@ -873,7 +925,6 @@ LABEL_13:
   }
 
 LABEL_52:
-  softwareUpdateAutoDownloadEnabled = self->_softwareUpdateAutoDownloadEnabled;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x200) == 0)
@@ -888,12 +939,10 @@ LABEL_14:
   }
 
 LABEL_53:
-  siriDataSharingOptIn = self->_siriDataSharingOptIn;
   PBDataWriterWriteBOOLField();
   if (*&self->_has)
   {
 LABEL_15:
-    appearanceMode = self->_appearanceMode;
     PBDataWriterWriteInt32Field();
   }
 
@@ -935,54 +984,49 @@ LABEL_16:
   }
 
   PBDataWriterWriteStringField();
-  v8 = self->_has;
-  if ((*&v8 & 2) != 0)
+  v5 = self->_has;
+  if ((*&v5 & 2) != 0)
   {
-    displayZoomOption = self->_displayZoomOption;
     PBDataWriterWriteInt32Field();
-    v8 = self->_has;
+    v5 = self->_has;
   }
 
-  if ((*&v8 & 0x10000) != 0)
+  if ((*&v5 & 0x10000) != 0)
   {
-    unlockWithWatchEnabled = self->_unlockWithWatchEnabled;
     PBDataWriterWriteBOOLField();
-    v8 = self->_has;
+    v5 = self->_has;
   }
 
-  v11 = v27;
-  if ((*&v8 & 0x20) != 0)
+  v6 = toCopy;
+  if ((*&v5 & 0x20) != 0)
   {
-    fileVaultEnabled = self->_fileVaultEnabled;
     PBDataWriterWriteBOOLField();
-    v11 = v27;
-    v8 = self->_has;
+    v6 = toCopy;
+    v5 = self->_has;
   }
 
-  if ((*&v8 & 0x800) != 0)
+  if ((*&v5 & 0x800) != 0)
   {
-    siriVoiceTriggerEnabled = self->_siriVoiceTriggerEnabled;
     PBDataWriterWriteBOOLField();
-    v11 = v27;
+    v6 = toCopy;
   }
 
   if (self->_productVersion)
   {
     PBDataWriterWriteStringField();
-    v11 = v27;
+    v6 = toCopy;
   }
 
-  v14 = self->_has;
-  if ((*&v14 & 0x4000) != 0)
+  v7 = self->_has;
+  if ((*&v7 & 0x4000) != 0)
   {
-    stolenDeviceProtectionEnabled = self->_stolenDeviceProtectionEnabled;
     PBDataWriterWriteBOOLField();
-    v11 = v27;
-    v14 = self->_has;
-    if ((*&v14 & 0x8000) == 0)
+    v6 = toCopy;
+    v7 = self->_has;
+    if ((*&v7 & 0x8000) == 0)
     {
 LABEL_40:
-      if ((*&v14 & 4) == 0)
+      if ((*&v7 & 4) == 0)
       {
         goto LABEL_42;
       }
@@ -991,20 +1035,18 @@ LABEL_40:
     }
   }
 
-  else if ((*&v14 & 0x8000) == 0)
+  else if ((*&v7 & 0x8000) == 0)
   {
     goto LABEL_40;
   }
 
-  stolenDeviceProtectionStrictModeEnabled = self->_stolenDeviceProtectionStrictModeEnabled;
   PBDataWriterWriteBOOLField();
-  v11 = v27;
+  v6 = toCopy;
   if ((*&self->_has & 4) != 0)
   {
 LABEL_41:
-    iPadMultitaskingMode = self->_iPadMultitaskingMode;
     PBDataWriterWriteInt32Field();
-    v11 = v27;
+    v6 = toCopy;
   }
 
 LABEL_42:
@@ -1590,7 +1632,6 @@ LABEL_20:
       goto LABEL_100;
     }
 
-    v9 = *(equalCopy + 121);
     if (self->_deviceAnalyticsOptIn)
     {
       if ((*(equalCopy + 121) & 1) == 0)
@@ -1617,7 +1658,6 @@ LABEL_20:
       goto LABEL_100;
     }
 
-    v10 = *(equalCopy + 120);
     if (self->_appAnalyticsOptIn)
     {
       if ((*(equalCopy + 120) & 1) == 0)
@@ -1644,7 +1684,6 @@ LABEL_20:
       goto LABEL_100;
     }
 
-    v11 = *(equalCopy + 124);
     if (self->_locationServicesOptIn)
     {
       if ((*(equalCopy + 124) & 1) == 0)
@@ -1671,7 +1710,6 @@ LABEL_20:
       goto LABEL_100;
     }
 
-    v12 = *(equalCopy + 123);
     if (self->_findMyOptIn)
     {
       if ((*(equalCopy + 123) & 1) == 0)
@@ -1698,7 +1736,6 @@ LABEL_20:
       goto LABEL_100;
     }
 
-    v13 = *(equalCopy + 127);
     if (self->_siriOptIn)
     {
       if ((*(equalCopy + 127) & 1) == 0)
@@ -1725,7 +1762,6 @@ LABEL_20:
       goto LABEL_100;
     }
 
-    v14 = *(equalCopy + 125);
     if (self->_screenTimeEnabled)
     {
       if ((*(equalCopy + 125) & 1) == 0)
@@ -1752,7 +1788,6 @@ LABEL_20:
       goto LABEL_100;
     }
 
-    v15 = *(equalCopy + 130);
     if (self->_softwareUpdateAutoUpdateEnabled)
     {
       if ((*(equalCopy + 130) & 1) == 0)
@@ -1779,7 +1814,6 @@ LABEL_20:
       goto LABEL_100;
     }
 
-    v16 = *(equalCopy + 129);
     if (self->_softwareUpdateAutoDownloadEnabled)
     {
       if ((*(equalCopy + 129) & 1) == 0)
@@ -1806,7 +1840,6 @@ LABEL_20:
       goto LABEL_100;
     }
 
-    v17 = *(equalCopy + 126);
     if (self->_siriDataSharingOptIn)
     {
       if ((*(equalCopy + 126) & 1) == 0)
@@ -1899,29 +1932,28 @@ LABEL_20:
     }
   }
 
-  v25 = self->_has;
-  v26 = *(equalCopy + 34);
-  if ((*&v25 & 2) != 0)
+  v16 = self->_has;
+  v17 = *(equalCopy + 34);
+  if ((*&v16 & 2) != 0)
   {
-    if ((v26 & 2) == 0 || self->_displayZoomOption != *(equalCopy + 10))
+    if ((v17 & 2) == 0 || self->_displayZoomOption != *(equalCopy + 10))
     {
       goto LABEL_100;
     }
   }
 
-  else if ((v26 & 2) != 0)
+  else if ((v17 & 2) != 0)
   {
     goto LABEL_100;
   }
 
-  if ((*&v25 & 0x10000) != 0)
+  if ((*&v16 & 0x10000) != 0)
   {
-    if ((v26 & 0x10000) == 0)
+    if ((v17 & 0x10000) == 0)
     {
       goto LABEL_100;
     }
 
-    v29 = *(equalCopy + 133);
     if (self->_unlockWithWatchEnabled)
     {
       if ((*(equalCopy + 133) & 1) == 0)
@@ -1936,19 +1968,18 @@ LABEL_20:
     }
   }
 
-  else if ((v26 & 0x10000) != 0)
+  else if ((v17 & 0x10000) != 0)
   {
     goto LABEL_100;
   }
 
-  if ((*&v25 & 0x20) != 0)
+  if ((*&v16 & 0x20) != 0)
   {
-    if ((v26 & 0x20) == 0)
+    if ((v17 & 0x20) == 0)
     {
       goto LABEL_100;
     }
 
-    v30 = *(equalCopy + 122);
     if (self->_fileVaultEnabled)
     {
       if ((*(equalCopy + 122) & 1) == 0)
@@ -1963,19 +1994,18 @@ LABEL_20:
     }
   }
 
-  else if ((v26 & 0x20) != 0)
+  else if ((v17 & 0x20) != 0)
   {
     goto LABEL_100;
   }
 
-  if ((*&v25 & 0x800) != 0)
+  if ((*&v16 & 0x800) != 0)
   {
-    if ((v26 & 0x800) == 0)
+    if ((v17 & 0x800) == 0)
     {
       goto LABEL_100;
     }
 
-    v31 = *(equalCopy + 128);
     if (self->_siriVoiceTriggerEnabled)
     {
       if ((*(equalCopy + 128) & 1) == 0)
@@ -1990,7 +2020,7 @@ LABEL_20:
     }
   }
 
-  else if ((v26 & 0x800) != 0)
+  else if ((v17 & 0x800) != 0)
   {
     goto LABEL_100;
   }
@@ -2003,18 +2033,17 @@ LABEL_20:
       goto LABEL_100;
     }
 
-    v25 = self->_has;
+    v16 = self->_has;
   }
 
-  v33 = *(equalCopy + 34);
-  if ((*&v25 & 0x4000) != 0)
+  v21 = *(equalCopy + 34);
+  if ((*&v16 & 0x4000) != 0)
   {
-    if ((v33 & 0x4000) == 0)
+    if ((v21 & 0x4000) == 0)
     {
       goto LABEL_100;
     }
 
-    v34 = *(equalCopy + 131);
     if (self->_stolenDeviceProtectionEnabled)
     {
       if ((*(equalCopy + 131) & 1) == 0)
@@ -2029,19 +2058,18 @@ LABEL_20:
     }
   }
 
-  else if ((v33 & 0x4000) != 0)
+  else if ((v21 & 0x4000) != 0)
   {
     goto LABEL_100;
   }
 
-  if ((*&v25 & 0x8000) != 0)
+  if ((*&v16 & 0x8000) != 0)
   {
-    if ((v33 & 0x8000) == 0)
+    if ((v21 & 0x8000) == 0)
     {
       goto LABEL_100;
     }
 
-    v35 = *(equalCopy + 132);
     if (self->_stolenDeviceProtectionStrictModeEnabled)
     {
       if ((*(equalCopy + 132) & 1) == 0)
@@ -2056,28 +2084,28 @@ LABEL_20:
     }
   }
 
-  else if ((v33 & 0x8000) != 0)
+  else if ((v21 & 0x8000) != 0)
   {
     goto LABEL_100;
   }
 
-  if ((*&v25 & 4) == 0)
+  if ((*&v16 & 4) == 0)
   {
-    v27 = (*(equalCopy + 34) & 4) == 0;
+    v18 = (*(equalCopy + 34) & 4) == 0;
     goto LABEL_101;
   }
 
-  if ((v33 & 4) != 0 && self->_iPadMultitaskingMode == *(equalCopy + 14))
+  if ((v21 & 4) != 0 && self->_iPadMultitaskingMode == *(equalCopy + 14))
   {
-    v27 = 1;
+    v18 = 1;
     goto LABEL_101;
   }
 
 LABEL_100:
-  v27 = 0;
+  v18 = 0;
 LABEL_101:
 
-  return v27;
+  return v18;
 }
 
 - (unint64_t)hash

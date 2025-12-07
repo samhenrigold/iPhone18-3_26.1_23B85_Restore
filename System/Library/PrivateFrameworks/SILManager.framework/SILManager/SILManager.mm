@@ -130,7 +130,7 @@ LABEL_24:
 
 void SILTelemetry::pushSILHealthCounters(SILTelemetry *this)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&SILTelemetry::hcLock);
   v1 = qword_27FF45FE0;
   v2 = SILTelemetry::totalHC;
@@ -143,14 +143,14 @@ void SILTelemetry::pushSILHealthCounters(SILTelemetry *this)
   os_unfair_lock_unlock(&SILTelemetry::hcLock);
   if (v2)
   {
-    v3 = xnu_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    v5 = xnu_log(v3, v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       *buf = 134218240;
-      v5 = v1;
-      v6 = 2048;
-      v7 = v2;
-      _os_log_impl(&dword_262A43000, v3, OS_LOG_TYPE_INFO, "Push SILTelemetry failedHC %llu totalHC %llu", buf, 0x16u);
+      v7 = v1;
+      v8 = 2048;
+      v9 = v2;
+      _os_log_impl(&dword_262A43000, v5, OS_LOG_TYPE_INFO, "Push SILTelemetry failedHC %llu totalHC %llu", buf, 0x16u);
     }
 
     analytics_send_event_lazy();
@@ -202,11 +202,11 @@ void SILTelemetry::startTimer(SILTelemetry *this)
       v2 = dispatch_time(0, 1000000000);
       dispatch_source_set_timer(SILTelemetry::timer, v2, 0x4E94914F0000uLL, 0x8BB2C97000uLL);
       dispatch_source_set_event_handler(SILTelemetry::timer, &__block_literal_global);
-      v3 = xnu_log();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+      v5 = xnu_log(v3, v4);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
-        *v4 = 0;
-        _os_log_impl(&dword_262A43000, v3, OS_LOG_TYPE_INFO, "Starting GCD timer", v4, 2u);
+        *v6 = 0;
+        _os_log_impl(&dword_262A43000, v5, OS_LOG_TYPE_INFO, "Starting GCD timer", v6, 2u);
       }
 
       dispatch_resume(SILTelemetry::timer);
@@ -477,70 +477,71 @@ uint64_t sil_argb8888_apply_opacity(uint64_t result, int a2, uint64_t a3, unsign
   return result;
 }
 
-uint64_t SILServer_createSILServerClient(void)
+uint64_t SILServer_createSILServerClient(uint64_t a1, uint64_t a2)
 {
-  v11 = 0;
-  v0 = xnu_log();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v16 = 0;
+  v2 = xnu_log(a1, a2);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_262A43000, v0, OS_LOG_TYPE_INFO, "Attempting to launch conclaves...", buf, 2u);
+    _os_log_impl(&dword_262A43000, v2, OS_LOG_TYPE_INFO, "Attempting to launch conclaves...", buf, 2u);
   }
 
-  v1 = tb_conclave_endpoint_for_service();
-  if (v1)
+  v3 = tb_conclave_endpoint_for_service();
+  if (v3)
   {
-    v2 = v1;
-    v3 = 3758097084;
-    v4 = xnu_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = v3;
+    v6 = 3758097084;
+    v7 = xnu_log(v3, v4);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      SILServer_createSILServerClient(v2, v4);
+      SILServer_createSILServerClient(v5, v7);
     }
   }
 
   else
   {
-    v5 = silmanager_silmanager__init(&silServerConnection);
-    v6 = xnu_log();
-    v7 = v6;
-    if (v5)
+    v8 = silmanager_silmanager__init(&silServerConnection, v16);
+    v9 = v8;
+    v11 = xnu_log(v8, v10);
+    v12 = v11;
+    if (v9)
     {
-      v3 = 3758097084;
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v6 = 3758097084;
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        SILServer_createSILServerClient(v5, v7);
+        SILServer_createSILServerClient(v9, v12);
       }
     }
 
     else
     {
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
-        *v9 = 0;
-        _os_log_impl(&dword_262A43000, v7, OS_LOG_TYPE_INFO, "Created conclave endpoint for SILServer", v9, 2u);
+        *v14 = 0;
+        _os_log_impl(&dword_262A43000, v12, OS_LOG_TYPE_INFO, "Created conclave endpoint for SILServer", v14, 2u);
       }
 
       return 0;
     }
   }
 
-  return v3;
+  return v6;
 }
 
-uint64_t SILServer_createRenderer(void)
+uint64_t SILServer_createRenderer(uint64_t a1, uint64_t a2)
 {
-  v3 = 0;
-  v4 = &v3;
-  v5 = 0x3812000000;
-  v6 = __Block_byref_object_copy_;
-  v7 = __Block_byref_object_dispose_;
-  v8 = "";
-  v10 = 0;
-  v9 = 513;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x3812000000;
+  v11 = __Block_byref_object_copy_;
+  v12 = __Block_byref_object_dispose_;
+  v13 = "";
+  v15 = 0;
+  v14 = 513;
   if (!silServerConnection)
   {
-    if (SILServer_createSILServerClient())
+    if (SILServer_createSILServerClient(a1, a2))
     {
       goto LABEL_7;
     }
@@ -551,41 +552,49 @@ uint64_t SILServer_createRenderer(void)
     }
   }
 
-  if (silmanager_silmanager_createrenderer())
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = ___ZL17do_tightbeam_callIb46silmanager_silmanager_createrenderer__result_sPF10tb_error_tPK23silmanager_silmanager_sU13block_pointerFvS0_EEPFbPS0_EPFP21silmanager_silerror_sS9_EJPS2_EENSt3__14pairI15SILManagerErrorT_EEPKcT1_T2_T3_DpOT4__block_invoke;
+  v7[3] = &unk_279B43120;
+  v7[4] = &v8;
+  v7[5] = silmanager_silmanager_createrenderer__result_get_success;
+  v7[6] = silmanager_silmanager_createrenderer__result_get_failure;
+  v2 = silmanager_silmanager_createrenderer(&silServerConnection, v7);
+  if (v2)
   {
-    v0 = xnu_log();
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+    v4 = xnu_log(v2, v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       SILServer_createRenderer();
     }
   }
 
 LABEL_7:
-  v1 = *(v4 + 12);
-  _Block_object_dispose(&v3, 8);
-  return v1;
+  v5 = *(v9 + 12);
+  _Block_object_dispose(&v8, 8);
+  return v5;
 }
 
-void sub_262A45790(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_262A45790(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t SILServer_setPower()
+uint64_t SILServer_setPower(uint64_t a1, uint64_t a2)
 {
-  v3 = 0;
-  v4 = &v3;
-  v5 = 0x3812000000;
-  v6 = __Block_byref_object_copy_;
-  v7 = __Block_byref_object_dispose_;
-  v8 = "";
   v10 = 0;
-  v9 = 513;
+  v11 = &v10;
+  v12 = 0x3812000000;
+  v13 = __Block_byref_object_copy_;
+  v14 = __Block_byref_object_dispose_;
+  v15 = "";
+  v17 = 0;
+  v16 = 513;
   if (!silServerConnection)
   {
-    if (SILServer_createSILServerClient())
+    if (SILServer_createSILServerClient(a1, a2))
     {
       goto LABEL_7;
     }
@@ -596,40 +605,48 @@ uint64_t SILServer_setPower()
     }
   }
 
-  if (silmanager_silmanager_setpower())
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = ___ZL17do_tightbeam_callIb40silmanager_silmanager_setpower__result_sPF10tb_error_tPK23silmanager_silmanager_sbbU13block_pointerFvS0_EEPFbPS0_EPFP21silmanager_silerror_sS9_EJPS2_RbSH_EENSt3__14pairI15SILManagerErrorT_EEPKcT1_T2_T3_DpOT4__block_invoke;
+  v9[3] = &unk_279B43148;
+  v9[4] = &v10;
+  v9[5] = silmanager_silmanager_setpower__result_get_success;
+  v9[6] = silmanager_silmanager_setpower__result_get_failure;
+  v4 = silmanager_silmanager_setpower(&silServerConnection, a1, a2, v9);
+  if (v4)
   {
-    v0 = xnu_log();
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+    v6 = xnu_log(v4, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       SILServer_setPower();
     }
   }
 
 LABEL_7:
-  v1 = *(v4 + 12);
-  _Block_object_dispose(&v3, 8);
-  return v1;
+  v7 = *(v11 + 12);
+  _Block_object_dispose(&v10, 8);
+  return v7;
 }
 
-void sub_262A45934(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_262A45934(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t SILServer_swap(unsigned __int8 a1, unsigned int a2, double a3, double a4, unsigned __int8 a5, unsigned __int16 a6, float a7, float a8, unint64_t *a9)
+uint64_t SILServer_swap(uint64_t a1, uint64_t a2, double a3, double a4, uint64_t a5, uint64_t a6, float a7, float a8, unint64_t *a9)
 {
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x4012000000;
-  v17 = __Block_byref_object_copy__8;
-  v18 = __Block_byref_object_dispose__9;
-  v19 = "";
-  v20 = xmmword_262A97510;
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x4012000000;
+  v28 = __Block_byref_object_copy__8;
+  v29 = __Block_byref_object_dispose__9;
+  v30 = "";
+  v31 = xmmword_262A97510;
   if (!silServerConnection)
   {
-    if (SILServer_createSILServerClient())
+    if (SILServer_createSILServerClient(a1, a2))
     {
       goto LABEL_7;
     }
@@ -640,46 +657,54 @@ uint64_t SILServer_swap(unsigned __int8 a1, unsigned int a2, double a3, double a
     }
   }
 
-  if (silmanager_silmanager_swap())
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = ___ZL17do_tightbeam_callIy36silmanager_silmanager_swap__result_sPF10tb_error_tPK23silmanager_silmanager_shjddhtffU13block_pointerFvS0_EEPFPyPS0_EPFP21silmanager_silerror_sSA_EJPS2_RhRjRdSK_SI_RtRfSM_EENSt3__14pairI15SILManagerErrorT_EEPKcT1_T2_T3_DpOT4__block_invoke;
+  v24[3] = &unk_279B43170;
+  v24[4] = &v25;
+  v24[5] = silmanager_silmanager_swap__result_get_success;
+  v24[6] = silmanager_silmanager_swap__result_get_failure;
+  v18 = silmanager_silmanager_swap(&silServerConnection, a1, a2, a5, a6, v24, a3, a4, a7, a8);
+  if (v18)
   {
-    v10 = xnu_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v20 = xnu_log(v18, v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       SILServer_swap();
     }
   }
 
 LABEL_7:
-  v11 = v15[7];
-  v12 = *(v15 + 12);
-  _Block_object_dispose(&v14, 8);
-  if (a9 && !v12)
+  v21 = v26[7];
+  v22 = *(v26 + 12);
+  _Block_object_dispose(&v25, 8);
+  if (a9 && !v22)
   {
-    *a9 = v11;
+    *a9 = v21;
   }
 
-  return v12;
+  return v22;
 }
 
-void sub_262A45B3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_262A45B3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t SILServer_turnOffIndicators(unsigned int a1, BOOL a2, unint64_t *a3)
+uint64_t SILServer_turnOffIndicators(uint64_t a1, uint64_t a2, unint64_t *a3)
 {
-  v8 = 0;
-  v9 = &v8;
-  v10 = 0x4012000000;
-  v11 = __Block_byref_object_copy__8;
-  v12 = __Block_byref_object_dispose__9;
-  v13 = "";
-  v14 = xmmword_262A97510;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x4012000000;
+  v16 = __Block_byref_object_copy__8;
+  v17 = __Block_byref_object_dispose__9;
+  v18 = "";
+  v19 = xmmword_262A97510;
   if (!silServerConnection)
   {
-    if (SILServer_createSILServerClient())
+    if (SILServer_createSILServerClient(a1, a2))
     {
       goto LABEL_7;
     }
@@ -690,47 +715,55 @@ uint64_t SILServer_turnOffIndicators(unsigned int a1, BOOL a2, unint64_t *a3)
     }
   }
 
-  if (silmanager_silmanager_turnoffindicators())
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = ___ZL17do_tightbeam_callIy49silmanager_silmanager_turnoffindicators__result_sPF10tb_error_tPK23silmanager_silmanager_sjbU13block_pointerFvS0_EEPFPyPS0_EPFP21silmanager_silerror_sSA_EJPS2_RjRbEENSt3__14pairI15SILManagerErrorT_EEPKcT1_T2_T3_DpOT4__block_invoke;
+  v12[3] = &unk_279B43198;
+  v12[4] = &v13;
+  v12[5] = silmanager_silmanager_turnoffindicators__result_get_success;
+  v12[6] = silmanager_silmanager_turnoffindicators__result_get_failure;
+  v6 = silmanager_silmanager_turnoffindicators(&silServerConnection, a1, a2, v12);
+  if (v6)
   {
-    v4 = xnu_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v8 = xnu_log(v6, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       SILServer_turnOffIndicators();
     }
   }
 
 LABEL_7:
-  v5 = v9[7];
-  v6 = *(v9 + 12);
-  _Block_object_dispose(&v8, 8);
-  if (a3 && !v6)
+  v9 = v14[7];
+  v10 = *(v14 + 12);
+  _Block_object_dispose(&v13, 8);
+  if (a3 && !v10)
   {
-    *a3 = v5;
+    *a3 = v9;
   }
 
-  return v6;
+  return v10;
 }
 
-void sub_262A45CFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_262A45CFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t SILServer_swapEnd()
+uint64_t SILServer_swapEnd(uint64_t a1, uint64_t a2)
 {
-  v3 = 0;
-  v4 = &v3;
-  v5 = 0x3812000000;
-  v6 = __Block_byref_object_copy_;
-  v7 = __Block_byref_object_dispose_;
-  v8 = "";
   v10 = 0;
-  v9 = 513;
+  v11 = &v10;
+  v12 = 0x3812000000;
+  v13 = __Block_byref_object_copy_;
+  v14 = __Block_byref_object_dispose_;
+  v15 = "";
+  v17 = 0;
+  v16 = 513;
   if (!silServerConnection)
   {
-    if (SILServer_createSILServerClient())
+    if (SILServer_createSILServerClient(a1, a2))
     {
       goto LABEL_7;
     }
@@ -741,40 +774,48 @@ uint64_t SILServer_swapEnd()
     }
   }
 
-  if (silmanager_silmanager_swapend())
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = ___ZL17do_tightbeam_callIb39silmanager_silmanager_swapend__result_sPF10tb_error_tPK23silmanager_silmanager_sybU13block_pointerFvS0_EEPFbPS0_EPFP21silmanager_silerror_sS9_EJPS2_RyRbEENSt3__14pairI15SILManagerErrorT_EEPKcT1_T2_T3_DpOT4__block_invoke;
+  v9[3] = &unk_279B431C0;
+  v9[4] = &v10;
+  v9[5] = silmanager_silmanager_swapend__result_get_success;
+  v9[6] = silmanager_silmanager_swapend__result_get_failure;
+  v4 = silmanager_silmanager_swapend(&silServerConnection, a1, a2, v9);
+  if (v4)
   {
-    v0 = xnu_log();
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+    v6 = xnu_log(v4, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       SILServer_swapEnd();
     }
   }
 
 LABEL_7:
-  v1 = *(v4 + 12);
-  _Block_object_dispose(&v3, 8);
-  return v1;
+  v7 = *(v11 + 12);
+  _Block_object_dispose(&v10, 8);
+  return v7;
 }
 
-void sub_262A45EA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_262A45EA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-float SILServer_softBoundaryStrength(void)
+float SILServer_softBoundaryStrength(uint64_t a1, uint64_t a2)
 {
-  v3 = 0;
-  v4[0] = &v3;
-  v4[1] = 0x3812000000;
-  v4[2] = __Block_byref_object_copy__19;
-  v4[3] = __Block_byref_object_dispose__20;
-  v4[4] = "";
-  v4[5] = 513;
+  v7 = 0;
+  v8[0] = &v7;
+  v8[1] = 0x3812000000;
+  v8[2] = __Block_byref_object_copy__19;
+  v8[3] = __Block_byref_object_dispose__20;
+  v8[4] = "";
+  v8[5] = 513;
   if (!silServerConnection)
   {
-    if (SILServer_createSILServerClient())
+    if (SILServer_createSILServerClient(a1, a2))
     {
       goto LABEL_7;
     }
@@ -785,47 +826,48 @@ float SILServer_softBoundaryStrength(void)
     }
   }
 
-  v2[0] = MEMORY[0x277D85DD0];
-  v2[1] = 3221225472;
-  v2[2] = ___ZL17do_tightbeam_callIf52silmanager_silmanager_softboundarystrength__result_sPF10tb_error_tPK23silmanager_silmanager_sU13block_pointerFvS0_EEPFPfPS0_EPFP21silmanager_silerror_sSA_EJPS2_EENSt3__14pairI15SILManagerErrorT_EEPKcT1_T2_T3_DpOT4__block_invoke;
-  v2[3] = &unk_279B431E8;
-  v2[4] = &v3;
-  v2[5] = silmanager_silmanager_softboundarystrength__result_get_success;
-  v2[6] = silmanager_silmanager_softboundarystrength__result_get_failure;
-  if (silmanager_silmanager_softboundarystrength())
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = ___ZL17do_tightbeam_callIf52silmanager_silmanager_softboundarystrength__result_sPF10tb_error_tPK23silmanager_silmanager_sU13block_pointerFvS0_EEPFPfPS0_EPFP21silmanager_silerror_sSA_EJPS2_EENSt3__14pairI15SILManagerErrorT_EEPKcT1_T2_T3_DpOT4__block_invoke;
+  v6[3] = &unk_279B431E8;
+  v6[4] = &v7;
+  v6[5] = silmanager_silmanager_softboundarystrength__result_get_success;
+  v6[6] = silmanager_silmanager_softboundarystrength__result_get_failure;
+  v2 = silmanager_silmanager_softboundarystrength(&silServerConnection, v6);
+  if (v2)
   {
-    v0 = xnu_log();
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+    v4 = xnu_log(v2, v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       SILServer_softBoundaryStrength();
     }
   }
 
 LABEL_7:
-  SILServer_softBoundaryStrength(v4, &v3, v2, &v5);
-  return v5;
+  SILServer_softBoundaryStrength(v8, &v7, v6, &v9);
+  return v9;
 }
 
-void sub_262A4602C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_262A4602C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t SILServer_setLogLevel()
+uint64_t SILServer_setLogLevel(uint64_t a1, uint64_t a2)
 {
-  v3 = 0;
-  v4 = &v3;
-  v5 = 0x3812000000;
-  v6 = __Block_byref_object_copy_;
-  v7 = __Block_byref_object_dispose_;
-  v8 = "";
-  v10 = 0;
-  v9 = 513;
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x3812000000;
+  v12 = __Block_byref_object_copy_;
+  v13 = __Block_byref_object_dispose_;
+  v14 = "";
+  v16 = 0;
+  v15 = 513;
   if (!silServerConnection)
   {
-    if (SILServer_createSILServerClient())
+    if (SILServer_createSILServerClient(a1, a2))
     {
       goto LABEL_7;
     }
@@ -836,41 +878,49 @@ uint64_t SILServer_setLogLevel()
     }
   }
 
-  if (silmanager_silmanager_setloglevel())
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = ___ZL17do_tightbeam_callIb43silmanager_silmanager_setloglevel__result_sPF10tb_error_tPK23silmanager_silmanager_shU13block_pointerFvS0_EEPFbPS0_EPFP21silmanager_silerror_sS9_EJPS2_RhEENSt3__14pairI15SILManagerErrorT_EEPKcT1_T2_T3_DpOT4__block_invoke;
+  v8[3] = &unk_279B43210;
+  v8[4] = &v9;
+  v8[5] = silmanager_silmanager_setloglevel__result_get_success;
+  v8[6] = silmanager_silmanager_setloglevel__result_get_failure;
+  v3 = silmanager_silmanager_setloglevel(&silServerConnection, a1, v8);
+  if (v3)
   {
-    v0 = xnu_log();
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+    v5 = xnu_log(v3, v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       SILServer_setLogLevel();
     }
   }
 
 LABEL_7:
-  v1 = *(v4 + 12);
-  _Block_object_dispose(&v3, 8);
-  return v1;
+  v6 = *(v10 + 12);
+  _Block_object_dispose(&v9, 8);
+  return v6;
 }
 
-void sub_262A461C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_262A461C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void SILServer_updateCursorState(int a1, float a2, int a3, unsigned int a4, unsigned int a5, float *a6)
+void SILServer_updateCursorState(uint64_t a1, float a2, uint64_t a3, uint64_t a4, uint64_t a5, float *a6)
 {
-  v7[0] = 0;
-  v7[1] = v7;
-  v7[2] = 0x3812000000;
-  v7[3] = __Block_byref_object_copy_;
-  v7[4] = __Block_byref_object_dispose_;
-  v7[5] = "";
-  v9 = 0;
-  v8 = 513;
+  v16[0] = 0;
+  v16[1] = v16;
+  v16[2] = 0x3812000000;
+  v16[3] = __Block_byref_object_copy_;
+  v16[4] = __Block_byref_object_dispose_;
+  v16[5] = "";
+  v18 = 0;
+  v17 = 513;
   if (!silServerConnection)
   {
-    if (SILServer_createSILServerClient())
+    if (SILServer_createSILServerClient(a1, a3))
     {
       goto LABEL_7;
     }
@@ -881,41 +931,49 @@ void SILServer_updateCursorState(int a1, float a2, int a3, unsigned int a4, unsi
     }
   }
 
-  if (silmanager_silmanager_updatecursorstate())
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = ___ZL17do_tightbeam_callIb49silmanager_silmanager_updatecursorstate__result_sPF10tb_error_tPK23silmanager_silmanager_sifijjPKfU13block_pointerFvS0_EEPFbPS0_EPFP21silmanager_silerror_sSB_EJPS2_RiRfSJ_RjSL_RPfEENSt3__14pairI15SILManagerErrorT_EEPKcT1_T2_T3_DpOT4__block_invoke;
+  v15[3] = &unk_279B43238;
+  v15[4] = v16;
+  v15[5] = silmanager_silmanager_updatecursorstate__result_get_success;
+  v15[6] = silmanager_silmanager_updatecursorstate__result_get_failure;
+  v12 = silmanager_silmanager_updatecursorstate(&silServerConnection, a1, a3, a4, a5, a6, v15, a2);
+  if (v12)
   {
-    v6 = xnu_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v14 = xnu_log(v12, v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       SILServer_updateCursorState();
     }
   }
 
 LABEL_7:
-  _Block_object_dispose(v7, 8);
+  _Block_object_dispose(v16, 8);
 }
 
-void sub_262A46398(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_262A46398(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-double SILServer_getCursorInfo@<D0>(uint64_t a1@<X8>)
+double SILServer_getCursorInfo@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  v5 = 0;
-  v6[0] = &v5;
-  v6[1] = 0x4812000000;
-  v6[2] = __Block_byref_object_copy__30;
-  v6[3] = __Block_byref_object_dispose__31;
-  v6[4] = "";
-  v7 = 513;
-  v9 = 0;
-  v8 = 0;
   v10 = 0;
+  v11[0] = &v10;
+  v11[1] = 0x4812000000;
+  v11[2] = __Block_byref_object_copy__30;
+  v11[3] = __Block_byref_object_dispose__31;
+  v11[4] = "";
+  v12 = 513;
+  v14 = 0;
+  v13 = 0;
+  v15 = 0;
   if (!silServerConnection)
   {
-    if (SILServer_createSILServerClient())
+    if (SILServer_createSILServerClient(a1, a2))
     {
       goto LABEL_7;
     }
@@ -926,35 +984,36 @@ double SILServer_getCursorInfo@<D0>(uint64_t a1@<X8>)
     }
   }
 
-  v4[0] = MEMORY[0x277D85DD0];
-  v4[1] = 3221225472;
-  v4[2] = ___ZL17do_tightbeam_callI35silmanager_silmanagercursorinfotb_s45silmanager_silmanager_getcursorinfo__result_sPF10tb_error_tPK23silmanager_silmanager_siU13block_pointerFvS1_EEPFPS0_PS1_EPFP21silmanager_silerror_sSB_EJPS3_RiEENSt3__14pairI15SILManagerErrorT_EEPKcT1_T2_T3_DpOT4__block_invoke;
-  v4[3] = &unk_279B43260;
-  v4[4] = &v5;
-  v4[5] = silmanager_silmanager_getcursorinfo__result_get_success;
-  v4[6] = silmanager_silmanager_getcursorinfo__result_get_failure;
-  if (silmanager_silmanager_getcursorinfo())
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = ___ZL17do_tightbeam_callI35silmanager_silmanagercursorinfotb_s45silmanager_silmanager_getcursorinfo__result_sPF10tb_error_tPK23silmanager_silmanager_siU13block_pointerFvS1_EEPFPS0_PS1_EPFP21silmanager_silerror_sSB_EJPS3_RiEENSt3__14pairI15SILManagerErrorT_EEPKcT1_T2_T3_DpOT4__block_invoke;
+  v9[3] = &unk_279B43260;
+  v9[4] = &v10;
+  v9[5] = silmanager_silmanager_getcursorinfo__result_get_success;
+  v9[6] = silmanager_silmanager_getcursorinfo__result_get_failure;
+  v5 = silmanager_silmanager_getcursorinfo(&silServerConnection, a1, v9);
+  if (v5)
   {
-    v2 = xnu_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v7 = xnu_log(v5, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       SILServer_getCursorInfo();
     }
   }
 
 LABEL_7:
-  *&result = SILServer_getCursorInfo(v6, &v5, v4, a1).n128_u64[0];
+  *&result = SILServer_getCursorInfo(v11, &v10, v9, a3).n128_u64[0];
   return result;
 }
 
-void sub_262A46538(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_262A46538(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t toSILMgrErr(uint64_t result)
+uint64_t toSILMgrErr(uint64_t result, uint64_t a2)
 {
   if ((result - 1) >= 0xC)
   {
@@ -990,8 +1049,8 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
 
 uint64_t ___ZL17do_tightbeam_callIb46silmanager_silmanager_createrenderer__result_sPF10tb_error_tPK23silmanager_silmanager_sU13block_pointerFvS0_EEPFbPS0_EPFP21silmanager_silerror_sS9_EJPS2_EENSt3__14pairI15SILManagerErrorT_EEPKcT1_T2_T3_DpOT4__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v5 = a2;
-  result = (*(a1 + 40))(&v5);
+  v6 = a2;
+  result = (*(a1 + 40))(&v6);
   if (result)
   {
     *(*(*(a1 + 32) + 8) + 48) = 0;
@@ -1000,8 +1059,8 @@ uint64_t ___ZL17do_tightbeam_callIb46silmanager_silmanager_createrenderer__resul
 
   else
   {
-    v4 = (*(a1 + 48))(&v5);
-    result = toSILMgrErr(*v4);
+    v4 = (*(a1 + 48))(&v6);
+    result = toSILMgrErr(*v4, v5);
     *(*(*(a1 + 32) + 8) + 48) = result;
   }
 
@@ -1010,8 +1069,8 @@ uint64_t ___ZL17do_tightbeam_callIb46silmanager_silmanager_createrenderer__resul
 
 uint64_t ___ZL17do_tightbeam_callIb40silmanager_silmanager_setpower__result_sPF10tb_error_tPK23silmanager_silmanager_sbbU13block_pointerFvS0_EEPFbPS0_EPFP21silmanager_silerror_sS9_EJPS2_RbSH_EENSt3__14pairI15SILManagerErrorT_EEPKcT1_T2_T3_DpOT4__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v5 = a2;
-  result = (*(a1 + 40))(&v5);
+  v6 = a2;
+  result = (*(a1 + 40))(&v6);
   if (result)
   {
     *(*(*(a1 + 32) + 8) + 48) = 0;
@@ -1020,8 +1079,8 @@ uint64_t ___ZL17do_tightbeam_callIb40silmanager_silmanager_setpower__result_sPF1
 
   else
   {
-    v4 = (*(a1 + 48))(&v5);
-    result = toSILMgrErr(*v4);
+    v4 = (*(a1 + 48))(&v6);
+    result = toSILMgrErr(*v4, v5);
     *(*(*(a1 + 32) + 8) + 48) = result;
   }
 
@@ -1037,9 +1096,9 @@ __n128 __Block_byref_object_copy__8(__n128 *a1, __n128 *a2)
 
 void *___ZL17do_tightbeam_callIy36silmanager_silmanager_swap__result_sPF10tb_error_tPK23silmanager_silmanager_shjddhtffU13block_pointerFvS0_EEPFPyPS0_EPFP21silmanager_silerror_sSA_EJPS2_RhRjRdSK_SI_RtRfSM_EENSt3__14pairI15SILManagerErrorT_EEPKcT1_T2_T3_DpOT4__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6[0] = a2;
-  v6[1] = a3;
-  result = (*(a1 + 40))(v6);
+  v7[0] = a2;
+  v7[1] = a3;
+  result = (*(a1 + 40))(v7);
   if (result)
   {
     *(*(*(a1 + 32) + 8) + 48) = 0;
@@ -1048,8 +1107,8 @@ void *___ZL17do_tightbeam_callIy36silmanager_silmanager_swap__result_sPF10tb_err
 
   else
   {
-    v5 = (*(a1 + 48))(v6);
-    result = toSILMgrErr(*v5);
+    v5 = (*(a1 + 48))(v7);
+    result = toSILMgrErr(*v5, v6);
     *(*(*(a1 + 32) + 8) + 48) = result;
   }
 
@@ -1058,9 +1117,9 @@ void *___ZL17do_tightbeam_callIy36silmanager_silmanager_swap__result_sPF10tb_err
 
 void *___ZL17do_tightbeam_callIy49silmanager_silmanager_turnoffindicators__result_sPF10tb_error_tPK23silmanager_silmanager_sjbU13block_pointerFvS0_EEPFPyPS0_EPFP21silmanager_silerror_sSA_EJPS2_RjRbEENSt3__14pairI15SILManagerErrorT_EEPKcT1_T2_T3_DpOT4__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6[0] = a2;
-  v6[1] = a3;
-  result = (*(a1 + 40))(v6);
+  v7[0] = a2;
+  v7[1] = a3;
+  result = (*(a1 + 40))(v7);
   if (result)
   {
     *(*(*(a1 + 32) + 8) + 48) = 0;
@@ -1069,8 +1128,8 @@ void *___ZL17do_tightbeam_callIy49silmanager_silmanager_turnoffindicators__resul
 
   else
   {
-    v5 = (*(a1 + 48))(v6);
-    result = toSILMgrErr(*v5);
+    v5 = (*(a1 + 48))(v7);
+    result = toSILMgrErr(*v5, v6);
     *(*(*(a1 + 32) + 8) + 48) = result;
   }
 
@@ -1079,8 +1138,8 @@ void *___ZL17do_tightbeam_callIy49silmanager_silmanager_turnoffindicators__resul
 
 uint64_t ___ZL17do_tightbeam_callIb39silmanager_silmanager_swapend__result_sPF10tb_error_tPK23silmanager_silmanager_sybU13block_pointerFvS0_EEPFbPS0_EPFP21silmanager_silerror_sS9_EJPS2_RyRbEENSt3__14pairI15SILManagerErrorT_EEPKcT1_T2_T3_DpOT4__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v5 = a2;
-  result = (*(a1 + 40))(&v5);
+  v6 = a2;
+  result = (*(a1 + 40))(&v6);
   if (result)
   {
     *(*(*(a1 + 32) + 8) + 48) = 0;
@@ -1089,8 +1148,8 @@ uint64_t ___ZL17do_tightbeam_callIb39silmanager_silmanager_swapend__result_sPF10
 
   else
   {
-    v4 = (*(a1 + 48))(&v5);
-    result = toSILMgrErr(*v4);
+    v4 = (*(a1 + 48))(&v6);
+    result = toSILMgrErr(*v4, v5);
     *(*(*(a1 + 32) + 8) + 48) = result;
   }
 
@@ -1099,8 +1158,8 @@ uint64_t ___ZL17do_tightbeam_callIb39silmanager_silmanager_swapend__result_sPF10
 
 _DWORD *___ZL17do_tightbeam_callIf52silmanager_silmanager_softboundarystrength__result_sPF10tb_error_tPK23silmanager_silmanager_sU13block_pointerFvS0_EEPFPfPS0_EPFP21silmanager_silerror_sSA_EJPS2_EENSt3__14pairI15SILManagerErrorT_EEPKcT1_T2_T3_DpOT4__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v5 = a2;
-  result = (*(a1 + 40))(&v5);
+  v6 = a2;
+  result = (*(a1 + 40))(&v6);
   if (result)
   {
     *(*(*(a1 + 32) + 8) + 48) = 0;
@@ -1109,8 +1168,8 @@ _DWORD *___ZL17do_tightbeam_callIf52silmanager_silmanager_softboundarystrength__
 
   else
   {
-    v4 = (*(a1 + 48))(&v5);
-    result = toSILMgrErr(*v4);
+    v4 = (*(a1 + 48))(&v6);
+    result = toSILMgrErr(*v4, v5);
     *(*(*(a1 + 32) + 8) + 48) = result;
   }
 
@@ -1119,8 +1178,8 @@ _DWORD *___ZL17do_tightbeam_callIf52silmanager_silmanager_softboundarystrength__
 
 uint64_t ___ZL17do_tightbeam_callIb43silmanager_silmanager_setloglevel__result_sPF10tb_error_tPK23silmanager_silmanager_shU13block_pointerFvS0_EEPFbPS0_EPFP21silmanager_silerror_sS9_EJPS2_RhEENSt3__14pairI15SILManagerErrorT_EEPKcT1_T2_T3_DpOT4__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v5 = a2;
-  result = (*(a1 + 40))(&v5);
+  v6 = a2;
+  result = (*(a1 + 40))(&v6);
   if (result)
   {
     *(*(*(a1 + 32) + 8) + 48) = 0;
@@ -1129,8 +1188,8 @@ uint64_t ___ZL17do_tightbeam_callIb43silmanager_silmanager_setloglevel__result_s
 
   else
   {
-    v4 = (*(a1 + 48))(&v5);
-    result = toSILMgrErr(*v4);
+    v4 = (*(a1 + 48))(&v6);
+    result = toSILMgrErr(*v4, v5);
     *(*(*(a1 + 32) + 8) + 48) = result;
   }
 
@@ -1139,8 +1198,8 @@ uint64_t ___ZL17do_tightbeam_callIb43silmanager_silmanager_setloglevel__result_s
 
 uint64_t ___ZL17do_tightbeam_callIb49silmanager_silmanager_updatecursorstate__result_sPF10tb_error_tPK23silmanager_silmanager_sifijjPKfU13block_pointerFvS0_EEPFbPS0_EPFP21silmanager_silerror_sSB_EJPS2_RiRfSJ_RjSL_RPfEENSt3__14pairI15SILManagerErrorT_EEPKcT1_T2_T3_DpOT4__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v5 = a2;
-  result = (*(a1 + 40))(&v5);
+  v6 = a2;
+  result = (*(a1 + 40))(&v6);
   if (result)
   {
     *(*(*(a1 + 32) + 8) + 48) = 0;
@@ -1149,8 +1208,8 @@ uint64_t ___ZL17do_tightbeam_callIb49silmanager_silmanager_updatecursorstate__re
 
   else
   {
-    v4 = (*(a1 + 48))(&v5);
-    result = toSILMgrErr(*v4);
+    v4 = (*(a1 + 48))(&v6);
+    result = toSILMgrErr(*v4, v5);
     *(*(*(a1 + 32) + 8) + 48) = result;
   }
 
@@ -1165,7 +1224,7 @@ __n128 __Block_byref_object_copy__30(__n128 *a1, __n128 *a2)
   return result;
 }
 
-uint64_t ___ZL17do_tightbeam_callI35silmanager_silmanagercursorinfotb_s45silmanager_silmanager_getcursorinfo__result_sPF10tb_error_tPK23silmanager_silmanager_siU13block_pointerFvS1_EEPFPS0_PS1_EPFP21silmanager_silerror_sSB_EJPS3_RiEENSt3__14pairI15SILManagerErrorT_EEPKcT1_T2_T3_DpOT4__block_invoke(uint64_t a1, uint64_t a2)
+__int128 *___ZL17do_tightbeam_callI35silmanager_silmanagercursorinfotb_s45silmanager_silmanager_getcursorinfo__result_sPF10tb_error_tPK23silmanager_silmanager_siU13block_pointerFvS1_EEPFPS0_PS1_EPFP21silmanager_silerror_sSB_EJPS3_RiEENSt3__14pairI15SILManagerErrorT_EEPKcT1_T2_T3_DpOT4__block_invoke(uint64_t a1, uint64_t a2)
 {
   result = (*(a1 + 40))(a2);
   if (result)
@@ -1173,24 +1232,25 @@ uint64_t ___ZL17do_tightbeam_callI35silmanager_silmanagercursorinfotb_s45silmana
     *(*(*(a1 + 32) + 8) + 48) = 0;
     v5 = *(*(a1 + 32) + 8);
     v6 = *result;
-    *(v5 + 68) = *(result + 16);
+    *(v5 + 68) = *(result + 4);
     *(v5 + 52) = v6;
   }
 
   else
   {
     v7 = (*(a1 + 48))(a2);
-    result = toSILMgrErr(*v7);
+    result = toSILMgrErr(*v7, v8);
     *(*(*(a1 + 32) + 8) + 48) = result;
   }
 
   return result;
 }
 
-void OUTLINED_FUNCTION_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x12u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x12u);
 }
 
 uint64_t SILStateMachineCreate(void *a1)
@@ -1242,7 +1302,7 @@ uint64_t SILStateMachineCreateFromPlist(uint64_t result)
 
 uint64_t SILStateMachineTick(uint64_t a1, _WORD *a2, double a3)
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   std::mutex::lock(a1);
   v6 = *(a1 + 104);
   if (v6 == *(a1 + 112) || (*(a1 + 130) & 1) != 0)
@@ -1308,32 +1368,32 @@ LABEL_12:
   v17 = current_range[1] + 1;
   if (v16 <= v17)
   {
-    v28 = *(a1 + 64);
-    v29 = [v28 frames];
-    v30 = [v28 framesCount];
-    v18 = 0xFFFF;
-    if (v30 > v16 && v30 >= v17)
+    v32 = *(a1 + 64);
+    v33 = [v32 frames];
+    v34 = [v32 framesCount];
+    v18 = 0xFFFFLL;
+    if (v34 > v16 && v34 >= v17)
     {
-      v31 = (v29 + 28 * v16);
-      var0 = v31->var0;
-      v33 = *(v29 + 28 * (v17 - 1));
+      v35 = (v33 + 28 * v16);
+      var0 = v35->var0;
+      v37 = *(v33 + 28 * (v17 - 1));
       +[_TtC10SILManager15SILFlipBookDesc kFrameDuration];
-      v34 = v15;
-      v36 = (v33 + (v35 * 0.5)) - var0;
-      if (v36 >= v34)
+      v38 = v15;
+      v40 = (v37 + (v39 * 0.5)) - var0;
+      if (v40 >= v38)
       {
-        v37 = 1;
+        v41 = 1;
       }
 
       else
       {
-        v37 = v9;
+        v41 = v9;
       }
 
-      if (v37)
+      if (v41)
       {
-        v38 = fmod(v34, v36) + var0;
-        v18 = (28087 * ((closest_frame_for_time(v31, (v29 + 28 * v17), v38) - v29) >> 2));
+        v42 = fmod(v38, v40) + var0;
+        v18 = (28087 * ((closest_frame_for_time(v35, (v33 + 28 * v17), v42) - v33) >> 2));
       }
 
       else
@@ -1345,68 +1405,73 @@ LABEL_12:
 
   else
   {
-    v18 = 0xFFFF;
+    v18 = 0xFFFFLL;
   }
 
   v19 = *(a1 + 128);
-  if (v18 != v19 && v14 > 0.0 && frame_distance(v7, v19, v18) >= 2)
+  if (v18 != v19 && v14 > 0.0)
   {
-    v20 = xnu_log();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+    v20 = frame_distance(v7, v19, v18);
+    if (v20 >= 2)
     {
-      v21 = *(a1 + 128);
-      *v47 = 67109376;
-      *&v47[4] = v21;
-      *&v47[8] = 1024;
-      *&v47[10] = v18;
-      _os_log_impl(&dword_262A43000, v20, OS_LOG_TYPE_INFO, "SILStateMachine dropped frame. Last frame %u new frame %u", v47, 0xEu);
+      v22 = xnu_log(v20, v21);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+      {
+        v23 = *(a1 + 128);
+        *v53 = 67109376;
+        *&v53[4] = v23;
+        *&v53[8] = 1024;
+        *&v53[10] = v18;
+        _os_log_impl(&dword_262A43000, v22, OS_LOG_TYPE_INFO, "SILStateMachine dropped frame. Last frame %u new frame %u", v53, 0xEu);
+      }
     }
   }
 
   *(a1 + 88) = *(a1 + 88) + a3;
   if (*(a1 + 130) == 1)
   {
-    v22 = [*(a1 + 120) startFrame];
-    v23 = frame_distance(*(a1 + 120), current_range, current_range, *(a1 + 128), v18);
-    if (v23 >= frame_distance(*(a1 + 120), current_range, current_range, *(a1 + 128), v22))
+    v24 = [*(a1 + 120) startFrame];
+    v25 = frame_distance(*(a1 + 120), current_range, current_range, *(a1 + 128), v18);
+    v26 = frame_distance(*(a1 + 120), current_range, current_range, *(a1 + 128), v24);
+    if (v25 >= v26)
     {
       *(a1 + 130) = 0;
       *(a1 + 96) = *(a1 + 88);
-      v39 = xnu_log();
-      if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
+      v43 = xnu_log(v26, v27);
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
       {
-        v40 = [objc_msgSend(*(a1 + 104) "name")];
-        v41 = *current_range;
-        v42 = current_range[1];
-        *v47 = 136315906;
-        *&v47[4] = v40;
-        *&v47[12] = 1024;
-        *&v47[14] = v22;
-        *&v47[18] = 1024;
-        *&v47[20] = v41;
-        LOWORD(v48) = 1024;
-        *(&v48 + 2) = v42;
-        v25 = "SILStateMachine starting transition to %s with jump frame %u -> [%u,%u]";
-        v26 = v39;
-        v27 = 30;
+        v44 = [objc_msgSend(*(a1 + 104) "name")];
+        v45 = *current_range;
+        v46 = current_range[1];
+        *v53 = 136315906;
+        *&v53[4] = v44;
+        *&v53[12] = 1024;
+        *&v53[14] = v24;
+        *&v53[18] = 1024;
+        *&v53[20] = v45;
+        LOWORD(v54) = 1024;
+        *(&v54 + 2) = v46;
+        v29 = "SILStateMachine starting transition to %s with jump frame %u -> [%u,%u]";
+        v30 = v43;
+        v31 = 30;
         goto LABEL_35;
       }
     }
 
     else
     {
-      v24 = xnu_log();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+      v28 = xnu_log(v26, v27);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
       {
-        *v47 = 67109376;
-        *&v47[4] = v18;
-        *&v47[8] = 1024;
-        *&v47[10] = v22;
-        v25 = "SILStateMachine pending transition cur : %u jump frame : %u";
-        v26 = v24;
-        v27 = 14;
+        *v53 = 67109376;
+        *&v53[4] = v18;
+        *&v53[8] = 1024;
+        *&v53[10] = v24;
+        v29 = "SILStateMachine pending transition cur : %u jump frame : %u";
+        v30 = v28;
+        v31 = 14;
 LABEL_35:
-        _os_log_impl(&dword_262A43000, v26, OS_LOG_TYPE_INFO, v25, v47, v27);
+        _os_log_impl(&dword_262A43000, v30, OS_LOG_TYPE_INFO, v29, v53, v31);
       }
     }
   }
@@ -1415,17 +1480,18 @@ LABEL_35:
   {
     if (current_range == ([v7 end] - 8) && *(a1 + 128) == current_range[1])
     {
-      LOWORD(v18) = *[objc_msgSend(*(a1 + 112) "selfTransition")];
+      v47 = [objc_msgSend(*(a1 + 112) "selfTransition")];
+      LOWORD(v18) = *v47;
       *(a1 + 120) = 0;
       *(a1 + 104) = *(a1 + 112);
       *(a1 + 96) = *(a1 + 88);
-      v43 = xnu_log();
-      if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
+      v49 = xnu_log(v47, v48);
+      if (os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
       {
-        v44 = [objc_msgSend(*(a1 + 104) "name")];
-        *v47 = 136315138;
-        *&v47[4] = v44;
-        _os_log_impl(&dword_262A43000, v43, OS_LOG_TYPE_INFO, "SILStateMachine finished transition %s", v47, 0xCu);
+        v50 = [objc_msgSend(*(a1 + 104) "name")];
+        *v53 = 136315138;
+        *&v53[4] = v50;
+        _os_log_impl(&dword_262A43000, v49, OS_LOG_TYPE_INFO, "SILStateMachine finished transition %s", v53, 0xCu);
       }
     }
   }
@@ -1436,9 +1502,9 @@ LABEL_35:
     *a2 = v18;
   }
 
-  v45 = [*(a1 + 104) name];
+  v51 = [*(a1 + 104) name];
   std::mutex::unlock(a1);
-  return v45;
+  return v51;
 }
 
 unsigned __int16 *find_current_range(void *a1, unsigned int a2)
@@ -1449,10 +1515,12 @@ unsigned __int16 *find_current_range(void *a1, unsigned int a2)
   return i;
 }
 
-uint64_t frame_distance(void *a1, unsigned int a2, unsigned int a3)
+uint64_t frame_distance(void *a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
+  v4 = a2;
   current_range = find_current_range(a1, a2);
-  v7 = find_current_range(a1, a3);
+  v7 = find_current_range(a1, v3);
   if (current_range == [a1 end])
   {
     frame_distance();
@@ -1463,7 +1531,7 @@ uint64_t frame_distance(void *a1, unsigned int a2, unsigned int a3)
     frame_distance();
   }
 
-  return frame_distance(a1, current_range, v7, a2, a3);
+  return frame_distance(a1, current_range, v7, v4, v3);
 }
 
 uint64_t frame_distance(void *a1, unsigned __int16 *a2, unsigned __int16 *a3, unsigned int a4, unsigned int a5)
@@ -1698,7 +1766,7 @@ void SILStateMachine::~SILStateMachine(CFTypeRef *this)
   std::mutex::~mutex(this);
 }
 
-uint64_t xnu_log()
+uint64_t xnu_log(uint64_t a1, uint64_t a2)
 {
   if (xnu_log::token != -1)
   {
@@ -1715,7 +1783,7 @@ os_log_t __xnu_log_block_invoke()
   return result;
 }
 
-uint64_t SILManagerCreate(uint64_t a1)
+uint64_t (**SILManagerCreate(uint64_t a1))(uint64_t a1, uint64_t a2, double a3, double a4, uint64_t a5, uint64_t a6, float a7, float a8, unint64_t *a9)
 {
   v2 = -[NSArray count]([+[SILManifest manifest](_TtC10SILManager11SILManifest indicators], "count");
   if (a1 && v2)
@@ -1726,13 +1794,15 @@ uint64_t SILManagerCreate(uint64_t a1)
     }
 
     v3 = xnu_log::xnu_log;
-    if (os_log_type_enabled(xnu_log::xnu_log, OS_LOG_TYPE_INFO))
+    v4 = os_log_type_enabled(xnu_log::xnu_log, OS_LOG_TYPE_INFO);
+    if (v4)
     {
-      *v5 = 0;
-      _os_log_impl(&dword_262A43000, v3, OS_LOG_TYPE_INFO, "Creating SIL Manager...", v5, 2u);
+      *v9 = 0;
+      _os_log_impl(&dword_262A43000, v3, OS_LOG_TYPE_INFO, "Creating SIL Manager...", v9, 2u);
     }
 
-    if (SILServer_createSILServerClient())
+    SILServerClient = SILServer_createSILServerClient(v4, v5);
+    if (SILServerClient)
     {
       if (xnu_log::token != -1)
       {
@@ -1747,7 +1817,7 @@ uint64_t SILManagerCreate(uint64_t a1)
 
     else
     {
-      if (!SILServer_createRenderer())
+      if (!SILServer_createRenderer(SILServerClient, v7))
       {
         operator new();
       }
@@ -1767,10 +1837,10 @@ uint64_t SILManagerCreate(uint64_t a1)
   return 0;
 }
 
-void SILManagerCopyManifestDescription()
+void SILManagerCopyManifestDescription(unsigned int a1, unsigned int a2)
 {
-  v1 = *MEMORY[0x277D85DE8];
-  memset(&v0, 0, sizeof(v0));
+  v3 = *MEMORY[0x277D85DE8];
+  memset(&v2, 0, sizeof(v2));
   operator new();
 }
 
@@ -2235,10 +2305,10 @@ unint64_t closest_frame_for_time(const SILFrameDesc *a1, const SILFrameDesc *a2,
 
 double SILManagerGetCursorInfo@<D0>(_BYTE *a1@<X0>, uint64_t a2@<X8>)
 {
-  if (a1 && *a1 && -[SILManifest cursorTypeFromName:](+[SILManifest manifest](_TtC10SILManager11SILManifest, "manifest"), "cursorTypeFromName:", [MEMORY[0x277CCACA8] stringWithUTF8String:a1]) != -1)
+  if (a1 && *a1 && (v4 = -[SILManifest cursorTypeFromName:](+[SILManifest manifest](_TtC10SILManager11SILManifest, "manifest"), "cursorTypeFromName:", [MEMORY[0x277CCACA8] stringWithUTF8String:a1]), v4 != -1))
   {
 
-    return SILServer_getCursorInfo(a2);
+    return SILServer_getCursorInfo(v4, v5, a2);
   }
 
   else
@@ -2256,9 +2326,10 @@ double SILManagerGetCursorInfoWithParams@<D0>(uint64_t a1@<X0>, uint64_t a2@<X8>
   v3 = *(a1 + 8);
   if (v3 && *v3 && (v5 = -[SILManifest cursorTypeFromName:](+[SILManifest manifest](_TtC10SILManager11SILManifest, "manifest"), "cursorTypeFromName:", [MEMORY[0x277CCACA8] stringWithUTF8String:?]), v5 != -1))
   {
-    SILServer_updateCursorState(v5, *(a1 + 16), *(a1 + 20), 0xFFFFFFFF, 0xFFu, (a1 + 32));
+    v6 = v5;
+    SILServer_updateCursorState(v5, *(a1 + 16), *(a1 + 20), 0xFFFFFFFFLL, 255, (a1 + 32));
 
-    return SILServer_getCursorInfo(a2);
+    return SILServer_getCursorInfo(v6, v7, a2);
   }
 
   else
@@ -2310,7 +2381,7 @@ void std::__format::__allocating_buffer<char>::__grow_buffer[abi:ne200100](uint6
   }
 }
 
-uint64_t std::__vformat_to[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(uint64_t a1, unsigned __int8 *a2, uint64_t a3, uint64_t *a4)
+unsigned __int8 *std::__vformat_to[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(unsigned __int8 *a1, unsigned __int8 *a2, uint64_t a3, uint64_t *a4)
 {
   v4 = *a4;
   v14[0] = a2;
@@ -2348,7 +2419,7 @@ void sub_262A49A90(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::__format::__vformat_to[abi:ne200100]<std::basic_format_parse_context<char>,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unsigned __int8 **a1, uint64_t *a2)
+unsigned __int8 *std::__format::__vformat_to[abi:ne200100]<std::basic_format_parse_context<char>,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unsigned __int8 **a1, unsigned __int8 **a2)
 {
   v3 = *a1;
   v2 = a1[1];
@@ -2413,7 +2484,7 @@ void std::__throw_format_error[abi:ne200100](const char *a1)
   std::format_error::format_error[abi:ne200100](exception, a1);
 }
 
-unsigned __int8 *std::__format::__handle_replacement_field[abi:ne200100]<char const*,std::basic_format_parse_context<char>,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unsigned __int8 *a1, unsigned __int8 *a2, unsigned __int8 **a3, void *a4)
+unsigned __int8 *std::__format::__handle_replacement_field[abi:ne200100]<char const*,std::basic_format_parse_context<char>,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unsigned __int8 *a1, unsigned __int8 *a2, unsigned __int8 **a3, unsigned __int8 **a4)
 {
   v23 = *MEMORY[0x277D85DE8];
   v7 = std::__format::__parse_arg_id[abi:ne200100]<char const*,std::basic_format_parse_context<char>>(a1, a2, a3);
@@ -2449,18 +2520,18 @@ LABEL_5:
 
   else if (v10 > 0xC)
   {
-    v15 = (a4[2] + 32 * v8);
-    v16 = v15[1];
+    v15 = &a4[2][32 * v8];
+    v16 = *(v15 + 1);
     v21 = *v15;
     v22 = v16;
   }
 
   else
   {
-    v11 = (a4[2] + 16 * v8);
+    v11 = &a4[2][16 * v8];
     v13 = *v11;
-    v12 = v11[1];
-    v14 = (a4[3] >> (5 * v8)) & 0x1FLL;
+    v12 = *(v11 + 1);
+    v14 = (a4[3] >> (5 * v8)) & 0x1F;
     *&v21 = v13;
     *(&v21 + 1) = v12;
     LOBYTE(v22) = v14;
@@ -2527,7 +2598,7 @@ unsigned __int8 *std::__format::__parse_arg_id[abi:ne200100]<char const*,std::ba
   return std::__format::__detail::__parse_manual[abi:ne200100]<char const*,std::basic_format_parse_context<char>>(a1, a2, a3);
 }
 
-void *std::__visit_format_arg[abi:ne200100]<char const* std::__format::__handle_replacement_field[abi:ne200100]<char const*,std::basic_format_parse_context<char>,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(char const*,char const*,std::basic_format_parse_context<char> &,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char> &)::{lambda(char const*)#1},std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(uint64_t a1, unsigned __int8 *a2)
+uint64_t *std::__visit_format_arg[abi:ne200100]<char const* std::__format::__handle_replacement_field[abi:ne200100]<char const*,std::basic_format_parse_context<char>,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(char const*,char const*,std::basic_format_parse_context<char> &,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char> &)::{lambda(char const*)#1},std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unsigned __int8 ***a1, unsigned __int8 *a2)
 {
   switch(a2[16])
   {
@@ -2538,7 +2609,7 @@ void *std::__visit_format_arg[abi:ne200100]<char const* std::__format::__handle_
       v61 = 32;
       v62 = 0;
       v63 = 0;
-      if (**(a1 + 16) == 1)
+      if (*a1[2] == 1)
       {
         v4 = *a1;
         v5 = std::__format_spec::__parser<char>::__parse[abi:ne200100]<std::basic_format_parse_context<char>>(v60, *a1, 311);
@@ -2546,7 +2617,7 @@ void *std::__visit_format_arg[abi:ne200100]<char const* std::__format::__handle_
         *v4 = v5;
       }
 
-      v6 = *(a1 + 8);
+      v6 = a1[1];
       result = std::formatter<BOOL,char>::format[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v60, v3, v6);
       goto LABEL_65;
     case 2u:
@@ -2556,7 +2627,7 @@ void *std::__visit_format_arg[abi:ne200100]<char const* std::__format::__handle_
       v61 = 32;
       v62 = 0;
       v63 = 0;
-      if (**(a1 + 16) == 1)
+      if (*a1[2] == 1)
       {
         v27 = *a1;
         v28 = std::__format_spec::__parser<char>::__parse[abi:ne200100]<std::basic_format_parse_context<char>>(v60, *a1, 311);
@@ -2564,7 +2635,7 @@ void *std::__visit_format_arg[abi:ne200100]<char const* std::__format::__handle_
         *v27 = v28;
       }
 
-      v6 = *(a1 + 8);
+      v6 = a1[1];
       result = std::__formatter_char<char>::format[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v60, v26, v6);
       goto LABEL_65;
     case 3u:
@@ -2574,7 +2645,7 @@ void *std::__visit_format_arg[abi:ne200100]<char const* std::__format::__handle_
       v61 = 32;
       v62 = 0;
       v63 = 0;
-      if (**(a1 + 16) == 1)
+      if (*a1[2] == 1)
       {
         v30 = *a1;
         v31 = std::__format_spec::__parser<char>::__parse[abi:ne200100]<std::basic_format_parse_context<char>>(v60, *a1, 311);
@@ -2582,7 +2653,7 @@ void *std::__visit_format_arg[abi:ne200100]<char const* std::__format::__handle_
         *v30 = v31;
       }
 
-      v6 = *(a1 + 8);
+      v6 = a1[1];
       result = std::__formatter_integer<char>::format[abi:ne200100]<int,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v60, v29, v6);
       goto LABEL_65;
     case 4u:
@@ -2592,7 +2663,7 @@ void *std::__visit_format_arg[abi:ne200100]<char const* std::__format::__handle_
       v61 = 32;
       v62 = 0;
       v63 = 0;
-      if (**(a1 + 16) == 1)
+      if (*a1[2] == 1)
       {
         v17 = *a1;
         v18 = std::__format_spec::__parser<char>::__parse[abi:ne200100]<std::basic_format_parse_context<char>>(v60, *a1, 311);
@@ -2600,7 +2671,7 @@ void *std::__visit_format_arg[abi:ne200100]<char const* std::__format::__handle_
         *v17 = v18;
       }
 
-      v6 = *(a1 + 8);
+      v6 = a1[1];
       result = std::__formatter_integer<char>::format[abi:ne200100]<long long,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v60, v16, v6);
       goto LABEL_65;
     case 5u:
@@ -2611,7 +2682,7 @@ void *std::__visit_format_arg[abi:ne200100]<char const* std::__format::__handle_
       v61 = 32;
       v62 = 0;
       v63 = 0;
-      if (**(a1 + 16) == 1)
+      if (*a1[2] == 1)
       {
         v37 = *a1;
         v38 = std::__format_spec::__parser<char>::__parse[abi:ne200100]<std::basic_format_parse_context<char>>(v60, *a1, 311);
@@ -2619,7 +2690,7 @@ void *std::__visit_format_arg[abi:ne200100]<char const* std::__format::__handle_
         *v37 = v38;
       }
 
-      v6 = *(a1 + 8);
+      v6 = a1[1];
       result = std::__formatter_integer<char>::format[abi:ne200100]<__int128,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v60, v36, v35, v6);
       goto LABEL_65;
     case 6u:
@@ -2629,7 +2700,7 @@ void *std::__visit_format_arg[abi:ne200100]<char const* std::__format::__handle_
       v61 = 32;
       v62 = 0;
       v63 = 0;
-      if (**(a1 + 16) == 1)
+      if (*a1[2] == 1)
       {
         v33 = *a1;
         v34 = std::__format_spec::__parser<char>::__parse[abi:ne200100]<std::basic_format_parse_context<char>>(v60, *a1, 311);
@@ -2637,7 +2708,7 @@ void *std::__visit_format_arg[abi:ne200100]<char const* std::__format::__handle_
         *v33 = v34;
       }
 
-      v6 = *(a1 + 8);
+      v6 = a1[1];
       result = std::__formatter_integer<char>::format[abi:ne200100]<unsigned int,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v60, v32, v6);
       goto LABEL_65;
     case 7u:
@@ -2647,7 +2718,7 @@ void *std::__visit_format_arg[abi:ne200100]<char const* std::__format::__handle_
       v61 = 32;
       v62 = 0;
       v63 = 0;
-      if (**(a1 + 16) == 1)
+      if (*a1[2] == 1)
       {
         v43 = *a1;
         v44 = std::__format_spec::__parser<char>::__parse[abi:ne200100]<std::basic_format_parse_context<char>>(v60, *a1, 311);
@@ -2655,7 +2726,7 @@ void *std::__visit_format_arg[abi:ne200100]<char const* std::__format::__handle_
         *v43 = v44;
       }
 
-      v6 = *(a1 + 8);
+      v6 = a1[1];
       result = std::__formatter_integer<char>::format[abi:ne200100]<unsigned long long,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v60, v42, v6);
       goto LABEL_65;
     case 8u:
@@ -2666,7 +2737,7 @@ void *std::__visit_format_arg[abi:ne200100]<char const* std::__format::__handle_
       v61 = 32;
       v62 = 0;
       v63 = 0;
-      if (**(a1 + 16) == 1)
+      if (*a1[2] == 1)
       {
         v24 = *a1;
         v25 = std::__format_spec::__parser<char>::__parse[abi:ne200100]<std::basic_format_parse_context<char>>(v60, *a1, 311);
@@ -2674,7 +2745,7 @@ void *std::__visit_format_arg[abi:ne200100]<char const* std::__format::__handle_
         *v24 = v25;
       }
 
-      v6 = *(a1 + 8);
+      v6 = a1[1];
       result = std::__formatter_integer<char>::format[abi:ne200100]<unsigned __int128,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v60, v23, v22, v6);
       goto LABEL_65;
     case 9u:
@@ -2684,7 +2755,7 @@ void *std::__visit_format_arg[abi:ne200100]<char const* std::__format::__handle_
       v61 = 32;
       v62 = 0;
       v63 = 0;
-      if (**(a1 + 16) != 1)
+      if (*a1[2] != 1)
       {
         goto LABEL_56;
       }
@@ -2701,7 +2772,7 @@ void *std::__visit_format_arg[abi:ne200100]<char const* std::__format::__handle_
 LABEL_55:
         *v20 = v21;
 LABEL_56:
-        v6 = *(a1 + 8);
+        v6 = a1[1];
         v54 = std::__format_spec::__parser<char>::__get_parsed_std_specifications[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v60, v6);
         result = std::__formatter::__format_floating_point[abi:ne200100]<float,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v6, v54, v55, v19);
         goto LABEL_65;
@@ -2720,7 +2791,7 @@ LABEL_56:
       v61 = 32;
       v62 = 0;
       v63 = 0;
-      if (**(a1 + 16) != 1)
+      if (*a1[2] != 1)
       {
         goto LABEL_64;
       }
@@ -2737,7 +2808,7 @@ LABEL_56:
 LABEL_63:
         *v46 = v47;
 LABEL_64:
-        v6 = *(a1 + 8);
+        v6 = a1[1];
         v58 = std::__format_spec::__parser<char>::__get_parsed_std_specifications[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v60, v6);
         result = std::__formatter::__format_floating_point[abi:ne200100]<double,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v6, v58, v59, v45);
         goto LABEL_65;
@@ -2756,7 +2827,7 @@ LABEL_64:
       v61 = 32;
       v62 = 0;
       v63 = 0;
-      if (**(a1 + 16) != 1)
+      if (*a1[2] != 1)
       {
         goto LABEL_60;
       }
@@ -2779,7 +2850,7 @@ LABEL_67:
 
       *v40 = v41;
 LABEL_60:
-      v6 = *(a1 + 8);
+      v6 = a1[1];
       v56 = std::__format_spec::__parser<char>::__get_parsed_std_specifications[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v60, v6);
       result = std::__formatter::__format_floating_point[abi:ne200100]<long double,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v6, v56, v57, v39);
 LABEL_65:
@@ -2792,13 +2863,13 @@ LABEL_65:
       v61 = 32;
       v62 = 0;
       v63 = 0;
-      if (**(a1 + 16) == 1)
+      if (*a1[2] == 1)
       {
         v49 = *a1;
         *v49 = std::__formatter_string<char>::parse[abi:ne200100]<std::basic_format_parse_context<char>>(v60, *a1);
       }
 
-      v6 = *(a1 + 8);
+      v6 = a1[1];
       result = std::formatter<char const*,char>::format[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v60, v48, v6);
       goto LABEL_65;
     case 0xDu:
@@ -2809,13 +2880,13 @@ LABEL_65:
       v61 = 32;
       v62 = 0;
       v63 = 0;
-      if (**(a1 + 16) == 1)
+      if (*a1[2] == 1)
       {
         v12 = *a1;
         *v12 = std::__formatter_string<char>::parse[abi:ne200100]<std::basic_format_parse_context<char>>(v60, *a1);
       }
 
-      v6 = *(a1 + 8);
+      v6 = a1[1];
       v13 = *v6;
       v14 = std::__format_spec::__parser<char>::__get_parsed_std_specifications[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v60, v6);
       result = std::__formatter::__write_string[abi:ne200100]<char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(v10, v11, v13, v14, v15);
@@ -2827,20 +2898,20 @@ LABEL_65:
       v61 = 32;
       v62 = 0;
       v63 = 0;
-      if (**(a1 + 16) == 1)
+      if (*a1[2] == 1)
       {
         v9 = *a1;
         *v9 = std::__formatter_pointer<char>::parse[abi:ne200100]<std::basic_format_parse_context<char>>(v60, *a1);
       }
 
-      v6 = *(a1 + 8);
+      v6 = a1[1];
       result = std::__formatter_pointer<char>::format[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v60, v8, v6);
       goto LABEL_65;
     case 0xFu:
       v50 = *a1;
       v51 = *a2;
       v52 = *(a2 + 1);
-      v53 = *(a1 + 8);
+      v53 = a1[1];
 
       return v52(v50, v53, v51);
     default:
@@ -2947,7 +3018,7 @@ LABEL_9:
   return result;
 }
 
-void *std::formatter<BOOL,char>::format[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(uint64_t a1, unsigned int a2, void *a3)
+void *std::formatter<BOOL,char>::format[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(uint64_t a1, uint64_t a2, uint64_t **a3)
 {
   if (*(a1 + 1) > 1u)
   {
@@ -3064,9 +3135,9 @@ LABEL_23:
   return result;
 }
 
-uint64_t std::__format_spec::__process_parsed_BOOL[abi:ne200100]<char>(uint64_t result, const char *a2)
+_BYTE *std::__format_spec::__process_parsed_BOOL[abi:ne200100]<char>(_BYTE *result, const char *a2)
 {
-  v2 = *(result + 1);
+  v2 = result[1];
   if (v2 - 2 >= 6)
   {
     if (v2 > 1)
@@ -3197,9 +3268,9 @@ BOOL std::__format_spec::__parser<char>::__parse_precision[abi:ne200100]<char co
   v5 = **a2;
   if (v5 == 46)
   {
-    v8 = v4 + 1;
-    *a2 = v4 + 1;
-    if (v4 + 1 == a3)
+    v8 = (v4 + 1);
+    *a2 = (v4 + 1);
+    if ((v4 + 1) == a3)
     {
       std::__throw_format_error[abi:ne200100]("End of input while parsing format specifier precision");
     }
@@ -3207,8 +3278,8 @@ BOOL std::__format_spec::__parser<char>::__parse_precision[abi:ne200100]<char co
     v9 = *v8;
     if (v9 == 123)
     {
-      *a2 = v4 + 2;
-      v10 = std::__format_spec::__parse_arg_id[abi:ne200100]<char const*,std::basic_format_parse_context<char>>(v4 + 2, a3, a4);
+      *a2 = (v4 + 2);
+      v10 = std::__format_spec::__parse_arg_id[abi:ne200100]<char const*,std::basic_format_parse_context<char>>((v4 + 2), a3, a4);
       *(a1 + 2) |= 0x8000u;
       *(a1 + 8) = v11;
     }
@@ -3577,7 +3648,7 @@ void sub_262A4B1EC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -3591,17 +3662,17 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
-void *std::__formatter::__format_BOOL[abi:ne200100]<char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(int a1, void **a2, uint64_t a3, unint64_t a4)
+void *std::__formatter::__format_BOOL[abi:ne200100]<char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(int a1, uint64_t *a2, uint64_t a3, unint64_t a4)
 {
   if ((a3 & 0x40) != 0)
   {
@@ -3694,7 +3765,7 @@ unint64_t std::__format_spec::__parser<char>::__get_parsed_std_specifications[ab
   return (v5 << 8) | (v6 << 32) | v4 & 0x7F;
 }
 
-void *std::__formatter::__format_integer[abi:ne200100]<unsigned int,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unsigned int a1, void **a2, unint64_t a3, unint64_t a4, char a5)
+void *std::__formatter::__format_integer[abi:ne200100]<unsigned int,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(uint64_t a1, uint64_t **a2, unint64_t a3, unint64_t a4, char a5)
 {
   v14 = *MEMORY[0x277D85DE8];
   if (BYTE1(a3) <= 3u)
@@ -3802,7 +3873,7 @@ uint64_t std::optional<std::locale>::operator=[abi:ne200100]<std::locale,void>(u
   return a1;
 }
 
-uint64_t std::__format_spec::__estimate_column_width[abi:ne200100]<char,char const*>(unsigned __int8 *a1, uint64_t a2, unint64_t a3, int a4)
+unint64_t std::__format_spec::__estimate_column_width[abi:ne200100]<char,char const*>(char *a1, uint64_t a2, unint64_t a3, int a4)
 {
   result = 0;
   if (a2 && a3)
@@ -3922,12 +3993,12 @@ void *std::__format::__output_buffer<char>::__copy[abi:ne200100]<char>(void *res
   v10 = result[2];
   do
   {
-    v11 = *(v4 + 8) - v10;
+    v11 = v4[1] - v10;
     if (v11 < v8 + 1)
     {
-      result = (*(v4 + 24))(v4, v8 + 2);
-      v10 = *(v4 + 16);
-      v11 = *(v4 + 8) - v10;
+      result = (v4[3])(v4, v8 + 2);
+      v10 = v4[2];
+      v11 = v4[1] - v10;
     }
 
     if (v11 >= v8)
@@ -3943,11 +4014,11 @@ void *std::__format::__output_buffer<char>::__copy[abi:ne200100]<char>(void *res
     if (v12)
     {
       result = memmove((*v4 + v10), __src, v12);
-      v10 = *(v4 + 16);
+      v10 = v4[2];
     }
 
     v10 += v12;
-    *(v4 + 16) = v10;
+    v4[2] = v10;
     __src += v12;
     v13 = v8 > v11;
     v8 -= v12;
@@ -4012,8 +4083,9 @@ uint64_t std::__width_estimation_table::__estimated_width[abi:ne200100](unsigned
   return v1;
 }
 
-uint64_t std::__unicode::__extended_grapheme_cluster_break::__extended_grapheme_cluster_break[abi:ne200100](uint64_t a1, unsigned int a2)
+uint64_t std::__unicode::__extended_grapheme_cluster_break::__extended_grapheme_cluster_break[abi:ne200100](uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   *a1 = a2;
   v4 = std::__extended_grapheme_custer_property_boundary::__get_property[abi:ne200100](a2);
   *(a1 + 4) = v4;
@@ -4033,7 +4105,7 @@ LABEL_7:
     return a1;
   }
 
-  if (!std::__indic_conjunct_break::__get_property[abi:ne200100](a2))
+  if (!std::__indic_conjunct_break::__get_property[abi:ne200100](v2))
   {
     v5 = 1;
     goto LABEL_7;
@@ -4128,7 +4200,7 @@ uint64_t std::__indic_conjunct_break::__get_property[abi:ne200100](unsigned int 
   return v7;
 }
 
-uint64_t std::__unicode::__extended_grapheme_cluster_break::__evaluate[abi:ne200100](uint64_t a1, unsigned int a2, unsigned int a3)
+uint64_t std::__unicode::__extended_grapheme_cluster_break::__evaluate[abi:ne200100](uint64_t a1, uint64_t a2, unsigned int a3)
 {
   v3 = *(a1 + 8);
   if (v3 > 1)
@@ -4394,12 +4466,12 @@ LABEL_8:
     v10 = result[2];
     do
     {
-      v11 = *(v5 + 8) - v10;
+      v11 = v5[1] - v10;
       if (v11 < v4 + 1)
       {
-        result = (*(v5 + 24))(v5, v4 + 2);
-        v10 = *(v5 + 16);
-        v11 = *(v5 + 8) - v10;
+        result = (v5[3])(v5, v4 + 2);
+        v10 = v5[2];
+        v11 = v5[1] - v10;
       }
 
       if (v11 >= v4)
@@ -4415,11 +4487,11 @@ LABEL_8:
       if (v12)
       {
         result = memset((*v5 + v10), __c, v12);
-        v10 = *(v5 + 16);
+        v10 = v5[2];
       }
 
       v10 += v12;
-      *(v5 + 16) = v10;
+      v5[2] = v10;
       v13 = v4 > v11;
       v4 -= v12;
     }
@@ -4512,7 +4584,7 @@ unint64_t std::__format_spec::__parser<char>::__get_precision[abi:ne200100]<std:
   return std::__visit_format_arg[abi:ne200100]<unsigned int std::__format_spec::__substitute_arg_id[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(std::basic_format_arg<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>)::{lambda(std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>)#1},std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(&v9, v11);
 }
 
-unint64_t std::__visit_format_arg[abi:ne200100]<unsigned int std::__format_spec::__substitute_arg_id[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(std::basic_format_arg<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>)::{lambda(std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>)#1},std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(uint64_t a1, unint64_t *a2)
+unint64_t std::__visit_format_arg[abi:ne200100]<unsigned int std::__format_spec::__substitute_arg_id[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(std::basic_format_arg<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>)::{lambda(std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>)#1},std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(uint64_t a1, unsigned int *a2)
 {
   switch(*(a2 + 16))
   {
@@ -4577,7 +4649,7 @@ unint64_t std::invoke[abi:ne200100]<unsigned int std::__format_spec::__substitut
   return result;
 }
 
-void *std::__formatter::__format_integer[abi:ne200100]<unsigned int,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unsigned int a1, void **a2, unint64_t a3, unint64_t a4, char a5, char *a6, uint64_t a7, _BYTE *a8, unsigned int a9)
+void *std::__formatter::__format_integer[abi:ne200100]<unsigned int,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(uint64_t a1, uint64_t **a2, unint64_t a3, unint64_t a4, char a5, char *a6, uint64_t a7, char *a8, unsigned int a9)
 {
   v9 = a6;
   v13 = a3;
@@ -4615,8 +4687,7 @@ LABEL_8:
         v18 = a8 + 1;
         do
         {
-          *v16 = v17;
-          v16 = (v16 + 1);
+          *v16++ = v17;
           v19 = *v18++;
           v17 = v19;
         }
@@ -4794,9 +4865,10 @@ void sub_262A4C644(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::__formatter::__write_using_decimal_separators[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char *,char>(void *a1, char *__src, char *a3, int a4, uint64_t *a5, char a6, uint64_t a7, unint64_t a8)
+void *std::__formatter::__write_using_decimal_separators[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char *,char>(uint64_t *a1, char *__src, char *a3, int a4, uint64_t *a5, uint64_t a6, uint64_t a7, unint64_t a8)
 {
   v8 = a7;
+  v9 = a6;
   v11 = a3;
   v13 = a1;
   v14 = HIDWORD(a7);
@@ -4861,7 +4933,7 @@ LABEL_17:
 
   else
   {
-    v24 = (*a5 + a5[1]);
+    v24 = *a5 + a5[1];
   }
 
   if (v22 >= 0)
@@ -4898,7 +4970,7 @@ LABEL_17:
       break;
     }
 
-    std::__format::__output_buffer<char>::push_back[abi:ne200100](v13, a6);
+    std::__format::__output_buffer<char>::push_back[abi:ne200100](v13, v9);
   }
 
   return std::__formatter::__fill[abi:ne200100]<char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(v13, v19, v15);
@@ -4955,7 +5027,7 @@ uint64_t std::__formatter::__hex_to_upper[abi:ne200100](int a1)
   }
 }
 
-char *std::__to_chars_integral[abi:ne200100]<unsigned int>(_WORD *a1, uint64_t a2, unsigned int a3, unsigned int a4)
+char *std::__to_chars_integral[abi:ne200100]<unsigned int>(_WORD *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v4 = a2;
   HIDWORD(v6) = a4 - 2;
@@ -4976,6 +5048,8 @@ char *std::__to_chars_integral[abi:ne200100]<unsigned int>(_WORD *a1, uint64_t a
     if (v5 != 7)
     {
       v10 = a2 - a1;
+      v16 = a4;
+      v17 = a3;
       v11 = std::__to_chars_integral_width[abi:ne200100]<unsigned int>(a3, a4);
       if (v10 < v11)
       {
@@ -4983,13 +5057,13 @@ char *std::__to_chars_integral[abi:ne200100]<unsigned int>(_WORD *a1, uint64_t a
       }
 
       v4 = a1 + v11;
-      v12 = v4 - 1;
-      v13 = a3;
+      v12 = (v4 - 1);
+      v13 = v17;
       do
       {
-        *v12-- = a0123456789abcd[v13 % a4];
-        v14 = v13 >= a4;
-        v13 /= a4;
+        *v12-- = a0123456789abcd[v13 % v16];
+        v14 = v13 >= v16;
+        v13 /= v16;
       }
 
       while (v14);
@@ -5369,7 +5443,7 @@ uint64_t std::__format::__output_buffer<char>::__transform[abi:ne200100]<char *,
   return result;
 }
 
-void *std::__formatter_char<char>::format[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(uint64_t a1, unsigned __int8 a2, void *a3)
+void *std::__formatter_char<char>::format[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(uint64_t a1, unsigned __int8 a2, uint64_t **a3)
 {
   v5 = *(a1 + 1);
   if (v5 == 10 || v5 == 0)
@@ -5388,9 +5462,9 @@ void *std::__formatter_char<char>::format[abi:ne200100]<std::basic_format_contex
   }
 }
 
-uint64_t std::__format_spec::__process_parsed_char[abi:ne200100]<char>(uint64_t result, const char *a2)
+_BYTE *std::__format_spec::__process_parsed_char[abi:ne200100]<char>(_BYTE *result, const char *a2)
 {
-  v2 = *(result + 1);
+  v2 = result[1];
   if (v2 - 2 >= 6)
   {
     v3 = v2 > 0x13;
@@ -5411,7 +5485,7 @@ uint64_t std::__format_spec::__process_parsed_char[abi:ne200100]<char>(uint64_t 
   return result;
 }
 
-void *std::__formatter_integer<char>::format[abi:ne200100]<int,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(char *a1, int a2, void *a3)
+void *std::__formatter_integer<char>::format[abi:ne200100]<int,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(char *a1, int a2, uint64_t **a3)
 {
   v6 = std::__format_spec::__parser<char>::__get_parsed_std_specifications[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a3);
   v7 = v5;
@@ -5438,9 +5512,9 @@ void *std::__formatter_integer<char>::format[abi:ne200100]<int,std::basic_format
   }
 }
 
-uint64_t std::__format_spec::__process_parsed_integer[abi:ne200100]<char>(uint64_t result, const char *a2)
+_BYTE *std::__format_spec::__process_parsed_integer[abi:ne200100]<char>(_BYTE *result, const char *a2)
 {
-  v2 = *(result + 1);
+  v2 = result[1];
   if ((v2 - 2) >= 6 && v2 != 0)
   {
     if (v2 != 10)
@@ -5470,7 +5544,7 @@ void *std::__formatter::__format_char[abi:ne200100]<char,int,std::back_insert_it
   return std::__formatter::__write[abi:ne200100]<char,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(&__src, 1uLL, a2, a3, a4, 1);
 }
 
-void *std::__formatter_integer<char>::format[abi:ne200100]<long long,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(char *a1, uint64_t a2, void *a3)
+void *std::__formatter_integer<char>::format[abi:ne200100]<long long,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(char *a1, uint64_t a2, uint64_t **a3)
 {
   v6 = std::__format_spec::__parser<char>::__get_parsed_std_specifications[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a3);
   v7 = v5;
@@ -5508,14 +5582,14 @@ void *std::__formatter::__format_char[abi:ne200100]<char,long long,std::back_ins
   return std::__formatter::__write[abi:ne200100]<char,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(&__src, 1uLL, a2, a3, a4, 1);
 }
 
-void *std::__formatter::__format_integer[abi:ne200100]<unsigned long long,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unint64_t a1, void **a2, unint64_t a3, unint64_t a4, char a5)
+void *std::__formatter::__format_integer[abi:ne200100]<unsigned long long,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unint64_t a1, uint64_t **a2, unint64_t a3, unint64_t a4, char a5)
 {
   v13 = *MEMORY[0x277D85DE8];
   if (BYTE1(a3) <= 3u)
   {
     if (!BYTE1(a3))
     {
-      return std::__formatter::__format_integer[abi:ne200100]<unsigned long long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, a4, a5, v11, &v12 + 2, 0, 10);
+      return std::__formatter::__format_integer[abi:ne200100]<unsigned long long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, a4, a5, v11, &v12 + 2, 0, 0xAu);
     }
 
     v10 = 2;
@@ -5556,7 +5630,7 @@ void *std::__formatter::__format_integer[abi:ne200100]<unsigned long long,char,s
 
   if (BYTE1(a3) != 4)
   {
-    return std::__formatter::__format_integer[abi:ne200100]<unsigned long long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, a4, a5, v11, &v12 + 2, 0, 10);
+    return std::__formatter::__format_integer[abi:ne200100]<unsigned long long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, a4, a5, v11, &v12 + 2, 0, 0xAu);
   }
 
   if (a1)
@@ -5569,10 +5643,10 @@ void *std::__formatter::__format_integer[abi:ne200100]<unsigned long long,char,s
     v5 = 0;
   }
 
-  return std::__formatter::__format_integer[abi:ne200100]<unsigned long long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3 & 0xFFFFFFFFFFFF00FFLL | 0x400, a4, a5, v11, &v12 + 5, v5, 8);
+  return std::__formatter::__format_integer[abi:ne200100]<unsigned long long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3 & 0xFFFFFFFFFFFF00FFLL | 0x400, a4, a5, v11, &v12 + 5, v5, 8u);
 }
 
-void *std::__formatter::__format_integer[abi:ne200100]<unsigned long long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unint64_t a1, void **a2, unint64_t a3, unint64_t a4, char a5, char *a6, uint64_t a7, _BYTE *a8, signed int a9)
+void *std::__formatter::__format_integer[abi:ne200100]<unsigned long long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unint64_t a1, uint64_t **a2, unint64_t a3, unint64_t a4, char a5, char *a6, char *a7, char *a8, unsigned int a9)
 {
   v9 = a6;
   v13 = a3;
@@ -5788,7 +5862,7 @@ void sub_262A4D988(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-char *std::__to_chars_integral[abi:ne200100]<unsigned long long>(char *a1, uint64_t a2, unint64_t a3, signed int a4)
+char *std::__to_chars_integral[abi:ne200100]<unsigned long long>(char *a1, char *a2, unint64_t a3, uint64_t a4)
 {
   v4 = a3;
   v5 = a2;
@@ -5811,6 +5885,7 @@ char *std::__to_chars_integral[abi:ne200100]<unsigned long long>(char *a1, uint6
     {
       v12 = a1;
       v13 = a2 - a1;
+      v14 = a4;
       v15 = std::__to_chars_integral_width[abi:ne200100]<unsigned long long>(a3, a4);
       if (v13 < v15)
       {
@@ -5818,12 +5893,12 @@ char *std::__to_chars_integral[abi:ne200100]<unsigned long long>(char *a1, uint6
       }
 
       v5 = &v12[v15];
-      v16 = (v5 - 1);
+      v16 = v5 - 1;
       do
       {
-        *v16-- = a0123456789abcd[(v4 % a4)];
-        v17 = v4 >= a4;
-        v4 /= a4;
+        *v16-- = a0123456789abcd[(v4 % v14)];
+        v17 = v4 >= v14;
+        v4 /= v14;
       }
 
       while (v17);
@@ -6028,7 +6103,7 @@ uint64_t std::__itoa::__integral<16u>::__to_chars[abi:ne200100]<unsigned long lo
   return v4;
 }
 
-void *std::__formatter_integer<char>::format[abi:ne200100]<__int128,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(char *a1, unint64_t a2, uint64_t a3, void *a4)
+void *std::__formatter_integer<char>::format[abi:ne200100]<__int128,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(char *a1, unint64_t a2, uint64_t a3, uint64_t **a4)
 {
   v8 = std::__format_spec::__parser<char>::__get_parsed_std_specifications[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a4);
   if ((v8 & 0xFF00) == 0xA00)
@@ -6057,14 +6132,14 @@ void *std::__formatter::__format_char[abi:ne200100]<char,__int128,std::back_inse
   return std::__formatter::__write[abi:ne200100]<char,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(&__src, 1uLL, a3, a4, a5, 1);
 }
 
-void *std::__formatter::__format_integer[abi:ne200100]<unsigned __int128,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unint64_t a1, unint64_t a2, void **a3, unint64_t a4, unint64_t a5, char a6)
+void *std::__formatter::__format_integer[abi:ne200100]<unsigned __int128,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unint64_t a1, unint64_t a2, uint64_t **a3, unint64_t a4, unint64_t a5, char a6)
 {
   v15 = *MEMORY[0x277D85DE8];
   if (BYTE1(a4) <= 3u)
   {
     if (!BYTE1(a4))
     {
-      return std::__formatter::__format_integer[abi:ne200100]<unsigned __int128,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, a4, a5, a6, v12, &v13 + 5, 0, 10);
+      return std::__formatter::__format_integer[abi:ne200100]<unsigned __int128,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, a4, a5, a6, v12, &v13 + 5, 0, 0xAu);
     }
 
     v11 = 2;
@@ -6105,7 +6180,7 @@ void *std::__formatter::__format_integer[abi:ne200100]<unsigned __int128,char,st
 
   if (BYTE1(a4) != 4)
   {
-    return std::__formatter::__format_integer[abi:ne200100]<unsigned __int128,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, a4, a5, a6, v12, &v13 + 5, 0, 10);
+    return std::__formatter::__format_integer[abi:ne200100]<unsigned __int128,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, a4, a5, a6, v12, &v13 + 5, 0, 0xAu);
   }
 
   if (a1 | a2)
@@ -6118,10 +6193,10 @@ void *std::__formatter::__format_integer[abi:ne200100]<unsigned __int128,char,st
     v6 = 0;
   }
 
-  return std::__formatter::__format_integer[abi:ne200100]<unsigned __int128,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, a4 & 0xFFFFFFFFFFFF00FFLL | 0x400, a5, a6, v12, v14, v6, 8);
+  return std::__formatter::__format_integer[abi:ne200100]<unsigned __int128,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, a4 & 0xFFFFFFFFFFFF00FFLL | 0x400, a5, a6, v12, v14, v6, 8u);
 }
 
-void *std::__formatter::__format_integer[abi:ne200100]<unsigned __int128,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unint64_t a1, unint64_t a2, void **a3, unint64_t a4, unint64_t a5, char a6, char *a7, uint64_t a8, _BYTE *a9, signed int a10)
+void *std::__formatter::__format_integer[abi:ne200100]<unsigned __int128,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unint64_t a1, unint64_t a2, uint64_t **a3, unint64_t a4, unint64_t a5, char a6, char *a7, char *a8, char *a9, unsigned int a10)
 {
   v10 = a7;
   v14 = a4;
@@ -6337,7 +6412,7 @@ void sub_262A4E434(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-char *std::__to_chars_integral[abi:ne200100]<unsigned __int128>(char *a1, uint64_t a2, unint64_t a3, unint64_t a4, signed int a5)
+char *std::__to_chars_integral[abi:ne200100]<unsigned __int128>(char *a1, char *a2, unint64_t a3, unint64_t a4, uint64_t a5)
 {
   v5 = a4;
   v6 = a3;
@@ -6359,18 +6434,19 @@ char *std::__to_chars_integral[abi:ne200100]<unsigned __int128>(char *a1, uint64
 
     if (v8 != 7)
     {
+      v16 = a5;
       v17 = a1;
       v18 = a2 - a1;
       v19 = std::__to_chars_integral_width[abi:ne200100]<unsigned __int128>(a3, a4, a5);
       if (v18 >= v19)
       {
         v7 = &v17[v19];
-        v20 = (v7 - 1);
+        v20 = v7 - 1;
         do
         {
           v21 = __udivti3();
-          v22 = __PAIR128__(v5, v6) >= a5;
-          *v20-- = a0123456789abcd[(v6 - v21 * a5)];
+          v22 = __PAIR128__(v5, v6) >= v16;
+          *v20-- = a0123456789abcd[(v6 - v21 * v16)];
           v6 = v21;
           v5 = v23;
         }
@@ -6418,7 +6494,7 @@ char *std::__to_chars_integral[abi:ne200100]<unsigned __int128>(char *a1, uint64
   return v7;
 }
 
-uint64_t std::__to_chars_integral_width[abi:ne200100]<unsigned __int128>(uint64_t a1, unint64_t a2, unsigned int a3)
+uint64_t std::__to_chars_integral_width[abi:ne200100]<unsigned __int128>(unint64_t a1, unint64_t a2, unsigned int a3)
 {
   if (__PAIR128__(a2, a1) < a3)
   {
@@ -6679,7 +6755,7 @@ uint64_t std::__itoa::__integral<16u>::__to_chars[abi:ne200100]<unsigned __int12
   return v7;
 }
 
-void *std::__formatter_integer<char>::format[abi:ne200100]<unsigned int,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(char *a1, unsigned int a2, void *a3)
+void *std::__formatter_integer<char>::format[abi:ne200100]<unsigned int,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(char *a1, uint64_t a2, uint64_t **a3)
 {
   v6 = std::__format_spec::__parser<char>::__get_parsed_std_specifications[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a3);
   v7 = v5;
@@ -6708,7 +6784,7 @@ void *std::__formatter::__format_char[abi:ne200100]<char,unsigned int,std::back_
   return std::__formatter::__write[abi:ne200100]<char,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(&__src, 1uLL, a2, a3, a4, 1);
 }
 
-void *std::__formatter_integer<char>::format[abi:ne200100]<unsigned long long,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(char *a1, unint64_t a2, void *a3)
+void *std::__formatter_integer<char>::format[abi:ne200100]<unsigned long long,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(char *a1, unint64_t a2, uint64_t **a3)
 {
   v6 = std::__format_spec::__parser<char>::__get_parsed_std_specifications[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a3);
   v7 = v5;
@@ -6737,7 +6813,7 @@ void *std::__formatter::__format_char[abi:ne200100]<char,unsigned long long,std:
   return std::__formatter::__write[abi:ne200100]<char,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(&__src, 1uLL, a2, a3, a4, 1);
 }
 
-void *std::__formatter_integer<char>::format[abi:ne200100]<unsigned __int128,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(char *a1, unint64_t a2, unint64_t a3, void *a4)
+void *std::__formatter_integer<char>::format[abi:ne200100]<unsigned __int128,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(char *a1, unint64_t a2, unint64_t a3, uint64_t **a4)
 {
   v8 = std::__format_spec::__parser<char>::__get_parsed_std_specifications[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a4);
   if ((v8 & 0xFF00) == 0xA00)
@@ -6765,7 +6841,7 @@ void *std::__formatter::__format_char[abi:ne200100]<char,unsigned __int128,std::
   return std::__formatter::__write[abi:ne200100]<char,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(&__src, 1uLL, a3, a4, a5, 1);
 }
 
-void *std::__formatter::__format_floating_point[abi:ne200100]<float,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(void **a1, uint64_t a2, unint64_t a3, float a4)
+uint64_t *std::__formatter::__format_floating_point[abi:ne200100]<float,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(uint64_t **a1, uint64_t a2, unint64_t a3, float a4)
 {
   v43[32] = *MEMORY[0x277D85DE8];
   if ((LODWORD(a4) & 0x7FFFFFFFu) >= 0x7F800000)
@@ -7029,7 +7105,7 @@ LABEL_8:
   return std::__formatter::__write[abi:ne200100]<char,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(&__src, p_src - &__src + 3, a1, a2 & 0xFFFFFFFFFFFFFF00 | v11, a3, p_src - &__src + 3);
 }
 
-char *std::__formatter::__format_buffer[abi:ne200100]<float,float>@<X0>(unsigned int *a1@<X0>, char a2@<W1>, int a3@<W2>, int a4@<W3>, int a5@<W4>, char **a6@<X8>, float a7@<S0>)
+std::__1 *std::__formatter::__format_buffer[abi:ne200100]<float,float>@<X0>(unsigned int *a1@<X0>, char a2@<W1>, int a3@<W2>, int a4@<W3>, int a5@<W4>, std::__1 **a6@<X8>, float a7@<S0>)
 {
   v9 = *(a1 + 2);
   if (a2)
@@ -7074,7 +7150,7 @@ LABEL_8:
         v14 = 0;
       }
 
-      a6[1] = &result[-v14];
+      a6[1] = (result - v14);
       return result;
     }
 
@@ -7151,7 +7227,7 @@ LABEL_35:
   return std::__formatter::__format_buffer_hexadecimal_upper_case[abi:ne200100]<float,float>(a1, v17, v9, a6);
 }
 
-void *std::__formatter::__format_locale_specific_form[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,float,char>(void *a1, uint64_t a2, char **a3, std::locale *this, uint64_t a5, unint64_t a6)
+void *std::__formatter::__format_locale_specific_form[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,float,char>(uint64_t *a1, uint64_t a2, char **a3, std::locale *this, uint64_t a5, unint64_t a6)
 {
   v11 = std::locale::use_facet(this, MEMORY[0x277D826C0]);
   (v11->__vftable[1].__on_zero_shared)(&__p);
@@ -7458,7 +7534,7 @@ _BYTE *std::__formatter::__format_buffer_general_lower_case[abi:ne200100]<float,
   v6 = MEMORY[0x2667305A0](a3, *(a1 + 16) + *(a1 + 8), 3, a2);
   a4[3] = v6;
   result = (a3 + 1);
-  if (a3 + 1 == v6)
+  if ((a3 + 1) == v6)
   {
     a4[1] = v6;
     v11 = 2;
@@ -7481,7 +7557,7 @@ LABEL_8:
     }
 
     v10 = -v9;
-    while (*(v6 + v10) != 101)
+    while (v6[v10] != 101)
     {
       if (++v10 == -3)
       {
@@ -7489,12 +7565,12 @@ LABEL_8:
       }
     }
 
-    a4[2] = v6 + v10;
+    a4[2] = &v6[v10];
     if (v10)
     {
       if (*result == 46)
       {
-        v6 = a3 + 1;
+        v6 = (a3 + 1);
       }
 
       goto LABEL_11;
@@ -7670,25 +7746,25 @@ LABEL_8:
   return result;
 }
 
-uint64_t std::__format::__output_buffer<char>::push_back[abi:ne200100](uint64_t result, char a2)
+uint64_t *std::__format::__output_buffer<char>::push_back[abi:ne200100](uint64_t *result, char a2)
 {
-  v2 = *(result + 32);
+  v2 = result[4];
   if (!v2 || (v4 = *v2, v3 = v2[1], v2[1] = v3 + 1, v3 < v4))
   {
     v5 = *result;
-    v6 = *(result + 16);
-    *(result + 16) = v6 + 1;
+    v6 = result[2];
+    result[2] = v6 + 1;
     *(v5 + v6) = a2;
-    if (*(result + 16) == *(result + 8))
+    if (result[2] == result[1])
     {
-      return (*(result + 24))(result, 2);
+      return (result[3])(result, 2);
     }
   }
 
   return result;
 }
 
-void *std::__formatter::__format_floating_point[abi:ne200100]<double,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(void **a1, uint64_t a2, unint64_t a3, double a4)
+uint64_t *std::__formatter::__format_floating_point[abi:ne200100]<double,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(uint64_t **a1, uint64_t a2, unint64_t a3, double a4)
 {
   v43[128] = *MEMORY[0x277D85DE8];
   if ((*&a4 & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
@@ -7885,7 +7961,7 @@ void sub_262A502E8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-char *std::__formatter::__format_buffer[abi:ne200100]<double,double>@<X0>(unsigned int *a1@<X0>, char a2@<W1>, int a3@<W2>, int a4@<W3>, int a5@<W4>, char **a6@<X8>, double a7@<D0>)
+std::__1 *std::__formatter::__format_buffer[abi:ne200100]<double,double>@<X0>(unsigned int *a1@<X0>, char a2@<W1>, int a3@<W2>, int a4@<W3>, int a5@<W4>, std::__1 **a6@<X8>, double a7@<D0>)
 {
   v9 = *(a1 + 2);
   if (a2)
@@ -7930,7 +8006,7 @@ LABEL_8:
         v14 = 0;
       }
 
-      a6[1] = &result[-v14];
+      a6[1] = (result - v14);
       return result;
     }
 
@@ -8007,7 +8083,7 @@ LABEL_35:
   return std::__formatter::__format_buffer_hexadecimal_upper_case[abi:ne200100]<double,double>(a1, v17, v9, a6);
 }
 
-void *std::__formatter::__format_locale_specific_form[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,double,char>(void *a1, uint64_t a2, char **a3, std::locale *this, uint64_t a5, unint64_t a6)
+void *std::__formatter::__format_locale_specific_form[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,double,char>(uint64_t *a1, uint64_t a2, char **a3, std::locale *this, uint64_t a5, unint64_t a6)
 {
   v11 = std::locale::use_facet(this, MEMORY[0x277D826C0]);
   (v11->__vftable[1].__on_zero_shared)(&__p);
@@ -8280,7 +8356,7 @@ _BYTE *std::__formatter::__format_buffer_general_lower_case[abi:ne200100]<double
   v6 = MEMORY[0x266730540](a3, *(a1 + 16) + *(a1 + 8), 3, a2);
   a4[3] = v6;
   result = (a3 + 1);
-  if (a3 + 1 == v6)
+  if ((a3 + 1) == v6)
   {
     a4[1] = v6;
     v11 = 2;
@@ -8303,7 +8379,7 @@ LABEL_8:
     }
 
     v10 = -v9;
-    while (*(v6 + v10) != 101)
+    while (v6[v10] != 101)
     {
       if (++v10 == -3)
       {
@@ -8311,12 +8387,12 @@ LABEL_8:
       }
     }
 
-    a4[2] = v6 + v10;
+    a4[2] = &v6[v10];
     if (v10)
     {
       if (*result == 46)
       {
-        v6 = a3 + 1;
+        v6 = (a3 + 1);
       }
 
       goto LABEL_11;
@@ -8492,7 +8568,7 @@ LABEL_8:
   return result;
 }
 
-void *std::__formatter::__format_floating_point[abi:ne200100]<long double,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(void **a1, uint64_t a2, unint64_t a3, double a4)
+uint64_t *std::__formatter::__format_floating_point[abi:ne200100]<long double,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(uint64_t **a1, uint64_t a2, unint64_t a3, double a4)
 {
   v43[128] = *MEMORY[0x277D85DE8];
   if ((*&a4 & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
@@ -8689,7 +8765,7 @@ void sub_262A51058(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-char *std::__formatter::__format_buffer[abi:ne200100]<double,long double>@<X0>(unsigned int *a1@<X0>, char a2@<W1>, int a3@<W2>, int a4@<W3>, int a5@<W4>, char **a6@<X8>, double a7@<D0>)
+std::__1 *std::__formatter::__format_buffer[abi:ne200100]<double,long double>@<X0>(unsigned int *a1@<X0>, char a2@<W1>, int a3@<W2>, int a4@<W3>, int a5@<W4>, std::__1 **a6@<X8>, double a7@<D0>)
 {
   v9 = *(a1 + 2);
   if (a2)
@@ -8734,7 +8810,7 @@ LABEL_8:
         v14 = 0;
       }
 
-      a6[1] = &result[-v14];
+      a6[1] = (result - v14);
       return result;
     }
 
@@ -8818,7 +8894,7 @@ _BYTE *std::__formatter::__format_buffer_general_lower_case[abi:ne200100]<double
   v6 = MEMORY[0x266730570](a3, *(a1 + 16) + *(a1 + 8), 3, a2);
   a4[3] = v6;
   result = (a3 + 1);
-  if (a3 + 1 == v6)
+  if ((a3 + 1) == v6)
   {
     a4[1] = v6;
     v11 = 2;
@@ -8841,7 +8917,7 @@ LABEL_8:
     }
 
     v10 = -v9;
-    while (*(v6 + v10) != 101)
+    while (v6[v10] != 101)
     {
       if (++v10 == -3)
       {
@@ -8849,12 +8925,12 @@ LABEL_8:
       }
     }
 
-    a4[2] = v6 + v10;
+    a4[2] = &v6[v10];
     if (v10)
     {
       if (*result == 46)
       {
-        v6 = a3 + 1;
+        v6 = (a3 + 1);
       }
 
       goto LABEL_11;
@@ -9042,7 +9118,7 @@ unsigned __int8 *std::__formatter_string<char>::parse[abi:ne200100]<std::basic_f
   return result;
 }
 
-void *std::formatter<char const*,char>::format[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(char *a1, char *__s, void *a3)
+void *std::formatter<char const*,char>::format[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(char *a1, char *__s, uint64_t *a3)
 {
   v6 = strlen(__s);
   v7 = *a3;
@@ -9080,7 +9156,7 @@ unsigned __int8 *std::__formatter_pointer<char>::parse[abi:ne200100]<std::basic_
   return result;
 }
 
-void *std::__formatter_pointer<char>::format[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(char *a1, unint64_t a2, void *a3)
+void *std::__formatter_pointer<char>::format[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(char *a1, unint64_t a2, uint64_t **a3)
 {
   v5 = std::__format_spec::__parser<char>::__get_parsed_std_specifications[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a3);
   v7 = 1536;
@@ -9092,14 +9168,14 @@ void *std::__formatter_pointer<char>::format[abi:ne200100]<std::basic_format_con
   return std::__formatter::__format_integer[abi:ne200100]<unsigned long,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a2, a3, v5 & 0xFFFFFFFFFFFF00FFLL | v7 | 0x20, v6, 0);
 }
 
-void *std::__formatter::__format_integer[abi:ne200100]<unsigned long,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unint64_t a1, void **a2, unint64_t a3, unint64_t a4, char a5)
+void *std::__formatter::__format_integer[abi:ne200100]<unsigned long,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unint64_t a1, uint64_t **a2, unint64_t a3, unint64_t a4, char a5)
 {
   v13 = *MEMORY[0x277D85DE8];
   if (BYTE1(a3) <= 3u)
   {
     if (!BYTE1(a3))
     {
-      return std::__formatter::__format_integer[abi:ne200100]<unsigned long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, a4, a5, v11, &v12 + 2, 0, 10);
+      return std::__formatter::__format_integer[abi:ne200100]<unsigned long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, a4, a5, v11, &v12 + 2, 0, 0xAu);
     }
 
     v10 = 2;
@@ -9140,7 +9216,7 @@ void *std::__formatter::__format_integer[abi:ne200100]<unsigned long,char,std::b
 
   if (BYTE1(a3) != 4)
   {
-    return std::__formatter::__format_integer[abi:ne200100]<unsigned long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, a4, a5, v11, &v12 + 2, 0, 10);
+    return std::__formatter::__format_integer[abi:ne200100]<unsigned long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, a4, a5, v11, &v12 + 2, 0, 0xAu);
   }
 
   if (a1)
@@ -9153,10 +9229,10 @@ void *std::__formatter::__format_integer[abi:ne200100]<unsigned long,char,std::b
     v5 = 0;
   }
 
-  return std::__formatter::__format_integer[abi:ne200100]<unsigned long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3 & 0xFFFFFFFFFFFF00FFLL | 0x400, a4, a5, v11, &v12 + 5, v5, 8);
+  return std::__formatter::__format_integer[abi:ne200100]<unsigned long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3 & 0xFFFFFFFFFFFF00FFLL | 0x400, a4, a5, v11, &v12 + 5, v5, 8u);
 }
 
-void *std::__formatter::__format_integer[abi:ne200100]<unsigned long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unint64_t a1, void **a2, unint64_t a3, unint64_t a4, char a5, char *a6, uint64_t a7, _BYTE *a8, signed int a9)
+void *std::__formatter::__format_integer[abi:ne200100]<unsigned long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unint64_t a1, uint64_t **a2, unint64_t a3, unint64_t a4, char a5, char *a6, char *a7, char *a8, unsigned int a9)
 {
   v9 = a6;
   v13 = a3;
@@ -9528,18 +9604,33 @@ unsigned __int8 *silmanager_silmanager_createrenderer__result_get_failure(unsign
   return result;
 }
 
-uint64_t silmanager_silmanager_createrenderer()
+uint64_t silmanager_silmanager_createrenderer(void *a1, uint64_t a2)
 {
-  v0 = tb_client_connection_message_construct();
-  if (!v0)
+  v19 = *MEMORY[0x277D85DE8];
+  v11 = 0;
+  v9 = 0u;
+  v10 = 0u;
+  v7 = 0u;
+  v8 = 0u;
+  v6 = 0u;
+  v18 = 0;
+  v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v2 = tb_client_connection_message_construct();
+  if (!v2)
   {
     tb_message_precheck_encoding();
     tb_message_raw_encode_u64();
     tb_message_complete();
-    v1 = tb_connection_send_query();
-    if ((v1 & 0xFFFFFFF7) != 0)
+    v5 = 0;
+    v3 = tb_connection_send_query();
+    if ((v3 & 0xFFFFFFF7) != 0)
     {
-      v0 = v1;
+      v2 = v3;
       tb_client_connection_message_destruct();
     }
 
@@ -9550,23 +9641,38 @@ uint64_t silmanager_silmanager_createrenderer()
     }
   }
 
-  return v0;
+  return v2;
 }
 
-uint64_t silmanager_silmanager_setpower()
+uint64_t silmanager_silmanager_setpower(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = tb_client_connection_message_construct();
-  if (!v0)
+  v21 = *MEMORY[0x277D85DE8];
+  v13 = 0;
+  v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
+  v8 = 0u;
+  v20 = 0;
+  v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v4 = tb_client_connection_message_construct();
+  if (!v4)
   {
     tb_message_precheck_encoding();
     tb_message_raw_encode_u64();
     tb_message_raw_encode_BOOL();
     tb_message_raw_encode_BOOL();
     tb_message_complete();
-    v1 = tb_connection_send_query();
-    if ((v1 & 0xFFFFFFF7) != 0)
+    v7 = 0;
+    v5 = tb_connection_send_query();
+    if ((v5 & 0xFFFFFFF7) != 0)
     {
-      v0 = v1;
+      v4 = v5;
       tb_client_connection_message_destruct();
     }
 
@@ -9577,13 +9683,27 @@ uint64_t silmanager_silmanager_setpower()
     }
   }
 
-  return v0;
+  return v4;
 }
 
-uint64_t silmanager_silmanager_swap()
+uint64_t silmanager_silmanager_swap(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, double a7, double a8, float a9, float a10)
 {
-  v0 = tb_client_connection_message_construct();
-  if (!v0)
+  v27 = *MEMORY[0x277D85DE8];
+  v19 = 0;
+  v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v14 = 0u;
+  v26 = 0;
+  v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v21 = 0u;
+  v20 = 0u;
+  v10 = tb_client_connection_message_construct();
+  if (!v10)
   {
     tb_message_precheck_encoding();
     tb_message_raw_encode_u64();
@@ -9596,10 +9716,11 @@ uint64_t silmanager_silmanager_swap()
     tb_message_raw_encode_f32();
     tb_message_raw_encode_f32();
     tb_message_complete();
-    v1 = tb_connection_send_query();
-    if ((v1 & 0xFFFFFFF7) != 0)
+    v13 = 0;
+    v11 = tb_connection_send_query();
+    if ((v11 & 0xFFFFFFF7) != 0)
     {
-      v0 = v1;
+      v10 = v11;
       tb_client_connection_message_destruct();
     }
 
@@ -9610,177 +9731,80 @@ uint64_t silmanager_silmanager_swap()
     }
   }
 
-  return v0;
+  return v10;
 }
 
-uint64_t silmanager_silmanager_turnoffindicators()
+uint64_t silmanager_silmanager_turnoffindicators(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = tb_client_connection_message_construct();
-  if (!v0)
-  {
-    tb_message_precheck_encoding();
-    tb_message_raw_encode_u64();
-    tb_message_raw_encode_u32();
-    tb_message_raw_encode_BOOL();
-    tb_message_complete();
-    v1 = tb_connection_send_query();
-    if ((v1 & 0xFFFFFFF7) != 0)
-    {
-      v0 = v1;
-      tb_client_connection_message_destruct();
-    }
-
-    else
-    {
-      tb_client_connection_message_destruct();
-      return 4;
-    }
-  }
-
-  return v0;
-}
-
-uint64_t silmanager_silmanager_swapend()
-{
-  v0 = tb_client_connection_message_construct();
-  if (!v0)
-  {
-    tb_message_precheck_encoding();
-    tb_message_raw_encode_u64();
-    tb_message_raw_encode_u64();
-    tb_message_raw_encode_BOOL();
-    tb_message_complete();
-    v1 = tb_connection_send_query();
-    if ((v1 & 0xFFFFFFF7) != 0)
-    {
-      v0 = v1;
-      tb_client_connection_message_destruct();
-    }
-
-    else
-    {
-      tb_client_connection_message_destruct();
-      return 4;
-    }
-  }
-
-  return v0;
-}
-
-uint64_t silmanager_silmanager_softboundarystrength()
-{
-  v0 = tb_client_connection_message_construct();
-  if (!v0)
-  {
-    tb_message_precheck_encoding();
-    tb_message_raw_encode_u64();
-    tb_message_complete();
-    v1 = tb_connection_send_query();
-    if ((v1 & 0xFFFFFFF7) != 0)
-    {
-      v0 = v1;
-      tb_client_connection_message_destruct();
-    }
-
-    else
-    {
-      tb_client_connection_message_destruct();
-      return 4;
-    }
-  }
-
-  return v0;
-}
-
-uint64_t silmanager_silmanager_setloglevel()
-{
-  v0 = tb_client_connection_message_construct();
-  if (!v0)
-  {
-    tb_message_precheck_encoding();
-    tb_message_raw_encode_u64();
-    tb_message_raw_encode_u8();
-    tb_message_complete();
-    v1 = tb_connection_send_query();
-    if ((v1 & 0xFFFFFFF7) != 0)
-    {
-      v0 = v1;
-      tb_client_connection_message_destruct();
-    }
-
-    else
-    {
-      tb_client_connection_message_destruct();
-      return 4;
-    }
-  }
-
-  return v0;
-}
-
-uint64_t silmanager_silmanager_updatecursorstate()
-{
-  v0 = tb_client_connection_message_construct();
-  if (!v0)
-  {
-    tb_message_precheck_encoding();
-    tb_message_raw_encode_u64();
-    tb_message_raw_encode_s32();
-    tb_message_raw_encode_f32();
-    tb_message_raw_encode_s32();
-    tb_message_raw_encode_u32();
-    tb_message_raw_encode_u32();
-    for (i = 0; i != 36; i += 4)
-    {
-      tb_message_raw_encode_f32();
-    }
-
-    tb_message_complete();
-    v2 = tb_connection_send_query();
-    if ((v2 & 0xFFFFFFF7) != 0)
-    {
-      v0 = v2;
-      tb_client_connection_message_destruct();
-    }
-
-    else
-    {
-      tb_client_connection_message_destruct();
-      return 4;
-    }
-  }
-
-  return v0;
-}
-
-uint64_t silmanager_silmanager_getcursorinfo()
-{
-  v17 = *MEMORY[0x277D85DE8];
-  v9 = 0;
-  v7 = 0u;
+  v21 = *MEMORY[0x277D85DE8];
+  v13 = 0;
+  v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   v8 = 0u;
-  v5 = 0u;
-  v6 = 0u;
-  v4 = 0u;
-  v16 = 0;
+  v20 = 0;
+  v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v15 = 0u;
+  v14 = 0u;
+  v4 = tb_client_connection_message_construct();
+  if (!v4)
+  {
+    tb_message_precheck_encoding();
+    tb_message_raw_encode_u64();
+    tb_message_raw_encode_u32();
+    tb_message_raw_encode_BOOL();
+    tb_message_complete();
+    v7 = 0;
+    v5 = tb_connection_send_query();
+    if ((v5 & 0xFFFFFFF7) != 0)
+    {
+      v4 = v5;
+      tb_client_connection_message_destruct();
+    }
+
+    else
+    {
+      tb_client_connection_message_destruct();
+      return 4;
+    }
+  }
+
+  return v4;
+}
+
+uint64_t silmanager_silmanager_swapend(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v21 = *MEMORY[0x277D85DE8];
+  v13 = 0;
+  v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
+  v8 = 0u;
+  v20 = 0;
+  v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
-  v11 = 0u;
-  v0 = tb_client_connection_message_construct();
-  if (!v0)
+  v4 = tb_client_connection_message_construct();
+  if (!v4)
   {
     tb_message_precheck_encoding();
     tb_message_raw_encode_u64();
-    tb_message_raw_encode_s32();
+    tb_message_raw_encode_u64();
+    tb_message_raw_encode_BOOL();
     tb_message_complete();
-    v3 = 0;
-    v1 = tb_connection_send_query();
-    if ((v1 & 0xFFFFFFF7) != 0)
+    v7 = 0;
+    v5 = tb_connection_send_query();
+    if ((v5 & 0xFFFFFFF7) != 0)
     {
-      v0 = v1;
+      v4 = v5;
       tb_client_connection_message_destruct();
     }
 
@@ -9791,31 +9815,5 @@ uint64_t silmanager_silmanager_getcursorinfo()
     }
   }
 
-  return v0;
-}
-
-uint64_t silmanager_silmanager__init(uint64_t *a1)
-{
-  tb_endpoint_set_interface_identifier();
-  v2 = tb_client_connection_create_with_endpoint();
-  result = tb_client_connection_activate();
-  if (!result)
-  {
-    *a1 = v2;
-  }
-
-  return result;
-}
-
-BOOL protocol witness for SetAlgebra.insert(_:) in conformance SILValidator.DisabledHealthCheckOptions(void *a1, uint64_t *a2)
-{
-  v3 = *a2;
-  v4 = *v2 & *a2;
-  if (v4 != *a2)
-  {
-    *v2 |= v3;
-  }
-
-  *a1 = v3;
-  return v4 != v3;
+  return v4;
 }

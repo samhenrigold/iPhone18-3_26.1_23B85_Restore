@@ -6,9 +6,9 @@
 - (id)posterCategoryViewController;
 - (uint64_t)configurations;
 - (uint64_t)dateProvider;
-- (uint64_t)setConfigurations:(uint64_t)result;
 - (void)dealloc;
 - (void)invalidate;
+- (void)setConfigurations:(void *)result;
 - (void)setDateProvider:(uint64_t)provider;
 - (void)switcherItemDidAppear:(id)appear;
 - (void)switcherItemDidDisappear:(id)disappear;
@@ -101,17 +101,17 @@
   [itemView setClipsToBounds:0];
 }
 
-- (uint64_t)setConfigurations:(uint64_t)result
+- (void)setConfigurations:(void *)result
 {
   if (result)
   {
     v2 = result;
     v3 = [a2 copy];
-    v4 = *(v2 + 16);
-    *(v2 + 16) = v3;
+    v4 = v2[2];
+    v2[2] = v3;
 
-    v5 = *(v2 + 8);
-    v6 = *(v2 + 16);
+    v5 = v2[1];
+    v6 = v2[2];
 
     return [v5 setConfigurations:v6];
   }

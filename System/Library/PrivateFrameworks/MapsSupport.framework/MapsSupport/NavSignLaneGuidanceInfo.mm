@@ -1,6 +1,7 @@
 @interface NavSignLaneGuidanceInfo
 + (_NSRange)highlightedLaneRangeForLanes:(id)lanes;
 + (id)_createFakeLanes;
++ (id)fakeInfoForManeuver:(BOOL)maneuver;
 - (BOOL)isEqual:(id)equal;
 - (NavSignLaneGuidanceInfo)initWithGuidanceLaneInfo:(id)info;
 - (NavSignLaneGuidanceInfo)initWithLaneInfoId:(id)id lanes:(id)lanes forManeuver:(BOOL)maneuver midStepTitles:(id)titles details:(id)details;
@@ -10,6 +11,28 @@
 @end
 
 @implementation NavSignLaneGuidanceInfo
+
++ (id)fakeInfoForManeuver:(BOOL)maneuver
+{
+  maneuverCopy = maneuver;
+  v5 = +[NSUUID UUID];
+  if (maneuverCopy)
+  {
+    v6 = 0;
+  }
+
+  else
+  {
+    mkServerFormattedString = [@"Continue straight [DEBUG]" mkServerFormattedString];
+    v11 = mkServerFormattedString;
+    v6 = [NSArray arrayWithObjects:&v11 count:1];
+  }
+
+  _createFakeLanes = [self _createFakeLanes];
+  v9 = [[NavSignLaneGuidanceInfo alloc] initWithLaneInfoId:v5 lanes:_createFakeLanes forManeuver:maneuverCopy midStepTitles:0 details:v6];
+
+  return v9;
+}
 
 + (id)_createFakeLanes
 {

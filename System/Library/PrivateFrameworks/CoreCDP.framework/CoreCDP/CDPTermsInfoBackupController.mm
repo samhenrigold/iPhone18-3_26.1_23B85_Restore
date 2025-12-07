@@ -51,24 +51,23 @@
 
 void __63__CDPTermsInfoBackupController_saveTermsAcceptance_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = _CDPLogSystem();
+  v4 = _CDPLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_1DED99000, v4, OS_LOG_TYPE_DEFAULT, "Saving of terms acceptance completed with error %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1DED99000, v4, OS_LOG_TYPE_DEFAULT, "Saving of terms acceptance completed with error %@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __63__CDPTermsInfoBackupController_saveTermsAcceptance_completion___block_invoke_17(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _CDPLogSystem();
+  v4 = _CDPLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __63__CDPTermsInfoBackupController_saveTermsAcceptance_completion___block_invoke_17_cold_1(v3, v4);
@@ -107,27 +106,26 @@ void __63__CDPTermsInfoBackupController_saveTermsAcceptance_completion___block_i
 
 void __74__CDPTermsInfoBackupController_fetchTermsAcceptanceForAccount_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v7 = _CDPLogSystem();
+  v7 = _CDPLogSystem(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412546;
-    v10 = v6;
-    v11 = 2112;
-    v12 = v5;
-    _os_log_impl(&dword_1DED99000, v7, OS_LOG_TYPE_DEFAULT, "Fetched terms acceptance completed with error %@ and result %@", &v9, 0x16u);
+    v8 = 138412546;
+    v9 = v6;
+    v10 = 2112;
+    v11 = v5;
+    _os_log_impl(&dword_1DED99000, v7, OS_LOG_TYPE_DEFAULT, "Fetched terms acceptance completed with error %@ and result %@", &v8, 0x16u);
   }
 
   (*(*(a1 + 32) + 16))();
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __74__CDPTermsInfoBackupController_fetchTermsAcceptanceForAccount_completion___block_invoke_19(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _CDPLogSystem();
+  v4 = _CDPLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __74__CDPTermsInfoBackupController_fetchTermsAcceptanceForAccount_completion___block_invoke_19_cold_1(v3, v4);
@@ -138,20 +136,18 @@ void __74__CDPTermsInfoBackupController_fetchTermsAcceptanceForAccount_completio
 
 void __63__CDPTermsInfoBackupController_saveTermsAcceptance_completion___block_invoke_17_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1DED99000, a2, OS_LOG_TYPE_ERROR, "XPC Error while attempting to save terms info: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1DED99000, a2, OS_LOG_TYPE_ERROR, "XPC Error while attempting to save terms info: %@", &v2, 0xCu);
 }
 
 void __74__CDPTermsInfoBackupController_fetchTermsAcceptanceForAccount_completion___block_invoke_19_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1DED99000, a2, OS_LOG_TYPE_ERROR, "XPC Error while attempting to fetch terms info: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1DED99000, a2, OS_LOG_TYPE_ERROR, "XPC Error while attempting to fetch terms info: %@", &v2, 0xCu);
 }
 
 @end

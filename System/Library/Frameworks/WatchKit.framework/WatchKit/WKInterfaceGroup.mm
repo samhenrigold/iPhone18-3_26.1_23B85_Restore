@@ -20,23 +20,21 @@
   right = inset.right;
   bottom = inset.bottom;
   left = inset.left;
-  v14[4] = *MEMORY[0x277D85DE8];
-  v13[0] = @"top";
+  v13[4] = *MEMORY[0x277D85DE8];
+  v12[0] = @"top";
   v7 = [MEMORY[0x277CCABB0] numberWithDouble:inset.top];
-  v14[0] = v7;
-  v13[1] = @"left";
+  v13[0] = v7;
+  v12[1] = @"left";
   v8 = [MEMORY[0x277CCABB0] numberWithDouble:left];
-  v14[1] = v8;
-  v13[2] = @"bottom";
+  v13[1] = v8;
+  v12[2] = @"bottom";
   v9 = [MEMORY[0x277CCABB0] numberWithDouble:bottom];
-  v14[2] = v9;
-  v13[3] = @"right";
+  v13[2] = v9;
+  v12[3] = @"right";
   v10 = [MEMORY[0x277CCABB0] numberWithDouble:right];
-  v14[3] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:4];
+  v13[3] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:4];
   [(WKInterfaceObject *)self _sendValueChanged:v11 forProperty:@"contentInset"];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setBackgroundColor:(id)color
@@ -60,19 +58,17 @@
 - (void)startAnimatingWithImagesInRange:(_NSRange)range duration:(double)duration repeatCount:(int64_t)count
 {
   length = range.length;
-  v15[4] = *MEMORY[0x277D85DE8];
+  v14[4] = *MEMORY[0x277D85DE8];
   v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:range.location];
-  v15[0] = v9;
+  v14[0] = v9;
   v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:length];
-  v15[1] = v10;
+  v14[1] = v10;
   v11 = [MEMORY[0x277CCABB0] numberWithDouble:duration];
-  v15[2] = v11;
+  v14[2] = v11;
   v12 = [MEMORY[0x277CCABB0] numberWithInteger:count];
-  v15[3] = v12;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:4];
+  v14[3] = v12;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:4];
   [(WKInterfaceObject *)self _sendValueChanged:v13 forProperty:@".start"];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 @end

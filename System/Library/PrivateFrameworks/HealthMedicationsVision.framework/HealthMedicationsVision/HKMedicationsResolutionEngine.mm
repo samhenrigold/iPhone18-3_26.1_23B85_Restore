@@ -153,17 +153,17 @@ void __87__HKMedicationsResolutionEngine_resolveMedicationsUsing_resultLimit_com
 
 - (id)hkctl_resolveMedicationsUsing:(id)using resultLimit:(int64_t)limit error:(id *)error
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   usingCopy = using;
   resolver = [(HKMedicationsResolutionEngine *)self resolver];
   v10 = [resolver resolveText:usingCopy error:error];
 
   if (v10)
   {
-    v36 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v35 = objc_alloc_init(MEMORY[0x277CBEB18]);
     resolvedIds = [v10 resolvedIds];
-    v32 = v10;
-    v33 = usingCopy;
+    v31 = v10;
+    v32 = usingCopy;
     if ([resolvedIds count] > limit)
     {
       v12 = [resolvedIds subarrayWithRange:{0, limit}];
@@ -171,27 +171,27 @@ void __87__HKMedicationsResolutionEngine_resolveMedicationsUsing_resultLimit_com
       resolvedIds = v12;
     }
 
-    v46 = 0u;
-    v47 = 0u;
-    v44 = 0u;
     v45 = 0u;
+    v46 = 0u;
+    v43 = 0u;
+    v44 = 0u;
     obj = resolvedIds;
-    v37 = [obj countByEnumeratingWithState:&v44 objects:v51 count:16];
-    if (v37)
+    v36 = [obj countByEnumeratingWithState:&v43 objects:v50 count:16];
+    if (v36)
     {
-      v35 = *v45;
+      v34 = *v44;
       do
       {
         v13 = 0;
         do
         {
-          if (*v45 != v35)
+          if (*v44 != v34)
           {
             objc_enumerationMutation(obj);
           }
 
-          v39 = v13;
-          v14 = *(*(&v44 + 1) + 8 * v13);
+          v38 = v13;
+          v14 = *(*(&v43 + 1) + 8 * v13);
           v15 = objc_alloc_init(MEMORY[0x277CBEB38]);
           v16 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v14, "primaryHgId")}];
           [v15 setObject:v16 forKeyedSubscript:@"primary_hg_id"];
@@ -199,73 +199,71 @@ void __87__HKMedicationsResolutionEngine_resolveMedicationsUsing_resultLimit_com
           v17 = MEMORY[0x277CCABB0];
           [v14 maxJaccardSimilarity];
           v18 = [v17 numberWithFloat:?];
-          v38 = v15;
+          v37 = v15;
           [v15 setObject:v18 forKeyedSubscript:@"max_jaccard_similarity"];
 
           v19 = objc_alloc_init(MEMORY[0x277CBEB18]);
+          v39 = 0u;
           v40 = 0u;
           v41 = 0u;
           v42 = 0u;
-          v43 = 0u;
           subHgIds = [v14 subHgIds];
-          v21 = [subHgIds countByEnumeratingWithState:&v40 objects:v50 count:16];
+          v21 = [subHgIds countByEnumeratingWithState:&v39 objects:v49 count:16];
           if (v21)
           {
             v22 = v21;
-            v23 = *v41;
+            v23 = *v40;
             do
             {
               for (i = 0; i != v22; ++i)
               {
-                if (*v41 != v23)
+                if (*v40 != v23)
                 {
                   objc_enumerationMutation(subHgIds);
                 }
 
-                v25 = *(*(&v40 + 1) + 8 * i);
-                v48[0] = @"hg_id";
-                v26 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v25, "hgId", v32, v33)}];
-                v48[1] = @"jaccard_similarity";
-                v49[0] = v26;
+                v25 = *(*(&v39 + 1) + 8 * i);
+                v47[0] = @"hg_id";
+                v26 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v25, "hgId", v31, v32)}];
+                v47[1] = @"jaccard_similarity";
+                v48[0] = v26;
                 v27 = MEMORY[0x277CCABB0];
                 [v25 jaccardSimilarity];
                 v28 = [v27 numberWithFloat:?];
-                v49[1] = v28;
-                v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v49 forKeys:v48 count:2];
+                v48[1] = v28;
+                v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v48 forKeys:v47 count:2];
                 [v19 addObject:v29];
               }
 
-              v22 = [subHgIds countByEnumeratingWithState:&v40 objects:v50 count:16];
+              v22 = [subHgIds countByEnumeratingWithState:&v39 objects:v49 count:16];
             }
 
             while (v22);
           }
 
-          [v38 setObject:v19 forKeyedSubscript:@"sub_hg_ids"];
-          [v36 addObject:v38];
+          [v37 setObject:v19 forKeyedSubscript:@"sub_hg_ids"];
+          [v35 addObject:v37];
 
-          v13 = v39 + 1;
+          v13 = v38 + 1;
         }
 
-        while (v39 + 1 != v37);
-        v37 = [obj countByEnumeratingWithState:&v44 objects:v51 count:16];
+        while (v38 + 1 != v36);
+        v36 = [obj countByEnumeratingWithState:&v43 objects:v50 count:16];
       }
 
-      while (v37);
+      while (v36);
     }
 
-    v10 = v32;
-    usingCopy = v33;
+    v10 = v31;
+    usingCopy = v32;
   }
 
   else
   {
-    v36 = 0;
+    v35 = 0;
   }
 
-  v30 = *MEMORY[0x277D85DE8];
-
-  return v36;
+  return v35;
 }
 
 - (void)filter:(id)filter transcripts:(id)transcripts criterion:(float)criterion limit:(int64_t)limit completionHandler:(id)handler

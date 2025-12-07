@@ -76,43 +76,42 @@
 
 - (id)debugDescription
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v16.receiver = self;
-  v16.super_class = GVIntegerMap;
-  v3 = [(GVIntegerMap *)&v16 description];
+  v17 = *MEMORY[0x277D85DE8];
+  v15.receiver = self;
+  v15.super_class = GVIntegerMap;
+  v3 = [(GVIntegerMap *)&v15 description];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v4 = [(GVIntegerMap *)self countByEnumeratingWithState:&v12 objects:v17 count:16];
+  v4 = [(GVIntegerMap *)self countByEnumeratingWithState:&v11 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       v7 = 0;
       do
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(self);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * v7);
+        v8 = *(*(&v11 + 1) + 8 * v7);
         v9 = [objc_msgSend(objc_msgSend(v3 stringByAppendingString:{@"\n  ", "stringByAppendingString:", objc_msgSend(v8, "description")), "stringByAppendingString:", @"  ["}];
         v3 = [objc_msgSend(v9 stringByAppendingString:{objc_msgSend(objc_msgSend(MEMORY[0x277CCABB0], "numberWithInteger:", -[GVIntegerMap integerForKey:](self, "integerForKey:", v8)), "description")), "stringByAppendingString:", @"]\n"}];
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [(GVIntegerMap *)self countByEnumeratingWithState:&v12 objects:v17 count:16];
+      v5 = [(GVIntegerMap *)self countByEnumeratingWithState:&v11 objects:v16 count:16];
     }
 
     while (v5);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v3;
 }
 

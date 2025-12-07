@@ -9,7 +9,7 @@
 
 - (void)submitSecureAssetMapFailDiagnosticReportForError:(id)error
 {
-  v16[3] = *MEMORY[0x1E69E9840];
+  v15[3] = *MEMORY[0x1E69E9840];
   errorCopy = error;
   v4 = errorCopy;
   if (errorCopy)
@@ -29,21 +29,19 @@
       v9 = v8;
 
       v10 = +[CSDiagnosticReporter sharedInstance];
-      v15[0] = @"ErrorCode";
+      v14[0] = @"ErrorCode";
       v11 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v4, "code")}];
-      v16[0] = v11;
-      v15[1] = @"ErrorDomain";
+      v15[0] = v11;
+      v14[1] = @"ErrorDomain";
       domain2 = [v4 domain];
-      v15[2] = @"UserInfo";
-      v16[1] = domain2;
-      v16[2] = v9;
-      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:3];
+      v14[2] = @"UserInfo";
+      v15[1] = domain2;
+      v15[2] = v9;
+      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:3];
 
       [v10 submitSecureAssetIssueReport:@"kCSSecureAssetMappingFailed" withContext:v13];
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)reportAssetMapLatencyTelemetry:(double)telemetry assetSpecifier:(id)specifier assetConfigVersion:(id)version
@@ -61,22 +59,22 @@
 
 id __93__CSAssetTelemetryReporter_reportAssetMapLatencyTelemetry_assetSpecifier_assetConfigVersion___block_invoke(double *a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 4);
     v4 = *(a1 + 5);
     v5 = *(a1 + 6);
-    v10 = 136315906;
-    v11 = "[CSAssetTelemetryReporter reportAssetMapLatencyTelemetry:assetSpecifier:assetConfigVersion:]_block_invoke";
-    v12 = 2112;
-    v13 = v3;
-    v14 = 2112;
-    v15 = v4;
-    v16 = 2048;
-    v17 = v5;
-    _os_log_impl(&dword_1DDA4B000, v2, OS_LOG_TYPE_DEFAULT, "%s Generated core analytics payload for assetName: %@, assetConfigVersion: %@, asset map latency:%f", &v10, 0x2Au);
+    v9 = 136315906;
+    v10 = "[CSAssetTelemetryReporter reportAssetMapLatencyTelemetry:assetSpecifier:assetConfigVersion:]_block_invoke";
+    v11 = 2112;
+    v12 = v3;
+    v13 = 2112;
+    v14 = v4;
+    v15 = 2048;
+    v16 = v5;
+    _os_log_impl(&dword_1DDA4B000, v2, OS_LOG_TYPE_DEFAULT, "%s Generated core analytics payload for assetName: %@, assetConfigVersion: %@, asset map latency:%f", &v9, 0x2Au);
   }
 
   v6 = objc_alloc_init(MEMORY[0x1E695DF90]);
@@ -84,8 +82,6 @@ id __93__CSAssetTelemetryReporter_reportAssetMapLatencyTelemetry_assetSpecifier_
   [v6 setObject:*(a1 + 5) forKey:@"assetConfigVersion"];
   v7 = [MEMORY[0x1E696AD98] numberWithDouble:a1[6]];
   [v6 setObject:v7 forKey:@"latency"];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -115,7 +111,7 @@ id __93__CSAssetTelemetryReporter_reportAssetMapLatencyTelemetry_assetSpecifier_
 
 id __98__CSAssetTelemetryReporter_reportAssetMapFailTelemetryForError_assetSpecifier_assetConfigVersion___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v2 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
@@ -125,17 +121,17 @@ id __98__CSAssetTelemetryReporter_reportAssetMapFailTelemetryForError_assetSpeci
     v6 = v2;
     v7 = [v5 domain];
     v8 = [*(a1 + 48) code];
-    v14 = 136316162;
-    v15 = "[CSAssetTelemetryReporter reportAssetMapFailTelemetryForError:assetSpecifier:assetConfigVersion:]_block_invoke";
-    v16 = 2112;
-    v17 = v3;
-    v18 = 2112;
-    v19 = v4;
-    v20 = 2112;
-    v21 = v7;
-    v22 = 2048;
-    v23 = v8;
-    _os_log_impl(&dword_1DDA4B000, v6, OS_LOG_TYPE_DEFAULT, "%s Generated core analytics payload for assetName: %@, assetConfigVersion: %@, errorDomain:%@ errorCode: %ld", &v14, 0x34u);
+    v13 = 136316162;
+    v14 = "[CSAssetTelemetryReporter reportAssetMapFailTelemetryForError:assetSpecifier:assetConfigVersion:]_block_invoke";
+    v15 = 2112;
+    v16 = v3;
+    v17 = 2112;
+    v18 = v4;
+    v19 = 2112;
+    v20 = v7;
+    v21 = 2048;
+    v22 = v8;
+    _os_log_impl(&dword_1DDA4B000, v6, OS_LOG_TYPE_DEFAULT, "%s Generated core analytics payload for assetName: %@, assetConfigVersion: %@, errorDomain:%@ errorCode: %ld", &v13, 0x34u);
   }
 
   v9 = objc_alloc_init(MEMORY[0x1E695DF90]);
@@ -146,8 +142,6 @@ id __98__CSAssetTelemetryReporter_reportAssetMapFailTelemetryForError_assetSpeci
 
   v11 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(*(a1 + 48), "code")}];
   [v9 setObject:v11 forKey:@"errorCode"];
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -166,9 +160,11 @@ id __98__CSAssetTelemetryReporter_reportAssetMapFailTelemetryForError_assetSpeci
 
 uint64_t __42__CSAssetTelemetryReporter_sharedReporter__block_invoke()
 {
-  sharedReporter_sender = objc_alloc_init(CSAssetTelemetryReporter);
+  v0 = objc_alloc_init(CSAssetTelemetryReporter);
+  v1 = sharedReporter_sender;
+  sharedReporter_sender = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

@@ -8,7 +8,7 @@
 + (id)hashMessage:(id)message
 {
   messageCopy = message;
-  v4 = specialized static TetraMessageHasher.hashMessage(_:)();
+  v4 = specialized static TetraMessageHasher.hashMessage(_:)(messageCopy);
   v6 = v5;
 
   if (v6 >> 60 == 15)

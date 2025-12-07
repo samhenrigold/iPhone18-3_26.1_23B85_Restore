@@ -18,10 +18,10 @@
 
 - (NSUUID)stickerUUID
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAFCD800);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAFCD800, &qword_19A7BCE60);
   MEMORY[0x1EEE9AC00](v3 - 8);
   v5 = &v12 - v4;
-  sub_19A60F0CC(self + OBJC_IVAR___STKImageGlyph_stickerUUID, &v12 - v4, &qword_1EAFCD800);
+  sub_19A60F0CC(self + OBJC_IVAR___STKImageGlyph_stickerUUID, &v12 - v4, &qword_1EAFCD800, &qword_19A7BCE60);
   v6 = sub_19A7A8F64();
   v7 = *(v6 - 8);
   v8 = (*(v7 + 48))(v5, 1, v6);
@@ -55,17 +55,17 @@
 + (id)fromSticker:(id)sticker
 {
   stickerCopy = sticker;
-  v4 = sub_19A76E038();
+  v4 = sub_19A76E038(stickerCopy);
 
   return v4;
 }
 
 + (id)fromStickerIdentifier:(id)identifier
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCF110);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCF110, &unk_19A7B6AF0);
   MEMORY[0x1EEE9AC00](v3 - 8);
   v5 = v17 - v4;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAFCD800);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAFCD800, &qword_19A7BCE60);
   MEMORY[0x1EEE9AC00](v6 - 8);
   v8 = v17 - v7;
   v9 = sub_19A7A8F64();
@@ -88,10 +88,10 @@
 
 + (id)fromEmojiString:(id)string
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCF110);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCF110, &unk_19A7B6AF0);
   MEMORY[0x1EEE9AC00](v3 - 8);
   v5 = v17 - v4;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAFCD800);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAFCD800, &qword_19A7BCE60);
   MEMORY[0x1EEE9AC00](v6 - 8);
   v8 = v17 - v7;
   v9 = sub_19A7AB014();
@@ -118,7 +118,7 @@
 
 - (void)createUIStickerWithLoadAllRepresentations:(BOOL)representations completionHandler:(id)handler
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCD690);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCD690, &qword_19A7B6B00);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(handler);
@@ -144,7 +144,7 @@
 
 - (void)createUIStickerWithCompletionHandler:(id)handler
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCD690);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCD690, &qword_19A7B6B00);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);
@@ -236,14 +236,14 @@ LABEL_6:
 
   else
   {
-    memset(v8, 0, sizeof(v8));
+    memset(v9, 0, sizeof(v9));
     selfCopy2 = self;
   }
 
-  v6 = sub_19A76AA50(v8);
+  v7 = sub_19A76AA50(v9, v5);
 
-  sub_19A5F2B54(v8, &unk_1EAFCD750);
-  return v6 & 1;
+  sub_19A5F2B54(v9, &unk_1EAFCD750, &unk_19A7B87D0);
+  return v7 & 1;
 }
 
 - (STKImageGlyph)init

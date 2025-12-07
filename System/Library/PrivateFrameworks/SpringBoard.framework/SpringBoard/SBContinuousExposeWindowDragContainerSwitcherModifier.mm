@@ -81,7 +81,7 @@
     if ([(SBAppLayout *)self->_initialAppLayout containsItem:self->_selectedDisplayItem])
     {
       v10 = [(SBContinuousExposeWindowDragContainerSwitcherModifier *)self maximizedCenteredAndUnoccludedDisplayItemsInAppLayout:self->_initialAppLayout ignoreOcclusion:1 ignoreCentering:0];
-      self->_selectedDisplayItemWasInitiallyFullScreen = [v10 containsObject:self->_selectedDisplayItem];
+      self->_selectedDisplayItemWasInitiallyFullScreen = objc_msgSend_containsObject_(v10);
     }
 
     else
@@ -114,7 +114,7 @@ SBPerformTransitionSwitcherEventResponse *__110__SBContinuousExposeWindowDragCon
   {
     v4 = [*(a1 + 32) appLayout];
     v5 = [*(a1 + 32) maximizedCenteredAndUnoccludedDisplayItemsInAppLayout:v4 ignoreOcclusion:1 ignoreCentering:0];
-    v6 = [v5 containsObject:*(*(a1 + 32) + 248)];
+    v6 = objc_msgSend_containsObject_(v5);
 
     if (*(*(a1 + 32) + 232) == 1 && (v6 & 1) == 0)
     {
@@ -196,7 +196,7 @@ SBPerformTransitionSwitcherEventResponse *__110__SBContinuousExposeWindowDragCon
         {
           self->_windowDragSpringLoadState = 3;
           v11 = [[SBPerformTransitionSwitcherEventResponse alloc] initWithTransitionRequest:v8 gestureInitiated:0];
-          v12 = SBAppendSwitcherModifierResponse(v11, v5);
+          v12 = SBAppendSwitcherModifierResponse();
 
           v5 = v12;
         }
@@ -210,10 +210,10 @@ SBPerformTransitionSwitcherEventResponse *__110__SBContinuousExposeWindowDragCon
       case 1:
         self->_windowDragSpringLoadState = 2;
         v8 = [[SBTimerEventSwitcherEventResponse alloc] initWithDelay:0 validator:self->_continuousExposeSpringLoadReasonWithAppLayout reason:0.4];
-        v9 = SBAppendSwitcherModifierResponse(v8, v5);
+        v9 = SBAppendSwitcherModifierResponse();
 
         v10 = [[SBTimerEventSwitcherEventResponse alloc] initWithDelay:0 validator:@"kContinuousExposeSpringLoadBlinkingReason" reason:0.0];
-        v5 = SBAppendSwitcherModifierResponse(v10, v9);
+        v5 = SBAppendSwitcherModifierResponse();
 
 LABEL_10:
         break;
@@ -223,10 +223,10 @@ LABEL_10:
   if ([reason isEqualToString:@"kContinuousExposeSpringLoadBlinkingReason"] && self->_blinkCount <= 3)
   {
     v13 = [[SBTimerEventSwitcherEventResponse alloc] initWithDelay:0 validator:@"kContinuousExposeSpringLoadBlinkingReason" reason:0.1];
-    v14 = SBAppendSwitcherModifierResponse(v13, v5);
+    v14 = SBAppendSwitcherModifierResponse();
 
     v15 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:8 updateMode:3];
-    v5 = SBAppendSwitcherModifierResponse(v15, v14);
+    v5 = SBAppendSwitcherModifierResponse();
 
     ++self->_blinkCount;
   }
@@ -269,7 +269,7 @@ LABEL_10:
       toAppLayout4 = [eventCopy toAppLayout];
       v15 = [(SBInvalidateContinuousExposeIdentifiersEventResponse *)v12 initWithTransitioningFromAppLayout:fromAppLayout transitioningToAppLayout:toAppLayout4 animated:1];
 
-      v16 = SBAppendSwitcherModifierResponse(v15, v5);
+      v16 = SBAppendSwitcherModifierResponse();
 
       v5 = v16;
     }
@@ -334,7 +334,7 @@ LABEL_12:
       self->_continuousExposeSpringLoadReasonWithAppLayout = v18;
 
       v20 = [[SBTimerEventSwitcherEventResponse alloc] initWithDelay:0 validator:self->_continuousExposeSpringLoadReasonWithAppLayout reason:0.8];
-      v21 = SBAppendSwitcherModifierResponse(v20, v5);
+      v21 = SBAppendSwitcherModifierResponse();
 
       v5 = v21;
     }
@@ -367,7 +367,7 @@ LABEL_13:
   if (v7)
   {
     v8 = [[SBPerformTransitionSwitcherEventResponse alloc] initWithTransitionRequest:v7 gestureInitiated:0];
-    v9 = SBAppendSwitcherModifierResponse(v8, v5);
+    v9 = SBAppendSwitcherModifierResponse();
 
     [eventCopy handleWithReason:@"SpringLoading"];
     v5 = v9;
@@ -406,7 +406,7 @@ LABEL_13:
 - (id)adjustedContinuousExposeIdentifiersInStripFromPreviousIdentifiersInStrip:(id)strip
 {
   stripCopy = strip;
-  if (-[SBAppLayout containsItem:](self->_initialAppLayout, "containsItem:", self->_selectedDisplayItem) || (-[SBDisplayItem bundleIdentifier](self->_selectedDisplayItem, "bundleIdentifier"), v5 = objc_claimAutoreleasedReturnValue(), v6 = [stripCopy containsObject:v5], v5, !v6))
+  if ([(SBAppLayout *)self->_initialAppLayout containsItem:self->_selectedDisplayItem]|| ([(SBDisplayItem *)self->_selectedDisplayItem bundleIdentifier], v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_msgSend_containsObject_(stripCopy), v5, !v6))
   {
     v10.receiver = self;
     v10.super_class = SBContinuousExposeWindowDragContainerSwitcherModifier;

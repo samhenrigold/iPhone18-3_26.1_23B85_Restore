@@ -1012,7 +1012,7 @@ void __81__SBNonInteractiveDisplayControllerPolicy_descriptionBuilderWithMultili
 {
   v8 = [*(*(a1 + 32) + 88) uiSettings];
   v2 = *(a1 + 40);
-  [v8 frame];
+  objc_msgSend_frame(v8);
   v3 = [v2 appendRect:@"frame" withName:?];
   v4 = [*(a1 + 40) appendBool:objc_msgSend(v8 withName:{"isForeground"), @"isForeground"}];
   v5 = *(a1 + 40);

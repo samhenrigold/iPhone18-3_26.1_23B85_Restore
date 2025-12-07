@@ -13,6 +13,7 @@
 - (void)setEnergy:(float)energy;
 - (void)setPhone_name:(id)phone_name;
 - (void)setPitch:(float)pitch;
+- (void)setWord_id:(int)word_id;
 @end
 
 @implementation FTMutableTextToSpeechSpeechFeatureOutputFeature
@@ -139,6 +140,12 @@
   intValue = [v2 intValue];
 
   return intValue;
+}
+
+- (void)setWord_id:(int)word_id
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:*&word_id];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 @end

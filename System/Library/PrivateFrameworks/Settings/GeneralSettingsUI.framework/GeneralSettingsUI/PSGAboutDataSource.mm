@@ -28,6 +28,7 @@
 - (id)suManagerClient;
 - (void)_accessoryDidUpdate:(id)update;
 - (void)_addKey:(id)key localizedString:(id)string isCopyable:(BOOL)copyable;
+- (void)_addKey:(id)key localizedString:(id)string value:(id)value isCopyable:(BOOL)copyable;
 - (void)_addLocalizedKey:(id)key identifier:(id)identifier isCopyable:(BOOL)copyable allowMultilineTitle:(BOOL)title;
 - (void)_getBootStrapIccid;
 - (void)_loadMediaFinished:(id)finished;
@@ -98,6 +99,16 @@
   [specifiers addObject:v11];
 }
 
+- (void)_addKey:(id)key localizedString:(id)string value:(id)value isCopyable:(BOOL)copyable
+{
+  copyableCopy = copyable;
+  valueCopy = value;
+  [(PSGAboutDataSource *)self _addKey:key localizedString:string isCopyable:copyableCopy];
+  specifiers = [(PSSpecifierDataSource *)self specifiers];
+  lastObject = [specifiers lastObject];
+  [(PSGAboutDataSource *)self _setValue:valueCopy forSpecifier:lastObject];
+}
+
 - (void)_setValue:(id)value forSpecifierWithKey:(id)key
 {
   valueCopy = value;
@@ -117,7 +128,7 @@
   else
   {
     specifierCopy2 = specifier;
-    specifierCopy = PSG_BundleForGeneralSettingsUIFramework();
+    specifierCopy = PSG_BundleForGeneralSettingsUIFramework(specifierCopy2);
     v7 = [specifierCopy localizedStringForKey:@"N/A" value:&stru_282E88A90 table:0];
     [specifierCopy2 setProperty:v7 forKey:*MEMORY[0x277D401A8]];
   }
@@ -148,16 +159,16 @@
       v5 = 1;
     }
 
-    if (v5 || (v6 = *MEMORY[0x277CBECE8], (v7 = CFPhoneNumberCreate()) == 0))
+    if (v5 || (v6 = CFPhoneNumberCreate()) == 0)
     {
       String = &stru_282E88A90;
     }
 
     else
     {
-      v8 = v7;
+      v7 = v6;
       String = CFPhoneNumberCreateString();
-      CFRelease(v8);
+      CFRelease(v7);
     }
 
     CFRelease(v4);
@@ -179,10 +190,10 @@ LABEL_10:
 
   if (![(__CFString *)String length])
   {
-    v10 = PSG_BundleForGeneralSettingsUIFramework();
-    v11 = [v10 localizedStringForKey:@"UNKNOWN_NUMBER" value:&stru_282E88A90 table:0];
+    v9 = PSG_BundleForGeneralSettingsUIFramework(0);
+    v10 = [v9 localizedStringForKey:@"UNKNOWN_NUMBER" value:&stru_282E88A90 table:0];
 
-    String = v11;
+    String = v10;
   }
 
   return String;
@@ -240,21 +251,22 @@ LABEL_10:
 - (id)_macAddressLocalizedString
 {
   v2 = MGGetBoolAnswer();
-  v3 = PSG_BundleForGeneralSettingsUIFramework();
-  v4 = v3;
-  if (v2)
+  v3 = v2;
+  v4 = PSG_BundleForGeneralSettingsUIFramework(v2);
+  v5 = v4;
+  if (v3)
   {
-    v5 = @"MACAddress_WLAN";
+    v6 = @"MACAddress_WLAN";
   }
 
   else
   {
-    v5 = @"MACAddress";
+    v6 = @"MACAddress";
   }
 
-  v6 = [v3 localizedStringForKey:v5 value:&stru_282E88A90 table:0];
+  v7 = [v4 localizedStringForKey:v6 value:&stru_282E88A90 table:0];
 
-  return v6;
+  return v7;
 }
 
 - (id)_macAddress
@@ -298,58 +310,58 @@ LABEL_7:
   if (v5)
   {
     mEMORY[0x277D4D8C8]2 = [MEMORY[0x277D4D8C8] sharedInstance];
-    v7 = [mEMORY[0x277D4D8C8]2 carrierBundleVersion:v3];
+    v8 = [mEMORY[0x277D4D8C8]2 carrierBundleVersion:v3];
 
-    if (v7)
+    if (v8)
     {
-      v8 = MEMORY[0x277CCACA8];
-      v9 = PSG_BundleForGeneralSettingsUIFramework();
-      v10 = [v9 localizedStringForKey:@"CARRIER_VERSION_FORMAT" value:&stru_282E88A90 table:0];
-      v11 = [v8 stringWithFormat:v10, v5, v7];
+      v10 = MEMORY[0x277CCACA8];
+      v11 = PSG_BundleForGeneralSettingsUIFramework(v9);
+      v12 = [v11 localizedStringForKey:@"CARRIER_VERSION_FORMAT" value:&stru_282E88A90 table:0];
+      v13 = [v10 stringWithFormat:v12, v5, v8];
 
       goto LABEL_7;
     }
 
-    v12 = v5;
+    v14 = v5;
   }
 
   else
   {
-    v7 = PSG_BundleForGeneralSettingsUIFramework();
-    v12 = [v7 localizedStringForKey:@"NO_NETWORK" value:&stru_282E88A90 table:0];
+    v8 = PSG_BundleForGeneralSettingsUIFramework(v6);
+    v14 = [v8 localizedStringForKey:@"NO_NETWORK" value:&stru_282E88A90 table:0];
   }
 
-  v11 = v12;
+  v13 = v14;
 LABEL_7:
 
-  return v11;
+  return v13;
 }
 
 - (void)_getBootStrapIccid
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   mEMORY[0x277D4D868] = [MEMORY[0x277D4D868] sharedInstance];
   subscriptionContexts = [mEMORY[0x277D4D868] subscriptionContexts];
 
-  v5 = [subscriptionContexts countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v5 = [subscriptionContexts countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v20;
+    v7 = *v19;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v20 != v7)
+        if (*v19 != v7)
         {
           objc_enumerationMutation(subscriptionContexts);
         }
 
-        v9 = *(*(&v19 + 1) + 8 * i);
+        v9 = *(*(&v18 + 1) + 8 * i);
         mEMORY[0x277D4D8D8] = [MEMORY[0x277D4D8D8] sharedInstance];
         v11 = [mEMORY[0x277D4D8D8] mobileEquipmentInfo:v9];
 
@@ -371,7 +383,7 @@ LABEL_7:
         }
       }
 
-      v6 = [subscriptionContexts countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v6 = [subscriptionContexts countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v6)
       {
         continue;
@@ -382,8 +394,6 @@ LABEL_7:
   }
 
 LABEL_12:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_isUsingBootstrap:(id)bootstrap
@@ -552,18 +562,19 @@ LABEL_15:
   v8 = ;
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v9 = v8;
+    v10 = v8;
   }
 
   else
   {
-    v10 = PSG_BundleForGeneralSettingsUIFramework();
-    v9 = [v10 localizedStringForKey:@"NO_SIM" value:&stru_282E88A90 table:0];
+    v11 = PSG_BundleForGeneralSettingsUIFramework(isKindOfClass);
+    v10 = [v11 localizedStringForKey:@"NO_SIM" value:&stru_282E88A90 table:0];
   }
 
-  return v9;
+  return v10;
 }
 
 - (void)updateCarrierSpecifier:(id)specifier
@@ -586,7 +597,7 @@ LABEL_15:
   mEMORY[0x277D4D8D8] = [MEMORY[0x277D4D8D8] sharedInstance];
   v13 = [mEMORY[0x277D4D8D8] mobileEquipmentInfo:v6];
 
-  v31 = v13;
+  v36 = v13;
   if (v11 <= 2)
   {
     if (v11 == 1)
@@ -595,13 +606,13 @@ LABEL_15:
 
       if (pRLVersion)
       {
-        v15 = intValue;
-        v16 = PSG_BundleForGeneralSettingsUIFramework();
-        v17 = [v16 localizedStringForKey:@"PRL" value:&stru_282E88A90 table:0];
-        [v5 setName:v17];
+        v17 = intValue;
+        v18 = PSG_BundleForGeneralSettingsUIFramework(v16);
+        v19 = [v18 localizedStringForKey:@"PRL" value:&stru_282E88A90 table:0];
+        [v5 setName:v19];
 
-        v18 = 1;
-        v19 = &selRef__PRLString_;
+        v20 = 1;
+        v21 = &selRef__PRLString_;
         goto LABEL_21;
       }
     }
@@ -615,13 +626,13 @@ LABEL_15:
 
     if (eRIVersion)
     {
-      v15 = intValue;
-      v16 = PSG_BundleForGeneralSettingsUIFramework();
-      v21 = [v16 localizedStringForKey:@"ERI" value:&stru_282E88A90 table:0];
-      [v5 setName:v21];
+      v17 = intValue;
+      v18 = PSG_BundleForGeneralSettingsUIFramework(v23);
+      v24 = [v18 localizedStringForKey:@"ERI" value:&stru_282E88A90 table:0];
+      [v5 setName:v24];
 
-      v18 = 2;
-      v19 = &selRef__ERIString_;
+      v20 = 2;
+      v21 = &selRef__ERIString_;
       goto LABEL_21;
     }
 
@@ -631,17 +642,17 @@ LABEL_15:
   if (v11 == 3)
   {
 LABEL_14:
-    v22 = [v13 NAI];
+    v25 = [v13 NAI];
 
-    if (v22)
+    if (v25)
     {
-      v15 = intValue;
-      v16 = PSG_BundleForGeneralSettingsUIFramework();
-      v23 = [v16 localizedStringForKey:@"NAI" value:&stru_282E88A90 table:0];
-      [v5 setName:v23];
+      v17 = intValue;
+      v18 = PSG_BundleForGeneralSettingsUIFramework(v26);
+      v27 = [v18 localizedStringForKey:@"NAI" value:&stru_282E88A90 table:0];
+      [v5 setName:v27];
 
-      v18 = 3;
-      v19 = &selRef__NAIString_;
+      v20 = 3;
+      v21 = &selRef__NAIString_;
       goto LABEL_21;
     }
 
@@ -651,17 +662,17 @@ LABEL_14:
   if (v11 == 4)
   {
 LABEL_16:
-    v24 = [v13 MIN];
+    v28 = [v13 MIN];
 
-    if (v24)
+    if (v28)
     {
-      v15 = intValue;
-      v16 = PSG_BundleForGeneralSettingsUIFramework();
-      v25 = [v16 localizedStringForKey:@"MSID" value:&stru_282E88A90 table:0];
-      [v5 setName:v25];
+      v17 = intValue;
+      v18 = PSG_BundleForGeneralSettingsUIFramework(v29);
+      v30 = [v18 localizedStringForKey:@"MSID" value:&stru_282E88A90 table:0];
+      [v5 setName:v30];
 
-      v18 = 4;
-      v19 = &selRef__MINString_;
+      v20 = 4;
+      v21 = &selRef__MINString_;
       goto LABEL_21;
     }
 
@@ -674,43 +685,43 @@ LABEL_16:
   }
 
 LABEL_18:
-  v26 = [(PSGAboutDataSource *)self _IMSStatusString:v5, v31];
+  v31 = [(PSGAboutDataSource *)self _IMSStatusString:v5, v36];
 
-  if (!v26)
+  if (!v31)
   {
 LABEL_20:
-    v15 = intValue;
-    v16 = PSG_BundleForGeneralSettingsUIFramework();
-    v27 = [v16 localizedStringForKey:@"CARRIER_VERSION" value:&stru_282E88A90 table:0];
-    [v5 setName:v27];
+    v17 = intValue;
+    v18 = PSG_BundleForGeneralSettingsUIFramework(v14);
+    v32 = [v18 localizedStringForKey:@"CARRIER_VERSION" value:&stru_282E88A90 table:0];
+    [v5 setName:v32];
 
-    v18 = 0;
-    v19 = &selRef__carrierVersion_;
+    v20 = 0;
+    v21 = &selRef__carrierVersion_;
     goto LABEL_21;
   }
 
-  v15 = intValue;
-  v16 = PSG_LocalizedStringForGeneral(@"IMS_STATUS");
-  [v5 setName:v16];
-  v18 = 5;
-  v19 = &selRef__IMSStatusString_;
+  v17 = intValue;
+  v18 = PSG_LocalizedStringForGeneral(@"IMS_STATUS");
+  [v5 setName:v18];
+  v20 = 5;
+  v21 = &selRef__IMSStatusString_;
 LABEL_21:
 
-  *&v5[*MEMORY[0x277D3FCA8]] = *v19;
-  v28 = [MEMORY[0x277CCABB0] numberWithInt:v18];
-  [(NSMutableDictionary *)self->_carrierCellState setObject:v28 forKeyedSubscript:v7];
+  *&v5[*MEMORY[0x277D3FCA8]] = *v21;
+  v33 = [MEMORY[0x277CCABB0] numberWithInt:v20];
+  [(NSMutableDictionary *)self->_carrierCellState setObject:v33 forKeyedSubscript:v7];
 
-  v29 = [(NSMutableDictionary *)self->_carrierCellState objectForKeyedSubscript:v7];
-  intValue2 = [v29 intValue];
+  v34 = [(NSMutableDictionary *)self->_carrierCellState objectForKeyedSubscript:v7];
+  intValue2 = [v34 intValue];
 
-  if (intValue2 != v15)
+  if (intValue2 != v17)
   {
-    v32[0] = MEMORY[0x277D85DD0];
-    v32[1] = 3221225472;
-    v32[2] = __45__PSGAboutDataSource_updateCarrierSpecifier___block_invoke;
-    v32[3] = &unk_278324F08;
-    v33 = v5;
-    [(PSSpecifierDataSource *)self performUpdatesAnimated:0 usingBlock:v32];
+    v37[0] = MEMORY[0x277D85DD0];
+    v37[1] = 3221225472;
+    v37[2] = __45__PSGAboutDataSource_updateCarrierSpecifier___block_invoke;
+    v37[3] = &unk_278324F08;
+    v38 = v5;
+    [(PSSpecifierDataSource *)self performUpdatesAnimated:0 usingBlock:v37];
   }
 
 LABEL_24:
@@ -775,9 +786,11 @@ void __40__PSGAboutDataSource__modelRegionString__block_invoke()
 
 uint64_t __50__PSGAboutDataSource__regulatoryModelNumberString__block_invoke()
 {
-  _regulatoryModelNumberString_regulatoryModelNumberString = MGCopyAnswer();
+  v0 = MGCopyAnswer();
+  v1 = _regulatoryModelNumberString_regulatoryModelNumberString;
+  _regulatoryModelNumberString_regulatoryModelNumberString = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (id)_modelNameString
@@ -822,7 +835,7 @@ void __38__PSGAboutDataSource__modelNameString__block_invoke()
     v6 = processInfo;
     if (processInfo)
     {
-      [processInfo operatingSystemVersion];
+      objc_msgSend_operatingSystemVersion(processInfo);
     }
   }
 
@@ -863,7 +876,7 @@ void __38__PSGAboutDataSource__modelNameString__block_invoke()
 
 - (id)softwareVersionString
 {
-  v2 = PSG_BundleForGeneralSettingsUIFramework();
+  v2 = PSG_BundleForGeneralSettingsUIFramework(self);
   v3 = [v2 localizedStringForKey:@"OS Version" value:&stru_282E88A90 table:0];
   v4 = softwareVersionString_softwareVersionString;
   softwareVersionString_softwareVersionString = v3;
@@ -1027,11 +1040,10 @@ void __34__PSGAboutDataSource_countForKey___block_invoke(uint64_t a1, void *a2, 
 
 - (void)_loadValues
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_21CF20000, v0, OS_LOG_TYPE_ERROR, "%s error fetching volume space info: %d", v2, 0x12u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_21CF20000, v0, OS_LOG_TYPE_ERROR, "%s error fetching volume space info: %d", v1, 0x12u);
 }
 
 void __33__PSGAboutDataSource__loadValues__block_invoke(uint64_t a1, void *a2)
@@ -1076,18 +1088,16 @@ void __50__PSGAboutDataSource_getAPFSCurrentUserVolumeNode__block_invoke()
 
   if (v1)
   {
-    v2 = _PSGLoggingFacility();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v3 = _PSGLoggingFacility(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __50__PSGAboutDataSource_getAPFSCurrentUserVolumeNode__block_invoke_cold_1();
     }
   }
 
-  v3 = [MEMORY[0x277CCACA8] stringWithUTF8String:v6.f_mntfromname];
-  v4 = getAPFSCurrentUserVolumeNode_volumeDeviceNode;
-  getAPFSCurrentUserVolumeNode_volumeDeviceNode = v3;
-
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:v6.f_mntfromname];
+  v5 = getAPFSCurrentUserVolumeNode_volumeDeviceNode;
+  getAPFSCurrentUserVolumeNode_volumeDeviceNode = v4;
 }
 
 - (void)reloadSpecifiers
@@ -1109,11 +1119,11 @@ void __50__PSGAboutDataSource_getAPFSCurrentUserVolumeNode__block_invoke()
 - (void)loadSpecifiers
 {
   selfCopy = self;
-  v385 = *MEMORY[0x277D85DE8];
+  v397 = *MEMORY[0x277D85DE8];
   [(PSGAboutDataSource *)self _getBootStrapIccid];
   if (selfCopy->_hasLoadedSpecifiers)
   {
-    goto LABEL_188;
+    return;
   }
 
   selfCopy->_hasLoadedSpecifiers = 1;
@@ -1121,14 +1131,14 @@ void __50__PSGAboutDataSource_getAPFSCurrentUserVolumeNode__block_invoke()
   v4 = PSG_LocalizedStringForGeneral(@"Device_Name");
   v5 = MGGetBoolAnswer();
   obj = MGGetBoolAnswer();
-  v337 = MGGetBoolAnswer();
+  v349 = MGGetBoolAnswer();
   v6 = MGGetBoolAnswer();
   emptyGroupSpecifier = [MEMORY[0x277D3FAD8] emptyGroupSpecifier];
-  v353 = specifiers;
+  v365 = specifiers;
   [specifiers addObject:emptyGroupSpecifier];
   v8 = PSGIsDeviceNameSettable();
   v9 = MEMORY[0x277D3FAD8];
-  v324 = emptyGroupSpecifier;
+  v336 = emptyGroupSpecifier;
   if (v8)
   {
     v10 = objc_opt_class();
@@ -1142,16 +1152,16 @@ void __50__PSGAboutDataSource_getAPFSCurrentUserVolumeNode__block_invoke()
   }
 
   v12 = [v9 preferenceSpecifierNamed:v4 target:selfCopy set:sel_setDeviceName_specifier_ get:sel_deviceName_ detail:v10 cell:v11 edit:0];
-  v343 = *MEMORY[0x277D3FFB8];
+  v355 = *MEMORY[0x277D3FFB8];
   [v12 setProperty:@"NAME_CELL_ID" forKey:?];
-  v323 = v12;
-  [v353 addObject:v12];
+  v335 = v12;
+  [v365 addObject:v12];
   LODWORD(v12) = _os_feature_enabled_impl();
   v13 = MEMORY[0x277D3FAD8];
   softwareVersionString = [(PSGAboutDataSource *)selfCopy softwareVersionString];
   v15 = [v13 preferenceSpecifierNamed:softwareVersionString target:selfCopy set:0 get:sel__productBuildVersionString detail:objc_opt_class() cell:2 edit:0];
 
-  v345 = v6;
+  v357 = v6;
   if (v12)
   {
     v16 = PSBundlePathForPreferenceBundle();
@@ -1168,44 +1178,43 @@ void __50__PSGAboutDataSource_getAPFSCurrentUserVolumeNode__block_invoke()
     [v15 setProperty:suManagerClient forKey:@"SUManagerClient"];
   }
 
-  [v15 setProperty:@"SW_VERSION_SPECIFIER" forKey:v343];
-  v330 = *MEMORY[0x277D3FED8];
+  [v15 setProperty:@"SW_VERSION_SPECIFIER" forKey:v355];
+  v342 = *MEMORY[0x277D3FED8];
   [v15 setProperty:MEMORY[0x277CBEC38] forKey:?];
-  v322 = v15;
-  [v353 addObject:v15];
-  v20 = PSG_BundleForGeneralSettingsUIFramework();
+  v334 = v15;
+  v20 = PSG_BundleForGeneralSettingsUIFramework([v365 addObject:v15]);
   v21 = [v20 localizedStringForKey:@"ProductModelName" value:&stru_282E88A90 table:0];
   [(PSGAboutDataSource *)selfCopy _addKey:@"ProductModelName" localizedString:v21 isCopyable:1];
 
-  v22 = PSG_BundleForGeneralSettingsUIFramework();
-  v23 = [v22 localizedStringForKey:@"ProductModel" value:&stru_282E88A90 table:0];
-  [(PSGAboutDataSource *)selfCopy _addKey:@"ProductModel" localizedString:v23 isCopyable:1];
+  v23 = PSG_BundleForGeneralSettingsUIFramework(v22);
+  v24 = [v23 localizedStringForKey:@"ProductModel" value:&stru_282E88A90 table:0];
+  [(PSGAboutDataSource *)selfCopy _addKey:@"ProductModel" localizedString:v24 isCopyable:1];
 
-  v24 = PSG_BundleForGeneralSettingsUIFramework();
-  v25 = [v24 localizedStringForKey:@"SerialNumber" value:&stru_282E88A90 table:0];
-  [(PSGAboutDataSource *)selfCopy _addKey:@"SerialNumber" localizedString:v25 isCopyable:1];
+  v26 = PSG_BundleForGeneralSettingsUIFramework(v25);
+  v27 = [v26 localizedStringForKey:@"SerialNumber" value:&stru_282E88A90 table:0];
+  [(PSGAboutDataSource *)selfCopy _addKey:@"SerialNumber" localizedString:v27 isCopyable:1];
 
   sharedNDOController = [(PSGAboutDataSource *)selfCopy sharedNDOController];
   specifiers2 = [sharedNDOController specifiers];
 
   if (specifiers2)
   {
-    [v353 addObjectsFromArray:specifiers2];
+    [v365 addObjectsFromArray:specifiers2];
   }
 
-  v321 = specifiers2;
-  v325 = v4;
+  v333 = specifiers2;
+  v337 = v4;
   if (objc_opt_class())
   {
     systemHealthUIClient = [(PSGAboutDataSource *)selfCopy systemHealthUIClient];
     getCurrentSystemHealthInfoSpecifiers = [systemHealthUIClient getCurrentSystemHealthInfoSpecifiers];
-    [v353 addObjectsFromArray:getCurrentSystemHealthInfoSpecifiers];
+    [v365 addObjectsFromArray:getCurrentSystemHealthInfoSpecifiers];
   }
 
   emptyGroupSpecifier2 = [MEMORY[0x277D3FAD8] emptyGroupSpecifier];
-  [emptyGroupSpecifier2 setProperty:@"INFORMATION_GROUP" forKey:v343];
-  v320 = emptyGroupSpecifier2;
-  [v353 addObject:emptyGroupSpecifier2];
+  [emptyGroupSpecifier2 setProperty:@"INFORMATION_GROUP" forKey:v355];
+  v332 = emptyGroupSpecifier2;
+  v33 = [v365 addObject:emptyGroupSpecifier2];
   if (v5)
   {
     mEMORY[0x277D4D868] = [MEMORY[0x277D4D868] sharedInstance];
@@ -1216,105 +1225,102 @@ void __50__PSGAboutDataSource_getAPFSCurrentUserVolumeNode__block_invoke()
 
     if (mobileEquipmentInfoLength <= 1)
     {
-      v35 = [subscriptionContexts objectAtIndexedSubscript:0];
-      if (![(PSGAboutDataSource *)selfCopy _isUsingBootstrap:v35])
+      v38 = [subscriptionContexts objectAtIndexedSubscript:0];
+      v39 = [(PSGAboutDataSource *)selfCopy _isUsingBootstrap:v38];
+      if ((v39 & 1) == 0)
       {
-        v36 = MEMORY[0x277D3FAD8];
-        v37 = PSG_BundleForGeneralSettingsUIFramework();
-        [v37 localizedStringForKey:@"NETWORK" value:&stru_282E88A90 table:0];
-        v39 = v38 = v5;
-        v40 = [v36 preferenceSpecifierNamed:v39 target:selfCopy set:0 get:sel_valueForSpecifier_ detail:0 cell:4 edit:0];
+        v40 = MEMORY[0x277D3FAD8];
+        v41 = PSG_BundleForGeneralSettingsUIFramework(v39);
+        [v41 localizedStringForKey:@"NETWORK" value:&stru_282E88A90 table:0];
+        v43 = v42 = v5;
+        v44 = [v40 preferenceSpecifierNamed:v43 target:selfCopy set:0 get:sel_valueForSpecifier_ detail:0 cell:4 edit:0];
 
-        v5 = v38;
-        v41 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.%li", @"NETWORK", objc_msgSend(v35, "slotID")];
-        [v40 setProperty:v41 forKey:v343];
-        [v353 addObject:v40];
+        v5 = v42;
+        v45 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.%li", @"NETWORK", objc_msgSend(v38, "slotID")];
+        [v44 setProperty:v45 forKey:v355];
+        [v365 addObject:v44];
       }
     }
   }
 
-  v348 = v5;
-  v42 = PSG_BundleForGeneralSettingsUIFramework();
-  v43 = [v42 localizedStringForKey:@"SONGS" value:&stru_282E88A90 table:0];
+  v360 = v5;
+  v46 = PSG_BundleForGeneralSettingsUIFramework(v33);
+  v47 = [v46 localizedStringForKey:@"SONGS" value:&stru_282E88A90 table:0];
 
-  v44 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v43 target:selfCopy set:0 get:sel__songs_ detail:0 cell:4 edit:0];
-  [v44 setProperty:@"SONGS" forKey:v343];
-  v45 = v353;
-  [v353 addObject:v44];
-  v46 = PSG_BundleForGeneralSettingsUIFramework();
-  v47 = [v46 localizedStringForKey:@"VIDEOS" value:&stru_282E88A90 table:0];
+  v48 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v47 target:selfCopy set:0 get:sel__songs_ detail:0 cell:4 edit:0];
+  [v48 setProperty:@"SONGS" forKey:v355];
+  v49 = v365;
+  v50 = PSG_BundleForGeneralSettingsUIFramework([v365 addObject:v48]);
+  v51 = [v50 localizedStringForKey:@"VIDEOS" value:&stru_282E88A90 table:0];
 
-  v48 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v47 target:selfCopy set:0 get:sel__videos_ detail:0 cell:4 edit:0];
+  v52 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v51 target:selfCopy set:0 get:sel__videos_ detail:0 cell:4 edit:0];
 
-  [v48 setProperty:@"VIDEOS" forKey:v343];
-  [v353 addObject:v48];
-  v49 = PSG_BundleForGeneralSettingsUIFramework();
-  v50 = [v49 localizedStringForKey:@"PHOTOS" value:&stru_282E88A90 table:0];
+  [v52 setProperty:@"VIDEOS" forKey:v355];
+  v53 = PSG_BundleForGeneralSettingsUIFramework([v365 addObject:v52]);
+  v54 = [v53 localizedStringForKey:@"PHOTOS" value:&stru_282E88A90 table:0];
 
-  v319 = v50;
-  v51 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v50 target:selfCopy set:0 get:sel__photos_ detail:0 cell:4 edit:0];
+  v331 = v54;
+  v55 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v54 target:selfCopy set:0 get:sel__photos_ detail:0 cell:4 edit:0];
 
-  [v51 setProperty:@"PHOTOS" forKey:v343];
-  v336 = v51;
-  [v353 addObject:v51];
-  v52 = PSG_BundleForGeneralSettingsUIFramework();
-  v53 = [v52 localizedStringForKey:@"APPLICATIONS" value:&stru_282E88A90 table:0];
+  [v55 setProperty:@"PHOTOS" forKey:v355];
+  v348 = v55;
+  v56 = PSG_BundleForGeneralSettingsUIFramework([v365 addObject:v55]);
+  v57 = [v56 localizedStringForKey:@"APPLICATIONS" value:&stru_282E88A90 table:0];
 
-  v318 = v53;
-  v54 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v53 target:selfCopy set:0 get:0 detail:? cell:? edit:?];
-  [v54 setProperty:@"APPLICATIONS" forKey:v343];
-  v317 = v54;
-  [v353 addObject:v54];
-  v55 = PSG_BundleForGeneralSettingsUIFramework();
-  v56 = [v55 localizedStringForKey:@"User Data Capacity" value:&stru_282E88A90 table:0];
-  [(PSGAboutDataSource *)selfCopy _addKey:@"User Data Capacity" localizedString:v56 isCopyable:0];
+  v330 = v57;
+  v58 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v57 target:selfCopy set:0 get:0 detail:? cell:? edit:?];
+  [v58 setProperty:@"APPLICATIONS" forKey:v355];
+  v329 = v58;
+  v59 = PSG_BundleForGeneralSettingsUIFramework([v365 addObject:v58]);
+  v60 = [v59 localizedStringForKey:@"User Data Capacity" value:&stru_282E88A90 table:0];
+  [(PSGAboutDataSource *)selfCopy _addKey:@"User Data Capacity" localizedString:v60 isCopyable:0];
 
-  v57 = PSG_BundleForGeneralSettingsUIFramework();
-  v58 = [v57 localizedStringForKey:@"User Data Available" value:&stru_282E88A90 table:0];
-  v354 = selfCopy;
-  [(PSGAboutDataSource *)selfCopy _addKey:@"User Data Available" localizedString:v58 isCopyable:0];
+  v62 = PSG_BundleForGeneralSettingsUIFramework(v61);
+  v63 = [v62 localizedStringForKey:@"User Data Available" value:&stru_282E88A90 table:0];
+  v366 = selfCopy;
+  [(PSGAboutDataSource *)selfCopy _addKey:@"User Data Available" localizedString:v63 isCopyable:0];
 
   if ([MEMORY[0x277D03538] isSharediPad])
   {
     emptyGroupSpecifier3 = [MEMORY[0x277D3FAD8] emptyGroupSpecifier];
-    [v353 addObject:emptyGroupSpecifier3];
+    [v365 addObject:emptyGroupSpecifier3];
     mEMORY[0x277D77BF8] = [MEMORY[0x277D77BF8] sharedManager];
     currentUser = [mEMORY[0x277D77BF8] currentUser];
 
-    v62 = objc_opt_new();
+    v67 = objc_opt_new();
     givenName = [currentUser givenName];
-    [v62 setGivenName:givenName];
+    [v67 setGivenName:givenName];
 
     familyName = [currentUser familyName];
-    [v62 setFamilyName:familyName];
+    [v67 setFamilyName:familyName];
 
-    v65 = [MEMORY[0x277CCAC08] localizedStringFromPersonNameComponents:v62 style:1 options:0];
-    if (!v65)
+    v70 = [MEMORY[0x277CCAC08] localizedStringFromPersonNameComponents:v67 style:1 options:0];
+    if (!v70)
     {
-      v65 = PSG_LocalizedStringForAbout(@"USER");
+      v70 = PSG_LocalizedStringForAbout(@"USER");
     }
 
-    v66 = v65;
+    v71 = v70;
 
-    v67 = MEMORY[0x277CCACA8];
-    v68 = PSG_LocalizedStringForAbout(@"SHARED_IPAD_USER_CAPACITY");
-    v69 = [v67 stringWithFormat:v68, v66];
-    [(PSGAboutDataSource *)selfCopy _addLocalizedKey:v69 identifier:@"SHARED_IPAD_USER_CAPACITY" isCopyable:0 allowMultilineTitle:1];
+    v72 = MEMORY[0x277CCACA8];
+    v73 = PSG_LocalizedStringForAbout(@"SHARED_IPAD_USER_CAPACITY");
+    v74 = [v72 stringWithFormat:v73, v71];
+    [(PSGAboutDataSource *)selfCopy _addLocalizedKey:v74 identifier:@"SHARED_IPAD_USER_CAPACITY" isCopyable:0 allowMultilineTitle:1];
 
-    v70 = MEMORY[0x277CCACA8];
-    v71 = PSG_LocalizedStringForAbout(@"SHARED_IPAD_USER_AVAILABE");
-    v72 = [v70 stringWithFormat:v71, v66];
-    [(PSGAboutDataSource *)selfCopy _addLocalizedKey:v72 identifier:@"SHARED_IPAD_USER_AVAILABE" isCopyable:0 allowMultilineTitle:1];
+    v75 = MEMORY[0x277CCACA8];
+    v76 = PSG_LocalizedStringForAbout(@"SHARED_IPAD_USER_AVAILABE");
+    v77 = [v75 stringWithFormat:v76, v71];
+    [(PSGAboutDataSource *)selfCopy _addLocalizedKey:v77 identifier:@"SHARED_IPAD_USER_AVAILABE" isCopyable:0 allowMultilineTitle:1];
 
-    v45 = v353;
+    v49 = v365;
   }
 
-  v73 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"HARDWARE_GROUP"];
-  [v45 addObject:v73];
+  v78 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"HARDWARE_GROUP"];
+  [v49 addObject:v78];
 
-  v74 = v45;
-  v75 = v348;
-  if (v348)
+  v80 = v49;
+  v81 = v360;
+  if (v360)
   {
     mEMORY[0x277D4D868]2 = [MEMORY[0x277D4D868] sharedInstance];
     subscriptionContexts2 = [mEMORY[0x277D4D868]2 subscriptionContexts];
@@ -1324,19 +1330,19 @@ void __50__PSGAboutDataSource_getAPFSCurrentUserVolumeNode__block_invoke()
 
     if (mobileEquipmentInfoLength2 <= 1)
     {
-      v80 = [subscriptionContexts2 objectAtIndexedSubscript:0];
-      v81 = MEMORY[0x277D3FAD8];
-      v82 = PSG_BundleForGeneralSettingsUIFramework();
-      v83 = [v82 localizedStringForKey:@"CARRIER_VERSION" value:&stru_282E88A90 table:0];
-      v84 = [v81 preferenceSpecifierNamed:v83 target:selfCopy set:0 get:sel__carrierVersion_ detail:0 cell:4 edit:0];
+      v86 = [subscriptionContexts2 objectAtIndexedSubscript:0];
+      v87 = MEMORY[0x277D3FAD8];
+      v88 = PSG_BundleForGeneralSettingsUIFramework(v86);
+      v89 = [v88 localizedStringForKey:@"CARRIER_VERSION" value:&stru_282E88A90 table:0];
+      v90 = [v87 preferenceSpecifierNamed:v89 target:selfCopy set:0 get:sel__carrierVersion_ detail:0 cell:4 edit:0];
 
-      v85 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.%li", @"CARRIER_VERSION", objc_msgSend(v80, "slotID")];
-      [v84 setProperty:v85 forKey:v343];
-      [v84 setProperty:v80 forKey:*MEMORY[0x277D40128]];
-      [v353 addObject:v84];
+      v91 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.%li", @"CARRIER_VERSION", objc_msgSend(v86, "slotID")];
+      [v90 setProperty:v91 forKey:v355];
+      [v90 setProperty:v86 forKey:*MEMORY[0x277D40128]];
+      [v365 addObject:v90];
 
-      v74 = v353;
-      v336 = v84;
+      v80 = v365;
+      v348 = v90;
     }
 
     currentDevice = [MEMORY[0x277D75418] currentDevice];
@@ -1344,13 +1350,13 @@ void __50__PSGAboutDataSource_getAPFSCurrentUserVolumeNode__block_invoke()
 
     if (sf_isiPad)
     {
-      v88 = PSG_BundleForGeneralSettingsUIFramework();
-      v89 = [v88 localizedStringForKey:@"CellularDataAddress" value:&stru_282E88A90 table:0];
-      [(PSGAboutDataSource *)selfCopy _addKey:@"CellularDataAddress" localizedString:v89 isCopyable:0];
+      v94 = PSG_BundleForGeneralSettingsUIFramework(v79);
+      v95 = [v94 localizedStringForKey:@"CellularDataAddress" value:&stru_282E88A90 table:0];
+      [(PSGAboutDataSource *)selfCopy _addKey:@"CellularDataAddress" localizedString:v95 isCopyable:0];
     }
   }
 
-  if (v337)
+  if (v349)
   {
     _macAddressSpecifierKey = [(PSGAboutDataSource *)selfCopy _macAddressSpecifierKey];
     _macAddressLocalizedString = [(PSGAboutDataSource *)selfCopy _macAddressLocalizedString];
@@ -1359,7 +1365,7 @@ void __50__PSGAboutDataSource_getAPFSCurrentUserVolumeNode__block_invoke()
     if (!obj)
     {
 LABEL_29:
-      if (!v348)
+      if (!v360)
       {
         goto LABEL_47;
       }
@@ -1373,11 +1379,11 @@ LABEL_29:
     goto LABEL_29;
   }
 
-  v92 = PSG_BundleForGeneralSettingsUIFramework();
-  v93 = [v92 localizedStringForKey:@"BTMACAddress" value:&stru_282E88A90 table:0];
-  [(PSGAboutDataSource *)selfCopy _addKey:@"BTMACAddress" localizedString:v93 isCopyable:1];
+  v98 = PSG_BundleForGeneralSettingsUIFramework(v79);
+  v99 = [v98 localizedStringForKey:@"BTMACAddress" value:&stru_282E88A90 table:0];
+  [(PSGAboutDataSource *)selfCopy _addKey:@"BTMACAddress" localizedString:v99 isCopyable:1];
 
-  if (!v348)
+  if (!v360)
   {
     goto LABEL_47;
   }
@@ -1391,120 +1397,121 @@ LABEL_33:
 
   if (mobileEquipmentInfoLength3 <= 1)
   {
-    v98 = [subscriptionContexts3 objectAtIndexedSubscript:0];
+    v104 = [subscriptionContexts3 objectAtIndexedSubscript:0];
     mEMORY[0x277D4D8D8]4 = [MEMORY[0x277D4D8D8] sharedInstance];
-    v100 = [mEMORY[0x277D4D8D8]4 mobileEquipmentInfo:v98];
+    v106 = [mEMORY[0x277D4D8D8]4 mobileEquipmentInfo:v104];
 
-    if (v100)
+    if (v106)
     {
-      iMEI = [v100 IMEI];
+      iMEI = [v106 IMEI];
 
       if (iMEI)
       {
-        v102 = MEMORY[0x277D3FAD8];
-        v103 = PSG_BundleForGeneralSettingsUIFramework();
-        v104 = [v103 localizedStringForKey:@"ModemIMEI" value:&stru_282E88A90 table:0];
-        v105 = [v102 preferenceSpecifierNamed:v104 target:v354 set:0 get:sel_valueForSpecifier_ detail:0 cell:4 edit:0];
+        v109 = MEMORY[0x277D3FAD8];
+        v110 = PSG_BundleForGeneralSettingsUIFramework(v108);
+        v111 = [v110 localizedStringForKey:@"ModemIMEI" value:&stru_282E88A90 table:0];
+        v112 = [v109 preferenceSpecifierNamed:v111 target:v366 set:0 get:sel_valueForSpecifier_ detail:0 cell:4 edit:0];
 
-        v106 = MEMORY[0x277CCACA8];
-        [v98 slotID];
-        v107 = [v106 stringWithFormat:@"%@.%li"];
-        [v105 setProperty:v107 forKey:v343];
-        PSGGreenTeaIMEILog(@"Reading IMEI from CTMobileEquipmentInfo", v108, v109, v110, v111, v112, v113, v114, @"ModemIMEI");
-        iMEI2 = [v100 IMEI];
+        v113 = MEMORY[0x277CCACA8];
+        [v104 slotID];
+        v114 = [v113 stringWithFormat:@"%@.%li"];
+        [v112 setProperty:v114 forKey:v355];
+        PSGGreenTeaIMEILog(@"Reading IMEI from CTMobileEquipmentInfo", v115, v116, v117, v118, v119, v120, v121, @"ModemIMEI");
+        iMEI2 = [v106 IMEI];
         psg_IMEIString = [iMEI2 psg_IMEIString];
-        v117 = *MEMORY[0x277D401A8];
-        [v105 setProperty:psg_IMEIString forKey:*MEMORY[0x277D401A8]];
+        v124 = *MEMORY[0x277D401A8];
+        [v112 setProperty:psg_IMEIString forKey:*MEMORY[0x277D401A8]];
 
-        selfCopy = v354;
-        v118 = MEMORY[0x277CBEC38];
-        [v105 setProperty:MEMORY[0x277CBEC38] forKey:v330];
+        selfCopy = v366;
+        v125 = MEMORY[0x277CBEC38];
+        [v112 setProperty:MEMORY[0x277CBEC38] forKey:v342];
         obja = *MEMORY[0x277D40188];
-        [v105 setProperty:v118 forKey:?];
-        [v353 addObject:v105];
-        if ([(PSGAboutDataSource *)v354 shouldShowSIMSpecifier:v98])
+        [v112 setProperty:v125 forKey:?];
+        [v365 addObject:v112];
+        v126 = [(PSGAboutDataSource *)v366 shouldShowSIMSpecifier:v104];
+        if (v126)
         {
-          v119 = MEMORY[0x277D3FAD8];
-          v120 = PSG_BundleForGeneralSettingsUIFramework();
-          v121 = [v120 localizedStringForKey:@"ICCID" value:&stru_282E88A90 table:0];
-          v122 = [v119 preferenceSpecifierNamed:v121 target:v354 set:0 get:sel__ICCIDString_ detail:0 cell:4 edit:0];
+          v127 = MEMORY[0x277D3FAD8];
+          v128 = PSG_BundleForGeneralSettingsUIFramework(v126);
+          v129 = [v128 localizedStringForKey:@"ICCID" value:&stru_282E88A90 table:0];
+          v130 = [v127 preferenceSpecifierNamed:v129 target:v366 set:0 get:sel__ICCIDString_ detail:0 cell:4 edit:0];
 
-          v123 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.%li", @"ICCID", objc_msgSend(v98, "slotID")];
-          [v122 setProperty:v123 forKey:v343];
-          v124 = MEMORY[0x277CBEC38];
-          [v122 setProperty:MEMORY[0x277CBEC38] forKey:v330];
-          [v122 setProperty:v124 forKey:obja];
-          [v122 setProperty:v98 forKey:*MEMORY[0x277D40128]];
-          [v353 addObject:v122];
+          v131 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.%li", @"ICCID", objc_msgSend(v104, "slotID")];
+          [v130 setProperty:v131 forKey:v355];
+          v132 = MEMORY[0x277CBEC38];
+          [v130 setProperty:MEMORY[0x277CBEC38] forKey:v342];
+          [v130 setProperty:v132 forKey:obja];
+          [v130 setProperty:v104 forKey:*MEMORY[0x277D40128]];
+          [v365 addObject:v130];
 
-          selfCopy = v354;
+          selfCopy = v366;
         }
 
-        mEID = [v100 MEID];
+        mEID = [v106 MEID];
 
         if (mEID)
         {
-          v126 = MEMORY[0x277D3FAD8];
-          v127 = PSG_BundleForGeneralSettingsUIFramework();
-          [v127 localizedStringForKey:@"MEID" value:&stru_282E88A90 table:0];
-          v129 = v128 = v117;
-          v130 = [v126 preferenceSpecifierNamed:v129 target:selfCopy set:0 get:sel_valueForSpecifier_ detail:0 cell:4 edit:0];
+          v135 = MEMORY[0x277D3FAD8];
+          v136 = PSG_BundleForGeneralSettingsUIFramework(v134);
+          [v136 localizedStringForKey:@"MEID" value:&stru_282E88A90 table:0];
+          v138 = v137 = v124;
+          v139 = [v135 preferenceSpecifierNamed:v138 target:selfCopy set:0 get:sel_valueForSpecifier_ detail:0 cell:4 edit:0];
 
-          v131 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.%li", @"MEID", objc_msgSend(v98, "slotID")];
-          [v130 setProperty:v131 forKey:v343];
-          mEID2 = [v100 MEID];
-          [v130 setProperty:mEID2 forKey:v128];
+          v140 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.%li", @"MEID", objc_msgSend(v104, "slotID")];
+          [v139 setProperty:v140 forKey:v355];
+          mEID2 = [v106 MEID];
+          [v139 setProperty:mEID2 forKey:v137];
 
-          v133 = MEMORY[0x277CBEC38];
-          [v130 setProperty:MEMORY[0x277CBEC38] forKey:v330];
-          [v130 setProperty:v133 forKey:obja];
-          [v353 addObject:v130];
+          v142 = MEMORY[0x277CBEC38];
+          [v139 setProperty:MEMORY[0x277CBEC38] forKey:v342];
+          [v139 setProperty:v142 forKey:obja];
+          [v365 addObject:v139];
 
-          selfCopy = v354;
+          selfCopy = v366;
         }
 
-        v75 = v348;
+        v81 = v360;
       }
     }
 
-    v74 = v353;
+    v80 = v365;
   }
 
   *buf = 0;
-  v383 = 0u;
-  v384 = 0;
+  v395 = 0u;
+  v396 = 0;
   *&buf[8] = selfCopy;
-  v134 = *MEMORY[0x277CBECE8];
-  v135 = _CTServerConnectionCreate();
-  if (v135)
+  v143 = _CTServerConnectionCreate();
+  if (v143)
   {
-    v136 = v135;
+    v144 = v143;
     cf = 0;
-    if (!(_CTServerConnectionCopyFirmwareVersion() >> 32))
+    v145 = _CTServerConnectionCopyFirmwareVersion();
+    if (!HIDWORD(v145))
     {
-      v137 = PSG_BundleForGeneralSettingsUIFramework();
-      v138 = [v137 localizedStringForKey:@"ModemVersion" value:&stru_282E88A90 table:0];
-      v74 = v353;
-      [(PSGAboutDataSource *)selfCopy _addKey:@"ModemVersion" localizedString:v138 value:cf isCopyable:0];
+      v146 = PSG_BundleForGeneralSettingsUIFramework(v145);
+      v147 = [v146 localizedStringForKey:@"ModemVersion" value:&stru_282E88A90 table:0];
+      v80 = v365;
+      [(PSGAboutDataSource *)selfCopy _addKey:@"ModemVersion" localizedString:v147 value:cf isCopyable:0];
 
-      lastObject = [v353 lastObject];
+      lastObject = [v365 lastObject];
       [lastObject setProperty:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277D40188]];
     }
 
-    CFRelease(v136);
+    CFRelease(v144);
   }
 
 LABEL_47:
-  if (v345)
+  if (v357)
   {
-    v140 = PSG_BundleForGeneralSettingsUIFramework();
-    v141 = [v140 localizedStringForKey:@"SEID" value:&stru_282E88A90 table:0];
+    v149 = PSG_BundleForGeneralSettingsUIFramework(v79);
+    v150 = [v149 localizedStringForKey:@"SEID" value:&stru_282E88A90 table:0];
 
-    v142 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v141 target:0 set:0 get:0 detail:objc_opt_class() cell:1 edit:0];
-    [v74 addObject:v142];
+    v151 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v150 target:0 set:0 get:0 detail:objc_opt_class() cell:1 edit:0];
+    [v80 addObject:v151];
   }
 
-  if (!v75)
+  if (!v81)
   {
     goto LABEL_77;
   }
@@ -1518,32 +1525,32 @@ LABEL_47:
     subscriptionContexts4 = [mEMORY[0x277D4D868]4 subscriptionContexts];
 
     mEMORY[0x277D4D8D8]5 = [MEMORY[0x277D4D8D8] sharedInstance];
-    v148 = [subscriptionContexts4 objectAtIndexedSubscript:0];
-    v149 = [mEMORY[0x277D4D8D8]5 mobileEquipmentInfo:v148];
+    v157 = [subscriptionContexts4 objectAtIndexedSubscript:0];
+    v158 = [mEMORY[0x277D4D8D8]5 mobileEquipmentInfo:v157];
 
     if ([subscriptionContexts4 count] < 2)
     {
-      if (!v149)
+      if (!v158)
       {
 LABEL_59:
-        v156 = &stru_282E88A90;
+        v165 = &stru_282E88A90;
 LABEL_66:
 
         goto LABEL_67;
       }
 
-      v152 = 0;
+      v161 = 0;
     }
 
     else
     {
       mEMORY[0x277D4D8D8]6 = [MEMORY[0x277D4D8D8] sharedInstance];
-      v151 = [subscriptionContexts4 objectAtIndexedSubscript:1];
-      v152 = [mEMORY[0x277D4D8D8]6 mobileEquipmentInfo:v151];
+      v160 = [subscriptionContexts4 objectAtIndexedSubscript:1];
+      v161 = [mEMORY[0x277D4D8D8]6 mobileEquipmentInfo:v160];
 
-      if (!v149)
+      if (!v158)
       {
-        if (!v152)
+        if (!v161)
         {
           goto LABEL_59;
         }
@@ -1552,44 +1559,44 @@ LABEL_66:
       }
     }
 
-    v153 = [v149 CSN];
-    v154 = [v153 length];
+    v162 = [v158 CSN];
+    v163 = [v162 length];
 
-    if (v154)
+    if (v163)
     {
-      v155 = v149;
+      v164 = v158;
 LABEL_63:
-      v156 = [v155 CSN];
+      v165 = [v164 CSN];
 LABEL_65:
-      v159 = MEMORY[0x277D3FAD8];
-      v160 = PSG_LocalizedStringForGeneral(@"EID");
-      v161 = [v159 preferenceSpecifierNamed:v160 target:v354 set:0 get:sel_valueForSpecifier_ detail:0 cell:4 edit:0];
+      v168 = MEMORY[0x277D3FAD8];
+      v169 = PSG_LocalizedStringForGeneral(@"EID");
+      v170 = [v168 preferenceSpecifierNamed:v169 target:v366 set:0 get:sel_valueForSpecifier_ detail:0 cell:4 edit:0];
 
-      selfCopy = v354;
-      [v161 setProperty:@"EID" forKey:v343];
-      [v161 setProperty:v156 forKey:*MEMORY[0x277D40160]];
-      [v161 setProperty:v156 forKey:*MEMORY[0x277D401A8]];
-      [v161 setProperty:objc_opt_class() forKey:*MEMORY[0x277D3FE58]];
-      [v161 setProperty:MEMORY[0x277CBEC38] forKey:v330];
-      [v353 addObject:v161];
+      selfCopy = v366;
+      [v170 setProperty:@"EID" forKey:v355];
+      [v170 setProperty:v165 forKey:*MEMORY[0x277D40160]];
+      [v170 setProperty:v165 forKey:*MEMORY[0x277D401A8]];
+      [v170 setProperty:objc_opt_class() forKey:*MEMORY[0x277D3FE58]];
+      [v170 setProperty:MEMORY[0x277CBEC38] forKey:v342];
+      [v365 addObject:v170];
 
       goto LABEL_66;
     }
 
-    if (!v152)
+    if (!v161)
     {
 LABEL_64:
-      v156 = &stru_282E88A90;
+      v165 = &stru_282E88A90;
       goto LABEL_65;
     }
 
 LABEL_61:
-    v157 = [v152 CSN];
-    v158 = [v157 length];
+    v166 = [v161 CSN];
+    v167 = [v166 length];
 
-    if (v158)
+    if (v167)
     {
-      v155 = v152;
+      v164 = v161;
       goto LABEL_63;
     }
 
@@ -1597,175 +1604,175 @@ LABEL_61:
   }
 
 LABEL_67:
-  v162 = +[PSUICoreTelephonyPostponementCache sharedInstance];
-  getActivationPolicyState = [v162 getActivationPolicyState];
+  v171 = +[PSUICoreTelephonyPostponementCache sharedInstance];
+  getActivationPolicyState = [v171 getActivationPolicyState];
 
   if (getActivationPolicyState && [getActivationPolicyState carrierLock])
   {
     carrierLock = [getActivationPolicyState carrierLock];
-    v165 = PSG_LocalizedStringForGeneral(@"CARRIER_LOCK");
+    v174 = PSG_LocalizedStringForGeneral(@"CARRIER_LOCK");
     if (carrierLock == 1)
     {
-      v166 = @"CARRIER_LOCK_UNLOCKED";
+      v175 = @"CARRIER_LOCK_UNLOCKED";
     }
 
     else
     {
-      v166 = @"CARRIER_LOCK_LOCKED";
+      v175 = @"CARRIER_LOCK_LOCKED";
     }
 
-    v167 = PSG_LocalizedStringForGeneral(v166);
-    v168 = MEMORY[0x277D3FAD8];
+    v176 = PSG_LocalizedStringForGeneral(v175);
+    v177 = MEMORY[0x277D3FAD8];
     if (carrierLock == 1)
     {
-      v169 = 0;
-      v170 = 4;
+      v178 = 0;
+      v179 = 4;
     }
 
     else
     {
-      v169 = objc_opt_class();
-      v170 = 2;
+      v178 = objc_opt_class();
+      v179 = 2;
     }
 
-    v171 = [v168 preferenceSpecifierNamed:v165 target:selfCopy set:0 get:sel_valueForSpecifier_ detail:v169 cell:v170 edit:0];
-    [v171 setProperty:v167 forKey:*MEMORY[0x277D401A8]];
-    [v353 addObject:v171];
+    v180 = [v177 preferenceSpecifierNamed:v174 target:selfCopy set:0 get:sel_valueForSpecifier_ detail:v178 cell:v179 edit:0];
+    [v180 setProperty:v176 forKey:*MEMORY[0x277D401A8]];
+    [v365 addObject:v180];
   }
 
 LABEL_77:
   mEMORY[0x277CC5FB0] = [MEMORY[0x277CC5FB0] sharedAccessoryManager];
   availableAccessories = [mEMORY[0x277CC5FB0] availableAccessories];
 
-  v374 = 0u;
-  v375 = 0u;
-  v372 = 0u;
-  v373 = 0u;
+  v386 = 0u;
+  v387 = 0u;
+  v384 = 0u;
+  v385 = 0u;
   objb = availableAccessories;
-  v174 = [objb countByEnumeratingWithState:&v372 objects:v381 count:16];
-  v175 = 0x277D3F000uLL;
-  if (v174)
+  v183 = [objb countByEnumeratingWithState:&v384 objects:v393 count:16];
+  v184 = 0x277D3F000uLL;
+  if (v183)
   {
-    v176 = v174;
-    v177 = *v373;
+    v185 = v183;
+    v186 = *v385;
     do
     {
-      for (i = 0; i != v176; ++i)
+      for (i = 0; i != v185; ++i)
       {
-        if (*v373 != v177)
+        if (*v385 != v186)
         {
           objc_enumerationMutation(objb);
         }
 
-        v179 = *(*(&v372 + 1) + 8 * i);
-        if (_shouldShowAccessoryInfo(v179))
+        v188 = *(*(&v384 + 1) + 8 * i);
+        if (_shouldShowAccessoryInfo(v188))
         {
-          name = [v179 name];
+          name = [v188 name];
           if (![name length])
           {
-            v181 = PSG_BundleForGeneralSettingsUIFramework();
-            v182 = [v181 localizedStringForKey:@"ACCESSORY" value:&stru_282E88A90 table:0];
+            v190 = PSG_BundleForGeneralSettingsUIFramework(0);
+            v191 = [v190 localizedStringForKey:@"ACCESSORY" value:&stru_282E88A90 table:0];
 
-            name = v182;
-            selfCopy = v354;
+            name = v191;
+            selfCopy = v366;
           }
 
-          v183 = [*(v175 + 2776) preferenceSpecifierNamed:name target:selfCopy set:0 get:0 detail:objc_opt_class() cell:1 edit:0];
-          [v183 setUserInfo:v179];
-          bonjourName = [v179 bonjourName];
-          v185 = [bonjourName length];
+          v192 = [*(v184 + 2776) preferenceSpecifierNamed:name target:selfCopy set:0 get:0 detail:objc_opt_class() cell:1 edit:0];
+          [v192 setUserInfo:v188];
+          bonjourName = [v188 bonjourName];
+          v194 = [bonjourName length];
 
-          v186 = MEMORY[0x277CCAB68];
-          if (v185)
+          v195 = MEMORY[0x277CCAB68];
+          if (v194)
           {
-            bonjourName2 = [v179 bonjourName];
-            v188 = [v186 stringWithString:bonjourName2];
+            bonjourName2 = [v188 bonjourName];
+            v197 = [v195 stringWithString:bonjourName2];
           }
 
           else
           {
-            bonjourName2 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v179, "connectionID")}];
+            bonjourName2 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v188, "connectionID")}];
             stringValue = [bonjourName2 stringValue];
-            v188 = [v186 stringWithString:stringValue];
+            v197 = [v195 stringWithString:stringValue];
           }
 
-          [v188 appendString:@"_ACCESSORY"];
-          [v183 setIdentifier:v188];
+          [v197 appendString:@"_ACCESSORY"];
+          [v192 setIdentifier:v197];
 
-          [v353 addObject:v183];
-          v175 = 0x277D3F000;
-          selfCopy = v354;
+          [v365 addObject:v192];
+          v184 = 0x277D3F000;
+          selfCopy = v366;
         }
       }
 
-      v176 = [objb countByEnumeratingWithState:&v372 objects:v381 count:16];
+      v185 = [objb countByEnumeratingWithState:&v384 objects:v393 count:16];
     }
 
-    while (v176);
+    while (v185);
   }
 
-  v190 = 0x277D4D000uLL;
+  v199 = 0x277D4D000uLL;
   mEMORY[0x277D4D8D8]7 = [MEMORY[0x277D4D8D8] sharedInstance];
   mobileEquipmentInfoLength4 = [mEMORY[0x277D4D8D8]7 mobileEquipmentInfoLength];
 
   if (mobileEquipmentInfoLength4 >= 2)
   {
-    v370 = 0u;
-    v371 = 0u;
-    v368 = 0u;
-    v369 = 0u;
+    v382 = 0u;
+    v383 = 0u;
+    v380 = 0u;
+    v381 = 0u;
     mEMORY[0x277D4D868]5 = [MEMORY[0x277D4D868] sharedInstance];
     subscriptionContexts5 = [mEMORY[0x277D4D868]5 subscriptionContexts];
 
-    v195 = [subscriptionContexts5 countByEnumeratingWithState:&v368 objects:v380 count:16];
-    v196 = MEMORY[0x277CC3ED8];
-    v197 = v353;
-    if (v195)
+    v204 = [subscriptionContexts5 countByEnumeratingWithState:&v380 objects:v392 count:16];
+    v205 = MEMORY[0x277CC3ED8];
+    v206 = v365;
+    if (v204)
     {
-      v198 = v195;
-      v346 = 0;
-      v349 = *v369;
-      v338 = *MEMORY[0x277CC3ED8];
-      v199 = 1;
-      v334 = subscriptionContexts5;
+      v207 = v204;
+      v358 = 0;
+      v361 = *v381;
+      v350 = *MEMORY[0x277CC3ED8];
+      v208 = 1;
+      v346 = subscriptionContexts5;
       do
       {
-        for (j = 0; j != v198; ++j)
+        for (j = 0; j != v207; ++j)
         {
-          if (*v369 != v349)
+          if (*v381 != v361)
           {
-            objc_enumerationMutation(v334);
+            objc_enumerationMutation(v346);
           }
 
-          v201 = *(*(&v368 + 1) + 8 * j);
-          v202 = [(CoreTelephonyClient *)selfCopy->__client getSimHardwareInfo:v201 error:0];
-          v203 = [v202 hardwareType] != 2;
+          v210 = *(*(&v380 + 1) + 8 * j);
+          v211 = [(CoreTelephonyClient *)selfCopy->__client getSimHardwareInfo:v210 error:0];
+          v212 = [v211 hardwareType] != 2;
           mEMORY[0x277D4D868]6 = [MEMORY[0x277D4D868] sharedInstance];
-          [mEMORY[0x277D4D868]6 simStatus:v201];
-          v206 = v205 = selfCopy;
-          v207 = [v206 isEqualToString:v338];
+          [mEMORY[0x277D4D868]6 simStatus:v210];
+          v215 = v214 = selfCopy;
+          v216 = [v215 isEqualToString:v350];
 
-          if ((v207 & 1) == 0)
+          if ((v216 & 1) == 0)
           {
-            v346 += [(PSGAboutDataSource *)v205 shouldShowSIMSpecifier:v201];
+            v358 += [(PSGAboutDataSource *)v214 shouldShowSIMSpecifier:v210];
           }
 
-          v197 = v353;
-          selfCopy = v205;
-          v199 &= v203;
+          v206 = v365;
+          selfCopy = v214;
+          v208 &= v212;
         }
 
-        v198 = [v334 countByEnumeratingWithState:&v368 objects:v380 count:16];
+        v207 = [v346 countByEnumeratingWithState:&v380 objects:v392 count:16];
       }
 
-      while (v198);
+      while (v207);
 
-      if (!v199)
+      if (!v208)
       {
-        v196 = MEMORY[0x277CC3ED8];
-        if (v346 != 1)
+        v205 = MEMORY[0x277CC3ED8];
+        if (v358 != 1)
         {
-          v335 = 0;
+          v347 = 0;
           goto LABEL_111;
         }
 
@@ -1773,72 +1780,72 @@ LABEL_77:
         subscriptionContexts6 = [mEMORY[0x277D4D868]7 subscriptionContexts];
         subscriptionContexts7 = [subscriptionContexts6 sortedArrayUsingComparator:&__block_literal_global_622];
 
-        v335 = 0;
-        v346 = 1;
+        v347 = 0;
+        v358 = 1;
 LABEL_106:
-        v208 = 0x277D3F000;
+        v217 = 0x277D3F000;
         if (subscriptionContexts7)
         {
 LABEL_112:
-          v365 = 0u;
-          v366 = 0u;
-          v363 = 0u;
-          v364 = 0u;
-          v327 = subscriptionContexts7;
-          v339 = [v327 countByEnumeratingWithState:&v363 objects:v379 count:16];
-          if (!v339)
+          v377 = 0u;
+          v378 = 0u;
+          v375 = 0u;
+          v376 = 0u;
+          v339 = subscriptionContexts7;
+          v351 = [v339 countByEnumeratingWithState:&v375 objects:v391 count:16];
+          if (!v351)
           {
             goto LABEL_164;
           }
 
-          v215 = @"AVAILABLE_SIM";
-          if (!v346)
+          v224 = @"AVAILABLE_SIM";
+          if (!v358)
           {
-            v215 = @"AVAILABLE_SIMS";
+            v224 = @"AVAILABLE_SIMS";
           }
 
-          v326 = v215;
-          v331 = 1;
-          v332 = *v196;
-          v333 = *v364;
-          v328 = *MEMORY[0x277D401A8];
-          v329 = *MEMORY[0x277D40128];
+          v338 = v224;
+          v343 = 1;
+          v344 = *v205;
+          v345 = *v376;
+          v340 = *MEMORY[0x277D401A8];
+          v341 = *MEMORY[0x277D40128];
           while (1)
           {
-            for (k = 0; k != v339; ++k)
+            for (k = 0; k != v351; ++k)
             {
-              if (*v364 != v333)
+              if (*v376 != v345)
               {
-                objc_enumerationMutation(v327);
+                objc_enumerationMutation(v339);
               }
 
-              v217 = *(*(&v363 + 1) + 8 * k);
+              v226 = *(*(&v375 + 1) + 8 * k);
               mEMORY[0x277D4D868]8 = [MEMORY[0x277D4D868] sharedInstance];
-              v219 = [mEMORY[0x277D4D868]8 simStatus:v217];
-              if ([v219 isEqualToString:v332])
+              v228 = [mEMORY[0x277D4D868]8 simStatus:v226];
+              if ([v228 isEqualToString:v344])
               {
                 LOBYTE(iMEI4) = 1;
               }
 
               else
               {
-                LODWORD(iMEI4) = ![(PSGAboutDataSource *)selfCopy shouldShowSIMSpecifier:v217];
+                LODWORD(iMEI4) = ![(PSGAboutDataSource *)selfCopy shouldShowSIMSpecifier:v226];
               }
 
-              v221 = [(CoreTelephonyClient *)selfCopy->__client getSimHardwareInfo:v217 error:0];
-              v222 = v221;
-              if (v335)
+              v230 = [(CoreTelephonyClient *)selfCopy->__client getSimHardwareInfo:v226 error:0];
+              v231 = v230;
+              if (v347)
               {
-                if (v346 > 1)
+                if (v358 > 1)
                 {
                   goto LABEL_144;
                 }
 
-                simLocation = [v221 simLocation];
-                v224 = @"FRONT_SIM";
-                if (simLocation == 1 || (v225 = [v222 simLocation], v224 = @"BACK_SIM", v225 == 2))
+                simLocation = [v230 simLocation];
+                v233 = @"FRONT_SIM";
+                if (simLocation == 1 || (v234 = [v231 simLocation], v233 = @"BACK_SIM", v234 == 2))
                 {
-                  label = PSG_LocalizedStringForGeneral(v224);
+                  label = PSG_LocalizedStringForGeneral(v233);
                   if (!label)
                   {
                     goto LABEL_144;
@@ -1847,192 +1854,195 @@ LABEL_112:
 
                 else
                 {
-                  v232 = _PSGLoggingFacility();
-                  if (os_log_type_enabled(v232, OS_LOG_TYPE_ERROR))
+                  v241 = _PSGLoggingFacility(@"BACK_SIM");
+                  if (os_log_type_enabled(v241, OS_LOG_TYPE_ERROR))
                   {
                     *buf = 138412290;
-                    *&buf[4] = v217;
-                    _os_log_error_impl(&dword_21CF20000, v232, OS_LOG_TYPE_ERROR, "subscription context slot unknown: %@", buf, 0xCu);
+                    *&buf[4] = v226;
+                    _os_log_error_impl(&dword_21CF20000, v241, OS_LOG_TYPE_ERROR, "subscription context slot unknown: %@", buf, 0xCu);
                   }
 
 LABEL_144:
-                  label = [v217 label];
+                  label = [v226 label];
                 }
 
                 label2 = label;
                 goto LABEL_146;
               }
 
-              v227 = v326;
+              v236 = v338;
               if ((iMEI4 & 1) == 0)
               {
-                if (v346 > 1)
+                if (v358 > 1)
                 {
                   goto LABEL_137;
                 }
 
-                hardwareType = [v222 hardwareType];
-                v227 = @"eSIM";
+                hardwareType = [v231 hardwareType];
+                v236 = @"eSIM";
                 if (hardwareType != 2)
                 {
-                  hardwareType2 = [v222 hardwareType];
-                  v227 = @"PHYSICAL_SIM";
+                  hardwareType2 = [v231 hardwareType];
+                  v236 = @"PHYSICAL_SIM";
                   if (hardwareType2 != 1)
                   {
-                    v231 = _PSGLoggingFacility();
-                    if (os_log_type_enabled(v231, OS_LOG_TYPE_ERROR))
+                    v240 = _PSGLoggingFacility(@"PHYSICAL_SIM");
+                    if (os_log_type_enabled(v240, OS_LOG_TYPE_ERROR))
                     {
                       *buf = 138412290;
-                      *&buf[4] = v217;
-                      _os_log_error_impl(&dword_21CF20000, v231, OS_LOG_TYPE_ERROR, "subscription context slot unknown: %@", buf, 0xCu);
+                      *&buf[4] = v226;
+                      _os_log_error_impl(&dword_21CF20000, v240, OS_LOG_TYPE_ERROR, "subscription context slot unknown: %@", buf, 0xCu);
                     }
 
 LABEL_137:
-                    label2 = [v217 label];
+                    label2 = [v226 label];
                     goto LABEL_138;
                   }
                 }
               }
 
-              label2 = PSG_LocalizedStringForGeneral(v227);
+              label2 = PSG_LocalizedStringForGeneral(v236);
               if (!label2)
               {
                 goto LABEL_137;
               }
 
 LABEL_138:
-              if (!v331)
+              if (!v343)
               {
-                v331 = 0;
+                v343 = 0;
                 goto LABEL_147;
               }
 
-              v331 = v346 != 0;
+              v343 = v358 != 0;
 LABEL_146:
-              v233 = [*(v208 + 2776) groupSpecifierWithName:label2];
-              [v197 addObject:v233];
+              v242 = [*(v217 + 2776) groupSpecifierWithName:label2];
+              [v206 addObject:v242];
 
 LABEL_147:
               mEMORY[0x277D4D8D8]8 = [MEMORY[0x277D4D8D8] sharedInstance];
-              v235 = [mEMORY[0x277D4D8D8]8 mobileEquipmentInfo:v217];
+              v244 = [mEMORY[0x277D4D8D8]8 mobileEquipmentInfo:v226];
 
               if ((iMEI4 & 1) == 0)
               {
-                v350 = iMEI4;
-                iMEI4 = v197;
-                if (![(PSGAboutDataSource *)selfCopy _isUsingBootstrap:v217])
+                v362 = iMEI4;
+                iMEI4 = v206;
+                v245 = [(PSGAboutDataSource *)selfCopy _isUsingBootstrap:v226];
+                if ((v245 & 1) == 0)
                 {
-                  v236 = *(v208 + 2776);
-                  v237 = PSG_BundleForGeneralSettingsUIFramework();
-                  v238 = [v237 localizedStringForKey:@"NETWORK" value:&stru_282E88A90 table:0];
-                  v239 = [v236 preferenceSpecifierNamed:v238 target:selfCopy set:0 get:sel_valueForSpecifier_ detail:0 cell:4 edit:0];
+                  v246 = *(v217 + 2776);
+                  v247 = PSG_BundleForGeneralSettingsUIFramework(v245);
+                  v248 = [v247 localizedStringForKey:@"NETWORK" value:&stru_282E88A90 table:0];
+                  v249 = [v246 preferenceSpecifierNamed:v248 target:selfCopy set:0 get:sel_valueForSpecifier_ detail:0 cell:4 edit:0];
 
-                  v240 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.%li", @"NETWORK", objc_msgSend(v217, "slotID")];
-                  [v239 setProperty:v240 forKey:v343];
-                  [iMEI4 addObject:v239];
+                  v250 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.%li", @"NETWORK", objc_msgSend(v226, "slotID")];
+                  [v249 setProperty:v250 forKey:v355];
+                  [iMEI4 addObject:v249];
 
-                  v208 = 0x277D3F000uLL;
+                  v217 = 0x277D3F000uLL;
                 }
 
-                v241 = *(v208 + 2776);
-                v242 = PSG_BundleForGeneralSettingsUIFramework();
-                v243 = [v242 localizedStringForKey:@"CARRIER_VERSION" value:&stru_282E88A90 table:0];
-                v244 = [v241 preferenceSpecifierNamed:v243 target:selfCopy set:0 get:sel__carrierVersion_ detail:0 cell:4 edit:0];
+                v251 = *(v217 + 2776);
+                v252 = PSG_BundleForGeneralSettingsUIFramework(v245);
+                v253 = [v252 localizedStringForKey:@"CARRIER_VERSION" value:&stru_282E88A90 table:0];
+                v254 = [v251 preferenceSpecifierNamed:v253 target:selfCopy set:0 get:sel__carrierVersion_ detail:0 cell:4 edit:0];
 
-                v245 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.%li", @"CARRIER_VERSION", objc_msgSend(v217, "slotID")];
-                [v244 setProperty:v245 forKey:v343];
-                [v244 setProperty:v217 forKey:v329];
-                v197 = iMEI4;
-                [iMEI4 addObject:v244];
+                v255 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.%li", @"CARRIER_VERSION", objc_msgSend(v226, "slotID")];
+                [v254 setProperty:v255 forKey:v355];
+                [v254 setProperty:v226 forKey:v341];
+                v206 = iMEI4;
+                [iMEI4 addObject:v254];
 
-                v336 = v244;
-                LOBYTE(iMEI4) = v350;
+                v348 = v254;
+                LOBYTE(iMEI4) = v362;
               }
 
-              if (v235)
+              if (v244)
               {
-                iMEI3 = [v235 IMEI];
+                iMEI3 = [v244 IMEI];
 
                 if (iMEI3)
                 {
-                  v351 = iMEI4;
-                  if ([v217 slotID] == 2)
+                  v363 = iMEI4;
+                  slotID = [v226 slotID];
+                  if (slotID == 2)
                   {
-                    v247 = PSG_LocalizedStringForGeneral(@"ModemIMEI2");
-                    v248 = v247;
+                    v258 = PSG_LocalizedStringForGeneral(@"ModemIMEI2");
+                    v259 = v258;
                   }
 
                   else
                   {
-                    v247 = PSG_BundleForGeneralSettingsUIFramework();
-                    v248 = [v247 localizedStringForKey:@"ModemIMEI" value:&stru_282E88A90 table:0];
+                    v258 = PSG_BundleForGeneralSettingsUIFramework(slotID);
+                    v259 = [v258 localizedStringForKey:@"ModemIMEI" value:&stru_282E88A90 table:0];
                   }
 
-                  v249 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v248 target:v354 set:0 get:sel_valueForSpecifier_ detail:0 cell:4 edit:0];
-                  v250 = MEMORY[0x277CCACA8];
-                  [v217 slotID];
-                  v251 = [v250 stringWithFormat:@"%@.%li"];
-                  [v249 setProperty:v251 forKey:v343];
-                  PSGGreenTeaIMEILog(@"Reading IMEI from CTMobileEquipmentInfo", v252, v253, v254, v255, v256, v257, v258, @"ModemIMEI");
-                  iMEI4 = [v235 IMEI];
+                  v260 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v259 target:v366 set:0 get:sel_valueForSpecifier_ detail:0 cell:4 edit:0];
+                  v261 = MEMORY[0x277CCACA8];
+                  [v226 slotID];
+                  v262 = [v261 stringWithFormat:@"%@.%li"];
+                  [v260 setProperty:v262 forKey:v355];
+                  PSGGreenTeaIMEILog(@"Reading IMEI from CTMobileEquipmentInfo", v263, v264, v265, v266, v267, v268, v269, @"ModemIMEI");
+                  iMEI4 = [v244 IMEI];
                   psg_IMEIString2 = [iMEI4 psg_IMEIString];
-                  [v249 setProperty:psg_IMEIString2 forKey:v328];
+                  [v260 setProperty:psg_IMEIString2 forKey:v340];
 
-                  [v249 setProperty:MEMORY[0x277CBEC38] forKey:v330];
-                  [v353 addObject:v249];
+                  [v260 setProperty:MEMORY[0x277CBEC38] forKey:v342];
+                  [v365 addObject:v260];
 
-                  v197 = v353;
-                  LOBYTE(iMEI4) = v351;
+                  v206 = v365;
+                  LOBYTE(iMEI4) = v363;
                 }
 
                 if ((iMEI4 & 1) == 0)
                 {
-                  if ([(PSGAboutDataSource *)v354 shouldShowSIMSpecifier:v217])
+                  v271 = [(PSGAboutDataSource *)v366 shouldShowSIMSpecifier:v226];
+                  if (v271)
                   {
-                    v260 = MEMORY[0x277D3FAD8];
-                    v261 = PSG_BundleForGeneralSettingsUIFramework();
-                    v262 = [v261 localizedStringForKey:@"ICCID" value:&stru_282E88A90 table:0];
-                    v263 = [v260 preferenceSpecifierNamed:v262 target:v354 set:0 get:sel__ICCIDString_ detail:0 cell:4 edit:0];
+                    v272 = MEMORY[0x277D3FAD8];
+                    v273 = PSG_BundleForGeneralSettingsUIFramework(v271);
+                    v274 = [v273 localizedStringForKey:@"ICCID" value:&stru_282E88A90 table:0];
+                    v275 = [v272 preferenceSpecifierNamed:v274 target:v366 set:0 get:sel__ICCIDString_ detail:0 cell:4 edit:0];
 
-                    v197 = v353;
-                    v264 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.%li", @"ICCID", objc_msgSend(v217, "slotID")];
-                    [v263 setProperty:v264 forKey:v343];
-                    [v263 setProperty:MEMORY[0x277CBEC38] forKey:v330];
-                    [v263 setProperty:v217 forKey:v329];
-                    [v353 addObject:v263];
+                    v206 = v365;
+                    v276 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.%li", @"ICCID", objc_msgSend(v226, "slotID")];
+                    [v275 setProperty:v276 forKey:v355];
+                    [v275 setProperty:MEMORY[0x277CBEC38] forKey:v342];
+                    [v275 setProperty:v226 forKey:v341];
+                    [v365 addObject:v275];
                   }
 
-                  mEID3 = [v235 MEID];
+                  mEID3 = [v244 MEID];
 
                   if (mEID3)
                   {
-                    v266 = MEMORY[0x277D3FAD8];
-                    v267 = PSG_BundleForGeneralSettingsUIFramework();
-                    v268 = [v267 localizedStringForKey:@"MEID" value:&stru_282E88A90 table:0];
-                    v269 = [v266 preferenceSpecifierNamed:v268 target:v354 set:0 get:sel_valueForSpecifier_ detail:0 cell:4 edit:0];
+                    v279 = MEMORY[0x277D3FAD8];
+                    v280 = PSG_BundleForGeneralSettingsUIFramework(v278);
+                    v281 = [v280 localizedStringForKey:@"MEID" value:&stru_282E88A90 table:0];
+                    v282 = [v279 preferenceSpecifierNamed:v281 target:v366 set:0 get:sel_valueForSpecifier_ detail:0 cell:4 edit:0];
 
-                    v197 = v353;
-                    v270 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.%li", @"MEID", objc_msgSend(v217, "slotID")];
-                    [v269 setProperty:v270 forKey:v343];
-                    mEID4 = [v235 MEID];
-                    [v269 setProperty:mEID4 forKey:v328];
+                    v206 = v365;
+                    v283 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.%li", @"MEID", objc_msgSend(v226, "slotID")];
+                    [v282 setProperty:v283 forKey:v355];
+                    mEID4 = [v244 MEID];
+                    [v282 setProperty:mEID4 forKey:v340];
 
-                    [v269 setProperty:MEMORY[0x277CBEC38] forKey:v330];
-                    [v353 addObject:v269];
+                    [v282 setProperty:MEMORY[0x277CBEC38] forKey:v342];
+                    [v365 addObject:v282];
                   }
                 }
               }
 
-              v208 = 0x277D3F000;
-              selfCopy = v354;
+              v217 = 0x277D3F000;
+              selfCopy = v366;
             }
 
-            v339 = [v327 countByEnumeratingWithState:&v363 objects:v379 count:16];
-            if (!v339)
+            v351 = [v339 countByEnumeratingWithState:&v375 objects:v391 count:16];
+            if (!v351)
             {
 LABEL_164:
 
-              v190 = 0x277D4D000;
+              v199 = 0x277D4D000;
               goto LABEL_165;
             }
           }
@@ -2042,169 +2052,165 @@ LABEL_111:
         mEMORY[0x277D4D868]9 = [MEMORY[0x277D4D868] sharedInstance];
         subscriptionContexts7 = [mEMORY[0x277D4D868]9 subscriptionContexts];
 
-        v208 = 0x277D3F000uLL;
+        v217 = 0x277D3F000uLL;
         goto LABEL_112;
       }
 
-      v196 = MEMORY[0x277CC3ED8];
+      v205 = MEMORY[0x277CC3ED8];
     }
 
     else
     {
 
-      v346 = 0;
+      v358 = 0;
     }
 
     mEMORY[0x277D4D868]10 = [MEMORY[0x277D4D868] sharedInstance];
     subscriptionContexts8 = [mEMORY[0x277D4D868]10 subscriptionContexts];
-    v367[0] = MEMORY[0x277D85DD0];
-    v367[1] = 3221225472;
-    v367[2] = __36__PSGAboutDataSource_loadSpecifiers__block_invoke;
-    v367[3] = &unk_278324FA0;
-    v367[4] = selfCopy;
-    subscriptionContexts7 = [subscriptionContexts8 sortedArrayUsingComparator:v367];
+    v379[0] = MEMORY[0x277D85DD0];
+    v379[1] = 3221225472;
+    v379[2] = __36__PSGAboutDataSource_loadSpecifiers__block_invoke;
+    v379[3] = &unk_278324FA0;
+    v379[4] = selfCopy;
+    subscriptionContexts7 = [subscriptionContexts8 sortedArrayUsingComparator:v379];
 
-    v335 = 1;
+    v347 = 1;
     goto LABEL_106;
   }
 
-  v197 = v353;
-  v208 = 0x277D3F000;
+  v206 = v365;
+  v217 = 0x277D3F000;
 LABEL_165:
   if ((_os_feature_enabled_impl() & 1) == 0 && _os_feature_enabled_impl() && PSGetCapabilityBoolAnswer())
   {
-    v272 = objc_opt_new();
-    [v272 setLocalizedDateFormatFromTemplate:@"MMMM yyyy"];
-    v273 = [MEMORY[0x277CBEBB0] timeZoneWithName:@"GMT"];
-    [v272 setTimeZone:v273];
+    v285 = objc_opt_new();
+    [v285 setLocalizedDateFormatFromTemplate:@"MMMM yyyy"];
+    v286 = [MEMORY[0x277CBEBB0] timeZoneWithName:@"GMT"];
+    [v285 setTimeZone:v286];
 
-    v274 = MEMORY[0x277D3FAD8];
-    v275 = PSG_LocalizedStringForLOTX(@"BATTERY");
-    v276 = [v274 groupSpecifierWithID:@"BATTERY_HEALTH_GROUP" name:v275];
+    v287 = MEMORY[0x277D3FAD8];
+    v288 = PSG_LocalizedStringForLOTX(@"BATTERY");
+    v289 = [v287 groupSpecifierWithID:@"BATTERY_HEALTH_GROUP" name:v288];
 
-    [v197 addObject:v276];
-    v277 = PSG_LocalizedStringForLOTX(@"UNKNOWN");
-    v278 = MEMORY[0x277D3FAD8];
-    v279 = PSG_LocalizedStringForLOTX(@"BATTERY_MANUFACTURE_DATE");
-    v280 = [v278 preferenceSpecifierNamed:v279 target:selfCopy set:0 get:sel_valueForSpecifier_ detail:0 cell:4 edit:0];
+    [v206 addObject:v289];
+    v290 = PSG_LocalizedStringForLOTX(@"UNKNOWN");
+    v291 = MEMORY[0x277D3FAD8];
+    v292 = PSG_LocalizedStringForLOTX(@"BATTERY_MANUFACTURE_DATE");
+    v293 = [v291 preferenceSpecifierNamed:v292 target:selfCopy set:0 get:sel_valueForSpecifier_ detail:0 cell:4 edit:0];
 
-    v281 = *MEMORY[0x277D401A8];
-    [v280 setObject:v277 forKeyedSubscript:*MEMORY[0x277D401A8]];
-    [v353 addObject:v280];
-    v282 = MEMORY[0x277D3FAD8];
+    v294 = *MEMORY[0x277D401A8];
+    [v293 setObject:v290 forKeyedSubscript:*MEMORY[0x277D401A8]];
+    [v365 addObject:v293];
+    v295 = MEMORY[0x277D3FAD8];
     PSG_LocalizedStringForLOTX(@"BATTERY_FIRST_USE");
-    v284 = v283 = selfCopy;
-    v285 = [v282 preferenceSpecifierNamed:v284 target:v283 set:0 get:sel_valueForSpecifier_ detail:0 cell:4 edit:0];
+    v297 = v296 = selfCopy;
+    v298 = [v295 preferenceSpecifierNamed:v297 target:v296 set:0 get:sel_valueForSpecifier_ detail:0 cell:4 edit:0];
 
-    [v285 setObject:v277 forKeyedSubscript:v281];
-    [v353 addObject:v285];
-    v286 = MEMORY[0x277D3FAD8];
-    v287 = PSG_LocalizedStringForLOTX(@"BATTERY_CYCLE_COUNT");
-    v288 = v283;
-    v190 = 0x277D4D000uLL;
-    v289 = [v286 preferenceSpecifierNamed:v287 target:v288 set:0 get:sel_valueForSpecifier_ detail:0 cell:4 edit:0];
+    [v298 setObject:v290 forKeyedSubscript:v294];
+    [v365 addObject:v298];
+    v299 = MEMORY[0x277D3FAD8];
+    v300 = PSG_LocalizedStringForLOTX(@"BATTERY_CYCLE_COUNT");
+    v301 = v296;
+    v199 = 0x277D4D000uLL;
+    v302 = [v299 preferenceSpecifierNamed:v300 target:v301 set:0 get:sel_valueForSpecifier_ detail:0 cell:4 edit:0];
 
-    [v289 setObject:v277 forKeyedSubscript:v281];
-    [v353 addObject:v289];
+    [v302 setObject:v290 forKeyedSubscript:v294];
+    [v365 addObject:v302];
 
-    v197 = v353;
-    v208 = 0x277D3F000uLL;
+    v206 = v365;
+    v217 = 0x277D3F000uLL;
   }
 
-  v352 = [*(v208 + 2776) groupSpecifierWithID:@"CERT_TRUST_SETTINGS_GROUP"];
-  [v197 addObject:?];
-  v290 = PSG_BundleForGeneralSettingsUIFramework();
-  v291 = [v290 localizedStringForKey:@"CERT_TRUST_SETTINGS" value:&stru_282E88A90 table:0];
+  v364 = [*(v217 + 2776) groupSpecifierWithID:@"CERT_TRUST_SETTINGS_GROUP"];
+  v303 = PSG_BundleForGeneralSettingsUIFramework([v206 addObject:?]);
+  v304 = [v303 localizedStringForKey:@"CERT_TRUST_SETTINGS" value:&stru_282E88A90 table:0];
 
-  v347 = v291;
-  v292 = [*(v208 + 2776) preferenceSpecifierNamed:v291 target:0 set:0 get:0 detail:objc_opt_class() cell:1 edit:0];
-  [v292 setIdentifier:@"CERT_TRUST_SETTINGS"];
-  v344 = v292;
-  [v197 addObject:v292];
-  v293 = [MEMORY[0x277CBEB18] arrayWithArray:&unk_282E8FD10];
-  sharedInstance = [*(v190 + 2264) sharedInstance];
+  v359 = v304;
+  v305 = [*(v217 + 2776) preferenceSpecifierNamed:v304 target:0 set:0 get:0 detail:objc_opt_class() cell:1 edit:0];
+  [v305 setIdentifier:@"CERT_TRUST_SETTINGS"];
+  v356 = v305;
+  [v206 addObject:v305];
+  v306 = [MEMORY[0x277CBEB18] arrayWithArray:&unk_282E8FD10];
+  sharedInstance = [*(v199 + 2264) sharedInstance];
   mobileEquipmentInfoLength5 = [sharedInstance mobileEquipmentInfoLength];
 
   if (mobileEquipmentInfoLength5 >= 2)
   {
-    v361 = 0u;
-    v362 = 0u;
-    v359 = 0u;
-    v360 = 0u;
+    v373 = 0u;
+    v374 = 0u;
+    v371 = 0u;
+    v372 = 0u;
     mEMORY[0x277D4D868]11 = [MEMORY[0x277D4D868] sharedInstance];
     subscriptionContexts9 = [mEMORY[0x277D4D868]11 subscriptionContexts];
 
-    v298 = [subscriptionContexts9 countByEnumeratingWithState:&v359 objects:v378 count:16];
-    if (v298)
+    v311 = [subscriptionContexts9 countByEnumeratingWithState:&v371 objects:v390 count:16];
+    if (v311)
     {
-      v299 = v298;
-      v300 = *v360;
+      v312 = v311;
+      v313 = *v372;
       do
       {
-        for (m = 0; m != v299; ++m)
+        for (m = 0; m != v312; ++m)
         {
-          if (*v360 != v300)
+          if (*v372 != v313)
           {
             objc_enumerationMutation(subscriptionContexts9);
           }
 
-          v302 = *(*(&v359 + 1) + 8 * m);
-          v303 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.%li", @"ModemIMEI", objc_msgSend(v302, "slotID")];
-          [v293 addObject:v303];
+          v315 = *(*(&v371 + 1) + 8 * m);
+          v316 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.%li", @"ModemIMEI", objc_msgSend(v315, "slotID")];
+          [v306 addObject:v316];
 
-          v304 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.%li", @"ICCID", objc_msgSend(v302, "slotID")];
-          [v293 addObject:v304];
+          v317 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.%li", @"ICCID", objc_msgSend(v315, "slotID")];
+          [v306 addObject:v317];
 
-          v305 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.%li", @"MEID", objc_msgSend(v302, "slotID")];
-          [v293 addObject:v305];
+          v318 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.%li", @"MEID", objc_msgSend(v315, "slotID")];
+          [v306 addObject:v318];
         }
 
-        v299 = [subscriptionContexts9 countByEnumeratingWithState:&v359 objects:v378 count:16];
+        v312 = [subscriptionContexts9 countByEnumeratingWithState:&v371 objects:v390 count:16];
       }
 
-      while (v299);
+      while (v312);
     }
   }
 
-  v357 = 0u;
-  v358 = 0u;
-  v355 = 0u;
-  v356 = 0u;
-  v306 = v353;
-  v307 = [v306 countByEnumeratingWithState:&v355 objects:v377 count:16];
-  if (v307)
+  v369 = 0u;
+  v370 = 0u;
+  v367 = 0u;
+  v368 = 0u;
+  v319 = v365;
+  v320 = [v319 countByEnumeratingWithState:&v367 objects:v389 count:16];
+  if (v320)
   {
-    v308 = v307;
-    v309 = *v356;
-    v310 = *MEMORY[0x277D40188];
-    v311 = MEMORY[0x277CBEC38];
+    v321 = v320;
+    v322 = *v368;
+    v323 = *MEMORY[0x277D40188];
+    v324 = MEMORY[0x277CBEC38];
     do
     {
-      for (n = 0; n != v308; ++n)
+      for (n = 0; n != v321; ++n)
       {
-        if (*v356 != v309)
+        if (*v368 != v322)
         {
-          objc_enumerationMutation(v306);
+          objc_enumerationMutation(v319);
         }
 
-        v313 = *(*(&v355 + 1) + 8 * n);
-        identifier = [v313 identifier];
-        v315 = [v293 containsObject:identifier];
+        v326 = *(*(&v367 + 1) + 8 * n);
+        identifier = [v326 identifier];
+        v328 = [v306 containsObject:identifier];
 
-        if (v315)
+        if (v328)
         {
-          [v313 setProperty:v311 forKey:v310];
+          [v326 setProperty:v324 forKey:v323];
         }
       }
 
-      v308 = [v306 countByEnumeratingWithState:&v355 objects:v377 count:16];
+      v321 = [v319 countByEnumeratingWithState:&v367 objects:v389 count:16];
     }
 
-    while (v308);
+    while (v321);
   }
-
-LABEL_188:
-  v316 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __36__PSGAboutDataSource_loadSpecifiers__block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -2340,7 +2346,7 @@ void __45__PSGAboutDataSource_simStatusChangedToReady__block_invoke(uint64_t a1)
 
 - (void)prlVersionChanged:(id)changed
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
   userInfo = [changedCopy userInfo];
 
@@ -2358,41 +2364,39 @@ void __45__PSGAboutDataSource_simStatusChangedToReady__block_invoke(uint64_t a1)
     mEMORY[0x277D4D868] = [MEMORY[0x277D4D868] sharedInstance];
     subscriptionContexts = [mEMORY[0x277D4D868] subscriptionContexts];
 
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v11 = subscriptionContexts;
-    v12 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v19;
+      v14 = *v18;
       do
       {
         v15 = 0;
         do
         {
-          if (*v19 != v14)
+          if (*v18 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(*(*(&v18 + 1) + 8 * v15), "slotID", v18)}];
+          v16 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(*(*(&v17 + 1) + 8 * v15), "slotID", v17)}];
           [(PSGAboutDataSource *)self prlVersionChangedForSlot:v16];
 
           ++v15;
         }
 
         while (v13 != v15);
-        v13 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v13);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)prlVersionChangedForSlot:(id)slot
@@ -2439,64 +2443,65 @@ void __47__PSGAboutDataSource_prlVersionChangedForSlot___block_invoke(uint64_t a
 
 - (PSGAboutDataSource)init
 {
-  v20.receiver = self;
-  v20.super_class = PSGAboutDataSource;
-  v2 = [(PSSpecifierDataSource *)&v20 init];
+  v21.receiver = self;
+  v21.super_class = PSGAboutDataSource;
+  v2 = [(PSSpecifierDataSource *)&v21 init];
+  v3 = v2;
   if (v2)
   {
-    v3 = PSG_BundleForGeneralSettingsUIFramework();
-    v4 = [v3 localizedStringForKey:@"LOADING" value:&stru_282E88A90 table:0];
-    loading = v2->_loading;
-    v2->_loading = v4;
+    v4 = PSG_BundleForGeneralSettingsUIFramework(v2);
+    v5 = [v4 localizedStringForKey:@"LOADING" value:&stru_282E88A90 table:0];
+    loading = v3->_loading;
+    v3->_loading = v5;
 
-    bootstrapIccid = v2->_bootstrapIccid;
-    v2->_bootstrapIccid = 0;
+    bootstrapIccid = v3->_bootstrapIccid;
+    v3->_bootstrapIccid = 0;
 
-    v7 = objc_alloc_init(MEMORY[0x277CCAAF8]);
-    lock = v2->_lock;
-    v2->_lock = v7;
+    v8 = objc_alloc_init(MEMORY[0x277CCAAF8]);
+    lock = v3->_lock;
+    v3->_lock = v8;
 
-    [(NSLock *)v2->_lock setName:@"AboutController"];
+    [(NSLock *)v3->_lock setName:@"AboutController"];
     mEMORY[0x277CC5FB0] = [MEMORY[0x277CC5FB0] sharedAccessoryManager];
     [mEMORY[0x277CC5FB0] registerForLocalNotifications];
 
     DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
-    CFNotificationCenterAddObserver(DarwinNotifyCenter, v2, HostRenamedDevice, *MEMORY[0x277D82A10], 0, CFNotificationSuspensionBehaviorCoalesce);
-    v11 = objc_alloc_init(MEMORY[0x277CC37B0]);
-    client = v2->__client;
-    v2->__client = v11;
+    CFNotificationCenterAddObserver(DarwinNotifyCenter, v3, HostRenamedDevice, *MEMORY[0x277D82A10], 0, CFNotificationSuspensionBehaviorCoalesce);
+    v12 = objc_alloc_init(MEMORY[0x277CC37B0]);
+    client = v3->__client;
+    v3->__client = v12;
 
-    [(CoreTelephonyClient *)v2->__client setDelegate:v2];
+    [(CoreTelephonyClient *)v3->__client setDelegate:v3];
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-    [defaultCenter addObserver:v2 selector:sel__accessoryDidUpdate_ name:*MEMORY[0x277CC5E88] object:0];
-    [defaultCenter addObserver:v2 selector:sel__accessoryDidUpdate_ name:*MEMORY[0x277CC5EA0] object:0];
-    [defaultCenter addObserver:v2 selector:sel__accessoryDidUpdate_ name:*MEMORY[0x277CC5E90] object:0];
-    [defaultCenter addObserver:v2 selector:sel__accessoryDidUpdate_ name:*MEMORY[0x277CC5EB0] object:0];
-    [defaultCenter addObserver:v2 selector:sel__accessoryDidUpdate_ name:*MEMORY[0x277CC5EC8] object:0];
-    [defaultCenter addObserver:v2 selector:sel__accessoryDidUpdate_ name:*MEMORY[0x277CC5EB8] object:0];
-    [defaultCenter addObserver:v2 selector:sel__accessoryDidUpdate_ name:*MEMORY[0x277CC5EC0] object:0];
-    [defaultCenter addObserver:v2 selector:sel_mediaLibraryDidChange_ name:*MEMORY[0x277CD58D8] object:0];
-    [defaultCenter addObserver:v2 selector:sel_simStatusChangedToReady name:*MEMORY[0x277D4D890] object:0];
-    [defaultCenter addObserver:v2 selector:sel_mediaLibraryDidChange_ name:@"PSPhotoVideoCountChange" object:0];
-    [defaultCenter addObserver:v2 selector:sel_prlVersionChanged_ name:*MEMORY[0x277D4D8E0] object:0];
-    v14 = ALRegisterForPhotosAndVideosCount();
-    photoVideoNotificationToken = v2->_photoVideoNotificationToken;
-    v2->_photoVideoNotificationToken = v14;
+    [defaultCenter addObserver:v3 selector:sel__accessoryDidUpdate_ name:*MEMORY[0x277CC5E88] object:0];
+    [defaultCenter addObserver:v3 selector:sel__accessoryDidUpdate_ name:*MEMORY[0x277CC5EA0] object:0];
+    [defaultCenter addObserver:v3 selector:sel__accessoryDidUpdate_ name:*MEMORY[0x277CC5E90] object:0];
+    [defaultCenter addObserver:v3 selector:sel__accessoryDidUpdate_ name:*MEMORY[0x277CC5EB0] object:0];
+    [defaultCenter addObserver:v3 selector:sel__accessoryDidUpdate_ name:*MEMORY[0x277CC5EC8] object:0];
+    [defaultCenter addObserver:v3 selector:sel__accessoryDidUpdate_ name:*MEMORY[0x277CC5EB8] object:0];
+    [defaultCenter addObserver:v3 selector:sel__accessoryDidUpdate_ name:*MEMORY[0x277CC5EC0] object:0];
+    [defaultCenter addObserver:v3 selector:sel_mediaLibraryDidChange_ name:*MEMORY[0x277CD58D8] object:0];
+    [defaultCenter addObserver:v3 selector:sel_simStatusChangedToReady name:*MEMORY[0x277D4D890] object:0];
+    [defaultCenter addObserver:v3 selector:sel_mediaLibraryDidChange_ name:@"PSPhotoVideoCountChange" object:0];
+    [defaultCenter addObserver:v3 selector:sel_prlVersionChanged_ name:*MEMORY[0x277D4D8E0] object:0];
+    v15 = ALRegisterForPhotosAndVideosCount();
+    photoVideoNotificationToken = v3->_photoVideoNotificationToken;
+    v3->_photoVideoNotificationToken = v15;
 
     mEMORY[0x277CC5FB0]2 = [MEMORY[0x277CC5FB0] sharedAccessoryManager];
     [mEMORY[0x277CC5FB0]2 startIPAccessoryDiscovery];
 
     mEMORY[0x277D2D0F8] = [MEMORY[0x277D2D0F8] sharedController];
-    [(PSGAboutDataSource *)v2 setSharedNDOController:mEMORY[0x277D2D0F8]];
+    [(PSGAboutDataSource *)v3 setSharedNDOController:mEMORY[0x277D2D0F8]];
 
     if (objc_opt_class())
     {
       mEMORY[0x277D01058] = [MEMORY[0x277D01058] sharedInstance];
-      [(PSGAboutDataSource *)v2 setSystemHealthUIClient:mEMORY[0x277D01058]];
+      [(PSGAboutDataSource *)v3 setSystemHealthUIClient:mEMORY[0x277D01058]];
     }
   }
 
-  return v2;
+  return v3;
 }
 
 void __26__PSGAboutDataSource_init__block_invoke()
@@ -2523,11 +2528,10 @@ void __26__PSGAboutDataSource_init__block_invoke()
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter removeObserver:self];
 
-  photoVideoNotificationToken = self->_photoVideoNotificationToken;
   ALUnregisterForPhotosAndVideosCount();
-  v8.receiver = self;
-  v8.super_class = PSGAboutDataSource;
-  [(PSGAboutDataSource *)&v8 dealloc];
+  v7.receiver = self;
+  v7.super_class = PSGAboutDataSource;
+  [(PSGAboutDataSource *)&v7 dealloc];
 }
 
 - (void)_accessoryDidUpdate:(id)update
@@ -2646,7 +2650,7 @@ void __42__PSGAboutDataSource__accessoryDidUpdate___block_invoke(uint64_t a1, vo
 
     else
     {
-      v6 = PSG_BundleForGeneralSettingsUIFramework();
+      v6 = PSG_BundleForGeneralSettingsUIFramework(v3);
       v5 = [v6 localizedStringForKey:@"ACCESSORY" value:&stru_282E88A90 table:0];
     }
 
@@ -2731,11 +2735,10 @@ void __42__PSGAboutDataSource__accessoryDidUpdate___block_invoke_2(uint64_t a1)
 
 void __50__PSGAboutDataSource_getAPFSCurrentUserVolumeNode__block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_21CF20000, v0, OS_LOG_TYPE_ERROR, "%s error fetching current user volume: %d", v2, 0x12u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_21CF20000, v0, OS_LOG_TYPE_ERROR, "%s error fetching current user volume: %d", v1, 0x12u);
 }
 
 @end

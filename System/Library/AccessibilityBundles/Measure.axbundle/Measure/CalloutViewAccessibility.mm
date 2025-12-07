@@ -2,6 +2,7 @@
 + (void)_accessibilityPerformValidations:(id)validations;
 - (NSString)axCalloutText;
 - (void)_accessibilityLoadAccessibilityInformation;
+- (void)_axSetIsActuallyVisible:(BOOL)visible;
 - (void)_axUpdateIsVisible;
 - (void)axDidUpdateFromPreviousCalloutText:(id)text;
 - (void)setAlpha:(double)alpha;
@@ -45,6 +46,30 @@
   v3.super_class = CalloutViewAccessibility;
   [(CalloutViewAccessibility *)&v3 _accessibilityLoadAccessibilityInformation];
   [(CalloutViewAccessibility *)self _axUpdateIsVisible];
+}
+
+- (void)_axSetIsActuallyVisible:(BOOL)visible
+{
+  visibleCopy = visible;
+  if ([(CalloutViewAccessibility *)self _axInternalIsActuallyVisible]!= visible)
+  {
+    [(CalloutViewAccessibility *)self _axSetInternalIsActuallyVisible:visibleCopy];
+    if (visibleCopy)
+    {
+      axCalloutText = [(CalloutViewAccessibility *)self axCalloutText];
+      v6 = [axCalloutText length];
+
+      if (v6)
+      {
+        axCalloutText2 = [(CalloutViewAccessibility *)self axCalloutText];
+        AXMeasureSpeakMeasurementAnnouncement(axCalloutText2);
+      }
+    }
+
+    v8 = *MEMORY[0x29EDC7ED8];
+
+    UIAccessibilityPostNotification(v8, 0);
+  }
 }
 
 - (void)_axUpdateIsVisible

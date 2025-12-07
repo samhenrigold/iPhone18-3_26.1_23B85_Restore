@@ -41,9 +41,9 @@
     return 0;
   }
 
-  sub_10001A3E8();
+  v3 = sub_10001A3E8(self, a2);
 
-  return sub_100328630();
+  return sub_100328630(v3, v4);
 }
 
 @end

@@ -51,7 +51,11 @@
   x = in.origin.x;
   contextCopy = context;
   selfCopy = self;
-  sub_275E575F8(contextCopy, background, x, y, width, height);
+  v12.n128_f64[0] = x;
+  v13.n128_f64[0] = y;
+  v14.n128_f64[0] = width;
+  v15.n128_f64[0] = height;
+  sub_275E575F8(contextCopy, background, v12, v13, v14, v15);
 }
 
 - (CGSize)boundsSizeForPointSize:(double)size

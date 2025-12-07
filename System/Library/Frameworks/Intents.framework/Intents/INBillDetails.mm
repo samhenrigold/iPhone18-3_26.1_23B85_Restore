@@ -14,18 +14,18 @@
 
 - (id)_dictionaryRepresentation
 {
-  v25[8] = *MEMORY[0x1E69E9840];
+  v24[8] = *MEMORY[0x1E69E9840];
   billPayee = self->_billPayee;
-  v23 = billPayee;
-  v24[0] = @"billPayee";
+  v22 = billPayee;
+  v23[0] = @"billPayee";
   if (!billPayee)
   {
     billPayee = [MEMORY[0x1E695DFB0] null];
   }
 
-  v22 = billPayee;
-  v25[0] = billPayee;
-  v24[1] = @"amountDue";
+  v21 = billPayee;
+  v24[0] = billPayee;
+  v23[1] = @"amountDue";
   amountDue = self->_amountDue;
   null = amountDue;
   if (!amountDue)
@@ -33,9 +33,9 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v21 = null;
-  v25[1] = null;
-  v24[2] = @"minimumDue";
+  v20 = null;
+  v24[1] = null;
+  v23[2] = @"minimumDue";
   minimumDue = self->_minimumDue;
   null2 = minimumDue;
   if (!minimumDue)
@@ -43,9 +43,9 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v20 = null2;
-  v25[2] = null2;
-  v24[3] = @"lateFee";
+  v19 = null2;
+  v24[2] = null2;
+  v23[3] = @"lateFee";
   lateFee = self->_lateFee;
   null3 = lateFee;
   if (!lateFee)
@@ -53,9 +53,9 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v19 = null3;
-  v25[3] = null3;
-  v24[4] = @"dueDate";
+  v18 = null3;
+  v24[3] = null3;
+  v23[4] = @"dueDate";
   dueDate = self->_dueDate;
   null4 = dueDate;
   if (!dueDate)
@@ -63,8 +63,8 @@
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v25[4] = null4;
-  v24[5] = @"paymentDate";
+  v24[4] = null4;
+  v23[5] = @"paymentDate";
   paymentDate = self->_paymentDate;
   null5 = paymentDate;
   if (!paymentDate)
@@ -72,14 +72,14 @@
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v25[5] = null5;
-  v24[6] = @"billType";
+  v24[5] = null5;
+  v23[6] = @"billType";
   v14 = [MEMORY[0x1E696AD98] numberWithInteger:self->_billType];
-  v25[6] = v14;
-  v24[7] = @"paymentStatus";
+  v24[6] = v14;
+  v23[7] = @"paymentStatus";
   v15 = [MEMORY[0x1E696AD98] numberWithInteger:self->_paymentStatus];
-  v25[7] = v15;
-  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:8];
+  v24[7] = v15;
+  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:8];
 
   if (paymentDate)
   {
@@ -138,11 +138,9 @@ LABEL_17:
 LABEL_27:
 
 LABEL_18:
-  if (!v23)
+  if (!v22)
   {
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }

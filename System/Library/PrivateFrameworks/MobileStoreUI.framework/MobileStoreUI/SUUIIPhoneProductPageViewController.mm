@@ -512,21 +512,21 @@ SUUIStorePageViewController *__74__SUUIIPhoneProductPageViewController_productPa
   selectCopy = select;
   if (!self->_bannerText)
   {
-    objc_initWeak(&location, self);
-    v5 = SUUIAskPermissionFramework();
-    v6 = SUUIWeakLinkedClassForString(&cfstr_Prrequestqueue.isa, v5);
-    v7 = SUUIAskPermissionFramework();
-    v8 = *SUUIWeakLinkedSymbolForString("kPRRequestQueueiTunesStoreIdentifier", v7);
-    v9 = [v6 _requestQueueForIdentifier:v8];
+    inited = objc_initWeak(&location, self);
+    v7 = SUUIAskPermissionFramework(inited, v6);
+    v8 = SUUIWeakLinkedClassForString(&cfstr_Prrequestqueue.isa, v7);
+    v10 = SUUIAskPermissionFramework(v8, v9);
+    v11 = *SUUIWeakLinkedSymbolForString("kPRRequestQueueiTunesStoreIdentifier", v10);
+    v12 = [v8 _requestQueueForIdentifier:v11];
     itemIdentifier = [(SUUIItem *)self->_item itemIdentifier];
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __68__SUUIIPhoneProductPageViewController_askPermissionBannerDidSelect___block_invoke;
-    v11[3] = &unk_2798F8BE8;
-    objc_copyWeak(&v12, &location);
-    [v9 _attemptLocalApprovalForStorePurchaseRequestWithItemIdentifier:itemIdentifier completionHandler:v11];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __68__SUUIIPhoneProductPageViewController_askPermissionBannerDidSelect___block_invoke;
+    v14[3] = &unk_2798F8BE8;
+    objc_copyWeak(&v15, &location);
+    [v12 _attemptLocalApprovalForStorePurchaseRequestWithItemIdentifier:itemIdentifier completionHandler:v14];
 
-    objc_destroyWeak(&v12);
+    objc_destroyWeak(&v15);
     objc_destroyWeak(&location);
   }
 }
@@ -1925,7 +1925,7 @@ LABEL_14:
   if (errorCopy)
   {
     domain = [errorCopy domain];
-    if ([domain isEqualToString:@"SUUIErrorDomain"])
+    if (objc_msgSend_isEqualToString_(domain))
     {
       code = [errorCopy code];
 
@@ -2020,7 +2020,7 @@ void __61__SUUIIPhoneProductPageViewController__setProductPage_error___block_inv
 
 void __66__SUUIIPhoneProductPageViewController__showActivityViewController__block_invoke(uint64_t a1, void *a2, int a3)
 {
-  if (a3 && [a2 isEqualToString:0x286AFAFE0])
+  if (a3 && objc_msgSend_isEqualToString_(a2, a2, 0x286AFAFE0))
   {
     WeakRetained = objc_loadWeakRetained((a1 + 32));
     [WeakRetained _animateAddToWishlist];

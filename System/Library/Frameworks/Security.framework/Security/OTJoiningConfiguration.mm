@@ -1,5 +1,6 @@
 @interface OTJoiningConfiguration
 - (OTJoiningConfiguration)initWithCoder:(id)coder;
+- (OTJoiningConfiguration)initWithProtocolType:(id)type uniqueDeviceID:(id)d uniqueClientID:(id)iD pairingUUID:(id)uID epoch:(unint64_t)epoch isInitiator:(BOOL)initiator;
 - (void)encodeWithCoder:(id)coder;
 @end
 
@@ -50,6 +51,32 @@
   [coderCopy encodeInt64:self->_epoch forKey:@"epoch"];
   [coderCopy encodeInt64:self->_timeout forKey:@"timeout"];
   [coderCopy encodeBool:self->_testsEnabled forKey:@"testsEnabled"];
+}
+
+- (OTJoiningConfiguration)initWithProtocolType:(id)type uniqueDeviceID:(id)d uniqueClientID:(id)iD pairingUUID:(id)uID epoch:(unint64_t)epoch isInitiator:(BOOL)initiator
+{
+  initiatorCopy = initiator;
+  typeCopy = type;
+  dCopy = d;
+  iDCopy = iD;
+  uIDCopy = uID;
+  v21.receiver = self;
+  v21.super_class = OTJoiningConfiguration;
+  v18 = [(OTJoiningConfiguration *)&v21 init];
+  v19 = v18;
+  if (v18)
+  {
+    [(OTJoiningConfiguration *)v18 setProtocolType:typeCopy];
+    [(OTJoiningConfiguration *)v19 setUniqueDeviceID:dCopy];
+    [(OTJoiningConfiguration *)v19 setUniqueClientID:iDCopy];
+    [(OTJoiningConfiguration *)v19 setIsInitiator:initiatorCopy];
+    [(OTJoiningConfiguration *)v19 setPairingUUID:uIDCopy];
+    [(OTJoiningConfiguration *)v19 setEpoch:epoch];
+    [(OTJoiningConfiguration *)v19 setTestsEnabled:0];
+    v19->_timeout = 0;
+  }
+
+  return v19;
 }
 
 @end

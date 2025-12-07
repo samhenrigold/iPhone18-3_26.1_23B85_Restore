@@ -3592,7 +3592,7 @@ LABEL_176:
                   objc_enumerationMutation(assets);
                 }
 
-                [*(*(&v25 + 1) + 8 * j) duration];
+                objc_msgSend_duration(*(*(&v25 + 1) + 8 * j));
                 if (v17 > 2.22044605e-16)
                 {
                   ++v8;

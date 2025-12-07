@@ -17,9 +17,9 @@
 
 - (MontrealNNGenerateModel)initWithWeightFormat:(unint64_t)format
 {
-  v19.receiver = self;
-  v19.super_class = MontrealNNGenerateModel;
-  v4 = [(MontrealNNGenerateModel *)&v19 init];
+  v21.receiver = self;
+  v21.super_class = MontrealNNGenerateModel;
+  v4 = [(MontrealNNGenerateModel *)&v21 init];
   v5 = v4;
   if (v4)
   {
@@ -36,7 +36,7 @@
     outputs = v5->_outputs;
     v5->_outputs = v16;
 
-    sub_19D362F00();
+    sub_19D362F00(v18, v19);
   }
 
   return v5;

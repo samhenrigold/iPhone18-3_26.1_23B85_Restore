@@ -77,7 +77,7 @@
 
 - (void)submit
 {
-  v3 = shared_filesystem_metadata_snapshot_service_log_handle();
+  v3 = shared_filesystem_metadata_snapshot_service_log_handle(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     __eventName = [(DSSnapshotRequestTelemetryReporter *)self __eventName];

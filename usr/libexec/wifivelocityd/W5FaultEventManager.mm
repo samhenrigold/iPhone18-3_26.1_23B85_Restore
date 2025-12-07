@@ -20,23 +20,23 @@
 {
   managerCopy = manager;
   modeManagerCopy = modeManager;
-  v20.receiver = self;
-  v20.super_class = W5FaultEventManager;
-  v9 = [(W5FaultEventManager *)&v20 init];
+  v21.receiver = self;
+  v21.super_class = W5FaultEventManager;
+  v9 = [(W5FaultEventManager *)&v21 init];
   v10 = v9;
   if (v9 && (objc_storeStrong(&v9->_peerManager, manager), v10->_peerManager) && (objc_storeStrong(&v10->_diagnosticsModeManager, modeManager), v10->_diagnosticsModeManager) && (v11 = objc_alloc_init(W5PeerGenericRequestListener), listener = v10->_listener, v10->_listener = v11, listener, (v13 = v10->_listener) != 0))
   {
     [(W5PeerGenericRequestListener *)v13 setIdentifier:@"com.apple.wifi.peer.faults"];
-    v17[0] = _NSConcreteStackBlock;
-    v17[1] = 3221225472;
-    v17[2] = sub_10008892C;
-    v17[3] = &unk_1000E3380;
-    v18 = v10;
-    v14 = v18;
-    v19 = v14;
-    [(W5PeerGenericRequestListener *)v10->_listener setRequestHandler:v17];
+    v18[0] = _NSConcreteStackBlock;
+    v18[1] = 3221225472;
+    v18[2] = sub_10008892C;
+    v18[3] = &unk_1000E3380;
+    v19 = v10;
+    v14 = v19;
+    v20 = v14;
+    [(W5PeerGenericRequestListener *)v10->_listener setRequestHandler:v18];
 
-    v15 = v18;
+    v15 = v19;
   }
 
   else
@@ -45,13 +45,14 @@
     v15 = sub_100098A04();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = 136315650;
-      v22 = "[W5FaultEventManager initWithPeerManager:diagnosticsModeManager:]";
-      v23 = 2080;
-      v24 = "W5FaultEventManager.m";
-      v25 = 1024;
-      v26 = 164;
-      _os_log_send_and_compose_impl();
+      v22 = 136315650;
+      v23 = "[W5FaultEventManager initWithPeerManager:diagnosticsModeManager:]";
+      v24 = 2080;
+      v25 = "W5FaultEventManager.m";
+      v26 = 1024;
+      v27 = 164;
+      LODWORD(v17) = 28;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v15, 0, "[wifivelocity] %s (%s:%u) init error!", &v22, v17, LODWORD(v18[0]));
     }
 
     v14 = 0;
@@ -170,12 +171,10 @@
     {
       v13 = 138543362;
       v14 = v8;
-      goto LABEL_7;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v10, 0, "[wifivelocity] FAILED to archive notify peers, returned error (%{public}@)", &v13, 12);
     }
 
-LABEL_8:
-
-    goto LABEL_9;
+    goto LABEL_7;
   }
 
   v11 = 0;
@@ -188,15 +187,11 @@ LABEL_8:
     {
       v13 = 138543362;
       v14 = v8;
-LABEL_7:
-      _os_log_send_and_compose_impl();
-      goto LABEL_8;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v10, 0, "[wifivelocity] FAILED to write notify peers to URL, returned error (%{public}@)", &v13, 12);
     }
 
-    goto LABEL_8;
+LABEL_7:
   }
-
-LABEL_9:
 }
 
 - (void)__unarchiveNotifyPeers
@@ -210,9 +205,9 @@ LABEL_9:
   {
     v7 = objc_opt_class();
     v8 = [NSSet setWithObjects:v7, objc_opt_class(), 0];
-    v12 = 0;
-    v9 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v8 fromData:v6 error:&v12];
-    v10 = v12;
+    v13 = 0;
+    v9 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v8 fromData:v6 error:&v13];
+    v10 = v13;
 
     if (v9)
     {
@@ -224,9 +219,10 @@ LABEL_9:
       v11 = sub_100098A04();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = 138543362;
-        v14 = v10;
-        _os_log_send_and_compose_impl();
+        v14 = 138543362;
+        v15 = v10;
+        LODWORD(v12) = 12;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v11, 0, "[wifivelocity] FAILED to unarchive notify peers from URL, returned error (%{public}@)", &v14, v12);
       }
     }
   }
@@ -250,12 +246,10 @@ LABEL_9:
     {
       v13 = 138543362;
       v14 = v8;
-      goto LABEL_7;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v10, 0, "[wifivelocity] FAILED to archive event cache, returned error (%{public}@)", &v13, 12);
     }
 
-LABEL_8:
-
-    goto LABEL_9;
+    goto LABEL_7;
   }
 
   v11 = 0;
@@ -268,15 +262,11 @@ LABEL_8:
     {
       v13 = 138543362;
       v14 = v8;
-LABEL_7:
-      _os_log_send_and_compose_impl();
-      goto LABEL_8;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v10, 0, "[wifivelocity] FAILED to write event cache to URL, returned error (%{public}@)", &v13, 12);
     }
 
-    goto LABEL_8;
+LABEL_7:
   }
-
-LABEL_9:
 }
 
 - (void)__unarchiveEventCache
@@ -290,9 +280,9 @@ LABEL_9:
   {
     v7 = objc_opt_class();
     v8 = [NSSet setWithObjects:v7, objc_opt_class(), 0];
-    v13 = 0;
-    v9 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v8 fromData:v6 error:&v13];
-    v10 = v13;
+    v14 = 0;
+    v9 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v8 fromData:v6 error:&v14];
+    v10 = v14;
 
     if (v9)
     {
@@ -306,9 +296,10 @@ LABEL_9:
       v12 = sub_100098A04();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = 138543362;
-        v15 = v10;
-        _os_log_send_and_compose_impl();
+        v15 = 138543362;
+        v16 = v10;
+        LODWORD(v13) = 12;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v12, 0, "[wifivelocity] FAILED to unarchive event cache from URL, returned error (%{public}@)", &v15, v13);
       }
     }
   }
@@ -429,25 +420,25 @@ LABEL_9:
   diagnosticsModeManager = [(W5FaultEventManager *)selfCopy diagnosticsModeManager];
   v14 = [diagnosticsModeManager registeredPeersForFaultType:integerValue];
 
-  v55 = 0u;
-  v56 = 0u;
-  v53 = 0u;
   v54 = 0u;
+  v55 = 0u;
+  v52 = 0u;
+  v53 = 0u;
   obj = v14;
-  v15 = [obj countByEnumeratingWithState:&v53 objects:v68 count:16];
+  v15 = [obj countByEnumeratingWithState:&v52 objects:v67 count:16];
   if (v15)
   {
-    v16 = *v54;
+    v16 = *v53;
     do
     {
       for (i = 0; i != v15; i = i + 1)
       {
-        if (*v54 != v16)
+        if (*v53 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v18 = *(*(&v53 + 1) + 8 * i);
+        v18 = *(*(&v52 + 1) + 8 * i);
         peer = [v18 peer];
         v20 = peer == 0;
 
@@ -456,17 +447,16 @@ LABEL_9:
           peer2 = sub_100098A04();
           if (os_log_type_enabled(peer2, OS_LOG_TYPE_DEFAULT))
           {
-            v57 = 136315906;
-            v58 = "[W5FaultEventManager notifyPeersWithFaultEvent:info:]";
-            v59 = 2080;
-            v60 = "W5FaultEventManager.m";
-            v61 = 1024;
-            v62 = 388;
-            v63 = 2114;
-            v64 = v18;
-            LODWORD(v40) = 38;
-            v39 = &v57;
-            _os_log_send_and_compose_impl();
+            v56 = 136315906;
+            v57 = "[W5FaultEventManager notifyPeersWithFaultEvent:info:]";
+            v58 = 2080;
+            v59 = "W5FaultEventManager.m";
+            v60 = 1024;
+            v61 = 388;
+            v62 = 2114;
+            v63 = v18;
+            LODWORD(v39) = 38;
+            _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, peer2, 0, "[wifivelocity] %s (%s:%u) [DM] nil W5Peer for peer='%{public}@'", &v56, v39);
           }
         }
 
@@ -478,33 +468,33 @@ LABEL_9:
         }
       }
 
-      v15 = [obj countByEnumeratingWithState:&v53 objects:v68 count:16];
+      v15 = [obj countByEnumeratingWithState:&v52 objects:v67 count:16];
     }
 
     while (v15);
   }
 
-  v52 = 0u;
-  v50 = 0u;
   v51 = 0u;
   v49 = 0u;
+  v50 = 0u;
+  v48 = 0u;
   v23 = [(NSMutableSet *)selfCopy->_notifyPeers copy];
-  v24 = [v23 countByEnumeratingWithState:&v49 objects:v67 count:16];
+  v24 = [v23 countByEnumeratingWithState:&v48 objects:v66 count:16];
   if (v24)
   {
-    v44 = *v50;
-    v41 = v23;
+    v43 = *v49;
+    v40 = v23;
     do
     {
-      v45 = v24;
-      for (j = 0; j != v45; j = j + 1)
+      v44 = v24;
+      for (j = 0; j != v44; j = j + 1)
       {
-        if (*v50 != v44)
+        if (*v49 != v43)
         {
-          objc_enumerationMutation(v41);
+          objc_enumerationMutation(v40);
         }
 
-        v26 = *(*(&v49 + 1) + 8 * j);
+        v26 = *(*(&v48 + 1) + 8 * j);
         v27 = objc_alloc_init(W5PeerGenericRequest);
         [(W5PeerGenericRequest *)v27 setIdentifier:@"com.apple.wifi.peer.faults"];
         [(W5PeerGenericRequest *)v27 setPeer:v26];
@@ -539,48 +529,47 @@ LABEL_9:
 
           if (infoCopy)
           {
-            v47[0] = _NSConcreteStackBlock;
-            v47[1] = 3221225472;
-            v47[2] = sub_10008A91C;
-            v47[3] = &unk_1000E3438;
-            v48 = v33;
-            [infoCopy enumerateKeysAndObjectsUsingBlock:v47];
+            v46[0] = _NSConcreteStackBlock;
+            v46[1] = 3221225472;
+            v46[2] = sub_10008A91C;
+            v46[3] = &unk_1000E3438;
+            v47 = v33;
+            [infoCopy enumerateKeysAndObjectsUsingBlock:v46];
           }
         }
 
-        [v30 setInfo:{v33, v39, v40}];
+        [v30 setInfo:v33];
         [v28 setObject:v30 forKeyedSubscript:@"Event"];
         [(W5PeerGenericRequest *)v27 setRequestInfo:v28];
         v37 = sub_100098A04();
         if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
         {
-          v57 = 136316162;
-          v58 = "[W5FaultEventManager notifyPeersWithFaultEvent:info:]";
-          v59 = 2080;
-          v60 = "W5FaultEventManager.m";
-          v61 = 1024;
-          v62 = 424;
-          v63 = 2112;
-          v64 = v26;
-          v65 = 2112;
-          v66 = v30;
-          LODWORD(v40) = 48;
-          v39 = &v57;
-          _os_log_send_and_compose_impl();
+          v56 = 136316162;
+          v57 = "[W5FaultEventManager notifyPeersWithFaultEvent:info:]";
+          v58 = 2080;
+          v59 = "W5FaultEventManager.m";
+          v60 = 1024;
+          v61 = 424;
+          v62 = 2112;
+          v63 = v26;
+          v64 = 2112;
+          v65 = v30;
+          LODWORD(v39) = 48;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v37, 0, "[wifivelocity] %s (%s:%u) Notifying peer: %@ for event: %@", &v56, v39);
         }
 
-        v46[0] = _NSConcreteStackBlock;
-        v46[1] = 3221225472;
-        v46[2] = sub_10008A928;
-        v46[3] = &unk_1000E3460;
-        v46[4] = selfCopy;
-        v46[5] = v26;
-        [(W5PeerGenericRequest *)v27 setResponseHandler:v46];
+        v45[0] = _NSConcreteStackBlock;
+        v45[1] = 3221225472;
+        v45[2] = sub_10008A928;
+        v45[3] = &unk_1000E3460;
+        v45[4] = selfCopy;
+        v45[5] = v26;
+        [(W5PeerGenericRequest *)v27 setResponseHandler:v45];
         v38 = [(W5PeerManager *)selfCopy->_peerManager sendRequest:v27];
       }
 
-      v23 = v41;
-      v24 = [v41 countByEnumeratingWithState:&v49 objects:v67 count:16];
+      v23 = v40;
+      v24 = [v40 countByEnumeratingWithState:&v48 objects:v66 count:16];
     }
 
     while (v24);

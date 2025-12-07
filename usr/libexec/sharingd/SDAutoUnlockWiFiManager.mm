@@ -20,6 +20,7 @@
 - (void)_resetManagerState;
 - (void)_restartAWDLTimer;
 - (void)_startAWDLWithInfo:(id)info;
+- (void)_startRangingIfPeerFoundInStateInfo:(id)info awdlUpSameTime:(BOOL)time;
 - (void)_startRangingWithNI;
 - (void)_stopAWDL;
 - (void)cancelWiFiRequest:(id)request;
@@ -1007,6 +1008,107 @@ LABEL_13:
   }
 }
 
+- (void)_startRangingIfPeerFoundInStateInfo:(id)info awdlUpSameTime:(BOOL)time
+{
+  timeCopy = time;
+  infoCopy = info;
+  queue = [(SDAutoUnlockWiFiManager *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  v8 = [(SDAutoUnlockWiFiManager *)self _peerFoundInStateInfo:infoCopy];
+  v9 = auto_unlock_log();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  {
+    if (v8)
+    {
+      v10 = @"YES";
+    }
+
+    else
+    {
+      v10 = @"NO";
+    }
+
+    currentRequest = [(SDAutoUnlockWiFiManager *)self currentRequest];
+    *v28 = 136315650;
+    *&v28[4] = "[SDAutoUnlockWiFiManager _startRangingIfPeerFoundInStateInfo:awdlUpSameTime:]";
+    if ([currentRequest rangingStarted])
+    {
+      v12 = @"YES";
+    }
+
+    else
+    {
+      v12 = @"NO";
+    }
+
+    *&v28[12] = 2112;
+    *&v28[14] = v10;
+    v29 = 2112;
+    v30 = v12;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%s peer found: %@, ranging started: %@", v28, 0x20u);
+  }
+
+  currentRequest2 = [(SDAutoUnlockWiFiManager *)self currentRequest];
+  v14 = ([currentRequest2 rangingStarted] ^ 1) & v8;
+
+  currentRequest3 = [(SDAutoUnlockWiFiManager *)self currentRequest];
+  v16 = currentRequest3;
+  if (v14 != 1)
+  {
+    v25 = [currentRequest3 rangingStarted] | v8;
+
+    if (v25)
+    {
+      return;
+    }
+
+    currentRequest8 = auto_unlock_log();
+    if (!os_log_type_enabled(currentRequest8, OS_LOG_TYPE_DEFAULT))
+    {
+      goto LABEL_18;
+    }
+
+    currentRequest4 = [(SDAutoUnlockWiFiManager *)self currentRequest];
+    rangingPeer = [currentRequest4 rangingPeer];
+    macAddressData = [rangingPeer macAddressData];
+    *v28 = 136315394;
+    *&v28[4] = "[SDAutoUnlockWiFiManager _startRangingIfPeerFoundInStateInfo:awdlUpSameTime:]";
+    *&v28[12] = 2112;
+    *&v28[14] = macAddressData;
+    _os_log_impl(&_mh_execute_header, currentRequest8, OS_LOG_TYPE_DEFAULT, "%s Peer missing from AWDL state. Peer: %@", v28, 0x16u);
+
+LABEL_17:
+LABEL_18:
+
+    return;
+  }
+
+  [currentRequest3 setRangingStarted:1];
+
+  currentRequest5 = [(SDAutoUnlockWiFiManager *)self currentRequest];
+  peerFoundHandler = [currentRequest5 peerFoundHandler];
+
+  if (peerFoundHandler)
+  {
+    currentRequest6 = [(SDAutoUnlockWiFiManager *)self currentRequest];
+    peerFoundHandler2 = [currentRequest6 peerFoundHandler];
+    peerFoundHandler2[2](peerFoundHandler2, timeCopy);
+  }
+
+  [(SDAutoUnlockWiFiManager *)self _startRangingWithNI:*v28];
+  currentRequest7 = [(SDAutoUnlockWiFiManager *)self currentRequest];
+  rangingStartedHandler = [currentRequest7 rangingStartedHandler];
+
+  if (rangingStartedHandler)
+  {
+    currentRequest8 = [(SDAutoUnlockWiFiManager *)self currentRequest];
+    currentRequest4 = [currentRequest8 rangingStartedHandler];
+    currentRequest4[2]();
+    goto LABEL_17;
+  }
+}
+
 - (BOOL)_peerFoundInStateInfo:(id)info
 {
   infoCopy = info;
@@ -1200,7 +1302,7 @@ LABEL_13:
           }
         }
 
-        [(SDAutoUnlockWiFiManager *)self _startRangingIfPeerFoundInStateInfo:awdlState awdlUpSameTime:v19, *v26, *&v26[16]];
+        [(SDAutoUnlockWiFiManager *)self _startRangingIfPeerFoundInStateInfo:awdlState awdlUpSameTime:v19, *v26, *&v26[8]];
       }
     }
 

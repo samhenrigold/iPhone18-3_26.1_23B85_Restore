@@ -7,9 +7,9 @@
 
 - (MDMProvisioningProfile)initWithProfile:(void *)profile
 {
-  v12.receiver = self;
-  v12.super_class = MDMProvisioningProfile;
-  v4 = [(MDMProvisioningProfile *)&v12 init];
+  v11.receiver = self;
+  v11.super_class = MDMProvisioningProfile;
+  v4 = [(MDMProvisioningProfile *)&v11 init];
   if (v4)
   {
     if (profile)
@@ -24,7 +24,6 @@
       v4->_allowedAppIDEntitlement = v8;
 
       v4->_isAppleInternal = MISProvisioningProfileIsAppleInternalProfile() != 0;
-      v10 = *MEMORY[0x277CBED28];
       v4->_isBeta = MISProvisioningProfileGrantsEntitlement() != 0;
       v4->_isFreePP = MISProvisioningProfileIsForLocalProvisioning() != 0;
       v4->_isUniversalPP = MISProvisioningProfileProvisionsAllDevices() != 0;

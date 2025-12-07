@@ -104,7 +104,9 @@
   else
   {
     self->_underlayLayer = [(TSWPTextMagnifierRenderer *)self p_createChildLayer];
-    -[CALayer setContents:](self->_underlayLayer, "setContents:", [objc_msgSend(MEMORY[0x277D755B8] imageNamed:-[TSWPTextMagnifierRendererDelegate underlayImageName](self->_delegate inBundle:"underlayImageName") compatibleWithTraitCollection:{TSWPBundle(), 0), "CGImage"}]);
+    v4 = MEMORY[0x277D755B8];
+    underlayImageName = [(TSWPTextMagnifierRendererDelegate *)self->_delegate underlayImageName];
+    -[CALayer setContents:](self->_underlayLayer, "setContents:", [objc_msgSend(v4 imageNamed:underlayImageName inBundle:TSWPBundle(underlayImageName compatibleWithTraitCollection:{v6), 0), "CGImage"}]);
     [-[TSWPTextMagnifierRenderer layer](self "layer")];
     v3 = 1;
   }
@@ -120,21 +122,23 @@
   if (!self->_overlayLayer)
   {
     self->_overlayLayer = [(TSWPTextMagnifierRenderer *)self p_createChildLayer];
-    -[CALayer setContents:](self->_overlayLayer, "setContents:", [objc_msgSend(MEMORY[0x277D755B8] imageNamed:-[TSWPTextMagnifierRendererDelegate overlayImageName](self->_delegate inBundle:"overlayImageName") compatibleWithTraitCollection:{TSWPBundle(), 0), "CGImage"}]);
+    v7 = MEMORY[0x277D755B8];
+    overlayImageName = [(TSWPTextMagnifierRendererDelegate *)self->_delegate overlayImageName];
+    -[CALayer setContents:](self->_overlayLayer, "setContents:", [objc_msgSend(v7 imageNamed:overlayImageName inBundle:TSWPBundle(overlayImageName compatibleWithTraitCollection:{v9), 0), "CGImage"}]);
     [-[TSWPTextMagnifierRenderer layer](self "layer")];
   }
 
   if ([(TSWPTextMagnifierRendererDelegate *)self->_delegate shouldHideCanvasLayer])
   {
-    v4 = [(TSWPTextMagnifierRenderer *)self autoscrollDirections]!= 0;
+    v10 = [(TSWPTextMagnifierRenderer *)self autoscrollDirections]!= 0;
   }
 
   else
   {
-    v4 = 0;
+    v10 = 0;
   }
 
-  [(CALayer *)self->_canvasLayer setHidden:v4];
+  [(CALayer *)self->_canvasLayer setHidden:v10];
 
   [(TSWPTextMagnifierRenderer *)self setNeedsDisplay];
 }

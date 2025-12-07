@@ -80,144 +80,143 @@
 - (void)updateConstraints
 {
   selfCopy = self;
-  v49 = a2;
+  v48 = a2;
   [NSLayoutConstraint deactivateConstraints:self->_activeConstraints];
-  v29 = 0;
+  v28 = 0;
   if (selfCopy->_messageText)
   {
-    v29 = [(NSString *)selfCopy->_messageText length]!= 0;
+    v28 = [(NSString *)selfCopy->_messageText length]!= 0;
   }
 
-  v48 = v29;
-  v47 = +[NSMutableArray array];
-  v44 = 0;
-  v42 = 0;
-  if (v29)
+  v47 = v28;
+  v46 = +[NSMutableArray array];
+  v43 = 0;
+  v41 = 0;
+  if (v28)
   {
-    v45 = _NSDictionaryOfVariableBindings(@"_titleLabel,_messageLabel", selfCopy->_titleLabel, selfCopy->_messageLabel, 0);
-    v44 = 1;
-    v28 = v45;
+    v44 = _NSDictionaryOfVariableBindings(@"_titleLabel,_messageLabel", selfCopy->_titleLabel, selfCopy->_messageLabel, 0);
+    v43 = 1;
+    v27 = v44;
   }
 
   else
   {
-    v43 = _NSDictionaryOfVariableBindings(@"_titleLabel", selfCopy->_titleLabel, 0);
-    v42 = 1;
-    v28 = v43;
+    v42 = _NSDictionaryOfVariableBindings(@"_titleLabel", selfCopy->_titleLabel, 0);
+    v41 = 1;
+    v27 = v42;
   }
 
-  v46 = v28;
-  if (v42)
+  v45 = v27;
+  if (v41)
   {
   }
 
-  if (v44)
+  if (v43)
   {
   }
 
-  v41 = &off_10000C780;
-  v40 = [UIFontMetrics metricsForTextStyle:UIFontTextStyleBody];
+  v40 = &off_10000C780;
+  v39 = [UIFontMetrics metricsForTextStyle:UIFontTextStyleBody];
   if (selfCopy->_bannerView)
   {
-    v39 = [NSLayoutConstraint constraintWithItem:"constraintWithItem:attribute:relatedBy:toItem:attribute:multiplier:constant:" attribute:selfCopy->_bannerView relatedBy:3 toItem:? attribute:? multiplier:? constant:?];
+    v38 = [NSLayoutConstraint constraintWithItem:"constraintWithItem:attribute:relatedBy:toItem:attribute:multiplier:constant:" attribute:selfCopy->_bannerView relatedBy:3 toItem:? attribute:? multiplier:? constant:?];
     bannerView = selfCopy->_bannerView;
     titleLabel = selfCopy->_titleLabel;
-    [v40 scaledValueForValue:-36.0];
-    v25 = +[UIScreen mainScreen];
+    [v39 scaledValueForValue:-36.0];
+    v24 = +[UIScreen mainScreen];
     UIRoundToScreenScale();
-    v38 = [NSLayoutConstraint constraintWithItem:bannerView attribute:11 relatedBy:0 toItem:titleLabel attribute:12 multiplier:1.0 constant:v2];
+    v37 = [NSLayoutConstraint constraintWithItem:bannerView attribute:11 relatedBy:0 toItem:titleLabel attribute:12 multiplier:1.0 constant:v2];
 
-    v37 = [NSLayoutConstraint constraintWithItem:selfCopy->_bannerView attribute:9 relatedBy:0 toItem:selfCopy attribute:1.0 multiplier:0.0 constant:?];
-    v26 = v47;
-    v52[0] = v37;
-    v52[1] = v39;
-    v52[2] = v38;
-    v27 = [NSArray arrayWithObjects:v52 count:3];
-    [v26 addObjectsFromArray:?];
+    v36 = [NSLayoutConstraint constraintWithItem:selfCopy->_bannerView attribute:9 relatedBy:0 toItem:selfCopy attribute:1.0 multiplier:0.0 constant:?];
+    v25 = v46;
+    v51[0] = v36;
+    v51[1] = v38;
+    v51[2] = v37;
+    v26 = [NSArray arrayWithObjects:v51 count:3];
+    [v25 addObjectsFromArray:?];
 
+    objc_storeStrong(&v36, 0);
     objc_storeStrong(&v37, 0);
     objc_storeStrong(&v38, 0);
-    objc_storeStrong(&v39, 0);
   }
 
   else
   {
-    v20 = selfCopy->_titleLabel;
-    v21 = selfCopy;
-    [v40 scaledValueForValue:36.0];
-    v22 = +[UIScreen mainScreen];
+    v19 = selfCopy->_titleLabel;
+    v20 = selfCopy;
+    [v39 scaledValueForValue:36.0];
+    v21 = +[UIScreen mainScreen];
     UIRoundToScreenScale();
-    v36 = [NSLayoutConstraint constraintWithItem:v20 attribute:12 relatedBy:0 toItem:v21 attribute:3 multiplier:1.0 constant:v3];
+    v35 = [NSLayoutConstraint constraintWithItem:v19 attribute:12 relatedBy:0 toItem:v20 attribute:3 multiplier:1.0 constant:v3];
 
-    [v47 addObject:v36];
-    objc_storeStrong(&v36, 0);
+    [v46 addObject:v35];
+    objc_storeStrong(&v35, 0);
   }
 
-  if (v48)
+  if (v47)
   {
     v12 = selfCopy->_titleLabel;
+    [v39 scaledValueForValue:-20.0];
+    v13 = +[UIScreen mainScreen];
+    UIRoundToScreenScale();
+    v34 = [NSLayoutConstraint constraintWithItem:"constraintWithItem:attribute:relatedBy:toItem:attribute:multiplier:constant:" attribute:v12 relatedBy:? toItem:? attribute:? multiplier:? constant:?];
+
     messageLabel = selfCopy->_messageLabel;
-    [v40 scaledValueForValue:-20.0];
-    v14 = +[UIScreen mainScreen];
+    v15 = selfCopy;
+    [v39 scaledValueForValue:-24.0];
+    v16 = +[UIScreen mainScreen];
     UIRoundToScreenScale();
-    v35 = [NSLayoutConstraint constraintWithItem:"constraintWithItem:attribute:relatedBy:toItem:attribute:multiplier:constant:" attribute:v12 relatedBy:? toItem:? attribute:? multiplier:? constant:?];
+    v33 = [NSLayoutConstraint constraintWithItem:messageLabel attribute:11 relatedBy:0 toItem:v15 attribute:4 multiplier:1.0 constant:v4];
 
-    v15 = selfCopy->_messageLabel;
-    v16 = selfCopy;
-    [v40 scaledValueForValue:-24.0];
-    v17 = +[UIScreen mainScreen];
-    UIRoundToScreenScale();
-    v34 = [NSLayoutConstraint constraintWithItem:v15 attribute:11 relatedBy:0 toItem:v16 attribute:4 multiplier:1.0 constant:v4];
+    v17 = v46;
+    v50[0] = v34;
+    v50[1] = v33;
+    v18 = [NSArray arrayWithObjects:v50 count:2];
+    [v17 addObjectsFromArray:?];
 
-    v18 = v47;
-    v51[0] = v35;
-    v51[1] = v34;
-    v19 = [NSArray arrayWithObjects:v51 count:2];
-    [v18 addObjectsFromArray:?];
-
+    objc_storeStrong(&v33, 0);
     objc_storeStrong(&v34, 0);
-    objc_storeStrong(&v35, 0);
   }
 
   else
   {
     v9 = selfCopy->_titleLabel;
     v10 = selfCopy;
-    [v40 scaledValueForValue:-24.0];
+    [v39 scaledValueForValue:-24.0];
     v11 = +[UIScreen mainScreen];
     UIRoundToScreenScale();
-    v33 = [NSLayoutConstraint constraintWithItem:v9 attribute:11 relatedBy:0 toItem:v10 attribute:4 multiplier:1.0 constant:v5];
+    v32 = [NSLayoutConstraint constraintWithItem:v9 attribute:11 relatedBy:0 toItem:v10 attribute:4 multiplier:1.0 constant:v5];
 
-    [v47 addObject:v33];
-    objc_storeStrong(&v33, 0);
+    [v46 addObject:v32];
+    objc_storeStrong(&v32, 0);
   }
 
-  v32 = +[NSLayoutConstraint constraintsWithVisualFormat:options:metrics:views:](NSLayoutConstraint, "constraintsWithVisualFormat:options:metrics:views:", @"H:|-(H_MARGIN)-[_titleLabel]-(H_MARGIN)-|", 0, v41, v46);
-  [v47 addObjectsFromArray:v32];
-  if (v48)
+  v31 = +[NSLayoutConstraint constraintsWithVisualFormat:options:metrics:views:](NSLayoutConstraint, "constraintsWithVisualFormat:options:metrics:views:", @"H:|-(H_MARGIN)-[_titleLabel]-(H_MARGIN)-|", 0, v40, v45);
+  [v46 addObjectsFromArray:v31];
+  if (v47)
   {
-    v31 = +[NSLayoutConstraint constraintsWithVisualFormat:options:metrics:views:](NSLayoutConstraint, "constraintsWithVisualFormat:options:metrics:views:", @"H:|-(H_MARGIN)-[_messageLabel]-(H_MARGIN)-|", 0, v41, v46);
-    [v47 addObjectsFromArray:v31];
-    objc_storeStrong(&v31, 0);
+    v30 = +[NSLayoutConstraint constraintsWithVisualFormat:options:metrics:views:](NSLayoutConstraint, "constraintsWithVisualFormat:options:metrics:views:", @"H:|-(H_MARGIN)-[_messageLabel]-(H_MARGIN)-|", 0, v40, v45);
+    [v46 addObjectsFromArray:v30];
+    objc_storeStrong(&v30, 0);
   }
 
-  [v47 addObjectsFromArray:v32];
-  [NSLayoutConstraint activateConstraints:v47];
+  [v46 addObjectsFromArray:v31];
+  [NSLayoutConstraint activateConstraints:v46];
   [(AKBasicLoginContentViewControllerContainerView *)selfCopy setContentCompressionResistancePriority:1 forAxis:?];
   LODWORD(v6) = 1144750080;
   [(AKBasicLoginContentViewControllerContainerView *)selfCopy setContentCompressionResistancePriority:0 forAxis:v6];
-  v7 = [v47 copy];
+  v7 = [v46 copy];
   activeConstraints = selfCopy->_activeConstraints;
   selfCopy->_activeConstraints = v7;
 
-  v30.receiver = selfCopy;
-  v30.super_class = AKBasicLoginContentViewControllerContainerView;
-  [(AKBasicLoginContentViewControllerContainerView *)&v30 updateConstraints];
-  objc_storeStrong(&v32, 0);
+  v29.receiver = selfCopy;
+  v29.super_class = AKBasicLoginContentViewControllerContainerView;
+  [(AKBasicLoginContentViewControllerContainerView *)&v29 updateConstraints];
+  objc_storeStrong(&v31, 0);
+  objc_storeStrong(&v39, 0);
   objc_storeStrong(&v40, 0);
-  objc_storeStrong(&v41, 0);
+  objc_storeStrong(&v45, 0);
   objc_storeStrong(&v46, 0);
-  objc_storeStrong(&v47, 0);
 }
 
 - (void)_configureBannerImage

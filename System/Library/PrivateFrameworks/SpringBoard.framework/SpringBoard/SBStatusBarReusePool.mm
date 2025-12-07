@@ -304,7 +304,7 @@ void __55__SBStatusBarReusePool__resetStatusBar_clearOverrides___block_invoke(ui
   [*a1 count];
   v3 = [a2 reason];
   OUTLINED_FUNCTION_0_50();
-  OUTLINED_FUNCTION_12(&dword_21ED4E000, v4, v5, "SBStatusBarReusePool NOT recycling Status Bar (cache size %lu) for reason: %@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_12(&dword_21ED4E000, v4, v5, "SBStatusBarReusePool NOT recycling Status Bar (cache size %lu) for reason: %@", v6, v7, v8, v9);
 }
 
 - (void)recycleStatusBar:(id *)a1 .cold.2(id *a1, void *a2)
@@ -312,7 +312,7 @@ void __55__SBStatusBarReusePool__resetStatusBar_clearOverrides___block_invoke(ui
   [*a1 count];
   v3 = [a2 reason];
   OUTLINED_FUNCTION_0_50();
-  OUTLINED_FUNCTION_12(&dword_21ED4E000, v4, v5, "SBStatusBarReusePool recycling Status Bar (cache size %lu) for reason: %@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_12(&dword_21ED4E000, v4, v5, "SBStatusBarReusePool recycling Status Bar (cache size %lu) for reason: %@", v6, v7, v8, v9);
 }
 
 @end

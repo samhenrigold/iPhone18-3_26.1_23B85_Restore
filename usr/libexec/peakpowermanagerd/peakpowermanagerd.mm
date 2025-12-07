@@ -2634,16 +2634,18 @@ void sub_10000D76C(uint64_t a1)
   sub_10000C76C(v3, v2);
 }
 
-void sub_10000D7B8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000D7B8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
-void sub_10000D7E0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000D7E0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 8u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 8u);
 }
 
 void sub_10000D8D0(id a1)
@@ -2716,10 +2718,18 @@ BOOL sub_10000F410(uint64_t a1)
   return os_log_type_enabled(v2, OS_LOG_TYPE_ERROR);
 }
 
-void sub_10000F430(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000F430(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
+}
+
+void sub_10000F488(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = a1;
+  sub_10000D7E0(&_mh_execute_header, a2, a3, "peakpowermanagerd failed to destroy mach port status code : %d\n", a5, a6, a7, a8, v8);
 }
 
 void sub_10000F590(uint8_t *buf, _BYTE *a2, os_log_t log)
@@ -2734,6 +2744,13 @@ void sub_10000F5D0(void *a1, uint8_t *buf, void *a3, os_log_t log)
   *buf = 138412290;
   *a3 = a1;
   _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "Failed to map the deserialized data to a dictionary %@ \n", buf, 0xCu);
+}
+
+void sub_10000F730(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = a1;
+  sub_10000D7E0(&_mh_execute_header, a2, a3, "peakpowermanagerd is unable to map shared memory(IODataQueueMemory) %u\n", a5, a6, a7, a8, v8);
 }
 
 void sub_10000F79C(unsigned int *a1, int a2, os_log_t log)
@@ -2772,6 +2789,20 @@ void sub_10000FACC(uint64_t a1)
     v3 = "[BatteryModelDataHandler getIntValueForKeyFromBatteryData:]";
     _os_log_error_impl(&_mh_execute_header, v1, OS_LOG_TYPE_ERROR, "%s <Error> valueCF null", &v2, 0xCu);
   }
+}
+
+void sub_10000FB70(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[BatteryModelDataHandler getIntValueForKeyFromBatteryData:]";
+  sub_10000F430(&_mh_execute_header, a1, a3, "%s <Error> batteryData null", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10000FBE8(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[BatteryModelDataHandler getIntValueForKeyFromBatteryData:]";
+  sub_10000F430(&_mh_execute_header, a1, a3, "%s <Error> powerService null", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_10000FC60(uint64_t a1, _DWORD *a2)
@@ -2818,6 +2849,27 @@ void sub_10000FF3C()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
+void sub_10000FFBC(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[BatteryModelDataHandler getBatteryModelFileURLString:]";
+  sub_10000F430(&_mh_execute_header, a1, a3, "%s <Error> workingDirURL nil", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100010034(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[BatteryModelDataHandler getBatteryModelFileURLString:]";
+  sub_10000F430(&_mh_execute_header, a1, a3, "%s <Error> deviceType nil", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1000100AC(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[BatteryModelDataHandler loadProtobufModelWithFileName:]";
+  sub_10000F430(&_mh_execute_header, a1, a3, "%s <Error> protobufModelRCParams nil", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_100010124(void *a1, void *a2)
 {
   v3 = a1;
@@ -2825,6 +2877,13 @@ void sub_100010124(void *a1, void *a2)
   sub_10000F458();
   sub_10000F400();
   _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
+}
+
+void sub_1000101D0(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[BatteryModelDataHandler loadProtobufModelWithFileName:]";
+  sub_10000F430(&_mh_execute_header, a1, a3, "%s <Error> fileName nil", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_100010248(uint64_t a1, void *a2)
@@ -2845,6 +2904,27 @@ void sub_1000102DC(uint64_t a1, void *a2)
   }
 
   *a2 = 0;
+}
+
+void sub_100010370(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[BatteryModelDataHandler moveBatteryModelDataFromDiskToKext:]";
+  sub_10000F430(&_mh_execute_header, a1, a3, "%s <Error> setBatteryModelDataToKernel failed", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1000103E8(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[BatteryModelDataHandler moveBatteryModelDataFromDiskToKext:]";
+  sub_10000F430(&_mh_execute_header, a1, a3, "%s <Error> kextModel nil", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100010460(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[BatteryModelDataHandler moveBatteryModelDataFromDiskToKext:]";
+  sub_10000F430(&_mh_execute_header, a1, a3, "%s <Error> protobufModel nil", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_1000104D8()

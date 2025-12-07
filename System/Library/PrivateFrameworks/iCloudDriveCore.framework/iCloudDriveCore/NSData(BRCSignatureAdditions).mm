@@ -88,13 +88,12 @@
 
 - (void)brc_signatureIsValid
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
   selfCopy = self;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_223E7A000, log, 0x90u, "[ERROR] invalid signature in %@%@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_223E7A000, log, 0x90u, "[ERROR] invalid signature in %@%@", &v3, 0x16u);
 }
 
 @end

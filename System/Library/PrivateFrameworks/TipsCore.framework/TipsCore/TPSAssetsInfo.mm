@@ -11,40 +11,39 @@
 - (TPSAssetsInfo)initWithVideoIdentifier:(id)identifier videoURL:(id)l imageIdentifier:(id)imageIdentifier imageURL:(id)rL
 {
   v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBE06970, &qword_1C0156340);
-  v11 = *(*(v10 - 8) + 64);
-  v12 = MEMORY[0x1EEE9AC00](v10 - 8);
-  v14 = &v28 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v12);
-  v16 = &v28 - v15;
+  v11 = MEMORY[0x1EEE9AC00](v10 - 8);
+  v13 = &v27 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v11);
+  v15 = &v27 - v14;
   if (identifier)
   {
     identifier = sub_1C014C230();
-    v18 = v17;
+    v17 = v16;
     if (l)
     {
 LABEL_3:
       sub_1C014BBC0();
-      v19 = sub_1C014BC50();
-      (*(*(v19 - 8) + 56))(v16, 0, 1, v19);
+      v18 = sub_1C014BC50();
+      (*(*(v18 - 8) + 56))(v15, 0, 1, v18);
       goto LABEL_6;
     }
   }
 
   else
   {
-    v18 = 0;
+    v17 = 0;
     if (l)
     {
       goto LABEL_3;
     }
   }
 
-  v20 = sub_1C014BC50();
-  (*(*(v20 - 8) + 56))(v16, 1, 1, v20);
+  v19 = sub_1C014BC50();
+  (*(*(v19 - 8) + 56))(v15, 1, 1, v19);
 LABEL_6:
   if (!imageIdentifier)
   {
-    v22 = 0;
+    v21 = 0;
     rLCopy2 = rL;
     if (rLCopy2)
     {
@@ -52,12 +51,12 @@ LABEL_6:
     }
 
 LABEL_10:
-    v25 = 1;
+    v24 = 1;
     goto LABEL_11;
   }
 
   imageIdentifier = sub_1C014C230();
-  v22 = v21;
+  v21 = v20;
   rLCopy2 = rL;
   if (!rLCopy2)
   {
@@ -65,14 +64,14 @@ LABEL_10:
   }
 
 LABEL_8:
-  v24 = rLCopy2;
+  v23 = rLCopy2;
   sub_1C014BBC0();
 
-  v25 = 0;
+  v24 = 0;
 LABEL_11:
-  v26 = sub_1C014BC50();
-  (*(*(v26 - 8) + 56))(v14, v25, 1, v26);
-  return TPSAssetsInfo.init(videoIdentifier:videoURL:imageIdentifier:imageURL:)(identifier, v18, v16, imageIdentifier, v22, v14);
+  v25 = sub_1C014BC50();
+  (*(*(v25 - 8) + 56))(v13, v24, 1, v25);
+  return TPSAssetsInfo.init(videoIdentifier:videoURL:imageIdentifier:imageURL:)(identifier, v17, v15, imageIdentifier, v21, v13);
 }
 
 - (TPSAssetsInfo)init

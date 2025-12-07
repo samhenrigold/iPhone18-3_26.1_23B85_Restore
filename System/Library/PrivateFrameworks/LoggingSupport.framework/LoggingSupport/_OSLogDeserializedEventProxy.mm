@@ -95,7 +95,7 @@
 
 - (id)backtrace
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   curEventDictionary = [(_OSLogDeserializedEventProxy *)self curEventDictionary];
   v5 = [curEventDictionary objectForKeyedSubscript:@"bt"];
 
@@ -106,38 +106,38 @@
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
       currentHandler = [MEMORY[0x277CCA890] currentHandler];
-      v21 = objc_opt_class();
-      [currentHandler handleFailureInMethod:a2 object:self file:@"EventSerializer.m" lineNumber:1123 description:{@"Unexpected class: %@. Expected: %@", v21, objc_opt_class()}];
+      v20 = objc_opt_class();
+      [currentHandler handleFailureInMethod:a2 object:self file:@"EventSerializer.m" lineNumber:1123 description:{@"Unexpected class: %@. Expected: %@", v20, objc_opt_class()}];
     }
 
-    v23 = a2;
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
+    v22 = a2;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v25;
+      v10 = *v24;
       do
       {
         v11 = 0;
         do
         {
-          if (*v25 != v10)
+          if (*v24 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v24 + 1) + 8 * v11);
+          v12 = *(*(&v23 + 1) + 8 * v11);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
             currentHandler2 = [MEMORY[0x277CCA890] currentHandler];
-            v22 = objc_opt_class();
-            [currentHandler2 handleFailureInMethod:v23 object:self file:@"EventSerializer.m" lineNumber:1125 description:{@"Unexpected class: %@. Expected: %@", v22, objc_opt_class()}];
+            v21 = objc_opt_class();
+            [currentHandler2 handleFailureInMethod:v22 object:self file:@"EventSerializer.m" lineNumber:1125 description:{@"Unexpected class: %@. Expected: %@", v21, objc_opt_class()}];
           }
 
           v13 = [(_OSLogDeserializedEventProxy *)self _frameForDict:v12];
@@ -147,7 +147,7 @@
         }
 
         while (v9 != v11);
-        v9 = [v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
       while (v9);
@@ -173,8 +173,6 @@
   {
     v17 = 0;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }

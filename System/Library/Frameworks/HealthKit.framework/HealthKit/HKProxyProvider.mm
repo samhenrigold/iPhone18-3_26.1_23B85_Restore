@@ -51,9 +51,11 @@
 
 uint64_t __33__HKProxyProvider__relaunchQueue__block_invoke(uint64_t a1)
 {
-  _relaunchQueue_relaunchQueue = HKCreateSerialDispatchQueue(*(a1 + 32), @"server-relaunch");
+  v1 = HKCreateSerialDispatchQueue(*(a1 + 32), @"server-relaunch");
+  v2 = _relaunchQueue_relaunchQueue;
+  _relaunchQueue_relaunchQueue = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 - (HKProxyProvider)initWithSource:(id)source serviceIdentifier:(id)identifier exportedObject:(id)object exportedInterface:(id)interface remoteInterface:(id)remoteInterface
@@ -63,53 +65,54 @@ uint64_t __33__HKProxyProvider__relaunchQueue__block_invoke(uint64_t a1)
   objectCopy = object;
   interfaceCopy = interface;
   remoteInterfaceCopy = remoteInterface;
+  v19 = remoteInterfaceCopy;
   if (!sourceCopy)
   {
-    _HKInitializeLogging();
-    v18 = HKLogInfrastructure();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
+    _HKInitializeLogging(remoteInterfaceCopy, v18);
+    v22 = HKLogInfrastructure(v20, v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
     {
-      [HKProxyProvider initWithSource:v18 serviceIdentifier:? exportedObject:? exportedInterface:? remoteInterface:?];
+      [HKProxyProvider initWithSource:v22 serviceIdentifier:? exportedObject:? exportedInterface:? remoteInterface:?];
     }
   }
 
-  v30.receiver = self;
-  v30.super_class = HKProxyProvider;
-  v19 = [(HKProxyProvider *)&v30 init];
-  v20 = v19;
-  if (v19)
+  v34.receiver = self;
+  v34.super_class = HKProxyProvider;
+  v23 = [(HKProxyProvider *)&v34 init];
+  v24 = v23;
+  if (v23)
   {
-    objc_storeStrong(&v19->_source, source);
-    v21 = [identifierCopy copy];
-    serviceIdentifier = v20->_serviceIdentifier;
-    v20->_serviceIdentifier = v21;
+    objc_storeStrong(&v23->_source, source);
+    v25 = [identifierCopy copy];
+    serviceIdentifier = v24->_serviceIdentifier;
+    v24->_serviceIdentifier = v25;
 
-    objc_storeWeak(&v20->_exportedObject, objectCopy);
-    objc_storeStrong(&v20->_exportedInterface, interface);
-    objc_storeStrong(&v20->_remoteInterface, remoteInterface);
-    v20->_shouldRetryOnInterruption = 1;
-    *&v20->_lock._os_unfair_lock_opaque = 0xFFFFFFFF00000000;
+    objc_storeWeak(&v24->_exportedObject, objectCopy);
+    objc_storeStrong(&v24->_exportedInterface, interface);
+    objc_storeStrong(&v24->_remoteInterface, remoteInterface);
+    v24->_shouldRetryOnInterruption = 1;
+    *&v24->_lock._os_unfair_lock_opaque = 0xFFFFFFFF00000000;
     clientQueue = [sourceCopy clientQueue];
-    v24 = clientQueue;
+    v28 = clientQueue;
     if (clientQueue)
     {
-      v25 = clientQueue;
+      v29 = clientQueue;
     }
 
     else
     {
-      v25 = HKCreateSerialDispatchQueue(v20, 0);
+      v29 = HKCreateSerialDispatchQueue(v24, 0);
     }
 
-    clientQueue = v20->_clientQueue;
-    v20->_clientQueue = v25;
+    clientQueue = v24->_clientQueue;
+    v24->_clientQueue = v29;
 
     daemonLaunchDarwinNotificationName = [sourceCopy daemonLaunchDarwinNotificationName];
-    daemonLaunchNotificationName = v20->_daemonLaunchNotificationName;
-    v20->_daemonLaunchNotificationName = daemonLaunchDarwinNotificationName;
+    daemonLaunchNotificationName = v24->_daemonLaunchNotificationName;
+    v24->_daemonLaunchNotificationName = daemonLaunchDarwinNotificationName;
   }
 
-  return v20;
+  return v24;
 }
 
 - (void)dealloc
@@ -481,46 +484,43 @@ void __53__HKProxyProvider__lock_setUpConnectionWithEndpoint___block_invoke_2(ui
 
 - (void)_lock_flushContinuationsWithConnection:(id)connection error:(id)error
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   errorCopy = error;
   os_unfair_lock_assert_owner(&self->_lock);
-  connectionGeneration = self->_connectionGeneration;
+  v14 = 0u;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v19 = 0u;
-  v9 = self->_pendingFetchContinuations;
-  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
-  if (v10)
+  v8 = self->_pendingFetchContinuations;
+  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  if (v9)
   {
-    v11 = v10;
-    v12 = *v17;
+    v10 = v9;
+    v11 = *v15;
     do
     {
-      v13 = 0;
+      v12 = 0;
       do
       {
-        if (*v17 != v12)
+        if (*v15 != v11)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(v8);
         }
 
-        (*(*(*(&v16 + 1) + 8 * v13) + 16))(*(*(&v16 + 1) + 8 * v13));
-        ++v13;
+        (*(*(*(&v14 + 1) + 8 * v12) + 16))(*(*(&v14 + 1) + 8 * v12));
+        ++v12;
       }
 
-      while (v11 != v13);
-      v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      while (v10 != v12);
+      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
-    while (v11);
+    while (v10);
   }
 
   pendingFetchContinuations = self->_pendingFetchContinuations;
   self->_pendingFetchContinuations = 0;
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_fetchRetryingProxyWithErrorCount:(int64_t)count handler:(id)handler errorHandler:(id)errorHandler
@@ -552,11 +552,12 @@ void __53__HKProxyProvider__lock_setUpConnectionWithEndpoint___block_invoke_2(ui
 
 uint64_t __74__HKProxyProvider__fetchRetryingProxyWithErrorCount_handler_errorHandler___block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = objc_opt_class();
-  _fetchRetryingProxyWithErrorCount_handler_errorHandler__retryQueue = HKCreateSerialDispatchQueue(v2, @"retry");
+  v1 = objc_opt_class();
+  v2 = HKCreateSerialDispatchQueue(v1, @"retry");
+  v3 = _fetchRetryingProxyWithErrorCount_handler_errorHandler__retryQueue;
+  _fetchRetryingProxyWithErrorCount_handler_errorHandler__retryQueue = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v3);
 }
 
 void __74__HKProxyProvider__fetchRetryingProxyWithErrorCount_handler_errorHandler___block_invoke_2(uint64_t a1, void *a2)
@@ -857,38 +858,35 @@ void __56__HKProxyProvider_setAutomaticProxyReconnectionHandler___block_invoke(u
 
 void __44__HKProxyProvider__serverDidFinishLaunching__block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  _HKInitializeLogging();
-  v4 = HKLogInfrastructure();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_INFO);
+  _HKInitializeLogging(v3, v4);
+  v7 = HKLogInfrastructure(v5, v6);
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_INFO);
 
-  if (v5)
+  if (v8)
   {
-    v6 = HKLogInfrastructure();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v11 = HKLogInfrastructure(v9, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      v7 = *(a1 + 32);
-      v10 = 138543362;
-      v11 = v7;
-      _os_log_impl(&dword_19197B000, v6, OS_LOG_TYPE_INFO, "%{public}@: Fetched proxy after detecting server relaunch.", &v10, 0xCu);
+      v12 = *(a1 + 32);
+      v13 = 138543362;
+      v14 = v12;
+      _os_log_impl(&dword_19197B000, v11, OS_LOG_TYPE_INFO, "%{public}@: Fetched proxy after detecting server relaunch.", &v13, 0xCu);
     }
   }
 
-  v8 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __44__HKProxyProvider__serverDidFinishLaunching__block_invoke_44(uint64_t a1, void *a2)
 {
   v3 = a2;
-  _HKInitializeLogging();
-  v4 = HKLogInfrastructure();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  _HKInitializeLogging(v3, v4);
+  v7 = HKLogInfrastructure(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    __44__HKProxyProvider__serverDidFinishLaunching__block_invoke_44_cold_1(a1, v3, v4);
+    __44__HKProxyProvider__serverDidFinishLaunching__block_invoke_44_cold_1(a1, v3, v7);
   }
 }
 
@@ -1191,25 +1189,22 @@ void __57__HKProxyProvider_clientQueueProgressHandlerWithHandler___block_invoke_
 
 - (void)initWithSource:(uint64_t)a1 serviceIdentifier:(NSObject *)a2 exportedObject:exportedInterface:remoteInterface:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v5 = 138543362;
-  v6 = objc_opt_class();
-  v3 = v6;
-  _os_log_fault_impl(&dword_19197B000, a2, OS_LOG_TYPE_FAULT, "%{public}@: source unexpectedly nil", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
+  v4 = 138543362;
+  v5 = objc_opt_class();
+  v3 = v5;
+  _os_log_fault_impl(&dword_19197B000, a2, OS_LOG_TYPE_FAULT, "%{public}@: source unexpectedly nil", &v4, 0xCu);
 }
 
 void __44__HKProxyProvider__serverDidFinishLaunching__block_invoke_44_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
-  v5 = 138543618;
-  v6 = v3;
-  v7 = 2114;
-  v8 = a2;
-  _os_log_error_impl(&dword_19197B000, log, OS_LOG_TYPE_ERROR, "%{public}@: Failed to fetch proxy after detecting server relaunch: %{public}@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138543618;
+  v5 = v3;
+  v6 = 2114;
+  v7 = a2;
+  _os_log_error_impl(&dword_19197B000, log, OS_LOG_TYPE_ERROR, "%{public}@: Failed to fetch proxy after detecting server relaunch: %{public}@", &v4, 0x16u);
 }
 
 @end

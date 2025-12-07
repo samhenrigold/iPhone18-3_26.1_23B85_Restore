@@ -3,6 +3,7 @@
 - (id)specifiers;
 - (void)_cellularPlanChanged:(id)changed;
 - (void)dealloc;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation PSUICellularPlanDetailController
@@ -33,7 +34,7 @@
 
 - (id)specifiers
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277D3FC48];
   v4 = *(&self->super.super.super.super.super.isa + v3);
   if (!v4)
@@ -41,9 +42,9 @@
     getLogger = [(PSUICellularPlanDetailController *)self getLogger];
     if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = 136315138;
-      v19 = "[PSUICellularPlanDetailController specifiers]";
-      _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s (re)loading specifiers", &v18, 0xCu);
+      v17 = 136315138;
+      v18 = "[PSUICellularPlanDetailController specifiers]";
+      _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s (re)loading specifiers", &v17, 0xCu);
     }
 
     v6 = objc_opt_new();
@@ -75,9 +76,25 @@
     v4 = *(&self->super.super.super.super.super.isa + v3);
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v4;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v9 = *MEMORY[0x277D85DE8];
+  getLogger = [(PSUICellularPlanDetailController *)self getLogger];
+  if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136315138;
+    v8 = "[PSUICellularPlanDetailController viewWillAppear:]";
+    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
+  }
+
+  v6.receiver = self;
+  v6.super_class = PSUICellularPlanDetailController;
+  [(PSUICellularPlanDetailController *)&v6 viewWillAppear:appearCopy];
+  [(PSUICellularPlanDetailController *)self reloadSpecifiers];
 }
 
 - (void)_cellularPlanChanged:(id)changed

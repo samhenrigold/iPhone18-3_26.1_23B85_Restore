@@ -56,7 +56,6 @@ BOOL start(int a1, char **a2)
       }
 
       v7 = 1;
-      *optarg;
     }
   }
 

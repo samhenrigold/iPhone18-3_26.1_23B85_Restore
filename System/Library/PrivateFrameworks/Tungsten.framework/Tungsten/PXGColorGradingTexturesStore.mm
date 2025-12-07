@@ -27,7 +27,7 @@
   }
 }
 
-uint64_t __54__PXGColorGradingTexturesStore__createPlaceholderCube__block_invoke()
+char *__54__PXGColorGradingTexturesStore__createPlaceholderCube__block_invoke()
 {
   v0 = [MEMORY[0x277CBEB28] dataWithLength:32];
   v1 = _createPlaceholderCube_data;
@@ -44,7 +44,7 @@ uint64_t __54__PXGColorGradingTexturesStore__createPlaceholderCube__block_invoke
     v9 = *v4;
     v8 = v4[1];
     v4 += 4;
-    *(result + v3) = vuzp1q_s8(vuzp1q_s16(vcvtq_s32_f32(vmulq_f32(v9, v5)), vcvtq_s32_f32(vmulq_f32(v8, v5))), vuzp1q_s16(vcvtq_s32_f32(vmulq_f32(v7, v5)), vcvtq_s32_f32(vmulq_f32(v6, v5))));
+    *&result[v3] = vuzp1q_s8(vuzp1q_s16(vcvtq_s32_f32(vmulq_f32(v9, v5)), vcvtq_s32_f32(vmulq_f32(v8, v5))), vuzp1q_s16(vcvtq_s32_f32(vmulq_f32(v7, v5)), vcvtq_s32_f32(vmulq_f32(v6, v5))));
     v3 += 16;
   }
 

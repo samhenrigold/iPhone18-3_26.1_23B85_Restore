@@ -13,7 +13,7 @@
 
 - (void)netServiceBrowser:(id)browser didNotSearch:(id)search
 {
-  sub_1AB016760(0, &qword_1ED4D1940);
+  sub_1AB016760(0, &qword_1ED4D1940, 0x1E696AD98);
   v6 = sub_1AB4602F4();
   browserCopy = browser;
   selfCopy = self;
@@ -50,7 +50,7 @@
 
 - (void)netService:(id)service didNotResolve:(id)resolve
 {
-  sub_1AB016760(0, &qword_1ED4D1940);
+  sub_1AB016760(0, &qword_1ED4D1940, 0x1E696AD98);
   v6 = sub_1AB4602F4();
   serviceCopy = service;
   selfCopy = self;
@@ -72,10 +72,10 @@
   }
 
   v0 = qword_1ED4D1FC8;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB43AE10);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB43AE10, &unk_1AB4D4860);
   v1 = swift_allocObject();
   *(v1 + 16) = xmmword_1AB4D4720;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB438520);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB438520, &qword_1AB4D47E0);
   v2 = swift_allocObject();
   *(v2 + 16) = xmmword_1AB4D4720;
   v5[3] = MEMORY[0x1E69E6158];
@@ -99,10 +99,10 @@
   }
 
   v0 = qword_1ED4D1FC8;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB43AE10);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB43AE10, &unk_1AB4D4860);
   v1 = swift_allocObject();
   *(v1 + 16) = xmmword_1AB4D4720;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB438520);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB438520, &qword_1AB4D47E0);
   v2 = swift_allocObject();
   *(v2 + 16) = xmmword_1AB4D4720;
   v5[3] = MEMORY[0x1E69E6158];

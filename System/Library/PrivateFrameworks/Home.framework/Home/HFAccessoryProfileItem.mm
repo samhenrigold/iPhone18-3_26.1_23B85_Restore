@@ -60,7 +60,7 @@
 
 - (id)_subclass_updateWithOptions:(id)options
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   v6 = [HFServiceLikeItemUpdateRequest alloc];
   profile = [(HFAccessoryProfileItem *)self profile];
@@ -72,12 +72,12 @@
   if (v11)
   {
     v12 = [(HFServiceLikeItemUpdateRequest *)v11 updateWithOptions:optionsCopy];
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __54__HFAccessoryProfileItem__subclass_updateWithOptions___block_invoke;
-    v21[3] = &unk_277DF2828;
-    v21[4] = self;
-    v13 = [v12 flatMap:v21];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __54__HFAccessoryProfileItem__subclass_updateWithOptions___block_invoke;
+    v20[3] = &unk_277DF2828;
+    v20[4] = self;
+    v13 = [v12 flatMap:v20];
   }
 
   else
@@ -85,14 +85,14 @@
     v14 = HFLogForCategory(0x2CuLL);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v19 = NSStringFromSelector(a2);
+      v18 = NSStringFromSelector(a2);
       profile2 = [(HFAccessoryProfileItem *)self profile];
       *buf = 138412802;
       selfCopy = self;
-      v24 = 2112;
-      v25 = v19;
-      v26 = 2112;
-      v27 = profile2;
+      v23 = 2112;
+      v24 = v18;
+      v25 = 2112;
+      v26 = profile2;
       _os_log_error_impl(&dword_20D9BF000, v14, OS_LOG_TYPE_ERROR, "%@:%@ Failed to create HFServiceLikeItemUpdateRequest. Profile: %@ ", buf, 0x20u);
     }
 
@@ -102,8 +102,6 @@
   }
 
   v16 = v13;
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -149,9 +147,9 @@ id __54__HFAccessoryProfileItem__subclass_updateWithOptions___block_invoke(uint6
 {
   profile = [(HFAccessoryProfileItem *)self profile];
   accessory = [profile accessory];
-  home = [accessory home];
+  v4 = objc_msgSend_home(accessory);
 
-  return home;
+  return v4;
 }
 
 - (id)accessories

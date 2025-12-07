@@ -210,7 +210,6 @@ LABEL_8:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x10) == 0)
@@ -230,7 +229,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  familyDevice = self->_familyDevice;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -245,7 +243,6 @@ LABEL_4:
   }
 
 LABEL_11:
-  joinedByAutoHS = self->_joinedByAutoHS;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -260,7 +257,6 @@ LABEL_5:
   }
 
 LABEL_12:
-  switchedToAnotherNetwork = self->_switchedToAnotherNetwork;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 4) == 0)
@@ -272,7 +268,6 @@ LABEL_6:
     }
 
 LABEL_14:
-    rssi = self->_rssi;
     PBDataWriterWriteUint32Field();
     if ((*&self->_has & 2) == 0)
     {
@@ -283,7 +278,6 @@ LABEL_14:
   }
 
 LABEL_13:
-  failureReason = self->_failureReason;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) != 0)
@@ -298,7 +292,6 @@ LABEL_7:
   }
 
 LABEL_15:
-  enhancedSecurityType = self->_enhancedSecurityType;
 
   PBDataWriterWriteUint32Field();
 }
@@ -526,7 +519,6 @@ LABEL_8:
       goto LABEL_45;
     }
 
-    v6 = *(equal + 28);
     if (self->_familyDevice)
     {
       if ((*(equal + 28) & 1) == 0)
@@ -553,7 +545,6 @@ LABEL_8:
       goto LABEL_45;
     }
 
-    v7 = *(equal + 29);
     if (self->_joinedByAutoHS)
     {
       if ((*(equal + 29) & 1) == 0)
@@ -577,7 +568,6 @@ LABEL_8:
   {
     if ((*(equal + 32) & 0x40) != 0)
     {
-      v8 = *(equal + 30);
       if (self->_switchedToAnotherNetwork)
       {
         if ((*(equal + 30) & 1) == 0)

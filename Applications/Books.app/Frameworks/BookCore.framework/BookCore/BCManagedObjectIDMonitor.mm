@@ -19,97 +19,97 @@
   propertyCopy = property;
   interestCopy = interest;
   observerCopy = observer;
-  v20 = BCSignpostLibrary();
+  v20 = BCSignpostLibrary(observerCopy);
   v21 = os_signpost_id_generate(v20);
 
-  v22 = BCSignpostLibrary();
-  v23 = v22;
+  v23 = BCSignpostLibrary(v22);
+  v24 = v23;
   spid = v21;
-  v24 = v21 - 1;
-  if (v24 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v22))
+  v25 = v21 - 1;
+  if (v25 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
   {
     *buf = 138412290;
-    v55 = nameCopy;
-    _os_signpost_emit_with_name_impl(&dword_0, v23, OS_SIGNPOST_INTERVAL_BEGIN, spid, "BCManagedObjectIDMonitor initial fetch", "%@", buf, 0xCu);
+    v56 = nameCopy;
+    _os_signpost_emit_with_name_impl(&dword_0, v24, OS_SIGNPOST_INTERVAL_BEGIN, spid, "BCManagedObjectIDMonitor initial fetch", "%@", buf, 0xCu);
   }
 
-  v53.receiver = self;
-  v53.super_class = BCManagedObjectIDMonitor;
-  v25 = [(BCManagedObjectIDMonitor *)&v53 init];
-  v26 = v25;
-  if (v25)
+  v54.receiver = self;
+  v54.super_class = BCManagedObjectIDMonitor;
+  v26 = [(BCManagedObjectIDMonitor *)&v54 init];
+  v27 = v26;
+  if (v26)
   {
-    objc_storeStrong(&v25->_context, context);
-    objc_storeStrong(&v26->_coordinator, coordinator);
-    v27 = [nameCopy copy];
-    entityName = v26->_entityName;
-    v26->_entityName = v27;
+    objc_storeStrong(&v26->_context, context);
+    objc_storeStrong(&v27->_coordinator, coordinator);
+    v28 = [nameCopy copy];
+    entityName = v27->_entityName;
+    v27->_entityName = v28;
 
-    objc_storeStrong(&v26->_predicate, predicate);
-    v29 = propertyCopy;
-    v30 = [propertyCopy copy];
-    mapProperty = v26->_mapProperty;
-    v26->_mapProperty = v30;
+    objc_storeStrong(&v27->_predicate, predicate);
+    v30 = propertyCopy;
+    v31 = [propertyCopy copy];
+    mapProperty = v27->_mapProperty;
+    v27->_mapProperty = v31;
 
-    v32 = interestCopy;
-    v33 = [interestCopy copy];
-    propertiesOfInterest = v26->_propertiesOfInterest;
-    v26->_propertiesOfInterest = v33;
+    v33 = interestCopy;
+    v34 = [interestCopy copy];
+    propertiesOfInterest = v27->_propertiesOfInterest;
+    v27->_propertiesOfInterest = v34;
 
-    objc_storeWeak(&v26->_observer, observerCopy);
-    v35 = dispatch_queue_create("BCManagedObjectIDMonitor.sync", 0);
-    sync = v26->_sync;
-    v26->_sync = v35;
+    objc_storeWeak(&v27->_observer, observerCopy);
+    v36 = dispatch_queue_create("BCManagedObjectIDMonitor.sync", 0);
+    sync = v27->_sync;
+    v27->_sync = v36;
 
-    dispatch_suspend(v26->_sync);
-    v37 = objc_alloc_init(NSMutableSet);
-    currentObjectIdentifiers = v26->_currentObjectIdentifiers;
-    v26->_currentObjectIdentifiers = v37;
+    dispatch_suspend(v27->_sync);
+    v38 = objc_alloc_init(NSMutableSet);
+    currentObjectIdentifiers = v27->_currentObjectIdentifiers;
+    v27->_currentObjectIdentifiers = v38;
 
-    v39 = +[NSMapTable strongToStrongObjectsMapTable];
-    mocToChangesMap = v26->_mocToChangesMap;
-    v26->_mocToChangesMap = v39;
-
-    v41 = +[NSNotificationCenter defaultCenter];
-    [v41 addObserver:v26 selector:"_managedObjectContextWillSave:" name:NSManagedObjectContextWillSaveNotification object:0];
+    v40 = +[NSMapTable strongToStrongObjectsMapTable];
+    mocToChangesMap = v27->_mocToChangesMap;
+    v27->_mocToChangesMap = v40;
 
     v42 = +[NSNotificationCenter defaultCenter];
-    [v42 addObserver:v26 selector:"_managedObjectContextDidSave:" name:NSManagedObjectContextDidSaveNotification object:0];
+    [v42 addObserver:v27 selector:"_managedObjectContextWillSave:" name:NSManagedObjectContextWillSaveNotification object:0];
+
+    v43 = +[NSNotificationCenter defaultCenter];
+    [v43 addObserver:v27 selector:"_managedObjectContextDidSave:" name:NSManagedObjectContextDidSaveNotification object:0];
 
     if (!contextCopy)
     {
       contextCopy = [[NSManagedObjectContext alloc] initWithConcurrencyType:1];
-      [contextCopy setPersistentStoreCoordinator:v26->_coordinator];
+      [contextCopy setPersistentStoreCoordinator:v27->_coordinator];
       [contextCopy setUndoManager:0];
       [contextCopy setMergePolicy:NSMergeByPropertyObjectTrumpMergePolicy];
     }
 
-    v50[0] = _NSConcreteStackBlock;
-    v50[1] = 3221225472;
-    v50[2] = sub_178084;
-    v50[3] = &unk_2C7BE8;
-    v51 = v26;
+    v51[0] = _NSConcreteStackBlock;
+    v51[1] = 3221225472;
+    v51[2] = sub_178084;
+    v51[3] = &unk_2C7BE8;
+    v52 = v27;
     contextCopy = contextCopy;
-    v52 = contextCopy;
-    [contextCopy performBlockAndWait:v50];
+    v53 = contextCopy;
+    [contextCopy performBlockAndWait:v51];
   }
 
   else
   {
-    v29 = propertyCopy;
-    v32 = interestCopy;
+    v30 = propertyCopy;
+    v33 = interestCopy;
   }
 
-  v43 = BCSignpostLibrary();
-  v44 = v43;
-  if (v24 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v43))
+  v44 = BCSignpostLibrary(v26);
+  v45 = v44;
+  if (v25 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v44))
   {
     *buf = 138412290;
-    v55 = nameCopy;
-    _os_signpost_emit_with_name_impl(&dword_0, v44, OS_SIGNPOST_INTERVAL_BEGIN, spid, "BCManagedObjectIDMonitor initial fetch", "%@", buf, 0xCu);
+    v56 = nameCopy;
+    _os_signpost_emit_with_name_impl(&dword_0, v45, OS_SIGNPOST_INTERVAL_BEGIN, spid, "BCManagedObjectIDMonitor initial fetch", "%@", buf, 0xCu);
   }
 
-  return v26;
+  return v27;
 }
 
 - (void)dealloc

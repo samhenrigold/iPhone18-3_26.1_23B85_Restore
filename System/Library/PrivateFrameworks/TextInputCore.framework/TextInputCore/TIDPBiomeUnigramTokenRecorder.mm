@@ -8,29 +8,29 @@
 
 - (BOOL)report
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   context = objc_autoreleasePoolPush();
   v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   records = [(TIDPBiomeUnigramTokenRecorder *)self records];
-  v5 = [records countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v5 = [records countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v24;
+    v7 = *v23;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v24 != v7)
+        if (*v23 != v7)
         {
           objc_enumerationMutation(records);
         }
 
-        v9 = *(*(&v23 + 1) + 8 * i);
+        v9 = *(*(&v22 + 1) + 8 * i);
         word = [v9 word];
         v11 = [v3 objectForKey:word];
 
@@ -48,7 +48,7 @@
         [v3 setObject:v12 forKey:word2];
       }
 
-      v6 = [records countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v6 = [records countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v6);
@@ -70,45 +70,44 @@
   }
 
   objc_autoreleasePoolPop(context);
-  v20 = *MEMORY[0x277D85DE8];
   return v14 != 0;
 }
 
 - (id)records
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v62 = 0u;
   v63 = 0u;
   v64 = 0u;
   v65 = 0u;
-  v66 = 0u;
   typingSessionAligned = [(TIDPRecorder *)self typingSessionAligned];
   alignedEntries = [typingSessionAligned alignedEntries];
 
-  v6 = [alignedEntries countByEnumeratingWithState:&v63 objects:v68 count:16];
+  v6 = [alignedEntries countByEnumeratingWithState:&v62 objects:v67 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v64;
+    v8 = *v63;
     v9 = &OBJC_METACLASS___TICoreAnalyticsEventController;
-    v49 = *v64;
-    v50 = alignedEntries;
+    v48 = *v63;
+    v49 = alignedEntries;
     do
     {
       v10 = 0;
-      v51 = v7;
+      v50 = v7;
       do
       {
-        if (*v64 != v8)
+        if (*v63 != v8)
         {
           objc_enumerationMutation(alignedEntries);
         }
 
-        v11 = *(*(&v63 + 1) + 8 * v10);
+        v11 = *(*(&v62 + 1) + 8 * v10);
         originalWord = [v11 originalWord];
         editedEntry = [originalWord editedEntry];
         v14 = editedEntry;
-        v56 = v10;
+        v55 = v10;
         if (editedEntry)
         {
           originalWord2 = editedEntry;
@@ -136,21 +135,21 @@
           {
             keyboardState = [v17 keyboardState];
             textInputTraits = [keyboardState textInputTraits];
-            v55 = v17;
+            v54 = v17;
             autocorrectionType = [textInputTraits autocorrectionType];
 
             v26 = autocorrectionType == 1;
-            v17 = v55;
+            v17 = v54;
             if (v26)
             {
               goto LABEL_30;
             }
 
-            acceptedString3 = [v55 acceptedString];
-            v62 = 8217;
-            v28 = [MEMORY[0x277CCACA8] stringWithCharacters:&v62 length:1];
+            acceptedString3 = [v54 acceptedString];
+            v61 = 8217;
+            v28 = [MEMORY[0x277CCACA8] stringWithCharacters:&v61 length:1];
             [acceptedString3 rangeOfString:v28];
-            v53 = v28;
+            v52 = v28;
             if (v29)
             {
               v30 = [acceptedString3 stringByReplacingOccurrencesOfString:v28 withString:@"'"];
@@ -160,35 +159,35 @@
 
             punctuationCharacterSet = [MEMORY[0x277CCAB50] punctuationCharacterSet];
             [punctuationCharacterSet removeCharactersInString:@"'-"];
-            v52 = punctuationCharacterSet;
+            v51 = punctuationCharacterSet;
             v32 = [acceptedString3 stringByTrimmingCharactersInSet:punctuationCharacterSet];
 
-            v54 = v32;
+            v53 = v32;
             if ([v32 length])
             {
               whitespaceAndNewlineCharacterSet = [MEMORY[0x277CCA900] whitespaceAndNewlineCharacterSet];
               v34 = [v32 componentsSeparatedByCharactersInSet:whitespaceAndNewlineCharacterSet];
 
-              v60 = 0u;
-              v61 = 0u;
-              v58 = 0u;
               v59 = 0u;
+              v60 = 0u;
+              v57 = 0u;
+              v58 = 0u;
               obj = v34;
-              v35 = [obj countByEnumeratingWithState:&v58 objects:v67 count:16];
+              v35 = [obj countByEnumeratingWithState:&v57 objects:v66 count:16];
               if (v35)
               {
                 v36 = v35;
-                v37 = *v59;
+                v37 = *v58;
                 do
                 {
                   for (i = 0; i != v36; ++i)
                   {
-                    if (*v59 != v37)
+                    if (*v58 != v37)
                     {
                       objc_enumerationMutation(obj);
                     }
 
-                    v39 = *(*(&v58 + 1) + 8 * i);
+                    v39 = *(*(&v57 + 1) + 8 * i);
                     if ([v39 length])
                     {
                       v40 = objc_alloc_init(&v9[12]);
@@ -215,35 +214,34 @@
                     }
                   }
 
-                  v36 = [obj countByEnumeratingWithState:&v58 objects:v67 count:16];
+                  v36 = [obj countByEnumeratingWithState:&v57 objects:v66 count:16];
                 }
 
                 while (v36);
               }
 
-              alignedEntries = v50;
-              v7 = v51;
-              v8 = v49;
-              v17 = v55;
+              alignedEntries = v49;
+              v7 = v50;
+              v8 = v48;
+              v17 = v54;
             }
 
-            v20 = v54;
+            v20 = v53;
           }
         }
 
 LABEL_30:
-        v10 = v56 + 1;
+        v10 = v55 + 1;
       }
 
-      while (v56 + 1 != v7);
-      v7 = [alignedEntries countByEnumeratingWithState:&v63 objects:v68 count:16];
+      while (v55 + 1 != v7);
+      v7 = [alignedEntries countByEnumeratingWithState:&v62 objects:v67 count:16];
     }
 
     while (v7);
   }
 
   v46 = [v3 copy];
-  v47 = *MEMORY[0x277D85DE8];
 
   return v46;
 }

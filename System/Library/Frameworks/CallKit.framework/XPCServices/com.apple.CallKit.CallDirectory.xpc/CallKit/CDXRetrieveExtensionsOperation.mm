@@ -2,6 +2,7 @@
 - (BOOL)_nsExtension:(id)extension isOnlyExtensionInContainingAppAmongNSExtensions:(id)extensions;
 - (CDXRetrieveExtensionsOperation)initWithStore:(id)store;
 - (CDXRetrieveExtensionsOperation)initWithStore:(id)store extensionsDataSource:(id)source queue:(id)queue;
+- (id)_extensionWithNSExtension:(id)extension storeExtension:(id)storeExtension isOnlyExtensionInContainingApp:(BOOL)app;
 - (id)_extensionsFromNSExtensions:(id)extensions usingProritizedStoreExtensions:(id)storeExtensions;
 - (void)performWithCompletionHandler:(id)handler;
 @end
@@ -140,6 +141,33 @@
   v27 = [v16 copy];
 
   return v27;
+}
+
+- (id)_extensionWithNSExtension:(id)extension storeExtension:(id)storeExtension isOnlyExtensionInContainingApp:(BOOL)app
+{
+  appCopy = app;
+  storeExtensionCopy = storeExtension;
+  extensionCopy = extension;
+  v9 = objc_alloc_init(CXCallDirectoryExtension);
+  identifier = [storeExtensionCopy identifier];
+  [v9 setIdentifier:identifier];
+
+  [v9 setState:{objc_msgSend(storeExtensionCopy, "state")}];
+  priority = [storeExtensionCopy priority];
+
+  [v9 setPriority:priority];
+  localizedName = [extensionCopy localizedName];
+  [v9 setLocalizedName:localizedName];
+
+  localizedContainingAppName = [extensionCopy localizedContainingAppName];
+  [v9 setLocalizedContainingAppName:localizedContainingAppName];
+
+  plugInKitProxy = [extensionCopy plugInKitProxy];
+
+  [v9 setPlugInKitProxy:plugInKitProxy];
+  [v9 setOnlyExtensionInContainingApp:appCopy];
+
+  return v9;
 }
 
 - (BOOL)_nsExtension:(id)extension isOnlyExtensionInContainingAppAmongNSExtensions:(id)extensions

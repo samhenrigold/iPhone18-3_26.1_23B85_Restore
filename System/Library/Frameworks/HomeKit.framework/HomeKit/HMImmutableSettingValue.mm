@@ -37,7 +37,7 @@
 
 - (HMImmutableSettingValue)initWithProtoPayload:(id)payload
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   payloadCopy = payload;
   if (([payloadCopy hasSettingValueEvent] & 1) == 0)
   {
@@ -53,8 +53,8 @@
         v6 = HMSettingIntegerValue;
         goto LABEL_12;
       case 4:
-        v11 = [[HMSettingLanguageValue alloc] initWithProtoPayload:payloadCopy];
-        v8 = [HMFObjectCacheHMSettingLanguageValue cachedInstanceForLanguageSettingValue:v11];
+        v10 = [[HMSettingLanguageValue alloc] initWithProtoPayload:payloadCopy];
+        v8 = [HMFObjectCacheHMSettingLanguageValue cachedInstanceForLanguageSettingValue:v10];
 
         goto LABEL_14;
       case 3:
@@ -84,27 +84,26 @@ LABEL_13:
   }
 
 LABEL_17:
-  v12 = objc_autoreleasePoolPush();
+  v11 = objc_autoreleasePoolPush();
   self = self;
-  v13 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+  v12 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
-    v14 = HMFGetLogIdentifier();
-    v15 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(payloadCopy, "settingValueEvent")}];
-    v16 = 138543874;
-    v17 = v14;
-    v18 = 2112;
-    v19 = v15;
-    v20 = 2112;
-    v21 = payloadCopy;
-    _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode setting value due to unknown settingValueEvent (%@) in protopayload: %@", &v16, 0x20u);
+    v13 = HMFGetLogIdentifier();
+    v14 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(payloadCopy, "settingValueEvent")}];
+    v15 = 138543874;
+    v16 = v13;
+    v17 = 2112;
+    v18 = v14;
+    v19 = 2112;
+    v20 = payloadCopy;
+    _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode setting value due to unknown settingValueEvent (%@) in protopayload: %@", &v15, 0x20u);
   }
 
-  objc_autoreleasePoolPop(v12);
+  objc_autoreleasePoolPop(v11);
   v8 = 0;
 LABEL_14:
 
-  v9 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -117,11 +116,11 @@ LABEL_14:
 
 - (HMImmutableSettingValue)initWithPayload:(id)payload
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   payloadCopy = payload;
-  v19 = 0;
-  v5 = [payloadCopy hmf_integerForKey:@"HMImmutableSettingValueTypePayloadKey" error:&v19];
-  v6 = v19;
+  v18 = 0;
+  v5 = [payloadCopy hmf_integerForKey:@"HMImmutableSettingValueTypePayloadKey" error:&v18];
+  v6 = v18;
   if (!v6)
   {
     if (v5 > 2)
@@ -132,8 +131,8 @@ LABEL_14:
           v11 = HMSettingStringValue;
           goto LABEL_21;
         case 4:
-          v18 = [[HMSettingLanguageValue alloc] initWithPayload:payloadCopy];
-          v10 = [HMFObjectCacheHMSettingLanguageValue cachedInstanceForLanguageSettingValue:v18];
+          v17 = [[HMSettingLanguageValue alloc] initWithPayload:payloadCopy];
+          v10 = [HMFObjectCacheHMSettingLanguageValue cachedInstanceForLanguageSettingValue:v17];
 
           goto LABEL_23;
         case 5:
@@ -171,11 +170,11 @@ LABEL_21:
       v14 = HMFGetLogIdentifier();
       v15 = HMImmutableSettingValueTypeAsString(v5);
       *buf = 138543874;
-      v21 = v14;
-      v22 = 2112;
-      v23 = v15;
-      v24 = 2112;
-      v25 = payloadCopy;
+      v20 = v14;
+      v21 = 2112;
+      v22 = v15;
+      v23 = 2112;
+      v24 = payloadCopy;
       _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode setting value due to unknown value type: %@ in payload: %@", buf, 0x20u);
     }
 
@@ -189,9 +188,9 @@ LABEL_21:
   {
     v9 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v21 = v9;
-    v22 = 2112;
-    v23 = payloadCopy;
+    v20 = v9;
+    v21 = 2112;
+    v22 = payloadCopy;
     _os_log_impl(&dword_19BB39000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode setting value due to no value type in payload: %@", buf, 0x16u);
   }
 
@@ -200,17 +199,15 @@ LABEL_5:
   v10 = 0;
 LABEL_23:
 
-  v16 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 - (id)payloadCopy
 {
-  v6[1] = *MEMORY[0x1E69E9840];
-  v5 = @"HMImmutableSettingValueTypePayloadKey";
-  v6[0] = &unk_1F0EFCBF0;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-  v3 = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
+  v4 = @"HMImmutableSettingValueTypePayloadKey";
+  v5[0] = &unk_1F0EFCBF0;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }

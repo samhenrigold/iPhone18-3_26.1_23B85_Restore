@@ -31,32 +31,32 @@
   setupController = [UIApp setupController];
   navigationController = [setupController navigationController];
 
-  v26 = navigationController;
+  v25 = navigationController;
   viewControllers = [navigationController viewControllers];
   v5 = [viewControllers mutableCopy];
 
   setupController2 = [UIApp setupController];
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   buddyControllers = [setupController2 buddyControllers];
-  v8 = [buddyControllers countByEnumeratingWithState:&v31 objects:v38 count:16];
+  v8 = [buddyControllers countByEnumeratingWithState:&v30 objects:v37 count:16];
   if (v8)
   {
     v9 = v8;
     v10 = 0;
-    v11 = *v32;
+    v11 = *v31;
     do
     {
       for (i = 0; i != v9; i = i + 1)
       {
-        if (*v32 != v11)
+        if (*v31 != v11)
         {
           objc_enumerationMutation(buddyControllers);
         }
 
-        v13 = *(*(&v31 + 1) + 8 * i);
+        v13 = *(*(&v30 + 1) + 8 * i);
         v14 = objc_opt_class();
         if ([v14 isEqual:objc_opt_class()])
         {
@@ -66,7 +66,7 @@
         }
       }
 
-      v9 = [buddyControllers countByEnumeratingWithState:&v31 objects:v38 count:16];
+      v9 = [buddyControllers countByEnumeratingWithState:&v30 objects:v37 count:16];
     }
 
     while (v9);
@@ -77,38 +77,37 @@
     v10 = 0;
   }
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   reverseObjectEnumerator = [v5 reverseObjectEnumerator];
-  v17 = [reverseObjectEnumerator countByEnumeratingWithState:&v27 objects:v37 count:16];
+  v17 = [reverseObjectEnumerator countByEnumeratingWithState:&v26 objects:v36 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v28;
+    v19 = *v27;
     while (2)
     {
-      for (j = 0; j != v18; j = j + 1)
+      for (j = 0; j != v18; ++j)
       {
-        if (*v28 != v19)
+        if (*v27 != v19)
         {
           objc_enumerationMutation(reverseObjectEnumerator);
         }
 
-        v21 = *(*(&v27 + 1) + 8 * j);
-        v22 = objc_opt_class();
-        if ([v22 isEqual:objc_opt_class()])
+        v21 = objc_opt_class();
+        if ([v21 isEqual:objc_opt_class()])
         {
           [v10 setDelegate:setupController2];
           [v10 setAppearingFromBackNavigation:1];
           goto LABEL_22;
         }
 
-        [v5 removeObject:v21];
+        objc_msgSend_removeObject_(v5);
       }
 
-      v18 = [reverseObjectEnumerator countByEnumeratingWithState:&v27 objects:v37 count:16];
+      v18 = [reverseObjectEnumerator countByEnumeratingWithState:&v26 objects:v36 count:16];
       if (v18)
       {
         continue;
@@ -120,28 +119,28 @@
 
 LABEL_22:
 
-  v23 = pbb_accountsignin_log();
-  v24 = os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT);
+  v22 = pbb_accountsignin_log();
+  v23 = os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT);
   if (v10)
   {
-    v25 = v26;
-    if (v24)
+    v24 = v25;
+    if (v23)
     {
       *buf = 138412290;
-      v36 = v10;
-      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "cdp ui view controller %@", buf, 0xCu);
+      v35 = v10;
+      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "cdp ui view controller %@", buf, 0xCu);
     }
 
-    [v26 setViewControllers:v5 animated:1];
+    [v25 setViewControllers:v5 animated:1];
   }
 
   else
   {
-    v25 = v26;
-    if (v24)
+    v24 = v25;
+    if (v23)
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "COSTinkerWaitForWatchCDPEnrollment not in navstack.  Skipping", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "COSTinkerWaitForWatchCDPEnrollment not in navstack.  Skipping", buf, 2u);
     }
   }
 }

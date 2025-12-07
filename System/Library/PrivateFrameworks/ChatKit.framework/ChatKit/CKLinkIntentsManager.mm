@@ -47,7 +47,7 @@
   sub_190D50490();
   sub_190D50480();
   sub_190D58230();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAD64050);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAD64050, &qword_190E082B8);
   sub_190D50470();
 
   sub_190D2ADC8(v2);

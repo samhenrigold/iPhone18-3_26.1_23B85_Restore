@@ -476,9 +476,9 @@ LABEL_29:
   {
     if (self->mCaptionStandin)
     {
-      TSUSetCrashReporterInfo();
+      TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d There should not be a caption stand-in when there is a caption.", "[TSDDrawableInfo(PersistenceAdditions) saveToArchive:archiver:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/TSDDrawableInfoPersistenceAdditions.mm", 254);
       v90 = MEMORY[0x277D81150];
-      v92 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v91, "[TSDDrawableInfo(PersistenceAdditions) saveToArchive:archiver:]", "[TSDDrawableInfo(PersistenceAdditions) saveToArchive:archiver:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/TSDDrawableInfoPersistenceAdditions.mm", 254);
+      v92 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v91, "[TSDDrawableInfo(PersistenceAdditions) saveToArchive:archiver:]");
       v94 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v93, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/TSDDrawableInfoPersistenceAdditions.mm");
       objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v90, v95, v92, v94, 254, 1, "There should not be a caption stand-in when there is a caption.");
 
@@ -513,9 +513,9 @@ LABEL_29:
       mCaptionStandin = self->mCaptionStandin;
       if (!mCaptionStandin)
       {
-        TSUSetCrashReporterInfo();
+        TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d There should be a caption stand-in when there is not a caption.", "[TSDDrawableInfo(PersistenceAdditions) saveToArchive:archiver:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/TSDDrawableInfoPersistenceAdditions.mm", 265);
         v102 = MEMORY[0x277D81150];
-        v104 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v103, "[TSDDrawableInfo(PersistenceAdditions) saveToArchive:archiver:]", "[TSDDrawableInfo(PersistenceAdditions) saveToArchive:archiver:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/TSDDrawableInfoPersistenceAdditions.mm", 265);
+        v104 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v103, "[TSDDrawableInfo(PersistenceAdditions) saveToArchive:archiver:]");
         v106 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v105, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/TSDDrawableInfoPersistenceAdditions.mm");
         objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v102, v107, v104, v106, 265, 1, "There should be a caption stand-in when there is not a caption.");
 
@@ -570,9 +570,9 @@ LABEL_29:
       goto LABEL_69;
     }
 
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d There should not be a title stand-in when there is a title.", "[TSDDrawableInfo(PersistenceAdditions) saveToArchive:archiver:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/TSDDrawableInfoPersistenceAdditions.mm", 273);
     v96 = MEMORY[0x277D81150];
-    v98 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v97, "[TSDDrawableInfo(PersistenceAdditions) saveToArchive:archiver:]", "[TSDDrawableInfo(PersistenceAdditions) saveToArchive:archiver:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/TSDDrawableInfoPersistenceAdditions.mm", 273);
+    v98 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v97, "[TSDDrawableInfo(PersistenceAdditions) saveToArchive:archiver:]");
     v100 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v99, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/TSDDrawableInfoPersistenceAdditions.mm");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v96, v101, v98, v100, 273, 1, "There should not be a title stand-in when there is a title.");
 
@@ -590,9 +590,9 @@ LABEL_74:
   mTitleStandin = self->mTitleStandin;
   if (!mTitleStandin)
   {
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d There should be a title stand-in when there is not a title.", "[TSDDrawableInfo(PersistenceAdditions) saveToArchive:archiver:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/TSDDrawableInfoPersistenceAdditions.mm", 284);
     v108 = MEMORY[0x277D81150];
-    v110 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v109, "[TSDDrawableInfo(PersistenceAdditions) saveToArchive:archiver:]", "[TSDDrawableInfo(PersistenceAdditions) saveToArchive:archiver:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/TSDDrawableInfoPersistenceAdditions.mm", 284);
+    v110 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v109, "[TSDDrawableInfo(PersistenceAdditions) saveToArchive:archiver:]");
     v112 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v111, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/TSDDrawableInfoPersistenceAdditions.mm");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v108, v113, v110, v112, 284, 1, "There should be a title stand-in when there is not a title.");
 

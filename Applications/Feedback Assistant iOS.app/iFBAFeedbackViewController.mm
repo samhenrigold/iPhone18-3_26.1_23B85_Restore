@@ -13,6 +13,7 @@
 - (int64_t)tableView:(id)view numberOfRowsInSection:(int64_t)section;
 - (void)_confirmFilePromiseDeletionWithStub:(id)stub deletionHandler:(id)handler;
 - (void)_deleteFilePromise:(id)promise completionHandler:(id)handler;
+- (void)_refreshFeedbackContentForced:(BOOL)forced;
 - (void)autoLogOutIfNeeded;
 - (void)beginFileDownloadForFilePromise:(id)promise;
 - (void)configureActionsMenu;
@@ -37,10 +38,30 @@
 - (void)updateEverything;
 - (void)updateTitleView;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator;
 @end
 
 @implementation iFBAFeedbackViewController
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = iFBAFeedbackViewController;
+  [(iFBAFeedbackViewController *)&v5 viewWillDisappear:disappear];
+  [(iFBAFeedbackViewController *)self fbkHideSpinner];
+  refreshControl = [(iFBAFeedbackViewController *)self refreshControl];
+  [refreshControl endRefreshing];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = iFBAFeedbackViewController;
+  [(iFBAFeedbackViewController *)&v4 viewWillAppear:appear];
+  [(iFBAFeedbackViewController *)self setPendingFollowup:0];
+}
 
 - (void)viewDidLoad
 {
@@ -453,6 +474,40 @@
   detailedItem = [contentItem detailedItem];
 
   return detailedItem;
+}
+
+- (void)_refreshFeedbackContentForced:(BOOL)forced
+{
+  forcedCopy = forced;
+  v14[0] = _NSConcreteStackBlock;
+  v14[1] = 3221225472;
+  v14[2] = sub_10003AD94;
+  v14[3] = &unk_1000DE430;
+  v14[4] = self;
+  v5 = objc_retainBlock(v14);
+  v6 = FBKIsSolariumEnabled();
+  v7 = +[NSBundle mainBundle];
+  v8 = [v7 localizedStringForKey:@"LOADING_ELLIPSES" value:&stru_1000E2210 table:0];
+  if (v6 && forcedCopy)
+  {
+    [(iFBAFeedbackViewController *)self fbkShowToolbarWithStatus:v8 animated:1];
+  }
+
+  else
+  {
+    [(iFBAFeedbackViewController *)self fbkShowSpinnerWithStatus:v8 userInteractionEnabled:1];
+  }
+
+  v9 = +[FBKData sharedInstance];
+  contentItem = [(iFBAFeedbackViewController *)self contentItem];
+  v12[0] = _NSConcreteStackBlock;
+  v12[1] = 3221225472;
+  v12[2] = sub_10003B0F8;
+  v12[3] = &unk_1000DFAB0;
+  v12[4] = self;
+  v13 = v5;
+  v11 = v5;
+  [v9 getFeedbackForContentItem:contentItem forceRefresh:forcedCopy completion:v12];
 }
 
 - (void)autoLogOutIfNeeded

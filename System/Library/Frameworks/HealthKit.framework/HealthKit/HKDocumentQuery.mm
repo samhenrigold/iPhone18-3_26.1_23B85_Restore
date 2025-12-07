@@ -76,38 +76,33 @@ void __48__HKDocumentQuery_client_deliverDocument_query___block_invoke(void *a1)
 
 void __48__HKDocumentQuery_client_deliverDocument_query___block_invoke_2(uint64_t a1)
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   if (*(a1 + 56) == 1)
   {
-    v2 = *(a1 + 48);
-    v3 = *(a1 + 32);
-    v4 = *(*(a1 + 48) + 16);
-    v5 = *MEMORY[0x1E69E9840];
+    v2 = *(*(a1 + 48) + 16);
 
-    v4();
+    v2();
   }
 
   else
   {
-    v6 = *(a1 + 40);
-    v13 = 0;
-    v7 = [v6 prepareForDelivery:&v13];
-    v8 = v13;
-    v9 = *(a1 + 48);
-    v10 = *(a1 + 32);
-    if (v7)
+    v3 = *(a1 + 40);
+    v9 = 0;
+    v4 = [v3 prepareForDelivery:&v9];
+    v5 = v9;
+    v6 = *(a1 + 48);
+    v7 = *(a1 + 32);
+    if (v4)
     {
-      v14[0] = *(a1 + 40);
-      v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
-      (*(v9 + 16))(v9, v10, v11, 0, 0);
+      v10[0] = *(a1 + 40);
+      v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
+      (*(v6 + 16))(v6, v7, v8, 0, 0);
     }
 
     else
     {
-      (*(v9 + 16))(*(a1 + 48), *(a1 + 32), 0, 0, v8);
+      (*(v6 + 16))(*(a1 + 48), *(a1 + 32), 0, 0, v5);
     }
-
-    v12 = *MEMORY[0x1E69E9840];
   }
 }
 

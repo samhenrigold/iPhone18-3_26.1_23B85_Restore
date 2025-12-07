@@ -1,5 +1,6 @@
 @interface _DKNotificationWatchNearbyMonitor
 + (id)_eventWithNearbyDeviceCount:(unint64_t)count;
++ (void)setIsWatchNearby:(BOOL)nearby;
 - (void)deactivate;
 - (void)dealloc;
 - (void)receiveNotificationEvent:(id)event;
@@ -17,6 +18,24 @@
   v3.receiver = self;
   v3.super_class = _DKNotificationWatchNearbyMonitor;
   [(_DKMonitor *)&v3 dealloc];
+}
+
++ (void)setIsWatchNearby:(BOOL)nearby
+{
+  nearbyCopy = nearby;
+  v9 = *MEMORY[0x277D85DE8];
+  contextChannel = [MEMORY[0x277CFE0C8] contextChannel];
+  if (os_log_type_enabled(contextChannel, OS_LOG_TYPE_DEFAULT))
+  {
+    v8[0] = 67109120;
+    v8[1] = nearbyCopy;
+    _os_log_impl(&dword_22595A000, contextChannel, OS_LOG_TYPE_DEFAULT, "Watch Nearby Status: %u", v8, 8u);
+  }
+
+  v5 = [MEMORY[0x277CCABB0] numberWithBool:nearbyCopy];
+  userContext = [MEMORY[0x277CFE318] userContext];
+  keyPathForDefaultPairedDeviceNearbyStatus = [MEMORY[0x277CFE338] keyPathForDefaultPairedDeviceNearbyStatus];
+  [userContext setObject:v5 forKeyedSubscript:keyPathForDefaultPairedDeviceNearbyStatus];
 }
 
 + (id)_eventWithNearbyDeviceCount:(unint64_t)count

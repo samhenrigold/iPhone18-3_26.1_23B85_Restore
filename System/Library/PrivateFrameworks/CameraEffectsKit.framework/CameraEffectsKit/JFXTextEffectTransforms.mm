@@ -51,8 +51,8 @@
 - (void)applyToEffect:(id)effect
 {
   effectCopy = effect;
-  transform = [(JFXTextEffectTransforms *)self transform];
-  [effectCopy setTopLevelTransformObject:transform];
+  v5 = objc_msgSend_transform(self);
+  [effectCopy setTopLevelTransformObject:v5];
 }
 
 @end

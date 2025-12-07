@@ -4,6 +4,7 @@
 - (void)_accessibilityLoadAccessibilityInformation;
 - (void)_pairingComplete:(id)complete;
 - (void)_showFailed;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation ProximityPairingViewControllerAccessibility
@@ -122,6 +123,14 @@ id __89__ProximityPairingViewControllerAccessibility__accessibilityLoadAccessibi
   accessibilityActivate = [v2 accessibilityActivate];
 
   return accessibilityActivate;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = ProximityPairingViewControllerAccessibility;
+  [(ProximityPairingViewControllerAccessibility *)&v4 viewWillAppear:appear];
+  [(ProximityPairingViewControllerAccessibility *)self _accessibilityLoadAccessibilityInformation];
 }
 
 - (void)_pairingComplete:(id)complete

@@ -18,10 +18,10 @@
 - (NSString)debugDescription;
 - (NSString)description;
 - (float)volume;
+- (id)_unregisterNotifications;
 - (id)contextID;
 - (id)predictedOutputDevice;
 - (id)predictedOutputDeviceUIDs;
-- (uint64_t)_unregisterNotifications;
 - (unsigned)volumeControlCapabilities;
 - (void)_addNotifications:(void *)notifications name:(void *)name object:;
 - (void)_handleCanMuteDidChangeNotification:(id)notification;
@@ -114,19 +114,18 @@ LABEL_9:
   }
 }
 
-- (uint64_t)_unregisterNotifications
+- (id)_unregisterNotifications
 {
   if (result)
   {
     v1 = result;
-    v2 = *(result + 120);
     OUTLINED_FUNCTION_0_3();
-    v5 = 3221225472;
-    v6 = __53__MRAVConcreteOutputContext__unregisterNotifications__block_invoke;
-    v7 = &unk_1E769D140;
-    v8 = v1;
-    [v3 enumerateKeysAndObjectsUsingBlock:v4];
-    return [*(v1 + 120) removeAllObjects];
+    v4 = 3221225472;
+    v5 = __53__MRAVConcreteOutputContext__unregisterNotifications__block_invoke;
+    v6 = &unk_1E769D140;
+    v7 = v1;
+    [v2 enumerateKeysAndObjectsUsingBlock:v3];
+    return [v1[15] removeAllObjects];
   }
 
   return result;
@@ -134,32 +133,32 @@ LABEL_9:
 
 - (void)_reloadOutputDevices
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
   avOutputContext = [(MRAVConcreteOutputContext *)self avOutputContext];
   outputDevices = [avOutputContext outputDevices];
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v6 = outputDevices;
-  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       v10 = 0;
       do
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * v10);
+        v11 = *(*(&v15 + 1) + 8 * v10);
         v12 = [MRAVConcreteOutputDevice alloc];
         avOutputContext2 = [(MRAVConcreteOutputContext *)self avOutputContext];
         v14 = [(MRAVConcreteOutputDevice *)v12 initWithAVOutputDevice:v11 outputContext:avOutputContext2];
@@ -173,7 +172,7 @@ LABEL_9:
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
@@ -181,8 +180,6 @@ LABEL_9:
 
   [(MRAVConcreteOutputContext *)self setConcreteOutputDevices:array];
   [(MRAVOutputContext *)self _reloadWithOutputDevices:array];
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (AVOutputContext)avOutputContext
@@ -263,14 +260,13 @@ LABEL_9:
 
 void __65__MRAVConcreteOutputContext__initializeAVFNotificationForwarding__block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = [objc_opt_class() notificationQueue];
+  v2 = [objc_opt_class() notificationQueue];
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __65__MRAVConcreteOutputContext__initializeAVFNotificationForwarding__block_invoke_2;
   block[3] = &__block_descriptor_40_e5_v8__0l;
   block[4] = *(a1 + 32);
-  dispatch_async(v3, block);
+  dispatch_async(v2, block);
 }
 
 - (id)contextID
@@ -357,48 +353,46 @@ void __65__MRAVConcreteOutputContext__initializeAVFNotificationForwarding__block
 void __65__MRAVConcreteOutputContext__initializeAVFNotificationForwarding__block_invoke_6(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = *(a1 + 40);
-  v5 = [objc_opt_class() notificationQueue];
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __65__MRAVConcreteOutputContext__initializeAVFNotificationForwarding__block_invoke_7;
-  v8[3] = &unk_1E769AB28;
-  v6 = *(a1 + 32);
-  v9 = v3;
-  v10 = v6;
-  v7 = v3;
-  dispatch_async(v5, v8);
+  v4 = [objc_opt_class() notificationQueue];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __65__MRAVConcreteOutputContext__initializeAVFNotificationForwarding__block_invoke_7;
+  v7[3] = &unk_1E769AB28;
+  v5 = *(a1 + 32);
+  v8 = v3;
+  v9 = v5;
+  v6 = v3;
+  dispatch_async(v4, v7);
 }
 
 void __65__MRAVConcreteOutputContext__initializeAVFNotificationForwarding__block_invoke_4(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = *(a1 + 40);
-  v5 = [objc_opt_class() notificationQueue];
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __65__MRAVConcreteOutputContext__initializeAVFNotificationForwarding__block_invoke_5;
-  v8[3] = &unk_1E769AB28;
-  v6 = *(a1 + 32);
-  v9 = v3;
-  v10 = v6;
-  v7 = v3;
-  dispatch_async(v5, v8);
+  v4 = [objc_opt_class() notificationQueue];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __65__MRAVConcreteOutputContext__initializeAVFNotificationForwarding__block_invoke_5;
+  v7[3] = &unk_1E769AB28;
+  v5 = *(a1 + 32);
+  v8 = v3;
+  v9 = v5;
+  v6 = v3;
+  dispatch_async(v4, v7);
 }
 
 id __65__MRAVConcreteOutputContext__initializeAVFNotificationForwarding__block_invoke_3(uint64_t a1, void *a2)
 {
-  v12[3] = *MEMORY[0x1E69E9840];
+  v11[3] = *MEMORY[0x1E69E9840];
   v2 = [a2 object];
   v3 = [v2 outputContextType];
   v4 = *MEMORY[0x1E69586E0];
-  v11[0] = *MEMORY[0x1E69586D8];
-  v11[1] = v4;
-  v12[0] = &unk_1F15776C8;
-  v12[1] = &unk_1F15776E0;
-  v11[2] = *MEMORY[0x1E69586D0];
-  v12[2] = &unk_1F15776F8;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:3];
+  v10[0] = *MEMORY[0x1E69586D8];
+  v10[1] = v4;
+  v11[0] = &unk_1F15776C8;
+  v11[1] = &unk_1F15776E0;
+  v10[2] = *MEMORY[0x1E69586D0];
+  v11[2] = &unk_1F15776F8;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:3];
   v6 = [v5 objectForKey:v3];
   v7 = [v6 unsignedIntegerValue];
 
@@ -411,8 +405,6 @@ id __65__MRAVConcreteOutputContext__initializeAVFNotificationForwarding__block_i
   {
     v8 = 0;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -443,22 +435,20 @@ void __65__MRAVConcreteOutputContext__initializeAVFNotificationForwarding__block
 
 - (id)predictedOutputDeviceUIDs
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   predictedOutputDevice = [(MRAVConcreteOutputContext *)self predictedOutputDevice];
   v3 = [predictedOutputDevice uid];
 
   if (v3)
   {
-    v7[0] = v3;
-    v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
+    v6[0] = v3;
+    v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
   }
 
   else
   {
     v4 = 0;
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -663,7 +653,7 @@ LABEL_19:
 
 - (void)dealloc
 {
-  [(MRAVConcreteOutputContext *)self _unregisterNotifications];
+  [(MRAVConcreteOutputContext *)&self->super.super.isa _unregisterNotifications];
   v3.receiver = self;
   v3.super_class = MRAVConcreteOutputContext;
   [(MRAVConcreteOutputContext *)&v3 dealloc];
@@ -696,7 +686,7 @@ LABEL_19:
 
 + (AVOutputContext)outputContextForLocalDevice
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   uUID = [MEMORY[0x1E696AFB0] UUID];
   uUIDString = [uUID UUIDString];
 
@@ -706,7 +696,7 @@ LABEL_19:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v31 = v6;
+    v30 = v6;
     _os_log_impl(&dword_1A2860000, v7, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
@@ -725,20 +715,20 @@ LABEL_19:
     v12 = +[MRMediaRemoteServiceClient sharedServiceClient];
     service = [v12 service];
     mrXPCConnection = [service mrXPCConnection];
-    v29 = 0;
-    v15 = [mrXPCConnection sendSyncMessage:outputContextForLocalDeviceDataSource2 error:&v29];
-    v11 = v29;
+    v28 = 0;
+    v15 = [mrXPCConnection sendSyncMessage:outputContextForLocalDeviceDataSource2 error:&v28];
+    v11 = v28;
 
     v16 = MRCreateStringFromXPCMessage(v15, "MRXPC_ROUTING_CONTEXT_UID_KEY");
     v17 = _MRLogForCategory(0xAuLL);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543874;
-      v31 = @"outputContextForLocalDevice";
-      v32 = 2114;
-      v33 = uUIDString;
-      v34 = 2112;
-      v35 = v16;
+      v30 = @"outputContextForLocalDevice";
+      v31 = 2114;
+      v32 = uUIDString;
+      v33 = 2112;
+      v34 = v16;
       _os_log_impl(&dword_1A2860000, v17, OS_LOG_TYPE_DEFAULT, "Update: %{public}@<%{public}@> %@", buf, 0x20u);
     }
 
@@ -759,13 +749,13 @@ LABEL_19:
       date = [MEMORY[0x1E695DF00] date];
       [date timeIntervalSinceDate:v5];
       *buf = 138544130;
-      v31 = @"outputContextForLocalDevice";
-      v32 = 2114;
-      v33 = uUIDString;
-      v34 = 2114;
-      v35 = v11;
-      v36 = 2048;
-      v37 = v25;
+      v30 = @"outputContextForLocalDevice";
+      v31 = 2114;
+      v32 = uUIDString;
+      v33 = 2114;
+      v34 = v11;
+      v35 = 2048;
+      v36 = v25;
       _os_log_error_impl(&dword_1A2860000, v19, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", buf, 0x2Au);
       goto LABEL_18;
     }
@@ -778,11 +768,11 @@ LABEL_19:
     date = [MEMORY[0x1E695DF00] date];
     [date timeIntervalSinceDate:v5];
     *buf = 138543874;
-    v31 = @"outputContextForLocalDevice";
-    v32 = 2114;
-    v33 = uUIDString;
-    v34 = 2048;
-    v35 = v26;
+    v30 = @"outputContextForLocalDevice";
+    v31 = 2114;
+    v32 = uUIDString;
+    v33 = 2048;
+    v34 = v26;
     v22 = "Response: %{public}@<%{public}@> returned in %.4lf seconds";
     v23 = v19;
     v24 = 32;
@@ -798,13 +788,13 @@ LABEL_19:
     date = [MEMORY[0x1E695DF00] date];
     [date timeIntervalSinceDate:v5];
     *buf = 138544130;
-    v31 = @"outputContextForLocalDevice";
-    v32 = 2114;
-    v33 = uUIDString;
-    v34 = 2112;
-    v35 = v10;
-    v36 = 2048;
-    v37 = v21;
+    v30 = @"outputContextForLocalDevice";
+    v31 = 2114;
+    v32 = uUIDString;
+    v33 = 2112;
+    v34 = v10;
+    v35 = 2048;
+    v36 = v21;
     v22 = "Response: %{public}@<%{public}@> returned <%@> in %.4lf seconds";
     v23 = v19;
     v24 = 42;
@@ -814,14 +804,13 @@ LABEL_19:
 LABEL_18:
 
 LABEL_19:
-  v27 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 - (void)setAvOutputContext:(id)context
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   if (!contextCopy)
   {
@@ -841,13 +830,13 @@ LABEL_19:
       if (v11)
       {
         *buf = 138544130;
-        v33 = v9;
-        v34 = 2114;
-        v35 = @"avOutputContext";
-        v36 = 2112;
-        v37 = contextCopy;
-        v38 = 2112;
-        v39 = contextCopy;
+        v32 = v9;
+        v33 = 2114;
+        v34 = @"avOutputContext";
+        v35 = 2112;
+        v36 = contextCopy;
+        v37 = 2112;
+        v38 = contextCopy;
         v12 = "Set: %{public}@ setting %{public}@ from <%@> to <%@>";
         v13 = v10;
         v14 = 42;
@@ -858,11 +847,11 @@ LABEL_19:
     else if (v11)
     {
       *buf = 138543874;
-      v33 = v9;
-      v34 = 2114;
-      v35 = @"avOutputContext";
-      v36 = 2112;
-      v37 = 0;
+      v32 = v9;
+      v33 = 2114;
+      v34 = @"avOutputContext";
+      v35 = 2112;
+      v36 = 0;
       v12 = "Set: %{public}@ setting %{public}@ to <%@>";
       v13 = v10;
       v14 = 32;
@@ -897,24 +886,22 @@ LABEL_9:
   block[3] = &unk_1E769D0F0;
   v22 = 4 * (volumeControlType == 2);
   block[4] = self;
-  v27 = contextID;
+  v26 = contextID;
   if (volumeControlType == 1)
   {
     v22 = 2;
   }
 
-  v30 = providesControlForAllVolumeFeatures;
-  v31 = canSetVolume;
-  v29 = v22;
-  v28 = contextCopy;
+  v29 = providesControlForAllVolumeFeatures;
+  v30 = canSetVolume;
+  v28 = v22;
+  v27 = contextCopy;
   v23 = contextCopy;
   v24 = contextID;
   dispatch_sync(serialQueue, block);
   [(MRAVConcreteOutputContext *)self _reloadOutputDevices];
   [(MRAVConcreteOutputContext *)self _reloadPredictedOutputDevice];
   [(MRAVOutputContext *)self _scheduleOutputContextDidChangeNotification];
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_registerNotificationsForOutputContext:(uint64_t)context
@@ -1017,34 +1004,34 @@ void __54__MRAVConcreteOutputContext_setConcreteOutputDevices___block_invoke(uin
 
 - (void)setPredictedOutputDevice:(uint64_t)device
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (device)
   {
-    v13 = 0;
-    v14 = &v13;
-    v15 = 0x2020000000;
-    v16 = 0;
+    v12 = 0;
+    v13 = &v12;
+    v14 = 0x2020000000;
+    v15 = 0;
     v5 = *(device + 64);
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __54__MRAVConcreteOutputContext_setPredictedOutputDevice___block_invoke;
     block[3] = &unk_1E769BBB8;
-    v12 = &v13;
+    v11 = &v12;
     block[4] = device;
     v6 = v3;
-    v11 = v6;
+    v10 = v6;
     dispatch_sync(v5, block);
-    if (*(v14 + 24) == 1)
+    if (*(v13 + 24) == 1)
     {
       v7 = _MRLogForCategory(0);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         v8 = [v6 uid];
         *buf = 138543618;
-        v18 = v8;
-        v19 = 2114;
+        v17 = v8;
+        v18 = 2114;
         deviceCopy = device;
         _os_log_impl(&dword_1A2860000, v7, OS_LOG_TYPE_DEFAULT, "[ConcreteOutputContext] Predicted output device changed to: %{public}@ for context: %{public}@", buf, 0x16u);
       }
@@ -1052,10 +1039,8 @@ void __54__MRAVConcreteOutputContext_setConcreteOutputDevices___block_invoke(uin
       [(MRAVConcreteOutputContext *)device _notifyPredictedOutputDeviceDidChange:v6];
     }
 
-    _Block_object_dispose(&v13, 8);
+    _Block_object_dispose(&v12, 8);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __54__MRAVConcreteOutputContext_setPredictedOutputDevice___block_invoke(uint64_t a1)
@@ -1157,20 +1142,19 @@ void __81__MRAVConcreteOutputContext_modifyTopologyWithRequest_withReplyQueue_co
   v3 = a2;
   if (*(a1 + 48))
   {
-    v4 = *(a1 + 32);
-    v5 = [objc_opt_class() notificationQueue];
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __81__MRAVConcreteOutputContext_modifyTopologyWithRequest_withReplyQueue_completion___block_invoke_4;
-    v9[3] = &unk_1E769D118;
-    v6 = v3;
-    v7 = *(a1 + 32);
-    v8 = *(a1 + 40);
+    v4 = [objc_opt_class() notificationQueue];
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __81__MRAVConcreteOutputContext_modifyTopologyWithRequest_withReplyQueue_completion___block_invoke_4;
+    v8[3] = &unk_1E769D118;
+    v5 = v3;
+    v6 = *(a1 + 32);
+    v7 = *(a1 + 40);
+    v9 = v5;
     v10 = v6;
     v11 = v7;
-    v12 = v8;
-    v13 = *(a1 + 48);
-    dispatch_async(v5, v9);
+    v12 = *(a1 + 48);
+    dispatch_async(v4, v8);
   }
 }
 
@@ -1242,7 +1226,7 @@ void __81__MRAVConcreteOutputContext_modifyTopologyWithRequest_withReplyQueue_co
 
 - (void)setVolume:(float)volume details:(id)details
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v6 = MEMORY[0x1E696AEC0];
   detailsCopy = details;
   v8 = [v6 alloc];
@@ -1262,7 +1246,7 @@ void __81__MRAVConcreteOutputContext_modifyTopologyWithRequest_withReplyQueue_co
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v19 = v13;
+    v18 = v13;
     _os_log_impl(&dword_1A2860000, v14, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
@@ -1282,13 +1266,11 @@ void __81__MRAVConcreteOutputContext_modifyTopologyWithRequest_withReplyQueue_co
       _os_log_impl(&dword_1A2860000, avOutputContext, OS_LOG_TYPE_DEFAULT, "[ConcreteOutputContext] Volume control is not available, ignoring setVolume request.", buf, 2u);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)adjustVolume:(int64_t)volume details:(id)details
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v6 = MEMORY[0x1E696AEC0];
   detailsCopy = details;
   v8 = [v6 alloc];
@@ -1309,7 +1291,7 @@ void __81__MRAVConcreteOutputContext_modifyTopologyWithRequest_withReplyQueue_co
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v19 = v14;
+    v18 = v14;
     _os_log_impl(&dword_1A2860000, v15, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
@@ -1329,8 +1311,6 @@ void __81__MRAVConcreteOutputContext_modifyTopologyWithRequest_withReplyQueue_co
       [avOutputContext increaseVolumeByCount:1];
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleOutputDevicesDidChangeNotification:(id)notification
@@ -1340,20 +1320,20 @@ void __81__MRAVConcreteOutputContext_modifyTopologyWithRequest_withReplyQueue_co
 
   v5 = +[MRAVConcreteOutputContext sharedAudioPresentationContext];
 
-  if (MRProcessIsMediaRemoteDaemon())
+  if (MRProcessIsMediaRemoteDaemon(v6, v7))
   {
     if (v5 == self && v4 == 0)
     {
       userInfo = [notificationCopy userInfo];
-      v8 = [userInfo objectForKeyedSubscript:*MEMORY[0x1E69586A0]];
-      v9 = [v8 isEqualToString:*MEMORY[0x1E6958698]];
+      v10 = [userInfo objectForKeyedSubscript:*MEMORY[0x1E69586A0]];
+      isEqualToString = objc_msgSend_isEqualToString_(v10);
 
-      if (v9)
+      if (isEqualToString)
       {
         userInfo2 = [notificationCopy userInfo];
-        v11 = [userInfo2 objectForKeyedSubscript:*MEMORY[0x1E6958690]];
+        v13 = [userInfo2 objectForKeyedSubscript:*MEMORY[0x1E6958690]];
 
-        [(MRAVConcreteOutputContext *)self _handleOutputDevicesTimedOut:v11];
+        [(MRAVConcreteOutputContext *)self _handleOutputDevicesTimedOut:v13];
       }
     }
   }
@@ -1363,7 +1343,7 @@ void __81__MRAVConcreteOutputContext_modifyTopologyWithRequest_withReplyQueue_co
 
 - (void)_handleOutputDevicesTimedOut:(uint64_t)out
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (out)
   {
@@ -1377,8 +1357,8 @@ void __81__MRAVConcreteOutputContext_modifyTopologyWithRequest_withReplyQueue_co
 
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v15 = 0x2020000000;
-    v16 = 0;
+    v14 = 0x2020000000;
+    v15 = 0;
     v5 = *(out + 64);
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
@@ -1386,25 +1366,23 @@ void __81__MRAVConcreteOutputContext_modifyTopologyWithRequest_withReplyQueue_co
     block[3] = &unk_1E769D1B8;
     block[4] = out;
     v6 = v3;
-    v12 = v6;
+    v11 = v6;
     p_buf = &buf;
     dispatch_sync(v5, block);
     if (*(*(&buf + 1) + 24) == 1)
     {
       v7 = *(out + 64);
-      v9[0] = MEMORY[0x1E69E9820];
-      v9[1] = 3221225472;
-      v9[2] = __58__MRAVConcreteOutputContext__handleOutputDevicesTimedOut___block_invoke_2;
-      v9[3] = &unk_1E769D1E0;
-      v9[4] = out;
-      v10 = v6;
-      [MRAVEndpoint createEndpointWithOutputDeviceUIDs:v10 queue:v7 completion:v9];
+      v8[0] = MEMORY[0x1E69E9820];
+      v8[1] = 3221225472;
+      v8[2] = __58__MRAVConcreteOutputContext__handleOutputDevicesTimedOut___block_invoke_2;
+      v8[3] = &unk_1E769D1E0;
+      v8[4] = out;
+      v9 = v6;
+      [MRAVEndpoint createEndpointWithOutputDeviceUIDs:v9 queue:v7 completion:v8];
     }
 
     _Block_object_dispose(&buf, 8);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_addNotifications:(void *)notifications name:(void *)name object:
@@ -1452,88 +1430,84 @@ void __53__MRAVConcreteOutputContext__unregisterNotifications__block_invoke(uint
 
 - (void)_handleOutputContextCanSetVolumeDidChangeNotification:(id)notification
 {
-  v31[1] = *MEMORY[0x1E69E9840];
+  v30[1] = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   avOutputContext = [(MRAVConcreteOutputContext *)self avOutputContext];
   canSetVolume = [avOutputContext canSetVolume];
 
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x2020000000;
-  v29 = 0;
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x2020000000;
   v25 = 0;
+  v26 = &v25;
+  v27 = 0x2020000000;
+  v28 = 0;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x2020000000;
+  v24 = 0;
   serialQueue = self->_serialQueue;
-  v13 = MEMORY[0x1E69E9820];
-  v14 = 3221225472;
-  v15 = __83__MRAVConcreteOutputContext__handleOutputContextCanSetVolumeDidChangeNotification___block_invoke;
-  v16 = &unk_1E769D190;
-  v21 = canSetVolume;
+  v12 = MEMORY[0x1E69E9820];
+  v13 = 3221225472;
+  v14 = __83__MRAVConcreteOutputContext__handleOutputContextCanSetVolumeDidChangeNotification___block_invoke;
+  v15 = &unk_1E769D190;
+  v20 = canSetVolume;
   selfCopy = self;
-  v19 = &v22;
-  v20 = &v26;
+  v18 = &v21;
+  v19 = &v25;
   v8 = notificationCopy;
-  v18 = v8;
-  dispatch_sync(serialQueue, &v13);
-  if (*(v27 + 24) == 1)
+  v17 = v8;
+  dispatch_sync(serialQueue, &v12);
+  if (*(v26 + 24) == 1)
   {
     defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
-    v30 = @"MRAVOutputContextVolumeControlCapabilitiesUserInfoKey";
-    v10 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*(v23 + 6)];
-    v31[0] = v10;
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:&v30 count:1];
+    v29 = @"MRAVOutputContextVolumeControlCapabilitiesUserInfoKey";
+    v10 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*(v22 + 6)];
+    v30[0] = v10;
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:&v29 count:1];
     [defaultCenter postNotificationName:@"MRAVOutputContextVolumeControlCapabilitiesDidChangeNotification" object:self userInfo:v11];
   }
 
-  _Block_object_dispose(&v22, 8);
-  _Block_object_dispose(&v26, 8);
-
-  v12 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v25, 8);
 }
 
 - (void)_handleOutputContextSupportsVolumeDidChangeNotification:(id)notification
 {
-  v31[1] = *MEMORY[0x1E69E9840];
+  v30[1] = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   avOutputContext = [(MRAVConcreteOutputContext *)self avOutputContext];
   providesControlForAllVolumeFeatures = [avOutputContext providesControlForAllVolumeFeatures];
 
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x2020000000;
-  v29 = 0;
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x2020000000;
   v25 = 0;
+  v26 = &v25;
+  v27 = 0x2020000000;
+  v28 = 0;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x2020000000;
+  v24 = 0;
   serialQueue = self->_serialQueue;
-  v13 = MEMORY[0x1E69E9820];
-  v14 = 3221225472;
-  v15 = __85__MRAVConcreteOutputContext__handleOutputContextSupportsVolumeDidChangeNotification___block_invoke;
-  v16 = &unk_1E769D190;
-  v21 = providesControlForAllVolumeFeatures;
+  v12 = MEMORY[0x1E69E9820];
+  v13 = 3221225472;
+  v14 = __85__MRAVConcreteOutputContext__handleOutputContextSupportsVolumeDidChangeNotification___block_invoke;
+  v15 = &unk_1E769D190;
+  v20 = providesControlForAllVolumeFeatures;
   selfCopy = self;
-  v19 = &v22;
-  v20 = &v26;
+  v18 = &v21;
+  v19 = &v25;
   v8 = notificationCopy;
-  v18 = v8;
-  dispatch_sync(serialQueue, &v13);
-  if (*(v27 + 24) == 1)
+  v17 = v8;
+  dispatch_sync(serialQueue, &v12);
+  if (*(v26 + 24) == 1)
   {
     defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
-    v30 = @"MRAVOutputContextVolumeControlCapabilitiesUserInfoKey";
-    v10 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*(v23 + 6)];
-    v31[0] = v10;
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:&v30 count:1];
+    v29 = @"MRAVOutputContextVolumeControlCapabilitiesUserInfoKey";
+    v10 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*(v22 + 6)];
+    v30[0] = v10;
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:&v29 count:1];
     [defaultCenter postNotificationName:@"MRAVOutputContextVolumeControlCapabilitiesDidChangeNotification" object:self userInfo:v11];
   }
 
-  _Block_object_dispose(&v22, 8);
-  _Block_object_dispose(&v26, 8);
-
-  v12 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v25, 8);
 }
 
 - (void)_handleOutputDeviceCanSetVolumeDidChangeNotification:(id)notification
@@ -1557,16 +1531,16 @@ void __53__MRAVConcreteOutputContext__unregisterNotifications__block_invoke(uint
   [(MRAVConcreteOutputContext *)self _postVolumeMutedChangedNotificationForUID:deviceID];
 }
 
-unint64_t __58__MRAVConcreteOutputContext__handleOutputDevicesTimedOut___block_invoke(unint64_t result)
+id *__58__MRAVConcreteOutputContext__handleOutputDevicesTimedOut___block_invoke(id *result)
 {
-  if ((*(*(result + 32) + 73) & 1) == 0)
+  if ((*(result[4] + 73) & 1) == 0)
   {
     v1 = result;
-    result = [*(result + 40) count];
+    result = [result[5] count];
     if (result >= 2)
     {
-      *(*(v1 + 32) + 73) = 1;
-      *(*(*(v1 + 48) + 8) + 24) = 1;
+      *(v1[4] + 73) = 1;
+      *(*(v1[6] + 1) + 24) = 1;
     }
   }
 
@@ -1575,7 +1549,7 @@ unint64_t __58__MRAVConcreteOutputContext__handleOutputDevicesTimedOut___block_i
 
 void __58__MRAVConcreteOutputContext__handleOutputDevicesTimedOut___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   *(*(a1 + 32) + 73) = 0;
@@ -1591,23 +1565,21 @@ void __58__MRAVConcreteOutputContext__handleOutputDevicesTimedOut___block_invoke
 
   else if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138543362;
-    v11 = v5;
-    _os_log_impl(&dword_1A2860000, v8, OS_LOG_TYPE_DEFAULT, "[ConcreteOutputContext] Created endpoint for disconnected devices: %{public}@", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v5;
+    _os_log_impl(&dword_1A2860000, v8, OS_LOG_TYPE_DEFAULT, "[ConcreteOutputContext] Created endpoint for disconnected devices: %{public}@", &v9, 0xCu);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __67__MRAVConcreteOutputContext__notifyPredictedOutputDeviceDidChange___block_invoke(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if (v2)
   {
-    v6 = @"MRAVOutputContextOutputDeviceUserInfoKey";
-    v7[0] = v2;
-    v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+    v5 = @"MRAVOutputContextOutputDeviceUserInfoKey";
+    v6[0] = v2;
+    v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
   }
 
   else
@@ -1617,8 +1589,6 @@ void __67__MRAVConcreteOutputContext__notifyPredictedOutputDeviceDidChange___blo
 
   v4 = [MEMORY[0x1E696AD88] defaultCenter];
   [v4 postNotificationName:@"kMRAVOutputContextPredictedOutputDeviceDidChangeNotification" object:*(a1 + 40) userInfo:v3];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __49__MRAVConcreteOutputContext__reloadOutputContext__block_invoke()
@@ -1631,42 +1601,39 @@ void __49__MRAVConcreteOutputContext__reloadOutputContext__block_invoke()
 
 void __49__MRAVConcreteOutputContext__reloadOutputContext__block_invoke_2(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 32);
-  v3 = [objc_opt_class() outputContextForLocalDevice];
-  if (v3 || (v4 = *(a1 + 32), [objc_opt_class() outputContextForLocalDevice], (v3 = objc_claimAutoreleasedReturnValue()) != 0))
+  v14 = *MEMORY[0x1E69E9840];
+  v2 = [objc_opt_class() outputContextForLocalDevice];
+  if (v2 || ([objc_opt_class() outputContextForLocalDevice], (v2 = objc_claimAutoreleasedReturnValue()) != 0))
   {
-    v5 = v3;
-    v6 = _MRLogForCategory(0);
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v3 = v2;
+    v4 = _MRLogForCategory(0);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = *(a1 + 32);
+      v5 = *(a1 + 32);
       *buf = 138543618;
-      v14 = v7;
-      v15 = 2112;
-      v16 = v5;
-      _os_log_impl(&dword_1A2860000, v6, OS_LOG_TYPE_DEFAULT, "[ConcreteOutputContext] %{public}@ Reloading with output context: %@", buf, 0x16u);
+      v11 = v5;
+      v12 = 2112;
+      v13 = v3;
+      _os_log_impl(&dword_1A2860000, v4, OS_LOG_TYPE_DEFAULT, "[ConcreteOutputContext] %{public}@ Reloading with output context: %@", buf, 0x16u);
     }
 
-    [*(a1 + 32) setAvOutputContext:v5];
+    [*(a1 + 32) setAvOutputContext:v3];
   }
 
   else
   {
     objc_initWeak(buf, *(a1 + 32));
-    v9 = dispatch_time(0, 10000000000);
-    v10 = _MergedGlobals;
+    v6 = dispatch_time(0, 10000000000);
+    v7 = _MergedGlobals;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __49__MRAVConcreteOutputContext__reloadOutputContext__block_invoke_3;
     block[3] = &unk_1E769B178;
-    objc_copyWeak(&v12, buf);
-    dispatch_after(v9, v10, block);
-    objc_destroyWeak(&v12);
+    objc_copyWeak(&v9, buf);
+    dispatch_after(v6, v7, block);
+    objc_destroyWeak(&v9);
     objc_destroyWeak(buf);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 + (id)_sharedOutputContextFromType:(uint64_t)type
@@ -1742,27 +1709,26 @@ uint64_t __54__MRAVConcreteOutputContext_volumeControlCapabilities__block_invoke
 
 - (void)_outputContextChangeInitiatedNotification:(id)notification
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
-  if (self && ((MRProcessIsMediaRemoteDaemon() & 1) != 0 || [(MRAVConcreteOutputContext *)self type]== 3))
+  v6 = notificationCopy;
+  if (self && ((MRProcessIsMediaRemoteDaemon(notificationCopy, v5) & 1) != 0 || [(MRAVConcreteOutputContext *)self type]== 3))
   {
-    v5 = _MRLogForCategory(0);
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v7 = _MRLogForCategory(0);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138543618;
-      v8 = notificationCopy;
-      v9 = 2114;
+      v8 = 138543618;
+      v9 = v6;
+      v10 = 2114;
       selfCopy = self;
-      _os_log_impl(&dword_1A2860000, v5, OS_LOG_TYPE_DEFAULT, "[ConcreteOutputContext] Received output context change initiated notification: %{public}@ for context: %{public}@", &v7, 0x16u);
+      _os_log_impl(&dword_1A2860000, v7, OS_LOG_TYPE_DEFAULT, "[ConcreteOutputContext] Received output context change initiated notification: %{public}@ for context: %{public}@", &v8, 0x16u);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleOutputContextVolumeControlTypeDidChangeNotification:(id)notification
 {
-  v35[1] = *MEMORY[0x1E69E9840];
+  v34[1] = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   avOutputContext = [(MRAVConcreteOutputContext *)self avOutputContext];
   v6 = avOutputContext;
@@ -1786,45 +1752,42 @@ uint64_t __54__MRAVConcreteOutputContext_volumeControlCapabilities__block_invoke
     v10 = 0;
   }
 
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x2020000000;
-  v33 = 0;
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x2020000000;
   v29 = 0;
+  v30 = &v29;
+  v31 = 0x2020000000;
+  v32 = 0;
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x2020000000;
+  v28 = 0;
   serialQueue = self->_serialQueue;
-  v17 = MEMORY[0x1E69E9820];
-  v18 = 3221225472;
-  v19 = __88__MRAVConcreteOutputContext__handleOutputContextVolumeControlTypeDidChangeNotification___block_invoke;
-  v20 = &unk_1E769D168;
-  v25 = v10;
+  v16 = MEMORY[0x1E69E9820];
+  v17 = 3221225472;
+  v18 = __88__MRAVConcreteOutputContext__handleOutputContextVolumeControlTypeDidChangeNotification___block_invoke;
+  v19 = &unk_1E769D168;
+  v24 = v10;
   selfCopy = self;
-  v23 = &v26;
-  v24 = &v30;
+  v22 = &v25;
+  v23 = &v29;
   v12 = notificationCopy;
-  v22 = v12;
-  dispatch_sync(serialQueue, &v17);
-  if (*(v31 + 24) == 1)
+  v21 = v12;
+  dispatch_sync(serialQueue, &v16);
+  if (*(v30 + 24) == 1)
   {
     defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
-    v34 = @"MRAVOutputContextVolumeControlCapabilitiesUserInfoKey";
-    v14 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*(v27 + 6)];
-    v35[0] = v14;
-    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:&v34 count:1];
+    v33 = @"MRAVOutputContextVolumeControlCapabilitiesUserInfoKey";
+    v14 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*(v26 + 6)];
+    v34[0] = v14;
+    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:&v33 count:1];
     [defaultCenter postNotificationName:@"MRAVOutputContextVolumeControlCapabilitiesDidChangeNotification" object:self userInfo:v15];
   }
 
-  _Block_object_dispose(&v26, 8);
-  _Block_object_dispose(&v30, 8);
-
-  v16 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v29, 8);
 }
 
 void __88__MRAVConcreteOutputContext__handleOutputContextVolumeControlTypeDidChangeNotification___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
   if (v3 && *(v3 + 104) == 1 && *(v3 + 105) == 1)
   {
@@ -1843,40 +1806,29 @@ void __88__MRAVConcreteOutputContext__handleOutputContextVolumeControlTypeDidCha
     if (v5)
     {
       OUTLINED_FUNCTION_13_1();
-      if (v5)
-      {
-        v7 = *(v6 + 108);
-      }
     }
   }
 
   OUTLINED_FUNCTION_1_9(v4);
-  if (v1 && ((MRProcessIsMediaRemoteDaemon() & 1) != 0 || [v1 type] == 3))
+  if (v1 && ((MRProcessIsMediaRemoteDaemon(v6, v7) & 1) != 0 || [v1 type] == 3))
   {
     v8 = _MRLogForCategory(0);
     if (OUTLINED_FUNCTION_15(v8))
     {
-      v9 = *(a1 + 32);
-      v10 = *(v9 + 104);
-      v11 = *(v9 + 105);
-      v12 = MRMediaRemotePickedRouteVolumeControlCapabilitiesCopyDescription(*(v9 + 108));
-      v13 = OUTLINED_FUNCTION_8_2(v12);
-      v14 = MRMediaRemotePickedRouteVolumeControlCapabilitiesCopyDescription(-351694848);
-      v15 = *(*(a1 + 32) + 96);
-      v16 = [*(a1 + 40) name];
+      v9 = MRMediaRemotePickedRouteVolumeControlCapabilitiesCopyDescription(*(*(a1 + 32) + 108));
+      v10 = OUTLINED_FUNCTION_8_2(v9);
+      v11 = MRMediaRemotePickedRouteVolumeControlCapabilitiesCopyDescription(-351694848);
+      v12 = [*(a1 + 40) name];
 
       OUTLINED_FUNCTION_0_11();
       OUTLINED_FUNCTION_5_4();
-      _os_log_impl(v17, v18, v19, v20, v21, 0x36u);
+      _os_log_impl(v13, v14, v15, v16, v17, 0x36u);
     }
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __83__MRAVConcreteOutputContext__handleOutputContextCanSetVolumeDidChangeNotification___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
   if (v3)
   {
@@ -1900,42 +1852,28 @@ void __83__MRAVConcreteOutputContext__handleOutputContextCanSetVolumeDidChangeNo
   if (*(a1 + 32))
   {
     OUTLINED_FUNCTION_13_1();
-    if (v6)
-    {
-      if (*(v5 + 105) == 1)
-      {
-        v7 = *(v5 + 108);
-      }
-    }
   }
 
   OUTLINED_FUNCTION_1_9(v4);
-  if (v1 && ((MRProcessIsMediaRemoteDaemon() & 1) != 0 || [v1 type] == 3))
+  if (v1 && ((MRProcessIsMediaRemoteDaemon(v5, v6) & 1) != 0 || [v1 type] == 3))
   {
-    v8 = _MRLogForCategory(0);
-    if (OUTLINED_FUNCTION_15(v8))
+    v7 = _MRLogForCategory(0);
+    if (OUTLINED_FUNCTION_15(v7))
     {
-      v9 = *(a1 + 32);
-      v10 = *(v9 + 104);
-      v11 = *(v9 + 105);
-      v12 = MRMediaRemotePickedRouteVolumeControlCapabilitiesCopyDescription(*(v9 + 108));
-      v13 = OUTLINED_FUNCTION_8_2(v12);
-      v14 = MRMediaRemotePickedRouteVolumeControlCapabilitiesCopyDescription(-351694848);
-      v15 = *(*(a1 + 32) + 96);
-      v16 = [*(a1 + 40) name];
+      v8 = MRMediaRemotePickedRouteVolumeControlCapabilitiesCopyDescription(*(*(a1 + 32) + 108));
+      v9 = OUTLINED_FUNCTION_8_2(v8);
+      v10 = MRMediaRemotePickedRouteVolumeControlCapabilitiesCopyDescription(-351694848);
+      v11 = [*(a1 + 40) name];
 
       OUTLINED_FUNCTION_0_11();
       OUTLINED_FUNCTION_5_4();
-      _os_log_impl(v17, v18, v19, v20, v21, 0x36u);
+      _os_log_impl(v12, v13, v14, v15, v16, 0x36u);
     }
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __85__MRAVConcreteOutputContext__handleOutputContextSupportsVolumeDidChangeNotification___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
   if (v3 && *(v3 + 104) == 1 && *(v3 + 105) == 1)
   {
@@ -1949,105 +1887,90 @@ void __85__MRAVConcreteOutputContext__handleOutputContextSupportsVolumeDidChange
 
   *(v3 + 104) = *(a1 + 64);
   v5 = *(a1 + 32);
-  if (v5)
+  if (v5 && *(v5 + 104) == 1)
   {
-    if (*(v5 + 104) == 1)
-    {
-      OUTLINED_FUNCTION_13_1();
-      if (v7)
-      {
-        v8 = *(v6 + 108);
-      }
-    }
+    OUTLINED_FUNCTION_13_1();
   }
 
   OUTLINED_FUNCTION_1_9(v4);
-  if (v1 && ((MRProcessIsMediaRemoteDaemon() & 1) != 0 || [v1 type] == 3))
+  if (v1 && ((MRProcessIsMediaRemoteDaemon(v6, v7) & 1) != 0 || [v1 type] == 3))
   {
-    v9 = _MRLogForCategory(0);
-    if (OUTLINED_FUNCTION_15(v9))
+    v8 = _MRLogForCategory(0);
+    if (OUTLINED_FUNCTION_15(v8))
     {
-      v10 = *(a1 + 32);
-      v11 = *(v10 + 104);
-      v12 = *(v10 + 105);
-      v13 = MRMediaRemotePickedRouteVolumeControlCapabilitiesCopyDescription(*(v10 + 108));
-      v14 = OUTLINED_FUNCTION_8_2(v13);
-      v15 = MRMediaRemotePickedRouteVolumeControlCapabilitiesCopyDescription(104);
-      v16 = *(*(a1 + 32) + 96);
-      v17 = [*(a1 + 40) name];
+      v9 = MRMediaRemotePickedRouteVolumeControlCapabilitiesCopyDescription(*(*(a1 + 32) + 108));
+      v10 = OUTLINED_FUNCTION_8_2(v9);
+      v11 = MRMediaRemotePickedRouteVolumeControlCapabilitiesCopyDescription(104);
+      v12 = [*(a1 + 40) name];
 
       OUTLINED_FUNCTION_0_11();
       OUTLINED_FUNCTION_5_4();
-      _os_log_impl(v18, v19, v20, v21, v22, 0x36u);
+      _os_log_impl(v13, v14, v15, v16, v17, 0x36u);
     }
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_postVolumeCapabilitiesChangedNotificationForUID:(void *)d
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v5 = a2;
   if (d)
   {
     concreteOutputDevices = [OUTLINED_FUNCTION_6_2() concreteOutputDevices];
-    v7 = [concreteOutputDevices countByEnumeratingWithState:&v41 objects:v52 count:16];
-    if (v7)
+    if ([concreteOutputDevices countByEnumeratingWithState:v26 objects:v35 count:16])
     {
-      OUTLINED_FUNCTION_11_1(v7, v8, v9, v10, v11, v12, v13, v14, v41, v42, v43);
+      OUTLINED_FUNCTION_11_1();
       while (2)
       {
-        v23 = 0;
+        v7 = 0;
         do
         {
-          OUTLINED_FUNCTION_10_2(v15, v16, v17, v18, v19, v20, v21, v22, v41, v42, v43);
-          if (!v32)
+          OUTLINED_FUNCTION_10_2();
+          if (!v16)
           {
             objc_enumerationMutation(concreteOutputDevices);
           }
 
-          v15 = [OUTLINED_FUNCTION_9_1(v24 v25];
-          if (v15)
+          v17 = [OUTLINED_FUNCTION_9_1(v8 v9];
+          if (v17)
           {
-            v33 = v15;
-            if ((MRProcessIsMediaRemoteDaemon() & 1) != 0 || [d type] == 3)
+            v19 = v17;
+            if ((MRProcessIsMediaRemoteDaemon(v17, v18) & 1) != 0 || [d type] == 3)
             {
-              v34 = _MRLogForCategory(0);
-              if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+              v20 = _MRLogForCategory(0);
+              if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
               {
-                v35 = [v33 uid];
-                isVolumeControlAvailable = [v33 isVolumeControlAvailable];
+                v21 = [v19 uid];
+                isVolumeControlAvailable = [v19 isVolumeControlAvailable];
                 contextID = [d contextID];
                 *buf = 138543874;
-                v47 = v35;
-                v48 = 1024;
-                v49 = isVolumeControlAvailable;
-                v50 = 2114;
-                v51 = contextID;
-                _os_log_impl(&dword_1A2860000, v34, OS_LOG_TYPE_DEFAULT, "[ConcreteOutputContext] Output device %{public}@ did change isVolumeControlAvailable to %{BOOL}u for context: %{public}@", buf, 0x1Cu);
+                v30 = v21;
+                v31 = 1024;
+                v32 = isVolumeControlAvailable;
+                v33 = 2114;
+                v34 = contextID;
+                _os_log_impl(&dword_1A2860000, v20, OS_LOG_TYPE_DEFAULT, "[ConcreteOutputContext] Output device %{public}@ did change isVolumeControlAvailable to %{BOOL}u for context: %{public}@", buf, 0x1Cu);
               }
             }
 
             defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
-            v44[0] = @"MRAVOutputContextOutputDeviceUserInfoKey";
-            v44[1] = @"MRAVOutputContextVolumeControlCapabilitiesUserInfoKey";
-            v45[0] = v33;
-            v38 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{objc_msgSend(v33, "volumeCapabilities")}];
-            v45[1] = v38;
-            v39 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v45 forKeys:v44 count:2];
-            OUTLINED_FUNCTION_4_3(v39);
+            v27[0] = @"MRAVOutputContextOutputDeviceUserInfoKey";
+            v27[1] = @"MRAVOutputContextVolumeControlCapabilitiesUserInfoKey";
+            v28[0] = v19;
+            v24 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{objc_msgSend(v19, "volumeCapabilities")}];
+            v28[1] = v24;
+            v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:v27 count:2];
+            OUTLINED_FUNCTION_4_3(v25);
 
             goto LABEL_17;
           }
 
-          ++v23;
+          ++v7;
         }
 
-        while (v2 != v23);
-        v15 = [concreteOutputDevices countByEnumeratingWithState:&v41 objects:v52 count:16];
-        v2 = v15;
-        if (v15)
+        while (v2 != v7);
+        v2 = [concreteOutputDevices countByEnumeratingWithState:v26 objects:v35 count:16];
+        if (v2)
         {
           continue;
         }
@@ -2058,8 +1981,6 @@ void __85__MRAVConcreteOutputContext__handleOutputContextSupportsVolumeDidChange
 
 LABEL_17:
   }
-
-  v40 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleCanMuteDidChangeNotification:(id)notification
@@ -2082,53 +2003,51 @@ LABEL_17:
 
 - (void)_postVolumeChangedNotificationForUID:(uint64_t)d
 {
-  v49[18] = *MEMORY[0x1E69E9840];
+  v27[18] = *MEMORY[0x1E69E9840];
   v5 = a2;
   if (d)
   {
     concreteOutputDevices = [OUTLINED_FUNCTION_6_2() concreteOutputDevices];
     OUTLINED_FUNCTION_14_1();
-    v8 = [v7 countByEnumeratingWithState:? objects:? count:?];
-    if (v8)
+    if ([v7 countByEnumeratingWithState:? objects:? count:?])
     {
-      OUTLINED_FUNCTION_11_1(v8, v9, v10, v11, v12, v13, v14, v15, v40, v43, v46);
+      OUTLINED_FUNCTION_11_1();
       while (2)
       {
-        v24 = 0;
+        v8 = 0;
         do
         {
-          OUTLINED_FUNCTION_10_2(v16, v17, v18, v19, v20, v21, v22, v23, v41, v44, v47);
-          if (!v33)
+          OUTLINED_FUNCTION_10_2();
+          if (!v17)
           {
             objc_enumerationMutation(concreteOutputDevices);
           }
 
-          v16 = [OUTLINED_FUNCTION_9_1(v25 v26];
-          if (v16)
+          v18 = [OUTLINED_FUNCTION_9_1(v9 v10];
+          if (v18)
           {
-            v34 = v16;
+            v19 = v18;
             defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
-            v48[0] = @"MRAVOutputContextOutputDeviceUserInfoKey";
-            v48[1] = @"MRAVOutputContextVolumeUserInfoKey";
-            v49[0] = v34;
-            v36 = MEMORY[0x1E696AD98];
-            [v34 volume];
-            v37 = [v36 numberWithFloat:?];
-            v49[1] = v37;
-            v38 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v49 forKeys:v48 count:2];
-            OUTLINED_FUNCTION_4_3(v38);
+            v26[0] = @"MRAVOutputContextOutputDeviceUserInfoKey";
+            v26[1] = @"MRAVOutputContextVolumeUserInfoKey";
+            v27[0] = v19;
+            v21 = MEMORY[0x1E696AD98];
+            [v19 volume];
+            v22 = [v21 numberWithFloat:?];
+            v27[1] = v22;
+            v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:2];
+            OUTLINED_FUNCTION_4_3(v23);
 
             goto LABEL_12;
           }
 
-          ++v24;
+          ++v8;
         }
 
-        while (v2 != v24);
+        while (v2 != v8);
         OUTLINED_FUNCTION_14_1();
-        v16 = [concreteOutputDevices countByEnumeratingWithState:? objects:? count:?];
-        v2 = v16;
-        if (v16)
+        v2 = [concreteOutputDevices countByEnumeratingWithState:? objects:? count:?];
+        if (v2)
         {
           continue;
         }
@@ -2139,8 +2058,6 @@ LABEL_17:
 
 LABEL_12:
   }
-
-  v39 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleClusterMemberRoomVolumeDidChangeNotification:(id)notification
@@ -2159,51 +2076,49 @@ LABEL_12:
 
 - (void)_postVolumeMutedChangedNotificationForUID:(uint64_t)d
 {
-  v48[18] = *MEMORY[0x1E69E9840];
+  v26[18] = *MEMORY[0x1E69E9840];
   v5 = a2;
   if (d)
   {
     concreteOutputDevices = [OUTLINED_FUNCTION_6_2() concreteOutputDevices];
     OUTLINED_FUNCTION_14_1();
-    v8 = [v7 countByEnumeratingWithState:? objects:? count:?];
-    if (v8)
+    if ([v7 countByEnumeratingWithState:? objects:? count:?])
     {
-      OUTLINED_FUNCTION_11_1(v8, v9, v10, v11, v12, v13, v14, v15, v39, v42, v45);
+      OUTLINED_FUNCTION_11_1();
       while (2)
       {
-        v24 = 0;
+        v8 = 0;
         do
         {
-          OUTLINED_FUNCTION_10_2(v16, v17, v18, v19, v20, v21, v22, v23, v40, v43, v46);
-          if (!v33)
+          OUTLINED_FUNCTION_10_2();
+          if (!v17)
           {
             objc_enumerationMutation(concreteOutputDevices);
           }
 
-          v16 = [OUTLINED_FUNCTION_9_1(v25 v26];
-          if (v16)
+          v18 = [OUTLINED_FUNCTION_9_1(v9 v10];
+          if (v18)
           {
-            v34 = v16;
+            v19 = v18;
             defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
-            v47[0] = @"MRAVOutputContextOutputDeviceUserInfoKey";
-            v47[1] = @"MRAVOutputContextVolumeMutedUserInfoKey";
-            v48[0] = v34;
-            v36 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v34, "isVolumeMuted")}];
-            v48[1] = v36;
-            v37 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v48 forKeys:v47 count:2];
-            OUTLINED_FUNCTION_4_3(v37);
+            v25[0] = @"MRAVOutputContextOutputDeviceUserInfoKey";
+            v25[1] = @"MRAVOutputContextVolumeMutedUserInfoKey";
+            v26[0] = v19;
+            v21 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v19, "isVolumeMuted")}];
+            v26[1] = v21;
+            v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:2];
+            OUTLINED_FUNCTION_4_3(v22);
 
             goto LABEL_12;
           }
 
-          ++v24;
+          ++v8;
         }
 
-        while (v2 != v24);
+        while (v2 != v8);
         OUTLINED_FUNCTION_14_1();
-        v16 = [concreteOutputDevices countByEnumeratingWithState:? objects:? count:?];
-        v2 = v16;
-        if (v16)
+        v2 = [concreteOutputDevices countByEnumeratingWithState:? objects:? count:?];
+        if (v2)
         {
           continue;
         }
@@ -2214,8 +2129,6 @@ LABEL_12:
 
 LABEL_12:
   }
-
-  v38 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleClusterMemberMutedDidChangeNotification:(id)notification
@@ -2229,7 +2142,6 @@ LABEL_12:
 
 - (void)_handlePredictedOutputDevicesDidChangeNotification:(id)notification
 {
-  v15 = *MEMORY[0x1E69E9840];
   v5 = _MRLogForCategory(0);
   if (OUTLINED_FUNCTION_15(v5))
   {
@@ -2242,8 +2154,6 @@ LABEL_12:
   objc_claimAutoreleasedReturnValue();
   v11 = OUTLINED_FUNCTION_2_4();
   [(MRAVConcreteOutputContext *)v11 _notifyPredictedOutputDeviceDidChange:v12];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_reloadOutputContext
@@ -2272,37 +2182,37 @@ void __49__MRAVConcreteOutputContext__reloadOutputContext__block_invoke_3(uint64
 
 void __59__MRAVConcreteOutputContext_sharedAudioPresentationContext__block_invoke_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5(&dword_1A2860000, a1, a3, "[ConcreteOutputContext] WARNING: AVF context unavailable for %{public}s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[MRAVConcreteOutputContext sharedAudioPresentationContext]_block_invoke";
+  OUTLINED_FUNCTION_5(&dword_1A2860000, a1, a3, "[ConcreteOutputContext] WARNING: AVF context unavailable for %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __53__MRAVConcreteOutputContext_sharedSystemAudioContext__block_invoke_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5(&dword_1A2860000, a1, a3, "[ConcreteOutputContext] WARNING: AVF context unavailable for %{public}s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[MRAVConcreteOutputContext sharedSystemAudioContext]_block_invoke";
+  OUTLINED_FUNCTION_5(&dword_1A2860000, a1, a3, "[ConcreteOutputContext] WARNING: AVF context unavailable for %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __54__MRAVConcreteOutputContext_sharedSystemScreenContext__block_invoke_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5(&dword_1A2860000, a1, a3, "[ConcreteOutputContext] WARNING: AVF context unavailable for %{public}s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[MRAVConcreteOutputContext sharedSystemScreenContext]_block_invoke";
+  OUTLINED_FUNCTION_5(&dword_1A2860000, a1, a3, "[ConcreteOutputContext] WARNING: AVF context unavailable for %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 + (void)iTunesContext
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5(&dword_1A2860000, self, a3, "[ConcreteOutputContext] WARNING: AVF context unavailable for %s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "+[MRAVConcreteOutputContext iTunesContext]";
+  OUTLINED_FUNCTION_5(&dword_1A2860000, self, a3, "[ConcreteOutputContext] WARNING: AVF context unavailable for %s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 + (void)createOutputContextWithUniqueIdentifier:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5(&dword_1A2860000, a2, a3, "[ConcreteOutputContext] WARNING: AVF context unavailable for %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_5(&dword_1A2860000, a2, a3, "[ConcreteOutputContext] WARNING: AVF context unavailable for %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)setAvOutputContext:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)
@@ -2313,14 +2223,13 @@ void __54__MRAVConcreteOutputContext_sharedSystemScreenContext__block_invoke_col
 
 void __58__MRAVConcreteOutputContext__handleOutputDevicesTimedOut___block_invoke_2_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 40);
-  v5 = 138543618;
-  v6 = v3;
-  v7 = 2114;
-  v8 = a2;
-  _os_log_error_impl(&dword_1A2860000, log, OS_LOG_TYPE_ERROR, "[ConcreteOutputContext] Failed to create endpoint for disconnected devices (%{public}@): %{public}@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138543618;
+  v5 = v3;
+  v6 = 2114;
+  v7 = a2;
+  _os_log_error_impl(&dword_1A2860000, log, OS_LOG_TYPE_ERROR, "[ConcreteOutputContext] Failed to create endpoint for disconnected devices (%{public}@): %{public}@", &v4, 0x16u);
 }
 
 @end

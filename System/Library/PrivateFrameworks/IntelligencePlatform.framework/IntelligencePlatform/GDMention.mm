@@ -63,17 +63,14 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v4 = [objc_opt_class() allocWithZone:zone];
-  span = self->_span;
-  entityClass = self->_entityClass;
-  score = self->_score;
+  v3 = [objc_opt_class() allocWithZone:zone];
 
-  return MEMORY[0x1EEE66B58](v4, sel_initWithSpan_entityClass_score_);
+  return MEMORY[0x1EEE66B58](v3, sel_initWithSpan_entityClass_score_);
 }
 
 - (GDMention)initWithCoder:(id)coder
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = objc_opt_class();
   v6 = NSStringFromSelector(sel_span);
@@ -118,9 +115,9 @@
     if (!error)
     {
       v18 = MEMORY[0x1E696ABC0];
-      v25 = *MEMORY[0x1E696A578];
-      v26[0] = @"GDMention span is nil";
-      v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+      v24 = *MEMORY[0x1E696A578];
+      v25[0] = @"GDMention span is nil";
+      v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
       v20 = [v18 errorWithDomain:@"GDErrorDomain" code:9 userInfo:v19];
       [coderCopy failWithError:v20];
     }
@@ -128,7 +125,6 @@
     selfCopy = 0;
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -150,13 +146,13 @@
 
 - (GDMention)initWithSpan:(id)span entityClass:(id)class score:(id)score
 {
-  v24[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   spanCopy = span;
   classCopy = class;
   scoreCopy = score;
-  v23.receiver = self;
-  v23.super_class = GDMention;
-  v11 = [(GDMention *)&v23 init];
+  v22.receiver = self;
+  v22.super_class = GDMention;
+  v11 = [(GDMention *)&v22 init];
   if (v11)
   {
     v12 = [spanCopy copy];
@@ -168,8 +164,8 @@
     v11->_entityClass = v14;
 
     v16 = [classCopy copy];
-    v24[0] = v16;
-    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:1];
+    v23[0] = v16;
+    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
     entityClasses = v11->_entityClasses;
     v11->_entityClasses = v17;
 
@@ -178,7 +174,6 @@
     v11->_score = v19;
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

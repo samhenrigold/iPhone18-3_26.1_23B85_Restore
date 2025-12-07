@@ -193,7 +193,7 @@
 
 - (void)viewServiceDidTerminateWithError:(id)error
 {
-  _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactViewHostViewController.m", 122, 7, @"view service did terminate with error: %@", v3, v4, v5, v6, error);
+  _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactViewHostViewController.m", 122, 7u, @"view service did terminate with error: %@", v3, v4, v5, v6, error);
 
   [(CNContactViewHostViewController *)self viewServiceDidTerminate];
 }
@@ -211,7 +211,7 @@
 {
   extension = [(CNContactViewHostViewController *)self extension];
   currentRequestIdentifier = [(CNContactViewHostViewController *)self currentRequestIdentifier];
-  _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactViewHostViewController.m", 109, 7, @"Invalidate extension %@ identifier %@", v4, v5, v6, v7, extension);
+  _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactViewHostViewController.m", 109, 7u, @"Invalidate extension %@ identifier %@", v4, v5, v6, v7, extension);
 
   extension2 = [(CNContactViewHostViewController *)self extension];
   currentRequestIdentifier2 = [(CNContactViewHostViewController *)self currentRequestIdentifier];
@@ -225,7 +225,7 @@
   v10 = contactViewExtension;
   if (contactViewExtension)
   {
-    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactViewHostViewController.m", 78, 7, @"Instantiate view controller from extension %@", v6, v7, v8, v9, contactViewExtension);
+    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactViewHostViewController.m", 78, 7u, @"Instantiate view controller from extension %@", v6, v7, v8, v9, contactViewExtension);
     v12[0] = MEMORY[0x1E69E9820];
     v12[1] = 3221225472;
     v12[2] = __53__CNContactViewHostViewController_getViewController___block_invoke;
@@ -239,7 +239,7 @@
   return v10 != 0;
 }
 
-void __53__CNContactViewHostViewController_getViewController___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
+void __53__CNContactViewHostViewController_getViewController___block_invoke(void *a1, void *a2, void *a3, void *a4)
 {
   v24 = a2;
   v7 = a3;
@@ -248,25 +248,25 @@ void __53__CNContactViewHostViewController_getViewController___block_invoke(uint
   if (v8)
   {
     v14 = [v8 description];
-    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactViewHostViewController.m", 82, 3, @"View Service Error, %@", v15, v16, v17, v18, v14);
+    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactViewHostViewController.m", 82, 3u, @"View Service Error, %@", v15, v16, v17, v18, v14);
 
     v19 = [CNContactViewServiceErrorViewController alloc];
     v20 = [v13 localizedDescription];
     v21 = [(CNErrorViewController *)v19 initWithMessage:v20];
 
-    (*(*(a1 + 40) + 16))();
+    (*(a1[5] + 16))();
   }
 
   else
   {
-    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactViewHostViewController.m", 87, 7, @"Got view controller %@ identifier %@", v9, v10, v11, v12, v7);
-    v22 = *(a1 + 32);
+    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactViewHostViewController.m", 87, 7u, @"Got view controller %@ identifier %@", v9, v10, v11, v12, v7);
+    v22 = a1[4];
     v23 = v7;
     [v23 setExtension:v22];
     [v23 setCurrentRequestIdentifier:v24];
     v21 = [objc_opt_class() contextForIdentifier:v24];
     [(CNContactViewServiceErrorViewController *)v21 setViewController:v23];
-    (*(*(a1 + 40) + 16))();
+    (*(a1[5] + 16))();
   }
 }
 
@@ -301,12 +301,12 @@ void __55__CNContactViewHostViewController_contactViewExtension__block_invoke()
 
   if (v1)
   {
-    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactViewHostViewController.m", 57, 3, @"Could not get Contacts extension: %@", v3, v4, v5, v6, v1);
+    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactViewHostViewController.m", 57, 3u, @"Could not get Contacts extension: %@", v3, v4, v5, v6, v1);
   }
 
   else
   {
-    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactViewHostViewController.m", 60, 7, @"Got extension %@", v3, v4, v5, v6, contactViewExtension_extension);
+    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactViewHostViewController.m", 60, 7u, @"Got extension %@", v3, v4, v5, v6, contactViewExtension_extension);
   }
 }
 

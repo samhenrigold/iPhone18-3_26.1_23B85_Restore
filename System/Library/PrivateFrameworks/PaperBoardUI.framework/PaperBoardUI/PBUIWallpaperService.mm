@@ -178,7 +178,7 @@ void __64__PBUIWallpaperService__setupAndActivateServiceClientConnection__block_
   v2 = a2;
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
-  v5 = PBUILogCommon();
+  v5 = PBUILogCommon(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138543618;

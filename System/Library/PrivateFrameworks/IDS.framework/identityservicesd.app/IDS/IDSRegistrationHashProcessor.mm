@@ -66,7 +66,7 @@
     v9 = v34;
     if (objc_opt_isKindOfClass())
     {
-      [v13 doubleValue];
+      objc_msgSend_doubleValue(v13);
       v14 = v15;
     }
   }

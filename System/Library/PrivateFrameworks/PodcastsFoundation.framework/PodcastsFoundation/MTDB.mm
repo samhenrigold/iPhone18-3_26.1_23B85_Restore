@@ -17,8 +17,11 @@
 + (void)isPodcastsAppCheck;
 + (void)setCoreDataChecksum:(id)checksum;
 + (void)setCoreDataVersion:(int64_t)version;
++ (void)setCorrupt:(BOOL)corrupt;
 + (void)setLibraryDataVersion:(int64_t)version;
 + (void)setMigrationToDeltaFeedUpdatesComplete;
++ (void)setQuickCheckForNeedsContainerMigration:(BOOL)migration;
++ (void)setSerpentIdMigrationComplete:(BOOL)complete;
 + (void)setSharedInstance:(id)instance;
 + (void)setStoreBothFreeAndPaidUrlsPreviousBootup;
 - (MTDB)init;
@@ -422,6 +425,14 @@ LABEL_13:
   return managedObjectModel;
 }
 
++ (void)setCorrupt:(BOOL)corrupt
+{
+  corruptCopy = corrupt;
+  [self isPodcastsAppCheck];
+  _applePodcastsFoundationSharedUserDefaults = [MEMORY[0x1E695E000] _applePodcastsFoundationSharedUserDefaults];
+  [_applePodcastsFoundationSharedUserDefaults setBool:corruptCopy forKey:@"MTDetectedCorruptDB"];
+}
+
 + (int64_t)coreDataVersion_deprecated
 {
   _applePodcastsFoundationSharedUserDefaults = [MEMORY[0x1E695E000] _applePodcastsFoundationSharedUserDefaults];
@@ -456,6 +467,25 @@ LABEL_13:
   checksumCopy = checksum;
   _applePodcastsFoundationSharedUserDefaults = [v3 _applePodcastsFoundationSharedUserDefaults];
   [_applePodcastsFoundationSharedUserDefaults setObject:checksumCopy forKey:@"MTCoreDataChecksum"];
+}
+
++ (void)setQuickCheckForNeedsContainerMigration:(BOOL)migration
+{
+  migrationCopy = migration;
+  [self isPodcastsAppCheck];
+  _applePodcastsFoundationSharedUserDefaults = [MEMORY[0x1E695E000] _applePodcastsFoundationSharedUserDefaults];
+  [_applePodcastsFoundationSharedUserDefaults setBool:migrationCopy forKey:@"MTLibraryPerformedSharedContainerMigration"];
+
+  _applePodcastsFoundationSharedUserDefaults2 = [MEMORY[0x1E695E000] _applePodcastsFoundationSharedUserDefaults];
+  [_applePodcastsFoundationSharedUserDefaults2 synchronize];
+}
+
++ (void)setSerpentIdMigrationComplete:(BOOL)complete
+{
+  completeCopy = complete;
+  [self isPodcastsAppCheck];
+  _applePodcastsFoundationSharedUserDefaults = [MEMORY[0x1E695E000] _applePodcastsFoundationSharedUserDefaults];
+  [_applePodcastsFoundationSharedUserDefaults setBool:completeCopy forKey:@"MTSerpentIdFeatureFlagWasEnabledLastTime"];
 }
 
 + (void)setStoreBothFreeAndPaidUrlsPreviousBootup

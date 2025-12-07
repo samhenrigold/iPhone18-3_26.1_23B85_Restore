@@ -10,20 +10,20 @@
 {
   itemCopy = item;
   listCopy = list;
-  v18.receiver = self;
-  v18.super_class = IMSuggestedRepliesMessagePartChatItem;
-  v12 = [(IMChatItem *)&v18 _initWithItem:itemCopy];
-  if (v12)
+  v14.receiver = self;
+  v14.super_class = IMSuggestedRepliesMessagePartChatItem;
+  v10 = [(IMChatItem *)&v14 _initWithItem:itemCopy];
+  if (v10)
   {
-    v13 = objc_msgSend_guid(itemCopy, v10, v11);
-    v15 = objc_msgSend_stringByAppendingString_(@"lre:", v14, v13);
-    objc_msgSend__setGUID_(v12, v16, v15);
+    guid = [itemCopy guid];
+    v12 = [@"lre:" stringByAppendingString:guid];
+    [(IMTranscriptChatItem *)v10 _setGUID:v12];
 
-    objc_storeStrong(&v12->_suggestedRepliesList, list);
-    v12->_selectedIndex = index;
+    objc_storeStrong(&v10->_suggestedRepliesList, list);
+    v10->_selectedIndex = index;
   }
 
-  return v12;
+  return v10;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -33,47 +33,46 @@
   if (objc_opt_isKindOfClass())
   {
     v5 = equalCopy;
-    v8 = objc_msgSend_guid(self, v6, v7);
-    v11 = objc_msgSend_guid(v5, v9, v10);
-    if (objc_msgSend_isEqualToString_(v8, v12, v11))
+    guid = [(IMTranscriptChatItem *)self guid];
+    guid2 = [v5 guid];
+    if ([guid isEqualToString:guid2])
     {
-      v15 = objc_msgSend_suggestedRepliesList(self, v13, v14);
-      v18 = objc_msgSend_suggestedRepliesList(v5, v16, v17);
-      if (objc_msgSend_isEqual_(v15, v19, v18))
+      suggestedRepliesList = [(IMSuggestedRepliesMessagePartChatItem *)self suggestedRepliesList];
+      suggestedRepliesList2 = [v5 suggestedRepliesList];
+      if ([suggestedRepliesList isEqual:suggestedRepliesList2])
       {
-        v22 = objc_msgSend_selectedIndex(self, v20, v21);
-        v25 = v22 == objc_msgSend_selectedIndex(v5, v23, v24);
+        selectedIndex = [(IMSuggestedRepliesMessagePartChatItem *)self selectedIndex];
+        v11 = selectedIndex == [v5 selectedIndex];
       }
 
       else
       {
-        v25 = 0;
+        v11 = 0;
       }
     }
 
     else
     {
-      v25 = 0;
+      v11 = 0;
     }
   }
 
   else
   {
-    v25 = 0;
+    v11 = 0;
   }
 
-  return v25;
+  return v11;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc(objc_opt_class());
-  v7 = objc_msgSend_messageItem(self, v5, v6);
-  v10 = objc_msgSend_suggestedRepliesList(self, v8, v9);
-  v13 = objc_msgSend_selectedIndex(self, v11, v12);
-  v15 = objc_msgSend_initWithItem_suggestedRepliesList_selectedIndex_(v4, v14, v7, v10, v13);
+  messageItem = [(IMMessageChatItem *)self messageItem];
+  suggestedRepliesList = [(IMSuggestedRepliesMessagePartChatItem *)self suggestedRepliesList];
+  v7 = [v4 initWithItem:messageItem suggestedRepliesList:suggestedRepliesList selectedIndex:{-[IMSuggestedRepliesMessagePartChatItem selectedIndex](self, "selectedIndex")}];
 
-  return v15;
+  return v7;
 }
 
 @end

@@ -102,7 +102,7 @@
   }
 
   appendableCopy = appendable;
-  v4 = new_JavaLangStringBuilder_initWithInt_(0x50u);
+  v4 = new_JavaLangStringBuilder_initWithInt_(80);
   propertyNames = [(JavaUtilProperties *)self propertyNames];
   if (!propertyNames)
   {
@@ -192,14 +192,14 @@
   objc_sync_enter(self);
   if (!reader)
   {
-    v36 = new_JavaLangNullPointerException_initWithNSString_(@"in == null");
-    objc_exception_throw(v36);
+    v37 = new_JavaLangNullPointerException_initWithNSString_(@"in == null");
+    objc_exception_throw(v37);
   }
 
   v4 = [IOSCharArray arrayWithLength:40];
   v5 = new_JavaIoBufferedReader_initWithJavaIoReader_(reader);
   v6 = 0;
-  v39 = 0;
+  v40 = 0;
   v7 = 0;
   v8 = 1;
   v9 = 0xFFFFFFFFLL;
@@ -207,7 +207,7 @@
   {
     v10 = v9;
     read = [(JavaIoBufferedReader *)v5 read];
-    v12 = read;
+    v13 = read;
     if (read == -1)
     {
       break;
@@ -215,50 +215,50 @@
 
     if (v6 == v4->super.size_)
     {
-      v13 = [IOSCharArray arrayWithLength:2 * v6];
-      JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(v4, 0, v13, 0, v6);
-      v4 = v13;
+      v14 = [IOSCharArray arrayWithLength:2 * v6];
+      JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(v4, 0, v14, 0, v6);
+      v4 = v14;
     }
 
     if (v7 == 1)
     {
-      v15 = 0;
-      if (v12 > 0x6Du)
+      v16 = 0;
+      if (v13 > 0x6Du)
       {
-        if (v12 > 0x73u)
+        if (v13 > 0x73u)
         {
-          if (v12 == 116)
+          if (v13 == 116)
           {
-            v15 = 0;
-            v12 = 9;
+            v16 = 0;
+            v13 = 9;
             goto LABEL_77;
           }
 
-          if (v12 != 117)
+          if (v13 != 117)
           {
             goto LABEL_77;
           }
 
-          v39 = 0;
+          v40 = 0;
           v7 = 2;
         }
 
         else
         {
-          if (v12 == 110)
+          if (v13 == 110)
           {
-            v15 = 0;
-            v12 = 10;
+            v16 = 0;
+            v13 = 10;
           }
 
-          else if (v12 == 114)
+          else if (v13 == 114)
           {
-            v15 = 0;
-            v12 = 13;
+            v16 = 0;
+            v13 = 13;
           }
 
 LABEL_77:
-          if (v15 == 4)
+          if (v16 == 4)
           {
             v9 = v6;
           }
@@ -268,17 +268,17 @@ LABEL_77:
             v9 = v10;
           }
 
-          if (v15 == 4)
+          if (v16 == 4)
           {
             v7 = 0;
           }
 
           else
           {
-            v7 = v15;
+            v7 = v16;
           }
 
-          v23 = v6;
+          v24 = v6;
           size = v4->super.size_;
           if ((v6 & 0x80000000) != 0 || v6 >= size)
           {
@@ -287,30 +287,30 @@ LABEL_77:
 
           v8 = 0;
           v6 = (v6 + 1);
-          *(&v4->super.size_ + v23 + 2) = v12;
+          *(&v4->super.size_ + v24 + 2) = v13;
         }
       }
 
       else
       {
-        if (v12 > 0x61u)
+        if (v13 > 0x61u)
         {
-          if (v12 == 98)
+          if (v13 == 98)
           {
-            v15 = 0;
-            v12 = 8;
+            v16 = 0;
+            v13 = 8;
           }
 
-          else if (v12 == 102)
+          else if (v13 == 102)
           {
-            v15 = 0;
-            v12 = 12;
+            v16 = 0;
+            v13 = 12;
           }
 
           goto LABEL_77;
         }
 
-        if (v12 == 10)
+        if (v13 == 10)
         {
           v7 = 5;
         }
@@ -318,7 +318,7 @@ LABEL_77:
         else
         {
           v7 = 3;
-          if (v12 != 13)
+          if (v13 != 13)
           {
             goto LABEL_77;
           }
@@ -328,36 +328,36 @@ LABEL_77:
 
     else if (v7 == 2)
     {
-      v14 = JavaLangCharacter_digitWithChar_withInt_(v12, 16);
-      if (v14 < 0)
+      v15 = JavaLangCharacter_digitWithChar_withInt_(v13, 16);
+      if (v15 < 0)
       {
-        if (v39 <= 4)
+        if (v40 <= 4)
         {
-          v35 = new_JavaLangIllegalArgumentException_initWithNSString_(@"Invalid Unicode sequence: illegal character");
-          objc_exception_throw(v35);
+          v36 = new_JavaLangIllegalArgumentException_initWithNSString_(@"Invalid Unicode sequence: illegal character");
+          objc_exception_throw(v36);
         }
 
         goto LABEL_22;
       }
 
       v7 = 2;
-      LODWORD(v39) = v39 + 1;
-      WORD2(v39) = v14 + 16 * WORD2(v39);
-      if (v39 >= 4)
+      LODWORD(v40) = v40 + 1;
+      WORD2(v40) = v15 + 16 * WORD2(v40);
+      if (v40 >= 4)
       {
 LABEL_22:
-        v18 = v4->super.size_;
-        if ((v6 & 0x80000000) != 0 || v6 >= v18)
+        v19 = v4->super.size_;
+        if ((v6 & 0x80000000) != 0 || v6 >= v19)
         {
-          IOSArray_throwOutOfBoundsWithMsg(v18, v6);
+          IOSArray_throwOutOfBoundsWithMsg(v19, v6);
         }
 
         v7 = 0;
-        v16 = 0;
-        v17 = (v6 + 1);
-        *(&v4->super.size_ + v6 + 2) = WORD2(v39);
-        v6 = v17;
-        if (v12 == 10)
+        v17 = 0;
+        v18 = (v6 + 1);
+        *(&v4->super.size_ + v6 + 2) = WORD2(v40);
+        v6 = v18;
+        if (v13 == 10)
         {
           goto LABEL_25;
         }
@@ -366,35 +366,35 @@ LABEL_22:
 
     else
     {
-      v16 = v7;
-      v17 = v6;
+      v17 = v7;
+      v18 = v6;
 LABEL_25:
-      if (v12 <= 0x22u)
+      if (v13 <= 0x22u)
       {
-        switch(v12)
+        switch(v13)
         {
           case 0xAu:
             v7 = 5;
-            v6 = v17;
-            if (v16 != 3)
+            v6 = v18;
+            if (v17 != 3)
             {
 LABEL_67:
-              if (v17 > 0 || (v6 = 0, v7 = 0, v8 = 1, v9 = 0xFFFFFFFFLL, !(v17 | v10)))
+              if (v18 > 0 || (v6 = 0, v7 = 0, v8 = 1, v9 = 0xFFFFFFFFLL, !(v18 | v10)))
               {
                 if (v10 == -1)
                 {
-                  v21 = v17;
+                  v22 = v18;
                 }
 
                 else
                 {
-                  v21 = v10;
+                  v22 = v10;
                 }
 
-                v22 = [NSString stringWithCharacters:v4 offset:0 length:v17];
+                v23 = [NSString stringWithCharacters:v4 offset:0 length:v18];
                 v8 = 1;
                 v9 = 0xFFFFFFFFLL;
-                [(JavaUtilHashtable *)self putWithId:[(NSString *)v22 substring:0 endIndex:v21] withId:[(NSString *)v22 substring:v21]];
+                [(JavaUtilHashtable *)self putWithId:[(NSString *)v23 substring:0 endIndex:v22] withId:[(NSString *)v23 substring:v22]];
                 v6 = 0;
                 v7 = 0;
               }
@@ -427,29 +427,29 @@ LABEL_33:
 
             v8 = 1;
 LABEL_87:
-            v6 = v17;
-            v7 = v16;
+            v6 = v18;
+            v7 = v17;
             break;
           default:
             goto LABEL_45;
         }
       }
 
-      else if (v12 > 0x3Cu)
+      else if (v13 > 0x3Cu)
       {
-        if (v12 == 61)
+        if (v13 == 61)
         {
           goto LABEL_44;
         }
 
-        if (v12 != 92)
+        if (v13 != 92)
         {
           goto LABEL_45;
         }
 
-        if (v16 == 4)
+        if (v17 == 4)
         {
-          v9 = v17;
+          v9 = v18;
         }
 
         else
@@ -458,22 +458,22 @@ LABEL_87:
         }
 
         v7 = 1;
-        v6 = v17;
+        v6 = v18;
       }
 
       else
       {
-        if (v12 == 35)
+        if (v13 == 35)
         {
           goto LABEL_33;
         }
 
-        if (v12 == 58)
+        if (v13 == 58)
         {
 LABEL_44:
           v7 = 0;
-          v6 = v17;
-          v9 = v17;
+          v6 = v18;
+          v9 = v18;
           if (v10 != -1)
           {
             goto LABEL_45;
@@ -483,83 +483,55 @@ LABEL_44:
         else
         {
 LABEL_45:
-          if (!JavaLangCharacter_isWhitespaceWithChar_(v12))
+          if (!JavaLangCharacter_isWhitespaceWithChar_(v13, v12) || ((v6 = 0, v17 != 3) ? (v17 = v17) : (v17 = 5), (v9 = v10, v7 = v17, v18) && (v6 = v18, v9 = v10, v7 = v17, v17 != 5) && (v6 = v18, v9 = v10, v7 = v17, v18 != v10) && (v7 = 4, v9 = 0xFFFFFFFFLL, v6 = v18, v10 != -1)))
           {
-            goto LABEL_53;
-          }
-
-          v6 = 0;
-          v16 = v16 == 3 ? 5 : v16;
-          v9 = v10;
-          v7 = v16;
-          if (v17)
-          {
-            v6 = v17;
-            v9 = v10;
-            v7 = v16;
-            if (v16 != 5)
+            if (v17 == 3 || v17 == 5)
             {
-              v6 = v17;
-              v9 = v10;
-              v7 = v16;
-              if (v17 != v10)
-              {
-                v7 = 4;
-                v9 = 0xFFFFFFFFLL;
-                v6 = v17;
-                if (v10 != -1)
-                {
-LABEL_53:
-                  if (v16 == 3 || v16 == 5)
-                  {
-                    v15 = 0;
-                  }
-
-                  else
-                  {
-                    v15 = v16;
-                  }
-
-                  LODWORD(v6) = v17;
-                  goto LABEL_77;
-                }
-              }
+              v16 = 0;
             }
+
+            else
+            {
+              v16 = v17;
+            }
+
+            LODWORD(v6) = v18;
+            goto LABEL_77;
           }
         }
       }
     }
   }
 
-  if (v7 == 2 && v39 <= 4)
+  if (v7 == 2 && v40 <= 4)
   {
-    v37 = new_JavaLangIllegalArgumentException_initWithNSString_(@"Invalid Unicode sequence: expected format \\uxxxx");
-    objc_exception_throw(v37);
+    v38 = new_JavaLangIllegalArgumentException_initWithNSString_(@"Invalid Unicode sequence: expected format \\uxxxx");
+    objc_exception_throw(v38);
   }
 
   if (v6 > 0 && v9 == -1)
   {
-    v26 = v6;
+    v27 = v6;
   }
 
   else
   {
-    v26 = v9;
+    v27 = v9;
   }
 
-  if ((v26 & 0x80000000) == 0)
+  if ((v27 & 0x80000000) == 0)
   {
-    v27 = [NSString stringWithCharacters:v4 offset:0 length:v6];
-    v28 = [(NSString *)v27 substring:0 endIndex:v26];
-    v30 = [(NSString *)v27 substring:v26];
-    v40 = v30;
+    v28 = [NSString stringWithCharacters:v4 offset:0 length:v6];
+    v29 = [(NSString *)v28 substring:0 endIndex:v27];
+    v31 = [(NSString *)v28 substring:v27];
+    v41 = v31;
     if (v7 == 1)
     {
-      JreStrAppendStrong(&v40, "$", v29, v30, v31, v32, v33, v34, &stru_10049A618);
-      v30 = v40;
+      JreStrAppendStrong(&v41, "$", v30, v31, v32, v33, v34, v35, &stru_10049A618);
+      v31 = v41;
     }
 
-    [(JavaUtilHashtable *)self putWithId:v28 withId:v30];
+    [(JavaUtilHashtable *)self putWithId:v29 withId:v31];
   }
 
   objc_sync_exit(self);
@@ -579,7 +551,7 @@ LABEL_53:
   sub_10021DA9C(self, v3, 1);
   keySet = [(JavaUtilHashtable *)v3 keySet];
 
-  return JavaUtilCollections_unmodifiableSetWithJavaUtilSet_(keySet);
+  return JavaUtilCollections_unmodifiableSetWithJavaUtilSet_(keySet, v5);
 }
 
 - (void)storeWithJavaIoOutputStream:(id)stream withNSString:(id)string
@@ -616,7 +588,7 @@ LABEL_5:
   [writer writeWithNSString:@"#"];
   [writer writeWithNSString:{-[JavaUtilDate description](new_JavaUtilDate_init(), "description")}];
   [writer writeWithNSString:JavaLangSystem_lineSeparator()];
-  v7 = new_JavaLangStringBuilder_initWithInt_(0xC8u);
+  v7 = new_JavaLangStringBuilder_initWithInt_(200);
   v18 = 0u;
   v19 = 0u;
   v16 = 0u;
@@ -672,23 +644,23 @@ LABEL_5:
 
 - (void)loadFromXMLWithJavaIoInputStream:(id)stream
 {
-  objc_sync_enter(self);
+  v5 = objc_sync_enter(self);
   if (!stream)
   {
-    v7 = new_JavaLangNullPointerException_initWithNSString_(@"in == null");
-    objc_exception_throw(v7);
+    v9 = new_JavaLangNullPointerException_initWithNSString_(@"in == null");
+    objc_exception_throw(v9);
   }
 
-  XMLReader = OrgXmlSaxHelpersXMLReaderFactory_createXMLReader();
+  XMLReader = OrgXmlSaxHelpersXMLReaderFactory_createXMLReader(v5, v6);
   if (!XMLReader)
   {
     JreThrowNullPointerException();
   }
 
-  v6 = [JavaUtilProperties__1 alloc];
-  JreStrongAssign(&v6->this$0_, self);
-  OrgXmlSaxHelpersDefaultHandler_init(v6);
-  [(OrgXmlSaxHelpersParserAdapter *)XMLReader setContentHandlerWithOrgXmlSaxContentHandler:v6];
+  v8 = [JavaUtilProperties__1 alloc];
+  JreStrongAssign(&v8->this$0_, self);
+  OrgXmlSaxHelpersDefaultHandler_init();
+  [(OrgXmlSaxHelpersParserAdapter *)XMLReader setContentHandlerWithOrgXmlSaxContentHandler:v8];
   [(OrgXmlSaxHelpersParserAdapter *)XMLReader parseWithOrgXmlSaxInputSource:new_OrgXmlSaxInputSource_initWithJavaIoInputStream_(stream)];
 
   objc_sync_exit(self);

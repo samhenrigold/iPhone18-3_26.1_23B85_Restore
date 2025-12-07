@@ -53,7 +53,7 @@
   equalCopy = equal;
   if (equalCopy == self)
   {
-    v14 = 1;
+    isEqual = 1;
   }
 
   else
@@ -74,32 +74,32 @@
         v13 = v12;
         if (v11 == v12)
         {
-          v14 = 1;
+          isEqual = 1;
         }
 
         else
         {
-          v14 = 0;
+          isEqual = 0;
           if (v11 && v12)
           {
-            v14 = [(_UIMainMenuCommand *)v11 isEqual:v12];
+            isEqual = objc_msgSend_isEqual_(v11);
           }
         }
       }
 
       else
       {
-        v14 = 0;
+        isEqual = 0;
       }
     }
 
     else
     {
-      v14 = 0;
+      isEqual = 0;
     }
   }
 
-  return v14;
+  return isEqual;
 }
 
 - (id)description

@@ -143,7 +143,6 @@
     _os_signpost_emit_with_name_impl(&dword_1DE8E5000, v8, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "setWhitePoint", "[(%f;%f;%f),(%f;%f;%f),(%f;%f;%f)]", v19, 0x5Cu);
   }
 
-  *MEMORY[0x1E69E9840];
   return v13 & 1;
 }
 
@@ -361,7 +360,7 @@
 - (BOOL)forceCommitBrightness:(id *)brightness withBlock:(id)block
 {
   selfCopy = self;
-  v34 = a2;
+  v33 = a2;
   brightnessCopy = brightness;
   blockCopy = block;
   if (self->_logHandle)
@@ -384,96 +383,95 @@
     logHandle = inited;
   }
 
-  v31 = logHandle;
-  v30 = 1;
-  v29 = 0xEEEEB0B5B2B2EEEELL;
+  v30 = logHandle;
+  v29 = 1;
+  v28 = 0xEEEEB0B5B2B2EEEELL;
   if (os_signpost_enabled(logHandle))
   {
-    log = v31;
-    type = v30;
-    spid = v29;
-    __os_log_helper_16_0_0(v28);
-    _os_signpost_emit_with_name_impl(&dword_1DE8E5000, log, type, spid, "forceCommitBrightness", &unk_1DEAD656F, v28, 2u);
+    log = v30;
+    type = v29;
+    spid = v28;
+    __os_log_helper_16_0_0(v27);
+    _os_signpost_emit_with_name_impl(&dword_1DE8E5000, log, type, spid, "forceCommitBrightness", &unk_1DEAD656F, v27, 2u);
   }
 
-  v27 = 0;
+  v26 = 0;
   if ([(CBBrightnessProxyCA *)selfCopy allowUpdates])
   {
-    brightnessControl = selfCopy->_brightnessControl;
     if (objc_opt_respondsToSelector())
     {
-      v27 = [(CABrightnessControl *)selfCopy->_brightnessControl forceCommitBrightness:brightnessCopy withBlock:blockCopy];
+      v26 = [(CABrightnessControl *)selfCopy->_brightnessControl forceCommitBrightness:brightnessCopy withBlock:blockCopy];
     }
 
     else
     {
       if (selfCopy->_logHandle)
       {
-        v14 = selfCopy->_logHandle;
+        v13 = selfCopy->_logHandle;
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v13 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v12 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v13 = init_default_corebrightness_log();
+          v12 = init_default_corebrightness_log();
         }
 
-        v14 = v13;
+        v13 = v12;
       }
 
-      v26 = v14;
-      v25 = 16;
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v25 = v13;
+      v24 = 16;
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        v11 = v26;
-        v12 = v25;
-        __os_log_helper_16_0_0(v24);
-        _os_log_error_impl(&dword_1DE8E5000, v11, v12, "CABrightnessControl forceCommitBrightness SPI does not exist -> use normal commitBrightness.", v24, 2u);
+        v10 = v25;
+        v11 = v24;
+        __os_log_helper_16_0_0(v23);
+        _os_log_error_impl(&dword_1DE8E5000, v10, v11, "CABrightnessControl forceCommitBrightness SPI does not exist -> use normal commitBrightness.", v23, 2u);
       }
 
-      v27 = [(CABrightnessControl *)selfCopy->_brightnessControl commitBrightness:brightnessCopy withBlock:blockCopy];
+      v26 = [(CABrightnessControl *)selfCopy->_brightnessControl commitBrightness:brightnessCopy withBlock:blockCopy];
     }
   }
 
   if (selfCopy->_logHandle)
   {
-    v10 = selfCopy->_logHandle;
+    v9 = selfCopy->_logHandle;
   }
 
   else
   {
     if (_COREBRIGHTNESS_LOG_DEFAULT)
     {
-      v9 = _COREBRIGHTNESS_LOG_DEFAULT;
+      v8 = _COREBRIGHTNESS_LOG_DEFAULT;
     }
 
     else
     {
-      v9 = init_default_corebrightness_log();
+      v8 = init_default_corebrightness_log();
     }
 
-    v10 = v9;
+    v9 = v8;
   }
 
-  v23 = v10;
-  v22 = 2;
-  v21 = 0xEEEEB0B5B2B2EEEELL;
-  if (os_signpost_enabled(v10))
+  v22 = v9;
+  v21 = 2;
+  v20 = 0xEEEEB0B5B2B2EEEELL;
+  if (os_signpost_enabled(v9))
   {
-    v6 = v23;
-    v7 = v22;
-    v8 = v21;
-    __os_log_helper_16_0_0(v20);
-    _os_signpost_emit_with_name_impl(&dword_1DE8E5000, v6, v7, v8, "forceCommitBrightness", &unk_1DEAD656F, v20, 2u);
+    v5 = v22;
+    v6 = v21;
+    v7 = v20;
+    __os_log_helper_16_0_0(v19);
+    _os_signpost_emit_with_name_impl(&dword_1DE8E5000, v5, v6, v7, "forceCommitBrightness", &unk_1DEAD656F, v19, 2u);
   }
 
-  return v27 & 1;
+  return v26 & 1;
 }
 
 - (void)setBrightnessControlDisabled:(BOOL)disabled
@@ -515,58 +513,51 @@
     __os_log_helper_16_2_1_8_32(v8, v3);
     _os_log_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEFAULT, "%s brightness control updates.", v8, 0xCu);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)setLowAmbientAdaptation:(float)adaptation
 {
-  brightnessControl = self->_brightnessControl;
   if (objc_opt_respondsToSelector())
   {
-    *&v4 = adaptation;
-    [(CABrightnessControl *)self->_brightnessControl setLowAmbientAdaptation:v4];
+    *&v3 = adaptation;
+    [(CABrightnessControl *)self->_brightnessControl setLowAmbientAdaptation:v3];
   }
 }
 
 - (void)setHighAmbientAdaptation:(float)adaptation
 {
-  brightnessControl = self->_brightnessControl;
   if (objc_opt_respondsToSelector())
   {
-    *&v4 = adaptation;
-    [(CABrightnessControl *)self->_brightnessControl setHighAmbientAdaptation:v4];
+    *&v3 = adaptation;
+    [(CABrightnessControl *)self->_brightnessControl setHighAmbientAdaptation:v3];
   }
 }
 
 - (void)setContrastPreservation:(float)preservation
 {
-  v4 = MEMORY[0x1E69E5918];
-  v5 = NSSelectorFromString(&cfstr_Setcontrastpre.isa);
-  brightnessControl = self->_brightnessControl;
+  v3 = MEMORY[0x1E69E5918];
+  v4 = NSSelectorFromString(&cfstr_Setcontrastpre.isa);
   if (objc_opt_respondsToSelector())
   {
-    v4(self->_brightnessControl, v5, preservation);
+    v3(self->_brightnessControl, v4, preservation);
   }
 }
 
 - (void)setIndicatorBrightness:(float)brightness
 {
-  brightnessControl = self->_brightnessControl;
   if (objc_opt_respondsToSelector())
   {
-    *&v4 = brightness;
-    [(CABrightnessControl *)self->_brightnessControl setIndicatorBrightness:v4];
+    *&v3 = brightness;
+    [(CABrightnessControl *)self->_brightnessControl setIndicatorBrightness:v3];
   }
 }
 
 - (void)setIndicatorBrightnessLimit:(float)limit
 {
-  brightnessControl = self->_brightnessControl;
   if (objc_opt_respondsToSelector())
   {
-    *&v4 = limit;
-    [(CABrightnessControl *)self->_brightnessControl setIndicatorBrightnessLimit:v4];
+    *&v3 = limit;
+    [(CABrightnessControl *)self->_brightnessControl setIndicatorBrightnessLimit:v3];
   }
 }
 

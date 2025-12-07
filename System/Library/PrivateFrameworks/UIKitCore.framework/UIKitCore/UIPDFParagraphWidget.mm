@@ -122,7 +122,7 @@
     memset(&v30[1], 0, sizeof(CGAffineTransform));
     if (selection)
     {
-      [selection transform];
+      objc_msgSend_transform(selection);
       x = self->_boundsInPDFSpace.origin.x;
       y = self->_boundsInPDFSpace.origin.y;
       width = self->_boundsInPDFSpace.size.width;

@@ -1,6 +1,8 @@
 @interface MBAssetMetadata
 + (id)assetMetadataForEmptyFileWithEncryptionKey:(id)key;
 + (id)assetMetadataForFilePendingUploadWithEncryptionKey:(id)key size:(int64_t)size;
++ (id)assetMetadataForUploadedRecordWithRecordIDSuffix:(id)suffix signature:(id)signature size:(int64_t)size type:(unint64_t)type compressionMethod:(char)method;
++ (id)assetMetadataFromRecordIDSuffix:(id)suffix signature:(id)signature size:(int64_t)size type:(unint64_t)type compressionMethod:(char)method encryptionKey:(id)key;
 - (BOOL)isPendingUpload;
 - (MBAssetMetadata)initWithRecordIDSuffix:(id)suffix signature:(id)signature size:(int64_t)size type:(unint64_t)type compressionMethod:(char)method encryptionKey:(id)key;
 - (id)_keybagUUIDData;
@@ -24,7 +26,7 @@
       *buf = 138412290;
       selfCopy = self;
       _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_FAULT, "Failed to get UUID from encryption key for file %@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"F ", "Failed to get UUID from encryption key for file %@", self);
     }
   }
 
@@ -45,6 +47,39 @@
   v4 = [[MBAssetMetadata alloc] initWithRecordIDSuffix:@"EMPTY_FILE" signature:0 size:0 type:4 compressionMethod:0 encryptionKey:keyCopy];
 
   return v4;
+}
+
++ (id)assetMetadataForUploadedRecordWithRecordIDSuffix:(id)suffix signature:(id)signature size:(int64_t)size type:(unint64_t)type compressionMethod:(char)method
+{
+  methodCopy = method;
+  suffixCopy = suffix;
+  signatureCopy = signature;
+  if (!type)
+  {
+    __assert_rtn("+[MBAssetMetadata assetMetadataForUploadedRecordWithRecordIDSuffix:signature:size:type:compressionMethod:]", "MBFileMetadata.m", 40, "type != MBAssetTypeUnknown");
+  }
+
+  v13 = signatureCopy;
+  v14 = [[MBAssetMetadata alloc] initWithRecordIDSuffix:suffixCopy signature:signatureCopy size:size type:type compressionMethod:methodCopy encryptionKey:0];
+
+  return v14;
+}
+
++ (id)assetMetadataFromRecordIDSuffix:(id)suffix signature:(id)signature size:(int64_t)size type:(unint64_t)type compressionMethod:(char)method encryptionKey:(id)key
+{
+  methodCopy = method;
+  suffixCopy = suffix;
+  signatureCopy = signature;
+  keyCopy = key;
+  if (!type)
+  {
+    __assert_rtn("+[MBAssetMetadata assetMetadataFromRecordIDSuffix:signature:size:type:compressionMethod:encryptionKey:]", "MBFileMetadata.m", 46, "type != MBAssetTypeUnknown");
+  }
+
+  v16 = keyCopy;
+  v17 = [[MBAssetMetadata alloc] initWithRecordIDSuffix:suffixCopy signature:signatureCopy size:size type:type compressionMethod:methodCopy encryptionKey:keyCopy];
+
+  return v17;
 }
 
 - (MBAssetMetadata)initWithRecordIDSuffix:(id)suffix signature:(id)signature size:(int64_t)size type:(unint64_t)type compressionMethod:(char)method encryptionKey:(id)key

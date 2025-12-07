@@ -85,7 +85,7 @@
   v5 = [(ARMagnetometerData *)&v15 init];
   if (v5)
   {
-    [dataCopy timestamp];
+    objc_msgSend_timestamp(dataCopy);
     v5->_timestamp = v6;
     fieldValues = [dataCopy fieldValues];
     [fieldValues x];
@@ -213,13 +213,13 @@
   v5 = NSStringFromClass(v4);
   v6 = [v3 stringWithFormat:@"<%@: %p", v5, self];
 
-  [(ARMagnetometerData *)self timestamp];
+  objc_msgSend_timestamp(self);
   [v6 appendFormat:@" timestamp=%f", v7];
-  [(ARMagnetometerData *)self magneticField];
+  objc_msgSend_magneticField(self);
   v9 = v8;
-  [(ARMagnetometerData *)self magneticField];
+  objc_msgSend_magneticField(self);
   v11 = v10;
-  [(ARMagnetometerData *)self magneticField];
+  objc_msgSend_magneticField(self);
   [v6 appendFormat:@" magneticField=(%f, %f, %f)", v9, v11, v12];
   [v6 appendString:@">"];
 

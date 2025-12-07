@@ -36,9 +36,10 @@
 
     [(RootView *)self setNeedsLayout];
     objc_storeStrong(&self->_mainView, view);
+    viewCopy = v7;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(mainView, viewCopy);
 }
 
 - (void)layoutSubviews

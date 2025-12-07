@@ -20,7 +20,7 @@
   viewCopy = view;
   v6 = *MEMORY[0x1E695EFF8];
   v7 = *(MEMORY[0x1E695EFF8] + 8);
-  [viewCopy iconImageInfo];
+  objc_msgSend_iconImageInfo(viewCopy);
   v13.receiver = self;
   v13.super_class = SBHPageManagementCellDragPreview;
   v10 = [(SBHPageManagementCellDragPreview *)&v13 initWithFrame:v6, v7, v8, v9];
@@ -89,7 +89,7 @@
   [(SBIconView *)v5 setAccessibilityTintColor:accessibilityTintColor];
   [(SBIconView *)v5 setAllowsEditingAnimation:0];
   [(SBIconView *)v5 setIconContentScalingEnabled:1];
-  [(SBHPageManagementCellDragPreview *)self bounds];
+  objc_msgSend_bounds(self);
   [(SBIconView *)v5 setFrame:?];
   [(SBIconView *)v5 setIconContentScale:1.1];
   iconView = self->_iconView;

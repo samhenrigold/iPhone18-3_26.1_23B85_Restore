@@ -1,6 +1,8 @@
 @interface TSDMSGClockSession
 + (BOOL)checkRemoveKernelClock:(unsigned int)clock;
 + (id)createSession:(unsigned int)session nominalSyncDuration:(id)duration clockId:(unint64_t)id error:(id *)error;
++ (id)getClkUserIdForSyncId:(unsigned int)id;
++ (id)restoreWithSyncId:(unsigned int)id nominalSyncDuration:(id)duration error:(id *)error;
 - ($7DEDF3842AEFB7F1E6DF5AF62E424A02)nominalSyncDuration;
 - (_opaque_pthread_cond_t)clockSessionCond;
 - (_opaque_pthread_mutex_t)clockSessionMutex;
@@ -16,6 +18,19 @@
 @end
 
 @implementation TSDMSGClockSession
+
++ (id)getClkUserIdForSyncId:(unsigned int)id
+{
+  v3 = *&id;
+  v4 = objc_opt_class();
+  v5 = NSStringFromClass(v4);
+  uTF8String = [v5 UTF8String];
+
+  v7 = [NSString stringWithFormat:@"%s_SyncId_", uTF8String];
+  v8 = [v7 stringByAppendingFormat:@"%u", v3];
+
+  return v8;
+}
 
 + (BOOL)checkRemoveKernelClock:(unsigned int)clock
 {
@@ -59,6 +74,27 @@ LABEL_6:
 LABEL_10:
 
   return v10;
+}
+
++ (id)restoreWithSyncId:(unsigned int)id nominalSyncDuration:(id)duration error:(id *)error
+{
+  var1 = duration.var1;
+  var0 = duration.var0;
+  v8 = *&id;
+  v10 = [self getClkUserIdForSyncId:?];
+  v11 = +[TSDClockManager sharedClockManager];
+  v12 = [v11 getPersistentUserFilteredClockIdentifier:v10 error:error];
+  if (v12 == -1)
+  {
+    v13 = 0;
+  }
+
+  else
+  {
+    v13 = [self createSession:v8 nominalSyncDuration:var0 clockId:var1 error:{v12, error}];
+  }
+
+  return v13;
 }
 
 + (id)createSession:(unsigned int)session nominalSyncDuration:(id)duration clockId:(unint64_t)id error:(id *)error
@@ -694,7 +730,7 @@ LABEL_51:
 
                   else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
                   {
-                    sub_10002D9C0(&v53);
+                    sub_10002D9C0();
                   }
                 }
 

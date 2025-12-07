@@ -10,7 +10,7 @@
 - (void)awakeFromNib
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for RecentUDCCell();
+  v3.super_class = type metadata accessor for RecentUDCCell(0);
   v2 = v3.receiver;
   [(RecentUDCCell *)&v3 awakeFromNib];
   sub_1D1340590();
@@ -21,7 +21,7 @@
 - (void)layoutSubviews
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for RecentUDCCell();
+  v3.super_class = type metadata accessor for RecentUDCCell(0);
   v2 = v3.receiver;
   [(RecentUDCCell *)&v3 layoutSubviews];
   sub_1D138D84C();

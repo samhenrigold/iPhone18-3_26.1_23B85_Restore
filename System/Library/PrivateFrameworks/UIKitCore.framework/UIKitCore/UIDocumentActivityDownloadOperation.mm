@@ -39,13 +39,13 @@ LABEL_6:
   [v3 displayForDownloadingURL:v10 sourceViewController:v7 completionHandler:v11];
 }
 
-uint64_t __44___UIDocumentActivityDownloadOperation_main__block_invoke_2(uint64_t result, int a2)
+id *__44___UIDocumentActivityDownloadOperation_main__block_invoke_2(id *result, int a2)
 {
   if (a2)
   {
     v2 = result;
-    [*(result + 32) cancel];
-    v3 = *(v2 + 40);
+    [result[4] cancel];
+    v3 = v2[5];
 
     return [v3 cancel];
   }

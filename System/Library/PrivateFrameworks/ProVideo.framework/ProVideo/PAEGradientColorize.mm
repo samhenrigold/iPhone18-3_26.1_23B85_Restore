@@ -84,7 +84,7 @@
   }
 
   versionAtCreation = [v12 versionAtCreation];
-  v17 = HGRectMake4i(0, 0, 0x100u, 1u);
+  v17 = HGRectMake4i(0, 0, 256, 1);
   v19 = v18;
   v20 = HGObject::operator new(0x80uLL);
   HGBitmap::HGBitmap(v20, v17, v19, 28);
@@ -155,7 +155,7 @@ LABEL_24:
   {
     if (input)
     {
-      [input heliumRef];
+      objc_msgSend_heliumRef(input);
     }
 
     else

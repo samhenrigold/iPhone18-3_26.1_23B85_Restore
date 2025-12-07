@@ -15,7 +15,7 @@ void __51___UISlideriOSFluidVisualElement__setupInteraction__block_invoke(uint64
   v9 = (*(a1 + 32) + 592);
   if (v3)
   {
-    [v3 trackTransform];
+    objc_msgSend_trackTransform(v3);
   }
 
   else

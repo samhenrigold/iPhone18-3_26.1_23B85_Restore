@@ -10,7 +10,7 @@
   stringCopy = string;
   roleCopy = role;
   v7 = roleCopy;
-  if (!roleCopy || ([roleCopy isEqualToString:@"title"] & 1) != 0)
+  if (!roleCopy || (objc_msgSend_isEqualToString_(roleCopy) & 1) != 0)
   {
     v8 = &OBJC_IVAR____TUIElementNavigationBarItemBuilder__attributedTitle;
 LABEL_4:
@@ -22,7 +22,7 @@ LABEL_4:
     goto LABEL_5;
   }
 
-  if ([v7 isEqualToString:@"placeholder"])
+  if (objc_msgSend_isEqualToString_(v7))
   {
     v8 = &OBJC_IVAR____TUIElementNavigationBarItemBuilder__placeholderText;
     goto LABEL_4;
@@ -36,7 +36,7 @@ LABEL_5:
   modelCopy = model;
   roleCopy = role;
   v7 = roleCopy;
-  if (!roleCopy || [roleCopy isEqualToString:@"image"])
+  if (!roleCopy || objc_msgSend_isEqualToString_(roleCopy))
   {
     image = [modelCopy image];
     image = self->_image;

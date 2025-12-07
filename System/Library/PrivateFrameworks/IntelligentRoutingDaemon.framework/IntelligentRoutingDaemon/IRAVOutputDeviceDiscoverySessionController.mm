@@ -92,11 +92,10 @@ void __72__IRAVOutputDeviceDiscoverySessionController__didUpdateAVOutputDevices_
 
 void __72__IRAVOutputDeviceDiscoverySessionController__didUpdateAVOutputDevices___block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_25543D000, a2, OS_LOG_TYPE_DEBUG, "#discovery-session-controller, AVOutputDevice: device has been updated: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_25543D000, a2, OS_LOG_TYPE_DEBUG, "#discovery-session-controller, AVOutputDevice: device has been updated: %@", &v2, 0xCu);
 }
 
 @end

@@ -114,11 +114,11 @@ void __86__SUUIEditorialCardCollectionViewCell_prefetchResourcesForViewElement_r
   [allLockups enumerateObjectsUsingBlock:v16];
 }
 
-uint64_t __81__SUUIEditorialCardCollectionViewCell_requestLayoutForViewElement_width_context___block_invoke(uint64_t result, uint64_t a2)
+double *__81__SUUIEditorialCardCollectionViewCell_requestLayoutForViewElement_width_context___block_invoke(double *result, uint64_t a2)
 {
-  if (*(result + 32) != a2)
+  if (*(result + 4) != a2)
   {
-    return [SUUIVerticalLockupView requestLayoutForViewElement:a2 width:*(result + 40) context:*(result + 48)];
+    return [SUUIVerticalLockupView requestLayoutForViewElement:a2 width:*(result + 5) context:result[6]];
   }
 
   return result;
@@ -168,13 +168,13 @@ uint64_t __81__SUUIEditorialCardCollectionViewCell_requestLayoutForViewElement_w
   return result;
 }
 
-uint64_t __77__SUUIEditorialCardCollectionViewCell_sizeThatFitsWidth_viewElement_context___block_invoke(uint64_t result, uint64_t a2)
+double *__77__SUUIEditorialCardCollectionViewCell_sizeThatFitsWidth_viewElement_context___block_invoke(double *result, uint64_t a2)
 {
-  if (*(result + 32) != a2)
+  if (*(result + 4) != a2)
   {
     v2 = result;
-    result = [SUUIVerticalLockupView sizeThatFitsWidth:a2 viewElement:*(v2 + 40) context:*(v2 + 56)];
-    v4 = *(*(v2 + 48) + 8);
+    result = [SUUIVerticalLockupView sizeThatFitsWidth:a2 viewElement:*(v2 + 5) context:v2[7]];
+    v4 = *(*(v2 + 6) + 8);
     v5 = *(v4 + 40);
     if (v5 < v3)
     {

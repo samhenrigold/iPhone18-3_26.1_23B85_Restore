@@ -10,9 +10,9 @@
 - (int64_t)hash
 {
   selfCopy = self;
-  v3 = MultisportTransitions.hash.getter();
+  v4 = MultisportTransitions.hash.getter(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 - (BOOL)isEqual:(id)equal

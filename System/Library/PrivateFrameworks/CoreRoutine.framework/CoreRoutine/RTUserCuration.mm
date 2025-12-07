@@ -4,7 +4,6 @@
 - (RTUserCuration)initWithCoder:(id)coder;
 - (RTUserCuration)initWithIdentifier:(id)identifier submissionDate:(id)date expirationDate:(id)expirationDate entryDate:(id)entryDate exitDate:(id)exitDate visitIdentifier:(id)visitIdentifier originalLabel:(id)label curatedLabel:(id)self0;
 - (id)abbreviatedDescription;
-- (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
@@ -175,13 +174,6 @@ LABEL_21:
 
   v13 = [(RTUserCuration *)self initWithIdentifier:v5 submissionDate:v6 expirationDate:v7 entryDate:v8 exitDate:v9 visitIdentifier:v10 originalLabel:v11 curatedLabel:v12];
   return v13;
-}
-
-- (id)copyWithZone:(_NSZone *)zone
-{
-  v4 = [objc_opt_class() allocWithZone:zone];
-  originalLabel = self->_originalLabel;
-  return [v4 initWithIdentifier:self->_identifier submissionDate:self->_submissionDate expirationDate:self->_expirationDate entryDate:self->_visitEntryDate exitDate:self->_visitExitDate visitIdentifier:self->_visitIdentifier originalLabel:originalLabel curatedLabel:self->_curatedLabel];
 }
 
 - (BOOL)isEqualToUserCuration:(id)curation

@@ -6,7 +6,7 @@
 - (void)addSelfToSerializationDictionary:(id)dictionary;
 - (void)dealloc;
 - (void)populateReferencesUsingBuffer:(const void *)buffer bufferLength:(unint64_t)length andDeserializationDictionary:(id)dictionary andDataBufferDictionary:(id)bufferDictionary;
-- (void)printFrameRateReportWithStartSampleIndex:(uint64_t)index endSampleIndex:(uint64_t)sampleIndex startDisplayIndex:(void *)displayIndex sampleDataStore:(void *)store toStream:;
+- (void)printFrameRateReportWithStartSampleIndex:(char *)index endSampleIndex:(uint64_t)sampleIndex startDisplayIndex:(void *)displayIndex sampleDataStore:(void *)store toStream:;
 @end
 
 @implementation SAWSUpdateDataStore
@@ -41,7 +41,7 @@ void __48__SAWSUpdateDataStore__getWSUpdateArraySnapshot__block_invoke(uint64_t 
   return v3;
 }
 
-- (void)printFrameRateReportWithStartSampleIndex:(uint64_t)index endSampleIndex:(uint64_t)sampleIndex startDisplayIndex:(void *)displayIndex sampleDataStore:(void *)store toStream:
+- (void)printFrameRateReportWithStartSampleIndex:(char *)index endSampleIndex:(uint64_t)sampleIndex startDisplayIndex:(void *)displayIndex sampleDataStore:(void *)store toStream:
 {
   if (self)
   {
@@ -101,7 +101,7 @@ LABEL_69:
     if (indexCopy >= v21)
     {
       sampleTimestamps3 = [displayIndex sampleTimestamps];
-      index = [sampleTimestamps3 count] - 1;
+      index = ([sampleTimestamps3 count] - 1);
     }
 
     sampleTimestamps4 = [displayIndex sampleTimestamps];
@@ -378,7 +378,7 @@ LABEL_75:
 
 - (void)addSelfToSerializationDictionary:(id)dictionary
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = +[SAWSUpdateDataStore classDictionaryKey];
   v6 = SASerializableAddInstanceToSerializationDictionaryWithClassKey(dictionary, self, v5);
 
@@ -387,65 +387,61 @@ LABEL_75:
     wsUpdateArray = self->_wsUpdateArray;
     if (wsUpdateArray)
     {
-      v16 = 0u;
-      v17 = 0u;
-      v14 = 0u;
       v15 = 0u;
+      v16 = 0u;
+      v13 = 0u;
+      v14 = 0u;
       v8 = wsUpdateArray;
-      v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v9)
       {
         v10 = v9;
-        v11 = *v15;
+        v11 = *v14;
         do
         {
           v12 = 0;
           do
           {
-            if (*v15 != v11)
+            if (*v14 != v11)
             {
               objc_enumerationMutation(v8);
             }
 
-            [*(*(&v14 + 1) + 8 * v12++) addSelfToSerializationDictionary:{dictionary, v14}];
+            [*(*(&v13 + 1) + 8 * v12++) addSelfToSerializationDictionary:{dictionary, v13}];
           }
 
           while (v10 != v12);
-          v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+          v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
         }
 
         while (v10);
       }
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)addSelfToBuffer:(void *)buffer bufferLength:(unint64_t)length withCompletedSerializationDictionary:(id)dictionary
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if ([(SAWSUpdateDataStore *)self sizeInBytesForSerializedVersion]!= length)
   {
-    v15 = *__error();
-    v16 = _sa_logt();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v13 = *__error();
+    v14 = _sa_logt();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v17 = [(SAWSUpdateDataStore *)self debugDescription];
+      v15 = [(SAWSUpdateDataStore *)self debugDescription];
       *buf = 136315650;
-      uTF8String = [v17 UTF8String];
-      v30 = 2048;
+      uTF8String = [v15 UTF8String];
+      v21 = 2048;
       sizeInBytesForSerializedVersion = [(SAWSUpdateDataStore *)self sizeInBytesForSerializedVersion];
-      v32 = 2048;
+      v23 = 2048;
       lengthCopy = length;
-      _os_log_error_impl(&dword_1E0E2F000, v16, OS_LOG_TYPE_ERROR, "%s: size %lu != buffer length %lu", buf, 0x20u);
+      _os_log_error_impl(&dword_1E0E2F000, v14, OS_LOG_TYPE_ERROR, "%s: size %lu != buffer length %lu", buf, 0x20u);
     }
 
-    *__error() = v15;
-    v18 = [(SAWSUpdateDataStore *)self debugDescription];
-    uTF8String2 = [v18 UTF8String];
-    [(SAWSUpdateDataStore *)self sizeInBytesForSerializedVersion];
-    _SASetCrashLogMessage(900, "%s: size %lu != buffer length %lu", v20, v21, v22, v23, v24, v25, uTF8String2);
+    *__error() = v13;
+    v16 = [(SAWSUpdateDataStore *)self debugDescription];
+    _SASetCrashLogMessage(900, "%s: size %lu != buffer length %lu", [v16 UTF8String], -[SAWSUpdateDataStore sizeInBytesForSerializedVersion](self, "sizeInBytesForSerializedVersion"), length);
 
     _os_crash();
     __break(1u);
@@ -455,35 +451,30 @@ LABEL_75:
   if (!buffer)
   {
 LABEL_13:
-    v26 = @"Trying to serialize to a NULL location";
+    v17 = @"Trying to serialize to a NULL location";
     goto LABEL_15;
   }
 
   if (!dictionary)
   {
-    v26 = @"No serialization dictionary provided";
+    v17 = @"No serialization dictionary provided";
 LABEL_15:
-    v27 = [SAException exceptionWithName:@"Encoding failure" reason:v26 userInfo:0];
-    objc_exception_throw(v27);
+    v18 = [SAException exceptionWithName:@"Encoding failure" reason:v17 userInfo:0];
+    objc_exception_throw(v18);
   }
 
   *buffer = 840627559;
   *(buffer + 1) = [(NSMutableArray *)self->_wsUpdateArray count];
   wsUpdateArray = self->_wsUpdateArray;
-  if (wsUpdateArray && [(NSMutableArray *)wsUpdateArray count])
+  if (!wsUpdateArray || ![(NSMutableArray *)wsUpdateArray count])
   {
-    v10 = *(buffer + 1);
-    v11 = self->_wsUpdateArray;
-    v12 = *MEMORY[0x1E69E9840];
-
-    return SASerializableFillSerializedIndicesWithCollectionOfSerializableInstances(buffer + 16, v10, v11, dictionary);
-  }
-
-  else
-  {
-    v14 = *MEMORY[0x1E69E9840];
     return 1;
   }
+
+  v10 = *(buffer + 1);
+  v11 = self->_wsUpdateArray;
+
+  return SASerializableFillSerializedIndicesWithCollectionOfSerializableInstances(buffer + 16, v10, v11, dictionary);
 }
 
 + (id)newInstanceWithoutReferencesFromSerializedBuffer:(const void *)buffer bufferLength:(unint64_t)length

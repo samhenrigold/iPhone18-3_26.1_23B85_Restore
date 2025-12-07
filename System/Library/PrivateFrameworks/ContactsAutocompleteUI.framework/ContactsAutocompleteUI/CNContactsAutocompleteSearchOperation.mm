@@ -131,7 +131,7 @@ void __45__CNContactsAutocompleteSearchOperation_main__block_invoke(uint64_t a1)
 uint64_t __45__CNContactsAutocompleteSearchOperation_main__block_invoke_2(uint64_t a1)
 {
   v7 = *MEMORY[0x1E69E9840];
-  v2 = contactsSearchManagerLog();
+  v2 = contactsSearchManagerLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -344,128 +344,129 @@ void __67__CNContactsAutocompleteSearchOperation__simulatedRecipientResults__blo
 
 - (void)autocompleteFetch:(id)fetch didReceiveResults:(id)results
 {
-  v66 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   resultsCopy = results;
   if (([(CNContactsAutocompleteSearchOperation *)self isCancelled]& 1) == 0)
   {
-    v42 = objc_opt_new();
-    v57 = 0u;
+    v43 = objc_opt_new();
     v58 = 0u;
     v59 = 0u;
     v60 = 0u;
-    v38 = resultsCopy;
+    v61 = 0u;
+    v39 = resultsCopy;
     obj = resultsCopy;
-    v6 = [obj countByEnumeratingWithState:&v57 objects:v65 count:16];
+    v6 = [obj countByEnumeratingWithState:&v58 objects:v66 count:16];
     if (!v6)
     {
       goto LABEL_41;
     }
 
     v7 = v6;
-    v8 = *v58;
-    v39 = *v58;
+    v8 = *v59;
+    v40 = *v59;
     while (1)
     {
       v9 = 0;
-      v40 = v7;
+      v41 = v7;
       do
       {
-        if (*v58 != v8)
+        if (*v59 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v57 + 1) + 8 * v9);
+        v10 = *(*(&v58 + 1) + 8 * v9);
         if ([v10 resultType] == 1)
         {
-          v56 = 0;
-          v11 = [v10 members:&v56];
-          v12 = v56;
+          v57 = 0;
+          v11 = [v10 members:&v57];
+          v12 = v57;
+          v13 = v12;
           if (v12)
           {
-            v13 = contactsSearchManagerLog();
-            if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+            v14 = contactsSearchManagerLog(v12);
+            if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
             {
-              [(CNContactsAutocompleteSearchOperation *)v63 autocompleteFetch:v12 didReceiveResults:&v64, v13];
+              [(CNContactsAutocompleteSearchOperation *)v64 autocompleteFetch:v13 didReceiveResults:&v65, v14];
             }
           }
 
-          v43 = v12;
-          v44 = v11;
-          v45 = v10;
+          v44 = v13;
+          v45 = v11;
+          v46 = v10;
           if (v11)
           {
-            v14 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v11, "count")}];
-            v52 = 0u;
+            v15 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v11, "count")}];
             v53 = 0u;
             v54 = 0u;
             v55 = 0u;
-            v15 = v11;
-            v16 = [v15 countByEnumeratingWithState:&v52 objects:v62 count:16];
-            if (v16)
+            v56 = 0u;
+            v16 = v11;
+            v17 = [v16 countByEnumeratingWithState:&v53 objects:v63 count:16];
+            if (v17)
             {
-              v17 = v16;
-              v18 = *v53;
+              v18 = v17;
+              v19 = *v54;
               do
               {
-                for (i = 0; i != v17; ++i)
+                for (i = 0; i != v18; ++i)
                 {
-                  if (*v53 != v18)
+                  if (*v54 != v19)
                   {
-                    objc_enumerationMutation(v15);
+                    objc_enumerationMutation(v16);
                   }
 
-                  v20 = *(*(&v52 + 1) + 8 * i);
-                  v21 = [CNComposeRecipient composeRecipientWithAutocompleteResult:v20];
-                  if (v21)
+                  v21 = *(*(&v53 + 1) + 8 * i);
+                  v22 = [CNComposeRecipient composeRecipientWithAutocompleteResult:v21];
+                  if (v22)
                   {
-                    v22 = [(CNContactsAutocompleteSearchOperation *)self originContextForResult:v20];
-                    [v21 setOriginContext:v22];
+                    v23 = [(CNContactsAutocompleteSearchOperation *)self originContextForResult:v21];
+                    [v22 setOriginContext:v23];
 
-                    [v14 addObject:v21];
+                    [v15 addObject:v22];
                   }
                 }
 
-                v17 = [v15 countByEnumeratingWithState:&v52 objects:v62 count:16];
+                v18 = [v16 countByEnumeratingWithState:&v53 objects:v63 count:16];
               }
 
-              while (v17);
+              while (v18);
             }
 
-            v10 = v45;
+            v10 = v46;
           }
 
           else
           {
-            v14 = 0;
+            v15 = 0;
           }
 
-          v24 = [(CNContactsAutocompleteSearchOperation *)self unifyRecipientsIfNeccesary:v14];
+          v25 = [(CNContactsAutocompleteSearchOperation *)self unifyRecipientsIfNeccesary:v15];
 
           displayName = [v10 displayName];
-          v48 = 0u;
           v49 = 0u;
           v50 = 0u;
           v51 = 0u;
-          v26 = v24;
-          v27 = [v26 countByEnumeratingWithState:&v48 objects:v61 count:16];
-          if (v27)
+          v52 = 0u;
+          v27 = v25;
+          v28 = [v27 countByEnumeratingWithState:&v49 objects:v62 count:16];
+          if (v28)
           {
-            v28 = v27;
-            v29 = *v49;
+            v29 = v28;
+            v30 = *v50;
             while (2)
             {
-              for (j = 0; j != v28; ++j)
+              for (j = 0; j != v29; ++j)
               {
-                if (*v49 != v29)
+                if (*v50 != v30)
                 {
-                  objc_enumerationMutation(v26);
+                  objc_enumerationMutation(v27);
                 }
 
-                compositeName = [*(*(&v48 + 1) + 8 * j) compositeName];
-                v32 = [displayName isEqualToString:compositeName];
+                compositeName = [*(*(&v49 + 1) + 8 * j) compositeName];
+                v33 = [displayName isEqualToString:compositeName];
 
-                if (v32)
+                if (v33)
                 {
 
                   displayName = 0;
@@ -473,8 +474,8 @@ void __67__CNContactsAutocompleteSearchOperation__simulatedRecipientResults__blo
                 }
               }
 
-              v28 = [v26 countByEnumeratingWithState:&v48 objects:v61 count:16];
-              if (v28)
+              v29 = [v27 countByEnumeratingWithState:&v49 objects:v62 count:16];
+              if (v29)
               {
                 continue;
               }
@@ -483,28 +484,28 @@ void __67__CNContactsAutocompleteSearchOperation__simulatedRecipientResults__blo
             }
 
 LABEL_36:
-            v10 = v45;
+            v10 = v46;
           }
 
-          v23 = [[CNComposeRecipientGroup alloc] initWithChildren:v26 displayString:displayName];
-          [(CNComposeRecipient *)v23 setAutocompleteResult:v10];
+          v24 = [[CNComposeRecipientGroup alloc] initWithChildren:v27 displayString:displayName];
+          [(CNComposeRecipient *)v24 setAutocompleteResult:v10];
 
-          v8 = v39;
-          v7 = v40;
-          if (v23)
+          v8 = v40;
+          v7 = v41;
+          if (v24)
           {
 LABEL_38:
-            v33 = [(CNContactsAutocompleteSearchOperation *)self originContextForResult:v10];
-            [(CNComposeRecipient *)v23 setOriginContext:v33];
+            v34 = [(CNContactsAutocompleteSearchOperation *)self originContextForResult:v10];
+            [(CNComposeRecipient *)v24 setOriginContext:v34];
 
-            [v42 addObject:v23];
+            [v43 addObject:v24];
           }
         }
 
         else
         {
-          v23 = [CNComposeRecipient composeRecipientWithAutocompleteResult:v10];
-          if (v23)
+          v24 = [CNComposeRecipient composeRecipientWithAutocompleteResult:v10];
+          if (v24)
           {
             goto LABEL_38;
           }
@@ -514,23 +515,23 @@ LABEL_38:
       }
 
       while (v9 != v7);
-      v7 = [obj countByEnumeratingWithState:&v57 objects:v65 count:16];
+      v7 = [obj countByEnumeratingWithState:&v58 objects:v66 count:16];
       if (!v7)
       {
 LABEL_41:
 
         defaultProvider = [MEMORY[0x1E6996820] defaultProvider];
         mainThreadScheduler = [defaultProvider mainThreadScheduler];
-        v46[0] = MEMORY[0x1E69E9820];
-        v46[1] = 3221225472;
-        v46[2] = __77__CNContactsAutocompleteSearchOperation_autocompleteFetch_didReceiveResults___block_invoke;
-        v46[3] = &unk_1E7CD1E08;
-        v46[4] = self;
-        v47 = v42;
-        v36 = v42;
-        v37 = [mainThreadScheduler afterDelay:v46 performBlock:0.0];
+        v47[0] = MEMORY[0x1E69E9820];
+        v47[1] = 3221225472;
+        v47[2] = __77__CNContactsAutocompleteSearchOperation_autocompleteFetch_didReceiveResults___block_invoke;
+        v47[3] = &unk_1E7CD1E08;
+        v47[4] = self;
+        v48 = v43;
+        v37 = v43;
+        v38 = [mainThreadScheduler afterDelay:v47 performBlock:0.0];
 
-        resultsCopy = v38;
+        resultsCopy = v39;
         break;
       }
     }

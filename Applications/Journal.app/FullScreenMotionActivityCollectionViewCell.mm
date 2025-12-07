@@ -7,7 +7,7 @@
 - (_TtC7Journal42FullScreenMotionActivityCollectionViewCell)initWithCoder:(id)coder
 {
   v4 = OBJC_IVAR____TtC7Journal42FullScreenMotionActivityCollectionViewCell_motionActivityView;
-  type metadata accessor for MotionActivityGridView();
+  type metadata accessor for MotionActivityGridView(0);
   *(&self->super.super.super.super.super.super.isa + v4) = [objc_allocWithZone(swift_getObjCClassFromMetadata()) init];
   *(&self->super.super.super.super.super.super.isa + OBJC_IVAR____TtC7Journal42FullScreenMotionActivityCollectionViewCell_motionActivityAsset) = 0;
   result = _assertionFailure(_:_:file:line:flags:)();

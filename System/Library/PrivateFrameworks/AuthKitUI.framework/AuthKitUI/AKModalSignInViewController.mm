@@ -1286,7 +1286,6 @@
   [MEMORY[0x277CCAAD0] activateConstraints:{v282[0], *&v15}];
   objc_storeStrong(&location, 0);
   objc_storeStrong(v282, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateViewConstraints
@@ -1390,7 +1389,6 @@
   MEMORY[0x277D82BD8](username2);
   MEMORY[0x277D82BD8](context2);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_signInButtonTapped:(id)tapped

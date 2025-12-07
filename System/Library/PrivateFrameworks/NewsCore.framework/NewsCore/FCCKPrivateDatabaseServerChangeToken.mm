@@ -45,32 +45,30 @@
 
 uint64_t __74__FCCKPrivateDatabaseServerChangeToken_initWithChangeTokensByDestination___block_invoke(uint64_t a1, void *a2)
 {
-  v2 = *(a1 + 32);
-  v3 = a2;
-  v4 = objc_opt_class();
-  v5 = [v3 integerValue];
+  v2 = a2;
+  v3 = objc_opt_class();
+  v4 = [v2 integerValue];
 
-  return [v4 _keyForDestination:v5];
+  return [v3 _keyForDestination:v4];
 }
 
 - (FCCKPrivateDatabaseServerChangeToken)init
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Case unsupported"];
-    v6 = 136315906;
-    v7 = "[FCCKPrivateDatabaseServerChangeToken init]";
-    v8 = 2080;
-    v9 = "FCCKPrivateDatabaseServerChangeToken.m";
-    v10 = 1024;
-    v11 = 43;
-    v12 = 2114;
-    v13 = v5;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v6, 0x26u);
+    v4 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Case unsupported"];
+    v5 = 136315906;
+    v6 = "[FCCKPrivateDatabaseServerChangeToken init]";
+    v7 = 2080;
+    v8 = "FCCKPrivateDatabaseServerChangeToken.m";
+    v9 = 1024;
+    v10 = 43;
+    v11 = 2114;
+    v12 = v4;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v5, 0x26u);
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -137,13 +135,13 @@ uint64_t __74__FCCKPrivateDatabaseServerChangeToken_initWithChangeTokensByDestin
 
 + (id)tokenByAddingCKToken:(id)token forDestination:(int64_t)destination toToken:(id)toToken
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   toTokenCopy = toToken;
   tokenCopy = token;
   v9 = [objc_opt_class() _keyForDestination:destination];
-  v17 = v9;
-  v18[0] = tokenCopy;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+  v16 = v9;
+  v17[0] = tokenCopy;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
 
   v11 = MEMORY[0x1E695DF20];
   changeTokensByDestinationKey = [toTokenCopy changeTokensByDestinationKey];
@@ -151,7 +149,6 @@ uint64_t __74__FCCKPrivateDatabaseServerChangeToken_initWithChangeTokensByDestin
   v13 = [v11 fc_dictionaryByAddingEntriesFromDictionary:v10 toDictionary:changeTokensByDestinationKey];
 
   v14 = [objc_alloc(objc_opt_class()) initWithChangeTokensByDestinationKey:v13];
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -167,22 +164,22 @@ uint64_t __74__FCCKPrivateDatabaseServerChangeToken_initWithChangeTokensByDestin
 
 + (id)_keyForDestination:(int64_t)destination
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if ((destination - 1) < 2)
   {
-    result = @"Database";
+    return @"Database";
   }
 
-  else if (destination)
+  if (destination)
   {
     if (destination == 3)
     {
-      result = @"SecureDatabase";
+      return @"SecureDatabase";
     }
 
     else
     {
-      result = &stru_1F2DC7DC0;
+      return &stru_1F2DC7DC0;
     }
   }
 
@@ -190,23 +187,20 @@ uint64_t __74__FCCKPrivateDatabaseServerChangeToken_initWithChangeTokensByDestin
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Case unsupported"];
-      v6 = 136315906;
-      v7 = "+[FCCKPrivateDatabaseServerChangeToken _keyForDestination:]";
-      v8 = 2080;
-      v9 = "FCCKPrivateDatabaseServerChangeToken.m";
-      v10 = 1024;
-      v11 = 123;
-      v12 = 2114;
-      v13 = v5;
-      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v6, 0x26u);
+      v4 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Case unsupported"];
+      v5 = 136315906;
+      v6 = "+[FCCKPrivateDatabaseServerChangeToken _keyForDestination:]";
+      v7 = 2080;
+      v8 = "FCCKPrivateDatabaseServerChangeToken.m";
+      v9 = 1024;
+      v10 = 123;
+      v11 = 2114;
+      v12 = v4;
+      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v5, 0x26u);
     }
 
-    result = &stru_1F2DC7DC0;
+    return &stru_1F2DC7DC0;
   }
-
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 @end

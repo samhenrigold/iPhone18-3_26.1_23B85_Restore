@@ -75,20 +75,21 @@ LABEL_4:
   y = rect.origin.y;
   x = rect.origin.x;
   selfCopy = self;
-  v8 = sub_10020AE40(x, y, width, height);
+  sub_10020AE40(x, y, width, height);
+  v9 = v8;
 
-  if (v8)
+  if (v9)
   {
-    sub_1000065A8(0, &qword_100AD8A70);
-    v9.super.isa = Array._bridgeToObjectiveC()().super.isa;
+    sub_1000065A8(0, &qword_100AD8A70, UICollectionViewLayoutAttributes_ptr);
+    v10.super.isa = Array._bridgeToObjectiveC()().super.isa;
   }
 
   else
   {
-    v9.super.isa = 0;
+    v10.super.isa = 0;
   }
 
-  return v9.super.isa;
+  return v10.super.isa;
 }
 
 - (id)layoutAttributesForItemAtIndexPath:(id)path

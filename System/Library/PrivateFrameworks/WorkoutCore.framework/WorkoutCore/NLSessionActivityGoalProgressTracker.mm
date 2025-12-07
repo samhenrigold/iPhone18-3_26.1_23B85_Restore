@@ -49,13 +49,13 @@
 - (void)dealloc
 {
   selfCopy = self;
-  v4 = a2;
+  v5 = a2;
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter removeObserver:selfCopy];
-  MEMORY[0x277D82BD8](defaultCenter);
-  v3.receiver = selfCopy;
-  v3.super_class = NLSessionActivityGoalProgressTracker;
-  [(NLSessionActivityGoalProgressTracker *)&v3 dealloc];
+  *&v2 = MEMORY[0x277D82BD8](defaultCenter).n128_u64[0];
+  v4.receiver = selfCopy;
+  v4.super_class = NLSessionActivityGoalProgressTracker;
+  [(NLSessionActivityGoalProgressTracker *)&v4 dealloc];
 }
 
 - (id)trackProgressForGoalType:(unint64_t)type value:(double)value
@@ -85,32 +85,31 @@
 - (id)_trackCompletionWithOldValue:(double)value newValue:(double)newValue
 {
   selfCopy = self;
-  v20 = a2;
+  v18 = a2;
   valueCopy = value;
   newValueCopy = newValue;
   if (self->_goalValue == 0.0)
   {
-    v22 = 0;
+    v20 = 0;
   }
 
   else
   {
-    v17 = valueCopy / selfCopy[1];
-    v16 = newValueCopy / selfCopy[1];
+    v15 = valueCopy / selfCopy[1];
+    v14 = newValueCopy / selfCopy[1];
     delegate = [selfCopy delegate];
-    [delegate progressTracker:selfCopy didProgressTowardsGoal:*(selfCopy + 2) completionFactor:v16];
+    [delegate progressTracker:selfCopy didProgressTowardsGoal:*(selfCopy + 2) completionFactor:v14];
     MEMORY[0x277D82BD8](delegate);
-    v15 = 0;
-    if (v17 >= 1.0 || v16 < 1.0)
+    v13 = 0;
+    if (v15 >= 1.0 || v14 < 1.0)
     {
-      if (v17 < 0.5 && v16 >= 0.5)
+      if (v15 < 0.5 && v14 >= 0.5)
       {
         goal = [selfCopy goal];
-        v7 = *(selfCopy + 3);
-        v8 = [NLWorkoutAlertGoalProgress goalProgressAlertWithGoal:goal distanceType:FIUIDistanceTypeForActivityType() alertType:7 currentValue:selfCopy[1] * 0.5];
-        v9 = v15;
-        v15 = v8;
-        MEMORY[0x277D82BD8](v9);
+        v6 = [NLWorkoutAlertGoalProgress goalProgressAlertWithGoal:goal distanceType:FIUIDistanceTypeForActivityType() alertType:7 currentValue:selfCopy[1] * 0.5];
+        v7 = v13;
+        v13 = v6;
+        MEMORY[0x277D82BD8](v7);
         MEMORY[0x277D82BD8](goal);
       }
     }
@@ -118,22 +117,21 @@
     else
     {
       goal2 = [selfCopy goal];
-      v4 = *(selfCopy + 3);
-      v5 = [NLWorkoutAlertGoalProgress goalProgressAlertWithGoal:goal2 distanceType:FIUIDistanceTypeForActivityType() alertType:13 currentValue:selfCopy[1]];
-      v6 = v15;
-      v15 = v5;
-      MEMORY[0x277D82BD8](v6);
+      v4 = [NLWorkoutAlertGoalProgress goalProgressAlertWithGoal:goal2 distanceType:FIUIDistanceTypeForActivityType() alertType:13 currentValue:selfCopy[1]];
+      v5 = v13;
+      v13 = v4;
+      MEMORY[0x277D82BD8](v5);
       MEMORY[0x277D82BD8](goal2);
     }
 
-    selfCopy[5] = v16;
-    v22 = MEMORY[0x277D82BE0](v15);
-    objc_storeStrong(&v15, 0);
+    selfCopy[5] = v14;
+    v20 = MEMORY[0x277D82BE0](v13);
+    objc_storeStrong(&v13, 0);
   }
 
-  v10 = v22;
+  v8 = v20;
 
-  return v10;
+  return v8;
 }
 
 - (void)_progressForGoalType:(unint64_t)type withValue:(double)value secondaryValue:(double)secondaryValue
@@ -173,7 +171,6 @@
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)recoverStateFromDataProvider:(id)provider activityType:(id)type

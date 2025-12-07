@@ -111,33 +111,33 @@
 
   v33 = [(UITableViewIndex *)self maximumNumberOfTitlesWithoutTruncationForHeight:v5];
   v9 = [v3 objectAtIndex:0];
-  v10 = [v9 isEqualToString:@"{search}"];
+  isEqualToString = objc_msgSend_isEqualToString_(v9);
 
   lastObject = [v3 lastObject];
-  v12 = [lastObject isEqualToString:@"{search}"];
+  v12 = objc_msgSend_isEqualToString_(lastObject);
 
   v13 = [v3 objectAtIndex:0];
-  v14 = [v13 isEqualToString:@"#"];
+  v14 = objc_msgSend_isEqualToString_(v13);
 
   lastObject2 = [v3 lastObject];
-  v16 = [lastObject2 isEqualToString:@"#"];
+  v16 = objc_msgSend_isEqualToString_(lastObject2);
 
   v17 = [v3 count];
   array = [MEMORY[0x1E695DF70] array];
   v19 = array;
-  if (v10)
+  if (isEqualToString)
   {
     [array addObject:@"{search}"];
   }
 
-  v20 = (v14 | v16) + (v10 | v12);
+  v20 = (v14 | v16) + (isEqualToString | v12);
   if (v14)
   {
     [v19 addObject:@"#"];
   }
 
-  v21 = (v10 | v14) & 1;
-  v22 = (v10 | v14) & 1;
+  v21 = (isEqualToString | v14) & 1;
+  v22 = (isEqualToString | v14) & 1;
   v23 = v17 + ~v20;
   v24 = v23;
   for (i = v21; i < v24; i = (v24 / ((v26 / 2) & ~((v26 + (v26 >> 63)) >> 63))) + i)
@@ -153,9 +153,9 @@
   if ([v19 containsObject:v28])
   {
     lastObject3 = [v19 lastObject];
-    v30 = [lastObject3 isEqual:@"•"];
+    isEqual = objc_msgSend_isEqual_(lastObject3);
 
-    if (!v30)
+    if (!isEqual)
     {
       if (!v12)
       {
@@ -280,13 +280,13 @@ LABEL_10:
 
       v21 = *(*(&v43 + 1) + 8 * v20);
       v22 = objc_alloc_init(_UITableViewIndexEntry);
-      if ([v21 isEqualToString:@"#"])
+      if (objc_msgSend_isEqualToString_(v21))
       {
         v23 = @"UISectionListPoundSign";
         goto LABEL_19;
       }
 
-      if ([v21 isEqualToString:v17])
+      if (objc_msgSend_isEqualToString_(v21))
       {
         v23 = @"UITableViewIndexSearchGlyph";
 LABEL_19:
@@ -304,13 +304,13 @@ LABEL_20:
         goto LABEL_21;
       }
 
-      if ([v21 isEqualToString:@"•"])
+      if (objc_msgSend_isEqualToString_(v21))
       {
         _dotImage = [(UITableViewIndex *)selfCopy _dotImage];
         goto LABEL_20;
       }
 
-      if ([v21 isEqualToString:@"{appclip}"])
+      if (objc_msgSend_isEqualToString_(v21))
       {
         _dotImage = [UIImage _systemImageNamed:@"appclip"];
         goto LABEL_20;
@@ -792,7 +792,7 @@ LABEL_3:
 - (BOOL)_shouldAnimatePropertyWithKey:(id)key
 {
   keyCopy = key;
-  if ([keyCopy isEqualToString:@"contents"])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
     v5 = 0;
   }
@@ -1441,9 +1441,9 @@ void __37__UITableViewIndex__externalDotImage__block_invoke(uint64_t a1)
     dispatch_once(&qword_1ED49C0B0, &__block_literal_global_144);
   }
 
-  v0 = qword_1ED49C0B8;
+  v1 = qword_1ED49C0B8;
 
-  return v0;
+  return v1;
 }
 
 void __46__UITableViewIndex_idiomToVisualStyleClassMap__block_invoke()

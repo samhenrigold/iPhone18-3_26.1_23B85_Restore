@@ -24,10 +24,10 @@ void ___PSIAddPlaceInfoToObject_block_invoke(uint64_t a1, void *a2, unint64_t a3
 
 uint64_t ___PSIAddPlaceInfoToObject_block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = [a2 text];
-  v4 = [v3 isEqualToString:*(a1 + 32)];
+  v2 = [a2 text];
+  isEqualToString = objc_msgSend_isEqualToString_(v2);
 
-  return v4;
+  return isEqualToString;
 }
 
 @end

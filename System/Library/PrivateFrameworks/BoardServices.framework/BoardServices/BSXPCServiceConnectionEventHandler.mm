@@ -122,36 +122,36 @@
 
 - (id)remoteTargetWithHandshake:(void *)handshake assertionAttributes:
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   if (self)
   {
     v6 = [handshake count];
     v7 = v6;
     if (a2 && !v6)
     {
-      v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"handshake is only supported if there are launching attributes"];
+      v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"handshake is only supported if there are launching attributes"];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v20 = NSStringFromSelector(sel_remoteTargetWithHandshake_assertionAttributes_);
-        v21 = objc_opt_class();
-        v22 = NSStringFromClass(v21);
+        v19 = NSStringFromSelector(sel_remoteTargetWithHandshake_assertionAttributes_);
+        v20 = objc_opt_class();
+        v21 = NSStringFromClass(v20);
         *buf = 138544642;
-        v25 = v20;
-        v26 = 2114;
-        v27 = v22;
-        v28 = 2048;
+        v24 = v19;
+        v25 = 2114;
+        v26 = v21;
+        v27 = 2048;
         selfCopy = self;
-        v30 = 2114;
-        v31 = @"BSXPCServiceConnectionEventHandler.m";
-        v32 = 1024;
-        v33 = 193;
-        v34 = 2114;
-        v35 = v19;
+        v29 = 2114;
+        v30 = @"BSXPCServiceConnectionEventHandler.m";
+        v31 = 1024;
+        v32 = 193;
+        v33 = 2114;
+        v34 = v18;
         _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      v23 = v19;
-      [v19 UTF8String];
+      v22 = v18;
+      [v18 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x19A849DC0);
@@ -219,41 +219,39 @@
     v12 = 0;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
-
   return v12;
 }
 
 - (void)connectionInitialized:(int)initialized withActivationGeneration:(void *)generation activeXPCConnection:(void *)connection xpcConnectionTargetQueue:
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   if (self)
   {
     if (!*(self + 152))
     {
-      v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"_queue cannot be nil"];
+      connection = [MEMORY[0x1E696AEC0] stringWithFormat:@"_queue cannot be nil", generation, connection];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v12 = NSStringFromSelector(sel_connectionInitialized_withActivationGeneration_activeXPCConnection_xpcConnectionTargetQueue_);
-        v13 = objc_opt_class();
-        v14 = NSStringFromClass(v13);
-        v17 = 138544642;
-        v18 = v12;
-        v19 = 2114;
-        v20 = v14;
-        v21 = 2048;
+        v11 = NSStringFromSelector(sel_connectionInitialized_withActivationGeneration_activeXPCConnection_xpcConnectionTargetQueue_);
+        v12 = objc_opt_class();
+        v13 = NSStringFromClass(v12);
+        v15 = 138544642;
+        v16 = v11;
+        v17 = 2114;
+        v18 = v13;
+        v19 = 2048;
         selfCopy = self;
-        v23 = 2114;
-        v24 = @"BSXPCServiceConnectionEventHandler.m";
-        v25 = 1024;
-        v26 = 245;
-        v27 = 2114;
-        v28 = v11;
-        _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v17, 0x3Au);
+        v21 = 2114;
+        v22 = @"BSXPCServiceConnectionEventHandler.m";
+        v23 = 1024;
+        v24 = 245;
+        v25 = 2114;
+        v26 = connection;
+        _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v15, 0x3Au);
       }
 
-      v15 = v11;
-      [v11 UTF8String];
+      v14 = connection;
+      [connection UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x19A849FDCLL);
@@ -264,14 +262,8 @@
     *(self + 124) = initialized;
     objc_storeStrong((self + 24), generation);
     objc_storeStrong((self + 32), connection);
-    v10 = *MEMORY[0x1E69E9840];
 
     os_unfair_lock_unlock((self + 120));
-  }
-
-  else
-  {
-    v16 = *MEMORY[0x1E69E9840];
   }
 }
 
@@ -298,35 +290,35 @@
 
 - (void)connection:(uint64_t)connection handleConnection:
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if (self)
   {
     v4 = *(self + 152);
     if (!v4)
     {
-      v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"_queue must be set"];
+      v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"_queue must be set"];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v10 = NSStringFromSelector(sel_connection_handleConnection_);
-        v11 = objc_opt_class();
-        v12 = NSStringFromClass(v11);
+        v9 = NSStringFromSelector(sel_connection_handleConnection_);
+        v10 = objc_opt_class();
+        v11 = NSStringFromClass(v10);
         *buf = 138544642;
-        v16 = v10;
-        v17 = 2114;
-        v18 = v12;
-        v19 = 2048;
+        v15 = v9;
+        v16 = 2114;
+        v17 = v11;
+        v18 = 2048;
         selfCopy = self;
-        v21 = 2114;
-        v22 = @"BSXPCServiceConnectionEventHandler.m";
-        v23 = 1024;
-        v24 = 267;
-        v25 = 2114;
-        v26 = v9;
+        v20 = 2114;
+        v21 = @"BSXPCServiceConnectionEventHandler.m";
+        v22 = 1024;
+        v23 = 267;
+        v24 = 2114;
+        v25 = v8;
         _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      v13 = v9;
-      [v9 UTF8String];
+      v12 = v8;
+      [v8 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x19A84A280);
@@ -343,22 +335,20 @@
       v7 = a2;
     }
 
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __66__BSXPCServiceConnectionEventHandler_connection_handleConnection___block_invoke;
-    v14[3] = &unk_1E75205A8;
-    v14[4] = self;
-    v14[5] = a2;
-    v14[6] = connection;
-    BSXPCServiceConnectionExecuteCallOut(a2, v7, v14);
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __66__BSXPCServiceConnectionEventHandler_connection_handleConnection___block_invoke;
+    v13[3] = &unk_1E75205A8;
+    v13[4] = self;
+    v13[5] = a2;
+    v13[6] = connection;
+    BSXPCServiceConnectionExecuteCallOut(a2, v7, v13);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __66__BSXPCServiceConnectionEventHandler_connection_handleConnection___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (*(*(a1 + 32) + 56))
   {
     if ([*(a1 + 40) _isClientInvalidated])
@@ -366,14 +356,14 @@ void __66__BSXPCServiceConnectionEventHandler_connection_handleConnection___bloc
       v2 = BSServiceXPCLog();
       if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
       {
-        v14 = *(a1 + 40);
-        v15 = 138543362;
-        v16 = v14;
-        _os_log_error_impl(&dword_19A821000, v2, OS_LOG_TYPE_ERROR, "%{public}@ Cancelling incoming connection because the root has already been invalidated", &v15, 0xCu);
+        v13 = *(a1 + 40);
+        v14 = 138543362;
+        v15 = v13;
+        _os_log_error_impl(&dword_19A821000, v2, OS_LOG_TYPE_ERROR, "%{public}@ Cancelling incoming connection because the root has already been invalidated", &v14, 0xCu);
       }
 
       [(BSXPCServiceConnection *)*(a1 + 48) cancel];
-      goto LABEL_15;
+      return;
     }
 
     v5 = *(a1 + 40);
@@ -385,7 +375,7 @@ void __66__BSXPCServiceConnectionEventHandler_connection_handleConnection___bloc
 LABEL_14:
 
       (*(v6 + 16))(v6, v5, v4);
-      goto LABEL_15;
+      return;
     }
 
     if (v5)
@@ -397,9 +387,9 @@ LABEL_14:
         v10 = *(v8 + 1);
 LABEL_13:
         v11 = v10;
-        v15 = 138543362;
-        v16 = v11;
-        _os_log_impl(&dword_19A821000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ [callout] connection:handleConnection:", &v15, 0xCu);
+        v14 = 138543362;
+        v15 = v11;
+        _os_log_impl(&dword_19A821000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ [callout] connection:handleConnection:", &v14, 0xCu);
 
         goto LABEL_14;
       }
@@ -417,48 +407,46 @@ LABEL_13:
   v3 = BSServiceXPCLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v13 = *(a1 + 40);
-    v15 = 138543362;
-    v16 = v13;
-    _os_log_error_impl(&dword_19A821000, v3, OS_LOG_TYPE_ERROR, "%{public}@ Invalidating incoming connection because there is no event handler", &v15, 0xCu);
+    v12 = *(a1 + 40);
+    v14 = 138543362;
+    v15 = v12;
+    _os_log_error_impl(&dword_19A821000, v3, OS_LOG_TYPE_ERROR, "%{public}@ Invalidating incoming connection because there is no event handler", &v14, 0xCu);
   }
 
   [*(a1 + 48) invalidate];
-LABEL_15:
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)connectionHandleNoMoreChildren:(int)children withGeneration:
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   if (self)
   {
     v4 = self[19];
     if (!v4)
     {
-      v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"queue must be set"];
+      v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"queue must be set"];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v10 = NSStringFromSelector(sel_connectionHandleNoMoreChildren_withGeneration_);
-        v11 = objc_opt_class();
-        v12 = NSStringFromClass(v11);
+        v9 = NSStringFromSelector(sel_connectionHandleNoMoreChildren_withGeneration_);
+        v10 = objc_opt_class();
+        v11 = NSStringFromClass(v10);
         *buf = 138544642;
-        v17 = v10;
-        v18 = 2114;
-        v19 = v12;
-        v20 = 2048;
+        v16 = v9;
+        v17 = 2114;
+        v18 = v11;
+        v19 = 2048;
         selfCopy = self;
-        v22 = 2114;
-        v23 = @"BSXPCServiceConnectionEventHandler.m";
-        v24 = 1024;
-        v25 = 290;
-        v26 = 2114;
-        v27 = v9;
+        v21 = 2114;
+        v22 = @"BSXPCServiceConnectionEventHandler.m";
+        v23 = 1024;
+        v24 = 290;
+        v25 = 2114;
+        v26 = v8;
         _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      v13 = v9;
-      [v9 UTF8String];
+      v12 = v8;
+      [v8 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x19A84A688);
@@ -477,23 +465,21 @@ LABEL_15:
         v7 = a2;
       }
 
-      v14[0] = MEMORY[0x1E69E9820];
-      v14[1] = 3221225472;
-      v14[2] = __84__BSXPCServiceConnectionEventHandler_connectionHandleNoMoreChildren_withGeneration___block_invoke;
-      v14[3] = &unk_1E7520A10;
-      v14[4] = a2;
-      v14[5] = self;
+      v13[0] = MEMORY[0x1E69E9820];
+      v13[1] = 3221225472;
+      v13[2] = __84__BSXPCServiceConnectionEventHandler_connectionHandleNoMoreChildren_withGeneration___block_invoke;
+      v13[3] = &unk_1E7520A10;
+      v13[4] = a2;
+      v13[5] = self;
       childrenCopy = children;
-      BSXPCServiceConnectionExecuteCallOut(a2, v7, v14);
+      BSXPCServiceConnectionExecuteCallOut(a2, v7, v13);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __84__BSXPCServiceConnectionEventHandler_connectionHandleNoMoreChildren_withGeneration___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   v2 = *(*(a1 + 40) + 64);
   v3 = *(a1 + 48);
@@ -509,11 +495,11 @@ uint64_t __84__BSXPCServiceConnectionEventHandler_connectionHandleNoMoreChildren
         v7 = *(v5 + 1);
 LABEL_5:
         v8 = v7;
-        v11 = 138543618;
-        v12 = v8;
-        v13 = 1024;
-        v14 = v3;
-        _os_log_impl(&dword_19A821000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ [callout] connectionHandleNoMoreChildren: withGeneration=%u", &v11, 0x12u);
+        v10 = 138543618;
+        v11 = v8;
+        v12 = 1024;
+        v13 = v3;
+        _os_log_impl(&dword_19A821000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ [callout] connectionHandleNoMoreChildren: withGeneration=%u", &v10, 0x12u);
 
         goto LABEL_6;
       }
@@ -530,42 +516,40 @@ LABEL_5:
 
 LABEL_6:
 
-  result = (*(v2 + 16))(v2, v1, v3);
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(v2 + 16))(v2, v1, v3);
 }
 
 - (void)connection:(uint64_t)connection handleMessage:
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if (self)
   {
     v4 = *(self + 152);
     if (!v4)
     {
-      v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"queue must be set"];
+      v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"queue must be set"];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v10 = NSStringFromSelector(sel_connection_handleMessage_);
-        v11 = objc_opt_class();
-        v12 = NSStringFromClass(v11);
+        v9 = NSStringFromSelector(sel_connection_handleMessage_);
+        v10 = objc_opt_class();
+        v11 = NSStringFromClass(v10);
         *buf = 138544642;
-        v16 = v10;
-        v17 = 2114;
-        v18 = v12;
-        v19 = 2048;
+        v15 = v9;
+        v16 = 2114;
+        v17 = v11;
+        v18 = 2048;
         selfCopy = self;
-        v21 = 2114;
-        v22 = @"BSXPCServiceConnectionEventHandler.m";
-        v23 = 1024;
-        v24 = 302;
-        v25 = 2114;
-        v26 = v9;
+        v20 = 2114;
+        v21 = @"BSXPCServiceConnectionEventHandler.m";
+        v22 = 1024;
+        v23 = 302;
+        v24 = 2114;
+        v25 = v8;
         _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      v13 = v9;
-      [v9 UTF8String];
+      v12 = v8;
+      [v8 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x19A84A9A8);
@@ -582,23 +566,21 @@ LABEL_6:
       v7 = a2;
     }
 
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __63__BSXPCServiceConnectionEventHandler_connection_handleMessage___block_invoke;
-    v14[3] = &unk_1E75205F8;
-    v14[4] = a2;
-    v14[5] = connection;
-    v14[6] = self;
-    v14[7] = sel_connection_handleMessage_;
-    BSXPCServiceConnectionExecuteCallOut(a2, v7, v14);
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __63__BSXPCServiceConnectionEventHandler_connection_handleMessage___block_invoke;
+    v13[3] = &unk_1E75205F8;
+    v13[4] = a2;
+    v13[5] = connection;
+    v13[6] = self;
+    v13[7] = sel_connection_handleMessage_;
+    BSXPCServiceConnectionExecuteCallOut(a2, v7, v13);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __63__BSXPCServiceConnectionEventHandler_connection_handleMessage___block_invoke(uint64_t a1)
 {
-  v80 = *MEMORY[0x1E69E9840];
+  v79 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if (v2)
   {
@@ -606,26 +588,26 @@ void __63__BSXPCServiceConnectionEventHandler_connection_handleMessage___block_i
   }
 
   v3 = v2;
-  v57 = v3;
+  v56 = v3;
   if (![*(a1 + 32) _isClientInvalidated])
   {
-    v53 = [(BSXPCServiceConnectionMessage *)*(a1 + 40) _subMessages];
-    v7 = [v53 count];
+    v52 = [(BSXPCServiceConnectionMessage *)*(a1 + 40) _subMessages];
+    v7 = [v52 count];
     if (v7)
     {
       v8 = [*(a1 + 40) createReply];
       v9 = MEMORY[0x1E698E630];
-      v10 = [v53 count];
-      v67[0] = MEMORY[0x1E69E9820];
-      v67[1] = 3221225472;
-      v67[2] = __63__BSXPCServiceConnectionEventHandler_connection_handleMessage___block_invoke_30;
-      v67[3] = &unk_1E75209A0;
+      v10 = [v52 count];
+      v66[0] = MEMORY[0x1E69E9820];
+      v66[1] = 3221225472;
+      v66[2] = __63__BSXPCServiceConnectionEventHandler_connection_handleMessage___block_invoke_30;
+      v66[3] = &unk_1E75209A0;
       v11 = v8;
-      v68 = v11;
-      v69 = v57;
-      log = [v9 sentinelWithSignalCount:v10 signalHandler:v67];
+      v67 = v11;
+      v68 = v56;
+      log = [v9 sentinelWithSignalCount:v10 signalHandler:v66];
 
-      v3 = v57;
+      v3 = v56;
     }
 
     else
@@ -633,24 +615,24 @@ void __63__BSXPCServiceConnectionEventHandler_connection_handleMessage___block_i
       log = 0;
     }
 
-    v65 = 0u;
-    v66 = 0u;
-    v63 = 0u;
     v64 = 0u;
-    if (v53)
+    v65 = 0u;
+    v62 = 0u;
+    v63 = 0u;
+    if (v52)
     {
-      v12 = v53;
+      v12 = v52;
     }
 
     else
     {
-      v78 = *(a1 + 40);
-      v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v78 count:1];
+      v77 = *(a1 + 40);
+      v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v77 count:1];
     }
 
     v13 = v12;
-    v56 = v7;
-    v14 = [v12 countByEnumeratingWithState:&v63 objects:v79 count:16];
+    v55 = v7;
+    v14 = [v12 countByEnumeratingWithState:&v62 objects:v78 count:16];
     if (!v14)
     {
 LABEL_66:
@@ -658,19 +640,19 @@ LABEL_66:
       goto LABEL_67;
     }
 
-    v58 = *v64;
-    v55 = v13;
+    v57 = *v63;
+    v54 = v13;
 LABEL_16:
-    v60 = v14;
+    v59 = v14;
     v15 = 0;
     while (1)
     {
-      if (*v64 != v58)
+      if (*v63 != v57)
       {
         objc_enumerationMutation(v13);
       }
 
-      v16 = *(*(&v63 + 1) + 8 * v15);
+      v16 = *(*(&v62 + 1) + 8 * v15);
       v17 = *(*(a1 + 48) + 72);
       if (!v17)
       {
@@ -695,7 +677,7 @@ LABEL_16:
           if (*(*(a1 + 48) + 48) && v30)
           {
             v32 = objc_autoreleasePoolPush();
-            if (v56)
+            if (v55)
             {
               v33 = BSServiceXPCBatchLog();
               if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
@@ -712,24 +694,24 @@ LABEL_16:
 
                 v47 = v46;
                 *buf = 138412546;
-                v71 = v47;
-                v72 = 2112;
-                v73 = v29;
+                v70 = v47;
+                v71 = 2112;
+                v72 = v29;
                 _os_log_debug_impl(&dword_19A821000, v33, OS_LOG_TYPE_DEBUG, "%@ invoking batched method %@", buf, 0x16u);
               }
             }
 
             v34 = *(*(a1 + 48) + 48);
             v35 = *(a1 + 32);
-            v61[0] = MEMORY[0x1E69E9820];
-            v61[1] = 3221225472;
-            v61[2] = __63__BSXPCServiceConnectionEventHandler_connection_handleMessage___block_invoke_33;
-            v61[3] = &unk_1E75205D0;
-            v62 = log;
-            [BSXPCServiceConnectionProxy invokeMethod:v31 onTarget:v34 withMessage:v16 forConnection:v35 completion:v61];
+            v60[0] = MEMORY[0x1E69E9820];
+            v60[1] = 3221225472;
+            v60[2] = __63__BSXPCServiceConnectionEventHandler_connection_handleMessage___block_invoke_33;
+            v60[3] = &unk_1E75205D0;
+            v61 = log;
+            [BSXPCServiceConnectionProxy invokeMethod:v31 onTarget:v34 withMessage:v16 forConnection:v35 completion:v60];
 
-            v3 = v57;
-            v13 = v55;
+            v3 = v56;
+            v13 = v54;
             objc_autoreleasePoolPop(v32);
           }
 
@@ -753,11 +735,11 @@ LABEL_16:
                 v39 = v38;
                 v40 = [v27 name];
                 *buf = 138543874;
-                v71 = v39;
-                v72 = 2112;
-                v73 = v29;
-                v74 = 2112;
-                v75 = v40;
+                v70 = v39;
+                v71 = 2112;
+                v72 = v29;
+                v73 = 2112;
+                v74 = v40;
                 _os_log_error_impl(&dword_19A821000, v37, OS_LOG_TYPE_ERROR, "%{public}@ Dropping message. No interfaceTarget for @selector(%@) in @protocol(%@).", buf, 0x20u);
               }
             }
@@ -780,18 +762,18 @@ LABEL_16:
                   v48 = 0;
                 }
 
-                v54 = v48;
+                v53 = v48;
                 v49 = [v27 name];
                 v50 = [v37 componentsJoinedByString:@"\n"];
                 *buf = 138544130;
-                v71 = v54;
-                v72 = 2112;
-                v73 = v29;
-                v74 = 2112;
-                v75 = v49;
-                v76 = 2112;
-                v52 = v50;
-                v77 = v50;
+                v70 = v53;
+                v71 = 2112;
+                v72 = v29;
+                v73 = 2112;
+                v74 = v49;
+                v75 = 2112;
+                v51 = v50;
+                v76 = v50;
                 _os_log_error_impl(&dword_19A821000, v42, OS_LOG_TYPE_ERROR, "%{public}@ Dropping message. No method found for @selector(%@) in @protocol(%@)\n{\n%@\n}.", buf, 0x2Au);
               }
             }
@@ -818,16 +800,16 @@ LABEL_16:
             v44 = v43;
             v45 = [v27 name];
             *buf = 138543618;
-            v71 = v44;
-            v72 = 2112;
-            v73 = v45;
+            v70 = v44;
+            v71 = 2112;
+            v72 = v45;
             _os_log_error_impl(&dword_19A821000, v36, OS_LOG_TYPE_ERROR, "%{public}@ Dropping message. Missing selectorName on incoming message in protocol(%@).", buf, 0x16u);
           }
 
           [log signal];
         }
 
-        v24 = v60;
+        v24 = v59;
         goto LABEL_48;
       }
 
@@ -841,12 +823,12 @@ LABEL_16:
 LABEL_25:
 
       (*(v17 + 16))(v17, v18, v16);
-      v24 = v60;
+      v24 = v59;
       [log signal];
 LABEL_48:
       if (v24 == ++v15)
       {
-        v14 = [v13 countByEnumeratingWithState:&v63 objects:v79 count:16];
+        v14 = [v13 countByEnumeratingWithState:&v62 objects:v78 count:16];
         if (!v14)
         {
           goto LABEL_66;
@@ -866,7 +848,7 @@ LABEL_48:
 LABEL_24:
         v23 = v22;
         *buf = 138543362;
-        v71 = v23;
+        v70 = v23;
         _os_log_impl(&dword_19A821000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@ [callout] connection:handleMessage:", buf, 0xCu);
 
         goto LABEL_25;
@@ -898,20 +880,18 @@ LABEL_24:
     v5 = v4;
     v6 = NSStringFromSelector(*(a1 + 56));
     *buf = 138543618;
-    v71 = v5;
-    v72 = 2080;
-    v73 = [v6 UTF8String];
+    v70 = v5;
+    v71 = 2080;
+    v72 = [v6 UTF8String];
     _os_log_error_impl(&dword_19A821000, log, OS_LOG_TYPE_ERROR, "%{public}@ BLOCKING %s BECAUSE THE CLIENT INVALIDATED THE CONNECTION", buf, 0x16u);
   }
 
 LABEL_67:
-
-  v51 = *MEMORY[0x1E69E9840];
 }
 
 void __63__BSXPCServiceConnectionEventHandler_connection_handleMessage___block_invoke_30(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if ([a2 isComplete])
   {
     [*(a1 + 32) send];
@@ -920,21 +900,19 @@ void __63__BSXPCServiceConnectionEventHandler_connection_handleMessage___block_i
       v4 = BSServiceXPCBatchLog();
       if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
-        v6 = *(a1 + 40);
-        if (v6)
+        v5 = *(a1 + 40);
+        if (v5)
         {
-          v6 = v6[1];
+          v5 = v5[1];
         }
 
-        v7 = v6;
-        v8 = 138543362;
-        v9 = v7;
-        _os_log_error_impl(&dword_19A821000, v4, OS_LOG_TYPE_ERROR, "%{public}@ One or more completions for a message batch were not called.", &v8, 0xCu);
+        v6 = v5;
+        v7 = 138543362;
+        v8 = v6;
+        _os_log_error_impl(&dword_19A821000, v4, OS_LOG_TYPE_ERROR, "%{public}@ One or more completions for a message batch were not called.", &v7, 0xCu);
       }
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 id __63__BSXPCServiceConnectionEventHandler_connection_handleMessage___block_invoke_34(uint64_t a1, void *a2)
@@ -957,35 +935,35 @@ id __63__BSXPCServiceConnectionEventHandler_connection_handleMessage___block_inv
 
 - (void)connection:(void *)connection handleError:
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if (self)
   {
     v4 = self[19];
     if (!v4)
     {
-      v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"queue must be set"];
+      v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"queue must be set"];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v10 = NSStringFromSelector(sel_connection_handleError_);
-        v11 = objc_opt_class();
-        v12 = NSStringFromClass(v11);
+        v9 = NSStringFromSelector(sel_connection_handleError_);
+        v10 = objc_opt_class();
+        v11 = NSStringFromClass(v10);
         *buf = 138544642;
-        v16 = v10;
-        v17 = 2114;
-        v18 = v12;
-        v19 = 2048;
+        v15 = v9;
+        v16 = 2114;
+        v17 = v11;
+        v18 = 2048;
         selfCopy = self;
-        v21 = 2114;
-        v22 = @"BSXPCServiceConnectionEventHandler.m";
-        v23 = 1024;
-        v24 = 368;
-        v25 = 2114;
-        v26 = v9;
+        v20 = 2114;
+        v21 = @"BSXPCServiceConnectionEventHandler.m";
+        v22 = 1024;
+        v23 = 368;
+        v24 = 2114;
+        v25 = v8;
         _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      v13 = v9;
-      [v9 UTF8String];
+      v12 = v8;
+      [v8 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x19A84B6E0);
@@ -1009,23 +987,21 @@ id __63__BSXPCServiceConnectionEventHandler_connection_handleMessage___block_inv
         v7 = a2;
       }
 
-      v14[0] = MEMORY[0x1E69E9820];
-      v14[1] = 3221225472;
-      v14[2] = __61__BSXPCServiceConnectionEventHandler_connection_handleError___block_invoke;
-      v14[3] = &unk_1E75205A8;
-      v14[4] = a2;
-      v14[5] = connection;
-      v14[6] = self;
-      BSXPCServiceConnectionExecuteCallOut(a2, v7, v14);
+      v13[0] = MEMORY[0x1E69E9820];
+      v13[1] = 3221225472;
+      v13[2] = __61__BSXPCServiceConnectionEventHandler_connection_handleError___block_invoke;
+      v13[3] = &unk_1E75205A8;
+      v13[4] = a2;
+      v13[5] = connection;
+      v13[6] = self;
+      BSXPCServiceConnectionExecuteCallOut(a2, v7, v13);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __61__BSXPCServiceConnectionEventHandler_connection_handleError___block_invoke(void *a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v1 = a1[4];
   v2 = a1[5];
   v3 = *(a1[6] + 80);
@@ -1041,9 +1017,9 @@ uint64_t __61__BSXPCServiceConnectionEventHandler_connection_handleError___block
         v7 = *(v5 + 1);
 LABEL_5:
         v8 = v7;
-        v11 = 138543362;
-        v12 = v8;
-        _os_log_impl(&dword_19A821000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ [callout] connection:handleError:", &v11, 0xCu);
+        v10 = 138543362;
+        v11 = v8;
+        _os_log_impl(&dword_19A821000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ [callout] connection:handleError:", &v10, 0xCu);
 
         goto LABEL_6;
       }
@@ -1060,42 +1036,40 @@ LABEL_5:
 
 LABEL_6:
 
-  result = (*(v3 + 16))(v3, v1, v2);
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(v3 + 16))(v3, v1, v2);
 }
 
 - (void)connectionActivated:(void *)activated
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   if (activated)
   {
     v3 = activated[19];
     if (!v3)
     {
-      v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"queue must be set"];
+      v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"queue must be set"];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v8 = NSStringFromSelector(sel_connectionActivated_);
-        v9 = objc_opt_class();
-        v10 = NSStringFromClass(v9);
+        v7 = NSStringFromSelector(sel_connectionActivated_);
+        v8 = objc_opt_class();
+        v9 = NSStringFromClass(v8);
         *buf = 138544642;
-        v14 = v8;
-        v15 = 2114;
-        v16 = v10;
-        v17 = 2048;
+        v13 = v7;
+        v14 = 2114;
+        v15 = v9;
+        v16 = 2048;
         activatedCopy = activated;
-        v19 = 2114;
-        v20 = @"BSXPCServiceConnectionEventHandler.m";
-        v21 = 1024;
-        v22 = 383;
-        v23 = 2114;
-        v24 = v7;
+        v18 = 2114;
+        v19 = @"BSXPCServiceConnectionEventHandler.m";
+        v20 = 1024;
+        v21 = 383;
+        v22 = 2114;
+        v23 = v6;
         _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      v11 = v7;
-      [v7 UTF8String];
+      v10 = v6;
+      [v6 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x19A84B9FCLL);
@@ -1114,22 +1088,20 @@ LABEL_6:
         v5 = a2;
       }
 
-      v12[0] = MEMORY[0x1E69E9820];
-      v12[1] = 3221225472;
-      v12[2] = __58__BSXPCServiceConnectionEventHandler_connectionActivated___block_invoke;
-      v12[3] = &unk_1E75209E8;
-      v12[4] = a2;
-      v12[5] = activated;
-      BSXPCServiceConnectionExecuteCallOut(a2, v5, v12);
+      v11[0] = MEMORY[0x1E69E9820];
+      v11[1] = 3221225472;
+      v11[2] = __58__BSXPCServiceConnectionEventHandler_connectionActivated___block_invoke;
+      v11[3] = &unk_1E75209E8;
+      v11[4] = a2;
+      v11[5] = activated;
+      BSXPCServiceConnectionExecuteCallOut(a2, v5, v11);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __58__BSXPCServiceConnectionEventHandler_connectionActivated___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   v2 = *(*(a1 + 40) + 88);
   v3 = BSServiceXPCLog();
@@ -1144,9 +1116,9 @@ uint64_t __58__BSXPCServiceConnectionEventHandler_connectionActivated___block_in
         v6 = *(v4 + 1);
 LABEL_5:
         v7 = v6;
-        v10 = 138543362;
-        v11 = v7;
-        _os_log_impl(&dword_19A821000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ [callout] connectionActivated:", &v10, 0xCu);
+        v9 = 138543362;
+        v10 = v7;
+        _os_log_impl(&dword_19A821000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ [callout] connectionActivated:", &v9, 0xCu);
 
         goto LABEL_6;
       }
@@ -1163,42 +1135,40 @@ LABEL_5:
 
 LABEL_6:
 
-  result = (*(v2 + 16))(v2, v1);
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(v2 + 16))(v2, v1);
 }
 
 - (void)connectionInterruptedFromXPCError:(void *)error
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   if (error)
   {
     v3 = error[19];
     if (!v3)
     {
-      v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"queue must be set"];
+      v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"queue must be set"];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v8 = NSStringFromSelector(sel_connectionInterruptedFromXPCError_);
-        v9 = objc_opt_class();
-        v10 = NSStringFromClass(v9);
+        v7 = NSStringFromSelector(sel_connectionInterruptedFromXPCError_);
+        v8 = objc_opt_class();
+        v9 = NSStringFromClass(v8);
         *buf = 138544642;
-        v14 = v8;
-        v15 = 2114;
-        v16 = v10;
-        v17 = 2048;
+        v13 = v7;
+        v14 = 2114;
+        v15 = v9;
+        v16 = 2048;
         errorCopy = error;
-        v19 = 2114;
-        v20 = @"BSXPCServiceConnectionEventHandler.m";
-        v21 = 1024;
-        v22 = 395;
-        v23 = 2114;
-        v24 = v7;
+        v18 = 2114;
+        v19 = @"BSXPCServiceConnectionEventHandler.m";
+        v20 = 1024;
+        v21 = 395;
+        v22 = 2114;
+        v23 = v6;
         _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      v11 = v7;
-      [v7 UTF8String];
+      v10 = v6;
+      [v6 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x19A84BD18);
@@ -1218,22 +1188,20 @@ LABEL_6:
         v5 = a2;
       }
 
-      v12[0] = MEMORY[0x1E69E9820];
-      v12[1] = 3221225472;
-      v12[2] = __72__BSXPCServiceConnectionEventHandler_connectionInterruptedFromXPCError___block_invoke;
-      v12[3] = &unk_1E75209E8;
-      v12[4] = a2;
-      v12[5] = error;
-      BSXPCServiceConnectionExecuteCallOut(a2, v5, v12);
+      v11[0] = MEMORY[0x1E69E9820];
+      v11[1] = 3221225472;
+      v11[2] = __72__BSXPCServiceConnectionEventHandler_connectionInterruptedFromXPCError___block_invoke;
+      v11[3] = &unk_1E75209E8;
+      v11[4] = a2;
+      v11[5] = error;
+      BSXPCServiceConnectionExecuteCallOut(a2, v5, v11);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __72__BSXPCServiceConnectionEventHandler_connectionInterruptedFromXPCError___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   v2 = *(*(a1 + 40) + 96);
   v3 = BSServiceXPCLog();
@@ -1248,9 +1216,9 @@ uint64_t __72__BSXPCServiceConnectionEventHandler_connectionInterruptedFromXPCEr
         v6 = *(v4 + 1);
 LABEL_5:
         v7 = v6;
-        v10 = 138543362;
-        v11 = v7;
-        _os_log_impl(&dword_19A821000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ [callout] connectionInterrupted:", &v10, 0xCu);
+        v9 = 138543362;
+        v10 = v7;
+        _os_log_impl(&dword_19A821000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ [callout] connectionInterrupted:", &v9, 0xCu);
 
         goto LABEL_6;
       }
@@ -1267,42 +1235,40 @@ LABEL_5:
 
 LABEL_6:
 
-  result = (*(v2 + 16))(v2, v1);
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(v2 + 16))(v2, v1);
 }
 
 - (void)_connectionInvalidated:(void *)invalidated
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   if (invalidated)
   {
     v3 = invalidated[19];
     if (!v3)
     {
-      v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"queue must be set"];
+      v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"queue must be set"];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v16 = NSStringFromSelector(sel__connectionInvalidated_);
-        v17 = objc_opt_class();
-        v18 = NSStringFromClass(v17);
+        v15 = NSStringFromSelector(sel__connectionInvalidated_);
+        v16 = objc_opt_class();
+        v17 = NSStringFromClass(v16);
         *buf = 138544642;
-        v22 = v16;
-        v23 = 2114;
-        v24 = v18;
-        v25 = 2048;
+        v21 = v15;
+        v22 = 2114;
+        v23 = v17;
+        v24 = 2048;
         invalidatedCopy = invalidated;
-        v27 = 2114;
-        v28 = @"BSXPCServiceConnectionEventHandler.m";
-        v29 = 1024;
-        v30 = 425;
-        v31 = 2114;
-        v32 = v15;
+        v26 = 2114;
+        v27 = @"BSXPCServiceConnectionEventHandler.m";
+        v28 = 1024;
+        v29 = 425;
+        v30 = 2114;
+        v31 = v14;
         _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      v19 = v15;
-      [v15 UTF8String];
+      v18 = v14;
+      [v14 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x19A84C08CLL);
@@ -1321,13 +1287,13 @@ LABEL_6:
         v5 = a2;
       }
 
-      v20[0] = MEMORY[0x1E69E9820];
-      v20[1] = 3221225472;
-      v20[2] = __61__BSXPCServiceConnectionEventHandler__connectionInvalidated___block_invoke;
-      v20[3] = &unk_1E75209E8;
-      v20[4] = a2;
-      v20[5] = invalidated;
-      BSXPCServiceConnectionExecuteCallOut(a2, v5, v20);
+      v19[0] = MEMORY[0x1E69E9820];
+      v19[1] = 3221225472;
+      v19[2] = __61__BSXPCServiceConnectionEventHandler__connectionInvalidated___block_invoke;
+      v19[3] = &unk_1E75209E8;
+      v19[4] = a2;
+      v19[5] = invalidated;
+      BSXPCServiceConnectionExecuteCallOut(a2, v5, v19);
     }
 
     v6 = invalidated[9];
@@ -1354,54 +1320,48 @@ LABEL_6:
     v13 = invalidated[14];
     invalidated[14] = 0;
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __61__BSXPCServiceConnectionEventHandler__connectionInvalidated___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = *(*(a1 + 40) + 104);
   v4 = BSServiceXPCLog();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  if (!os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    if (v2)
-    {
-      v5 = *(v2 + 192);
-      v6 = v5;
-      if (v5)
-      {
-        v7 = *(v5 + 1);
-LABEL_5:
-        v8 = v7;
-        v11 = 138543362;
-        v12 = v8;
-        _os_log_impl(&dword_19A821000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ [callout] connectionInvalidated:", &v11, 0xCu);
+    goto LABEL_6;
+  }
 
-        goto LABEL_6;
-      }
-    }
+  if (!v2)
+  {
+    v6 = 0;
+    goto LABEL_10;
+  }
 
-    else
-    {
-      v6 = 0;
-    }
-
+  v5 = *(v2 + 192);
+  v6 = v5;
+  if (!v5)
+  {
+LABEL_10:
     v7 = 0;
     goto LABEL_5;
   }
 
-LABEL_6:
+  v7 = *(v5 + 1);
+LABEL_5:
+  v8 = v7;
+  v10 = 138543362;
+  v11 = v8;
+  _os_log_impl(&dword_19A821000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ [callout] connectionInvalidated:", &v10, 0xCu);
 
+LABEL_6:
   (*(v3 + 16))(v3, v2);
   v9 = *(a1 + 32);
   if (v9)
   {
     [(BSXPCServiceConnection *)v9 _clientInvalidateWithType:?];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setInitiatingContext:(uint64_t)context

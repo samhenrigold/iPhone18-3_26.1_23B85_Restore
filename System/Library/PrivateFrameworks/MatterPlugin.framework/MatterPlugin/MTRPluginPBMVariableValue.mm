@@ -504,19 +504,18 @@ LABEL_7:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v9 = toCopy;
+  v6 = toCopy;
   if (self->_stringValue)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 2) != 0)
   {
-    integerValue = self->_integerValue;
     PBDataWriterWriteInt64Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 4) == 0)
     {
@@ -535,88 +534,86 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  unsignedIntegerValue = self->_unsignedIntegerValue;
   PBDataWriterWriteUint64Field();
-  toCopy = v9;
+  toCopy = v6;
   if (*&self->_has)
   {
 LABEL_6:
-    doubleValue = self->_doubleValue;
     PBDataWriterWriteDoubleField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_7:
   if (self->_dataValue)
   {
     PBDataWriterWriteDataField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_uuidValue)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_dateValue)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_urlValue)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_arrayValue)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_setValue)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_dictionaryValue)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_errorValue)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_clusterPathValue)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_attributePathValue)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_commandPathValue)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_eventPathValue)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 }
 
@@ -847,7 +844,6 @@ LABEL_5:
     }
   }
 
-  v6 = *(equalCopy + 136);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 136) & 2) == 0 || self->_integerValue != *(equalCopy + 2))
@@ -859,7 +855,7 @@ LABEL_5:
   else if ((*(equalCopy + 136) & 2) != 0)
   {
 LABEL_43:
-    v19 = 0;
+    v18 = 0;
     goto LABEL_44;
   }
 
@@ -988,17 +984,17 @@ LABEL_43:
   eventPathValue = self->_eventPathValue;
   if (eventPathValue | *(equalCopy + 12))
   {
-    v19 = [(MTRPluginPBMEventPath *)eventPathValue isEqual:?];
+    v18 = [(MTRPluginPBMEventPath *)eventPathValue isEqual:?];
   }
 
   else
   {
-    v19 = 1;
+    v18 = 1;
   }
 
 LABEL_44:
 
-  return v19;
+  return v18;
 }
 
 - (unint64_t)hash

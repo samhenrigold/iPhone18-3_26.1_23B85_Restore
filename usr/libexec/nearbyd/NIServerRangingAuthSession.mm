@@ -40,7 +40,7 @@
 
     if (managerCopy)
     {
-      [managerCopy protobufLogger];
+      objc_msgSend_protobufLogger(managerCopy);
       v17 = v21;
     }
 

@@ -6,7 +6,7 @@
 
 - (void)startTitleTransitionAnimated:(BOOL)animated heightDifference:(id)difference
 {
-  v42[1] = *MEMORY[0x1E69E9840];
+  v41[1] = *MEMORY[0x1E69E9840];
   differenceCopy = difference;
   headerView = [(OBWelcomeController *)self headerView];
   headerLabel = [headerView headerLabel];
@@ -53,20 +53,20 @@
 
   headerView9 = [(OBWelcomeController *)self headerView];
   headerLabel3 = [headerView9 headerLabel];
-  v42[0] = headerLabel3;
-  v35 = [MEMORY[0x1E695DEC8] arrayWithObjects:v42 count:1];
+  v41[0] = headerLabel3;
+  v35 = [MEMORY[0x1E695DEC8] arrayWithObjects:v41 count:1];
 
   if (v30)
   {
     headerView10 = [(OBWelcomeController *)self headerView];
-    v41 = headerView10;
-    v37 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v41 count:1];
+    v40 = headerView10;
+    v37 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v40 count:1];
 
     if ([(OBTouchIDEnrollmentWelcomeController *)self shouldAnimateEntireView])
     {
       view = [(OBTouchIDEnrollmentWelcomeController *)self view];
-      v40 = view;
-      v35 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v40 count:1];
+      v39 = view;
+      v35 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v39 count:1];
     }
 
     else
@@ -76,8 +76,6 @@
   }
 
   [(OBWelcomeController *)self _animatePushTransitionForViews:v35 transitionSubtype:0];
-
-  v39 = *MEMORY[0x1E69E9840];
 }
 
 @end

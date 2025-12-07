@@ -75,7 +75,7 @@
   if (dismissalTransitionModifier && [(SBChainableModifier *)dismissalTransitionModifier state]== 1)
   {
     v7 = objc_alloc_init(SBInvalidateAdjustedAppLayoutsSwitcherEventResponse);
-    v8 = SBAppendSwitcherModifierResponse(v7, v5);
+    v8 = SBAppendSwitcherModifierResponse();
 
     [(SBContinuousExposePeekSwitcherModifier *)self setState:1];
     v5 = v8;
@@ -122,7 +122,7 @@
       if (!((phase != 3) | (isAnimated | IsValid) & 1))
       {
         v19 = objc_alloc_init(SBInvalidateAdjustedAppLayoutsSwitcherEventResponse);
-        v20 = SBAppendSwitcherModifierResponse(v19, v5);
+        v20 = SBAppendSwitcherModifierResponse();
 
         [(SBContinuousExposePeekSwitcherModifier *)self setState:1];
         v5 = v20;
@@ -153,7 +153,7 @@
   if (!((phase != 2) & isAnimated | (v11 | v9) & 1))
   {
     v21 = objc_alloc_init(SBInvalidateAdjustedAppLayoutsSwitcherEventResponse);
-    v22 = SBAppendSwitcherModifierResponse(v21, v5);
+    v22 = SBAppendSwitcherModifierResponse();
 
     v5 = v22;
   }
@@ -174,8 +174,7 @@
     if (!v6)
     {
       v6 = objc_alloc_init(SBScrollingSwitcherModifier);
-      [(SBChainableModifier *)self addChildModifier:v6 atLevel:0 key:@"UserScrollingModifier"];
-      v7 = SBLogAppSwitcher();
+      v7 = SBLogAppSwitcher([(SBChainableModifier *)self addChildModifier:v6 atLevel:0 key:@"UserScrollingModifier"]);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
         v8 = objc_opt_class();

@@ -61,7 +61,7 @@ uint64_t __36__RMXPCNotifications_sharedNotifier__block_invoke()
 
 - (void)registerForEvents:(id)events
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   eventsCopy = events;
   if ([(RMXPCNotifications *)self registered])
   {
@@ -76,27 +76,27 @@ uint64_t __36__RMXPCNotifications_sharedNotifier__block_invoke()
   {
     [(RMXPCNotifications *)self setRegistered:1];
     v5 = objc_opt_new();
+    v12 = 0u;
     v13 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
     v6 = eventsCopy;
-    v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v14;
+      v9 = *v13;
       do
       {
         v10 = 0;
         do
         {
-          if (*v14 != v9)
+          if (*v13 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          streamName = [*(*(&v13 + 1) + 8 * v10) streamName];
+          streamName = [*(*(&v12 + 1) + 8 * v10) streamName];
           if (([v5 containsObject:streamName]& 1) == 0)
           {
             [(RMXPCNotifications *)self _setupEventStreamHandlerForStream:streamName];
@@ -107,14 +107,12 @@ uint64_t __36__RMXPCNotifications_sharedNotifier__block_invoke()
         }
 
         while (v8 != v10);
-        v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v8);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)hasObserverForEvent:(id)event
@@ -389,70 +387,20 @@ void __72__RMXPCNotifications__didReceiveNotificationForStream_notificationName_
 
 void __51__RMXPCNotifications_addObserverForEvent_observer___block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_1E1168000, v0, OS_LOG_TYPE_ERROR, "Only one observer can be registered for notification: %{public}@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
-}
-
-void __51__RMXPCNotifications_addObserverForEvent_observer___block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_2(&dword_1E1168000, v0, v1, "Adding observer for notification: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __45__RMXPCNotifications_removeObserverForEvent___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_2(&dword_1E1168000, v0, v1, "Removing observer for notification: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __45__RMXPCNotifications_removeObserverForEvent___block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_2(&dword_1E1168000, v0, v1, "No observer registered for notification: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_setupEventStreamHandlerForStream:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_2(&dword_1E1168000, v0, v1, "Adding handler for stream: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1E1168000, v0, OS_LOG_TYPE_ERROR, "Only one observer can be registered for notification: %{public}@", v1, 0xCu);
 }
 
 void __56__RMXPCNotifications__setupEventStreamHandlerForStream___block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
-  v5 = 138543618;
-  v6 = v3;
-  v7 = 2114;
-  v8 = a2;
-  _os_log_debug_impl(&dword_1E1168000, log, OS_LOG_TYPE_DEBUG, "Received XPC event stream: %{public}@, event name: %{public}@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
-}
-
-void __72__RMXPCNotifications__didReceiveNotificationForStream_notificationName___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_2(&dword_1E1168000, v0, v1, "Dispatching notification to observer: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __72__RMXPCNotifications__didReceiveNotificationForStream_notificationName___block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_2(&dword_1E1168000, v0, v1, "Notification has no observer: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  v4 = 138543618;
+  v5 = v3;
+  v6 = 2114;
+  v7 = a2;
+  _os_log_debug_impl(&dword_1E1168000, log, OS_LOG_TYPE_DEBUG, "Received XPC event stream: %{public}@, event name: %{public}@", &v4, 0x16u);
 }
 
 @end

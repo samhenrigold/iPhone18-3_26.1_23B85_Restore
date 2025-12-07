@@ -17,7 +17,7 @@
 
 + (id)foreignKeys
 {
-  sub_2289BF380();
+  sub_2289BF380(0);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_229163C40;
   *(inited + 32) = 0xD000000000000015;

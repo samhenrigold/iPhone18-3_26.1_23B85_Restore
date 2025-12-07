@@ -10,6 +10,9 @@
 - (id)_localItemByFileID:(unint64_t)d zoneInjectionCondition:(id)condition itemBuilder:(id)builder;
 - (id)allItemsSortedByDepthDescendingInZoneRowID:(id)d descending:(BOOL)descending isSharedZone:(BOOL)zone parentItemID:(id)iD itemBuilder:(id)builder;
 - (id)clientChildCountWithParentID:(id)d zoneRowID:(id)iD;
+- (id)clientStateDictionaryWithSilent:(BOOL)silent;
+- (id)documentItemByDocumentID:(unsigned int)d itemBuilder:(id)builder;
+- (id)enumerateChildrenOfItemGlobalID:(id)d itemBuilder:(id)builder sortOrder:(unsigned __int8)order offset:(unint64_t)offset limit:(unint64_t)limit;
 - (id)enumerateUserVisibleChildrenDirectoriesOfItemGlobalID:(id)d itemBuilder:(id)builder;
 - (id)fetchAppLibraryPlist:(id)plist;
 - (id)getAssetRanksForFileItemsInPackage:(id)package;
@@ -39,6 +42,15 @@
   return [(BRCDatabaseFacade *)&v5 _initWithDB:b workloop:workloop];
 }
 
+- (id)clientStateDictionaryWithSilent:(BOOL)silent
+{
+  v5 = 0;
+  [(BRCClientDatabaseFacade *)self clientStateData:0 clientStateDictionary:&v5 silent:silent];
+  v3 = v5;
+
+  return v3;
+}
+
 - (BOOL)clientStateData:(id *)data clientStateDictionary:(id *)dictionary silent:(BOOL)silent
 {
   v9 = [(BRCPQLConnection *)self->super._db fetch:@"SELECT * FROM client_state"];
@@ -49,14 +61,13 @@
       abc_report_panic_with_signature();
       v19 = MEMORY[0x277CCACA8];
       lastError = [(BRCPQLConnection *)self->super._db lastError];
-      [v19 stringWithFormat:@"there should always be one row in client_state {%@}", lastError];
-      objc_claimAutoreleasedReturnValue();
+      v21 = [v19 stringWithFormat:@"there should always be one row in client_state {%@}", lastError];
 
-      v21 = brc_bread_crumbs();
-      v22 = brc_default_log();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
+      v22 = brc_bread_crumbs();
+      v23 = brc_default_log();
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
       {
-        [BRCClientDatabaseFacade clientStateData:clientStateDictionary:silent:];
+        [BRCClientDatabaseFacade clientStateData:v21 clientStateDictionary:? silent:?];
       }
 
       brc_append_system_info_to_message();
@@ -99,22 +110,21 @@ LABEL_8:
   {
     v14 = MEMORY[0x277CCAAC8];
     v15 = +[BRCClientState allowedClasses];
-    v27 = 0;
-    v16 = [v14 unarchivedObjectOfClasses:v15 fromData:v10 error:&v27];
-    v17 = v27;
+    v29 = 0;
+    v16 = [v14 unarchivedObjectOfClasses:v15 fromData:v10 error:&v29];
+    v17 = v29;
     v18 = v16;
     *dictionary = v16;
 
     if (v17)
     {
       abc_report_panic_with_signature();
-      [MEMORY[0x277CCACA8] stringWithFormat:@"Error while unarchiving client state %@", v17];
-      objc_claimAutoreleasedReturnValue();
-      v24 = brc_bread_crumbs();
-      v25 = brc_default_log();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
+      v25 = [MEMORY[0x277CCACA8] stringWithFormat:@"Error while unarchiving client state %@", v17];
+      v26 = brc_bread_crumbs();
+      v27 = brc_default_log();
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
       {
-        [BRCClientDatabaseFacade clientStateData:clientStateDictionary:silent:];
+        [BRCClientDatabaseFacade clientStateData:v25 clientStateDictionary:? silent:?];
       }
 
       brc_append_system_info_to_message();
@@ -132,6 +142,22 @@ LABEL_8:
 LABEL_9:
 
   return 1;
+}
+
+- (id)documentItemByDocumentID:(unsigned int)d itemBuilder:(id)builder
+{
+  v4 = *&d;
+  builderCopy = builder;
+  db = self->super._db;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __64__BRCClientDatabaseFacade_documentItemByDocumentID_itemBuilder___block_invoke;
+  v11[3] = &unk_2784FF910;
+  v12 = builderCopy;
+  v8 = builderCopy;
+  v9 = [(BRCPQLConnection *)db fetchObject:v11 sql:@"SELECT rowid, zone_rowid, item_id, item_creator_id, item_sharing_options, item_side_car_ckinfo, item_parent_zone_rowid, item_localsyncupstate, item_local_diffs, item_notifs_rank, app_library_rowid, item_min_supported_os_rowid, item_user_visible, item_stat_ckinfo, item_state, item_type, item_mode, item_birthtime, item_lastusedtime, item_favoriterank, item_parent_id, item_filename, item_hidden_ext, item_finder_tags, item_xattr_signature, item_trash_put_back_path, item_trash_put_back_parent_id, item_alias_target, item_creator, item_processing_stamp, item_bouncedname, item_scope, item_local_change_count, item_old_version_identifier, fp_creation_item_identifier, version_name, version_ckinfo, version_mtime, version_size, version_thumb_size, version_thumb_signature, version_content_signature, version_xattr_signature, version_edited_since_shared, version_device, version_conflict_loser_etags, version_quarantine_info, version_uploaded_assets, version_upload_error, version_old_zone_item_id, version_old_zone_rowid, version_local_change_count, version_old_version_identifier, item_live_conflict_loser_etags, item_file_id, item_generation FROM client_items WHERE item_doc_id = %u   AND +item_state = 0   AND +item_type IN (1, 2, 8, 6, 7)", v4];
+
+  return v9;
 }
 
 id __64__BRCClientDatabaseFacade_documentItemByDocumentID_itemBuilder___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -187,20 +213,20 @@ id __81__BRCClientDatabaseFacade__localItemByFileID_zoneInjectionCondition_itemB
 {
   plist = [(BRCPQLConnection *)self->super._db fetch:@"SELECT app_library_plist FROM app_libraries WHERE app_library_name = %@", plist];
   error = [plist error];
-  if (error || ![plist next])
+  if (error || (v5 = [plist next], !v5))
   {
-    v6 = 0;
+    v7 = 0;
   }
 
   else
   {
-    v5 = _BRCClassesForContainerState();
-    v6 = [plist unarchivedObjectOfClasses:v5 atIndex:0];
+    v6 = _BRCClassesForContainerState(v5);
+    v7 = [plist unarchivedObjectOfClasses:v6 atIndex:0];
 
     [plist close];
   }
 
-  return v6;
+  return v7;
 }
 
 - (char)itemTypeByItemID:(id)d zoneRowID:(id)iD
@@ -222,7 +248,7 @@ id __81__BRCClientDatabaseFacade__localItemByFileID_zoneInjectionCondition_itemB
 
 - (unint64_t)inFlightSyncUpDiffsForItem:(id)item zoneRowID:(id)d
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   dCopy = d;
   v7 = itemCopy;
@@ -237,30 +263,30 @@ id __81__BRCClientDatabaseFacade__localItemByFileID_zoneInjectionCondition_itemB
   v11 = [v9 fetch:{@"SELECT in_flight_diffs FROM client_sync_up WHERE %@ AND throttle_state != 0", matchingJobsWhereSQLClause}];
   v12 = [v11 enumerateObjectsOfClass:objc_opt_class()];
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v13 = v12;
-  v14 = [v13 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v14)
   {
     v15 = v14;
     v16 = 0;
-    v17 = *v22;
+    v17 = *v21;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v22 != v17)
+        if (*v21 != v17)
         {
           objc_enumerationMutation(v13);
         }
 
-        v16 |= [*(*(&v21 + 1) + 8 * i) unsignedLongLongValue];
+        v16 |= [*(*(&v20 + 1) + 8 * i) unsignedLongLongValue];
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v15);
@@ -271,7 +297,6 @@ id __81__BRCClientDatabaseFacade__localItemByFileID_zoneInjectionCondition_itemB
     v16 = 0;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -374,7 +399,7 @@ id __63__BRCClientDatabaseFacade_localItemByItemGlobalID_itemBuilder___block_inv
 
 - (id)itemByParentID:(id)d andLogicalName:(id)name excludingItemID:(id)iD zoneRowID:(id)rowID itemBuilder:(id)builder
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   dCopy = d;
   nameCopy = name;
   iDCopy = iD;
@@ -394,26 +419,26 @@ id __63__BRCClientDatabaseFacade_localItemByItemGlobalID_itemBuilder___block_inv
   v19 = [(BRCPQLConnection *)v17 fetchWithExpectedIndex:@"client_items/item_filename_path;client_items/item_parent_id__item_bouncedname" sql:@"SELECT rowid, zone_rowid, item_id, item_creator_id, item_sharing_options, item_side_car_ckinfo, item_parent_zone_rowid, item_localsyncupstate, item_local_diffs, item_notifs_rank, app_library_rowid, item_min_supported_os_rowid, item_user_visible, item_stat_ckinfo, item_state, item_type, item_mode, item_birthtime, item_lastusedtime, item_favoriterank, item_parent_id, item_filename, item_hidden_ext, item_finder_tags, item_xattr_signature, item_trash_put_back_path, item_trash_put_back_parent_id, item_alias_target, item_creator, item_processing_stamp, item_bouncedname, item_scope, item_local_change_count, item_old_version_identifier, fp_creation_item_identifier, version_name, version_ckinfo, version_mtime, version_size, version_thumb_size, version_thumb_signature, version_content_signature, version_xattr_signature, version_edited_since_shared, version_device, version_conflict_loser_etags, version_quarantine_info, version_uploaded_assets, version_upload_error, version_old_zone_item_id, version_old_zone_rowid, version_local_change_count, version_old_version_identifier, item_live_conflict_loser_etags, item_file_id, item_generation FROM client_items WHERE ((item_parent_id = %@ AND item_parent_zone_rowid = %@ AND item_filename = %@ AND item_bouncedname IS NULL) OR (item_parent_id = %@ AND item_parent_zone_rowid = %@ AND item_bouncedname = %@)) %@", dCopy, rowIDCopy, nameCopy, dCopy, rowIDCopy, nameCopy, v18];
   if ([v19 next])
   {
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __95__BRCClientDatabaseFacade_itemByParentID_andLogicalName_excludingItemID_zoneRowID_itemBuilder___block_invoke;
-    v27[3] = &unk_2784FF910;
-    v28 = builderCopy;
-    v20 = [v19 object:v27];
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __95__BRCClientDatabaseFacade_itemByParentID_andLogicalName_excludingItemID_zoneRowID_itemBuilder___block_invoke;
+    v26[3] = &unk_2784FF910;
+    v27 = builderCopy;
+    v20 = [v19 object:v26];
     if ([v19 next])
     {
-      v26 = brc_bread_crumbs();
+      v25 = brc_bread_crumbs();
       v21 = brc_default_log();
       if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
       {
         *buf = 138413058;
-        v30 = dCopy;
-        v31 = 2112;
-        v32 = nameCopy;
-        v33 = 2112;
-        v34 = rowIDCopy;
-        v35 = 2112;
-        v36 = v26;
+        v29 = dCopy;
+        v30 = 2112;
+        v31 = nameCopy;
+        v32 = 2112;
+        v33 = rowIDCopy;
+        v34 = 2112;
+        v35 = v25;
         _os_log_fault_impl(&dword_223E7A000, v21, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: there should never be more than one match for that query (parentID: %@, name: %@, parentZoneID: %@)%@", buf, 0x2Au);
       }
     }
@@ -429,8 +454,6 @@ id __63__BRCClientDatabaseFacade_localItemByItemGlobalID_itemBuilder___block_inv
 
     v22 = 0;
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v22;
 }
@@ -537,7 +560,7 @@ id __95__BRCClientDatabaseFacade_itemByParentID_andLogicalName_excludingItemID_z
 
 - (void)enumerateItemsWithShareIDUnderParent:(id)parent block:(id)block
 {
-  v38[2] = *MEMORY[0x277D85DE8];
+  v37[2] = *MEMORY[0x277D85DE8];
   parentCopy = parent;
   blockCopy = block;
   v8 = [BRCUserDefaults defaultsForMangledID:0];
@@ -545,11 +568,11 @@ id __95__BRCClientDatabaseFacade_itemByParentID_andLogicalName_excludingItemID_z
 
   v10 = [BRCPQLInjectionEnumerationUnderParentWhereClause alloc];
   itemGlobalID = [parentCopy itemGlobalID];
-  v31 = parentCopy;
+  v30 = parentCopy;
   v12 = -[BRCPQLInjectionEnumerationUnderParentWhereClause initWithParentGlobalID:isZoneRoot:](v10, "initWithParentGlobalID:isZoneRoot:", itemGlobalID, [parentCopy isZoneRoot]);
 
-  v36 = 0;
-  v30 = v12;
+  v35 = 0;
+  v29 = v12;
   v13 = [(BRCPQLConnection *)self->super._db fetch:@"WITH RECURSIVE item_children_with_shared_items (item_id, zone_rowid, shared_items_count) AS(    SELECT item_id, zone_rowid, (shared_by_me_count | shared_to_me_count) FROM item_recursive_properties      WHERE %@ AND (shared_by_me_count | shared_to_me_count) != 0  UNION ALL     SELECT ip.item_id, ip.zone_rowid, (ip.shared_by_me_count | ip.shared_to_me_count) FROM item_recursive_properties AS ip INNER JOIN item_children_with_shared_items AS p WHERE ip.item_parent_id = p.item_id AND ip.item_parent_zone_rowid = p.zone_rowid AND (ip.shared_by_me_count | ip.shared_to_me_count) != 0      LIMIT %llu) SELECT ic.item_id, ic.zone_rowid, li.item_sharing_options FROM item_children_with_shared_items AS ic INNER JOIN client_items AS li WHERE ic.shared_items_count = 1 AND li.item_id = ic.item_id AND li.zone_rowid = ic.zone_rowid AND (li.item_sharing_options & 4) != 0", v12, maxFolderEnumerationCount];
   v14 = objc_alloc_init(MEMORY[0x277CBEB18]);
   if ([v13 next])
@@ -560,48 +583,48 @@ id __95__BRCClientDatabaseFacade_itemByParentID_andLogicalName_excludingItemID_z
       v16 = [v13 objectOfClass:objc_opt_class() atIndex:1];
       v17 = [v13 intAtIndex:2];
       v18 = [[BRCItemGlobalID alloc] initWithZoneRowID:v16 itemID:v15];
-      v38[0] = v18;
+      v37[0] = v18;
       v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v17];
-      v38[1] = v19;
-      v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:2];
+      v37[1] = v19;
+      v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:2];
       [v14 addObject:v20];
     }
 
     while (([v13 next] & 1) != 0);
   }
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   v21 = v14;
-  v22 = [v21 countByEnumeratingWithState:&v32 objects:v37 count:16];
+  v22 = [v21 countByEnumeratingWithState:&v31 objects:v36 count:16];
   if (v22)
   {
     v23 = v22;
-    v24 = *v33;
+    v24 = *v32;
 LABEL_5:
     v25 = 0;
     while (1)
     {
-      if (*v33 != v24)
+      if (*v32 != v24)
       {
         objc_enumerationMutation(v21);
       }
 
-      if (v36)
+      if (v35)
       {
         break;
       }
 
-      v26 = *(*(&v32 + 1) + 8 * v25);
+      v26 = *(*(&v31 + 1) + 8 * v25);
       v27 = [v26 objectAtIndex:0];
       v28 = [v26 objectAtIndex:1];
-      blockCopy[2](blockCopy, v27, [v28 unsignedLongValue], &v36);
+      blockCopy[2](blockCopy, v27, [v28 unsignedLongValue], &v35);
 
       if (v23 == ++v25)
       {
-        v23 = [v21 countByEnumeratingWithState:&v32 objects:v37 count:16];
+        v23 = [v21 countByEnumeratingWithState:&v31 objects:v36 count:16];
         if (v23)
         {
           goto LABEL_5;
@@ -611,8 +634,28 @@ LABEL_5:
       }
     }
   }
+}
 
-  v29 = *MEMORY[0x277D85DE8];
+- (id)enumerateChildrenOfItemGlobalID:(id)d itemBuilder:(id)builder sortOrder:(unsigned __int8)order offset:(unint64_t)offset limit:(unint64_t)limit
+{
+  orderCopy = order;
+  builderCopy = builder;
+  dCopy = d;
+  v14 = [[BRCPQLInjectionChildrenEnumerationSortOrder alloc] initWithSortOrder:orderCopy];
+  db = self->super._db;
+  itemID = [dCopy itemID];
+  zoneRowID = [dCopy zoneRowID];
+
+  offset = [(BRCPQLConnection *)db fetch:@"SELECT rowid, zone_rowid, item_id, item_creator_id, item_sharing_options, item_side_car_ckinfo, item_parent_zone_rowid, item_localsyncupstate, item_local_diffs, item_notifs_rank, app_library_rowid, item_min_supported_os_rowid, item_user_visible, item_stat_ckinfo, item_state, item_type, item_mode, item_birthtime, item_lastusedtime, item_favoriterank, item_parent_id, item_filename, item_hidden_ext, item_finder_tags, item_xattr_signature, item_trash_put_back_path, item_trash_put_back_parent_id, item_alias_target, item_creator, item_processing_stamp, item_bouncedname, item_scope, item_local_change_count, item_old_version_identifier, fp_creation_item_identifier, version_name, version_ckinfo, version_mtime, version_size, version_thumb_size, version_thumb_signature, version_content_signature, version_xattr_signature, version_edited_since_shared, version_device, version_conflict_loser_etags, version_quarantine_info, version_uploaded_assets, version_upload_error, version_old_zone_item_id, version_old_zone_rowid, version_local_change_count, version_old_version_identifier, item_live_conflict_loser_etags, item_file_id, item_generation    FROM client_items   WHERE item_parent_id = %@      AND item_state IN (0)     AND item_parent_zone_rowid = %@ %@   LIMIT  %lld   OFFSET %lld", itemID, zoneRowID, v14, limit, offset];
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __94__BRCClientDatabaseFacade_enumerateChildrenOfItemGlobalID_itemBuilder_sortOrder_offset_limit___block_invoke;
+  v22[3] = &unk_2784FF910;
+  v23 = builderCopy;
+  v19 = builderCopy;
+  v20 = [offset enumerateObjects:v22];
+
+  return v20;
 }
 
 id __94__BRCClientDatabaseFacade_enumerateChildrenOfItemGlobalID_itemBuilder_sortOrder_offset_limit___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -789,7 +832,7 @@ id __78__BRCClientDatabaseFacade_itemsWithInFlightDiffsEnumeratorInZone_itemBuil
 
 - (unint64_t)getSyncState:(unint64_t)state ignoredZones:(id)zones error:(id *)error
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   zonesCopy = zones;
   if ((state & 0xA) != 0)
   {
@@ -808,20 +851,20 @@ id __78__BRCClientDatabaseFacade_itemsWithInFlightDiffsEnumeratorInZone_itemBuil
         v15 = brc_default_log();
         if (os_log_type_enabled(v15, 0x90u))
         {
-          v24 = "(passed to caller)";
+          v23 = "(passed to caller)";
           *buf = 136315906;
-          v26 = "[BRCClientDatabaseFacade getSyncState:ignoredZones:error:]";
-          v27 = 2080;
+          v25 = "[BRCClientDatabaseFacade getSyncState:ignoredZones:error:]";
+          v26 = 2080;
           if (!error)
           {
-            v24 = "(ignored by caller)";
+            v23 = "(ignored by caller)";
           }
 
-          v28 = v24;
-          v29 = 2112;
-          v30 = lastError2;
-          v31 = 2112;
-          v32 = v14;
+          v27 = v23;
+          v28 = 2112;
+          v29 = lastError2;
+          v30 = 2112;
+          v31 = v14;
           _os_log_error_impl(&dword_223E7A000, v15, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
         }
       }
@@ -873,33 +916,27 @@ id __78__BRCClientDatabaseFacade_itemsWithInFlightDiffsEnumeratorInZone_itemBuil
     v17 = 0;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
-- (void)clientStateData:clientStateDictionary:silent:.cold.1()
+- (void)clientStateData:(uint64_t)a1 clientStateDictionary:silent:.cold.1(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v0 = brc_append_system_info_to_message();
+  v1 = brc_append_system_info_to_message();
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_7(&dword_223E7A000, v1, v2, "[CRIT] %@%@", v3, v4, v5, v6, v8);
-
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_223E7A000, v2, v3, "[CRIT] %@%@", v4, v5, v6, v7);
 }
 
 - (void)clientStateData:clientStateDictionary:silent:.cold.3()
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   v0 = brc_bread_crumbs();
   v1 = brc_default_log();
   if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
-    v3 = 138412290;
-    v4 = v0;
-    _os_log_fault_impl(&dword_223E7A000, v1, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: data Client state should not be nil%@", &v3, 0xCu);
+    v2 = 138412290;
+    v3 = v0;
+    _os_log_fault_impl(&dword_223E7A000, v1, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: data Client state should not be nil%@", &v2, 0xCu);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

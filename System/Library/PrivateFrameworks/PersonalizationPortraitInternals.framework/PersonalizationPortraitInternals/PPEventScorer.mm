@@ -139,7 +139,7 @@ uint64_t __34__PPEventScorer_eventScorerConfig__block_invoke()
 
 - (id)scoreEvent:(id)event usingDate:(id)date
 {
-  v309 = *MEMORY[0x277D85DE8];
+  v308 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   dateCopy = date;
   selfCopy = self;
@@ -151,28 +151,28 @@ uint64_t __34__PPEventScorer_eventScorerConfig__block_invoke()
     context = objc_autoreleasePoolPush();
     v8 = eventCopy;
     v9 = featureSchema;
+    v300 = 0u;
     v301 = 0u;
     v302 = 0u;
     v303 = 0u;
-    v304 = 0u;
     v10 = objc_autoreleasePoolPush();
-    v283 = v8;
+    v282 = v8;
     obj = [v8 recurrenceRules];
     objc_autoreleasePoolPop(v10);
-    v11 = [obj countByEnumeratingWithState:&v301 objects:&buf count:16];
+    v11 = [obj countByEnumeratingWithState:&v300 objects:&buf count:16];
     if (v11)
     {
-      v12 = *v302;
+      v12 = *v301;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v302 != v12)
+          if (*v301 != v12)
           {
             objc_enumerationMutation(obj);
           }
 
-          v14 = *(*(&v301 + 1) + 8 * i);
+          v14 = *(*(&v300 + 1) + 8 * i);
           v15 = objc_autoreleasePoolPush();
           frequency = [v14 frequency];
           v17 = [v9 objectForKeyedSubscript:@"RecurrenceFeatures"];
@@ -189,13 +189,13 @@ uint64_t __34__PPEventScorer_eventScorerConfig__block_invoke()
           objc_autoreleasePoolPop(v15);
         }
 
-        v11 = [obj countByEnumeratingWithState:&v301 objects:&buf count:16];
+        v11 = [obj countByEnumeratingWithState:&v300 objects:&buf count:16];
       }
 
       while (v11);
     }
 
-    if (([v283 hasRecurrenceRules] & 1) == 0 && objc_msgSend(v283, "isDetached"))
+    if (([v282 hasRecurrenceRules] & 1) == 0 && objc_msgSend(v282, "isDetached"))
     {
       v21 = [v9 objectForKeyedSubscript:@"RecurrenceFeatures"];
       v22 = [v21 objectForKeyedSubscript:@"RecurrenceRuleEventIsDetached"];
@@ -204,7 +204,7 @@ uint64_t __34__PPEventScorer_eventScorerConfig__block_invoke()
 
     v23 = v9;
 
-    v24 = v283;
+    v24 = v282;
     v25 = v23;
     if (selfCopy)
     {
@@ -504,30 +504,30 @@ LABEL_80:
 
           v142 = v122;
           v143 = v141;
-          v282 = v142;
+          v281 = v142;
           if (!v124)
           {
             v165 = 0;
 LABEL_116:
 
-            v280 = v165;
+            v279 = v165;
             if (!selfCopy)
             {
               v207 = 0;
               goto LABEL_174;
             }
 
-            v278 = [PPEventScorer participantsInEvent:v282];
-            if (![v278 count])
+            v277 = [PPEventScorer participantsInEvent:v281];
+            if (![v277 count])
             {
 LABEL_173:
-              v207 = v280;
+              v207 = v279;
 
 LABEL_174:
               v208 = v207;
               if (selfCopy)
               {
-                selfAttendee = [v282 selfAttendee];
+                selfAttendee = [v281 selfAttendee];
                 participantRole = [selfAttendee participantRole];
 
                 if ((participantRole - 2) <= 2)
@@ -550,7 +550,7 @@ LABEL_174:
               v216 = selfCopy;
               if (selfCopy)
               {
-                availability = [v282 availability];
+                availability = [v281 availability];
                 if (availability <= 2)
                 {
                   v218 = off_278975208[availability];
@@ -569,7 +569,7 @@ LABEL_174:
                 v221 = 0;
               }
 
-              v222 = v282;
+              v222 = v281;
               v223 = v221;
               if (v216)
               {
@@ -586,26 +586,26 @@ LABEL_174:
                     [v225 removeObject:v227];
                   }
 
-                  v303 = 0u;
-                  v304 = 0u;
-                  v301 = 0u;
                   v302 = 0u;
+                  v303 = 0u;
+                  v300 = 0u;
+                  v301 = 0u;
                   v228 = v225;
-                  v229 = [v228 countByEnumeratingWithState:&v301 objects:&buf count:16];
+                  v229 = [v228 countByEnumeratingWithState:&v300 objects:&buf count:16];
                   if (v229)
                   {
-                    v230 = *v302;
+                    v230 = *v301;
                     v231 = 0.0;
                     do
                     {
                       for (j = 0; j != v229; ++j)
                       {
-                        if (*v302 != v230)
+                        if (*v301 != v230)
                         {
                           objc_enumerationMutation(v228);
                         }
 
-                        v233 = [(NSDictionary *)selfCopy->_pastEventTitlesAndParticipants objectForKeyedSubscript:*(*(&v301 + 1) + 8 * j)];
+                        v233 = [(NSDictionary *)selfCopy->_pastEventTitlesAndParticipants objectForKeyedSubscript:*(*(&v300 + 1) + 8 * j)];
                         v234 = v233 == 0;
 
                         if (!v234)
@@ -614,7 +614,7 @@ LABEL_174:
                         }
                       }
 
-                      v229 = [v228 countByEnumeratingWithState:&v301 objects:&buf count:16];
+                      v229 = [v228 countByEnumeratingWithState:&v300 objects:&buf count:16];
                     }
 
                     while (v229);
@@ -664,32 +664,32 @@ LABEL_174:
                     }
                   }
 
-                  v303 = 0u;
-                  v304 = 0u;
-                  v301 = 0u;
                   v302 = 0u;
-                  v247 = [v246 countByEnumeratingWithState:&v301 objects:&buf count:16];
+                  v303 = 0u;
+                  v300 = 0u;
+                  v301 = 0u;
+                  v247 = [v246 countByEnumeratingWithState:&v300 objects:&buf count:16];
                   if (v247)
                   {
-                    v248 = *v302;
+                    v248 = *v301;
                     v249 = -1.0;
                     do
                     {
                       for (k = 0; k != v247; ++k)
                       {
-                        if (*v302 != v248)
+                        if (*v301 != v248)
                         {
                           objc_enumerationMutation(v246);
                         }
 
-                        [*(*(&v301 + 1) + 8 * k) distanceFromLocation:geoLocation];
+                        [*(*(&v300 + 1) + 8 * k) distanceFromLocation:geoLocation];
                         if (v249 == -1.0 || v249 > v251)
                         {
                           v249 = v251;
                         }
                       }
 
-                      v247 = [v246 countByEnumeratingWithState:&v301 objects:&buf count:16];
+                      v247 = [v246 countByEnumeratingWithState:&v300 objects:&buf count:16];
                     }
 
                     while (v247);
@@ -765,24 +765,24 @@ LABEL_174:
 
             else
             {
-              *&v301 = 0;
-              *(&v301 + 1) = &v301;
-              *&v302 = 0x2050000000;
+              *&v300 = 0;
+              *(&v300 + 1) = &v300;
+              *&v301 = 0x2050000000;
               v168 = getEMDaemonInterfaceClass_softClass;
-              *(&v302 + 1) = getEMDaemonInterfaceClass_softClass;
+              *(&v301 + 1) = getEMDaemonInterfaceClass_softClass;
               if (!getEMDaemonInterfaceClass_softClass)
               {
                 *&buf = MEMORY[0x277D85DD0];
                 *(&buf + 1) = 3221225472;
-                v306 = __getEMDaemonInterfaceClass_block_invoke;
-                v307 = &unk_2789792D0;
-                v308 = &v301;
+                v305 = __getEMDaemonInterfaceClass_block_invoke;
+                v306 = &unk_2789792D0;
+                v307 = &v300;
                 __getEMDaemonInterfaceClass_block_invoke(&buf);
-                v168 = *(*(&v301 + 1) + 24);
+                v168 = *(*(&v300 + 1) + 24);
               }
 
               v169 = v168;
-              _Block_object_dispose(&v301, 8);
+              _Block_object_dispose(&v300, 8);
               v170 = objc_opt_new();
               vipManager = [v170 vipManager];
               if ([vipManager conformsToProtocol:&unk_2847B99C0])
@@ -795,10 +795,10 @@ LABEL_174:
                 v173 = pp_default_log_handle();
                 if (os_log_type_enabled(v173, OS_LOG_TYPE_FAULT))
                 {
-                  v275 = objc_opt_class();
+                  v274 = objc_opt_class();
                   LODWORD(buf) = 138412290;
-                  *(&buf + 4) = v275;
-                  v276 = v275;
+                  *(&buf + 4) = v274;
+                  v275 = v274;
                   _os_log_fault_impl(&dword_23224A000, v173, OS_LOG_TYPE_FAULT, "[vipManager conformsToProtocol:@protocol(EMVIPReader_Private)] was false (class: %@) -- the VIP set will likely be empty even if the user has VIP’s", &buf, 0xCu);
                 }
               }
@@ -822,49 +822,49 @@ LABEL_141:
                 {
                   v192 = objc_opt_new();
                   v193 = PPFavoriteContacts();
-                  v298 = 0u;
-                  v299 = 0u;
-                  v296 = 0u;
                   v297 = 0u;
-                  v284 = v193;
-                  v194 = [v284 countByEnumeratingWithState:&v296 objects:&buf count:16];
+                  v298 = 0u;
+                  v295 = 0u;
+                  v296 = 0u;
+                  v283 = v193;
+                  v194 = [v283 countByEnumeratingWithState:&v295 objects:&buf count:16];
                   if (v194)
                   {
-                    obja = *v297;
+                    obja = *v296;
                     do
                     {
                       for (m = 0; m != v194; ++m)
                       {
-                        if (*v297 != obja)
+                        if (*v296 != obja)
                         {
-                          objc_enumerationMutation(v284);
+                          objc_enumerationMutation(v283);
                         }
 
-                        v196 = *(*(&v296 + 1) + 8 * m);
+                        v196 = *(*(&v295 + 1) + 8 * m);
                         v197 = objc_autoreleasePoolPush();
-                        v294 = 0u;
-                        v295 = 0u;
-                        v292 = 0u;
                         v293 = 0u;
+                        v294 = 0u;
+                        v291 = 0u;
+                        v292 = 0u;
                         emailAddresses = [v196 emailAddresses];
-                        v199 = [emailAddresses countByEnumeratingWithState:&v292 objects:&v301 count:16];
+                        v199 = [emailAddresses countByEnumeratingWithState:&v291 objects:&v300 count:16];
                         if (v199)
                         {
-                          v200 = *v293;
+                          v200 = *v292;
                           do
                           {
                             for (n = 0; n != v199; ++n)
                             {
-                              if (*v293 != v200)
+                              if (*v292 != v200)
                               {
                                 objc_enumerationMutation(emailAddresses);
                               }
 
-                              value = [*(*(&v292 + 1) + 8 * n) value];
+                              value = [*(*(&v291 + 1) + 8 * n) value];
                               [(NSSet *)v192 addObject:value];
                             }
 
-                            v199 = [emailAddresses countByEnumeratingWithState:&v292 objects:&v301 count:16];
+                            v199 = [emailAddresses countByEnumeratingWithState:&v291 objects:&v300 count:16];
                           }
 
                           while (v199);
@@ -873,7 +873,7 @@ LABEL_141:
                         objc_autoreleasePoolPop(v197);
                       }
 
-                      v194 = [v284 countByEnumeratingWithState:&v296 objects:&buf count:16];
+                      v194 = [v283 countByEnumeratingWithState:&v295 objects:&buf count:16];
                     }
 
                     while (v194);
@@ -889,32 +889,32 @@ LABEL_141:
                   }
                 }
 
-                v303 = 0u;
-                v304 = 0u;
-                v301 = 0u;
                 v302 = 0u;
-                v187 = v278;
-                v188 = [v187 countByEnumeratingWithState:&v301 objects:&buf count:16];
+                v303 = 0u;
+                v300 = 0u;
+                v301 = 0u;
+                v187 = v277;
+                v188 = [v187 countByEnumeratingWithState:&v300 objects:&buf count:16];
                 if (v188)
                 {
-                  v189 = *v302;
+                  v189 = *v301;
                   v190 = 0.0;
                   do
                   {
                     for (ii = 0; ii != v188; ++ii)
                     {
-                      if (*v302 != v189)
+                      if (*v301 != v189)
                       {
                         objc_enumerationMutation(v187);
                       }
 
-                      if ([(NSSet *)v186 containsObject:*(*(&v301 + 1) + 8 * ii)])
+                      if ([(NSSet *)v186 containsObject:*(*(&v300 + 1) + 8 * ii)])
                       {
                         v190 = v190 + 1.0;
                       }
                     }
 
-                    v188 = [v187 countByEnumeratingWithState:&v301 objects:&buf count:16];
+                    v188 = [v187 countByEnumeratingWithState:&v300 objects:&buf count:16];
                   }
 
                   while (v188);
@@ -928,7 +928,7 @@ LABEL_141:
                 if (v190 / [v187 count] > 0.0)
                 {
                   v204 = [MEMORY[0x277CCABB0] numberWithDouble:?];
-                  v205 = [v280 objectForKeyedSubscript:@"ParticipantsFeatures"];
+                  v205 = [v279 objectForKeyedSubscript:@"ParticipantsFeatures"];
                   v206 = [v205 objectForKeyedSubscript:@"ParticipantsFavorites"];
                   [v206 setObject:v204 forKeyedSubscript:@"Value"];
                 }
@@ -939,32 +939,32 @@ LABEL_172:
               }
             }
 
-            v290 = 0u;
-            v291 = 0u;
-            v288 = 0u;
             v289 = 0u;
-            v177 = v278;
-            v178 = [v177 countByEnumeratingWithState:&v288 objects:v300 count:16];
+            v290 = 0u;
+            v287 = 0u;
+            v288 = 0u;
+            v177 = v277;
+            v178 = [v177 countByEnumeratingWithState:&v287 objects:v299 count:16];
             if (v178)
             {
-              v179 = *v289;
+              v179 = *v288;
               v180 = 0.0;
               do
               {
                 for (jj = 0; jj != v178; ++jj)
                 {
-                  if (*v289 != v179)
+                  if (*v288 != v179)
                   {
                     objc_enumerationMutation(v177);
                   }
 
-                  if ([(EAEmailAddressSet *)v167 containsObject:*(*(&v288 + 1) + 8 * jj)])
+                  if ([(EAEmailAddressSet *)v167 containsObject:*(*(&v287 + 1) + 8 * jj)])
                   {
                     v180 = v180 + 1.0;
                   }
                 }
 
-                v178 = [v177 countByEnumeratingWithState:&v288 objects:v300 count:16];
+                v178 = [v177 countByEnumeratingWithState:&v287 objects:v299 count:16];
               }
 
               while (v178);
@@ -978,7 +978,7 @@ LABEL_172:
             if (v180 / [v177 count] > 0.0)
             {
               v182 = [MEMORY[0x277CCABB0] numberWithDouble:?];
-              v183 = [v280 objectForKeyedSubscript:@"ParticipantsFeatures"];
+              v183 = [v279 objectForKeyedSubscript:@"ParticipantsFeatures"];
               v184 = [v183 objectForKeyedSubscript:@"ParticipantsVIP"];
               [v184 setObject:v182 forKeyedSubscript:@"Value"];
             }
@@ -999,32 +999,32 @@ LABEL_172:
               v148 = [v147 objectForKeyedSubscript:@"SelfAttendeeStatusAccepted"];
               [v148 setObject:&unk_284784218 forKeyedSubscript:@"Value"];
 
-              v303 = 0u;
-              v304 = 0u;
-              v301 = 0u;
               v302 = 0u;
-              attendees = [v282 attendees];
-              v150 = [attendees countByEnumeratingWithState:&v301 objects:&buf count:16];
+              v303 = 0u;
+              v300 = 0u;
+              v301 = 0u;
+              attendees = [v281 attendees];
+              v150 = [attendees countByEnumeratingWithState:&v300 objects:&buf count:16];
               if (v150)
               {
                 v151 = 0;
-                v152 = *v302;
+                v152 = *v301;
                 do
                 {
                   for (kk = 0; kk != v150; ++kk)
                   {
-                    if (*v302 != v152)
+                    if (*v301 != v152)
                     {
                       objc_enumerationMutation(attendees);
                     }
 
-                    if ([*(*(&v301 + 1) + 8 * kk) participantType] == 1)
+                    if ([*(*(&v300 + 1) + 8 * kk) participantType] == 1)
                     {
                       ++v151;
                     }
                   }
 
-                  v150 = [attendees countByEnumeratingWithState:&v301 objects:&buf count:16];
+                  v150 = [attendees countByEnumeratingWithState:&v300 objects:&buf count:16];
                 }
 
                 while (v150);
@@ -1051,7 +1051,7 @@ LABEL_172:
               goto LABEL_115;
             }
 
-            selfAttendee5 = [v282 selfAttendee];
+            selfAttendee5 = [v281 selfAttendee];
             participantStatus2 = [selfAttendee5 participantStatus];
 
             if (participantStatus2 == 3)
@@ -1065,7 +1065,7 @@ LABEL_111:
               goto LABEL_115;
             }
 
-            selfAttendee6 = [v282 selfAttendee];
+            selfAttendee6 = [v281 selfAttendee];
             participantStatus3 = [selfAttendee6 participantStatus];
 
             if (participantStatus3 == 4)
@@ -1106,26 +1106,26 @@ LABEL_45:
       v46 = [v45 objectForKeyedSubscript:@"AlarmSet"];
       [v46 setObject:&unk_284784218 forKeyedSubscript:@"Value"];
 
-      v303 = 0u;
-      v304 = 0u;
-      v301 = 0u;
       v302 = 0u;
+      v303 = 0u;
+      v300 = 0u;
+      v301 = 0u;
       alarms2 = [v40 alarms];
-      v48 = [alarms2 countByEnumeratingWithState:&v301 objects:&buf count:16];
+      v48 = [alarms2 countByEnumeratingWithState:&v300 objects:&buf count:16];
       if (v48)
       {
-        v49 = *v302;
+        v49 = *v301;
         v50 = 0.0;
         do
         {
           for (mm = 0; mm != v48; ++mm)
           {
-            if (*v302 != v49)
+            if (*v301 != v49)
             {
               objc_enumerationMutation(alarms2);
             }
 
-            v52 = *(*(&v301 + 1) + 8 * mm);
+            v52 = *(*(&v300 + 1) + 8 * mm);
             absoluteDate = [v52 absoluteDate];
 
             if (absoluteDate)
@@ -1148,7 +1148,7 @@ LABEL_45:
             }
           }
 
-          v48 = [alarms2 countByEnumeratingWithState:&v301 objects:&buf count:16];
+          v48 = [alarms2 countByEnumeratingWithState:&v300 objects:&buf count:16];
         }
 
         while (v48);
@@ -1188,8 +1188,6 @@ LABEL_45:
   v63 = [MEMORY[0x277D3A398] eventHighlightWithEKEvent:eventCopy score:8 prominentFeature:MEMORY[0x277CBEBF8] features:0 isExtraordinary:0.0];
 LABEL_228:
 
-  v273 = *MEMORY[0x277D85DE8];
-
   return v63;
 }
 
@@ -1212,32 +1210,32 @@ LABEL_228:
 
 + (id)participantsInEvent:(uint64_t)event
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = objc_opt_self();
   v4 = objc_opt_new();
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v5 = objc_autoreleasePoolPush();
   attendees = [v2 attendees];
   objc_autoreleasePoolPop(v5);
-  v7 = [attendees countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [attendees countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(attendees);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * i);
+        v11 = *(*(&v15 + 1) + 8 * i);
         v12 = objc_autoreleasePoolPush();
         v13 = [(PPEventScorer *)v3 emailAddressFromEKAttendee:v11];
         if (v13)
@@ -1248,13 +1246,11 @@ LABEL_228:
         objc_autoreleasePoolPop(v12);
       }
 
-      v8 = [attendees countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [attendees countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -1292,12 +1288,12 @@ LABEL_228:
 
 - (PPEventScorer)initWithPastEventTitlesAndParticipants:(id)participants andEarliestStartTime:(double)time shouldConsiderAlarms:(BOOL)alarms withOptions:(int)options trialWrapper:(id)wrapper
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   participantsCopy = participants;
   wrapperCopy = wrapper;
-  v31.receiver = self;
-  v31.super_class = PPEventScorer;
-  v15 = [(PPEventScorer *)&v31 init];
+  v30.receiver = self;
+  v30.super_class = PPEventScorer;
+  v15 = [(PPEventScorer *)&v30 init];
   v16 = v15;
   if (v15)
   {
@@ -1312,30 +1308,30 @@ LABEL_228:
 
     v16->_rankingOptions = options;
     objc_storeStrong(&v16->_trialWrapper, wrapper);
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     allKeys = [(NSDictionary *)v16->_pastEventTitlesAndParticipants allKeys];
-    v20 = [allKeys countByEnumeratingWithState:&v27 objects:v32 count:16];
+    v20 = [allKeys countByEnumeratingWithState:&v26 objects:v31 count:16];
     if (v20)
     {
       v21 = v20;
       v22 = 0;
-      v23 = *v28;
+      v23 = *v27;
       do
       {
         for (i = 0; i != v21; ++i)
         {
-          if (*v28 != v23)
+          if (*v27 != v23)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v22 += [*(*(&v27 + 1) + 8 * i) containsString:@"@"] ^ 1;
+          v22 += [*(*(&v26 + 1) + 8 * i) containsString:@"@"] ^ 1;
         }
 
-        v21 = [allKeys countByEnumeratingWithState:&v27 objects:v32 count:16];
+        v21 = [allKeys countByEnumeratingWithState:&v26 objects:v31 count:16];
       }
 
       while (v21);
@@ -1353,7 +1349,6 @@ LABEL_228:
     }
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -1387,7 +1382,7 @@ uint64_t __123__PPEventScorer_initWithPastEventTitlesAndParticipants_andEarliest
 
 + (void)enrichDictionary:(id)dictionary withEvent:(id)event interningSet:(id)set
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   eventCopy = event;
   setCopy = set;
@@ -1395,8 +1390,8 @@ uint64_t __123__PPEventScorer_initWithPastEventTitlesAndParticipants_andEarliest
   aBlock[1] = 3221225472;
   aBlock[2] = __57__PPEventScorer_enrichDictionary_withEvent_interningSet___block_invoke;
   aBlock[3] = &unk_2789751B8;
-  v33 = setCopy;
-  v40 = v33;
+  v32 = setCopy;
+  v39 = v32;
   v11 = _Block_copy(aBlock);
   title = [eventCopy title];
   v13 = v11[2](v11, title);
@@ -1419,32 +1414,32 @@ uint64_t __123__PPEventScorer_initWithPastEventTitlesAndParticipants_andEarliest
     }
   }
 
-  v31 = v13;
-  v34 = eventCopy;
+  v30 = v13;
+  v33 = eventCopy;
   [(PPEventScorer *)self participantsInEvent:eventCopy];
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
-  v30 = v38 = 0u;
-  allObjects = [v30 allObjects];
-  v32 = v11;
+  v29 = v37 = 0u;
+  allObjects = [v29 allObjects];
+  v31 = v11;
   v19 = [allObjects _pas_mappedArrayWithTransform:v11];
 
-  v20 = [v19 countByEnumeratingWithState:&v35 objects:v41 count:16];
+  v20 = [v19 countByEnumeratingWithState:&v34 objects:v40 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v36;
+    v22 = *v35;
     do
     {
       for (i = 0; i != v21; ++i)
       {
-        if (*v36 != v22)
+        if (*v35 != v22)
         {
           objc_enumerationMutation(v19);
         }
 
-        v24 = *(*(&v35 + 1) + 8 * i);
+        v24 = *(*(&v34 + 1) + 8 * i);
         v25 = [dictionaryCopy objectForKeyedSubscript:v24];
 
         if (v25)
@@ -1461,13 +1456,11 @@ uint64_t __123__PPEventScorer_initWithPastEventTitlesAndParticipants_andEarliest
         }
       }
 
-      v21 = [v19 countByEnumeratingWithState:&v35 objects:v41 count:16];
+      v21 = [v19 countByEnumeratingWithState:&v34 objects:v40 count:16];
     }
 
     while (v21);
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 id __57__PPEventScorer_enrichDictionary_withEvent_interningSet___block_invoke(uint64_t a1, void *a2)

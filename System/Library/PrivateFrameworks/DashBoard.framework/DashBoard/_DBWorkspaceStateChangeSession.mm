@@ -11,9 +11,11 @@
 
 - (void)_startWatchdogTimer
 {
-  self->_watchdogTimer = [MEMORY[0x277CBEBB8] scheduledTimerWithTimeInterval:self target:sel__watchdogTimerFired selector:0 userInfo:0 repeats:30.0];
+  v3 = [MEMORY[0x277CBEBB8] scheduledTimerWithTimeInterval:self target:sel__watchdogTimerFired selector:0 userInfo:0 repeats:30.0];
+  watchdogTimer = self->_watchdogTimer;
+  self->_watchdogTimer = v3;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v3, watchdogTimer);
 }
 
 - (void)invalidate

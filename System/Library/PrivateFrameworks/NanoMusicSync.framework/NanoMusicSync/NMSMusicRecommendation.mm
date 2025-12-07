@@ -18,20 +18,19 @@
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
   v6 = v5;
-  identifier = self->_identifier;
   if (self->_selected)
   {
-    v8 = @"YES";
+    v7 = @"YES";
   }
 
   else
   {
-    v8 = @"NO";
+    v7 = @"NO";
   }
 
-  v9 = [v3 stringWithFormat:@"<%@:%p identifier: %@, selected: %@>", v5, self, self->_identifier, v8];
+  v8 = [v3 stringWithFormat:@"<%@:%p identifier: %@, selected: %@>", v5, self, self->_identifier, v7];
 
-  return v9;
+  return v8;
 }
 
 - (NMSMusicRecommendation)initWithIdentifier:(id)identifier title:(id)title items:(id)items
@@ -197,7 +196,7 @@ LABEL_4:
 void __40__NMSMusicRecommendation_artworkCatalog__block_invoke(uint64_t a1)
 {
   v1 = a1;
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (!*(v2 + 40))
   {
@@ -254,27 +253,27 @@ LABEL_28:
     if ([v4 count] >= 2)
     {
       v5 = [MEMORY[0x277CBEB18] array];
+      v30 = 0u;
       v31 = 0u;
       v32 = 0u;
       v33 = 0u;
-      v34 = 0u;
-      v29 = v1;
+      v28 = v1;
       v9 = *(*(v1 + 32) + 8);
-      v10 = [v9 countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v30 objects:v34 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v32;
+        v12 = *v31;
         do
         {
           for (i = 0; i != v11; ++i)
           {
-            if (*v32 != v12)
+            if (*v31 != v12)
             {
               objc_enumerationMutation(v9);
             }
 
-            v14 = *(*(&v31 + 1) + 8 * i);
+            v14 = *(*(&v30 + 1) + 8 * i);
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
@@ -300,27 +299,27 @@ LABEL_28:
             [v5 addObject:v18];
           }
 
-          v11 = [v9 countByEnumeratingWithState:&v31 objects:v35 count:16];
+          v11 = [v9 countByEnumeratingWithState:&v30 objects:v34 count:16];
         }
 
         while (v11);
       }
 
-      v1 = v29;
-      v19 = *(v29 + 32);
+      v1 = v28;
+      v19 = *(v28 + 32);
       v20 = [v5 copy];
       v6 = [v19 _tiledArtworkRequestWithPersistentIDs:v20];
 
-      v30[0] = MEMORY[0x277D85DD0];
-      v30[1] = 3221225472;
-      v30[2] = __40__NMSMusicRecommendation_artworkCatalog__block_invoke_2;
-      v30[3] = &unk_27993ED08;
-      v30[4] = *(v29 + 32);
-      [v6 setArtworkCatalogsBlock:v30];
+      v29[0] = MEMORY[0x277D85DD0];
+      v29[1] = 3221225472;
+      v29[2] = __40__NMSMusicRecommendation_artworkCatalog__block_invoke_2;
+      v29[3] = &unk_27993ED08;
+      v29[4] = *(v28 + 32);
+      [v6 setArtworkCatalogsBlock:v29];
       v21 = objc_alloc(MEMORY[0x277CD5D50]);
       v22 = [MEMORY[0x277CD60E0] sharedDataSource];
       v23 = [v21 initWithToken:v6 dataSource:v22];
-      v24 = *(v29 + 32);
+      v24 = *(v28 + 32);
       v25 = *(v24 + 40);
       *(v24 + 40) = v23;
 
@@ -330,35 +329,33 @@ LABEL_28:
 
 LABEL_29:
   objc_storeStrong((*(*(v1 + 40) + 8) + 40), *(*(v1 + 32) + 40));
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 id __40__NMSMusicRecommendation_artworkCatalog__block_invoke_2(uint64_t a1, unint64_t a2)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v4 = [MEMORY[0x277CBEB18] array];
+  v25 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
-  v30 = 0u;
-  v31 = 0u;
   v5 = *(*(a1 + 32) + 8);
-  v6 = [v5 countByEnumeratingWithState:&v28 objects:v36 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v25 objects:v33 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v29;
-    v27 = a1;
+    v8 = *v26;
     do
     {
       v9 = 0;
       do
       {
-        if (*v29 != v8)
+        if (*v26 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v28 + 1) + 8 * v9);
+        v10 = *(*(&v25 + 1) + 8 * v9);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -382,7 +379,7 @@ id __40__NMSMusicRecommendation_artworkCatalog__block_invoke_2(uint64_t a1, unin
             v17 = NMLogForCategory(5);
             if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
             {
-              __40__NMSMusicRecommendation_artworkCatalog__block_invoke_2_cold_7(v35, v12);
+              __40__NMSMusicRecommendation_artworkCatalog__block_invoke_2_cold_7(v32, v12);
             }
 
             goto LABEL_39;
@@ -417,7 +414,7 @@ id __40__NMSMusicRecommendation_artworkCatalog__block_invoke_2(uint64_t a1, unin
               v17 = NMLogForCategory(5);
               if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
               {
-                __40__NMSMusicRecommendation_artworkCatalog__block_invoke_2_cold_5(v34, v16);
+                __40__NMSMusicRecommendation_artworkCatalog__block_invoke_2_cold_5(v31, v16);
               }
 
               goto LABEL_39;
@@ -451,12 +448,11 @@ LABEL_14:
             v20 = NMLogForCategory(5);
             if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
             {
-              __40__NMSMusicRecommendation_artworkCatalog__block_invoke_2_cold_3(v33, v19);
+              __40__NMSMusicRecommendation_artworkCatalog__block_invoke_2_cold_3(v30, v19);
             }
 
 LABEL_28:
 
-            a1 = v27;
             goto LABEL_39;
           }
         }
@@ -488,7 +484,7 @@ LABEL_28:
             v20 = NMLogForCategory(5);
             if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
             {
-              __40__NMSMusicRecommendation_artworkCatalog__block_invoke_2_cold_1(v32, v22);
+              __40__NMSMusicRecommendation_artworkCatalog__block_invoke_2_cold_1(v29, v22);
             }
 
             goto LABEL_28;
@@ -509,7 +505,7 @@ LABEL_40:
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v28 objects:v36 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v25 objects:v33 count:16];
     }
 
     while (v7);
@@ -517,18 +513,15 @@ LABEL_40:
 
 LABEL_43:
 
-  v23 = *(a1 + 32);
   [objc_opt_class() _fillArtworkMutableArray:v4 toCount:a2];
-  v24 = [v4 copy];
+  v23 = [v4 copy];
 
-  v25 = *MEMORY[0x277D85DE8];
-
-  return v24;
+  return v23;
 }
 
 - (id)_tiledArtworkRequestWithPersistentIDs:(id)ds
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   v5 = objc_alloc_init(MEMORY[0x277CD60E8]);
   [v5 setNumberOfRows:2];
@@ -536,30 +529,30 @@ LABEL_43:
   [v5 setTileSpacing:2.0];
   [v5 setEntityIdentifier:self->_identifier];
   [v5 setNamespaceIdentifier:@"com.apple.NanoMusic.Recommendation"];
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v6 = dsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
     v9 = 0;
-    v10 = *v16;
+    v10 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(v6);
         }
 
-        v9 += [*(*(&v15 + 1) + 8 * i) hash];
+        v9 += [*(*(&v14 + 1) + 8 * i) hash];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
@@ -572,8 +565,6 @@ LABEL_43:
 
   v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v9];
   [v5 setRevisionIdentifier:v12];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -598,7 +589,7 @@ LABEL_43:
 
 + (void)_fillArtworkMutableArray:(id)array toCount:(unint64_t)count
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
   if ([arrayCopy count] < count)
   {
@@ -609,11 +600,11 @@ LABEL_43:
     v9 = NMLogForCategory(5);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v11 = 134218240;
-      v12 = [arrayCopy count];
-      v13 = 2048;
+      v10 = 134218240;
+      v11 = [arrayCopy count];
+      v12 = 2048;
       countCopy = count;
-      _os_log_impl(&dword_25B27B000, v9, OS_LOG_TYPE_INFO, "Filling tiled artwork catalog %tu -> %tu", &v11, 0x16u);
+      _os_log_impl(&dword_25B27B000, v9, OS_LOG_TYPE_INFO, "Filling tiled artwork catalog %tu -> %tu", &v10, 0x16u);
     }
 
     while ([arrayCopy count] < count)
@@ -621,8 +612,6 @@ LABEL_43:
       [arrayCopy addObject:v8];
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -641,11 +630,10 @@ LABEL_43:
 
 void __42__NMSMusicRecommendation_lastModifiedDate__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_25B27B000, a2, OS_LOG_TYPE_ERROR, "No lastModifiedDateComponents for playlist %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_25B27B000, a2, OS_LOG_TYPE_ERROR, "No lastModifiedDateComponents for playlist %@", &v2, 0xCu);
 }
 
 void __40__NMSMusicRecommendation_artworkCatalog__block_invoke_2_cold_1(uint64_t a1, uint64_t a2)

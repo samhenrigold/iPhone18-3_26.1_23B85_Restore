@@ -38,17 +38,8 @@
   countryCode = [v4 countryCode];
   v6 = [countryCode isEqualToString:@"RU"];
 
-  if (!v6)
+  if (!v6 || ([backupCopy objectForKey:@"AppStorePresented" includeCache:0], v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "BOOLValue"), v7, (v8 & 1) != 0) || (+[BYManagedAppleIDBootstrap isMultiUser](BYManagedAppleIDBootstrap, "isMultiUser") & 1) != 0 || (+[MCProfileConnection sharedConnection](MCProfileConnection, "sharedConnection"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "skipSetupKeys"), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v10, "containsObject:", kMCCCSkipAppStore), v10, v9, (v11 & 1) != 0))
   {
-    goto LABEL_5;
-  }
-
-  v7 = [backupCopy objectForKey:@"AppStorePresented" includeCache:0];
-  bOOLValue = [v7 BOOLValue];
-
-  if (bOOLValue & 1) != 0 || (+[BYManagedAppleIDBootstrap isMultiUser](BYManagedAppleIDBootstrap, "isMultiUser") & 1) != 0 || (+[MCProfileConnection sharedConnection](MCProfileConnection, "sharedConnection"), v9 = objc_claimAutoreleasedReturnValue(), [v9 skipSetupKeys], v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v10, "containsObject:", kMCCCSkipAppStore), v10, v9, (v11))
-  {
-LABEL_5:
     v12 = 0;
   }
 

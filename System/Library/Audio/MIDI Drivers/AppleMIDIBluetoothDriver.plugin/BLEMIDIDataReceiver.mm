@@ -10,7 +10,7 @@
 
 - (BLEMIDIDataReceiver)init
 {
-  sub_BDA4();
+  sub_BDA4(self, a2);
   v2 = qword_1D998;
   if (os_log_type_enabled(qword_1D998, OS_LOG_TYPE_ERROR))
   {
@@ -138,46 +138,46 @@ LABEL_6:
   v8 = bytes;
   nowInMS = [(BLEMIDIDataReceiver *)self nowInMS];
   [(BLEMIDITimeStamper *)self->timeStamper setConnectionIntervalNanos:driver[32]];
-  [(BLEMIDITimeStamper *)self->timeStamper setReceiveTime:nowInMS];
-  v10 = *v8;
+  v10 = [(BLEMIDITimeStamper *)self->timeStamper setReceiveTime:nowInMS];
+  v12 = *v8;
   if ((*v8 & 0x80000000) == 0)
   {
-    sub_BDA4();
-    v11 = qword_1D998;
+    sub_BDA4(v10, v11);
+    v13 = qword_1D998;
     if (!os_log_type_enabled(qword_1D998, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_57;
     }
 
     *buf = 136315650;
-    v60 = "BTLEMIDIDataReceiver.mm";
-    v61 = 1024;
-    v62 = 128;
-    v63 = 1024;
-    LODWORD(v64[0]) = v10;
-    v12 = "%25s:%-5d ERROR: Bad header received (0x%0X). Discarding.";
-    v13 = v11;
-    v14 = OS_LOG_TYPE_ERROR;
-    v15 = 24;
+    v68 = "BTLEMIDIDataReceiver.mm";
+    v69 = 1024;
+    v70 = 128;
+    v71 = 1024;
+    LODWORD(v72[0]) = v12;
+    v14 = "%25s:%-5d ERROR: Bad header received (0x%0X). Discarding.";
+    v15 = v13;
+    v16 = OS_LOG_TYPE_ERROR;
+    v17 = 24;
 LABEL_56:
-    _os_log_impl(&dword_0, v13, v14, v12, buf, v15);
+    _os_log_impl(&dword_0, v15, v16, v14, buf, v17);
     goto LABEL_57;
   }
 
-  v16 = v10 & 0x7F;
-  v17 = v10 & 0x3F;
-  v18 = v16 > 0x3F;
-  if (v16 > 0x3F)
+  v18 = v12 & 0x7F;
+  v19 = v12 & 0x3F;
+  v20 = v18 > 0x3F;
+  if (v18 > 0x3F)
   {
-    v16 = v17;
+    v18 = v19;
   }
 
-  v55 = v16;
-  if (v18)
+  v63 = v18;
+  if (v20)
   {
-    sub_BDA4();
-    v19 = qword_1D998;
-    if (v17)
+    sub_BDA4(v10, v11);
+    v21 = qword_1D998;
+    if (v19)
     {
       if (!os_log_type_enabled(qword_1D998, OS_LOG_TYPE_ERROR))
       {
@@ -185,12 +185,12 @@ LABEL_56:
       }
 
       *buf = 136315394;
-      v60 = "BTLEMIDIDataReceiver.mm";
-      v61 = 1024;
-      v62 = 146;
-      v12 = "%25s:%-5d Invalid control message received. Discarding packet.";
-      v13 = v19;
-      v14 = OS_LOG_TYPE_ERROR;
+      v68 = "BTLEMIDIDataReceiver.mm";
+      v69 = 1024;
+      v70 = 146;
+      v14 = "%25s:%-5d Invalid control message received. Discarding packet.";
+      v15 = v21;
+      v16 = OS_LOG_TYPE_ERROR;
     }
 
     else
@@ -201,103 +201,103 @@ LABEL_56:
       }
 
       *buf = 136315394;
-      v60 = "BTLEMIDIDataReceiver.mm";
-      v61 = 1024;
-      v62 = 142;
-      v12 = "%25s:%-5d Ignoring packet due to kBLEMIDIControlMessageIgnorePayload message.";
-      v13 = v19;
-      v14 = OS_LOG_TYPE_DEBUG;
+      v68 = "BTLEMIDIDataReceiver.mm";
+      v69 = 1024;
+      v70 = 142;
+      v14 = "%25s:%-5d Ignoring packet due to kBLEMIDIControlMessageIgnorePayload message.";
+      v15 = v21;
+      v16 = OS_LOG_TYPE_DEBUG;
     }
 
-    v15 = 18;
+    v17 = 18;
     goto LABEL_56;
   }
 
   if (v6 < 2)
   {
-    v54 = 0;
+    v62 = 0;
 LABEL_50:
     if (self->packetEmitter.mIsDirty)
     {
       sub_C6A8(&self->packetEmitter);
     }
 
-    [(BLEMIDITimeStamper *)self->timeStamper addOffset:v54, v49];
+    [(BLEMIDITimeStamper *)self->timeStamper addOffset:v62, v57];
     return;
   }
 
-  v49 = nowInMS;
+  v57 = nowInMS;
   valueCopy = value;
   time = 0;
-  v54 = 0;
-  v20 = 0;
-  v21 = 0;
-  v57 = 0;
-  v22 = &v8[v6];
-  v23 = (v6 - 1);
-  v24 = (v8 + 1);
-  v53 = &v8[v6];
+  v62 = 0;
+  v22 = 0;
+  v23 = 0;
+  v65 = 0;
+  v24 = &v8[v6];
+  v25 = (v6 - 1);
+  v26 = (v8 + 1);
+  v61 = &v8[v6];
   while (1)
   {
-    v25 = *v24;
-    if ((v25 & 0x80000000) == 0)
+    v27 = *v26;
+    if ((v27 & 0x80000000) == 0)
     {
-      if (v24 == (v8 + 1))
+      if (v26 == (v8 + 1))
       {
         time = self->lastSysExTimeStamp;
-        if (v24 >= v22)
+        if (v26 >= v24)
         {
 LABEL_42:
-          LOWORD(v32) = v23;
+          LOWORD(v36) = v25;
         }
 
         else
         {
-          v32 = 0;
-          while ((v24[v32] & 0x80000000) == 0)
+          v36 = 0;
+          while ((v26[v36] & 0x80000000) == 0)
           {
-            if (v53 - v24 == ++v32)
+            if (v61 - v26 == ++v36)
             {
               goto LABEL_42;
             }
           }
 
-          v21 = 0;
+          v23 = 0;
         }
 
         goto LABEL_34;
       }
 
-      if (!v21)
+      if (!v23)
       {
-        sub_BDA4();
-        v43 = qword_1D998;
+        sub_BDA4(v10, v11);
+        v47 = qword_1D998;
         if (os_log_type_enabled(qword_1D998, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315394;
-          v60 = "BTLEMIDIDataReceiver.mm";
-          v61 = 1024;
-          v62 = 162;
-          _os_log_impl(&dword_0, v43, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: Expected a timestamp byte, concurrent running status, or SysEx continuation. The full packet will be logged below.", buf, 0x12u);
+          v68 = "BTLEMIDIDataReceiver.mm";
+          v69 = 1024;
+          v70 = 162;
+          _os_log_impl(&dword_0, v47, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: Expected a timestamp byte, concurrent running status, or SysEx continuation. The full packet will be logged below.", buf, 0x12u);
         }
 
         bytes2 = [valueCopy bytes];
-        +[BLEMIDIAccessor logEvent:length:timeStamp:intoBuffer:](BLEMIDIAccessor, "logEvent:length:timeStamp:intoBuffer:", bytes2, [valueCopy length], v50, self->logBuffer);
-        sub_BDA4();
-        v46 = qword_1D998;
+        v50 = +[BLEMIDIAccessor logEvent:length:timeStamp:intoBuffer:](BLEMIDIAccessor, "logEvent:length:timeStamp:intoBuffer:", bytes2, [valueCopy length], v58, self->logBuffer);
+        sub_BDA4(v50, v51);
+        v52 = qword_1D998;
         if (os_log_type_enabled(qword_1D998, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315650;
-          v60 = "BTLEMIDIDataReceiver.mm";
-          v61 = 1024;
-          v62 = 164;
-          v63 = 2080;
-          v64[0] = self->logBuffer;
-          v12 = "%25s:%-5d %s";
+          v68 = "BTLEMIDIDataReceiver.mm";
+          v69 = 1024;
+          v70 = 164;
+          v71 = 2080;
+          v72[0] = self->logBuffer;
+          v14 = "%25s:%-5d %s";
 LABEL_67:
-          v13 = v46;
-          v14 = OS_LOG_TYPE_ERROR;
-          v15 = 28;
+          v15 = v52;
+          v16 = OS_LOG_TYPE_ERROR;
+          v17 = 28;
           goto LABEL_56;
         }
 
@@ -307,157 +307,159 @@ LABEL_67:
       goto LABEL_20;
     }
 
-    v56 = v21;
-    v26 = v22;
-    v28 = (v24 + 1);
-    v27 = v24[1];
-    v29 = v25 & 0x7F;
-    v30 = v23 - 1;
-    v31 = (v29 < v20) | v57;
-    v54 = [BLEMIDIAccessor reconstructWithHighByte:v55 lowByte:v29 overflow:v31 & 1]& 0x1FFF;
+    v64 = v23;
+    v28 = v24;
+    v30 = (v26 + 1);
+    v29 = v26[1];
+    v31 = v27 & 0x7F;
+    v32 = v25 - 1;
+    v33 = (v31 < v22) | v65;
+    v62 = [BLEMIDIAccessor reconstructWithHighByte:v63 lowByte:v31 overflow:v33 & 1]& 0x1FFF;
     [(BLEMIDITimeStamper *)self->timeStamper generateTimeStampForOffset:?];
-    time = __udivti3();
-    self->lastSysExTimeStamp = time;
-    v57 = v31;
-    if (v27 < 0)
+    v34 = __udivti3();
+    time = v34;
+    self->lastSysExTimeStamp = v34;
+    v65 = v33;
+    if (v29 < 0)
     {
-      v22 = v26;
-      if (*v28 == 245)
+      v24 = v28;
+      if (*v30 == 245)
       {
-        sub_BDA4();
-        v40 = qword_1D998;
-        v21 = v56;
+        sub_BDA4(v34, v35);
+        v44 = qword_1D998;
+        v23 = v64;
         if (os_log_type_enabled(qword_1D998, OS_LOG_TYPE_DEBUG))
         {
-          v41 = v24[1];
-          v42 = v24[2];
+          v45 = v26[1];
+          v46 = v26[2];
           *buf = 136315906;
-          v60 = "BTLEMIDIDataReceiver.mm";
-          v61 = 1024;
-          v62 = 213;
-          v63 = 1024;
-          LODWORD(v64[0]) = v41;
-          WORD2(v64[0]) = 1024;
-          *(v64 + 6) = v42;
-          _os_log_impl(&dword_0, v40, OS_LOG_TYPE_DEBUG, "%25s:%-5d WARNING: Discarding 2-byte message: 0x%0X 0x%0X", buf, 0x1Eu);
+          v68 = "BTLEMIDIDataReceiver.mm";
+          v69 = 1024;
+          v70 = 213;
+          v71 = 1024;
+          LODWORD(v72[0]) = v45;
+          WORD2(v72[0]) = 1024;
+          *(v72 + 6) = v46;
+          _os_log_impl(&dword_0, v44, OS_LOG_TYPE_DEBUG, "%25s:%-5d WARNING: Discarding 2-byte message: 0x%0X 0x%0X", buf, 0x1Eu);
         }
 
-        v28 = (v24 + 3);
-        v30 = v23 - 3;
+        v30 = (v26 + 3);
+        v32 = v25 - 3;
       }
 
       else
       {
-        v21 = v56;
+        v23 = v64;
       }
 
       goto LABEL_21;
     }
 
-    ++v24;
-    v20 = v29;
-    --v23;
-    v22 = v26;
-    v21 = v56;
-    if (!v56)
+    ++v26;
+    v22 = v31;
+    --v25;
+    v24 = v28;
+    v23 = v64;
+    if (!v64)
     {
       break;
     }
 
 LABEL_20:
-    *(v24 - 1) = v21;
-    v30 = v23 + 1;
-    v29 = v20;
-    v28 = (v24 - 1);
+    *(v26 - 1) = v23;
+    v32 = v25 + 1;
+    v31 = v22;
+    v30 = (v26 - 1);
 LABEL_21:
-    LOWORD(v32) = [(BLEMIDIDataReceiver *)self nextMIDIEventFrom:v28 to:v22, v49]- v28;
-    v33 = *v28;
-    v34 = v33 & 0xF8;
-    if (v33 <= 0xF7)
+    v10 = [(BLEMIDIDataReceiver *)self nextMIDIEventFrom:v30 to:v24, v57];
+    LOWORD(v36) = v10 - v30;
+    v37 = *v30;
+    v38 = v37 & 0xF8;
+    if (v37 <= 0xF7)
     {
-      v35 = v8;
+      v39 = v8;
     }
 
     else
     {
-      v35 = v28;
+      v39 = v30;
     }
 
-    v36 = v34 == 240;
-    if (v34 == 240)
+    v40 = v38 == 240;
+    if (v38 == 240)
     {
-      v37 = v8;
+      v41 = v8;
     }
 
     else
     {
-      v37 = v35;
+      v41 = v39;
     }
 
+    if (v40)
+    {
+      v42 = 0;
+    }
+
+    else
+    {
+      v42 = v23;
+    }
+
+    if (v37 < -16)
+    {
+      v23 = *v30;
+    }
+
+    else
+    {
+      v8 = v41;
+      v23 = v42;
+    }
+
+    v22 = v31;
+    v26 = v30;
+    v25 = v32;
+LABEL_34:
+    v43 = v36;
     if (v36)
     {
-      v38 = 0;
-    }
-
-    else
-    {
-      v38 = v21;
-    }
-
-    if (v33 < -16)
-    {
-      v21 = *v28;
-    }
-
-    else
-    {
-      v8 = v37;
-      v21 = v38;
-    }
-
-    v20 = v29;
-    v24 = v28;
-    v23 = v30;
-LABEL_34:
-    v39 = v32;
-    if (v32)
-    {
       self->packetEmitter.mIsDirty = 1;
-      sub_DB8(&self->packetEmitter, time, v32, v24);
+      v10 = sub_DB8(&self->packetEmitter, time, v36, v26);
     }
 
-    v23 -= v39;
-    v24 += v39;
-    if (v24 >= v22)
+    v25 -= v43;
+    v26 += v43;
+    if (v26 >= v24)
     {
       goto LABEL_50;
     }
   }
 
-  sub_BDA4();
-  v47 = qword_1D998;
+  sub_BDA4(v34, v35);
+  v53 = qword_1D998;
   if (os_log_type_enabled(qword_1D998, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v60 = "BTLEMIDIDataReceiver.mm";
-    v61 = 1024;
-    v62 = 204;
-    _os_log_impl(&dword_0, v47, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: Discarding malformed packet. The full packet will be logged below.", buf, 0x12u);
+    v68 = "BTLEMIDIDataReceiver.mm";
+    v69 = 1024;
+    v70 = 204;
+    _os_log_impl(&dword_0, v53, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: Discarding malformed packet. The full packet will be logged below.", buf, 0x12u);
   }
 
   bytes3 = [valueCopy bytes];
-  +[BLEMIDIAccessor logEvent:length:timeStamp:intoBuffer:](BLEMIDIAccessor, "logEvent:length:timeStamp:intoBuffer:", bytes3, [valueCopy length], v51, self->logBuffer);
-  sub_BDA4();
-  v46 = qword_1D998;
+  v55 = +[BLEMIDIAccessor logEvent:length:timeStamp:intoBuffer:](BLEMIDIAccessor, "logEvent:length:timeStamp:intoBuffer:", bytes3, [valueCopy length], v59, self->logBuffer);
+  sub_BDA4(v55, v56);
+  v52 = qword_1D998;
   if (os_log_type_enabled(qword_1D998, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315650;
-    v60 = "BTLEMIDIDataReceiver.mm";
-    v61 = 1024;
-    v62 = 206;
-    v63 = 2080;
-    v64[0] = self->logBuffer;
-    v12 = "%25s:%-5d %s";
+    v68 = "BTLEMIDIDataReceiver.mm";
+    v69 = 1024;
+    v70 = 206;
+    v71 = 2080;
+    v72[0] = self->logBuffer;
+    v14 = "%25s:%-5d %s";
     goto LABEL_67;
   }
 

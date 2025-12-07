@@ -30,7 +30,7 @@
 
         else
         {
-          v15 = blt_general_log();
+          v15 = blt_general_log(0);
           if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
           {
             [BLTObjectSerializer serializeObject:v15 nulls:? error:?];
@@ -48,10 +48,10 @@
 
     else
     {
-      v12 = blt_general_log();
+      v12 = blt_general_log(0);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        [BLTObjectSerializer serializeObject:v7 nulls:&v18 error:?];
+        +[BLTObjectSerializer serializeObject:nulls:error:];
       }
 
       if (error)
@@ -88,10 +88,10 @@ LABEL_9:
   v11 = v10;
   if (error && !v10)
   {
-    v12 = blt_general_log();
+    v12 = blt_general_log(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      [BLTObjectSerializer unserializeObject:objectCopy nulls:&error error:?];
+      +[BLTObjectSerializer unserializeObject:nulls:error:];
     }
 
     if (error)
@@ -117,10 +117,10 @@ LABEL_9:
 
     else
     {
-      v15 = blt_general_log();
+      v15 = blt_general_log(0);
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        [BLTObjectSerializer unserializeObject:nullsCopy nulls:&v18 error:?];
+        +[BLTObjectSerializer unserializeObject:nulls:error:];
       }
 
       if (error)
@@ -137,34 +137,15 @@ LABEL_20:
   return v11;
 }
 
-+ (void)serializeObject:(uint64_t)a1 nulls:(uint64_t *)a2 error:.cold.1(uint64_t a1, uint64_t *a2)
-{
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_0(&dword_241FB3000, v3, v4, "Failed to serialized value (%@) with error: %@");
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 + (void)serializeObject:(uint64_t *)a1 nulls:(NSObject *)a2 error:.cold.2(uint64_t *a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4 = 138412546;
-  v5 = 0;
-  v6 = 2112;
-  v7 = v2;
-  _os_log_error_impl(&dword_241FB3000, a2, OS_LOG_TYPE_ERROR, "Failed to serialized value (%@) with error: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)unserializeObject:(uint64_t)a1 nulls:(uint64_t *)a2 error:.cold.1(uint64_t a1, uint64_t *a2)
-{
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_0(&dword_241FB3000, v3, v4, "Failed to unserialized data (%@) with error: %@");
-  v5 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = 0;
+  v5 = 2112;
+  v6 = v2;
+  _os_log_error_impl(&dword_241FB3000, a2, OS_LOG_TYPE_ERROR, "Failed to serialized value (%@) with error: %@", &v3, 0x16u);
 }
 
 @end

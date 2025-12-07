@@ -125,41 +125,42 @@
   keyCopy = key;
   v4 = objc_alloc(MEMORY[0x277CC37B0]);
   v6 = objc_msgSend_initWithQueue_(v4, v5, 0);
-  v20 = 0;
-  v8 = objc_msgSend_getCurrentDataSubscriptionContextSync_(v6, v7, &v20);
-  v9 = v20;
+  v22 = 0;
+  v8 = objc_msgSend_getCurrentDataSubscriptionContextSync_(v6, v7, &v22);
+  v9 = v22;
+  v10 = v9;
   if (v8)
   {
-    v10 = objc_alloc(MEMORY[0x277CC3620]);
-    v12 = objc_msgSend_initWithBundleType_(v10, v11, 1);
-    v19 = v9;
-    v14 = objc_msgSend_copyCarrierBundleValue_key_bundleType_error_(v6, v13, v8, keyCopy, v12, &v19);
-    v15 = v19;
+    v11 = objc_alloc(MEMORY[0x277CC3620]);
+    v13 = objc_msgSend_initWithBundleType_(v11, v12, 1);
+    v21 = v10;
+    v15 = objc_msgSend_copyCarrierBundleValue_key_bundleType_error_(v6, v14, v8, keyCopy, v13, &v21);
+    v16 = v21;
 
-    v9 = v15;
+    v10 = v16;
   }
 
   else
   {
-    v12 = BookUtilityLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = BookUtilityLog(v9);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      sub_241DCF934(v9, v12);
+      sub_241DCF934(v10, v13);
     }
 
-    v14 = 0;
+    v15 = 0;
   }
 
-  if (v9)
+  if (v10)
   {
-    v16 = BookUtilityLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v18 = BookUtilityLog(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      sub_241DCF9AC(v9, v16, v17);
+      sub_241DCF9AC(v10, v18, v19);
     }
   }
 
-  return v14;
+  return v15;
 }
 
 @end

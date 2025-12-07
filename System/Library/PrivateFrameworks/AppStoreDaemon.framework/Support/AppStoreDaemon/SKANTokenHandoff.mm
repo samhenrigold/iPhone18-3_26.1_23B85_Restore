@@ -7,7 +7,7 @@
 
 + (void)handoffTokenWithTokenData:(id)data advertisedItemID:(unint64_t)d environment:(id)environment
 {
-  v8 = sub_100085D40(&qword_10059C3E0);
+  v8 = sub_100085D40(&qword_10059C3E0, &qword_1004344C0);
   __chkstk_darwin(v8 - 8);
   v10 = &v18 - v9;
   dataCopy = data;

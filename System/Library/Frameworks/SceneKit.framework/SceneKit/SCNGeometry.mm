@@ -547,7 +547,7 @@ LABEL_24:
   v6 = [options objectForKey:@"kPrimitiveSphereType"];
   if (v6)
   {
-    -[SCNSphere setGeodesic:](v5, "setGeodesic:", [v6 isEqualToString:@"kPrimitiveTypeGeosphere"]);
+    [(SCNSphere *)v5 setGeodesic:objc_msgSend_isEqualToString_(v6)];
   }
 
   return v5;
@@ -595,24 +595,25 @@ LABEL_24:
 
 - (SCNGeometry)init
 {
-  v5.receiver = self;
-  v5.super_class = SCNGeometry;
-  v2 = [(SCNGeometry *)&v5 init];
+  v7.receiver = self;
+  v7.super_class = SCNGeometry;
+  v2 = [(SCNGeometry *)&v7 init];
+  v4 = v2;
   if (v2)
   {
-    v3 = C3DGeometryCreate();
-    v2->_geometry = v3;
-    if (v3)
+    v5 = C3DGeometryCreate(v2, v3);
+    v4->_geometry = v5;
+    if (v5)
     {
-      C3DEntitySetObjCWrapper(v3, v2);
+      C3DEntitySetObjCWrapper(v5, v4);
     }
 
-    v2->_animationsLock._os_unfair_lock_opaque = 0;
-    v2->_valuesForUndefinedKeysLock._os_unfair_lock_opaque = 0;
-    [(SCNGeometry *)v2 _syncObjCModel];
+    v4->_animationsLock._os_unfair_lock_opaque = 0;
+    v4->_valuesForUndefinedKeysLock._os_unfair_lock_opaque = 0;
+    [(SCNGeometry *)v4 _syncObjCModel];
   }
 
-  return v2;
+  return v4;
 }
 
 - (SCNGeometry)initWithGeometryRef:(__C3DGeometry *)ref
@@ -707,7 +708,7 @@ LABEL_24:
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNGeometry setName:];
@@ -748,16 +749,17 @@ CFStringRef __23__SCNGeometry_setName___block_invoke(uint64_t a1)
   }
 
   sceneRef = [(SCNGeometry *)self sceneRef];
-  v5 = sceneRef;
+  v6 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v5);
   }
 
-  Name = C3DEntityGetName([(SCNGeometry *)self __CFObject]);
-  if (v5)
+  __CFObject = [(SCNGeometry *)self __CFObject];
+  Name = C3DEntityGetName(__CFObject, v8);
+  if (v6)
   {
-    C3DSceneUnlock(v5);
+    C3DSceneUnlock(v6, v9);
   }
 
   return Name;
@@ -774,14 +776,14 @@ CFStringRef __23__SCNGeometry_setName___block_invoke(uint64_t a1)
 {
   __CFObject = [(SCNGeometry *)self __CFObject];
 
-  return C3DEntityGetID(__CFObject);
+  return C3DEntityGetID(__CFObject, v3);
 }
 
 - (void)_syncEntityObjCModel
 {
   __CFObject = [(SCNGeometry *)self __CFObject];
 
-  self->_name = C3DEntityGetName(__CFObject);
+  self->_name = C3DEntityGetName(__CFObject, v4);
 }
 
 - (void)_syncObjCModel
@@ -927,8 +929,8 @@ LABEL_10:
   selfCopy = self;
   channelsCopy = channels;
   v42 = *MEMORY[0x277D85DE8];
-  v7 = C3DGeometryCreate();
-  Default = C3DMaterialCreateDefault(v8);
+  v7 = C3DGeometryCreate(self, a2);
+  Default = C3DMaterialCreateDefault(v7, v8);
   C3DGeometryAppendMaterial(v7, Default);
   CFRelease(Default);
   v10 = *MEMORY[0x277CBECE8];
@@ -1014,51 +1016,51 @@ LABEL_10:
 - (void)_setupGeometrySources
 {
   sceneRef = [(SCNGeometry *)self sceneRef];
-  v4 = sceneRef;
+  v5 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v4);
   }
 
-  v5 = self->_sources;
+  v6 = self->_sources;
   self->_sources = objc_alloc_init(MEMORY[0x277CBEB18]);
-  Mesh = C3DGeometryGetMesh(self->_geometry);
+  Mesh = C3DGeometryGetMesh(self->_geometry, v7);
   if (Mesh)
   {
-    v7 = Mesh;
-    v15 = -1;
-    v8 = C3DMeshUsesSameChannelForAllSources(Mesh, &v15);
-    if (v15)
+    v9 = Mesh;
+    v18 = -1;
+    v10 = C3DMeshUsesSameChannelForAllSources(Mesh, &v18);
+    if (v18)
     {
-      v9 = 0;
+      v11 = 0;
     }
 
     else
     {
-      v9 = v8;
+      v11 = v10;
     }
 
-    if (v9)
+    if (v11)
     {
-      v10 = 0;
+      v12 = 0;
     }
 
     else
     {
-      v10 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v12 = objc_alloc_init(MEMORY[0x277CBEB18]);
     }
 
-    v11 = C3DMeshCopyAllSources(v7, 0);
-    v12 = [(__CFArray *)v11 count];
-    if (v12)
+    v13 = C3DMeshCopyAllSources(v9, 0);
+    v14 = [(__CFArray *)v13 count];
+    if (v14)
     {
-      v13 = v12;
-      for (i = 0; i != v13; ++i)
+      v15 = v14;
+      for (i = 0; i != v15; ++i)
       {
-        [(NSMutableArray *)self->_sources addObject:[SCNGeometrySource geometrySourceWithMeshSourceRef:[(__CFArray *)v11 objectAtIndexedSubscript:i]]];
-        if ((v9 & 1) == 0)
+        [(NSMutableArray *)self->_sources addObject:[SCNGeometrySource geometrySourceWithMeshSourceRef:[(__CFArray *)v13 objectAtIndexedSubscript:i]]];
+        if ((v11 & 1) == 0)
         {
-          [v10 addObject:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithLong:", C3DMeshGetChannelForSourceAtIndex(v7, i))}];
+          [v12 addObject:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithLong:", C3DMeshGetChannelForSourceAtIndex(v9, i))}];
         }
       }
     }
@@ -1066,46 +1068,46 @@ LABEL_10:
 
   else
   {
-    v10 = 0;
+    v12 = 0;
   }
 
-  self->_sourceChannels = [v10 copy];
-  if (v4)
+  self->_sourceChannels = [v12 copy];
+  if (v5)
   {
-    C3DSceneUnlock(v4);
+    C3DSceneUnlock(v5, v17);
   }
 }
 
 - (void)_setupGeometryElements
 {
   sceneRef = [(SCNGeometry *)self sceneRef];
-  v4 = sceneRef;
+  v5 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v4);
   }
 
-  Mesh = C3DGeometryGetMesh(self->_geometry);
+  Mesh = C3DGeometryGetMesh(self->_geometry, v4);
   if (Mesh)
   {
-    v6 = Mesh;
-    v7 = self->_elements;
+    v8 = Mesh;
+    v9 = self->_elements;
     self->_elements = objc_alloc_init(MEMORY[0x277CBEB18]);
-    ElementsCount = C3DMeshGetElementsCount(v6);
+    ElementsCount = C3DMeshGetElementsCount(v8, v10);
     if (ElementsCount >= 1)
     {
-      v9 = ElementsCount;
-      for (i = 0; i != v9; ++i)
+      v12 = ElementsCount;
+      for (i = 0; i != v12; ++i)
       {
-        [(NSMutableArray *)self->_elements addObject:[SCNGeometryElement geometryElementWithMeshElementRef:C3DMeshGetElementAtIndex(v6, i, 0)]];
+        [(NSMutableArray *)self->_elements addObject:[SCNGeometryElement geometryElementWithMeshElementRef:C3DMeshGetElementAtIndex(v8, i, 0)]];
       }
     }
   }
 
-  if (v4)
+  if (v5)
   {
 
-    C3DSceneUnlock(v4);
+    C3DSceneUnlock(v5, v7);
   }
 }
 
@@ -1124,42 +1126,42 @@ LABEL_10:
 - (NSArray)geometrySourcesForSemantic:(SCNGeometrySourceSemantic)semantic
 {
   v17 = *MEMORY[0x277D85DE8];
-  geometrySources = [(SCNGeometry *)self geometrySources];
-  v5 = [MEMORY[0x277CBEB18] arrayWithCapacity:1];
+  v3 = objc_msgSend_geometrySources(self, a2);
+  v4 = [MEMORY[0x277CBEB18] arrayWithCapacity:1];
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v6 = [(NSArray *)geometrySources countByEnumeratingWithState:&v12 objects:v16 count:16];
-  if (v6)
+  v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v5)
   {
-    v7 = v6;
-    v8 = *v13;
+    v6 = v5;
+    v7 = *v13;
     do
     {
-      for (i = 0; i != v7; ++i)
+      for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v8)
+        if (*v13 != v7)
         {
-          objc_enumerationMutation(geometrySources);
+          objc_enumerationMutation(v3);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * i);
-        if ([objc_msgSend(v10 "semantic")])
+        v9 = *(*(&v12 + 1) + 8 * i);
+        if (objc_msgSend_isEqualToString_([v9 semantic]))
         {
-          [(NSArray *)v5 addObject:v10];
+          [(NSArray *)v4 addObject:v9];
         }
       }
 
-      v7 = [(NSArray *)geometrySources countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
-    while (v7);
+    while (v6);
   }
 
-  if (![(NSArray *)v5 count])
+  if (![(NSArray *)v4 count])
   {
-    if (C3DWasLinkedBeforeMajorOSYear2015())
+    if (C3DWasLinkedBeforeMajorOSYear2015(0, v10))
     {
       return 0;
     }
@@ -1170,7 +1172,7 @@ LABEL_10:
     }
   }
 
-  return v5;
+  return v4;
 }
 
 - (id)geometrySourceForSemantic:(id)semantic
@@ -1241,16 +1243,16 @@ LABEL_10:
   }
 
   sceneRef = [(SCNGeometry *)self sceneRef];
-  v13 = sceneRef;
+  v14 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v13);
   }
 
   if (![(SCNGeometry *)self geometryRef])
   {
     v11 = 0;
-    if (!v13)
+    if (!v14)
     {
       return v11;
     }
@@ -1258,29 +1260,29 @@ LABEL_10:
     goto LABEL_16;
   }
 
+  v22 = 0.0;
+  v21 = 0;
   v20 = 0.0;
   v19 = 0;
-  v18 = 0.0;
-  v17 = 0;
-  v11 = C3DGetBoundingBox([(SCNGeometry *)self geometryRef], 1, &v19, &v17);
+  v11 = C3DGetBoundingBox([(SCNGeometry *)self geometryRef], 1, &v21, &v19);
   if (min)
   {
-    v14 = v20;
-    *&min->x = v19;
-    min->z = v14;
+    v16 = v22;
+    *&min->x = v21;
+    min->z = v16;
   }
 
   if (max)
   {
-    v15 = v18;
-    *&max->x = v17;
-    max->z = v15;
+    v17 = v20;
+    *&max->x = v19;
+    max->z = v17;
   }
 
-  if (v13)
+  if (v14)
   {
 LABEL_16:
-    C3DSceneUnlock(v13);
+    C3DSceneUnlock(v14, v15);
   }
 
   return v11;
@@ -1290,7 +1292,7 @@ LABEL_16:
 {
   if (*(self + 16))
   {
-    v11 = scn_default_log();
+    v11 = scn_default_log(self, a2);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [SCNGeometry setBoundingBoxMin:max:];
@@ -1386,46 +1388,46 @@ __n128 __37__SCNGeometry_setBoundingBoxMin_max___block_invoke_2(float32x4_t *a1)
 - (BOOL)getBoundingSphereCenter:(SCNVector3 *)center radius:(double *)radius
 {
   sceneRef = [(SCNGeometry *)self sceneRef];
-  v8 = sceneRef;
+  v9 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v8);
   }
 
   geometryRef = [(SCNGeometry *)self geometryRef];
-  v13 = 0uLL;
-  if (!geometryRef || !C3DGetBoundingSphere(geometryRef, 1, &v13))
+  v15 = 0uLL;
+  if (!geometryRef || !C3DGetBoundingSphere(geometryRef, 1, &v15))
   {
-    v11 = 0;
-    if (!v8)
+    v13 = 0;
+    if (!v9)
     {
-      return v11;
+      return v13;
     }
 
 LABEL_12:
-    C3DSceneUnlock(v8);
-    return v11;
+    C3DSceneUnlock(v9, v11);
+    return v13;
   }
 
   if (center)
   {
-    v10 = *(&v13 + 2);
-    *&center->x = v13;
-    center->z = v10;
+    v12 = *(&v15 + 2);
+    *&center->x = v15;
+    center->z = v12;
   }
 
   if (radius)
   {
-    *radius = *(&v13 + 3);
+    *radius = *(&v15 + 3);
   }
 
-  v11 = 1;
-  if (v8)
+  v13 = 1;
+  if (v9)
   {
     goto LABEL_12;
   }
 
-  return v11;
+  return v13;
 }
 
 - (BOOL)simdGetBoundingSphereCenter:(SCNGeometry *)self radius:(SEL)radius
@@ -1433,44 +1435,44 @@ LABEL_12:
   v4 = v3;
   v5 = v2;
   sceneRef = [(SCNGeometry *)self sceneRef];
-  v8 = sceneRef;
+  v9 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v8);
   }
 
   geometryRef = [(SCNGeometry *)self geometryRef];
-  v12 = 0uLL;
-  if (!geometryRef || !C3DGetBoundingSphere(geometryRef, 1, &v12))
+  v14 = 0uLL;
+  if (!geometryRef || !C3DGetBoundingSphere(geometryRef, 1, &v14))
   {
-    v10 = 0;
-    if (!v8)
+    v12 = 0;
+    if (!v9)
     {
-      return v10;
+      return v12;
     }
 
 LABEL_12:
-    C3DSceneUnlock(v8);
-    return v10;
+    C3DSceneUnlock(v9, v11);
+    return v12;
   }
 
   if (v5)
   {
-    *v5 = v12;
+    *v5 = v14;
   }
 
   if (v4)
   {
-    *v4 = HIDWORD(v12);
+    *v4 = HIDWORD(v14);
   }
 
-  v10 = 1;
-  if (v8)
+  v12 = 1;
+  if (v9)
   {
     goto LABEL_12;
   }
 
-  return v10;
+  return v12;
 }
 
 - (id)getBoundingSphere
@@ -1567,89 +1569,93 @@ void __33__SCNGeometry__copyAttributesTo___block_invoke(uint64_t a1, uint64_t a2
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  Copy = C3DGeometryCreateCopy([(SCNGeometry *)self geometryRef]);
-  v5 = [objc_alloc(objc_opt_class()) initWithGeometryRef:Copy];
+  geometryRef = [(SCNGeometry *)self geometryRef];
+  Copy = C3DGeometryCreateCopy(geometryRef, v5);
+  v7 = [objc_alloc(objc_opt_class()) initWithGeometryRef:Copy];
   if (Copy)
   {
     CFRelease(Copy);
   }
 
-  [v5 _setupObjCModelFrom:self];
-  [(SCNGeometry *)self _copyAttributesTo:v5];
-  return v5;
+  [v7 _setupObjCModelFrom:self];
+  [(SCNGeometry *)self _copyAttributesTo:v7];
+  return v7;
 }
 
 - (id)mutableCopy
 {
-  MutableCopy = C3DGeometryCreateMutableCopy([(SCNGeometry *)self geometryRef]);
-  v4 = [objc_alloc(objc_opt_class()) initWithGeometryRef:MutableCopy];
-  [v4 _setupObjCModelFrom:self];
+  geometryRef = [(SCNGeometry *)self geometryRef];
+  MutableCopy = C3DGeometryCreateMutableCopy(geometryRef, v4);
+  v6 = [objc_alloc(objc_opt_class()) initWithGeometryRef:MutableCopy];
+  [v6 _setupObjCModelFrom:self];
   os_unfair_lock_lock(&self->_valuesForUndefinedKeysLock);
-  v5 = [(NSMutableDictionary *)self->_valuesForUndefinedKeys copy];
+  v7 = [(NSMutableDictionary *)self->_valuesForUndefinedKeys copy];
   os_unfair_lock_unlock(&self->_valuesForUndefinedKeysLock);
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = ____createCopy_block_invoke;
-  v7[3] = &unk_2782FC900;
-  v7[4] = v4;
-  [v5 enumerateKeysAndObjectsUsingBlock:v7];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = ____createCopy_block_invoke;
+  v9[3] = &unk_2782FC900;
+  v9[4] = v6;
+  [v7 enumerateKeysAndObjectsUsingBlock:v9];
   if (MutableCopy)
   {
     CFRelease(MutableCopy);
   }
 
-  return v4;
+  return v6;
 }
 
 - (id)interleavedCopy
 {
-  InterleavedCopy = C3DGeometryCreateInterleavedCopy([(SCNGeometry *)self geometryRef]);
-  v4 = [objc_alloc(objc_opt_class()) initWithGeometryRef:InterleavedCopy];
-  [v4 _setupObjCModelFrom:self];
+  geometryRef = [(SCNGeometry *)self geometryRef];
+  InterleavedCopy = C3DGeometryCreateInterleavedCopy(geometryRef, v4);
+  v6 = [objc_alloc(objc_opt_class()) initWithGeometryRef:InterleavedCopy];
+  [v6 _setupObjCModelFrom:self];
   os_unfair_lock_lock(&self->_valuesForUndefinedKeysLock);
-  v5 = [(NSMutableDictionary *)self->_valuesForUndefinedKeys copy];
+  v7 = [(NSMutableDictionary *)self->_valuesForUndefinedKeys copy];
   os_unfair_lock_unlock(&self->_valuesForUndefinedKeysLock);
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = ____createCopy_block_invoke;
-  v7[3] = &unk_2782FC900;
-  v7[4] = v4;
-  [v5 enumerateKeysAndObjectsUsingBlock:v7];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = ____createCopy_block_invoke;
+  v9[3] = &unk_2782FC900;
+  v9[4] = v6;
+  [v7 enumerateKeysAndObjectsUsingBlock:v9];
   if (InterleavedCopy)
   {
     CFRelease(InterleavedCopy);
   }
 
-  return v4;
+  return v6;
 }
 
 - (id)_renderableCopy
 {
-  RenderableCopy = C3DGeometryCreateRenderableCopy([(SCNGeometry *)self geometryRef]);
-  v4 = [objc_alloc(objc_opt_class()) initWithGeometryRef:RenderableCopy];
-  [v4 _setupObjCModelFrom:self];
+  geometryRef = [(SCNGeometry *)self geometryRef];
+  RenderableCopy = C3DGeometryCreateRenderableCopy(geometryRef, v4);
+  v6 = [objc_alloc(objc_opt_class()) initWithGeometryRef:RenderableCopy];
+  [v6 _setupObjCModelFrom:self];
   os_unfair_lock_lock(&self->_valuesForUndefinedKeysLock);
-  v5 = [(NSMutableDictionary *)self->_valuesForUndefinedKeys copy];
+  v7 = [(NSMutableDictionary *)self->_valuesForUndefinedKeys copy];
   os_unfair_lock_unlock(&self->_valuesForUndefinedKeysLock);
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = ____createCopy_block_invoke;
-  v7[3] = &unk_2782FC900;
-  v7[4] = v4;
-  [v5 enumerateKeysAndObjectsUsingBlock:v7];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = ____createCopy_block_invoke;
+  v9[3] = &unk_2782FC900;
+  v9[4] = v6;
+  [v7 enumerateKeysAndObjectsUsingBlock:v9];
   if (RenderableCopy)
   {
     CFRelease(RenderableCopy);
   }
 
-  return v4;
+  return v6;
 }
 
 - (__C3DScene)sceneRef
 {
   __CFObject = [(SCNGeometry *)self __CFObject];
 
-  return C3DGetScene(__CFObject);
+  return C3DGetScene(__CFObject, v3);
 }
 
 - (id)scene
@@ -1673,39 +1679,39 @@ void __33__SCNGeometry__copyAttributesTo___block_invoke(uint64_t a1, uint64_t a2
 
 - (id)_materialWithName:(id)name
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   materials = [(SCNGeometry *)self materials];
-  v5 = [(NSArray *)materials countByEnumeratingWithState:&v11 objects:v15 count:16];
-  if (!v5)
+  v4 = [(NSArray *)materials countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (!v4)
   {
     return 0;
   }
 
-  v6 = v5;
-  v7 = *v12;
+  v5 = v4;
+  v6 = *v11;
 LABEL_3:
-  v8 = 0;
+  v7 = 0;
   while (1)
   {
-    if (*v12 != v7)
+    if (*v11 != v6)
     {
       objc_enumerationMutation(materials);
     }
 
-    v9 = *(*(&v11 + 1) + 8 * v8);
-    if ([objc_msgSend(v9 "name")])
+    v8 = *(*(&v10 + 1) + 8 * v7);
+    if (objc_msgSend_isEqualToString_([v8 name]))
     {
-      return v9;
+      return v8;
     }
 
-    if (v6 == ++v8)
+    if (v5 == ++v7)
     {
-      v6 = [(NSArray *)materials countByEnumeratingWithState:&v11 objects:v15 count:16];
-      if (v6)
+      v5 = [(NSArray *)materials countByEnumeratingWithState:&v10 objects:v14 count:16];
+      if (v5)
       {
         goto LABEL_3;
       }
@@ -1755,7 +1761,7 @@ LABEL_3:
 {
   if (!object)
   {
-    v7 = scn_default_log();
+    v7 = scn_default_log(self, a2);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
       [(SCNGeometry *)v7 insertObject:v8 inMaterialsAtIndex:v9, v10, v11, v12, v13, v14];
@@ -1799,31 +1805,32 @@ void __47__SCNGeometry_insertObject_inMaterialsAtIndex___block_invoke(uint64_t a
     materials = self->_materials;
   }
 
-  if ([(NSMutableArray *)materials count]<= index)
+  v6 = [(NSMutableArray *)materials count];
+  if (v6 <= index)
   {
-    v6 = scn_default_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+    v8 = scn_default_log(v6, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
-      [(SCNGeometry *)v6 removeObjectFromMaterialsAtIndex:v7, v8, v9, v10, v11, v12, v13];
+      [(SCNGeometry *)v8 removeObjectFromMaterialsAtIndex:v9, v10, v11, v12, v13, v14, v15];
     }
   }
 
   [(NSMutableArray *)self->_materials removeObjectAtIndex:index];
   sceneRef = [(SCNGeometry *)self sceneRef];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __48__SCNGeometry_removeObjectFromMaterialsAtIndex___block_invoke;
-  v15[3] = &unk_2782FB7D0;
-  v15[4] = self;
-  v15[5] = index;
-  [SCNTransaction postCommandWithContext:sceneRef object:self applyBlock:v15];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __48__SCNGeometry_removeObjectFromMaterialsAtIndex___block_invoke;
+  v17[3] = &unk_2782FB7D0;
+  v17[4] = self;
+  v17[5] = index;
+  [SCNTransaction postCommandWithContext:sceneRef object:self applyBlock:v17];
 }
 
 - (void)replaceObjectInMaterialsAtIndex:(unint64_t)index withObject:(id)object
 {
   if (!object)
   {
-    v7 = scn_default_log();
+    v7 = scn_default_log(self, a2);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
       [(SCNGeometry *)v7 insertObject:v8 inMaterialsAtIndex:v9, v10, v11, v12, v13, v14];
@@ -2000,7 +2007,7 @@ void __33__SCNGeometry_removeAllMaterials__block_invoke(uint64_t a1)
   if (v1)
   {
 
-    C3DGeometryRemoveAllMaterials(v1);
+    C3DGeometryRemoveAllMaterials(v1, v2);
   }
 }
 
@@ -2021,20 +2028,21 @@ void __33__SCNGeometry_removeAllMaterials__block_invoke(uint64_t a1)
 - (int64_t)primitiveType
 {
   sceneRef = [(SCNGeometry *)self sceneRef];
-  v4 = sceneRef;
+  v5 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v4);
   }
 
-  Mesh = C3DGeometryGetMesh([(SCNGeometry *)self geometryRef]);
+  geometryRef = [(SCNGeometry *)self geometryRef];
+  Mesh = C3DGeometryGetMesh(geometryRef, v7);
   Type = Mesh;
   if (Mesh)
   {
-    if (C3DMeshGetElementsCount(Mesh) < 1)
+    if (C3DMeshGetElementsCount(Mesh, v9) < 1)
     {
       Type = 0;
-      if (!v4)
+      if (!v5)
       {
         return Type;
       }
@@ -2043,13 +2051,13 @@ void __33__SCNGeometry_removeAllMaterials__block_invoke(uint64_t a1)
     }
 
     ElementAtIndex = C3DMeshGetElementAtIndex(Type, 0, 0);
-    Type = C3DMeshElementGetType(ElementAtIndex);
+    Type = C3DMeshElementGetType(ElementAtIndex, v12);
   }
 
-  if (v4)
+  if (v5)
   {
 LABEL_7:
-    C3DSceneUnlock(v4);
+    C3DSceneUnlock(v5, v9);
   }
 
   return Type;
@@ -2059,35 +2067,41 @@ LABEL_7:
 {
   typeCopy = type;
   sceneRef = [(SCNGeometry *)self sceneRef];
-  v6 = sceneRef;
+  v7 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v6);
   }
 
-  Mesh = C3DGeometryGetMesh([(SCNGeometry *)self geometryRef]);
+  geometryRef = [(SCNGeometry *)self geometryRef];
+  Mesh = C3DGeometryGetMesh(geometryRef, v9);
   if (Mesh)
   {
-    v8 = Mesh;
-    if (C3DMeshGetElementsCount(Mesh) >= 1)
+    v12 = Mesh;
+    if (C3DMeshGetElementsCount(Mesh, v11) >= 1)
     {
-      ElementsCount = C3DMeshGetElementsCount(v8);
+      ElementsCount = C3DMeshGetElementsCount(v12, v11);
       if (ElementsCount >= 1)
       {
-        v10 = ElementsCount;
-        for (i = 0; i != v10; ++i)
+        v14 = ElementsCount;
+        v15 = 0;
+        v16 = typeCopy;
+        do
         {
-          ElementAtIndex = C3DMeshGetElementAtIndex(v8, i, 0);
-          C3DMeshElementSetType(ElementAtIndex, typeCopy);
+          ElementAtIndex = C3DMeshGetElementAtIndex(v12, v15, 0);
+          C3DMeshElementSetType(ElementAtIndex, v16);
+          ++v15;
         }
+
+        while (v14 != v15);
       }
     }
   }
 
-  if (v6)
+  if (v7)
   {
 
-    C3DSceneUnlock(v6);
+    C3DSceneUnlock(v7, v11);
   }
 }
 
@@ -2132,24 +2146,24 @@ LABEL_7:
 
 - (id)copyAnimationChannelForKeyPath:(id)path animation:(id)animation
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   if (![path length])
   {
     return 0;
   }
 
-  v23 = 0;
+  v26 = 0;
+  v27 = 0;
+  SCNKitSplitKVCPath(path, &v27, &v26);
   v24 = 0;
-  SCNKitSplitKVCPath(path, &v24, &v23);
-  v21 = 0;
-  v22 = 0;
-  if ([(SCNGeometry *)self parseSpecialKey:v24 withPath:path intoDestination:&v21 remainingPath:&v22])
+  v25 = 0;
+  if ([(SCNGeometry *)self parseSpecialKey:v27 withPath:path intoDestination:&v24 remainingPath:&v25])
   {
-    v7 = [v21 copyAnimationChannelForKeyPath:v22 animation:animation];
+    v7 = [v24 copyAnimationChannelForKeyPath:v25 animation:animation];
     if (v7)
     {
       v8 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v7, "count") + 1}];
-      [v8 addObject:v24];
+      [v8 addObject:v27];
       [v8 addObjectsFromArray:v7];
 
       return v8;
@@ -2158,11 +2172,11 @@ LABEL_7:
     return 0;
   }
 
-  v21 = [(SCNGeometry *)self valueForKey:v24];
-  if ((objc_opt_respondsToSelector() & 1) != 0 && (v9 = [v21 copyAnimationChannelForKeyPath:v23 animation:animation]) != 0)
+  v24 = [(SCNGeometry *)self valueForKey:v27];
+  if ((objc_opt_respondsToSelector() & 1) != 0 && (v9 = [v24 copyAnimationChannelForKeyPath:v26 animation:animation]) != 0)
   {
     v8 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v9, "count") + 1}];
-    [v8 addObject:v24];
+    [v8 addObject:v27];
     [v8 addObjectsFromArray:v9];
   }
 
@@ -2178,36 +2192,36 @@ LABEL_7:
         TargetedBaseType = SCNAnimationGetTargetedBaseType(animation);
         if (TargetedBaseType)
         {
-          v17 = SCNDefaultValueWithBaseType(TargetedBaseType, v13, v14, v15, v16);
+          v18 = SCNDefaultValueWithBaseType(TargetedBaseType, v13, v14, v15, v16, v17);
           sceneRef = [(SCNGeometry *)self sceneRef];
-          v19 = sceneRef;
+          v21 = sceneRef;
           if (sceneRef)
           {
-            C3DSceneLock(sceneRef);
+            C3DSceneLock(sceneRef, v20);
             +[SCNTransaction begin];
             [SCNTransaction setImmediateMode:1];
-            [(SCNGeometry *)self setValue:v17 forUndefinedKey:path];
+            [(SCNGeometry *)self setValue:v18 forUndefinedKey:path];
             +[SCNTransaction commitImmediate];
-            C3DSceneUnlock(v19);
+            C3DSceneUnlock(v21, v22);
           }
 
           else
           {
             +[SCNTransaction begin];
             [SCNTransaction setImmediateMode:1];
-            [(SCNGeometry *)self setValue:v17 forUndefinedKey:path];
+            [(SCNGeometry *)self setValue:v18 forUndefinedKey:path];
             +[SCNTransaction commitImmediate];
           }
         }
 
         else
         {
-          v20 = scn_default_log();
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+          v23 = scn_default_log(TargetedBaseType, v13);
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
             pathCopy = path;
-            _os_log_impl(&dword_21BEF7000, v20, OS_LOG_TYPE_DEFAULT, "Warning: can't prepare shadable animation with path %@", buf, 0xCu);
+            _os_log_impl(&dword_21BEF7000, v23, OS_LOG_TYPE_DEFAULT, "Warning: can't prepare shadable animation with path %@", buf, 0xCu);
           }
         }
       }
@@ -2398,31 +2412,32 @@ void __43__SCNGeometry_setWantsAdaptiveSubdivision___block_invoke(uint64_t a1)
   v5 = self->_edgeCreasesElement;
   if (v5 != edgeCreasesElement)
   {
-    v10[7] = v3;
-    v10[8] = v4;
+    v12[7] = v3;
+    v12[8] = v4;
     if (!edgeCreasesElement)
     {
 LABEL_5:
 
       self->_edgeCreasesElement = edgeCreasesElement;
       sceneRef = [(SCNGeometry *)self sceneRef];
-      v10[0] = MEMORY[0x277D85DD0];
-      v10[1] = 3221225472;
-      v10[2] = __37__SCNGeometry_setEdgeCreasesElement___block_invoke;
-      v10[3] = &unk_2782FB820;
-      v10[4] = self;
-      [SCNTransaction postCommandWithContext:sceneRef object:self applyBlock:v10];
+      v12[0] = MEMORY[0x277D85DD0];
+      v12[1] = 3221225472;
+      v12[2] = __37__SCNGeometry_setEdgeCreasesElement___block_invoke;
+      v12[3] = &unk_2782FB820;
+      v12[4] = self;
+      [SCNTransaction postCommandWithContext:sceneRef object:self applyBlock:v12];
       return;
     }
 
-    if ([(SCNGeometryElement *)edgeCreasesElement primitiveType]== SCNGeometryPrimitiveTypeLine)
+    primitiveType = [(SCNGeometryElement *)edgeCreasesElement primitiveType];
+    if (primitiveType == SCNGeometryPrimitiveTypeLine)
     {
       v5 = self->_edgeCreasesElement;
       goto LABEL_5;
     }
 
-    v9 = scn_default_log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = scn_default_log(primitiveType, v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [SCNGeometry setEdgeCreasesElement:];
     }
@@ -2446,31 +2461,32 @@ void __37__SCNGeometry_setEdgeCreasesElement___block_invoke(uint64_t a1)
   v5 = self->_edgeCreasesSource;
   if (v5 != edgeCreasesSource)
   {
-    v10[7] = v3;
-    v10[8] = v4;
+    v12[7] = v3;
+    v12[8] = v4;
     if (!edgeCreasesSource)
     {
 LABEL_5:
 
       self->_edgeCreasesSource = edgeCreasesSource;
       sceneRef = [(SCNGeometry *)self sceneRef];
-      v10[0] = MEMORY[0x277D85DD0];
-      v10[1] = 3221225472;
-      v10[2] = __36__SCNGeometry_setEdgeCreasesSource___block_invoke;
-      v10[3] = &unk_2782FB820;
-      v10[4] = self;
-      [SCNTransaction postCommandWithContext:sceneRef object:self applyBlock:v10];
+      v12[0] = MEMORY[0x277D85DD0];
+      v12[1] = 3221225472;
+      v12[2] = __36__SCNGeometry_setEdgeCreasesSource___block_invoke;
+      v12[3] = &unk_2782FB820;
+      v12[4] = self;
+      [SCNTransaction postCommandWithContext:sceneRef object:self applyBlock:v12];
       return;
     }
 
-    if ([(NSString *)[(SCNGeometrySource *)edgeCreasesSource semantic] isEqualToString:@"kGeometrySourceSemanticEdgeCrease"])
+    isEqualToString = objc_msgSend_isEqualToString_([(SCNGeometrySource *)edgeCreasesSource semantic]);
+    if (isEqualToString)
     {
       v5 = self->_edgeCreasesSource;
       goto LABEL_5;
     }
 
-    v9 = scn_default_log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = scn_default_log(isEqualToString, v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [SCNGeometry setEdgeCreasesSource:];
     }
@@ -2495,14 +2511,15 @@ void __36__SCNGeometry_setEdgeCreasesSource___block_invoke(uint64_t a1)
   OverrideMaterial = C3DGeometryGetOverrideMaterial(geometryRef);
   if (!OverrideMaterial)
   {
-    if (C3DGeometryGetMaterialsCount(geometryRef) >= 1 && (MaterialAtIndex = C3DGeometryGetMaterialAtIndex(geometryRef, 0)) != 0)
+    MaterialsCount = C3DGeometryGetMaterialsCount(geometryRef, v3);
+    if (MaterialsCount >= 1 && (MaterialsCount = C3DGeometryGetMaterialAtIndex(geometryRef, 0)) != 0)
     {
-      Copy = C3DMaterialCreateCopy(MaterialAtIndex);
+      Copy = C3DMaterialCreateCopy(MaterialsCount, v6);
     }
 
     else
     {
-      Copy = C3DMaterialCreate();
+      Copy = C3DMaterialCreate(MaterialsCount, v6);
     }
 
     OverrideMaterial = Copy;
@@ -2525,7 +2542,7 @@ void __36__SCNGeometry_setEdgeCreasesSource___block_invoke(uint64_t a1)
   geometryRef = [(SCNGeometry *)self geometryRef];
   if (geometryRef)
   {
-    Mesh = C3DGeometryGetMesh(geometryRef);
+    Mesh = C3DGeometryGetMesh(geometryRef, v3);
 
     C3DMeshUnifyNormals(Mesh, Mesh, 1, 0);
   }
@@ -2562,24 +2579,24 @@ void __36__SCNGeometry_setEdgeCreasesSource___block_invoke(uint64_t a1)
   if (*(self + 16))
   {
     sceneRef = [(SCNGeometry *)self sceneRef];
-    v7 = sceneRef;
+    v8 = sceneRef;
     if (sceneRef)
     {
-      C3DSceneLock(sceneRef);
+      C3DSceneLock(sceneRef, v7);
     }
 
     ValueForKey = C3DEntityGetValueForKey(self->_geometry, key);
     v5 = ValueForKey;
     if (ValueForKey)
     {
-      Bytes = C3DValueGetBytes(ValueForKey);
-      Type = C3DValueGetType(v5);
-      v5 = SCNNSValueFromTypedBytes(Bytes, Type, v11, v12, v13, v14);
+      Bytes = C3DValueGetBytes(ValueForKey, v10);
+      Type = C3DValueGetType(v5, v12);
+      v5 = SCNNSValueFromTypedBytes(Bytes, Type, v14, v15, v16, v17);
     }
 
-    if (v7)
+    if (v8)
     {
-      C3DSceneUnlock(v7);
+      C3DSceneUnlock(v8, v10);
     }
 
     if (v5)
@@ -2587,36 +2604,36 @@ void __36__SCNGeometry_setEdgeCreasesSource___block_invoke(uint64_t a1)
       return v5;
     }
 
-    v15 = C3DCFTypeCopyModelInfoAtPath(self->_geometry, key, 0);
-    if (v15)
+    v18 = C3DCFTypeCopyModelInfoAtPath(self->_geometry, key, 0);
+    if (v18)
     {
-      v16 = v15;
-      if (C3DModelTargetGetTargetAddress(v15))
+      v20 = v18;
+      if (C3DModelTargetGetTargetAddress(v18, v19))
       {
-        TargetAddress = C3DModelTargetGetTargetAddress(v16);
-        BaseType = C3DModelTargetGetBaseType(v16);
-        v23 = SCNNSValueFromTypedBytes(TargetAddress, BaseType, v19, v20, v21, v22);
-        CFRelease(v16);
-        return v23;
+        TargetAddress = C3DModelTargetGetTargetAddress(v20, v21);
+        BaseType = C3DModelTargetGetBaseType(v20, v23);
+        v29 = SCNNSValueFromTypedBytes(TargetAddress, BaseType, v25, v26, v27, v28);
+        CFRelease(v20);
+        return v29;
       }
 
-      CFRelease(v16);
+      CFRelease(v20);
     }
   }
 
-  v27 = 0;
-  v28 = 0;
-  v26 = 0;
-  SCNKitSplitKVCPath(key, &v27, &v26);
-  if ([(SCNGeometry *)self parseSpecialKey:v27 withPath:key intoDestination:&v28 remainingPath:0])
+  v33 = 0;
+  v34 = 0;
+  v32 = 0;
+  SCNKitSplitKVCPath(key, &v33, &v32);
+  if ([(SCNGeometry *)self parseSpecialKey:v33 withPath:key intoDestination:&v34 remainingPath:0])
   {
-    return v28;
+    return v34;
   }
 
   os_unfair_lock_lock(&self->_valuesForUndefinedKeysLock);
-  v25 = [(NSMutableDictionary *)self->_valuesForUndefinedKeys objectForKey:key];
+  v31 = [(NSMutableDictionary *)self->_valuesForUndefinedKeys objectForKey:key];
   os_unfair_lock_unlock(&self->_valuesForUndefinedKeysLock);
-  return v25;
+  return v31;
 }
 
 - (void)_shadableSetValue:(id)value forUndefinedKey:(id)key
@@ -2685,15 +2702,15 @@ void __36__SCNGeometry_setEdgeCreasesSource___block_invoke(uint64_t a1)
         v12 = 0;
 LABEL_28:
         sceneRef = [(SCNGeometry *)self sceneRef];
-        v20[0] = MEMORY[0x277D85DD0];
-        v20[1] = 3221225472;
-        v20[2] = __49__SCNGeometry__shadableSetValue_forUndefinedKey___block_invoke_2;
-        v20[3] = &unk_2782FED90;
-        v20[6] = v14;
-        v20[7] = __CFObject;
-        v20[4] = keyCopy;
-        v20[5] = value;
-        [SCNTransaction postCommandWithContext:sceneRef object:self keyPath:v12 applyBlock:v20];
+        v21[0] = MEMORY[0x277D85DD0];
+        v21[1] = 3221225472;
+        v21[2] = __49__SCNGeometry__shadableSetValue_forUndefinedKey___block_invoke_2;
+        v21[3] = &unk_2782FED90;
+        v21[6] = v14;
+        v21[7] = __CFObject;
+        v21[4] = keyCopy;
+        v21[5] = value;
+        [SCNTransaction postCommandWithContext:sceneRef object:self keyPath:v12 applyBlock:v21];
         return;
       }
 
@@ -2715,10 +2732,10 @@ LABEL_27:
           goto LABEL_27;
         }
 
-        v22[0] = C3DColor4FromRGBCFColor(value, 0);
-        v22[1] = v19;
+        v23[0] = C3DColor4FromRGBCFColor(value, 0);
+        v23[1] = v20;
         v14 = C3DValueCreate(10, 1);
-        C3DValueInitFrom(v14, v22);
+        C3DValueInitFrom(v14, v23);
         if (!v14)
         {
           goto LABEL_28;
@@ -2727,17 +2744,17 @@ LABEL_27:
 LABEL_24:
         if (!v7)
         {
-          Type = C3DValueGetType(v14);
+          Type = C3DValueGetType(v14, v15);
           Default = C3DValueCreateDefault(Type);
           sceneRef2 = [(SCNGeometry *)self sceneRef];
-          v21[0] = MEMORY[0x277D85DD0];
-          v21[1] = 3221225472;
-          v21[2] = __49__SCNGeometry__shadableSetValue_forUndefinedKey___block_invoke;
-          v21[3] = &unk_2782FE238;
-          v21[4] = keyCopy;
-          v21[5] = __CFObject;
-          v21[6] = Default;
-          [SCNTransaction postCommandWithContext:sceneRef2 object:self applyBlock:v21];
+          v22[0] = MEMORY[0x277D85DD0];
+          v22[1] = 3221225472;
+          v22[2] = __49__SCNGeometry__shadableSetValue_forUndefinedKey___block_invoke;
+          v22[3] = &unk_2782FE238;
+          v22[4] = keyCopy;
+          v22[5] = __CFObject;
+          v22[6] = Default;
+          [SCNTransaction postCommandWithContext:sceneRef2 object:self applyBlock:v22];
         }
 
         goto LABEL_28;
@@ -2754,17 +2771,17 @@ LABEL_24:
     goto LABEL_24;
   }
 
-  v10 = scn_default_log();
+  v10 = scn_default_log(self, a2);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
     [SCNGeometry _shadableSetValue:forUndefinedKey:];
   }
 }
 
-void __49__SCNGeometry__shadableSetValue_forUndefinedKey___block_invoke(uint64_t a1)
+void __49__SCNGeometry__shadableSetValue_forUndefinedKey___block_invoke(void *a1)
 {
-  C3DEntitySetValueForKey(*(a1 + 40), *(a1 + 32), *(a1 + 48));
-  v2 = *(a1 + 48);
+  C3DEntitySetValueForKey(a1[5], a1[4], a1[6]);
+  v2 = a1[6];
   if (v2)
   {
 
@@ -2772,22 +2789,22 @@ void __49__SCNGeometry__shadableSetValue_forUndefinedKey___block_invoke(uint64_t
   }
 }
 
-void __49__SCNGeometry__shadableSetValue_forUndefinedKey___block_invoke_2(uint64_t a1)
+void __49__SCNGeometry__shadableSetValue_forUndefinedKey___block_invoke_2(void *a1)
 {
-  v2 = *(a1 + 48);
+  v2 = a1[6];
   if (v2)
   {
-    C3DEntitySetValueForKey(*(a1 + 56), *(a1 + 32), v2);
-    v3 = *(a1 + 48);
+    C3DEntitySetValueForKey(a1[7], a1[4], v2);
+    v3 = a1[6];
 
     CFRelease(v3);
   }
 
   else
   {
-    v4 = *(a1 + 56);
-    v5 = *(a1 + 32);
-    v6 = *(a1 + 40);
+    v4 = a1[7];
+    v5 = a1[4];
+    v6 = a1[5];
     if (v6)
     {
 
@@ -2817,15 +2834,15 @@ void __49__SCNGeometry__shadableSetValue_forUndefinedKey___block_invoke_2(uint64
   return v3;
 }
 
-uint64_t __42__SCNGeometry_customMaterialPropertyNames__block_invoke(uint64_t a1, uint64_t a2)
+uint64_t __42__SCNGeometry_customMaterialPropertyNames__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   objc_opt_class();
   result = objc_opt_isKindOfClass();
   if (result)
   {
-    v5 = *(a1 + 32);
+    v6 = *(a1 + 32);
 
-    return [v5 addObject:a2];
+    return [v6 addObject:a2];
   }
 
   return result;
@@ -2928,7 +2945,7 @@ uint64_t __39__SCNGeometry_customMaterialAttributes__block_invoke(uint64_t a1, u
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNGeometry setShaderModifiers:];
@@ -2952,7 +2969,7 @@ uint64_t __39__SCNGeometry_customMaterialAttributes__block_invoke(uint64_t a1, u
 {
   if (*(self + 16))
   {
-    v8 = scn_default_log();
+    v8 = scn_default_log(self, a2);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [SCNGeometry copyShaderModifiersAndLanguageVersionFrom:];
@@ -2979,7 +2996,7 @@ uint64_t __39__SCNGeometry_customMaterialAttributes__block_invoke(uint64_t a1, u
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNGeometry setMinimumLanguageVersion:];
@@ -3019,7 +3036,7 @@ uint64_t __39__SCNGeometry_customMaterialAttributes__block_invoke(uint64_t a1, u
 {
   if (*(self + 16))
   {
-    v7 = scn_default_log();
+    v7 = scn_default_log(self, a2);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SCNGeometry setProgram:];
@@ -3051,7 +3068,7 @@ uint64_t __39__SCNGeometry_customMaterialAttributes__block_invoke(uint64_t a1, u
   if (result)
   {
 
-    return C3DSceneGetAnimationManager(result);
+    return C3DSceneGetAnimationManager(result, v3);
   }
 
   return result;
@@ -3070,12 +3087,13 @@ uint64_t __39__SCNGeometry_customMaterialAttributes__block_invoke(uint64_t a1, u
   {
     [(SCNOrderedDictionary *)self->_animations removeObjectForKey:key];
     __CFObject = [(SCNGeometry *)self __CFObject];
-    if ((CFTypeIsC3DEntity(__CFObject) & 1) == 0)
+    v9 = CFTypeIsC3DEntity(__CFObject);
+    if ((v9 & 1) == 0)
     {
-      v9 = scn_default_log();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+      v11 = scn_default_log(v9, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
       {
-        [(SCNNode *)v9 __removeAnimation:v10 forKey:v11, v12, v13, v14, v15, v16];
+        [(SCNNode *)v11 __removeAnimation:v12 forKey:v13, v14, v15, v16, v17, v18];
       }
     }
 
@@ -3119,7 +3137,7 @@ uint64_t __39__SCNGeometry_customMaterialAttributes__block_invoke(uint64_t a1, u
 
   else
   {
-    v9 = scn_default_log();
+    v9 = scn_default_log(self, a2);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem addAnimationPlayer:forKey:];
@@ -3165,7 +3183,7 @@ void __41__SCNGeometry_addAnimationPlayer_forKey___block_invoke(uint64_t a1)
 
   else
   {
-    v8 = scn_default_log();
+    v8 = scn_default_log(self, a2);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem addAnimation:forKey:];
@@ -3258,10 +3276,10 @@ void __41__SCNGeometry_addAnimationPlayer_forKey___block_invoke(uint64_t a1)
 - (void)_syncObjCAnimations
 {
   sceneRef = [(SCNGeometry *)self sceneRef];
-  v4 = sceneRef;
+  v5 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v4);
   }
 
   os_unfair_lock_lock(&self->_animationsLock);
@@ -3271,29 +3289,30 @@ void __41__SCNGeometry_addAnimationPlayer_forKey___block_invoke(uint64_t a1)
   __CFObject = [(SCNGeometry *)self __CFObject];
   if (__CFObject)
   {
-    v6 = __CFObject;
-    if ((CFTypeIsC3DEntity(__CFObject) & 1) == 0)
+    v8 = __CFObject;
+    v9 = CFTypeIsC3DEntity(__CFObject);
+    if ((v9 & 1) == 0)
     {
-      v7 = scn_default_log();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+      v11 = scn_default_log(v9, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
       {
-        [(SCNNode *)v7 _syncObjCAnimations:v8];
+        [(SCNNode *)v11 _syncObjCAnimations:v10];
       }
     }
 
-    Animations = C3DEntityGetAnimations(v6);
+    Animations = C3DEntityGetAnimations(v8, v10);
     if (Animations)
     {
-      v16 = Animations;
+      v19 = Animations;
       os_unfair_lock_lock(&self->_animationsLock);
-      C3DOrderedDictionaryApplyFunction(v16, SCNConvertC3DAnimationDictionaryFunc, self->_animations);
+      C3DOrderedDictionaryApplyFunction(v19, SCNConvertC3DAnimationDictionaryFunc, self->_animations);
       os_unfair_lock_unlock(&self->_animationsLock);
     }
   }
 
-  if (v4)
+  if (v5)
   {
-    C3DSceneUnlock(v4);
+    C3DSceneUnlock(v5, v7);
   }
 }
 
@@ -3462,21 +3481,21 @@ void __40__SCNGeometry_setSpeed_forAnimationKey___block_invoke(uint64_t a1)
 - (BOOL)isAnimationForKeyPaused:(id)paused
 {
   sceneRef = [(SCNGeometry *)self sceneRef];
-  v6 = sceneRef;
+  v7 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v6);
   }
 
   __CFObject = [(SCNGeometry *)self __CFObject];
   if (__CFObject)
   {
-    v8 = __CFObject;
+    v10 = __CFObject;
     animationManager = [(SCNGeometry *)self animationManager];
     if (animationManager)
     {
-      IsPaused = C3DAnimationManagerGetAnimationForKeyIsPaused(animationManager, v8, paused);
-      if (!v6)
+      IsPaused = C3DAnimationManagerGetAnimationForKeyIsPaused(animationManager, v10, paused);
+      if (!v7)
       {
         return IsPaused;
       }
@@ -3486,10 +3505,10 @@ void __40__SCNGeometry_setSpeed_forAnimationKey___block_invoke(uint64_t a1)
   }
 
   IsPaused = 0;
-  if (v6)
+  if (v7)
   {
 LABEL_8:
-    C3DSceneUnlock(v6);
+    C3DSceneUnlock(v7, v9);
   }
 
   return IsPaused;
@@ -3583,184 +3602,187 @@ void __32__SCNGeometry_removeAllBindings__block_invoke(uint64_t a1)
 {
   v1 = [*(a1 + 32) __CFObject];
 
-  C3DEntityRemoveAllBindings(v1);
+  C3DEntityRemoveAllBindings(v1, v2);
 }
 
 - (void)_customEncodingOfSCNGeometry:(id)geometry
 {
+  selfCopy = self;
   if (!self->_materials)
   {
-    [(SCNGeometry *)self _expand];
+    self = [(SCNGeometry *)self _expand];
   }
 
-  fixedBoundingBoxExtrema = self->_fixedBoundingBoxExtrema;
-  if (fixedBoundingBoxExtrema)
+  p_x = &selfCopy->_fixedBoundingBoxExtrema->x;
+  if (p_x)
   {
-    *&v3 = fixedBoundingBoxExtrema->x;
-    *&v4 = fixedBoundingBoxExtrema->y;
-    *&v5 = fixedBoundingBoxExtrema->z;
+    LODWORD(v3) = *p_x;
+    LODWORD(v4) = p_x[1];
+    LODWORD(v5) = p_x[2];
     [geometry encodeObject:objc_msgSend(MEMORY[0x277CCAE60] forKey:{"valueWithSCNVector3:", v3, v4, v5), @"fixedBoundingBoxExtrema[0]"}];
-    v9 = self->_fixedBoundingBoxExtrema;
-    *&v10 = v9[1].x;
-    *&v11 = v9[1].y;
-    *&v12 = v9[1].z;
-    [geometry encodeObject:objc_msgSend(MEMORY[0x277CCAE60] forKey:{"valueWithSCNVector3:", v10, v11, v12), @"fixedBoundingBoxExtrema[1]"}];
+    v9 = &selfCopy->_fixedBoundingBoxExtrema->x;
+    LODWORD(v10) = v9[3];
+    LODWORD(v11) = v9[4];
+    LODWORD(v12) = v9[5];
+    self = [geometry encodeObject:objc_msgSend(MEMORY[0x277CCAE60] forKey:{"valueWithSCNVector3:", v10, v11, v12), @"fixedBoundingBoxExtrema[1]"}];
   }
 
-  TypeID = C3DGeometryGetTypeID();
-  if (TypeID == CFGetTypeID(self->_geometry))
+  TypeID = C3DGeometryGetTypeID(self, a2);
+  if (TypeID == CFGetTypeID(selfCopy->_geometry))
   {
-    v14 = [(SCNGeometry *)self geometrySourcesForSemantic:@"kGeometrySourceSemanticVertex"];
+    v14 = [(SCNGeometry *)selfCopy geometrySourcesForSemantic:@"kGeometrySourceSemanticVertex"];
     if (v14)
     {
       [geometry encodeObject:v14 forKey:@"kGeometrySourceSemanticVertex"];
     }
 
-    v15 = [(SCNGeometry *)self geometrySourcesForSemantic:@"kGeometrySourceSemanticNormal"];
+    v15 = [(SCNGeometry *)selfCopy geometrySourcesForSemantic:@"kGeometrySourceSemanticNormal"];
     if (v15)
     {
       [geometry encodeObject:v15 forKey:@"kGeometrySourceSemanticNormal"];
     }
 
-    v16 = [(SCNGeometry *)self geometrySourcesForSemantic:@"kGeometrySourceSemanticColor"];
+    v16 = [(SCNGeometry *)selfCopy geometrySourcesForSemantic:@"kGeometrySourceSemanticColor"];
     if (v16)
     {
       [geometry encodeObject:v16 forKey:@"kGeometrySourceSemanticColor"];
     }
 
-    v17 = [(SCNGeometry *)self geometrySourcesForSemantic:@"kGeometrySourceSemanticTexcoord"];
+    v17 = [(SCNGeometry *)selfCopy geometrySourcesForSemantic:@"kGeometrySourceSemanticTexcoord"];
     if (v17)
     {
       [geometry encodeObject:v17 forKey:@"kGeometrySourceSemanticTexcoord"];
     }
 
-    v18 = [(SCNGeometry *)self geometrySourcesForSemantic:@"kGeometrySourceSemanticTangent"];
+    v18 = [(SCNGeometry *)selfCopy geometrySourcesForSemantic:@"kGeometrySourceSemanticTangent"];
     if (v18)
     {
       [geometry encodeObject:v18 forKey:@"kGeometrySourceSemanticTangent"];
     }
 
-    geometryElements = [(SCNGeometry *)self geometryElements];
+    geometryElements = [(SCNGeometry *)selfCopy geometryElements];
     if ([(NSArray *)geometryElements count])
     {
       [geometry encodeObject:geometryElements forKey:@"elements"];
     }
 
-    sourceChannels = self->_sourceChannels;
+    sourceChannels = selfCopy->_sourceChannels;
     if (sourceChannels)
     {
       [geometry encodeObject:sourceChannels forKey:@"sourceChannels"];
     }
   }
 
-  os_unfair_lock_lock(&self->_valuesForUndefinedKeysLock);
-  valuesForUndefinedKeys = self->_valuesForUndefinedKeys;
+  os_unfair_lock_lock(&selfCopy->_valuesForUndefinedKeysLock);
+  valuesForUndefinedKeys = selfCopy->_valuesForUndefinedKeys;
   if (valuesForUndefinedKeys)
   {
     [geometry encodeObject:valuesForUndefinedKeys forKey:@"valuesForUndefinedKeys"];
   }
 
-  os_unfair_lock_unlock(&self->_valuesForUndefinedKeysLock);
+  os_unfair_lock_unlock(&selfCopy->_valuesForUndefinedKeysLock);
 }
 
 - (void)_customDecodingOfSCNGeometry:(id)geometry
 {
-  v55 = *MEMORY[0x277D85DE8];
-  if ([geometry containsValueForKey:@"fixedBoundingBoxExtrema[0]"])
+  v61 = *MEMORY[0x277D85DE8];
+  v5 = [geometry containsValueForKey:@"fixedBoundingBoxExtrema[0]"];
+  if (v5)
   {
     [objc_msgSend(geometry decodeObjectOfClass:objc_opt_class() forKey:{@"fixedBoundingBoxExtrema[0]", "SCNVector3Value"}];
-    v53[0] = v5;
-    v53[1] = v6;
-    v53[2] = v7;
+    v59[0] = v7;
+    v59[1] = v8;
+    v59[2] = v9;
     [objc_msgSend(geometry decodeObjectOfClass:objc_opt_class() forKey:{@"fixedBoundingBoxExtrema[1]", "SCNVector3Value"}];
-    v54[0] = v8;
-    v54[1] = v9;
-    v54[2] = v10;
-    [(SCNGeometry *)self setBoundingBoxMin:v53 max:v54];
+    v60[0] = v10;
+    v60[1] = v11;
+    v60[2] = v12;
+    v5 = [(SCNGeometry *)self setBoundingBoxMin:v59 max:v60];
   }
 
-  TypeID = C3DGeometryGetTypeID();
-  if (TypeID == CFGetTypeID(self->_geometry))
+  TypeID = C3DGeometryGetTypeID(v5, v6);
+  v14 = CFGetTypeID(self->_geometry);
+  if (TypeID == v14)
   {
     array = [MEMORY[0x277CBEB18] array];
-    v13 = [geometry scn_decodeArrayOfObjectsOfClass:objc_opt_class() forKey:@"elements"];
-    v14 = objc_opt_class();
-    v15 = [geometry scn_decodeArrayOfObjectsOfClass:v14 forKey:@"kGeometrySourceSemanticVertex"];
-    if (v15)
-    {
-      [array addObjectsFromArray:v15];
-    }
-
-    v16 = [geometry scn_decodeArrayOfObjectsOfClass:v14 forKey:@"kGeometrySourceSemanticNormal"];
-    if (v16)
-    {
-      [array addObjectsFromArray:v16];
-    }
-
-    v17 = [geometry scn_decodeArrayOfObjectsOfClass:v14 forKey:@"kGeometrySourceSemanticColor"];
-    if (v17)
-    {
-      [array addObjectsFromArray:v17];
-    }
-
-    v18 = [geometry scn_decodeArrayOfObjectsOfClass:v14 forKey:@"kGeometrySourceSemanticTexcoord"];
-    if (v18)
-    {
-      [array addObjectsFromArray:v18];
-    }
-
-    v19 = [geometry scn_decodeArrayOfObjectsOfClass:v14 forKey:@"kGeometrySourceSemanticTangent"];
+    v17 = [geometry scn_decodeArrayOfObjectsOfClass:objc_opt_class() forKey:@"elements"];
+    v18 = objc_opt_class();
+    v19 = [geometry scn_decodeArrayOfObjectsOfClass:v18 forKey:@"kGeometrySourceSemanticVertex"];
     if (v19)
     {
       [array addObjectsFromArray:v19];
     }
 
-    v20 = *MEMORY[0x277CBECE8];
-    v21 = [array count];
-    v22 = MEMORY[0x277CBF128];
-    Mutable = CFArrayCreateMutable(v20, v21, MEMORY[0x277CBF128]);
-    v24 = CFArrayCreateMutable(v20, [v13 count], v22);
-    v47 = 0u;
-    v48 = 0u;
-    v49 = 0u;
-    v50 = 0u;
-    v25 = [array countByEnumeratingWithState:&v47 objects:v52 count:16];
-    if (v25)
+    v20 = [geometry scn_decodeArrayOfObjectsOfClass:v18 forKey:@"kGeometrySourceSemanticNormal"];
+    if (v20)
     {
-      v26 = v25;
-      v27 = *v48;
+      [array addObjectsFromArray:v20];
+    }
+
+    v21 = [geometry scn_decodeArrayOfObjectsOfClass:v18 forKey:@"kGeometrySourceSemanticColor"];
+    if (v21)
+    {
+      [array addObjectsFromArray:v21];
+    }
+
+    v22 = [geometry scn_decodeArrayOfObjectsOfClass:v18 forKey:@"kGeometrySourceSemanticTexcoord"];
+    if (v22)
+    {
+      [array addObjectsFromArray:v22];
+    }
+
+    v23 = [geometry scn_decodeArrayOfObjectsOfClass:v18 forKey:@"kGeometrySourceSemanticTangent"];
+    if (v23)
+    {
+      [array addObjectsFromArray:v23];
+    }
+
+    v24 = *MEMORY[0x277CBECE8];
+    v25 = [array count];
+    v26 = MEMORY[0x277CBF128];
+    Mutable = CFArrayCreateMutable(v24, v25, MEMORY[0x277CBF128]);
+    v28 = CFArrayCreateMutable(v24, [v17 count], v26);
+    v53 = 0u;
+    v54 = 0u;
+    v55 = 0u;
+    v56 = 0u;
+    v29 = [array countByEnumeratingWithState:&v53 objects:v58 count:16];
+    if (v29)
+    {
+      v30 = v29;
+      v31 = *v54;
       while (2)
       {
-        v28 = 0;
+        v32 = 0;
         do
         {
-          if (*v48 != v27)
+          if (*v54 != v31)
           {
             objc_enumerationMutation(array);
           }
 
-          meshSource = [*(*(&v47 + 1) + 8 * v28) meshSource];
+          meshSource = [*(*(&v53 + 1) + 8 * v32) meshSource];
           if (!meshSource)
           {
-            v39 = scn_default_log();
-            if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+            v45 = scn_default_log(0, v34);
+            if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
             {
               [SCNGeometry _customDecodingOfSCNGeometry:];
             }
 
 LABEL_37:
             CFRelease(Mutable);
-            CFRelease(v24);
+            CFRelease(v28);
             return;
           }
 
           CFArrayAppendValue(Mutable, meshSource);
-          ++v28;
+          ++v32;
         }
 
-        while (v26 != v28);
-        v26 = [array countByEnumeratingWithState:&v47 objects:v52 count:16];
-        if (v26)
+        while (v30 != v32);
+        v30 = [array countByEnumeratingWithState:&v53 objects:v58 count:16];
+        if (v30)
         {
           continue;
         }
@@ -3769,30 +3791,30 @@ LABEL_37:
       }
     }
 
-    v45 = 0u;
-    v46 = 0u;
-    v43 = 0u;
-    v44 = 0u;
-    v30 = [v13 countByEnumeratingWithState:&v43 objects:v51 count:16];
-    if (v30)
+    v51 = 0u;
+    v52 = 0u;
+    v49 = 0u;
+    v50 = 0u;
+    v35 = [v17 countByEnumeratingWithState:&v49 objects:v57 count:16];
+    if (v35)
     {
-      v31 = v30;
-      v32 = *v44;
+      v36 = v35;
+      v37 = *v50;
       while (2)
       {
-        v33 = 0;
+        v38 = 0;
         do
         {
-          if (*v44 != v32)
+          if (*v50 != v37)
           {
-            objc_enumerationMutation(v13);
+            objc_enumerationMutation(v17);
           }
 
-          meshElement = [*(*(&v43 + 1) + 8 * v33) meshElement];
+          meshElement = [*(*(&v49 + 1) + 8 * v38) meshElement];
           if (!meshElement)
           {
-            v40 = scn_default_log();
-            if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+            v46 = scn_default_log(0, v40);
+            if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
             {
               [SCNGeometry _customDecodingOfSCNGeometry:];
             }
@@ -3800,13 +3822,13 @@ LABEL_37:
             goto LABEL_37;
           }
 
-          CFArrayAppendValue(v24, meshElement);
-          ++v33;
+          CFArrayAppendValue(v28, meshElement);
+          ++v38;
         }
 
-        while (v31 != v33);
-        v31 = [v13 countByEnumeratingWithState:&v43 objects:v51 count:16];
-        if (v31)
+        while (v36 != v38);
+        v36 = [v17 countByEnumeratingWithState:&v49 objects:v57 count:16];
+        if (v36)
         {
           continue;
         }
@@ -3816,26 +3838,26 @@ LABEL_37:
     }
 
     self->_sourceChannels = [geometry scn_decodeArrayOfObjectsOfClass:objc_opt_class() forKey:@"sourceChannels"];
-    v35 = [array count];
-    v36 = &v42[-1] - ((v35 + 15) & 0xFFFFFFFFFFFFFFF0);
-    __buildSourceChannels(self->_sourceChannels, v35, v13, v36);
-    v37 = C3DMeshCreateWithMeshSourcesAndMeshElements(Mutable, v24, v36);
-    C3DGeometrySetMesh(self->_geometry, v37);
+    v41 = [array count];
+    v42 = &v48[-1] - ((v41 + 15) & 0xFFFFFFFFFFFFFFF0);
+    __buildSourceChannels(self->_sourceChannels, v41, v17, v42);
+    v43 = C3DMeshCreateWithMeshSourcesAndMeshElements(Mutable, v28, v42);
+    C3DGeometrySetMesh(self->_geometry, v43);
     CFRelease(Mutable);
-    CFRelease(v24);
-    CFRelease(v37);
+    CFRelease(v28);
+    CFRelease(v43);
   }
 
-  v38 = [geometry decodeObjectOfClasses:SCNUserInfoClasses() forKey:@"valuesForUndefinedKeys"];
+  v44 = [geometry decodeObjectOfClasses:SCNUserInfoClasses(v14 forKey:{v15), @"valuesForUndefinedKeys"}];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v42[0] = MEMORY[0x277D85DD0];
-    v42[1] = 3221225472;
-    v42[2] = __44__SCNGeometry__customDecodingOfSCNGeometry___block_invoke;
-    v42[3] = &unk_2782FC900;
-    v42[4] = self;
-    [v38 enumerateKeysAndObjectsUsingBlock:v42];
+    v48[0] = MEMORY[0x277D85DD0];
+    v48[1] = 3221225472;
+    v48[2] = __44__SCNGeometry__customDecodingOfSCNGeometry___block_invoke;
+    v48[3] = &unk_2782FC900;
+    v48[4] = self;
+    [v44 enumerateKeysAndObjectsUsingBlock:v48];
   }
 }
 
@@ -3946,38 +3968,38 @@ LABEL_37:
 
 - (id)_geometryByUnifyingNormalsWithCreaseThreshold:(double)threshold
 {
-  v27 = *MEMORY[0x277D85DE8];
-  v22 = 0u;
-  v23 = 0u;
+  v29 = *MEMORY[0x277D85DE8];
   v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   geometryElements = [(SCNGeometry *)self geometryElements];
-  v6 = [(NSArray *)geometryElements countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v6 = [(NSArray *)geometryElements countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v23;
+    v8 = *v25;
     while (2)
     {
       v9 = 0;
       do
       {
-        if (*v23 != v8)
+        if (*v25 != v8)
         {
           objc_enumerationMutation(geometryElements);
         }
 
-        if ([*(*(&v22 + 1) + 8 * v9) primitiveType] == 4)
+        if ([*(*(&v24 + 1) + 8 * v9) primitiveType] == 4)
         {
           v15 = [(SCNGeometry *)self copy];
           geometryRef = [(SCNGeometry *)v15 geometryRef];
           if (geometryRef)
           {
-            v17 = geometryRef;
-            Mesh = C3DGeometryGetMesh(geometryRef);
-            Copy = C3DMeshCreateCopy(Mesh);
+            v18 = geometryRef;
+            Mesh = C3DGeometryGetMesh(geometryRef, v17);
+            Copy = C3DMeshCreateCopy(Mesh, v20);
             C3DMeshUnifyNormals(Copy, Copy, 1, 1);
-            C3DGeometrySetMesh(v17, Copy);
+            C3DGeometrySetMesh(v18, Copy);
             if (Copy)
             {
               CFRelease(Copy);
@@ -3991,7 +4013,7 @@ LABEL_37:
       }
 
       while (v7 != v9);
-      v7 = [(NSArray *)geometryElements countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v7 = [(NSArray *)geometryElements countByEnumeratingWithState:&v24 objects:v28 count:16];
       if (v7)
       {
         continue;
@@ -4001,14 +4023,14 @@ LABEL_37:
     }
   }
 
-  geometrySources = [(SCNGeometry *)self geometrySources];
-  v11 = [MEMORY[0x277CBEB18] arrayWithCapacity:{-[NSArray count](geometrySources, "count") - 1}];
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __71__SCNGeometry_SCNUtils___geometryByUnifyingNormalsWithCreaseThreshold___block_invoke;
-  v21[3] = &unk_2782FB9F0;
-  v21[4] = v11;
-  [(NSArray *)geometrySources enumerateObjectsUsingBlock:v21];
+  v10 = objc_msgSend_geometrySources(self);
+  v11 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v10, "count") - 1}];
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __71__SCNGeometry_SCNUtils___geometryByUnifyingNormalsWithCreaseThreshold___block_invoke;
+  v23[3] = &unk_2782FB9F0;
+  v23[4] = v11;
+  [v10 enumerateObjectsUsingBlock:v23];
   v12 = [SCNGeometry geometryWithSources:v11 elements:[(SCNGeometry *)self geometryElements]];
   v13 = [MEMORY[0x277CD7B00] meshWithSCNGeometry:v12];
   *&v14 = threshold;
@@ -4022,9 +4044,9 @@ LABEL_37:
   return v15;
 }
 
-uint64_t __71__SCNGeometry_SCNUtils___geometryByUnifyingNormalsWithCreaseThreshold___block_invoke(uint64_t a1, void *a2)
+void *__71__SCNGeometry_SCNUtils___geometryByUnifyingNormalsWithCreaseThreshold___block_invoke(uint64_t a1, void *a2)
 {
-  result = [objc_msgSend(a2 "semantic")];
+  result = objc_msgSend_isEqualToString_([a2 semantic]);
   if ((result & 1) == 0)
   {
     v5 = *(a1 + 32);
@@ -4048,118 +4070,119 @@ uint64_t __71__SCNGeometry_SCNUtils___geometryByUnifyingNormalsWithCreaseThresho
   else
   {
     geometryRef = [(SCNGeometry *)self geometryRef];
-    Mesh = C3DGeometryGetMesh(geometryRef);
-    v9 = C3DMeshCreate();
-    __C3DSkinnerPrepareSkinnedMesh(skinnerRef, Mesh, v9, geometryRef);
-    Copy = C3DGeometryCreateCopy(geometryRef);
-    C3DGeometrySetMesh(Copy, v9);
-    CFRelease(v9);
-    v11 = [SCNGeometry geometryWithGeometryRef:Copy];
-    [(SCNGeometry *)v11 setName:[(SCNGeometry *)self name]];
-    [(SCNGeometry *)v11 setMaterials:[(SCNGeometry *)self materials]];
-    return v11;
+    Mesh = C3DGeometryGetMesh(geometryRef, v8);
+    v11 = C3DMeshCreate(Mesh, v10);
+    __C3DSkinnerPrepareSkinnedMesh(skinnerRef, Mesh, v11, geometryRef);
+    Copy = C3DGeometryCreateCopy(geometryRef, v12);
+    C3DGeometrySetMesh(Copy, v11);
+    CFRelease(v11);
+    v14 = [SCNGeometry geometryWithGeometryRef:Copy];
+    [(SCNGeometry *)v14 setName:[(SCNGeometry *)self name]];
+    [(SCNGeometry *)v14 setMaterials:[(SCNGeometry *)self materials]];
+    return v14;
   }
 }
 
 - (id)_geometryByRemovingSkinnerSources
 {
   geometryRef = [(SCNGeometry *)self geometryRef];
-  Mesh = C3DGeometryGetMesh(geometryRef);
-  Copy = C3DMeshCreateCopy(Mesh);
+  Mesh = C3DGeometryGetMesh(geometryRef, v4);
+  Copy = C3DMeshCreateCopy(Mesh, v6);
   C3DMeshRemoveSourcesWithSemantic(Copy, 5);
   C3DMeshRemoveSourcesWithSemantic(Copy, 6);
-  v6 = C3DGeometryCreateCopy(geometryRef);
-  C3DGeometrySetMesh(v6, Copy);
-  v7 = [SCNGeometry geometryWithGeometryRef:v6];
+  v9 = C3DGeometryCreateCopy(geometryRef, v8);
+  C3DGeometrySetMesh(v9, Copy);
+  v10 = [SCNGeometry geometryWithGeometryRef:v9];
   if (Copy)
   {
     CFRelease(Copy);
   }
 
-  if (v6)
+  if (v9)
   {
-    CFRelease(v6);
+    CFRelease(v9);
   }
 
-  [(SCNGeometry *)v7 setName:[(SCNGeometry *)self name]];
-  [(SCNGeometry *)v7 setMaterials:[(SCNGeometry *)self materials]];
-  return v7;
+  [(SCNGeometry *)v10 setName:[(SCNGeometry *)self name]];
+  [(SCNGeometry *)v10 setMaterials:[(SCNGeometry *)self materials]];
+  return v10;
 }
 
 - (void)_discardOriginalTopology
 {
-  v26 = *MEMORY[0x277D85DE8];
-  RenderingMesh = C3DGeometryGetRenderingMesh([(SCNGeometry *)self geometryRef]);
-  v20 = 0u;
-  v21 = 0u;
+  v28 = *MEMORY[0x277D85DE8];
+  geometryRef = [(SCNGeometry *)self geometryRef];
+  RenderingMesh = C3DGeometryGetRenderingMesh(geometryRef, v4);
   v22 = 0u;
   v23 = 0u;
-  geometrySources = [(SCNGeometry *)self geometrySources];
-  v5 = [(NSArray *)geometrySources countByEnumeratingWithState:&v20 objects:v25 count:16];
-  if (v5)
+  v24 = 0u;
+  v25 = 0u;
+  v6 = objc_msgSend_geometrySources(self);
+  v7 = [v6 countByEnumeratingWithState:&v22 objects:v27 count:16];
+  if (v7)
   {
-    v6 = v5;
-    v7 = *v21;
+    v8 = v7;
+    v9 = *v23;
     do
     {
-      v8 = 0;
+      v10 = 0;
       do
       {
-        if (*v21 != v7)
+        if (*v23 != v9)
         {
-          objc_enumerationMutation(geometrySources);
+          objc_enumerationMutation(v6);
         }
 
-        meshSource = [*(*(&v20 + 1) + 8 * v8) meshSource];
+        meshSource = [*(*(&v22 + 1) + 8 * v10) meshSource];
         if (meshSource)
         {
           C3DEntitySetObjCWrapper(meshSource, 0);
         }
 
-        ++v8;
+        ++v10;
       }
 
-      while (v6 != v8);
-      v6 = [(NSArray *)geometrySources countByEnumeratingWithState:&v20 objects:v25 count:16];
+      while (v8 != v10);
+      v8 = [v6 countByEnumeratingWithState:&v22 objects:v27 count:16];
     }
 
-    while (v6);
+    while (v8);
   }
 
+  v20 = 0u;
+  v21 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v16 = 0u;
-  v17 = 0u;
   geometryElements = [(SCNGeometry *)self geometryElements];
-  v11 = [(NSArray *)geometryElements countByEnumeratingWithState:&v16 objects:v24 count:16];
-  if (v11)
+  v13 = [(NSArray *)geometryElements countByEnumeratingWithState:&v18 objects:v26 count:16];
+  if (v13)
   {
-    v12 = v11;
-    v13 = *v17;
+    v14 = v13;
+    v15 = *v19;
     do
     {
-      v14 = 0;
+      v16 = 0;
       do
       {
-        if (*v17 != v13)
+        if (*v19 != v15)
         {
           objc_enumerationMutation(geometryElements);
         }
 
-        meshElement = [*(*(&v16 + 1) + 8 * v14) meshElement];
+        meshElement = [*(*(&v18 + 1) + 8 * v16) meshElement];
         if (meshElement)
         {
           C3DEntitySetObjCWrapper(meshElement, 0);
         }
 
-        ++v14;
+        ++v16;
       }
 
-      while (v12 != v14);
-      v12 = [(NSArray *)geometryElements countByEnumeratingWithState:&v16 objects:v24 count:16];
+      while (v14 != v16);
+      v14 = [(NSArray *)geometryElements countByEnumeratingWithState:&v18 objects:v26 count:16];
     }
 
-    while (v12);
+    while (v14);
   }
 
   C3DMeshBuildRenderableData(RenderingMesh, 0);
@@ -4169,7 +4192,7 @@ uint64_t __71__SCNGeometry_SCNUtils___geometryByUnifyingNormalsWithCreaseThresho
 - (id)_geometryByWeldingVerticesWithThreshold:(double)threshold normalThreshold:(double)normalThreshold
 {
   selfCopy = self;
-  v122 = *MEMORY[0x277D85DE8];
+  v126 = *MEMORY[0x277D85DE8];
   firstObject = [(NSArray *)[(SCNGeometry *)self geometrySourcesForSemantic:?] firstObject];
   firstObject2 = [(NSArray *)[(SCNGeometry *)selfCopy geometrySourcesForSemantic:@"kGeometrySourceSemanticNormal"] firstObject];
   [(SCNGeometry *)selfCopy geometrySourcesForSemantic:@"kGeometrySourceSemanticTexcoord"];
@@ -4186,43 +4209,43 @@ uint64_t __71__SCNGeometry_SCNUtils___geometryByUnifyingNormalsWithCreaseThresho
     }
   }
 
-  v103 = [objc_msgSend(firstObject "data")];
+  v107 = [objc_msgSend(firstObject "data")];
   dataOffset = [firstObject dataOffset];
   dataStride = [firstObject dataStride];
-  qsort_r(v10, vectorCount, 8uLL, &v103, vertexSort);
+  qsort_r(v10, vectorCount, 8uLL, &v107, vertexSort);
   if (vectorCount)
   {
-    v90 = 0;
+    v94 = 0;
     v15 = 0;
     v16 = normalThreshold + normalThreshold;
     v17 = v10 + 8;
-    v78 = v10;
+    v82 = v10;
     while (1)
     {
       v18 = *&v10[8 * v15];
       if (v12[v18] == v18)
       {
-        v19 = v103 + dataOffset + dataStride * v18;
+        v19 = v107 + dataOffset + dataStride * v18;
         v14.i64[0] = *v19;
         LODWORD(__dst) = *v19;
         v14.i32[2] = *(v19 + 8);
-        v87 = v14;
+        v91 = v14;
         v20 = [objc_msgSend(firstObject2 "data")];
         dataOffset2 = [firstObject2 dataOffset];
         dataStride2 = [firstObject2 dataStride];
         v23 = v20 + dataOffset2;
         v24.i64[0] = *(v23 + dataStride2 * v18);
         v24.i32[2] = *(v23 + 8 + dataStride2 * v18);
-        v84 = v24;
+        v88 = v24;
         vectorCount2 = [firstObject2 vectorCount];
         v26 = v15 + 1;
         if (v15 + 1 < vectorCount2)
         {
           LODWORD(v27) = 0;
-          v28 = v103;
+          v28 = v107;
           v29 = ~v15 + vectorCount2;
           v30 = &v17[8 * v15];
-          v31 = v90;
+          v31 = v94;
           do
           {
             v33 = *v30;
@@ -4239,13 +4262,13 @@ uint64_t __71__SCNGeometry_SCNUtils___geometryByUnifyingNormalsWithCreaseThresho
               v14.i32[1] = *(v34 + 4);
               v14.i32[2] = *(v34 + 8);
               v14.i32[0] = *v34;
-              v35 = vsubq_f32(v87, v14);
+              v35 = vsubq_f32(v91, v14);
               v14 = vmulq_f32(v35, v35);
               if (sqrtf(v14.f32[2] + vaddv_f32(*v14.f32)) <= threshold)
               {
                 v14.i64[0] = *(v23 + v32 * dataStride2);
                 v14.i32[2] = *(v23 + 8 + v32 * dataStride2);
-                v14 = vmulq_f32(v84, v14);
+                v14 = vmulq_f32(v88, v14);
                 if (v16 >= (1.0 - (v14.f32[2] + vaddv_f32(*v14.f32))))
                 {
                   v12[v32] = v18;
@@ -4259,12 +4282,12 @@ uint64_t __71__SCNGeometry_SCNUtils___geometryByUnifyingNormalsWithCreaseThresho
 
           while (v29);
           v27 = v27;
-          v10 = v78;
+          v10 = v82;
           goto LABEL_19;
         }
 
         v27 = 0;
-        v10 = v78;
+        v10 = v82;
       }
 
       else
@@ -4273,21 +4296,21 @@ uint64_t __71__SCNGeometry_SCNUtils___geometryByUnifyingNormalsWithCreaseThresho
         v26 = v15 + 1;
       }
 
-      v31 = v90;
+      v31 = v94;
 LABEL_19:
-      v90 = v31 + v27;
+      v94 = v31 + v27;
       v15 = v26;
       if (v26 == vectorCount)
       {
         v36 = v31 + v27;
-        if (v90)
+        if (v94)
         {
-          geometrySources = [(SCNGeometry *)selfCopy geometrySources];
+          v37 = objc_msgSend_geometrySources(selfCopy);
           geometryElements = [(SCNGeometry *)selfCopy geometryElements];
-          obj = geometrySources;
-          v85 = [MEMORY[0x277CBEB18] arrayWithCapacity:{-[NSArray count](geometrySources, "count")}];
-          v80 = geometryElements;
-          v83 = [MEMORY[0x277CBEB18] arrayWithCapacity:{-[NSArray count](geometryElements, "count")}];
+          obj = v37;
+          v89 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v37, "count")}];
+          v84 = geometryElements;
+          v87 = [MEMORY[0x277CBEB18] arrayWithCapacity:{-[NSArray count](geometryElements, "count")}];
           for (j = 0; j != vectorCount; ++j)
           {
             v40 = v12[j];
@@ -4306,228 +4329,241 @@ LABEL_19:
             }
           }
 
-          v77 = selfCopy;
-          v101 = 0u;
-          v102 = 0u;
-          v99 = 0u;
-          v100 = 0u;
-          v88 = [(NSArray *)geometrySources countByEnumeratingWithState:&v99 objects:v121 count:16];
-          if (v88)
+          v81 = selfCopy;
+          v105 = 0u;
+          v106 = 0u;
+          v103 = 0u;
+          v104 = 0u;
+          v42 = [v37 countByEnumeratingWithState:&v103 objects:v125 count:16];
+          v92 = v42;
+          if (v42)
           {
-            v81 = *v100;
+            v85 = *v104;
             do
             {
-              for (k = 0; k != v88; ++k)
+              v44 = 0;
+              do
               {
-                if (*v100 != v81)
+                if (*v104 != v85)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v43 = *(*(&v99 + 1) + 8 * k);
-                bytesPerComponent = [v43 bytesPerComponent];
-                v45 = [v43 componentsPerVector] * bytesPerComponent;
-                v46 = ([v43 vectorCount] - v36) * v45;
-                __dsta = malloc_type_malloc(v46, 0x4BE85623uLL);
-                v47 = [objc_msgSend(v43 "data")];
-                [v43 vectorCount];
-                dataStride3 = [v43 dataStride];
-                v49 = 0;
-                v50 = (v47 + [v43 dataOffset]);
-                v51 = __dsta;
+                v45 = *(*(&v103 + 1) + 8 * v44);
+                bytesPerComponent = [v45 bytesPerComponent];
+                v47 = [v45 componentsPerVector] * bytesPerComponent;
+                v48 = ([v45 vectorCount] - v36) * v47;
+                __dsta = malloc_type_malloc(v48, 0x4BE85623uLL);
+                v49 = [objc_msgSend(v45 "data")];
+                [v45 vectorCount];
+                dataStride3 = [v45 dataStride];
+                v51 = 0;
+                v52 = (v49 + [v45 dataOffset]);
+                v53 = __dsta;
                 do
                 {
-                  if (v49 == v12[v49])
+                  if (v51 == v12[v51])
                   {
-                    memcpy(v51, v50, v45);
-                    v51 += v45;
+                    memcpy(v53, v52, v47);
+                    v53 += v47;
                   }
 
-                  v50 += dataStride3;
-                  ++v49;
+                  v52 += dataStride3;
+                  ++v51;
                 }
 
-                while (vectorCount != v49);
-                v36 = v90;
-                v52 = +[SCNGeometrySource _geometrySourceWithData:semantic:vectorCount:componentType:componentCount:dataOffset:dataStride:](SCNGeometrySource, "_geometrySourceWithData:semantic:vectorCount:componentType:componentCount:dataOffset:dataStride:", [MEMORY[0x277CBEA90] dataWithBytesNoCopy:__dsta length:v46 freeWhenDone:1], objc_msgSend(v43, "semantic"), objc_msgSend(v43, "vectorCount") - v90, objc_msgSend(v43, "_componentType"), objc_msgSend(v43, "componentsPerVector"), 0, 0);
-                [objc_msgSend(v43 "semantic")];
-                [v85 addObject:v52];
+                while (vectorCount != v51);
+                v36 = v94;
+                v54 = +[SCNGeometrySource _geometrySourceWithData:semantic:vectorCount:componentType:componentCount:dataOffset:dataStride:](SCNGeometrySource, "_geometrySourceWithData:semantic:vectorCount:componentType:componentCount:dataOffset:dataStride:", [MEMORY[0x277CBEA90] dataWithBytesNoCopy:__dsta length:v48 freeWhenDone:1], objc_msgSend(v45, "semantic"), objc_msgSend(v45, "vectorCount") - v94, objc_msgSend(v45, "_componentType"), objc_msgSend(v45, "componentsPerVector"), 0, 0);
+                objc_msgSend_isEqualToString_([v45 semantic]);
+                [v89 addObject:v54];
+                ++v44;
               }
 
-              v88 = [(NSArray *)obj countByEnumeratingWithState:&v99 objects:v121 count:16];
+              while (v44 != v92);
+              v42 = [obj countByEnumeratingWithState:&v103 objects:v125 count:16];
+              v92 = v42;
             }
 
-            while (v88);
+            while (v42);
           }
 
-          v53 = 0;
-          v54 = 0;
-          v55 = vectorCount - v36;
+          v55 = 0;
+          v56 = 0;
+          v57 = vectorCount - v36;
           do
           {
-            if (v12[v54] > v54)
+            if (v12[v56] > v56)
             {
-              v56 = scn_default_log();
-              if (os_log_type_enabled(v56, OS_LOG_TYPE_FAULT))
+              v58 = scn_default_log(v42, v43);
+              v42 = os_log_type_enabled(v58, OS_LOG_TYPE_FAULT);
+              if (v42)
               {
-                [(SCNGeometry(SCNUtils) *)v119 _geometryByWeldingVerticesWithThreshold:v56 normalThreshold:?];
+                [(SCNGeometry(SCNUtils) *)v123 _geometryByWeldingVerticesWithThreshold:v58 normalThreshold:?];
               }
             }
 
-            if (v54 != v12[v54])
+            if (v56 != v12[v56])
             {
-              ++v53;
-              if (!v54)
+              ++v55;
+              if (!v56)
               {
-                v57 = scn_default_log();
-                if (os_log_type_enabled(v57, OS_LOG_TYPE_FAULT))
+                v59 = scn_default_log(v42, v43);
+                v42 = os_log_type_enabled(v59, OS_LOG_TYPE_FAULT);
+                if (v42)
                 {
-                  [(SCNGeometry(SCNUtils) *)v117 _geometryByWeldingVerticesWithThreshold:v57 normalThreshold:?];
+                  [(SCNGeometry(SCNUtils) *)v121 _geometryByWeldingVerticesWithThreshold:v59 normalThreshold:?];
                 }
               }
             }
 
-            if (v12[v54] > v54)
+            if (v12[v56] > v56)
             {
-              v58 = scn_default_log();
-              if (os_log_type_enabled(v58, OS_LOG_TYPE_FAULT))
+              v60 = scn_default_log(v42, v43);
+              v42 = os_log_type_enabled(v60, OS_LOG_TYPE_FAULT);
+              if (v42)
               {
-                [(SCNGeometry(SCNUtils) *)v115 _geometryByWeldingVerticesWithThreshold:v58 normalThreshold:?];
+                [(SCNGeometry(SCNUtils) *)v119 _geometryByWeldingVerticesWithThreshold:v60 normalThreshold:?];
               }
             }
 
-            *&v78[8 * v54] = v54 - v53;
-            v12[v54] = *&v78[8 * v12[v54]];
-            if (*&v78[8 * v54] >= v55)
+            *&v82[8 * v56] = v56 - v55;
+            v12[v56] = *&v82[8 * v12[v56]];
+            if (*&v82[8 * v56] >= v57)
             {
-              v59 = scn_default_log();
-              if (os_log_type_enabled(v59, OS_LOG_TYPE_FAULT))
+              v61 = scn_default_log(v42, v43);
+              v42 = os_log_type_enabled(v61, OS_LOG_TYPE_FAULT);
+              if (v42)
               {
-                [(SCNGeometry(SCNUtils) *)v113 _geometryByWeldingVerticesWithThreshold:v59 normalThreshold:?];
+                [(SCNGeometry(SCNUtils) *)v117 _geometryByWeldingVerticesWithThreshold:v61 normalThreshold:?];
               }
             }
 
-            ++v54;
+            ++v56;
           }
 
-          while (vectorCount != v54);
-          if (v53 != v90)
+          while (vectorCount != v56);
+          if (v55 != v94)
           {
-            v60 = scn_default_log();
-            if (os_log_type_enabled(v60, OS_LOG_TYPE_FAULT))
+            v62 = scn_default_log(v42, v43);
+            if (os_log_type_enabled(v62, OS_LOG_TYPE_FAULT))
             {
-              [SCNGeometry(SCNUtils) _geometryByWeldingVerticesWithThreshold:v60 normalThreshold:?];
+              [SCNGeometry(SCNUtils) _geometryByWeldingVerticesWithThreshold:v62 normalThreshold:?];
             }
           }
 
-          v97 = 0u;
-          v98 = 0u;
-          v95 = 0u;
-          v96 = 0u;
-          v86 = [(NSArray *)v80 countByEnumeratingWithState:&v95 objects:v112 count:16];
-          if (v86)
+          v101 = 0u;
+          v102 = 0u;
+          v99 = 0u;
+          v100 = 0u;
+          v90 = [(NSArray *)v84 countByEnumeratingWithState:&v99 objects:v116 count:16];
+          if (v90)
           {
-            v61 = vectorCount - v90;
-            v82 = *v96;
+            v63 = vectorCount - v94;
+            v86 = *v100;
             do
             {
-              for (m = 0; m != v86; ++m)
+              for (k = 0; k != v90; ++k)
               {
-                if (*v96 != v82)
+                if (*v100 != v86)
                 {
-                  objc_enumerationMutation(v80);
+                  objc_enumerationMutation(v84);
                 }
 
-                v63 = *(*(&v95 + 1) + 8 * m);
-                bytesPerIndex = [v63 bytesPerIndex];
-                v65 = [objc_msgSend(v63 "data")];
-                indexCount = [v63 indexCount];
-                if ([v63 primitiveType] == 4)
+                v65 = *(*(&v99 + 1) + 8 * k);
+                bytesPerIndex = [v65 bytesPerIndex];
+                v67 = [objc_msgSend(v65 "data")];
+                indexCount = [v65 indexCount];
+                if ([v65 primitiveType] == 4)
                 {
-                  v67 = [v63 primitiveCount] * bytesPerIndex;
+                  v69 = [v65 primitiveCount] * bytesPerIndex;
                 }
 
                 else
                 {
-                  v67 = 0;
+                  v69 = 0;
                 }
 
-                __dstb = v67;
-                v89 = v67 + indexCount * bytesPerIndex;
-                v91 = malloc_type_malloc(v89, 0x100004077774924uLL);
+                __dstb = v69;
+                v93 = v69 + indexCount * bytesPerIndex;
+                v70 = malloc_type_malloc(v93, 0x100004077774924uLL);
+                v95 = v70;
                 if (indexCount)
                 {
-                  v68 = 0;
-                  v69 = &v91[__dstb];
+                  v72 = 0;
+                  v73 = v70 + __dstb;
                   do
                   {
                     switch(bytesPerIndex)
                     {
                       case 4:
-                        v74 = v12[*(v65 + 4 * v68)];
-                        *&v69[4 * v68] = v74;
-                        if (v61 <= v74)
+                        v78 = v12[*(v67 + 4 * v72)];
+                        *(v73 + 4 * v72) = v78;
+                        if (v63 <= v78)
                         {
-                          v75 = scn_default_log();
-                          if (os_log_type_enabled(v75, OS_LOG_TYPE_FAULT))
+                          v79 = scn_default_log(v70, v71);
+                          v70 = os_log_type_enabled(v79, OS_LOG_TYPE_FAULT);
+                          if (v70)
                           {
-                            [(SCNGeometry(SCNUtils) *)v106 _geometryByWeldingVerticesWithThreshold:v75 normalThreshold:?];
+                            [(SCNGeometry(SCNUtils) *)v110 _geometryByWeldingVerticesWithThreshold:v79 normalThreshold:?];
                           }
                         }
 
                         break;
                       case 2:
-                        v72 = v12[*(v65 + 2 * v68)];
-                        *&v69[2 * v68] = v72;
-                        if (v61 <= v72)
+                        v76 = v12[*(v67 + 2 * v72)];
+                        *(v73 + 2 * v72) = v76;
+                        if (v63 <= v76)
                         {
-                          v73 = scn_default_log();
-                          if (os_log_type_enabled(v73, OS_LOG_TYPE_FAULT))
+                          v77 = scn_default_log(v70, v71);
+                          v70 = os_log_type_enabled(v77, OS_LOG_TYPE_FAULT);
+                          if (v70)
                           {
-                            [(SCNGeometry(SCNUtils) *)v108 _geometryByWeldingVerticesWithThreshold:v73 normalThreshold:?];
+                            [(SCNGeometry(SCNUtils) *)v112 _geometryByWeldingVerticesWithThreshold:v77 normalThreshold:?];
                           }
                         }
 
                         break;
                       case 1:
-                        v70 = v12[*(v65 + v68)];
-                        v69[v68] = v70;
-                        if (v61 <= v70)
+                        v74 = v12[*(v67 + v72)];
+                        *(v73 + v72) = v74;
+                        if (v63 <= v74)
                         {
-                          v71 = scn_default_log();
-                          if (os_log_type_enabled(v71, OS_LOG_TYPE_FAULT))
+                          v75 = scn_default_log(v70, v71);
+                          v70 = os_log_type_enabled(v75, OS_LOG_TYPE_FAULT);
+                          if (v70)
                           {
-                            [(SCNGeometry(SCNUtils) *)v110 _geometryByWeldingVerticesWithThreshold:v71 normalThreshold:?];
+                            [(SCNGeometry(SCNUtils) *)v114 _geometryByWeldingVerticesWithThreshold:v75 normalThreshold:?];
                           }
                         }
 
                         break;
                     }
 
-                    ++v68;
+                    ++v72;
                   }
 
-                  while (indexCount != v68);
+                  while (indexCount != v72);
                 }
 
                 if (__dstb)
                 {
-                  memcpy(v91, [objc_msgSend(v63 "data")], __dstb);
+                  memcpy(v95, [objc_msgSend(v65 "data")], __dstb);
                 }
 
-                [v83 addObject:{+[SCNGeometryElement geometryElementWithData:primitiveType:primitiveCount:bytesPerIndex:](SCNGeometryElement, "geometryElementWithData:primitiveType:primitiveCount:bytesPerIndex:", objc_msgSend(MEMORY[0x277CBEA90], "dataWithBytesNoCopy:length:freeWhenDone:", v91, v89, 1), objc_msgSend(v63, "primitiveType"), objc_msgSend(v63, "primitiveCount"), bytesPerIndex)}];
+                [v87 addObject:{+[SCNGeometryElement geometryElementWithData:primitiveType:primitiveCount:bytesPerIndex:](SCNGeometryElement, "geometryElementWithData:primitiveType:primitiveCount:bytesPerIndex:", objc_msgSend(MEMORY[0x277CBEA90], "dataWithBytesNoCopy:length:freeWhenDone:", v95, v93, 1), objc_msgSend(v65, "primitiveType"), objc_msgSend(v65, "primitiveCount"), bytesPerIndex)}];
               }
 
-              v86 = [(NSArray *)v80 countByEnumeratingWithState:&v95 objects:v112 count:16];
+              v90 = [(NSArray *)v84 countByEnumeratingWithState:&v99 objects:v116 count:16];
             }
 
-            while (v86);
+            while (v90);
           }
 
-          selfCopy = [SCNGeometry geometryWithSources:v85 elements:v83];
-          [(SCNGeometry *)selfCopy setName:[(SCNGeometry *)v77 name]];
-          [(SCNGeometry *)selfCopy setMaterials:[(SCNGeometry *)v77 materials]];
-          v10 = v78;
+          selfCopy = [SCNGeometry geometryWithSources:v89 elements:v87];
+          [(SCNGeometry *)selfCopy setName:[(SCNGeometry *)v81 name]];
+          [(SCNGeometry *)selfCopy setMaterials:[(SCNGeometry *)v81 materials]];
+          v10 = v82;
         }
 
         break;
@@ -4568,6 +4604,20 @@ LABEL_19:
   OUTLINED_FUNCTION_0_11();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
+}
+
+- (void)insertObject:(uint64_t)a3 inMaterialsAtIndex:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "child";
+  OUTLINED_FUNCTION_0(&dword_21BEF7000, a1, a3, "Assertion '%s' failed. Null argument", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)removeObjectFromMaterialsAtIndex:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "index < [_materials count]";
+  OUTLINED_FUNCTION_0(&dword_21BEF7000, a1, a3, "Assertion '%s' failed. removeObjectFromMaterialsAtIndex: index out of bounds", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)setEdgeCreasesElement:.cold.1()

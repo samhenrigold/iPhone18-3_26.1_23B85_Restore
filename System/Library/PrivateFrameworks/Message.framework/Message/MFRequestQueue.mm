@@ -91,7 +91,7 @@ void __29__MFRequestQueue_signpostLog__block_invoke(uint64_t a1)
 - (BOOL)addRequests:(id)requests combine:(BOOL)combine
 {
   combineCopy = combine;
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   requestsCopy = requests;
   v7 = requestsCopy;
   if (combineCopy)
@@ -101,33 +101,33 @@ void __29__MFRequestQueue_signpostLog__block_invoke(uint64_t a1)
 
   else
   {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v9 = requestsCopy;
-    v10 = [v9 countByEnumeratingWithState:&v17 objects:v22 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v16 objects:v21 count:16];
     if (v10)
     {
-      v11 = *v18;
+      v11 = *v17;
       v8 = 1;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v18 != v11)
+          if (*v17 != v11)
           {
             objc_enumerationMutation(v9);
           }
 
-          v21 = *(*(&v17 + 1) + 8 * i);
-          v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v21 count:{1, v17}];
+          v20 = *(*(&v16 + 1) + 8 * i);
+          v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v20 count:{1, v16}];
           v14 = [(MFRequestQueue *)self sendRequests:v13];
 
           v8 &= v14;
         }
 
-        v10 = [v9 countByEnumeratingWithState:&v17 objects:v22 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v16 objects:v21 count:16];
       }
 
       while (v10);
@@ -139,25 +139,23 @@ void __29__MFRequestQueue_signpostLog__block_invoke(uint64_t a1)
     }
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 - (BOOL)addRequest:(id)request
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   requestCopy = request;
-  v8[0] = requestCopy;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
+  v7[0] = requestCopy;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
   LOBYTE(self) = [(MFRequestQueue *)self sendRequests:v5];
 
-  v6 = *MEMORY[0x1E69E9840];
   return self;
 }
 
 - (BOOL)sendRequests:(id)requests
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   requestsCopy = requests;
   firstObject = [requestsCopy firstObject];
   first = [firstObject first];
@@ -170,13 +168,13 @@ void __29__MFRequestQueue_signpostLog__block_invoke(uint64_t a1)
   v11 = v10;
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
   {
-    v17 = 138543874;
-    v18 = v7;
-    v19 = 2050;
-    v20 = [v7 hash];
-    v21 = 2050;
-    v22 = [requestsCopy count];
-    _os_signpost_emit_with_name_impl(&dword_1B0389000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v9, "REQUEST QUEUE", "RequestClass=%{signpost.description:attribute,public}@ RequestType=%{public, signpost.telemetry:number1}lu RequestCount=%{public, signpost.telemetry:number2}lu enableTelemetry=YES ", &v17, 0x20u);
+    v16 = 138543874;
+    v17 = v7;
+    v18 = 2050;
+    v19 = [v7 hash];
+    v20 = 2050;
+    v21 = [requestsCopy count];
+    _os_signpost_emit_with_name_impl(&dword_1B0389000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v9, "REQUEST QUEUE", "RequestClass=%{signpost.description:attribute,public}@ RequestType=%{public, signpost.telemetry:number1}lu RequestCount=%{public, signpost.telemetry:number2}lu enableTelemetry=YES ", &v16, 0x20u);
   }
 
   os_unfair_lock_lock(&self->_lock);
@@ -186,11 +184,10 @@ void __29__MFRequestQueue_signpostLog__block_invoke(uint64_t a1)
   v14 = v13;
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
   {
-    LOWORD(v17) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1B0389000, v14, OS_SIGNPOST_INTERVAL_END, v9, "REQUEST QUEUE", "", &v17, 2u);
+    LOWORD(v16) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1B0389000, v14, OS_SIGNPOST_INTERVAL_END, v9, "REQUEST QUEUE", "", &v16, 2u);
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -206,11 +203,9 @@ void __29__MFRequestQueue_signpostLog__block_invoke(uint64_t a1)
 
 - (BOOL)_processRequests:(id)requests
 {
-  v7 = *MEMORY[0x1E69E9840];
   requestsCopy = requests;
   LOBYTE(self) = [(MFRequestQueue *)self processRequests:requestsCopy];
 
-  v5 = *MEMORY[0x1E69E9840];
   return self;
 }
 
@@ -232,7 +227,7 @@ void __29__MFRequestQueue_signpostLog__block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __34__MFRequestQueue_processRequests___block_invoke(uint64_t a1, uint64_t a2)
+void *__34__MFRequestQueue_processRequests___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) processRequest:a2];
   if (result)

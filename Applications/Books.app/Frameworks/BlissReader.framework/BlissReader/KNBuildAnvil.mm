@@ -158,7 +158,7 @@
     [(KNAnimationContext *)self->super.mAnimationContext slideRect];
     v18 = v17;
     v20 = v19;
-    [buildCopy duration];
+    objc_msgSend_duration(buildCopy);
     v22 = v21;
 
     v23 = [KNBuildAnvilSmokeSystem newParticleSystemWithParticleSize:0 particleSystemSize:generatorCopy objectSize:self->_metalSmokeShader slideSize:contextCopy duration:16.0 direction:16.0 randomGenerator:300.0 shader:1.0 metalContext:v14, v16, v18, v20, v22];
@@ -204,7 +204,7 @@
     [rCopy size];
     v24 = v23;
     v26 = v25;
-    [buildCopy duration];
+    objc_msgSend_duration(buildCopy);
     v28 = [KNBuildAnvilSpecksSystem newParticleSystemWithParticleSize:0 particleSystemSize:generatorCopy objectSize:self->_metalSpecksShader slideSize:contextCopy duration:16.0 direction:16.0 randomGenerator:v22 shader:1.0 metalContext:v24, v26, v18, v20, v27];
     [(TSDTexturedRectangle *)self->_metalSpecksTexture frame];
     v30 = v29;
@@ -314,107 +314,107 @@
   }
 
   lastObject = [textures lastObject];
-  v17 = KNBundle();
+  v17 = KNBundle(lastObject);
   v18 = [v17 pathForResource:@"KNBuildAnvil-Smoke" ofType:@"png"];
 
-  v65 = v18;
+  v66 = v18;
   v19 = [(KNBuildAnvil *)self p_texturedRectFromImagePath:v18 metalContext:metalContext];
   metalSmokeTexture = self->_metalSmokeTexture;
   self->_metalSmokeTexture = v19;
 
-  v21 = KNBundle();
-  v22 = [v21 pathForResource:@"KNBuildAnvil-Specks" ofType:@"png"];
+  v22 = KNBundle(v21);
+  v23 = [v22 pathForResource:@"KNBuildAnvil-Specks" ofType:@"png"];
 
-  v23 = [(KNBuildAnvil *)self p_texturedRectFromImagePath:v22 metalContext:metalContext];
+  v24 = [(KNBuildAnvil *)self p_texturedRectFromImagePath:v23 metalContext:metalContext];
   metalSpecksTexture = self->_metalSpecksTexture;
-  self->_metalSpecksTexture = v23;
+  self->_metalSpecksTexture = v24;
 
   [lastObject frameOnCanvas];
-  v26 = v25;
-  v28 = v27;
+  v27 = v26;
+  v29 = v28;
   y = CGPointZero.y;
-  v30 = TSDRectUnit[0];
-  v31 = TSDRectUnit[1];
-  v32 = TSDRectUnit[2];
-  v33 = TSDRectUnit[3];
-  v34 = [TSDGPUDataBuffer newDataBufferWithVertexRect:device textureRect:CGPointZero.x device:y];
+  v31 = TSDRectUnit[0];
+  v32 = TSDRectUnit[1];
+  v33 = TSDRectUnit[2];
+  v34 = TSDRectUnit[3];
+  v35 = [TSDGPUDataBuffer newDataBufferWithVertexRect:device textureRect:CGPointZero.x device:y];
   metalObjectDataBuffer = self->_metalObjectDataBuffer;
-  self->_metalObjectDataBuffer = v34;
+  self->_metalObjectDataBuffer = v35;
 
   if ([contextCopy isMotionBlurred])
   {
-    v36 = [TSDGPUDataBuffer newDataBufferWithVertexRect:1 textureRect:1 meshSize:1 textureFlipped:device includeCenterAttribute:CGPointZero.x addTransparentBorder:y device:v26, v28, v30, v31, v32, v33, TSDGPUDataBufferMeshSizeDefault[0], TSDGPUDataBufferMeshSizeDefault[1]];
+    v37 = [TSDGPUDataBuffer newDataBufferWithVertexRect:1 textureRect:1 meshSize:1 textureFlipped:device includeCenterAttribute:CGPointZero.x addTransparentBorder:y device:v27, v29, v31, v32, v33, v34, *&TSDGPUDataBufferMeshSizeDefault[0], *&TSDGPUDataBufferMeshSizeDefault[1]];
     metalBlurDataBuffer = self->_metalBlurDataBuffer;
-    self->_metalBlurDataBuffer = v36;
+    self->_metalBlurDataBuffer = v37;
   }
 
-  v38 = objc_alloc_init(MTLRenderPipelineColorAttachmentDescriptor);
-  [v38 setPixelFormat:objc_msgSend(metalContext, "pixelFormat")];
-  [v38 setBlendingEnabled:1];
-  [v38 setDestinationRGBBlendFactor:5];
-  [v38 setDestinationAlphaBlendFactor:5];
-  v39 = [[TSDMetalShader alloc] initCustomShaderWithVertexShader:@"buildAnvilSmokeVertexShader" fragmentShader:@"buildAnvilSmokeFragmentShader" device:device library:@"KeynoteMetalLibrary" colorAttachment:v38];
+  v39 = objc_alloc_init(MTLRenderPipelineColorAttachmentDescriptor);
+  [v39 setPixelFormat:objc_msgSend(metalContext, "pixelFormat")];
+  [v39 setBlendingEnabled:1];
+  [v39 setDestinationRGBBlendFactor:5];
+  [v39 setDestinationAlphaBlendFactor:5];
+  v40 = [[TSDMetalShader alloc] initCustomShaderWithVertexShader:@"buildAnvilSmokeVertexShader" fragmentShader:@"buildAnvilSmokeFragmentShader" device:device library:@"KeynoteMetalLibrary" colorAttachment:v39];
   metalSmokeShader = self->_metalSmokeShader;
-  self->_metalSmokeShader = v39;
+  self->_metalSmokeShader = v40;
 
-  v41 = [[TSDMetalShader alloc] initCustomShaderWithVertexShader:@"buildAnvilSpecksVertexShader" fragmentShader:@"buildAnvilSpecksFragmentShader" device:device library:@"KeynoteMetalLibrary" colorAttachment:v38];
+  v42 = [[TSDMetalShader alloc] initCustomShaderWithVertexShader:@"buildAnvilSpecksVertexShader" fragmentShader:@"buildAnvilSpecksFragmentShader" device:device library:@"KeynoteMetalLibrary" colorAttachment:v39];
   metalSpecksShader = self->_metalSpecksShader;
-  self->_metalSpecksShader = v41;
+  self->_metalSpecksShader = v42;
 
-  v43 = [[TSDMetalShader alloc] initDefaultTextureAndOpacityShaderWithDevice:device colorAttachment:v38];
+  v44 = [[TSDMetalShader alloc] initDefaultTextureAndOpacityShaderWithDevice:device colorAttachment:v39];
   metalObjectShader = self->_metalObjectShader;
-  self->_metalObjectShader = v43;
+  self->_metalObjectShader = v44;
 
   if ([contextCopy isMotionBlurred])
   {
-    v45 = [[TSDMetalShader alloc] initDefaultSingleDirectionMotionBlurShaderWithDevice:device colorAttachment:v38];
+    v46 = [[TSDMetalShader alloc] initDefaultSingleDirectionMotionBlurShaderWithDevice:device colorAttachment:v39];
     metalObjectBlurShader = self->_metalObjectBlurShader;
-    self->_metalObjectBlurShader = v45;
+    self->_metalObjectBlurShader = v46;
 
     [lastObject size];
-    v64 = v47;
+    v65 = v48;
     [lastObject size];
-    v63 = v48;
+    v64 = v49;
     [lastObject size];
-    v62 = 1.0 / v49;
+    v63 = 1.0 / v50;
     [lastObject size];
-    v50.f64[0] = v62;
-    v50.f64[1] = 1.0 / v51;
-    v52.f64[0] = v64;
-    v52.f64[1] = v63;
-    *&self->_anon_1e0[16] = vcvt_hight_f32_f64(vcvt_f32_f64(v52), v50);
+    v51.f64[0] = v63;
+    v51.f64[1] = 1.0 / v52;
+    v53.f64[0] = v65;
+    v53.f64[1] = v64;
+    *&self->_anon_1e0[16] = vcvt_hight_f32_f64(vcvt_f32_f64(v53), v51);
   }
 
   randomGenerator = [contextCopy randomGenerator];
-  v54 = [(KNBuildAnvil *)self p_smokeSystemForTR:lastObject build:animatedBuild randomGenerator:randomGenerator metalContext:metalContext];
+  v55 = [(KNBuildAnvil *)self p_smokeSystemForTR:lastObject build:animatedBuild randomGenerator:randomGenerator metalContext:metalContext];
   smokeSystem = self->_smokeSystem;
-  self->_smokeSystem = v54;
+  self->_smokeSystem = v55;
 
-  v56 = [(KNBuildAnvil *)self p_specksSystemForTR:lastObject build:animatedBuild randomGenerator:randomGenerator metalContext:metalContext];
+  v57 = [(KNBuildAnvil *)self p_specksSystemForTR:lastObject build:animatedBuild randomGenerator:randomGenerator metalContext:metalContext];
   specksSystem = self->_specksSystem;
-  self->_specksSystem = v56;
+  self->_specksSystem = v57;
 
-  [(KNAnimationEffect *)self mvpMatrixWithContext:contextCopy];
-  *&self->_baseTransform.m31 = v71;
-  *&self->_baseTransform.m33 = v72;
-  *&self->_baseTransform.m41 = v73;
-  *&self->_baseTransform.m43 = v74;
-  *&self->_baseTransform.m11 = v67;
-  *&self->_baseTransform.m13 = v68;
-  *&self->_baseTransform.m21 = v69;
-  *&self->_baseTransform.m23 = v70;
-  v58 = vcvt_hight_f32_f64(vcvt_f32_f64(*&self->_baseTransform.m11), *&self->_baseTransform.m13);
-  v59 = vcvt_hight_f32_f64(vcvt_f32_f64(*&self->_baseTransform.m21), *&self->_baseTransform.m23);
-  v60 = vcvt_hight_f32_f64(vcvt_f32_f64(*&self->_baseTransform.m31), *&self->_baseTransform.m33);
-  v61 = vcvt_hight_f32_f64(vcvt_f32_f64(*&self->_baseTransform.m41), *&self->_baseTransform.m43);
-  *self->_anon_190 = v58;
-  *&self->_anon_190[16] = v59;
-  *&self->_anon_190[32] = v60;
-  *&self->_anon_190[48] = v61;
-  *&self->_anon_1e0[32] = v58;
-  *&self->_anon_1e0[48] = v59;
-  *&self->_anon_1e0[64] = v60;
-  *&self->_anon_1e0[80] = v61;
+  objc_msgSend_mvpMatrixWithContext_(self);
+  *&self->_baseTransform.m31 = v72;
+  *&self->_baseTransform.m33 = v73;
+  *&self->_baseTransform.m41 = v74;
+  *&self->_baseTransform.m43 = v75;
+  *&self->_baseTransform.m11 = v68;
+  *&self->_baseTransform.m13 = v69;
+  *&self->_baseTransform.m21 = v70;
+  *&self->_baseTransform.m23 = v71;
+  v59 = vcvt_hight_f32_f64(vcvt_f32_f64(*&self->_baseTransform.m11), *&self->_baseTransform.m13);
+  v60 = vcvt_hight_f32_f64(vcvt_f32_f64(*&self->_baseTransform.m21), *&self->_baseTransform.m23);
+  v61 = vcvt_hight_f32_f64(vcvt_f32_f64(*&self->_baseTransform.m31), *&self->_baseTransform.m33);
+  v62 = vcvt_hight_f32_f64(vcvt_f32_f64(*&self->_baseTransform.m41), *&self->_baseTransform.m43);
+  *self->_anon_190 = v59;
+  *&self->_anon_190[16] = v60;
+  *&self->_anon_190[32] = v61;
+  *&self->_anon_190[48] = v62;
+  *&self->_anon_1e0[32] = v59;
+  *&self->_anon_1e0[48] = v60;
+  *&self->_anon_1e0[64] = v61;
+  *&self->_anon_1e0[80] = v62;
 }
 
 - (CATransform3D)p_orthoTransformWithScale:(SEL)scale offset:(double)offset
@@ -478,7 +478,7 @@
     [v12 handleFailureInFunction:v13 file:v14 lineNumber:474 description:{@"invalid nil value for '%s'", "renderEncoder"}];
   }
 
-  [animatedBuild duration];
+  objc_msgSend_duration(animatedBuild);
   v16 = v15;
   v17 = v15 * 0.4;
   if (v17 <= 0.2)

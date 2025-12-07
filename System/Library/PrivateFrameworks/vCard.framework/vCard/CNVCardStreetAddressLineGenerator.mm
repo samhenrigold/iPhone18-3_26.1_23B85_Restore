@@ -84,35 +84,33 @@
 
 - (id)standardLabelsForLabel:(id)label
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   labelCopy = label;
   if ([labelCopy isEqualToString:@"_$!<Work>!$_"])
   {
-    v10 = @"WORK";
-    v4 = &v10;
+    v9 = @"WORK";
+    v4 = &v9;
 LABEL_7:
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:{1, v8, v9, v10, v11}];
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:{1, v7, v8, v9, v10}];
     goto LABEL_8;
   }
 
   if ([labelCopy isEqualToString:@"_$!<Home>!$_"])
   {
-    v9 = @"HOME";
-    v4 = &v9;
+    v8 = @"HOME";
+    v4 = &v8;
     goto LABEL_7;
   }
 
   if ([labelCopy isEqualToString:@"_$!<Other>!$_"])
   {
-    v8 = @"OTHER";
-    v4 = &v8;
+    v7 = @"OTHER";
+    v4 = &v7;
     goto LABEL_7;
   }
 
   v5 = 0;
 LABEL_8:
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

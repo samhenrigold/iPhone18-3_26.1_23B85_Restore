@@ -6,7 +6,9 @@
 - (NSString)description;
 - (id)_configurationsToActivateForChange:(id)change initialSetup:(BOOL)setup;
 - (id)_configurationsToRemoveForChange:(id)change initialSetup:(BOOL)setup;
+- (void)_deauthenticateUnsupportedConfigurationsFromChange:(id)change initialSetup:(BOOL)setup completion:(id)completion;
 - (void)_processActiveConfigurationChange:(id)change initialSetup:(BOOL)setup;
+- (void)_processSupportedConfigurationsChange:(id)change initialSetup:(BOOL)setup;
 - (void)changeLibraryManagementPolicy:(int64_t)policy withAccountsStateChange:(id)change;
 - (void)enumerateHandlersForAccountState:(id)state usingBlock:(id)block;
 - (void)setSetupCompleted:(BOOL)completed;
@@ -216,6 +218,244 @@ LABEL_35:
   }
 
 LABEL_36:
+}
+
+- (void)_processSupportedConfigurationsChange:(id)change initialSetup:(BOOL)setup
+{
+  setupCopy = setup;
+  changeCopy = change;
+  if ([(ICDHandlerCoordinator *)self libraryManagementPolicy]!= 2)
+  {
+    v26 = +[NSAssertionHandler currentHandler];
+    [v26 handleFailureInMethod:a2 object:self file:@"ICDHandlerCoordinator.m" lineNumber:278 description:@"The method _processSupportedConfigurationsChange:initialSetup: is only suitable for parallel multi user setup."];
+  }
+
+  finalState = [changeCopy finalState];
+  activeConfiguration = [finalState activeConfiguration];
+
+  v30 = [(ICDHandlerCoordinator *)self _configurationsToActivateForChange:changeCopy initialSetup:setupCopy];
+  v10 = os_log_create("com.apple.amp.itunescloudd", "Accounts");
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138543362;
+    selfCopy = self;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ - Enabling handlers for supported accounts", buf, 0xCu);
+  }
+
+  taskScheduler = [(ICDHandlerCoordinator *)self taskScheduler];
+  v40 = 0u;
+  v41 = 0u;
+  v42 = 0u;
+  v43 = 0u;
+  obj = [objc_opt_class() _managedHandlerClasses];
+  v31 = [obj countByEnumeratingWithState:&v40 objects:v45 count:16];
+  if (v31)
+  {
+    v28 = *v41;
+    v29 = changeCopy;
+    do
+    {
+      v11 = 0;
+      do
+      {
+        if (*v41 != v28)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v32 = v11;
+        v12 = *(*(&v40 + 1) + 8 * v11);
+        if (activeConfiguration)
+        {
+          v13 = [*(*(&v40 + 1) + 8 * v11) handlerForConfiguration:activeConfiguration];
+          [v13 setTaskScheduler:taskScheduler];
+          [v13 becomeActive];
+        }
+
+        v34 = v12;
+        v38 = 0u;
+        v39 = 0u;
+        v36 = 0u;
+        v37 = 0u;
+        v35 = v30;
+        v14 = [v35 countByEnumeratingWithState:&v36 objects:v44 count:16];
+        if (v14)
+        {
+          v15 = v14;
+          v16 = *v37;
+          do
+          {
+            for (i = 0; i != v15; i = i + 1)
+            {
+              if (*v37 != v16)
+              {
+                objc_enumerationMutation(v35);
+              }
+
+              v18 = *(*(&v36 + 1) + 8 * i);
+              userIdentity = [v18 userIdentity];
+              accountDSID = [userIdentity accountDSID];
+              v21 = activeConfiguration;
+              userIdentity2 = [activeConfiguration userIdentity];
+              accountDSID2 = [userIdentity2 accountDSID];
+              v24 = accountDSID2;
+              if (accountDSID == accountDSID2)
+              {
+
+                activeConfiguration = v21;
+              }
+
+              else
+              {
+                v25 = [accountDSID isEqual:accountDSID2];
+
+                activeConfiguration = v21;
+                if (v25)
+                {
+                  continue;
+                }
+
+                userIdentity = [v34 handlerForConfiguration:v18];
+                [userIdentity setTaskScheduler:taskScheduler];
+                [userIdentity becomeActive];
+              }
+            }
+
+            v15 = [v35 countByEnumeratingWithState:&v36 objects:v44 count:16];
+          }
+
+          while (v15);
+        }
+
+        v11 = v32 + 1;
+        changeCopy = v29;
+      }
+
+      while ((v32 + 1) != v31);
+      v31 = [obj countByEnumeratingWithState:&v40 objects:v45 count:16];
+    }
+
+    while (v31);
+  }
+}
+
+- (void)_deauthenticateUnsupportedConfigurationsFromChange:(id)change initialSetup:(BOOL)setup completion:(id)completion
+{
+  setupCopy = setup;
+  changeCopy = change;
+  completionCopy = completion;
+  finalState = [changeCopy finalState];
+  activeConfiguration = [finalState activeConfiguration];
+
+  v27 = changeCopy;
+  v30 = [(ICDHandlerCoordinator *)self _configurationsToRemoveForChange:changeCopy initialSetup:setupCopy];
+  v10 = os_log_create("com.apple.amp.itunescloudd", "Accounts");
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138543362;
+    selfCopy = self;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ - Deauthenticating handlers for unsupported accounts", buf, 0xCu);
+  }
+
+  selfCopy2 = self;
+  group = dispatch_group_create();
+  v45 = 0u;
+  v46 = 0u;
+  v47 = 0u;
+  v48 = 0u;
+  obj = [objc_opt_class() _managedHandlerClasses];
+  v31 = [obj countByEnumeratingWithState:&v45 objects:v50 count:16];
+  if (v31)
+  {
+    v29 = *v46;
+    do
+    {
+      v11 = 0;
+      do
+      {
+        if (*v46 != v29)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v32 = v11;
+        v12 = *(*(&v45 + 1) + 8 * v11);
+        v41 = 0u;
+        v42 = 0u;
+        v43 = 0u;
+        v44 = 0u;
+        v35 = v30;
+        v13 = [v35 countByEnumeratingWithState:&v41 objects:v49 count:16];
+        if (v13)
+        {
+          v14 = v13;
+          v15 = *v42;
+          do
+          {
+            for (i = 0; i != v14; i = i + 1)
+            {
+              if (*v42 != v15)
+              {
+                objc_enumerationMutation(v35);
+              }
+
+              v17 = *(*(&v41 + 1) + 8 * i);
+              userIdentity = [v17 userIdentity];
+              accountDSID = [userIdentity accountDSID];
+              userIdentity2 = [activeConfiguration userIdentity];
+              accountDSID2 = [userIdentity2 accountDSID];
+              v22 = accountDSID2;
+              if (accountDSID == accountDSID2)
+              {
+              }
+
+              else
+              {
+                v23 = [accountDSID isEqual:accountDSID2];
+
+                if (v23)
+                {
+                  continue;
+                }
+
+                dispatch_group_enter(group);
+                userIdentity = [v12 handlerForConfiguration:v17];
+                v39[0] = _NSConcreteStackBlock;
+                v39[1] = 3221225472;
+                v39[2] = sub_1000F6AF8;
+                v39[3] = &unk_1001DE0A8;
+                v39[4] = selfCopy2;
+                v39[5] = v12;
+                v39[6] = v17;
+                v40 = group;
+                [userIdentity becomeInactiveWithDeauthentication:1 completion:v39];
+              }
+            }
+
+            v14 = [v35 countByEnumeratingWithState:&v41 objects:v49 count:16];
+          }
+
+          while (v14);
+        }
+
+        v11 = v32 + 1;
+      }
+
+      while ((v32 + 1) != v31);
+      v31 = [obj countByEnumeratingWithState:&v45 objects:v50 count:16];
+    }
+
+    while (v31);
+  }
+
+  v24 = dispatch_get_global_queue(0, 0);
+  block[0] = _NSConcreteStackBlock;
+  block[1] = 3221225472;
+  block[2] = sub_1000F6C2C;
+  block[3] = &unk_1001DF5C8;
+  v38 = completionCopy;
+  v25 = completionCopy;
+  dispatch_group_notify(group, v24, block);
 }
 
 - (id)_configurationsToRemoveForChange:(id)change initialSetup:(BOOL)setup

@@ -1,8 +1,19 @@
 @interface TimeAndDateSignal
+- (NSSet)featureNames;
 - (id)featureValueForName:(id)name;
 @end
 
 @implementation TimeAndDateSignal
+
+- (NSSet)featureNames
+{
+
+  sub_1C4B7FFBC();
+
+  v2 = sub_1C4F01AA8();
+
+  return v2;
+}
 
 - (id)featureValueForName:(id)name
 {

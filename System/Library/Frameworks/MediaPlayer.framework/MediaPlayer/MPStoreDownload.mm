@@ -128,7 +128,7 @@ void __50__MPStoreDownload__removeOverridePhaseIdentifier___block_invoke(uint64_
   _Block_object_dispose(&v11, 8);
 }
 
-uint64_t __50__MPStoreDownload__removeOverridePhaseIdentifier___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__50__MPStoreDownload__removeOverridePhaseIdentifier___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 isEqualToString:*(a1 + 32)];
   if (result)

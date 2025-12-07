@@ -13,7 +13,9 @@
 - (id)_requestFromUpdatedRequest:(id)request updatedPrediction:(id)prediction;
 - (id)_summaryForTaskRequest:(id)request;
 - (id)newCloudKitReschedulerForSession:(id)session;
+- (id)newReschedulerWithExpectedDuration:(double)duration requestsImmediateRuntime:(BOOL)runtime;
 - (id)newTaskRequestForSession:(id)session;
+- (id)newTaskRequestWithExpectedDuration:(double)duration requestsImmediateRuntime:(BOOL)runtime;
 - (id)resubmitTaskRequestForRescheduler:(id)rescheduler updatedPrediction:(id)prediction afterTaskHasBeenDeferred:(id)deferred;
 - (id)taskStatusesWithNow:(id)now;
 - (id)updateTaskRequest:(id)request updatedPrediction:(id)prediction;
@@ -146,6 +148,29 @@
   v2 = [[NSString alloc] initWithFormat:@"[%@ for %@]", objc_opt_class(), self->_taskIdentifier];
 
   return v2;
+}
+
+- (id)newTaskRequestWithExpectedDuration:(double)duration requestsImmediateRuntime:(BOOL)runtime
+{
+  runtimeCopy = runtime;
+  v7 = [[BGNonRepeatingSystemTaskRequest alloc] initWithIdentifier:self->_taskIdentifier];
+  [v7 setExpectedDuration:duration];
+  [v7 setInvolvedProcesses:self->_involvedProcesses];
+  [v7 setRelatedApplications:self->_relatedApplications];
+  if (self->_groupName)
+  {
+    [v7 setGroupName:?];
+    [v7 setGroupConcurrencyLimit:1];
+  }
+
+  [v7 setPriority:1];
+  [v7 setRequiresExternalPower:0];
+  [v7 setRequiresNetworkConnectivity:1];
+  [v7 setScheduleAfter:0.0];
+  [v7 setTrySchedulingBefore:3600.0];
+  [v7 setOverrideRateLimiting:1];
+  [v7 setCplRequestsImmediateRuntime:runtimeCopy];
+  return v7;
 }
 
 - (BOOL)_shouldLikelyRequestImmediateRunForPrediction:(id)prediction
@@ -299,17 +324,16 @@ LABEL_5:
           registeredTaskIdentifier = self->_registeredTaskIdentifier;
           interestedRescheduler = self->_interestedRescheduler;
           *buf = 138412546;
-          v15 = registeredTaskIdentifier;
-          v16 = 2112;
-          v17 = interestedRescheduler;
+          v14 = registeredTaskIdentifier;
+          v15 = 2112;
+          v16 = interestedRescheduler;
           _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "Trying to deregister %@ while we are waiting for a task for %@", buf, 0x16u);
         }
       }
 
       v10 = +[NSAssertionHandler currentHandler];
       v11 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Daemon/CPLBGSTRescheduler.m"];
-      v12 = self->_registeredTaskIdentifier;
-      [v10 handleFailureInMethod:a2 object:self file:v11 lineNumber:790 description:{@"Trying to deregister %@ while we are waiting for a task for %@", v12, self->_interestedRescheduler}];
+      [v10 handleFailureInMethod:a2 object:self file:v11 lineNumber:790 description:{@"Trying to deregister %@ while we are waiting for a task for %@", self->_registeredTaskIdentifier, self->_interestedRescheduler}];
 
       abort();
     }
@@ -374,12 +398,12 @@ LABEL_5:
   currentTaskRequest = self->_currentTaskRequest;
   if (!currentTaskRequest)
   {
-    sub_100191EE8();
+    sub_100191EE8(a2);
   }
 
   if (!self->_registeredTaskIdentifier)
   {
-    sub_100191E30();
+    sub_100191E30(a2);
   }
 
   identifier = [(BGNonRepeatingSystemTaskRequest *)currentTaskRequest identifier];
@@ -411,7 +435,7 @@ LABEL_5:
   interestedRescheduler = self->_interestedRescheduler;
   if (!interestedRescheduler)
   {
-    sub_100191D78();
+    sub_100191D78(a2);
   }
 
   v12 = interestedRescheduler;
@@ -456,7 +480,7 @@ LABEL_26:
 
   if (!errorCopy)
   {
-    sub_100191CC0();
+    sub_100191CC0(a2);
   }
 
   [(CPLBGSTRescheduler *)v12 failedToAcquireTaskWithError:errorCopy];
@@ -469,33 +493,34 @@ LABEL_10:
   predictionCopy = prediction;
   if (predictionCopy)
   {
-    v13 = 0;
-    [(CPLBGSTReschedulerManager *)self _expectedDurationFromPrediction:predictionCopy shouldRequestImmediateRun:&v13];
-    [requestCopy setExpectedDuration:?];
-    if ((v13 & 1) == 0)
+    v14 = 0;
+    [(CPLBGSTReschedulerManager *)self _expectedDurationFromPrediction:predictionCopy shouldRequestImmediateRun:&v14];
+    cplRequestsImmediateRuntime = [requestCopy setExpectedDuration:?];
+    if ((v14 & 1) == 0)
     {
-      if ([requestCopy cplRequestsImmediateRuntime])
+      cplRequestsImmediateRuntime = [requestCopy cplRequestsImmediateRuntime];
+      if (cplRequestsImmediateRuntime)
       {
         if (_CPLSilentLogging)
         {
-          v10 = 0;
+          v11 = 0;
           goto LABEL_13;
         }
 
-        v8 = sub_100025CA0();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+        v9 = sub_100025CA0(cplRequestsImmediateRuntime);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
           taskIdentifier = self->_taskIdentifier;
           *buf = 138543362;
-          v15 = taskIdentifier;
-          _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Updated request for %{public}@ should not request immediate runtime anymore", buf, 0xCu);
+          v16 = taskIdentifier;
+          _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Updated request for %{public}@ should not request immediate runtime anymore", buf, 0xCu);
         }
 
-        v10 = 0;
+        v11 = 0;
         goto LABEL_12;
       }
 
-      if ((v13 & 1) == 0)
+      if ((v14 & 1) == 0)
       {
         goto LABEL_14;
       }
@@ -503,24 +528,24 @@ LABEL_10:
 
     if (_CPLSilentLogging)
     {
-      v10 = 1;
+      v11 = 1;
       goto LABEL_13;
     }
 
-    v8 = sub_100025CA0();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_100025CA0(cplRequestsImmediateRuntime);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = self->_taskIdentifier;
+      v10 = self->_taskIdentifier;
       *buf = 138543362;
-      v15 = v9;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Updated request for %{public}@ will request immediate runtime", buf, 0xCu);
+      v16 = v10;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Updated request for %{public}@ will request immediate runtime", buf, 0xCu);
     }
 
-    v10 = 1;
+    v11 = 1;
 LABEL_12:
 
 LABEL_13:
-    [requestCopy setCplRequestsImmediateRuntime:v10];
+    [requestCopy setCplRequestsImmediateRuntime:v11];
 LABEL_14:
     [requestCopy updateWithPrediction:predictionCopy];
   }
@@ -542,19 +567,18 @@ LABEL_14:
         registeredTaskIdentifier = self->_registeredTaskIdentifier;
         interestedRescheduler = self->_interestedRescheduler;
         *buf = 138412802;
-        v19 = reschedulerCopy;
+        v17 = reschedulerCopy;
+        v18 = 2112;
+        v19 = registeredTaskIdentifier;
         v20 = 2112;
-        v21 = registeredTaskIdentifier;
-        v22 = 2112;
-        v23 = interestedRescheduler;
+        v21 = interestedRescheduler;
         _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "Trying to register %@ for %@ twice (already registered: %@)", buf, 0x20u);
       }
     }
 
     v10 = +[NSAssertionHandler currentHandler];
     v11 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Daemon/CPLBGSTRescheduler.m"];
-    v12 = self->_registeredTaskIdentifier;
-    [v10 handleFailureInMethod:a2 object:self file:v11 lineNumber:857 description:{@"Trying to register %@ for %@ twice (already registered: %@)", reschedulerCopy, v12, self->_interestedRescheduler}];
+    [v10 handleFailureInMethod:a2 object:self file:v11 lineNumber:857 description:{@"Trying to register %@ for %@ twice (already registered: %@)", reschedulerCopy, self->_registeredTaskIdentifier, self->_interestedRescheduler}];
 LABEL_17:
 
     abort();
@@ -564,25 +588,24 @@ LABEL_17:
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v13 = __CPLGenericOSLogDomain();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v12 = __CPLGenericOSLogDomain();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        v14 = self->_registeredTaskIdentifier;
+        v13 = self->_registeredTaskIdentifier;
         runningRescheduler = self->_runningRescheduler;
         *buf = 138412802;
-        v19 = reschedulerCopy;
+        v17 = reschedulerCopy;
+        v18 = 2112;
+        v19 = v13;
         v20 = 2112;
-        v21 = v14;
-        v22 = 2112;
-        v23 = runningRescheduler;
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "Trying to register %@ for %@ while %@ is running", buf, 0x20u);
+        v21 = runningRescheduler;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "Trying to register %@ for %@ while %@ is running", buf, 0x20u);
       }
     }
 
     v10 = +[NSAssertionHandler currentHandler];
     v11 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Daemon/CPLBGSTRescheduler.m"];
-    v16 = self->_registeredTaskIdentifier;
-    [v10 handleFailureInMethod:a2 object:self file:v11 lineNumber:858 description:{@"Trying to register %@ for %@ while %@ is running", reschedulerCopy, v16, self->_runningRescheduler}];
+    [v10 handleFailureInMethod:a2 object:self file:v11 lineNumber:858 description:{@"Trying to register %@ for %@ while %@ is running", reschedulerCopy, self->_registeredTaskIdentifier, self->_runningRescheduler}];
     goto LABEL_17;
   }
 
@@ -611,23 +634,23 @@ LABEL_17:
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v31 = __CPLGenericOSLogDomain();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+      v32 = __CPLGenericOSLogDomain();
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
         taskIdentifier = [(CPLBGSTRescheduler *)reschedulerCopy taskIdentifier];
-        v33 = *p_registeredTaskIdentifier;
+        v34 = *p_registeredTaskIdentifier;
         *buf = 138412546;
-        v49 = taskIdentifier;
-        v50 = 2112;
-        v51 = v33;
-        _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_ERROR, "Trying to resubmit request for %@ while we are currently registered for %@", buf, 0x16u);
+        v50 = taskIdentifier;
+        v51 = 2112;
+        v52 = v34;
+        _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_ERROR, "Trying to resubmit request for %@ while we are currently registered for %@", buf, 0x16u);
       }
     }
 
-    v34 = +[NSAssertionHandler currentHandler];
-    v35 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Daemon/CPLBGSTRescheduler.m"];
+    v35 = +[NSAssertionHandler currentHandler];
+    v36 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Daemon/CPLBGSTRescheduler.m"];
     taskIdentifier2 = [(CPLBGSTRescheduler *)reschedulerCopy taskIdentifier];
-    [v34 handleFailureInMethod:a2 object:self file:v35 lineNumber:869 description:{@"Trying to resubmit request for %@ while we are currently registered for %@", taskIdentifier2, self->_registeredTaskIdentifier}];
+    [v35 handleFailureInMethod:a2 object:self file:v36 lineNumber:869 description:{@"Trying to resubmit request for %@ while we are currently registered for %@", taskIdentifier2, self->_registeredTaskIdentifier}];
 
 LABEL_36:
     abort();
@@ -647,24 +670,24 @@ LABEL_36:
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v37 = __CPLGenericOSLogDomain();
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+      v38 = __CPLGenericOSLogDomain();
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
       {
-        v38 = self->_registeredTaskIdentifier;
+        v39 = self->_registeredTaskIdentifier;
         runningRescheduler = self->_runningRescheduler;
         *buf = 138412802;
-        v49 = v38;
-        v50 = 2112;
-        v51 = reschedulerCopy;
-        v52 = 2112;
-        v53 = runningRescheduler;
-        _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_ERROR, "Trying to resubmit %@ for %@ but current running one is %@", buf, 0x20u);
+        v50 = v39;
+        v51 = 2112;
+        v52 = reschedulerCopy;
+        v53 = 2112;
+        v54 = runningRescheduler;
+        _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_ERROR, "Trying to resubmit %@ for %@ but current running one is %@", buf, 0x20u);
       }
     }
 
-    v34 = +[NSAssertionHandler currentHandler];
-    v35 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Daemon/CPLBGSTRescheduler.m"];
-    [v34 handleFailureInMethod:a2 object:self file:v35 lineNumber:872 description:{@"Trying to resubmit %@ for %@ but current running one is %@", self->_registeredTaskIdentifier, reschedulerCopy, self->_runningRescheduler}];
+    v35 = +[NSAssertionHandler currentHandler];
+    v36 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Daemon/CPLBGSTRescheduler.m"];
+    [v35 handleFailureInMethod:a2 object:self file:v36 lineNumber:872 description:{@"Trying to resubmit %@ for %@ but current running one is %@", self->_registeredTaskIdentifier, reschedulerCopy, self->_runningRescheduler}];
     goto LABEL_36;
   }
 
@@ -693,60 +716,61 @@ LABEL_36:
 
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v44 = __CPLGenericOSLogDomain();
-        if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+        v45 = __CPLGenericOSLogDomain();
+        if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
         {
-          v45 = *p_registeredTaskIdentifier;
+          v46 = *p_registeredTaskIdentifier;
           *buf = 138412546;
-          v49 = v19;
-          v50 = 2112;
-          v51 = v45;
-          _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_ERROR, "New %@ should be our current registered task identifier (%@)", buf, 0x16u);
+          v50 = v19;
+          v51 = 2112;
+          v52 = v46;
+          _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_ERROR, "New %@ should be our current registered task identifier (%@)", buf, 0x16u);
         }
       }
 
-      v42 = +[NSAssertionHandler currentHandler];
-      v43 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Daemon/CPLBGSTRescheduler.m"];
-      [v42 handleFailureInMethod:a2 object:self file:v43 lineNumber:884 description:{@"New %@ should be our current registered task identifier (%@)", v19, self->_registeredTaskIdentifier}];
+      v43 = +[NSAssertionHandler currentHandler];
+      v44 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Daemon/CPLBGSTRescheduler.m"];
+      [v43 handleFailureInMethod:a2 object:self file:v44 lineNumber:884 description:{@"New %@ should be our current registered task identifier (%@)", v19, self->_registeredTaskIdentifier}];
     }
 
     else
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v40 = __CPLGenericOSLogDomain();
-        if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+        v41 = __CPLGenericOSLogDomain();
+        if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
         {
-          v41 = self->_currentTaskRequest;
+          v42 = self->_currentTaskRequest;
           *buf = 138412546;
-          v49 = v19;
-          v50 = 2112;
-          v51 = v41;
-          _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_ERROR, "New %@ should be our current task request (%@)", buf, 0x16u);
+          v50 = v19;
+          v51 = 2112;
+          v52 = v42;
+          _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_ERROR, "New %@ should be our current task request (%@)", buf, 0x16u);
         }
       }
 
-      v42 = +[NSAssertionHandler currentHandler];
-      v43 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Daemon/CPLBGSTRescheduler.m"];
-      [v42 handleFailureInMethod:a2 object:self file:v43 lineNumber:883 description:{@"New %@ should be our current task request (%@)", v19, self->_currentTaskRequest}];
+      v43 = +[NSAssertionHandler currentHandler];
+      v44 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Daemon/CPLBGSTRescheduler.m"];
+      [v43 handleFailureInMethod:a2 object:self file:v44 lineNumber:883 description:{@"New %@ should be our current task request (%@)", v19, self->_currentTaskRequest}];
     }
 
     abort();
   }
 
-  v47 = 0;
-  v24 = [deferredCopy setTaskExpiredWithRetryAfter:&v47 error:0.0];
-  v25 = v47;
+  v48 = 0;
+  v24 = [deferredCopy setTaskExpiredWithRetryAfter:&v48 error:0.0];
+  v25 = v48;
+  v26 = v25;
   if (v24)
   {
     [(CPLBGSTActivityReport *)self->_report didDefer];
     scheduler = self->_scheduler;
-    v46 = 0;
-    v27 = [(CPLBGSystemTaskScheduler *)scheduler updateTaskRequest:request error:&v46];
-    v28 = v46;
-    if ((v27 & 1) == 0 && (_CPLSilentLogging & 1) == 0)
+    v47 = 0;
+    v28 = [(CPLBGSystemTaskScheduler *)scheduler updateTaskRequest:request error:&v47];
+    v29 = v47;
+    if ((v28 & 1) == 0 && (_CPLSilentLogging & 1) == 0)
     {
-      sub_100192140();
+      sub_100192140(request);
     }
 
     self->_currentTaskRequestHasBeenSubmitted = 1;
@@ -756,20 +780,20 @@ LABEL_36:
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v29 = sub_100025CA0();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      v30 = sub_100025CA0(v25);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v49 = deferredCopy;
-        v50 = 2112;
-        v51 = v25;
-        _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "Failed to reschedule expired %@: %@", buf, 0x16u);
+        v50 = deferredCopy;
+        v51 = 2112;
+        v52 = v26;
+        _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_ERROR, "Failed to reschedule expired %@: %@", buf, 0x16u);
       }
     }
 
     self->_currentTaskRequestHasBeenSubmitted = 0;
     [deferredCopy setTaskCompleted];
-    [(CPLBGSTReschedulerManager *)self _acquiredTask:0 error:v25];
+    [(CPLBGSTReschedulerManager *)self _acquiredTask:0 error:v26];
   }
 
   v23 = request;
@@ -786,7 +810,7 @@ LABEL_21:
   dispatch_assert_queue_V2(self->_queue);
   if (!requestCopy)
   {
-    sub_100192348();
+    sub_100192348(a2);
   }
 
   if (self->_currentTaskRequest != requestCopy)
@@ -948,40 +972,40 @@ LABEL_14:
   dispatch_assert_queue_V2(self->_queue);
   if (self->_currentTaskRequest != requestCopy)
   {
-    sub_100192400();
+    sub_100192400(a2);
   }
 
   if (self->_interestedRescheduler)
   {
-    v8 = [(CPLBGSTReschedulerManager *)self _requestFromUpdatedRequest:requestCopy updatedPrediction:predictionCopy];
-    if (v8 == requestCopy)
+    v9 = [(CPLBGSTReschedulerManager *)self _requestFromUpdatedRequest:requestCopy updatedPrediction:predictionCopy];
+    if (v9 == requestCopy)
     {
       scheduler = self->_scheduler;
-      v17 = 0;
-      v14 = [(CPLBGSystemTaskScheduler *)scheduler updateTaskRequest:requestCopy error:&v17];
-      v15 = v17;
-      if (v14)
+      v18 = 0;
+      v15 = [(CPLBGSystemTaskScheduler *)scheduler updateTaskRequest:requestCopy error:&v18];
+      v16 = v18;
+      if (v15)
       {
         [(CPLBGSTActivityReport *)self->_report didUpdate];
       }
 
       else if ((_CPLSilentLogging & 1) == 0)
       {
-        sub_100192140();
+        sub_100192140(requestCopy);
       }
     }
 
     else
     {
-      v9 = self->_interestedRescheduler;
+      v10 = self->_interestedRescheduler;
       [(CPLBGSTReschedulerManager *)self dropTaskRequest:requestCopy forRescheduler:self->_interestedRescheduler];
-      [(CPLBGSTReschedulerManager *)self _reallySubmitTaskRequest:v8];
+      [(CPLBGSTReschedulerManager *)self _reallySubmitTaskRequest:v9];
       interestedRescheduler = self->_interestedRescheduler;
-      self->_interestedRescheduler = v9;
-      v11 = v9;
+      self->_interestedRescheduler = v10;
+      v12 = v10;
 
-      v12 = v8;
-      requestCopy = v12;
+      v13 = v9;
+      requestCopy = v13;
     }
   }
 
@@ -1023,16 +1047,15 @@ LABEL_14:
           taskIdentifier = self->_taskIdentifier;
           *location = 138412546;
           *&location[4] = registeredTaskIdentifier;
-          v28 = 2112;
-          v29 = taskIdentifier;
+          v27 = 2112;
+          v28 = taskIdentifier;
           _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "Invalid registered task identifier %@ - expecting %@", location, 0x16u);
         }
       }
 
       v21 = +[NSAssertionHandler currentHandler];
       v22 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Daemon/CPLBGSTRescheduler.m"];
-      v23 = self->_registeredTaskIdentifier;
-      [v21 handleFailureInMethod:a2 object:self file:v22 lineNumber:994 description:{@"Invalid registered task identifier %@ - expecting %@", v23, self->_taskIdentifier}];
+      [v21 handleFailureInMethod:a2 object:self file:v22 lineNumber:994 description:{@"Invalid registered task identifier %@ - expecting %@", self->_registeredTaskIdentifier, self->_taskIdentifier}];
 
       abort();
     }
@@ -1045,20 +1068,20 @@ LABEL_14:
     v13 = [v11 initWithSequenceNumber:0 expectedDate:0 scheduler:schedulerCopy configuration:configuration scopeFilter:0];
 
     objc_initWeak(location, v13);
-    v24[0] = _NSConcreteStackBlock;
-    v24[1] = 3221225472;
-    v24[2] = sub_10002A3EC;
-    v24[3] = &unk_100273440;
-    objc_copyWeak(&v26, location);
-    v25 = blockCopy;
-    [(CPLBGSTRescheduler *)v10 _registerFromPersistentSyncSessionWithLaunchBlock:v24];
+    v23[0] = _NSConcreteStackBlock;
+    v23[1] = 3221225472;
+    v23[2] = sub_10002A3EC;
+    v23[3] = &unk_100273440;
+    objc_copyWeak(&v25, location);
+    v24 = blockCopy;
+    [(CPLBGSTRescheduler *)v10 _registerFromPersistentSyncSessionWithLaunchBlock:v23];
     [v13 setRescheduler:v10];
     predictor = [v13 predictor];
     currentPrediction = [predictor currentPrediction];
     [(CPLBGSTRescheduler *)v10 updateSyncSessionPrediction:currentPrediction];
 
     v16 = v13;
-    objc_destroyWeak(&v26);
+    objc_destroyWeak(&v25);
     objc_destroyWeak(location);
   }
 
@@ -1125,6 +1148,14 @@ LABEL_14:
   v5 = [[CPLBGSTRescheduler alloc] initWithRequest:v4 reschedulerManager:self];
 
   return v5;
+}
+
+- (id)newReschedulerWithExpectedDuration:(double)duration requestsImmediateRuntime:(BOOL)runtime
+{
+  v5 = [(CPLBGSTReschedulerManager *)self newTaskRequestWithExpectedDuration:runtime requestsImmediateRuntime:duration];
+  v6 = [[CPLBGSTRescheduler alloc] initWithRequest:v5 reschedulerManager:self];
+
+  return v6;
 }
 
 - (NSString)reschedulerDescription
@@ -1244,12 +1275,12 @@ LABEL_14:
   if (v7 && result <= self->_maximumRuntimeForImmediateRun)
   {
     p_minimumRuntime = &self->_minimumRuntimeForImmediateRun;
-    v14 = 1;
+    v15 = 1;
   }
 
   else
   {
-    v14 = 0;
+    v15 = 0;
     result = ceil(result / 60.0) * 60.0 + self->_minimumRuntimeLeeway;
   }
 
@@ -1261,18 +1292,17 @@ LABEL_14:
   self->_lastRequestedRunningTime = result;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v15 = sub_100025CA0();
-    if (sub_100003424(v15))
+    v16 = sub_100025CA0(v13);
+    if (sub_100003424(v16))
     {
-      lastRequestedRunningTime = self->_lastRequestedRunningTime;
       sub_100013990();
-      _os_log_impl(v16, v17, v18, v19, v20, 0x16u);
+      _os_log_impl(v17, v18, v19, v20, v21, 0x16u);
     }
 
     result = self->_lastRequestedRunningTime;
   }
 
-  *run = v14;
+  *run = v15;
   return result;
 }
 

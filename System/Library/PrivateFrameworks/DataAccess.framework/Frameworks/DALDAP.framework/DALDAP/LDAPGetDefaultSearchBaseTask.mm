@@ -10,7 +10,7 @@
 
 - (void)_performQuery
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (_performQuery_onceToken_0 != -1)
   {
     [LDAPGetDefaultSearchBaseTask _performQuery];
@@ -24,11 +24,9 @@
   if (os_log_type_enabled(v5, v6))
   {
     *buf = 134217984;
-    v9 = rootdse;
+    v8 = rootdse;
     _os_log_impl(&dword_24857C000, v5, v6, "Created operation at %p", buf, 0xCu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __45__LDAPGetDefaultSearchBaseTask__performQuery__block_invoke()
@@ -55,7 +53,7 @@ void __45__LDAPGetDefaultSearchBaseTask__performQuery__block_invoke_2(uint64_t a
 void __45__LDAPGetDefaultSearchBaseTask__performQuery__block_invoke_3(uint64_t a1)
 {
   v1 = a1;
-  v37 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   if ((*(a1 + 48) | 4) == 4)
   {
     if ([*(a1 + 32) isDisabled])
@@ -63,122 +61,118 @@ void __45__LDAPGetDefaultSearchBaseTask__performQuery__block_invoke_3(uint64_t a
       v2 = *(v1 + 32);
       obj = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277D038E0] code:-1 userInfo:0];
       [v2 finishWithError:?];
-      v3 = *MEMORY[0x277D85DE8];
 
       return;
     }
 
-    v30 = 0u;
-    v31 = 0u;
     v28 = 0u;
     v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     obja = [*(v1 + 40) allKeys];
-    v9 = [obja countByEnumeratingWithState:&v28 objects:v36 count:16];
-    if (!v9)
+    v8 = [obja countByEnumeratingWithState:&v26 objects:v34 count:16];
+    if (!v8)
     {
       goto LABEL_27;
     }
 
-    v11 = v9;
-    v12 = *v29;
-    v13 = *(MEMORY[0x277D03988] + 3);
+    v10 = v8;
+    v11 = *v27;
+    v12 = *(MEMORY[0x277D03988] + 3);
     type = *(MEMORY[0x277D03988] + 6);
-    *&v10 = 138412290;
-    v23 = v10;
-    v25 = v13;
-    v14 = v1;
+    *&v9 = 138412290;
+    v21 = v9;
+    v23 = v12;
+    v13 = v1;
 LABEL_11:
-    v15 = 0;
+    v14 = 0;
     while (1)
     {
-      if (*v29 != v12)
+      if (*v27 != v11)
       {
         objc_enumerationMutation(obja);
       }
 
-      v16 = *(*(&v28 + 1) + 8 * v15);
-      v17 = [v16 lowercaseString];
-      if (![v17 isEqualToString:@"namingcontexts"])
+      v15 = *(*(&v26 + 1) + 8 * v14);
+      v16 = [v15 lowercaseString];
+      if (![v16 isEqualToString:@"namingcontexts"])
       {
         goto LABEL_25;
       }
 
-      v18 = [*(v1 + 40) objectForKeyedSubscript:v16];
+      v17 = [*(v1 + 40) objectForKeyedSubscript:v15];
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
         break;
       }
 
-      if ([v18 count])
+      if ([v17 count])
       {
-        v19 = [v18 objectAtIndexedSubscript:0];
+        v18 = [v17 objectAtIndexedSubscript:0];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v20 = DALoggingwithCategory();
-          if (os_log_type_enabled(v20, type))
+          v19 = DALoggingwithCategory();
+          if (os_log_type_enabled(v19, type))
           {
-            *buf = v23;
-            v33 = v19;
-            _os_log_impl(&dword_24857C000, v20, type, "Found namingContexts of %@", buf, 0xCu);
+            *buf = v21;
+            v31 = v18;
+            _os_log_impl(&dword_24857C000, v19, type, "Found namingContexts of %@", buf, 0xCu);
           }
 
-          [*(v14 + 32) setDefaultNamingContext:v19];
+          [*(v13 + 32) setDefaultNamingContext:v18];
         }
 
 LABEL_23:
 
-        v13 = v25;
-        v1 = v14;
+        v12 = v23;
+        v1 = v13;
       }
 
 LABEL_25:
-      if (v11 == ++v15)
+      if (v10 == ++v14)
       {
-        v11 = [obja countByEnumeratingWithState:&v28 objects:v36 count:16];
-        if (!v11)
+        v10 = [obja countByEnumeratingWithState:&v26 objects:v34 count:16];
+        if (!v10)
         {
 LABEL_27:
 
           [*(v1 + 32) finishWithError:0];
-          goto LABEL_28;
+          return;
         }
 
         goto LABEL_11;
       }
     }
 
-    v19 = DALoggingwithCategory();
-    if (os_log_type_enabled(v19, v13))
+    v18 = DALoggingwithCategory();
+    if (os_log_type_enabled(v18, v12))
     {
-      v21 = objc_opt_class();
+      v20 = objc_opt_class();
       *buf = 138412546;
-      v33 = v21;
-      v34 = 2112;
-      v35 = v16;
-      _os_log_impl(&dword_24857C000, v19, v13, "Unexpected class of %@ for key %@.  Skipping it", buf, 0x16u);
+      v31 = v20;
+      v32 = 2112;
+      v33 = v15;
+      _os_log_impl(&dword_24857C000, v18, v12, "Unexpected class of %@ for key %@.  Skipping it", buf, 0x16u);
     }
 
     goto LABEL_23;
   }
 
-  v4 = DALoggingwithCategory();
-  v5 = *(MEMORY[0x277D03988] + 3);
-  if (os_log_type_enabled(v4, v5))
+  v3 = DALoggingwithCategory();
+  v4 = *(MEMORY[0x277D03988] + 3);
+  if (os_log_type_enabled(v3, v4))
   {
-    v6 = *(v1 + 48);
+    v5 = *(v1 + 48);
     *buf = 67109120;
-    LODWORD(v33) = v6;
-    _os_log_impl(&dword_24857C000, v4, v5, "Couldn't complete operation, error %d", buf, 8u);
+    LODWORD(v31) = v5;
+    _os_log_impl(&dword_24857C000, v3, v4, "Couldn't complete operation, error %d", buf, 8u);
   }
 
-  v7 = *(v1 + 32);
-  v8 = [v7 daLevelErrorForLDAPError:*(v1 + 48)];
-  [v7 finishWithError:v8];
-
-LABEL_28:
-  v22 = *MEMORY[0x277D85DE8];
+  v6 = *(v1 + 32);
+  v7 = [v6 daLevelErrorForLDAPError:*(v1 + 48)];
+  [v6 finishWithError:v7];
 }
 
 - (void)performTask

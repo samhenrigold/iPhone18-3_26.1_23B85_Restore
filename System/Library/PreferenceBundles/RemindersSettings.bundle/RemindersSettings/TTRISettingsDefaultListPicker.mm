@@ -5,9 +5,43 @@
 - (void)setPreferenceValue:(id)value specifier:(id)specifier;
 - (void)setSpecifier:(id)specifier;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation TTRISettingsDefaultListPicker
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v23.receiver = self;
+  v23.super_class = TTRISettingsDefaultListPicker;
+  [(TTRISettingsDefaultListPicker *)&v23 viewDidAppear:appear];
+  rEMSettingsNavigationDeepLinkGeneralPath = [NSString stringWithFormat:@"%@/DEFAULT_LIST", REMSettingsNavigationDeepLinkGeneralPath];
+  v5 = [NSURL URLWithString:rEMSettingsNavigationDeepLinkGeneralPath];
+
+  v6 = [_NSLocalizedStringResource alloc];
+  v7 = +[NSLocale currentLocale];
+  v8 = [NSBundle bundleForClass:objc_opt_class()];
+  bundleURL = [v8 bundleURL];
+  v10 = [v6 initWithKey:@"Default List" table:0 locale:v7 bundleURL:bundleURL];
+
+  v11 = [_NSLocalizedStringResource alloc];
+  v12 = +[NSLocale currentLocale];
+  v13 = [NSBundle bundleForClass:objc_opt_class()];
+  bundleURL2 = [v13 bundleURL];
+  v15 = [v11 initWithKey:@"Apps" table:0 locale:v12 bundleURL:bundleURL2];
+
+  v16 = [_NSLocalizedStringResource alloc];
+  v17 = +[NSLocale currentLocale];
+  v18 = [NSBundle bundleForClass:objc_opt_class()];
+  bundleURL3 = [v18 bundleURL];
+  v20 = [v16 initWithKey:@"Reminders" table:0 locale:v17 bundleURL:bundleURL3];
+
+  v21 = REMAppBundleIdentifier;
+  v24[0] = v15;
+  v24[1] = v20;
+  v22 = [NSArray arrayWithObjects:v24 count:2];
+  [(TTRISettingsDefaultListPicker *)self pe_emitNavigationEventForApplicationSettingsWithApplicationBundleIdentifier:v21 title:v10 localizedNavigationComponents:v22 deepLink:v5];
+}
 
 - (void)setSpecifier:(id)specifier
 {

@@ -152,97 +152,95 @@ LABEL_15:
     }
 
 LABEL_16:
-    if (v16 == v14->var4 * v18 * v14->var5)
+    if (v16 != v14->var4 * v18 * v14->var5)
     {
-      if ([v10 deviceOriented] && objc_msgSend(v10, "pixelFormat") == 1278226534 && ((v20 = CMGetAttachment(buffer, @"UprightExifOrientation", 0)) != 0 || (v20 = objc_msgSend(CMGetAttachment(buffer, *off_1E798A3C8, 0), "objectForKeyedSubscript:", *off_1E798A5B0)) != 0) && (LOBYTE(v49) = 0, (v21 = FigCaptureRotationDegreesAndMirroringFromExifOrientation(objc_msgSend(v20, "intValue"), &v49)) != 0))
-      {
-        v22 = v21;
-        v23 = OUTLINED_FUNCTION_1_74();
-        CVPixelBufferLockBaseAddress(v23, v24);
-        if (v22 != 360)
-        {
-          var0 = v14->var0;
-          var4 = v14->var4;
-          var5 = v14->var5;
-          var10 = v14->var10;
-          v27 = 4 * var10;
-          Width = CVPixelBufferGetWidth(v12);
-          v29 = CVPixelBufferGetHeight(v12);
-          BytesPerRow = CVPixelBufferGetBytesPerRow(v12);
-          BaseAddress = CVPixelBufferGetBaseAddress(v12);
-          switch(v22)
-          {
-            case 90:
-              v33 = var0 + 4 * var4 - 4;
-              v34 = -4;
-              v32 = 4 * var10;
-              break;
-            case 180:
-              v33 = var0 + 4 * var4 + v27 * (var5 - 1) - 4;
-              v34 = -4 * var10;
-              v32 = -4;
-              break;
-            case 270:
-              v32 = -4 * var10;
-              v33 = var0 + v27 * (var5 - 1);
-              v34 = 4;
-              break;
-            default:
-              v45 = OUTLINED_FUNCTION_1_74();
-              CVPixelBufferUnlockBaseAddress(v45, v46);
-              fig_log_get_emitter();
-              OUTLINED_FUNCTION_0_45();
-LABEL_45:
-              FigDebugAssert3();
-              return v51;
-          }
-
-          if (v29)
-          {
-            for (i = 0; i != v29; ++i)
-            {
-              if (Width)
-              {
-                v43 = 0;
-                v44 = v33;
-                do
-                {
-                  *&BaseAddress[4 * v43++] = *v44;
-                  v44 = (v44 + v32);
-                }
-
-                while (Width != v43);
-              }
-
-              BaseAddress += BytesPerRow;
-              v33 += v34;
-            }
-          }
-
-          goto LABEL_29;
-        }
-      }
-
-      else
-      {
-        v35 = OUTLINED_FUNCTION_1_74();
-        CVPixelBufferLockBaseAddress(v35, v36);
-      }
-
-      v37 = CVPixelBufferGetBaseAddress(v12);
-      memcpy(v37, v14->var0, v16);
-LABEL_29:
-      v38 = OUTLINED_FUNCTION_1_74();
-      CVPixelBufferUnlockBaseAddress(v38, v39);
-      goto LABEL_30;
+      fig_log_get_emitter();
+      OUTLINED_FUNCTION_0_45();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0);
+      return v51;
     }
 
-    fig_log_get_emitter();
-    OUTLINED_FUNCTION_0_45();
-    goto LABEL_45;
+    if ([v10 deviceOriented] && objc_msgSend(v10, "pixelFormat") == 1278226534 && ((v20 = CMGetAttachment(buffer, @"UprightExifOrientation", 0)) != 0 || (v20 = objc_msgSend(CMGetAttachment(buffer, *off_1E798A3C8, 0), "objectForKeyedSubscript:", *off_1E798A5B0)) != 0) && (LOBYTE(v49) = 0, (v21 = FigCaptureRotationDegreesAndMirroringFromExifOrientation(objc_msgSend(v20, "intValue"), &v49)) != 0))
+    {
+      v22 = v21;
+      v23 = OUTLINED_FUNCTION_1_74();
+      CVPixelBufferLockBaseAddress(v23, v24);
+      if (v22 != 360)
+      {
+        var0 = v14->var0;
+        var4 = v14->var4;
+        var5 = v14->var5;
+        var10 = v14->var10;
+        v27 = 4 * var10;
+        Width = CVPixelBufferGetWidth(v12);
+        v29 = CVPixelBufferGetHeight(v12);
+        BytesPerRow = CVPixelBufferGetBytesPerRow(v12);
+        BaseAddress = CVPixelBufferGetBaseAddress(v12);
+        switch(v22)
+        {
+          case 90:
+            v33 = var0 + 4 * var4 - 4;
+            v34 = -4;
+            v32 = 4 * var10;
+            break;
+          case 180:
+            v33 = var0 + 4 * var4 + v27 * (var5 - 1) - 4;
+            v34 = -4 * var10;
+            v32 = -4;
+            break;
+          case 270:
+            v32 = -4 * var10;
+            v33 = var0 + v27 * (var5 - 1);
+            v34 = 4;
+            break;
+          default:
+            v45 = OUTLINED_FUNCTION_1_74();
+            CVPixelBufferUnlockBaseAddress(v45, v46);
+            fig_log_get_emitter();
+            OUTLINED_FUNCTION_0_45();
+            FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", -12780);
+            return v51;
+        }
+
+        if (v29)
+        {
+          for (i = 0; i != v29; ++i)
+          {
+            if (Width)
+            {
+              v43 = 0;
+              v44 = v33;
+              do
+              {
+                *&BaseAddress[4 * v43++] = *v44;
+                v44 = (v44 + v32);
+              }
+
+              while (Width != v43);
+            }
+
+            BaseAddress += BytesPerRow;
+            v33 += v34;
+          }
+        }
+
+        goto LABEL_29;
+      }
+    }
+
+    else
+    {
+      v35 = OUTLINED_FUNCTION_1_74();
+      CVPixelBufferLockBaseAddress(v35, v36);
+    }
+
+    v37 = CVPixelBufferGetBaseAddress(v12);
+    memcpy(v37, v14->var0, v16);
+LABEL_29:
+    v38 = OUTLINED_FUNCTION_1_74();
+    CVPixelBufferUnlockBaseAddress(v38, v39);
   }
 
-LABEL_30:
   v40 = [objc_msgSend(v10 "underlyingVideoFormat")];
   if (v40)
   {
@@ -266,11 +264,20 @@ LABEL_30:
   v5 = objc_alloc_init(MEMORY[0x1E695DF90]);
   metadataKeys = [requirement metadataKeys];
   v7 = [(BWEspressoInferenceStorage *)self tensorForRequirement:requirement];
-  if (!v7 || (v8 = v7, !v7->var0))
+  if (!v7)
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_0_45();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0);
+    return v5;
+  }
+
+  v8 = v7;
+  if (!v7->var0)
+  {
+    fig_log_get_emitter();
+    OUTLINED_FUNCTION_0_45();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0);
     return v5;
   }
 

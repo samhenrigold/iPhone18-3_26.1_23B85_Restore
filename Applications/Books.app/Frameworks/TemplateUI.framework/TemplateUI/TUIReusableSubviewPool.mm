@@ -30,45 +30,46 @@
 {
   identifierCopy = identifier;
   hostCopy = host;
+  v9 = hostCopy;
   if (identifierCopy)
   {
-    v9 = [(NSMutableDictionary *)self->_subviewsAvailableByIdentifier objectForKeyedSubscript:identifierCopy];
-    tui_hostingView = [hostCopy tui_hostingView];
-    v11 = tui_hostingView;
+    v10 = [(NSMutableDictionary *)self->_subviewsAvailableByIdentifier objectForKeyedSubscript:identifierCopy];
+    tui_hostingView = [v9 tui_hostingView];
+    v12 = tui_hostingView;
     if (tui_hostingView)
     {
-      v12 = v9 == 0;
+      v13 = v10 == 0;
     }
 
     else
     {
-      v12 = 1;
+      v13 = 1;
     }
 
-    v13 = !v12;
-    if (v12 || (v22[0] = _NSConcreteStackBlock, v22[1] = 3221225472, v22[2] = sub_DC5E4, v22[3] = &unk_261750, v4 = &v23, v23 = tui_hostingView, v14 = [v9 indexOfObjectPassingTest:v22], v14 == 0x7FFFFFFFFFFFFFFFLL))
+    v14 = !v13;
+    if (v13 || (v25[0] = _NSConcreteStackBlock, v25[1] = 3221225472, v25[2] = sub_DC5E4, v25[3] = &unk_261750, v4 = &v26, v26 = tui_hostingView, v15 = [v10 indexOfObjectPassingTest:v25], v15 == 0x7FFFFFFFFFFFFFFFLL))
     {
-      if ([v9 count])
+      if ([v10 count])
       {
-        lastObject = [v9 lastObject];
-        [v9 removeLastObject];
+        lastObject = [v10 lastObject];
+        [v10 removeLastObject];
         if (lastObject)
         {
 LABEL_12:
-          if ([hostCopy isDescendantOfView:lastObject])
+          if ([v9 isDescendantOfView:lastObject])
           {
-            [hostCopy removeFromSuperview];
+            [v9 removeFromSuperview];
           }
 
-          v20[0] = _NSConcreteStackBlock;
-          v20[1] = 3221225472;
-          v20[2] = sub_DC624;
-          v20[3] = &unk_25DE30;
-          v16 = lastObject;
-          v21 = v16;
-          [UIView performWithoutAnimation:v20];
+          v23[0] = _NSConcreteStackBlock;
+          v23[1] = 3221225472;
+          v23[2] = sub_DC624;
+          v23[3] = &unk_25DE30;
+          v17 = lastObject;
+          v24 = v17;
+          [UIView performWithoutAnimation:v23];
 
-          if (!v13)
+          if (!v14)
           {
             goto LABEL_23;
           }
@@ -80,17 +81,17 @@ LABEL_12:
 
     else
     {
-      v18 = v14;
-      lastObject = [v9 objectAtIndexedSubscript:v14];
-      [v9 removeObjectAtIndex:v18];
+      v21 = v15;
+      lastObject = [v10 objectAtIndexedSubscript:v15];
+      [v10 removeObjectAtIndex:v21];
       if (lastObject)
       {
         goto LABEL_12;
       }
     }
 
-    v16 = [(TUIViewRegistry *)self->_registry newSubviewWithReuseIdentifier:identifierCopy];
-    if (!v13)
+    v17 = [(TUIViewRegistry *)self->_registry newSubviewWithReuseIdentifier:identifierCopy];
+    if (!v14)
     {
 LABEL_23:
 
@@ -102,21 +103,21 @@ LABEL_22:
     goto LABEL_23;
   }
 
-  v17 = TUIDefaultLog();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+  v18 = TUIDefaultLog(hostCopy);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
   {
-    sub_19B400(v17);
+    sub_19B400(v18);
   }
 
-  if (_TUIDeviceHasInternalInstall())
+  if (_TUIDeviceHasInternalInstall(v19, v20))
   {
     objc_exception_throw([[NSException alloc] initWithName:@"Nil reuseIdentifier" reason:@"Requested a view with nil reuseIdentifier" userInfo:0]);
   }
 
-  v16 = 0;
+  v17 = 0;
 LABEL_24:
 
-  return v16;
+  return v17;
 }
 
 - (void)prepareToReuseHost:(id)host
@@ -141,26 +142,26 @@ LABEL_24:
 {
   subviewsCopy = subviews;
   hostCopy = host;
-  v21 = 0u;
-  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v7 = subviewsCopy;
-  v8 = [v7 countByEnumeratingWithState:&v21 objects:v29 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v23 objects:v31 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v22;
+    v10 = *v24;
     do
     {
       for (i = 0; i != v9; i = i + 1)
       {
-        if (*v22 != v10)
+        if (*v24 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v21 + 1) + 8 * i);
+        v12 = *(*(&v23 + 1) + 8 * i);
         reuseIdentifier = [v12 reuseIdentifier];
         if (reuseIdentifier)
         {
@@ -180,27 +181,27 @@ LABEL_24:
 
         else
         {
-          v15 = TUIDefaultLog();
+          v15 = TUIDefaultLog(0);
           if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
           {
-            sub_19B444(v27, v12, &v28, v15);
+            sub_19B444(v29, v12, &v30, v15);
           }
 
-          if (_TUIDeviceHasInternalInstall())
+          if (_TUIDeviceHasInternalInstall(v16, v17))
           {
-            v16 = [NSException alloc];
-            v25 = @"view";
-            v26 = v12;
-            v17 = [NSDictionary dictionaryWithObjects:&v26 forKeys:&v25 count:1];
-            v18 = [v16 initWithName:@"Nil reuseIdentifier" reason:@"A reusable view should have a non-nil reuseIdentifier" userInfo:v17];
-            v19 = v18;
+            v18 = [NSException alloc];
+            v27 = @"view";
+            v28 = v12;
+            v19 = [NSDictionary dictionaryWithObjects:&v28 forKeys:&v27 count:1];
+            v20 = [v18 initWithName:@"Nil reuseIdentifier" reason:@"A reusable view should have a non-nil reuseIdentifier" userInfo:v19];
+            v21 = v20;
 
-            objc_exception_throw(v18);
+            objc_exception_throw(v20);
           }
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v21 objects:v29 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v23 objects:v31 count:16];
     }
 
     while (v9);

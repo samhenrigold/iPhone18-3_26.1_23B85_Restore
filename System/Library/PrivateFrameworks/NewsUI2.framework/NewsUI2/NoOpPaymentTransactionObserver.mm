@@ -14,7 +14,7 @@
 
 - (void)paymentQueue:(id)queue updatedTransactions:(id)transactions
 {
-  sub_2186C6148(0, qword_27CC24578);
+  sub_2186C6148(0, qword_27CC24578, 0x277CDD388);
   v6 = sub_219BF5924();
   queueCopy = queue;
   selfCopy = self;

@@ -140,23 +140,21 @@
 
 + (id)standardStrategiesForSleepDayInterval:(id)interval
 {
-  v14[3] = *MEMORY[0x1E69E9840];
+  v13[3] = *MEMORY[0x1E69E9840];
   intervalCopy = interval;
   v5 = [HKSleepDaySummaryDurationStrategySet alloc];
-  v13[0] = &unk_1F06859D0;
+  v12[0] = &unk_1F06859D0;
   v6 = [self clippedDurationStrategyForSleepDayInterval:intervalCopy];
-  v14[0] = v6;
-  v13[1] = &unk_1F06859E8;
+  v13[0] = v6;
+  v12[1] = &unk_1F06859E8;
   v7 = [self completeDurationStrategyForSleepDayInterval:intervalCopy];
-  v14[1] = v7;
-  v13[2] = &unk_1F0685A00;
+  v13[1] = v7;
+  v12[2] = &unk_1F0685A00;
   v8 = [self bestFitDurationStrategyForSleepDayInterval:intervalCopy];
 
-  v14[2] = v8;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:3];
+  v13[2] = v8;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:3];
   v10 = [(HKSleepDaySummaryDurationStrategySet *)v5 initWithStrategies:v9];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

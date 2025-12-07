@@ -59,18 +59,18 @@
 
 - (void)configureTouchDeliveryPolicyIfRequired
 {
-  if (self && [self shareTouchesWithHost] && *(self + 24) && !*(self + 32))
+  if (result && [result shareTouchesWithHost] && *(result + 6) && !result[4])
   {
     v2 = objc_opt_new();
-    v3 = *(self + 32);
-    *(self + 32) = v2;
+    v3 = result[4];
+    result[4] = v2;
 
     v4[0] = MEMORY[0x1E69E9820];
     v4[1] = 3221225472;
     v4[2] = __75___UISceneTouchSharingHostComponent_configureTouchDeliveryPolicyIfRequired__block_invoke;
     v4[3] = &unk_1E7107F98;
-    v4[4] = self;
-    [(_UISceneTouchSharingHostComponent *)self performForClientContexts:v4];
+    v4[4] = result;
+    [(_UISceneTouchSharingHostComponent *)result performForClientContexts:v4];
   }
 }
 

@@ -1564,11 +1564,11 @@ uint64_t __87__WDClinicalOnboardingViewController__didFetchResultsForQuery_searc
 - (void)_beginLoadingAlreadyConnectedAccountsIfNecessary
 {
   selfCopy = self;
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_6();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0xCu);
+  _os_log_debug_impl(v5, v6, v7, v8, v9, 0xCu);
 }
 
 void __86__WDClinicalOnboardingViewController__beginLoadingAlreadyConnectedAccountsIfNecessary__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -2291,7 +2291,7 @@ void __70__WDClinicalOnboardingViewController__loadGatewayProxyForDeeplinking___
   OUTLINED_FUNCTION_5();
   v4 = HKSensitiveLogItem();
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_9(&dword_1D101F000, v5, v6, "Failed to fetch remote gateway, error: %@", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_9(&dword_1D101F000, v5, v6, "Failed to fetch remote gateway, error: %@", v7, v8, v9, v10);
 }
 
 - (void)locationManagerDidChangeAuthorization:(void *)a1 .cold.1(void *a1)
@@ -2301,7 +2301,7 @@ void __70__WDClinicalOnboardingViewController__loadGatewayProxyForDeeplinking___
   objc_opt_class();
   OUTLINED_FUNCTION_1();
   v4 = v3;
-  OUTLINED_FUNCTION_3(&dword_1D101F000, v5, v6, "%{public}@ requesting current location", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_3(&dword_1D101F000, v5, v6, "%{public}@ requesting current location", v7, v8, v9, v10);
 }
 
 - (void)locationManager:(void *)a1 didUpdateLocations:.cold.1(void *a1)
@@ -2311,7 +2311,7 @@ void __70__WDClinicalOnboardingViewController__loadGatewayProxyForDeeplinking___
   objc_opt_class();
   OUTLINED_FUNCTION_1();
   v4 = v3;
-  OUTLINED_FUNCTION_3(&dword_1D101F000, v5, v6, "%{public}@ received current location", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_3(&dword_1D101F000, v5, v6, "%{public}@ received current location", v7, v8, v9, v10);
 }
 
 void __86__WDClinicalOnboardingViewController__beginLoadingAlreadyConnectedAccountsIfNecessary__block_invoke_2_cold_1(void *a1, uint8_t *buf, os_log_t log, void *a4)
@@ -2350,7 +2350,7 @@ void __86__WDClinicalOnboardingViewController__beginLoadingAlreadyConnectedAccou
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_5() localizedDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_9(&dword_1D101F000, v4, v5, "onboarding search error: %{public}@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_9(&dword_1D101F000, v4, v5, "onboarding search error: %{public}@", v6, v7, v8, v9);
 }
 
 void __57__WDClinicalOnboardingViewController__changeEnvironment___block_invoke_cold_1(uint64_t a1, void *a2)
@@ -2360,7 +2360,7 @@ void __57__WDClinicalOnboardingViewController__changeEnvironment___block_invoke_
   objc_opt_class();
   OUTLINED_FUNCTION_0();
   v6 = v5;
-  OUTLINED_FUNCTION_4(&dword_1D101F000, v7, v8, "%{public}@ failed to update environment: %{public}@", v9, v10, v11, v12, v13);
+  OUTLINED_FUNCTION_4(&dword_1D101F000, v7, v8, "%{public}@ failed to update environment: %{public}@", v9, v10, v11, v12);
 }
 
 - (void)tableView:(void *)a1 cellForRowAtIndexPath:.cold.1(void *a1)
@@ -2370,7 +2370,7 @@ void __57__WDClinicalOnboardingViewController__changeEnvironment___block_invoke_
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_4(&dword_1D101F000, v5, v6, "%{public}@ neither an account nor a provider search result at index path %{public}@, attempting to continue", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_4(&dword_1D101F000, v5, v6, "%{public}@ neither an account nor a provider search result at index path %{public}@, attempting to continue", v7, v8, v9, v10);
 }
 
 - (void)tableView:(void *)a3 didSelectRowAtIndexPath:.cold.1(void *a1, void *a2, void *a3)
@@ -2392,7 +2392,7 @@ void __57__WDClinicalOnboardingViewController__changeEnvironment___block_invoke_
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_3(&dword_1D101F000, v5, v6, "%{public}@: showing provider details view controller", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_3(&dword_1D101F000, v5, v6, "%{public}@: showing provider details view controller", v7, v8, v9, v10);
 }
 
 - (void)tableView:(void *)a1 didSelectRowAtIndexPath:.cold.3(void *a1)
@@ -2402,7 +2402,7 @@ void __57__WDClinicalOnboardingViewController__changeEnvironment___block_invoke_
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_4(&dword_1D101F000, v5, v6, "%{public}@: tappable search result at %{public}@ is nil", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_4(&dword_1D101F000, v5, v6, "%{public}@: tappable search result at %{public}@ is nil", v7, v8, v9, v10);
 }
 
 @end

@@ -140,142 +140,23 @@
       v11 = objc_msgSend_alertBody(v5, v9, v10);
       v12 = CKObjectsAreBothNilOrEqual(v8, v11);
 
-      if (!v12)
-      {
-        goto LABEL_23;
-      }
-
-      v15 = objc_msgSend_alertLocalizationKey(self, v13, v14);
-      v18 = objc_msgSend_alertLocalizationKey(v5, v16, v17);
-      v19 = CKObjectsAreBothNilOrEqual(v15, v18);
-
-      if (!v19)
-      {
-        goto LABEL_23;
-      }
-
-      v22 = objc_msgSend_alertLocalizationArgs(self, v20, v21);
-      v25 = objc_msgSend_alertLocalizationArgs(v5, v23, v24);
-      v26 = CKObjectsAreBothNilOrEqual(v22, v25);
-
-      if (!v26)
-      {
-        goto LABEL_23;
-      }
-
-      v29 = objc_msgSend_title(self, v27, v28);
-      v32 = objc_msgSend_title(v5, v30, v31);
-      v33 = CKObjectsAreBothNilOrEqual(v29, v32);
-
-      if (!v33)
-      {
-        goto LABEL_23;
-      }
-
-      v36 = objc_msgSend_titleLocalizationKey(self, v34, v35);
-      v39 = objc_msgSend_titleLocalizationKey(v5, v37, v38);
-      v40 = CKObjectsAreBothNilOrEqual(v36, v39);
-
-      if (!v40)
-      {
-        goto LABEL_23;
-      }
-
-      v43 = objc_msgSend_titleLocalizationArgs(self, v41, v42);
-      v46 = objc_msgSend_titleLocalizationArgs(v5, v44, v45);
-      v47 = CKObjectsAreBothNilOrEqual(v43, v46);
-
-      if (!v47)
-      {
-        goto LABEL_23;
-      }
-
-      v50 = objc_msgSend_subtitle(self, v48, v49);
-      v53 = objc_msgSend_subtitle(v5, v51, v52);
-      v54 = CKObjectsAreBothNilOrEqual(v50, v53);
-
-      if (!v54)
-      {
-        goto LABEL_23;
-      }
-
-      v57 = objc_msgSend_subtitleLocalizationKey(self, v55, v56);
-      v60 = objc_msgSend_subtitleLocalizationKey(v5, v58, v59);
-      v61 = CKObjectsAreBothNilOrEqual(v57, v60);
-
-      if (!v61)
-      {
-        goto LABEL_23;
-      }
-
-      v64 = objc_msgSend_subtitleLocalizationArgs(self, v62, v63);
-      v67 = objc_msgSend_subtitleLocalizationArgs(v5, v65, v66);
-      v68 = CKObjectsAreBothNilOrEqual(v64, v67);
-
-      if (!v68)
-      {
-        goto LABEL_23;
-      }
-
-      v71 = objc_msgSend_alertActionLocalizationKey(self, v69, v70);
-      v74 = objc_msgSend_alertActionLocalizationKey(v5, v72, v73);
-      v75 = CKObjectsAreBothNilOrEqual(v71, v74);
-
-      if (!v75)
-      {
-        goto LABEL_23;
-      }
-
-      v78 = objc_msgSend_alertLaunchImage(self, v76, v77);
-      v81 = objc_msgSend_alertLaunchImage(v5, v79, v80);
-      v82 = CKObjectsAreBothNilOrEqual(v78, v81);
-
-      if (!v82)
-      {
-        goto LABEL_23;
-      }
-
-      v85 = objc_msgSend_soundName(self, v83, v84);
-      v88 = objc_msgSend_soundName(v5, v86, v87);
-      v89 = CKObjectsAreBothNilOrEqual(v85, v88);
-
-      if (!v89)
-      {
-        goto LABEL_23;
-      }
-
-      v92 = objc_msgSend_desiredKeys(self, v90, v91);
-      v95 = objc_msgSend_desiredKeys(v5, v93, v94);
-      v96 = CKObjectsAreBothNilOrEqual(v92, v95);
-
-      if (!v96)
-      {
-        goto LABEL_23;
-      }
-
-      shouldBadge = objc_msgSend_shouldBadge(self, v97, v98);
-      if (shouldBadge != objc_msgSend_shouldBadge(v5, v100, v101))
-      {
-        goto LABEL_23;
-      }
-
-      shouldSendContentAvailable = objc_msgSend_shouldSendContentAvailable(self, v102, v103);
-      if (shouldSendContentAvailable != objc_msgSend_shouldSendContentAvailable(v5, v105, v106))
-      {
-        goto LABEL_23;
-      }
-
-      shouldSendMutableContent = objc_msgSend_shouldSendMutableContent(self, v107, v108);
-      if (shouldSendMutableContent != objc_msgSend_shouldSendMutableContent(v5, v110, v111))
-      {
-        goto LABEL_23;
-      }
-
-      v114 = objc_msgSend_category(self, v112, v113);
-      v117 = objc_msgSend_category(v5, v115, v116);
-      v118 = CKObjectsAreBothNilOrEqual(v114, v117);
-
-      if (v118)
+      if (v12
+        && (objc_msgSend_alertLocalizationKey(self, v13, v14), v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend_alertLocalizationKey(v5, v16, v17), v18 = objc_claimAutoreleasedReturnValue(), v19 = CKObjectsAreBothNilOrEqual(v15, v18), v18, v15, v19)
+        && (objc_msgSend_alertLocalizationArgs(self, v20, v21), v22 = objc_claimAutoreleasedReturnValue(), objc_msgSend_alertLocalizationArgs(v5, v23, v24), v25 = objc_claimAutoreleasedReturnValue(), v26 = CKObjectsAreBothNilOrEqual(v22, v25), v25, v22, v26)
+        && (objc_msgSend_title(self, v27, v28), v29 = objc_claimAutoreleasedReturnValue(), objc_msgSend_title(v5, v30, v31), v32 = objc_claimAutoreleasedReturnValue(), v33 = CKObjectsAreBothNilOrEqual(v29, v32), v32, v29, v33)
+        && (objc_msgSend_titleLocalizationKey(self, v34, v35), v36 = objc_claimAutoreleasedReturnValue(), objc_msgSend_titleLocalizationKey(v5, v37, v38), v39 = objc_claimAutoreleasedReturnValue(), v40 = CKObjectsAreBothNilOrEqual(v36, v39), v39, v36, v40)
+        && (objc_msgSend_titleLocalizationArgs(self, v41, v42), v43 = objc_claimAutoreleasedReturnValue(), objc_msgSend_titleLocalizationArgs(v5, v44, v45), v46 = objc_claimAutoreleasedReturnValue(), v47 = CKObjectsAreBothNilOrEqual(v43, v46), v46, v43, v47)
+        && (objc_msgSend_subtitle(self, v48, v49), v50 = objc_claimAutoreleasedReturnValue(), objc_msgSend_subtitle(v5, v51, v52), v53 = objc_claimAutoreleasedReturnValue(), v54 = CKObjectsAreBothNilOrEqual(v50, v53), v53, v50, v54)
+        && (objc_msgSend_subtitleLocalizationKey(self, v55, v56), v57 = objc_claimAutoreleasedReturnValue(), objc_msgSend_subtitleLocalizationKey(v5, v58, v59), v60 = objc_claimAutoreleasedReturnValue(), v61 = CKObjectsAreBothNilOrEqual(v57, v60), v60, v57, v61)
+        && (objc_msgSend_subtitleLocalizationArgs(self, v62, v63), v64 = objc_claimAutoreleasedReturnValue(), objc_msgSend_subtitleLocalizationArgs(v5, v65, v66), v67 = objc_claimAutoreleasedReturnValue(), v68 = CKObjectsAreBothNilOrEqual(v64, v67), v67, v64, v68)
+        && (objc_msgSend_alertActionLocalizationKey(self, v69, v70), v71 = objc_claimAutoreleasedReturnValue(), objc_msgSend_alertActionLocalizationKey(v5, v72, v73), v74 = objc_claimAutoreleasedReturnValue(), v75 = CKObjectsAreBothNilOrEqual(v71, v74), v74, v71, v75)
+        && (objc_msgSend_alertLaunchImage(self, v76, v77), v78 = objc_claimAutoreleasedReturnValue(), objc_msgSend_alertLaunchImage(v5, v79, v80), v81 = objc_claimAutoreleasedReturnValue(), v82 = CKObjectsAreBothNilOrEqual(v78, v81), v81, v78, v82)
+        && (objc_msgSend_soundName(self, v83, v84), v85 = objc_claimAutoreleasedReturnValue(), objc_msgSend_soundName(v5, v86, v87), v88 = objc_claimAutoreleasedReturnValue(), v89 = CKObjectsAreBothNilOrEqual(v85, v88), v88, v85, v89)
+        && (objc_msgSend_desiredKeys(self, v90, v91), v92 = objc_claimAutoreleasedReturnValue(), objc_msgSend_desiredKeys(v5, v93, v94), v95 = objc_claimAutoreleasedReturnValue(), v96 = CKObjectsAreBothNilOrEqual(v92, v95), v95, v92, v96)
+        && (shouldBadge = objc_msgSend_shouldBadge(self, v97, v98), shouldBadge == objc_msgSend_shouldBadge(v5, v100, v101))
+        && (shouldSendContentAvailable = objc_msgSend_shouldSendContentAvailable(self, v102, v103), shouldSendContentAvailable == objc_msgSend_shouldSendContentAvailable(v5, v105, v106))
+        && (shouldSendMutableContent = objc_msgSend_shouldSendMutableContent(self, v107, v108), shouldSendMutableContent == objc_msgSend_shouldSendMutableContent(v5, v110, v111))
+        && (objc_msgSend_category(self, v112, v113), v114 = objc_claimAutoreleasedReturnValue(), objc_msgSend_category(v5, v115, v116), v117 = objc_claimAutoreleasedReturnValue(), v118 = CKObjectsAreBothNilOrEqual(v114, v117), v117, v114, v118))
       {
         v121 = objc_msgSend_collapseIDKey(self, v119, v120);
         v124 = objc_msgSend_collapseIDKey(v5, v122, v123);
@@ -284,7 +165,6 @@
 
       else
       {
-LABEL_23:
         v125 = 0;
       }
     }
@@ -450,11 +330,11 @@ LABEL_23:
 
 - (CKNotificationInfo)initWithCoder:(id)coder
 {
-  v92[2] = *MEMORY[0x1E69E9840];
+  v91[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v88.receiver = self;
-  v88.super_class = CKNotificationInfo;
-  v5 = [(CKNotificationInfo *)&v88 init];
+  v87.receiver = self;
+  v87.super_class = CKNotificationInfo;
+  v5 = [(CKNotificationInfo *)&v87 init];
   if (v5)
   {
     v6 = objc_autoreleasePoolPush();
@@ -469,9 +349,9 @@ LABEL_23:
     v5->_alertLocalizationKey = v13;
 
     v15 = MEMORY[0x1E695DFD8];
-    v92[0] = objc_opt_class();
-    v92[1] = objc_opt_class();
-    v17 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v16, v92, 2);
+    v91[0] = objc_opt_class();
+    v91[1] = objc_opt_class();
+    v17 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v16, v91, 2);
     v19 = objc_msgSend_setWithArray_(v15, v18, v17);
     v21 = objc_msgSend_decodeObjectOfClasses_forKey_(coderCopy, v20, v19, @"localizedAlertArguments");
     alertLocalizationArgs = v5->_alertLocalizationArgs;
@@ -488,9 +368,9 @@ LABEL_23:
     v5->_titleLocalizationKey = v29;
 
     v31 = MEMORY[0x1E695DFD8];
-    v91[0] = objc_opt_class();
-    v91[1] = objc_opt_class();
-    v33 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v32, v91, 2);
+    v90[0] = objc_opt_class();
+    v90[1] = objc_opt_class();
+    v33 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v32, v90, 2);
     v35 = objc_msgSend_setWithArray_(v31, v34, v33);
     v37 = objc_msgSend_decodeObjectOfClasses_forKey_(coderCopy, v36, v35, @"localizedTitleArguments");
     titleLocalizationArgs = v5->_titleLocalizationArgs;
@@ -507,9 +387,9 @@ LABEL_23:
     v5->_subtitleLocalizationKey = v45;
 
     v47 = MEMORY[0x1E695DFD8];
-    v90[0] = objc_opt_class();
-    v90[1] = objc_opt_class();
-    v49 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v48, v90, 2);
+    v89[0] = objc_opt_class();
+    v89[1] = objc_opt_class();
+    v49 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v48, v89, 2);
     v51 = objc_msgSend_setWithArray_(v47, v50, v49);
     v53 = objc_msgSend_decodeObjectOfClasses_forKey_(coderCopy, v52, v51, @"localizedSubtitleArguments");
     subtitleLocalizationArgs = v5->_subtitleLocalizationArgs;
@@ -531,9 +411,9 @@ LABEL_23:
     v5->_soundName = v65;
 
     v67 = MEMORY[0x1E695DFD8];
-    v89[0] = objc_opt_class();
-    v89[1] = objc_opt_class();
-    v69 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v68, v89, 2);
+    v88[0] = objc_opt_class();
+    v88[1] = objc_opt_class();
+    v69 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v68, v88, 2);
     v71 = objc_msgSend_setWithArray_(v67, v70, v69);
     v73 = objc_msgSend_decodeObjectOfClasses_forKey_(coderCopy, v72, v71, @"desiredKeys");
     desiredKeys = v5->_desiredKeys;
@@ -555,7 +435,6 @@ LABEL_23:
     objc_autoreleasePoolPop(v6);
   }
 
-  v86 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

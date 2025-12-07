@@ -193,7 +193,6 @@ LABEL_30:
 
   if (identifier)
   {
-    identifier = self->_identifier;
     PBDataWriterWriteStringField();
   }
 
@@ -201,7 +200,6 @@ LABEL_30:
 
   if (suggestion)
   {
-    suggestion = self->_suggestion;
     PBDataWriterWriteStringField();
   }
 
@@ -209,39 +207,34 @@ LABEL_30:
 
   if (query)
   {
-    query = self->_query;
     PBDataWriterWriteStringField();
   }
 
   [(_CPSearchSuggestionForFeedback *)self score];
-  if (v10 != 0.0)
+  if (v7 != 0.0)
   {
-    score = self->_score;
     PBDataWriterWriteDoubleField();
   }
 
   if ([(_CPSearchSuggestionForFeedback *)self type])
   {
-    type = self->_type;
     PBDataWriterWriteInt32Field();
   }
 
-  v13 = [(_CPSearchSuggestionForFeedback *)self fbr];
+  v8 = [(_CPSearchSuggestionForFeedback *)self fbr];
 
-  if (v13)
+  if (v8)
   {
-    fbr = self->_fbr;
     PBDataWriterWriteStringField();
   }
 
   topicIdentifier = [(_CPSearchSuggestionForFeedback *)self topicIdentifier];
 
-  v16 = toCopy;
+  v10 = toCopy;
   if (topicIdentifier)
   {
-    topicIdentifier = self->_topicIdentifier;
     PBDataWriterWriteStringField();
-    v16 = toCopy;
+    v10 = toCopy;
   }
 }
 

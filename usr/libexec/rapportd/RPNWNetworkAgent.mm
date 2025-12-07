@@ -56,29 +56,27 @@
   {
     if (dword_1001D2EF0 != -1 || _LogCategory_Initialize())
     {
-      v40 = localCopy;
-      v41 = remoteCopy;
-      LogPrintF();
+      LogPrintF(&dword_1001D2EF0, "[RPNWNetworkAgent(Pairing) createPairingConnectionFramer:assign:local:remote:pin:]", 30, "Setting pairing connection framer options, local=%@, remote=%@\n", localCopy, remoteCopy);
     }
 
     if (dword_1001D2EF0 <= 30 && (dword_1001D2EF0 != -1 || _LogCategory_Initialize()))
     {
-      sub_10010D4A8();
+      sub_10010D4A8(framerCopy);
     }
   }
 
-  v44 = pinCopy;
-  v53[0] = 0;
-  v53[1] = 0;
+  v42 = pinCopy;
+  v51[0] = 0;
+  v51[1] = 0;
   nw_endpoint_get_service_identifier();
-  v16 = [[NSUUID alloc] initWithUUIDBytes:v53];
+  v16 = [[NSUUID alloc] initWithUUIDBytes:v51];
   v17 = [RPNWEndpoint findEndpoint:v16];
   if (v17)
   {
     v18 = v17;
-    v42 = localCopy;
-    v43 = assignCopy;
-    v46 = v16;
+    v40 = localCopy;
+    v41 = assignCopy;
+    v44 = v16;
     goto LABEL_10;
   }
 
@@ -88,19 +86,19 @@
     v28 = [NSString stringWithUTF8String:apple_service_apple_id];
     v29 = [[NSUUID alloc] initWithUUIDString:v28];
 
-    v46 = v29;
+    v44 = v29;
     v30 = [RPNWEndpoint findEndpoint:v29];
     if (v30)
     {
       v18 = v30;
-      v42 = localCopy;
-      v43 = assignCopy;
+      v40 = localCopy;
+      v41 = assignCopy;
 
 LABEL_10:
       applicationService = [v18 applicationService];
       v20 = [RPNWConnection alloc];
       device = [v18 device];
-      v45 = framerCopy;
+      v43 = framerCopy;
       flowToken = [framerCopy flowToken];
       browseSession = [v18 browseSession];
       v24 = +[NSUUID UUID];
@@ -109,26 +107,26 @@ LABEL_10:
 
       if (dword_1001D2EF0 <= 30 && (dword_1001D2EF0 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&dword_1001D2EF0, "[RPNWNetworkAgent(Pairing) createPairingConnectionFramer:assign:local:remote:pin:]", 30, "Found remote endpoint=%@, created pairing connection=%@\n", v18, v26);
       }
 
-      v50[0] = _NSConcreteStackBlock;
-      v50[1] = 3221225472;
-      v50[2] = sub_100013A80;
-      v50[3] = &unk_1001AA920;
+      v48[0] = _NSConcreteStackBlock;
+      v48[1] = 3221225472;
+      v48[2] = sub_100013A80;
+      v48[3] = &unk_1001AA920;
       v31 = v26;
-      v51 = v31;
-      v32 = v45;
-      v52 = v32;
-      v33 = v44;
-      [RPNWEndpoint pairWithEndpoint:v46 pin:v44 completionHandler:v50];
+      v49 = v31;
+      v32 = v43;
+      v50 = v32;
+      v33 = v42;
+      [RPNWEndpoint pairWithEndpoint:v44 pin:v42 completionHandler:v48];
       [v32 setConnection:v31];
       start_handler[0] = _NSConcreteStackBlock;
       start_handler[1] = 3221225472;
       start_handler[2] = sub_100013BC4;
       start_handler[3] = &unk_1001AA998;
-      v48 = v31;
-      v49 = v32;
+      v46 = v31;
+      v47 = v32;
       v34 = v31;
       definition = nw_framer_create_definition("client-pipe-pairing", 0, start_handler);
       options = nw_framer_create_options(definition);
@@ -136,27 +134,27 @@ LABEL_10:
       v37 = nwrapport_copy_protocol_definition();
       if (dword_1001D2EF0 <= 40 && (dword_1001D2EF0 != -1 || _LogCategory_Initialize()))
       {
-        sub_10010D4E8();
+        sub_10010D4E8(v37);
       }
 
       nw_framer_options_set_peer_protocol_definition();
-      localCopy = v42;
-      assignCopy = v43;
+      localCopy = v40;
+      assignCopy = v41;
       if (dword_1001D2EF0 <= 30 && (dword_1001D2EF0 != -1 || _LogCategory_Initialize()))
       {
-        sub_10010D528();
+        sub_10010D528(v40, remoteCopy);
       }
 
-      (*(v43 + 2))(v43, v42, remoteCopy, options);
+      v41[2](v41, v40, remoteCopy, options);
 
       v38 = 1;
-      framerCopy = v45;
+      framerCopy = v43;
       goto LABEL_24;
     }
 
     if (dword_1001D2EF0 <= 90 && (dword_1001D2EF0 != -1 || _LogCategory_Initialize()))
     {
-      sub_10010D580();
+      sub_10010D580(v29);
     }
 
     v38 = 0;
@@ -170,14 +168,14 @@ LABEL_24:
   if (dword_1001D2EF0 > 90)
   {
     v38 = 0;
-    v46 = v16;
+    v44 = v16;
     goto LABEL_35;
   }
 
   v33 = pinCopy;
   if (dword_1001D2EF0 != -1 || _LogCategory_Initialize())
   {
-    sub_10010D5C0();
+    sub_10010D5C0(remoteCopy);
   }
 
   v38 = 0;
@@ -207,7 +205,7 @@ LABEL_25:
   {
     if (dword_1001D2EF0 <= 30 && (dword_1001D2EF0 != -1 || _LogCategory_Initialize()))
     {
-      sub_10010D740(listenerCopy);
+      sub_10010D740(listenerCopy, v9);
     }
 
     pairingSession = [listenerCopy pairingSession];
@@ -222,7 +220,7 @@ LABEL_25:
   [listenerCopy setListenerPairingState:v10];
   if (dword_1001D2EF0 <= 30 && (dword_1001D2EF0 != -1 || _LogCategory_Initialize()))
   {
-    sub_10010D7C4(listenerCopy);
+    sub_10010D7C4(listenerCopy, v9);
   }
 
   v12 = [_TtC8rapportd16RPPairingSession alloc];
@@ -294,7 +292,7 @@ LABEL_25:
   handlerCopy = handler;
   if (dword_1001D4638 <= 30 && (dword_1001D4638 != -1 || _LogCategory_Initialize()))
   {
-    sub_10011FD74();
+    sub_10011FD74(descriptionCopy);
   }
 
   handlerCopy[2](handlerCopy);
@@ -327,8 +325,9 @@ LABEL_25:
 
 - (id)descriptionWithLevel:(int)level
 {
-  NSAppendPrintF();
-  v3 = 0;
+  v5 = 0;
+  NSAppendPrintF(&v5, "-- RPNWNetworkAgent --\n", *&level);
+  v3 = v5;
   [RPNWAgentClient listAgentClients:v3];
   [RPNWEndpoint listEndpoints:v3];
   [RPNWListener listAllowedApplicationServices:v3];
@@ -339,10 +338,14 @@ LABEL_25:
 
 - (void)activate
 {
-  dispatch_queue_get_label(self->_dispatchQueue);
-  if (dword_1001D4638 <= 30 && (dword_1001D4638 != -1 || _LogCategory_Initialize()))
+  label = dispatch_queue_get_label(self->_dispatchQueue);
+  if (dword_1001D4638 <= 30)
   {
-    sub_10011FDE8();
+    v4 = label;
+    if (dword_1001D4638 != -1 || _LogCategory_Initialize())
+    {
+      sub_10011FDE8(v4);
+    }
   }
 
   [(RPNWNetworkAgent *)self createRapportServer];
@@ -377,13 +380,17 @@ LABEL_25:
 {
   if (!self->_invalidateCalled)
   {
+    selfCopy = self;
     self->_invalidateCalled = 1;
-    if (dword_1001D4638 <= 30 && (dword_1001D4638 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D4638 <= 30)
     {
-      sub_10011FE5C();
+      if (dword_1001D4638 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_10011FE5C(self, a2, v2);
+      }
     }
 
-    [(RPNWNetworkAgent *)self _invalidated];
+    [(RPNWNetworkAgent *)selfCopy _invalidated];
   }
 }
 
@@ -392,9 +399,12 @@ LABEL_25:
   if (self->_invalidateCalled && !self->_invalidateDone)
   {
     self->_invalidateDone = 1;
-    if (dword_1001D4638 <= 30 && (dword_1001D4638 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D4638 <= 30)
     {
-      sub_10011FE78();
+      if (dword_1001D4638 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_10011FE78(self, a2, v2);
+      }
     }
   }
 }
@@ -644,9 +654,12 @@ LABEL_19:
     next_hop_required_interface_subtype = nw_parameters_get_next_hop_required_interface_subtype();
     if (next_hop_required_interface_subtype == 1002)
     {
-      if (dword_1001D4638 <= 60 && (dword_1001D4638 != -1 || _LogCategory_Initialize()))
+      if (dword_1001D4638 <= 60)
       {
-        sub_10011FE94();
+        if (dword_1001D4638 != -1 || (next_hop_required_interface_subtype = _LogCategory_Initialize(), next_hop_required_interface_subtype))
+        {
+          sub_10011FE94(next_hop_required_interface_subtype, v10, v11);
+        }
       }
     }
 
@@ -655,32 +668,35 @@ LABEL_19:
       v8 |= 4uLL;
     }
 
-    v10 = nw_parameters_copy_preferred_interface_subtypes();
+    v12 = nw_parameters_copy_preferred_interface_subtypes();
     goto LABEL_18;
   }
 
-  v11 = nw_parameters_copy_preferred_interface_subtypes();
-  v10 = v11;
+  v13 = nw_parameters_copy_preferred_interface_subtypes();
+  v12 = v13;
   if (include_ble)
   {
 LABEL_18:
-    v12 = 1;
+    v14 = 1;
     goto LABEL_19;
   }
 
-  v12 = xpc_array_get_count(v11) != 0;
+  v14 = xpc_array_get_count(v13) != 0;
 LABEL_19:
-  if (xpc_array_get_count(v10))
+  if (xpc_array_get_count(v12))
   {
-    v13 = 0;
+    v15 = 0;
     do
     {
-      uint64 = xpc_array_get_uint64(v10, v13);
+      uint64 = xpc_array_get_uint64(v12, v15);
       if (uint64 == 1002)
       {
-        if (dword_1001D4638 <= 60 && (dword_1001D4638 != -1 || _LogCategory_Initialize()))
+        if (dword_1001D4638 <= 60)
         {
-          sub_10011FE94();
+          if (dword_1001D4638 != -1 || (uint64 = _LogCategory_Initialize(), uint64))
+          {
+            sub_10011FE94(uint64, v17, v18);
+          }
         }
       }
 
@@ -689,92 +705,93 @@ LABEL_19:
         v8 |= 4uLL;
       }
 
-      ++v13;
+      ++v15;
     }
 
-    while (v13 < xpc_array_get_count(v10));
+    while (v15 < xpc_array_get_count(v12));
   }
 
-  v15 = nw_parameters_copy_prohibited_interface_subtypes();
-  if (xpc_array_get_count(v15))
+  v19 = nw_parameters_copy_prohibited_interface_subtypes();
+  count = xpc_array_get_count(v19);
+  if (count)
   {
-    v16 = 0;
-    do
+    for (i = 0; i < count; ++i)
     {
-      v17 = xpc_array_get_uint64(v15, v16);
-      v18 = v8 & 0xFFFFFFFFFFFFFFFBLL;
-      if (v17 != 1001)
+      v24 = xpc_array_get_uint64(v19, i);
+      v25 = v8 & 0xFFFFFFFFFFFFFFFBLL;
+      if (v24 != 1001)
       {
-        v18 = v8;
+        v25 = v8;
       }
 
-      if (v17 == 1002)
+      if (v24 == 1002)
       {
         v8 &= ~8uLL;
       }
 
       else
       {
-        v8 = v18;
+        v8 = v25;
       }
 
-      ++v16;
+      count = xpc_array_get_count(v19);
     }
-
-    while (v16 < xpc_array_get_count(v15));
   }
 
-  if (v15)
+  if (v19)
   {
-    if (dword_1001D4638 <= 60 && (dword_1001D4638 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D4638 <= 60)
     {
-      sub_10011FEB0();
+      if (dword_1001D4638 != -1 || (count = _LogCategory_Initialize(), count))
+      {
+        sub_10011FEB0(count, v21, v22);
+      }
     }
   }
 
   else
   {
-    v19 = nw_parameters_copy_prohibited_interface_types();
-    v20 = v19;
-    if (v19)
+    v26 = nw_parameters_copy_prohibited_interface_types();
+    v27 = v26;
+    if (v26)
     {
-      v21 = 1;
+      v28 = 1;
     }
 
     else
     {
-      v21 = v12;
+      v28 = v14;
     }
 
-    if (xpc_array_get_count(v19))
+    if (xpc_array_get_count(v26))
     {
-      v22 = 0;
+      v29 = 0;
       do
       {
-        v23 = xpc_array_get_uint64(v20, v22);
-        v24 = v8 & 0xFFFFFFFFFFFFFFFBLL;
-        if (v23 != 1001)
+        v30 = xpc_array_get_uint64(v27, v29);
+        v31 = v8 & 0xFFFFFFFFFFFFFFFBLL;
+        if (v30 != 1001)
         {
-          v24 = v8;
+          v31 = v8;
         }
 
-        if (v23 == 1002)
+        if (v30 == 1002)
         {
           v8 &= ~8uLL;
         }
 
         else
         {
-          v8 = v24;
+          v8 = v31;
         }
 
-        ++v22;
+        ++v29;
       }
 
-      while (v22 < xpc_array_get_count(v20));
+      while (v29 < xpc_array_get_count(v27));
     }
 
-    if (!v21)
+    if (!v28)
     {
       v8 = 32774;
     }
@@ -791,9 +808,12 @@ LABEL_19:
 
   if (!browseDescriptor)
   {
-    if (dword_1001D4638 <= 30 && (dword_1001D4638 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D4638 <= 30)
     {
-      sub_100120018();
+      if (dword_1001D4638 != -1 || (v11 = _LogCategory_Initialize(), v11))
+      {
+        sub_100120018(v11, v12, v13);
+      }
     }
 
     goto LABEL_44;
@@ -823,13 +843,16 @@ LABEL_19:
       goto LABEL_43;
     }
 
-    if (dword_1001D4638 <= 30 && (dword_1001D4638 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D4638 <= 30)
     {
-      sub_10011FF28();
+      if (dword_1001D4638 != -1 || (v17 = _LogCategory_Initialize(), v17))
+      {
+        sub_10011FF28(v17, v18, v19);
+      }
     }
 
 LABEL_44:
-    v33 = 0;
+    v43 = 0;
     goto LABEL_45;
   }
 
@@ -843,15 +866,15 @@ LABEL_44:
       browseDescriptor3 = [devicesCopy browseDescriptor];
       browse_scope = nw_browse_descriptor_get_browse_scope();
 
-      v19 = [(RPNWNetworkAgent *)self convertBrowseScopeToControlFlags:browse_scope];
+      v28 = [(RPNWNetworkAgent *)self convertBrowseScopeToControlFlags:browse_scope];
       browseClient = [devicesCopy browseClient];
-      v21 = nw_agent_client_copy_parameters();
+      v30 = nw_agent_client_copy_parameters();
 
-      v45 = v21;
-      v22 = [(RPNWNetworkAgent *)self convertBrowseParamsToControlFlags:v21];
-      v23 = objc_alloc_init(NSMutableArray);
+      v48 = v30;
+      v31 = [(RPNWNetworkAgent *)self convertBrowseParamsToControlFlags:v30];
+      v32 = objc_alloc_init(NSMutableArray);
       browseDescriptor4 = [devicesCopy browseDescriptor];
-      v25 = v23;
+      v34 = v32;
       nw_browse_descriptor_enumerate_device_filters();
 
       browseDescriptor5 = [devicesCopy browseDescriptor];
@@ -859,33 +882,27 @@ LABEL_44:
 
       if (dword_1001D4638 <= 10 && (dword_1001D4638 != -1 || _LogCategory_Initialize()))
       {
-        sub_10011FF88();
+        sub_10011FF88(rssi_threshold);
       }
 
       applicationService3 = [devicesCopy applicationService];
 
       if (applicationService3)
       {
-        v28 = v22 | v19;
+        v37 = v31 | v28;
         if (dword_1001D4638 <= 30 && (dword_1001D4638 != -1 || _LogCategory_Initialize()))
         {
           browseToken = [devicesCopy browseToken];
           applicationService4 = [devicesCopy applicationService];
-          v42 = [(RPNWNetworkAgent *)self getDiscoveryDeviceTypesDescription:device_types];
-          [devicesCopy browseDescriptor];
-          v40 = v28;
-          v41 = &unk_100148C05;
-          v39 = v38 = browse_scope;
-          v36 = applicationService4;
-          v37 = v42;
-          v35 = browseToken;
-          LogPrintF();
+          v45 = [(RPNWNetworkAgent *)self getDiscoveryDeviceTypesDescription:device_types];
+          browseDescriptor6 = [devicesCopy browseDescriptor];
+          LogPrintF(&dword_1001D4638, "[RPNWNetworkAgent discoverDevices:response:context:]", 30, "%@ DISCOVER: appSvc:'%@' device_types:%@ scope:%X descriptor:%@ cflags:%ll{flags}\n", browseToken, applicationService4, v45, browse_scope, browseDescriptor6, v37, &unk_100148C05);
         }
 
-        v30 = self->_networkAgentID;
+        v40 = self->_networkAgentID;
         applicationService5 = [devicesCopy applicationService];
         predicate = [devicesCopy predicate];
-        [devicesCopy startDiscovery:responseCopy deviceTypes:device_types controlFlags:v28 deviceFilter:v25 agentUUID:v30 rssiThreshold:rssi_threshold applicationService:applicationService5 predicate:predicate];
+        [devicesCopy startDiscovery:responseCopy deviceTypes:device_types controlFlags:v37 deviceFilter:v34 agentUUID:v40 rssiThreshold:rssi_threshold applicationService:applicationService5 predicate:predicate];
       }
 
       else if (dword_1001D4638 <= 30 && (dword_1001D4638 != -1 || _LogCategory_Initialize()))
@@ -899,9 +916,12 @@ LABEL_44:
       }
     }
 
-    else if (dword_1001D4638 <= 30 && (dword_1001D4638 != -1 || _LogCategory_Initialize()))
+    else if (dword_1001D4638 <= 30)
     {
-      sub_10011FFFC();
+      if (dword_1001D4638 != -1 || (v23 = _LogCategory_Initialize(), v23))
+      {
+        sub_10011FFFC(v23, v24, v25);
+      }
     }
 
     goto LABEL_44;
@@ -914,17 +934,17 @@ LABEL_44:
       sub_10011FF44(devicesCopy);
     }
 
-    v11 = self->_networkAgentID;
+    v14 = self->_networkAgentID;
     applicationService2 = [devicesCopy applicationService];
-    [devicesCopy startNearbyInvitationDiscovery:responseCopy agentUUID:v11 applicationService:applicationService2];
+    [devicesCopy startNearbyInvitationDiscovery:responseCopy agentUUID:v14 applicationService:applicationService2];
     goto LABEL_19;
   }
 
 LABEL_43:
-  v33 = 1;
+  v43 = 1;
 LABEL_45:
 
-  return v33;
+  return v43;
 }
 
 - (BOOL)createRapportServer
@@ -964,7 +984,7 @@ LABEL_45:
   {
     if (dword_1001D4638 <= 30 && (dword_1001D4638 != -1 || _LogCategory_Initialize()))
     {
-      sub_10012006C();
+      sub_10012006C(v6);
     }
 
     goto LABEL_27;
@@ -976,7 +996,7 @@ LABEL_45:
   {
     if (dword_1001D4638 <= 30 && (dword_1001D4638 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001200AC();
+      sub_1001200AC(v6);
     }
 
 LABEL_27:
@@ -988,7 +1008,7 @@ LABEL_27:
   {
     if (([framerCopy isUsingQUIC] & 1) == 0 && dword_1001D4638 <= 40 && (dword_1001D4638 != -1 || _LogCategory_Initialize()))
     {
-      sub_100120154();
+      sub_100120154(v6);
     }
 
     goto LABEL_27;
@@ -1298,25 +1318,24 @@ LABEL_69:
   v16 = &unk_1001D4000;
   if (dword_1001D4638 <= 30 && (dword_1001D4638 != -1 || _LogCategory_Initialize()))
   {
-    v45 = localCopy;
-    v46 = remoteCopy;
-    LogPrintF();
+    LogPrintF(&dword_1001D4638, "[RPNWNetworkAgent createNearbyInvitationConnectionFramer:assign:local:remote:incomingConnection:]", 30, "Setting NearbyInvitation connection framer options, local=%@, remote=%@\n", localCopy, remoteCopy);
   }
 
   if ([framerCopy type] != 4)
   {
-    if ([framerCopy type] != 3)
+    type = [framerCopy type];
+    if (type != 3)
     {
-      v52 = connectionCopy;
-      v53 = remoteCopy;
+      v53 = connectionCopy;
+      v54 = remoteCopy;
       v29 = 0;
       applicationService = 0;
       goto LABEL_21;
     }
 
-    if (dword_1001D4638 <= 30 && (dword_1001D4638 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D4638 <= 30 && (dword_1001D4638 != -1 || (type = _LogCategory_Initialize(), type)))
     {
-      sub_100120CA0();
+      type = sub_100120CA0(framerCopy);
       if (connectionCopy)
       {
         goto LABEL_16;
@@ -1328,19 +1347,22 @@ LABEL_69:
 LABEL_16:
       v29 = connectionCopy;
       applicationService = [framerCopy applicationService];
-      v52 = connectionCopy;
-      v53 = remoteCopy;
+      v53 = connectionCopy;
+      v54 = remoteCopy;
       if (dword_1001D4638 <= 30 && (dword_1001D4638 != -1 || _LogCategory_Initialize()))
       {
-        sub_100120CE0();
+        sub_100120CE0(v29);
       }
 
       goto LABEL_21;
     }
 
-    if (dword_1001D4638 <= 90 && (dword_1001D4638 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D4638 <= 90)
     {
-      sub_100120D20();
+      if (dword_1001D4638 != -1 || (type = _LogCategory_Initialize(), type))
+      {
+        sub_100120D20(type, v32, v33);
+      }
     }
 
     goto LABEL_34;
@@ -1348,29 +1370,29 @@ LABEL_16:
 
   if (dword_1001D4638 <= 30 && (dword_1001D4638 != -1 || _LogCategory_Initialize()))
   {
-    sub_100120D3C();
+    sub_100120D3C(framerCopy);
   }
 
-  v64[0] = 0;
-  v64[1] = 0;
+  v65[0] = 0;
+  v65[1] = 0;
   nw_endpoint_get_service_identifier();
-  v17 = [[NSUUID alloc] initWithUUIDBytes:v64];
+  v17 = [[NSUUID alloc] initWithUUIDBytes:v65];
   v18 = [RPNWNearbyInvitationEndpoint findEndpoint:v17];
   if (!v18)
   {
     if (dword_1001D4638 <= 90 && (dword_1001D4638 != -1 || _LogCategory_Initialize()))
     {
-      sub_100120E14();
+      sub_100120E14(v17);
     }
 
 LABEL_34:
-    v43 = 0;
+    v46 = 0;
     goto LABEL_35;
   }
 
   v19 = v18;
-  v52 = connectionCopy;
-  v53 = remoteCopy;
+  v53 = connectionCopy;
+  v54 = remoteCopy;
   applicationService2 = [v18 applicationService];
   v21 = [RPNWNearbyInvitationConnection alloc];
   device = [v19 device];
@@ -1378,7 +1400,7 @@ LABEL_34:
   +[NSUUID UUID];
   v25 = v24 = assignCopy;
   [v19 endpointUUID];
-  v51 = v17;
+  v52 = v17;
   v26 = framerCopy;
   v28 = v27 = localCopy;
   v29 = [(RPNWNearbyInvitationConnection *)v21 initWithPeer:device session:0 inbound:0 internal:browseSession applicationService:applicationService2 connectionID:v25 endpointID:v28];
@@ -1398,25 +1420,25 @@ LABEL_21:
     peer2 = [(RPNWNearbyInvitationConnection *)v29 peer];
     peer3 = [(RPNWNearbyInvitationConnection *)v29 peer];
     [peer3 destinationDevice];
-    v33 = v50 = localCopy;
+    v36 = v51 = localCopy;
     inbound = [(RPNWNearbyInvitationConnection *)v29 inbound];
     endpointUUID = [(RPNWNearbyInvitationConnection *)v29 endpointUUID];
     connectionUUID = [(RPNWNearbyInvitationConnection *)v29 connectionUUID];
-    v61[0] = _NSConcreteStackBlock;
-    v61[1] = 3221225472;
-    v61[2] = sub_100083E50;
-    v61[3] = &unk_1001AD9E0;
-    v62 = v29;
-    v63 = framerCopy;
-    v58[0] = _NSConcreteStackBlock;
-    v58[1] = 3221225472;
-    v58[2] = sub_100084044;
-    v58[3] = &unk_1001AB488;
-    v59 = v62;
+    v62[0] = _NSConcreteStackBlock;
+    v62[1] = 3221225472;
+    v62[2] = sub_100083E50;
+    v62[3] = &unk_1001AD9E0;
+    v63 = v29;
+    v64 = framerCopy;
+    v59[0] = _NSConcreteStackBlock;
+    v59[1] = 3221225472;
+    v59[2] = sub_100084044;
+    v59[3] = &unk_1001AB488;
     v60 = v63;
-    [peer2 connectToPeer:v33 inboundConnection:inbound applicationService:applicationService listenerID:endpointUUID connectionID:connectionUUID connectHandler:v61 disconnectHandler:v58];
+    v61 = v64;
+    [peer2 connectToPeer:v36 inboundConnection:inbound applicationService:applicationService listenerID:endpointUUID connectionID:connectionUUID connectHandler:v62 disconnectHandler:v59];
 
-    localCopy = v50;
+    localCopy = v51;
   }
 
   [framerCopy setNearbyInvitationConnection:v29];
@@ -1424,91 +1446,98 @@ LABEL_21:
   start_handler[1] = 3221225472;
   start_handler[2] = sub_1000840F4;
   start_handler[3] = &unk_1001ADA58;
-  v55 = v29;
-  v56 = framerCopy;
-  v57 = applicationService;
-  v36 = applicationService;
-  v37 = v29;
+  v56 = v29;
+  v57 = framerCopy;
+  v58 = applicationService;
+  v39 = applicationService;
+  v40 = v29;
   definition = nw_framer_create_definition("client-pipe-nbinv", 0, start_handler);
   options = nw_framer_create_options(definition);
 
-  v40 = nwrapport_copy_protocol_definition();
-  v41 = v16[398];
-  if (v41 <= 40 && (v41 != -1 || _LogCategory_Initialize()))
+  v43 = nwrapport_copy_protocol_definition();
+  v44 = v16[398];
+  if (v44 <= 40 && (v44 != -1 || _LogCategory_Initialize()))
   {
-    sub_100120D7C();
+    sub_100120D7C(v43);
   }
 
   nw_framer_options_set_peer_protocol_definition();
-  v42 = v16[398];
-  remoteCopy = v53;
-  if (v42 <= 30 && (v42 != -1 || _LogCategory_Initialize()))
+  v45 = v16[398];
+  remoteCopy = v54;
+  if (v45 <= 30 && (v45 != -1 || _LogCategory_Initialize()))
   {
-    sub_100120DBC();
+    sub_100120DBC(localCopy, v54);
   }
 
-  (assignCopy)[2](assignCopy, localCopy, v53, options);
+  assignCopy[2](assignCopy, localCopy, v54, options);
 
-  v43 = 1;
-  connectionCopy = v52;
+  v46 = 1;
+  connectionCopy = v53;
 LABEL_35:
 
-  return v43;
+  return v46;
 }
 
 - (BOOL)setupPolicyWithQueue:(id)queue browseAgent:(BOOL)agent
 {
   agentCopy = agent;
   queueCopy = queue;
+  v9 = queueCopy;
   if (agentCopy)
   {
-    if (dword_1001D4638 <= 30 && (dword_1001D4638 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D4638 <= 30)
     {
-      sub_100121110();
+      if (dword_1001D4638 != -1 || (queueCopy = _LogCategory_Initialize(), queueCopy))
+      {
+        sub_100121110(queueCopy, v7, v8);
+      }
     }
 
-    v7 = objc_alloc_init(NEPolicySession);
+    v10 = objc_alloc_init(NEPolicySession);
     policySession = self->_policySession;
-    self->_policySession = v7;
+    self->_policySession = v10;
 
-    v9 = self->_policySession;
-    if (!v9)
+    v14 = self->_policySession;
+    if (!v14)
     {
-      if (dword_1001D4638 <= 90 && (dword_1001D4638 != -1 || _LogCategory_Initialize()))
+      if (dword_1001D4638 <= 90)
       {
-        sub_1001211EC();
+        if (dword_1001D4638 != -1 || (v14 = _LogCategory_Initialize(), v14))
+        {
+          sub_1001211EC(v14, v12, v13);
+        }
       }
 
       goto LABEL_42;
     }
 
-    v36 = queueCopy;
-    [(NEPolicySession *)v9 setPriority:300];
+    v37 = v9;
+    [v14 setPriority:300];
     [(NEPolicySession *)self->_policySession lockSessionToCurrentProcess];
-    v10 = [NEPolicyResult netAgentUUID:self->_browseAgentID];
-    v11 = +[NEPolicyCondition allInterfaces];
-    v12 = [NEPolicyCondition requiredAgentDomain:@"com.apple.rapport.browse" agentType:@"RapportBrowseAgent"];
-    v13 = [NEPolicyCondition customEntitlement:@"com.apple.private.application-service-browse"];
-    v14 = geteuid();
+    v15 = [NEPolicyResult netAgentUUID:self->_browseAgentID];
+    v16 = +[NEPolicyCondition allInterfaces];
+    v17 = [NEPolicyCondition requiredAgentDomain:@"com.apple.rapport.browse" agentType:@"RapportBrowseAgent"];
+    v18 = [NEPolicyCondition customEntitlement:@"com.apple.private.application-service-browse"];
+    v19 = geteuid();
     if (dword_1001D4638 <= 30 && (dword_1001D4638 != -1 || _LogCategory_Initialize()))
     {
-      sub_10012112C();
+      sub_10012112C(v19);
     }
 
-    v15 = [NEPolicyCondition uid:v14];
-    v40[0] = v11;
-    v40[1] = v12;
-    v40[2] = v13;
-    v40[3] = v15;
-    v16 = [NSArray arrayWithObjects:v40 count:4];
-    v17 = v10;
-    v18 = [[NEPolicy alloc] initWithOrder:10 result:v10 conditions:v16];
-    v19 = [(NEPolicySession *)self->_policySession addPolicy:v18];
-    if (v19)
+    v20 = [NEPolicyCondition uid:v19];
+    v41[0] = v16;
+    v41[1] = v17;
+    v41[2] = v18;
+    v41[3] = v20;
+    v21 = [NSArray arrayWithObjects:v41 count:4];
+    v22 = v15;
+    v23 = [[NEPolicy alloc] initWithOrder:10 result:v15 conditions:v21];
+    v24 = [(NEPolicySession *)self->_policySession addPolicy:v23];
+    if (v24)
     {
       if (dword_1001D4638 <= 30 && (dword_1001D4638 != -1 || _LogCategory_Initialize()))
       {
-        sub_10012116C(&self->_browseAgentID);
+        sub_10012116C();
       }
 
       [(NEPolicySession *)self->_policySession apply];
@@ -1516,66 +1545,63 @@ LABEL_35:
 
     else if (dword_1001D4638 <= 90 && (dword_1001D4638 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001211AC(&self->_browseAgentID);
+      sub_1001211AC();
     }
 
-    queueCopy = v36;
-    if (!v19)
+    v9 = v37;
+    if (!v24)
     {
 LABEL_42:
-      v33 = 0;
+      v35 = 0;
       goto LABEL_43;
     }
   }
 
   else
   {
-    v20 = NEVirtualInterfaceCreate();
-    self->_interface = v20;
-    if (!v20)
+    v25 = NEVirtualInterfaceCreate();
+    self->_interface = v25;
+    if (!v25)
     {
-      if (dword_1001D4638 <= 90 && (dword_1001D4638 != -1 || _LogCategory_Initialize()))
+      if (dword_1001D4638 <= 90)
       {
-        sub_1001210F4();
+        if (dword_1001D4638 != -1 || (v25 = _LogCategory_Initialize(), v25))
+        {
+          sub_1001210F4(v25, v26, v27);
+        }
       }
 
       goto LABEL_42;
     }
 
-    v21 = NEVirtualInterfaceCopyName();
-    interface = self->_interface;
+    v28 = NEVirtualInterfaceCopyName();
     NEVirtualInterfaceSetRankNever();
-    v23 = self->_interface;
+    v40 = 0;
     v39 = 0;
-    v38 = 0;
-    v37 = 33022;
-    v24 = v21;
-    arc4random_buf(&v38, 8uLL);
-    inet_ntop(30, &v37, v41, 0x1Cu);
-    v25 = [NSString stringWithUTF8String:v41];
-    v26 = [v25 stringByAppendingString:@"%"];
-    v27 = [v26 stringByAppendingString:v24];
+    v38 = 33022;
+    v29 = v28;
+    arc4random_buf(&v39, 8uLL);
+    inet_ntop(30, &v38, v42, 0x1Cu);
+    v30 = [NSString stringWithUTF8String:v42];
+    v31 = [v30 stringByAppendingString:@"%"];
+    v32 = [v31 stringByAppendingString:v29];
 
-    v28 = v27;
+    v33 = v32;
     NEVirtualInterfaceAddAddress();
-    v29 = self->_interface;
     NEVirtualInterfaceUpdateAdHocService();
-    v30 = self->_interface;
     NEVirtualInterfaceSetReadAutomatically();
     if (dword_1001D4638 <= 30 && (dword_1001D4638 != -1 || _LogCategory_Initialize()))
     {
-      sub_100121080();
+      sub_100121080(v29);
     }
 
-    [v24 UTF8String];
-    v31 = nw_interface_create_with_name();
+    [v29 UTF8String];
+    v34 = nw_interface_create_with_name();
     if (dword_1001D4638 <= 30 && (dword_1001D4638 != -1 || _LogCategory_Initialize()))
     {
-      networkAgent = self->_networkAgent;
-      LogPrintF();
+      LogPrintF(&dword_1001D4638, "[RPNWNetworkAgent setupPolicyWithQueue:browseAgent:]", 30, "Calling nw_agent_add_to_interface agent=%@, interface=%@\n", self->_networkAgent, v34);
     }
 
-    v32 = self->_networkAgent;
     if ((nw_agent_add_to_interface() & 1) == 0)
     {
       if (dword_1001D4638 <= 90 && (dword_1001D4638 != -1 || _LogCategory_Initialize()))
@@ -1587,20 +1613,22 @@ LABEL_42:
     }
   }
 
-  v33 = 1;
+  v35 = 1;
 LABEL_43:
 
-  return v33;
+  return v35;
 }
 
 - (BOOL)setupBrowseHandlers
 {
-  if (dword_1001D4638 <= 30 && (dword_1001D4638 != -1 || _LogCategory_Initialize()))
+  if (dword_1001D4638 <= 30)
   {
-    sub_100121208();
+    if (dword_1001D4638 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_100121208(self, a2, v2);
+    }
   }
 
-  browseAgent = self->_browseAgent;
   nw_agent_set_filterable_browse_handlers();
   return 1;
 }
@@ -1632,12 +1660,14 @@ LABEL_43:
 
 - (BOOL)setupResolveHandlers
 {
-  if (dword_1001D4638 <= 30 && (dword_1001D4638 != -1 || _LogCategory_Initialize()))
+  if (dword_1001D4638 <= 30)
   {
-    sub_100121368();
+    if (dword_1001D4638 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_100121368(self, a2, v2);
+    }
   }
 
-  browseAgent = self->_browseAgent;
   nw_agent_add_resolve_handlers();
   return 1;
 }
@@ -1662,7 +1692,7 @@ LABEL_43:
   if (context != 2)
   {
     v13 = 0;
-    goto LABEL_19;
+    goto LABEL_20;
   }
 
   browseClient = [listenerCopy browseClient];
@@ -1675,8 +1705,10 @@ LABEL_43:
     nw_endpoint_set_device_id();
     if (dword_1001D4638 > 30 || dword_1001D4638 == -1 && !_LogCategory_Initialize())
     {
-      goto LABEL_18;
+      goto LABEL_19;
     }
+
+    v14 = "%@ LISTEN: Setting pin on local endpoint for pairing listener.\n";
   }
 
   else
@@ -1684,7 +1716,7 @@ LABEL_43:
     if (dword_1001D4638 > 30)
     {
       v13 = 0;
-      goto LABEL_18;
+      goto LABEL_19;
     }
 
     if (dword_1001D4638 == -1)
@@ -1692,7 +1724,7 @@ LABEL_43:
       v13 = 0;
       if (!_LogCategory_Initialize())
       {
-        goto LABEL_18;
+        goto LABEL_19;
       }
     }
 
@@ -1700,17 +1732,19 @@ LABEL_43:
     {
       v13 = 0;
     }
+
+    v14 = "%@ LISTEN: Starting pairing listener with no PIN.\n";
   }
 
   browseToken = [listenerCopy browseToken];
-  LogPrintF();
+  LogPrintF(&dword_1001D4638, "[RPNWNetworkAgent createListener:context:]", 30, v14, browseToken);
 
-LABEL_18:
 LABEL_19:
-  v14 = nw_array_create();
+LABEL_20:
+  v16 = nw_array_create();
   nw_array_append();
   browseResponse = [listenerCopy browseResponse];
-  (browseResponse)[2](browseResponse, v14);
+  (browseResponse)[2](browseResponse, v16);
 
   if (context != 1)
   {
@@ -1718,7 +1752,7 @@ LABEL_19:
     {
       if (!_os_feature_enabled_impl())
       {
-        goto LABEL_37;
+        goto LABEL_38;
       }
 
       [(RPNWNetworkAgent *)self createPairingListener:listenerCopy endpoint:v10 pin:v13];
@@ -1733,8 +1767,8 @@ LABEL_19:
       sub_100121554(listenerCopy);
     }
 
-    [(RPNWNetworkAgent *)self createListenerFramer:listenerCopy, browseToken];
-    goto LABEL_37;
+    [(RPNWNetworkAgent *)self createListenerFramer:listenerCopy];
+    goto LABEL_38;
   }
 
   if (dword_1001D4638 <= 30 && (dword_1001D4638 != -1 || _LogCategory_Initialize()))
@@ -1742,40 +1776,42 @@ LABEL_19:
     sub_10012160C(listenerCopy);
   }
 
-  v16 = objc_alloc_init(RPNWNearbyInvitationPeer);
-  v23[0] = _NSConcreteStackBlock;
-  v23[1] = 3221225472;
-  v23[2] = sub_10008633C;
-  v23[3] = &unk_1001AAA40;
-  v24 = listenerCopy;
-  v25 = v16;
-  v20[0] = _NSConcreteStackBlock;
-  v20[1] = 3221225472;
-  v20[2] = sub_1000863D4;
-  v20[3] = &unk_1001AB488;
-  v17 = v24;
-  v21 = v17;
-  v22 = v25;
-  v18 = v25;
-  [(RPNWNearbyInvitationPeer *)v18 startServer:v17 withCompletion:v23 disconnectHandler:v20];
+  v18 = objc_alloc_init(RPNWNearbyInvitationPeer);
+  v24[0] = _NSConcreteStackBlock;
+  v24[1] = 3221225472;
+  v24[2] = sub_10008633C;
+  v24[3] = &unk_1001AAA40;
+  v25 = listenerCopy;
+  v26 = v18;
+  v21[0] = _NSConcreteStackBlock;
+  v21[1] = 3221225472;
+  v21[2] = sub_1000863D4;
+  v21[3] = &unk_1001AB488;
+  v19 = v25;
+  v22 = v19;
+  v23 = v26;
+  v20 = v26;
+  [(RPNWNearbyInvitationPeer *)v20 startServer:v19 withCompletion:v24 disconnectHandler:v21];
   if (dword_1001D4638 <= 30 && (dword_1001D4638 != -1 || _LogCategory_Initialize()))
   {
-    sub_100121668(v17);
+    sub_100121668(v19);
   }
 
-  [(RPNWNetworkAgent *)self createListenerFramer:v17, browseToken];
+  [(RPNWNetworkAgent *)self createListenerFramer:v19];
 
-LABEL_37:
+LABEL_38:
 }
 
 - (BOOL)setupListenHandlers
 {
-  if (dword_1001D4638 <= 30 && (dword_1001D4638 != -1 || _LogCategory_Initialize()))
+  if (dword_1001D4638 <= 30)
   {
-    sub_100121788();
+    if (dword_1001D4638 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_100121788(self, a2, v2);
+    }
   }
 
-  networkAgent = self->_networkAgent;
   nw_agent_set_browse_handlers();
   return 1;
 }
@@ -1783,29 +1819,38 @@ LABEL_37:
 - (id)_applicationServiceAdvertiseDescriptorForClient:(id)client
 {
   v3 = nw_agent_client_copy_advertise_descriptor();
+  v6 = v3;
   if (v3)
   {
-    if (nw_advertise_descriptor_get_type() == 2)
+    type = nw_advertise_descriptor_get_type();
+    if (type == 2)
     {
-      v4 = v3;
+      v8 = v6;
       goto LABEL_12;
     }
 
-    if (dword_1001D4638 <= 30 && (dword_1001D4638 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D4638 <= 30)
     {
-      sub_10012194C();
+      v9 = type;
+      if (dword_1001D4638 != -1 || _LogCategory_Initialize())
+      {
+        sub_10012194C(v9);
+      }
     }
   }
 
-  else if (dword_1001D4638 <= 30 && (dword_1001D4638 != -1 || _LogCategory_Initialize()))
+  else if (dword_1001D4638 <= 30)
   {
-    sub_10012198C();
+    if (dword_1001D4638 != -1 || (v3 = _LogCategory_Initialize(), v3))
+    {
+      sub_10012198C(v3, v4, v5);
+    }
   }
 
-  v4 = 0;
+  v8 = 0;
 LABEL_12:
 
-  return v4;
+  return v8;
 }
 
 - (void)startFlow:(id)flow listener:(id)listener client:(id)client assign:(id)assign parameters:(id)parameters
@@ -1868,12 +1913,12 @@ LABEL_12:
                   sub_100121A5C(v56);
                 }
 
-                v29 = v27;
+                v30 = v27;
 
-                if (v29)
+                if (v30)
                 {
-                  v53 = v29;
-                  [v20 startConnection:v29 agentClient:listenerCopy];
+                  v53 = v30;
+                  [v20 startConnection:v30 agentClient:listenerCopy];
                 }
 
                 else
@@ -1881,7 +1926,7 @@ LABEL_12:
                   v53 = 0;
                 }
 
-                goto LABEL_35;
+                goto LABEL_36;
               }
 
               if (dword_1001D4638 <= 30 && (dword_1001D4638 != -1 || _LogCategory_Initialize()))
@@ -1906,7 +1951,7 @@ LABEL_12:
 
         v53 = 0;
         flowCopy = v56;
-LABEL_35:
+LABEL_36:
         endpointUUID = [v63 endpointUUID];
         if ([flowCopy isUsingQUIC])
         {
@@ -1933,30 +1978,36 @@ LABEL_35:
         v17 = v54;
         assignCopy = v55;
         parametersCopy = v60;
-        goto LABEL_39;
+        goto LABEL_40;
       }
 
       if (dword_1001D4638 > 30 || dword_1001D4638 == -1 && !_LogCategory_Initialize())
       {
-LABEL_70:
+LABEL_71:
 
+        goto LABEL_72;
+      }
+
+      flowToken = [flowCopy flowToken];
+      LogPrintF(&dword_1001D4638, "[RPNWNetworkAgent startFlow:listener:client:assign:parameters:]", 30, "%@ FLOW: Received incoming connection but listener does not have a triggered connection\n", flowToken);
+    }
+
+    else
+    {
+      if (dword_1001D4638 > 90 || dword_1001D4638 == -1 && !_LogCategory_Initialize())
+      {
         goto LABEL_71;
       }
+
+      flowToken = [flowCopy flowToken];
+      LogPrintF(&dword_1001D4638, "[RPNWNetworkAgent startFlow:listener:client:assign:parameters:]", 90, "%@ FLOW: Received incoming connection but listener agent has no mapping\n", flowToken);
     }
 
-    else if (dword_1001D4638 > 90 || dword_1001D4638 == -1 && !_LogCategory_Initialize())
-    {
-      goto LABEL_70;
-    }
-
-    flowToken = [flowCopy flowToken];
-    LogPrintF();
-
-    goto LABEL_70;
+    goto LABEL_71;
   }
 
   v63 = 0;
-LABEL_39:
+LABEL_40:
   v39 = nw_parameters_copy_local_endpoint(parametersCopy);
   if (!v39)
   {
@@ -2054,17 +2105,19 @@ LABEL_39:
     parametersCopy = v61;
   }
 
-LABEL_71:
+LABEL_72:
 }
 
 - (BOOL)setupFlowHandlers
 {
-  if (dword_1001D4638 <= 30 && (dword_1001D4638 != -1 || _LogCategory_Initialize()))
+  if (dword_1001D4638 <= 30)
   {
-    sub_100121BB4();
+    if (dword_1001D4638 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_100121BB4(self, a2, v2);
+    }
   }
 
-  networkAgent = self->_networkAgent;
   nw_agent_set_flow_handlers();
   return 1;
 }
@@ -2072,9 +2125,13 @@ LABEL_71:
 - (void)setupAssertHandlers:(id)handlers
 {
   handlersCopy = handlers;
-  if (dword_1001D4638 <= 30 && (dword_1001D4638 != -1 || _LogCategory_Initialize()))
+  v6 = handlersCopy;
+  if (dword_1001D4638 <= 30)
   {
-    sub_100121CB4();
+    if (dword_1001D4638 != -1 || (handlersCopy = _LogCategory_Initialize(), handlersCopy))
+    {
+      sub_100121CB4(handlersCopy, v4, v5);
+    }
   }
 
   nw_agent_set_assert_handlers();
@@ -2082,41 +2139,43 @@ LABEL_71:
 
 - (BOOL)createBrowseAgent
 {
-  if (dword_1001D4638 <= 30 && (dword_1001D4638 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_1001D4638 <= 30)
   {
-    sub_100121D50();
+    if (dword_1001D4638 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_100121D50(self, a2, v2);
+    }
   }
 
-  dispatchQueue = self->_dispatchQueue;
   v4 = nw_agent_create();
-  browseAgent = self->_browseAgent;
-  self->_browseAgent = v4;
+  browseAgent = selfCopy->_browseAgent;
+  selfCopy->_browseAgent = v4;
 
-  v6 = self->_browseAgent;
-  if (v6)
+  v9 = selfCopy->_browseAgent;
+  if (v9)
   {
-    v11[0] = 0;
-    v11[1] = 0;
+    v13[0] = 0;
+    v13[1] = 0;
     nw_agent_get_uuid();
-    v7 = [[NSUUID alloc] initWithUUIDBytes:v11];
-    browseAgentID = self->_browseAgentID;
-    self->_browseAgentID = v7;
+    v10 = [[NSUUID alloc] initWithUUIDBytes:v13];
+    browseAgentID = selfCopy->_browseAgentID;
+    selfCopy->_browseAgentID = v10;
 
     if (dword_1001D4638 <= 30 && (dword_1001D4638 != -1 || _LogCategory_Initialize()))
     {
-      sub_100121D88(&self->_browseAgentID);
+      sub_100121D88();
     }
 
-    [(RPNWNetworkAgent *)self setupPolicyWithQueue:self->_dispatchQueue browseAgent:1];
-    [(RPNWNetworkAgent *)self setupBrowseHandlers];
-    [(RPNWNetworkAgent *)self setupResolveHandlers];
-    [(RPNWNetworkAgent *)self setupAssertHandlers:self->_browseAgent];
+    [(RPNWNetworkAgent *)selfCopy setupPolicyWithQueue:selfCopy->_dispatchQueue browseAgent:1];
+    [(RPNWNetworkAgent *)selfCopy setupBrowseHandlers];
+    [(RPNWNetworkAgent *)selfCopy setupResolveHandlers];
+    [(RPNWNetworkAgent *)selfCopy setupAssertHandlers:selfCopy->_browseAgent];
     if (dword_1001D4638 <= 30 && (dword_1001D4638 != -1 || _LogCategory_Initialize()))
     {
       sub_100121DC8();
     }
 
-    v9 = self->_browseAgent;
     nw_agent_change_state();
     if (dword_1001D4638 <= 30 && (dword_1001D4638 != -1 || _LogCategory_Initialize()))
     {
@@ -2124,166 +2183,190 @@ LABEL_71:
     }
   }
 
-  else if (dword_1001D4638 <= 90 && (dword_1001D4638 != -1 || _LogCategory_Initialize()))
+  else if (dword_1001D4638 <= 90)
   {
-    sub_100121D6C();
+    if (dword_1001D4638 != -1 || (v6 = _LogCategory_Initialize(), v6))
+    {
+      sub_100121D6C(v6, v7, v8);
+    }
   }
 
-  return v6 != 0;
+  return v9 != 0;
 }
 
 - (BOOL)createDDUIResolveAgent
 {
-  if (dword_1001D4638 <= 30 && (dword_1001D4638 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_1001D4638 <= 30)
   {
-    sub_100121E30();
+    if (dword_1001D4638 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_100121E30(self, a2, v2);
+    }
   }
 
-  dispatchQueue = self->_dispatchQueue;
   v4 = nw_agent_create();
-  dduiResolveAgent = self->_dduiResolveAgent;
-  self->_dduiResolveAgent = v4;
+  dduiResolveAgent = selfCopy->_dduiResolveAgent;
+  selfCopy->_dduiResolveAgent = v4;
 
-  v6 = self->_dduiResolveAgent;
-  if (v6)
+  v9 = selfCopy->_dduiResolveAgent;
+  if (v9)
   {
-    [(RPNWNetworkAgent *)self setupPolicyForDDUIResolveAgent];
-    [(RPNWNetworkAgent *)self setupResolveHandlersForDDUIResolveAgent];
-    [(RPNWNetworkAgent *)self setupAssertHandlers:self->_dduiResolveAgent];
-    if (dword_1001D4638 <= 30 && (dword_1001D4638 != -1 || _LogCategory_Initialize()))
+    [(RPNWNetworkAgent *)selfCopy setupPolicyForDDUIResolveAgent];
+    [(RPNWNetworkAgent *)selfCopy setupResolveHandlersForDDUIResolveAgent];
+    v10 = [(RPNWNetworkAgent *)selfCopy setupAssertHandlers:selfCopy->_dduiResolveAgent];
+    if (dword_1001D4638 <= 30)
     {
-      sub_100121E68();
+      if (dword_1001D4638 != -1 || (v10 = _LogCategory_Initialize(), v10))
+      {
+        sub_100121E68(v10, v11, v12);
+      }
     }
 
-    v7 = self->_dduiResolveAgent;
-    nw_agent_change_state();
-    if (dword_1001D4638 <= 30 && (dword_1001D4638 != -1 || _LogCategory_Initialize()))
+    v13 = nw_agent_change_state();
+    if (dword_1001D4638 <= 30)
     {
-      sub_100121E84();
+      if (dword_1001D4638 != -1 || (v13 = _LogCategory_Initialize(), v13))
+      {
+        sub_100121E84(v13, v14, v15);
+      }
     }
   }
 
-  else if (dword_1001D4638 <= 90 && (dword_1001D4638 != -1 || _LogCategory_Initialize()))
+  else if (dword_1001D4638 <= 90)
   {
-    sub_100121E4C();
+    if (dword_1001D4638 != -1 || (v6 = _LogCategory_Initialize(), v6))
+    {
+      sub_100121E4C(v6, v7, v8);
+    }
   }
 
-  return v6 != 0;
+  return v9 != 0;
 }
 
 - (void)setupPolicyForDDUIResolveAgent
 {
-  if (dword_1001D4638 <= 30 && (dword_1001D4638 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_1001D4638 <= 30)
   {
-    sub_100121EA0();
+    if (dword_1001D4638 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_100121EA0(self, a2, v2);
+    }
   }
 
-  v3 = objc_alloc_init(NEPolicySession);
-  dduiResolvePolicySession = self->_dduiResolvePolicySession;
-  self->_dduiResolvePolicySession = v3;
+  v4 = objc_alloc_init(NEPolicySession);
+  dduiResolvePolicySession = selfCopy->_dduiResolvePolicySession;
+  selfCopy->_dduiResolvePolicySession = v4;
 
-  v5 = self->_dduiResolvePolicySession;
-  if (v5)
+  v8 = selfCopy->_dduiResolvePolicySession;
+  if (v8)
   {
-    [(NEPolicySession *)v5 setPriority:300];
-    [(NEPolicySession *)self->_dduiResolvePolicySession lockSessionToCurrentProcess];
-    v17[0] = 0;
-    v17[1] = 0;
-    dduiResolveAgent = self->_dduiResolveAgent;
+    [v8 setPriority:300];
+    [(NEPolicySession *)selfCopy->_dduiResolvePolicySession lockSessionToCurrentProcess];
+    v19[0] = 0;
+    v19[1] = 0;
     nw_agent_get_uuid();
-    v7 = [[NSUUID alloc] initWithUUIDBytes:v17];
+    v9 = [[NSUUID alloc] initWithUUIDBytes:v19];
     if (dword_1001D4638 <= 30 && (dword_1001D4638 != -1 || _LogCategory_Initialize()))
     {
-      sub_100121EBC();
+      sub_100121EBC(v9);
     }
 
-    v8 = [NEPolicyResult netAgentUUID:v7];
-    v9 = +[NEPolicyCondition allInterfaces];
-    v10 = [NEPolicyCondition requiredAgentDomain:@"com.apple.rapport.dduiresolve" agentType:@"RapportDDUIResolveAgent"];
-    v11 = [NEPolicyCondition customEntitlement:@"com.apple.private.application-service-browse"];
-    v12 = geteuid();
+    v10 = [NEPolicyResult netAgentUUID:v9];
+    v11 = +[NEPolicyCondition allInterfaces];
+    v12 = [NEPolicyCondition requiredAgentDomain:@"com.apple.rapport.dduiresolve" agentType:@"RapportDDUIResolveAgent"];
+    v13 = [NEPolicyCondition customEntitlement:@"com.apple.private.application-service-browse"];
+    v14 = geteuid();
     if (dword_1001D4638 <= 30 && (dword_1001D4638 != -1 || _LogCategory_Initialize()))
     {
-      sub_100121EFC();
+      sub_100121EFC(v14);
     }
 
-    v13 = [NEPolicyCondition uid:v12];
-    v16[0] = v9;
-    v16[1] = v10;
-    v16[2] = v11;
-    v16[3] = v13;
-    v14 = [NSArray arrayWithObjects:v16 count:4];
-    v15 = [[NEPolicy alloc] initWithOrder:10 result:v8 conditions:v14];
-    if ([(NEPolicySession *)self->_dduiResolvePolicySession addPolicy:v15])
+    v15 = [NEPolicyCondition uid:v14];
+    v18[0] = v11;
+    v18[1] = v12;
+    v18[2] = v13;
+    v18[3] = v15;
+    v16 = [NSArray arrayWithObjects:v18 count:4];
+    v17 = [[NEPolicy alloc] initWithOrder:10 result:v10 conditions:v16];
+    if ([(NEPolicySession *)selfCopy->_dduiResolvePolicySession addPolicy:v17])
     {
       if (dword_1001D4638 <= 30 && (dword_1001D4638 != -1 || _LogCategory_Initialize()))
       {
-        sub_100121F3C(self);
+        sub_100121F3C(selfCopy);
       }
 
-      [(NEPolicySession *)self->_dduiResolvePolicySession apply];
+      [(NEPolicySession *)selfCopy->_dduiResolvePolicySession apply];
     }
 
     else if (dword_1001D4638 <= 90 && (dword_1001D4638 != -1 || _LogCategory_Initialize()))
     {
-      sub_100121F80(self);
+      sub_100121F80(selfCopy);
     }
   }
 
-  else if (dword_1001D4638 <= 90 && (dword_1001D4638 != -1 || _LogCategory_Initialize()))
+  else if (dword_1001D4638 <= 90)
   {
-    sub_100121FC4();
+    if (dword_1001D4638 != -1 || (v8 = _LogCategory_Initialize(), v8))
+    {
+      sub_100121FC4(v8, v6, v7);
+    }
   }
 }
 
 - (void)setupResolveHandlersForDDUIResolveAgent
 {
-  if (dword_1001D4638 <= 30 && (dword_1001D4638 != -1 || _LogCategory_Initialize()))
+  if (dword_1001D4638 <= 30)
   {
-    sub_100121FE0();
+    if (dword_1001D4638 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_100121FE0(self, a2, v2);
+    }
   }
 
-  dduiResolveAgent = self->_dduiResolveAgent;
   nw_agent_add_resolve_handlers();
 }
 
 - (BOOL)createNetworkAgent
 {
-  if (dword_1001D4638 <= 30 && (dword_1001D4638 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_1001D4638 <= 30)
   {
-    sub_1001220BC();
+    if (dword_1001D4638 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_1001220BC(self, a2, v2);
+    }
   }
 
-  dispatchQueue = self->_dispatchQueue;
   v4 = nw_agent_create();
-  networkAgent = self->_networkAgent;
-  self->_networkAgent = v4;
+  networkAgent = selfCopy->_networkAgent;
+  selfCopy->_networkAgent = v4;
 
-  v6 = self->_networkAgent;
-  if (v6)
+  v9 = selfCopy->_networkAgent;
+  if (v9)
   {
-    v11[0] = 0;
-    v11[1] = 0;
+    v13[0] = 0;
+    v13[1] = 0;
     nw_agent_get_uuid();
-    v7 = [[NSUUID alloc] initWithUUIDBytes:v11];
-    networkAgentID = self->_networkAgentID;
-    self->_networkAgentID = v7;
+    v10 = [[NSUUID alloc] initWithUUIDBytes:v13];
+    networkAgentID = selfCopy->_networkAgentID;
+    selfCopy->_networkAgentID = v10;
 
     if (dword_1001D4638 <= 30 && (dword_1001D4638 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001220F4(&self->_networkAgentID);
+      sub_1001220F4();
     }
 
-    [(RPNWNetworkAgent *)self setupPolicyWithQueue:self->_dispatchQueue browseAgent:0];
-    [(RPNWNetworkAgent *)self setupListenHandlers];
-    [(RPNWNetworkAgent *)self setupFlowHandlers];
-    [(RPNWNetworkAgent *)self setupAssertHandlers:self->_networkAgent];
+    [(RPNWNetworkAgent *)selfCopy setupPolicyWithQueue:selfCopy->_dispatchQueue browseAgent:0];
+    [(RPNWNetworkAgent *)selfCopy setupListenHandlers];
+    [(RPNWNetworkAgent *)selfCopy setupFlowHandlers];
+    [(RPNWNetworkAgent *)selfCopy setupAssertHandlers:selfCopy->_networkAgent];
     if (dword_1001D4638 <= 30 && (dword_1001D4638 != -1 || _LogCategory_Initialize()))
     {
       sub_100122134();
     }
 
-    v9 = self->_networkAgent;
     nw_agent_change_state();
     if (dword_1001D4638 <= 30 && (dword_1001D4638 != -1 || _LogCategory_Initialize()))
     {
@@ -2291,12 +2374,15 @@ LABEL_71:
     }
   }
 
-  else if (dword_1001D4638 <= 90 && (dword_1001D4638 != -1 || _LogCategory_Initialize()))
+  else if (dword_1001D4638 <= 90)
   {
-    sub_1001220D8();
+    if (dword_1001D4638 != -1 || (v6 = _LogCategory_Initialize(), v6))
+    {
+      sub_1001220D8(v6, v7, v8);
+    }
   }
 
-  return v6 != 0;
+  return v9 != 0;
 }
 
 - (id)_quicProtocolOptionsFromParameters:(id)parameters
@@ -2326,7 +2412,7 @@ LABEL_71:
   {
     if (dword_1001D4638 <= 90 && (dword_1001D4638 != -1 || _LogCategory_Initialize()))
     {
-      sub_10012219C();
+      sub_10012219C(parametersCopy);
     }
 
     v6 = 0;
@@ -2349,7 +2435,7 @@ LABEL_71:
   {
     if (dword_1001D4638 <= 90 && (dword_1001D4638 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001221DC();
+      sub_1001221DC(transportCopy);
     }
 
     v6 = 0;
@@ -2385,24 +2471,24 @@ LABEL_71:
         sub_10012221C(v10);
       }
 
-      v15 = RPErrorF();
+      v21 = RPErrorF(4294960566, "New key exchange for same service and key", v15, v16, v17, v18, v19, v20, v26);
       handler = [v14 handler];
-      (handler)[2](handler, 0, 0, v15);
+      (handler)[2](handler, 0, 0, v21);
     }
 
     else
     {
-      v17 = self->_pendingKeyExchangesByIdentifier;
-      if (!v17)
+      v23 = self->_pendingKeyExchangesByIdentifier;
+      if (!v23)
       {
-        v18 = +[NSMutableDictionary dictionary];
-        v19 = self->_pendingKeyExchangesByIdentifier;
-        self->_pendingKeyExchangesByIdentifier = v18;
+        v24 = +[NSMutableDictionary dictionary];
+        v25 = self->_pendingKeyExchangesByIdentifier;
+        self->_pendingKeyExchangesByIdentifier = v24;
 
-        v17 = self->_pendingKeyExchangesByIdentifier;
+        v23 = self->_pendingKeyExchangesByIdentifier;
       }
 
-      [(NSMutableDictionary *)v17 setObject:v10 forKeyedSubscript:keyCopy];
+      [(NSMutableDictionary *)v23 setObject:v10 forKeyedSubscript:keyCopy];
     }
   }
 }

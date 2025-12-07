@@ -86,7 +86,7 @@
   return selfCopy;
 }
 
-uint64_t __45__EKTravelAdvisoryTimelinessAuthority_active__block_invoke(uint64_t a1)
+void *__45__EKTravelAdvisoryTimelinessAuthority_active__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) internalActive];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -187,7 +187,7 @@ uint64_t __60__EKTravelAdvisoryTimelinessAuthority_startOfLeaveNowPeriod__block_
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (NSDate)startOfRunningLatePeriod
@@ -220,7 +220,7 @@ uint64_t __63__EKTravelAdvisoryTimelinessAuthority_startOfRunningLatePeriod__blo
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (void)updateWithHypothesis:(id)hypothesis
@@ -319,7 +319,7 @@ uint64_t __60__EKTravelAdvisoryTimelinessAuthority_periodChangedCallback__block_
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (unint64_t)period
@@ -342,7 +342,7 @@ uint64_t __60__EKTravelAdvisoryTimelinessAuthority_periodChangedCallback__block_
   return v4;
 }
 
-uint64_t __45__EKTravelAdvisoryTimelinessAuthority_period__block_invoke(uint64_t a1)
+void *__45__EKTravelAdvisoryTimelinessAuthority_period__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) internalPeriod];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -364,32 +364,30 @@ uint64_t __45__EKTravelAdvisoryTimelinessAuthority_period__block_invoke(uint64_t
 
 - (void)_refresh
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_1(&dword_1A805E000, v0, v1, "Refreshing [%@]", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_DEBUG))
+  {
+    [EKTravelAdvisoryTimelinessAuthority _refresh];
+  }
+
+  [(EKTravelAdvisoryTimelinessAuthority *)self _refreshPeriod];
+  [(EKTravelAdvisoryTimelinessAuthority *)self _refreshTimer];
 }
 
 - (void)_refreshPeriod
 {
-  v14 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   v6 = +[EKTravelAdvisoryTimelinessAuthority stringForPeriod:](EKTravelAdvisoryTimelinessAuthority, "stringForPeriod:", [a2 internalPeriod]);
   v7 = [EKTravelAdvisoryTimelinessAuthority stringForPeriod:a3];
   OUTLINED_FUNCTION_3_2();
   OUTLINED_FUNCTION_3_1();
   _os_log_debug_impl(v8, v9, v10, v11, v12, 0x20u);
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_refreshTimer
 {
-  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3_2();
   OUTLINED_FUNCTION_3_0(&dword_1A805E000, v0, v1, "Calculated next refresh date of [%@] in [%@]");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_refreshOnDate:(id)date
@@ -484,33 +482,29 @@ void __54__EKTravelAdvisoryTimelinessAuthority__refreshOnDate___block_invoke(uin
 
 void __47__EKTravelAdvisoryTimelinessAuthority_activate__block_invoke_cold_1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_1_1(&dword_1A805E000, a2, a3, "Already active.  Will not activate [%@]", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_1_1(&dword_1A805E000, a2, a3, "Already active.  Will not activate [%@]", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __49__EKTravelAdvisoryTimelinessAuthority_deactivate__block_invoke_cold_1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_1_1(&dword_1A805E000, a2, a3, "Already inactive.  Will not deactivate [%@]", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_1_1(&dword_1A805E000, a2, a3, "Already inactive.  Will not deactivate [%@]", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __60__EKTravelAdvisoryTimelinessAuthority_updateWithHypothesis___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 40);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_1A805E000, a2, OS_LOG_TYPE_ERROR, "nil 'hypothesis' received in [%@]", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_1A805E000, a2, OS_LOG_TYPE_ERROR, "nil 'hypothesis' received in [%@]", &v3, 0xCu);
 }
 
 void __60__EKTravelAdvisoryTimelinessAuthority_updateWithHypothesis___block_invoke_cold_2(void *a1, id *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
   v3 = a1;
   WeakRetained = objc_loadWeakRetained(a2);
   v5 = [MEMORY[0x1E695DF00] date];
@@ -521,13 +515,10 @@ void __60__EKTravelAdvisoryTimelinessAuthority_updateWithHypothesis___block_invo
   OUTLINED_FUNCTION_3_2();
   OUTLINED_FUNCTION_3_1();
   _os_log_debug_impl(v10, v11, v12, v13, v14, 0x2Au);
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_refreshOnDate:(void *)a1 .cold.2(void *a1, double a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AD98];
   v4 = a1;
   v5 = [v3 numberWithDouble:a2];
@@ -537,25 +528,13 @@ void __60__EKTravelAdvisoryTimelinessAuthority_updateWithHypothesis___block_invo
   OUTLINED_FUNCTION_3_2();
   OUTLINED_FUNCTION_3_1();
   _os_log_debug_impl(v9, v10, v11, v12, v13, 0x2Au);
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_refreshOnDate:.cold.3()
 {
-  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3_2();
   OUTLINED_FUNCTION_3_0(&dword_1A805E000, v0, v1, "[%@] is before now.  Will not set up a timer to refresh [%@]");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-void __54__EKTravelAdvisoryTimelinessAuthority__refreshOnDate___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_1(&dword_1A805E000, v0, v1, "Timer fired in [%@].", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

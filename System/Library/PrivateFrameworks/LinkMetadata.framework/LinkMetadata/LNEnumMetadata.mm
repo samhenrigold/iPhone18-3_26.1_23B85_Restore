@@ -94,18 +94,18 @@
 
 - (LNEnumMetadata)initWithCoder:(id)coder
 {
-  v55[2] = *MEMORY[0x1E69E9840];
+  v54[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v4 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"identifier"];
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"displayRepresentation"];
   v6 = MEMORY[0x1E695DFD8];
-  v55[0] = objc_opt_class();
-  v55[1] = objc_opt_class();
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v55 count:2];
+  v54[0] = objc_opt_class();
+  v54[1] = objc_opt_class();
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v54 count:2];
   v8 = [v6 setWithArray:v7];
-  v52 = [coderCopy decodeObjectOfClasses:v8 forKey:@"cases"];
+  v51 = [coderCopy decodeObjectOfClasses:v8 forKey:@"cases"];
 
-  v53 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"mangledTypeName"];
+  v52 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"mangledTypeName"];
   v9 = MEMORY[0x1E695DFD8];
   v10 = objc_opt_class();
   v11 = [v9 setWithObjects:{v10, objc_opt_class(), 0}];
@@ -114,27 +114,27 @@
   v13 = MEMORY[0x1E695DFD8];
   v14 = objc_opt_class();
   v15 = [v13 setWithObjects:{v14, objc_opt_class(), 0}];
-  v54 = [coderCopy decodeObjectOfClasses:v15 forKey:@"mangledTypeNameByBundleIdentifier"];
+  v53 = [coderCopy decodeObjectOfClasses:v15 forKey:@"mangledTypeNameByBundleIdentifier"];
 
   v16 = 0;
   if (!v4 || !v5)
   {
     selfCopy4 = self;
-    v17 = v52;
-    v19 = v53;
-    v18 = v54;
+    v17 = v51;
+    v19 = v52;
+    v18 = v53;
     goto LABEL_12;
   }
 
-  v17 = v52;
-  v18 = v54;
-  if (!v52)
+  v17 = v51;
+  v18 = v53;
+  if (!v51)
   {
     goto LABEL_10;
   }
 
-  v19 = v53;
-  if (!v53 || !v54)
+  v19 = v52;
+  if (!v52 || !v53)
   {
     selfCopy4 = self;
     goto LABEL_12;
@@ -142,14 +142,14 @@
 
   if (v12)
   {
-    v49 = v5;
-    v48 = v4;
+    v48 = v5;
+    v47 = v4;
     v20 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"customIntentEnumTypeName"];
     v21 = MEMORY[0x1E695DFD8];
     v22 = objc_opt_class();
     v23 = objc_opt_class();
     v24 = [v21 setWithObjects:{v22, v23, objc_opt_class(), 0}];
-    v47 = [coderCopy decodeObjectOfClasses:v24 forKey:@"availabilityAnnotations"];
+    v46 = [coderCopy decodeObjectOfClasses:v24 forKey:@"availabilityAnnotations"];
 
     v25 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"system"];
     v26 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"fullyQualifiedTypeName"];
@@ -169,22 +169,22 @@
     v34 = [v32 setWithObjects:{v33, objc_opt_class(), 0}];
     v35 = [coderCopy decodeObjectOfClasses:v34 forKey:@"allowedTargets"];
 
-    v43 = v26;
+    v42 = v26;
+    v43 = v30;
     v44 = v30;
-    v45 = v30;
-    v46 = v25;
+    v45 = v25;
     v36 = v26;
-    v4 = v48;
-    v42 = v25;
-    v41 = v20;
-    v5 = v49;
+    v4 = v47;
+    v41 = v25;
+    v40 = v20;
+    v5 = v48;
     selfCopy3 = self;
-    v51 = v20;
-    v19 = v53;
-    selfCopy4 = [(LNEnumMetadata *)selfCopy3 initWithIdentifier:v48 mangledTypeName:v53 mangledTypeNameByBundleIdentifier:v54 effectiveBundleIdentifiers:v12 displayRepresentation:v49 cases:v52 customIntentEnumTypeName:v41 availabilityAnnotations:v47 system:v42 fullyQualifiedTypeName:v43 assistantDefinedSchemas:v44 visibilityMetadata:v31 allowedTargets:v35];
+    v50 = v20;
+    v19 = v52;
+    selfCopy4 = [(LNEnumMetadata *)selfCopy3 initWithIdentifier:v47 mangledTypeName:v52 mangledTypeNameByBundleIdentifier:v53 effectiveBundleIdentifiers:v12 displayRepresentation:v48 cases:v51 customIntentEnumTypeName:v40 availabilityAnnotations:v46 system:v41 fullyQualifiedTypeName:v42 assistantDefinedSchemas:v43 visibilityMetadata:v31 allowedTargets:v35];
 
-    v17 = v52;
-    v18 = v54;
+    v17 = v51;
+    v18 = v53;
     v16 = selfCopy4;
   }
 
@@ -192,12 +192,11 @@
   {
 LABEL_10:
     selfCopy4 = self;
-    v19 = v53;
+    v19 = v52;
   }
 
 LABEL_12:
 
-  v39 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
@@ -451,20 +450,7 @@ LABEL_51:
 
             assistantDefinedSchemas4 = [(LNEnumMetadata *)v6 assistantDefinedSchemas];
 
-            if (!assistantDefinedSchemas4)
-            {
-              goto LABEL_50;
-            }
-
-            v52 = MEMORY[0x1E695DFD8];
-            assistantDefinedSchemas5 = [(LNEnumMetadata *)self assistantDefinedSchemas];
-            v53 = [v52 setWithArray:assistantDefinedSchemas5];
-            v54 = MEMORY[0x1E695DFD8];
-            assistantDefinedSchemas6 = [(LNEnumMetadata *)v6 assistantDefinedSchemas];
-            v55 = [v54 setWithArray:assistantDefinedSchemas6];
-            v71 = [v53 isEqualToSet:v55];
-
-            if (!v71)
+            if (!assistantDefinedSchemas4 || (v52 = MEMORY[0x1E695DFD8], -[LNEnumMetadata assistantDefinedSchemas](self, "assistantDefinedSchemas"), v73 = objc_claimAutoreleasedReturnValue(), [v52 setWithArray:v73], v53 = objc_claimAutoreleasedReturnValue(), v54 = MEMORY[0x1E695DFD8], -[LNEnumMetadata assistantDefinedSchemas](v6, "assistantDefinedSchemas"), v69 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v54, "setWithArray:", v69), v55 = objc_claimAutoreleasedReturnValue(), v71 = objc_msgSend(v53, "isEqualToSet:", v55), v55, v69, v53, v73, !v71))
             {
 LABEL_50:
               LOBYTE(assistantDefinedSchemas3) = 0;

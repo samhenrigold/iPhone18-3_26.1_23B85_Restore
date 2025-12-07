@@ -47,7 +47,7 @@
           if (([analyticsKeysBlocklist containsObject:v12] & 1) == 0)
           {
             autoKey = [MEMORY[0x277D3A9A0] autoKey];
-            if ([v12 isEqualToString:autoKey])
+            if (objc_msgSend_isEqualToString_(v12))
             {
               isAuto = [self isAuto];
 
@@ -63,7 +63,7 @@
             }
 
             offsetExposureKey = [MEMORY[0x277D3A9A0] offsetExposureKey];
-            if ([v12 isEqualToString:offsetExposureKey])
+            if (objc_msgSend_isEqualToString_(v12))
             {
               [self offsetExposure];
               v17 = v16;
@@ -89,7 +89,7 @@ LABEL_44:
             }
 
             offsetLocalLightKey = [MEMORY[0x277D3A9A0] offsetLocalLightKey];
-            if ([v12 isEqualToString:offsetLocalLightKey])
+            if (objc_msgSend_isEqualToString_(v12))
             {
               [self offsetLocalLight];
               v26 = v25;
@@ -112,7 +112,7 @@ LABEL_44:
             }
 
             offsetHighlightsKey = [MEMORY[0x277D3A9A0] offsetHighlightsKey];
-            if ([v12 isEqualToString:offsetHighlightsKey])
+            if (objc_msgSend_isEqualToString_(v12))
             {
               [self offsetHighlights];
               v30 = v29;
@@ -135,7 +135,7 @@ LABEL_44:
             }
 
             offsetShadowsKey = [MEMORY[0x277D3A9A0] offsetShadowsKey];
-            if ([v12 isEqualToString:offsetShadowsKey])
+            if (objc_msgSend_isEqualToString_(v12))
             {
               [self offsetShadows];
               v34 = v33;
@@ -158,7 +158,7 @@ LABEL_44:
             }
 
             offsetContrastKey = [MEMORY[0x277D3A9A0] offsetContrastKey];
-            if ([v12 isEqualToString:offsetContrastKey])
+            if (objc_msgSend_isEqualToString_(v12))
             {
               [self offsetContrast];
               v38 = v37;
@@ -181,7 +181,7 @@ LABEL_44:
             }
 
             offsetBrightnessKey = [MEMORY[0x277D3A9A0] offsetBrightnessKey];
-            if ([v12 isEqualToString:offsetBrightnessKey])
+            if (objc_msgSend_isEqualToString_(v12))
             {
               [self offsetBrightness];
               v42 = v41;
@@ -204,7 +204,7 @@ LABEL_44:
             }
 
             offsetBlackKey = [MEMORY[0x277D3A9A0] offsetBlackKey];
-            if ([v12 isEqualToString:offsetBlackKey])
+            if (objc_msgSend_isEqualToString_(v12))
             {
               [self offsetBlack];
               v46 = v45;
@@ -227,7 +227,7 @@ LABEL_44:
             }
 
             inputLightKey = [MEMORY[0x277D3A9A0] inputLightKey];
-            if ([v12 isEqualToString:inputLightKey])
+            if (objc_msgSend_isEqualToString_(v12))
             {
               [self inputLight];
               v50 = v49;

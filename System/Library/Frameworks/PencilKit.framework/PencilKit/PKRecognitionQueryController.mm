@@ -1,10 +1,10 @@
 @interface PKRecognitionQueryController
+- (id)clearDrawingQueries;
+- (id)clearVisibleStrokesQueries;
 - (id)drawingQueryWithIdentifier:(id *)identifier;
 - (id)initWithRecognitionSessionManager:(id *)manager;
 - (id)setupAndStartQuery:(uint64_t)query;
 - (id)visibleStrokesQueryWithIdentifier:(id *)identifier;
-- (uint64_t)clearDrawingQueries;
-- (uint64_t)clearVisibleStrokesQueries;
 - (void)_cleanupQuery:(uint64_t)query;
 - (void)removeQueryWithIdentifier:(id *)identifier;
 - (void)setMathPreferredUpdatesInterval:(double)interval;
@@ -211,7 +211,7 @@ LABEL_15:
     v12 = 0u;
     v9 = 0u;
     v10 = 0u;
-    allKeys = [*(self + 32) allKeys];
+    allKeys = [self[4] allKeys];
     v3 = [allKeys countByEnumeratingWithState:&v9 objects:v13 count:16];
     if (v3)
     {
@@ -227,8 +227,8 @@ LABEL_15:
           }
 
           v7 = *(*(&v9 + 1) + 8 * i);
-          v8 = -[PKRecognitionQueryController setupAndStartQuery:](self, [*(self + 32) objectForKeyedSubscript:v7]);
-          [*(self + 24) setObject:v8 forKey:v7];
+          v8 = -[PKRecognitionQueryController setupAndStartQuery:](self, [self[4] objectForKeyedSubscript:v7]);
+          [self[3] setObject:v8 forKey:v7];
         }
 
         v4 = [allKeys countByEnumeratingWithState:&v9 objects:v13 count:16];
@@ -356,7 +356,7 @@ LABEL_15:
   }
 }
 
-- (uint64_t)clearVisibleStrokesQueries
+- (id)clearVisibleStrokesQueries
 {
   v12 = *MEMORY[0x1E69E9840];
   if (result)
@@ -366,7 +366,7 @@ LABEL_15:
     v10 = 0u;
     v7 = 0u;
     v8 = 0u;
-    allValues = [*(result + 24) allValues];
+    allValues = [result[3] allValues];
     v3 = [allValues countByEnumeratingWithState:&v7 objects:v11 count:16];
     if (v3)
     {
@@ -392,13 +392,13 @@ LABEL_15:
       while (v4);
     }
 
-    return [*(v1 + 24) removeAllObjects];
+    return [v1[3] removeAllObjects];
   }
 
   return result;
 }
 
-- (uint64_t)clearDrawingQueries
+- (id)clearDrawingQueries
 {
   v12 = *MEMORY[0x1E69E9840];
   if (result)
@@ -408,7 +408,7 @@ LABEL_15:
     v10 = 0u;
     v7 = 0u;
     v8 = 0u;
-    allValues = [*(result + 16) allValues];
+    allValues = [result[2] allValues];
     v3 = [allValues countByEnumeratingWithState:&v7 objects:v11 count:16];
     if (v3)
     {
@@ -434,7 +434,7 @@ LABEL_15:
       while (v4);
     }
 
-    return [*(v1 + 16) removeAllObjects];
+    return [v1[2] removeAllObjects];
   }
 
   return result;

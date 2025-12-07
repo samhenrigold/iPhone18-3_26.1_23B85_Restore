@@ -100,12 +100,12 @@
 
 - (id)dataSharingOptInAlertController
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v3 = VTUILogContextFacility;
   if (os_log_type_enabled(VTUILogContextFacility, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v31 = "[VTUIDictationDataSharingOptInPresenter dataSharingOptInAlertController]";
+    v30 = "[VTUIDictationDataSharingOptInPresenter dataSharingOptInAlertController]";
     _os_log_impl(&dword_2728BC000, v3, OS_LOG_TYPE_DEFAULT, "%s #SiriDataSharingOptIn: Creating dataSharingOptInAlert for dictation", buf, 0xCu);
   }
 
@@ -120,41 +120,40 @@
   v10 = MEMORY[0x277D750F8];
   v11 = +[VTUIStringsHelper sharedStringsHelper];
   v12 = [v11 uiLocalizedStringForKey:@"DICTATION_DATA_SHARING_CONFIRMATION_BUTTON_TITLE"];
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __73__VTUIDictationDataSharingOptInPresenter_dataSharingOptInAlertController__block_invoke;
-  v28[3] = &unk_279E54858;
-  objc_copyWeak(&v29, buf);
-  v13 = [v10 actionWithTitle:v12 style:0 handler:v28];
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __73__VTUIDictationDataSharingOptInPresenter_dataSharingOptInAlertController__block_invoke;
+  v27[3] = &unk_279E54858;
+  objc_copyWeak(&v28, buf);
+  v13 = [v10 actionWithTitle:v12 style:0 handler:v27];
   [v9 addAction:v13];
 
   v14 = MEMORY[0x277D750F8];
   v15 = +[VTUIStringsHelper sharedStringsHelper];
   v16 = [v15 uiLocalizedStringForKey:@"DICTATION_DATA_SHARING_LEARN_MORE_BUTTON_TITLE"];
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __73__VTUIDictationDataSharingOptInPresenter_dataSharingOptInAlertController__block_invoke_2;
-  v26[3] = &unk_279E54858;
-  objc_copyWeak(&v27, buf);
-  v17 = [v14 actionWithTitle:v16 style:0 handler:v26];
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __73__VTUIDictationDataSharingOptInPresenter_dataSharingOptInAlertController__block_invoke_2;
+  v25[3] = &unk_279E54858;
+  objc_copyWeak(&v26, buf);
+  v17 = [v14 actionWithTitle:v16 style:0 handler:v25];
   [v9 addAction:v17];
 
   v18 = MEMORY[0x277D750F8];
   v19 = +[VTUIStringsHelper sharedStringsHelper];
   v20 = [v19 uiLocalizedStringForKey:@"DATA_SHARING_DECLINE_BUTTON_TITLE"];
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __73__VTUIDictationDataSharingOptInPresenter_dataSharingOptInAlertController__block_invoke_3;
-  v24[3] = &unk_279E54858;
-  objc_copyWeak(&v25, buf);
-  v21 = [v18 actionWithTitle:v20 style:0 handler:v24];
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __73__VTUIDictationDataSharingOptInPresenter_dataSharingOptInAlertController__block_invoke_3;
+  v23[3] = &unk_279E54858;
+  objc_copyWeak(&v24, buf);
+  v21 = [v18 actionWithTitle:v20 style:0 handler:v23];
   [v9 addAction:v21];
 
-  objc_destroyWeak(&v25);
-  objc_destroyWeak(&v27);
-  objc_destroyWeak(&v29);
+  objc_destroyWeak(&v24);
+  objc_destroyWeak(&v26);
+  objc_destroyWeak(&v28);
   objc_destroyWeak(buf);
-  v22 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -179,13 +178,13 @@ void __73__VTUIDictationDataSharingOptInPresenter_dataSharingOptInAlertControlle
 
 - (id)dataSharingReminderAlertController
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = VTUILogContextFacility;
   if (os_log_type_enabled(VTUILogContextFacility, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 136315138;
-    v16 = "[VTUIDictationDataSharingOptInPresenter dataSharingReminderAlertController]";
-    _os_log_impl(&dword_2728BC000, v2, OS_LOG_TYPE_DEFAULT, "%s #SiriDataSharingOptIn: Creating dataSharingReminderAlert for dictation", &v15, 0xCu);
+    v14 = 136315138;
+    v15 = "[VTUIDictationDataSharingOptInPresenter dataSharingReminderAlertController]";
+    _os_log_impl(&dword_2728BC000, v2, OS_LOG_TYPE_DEFAULT, "%s #SiriDataSharingOptIn: Creating dataSharingReminderAlert for dictation", &v14, 0xCu);
   }
 
   v3 = MEMORY[0x277D75110];
@@ -201,20 +200,18 @@ void __73__VTUIDictationDataSharingOptInPresenter_dataSharingOptInAlertControlle
   v12 = [v9 actionWithTitle:v11 style:0 handler:0];
   [v8 addAction:v12];
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 - (id)dictationDataSharingOptInAlertViewModel
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = VTUILogContextFacility;
   if (os_log_type_enabled(VTUILogContextFacility, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 136315138;
-    v17 = "[VTUIDictationDataSharingOptInPresenter dictationDataSharingOptInAlertViewModel]";
-    _os_log_impl(&dword_2728BC000, v2, OS_LOG_TYPE_DEFAULT, "%s #SiriDataSharingOptIn: Creating dataSharingOptInAlertViewModel for dictation", &v16, 0xCu);
+    v15 = 136315138;
+    v16 = "[VTUIDictationDataSharingOptInPresenter dictationDataSharingOptInAlertViewModel]";
+    _os_log_impl(&dword_2728BC000, v2, OS_LOG_TYPE_DEFAULT, "%s #SiriDataSharingOptIn: Creating dataSharingOptInAlertViewModel for dictation", &v15, 0xCu);
   }
 
   v3 = objc_alloc_init(VTUIDictationDataSharingOptInAlertViewModel);
@@ -237,8 +234,6 @@ void __73__VTUIDictationDataSharingOptInPresenter_dataSharingOptInAlertControlle
   v12 = +[VTUIStringsHelper sharedStringsHelper];
   v13 = [v12 uiLocalizedStringForKey:@"DATA_SHARING_DECLINE_BUTTON_TITLE"];
   [(VTUIDictationDataSharingOptInAlertViewModel *)v3 setOptOutButtonTitle:v13];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

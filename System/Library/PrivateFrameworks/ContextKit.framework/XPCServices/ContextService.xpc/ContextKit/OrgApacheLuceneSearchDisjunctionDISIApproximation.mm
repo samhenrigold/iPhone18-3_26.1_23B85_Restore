@@ -1,4 +1,5 @@
 @interface OrgApacheLuceneSearchDisjunctionDISIApproximation
+- (int)advanceWithInt:(int)int;
 - (int)docID;
 - (int)nextDoc;
 - (void)dealloc;
@@ -48,6 +49,40 @@ LABEL_8:
   }
 
   while (result == v6);
+  return result;
+}
+
+- (int)advanceWithInt:(int)int
+{
+  subIterators = self->subIterators_;
+  if (!subIterators)
+  {
+LABEL_7:
+    JreThrowNullPointerException();
+  }
+
+  v5 = *&int;
+  v6 = [(OrgApacheLuceneSearchDisiPriorityQueue *)subIterators top];
+  do
+  {
+    v7 = *(v6 + 5);
+    if (!v7)
+    {
+      goto LABEL_7;
+    }
+
+    v6[6] = [v7 advanceWithInt:v5];
+    updateTop = [(OrgApacheLuceneSearchDisiPriorityQueue *)self->subIterators_ updateTop];
+    if (!updateTop)
+    {
+      goto LABEL_7;
+    }
+
+    v6 = updateTop;
+    result = updateTop[6];
+  }
+
+  while (result < v5);
   return result;
 }
 

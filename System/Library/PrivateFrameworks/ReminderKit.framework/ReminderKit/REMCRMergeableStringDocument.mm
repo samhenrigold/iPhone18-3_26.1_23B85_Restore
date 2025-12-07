@@ -217,7 +217,7 @@ LABEL_7:
 
 - (id)mergedWithDocument:(id)document error:(id *)error
 {
-  v24[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   documentCopy = document;
   replicaIDSource = [(REMCRMergeableStringDocument *)self replicaIDSource];
   crdtID = [replicaIDSource crdtID];
@@ -252,32 +252,30 @@ LABEL_7:
   else if (error)
   {
     v17 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v23 = *MEMORY[0x1E696A588];
-    v24[0] = @"Failed to merge documents.";
-    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+    v22 = *MEMORY[0x1E696A588];
+    v23[0] = @"Failed to merge documents.";
+    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
     *error = [v17 initWithDomain:@"REMCRMergeableStringDocument" code:-1 userInfo:v18];
 
     error = 0;
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return error;
 }
 
 + (id)documentFromSerializedData:(id)data replicaIDSource:(id)source forKey:(id)key ofObjectID:(id)d
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   dCopy = d;
   if (data)
   {
     sourceCopy = source;
     dataCopy = data;
-    v18 = 0;
-    data = [[REMCRMergeableStringDocument alloc] initWithReplicaIDSource:sourceCopy serializedData:dataCopy error:&v18];
+    v17 = 0;
+    data = [[REMCRMergeableStringDocument alloc] initWithReplicaIDSource:sourceCopy serializedData:dataCopy error:&v17];
 
-    v13 = v18;
+    v13 = v17;
     if (!data)
     {
       v14 = +[REMLog crdt];
@@ -285,17 +283,15 @@ LABEL_7:
       {
         localizedDescription = [v13 localizedDescription];
         *buf = 138412802;
-        v20 = dCopy;
-        v21 = 2112;
-        v22 = keyCopy;
-        v23 = 2112;
-        v24 = localizedDescription;
+        v19 = dCopy;
+        v20 = 2112;
+        v21 = keyCopy;
+        v22 = 2112;
+        v23 = localizedDescription;
         _os_log_error_impl(&dword_19A0DB000, v14, OS_LOG_TYPE_ERROR, "Failed to deserialize mergeable string document {objectID: %@, key: %@}: %@", buf, 0x20u);
       }
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return data;
 }

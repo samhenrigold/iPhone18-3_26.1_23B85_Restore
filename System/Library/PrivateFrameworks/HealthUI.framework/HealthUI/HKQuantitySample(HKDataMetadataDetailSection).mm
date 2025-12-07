@@ -8,17 +8,17 @@
 
 - (void)addDetailValuesToSection:()HKDataMetadataDetailSection
 {
-  v92[2] = *MEMORY[0x1E69E9840];
+  v93[2] = *MEMORY[0x1E69E9840];
   v4 = a3;
   displayTypeController = [v4 displayTypeController];
   sampleType = [self sampleType];
   v7 = [displayTypeController displayTypeForObjectType:sampleType];
 
-  v86 = v4;
+  v87 = v4;
   unitController = [v4 unitController];
   v9 = [unitController unitForDisplayType:v7];
   quantity = [self quantity];
-  v85 = v9;
+  v86 = v9;
   [quantity doubleValueForUnit:v9];
   v12 = v11;
 
@@ -32,26 +32,26 @@
     v15 = 0;
   }
 
-  v82 = v15;
+  v83 = v15;
   if ([v7 displayTypeIdentifier] == 275)
   {
     quantity2 = [self quantity];
     v16 = [HKSleepApneaUtilities localizedTitleForBreathingDisturbances:quantity2];
     v17 = [MEMORY[0x1E696AAE8] bundleWithIdentifier:@"com.apple.HealthUI"];
     v18 = [v17 localizedStringForKey:@"LEVEL_TITLE" value:&stru_1F42FFBE0 table:@"HealthUI-Localizable"];
-    v92[0] = *MEMORY[0x1E696BC50];
-    v92[1] = @"Level";
-    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v92 count:2];
+    v93[0] = *MEMORY[0x1E696BC50];
+    v93[1] = @"Level";
+    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v93 count:2];
     HKUIJoinStringsForAutomationIdentifier(v19);
     v21 = v20 = unitController;
-    [v86 addText:v16 detail:v18 baseIdentifier:v21];
+    [v87 addText:v16 detail:v18 baseIdentifier:v21];
 
     unitController = v20;
-    v15 = v82;
+    v15 = v83;
   }
 
   percentUnit = [MEMORY[0x1E696C510] percentUnit];
-  v23 = [v85 isEqual:percentUnit];
+  v23 = [v86 isEqual:percentUnit];
 
   if (v23)
   {
@@ -76,14 +76,14 @@
 
     if (bOOLValue)
     {
-      v32 = HKAFibBurdenClampedLowerBoundLocalizedString(v30);
+      v33 = HKAFibBurdenClampedLowerBoundLocalizedString(v30, v32);
 
-      v84 = v32;
+      v85 = v33;
     }
 
     else
     {
-      v84 = v27;
+      v85 = v27;
     }
 
     goto LABEL_22;
@@ -93,23 +93,23 @@
   if (HKFormatterIncludesUnitForDisplayTypeInContext(v7, 1, unitController))
   {
     v26 = v26;
-    v84 = v26;
+    v85 = v26;
     goto LABEL_22;
   }
 
-  v33 = [unitController localizedDisplayNameForDisplayType:v7 value:v15 nameContext:3];
+  v34 = [unitController localizedDisplayNameForDisplayType:v7 value:v15 nameContext:3];
   if ([v7 displayTypeIdentifier] == 2)
   {
     footUnit = [MEMORY[0x1E696C510] footUnit];
-    if ([v85 isEqual:footUnit])
+    if ([v86 isEqual:footUnit])
     {
     }
 
     else
     {
-      v75 = [self _shouldOmitUnitsInSampleDetailViewForDisplayType:v7];
+      v76 = [self _shouldOmitUnitsInSampleDetailViewForDisplayType:v7];
 
-      if ((v75 & 1) == 0)
+      if ((v76 & 1) == 0)
       {
         goto LABEL_19;
       }
@@ -122,118 +122,118 @@
   {
 LABEL_18:
 
-    v33 = &stru_1F42FFBE0;
+    v34 = &stru_1F42FFBE0;
   }
 
 LABEL_19:
   decibelAWeightedSoundPressureLevelUnit = [MEMORY[0x1E696C510] decibelAWeightedSoundPressureLevelUnit];
-  v36 = [v85 isEqual:decibelAWeightedSoundPressureLevelUnit];
+  v37 = [v86 isEqual:decibelAWeightedSoundPressureLevelUnit];
 
-  if (v36)
+  if (v37)
   {
-    v37 = [MEMORY[0x1E696AAE8] bundleWithIdentifier:@"com.apple.HealthUI"];
-    v38 = [v37 localizedStringForKey:@"SPL_DECIBEL_UNIT_LONG_FORM" value:&stru_1F42FFBE0 table:@"HealthUI-Localizable"];
+    v38 = [MEMORY[0x1E696AAE8] bundleWithIdentifier:@"com.apple.HealthUI"];
+    v39 = [v38 localizedStringForKey:@"SPL_DECIBEL_UNIT_LONG_FORM" value:&stru_1F42FFBE0 table:@"HealthUI-Localizable"];
 
-    v33 = v38;
+    v34 = v39;
   }
 
-  v84 = HKFormatValueAndUnit(v26, v33);
+  v85 = HKFormatValueAndUnit(v26, v34);
 
 LABEL_22:
   displayTypeIdentifier = [v7 displayTypeIdentifier];
-  v40 = [self _titleStringForValueSectionWithDisplayType:v7];
+  v41 = [self _titleStringForValueSectionWithDisplayType:v7];
   if (displayTypeIdentifier == 275)
   {
-    v91[0] = *MEMORY[0x1E696BC50];
-    v91[1] = @"BreathingDisturbanceValue";
-    sampleType2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v91 count:2];
+    v92[0] = *MEMORY[0x1E696BC50];
+    v92[1] = @"BreathingDisturbanceValue";
+    sampleType2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v92 count:2];
     identifier = HKUIJoinStringsForAutomationIdentifier(sampleType2);
-    v43 = v84;
-    [v86 addText:v84 detail:v40 baseIdentifier:identifier];
+    v44 = v85;
+    [v87 addText:v85 detail:v41 baseIdentifier:identifier];
   }
 
   else
   {
     sampleType2 = [self sampleType];
     identifier = [sampleType2 identifier];
-    v90[0] = identifier;
-    v90[1] = @"Sample";
-    v44 = [MEMORY[0x1E695DEC8] arrayWithObjects:v90 count:2];
-    v45 = HKUIJoinStringsForAutomationIdentifier(v44);
-    [v86 addText:v84 detail:v40 baseIdentifier:v45];
+    v91[0] = identifier;
+    v91[1] = @"Sample";
+    v45 = [MEMORY[0x1E695DEC8] arrayWithObjects:v91 count:2];
+    v46 = HKUIJoinStringsForAutomationIdentifier(v45);
+    [v87 addText:v85 detail:v41 baseIdentifier:v46];
 
-    v43 = v84;
+    v44 = v85;
   }
 
   if ([v7 displayTypeIdentifier] == 249)
   {
     quantity3 = [self quantity];
-    v47 = [HKMobilityUtilities classificationForAppleWalkingSteadinessQuantity:quantity3];
+    v48 = [HKMobilityUtilities classificationForAppleWalkingSteadinessQuantity:quantity3];
 
-    v48 = [HKMobilityUtilities localizedTitleForClassification:v47];
-    if (v48)
+    v49 = [HKMobilityUtilities localizedTitleForClassification:v48];
+    if (v49)
     {
-      v80 = [MEMORY[0x1E696AAE8] bundleWithIdentifier:@"com.apple.HealthUI"];
-      v49 = [v80 localizedStringForKey:@"LEVEL_TITLE" value:&stru_1F42FFBE0 table:@"HealthUI-Localizable"];
+      v81 = [MEMORY[0x1E696AAE8] bundleWithIdentifier:@"com.apple.HealthUI"];
+      v50 = [v81 localizedStringForKey:@"LEVEL_TITLE" value:&stru_1F42FFBE0 table:@"HealthUI-Localizable"];
       sampleType3 = [self sampleType];
       identifier2 = [sampleType3 identifier];
-      v89[0] = identifier2;
-      v89[1] = @"SteadinessLevel";
-      [MEMORY[0x1E695DEC8] arrayWithObjects:v89 count:2];
+      v90[0] = identifier2;
+      v90[1] = @"SteadinessLevel";
+      [MEMORY[0x1E695DEC8] arrayWithObjects:v90 count:2];
       selfCopy = self;
-      v54 = v53 = unitController;
-      v55 = HKUIJoinStringsForAutomationIdentifier(v54);
-      [v86 addText:v48 detail:v49 baseIdentifier:v55];
+      v55 = v54 = unitController;
+      v56 = HKUIJoinStringsForAutomationIdentifier(v55);
+      [v87 addText:v49 detail:v50 baseIdentifier:v56];
 
-      unitController = v53;
+      unitController = v54;
       self = selfCopy;
 
-      v43 = v84;
+      v44 = v85;
     }
   }
 
   if ([v7 displayTypeIdentifier] == 248)
   {
-    v56 = objc_alloc(MEMORY[0x1E696AB80]);
+    v57 = objc_alloc(MEMORY[0x1E696AB80]);
     startDate = [self startDate];
     endDate = [self endDate];
-    v59 = [v56 initWithStartDate:startDate endDate:endDate];
+    v60 = [v57 initWithStartDate:startDate endDate:endDate];
 
     _timeZone = [self _timeZone];
-    calendarCache = [v86 calendarCache];
-    v81 = _timeZone;
-    v62 = [calendarCache calendarForTimeZone:_timeZone];
+    calendarCache = [v87 calendarCache];
+    v82 = _timeZone;
+    v63 = [calendarCache calendarForTimeZone:_timeZone];
 
-    v63 = MEMORY[0x1E696AB80];
-    calendarCache2 = [v86 calendarCache];
+    v64 = MEMORY[0x1E696AB80];
+    calendarCache2 = [v87 calendarCache];
     currentCalendar = [calendarCache2 currentCalendar];
-    v79 = v62;
-    v66 = [v63 hk_julianDayDateIntervalFromOpenUpperBoundDateInterval:v59 sourceCalendar:v62 localCalendar:currentCalendar];
+    v80 = v63;
+    v67 = [v64 hk_julianDayDateIntervalFromOpenUpperBoundDateInterval:v60 sourceCalendar:v63 localCalendar:currentCalendar];
 
-    if (v66)
+    if (v67)
     {
       hk_mediumDateStyleIntervalFormatter = [MEMORY[0x1E696AB88] hk_mediumDateStyleIntervalFormatter];
-      v68 = [hk_mediumDateStyleIntervalFormatter stringFromDateInterval:v66];
-      if (v68)
+      v69 = [hk_mediumDateStyleIntervalFormatter stringFromDateInterval:v67];
+      if (v69)
       {
-        v77 = [MEMORY[0x1E696AAE8] bundleWithIdentifier:@"com.apple.HealthUI"];
-        v69 = [v77 localizedStringForKey:@"AFIB_BURDEN_DATE_RANGE" value:&stru_1F42FFBE0 table:@"HealthUI-Localizable-AFibBurden"];
+        v78 = [MEMORY[0x1E696AAE8] bundleWithIdentifier:@"com.apple.HealthUI"];
+        v70 = [v78 localizedStringForKey:@"AFIB_BURDEN_DATE_RANGE" value:&stru_1F42FFBE0 table:@"HealthUI-Localizable-AFibBurden"];
         sampleType4 = [self sampleType];
         [sampleType4 identifier];
-        v70 = v78 = unitController;
-        v88[0] = v70;
-        v88[1] = @"DateRange";
-        v71 = [MEMORY[0x1E695DEC8] arrayWithObjects:v88 count:2];
-        HKUIJoinStringsForAutomationIdentifier(v71);
-        v72 = v7;
-        v74 = v73 = v59;
-        [v86 addText:v68 detail:v69 baseIdentifier:v74];
+        v71 = v79 = unitController;
+        v89[0] = v71;
+        v89[1] = @"DateRange";
+        v72 = [MEMORY[0x1E695DEC8] arrayWithObjects:v89 count:2];
+        HKUIJoinStringsForAutomationIdentifier(v72);
+        v73 = v7;
+        v75 = v74 = v60;
+        [v87 addText:v69 detail:v70 baseIdentifier:v75];
 
-        v59 = v73;
-        v7 = v72;
-        v43 = v84;
+        v60 = v74;
+        v7 = v73;
+        v44 = v85;
 
-        unitController = v78;
+        unitController = v79;
       }
     }
 
@@ -248,9 +248,9 @@ LABEL_22:
     }
   }
 
-  v87.receiver = self;
-  v87.super_class = &off_1F4457A98;
-  objc_msgSendSuper2(&v87, sel_addDetailValuesToSection_, v86);
+  v88.receiver = self;
+  v88.super_class = &off_1F4457A98;
+  objc_msgSendSuper2(&v88, sel_addDetailValuesToSection_, v87);
 }
 
 - (id)_titleStringForValueSectionWithDisplayType:()HKDataMetadataDetailSection

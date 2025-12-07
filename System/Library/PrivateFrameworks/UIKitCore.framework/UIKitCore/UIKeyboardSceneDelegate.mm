@@ -508,7 +508,7 @@ uint64_t __37__UIKeyboardSceneDelegate_initialize__block_invoke(uint64_t a1, voi
   else
   {
     v4 = [v2 role];
-    v5 = [v4 isEqualToString:@"CHWindowSceneSessionRoleAvocado"] ^ 1;
+    v5 = objc_msgSend_isEqualToString_(v4) ^ 1;
   }
 
   return v5;
@@ -1518,9 +1518,9 @@ LABEL_17:
   scene = [(UIKeyboardSceneDelegate *)self scene];
   session = [scene session];
   role = [session role];
-  v8 = [role isEqualToString:@"_UISceneSessionRoleKeyboard"];
+  isEqualToString = objc_msgSend_isEqualToString_(role);
 
-  if (v8)
+  if (isEqualToString)
   {
     v9 = 0;
     goto LABEL_19;
@@ -3114,7 +3114,7 @@ LABEL_5:
     v9 = +[UIKeyboardInputModeController sharedInputModeController];
     currentInputMode = [v9 currentInputMode];
     identifier = [currentInputMode identifier];
-    if ([identifier isEqualToString:@"autofillsignup"])
+    if (objc_msgSend_isEqualToString_(identifier))
     {
       shouldShowDockView = [(UIRemoteInputViewHost *)self->_remoteInputViewHost shouldShowDockView];
 
@@ -3140,15 +3140,15 @@ LABEL_8:
   iCopy = i;
   if (iCopy && (waitingForInputUI = self->_waitingForInputUI) != 0)
   {
-    v6 = [(NSUUID *)waitingForInputUI isEqual:iCopy];
+    isEqual = objc_msgSend_isEqual_(waitingForInputUI);
   }
 
   else
   {
-    v6 = 0;
+    isEqual = 0;
   }
 
-  return v6;
+  return isEqual;
 }
 
 - (void)addPostWaitingForInputUIBlock:(id)block
@@ -3710,7 +3710,7 @@ LABEL_285:
                   v55 = +[UIKeyboardInputModeController sharedInputModeController];
                   currentInputMode = [v55 currentInputMode];
                   identifier = [currentInputMode identifier];
-                  if ([identifier isEqualToString:@"autofillsignup"])
+                  if (objc_msgSend_isEqualToString_(identifier))
                   {
                     shouldShowDockView = [(UIRemoteInputViewHost *)self->_remoteInputViewHost shouldShowDockView];
 
@@ -4222,9 +4222,9 @@ LABEL_157:
                         inputViewController3 = [v92 currentInputMode];
 
                         identifier = [inputViewController3 identifier];
-                        v93 = [identifier isEqualToString:@"autofillsignup"];
+                        isEqualToString = objc_msgSend_isEqualToString_(identifier);
 
-                        if (v93)
+                        if (isEqualToString)
                         {
                           if (!+[UIKeyboard usesInputSystemUI])
                           {
@@ -7638,7 +7638,7 @@ LABEL_39:
 
                 restorableResponder11 = [v8 restorableResponder];
                 v53 = [(UIKeyboardSceneDelegate *)self _inputViewsForResponder:restorableResponder11];
-                v90 = [v53 isEqual:v8];
+                isEqual = objc_msgSend_isEqual_(v53);
 
                 responder6 = [(UIKeyboardSceneDelegate *)self responder];
                 inputView2 = [responder6 inputView];
@@ -7660,7 +7660,7 @@ LABEL_39:
                 if (responder8 == restorableResponder12)
                 {
                   v62 = 0;
-                  if ((([v8 isEmpty] | v91) & 1) == 0 && ((v90 ^ 1) & 1) == 0)
+                  if ((([v8 isEmpty] | v91) & 1) == 0 && ((isEqual ^ 1) & 1) == 0)
                   {
                     v62 = v57 == [v8 isCustomInputView];
                   }

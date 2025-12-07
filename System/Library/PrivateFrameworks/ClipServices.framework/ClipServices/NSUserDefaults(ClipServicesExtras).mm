@@ -16,9 +16,9 @@
     +[NSUserDefaults(ClipServicesExtras) cps_clipServicesDefaults];
   }
 
-  v1 = cps_clipServicesDefaults_clipServicesDefaults;
+  v2 = cps_clipServicesDefaults_clipServicesDefaults;
 
-  return v1;
+  return v2;
 }
 
 - (uint64_t)cps_didShowFirstTimeLocationConsent

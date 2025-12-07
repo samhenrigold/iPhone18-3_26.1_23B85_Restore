@@ -30,15 +30,15 @@
   [(EKUITableViewCell *)&v33 layoutSubviews];
   textLabel = [(EKUICenteredTextTableViewCell *)self textLabel];
   superview = [textLabel superview];
-  contentView = [(EKUICenteredTextTableViewCell *)self contentView];
-  [superview convertPoint:contentView fromView:{0.0, 0.0}];
+  v5 = objc_msgSend_contentView(self);
+  [superview convertPoint:v5 fromView:{0.0, 0.0}];
   v7 = v6;
 
   textLabel2 = [(EKUICenteredTextTableViewCell *)self textLabel];
   [textLabel2 frame];
   v10 = v9;
-  contentView2 = [(EKUICenteredTextTableViewCell *)self contentView];
-  [contentView2 frame];
+  v11 = objc_msgSend_contentView(self);
+  [v11 frame];
   v13 = v12;
   textLabel3 = [(EKUICenteredTextTableViewCell *)self textLabel];
   [textLabel3 frame];
@@ -48,15 +48,15 @@
 
   detailTextLabel = [(EKUICenteredTextTableViewCell *)self detailTextLabel];
   superview2 = [detailTextLabel superview];
-  contentView3 = [(EKUICenteredTextTableViewCell *)self contentView];
-  [superview2 convertPoint:contentView3 fromView:{0.0, 0.0}];
+  v20 = objc_msgSend_contentView(self);
+  [superview2 convertPoint:v20 fromView:{0.0, 0.0}];
   v22 = v21;
 
   detailTextLabel2 = [(EKUICenteredTextTableViewCell *)self detailTextLabel];
   [detailTextLabel2 frame];
   v25 = v24;
-  contentView4 = [(EKUICenteredTextTableViewCell *)self contentView];
-  [contentView4 frame];
+  v26 = objc_msgSend_contentView(self);
+  [v26 frame];
   v28 = v27;
   detailTextLabel3 = [(EKUICenteredTextTableViewCell *)self detailTextLabel];
   [detailTextLabel3 frame];

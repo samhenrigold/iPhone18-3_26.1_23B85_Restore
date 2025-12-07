@@ -68,7 +68,7 @@ void __44__SBUILegibilityDefaultEngine_defaultEngine__block_invoke()
 
 - (void)executeLegibilityUpdateForContainer:(id)container forImage:(id)image settings:(id)settings strength:(double *)strength engineResult:(id *)result
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   containerCopy = container;
   imageCopy = image;
   settingsCopy = settings;
@@ -112,7 +112,7 @@ LABEL_11:
   }
 
   legibilityEngine = [containerCopy legibilityEngine];
-  v23 = legibilityEngine;
+  v24 = legibilityEngine;
   if (legibilityEngine != self)
   {
 
@@ -120,61 +120,61 @@ LABEL_11:
   }
 
   legibilitySettings = [containerCopy legibilitySettings];
-  v32 = BSEqualObjects();
+  v33 = BSEqualObjects();
 
-  if (!v32)
+  if (!v33)
   {
 LABEL_12:
     if (v16)
     {
-      v24 = SBLogLegibility();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+      v25 = SBLogLegibility(v21);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138413058;
         selfCopy3 = self;
-        v35 = 2112;
-        v36 = containerCopy;
-        v37 = 2112;
-        v38 = imageCopy;
-        v39 = 2048;
-        v40 = settingsCopy;
-        _os_log_debug_impl(&dword_1A9A79000, v24, OS_LOG_TYPE_DEBUG, "(%@) Legibility background image already prepared for view '%@' / image '%@', settings '%p'", buf, 0x2Au);
+        v36 = 2112;
+        v37 = containerCopy;
+        v38 = 2112;
+        v39 = imageCopy;
+        v40 = 2048;
+        v41 = settingsCopy;
+        _os_log_debug_impl(&dword_1A9A79000, v25, OS_LOG_TYPE_DEBUG, "(%@) Legibility background image already prepared for view '%@' / image '%@', settings '%p'", buf, 0x2Au);
       }
 
-      v25 = v16;
+      v26 = v16;
       if (result)
       {
         result->var0 = 1;
-        v25 = v16;
+        v26 = v16;
       }
 
       if (strength)
       {
 LABEL_18:
-        v26 = [(SBUILegibilityDefaultEngine *)self applyStrength:v25 toImage:settingsCopy settings:*strength];
+        v27 = [(SBUILegibilityDefaultEngine *)self applyStrength:v26 toImage:settingsCopy settings:*strength];
 LABEL_23:
-        [containerCopy updateOrigImage:imageCopy shadowImage:v25 strengthenedShadowImage:v26 settings:settingsCopy engine:self isTemplate:v16 != 0 withStrength:strength context:0];
+        [containerCopy updateOrigImage:imageCopy shadowImage:v26 strengthenedShadowImage:v27 settings:settingsCopy engine:self isTemplate:v16 != 0 withStrength:strength context:0];
         goto LABEL_24;
       }
     }
 
     else
     {
-      v27 = MEMORY[0x1E69DCAB8];
+      v28 = MEMORY[0x1E69DCAB8];
       [imageCopy size];
-      v25 = [v27 sbui_legibilityImageForSettings:settingsCopy scale:imageCopy inputImage:1 inputSize:4 allowMinFillHeightHack:0 type:v20 pool:{v28, v29}];
-      v30 = SBLogLegibility();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+      v26 = [v28 sbui_legibilityImageForSettings:settingsCopy scale:imageCopy inputImage:1 inputSize:4 allowMinFillHeightHack:0 type:v20 pool:{v29, v30}];
+      v31 = SBLogLegibility(v26);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138413058;
         selfCopy3 = self;
-        v35 = 2112;
-        v36 = containerCopy;
-        v37 = 2112;
-        v38 = imageCopy;
-        v39 = 2048;
-        v40 = settingsCopy;
-        _os_log_impl(&dword_1A9A79000, v30, OS_LOG_TYPE_DEFAULT, "(%@) Drew legibility background image for view '%@' / image '%@', settings '%p'", buf, 0x2Au);
+        v36 = 2112;
+        v37 = containerCopy;
+        v38 = 2112;
+        v39 = imageCopy;
+        v40 = 2048;
+        v41 = settingsCopy;
+        _os_log_impl(&dword_1A9A79000, v31, OS_LOG_TYPE_DEFAULT, "(%@) Drew legibility background image for view '%@' / image '%@', settings '%p'", buf, 0x2Au);
       }
 
       if (strength)
@@ -183,25 +183,25 @@ LABEL_23:
       }
     }
 
-    v26 = 0;
+    v27 = 0;
     goto LABEL_23;
   }
 
-  v26 = SBLogLegibility();
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+  v27 = SBLogLegibility(v21);
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138413058;
     selfCopy3 = self;
-    v35 = 2112;
-    v36 = containerCopy;
-    v37 = 2112;
-    v38 = imageCopy;
-    v39 = 2048;
-    v40 = settingsCopy;
-    _os_log_debug_impl(&dword_1A9A79000, v26, OS_LOG_TYPE_DEBUG, "(%@) Skipping legibility background image generation for view '%@' / image '%@', settings '%p'; this is redundent", buf, 0x2Au);
+    v36 = 2112;
+    v37 = containerCopy;
+    v38 = 2112;
+    v39 = imageCopy;
+    v40 = 2048;
+    v41 = settingsCopy;
+    _os_log_debug_impl(&dword_1A9A79000, v27, OS_LOG_TYPE_DEBUG, "(%@) Skipping legibility background image generation for view '%@' / image '%@', settings '%p'; this is redundent", buf, 0x2Au);
   }
 
-  v25 = v16;
+  v26 = v16;
 LABEL_24:
 }
 
@@ -314,74 +314,75 @@ LABEL_24:
 
 void __107__SBUILegibilityDefaultEngine_executeAsyncLegibilityUpdateForContainer_image_settings_strength_completion___block_invoke(uint64_t a1)
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   v2 = *(*(*(a1 + 56) + 8) + 40);
-  if ([v2 isCancelled])
+  v3 = [v2 isCancelled];
+  if (v3)
   {
-    v3 = [MEMORY[0x1E696ABC0] errorWithDomain:SBUILegibilityErrorDomain code:3072 userInfo:0];
-    v4 = *(*(a1 + 64) + 8);
-    v5 = *(v4 + 40);
-    *(v4 + 40) = v3;
+    v4 = [MEMORY[0x1E696ABC0] errorWithDomain:SBUILegibilityErrorDomain code:3072 userInfo:0];
+    v5 = *(*(a1 + 64) + 8);
+    v6 = *(v5 + 40);
+    *(v5 + 40) = v4;
   }
 
   else
   {
-    v6 = SBLogLegibility();
-    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG);
+    v7 = SBLogLegibility(v3);
+    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
 
     Current = 0.0;
-    if (v7)
+    if (v8)
     {
       Current = CFAbsoluteTimeGetCurrent();
     }
 
     [*(a1 + 32) size];
-    v10 = SBUILegibilityImageSizeForContentSizeAndSettings(*(a1 + 40), v9);
-    v12 = v11;
-    v13 = *(*(a1 + 48) + 8);
+    v11 = SBUILegibilityImageSizeForContentSizeAndSettings(*(a1 + 40), v10);
+    v13 = v12;
+    v14 = *(*(a1 + 48) + 8);
     [*(a1 + 32) scale];
-    v15 = [v13 memoryPoolForGraphicsContextType:4 matchingSize:v10 scale:{v12, v14}];
-    v16 = MEMORY[0x1E69DCAB8];
-    v17 = *(a1 + 88);
-    v19 = *(a1 + 32);
-    v18 = *(a1 + 40);
-    [v19 size];
-    v22 = [v16 sbui_legibilityImageForSettings:v18 scale:v19 inputImage:0 inputSize:0 allowMinFillHeightHack:4 strength:v15 type:v17 pool:{v20, v21}];
-    v23 = *(*(a1 + 72) + 8);
-    v24 = *(v23 + 40);
-    *(v23 + 40) = v22;
+    v16 = [v14 memoryPoolForGraphicsContextType:4 matchingSize:v11 scale:{v13, v15}];
+    v17 = MEMORY[0x1E69DCAB8];
+    v18 = *(a1 + 88);
+    v20 = *(a1 + 32);
+    v19 = *(a1 + 40);
+    [v20 size];
+    v23 = [v17 sbui_legibilityImageForSettings:v19 scale:v20 inputImage:0 inputSize:0 allowMinFillHeightHack:4 strength:v16 type:v18 pool:{v21, v22}];
+    v24 = *(*(a1 + 72) + 8);
+    v25 = *(v24 + 40);
+    *(v24 + 40) = v23;
 
-    v25 = *(a1 + 96);
-    if (v25)
+    v27 = *(a1 + 96);
+    if (v27)
     {
-      v26 = *(*(*(a1 + 72) + 8) + 40);
-      v27 = *(a1 + 40);
-      v28 = *v25;
-      [v26 size];
-      v31 = [v26 sbui_strikeImageForLegibilitySettings:v27 strength:4 size:v15 type:v28 pool:{v29, v30}];
-      v32 = *(*(a1 + 80) + 8);
-      v33 = *(v32 + 40);
-      *(v32 + 40) = v31;
+      v28 = *(*(*(a1 + 72) + 8) + 40);
+      v29 = *(a1 + 40);
+      v30 = *v27;
+      [v28 size];
+      v33 = [v28 sbui_strikeImageForLegibilitySettings:v29 strength:4 size:v16 type:v30 pool:{v31, v32}];
+      v34 = *(*(a1 + 80) + 8);
+      v35 = *(v34 + 40);
+      *(v34 + 40) = v33;
     }
 
-    v34 = SBLogLegibility();
-    v35 = os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG);
+    v36 = SBLogLegibility(v26);
+    v37 = os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG);
 
-    if (v35)
+    if (v37)
     {
-      v36 = CFAbsoluteTimeGetCurrent();
-      v37 = SBLogLegibility();
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+      v38 = CFAbsoluteTimeGetCurrent();
+      v40 = SBLogLegibility(v39);
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
       {
-        v38 = *(a1 + 32);
-        v39 = *(a1 + 40);
-        v40 = 138412802;
-        v41 = v38;
-        v42 = 2048;
-        v43 = v39;
-        v44 = 2048;
-        v45 = v36 - Current;
-        _os_log_impl(&dword_1A9A79000, v37, OS_LOG_TYPE_DEFAULT, "Async Shadow Draw time for image '%@', settings '%p': '%f' seconds", &v40, 0x20u);
+        v41 = *(a1 + 32);
+        v42 = *(a1 + 40);
+        v43 = 138412802;
+        v44 = v41;
+        v45 = 2048;
+        v46 = v42;
+        v47 = 2048;
+        v48 = v38 - Current;
+        _os_log_impl(&dword_1A9A79000, v40, OS_LOG_TYPE_DEFAULT, "Async Shadow Draw time for image '%@', settings '%p': '%f' seconds", &v43, 0x20u);
       }
     }
   }
@@ -448,7 +449,7 @@ void __107__SBUILegibilityDefaultEngine_executeAsyncLegibilityUpdateForContainer
   width = minSize.width;
   v9 = size.height;
   v10 = size.width;
-  v52 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   settingsCopy = settings;
   if (!settingsCopy)
   {
@@ -459,37 +460,38 @@ void __107__SBUILegibilityDefaultEngine_executeAsyncLegibilityUpdateForContainer
   {
     selfCopy = self;
     objc_sync_enter(selfCopy);
-    if ([(SBUILegibilityCache *)selfCopy->_legibilityCache containsTemplateForSettings:settingsCopy])
+    v14 = [(SBUILegibilityCache *)selfCopy->_legibilityCache containsTemplateForSettings:settingsCopy];
+    if (v14)
     {
-      v14 = SBLogLegibility();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+      v15 = SBLogLegibility(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
-        v53.width = v10;
-        v53.height = v9;
-        v15 = NSStringFromCGSize(v53);
+        v55.width = v10;
+        v55.height = v9;
+        v16 = NSStringFromCGSize(v55);
         *buf = 138412802;
-        v47 = selfCopy;
-        v48 = 2048;
-        v49 = settingsCopy;
-        v50 = 2112;
-        v51 = v15;
-        _os_log_debug_impl(&dword_1A9A79000, v14, OS_LOG_TYPE_DEBUG, "(%@) Bailing; templateImageForSettings already exists for settings %p, maxSize %@", buf, 0x20u);
+        v49 = selfCopy;
+        v50 = 2048;
+        v51 = settingsCopy;
+        v52 = 2112;
+        v53 = v16;
+        _os_log_debug_impl(&dword_1A9A79000, v15, OS_LOG_TYPE_DEBUG, "(%@) Bailing; templateImageForSettings already exists for settings %p, maxSize %@", buf, 0x20u);
       }
     }
 
     else
     {
-      v16 = SBLogLegibility();
-      v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG);
+      v17 = SBLogLegibility(v14);
+      v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG);
 
       Current = 0.0;
-      if (v17)
+      if (v18)
       {
         Current = CFAbsoluteTimeGetCurrent();
       }
 
-      v19 = dispatch_group_create();
-      v20 = [(SBUILegibilityCache *)selfCopy->_legibilityCache memoryPoolForGraphicsContextType:4 matchingSize:SBUILegibilityImageSizeForContentSizeAndSettings(settingsCopy scale:v10)];
+      v20 = dispatch_group_create();
+      v21 = [(SBUILegibilityCache *)selfCopy->_legibilityCache memoryPoolForGraphicsContextType:4 matchingSize:SBUILegibilityImageSizeForContentSizeAndSettings(settingsCopy scale:v10)];
       if (!selfCopy->_prewarmQueue)
       {
         SerialWithQoS = BSDispatchQueueCreateSerialWithQoS();
@@ -499,43 +501,43 @@ void __107__SBUILegibilityDefaultEngine_executeAsyncLegibilityUpdateForContainer
 
       for (i = 0; i != 10; ++i)
       {
-        dispatch_group_enter(v19);
-        v24 = selfCopy->_prewarmQueue;
+        dispatch_group_enter(v20);
+        v25 = selfCopy->_prewarmQueue;
         block[0] = MEMORY[0x1E69E9820];
         block[1] = 3221225472;
         block[2] = __72__SBUILegibilityDefaultEngine_prewarmForSettings_maxSize_minSize_scale___block_invoke;
         block[3] = &unk_1E789FAA8;
-        v38 = i;
-        v39 = width;
-        v40 = height;
-        v41 = v10 - width;
+        v40 = i;
+        v41 = width;
+        v42 = height;
+        v43 = v10 - width;
         scaleCopy = scale;
-        v43 = v9 - height;
-        v25 = settingsCopy;
-        v34 = v25;
-        v26 = v20;
-        v35 = v26;
-        v36 = selfCopy;
-        v44 = v10;
-        v45 = v9;
-        v14 = v19;
-        v37 = v14;
-        dispatch_async(v24, block);
+        v45 = v9 - height;
+        v26 = settingsCopy;
+        v36 = v26;
+        v27 = v21;
+        v37 = v27;
+        v38 = selfCopy;
+        v46 = v10;
+        v47 = v9;
+        v15 = v20;
+        v39 = v15;
+        dispatch_async(v25, block);
       }
 
-      v27 = SBLogLegibility();
-      v28 = os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG);
+      v29 = SBLogLegibility(v28);
+      v30 = os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG);
 
-      if (v28)
+      if (v30)
       {
-        v30[0] = MEMORY[0x1E69E9820];
-        v30[1] = 3221225472;
-        v30[2] = __72__SBUILegibilityDefaultEngine_prewarmForSettings_maxSize_minSize_scale___block_invoke_31;
-        v30[3] = &unk_1E789DCF8;
-        v32 = Current;
-        v30[4] = selfCopy;
-        v31 = v25;
-        dispatch_group_notify(v14, MEMORY[0x1E69E96A0], v30);
+        v32[0] = MEMORY[0x1E69E9820];
+        v32[1] = 3221225472;
+        v32[2] = __72__SBUILegibilityDefaultEngine_prewarmForSettings_maxSize_minSize_scale___block_invoke_31;
+        v32[3] = &unk_1E789DCF8;
+        v34 = Current;
+        v32[4] = selfCopy;
+        v33 = v26;
+        dispatch_group_notify(v15, MEMORY[0x1E69E96A0], v32);
       }
     }
 
@@ -557,8 +559,7 @@ void __72__SBUILegibilityDefaultEngine_prewarmForSettings_maxSize_minSize_scale_
   v5 = [MEMORY[0x1E69DCAB8] sbui_legibilityImageForSettings:*(a1 + 32) scale:0 inputImage:1 inputSize:4 allowMinFillHeightHack:*(a1 + 40) type:*(a1 + 96) pool:{v23.size.width, v23.size.height}];
   if (v5)
   {
-    [*(*(a1 + 48) + 8) cacheTemplateShadowImage:v5 settings:*(a1 + 32) maxSize:{*(a1 + 112), *(a1 + 120)}];
-    v6 = SBLogLegibility();
+    v6 = SBLogLegibility([*(*(a1 + 48) + 8) cacheTemplateShadowImage:v5 settings:*(a1 + 32) maxSize:{*(a1 + 112), *(a1 + 120)}]);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = *(a1 + 48);
@@ -578,7 +579,7 @@ void __72__SBUILegibilityDefaultEngine_prewarmForSettings_maxSize_minSize_scale_
 
   else
   {
-    v6 = SBLogLegibility();
+    v6 = SBLogLegibility(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v10 = *(a1 + 48);
@@ -601,23 +602,23 @@ void __72__SBUILegibilityDefaultEngine_prewarmForSettings_maxSize_minSize_scale_
 
 void __72__SBUILegibilityDefaultEngine_prewarmForSettings_maxSize_minSize_scale___block_invoke_31(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   Current = CFAbsoluteTimeGetCurrent();
   v3 = *(a1 + 48);
-  v4 = SBLogLegibility();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = SBLogLegibility(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = *(a1 + 32);
-    v6 = *(a1 + 40);
-    v7 = 138413058;
-    v8 = v5;
-    v9 = 2048;
-    v10 = 10;
-    v11 = 2048;
-    v12 = v6;
-    v13 = 2048;
-    v14 = Current - v3;
-    _os_log_impl(&dword_1A9A79000, v4, OS_LOG_TYPE_DEFAULT, "(%@) Finished prewarm of %lu legibility backgrounds for settings %p in %f seconds", &v7, 0x2Au);
+    v6 = *(a1 + 32);
+    v7 = *(a1 + 40);
+    v8 = 138413058;
+    v9 = v6;
+    v10 = 2048;
+    v11 = 10;
+    v12 = 2048;
+    v13 = v7;
+    v14 = 2048;
+    v15 = Current - v3;
+    _os_log_impl(&dword_1A9A79000, v5, OS_LOG_TYPE_DEFAULT, "(%@) Finished prewarm of %lu legibility backgrounds for settings %p in %f seconds", &v8, 0x2Au);
   }
 }
 
@@ -678,8 +679,7 @@ id __62__SBUILegibilityDefaultEngine_applyStrength_toImage_settings___block_invo
   v10 = *MEMORY[0x1E69E9840];
   cachesCopy = caches;
   [(NSOperationQueue *)self->_asyncOperationQueue cancelAllOperations];
-  [(SBUILegibilityCache *)self->_legibilityCache removeAllObjects];
-  v5 = SBLogLegibility();
+  v5 = SBLogLegibility([(SBUILegibilityCache *)self->_legibilityCache removeAllObjects]);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412546;

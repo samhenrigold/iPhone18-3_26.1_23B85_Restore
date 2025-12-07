@@ -6,6 +6,8 @@
 - (MFWKWebViewFactory)init;
 - (MFWKWebViewFactory)initWithRemoteContentURLCache:(id)cache;
 - (WKProcessPool)processPool;
+- (id)_createConfiguration:(BOOL)configuration;
+- (id)_instantiateWebView:(BOOL)view;
 - (id)webView;
 - (void)contentRuleListManager:(id)manager didAddRuleList:(id)list;
 - (void)contentRuleListManager:(id)manager didRemoveRuleList:(id)list;
@@ -157,7 +159,7 @@ id __48__MFWKWebViewFactory_sharedWebViewFactoryFuture__block_invoke_2(uint64_t 
 
 - (WKProcessPool)processPool
 {
-  v19[3] = *MEMORY[0x277D85DE8];
+  v18[3] = *MEMORY[0x277D85DE8];
   processPool = self->_processPool;
   if (!processPool)
   {
@@ -172,26 +174,133 @@ id __48__MFWKWebViewFactory_sharedWebViewFactoryFuture__block_invoke_2(uint64_t 
     self->_processPool = v7;
 
     v9 = self->_processPool;
-    v18[0] = @"remoteContentProxySchemePrefix";
+    v17[0] = @"remoteContentProxySchemePrefix";
     schemePrefix = [(EMRemoteContentURLSchemeHandler *)self->_proxySchemeHandler schemePrefix];
-    v19[0] = schemePrefix;
-    v18[1] = @"remoteContentNoProxySchemePrefix";
+    v18[0] = schemePrefix;
+    v17[1] = @"remoteContentNoProxySchemePrefix";
     schemePrefix2 = [(EMRemoteContentURLSchemeHandler *)self->_noProxySchemeHandler schemePrefix];
-    v19[1] = schemePrefix2;
-    v18[2] = @"isMailPrivacyProtectionAllowed";
+    v18[1] = schemePrefix2;
+    v17[2] = @"isMailPrivacyProtectionAllowed";
     v12 = MEMORY[0x277CCABB0];
     mEMORY[0x277D262A0] = [MEMORY[0x277D262A0] sharedConnection];
     v14 = [v12 numberWithBool:{objc_msgSend(mEMORY[0x277D262A0], "isMailPrivacyProtectionAllowed")}];
-    v19[2] = v14;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:3];
+    v18[2] = v14;
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:3];
     [(WKProcessPool *)v9 _setObjectsForBundleParametersWithDictionary:v15];
 
     processPool = self->_processPool;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return processPool;
+}
+
+- (id)_instantiateWebView:(BOOL)view
+{
+  viewCopy = view;
+  v5 = objc_alloc(MEMORY[0x277CE3850]);
+  v6 = [(MFWKWebViewFactory *)self _createConfiguration:viewCopy];
+  v7 = [v5 initWithFrame:v6 configuration:{*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)}];
+
+  [v7 setAllowsLinkPreview:1];
+  scrollView = [v7 scrollView];
+  [scrollView setScrollsToTop:0];
+
+  scrollView2 = [v7 scrollView];
+  [scrollView2 setScrollEnabled:0];
+
+  scrollView3 = [v7 scrollView];
+  [scrollView3 setBouncesVertically:0];
+
+  clearColor = [MEMORY[0x277D75348] clearColor];
+  scrollView4 = [v7 scrollView];
+  [scrollView4 setBackgroundColor:clearColor];
+
+  scrollView5 = [v7 scrollView];
+  [scrollView5 setContentInsetAdjustmentBehavior:2];
+
+  scrollView6 = [v7 scrollView];
+  [scrollView6 _setIndicatorInsetAdjustmentBehavior:1];
+
+  [v7 _setObservedRenderingProgressEvents:{objc_msgSend(v7, "_observedRenderingProgressEvents") | 0x40}];
+
+  return v7;
+}
+
+- (id)_createConfiguration:(BOOL)configuration
+{
+  configurationCopy = configuration;
+  v24[1] = *MEMORY[0x277D85DE8];
+  commonWebViewConfiguration = [MEMORY[0x277D259B8] commonWebViewConfiguration];
+  [commonWebViewConfiguration _setAllowsMetaRefresh:0];
+  [commonWebViewConfiguration _setAttachmentElementEnabled:1];
+  if (_os_feature_enabled_impl() && (objc_opt_respondsToSelector() & 1) != 0)
+  {
+    [commonWebViewConfiguration _setAttachmentWideLayoutEnabled:1];
+  }
+
+  [commonWebViewConfiguration _setWaitsForPaintAfterViewDidMoveToWindow:0];
+  [commonWebViewConfiguration _setColorFilterEnabled:1];
+  [commonWebViewConfiguration setDataDetectorTypes:-1];
+  [commonWebViewConfiguration setSelectionGranularity:1];
+  preferences = [commonWebViewConfiguration preferences];
+  [preferences _setTextAutosizingEnabled:0];
+
+  preferences2 = [commonWebViewConfiguration preferences];
+  [preferences2 _setPunchOutWhiteBackgroundsInDarkMode:1];
+
+  defaultWebpagePreferences = [commonWebViewConfiguration defaultWebpagePreferences];
+  [defaultWebpagePreferences _setNetworkConnectionIntegrityPolicy:256];
+
+  processPool = [(MFWKWebViewFactory *)self processPool];
+  [commonWebViewConfiguration setProcessPool:processPool];
+
+  [commonWebViewConfiguration _setDelaysWebProcessLaunchUntilFirstLoad:configurationCopy];
+  v24[0] = *MEMORY[0x277D07108];
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
+  [commonWebViewConfiguration _setAdditionalSupportedImageTypes:v10];
+
+  if (objc_opt_respondsToSelector())
+  {
+    [commonWebViewConfiguration _setMarkedTextInputEnabled:1];
+  }
+
+  [(EMRemoteContentURLSchemeHandler *)self->_proxySchemeHandler setOnWebViewConfiguration:commonWebViewConfiguration];
+  [(EMRemoteContentURLSchemeHandler *)self->_noProxySchemeHandler setOnWebViewConfiguration:commonWebViewConfiguration];
+  mEMORY[0x277D25990] = [MEMORY[0x277D25990] sharedHandler];
+  [commonWebViewConfiguration setURLSchemeHandler:mEMORY[0x277D25990] forURLScheme:*MEMORY[0x277D28180]];
+
+  userContentController = [commonWebViewConfiguration userContentController];
+  v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v13 = +[MFUserScriptLibrary userScripts];
+  v14 = [v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  if (v14)
+  {
+    v15 = *v20;
+    do
+    {
+      for (i = 0; i != v14; ++i)
+      {
+        if (*v20 != v15)
+        {
+          objc_enumerationMutation(v13);
+        }
+
+        [userContentController addUserScript:*(*(&v19 + 1) + 8 * i)];
+      }
+
+      v14 = [v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    }
+
+    while (v14);
+  }
+
+  configurations = [(MFWKWebViewFactory *)self configurations];
+  [configurations addObject:commonWebViewConfiguration];
+
+  return commonWebViewConfiguration;
 }
 
 - (void)setContentRuleListManager:(id)manager
@@ -217,51 +326,51 @@ id __48__MFWKWebViewFactory_sharedWebViewFactoryFuture__block_invoke_2(uint64_t 
 
 void __48__MFWKWebViewFactory_setContentRuleListManager___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v2 = [*(a1 + 32) configurations];
-  v3 = [v2 countByEnumeratingWithState:&v16 objects:v21 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v15 objects:v20 count:16];
   if (v3)
   {
-    v4 = *v17;
+    v4 = *v16;
     do
     {
       v5 = 0;
       do
       {
-        if (*v17 != v4)
+        if (*v16 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        v6 = [*(*(&v16 + 1) + 8 * v5) userContentController];
-        v14 = 0u;
-        v15 = 0u;
-        v12 = 0u;
+        v6 = [*(*(&v15 + 1) + 8 * v5) userContentController];
         v13 = 0u;
+        v14 = 0u;
+        v11 = 0u;
+        v12 = 0u;
         v7 = *(a1 + 40);
-        v8 = [v7 countByEnumeratingWithState:&v12 objects:v20 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v11 objects:v19 count:16];
         if (v8)
         {
-          v9 = *v13;
+          v9 = *v12;
           do
           {
             v10 = 0;
             do
             {
-              if (*v13 != v9)
+              if (*v12 != v9)
               {
                 objc_enumerationMutation(v7);
               }
 
-              [v6 addContentRuleList:*(*(&v12 + 1) + 8 * v10++)];
+              [v6 addContentRuleList:*(*(&v11 + 1) + 8 * v10++)];
             }
 
             while (v8 != v10);
-            v8 = [v7 countByEnumeratingWithState:&v12 objects:v20 count:16];
+            v8 = [v7 countByEnumeratingWithState:&v11 objects:v19 count:16];
           }
 
           while (v8);
@@ -271,13 +380,11 @@ void __48__MFWKWebViewFactory_setContentRuleListManager___block_invoke(uint64_t 
       }
 
       while (v5 != v3);
-      v3 = [v2 countByEnumeratingWithState:&v16 objects:v21 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v15 objects:v20 count:16];
     }
 
     while (v3);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)preallocateWebViews
@@ -375,40 +482,38 @@ uint64_t __41__MFWKWebViewFactory_preallocateWebViews__block_invoke(uint64_t a1)
 
 void __60__MFWKWebViewFactory_contentRuleListManager_didAddRuleList___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = [*(a1 + 32) configurations];
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
-    v4 = *v9;
+    v4 = *v8;
     do
     {
       v5 = 0;
       do
       {
-        if (*v9 != v4)
+        if (*v8 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        v6 = [*(*(&v8 + 1) + 8 * v5) userContentController];
+        v6 = [*(*(&v7 + 1) + 8 * v5) userContentController];
         [v6 addContentRuleList:*(a1 + 40)];
 
         ++v5;
       }
 
       while (v3 != v5);
-      v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v3);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)contentRuleListManager:(id)manager didUpdateContentRuleList:(id)list oldContentRuleList:(id)ruleList
@@ -430,27 +535,27 @@ void __60__MFWKWebViewFactory_contentRuleListManager_didAddRuleList___block_invo
 
 void __89__MFWKWebViewFactory_contentRuleListManager_didUpdateContentRuleList_oldContentRuleList___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = [*(a1 + 32) configurations];
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
-    v4 = *v9;
+    v4 = *v8;
     do
     {
       v5 = 0;
       do
       {
-        if (*v9 != v4)
+        if (*v8 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        v6 = [*(*(&v8 + 1) + 8 * v5) userContentController];
+        v6 = [*(*(&v7 + 1) + 8 * v5) userContentController];
         [v6 removeContentRuleList:*(a1 + 40)];
         [v6 addContentRuleList:*(a1 + 48)];
 
@@ -458,13 +563,11 @@ void __89__MFWKWebViewFactory_contentRuleListManager_didUpdateContentRuleList_ol
       }
 
       while (v3 != v5);
-      v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v3);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)contentRuleListManager:(id)manager didRemoveRuleList:(id)list
@@ -480,40 +583,38 @@ void __89__MFWKWebViewFactory_contentRuleListManager_didUpdateContentRuleList_ol
 
 void __63__MFWKWebViewFactory_contentRuleListManager_didRemoveRuleList___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = [*(a1 + 32) configurations];
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
-    v4 = *v9;
+    v4 = *v8;
     do
     {
       v5 = 0;
       do
       {
-        if (*v9 != v4)
+        if (*v8 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        v6 = [*(*(&v8 + 1) + 8 * v5) userContentController];
+        v6 = [*(*(&v7 + 1) + 8 * v5) userContentController];
         [v6 removeContentRuleList:*(a1 + 40)];
 
         ++v5;
       }
 
       while (v3 != v5);
-      v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v3);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

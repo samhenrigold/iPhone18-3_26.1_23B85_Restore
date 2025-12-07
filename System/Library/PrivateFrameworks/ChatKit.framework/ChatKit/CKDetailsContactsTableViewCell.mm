@@ -582,38 +582,39 @@
 
 - (void)_formatExpanseStatusLabel
 {
-  if ([(CKDetailsContactsTableViewCell *)self tuConversationStatusIsActive])
+  tuConversationStatusIsActive = [(CKDetailsContactsTableViewCell *)self tuConversationStatusIsActive];
+  if (tuConversationStatusIsActive)
   {
-    v3 = objc_alloc_init(MEMORY[0x1E69DB7F0]);
-    v4 = MEMORY[0x1E69DCAD8];
-    v5 = +[CKUIBehavior sharedBehaviors];
-    locationSubtitleFont = [v5 locationSubtitleFont];
-    v7 = [v4 configurationWithFont:locationSubtitleFont scale:1];
+    v4 = objc_alloc_init(MEMORY[0x1E69DB7F0]);
+    v5 = MEMORY[0x1E69DCAD8];
+    v6 = +[CKUIBehavior sharedBehaviors];
+    locationSubtitleFont = [v6 locationSubtitleFont];
+    v8 = [v5 configurationWithFont:locationSubtitleFont scale:1];
 
     callType = [(CKDetailsContactsTableViewCell *)self callType];
     if ((callType - 1) > 2)
     {
-      v9 = &stru_1F04268F8;
+      v10 = &stru_1F04268F8;
     }
 
     else
     {
-      v9 = off_1E72F57B8[callType - 1];
+      v10 = off_1E72F57B8[callType - 1];
     }
 
-    v11 = [MEMORY[0x1E69DCAB8] systemImageNamed:v9 withConfiguration:v7];
-    v12 = [v11 imageWithRenderingMode:2];
-    [v3 setImage:v12];
+    v12 = [MEMORY[0x1E69DCAB8] systemImageNamed:v10 withConfiguration:v8];
+    v13 = [v12 imageWithRenderingMode:2];
+    [v4 setImage:v13];
 
     expanseStatusLabel2 = [objc_alloc(MEMORY[0x1E696AD40]) initWithString:&stru_1F04268F8];
-    v13 = [MEMORY[0x1E696AAB0] attributedStringWithAttachment:v3];
-    [expanseStatusLabel2 appendAttributedString:v13];
+    v14 = [MEMORY[0x1E696AAB0] attributedStringWithAttachment:v4];
+    [expanseStatusLabel2 appendAttributedString:v14];
 
-    v14 = objc_alloc(MEMORY[0x1E696AAB0]);
-    v15 = CKFrameworkBundle();
-    v16 = [v15 localizedStringForKey:@"ACTIVE_FACETIME" value:&stru_1F04268F8 table:@"ChatKit"];
-    v17 = [v14 initWithString:v16];
-    [expanseStatusLabel2 appendAttributedString:v17];
+    v15 = objc_alloc(MEMORY[0x1E696AAB0]);
+    v16 = CKFrameworkBundle(v15);
+    v17 = [v16 localizedStringForKey:@"ACTIVE_FACETIME" value:&stru_1F04268F8 table:@"ChatKit"];
+    v18 = [v15 initWithString:v17];
+    [expanseStatusLabel2 appendAttributedString:v18];
 
     expanseStatusLabel = [(CKDetailsContactsTableViewCell *)self expanseStatusLabel];
     [expanseStatusLabel setAttributedText:expanseStatusLabel2];
@@ -621,10 +622,10 @@
 
   else
   {
-    v3 = CKFrameworkBundle();
-    v7 = [v3 localizedStringForKey:@"INVITED_FACETIME" value:&stru_1F04268F8 table:@"ChatKit"];
+    v4 = CKFrameworkBundle(tuConversationStatusIsActive);
+    v8 = [v4 localizedStringForKey:@"INVITED_FACETIME" value:&stru_1F04268F8 table:@"ChatKit"];
     expanseStatusLabel2 = [(CKDetailsContactsTableViewCell *)self expanseStatusLabel];
-    [expanseStatusLabel2 setText:v7];
+    [expanseStatusLabel2 setText:v8];
   }
 
   expanseStatusLabel3 = [(CKDetailsContactsTableViewCell *)self expanseStatusLabel];

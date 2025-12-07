@@ -161,9 +161,9 @@ void __47__MRUNowPlayingTimeControlsView_initWithFrame___block_invoke(uint64_t a
 
 - (void)layoutSubviews
 {
-  v91.receiver = self;
-  v91.super_class = MRUNowPlayingTimeControlsView;
-  [(MRUNowPlayingTimeControlsView *)&v91 layoutSubviews];
+  v103.receiver = self;
+  v103.super_class = MRUNowPlayingTimeControlsView;
+  [(MRUNowPlayingTimeControlsView *)&v103 layoutSubviews];
   if ([(MRUTimeControls *)self->_timeControls isLive])
   {
     [(MRUNowPlayingTimeControlsView *)self layoutSubviewsLive];
@@ -181,238 +181,238 @@ void __47__MRUNowPlayingTimeControlsView_initWithFrame___block_invoke(uint64_t a
   layout = self->_layout;
   if (layout == 4)
   {
-    v100.origin.x = v4;
-    v100.origin.y = v6;
-    v100.size.width = v8;
-    v100.size.height = v10;
-    MinX = CGRectGetMinX(v100);
-    v101.origin.x = v4;
-    v101.origin.y = v6;
-    v101.size.width = v8;
-    v101.size.height = v10;
-    MinY = CGRectGetMinY(v101);
-    v102.origin.x = v4;
-    v102.origin.y = v6;
-    v102.size.width = v8;
-    v102.size.height = v10;
-    Width = CGRectGetWidth(v102);
+    v112.origin.x = v4;
+    v112.origin.y = v6;
+    v112.size.width = v8;
+    v112.size.height = v10;
+    MinX = CGRectGetMinX(v112);
+    v113.origin.x = v4;
+    v113.origin.y = v6;
+    v113.size.width = v8;
+    v113.size.height = v10;
+    MinY = CGRectGetMinY(v113);
+    v114.origin.x = v4;
+    v114.origin.y = v6;
+    v114.size.width = v8;
+    v114.size.height = v10;
+    Width = CGRectGetWidth(v114);
     sliderHeight = self->_sliderHeight;
     [(MRUSlider *)self->_slider setFrame:MinX, MinY, Width, sliderHeight];
-    v103.origin.x = MinX;
-    v103.origin.y = MinY;
-    v103.size.width = Width;
-    v103.size.height = sliderHeight;
-    CGRectGetMaxY(v103);
+    v115.origin.x = MinX;
+    v115.origin.y = MinY;
+    v115.size.width = Width;
+    v115.size.height = sliderHeight;
+    CGRectGetMaxY(v115);
     UIRectInset();
-    v33 = v32;
-    v86 = v32;
-    v35 = v34;
     v37 = v36;
+    v98 = v36;
     v39 = v38;
-    [(UILabel *)self->_elapsedTimeLabel sizeThatFits:v36, v38];
-    MRUSizeCeilToViewScale(self);
-    v104.origin.x = v33;
-    v104.origin.y = v35;
-    v104.size.width = v37;
-    v104.size.height = v39;
-    CGRectGetMinY(v104);
+    v41 = v40;
+    v43 = v42;
+    [(UILabel *)self->_elapsedTimeLabel sizeThatFits:v40, v42];
+    MRUSizeCeilToViewScale(self, v44, v45);
+    v116.origin.x = v37;
+    v116.origin.y = v39;
+    v116.size.width = v41;
+    v116.size.height = v43;
+    CGRectGetMinY(v116);
     UIRectIntegralWithScale();
     [(UILabel *)self->_elapsedTimeLabel setFrame:?];
-    [(UILabel *)self->_remainingTimeLabel sizeThatFits:v37, v39];
-    MRUSizeCeilToViewScale(self);
-    v105.origin.x = v86;
-    v105.origin.y = v35;
-    v105.size.width = v37;
-    v105.size.height = v39;
-    CGRectGetMaxX(v105);
-    v106.origin.x = v86;
-    v106.origin.y = v35;
-    v106.size.width = v37;
-    v106.size.height = v39;
+    [(UILabel *)self->_remainingTimeLabel sizeThatFits:v41, v43];
+    MRUSizeCeilToViewScale(self, v46, v47);
+    v117.origin.x = v98;
+    v117.origin.y = v39;
+    v117.size.width = v41;
+    v117.size.height = v43;
+    CGRectGetMaxX(v117);
+    v118.origin.x = v98;
+    v118.origin.y = v39;
+    v118.size.width = v41;
+    v118.size.height = v43;
     v13 = MinX;
     v16 = MinY;
-    CGRectGetMinY(v106);
+    CGRectGetMinY(v118);
     goto LABEL_9;
   }
 
   if (layout == 3)
   {
-    v94.origin.x = v4;
-    v94.origin.y = v6;
-    v94.size.width = v8;
-    v94.size.height = v10;
-    CGRectGetMinX(v94);
-    v95.origin.x = v4;
-    v95.origin.y = v6;
-    v95.size.width = v8;
-    v95.size.height = v10;
-    CGRectGetWidth(v95);
+    v106.origin.x = v4;
+    v106.origin.y = v6;
+    v106.size.width = v8;
+    v106.size.height = v10;
+    CGRectGetMinX(v106);
+    v107.origin.x = v4;
+    v107.origin.y = v6;
+    v107.size.width = v8;
+    v107.size.height = v10;
+    CGRectGetWidth(v107);
     traitCollection2 = [(MRUNowPlayingTimeControlsView *)self traitCollection];
     [traitCollection2 displayScale];
-    v82 = v18;
+    v94 = v18;
     UIRectCenteredYInRectScale();
     v13 = v19;
     v21 = v20;
-    v87 = v22;
-    v89 = v20;
+    v99 = v22;
+    v101 = v20;
     v23 = v22;
     sliderHeight = v24;
 
-    [(MRUSlider *)self->_slider setFrame:v13, v21, v23, sliderHeight, v82];
-    v96.origin.x = v13;
-    v96.origin.y = v21;
-    v96.size.width = v23;
-    v96.size.height = sliderHeight;
-    CGRectGetMaxY(v96);
+    [(MRUSlider *)self->_slider setFrame:v13, v21, v23, sliderHeight, v94];
+    v108.origin.x = v13;
+    v108.origin.y = v21;
+    v108.size.width = v23;
+    v108.size.height = sliderHeight;
+    CGRectGetMaxY(v108);
     UIRectInset();
     v26 = v25;
-    v85 = v27;
+    v97 = v27;
     v29 = v28;
     v31 = v30;
     [(UILabel *)self->_elapsedTimeLabel sizeThatFits:v28, v30];
-    MRUSizeCeilToViewScale(self);
-    v97.origin.x = v26;
-    v97.origin.y = v85;
-    v97.size.width = v29;
-    v97.size.height = v31;
-    CGRectGetMinY(v97);
+    MRUSizeCeilToViewScale(self, v32, v33);
+    v109.origin.x = v26;
+    v109.origin.y = v97;
+    v109.size.width = v29;
+    v109.size.height = v31;
+    CGRectGetMinY(v109);
     UIRectIntegralWithScale();
     [(UILabel *)self->_elapsedTimeLabel setFrame:?];
     [(UILabel *)self->_remainingTimeLabel sizeThatFits:v29, v31];
-    MRUSizeCeilToViewScale(self);
-    v98.origin.x = v26;
-    v98.origin.y = v85;
-    v98.size.width = v29;
-    v98.size.height = v31;
-    CGRectGetMaxX(v98);
-    v99.origin.x = v26;
-    v99.origin.y = v85;
-    v99.size.width = v29;
-    v99.size.height = v31;
-    v16 = v89;
-    CGRectGetMinY(v99);
-    Width = v87;
+    MRUSizeCeilToViewScale(self, v34, v35);
+    v110.origin.x = v26;
+    v110.origin.y = v97;
+    v110.size.width = v29;
+    v110.size.height = v31;
+    CGRectGetMaxX(v110);
+    v111.origin.x = v26;
+    v111.origin.y = v97;
+    v111.size.width = v29;
+    v111.size.height = v31;
+    v16 = v101;
+    CGRectGetMinY(v111);
+    Width = v99;
 LABEL_9:
     UIRectIntegralWithScale();
     remainingTimeLabel = self->_remainingTimeLabel;
 LABEL_15:
-    [remainingTimeLabel setFrame:{v40, v41, v42, v43, v81}];
+    [remainingTimeLabel setFrame:{v48, v49, v50, v51, v93}];
     goto LABEL_16;
   }
 
   if (layout != 2)
   {
     [(UILabel *)self->_elapsedTimeLabel sizeThatFits:v8, v10];
-    MRUSizeCeilToViewScale(self);
+    MRUSizeCeilToViewScale(self, v53, v54);
     traitCollection3 = [(MRUNowPlayingTimeControlsView *)self traitCollection];
     [traitCollection3 displayScale];
-    v83 = v46;
+    v95 = v56;
     UIRectCenteredYInRectScale();
-    v48 = v47;
-    v50 = v49;
-    v52 = v51;
-    v54 = v53;
+    v58 = v57;
+    v60 = v59;
+    v62 = v61;
+    v64 = v63;
 
-    [(UILabel *)self->_elapsedTimeLabel setFrame:v48, v50, v52, v54, v83];
+    [(UILabel *)self->_elapsedTimeLabel setFrame:v58, v60, v62, v64, v95];
     if (([(UILabel *)self->_elapsedTimeLabel isHidden]& 1) == 0)
     {
-      v107.origin.x = v48;
-      v107.origin.y = v50;
-      v107.size.width = v52;
-      v107.size.height = v54;
-      CGRectGetWidth(v107);
+      v119.origin.x = v58;
+      v119.origin.y = v60;
+      v119.size.width = v62;
+      v119.size.height = v64;
+      CGRectGetWidth(v119);
       UIRectInset();
-      v4 = v55;
-      v6 = v56;
-      v8 = v57;
-      v10 = v58;
+      v4 = v65;
+      v6 = v66;
+      v8 = v67;
+      v10 = v68;
     }
 
     [(UILabel *)self->_remainingTimeLabel sizeThatFits:v8, v10];
-    MRUSizeCeilToViewScale(self);
-    v108.origin.x = v4;
-    v108.origin.y = v6;
-    v108.size.width = v8;
-    v108.size.height = v10;
-    CGRectGetMaxX(v108);
+    MRUSizeCeilToViewScale(self, v69, v70);
+    v120.origin.x = v4;
+    v120.origin.y = v6;
+    v120.size.width = v8;
+    v120.size.height = v10;
+    CGRectGetMaxX(v120);
     traitCollection4 = [(MRUNowPlayingTimeControlsView *)self traitCollection];
     [traitCollection4 displayScale];
-    v84 = v60;
+    v96 = v72;
     UIRectCenteredYInRectScale();
-    v62 = v61;
-    v64 = v63;
-    v66 = v65;
-    v68 = v67;
+    v74 = v73;
+    v76 = v75;
+    v78 = v77;
+    v80 = v79;
 
-    [(UILabel *)self->_remainingTimeLabel setFrame:v62, v64, v66, v68, v84];
+    [(UILabel *)self->_remainingTimeLabel setFrame:v74, v76, v78, v80, v96];
     if (([(UILabel *)self->_remainingTimeLabel isHidden]& 1) == 0)
     {
-      v109.origin.x = v62;
-      v109.origin.y = v64;
-      v109.size.width = v66;
-      v109.size.height = v68;
-      CGRectGetWidth(v109);
+      v121.origin.x = v74;
+      v121.origin.y = v76;
+      v121.size.width = v78;
+      v121.size.height = v80;
+      CGRectGetWidth(v121);
       UIRectInset();
-      v4 = v69;
-      v6 = v70;
-      v8 = v71;
-      v10 = v72;
+      v4 = v81;
+      v6 = v82;
+      v8 = v83;
+      v10 = v84;
     }
 
-    v110.origin.x = v4;
-    v110.origin.y = v6;
-    v110.size.width = v8;
-    v110.size.height = v10;
-    CGRectGetMinX(v110);
-    v111.origin.x = v4;
-    v111.origin.y = v6;
-    v111.size.width = v8;
-    v111.size.height = v10;
-    CGRectGetWidth(v111);
+    v122.origin.x = v4;
+    v122.origin.y = v6;
+    v122.size.width = v8;
+    v122.size.height = v10;
+    CGRectGetMinX(v122);
+    v123.origin.x = v4;
+    v123.origin.y = v6;
+    v123.size.width = v8;
+    v123.size.height = v10;
+    CGRectGetWidth(v123);
     traitCollection5 = [(MRUNowPlayingTimeControlsView *)self traitCollection];
     [traitCollection5 displayScale];
-    v81 = v74;
+    v93 = v86;
     UIRectCenteredYInRectScale();
-    v13 = v75;
-    v16 = v76;
-    Width = v77;
-    sliderHeight = v78;
+    v13 = v87;
+    v16 = v88;
+    Width = v89;
+    sliderHeight = v90;
 
     remainingTimeLabel = self->_slider;
-    v40 = v13;
-    v41 = v16;
-    v42 = Width;
-    v43 = sliderHeight;
+    v48 = v13;
+    v49 = v16;
+    v50 = Width;
+    v51 = sliderHeight;
     goto LABEL_15;
   }
 
-  v92.origin.x = v4;
-  v92.origin.y = v6;
-  v92.size.width = v8;
-  v92.size.height = v10;
-  v13 = CGRectGetMinX(v92);
-  v93.origin.x = v4;
-  v93.origin.y = v6;
-  v93.size.width = v8;
-  v93.size.height = v10;
-  Width = CGRectGetWidth(v93);
+  v104.origin.x = v4;
+  v104.origin.y = v6;
+  v104.size.width = v8;
+  v104.size.height = v10;
+  v13 = CGRectGetMinX(v104);
+  v105.origin.x = v4;
+  v105.origin.y = v6;
+  v105.size.width = v8;
+  v105.size.height = v10;
+  Width = CGRectGetWidth(v105);
   sliderHeight = self->_sliderHeight;
   v16 = 0.0;
   [(MRUSlider *)self->_slider setFrame:v13, 0.0, Width, sliderHeight];
   [(MRUNowPlayingTimeControlsView *)self layoutTimeLabels];
 LABEL_16:
-  v112.origin.x = v13;
-  v112.origin.y = v16;
-  v112.size.width = Width;
-  v112.size.height = sliderHeight;
-  v79 = -CGRectGetMinX(v112);
-  v113.origin.x = v13;
-  v113.origin.y = v16;
-  v113.size.width = Width;
-  v113.size.height = sliderHeight;
-  MaxX = CGRectGetMaxX(v113);
+  v124.origin.x = v13;
+  v124.origin.y = v16;
+  v124.size.width = Width;
+  v124.size.height = sliderHeight;
+  v91 = -CGRectGetMinX(v124);
+  v125.origin.x = v13;
+  v125.origin.y = v16;
+  v125.size.width = Width;
+  v125.size.height = sliderHeight;
+  MaxX = CGRectGetMaxX(v125);
   [(MRUNowPlayingTimeControlsView *)self bounds];
-  [(MRUSlider *)self->_slider setHitRectInset:-24.0, v79, -24.0, MaxX - CGRectGetWidth(v114)];
+  [(MRUSlider *)self->_slider setHitRectInset:-24.0, v91, -24.0, MaxX - CGRectGetWidth(v126)];
 }
 
 - (void)layoutSubviewsLive
@@ -478,37 +478,37 @@ LABEL_16:
     v11 = v10;
     v13 = v12;
     [(UILabel *)self->_elapsedTimeLabel sizeThatFits:v10, v12];
-    v32 = MRUSizeCeilToViewScale(self);
-    v33 = v14;
-    v15 = v14;
-    v37.origin.x = v7;
-    v37.origin.y = v9;
-    v37.size.width = v11;
-    v37.size.height = v13;
-    v16 = v3;
-    v17 = v3 + CGRectGetMinY(v37);
+    v36 = MRUSizeCeilToViewScale(self, v14, v15);
+    v37 = v16;
+    v17 = v16;
+    v41.origin.x = v7;
+    v41.origin.y = v9;
+    v41.size.width = v11;
+    v41.size.height = v13;
+    v18 = v3;
+    v19 = v3 + CGRectGetMinY(v41);
     [(UILabel *)self->_elapsedTimeLabel bounds];
-    v34 = v18;
-    v35 = v19;
-    [(UILabel *)self->_elapsedTimeLabel setFrame:0.0, v17, v32, v15];
+    v38 = v20;
+    v39 = v21;
+    [(UILabel *)self->_elapsedTimeLabel setFrame:0.0, v19, v36, v17];
     [(UILabel *)self->_remainingTimeLabel sizeThatFits:v11, v13];
-    v20 = MRUSizeCeilToViewScale(self);
-    v22 = v21;
-    v38.origin.x = v7;
-    v38.origin.y = v9;
-    v38.size.width = v11;
-    v38.size.height = v13;
-    v23 = CGRectGetMaxX(v38) - v20;
-    v39.origin.x = v7;
-    v39.origin.y = v9;
-    v39.size.width = v11;
-    v39.size.height = v13;
-    v24 = v16 + CGRectGetMinY(v39);
-    [(UILabel *)self->_remainingTimeLabel bounds];
+    v24 = MRUSizeCeilToViewScale(self, v22, v23);
     v26 = v25;
-    v28 = v27;
-    [(UILabel *)self->_remainingTimeLabel setFrame:v23, v24, v20, v22];
-    if (v34 != v32 || v35 != v33 || v26 != v20 || v28 != v22)
+    v42.origin.x = v7;
+    v42.origin.y = v9;
+    v42.size.width = v11;
+    v42.size.height = v13;
+    v27 = CGRectGetMaxX(v42) - v24;
+    v43.origin.x = v7;
+    v43.origin.y = v9;
+    v43.size.width = v11;
+    v43.size.height = v13;
+    v28 = v18 + CGRectGetMinY(v43);
+    [(UILabel *)self->_remainingTimeLabel bounds];
+    v30 = v29;
+    v32 = v31;
+    [(UILabel *)self->_remainingTimeLabel setFrame:v27, v28, v24, v26];
+    if (v38 != v36 || v39 != v37 || v30 != v24 || v32 != v26)
     {
 
       [(MRUNowPlayingTimeControlsView *)self invalidateIntrinsicContentSize];
@@ -521,20 +521,20 @@ LABEL_16:
   if (self->_layout == 2)
   {
     [(UILabel *)self->_elapsedTimeLabel intrinsicContentSize];
-    MRUSizeCeilToViewScale(self);
-    v4 = v3 + self->_sliderHeight + 6.0;
-    v5 = 0.0;
+    MRUSizeCeilToViewScale(self, v3, v4);
+    v6 = v5 + self->_sliderHeight + 6.0;
+    v7 = 0.0;
   }
 
   else
   {
-    v6.receiver = self;
-    v6.super_class = MRUNowPlayingTimeControlsView;
-    [(MRUNowPlayingTimeControlsView *)&v6 intrinsicContentSize];
+    v8.receiver = self;
+    v8.super_class = MRUNowPlayingTimeControlsView;
+    [(MRUNowPlayingTimeControlsView *)&v8 intrinsicContentSize];
   }
 
-  result.height = v4;
-  result.width = v5;
+  result.height = v6;
+  result.width = v7;
   return result;
 }
 
@@ -600,7 +600,7 @@ LABEL_10:
   [controlsCopy startTime];
   *&v9 = v9;
   [(MRUSlider *)self->_slider setMinimumValue:v9];
-  [controlsCopy duration];
+  objc_msgSend_duration(controlsCopy);
   *&v10 = v10;
   [(MRUSlider *)self->_slider setMaximumValue:v10];
   scrubbable = [controlsCopy scrubbable];
@@ -877,24 +877,24 @@ LABEL_10:
 
 - (void)updateDisplayLinkPaused
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v4 = ([(MRUSlider *)self->_slider isTracking]& 1) != 0 || ([(MRUTimeControls *)self->_timeControls rate], v3 == 0.0) || ![(MRUTimeControls *)self->_timeControls isEnabled]|| self->_timeControls == 0;
-  [(CADisplayLink *)self->_displayLink setPaused:v4];
+  v5 = [(CADisplayLink *)self->_displayLink setPaused:v4];
   if (self->_debugPreviousDisplayLinkPaused != v4)
   {
-    v5 = MCLogCategoryDefault();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = MCLogCategoryDefault(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = objc_opt_class();
+      v7 = objc_opt_class();
       isTracking = [(MRUSlider *)self->_slider isTracking];
       timeControls = self->_timeControls;
-      v9 = 138543874;
-      v10 = v6;
-      v11 = 1024;
-      v12 = isTracking;
-      v13 = 2114;
-      v14 = timeControls;
-      _os_log_impl(&dword_1A20FC000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ updateDisplayLinkPaused tracking: %{BOOL}u | time controls: %{public}@", &v9, 0x1Cu);
+      v10 = 138543874;
+      v11 = v7;
+      v12 = 1024;
+      v13 = isTracking;
+      v14 = 2114;
+      v15 = timeControls;
+      _os_log_impl(&dword_1A20FC000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ updateDisplayLinkPaused tracking: %{BOOL}u | time controls: %{public}@", &v10, 0x1Cu);
     }
 
     self->_debugPreviousDisplayLinkPaused = v4;
@@ -929,7 +929,7 @@ LABEL_10:
 
 - (void)updateElapsedTimeWithElapsedTime:(double)time
 {
-  [(MRUTimeControls *)self->_timeControls duration];
+  objc_msgSend_duration(self->_timeControls, a2);
   if (v5 <= time)
   {
     time = v5;
@@ -937,7 +937,7 @@ LABEL_10:
 
   v13 = [(AVTimeFormatter *)self->_elapsedTimeFormatter stringFromSeconds:time];
   remainingTimeFormatter = self->_remainingTimeFormatter;
-  [(MRUTimeControls *)self->_timeControls duration];
+  objc_msgSend_duration(self->_timeControls);
   time = [(AVTimeFormatter *)remainingTimeFormatter stringFromSeconds:v7 - time];
   traitCollection = [(MRUNowPlayingTimeControlsView *)self traitCollection];
   if ([traitCollection mr_shouldDim])

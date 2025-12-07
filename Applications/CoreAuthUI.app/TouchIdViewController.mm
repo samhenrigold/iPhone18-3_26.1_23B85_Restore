@@ -10,8 +10,11 @@
 - (void)_setupUI;
 - (void)didReceiveAuthenticationData;
 - (void)dismissChildWithCompletionHandler:(id)handler;
+- (void)dismissViewControllerAnimated:(BOOL)animated completion:(id)completion;
 - (void)loadView;
 - (void)mechanismEvent:(int64_t)event value:(id)value reply:(id)reply;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidMoveToWindow:(id)window shouldAppearOrDisappear:(BOOL)disappear;
 @end
 
 @implementation TouchIdViewController
@@ -29,6 +32,47 @@
   self->_viewModel = v5;
 
   [(TouchIdViewController *)self _setupUI];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v7.receiver = self;
+  v7.super_class = TouchIdViewController;
+  [(TransitionViewController *)&v7 viewDidAppear:appear];
+  if (!self->_state)
+  {
+    self->_state = 1;
+    objc_initWeak(&location, self);
+    v4[0] = _NSConcreteStackBlock;
+    v4[1] = 3221225472;
+    v4[2] = sub_10000BAFC;
+    v4[3] = &unk_1000963B8;
+    objc_copyWeak(&v5, &location);
+    dispatch_async(&_dispatch_main_q, v4);
+    objc_destroyWeak(&v5);
+    objc_destroyWeak(&location);
+  }
+}
+
+- (void)viewDidMoveToWindow:(id)window shouldAppearOrDisappear:(BOOL)disappear
+{
+  v10.receiver = self;
+  v10.super_class = TouchIdViewController;
+  [(TouchIdViewController *)&v10 viewDidMoveToWindow:window shouldAppearOrDisappear:disappear];
+  viewModel = self->_viewModel;
+  options = [(TransitionViewController *)self options];
+  v7 = [(TouchIdViewModel *)viewModel alertTintFromOptions:options];
+  view = [(TouchIdViewController *)self view];
+  window = [view window];
+  [window setTintColor:v7];
+}
+
+- (void)dismissViewControllerAnimated:(BOOL)animated completion:(id)completion
+{
+  v5.receiver = self;
+  v5.super_class = TouchIdViewController;
+  [(TouchIdViewController *)&v5 dismissViewControllerAnimated:animated completion:completion];
+  self->_state = 6;
 }
 
 - (void)_setupUI

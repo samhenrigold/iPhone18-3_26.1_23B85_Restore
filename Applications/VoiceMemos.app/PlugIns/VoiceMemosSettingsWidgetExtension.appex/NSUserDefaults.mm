@@ -9,6 +9,8 @@
 - (void)rc_setAudioQuality:(int64_t)quality;
 - (void)rc_setChannelConfiguration:(int64_t)configuration;
 - (void)rc_setRecentlyDeletedWindow:(int64_t)window;
+- (void)rc_setUseLocationBasedNaming:(BOOL)naming;
+- (void)rc_setUseStereoRecording:(BOOL)recording;
 - (void)settingsChangedPostNotification;
 @end
 
@@ -103,6 +105,13 @@
   return bOOLValue;
 }
 
+- (void)rc_setUseLocationBasedNaming:(BOOL)naming
+{
+  [(NSUserDefaults *)self setBool:naming forKey:@"RCVoiceMemosUseLocationBasedNaming"];
+
+  [(NSUserDefaults *)self settingsChangedPostNotification];
+}
+
 - (BOOL)rc_useStereoRecording
 {
   v2 = [(NSUserDefaults *)self objectForKey:@"RCVoiceMemosStereoRecordingKey"];
@@ -118,6 +127,13 @@
   }
 
   return bOOLValue;
+}
+
+- (void)rc_setUseStereoRecording:(BOOL)recording
+{
+  [(NSUserDefaults *)self setBool:recording forKey:@"RCVoiceMemosStereoRecordingKey"];
+
+  [(NSUserDefaults *)self settingsChangedPostNotification];
 }
 
 - (void)settingsChangedPostNotification

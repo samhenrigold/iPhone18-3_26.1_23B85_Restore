@@ -82,28 +82,27 @@ LABEL_8:
 
 - (BOOL)handleHIDReport:(id)report
 {
-  ioDevice = self->_ioDevice;
   reportCopy = report;
   reportCopy2 = report;
   [reportCopy2 bytes];
   [reportCopy2 length];
 
-  v8 = IOHIDUserDeviceHandleReport();
-  if (v8)
+  v7 = IOHIDUserDeviceHandleReport();
+  if (v7)
   {
-    v9 = _MRLogForCategory();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v8 = _MRLogForCategory();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       uniqueIdentifier = self->_uniqueIdentifier;
-      v12 = 134218240;
-      v13 = uniqueIdentifier;
-      v14 = 1024;
-      v15 = v8;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "WARNING: Failed to handle HID report for device ID %llu. (kernel error = %d)", &v12, 0x12u);
+      v11 = 134218240;
+      v12 = uniqueIdentifier;
+      v13 = 1024;
+      v14 = v7;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "WARNING: Failed to handle HID report for device ID %llu. (kernel error = %d)", &v11, 0x12u);
     }
   }
 
-  return v8 == 0;
+  return v7 == 0;
 }
 
 - (BOOL)handleTouchEvent:(_MRHIDTouchEvent *)event

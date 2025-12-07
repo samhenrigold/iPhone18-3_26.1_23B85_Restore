@@ -5,6 +5,7 @@
 - (SYBacklinkIndicatorServiceDelegate)delegate;
 - (void)dealloc;
 - (void)hideIndicator;
+- (void)showIndicatorForBacklinkWithDomainIdentifiers:(id)identifiers linkIdentifiers:(id)linkIdentifiers displayID:(unsigned int)d corner:(int64_t)corner action:(int64_t)action;
 @end
 
 @implementation SYBacklinkIndicatorService
@@ -73,7 +74,7 @@ uint64_t __44__SYBacklinkIndicatorService_sharedInstance__block_invoke()
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   listenerCopy = listener;
   connectionCopy = connection;
   if (!connectionCopy)
@@ -98,28 +99,63 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  v13 = [connectionCopy valueForEntitlement:@"com.apple.synapse.allowBacklinkIndicatorRequests"];
+  v12 = [connectionCopy valueForEntitlement:@"com.apple.synapse.allowBacklinkIndicatorRequests"];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && [v13 BOOLValue])
+  if ((objc_opt_isKindOfClass() & 1) != 0 && [v12 BOOLValue])
   {
 
     goto LABEL_6;
   }
 
-  v14 = os_log_create("com.apple.synapse", "");
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v13 = os_log_create("com.apple.synapse", "");
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 138412290;
-    v16 = connectionCopy;
-    _os_log_impl(&dword_225901000, v14, OS_LOG_TYPE_DEFAULT, "BacklinkIndicatorService: Refusing connection from non-entitled client with connection: %@", &v15, 0xCu);
+    v14 = 138412290;
+    v15 = connectionCopy;
+    _os_log_impl(&dword_225901000, v13, OS_LOG_TYPE_DEFAULT, "BacklinkIndicatorService: Refusing connection from non-entitled client with connection: %@", &v14, 0xCu);
   }
 
 LABEL_4:
   v9 = 0;
 LABEL_7:
 
-  v11 = *MEMORY[0x277D85DE8];
   return v9;
+}
+
+- (void)showIndicatorForBacklinkWithDomainIdentifiers:(id)identifiers linkIdentifiers:(id)linkIdentifiers displayID:(unsigned int)d corner:(int64_t)corner action:(int64_t)action
+{
+  v9 = *&d;
+  identifiersCopy = identifiers;
+  linkIdentifiersCopy = linkIdentifiers;
+  delegate = [(SYBacklinkIndicatorService *)self delegate];
+  if (action == 3)
+  {
+    v14 = objc_opt_respondsToSelector();
+
+    if ((v14 & 1) == 0)
+    {
+      goto LABEL_7;
+    }
+
+    delegate2 = [(SYBacklinkIndicatorService *)self delegate];
+    [delegate2 hotCornerExited];
+  }
+
+  else
+  {
+    v16 = objc_opt_respondsToSelector();
+
+    if ((v16 & 1) == 0)
+    {
+      goto LABEL_7;
+    }
+
+    delegate2 = SYMakeEditNoteUserActivity(identifiersCopy, linkIdentifiersCopy);
+    delegate3 = [(SYBacklinkIndicatorService *)self delegate];
+    [delegate3 showIndicatorForBacklinkWithUserActivity:delegate2 displayID:v9 corner:corner toggle:action == 2];
+  }
+
+LABEL_7:
 }
 
 - (void)hideIndicator

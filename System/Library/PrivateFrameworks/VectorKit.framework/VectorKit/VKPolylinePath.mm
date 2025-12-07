@@ -51,7 +51,7 @@
   v11 = WeakRetained;
   if (WeakRetained)
   {
-    [WeakRetained bounds];
+    objc_msgSend_bounds(WeakRetained);
     v13 = v24;
     v12 = v25;
     v14 = v26;
@@ -178,7 +178,7 @@
               v41 = v40;
               if (sectionCopy)
               {
-                [sectionCopy bounds];
+                objc_msgSend_bounds(sectionCopy);
                 v42 = v146;
                 v43 = v147;
                 v44 = v148;
@@ -413,7 +413,7 @@
           {
             if (sectionCopy)
             {
-              [sectionCopy bounds];
+              objc_msgSend_bounds(sectionCopy);
             }
 
             GEOCoordinate3DForMapPoint();
@@ -434,9 +434,9 @@
 
             if (sectionCopy)
             {
-              [sectionCopy bounds];
+              objc_msgSend_bounds(sectionCopy);
               v101 = v148;
-              [sectionCopy bounds];
+              objc_msgSend_bounds(sectionCopy);
               v102 = v145;
             }
 

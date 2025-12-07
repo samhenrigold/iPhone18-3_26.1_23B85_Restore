@@ -3,8 +3,11 @@
 - ($554B148941027912B77C686939519A4B)lineInfoAtIndex:(SEL)index;
 - (BOOL)_attributedStringOverridesMethodWithSelector:(void *)selector;
 - (BOOL)_breakRange:(uint64_t)range fallsWithinTokenWithTokenizer:(CFStringTokenizerRef)tokenizer;
+- (BOOL)_mustExceedLineCount:(_BOOL8)result;
+- (BOOL)_node:(uint64_t *)_node isBetterThanNode:;
 - (NSParagraphStyle)defaultParagraphStyle;
 - (NSString)debugString;
+- (_BYTE)_createNodeWithParent:(__int128 *)parent lineBreak:(char)break expansionRatio:(double)ratio mustSucceed:;
 - (_NSOptimalLineBreaker)init;
 - (_NSRange)paragraphRange;
 - (__CTLine)lineAtIndex:(unint64_t)index lineInfo:(id *)info;
@@ -22,20 +25,16 @@
 - (long)_implicitNBSPPenaltyForBreak:(uint64_t)break;
 - (uint64_t)_bestNode:(uint64_t)node dominatesNode:;
 - (uint64_t)_bestNodeInNodeList:(uint64_t)list withLineCount:;
-- (uint64_t)_createNodeWithParent:(__int128 *)parent lineBreak:(char)break expansionRatio:(double)ratio mustSucceed:;
 - (uint64_t)_equivalenceClassForNode:(int)node asTerminalNode:;
 - (uint64_t)_hasArtificialBreak;
 - (uint64_t)_lineBreakTokenizer;
 - (uint64_t)_localeHasDictionaryBasedLineBreaks;
-- (uint64_t)_mustExceedLineCount:(uint64_t)result;
-- (uint64_t)_node:(uint64_t *)_node isBetterThanNode:;
 - (uint64_t)_shouldAllowLastLineFromBreak:(uint64_t)break toBreak:;
 - (uint64_t)_shouldAvoidBreakingAfterWord:(uint64_t)word;
 - (unint64_t)_indexOfLastResortHyphenInRange:(CFIndex)range maxWidth:(double)width;
-- (unint64_t)_indexOfLineBreakAtCharacterIndex:(unint64_t)result;
 - (unint64_t)_rangeOfLineBreakEndingAtIndex:(__int16 *)index flags:(unint64_t)flags inRange:(uint64_t)range inlineBuffer:(void *)buffer;
 - (unint64_t)lineCount;
-- (void)_addLineBreakWithRange:(uint64_t)range flags:(__int16)flags;
+- (void)_addLineBreakWithRange:(uint64_t)range flags:(uint64_t)flags;
 - (void)_calculateFirstFitWrapping;
 - (void)_calculateLineBreaks;
 - (void)_calculateOptimalWrapping;
@@ -51,6 +50,7 @@
 - (void)_enumerateOrdinaryLineBreaksWithBlock:(uint64_t)block;
 - (void)_forcedBreakBetweenBreak:(_OWORD *)break@<X2> andBreak:(_OWORD *)andBreak@<X3> withLastNBSP:(char *)p@<X4> shouldRetryEndBreak:(uint64_t)endBreak@<X8>;
 - (void)_getMinWidth:(uint64_t)width maxWidth:(uint64_t)maxWidth whenJustifyingLineFromBreak:(uint64_t)break toBreak:(unint64_t *)toBreak;
+- (void)_indexOfLineBreakAtCharacterIndex:(void *)result;
 - (void)_paragraphStyle;
 - (void)dealloc;
 - (void)enumerateLineBreaksInRange:(_NSRange)range withBlock:(id)block;
@@ -880,21 +880,21 @@
 
 - (void)_demeritFromBreak:(uint64_t)break toBreak:(double)toBreak usingExpansionRatio:
 {
-  if (self)
+  if (result)
   {
-    if ((*(self + 8) & 1) == 0)
+    if ((*(result + 8) & 1) == 0)
     {
       [_NSOptimalLineBreaker _demeritFromBreak:toBreak:usingExpansionRatio:];
     }
 
-    if ((*&toBreak & 0x7FFFFFFFFFFFFFFFuLL) <= 0x7FEFFFFFFFFFFFFFLL && ((*(break + 48) & 1) == 0 || [(_NSOptimalLineBreaker *)self _shouldAllowLastLineFromBreak:a2 toBreak:break]))
+    if ((*&toBreak & 0x7FFFFFFFFFFFFFFFuLL) <= 0x7FEFFFFFFFFFFFFFLL && ((*(break + 48) & 1) == 0 || [(_NSOptimalLineBreaker *)result _shouldAllowLastLineFromBreak:a2 toBreak:break]))
     {
       if (toBreak >= -1.0)
       {
-        pow(fabs(toBreak), *(self + 280));
+        pow(fabs(toBreak), *(result + 280));
       }
 
-      [(_NSOptimalLineBreaker *)self _breakPenaltyForBreak:break];
+      [(_NSOptimalLineBreaker *)result _breakPenaltyForBreak:break];
     }
   }
 }
@@ -919,7 +919,7 @@
         if (v6 && (([v6 isEqualToString:@"zh"] & 1) != 0 || objc_msgSend(v7, "isEqualToString:", @"ja")))
         {
           _lineBreakTokenizer = [(_NSOptimalLineBreaker *)selfCopy _lineBreakTokenizer];
-          selfCopy = ![(_NSOptimalLineBreaker *)selfCopy _breakRange:*(a2 + 8) fallsWithinTokenWithTokenizer:_lineBreakTokenizer];
+          selfCopy = ![(_NSOptimalLineBreaker *)selfCopy _breakRange:a2[1] fallsWithinTokenWithTokenizer:_lineBreakTokenizer];
 LABEL_13:
 
           return selfCopy;
@@ -1205,7 +1205,7 @@ LABEL_6:
 
   else
   {
-    v13 = _NSCopyBreakIterator(languageIdentifier, 0, 0, 2u);
+    v13 = _NSCopyBreakIterator(languageIdentifier, 0, 0, 2u, *(block + 440));
     v14 = CFStringOpenUText();
     LODWORD(v91) = 0;
     ubrk_setUText();
@@ -1663,22 +1663,23 @@ LABEL_9:
 LABEL_10:
 }
 
-- (void)_addLineBreakWithRange:(uint64_t)range flags:(__int16)flags
+- (void)_addLineBreakWithRange:(uint64_t)range flags:(uint64_t)flags
 {
-  if (self)
+  if (result)
   {
-    if ([self paragraphRange] > a2)
+    flagsCopy = flags;
+    if ([result paragraphRange] > a2)
     {
       [_NSOptimalLineBreaker _addLineBreakWithRange:flags:];
     }
 
-    paragraphRange = [self paragraphRange];
+    paragraphRange = [result paragraphRange];
     if (a2 + range > paragraphRange + v9)
     {
       [_NSOptimalLineBreaker _addLineBreakWithRange:flags:];
     }
 
-    [(_NSOptimalLineBreaker *)self _addLineBreakWithRange:a2 flags:range, flags];
+    [(_NSOptimalLineBreaker *)result _addLineBreakWithRange:a2 flags:range, flagsCopy];
   }
 }
 
@@ -2089,7 +2090,7 @@ LABEL_16:
   return v3;
 }
 
-- (uint64_t)_createNodeWithParent:(__int128 *)parent lineBreak:(char)break expansionRatio:(double)ratio mustSucceed:
+- (_BYTE)_createNodeWithParent:(__int128 *)parent lineBreak:(char)break expansionRatio:(double)ratio mustSucceed:
 {
   if (!self)
   {
@@ -2202,7 +2203,7 @@ LABEL_16:
   return v7;
 }
 
-- (uint64_t)_node:(uint64_t *)_node isBetterThanNode:
+- (BOOL)_node:(uint64_t *)_node isBetterThanNode:
 {
   if (result)
   {
@@ -2312,7 +2313,7 @@ LABEL_16:
       }
 
       v5 = result;
-      if (([(_NSOptimalLineBreaker *)result _node:a2 isBetterThanNode:node]& 1) == 0)
+      if (![(_NSOptimalLineBreaker *)result _node:a2 isBetterThanNode:node])
       {
         [_NSOptimalLineBreaker _bestNode:dominatesNode:];
       }
@@ -2325,7 +2326,7 @@ LABEL_16:
   return result;
 }
 
-- (uint64_t)_mustExceedLineCount:(uint64_t)result
+- (BOOL)_mustExceedLineCount:(_BOOL8)result
 {
   if (result)
   {
@@ -2574,7 +2575,7 @@ LABEL_16:
             v36 = v77;
             if (v37 != 0x7FFFFFFFFFFFFFFFLL)
             {
-              if (*(v33 + 16) != v37)
+              if (v33[2] != v37)
               {
                 v35 = 0;
                 goto LABEL_42;
@@ -2772,7 +2773,7 @@ LABEL_68:
         __assert_rtn("[_NSOptimalLineBreaker _calculateOptimalWrappingWithLineBreakFilter:]", "NSOptimalLineBreaker.m", 2426, "forcedBreakNode");
       }
 
-      if (v79 == v81 && v94 != 1 || (v54 = *(filter + 424)) != 0 && v54 != 0x7FFFFFFFFFFFFFFFLL && *(v52 + 16) == v54)
+      if (v79 == v81 && v94 != 1 || (v54 = *(filter + 424)) != 0 && v54 != 0x7FFFFFFFFFFFFFFFLL && *(v52 + 2) == v54)
       {
         if (v76)
         {
@@ -3316,12 +3317,12 @@ LABEL_39:
   return CFArrayGetValueAtIndex(lines, index);
 }
 
-- (unint64_t)_indexOfLineBreakAtCharacterIndex:(unint64_t)result
+- (void)_indexOfLineBreakAtCharacterIndex:(void *)result
 {
   if (result)
   {
     v2 = result;
-    result = *(result + 32);
+    result = result[4];
     if (!result)
     {
       [_NSOptimalLineBreaker _indexOfLineBreakAtCharacterIndex:];
@@ -3346,7 +3347,7 @@ LABEL_39:
       {
         if (*(v5 + ((v4 + ((result - v4) >> 1)) << 6)) >= a2)
         {
-          result = v4 + ((result - v4) >> 1);
+          result = (v4 + ((result - v4) >> 1));
         }
 
         else
@@ -3562,14 +3563,14 @@ LABEL_39:
   }
 
   result = [(_NSOptimalLineBreaker *)v11 _computeParagraphStyleValues];
-  if (*(v11 + 152) != 3)
+  if (v11[19] != 3)
   {
-    v25 = *(v11 + 312);
+    v25 = *(v11 + 39);
     [(_NSOptimalLineBreaker *)v11 _computeFontMetricsAtIndex:?];
-    v26 = v25 * *(v11 + 120);
+    v26 = v25 * *(v11 + 15);
     result = [(_NSOptimalLineBreaker *)v11 _computeParagraphStyleValues];
     v23 = v26 + v26;
-    if (*(v11 + 152) != 1)
+    if (v11[19] != 1)
     {
       v23 = v26;
     }
@@ -3583,12 +3584,12 @@ LABEL_39:
     goto LABEL_18;
   }
 
-  v23 = v20 * *(v11 + 304);
+  v23 = v20 * *(v11 + 38);
   v24 = 0.0;
   if (!v22)
   {
 LABEL_18:
-    v24 = v20 * *(v11 + 296);
+    v24 = v20 * *(v11 + 37);
   }
 
 LABEL_19:
@@ -3961,6 +3962,8 @@ LABEL_5:
     return 0;
   }
 
+  flagsCopy = flags;
+  indexCopy = index;
   paragraphRange = [self paragraphRange];
   v12 = ~paragraphRange;
   v13 = ~paragraphRange + a2;
@@ -4000,7 +4003,7 @@ LABEL_5:
 
   if (!a2)
   {
-    flags = 0;
+    flagsCopy = 0;
     v22 = 0;
     goto LABEL_77;
   }
@@ -4020,7 +4023,7 @@ LABEL_5:
         v22 = 0;
 LABEL_63:
         v34 = v54 - a2;
-        flags = a2;
+        flagsCopy = a2;
         goto LABEL_66;
       }
 
@@ -4070,9 +4073,9 @@ LABEL_63:
     }
 
 LABEL_19:
-    indexCopy = index;
-    v24 = (__PAIR128__(a2, flags) - a2) >> 64;
-    if (v24 <= flags || (v25 = v24 + v12, v25 < 0) || (OUTLINED_FUNCTION_8(), v20 ^ v21 | v36))
+    v23 = indexCopy;
+    v24 = (__PAIR128__(a2, flagsCopy) - a2) >> 64;
+    if (v24 <= flagsCopy || (v25 = v24 + v12, v25 < 0) || (OUTLINED_FUNCTION_8(), v20 ^ v21 | v36))
     {
       v16 = 0;
     }
@@ -4103,13 +4106,13 @@ LABEL_19:
       if (v16 == 13)
       {
         a2 = v24 - 1;
-        if (v24 - 1 > flags)
+        if (v24 - 1 > flagsCopy)
         {
           v18 = v24 - paragraphRange - 2;
           if (v18 >= 0)
           {
             OUTLINED_FUNCTION_8();
-            index = indexCopy;
+            indexCopy = v23;
             if (!(v20 ^ v21 | v36))
             {
               goto LABEL_14;
@@ -4122,13 +4125,13 @@ LABEL_19:
         v16 = 0;
         v22 = 1;
 LABEL_26:
-        index = indexCopy;
+        indexCopy = v23;
         goto LABEL_59;
       }
     }
 
     v22 = 1;
-    a2 = (__PAIR128__(a2, flags) - a2) >> 64;
+    a2 = (__PAIR128__(a2, flagsCopy) - a2) >> 64;
     goto LABEL_26;
   }
 
@@ -4173,15 +4176,15 @@ LABEL_57:
 LABEL_58:
   v22 = 1;
 LABEL_59:
-  if (a2 > flags)
+  if (a2 > flagsCopy)
   {
-    indexCopy2 = index;
+    v53 = indexCopy;
     IsNormalWhitespace = charIsNormalWhitespace(v16);
     v33 = v16 == 160;
     if ((IsNormalWhitespace & 1) == 0 && v16 != 160)
     {
 LABEL_62:
-      index = indexCopy2;
+      indexCopy = v53;
       goto LABEL_63;
     }
 
@@ -4201,7 +4204,7 @@ LABEL_62:
         }
 
         --a2;
-        v44 = [MEMORY[0x1E696B098] valueWithRange:{v40 - 1, 1, indexCopy2}];
+        v44 = [MEMORY[0x1E696B098] valueWithRange:{v40 - 1, 1, v53}];
         [v41 addObject:v44];
       }
 
@@ -4210,7 +4213,7 @@ LABEL_62:
         --a2;
       }
 
-      if (a2 <= flags)
+      if (a2 <= flagsCopy)
       {
         break;
       }
@@ -4259,15 +4262,15 @@ LABEL_62:
     }
 
     v16 = 0;
-    index = indexCopy2;
+    indexCopy = v53;
     goto LABEL_65;
   }
 
 LABEL_64:
-  flags = a2;
+  flagsCopy = a2;
 LABEL_65:
-  v34 = v54 - flags;
-  if (flags)
+  v34 = v54 - flagsCopy;
+  if (flagsCopy)
   {
 LABEL_66:
     v35 = v16 - 8208;
@@ -4289,8 +4292,8 @@ LABEL_66:
   }
 
 LABEL_77:
-  *index = v22;
-  return flags;
+  *indexCopy = v22;
+  return flagsCopy;
 }
 
 - (void)_enumerateNonBreakingSpacesWithBlock:(id *)block
@@ -4579,7 +4582,7 @@ LABEL_19:
     if (*(self + 369) == 1)
     {
       v2 = *(self + 400);
-      if (v2 != 0x7FFFFFFFFFFFFFFFLL && ([(_NSOptimalLineBreaker *)self _mustExceedLineCount:?]& 1) == 0)
+      if (v2 != 0x7FFFFFFFFFFFFFFFLL && ![(_NSOptimalLineBreaker *)self _mustExceedLineCount:?])
       {
         [(_NSOptimalLineBreaker *)self _calculateOptimalWrappingWithLineBreakFilter:?];
         if ([self lineCount] < *(self + 400) && !-[_NSOptimalLineBreaker _hasArtificialBreak](self))

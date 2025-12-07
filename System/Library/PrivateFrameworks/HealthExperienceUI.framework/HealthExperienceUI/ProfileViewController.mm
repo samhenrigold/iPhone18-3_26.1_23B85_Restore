@@ -28,17 +28,17 @@
 {
   appearingCopy = appearing;
   v5 = sub_1BA4A4018();
-  MEMORY[0x1EEE9AC00](v5);
+  MEMORY[0x1EEE9AC00](v5, v6);
   selfCopy = self;
   sub_1BA4A71E8();
-  v9 = 7;
+  v10 = 7;
   sub_1B9F3AEE8();
   sub_1BA4A4008();
   sub_1BA4A71F8();
-  v7 = type metadata accessor for ProfileViewController();
-  v8.receiver = selfCopy;
-  v8.super_class = v7;
-  [(CompoundDataSourceCollectionViewController *)&v8 viewIsAppearing:appearingCopy];
+  v8 = type metadata accessor for ProfileViewController();
+  v9.receiver = selfCopy;
+  v9.super_class = v8;
+  [(CompoundDataSourceCollectionViewController *)&v9 viewIsAppearing:appearingCopy];
 }
 
 - (void)viewDidLoad
@@ -105,7 +105,7 @@
     selfCopy = v6;
   }
 
-  __swift_destroy_boxed_opaque_existential_1(&v7);
+  __swift_destroy_boxed_opaque_existential_1(v7);
 }
 
 - (_TtC18HealthExperienceUI21ProfileViewController)initWithCollectionViewLayout:(id)layout

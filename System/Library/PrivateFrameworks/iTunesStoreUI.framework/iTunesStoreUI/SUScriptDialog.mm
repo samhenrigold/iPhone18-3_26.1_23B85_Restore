@@ -78,7 +78,7 @@ uint64_t __27__SUScriptDialog_showSheet__block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __37__SUScriptDialog_showSheetInPopOver___block_invoke(uint64_t a1)
+void *__37__SUScriptDialog_showSheetInPopOver___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) activeViewController];
   if (result)
@@ -455,40 +455,26 @@ LABEL_3:
 
 - (void)_logSheetWarnings
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   [(SUScriptObject *)self lock];
   if ([self->_textFields count])
   {
     mEMORY[0x1E69D4938] = [MEMORY[0x1E69D4938] sharedConfig];
     shouldLog = [mEMORY[0x1E69D4938] shouldLog];
-    if ([mEMORY[0x1E69D4938] shouldLogToDisk])
-    {
-      v5 = shouldLog | 2;
-    }
-
-    else
-    {
-      v5 = shouldLog;
-    }
-
-    if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEFAULT))
-    {
-      v5 &= 2u;
-    }
-
+    LODWORD(v5) = [mEMORY[0x1E69D4938] shouldLogToDisk] ? shouldLog | 2 : shouldLog;
+    oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+    v5 = os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT) ? v5 : v5 & 2u;
     if (v5)
     {
-      v19 = 138412290;
-      v20 = objc_opt_class();
-      LODWORD(v18) = 12;
-      v16 = &v19;
-      v6 = _os_log_send_and_compose_impl();
-      if (v6)
+      v21 = 138412290;
+      v22 = objc_opt_class();
+      v7 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &dword_1C21AF000, oSLogObject, 0, "%@: Textfields are not displayed when shown from a DOM element", &v21, 12);
+      if (v7)
       {
-        v7 = v6;
-        v8 = [MEMORY[0x1E696AEC0] stringWithCString:v6 encoding:{4, &v19, v18}];
-        free(v7);
-        v16 = v8;
+        v8 = v7;
+        v9 = [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:4];
+        free(v8);
+        v18 = v9;
         SSFileLog();
       }
     }
@@ -500,33 +486,38 @@ LABEL_3:
     shouldLog2 = [mEMORY[0x1E69D4938]2 shouldLog];
     if ([mEMORY[0x1E69D4938]2 shouldLogToDisk])
     {
-      v11 = shouldLog2 | 2;
+      LODWORD(v12) = shouldLog2 | 2;
     }
 
     else
     {
-      v11 = shouldLog2;
+      LODWORD(v12) = shouldLog2;
     }
 
-    if (!os_log_type_enabled([mEMORY[0x1E69D4938]2 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject2 = [mEMORY[0x1E69D4938]2 OSLogObject];
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
     {
-      v11 &= 2u;
+      v12 = v12;
     }
 
-    if (v11)
+    else
     {
-      v12 = objc_opt_class();
-      v19 = 138412290;
-      v20 = v12;
-      LODWORD(v18) = 12;
-      v17 = &v19;
-      v13 = _os_log_send_and_compose_impl();
-      if (v13)
+      v12 &= 2u;
+    }
+
+    if (v12)
+    {
+      v14 = objc_opt_class();
+      v21 = 138412290;
+      v22 = v14;
+      LODWORD(v20) = 12;
+      v15 = _os_log_send_and_compose_impl(v12, 0, 0, 0, &dword_1C21AF000, oSLogObject2, 0, "%@: Body is not displayed when shown from a DOM element", &v21, v20);
+      if (v15)
       {
-        v14 = v13;
-        v15 = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:{4, &v19, v18}];
-        free(v14);
-        v17 = v15;
+        v16 = v15;
+        v17 = [MEMORY[0x1E696AEC0] stringWithCString:v15 encoding:4];
+        free(v16);
+        v19 = v17;
         SSFileLog();
       }
     }

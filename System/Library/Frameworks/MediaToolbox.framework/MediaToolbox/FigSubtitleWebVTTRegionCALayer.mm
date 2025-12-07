@@ -229,7 +229,7 @@ CFIndex __49__FigSubtitleWebVTTRegionCALayer_setNeedsDisplay__block_invoke(uint6
 
 void __49__FigSubtitleWebVTTRegionCALayer_layoutSublayers__block_invoke(uint64_t a1)
 {
-  RegionBounds = FigSubtitleRendererGetRegionBounds(*(*(*(a1 + 32) + 112) + 56), *(*(*(a1 + 32) + 112) + 24), *(*(*(a1 + 32) + 112) + 32), *(*(*(a1 + 32) + 112) + 40));
+  RegionBounds = FigSubtitleRendererGetRegionBounds(*(*(*(a1 + 32) + 112) + 56), *(a1 + 48), *(*(*(a1 + 32) + 112) + 24), *(*(*(a1 + 32) + 112) + 32), *(*(*(a1 + 32) + 112) + 40));
   v3 = *(*(a1 + 40) + 8);
   *(v3 + 32) = RegionBounds;
   *(v3 + 40) = v4;

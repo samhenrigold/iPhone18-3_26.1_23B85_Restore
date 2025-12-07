@@ -111,79 +111,75 @@ void __68__CPNavigationSession_pauseTripForReason_description_turnCardColor___bl
 - (void)_updateManeuverIndiciesWithStartIndex:(unsigned __int16)index maneuvers:(id)maneuvers
 {
   indexCopy = index;
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   maneuversCopy = maneuvers;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v6 = [maneuversCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [maneuversCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       v10 = indexCopy;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(maneuversCopy);
         }
 
         indexCopy = v10 + 1;
-        [*(*(&v12 + 1) + 8 * v9++) setIndex:v10++];
+        [*(*(&v11 + 1) + 8 * v9++) setIndex:v10++];
       }
 
       while (v7 != v9);
-      v7 = [maneuversCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [maneuversCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateLaneGuidanceIndiciesWithStartIndex:(unsigned __int16)index laneGuidances:(id)guidances
 {
   indexCopy = index;
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   guidancesCopy = guidances;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v6 = [guidancesCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [guidancesCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       v10 = indexCopy;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(guidancesCopy);
         }
 
         indexCopy = v10 + 1;
-        [*(*(&v12 + 1) + 8 * v9++) setIndex:v10++];
+        [*(*(&v11 + 1) + 8 * v9++) setIndex:v10++];
       }
 
       while (v7 != v9);
-      v7 = [guidancesCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [guidancesCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resumeTripWithUpdatedRouteInformation:(id)information
@@ -320,31 +316,31 @@ void __61__CPNavigationSession_resumeTripWithUpdatedRouteInformation___block_inv
 
 - (void)setUpcomingManeuvers:(NSArray *)upcomingManeuvers
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v5 = upcomingManeuvers;
   objc_storeStrong(&self->_upcomingManeuvers, upcomingManeuvers);
   array = [MEMORY[0x277CBEB18] array];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   v7 = v5;
-  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v26;
+    v10 = *v25;
     do
     {
       v11 = 0;
       do
       {
-        if (*v26 != v10)
+        if (*v25 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v25 + 1) + 8 * v11);
+        v12 = *(*(&v24 + 1) + 8 * v11);
         mapTemplate = [(CPNavigationSession *)self mapTemplate];
         v14 = [mapTemplate _displayStyleForManeuver:v12];
 
@@ -355,25 +351,23 @@ void __61__CPNavigationSession_resumeTripWithUpdatedRouteInformation___block_inv
       }
 
       while (v9 != v11);
-      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v9);
   }
 
   navigationSessionManagerFuture = [(CPNavigationSession *)self navigationSessionManagerFuture];
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __44__CPNavigationSession_setUpcomingManeuvers___block_invoke;
-  v21[3] = &unk_278A107F8;
-  v22 = v7;
-  v23 = array;
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __44__CPNavigationSession_setUpcomingManeuvers___block_invoke;
+  v20[3] = &unk_278A107F8;
+  v21 = v7;
+  v22 = array;
   selfCopy = self;
   v17 = array;
   v18 = v7;
-  v19 = [navigationSessionManagerFuture addSuccessBlock:v21];
-
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = [navigationSessionManagerFuture addSuccessBlock:v20];
 }
 
 void __44__CPNavigationSession_setUpcomingManeuvers___block_invoke(uint64_t a1, void *a2)

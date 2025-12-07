@@ -167,18 +167,16 @@ void __49__TSRemotePlanSignUpFlow_nextViewControllerFrom___block_invoke_2(uint64
   [sharedManager didPurchaseRemotePlanForEid:eidCopy imei:imeiCopy meid:meidCopy iccid:iccidCopy alternateSmdpFqdn:pCopy completion:&__block_literal_global_18];
 }
 
-void __97__TSRemotePlanSignUpFlow_didPurchasePlanSuccessfullyWithEid_imei_meid_iccid_alternateSDMP_state___block_invoke()
+void __97__TSRemotePlanSignUpFlow_didPurchasePlanSuccessfullyWithEid_imei_meid_iccid_alternateSDMP_state___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v0 = _TSLogDomain();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v5 = *MEMORY[0x277D85DE8];
+  v2 = _TSLogDomain(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v2 = 136315138;
-    v3 = "[TSRemotePlanSignUpFlow didPurchasePlanSuccessfullyWithEid:imei:meid:iccid:alternateSDMP:state:]_block_invoke";
-    _os_log_impl(&dword_262AA8000, v0, OS_LOG_TYPE_DEFAULT, "Callback after purchase @%s", &v2, 0xCu);
+    v3 = 136315138;
+    v4 = "[TSRemotePlanSignUpFlow didPurchasePlanSuccessfullyWithEid:imei:meid:iccid:alternateSDMP:state:]_block_invoke";
+    _os_log_impl(&dword_262AA8000, v2, OS_LOG_TYPE_DEFAULT, "Callback after purchase @%s", &v3, 0xCu);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didTransferPlanSuccessfullyWithEid:(id)eid imei:(id)imei meid:(id)meid iccid:(id)iccid srcIccid:(id)srcIccid alternateSDMP:(id)p state:(id)state
@@ -202,18 +200,16 @@ void __97__TSRemotePlanSignUpFlow_didPurchasePlanSuccessfullyWithEid_imei_meid_i
   }
 }
 
-void __106__TSRemotePlanSignUpFlow_didTransferPlanSuccessfullyWithEid_imei_meid_iccid_srcIccid_alternateSDMP_state___block_invoke()
+void __106__TSRemotePlanSignUpFlow_didTransferPlanSuccessfullyWithEid_imei_meid_iccid_srcIccid_alternateSDMP_state___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v0 = _TSLogDomain();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v5 = *MEMORY[0x277D85DE8];
+  v2 = _TSLogDomain(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v2 = 136315138;
-    v3 = "[TSRemotePlanSignUpFlow didTransferPlanSuccessfullyWithEid:imei:meid:iccid:srcIccid:alternateSDMP:state:]_block_invoke";
-    _os_log_impl(&dword_262AA8000, v0, OS_LOG_TYPE_DEFAULT, "Callback after transfer @%s", &v2, 0xCu);
+    v3 = 136315138;
+    v4 = "[TSRemotePlanSignUpFlow didTransferPlanSuccessfullyWithEid:imei:meid:iccid:srcIccid:alternateSDMP:state:]_block_invoke";
+    _os_log_impl(&dword_262AA8000, v2, OS_LOG_TYPE_DEFAULT, "Callback after transfer @%s", &v3, 0xCu);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 - (void)accountCancelled

@@ -60,7 +60,7 @@ void __51__HMAccessory_AbstractionAdditions__hf_moveToRoom___block_invoke(uint64
 {
   v3 = *(a1 + 32);
   v4 = a2;
-  v5 = [v3 home];
+  v5 = objc_msgSend_home(v3);
   [v5 assignAccessory:*(a1 + 32) toRoom:*(a1 + 40) completionHandler:v4];
 }
 
@@ -68,7 +68,7 @@ void *__59__HMAccessory_HFDebugging__hf_stateDumpBuilderWithContext___block_invo
 {
   v2 = *(a1 + 32);
   v3 = a2;
-  v4 = [v2 home];
+  v4 = objc_msgSend_home(v2);
   v5 = [v4 hf_accessoryWithIdentifier:v3];
   v6 = v5;
   if (v5)
@@ -88,7 +88,7 @@ void *__59__HMAccessory_HFDebugging__hf_stateDumpBuilderWithContext___block_invo
 
 void __51__HMAccessory_HFMediaAdditions__hf_identifyHomePod__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = a3;
   if (v4)
   {
@@ -102,13 +102,11 @@ void __51__HMAccessory_HFMediaAdditions__hf_identifyHomePod__block_invoke(uint64
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = *(a1 + 32);
-      v8 = 138412290;
-      v9 = v6;
-      _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "Successfully sent identify message to accessory: %@", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = v6;
+      _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "Successfully sent identify message to accessory: %@", &v7, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __51__HMAccessory_HFMediaAdditions___pushSymptomUpdate__block_invoke(uint64_t a1, void *a2)
@@ -393,7 +391,7 @@ uint64_t __45__HMAccessory_HFAdditions__hf_serviceOfType___block_invoke(uint64_t
 void __66__HMAccessory_HFAdditions__hf_programmableSwitchNamespaceServices__block_invoke(uint64_t a1, void *a2)
 {
   v3 = [a2 hf_labelNamespaceCharacteristic];
-  v6 = [v3 service];
+  v6 = objc_msgSend_service(v3);
 
   v4 = [v6 serviceType];
   v5 = [v4 isEqualToString:*MEMORY[0x277CD0E88]];
@@ -425,7 +423,7 @@ uint64_t __49__HMAccessory_HFAdditions__hf_bridgedAccessories__block_invoke(uint
 
 id __52__HMAccessory_HFAdditions__hf_owningBridgeAccessory__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) home];
+  v2 = objc_msgSend_home(*(a1 + 32));
   v3 = [v2 hf_allBridgeAccessories];
   v6[0] = MEMORY[0x277D85DD0];
   v6[1] = 3221225472;
@@ -468,131 +466,127 @@ void *__59__HMAccessory_HFAdditions__hf_networkConfigurationProfiles__block_invo
 
 void __61__HMAccessory_HFAdditions__hf_getUserFriendlyDescriptionKey___block_invoke()
 {
-  v31[38] = *MEMORY[0x277D85DE8];
+  v30[38] = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277CCE848];
-  v30[0] = *MEMORY[0x277CCE840];
-  v30[1] = v0;
-  v31[0] = @"AirConditioner";
-  v31[1] = @"AirDehumidifier";
+  v29[0] = *MEMORY[0x277CCE840];
+  v29[1] = v0;
+  v30[0] = @"AirConditioner";
+  v30[1] = @"AirDehumidifier";
   v1 = *MEMORY[0x277CCE858];
-  v30[2] = *MEMORY[0x277CCE850];
-  v30[3] = v1;
-  v31[2] = @"AirHeater";
-  v31[3] = @"AirHumidifier";
+  v29[2] = *MEMORY[0x277CCE850];
+  v29[3] = v1;
+  v30[2] = @"AirHeater";
+  v30[3] = @"AirHumidifier";
   v2 = *MEMORY[0x277CCE860];
-  v30[4] = *MEMORY[0x277CCE868];
-  v30[5] = v2;
-  v31[4] = @"AirPurifier";
-  v31[5] = @"AirPort";
+  v29[4] = *MEMORY[0x277CCE868];
+  v29[5] = v2;
+  v30[4] = @"AirPurifier";
+  v30[5] = @"AirPort";
   v3 = *MEMORY[0x277CCE878];
-  v30[6] = *MEMORY[0x277CCE870];
-  v30[7] = v3;
-  v31[6] = @"AppleTV";
-  v31[7] = @"AudioReceiver";
+  v29[6] = *MEMORY[0x277CCE870];
+  v29[7] = v3;
+  v30[6] = @"AppleTV";
+  v30[7] = @"AudioReceiver";
   v4 = *MEMORY[0x277CCE888];
-  v30[8] = *MEMORY[0x277CCE880];
-  v30[9] = v4;
-  v31[8] = @"Bridge";
-  v31[9] = @"Door";
+  v29[8] = *MEMORY[0x277CCE880];
+  v29[9] = v4;
+  v30[8] = @"Bridge";
+  v30[9] = @"Door";
   v5 = *MEMORY[0x277CCE898];
-  v30[10] = *MEMORY[0x277CCE890];
-  v30[11] = v5;
-  v31[10] = @"DoorLock";
-  v31[11] = @"Fan";
+  v29[10] = *MEMORY[0x277CCE890];
+  v29[11] = v5;
+  v30[10] = @"DoorLock";
+  v30[11] = @"Fan";
   v6 = *MEMORY[0x277CCE8A8];
-  v30[12] = *MEMORY[0x277CCE8A0];
-  v30[13] = v6;
-  v31[12] = @"Faucet";
-  v31[13] = @"GarageDoorOpener";
+  v29[12] = *MEMORY[0x277CCE8A0];
+  v29[13] = v6;
+  v30[12] = @"Faucet";
+  v30[13] = @"GarageDoorOpener";
   v7 = *MEMORY[0x277CCE8B8];
-  v30[14] = *MEMORY[0x277CCE8B0];
-  v30[15] = v7;
-  v31[14] = @"HomePod";
-  v31[15] = @"IPCamera";
+  v29[14] = *MEMORY[0x277CCE8B0];
+  v29[15] = v7;
+  v30[14] = @"HomePod";
+  v30[15] = @"IPCamera";
   v8 = *MEMORY[0x277CCE8C8];
-  v30[16] = *MEMORY[0x277CCE8C0];
-  v30[17] = v8;
-  v31[16] = @"Lightbulb";
-  v31[17] = @"Other";
+  v29[16] = *MEMORY[0x277CCE8C0];
+  v29[17] = v8;
+  v30[16] = @"Lightbulb";
+  v30[17] = @"Other";
   v9 = *MEMORY[0x277CCE8D8];
-  v30[18] = *MEMORY[0x277CCE8D0];
-  v30[19] = v9;
-  v31[18] = @"Outlet";
-  v31[19] = @"ProgrammableSwitch";
+  v29[18] = *MEMORY[0x277CCE8D0];
+  v29[19] = v9;
+  v30[18] = @"Outlet";
+  v30[19] = @"ProgrammableSwitch";
   v10 = *MEMORY[0x277CCE8E0];
-  v31[20] = @"RangeExtender";
+  v30[20] = @"RangeExtender";
   v11 = *MEMORY[0x277CCE950];
-  v30[20] = v10;
-  v30[21] = v11;
+  v29[20] = v10;
+  v29[21] = v11;
   v12 = HFLocalizedWiFiStringKeyForKey(@"Router");
   v13 = *MEMORY[0x277CCE8E8];
-  v31[21] = v12;
-  v31[22] = @"SecuritySystem";
+  v30[21] = v12;
+  v30[22] = @"SecuritySystem";
   v14 = *MEMORY[0x277CCE8F0];
-  v30[22] = v13;
-  v30[23] = v14;
+  v29[22] = v13;
+  v29[23] = v14;
   v15 = *MEMORY[0x277CCE8F8];
-  v31[23] = @"Sensor";
-  v31[24] = @"ShowerHead";
+  v30[23] = @"Sensor";
+  v30[24] = @"ShowerHead";
   v16 = *MEMORY[0x277CCE900];
-  v30[24] = v15;
-  v30[25] = v16;
+  v29[24] = v15;
+  v29[25] = v16;
   v17 = *MEMORY[0x277CCE908];
-  v31[25] = @"Speaker";
-  v31[26] = @"Sprinkler";
+  v30[25] = @"Speaker";
+  v30[26] = @"Sprinkler";
   v18 = *MEMORY[0x277CCE910];
-  v30[26] = v17;
-  v30[27] = v18;
+  v29[26] = v17;
+  v29[27] = v18;
   v19 = *MEMORY[0x277CCE918];
-  v31[27] = @"Switch";
-  v31[28] = @"TargetController";
+  v30[27] = @"Switch";
+  v30[28] = @"TargetController";
   v20 = *MEMORY[0x277CCE920];
-  v30[28] = v19;
-  v30[29] = v20;
+  v29[28] = v19;
+  v29[29] = v20;
   v21 = *MEMORY[0x277CCE930];
-  v31[29] = @"Television";
-  v31[30] = @"TelevisionSetTopBox";
+  v30[29] = @"Television";
+  v30[30] = @"TelevisionSetTopBox";
   v22 = *MEMORY[0x277CCE938];
-  v30[30] = v21;
-  v30[31] = v22;
+  v29[30] = v21;
+  v29[31] = v22;
   v23 = *MEMORY[0x277CCE940];
-  v31[31] = @"TelevisionStreamingStick";
-  v31[32] = @"Thermostat";
+  v30[31] = @"TelevisionStreamingStick";
+  v30[32] = @"Thermostat";
   v24 = *MEMORY[0x277CCE948];
-  v30[32] = v23;
-  v30[33] = v24;
+  v29[32] = v23;
+  v29[33] = v24;
   v25 = *MEMORY[0x277CCE958];
-  v31[33] = @"VideoDoorbell";
-  v31[34] = @"Window";
+  v30[33] = @"VideoDoorbell";
+  v30[34] = @"Window";
   v26 = *MEMORY[0x277CCE960];
-  v30[34] = v25;
-  v30[35] = v26;
-  v31[35] = @"WindowCovering";
-  v31[36] = @"PowerStrip";
-  v30[36] = @"3047A1A5-8BFC-4112-9888-21314F438FF3";
-  v30[37] = @"9D302CDA-1467-4E19-ABC9-9ED36BE34508";
-  v31[37] = @"Fan";
-  v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:38];
+  v29[34] = v25;
+  v29[35] = v26;
+  v30[35] = @"WindowCovering";
+  v30[36] = @"PowerStrip";
+  v29[36] = @"3047A1A5-8BFC-4112-9888-21314F438FF3";
+  v29[37] = @"9D302CDA-1467-4E19-ABC9-9ED36BE34508";
+  v30[37] = @"Fan";
+  v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:38];
   v28 = qword_280E02FF0;
   qword_280E02FF0 = v27;
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void __67__HMAccessory_HFAdditions__hf_getUserFriendlyMatterDescriptionKey___block_invoke()
 {
-  v6[2] = *MEMORY[0x277D85DE8];
+  v5[2] = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CCABB0] numberWithInt:116];
-  v5[0] = v0;
-  v6[0] = @"RobotVacuum";
+  v4[0] = v0;
+  v5[0] = @"RobotVacuum";
   v1 = [MEMORY[0x277CCABB0] numberWithInt:144];
-  v5[1] = v1;
-  v6[1] = @"NetworkInfraManager";
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
+  v4[1] = v1;
+  v5[1] = @"NetworkInfraManager";
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:2];
   v3 = qword_280E03000;
   qword_280E03000 = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __44__HMAccessory_HFAdditions___hf_categoryType__block_invoke(uint64_t a1, void *a2)
@@ -612,31 +606,29 @@ uint64_t __50__HMAccessory_HFAdditions__hf_siriEndpointProfile__block_invoke(uin
   return isKindOfClass & 1;
 }
 
-void __90__HMAccessory_HFAdditions__hf_onboardSiriEndpointIfNeededWithSettingKeyPath_settingValue___block_invoke(uint64_t a1, void *a2)
+void __90__HMAccessory_HFAdditions__hf_onboardSiriEndpointIfNeededWithSettingKeyPath_settingValue___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   v9 = *MEMORY[0x277D85DE8];
-  v2 = a2;
-  if (v2)
+  v3 = a2;
+  if (v3)
   {
-    v3 = HFLogForCategory(0x41uLL);
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = HFLogForCategory(0x41uLL);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       v7 = 138412290;
-      v8 = v2;
-      _os_log_error_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_ERROR, "Implicit Onboarding failed to apply onboarding selections with error: [%@]", &v7, 0xCu);
+      v8 = v3;
+      _os_log_error_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_ERROR, "Implicit Onboarding failed to apply onboarding selections with error: [%@]", &v7, 0xCu);
     }
   }
 
-  v4 = HFLogForCategory(0x41uLL);
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = HFLogForCategory(0x41uLL);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = HMSiriEndpointOnboardingResultAsString();
+    v6 = HMSiriEndpointOnboardingResultAsString();
     v7 = 138412290;
-    v8 = v5;
-    _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "Implicit Onboarding succeeded with result: [%@]", &v7, 0xCu);
+    v8 = v6;
+    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "Implicit Onboarding succeeded with result: [%@]", &v7, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 id __75__HMAccessory_HFAdditions__hf_allConnectedHomeToCHIPAccessoryPairingFuture__block_invoke_2(uint64_t a1, void *a2)
@@ -649,7 +641,7 @@ id __75__HMAccessory_HFAdditions__hf_allConnectedHomeToCHIPAccessoryPairingFutur
 
 id __75__HMAccessory_HFAdditions__hf_allConnectedHomeToCHIPAccessoryPairingFuture__block_invoke_4(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -657,17 +649,15 @@ id __75__HMAccessory_HFAdditions__hf_allConnectedHomeToCHIPAccessoryPairingFutur
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = NSStringFromSelector(*(a1 + 32));
-      v9 = 138412546;
-      v10 = v5;
-      v11 = 2112;
-      v12 = v3;
-      _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "%@ failed due to %@", &v9, 0x16u);
+      v8 = 138412546;
+      v9 = v5;
+      v10 = 2112;
+      v11 = v3;
+      _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "%@ failed due to %@", &v8, 0x16u);
     }
   }
 
   v6 = [MEMORY[0x277D2C900] futureWithResult:MEMORY[0x277CBEC10]];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -691,7 +681,7 @@ void __59__HMAccessory_HFAdditions__hf_enableAdaptiveTemperatureTo___block_invok
 
 void __59__HMAccessory_HFAdditions__hf_enableAdaptiveTemperatureTo___block_invoke_2(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = HFLogForCategory(0x26uLL);
@@ -700,12 +690,12 @@ void __59__HMAccessory_HFAdditions__hf_enableAdaptiveTemperatureTo___block_invok
   {
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v8 = 136315650;
-      v9 = "[HMAccessory(HFAdditions) hf_enableAdaptiveTemperatureTo:]_block_invoke_2";
-      v10 = 2112;
-      v11 = WeakRetained;
-      v12 = 2112;
-      v13 = v3;
+      v7 = 136315650;
+      v8 = "[HMAccessory(HFAdditions) hf_enableAdaptiveTemperatureTo:]_block_invoke_2";
+      v9 = 2112;
+      v10 = WeakRetained;
+      v11 = 2112;
+      v12 = v3;
     }
 
     [*(a1 + 32) finishWithError:v3];
@@ -715,16 +705,14 @@ void __59__HMAccessory_HFAdditions__hf_enableAdaptiveTemperatureTo___block_invok
   {
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[HMAccessory(HFAdditions) hf_enableAdaptiveTemperatureTo:]_block_invoke";
-      v10 = 2112;
-      v11 = WeakRetained;
+      v7 = 136315394;
+      v8 = "[HMAccessory(HFAdditions) hf_enableAdaptiveTemperatureTo:]_block_invoke";
+      v9 = 2112;
+      v10 = WeakRetained;
     }
 
     [*(a1 + 32) finishWithNoResult];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __62__HMAccessory_HFAdditions__hf_enableGridForecastAutomationTo___block_invoke(uint64_t a1, void *a2)
@@ -746,7 +734,7 @@ void __62__HMAccessory_HFAdditions__hf_enableGridForecastAutomationTo___block_in
 
 void __62__HMAccessory_HFAdditions__hf_enableGridForecastAutomationTo___block_invoke_2(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = HFLogForCategory(0x26uLL);
@@ -755,12 +743,12 @@ void __62__HMAccessory_HFAdditions__hf_enableGridForecastAutomationTo___block_in
   {
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v8 = 136315650;
-      v9 = "[HMAccessory(HFAdditions) hf_enableGridForecastAutomationTo:]_block_invoke_2";
-      v10 = 2112;
-      v11 = WeakRetained;
-      v12 = 2112;
-      v13 = v3;
+      v7 = 136315650;
+      v8 = "[HMAccessory(HFAdditions) hf_enableGridForecastAutomationTo:]_block_invoke_2";
+      v9 = 2112;
+      v10 = WeakRetained;
+      v11 = 2112;
+      v12 = v3;
     }
 
     [*(a1 + 32) finishWithError:v3];
@@ -770,16 +758,14 @@ void __62__HMAccessory_HFAdditions__hf_enableGridForecastAutomationTo___block_in
   {
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[HMAccessory(HFAdditions) hf_enableGridForecastAutomationTo:]_block_invoke";
-      v10 = 2112;
-      v11 = WeakRetained;
+      v7 = 136315394;
+      v8 = "[HMAccessory(HFAdditions) hf_enableGridForecastAutomationTo:]_block_invoke";
+      v9 = 2112;
+      v10 = WeakRetained;
     }
 
     [*(a1 + 32) finishWithNoResult];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __68__HMAccessory_HFAdditions__hf_setHasOnboardedForAdaptiveTemperature__block_invoke(uint64_t a1, void *a2)
@@ -800,7 +786,7 @@ void __68__HMAccessory_HFAdditions__hf_setHasOnboardedForAdaptiveTemperature__bl
 
 void __68__HMAccessory_HFAdditions__hf_setHasOnboardedForAdaptiveTemperature__block_invoke_2(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = HFLogForCategory(0x26uLL);
@@ -809,12 +795,12 @@ void __68__HMAccessory_HFAdditions__hf_setHasOnboardedForAdaptiveTemperature__bl
   {
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v8 = 136315650;
-      v9 = "[HMAccessory(HFAdditions) hf_setHasOnboardedForAdaptiveTemperature]_block_invoke_2";
-      v10 = 2112;
-      v11 = WeakRetained;
-      v12 = 2112;
-      v13 = v3;
+      v7 = 136315650;
+      v8 = "[HMAccessory(HFAdditions) hf_setHasOnboardedForAdaptiveTemperature]_block_invoke_2";
+      v9 = 2112;
+      v10 = WeakRetained;
+      v11 = 2112;
+      v12 = v3;
     }
 
     [*(a1 + 32) finishWithError:v3];
@@ -824,16 +810,14 @@ void __68__HMAccessory_HFAdditions__hf_setHasOnboardedForAdaptiveTemperature__bl
   {
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[HMAccessory(HFAdditions) hf_setHasOnboardedForAdaptiveTemperature]_block_invoke";
-      v10 = 2112;
-      v11 = WeakRetained;
+      v7 = 136315394;
+      v8 = "[HMAccessory(HFAdditions) hf_setHasOnboardedForAdaptiveTemperature]_block_invoke";
+      v9 = 2112;
+      v10 = WeakRetained;
     }
 
     [*(a1 + 32) finishWithNoResult];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __70__HMAccessory_HFAdditions__hf_setHasOnboardedForCleanEnergyAutomation__block_invoke(uint64_t a1, void *a2)
@@ -854,7 +838,7 @@ void __70__HMAccessory_HFAdditions__hf_setHasOnboardedForCleanEnergyAutomation__
 
 void __70__HMAccessory_HFAdditions__hf_setHasOnboardedForCleanEnergyAutomation__block_invoke_2(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = HFLogForCategory(0x26uLL);
@@ -863,12 +847,12 @@ void __70__HMAccessory_HFAdditions__hf_setHasOnboardedForCleanEnergyAutomation__
   {
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v8 = 136315650;
-      v9 = "[HMAccessory(HFAdditions) hf_setHasOnboardedForCleanEnergyAutomation]_block_invoke_2";
-      v10 = 2112;
-      v11 = WeakRetained;
-      v12 = 2112;
-      v13 = v3;
+      v7 = 136315650;
+      v8 = "[HMAccessory(HFAdditions) hf_setHasOnboardedForCleanEnergyAutomation]_block_invoke_2";
+      v9 = 2112;
+      v10 = WeakRetained;
+      v11 = 2112;
+      v12 = v3;
     }
 
     [*(a1 + 32) finishWithError:v3];
@@ -878,22 +862,20 @@ void __70__HMAccessory_HFAdditions__hf_setHasOnboardedForCleanEnergyAutomation__
   {
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[HMAccessory(HFAdditions) hf_setHasOnboardedForCleanEnergyAutomation]_block_invoke";
-      v10 = 2112;
-      v11 = WeakRetained;
+      v7 = 136315394;
+      v8 = "[HMAccessory(HFAdditions) hf_setHasOnboardedForCleanEnergyAutomation]_block_invoke";
+      v9 = 2112;
+      v10 = WeakRetained;
     }
 
     [*(a1 + 32) finishWithNoResult];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __70__HMAccessory_HFIncludedContextProtocol__hf_shouldHideForContextType___block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = [WeakRetained home];
+  v2 = objc_msgSend_home(WeakRetained);
   v3 = [v2 hf_currentUserIsRestrictedGuest];
 
   if (v3)
@@ -934,7 +916,7 @@ uint64_t __70__HMAccessory_HFIncludedContextProtocol__hf_shouldHideForContextTyp
     goto LABEL_13;
   }
 
-  v7 = [WeakRetained home];
+  v7 = objc_msgSend_home(WeakRetained);
   v8 = [v7 hf_mediaSystemForAccessory:WeakRetained];
   if (!v8)
   {
@@ -1019,7 +1001,7 @@ void __89__HMAccessory_HFApplicationData__hf_updateApplicationData_handleError_c
   v4 = [v3 homeManager];
   if ([v4 hasOptedToHH2])
   {
-    v5 = [*(a1 + 32) home];
+    v5 = objc_msgSend_home(*(a1 + 32));
     v6 = [v5 residentDevices];
     v7 = [v6 count];
 

@@ -39,25 +39,26 @@
 {
   eventCopy = event;
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v5 = eventCopy;
-    bundleID = [v5 bundleID];
-    title = [v5 title];
-    v8 = +[ATXNowPlayingDuetEvent duetPlaybackStateFromATXPlaybackState:](ATXNowPlayingDuetEvent, "duetPlaybackStateFromATXPlaybackState:", [v5 playbackState]);
-    startTime = [v5 startTime];
-    endTime = [v5 endTime];
+    v6 = eventCopy;
+    bundleID = [v6 bundleID];
+    title = [v6 title];
+    v9 = +[ATXNowPlayingDuetEvent duetPlaybackStateFromATXPlaybackState:](ATXNowPlayingDuetEvent, "duetPlaybackStateFromATXPlaybackState:", [v6 playbackState]);
+    startTime = [v6 startTime];
+    endTime = [v6 endTime];
 
-    self = [(ATXNowPlayingDuetEvent *)self initWithBundleId:bundleID track:title nowPlayingState:v8 startDate:startTime endDate:endTime];
+    self = [(ATXNowPlayingDuetEvent *)self initWithBundleId:bundleID track:title nowPlayingState:v9 startDate:startTime endDate:endTime];
     selfCopy = self;
   }
 
   else
   {
-    v12 = __atxlog_handle_default();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = __atxlog_handle_default(isKindOfClass);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [(ATXNowPlayingDuetEvent *)eventCopy initWithATXEvent:v12];
+      [(ATXNowPlayingDuetEvent *)eventCopy initWithATXEvent:v13];
     }
 
     selfCopy = 0;
@@ -74,8 +75,8 @@
 
   if (!v5)
   {
-    v31 = __atxlog_handle_default();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+    v36 = __atxlog_handle_default(v6);
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
     {
       [ATXNowPlayingDuetEvent initWithCurrentContextStoreValues];
     }
@@ -84,114 +85,115 @@
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
-  {
-    v32 = __atxlog_handle_default();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
-    {
-      [ATXNowPlayingDuetEvent initWithCurrentContextStoreValues];
-    }
-
-    v33 = MEMORY[0x277CBEAD8];
-    v34 = *MEMORY[0x277CBE658];
-    v35 = @"ContextStore's 'keyPathForNowPlayingDataDictionary' is not an NSDictionary.";
-    goto LABEL_25;
-  }
-
-  nowPlayingStatusKey = [MEMORY[0x277CFE338] nowPlayingStatusKey];
-  v7 = [v5 objectForKeyedSubscript:nowPlayingStatusKey];
-  objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
-
   if ((isKindOfClass & 1) == 0)
   {
-    v36 = __atxlog_handle_default();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
-    {
-      [ATXNowPlayingDuetEvent initWithCurrentContextStoreValues];
-    }
-
-    v33 = MEMORY[0x277CBEAD8];
-    v34 = *MEMORY[0x277CBE658];
-    v35 = @"Value for 'nowPlayingStatusKey' in ContextStore's 'keyPathForNowPlayingDataDictionary' is not an NSNumber.";
-    goto LABEL_25;
-  }
-
-  nowPlayingStatusKey2 = [MEMORY[0x277CFE338] nowPlayingStatusKey];
-  v10 = [v5 objectForKeyedSubscript:nowPlayingStatusKey2];
-  integerValue = [v10 integerValue];
-
-  nowPlayingBundleIdKey = [MEMORY[0x277CFE338] nowPlayingBundleIdKey];
-  v13 = [v5 objectForKeyedSubscript:nowPlayingBundleIdKey];
-  objc_opt_class();
-  v14 = objc_opt_isKindOfClass();
-
-  if ((v14 & 1) == 0)
-  {
-    v37 = __atxlog_handle_default();
+    v37 = __atxlog_handle_default(isKindOfClass);
     if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
     {
       [ATXNowPlayingDuetEvent initWithCurrentContextStoreValues];
     }
 
-    v33 = MEMORY[0x277CBEAD8];
-    v34 = *MEMORY[0x277CBE658];
-    v35 = @"Value for 'nowPlayingBundleIdKey' in ContextStore's 'keyPathForNowPlayingDataDictionary' is not an NSString.";
+    v38 = MEMORY[0x277CBEAD8];
+    v39 = *MEMORY[0x277CBE658];
+    v40 = @"ContextStore's 'keyPathForNowPlayingDataDictionary' is not an NSDictionary.";
+    goto LABEL_25;
+  }
+
+  nowPlayingStatusKey = [MEMORY[0x277CFE338] nowPlayingStatusKey];
+  v9 = [v5 objectForKeyedSubscript:nowPlayingStatusKey];
+  objc_opt_class();
+  v10 = objc_opt_isKindOfClass();
+
+  if ((v10 & 1) == 0)
+  {
+    v41 = __atxlog_handle_default(v11);
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+    {
+      [ATXNowPlayingDuetEvent initWithCurrentContextStoreValues];
+    }
+
+    v38 = MEMORY[0x277CBEAD8];
+    v39 = *MEMORY[0x277CBE658];
+    v40 = @"Value for 'nowPlayingStatusKey' in ContextStore's 'keyPathForNowPlayingDataDictionary' is not an NSNumber.";
+    goto LABEL_25;
+  }
+
+  nowPlayingStatusKey2 = [MEMORY[0x277CFE338] nowPlayingStatusKey];
+  v13 = [v5 objectForKeyedSubscript:nowPlayingStatusKey2];
+  integerValue = [v13 integerValue];
+
+  nowPlayingBundleIdKey = [MEMORY[0x277CFE338] nowPlayingBundleIdKey];
+  v16 = [v5 objectForKeyedSubscript:nowPlayingBundleIdKey];
+  objc_opt_class();
+  v17 = objc_opt_isKindOfClass();
+
+  if ((v17 & 1) == 0)
+  {
+    v42 = __atxlog_handle_default(v18);
+    if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+    {
+      [ATXNowPlayingDuetEvent initWithCurrentContextStoreValues];
+    }
+
+    v38 = MEMORY[0x277CBEAD8];
+    v39 = *MEMORY[0x277CBE658];
+    v40 = @"Value for 'nowPlayingBundleIdKey' in ContextStore's 'keyPathForNowPlayingDataDictionary' is not an NSString.";
 LABEL_25:
-    [v33 raise:v34 format:v35];
+    [v38 raise:v39 format:v40];
 LABEL_26:
     selfCopy = 0;
     goto LABEL_27;
   }
 
   nowPlayingBundleIdKey2 = [MEMORY[0x277CFE338] nowPlayingBundleIdKey];
-  v16 = [v5 objectForKeyedSubscript:nowPlayingBundleIdKey2];
-  v17 = v16;
-  if (v16)
+  v20 = [v5 objectForKeyedSubscript:nowPlayingBundleIdKey2];
+  v21 = v20;
+  if (v20)
   {
-    v18 = v16;
+    v22 = v20;
   }
 
   else
   {
-    v18 = &stru_2839A6058;
+    v22 = &stru_2839A6058;
   }
 
-  v19 = v18;
+  v23 = v22;
 
   nowPlayingTrackKey = [MEMORY[0x277CFE338] nowPlayingTrackKey];
-  v21 = [v5 objectForKeyedSubscript:nowPlayingTrackKey];
+  v25 = [v5 objectForKeyedSubscript:nowPlayingTrackKey];
   objc_opt_class();
-  v22 = objc_opt_isKindOfClass();
+  v26 = objc_opt_isKindOfClass();
 
-  if (v22)
+  if (v26)
   {
     nowPlayingTrackKey2 = [MEMORY[0x277CFE338] nowPlayingTrackKey];
-    v24 = [v5 objectForKeyedSubscript:nowPlayingTrackKey2];
-    v25 = v24;
-    if (v24)
+    v29 = [v5 objectForKeyedSubscript:nowPlayingTrackKey2];
+    v30 = v29;
+    if (v29)
     {
-      v26 = v24;
+      v31 = v29;
     }
 
     else
     {
-      v26 = &stru_2839A6058;
+      v31 = &stru_2839A6058;
     }
 
-    v27 = v26;
+    v32 = v31;
 
     date = [MEMORY[0x277CBEAA8] date];
-    v29 = [(ATXNowPlayingDuetEvent *)self initWithBundleId:v19 track:v27 nowPlayingState:integerValue startDate:date endDate:date];
+    v34 = [(ATXNowPlayingDuetEvent *)self initWithBundleId:v23 track:v32 nowPlayingState:integerValue startDate:date endDate:date];
 
-    self = v29;
+    self = v34;
     selfCopy = self;
   }
 
   else
   {
-    v39 = __atxlog_handle_default();
-    if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+    v44 = __atxlog_handle_default(v27);
+    if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
     {
       [ATXNowPlayingDuetEvent initWithCurrentContextStoreValues];
     }
@@ -206,11 +208,9 @@ LABEL_27:
 
 - (id)identifier
 {
-  v3 = objc_alloc(MEMORY[0x277CCACA8]);
-  track = self->_track;
-  v5 = [v3 initWithFormat:@"%@ - %@ - %ld", self->_bundleId, track, self->_nowPlayingState];
+  v2 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@ - %@ - %ld", self->_bundleId, self->_track, self->_nowPlayingState];
 
-  return v5;
+  return v2;
 }
 
 - (id)description
@@ -241,7 +241,7 @@ LABEL_27:
 
 - (BOOL)checkAndReportDecodingFailureIfNeededForNSInteger:(int64_t)integer key:(id)key coder:(id)coder errorDomain:(id)domain errorCode:(int64_t)code
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   keyCopy = key;
   coderCopy = coder;
   domainCopy = domain;
@@ -258,11 +258,11 @@ LABEL_27:
     if (([coderCopy containsValueForKey:keyCopy] & 1) == 0)
     {
       v16 = objc_alloc(MEMORY[0x277CCA9B8]);
-      v22 = *MEMORY[0x277CCA450];
-      v17 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Failed to decode key %@", keyCopy, v22];
-      v23[0] = v17;
+      v21 = *MEMORY[0x277CCA450];
+      v17 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Failed to decode key %@", keyCopy, v21];
+      v22[0] = v17;
       v14 = 1;
-      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
       v19 = [v16 initWithDomain:domainCopy code:code userInfo:v18];
 
       [coderCopy failWithError:v19];
@@ -273,7 +273,6 @@ LABEL_27:
   v14 = 0;
 LABEL_7:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -300,28 +299,28 @@ LABEL_7:
   coderCopy = coder;
   v5 = MEMORY[0x277D42620];
   v6 = objc_opt_class();
-  v7 = __atxlog_handle_anchor();
+  v7 = __atxlog_handle_anchor(v6);
   v8 = [v5 robustDecodeObjectOfClass:v6 forKey:@"codingKeyForStartDate" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXDuetEvent.NowPlaying" errorCode:-1 logHandle:v7];
 
   if (v8 && ([coderCopy error], v9 = objc_claimAutoreleasedReturnValue(), v9, !v9))
   {
     v11 = MEMORY[0x277D42620];
     v12 = objc_opt_class();
-    v13 = __atxlog_handle_anchor();
+    v13 = __atxlog_handle_anchor(v12);
     v14 = [v11 robustDecodeObjectOfClass:v12 forKey:@"codingKeyForEndDate" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXDuetEvent.NowPlaying" errorCode:-1 logHandle:v13];
 
     if (v14 && ([coderCopy error], v15 = objc_claimAutoreleasedReturnValue(), v15, !v15))
     {
       v16 = MEMORY[0x277D42620];
       v17 = objc_opt_class();
-      v18 = __atxlog_handle_anchor();
+      v18 = __atxlog_handle_anchor(v17);
       v19 = [v16 robustDecodeObjectOfClass:v17 forKey:@"codingKeyForBundleId" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXDuetEvent.NowPlaying" errorCode:-1 logHandle:v18];
 
       if (v19 && ([coderCopy error], v20 = objc_claimAutoreleasedReturnValue(), v20, !v20))
       {
         v21 = MEMORY[0x277D42620];
         v22 = objc_opt_class();
-        v23 = __atxlog_handle_anchor();
+        v23 = __atxlog_handle_anchor(v22);
         v24 = [v21 robustDecodeObjectOfClass:v22 forKey:@"codingKeyForTrack" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXDuetEvent.NowPlaying" errorCode:-1 logHandle:v23];
 
         if (!v24 || ([coderCopy error], v25 = objc_claimAutoreleasedReturnValue(), v25, v25) || (v26 = objc_msgSend(coderCopy, "decodeIntegerForKey:", @"codingKeyForNowPlayingState"), -[ATXNowPlayingDuetEvent checkAndReportDecodingFailureIfNeededForNSInteger:key:coder:errorDomain:errorCode:](self, "checkAndReportDecodingFailureIfNeededForNSInteger:key:coder:errorDomain:errorCode:", v26, @"codingKeyForNowPlayingState", coderCopy, @"com.apple.proactive.ATXDuetEvent.NowPlaying", -1)))
@@ -358,18 +357,16 @@ LABEL_7:
 
 - (void)initWithATXEvent:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
   v5 = objc_opt_class();
   v6 = NSStringFromClass(v5);
-  v8 = 138412546;
-  v9 = v4;
-  v10 = 2112;
-  v11 = v6;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "Value of event was %@, not %@", &v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 138412546;
+  v8 = v4;
+  v9 = 2112;
+  v10 = v6;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "Value of event was %@, not %@", &v7, 0x16u);
 }
 
 @end

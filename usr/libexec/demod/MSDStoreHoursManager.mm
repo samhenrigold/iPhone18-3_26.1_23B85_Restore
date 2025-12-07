@@ -72,11 +72,12 @@
 - (void)updateStoreHours:(id)hours lastSettingsUpdatedDate:(id)date
 {
   hoursCopy = hours;
-  dateCopy = date;
-  if (!dateCopy || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || (+[NSDate distantPast](NSDate, "distantPast"), v8 = objc_claimAutoreleasedReturnValue(), v9 = [dateCopy isEqualToDate:v8], v8, v9))
+  isKindOfClass = date;
+  v8 = isKindOfClass;
+  if (!isKindOfClass || (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) == 0) || (+[NSDate distantPast](NSDate, "distantPast"), v9 = objc_claimAutoreleasedReturnValue(), v10 = [v8 isEqualToDate:v9], v9, v10))
   {
-    v10 = sub_100063A54();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = sub_100063A54(isKindOfClass);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_1000DCCEC();
     }
@@ -85,9 +86,8 @@
 LABEL_7:
 
     [(MSDStoreHoursManager *)self setStoreHourRecords:0];
-    [(MSDStoreHoursManager *)self setUseDefaultStoreHours:1];
-    v12 = sub_100063A54();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = sub_100063A54([(MSDStoreHoursManager *)self setUseDefaultStoreHours:1]);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       sub_1000DCD5C();
     }
@@ -95,25 +95,25 @@ LABEL_7:
     goto LABEL_17;
   }
 
-  endOfDay = [dateCopy endOfDay];
+  endOfDay = [v8 endOfDay];
   newDateByAddingOneWeek = [endOfDay newDateByAddingOneWeek];
 
-  [newDateByAddingOneWeek timeIntervalSinceNow];
-  if (v14 < 300.0)
+  timeIntervalSinceNow = [newDateByAddingOneWeek timeIntervalSinceNow];
+  if (v16 < 300.0)
   {
-    v10 = sub_100063A54();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = sub_100063A54(timeIntervalSinceNow);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      sub_1000DCC58(newDateByAddingOneWeek, v10);
+      sub_1000DCC58(newDateByAddingOneWeek, v11);
     }
 
     goto LABEL_7;
   }
 
-  if (!hoursCopy || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || ![hoursCopy count])
+  if (!hoursCopy || (objc_opt_class(), timeIntervalSinceNow = objc_opt_isKindOfClass(), (timeIntervalSinceNow & 1) == 0) || (timeIntervalSinceNow = [hoursCopy count]) == 0)
   {
-    v10 = sub_100063A54();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = sub_100063A54(timeIntervalSinceNow);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_1000DCBE8();
     }
@@ -121,11 +121,11 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  v15 = [(MSDStoreHoursManager *)self parseRawStoreHours:hoursCopy];
-  if (!v15)
+  v17 = [(MSDStoreHoursManager *)self parseRawStoreHours:hoursCopy];
+  if (!v17)
   {
-    v10 = sub_100063A54();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = sub_100063A54(0);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_1000DCBA8();
     }
@@ -133,15 +133,14 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  v12 = v15;
-  [(MSDStoreHoursManager *)self setStoreHourRecords:v15];
+  v13 = v17;
+  [(MSDStoreHoursManager *)self setStoreHourRecords:v17];
   [(MSDStoreHoursManager *)self setUseDefaultStoreHours:0];
-  [(MSDStoreHoursManager *)self setupStoreHourSettingsExpirationTimer:newDateByAddingOneWeek];
-  v16 = sub_100063A54();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v18 = sub_100063A54([(MSDStoreHoursManager *)self setupStoreHourSettingsExpirationTimer:newDateByAddingOneWeek]);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
-    *v17 = 0;
-    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "New store hours successfully loaded!", v17, 2u);
+    *v19 = 0;
+    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "New store hours successfully loaded!", v19, 2u);
   }
 
 LABEL_17:
@@ -162,13 +161,13 @@ LABEL_17:
   nextStoreOpenDate = [(MSDStoreHoursManager *)self nextStoreOpenDate];
   nextStoreClosedDate = [(MSDStoreHoursManager *)self nextStoreClosedDate];
   nextContentRevertDate = [(MSDStoreHoursManager *)self nextContentRevertDate];
-  v9 = sub_100063A54();
+  v9 = sub_100063A54(nextContentRevertDate);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     toString = [timeCopy toString];
-    v29 = 138543362;
-    v30 = toString;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Evaluating store status against time: %{public}@", &v29, 0xCu);
+    v34 = 138543362;
+    v35 = toString;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Evaluating store status against time: %{public}@", &v34, 0xCu);
   }
 
   if ([(MSDStoreHoursManager *)self useDefaultStoreHours])
@@ -181,7 +180,8 @@ LABEL_17:
     [(MSDStoreHoursManager *)self populateStoreHourFromHubSuppliedSettingsForDate:timeCopy];
   }
 
-  if (isStoreOpenNow != [(MSDStoreHoursManager *)self isStoreOpenNow])
+  isStoreOpenNow2 = [(MSDStoreHoursManager *)self isStoreOpenNow];
+  if (isStoreOpenNow != isStoreOpenNow2)
   {
     goto LABEL_15;
   }
@@ -201,72 +201,72 @@ LABEL_14:
   }
 
   nextContentRevertDate2 = [(MSDStoreHoursManager *)self nextContentRevertDate];
-  v14 = [nextContentRevertDate2 isEqualToDate:nextContentRevertDate];
+  v15 = [nextContentRevertDate2 isEqualToDate:nextContentRevertDate];
 
-  if (v14)
+  if (v15)
   {
-    v15 = sub_100063A54();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = sub_100063A54(isStoreOpenNow2);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v29) = 0;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "No change in store open-closed status.", &v29, 2u);
+      LOWORD(v34) = 0;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "No change in store open-closed status.", &v34, 2u);
     }
 
-    v16 = 0;
+    v17 = 0;
     goto LABEL_26;
   }
 
 LABEL_15:
-  v17 = sub_100063A54();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
-  {
-    LOWORD(v29) = 0;
-    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "New store open-closed status:", &v29, 2u);
-  }
-
-  v18 = sub_100063A54();
+  v18 = sub_100063A54(isStoreOpenNow2);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
-    isStoreOpenNow2 = [(MSDStoreHoursManager *)self isStoreOpenNow];
-    v29 = 67109120;
-    LODWORD(v30) = isStoreOpenNow2;
-    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "    Is store open now: %{BOOL}d", &v29, 8u);
+    LOWORD(v34) = 0;
+    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "New store open-closed status:", &v34, 2u);
   }
 
-  v20 = sub_100063A54();
+  v20 = sub_100063A54(v19);
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+  {
+    isStoreOpenNow3 = [(MSDStoreHoursManager *)self isStoreOpenNow];
+    v34 = 67109120;
+    LODWORD(v35) = isStoreOpenNow3;
+    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "    Is store open now: %{BOOL}d", &v34, 8u);
+  }
+
+  v23 = sub_100063A54(v22);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
     nextStoreOpenDate3 = [(MSDStoreHoursManager *)self nextStoreOpenDate];
     toString2 = [nextStoreOpenDate3 toString];
-    v29 = 138543362;
-    v30 = toString2;
-    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "    Next store open date: %{public}@", &v29, 0xCu);
+    v34 = 138543362;
+    v35 = toString2;
+    _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "    Next store open date: %{public}@", &v34, 0xCu);
   }
 
-  v23 = sub_100063A54();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+  v27 = sub_100063A54(v26);
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
   {
     nextStoreClosedDate3 = [(MSDStoreHoursManager *)self nextStoreClosedDate];
     toString3 = [nextStoreClosedDate3 toString];
-    v29 = 138543362;
-    v30 = toString3;
-    _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "    Next store close date: %{public}@", &v29, 0xCu);
+    v34 = 138543362;
+    v35 = toString3;
+    _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "    Next store close date: %{public}@", &v34, 0xCu);
   }
 
-  v15 = sub_100063A54();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v16 = sub_100063A54(v30);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     nextContentRevertDate3 = [(MSDStoreHoursManager *)self nextContentRevertDate];
     toString4 = [nextContentRevertDate3 toString];
-    v29 = 138543362;
-    v30 = toString4;
-    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "    Next content revert date: %{public}@", &v29, 0xCu);
+    v34 = 138543362;
+    v35 = toString4;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "    Next content revert date: %{public}@", &v34, 0xCu);
   }
 
-  v16 = 1;
+  v17 = 1;
 LABEL_26:
 
-  return v16;
+  return v17;
 }
 
 - (id)screenSaverShouldRunUntil
@@ -277,7 +277,7 @@ LABEL_26:
   {
     screenSaverIdleDelay = 0;
 LABEL_6:
-    v7 = [NSNumber numberWithInteger:60];
+    v8 = [NSNumber numberWithInteger:60];
 
     goto LABEL_7;
   }
@@ -291,75 +291,78 @@ LABEL_6:
   }
 
   objc_opt_class();
-  v7 = screenSaverIdleDelay;
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  v8 = screenSaverIdleDelay;
+  if ((isKindOfClass & 1) == 0)
   {
     goto LABEL_6;
   }
 
 LABEL_7:
-  v8 = sub_100063A54();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = sub_100063A54(isKindOfClass);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = 138543362;
-    v20 = v7;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Screen saver idle delay: %{public}@ (minutes)", &v19, 0xCu);
+    v22 = 138543362;
+    v23 = v8;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Screen saver idle delay: %{public}@ (minutes)", &v22, 0xCu);
   }
 
   if ([(MSDStoreHoursManager *)self isStoreOpenNow])
   {
-    v9 = nextStoreClosedDate;
-    [v9 timeIntervalSinceNow];
-    if (v10 >= (60 * [v7 integerValue]))
+    v10 = nextStoreClosedDate;
+    [v10 timeIntervalSinceNow];
+    v12 = v11;
+    integerValue = [v8 integerValue];
+    if (v12 >= (60 * integerValue))
     {
       goto LABEL_21;
     }
 
-    v11 = sub_100063A54();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v14 = sub_100063A54(integerValue);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v19) = 0;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Store will be closing soon!", &v19, 2u);
+      LOWORD(v22) = 0;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Store will be closing soon!", &v22, 2u);
     }
 
-    v12 = (60 * [v7 integerValue]);
+    v15 = (60 * [v8 integerValue]);
   }
 
   else
   {
-    v9 = +[NSDate dateWithTimeIntervalSinceNow:](NSDate, "dateWithTimeIntervalSinceNow:", (60 * [v7 integerValue]));
-    if ([v9 compare:nextStoreOpenDate] == 1)
+    v10 = +[NSDate dateWithTimeIntervalSinceNow:](NSDate, "dateWithTimeIntervalSinceNow:", (60 * [v8 integerValue]));
+    if ([v10 compare:nextStoreOpenDate] == 1)
     {
-      v13 = sub_100063A54();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v16 = sub_100063A54(1);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v19) = 0;
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Store will be opening soon!", &v19, 2u);
+        LOWORD(v22) = 0;
+        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Store will be opening soon!", &v22, 2u);
       }
 
-      v14 = nextStoreClosedDate;
+      v17 = nextStoreClosedDate;
       goto LABEL_20;
     }
 
-    v12 = 300.0;
+    v15 = 300.0;
   }
 
-  v14 = [NSDate dateWithTimeIntervalSinceNow:v12];
+  v17 = [NSDate dateWithTimeIntervalSinceNow:v15];
 LABEL_20:
-  v15 = v14;
+  v18 = v17;
 
-  v9 = v15;
+  v10 = v18;
 LABEL_21:
-  v16 = sub_100063A54();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v19 = sub_100063A54(integerValue);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
-    toString = [v9 toString];
-    v19 = 138543362;
-    v20 = toString;
-    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Screen saver should run until: %{public}@", &v19, 0xCu);
+    toString = [v10 toString];
+    v22 = 138543362;
+    v23 = toString;
+    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Screen saver should run until: %{public}@", &v22, 0xCu);
   }
 
-  return v9;
+  return v10;
 }
 
 - (void)setupStoreOpenCloseTimers
@@ -375,35 +378,36 @@ LABEL_21:
 {
   hoursCopy = hours;
   v4 = +[NSMutableArray array];
-  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
   v5 = hoursCopy;
-  v6 = [v5 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
     obj = v5;
-    v25 = *v27;
+    v26 = *v28;
     while (2)
     {
       v9 = 0;
       v10 = v8;
       do
       {
-        if (*v27 != v25)
+        if (*v28 != v26)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v26 + 1) + 8 * v9);
+        v11 = *(*(&v27 + 1) + 8 * v9);
         objc_opt_class();
-        if ((objc_opt_isKindOfClass() & 1) == 0 || [v11 count] != 3)
+        isKindOfClass = objc_opt_isKindOfClass();
+        if ((isKindOfClass & 1) == 0 || (isKindOfClass = [v11 count], isKindOfClass != 3))
         {
-          v14 = sub_100063A54();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+          v15 = sub_100063A54(isKindOfClass);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
           {
             sub_1000DCD9C();
           }
@@ -411,34 +415,34 @@ LABEL_21:
           goto LABEL_18;
         }
 
-        v12 = v4;
-        v13 = [v11 objectAtIndex:0];
-        v14 = [NSDate dateFromString:v13];
+        v13 = v4;
+        v14 = [v11 objectAtIndex:0];
+        v15 = [NSDate dateFromString:v14];
 
-        v15 = [v11 objectAtIndex:1];
-        v16 = [NSDate dateFromString:v15];
+        v16 = [v11 objectAtIndex:1];
+        v17 = [NSDate dateFromString:v16];
 
-        v17 = [v11 objectAtIndex:2];
-        v18 = [NSDate dateFromString:v17];
+        v18 = [v11 objectAtIndex:2];
+        v19 = [NSDate dateFromString:v18];
 
-        if (!v14 || !v16 || !v18)
+        if (!v15 || !v17 || !v19)
         {
-          sub_1000DCE0C(v11, v18, v16);
-          v4 = v12;
+          sub_1000DCE0C(v11, v19, v17);
+          v4 = v13;
 LABEL_18:
           v5 = obj;
 
-          v22 = 0;
+          v23 = 0;
           goto LABEL_19;
         }
 
         v8 = objc_alloc_init(MSDStoreHourRecord);
 
-        [(MSDStoreHourRecord *)v8 setClosedDate:v14];
-        [(MSDStoreHourRecord *)v8 setRevertDate:v16];
-        [(MSDStoreHourRecord *)v8 setOpenDate:v18];
-        v4 = v12;
-        [v12 addObject:v8];
+        [(MSDStoreHourRecord *)v8 setClosedDate:v15];
+        [(MSDStoreHourRecord *)v8 setRevertDate:v17];
+        [(MSDStoreHourRecord *)v8 setOpenDate:v19];
+        v4 = v13;
+        [v13 addObject:v8];
 
         v9 = v9 + 1;
         v10 = v8;
@@ -446,7 +450,7 @@ LABEL_18:
 
       while (v7 != v9);
       v5 = obj;
-      v7 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v7 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
       if (v7)
       {
         continue;
@@ -457,20 +461,20 @@ LABEL_18:
   }
 
   v10 = objc_alloc_init(MSDStoreHourRecord);
-  v19 = +[NSDate distantFuture];
-  [(MSDStoreHourRecord *)v10 setClosedDate:v19];
-
   v20 = +[NSDate distantFuture];
-  [(MSDStoreHourRecord *)v10 setRevertDate:v20];
+  [(MSDStoreHourRecord *)v10 setClosedDate:v20];
 
   v21 = +[NSDate distantFuture];
-  [(MSDStoreHourRecord *)v10 setOpenDate:v21];
+  [(MSDStoreHourRecord *)v10 setRevertDate:v21];
+
+  v22 = +[NSDate distantFuture];
+  [(MSDStoreHourRecord *)v10 setOpenDate:v22];
 
   [v4 addObject:v10];
-  v22 = v4;
+  v23 = v4;
 LABEL_19:
 
-  return v22;
+  return v23;
 }
 
 - (void)populateStoreHourFromDefaultSettingsForDate:(id)date
@@ -630,7 +634,7 @@ LABEL_14:
 
 - (void)storeHourSettingsExpirationHandler:(id)handler
 {
-  v4 = sub_100063A54();
+  v4 = sub_100063A54(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -662,7 +666,7 @@ LABEL_14:
 
 - (void)storeOpenHandler:(id)handler
 {
-  v4 = sub_100063A54();
+  v4 = sub_100063A54(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -694,7 +698,7 @@ LABEL_14:
 
 - (void)storeCloseHandler:(id)handler
 {
-  v4 = sub_100063A54();
+  v4 = sub_100063A54(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;

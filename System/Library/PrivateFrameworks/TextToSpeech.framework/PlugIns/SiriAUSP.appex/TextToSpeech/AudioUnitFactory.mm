@@ -15,19 +15,16 @@
 
 - (id)createAudioUnitWithComponentDescription:(AudioComponentDescription *)description error:(id *)error
 {
-  v5 = *&description->componentType;
-  v6 = *&description->componentManufacturer;
-  componentFlagsMask = description->componentFlagsMask;
   sub_100001678();
   selfCopy = self;
-  v9 = sub_100001668();
-  v10 = *(&selfCopy->super.isa + OBJC_IVAR____TtC8SiriAUSP16AudioUnitFactory_audioUnit);
-  *(&selfCopy->super.isa + OBJC_IVAR____TtC8SiriAUSP16AudioUnitFactory_audioUnit) = v9;
-  v11 = v9;
+  v6 = sub_100001668();
+  v7 = *(&selfCopy->super.isa + OBJC_IVAR____TtC8SiriAUSP16AudioUnitFactory_audioUnit);
+  *(&selfCopy->super.isa + OBJC_IVAR____TtC8SiriAUSP16AudioUnitFactory_audioUnit) = v6;
+  v8 = v6;
 
-  v12 = v11;
+  v9 = v8;
 
-  return v12;
+  return v9;
 }
 
 - (_TtC8SiriAUSP16AudioUnitFactory)init

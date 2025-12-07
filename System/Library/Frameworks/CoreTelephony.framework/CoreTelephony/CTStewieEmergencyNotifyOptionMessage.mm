@@ -13,7 +13,7 @@
 - (CTStewieEmergencyNotifyOptionMessage)initWithNotifyOption:(int64_t)option error:(id *)error
 {
   selfCopy = self;
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   if (!option)
   {
     errorCopy = error;
@@ -23,9 +23,9 @@
     }
 
     v8 = MEMORY[0x1E696ABC0];
-    v13 = *MEMORY[0x1E696A578];
-    v14[0] = @"Invalid notifyOption";
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    v12 = *MEMORY[0x1E696A578];
+    v13[0] = @"Invalid notifyOption";
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
     errorCopy->super.isa = [v8 errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:v9];
 
 LABEL_7:
@@ -33,9 +33,9 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  v12.receiver = self;
-  v12.super_class = CTStewieEmergencyNotifyOptionMessage;
-  v6 = [(CTStewieEmergencyNotifyOptionMessage *)&v12 init:option];
+  v11.receiver = self;
+  v11.super_class = CTStewieEmergencyNotifyOptionMessage;
+  v6 = [(CTStewieEmergencyNotifyOptionMessage *)&v11 init:option];
   if (!v6)
   {
     selfCopy = 0;
@@ -47,7 +47,6 @@ LABEL_7:
   errorCopy = selfCopy;
 LABEL_8:
 
-  v10 = *MEMORY[0x1E69E9840];
   return errorCopy;
 }
 

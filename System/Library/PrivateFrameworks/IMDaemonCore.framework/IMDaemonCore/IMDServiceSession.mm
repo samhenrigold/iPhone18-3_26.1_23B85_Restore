@@ -14,6 +14,7 @@
 - (BOOL)_shouldConvergeChatParticipants:(id)participants withHandleInfo:(id)info;
 - (BOOL)_shouldDropSendingMessage;
 - (BOOL)_shouldShowSWYQuickActionForMessage:(id)message outAppName:(id *)name outBundleID:(id *)d;
+- (BOOL)_storeMessage:(id)message chatIdentifier:(id)identifier localChat:(id)chat style:(unsigned __int8)style account:(id)account messagesToPostArray:(id)array;
 - (BOOL)acceptsIncomingReplicatedMessagesFromAccount:(id)account toIdentifier:(id)identifier isSOS:(BOOL)s;
 - (BOOL)accountNeedsLogin;
 - (BOOL)accountNeedsPassword;
@@ -37,6 +38,7 @@
 - (BOOL)sendNicknameUpdatesToPeerDevices:(id)devices toDestinations:(id)destinations;
 - (BOOL)shouldDisplayGroupNameAndPhotoWith:(int64_t)with handles:(id)handles;
 - (BOOL)shouldInferRecoverableDeleteForCommandDictionary:(id)dictionary;
+- (BOOL)shouldSendReadReceiptsForChat:(id)chat style:(unsigned __int8)style;
 - (Class)spotlightItemRecorderClass;
 - (IMDAccount)replicationAccount;
 - (IMDService)replicationService;
@@ -71,13 +73,23 @@
 - (id)broadcasterForVCConferenceListeners;
 - (id)canonicalFormOfID:(id)d;
 - (id)canonicalFormOfID:(id)d withIDSensitivity:(int)sensitivity;
+- (id)chatForChatIdentifier:(id)identifier style:(unsigned __int8)style;
 - (id)chatForChatIdentifier:(id)identifier style:(unsigned __int8)style account:(id)account updatingAccount:(BOOL)updatingAccount;
+- (id)chatForChatIdentifier:(id)identifier style:(unsigned __int8)style updatingAccount:(BOOL)account;
 - (id)chatForItemWithGUID:(id)d;
 - (id)deleteCommandDictionaryWithIncomingDictionary:(id)dictionary inferredRecoverableDeleteForLegacyCommandsWithDate:(id)date;
 - (id)dictionaryForHandlesToGUIDsFromHandleInfo:(id)info;
 - (id)didChangeMemberStatus:(id)status;
+- (id)didChangeMemberStatus:(int)status forHandle:(id)handle fromHandle:(id)fromHandle unformattedNumber:(id)number countryCode:(id)code forChat:(id)chat style:(unsigned __int8)style;
+- (id)didChangeMemberStatus:(int)status forHandle:(id)handle fromHandle:(id)fromHandle unformattedNumber:(id)number countryCode:(id)code forChat:(id)chat style:(unsigned __int8)style account:(id)self0;
+- (id)didChangeMemberStatus:(int)status forHandle:(id)handle fromHandle:(id)fromHandle unformattedNumber:(id)number countryCode:(id)code forChat:(id)chat style:(unsigned __int8)style account:(id)self0 destinationCallerID:(id)self1;
+- (id)didChangeMemberStatus:(int)status forHandle:(id)handle fromHandle:(id)fromHandle unformattedNumber:(id)number countryCode:(id)code forChat:(id)chat style:(unsigned __int8)style account:(id)self0 destinationCallerID:(id)self1 messageTime:(id)self2;
+- (id)didChangeMemberStatus:(int)status forHandle:(id)handle fromHandle:(id)fromHandle unformattedNumber:(id)number countryCode:(id)code forChat:(id)chat style:(unsigned __int8)style account:(id)self0 destinationCallerID:(id)self1 messageTime:(id)self2 messageID:(id)self3 silently:(BOOL)self4;
+- (id)didChangeMemberStatus:(int)status forHandle:(id)handle fromHandle:(id)fromHandle unformattedNumber:(id)number countryCode:(id)code forChat:(id)chat style:(unsigned __int8)style account:(id)self0 destinationCallerID:(id)self1 messageTime:(id)self2 silently:(BOOL)self3;
+- (id)didChangeMemberStatus:(int)status forHandle:(id)handle unformattedNumber:(id)number countryCode:(id)code forChat:(id)chat style:(unsigned __int8)style;
 - (id)existingChatForID:(id)d;
 - (id)existingChatsForGroupID:(id)d;
+- (id)existingChatsForIDs:(id)ds style:(unsigned __int8)style;
 - (id)groupIDForChat:(id)chat;
 - (id)itemWithGUID:(id)d;
 - (id)localPropertiesOfBuddy:(id)buddy;
@@ -90,9 +102,11 @@
 - (id)sessionSpecificTransferIDForTransferID:(id)d;
 - (int)registrationError;
 - (int64_t)_incomingMessageIndexReason;
+- (int64_t)maxSizePerAttachmentWithCount:(int)count forChat:(id)chat;
 - (int64_t)registrationStatus;
 - (unint64_t)capabilities;
 - (unint64_t)pendingReadReceiptFromStorageCount;
+- (void)__forceSetLoginStatus:(unint64_t)status oldStatus:(unint64_t)oldStatus message:(id)message reason:(int)reason properties:(id)properties account:(id)account;
 - (void)_abandonPWFetcher;
 - (void)_abandonSystemProxySettingsFetcher;
 - (void)_autoReconnectTimer:(id)timer;
@@ -106,6 +120,7 @@
 - (void)_clearOffGridFlagForMessagesInChatWithChatIdentifier:(id)identifier account:(id)account;
 - (void)_configureAccountInformationOnItem:(id)item withAccount:(id)account;
 - (void)_configureIdentifierForOutgoingItem:(id)item withIdentifier:(id)identifier withStyle:(unsigned __int8)style;
+- (void)_configureSessionInformationOnItem:(id)item toChat:(id)chat withStyle:(unsigned __int8)style forAccount:(id)account;
 - (void)_configureSyndicationRangesForMessage:(id)message forChat:(id)chat withSyndicationStatus:(int64_t)status;
 - (void)_configureTimeOnOutgoingItem:(id)item;
 - (void)_data_connection_readyWithAccount:(id)account;
@@ -115,6 +130,7 @@
 - (void)_didReceiveMessageReadReceiptForMessageID:(id)d date:(id)date attempts:(int64_t)attempts completionBlock:(id)block;
 - (void)_didReceiveMessageSavedForMessageID:(id)d ofType:(int64_t)type forChat:(id)chat fromHandle:(id)handle fromMe:(BOOL)me date:(id)date attempts:(int64_t)attempts account:(id)self0 completionBlock:(id)self1;
 - (void)_didReceivePotentialCollaborationMessage:(id)message forChat:(id)chat style:(unsigned __int8)style account:(id)account;
+- (void)_doLoginIgnoringProxy:(BOOL)proxy;
 - (void)_doLoginIgnoringProxy:(BOOL)proxy withAccount:(id)account;
 - (void)_expireStateTimerFired;
 - (void)_handleExpireStateDictionary:(id)dictionary;
@@ -138,7 +154,6 @@
 - (void)_reconnectIfNecessary;
 - (void)_reconnectIfNecessaryWithAccount:(id)account;
 - (void)_removeChatGuidFromCoreDuet:(id)duet;
-- (void)_replicationSessionsChanged;
 - (void)_requestGroupPhotoResendForChatGUID:(id)d fromIdentifier:(id)identifier toIdentifier:(id)toIdentifier;
 - (void)_resetTransferToTapDownloadState:(id)state;
 - (void)_routingTimerFired;
@@ -186,18 +201,33 @@
 - (void)decrementPendingReadReceiptFromStorageCount;
 - (void)deleteAllDataWithCompletionHandler:(id)handler;
 - (void)deleteExistingMessageAwaitingReplacementWithFallbackHash:(id)hash chatIdentifier:(id)identifier;
+- (void)didJoinChat:(id)chat style:(unsigned __int8)style displayName:(id)name groupID:(id)d handleInfo:(id)info account:(id)account isBlackholed:(BOOL)blackholed;
+- (void)didJoinChat:(id)chat style:(unsigned __int8)style displayName:(id)name groupID:(id)d handleInfo:(id)info category:(int64_t)category account:(id)account isBlackholed:(BOOL)self0 spamDetectionSource:(int64_t)self1;
+- (void)didJoinChat:(id)chat style:(unsigned __int8)style displayName:(id)name groupID:(id)d originalGroupID:(id)iD handleInfo:(id)info category:(int64_t)category spamExtensionName:(id)self0;
+- (void)didJoinChat:(id)chat style:(unsigned __int8)style displayName:(id)name groupID:(id)d originalGroupID:(id)iD lastAddressedHandle:(id)handle lastAddressedSIMID:(id)mID handleInfo:(id)self0;
+- (void)didJoinReadOnlyChat:(id)chat style:(unsigned __int8)style displayName:(id)name groupID:(id)d handleInfo:(id)info category:(int64_t)category spamExtensionName:(id)extensionName;
+- (void)didLeaveChat:(id)chat style:(unsigned __int8)style account:(id)account messageID:(id)d;
 - (void)didReceiveBalloonPayload:(id)payload forChat:(id)chat style:(unsigned __int8)style messageGUID:(id)d account:(id)account;
+- (void)didReceiveDisplayNameChange:(id)change fromID:(id)d toIdentifier:(id)identifier forChat:(id)chat style:(unsigned __int8)style account:(id)account;
 - (void)didReceiveDisplayNameChange:(id)change guid:(id)guid fromID:(id)d toIdentifier:(id)identifier forChat:(id)chat style:(unsigned __int8)style account:(id)account;
+- (void)didReceiveError:(unsigned int)error forMessageID:(id)d forceError:(BOOL)forceError;
+- (void)didReceiveError:(unsigned int)error forMessageID:(id)d forceError:(BOOL)forceError account:(id)account;
 - (void)didReceiveErrorMessage:(id)message forChat:(id)chat style:(unsigned __int8)style;
+- (void)didReceiveInvitation:(id)invitation forChat:(id)chat style:(unsigned __int8)style;
+- (void)didReceiveMessage:(id)message forChat:(id)chat style:(unsigned __int8)style account:(id)account fromIDSID:(id)d;
+- (void)didReceiveMessage:(id)message forChat:(id)chat style:(unsigned __int8)style fromIDSID:(id)d;
 - (void)didReceiveMessageEditingSendFailure:(unsigned int)failure forMessageGUID:(id)d partIndex:(int64_t)index editType:(unint64_t)type;
 - (void)didReceiveMessageEditingUnsupportedHandleIDs:(id)ds forMessageGUID:(id)d partIndex:(int64_t)index previousMessage:(id)message backwardCompatibilityMessageGUID:(id)iD;
 - (void)didReceiveMessagePlayedReceiptForMessageID:(id)d date:(id)date completionBlock:(id)block;
 - (void)didReceiveMessageReadReceiptForMessageID:(id)d date:(id)date completionBlock:(id)block;
 - (void)didReceiveMessages:(id)messages forChat:(id)chat style:(unsigned __int8)style account:(id)account fromIDSID:(id)d completion:(id)completion;
+- (void)didReceiveOffGridStatus:(BOOL)status forID:(id)d messageGUID:(id)iD account:(id)account;
+- (void)didReceiveReplaceMessageID:(int)d forChat:(id)chat style:(unsigned __int8)style;
 - (void)didSendBalloonPayload:(id)payload forChat:(id)chat style:(unsigned __int8)style messageGUID:(id)d account:(id)account completionBlock:(id)block;
 - (void)didSendDeliveredQuietlyReceiptForMessageID:(id)d;
 - (void)didSendDeliveredQuietlyReceiptForMessageID:(id)d account:(id)account;
 - (void)didSendMessage:(id)message forChat:(id)chat style:(unsigned __int8)style account:(id)account forceDate:(id)date itemIsComingFromStorage:(BOOL)storage;
+- (void)didSendMessage:(id)message forChat:(id)chat style:(unsigned __int8)style forceDate:(id)date;
 - (void)didSendMessageEditForMessageGUID:(id)d;
 - (void)didSendMessagePlayedReceiptForMessageID:(id)d;
 - (void)didSendMessagePlayedReceiptForMessageID:(id)d account:(id)account;
@@ -208,7 +238,12 @@
 - (void)didSendNotifyRecipientCommandForMessageID:(id)d;
 - (void)didSendNotifyRecipientCommandForMessageID:(id)d account:(id)account;
 - (void)didSendSyndicationActionItem:(id)item forChat:(id)chat;
+- (void)didStartSendingMessage:(id)message forChat:(id)chat style:(unsigned __int8)style;
 - (void)didStartSendingMessage:(id)message forChat:(id)chat style:(unsigned __int8)style account:(id)account;
+- (void)didUpdateChatStatus:(int)status chat:(id)chat style:(unsigned __int8)style context:(id)context;
+- (void)didUpdateChatStatus:(int)status chat:(id)chat style:(unsigned __int8)style displayName:(id)name groupID:(id)d lastAddressedHandle:(id)handle handleInfo:(id)info;
+- (void)didUpdateChatStatus:(int)status chat:(id)chat style:(unsigned __int8)style displayName:(id)name groupID:(id)d lastAddressedHandle:(id)handle lastAddressedSIMID:(id)iD handleInfo:(id)self0;
+- (void)didUpdateChatStatus:(int)status chat:(id)chat style:(unsigned __int8)style displayName:(id)name groupID:(id)d originalGroupID:(id)iD lastAddressedHandle:(id)handle lastAddressedSIMID:(id)self0 handleInfo:(id)self1;
 - (void)didUpdateChatStatus:(int)status chat:(id)chat style:(unsigned __int8)style displayName:(id)name groupID:(id)d originalGroupID:(id)iD lastAddressedHandle:(id)handle lastAddressedSIMID:(id)self0 handleInfo:(id)self1 account:(id)self2 category:(int64_t)self3 spamExtensionName:(id)self4 isBlackholed:(BOOL)self5 spamDetectionSource:(int64_t)self6;
 - (void)didUpdateChatStatusWithContext:(id)context;
 - (void)disallowReconnection;
@@ -218,25 +253,32 @@
 - (void)fallbackToDownloadIfPossible:(id)possible transfer:(id)transfer;
 - (void)fetchIncomingPendingMessagesFromHandlesIDs:(id)ds;
 - (void)incrementPendingReadReceiptFromStorageCount;
+- (void)invitePersonInfo:(id)info withMessage:(id)message toChat:(id)chat style:(unsigned __int8)style;
 - (void)login;
 - (void)loginWithAccount:(id)account;
 - (void)logout;
 - (void)logoutServiceSessionWithAccount:(id)account;
 - (void)logoutWithAccount:(id)account;
 - (void)markBuddiesAsChanged:(id)changed;
+- (void)markItemFailedWithGUID:(id)d errorCode:(unsigned int)code;
 - (void)markItemForOffGridRelay:(id)relay inChat:(id)chat;
 - (void)networkMonitorDidUpdate:(id)update;
 - (void)noteBadPassword;
 - (void)noteItemFromStorage:(id)storage;
+- (void)noteItemProcessed:(BOOL)processed batchContext:(id)context usingService:(id)service;
 - (void)noteLastItemFromStorage:(id)storage;
 - (void)noteLastItemProcessed;
 - (void)noteSuppressedMessageUpdate:(id)update;
+- (void)notifyDidSendMessageID:(id)d account:(id)account shouldNotify:(BOOL)notify wasDowngraded:(BOOL)downgraded wasInterworked:(BOOL)interworked;
+- (void)notifyDidSendMessageID:(id)d shouldNotify:(BOOL)notify;
 - (void)overwritePerChatReadReceiptSettingsWithGlobalValue:(BOOL)value;
 - (void)processMessageForSending:(id)sending toChat:(id)chat style:(unsigned __int8)style allowWatchdog:(BOOL)watchdog account:(id)account didReplaceMessageBlock:(id)block completionBlock:(id)completionBlock;
+- (void)processMessageForSending:(id)sending toChat:(id)chat style:(unsigned __int8)style allowWatchdog:(BOOL)watchdog completionBlock:(id)block;
 - (void)receiveIncomingBlastdoorBackgroundCommand:(id)command for:(id)for sender:(id)sender senderContext:(id)context;
 - (void)recoverChatsForCommandDictionary:(id)dictionary;
 - (void)refetchChatBackgroundIfNeededForChatIdentifier:(id)identifier chatStyle:(unsigned __int8)style;
 - (void)refreshServiceCapabilities;
+- (void)registerChat:(id)chat style:(unsigned __int8)style;
 - (void)registerChat:(id)chat style:(unsigned __int8)style displayName:(id)name groupID:(id)d originalGroupID:(id)iD lastAddressedHandle:(id)handle lastAddressedSIMID:(id)mID handleInfo:(id)self0 account:(id)self1 isBlackholed:(BOOL)self2;
 - (void)relayLegacySatelliteMessage:(id)message toChat:(id)chat localWatchOnly:(BOOL)only;
 - (void)removeAccount:(id)account;
@@ -259,6 +301,7 @@
 - (void)sendIncomingRelayMessage:(id)message toChat:(id)chat style:(unsigned __int8)style;
 - (void)sendLazuliSpamReport:(id)report isBot:(BOOL)bot spamType:(unint64_t)type;
 - (void)sendLocationSharingInfo:(id)info toID:(id)d completionBlock:(id)block;
+- (void)sendMessage:(id)message toChat:(id)chat style:(unsigned __int8)style;
 - (void)sendMessage:(id)message toChat:(id)chat style:(unsigned __int8)style account:(id)account;
 - (void)sendMessage:(id)message toChat:(id)chat style:(unsigned __int8)style destinationHandles:(id)handles;
 - (void)sendNicknameInfoToChatID:(id)d;
@@ -274,16 +317,20 @@
 - (void)sentDowngradeRequestToHandleID:(id)d fromID:(id)iD;
 - (void)serviceSessionDidLoginWithAccount:(id)account;
 - (void)serviceSessionDidLogoutWithAccount:(id)account;
+- (void)serviceSessionDidLogoutWithMessage:(id)message reason:(int)reason properties:(id)properties account:(id)account;
 - (void)sessionDidBecomeActive;
 - (void)sessionWillBecomeInactiveWithAccount:(id)account;
 - (void)setPendingReadReceiptFromStorageCount:(unint64_t)count;
+- (void)setRegistrationStatus:(int64_t)status error:(int)error alertInfo:(id)info;
 - (void)setTranscriptBackground:(id)background andSendToChatIdentifier:(id)identifier chatStyle:(unsigned __int8)style transferID:(id)d isRefresh:(BOOL)refresh;
+- (void)storeItem:(id)item toChat:(id)chat style:(unsigned __int8)style;
 - (void)storeMessage:(id)message context:(id)context didReplaceBlock:(id)block shouldStoreBlock:(id)storeBlock didStoreBlock:(id)didStoreBlock block:(id)a8;
 - (void)storeMessages:(id)messages messagesToWithdraw:(id)withdraw messagesToPost:(id)post chatIdentifier:(id)identifier style:(unsigned __int8)style account:(id)account fromIDSID:(id)d;
 - (void)systemProxySettingsFetcher:(id)fetcher retrievedAccount:(id)account password:(id)password;
 - (void)systemProxySettingsFetcher:(id)fetcher retrievedHost:(id)host port:(unsigned __int16)port protocol:(int64_t)protocol;
 - (void)trackTimeSensitiveContentInMessageItem:(id)item chat:(id)chat;
 - (void)updateBalloonPayload:(id)payload attachments:(id)attachments bundleID:(id)d forMessage:(id)message;
+- (void)updateChatGUID:(id)d withLastReadTimeStamp:(int64_t)stamp withLastSeenMessageGUID:(id)iD fromMe:(BOOL)me;
 - (void)updateDisplayName:(id)name fromDisplayName:(id)displayName fromID:(id)d forChatID:(id)iD identifier:(id)identifier style:(unsigned __int8)style messageID:(id)messageID;
 - (void)useChatRoom:(id)room forGroupChatIdentifier:(id)identifier;
 - (void)userNotificationDidFinish:(id)finish;
@@ -439,13 +486,13 @@
 
 - (IMDServiceSession)initWithAccount:(id)account service:(id)service replicatingForSession:(id)session
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   serviceCopy = service;
   sessionCopy = session;
-  v47.receiver = self;
-  v47.super_class = IMDServiceSession;
-  v12 = [(IMDServiceSession *)&v47 init];
+  v46.receiver = self;
+  v46.super_class = IMDServiceSession;
+  v12 = [(IMDServiceSession *)&v46 init];
   if (v12)
   {
     [MEMORY[0x277D192E8] enableNotifications];
@@ -559,17 +606,16 @@
         internalName = [serviceCopy internalName];
         accountDefaults = [accountCopy accountDefaults];
         *buf = 138412802;
-        v49 = accountID;
-        v50 = 2112;
-        v51 = internalName;
-        v52 = 2112;
-        v53 = accountDefaults;
+        v48 = accountID;
+        v49 = 2112;
+        v50 = internalName;
+        v51 = 2112;
+        v52 = accountDefaults;
         _os_log_impl(&dword_22B4CC000, v41, OS_LOG_TYPE_INFO, "initWithAccount: %@       service:%@  defaults: %@", buf, 0x20u);
       }
     }
   }
 
-  v45 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -589,7 +635,7 @@
 
 - (void)dealloc
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (IMOSLoggingEnabled())
   {
     v3 = OSLogHandleForIMFoundationCategory();
@@ -623,10 +669,9 @@
   [(IMTimer *)self->_messageWatchdogTimer invalidate];
   [(IMDAutoReplying *)self->_messageAutoReplier setReplyDelegate:0];
   [(NSRecursiveLock *)self->_lock unlock];
-  v8.receiver = self;
-  v8.super_class = IMDServiceSession;
-  [(IMDServiceSession *)&v8 dealloc];
-  v7 = *MEMORY[0x277D85DE8];
+  v7.receiver = self;
+  v7.super_class = IMDServiceSession;
+  [(IMDServiceSession *)&v7 dealloc];
 }
 
 - (BOOL)accountNeedsLogin
@@ -655,77 +700,73 @@
 
 - (void)addAccount:(id)account
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   if (IMOSLoggingEnabled())
   {
     v5 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v7 = 138412546;
+      v6 = 138412546;
       selfCopy = self;
-      v9 = 2112;
-      v10 = accountCopy;
-      _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "[%@ addAccount:%@]", &v7, 0x16u);
+      v8 = 2112;
+      v9 = accountCopy;
+      _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "[%@ addAccount:%@]", &v6, 0x16u);
     }
   }
 
   [(NSMutableArray *)self->_accounts addObject:accountCopy];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeAccount:(id)account
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   if (IMOSLoggingEnabled())
   {
     v5 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v7 = 138412546;
+      v6 = 138412546;
       selfCopy = self;
-      v9 = 2112;
-      v10 = accountCopy;
-      _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "[%@ removeAccount:%@]", &v7, 0x16u);
+      v8 = 2112;
+      v9 = accountCopy;
+      _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "[%@ removeAccount:%@]", &v6, 0x16u);
     }
   }
 
   [(NSMutableArray *)self->_accounts removeObject:accountCopy];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isActive
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = self->_accounts;
-  v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
-    v4 = *v9;
+    v4 = *v8;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v9 != v4)
+        if (*v8 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        if ([*(*(&v8 + 1) + 8 * i) isActive])
+        if ([*(*(&v7 + 1) + 8 * i) isActive])
         {
           LOBYTE(v3) = 1;
           goto LABEL_11;
         }
       }
 
-      v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
       if (v3)
       {
         continue;
@@ -737,7 +778,6 @@
 
 LABEL_11:
 
-  v6 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -752,7 +792,7 @@ LABEL_11:
 
 - (void)markItemForOffGridRelay:(id)relay inChat:(id)chat
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   relayCopy = relay;
   chatCopy = chat;
   [relayCopy setNeedsRelay:1];
@@ -770,9 +810,9 @@ LABEL_11:
       if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
         guid = [relayCopy guid];
-        v17 = 138412290;
-        v18 = guid;
-        _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "Marking iMessage Lite message as needing relay, guid: %@", &v17, 0xCu);
+        v16 = 138412290;
+        v17 = guid;
+        _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "Marking iMessage Lite message as needing relay, guid: %@", &v16, 0xCu);
       }
     }
   }
@@ -783,15 +823,13 @@ LABEL_11:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       guid2 = [relayCopy guid];
-      v17 = 138412290;
-      v18 = guid2;
-      _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "Marking SMS Satellite message as needing relay, guid: %@", &v17, 0xCu);
+      v16 = 138412290;
+      v17 = guid2;
+      _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "Marking SMS Satellite message as needing relay, guid: %@", &v16, 0xCu);
     }
   }
 
   IMSetDomainBoolForKey();
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_processMessagesForRelayIfNeededMarkingAsRelayedUponSuccess:(BOOL)success
@@ -861,13 +899,6 @@ LABEL_11:
   return v7;
 }
 
-- (void)_replicationSessionsChanged
-{
-  replicationProxy = self->_replicationProxy;
-  self->_replicationProxy = 0;
-  MEMORY[0x2821F96F8]();
-}
-
 - (BOOL)messageServiceNamed:(id)named canProcessMessagesFromServiceNamed:(id)serviceNamed
 {
   namedCopy = named;
@@ -891,7 +922,7 @@ LABEL_11:
 
 - (BOOL)acceptsIncomingReplicatedMessagesFromAccount:(id)account toIdentifier:(id)identifier isSOS:(BOOL)s
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   identifierCopy = identifier;
   if (IMOSLoggingEnabled())
@@ -899,38 +930,36 @@ LABEL_11:
     v8 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v11 = 138412290;
-      v12 = accountCopy;
-      _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Rejecting incoming replicated messages from account: %@, service session not configured for replicated messages", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = accountCopy;
+      _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Rejecting incoming replicated messages from account: %@, service session not configured for replicated messages", &v10, 0xCu);
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (id)outgoingReplicationCallerIDForChat:(id)chat
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   chatCopy = chat;
   if (IMOSLoggingEnabled())
   {
     v4 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      v7 = 138412290;
-      v8 = chatCopy;
-      _os_log_impl(&dword_22B4CC000, v4, OS_LOG_TYPE_INFO, "Returning nil outgoing replication caller ID for chat %@, service session not configured for replicated messages", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = chatCopy;
+      _os_log_impl(&dword_22B4CC000, v4, OS_LOG_TYPE_INFO, "Returning nil outgoing replication caller ID for chat %@, service session not configured for replicated messages", &v6, 0xCu);
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (id)preferredAccountForReplicationOnService:(id)service eligibleAccounts:(id)accounts
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   accountsCopy = accounts;
   if (IMOSLoggingEnabled())
@@ -938,13 +967,12 @@ LABEL_11:
     v7 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v10 = 138412290;
-      v11 = serviceCopy;
-      _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Returning nil preferred account for replication for %@, service session not configured for replicated messages", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = serviceCopy;
+      _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Returning nil preferred account for replication for %@, service session not configured for replicated messages", &v9, 0xCu);
     }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -970,15 +998,15 @@ LABEL_11:
 
 - (void)sessionDidBecomeActive
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (IMOSLoggingEnabled())
   {
     v3 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v10 = 138412290;
+      v9 = 138412290;
       selfCopy = self;
-      _os_log_impl(&dword_22B4CC000, v3, OS_LOG_TYPE_INFO, "[%@ sessionDidBecomeActive]", &v10, 0xCu);
+      _os_log_impl(&dword_22B4CC000, v3, OS_LOG_TYPE_INFO, "[%@ sessionDidBecomeActive]", &v9, 0xCu);
     }
   }
 
@@ -995,8 +1023,8 @@ LABEL_11:
       v7 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v10) = 0;
-        _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Not scheduling routing, expire, watchdog timer before first unlock", &v10, 2u);
+        LOWORD(v9) = 0;
+        _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Not scheduling routing, expire, watchdog timer before first unlock", &v9, 2u);
       }
     }
   }
@@ -1008,31 +1036,29 @@ LABEL_11:
       v8 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v10) = 0;
-        _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Scheduling watchdog after first unlock", &v10, 2u);
+        LOWORD(v9) = 0;
+        _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Scheduling watchdog after first unlock", &v9, 2u);
       }
     }
 
     [(IMDServiceSession *)self _updateWatchdogTimerWithInterval:60.0];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sessionWillBecomeInactiveWithAccount:(id)account
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   if (IMOSLoggingEnabled())
   {
     v5 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v7 = 138412546;
+      v6 = 138412546;
       selfCopy = self;
-      v9 = 2112;
-      v10 = accountCopy;
-      _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "[%@ sessionWillBecomeInactiveWithAccount:%@]", &v7, 0x16u);
+      v8 = 2112;
+      v9 = accountCopy;
+      _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "[%@ sessionWillBecomeInactiveWithAccount:%@]", &v6, 0x16u);
     }
   }
 
@@ -1044,24 +1070,22 @@ LABEL_11:
     [MEMORY[0x277D82BB8] cancelPreviousPerformRequestsWithTarget:self selector:sel_login object:0];
     [MEMORY[0x277D82BB8] cancelPreviousPerformRequestsWithTarget:self];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_clearNetworkMonitor
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (IMOSLoggingEnabled())
   {
     v3 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
       networkMonitor = self->_networkMonitor;
-      v9 = 138412546;
-      v10 = networkMonitor;
-      v11 = 2112;
+      v8 = 138412546;
+      v9 = networkMonitor;
+      v10 = 2112;
       selfCopy = self;
-      _os_log_impl(&dword_22B4CC000, v3, OS_LOG_TYPE_DEBUG, "[IMDServiceSession _networkMonitor] monitor: %@:%@", &v9, 0x16u);
+      _os_log_impl(&dword_22B4CC000, v3, OS_LOG_TYPE_DEBUG, "[IMDServiceSession _networkMonitor] monitor: %@:%@", &v8, 0x16u);
     }
   }
 
@@ -1070,13 +1094,11 @@ LABEL_11:
   [(IMNetworkMonitor *)v6 clear];
   v7 = *p_networkMonitor;
   *p_networkMonitor = 0;
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateNetworkMonitorWithRemoteHost:(id)host
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   hostCopy = host;
   if (self->_activated)
   {
@@ -1087,9 +1109,9 @@ LABEL_11:
       {
         accountID = [(IMDAccount *)self->_account accountID];
         *buf = 138412546;
-        v25 = hostCopy;
-        v26 = 2112;
-        v27 = accountID;
+        v24 = hostCopy;
+        v25 = 2112;
+        v26 = accountID;
         _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_DEBUG, "_updateNetworkMonitorWithRemoteHost: %@:%@", buf, 0x16u);
       }
     }
@@ -1112,7 +1134,7 @@ LABEL_11:
           {
             v13 = self->_networkMonitor;
             *buf = 138412290;
-            v25 = v13;
+            v24 = v13;
             _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_DEBUG, "Already have connection monitor to global reachability: %@", buf, 0xCu);
           }
         }
@@ -1131,7 +1153,7 @@ LABEL_11:
           {
             v20 = self->_networkMonitor;
             *buf = 138412290;
-            v25 = v20;
+            v24 = v20;
             _os_log_impl(&dword_22B4CC000, v19, OS_LOG_TYPE_DEBUG, "Creating connection monitor to global reachability: %@", buf, 0xCu);
           }
         }
@@ -1158,8 +1180,6 @@ LABEL_11:
       }
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateNetworkMonitorFromAccountDefaultsIgnoringProxy:(BOOL)proxy
@@ -1231,43 +1251,41 @@ LABEL_11:
 
 - (void)_reconnectIfNecessary
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   accounts = [(IMDServiceSession *)self accounts];
-  v4 = [accounts countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [accounts countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(accounts);
         }
 
-        [(IMDServiceSession *)self _reconnectIfNecessaryWithAccount:*(*(&v9 + 1) + 8 * v7++)];
+        [(IMDServiceSession *)self _reconnectIfNecessaryWithAccount:*(*(&v8 + 1) + 8 * v7++)];
       }
 
       while (v5 != v7);
-      v5 = [accounts countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [accounts countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_reconnectIfNecessaryWithAccount:(id)account
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   if (!self->_activated)
   {
@@ -1281,11 +1299,11 @@ LABEL_11:
     {
       loginID = [(IMDServiceSession *)self loginID];
       accountID = [(IMDAccount *)self->_account accountID];
-      v21 = 138412546;
-      v22 = loginID;
-      v23 = 2112;
-      v24 = accountID;
-      _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_DEBUG, "_reconnectIfNecessary: %@:%@", &v21, 0x16u);
+      v20 = 138412546;
+      v21 = loginID;
+      v22 = 2112;
+      v23 = accountID;
+      _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_DEBUG, "_reconnectIfNecessary: %@:%@", &v20, 0x16u);
     }
   }
 
@@ -1359,17 +1377,17 @@ LABEL_14:
 
       loginStatus = [accountCopy loginStatus];
       serviceDisconnectReason2 = [accountCopy serviceDisconnectReason];
-      v21 = 138413314;
-      v22 = v13;
-      v23 = 2112;
-      v24 = v14;
-      v25 = 2112;
-      v26 = v15;
-      v27 = 2048;
-      v28 = loginStatus;
-      v29 = 1024;
-      v30 = serviceDisconnectReason2;
-      _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_DEBUG, "  shouldAlwaysBeLoggedIn: %@    shouldReconnect: %@   wasLikelyNetworkError: %@  loginStatus: %lu  disconnectReason: %d", &v21, 0x30u);
+      v20 = 138413314;
+      v21 = v13;
+      v22 = 2112;
+      v23 = v14;
+      v24 = 2112;
+      v25 = v15;
+      v26 = 2048;
+      v27 = loginStatus;
+      v28 = 1024;
+      v29 = serviceDisconnectReason2;
+      _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_DEBUG, "  shouldAlwaysBeLoggedIn: %@    shouldReconnect: %@   wasLikelyNetworkError: %@  loginStatus: %lu  disconnectReason: %d", &v20, 0x30u);
     }
   }
 
@@ -1381,9 +1399,9 @@ LABEL_14:
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
       {
         loginID2 = [(IMDServiceSession *)self loginID];
-        v21 = 138412290;
-        v22 = loginID2;
-        _os_log_impl(&dword_22B4CC000, v18, OS_LOG_TYPE_DEBUG, "%@: we're disconnected properly - and we're supposed to try to reconnect now, ", &v21, 0xCu);
+        v20 = 138412290;
+        v21 = loginID2;
+        _os_log_impl(&dword_22B4CC000, v18, OS_LOG_TYPE_DEBUG, "%@: we're disconnected properly - and we're supposed to try to reconnect now, ", &v20, 0xCu);
       }
     }
 
@@ -1391,42 +1409,40 @@ LABEL_14:
   }
 
 LABEL_34:
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_processNetworkMonitorUpdate
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   if (!self->_activated || ![(IMDServiceSession *)self _processesNetworkEvents])
   {
-    goto LABEL_43;
+    return;
   }
 
   [MEMORY[0x277D82BB8] cancelPreviousPerformRequestsWithTarget:self selector:sel__processNetworkMonitorUpdate object:0];
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   accounts = [(IMDServiceSession *)self accounts];
-  v4 = [accounts countByEnumeratingWithState:&v28 objects:v38 count:16];
+  v4 = [accounts countByEnumeratingWithState:&v27 objects:v37 count:16];
   if (v4)
   {
     v5 = 0;
-    v6 = *v29;
+    v6 = *v28;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v29 != v6)
+        if (*v28 != v6)
         {
           objc_enumerationMutation(accounts);
         }
 
-        v5 |= [*(*(&v28 + 1) + 8 * i) loginStatus] > 2;
+        v5 |= [*(*(&v27 + 1) + 8 * i) loginStatus] > 2;
       }
 
-      v4 = [accounts countByEnumeratingWithState:&v28 objects:v38 count:16];
+      v4 = [accounts countByEnumeratingWithState:&v27 objects:v37 count:16];
     }
 
     while (v4);
@@ -1455,34 +1471,34 @@ LABEL_34:
         server = [(IMDServiceSession *)self server];
         *buf = 138412546;
         selfCopy3 = self;
-        v36 = 2112;
-        v37 = server;
+        v35 = 2112;
+        v36 = server;
         _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "%@: Network connection to %@ is down -- disconnecting", buf, 0x16u);
       }
     }
 
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     accounts = [(IMDServiceSession *)self accounts];
-    v11 = [accounts countByEnumeratingWithState:&v24 objects:v33 count:16];
+    v11 = [accounts countByEnumeratingWithState:&v23 objects:v32 count:16];
     if (v11)
     {
-      v12 = *v25;
+      v12 = *v24;
       do
       {
         for (j = 0; j != v11; ++j)
         {
-          if (*v25 != v12)
+          if (*v24 != v12)
           {
             objc_enumerationMutation(accounts);
           }
 
-          [(IMDServiceSession *)self logoutServiceSessionWithAccount:*(*(&v24 + 1) + 8 * j)];
+          [(IMDServiceSession *)self logoutServiceSessionWithAccount:*(*(&v23 + 1) + 8 * j)];
         }
 
-        v11 = [accounts countByEnumeratingWithState:&v24 objects:v33 count:16];
+        v11 = [accounts countByEnumeratingWithState:&v23 objects:v32 count:16];
       }
 
       while (v11);
@@ -1503,36 +1519,33 @@ LABEL_29:
       }
     }
 
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     accounts2 = [(IMDServiceSession *)self accounts];
-    v16 = [accounts2 countByEnumeratingWithState:&v20 objects:v32 count:16];
+    v16 = [accounts2 countByEnumeratingWithState:&v19 objects:v31 count:16];
     if (v16)
     {
-      v17 = *v21;
+      v17 = *v20;
       do
       {
         for (k = 0; k != v16; ++k)
         {
-          if (*v21 != v17)
+          if (*v20 != v17)
           {
             objc_enumerationMutation(accounts2);
           }
 
-          [(IMDServiceSession *)self _reconnectIfNecessaryWithAccount:*(*(&v20 + 1) + 8 * k)];
+          [(IMDServiceSession *)self _reconnectIfNecessaryWithAccount:*(*(&v19 + 1) + 8 * k)];
         }
 
-        v16 = [accounts2 countByEnumeratingWithState:&v20 objects:v32 count:16];
+        v16 = [accounts2 countByEnumeratingWithState:&v19 objects:v31 count:16];
       }
 
       while (v16);
     }
   }
-
-LABEL_43:
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setPendingNetworkMonitorUpdate
@@ -1547,7 +1560,7 @@ LABEL_43:
 
 - (BOOL)_processesNetworkEvents
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if ([(IMDServiceSession *)self isReplicating]&& (IMGetCachedDomainBoolForKey() & 1) == 0)
   {
     if (IMOSLoggingEnabled())
@@ -1556,11 +1569,11 @@ LABEL_43:
       if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
         networkMonitor = self->_networkMonitor;
-        v9 = 138412546;
+        v8 = 138412546;
         selfCopy = self;
-        v11 = 2112;
-        v12 = networkMonitor;
-        _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "%@ refuses to process network changes - networkMonitor: %@", &v9, 0x16u);
+        v10 = 2112;
+        v11 = networkMonitor;
+        _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "%@ refuses to process network changes - networkMonitor: %@", &v8, 0x16u);
       }
     }
 
@@ -1573,44 +1586,43 @@ LABEL_43:
     v4 = [service ignoresNetworkConnectivity] ^ 1;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 - (void)_processPotentialNetworkChange
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   if (![(IMDServiceSession *)self _processesNetworkEvents]|| !self->_activated)
   {
-    goto LABEL_80;
+    return;
   }
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   accounts = [(IMDServiceSession *)self accounts];
-  v4 = [accounts countByEnumeratingWithState:&v35 objects:v51 count:16];
+  v4 = [accounts countByEnumeratingWithState:&v34 objects:v50 count:16];
   if (v4)
   {
-    v5 = *v36;
+    v5 = *v35;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v36 != v5)
+        if (*v35 != v5)
         {
           objc_enumerationMutation(accounts);
         }
 
-        if ([*(*(&v35 + 1) + 8 * i) loginStatus] > 2)
+        if ([*(*(&v34 + 1) + 8 * i) loginStatus] > 2)
         {
           v7 = 1;
           goto LABEL_13;
         }
       }
 
-      v4 = [accounts countByEnumeratingWithState:&v35 objects:v51 count:16];
+      v4 = [accounts countByEnumeratingWithState:&v34 objects:v50 count:16];
       if (v4)
       {
         continue;
@@ -1665,8 +1677,8 @@ LABEL_18:
             v16 = @"NO";
           }
 
-          v41 = 2112;
-          v42 = v16;
+          v40 = 2112;
+          v41 = v16;
           if (overrideNetworkAvailability)
           {
             v17 = @"YES";
@@ -1677,7 +1689,7 @@ LABEL_18:
             v17 = @"NO";
           }
 
-          v43 = 2112;
+          v42 = 2112;
           if (isOnTelephonyCall)
           {
             v18 = @"YES";
@@ -1688,18 +1700,18 @@ LABEL_18:
             v18 = @"NO";
           }
 
-          v44 = v17;
+          v43 = v17;
           if (supportsSimultaneousVoiceAndDataRightNow)
           {
             v15 = @"YES";
           }
 
-          v45 = 2112;
-          v46 = v18;
-          v47 = 2112;
-          v48 = v15;
-          v49 = 2112;
-          v50 = v17;
+          v44 = 2112;
+          v45 = v18;
+          v46 = 2112;
+          v47 = v15;
+          v48 = 2112;
+          v49 = v17;
           _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "%@ networkMonitorDidUpdate: Currently connected: %@   (Reachable: %@  On Call: %@  Data+Voice: %@   Result: %@)", buf, 0x3Eu);
         }
 
@@ -1730,8 +1742,8 @@ LABEL_48:
         v20 = @"NO";
       }
 
-      v41 = 2112;
-      v42 = v20;
+      v40 = 2112;
+      v41 = v20;
       if (overrideNetworkAvailability)
       {
         v21 = @"YES";
@@ -1742,7 +1754,7 @@ LABEL_48:
         v21 = @"NO";
       }
 
-      v43 = 2112;
+      v42 = 2112;
       if (isOnTelephonyCall)
       {
         v22 = @"YES";
@@ -1753,18 +1765,18 @@ LABEL_48:
         v22 = @"NO";
       }
 
-      v44 = v21;
+      v43 = v21;
       if (supportsSimultaneousVoiceAndDataRightNow)
       {
         v19 = @"YES";
       }
 
-      v45 = 2112;
-      v46 = v22;
-      v47 = 2112;
-      v48 = v19;
-      v49 = 2112;
-      v50 = v21;
+      v44 = 2112;
+      v45 = v22;
+      v46 = 2112;
+      v47 = v19;
+      v48 = 2112;
+      v49 = v21;
       _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "%@ networkMonitorDidUpdate: Currently connected: %@   (Reachable: %@  On Call: %@  Data+Voice: %@   Result: %@)", buf, 0x3Eu);
     }
 
@@ -1862,9 +1874,6 @@ LABEL_49:
   {
     [(IMDServiceSession *)self _processNetworkMonitorUpdate];
   }
-
-LABEL_80:
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (void)networkMonitorDidUpdate:(id)update
@@ -1885,7 +1894,7 @@ LABEL_80:
 
 - (void)_networkChanged:(id)changed
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (self->_activated)
   {
     mEMORY[0x277D192E8] = [MEMORY[0x277D192E8] sharedInstance];
@@ -1899,57 +1908,53 @@ LABEL_80:
 
       if (!overrideNetworkAvailability)
       {
-        goto LABEL_13;
+        return;
       }
     }
 
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     accounts = [(IMDServiceSession *)self accounts];
-    v7 = [accounts countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v7 = [accounts countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v14;
+      v9 = *v13;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v14 != v9)
+          if (*v13 != v9)
           {
             objc_enumerationMutation(accounts);
           }
 
-          v11 = *(*(&v13 + 1) + 8 * i);
+          v11 = *(*(&v12 + 1) + 8 * i);
           [(IMDServiceSession *)self _reconnectIfNecessaryWithAccount:v11];
           [(IMDServiceSession *)self autoReconnectWithAccount:v11];
         }
 
-        v8 = [accounts countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v8 = [accounts countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v8);
     }
   }
-
-LABEL_13:
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)networkConditionsAllowLogin
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if ([(IMDServiceSession *)self overrideNetworkAvailability])
   {
-    goto LABEL_2;
+    return 1;
   }
 
   if (!self->_activated)
   {
-    result = 0;
-    goto LABEL_18;
+    return 0;
   }
 
   service = [(IMDServiceSession *)self service];
@@ -1959,24 +1964,22 @@ LABEL_13:
   {
     if (!IMOSLoggingEnabled())
     {
-LABEL_2:
-      result = 1;
-      goto LABEL_18;
+      return 1;
     }
 
     v6 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      *v13 = 138412546;
-      *&v13[4] = @"YES";
-      v14 = 2112;
+      *v12 = 138412546;
+      *&v12[4] = @"YES";
+      v13 = 2112;
       selfCopy3 = self;
-      _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_DEBUG, "[IMDServiceSession networkConditionsAllowLogin]: %@ (%@)   (Ignoring network)", v13, 0x16u);
+      _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_DEBUG, "[IMDServiceSession networkConditionsAllowLogin]: %@ (%@)   (Ignoring network)", v12, 0x16u);
     }
 
 LABEL_8:
 
-    goto LABEL_2;
+    return 1;
   }
 
   networkMonitor = self->_networkMonitor;
@@ -1984,17 +1987,17 @@ LABEL_8:
   {
     if (!IMOSLoggingEnabled())
     {
-      goto LABEL_2;
+      return 1;
     }
 
     v6 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      *v13 = 138412546;
-      *&v13[4] = @"YES";
-      v14 = 2112;
+      *v12 = 138412546;
+      *&v12[4] = @"YES";
+      v13 = 2112;
       selfCopy3 = self;
-      _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_DEBUG, "[IMDServiceSession networkConditionsAllowLogin]: %@ (%@)   (Fallback)", v13, 0x16u);
+      _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_DEBUG, "[IMDServiceSession networkConditionsAllowLogin]: %@ (%@)   (Fallback)", v12, 0x16u);
     }
 
     goto LABEL_8;
@@ -2008,25 +2011,22 @@ LABEL_8:
     {
       v10 = @"NO";
       v11 = self->_networkMonitor;
-      *v13 = 138412802;
+      *v12 = 138412802;
       if (immediatelyReachable)
       {
         v10 = @"YES";
       }
 
-      *&v13[4] = v10;
-      v14 = 2112;
+      *&v12[4] = v10;
+      v13 = 2112;
       selfCopy3 = self;
-      v16 = 2112;
-      v17 = v11;
-      _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_DEBUG, "[IMDServiceSession networkConditionsAllowLogin]: %@ (%@)   ([[%@]_networkMonitor immediatelyReachable])", v13, 0x20u);
+      v15 = 2112;
+      v16 = v11;
+      _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_DEBUG, "[IMDServiceSession networkConditionsAllowLogin]: %@ (%@)   ([[%@]_networkMonitor immediatelyReachable])", v12, 0x20u);
     }
   }
 
-  result = [(IMNetworkMonitor *)self->_networkMonitor immediatelyReachable];
-LABEL_18:
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return [(IMNetworkMonitor *)self->_networkMonitor immediatelyReachable];
 }
 
 - (BOOL)allowedAsChild
@@ -2102,7 +2102,7 @@ LABEL_18:
 
 - (void)refreshServiceCapabilities
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   capabilities = [(IMDServiceSession *)self capabilities];
   if (IMOSLoggingEnabled())
   {
@@ -2110,17 +2110,15 @@ LABEL_18:
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       v5 = _IMStringFromFZCapabilities();
-      v9 = 138412290;
-      v10 = v5;
-      _os_log_impl(&dword_22B4CC000, v4, OS_LOG_TYPE_INFO, "Refreshing capabilities: %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v5;
+      _os_log_impl(&dword_22B4CC000, v4, OS_LOG_TYPE_INFO, "Refreshing capabilities: %@", &v8, 0xCu);
     }
   }
 
   broadcaster = [(IMDServiceSession *)self broadcaster];
   accountID = [(IMDServiceSession *)self accountID];
   [broadcaster account:accountID capabilitiesChanged:capabilities];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)broadcaster
@@ -2160,19 +2158,17 @@ LABEL_18:
 
 - (id)broadcasterForChatObserverListeners
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   broadcasterForChatListeners = [(IMDServiceSession *)self broadcasterForChatListeners];
   v4 = +[IMDBroadcastController sharedProvider];
   service = [(IMDServiceSession *)self service];
   v6 = [v4 broadcasterForSentMessageListenersSupportingService:service];
 
   v7 = [IMDInvocationForwarder alloc];
-  v12[0] = broadcasterForChatListeners;
-  v12[1] = v6;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
+  v11[0] = broadcasterForChatListeners;
+  v11[1] = v6;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
   v9 = [(IMDInvocationForwarder *)v7 initWithTargets:v8];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -2292,27 +2288,27 @@ LABEL_18:
 
 - (void)recoverChatsForCommandDictionary:(id)dictionary
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   [dictionaryCopy objectForKeyedSubscript:@"recoverChatMetadataArray"];
+  v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
-  obj = v26 = 0u;
-  v20 = [obj countByEnumeratingWithState:&v25 objects:v32 count:16];
-  if (v20)
+  v24 = 0u;
+  obj = v25 = 0u;
+  v19 = [obj countByEnumeratingWithState:&v24 objects:v31 count:16];
+  if (v19)
   {
-    v19 = *v26;
+    v18 = *v25;
     do
     {
-      for (i = 0; i != v20; ++i)
+      for (i = 0; i != v19; ++i)
       {
-        if (*v26 != v19)
+        if (*v25 != v18)
         {
           objc_enumerationMutation(obj);
         }
 
-        v5 = *(*(&v25 + 1) + 8 * i);
+        v5 = *(*(&v24 + 1) + 8 * i);
         v6 = [(IMDServiceSession *)self _chatsForDeleteAndRecoveryChatMetadataDictionary:v5];
         if ([v6 count])
         {
@@ -2321,30 +2317,30 @@ LABEL_18:
           chatRegistry = [(IMDServiceSession *)self chatRegistry];
           [chatRegistry recoverMessagesWithChatGUIDs:v7];
 
-          v23 = 0u;
-          v24 = 0u;
-          v21 = 0u;
           v22 = 0u;
+          v23 = 0u;
+          v20 = 0u;
+          v21 = 0u;
           v10 = v6;
-          v11 = [v10 countByEnumeratingWithState:&v21 objects:v29 count:16];
+          v11 = [v10 countByEnumeratingWithState:&v20 objects:v28 count:16];
           if (v11)
           {
-            v12 = *v22;
+            v12 = *v21;
             do
             {
               for (j = 0; j != v11; ++j)
               {
-                if (*v22 != v12)
+                if (*v21 != v12)
                 {
                   objc_enumerationMutation(v10);
                 }
 
-                v14 = *(*(&v21 + 1) + 8 * j);
+                v14 = *(*(&v20 + 1) + 8 * j);
                 [(IMDServiceSession *)self _updateLastMessageTimeStampForChat:v14 broadcaster:v8];
                 [v14 setDeletingIncomingMessages:0];
               }
 
-              v11 = [v10 countByEnumeratingWithState:&v21 objects:v29 count:16];
+              v11 = [v10 countByEnumeratingWithState:&v20 objects:v28 count:16];
             }
 
             while (v11);
@@ -2359,28 +2355,26 @@ LABEL_18:
           if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v31 = v5;
+            v30 = v5;
             _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "IMDServiceSession | Recovery: did not find any chats for chat metadata %@", buf, 0xCu);
           }
         }
       }
 
-      v20 = [obj countByEnumeratingWithState:&v25 objects:v32 count:16];
+      v19 = [obj countByEnumeratingWithState:&v24 objects:v31 count:16];
     }
 
-    while (v20);
+    while (v19);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_chatsForDeleteAndRecoveryChatMetadataDictionary:(id)dictionary
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
-  v35 = [dictionaryCopy objectForKeyedSubscript:@"guid"];
-  v34 = [dictionaryCopy objectForKeyedSubscript:@"groupID"];
-  v37 = [dictionaryCopy objectForKeyedSubscript:@"ptcpts"];
+  v34 = [dictionaryCopy objectForKeyedSubscript:@"guid"];
+  v33 = [dictionaryCopy objectForKeyedSubscript:@"groupID"];
+  v36 = [dictionaryCopy objectForKeyedSubscript:@"ptcpts"];
   v5 = objc_alloc_init(MEMORY[0x277CBEB58]);
   if (IMOSLoggingEnabled())
   {
@@ -2388,38 +2382,38 @@ LABEL_18:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       *buf = 138412802;
-      v45 = v35;
-      v46 = 2112;
-      v47 = v34;
-      v48 = 2112;
-      v49 = v37;
+      v44 = v34;
+      v45 = 2112;
+      v46 = v33;
+      v47 = 2112;
+      v48 = v36;
       _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "Finding chats for delete or recovery using guid %@ groupID %@ participants %@", buf, 0x20u);
     }
   }
 
   chatRegistry = [(IMDServiceSession *)self chatRegistry];
-  v36 = [chatRegistry existingChatWithGUID:v35];
+  v35 = [chatRegistry existingChatWithGUID:v34];
 
-  if (v36)
+  if (v35)
   {
     if (IMOSLoggingEnabled())
     {
       v8 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
-        guid = [v36 guid];
+        guid = [v35 guid];
         *buf = 138412290;
-        v45 = guid;
+        v44 = guid;
         _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Found chat with specific guid %@ for chat metadata", buf, 0xCu);
       }
     }
 
-    guid2 = [v36 guid];
+    guid2 = [v35 guid];
     [v5 addObject:guid2];
   }
 
   chatRegistry2 = [(IMDServiceSession *)self chatRegistry];
-  v12 = [chatRegistry2 existingChatsWithGroupID:v34];
+  v12 = [chatRegistry2 existingChatsWithGroupID:v33];
 
   if ([v12 count])
   {
@@ -2430,11 +2424,11 @@ LABEL_18:
       {
         v14 = [v12 count];
         *buf = 134218498;
-        v45 = v14;
-        v46 = 2112;
-        v47 = v34;
-        v48 = 2112;
-        v49 = v12;
+        v44 = v14;
+        v45 = 2112;
+        v46 = v33;
+        v47 = 2112;
+        v48 = v12;
         _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "Found %llu chats with specific group ID %@ for chat metadata: %@", buf, 0x20u);
       }
     }
@@ -2443,18 +2437,18 @@ LABEL_18:
     [v5 addObjectsFromArray:v15];
   }
 
-  if ([v37 count] >= 2)
+  if ([v36 count] >= 2)
   {
     chatRegistry3 = [(IMDServiceSession *)self chatRegistry];
     service = [(IMDServiceSession *)self service];
-    v18 = [chatRegistry3 existingChatsForIDs:v37 onService:service style:43];
+    v18 = [chatRegistry3 existingChatsForIDs:v36 onService:service style:43];
 
-    v42[0] = MEMORY[0x277D85DD0];
-    v42[1] = 3221225472;
-    v42[2] = sub_22B5138E4;
-    v42[3] = &unk_278703100;
-    v42[4] = self;
-    v19 = [v18 __imArrayByFilteringWithBlock:v42];
+    v41[0] = MEMORY[0x277D85DD0];
+    v41[1] = 3221225472;
+    v41[2] = sub_22B5138E4;
+    v41[3] = &unk_278703100;
+    v41[4] = self;
+    v19 = [v18 __imArrayByFilteringWithBlock:v41];
 
     if ([v19 count])
     {
@@ -2465,11 +2459,11 @@ LABEL_18:
         {
           v21 = [v19 count];
           *buf = 134218498;
-          v45 = v21;
-          v46 = 2112;
-          v47 = v37;
-          v48 = 2112;
-          v49 = v19;
+          v44 = v21;
+          v45 = 2112;
+          v46 = v36;
+          v47 = 2112;
+          v48 = v19;
           _os_log_impl(&dword_22B4CC000, v20, OS_LOG_TYPE_INFO, "Found %llu chats with handles: %@ chats: %@", buf, 0x20u);
         }
       }
@@ -2480,25 +2474,25 @@ LABEL_18:
   }
 
   v23 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   v24 = v5;
-  v25 = [v24 countByEnumeratingWithState:&v38 objects:v43 count:16];
+  v25 = [v24 countByEnumeratingWithState:&v37 objects:v42 count:16];
   if (v25)
   {
-    v26 = *v39;
+    v26 = *v38;
     do
     {
       for (i = 0; i != v25; ++i)
       {
-        if (*v39 != v26)
+        if (*v38 != v26)
         {
           objc_enumerationMutation(v24);
         }
 
-        v28 = *(*(&v38 + 1) + 8 * i);
+        v28 = *(*(&v37 + 1) + 8 * i);
         chatRegistry4 = [(IMDServiceSession *)self chatRegistry];
         v30 = [chatRegistry4 existingChatWithGUID:v28];
 
@@ -2508,7 +2502,7 @@ LABEL_18:
         }
       }
 
-      v25 = [v24 countByEnumeratingWithState:&v38 objects:v43 count:16];
+      v25 = [v24 countByEnumeratingWithState:&v37 objects:v42 count:16];
     }
 
     while (v25);
@@ -2520,21 +2514,19 @@ LABEL_18:
     if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
     {
       *buf = 134218242;
-      v45 = v23;
-      v46 = 2112;
-      v47 = v35;
+      v44 = v23;
+      v45 = 2112;
+      v46 = v34;
       _os_log_impl(&dword_22B4CC000, v31, OS_LOG_TYPE_INFO, "Found %llu chats for delete command with guid %@", buf, 0x16u);
     }
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 
   return v23;
 }
 
 - (void)_updateLastMessageTimeStampForChat:(id)chat broadcaster:(id)broadcaster
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   chatCopy = chat;
   broadcasterCopy = broadcaster;
   if (chatCopy)
@@ -2603,11 +2595,11 @@ LABEL_18:
         time4 = [lastMessage3 time];
         [time4 timeIntervalSinceReferenceDate];
         v26 = [v23 numberWithDouble:?];
-        v29 = 138412546;
-        v30 = guid;
-        v31 = 2112;
-        v32 = v26;
-        _os_log_impl(&dword_22B4CC000, v21, OS_LOG_TYPE_INFO, "Recently Deleted | IMDChat: %@, updating last message timestamp on load: %@", &v29, 0x16u);
+        v28 = 138412546;
+        v29 = guid;
+        v30 = 2112;
+        v31 = v26;
+        _os_log_impl(&dword_22B4CC000, v21, OS_LOG_TYPE_INFO, "Recently Deleted | IMDChat: %@, updating last message timestamp on load: %@", &v28, 0x16u);
       }
     }
 
@@ -2620,12 +2612,10 @@ LABEL_18:
     v13 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v29) = 0;
-      _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "Recently Deleted | _updateLastMessageTimeStampForChat received nil chat", &v29, 2u);
+      LOWORD(v28) = 0;
+      _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "Recently Deleted | _updateLastMessageTimeStampForChat received nil chat", &v28, 2u);
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendHQAttachmentsForMessage:(id)message toChatID:(id)d style:(unsigned __int8)style
@@ -2684,7 +2674,7 @@ LABEL_18:
 
 - (void)calculateReachabilityWithRequest:(id)request responseHandler:(id)handler
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   handlerCopy = handler;
   messagesDomain = [MEMORY[0x277CBEBD0] messagesDomain];
@@ -2696,7 +2686,7 @@ LABEL_18:
   v12 = [messagesDomain arrayForKey:v11];
 
   mEMORY[0x277D19268] = [MEMORY[0x277D19268] sharedInstance];
-  v34 = v12;
+  v33 = v12;
   if ([mEMORY[0x277D19268] isInternalInstall])
   {
     v14 = [v12 count] != 0;
@@ -2708,28 +2698,28 @@ LABEL_18:
   }
 
   v15 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
   obj = [requestCopy handleIDs];
-  v16 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
-  v33 = requestCopy;
+  v16 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
+  v32 = requestCopy;
   if (v16)
   {
     v17 = v16;
-    v18 = *v38;
+    v18 = *v37;
     LODWORD(v19) = v14;
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v38 != v18)
+        if (*v37 != v18)
         {
           objc_enumerationMutation(obj);
         }
 
-        v21 = *(*(&v37 + 1) + 8 * i);
+        v21 = *(*(&v36 + 1) + 8 * i);
         v22 = objc_alloc(MEMORY[0x277D1ABA0]);
         service2 = [(IMDServiceSession *)selfCopy service];
         internalName2 = [service2 internalName];
@@ -2737,14 +2727,14 @@ LABEL_18:
 
         if (v14)
         {
-          [v25 setReachable:{objc_msgSend(v34, "containsObject:", v21)}];
+          [v25 setReachable:{objc_msgSend(v33, "containsObject:", v21)}];
         }
 
         v19 = v19 & [v25 isReachable];
         [v15 setObject:v25 forKeyedSubscript:v21];
       }
 
-      v17 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
+      v17 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
     }
 
     while (v17);
@@ -2758,11 +2748,58 @@ LABEL_18:
   v26 = objc_alloc(MEMORY[0x277D1ABB0]);
   service3 = [(IMDServiceSession *)selfCopy service];
   internalName3 = [service3 internalName];
-  LOBYTE(v31) = 0;
-  v29 = [v26 initWithService:internalName3 error:0 handleResults:v15 isFinal:1 allAreReachable:v19 allSupportEncryption:0 didCheckServer:v31];
+  LOBYTE(v30) = 0;
+  v29 = [v26 initWithService:internalName3 error:0 handleResults:v15 isFinal:1 allAreReachable:v19 allSupportEncryption:0 didCheckServer:v30];
 
-  [handlerCopy reachabilityRequest:v33 updatedWithResult:v29];
-  v30 = *MEMORY[0x277D85DE8];
+  [handlerCopy reachabilityRequest:v32 updatedWithResult:v29];
+}
+
+- (void)markItemFailedWithGUID:(id)d errorCode:(unsigned int)code
+{
+  v4 = *&code;
+  dCopy = d;
+  v7 = [(IMDServiceSession *)self itemWithGUID:dCopy];
+  if (v7)
+  {
+    v8 = [(IMDServiceSession *)self chatForItemWithGUID:dCopy];
+    if (v8)
+    {
+      if ([v7 conformsToProtocol:&unk_283FBCDD8])
+      {
+        [v7 setErrorCode:v4];
+        v9 = +[IMDMessageStore sharedInstance];
+        v10 = [v9 storeItem:v7 forceReplace:1];
+
+        v19 = -[IMDServiceSession broadcasterForChatListenersWithBlackholeStatus:](self, "broadcasterForChatListenersWithBlackholeStatus:", [v8 isBlackholed]);
+        accountID = [v7 accountID];
+        accountID2 = accountID;
+        if (!accountID)
+        {
+          accountID2 = [(IMDServiceSession *)self accountID];
+        }
+
+        chatIdentifier = [v8 chatIdentifier];
+        style = [v8 style];
+        chatProperties = [v8 chatProperties];
+        groupID = [v8 groupID];
+        personCentricID = [v8 personCentricID];
+        [v19 account:accountID2 chat:chatIdentifier style:style chatProperties:chatProperties groupID:groupID chatPersonCentricID:personCentricID messageReceived:v7];
+
+        if (!accountID)
+        {
+        }
+      }
+
+      else
+      {
+        v18 = IMLogHandleForCategory();
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+        {
+          sub_22B7D0370();
+        }
+      }
+    }
+  }
 }
 
 - (IMDServiceSession)mainSession
@@ -2796,10 +2833,51 @@ LABEL_18:
   return IMGetDomainBoolForKey();
 }
 
+- (BOOL)shouldSendReadReceiptsForChat:(id)chat style:(unsigned __int8)style
+{
+  styleCopy = style;
+  v18 = *MEMORY[0x277D85DE8];
+  chatCopy = chat;
+  readReceiptsGloballyEnabled = [(IMDServiceSession *)self readReceiptsGloballyEnabled];
+  v8 = [(IMDServiceSession *)self chatForChatIdentifier:chatCopy style:styleCopy updatingAccount:1];
+  properties = [v8 properties];
+
+  v10 = [properties objectForKey:*MEMORY[0x277D197F8]];
+  if (IMOSLoggingEnabled())
+  {
+    v11 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    {
+      if (v10)
+      {
+        longValue = [v10 longValue];
+      }
+
+      else
+      {
+        longValue = -1;
+      }
+
+      v14 = 134218240;
+      v15 = readReceiptsGloballyEnabled;
+      v16 = 2048;
+      v17 = longValue;
+      _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "read receipt global setting: [%ld], chat setting: [%ld]", &v14, 0x16u);
+    }
+  }
+
+  if (v10)
+  {
+    LOBYTE(readReceiptsGloballyEnabled) = [v10 BOOLValue];
+  }
+
+  return readReceiptsGloballyEnabled;
+}
+
 - (void)overwritePerChatReadReceiptSettingsWithGlobalValue:(BOOL)value
 {
   valueCopy = value;
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   if (IMOSLoggingEnabled())
   {
     v3 = OSLogHandleForIMFoundationCategory();
@@ -2810,32 +2888,32 @@ LABEL_18:
     }
   }
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   v4 = +[IMDChatRegistry sharedInstance];
   obj = [v4 chats];
 
-  v5 = [obj countByEnumeratingWithState:&v31 objects:v43 count:16];
+  v5 = [obj countByEnumeratingWithState:&v30 objects:v42 count:16];
   if (v5)
   {
-    v29 = *v32;
+    v28 = *v31;
     v7 = *MEMORY[0x277D19910];
-    v30 = *MEMORY[0x277D197F8];
-    v25 = valueCopy;
+    v29 = *MEMORY[0x277D197F8];
+    v24 = valueCopy;
     *&v6 = 134218754;
-    v24 = v6;
+    v23 = v6;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v32 != v29)
+        if (*v31 != v28)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v31 + 1) + 8 * i);
+        v9 = *(*(&v30 + 1) + 8 * i);
         properties = [v9 properties];
         v11 = [properties mutableCopy];
 
@@ -2854,7 +2932,7 @@ LABEL_18:
             }
           }
 
-          v16 = [v11 valueForKey:v30];
+          v16 = [v11 valueForKey:v29];
           if (IMOSLoggingEnabled())
           {
             v17 = OSLogHandleForIMFoundationCategory();
@@ -2871,21 +2949,21 @@ LABEL_18:
               }
 
               longValue2 = [v12 longValue];
-              *buf = v24;
-              v36 = v25;
-              v37 = 2048;
-              v38 = longValue;
-              v39 = 2048;
-              v40 = longValue2;
-              v41 = 2112;
-              v42 = v9;
+              *buf = v23;
+              v35 = v24;
+              v36 = 2048;
+              v37 = longValue;
+              v38 = 2048;
+              v39 = longValue2;
+              v40 = 2112;
+              v41 = v9;
               _os_log_impl(&dword_22B4CC000, v17, OS_LOG_TYPE_INFO, "Global read receipt value set to [%ld], local chat read receipt value is [%ld] with versionID [%ld] for chat: %@", buf, 0x2Au);
             }
           }
 
           if ((v14 & 1) != 0 || [v16 BOOLValue] != valueCopy)
           {
-            [v11 removeObjectForKey:v30];
+            [v11 removeObjectForKey:v29];
             [v11 removeObjectForKey:v7];
             [v9 updateProperties:v11];
             broadcasterForChatListeners = [(IMDServiceSession *)self broadcasterForChatListeners];
@@ -2896,13 +2974,11 @@ LABEL_18:
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v31 objects:v43 count:16];
+      v5 = [obj countByEnumeratingWithState:&v30 objects:v42 count:16];
     }
 
     while (v5);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_canHandleTransferAccept:(id)accept
@@ -2930,7 +3006,7 @@ LABEL_18:
 
 - (void)_handleFileTransferAccepted:(id)accepted
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   object = [accepted object];
   serviceFromUserInfo = [object serviceFromUserInfo];
   if ([(IMDServiceSession *)self _canHandleTransferAccept:object])
@@ -2942,9 +3018,9 @@ LABEL_18:
       service = [(IMDServiceSession *)self service];
       internalName = [service internalName];
       *buf = 138412546;
-      v29 = internalName;
-      v30 = 2112;
-      v31 = object;
+      v28 = internalName;
+      v29 = 2112;
+      v30 = object;
       _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Service(%@) File transfer accepted for: %@", buf, 0x16u);
     }
 
@@ -2955,7 +3031,7 @@ LABEL_18:
       aBlock[2] = sub_22B5BF3BC;
       aBlock[3] = &unk_278702B20;
       v10 = guid;
-      v27 = v10;
+      v26 = v10;
       v11 = _Block_copy(aBlock);
       transferState = [object transferState];
       v13 = IMLogHandleForCategory();
@@ -2965,7 +3041,7 @@ LABEL_18:
         if (v14)
         {
           *buf = 138412290;
-          v29 = object;
+          v28 = object;
           _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, " ** This was already accepted, ignoring request to fetch %@", buf, 0xCu);
         }
 
@@ -2980,7 +3056,7 @@ LABEL_18:
         if (v14)
         {
           *buf = 138412290;
-          v29 = object;
+          v28 = object;
           _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, " ** Accepting %@", buf, 0xCu);
         }
 
@@ -3003,19 +3079,19 @@ LABEL_18:
           [v19 startTransfer:v10];
 
           v20 = +[IMDCKAttachmentSyncController sharedInstance];
-          v22[0] = MEMORY[0x277D85DD0];
-          v22[1] = 3221225472;
-          v22[2] = sub_22B5BF41C;
-          v22[3] = &unk_278705BB8;
-          v22[4] = self;
-          v23 = v10;
-          v24 = object;
-          v25 = v11;
-          [v20 acceptFileTransfer:v24 completion:v22];
+          v21[0] = MEMORY[0x277D85DD0];
+          v21[1] = 3221225472;
+          v21[2] = sub_22B5BF41C;
+          v21[3] = &unk_278705BB8;
+          v21[4] = self;
+          v22 = v10;
+          v23 = object;
+          v24 = v11;
+          [v20 acceptFileTransfer:v23 completion:v21];
         }
       }
 
-      service2 = v27;
+      service2 = v26;
     }
 
     else
@@ -3038,52 +3114,50 @@ LABEL_18:
     internalName2 = [service2 internalName];
     guid2 = [object guid];
     *buf = 138412802;
-    v29 = internalName2;
-    v30 = 2112;
-    v31 = guid2;
-    v32 = 2112;
-    v33 = serviceFromUserInfo;
+    v28 = internalName2;
+    v29 = 2112;
+    v30 = guid2;
+    v31 = 2112;
+    v32 = serviceFromUserInfo;
     _os_log_impl(&dword_22B4CC000, guid, OS_LOG_TYPE_INFO, "Service(%@) Ignoring File transfer accept for: %@ transferSession %@", buf, 0x20u);
 
 LABEL_22:
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleFileTransferBatchAccepted:(id)accepted
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   object = [accepted object];
   v4 = IMLogHandleForCategory();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v45 = object;
+    v44 = object;
     _os_log_impl(&dword_22B4CC000, v4, OS_LOG_TYPE_INFO, "File transfers batch accepted for: %@", buf, 0xCu);
   }
 
-  v30 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v29 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
   v5 = object;
-  v6 = [v5 countByEnumeratingWithState:&v38 objects:v43 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v37 objects:v42 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v39;
+    v8 = *v38;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v39 != v8)
+        if (*v38 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v38 + 1) + 8 * i);
+        v10 = *(*(&v37 + 1) + 8 * i);
         guid = [v10 guid];
         if (!guid)
         {
@@ -3091,7 +3165,7 @@ LABEL_22:
           if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v45 = v10;
+            v44 = v10;
             v15 = v13;
             v16 = "**** Not accepting transfer. Did not find a guid in %@";
             goto LABEL_17;
@@ -3110,7 +3184,7 @@ LABEL_18:
           if (v14)
           {
             *buf = 138412290;
-            v45 = v10;
+            v44 = v10;
             v15 = v13;
             v16 = " ** This transfer %@ was already accepted, ignoring";
 LABEL_17:
@@ -3123,16 +3197,16 @@ LABEL_17:
         if (v14)
         {
           *buf = 138412290;
-          v45 = v10;
+          v44 = v10;
           _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, " ** Accepting into batch %@", buf, 0xCu);
         }
 
         [v10 _setNeedsWrapper:0];
-        [v30 addObject:v10];
+        [v29 addObject:v10];
 LABEL_19:
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v38 objects:v43 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v37 objects:v42 count:16];
     }
 
     while (v7);
@@ -3145,48 +3219,46 @@ LABEL_19:
     _os_log_impl(&dword_22B4CC000, v17, OS_LOG_TYPE_INFO, " ** Transfers attempting download via CloudKit", buf, 2u);
   }
 
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
-  v18 = v30;
-  v19 = [v18 countByEnumeratingWithState:&v34 objects:v42 count:16];
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
+  v18 = v29;
+  v19 = [v18 countByEnumeratingWithState:&v33 objects:v41 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v35;
+    v21 = *v34;
     do
     {
       for (j = 0; j != v20; ++j)
       {
-        if (*v35 != v21)
+        if (*v34 != v21)
         {
           objc_enumerationMutation(v18);
         }
 
-        v23 = *(*(&v34 + 1) + 8 * j);
+        v23 = *(*(&v33 + 1) + 8 * j);
         v24 = +[IMDFileTransferCenter sharedInstance];
         guid2 = [v23 guid];
         [v24 startTransfer:guid2];
       }
 
-      v20 = [v18 countByEnumeratingWithState:&v34 objects:v42 count:16];
+      v20 = [v18 countByEnumeratingWithState:&v33 objects:v41 count:16];
     }
 
     while (v20);
   }
 
   v26 = +[IMDCKAttachmentSyncController sharedInstance];
-  v31[0] = MEMORY[0x277D85DD0];
-  v31[1] = 3221225472;
-  v31[2] = sub_22B5BF8CC;
-  v31[3] = &unk_278703068;
-  v32 = v18;
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v30[2] = sub_22B5BF8CC;
+  v30[3] = &unk_278703068;
+  v31 = v18;
   selfCopy = self;
   v27 = v18;
-  [v26 acceptFileTransfers:v27 completion:v31];
-
-  v28 = *MEMORY[0x277D85DE8];
+  [v26 acceptFileTransfers:v27 completion:v30];
 }
 
 - (void)fallbackToDownloadIfPossible:(id)possible transfer:(id)transfer
@@ -3223,14 +3295,14 @@ LABEL_19:
 
 - (void)_resetTransferToTapDownloadState:(id)state
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   v4 = IMLogHandleForCategory();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v11 = 138412290;
-    v12 = stateCopy;
-    _os_log_impl(&dword_22B4CC000, v4, OS_LOG_TYPE_INFO, "Resetting transfer %@ to Tap To Download state", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = stateCopy;
+    _os_log_impl(&dword_22B4CC000, v4, OS_LOG_TYPE_INFO, "Resetting transfer %@ to Tap To Download state", &v10, 0xCu);
   }
 
   v5 = +[IMDFileTransferCenter sharedInstance];
@@ -3244,13 +3316,11 @@ LABEL_19:
   [v6 _setError:-1];
   v9 = +[IMDMessageStore sharedInstance];
   [v9 updateFileTransfer:v6];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)storeMessage:(id)message context:(id)context didReplaceBlock:(id)block shouldStoreBlock:(id)storeBlock didStoreBlock:(id)didStoreBlock block:(id)a8
 {
-  v76 = *MEMORY[0x277D85DE8];
+  v75 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   contextCopy = context;
   blockCopy = block;
@@ -3263,7 +3333,7 @@ LABEL_19:
   }
 
   scheduleType = [messageCopy scheduleType];
-  v72 = scheduleType != 1;
+  v71 = scheduleType != 1;
   if (scheduleType == 1)
   {
     if (IMOSLoggingEnabled())
@@ -3303,7 +3373,7 @@ LABEL_10:
     }
 
     v23 = !v22 && scheduleType != 1;
-    v72 = v23;
+    v71 = v23;
 
     messageCopy = v21;
   }
@@ -3314,16 +3384,16 @@ LABEL_17:
 
   if (v25)
   {
-    if (v72 && ([MEMORY[0x277D1A900] sharedManager], v26 = objc_claimAutoreleasedReturnValue(), v27 = objc_msgSend(v26, "isMessagesTheDefaultTextApp"), v26, (v27 & 1) != 0))
+    if (v71 && ([MEMORY[0x277D1A900] sharedManager], v26 = objc_claimAutoreleasedReturnValue(), v27 = objc_msgSend(v26, "isMessagesTheDefaultTextApp"), v26, (v27 & 1) != 0))
     {
-      v72 = 1;
+      v71 = 1;
     }
 
     else
     {
       v28 = messageCopy;
 
-      v72 = 0;
+      v71 = 0;
       v18 = v28;
     }
   }
@@ -3343,7 +3413,7 @@ LABEL_17:
     }
   }
 
-  if (v72)
+  if (v71)
   {
     [contextCopy setUpdateMessageCache:1];
     v31 = +[IMDMessageStore sharedInstance];
@@ -3356,11 +3426,11 @@ LABEL_17:
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     *buf = xmmword_2787075F8;
-    v74 = *off_278707608;
-    v75 = 188;
+    v73 = *off_278707608;
+    v74 = 188;
     v33 = MEMORY[0x277CCACA8];
     v34 = IMFileLocationTrimFileName();
-    v35 = v75;
+    v35 = v74;
     v36 = MEMORY[0x277CCACA8];
     v37 = objc_opt_class();
     v38 = [v36 stringWithFormat:@"input and output message types are not the same. input message has type %@. output message has type %@", v37, objc_opt_class()];
@@ -3523,10 +3593,9 @@ LABEL_17:
     didStoreBlockCopy[2](didStoreBlockCopy, v18);
   }
 
-  (v16)[2](v16, v72, messageCopy, v18);
+  (v16)[2](v16, v71, messageCopy, v18);
 
 LABEL_85:
-  v69 = *MEMORY[0x277D85DE8];
 }
 
 - (void)useChatRoom:(id)room forGroupChatIdentifier:(id)identifier
@@ -3563,7 +3632,7 @@ LABEL_85:
 
 - (void)_markFromStorageIfNeeded:(id)needed messageGUID:(id)d
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   neededCopy = needed;
   dCopy = d;
   if (neededCopy)
@@ -3573,9 +3642,9 @@ LABEL_85:
       v8 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
-        v11 = 138412290;
-        v12 = dCopy;
-        _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Storage context present for message with GUID %@", &v11, 0xCu);
+        v10 = 138412290;
+        v11 = dCopy;
+        _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Storage context present for message with GUID %@", &v10, 0xCu);
       }
     }
 
@@ -3590,38 +3659,36 @@ LABEL_85:
       [(IMDServiceSession *)self noteItemFromStorage:dCopy];
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)dictionaryForHandlesToGUIDsFromHandleInfo:(id)info
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   v4 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(infoCopy, "count")}];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v5 = infoCopy;
-  v6 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v21;
+    v8 = *v20;
     v9 = *MEMORY[0x277D193A8];
     v10 = *MEMORY[0x277D1A490];
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v21 != v8)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v12 = *(*(&v20 + 1) + 8 * i);
-        v13 = [v12 _stringForKey:{v9, v20}];
+        v12 = *(*(&v19 + 1) + 8 * i);
+        v13 = [v12 _stringForKey:{v9, v19}];
         if (v13)
         {
           v14 = [v12 _stringForKey:v10];
@@ -3642,20 +3709,27 @@ LABEL_85:
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v7);
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v4;
+}
+
+- (void)registerChat:(id)chat style:(unsigned __int8)style
+{
+  styleCopy = style;
+  chatCopy = chat;
+  account = [(IMDServiceSession *)self account];
+  LOBYTE(v7) = 0;
+  [(IMDServiceSession *)self registerChat:chatCopy style:styleCopy displayName:0 groupID:0 originalGroupID:0 lastAddressedHandle:0 lastAddressedSIMID:0 handleInfo:0 account:account isBlackholed:v7];
 }
 
 - (void)registerChat:(id)chat style:(unsigned __int8)style displayName:(id)name groupID:(id)d originalGroupID:(id)iD lastAddressedHandle:(id)handle lastAddressedSIMID:(id)mID handleInfo:(id)self0 account:(id)self1 isBlackholed:(BOOL)self2
 {
-  v162 = *MEMORY[0x277D85DE8];
+  v161 = *MEMORY[0x277D85DE8];
   chatCopy = chat;
   styleCopy = style;
   nameCopy = name;
@@ -3674,61 +3748,61 @@ LABEL_85:
     }
 
     [(NSRecursiveLock *)self->_lock lock];
-    v145 = chatCopy;
-    [(IMDServiceSession *)self canonicalizeChatIdentifier:&v145 style:&styleCopy];
-    v20 = v145;
+    v144 = chatCopy;
+    [(IMDServiceSession *)self canonicalizeChatIdentifier:&v144 style:&styleCopy];
+    v20 = v144;
 
-    v109 = [(IMDServiceSession *)self _guidForChat:v20 style:styleCopy];
+    v108 = [(IMDServiceSession *)self _guidForChat:v20 style:styleCopy];
     if (IMOSLoggingEnabled())
     {
       v21 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
       {
         *buf = 138413570;
-        v151 = v20;
-        v152 = 1024;
-        v153 = styleCopy;
-        v154 = 2112;
-        v155 = v109;
-        v156 = 2112;
-        v157 = infoCopy;
-        v158 = 2112;
-        v159 = handleCopy;
-        v160 = 2112;
-        v161 = mIDCopy;
+        v150 = v20;
+        v151 = 1024;
+        v152 = styleCopy;
+        v153 = 2112;
+        v154 = v108;
+        v155 = 2112;
+        v156 = infoCopy;
+        v157 = 2112;
+        v158 = handleCopy;
+        v159 = 2112;
+        v160 = mIDCopy;
         _os_log_impl(&dword_22B4CC000, v21, OS_LOG_TYPE_INFO, "Registering chat identifier: %@   style: %d  guid: %@ handleInfo: %@ lastAddressedHandle %@ lastAddressedSIMID %@", buf, 0x3Au);
       }
     }
 
     v22 = styleCopy;
-    v135[0] = MEMORY[0x277D85DD0];
-    v135[1] = 3221225472;
-    v135[2] = sub_22B6796F0;
-    v135[3] = &unk_278707628;
-    v135[4] = self;
-    v136 = v20;
-    v143 = styleCopy;
-    v105 = nameCopy;
+    v134[0] = MEMORY[0x277D85DD0];
+    v134[1] = 3221225472;
+    v134[2] = sub_22B6796F0;
+    v134[3] = &unk_278707628;
+    v134[4] = self;
+    v135 = v20;
+    v142 = styleCopy;
+    v104 = nameCopy;
+    v136 = v104;
+    v105 = dCopy;
     v137 = v105;
-    v106 = dCopy;
+    v106 = iDCopy;
     v138 = v106;
-    v107 = iDCopy;
-    v139 = v107;
-    v103 = handleCopy;
-    v140 = v103;
-    v102 = mIDCopy;
-    v141 = v102;
-    v108 = account;
-    v142 = v108;
+    v102 = handleCopy;
+    v139 = v102;
+    v101 = mIDCopy;
+    v140 = v101;
+    v107 = account;
+    v141 = v107;
     blackholedCopy = blackholed;
-    v121 = v136;
-    [(IMDServiceSession *)self _calculateHandleInfoOverrideIfPermittedForChatIdentifier:v136 style:v22 completion:v135];
+    v120 = v135;
+    [(IMDServiceSession *)self _calculateHandleInfoOverrideIfPermittedForChatIdentifier:v135 style:v22 completion:v134];
     v23 = +[IMDChatRegistry sharedInstance];
-    v113 = [v23 existingChatWithGUID:v109];
+    v112 = [v23 existingChatWithGUID:v108];
 
-    if (v113)
+    if (v112)
     {
-      participants = [v113 participants];
+      participants = [v112 participants];
       if ([participants count])
       {
       }
@@ -3745,7 +3819,7 @@ LABEL_85:
             if (os_log_type_enabled(v52, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
-              v151 = infoCopy;
+              v150 = infoCopy;
               _os_log_impl(&dword_22B4CC000, v52, OS_LOG_TYPE_INFO, " => Found chat, but it had no particpants. Updating with handleInfo: %@", buf, 0xCu);
             }
           }
@@ -3754,7 +3828,7 @@ LABEL_85:
         }
       }
 
-      v25 = [(IMDServiceSession *)self _shouldConvergeChatParticipants:v113 withHandleInfo:infoCopy];
+      v25 = [(IMDServiceSession *)self _shouldConvergeChatParticipants:v112 withHandleInfo:infoCopy];
       v26 = IMOSLoggingEnabled();
       if (!v25)
       {
@@ -3764,7 +3838,7 @@ LABEL_85:
           if (os_log_type_enabled(v50, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v151 = v113;
+            v150 = v112;
             _os_log_impl(&dword_22B4CC000, v50, OS_LOG_TYPE_INFO, " => We already have one, nothing to do here. Chat: [%@]", buf, 0xCu);
           }
         }
@@ -3778,36 +3852,36 @@ LABEL_85:
         if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v151 = infoCopy;
+          v150 = infoCopy;
           _os_log_impl(&dword_22B4CC000, v27, OS_LOG_TYPE_INFO, " => Found chat, but it had a different set of participants. Updating with handleInfo: %@", buf, 0xCu);
         }
       }
 
       v28 = objc_alloc(MEMORY[0x277CBEB58]);
-      participantHandles = [v113 participantHandles];
+      participantHandles = [v112 participantHandles];
       v30 = [v28 initWithArray:participantHandles];
 
-      v133 = 0u;
-      v134 = 0u;
-      v131 = 0u;
       v132 = 0u;
+      v133 = 0u;
+      v130 = 0u;
+      v131 = 0u;
       obj = infoCopy;
-      v31 = [obj countByEnumeratingWithState:&v131 objects:v149 count:16];
+      v31 = [obj countByEnumeratingWithState:&v130 objects:v148 count:16];
       if (v31)
       {
-        v32 = *v132;
+        v32 = *v131;
         v33 = *MEMORY[0x277D193A8];
         v34 = *MEMORY[0x277D192F8];
         do
         {
           for (i = 0; i != v31; ++i)
           {
-            if (*v132 != v32)
+            if (*v131 != v32)
             {
               objc_enumerationMutation(obj);
             }
 
-            v36 = *(*(&v131 + 1) + 8 * i);
+            v36 = *(*(&v130 + 1) + 8 * i);
             v37 = [v36 objectForKeyedSubscript:v33];
             [v30 removeObject:v37];
             v38 = objc_alloc_init(IMDChatMemberStatusChangeContext);
@@ -3826,47 +3900,47 @@ LABEL_85:
             [(IMDChatMemberStatusChangeContext *)v38 setStatus:v41];
 
             [(IMDChatMemberStatusChangeContext *)v38 setHandleID:v37];
-            [(IMDChatMemberStatusChangeContext *)v38 setChatIdentifier:v121];
+            [(IMDChatMemberStatusChangeContext *)v38 setChatIdentifier:v120];
             [(IMDChatMemberStatusChangeContext *)v38 setStyle:styleCopy];
             [(IMDChatMemberStatusChangeContext *)v38 setUnattributed:1];
             v42 = [(IMDServiceSession *)self didChangeMemberStatus:v38];
           }
 
-          v31 = [obj countByEnumeratingWithState:&v131 objects:v149 count:16];
+          v31 = [obj countByEnumeratingWithState:&v130 objects:v148 count:16];
         }
 
         while (v31);
       }
 
-      v129 = 0u;
-      v130 = 0u;
-      v127 = 0u;
       v128 = 0u;
+      v129 = 0u;
+      v126 = 0u;
+      v127 = 0u;
       v43 = v30;
-      v44 = [v43 countByEnumeratingWithState:&v127 objects:v148 count:16];
+      v44 = [v43 countByEnumeratingWithState:&v126 objects:v147 count:16];
       if (v44)
       {
-        v45 = *v128;
+        v45 = *v127;
         do
         {
           for (j = 0; j != v44; ++j)
           {
-            if (*v128 != v45)
+            if (*v127 != v45)
             {
               objc_enumerationMutation(v43);
             }
 
-            v47 = *(*(&v127 + 1) + 8 * j);
+            v47 = *(*(&v126 + 1) + 8 * j);
             v48 = objc_alloc_init(IMDChatMemberStatusChangeContext);
             [(IMDChatMemberStatusChangeContext *)v48 setStatus:3];
             [(IMDChatMemberStatusChangeContext *)v48 setHandleID:v47];
-            [(IMDChatMemberStatusChangeContext *)v48 setChatIdentifier:v121];
+            [(IMDChatMemberStatusChangeContext *)v48 setChatIdentifier:v120];
             [(IMDChatMemberStatusChangeContext *)v48 setStyle:styleCopy];
             [(IMDChatMemberStatusChangeContext *)v48 setUnattributed:1];
             v49 = [(IMDServiceSession *)self didChangeMemberStatus:v48];
           }
 
-          v44 = [v43 countByEnumeratingWithState:&v127 objects:v148 count:16];
+          v44 = [v43 countByEnumeratingWithState:&v126 objects:v147 count:16];
         }
 
         while (v44);
@@ -3875,25 +3949,25 @@ LABEL_85:
 
 LABEL_44:
     v53 = styleCopy;
-    v54 = v121;
+    v54 = v120;
     if (styleCopy == 45)
     {
       v54 = 0;
     }
 
-    v104 = v54;
+    v103 = v54;
     if (v53 == 43)
     {
       __imFirstObject = objc_alloc_init(MEMORY[0x277CBEB18]);
-      v125 = 0u;
-      v126 = 0u;
-      v123 = 0u;
       v124 = 0u;
-      v117 = infoCopy;
-      v63 = [v117 countByEnumeratingWithState:&v123 objects:v147 count:16];
+      v125 = 0u;
+      v122 = 0u;
+      v123 = 0u;
+      v116 = infoCopy;
+      v63 = [v116 countByEnumeratingWithState:&v122 objects:v146 count:16];
       if (v63)
       {
-        obja = *v124;
+        obja = *v123;
         v64 = *MEMORY[0x277D193A8];
         v65 = *MEMORY[0x277D193C0];
         v66 = *MEMORY[0x277D193A0];
@@ -3901,12 +3975,12 @@ LABEL_44:
         {
           for (k = 0; k != v63; ++k)
           {
-            if (*v124 != obja)
+            if (*v123 != obja)
             {
-              objc_enumerationMutation(v117);
+              objc_enumerationMutation(v116);
             }
 
-            v68 = *(*(&v123 + 1) + 8 * k);
+            v68 = *(*(&v122 + 1) + 8 * k);
             v69 = [v68 objectForKey:v64];
             v70 = [v68 objectForKey:v65];
             v71 = [v68 objectForKey:v66];
@@ -3929,15 +4003,15 @@ LABEL_44:
             }
           }
 
-          v63 = [v117 countByEnumeratingWithState:&v123 objects:v147 count:16];
+          v63 = [v116 countByEnumeratingWithState:&v122 objects:v146 count:16];
         }
 
         while (v63);
       }
 
       v75 = +[IMDChatRegistry sharedInstance];
-      LOBYTE(v101) = blackholed;
-      v76 = [v75 chatForHandles:__imFirstObject account:v108 chatIdentifier:v121 style:43 groupID:v106 originalGroupID:v107 displayName:v105 guid:v109 lastAddressedHandle:v103 lastAddressedSIMID:v102 isBlackholed:v101];
+      LOBYTE(v100) = blackholed;
+      v76 = [v75 chatForHandles:__imFirstObject account:v107 chatIdentifier:v120 style:43 groupID:v105 originalGroupID:v106 displayName:v104 guid:v108 lastAddressedHandle:v102 lastAddressedSIMID:v101 isBlackholed:v100];
     }
 
     else if (v53 == 45)
@@ -3950,7 +4024,7 @@ LABEL_44:
       v59 = [__imFirstObject objectForKey:*MEMORY[0x277D19778]];
       if (!v55)
       {
-        v55 = v121;
+        v55 = v120;
       }
 
       bOOLValue = [v58 BOOLValue];
@@ -3967,14 +4041,14 @@ LABEL_44:
 
       v77 = v62;
       v78 = +[IMDChatRegistry sharedInstance];
-      LOBYTE(v100) = blackholed;
-      v76 = [v78 chatForHandle:v77 account:v108 chatIdentifier:v121 guid:v109 lastAddressedHandle:v103 lastAddressedSIMID:v102 isBlackholed:v100];
+      LOBYTE(v99) = blackholed;
+      v76 = [v78 chatForHandle:v77 account:v107 chatIdentifier:v120 guid:v108 lastAddressedHandle:v102 lastAddressedSIMID:v101 isBlackholed:v99];
     }
 
     else
     {
       __imFirstObject = +[IMDChatRegistry sharedInstance];
-      v76 = [__imFirstObject chatForRoom:v104 account:v108 chatIdentifier:v121 guid:v109];
+      v76 = [__imFirstObject chatForRoom:v103 account:v107 chatIdentifier:v120 guid:v108];
     }
 
     mEMORY[0x277D1A9B8] = [MEMORY[0x277D1A9B8] sharedFeatureFlags];
@@ -3984,29 +4058,29 @@ LABEL_44:
     {
       if ([v76 style] == 43)
       {
-        [v76 assignIdentifier:v106 forDomain:*MEMORY[0x277D19780] isHistoricalIdentifier:0];
-        service = [v108 service];
+        [v76 assignIdentifier:v105 forDomain:*MEMORY[0x277D19780] isHistoricalIdentifier:0];
+        service = [v107 service];
         internalName = [service internalName];
 
         v83 = IMChatLookupDomainForServiceName();
-        service2 = [v108 service];
-        [v76 assignIdentifier:v106 forDomain:v83 isHistoricalIdentifier:{objc_msgSend(service2, "groupIDIsHistoricalIdentifier")}];
+        service2 = [v107 service];
+        [v76 assignIdentifier:v105 forDomain:v83 isHistoricalIdentifier:{objc_msgSend(service2, "groupIDIsHistoricalIdentifier")}];
 
-        service3 = [v108 service];
-        [v76 assignIdentifier:v107 forDomain:v83 isHistoricalIdentifier:{objc_msgSend(service3, "groupIDIsHistoricalIdentifier") ^ 1}];
+        service3 = [v107 service];
+        [v76 assignIdentifier:v106 forDomain:v83 isHistoricalIdentifier:{objc_msgSend(service3, "groupIDIsHistoricalIdentifier") ^ 1}];
       }
     }
 
     else
     {
-      [v76 setGroupID:v106];
-      if (v107)
+      [v76 setGroupID:v105];
+      if (v106)
       {
-        [v76 setOriginalGroupID:v107];
+        [v76 setOriginalGroupID:v106];
       }
     }
 
-    [v76 setDisplayName:v105];
+    [v76 setDisplayName:v104];
     if ([MEMORY[0x277D192C8] isEngramEnabled])
     {
       [v76 setCreateEngramGroupOnMessageSend:1];
@@ -4056,7 +4130,7 @@ LABEL_44:
     mEMORY[0x277D19268] = [MEMORY[0x277D19268] sharedInstance];
     if ([mEMORY[0x277D19268] isInternalInstall])
     {
-      v95 = [v121 hasPrefix:@"chat"];
+      v95 = [v120 hasPrefix:@"chat"];
 
       if (!v95)
       {
@@ -4067,7 +4141,7 @@ LABEL_93:
           if (os_log_type_enabled(v98, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v151 = v76;
+            v150 = v76;
             _os_log_impl(&dword_22B4CC000, v98, OS_LOG_TYPE_INFO, "Created chat: %@", buf, 0xCu);
           }
         }
@@ -4075,7 +4149,7 @@ LABEL_93:
 LABEL_98:
         [(NSRecursiveLock *)self->_lock unlock];
 
-        accountCopy = v108;
+        accountCopy = v107;
         goto LABEL_99;
       }
 
@@ -4085,7 +4159,7 @@ LABEL_98:
         if (os_log_type_enabled(v96, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v151 = v76;
+          v150 = v76;
           _os_log_impl(&dword_22B4CC000, v96, OS_LOG_TYPE_INFO, "********** Created bad chat: %@ *************", buf, 0xCu);
         }
       }
@@ -4099,10 +4173,8 @@ LABEL_98:
     goto LABEL_93;
   }
 
-  v121 = 0;
+  v120 = 0;
 LABEL_99:
-
-  v99 = *MEMORY[0x277D85DE8];
 }
 
 - (void)canonicalizeChatIdentifier:(id *)identifier style:(unsigned __int8 *)style
@@ -4176,10 +4248,42 @@ LABEL_9:
   return v7;
 }
 
+- (id)existingChatsForIDs:(id)ds style:(unsigned __int8)style
+{
+  styleCopy = style;
+  dsCopy = ds;
+  v7 = +[IMDChatRegistry sharedInstance];
+  service = [(IMDServiceSession *)self service];
+  v9 = [v7 existingChatsForIDs:dsCopy onService:service style:styleCopy];
+
+  return v9;
+}
+
+- (id)chatForChatIdentifier:(id)identifier style:(unsigned __int8)style
+{
+  styleCopy = style;
+  identifierCopy = identifier;
+  account = [(IMDServiceSession *)self account];
+  v8 = [(IMDServiceSession *)self chatForChatIdentifier:identifierCopy style:styleCopy account:account updatingAccount:0];
+
+  return v8;
+}
+
+- (id)chatForChatIdentifier:(id)identifier style:(unsigned __int8)style updatingAccount:(BOOL)account
+{
+  accountCopy = account;
+  styleCopy = style;
+  identifierCopy = identifier;
+  account = [(IMDServiceSession *)self account];
+  v10 = [(IMDServiceSession *)self chatForChatIdentifier:identifierCopy style:styleCopy account:account updatingAccount:accountCopy];
+
+  return v10;
+}
+
 - (id)chatForChatIdentifier:(id)identifier style:(unsigned __int8)style account:(id)account updatingAccount:(BOOL)updatingAccount
 {
   updatingAccountCopy = updatingAccount;
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   styleCopy = style;
   accountCopy = account;
   identifierCopy = identifier;
@@ -4211,9 +4315,9 @@ LABEL_9:
             accountID = [v14 accountID];
             accountID2 = [accountCopy accountID];
             *buf = 138412546;
-            v28 = accountID;
-            v29 = 2112;
-            v30 = accountID2;
+            v27 = accountID;
+            v28 = 2112;
+            v29 = accountID2;
             _os_log_impl(&dword_22B4CC000, v16, OS_LOG_TYPE_INFO, "Updating account ID from: %@ => %@", buf, 0x16u);
           }
         }
@@ -4232,11 +4336,11 @@ LABEL_9:
       if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
       {
         *buf = 138412802;
-        v28 = v12;
-        v29 = 2112;
-        v30 = v11;
-        v31 = 1024;
-        v32 = styleCopy;
+        v27 = v12;
+        v28 = 2112;
+        v29 = v11;
+        v30 = 1024;
+        v31 = styleCopy;
         _os_log_impl(&dword_22B4CC000, v22, OS_LOG_TYPE_INFO, "Failed to find chat for guid %@ with chatIdentifier: %@, style: %c", buf, 0x1Cu);
       }
     }
@@ -4256,8 +4360,6 @@ LABEL_9:
 
     v14 = 0;
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -4293,10 +4395,21 @@ LABEL_9:
   return v23;
 }
 
+- (void)processMessageForSending:(id)sending toChat:(id)chat style:(unsigned __int8)style allowWatchdog:(BOOL)watchdog completionBlock:(id)block
+{
+  watchdogCopy = watchdog;
+  styleCopy = style;
+  blockCopy = block;
+  chatCopy = chat;
+  sendingCopy = sending;
+  account = [(IMDServiceSession *)self account];
+  [(IMDServiceSession *)self processMessageForSending:sendingCopy toChat:chatCopy style:styleCopy allowWatchdog:watchdogCopy account:account completionBlock:blockCopy];
+}
+
 - (void)processMessageForSending:(id)sending toChat:(id)chat style:(unsigned __int8)style allowWatchdog:(BOOL)watchdog account:(id)account didReplaceMessageBlock:(id)block completionBlock:(id)completionBlock
 {
   watchdogCopy = watchdog;
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   sendingCopy = sending;
   chatCopy = chat;
   styleCopy = style;
@@ -4310,9 +4423,9 @@ LABEL_9:
       accountCopy = [(IMDServiceSession *)self account];
     }
 
-    v49 = chatCopy;
-    [(IMDServiceSession *)self _mapRoomChatToGroupChat:&v49 style:&styleCopy];
-    v41 = v49;
+    v48 = chatCopy;
+    [(IMDServiceSession *)self _mapRoomChatToGroupChat:&v48 style:&styleCopy];
+    v40 = v48;
 
     if (watchdogCopy && ([sendingCopy isTypingMessage] & 1) == 0 && (objc_msgSend(sendingCopy, "isSuggestedActionResponse") & 1) == 0 && (objc_msgSend(sendingCopy, "isRCSEncryptionTest") & 1) == 0)
     {
@@ -4320,20 +4433,20 @@ LABEL_9:
       [(IMDServiceSession *)self _updateWatchdogForMessageGUID:guid];
     }
 
-    [(IMDServiceSession *)self _configureSessionInformationOnItem:sendingCopy toChat:v41 withStyle:styleCopy forAccount:accountCopy];
+    [(IMDServiceSession *)self _configureSessionInformationOnItem:sendingCopy toChat:v40 withStyle:styleCopy forAccount:accountCopy];
     [(IMDServiceSession *)self _setOutgoingFlagsOnMessage:sendingCopy];
     [sendingCopy setErrorCode:0];
     isBeingRetried = [sendingCopy isBeingRetried];
-    v48 = 0;
+    v47 = 0;
     v21 = MEMORY[0x277D1AAB0];
     balloonBundleID = [sendingCopy balloonBundleID];
     body = [sendingCopy body];
     payloadData = [sendingCopy payloadData];
-    v40 = [v21 photoShareURLFromPluginBundleID:balloonBundleID contentString:body payload:payloadData shouldAccept:&v48];
+    v39 = [v21 photoShareURLFromPluginBundleID:balloonBundleID contentString:body payload:payloadData shouldAccept:&v47];
 
-    v25 = [(IMDServiceSession *)self existingChatForID:v41];
+    v25 = [(IMDServiceSession *)self existingChatForID:v40];
     v26 = v25;
-    if (v40 && v48 == 1)
+    if (v39 && v47 == 1)
     {
       if (v25)
       {
@@ -4348,7 +4461,7 @@ LABEL_9:
         {
           guid2 = [sendingCopy guid];
           *buf = 138412290;
-          v52 = guid2;
+          v51 = guid2;
           _os_log_impl(&dword_22B4CC000, v29, OS_LOG_TYPE_INFO, "Failed to accept moment share for message guid: %@", buf, 0xCu);
         }
       }
@@ -4357,11 +4470,11 @@ LABEL_9:
     if ([sendingCopy containsRichLink])
     {
       v31 = [(IMDServiceSession *)self _isMessageSWYSpamMessage:sendingCopy inChat:v26];
+      v45 = 0;
       v46 = 0;
-      v47 = 0;
-      v32 = [(IMDServiceSession *)self _shouldShowSWYQuickActionForMessage:sendingCopy outAppName:&v47 outBundleID:&v46];
-      v33 = v47;
-      v34 = v46;
+      v32 = [(IMDServiceSession *)self _shouldShowSWYQuickActionForMessage:sendingCopy outAppName:&v46 outBundleID:&v45];
+      v33 = v46;
+      v34 = v45;
       if (v31 || v32)
       {
         [(IMDServiceSession *)self _configureSyndicationRangesForMessage:sendingCopy forChat:v26 withSyndicationStatus:2];
@@ -4375,7 +4488,7 @@ LABEL_9:
           {
             v35 = @"NO";
             *buf = 138413058;
-            v52 = sendingCopy;
+            v51 = sendingCopy;
             if (v31)
             {
               v36 = @"YES";
@@ -4386,17 +4499,17 @@ LABEL_9:
               v36 = @"NO";
             }
 
-            v53 = 2112;
-            v54 = v36;
+            v52 = 2112;
+            v53 = v36;
             if (v32)
             {
               v35 = @"YES";
             }
 
-            v55 = 2112;
-            v56 = v35;
-            v57 = 2112;
-            v58 = v33;
+            v54 = 2112;
+            v55 = v35;
+            v56 = 2112;
+            v57 = v33;
             _os_log_impl(&dword_22B4CC000, log, OS_LOG_TYPE_INFO, "Configuring Syndication Ranges for Message: %@. isSWYSpam %@, showQuickAction: %@ swyAppName: %@", buf, 0x2Au);
           }
         }
@@ -4414,16 +4527,16 @@ LABEL_9:
     [(IMDMessageStorageContext *)v37 setModifyFlags:isBeingRetried ^ 1u];
     [(IMDMessageStorageContext *)v37 setFlagMask:557068];
     [(IMDMessageStorageContext *)v37 setChat:v26];
-    v43[0] = MEMORY[0x277D85DD0];
-    v43[1] = 3221225472;
-    v43[2] = sub_22B67A764;
-    v43[3] = &unk_278707650;
-    v43[4] = self;
-    v44 = sendingCopy;
-    v45 = completionBlockCopy;
-    [(IMDServiceSession *)self storeMessage:v44 context:v37 didReplaceBlock:blockCopy shouldStoreBlock:0 didStoreBlock:0 block:v43];
+    v42[0] = MEMORY[0x277D85DD0];
+    v42[1] = 3221225472;
+    v42[2] = sub_22B67A764;
+    v42[3] = &unk_278707650;
+    v42[4] = self;
+    v43 = sendingCopy;
+    v44 = completionBlockCopy;
+    [(IMDServiceSession *)self storeMessage:v43 context:v37 didReplaceBlock:blockCopy shouldStoreBlock:0 didStoreBlock:0 block:v42];
 
-    chatCopy = v41;
+    chatCopy = v40;
   }
 
   else
@@ -4440,8 +4553,6 @@ LABEL_9:
 
     (*(completionBlockCopy + 2))(completionBlockCopy, 0);
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_configureAccountInformationOnItem:(id)item withAccount:(id)account
@@ -4485,6 +4596,18 @@ LABEL_9:
   }
 }
 
+- (void)_configureSessionInformationOnItem:(id)item toChat:(id)chat withStyle:(unsigned __int8)style forAccount:(id)account
+{
+  styleCopy = style;
+  accountCopy = account;
+  chatCopy = chat;
+  itemCopy = item;
+  [(IMDServiceSession *)self _configureTimeOnOutgoingItem:itemCopy];
+  [(IMDServiceSession *)self _configureAccountInformationOnItem:itemCopy withAccount:accountCopy];
+
+  [(IMDServiceSession *)self _configureIdentifierForOutgoingItem:itemCopy withIdentifier:chatCopy withStyle:styleCopy];
+}
+
 - (void)_setOutgoingFlagsOnMessage:(id)message
 {
   messageCopy = message;
@@ -4493,7 +4616,7 @@ LABEL_9:
 
 - (void)_messageStoreCompletion:(BOOL)completion inputMessage:(id)message outputMessage:(id)outputMessage originalMessage:(id)originalMessage completionBlock:(id)block
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   outputMessageCopy = outputMessage;
   originalMessageCopy = originalMessage;
@@ -4505,11 +4628,11 @@ LABEL_9:
       v18 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
       {
-        v22 = 138412546;
-        v23 = messageCopy;
-        v24 = 2112;
-        v25 = outputMessageCopy;
-        _os_log_impl(&dword_22B4CC000, v18, OS_LOG_TYPE_INFO, "  => Message was stored. Input: %@   Output: %@", &v22, 0x16u);
+        v21 = 138412546;
+        v22 = messageCopy;
+        v23 = 2112;
+        v24 = outputMessageCopy;
+        _os_log_impl(&dword_22B4CC000, v18, OS_LOG_TYPE_INFO, "  => Message was stored. Input: %@   Output: %@", &v21, 0x16u);
       }
     }
 
@@ -4530,13 +4653,11 @@ LABEL_9:
       }
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_determineResultMessageForInput:(id)input output:(id)output original:(id)original
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   inputCopy = input;
   outputCopy = output;
   originalCopy = original;
@@ -4551,16 +4672,16 @@ LABEL_2:
   v11 = inputCopy;
   if (!v11)
   {
-    v16 = IMOSLoggingEnabled();
+    v15 = IMOSLoggingEnabled();
     v10 = originalCopy;
-    if (v16)
+    if (v15)
     {
-      v17 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+      v16 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
       {
-        v18 = 138412290;
-        v19 = originalCopy;
-        _os_log_impl(&dword_22B4CC000, v17, OS_LOG_TYPE_INFO, "  => No result? Using the requested message: %@", &v18, 0xCu);
+        v17 = 138412290;
+        v18 = originalCopy;
+        _os_log_impl(&dword_22B4CC000, v16, OS_LOG_TYPE_INFO, "  => No result? Using the requested message: %@", &v17, 0xCu);
       }
 
       v10 = originalCopy;
@@ -4582,8 +4703,6 @@ LABEL_4:
     retryToParticipant2 = [originalCopy retryToParticipant];
     [v11 setRetryToParticipant:retryToParticipant2];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -4615,7 +4734,7 @@ LABEL_4:
 
 - (id)chatForItemWithGUID:(id)d
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   dCopy = d;
   _sharedMessageStore = [(IMDServiceSession *)self _sharedMessageStore];
   v6 = [_sharedMessageStore chatForMessageGUID:dCopy];
@@ -4625,13 +4744,11 @@ LABEL_4:
     v7 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v10 = 138412290;
-      v11 = dCopy;
-      _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Chat: Could not find a chat for itemGUID: %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = dCopy;
+      _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Chat: Could not find a chat for itemGUID: %@", &v9, 0xCu);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -4646,6 +4763,87 @@ LABEL_4:
   else
   {
     return 1000;
+  }
+}
+
+- (void)storeItem:(id)item toChat:(id)chat style:(unsigned __int8)style
+{
+  styleCopy = style;
+  v34[1] = *MEMORY[0x277D85DE8];
+  itemCopy = item;
+  chatCopy = chat;
+  if (itemCopy)
+  {
+    v10 = [(IMDServiceSession *)self chatForChatIdentifier:chatCopy style:styleCopy updatingAccount:1];
+    if ([itemCopy type] == 6)
+    {
+      properties = [v10 properties];
+      if (!properties || ([v10 properties], v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "objectForKey:", @"lastTUConversationCreatedDate"), v13 = objc_claimAutoreleasedReturnValue(), v13, v12, properties, !v13))
+      {
+        properties2 = [v10 properties];
+        if (properties2)
+        {
+          properties3 = [v10 properties];
+          v16 = [properties3 mutableCopy];
+        }
+
+        else
+        {
+          v16 = objc_alloc_init(MEMORY[0x277CBEB38]);
+        }
+
+        date = [MEMORY[0x277CBEAA8] date];
+        [v16 setValue:date forKey:@"lastTUConversationCreatedDate"];
+
+        v18 = [v16 copy];
+        [v10 updateProperties:v18];
+      }
+    }
+
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      skipIndexing = [itemCopy skipIndexing];
+    }
+
+    else
+    {
+      skipIndexing = 0;
+    }
+
+    v20 = +[IMDMessageStore sharedInstance];
+    v21 = [v20 storeItem:itemCopy forceReplace:0];
+
+    v22 = +[IMDChatStore sharedInstance];
+    guid = [itemCopy guid];
+    [v22 addMessageWithGUID:guid toChat:v10 reason:-[IMDServiceSession _incomingMessageIndexReason](self skipIndexing:{"_incomingMessageIndexReason"), skipIndexing}];
+
+    if (v21)
+    {
+      v34[0] = v21;
+      v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:1];
+      v25 = IMCreateSerializedItemsFromArray();
+
+      v26 = -[IMDServiceSession broadcasterForChatListenersWithBlackholeStatus:](self, "broadcasterForChatListenersWithBlackholeStatus:", [v10 isBlackholed]);
+      accountID = [v10 accountID];
+      chatIdentifier = [v10 chatIdentifier];
+      [v26 account:accountID chat:chatIdentifier style:styleCopy messagesUpdated:v25];
+
+      guid2 = [v10 guid];
+      properties4 = [v10 properties];
+      [v26 chat:guid2 propertiesUpdated:properties4];
+    }
+
+    else if (IMOSLoggingEnabled())
+    {
+      v31 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+      {
+        v32 = 138412290;
+        v33 = itemCopy;
+        _os_log_impl(&dword_22B4CC000, v31, OS_LOG_TYPE_INFO, "Failed to store item %@", &v32, 0xCu);
+      }
+    }
   }
 }
 
@@ -4676,6 +4874,15 @@ LABEL_4:
   }
 }
 
+- (void)sendMessage:(id)message toChat:(id)chat style:(unsigned __int8)style
+{
+  styleCopy = style;
+  chatCopy = chat;
+  messageCopy = message;
+  account = [(IMDServiceSession *)self account];
+  [(IMDServiceSession *)self sendMessage:messageCopy toChat:chatCopy style:styleCopy account:account];
+}
+
 - (void)sendMessage:(id)message toChat:(id)chat style:(unsigned __int8)style destinationHandles:(id)handles
 {
   v6 = IMLogHandleForCategory();
@@ -4687,7 +4894,7 @@ LABEL_4:
 
 - (void)sendMessage:(id)message toChat:(id)chat style:(unsigned __int8)style account:(id)account
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   chatCopy = chat;
   styleCopy = style;
@@ -4703,7 +4910,7 @@ LABEL_4:
         {
           guid = [messageCopy guid];
           *buf = 138412290;
-          v32 = guid;
+          v31 = guid;
           _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "Not sending message up to client because this message is being retried. Guid %@", buf, 0xCu);
         }
       }
@@ -4716,9 +4923,9 @@ LABEL_4:
         accountCopy = [(IMDServiceSession *)self account];
       }
 
-      v29 = chatCopy;
-      [(IMDServiceSession *)self _mapRoomChatToGroupChat:&v29 style:&styleCopy];
-      v15 = v29;
+      v28 = chatCopy;
+      [(IMDServiceSession *)self _mapRoomChatToGroupChat:&v28 style:&styleCopy];
+      v15 = v28;
 
       [(IMDServiceSession *)self _configureSessionInformationOnItem:messageCopy toChat:v15 withStyle:styleCopy forAccount:accountCopy];
       [(IMDServiceSession *)self _setOutgoingFlagsOnMessage:messageCopy];
@@ -4732,7 +4939,7 @@ LABEL_4:
           {
             guid2 = [messageCopy guid];
             *buf = 138412290;
-            v32 = guid2;
+            v31 = guid2;
             _os_log_impl(&dword_22B4CC000, v17, OS_LOG_TYPE_INFO, "Not storing scheduled message or notifying client about message with GUID: %@ ", buf, 0xCu);
           }
         }
@@ -4746,33 +4953,31 @@ LABEL_4:
         [(IMDMessageStorageContext *)v19 setModifyFlags:1];
         [(IMDMessageStorageContext *)v19 setFlagMask:0x2000000800CLL];
         [(IMDMessageStorageContext *)v19 setChat:v16];
-        v27[0] = MEMORY[0x277D85DD0];
-        v27[1] = 3221225472;
-        v27[2] = sub_22B67B8F4;
-        v27[3] = &unk_278707678;
-        v28 = v16;
-        v21[0] = MEMORY[0x277D85DD0];
-        v21[1] = 3221225472;
-        v21[2] = sub_22B67BB4C;
-        v21[3] = &unk_2787076A0;
-        v22 = v28;
+        v26[0] = MEMORY[0x277D85DD0];
+        v26[1] = 3221225472;
+        v26[2] = sub_22B67B8F4;
+        v26[3] = &unk_278707678;
+        v27 = v16;
+        v20[0] = MEMORY[0x277D85DD0];
+        v20[1] = 3221225472;
+        v20[2] = sub_22B67BB4C;
+        v20[3] = &unk_2787076A0;
+        v21 = v27;
         selfCopy = self;
-        v24 = accountCopy;
-        v25 = v15;
-        v26 = styleCopy;
-        [(IMDServiceSession *)self storeMessage:messageCopy context:v19 didReplaceBlock:0 shouldStoreBlock:0 didStoreBlock:v27 block:v21];
+        v23 = accountCopy;
+        v24 = v15;
+        v25 = styleCopy;
+        [(IMDServiceSession *)self storeMessage:messageCopy context:v19 didReplaceBlock:0 shouldStoreBlock:0 didStoreBlock:v26 block:v20];
       }
 
       chatCopy = v15;
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)revokeSentMessage:(id)message inChat:(id)chat
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   chatCopy = chat;
   if (IMOSLoggingEnabled())
@@ -4783,17 +4988,15 @@ LABEL_4:
       displayName = [(IMDServiceSession *)self displayName];
       guid = [messageCopy guid];
       guid2 = [chatCopy guid];
-      v13 = 138412802;
-      v14 = displayName;
-      v15 = 2112;
-      v16 = guid;
-      v17 = 2112;
-      v18 = guid2;
-      _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "%@ Service session does not support message revocation for %@ in chat %@", &v13, 0x20u);
+      v12 = 138412802;
+      v13 = displayName;
+      v14 = 2112;
+      v15 = guid;
+      v16 = 2112;
+      v17 = guid2;
+      _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "%@ Service session does not support message revocation for %@ in chat %@", &v12, 0x20u);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)relayLegacySatelliteMessage:(id)message toChat:(id)chat localWatchOnly:(BOOL)only
@@ -4813,7 +5016,7 @@ LABEL_4:
 
 - (void)downgradeRequestedForHandleID:(id)d expirationDate:(id)date preferredService:(id)service
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   dCopy = d;
   dateCopy = date;
   serviceCopy = service;
@@ -4825,13 +5028,13 @@ LABEL_4:
       v12 = objc_opt_class();
       v13 = NSStringFromClass(v12);
       *buf = 138413058;
-      v25 = v13;
-      v26 = 2112;
-      v27 = dCopy;
-      v28 = 2112;
-      v29 = dateCopy;
-      v30 = 2112;
-      v31 = serviceCopy;
+      v24 = v13;
+      v25 = 2112;
+      v26 = dCopy;
+      v27 = 2112;
+      v28 = dateCopy;
+      v29 = 2112;
+      v30 = serviceCopy;
       _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "%@ setting downgrade flag for %@ (expiration: %@) to %@", buf, 0x2Au);
     }
   }
@@ -4845,19 +5048,19 @@ LABEL_4:
       if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v25 = dCopy;
+        v24 = dCopy;
         _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, " => No chat for %@, joining chat", buf, 0xCu);
       }
     }
 
     v16 = *MEMORY[0x277D192F8];
-    v22[0] = *MEMORY[0x277D193A8];
-    v22[1] = v16;
-    v23[0] = dCopy;
-    v23[1] = &unk_283F4ECA8;
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:2];
-    v21 = v17;
-    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v21 count:1];
+    v21[0] = *MEMORY[0x277D193A8];
+    v21[1] = v16;
+    v22[0] = dCopy;
+    v22[1] = &unk_283F4ECA8;
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:2];
+    v20 = v17;
+    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:1];
     [(IMDServiceSession *)self didJoinChat:dCopy style:45 displayName:0 groupID:0 lastAddressedHandle:0 lastAddressedSIMID:0 handleInfo:v18];
 
     v14 = [(IMDServiceSession *)self chatForChatIdentifier:dCopy style:45];
@@ -4874,13 +5077,11 @@ LABEL_4:
     v19 = [MEMORY[0x277CBEAA8] now];
     [v14 setRequestedDowngradeExpirationDate:v19];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clearDowngradeRequestForHandleID:(id)d
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   dCopy = d;
   if (IMOSLoggingEnabled())
   {
@@ -4889,11 +5090,11 @@ LABEL_4:
     {
       v6 = objc_opt_class();
       v7 = NSStringFromClass(v6);
-      v12 = 138412546;
-      v13 = v7;
-      v14 = 2112;
-      v15 = dCopy;
-      _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "%@ clearing downgrade flag for %@", &v12, 0x16u);
+      v11 = 138412546;
+      v12 = v7;
+      v13 = 2112;
+      v14 = dCopy;
+      _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "%@ clearing downgrade flag for %@", &v11, 0x16u);
     }
   }
 
@@ -4910,17 +5111,15 @@ LABEL_4:
     v10 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v12) = 0;
-      _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, " => No existing chat, no change to downgrade flag", &v12, 2u);
+      LOWORD(v11) = 0;
+      _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, " => No existing chat, no change to downgrade flag", &v11, 2u);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)hasValidDowngradeRequestForHandleID:(id)d
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v5 = [(IMDServiceSession *)self chatForChatIdentifier:dCopy style:45 updatingAccount:0];
   v6 = v5;
@@ -4941,11 +5140,11 @@ LABEL_4:
           v21 = OSLogHandleForIMFoundationCategory();
           if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
           {
-            v24 = 138412546;
-            v25 = requestedDowngradeService;
-            v26 = 2112;
-            v27 = requestedDowngradeExpirationDate;
-            _os_log_impl(&dword_22B4CC000, v21, OS_LOG_TYPE_INFO, "Previous downgrade request to %@ expired on %@, clearing", &v24, 0x16u);
+            v23 = 138412546;
+            v24 = requestedDowngradeService;
+            v25 = 2112;
+            v26 = requestedDowngradeExpirationDate;
+            _os_log_impl(&dword_22B4CC000, v21, OS_LOG_TYPE_INFO, "Previous downgrade request to %@ expired on %@, clearing", &v23, 0x16u);
           }
         }
 
@@ -4993,13 +5192,12 @@ LABEL_4:
     v9 = 0;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (void)sentDowngradeRequestToHandleID:(id)d fromID:(id)iD
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   if (IMOSLoggingEnabled())
@@ -5007,13 +5205,11 @@ LABEL_4:
     v7 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v9 = 138412290;
-      v10 = dCopy;
-      _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Downgrade request was sent to %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = dCopy;
+      _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Downgrade request was sent to %@", &v8, 0xCu);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendReadReceiptForMessage:(id)message toChatID:(id)d identifier:(id)identifier style:(unsigned __int8)style reflectOnly:(BOOL)only
@@ -5088,7 +5284,7 @@ LABEL_4:
 
 - (void)_blastDoorProcessingWithIMMessageItem:(id)item chat:(id)chat account:(id)account fromToken:(id)token fromIDSID:(id)d fromIdentifier:(id)identifier toIdentifier:(id)toIdentifier participants:(id)self0 groupName:(id)self1 groupID:(id)self2 isFromMe:(BOOL)self3 isLastFromStorage:(BOOL)self4 isFromStorage:(BOOL)self5 batchID:(id)self6 hideLockScreenNotification:(BOOL)self7 wantsCheckpointing:(BOOL)self8 needsDeliveryReceipt:(id)self9 messageBalloonPayloadAttachmentDictionary:(id)dictionary inlineAttachments:(id)attachments attributionInfoArray:(id)array nicknameDictionary:(id)nicknameDictionary availabilityVerificationRecipientChannelIDPrefix:(id)prefix availabilityVerificationRecipientEncryptionValidationToken:(id)validationToken availabilityOffGridRecipientSubscriptionValidationToken:(id)subscriptionValidationToken availabilityOffGridRecipientEncryptionValidationToken:(id)encryptionValidationToken idsService:(id)service messageContext:(id)context isFromTrustedSender:(BOOL)item0 isFromSnapTrustedSender:(BOOL)item1 wasContextUsed:(BOOL)item2 isBlackholed:(BOOL)item3 shouldTrackForRequery:(BOOL)item4 isFiltered:(int64_t)item5 spamDetectionSource:(int64_t)item6 completionBlock:(id)item7
 {
-  v73 = *MEMORY[0x277D85DE8];
+  v72 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   chatCopy = chat;
   accountCopy = account;
@@ -5121,14 +5317,12 @@ LABEL_4:
       service = [(IMDServiceSession *)self service];
       internalName = [service internalName];
       *buf = 138543362;
-      v72 = internalName;
+      v71 = internalName;
       _os_log_impl(&dword_22B4CC000, v49, OS_LOG_TYPE_INFO, "Not handling, blastdoor not supported in %{public}@ yet", buf, 0xCu);
 
       participantsCopy = v50;
     }
   }
-
-  v53 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestGroupPhotoIfNecessary:(id)necessary incomingParticipantVersion:(int64_t)version incomingGroupPhotoCreationTime:(id)time toIdentifier:(id)identifier fromIdentifier:(id)fromIdentifier messageIsFromStorage:(BOOL)storage
@@ -5237,25 +5431,23 @@ LABEL_4:
 
 - (void)fetchIncomingPendingMessagesFromHandlesIDs:(id)ds
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   if (IMOSLoggingEnabled())
   {
     v5 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v7 = 138412290;
+      v6 = 138412290;
       selfCopy = self;
-      _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Service session %@ does not support message fetching", &v7, 0xCu);
+      _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Service session %@ does not support message fetching", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)trackTimeSensitiveContentInMessageItem:(id)item chat:(id)chat
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   chatCopy = chat;
   otcUtilities = [(IMDServiceSession *)self otcUtilities];
@@ -5292,7 +5484,7 @@ LABEL_4:
         {
           guid2 = [itemCopy guid];
           *buf = 138412290;
-          v35 = guid2;
+          v34 = guid2;
           _os_log_impl(&dword_22B4CC000, v17, OS_LOG_TYPE_INFO, "Marking message.guid: %@, as sensitive due to: onetime pass code", buf, 0xCu);
         }
 
@@ -5314,7 +5506,7 @@ LABEL_4:
           {
             guid3 = [itemCopy guid];
             *buf = 138412290;
-            v35 = guid3;
+            v34 = guid3;
             _os_log_impl(&dword_22B4CC000, v17, OS_LOG_TYPE_INFO, "Marking message.guid: %@, as sensitive due to: filter category transactional", buf, 0xCu);
           }
 
@@ -5336,7 +5528,7 @@ LABEL_4:
           {
             guid4 = [itemCopy guid];
             *buf = 138412290;
-            v35 = guid4;
+            v34 = guid4;
             _os_log_impl(&dword_22B4CC000, v17, OS_LOG_TYPE_INFO, "Marking message.guid: %@, as sensitive due to: filter category promotional", buf, 0xCu);
           }
 
@@ -5356,7 +5548,7 @@ LABEL_4:
         {
           guid5 = [itemCopy guid];
           *buf = 138412290;
-          v35 = guid5;
+          v34 = guid5;
           _os_log_impl(&dword_22B4CC000, v17, OS_LOG_TYPE_INFO, "Marking message.guid: %@, as sensitive due to: filter category unknown sender", buf, 0xCu);
         }
 
@@ -5382,7 +5574,7 @@ LABEL_4:
         {
           guid6 = [itemCopy guid];
           *buf = 138412290;
-          v35 = guid6;
+          v34 = guid6;
           _os_log_impl(&dword_22B4CC000, v17, OS_LOG_TYPE_INFO, "Marking message.guid: %@, as sensitive due to: internal bypass", buf, 0xCu);
         }
 
@@ -5394,8 +5586,8 @@ LABEL_36:
         {
           [itemCopy setIsTimeSensitive:1];
           v28 = +[IMDMessageStore sharedInstance];
-          LOBYTE(v33) = 0;
-          v29 = [v28 storeMessage:itemCopy forceReplace:1 modifyError:0 modifyFlags:1 flagMask:0 updateMessageCache:1 calculateUnreadCount:v33];
+          LOBYTE(v32) = 0;
+          v29 = [v28 storeMessage:itemCopy forceReplace:1 modifyError:0 modifyFlags:1 flagMask:0 updateMessageCache:1 calculateUnreadCount:v32];
 
           [chatCopy updateTimeSensitiveExpirationDateWithMessageTime:time hasOneTimeCode:v12 != 0];
         }
@@ -5426,7 +5618,7 @@ LABEL_46:
       {
         guid7 = [itemCopy guid];
         *buf = 138412290;
-        v35 = guid7;
+        v34 = guid7;
         _os_log_impl(&dword_22B4CC000, time, OS_LOG_TYPE_INFO, "No time sensitive content found for message.guid: %@", buf, 0xCu);
       }
 
@@ -5435,8 +5627,288 @@ LABEL_46:
   }
 
 LABEL_47:
+}
 
+- (void)didLeaveChat:(id)chat style:(unsigned __int8)style account:(id)account messageID:(id)d
+{
+  styleCopy = style;
+  v38 = *MEMORY[0x277D85DE8];
+  chatCopy = chat;
+  accountCopy = account;
+  dCopy = d;
+  if (IMOSLoggingEnabled())
+  {
+    v10 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    {
+      *buf = 138412802;
+      v33 = chatCopy;
+      v34 = 1024;
+      v35 = styleCopy;
+      v36 = 1024;
+      v37 = 3;
+      _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "Did leave chat: %@  style: %c setting state: %d", buf, 0x18u);
+    }
+  }
+
+  v25 = objc_alloc_init(IMDChatStatusChangeContext);
+  [(IMDChatStatusChangeContext *)v25 setMessageID:dCopy];
+  [(IMDChatStatusChangeContext *)v25 setAccount:accountCopy];
+  [(IMDServiceSession *)self didUpdateChatStatus:3 chat:chatCopy style:styleCopy context:v25];
+  v11 = [(IMDServiceSession *)self _guidForChat:chatCopy style:styleCopy];
+  v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
+  v12 = +[IMDChatRegistry sharedInstance];
+  v13 = [v12 allExistingChatsWithIdentifier:chatCopy style:styleCopy];
+
+  v14 = [v13 countByEnumeratingWithState:&v27 objects:v31 count:16];
+  if (!v14)
+  {
+    goto LABEL_20;
+  }
+
+  v15 = 0;
+  v16 = *v28;
+  do
+  {
+    for (i = 0; i != v14; ++i)
+    {
+      if (*v28 != v16)
+      {
+        objc_enumerationMutation(v13);
+      }
+
+      v18 = *(*(&v27 + 1) + 8 * i);
+      guid = [v18 guid];
+      v20 = [guid isEqualToString:v11];
+
+      if ((v20 & 1) == 0)
+      {
+        if (IMOSLoggingEnabled())
+        {
+          v21 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+          {
+            *buf = 138412290;
+            v33 = v18;
+            _os_log_impl(&dword_22B4CC000, v21, OS_LOG_TYPE_INFO, "Leaving sibling chat %@", buf, 0xCu);
+          }
+        }
+
+        [v18 setState:0];
+        v22 = +[IMDChatStore sharedInstance];
+        [v22 storeChat:v18];
+
+        v15 = 1;
+      }
+    }
+
+    v14 = [v13 countByEnumeratingWithState:&v27 objects:v31 count:16];
+  }
+
+  while (v14);
+
+  if (v15)
+  {
+    v13 = +[IMDMessageStore sharedInstance];
+    [v13 updateStampForGUID:v11];
+LABEL_20:
+  }
+}
+
+- (void)didJoinChat:(id)chat style:(unsigned __int8)style displayName:(id)name groupID:(id)d originalGroupID:(id)iD lastAddressedHandle:(id)handle lastAddressedSIMID:(id)mID handleInfo:(id)self0
+{
+  styleCopy = style;
+  v40 = *MEMORY[0x277D85DE8];
+  chatCopy = chat;
+  nameCopy = name;
+  dCopy = d;
+  iDCopy = iD;
+  handleCopy = handle;
+  mIDCopy = mID;
+  infoCopy = info;
+  if (IMOSLoggingEnabled())
+  {
+    v23 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+    {
+      *buf = 138414082;
+      v25 = chatCopy;
+      v26 = 1024;
+      v27 = styleCopy;
+      v28 = 1024;
+      v29 = 2;
+      v30 = 2112;
+      v31 = nameCopy;
+      v32 = 2112;
+      v33 = dCopy;
+      v34 = 2112;
+      v35 = iDCopy;
+      v36 = 2112;
+      v37 = handleCopy;
+      v38 = 2112;
+      v39 = mIDCopy;
+      _os_log_impl(&dword_22B4CC000, v23, OS_LOG_TYPE_INFO, "Did join chat: %@  style: %c setting state: %d   name: %@   groupID: %@ originalGroupID: %@ lastAddressedHandle %@ lastAddressedSIMID %@", buf, 0x4Au);
+    }
+  }
+
+  [(IMDServiceSession *)self didUpdateChatStatus:2 chat:chatCopy style:styleCopy displayName:nameCopy groupID:dCopy originalGroupID:iDCopy lastAddressedHandle:handleCopy lastAddressedSIMID:mIDCopy handleInfo:infoCopy];
+}
+
+- (void)didJoinChat:(id)chat style:(unsigned __int8)style displayName:(id)name groupID:(id)d originalGroupID:(id)iD handleInfo:(id)info category:(int64_t)category spamExtensionName:(id)self0
+{
+  styleCopy = style;
+  v38 = *MEMORY[0x277D85DE8];
+  chatCopy = chat;
+  nameCopy = name;
+  dCopy = d;
+  iDCopy = iD;
+  infoCopy = info;
+  extensionNameCopy = extensionName;
+  if (IMOSLoggingEnabled())
+  {
+    v22 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+    {
+      *buf = 138413826;
+      v25 = chatCopy;
+      v26 = 1024;
+      v27 = styleCopy;
+      v28 = 1024;
+      v29 = 2;
+      v30 = 2112;
+      v31 = nameCopy;
+      v32 = 2112;
+      v33 = dCopy;
+      v34 = 2048;
+      categoryCopy = category;
+      v36 = 2112;
+      v37 = extensionNameCopy;
+      _os_log_impl(&dword_22B4CC000, v22, OS_LOG_TYPE_INFO, "Did join chat: %@  style: %c setting state: %d   name: %@   groupID: %@  category %ld extensionName %@", buf, 0x40u);
+    }
+  }
+
+  account = [(IMDServiceSession *)self account];
+  [(IMDServiceSession *)self didUpdateChatStatus:2 chat:chatCopy style:styleCopy displayName:nameCopy groupID:dCopy originalGroupID:iDCopy handleInfo:infoCopy account:account category:category spamExtensionName:extensionNameCopy];
+}
+
+- (void)didJoinChat:(id)chat style:(unsigned __int8)style displayName:(id)name groupID:(id)d handleInfo:(id)info account:(id)account isBlackholed:(BOOL)blackholed
+{
+  styleCopy = style;
   v32 = *MEMORY[0x277D85DE8];
+  chatCopy = chat;
+  nameCopy = name;
+  dCopy = d;
+  infoCopy = info;
+  accountCopy = account;
+  if (IMOSLoggingEnabled())
+  {
+    v20 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+    {
+      *buf = 138413314;
+      v23 = chatCopy;
+      v24 = 1024;
+      v25 = styleCopy;
+      v26 = 1024;
+      v27 = 2;
+      v28 = 2112;
+      v29 = nameCopy;
+      v30 = 2112;
+      v31 = dCopy;
+      _os_log_impl(&dword_22B4CC000, v20, OS_LOG_TYPE_INFO, "Did join chat: %@  style: %c setting state: %d   name: %@   groupID: %@", buf, 0x2Cu);
+    }
+  }
+
+  LOBYTE(v21) = blackholed;
+  [(IMDServiceSession *)self didUpdateChatStatus:2 chat:chatCopy style:styleCopy displayName:nameCopy groupID:dCopy handleInfo:infoCopy account:accountCopy isBlackholed:v21];
+}
+
+- (void)didJoinChat:(id)chat style:(unsigned __int8)style displayName:(id)name groupID:(id)d handleInfo:(id)info category:(int64_t)category account:(id)account isBlackholed:(BOOL)self0 spamDetectionSource:(int64_t)self1
+{
+  styleCopy = style;
+  v34 = *MEMORY[0x277D85DE8];
+  chatCopy = chat;
+  nameCopy = name;
+  dCopy = d;
+  infoCopy = info;
+  accountCopy = account;
+  if (IMOSLoggingEnabled())
+  {
+    v22 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+    {
+      *buf = 138413314;
+      v25 = chatCopy;
+      v26 = 1024;
+      v27 = styleCopy;
+      v28 = 1024;
+      v29 = 2;
+      v30 = 2112;
+      v31 = nameCopy;
+      v32 = 2112;
+      v33 = dCopy;
+      _os_log_impl(&dword_22B4CC000, v22, OS_LOG_TYPE_INFO, "Did join chat: %@  style: %c setting state: %d   name: %@   groupID: %@", buf, 0x2Cu);
+    }
+  }
+
+  LOBYTE(v23) = blackholed;
+  [(IMDServiceSession *)self didUpdateChatStatus:2 chat:chatCopy style:styleCopy displayName:nameCopy groupID:dCopy handleInfo:infoCopy account:accountCopy category:category isBlackholed:v23 spamDetectionSource:source];
+}
+
+- (void)didJoinReadOnlyChat:(id)chat style:(unsigned __int8)style displayName:(id)name groupID:(id)d handleInfo:(id)info category:(int64_t)category spamExtensionName:(id)extensionName
+{
+  styleCopy = style;
+  v36 = *MEMORY[0x277D85DE8];
+  chatCopy = chat;
+  nameCopy = name;
+  dCopy = d;
+  infoCopy = info;
+  extensionNameCopy = extensionName;
+  if (IMOSLoggingEnabled())
+  {
+    v20 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+    {
+      *buf = 138413826;
+      v23 = chatCopy;
+      v24 = 1024;
+      v25 = styleCopy;
+      v26 = 1024;
+      v27 = 7;
+      v28 = 2112;
+      v29 = nameCopy;
+      v30 = 2112;
+      v31 = dCopy;
+      v32 = 2048;
+      categoryCopy = category;
+      v34 = 2112;
+      v35 = extensionNameCopy;
+      _os_log_impl(&dword_22B4CC000, v20, OS_LOG_TYPE_INFO, "Did join chat: %@  style: %c setting state: %d   name: %@   groupID: %@  category %ld extensionName %@", buf, 0x40u);
+    }
+  }
+
+  account = [(IMDServiceSession *)self account];
+  [(IMDServiceSession *)self didUpdateChatStatus:7 chat:chatCopy style:styleCopy displayName:nameCopy groupID:dCopy originalGroupID:0 handleInfo:infoCopy account:account category:category spamExtensionName:extensionNameCopy];
+}
+
+- (void)didReceiveReplaceMessageID:(int)d forChat:(id)chat style:(unsigned __int8)style
+{
+  styleCopy = style;
+  v6 = *&d;
+  chatCopy = chat;
+  if (styleCopy == 45)
+  {
+    v13 = chatCopy;
+    v9 = +[IMDMessageStore sharedInstance];
+    service = [(IMDServiceSession *)self service];
+    internalName = [service internalName];
+    v12 = [v9 deleteMessagesWithReplaceMessageID:v6 fromHandle:v13 onService:internalName];
+
+    chatCopy = v13;
+  }
 }
 
 - (void)didReceiveErrorMessage:(id)message forChat:(id)chat style:(unsigned __int8)style
@@ -5461,21 +5933,281 @@ LABEL_47:
   }
 }
 
+- (void)didReceiveError:(unsigned int)error forMessageID:(id)d forceError:(BOOL)forceError
+{
+  forceErrorCopy = forceError;
+  v6 = *&error;
+  dCopy = d;
+  account = [(IMDServiceSession *)self account];
+  [(IMDServiceSession *)self didReceiveError:v6 forMessageID:dCopy forceError:forceErrorCopy account:account];
+}
+
+- (void)didReceiveError:(unsigned int)error forMessageID:(id)d forceError:(BOOL)forceError account:(id)account
+{
+  forceErrorCopy = forceError;
+  v8 = *&error;
+  v39 = *MEMORY[0x277D85DE8];
+  dCopy = d;
+  accountCopy = account;
+  if (IMOSLoggingEnabled())
+  {
+    v12 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    {
+      v13 = @"NO";
+      *v36 = 67109634;
+      *&v36[4] = v8;
+      *&v36[8] = 2112;
+      if (forceErrorCopy)
+      {
+        v13 = @"YES";
+      }
+
+      *&v36[10] = dCopy;
+      v37 = 2112;
+      v38 = v13;
+      _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_DEBUG, "error: %d  message: %@  force error: %@", v36, 0x1Cu);
+    }
+  }
+
+  if (dCopy)
+  {
+    service = [(IMDServiceSession *)self service];
+    supportsDatabase = [service supportsDatabase];
+
+    if (supportsDatabase)
+    {
+      if (!accountCopy)
+      {
+        accountCopy = [(IMDServiceSession *)self account];
+      }
+
+      v16 = [IMDMessageStore sharedInstance:*v36];
+      v17 = [v16 messageWithGUID:dCopy];
+
+      if (v17)
+      {
+        _sharedMessageStore = [(IMDServiceSession *)self _sharedMessageStore];
+        v19 = [_sharedMessageStore chatForMessage:v17];
+
+        if (!v19 && IMOSLoggingEnabled())
+        {
+          v20 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+          {
+            *v36 = 138412290;
+            *&v36[4] = v17;
+            _os_log_impl(&dword_22B4CC000, v20, OS_LOG_TYPE_INFO, "Chat: Could not find a chat for message: %@", v36, 0xCu);
+          }
+        }
+
+        if (forceErrorCopy || ![v17 isDelivered])
+        {
+          if (IMOSLoggingEnabled())
+          {
+            v23 = OSLogHandleForIMFoundationCategory();
+            if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+            {
+              *v36 = 138412546;
+              *&v36[4] = v17;
+              *&v36[12] = 1024;
+              *&v36[14] = v8;
+              _os_log_impl(&dword_22B4CC000, v23, OS_LOG_TYPE_INFO, "Found old message: %@  for error: %d", v36, 0x12u);
+            }
+          }
+
+          mEMORY[0x277D1A9B8] = [MEMORY[0x277D1A9B8] sharedFeatureFlags];
+          isLQMHQEnabled = [mEMORY[0x277D1A9B8] isLQMHQEnabled];
+
+          if (!isLQMHQEnabled || ((v26 = [v17 isHQTransfer], v8) ? (v27 = v26) : (v27 = 0), (v27 & 1) == 0))
+          {
+            [v17 setErrorCode:v8];
+          }
+
+          scheduleType = [v17 scheduleType];
+          if (v8 && scheduleType == 2)
+          {
+            [(IMDServiceSession *)self _handleScheduledMessageFailure:v17];
+          }
+
+          v29 = +[IMDMessageStore sharedInstance];
+          v30 = [v29 storeMessage:v17 forceReplace:0 modifyError:1 modifyFlags:0 flagMask:0];
+
+          if (IMOSLoggingEnabled())
+          {
+            v31 = OSLogHandleForIMFoundationCategory();
+            if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+            {
+              *v36 = 138412290;
+              *&v36[4] = v30;
+              _os_log_impl(&dword_22B4CC000, v31, OS_LOG_TYPE_INFO, "Updated message: %@", v36, 0xCu);
+            }
+          }
+
+          if ([(IMDServiceSession *)self isAwaitingStorageTimer])
+          {
+            guid = [v30 guid];
+            [(IMDServiceSession *)self noteSuppressedMessageUpdate:guid];
+          }
+
+          else
+          {
+            guid = [(IMDServiceSession *)self broadcasterForChatListeners];
+            accountID = [accountCopy accountID];
+            chatIdentifier = [v19 chatIdentifier];
+            [guid account:accountID chat:chatIdentifier style:objc_msgSend(v19 messageUpdated:{"style"), v30}];
+          }
+
+          guid2 = [v30 guid];
+          sub_22B67EEDC(guid2);
+
+          v17 = v30;
+        }
+
+        else if (IMOSLoggingEnabled())
+        {
+          v21 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+          {
+            *v36 = 138412290;
+            *&v36[4] = v17;
+            _os_log_impl(&dword_22B4CC000, v21, OS_LOG_TYPE_INFO, "Message is already delivered, and we're not forcing an error here (%@)", v36, 0xCu);
+          }
+        }
+      }
+
+      else if (IMOSLoggingEnabled())
+      {
+        v22 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+        {
+          *v36 = 67109378;
+          *&v36[4] = v8;
+          *&v36[8] = 2112;
+          *&v36[10] = dCopy;
+          _os_log_impl(&dword_22B4CC000, v22, OS_LOG_TYPE_INFO, "Unable to mark error: %d, no messages found for guid: %@", v36, 0x12u);
+        }
+      }
+    }
+  }
+}
+
+- (void)didReceiveOffGridStatus:(BOOL)status forID:(id)d messageGUID:(id)iD account:(id)account
+{
+  statusCopy = status;
+  v29 = *MEMORY[0x277D85DE8];
+  dCopy = d;
+  iDCopy = iD;
+  accountCopy = account;
+  if (IMOSLoggingEnabled())
+  {
+    v13 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    {
+      v14 = @"NO";
+      *v24 = 138412802;
+      if (statusCopy)
+      {
+        v14 = @"YES";
+      }
+
+      *&v24[4] = v14;
+      v25 = 2112;
+      v26 = dCopy;
+      v27 = 2112;
+      v28 = iDCopy;
+      _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "Received off grid status %@ for %@ sending %@", v24, 0x20u);
+    }
+  }
+
+  if (!accountCopy)
+  {
+    accountCopy = [(IMDServiceSession *)self account];
+  }
+
+  v15 = +[IMDMessageStore sharedInstance];
+  v16 = [v15 messageWithGUID:iDCopy];
+
+  if (v16)
+  {
+    service = [v16 service];
+    if ([service isEqualToString:*MEMORY[0x277D1A620]])
+    {
+      isPendingSatelliteSend = [v16 isPendingSatelliteSend];
+
+      if (isPendingSatelliteSend == statusCopy)
+      {
+        v20 = v16;
+        if (statusCopy)
+        {
+          goto LABEL_17;
+        }
+
+        goto LABEL_22;
+      }
+
+      [v16 setIsPendingSatelliteSend:statusCopy];
+      v19 = +[IMDMessageStore sharedInstance];
+      v20 = [v19 storeMessage:v16 forceReplace:0 modifyError:0 modifyFlags:1 flagMask:0x20000000000];
+
+      service = [(IMDServiceSession *)self broadcasterForChatListeners];
+      accountID = [accountCopy accountID];
+      [service account:accountID chat:0 style:0 messageUpdated:v20];
+    }
+
+    else
+    {
+      v20 = v16;
+    }
+
+    if (statusCopy)
+    {
+      goto LABEL_17;
+    }
+
+LABEL_22:
+    [(IMDServiceSession *)self _clearOffGridFlagForMessagesInChatWithChatIdentifier:dCopy account:accountCopy];
+    goto LABEL_23;
+  }
+
+  v20 = 0;
+  if (!statusCopy)
+  {
+    goto LABEL_22;
+  }
+
+LABEL_17:
+  time = [v20 time];
+  if (time)
+  {
+    IMSetDomainValueForKey();
+  }
+
+  else
+  {
+    v23 = [MEMORY[0x277CBEAA8] now];
+    IMSetDomainValueForKey();
+  }
+
+  [(IMDServiceSession *)self _updateUndeliveredMessagesPendingSatelliteSendForChatWithIdentifier:dCopy account:accountCopy];
+LABEL_23:
+}
+
 - (void)_updateUndeliveredMessagesPendingSatelliteSendForChatWithIdentifier:(id)identifier account:(id)account
 {
-  v47[2] = *MEMORY[0x277D85DE8];
+  v46[2] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   accountCopy = account;
-  v37 = identifierCopy;
-  v38 = [(IMDServiceSession *)self chatForChatIdentifier:identifierCopy style:45 updatingAccount:1];
-  if (v38)
+  v36 = identifierCopy;
+  v37 = [(IMDServiceSession *)self chatForChatIdentifier:identifierCopy style:45 updatingAccount:1];
+  if (v37)
   {
     v7 = +[IMDMessageStore sharedInstance];
     service = [(IMDServiceSession *)self service];
     internalName = [service internalName];
-    v36 = [v7 lastIncomingMessageForChatWithIdentifier:identifierCopy chatStyle:45 onService:internalName];
+    v35 = [v7 lastIncomingMessageForChatWithIdentifier:identifierCopy chatStyle:45 onService:internalName];
 
-    time = [v36 time];
+    time = [v35 time];
     v11 = time;
     if (time)
     {
@@ -5489,39 +6221,39 @@ LABEL_47:
 
     v13 = distantPast;
 
-    v33 = v13;
-    v35 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K > %@", *MEMORY[0x277D19F88], v13];
-    v34 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K == %@", *MEMORY[0x277D19F98], MEMORY[0x277CBEC38]];
+    v32 = v13;
+    v34 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K > %@", *MEMORY[0x277D19F88], v13];
+    v33 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K == %@", *MEMORY[0x277D19F98], MEMORY[0x277CBEC38]];
     v14 = objc_alloc(MEMORY[0x277D18ED8]);
-    guid = [v38 guid];
+    guid = [v37 guid];
     v16 = [v14 initWithAssociatedChatGUID:guid];
 
     v17 = MEMORY[0x277CCA920];
-    v47[0] = v35;
-    v47[1] = v34;
-    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:2];
+    v46[0] = v34;
+    v46[1] = v33;
+    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v46 count:2];
     v19 = [v17 andPredicateWithSubpredicates:v18];
     [v16 setPredicate:v19];
 
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
     v41 = 0u;
+    v42 = 0u;
+    v39 = 0u;
+    v40 = 0u;
     v20 = v16;
-    v21 = [v20 countByEnumeratingWithState:&v40 objects:v46 count:16];
+    v21 = [v20 countByEnumeratingWithState:&v39 objects:v45 count:16];
     if (v21)
     {
-      v22 = *v41;
+      v22 = *v40;
       do
       {
         for (i = 0; i != v21; ++i)
         {
-          if (*v41 != v22)
+          if (*v40 != v22)
           {
             objc_enumerationMutation(v20);
           }
 
-          v24 = IMDCreateIMMessageItemFromIMDMessageRecordRef(*(*(&v40 + 1) + 8 * i), 0);
+          v24 = IMDCreateIMMessageItemFromIMDMessageRecordRef(*(*(&v39 + 1) + 8 * i), 0, 1);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -5535,7 +6267,7 @@ LABEL_47:
                 {
                   guid2 = [v25 guid];
                   *buf = 138412290;
-                  v45 = guid2;
+                  v44 = guid2;
                   _os_log_impl(&dword_22B4CC000, v27, OS_LOG_TYPE_INFO, "Updating pending flag for %@", buf, 0xCu);
                 }
               }
@@ -5556,58 +6288,56 @@ LABEL_47:
           }
         }
 
-        v21 = [v20 countByEnumeratingWithState:&v40 objects:v46 count:16];
+        v21 = [v20 countByEnumeratingWithState:&v39 objects:v45 count:16];
       }
 
       while (v21);
     }
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_clearOffGridFlagForMessagesInChatWithChatIdentifier:(id)identifier account:(id)account
 {
-  v39[2] = *MEMORY[0x277D85DE8];
+  v38[2] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   accountCopy = account;
-  v29 = identifierCopy;
-  v30 = [(IMDServiceSession *)self chatForChatIdentifier:identifierCopy style:45 updatingAccount:1];
-  if (v30)
+  v28 = identifierCopy;
+  v29 = [(IMDServiceSession *)self chatForChatIdentifier:identifierCopy style:45 updatingAccount:1];
+  if (v29)
   {
     v7 = MEMORY[0x277CBEC38];
-    v28 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K = %@", *MEMORY[0x277D19FB0], MEMORY[0x277CBEC38]];
-    v27 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K == %@", *MEMORY[0x277D19F98], v7];
+    v27 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K = %@", *MEMORY[0x277D19FB0], MEMORY[0x277CBEC38]];
+    v26 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K == %@", *MEMORY[0x277D19F98], v7];
     v8 = objc_alloc(MEMORY[0x277D18ED8]);
-    guid = [v30 guid];
+    guid = [v29 guid];
     v10 = [v8 initWithAssociatedChatGUID:guid];
 
     v11 = MEMORY[0x277CCA920];
-    v39[0] = v28;
-    v39[1] = v27;
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:2];
+    v38[0] = v27;
+    v38[1] = v26;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:2];
     v13 = [v11 andPredicateWithSubpredicates:v12];
     [v10 setPredicate:v13];
 
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
     v33 = 0u;
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
     v14 = v10;
-    v15 = [v14 countByEnumeratingWithState:&v32 objects:v38 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v31 objects:v37 count:16];
     if (v15)
     {
-      v16 = *v33;
+      v16 = *v32;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v33 != v16)
+          if (*v32 != v16)
           {
             objc_enumerationMutation(v14);
           }
 
-          v18 = IMDCreateIMMessageItemFromIMDMessageRecordRef(*(*(&v32 + 1) + 8 * i), 0);
+          v18 = IMDCreateIMMessageItemFromIMDMessageRecordRef(*(*(&v31 + 1) + 8 * i), 0, 1);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -5619,7 +6349,7 @@ LABEL_47:
               {
                 guid2 = [v19 guid];
                 *buf = 138412290;
-                v37 = guid2;
+                v36 = guid2;
                 _os_log_impl(&dword_22B4CC000, v20, OS_LOG_TYPE_INFO, "Clearing pending flag for %@", buf, 0xCu);
               }
             }
@@ -5635,14 +6365,12 @@ LABEL_47:
           }
         }
 
-        v15 = [v14 countByEnumeratingWithState:&v32 objects:v38 count:16];
+        v15 = [v14 countByEnumeratingWithState:&v31 objects:v37 count:16];
       }
 
       while (v15);
     }
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didReceiveMessageEditingUnsupportedHandleIDs:(id)ds forMessageGUID:(id)d partIndex:(int64_t)index previousMessage:(id)message backwardCompatibilityMessageGUID:(id)iD
@@ -5880,7 +6608,7 @@ LABEL_47:
 
 - (void)didSendMessageReadReceiptForMessageID:(id)d account:(id)account
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   dCopy = d;
   accountCopy = account;
   if (IMOSLoggingEnabled())
@@ -5888,9 +6616,9 @@ LABEL_47:
     v8 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      v28 = 138412290;
-      v29 = dCopy;
-      _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_DEBUG, "message: %@", &v28, 0xCu);
+      v27 = 138412290;
+      v28 = dCopy;
+      _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_DEBUG, "message: %@", &v27, 0xCu);
     }
   }
 
@@ -5925,9 +6653,9 @@ LABEL_47:
           v16 = OSLogHandleForIMFoundationCategory();
           if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
           {
-            v28 = 138412290;
-            v29 = v12;
-            _os_log_impl(&dword_22B4CC000, v16, OS_LOG_TYPE_INFO, "Found old message for read receipt: %@", &v28, 0xCu);
+            v27 = 138412290;
+            v28 = v12;
+            _os_log_impl(&dword_22B4CC000, v16, OS_LOG_TYPE_INFO, "Found old message for read receipt: %@", &v27, 0xCu);
           }
         }
 
@@ -5951,9 +6679,9 @@ LABEL_47:
           v22 = OSLogHandleForIMFoundationCategory();
           if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
           {
-            v28 = 138412290;
-            v29 = v12;
-            _os_log_impl(&dword_22B4CC000, v22, OS_LOG_TYPE_INFO, "Updated message: %@", &v28, 0xCu);
+            v27 = 138412290;
+            v28 = v12;
+            _os_log_impl(&dword_22B4CC000, v22, OS_LOG_TYPE_INFO, "Updated message: %@", &v27, 0xCu);
           }
         }
 
@@ -5986,11 +6714,11 @@ LABEL_47:
         v24 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
         {
-          v28 = 138412546;
-          v29 = service2;
-          v30 = 2112;
-          v31 = internalName;
-          _os_log_impl(&dword_22B4CC000, v24, OS_LOG_TYPE_INFO, "Unable to mark send of read receipt, message is on a different service: %@ vs %@", &v28, 0x16u);
+          v27 = 138412546;
+          v28 = service2;
+          v29 = 2112;
+          v30 = internalName;
+          _os_log_impl(&dword_22B4CC000, v24, OS_LOG_TYPE_INFO, "Unable to mark send of read receipt, message is on a different service: %@ vs %@", &v27, 0x16u);
         }
       }
 
@@ -6007,9 +6735,9 @@ LABEL_36:
         v24 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
         {
-          v28 = 138412290;
-          v29 = dCopy;
-          _os_log_impl(&dword_22B4CC000, v24, OS_LOG_TYPE_INFO, "Unable to mark send of read receipt, no messages found for guid: %@", &v28, 0xCu);
+          v27 = 138412290;
+          v28 = dCopy;
+          _os_log_impl(&dword_22B4CC000, v24, OS_LOG_TYPE_INFO, "Unable to mark send of read receipt, no messages found for guid: %@", &v27, 0xCu);
         }
       }
 
@@ -6018,8 +6746,6 @@ LABEL_36:
   }
 
 LABEL_37:
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didSendDeliveredQuietlyReceiptForMessageID:(id)d
@@ -6031,7 +6757,7 @@ LABEL_37:
 
 - (void)didSendDeliveredQuietlyReceiptForMessageID:(id)d account:(id)account
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   dCopy = d;
   accountCopy = account;
   if (IMOSLoggingEnabled())
@@ -6039,9 +6765,9 @@ LABEL_37:
     v8 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      v27 = 138412290;
-      v28 = dCopy;
-      _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_DEBUG, "message: %@", &v27, 0xCu);
+      v26 = 138412290;
+      v27 = dCopy;
+      _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_DEBUG, "message: %@", &v26, 0xCu);
     }
   }
 
@@ -6076,9 +6802,9 @@ LABEL_37:
           v16 = OSLogHandleForIMFoundationCategory();
           if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
           {
-            v27 = 138412290;
-            v28 = v12;
-            _os_log_impl(&dword_22B4CC000, v16, OS_LOG_TYPE_INFO, "Found old message for delivered quietly receipt: %@", &v27, 0xCu);
+            v26 = 138412290;
+            v27 = v12;
+            _os_log_impl(&dword_22B4CC000, v16, OS_LOG_TYPE_INFO, "Found old message for delivered quietly receipt: %@", &v26, 0xCu);
           }
         }
 
@@ -6090,9 +6816,9 @@ LABEL_37:
             if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
             {
               guid = [v12 guid];
-              v27 = 138412290;
-              v28 = guid;
-              _os_log_impl(&dword_22B4CC000, v17, OS_LOG_TYPE_INFO, "Setting was delivered quietly flag on local device for message: %@", &v27, 0xCu);
+              v26 = 138412290;
+              v27 = guid;
+              _os_log_impl(&dword_22B4CC000, v17, OS_LOG_TYPE_INFO, "Setting was delivered quietly flag on local device for message: %@", &v26, 0xCu);
             }
           }
 
@@ -6108,9 +6834,9 @@ LABEL_37:
           v21 = OSLogHandleForIMFoundationCategory();
           if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
           {
-            v27 = 138412290;
-            v28 = v12;
-            _os_log_impl(&dword_22B4CC000, v21, OS_LOG_TYPE_INFO, "Updated message: %@", &v27, 0xCu);
+            v26 = 138412290;
+            v27 = v12;
+            _os_log_impl(&dword_22B4CC000, v21, OS_LOG_TYPE_INFO, "Updated message: %@", &v26, 0xCu);
           }
         }
 
@@ -6143,11 +6869,11 @@ LABEL_37:
         v23 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
         {
-          v27 = 138412546;
-          v28 = service2;
-          v29 = 2112;
-          v30 = internalName;
-          _os_log_impl(&dword_22B4CC000, v23, OS_LOG_TYPE_INFO, "Unable to mark message delivered quietly, message is on a different service: %@ vs %@", &v27, 0x16u);
+          v26 = 138412546;
+          v27 = service2;
+          v28 = 2112;
+          v29 = internalName;
+          _os_log_impl(&dword_22B4CC000, v23, OS_LOG_TYPE_INFO, "Unable to mark message delivered quietly, message is on a different service: %@ vs %@", &v26, 0x16u);
         }
       }
 
@@ -6164,9 +6890,9 @@ LABEL_41:
         v23 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
         {
-          v27 = 138412290;
-          v28 = dCopy;
-          _os_log_impl(&dword_22B4CC000, v23, OS_LOG_TYPE_INFO, "Unable to mark message delivered quietly, no messages found for guid: %@", &v27, 0xCu);
+          v26 = 138412290;
+          v27 = dCopy;
+          _os_log_impl(&dword_22B4CC000, v23, OS_LOG_TYPE_INFO, "Unable to mark message delivered quietly, no messages found for guid: %@", &v26, 0xCu);
         }
       }
 
@@ -6175,8 +6901,6 @@ LABEL_41:
   }
 
 LABEL_42:
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didSendNotifyRecipientCommandForMessageID:(id)d
@@ -6188,7 +6912,7 @@ LABEL_42:
 
 - (void)didSendNotifyRecipientCommandForMessageID:(id)d account:(id)account
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   dCopy = d;
   accountCopy = account;
   if (IMOSLoggingEnabled())
@@ -6196,9 +6920,9 @@ LABEL_42:
     v8 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      v27 = 138412290;
-      v28 = dCopy;
-      _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_DEBUG, "message: %@", &v27, 0xCu);
+      v26 = 138412290;
+      v27 = dCopy;
+      _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_DEBUG, "message: %@", &v26, 0xCu);
     }
   }
 
@@ -6233,9 +6957,9 @@ LABEL_42:
           v16 = OSLogHandleForIMFoundationCategory();
           if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
           {
-            v27 = 138412290;
-            v28 = v12;
-            _os_log_impl(&dword_22B4CC000, v16, OS_LOG_TYPE_INFO, "Found old message for notify recipient command: %@", &v27, 0xCu);
+            v26 = 138412290;
+            v27 = v12;
+            _os_log_impl(&dword_22B4CC000, v16, OS_LOG_TYPE_INFO, "Found old message for notify recipient command: %@", &v26, 0xCu);
           }
         }
 
@@ -6247,9 +6971,9 @@ LABEL_42:
             if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
             {
               guid = [v12 guid];
-              v27 = 138412290;
-              v28 = guid;
-              _os_log_impl(&dword_22B4CC000, v17, OS_LOG_TYPE_INFO, "Setting did notify recipient flag on local device for message: %@", &v27, 0xCu);
+              v26 = 138412290;
+              v27 = guid;
+              _os_log_impl(&dword_22B4CC000, v17, OS_LOG_TYPE_INFO, "Setting did notify recipient flag on local device for message: %@", &v26, 0xCu);
             }
           }
 
@@ -6265,9 +6989,9 @@ LABEL_42:
           v21 = OSLogHandleForIMFoundationCategory();
           if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
           {
-            v27 = 138412290;
-            v28 = v12;
-            _os_log_impl(&dword_22B4CC000, v21, OS_LOG_TYPE_INFO, "Updated message: %@", &v27, 0xCu);
+            v26 = 138412290;
+            v27 = v12;
+            _os_log_impl(&dword_22B4CC000, v21, OS_LOG_TYPE_INFO, "Updated message: %@", &v26, 0xCu);
           }
         }
 
@@ -6300,11 +7024,11 @@ LABEL_42:
         v23 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
         {
-          v27 = 138412546;
-          v28 = service2;
-          v29 = 2112;
-          v30 = internalName;
-          _os_log_impl(&dword_22B4CC000, v23, OS_LOG_TYPE_INFO, "Unable to mark message notified command, message is on a different service: %@ vs %@", &v27, 0x16u);
+          v26 = 138412546;
+          v27 = service2;
+          v28 = 2112;
+          v29 = internalName;
+          _os_log_impl(&dword_22B4CC000, v23, OS_LOG_TYPE_INFO, "Unable to mark message notified command, message is on a different service: %@ vs %@", &v26, 0x16u);
         }
       }
 
@@ -6321,9 +7045,9 @@ LABEL_41:
         v23 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
         {
-          v27 = 138412290;
-          v28 = dCopy;
-          _os_log_impl(&dword_22B4CC000, v23, OS_LOG_TYPE_INFO, "Unable to mark message notified command, no messages found for guid: %@", &v27, 0xCu);
+          v26 = 138412290;
+          v27 = dCopy;
+          _os_log_impl(&dword_22B4CC000, v23, OS_LOG_TYPE_INFO, "Unable to mark message notified command, no messages found for guid: %@", &v26, 0xCu);
         }
       }
 
@@ -6332,8 +7056,6 @@ LABEL_41:
   }
 
 LABEL_42:
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didSendMessagePlayedReceiptForMessageID:(id)d
@@ -6345,7 +7067,7 @@ LABEL_42:
 
 - (void)didSendMessagePlayedReceiptForMessageID:(id)d account:(id)account
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   dCopy = d;
   accountCopy = account;
   if (IMOSLoggingEnabled())
@@ -6353,9 +7075,9 @@ LABEL_42:
     v8 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      v32 = 138412290;
-      v33 = dCopy;
-      _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_DEBUG, "message: %@", &v32, 0xCu);
+      v31 = 138412290;
+      v32 = dCopy;
+      _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_DEBUG, "message: %@", &v31, 0xCu);
     }
   }
 
@@ -6390,9 +7112,9 @@ LABEL_42:
           v16 = OSLogHandleForIMFoundationCategory();
           if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
           {
-            v32 = 138412290;
-            v33 = v12;
-            _os_log_impl(&dword_22B4CC000, v16, OS_LOG_TYPE_INFO, "Found old message for played receipt: %@", &v32, 0xCu);
+            v31 = 138412290;
+            v32 = v12;
+            _os_log_impl(&dword_22B4CC000, v16, OS_LOG_TYPE_INFO, "Found old message for played receipt: %@", &v31, 0xCu);
           }
         }
 
@@ -6400,13 +7122,13 @@ LABEL_42:
         {
           if (IMOSLoggingEnabled())
           {
-            v30 = OSLogHandleForIMFoundationCategory();
-            if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+            v29 = OSLogHandleForIMFoundationCategory();
+            if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
             {
               guid = [v12 guid];
-              v32 = 138412290;
-              v33 = guid;
-              _os_log_impl(&dword_22B4CC000, v30, OS_LOG_TYPE_INFO, "Expire received message played on local device: %@", &v32, 0xCu);
+              v31 = 138412290;
+              v32 = guid;
+              _os_log_impl(&dword_22B4CC000, v29, OS_LOG_TYPE_INFO, "Expire received message played on local device: %@", &v31, 0xCu);
             }
           }
 
@@ -6444,9 +7166,9 @@ LABEL_35:
           v24 = OSLogHandleForIMFoundationCategory();
           if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
           {
-            v32 = 138412290;
-            v33 = v12;
-            _os_log_impl(&dword_22B4CC000, v24, OS_LOG_TYPE_INFO, "Updated message: %@", &v32, 0xCu);
+            v31 = 138412290;
+            v32 = v12;
+            _os_log_impl(&dword_22B4CC000, v24, OS_LOG_TYPE_INFO, "Updated message: %@", &v31, 0xCu);
           }
         }
 
@@ -6485,11 +7207,11 @@ LABEL_35:
         v20 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
         {
-          v32 = 138412546;
-          v33 = service2;
-          v34 = 2112;
-          v35 = internalName;
-          _os_log_impl(&dword_22B4CC000, v20, OS_LOG_TYPE_INFO, "Unable to mark send of played receipt, message is on a different service: %@ vs %@", &v32, 0x16u);
+          v31 = 138412546;
+          v32 = service2;
+          v33 = 2112;
+          v34 = internalName;
+          _os_log_impl(&dword_22B4CC000, v20, OS_LOG_TYPE_INFO, "Unable to mark send of played receipt, message is on a different service: %@ vs %@", &v31, 0x16u);
         }
       }
 
@@ -6506,9 +7228,9 @@ LABEL_45:
         v20 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
         {
-          v32 = 138412290;
-          v33 = dCopy;
-          _os_log_impl(&dword_22B4CC000, v20, OS_LOG_TYPE_INFO, "Unable to mark send of played receipt, no messages found for guid: %@", &v32, 0xCu);
+          v31 = 138412290;
+          v32 = dCopy;
+          _os_log_impl(&dword_22B4CC000, v20, OS_LOG_TYPE_INFO, "Unable to mark send of played receipt, no messages found for guid: %@", &v31, 0xCu);
         }
       }
 
@@ -6517,8 +7239,6 @@ LABEL_45:
   }
 
 LABEL_46:
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didSendMessageSavedReceiptForMessageID:(id)d
@@ -6530,7 +7250,7 @@ LABEL_46:
 
 - (void)didSendMessageSavedReceiptForMessageID:(id)d account:(id)account
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   dCopy = d;
   accountCopy = account;
   if (IMOSLoggingEnabled())
@@ -6538,9 +7258,9 @@ LABEL_46:
     v8 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      v25 = 138412290;
-      v26 = dCopy;
-      _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_DEBUG, "message: %@", &v25, 0xCu);
+      v24 = 138412290;
+      v25 = dCopy;
+      _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_DEBUG, "message: %@", &v24, 0xCu);
     }
   }
 
@@ -6575,9 +7295,9 @@ LABEL_46:
           v16 = OSLogHandleForIMFoundationCategory();
           if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
           {
-            v25 = 138412290;
-            v26 = v12;
-            _os_log_impl(&dword_22B4CC000, v16, OS_LOG_TYPE_INFO, "Found old message for saved receipt: %@", &v25, 0xCu);
+            v24 = 138412290;
+            v25 = v12;
+            _os_log_impl(&dword_22B4CC000, v16, OS_LOG_TYPE_INFO, "Found old message for saved receipt: %@", &v24, 0xCu);
           }
         }
 
@@ -6595,9 +7315,9 @@ LABEL_46:
           v19 = OSLogHandleForIMFoundationCategory();
           if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
           {
-            v25 = 138412290;
-            v26 = v12;
-            _os_log_impl(&dword_22B4CC000, v19, OS_LOG_TYPE_INFO, "Updated message: %@", &v25, 0xCu);
+            v24 = 138412290;
+            v25 = v12;
+            _os_log_impl(&dword_22B4CC000, v19, OS_LOG_TYPE_INFO, "Updated message: %@", &v24, 0xCu);
           }
         }
 
@@ -6630,11 +7350,11 @@ LABEL_46:
         v21 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
         {
-          v25 = 138412546;
-          v26 = service2;
-          v27 = 2112;
-          v28 = internalName;
-          _os_log_impl(&dword_22B4CC000, v21, OS_LOG_TYPE_INFO, "Unable to mark send of saved receipt, message is on a different service: %@ vs %@", &v25, 0x16u);
+          v24 = 138412546;
+          v25 = service2;
+          v26 = 2112;
+          v27 = internalName;
+          _os_log_impl(&dword_22B4CC000, v21, OS_LOG_TYPE_INFO, "Unable to mark send of saved receipt, message is on a different service: %@ vs %@", &v24, 0x16u);
         }
       }
 
@@ -6651,9 +7371,9 @@ LABEL_36:
         v21 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
         {
-          v25 = 138412290;
-          v26 = dCopy;
-          _os_log_impl(&dword_22B4CC000, v21, OS_LOG_TYPE_INFO, "Unable to mark send of saved receipt, no messages found for guid: %@", &v25, 0xCu);
+          v24 = 138412290;
+          v25 = dCopy;
+          _os_log_impl(&dword_22B4CC000, v21, OS_LOG_TYPE_INFO, "Unable to mark send of saved receipt, no messages found for guid: %@", &v24, 0xCu);
         }
       }
 
@@ -6662,13 +7382,11 @@ LABEL_36:
   }
 
 LABEL_37:
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didSendSyndicationActionItem:(id)item forChat:(id)chat
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   chatCopy = chat;
   if (itemCopy)
@@ -6695,11 +7413,11 @@ LABEL_37:
         if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
         {
           guid = [chatCopy guid];
-          v31 = 138412546;
-          v32 = itemCopy;
-          v33 = 2112;
-          v34 = guid;
-          _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "Received didSendSyndicationAction: %@ for Chat: %@", &v31, 0x16u);
+          v30 = 138412546;
+          v31 = itemCopy;
+          v32 = 2112;
+          v33 = guid;
+          _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "Received didSendSyndicationAction: %@ for Chat: %@", &v30, 0x16u);
         }
       }
 
@@ -6727,18 +7445,18 @@ LABEL_37:
               v28 = @"NO";
             }
 
-            v31 = 138412802;
+            v30 = 138412802;
             if (isAutoDonatingMessages)
             {
               v27 = @"YES";
             }
 
-            v32 = v27;
-            v33 = 2112;
-            v34 = v28;
-            v35 = 2112;
-            v36 = chatGUID;
-            _os_log_impl(&dword_22B4CC000, v23, OS_LOG_TYPE_INFO, "Updated syndication state to: %@ was successful: %@ for chat with GUID: %@", &v31, 0x20u);
+            v31 = v27;
+            v32 = 2112;
+            v33 = v28;
+            v34 = 2112;
+            v35 = chatGUID;
+            _os_log_impl(&dword_22B4CC000, v23, OS_LOG_TYPE_INFO, "Updated syndication state to: %@ was successful: %@ for chat with GUID: %@", &v30, 0x20u);
           }
         }
 
@@ -6760,11 +7478,11 @@ LABEL_37:
             if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
             {
               messagePartGUID = [v13 messagePartGUID];
-              v31 = 138412546;
-              v32 = messagePartGUID;
-              v33 = 2112;
-              v34 = v13;
-              _os_log_impl(&dword_22B4CC000, v17, OS_LOG_TYPE_INFO, "Updated message: %@ with action item: %@", &v31, 0x16u);
+              v30 = 138412546;
+              v31 = messagePartGUID;
+              v32 = 2112;
+              v33 = v13;
+              _os_log_impl(&dword_22B4CC000, v17, OS_LOG_TYPE_INFO, "Updated message: %@ with action item: %@", &v30, 0x16u);
             }
           }
 
@@ -6779,9 +7497,9 @@ LABEL_37:
           v29 = OSLogHandleForIMFoundationCategory();
           if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
           {
-            v31 = 138412290;
-            v32 = v13;
-            _os_log_impl(&dword_22B4CC000, v29, OS_LOG_TYPE_INFO, "Message not update updated for SyndicationAction - doing nothing with syndication action: %@", &v31, 0xCu);
+            v30 = 138412290;
+            v31 = v13;
+            _os_log_impl(&dword_22B4CC000, v29, OS_LOG_TYPE_INFO, "Message not update updated for SyndicationAction - doing nothing with syndication action: %@", &v30, 0xCu);
           }
         }
 
@@ -6789,8 +7507,6 @@ LABEL_32:
       }
     }
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)didReceiveMessageDeliveryReceiptForMessageID:(id)d date:(id)date
@@ -6805,7 +7521,7 @@ LABEL_32:
 
 - (BOOL)_didReceiveMessageDeliveryReceiptForMessageID:(id)d attempts:(int64_t)attempts date:(id)date account:(id)account
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   dCopy = d;
   dateCopy = date;
   accountCopy = account;
@@ -6815,7 +7531,7 @@ LABEL_32:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v39 = dCopy;
+      v38 = dCopy;
       _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_DEBUG, "message: %@", buf, 0xCu);
     }
   }
@@ -6827,19 +7543,19 @@ LABEL_32:
     aBlock[2] = sub_22B68277C;
     aBlock[3] = &unk_2787076C8;
     v16 = dCopy;
-    v34 = v16;
+    v33 = v16;
     selfCopy = self;
-    v28 = dateCopy;
-    v36 = v28;
+    v27 = dateCopy;
+    v35 = v27;
     v17 = accountCopy;
-    v37 = v17;
-    v29 = _Block_copy(aBlock);
+    v36 = v17;
+    v28 = _Block_copy(aBlock);
     v18 = +[IMDMessageStore sharedInstance];
     v19 = [v18 hasStoredMessageWithGUID:v16];
 
     if (v19)
     {
-      v20 = v29[2]();
+      v20 = v28[2]();
     }
 
     else
@@ -6853,7 +7569,7 @@ LABEL_32:
           if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v39 = v16;
+            v38 = v16;
             _os_log_impl(&dword_22B4CC000, v24, OS_LOG_TYPE_INFO, "No message ever found for guid: %@ to mark as read, bailing", buf, 0xCu);
           }
         }
@@ -6867,7 +7583,7 @@ LABEL_32:
           if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v39 = v16;
+            v38 = v16;
             _os_log_impl(&dword_22B4CC000, v22, OS_LOG_TYPE_INFO, "No message found for guid: %@ to mark as delivered, trying again in a bit", buf, 0xCu);
           }
         }
@@ -6895,9 +7611,9 @@ LABEL_32:
           }
         }
 
-        v30 = v16;
-        v31 = v28;
-        v32 = v17;
+        v29 = v16;
+        v30 = v27;
+        v31 = v17;
         im_dispatch_after();
       }
 
@@ -6910,7 +7626,6 @@ LABEL_32:
     v20 = 0;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
@@ -6983,9 +7698,85 @@ LABEL_32:
   }
 }
 
+- (void)updateChatGUID:(id)d withLastReadTimeStamp:(int64_t)stamp withLastSeenMessageGUID:(id)iD fromMe:(BOOL)me
+{
+  meCopy = me;
+  v32 = *MEMORY[0x277D85DE8];
+  dCopy = d;
+  iDCopy = iD;
+  v10 = +[IMDMessageStore sharedInstance];
+  v11 = [v10 chatsForMessageGUID:dCopy];
+
+  if (IMOSLoggingEnabled())
+  {
+    v12 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    {
+      *buf = 138412290;
+      v28 = v11;
+      _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "Found chats to mark as read: %@", buf, 0xCu);
+    }
+  }
+
+  v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v13 = v11;
+  v14 = [(__CFString *)v13 countByEnumeratingWithState:&v23 objects:v31 count:16];
+  if (v14)
+  {
+    v15 = *v24;
+    v16 = @"NO";
+    if (meCopy)
+    {
+      v16 = @"YES";
+    }
+
+    v22 = v16;
+    do
+    {
+      for (i = 0; i != v14; ++i)
+      {
+        if (*v24 != v15)
+        {
+          objc_enumerationMutation(v13);
+        }
+
+        v18 = *(*(&v23 + 1) + 8 * i);
+        if (IMOSLoggingEnabled())
+        {
+          v19 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+          {
+            *buf = 138412546;
+            v28 = v22;
+            v29 = 2112;
+            v30 = v18;
+            _os_log_impl(&dword_22B4CC000, v19, OS_LOG_TYPE_INFO, "Updating local chat (fromMe: %@): %@", buf, 0x16u);
+          }
+        }
+
+        if (meCopy)
+        {
+          [v18 updateLastReadMessageTimeStampIfNeeded:stamp];
+          [v18 updateLastSeenMessageGuidIfNeeded:iDCopy];
+        }
+
+        v20 = +[IMDChatRegistry sharedInstance];
+        [v20 updateStateForChat:v18 hintMessage:0 shouldRebuildFailedMessageDate:0 shouldCalculateUnreadCount:meCopy];
+      }
+
+      v14 = [(__CFString *)v13 countByEnumeratingWithState:&v23 objects:v31 count:16];
+    }
+
+    while (v14);
+  }
+}
+
 - (void)_didReceiveMessageReadForMessageID:(id)d date:(id)date attempts:(int64_t)attempts completionBlock:(id)block
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   dCopy = d;
   dateCopy = date;
   blockCopy = block;
@@ -6998,7 +7789,7 @@ LABEL_32:
       if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v47 = dCopy;
+        v46 = dCopy;
         _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "message: %@", buf, 0xCu);
       }
     }
@@ -7010,19 +7801,19 @@ LABEL_32:
       aBlock[2] = sub_22B683DB0;
       aBlock[3] = &unk_278702F50;
       v17 = dCopy;
-      v42 = v17;
+      v41 = v17;
       selfCopy = self;
-      v36 = dateCopy;
-      v44 = v36;
+      v35 = dateCopy;
+      v43 = v35;
       v18 = v13;
-      v45 = v18;
-      v38 = _Block_copy(aBlock);
+      v44 = v18;
+      v37 = _Block_copy(aBlock);
       v19 = +[IMDMessageStore sharedInstance];
       v20 = [v19 hasStoredMessageWithGUID:v17];
 
       if (v20)
       {
-        v38[2](v38);
+        v37[2](v37);
       }
 
       else
@@ -7036,7 +7827,7 @@ LABEL_32:
             if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
-              v47 = v17;
+              v46 = v17;
               _os_log_impl(&dword_22B4CC000, v26, OS_LOG_TYPE_INFO, "No message ever found for guid: %@ to mark as read, bailing", buf, 0xCu);
             }
           }
@@ -7053,7 +7844,7 @@ LABEL_32:
             if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
-              v47 = v17;
+              v46 = v17;
               _os_log_impl(&dword_22B4CC000, v23, OS_LOG_TYPE_INFO, "No message found for guid: %@ to mark as read, trying again in a bit", buf, 0xCu);
             }
           }
@@ -7084,8 +7875,8 @@ LABEL_32:
             }
           }
 
-          v39 = v17;
-          v40 = v37;
+          v38 = v17;
+          v39 = v36;
           im_dispatch_after();
         }
 
@@ -7114,16 +7905,16 @@ LABEL_32:
           v33 = service2;
           v34 = @"NO";
           *buf = 138412802;
-          v47 = dCopy;
-          v48 = 2112;
+          v46 = dCopy;
+          v47 = 2112;
           if (supportsDatabase)
           {
             v34 = @"YES";
           }
 
-          v49 = v34;
-          v50 = 2112;
-          v51 = service2;
+          v48 = v34;
+          v49 = 2112;
+          v50 = service2;
           _os_log_impl(&dword_22B4CC000, v29, OS_LOG_TYPE_INFO, "Returning early in _didReceiveMessageReadForMessageID because messageID: %@, [[self service] supportsDatabase]: %@, service: %@", buf, 0x20u);
         }
       }
@@ -7147,13 +7938,11 @@ LABEL_32:
       }
     }
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_didReceiveMessageReadReceiptForMessageID:(id)d date:(id)date attempts:(int64_t)attempts completionBlock:(id)block
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   dCopy = d;
   dateCopy = date;
   blockCopy = block;
@@ -7166,7 +7955,7 @@ LABEL_32:
       if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v37 = dCopy;
+        v36 = dCopy;
         _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "message: %@", buf, 0xCu);
       }
     }
@@ -7178,12 +7967,12 @@ LABEL_32:
       aBlock[2] = sub_22B684D2C;
       aBlock[3] = &unk_278702F50;
       v17 = dCopy;
-      v32 = v17;
+      v31 = v17;
       selfCopy = self;
-      v28 = dateCopy;
-      v34 = v28;
+      v27 = dateCopy;
+      v33 = v27;
       v18 = v13;
-      v35 = v18;
+      v34 = v18;
       v19 = _Block_copy(aBlock);
       v20 = +[IMDMessageStore sharedInstance];
       v21 = [v20 hasStoredMessageWithGUID:v17];
@@ -7204,7 +7993,7 @@ LABEL_32:
             if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
-              v37 = v17;
+              v36 = v17;
               _os_log_impl(&dword_22B4CC000, v25, OS_LOG_TYPE_INFO, "No message ever found for guid: %@ to mark as read, bailing", buf, 0xCu);
             }
           }
@@ -7218,7 +8007,7 @@ LABEL_32:
             if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
-              v37 = v17;
+              v36 = v17;
               _os_log_impl(&dword_22B4CC000, v23, OS_LOG_TYPE_INFO, "No message found for guid: %@ to mark as read, trying again in a bit", buf, 0xCu);
             }
           }
@@ -7246,8 +8035,8 @@ LABEL_32:
             }
           }
 
-          v29 = v17;
-          v30 = v28;
+          v28 = v17;
+          v29 = v27;
           im_dispatch_after();
         }
 
@@ -7268,8 +8057,6 @@ LABEL_32:
   {
     blockCopy[2](blockCopy);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didReceiveMessageReadReceiptForMessageID:(id)d date:(id)date completionBlock:(id)block
@@ -7291,7 +8078,7 @@ LABEL_32:
 
 - (void)_didReceiveMessagePlayedForMessageID:(id)d date:(id)date attempts:(int64_t)attempts completionBlock:(id)block
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   dCopy = d;
   dateCopy = date;
   blockCopy = block;
@@ -7304,7 +8091,7 @@ LABEL_32:
       if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v37 = dCopy;
+        v36 = dCopy;
         _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "message: %@", buf, 0xCu);
       }
     }
@@ -7316,12 +8103,12 @@ LABEL_32:
       aBlock[2] = sub_22B6857B8;
       aBlock[3] = &unk_278702F50;
       v17 = dCopy;
-      v32 = v17;
+      v31 = v17;
       selfCopy = self;
-      v28 = dateCopy;
-      v34 = v28;
+      v27 = dateCopy;
+      v33 = v27;
       v18 = v13;
-      v35 = v18;
+      v34 = v18;
       v19 = _Block_copy(aBlock);
       v20 = +[IMDMessageStore sharedInstance];
       v21 = [v20 hasStoredMessageWithGUID:v17];
@@ -7342,7 +8129,7 @@ LABEL_32:
             if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
-              v37 = v17;
+              v36 = v17;
               _os_log_impl(&dword_22B4CC000, v25, OS_LOG_TYPE_INFO, "No message ever found for guid: %@ to mark as played, bailing", buf, 0xCu);
             }
           }
@@ -7356,7 +8143,7 @@ LABEL_32:
             if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
-              v37 = v17;
+              v36 = v17;
               _os_log_impl(&dword_22B4CC000, v23, OS_LOG_TYPE_INFO, "No message found for guid: %@ to mark as played, trying again in a bit", buf, 0xCu);
             }
           }
@@ -7384,8 +8171,8 @@ LABEL_32:
             }
           }
 
-          v29 = v17;
-          v30 = v28;
+          v28 = v17;
+          v29 = v27;
           im_dispatch_after();
         }
 
@@ -7406,13 +8193,11 @@ LABEL_32:
   {
     blockCopy[2](blockCopy);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_didReceiveMessagePlayedReceiptForMessageID:(id)d date:(id)date attempts:(int64_t)attempts completionBlock:(id)block
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   dCopy = d;
   dateCopy = date;
   blockCopy = block;
@@ -7425,7 +8210,7 @@ LABEL_32:
       if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v37 = dCopy;
+        v36 = dCopy;
         _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "message: %@", buf, 0xCu);
       }
     }
@@ -7437,12 +8222,12 @@ LABEL_32:
       aBlock[2] = sub_22B6867AC;
       aBlock[3] = &unk_278702F50;
       v17 = dCopy;
-      v32 = v17;
+      v31 = v17;
       selfCopy = self;
-      v28 = dateCopy;
-      v34 = v28;
+      v27 = dateCopy;
+      v33 = v27;
       v18 = v13;
-      v35 = v18;
+      v34 = v18;
       v19 = _Block_copy(aBlock);
       v20 = +[IMDMessageStore sharedInstance];
       v21 = [v20 hasStoredMessageWithGUID:v17];
@@ -7463,7 +8248,7 @@ LABEL_32:
             if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
-              v37 = v17;
+              v36 = v17;
               _os_log_impl(&dword_22B4CC000, v25, OS_LOG_TYPE_INFO, "No message ever found for guid: %@ to mark as played, bailing", buf, 0xCu);
             }
           }
@@ -7477,7 +8262,7 @@ LABEL_32:
             if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
-              v37 = v17;
+              v36 = v17;
               _os_log_impl(&dword_22B4CC000, v23, OS_LOG_TYPE_INFO, "No message found for guid: %@ to mark as played, trying again in a bit", buf, 0xCu);
             }
           }
@@ -7505,8 +8290,8 @@ LABEL_32:
             }
           }
 
-          v29 = v17;
-          v30 = v28;
+          v28 = v17;
+          v29 = v27;
           im_dispatch_after();
         }
 
@@ -7527,8 +8312,6 @@ LABEL_32:
   {
     blockCopy[2](blockCopy);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didReceiveMessagePlayedReceiptForMessageID:(id)d date:(id)date completionBlock:(id)block
@@ -7542,7 +8325,7 @@ LABEL_32:
 - (void)_didReceiveMessageSavedForMessageID:(id)d ofType:(int64_t)type forChat:(id)chat fromHandle:(id)handle fromMe:(BOOL)me date:(id)date attempts:(int64_t)attempts account:(id)self0 completionBlock:(id)self1
 {
   meCopy = me;
-  v74 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   dCopy = d;
   chatCopy = chat;
   handleCopy = handle;
@@ -7558,7 +8341,7 @@ LABEL_32:
       if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v73 = dCopy;
+        v72 = dCopy;
         _os_log_impl(&dword_22B4CC000, v18, OS_LOG_TYPE_INFO, "message: %@", buf, 0xCu);
       }
     }
@@ -7577,25 +8360,25 @@ LABEL_32:
         v23 = +[IMDMessageStore sharedInstance];
         v24 = [v23 messageActionItemsForOriginalMessageGUID:dCopy];
 
-        v69 = 0u;
-        v70 = 0u;
-        v67 = 0u;
         v68 = 0u;
+        v69 = 0u;
+        v66 = 0u;
+        v67 = 0u;
         v25 = v24;
-        v26 = [v25 countByEnumeratingWithState:&v67 objects:v71 count:16];
+        v26 = [v25 countByEnumeratingWithState:&v66 objects:v70 count:16];
         if (v26)
         {
-          v27 = *v68;
+          v27 = *v67;
           while (2)
           {
             for (i = 0; i != v26; ++i)
             {
-              if (*v68 != v27)
+              if (*v67 != v27)
               {
                 objc_enumerationMutation(v25);
               }
 
-              sender = [*(*(&v67 + 1) + 8 * i) sender];
+              sender = [*(*(&v66 + 1) + 8 * i) sender];
               v30 = [sender isEqualToString:_stripFZIDPrefix];
 
               if (v30)
@@ -7620,7 +8403,7 @@ LABEL_32:
               }
             }
 
-            v26 = [v25 countByEnumeratingWithState:&v67 objects:v71 count:16];
+            v26 = [v25 countByEnumeratingWithState:&v66 objects:v70 count:16];
             if (v26)
             {
               continue;
@@ -7638,19 +8421,19 @@ LABEL_32:
       aBlock[2] = sub_22B687370;
       aBlock[3] = &unk_278707768;
       v31 = dCopy;
-      v66 = v22;
-      v58 = v31;
+      v65 = v22;
+      v57 = v31;
       selfCopy = self;
-      v43 = chatCopy;
-      v60 = v43;
-      v61 = _stripFZIDPrefix;
-      v45 = dateCopy;
-      v62 = v45;
+      v42 = chatCopy;
+      v59 = v42;
+      v60 = _stripFZIDPrefix;
+      v44 = dateCopy;
+      v61 = v44;
       typeCopy = type;
-      v44 = accountCopy;
-      v63 = v44;
+      v43 = accountCopy;
+      v62 = v43;
       v32 = v17;
-      v64 = v32;
+      v63 = v32;
       v33 = _Block_copy(aBlock);
       v34 = +[IMDMessageStore sharedInstance];
       v35 = [v34 hasStoredMessageWithGUID:v31];
@@ -7671,7 +8454,7 @@ LABEL_32:
             if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
-              v73 = v31;
+              v72 = v31;
               _os_log_impl(&dword_22B4CC000, v40, OS_LOG_TYPE_INFO, "No message ever found for guid: %@ to mark as saved, bailing", buf, 0xCu);
             }
           }
@@ -7685,7 +8468,7 @@ LABEL_32:
             if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
-              v73 = v31;
+              v72 = v31;
               _os_log_impl(&dword_22B4CC000, v37, OS_LOG_TYPE_INFO, "No message found for guid: %@ to mark as saved, trying again in a bit", buf, 0xCu);
             }
           }
@@ -7713,11 +8496,11 @@ LABEL_32:
             }
           }
 
-          v52 = v31;
-          v53 = v43;
-          v54 = handleCopy;
-          v55 = v45;
-          v56 = v44;
+          v51 = v31;
+          v52 = v42;
+          v53 = handleCopy;
+          v54 = v44;
+          v55 = v43;
           im_dispatch_after();
         }
 
@@ -7740,13 +8523,20 @@ LABEL_54:
   {
     blockCopy[2](blockCopy);
   }
+}
 
-  v42 = *MEMORY[0x277D85DE8];
+- (void)didStartSendingMessage:(id)message forChat:(id)chat style:(unsigned __int8)style
+{
+  styleCopy = style;
+  chatCopy = chat;
+  messageCopy = message;
+  account = [(IMDServiceSession *)self account];
+  [(IMDServiceSession *)self didStartSendingMessage:messageCopy forChat:chatCopy style:styleCopy account:account];
 }
 
 - (void)didStartSendingMessage:(id)message forChat:(id)chat style:(unsigned __int8)style account:(id)account
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   chatCopy = chat;
   styleCopy = style;
@@ -7768,7 +8558,7 @@ LABEL_54:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v51 = messageCopy;
+      v50 = messageCopy;
       _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "message: %@", buf, 0xCu);
     }
   }
@@ -7780,9 +8570,9 @@ LABEL_69:
     goto LABEL_70;
   }
 
-  v48 = chatCopy;
-  [(IMDServiceSession *)self _mapRoomChatToGroupChat:&v48 style:&styleCopy];
-  v15 = v48;
+  v47 = chatCopy;
+  [(IMDServiceSession *)self _mapRoomChatToGroupChat:&v47 style:&styleCopy];
+  v15 = v47;
 
   service = [(IMDServiceSession *)self service];
   supportsDatabase = [service supportsDatabase];
@@ -7833,7 +8623,7 @@ LABEL_69:
       {
         guid3 = [messageCopy guid];
         *buf = 138412290;
-        v51 = guid3;
+        v50 = guid3;
         _os_log_impl(&dword_22B4CC000, v27, OS_LOG_TYPE_INFO, "Replicated message %@ is permitted to upgrade but existing message was already marked as deduplicated", buf, 0xCu);
       }
     }
@@ -7850,7 +8640,7 @@ LABEL_22:
     {
       guid4 = [messageCopy guid];
       *buf = 138412290;
-      v51 = guid4;
+      v50 = guid4;
       _os_log_impl(&dword_22B4CC000, v34, OS_LOG_TYPE_INFO, "Replicated message %@ is permitted to upgrade", buf, 0xCu);
     }
   }
@@ -7870,7 +8660,7 @@ LABEL_23:
       {
         guid5 = [messageCopy guid];
         *buf = 138412290;
-        v51 = guid5;
+        v50 = guid5;
         _os_log_impl(&dword_22B4CC000, v30, OS_LOG_TYPE_INFO, "Not notifying for message: %@   this is a typing indicator, and we've already stored a completed message", buf, 0xCu);
       }
 
@@ -7955,7 +8745,7 @@ LABEL_51:
       {
         guid6 = [messageCopy guid];
         *buf = 138412290;
-        v51 = guid6;
+        v50 = guid6;
         _os_log_impl(&dword_22B4CC000, v30, OS_LOG_TYPE_INFO, "Not notifying for message: %@   this is a typing indicator, and it failed", buf, 0xCu);
       }
 
@@ -7966,13 +8756,22 @@ LABEL_51:
 LABEL_68:
 
 LABEL_70:
-  v43 = *MEMORY[0x277D85DE8];
+}
+
+- (void)didSendMessage:(id)message forChat:(id)chat style:(unsigned __int8)style forceDate:(id)date
+{
+  styleCopy = style;
+  dateCopy = date;
+  chatCopy = chat;
+  messageCopy = message;
+  account = [(IMDServiceSession *)self account];
+  [(IMDServiceSession *)self didSendMessage:messageCopy forChat:chatCopy style:styleCopy account:account forceDate:dateCopy];
 }
 
 - (void)didSendMessage:(id)message forChat:(id)chat style:(unsigned __int8)style account:(id)account forceDate:(id)date itemIsComingFromStorage:(BOOL)storage
 {
   storageCopy = storage;
-  v186[2] = *MEMORY[0x277D85DE8];
+  v185[2] = *MEMORY[0x277D85DE8];
   messageCopy = message;
   chatCopy = chat;
   styleCopy = style;
@@ -7985,23 +8784,23 @@ LABEL_70:
       accountCopy = [(IMDServiceSession *)self account];
     }
 
-    v158 = accountCopy;
+    v157 = accountCopy;
     if (IMOSLoggingEnabled())
     {
       v15 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v176 = messageCopy;
+        v175 = messageCopy;
         _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "message: %@", buf, 0xCu);
       }
     }
 
     if (messageCopy)
     {
-      v172 = chatCopy;
-      [(IMDServiceSession *)self _mapRoomChatToGroupChat:&v172 style:&styleCopy];
-      v157 = v172;
+      v171 = chatCopy;
+      [(IMDServiceSession *)self _mapRoomChatToGroupChat:&v171 style:&styleCopy];
+      v156 = v171;
 
       service = [(IMDServiceSession *)self service];
       supportsDatabase = [service supportsDatabase];
@@ -8024,7 +8823,7 @@ LABEL_70:
       }
 
       v23 = messageCopy;
-      v154 = v22;
+      v153 = v22;
       if (v22)
       {
         v23 = v22;
@@ -8047,7 +8846,7 @@ LABEL_70:
             {
               guid3 = [(__CFString *)messageCopy guid];
               *buf = 138412290;
-              v176 = guid3;
+              v175 = guid3;
               _os_log_impl(&dword_22B4CC000, v45, OS_LOG_TYPE_INFO, "Replicated message %@ is permitted to upgrade", buf, 0xCu);
             }
           }
@@ -8060,19 +8859,19 @@ LABEL_70:
 LABEL_24:
           if ([(__CFString *)v22 scheduleType]== 2 && [(__CFString *)v22 scheduleState])
           {
-            v153 = messageCopy;
+            v152 = messageCopy;
 
             cloudKitRecordID = [(__CFString *)v22 cloudKitRecordID];
             if (cloudKitRecordID)
             {
-              v33 = [(__CFString *)v153 scheduleType]== 2;
+              v33 = [(__CFString *)v152 scheduleType]== 2;
 
               if (!v33)
               {
-                [(__CFString *)v153 setCloudKitSyncState:0];
+                [(__CFString *)v152 setCloudKitSyncState:0];
                 synchronousDatabase = [MEMORY[0x277D18EB0] synchronousDatabase];
-                guid4 = [(__CFString *)v154 guid];
-                cloudKitRecordID2 = [(__CFString *)v154 cloudKitRecordID];
+                guid4 = [(__CFString *)v153 guid];
+                cloudKitRecordID2 = [(__CFString *)v153 cloudKitRecordID];
                 [synchronousDatabase addScheduledMessageGUIDandCKRecordToDeleteFromCloudKit:guid4 recordID:cloudKitRecordID2];
               }
             }
@@ -8080,10 +8879,10 @@ LABEL_24:
 
           else
           {
-            v153 = v31;
+            v152 = v31;
           }
 
-          if (!errorCode && v154 && [(__CFString *)v154 isFinished]&& ([(__CFString *)messageCopy isFinished]& 1) == 0)
+          if (!errorCode && v153 && [(__CFString *)v153 isFinished]&& ([(__CFString *)messageCopy isFinished]& 1) == 0)
           {
             if (!IMOSLoggingEnabled())
             {
@@ -8095,7 +8894,7 @@ LABEL_24:
             {
               guid5 = [(__CFString *)messageCopy guid];
               *buf = 138412290;
-              v176 = guid5;
+              v175 = guid5;
               _os_log_impl(&dword_22B4CC000, v38, OS_LOG_TYPE_INFO, "Not notifying for message: %@   this is a typing indicator, and we've already stored a completed message", buf, 0xCu);
             }
 
@@ -8152,7 +8951,7 @@ LABEL_38:
             {
               guid6 = [(__CFString *)messageCopy guid];
               *buf = 138412290;
-              v176 = guid6;
+              v175 = guid6;
               _os_log_impl(&dword_22B4CC000, v38, OS_LOG_TYPE_INFO, "Not notifying for message: %@   this is a typing indicator, and it failed", buf, 0xCu);
             }
 
@@ -8161,7 +8960,7 @@ LABEL_49:
             goto LABEL_221;
           }
 
-          time = [(__CFString *)v153 time];
+          time = [(__CFString *)v152 time];
           date = [MEMORY[0x277CBEAA8] date];
           if (time)
           {
@@ -8177,13 +8976,13 @@ LABEL_49:
 
           if (errorCode)
           {
-            [(IMDServiceSession *)self _configureSessionInformationOnItem:v153 toChat:v157 withStyle:styleCopy forAccount:v158];
+            [(IMDServiceSession *)self _configureSessionInformationOnItem:v152 toChat:v156 withStyle:styleCopy forAccount:v157];
             v44 = 4;
           }
 
           else
           {
-            if (([(__CFString *)v153 flags]& 0x8000) == 0)
+            if (([(__CFString *)v152 flags]& 0x8000) == 0)
             {
               service2 = [(IMDServiceSession *)self service];
               internalName = [service2 internalName];
@@ -8191,11 +8990,11 @@ LABEL_49:
 
               if (v51)
               {
-                [(__CFString *)v153 setTime:date];
+                [(__CFString *)v152 setTime:date];
               }
             }
 
-            [(IMDServiceSession *)self _configureSessionInformationOnItem:v153 toChat:v157 withStyle:styleCopy forAccount:v158];
+            [(IMDServiceSession *)self _configureSessionInformationOnItem:v152 toChat:v156 withStyle:styleCopy forAccount:v157];
             if ([(IMDServiceSession *)self isReplicating])
             {
               v44 = 4;
@@ -8207,26 +9006,26 @@ LABEL_49:
             }
           }
 
-          [(__CFString *)v153 setFlags:[(__CFString *)v153 flags]| v44];
+          [(__CFString *)v152 setFlags:[(__CFString *)v152 flags]| v44];
           if ((flags & 0x80000000000) != 0)
           {
-            [(__CFString *)v153 setFlags:[(__CFString *)v153 flags]| 0x80000000000];
+            [(__CFString *)v152 setFlags:[(__CFString *)v152 flags]| 0x80000000000];
           }
 
-          if (!errorCode && [(__CFString *)v153 isExpirable]&& [(__CFString *)v153 isFromMe]&& [(__CFString *)v153 expireState]<= 0)
+          if (!errorCode && [(__CFString *)v152 isExpirable]&& [(__CFString *)v152 isFromMe]&& [(__CFString *)v152 expireState]<= 0)
           {
-            HIDWORD(v144) = IMMessageItemShouldAutomaticallySave();
+            HIDWORD(v143) = IMMessageItemShouldAutomaticallySave();
             v75 = IMOSLoggingEnabled();
-            if (HIDWORD(v144))
+            if (HIDWORD(v143))
             {
               if (v75)
               {
                 v76 = OSLogHandleForIMFoundationCategory();
                 if (os_log_type_enabled(v76, OS_LOG_TYPE_INFO))
                 {
-                  guid7 = [(__CFString *)v153 guid];
+                  guid7 = [(__CFString *)v152 guid];
                   *buf = 138412290;
-                  v176 = guid7;
+                  v175 = guid7;
                   _os_log_impl(&dword_22B4CC000, v76, OS_LOG_TYPE_INFO, "Automatically saving message sent from local device: %@", buf, 0xCu);
                 }
               }
@@ -8241,9 +9040,9 @@ LABEL_49:
                 v80 = OSLogHandleForIMFoundationCategory();
                 if (os_log_type_enabled(v80, OS_LOG_TYPE_INFO))
                 {
-                  guid8 = [(__CFString *)v153 guid];
+                  guid8 = [(__CFString *)v152 guid];
                   *buf = 138412290;
-                  v176 = guid8;
+                  v175 = guid8;
                   _os_log_impl(&dword_22B4CC000, v80, OS_LOG_TYPE_INFO, "Expire message sent from local device: %@", buf, 0xCu);
                 }
               }
@@ -8251,16 +9050,16 @@ LABEL_49:
               v78 = 1;
             }
 
-            [(__CFString *)v153 setExpireState:v78];
-            LODWORD(v144) = HIDWORD(v144) ^ 1;
+            [(__CFString *)v152 setExpireState:v78];
+            LODWORD(v143) = HIDWORD(v143) ^ 1;
           }
 
           else
           {
-            v144 = 0;
+            v143 = 0;
           }
 
-          [(__CFString *)v153 setErrorCode:[(__CFString *)messageCopy errorCode]];
+          [(__CFString *)v152 setErrorCode:[(__CFString *)messageCopy errorCode]];
           consumedSessionPayloads = [(__CFString *)messageCopy consumedSessionPayloads];
           if (dateCopy)
           {
@@ -8269,27 +9068,27 @@ LABEL_49:
               v52 = OSLogHandleForIMFoundationCategory();
               if (os_log_type_enabled(v52, OS_LOG_TYPE_INFO))
               {
-                guid9 = [(__CFString *)v153 guid];
+                guid9 = [(__CFString *)v152 guid];
                 *buf = 138412546;
-                v176 = guid9;
-                v177 = 2112;
-                v178 = dateCopy;
+                v175 = guid9;
+                v176 = 2112;
+                v177 = dateCopy;
                 _os_log_impl(&dword_22B4CC000, v52, OS_LOG_TYPE_INFO, "Updating date on message guid %@ to be: %@", buf, 0x16u);
               }
             }
 
-            [(__CFString *)v153 setTime:dateCopy];
+            [(__CFString *)v152 setTime:dateCopy];
           }
 
-          v148 = [(IMDServiceSession *)self chatForChatIdentifier:v157 style:styleCopy account:v158 updatingAccount:1];
-          criticalMessagingAppName = [(__CFString *)v153 criticalMessagingAppName];
+          v147 = [(IMDServiceSession *)self chatForChatIdentifier:v156 style:styleCopy account:v157 updatingAccount:1];
+          criticalMessagingAppName = [(__CFString *)v152 criticalMessagingAppName];
           v55 = [criticalMessagingAppName length] == 0;
 
           mEMORY[0x277D1A900] = [MEMORY[0x277D1A900] sharedManager];
           isMessagesTheDefaultTextApp = [mEMORY[0x277D1A900] isMessagesTheDefaultTextApp];
 
           v58 = isTypingMessage | isSuggestedActionResponse;
-          if (v154 != 0 || ((isTypingMessage | isSuggestedActionResponse) & 1) == 0) && ((v55 | isMessagesTheDefaultTextApp) & 1) != 0 && (supportsDatabase)
+          if (v153 != 0 || ((isTypingMessage | isSuggestedActionResponse) & 1) == 0) && ((v55 | isMessagesTheDefaultTextApp) & 1) != 0 && (supportsDatabase)
           {
             v59 = 0x2786FF000uLL;
             if ([(IMDServiceSession *)self isReplicating])
@@ -8299,8 +9098,8 @@ LABEL_49:
                 v60 = OSLogHandleForIMFoundationCategory();
                 if (os_log_type_enabled(v60, OS_LOG_TYPE_INFO))
                 {
-                  isSent = [(__CFString *)v154 isSent];
-                  isSent2 = [(__CFString *)v153 isSent];
+                  isSent = [(__CFString *)v153 isSent];
+                  isSent2 = [(__CFString *)v152 isSent];
                   v63 = @"NO";
                   if (isSent)
                   {
@@ -8318,9 +9117,9 @@ LABEL_49:
                   }
 
                   *buf = 138412546;
-                  v176 = v64;
-                  v177 = 2112;
-                  v178 = v63;
+                  v175 = v64;
+                  v176 = 2112;
+                  v177 = v63;
                   _os_log_impl(&dword_22B4CC000, v60, OS_LOG_TYPE_INFO, "This is the replicating session. It should not modify sent state. Existing message sent: %@, messageToUpdate sent: %@", buf, 0x16u);
                 }
               }
@@ -8339,25 +9138,25 @@ LABEL_49:
             [(IMDMessageStorageContext *)v66 setModifyFlags:1];
             [(IMDMessageStorageContext *)v66 setFlagMask:v65];
             [(IMDMessageStorageContext *)v66 setUpdateMessageCache:1];
-            [(IMDMessageStorageContext *)v66 setChat:v148];
+            [(IMDMessageStorageContext *)v66 setChat:v147];
             v67 = +[IMDMessageStore sharedInstance];
-            v171[0] = MEMORY[0x277D85DD0];
-            v171[1] = 3221225472;
-            v171[2] = sub_22B68A214;
-            v171[3] = &unk_2787077B8;
-            v171[4] = self;
-            v150 = [v67 storeMessage:v153 context:v66 didReplaceBlock:v171];
+            v170[0] = MEMORY[0x277D85DD0];
+            v170[1] = 3221225472;
+            v170[2] = sub_22B68A214;
+            v170[3] = &unk_2787077B8;
+            v170[4] = self;
+            v149 = [v67 storeMessage:v152 context:v66 didReplaceBlock:v170];
           }
 
           else
           {
-            v150 = v153;
+            v149 = v152;
             v59 = 0x2786FF000;
           }
 
           if ([(__CFString *)messageCopy isBeingRetried])
           {
-            [(__CFString *)v150 setIsBeingRetried:1];
+            [(__CFString *)v149 setIsBeingRetried:1];
           }
 
           retryToParticipant = [(__CFString *)messageCopy retryToParticipant];
@@ -8365,16 +9164,16 @@ LABEL_49:
           if (retryToParticipant)
           {
             retryToParticipant2 = [(__CFString *)messageCopy retryToParticipant];
-            [(__CFString *)v150 setRetryToParticipant:retryToParticipant2];
+            [(__CFString *)v149 setRetryToParticipant:retryToParticipant2];
           }
 
-          if ((v58 & (v154 == 0)) == 0 && ((supportsDatabase ^ 1) & 1) == 0)
+          if ((v58 & (v153 == 0)) == 0 && ((supportsDatabase ^ 1) & 1) == 0)
           {
             v70 = +[IMDChatRegistry sharedInstance];
-            [v70 addMessage:messageCopy toChat:v148 reason:{-[IMDServiceSession _incomingMessageIndexReason](self, "_incomingMessageIndexReason")}];
+            [v70 addMessage:messageCopy toChat:v147 reason:{-[IMDServiceSession _incomingMessageIndexReason](self, "_incomingMessageIndexReason")}];
           }
 
-          if (!v148 || ![(__CFString *)messageCopy isFromMe]|| ([(__CFString *)messageCopy isTypingMessage]& 1) != 0 || ([(__CFString *)messageCopy isSuggestedActionResponse]& 1) != 0 || ([(__CFString *)messageCopy isRCSEncryptionTest]& 1) != 0)
+          if (!v147 || ![(__CFString *)messageCopy isFromMe]|| ([(__CFString *)messageCopy isTypingMessage]& 1) != 0 || ([(__CFString *)messageCopy isSuggestedActionResponse]& 1) != 0 || ([(__CFString *)messageCopy isRCSEncryptionTest]& 1) != 0)
           {
 LABEL_142:
             if (IMOSLoggingEnabled())
@@ -8383,23 +9182,23 @@ LABEL_142:
               if (os_log_type_enabled(v83, OS_LOG_TYPE_INFO))
               {
                 *buf = 138412290;
-                v176 = v150;
+                v175 = v149;
                 _os_log_impl(&dword_22B4CC000, v83, OS_LOG_TYPE_INFO, "Posting sent message: %@", buf, 0xCu);
               }
             }
 
             if (consumedSessionPayloads)
             {
-              [(__CFString *)v150 setConsumedSessionPayloads:consumedSessionPayloads];
+              [(__CFString *)v149 setConsumedSessionPayloads:consumedSessionPayloads];
             }
 
             if (!storageCopy || ![(IMDServiceSession *)self isAwaitingStorageTimer])
             {
               sharedInstance = [*(v59 + 2728) sharedInstance];
-              guid10 = [(__CFString *)v150 guid];
+              guid10 = [(__CFString *)v149 guid];
               v86 = [sharedInstance messageWithGUID:guid10];
               v87 = v86;
-              v88 = v150;
+              v88 = v149;
               if (v86)
               {
                 v88 = v86;
@@ -8408,11 +9207,11 @@ LABEL_142:
               v89 = v88;
 
               broadcasterForChatListeners = [(IMDServiceSession *)self broadcasterForChatListeners];
-              accountID = [v158 accountID];
+              accountID = [v157 accountID];
               v92 = styleCopy;
-              groupID = [v148 groupID];
-              personCentricID = [v148 personCentricID];
-              [broadcasterForChatListeners account:accountID chat:v157 style:v92 chatProperties:0 groupID:groupID chatPersonCentricID:personCentricID messageSent:v89];
+              groupID = [v147 groupID];
+              personCentricID = [v147 personCentricID];
+              [broadcasterForChatListeners account:accountID chat:v156 style:v92 chatProperties:0 groupID:groupID chatPersonCentricID:personCentricID messageSent:v89];
             }
 
             if ([(__CFString *)messageCopy isFinished])
@@ -8449,20 +9248,20 @@ LABEL_142:
 
                   v102 = guid12;
                   *buf = 138412546;
-                  v176 = v101;
-                  v177 = 2112;
-                  v178 = v102;
+                  v175 = v101;
+                  v176 = 2112;
+                  v177 = v102;
                   _os_log_impl(&dword_22B4CC000, v99, OS_LOG_TYPE_INFO, "Posting distributed notification of send result %@ for message %@", buf, 0x16u);
                 }
               }
 
-              v185[0] = *MEMORY[0x277D19FE8];
+              v184[0] = *MEMORY[0x277D19FE8];
               guid13 = [(__CFString *)messageCopy guid];
-              v186[0] = guid13;
-              v185[1] = *MEMORY[0x277D19FF0];
+              v185[0] = guid13;
+              v184[1] = *MEMORY[0x277D19FF0];
               v104 = [MEMORY[0x277CCABB0] numberWithInt:errorCode == 0];
-              v186[1] = v104;
-              v105 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v186 forKeys:v185 count:2];
+              v185[1] = v104;
+              v105 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v185 forKeys:v184 count:2];
 
               DistributedCenter = CFNotificationCenterGetDistributedCenter();
               CFNotificationCenterPostNotification(DistributedCenter, *MEMORY[0x277D19FE0], 0, v105, 1u);
@@ -8474,25 +9273,25 @@ LABEL_142:
               IMMessageSoundStartSuppressingSendSoundForMessageGUID();
             }
 
-            if (v144)
+            if (v143)
             {
               guid15 = [(__CFString *)messageCopy guid];
               [(IMDServiceSession *)self _updateExpireStateForMessageGUID:guid15];
             }
 
-            if (HIDWORD(v144))
+            if (HIDWORD(v143))
             {
-              [(IMDServiceSession *)self sendSavedReceiptForMessage:messageCopy toChatID:0 identifier:v157 style:styleCopy account:v158];
+              [(IMDServiceSession *)self sendSavedReceiptForMessage:messageCopy toChatID:0 identifier:v156 style:styleCopy account:v157];
             }
 
             v109 = ([(__CFString *)messageCopy isTypingMessage]& 1) == 0 && ([(__CFString *)messageCopy isDelivered]& 1) == 0 && [(__CFString *)messageCopy scheduleType]!= 2;
-            v110 = ([v158 canMakeDowngradeRoutingChecks] & 1) != 0 || -[__CFString errorCode](messageCopy, "errorCode") == 22;
+            v110 = ([v157 canMakeDowngradeRoutingChecks] & 1) != 0 || -[__CFString errorCode](messageCopy, "errorCode") == 22;
             if (IMOSLoggingEnabled())
             {
               v111 = OSLogHandleForIMFoundationCategory();
               if (os_log_type_enabled(v111, OS_LOG_TYPE_INFO))
               {
-                service4 = [v158 service];
+                service4 = [v157 service];
                 v113 = service4;
                 v114 = @"NO";
                 *buf = 138413314;
@@ -8511,15 +9310,15 @@ LABEL_142:
                   v114 = @"YES";
                 }
 
-                v176 = v114;
-                v177 = 2112;
-                v178 = v115;
-                v179 = 2112;
-                v180 = messageCopy;
-                v181 = 2112;
-                v182 = v158;
-                v183 = 2112;
-                v184 = service4;
+                v175 = v114;
+                v176 = 2112;
+                v177 = v115;
+                v178 = 2112;
+                v179 = messageCopy;
+                v180 = 2112;
+                v181 = v157;
+                v182 = 2112;
+                v183 = service4;
                 _os_log_impl(&dword_22B4CC000, v111, OS_LOG_TYPE_INFO, "Determining routing eligibilityisRoutableMessage: %@, canMakeDowngradeRoutingCheck: %@\nmessage: %@\naccount: %@\naccount.service: %@\n", buf, 0x34u);
               }
             }
@@ -8537,8 +9336,8 @@ LABEL_142:
               }
 
               guid16 = [(__CFString *)messageCopy guid];
-              guid17 = [v148 guid];
-              [(IMDServiceSession *)self _updateRoutingForMessageGUID:guid16 chatGUID:guid17 error:[(__CFString *)messageCopy errorCode] account:v158];
+              guid17 = [v147 guid];
+              [(IMDServiceSession *)self _updateRoutingForMessageGUID:guid16 chatGUID:guid17 error:[(__CFString *)messageCopy errorCode] account:v157];
             }
 
             else
@@ -8556,7 +9355,7 @@ LABEL_142:
             }
 
 LABEL_197:
-            if (!isTypingMessage || v154)
+            if (!isTypingMessage || v153)
             {
               guid18 = [(__CFString *)messageCopy guid];
               sub_22B67EEDC(guid18);
@@ -8573,9 +9372,9 @@ LABEL_197:
                   guid19 = [(__CFString *)messageCopy guid];
                   associatedMessageGUID = [(__CFString *)messageCopy associatedMessageGUID];
                   *buf = 138412546;
-                  v176 = guid19;
-                  v177 = 2112;
-                  v178 = associatedMessageGUID;
+                  v175 = guid19;
+                  v176 = 2112;
+                  v177 = associatedMessageGUID;
                   _os_log_impl(&dword_22B4CC000, v121, OS_LOG_TYPE_INFO, "Replacing previous message acknowledgements with new acknowledgment for sent message; sender: '%@':'%@'", buf, 0x16u);
                 }
 
@@ -8594,9 +9393,9 @@ LABEL_197:
                 guid21 = [(__CFString *)messageCopy guid];
                 associatedMessageGUID3 = [(__CFString *)messageCopy associatedMessageGUID];
                 *buf = 138412546;
-                v176 = guid21;
-                v177 = 2112;
-                v178 = associatedMessageGUID3;
+                v175 = guid21;
+                v176 = 2112;
+                v177 = associatedMessageGUID3;
                 _os_log_impl(&dword_22B4CC000, v128, OS_LOG_TYPE_INFO, "Replacing previous custom acknowledgements with new acknowledgment for sent message; sender: '%@':'%@'", buf, 0x16u);
               }
 
@@ -8606,26 +9405,26 @@ LABEL_197:
               v134 = [sharedInstance3 replaceCustomAcknowledgmentsWithNewMessageAcknowledgment:guid22 associatedMessageGUID:associatedMessageGUID4 sender:0];
             }
 
-            v169 = 0u;
-            v170 = 0u;
-            v167 = 0u;
             v168 = 0u;
+            v169 = 0u;
+            v166 = 0u;
+            v167 = 0u;
             serviceSessionDelegates = [(IMDServiceSession *)self serviceSessionDelegates];
-            v136 = [serviceSessionDelegates countByEnumeratingWithState:&v167 objects:v174 count:16];
+            v136 = [serviceSessionDelegates countByEnumeratingWithState:&v166 objects:v173 count:16];
             if (v136)
             {
-              v137 = *v168;
+              v137 = *v167;
               v138 = MEMORY[0x277D85CD0];
               do
               {
                 for (i = 0; i != v136; ++i)
                 {
-                  if (*v168 != v137)
+                  if (*v167 != v137)
                   {
                     objc_enumerationMutation(serviceSessionDelegates);
                   }
 
-                  v140 = *(*(&v167 + 1) + 8 * i);
+                  v140 = *(*(&v166 + 1) + 8 * i);
                   if (objc_opt_respondsToSelector())
                   {
                     v141 = v138;
@@ -8634,29 +9433,29 @@ LABEL_197:
                     block[2] = sub_22B68A224;
                     block[3] = &unk_2787077E0;
                     block[4] = v140;
-                    v161 = messageCopy;
+                    v160 = messageCopy;
+                    v161 = v156;
+                    v164 = styleCopy;
                     v162 = v157;
-                    v165 = styleCopy;
-                    v163 = v158;
-                    v164 = dateCopy;
-                    v166 = storageCopy;
+                    v163 = dateCopy;
+                    v165 = storageCopy;
                     dispatch_async(v138, block);
                   }
                 }
 
-                v136 = [serviceSessionDelegates countByEnumeratingWithState:&v167 objects:v174 count:16];
+                v136 = [serviceSessionDelegates countByEnumeratingWithState:&v166 objects:v173 count:16];
               }
 
               while (v136);
             }
 
             v142 = +[IMDChatRegistry sharedInstance];
-            [v142 updateLastMessageForChat:v148 hintMessage:v150];
+            [v142 updateLastMessageForChat:v147 hintMessage:v149];
 
             goto LABEL_221;
           }
 
-          [v148 updateNumberOfTimesRespondedToThread];
+          [v147 updateNumberOfTimesRespondedToThread];
           mEMORY[0x277D1A9B8] = [MEMORY[0x277D1A9B8] sharedFeatureFlags];
           isIntroductionsEnabled = [mEMORY[0x277D1A9B8] isIntroductionsEnabled];
 
@@ -8675,16 +9474,16 @@ LABEL_197:
             v73 = OSLogHandleForIMFoundationCategory();
             if (os_log_type_enabled(v73, OS_LOG_TYPE_INFO))
             {
-              chatIdentifier = [v148 chatIdentifier];
+              chatIdentifier = [v147 chatIdentifier];
               *buf = 138412290;
-              v176 = chatIdentifier;
+              v175 = chatIdentifier;
               _os_log_impl(&dword_22B4CC000, v73, OS_LOG_TYPE_INFO, "Updating isFiltered to NO, replying to chatId: %@", buf, 0xCu);
             }
           }
 
-          else if ([v148 isFiltered] > 1 || (objc_msgSend(v148, "isSMSSpam") & 1) != 0)
+          else if ([v147 isFiltered] > 1 || (objc_msgSend(v147, "isSMSSpam") & 1) != 0)
           {
-            if (![v148 isOscarChat])
+            if (![v147 isOscarChat])
             {
               goto LABEL_142;
             }
@@ -8697,9 +9496,9 @@ LABEL_197:
             v73 = OSLogHandleForIMFoundationCategory();
             if (os_log_type_enabled(v73, OS_LOG_TYPE_INFO))
             {
-              chatIdentifier2 = [v148 chatIdentifier];
+              chatIdentifier2 = [v147 chatIdentifier];
               *buf = 138412290;
-              v176 = chatIdentifier2;
+              v175 = chatIdentifier2;
               _os_log_impl(&dword_22B4CC000, v73, OS_LOG_TYPE_INFO, "iMessage junk chat, updating isFiltered to NO, replying to chatId: %@", buf, 0xCu);
             }
           }
@@ -8709,16 +9508,16 @@ LABEL_197:
             if (!IMOSLoggingEnabled())
             {
 LABEL_141:
-              [v148 updateIsFiltered:0];
+              [v147 updateIsFiltered:0];
               goto LABEL_142;
             }
 
             v73 = OSLogHandleForIMFoundationCategory();
             if (os_log_type_enabled(v73, OS_LOG_TYPE_INFO))
             {
-              chatIdentifier3 = [v148 chatIdentifier];
+              chatIdentifier3 = [v147 chatIdentifier];
               *buf = 138412290;
-              v176 = chatIdentifier3;
+              v175 = chatIdentifier3;
               _os_log_impl(&dword_22B4CC000, v73, OS_LOG_TYPE_INFO, "Updating isFiltered to NO, replying to chatId: %@", buf, 0xCu);
             }
           }
@@ -8733,7 +9532,7 @@ LABEL_141:
           {
             guid23 = [(__CFString *)messageCopy guid];
             *buf = 138412290;
-            v176 = guid23;
+            v175 = guid23;
             _os_log_impl(&dword_22B4CC000, v29, OS_LOG_TYPE_INFO, "Replicated message %@ is permitted to upgrade but existing message was already marked as deduplicated", buf, 0xCu);
           }
         }
@@ -8746,13 +9545,19 @@ LABEL_141:
 
   else
   {
-    v158 = accountCopy;
+    v157 = accountCopy;
   }
 
-  v157 = chatCopy;
+  v156 = chatCopy;
 LABEL_222:
+}
 
-  v143 = *MEMORY[0x277D85DE8];
+- (void)notifyDidSendMessageID:(id)d shouldNotify:(BOOL)notify
+{
+  notifyCopy = notify;
+  dCopy = d;
+  account = [(IMDServiceSession *)self account];
+  [(IMDServiceSession *)self notifyDidSendMessageID:dCopy account:account shouldNotify:notifyCopy];
 }
 
 - (BOOL)_alwaysAllowMarkingSent
@@ -8781,9 +9586,244 @@ LABEL_222:
   return [(IMDServiceSession *)self _alwaysAllowMarkingSent];
 }
 
+- (void)notifyDidSendMessageID:(id)d account:(id)account shouldNotify:(BOOL)notify wasDowngraded:(BOOL)downgraded wasInterworked:(BOOL)interworked
+{
+  interworkedCopy = interworked;
+  notifyCopy = notify;
+  v60 = *MEMORY[0x277D85DE8];
+  dCopy = d;
+  accountCopy = account;
+  if (self->_activated)
+  {
+    if (!self->_account)
+    {
+      account = [(IMDServiceSession *)self account];
+
+      accountCopy = account;
+    }
+
+    if (IMOSLoggingEnabled())
+    {
+      v15 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+      {
+        *buf = 138412290;
+        v57 = dCopy;
+        _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "message: %@", buf, 0xCu);
+      }
+    }
+
+    if (dCopy)
+    {
+      service = [(IMDServiceSession *)self service];
+      supportsDatabase = [service supportsDatabase];
+
+      if (supportsDatabase)
+      {
+        v18 = +[IMDMessageStore sharedInstance];
+        v19 = [v18 messageWithGUID:dCopy];
+
+        service2 = [v19 service];
+        service3 = [(IMDServiceSession *)self service];
+        internalName = [service3 internalName];
+
+        if (!v19 || !service2 || !internalName)
+        {
+          goto LABEL_20;
+        }
+
+        if ([(IMDServiceSession *)self messageServiceNamed:internalName canProcessMessagesFromServiceNamed:service2]|| [(IMDServiceSession *)self _alwaysAllowMarkingSent])
+        {
+          v54 = [(IMDServiceSession *)self _canMarkMessageAsSent:v19]|| interworkedCopy;
+          if (!v54)
+          {
+            v24 = 0;
+LABEL_29:
+            v36 = MEMORY[0x277CCABB0];
+            time = [v19 time];
+            [time timeIntervalSinceNow];
+            v55 = [v36 numberWithDouble:fabs(v38)];
+
+            if (IMOSLoggingEnabled())
+            {
+              v39 = OSLogHandleForIMFoundationCategory();
+              if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
+              {
+                *buf = 138412546;
+                v57 = v19;
+                v58 = 2112;
+                v59 = v55;
+                _os_log_impl(&dword_22B4CC000, v39, OS_LOG_TYPE_INFO, "Updated sent message: %@   duration: %@", buf, 0x16u);
+              }
+            }
+
+            if (v54)
+            {
+              broadcasterForChatListeners = [(IMDServiceSession *)self broadcasterForChatListeners];
+              accountID = [accountCopy accountID];
+              [broadcasterForChatListeners account:accountID chat:0 style:0 messageUpdated:v19];
+            }
+
+            if (v24)
+            {
+              v42 = +[IMDMessageStore sharedInstance];
+              v43 = [v42 chatForMessage:v19];
+
+              chatIdentifier = [v43 chatIdentifier];
+              if ([chatIdentifier length])
+              {
+                if (IMOSLoggingEnabled())
+                {
+                  v45 = OSLogHandleForIMFoundationCategory();
+                  if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
+                  {
+                    *buf = 138412290;
+                    v57 = chatIdentifier;
+                    _os_log_impl(&dword_22B4CC000, v45, OS_LOG_TYPE_INFO, "Notifying chat listeners of service switch request for chat %@", buf, 0xCu);
+                  }
+                }
+
+                broadcasterForChatListeners2 = [(IMDServiceSession *)self broadcasterForChatListeners];
+                [broadcasterForChatListeners2 serviceSwitchRequestReceivedForChatWithIdentifier:chatIdentifier];
+              }
+            }
+
+            if (([v19 flags] & 0x8000) != 0)
+            {
+              if ([v19 isFromMe])
+              {
+                if (([v19 isTypingMessage] & 1) == 0 && !objc_msgSend(v19, "errorCode") && notifyCopy)
+                {
+                  broadcasterForChatObserverListeners = [(IMDServiceSession *)self broadcasterForChatObserverListeners];
+                  accountID2 = [accountCopy accountID];
+                  [broadcasterForChatObserverListeners account:accountID2 chat:0 style:0 notifySentMessage:v19 sendTime:v55 isReplicating:{-[IMDServiceSession isReplicating](self, "isReplicating")}];
+
+                  if (![(IMDServiceSession *)self isReplicating])
+                  {
+                    [IMDSoundUtilities playMessageSentSoundIfNeeded:v19];
+                  }
+                }
+              }
+            }
+
+            goto LABEL_47;
+          }
+
+          if (interworkedCopy)
+          {
+            goto LABEL_17;
+          }
+
+          if (![(IMDServiceSession *)self _messageUpgradesWhenSentFromCurrentService:v19])
+          {
+            if (downgraded || [(IMDServiceSession *)self _messageDowngradesWhenSentFromCurrentService:v19])
+            {
+              v32 = 557056;
+              if (([v19 wasDowngraded] & 1) == 0)
+              {
+                originalServiceName = [v19 originalServiceName];
+                if (!originalServiceName || (v48 = [(IMDServiceSession *)self _messageDowngradesWhenSentFromCurrentService:v19], originalServiceName, v48))
+                {
+                  service4 = [v19 service];
+                  [v19 setOriginalServiceName:service4];
+                }
+
+                service5 = [(IMDServiceSession *)self service];
+                internalName2 = [service5 internalName];
+                [v19 setService:internalName2];
+              }
+
+              v24 = 1;
+              goto LABEL_28;
+            }
+
+            v24 = 0;
+LABEL_27:
+            v32 = 0x8000;
+LABEL_28:
+            [v19 setFlags:{objc_msgSend(v19, "flags") | v32}];
+            [v19 setErrorCode:0];
+            v33 = +[IMDMessageStore sharedInstance];
+            v34 = [v33 storeMessage:v19 forceReplace:0 modifyError:1 modifyFlags:1 flagMask:v32];
+
+            guid = [v34 guid];
+            sub_22B67EEDC(guid);
+
+            v19 = v34;
+            goto LABEL_29;
+          }
+
+          originalServiceName2 = [v19 originalServiceName];
+          v27 = originalServiceName2 == 0;
+
+          if (v27)
+          {
+LABEL_17:
+            service6 = [v19 service];
+            [v19 setOriginalServiceName:service6];
+          }
+
+          service7 = [(IMDServiceSession *)self service];
+          internalName3 = [service7 internalName];
+          [v19 setService:internalName3];
+
+          account2 = [(IMDServiceSession *)self account];
+          accountID3 = [account2 accountID];
+          [v19 setAccountID:accountID3];
+
+          [v19 setWasInterworked:interworkedCopy];
+          v24 = 1;
+          goto LABEL_27;
+        }
+
+        if (![(IMDServiceSession *)self messageServiceNamed:internalName canProcessMessagesFromServiceNamed:service2])
+        {
+          if (!IMOSLoggingEnabled())
+          {
+            goto LABEL_47;
+          }
+
+          v25 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+          {
+            *buf = 138412546;
+            v57 = service2;
+            v58 = 2112;
+            v59 = internalName;
+            _os_log_impl(&dword_22B4CC000, v25, OS_LOG_TYPE_INFO, "Unable notify about message, message is on an incompatible service: %@ vs %@", buf, 0x16u);
+          }
+        }
+
+        else
+        {
+LABEL_20:
+          if (!IMOSLoggingEnabled())
+          {
+LABEL_47:
+
+            goto LABEL_48;
+          }
+
+          v25 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+          {
+            *buf = 138412290;
+            v57 = dCopy;
+            _os_log_impl(&dword_22B4CC000, v25, OS_LOG_TYPE_INFO, "Unable notify about message, no messages found for guid: %@", buf, 0xCu);
+          }
+        }
+
+        goto LABEL_47;
+      }
+    }
+  }
+
+LABEL_48:
+}
+
 - (void)sendDeleteCommand:(id)command forChatGUID:(id)d
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   commandCopy = command;
   dCopy = d;
   if (IMOSLoggingEnabled())
@@ -8791,19 +9831,30 @@ LABEL_222:
     v7 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v9 = 138412290;
-      v10 = commandCopy;
-      _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Can't delete on this service %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = commandCopy;
+      _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Can't delete on this service %@", &v8, 0xCu);
     }
   }
+}
 
-  v8 = *MEMORY[0x277D85DE8];
+- (void)didReceiveDisplayNameChange:(id)change fromID:(id)d toIdentifier:(id)identifier forChat:(id)chat style:(unsigned __int8)style account:(id)account
+{
+  styleCopy = style;
+  v14 = MEMORY[0x277CCACA8];
+  accountCopy = account;
+  chatCopy = chat;
+  identifierCopy = identifier;
+  dCopy = d;
+  changeCopy = change;
+  stringGUID = [v14 stringGUID];
+  [(IMDServiceSession *)self didReceiveDisplayNameChange:changeCopy guid:stringGUID fromID:dCopy toIdentifier:identifierCopy forChat:chatCopy style:styleCopy account:accountCopy];
 }
 
 - (void)didReceiveDisplayNameChange:(id)change guid:(id)guid fromID:(id)d toIdentifier:(id)identifier forChat:(id)chat style:(unsigned __int8)style account:(id)account
 {
   styleCopy = style;
-  v70 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   guidCopy = guid;
   dCopy = d;
@@ -8816,9 +9867,9 @@ LABEL_222:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
-      v61 = dCopy;
-      v62 = 2112;
-      v63 = changeCopy;
+      v60 = dCopy;
+      v61 = 2112;
+      v62 = changeCopy;
       _os_log_impl(&dword_22B4CC000, v17, OS_LOG_TYPE_INFO, "didReceiveDisplayNameChange from: %@, toName: %@", buf, 0x16u);
     }
   }
@@ -8829,28 +9880,28 @@ LABEL_222:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138413314;
-      v61 = changeCopy;
-      v62 = 2112;
-      v63 = dCopy;
-      v64 = 2112;
-      v65 = identifierCopy;
-      v66 = 2112;
-      v67 = chatCopy;
-      v68 = 1024;
-      v69 = styleCopy;
+      v60 = changeCopy;
+      v61 = 2112;
+      v62 = dCopy;
+      v63 = 2112;
+      v64 = identifierCopy;
+      v65 = 2112;
+      v66 = chatCopy;
+      v67 = 1024;
+      v68 = styleCopy;
       _os_log_impl(&dword_22B4CC000, v18, OS_LOG_TYPE_DEBUG, "name: %@   fromID: %@  toIdentifier:%@  identifier: %@ style: %d", buf, 0x30u);
     }
   }
 
   if (styleCopy != 45 && self->_activated)
   {
-    v58 = styleCopy;
-    v57 = chatCopy;
+    v57 = styleCopy;
+    v56 = chatCopy;
     v19 = chatCopy;
-    [(IMDServiceSession *)self _mapRoomChatToGroupChat:&v57 style:&v58];
-    v48 = v57;
+    [(IMDServiceSession *)self _mapRoomChatToGroupChat:&v56 style:&v57];
+    v47 = v56;
 
-    v20 = [(IMDServiceSession *)self chatForChatIdentifier:v48 style:v58 updatingAccount:1];
+    v20 = [(IMDServiceSession *)self chatForChatIdentifier:v47 style:v57 updatingAccount:1];
     if (!v20)
     {
       v21 = changeCopy;
@@ -8880,37 +9931,37 @@ LABEL_50:
     }
 
     displayName2 = [v20 displayName];
-    v47 = displayName2;
+    v46 = displayName2;
     if (displayName2)
     {
-      v46 = [displayName2 length] == 0;
+      v45 = [displayName2 length] == 0;
       if (v21)
       {
 LABEL_21:
-        v45 = [v21 length] == 0;
+        v44 = [v21 length] == 0;
 LABEL_24:
         v26 = +[IMDChatRegistry sharedInstance];
-        v27 = [v26 allExistingChatsWithIdentifier:v48 style:v58];
+        v27 = [v26 allExistingChatsWithIdentifier:v47 style:v57];
 
-        v55 = 0u;
-        v56 = 0u;
-        v53 = 0u;
         v54 = 0u;
+        v55 = 0u;
+        v52 = 0u;
+        v53 = 0u;
         v28 = v27;
-        v29 = [v28 countByEnumeratingWithState:&v53 objects:v59 count:16];
+        v29 = [v28 countByEnumeratingWithState:&v52 objects:v58 count:16];
         if (v29)
         {
-          v30 = *v54;
+          v30 = *v53;
           while (2)
           {
             for (i = 0; i != v29; ++i)
             {
-              if (*v54 != v30)
+              if (*v53 != v30)
               {
                 objc_enumerationMutation(v28);
               }
 
-              v32 = *(*(&v53 + 1) + 8 * i);
+              v32 = *(*(&v52 + 1) + 8 * i);
               style = [v32 style];
               if (style == [v20 style])
               {
@@ -8927,7 +9978,7 @@ LABEL_24:
               }
             }
 
-            v29 = [v28 countByEnumeratingWithState:&v53 objects:v59 count:16];
+            v29 = [v28 countByEnumeratingWithState:&v52 objects:v58 count:16];
             if (v29)
             {
               continue;
@@ -8941,7 +9992,7 @@ LABEL_24:
 LABEL_35:
 
         v37 = IMOSLoggingEnabled();
-        if (v21 == 0 && v46 || v47 == 0 && v45)
+        if (v21 == 0 && v45 || v46 == 0 && v44)
         {
           if (v37)
           {
@@ -8962,7 +10013,7 @@ LABEL_35:
             if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
-              v61 = v21;
+              v60 = v21;
               _os_log_impl(&dword_22B4CC000, v39, OS_LOG_TYPE_INFO, "Generating group name change item with new group name: %@", buf, 0xCu);
             }
           }
@@ -8980,7 +10031,7 @@ LABEL_35:
           v43 = [objc_alloc(MEMORY[0x277D1A9F0]) initWithSender:dCopy time:0 guid:guidCopy type:2];
           if (v36)
           {
-            [(IMDServiceSession *)self _configureSessionInformationOnItem:v43 toChat:v48 withStyle:v58 forAccount:accountCopy];
+            [(IMDServiceSession *)self _configureSessionInformationOnItem:v43 toChat:v47 withStyle:v57 forAccount:accountCopy];
             [v43 setSender:dCopy];
             [v43 setDestinationCallerID:identifierCopy];
             [v43 setTitle:v21];
@@ -8994,26 +10045,24 @@ LABEL_35:
 
     else
     {
-      v46 = 0;
+      v45 = 0;
       if (v21)
       {
         goto LABEL_21;
       }
     }
 
-    v45 = 0;
+    v44 = 0;
     goto LABEL_24;
   }
 
   v21 = changeCopy;
 LABEL_51:
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateInputMessage:(id)message forExistingMessage:(id)existingMessage
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   existingMessageCopy = existingMessage;
   if ([existingMessageCopy isRead])
@@ -9023,8 +10072,8 @@ LABEL_51:
       v7 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v14) = 0;
-        _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "The existing message was read, let's mark the new one is read", &v14, 2u);
+        LOWORD(v13) = 0;
+        _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "The existing message was read, let's mark the new one is read", &v13, 2u);
       }
     }
 
@@ -9042,22 +10091,45 @@ LABEL_51:
       if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
         time2 = [existingMessageCopy time];
-        v14 = 138412290;
-        v15 = time2;
-        _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "The existing message has a time: %@, so lets set the new message to have the same time", &v14, 0xCu);
+        v13 = 138412290;
+        v14 = time2;
+        _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "The existing message has a time: %@, so lets set the new message to have the same time", &v13, 0xCu);
       }
     }
 
     time3 = [existingMessageCopy time];
     [messageCopy setTime:time3];
   }
+}
 
-  v13 = *MEMORY[0x277D85DE8];
+- (void)didReceiveMessage:(id)message forChat:(id)chat style:(unsigned __int8)style fromIDSID:(id)d
+{
+  styleCopy = style;
+  dCopy = d;
+  chatCopy = chat;
+  messageCopy = message;
+  account = [(IMDServiceSession *)self account];
+  [(IMDServiceSession *)self didReceiveMessage:messageCopy forChat:chatCopy style:styleCopy account:account fromIDSID:dCopy];
+}
+
+- (void)didReceiveMessage:(id)message forChat:(id)chat style:(unsigned __int8)style account:(id)account fromIDSID:(id)d
+{
+  styleCopy = style;
+  v19 = *MEMORY[0x277D85DE8];
+  messageCopy = message;
+  v12 = MEMORY[0x277CBEA60];
+  dCopy = d;
+  accountCopy = account;
+  chatCopy = chat;
+  messageCopy2 = message;
+  v17 = [v12 arrayWithObjects:&messageCopy count:1];
+
+  [(IMDServiceSession *)self didReceiveMessages:v17 forChat:chatCopy style:styleCopy account:accountCopy fromIDSID:dCopy completion:&unk_283F1ABC8, messageCopy, v19];
 }
 
 - (void)_setReplyGUIDOnMessage:(id)message forChat:(id)chat
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   chatCopy = chat;
   replyToGUID = [messageCopy replyToGUID];
@@ -9074,24 +10146,22 @@ LABEL_51:
         if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
         {
           guid2 = [messageCopy guid];
-          v14 = 138412546;
-          v15 = guid2;
-          v16 = 2112;
-          v17 = guid;
-          _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "We are setting the reply to guid for message %@ to be %@ as a reply to guid has not been set", &v14, 0x16u);
+          v13 = 138412546;
+          v14 = guid2;
+          v15 = 2112;
+          v16 = guid;
+          _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "We are setting the reply to guid for message %@ to be %@ as a reply to guid has not been set", &v13, 0x16u);
         }
       }
 
       [messageCopy setReplyToGUID:guid];
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setSortIDForMessage:(id)message forChat:(id)chat
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   chatCopy = chat;
   if (IMSharedHelperSortUsingReplyToGUIDAlgorithm())
@@ -9106,18 +10176,16 @@ LABEL_51:
         v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(messageCopy, "sortID")}];
         guid = [messageCopy guid];
         guid2 = [chatCopy guid];
-        v13 = 138412802;
-        v14 = v9;
-        v15 = 2112;
-        v16 = guid;
-        v17 = 2112;
-        v18 = guid2;
-        _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Assigning sort id %@ to message %@ for chat %@", &v13, 0x20u);
+        v12 = 138412802;
+        v13 = v9;
+        v14 = 2112;
+        v15 = guid;
+        v16 = 2112;
+        v17 = guid2;
+        _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Assigning sort id %@ to message %@ for chat %@", &v12, 0x20u);
       }
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_collaborationMessageProcessingQueue
@@ -9175,36 +10243,36 @@ LABEL_51:
 
 - (id)_revokeSiblingMessagesForReplication:(id)replication
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   replicationCopy = replication;
   v4 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(replicationCopy, "count")}];
   v5 = objc_alloc_init(MEMORY[0x277D18ED8]);
   replicationCopy = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K IN %@", *MEMORY[0x277D19F90], replicationCopy];
   [v5 setPredicate:replicationCopy];
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v7 = v5;
-  v8 = [v7 countByEnumeratingWithState:&v18 objects:v24 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v17 objects:v23 count:16];
   if (v8)
   {
-    v9 = *v19;
+    v9 = *v18;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        guid = [*(*(&v18 + 1) + 8 * i) guid];
+        guid = [*(*(&v17 + 1) + 8 * i) guid];
         [v4 addObject:guid];
       }
 
-      v8 = [v7 countByEnumeratingWithState:&v18 objects:v24 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v17 objects:v23 count:16];
     }
 
     while (v8);
@@ -9219,21 +10287,19 @@ LABEL_51:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v23 = v13;
+      v22 = v13;
       _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "   deleted messages: %@", buf, 0xCu);
     }
   }
 
   v15 = [v4 copy];
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v15;
 }
 
 - (void)didReceiveMessages:(id)messages forChat:(id)chat style:(unsigned __int8)style account:(id)account fromIDSID:(id)d completion:(id)completion
 {
-  v131 = *MEMORY[0x277D85DE8];
+  v130 = *MEMORY[0x277D85DE8];
   messagesCopy = messages;
   chatCopy = chat;
   accountCopy = account;
@@ -9245,7 +10311,7 @@ LABEL_51:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v118 = messagesCopy;
+      v117 = messagesCopy;
       _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_DEBUG, "messages: %@", buf, 0xCu);
     }
   }
@@ -9253,75 +10319,75 @@ LABEL_51:
   if ([messagesCopy count] && -[IMDServiceSession _isActivated](self, "_isActivated"))
   {
     styleCopy = style;
-    v114 = chatCopy;
+    v113 = chatCopy;
     v14 = chatCopy;
-    [(IMDServiceSession *)self _mapRoomChatToGroupChat:&v114 style:&styleCopy];
-    v80 = v114;
+    [(IMDServiceSession *)self _mapRoomChatToGroupChat:&v113 style:&styleCopy];
+    v79 = v113;
 
-    v112[0] = 0;
-    v112[1] = v112;
-    v112[2] = 0x2020000000;
-    v113 = 1;
+    v111[0] = 0;
+    v111[1] = v111;
+    v111[2] = 0x2020000000;
+    v112 = 1;
     if ([(IMDServiceSession *)self isReplicating])
     {
-      v77 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v76 = objc_alloc_init(MEMORY[0x277CBEB18]);
     }
 
     else
     {
-      v77 = 0;
+      v76 = 0;
     }
 
-    v84 = [(IMDServiceSession *)self chatForChatIdentifier:v80 style:styleCopy updatingAccount:1];
-    v81 = [[IMDIncomingMessageTranslator alloc] initWithChat:v84];
-    v76 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(messagesCopy, "count")}];
-    v110 = 0u;
-    v111 = 0u;
-    v108 = 0u;
+    v83 = [(IMDServiceSession *)self chatForChatIdentifier:v79 style:styleCopy updatingAccount:1];
+    v80 = [[IMDIncomingMessageTranslator alloc] initWithChat:v83];
+    v75 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(messagesCopy, "count")}];
     v109 = 0u;
+    v110 = 0u;
+    v107 = 0u;
+    v108 = 0u;
     obj = messagesCopy;
-    v79 = [obj countByEnumeratingWithState:&v108 objects:v130 count:16];
-    if (v79)
+    v78 = [obj countByEnumeratingWithState:&v107 objects:v129 count:16];
+    if (v78)
     {
-      v75 = *v109;
+      v74 = *v108;
       *&v15 = 138412546;
-      v69 = v15;
+      v68 = v15;
       do
       {
-        for (i = 0; i != v79; ++i)
+        for (i = 0; i != v78; ++i)
         {
-          if (*v109 != v75)
+          if (*v108 != v74)
           {
             objc_enumerationMutation(obj);
           }
 
-          v85 = *(*(&v108 + 1) + 8 * i);
-          [(IMDIncomingMessageTranslator *)v81 beginProcessingMessage:v69, dCopy];
-          if ([v85 isFromMe] && objc_msgSend(v84, "state") != 3)
+          v84 = *(*(&v107 + 1) + 8 * i);
+          [(IMDIncomingMessageTranslator *)v80 beginProcessingMessage:v68, dCopy];
+          if ([v84 isFromMe] && objc_msgSend(v83, "state") != 3)
           {
             v16 = +[IMDChatRegistry sharedInstance];
-            v17 = [v16 allExistingChatsWithIdentifier:v80 style:styleCopy];
+            v17 = [v16 allExistingChatsWithIdentifier:v79 style:styleCopy];
 
             array = [MEMORY[0x277CBEB18] array];
-            v106 = 0u;
-            v107 = 0u;
-            v104 = 0u;
             v105 = 0u;
+            v106 = 0u;
+            v103 = 0u;
+            v104 = 0u;
             v19 = v17;
-            v20 = [v19 countByEnumeratingWithState:&v104 objects:v129 count:16];
+            v20 = [v19 countByEnumeratingWithState:&v103 objects:v128 count:16];
             if (v20)
             {
-              v21 = *v105;
+              v21 = *v104;
               do
               {
                 for (j = 0; j != v20; ++j)
                 {
-                  if (*v105 != v21)
+                  if (*v104 != v21)
                   {
                     objc_enumerationMutation(v19);
                   }
 
-                  v23 = *(*(&v104 + 1) + 8 * j);
+                  v23 = *(*(&v103 + 1) + 8 * j);
                   if ([v23 state] != 3)
                   {
                     [v23 setState:3];
@@ -9346,7 +10412,7 @@ LABEL_51:
                   }
                 }
 
-                v20 = [v19 countByEnumeratingWithState:&v104 objects:v129 count:16];
+                v20 = [v19 countByEnumeratingWithState:&v103 objects:v128 count:16];
               }
 
               while (v20);
@@ -9359,35 +10425,35 @@ LABEL_51:
               {
                 v30 = [array componentsJoinedByString:{@", "}];
                 *buf = 138412290;
-                v118 = v30;
+                v117 = v30;
                 _os_log_impl(&dword_22B4CC000, v29, OS_LOG_TYPE_INFO, "Fixed chat join states for chats with guids: %@", buf, 0xCu);
               }
             }
           }
 
-          v31 = [MEMORY[0x277CBEAA8] __im_dateWithNanosecondTimeIntervalSinceReferenceDate:{objc_msgSend(v84, "lastReadMessageTimeStamp")}];
+          v31 = [MEMORY[0x277CBEAA8] __im_dateWithNanosecondTimeIntervalSinceReferenceDate:{objc_msgSend(v83, "lastReadMessageTimeStamp")}];
           __im_dateWithCurrentServerTime = [MEMORY[0x277CBEAA8] __im_dateWithCurrentServerTime];
-          time = [v85 time];
+          time = [v84 time];
           if (IMOSLoggingEnabled())
           {
             v34 = OSLogHandleForIMFoundationCategory();
             if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
             {
-              v35 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v84, "lastReadMessageTimeStamp")}];
-              lastSeenMessageGuid = [v84 lastSeenMessageGuid];
+              v35 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v83, "lastReadMessageTimeStamp")}];
+              lastSeenMessageGuid = [v83 lastSeenMessageGuid];
               v37 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(time, "__im_nanosecondTimeInterval")}];
               *buf = 138413570;
-              v118 = v35;
-              v119 = 2112;
-              v120 = lastSeenMessageGuid;
-              v121 = 2112;
-              v122 = v31;
-              v123 = 2112;
-              v124 = time;
-              v125 = 2112;
-              v126 = v37;
-              v127 = 2112;
-              v128 = __im_dateWithCurrentServerTime;
+              v117 = v35;
+              v118 = 2112;
+              v119 = lastSeenMessageGuid;
+              v120 = 2112;
+              v121 = v31;
+              v122 = 2112;
+              v123 = time;
+              v124 = 2112;
+              v125 = v37;
+              v126 = 2112;
+              v127 = __im_dateWithCurrentServerTime;
               _os_log_impl(&dword_22B4CC000, v34, OS_LOG_TYPE_INFO, "Chat's last read message time date (%@) guid (%@) timestamp: (%@) Messages time date (%@) timestamp: (%@) Server timestamp: (%@)", buf, 0x3Eu);
             }
           }
@@ -9402,9 +10468,9 @@ LABEL_51:
                 v39 = OSLogHandleForIMFoundationCategory();
                 if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
                 {
-                  guid2 = [v85 guid];
+                  guid2 = [v84 guid];
                   *buf = 138412290;
-                  v118 = guid2;
+                  v117 = guid2;
                   _os_log_impl(&dword_22B4CC000, v39, OS_LOG_TYPE_INFO, "Last read message time is in the future. Not marking incoming message %@ as read", buf, 0xCu);
                 }
               }
@@ -9412,7 +10478,7 @@ LABEL_51:
 
             else
             {
-              if ([v85 sentOrReceivedOffGrid])
+              if ([v84 sentOrReceivedOffGrid])
               {
                 v41 = [__im_dateWithCurrentServerTime dateByAddingTimeInterval:3600.0];
                 if ([v31 compare:v41] == -1)
@@ -9422,11 +10488,11 @@ LABEL_51:
                     v62 = OSLogHandleForIMFoundationCategory();
                     if (os_log_type_enabled(v62, OS_LOG_TYPE_INFO))
                     {
-                      guid3 = [v85 guid];
-                      *buf = v69;
-                      v118 = v41;
-                      v119 = 2112;
-                      v120 = guid3;
+                      guid3 = [v84 guid];
+                      *buf = v68;
+                      v117 = v41;
+                      v118 = 2112;
+                      v119 = guid3;
                       _os_log_impl(&dword_22B4CC000, v62, OS_LOG_TYPE_INFO, "Satellite message time for GUID %@ is within grace period (%@). Not marking it as read.", buf, 0x16u);
                     }
                   }
@@ -9439,9 +10505,9 @@ LABEL_51:
                   v42 = OSLogHandleForIMFoundationCategory();
                   if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
                   {
-                    guid4 = [v85 guid];
+                    guid4 = [v84 guid];
                     *buf = 138412290;
-                    v118 = guid4;
+                    v117 = guid4;
                     _os_log_impl(&dword_22B4CC000, v42, OS_LOG_TYPE_INFO, "Satellite message with GUID %@ will be marked as read because it's time is older than the chat's last read message time including the grace period.", buf, 0xCu);
                   }
                 }
@@ -9452,25 +10518,25 @@ LABEL_51:
                 v44 = OSLogHandleForIMFoundationCategory();
                 if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
                 {
-                  guid5 = [v85 guid];
+                  guid5 = [v84 guid];
                   *buf = 138412290;
-                  v118 = guid5;
+                  v117 = guid5;
                   _os_log_impl(&dword_22B4CC000, v44, OS_LOG_TYPE_INFO, "Setting message %@ as read as incoming message is older than the chat's last read message time", buf, 0xCu);
                 }
               }
 
-              [v85 setFlags:{objc_msgSend(v85, "flags") | 0x2000}];
+              [v84 setFlags:{objc_msgSend(v84, "flags") | 0x2000}];
             }
 
 LABEL_58:
           }
 
-          [(IMDServiceSession *)self _setReplyGUIDOnMessage:v85 forChat:v84];
-          [(IMDServiceSession *)self _setSortIDForMessage:v85 forChat:v84];
+          [(IMDServiceSession *)self _setReplyGUIDOnMessage:v84 forChat:v83];
+          [(IMDServiceSession *)self _setSortIDForMessage:v84 forChat:v83];
           if ([(IMDServiceSession *)self isReplicating])
           {
             v46 = +[IMDMessageStore sharedInstance];
-            guid6 = [v85 guid];
+            guid6 = [v84 guid];
             v48 = [v46 messageWithGUID:guid6];
 
             service = [v48 service];
@@ -9480,7 +10546,7 @@ LABEL_58:
 
             if (v52)
             {
-              replicatedFallbackGUIDs = [v85 replicatedFallbackGUIDs];
+              replicatedFallbackGUIDs = [v84 replicatedFallbackGUIDs];
             }
 
             else
@@ -9499,28 +10565,28 @@ LABEL_58:
 
           if (isIntroductionsEnabled)
           {
-            if ([v84 isFiltered])
+            if ([v83 isFiltered])
             {
               v56 = MEMORY[0x277D1AC58];
-              sender = [v85 sender];
+              sender = [v84 sender];
               LODWORD(v56) = [v56 isKnownContact:sender];
 
               if (v56)
               {
-                [v84 updateIsFiltered:0 fromContact:1];
+                [v83 updateIsFiltered:0 fromContact:1];
               }
             }
 
-            if ([MEMORY[0x277D1AB08] isFilterUnknownSendersEnabled] && (objc_msgSend(v85, "isRead") & 1) == 0 && (objc_msgSend(v85, "isTypingMessage") & 1) == 0 && objc_msgSend(v84, "isFiltered") && objc_msgSend(v84, "isFiltered") != 2)
+            if ([MEMORY[0x277D1AB08] isFilterUnknownSendersEnabled] && (objc_msgSend(v84, "isRead") & 1) == 0 && (objc_msgSend(v84, "isTypingMessage") & 1) == 0 && objc_msgSend(v83, "isFiltered") && objc_msgSend(v83, "isFiltered") != 2)
             {
-              guid7 = [v84 guid];
+              guid7 = [v83 guid];
 
               if (guid7)
               {
                 v59 = +[IMDChatRegistry sharedInstance];
-                guid8 = [v84 guid];
-                v116 = guid8;
-                v61 = [MEMORY[0x277CBEA60] arrayWithObjects:&v116 count:1];
+                guid8 = [v83 guid];
+                v115 = guid8;
+                v61 = [MEMORY[0x277CBEA60] arrayWithObjects:&v115 count:1];
                 [v59 updatePendingReviewForChatsWithGUIDs:v61 pendingReview:1];
               }
 
@@ -9530,64 +10596,62 @@ LABEL_58:
                 if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138412290;
-                  v118 = v84;
+                  v117 = v83;
                   _os_log_error_impl(&dword_22B4CC000, v59, OS_LOG_TYPE_ERROR, "Couldn't get chat guid from local chat %@", buf, 0xCu);
                 }
               }
             }
           }
 
-          v95[0] = MEMORY[0x277D85DD0];
-          v95[1] = 3221225472;
-          v95[2] = sub_22B68D14C;
-          v95[3] = &unk_278707850;
-          v95[4] = self;
-          v95[5] = v85;
-          v96 = v80;
-          v97 = v84;
-          v103 = styleCopy;
-          v98 = accountCopy;
+          v94[0] = MEMORY[0x277D85DD0];
+          v94[1] = 3221225472;
+          v94[2] = sub_22B68D14C;
+          v94[3] = &unk_278707850;
+          v94[4] = self;
+          v94[5] = v84;
+          v95 = v79;
+          v96 = v83;
+          v102 = styleCopy;
+          v97 = accountCopy;
+          v98 = v75;
+          v101 = v111;
           v99 = v76;
-          v102 = v112;
-          v100 = v77;
           v64 = replicatedFallbackGUIDs;
-          v101 = v64;
-          [(IMDIncomingMessageTranslator *)v81 finishProcessingMessage:v85 completion:v95];
+          v100 = v64;
+          [(IMDIncomingMessageTranslator *)v80 finishProcessingMessage:v84 completion:v94];
         }
 
-        v79 = [obj countByEnumeratingWithState:&v108 objects:v130 count:16];
+        v78 = [obj countByEnumeratingWithState:&v107 objects:v129 count:16];
       }
 
-      while (v79);
+      while (v78);
     }
 
-    v86[0] = MEMORY[0x277D85DD0];
-    v86[1] = 3221225472;
-    v86[2] = sub_22B68D1CC;
-    v86[3] = &unk_278707878;
-    v93 = completionCopy;
-    v94 = v112;
-    v86[4] = self;
-    v87 = obj;
-    v65 = v77;
-    v88 = v65;
-    v66 = v76;
-    v89 = v66;
-    v67 = v84;
-    v90 = v67;
-    v91 = accountCopy;
-    v92 = dCopy;
-    [(IMDIncomingMessageTranslator *)v81 processedAllMessagesWithCompletion:v86];
+    v85[0] = MEMORY[0x277D85DD0];
+    v85[1] = 3221225472;
+    v85[2] = sub_22B68D1CC;
+    v85[3] = &unk_278707878;
+    v92 = completionCopy;
+    v93 = v111;
+    v85[4] = self;
+    v86 = obj;
+    v65 = v76;
+    v87 = v65;
+    v66 = v75;
+    v88 = v66;
+    v67 = v83;
+    v89 = v67;
+    v90 = accountCopy;
+    v91 = dCopy;
+    [(IMDIncomingMessageTranslator *)v80 processedAllMessagesWithCompletion:v85];
 
-    _Block_object_dispose(v112, 8);
+    _Block_object_dispose(v111, 8);
   }
 
   else
   {
     (*(completionCopy + 2))(completionCopy, 0);
   }
-
-  v68 = *MEMORY[0x277D85DE8];
 }
 
 - (void)storeMessages:(id)messages messagesToWithdraw:(id)withdraw messagesToPost:(id)post chatIdentifier:(id)identifier style:(unsigned __int8)style account:(id)account fromIDSID:(id)d
@@ -9616,9 +10680,150 @@ LABEL_58:
   }
 }
 
+- (BOOL)_storeMessage:(id)message chatIdentifier:(id)identifier localChat:(id)chat style:(unsigned __int8)style account:(id)account messagesToPostArray:(id)array
+{
+  styleCopy = style;
+  v71 = *MEMORY[0x277D85DE8];
+  messageCopy = message;
+  identifierCopy = identifier;
+  chatCopy = chat;
+  accountCopy = account;
+  arrayCopy = array;
+  v66[0] = 0;
+  v66[1] = v66;
+  v66[2] = 0x3032000000;
+  v66[3] = sub_22B4D77B0;
+  v66[4] = sub_22B4D793C;
+  v67 = 0;
+  v64[0] = 0;
+  v64[1] = v64;
+  v64[2] = 0x3032000000;
+  v64[3] = sub_22B4D77B0;
+  v64[4] = sub_22B4D793C;
+  v65 = 0;
+  v62[0] = 0;
+  v62[1] = v62;
+  v62[2] = 0x3032000000;
+  v62[3] = sub_22B4D77B0;
+  v62[4] = sub_22B4D793C;
+  v63 = 0;
+  [(IMDServiceSession *)self _configureSessionInformationOnItem:messageCopy toChat:identifierCopy withStyle:styleCopy forAccount:accountCopy];
+  consumedSessionPayloads = [messageCopy consumedSessionPayloads];
+  if (([messageCopy isFromMe] & 1) == 0)
+  {
+    [messageCopy setFlags:{objc_msgSend(messageCopy, "flags") | 0x1000}];
+  }
+
+  v34 = arrayCopy;
+  if (![messageCopy isExpirable] || !objc_msgSend(messageCopy, "isFromMe") || objc_msgSend(messageCopy, "expireState") > 0)
+  {
+    v33 = 0;
+LABEL_7:
+    v19 = 0;
+    goto LABEL_8;
+  }
+
+  if (!IMMessageItemShouldAutomaticallySave())
+  {
+    if (IMOSLoggingEnabled())
+    {
+      v31 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+      {
+        guid = [messageCopy guid];
+        LODWORD(buf) = 138412290;
+        *(&buf + 4) = guid;
+        _os_log_impl(&dword_22B4CC000, v31, OS_LOG_TYPE_DEBUG, "Expire message sent from linked device: %@", &buf, 0xCu);
+      }
+    }
+
+    [messageCopy setExpireState:1];
+    v33 = 1;
+    goto LABEL_7;
+  }
+
+  if (IMOSLoggingEnabled())
+  {
+    v29 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+    {
+      guid2 = [messageCopy guid];
+      LODWORD(buf) = 138412290;
+      *(&buf + 4) = guid2;
+      _os_log_impl(&dword_22B4CC000, v29, OS_LOG_TYPE_DEBUG, "Automatically saving message sent from linked device: %@", &buf, 0xCu);
+    }
+  }
+
+  [messageCopy setExpireState:3];
+  v33 = 0;
+  v19 = 1;
+LABEL_8:
+  *&buf = 0;
+  *(&buf + 1) = &buf;
+  v69 = 0x2020000000;
+  v70 = 0;
+  v20 = objc_alloc_init(IMDMessageStorageContext);
+  [(IMDMessageStorageContext *)v20 setModifyError:1];
+  [(IMDMessageStorageContext *)v20 setModifyFlags:1];
+  [(IMDMessageStorageContext *)v20 setFlagMask:0x81000003009];
+  [(IMDMessageStorageContext *)v20 setChat:chatCopy];
+  v52[0] = MEMORY[0x277D85DD0];
+  v52[1] = 3221225472;
+  v52[2] = sub_22B68DDEC;
+  v52[3] = &unk_2787078C8;
+  p_buf = &buf;
+  v59 = v64;
+  v57 = v66;
+  v52[4] = self;
+  v21 = chatCopy;
+  v53 = v21;
+  v60 = v62;
+  v54 = identifierCopy;
+  v61 = styleCopy;
+  v55 = accountCopy;
+  v56 = messageCopy;
+  v46[0] = MEMORY[0x277D85DD0];
+  v46[1] = 3221225472;
+  v46[2] = sub_22B68F2F0;
+  v46[3] = &unk_2787078F0;
+  v50 = &buf;
+  v47 = v56;
+  selfCopy = self;
+  v49 = v54;
+  v51 = styleCopy;
+  v36[0] = MEMORY[0x277D85DD0];
+  v36[1] = 3221225472;
+  v36[2] = sub_22B68F4A4;
+  v36[3] = &unk_278707918;
+  v22 = v47;
+  v37 = v22;
+  selfCopy2 = self;
+  v23 = v49;
+  v39 = v23;
+  v43 = styleCopy;
+  v24 = consumedSessionPayloads;
+  v40 = v24;
+  v25 = v34;
+  v41 = v25;
+  v44 = v33;
+  v26 = v55;
+  v42 = v26;
+  v45 = v19;
+  [(IMDServiceSession *)self storeMessage:v22 context:v20 didReplaceBlock:0 shouldStoreBlock:v52 didStoreBlock:v46 block:v36];
+  v27 = *(*(&buf + 1) + 24);
+
+  _Block_object_dispose(&buf, 8);
+  _Block_object_dispose(v62, 8);
+
+  _Block_object_dispose(v64, 8);
+  _Block_object_dispose(v66, 8);
+
+  return v27 & 1;
+}
+
 - (BOOL)_canUpgradeExistingMessageItem:(id)item replacementReplicatedMessageItem:(id)messageItem
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   messageItemCopy = messageItem;
   if (![(IMDServiceSession *)self isReplicating])
@@ -9629,9 +10834,9 @@ LABEL_58:
       if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
         guid = [itemCopy guid];
-        v26 = 138412290;
-        v27 = guid;
-        _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "Disallowing upgrade of message %@, session is not replicating", &v26, 0xCu);
+        v25 = 138412290;
+        v26 = guid;
+        _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "Disallowing upgrade of message %@, session is not replicating", &v25, 0xCu);
       }
 
       goto LABEL_17;
@@ -9652,7 +10857,7 @@ LABEL_58:
       isFromMe = [itemCopy isFromMe];
       if (isFromMe == [messageItemCopy isFromMe])
       {
-        if ([itemCopy isFromMe] & 1) != 0 || (objc_msgSend(itemCopy, "sender"), v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend(messageItemCopy, "sender"), v21 = objc_claimAutoreleasedReturnValue(), v22 = objc_msgSend(v20, "isEqualToString:", v21), v21, v20, (v22))
+        if ([itemCopy isFromMe] & 1) != 0 || (objc_msgSend(itemCopy, "sender"), v19 = objc_claimAutoreleasedReturnValue(), objc_msgSend(messageItemCopy, "sender"), v20 = objc_claimAutoreleasedReturnValue(), v21 = objc_msgSend(v19, "isEqualToString:", v20), v20, v19, (v21))
         {
           v8 = 1;
           goto LABEL_19;
@@ -9669,13 +10874,13 @@ LABEL_58:
           guid4 = [itemCopy guid];
           sender = [itemCopy sender];
           sender2 = [messageItemCopy sender];
-          v26 = 138412802;
-          v27 = guid4;
-          v28 = 2112;
-          v29 = sender;
-          v30 = 2112;
-          v31 = sender2;
-          _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "Disallowing upgrade of %@, different senders (%@ and %@)", &v26, 0x20u);
+          v25 = 138412802;
+          v26 = guid4;
+          v27 = 2112;
+          v28 = sender;
+          v29 = 2112;
+          v30 = sender2;
+          _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "Disallowing upgrade of %@, different senders (%@ and %@)", &v25, 0x20u);
         }
 
         goto LABEL_17;
@@ -9687,9 +10892,9 @@ LABEL_58:
         if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
         {
           guid5 = [itemCopy guid];
-          v26 = 138412290;
-          v27 = guid5;
-          _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "Disallowing upgrade of %@", &v26, 0xCu);
+          v25 = 138412290;
+          v26 = guid5;
+          _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "Disallowing upgrade of %@", &v25, 0xCu);
         }
 
 LABEL_17:
@@ -9703,11 +10908,11 @@ LABEL_17:
       {
         guid6 = [itemCopy guid];
         guid7 = [messageItemCopy guid];
-        v26 = 138412546;
-        v27 = guid6;
-        v28 = 2112;
-        v29 = guid7;
-        _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "Disallowing upgrade of message %@, replacement has guid %@", &v26, 0x16u);
+        v25 = 138412546;
+        v26 = guid6;
+        v27 = 2112;
+        v28 = guid7;
+        _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "Disallowing upgrade of message %@, replacement has guid %@", &v25, 0x16u);
       }
 
       goto LABEL_17;
@@ -9719,8 +10924,170 @@ LABEL_18:
 
 LABEL_19:
 
-  v18 = *MEMORY[0x277D85DE8];
   return v8;
+}
+
+- (void)didReceiveInvitation:(id)invitation forChat:(id)chat style:(unsigned __int8)style
+{
+  styleCopy = style;
+  v39 = *MEMORY[0x277D85DE8];
+  invitationCopy = invitation;
+  chatCopy = chat;
+  if (IMOSLoggingEnabled())
+  {
+    v10 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 138412290;
+      v38 = invitationCopy;
+      _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_DEBUG, "message: %@", buf, 0xCu);
+    }
+  }
+
+  if (invitationCopy && [(IMDServiceSession *)self _isActivated])
+  {
+    accountID = [(IMDServiceSession *)self accountID];
+    v12 = ![(IMDServiceSession *)self shouldImitateGroupChatUsingChatRooms];
+    if (styleCopy != 35)
+    {
+      LOBYTE(v12) = 1;
+    }
+
+    if (v12)
+    {
+      v16 = 0;
+    }
+
+    else if ([chatCopy roomNameIsProbablyAutomaticallyGenerated])
+    {
+      v13 = chatCopy;
+      [(IMDServiceSession *)self useChatRoom:v13 forGroupChatIdentifier:v13];
+      v14 = MEMORY[0x277CBEAC0];
+      v15 = [v13 dataUsingEncoding:4];
+      v16 = [v14 dictionaryWithObjectsAndKeys:{v15, *MEMORY[0x277D19328], 0}];
+
+      styleCopy = 43;
+    }
+
+    else
+    {
+      v16 = 0;
+      styleCopy = 35;
+    }
+
+    account = [(IMDServiceSession *)self account];
+    [(IMDServiceSession *)self _configureSessionInformationOnItem:invitationCopy toChat:chatCopy withStyle:styleCopy forAccount:account];
+
+    v18 = [(IMDServiceSession *)self chatForChatIdentifier:chatCopy style:styleCopy updatingAccount:1];
+    if ([invitationCopy isTypingMessage] & 1) != 0 || (objc_msgSend(invitationCopy, "isFromMe"))
+    {
+      goto LABEL_25;
+    }
+
+    service = [(IMDServiceSession *)self service];
+    if ([service supportsDatabase])
+    {
+      v20 = +[IMDDaemonPropertyManager sharedManager];
+      v21 = [v20 valueOfPersistentProperty:*MEMORY[0x277D19320]];
+      v28 = [v21 intValue] == 0;
+
+      if (!v28)
+      {
+LABEL_25:
+        v24 = objc_alloc_init(IMDMessageStorageContext);
+        [(IMDMessageStorageContext *)v24 setModifyFlags:1];
+        [(IMDMessageStorageContext *)v24 setFlagMask:9];
+        [(IMDMessageStorageContext *)v24 setChat:v18];
+        v35[0] = MEMORY[0x277D85DD0];
+        v35[1] = 3221225472;
+        v35[2] = sub_22B690798;
+        v35[3] = &unk_278707678;
+        v36 = v18;
+        v29[0] = MEMORY[0x277D85DD0];
+        v29[1] = 3221225472;
+        v29[2] = sub_22B690830;
+        v29[3] = &unk_278707940;
+        v29[4] = self;
+        v34 = styleCopy;
+        v30 = chatCopy;
+        v31 = v36;
+        v32 = accountID;
+        v33 = v16;
+        v25 = v16;
+        v26 = accountID;
+        v27 = v36;
+        [(IMDServiceSession *)self storeMessage:invitationCopy context:v24 didReplaceBlock:0 shouldStoreBlock:0 didStoreBlock:v35 block:v29];
+
+        goto LABEL_26;
+      }
+    }
+
+    else
+    {
+    }
+
+    if (IMOSLoggingEnabled())
+    {
+      v22 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_22B4CC000, v22, OS_LOG_TYPE_INFO, "  Ensuring the app is alive here", buf, 2u);
+      }
+    }
+
+    v23 = +[IMDLocalDaemon sharedDaemon];
+    [v23 launchListenerForCapability:*MEMORY[0x277D19358]];
+
+    goto LABEL_25;
+  }
+
+LABEL_26:
+}
+
+- (void)didUpdateChatStatus:(int)status chat:(id)chat style:(unsigned __int8)style displayName:(id)name groupID:(id)d lastAddressedHandle:(id)handle handleInfo:(id)info
+{
+  styleCopy = style;
+  v14 = *&status;
+  infoCopy = info;
+  handleCopy = handle;
+  dCopy = d;
+  nameCopy = name;
+  chatCopy = chat;
+  account = [(IMDServiceSession *)self account];
+  LOBYTE(v21) = 0;
+  [(IMDServiceSession *)self didUpdateChatStatus:v14 chat:chatCopy style:styleCopy displayName:nameCopy groupID:dCopy lastAddressedHandle:handleCopy lastAddressedSIMID:0 handleInfo:infoCopy account:account isBlackholed:v21];
+}
+
+- (void)didUpdateChatStatus:(int)status chat:(id)chat style:(unsigned __int8)style displayName:(id)name groupID:(id)d lastAddressedHandle:(id)handle lastAddressedSIMID:(id)iD handleInfo:(id)self0
+{
+  styleCopy = style;
+  v15 = *&status;
+  infoCopy = info;
+  iDCopy = iD;
+  handleCopy = handle;
+  dCopy = d;
+  nameCopy = name;
+  chatCopy = chat;
+  account = [(IMDServiceSession *)self account];
+  LOBYTE(v23) = 0;
+  [(IMDServiceSession *)self didUpdateChatStatus:v15 chat:chatCopy style:styleCopy displayName:nameCopy groupID:dCopy lastAddressedHandle:handleCopy lastAddressedSIMID:iDCopy handleInfo:infoCopy account:account isBlackholed:v23];
+}
+
+- (void)didUpdateChatStatus:(int)status chat:(id)chat style:(unsigned __int8)style displayName:(id)name groupID:(id)d originalGroupID:(id)iD lastAddressedHandle:(id)handle lastAddressedSIMID:(id)self0 handleInfo:(id)self1
+{
+  styleCopy = style;
+  v16 = *&status;
+  infoCopy = info;
+  mIDCopy = mID;
+  handleCopy = handle;
+  iDCopy = iD;
+  dCopy = d;
+  nameCopy = name;
+  chatCopy = chat;
+  account = [(IMDServiceSession *)self account];
+  LOBYTE(v25) = 0;
+  [(IMDServiceSession *)self didUpdateChatStatus:v16 chat:chatCopy style:styleCopy displayName:nameCopy groupID:dCopy originalGroupID:iDCopy lastAddressedHandle:handleCopy lastAddressedSIMID:mIDCopy handleInfo:infoCopy account:account isBlackholed:v25];
 }
 
 - (void)didUpdateChatStatus:(int)status chat:(id)chat style:(unsigned __int8)style displayName:(id)name groupID:(id)d originalGroupID:(id)iD lastAddressedHandle:(id)handle lastAddressedSIMID:(id)self0 handleInfo:(id)self1 account:(id)self2 category:(int64_t)self3 spamExtensionName:(id)self4 isBlackholed:(BOOL)self5 spamDetectionSource:(int64_t)self6
@@ -9755,9 +11122,22 @@ LABEL_19:
   [(IMDServiceSession *)self didUpdateChatStatus:status chat:chatCopy style:styleCopy context:v32];
 }
 
+- (void)didUpdateChatStatus:(int)status chat:(id)chat style:(unsigned __int8)style context:(id)context
+{
+  styleCopy = style;
+  v8 = *&status;
+  contextCopy = context;
+  chatCopy = chat;
+  [contextCopy setChatStatus:v8];
+  [contextCopy setChatIdentifier:chatCopy];
+
+  [contextCopy setChatStyle:styleCopy];
+  [(IMDServiceSession *)self didUpdateChatStatusWithContext:contextCopy];
+}
+
 - (void)didUpdateChatStatusWithContext:(id)context
 {
-  v121 = *MEMORY[0x277D85DE8];
+  v120 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   chatIdentifier = [contextCopy chatIdentifier];
   chatStyle = [contextCopy chatStyle];
@@ -9789,86 +11169,86 @@ LABEL_19:
         lastAddressedHandle = [contextCopy lastAddressedHandle];
         lastAddressedSIMID = [contextCopy lastAddressedSIMID];
         *buf = 138413314;
-        v112 = chatIdentifier;
-        v113 = 1024;
-        v114 = chatStatus;
-        v115 = 1024;
-        v116 = chatStyle;
-        v117 = 2112;
-        v118 = lastAddressedHandle;
-        v119 = 2112;
-        v120 = lastAddressedSIMID;
+        v111 = chatIdentifier;
+        v112 = 1024;
+        v113 = chatStatus;
+        v114 = 1024;
+        v115 = chatStyle;
+        v116 = 2112;
+        v117 = lastAddressedHandle;
+        v118 = 2112;
+        v119 = lastAddressedSIMID;
         _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Chat: %@  status update: %d  style: %c lastAddressedHandle %@ lastAddressedSIMID %@", buf, 0x2Cu);
       }
     }
 
-    v107 = chatIdentifier;
-    [(IMDServiceSession *)self _mapRoomChatToGroupChat:&v107 style:&chatStyle];
-    v93 = v107;
+    v106 = chatIdentifier;
+    [(IMDServiceSession *)self _mapRoomChatToGroupChat:&v106 style:&chatStyle];
+    v92 = v106;
 
-    v86 = 0;
+    v85 = 0;
     v11 = [contextCopy chatStatus] + 1;
     if (v11 > 8)
     {
-      v85 = 0;
+      v84 = 0;
       goto LABEL_55;
     }
 
     if (((1 << v11) & 0x73) != 0)
     {
-      v88 = [(IMDServiceSession *)self chatForChatIdentifier:v93 style:chatStyle updatingAccount:1];
-      state = [v88 state];
-      v85 = (state & 0xFFFFFFFFFFFFFFFELL) == 2;
+      v87 = [(IMDServiceSession *)self chatForChatIdentifier:v92 style:chatStyle updatingAccount:1];
+      state = [v87 state];
+      v84 = (state & 0xFFFFFFFFFFFFFFFELL) == 2;
       if ((state & 0xFFFFFFFFFFFFFFFELL) == 2)
       {
         mEMORY[0x277D1AB78] = [MEMORY[0x277D1AB78] sharedCoordinator];
-        groupID = [v88 groupID];
+        groupID = [v87 groupID];
         [mEMORY[0x277D1AB78] informOfKickFromGroup:groupID];
       }
 
-      [v88 setState:0];
-      guid = [v88 guid];
+      [v87 setState:0];
+      guid = [v87 guid];
       [(IMDServiceSession *)self _removeChatGuidFromCoreDuet:guid];
 
-      v86 = v85;
+      v85 = v84;
 LABEL_54:
-      if (v88)
+      if (v87)
       {
 LABEL_56:
-        v91 = objc_alloc_init(MEMORY[0x277CBEB18]);
+        v90 = objc_alloc_init(MEMORY[0x277CBEB18]);
         if (chatStyle == 45)
         {
           v39 = MEMORY[0x277CBEAC0];
           obj = [MEMORY[0x277CCABB0] numberWithInt:2];
-          v40 = [v39 dictionaryWithObjectsAndKeys:{v93, *MEMORY[0x277D193A8], obj, *MEMORY[0x277D192F8], 0}];
-          [v91 addObject:v40];
+          v40 = [v39 dictionaryWithObjectsAndKeys:{v92, *MEMORY[0x277D193A8], obj, *MEMORY[0x277D192F8], 0}];
+          [v90 addObject:v40];
         }
 
         else
         {
-          v105 = 0u;
-          v106 = 0u;
-          v103 = 0u;
           v104 = 0u;
+          v105 = 0u;
+          v102 = 0u;
+          v103 = 0u;
           obj = [contextCopy handleInfo];
-          v41 = [obj countByEnumeratingWithState:&v103 objects:v110 count:16];
+          v41 = [obj countByEnumeratingWithState:&v102 objects:v109 count:16];
           if (v41)
           {
-            v92 = *v104;
+            v91 = *v103;
             v42 = *MEMORY[0x277D193A8];
             v43 = *MEMORY[0x277D193C0];
             v44 = *MEMORY[0x277D193A0];
-            v90 = *MEMORY[0x277D192F8];
+            v89 = *MEMORY[0x277D192F8];
             do
             {
               for (i = 0; i != v41; ++i)
               {
-                if (*v104 != v92)
+                if (*v103 != v91)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v46 = *(*(&v103 + 1) + 8 * i);
+                v46 = *(*(&v102 + 1) + 8 * i);
                 v47 = [v46 objectForKey:v42];
                 v48 = [v46 objectForKey:v43];
                 v49 = [v46 objectForKey:v44];
@@ -9876,29 +11256,29 @@ LABEL_56:
                 {
                   v50 = MEMORY[0x277CBEAC0];
                   v51 = [MEMORY[0x277CCABB0] numberWithInt:2];
-                  v52 = [v50 dictionaryWithObjectsAndKeys:{v47, v42, v51, v90, v48, v43, v49, v44, 0}];
-                  [v91 addObject:v52];
+                  v52 = [v50 dictionaryWithObjectsAndKeys:{v47, v42, v51, v89, v48, v43, v49, v44, 0}];
+                  [v90 addObject:v52];
                 }
               }
 
-              v41 = [obj countByEnumeratingWithState:&v103 objects:v110 count:16];
+              v41 = [obj countByEnumeratingWithState:&v102 objects:v109 count:16];
             }
 
             while (v41);
           }
         }
 
-        v53 = -[IMDServiceSession broadcasterForChatListenersWithBlackholeStatus:](self, "broadcasterForChatListenersWithBlackholeStatus:", [v88 isBlackholed]);
+        v53 = -[IMDServiceSession broadcasterForChatListenersWithBlackholeStatus:](self, "broadcasterForChatListenersWithBlackholeStatus:", [v87 isBlackholed]);
         account3 = [contextCopy account];
         accountID = [account3 accountID];
         v56 = chatStyle;
-        chatProperties = [v88 chatProperties];
-        groupID2 = [v88 groupID];
-        personCentricID = [v88 personCentricID];
-        LODWORD(v83) = [contextCopy chatStatus];
-        [v53 account:accountID chat:v93 style:v56 chatProperties:chatProperties groupID:groupID2 chatPersonCentricID:personCentricID statusChanged:v83 handleInfo:v91];
+        chatProperties = [v87 chatProperties];
+        groupID2 = [v87 groupID];
+        personCentricID = [v87 personCentricID];
+        LODWORD(v82) = [contextCopy chatStatus];
+        [v53 account:accountID chat:v92 style:v56 chatProperties:chatProperties groupID:groupID2 chatPersonCentricID:personCentricID statusChanged:v82 handleInfo:v90];
 
-        if (chatStyle != 45 && v86)
+        if (chatStyle != 45 && v85)
         {
           messageID = [contextCopy messageID];
           v62 = messageID;
@@ -9927,39 +11307,39 @@ LABEL_56:
           v68 = [objc_alloc(MEMORY[0x277D1A9E0]) initWithSender:0 time:0 guid:v64 type:3];
           v69 = chatStyle;
           account4 = [contextCopy account];
-          [(IMDServiceSession *)self _configureSessionInformationOnItem:v68 toChat:v93 withStyle:v69 forAccount:account4];
+          [(IMDServiceSession *)self _configureSessionInformationOnItem:v68 toChat:v92 withStyle:v69 forAccount:account4];
 
           [v68 setSender:0];
           [v68 setActionType:0];
-          account5 = [v88 account];
+          account5 = [v87 account];
           loginID = [account5 loginID];
           _stripFZIDPrefix = [loginID _stripFZIDPrefix];
 
           [v68 setDestinationCallerID:_stripFZIDPrefix];
           account6 = [contextCopy account];
-          [(IMDServiceSession *)self _storeTranscriptItem:v68 inChat:v88 account:account6];
+          [(IMDServiceSession *)self _storeTranscriptItem:v68 inChat:v87 account:account6];
         }
 
-        v101 = 0u;
-        v102 = 0u;
-        v99 = 0u;
         v100 = 0u;
+        v101 = 0u;
+        v98 = 0u;
+        v99 = 0u;
         serviceSessionDelegates = [(IMDServiceSession *)self serviceSessionDelegates];
-        v76 = [serviceSessionDelegates countByEnumeratingWithState:&v99 objects:v109 count:16];
+        v76 = [serviceSessionDelegates countByEnumeratingWithState:&v98 objects:v108 count:16];
         if (v76)
         {
-          v77 = *v100;
+          v77 = *v99;
           v78 = MEMORY[0x277D85CD0];
           do
           {
             for (j = 0; j != v76; ++j)
             {
-              if (*v100 != v77)
+              if (*v99 != v77)
               {
                 objc_enumerationMutation(serviceSessionDelegates);
               }
 
-              v80 = *(*(&v99 + 1) + 8 * j);
+              v80 = *(*(&v98 + 1) + 8 * j);
               if (objc_opt_respondsToSelector())
               {
                 block[0] = MEMORY[0x277D85DD0];
@@ -9967,56 +11347,56 @@ LABEL_56:
                 block[2] = sub_22B691EA0;
                 block[3] = &unk_2787073E8;
                 block[4] = v80;
-                v96 = contextCopy;
-                v97 = v93;
-                v98 = chatStyle;
+                v95 = contextCopy;
+                v96 = v92;
+                v97 = chatStyle;
                 dispatch_async(v78, block);
               }
             }
 
-            v76 = [serviceSessionDelegates countByEnumeratingWithState:&v99 objects:v109 count:16];
+            v76 = [serviceSessionDelegates countByEnumeratingWithState:&v98 objects:v108 count:16];
           }
 
           while (v76);
         }
 
-        if (v85)
+        if (v84)
         {
-          [v88 setCloudKitSyncState:0];
+          [v87 setCloudKitSyncState:0];
           v81 = +[IMDChatStore sharedInstance];
-          [v81 storeChat:v88];
+          [v81 storeChat:v87];
         }
 
-        chatIdentifier = v93;
+        chatIdentifier = v92;
         goto LABEL_89;
       }
 
 LABEL_55:
-      v88 = [(IMDServiceSession *)self chatForChatIdentifier:v93 style:chatStyle];
+      v87 = [(IMDServiceSession *)self chatForChatIdentifier:v92 style:chatStyle];
       goto LABEL_56;
     }
 
     if (((1 << v11) & 0x108) == 0)
     {
-      v85 = 0;
+      v84 = 0;
       if (v11 != 2)
       {
         goto LABEL_55;
       }
 
-      v88 = [(IMDServiceSession *)self chatForChatIdentifier:v93 style:chatStyle];
-      if ([v88 state] != 2)
+      v87 = [(IMDServiceSession *)self chatForChatIdentifier:v92 style:chatStyle];
+      if ([v87 state] != 2)
       {
-        [v88 setState:2];
+        [v87 setState:2];
 LABEL_53:
-        v85 = 1;
-        v86 = 0;
+        v84 = 1;
+        v85 = 0;
         goto LABEL_54;
       }
 
-      v85 = 0;
+      v84 = 0;
 LABEL_50:
-      v86 = 0;
+      v85 = 0;
       goto LABEL_54;
     }
 
@@ -10028,34 +11408,34 @@ LABEL_50:
     lastAddressedSIMID2 = [contextCopy lastAddressedSIMID];
     handleInfo = [contextCopy handleInfo];
     account7 = [contextCopy account];
-    LOBYTE(v84) = [contextCopy isBlackholed];
-    [(IMDServiceSession *)self registerChat:v93 style:v16 displayName:displayName groupID:groupID3 originalGroupID:originalGroupID lastAddressedHandle:lastAddressedHandle2 lastAddressedSIMID:lastAddressedSIMID2 handleInfo:handleInfo account:account7 isBlackholed:v84];
+    LOBYTE(v83) = [contextCopy isBlackholed];
+    [(IMDServiceSession *)self registerChat:v92 style:v16 displayName:displayName groupID:groupID3 originalGroupID:originalGroupID lastAddressedHandle:lastAddressedHandle2 lastAddressedSIMID:lastAddressedSIMID2 handleInfo:handleInfo account:account7 isBlackholed:v83];
 
     v24 = chatStyle;
     account8 = [contextCopy account];
-    v88 = [(IMDServiceSession *)self chatForChatIdentifier:v93 style:v24 account:account8 updatingAccount:1];
+    v87 = [(IMDServiceSession *)self chatForChatIdentifier:v92 style:v24 account:account8 updatingAccount:1];
 
-    isFiltered = [v88 isFiltered];
+    isFiltered = [v87 isFiltered];
     if (isFiltered == [contextCopy category] || objc_msgSend(contextCopy, "category") != 2)
     {
-      v85 = 0;
+      v84 = 0;
     }
 
     else
     {
-      [v88 setSpamDetectionSource:{objc_msgSend(contextCopy, "spamDetectionSource")}];
-      [v88 updateIsFiltered:{objc_msgSend(contextCopy, "category")}];
-      v85 = 1;
+      [v87 setSpamDetectionSource:{objc_msgSend(contextCopy, "spamDetectionSource")}];
+      [v87 updateIsFiltered:{objc_msgSend(contextCopy, "category")}];
+      v84 = 1;
     }
 
     v27 = [contextCopy chatStatus] == 2;
-    state2 = [v88 state];
+    state2 = [v87 state];
     if (v27)
     {
       if (state2 != 3)
       {
-        [v88 setState:3];
-        v85 = 1;
+        [v87 setState:3];
+        v84 = 1;
       }
 
       mEMORY[0x277D1A9B8] = [MEMORY[0x277D1A9B8] sharedFeatureFlags];
@@ -10066,14 +11446,14 @@ LABEL_50:
         goto LABEL_37;
       }
 
-      isFiltered2 = [v88 isFiltered];
+      isFiltered2 = [v87 isFiltered];
       v32 = contextCopy;
       if (!isFiltered2)
       {
         goto LABEL_38;
       }
 
-      [v88 updateIsFiltered:0];
+      [v87 updateIsFiltered:0];
     }
 
     else
@@ -10084,43 +11464,43 @@ LABEL_50:
         goto LABEL_38;
       }
 
-      [v88 setState:4];
+      [v87 setState:4];
     }
 
-    v85 = 1;
+    v84 = 1;
 LABEL_37:
     v32 = contextCopy;
 LABEL_38:
     if ([v32 category] == 2 || objc_msgSend(contextCopy, "category") == 3 || objc_msgSend(contextCopy, "category") == 4)
     {
-      spamExtensionName = [v88 spamExtensionName];
+      spamExtensionName = [v87 spamExtensionName];
       extensionName = [contextCopy extensionName];
       v35 = [spamExtensionName isEqualToString:extensionName];
 
       if ((v35 & 1) == 0)
       {
         extensionName2 = [contextCopy extensionName];
-        [v88 updateSMSSpamExtensionNameChatProperty:extensionName2];
+        [v87 updateSMSSpamExtensionNameChatProperty:extensionName2];
 
-        v85 = 1;
+        v84 = 1;
       }
     }
 
-    if (MEMORY[0x231897A20](v93) && [v88 isFiltered])
+    if (MEMORY[0x231897A20](v92) && [v87 isFiltered])
     {
       if (IMOSLoggingEnabled())
       {
         v37 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
         {
-          chatIdentifier2 = [v88 chatIdentifier];
+          chatIdentifier2 = [v87 chatIdentifier];
           *buf = 138412290;
-          v112 = chatIdentifier2;
+          v111 = chatIdentifier2;
           _os_log_impl(&dword_22B4CC000, v37, OS_LOG_TYPE_INFO, "Updating isFiltered to NO, chat ID is a business chat: %@", buf, 0xCu);
         }
       }
 
-      [v88 updateIsFiltered:0];
+      [v87 updateIsFiltered:0];
       goto LABEL_53;
     }
 
@@ -10138,13 +11518,11 @@ LABEL_38:
   }
 
 LABEL_89:
-
-  v82 = *MEMORY[0x277D85DE8];
 }
 
 - (void)willRemoveChat:(id)chat
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   chatCopy = chat;
   if (IMOSLoggingEnabled())
   {
@@ -10152,31 +11530,31 @@ LABEL_89:
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v18 = chatCopy;
+      v17 = chatCopy;
       _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Chat: %@ being removed.", buf, 0xCu);
     }
   }
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   serviceSessionDelegates = [(IMDServiceSession *)self serviceSessionDelegates];
-  v7 = [serviceSessionDelegates countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [serviceSessionDelegates countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(serviceSessionDelegates);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * v9);
+        v10 = *(*(&v11 + 1) + 8 * v9);
         if (objc_opt_respondsToSelector())
         {
           [v10 serviceSession:self willRemoveChat:chatCopy];
@@ -10186,18 +11564,16 @@ LABEL_89:
       }
 
       while (v7 != v9);
-      v7 = [serviceSessionDelegates countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [serviceSessionDelegates countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)willMoveChatToRecentlyDeleted:(id)deleted
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   deletedCopy = deleted;
   if (IMOSLoggingEnabled())
   {
@@ -10205,31 +11581,31 @@ LABEL_89:
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v18 = deletedCopy;
+      v17 = deletedCopy;
       _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Chat: %@ being moved to recently deleted.", buf, 0xCu);
     }
   }
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   serviceSessionDelegates = [(IMDServiceSession *)self serviceSessionDelegates];
-  v7 = [serviceSessionDelegates countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [serviceSessionDelegates countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(serviceSessionDelegates);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * v9);
+        v10 = *(*(&v11 + 1) + 8 * v9);
         if (objc_opt_respondsToSelector())
         {
           [v10 serviceSession:self willMoveChatToRecentlyDeleted:deletedCopy];
@@ -10239,18 +11615,16 @@ LABEL_89:
       }
 
       while (v7 != v9);
-      v7 = [serviceSessionDelegates countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [serviceSessionDelegates countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateDisplayName:(id)name fromDisplayName:(id)displayName fromID:(id)d forChatID:(id)iD identifier:(id)identifier style:(unsigned __int8)style messageID:(id)messageID
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   displayNameCopy = displayName;
   dCopy = d;
@@ -10263,9 +11637,9 @@ LABEL_89:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
-      v41 = displayNameCopy;
-      v42 = 2112;
-      v43 = nameCopy;
+      v40 = displayNameCopy;
+      v41 = 2112;
+      v42 = nameCopy;
       _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "Asked to update display name from %@ to %@", buf, 0x16u);
     }
   }
@@ -10291,7 +11665,7 @@ LABEL_89:
     if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v41 = v18;
+      v40 = v18;
       _os_log_impl(&dword_22B4CC000, v24, OS_LOG_TYPE_INFO, "Cannot insert display name update item for chat. Bailing. %@", buf, 0xCu);
     }
 
@@ -10343,7 +11717,7 @@ LABEL_18:
     if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v41 = nameCopy;
+      v40 = nameCopy;
       _os_log_impl(&dword_22B4CC000, v24, OS_LOG_TYPE_INFO, "Asked to update display name to existing name. Bailing. Name: %@", buf, 0xCu);
     }
 
@@ -10356,9 +11730,9 @@ LABEL_18:
     if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
-      v41 = nameCopy;
-      v42 = 2112;
-      v43 = v18;
+      v40 = nameCopy;
+      v41 = 2112;
+      v42 = v18;
       _os_log_impl(&dword_22B4CC000, v27, OS_LOG_TYPE_INFO, "Creating stamp item for new name: %@ on chat: %@", buf, 0x16u);
     }
   }
@@ -10389,7 +11763,6 @@ LABEL_18:
   }
 
 LABEL_33:
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_canInsertDisplayNameUpdateItemForChat:(id)chat
@@ -10406,6 +11779,208 @@ LABEL_33:
   }
 
   return v4;
+}
+
+- (id)didChangeMemberStatus:(int)status forHandle:(id)handle unformattedNumber:(id)number countryCode:(id)code forChat:(id)chat style:(unsigned __int8)style
+{
+  styleCopy = style;
+  v12 = *&status;
+  chatCopy = chat;
+  codeCopy = code;
+  numberCopy = number;
+  handleCopy = handle;
+  v18 = objc_alloc_init(IMDChatMemberStatusChangeContext);
+  [(IMDChatMemberStatusChangeContext *)v18 setStatus:v12];
+  [(IMDChatMemberStatusChangeContext *)v18 setHandleID:handleCopy];
+
+  [(IMDChatMemberStatusChangeContext *)v18 setUnformattedNumber:numberCopy];
+  [(IMDChatMemberStatusChangeContext *)v18 setCountryCode:codeCopy];
+
+  [(IMDChatMemberStatusChangeContext *)v18 setChatIdentifier:chatCopy];
+  [(IMDChatMemberStatusChangeContext *)v18 setStyle:styleCopy];
+  v19 = [(IMDServiceSession *)self didChangeMemberStatus:v18];
+
+  return v19;
+}
+
+- (id)didChangeMemberStatus:(int)status forHandle:(id)handle fromHandle:(id)fromHandle unformattedNumber:(id)number countryCode:(id)code forChat:(id)chat style:(unsigned __int8)style
+{
+  v13 = *&status;
+  chatCopy = chat;
+  codeCopy = code;
+  numberCopy = number;
+  fromHandleCopy = fromHandle;
+  handleCopy = handle;
+  v20 = objc_alloc_init(IMDChatMemberStatusChangeContext);
+  [(IMDChatMemberStatusChangeContext *)v20 setStatus:v13];
+  [(IMDChatMemberStatusChangeContext *)v20 setHandleID:handleCopy];
+
+  [(IMDChatMemberStatusChangeContext *)v20 setFromHandleID:fromHandleCopy];
+  [(IMDChatMemberStatusChangeContext *)v20 setUnformattedNumber:numberCopy];
+
+  [(IMDChatMemberStatusChangeContext *)v20 setCountryCode:codeCopy];
+  [(IMDChatMemberStatusChangeContext *)v20 setChatIdentifier:chatCopy];
+
+  [(IMDChatMemberStatusChangeContext *)v20 setStyle:style];
+  v21 = [(IMDServiceSession *)self didChangeMemberStatus:v20];
+
+  return v21;
+}
+
+- (id)didChangeMemberStatus:(int)status forHandle:(id)handle fromHandle:(id)fromHandle unformattedNumber:(id)number countryCode:(id)code forChat:(id)chat style:(unsigned __int8)style account:(id)self0
+{
+  v15 = *&status;
+  accountCopy = account;
+  chatCopy = chat;
+  codeCopy = code;
+  numberCopy = number;
+  fromHandleCopy = fromHandle;
+  handleCopy = handle;
+  v22 = objc_alloc_init(IMDChatMemberStatusChangeContext);
+  [(IMDChatMemberStatusChangeContext *)v22 setStatus:v15];
+  [(IMDChatMemberStatusChangeContext *)v22 setHandleID:handleCopy];
+
+  [(IMDChatMemberStatusChangeContext *)v22 setFromHandleID:fromHandleCopy];
+  [(IMDChatMemberStatusChangeContext *)v22 setUnformattedNumber:numberCopy];
+
+  [(IMDChatMemberStatusChangeContext *)v22 setCountryCode:codeCopy];
+  [(IMDChatMemberStatusChangeContext *)v22 setChatIdentifier:chatCopy];
+
+  [(IMDChatMemberStatusChangeContext *)v22 setStyle:style];
+  [(IMDChatMemberStatusChangeContext *)v22 setAccount:accountCopy];
+
+  v23 = [(IMDServiceSession *)self didChangeMemberStatus:v22];
+
+  return v23;
+}
+
+- (id)didChangeMemberStatus:(int)status forHandle:(id)handle fromHandle:(id)fromHandle unformattedNumber:(id)number countryCode:(id)code forChat:(id)chat style:(unsigned __int8)style account:(id)self0 destinationCallerID:(id)self1
+{
+  v16 = *&status;
+  dCopy = d;
+  accountCopy = account;
+  chatCopy = chat;
+  codeCopy = code;
+  numberCopy = number;
+  fromHandleCopy = fromHandle;
+  handleCopy = handle;
+  v24 = objc_alloc_init(IMDChatMemberStatusChangeContext);
+  [(IMDChatMemberStatusChangeContext *)v24 setStatus:v16];
+  [(IMDChatMemberStatusChangeContext *)v24 setHandleID:handleCopy];
+
+  [(IMDChatMemberStatusChangeContext *)v24 setFromHandleID:fromHandleCopy];
+  [(IMDChatMemberStatusChangeContext *)v24 setUnformattedNumber:numberCopy];
+
+  [(IMDChatMemberStatusChangeContext *)v24 setCountryCode:codeCopy];
+  [(IMDChatMemberStatusChangeContext *)v24 setChatIdentifier:chatCopy];
+
+  [(IMDChatMemberStatusChangeContext *)v24 setStyle:style];
+  [(IMDChatMemberStatusChangeContext *)v24 setAccount:accountCopy];
+
+  [(IMDChatMemberStatusChangeContext *)v24 setDestinationCallerID:dCopy];
+  v25 = [(IMDServiceSession *)self didChangeMemberStatus:v24];
+
+  return v25;
+}
+
+- (id)didChangeMemberStatus:(int)status forHandle:(id)handle fromHandle:(id)fromHandle unformattedNumber:(id)number countryCode:(id)code forChat:(id)chat style:(unsigned __int8)style account:(id)self0 destinationCallerID:(id)self1 messageTime:(id)self2
+{
+  v17 = *&status;
+  timeCopy = time;
+  dCopy = d;
+  accountCopy = account;
+  chatCopy = chat;
+  codeCopy = code;
+  numberCopy = number;
+  fromHandleCopy = fromHandle;
+  handleCopy = handle;
+  v25 = objc_alloc_init(IMDChatMemberStatusChangeContext);
+  [(IMDChatMemberStatusChangeContext *)v25 setStatus:v17];
+  [(IMDChatMemberStatusChangeContext *)v25 setHandleID:handleCopy];
+
+  [(IMDChatMemberStatusChangeContext *)v25 setFromHandleID:fromHandleCopy];
+  [(IMDChatMemberStatusChangeContext *)v25 setUnformattedNumber:numberCopy];
+
+  [(IMDChatMemberStatusChangeContext *)v25 setCountryCode:codeCopy];
+  [(IMDChatMemberStatusChangeContext *)v25 setChatIdentifier:chatCopy];
+
+  [(IMDChatMemberStatusChangeContext *)v25 setStyle:style];
+  [(IMDChatMemberStatusChangeContext *)v25 setAccount:accountCopy];
+
+  [(IMDChatMemberStatusChangeContext *)v25 setDestinationCallerID:dCopy];
+  [(IMDChatMemberStatusChangeContext *)v25 setMessageTime:timeCopy];
+
+  v26 = [(IMDServiceSession *)self didChangeMemberStatus:v25];
+
+  return v26;
+}
+
+- (id)didChangeMemberStatus:(int)status forHandle:(id)handle fromHandle:(id)fromHandle unformattedNumber:(id)number countryCode:(id)code forChat:(id)chat style:(unsigned __int8)style account:(id)self0 destinationCallerID:(id)self1 messageTime:(id)self2 silently:(BOOL)self3
+{
+  v18 = *&status;
+  timeCopy = time;
+  dCopy = d;
+  accountCopy = account;
+  chatCopy = chat;
+  codeCopy = code;
+  numberCopy = number;
+  fromHandleCopy = fromHandle;
+  handleCopy = handle;
+  v26 = objc_alloc_init(IMDChatMemberStatusChangeContext);
+  [(IMDChatMemberStatusChangeContext *)v26 setStatus:v18];
+  [(IMDChatMemberStatusChangeContext *)v26 setHandleID:handleCopy];
+
+  [(IMDChatMemberStatusChangeContext *)v26 setFromHandleID:fromHandleCopy];
+  [(IMDChatMemberStatusChangeContext *)v26 setUnformattedNumber:numberCopy];
+
+  [(IMDChatMemberStatusChangeContext *)v26 setCountryCode:codeCopy];
+  [(IMDChatMemberStatusChangeContext *)v26 setChatIdentifier:chatCopy];
+
+  [(IMDChatMemberStatusChangeContext *)v26 setStyle:style];
+  [(IMDChatMemberStatusChangeContext *)v26 setAccount:accountCopy];
+
+  [(IMDChatMemberStatusChangeContext *)v26 setDestinationCallerID:dCopy];
+  [(IMDChatMemberStatusChangeContext *)v26 setMessageTime:timeCopy];
+
+  [(IMDChatMemberStatusChangeContext *)v26 setSilently:silently];
+  v27 = [(IMDServiceSession *)self didChangeMemberStatus:v26];
+
+  return v27;
+}
+
+- (id)didChangeMemberStatus:(int)status forHandle:(id)handle fromHandle:(id)fromHandle unformattedNumber:(id)number countryCode:(id)code forChat:(id)chat style:(unsigned __int8)style account:(id)self0 destinationCallerID:(id)self1 messageTime:(id)self2 messageID:(id)self3 silently:(BOOL)self4
+{
+  v19 = *&status;
+  iDCopy = iD;
+  timeCopy = time;
+  dCopy = d;
+  accountCopy = account;
+  chatCopy = chat;
+  codeCopy = code;
+  numberCopy = number;
+  fromHandleCopy = fromHandle;
+  handleCopy = handle;
+  v27 = objc_alloc_init(IMDChatMemberStatusChangeContext);
+  [(IMDChatMemberStatusChangeContext *)v27 setStatus:v19];
+  [(IMDChatMemberStatusChangeContext *)v27 setHandleID:handleCopy];
+
+  [(IMDChatMemberStatusChangeContext *)v27 setFromHandleID:fromHandleCopy];
+  [(IMDChatMemberStatusChangeContext *)v27 setUnformattedNumber:numberCopy];
+
+  [(IMDChatMemberStatusChangeContext *)v27 setCountryCode:codeCopy];
+  [(IMDChatMemberStatusChangeContext *)v27 setChatIdentifier:chatCopy];
+
+  [(IMDChatMemberStatusChangeContext *)v27 setStyle:style];
+  [(IMDChatMemberStatusChangeContext *)v27 setAccount:accountCopy];
+
+  [(IMDChatMemberStatusChangeContext *)v27 setDestinationCallerID:dCopy];
+  [(IMDChatMemberStatusChangeContext *)v27 setMessageTime:timeCopy];
+
+  [(IMDChatMemberStatusChangeContext *)v27 setMessageID:iDCopy];
+  [(IMDChatMemberStatusChangeContext *)v27 setSilently:silently];
+  v28 = [(IMDServiceSession *)self didChangeMemberStatus:v27];
+
+  return v28;
 }
 
 - (id)_chatForMemberStatusChange:(id)change
@@ -10430,7 +12005,7 @@ LABEL_33:
 
 - (id)didChangeMemberStatus:(id)status
 {
-  v131 = *MEMORY[0x277D85DE8];
+  v130 = *MEMORY[0x277D85DE8];
   statusCopy = status;
   v5 = statusCopy;
   selfCopy = self;
@@ -10463,18 +12038,18 @@ LABEL_33:
       unformattedNumber = [v5 unformattedNumber];
       countryCode = [v5 countryCode];
       *buf = 138413826;
-      v118 = chatIdentifier;
-      v119 = 2112;
-      v120 = handleID;
-      v121 = 2112;
-      v122 = fromHandleID;
-      v123 = 2112;
-      v124 = unformattedNumber;
-      v125 = 2112;
-      v126 = countryCode;
-      v127 = 1024;
+      v117 = chatIdentifier;
+      v118 = 2112;
+      v119 = handleID;
+      v120 = 2112;
+      v121 = fromHandleID;
+      v122 = 2112;
+      v123 = unformattedNumber;
+      v124 = 2112;
+      v125 = countryCode;
+      v126 = 1024;
       status = [v5 status];
-      v129 = 1024;
+      v128 = 1024;
       style = [v5 style];
       _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "Chat: %@  member: %@ from member: %@ unformated: %@ country: %@ status update: %d  style: %c", buf, 0x40u);
     }
@@ -10489,17 +12064,17 @@ LABEL_33:
 
   participantHandles = [v15 participantHandles];
   handleID3 = [v5 handleID];
-  v101 = [participantHandles containsObject:handleID3];
+  v100 = [participantHandles containsObject:handleID3];
 
   participants = [v15 participants];
-  v100 = [participants __imArrayByApplyingBlock:&unk_283F1AC28];
+  v99 = [participants __imArrayByApplyingBlock:&unk_283F1AC28];
 
   v23 = [v5 status] + 1;
   if (v23 > 6)
   {
-    v101 = 0;
+    v100 = 0;
 LABEL_36:
-    HIDWORD(v99) = 1;
+    HIDWORD(v98) = 1;
     goto LABEL_37;
   }
 
@@ -10509,25 +12084,25 @@ LABEL_36:
     chatIdentifier2 = [v15 chatIdentifier];
     v36 = [v34 allExistingChatsWithIdentifier:chatIdentifier2 style:{objc_msgSend(v15, "style")}];
 
-    v112 = 0u;
-    v113 = 0u;
-    v110 = 0u;
     v111 = 0u;
+    v112 = 0u;
+    v109 = 0u;
+    v110 = 0u;
     v37 = v36;
-    v38 = [v37 countByEnumeratingWithState:&v110 objects:v116 count:16];
+    v38 = [v37 countByEnumeratingWithState:&v109 objects:v115 count:16];
     if (v38)
     {
-      v39 = *v111;
+      v39 = *v110;
       do
       {
         for (i = 0; i != v38; ++i)
         {
-          if (*v111 != v39)
+          if (*v110 != v39)
           {
             objc_enumerationMutation(v37);
           }
 
-          v41 = *(*(&v110 + 1) + 8 * i);
+          v41 = *(*(&v109 + 1) + 8 * i);
           style2 = [v41 style];
           if (style2 == [v15 style])
           {
@@ -10535,13 +12110,13 @@ LABEL_36:
           }
         }
 
-        v38 = [v37 countByEnumeratingWithState:&v110 objects:v116 count:16];
+        v38 = [v37 countByEnumeratingWithState:&v109 objects:v115 count:16];
       }
 
       while (v38);
     }
 
-    v101 ^= 1u;
+    v100 ^= 1u;
     goto LABEL_36;
   }
 
@@ -10549,36 +12124,36 @@ LABEL_36:
   chatIdentifier3 = [v15 chatIdentifier];
   v26 = [v24 allExistingChatsWithIdentifier:chatIdentifier3 style:{objc_msgSend(v15, "style")}];
 
-  v108 = 0u;
-  v109 = 0u;
-  v106 = 0u;
   v107 = 0u;
+  v108 = 0u;
+  v105 = 0u;
+  v106 = 0u;
   v27 = v26;
-  v28 = [v27 countByEnumeratingWithState:&v106 objects:v115 count:16];
+  v28 = [v27 countByEnumeratingWithState:&v105 objects:v114 count:16];
   if (!v28)
   {
 
-    if ((v101 & 1) == 0)
+    if ((v100 & 1) == 0)
     {
       goto LABEL_43;
     }
 
-    HIDWORD(v99) = 0;
+    HIDWORD(v98) = 0;
     goto LABEL_41;
   }
 
   v29 = 0;
-  v30 = *v107;
+  v30 = *v106;
   do
   {
     for (j = 0; j != v28; ++j)
     {
-      if (*v107 != v30)
+      if (*v106 != v30)
       {
         objc_enumerationMutation(v27);
       }
 
-      v32 = *(*(&v106 + 1) + 8 * j);
+      v32 = *(*(&v105 + 1) + 8 * j);
       style3 = [v32 style];
       if (style3 == [v15 style])
       {
@@ -10586,16 +12161,16 @@ LABEL_36:
       }
     }
 
-    v28 = [v27 countByEnumeratingWithState:&v106 objects:v115 count:16];
+    v28 = [v27 countByEnumeratingWithState:&v105 objects:v114 count:16];
   }
 
   while (v28);
 
-  HIDWORD(v99) = 0;
+  HIDWORD(v98) = 0;
   if ((v29 & 1) == 0)
   {
 LABEL_40:
-    if (!v101)
+    if (!v100)
     {
       goto LABEL_43;
     }
@@ -10611,8 +12186,8 @@ LABEL_37:
   chatProperties = [v15 chatProperties];
   personCentricID = [v15 personCentricID];
   handleInfo = [(IMDHandle *)v20 handleInfo];
-  LODWORD(v99) = [v5 status];
-  [broadcasterForChatListeners account:accountID chat:chatIdentifier4 style:style4 chatProperties:chatProperties chatPersonCentricID:personCentricID member:handleInfo statusChanged:v99];
+  LODWORD(v98) = [v5 status];
+  [broadcasterForChatListeners account:accountID chat:chatIdentifier4 style:style4 chatProperties:chatProperties chatPersonCentricID:personCentricID member:handleInfo statusChanged:v98];
 
   if ([v15 style] != 43)
   {
@@ -10623,12 +12198,12 @@ LABEL_37:
   v51 = [participants2 __imArrayByApplyingBlock:&unk_283F1AC48];
 
   v52 = +[IMDChatRegistry sharedInstance];
-  v114[0] = v100;
-  v114[1] = v51;
-  v53 = [MEMORY[0x277CBEA60] arrayWithObjects:v114 count:2];
+  v113[0] = v99;
+  v113[1] = v51;
+  v53 = [MEMORY[0x277CBEA60] arrayWithObjects:v113 count:2];
   [v52 _remergeChatsWithParticipantIDsSets:v53];
 
-  if ((v101 & 1) == 0)
+  if ((v100 & 1) == 0)
   {
     goto LABEL_43;
   }
@@ -10636,20 +12211,20 @@ LABEL_37:
 LABEL_41:
   if ([v15 style] != 45 && (objc_msgSend(v5, "silently") & 1) == 0)
   {
-    if ((v99 & 0x100000000) != 0)
+    if ((v98 & 0x100000000) != 0)
     {
-      v56 = 0;
+      v55 = 0;
     }
 
     else
     {
       fromHandleID2 = [v5 fromHandleID];
       handleID4 = [v5 handleID];
-      v56 = [fromHandleID2 isEqualToIgnoringCase:handleID4];
+      v55 = [fromHandleID2 isEqualToIgnoringCase:handleID4];
     }
 
     messageID = [v5 messageID];
-    v60 = messageID;
+    v59 = messageID;
     if (messageID)
     {
       stringGUID = messageID;
@@ -10660,127 +12235,127 @@ LABEL_41:
       stringGUID = [MEMORY[0x277CCACA8] stringGUID];
     }
 
-    v62 = stringGUID;
+    v61 = stringGUID;
 
-    v63 = +[IMDMessageStore sharedInstance];
-    v102 = [v63 itemWithGUID:v62];
+    v62 = +[IMDMessageStore sharedInstance];
+    v101 = [v62 itemWithGUID:v61];
 
-    if (v102)
+    if (v101)
     {
       stringGUID2 = [MEMORY[0x277CCACA8] stringGUID];
 
-      v62 = stringGUID2;
+      v61 = stringGUID2;
     }
 
-    if (v56)
+    if (v55)
     {
-      v65 = objc_alloc(MEMORY[0x277D1A9E0]);
+      v64 = objc_alloc(MEMORY[0x277D1A9E0]);
       fromHandleID3 = [v5 fromHandleID];
-      v67 = [v65 initWithSender:fromHandleID3 time:0 guid:v62 type:3];
+      v66 = [v64 initWithSender:fromHandleID3 time:0 guid:v61 type:3];
 
       chatIdentifier5 = [v15 chatIdentifier];
-      -[IMDServiceSession _configureSessionInformationOnItem:toChat:withStyle:forAccount:](selfCopy, "_configureSessionInformationOnItem:toChat:withStyle:forAccount:", v67, chatIdentifier5, [v15 style], account2);
+      -[IMDServiceSession _configureSessionInformationOnItem:toChat:withStyle:forAccount:](selfCopy, "_configureSessionInformationOnItem:toChat:withStyle:forAccount:", v66, chatIdentifier5, [v15 style], account2);
 
       unformattedNumber3 = [v5 unformattedNumber];
-      [v67 setOtherUnformattedID:unformattedNumber3];
+      [v66 setOtherUnformattedID:unformattedNumber3];
 
       countryCode3 = [v5 countryCode];
-      [v67 setOtherCountryCode:countryCode3];
+      [v66 setOtherCountryCode:countryCode3];
 
-      [v67 setActionType:0];
+      [v66 setActionType:0];
       if (IMOSLoggingEnabled())
       {
-        v71 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v71, OS_LOG_TYPE_INFO))
+        v70 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v70, OS_LOG_TYPE_INFO))
         {
-          otherHandle = [v67 otherHandle];
+          otherHandle = [v66 otherHandle];
           *buf = 138412290;
-          v118 = otherHandle;
-          _os_log_impl(&dword_22B4CC000, v71, OS_LOG_TYPE_INFO, "Storing participant leave: %@", buf, 0xCu);
+          v117 = otherHandle;
+          _os_log_impl(&dword_22B4CC000, v70, OS_LOG_TYPE_INFO, "Storing participant leave: %@", buf, 0xCu);
         }
       }
     }
 
     else
     {
-      v73 = objc_alloc(MEMORY[0x277D1AB28]);
+      v72 = objc_alloc(MEMORY[0x277D1AB28]);
       fromHandleID4 = [v5 fromHandleID];
       messageTime = [v5 messageTime];
-      v76 = [v73 initWithSender:fromHandleID4 time:messageTime guid:v62 type:1];
+      v75 = [v72 initWithSender:fromHandleID4 time:messageTime guid:v61 type:1];
 
       chatIdentifier6 = [v15 chatIdentifier];
-      -[IMDServiceSession _configureSessionInformationOnItem:toChat:withStyle:forAccount:](selfCopy, "_configureSessionInformationOnItem:toChat:withStyle:forAccount:", v76, chatIdentifier6, [v15 style], account2);
+      -[IMDServiceSession _configureSessionInformationOnItem:toChat:withStyle:forAccount:](selfCopy, "_configureSessionInformationOnItem:toChat:withStyle:forAccount:", v75, chatIdentifier6, [v15 style], account2);
 
       handleID5 = [v5 handleID];
-      [v76 setOtherHandle:handleID5];
+      [v75 setOtherHandle:handleID5];
 
       unformattedNumber4 = [v5 unformattedNumber];
-      [v76 setOtherUnformattedID:unformattedNumber4];
+      [v75 setOtherUnformattedID:unformattedNumber4];
 
       countryCode4 = [v5 countryCode];
-      [v76 setOtherCountryCode:countryCode4];
+      [v75 setOtherCountryCode:countryCode4];
 
-      [v76 setUnattributed:{objc_msgSend(v5, "unattributed")}];
-      [v76 setChangeType:HIDWORD(v99) ^ 1u];
+      [v75 setUnattributed:{objc_msgSend(v5, "unattributed")}];
+      [v75 setChangeType:HIDWORD(v98) ^ 1u];
       if (IMOSLoggingEnabled())
       {
-        v81 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v81, OS_LOG_TYPE_INFO))
+        v80 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v80, OS_LOG_TYPE_INFO))
         {
-          if (HIDWORD(v99))
+          if (HIDWORD(v98))
           {
-            v82 = @"invite";
+            v81 = @"invite";
           }
 
           else
           {
-            v82 = @"remove";
+            v81 = @"remove";
           }
 
-          sender = [v76 sender];
-          otherHandle2 = [v76 otherHandle];
+          sender = [v75 sender];
+          otherHandle2 = [v75 otherHandle];
           *buf = 138412802;
-          v118 = v82;
-          v119 = 2112;
-          v120 = sender;
-          v121 = 2112;
-          v122 = otherHandle2;
-          _os_log_impl(&dword_22B4CC000, v81, OS_LOG_TYPE_INFO, "Storing %@ participant change item  %@ => %@", buf, 0x20u);
+          v117 = v81;
+          v118 = 2112;
+          v119 = sender;
+          v120 = 2112;
+          v121 = otherHandle2;
+          _os_log_impl(&dword_22B4CC000, v80, OS_LOG_TYPE_INFO, "Storing %@ participant change item  %@ => %@", buf, 0x20u);
         }
       }
 
-      v67 = v76;
+      v66 = v75;
       if ([MEMORY[0x277D1AC58] isInternationalSpamFilteringEnabled] && objc_msgSend(v15, "isBlackholed") && objc_msgSend(v5, "status") == 2)
       {
-        v85 = MEMORY[0x277D1AC58];
+        v84 = MEMORY[0x277D1AC58];
         handleID6 = [v5 handleID];
-        LODWORD(v85) = [v85 isKnownContact:handleID6];
+        LODWORD(v84) = [v84 isKnownContact:handleID6];
 
-        v87 = IMOSLoggingEnabled();
-        if (v85)
+        v86 = IMOSLoggingEnabled();
+        if (v84)
         {
-          if (v87)
+          if (v86)
           {
-            v88 = OSLogHandleForIMFoundationCategory();
-            if (os_log_type_enabled(v88, OS_LOG_TYPE_INFO))
+            v87 = OSLogHandleForIMFoundationCategory();
+            if (os_log_type_enabled(v87, OS_LOG_TYPE_INFO))
             {
               handleID7 = [v5 handleID];
               guid = [v15 guid];
               *buf = 138412546;
-              v118 = handleID7;
-              v119 = 2112;
-              v120 = guid;
-              _os_log_impl(&dword_22B4CC000, v88, OS_LOG_TYPE_INFO, "Hawking: New participant (%@) added to chat (%@) is a known contact.", buf, 0x16u);
+              v117 = handleID7;
+              v118 = 2112;
+              v119 = guid;
+              _os_log_impl(&dword_22B4CC000, v87, OS_LOG_TYPE_INFO, "Hawking: New participant (%@) added to chat (%@) is a known contact.", buf, 0x16u);
             }
           }
 
           [v15 updateIsBlackholed:0];
           participants3 = [v15 participants];
-          v92 = [participants3 count] == 1;
+          v91 = [participants3 count] == 1;
 
           mEMORY[0x277D1AAA8] = [MEMORY[0x277D1AAA8] sharedInstance];
-          v94 = mEMORY[0x277D1AAA8];
-          if (v92)
+          v93 = mEMORY[0x277D1AAA8];
+          if (v91)
           {
             [mEMORY[0x277D1AAA8] trackSpamEvent:24];
           }
@@ -10791,28 +12366,28 @@ LABEL_41:
           }
         }
 
-        else if (v87)
+        else if (v86)
         {
-          v95 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v95, OS_LOG_TYPE_INFO))
+          v94 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v94, OS_LOG_TYPE_INFO))
           {
             guid2 = [v15 guid];
             handleID8 = [v5 handleID];
             *buf = 138412546;
-            v118 = guid2;
-            v119 = 2112;
-            v120 = handleID8;
-            _os_log_impl(&dword_22B4CC000, v95, OS_LOG_TYPE_INFO, "Hawking: New participant (%@) added to chat (%@) is not a known contact.", buf, 0x16u);
+            v117 = guid2;
+            v118 = 2112;
+            v119 = handleID8;
+            _os_log_impl(&dword_22B4CC000, v94, OS_LOG_TYPE_INFO, "Hawking: New participant (%@) added to chat (%@) is not a known contact.", buf, 0x16u);
           }
         }
       }
     }
 
     destinationCallerID = [v5 destinationCallerID];
-    [v67 setDestinationCallerID:destinationCallerID];
+    [v66 setDestinationCallerID:destinationCallerID];
 
-    [(IMDServiceSession *)selfCopy _storeTranscriptItem:v67 inChat:v15 account:account2];
-    guid3 = [v67 guid];
+    [(IMDServiceSession *)selfCopy _storeTranscriptItem:v66 inChat:v15 account:account2];
+    guid3 = [v66 guid];
 
     goto LABEL_44;
   }
@@ -10822,37 +12397,36 @@ LABEL_43:
 LABEL_44:
 
 LABEL_45:
-  v54 = *MEMORY[0x277D85DE8];
 
   return guid3;
 }
 
 - (void)_storeTranscriptItem:(id)item inChat:(id)chat account:(id)account
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   chatCopy = chat;
   accountCopy = account;
   service = [(IMDServiceSession *)self service];
-  v31[0] = MEMORY[0x277D85DD0];
-  v31[1] = 3221225472;
-  v32 = sub_22B694464;
-  v33 = &unk_278707968;
-  v34 = chatCopy;
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v25 = sub_22B6944F8;
-  v26 = &unk_278707990;
-  v27 = itemCopy;
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v31 = sub_22B694464;
+  v32 = &unk_278707968;
+  v33 = chatCopy;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v24 = sub_22B6944F8;
+  v25 = &unk_278707990;
+  v26 = itemCopy;
   selfCopy = self;
-  v12 = v34;
-  v29 = v12;
+  v12 = v33;
+  v28 = v12;
   v13 = accountCopy;
-  v30 = v13;
+  v29 = v13;
   v14 = service;
-  v15 = v27;
-  v16 = v31;
-  v17 = v24;
+  v15 = v26;
+  v16 = v30;
+  v17 = v23;
   v18 = v15;
   if (IMOSLoggingEnabled())
   {
@@ -10860,7 +12434,7 @@ LABEL_45:
     if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v36 = v18;
+      v35 = v18;
       _os_log_impl(&dword_22B4CC000, v19, OS_LOG_TYPE_INFO, "Storing item: %@", buf, 0xCu);
     }
   }
@@ -10874,15 +12448,13 @@ LABEL_45:
     if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v36 = v21;
+      v35 = v21;
       _os_log_impl(&dword_22B4CC000, v22, OS_LOG_TYPE_INFO, "  => Result item: %@", buf, 0xCu);
     }
   }
 
-  v32(v16, v21);
-  v25(v17, 1, v18, v21);
-
-  v23 = *MEMORY[0x277D85DE8];
+  v31(v16, v21);
+  v24(v17, 1, v18, v21);
 }
 
 - (Class)spotlightItemRecorderClass
@@ -10899,7 +12471,7 @@ LABEL_45:
 
 - (void)_removeChatGuidFromCoreDuet:(id)duet
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   duetCopy = duet;
   if (IMOSLoggingEnabled())
   {
@@ -10907,7 +12479,7 @@ LABEL_45:
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v13 = duetCopy;
+      v12 = duetCopy;
       _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Going to remove chat guid from core duet %@", buf, 0xCu);
     }
   }
@@ -10915,17 +12487,15 @@ LABEL_45:
   if ([duetCopy length])
   {
     spotlightItemRecorder = [(objc_class *)[(IMDServiceSession *)self spotlightItemRecorderClass] spotlightItemRecorder];
-    v11 = duetCopy;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v11 count:1];
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = sub_22B694A10;
-    v9[3] = &unk_278704138;
     v10 = duetCopy;
-    [spotlightItemRecorder deleteSearchableItemsWithDomainIdentifiers:v7 bundleID:@"com.apple.MobileSMS" withCompletion:v9];
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v10 count:1];
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = sub_22B694A10;
+    v8[3] = &unk_278704138;
+    v9 = duetCopy;
+    [spotlightItemRecorder deleteSearchableItemsWithDomainIdentifiers:v7 bundleID:@"com.apple.MobileSMS" withCompletion:v8];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_markChatAsDowngraded:(id)downgraded
@@ -10990,7 +12560,7 @@ LABEL_13:
 
 - (void)_handleRoutingWithDictionary:(id)dictionary
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   if (IMOSLoggingEnabled())
   {
@@ -10998,19 +12568,17 @@ LABEL_13:
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v9 = dictionaryCopy;
+      v8 = dictionaryCopy;
       _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Handling routing dictionary: %@", buf, 0xCu);
     }
   }
 
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = sub_22B694EA8;
-  v7[3] = &unk_278706958;
-  v7[4] = self;
-  [dictionaryCopy enumerateKeysAndObjectsUsingBlock:v7];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = sub_22B694EA8;
+  v6[3] = &unk_278706958;
+  v6[4] = self;
+  [dictionaryCopy enumerateKeysAndObjectsUsingBlock:v6];
 }
 
 - (id)_downgradableServiceNames
@@ -11040,7 +12608,7 @@ LABEL_13:
 
 - (void)_updateRoutingTimerWithInterval:(double)interval
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (interval > 0.0 && self->_activated)
   {
     if (IMOSLoggingEnabled())
@@ -11048,9 +12616,9 @@ LABEL_13:
       v5 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
-        v11 = 134217984;
+        v10 = 134217984;
         intervalCopy = interval;
-        _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Scheduling a routing check with interval: %f", &v11, 0xCu);
+        _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Scheduling a routing check with interval: %f", &v10, 0xCu);
       }
     }
 
@@ -11066,8 +12634,6 @@ LABEL_13:
     v9 = self->_messageRoutingTimer;
     self->_messageRoutingTimer = v8;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_routingTimerFired
@@ -11091,7 +12657,7 @@ LABEL_13:
 
 - (void)_handleExpireStateDictionary:(id)dictionary
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   if (IMOSLoggingEnabled())
   {
@@ -11099,20 +12665,20 @@ LABEL_13:
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v21 = dictionaryCopy;
+      v20 = dictionaryCopy;
       _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Handling expire state dictionary: %@", buf, 0xCu);
     }
   }
 
   v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v14 = MEMORY[0x277D85DD0];
-  v15 = 3221225472;
-  v16 = sub_22B69662C;
-  v17 = &unk_278707A58;
+  v13 = MEMORY[0x277D85DD0];
+  v14 = 3221225472;
+  v15 = sub_22B69662C;
+  v16 = &unk_278707A58;
   selfCopy = self;
   v7 = v6;
-  v19 = v7;
-  [dictionaryCopy enumerateKeysAndObjectsUsingBlock:&v14];
+  v18 = v7;
+  [dictionaryCopy enumerateKeysAndObjectsUsingBlock:&v13];
   if ([v7 count])
   {
     if (IMOSLoggingEnabled())
@@ -11121,7 +12687,7 @@ LABEL_13:
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v21 = v7;
+        v20 = v7;
         _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "   delete expired messages: %@", buf, 0xCu);
       }
     }
@@ -11135,7 +12701,7 @@ LABEL_13:
       if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v21 = v10;
+        v20 = v10;
         _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "   deleted expired messages: %@", buf, 0xCu);
       }
     }
@@ -11146,8 +12712,6 @@ LABEL_13:
       [broadcasterForChatListeners historicalMessageGUIDsDeleted:v10 chatGUIDs:0 queryID:0];
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateExpireStateForMessageGUID:(id)d
@@ -11162,7 +12726,7 @@ LABEL_13:
 
 - (void)_updateExpireStateTimerWithInterval:(double)interval
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if (interval > 0.0 && self->_activated)
   {
     [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
@@ -11178,11 +12742,11 @@ LABEL_13:
           [fireDate timeIntervalSinceReferenceDate];
           v15 = v14;
           [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
-          v23 = 134218240;
+          v22 = 134218240;
           intervalCopy2 = interval;
-          v25 = 2048;
-          v26 = v15 - v16;
-          _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "Don't schedule expire state check with interval: %f, one is already scheduled with interval: %f", &v23, 0x16u);
+          v24 = 2048;
+          v25 = v15 - v16;
+          _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "Don't schedule expire state check with interval: %f, one is already scheduled with interval: %f", &v22, 0x16u);
         }
       }
     }
@@ -11194,9 +12758,9 @@ LABEL_13:
         v17 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
         {
-          v23 = 134217984;
+          v22 = 134217984;
           intervalCopy2 = interval;
-          _os_log_impl(&dword_22B4CC000, v17, OS_LOG_TYPE_INFO, "Scheduling an expire state check with interval: %f", &v23, 0xCu);
+          _os_log_impl(&dword_22B4CC000, v17, OS_LOG_TYPE_INFO, "Scheduling an expire state check with interval: %f", &v22, 0xCu);
         }
       }
 
@@ -11213,8 +12777,6 @@ LABEL_13:
       self->_messageExpireStateTimer = v20;
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_expireStateTimerFired
@@ -11237,7 +12799,7 @@ LABEL_13:
 
 - (void)_handleWatchdogWithDictionary:(id)dictionary
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   if (IMOSLoggingEnabled())
   {
@@ -11245,19 +12807,17 @@ LABEL_13:
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v9 = dictionaryCopy;
+      v8 = dictionaryCopy;
       _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Handling watchdog dictionary: %@", buf, 0xCu);
     }
   }
 
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = sub_22B6972BC;
-  v7[3] = &unk_278707A80;
-  v7[4] = self;
-  [dictionaryCopy enumerateKeysAndObjectsUsingBlock:v7];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = sub_22B6972BC;
+  v6[3] = &unk_278707A80;
+  v6[4] = self;
+  [dictionaryCopy enumerateKeysAndObjectsUsingBlock:v6];
 }
 
 - (void)_updateWatchdogForMessageGUID:(id)d
@@ -11273,7 +12833,7 @@ LABEL_13:
 
 - (void)_updateWatchdogTimerWithInterval:(double)interval
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if (interval > 0.0 && self->_activated)
   {
     [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
@@ -11289,11 +12849,11 @@ LABEL_13:
           [fireDate timeIntervalSinceReferenceDate];
           v15 = v14;
           [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
-          v23 = 134218240;
+          v22 = 134218240;
           intervalCopy2 = interval;
-          v25 = 2048;
-          v26 = v15 - v16;
-          _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "Don't schedule watchdog check with interval: %f, one is already scheduled with interval: %f", &v23, 0x16u);
+          v24 = 2048;
+          v25 = v15 - v16;
+          _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "Don't schedule watchdog check with interval: %f, one is already scheduled with interval: %f", &v22, 0x16u);
         }
       }
     }
@@ -11305,9 +12865,9 @@ LABEL_13:
         v17 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
         {
-          v23 = 134217984;
+          v22 = 134217984;
           intervalCopy2 = interval;
-          _os_log_impl(&dword_22B4CC000, v17, OS_LOG_TYPE_INFO, "Scheduling a watchdog check with interval: %f", &v23, 0xCu);
+          _os_log_impl(&dword_22B4CC000, v17, OS_LOG_TYPE_INFO, "Scheduling a watchdog check with interval: %f", &v22, 0xCu);
         }
       }
 
@@ -11324,8 +12884,6 @@ LABEL_13:
       self->_messageWatchdogTimer = v20;
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_watchdogTimerFired
@@ -11583,6 +13141,15 @@ LABEL_13:
   [storageController noteLastItemProcessed];
 }
 
+- (void)noteItemProcessed:(BOOL)processed batchContext:(id)context usingService:(id)service
+{
+  processedCopy = processed;
+  serviceCopy = service;
+  contextCopy = context;
+  storageController = [(IMDServiceSession *)self storageController];
+  [storageController noteItemProcessed:processedCopy batchContext:contextCopy usingService:serviceCopy];
+}
+
 - (BOOL)isAwaitingStorageTimer
 {
   storageController = [(IMDServiceSession *)self storageController];
@@ -11619,7 +13186,7 @@ LABEL_13:
 
 - (BOOL)_isMessageSWYSpamMessage:(id)message inChat:(id)chat
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   chatCopy = chat;
   service = [messageCopy service];
@@ -11627,23 +13194,23 @@ LABEL_13:
 
   if (v9 && [messageCopy containsRichLink] && (objc_msgSend(messageCopy, "body"), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "string"), v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v11, "im_matchesSOSMapURL"), v11, v10, (v12 & 1) == 0))
   {
-    v16 = [(IMDServiceSession *)self _predominantServiceForChat:chatCopy usingMessageThreshold:50];
+    v15 = [(IMDServiceSession *)self _predominantServiceForChat:chatCopy usingMessageThreshold:50];
     if (IMOSLoggingEnabled())
     {
-      v17 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+      v16 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
       {
-        v18 = 138412802;
-        v19 = messageCopy;
-        v20 = 2112;
-        v21 = chatCopy;
-        v22 = 2112;
-        v23 = v16;
-        _os_log_impl(&dword_22B4CC000, v17, OS_LOG_TYPE_INFO, "Predominant service check for incoming message:%@ in chat:%@ was determined to be %@", &v18, 0x20u);
+        v17 = 138412802;
+        v18 = messageCopy;
+        v19 = 2112;
+        v20 = chatCopy;
+        v21 = 2112;
+        v22 = v15;
+        _os_log_impl(&dword_22B4CC000, v16, OS_LOG_TYPE_INFO, "Predominant service check for incoming message:%@ in chat:%@ was determined to be %@", &v17, 0x20u);
       }
     }
 
-    v13 = [v16 isEqualToString:*MEMORY[0x277D1A620]];
+    v13 = [v15 isEqualToString:*MEMORY[0x277D1A620]];
   }
 
   else
@@ -11651,41 +13218,40 @@ LABEL_13:
     v13 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 - (BOOL)_shouldShowSWYQuickActionForMessage:(id)message outAppName:(id *)name outBundleID:(id *)d
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   messageCopy = message;
-  v32 = messageCopy;
+  v31 = messageCopy;
   if ([messageCopy containsRichLink])
   {
     dCopy = d;
     nameCopy = name;
     [messageCopy richLinkURLs];
+    v36 = 0u;
     v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
-    obj = v36 = 0u;
+    v34 = 0u;
+    obj = v35 = 0u;
     v8 = 0;
     v9 = 0;
     v10 = 0;
-    v11 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
+    v11 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
     if (v11)
     {
-      v12 = *v36;
+      v12 = *v35;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v36 != v12)
+          if (*v35 != v12)
           {
             objc_enumerationMutation(obj);
           }
 
-          v14 = *(*(&v35 + 1) + 8 * i);
+          v14 = *(*(&v34 + 1) + 8 * i);
           mEMORY[0x277D1AC40] = [MEMORY[0x277D1AC40] sharedManager];
           v16 = [mEMORY[0x277D1AC40] lsAppRecordForURL:v14 checkInstalledAppsOnly:1];
 
@@ -11720,7 +13286,7 @@ LABEL_13:
           }
         }
 
-        v11 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
+        v11 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
       }
 
       while (v11);
@@ -11746,13 +13312,12 @@ LABEL_13:
     v10 = 0;
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return v10 & 1;
 }
 
 - (id)_predominantServiceForChat:(id)chat usingMessageThreshold:(unint64_t)threshold
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   chatCopy = chat;
   v7 = IMOSLoggingEnabled();
   if (chatCopy && threshold)
@@ -11763,9 +13328,9 @@ LABEL_13:
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
         guid = [chatCopy guid];
-        v20 = 138412290;
-        v21 = guid;
-        _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Identifying the predominant service for chat: %@", &v20, 0xCu);
+        v19 = 138412290;
+        v20 = guid;
+        _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Identifying the predominant service for chat: %@", &v19, 0xCu);
       }
     }
 
@@ -11794,29 +13359,27 @@ LABEL_13:
       v17 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v20) = 0;
-        _os_log_impl(&dword_22B4CC000, v17, OS_LOG_TYPE_INFO, "Invalid chat or incorrect number of messages", &v20, 2u);
+        LOWORD(v19) = 0;
+        _os_log_impl(&dword_22B4CC000, v17, OS_LOG_TYPE_INFO, "Invalid chat or incorrect number of messages", &v19, 2u);
       }
     }
 
     v16 = 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v16;
 }
 
 - (id)_fetchMessagesFromChat:(id)chat onService:(id)service numberOfMessages:(unint64_t)messages
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   chatCopy = chat;
   serviceCopy = service;
   v9 = serviceCopy;
-  v35 = chatCopy;
+  v34 = chatCopy;
   if (chatCopy && messages && [serviceCopy length])
   {
-    v34 = v9;
+    v33 = v9;
     if ([chatCopy style] == 45)
     {
       participants = [chatCopy participants];
@@ -11829,31 +13392,31 @@ LABEL_13:
         {
           v13 = +[IMDChatStore sharedInstance];
           groupID = [firstObject ID];
-          v15 = [v13 chatsWithHandle:groupID onService:v34];
+          v15 = [v13 chatsWithHandle:groupID onService:v33];
 LABEL_16:
           v19 = v15;
 
 LABEL_18:
-          v39 = 0u;
-          v40 = 0u;
-          v37 = 0u;
           v38 = 0u;
+          v39 = 0u;
+          v36 = 0u;
+          v37 = 0u;
           obj = v19;
           v17 = 0;
-          v20 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
+          v20 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
           if (v20)
           {
-            v21 = *v38;
+            v21 = *v37;
             do
             {
               for (i = 0; i != v20; ++i)
               {
-                if (*v38 != v21)
+                if (*v37 != v21)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v23 = *(*(&v37 + 1) + 8 * i);
+                v23 = *(*(&v36 + 1) + 8 * i);
                 v24 = objc_alloc(MEMORY[0x277D18ED8]);
                 guid = [v23 guid];
                 v26 = [v24 initWithAssociatedChatGUID:guid];
@@ -11868,8 +13431,8 @@ LABEL_18:
                     guid2 = [v23 guid];
                     *buf = 134218242;
                     messagesCopy = messages;
-                    v44 = 2112;
-                    v45 = guid2;
+                    v43 = 2112;
+                    v44 = guid2;
                     _os_log_impl(&dword_22B4CC000, v28, OS_LOG_TYPE_INFO, "Failed to fetch %lu number of messages from chat %@", buf, 0x16u);
                   }
                 }
@@ -11879,10 +13442,10 @@ LABEL_18:
                   v17 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(nextBatch, "count")}];
                 }
 
-                [v17 addObjectsFromArray:{nextBatch, v34}];
+                [v17 addObjectsFromArray:{nextBatch, v33}];
               }
 
-              v20 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
+              v20 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
             }
 
             while (v20);
@@ -11902,7 +13465,7 @@ LABEL_18:
         if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          messagesCopy = v35;
+          messagesCopy = v34;
           _os_log_impl(&dword_22B4CC000, v30, OS_LOG_TYPE_INFO, "Incorrect chat %@, has more than the number of participants we expected!", buf, 0xCu);
         }
       }
@@ -11923,7 +13486,7 @@ LABEL_18:
       {
         v13 = +[IMDChatStore sharedInstance];
         groupID = [chatCopy groupID];
-        v15 = [v13 chatsWithHandles:firstObject onService:v34 displayName:0 groupID:groupID style:43];
+        v15 = [v13 chatsWithHandles:firstObject onService:v33 displayName:0 groupID:groupID style:43];
         goto LABEL_16;
       }
 
@@ -11941,7 +13504,7 @@ LABEL_18:
 
     v17 = 0;
 LABEL_44:
-    v9 = v34;
+    v9 = v33;
     goto LABEL_45;
   }
 
@@ -11952,9 +13515,9 @@ LABEL_44:
     {
       *buf = 138412802;
       messagesCopy = chatCopy;
-      v44 = 2112;
-      v45 = v9;
-      v46 = 2048;
+      v43 = 2112;
+      v44 = v9;
+      v45 = 2048;
       messagesCopy2 = messages;
       _os_log_impl(&dword_22B4CC000, v16, OS_LOG_TYPE_INFO, "Invalid parameter. chatGUID: %@ service: %@ number of messages:%lu", buf, 0x20u);
     }
@@ -11963,14 +13526,12 @@ LABEL_44:
   v17 = 0;
 LABEL_45:
 
-  v32 = *MEMORY[0x277D85DE8];
-
   return v17;
 }
 
 - (void)_configureSyndicationRangesForMessage:(id)message forChat:(id)chat withSyndicationStatus:(int64_t)status
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   chatCopy = chat;
   autoDonationBehavior = [chatCopy autoDonationBehavior];
@@ -11998,9 +13559,9 @@ LABEL_45:
         guid = [messageCopy guid];
         guid2 = [chatCopy guid];
         *buf = 138412546;
-        v39 = guid;
-        v40 = 2112;
-        v41 = guid2;
+        v38 = guid;
+        v39 = 2112;
+        v40 = guid2;
         _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "Configuring syndication ranges for incoming message:%@ in chat:%@", buf, 0x16u);
       }
     }
@@ -12008,29 +13569,29 @@ LABEL_45:
     v12 = objc_alloc(MEMORY[0x277D1AA58]);
     body = [messageCopy body];
     guid3 = [messageCopy guid];
-    v28 = [v12 initWithMessageBody:body messageGUID:guid3];
+    v27 = [v12 initWithMessageBody:body messageGUID:guid3];
 
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
     v34 = 0u;
-    obj = [v28 messageParts];
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
+    obj = [v27 messageParts];
     v15 = 0;
-    v16 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+    v16 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
     if (v16)
     {
-      v17 = *v34;
+      v17 = *v33;
       do
       {
         v18 = 0;
         do
         {
-          if (*v34 != v17)
+          if (*v33 != v17)
           {
             objc_enumerationMutation(obj);
           }
 
-          v19 = *(*(&v33 + 1) + 8 * v18);
+          v19 = *(*(&v32 + 1) + 8 * v18);
           v20 = objc_alloc(MEMORY[0x277D1AA98]);
           messagePartRange = [v19 messagePartRange];
           v23 = v22;
@@ -12048,7 +13609,7 @@ LABEL_45:
         }
 
         while (v16 != v18);
-        v16 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+        v16 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
       }
 
       while (v16);
@@ -12057,13 +13618,11 @@ LABEL_45:
     v26 = [v15 copy];
     [messageCopy setSyndicationRanges:v26];
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateBalloonPayload:(id)payload attachments:(id)attachments bundleID:(id)d forMessage:(id)message
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   payloadCopy = payload;
   attachmentsCopy = attachments;
   dCopy = d;
@@ -12101,9 +13660,9 @@ LABEL_45:
       v24 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
       {
-        v26 = 138412290;
-        v27 = messageCopy;
-        _os_log_impl(&dword_22B4CC000, v24, OS_LOG_TYPE_INFO, "Chat: Could not find a chat for message: %@", &v26, 0xCu);
+        v25 = 138412290;
+        v26 = messageCopy;
+        _os_log_impl(&dword_22B4CC000, v24, OS_LOG_TYPE_INFO, "Chat: Could not find a chat for message: %@", &v25, 0xCu);
       }
     }
 
@@ -12118,22 +13677,20 @@ LABEL_16:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
       guid3 = [messageCopy guid];
-      v26 = 138412290;
-      v27 = guid3;
-      _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "Chat: Could not update balloon payload for missing payload: %@", &v26, 0xCu);
+      v25 = 138412290;
+      v26 = guid3;
+      _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "Chat: Could not update balloon payload for missing payload: %@", &v25, 0xCu);
     }
 
     goto LABEL_16;
   }
 
 LABEL_17:
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteExistingMessageAwaitingReplacementWithFallbackHash:(id)hash chatIdentifier:(id)identifier
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   hashCopy = hash;
   identifierCopy = identifier;
   v7 = +[IMDChatRegistry sharedInstance];
@@ -12152,8 +13709,8 @@ LABEL_17:
     if (v14)
     {
       v15 = +[IMDMessageStore sharedInstance];
-      v25 = guid;
-      v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v25 count:1];
+      v24 = guid;
+      v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v24 count:1];
       v17 = [v15 deleteMessageGUIDs:v16 inChat:v8];
 
       if ([v17 count])
@@ -12172,7 +13729,7 @@ LABEL_17:
         if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v27 = guid;
+          v26 = guid;
           _os_log_impl(&dword_22B4CC000, v23, OS_LOG_TYPE_INFO, "Failed to delete message with GUID %@", buf, 0xCu);
         }
       }
@@ -12184,7 +13741,7 @@ LABEL_17:
       if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v27 = guid;
+        v26 = guid;
         _os_log_impl(&dword_22B4CC000, v22, OS_LOG_TYPE_INFO, "Message with GUID %@ not awaiting cross service replacement for iMessageLite", buf, 0xCu);
       }
     }
@@ -12196,17 +13753,15 @@ LABEL_17:
     if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v27 = hashCopy;
+      v26 = hashCopy;
       _os_log_impl(&dword_22B4CC000, v21, OS_LOG_TYPE_INFO, "Failed to find message with fallback hash %@ to delete", buf, 0xCu);
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_shouldConvergeChatParticipants:(id)participants withHandleInfo:(id)info
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   participantsCopy = participants;
   infoCopy = info;
   mEMORY[0x277D19268] = [MEMORY[0x277D19268] sharedInstance];
@@ -12236,32 +13791,32 @@ LABEL_16:
   v11 = [v9 count];
   if (v11 == [participantHandles count])
   {
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v12 = participantHandles;
-    v13 = [v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v13)
     {
-      v14 = *v19;
+      v14 = *v18;
       while (2)
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v19 != v14)
+          if (*v18 != v14)
           {
             objc_enumerationMutation(v12);
           }
 
-          if (![v9 containsObject:{*(*(&v18 + 1) + 8 * i), v18}])
+          if (![v9 containsObject:{*(*(&v17 + 1) + 8 * i), v17}])
           {
             LOBYTE(v13) = 1;
             goto LABEL_19;
           }
         }
 
-        v13 = [v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v13 = [v12 countByEnumeratingWithState:&v17 objects:v21 count:16];
         if (v13)
         {
           continue;
@@ -12280,14 +13835,13 @@ LABEL_19:
   }
 
 LABEL_21:
-  v16 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 - (void)_calculateHandleInfoOverrideIfPermittedForChatIdentifier:(id)identifier style:(unsigned __int8)style completion:(id)completion
 {
   styleCopy = style;
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   completionCopy = completion;
   mEMORY[0x277D19268] = [MEMORY[0x277D19268] sharedInstance];
@@ -12295,22 +13849,22 @@ LABEL_21:
 
   if (styleCopy == 43 && isInternalInstall)
   {
-    v35 = IMGetCachedDomainValueForKey();
+    v34 = IMGetCachedDomainValueForKey();
     IMSetDomainValueForKey();
     objc_opt_class();
-    v9 = v35;
+    v9 = v34;
     if (objc_opt_isKindOfClass())
     {
       v10 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v43 = 0u;
       v44 = 0u;
       v45 = 0u;
       v46 = 0u;
-      v47 = 0u;
-      obj = v35;
-      v11 = [obj countByEnumeratingWithState:&v44 objects:v52 count:16];
+      obj = v34;
+      v11 = [obj countByEnumeratingWithState:&v43 objects:v51 count:16];
       if (v11)
       {
-        v12 = *v45;
+        v12 = *v44;
         v13 = *MEMORY[0x277D193A8];
         v14 = *MEMORY[0x277D193C0];
         v15 = *MEMORY[0x277D192F8];
@@ -12318,23 +13872,23 @@ LABEL_21:
         {
           for (i = 0; i != v11; ++i)
           {
-            if (*v45 != v12)
+            if (*v44 != v12)
             {
               objc_enumerationMutation(obj);
             }
 
-            v17 = *(*(&v44 + 1) + 8 * i);
-            v50[0] = v13;
-            v50[1] = v14;
-            v51[0] = v17;
-            v51[1] = v17;
-            v50[2] = v15;
-            v51[2] = &unk_283F4ECA8;
-            v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v51 forKeys:v50 count:3];
+            v17 = *(*(&v43 + 1) + 8 * i);
+            v49[0] = v13;
+            v49[1] = v14;
+            v50[0] = v17;
+            v50[1] = v17;
+            v49[2] = v15;
+            v50[2] = &unk_283F4ECA8;
+            v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v50 forKeys:v49 count:3];
             [v10 addObject:v18];
           }
 
-          v11 = [obj countByEnumeratingWithState:&v44 objects:v52 count:16];
+          v11 = [obj countByEnumeratingWithState:&v43 objects:v51 count:16];
         }
 
         while (v11);
@@ -12349,17 +13903,17 @@ LABEL_21:
       v25 = [v23 stringWithFormat:@"I am overriding chat participants for %@ to %@. This was triggered by a regression test.", identifierCopy, v24];
       v26 = [v20 userNotificationWithIdentifier:uUIDString title:@"I am doing something sneaky." message:v25 defaultButton:@"I did it!" alternateButton:@"I did not do that." otherButton:0];
 
-      *v40 = 0;
-      v41 = v40;
-      v42 = 0x2020000000;
-      v43 = 0;
-      v39[0] = MEMORY[0x277D85DD0];
-      v39[1] = 3221225472;
-      v39[2] = sub_22B69ADD4;
-      v39[3] = &unk_278707B18;
-      v39[4] = v40;
-      [mEMORY[0x277D192D8] addUserNotification:v26 listener:0 completionHandler:v39];
-      while ((v41[24] & 1) == 0)
+      *v39 = 0;
+      v40 = v39;
+      v41 = 0x2020000000;
+      v42 = 0;
+      v38[0] = MEMORY[0x277D85DD0];
+      v38[1] = 3221225472;
+      v38[2] = sub_22B69ADD4;
+      v38[3] = &unk_278707B18;
+      v38[4] = v39;
+      [mEMORY[0x277D192D8] addUserNotification:v26 listener:0 completionHandler:v38];
+      while ((v40[24] & 1) == 0)
       {
         mainRunLoop = [MEMORY[0x277CBEB88] mainRunLoop];
         v28 = [MEMORY[0x277CBEAA8] now];
@@ -12389,7 +13943,7 @@ LABEL_21:
           {
             v33 = [obj componentsJoinedByString:{@", "}];
             *buf = 138412290;
-            v49 = v33;
+            v48 = v33;
             _os_log_impl(&dword_22B4CC000, v32, OS_LOG_TYPE_INFO, " => !!! Overriding participants to %@ !!!", buf, 0xCu);
           }
         }
@@ -12397,7 +13951,7 @@ LABEL_21:
         completionCopy[2](completionCopy, v10);
       }
 
-      _Block_object_dispose(v40, 8);
+      _Block_object_dispose(v39, 8);
     }
 
     else
@@ -12412,18 +13966,16 @@ LABEL_29:
       v31 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
       {
-        *v40 = 0;
-        _os_log_impl(&dword_22B4CC000, v31, OS_LOG_TYPE_INFO, " => invalid chat override defaults set, ignoring", v40, 2u);
+        *v39 = 0;
+        _os_log_impl(&dword_22B4CC000, v31, OS_LOG_TYPE_INFO, " => invalid chat override defaults set, ignoring", v39, 2u);
       }
     }
 
-    v9 = v35;
+    v9 = v34;
     goto LABEL_29;
   }
 
 LABEL_30:
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)allBuddies
@@ -12470,7 +14022,7 @@ LABEL_30:
 
 - (void)changeProperty:(id)property ofBuddy:(id)buddy to:(id)to
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   propertyCopy = property;
   buddyCopy = buddy;
   toCopy = to;
@@ -12487,9 +14039,9 @@ LABEL_30:
           v13 = OSLogHandleForIMFoundationCategory();
           if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
           {
-            v18 = 138412290;
-            v19 = buddyCopy;
-            _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "Tried to change IDProperty for buddy ID: %@   bailing", &v18, 0xCu);
+            v17 = 138412290;
+            v18 = buddyCopy;
+            _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "Tried to change IDProperty for buddy ID: %@   bailing", &v17, 0xCu);
           }
 
 LABEL_15:
@@ -12546,9 +14098,9 @@ LABEL_15:
       v13 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
-        v18 = 138412290;
-        v19 = buddyCopy;
-        _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "Tried to change empty property for buddy ID: %@", &v18, 0xCu);
+        v17 = 138412290;
+        v18 = buddyCopy;
+        _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "Tried to change empty property for buddy ID: %@", &v17, 0xCu);
       }
 
       goto LABEL_15;
@@ -12560,22 +14112,20 @@ LABEL_15:
     v13 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
-      v18 = 138412290;
-      v19 = propertyCopy;
-      _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "Tried to change property %@ with nil buddy ID", &v18, 0xCu);
+      v17 = 138412290;
+      v18 = propertyCopy;
+      _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "Tried to change property %@ with nil buddy ID", &v17, 0xCu);
     }
 
     goto LABEL_15;
   }
 
 LABEL_28:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clearPropertiesOfBuddy:(id)buddy
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   buddyCopy = buddy;
   [(NSRecursiveLock *)self->_lock lock];
   v5 = [(IMDServiceSession *)self canonicalFormOfID:buddyCopy];
@@ -12584,18 +14134,18 @@ LABEL_28:
   if (v6)
   {
     allKeys = [v6 allKeys];
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
-    v9 = [allKeys countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v9 = [allKeys countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v9)
     {
       v10 = v9;
-      v17 = 8;
-      v18 = buddyCopy;
+      v16 = 8;
+      v17 = buddyCopy;
       v11 = 0;
-      v12 = *v20;
+      v12 = *v19;
       v13 = *MEMORY[0x277D193A8];
       do
       {
@@ -12603,12 +14153,12 @@ LABEL_28:
         v15 = v11;
         do
         {
-          if (*v20 != v12)
+          if (*v19 != v12)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v11 = *(*(&v19 + 1) + 8 * v14);
+          v11 = *(*(&v18 + 1) + 8 * v14);
 
           if (v11 != v13)
           {
@@ -12620,33 +14170,31 @@ LABEL_28:
         }
 
         while (v10 != v14);
-        v10 = [allKeys countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v10 = [allKeys countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v10);
 
-      buddyCopy = v18;
+      buddyCopy = v17;
     }
 
-    [(IMDServiceSession *)self beginBuddyChanges:v17];
+    [(IMDServiceSession *)self beginBuddyChanges:v16];
     [(NSMutableSet *)self->_changedBuddies addObject:v5];
     [(IMDServiceSession *)self endBuddyChanges];
   }
 
   [(NSRecursiveLock *)self->_lock unlock];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)endBuddyChanges
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   [(NSRecursiveLock *)self->_lock lock];
   buddyChangeLevel = self->_buddyChangeLevel;
   if (buddyChangeLevel <= 0)
   {
-    sub_22B7D9794(a2, self, &self->_buddyChangeLevel, &v21);
-    buddyChangeLevel = v21;
+    sub_22B7D9794(a2, self, &self->_buddyChangeLevel, &v20);
+    buddyChangeLevel = v20;
   }
 
   v5 = buddyChangeLevel - 1;
@@ -12656,33 +14204,33 @@ LABEL_28:
     if ([(NSMutableSet *)self->_changedBuddies count])
     {
       v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v16 = 0u;
       v17 = 0u;
       v18 = 0u;
       v19 = 0u;
-      v20 = 0u;
       allObjects = [(NSMutableSet *)self->_changedBuddies allObjects];
-      v8 = [allObjects countByEnumeratingWithState:&v17 objects:v22 count:16];
+      v8 = [allObjects countByEnumeratingWithState:&v16 objects:v21 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v18;
+        v10 = *v17;
         do
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v18 != v10)
+            if (*v17 != v10)
             {
               objc_enumerationMutation(allObjects);
             }
 
-            v12 = [(NSMutableDictionary *)self->_buddies objectForKey:*(*(&v17 + 1) + 8 * i)];
+            v12 = [(NSMutableDictionary *)self->_buddies objectForKey:*(*(&v16 + 1) + 8 * i)];
             if (v12)
             {
               [v6 addObject:v12];
             }
           }
 
-          v9 = [allObjects countByEnumeratingWithState:&v17 objects:v22 count:16];
+          v9 = [allObjects countByEnumeratingWithState:&v16 objects:v21 count:16];
         }
 
         while (v9);
@@ -12698,7 +14246,6 @@ LABEL_28:
   }
 
   [(NSRecursiveLock *)self->_lock unlock];
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)property:(id)property ofBuddy:(id)buddy
@@ -12797,6 +14344,44 @@ LABEL_28:
   [(NSRecursiveLock *)self->_lock unlock];
 }
 
+- (int64_t)maxSizePerAttachmentWithCount:(int)count forChat:(id)chat
+{
+  v4 = *&count;
+  chatCopy = chat;
+  lastAddressedLocalHandle = [chatCopy lastAddressedLocalHandle];
+  lastAddressedSIMID = [chatCopy lastAddressedSIMID];
+
+  v9 = [(IMDServiceSession *)self maxSizePerAttachmentWithCount:v4 lastAddressedHandle:lastAddressedLocalHandle lastAddressedSIMID:lastAddressedSIMID];
+  return v9;
+}
+
+- (void)setRegistrationStatus:(int64_t)status error:(int)error alertInfo:(id)info
+{
+  v5 = *&error;
+  value = info;
+  v8 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v9 = [MEMORY[0x277CCABB0] numberWithInteger:status];
+  if (v9)
+  {
+    CFDictionarySetValue(v8, *MEMORY[0x277D19470], v9);
+  }
+
+  v10 = [MEMORY[0x277CCABB0] numberWithInt:v5];
+  if (v10)
+  {
+    CFDictionarySetValue(v8, *MEMORY[0x277D19460], v10);
+  }
+
+  if (value)
+  {
+    CFDictionarySetValue(v8, *MEMORY[0x277D19458], value);
+  }
+
+  account = [(IMDServiceSession *)self account];
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObject:v8 forKey:*MEMORY[0x277D19468]];
+  [account writeAccountDefaults:v12];
+}
+
 - (int64_t)registrationStatus
 {
   account = [(IMDServiceSession *)self account];
@@ -12842,7 +14427,7 @@ LABEL_28:
 
 - (void)_abandonPWFetcher
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   pwRequestID = self->_pwRequestID;
   v4 = IMOSLoggingEnabled();
   if (pwRequestID)
@@ -12853,11 +14438,11 @@ LABEL_28:
       if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
         v6 = self->_pwRequestID;
-        v13 = 138412546;
+        v12 = 138412546;
         selfCopy2 = v6;
-        v15 = 2112;
+        v14 = 2112;
         selfCopy = self;
-        _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Abandoning password fetcher with request ID: %@  session: %@", &v13, 0x16u);
+        _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Abandoning password fetcher with request ID: %@  session: %@", &v12, 0x16u);
       }
     }
 
@@ -12875,13 +14460,11 @@ LABEL_28:
     v11 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      v13 = 138412290;
+      v12 = 138412290;
       selfCopy2 = self;
-      _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "No pending password fetch requests for session: %@", &v13, 0xCu);
+      _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "No pending password fetch requests for session: %@", &v12, 0xCu);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_abandonSystemProxySettingsFetcher
@@ -12891,9 +14474,60 @@ LABEL_28:
   self->_systemProxySettingsFetcher = 0;
 }
 
+- (void)invitePersonInfo:(id)info withMessage:(id)message toChat:(id)chat style:(unsigned __int8)style
+{
+  styleCopy = style;
+  v29 = *MEMORY[0x277D85DE8];
+  infoCopy = info;
+  messageCopy = message;
+  chatCopy = chat;
+  v13 = objc_opt_class();
+  v14 = objc_opt_class();
+  InstanceMethod = class_getInstanceMethod(v14, sel_invitePersonInfo_withMessage_toChat_style_);
+  if (class_getInstanceMethod(v13, sel_invitePersonInfo_withMessage_toChat_style_) == InstanceMethod)
+  {
+    v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
+    v23 = infoCopy;
+    v16 = infoCopy;
+    v17 = [v16 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    if (v17)
+    {
+      v18 = v17;
+      v19 = *v25;
+      v20 = *MEMORY[0x277D193A8];
+      do
+      {
+        v21 = 0;
+        do
+        {
+          if (*v25 != v19)
+          {
+            objc_enumerationMutation(v16);
+          }
+
+          v22 = [*(*(&v24 + 1) + 8 * v21) objectForKey:v20];
+          [(IMDServiceSession *)self invitePerson:v22 withMessage:messageCopy toChat:chatCopy style:styleCopy];
+
+          ++v21;
+        }
+
+        while (v18 != v21);
+        v18 = [v16 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      }
+
+      while (v18);
+    }
+
+    infoCopy = v23;
+  }
+}
+
 - (void)appendTranslation:(id)translation toMessageItem:(id)item partIndex:(int64_t)index toChatIdentifier:(id)identifier style:(unsigned __int8)style account:(id)account
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   translationCopy = translation;
   itemCopy = item;
   styleCopy = style;
@@ -12909,8 +14543,8 @@ LABEL_28:
     v20 = +[IMDMessageStore sharedInstance];
     [v20 storeTranslation:translationCopy onMessage:itemCopy partIndex:index chat:v19];
 
-    v30 = itemCopy;
-    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v30 count:1];
+    v29 = itemCopy;
+    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v29 count:1];
     v22 = IMCreateSerializedItemsFromArray();
 
     broadcasterForChatListeners = [(IMDServiceSession *)self broadcasterForChatListeners];
@@ -12925,14 +14559,12 @@ LABEL_28:
     if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
-      v32 = itemCopy;
-      v33 = 2112;
-      v34 = 0;
+      v31 = itemCopy;
+      v32 = 2112;
+      v33 = 0;
       _os_log_impl(&dword_22B4CC000, v26, OS_LOG_TYPE_INFO, "Could not find chat for translated message. message: %@ chat: %@", buf, 0x16u);
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendGroupPhotoUpdate:(id)update toChatID:(id)d identifier:(id)identifier style:(unsigned __int8)style account:(id)account
@@ -13184,7 +14816,7 @@ LABEL_28:
 
 - (id)groupIDForChat:(id)chat
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   chatCopy = chat;
   if ([(IMDServiceSession *)self isReplicating])
   {
@@ -13231,18 +14863,16 @@ LABEL_28:
           if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
           {
             guid = [chatCopy guid];
-            v19 = 138412546;
-            v20 = guid;
-            v21 = 2112;
-            v22 = groupID3;
-            _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "The chat with guid %@ has no iMessageGroupID and therefore, a new groupID must be created. This could fork the chat. New GroupID: %@", &v19, 0x16u);
+            v18 = 138412546;
+            v19 = guid;
+            v20 = 2112;
+            v21 = groupID3;
+            _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "The chat with guid %@ has no iMessageGroupID and therefore, a new groupID must be created. This could fork the chat. New GroupID: %@", &v18, 0x16u);
           }
         }
       }
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return groupID3;
 }
@@ -13261,8 +14891,8 @@ LABEL_28:
 {
   if (objc_opt_class() == self)
   {
-    v2 = qword_2814212B8;
-    qword_2814212B8 = @"Not Connected";
+    v2 = qword_2814212B8[0];
+    qword_2814212B8[0] = @"Not Connected";
 
     v3 = qword_2814212C0;
     qword_2814212C0 = @"Unexpectedly disconnected";
@@ -13280,66 +14910,63 @@ LABEL_28:
 
 - (void)disallowReconnection
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (IMOSLoggingEnabled())
   {
     v3 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       accountID = [(IMDAccount *)self->_account accountID];
-      v6 = 138412290;
-      v7 = accountID;
-      _os_log_impl(&dword_22B4CC000, v3, OS_LOG_TYPE_INFO, "[IMDServiceSession disallowReconnection] %@", &v6, 0xCu);
+      v5 = 138412290;
+      v6 = accountID;
+      _os_log_impl(&dword_22B4CC000, v3, OS_LOG_TYPE_INFO, "[IMDServiceSession disallowReconnection] %@", &v5, 0xCu);
     }
   }
 
   self->_shouldReconnect = 0;
   [(IMDServiceSession *)self _clearAutoReconnectTimer];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)autoReconnect
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (self->_activated)
   {
-    v11 = 0u;
-    v12 = 0u;
-    v9 = 0u;
     v10 = 0u;
+    v11 = 0u;
+    v8 = 0u;
+    v9 = 0u;
     accounts = [(IMDServiceSession *)self accounts];
-    v4 = [accounts countByEnumeratingWithState:&v9 objects:v13 count:16];
+    v4 = [accounts countByEnumeratingWithState:&v8 objects:v12 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v10;
+      v6 = *v9;
       do
       {
         v7 = 0;
         do
         {
-          if (*v10 != v6)
+          if (*v9 != v6)
           {
             objc_enumerationMutation(accounts);
           }
 
-          [(IMDServiceSession *)self autoReconnectWithAccount:*(*(&v9 + 1) + 8 * v7++)];
+          [(IMDServiceSession *)self autoReconnectWithAccount:*(*(&v8 + 1) + 8 * v7++)];
         }
 
         while (v5 != v7);
-        v5 = [accounts countByEnumeratingWithState:&v9 objects:v13 count:16];
+        v5 = [accounts countByEnumeratingWithState:&v8 objects:v12 count:16];
       }
 
       while (v5);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)autoReconnectWithAccount:(id)account
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   if (self->_activated)
   {
@@ -13350,11 +14977,11 @@ LABEL_28:
       {
         loginID = [accountCopy loginID];
         accountID = [accountCopy accountID];
-        v15 = 138412546;
-        v16 = loginID;
-        v17 = 2112;
-        v18 = accountID;
-        _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_DEBUG, "Auto-Reconnect Request: %@:%@", &v15, 0x16u);
+        v14 = 138412546;
+        v15 = loginID;
+        v16 = 2112;
+        v17 = accountID;
+        _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_DEBUG, "Auto-Reconnect Request: %@:%@", &v14, 0x16u);
       }
     }
 
@@ -13371,11 +14998,11 @@ LABEL_28:
             {
               loginID2 = [accountCopy loginID];
               accountID2 = [accountCopy accountID];
-              v15 = 138412546;
-              v16 = loginID2;
-              v17 = 2112;
-              v18 = accountID2;
-              _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_DEBUG, "Reconnecting account: %@:%@", &v15, 0x16u);
+              v14 = 138412546;
+              v15 = loginID2;
+              v16 = 2112;
+              v17 = accountID2;
+              _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_DEBUG, "Reconnecting account: %@:%@", &v14, 0x16u);
             }
           }
 
@@ -13391,22 +15018,55 @@ LABEL_28:
         {
           loginID3 = [accountCopy loginID];
           accountID3 = [accountCopy accountID];
-          v15 = 138412546;
-          v16 = loginID3;
-          v17 = 2112;
-          v18 = accountID3;
-          _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_DEBUG, "Auto-Reconnect failed (Network conditions don't allow it): %@:%@", &v15, 0x16u);
+          v14 = 138412546;
+          v15 = loginID3;
+          v16 = 2112;
+          v17 = accountID3;
+          _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_DEBUG, "Auto-Reconnect failed (Network conditions don't allow it): %@:%@", &v14, 0x16u);
         }
       }
     }
   }
+}
 
-  v14 = *MEMORY[0x277D85DE8];
+- (void)_doLoginIgnoringProxy:(BOOL)proxy
+{
+  proxyCopy = proxy;
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  accounts = [(IMDServiceSession *)self accounts];
+  v6 = [accounts countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v6)
+  {
+    v7 = v6;
+    v8 = *v11;
+    do
+    {
+      v9 = 0;
+      do
+      {
+        if (*v11 != v8)
+        {
+          objc_enumerationMutation(accounts);
+        }
+
+        [(IMDServiceSession *)self _doLoginIgnoringProxy:proxyCopy withAccount:*(*(&v10 + 1) + 8 * v9++)];
+      }
+
+      while (v7 != v9);
+      v7 = [accounts countByEnumeratingWithState:&v10 objects:v14 count:16];
+    }
+
+    while (v7);
+  }
 }
 
 - (void)_doLoginIgnoringProxy:(BOOL)proxy withAccount:(id)account
 {
-  v78 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   if (self->_activated)
   {
@@ -13420,10 +15080,10 @@ LABEL_28:
         loginID = [accountCopy loginID];
         accountID = [accountCopy accountID];
         *buf = 138412802;
-        v73 = loginID;
-        v74 = 2112;
-        v75 = accountID;
-        v76 = 2048;
+        v72 = loginID;
+        v73 = 2112;
+        v74 = accountID;
+        v75 = 2048;
         loginStatus = [accountCopy loginStatus];
         _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_DEBUG, "Do Login: %@:%@  (serviceLoginStatus: %lu)", buf, 0x20u);
       }
@@ -13440,10 +15100,10 @@ LABEL_28:
           accountID2 = [(IMDAccount *)self->_account accountID];
           loginStatus2 = [(IMDAccount *)self->_account loginStatus];
           *buf = 138412802;
-          v73 = loginID2;
-          v74 = 2112;
-          v75 = accountID2;
-          v76 = 2048;
+          v72 = loginID2;
+          v73 = 2112;
+          v74 = accountID2;
+          v75 = 2048;
           loginStatus = loginStatus2;
           _os_log_impl(&dword_22B4CC000, v23, OS_LOG_TYPE_DEBUG, "Ignoring Login: %@:%@  (serviceLoginStatus: %lu)", buf, 0x20u);
         }
@@ -13478,11 +15138,11 @@ LABEL_28:
 
     if (self->_useSSL)
     {
-      v69 = *MEMORY[0x277D19490];
+      v68 = *MEMORY[0x277D19490];
       v19 = [accountDefaults objectForKey:?];
       stringByRemovingWhitespace = [v19 stringByRemovingWhitespace];
 
-      v68 = *MEMORY[0x277D19498];
+      v67 = *MEMORY[0x277D19498];
       v21 = [accountDefaults objectForKey:?];
       service = [(IMDServiceSession *)self service];
       if ([stringByRemovingWhitespace length])
@@ -13493,7 +15153,7 @@ LABEL_28:
       else
       {
         defaultAccountSettings = [service defaultAccountSettings];
-        v34 = [defaultAccountSettings objectForKey:v69];
+        v34 = [defaultAccountSettings objectForKey:v68];
         stringByRemovingWhitespace2 = [v34 stringByRemovingWhitespace];
 
         v22 = [stringByRemovingWhitespace2 length] != 0;
@@ -13541,7 +15201,7 @@ LABEL_28:
       else
       {
         defaultAccountSettings3 = [service defaultAccountSettings];
-        v47 = [defaultAccountSettings3 objectForKey:v68];
+        v47 = [defaultAccountSettings3 objectForKey:v67];
 
         if ([v47 intValue])
         {
@@ -13597,7 +15257,7 @@ LABEL_28:
         goto LABEL_55;
       }
 
-      v44 = [MEMORY[0x277CBEAC0] dictionaryWithObjectsAndKeys:{stringByRemovingWhitespace4, v69, v40, v68, 0}];
+      v44 = [MEMORY[0x277CBEAC0] dictionaryWithObjectsAndKeys:{stringByRemovingWhitespace4, v68, v40, v67, 0}];
     }
 
     else
@@ -13690,16 +15350,16 @@ LABEL_55:
 
       else
       {
-        v63 = [accountDefaults objectForKey:*MEMORY[0x277D19450]];
-        self->_proxyType = [v63 intValue];
+        v62 = [accountDefaults objectForKey:*MEMORY[0x277D19450]];
+        self->_proxyType = [v62 intValue];
 
-        v64 = [accountDefaults objectForKey:*MEMORY[0x277D19440]];
-        stringByRemovingWhitespace6 = [v64 stringByRemovingWhitespace];
-        v66 = self->_proxyHost;
+        v63 = [accountDefaults objectForKey:*MEMORY[0x277D19440]];
+        stringByRemovingWhitespace6 = [v63 stringByRemovingWhitespace];
+        v65 = self->_proxyHost;
         self->_proxyHost = stringByRemovingWhitespace6;
 
-        v67 = [accountDefaults objectForKey:*MEMORY[0x277D19448]];
-        self->_proxyPort = [v67 intValue];
+        v66 = [accountDefaults objectForKey:*MEMORY[0x277D19448]];
+        self->_proxyPort = [v66 intValue];
 
         [(IMDServiceSession *)self _login_serverSettingsReadyWithAccount:accountCopy];
       }
@@ -13708,8 +15368,6 @@ LABEL_55:
 LABEL_61:
     [(NSRecursiveLock *)self->_lock unlock];
   }
-
-  v62 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_login_serverSettingsReadyWithAccount:(id)account
@@ -13764,13 +15422,17 @@ LABEL_61:
       goto LABEL_16;
     }
 
-    if (([(IMNetworkMonitor *)networkMonitor immediatelyReachable]& 1) == 0 && ![(IMDServiceSession *)self overrideNetworkAvailability])
+    if (([(IMNetworkMonitor *)networkMonitor immediatelyReachable]& 1) == 0)
     {
-      v19 = IMDaemonCoreBundle();
-      v20 = [v19 localizedStringForKey:@"A network error occurred.\n" value:&stru_283F23018 table:@"DaemonCoreLocalizable"];
+      overrideNetworkAvailability = [(IMDServiceSession *)self overrideNetworkAvailability];
+      if (!overrideNetworkAvailability)
+      {
+        v19 = IMDaemonCoreBundle(overrideNetworkAvailability);
+        v20 = [v19 localizedStringForKey:@"A network error occurred.\n" value:&stru_283F23018 table:@"DaemonCoreLocalizable"];
 
-      [accountCopy _forceSetLoginStatus:0 message:v20 reason:0 properties:0];
-      goto LABEL_22;
+        [accountCopy _forceSetLoginStatus:0 message:v20 reason:0 properties:0];
+        goto LABEL_22;
+      }
     }
 
     if (!self->_networkMonitor)
@@ -13781,12 +15443,12 @@ LABEL_16:
 
       if ((ignoresNetworkConnectivity & 1) == 0 && IMOSLoggingEnabled())
       {
-        v17 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+        v18 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
         {
           v21 = 138412290;
           selfCopy = self;
-          _os_log_impl(&dword_22B4CC000, v17, OS_LOG_TYPE_INFO, "****** No IMNetworkMonitor for login of account: %@", &v21, 0xCu);
+          _os_log_impl(&dword_22B4CC000, v18, OS_LOG_TYPE_INFO, "****** No IMNetworkMonitor for login of account: %@", &v21, 0xCu);
         }
       }
     }
@@ -13794,13 +15456,11 @@ LABEL_16:
     [(IMDServiceSession *)self _data_connection_readyWithAccount:accountCopy];
 LABEL_22:
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_data_connection_readyWithAccount:(id)account
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   if (self->_activated)
   {
@@ -13812,9 +15472,9 @@ LABEL_22:
         loginID = [(IMDServiceSession *)self loginID];
         accountID = [(IMDAccount *)self->_account accountID];
         *buf = 138412546;
-        v17 = loginID;
-        v18 = 2112;
-        v19 = accountID;
+        v16 = loginID;
+        v17 = 2112;
+        v18 = accountID;
         _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_DEBUG, "_data_connection_ready: %@:%@", buf, 0x16u);
       }
     }
@@ -13832,13 +15492,13 @@ LABEL_22:
       loginID = self->_loginID;
       service = [(IMDServiceSession *)self service];
       internalName = [service internalName];
-      v14[0] = MEMORY[0x277D85DD0];
-      v14[1] = 3221225472;
-      v14[2] = sub_22B6D6704;
-      v14[3] = &unk_2787085D0;
-      v14[4] = self;
-      v15 = accountCopy;
-      [mEMORY[0x277D07DE0] fetchPasswordForProfileID:0 username:loginID service:internalName outRequestID:0 completionBlock:v14];
+      v13[0] = MEMORY[0x277D85DD0];
+      v13[1] = 3221225472;
+      v13[2] = sub_22B6D6704;
+      v13[3] = &unk_2787085D0;
+      v13[4] = self;
+      v14 = accountCopy;
+      [mEMORY[0x277D07DE0] fetchPasswordForProfileID:0 username:loginID service:internalName outRequestID:0 completionBlock:v13];
     }
 
     else
@@ -13846,13 +15506,11 @@ LABEL_22:
       [(IMDServiceSession *)self _login_usernameAndPasswordReadyWithAccount:accountCopy];
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_login_usernameAndPasswordReadyWithAccount:(id)account
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   if (self->_activated)
   {
@@ -13863,11 +15521,11 @@ LABEL_22:
       {
         loginID = [accountCopy loginID];
         accountID = [accountCopy accountID];
-        v12 = 138412546;
-        v13 = loginID;
-        v14 = 2112;
-        v15 = accountID;
-        _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_DEBUG, "_login_usernameAndPasswordReady: %@:%@", &v12, 0x16u);
+        v11 = 138412546;
+        v12 = loginID;
+        v13 = 2112;
+        v14 = accountID;
+        _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_DEBUG, "_login_usernameAndPasswordReady: %@:%@", &v11, 0x16u);
       }
     }
 
@@ -13891,13 +15549,11 @@ LABEL_22:
       [(IMSystemProxySettingsFetcher *)systemProxySettingsFetcher retrieveProxyAccountSettings];
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_login_checkUsernameAndPasswordWithAccount:(id)account
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   if (self->_activated)
   {
@@ -13928,12 +15584,12 @@ LABEL_22:
         }
 
         selfCopy = loginID;
-        v35 = 2112;
-        v36 = accountID;
-        v37 = 2112;
-        v38 = v11;
-        v39 = 2112;
-        v40 = v9;
+        v34 = 2112;
+        v35 = accountID;
+        v36 = 2112;
+        v37 = v11;
+        v38 = 2112;
+        v39 = v9;
         _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_DEBUG, "_login_checkUsernameAndPassword: %@:%@  has pass: %@   bad pass: %@", buf, 0x2Au);
       }
     }
@@ -13949,11 +15605,11 @@ LABEL_22:
             goto LABEL_30;
           }
 
-          v28 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+          v27 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
           {
             *buf = 0;
-            _os_log_impl(&dword_22B4CC000, v28, OS_LOG_TYPE_DEBUG, "Strange, we're here, but already logged in", buf, 2u);
+            _os_log_impl(&dword_22B4CC000, v27, OS_LOG_TYPE_DEBUG, "Strange, we're here, but already logged in", buf, 2u);
           }
         }
 
@@ -13971,11 +15627,11 @@ LABEL_22:
             goto LABEL_30;
           }
 
-          v28 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+          v27 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
           {
             *buf = 0;
-            _os_log_impl(&dword_22B4CC000, v28, OS_LOG_TYPE_DEBUG, "Skipping login, we're not activated", buf, 2u);
+            _os_log_impl(&dword_22B4CC000, v27, OS_LOG_TYPE_DEBUG, "Skipping login, we're not activated", buf, 2u);
           }
         }
       }
@@ -13987,11 +15643,11 @@ LABEL_22:
           goto LABEL_30;
         }
 
-        v28 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+        v27 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
         {
           *buf = 0;
-          _os_log_impl(&dword_22B4CC000, v28, OS_LOG_TYPE_DEBUG, "_login_checkUsernameAndPassword: networkMonitor says we're not reachable", buf, 2u);
+          _os_log_impl(&dword_22B4CC000, v27, OS_LOG_TYPE_DEBUG, "_login_checkUsernameAndPassword: networkMonitor says we're not reachable", buf, 2u);
         }
       }
 
@@ -14031,17 +15687,17 @@ LABEL_22:
           }
 
           selfCopy = self;
-          v35 = 2112;
+          v34 = 2112;
           if (!v16)
           {
             v15 = @"NO";
           }
 
-          v36 = v17;
-          v37 = 2112;
-          v38 = v18;
-          v39 = 2112;
-          v40 = v15;
+          v35 = v17;
+          v36 = 2112;
+          v37 = v18;
+          v38 = 2112;
+          v39 = v15;
           _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_DEBUG, "Building password notification dialog for: %@   (has pass: %@   has login: %@  bad pass: %@)", buf, 0x2Au);
         }
       }
@@ -14053,15 +15709,15 @@ LABEL_22:
       mEMORY[0x277D07DE0] = [MEMORY[0x277D07DE0] sharedInstance];
       loginID = self->_loginID;
       v23 = self->_badPass;
-      v32 = v20;
-      v30[0] = MEMORY[0x277D85DD0];
-      v30[1] = 3221225472;
-      v30[2] = sub_22B6D6F88;
-      v30[3] = &unk_2787085F8;
-      v30[4] = self;
-      v31 = accountCopy;
-      [mEMORY[0x277D07DE0] requestPasswordForUsername:loginID service:displayName badPassword:v23 showForgotPassword:(capabilities >> 31) & 1 shouldRememberPassword:1 outRequestID:&v32 completionBlock:v30];
-      v24 = v32;
+      v31 = v20;
+      v29[0] = MEMORY[0x277D85DD0];
+      v29[1] = 3221225472;
+      v29[2] = sub_22B6D6F88;
+      v29[3] = &unk_2787085F8;
+      v29[4] = self;
+      v30 = accountCopy;
+      [mEMORY[0x277D07DE0] requestPasswordForUsername:loginID service:displayName badPassword:v23 showForgotPassword:(capabilities >> 31) & 1 shouldRememberPassword:1 outRequestID:&v31 completionBlock:v29];
+      v24 = v31;
 
       pwRequestID = self->_pwRequestID;
       self->_pwRequestID = v24;
@@ -14072,8 +15728,6 @@ LABEL_22:
   }
 
 LABEL_30:
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)systemProxySettingsFetcher:(id)fetcher retrievedHost:(id)host port:(unsigned __int16)port protocol:(int64_t)protocol
@@ -14127,7 +15781,7 @@ LABEL_30:
 
 - (void)autoLogin
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (self->_activated)
   {
     if (IMOSLoggingEnabled())
@@ -14137,42 +15791,39 @@ LABEL_30:
       {
         loginID = [(IMDServiceSession *)self loginID];
         accountID = [(IMDAccount *)self->_account accountID];
-        v11 = 138412546;
-        v12 = loginID;
-        v13 = 2112;
-        v14 = accountID;
-        _os_log_impl(&dword_22B4CC000, v3, OS_LOG_TYPE_DEBUG, "autoLogin: %@:%@", &v11, 0x16u);
+        v10 = 138412546;
+        v11 = loginID;
+        v12 = 2112;
+        v13 = accountID;
+        _os_log_impl(&dword_22B4CC000, v3, OS_LOG_TYPE_DEBUG, "autoLogin: %@:%@", &v10, 0x16u);
       }
     }
 
     accountID2 = [(IMDServiceSession *)self accountID];
-    if ([accountID2 length])
+    if (![accountID2 length])
     {
-      accountDefaults = [(IMDServiceSession *)self accountDefaults];
-      v8 = [accountDefaults objectForKey:*MEMORY[0x277D193F8]];
-      if ([v8 BOOLValue])
-      {
 
-LABEL_11:
-        [(IMDServiceSession *)self login];
-        goto LABEL_12;
-      }
+      return;
+    }
 
-      accountShouldBeAlwaysLoggedIn = [(IMDServiceSession *)self accountShouldBeAlwaysLoggedIn];
-
-      if (accountShouldBeAlwaysLoggedIn)
-      {
-        goto LABEL_11;
-      }
+    accountDefaults = [(IMDServiceSession *)self accountDefaults];
+    v8 = [accountDefaults objectForKey:*MEMORY[0x277D193F8]];
+    if ([v8 BOOLValue])
+    {
     }
 
     else
     {
-    }
-  }
+      accountShouldBeAlwaysLoggedIn = [(IMDServiceSession *)self accountShouldBeAlwaysLoggedIn];
 
-LABEL_12:
-  v10 = *MEMORY[0x277D85DE8];
+      if (!accountShouldBeAlwaysLoggedIn)
+      {
+        return;
+      }
+    }
+
+    [(IMDServiceSession *)self login];
+  }
 }
 
 - (void)login
@@ -14183,7 +15834,7 @@ LABEL_12:
 
 - (void)loginWithAccount:(id)account
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   if (self->_activated)
   {
@@ -14195,11 +15846,11 @@ LABEL_12:
       {
         loginID = [(IMDServiceSession *)self loginID];
         accountID = [(IMDAccount *)self->_account accountID];
-        v9 = 138412546;
-        v10 = loginID;
-        v11 = 2112;
-        v12 = accountID;
-        _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Login request: %@:%@ (Setting should reconnect flag = YES)", &v9, 0x16u);
+        v8 = 138412546;
+        v9 = loginID;
+        v10 = 2112;
+        v11 = accountID;
+        _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Login request: %@:%@ (Setting should reconnect flag = YES)", &v8, 0x16u);
       }
     }
 
@@ -14207,13 +15858,11 @@ LABEL_12:
     [(IMDServiceSession *)self _setAutoReconnectTimer];
     [(IMDServiceSession *)self _doLoginIgnoringProxy:0 withAccount:accountCopy];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logoutServiceSessionWithAccount:(id)account
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   if (self->_activated)
   {
@@ -14222,11 +15871,11 @@ LABEL_12:
       v5 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
-        v13 = 138412546;
+        v12 = 138412546;
         selfCopy = self;
-        v15 = 2112;
-        v16 = accountCopy;
-        _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "[IMDServiceSession logoutServiceSession]: %@, account:%@", &v13, 0x16u);
+        v14 = 2112;
+        v15 = accountCopy;
+        _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "[IMDServiceSession logoutServiceSession]: %@, account:%@", &v12, 0x16u);
       }
     }
 
@@ -14280,8 +15929,6 @@ LABEL_12:
       [(IMDServiceSession *)self _clearAutoReconnectTimer];
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logout
@@ -14292,7 +15939,7 @@ LABEL_12:
 
 - (void)logoutWithAccount:(id)account
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   if (IMOSLoggingEnabled())
   {
@@ -14300,7 +15947,7 @@ LABEL_12:
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       activated = self->_activated;
-      *v17 = 138412802;
+      *v16 = 138412802;
       if (activated)
       {
         v7 = @"YES";
@@ -14311,12 +15958,12 @@ LABEL_12:
         v7 = @"NO";
       }
 
-      *&v17[4] = self;
-      v18 = 2112;
-      v19 = accountCopy;
-      v20 = 2112;
-      v21 = v7;
-      _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "[%@ logoutWithAccount:%@] (activated = %@)", v17, 0x20u);
+      *&v16[4] = self;
+      v17 = 2112;
+      v18 = accountCopy;
+      v19 = 2112;
+      v20 = v7;
+      _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "[%@ logoutWithAccount:%@] (activated = %@)", v16, 0x20u);
     }
   }
 
@@ -14332,9 +15979,9 @@ LABEL_12:
         if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
         {
           loginID = [(IMDServiceSession *)self loginID];
-          *v17 = 138412290;
-          *&v17[4] = loginID;
-          _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "Tried to logout: %@  but we're not supposed to, reflecting this!", v17, 0xCu);
+          *v16 = 138412290;
+          *&v16[4] = loginID;
+          _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "Tried to logout: %@  but we're not supposed to, reflecting this!", v16, 0xCu);
         }
       }
 
@@ -14354,9 +16001,9 @@ LABEL_12:
         if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
         {
           loginID2 = [(IMDServiceSession *)self loginID];
-          *v17 = 138412290;
-          *&v17[4] = loginID2;
-          _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "** %@: clearing _shouldReconnectFlag at logout", v17, 0xCu);
+          *v16 = 138412290;
+          *&v16[4] = loginID2;
+          _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "** %@: clearing _shouldReconnectFlag at logout", v16, 0xCu);
         }
       }
 
@@ -14364,8 +16011,6 @@ LABEL_12:
       [(IMDServiceSession *)self logoutServiceSessionWithAccount:accountCopy];
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)serviceSessionDidLoginWithAccount:(id)account
@@ -14389,6 +16034,16 @@ LABEL_12:
   }
 }
 
+- (void)serviceSessionDidLogoutWithMessage:(id)message reason:(int)reason properties:(id)properties account:(id)account
+{
+  if (self->_activated)
+  {
+    [account _forceSetLoginStatus:0 message:message reason:*&reason properties:properties];
+
+    [(IMDServiceSession *)self _clearAutoReconnectTimer];
+  }
+}
+
 - (void)_wentOfflineWithAccount:(id)account
 {
   if (self->_activated)
@@ -14403,6 +16058,90 @@ LABEL_12:
   }
 }
 
+- (void)__forceSetLoginStatus:(unint64_t)status oldStatus:(unint64_t)oldStatus message:(id)message reason:(int)reason properties:(id)properties account:(id)account
+{
+  v10 = *&reason;
+  v31 = *MEMORY[0x277D85DE8];
+  messageCopy = message;
+  propertiesCopy = properties;
+  accountCopy = account;
+  if (status > 3 || oldStatus < 4)
+  {
+    if (status == 4)
+    {
+      [(IMDServiceSession *)self _abandonPWFetcher];
+      [(IMDServiceSession *)self _clearAutoReconnectTimer];
+      if (self->_saveKeychainPassword)
+      {
+        if ([(NSString *)self->_password length])
+        {
+          service = [(IMDServiceSession *)self service];
+          internalName = [service internalName];
+          IMSetKeychainPassword();
+
+          self->_saveKeychainPassword = 0;
+        }
+      }
+    }
+  }
+
+  else
+  {
+    [(IMDServiceSession *)self _wentOfflineWithAccount:accountCopy];
+    [(IMDServiceSession *)self autoReconnectWithAccount:accountCopy];
+  }
+
+  if (IMOSLoggingEnabled())
+  {
+    v19 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+    {
+      v20 = objc_opt_class();
+      v21 = NSStringFromClass(v20);
+      v22 = v21;
+      statusCopy = 4;
+      if (status < 4)
+      {
+        statusCopy = status;
+      }
+
+      v24 = qword_2814212B8[statusCopy];
+      *v29 = 138412802;
+      *&v29[4] = v21;
+      *&v29[12] = 2112;
+      *&v29[14] = v24;
+      if (messageCopy)
+      {
+        v25 = messageCopy;
+      }
+
+      else
+      {
+        v25 = &stru_283F23018;
+      }
+
+      *&v29[22] = 2112;
+      v30 = v25;
+      _os_log_impl(&dword_22B4CC000, v19, OS_LOG_TYPE_INFO, "%@: Login status changed to %@ (%@)", v29, 0x20u);
+    }
+  }
+
+  v26 = [(IMDServiceSession *)self broadcaster:*v29];
+  accountID = [accountCopy accountID];
+  [v26 account:accountID loginStatusChanged:status message:messageCopy reason:v10 properties:propertiesCopy];
+
+  if ([accountCopy isActive])
+  {
+    DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
+    CFNotificationCenterPostNotification(DarwinNotifyCenter, @"__kIMDBadgeUtilitiesLoginStatusChangedNotification", 0, 0, 1u);
+  }
+
+  if (status == 1)
+  {
+    [(IMDServiceSession *)self _setAutoReconnectTimer];
+  }
+}
+
 - (void)_setAutoReconnectTimer
 {
   if (!self->_activated)
@@ -14413,7 +16152,7 @@ LABEL_12:
 
 - (void)_autoReconnectTimer:(id)timer
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   timerCopy = timer;
   if (self->_activated)
   {
@@ -14422,9 +16161,9 @@ LABEL_12:
       v5 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
-        v11 = 138412290;
+        v10 = 138412290;
         selfCopy = self;
-        _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "[IMDServiceSession _autoReconnectTimer]: %@", &v11, 0xCu);
+        _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "[IMDServiceSession _autoReconnectTimer]: %@", &v10, 0xCu);
       }
     }
 
@@ -14437,8 +16176,8 @@ LABEL_12:
         v8 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
         {
-          LOWORD(v11) = 0;
-          _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, " => Network appears to be up, we'll try to auto reconnect", &v11, 2u);
+          LOWORD(v10) = 0;
+          _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, " => Network appears to be up, we'll try to auto reconnect", &v10, 2u);
         }
       }
 
@@ -14451,99 +16190,93 @@ LABEL_12:
       v9 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v11) = 0;
-        _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, " ** Network does not appear to be up, we'll skip this attempt", &v11, 2u);
+        LOWORD(v10) = 0;
+        _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, " ** Network does not appear to be up, we'll skip this attempt", &v10, 2u);
       }
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_clearAutoReconnectTimer
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (IMOSLoggingEnabled())
   {
     v3 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v6 = 138412290;
+      v5 = 138412290;
       selfCopy = self;
-      _os_log_impl(&dword_22B4CC000, v3, OS_LOG_TYPE_INFO, "[IMDServiceSession _clearAutoReconnectTimer]: %@", &v6, 0xCu);
+      _os_log_impl(&dword_22B4CC000, v3, OS_LOG_TYPE_INFO, "[IMDServiceSession _clearAutoReconnectTimer]: %@", &v5, 0xCu);
     }
   }
 
   [(NSTimer *)self->_reconnectTimer invalidate];
   reconnectTimer = self->_reconnectTimer;
   self->_reconnectTimer = 0;
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteAllDataWithCompletionHandler:(id)handler
 {
   v5 = sub_22B6F0AD4(&qword_27D8CD5C0, &qword_22B7F8CF0);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = &v15 - v7;
-  v9 = _Block_copy(handler);
-  v10 = swift_allocObject();
-  *(v10 + 16) = v9;
-  *(v10 + 24) = self;
-  v11 = sub_22B7DBA58();
-  (*(*(v11 - 8) + 56))(v8, 1, 1, v11);
+  v7 = &v14 - v6;
+  v8 = _Block_copy(handler);
+  v9 = swift_allocObject();
+  *(v9 + 16) = v8;
+  *(v9 + 24) = self;
+  v10 = sub_22B7DBA58();
+  (*(*(v10 - 8) + 56))(v7, 1, 1, v10);
+  v11 = swift_allocObject();
+  v11[2] = 0;
+  v11[3] = 0;
+  v11[4] = &unk_22B7F8D00;
+  v11[5] = v9;
   v12 = swift_allocObject();
   v12[2] = 0;
   v12[3] = 0;
-  v12[4] = &unk_22B7F8D00;
-  v12[5] = v10;
-  v13 = swift_allocObject();
-  v13[2] = 0;
-  v13[3] = 0;
-  v13[4] = &unk_22B7F8D08;
-  v13[5] = v12;
+  v12[4] = &unk_22B7F8D08;
+  v12[5] = v11;
   selfCopy = self;
-  sub_22B7C0EFC(0, 0, v8, &unk_22B7F8D10, v13);
+  sub_22B7C0EFC(0, 0, v7, &unk_22B7F8D10, v12);
 }
 
 - (BOOL)shouldDisplayGroupNameAndPhotoWith:(int64_t)with handles:(id)handles
 {
   sub_22B6EFD80();
-  sub_22B7DB918();
+  v4 = sub_22B7DB918();
   sub_22B7DAF08();
-  v4 = sub_22B7DAEF8();
-
-  return v4 & 1;
+  v5 = sub_22B7DAEF8();
+  v4, v6, v7, v8, v9, v10, v11, v12, v14, v15;
+  return v5 & 1;
 }
 
 - (void)downloadTranslationAssetsForLanguageCodes:(id)codes messageItemsToTranslateLocally:(id)locally chatIdentifier:(id)identifier style:(unsigned __int8)style account:(id)account
 {
   v9 = sub_22B6F0AD4(&qword_27D8CD5C0, &qword_22B7F8CF0);
-  v10 = *(*(v9 - 8) + 64);
   MEMORY[0x28223BE20](v9 - 8);
-  v12 = &v23 - v11;
-  v13 = sub_22B7DB918();
+  v11 = &v22 - v10;
+  v12 = sub_22B7DB918();
   sub_22B733994();
-  v14 = sub_22B7DB918();
-  v15 = sub_22B7DB6A8();
-  v17 = v16;
-  v18 = sub_22B7DBA58();
-  (*(*(v18 - 8) + 56))(v12, 1, 1, v18);
+  v13 = sub_22B7DB918();
+  v14 = sub_22B7DB6A8();
+  v16 = v15;
+  v17 = sub_22B7DBA58();
+  (*(*(v17 - 8) + 56))(v11, 1, 1, v17);
   sub_22B7DBA18();
   selfCopy = self;
-  v20 = sub_22B7DBA08();
-  v21 = swift_allocObject();
-  v22 = MEMORY[0x277D85700];
-  *(v21 + 16) = v20;
-  *(v21 + 24) = v22;
-  *(v21 + 32) = v13;
-  *(v21 + 40) = v15;
-  *(v21 + 48) = v17;
-  *(v21 + 56) = style;
-  *(v21 + 64) = selfCopy;
-  *(v21 + 72) = v14;
-  sub_22B722F28(0, 0, v12, &unk_22B7FA6B0, v21);
+  v19 = sub_22B7DBA08();
+  v20 = swift_allocObject();
+  v21 = MEMORY[0x277D85700];
+  *(v20 + 16) = v19;
+  *(v20 + 24) = v21;
+  *(v20 + 32) = v12;
+  *(v20 + 40) = v14;
+  *(v20 + 48) = v16;
+  *(v20 + 56) = style;
+  *(v20 + 64) = selfCopy;
+  *(v20 + 72) = v13;
+  sub_22B722F28(0, 0, v11, &unk_22B7FA6B0, v20);
 }
 
 @end

@@ -1232,29 +1232,29 @@ LABEL_10:
     {
       completionTask2 = [succeededCopy completionTask];
       *buf = 138412290;
-      v22 = completionTask2;
+      v23 = completionTask2;
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Performing Completion Task After Successful Registration: %@", buf, 0xCu);
     }
 
-    v12 = PDDefaultQueue();
-    v19[0] = _NSConcreteStackBlock;
-    v19[1] = 3221225472;
-    v19[2] = sub_100091D90;
-    v19[3] = &unk_10083C420;
-    v19[4] = self;
-    v20 = succeededCopy;
-    dispatch_async(v12, v19);
+    v13 = PDDefaultQueue(v12);
+    v20[0] = _NSConcreteStackBlock;
+    v20[1] = 3221225472;
+    v20[2] = sub_100091D90;
+    v20[3] = &unk_10083C420;
+    v20[4] = self;
+    v21 = succeededCopy;
+    dispatch_async(v13, v20);
   }
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     dpanIdentifier = [succeededCopy dpanIdentifier];
-    v14 = [(PDDatabaseManager *)self->_databaseManager paymentApplicationWithDPANIdentifier:dpanIdentifier];
-    v15 = [(PDDatabaseManager *)self->_databaseManager passWithPaymentApplication:v14];
+    v15 = [(PDDatabaseManager *)self->_databaseManager paymentApplicationWithDPANIdentifier:dpanIdentifier];
+    v16 = [(PDDatabaseManager *)self->_databaseManager passWithPaymentApplication:v15];
     databaseManager = self->_databaseManager;
     serviceType = [notificationService serviceType];
-    uniqueID = [v15 uniqueID];
+    uniqueID = [v16 uniqueID];
     [(PDDatabaseManager *)databaseManager updateRegistrationStatus:1 forNotificationServiceType:serviceType passUniqueIdentifier:uniqueID];
 
     [(PDNotificationServiceCoordinator *)self _recalculatePushTopics];

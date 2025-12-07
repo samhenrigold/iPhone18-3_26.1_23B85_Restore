@@ -23,7 +23,10 @@
 - (void)audioSessionResourceAccess:(id)access didFailWhileDeactivatingSession:(id)session;
 - (void)audioSystemEventQueue:(id)queue eventWillInterrupt:(id)interrupt;
 - (void)audioSystemOptions:(id)options didChangeGuidanceLevel:(unint64_t)level transportType:(int)type;
+- (void)audioSystemOptions:(id)options didUpdatePauseSpokenAudio:(BOOL)audio;
+- (void)audioSystemOptions:(id)options didUpdateUseHFP:(BOOL)p;
 - (void)cache:(id)cache;
+- (void)changeTransportType:(int)type;
 - (void)clearAllEvents;
 - (void)dealloc;
 - (void)forceStop;
@@ -99,6 +102,52 @@
 
 - (void)speechResourceController:(id)controller wasInterruptedWhileSpeakingUtterance:(id)utterance withError:(id)error
 {
+  v20 = *MEMORY[0x1E69E9840];
+  controllerCopy = controller;
+  utteranceCopy = utterance;
+  errorCopy = error;
+  v11 = GetAudioLogForMNAudioHardwareEngineCategory();
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  {
+    v12 = 136315907;
+    v13 = "[MNAudioHardwareEngine speechResourceController:wasInterruptedWhileSpeakingUtterance:withError:]";
+    v14 = 2112;
+    v15 = controllerCopy;
+    v16 = 2113;
+    v17 = utteranceCopy;
+    v18 = 2112;
+    v19 = errorCopy;
+    _os_log_impl(&dword_1D311E000, v11, OS_LOG_TYPE_DEBUG, "ⓦ %s : %@ : '%{private}@' : %@", &v12, 0x2Au);
+  }
+
+  [(MNAudioHardwareEngine *)self _finishedProcessingEventWithStatus:4];
+}
+
+- (void)speechResourceController:(id)controller didTimeoutWhileSpeakingUtterance:(id)utterance withError:(id)error
+{
+  v20 = *MEMORY[0x1E69E9840];
+  controllerCopy = controller;
+  utteranceCopy = utterance;
+  errorCopy = error;
+  v11 = GetAudioLogForMNAudioHardwareEngineCategory();
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  {
+    v12 = 136315906;
+    v13 = "[MNAudioHardwareEngine speechResourceController:didTimeoutWhileSpeakingUtterance:withError:]";
+    v14 = 2112;
+    v15 = controllerCopy;
+    v16 = 2112;
+    v17 = utteranceCopy;
+    v18 = 2112;
+    v19 = errorCopy;
+    _os_log_impl(&dword_1D311E000, v11, OS_LOG_TYPE_DEBUG, "ⓦ %s : %@ : '%@{private}' : %@", &v12, 0x2Au);
+  }
+
+  [(MNAudioHardwareEngine *)self _finishedProcessingEventWithStatus:7];
+}
+
+- (void)speechResourceController:(id)controller didFailWhileSpeakingUtterance:(id)utterance withError:(id)error
+{
   v21 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   utteranceCopy = utterance;
@@ -107,7 +156,7 @@
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     v13 = 136315907;
-    v14 = "[MNAudioHardwareEngine speechResourceController:wasInterruptedWhileSpeakingUtterance:withError:]";
+    v14 = "[MNAudioHardwareEngine speechResourceController:didFailWhileSpeakingUtterance:withError:]";
     v15 = 2112;
     v16 = controllerCopy;
     v17 = 2113;
@@ -115,54 +164,6 @@
     v19 = 2112;
     v20 = errorCopy;
     _os_log_impl(&dword_1D311E000, v11, OS_LOG_TYPE_DEBUG, "ⓦ %s : %@ : '%{private}@' : %@", &v13, 0x2Au);
-  }
-
-  [(MNAudioHardwareEngine *)self _finishedProcessingEventWithStatus:4];
-  v12 = *MEMORY[0x1E69E9840];
-}
-
-- (void)speechResourceController:(id)controller didTimeoutWhileSpeakingUtterance:(id)utterance withError:(id)error
-{
-  v21 = *MEMORY[0x1E69E9840];
-  controllerCopy = controller;
-  utteranceCopy = utterance;
-  errorCopy = error;
-  v11 = GetAudioLogForMNAudioHardwareEngineCategory();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
-  {
-    v13 = 136315906;
-    v14 = "[MNAudioHardwareEngine speechResourceController:didTimeoutWhileSpeakingUtterance:withError:]";
-    v15 = 2112;
-    v16 = controllerCopy;
-    v17 = 2112;
-    v18 = utteranceCopy;
-    v19 = 2112;
-    v20 = errorCopy;
-    _os_log_impl(&dword_1D311E000, v11, OS_LOG_TYPE_DEBUG, "ⓦ %s : %@ : '%@{private}' : %@", &v13, 0x2Au);
-  }
-
-  [(MNAudioHardwareEngine *)self _finishedProcessingEventWithStatus:7];
-  v12 = *MEMORY[0x1E69E9840];
-}
-
-- (void)speechResourceController:(id)controller didFailWhileSpeakingUtterance:(id)utterance withError:(id)error
-{
-  v22 = *MEMORY[0x1E69E9840];
-  controllerCopy = controller;
-  utteranceCopy = utterance;
-  errorCopy = error;
-  v11 = GetAudioLogForMNAudioHardwareEngineCategory();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
-  {
-    v14 = 136315907;
-    v15 = "[MNAudioHardwareEngine speechResourceController:didFailWhileSpeakingUtterance:withError:]";
-    v16 = 2112;
-    v17 = controllerCopy;
-    v18 = 2113;
-    v19 = utteranceCopy;
-    v20 = 2112;
-    v21 = errorCopy;
-    _os_log_impl(&dword_1D311E000, v11, OS_LOG_TYPE_DEBUG, "ⓦ %s : %@ : '%{private}@' : %@", &v14, 0x2Au);
   }
 
   if ([errorCopy code] == 3604 || objc_msgSend(errorCopy, "code") == 3608)
@@ -176,118 +177,124 @@
   }
 
   [(MNAudioHardwareEngine *)self _finishedProcessingEventWithStatus:v12];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)speechResourceController:(id)controller didFinishSpeakingUtterance:(id)utterance withDuration:(double)duration
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   utteranceCopy = utterance;
   v10 = GetAudioLogForMNAudioHardwareEngineCategory();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    v12 = 136315907;
-    v13 = "[MNAudioHardwareEngine speechResourceController:didFinishSpeakingUtterance:withDuration:]";
-    v14 = 2112;
-    v15 = controllerCopy;
-    v16 = 2113;
-    v17 = utteranceCopy;
-    v18 = 2048;
+    v11 = 136315907;
+    v12 = "[MNAudioHardwareEngine speechResourceController:didFinishSpeakingUtterance:withDuration:]";
+    v13 = 2112;
+    v14 = controllerCopy;
+    v15 = 2113;
+    v16 = utteranceCopy;
+    v17 = 2048;
     durationCopy = duration;
-    _os_log_impl(&dword_1D311E000, v10, OS_LOG_TYPE_DEBUG, "ⓦ %s : %@ : '%{private}@' : %f", &v12, 0x2Au);
+    _os_log_impl(&dword_1D311E000, v10, OS_LOG_TYPE_DEBUG, "ⓦ %s : %@ : '%{private}@' : %f", &v11, 0x2Au);
   }
 
   [(MNAudioHardwareEngine *)self _finishedProcessingEventWithStatus:9];
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)speechResourceController:(id)controller willStartSpeakingUtterance:(id)utterance
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   utteranceCopy = utterance;
   v8 = GetAudioLogForMNAudioHardwareEngineCategory();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v10 = 136315651;
-    v11 = "[MNAudioHardwareEngine speechResourceController:willStartSpeakingUtterance:]";
-    v12 = 2112;
-    v13 = controllerCopy;
-    v14 = 2113;
-    v15 = utteranceCopy;
-    _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_DEBUG, "ⓦ %s : %@ : '%{private}@'", &v10, 0x20u);
+    v9 = 136315651;
+    v10 = "[MNAudioHardwareEngine speechResourceController:willStartSpeakingUtterance:]";
+    v11 = 2112;
+    v12 = controllerCopy;
+    v13 = 2113;
+    v14 = utteranceCopy;
+    _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_DEBUG, "ⓦ %s : %@ : '%{private}@'", &v9, 0x20u);
   }
 
   [(GEOObserverHashTable *)self->_observers audioHardwareEngine:self didStartSpeakingPrompt:utteranceCopy];
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)soundEffectResourceController:(id)controller wasInterruptedWhilePlayingIndicator:(unint64_t)indicator withError:(id)error
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   errorCopy = error;
   v10 = GetAudioLogForMNAudioHardwareEngineCategory();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    v12 = 136315906;
-    v13 = "[MNAudioHardwareEngine soundEffectResourceController:wasInterruptedWhilePlayingIndicator:withError:]";
-    v14 = 2112;
-    v15 = controllerCopy;
-    v16 = 2048;
+    v11 = 136315906;
+    v12 = "[MNAudioHardwareEngine soundEffectResourceController:wasInterruptedWhilePlayingIndicator:withError:]";
+    v13 = 2112;
+    v14 = controllerCopy;
+    v15 = 2048;
     indicatorCopy = indicator;
-    v18 = 2112;
-    v19 = errorCopy;
-    _os_log_impl(&dword_1D311E000, v10, OS_LOG_TYPE_DEBUG, "ⓦ %s : %@ : %lu : %@", &v12, 0x2Au);
+    v17 = 2112;
+    v18 = errorCopy;
+    _os_log_impl(&dword_1D311E000, v10, OS_LOG_TYPE_DEBUG, "ⓦ %s : %@ : %lu : %@", &v11, 0x2Au);
   }
 
   [(MNAudioHardwareEngine *)self _finishedProcessingEventWithStatus:5];
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)soundEffectResourceController:(id)controller didFailWhilePlayingIndicator:(unint64_t)indicator withError:(id)error
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   errorCopy = error;
   v10 = GetAudioLogForMNAudioHardwareEngineCategory();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    v12 = 136315906;
-    v13 = "[MNAudioHardwareEngine soundEffectResourceController:didFailWhilePlayingIndicator:withError:]";
-    v14 = 2112;
-    v15 = controllerCopy;
-    v16 = 2048;
+    v11 = 136315906;
+    v12 = "[MNAudioHardwareEngine soundEffectResourceController:didFailWhilePlayingIndicator:withError:]";
+    v13 = 2112;
+    v14 = controllerCopy;
+    v15 = 2048;
     indicatorCopy = indicator;
-    v18 = 2112;
-    v19 = errorCopy;
-    _os_log_impl(&dword_1D311E000, v10, OS_LOG_TYPE_DEBUG, "ⓦ %s : %@ : %lu : %@", &v12, 0x2Au);
+    v17 = 2112;
+    v18 = errorCopy;
+    _os_log_impl(&dword_1D311E000, v10, OS_LOG_TYPE_DEBUG, "ⓦ %s : %@ : %lu : %@", &v11, 0x2Au);
   }
 
   [(MNAudioHardwareEngine *)self _finishedProcessingEventWithStatus:6];
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)soundEffectResourceController:(id)controller didFinishPlayingIndicator:(unint64_t)indicator
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   v7 = GetAudioLogForMNAudioHardwareEngineCategory();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 136315650;
-    v10 = "[MNAudioHardwareEngine soundEffectResourceController:didFinishPlayingIndicator:]";
-    v11 = 2112;
-    v12 = controllerCopy;
-    v13 = 2048;
+    v8 = 136315650;
+    v9 = "[MNAudioHardwareEngine soundEffectResourceController:didFinishPlayingIndicator:]";
+    v10 = 2112;
+    v11 = controllerCopy;
+    v12 = 2048;
     indicatorCopy = indicator;
-    _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_DEBUG, "ⓦ %s : %@ : %lu", &v9, 0x20u);
+    _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_DEBUG, "ⓦ %s : %@ : %lu", &v8, 0x20u);
   }
 
   [(MNAudioHardwareEngine *)self _finishedProcessingEventWithStatus:10];
-  v8 = *MEMORY[0x1E69E9840];
+}
+
+- (void)audioSystemOptions:(id)options didUpdatePauseSpokenAudio:(BOOL)audio
+{
+  v5 = [(MNAudioHardwareEngine *)self sessionAccess:options];
+  [v5 updatePropertiesWithOptions:self->_options transportType:self->_transportType error:0];
+}
+
+- (void)audioSystemOptions:(id)options didUpdateUseHFP:(BOOL)p
+{
+  pCopy = p;
+  pathwayAccess = [(MNAudioHardwareEngine *)self pathwayAccess];
+  [pathwayAccess setEnableHFPUse:pCopy];
 }
 
 - (void)audioSystemOptions:(id)options didChangeGuidanceLevel:(unint64_t)level transportType:(int)type
@@ -300,44 +307,42 @@
 
 - (void)audioSessionResourceAccess:(id)access didFailWhileDeactivatingSession:(id)session
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   accessCopy = access;
   sessionCopy = session;
   v8 = GetAudioLogForMNAudioHardwareEngineCategory();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v10 = 136315650;
-    v11 = "[MNAudioHardwareEngine audioSessionResourceAccess:didFailWhileDeactivatingSession:]";
-    v12 = 2112;
-    v13 = accessCopy;
-    v14 = 2112;
-    v15 = sessionCopy;
-    _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_DEBUG, "ⓦ %s : %@ : %@", &v10, 0x20u);
+    v9 = 136315650;
+    v10 = "[MNAudioHardwareEngine audioSessionResourceAccess:didFailWhileDeactivatingSession:]";
+    v11 = 2112;
+    v12 = accessCopy;
+    v13 = 2112;
+    v14 = sessionCopy;
+    _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_DEBUG, "ⓦ %s : %@ : %@", &v9, 0x20u);
   }
 
   if ([(MNAudioSystemEventQueue *)self->_queue count])
   {
     [(MNAudioHardwareEngine *)self _processNextEventIfNecessary];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)audioSessionResourceAccess:(id)access didDeactivateSession:(BOOL)session
 {
   sessionCopy = session;
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   accessCopy = access;
   v7 = GetAudioLogForMNAudioHardwareEngineCategory();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 136315650;
-    v10 = "[MNAudioHardwareEngine audioSessionResourceAccess:didDeactivateSession:]";
-    v11 = 2112;
-    v12 = accessCopy;
-    v13 = 1024;
-    v14 = sessionCopy;
-    _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_DEBUG, "ⓦ %s : %@ : %d", &v9, 0x1Cu);
+    v8 = 136315650;
+    v9 = "[MNAudioHardwareEngine audioSessionResourceAccess:didDeactivateSession:]";
+    v10 = 2112;
+    v11 = accessCopy;
+    v12 = 1024;
+    v13 = sessionCopy;
+    _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_DEBUG, "ⓦ %s : %@ : %d", &v8, 0x1Cu);
   }
 
   [(GEOObserverHashTable *)self->_observers audioHardwareEngine:self didActivateAudioSession:0];
@@ -345,77 +350,70 @@
   {
     [(MNAudioHardwareEngine *)self _processNextEventIfNecessary];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)audioSessionResourceAccess:(id)access didFailWhileActivatingSession:(id)session
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   accessCopy = access;
   sessionCopy = session;
   v8 = GetAudioLogForMNAudioHardwareEngineCategory();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v10 = 136315650;
-    v11 = "[MNAudioHardwareEngine audioSessionResourceAccess:didFailWhileActivatingSession:]";
-    v12 = 2112;
-    v13 = accessCopy;
-    v14 = 2112;
-    v15 = sessionCopy;
-    _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_DEBUG, "ⓦ %s : %@ : %@", &v10, 0x20u);
+    v9 = 136315650;
+    v10 = "[MNAudioHardwareEngine audioSessionResourceAccess:didFailWhileActivatingSession:]";
+    v11 = 2112;
+    v12 = accessCopy;
+    v13 = 2112;
+    v14 = sessionCopy;
+    _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_DEBUG, "ⓦ %s : %@ : %@", &v9, 0x20u);
   }
 
   [(MNAudioHardwareEngine *)self _process:self->_pendingEvent];
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)audioSessionResourceAccess:(id)access didActivateSession:(BOOL)session
 {
   sessionCopy = session;
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   accessCopy = access;
   v7 = GetAudioLogForMNAudioHardwareEngineCategory();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 136315650;
-    v10 = "[MNAudioHardwareEngine audioSessionResourceAccess:didActivateSession:]";
-    v11 = 2112;
-    v12 = accessCopy;
-    v13 = 1024;
-    v14 = sessionCopy;
-    _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_DEBUG, "ⓦ %s : %@ : %d", &v9, 0x1Cu);
+    v8 = 136315650;
+    v9 = "[MNAudioHardwareEngine audioSessionResourceAccess:didActivateSession:]";
+    v10 = 2112;
+    v11 = accessCopy;
+    v12 = 1024;
+    v13 = sessionCopy;
+    _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_DEBUG, "ⓦ %s : %@ : %d", &v8, 0x1Cu);
   }
 
   [(GEOObserverHashTable *)self->_observers audioHardwareEngine:self didActivateAudioSession:1];
   [(MNAudioHardwareEngine *)self _process:self->_pendingEvent];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)audioSystemEventQueue:(id)queue eventWillInterrupt:(id)interrupt
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   queueCopy = queue;
   interruptCopy = interrupt;
   v8 = GetAudioLogForMNAudioHardwareEngineCategory();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v10 = 136315650;
-    v11 = "[MNAudioHardwareEngine audioSystemEventQueue:eventWillInterrupt:]";
-    v12 = 2112;
-    v13 = queueCopy;
-    v14 = 2112;
-    v15 = interruptCopy;
-    _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_DEBUG, "ⓦ %s : %@ : %@", &v10, 0x20u);
+    v9 = 136315650;
+    v10 = "[MNAudioHardwareEngine audioSystemEventQueue:eventWillInterrupt:]";
+    v11 = 2112;
+    v12 = queueCopy;
+    v13 = 2112;
+    v14 = interruptCopy;
+    _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_DEBUG, "ⓦ %s : %@ : %@", &v9, 0x20u);
   }
 
   if (![(MNAudioHardwareEngine *)self _stopCurrentEvent])
   {
     [(MNAudioHardwareEngine *)self _processNextEventIfNecessary];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateForNewGuidanceLevel
@@ -461,7 +459,7 @@
 
 - (BOOL)_hardwareIsBusy
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   pendingEvent = self->_pendingEvent;
   speechController = [(MNAudioHardwareEngine *)self speechController];
   speaking = [speechController speaking];
@@ -491,7 +489,7 @@
   v15 = GetAudioLogForMNAudioHardwareEngineCategory();
   if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
-    v28 = vibrating;
+    v27 = vibrating;
     v16 = playing;
     v17 = speaking;
     if (vibrating2)
@@ -537,8 +535,8 @@
       v23 = @"NO";
     }
 
-    v30 = v18;
-    v31 = 2112;
+    v29 = v18;
+    v30 = 2112;
     if (v16)
     {
       v24 = @"YES";
@@ -549,8 +547,8 @@
       v24 = @"NO";
     }
 
-    v32 = v21;
-    if (v28)
+    v31 = v21;
+    if (v27)
     {
       v25 = @"YES";
     }
@@ -560,24 +558,23 @@
       v25 = @"NO";
     }
 
-    v33 = 2112;
-    v34 = v22;
-    v35 = 2112;
-    v36 = v23;
-    v37 = 2112;
-    v38 = v24;
-    v39 = 2112;
-    v40 = v25;
+    v32 = 2112;
+    v33 = v22;
+    v34 = 2112;
+    v35 = v23;
+    v36 = 2112;
+    v37 = v24;
+    v38 = 2112;
+    v39 = v25;
     _os_log_impl(&dword_1D311E000, v15, OS_LOG_TYPE_INFO, "ⓦ Is hardware busy? %@, because\n{\n\tSession state: %@\n\tHas pending event: %@\n\tSpeech active: %@\n\tSFX active: %@\n\tHaptics active: %@\n}", buf, 0x3Eu);
   }
 
-  v26 = *MEMORY[0x1E69E9840];
   return vibrating2;
 }
 
 - (void)_finishedProcessingEventWithStatus:(unint64_t)status
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = GetAudioLogForMNAudioHardwareEngineCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
@@ -592,9 +589,9 @@
     }
 
     *buf = 136315394;
-    v15 = "[MNAudioHardwareEngine _finishedProcessingEventWithStatus:]";
-    v16 = 2112;
-    v17 = status;
+    v14 = "[MNAudioHardwareEngine _finishedProcessingEventWithStatus:]";
+    v15 = 2112;
+    v16 = status;
     _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_INFO, "ⓦ %s : %@", buf, 0x16u);
   }
 
@@ -611,14 +608,12 @@
     block[1] = 3221225472;
     block[2] = __60__MNAudioHardwareEngine__finishedProcessingEventWithStatus___block_invoke;
     block[3] = &unk_1E8430A10;
-    v12 = v7;
+    v11 = v7;
     statusCopy = status;
     dispatch_async(MEMORY[0x1E69E96A0], block);
   }
 
   [(MNAudioHardwareEngine *)self _processNextEventIfNecessary];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __60__MNAudioHardwareEngine__finishedProcessingEventWithStatus___block_invoke(uint64_t a1)
@@ -629,13 +624,13 @@ void __60__MNAudioHardwareEngine__finishedProcessingEventWithStatus___block_invo
 
 - (void)_process:(id)_process
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   _processCopy = _process;
   v5 = GetAudioLogForMNAudioHardwareEngineCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 138477827;
-    *v26 = _processCopy;
+    *v25 = _processCopy;
     _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_INFO, "ⓦ Processing event - %{private}@", buf, 0xCu);
   }
 
@@ -658,21 +653,21 @@ void __60__MNAudioHardwareEngine__finishedProcessingEventWithStatus___block_invo
     sessionAccess5 = [(MNAudioHardwareEngine *)self sessionAccess];
     promptStyle2 = [sessionAccess5 promptStyle];
     *buf = 67110912;
-    *v26 = BYTE3(promptStyle);
-    *&v26[4] = 1024;
-    *&v26[6] = BYTE2(promptStyle);
-    v27 = 1024;
-    v28 = BYTE1(promptStyle);
-    v29 = 1024;
-    v30 = promptStyle;
-    v31 = 1024;
-    v32 = v9;
-    v33 = 1024;
-    v34 = v11;
-    v35 = 1024;
-    v36 = v13;
-    v37 = 1024;
-    v38 = promptStyle2;
+    *v25 = BYTE3(promptStyle);
+    *&v25[4] = 1024;
+    *&v25[6] = BYTE2(promptStyle);
+    v26 = 1024;
+    v27 = BYTE1(promptStyle);
+    v28 = 1024;
+    v29 = promptStyle;
+    v30 = 1024;
+    v31 = v9;
+    v32 = 1024;
+    v33 = v11;
+    v34 = 1024;
+    v35 = v13;
+    v36 = 1024;
+    v37 = promptStyle2;
     _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_INFO, "ⓦ Processing: Using a prompt style of '%c%c%c%c' - audio session's prompt style: '%c%c%c%c'", buf, 0x32u);
   }
 
@@ -726,8 +721,6 @@ void __60__MNAudioHardwareEngine__finishedProcessingEventWithStatus___block_invo
     sfxController2 = [(MNAudioHardwareEngine *)self sfxController];
     [sfxController2 playSound:v21 andReport:0];
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_processNextEvent
@@ -888,32 +881,32 @@ LABEL_31:
 
 void __42__MNAudioHardwareEngine__processNextEvent__block_invoke(void *a1)
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   v1 = *(*(a1[4] + 8) + 40);
-  v2 = [v1 countByEnumeratingWithState:&v34 objects:v43 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v33 objects:v42 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v35;
+    v4 = *v34;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v35 != v4)
+        if (*v34 != v4)
         {
           objc_enumerationMutation(v1);
         }
 
-        v6 = *(*(&v34 + 1) + 8 * i);
+        v6 = *(*(&v33 + 1) + 8 * i);
         v7 = GetAudioLogForMNAudioHardwareEngineCategory();
         if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
         {
           *buf = 138477827;
-          v39 = v6;
+          v38 = v6;
           _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_INFO, "ⓦ Speech is muted; dropping event - %{private}@", buf, 0xCu);
         }
 
@@ -926,7 +919,7 @@ void __42__MNAudioHardwareEngine__processNextEvent__block_invoke(void *a1)
         }
       }
 
-      v3 = [v1 countByEnumeratingWithState:&v34 objects:v43 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v33 objects:v42 count:16];
     }
 
     while (v3);
@@ -936,26 +929,26 @@ void __42__MNAudioHardwareEngine__processNextEvent__block_invoke(void *a1)
   v11 = *(v10 + 40);
   *(v10 + 40) = 0;
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v12 = *(*(a1[5] + 8) + 40);
-  v13 = [v12 countByEnumeratingWithState:&v30 objects:v42 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v29 objects:v41 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v31;
+    v15 = *v30;
     do
     {
       for (j = 0; j != v14; ++j)
       {
-        if (*v31 != v15)
+        if (*v30 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v30 + 1) + 8 * j);
+        v17 = *(*(&v29 + 1) + 8 * j);
         v18 = GetAudioLogForMNAudioHardwareEngineCategory();
         if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
         {
@@ -983,9 +976,9 @@ void __42__MNAudioHardwareEngine__processNextEvent__block_invoke(void *a1)
           }
 
           *buf = 138412546;
-          v39 = v21;
-          v40 = 2112;
-          v41 = v23;
+          v38 = v21;
+          v39 = 2112;
+          v40 = v23;
           _os_log_impl(&dword_1D311E000, v18, OS_LOG_TYPE_INFO, "ⓦ Voice guidance level not met - min required: %@, actual: %@", buf, 0x16u);
         }
 
@@ -998,7 +991,7 @@ void __42__MNAudioHardwareEngine__processNextEvent__block_invoke(void *a1)
         }
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v30 objects:v42 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v29 objects:v41 count:16];
     }
 
     while (v14);
@@ -1007,8 +1000,6 @@ void __42__MNAudioHardwareEngine__processNextEvent__block_invoke(void *a1)
   v26 = *(a1[5] + 8);
   v27 = *(v26 + 40);
   *(v26 + 40) = 0;
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 void __42__MNAudioHardwareEngine__processNextEvent__block_invoke_68(uint64_t a1)
@@ -1052,7 +1043,7 @@ void __42__MNAudioHardwareEngine__processNextEvent__block_invoke_2(uint64_t a1)
 
 - (BOOL)vibrateForShortPrompt:(unint64_t)prompt
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = prompt & 0xF;
   v4 = v3 - 3;
   if (v3 - 3 > 2)
@@ -1071,7 +1062,7 @@ void __42__MNAudioHardwareEngine__processNextEvent__block_invoke_2(uint64_t a1)
       }
 
       *buf = 138412290;
-      v10 = v6;
+      v9 = v6;
       _os_log_impl(&dword_1D311E000, hapticController, OS_LOG_TYPE_DEFAULT, "ⓦ Vibration ignored: short prompt type - %@", buf, 0xCu);
     }
   }
@@ -1082,9 +1073,7 @@ void __42__MNAudioHardwareEngine__processNextEvent__block_invoke_2(uint64_t a1)
     [hapticController triggerVibration];
   }
 
-  result = v4 < 3;
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return v4 < 3;
 }
 
 - (void)clearAllEvents
@@ -1120,7 +1109,7 @@ void __42__MNAudioHardwareEngine__processNextEvent__block_invoke_2(uint64_t a1)
 
 - (void)requestSpeech:(id)speech guidanceLevel:(unint64_t)level shortPromptType:(unint64_t)type completionHandler:(id)handler
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   speechCopy = speech;
   handlerCopy = handler;
   if ([speechCopy length])
@@ -1129,9 +1118,9 @@ void __42__MNAudioHardwareEngine__processNextEvent__block_invoke_2(uint64_t a1)
     if (v12)
     {
       queue = self->_queue;
-      v18 = 0;
-      v14 = [(MNAudioSystemEventQueue *)queue enqueue:v12 withOptions:8 andReport:&v18];
-      v15 = v18;
+      v17 = 0;
+      v14 = [(MNAudioSystemEventQueue *)queue enqueue:v12 withOptions:8 andReport:&v17];
+      v15 = v17;
       if (v14)
       {
         [(MNAudioHardwareEngine *)self _processNextEventIfNecessary];
@@ -1143,7 +1132,7 @@ void __42__MNAudioHardwareEngine__processNextEvent__block_invoke_2(uint64_t a1)
         if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
         {
           *buf = 138477827;
-          v20 = v12;
+          v19 = v12;
           _os_log_impl(&dword_1D311E000, v16, OS_LOG_TYPE_INFO, "⒲ Could not enqueue event : %{private}@", buf, 0xCu);
         }
       }
@@ -1166,26 +1155,24 @@ void __42__MNAudioHardwareEngine__processNextEvent__block_invoke_2(uint64_t a1)
     if (os_log_type_enabled(&v12->super, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v20 = "[MNAudioHardwareEngine requestSpeech:guidanceLevel:shortPromptType:completionHandler:]";
+      v19 = "[MNAudioHardwareEngine requestSpeech:guidanceLevel:shortPromptType:completionHandler:]";
       _os_log_impl(&dword_1D311E000, &v12->super, OS_LOG_TYPE_INFO, "⒲ %s : string is empty", buf, 0xCu);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cache:(id)cache
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   cacheCopy = cache;
   v5 = GetAudioLogForMNAudioHardwareEngineCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 136315395;
-    v10 = "[MNAudioHardwareEngine cache:]";
-    v11 = 2113;
-    v12 = cacheCopy;
-    _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_DEBUG, "%s : '%{private}@'", &v9, 0x16u);
+    v8 = 136315395;
+    v9 = "[MNAudioHardwareEngine cache:]";
+    v10 = 2113;
+    v11 = cacheCopy;
+    _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_DEBUG, "%s : '%{private}@'", &v8, 0x16u);
   }
 
   if ([cacheCopy length])
@@ -1194,8 +1181,37 @@ void __42__MNAudioHardwareEngine__processNextEvent__block_invoke_2(uint64_t a1)
     speechController = [(MNAudioHardwareEngine *)self speechController];
     [speechController cache:cacheCopy withDisclosure:v6 andReport:0];
   }
+}
 
+- (void)changeTransportType:(int)type
+{
+  v3 = *&type;
   v8 = *MEMORY[0x1E69E9840];
+  if (type > 3 || type == 1)
+  {
+    v4 = GetAudioLogForMNAudioHardwareEngineCategory();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    {
+      if (v3 < 7 && ((0x73u >> v3) & 1) != 0)
+      {
+        v5 = *(&off_1E842A770 + v3);
+      }
+
+      else
+      {
+        v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", v3];
+      }
+
+      *buf = 138412290;
+      v7 = v5;
+      _os_log_impl(&dword_1D311E000, v4, OS_LOG_TYPE_ERROR, "ⓜ Invalid transport type passed to changeTransportType: %@", buf, 0xCu);
+    }
+  }
+
+  else
+  {
+    self->_transportType = type;
+  }
 }
 
 - (void)unregisterObserver:(id)observer
@@ -1294,20 +1310,19 @@ void __42__MNAudioHardwareEngine__processNextEvent__block_invoke_2(uint64_t a1)
 
 - (void)dealloc
 {
-  chimeBeforeInstructionListenerHandle = self->_chimeBeforeInstructionListenerHandle;
   GEOConfigRemoveBlockListener();
   [(MNAudioSystemOptions *)self->_options unregisterObserver:self];
   defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
   [defaultCenter removeObserver:self];
 
-  v5.receiver = self;
-  v5.super_class = MNAudioHardwareEngine;
-  [(MNAudioHardwareEngine *)&v5 dealloc];
+  v4.receiver = self;
+  v4.super_class = MNAudioHardwareEngine;
+  [(MNAudioHardwareEngine *)&v4 dealloc];
 }
 
 - (MNAudioHardwareEngine)initWithAudioSystemOptions:(id)options voiceLanguage:(id)language transportType:(int)type
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   languageCopy = language;
   v11 = languageCopy;
@@ -1322,9 +1337,9 @@ void __42__MNAudioHardwareEngine__processNextEvent__block_invoke_2(uint64_t a1)
     goto LABEL_15;
   }
 
-  v33.receiver = self;
-  v33.super_class = MNAudioHardwareEngine;
-  self = [(MNAudioHardwareEngine *)&v33 init];
+  v32.receiver = self;
+  v32.super_class = MNAudioHardwareEngine;
+  self = [(MNAudioHardwareEngine *)&v32 init];
   if (!self)
   {
 LABEL_11:
@@ -1372,8 +1387,8 @@ LABEL_11:
 
     *buf = 138412546;
     optionsCopy2 = v21;
-    v36 = 2112;
-    v37 = v23;
+    v35 = 2112;
+    v36 = v23;
     _os_log_impl(&dword_1D311E000, v20, OS_LOG_TYPE_INFO, "ⓦ Initialization: using voice language : %@, and transport type : %@", buf, 0x16u);
   }
 
@@ -1386,7 +1401,7 @@ LABEL_11:
   self->_chimeBeforeInstruction = GEOConfigGetBOOL();
   objc_initWeak(buf, self);
   v26 = MEMORY[0x1E69E96A0];
-  objc_copyWeak(&v32, buf);
+  objc_copyWeak(&v31, buf);
   v27 = _GEOConfigAddBlockListenerForKey();
   chimeBeforeInstructionListenerHandle = self->_chimeBeforeInstructionListenerHandle;
   self->_chimeBeforeInstructionListenerHandle = v27;
@@ -1397,12 +1412,11 @@ LABEL_11:
   [defaultCenter addObserver:self selector:sel__mediaSessionServicesWereReset_ name:*MEMORY[0x1E698D5C0] object:0];
   self = self;
 
-  objc_destroyWeak(&v32);
+  objc_destroyWeak(&v31);
   objc_destroyWeak(buf);
   selfCopy = self;
 LABEL_15:
 
-  v30 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

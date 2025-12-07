@@ -9,6 +9,7 @@
 - (HMDLightProfile)lightProfile;
 - (HMDLightProfileNaturalLightingAction)initWithCoder:(id)coder;
 - (HMDLightProfileNaturalLightingAction)initWithModelObject:(id)object parent:(id)parent error:(id *)error;
+- (HMDLightProfileNaturalLightingAction)initWithUUID:(id)d lightProfileUUID:(id)iD naturalLightingEnabled:(BOOL)enabled actionSet:(id)set;
 - (HMDLightProfileNaturalLightingAction)initWithUUID:(id)d lightProfileUUID:(id)iD naturalLightingEnabled:(BOOL)enabled actionSet:(id)set notificationCenter:(id)center;
 - (id)associatedAccessories;
 - (id)attributeDescriptions;
@@ -27,37 +28,36 @@
 
 - (id)attributeDescriptions
 {
-  v19[3] = *MEMORY[0x277D85DE8];
-  v18.receiver = self;
-  v18.super_class = HMDLightProfileNaturalLightingAction;
-  attributeDescriptions = [(HMDAction *)&v18 attributeDescriptions];
+  v18[3] = *MEMORY[0x277D85DE8];
+  v17.receiver = self;
+  v17.super_class = HMDLightProfileNaturalLightingAction;
+  attributeDescriptions = [(HMDAction *)&v17 attributeDescriptions];
   v4 = [attributeDescriptions mutableCopy];
 
   v5 = objc_alloc(MEMORY[0x277D0F778]);
   lightProfileUUID = [(HMDLightProfileNaturalLightingAction *)self lightProfileUUID];
   v7 = [v5 initWithName:@"Light Profile UUID" value:lightProfileUUID];
-  v19[0] = v7;
+  v18[0] = v7;
   v8 = objc_alloc(MEMORY[0x277D0F778]);
   lightProfile = [(HMDLightProfileNaturalLightingAction *)self lightProfile];
   v10 = [v8 initWithName:@"Light Profile" value:lightProfile];
-  v19[1] = v10;
+  v18[1] = v10;
   v11 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDLightProfileNaturalLightingAction *)self isNaturalLightingEnabled];
   v12 = HMFBooleanToString();
   v13 = [v11 initWithName:@"Natural Light Enabled" value:v12];
-  v19[2] = v13;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:3];
+  v18[2] = v13;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:3];
   [v4 addObjectsFromArray:v14];
 
-  v15 = [v4 copy];
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = objc_msgSend_copy(v4);
 
   return v15;
 }
 
 - (void)transactionObjectUpdated:(id)updated newValues:(id)values message:(id)message
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   updatedCopy = updated;
   valuesCopy = values;
   messageCopy = message;
@@ -85,7 +85,7 @@
       if (home)
       {
         v17 = home;
-        v55 = updatedCopy;
+        v54 = updatedCopy;
         setProperties = [v13 setProperties];
         v19 = [setProperties containsObject:@"naturalLightingEnabledField"];
 
@@ -95,7 +95,7 @@
         v23 = os_log_type_enabled(v22, OS_LOG_TYPE_INFO);
         if (v19)
         {
-          v53 = messageCopy;
+          v52 = messageCopy;
           if (v23)
           {
             v24 = HMFGetLogIdentifier();
@@ -104,31 +104,31 @@
             [v13 isNaturalLightingEnabled];
             v26 = HMFBooleanToString();
             *buf = 138543874;
-            v59 = v24;
-            v60 = 2112;
-            v61 = v25;
-            v62 = 2112;
-            v63 = v26;
+            v58 = v24;
+            v59 = 2112;
+            v60 = v25;
+            v61 = 2112;
+            v62 = v26;
             _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_INFO, "%{public}@Updating natural lighting enabled from %@ to %@", buf, 0x20u);
           }
 
           objc_autoreleasePoolPop(v20);
           -[HMDLightProfileNaturalLightingAction setNaturalLightingEnabled:](selfCopy, "setNaturalLightingEnabled:", [v13 isNaturalLightingEnabled]);
-          v56[0] = *MEMORY[0x277CD2060];
+          v55[0] = *MEMORY[0x277CD2060];
           uuid = [(HMDAction *)selfCopy uuid];
           uUIDString = [uuid UUIDString];
-          v57[0] = uUIDString;
-          v56[1] = *MEMORY[0x277CD2028];
+          v56[0] = uUIDString;
+          v55[1] = *MEMORY[0x277CD2028];
           dictionaryRepresentation = [(HMDLightProfileNaturalLightingAction *)selfCopy dictionaryRepresentation];
-          v57[1] = dictionaryRepresentation;
-          v56[2] = *MEMORY[0x277CD0640];
+          v56[1] = dictionaryRepresentation;
+          v55[2] = *MEMORY[0x277CD0640];
           uuid2 = [v17 uuid];
           uUIDString2 = [uuid2 UUIDString];
-          v57[2] = uUIDString2;
-          v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v57 forKeys:v56 count:3];
+          v56[2] = uUIDString2;
+          v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v56 forKeys:v55 count:3];
 
-          messageCopy = v53;
-          [v53 respondWithPayload:v31];
+          messageCopy = v52;
+          [v52 respondWithPayload:v31];
           v32 = objc_autoreleasePoolPush();
           v33 = selfCopy;
           v34 = HMFGetOSLogHandle();
@@ -136,31 +136,31 @@
           {
             v35 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v59 = v35;
-            v60 = 2112;
-            v61 = v31;
+            v58 = v35;
+            v59 = 2112;
+            v60 = v31;
             _os_log_impl(&dword_2531F8000, v34, OS_LOG_TYPE_DEBUG, "%{public}@Responding to client after updating action with response %@", buf, 0x16u);
           }
 
           objc_autoreleasePoolPop(v32);
-          updatedCopy = v55;
+          updatedCopy = v54;
         }
 
         else
         {
-          updatedCopy = v55;
+          updatedCopy = v54;
           if (v23)
           {
             v49 = HMFGetLogIdentifier();
             [v13 setProperties];
-            v50 = v54 = messageCopy;
+            v50 = v53 = messageCopy;
             *buf = 138543618;
-            v59 = v49;
-            v60 = 2112;
-            v61 = v50;
+            v58 = v49;
+            v59 = 2112;
+            v60 = v50;
             _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_INFO, "%{public}@Ignoring update naturalLightingEnabledField property is not set: %@", buf, 0x16u);
 
-            messageCopy = v54;
+            messageCopy = v53;
           }
 
           objc_autoreleasePoolPop(v20);
@@ -177,11 +177,11 @@
         {
           v47 = HMFGetLogIdentifier();
           *buf = 138543874;
-          v59 = v47;
-          v60 = 2112;
-          v61 = v15;
-          v62 = 2112;
-          v63 = 0;
+          v58 = v47;
+          v59 = 2112;
+          v60 = v15;
+          v61 = 2112;
+          v62 = 0;
           _os_log_impl(&dword_2531F8000, v46, OS_LOG_TYPE_ERROR, "%{public}@Failed to update action, action set missing home %@:%@", buf, 0x20u);
         }
 
@@ -202,9 +202,9 @@
       {
         v43 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v59 = v43;
-        v60 = 2112;
-        v61 = 0;
+        v58 = v43;
+        v59 = 2112;
+        v60 = 0;
         _os_log_impl(&dword_2531F8000, v42, OS_LOG_TYPE_ERROR, "%{public}@Failed to update action, missing action set: %@", buf, 0x16u);
       }
 
@@ -223,11 +223,11 @@
     {
       v39 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v59 = v39;
-      v60 = 2112;
-      v61 = objc_opt_class();
-      v62 = 2112;
-      v63 = v11;
+      v58 = v39;
+      v59 = 2112;
+      v60 = objc_opt_class();
+      v61 = 2112;
+      v62 = v11;
       _os_log_impl(&dword_2531F8000, v38, OS_LOG_TYPE_ERROR, "%{public}@Ignoring update from object of unhandled type %@:%@", buf, 0x20u);
     }
 
@@ -235,13 +235,11 @@
     v15 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
     [messageCopy respondWithError:v15];
   }
-
-  v51 = *MEMORY[0x277D85DE8];
 }
 
 - (id)modelObjectWithChangeType:(unint64_t)type version:(int64_t)version
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   if (version < 4)
   {
     v4 = 0;
@@ -257,13 +255,13 @@
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       v23 = HMFGetLogIdentifier();
-      v34 = 138543874;
-      v35 = v23;
-      v36 = 2048;
+      v33 = 138543874;
+      v34 = v23;
+      v35 = 2048;
       versionCopy = version;
-      v38 = 2112;
-      v39 = 0;
-      _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_ERROR, "%{public}@Failed to create model object for change type:%lu missing actionSet: %@", &v34, 0x20u);
+      v37 = 2112;
+      v38 = 0;
+      _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_ERROR, "%{public}@Failed to create model object for change type:%lu missing actionSet: %@", &v33, 0x20u);
     }
 
     objc_autoreleasePoolPop(v20);
@@ -321,14 +319,13 @@ LABEL_12:
 
 LABEL_13:
 LABEL_14:
-  v32 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (HMDLightProfileNaturalLightingAction)initWithModelObject:(id)object parent:(id)parent error:(id *)error
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   parentCopy = parent;
   v10 = objectCopy;
@@ -379,9 +376,9 @@ LABEL_14:
           {
             v23 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v43 = v23;
-            v44 = 2112;
-            v45 = v18;
+            v42 = v23;
+            v43 = 2112;
+            v44 = v18;
             _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_INFO, "%{public}@Creating natural lighting action with action model with light profile: %@", buf, 0x16u);
           }
 
@@ -398,11 +395,11 @@ LABEL_14:
         {
           if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
           {
-            v39 = HMFGetLogIdentifier();
+            v38 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v43 = v39;
-            v44 = 2112;
-            v45 = lightProfileUUID;
+            v42 = v38;
+            v43 = 2112;
+            v44 = lightProfileUUID;
             _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_ERROR, "%{public}@Failed to create action, home doesn't have a light profile with UUID: %@", buf, 0x16u);
           }
 
@@ -432,9 +429,9 @@ LABEL_14:
           HMFGetLogIdentifier();
           v36 = v35 = parentCopy;
           *buf = 138543618;
-          v43 = v36;
-          v44 = 2112;
-          v45 = 0;
+          v42 = v36;
+          v43 = 2112;
+          v44 = 0;
           _os_log_impl(&dword_2531F8000, v34, OS_LOG_TYPE_ERROR, "%{public}@Failed to create action, model is missing light profile UUID: %@", buf, 0x16u);
 
           parentCopy = v35;
@@ -462,16 +459,16 @@ LABEL_14:
       if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
         HMFGetLogIdentifier();
-        v32 = v41 = parentCopy;
+        v32 = v40 = parentCopy;
         *buf = 138543874;
-        v43 = v32;
-        v44 = 2112;
-        v45 = v13;
-        v46 = 2112;
-        v47 = objc_opt_class();
+        v42 = v32;
+        v43 = 2112;
+        v44 = v13;
+        v45 = 2112;
+        v46 = objc_opt_class();
         _os_log_impl(&dword_2531F8000, v31, OS_LOG_TYPE_ERROR, "%{public}@Failed to create action, model's parent is of invalid class %@:%@", buf, 0x20u);
 
-        parentCopy = v41;
+        parentCopy = v40;
       }
 
       objc_autoreleasePoolPop(v30);
@@ -497,11 +494,11 @@ LABEL_14:
     {
       v29 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v43 = v29;
-      v44 = 2112;
-      v45 = v10;
-      v46 = 2112;
-      v47 = objc_opt_class();
+      v42 = v29;
+      v43 = 2112;
+      v44 = v10;
+      v45 = 2112;
+      v46 = objc_opt_class();
       _os_log_impl(&dword_2531F8000, v28, OS_LOG_TYPE_ERROR, "%{public}@Failed to create action, model is of invalid class %@:%@", buf, 0x20u);
     }
 
@@ -518,13 +515,12 @@ LABEL_14:
     }
   }
 
-  v37 = *MEMORY[0x277D85DE8];
   return v26;
 }
 
 - (void)handleAccessoryProfileAddedNotification:(id)notification
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   object = [notificationCopy object];
   objc_opt_class();
@@ -543,12 +539,12 @@ LABEL_14:
   if (v7)
   {
     lightProfiles = [v7 lightProfiles];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __80__HMDLightProfileNaturalLightingAction_handleAccessoryProfileAddedNotification___block_invoke;
-    v22[3] = &unk_2797285D0;
-    v22[4] = self;
-    v9 = [lightProfiles na_firstObjectPassingTest:v22];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __80__HMDLightProfileNaturalLightingAction_handleAccessoryProfileAddedNotification___block_invoke;
+    v21[3] = &unk_2797285D0;
+    v21[4] = self;
+    v9 = [lightProfiles na_firstObjectPassingTest:v21];
 
     if (v9)
     {
@@ -560,11 +556,11 @@ LABEL_14:
         v13 = HMFGetLogIdentifier();
         name = [notificationCopy name];
         *buf = 138543874;
-        v24 = v13;
-        v25 = 2112;
-        v26 = name;
-        v27 = 2112;
-        v28 = v9;
+        v23 = v13;
+        v24 = 2112;
+        v25 = name;
+        v26 = 2112;
+        v27 = v9;
         _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@Handling accessory profile update notification: %@, updating light profile to: %@", buf, 0x20u);
       }
 
@@ -584,20 +580,18 @@ LABEL_14:
       name2 = [notificationCopy name];
       object2 = [notificationCopy object];
       *buf = 138544130;
-      v24 = v18;
-      v25 = 2112;
-      v26 = name2;
-      v27 = 2112;
-      v28 = object2;
-      v29 = 2112;
-      v30 = objc_opt_class();
+      v23 = v18;
+      v24 = 2112;
+      v25 = name2;
+      v26 = 2112;
+      v27 = object2;
+      v28 = 2112;
+      v29 = objc_opt_class();
       _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@Accessory profile update notification: %@ is sent by object: %@ which is not of type %@", buf, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v15);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __80__HMDLightProfileNaturalLightingAction_handleAccessoryProfileAddedNotification___block_invoke(uint64_t a1, void *a2)
@@ -638,7 +632,7 @@ uint64_t __80__HMDLightProfileNaturalLightingAction_handleAccessoryProfileAddedN
   v7 = [MEMORY[0x277CCABB0] numberWithBool:{-[HMDLightProfileNaturalLightingAction isNaturalLightingEnabled](self, "isNaturalLightingEnabled")}];
   [v4 setObject:v7 forKeyedSubscript:*MEMORY[0x277CD0788]];
 
-  v8 = [v4 copy];
+  v8 = objc_msgSend_copy(v4);
 
   return v8;
 }
@@ -695,7 +689,7 @@ uint64_t __66__HMDLightProfileNaturalLightingAction_isActionForCharacteristic___
 
 - (HMDLightProfileNaturalLightingAction)initWithCoder:(id)coder
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [[HMDAction alloc] initWithCoder:coderCopy];
   if (v5)
@@ -713,9 +707,9 @@ uint64_t __66__HMDLightProfileNaturalLightingAction_isActionForCharacteristic___
       if (!v8 || hmd_isForXPCTransportEntitledForSPIAccess)
       {
         v12 = MEMORY[0x277CBEB98];
-        v28[0] = objc_opt_class();
-        v28[1] = objc_opt_class();
-        v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:2];
+        v27[0] = objc_opt_class();
+        v27[1] = objc_opt_class();
+        v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:2];
         v14 = [v12 setWithArray:v13];
         v15 = [coderCopy decodeObjectOfClasses:v14 forKey:*MEMORY[0x277CD2668]];
         [(HMDLightProfileNaturalLightingAction *)v10 setLightServices:v15];
@@ -735,9 +729,9 @@ uint64_t __66__HMDLightProfileNaturalLightingAction_isActionForCharacteristic___
       {
         v24 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v30 = v24;
-        v31 = 2112;
-        v32 = 0;
+        v29 = v24;
+        v30 = 2112;
+        v31 = 0;
         _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode, light profile UUID is: %@", buf, 0x16u);
       }
 
@@ -754,13 +748,13 @@ uint64_t __66__HMDLightProfileNaturalLightingAction_isActionForCharacteristic___
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       v20 = HMFGetLogIdentifier();
-      v27.receiver = selfCopy2;
-      v27.super_class = HMDLightProfileNaturalLightingAction;
-      v21 = [(HMDLightProfileNaturalLightingAction *)&v27 class];
+      v26.receiver = selfCopy2;
+      v26.super_class = HMDLightProfileNaturalLightingAction;
+      v21 = [(HMDLightProfileNaturalLightingAction *)&v26 class];
       *buf = 138543618;
-      v30 = v20;
-      v31 = 2112;
-      v32 = v21;
+      v29 = v20;
+      v30 = 2112;
+      v31 = v21;
       _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode base class: %@", buf, 0x16u);
     }
 
@@ -768,7 +762,6 @@ uint64_t __66__HMDLightProfileNaturalLightingAction_isActionForCharacteristic___
     v17 = 0;
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
@@ -818,22 +811,20 @@ uint64_t __66__HMDLightProfileNaturalLightingAction_isActionForCharacteristic___
 
 - (id)associatedAccessories
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   lightProfile = [(HMDLightProfileNaturalLightingAction *)self lightProfile];
   accessory = [lightProfile accessory];
 
   if (accessory)
   {
-    v7[0] = accessory;
-    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
+    v6[0] = accessory;
+    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
   }
 
   else
   {
     v4 = MEMORY[0x277CBEBF8];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -869,6 +860,19 @@ uint64_t __66__HMDLightProfileNaturalLightingAction_isActionForCharacteristic___
   return v8;
 }
 
+- (HMDLightProfileNaturalLightingAction)initWithUUID:(id)d lightProfileUUID:(id)iD naturalLightingEnabled:(BOOL)enabled actionSet:(id)set
+{
+  enabledCopy = enabled;
+  v10 = MEMORY[0x277CCAB98];
+  setCopy = set;
+  iDCopy = iD;
+  dCopy = d;
+  defaultCenter = [v10 defaultCenter];
+  v15 = [(HMDLightProfileNaturalLightingAction *)self initWithUUID:dCopy lightProfileUUID:iDCopy naturalLightingEnabled:enabledCopy actionSet:setCopy notificationCenter:defaultCenter];
+
+  return v15;
+}
+
 - (HMDLightProfileNaturalLightingAction)initWithUUID:(id)d lightProfileUUID:(id)iD naturalLightingEnabled:(BOOL)enabled actionSet:(id)set notificationCenter:(id)center
 {
   iDCopy = iD;
@@ -881,7 +885,7 @@ uint64_t __66__HMDLightProfileNaturalLightingAction_isActionForCharacteristic___
   if (v15)
   {
     v15->_naturalLightingEnabled = enabled;
-    v17 = [iDCopy copy];
+    v17 = objc_msgSend_copy(iDCopy);
     lightProfileUUID = v16->_lightProfileUUID;
     v16->_lightProfileUUID = v17;
 
@@ -911,17 +915,16 @@ uint64_t __66__HMDLightProfileNaturalLightingAction_isActionForCharacteristic___
 
 uint64_t __51__HMDLightProfileNaturalLightingAction_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v32;
-  logCategory__hmf_once_v32 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v32;
+  logCategory__hmf_once_v32 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (id)actionWithDictionaryRepresentation:(id)representation home:(id)home
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   representationCopy = representation;
   homeCopy = home;
   v8 = [representationCopy hmf_UUIDForKey:*MEMORY[0x277CD2060]];
@@ -950,11 +953,11 @@ uint64_t __51__HMDLightProfileNaturalLightingAction_logCategory__block_invoke()
     {
       v25 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v40 = v25;
-      v41 = 2112;
-      v42 = representationCopy;
-      v43 = 2112;
-      v44 = v12;
+      v39 = v25;
+      v40 = 2112;
+      v41 = representationCopy;
+      v42 = 2112;
+      v43 = v12;
       _os_log_impl(&dword_2531F8000, v24, OS_LOG_TYPE_INFO, "%{public}@Failed to create natural lighting action with dictionary representation mising key %@:%@", buf, 0x20u);
     }
 
@@ -971,11 +974,11 @@ uint64_t __51__HMDLightProfileNaturalLightingAction_logCategory__block_invoke()
       v27 = HMFGetLogIdentifier();
       v28 = HMActionTypeAsString();
       *buf = 138543874;
-      v40 = v27;
-      v41 = 2112;
-      v42 = representationCopy;
-      v43 = 2112;
-      v44 = v28;
+      v39 = v27;
+      v40 = 2112;
+      v41 = representationCopy;
+      v42 = 2112;
+      v43 = v28;
       _os_log_impl(&dword_2531F8000, v26, OS_LOG_TYPE_INFO, "%{public}@Failed to create natural lighting action with dictionary representation invalid action type %@:%@", buf, 0x20u);
     }
 
@@ -1000,16 +1003,16 @@ LABEL_16:
       if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
       {
         HMFGetLogIdentifier();
-        v21 = v37 = v17;
+        v21 = v36 = v17;
         *buf = 138543874;
-        v40 = v21;
-        v41 = 2112;
-        v42 = selfCopy3;
-        v43 = 2112;
-        v44 = v18;
+        v39 = v21;
+        v40 = 2112;
+        v41 = selfCopy3;
+        v42 = 2112;
+        v43 = v18;
         _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_INFO, "%{public}@Created natural lighting action with dictionary representation %@:%@", buf, 0x20u);
 
-        v17 = v37;
+        v17 = v36;
       }
     }
 
@@ -1022,9 +1025,9 @@ LABEL_16:
       {
         v34 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v40 = v34;
-        v41 = 2112;
-        v42 = v16;
+        v39 = v34;
+        v40 = 2112;
+        v41 = v16;
         _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_INFO, "%{public}@Failed to create natural lighting action with dictionary representation light profile with UUID does not exisit: %@", buf, 0x16u);
       }
 
@@ -1043,11 +1046,11 @@ LABEL_16:
     {
       v32 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v40 = v32;
-      v41 = 2112;
-      v42 = representationCopy;
-      v43 = 2112;
-      v44 = v15;
+      v39 = v32;
+      v40 = 2112;
+      v41 = representationCopy;
+      v42 = 2112;
+      v43 = v15;
       _os_log_impl(&dword_2531F8000, v31, OS_LOG_TYPE_INFO, "%{public}@Failed to create natural lighting action with dictionary representation missing key %@:%@", buf, 0x20u);
     }
 
@@ -1056,14 +1059,13 @@ LABEL_16:
   }
 
 LABEL_25:
-  v35 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
 
 + (id)actionWithDictionaryRepresentation:(id)representation actionSet:(id)set
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   representationCopy = representation;
   setCopy = set;
   home = [setCopy home];
@@ -1086,13 +1088,13 @@ LABEL_25:
       if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
       {
         v21 = HMFGetLogIdentifier();
-        v24 = 138543874;
-        v25 = v21;
-        v26 = 2112;
-        v27 = setCopy;
-        v28 = 2112;
-        v29 = home;
-        _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_INFO, "%{public}@Failed to create natural lighting action with dictionary representation and action set %@:%@", &v24, 0x20u);
+        v23 = 138543874;
+        v24 = v21;
+        v25 = 2112;
+        v26 = setCopy;
+        v27 = 2112;
+        v28 = home;
+        _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_INFO, "%{public}@Failed to create natural lighting action with dictionary representation and action set %@:%@", &v23, 0x20u);
       }
 
       objc_autoreleasePoolPop(v18);
@@ -1108,20 +1110,18 @@ LABEL_25:
     if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       v17 = HMFGetLogIdentifier();
-      v24 = 138543874;
-      v25 = v17;
-      v26 = 2112;
-      v27 = setCopy;
-      v28 = 2112;
-      v29 = 0;
-      _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_INFO, "%{public}@Failed to create natural lighting action with dictionary representation, action set missing home %@:%@", &v24, 0x20u);
+      v23 = 138543874;
+      v24 = v17;
+      v25 = 2112;
+      v26 = setCopy;
+      v27 = 2112;
+      v28 = 0;
+      _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_INFO, "%{public}@Failed to create natural lighting action with dictionary representation, action set missing home %@:%@", &v23, 0x20u);
     }
 
     objc_autoreleasePoolPop(v14);
     v13 = 0;
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

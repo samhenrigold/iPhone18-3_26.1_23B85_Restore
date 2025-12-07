@@ -1,10 +1,46 @@
 @interface MBHSFileEncodingTask
 + (id)connection;
++ (id)encodingTaskWithEncodingMethod:(char)method;
+- (MBHSFileEncodingTask)initWithType:(char)type encodingMethod:(char)method;
 - (void)_finishWithError:(id)error;
 - (void)start;
 @end
 
 @implementation MBHSFileEncodingTask
+
++ (id)encodingTaskWithEncodingMethod:(char)method
+{
+  v3 = [[MBHSFileEncodingTask alloc] initWithType:1 encodingMethod:method];
+
+  return v3;
+}
+
+- (MBHSFileEncodingTask)initWithType:(char)type encodingMethod:(char)method
+{
+  if (type != 1)
+  {
+    __assert_rtn("[MBHSFileEncodingTask initWithType:encodingMethod:]", "MBHSFileEncodingTask.m", 27, "type == MBFileEncodingTypeEncode");
+  }
+
+  methodCopy = method;
+  if (!method)
+  {
+    __assert_rtn("[MBHSFileEncodingTask initWithType:encodingMethod:]", "MBHSFileEncodingTask.m", 28, "encodingMethod != MBFileEncodingMethodUnspecified");
+  }
+
+  v8.receiver = self;
+  v8.super_class = MBHSFileEncodingTask;
+  v5 = [(MBHSFileEncodingTask *)&v8 init];
+  v6 = v5;
+  if (v5)
+  {
+    [(MBHSFileEncodingTask *)v5 setType:1];
+    [(MBHSFileEncodingTask *)v6 setEncodingMethod:methodCopy];
+    [(MBHSFileEncodingTask *)v6 setCompressionMethod:0xFFFFFFFFLL];
+  }
+
+  return v6;
+}
 
 + (id)connection
 {

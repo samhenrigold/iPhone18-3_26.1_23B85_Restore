@@ -50,33 +50,33 @@
     customSeparatorAttributes = [v5 customSeparatorAttributes];
     if (customSeparatorAttributes == customSeparatorAttributes)
     {
-      v10 = 1;
+      isEqual = 1;
     }
 
     else
     {
       customActionHighlightAttributes = self->_customActionHighlightAttributes;
       customActionHighlightAttributes = [v5 customActionHighlightAttributes];
-      if ([(UIInterfaceActionHighlightAttributes *)customActionHighlightAttributes isEqual:customActionHighlightAttributes])
+      if (objc_msgSend_isEqual_(customActionHighlightAttributes))
       {
-        v10 = 1;
+        isEqual = 1;
       }
 
       else
       {
         v11 = self->_customSeparatorAttributes;
         customSeparatorAttributes2 = [v5 customSeparatorAttributes];
-        v10 = [(UIInterfaceActionSeparatorAttributes *)v11 isEqual:customSeparatorAttributes2];
+        isEqual = objc_msgSend_isEqual_(v11);
       }
     }
   }
 
   else
   {
-    v10 = 0;
+    isEqual = 0;
   }
 
-  return v10;
+  return isEqual;
 }
 
 - (id)newActionBackgroundViewForViewState:(id)state

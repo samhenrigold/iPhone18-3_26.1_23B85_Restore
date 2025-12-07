@@ -12,6 +12,7 @@
 - (void)sleepScheduleStateDidChange:(unint64_t)change previousState:(unint64_t)state context:(id)context;
 - (void)timeZoneChange;
 - (void)wakeTimeReached;
+- (void)wakeUpConfirmed:(BOOL)confirmed;
 - (void)windDownReached;
 @end
 
@@ -19,25 +20,25 @@
 
 - (HDSPSleepScheduleStateCoordinatorStateMachine)initWithIdentifier:(id)identifier persistence:(id)persistence delegate:(id)delegate infoProvider:(id)provider currentDateProvider:(id)dateProvider
 {
-  v39[6] = *MEMORY[0x277D85DE8];
+  v38[6] = *MEMORY[0x277D85DE8];
   v12 = MEMORY[0x277CBEB98];
   dateProviderCopy = dateProvider;
   providerCopy = provider;
   delegateCopy = delegate;
   persistenceCopy = persistence;
   identifierCopy = identifier;
-  v39[0] = objc_opt_class();
-  v39[1] = objc_opt_class();
-  v39[2] = objc_opt_class();
-  v39[3] = objc_opt_class();
-  v39[4] = objc_opt_class();
-  v39[5] = objc_opt_class();
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:6];
+  v38[0] = objc_opt_class();
+  v38[1] = objc_opt_class();
+  v38[2] = objc_opt_class();
+  v38[3] = objc_opt_class();
+  v38[4] = objc_opt_class();
+  v38[5] = objc_opt_class();
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:6];
   v19 = [v12 setWithArray:v18];
 
-  v38.receiver = self;
-  v38.super_class = HDSPSleepScheduleStateCoordinatorStateMachine;
-  v20 = [(HKSPPersistentStateMachine *)&v38 initWithIdentifier:identifierCopy allowedStates:v19 persistence:persistenceCopy delegate:delegateCopy infoProvider:providerCopy currentDateProvider:dateProviderCopy];
+  v37.receiver = self;
+  v37.super_class = HDSPSleepScheduleStateCoordinatorStateMachine;
+  v20 = [(HKSPPersistentStateMachine *)&v37 initWithIdentifier:identifierCopy allowedStates:v19 persistence:persistenceCopy delegate:delegateCopy infoProvider:providerCopy currentDateProvider:dateProviderCopy];
 
   if (v20)
   {
@@ -77,7 +78,6 @@
     v35 = v20;
   }
 
-  v36 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
@@ -97,6 +97,13 @@
 {
   currentState = [(HKSPStateMachine *)self currentState];
   [currentState wakeTimeReached];
+}
+
+- (void)wakeUpConfirmed:(BOOL)confirmed
+{
+  confirmedCopy = confirmed;
+  currentState = [(HKSPStateMachine *)self currentState];
+  [currentState wakeUpConfirmed:confirmedCopy];
 }
 
 - (void)alarmDismissed

@@ -287,30 +287,31 @@ uint64_t __38__EKUIAvailabilityRowView_addToSpans___block_invoke(uint64_t a1, vo
   [(EKUIAvailabilityRowView *)self convertDateIntoOffset:endDate];
   v12 = v11;
 
-  if (CalTimeDirectionIsLeftToRight())
+  IsLeftToRight = CalTimeDirectionIsLeftToRight(v13, v14);
+  if (IsLeftToRight)
   {
-    v13 = v12 - v9;
+    v17 = v12 - v9;
   }
 
   else
   {
-    v13 = v9 - v12;
+    v17 = v9 - v12;
   }
 
-  if (!CalTimeDirectionIsLeftToRight())
+  if (!CalTimeDirectionIsLeftToRight(IsLeftToRight, v16))
   {
     v9 = v12;
   }
 
   [(EKUIAvailabilityRowView *)self frame];
-  v15 = v14 + v5 * -2.0;
-  v16 = v9;
-  v17 = v5;
-  v18 = v13;
-  result.size.height = v15;
-  result.size.width = v18;
-  result.origin.y = v17;
-  result.origin.x = v16;
+  v19 = v18 + v5 * -2.0;
+  v20 = v9;
+  v21 = v5;
+  v22 = v17;
+  result.size.height = v19;
+  result.size.width = v22;
+  result.origin.y = v21;
+  result.origin.x = v20;
   return result;
 }
 
@@ -355,14 +356,14 @@ uint64_t __38__EKUIAvailabilityRowView_addToSpans___block_invoke(uint64_t a1, vo
 {
   [offset timeIntervalSinceDate:self->_startOfDay];
   v5 = v4;
-  [(EKUIAvailabilityRowView *)self frame];
-  v7 = v6;
-  v8 = v5 / 86400.0 * v6;
-  IsLeftToRight = CalTimeDirectionIsLeftToRight();
-  result = v7 - v8;
+  frame = [(EKUIAvailabilityRowView *)self frame];
+  v8 = v7;
+  v9 = v5 / 86400.0 * v7;
+  IsLeftToRight = CalTimeDirectionIsLeftToRight(frame, v10);
+  result = v8 - v9;
   if (IsLeftToRight)
   {
-    return v8;
+    return v9;
   }
 
   return result;

@@ -175,12 +175,4 @@
   return [self brc_swizzleClassMethod:a5 with:a4 newSel:a3];
 }
 
-+ (void)brc_swizzleInstanceMethod:()BRCSwizzle with:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_5(&dword_1AE2A9000, v0, v1, "[CRIT] API MISUSE: one of the selectors has no implementation%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 @end

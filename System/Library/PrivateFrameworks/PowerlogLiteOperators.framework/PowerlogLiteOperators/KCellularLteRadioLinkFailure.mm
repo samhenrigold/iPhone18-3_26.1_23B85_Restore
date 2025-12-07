@@ -3,6 +3,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)failCauseAsString:(int)string;
+- (id)rrcStateAsString:(int)string;
 - (int)StringAsFailCause:(id)cause;
 - (int)StringAsRrcState:(id)state;
 - (int)failCause;
@@ -47,6 +49,21 @@
   }
 
   *&self->_has = *&self->_has & 0xF7 | v3;
+}
+
+- (id)failCauseAsString:(int)string
+{
+  if (string >= 6)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278263210[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsFailCause:(id)cause
@@ -146,6 +163,21 @@
   }
 
   *&self->_has = *&self->_has & 0xDF | v3;
+}
+
+- (id)rrcStateAsString:(int)string
+{
+  if (string >= 7)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278263240[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsRrcState:(id)state
@@ -368,7 +400,6 @@ LABEL_9:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 8) == 0)
@@ -388,7 +419,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  failCause = self->_failCause;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -403,7 +433,6 @@ LABEL_4:
   }
 
 LABEL_14:
-  band = self->_band;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -418,7 +447,6 @@ LABEL_5:
   }
 
 LABEL_15:
-  coexPolicy = self->_coexPolicy;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -433,7 +461,6 @@ LABEL_6:
   }
 
 LABEL_16:
-  rrcState = self->_rrcState;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -448,12 +475,10 @@ LABEL_7:
   }
 
 LABEL_17:
-  hstState = self->_hstState;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x40) != 0)
   {
 LABEL_8:
-    subsId = self->_subsId;
     PBDataWriterWriteUint32Field();
   }
 

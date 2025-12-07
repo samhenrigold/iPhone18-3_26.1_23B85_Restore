@@ -18,9 +18,9 @@ LABEL_12:
         break;
       }
 
-      v33 = v32 + 20;
+      v33 = (v32 + 20);
       v34 = (v32 + 1) > a2 || v32 > v32 + 1;
-      v35 = v32 + 21;
+      v35 = (v32 + 21);
       v36 = !v34 && v33 >= a1;
       v37 = !v36 || v35 > a2;
       v38 = v37 || v33 > v35;
@@ -98,7 +98,7 @@ LABEL_12:
     while (1)
     {
       v26 = (a3 + 4 * v23);
-      v27 = v26 + 1;
+      v27 = (v26 + 1);
       v28 = v26 < a3 || v27 > a4;
       if (v28 || v26 > v27)
       {
@@ -714,15 +714,15 @@ LABEL_165:
   }
 }
 
-void SetModeIndex(uint64_t a1, uint64_t a2, unsigned __int16 a3)
+void SetModeIndex(uint64_t result, uint64_t a2, unsigned __int16 a3, uint64_t a4, uint64_t a5)
 {
-  if (*(a1 + 72) != a2 || *(a1 + 136) != a3 || *(a1 + 2) == 1 || *(a1 + 67464) != *(a1 + 67462))
+  if (*(result + 72) != a2 || *(result + 136) != a3 || *(result + 2) == 1 || *(result + 67464) != *(result + 67462))
   {
-    core_coder_mode_switch(a1, *(a1 + 130), a2);
+    core_coder_mode_switch(result, *(result + 130), a2);
   }
 }
 
-float *analy_lp(void *a1, unsigned int a2, int a3, _DWORD *a4, float *a5, unint64_t a6, float *a7, unint64_t a8, float a9, __int128 *a10, unint64_t a11, unint64_t a12, unint64_t a13, _OWORD *a14, unint64_t a15, unint64_t a16, unint64_t a17)
+float *analy_lp(void *a1, int a2, int a3, _DWORD *a4, float *a5, unint64_t a6, float *a7, unint64_t a8, float a9, __int128 *a10, unint64_t a11, __int128 *a12, unint64_t a13, __int128 *a14, unint64_t a15, unint64_t a16, unint64_t a17)
 {
   v18 = 0;
   v19 = a12;
@@ -743,7 +743,7 @@ float *analy_lp(void *a1, unsigned int a2, int a3, _DWORD *a4, float *a5, unint6
   *(&v22 + 1) = -1;
   if (a2 == 256)
   {
-    v23 = &LP_assym_window;
+    v23 = LP_assym_window;
   }
 
   else
@@ -885,7 +885,7 @@ void find_wsp(int a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, float **a
           break;
         }
 
-        if ((v24 - v25) < 256 || v23 < v21)
+        if (v24 - v25 < 256 || v23 < v21)
         {
           break;
         }
@@ -904,13 +904,13 @@ void find_wsp(int a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, float **a
               deemph_opt(v27, a11, a1, a7, a9);
               v29 = a6[1];
               v30 = &(*a6)[a1];
-              if (v30 <= v29 && a6[2] <= v30 && a8 <= (v29 - v30) >> 2)
+              if (v30 <= v29 && a6[2] <= v30 && a8 <= v29 - v30)
               {
                 vDSP_conv((*a5 + 4 * a1 - 64), 1, v23 + 16, -1, v30, 1, a8, 0x11uLL);
                 v33 = *a7;
                 v31 = a6[1];
                 v32 = &(*a6)[a1];
-                if (v32 <= v31 && a6[2] <= v32 && a8 <= (v31 - v32) >> 2)
+                if (v32 <= v31 && a6[2] <= v32 && a8 <= v31 - v32)
                 {
                   deemph_opt(v32, a11, a8, &v33, a9);
                   return;
@@ -928,9 +928,9 @@ void find_wsp(int a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, float **a
   __break(0x5519u);
 }
 
-_WORD *pitch_ol(__int16 *a1, float *a2, __int16 *a3, float *a4, float *a5, _WORD *a6, char *a7, unint64_t a8, float a9, float a10, unint64_t a11, uint64_t a12, uint64_t a13, __int16 a14, __int16 a15, __int16 a16)
+__int16 *pitch_ol(__int16 *a1, float *a2, __int16 *a3, float *a4, float *a5, __int16 *a6, char *a7, unint64_t a8, float a9, float a10, unint64_t a11, uint64_t a12, uint64_t a13, __int16 a14, __int16 a15, __int16 a16)
 {
-  *v481 = *MEMORY[0x1E69E9840];
+  v481[0] = *MEMORY[0x1E69E9840];
   memset(v470, 255, sizeof(v470));
   v465 = -1431655766;
   v464 = 0xAAAAAAAAAAAAAAAALL;
@@ -1124,9 +1124,9 @@ LABEL_10:
   }
 
   v404 = v39;
-  v40 = &pit_max_12k8[v411];
+  v40 = &pit_max_12k8[2 * v411];
   v41 = v40 + 2 > len_12k8 || v40 > v40 + 2;
-  v398 = &pit_max_12k8[v411];
+  v398 = &pit_max_12k8[2 * v411];
   v42 = !v41 && v40 >= pit_max_12k8;
   v43 = v42;
   if (v401)
@@ -1174,7 +1174,7 @@ LABEL_10:
       do
       {
         v57 = (len_12k8 + 2 * v54);
-        v58 = v57 + 1;
+        v58 = (v57 + 2);
         if (v57 < len_12k8 || v58 > len1_12k8 || v57 > v58)
         {
           goto LABEL_628;
@@ -1307,14 +1307,14 @@ LABEL_10:
       {
         v437 = v94;
         v96 = &sublen_12k8[v94];
-        v97 = v96 + 2;
-        if (v96 < sublen_12k8 || v97 > &sublen1_12k8 || v96 > v97)
+        v97 = v96 + 1;
+        if (v96 < sublen_12k8 || v97 > sublen1_12k8 || v96 > v97)
         {
           goto LABEL_628;
         }
 
-        v100 = &sublen1_12k8 + 2 * v94;
-        if (v100 < &sublen1_12k8)
+        v100 = &sublen1_12k8[v94];
+        if (v100 < sublen1_12k8)
         {
           goto LABEL_628;
         }
@@ -1329,21 +1329,21 @@ LABEL_10:
           goto LABEL_628;
         }
 
-        v101 = &pit_max_12k8[v94];
-        v102 = (v101 + 1);
-        if (v101 + 1 < pit_max_12k8 || v101 + 2 > len_12k8 || v102 > (v101 + 2) || v101 < pit_max_12k8 || v101 > v102)
+        v101 = &pit_max_12k8[2 * v94];
+        v102 = (v101 + 2);
+        if (v101 + 2 < pit_max_12k8 || v101 + 4 > len_12k8 || v102 > (v101 + 4) || v101 < pit_max_12k8 || v101 > v102)
         {
           goto LABEL_628;
         }
 
         v103 = sublen_12k8[v94];
-        v104 = *(&sublen1_12k8 + v94);
-        v105 = (v101[1] - *v101);
+        v104 = sublen1_12k8[v94];
+        v105 = (*(v101 + 1) - *v101);
         if (v103 >= v104)
         {
           if (v105 >= 1)
           {
-            v111 = *(&sublen1_12k8 + v94);
+            v111 = sublen1_12k8[v94];
             v112 = v103 - v104;
             while (1)
             {
@@ -1458,7 +1458,7 @@ LABEL_159:
     do
     {
       v118 = (len_12k8 + 2 * v114);
-      v119 = v118 + 1;
+      v119 = (v118 + 2);
       if (v118 < len_12k8 || v119 > len1_12k8 || v118 > v119)
       {
         goto LABEL_628;
@@ -1590,22 +1590,22 @@ LABEL_159:
     {
       v447 = v145;
       v147 = &sublen_12k8[v145];
-      v148 = v147 + 2;
-      if (v147 < sublen_12k8 || v148 > &sublen1_12k8 || v147 > v148)
+      v148 = v147 + 1;
+      if (v147 < sublen_12k8 || v148 > sublen1_12k8 || v147 > v148)
       {
         goto LABEL_628;
       }
 
-      v151 = &sublen1_12k8 + 2 * v145;
-      if (v151 < &sublen1_12k8 || v151 + 2 > sec_length_12k8 || v151 > v151 + 2)
+      v151 = &sublen1_12k8[v145];
+      if (v151 < sublen1_12k8 || v151 + 2 > sec_length_12k8 || v151 > v151 + 2)
       {
         goto LABEL_628;
       }
 
       v152 = sublen_12k8[v145];
-      v153 = *(&sublen1_12k8 + v145);
+      v153 = sublen1_12k8[v145];
       v154 = v117 - v450;
-      v155 = &pit_max_12k8[v145];
+      v155 = &pit_max_12k8[2 * v145];
       v156 = (v155 + 2);
       v157 = v155 + 4;
       v160 = v157 <= len_12k8 && v156 <= v157 && v156 >= pit_max_12k8;
@@ -1829,8 +1829,8 @@ LABEL_266:
           goto LABEL_628;
         }
 
-        v198 = &v438[v443];
-        if (&v438[v443] < len1_12k8 || v198 + 2 > sublen_12k8 || v198 > v198 + 2)
+        v198 = &v438[v443 / 2];
+        if (&v438[v443 / 2] < len1_12k8 || v198 + 1 > sublen_12k8 || v198 > v198 + 1)
         {
           goto LABEL_628;
         }
@@ -1936,7 +1936,7 @@ LABEL_266:
         goto LABEL_628;
       }
 
-      if (v481 - v206 < v207)
+      if ((v481 - v206) >> 2 < v207)
       {
         goto LABEL_628;
       }
@@ -2026,8 +2026,8 @@ LABEL_266:
       }
 
       *v213 = *v212 * v211;
-      v214 = &v433[v443];
-      if (&v433[v443] < sec_length1_12k8)
+      v214 = &v433[v443 / 2];
+      if (&v433[v443 / 2] < sec_length1_12k8)
       {
         goto LABEL_628;
       }
@@ -2083,8 +2083,8 @@ LABEL_266:
 
       v219 = (v216 + v432);
       *v217 = v216 + v432 + v419;
-      v220 = &v438[v443];
-      if (&v438[v443] < len1_12k8)
+      v220 = &v438[v443 / 2];
+      if (&v438[v443 / 2] < len1_12k8)
       {
         goto LABEL_628;
       }
@@ -2116,7 +2116,7 @@ LABEL_266:
         goto LABEL_628;
       }
 
-      if (v481 - v221 < v222)
+      if ((v481 - v221) >> 2 < v222)
       {
         goto LABEL_628;
       }
@@ -2208,12 +2208,12 @@ LABEL_266:
       v432 += v215;
       v193 = v423 - 2;
       v431 = (v431 + 4);
-      v438 += 2;
+      ++v438;
       *v229 = *v228 * v227;
       v192 = (v192 + 4);
       v190 = (v190 + 4);
       v191 = (v191 + 2);
-      v433 += 2;
+      ++v433;
       v434 = (v434 + 4);
       v448 = (v448 + 2);
       v189 = v422 + 2;
@@ -3018,7 +3018,7 @@ void pitch_ol2(int a1, __int16 a2, float *a3, float *a4, unsigned __int16 a5, ui
   if ((v8 - 4) <= (v9 + 4))
   {
     v13 = (4 * a5 - 4 * v8 + v10 + 16);
-    v14 = &v46[v8 - 4] - v10 + -4 * a5;
+    v14 = v46 + 4 * v8 - v10 - 4 * a5 - 16;
     v15 = v8 - 3;
     v16 = &v55;
     do
@@ -3048,7 +3048,7 @@ void pitch_ol2(int a1, __int16 a2, float *a3, float *a4, unsigned __int16 a5, ui
         goto LABEL_53;
       }
 
-      if (v46 - v11 <= 252)
+      if ((v46 - v11) <= 252)
       {
         goto LABEL_53;
       }
@@ -3199,7 +3199,7 @@ LABEL_41:
   v52 = v46;
   v53 = v47;
   pred_lt4(&__C, __B, v40, v28, 64, E_ROM_inter4_1_11466, Env_TR_Cdbk1, 4u, 4);
-  if (v46 < v11 || v47 > v11 || v46 - v11 < 253)
+  if (v46 < v11 || v47 > v11 || (v46 - v11) < 253)
   {
 LABEL_53:
     __break(0x5519u);
@@ -3278,8 +3278,8 @@ BOOL noise_est(float32x2_t *a1, unint64_t a2, unint64_t a3, __int16 *a4, unint64
   }
 
   v360 = *&v41;
-  v42 = (a4 + 1);
-  if ((a4 + 1) > a5 || v42 < a4 || (a4 + 2) > a5 || v42 > (a4 + 2))
+  v42 = a4 + 1;
+  if ((a4 + 1) > a5 || v42 < a4 || (a4 + 2) > a5 || v42 > a4 + 2)
   {
     goto LABEL_609;
   }
@@ -5067,7 +5067,7 @@ uint64_t mdct_classifier(unint64_t a1, unint64_t a2, uint64_t a3, int a4, float 
   {
     v23 = v22;
     v24 = (a1 + v19);
-    v25 = v24 + 1;
+    v25 = (v24 + 1);
     if (v24 < a1 || v25 > a2 || v24 > v25)
     {
       goto LABEL_154;
@@ -5168,7 +5168,7 @@ uint64_t mdct_classifier(unint64_t a1, unint64_t a2, uint64_t a3, int a4, float 
     }
 
     v51 = *v45;
-    v50 = v45 + 9;
+    v50 = (v45 + 9);
     v52 = v51;
     if (v50 > a6)
     {
@@ -5432,7 +5432,7 @@ LABEL_145:
     v31 = 1;
     do
     {
-      v32 = (v26 + 4 * v31);
+      v32 = &v26[v31];
       v33 = v32 + 1;
       if (v32 < v26 || v33 > v30 || v32 > v33)
       {
@@ -5441,7 +5441,7 @@ LABEL_145:
 
       v36 = v32 - 1;
       v37 = *v32;
-      v38 = (v32 - 1) < v26 || v36 > v32;
+      v38 = v32 - 1 < v26 || v36 > v32;
       v39 = v32 + 2;
       v40 = v38 || v39 > v30;
       if (v40 || v33 > v39)
@@ -5468,7 +5468,7 @@ LABEL_145:
       ++v31;
     }
 
-    while ((v16 - 1) > v31);
+    while (v16 - 1 > v31);
     v43 = (a4 + 4 * v14);
     if (v43 > a5)
     {
@@ -5518,7 +5518,7 @@ LABEL_145:
       v56 = 0;
       v57 = v17 - v53;
       v58 = &v84[2 * v53 + 1770];
-      while (v58 >= v26 && (v58 + 1) <= v27 && v58 <= v58 + 1)
+      while (v58 >= v26 && v58 + 1 <= v27 && v58 <= v58 + 1)
       {
         v59 = *v58++;
         if (v59 >= (a8 + 6.5624))
@@ -5774,7 +5774,7 @@ float *dot_product_mat(float *result, unint64_t a2, unint64_t a3)
   {
     v6 = 0;
     v7 = v5;
-    v5 += 12;
+    v5 += 48;
     v8 = 0.0;
     v9 = result;
     do
@@ -5833,7 +5833,7 @@ LABEL_18:
     while (1)
     {
       v9 = &result[v6];
-      v10 = (v9 + 1);
+      v10 = v9 + 1;
       v11 = v9 < result || v10 > &result[a2];
       if (v11 || v9 > v10)
       {
@@ -5894,7 +5894,7 @@ unint64_t stab_est(unint64_t result, float *a2, __int16 *a3, __int16 *a4, float 
   while (v13 != 60);
   *v12 = a8 - *a2;
   *a2 = a8;
-  v16 = (a5 + 4);
+  v16 = a5 + 4;
   v17 = a5 + 3;
   if (a5 + 3 > a5 + 4 || v17 < a5)
   {
@@ -5918,14 +5918,14 @@ LABEL_19:
     goto LABEL_19;
   }
 
-  if ((a5 + 2) > v16)
+  if (a5 + 2 > v16)
   {
     goto LABEL_56;
   }
 
   if (v18 >= a5[1] || *a6 <= 0)
   {
-    if ((a5 + 1) > v16)
+    if (a5 + 1 > v16)
     {
       goto LABEL_56;
     }
@@ -5950,7 +5950,7 @@ LABEL_27:
   if (*a3 >= 31)
   {
     v21 = a5 + 1;
-    if ((a5 + 1) > v16)
+    if (a5 + 1 > v16)
     {
       goto LABEL_56;
     }
@@ -5964,7 +5964,7 @@ LABEL_31:
   if (*a4 >= 31)
   {
     v21 = a5 + 1;
-    if ((a5 + 1) > v16)
+    if (a5 + 1 > v16)
     {
       goto LABEL_56;
     }
@@ -5973,7 +5973,7 @@ LABEL_31:
     v23 = -0.15625;
 LABEL_34:
     *a5 = v22 + v23;
-    if ((a5 + 2) <= v16)
+    if (a5 + 2 <= v16)
     {
       *v21 = *v21 + v23;
       a5[2] = a5[2] + v23;
@@ -5989,7 +5989,7 @@ LABEL_56:
 
 LABEL_36:
   v24 = a5 + 1;
-  if ((a5 + 1) > v16)
+  if (a5 + 1 > v16)
   {
     goto LABEL_56;
   }
@@ -6002,7 +6002,7 @@ LABEL_36:
   }
 
   v26 = a5 + 2;
-  if ((a5 + 2) > v16)
+  if (a5 + 2 > v16)
   {
     goto LABEL_56;
   }
@@ -6057,7 +6057,7 @@ LABEL_36:
 uint64_t find_ener_decrease(uint64_t result, unint64_t a2, unint64_t a3)
 {
   v3 = (a2 + 4 * (result + 2));
-  v4 = v3 + 1;
+  v4 = (v3 + 1);
   if (v3 < a2 || v4 > a3 || v3 >= v4)
   {
 LABEL_27:
@@ -6125,7 +6125,7 @@ LABEL_18:
   return result;
 }
 
-void core_coder_mode_switch(uint64_t a1, int a2, int a3)
+void core_coder_mode_switch(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6 = a1 + 110824;
   v7 = a1 + 67376;
@@ -6531,7 +6531,7 @@ float *find_mult(float *result, int a2, int a3, int a4, float *a5, __int16 *a6, 
   return result;
 }
 
-float bandcombinepow(float *__src, int a2, uint64_t a3, int a4, uint64_t a5, float *__dst, float result)
+float bandcombinepow(float *__src, unsigned int a2, uint64_t a3, int a4, uint64_t a5, float *__dst, float result)
 {
   v8 = __src;
   if (a2 != a4)
@@ -6606,7 +6606,7 @@ void compress_range(float *a1, float *a2, int a3)
     while (v8 >= a1)
     {
       v11 = v8 + 1;
-      if ((v8 + 1) > v10 || v8 > v11 || v9 < v4 || (v9 + 1) > v5 || v9 > v9 + 1)
+      if (v8 + 1 > v10 || v8 > v11 || v9 < v4 || v9 + 1 > v5 || v9 > v9 + 1)
       {
         break;
       }
@@ -6667,7 +6667,7 @@ LABEL_18:
     while (v17 >= v4)
     {
       v18 = v17 + 1;
-      if ((v17 + 1) > v5 || v17 > v18)
+      if (v17 + 1 > v5 || v17 > v18)
       {
         break;
       }
@@ -6704,7 +6704,7 @@ LABEL_26:
   }
 }
 
-void minimum_statistics(uint64_t a1, int a2, const float **a3, float *a4, float *a5, float *a6, float *a7, char *__dst, char *a9, float *a10, unint64_t *a11, unint64_t a12, unint64_t a13, unint64_t a14, float *a15, float *a16, unint64_t a17, unint64_t a18, void *a19, int *a20, uint64_t a21)
+void minimum_statistics(uint64_t a1, int a2, const float **a3, float *a4, float *a5, float *a6, float *a7, char *__dst, char *a9, float *a10, float **a11, unint64_t a12, unint64_t a13, float *a14, float *a15, float *a16, _DWORD *a17, unint64_t a18, void *a19, int *a20, uint64_t a21)
 {
   v24 = a1;
   v25 = a21;
@@ -6828,7 +6828,7 @@ void minimum_statistics(uint64_t a1, int a2, const float **a3, float *a4, float 
         goto LABEL_399;
       }
 
-      if (v43 > (v44 - v45) >> 2)
+      if (v43 > v44 - v45)
       {
         goto LABEL_399;
       }
@@ -6900,24 +6900,24 @@ LABEL_31:
     v55 = 0;
     v288 = 0;
     v56 = *(a21 + 60) - *(a21 + 56);
-    v272 = 4 * a1;
+    v272 = a1;
     v57 = *(a21 + 11664);
     v271 = a21 + 11684;
     v276 = a21 + 11692;
     v58 = *(a21 + 11668);
-    v59 = &a5[v272 / 4];
-    v60 = &__dst[v272];
-    v61 = &a7[v272 / 4];
-    v62 = &a4[v272 / 4];
+    v59 = &a5[v272];
+    v60 = &__dst[v272 * 4];
+    v61 = &a7[v272];
+    v62 = &a4[v272];
     v63 = (1.0 - v57) * 71.0;
-    v290 = a13 + v272;
+    v290 = a13 + v272 * 4;
     v275 = a21 + 11700;
     v64 = (1.0 - v58) * 11.0;
     v65 = -v57;
     v66 = -v58;
     v67 = a2;
-    v278 = &a4[v272 / 4];
-    v269 = a12 + v272;
+    v278 = &a4[v272];
+    v269 = a12 + v272 * 4;
     v270 = v61;
     while (1)
     {
@@ -6931,7 +6931,7 @@ LABEL_31:
 
       v70 = &__src[v55];
       v287 = (v67 - v55);
-      v71 = (v68 - v69) >> 2 < v287 || v70 > v62;
+      v71 = v68 - v69 < v287 || v70 > v62;
       v72 = !v71 && v70 >= __src;
       if (!v72)
       {
@@ -6940,7 +6940,7 @@ LABEL_31:
 
       v289 = v55;
       v73 = 4 * v55;
-      if ((v67 - v55) > (v272 - v73) >> 2)
+      if ((v67 - v55) > (v272 * 4 - v73) >> 2)
       {
         goto LABEL_399;
       }
@@ -7010,7 +7010,7 @@ LABEL_31:
         goto LABEL_399;
       }
 
-      if (v287 > (v81 - v82) >> 2)
+      if (v287 > v81 - v82)
       {
         goto LABEL_399;
       }
@@ -7079,7 +7079,7 @@ LABEL_31:
 
           *v104 = v103;
           v105 = &v92[v73 / 4];
-          if (&v92[v73 / 4] < __src || (v105 + 1) > v278 || v105 > v105 + 1)
+          if (&v92[v73 / 4] < __src || v105 + 1 > v278 || v105 > v105 + 1)
           {
             goto LABEL_399;
           }
@@ -7106,7 +7106,7 @@ LABEL_31:
         goto LABEL_399;
       }
 
-      if (v287 > (v106 - v107) >> 2)
+      if (v287 > v106 - v107)
       {
         goto LABEL_399;
       }
@@ -7135,7 +7135,7 @@ LABEL_31:
         do
         {
           v112 = (a7 + v111);
-          v113 = a7 + v111 + 4;
+          v113 = (a7 + v111 + 4);
           v114 = (a7 + v111) < a7 || v113 > v270;
           if (v114 || v112 > v113)
           {
@@ -7164,7 +7164,7 @@ LABEL_31:
             goto LABEL_399;
           }
 
-          if (v117 + 1 > &a9[v272])
+          if (v117 + 1 > &a9[v272 * 4])
           {
             goto LABEL_399;
           }
@@ -7184,7 +7184,7 @@ LABEL_31:
             goto LABEL_399;
           }
 
-          if (v121 + 1 > &a10[v272 / 4])
+          if (v121 + 1 > &a10[v272])
           {
             goto LABEL_399;
           }
@@ -7202,7 +7202,7 @@ LABEL_31:
             goto LABEL_399;
           }
 
-          if ((v123 + 1) > v59)
+          if (v123 + 1 > v59)
           {
             goto LABEL_399;
           }
@@ -7306,7 +7306,7 @@ LABEL_31:
           }
 
           v144 = (v135 + v73);
-          if (v135 + v73 < a14 || (v144 + 1) > a14 + v272 || v144 > v144 + 1)
+          if (v135 + v73 < a14 || v144 + 1 > &a14[v272] || v144 > v144 + 1)
           {
             goto LABEL_399;
           }
@@ -7315,7 +7315,7 @@ LABEL_31:
           v146 = v145 * *v143;
           v147 = (v136 + v73);
           v148 = v136 + v73 + 4;
-          v151 = v148 <= a18 + v272 && v147 <= v148 && v147 >= a18;
+          v151 = v148 <= a18 + v272 * 4 && v147 <= v148 && v147 >= a18;
           if (v146 >= *v144)
           {
             if (!v151)
@@ -7352,7 +7352,7 @@ LABEL_31:
             }
 
             v153 = &v138[v73 / 4];
-            if (&v138[v73 / 4] < a16 || v153 + 1 > &a16[v272 / 4] || v153 > v153 + 1)
+            if (&v138[v73 / 4] < a16 || v153 + 1 > &a16[v272] || v153 > v153 + 1)
             {
               goto LABEL_399;
             }
@@ -7496,9 +7496,9 @@ LABEL_191:
         }
 
         v192 = &v26[v191];
-        v193 = *(v187 + 8);
+        v193 = v187[1];
         v194 = 1;
-        v195 = (v176 + 4 * v179);
+        v195 = &v176[v179];
 LABEL_240:
         v196 = v194;
         while (v191 < 1)
@@ -7529,7 +7529,7 @@ LABEL_240:
 
           v201 = v191;
           v202 = &a15[v197];
-          if (v202 < a15 || (v202 + 1) > v190 || v202 > v202 + 1)
+          if (v202 < a15 || v202 + 1 > v190 || v202 > v202 + 1)
           {
             break;
           }
@@ -7553,7 +7553,7 @@ LABEL_240:
             v203 = 0;
             v204 = 0;
             v205 = *(a21 + 11692);
-            v206 = a17 + 4 * v179;
+            v206 = &a17[v179];
             while (1)
             {
               if (v203 == a2)
@@ -7561,7 +7561,7 @@ LABEL_240:
                 v205 = *(a21 + 11696);
               }
 
-              v207 = (a17 + 4 * v204);
+              v207 = &a17[v204];
               if (v207 < a17)
               {
                 goto LABEL_399;
@@ -7599,7 +7599,7 @@ LABEL_240:
                   }
 
                   v211 = &a15[v204];
-                  if (v211 < a15 || (v211 + 1) > v190 || v211 > v211 + 1)
+                  if (v211 < a15 || v211 + 1 > v190 || v211 > v211 + 1)
                   {
                     goto LABEL_399;
                   }
@@ -7612,8 +7612,8 @@ LABEL_240:
                     v214 = v204;
                     do
                     {
-                      v215 = (*a11 + 4 * v214);
-                      v216 = (v215 + 1) > a11[1] || v215 > v215 + 1;
+                      v215 = &(*a11)[v214];
+                      v216 = v215 + 1 > a11[1] || v215 > v215 + 1;
                       if (v216 || v215 < v177)
                       {
                         goto LABEL_399;
@@ -7698,8 +7698,8 @@ LABEL_399:
       v167 = v167;
       if (*v168 >= 1)
       {
-        v172 = (a17 + 4 * v167);
-        if (v172 < a17 || (v172 + 1) > a17 + 4 * v24 || v172 > v172 + 1)
+        v172 = &a17[v167];
+        if (v172 < a17 || v172 + 1 > &a17[v24] || v172 > v172 + 1)
         {
           goto LABEL_399;
         }
@@ -7850,7 +7850,7 @@ LABEL_303:
           goto LABEL_399;
         }
 
-        if (v229 > (v230 - v231) >> 2)
+        if (v229 > v230 - v231)
         {
           goto LABEL_399;
         }
@@ -8332,9 +8332,9 @@ char *cldfbAnalysis(uint64_t a1, void *a2, void *a3, size_t __n, int *a5)
     v439 = &v440[4 * v30];
     v47 = v25 << 17;
     v48 = (2 * v25);
-    v49 = (v28 << 17) >> 15;
+    v49 = v28 << 17 >> 15;
     v50 = 3 * (2 * v28);
-    v51 = (v28 << 17) >> 14;
+    v51 = v28 << 17 >> 14;
     v52 = -3 * v45 + (2 * v28);
     v53 = ~v45 + (2 * v28);
     v54 = v48 - 5 * v45;

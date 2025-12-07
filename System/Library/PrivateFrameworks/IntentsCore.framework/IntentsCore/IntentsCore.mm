@@ -28,52 +28,46 @@ void sub_255509738(_Unwind_Exception *a1)
 
 void CarPlayServicesLibrary()
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v2[0] = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v1[0] = 0;
   if (!CarPlayServicesLibraryCore_frameworkLibrary)
   {
-    v2[1] = MEMORY[0x277D85DD0];
-    v2[2] = 3221225472;
-    v2[3] = __CarPlayServicesLibraryCore_block_invoke;
-    v2[4] = &__block_descriptor_40_e5_v8__0l;
-    v2[5] = v2;
-    v3 = xmmword_2797E7750;
-    v4 = 0;
+    v1[1] = MEMORY[0x277D85DD0];
+    v1[2] = 3221225472;
+    v1[3] = __CarPlayServicesLibraryCore_block_invoke;
+    v1[4] = &__block_descriptor_40_e5_v8__0l;
+    v1[5] = v1;
+    v2 = xmmword_2797E7750;
+    v3 = 0;
     CarPlayServicesLibraryCore_frameworkLibrary = _sl_dlopen();
-    v0 = v2[0];
+    v0 = v1[0];
     if (CarPlayServicesLibraryCore_frameworkLibrary)
     {
-      if (!v2[0])
+      if (!v1[0])
       {
-        goto LABEL_4;
+        return;
       }
     }
 
     else
     {
-      v0 = abort_report_np();
+      v0 = abort_report_np("%s", v1[0]);
     }
 
     free(v0);
   }
-
-LABEL_4:
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __CarPlayServicesLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   CarPlayServicesLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void sub_255509BF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_255509BF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -92,31 +86,31 @@ void sub_25550A134(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_25550A78C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25550A78C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 Class __getGEOCountryConfigurationClass_block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v5[0] = 0;
+  v7 = *MEMORY[0x277D85DE8];
+  v4[0] = 0;
   if (!GeoServicesLibraryCore_frameworkLibrary)
   {
-    v5[1] = MEMORY[0x277D85DD0];
-    v5[2] = 3221225472;
-    v5[3] = __GeoServicesLibraryCore_block_invoke;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_2797E7768;
-    v7 = 0;
+    v4[1] = MEMORY[0x277D85DD0];
+    v4[2] = 3221225472;
+    v4[3] = __GeoServicesLibraryCore_block_invoke;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_2797E7768;
+    v6 = 0;
     GeoServicesLibraryCore_frameworkLibrary = _sl_dlopen();
-    v2 = v5[0];
+    v2 = v4[0];
     if (GeoServicesLibraryCore_frameworkLibrary)
     {
-      if (!v5[0])
+      if (!v4[0])
       {
         goto LABEL_4;
       }
@@ -124,7 +118,7 @@ Class __getGEOCountryConfigurationClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -135,11 +129,10 @@ LABEL_4:
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    abort_report_np();
+    abort_report_np("Unable to find class %s", "GEOCountryConfiguration");
   }
 
   getGEOCountryConfigurationClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -155,7 +148,7 @@ Class __getCRCarPlayAppPolicyEvaluatorClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = abort_report_np();
+    v3 = abort_report_np("Unable to find class %s", "CRCarPlayAppPolicyEvaluator");
     return __getCRCarPlayAppDeclarationClass_block_invoke(v3);
   }
 
@@ -173,63 +166,54 @@ void __getCRCarPlayAppDeclarationClass_block_invoke(uint64_t a1)
 
   else
   {
-    abort_report_np();
+    abort_report_np("Unable to find class %s", "CRCarPlayAppDeclaration");
     CarKitLibrary();
   }
 }
 
 void CarKitLibrary()
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v2[0] = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v1[0] = 0;
   if (!CarKitLibraryCore_frameworkLibrary)
   {
-    v2[1] = MEMORY[0x277D85DD0];
-    v2[2] = 3221225472;
-    v2[3] = __CarKitLibraryCore_block_invoke;
-    v2[4] = &__block_descriptor_40_e5_v8__0l;
-    v2[5] = v2;
-    v3 = xmmword_2797E7780;
-    v4 = 0;
+    v1[1] = MEMORY[0x277D85DD0];
+    v1[2] = 3221225472;
+    v1[3] = __CarKitLibraryCore_block_invoke;
+    v1[4] = &__block_descriptor_40_e5_v8__0l;
+    v1[5] = v1;
+    v2 = xmmword_2797E7780;
+    v3 = 0;
     CarKitLibraryCore_frameworkLibrary = _sl_dlopen();
-    v0 = v2[0];
+    v0 = v1[0];
     if (CarKitLibraryCore_frameworkLibrary)
     {
-      if (!v2[0])
+      if (!v1[0])
       {
-        goto LABEL_4;
+        return;
       }
     }
 
     else
     {
-      v0 = abort_report_np();
+      v0 = abort_report_np("%s", v1[0]);
     }
 
     free(v0);
   }
-
-LABEL_4:
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __CarKitLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   CarKitLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __GeoServicesLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   GeoServicesLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -267,24 +251,31 @@ void sub_25550B944(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
+void sub_25550D6EC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 Class __getCARSessionStatusClass_block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v5[0] = 0;
+  v7 = *MEMORY[0x277D85DE8];
+  v4[0] = 0;
   if (!CarKitLibraryCore_frameworkLibrary_480)
   {
-    v5[1] = MEMORY[0x277D85DD0];
-    v5[2] = 3221225472;
-    v5[3] = __CarKitLibraryCore_block_invoke_481;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_2797E79C8;
-    v7 = 0;
+    v4[1] = MEMORY[0x277D85DD0];
+    v4[2] = 3221225472;
+    v4[3] = __CarKitLibraryCore_block_invoke_481;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_2797E79C8;
+    v6 = 0;
     CarKitLibraryCore_frameworkLibrary_480 = _sl_dlopen();
-    v2 = v5[0];
+    v2 = v4[0];
     if (CarKitLibraryCore_frameworkLibrary_480)
     {
-      if (!v5[0])
+      if (!v4[0])
       {
         goto LABEL_4;
       }
@@ -292,7 +283,7 @@ Class __getCARSessionStatusClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -303,27 +294,23 @@ LABEL_4:
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    abort_report_np();
+    abort_report_np("Unable to find class %s", "CARSessionStatus");
   }
 
   getCARSessionStatusClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __CarKitLibraryCore_block_invoke_481(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   CarKitLibraryCore_frameworkLibrary_480 = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void sub_25550E2B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_25550E2B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -352,18 +339,17 @@ id getCARSessionStatusClass()
   return v1;
 }
 
-void sub_25550E39C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25550E39C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-Class __getTUCallCenterClass_block_invoke(uint64_t a1)
+void __getTUCallCenterClass_block_invoke(uint64_t a1)
 {
   TelephonyUtilitiesLibrary();
-  result = objc_getClass("TUCallCenter");
-  *(*(*(a1 + 32) + 8) + 24) = result;
+  *(*(*(a1 + 32) + 8) + 24) = objc_getClass("TUCallCenter");
   if (*(*(*(a1 + 32) + 8) + 24))
   {
     getTUCallCenterClass_softClass = *(*(*(a1 + 32) + 8) + 24);
@@ -371,76 +357,68 @@ Class __getTUCallCenterClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = abort_report_np();
-    return __112__INCAppProxy_launchAppInBackground_restrictAppsToCarPlay_userActivityIdentifier_retainsSiri_completionHandler___block_invoke(v3);
+    v2 = abort_report_np("Unable to find class %s", "TUCallCenter");
+    __112__INCAppProxy_launchAppInBackground_restrictAppsToCarPlay_userActivityIdentifier_retainsSiri_completionHandler___block_invoke(v2, v3, v4);
   }
-
-  return result;
 }
 
 void TelephonyUtilitiesLibrary()
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v2[0] = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v1[0] = 0;
   if (!TelephonyUtilitiesLibraryCore_frameworkLibrary)
   {
-    v2[1] = MEMORY[0x277D85DD0];
-    v2[2] = 3221225472;
-    v2[3] = __TelephonyUtilitiesLibraryCore_block_invoke;
-    v2[4] = &__block_descriptor_40_e5_v8__0l;
-    v2[5] = v2;
-    v3 = xmmword_2797E7A60;
-    v4 = 0;
+    v1[1] = MEMORY[0x277D85DD0];
+    v1[2] = 3221225472;
+    v1[3] = __TelephonyUtilitiesLibraryCore_block_invoke;
+    v1[4] = &__block_descriptor_40_e5_v8__0l;
+    v1[5] = v1;
+    v2 = xmmword_2797E7A60;
+    v3 = 0;
     TelephonyUtilitiesLibraryCore_frameworkLibrary = _sl_dlopen();
-    v0 = v2[0];
+    v0 = v1[0];
     if (TelephonyUtilitiesLibraryCore_frameworkLibrary)
     {
-      if (!v2[0])
+      if (!v1[0])
       {
-        goto LABEL_4;
+        return;
       }
     }
 
     else
     {
-      v0 = abort_report_np();
+      v0 = abort_report_np("%s", v1[0]);
     }
 
     free(v0);
   }
-
-LABEL_4:
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __TelephonyUtilitiesLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   TelephonyUtilitiesLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 Class __getCARSessionStatusClass_block_invoke_560(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v5[0] = 0;
+  v7 = *MEMORY[0x277D85DE8];
+  v4[0] = 0;
   if (!CarKitLibraryCore_frameworkLibrary_561)
   {
-    v5[1] = MEMORY[0x277D85DD0];
-    v5[2] = 3221225472;
-    v5[3] = __CarKitLibraryCore_block_invoke_562;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_2797E7A48;
-    v7 = 0;
+    v4[1] = MEMORY[0x277D85DD0];
+    v4[2] = 3221225472;
+    v4[3] = __CarKitLibraryCore_block_invoke_562;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_2797E7A48;
+    v6 = 0;
     CarKitLibraryCore_frameworkLibrary_561 = _sl_dlopen();
-    v2 = v5[0];
+    v2 = v4[0];
     if (CarKitLibraryCore_frameworkLibrary_561)
     {
-      if (!v5[0])
+      if (!v4[0])
       {
         goto LABEL_4;
       }
@@ -448,7 +426,7 @@ Class __getCARSessionStatusClass_block_invoke_560(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -459,43 +437,39 @@ LABEL_4:
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    abort_report_np();
+    abort_report_np("Unable to find class %s", "CARSessionStatus");
   }
 
   getCARSessionStatusClass_softClass_559 = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __CarKitLibraryCore_block_invoke_562(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   CarKitLibraryCore_frameworkLibrary_561 = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 void *__getAFIsPersistentSiriAvailableSymbolLoc_block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v6[0] = 0;
+  v8 = *MEMORY[0x277D85DE8];
+  v5[0] = 0;
   if (!AssistantServicesLibraryCore_frameworkLibrary)
   {
-    v6[1] = MEMORY[0x277D85DD0];
-    v6[2] = 3221225472;
-    v6[3] = __AssistantServicesLibraryCore_block_invoke;
-    v6[4] = &__block_descriptor_40_e5_v8__0l;
-    v6[5] = v6;
-    v7 = xmmword_2797E7A30;
-    v8 = 0;
+    v5[1] = MEMORY[0x277D85DD0];
+    v5[2] = 3221225472;
+    v5[3] = __AssistantServicesLibraryCore_block_invoke;
+    v5[4] = &__block_descriptor_40_e5_v8__0l;
+    v5[5] = v5;
+    v6 = xmmword_2797E7A30;
+    v7 = 0;
     AssistantServicesLibraryCore_frameworkLibrary = _sl_dlopen();
-    v3 = v6[0];
+    v3 = v5[0];
     v2 = AssistantServicesLibraryCore_frameworkLibrary;
     if (AssistantServicesLibraryCore_frameworkLibrary)
     {
-      if (!v6[0])
+      if (!v5[0])
       {
         goto LABEL_5;
       }
@@ -503,7 +477,7 @@ void *__getAFIsPersistentSiriAvailableSymbolLoc_block_invoke(uint64_t a1)
 
     else
     {
-      v3 = abort_report_np();
+      v3 = abort_report_np("%s", v5[0]);
     }
 
     free(v3);
@@ -515,23 +489,19 @@ LABEL_5:
   result = dlsym(v2, "AFIsPersistentSiriAvailable");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getAFIsPersistentSiriAvailableSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __AssistantServicesLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   AssistantServicesLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void sub_25550F164(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25550F164(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -548,8 +518,8 @@ Class __getTUCallProviderManagerClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = abort_report_np();
-    return __68__INCAppProxy_shouldLaunchAppInBackgroundWithIntent_intentResponse___block_invoke(v3);
+    v3 = abort_report_np("Unable to find class %s", "TUCallProviderManager");
+    return __68__INCAppProxy_shouldLaunchAppInBackgroundWithIntent_intentResponse___block_invoke(v3, v4);
   }
 
   return result;
@@ -613,8 +583,8 @@ void INCRouteAudioToAirplayOutputDevices(void *a1, void *a2)
   _Block_object_dispose(&v25, 8);
   if (!v13)
   {
-    dlerror();
-    abort_report_np();
+    v23 = dlerror();
+    abort_report_np("%s", v23);
     __break(1u);
   }
 
@@ -645,12 +615,11 @@ void INCRouteAudioToAirplayOutputDevices(void *a1, void *a2)
   }
 
   INCRouteAudioToAirplayOutputDevicesForAudioSession(v3, v12, v4);
-  v23 = *MEMORY[0x277D85DE8];
 }
 
-void sub_25550F61C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25550F61C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -667,7 +636,7 @@ Class __getAVAudioSessionClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = abort_report_np();
+    v3 = abort_report_np("Unable to find class %s", "AVAudioSession");
     return __getAVAudioSessionCategoryPlaybackSymbolLoc_block_invoke(v3);
   }
 
@@ -685,41 +654,38 @@ void *__getAVAudioSessionCategoryPlaybackSymbolLoc_block_invoke(uint64_t a1)
 
 uint64_t AVFoundationLibrary()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 0;
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 0;
   if (!AVFoundationLibraryCore_frameworkLibrary)
   {
-    v4[1] = MEMORY[0x277D85DD0];
-    v4[2] = 3221225472;
-    v4[3] = __AVFoundationLibraryCore_block_invoke;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_2797E7B38;
-    v6 = 0;
+    v3[1] = MEMORY[0x277D85DD0];
+    v3[2] = 3221225472;
+    v3[3] = __AVFoundationLibraryCore_block_invoke;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_2797E7B38;
+    v5 = 0;
     AVFoundationLibraryCore_frameworkLibrary = _sl_dlopen();
-    v1 = v4[0];
+    v1 = v3[0];
     v0 = AVFoundationLibraryCore_frameworkLibrary;
     if (AVFoundationLibraryCore_frameworkLibrary)
     {
-      if (!v4[0])
+      if (!v3[0])
       {
-        goto LABEL_5;
+        return v0;
       }
     }
 
     else
     {
-      v1 = abort_report_np();
+      v1 = abort_report_np("%s", v3[0]);
     }
 
     free(v1);
-    goto LABEL_5;
+    return v0;
   }
 
-  v0 = AVFoundationLibraryCore_frameworkLibrary;
-LABEL_5:
-  v2 = *MEMORY[0x277D85DE8];
-  return v0;
+  return AVFoundationLibraryCore_frameworkLibrary;
 }
 
 void INCRouteAudioToAirplayOutputDevicesForAudioSession(void *a1, void *a2, void *a3)
@@ -829,8 +795,8 @@ void INCRouteAudioToAirplayOutputDevicesForAudioSession(void *a1, void *a2, void
   if (!v26)
   {
 LABEL_22:
-    dlerror();
-    abort_report_np();
+    v31 = dlerror();
+    abort_report_np("%s", v31);
     __break(1u);
   }
 
@@ -847,13 +813,11 @@ LABEL_22:
   v29 = v7;
   v30 = v6;
   soft_MRAVReconnaissanceSessionBeginSearch(v17, v32);
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
-void sub_25550FD24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_25550FD24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -869,65 +833,62 @@ void *__getMRAVReconnaissanceSessionCreateWithEndpointFeaturesSymbolLoc_block_in
 
 uint64_t MediaRemoteLibrary()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 0;
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 0;
   if (!MediaRemoteLibraryCore_frameworkLibrary)
   {
-    v4[1] = MEMORY[0x277D85DD0];
-    v4[2] = 3221225472;
-    v4[3] = __MediaRemoteLibraryCore_block_invoke;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_2797E7B50;
-    v6 = 0;
+    v3[1] = MEMORY[0x277D85DD0];
+    v3[2] = 3221225472;
+    v3[3] = __MediaRemoteLibraryCore_block_invoke;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_2797E7B50;
+    v5 = 0;
     MediaRemoteLibraryCore_frameworkLibrary = _sl_dlopen();
-    v1 = v4[0];
+    v1 = v3[0];
     v0 = MediaRemoteLibraryCore_frameworkLibrary;
     if (MediaRemoteLibraryCore_frameworkLibrary)
     {
-      if (!v4[0])
+      if (!v3[0])
       {
-        goto LABEL_5;
+        return v0;
       }
     }
 
     else
     {
-      v1 = abort_report_np();
+      v1 = abort_report_np("%s", v3[0]);
     }
 
     free(v1);
-    goto LABEL_5;
+    return v0;
   }
 
-  v0 = MediaRemoteLibraryCore_frameworkLibrary;
-LABEL_5:
-  v2 = *MEMORY[0x277D85DE8];
-  return v0;
+  return MediaRemoteLibraryCore_frameworkLibrary;
 }
 
 uint64_t soft_MRAVReconnaissanceSessionSetTargetAudioSessionID(uint64_t a1, uint64_t a2)
 {
-  v8 = 0;
-  v9 = &v8;
-  v10 = 0x2020000000;
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x2020000000;
   v4 = getMRAVReconnaissanceSessionSetTargetAudioSessionIDSymbolLoc_ptr;
-  v11 = getMRAVReconnaissanceSessionSetTargetAudioSessionIDSymbolLoc_ptr;
+  v12 = getMRAVReconnaissanceSessionSetTargetAudioSessionIDSymbolLoc_ptr;
   if (!getMRAVReconnaissanceSessionSetTargetAudioSessionIDSymbolLoc_ptr)
   {
     v5 = MediaRemoteLibrary();
-    v9[3] = dlsym(v5, "MRAVReconnaissanceSessionSetTargetAudioSessionID");
-    getMRAVReconnaissanceSessionSetTargetAudioSessionIDSymbolLoc_ptr = v9[3];
-    v4 = v9[3];
+    v10[3] = dlsym(v5, "MRAVReconnaissanceSessionSetTargetAudioSessionID");
+    getMRAVReconnaissanceSessionSetTargetAudioSessionIDSymbolLoc_ptr = v10[3];
+    v4 = v10[3];
   }
 
-  _Block_object_dispose(&v8, 8);
+  _Block_object_dispose(&v9, 8);
   if (!v4)
   {
-    dlerror();
-    v7 = abort_report_np();
-    _Block_object_dispose(&v8, 8);
-    _Unwind_Resume(v7);
+    v7 = dlerror();
+    v8 = abort_report_np("%s", v7);
+    _Block_object_dispose(&v9, 8);
+    _Unwind_Resume(v8);
   }
 
   return v4(a1, a2);
@@ -944,26 +905,26 @@ void *__getMRAVReconnaissanceSessionSetWaitForUnanimousEndpointsSymbolLoc_block_
 
 uint64_t soft_MRAVReconnaissanceSessionSetReturnPartialResults(uint64_t a1, uint64_t a2)
 {
-  v8 = 0;
-  v9 = &v8;
-  v10 = 0x2020000000;
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x2020000000;
   v4 = getMRAVReconnaissanceSessionSetReturnPartialResultsSymbolLoc_ptr;
-  v11 = getMRAVReconnaissanceSessionSetReturnPartialResultsSymbolLoc_ptr;
+  v12 = getMRAVReconnaissanceSessionSetReturnPartialResultsSymbolLoc_ptr;
   if (!getMRAVReconnaissanceSessionSetReturnPartialResultsSymbolLoc_ptr)
   {
     v5 = MediaRemoteLibrary();
-    v9[3] = dlsym(v5, "MRAVReconnaissanceSessionSetReturnPartialResults");
-    getMRAVReconnaissanceSessionSetReturnPartialResultsSymbolLoc_ptr = v9[3];
-    v4 = v9[3];
+    v10[3] = dlsym(v5, "MRAVReconnaissanceSessionSetReturnPartialResults");
+    getMRAVReconnaissanceSessionSetReturnPartialResultsSymbolLoc_ptr = v10[3];
+    v4 = v10[3];
   }
 
-  _Block_object_dispose(&v8, 8);
+  _Block_object_dispose(&v9, 8);
   if (!v4)
   {
-    dlerror();
-    v7 = abort_report_np();
-    _Block_object_dispose(&v8, 8);
-    _Unwind_Resume(v7);
+    v7 = dlerror();
+    v8 = abort_report_np("%s", v7);
+    _Block_object_dispose(&v9, 8);
+    _Unwind_Resume(v8);
   }
 
   return v4(a1, a2);
@@ -1056,8 +1017,8 @@ LABEL_10:
       if (!v30)
       {
 LABEL_33:
-        dlerror();
-        abort_report_np();
+        v40 = dlerror();
+        abort_report_np("%s", v40);
         __break(1u);
       }
 
@@ -1153,13 +1114,11 @@ LABEL_33:
 
   (*(*(a1 + 40) + 16))();
 LABEL_32:
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
-void sub_2555107DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2555107DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1167,26 +1126,26 @@ void sub_2555107DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void soft_MRAVReconnaissanceSessionBeginSearch(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v7 = 0;
-  v8 = &v7;
-  v9 = 0x2020000000;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
   v4 = getMRAVReconnaissanceSessionBeginSearchSymbolLoc_ptr;
-  v10 = getMRAVReconnaissanceSessionBeginSearchSymbolLoc_ptr;
+  v11 = getMRAVReconnaissanceSessionBeginSearchSymbolLoc_ptr;
   if (!getMRAVReconnaissanceSessionBeginSearchSymbolLoc_ptr)
   {
     v5 = MediaRemoteLibrary();
-    v8[3] = dlsym(v5, "MRAVReconnaissanceSessionBeginSearch");
-    getMRAVReconnaissanceSessionBeginSearchSymbolLoc_ptr = v8[3];
-    v4 = v8[3];
+    v9[3] = dlsym(v5, "MRAVReconnaissanceSessionBeginSearch");
+    getMRAVReconnaissanceSessionBeginSearchSymbolLoc_ptr = v9[3];
+    v4 = v9[3];
   }
 
-  _Block_object_dispose(&v7, 8);
+  _Block_object_dispose(&v8, 8);
   if (!v4)
   {
-    dlerror();
-    v6 = abort_report_np();
-    _Block_object_dispose(&v7, 8);
-    _Unwind_Resume(v6);
+    v6 = dlerror();
+    v7 = abort_report_np("%s", v6);
+    _Block_object_dispose(&v8, 8);
+    _Unwind_Resume(v7);
   }
 
   v4(a1, v3, 5.0);
@@ -1207,26 +1166,26 @@ uint64_t INCMRAVDiscoveryErrorIsPartialDiscoveryError(void *a1)
   if ([v1 code] == 26)
   {
     v2 = [v1 domain];
-    v8 = 0;
-    v9 = &v8;
-    v10 = 0x2020000000;
+    v9 = 0;
+    v10 = &v9;
+    v11 = 0x2020000000;
     v3 = getkMRMediaRemoteFrameworkErrorDomainSymbolLoc_ptr;
-    v11 = getkMRMediaRemoteFrameworkErrorDomainSymbolLoc_ptr;
+    v12 = getkMRMediaRemoteFrameworkErrorDomainSymbolLoc_ptr;
     if (!getkMRMediaRemoteFrameworkErrorDomainSymbolLoc_ptr)
     {
       v4 = MediaRemoteLibrary();
-      v9[3] = dlsym(v4, "kMRMediaRemoteFrameworkErrorDomain");
-      getkMRMediaRemoteFrameworkErrorDomainSymbolLoc_ptr = v9[3];
-      v3 = v9[3];
+      v10[3] = dlsym(v4, "kMRMediaRemoteFrameworkErrorDomain");
+      getkMRMediaRemoteFrameworkErrorDomainSymbolLoc_ptr = v10[3];
+      v3 = v10[3];
     }
 
-    _Block_object_dispose(&v8, 8);
+    _Block_object_dispose(&v9, 8);
     if (!v3)
     {
-      dlerror();
-      v7 = abort_report_np();
-      _Block_object_dispose(&v8, 8);
-      _Unwind_Resume(v7);
+      v7 = dlerror();
+      v8 = abort_report_np("%s", v7);
+      _Block_object_dispose(&v9, 8);
+      _Unwind_Resume(v8);
     }
 
     v5 = [v2 isEqualToString:*v3];
@@ -1242,7 +1201,7 @@ uint64_t INCMRAVDiscoveryErrorIsPartialDiscoveryError(void *a1)
 
 void INCMRAVSetOutputDevicesForAudioContext(void *a1, void *a2)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
   v5 = MEMORY[0x277CD38C8];
@@ -1257,30 +1216,30 @@ void INCMRAVSetOutputDevicesForAudioContext(void *a1, void *a2)
   }
 
   v7 = dispatch_get_global_queue(0, 0);
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x2020000000;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x2020000000;
   v8 = getMRAVOutputContextGetSharedAudioPresentationContextSymbolLoc_ptr;
-  v30 = getMRAVOutputContextGetSharedAudioPresentationContextSymbolLoc_ptr;
+  v31 = getMRAVOutputContextGetSharedAudioPresentationContextSymbolLoc_ptr;
   if (!getMRAVOutputContextGetSharedAudioPresentationContextSymbolLoc_ptr)
   {
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = __getMRAVOutputContextGetSharedAudioPresentationContextSymbolLoc_block_invoke;
-    v32 = &unk_2797E8190;
-    v33 = &v27;
+    v33 = &unk_2797E8190;
+    v34 = &v28;
     v9 = MediaRemoteLibrary();
     v10 = dlsym(v9, "MRAVOutputContextGetSharedAudioPresentationContext");
-    *(v33[1] + 24) = v10;
-    getMRAVOutputContextGetSharedAudioPresentationContextSymbolLoc_ptr = *(v33[1] + 24);
-    v8 = v28[3];
+    *(v34[1] + 24) = v10;
+    getMRAVOutputContextGetSharedAudioPresentationContextSymbolLoc_ptr = *(v34[1] + 24);
+    v8 = v29[3];
   }
 
-  _Block_object_dispose(&v27, 8);
+  _Block_object_dispose(&v28, 8);
   if (!v8)
   {
-    dlerror();
-    abort_report_np();
+    v22 = dlerror();
+    abort_report_np("%s", v22);
     goto LABEL_15;
   }
 
@@ -1296,52 +1255,50 @@ void INCMRAVSetOutputDevicesForAudioContext(void *a1, void *a2)
     _os_signpost_emit_with_name_impl(&dword_255503000, v15, OS_SIGNPOST_INTERVAL_BEGIN, v13, "INSignpostSiriAirPlaySetOutputDevices", " deviceCount=%{public,signpost.telemetry:number1}d  enableTelemetry=YES ", buf, 8u);
   }
 
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __INCMRAVSetOutputDevicesForAudioContext_block_invoke;
-  v23[3] = &unk_2797E7B70;
-  v25 = v13;
-  v26 = v12;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __INCMRAVSetOutputDevicesForAudioContext_block_invoke;
+  v24[3] = &unk_2797E7B70;
+  v26 = v13;
+  v27 = v12;
   v16 = v4;
-  v24 = v16;
+  v25 = v16;
   v17 = v7;
-  v18 = v23;
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x2020000000;
+  v18 = v24;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x2020000000;
   v19 = getMRAVOutputContextSetOutputDevicesSymbolLoc_ptr;
-  v30 = getMRAVOutputContextSetOutputDevicesSymbolLoc_ptr;
+  v31 = getMRAVOutputContextSetOutputDevicesSymbolLoc_ptr;
   if (!getMRAVOutputContextSetOutputDevicesSymbolLoc_ptr)
   {
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = __getMRAVOutputContextSetOutputDevicesSymbolLoc_block_invoke;
-    v32 = &unk_2797E8190;
-    v33 = &v27;
+    v33 = &unk_2797E8190;
+    v34 = &v28;
     v20 = MediaRemoteLibrary();
     v21 = dlsym(v20, "MRAVOutputContextSetOutputDevices");
-    *(v33[1] + 24) = v21;
-    getMRAVOutputContextSetOutputDevicesSymbolLoc_ptr = *(v33[1] + 24);
-    v19 = v28[3];
+    *(v34[1] + 24) = v21;
+    getMRAVOutputContextSetOutputDevicesSymbolLoc_ptr = *(v34[1] + 24);
+    v19 = v29[3];
   }
 
-  _Block_object_dispose(&v27, 8);
+  _Block_object_dispose(&v28, 8);
   if (!v19)
   {
-    dlerror();
-    abort_report_np();
+    v23 = dlerror();
+    abort_report_np("%s", v23);
 LABEL_15:
     __break(1u);
   }
 
   v19(v11, v3, v17, v18);
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
-void sub_255510E60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_255510E60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1366,7 +1323,7 @@ void *__getMRAVReconnaissanceSessionSetExpectedLogicalDevicesSymbolLoc_block_inv
 
 void __INCRouteAudioToAirplayOutputDevicesForAudioSession_block_invoke_4(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (a4)
   {
     if (INCMRAVDiscoveryErrorIsPartialDiscoveryError(a4) && [a2 count])
@@ -1377,10 +1334,10 @@ void __INCRouteAudioToAirplayOutputDevicesForAudioSession_block_invoke_4(uint64_
         goto LABEL_11;
       }
 
-      *v17 = 136315394;
-      *&v17[4] = "INCRouteAudioToAirplayOutputDevicesForAudioSession_block_invoke";
-      *&v17[12] = 2114;
-      *&v17[14] = a2;
+      *v16 = 136315394;
+      *&v16[4] = "INCRouteAudioToAirplayOutputDevicesForAudioSession_block_invoke";
+      *&v16[12] = 2114;
+      *&v16[14] = a2;
       v8 = "%s Timed out with partial discovery while finding audio pairs. Found devices: %{public}@";
       v9 = v7;
     }
@@ -1393,15 +1350,15 @@ void __INCRouteAudioToAirplayOutputDevicesForAudioSession_block_invoke_4(uint64_
         goto LABEL_11;
       }
 
-      *v17 = 136315394;
-      *&v17[4] = "INCRouteAudioToAirplayOutputDevicesForAudioSession_block_invoke";
-      *&v17[12] = 2114;
-      *&v17[14] = a4;
+      *v16 = 136315394;
+      *&v16[4] = "INCRouteAudioToAirplayOutputDevicesForAudioSession_block_invoke";
+      *&v16[12] = 2114;
+      *&v16[14] = a4;
       v8 = "%s Failed to search for output devices while finding audio pairs: %{public}@";
       v9 = v10;
     }
 
-    _os_log_error_impl(&dword_255503000, v9, OS_LOG_TYPE_ERROR, v8, v17, 0x16u);
+    _os_log_error_impl(&dword_255503000, v9, OS_LOG_TYPE_ERROR, v8, v16, 0x16u);
   }
 
   else
@@ -1409,14 +1366,14 @@ void __INCRouteAudioToAirplayOutputDevicesForAudioSession_block_invoke_4(uint64_
     v11 = *MEMORY[0x277CD38C8];
     if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_DEBUG))
     {
-      *v17 = 136315138;
-      *&v17[4] = "INCRouteAudioToAirplayOutputDevicesForAudioSession_block_invoke";
-      _os_log_debug_impl(&dword_255503000, v11, OS_LOG_TYPE_DEBUG, "%s Audio pairs detected", v17, 0xCu);
+      *v16 = 136315138;
+      *&v16[4] = "INCRouteAudioToAirplayOutputDevicesForAudioSession_block_invoke";
+      _os_log_debug_impl(&dword_255503000, v11, OS_LOG_TYPE_DEBUG, "%s Audio pairs detected", v16, 0xCu);
     }
   }
 
 LABEL_11:
-  v12 = [MEMORY[0x277CBEB98] setWithArray:{*(a1 + 40), *v17, *&v17[16], v18}];
+  v12 = [MEMORY[0x277CBEB98] setWithArray:{*(a1 + 40), *v16, *&v16[8], v17}];
   v13 = v12;
   if (a2)
   {
@@ -1427,8 +1384,6 @@ LABEL_11:
 
   v15 = [v13 allObjects];
   INCMRAVSetOutputDevicesForAudioContext(v15, *(a1 + 32));
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void *__getMRAVOutputContextGetSharedAudioPresentationContextSymbolLoc_block_invoke(uint64_t a1)
@@ -1442,7 +1397,7 @@ void *__getMRAVOutputContextGetSharedAudioPresentationContextSymbolLoc_block_inv
 
 void __INCMRAVSetOutputDevicesForAudioContext_block_invoke(void *a1, void *a2)
 {
-  *&v25[5] = *MEMORY[0x277D85DE8];
+  *&v24[5] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CD38C8];
   v5 = *MEMORY[0x277CD38C8];
   v6 = v5;
@@ -1450,9 +1405,9 @@ void __INCMRAVSetOutputDevicesForAudioContext_block_invoke(void *a1, void *a2)
   if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
   {
     v8 = a1[6];
-    v23 = 67240192;
-    *v24 = v8;
-    _os_signpost_emit_with_name_impl(&dword_255503000, v6, OS_SIGNPOST_INTERVAL_END, v7, "INSignpostSiriAirPlaySetOutputDevices", " deviceCount=%{public,signpost.telemetry:number1}d  enableTelemetry=YES ", &v23, 8u);
+    v22 = 67240192;
+    *v23 = v8;
+    _os_signpost_emit_with_name_impl(&dword_255503000, v6, OS_SIGNPOST_INTERVAL_END, v7, "INSignpostSiriAirPlaySetOutputDevices", " deviceCount=%{public,signpost.telemetry:number1}d  enableTelemetry=YES ", &v22, 8u);
   }
 
   if (a2)
@@ -1466,23 +1421,23 @@ void __INCMRAVSetOutputDevicesForAudioContext_block_invoke(void *a1, void *a2)
       v13 = a1[6];
       v14 = [v9 code];
       v15 = [v9 domain];
-      v23 = 67240706;
-      *v24 = v13;
-      *&v24[4] = 1026;
-      *&v24[6] = v14;
-      v25[0] = 2114;
-      *&v25[1] = v15;
-      _os_signpost_emit_with_name_impl(&dword_255503000, v12, OS_SIGNPOST_EVENT, v10, "INSignpostSiriAirPlaySetOutputDeviceError", " deviceCount=%{public,signpost.telemetry:number1}d  errorCode=%{public,signpost.telemetry:number2}d  errorDomain=%{public,signpost.telemetry:string1}@  enableTelemetry=YES ", &v23, 0x18u);
+      v22 = 67240706;
+      *v23 = v13;
+      *&v23[4] = 1026;
+      *&v23[6] = v14;
+      v24[0] = 2114;
+      *&v24[1] = v15;
+      _os_signpost_emit_with_name_impl(&dword_255503000, v12, OS_SIGNPOST_EVENT, v10, "INSignpostSiriAirPlaySetOutputDeviceError", " deviceCount=%{public,signpost.telemetry:number1}d  errorCode=%{public,signpost.telemetry:number2}d  errorDomain=%{public,signpost.telemetry:string1}@  enableTelemetry=YES ", &v22, 0x18u);
     }
 
     v16 = *v4;
     if (os_log_type_enabled(*v4, OS_LOG_TYPE_ERROR))
     {
-      v23 = 136315394;
-      *v24 = "INCMRAVSetOutputDevicesForAudioContext_block_invoke";
-      *&v24[8] = 2114;
-      *v25 = v9;
-      _os_log_error_impl(&dword_255503000, v16, OS_LOG_TYPE_ERROR, "%s Failed to set output devices on the shared audio presentation context: %{public}@", &v23, 0x16u);
+      v22 = 136315394;
+      *v23 = "INCMRAVSetOutputDevicesForAudioContext_block_invoke";
+      *&v23[8] = 2114;
+      *v24 = v9;
+      _os_log_error_impl(&dword_255503000, v16, OS_LOG_TYPE_ERROR, "%s Failed to set output devices on the shared audio presentation context: %{public}@", &v22, 0x16u);
     }
 
     (*(a1[4] + 16))();
@@ -1493,9 +1448,9 @@ void __INCMRAVSetOutputDevicesForAudioContext_block_invoke(void *a1, void *a2)
     v17 = *v4;
     if (os_log_type_enabled(*v4, OS_LOG_TYPE_DEBUG))
     {
-      v23 = 136315138;
-      *v24 = "INCMRAVSetOutputDevicesForAudioContext_block_invoke";
-      _os_log_debug_impl(&dword_255503000, v17, OS_LOG_TYPE_DEBUG, "%s Set output devices on the shared audio presentation context", &v23, 0xCu);
+      v22 = 136315138;
+      *v23 = "INCMRAVSetOutputDevicesForAudioContext_block_invoke";
+      _os_log_debug_impl(&dword_255503000, v17, OS_LOG_TYPE_DEBUG, "%s Set output devices on the shared audio presentation context", &v22, 0xCu);
       v17 = *v4;
     }
 
@@ -1505,15 +1460,13 @@ void __INCMRAVSetOutputDevicesForAudioContext_block_invoke(void *a1, void *a2)
     if (v18 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
     {
       v21 = a1[6];
-      v23 = 67240192;
-      *v24 = v21;
-      _os_signpost_emit_with_name_impl(&dword_255503000, v20, OS_SIGNPOST_EVENT, v18, "INSignpostSiriAirPlaySetOutputDeviceSuccess", " deviceCount=%{public,signpost.telemetry:number1}d  enableTelemetry=YES ", &v23, 8u);
+      v22 = 67240192;
+      *v23 = v21;
+      _os_signpost_emit_with_name_impl(&dword_255503000, v20, OS_SIGNPOST_EVENT, v18, "INSignpostSiriAirPlaySetOutputDeviceSuccess", " deviceCount=%{public,signpost.telemetry:number1}d  enableTelemetry=YES ", &v22, 8u);
     }
 
     (*(a1[4] + 16))();
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void *__getMRAVOutputContextSetOutputDevicesSymbolLoc_block_invoke(uint64_t a1)
@@ -1554,80 +1507,74 @@ void *__getMRAVReconnaissanceSessionSetTargetAudioSessionIDSymbolLoc_block_invok
 
 uint64_t __MediaRemoteLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   MediaRemoteLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __AVFoundationLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   AVFoundationLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 void INCDecodeHashedRouteUIDs(void *a1, void *a2)
 {
-  v44 = *MEMORY[0x277D85DE8];
-  v23 = a1;
+  v43 = *MEMORY[0x277D85DE8];
+  v22 = a1;
   v3 = a2;
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x3032000000;
-  v36 = __Block_byref_object_copy__589;
-  v37 = __Block_byref_object_dispose__590;
-  v38 = 0;
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x3032000000;
+  v35 = __Block_byref_object_copy__589;
+  v36 = __Block_byref_object_dispose__590;
+  v37 = 0;
   if (INThisProcessIsAssistantd() && (INThisProcessIsRunningAsInstance() & 1) == 0)
   {
     v4 = [(objc_class *)objc_getClass("ADSecurityService") sharedService];
-    v5 = v34[5];
-    v34[5] = v4;
+    v5 = v33[5];
+    v33[5] = v4;
   }
 
-  if (v34[5] || (v6 = [[(objc_class *)objc_getClass("AFSecurityConnection") alloc] init], v7 = v34[5], v34[5] = v6, v7, v34[5]))
+  if (v33[5] || (v6 = [[(objc_class *)objc_getClass("AFSecurityConnection") alloc] init], v7 = v33[5], v33[5] = v6, v7, v33[5]))
   {
-    v8 = [objc_alloc(MEMORY[0x277CBEB58]) initWithArray:v23];
+    v8 = [objc_alloc(MEMORY[0x277CBEB58]) initWithArray:v22];
     if ([v8 containsObject:@"LOCAL_DEVICE"])
     {
       v9 = *MEMORY[0x277CD38C8];
       if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v40 = "INCDecodeHashedRouteUIDs";
+        v39 = "INCDecodeHashedRouteUIDs";
         _os_log_error_impl(&dword_255503000, v9, OS_LOG_TYPE_ERROR, "%s Unexpected LOCAL_DEVICE identifier.", buf, 0xCu);
       }
 
-      [v8 removeObject:{@"LOCAL_DEVICE", v23}];
+      [v8 removeObject:{@"LOCAL_DEVICE", v22}];
     }
 
     if ([v8 count])
     {
       v10 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(v8, "count")}];
-      v31 = 0u;
-      v32 = 0u;
-      v29 = 0u;
       v30 = 0u;
+      v31 = 0u;
+      v28 = 0u;
+      v29 = 0u;
       v11 = v8;
-      v12 = [v11 countByEnumeratingWithState:&v29 objects:v43 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v28 objects:v42 count:16];
       if (v12)
       {
-        v13 = *v30;
+        v13 = *v29;
         while (2)
         {
           for (i = 0; i != v12; ++i)
           {
-            if (*v30 != v13)
+            if (*v29 != v13)
             {
               objc_enumerationMutation(v11);
             }
 
-            v15 = *(*(&v29 + 1) + 8 * i);
+            v15 = *(*(&v28 + 1) + 8 * i);
             v16 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBase64EncodedString:v15 options:0];
             if (!v16)
             {
@@ -1635,9 +1582,9 @@ void INCDecodeHashedRouteUIDs(void *a1, void *a2)
               if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_ERROR))
               {
                 *buf = 136315394;
-                v40 = "INCDecodeHashedRouteUIDs";
-                v41 = 2112;
-                v42 = v15;
+                v39 = "INCDecodeHashedRouteUIDs";
+                v40 = 2112;
+                v41 = v15;
                 _os_log_error_impl(&dword_255503000, v18, OS_LOG_TYPE_ERROR, "%s Failed to decode %@ as base64 data", buf, 0x16u);
               }
 
@@ -1650,7 +1597,7 @@ void INCDecodeHashedRouteUIDs(void *a1, void *a2)
             [v10 setObject:v16 forKey:v15];
           }
 
-          v12 = [v11 countByEnumeratingWithState:&v29 objects:v43 count:16];
+          v12 = [v11 countByEnumeratingWithState:&v28 objects:v42 count:16];
           if (v12)
           {
             continue;
@@ -1660,15 +1607,15 @@ void INCDecodeHashedRouteUIDs(void *a1, void *a2)
         }
       }
 
-      v17 = v34[5];
-      v25[0] = MEMORY[0x277D85DD0];
-      v25[1] = 3221225472;
-      v25[2] = __INCDecodeHashedRouteUIDs_block_invoke;
-      v25[3] = &unk_2797E7B18;
-      v27 = v3;
-      v26 = v11;
-      v28 = &v33;
-      [v17 processDataMap:v10 usingProcedure:2 completion:v25];
+      v17 = v33[5];
+      v24[0] = MEMORY[0x277D85DD0];
+      v24[1] = 3221225472;
+      v24[2] = __INCDecodeHashedRouteUIDs_block_invoke;
+      v24[3] = &unk_2797E7B18;
+      v26 = v3;
+      v25 = v11;
+      v27 = &v32;
+      [v17 processDataMap:v10 usingProcedure:2 completion:v24];
     }
 
     else
@@ -1676,8 +1623,8 @@ void INCDecodeHashedRouteUIDs(void *a1, void *a2)
       v20 = [MEMORY[0x277CBEA60] array];
       (v3)[2](v3, v20, 0);
 
-      v10 = v34[5];
-      v34[5] = 0;
+      v10 = v33[5];
+      v33[5] = 0;
     }
 
 LABEL_24:
@@ -1685,25 +1632,24 @@ LABEL_24:
 
   else
   {
-    v22 = *MEMORY[0x277CD38C8];
+    v21 = *MEMORY[0x277CD38C8];
     if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v40 = "INCDecodeHashedRouteUIDs";
-      _os_log_error_impl(&dword_255503000, v22, OS_LOG_TYPE_ERROR, "%s Unable to get security service", buf, 0xCu);
+      v39 = "INCDecodeHashedRouteUIDs";
+      _os_log_error_impl(&dword_255503000, v21, OS_LOG_TYPE_ERROR, "%s Unable to get security service", buf, 0xCu);
     }
 
-    v8 = [MEMORY[0x277CCA9B8] errorWithDomain:@"INCExtensionErrorDomain" code:1317 userInfo:{0, v23}];
+    v8 = [MEMORY[0x277CCA9B8] errorWithDomain:@"INCExtensionErrorDomain" code:1317 userInfo:{0, v22}];
     v3[2](v3, 0, v8);
   }
 
-  _Block_object_dispose(&v33, 8);
-  v21 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v32, 8);
 }
 
-void sub_255511BA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_255511BA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1717,7 +1663,7 @@ uint64_t __Block_byref_object_copy__589(uint64_t result, uint64_t a2)
 
 void __INCDecodeHashedRouteUIDs_block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if ([v6 count])
@@ -1726,9 +1672,9 @@ void __INCDecodeHashedRouteUIDs_block_invoke(uint64_t a1, void *a2, void *a3)
     if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v22 = "INCDecodeHashedRouteUIDs_block_invoke";
-      v23 = 2112;
-      v24 = v6;
+      v21 = "INCDecodeHashedRouteUIDs_block_invoke";
+      v22 = 2112;
+      v23 = v6;
       _os_log_error_impl(&dword_255503000, v7, OS_LOG_TYPE_ERROR, "%s Decoding error: %@", buf, 0x16u);
     }
 
@@ -1740,13 +1686,13 @@ void __INCDecodeHashedRouteUIDs_block_invoke(uint64_t a1, void *a2, void *a3)
   else
   {
     v10 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(*(a1 + 32), "count")}];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __INCDecodeHashedRouteUIDs_block_invoke_16;
-    v19[3] = &unk_2797E7AF0;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __INCDecodeHashedRouteUIDs_block_invoke_16;
+    v18[3] = &unk_2797E7AF0;
     v9 = v10;
-    v20 = v9;
-    [v5 enumerateKeysAndObjectsUsingBlock:v19];
+    v19 = v9;
+    [v5 enumerateKeysAndObjectsUsingBlock:v18];
     v11 = [*(a1 + 32) count];
     if (v11 == [v9 count])
     {
@@ -1758,13 +1704,13 @@ void __INCDecodeHashedRouteUIDs_block_invoke(uint64_t a1, void *a2, void *a3)
       v12 = *MEMORY[0x277CD38C8];
       if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_ERROR))
       {
-        v18 = *(a1 + 32);
+        v17 = *(a1 + 32);
         *buf = 136315650;
-        v22 = "INCDecodeHashedRouteUIDs_block_invoke";
-        v23 = 2112;
-        v24 = v18;
-        v25 = 2114;
-        v26 = v9;
+        v21 = "INCDecodeHashedRouteUIDs_block_invoke";
+        v22 = 2112;
+        v23 = v17;
+        v24 = 2114;
+        v25 = v9;
         _os_log_error_impl(&dword_255503000, v12, OS_LOG_TYPE_ERROR, "%s Decoding error. Hashed route UIDs = %@, decoded route UIDs = %{public}@", buf, 0x20u);
       }
 
@@ -1777,13 +1723,11 @@ void __INCDecodeHashedRouteUIDs_block_invoke(uint64_t a1, void *a2, void *a3)
   v15 = *(*(a1 + 48) + 8);
   v16 = *(v15 + 40);
   *(v15 + 40) = 0;
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __INCDecodeHashedRouteUIDs_block_invoke_16(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v8 encoding:4];
@@ -1792,13 +1736,13 @@ void __INCDecodeHashedRouteUIDs_block_invoke_16(uint64_t a1, void *a2, void *a3,
   {
     if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_DEBUG))
     {
-      v12 = 136315650;
-      v13 = "INCDecodeHashedRouteUIDs_block_invoke";
-      v14 = 2112;
-      v15 = v7;
-      v16 = 2114;
-      v17 = v9;
-      _os_log_debug_impl(&dword_255503000, v10, OS_LOG_TYPE_DEBUG, "%s %@ => %{public}@", &v12, 0x20u);
+      v11 = 136315650;
+      v12 = "INCDecodeHashedRouteUIDs_block_invoke";
+      v13 = 2112;
+      v14 = v7;
+      v15 = 2114;
+      v16 = v9;
+      _os_log_debug_impl(&dword_255503000, v10, OS_LOG_TYPE_DEBUG, "%s %@ => %{public}@", &v11, 0x20u);
     }
 
     [*(a1 + 32) addObject:v9];
@@ -1808,19 +1752,24 @@ void __INCDecodeHashedRouteUIDs_block_invoke_16(uint64_t a1, void *a2, void *a3,
   {
     if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_ERROR))
     {
-      v12 = 136315650;
-      v13 = "INCDecodeHashedRouteUIDs_block_invoke";
-      v14 = 2112;
-      v15 = v8;
-      v16 = 2112;
-      v17 = v7;
-      _os_log_error_impl(&dword_255503000, v10, OS_LOG_TYPE_ERROR, "%s Failed to convert decoded data %@ to a string for hashed route UID %@", &v12, 0x20u);
+      v11 = 136315650;
+      v12 = "INCDecodeHashedRouteUIDs_block_invoke";
+      v13 = 2112;
+      v14 = v8;
+      v15 = 2112;
+      v16 = v7;
+      _os_log_error_impl(&dword_255503000, v10, OS_LOG_TYPE_ERROR, "%s Failed to convert decoded data %@ to a string for hashed route UID %@", &v11, 0x20u);
     }
 
     *a4 = 1;
   }
+}
 
-  v11 = *MEMORY[0x277D85DE8];
+void sub_255512724(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, ...)
+{
+  va_start(va, a38);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 uint64_t __Block_byref_object_copy__639(uint64_t result, uint64_t a2)
@@ -1830,17 +1779,18 @@ uint64_t __Block_byref_object_copy__639(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_255512C20(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, id location, char a31)
+void sub_255512C20(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, id location, ...)
 {
-  objc_destroyWeak((v31 + 56));
+  va_start(va, location);
+  objc_destroyWeak((v30 + 56));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a31, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2555177B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_2555177B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1876,31 +1826,31 @@ id getCARSessionStatusClass_870()
   return v1;
 }
 
-void sub_255517AD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_255517AD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 Class __getCARSessionStatusClass_block_invoke_872(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v5[0] = 0;
+  v7 = *MEMORY[0x277D85DE8];
+  v4[0] = 0;
   if (!CarKitLibraryCore_frameworkLibrary_873)
   {
-    v5[1] = MEMORY[0x277D85DD0];
-    v5[2] = 3221225472;
-    v5[3] = __CarKitLibraryCore_block_invoke_874;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_2797E80C8;
-    v7 = 0;
+    v4[1] = MEMORY[0x277D85DD0];
+    v4[2] = 3221225472;
+    v4[3] = __CarKitLibraryCore_block_invoke_874;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_2797E80C8;
+    v6 = 0;
     CarKitLibraryCore_frameworkLibrary_873 = _sl_dlopen();
-    v2 = v5[0];
+    v2 = v4[0];
     if (CarKitLibraryCore_frameworkLibrary_873)
     {
-      if (!v5[0])
+      if (!v4[0])
       {
         goto LABEL_4;
       }
@@ -1908,7 +1858,7 @@ Class __getCARSessionStatusClass_block_invoke_872(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -1919,27 +1869,23 @@ LABEL_4:
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    abort_report_np();
+    abort_report_np("Unable to find class %s", "CARSessionStatus");
   }
 
   getCARSessionStatusClass_softClass_871 = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __CarKitLibraryCore_block_invoke_874(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   CarKitLibraryCore_frameworkLibrary_873 = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void sub_2555180B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_2555180B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1981,32 +1927,32 @@ id INCSerializeNSUserActivity(void *a1, void *a2)
   return v4;
 }
 
-void sub_255518244(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_255518244(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v7 - 64), 8);
+  _Block_object_dispose((v13 - 64), 8);
   _Unwind_Resume(a1);
 }
 
 Class __getUIActivityContinuationActionClass_block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v5[0] = 0;
+  v7 = *MEMORY[0x277D85DE8];
+  v4[0] = 0;
   if (!UIKitLibraryCore_frameworkLibrary)
   {
-    v5[1] = MEMORY[0x277D85DD0];
-    v5[2] = 3221225472;
-    v5[3] = __UIKitLibraryCore_block_invoke;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_2797E80F8;
-    v7 = 0;
+    v4[1] = MEMORY[0x277D85DD0];
+    v4[2] = 3221225472;
+    v4[3] = __UIKitLibraryCore_block_invoke;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_2797E80F8;
+    v6 = 0;
     UIKitLibraryCore_frameworkLibrary = _sl_dlopen();
-    v2 = v5[0];
+    v2 = v4[0];
     if (UIKitLibraryCore_frameworkLibrary)
     {
-      if (!v5[0])
+      if (!v4[0])
       {
         goto LABEL_4;
       }
@@ -2014,7 +1960,7 @@ Class __getUIActivityContinuationActionClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -2025,21 +1971,17 @@ LABEL_4:
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    abort_report_np();
+    abort_report_np("Unable to find class %s", "UIActivityContinuationAction");
   }
 
   getUIActivityContinuationActionClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __UIKitLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   UIKitLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2059,33 +2001,30 @@ void __INCSerializeNSUserActivity_block_invoke(uint64_t a1, void *a2, void *a3)
 
 uint64_t __CarPlayServicesLibraryCore_block_invoke_883(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   CarPlayServicesLibraryCore_frameworkLibrary_882 = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 void *__getAFIsPersistentSiriAvailableSymbolLoc_block_invoke_894(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v6[0] = 0;
+  v8 = *MEMORY[0x277D85DE8];
+  v5[0] = 0;
   if (!AssistantServicesLibraryCore_frameworkLibrary_895)
   {
-    v6[1] = MEMORY[0x277D85DD0];
-    v6[2] = 3221225472;
-    v6[3] = __AssistantServicesLibraryCore_block_invoke_896;
-    v6[4] = &__block_descriptor_40_e5_v8__0l;
-    v6[5] = v6;
-    v7 = xmmword_2797E80B0;
-    v8 = 0;
+    v5[1] = MEMORY[0x277D85DD0];
+    v5[2] = 3221225472;
+    v5[3] = __AssistantServicesLibraryCore_block_invoke_896;
+    v5[4] = &__block_descriptor_40_e5_v8__0l;
+    v5[5] = v5;
+    v6 = xmmword_2797E80B0;
+    v7 = 0;
     AssistantServicesLibraryCore_frameworkLibrary_895 = _sl_dlopen();
-    v3 = v6[0];
+    v3 = v5[0];
     v2 = AssistantServicesLibraryCore_frameworkLibrary_895;
     if (AssistantServicesLibraryCore_frameworkLibrary_895)
     {
-      if (!v6[0])
+      if (!v5[0])
       {
         goto LABEL_5;
       }
@@ -2093,7 +2032,7 @@ void *__getAFIsPersistentSiriAvailableSymbolLoc_block_invoke_894(uint64_t a1)
 
     else
     {
-      v3 = abort_report_np();
+      v3 = abort_report_np("%s", v5[0]);
     }
 
     free(v3);
@@ -2105,17 +2044,13 @@ LABEL_5:
   result = dlsym(v2, "AFIsPersistentSiriAvailable");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getAFIsPersistentSiriAvailableSymbolLoc_ptr_893 = *(*(*(a1 + 32) + 8) + 24);
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __AssistantServicesLibraryCore_block_invoke_896(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   AssistantServicesLibraryCore_frameworkLibrary_895 = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2241,9 +2176,9 @@ id INCDeserializeNSUserActivityData(void *a1)
   return v3;
 }
 
-void sub_25551AE20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_25551AE20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2260,18 +2195,17 @@ Class __getLNFullyQualifiedActionIdentifierClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = abort_report_np();
+    v3 = abort_report_np("Unable to find class %s", "LNFullyQualifiedActionIdentifier");
     return __getLNActionDefaultValueProviderClass_block_invoke(v3);
   }
 
   return result;
 }
 
-Class __getLNActionDefaultValueProviderClass_block_invoke(uint64_t a1)
+void __getLNActionDefaultValueProviderClass_block_invoke(uint64_t a1)
 {
   LinkServicesLibrary();
-  result = objc_getClass("LNActionDefaultValueProvider");
-  *(*(*(a1 + 32) + 8) + 24) = result;
+  *(*(*(a1 + 32) + 8) + 24) = objc_getClass("LNActionDefaultValueProvider");
   if (*(*(*(a1 + 32) + 8) + 24))
   {
     getLNActionDefaultValueProviderClass_softClass = *(*(*(a1 + 32) + 8) + 24);
@@ -2279,24 +2213,19 @@ Class __getLNActionDefaultValueProviderClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = abort_report_np();
-    return __74__INCWidgetIntentProvider__provideAppIntentWithOptions_completionHandler___block_invoke(v3);
+    v2 = abort_report_np("Unable to find class %s", "LNActionDefaultValueProvider");
+    __74__INCWidgetIntentProvider__provideAppIntentWithOptions_completionHandler___block_invoke(v2, v3, v4);
   }
-
-  return result;
 }
 
-uint64_t WorkflowKitLibraryCore()
+uint64_t WorkflowKitLibraryCore(uint64_t a1)
 {
-  v2 = *MEMORY[0x277D85DE8];
   if (!WorkflowKitLibraryCore_frameworkLibrary)
   {
     WorkflowKitLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
-  result = WorkflowKitLibraryCore_frameworkLibrary;
-  v1 = *MEMORY[0x277D85DE8];
-  return result;
+  return WorkflowKitLibraryCore_frameworkLibrary;
 }
 
 uint64_t getWFLinkActionSerializedParametersForLNActionSymbolLoc()
@@ -2321,20 +2250,28 @@ uint64_t getWFLinkActionSerializedParametersForLNActionSymbolLoc()
   return v0;
 }
 
-void sub_25551B3AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25551B3AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void *__getWFLinkActionSerializedParametersForLNActionSymbolLoc_block_invoke(uint64_t a1)
 {
-  v2 = WorkflowKitLibraryCore();
+  v5 = 0;
+  v2 = WorkflowKitLibraryCore(&v5);
+  v3 = v5;
   if (!v2)
   {
-    v4 = abort_report_np();
-    free(v4);
+    v3 = abort_report_np("%s", v5);
+    goto LABEL_5;
+  }
+
+  if (v5)
+  {
+LABEL_5:
+    free(v3);
   }
 
   result = dlsym(v2, "WFLinkActionSerializedParametersForLNAction");
@@ -2345,55 +2282,46 @@ void *__getWFLinkActionSerializedParametersForLNActionSymbolLoc_block_invoke(uin
 
 uint64_t __WorkflowKitLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   WorkflowKitLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 void LinkServicesLibrary()
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v2[0] = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v1[0] = 0;
   if (!LinkServicesLibraryCore_frameworkLibrary)
   {
-    v2[1] = MEMORY[0x277D85DD0];
-    v2[2] = 3221225472;
-    v2[3] = __LinkServicesLibraryCore_block_invoke;
-    v2[4] = &__block_descriptor_40_e5_v8__0l;
-    v2[5] = v2;
-    v3 = xmmword_2797E81B0;
-    v4 = 0;
+    v1[1] = MEMORY[0x277D85DD0];
+    v1[2] = 3221225472;
+    v1[3] = __LinkServicesLibraryCore_block_invoke;
+    v1[4] = &__block_descriptor_40_e5_v8__0l;
+    v1[5] = v1;
+    v2 = xmmword_2797E81B0;
+    v3 = 0;
     LinkServicesLibraryCore_frameworkLibrary = _sl_dlopen();
-    v0 = v2[0];
+    v0 = v1[0];
     if (LinkServicesLibraryCore_frameworkLibrary)
     {
-      if (!v2[0])
+      if (!v1[0])
       {
-        goto LABEL_4;
+        return;
       }
     }
 
     else
     {
-      v0 = abort_report_np();
+      v0 = abort_report_np("%s", v1[0]);
     }
 
     free(v0);
   }
-
-LABEL_4:
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __LinkServicesLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   LinkServicesLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }

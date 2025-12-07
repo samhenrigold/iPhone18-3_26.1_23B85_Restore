@@ -3,6 +3,7 @@
 - (FamilyCircleServiceDelegate)initWithQueueProvider:(id)provider;
 - (id)_applyScreenTimeModel:(id)model dsid:(id)dsid;
 - (id)_familyGrandSlamSignerWithAccountStore:(id)store;
+- (id)_fetchFamilyCircleWithCachePolicy:(unint64_t)policy signedInAccountShouldBeApprover:(BOOL)approver clientProcess:(id)process context:(id)context promptUserToResolveAuthenticatonFailure:(BOOL)failure;
 - (id)_grandSlamAccountForAccountStore:(id)store;
 - (id)_grandSlamSignerWithAccountStore:(id)store;
 - (id)_networkService;
@@ -134,6 +135,34 @@
   [connectionCopy resume];
 
   return 1;
+}
+
+- (id)_fetchFamilyCircleWithCachePolicy:(unint64_t)policy signedInAccountShouldBeApprover:(BOOL)approver clientProcess:(id)process context:(id)context promptUserToResolveAuthenticatonFailure:(BOOL)failure
+{
+  failureCopy = failure;
+  approverCopy = approver;
+  contextCopy = context;
+  processCopy = process;
+  v12 = [FAFamilyCircleCache alloc];
+  _primaryAccount = [(FamilyCircleServiceDelegate *)self _primaryAccount];
+  v14 = [(FAFamilyCircleCache *)v12 initWithAccount:_primaryAccount];
+
+  v15 = objc_alloc_init(FAMarqueeUpdateHandler);
+  v16 = [FAFetchFamilyCircleOperation alloc];
+  _networkService = [(FamilyCircleServiceDelegate *)self _networkService];
+  v18 = +[FARequestCoalescer sharedInstance];
+  familyRefreshActivityScheduler = [(FamilyCircleServiceDelegate *)self familyRefreshActivityScheduler];
+  v20 = [(FAFetchFamilyCircleOperation *)v16 initWithNetworkService:_networkService cache:v14 marqueeCacheHanlder:v15 requestCoalescer:v18 familyRefreshActivityScheduler:familyRefreshActivityScheduler];
+
+  [(FAFetchFamilyCircleOperation *)v20 setSignedInAccountShouldBeApprover:approverCopy];
+  [(FAFetchFamilyCircleOperation *)v20 setCachePolicy:policy];
+  [(FAFetchFamilyCircleOperation *)v20 setClientProcess:processCopy];
+
+  [(FAFetchFamilyCircleOperation *)v20 setContext:contextCopy];
+  [(FAFetchFamilyCircleOperation *)v20 setPromptUserToResolveAuthenticatonFailure:failureCopy];
+  fetchFamilyCircle = [(FAFetchFamilyCircleOperation *)v20 fetchFamilyCircle];
+
+  return fetchFamilyCircle;
 }
 
 - (void)fetchFamilyCircleWithCachePolicy:(unint64_t)policy signedInAccountShouldBeApprover:(BOOL)approver context:(id)context options:(id)options replyBlock:(id)block

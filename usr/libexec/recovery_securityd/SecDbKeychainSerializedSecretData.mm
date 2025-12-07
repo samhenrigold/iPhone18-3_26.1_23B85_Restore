@@ -49,12 +49,9 @@
 
 - (void)writeTo:(id)to
 {
-  ciphertext = self->_ciphertext;
   toCopy = to;
   PBDataWriterWriteDataField();
-  wrappedKey = self->_wrappedKey;
   PBDataWriterWriteDataField();
-  tamperCheck = self->_tamperCheck;
   PBDataWriterWriteStringField();
 }
 

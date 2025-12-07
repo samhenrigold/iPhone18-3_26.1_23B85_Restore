@@ -13,10 +13,11 @@ uint64_t __29___LTDTTSAssetService__queue__block_invoke()
 void __43___LTDTTSAssetService_setSubscribedVoices___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v5 = v3;
   if (v3)
   {
-    v4 = _LTOSLogAssets();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = _LTOSLogAssets(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __43___LTDTTSAssetService_setSubscribedVoices___block_invoke_cold_1();
     }
@@ -28,10 +29,11 @@ void __43___LTDTTSAssetService_setSubscribedVoices___block_invoke(uint64_t a1, v
 void __41___LTDTTSAssetService__subscribeToVoice___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v5 = v3;
   if (v3)
   {
-    v4 = _LTOSLogAssets();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = _LTOSLogAssets(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __43___LTDTTSAssetService_setSubscribedVoices___block_invoke_cold_1();
     }
@@ -54,69 +56,69 @@ void __65___LTDTTSAssetService_downloadAsset_options_progress_completion___block
 
     else
     {
-      v9 = [*(a1 + 32) provider];
-      v10 = [v9 downloading];
+      v10 = [*(a1 + 32) provider];
+      v11 = [v10 downloading];
 
-      if (!v10)
+      if (!v11)
       {
 LABEL_17:
-        v17 = *(a1 + 56);
-        v18 = [*(a1 + 32) provider];
-        v26[0] = MEMORY[0x277D85DD0];
-        v26[1] = 3221225472;
-        v26[2] = __65___LTDTTSAssetService_downloadAsset_options_progress_completion___block_invoke_53;
-        v26[3] = &unk_2789B67F8;
-        v29 = *(a1 + 64);
-        v27 = *(a1 + 32);
-        v28 = *(a1 + 48);
-        v21[0] = MEMORY[0x277D85DD0];
-        v21[1] = 3221225472;
-        v21[2] = __65___LTDTTSAssetService_downloadAsset_options_progress_completion___block_invoke_57;
-        v21[3] = &unk_2789B6820;
-        v25 = *(a1 + 64);
-        v22 = *(a1 + 32);
-        v23 = *(a1 + 48);
-        v24 = *(a1 + 40);
-        [v18 downloadWithOptions:v17 & 1 progress:v26 then:v21];
+        v18 = *(a1 + 56);
+        v19 = [*(a1 + 32) provider];
+        v27[0] = MEMORY[0x277D85DD0];
+        v27[1] = 3221225472;
+        v27[2] = __65___LTDTTSAssetService_downloadAsset_options_progress_completion___block_invoke_53;
+        v27[3] = &unk_2789B67F8;
+        v30 = *(a1 + 64);
+        v28 = *(a1 + 32);
+        v29 = *(a1 + 48);
+        v22[0] = MEMORY[0x277D85DD0];
+        v22[1] = 3221225472;
+        v22[2] = __65___LTDTTSAssetService_downloadAsset_options_progress_completion___block_invoke_57;
+        v22[3] = &unk_2789B6820;
+        v26 = *(a1 + 64);
+        v23 = *(a1 + 32);
+        v24 = *(a1 + 48);
+        v25 = *(a1 + 40);
+        [v19 downloadWithOptions:v18 & 1 progress:v27 then:v22];
 
         return;
       }
     }
 
-    v11 = [*(a1 + 32) provider];
-    if ([v11 locallyAvailable])
+    v12 = [*(a1 + 32) provider];
+    if ([v12 locallyAvailable])
     {
-      v12 = 2;
+      v13 = 2;
     }
 
     else
     {
-      v12 = 1;
+      v13 = 1;
     }
 
-    v13 = [*(a1 + 32) progress];
-    [v13 setOfflineState:v12];
+    v14 = [*(a1 + 32) progress];
+    [v14 setOfflineState:v13];
 
-    v14 = *(a1 + 48);
-    if (v14)
+    v15 = *(a1 + 48);
+    if (v15)
     {
-      (*(v14 + 16))(v14, *(a1 + 32));
+      (*(v15 + 16))(v15, *(a1 + 32));
     }
 
-    v15 = [*(a1 + 32) provider];
-    v16 = [v15 locallyAvailable];
+    v16 = [*(a1 + 32) provider];
+    v17 = [v16 locallyAvailable];
 
-    if ((v16 & 1) == 0 && (v3 & 0x80) != 0)
+    if ((v17 & 1) == 0 && (v3 & 0x80) != 0)
     {
       goto LABEL_17;
     }
 
-    v19 = *(a1 + 40);
-    if (v19)
+    v20 = *(a1 + 40);
+    if (v20)
     {
-      v20 = *(v19 + 16);
+      v21 = *(v20 + 16);
 
-      v20();
+      v21();
     }
   }
 
@@ -124,16 +126,16 @@ LABEL_17:
   {
     v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"TTS asset not found for %@", *(a1 + 32)];
     v6 = [MEMORY[0x277CCA9B8] ltd_errorWithCode:16 description:v5 userInfo:0];
-    v7 = _LTOSLogAssets();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _LTOSLogAssets(v6, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __65___LTDTTSAssetService_downloadAsset_options_progress_completion___block_invoke_cold_1();
     }
 
-    v8 = *(a1 + 40);
-    if (v8)
+    v9 = *(a1 + 40);
+    if (v9)
     {
-      (*(v8 + 16))(v8, v6);
+      (*(v9 + 16))(v9, v6);
     }
   }
 }
@@ -157,7 +159,7 @@ void __65___LTDTTSAssetService_downloadAsset_options_progress_completion___block
 
 void __65___LTDTTSAssetService_downloadAsset_options_progress_completion___block_invoke_2(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if (*(a1 + 48) >= 2)
   {
     v2 = [*(a1 + 32) progress];
@@ -165,72 +167,68 @@ void __65___LTDTTSAssetService_downloadAsset_options_progress_completion___block
 
     if (v3)
     {
-      v4 = _LTOSLogAssets();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+      v6 = _LTOSLogAssets(v4, v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
-        v5 = *(a1 + 32);
-        v6 = v4;
-        v7 = [v5 progress];
+        v7 = *(a1 + 32);
+        v8 = v6;
+        v9 = [v7 progress];
         *buf = 138543362;
-        v21 = v7;
-        _os_log_impl(&dword_232E53000, v6, OS_LOG_TYPE_INFO, "SiriTTS progress for %{public}@", buf, 0xCu);
+        v24 = v9;
+        _os_log_impl(&dword_232E53000, v8, OS_LOG_TYPE_INFO, "SiriTTS progress for %{public}@", buf, 0xCu);
       }
     }
 
-    v8 = *(a1 + 40);
-    if (v8)
+    v10 = *(a1 + 40);
+    if (v10)
     {
-      (*(v8 + 16))(v8, *(a1 + 32));
+      (*(v10 + 16))(v10, *(a1 + 32));
     }
   }
 
   if (*(a1 + 40))
   {
-    v9 = [*(a1 + 32) progress];
-    v10 = [v9 isCancelled];
+    v11 = [*(a1 + 32) progress];
+    v12 = [v11 isCancelled];
 
-    if (v10)
+    if (v12)
     {
-      v11 = _LTOSLogAssets();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+      v15 = _LTOSLogAssets(v13, v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
-        v12 = *(a1 + 32);
+        v16 = *(a1 + 32);
         *buf = 138543362;
-        v21 = v12;
-        _os_log_impl(&dword_232E53000, v11, OS_LOG_TYPE_INFO, "Cancelling download for %{public}@", buf, 0xCu);
+        v24 = v16;
+        _os_log_impl(&dword_232E53000, v15, OS_LOG_TYPE_INFO, "Cancelling download for %{public}@", buf, 0xCu);
       }
 
-      v13 = [*(a1 + 32) provider];
-      v17[0] = MEMORY[0x277D85DD0];
-      v17[1] = 3221225472;
-      v17[2] = __65___LTDTTSAssetService_downloadAsset_options_progress_completion___block_invoke_54;
-      v17[3] = &unk_2789B67A8;
-      v14 = *(a1 + 32);
-      v15 = *(a1 + 64);
-      v18 = v14;
-      v19 = v15;
-      [v13 cancelDownloadingThen:v17];
+      v17 = [*(a1 + 32) provider];
+      v20[0] = MEMORY[0x277D85DD0];
+      v20[1] = 3221225472;
+      v20[2] = __65___LTDTTSAssetService_downloadAsset_options_progress_completion___block_invoke_54;
+      v20[3] = &unk_2789B67A8;
+      v18 = *(a1 + 32);
+      v19 = *(a1 + 64);
+      v21 = v18;
+      v22 = v19;
+      [v17 cancelDownloadingThen:v20];
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __65___LTDTTSAssetService_downloadAsset_options_progress_completion___block_invoke_54(uint64_t a1)
+uint64_t __65___LTDTTSAssetService_downloadAsset_options_progress_completion___block_invoke_54(uint64_t a1, uint64_t a2)
 {
   v8 = *MEMORY[0x277D85DE8];
-  v2 = _LTOSLogAssets();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v3 = _LTOSLogAssets(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v3 = *(a1 + 32);
+    v4 = *(a1 + 32);
     v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_232E53000, v2, OS_LOG_TYPE_INFO, "Cancelled download for %{public}@", &v6, 0xCu);
+    v7 = v4;
+    _os_log_impl(&dword_232E53000, v3, OS_LOG_TYPE_INFO, "Cancelled download for %{public}@", &v6, 0xCu);
   }
 
-  result = [*(a1 + 40) purgeAsset:*(a1 + 32) completion:0];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 40) purgeAsset:*(a1 + 32) completion:0];
 }
 
 void __65___LTDTTSAssetService_downloadAsset_options_progress_completion___block_invoke_57(id *a1, void *a2)
@@ -255,109 +253,82 @@ void __65___LTDTTSAssetService_downloadAsset_options_progress_completion___block
   dispatch_async(v4, block);
 }
 
-void __65___LTDTTSAssetService_downloadAsset_options_progress_completion___block_invoke_2_58(uint64_t a1)
+void __65___LTDTTSAssetService_downloadAsset_options_progress_completion___block_invoke_2_58(uint64_t a1, uint64_t a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (*(a1 + 32))
   {
-    v2 = _LTOSLogAssets();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v3 = _LTOSLogAssets(a1, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v3 = *(a1 + 40);
+      v4 = *(a1 + 40);
       *buf = 138412290;
-      v18 = v3;
-      _os_log_impl(&dword_232E53000, v2, OS_LOG_TYPE_INFO, "SiriTTS downloaded %@", buf, 0xCu);
+      v20 = v4;
+      _os_log_impl(&dword_232E53000, v3, OS_LOG_TYPE_INFO, "SiriTTS downloaded %@", buf, 0xCu);
     }
 
-    v4 = [*(a1 + 40) progress];
-    v5 = [v4 isFinished];
+    v5 = [*(a1 + 40) progress];
+    v6 = [v5 isFinished];
 
-    if ((v5 & 1) == 0)
+    if ((v6 & 1) == 0)
     {
-      v6 = [*(a1 + 40) progress];
-      [v6 setOfflineState:2];
+      v7 = [*(a1 + 40) progress];
+      [v7 setOfflineState:2];
     }
 
-    v7 = *(a1 + 64);
-    v8 = [*(a1 + 40) provider];
-    v9 = [v7 _siriVoiceForTTSAsset:v8];
+    v8 = *(a1 + 64);
+    v9 = [*(a1 + 40) provider];
+    v10 = [v8 _siriVoiceForTTSAsset:v9];
 
-    if (v9)
+    if (v10)
     {
-      [*(a1 + 64) _subscribeToVoice:v9];
-      v10 = 0;
+      [*(a1 + 64) _subscribeToVoice:v10];
+      v11 = 0;
     }
 
     else
     {
-      v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"TTS asset lookup failed for %@", *(a1 + 40)];
-      v10 = [MEMORY[0x277CCA9B8] ltd_errorWithCode:15 description:v12 userInfo:0];
-      v13 = _LTOSLogAssets();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"TTS asset lookup failed for %@", *(a1 + 40)];
+      v11 = [MEMORY[0x277CCA9B8] ltd_errorWithCode:15 description:v14 userInfo:0];
+      v16 = _LTOSLogAssets(v11, v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         __65___LTDTTSAssetService_downloadAsset_options_progress_completion___block_invoke_2_58_cold_1();
       }
     }
 
-    v14 = *(a1 + 48);
-    if (v14)
+    v17 = *(a1 + 48);
+    if (v17)
     {
-      (*(v14 + 16))(v14, *(a1 + 40));
+      (*(v17 + 16))(v17, *(a1 + 40));
     }
   }
 
   else
   {
-    v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"TTS asset download failed for %@", *(a1 + 40)];
-    v10 = [MEMORY[0x277CCA9B8] ltd_errorWithCode:16 description:v9 userInfo:0];
-    v11 = _LTOSLogAssets();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"TTS asset download failed for %@", *(a1 + 40)];
+    v11 = [MEMORY[0x277CCA9B8] ltd_errorWithCode:16 description:v10 userInfo:0];
+    v13 = _LTOSLogAssets(v11, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      __65___LTDTTSAssetService_downloadAsset_options_progress_completion___block_invoke_2_58_cold_2((a1 + 40), v10, v11);
+      __65___LTDTTSAssetService_downloadAsset_options_progress_completion___block_invoke_2_58_cold_2((a1 + 40), v11, v13);
     }
   }
 
-  v15 = *(a1 + 56);
-  if (v15)
+  v18 = *(a1 + 56);
+  if (v18)
   {
-    (*(v15 + 16))(v15, v10);
+    (*(v18 + 16))(v18, v11);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
-}
-
-void __43___LTDTTSAssetService_setSubscribedVoices___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_2_0(&dword_232E53000, v0, v1, "SiriTTS subscribe assets failure: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __65___LTDTTSAssetService_downloadAsset_options_progress_completion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_2_0(&dword_232E53000, v0, v1, "SiriTTS asset download failure: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __65___LTDTTSAssetService_downloadAsset_options_progress_completion___block_invoke_2_58_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_2_0(&dword_232E53000, v0, v1, "SiriTTS voice lookup failure: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __65___LTDTTSAssetService_downloadAsset_options_progress_completion___block_invoke_2_58_cold_2(void *a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138543618;
-  *&v4[4] = *a1;
-  *&v4[12] = 2112;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_1(&dword_232E53000, a2, a3, "SiriTTS download %{public}@ failure: %@", *v4, *&v4[8], *&v4[16], *MEMORY[0x277D85DE8]);
-  v3 = *MEMORY[0x277D85DE8];
+  *v3 = 138543618;
+  *&v3[4] = *a1;
+  *&v3[12] = 2112;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_1(&dword_232E53000, a2, a3, "SiriTTS download %{public}@ failure: %@", *v3, *&v3[8], *&v3[16], *MEMORY[0x277D85DE8]);
 }
 
 @end

@@ -124,35 +124,33 @@ void __89__MTPlaybackQueueFactory__episodeToPlayForPodcastUuid_playbackOrder_exc
 void __113__MTPlaybackQueueFactory__latestOrOldestEpisodeForPodcastUuid_restrictToUserEpisodes_excludeExplicit_latest_ctx___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) podcastForUuid:*(a1 + 40)];
-  v3 = *(a1 + 65);
-  v4 = *(a1 + 56);
-  v8 = v2;
+  v3 = *(a1 + 56);
+  v6 = v2;
   if (*(a1 + 64) == 1)
   {
-    v5 = *(a1 + 56);
     if (*(a1 + 65))
     {
-      [v2 newestUserEpisodeExcludingExplicit:v4];
+      [v2 newestUserEpisodeExcludingExplicit:v3];
     }
 
     else
     {
-      [v2 oldestUserEpisodeExcludingExplicit:v4];
+      [v2 oldestUserEpisodeExcludingExplicit:v3];
     }
   }
 
   else if (*(a1 + 65))
   {
-    [v2 newestEpisodeExcludingUuid:0 excludeExplicit:v4];
+    [v2 newestEpisodeExcludingUuid:0 excludeExplicit:v3];
   }
 
   else
   {
-    [v2 oldestEpisodeExcludingExplicit:v4];
+    [v2 oldestEpisodeExcludingExplicit:v3];
   }
-  v6 = ;
-  v7 = v6;
-  objc_storeStrong((*(*(a1 + 48) + 8) + 40), v6);
+  v4 = ;
+  v5 = v4;
+  objc_storeStrong((*(*(a1 + 48) + 8) + 40), v4);
 }
 
 + (id)_uuidForEpisode:(id)episode
@@ -182,10 +180,7 @@ void __113__MTPlaybackQueueFactory__latestOrOldestEpisodeForPodcastUuid_restrict
 
 uint64_t __42__MTPlaybackQueueFactory__uuidForEpisode___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) uuid];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) uuid];
 
   return MEMORY[0x2821F96F8]();
 }

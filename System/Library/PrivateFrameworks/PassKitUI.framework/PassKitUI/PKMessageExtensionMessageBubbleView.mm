@@ -91,7 +91,7 @@ uint64_t __57__PKMessageExtensionMessageBubbleView_endValidateMessage__block_inv
 
 - (CGSize)sizeThatFits:(CGSize)fits
 {
-  [(PKMessageExtensionMessageBubbleView *)self _layoutWithBounds:1 isTemplateLayout:0.0, 0.0, fits.width, 10000.0];
+  objc_msgSend__layoutWithBounds_isTemplateLayout_(self, a2, 1, 0.0, 0.0, fits.width, 10000.0);
   result.height = v4;
   result.width = v3;
   return result;
@@ -103,7 +103,7 @@ uint64_t __57__PKMessageExtensionMessageBubbleView_endValidateMessage__block_inv
   v3.super_class = PKMessageExtensionMessageBubbleView;
   [(PKMessageExtensionMessageBubbleView *)&v3 layoutSubviews];
   [(PKMessageExtensionMessageBubbleView *)self bounds];
-  [(PKMessageExtensionMessageBubbleView *)self _layoutWithBounds:0 isTemplateLayout:?];
+  objc_msgSend__layoutWithBounds_isTemplateLayout_(self);
 }
 
 - (CGSize)_layoutWithBounds:(CGRect)bounds isTemplateLayout:(BOOL)layout
@@ -123,106 +123,122 @@ uint64_t __57__PKMessageExtensionMessageBubbleView_endValidateMessage__block_inv
   remainder.size.width = v14;
   remainder.size.height = height;
   isHidden = [(UILabel *)self->_buttonLabel isHidden];
-  v51.origin.x = v12;
-  v51.origin.y = y + 0.0;
-  v51.size.width = v14;
-  v51.size.height = height;
-  CGRectDivide(v51, &slice, &remainder, 13.0, CGRectMaxYEdge);
+  v111.origin.x = v12;
+  v111.origin.y = y + 0.0;
+  v111.size.width = v14;
+  v111.size.height = height;
+  CGRectDivide(v111, &slice, &remainder, 13.0, CGRectMaxYEdge);
   [(UILabel *)self->_buttonLabel sizeThatFits:width, height];
   v17 = v16;
-  PKFloatRoundToPixel();
-  v19 = v18;
-  v47.origin.x = 0.0;
-  v47.origin.y = 0.0;
-  v47.size.width = v18;
-  v47.size.height = v17 + v17;
-  v41 = *(MEMORY[0x1E695F058] + 16);
-  v43 = *MEMORY[0x1E695F058];
-  v46.origin = *MEMORY[0x1E695F058];
-  v46.size = v41;
+  v19.n128_f64[0] = remainder.size.width * 0.5 + -5.0;
+  v20.n128_f64[0] = fmin(v18 + 4.0 + 14.0 + 16.0, v19.n128_f64[0]);
+  PKFloatRoundToPixel(v20, v19);
+  v22 = v21;
+  v107.origin.x = 0.0;
+  v107.origin.y = 0.0;
+  v107.size.width = v21;
+  v107.size.height = v17 + v17;
+  v100 = *(MEMORY[0x1E695F058] + 16);
+  v102 = *MEMORY[0x1E695F058];
+  v106.origin = *MEMORY[0x1E695F058];
+  v106.size = v100;
   if (isHidden)
   {
-    v46 = remainder;
+    v106 = remainder;
   }
 
   else
   {
     if (_shouldReverseLayoutDirection)
     {
-      v20 = CGRectMinXEdge;
+      v23 = CGRectMinXEdge;
     }
 
     else
     {
-      v20 = CGRectMaxXEdge;
+      v23 = CGRectMaxXEdge;
     }
 
-    CGRectDivide(remainder, &slice, &v46, v18, v20);
+    CGRectDivide(remainder, &slice, &v106, v21, v23);
     v13 = slice.origin.x;
-    v47.origin.x = slice.origin.x;
-    CGRectDivide(v46, &slice, &v46, 5.0, v20);
+    v107.origin.x = slice.origin.x;
+    CGRectDivide(v106, &slice, &v106, 5.0, v23);
   }
 
-  [(UILabel *)self->_subtitleLabel sizeThatFits:v46.size.width, v46.size.height, v41];
-  if (v21 == 0.0)
+  [(UILabel *)self->_subtitleLabel sizeThatFits:v106.size.width, v106.size.height, v100];
+  if (v24 == 0.0)
   {
     font = [(UILabel *)self->_subtitleLabel font];
     [font lineHeight];
-    v24 = v23;
+    v27 = v26;
   }
 
   else
   {
-    v24 = v21;
+    v27 = v24;
   }
 
-  CGRectDivide(v46, &slice, &v46, v24, CGRectMaxYEdge);
+  CGRectDivide(v106, &slice, &v106, v27, CGRectMaxYEdge);
   if (!layout)
   {
     [(UILabel *)self->_subtitleLabel setFrame:slice.origin.x, slice.origin.y, slice.size.width, slice.size.height];
   }
 
-  [(UILabel *)self->_titleLabel sizeThatFits:v46.size.width, v46.size.height];
-  v45.origin = v43;
-  v45.size = v42;
-  CGRectDivide(v46, &v45, &v46, v25, CGRectMaxYEdge);
+  [(UILabel *)self->_titleLabel sizeThatFits:v106.size.width, v106.size.height];
+  v105.origin = v102;
+  v105.size = v101;
+  CGRectDivide(v106, &v105, &v106, v28, CGRectMaxYEdge);
   if (!layout)
   {
-    [(UILabel *)self->_titleLabel setFrame:v45.origin.x, v45.origin.y, v45.size.width, v45.size.height];
+    [(UILabel *)self->_titleLabel setFrame:v105.origin.x, v105.origin.y, v105.size.width, v105.size.height];
     if ((isHidden & 1) == 0)
     {
-      v26 = v45.origin.y;
-      v47.origin.y = v45.origin.y;
-      [(UIView *)self->_buttonBackgroundView setFrame:v13, v45.origin.y, v19, v17 + v17];
+      v29 = v105.origin.y;
+      v107.origin.y = v105.origin.y;
+      [(UIView *)self->_buttonBackgroundView setFrame:v13, v105.origin.y, v22, v17 + v17];
       layer = [(UIView *)self->_buttonBackgroundView layer];
-      PKFloatRoundToPixel();
-      [layer setCornerRadius:{fmin(v28, 20.0)}];
+      v31.n128_f64[0] = (v17 + v17) * 0.5;
+      PKFloatRoundToPixel(v31, v32);
+      [layer setCornerRadius:{fmin(v33, 20.0)}];
 
-      v52.origin.x = v13;
-      v52.origin.y = v26;
-      v52.size.width = v19;
-      v52.size.height = v17 + v17;
-      CGRectDivide(v52, &slice, &v47, 8.0, CGRectMinXEdge);
-      CGRectDivide(v47, &slice, &v47, 14.0, CGRectMinXEdge);
+      v112.origin.x = v13;
+      v112.origin.y = v29;
+      v112.size.width = v22;
+      v112.size.height = v17 + v17;
+      CGRectDivide(v112, &slice, &v107, 8.0, CGRectMinXEdge);
+      CGRectDivide(v107, &slice, &v107, 14.0, CGRectMinXEdge);
       buttonIconView = self->_buttonIconView;
-      PKSizeAlignedInRect();
+      v35.n128_u64[0] = *&slice.origin.x;
+      v36.n128_u64[0] = *&slice.origin.y;
+      v37.n128_u64[0] = *&slice.size.width;
+      v38.n128_u64[0] = *&slice.size.height;
+      v39 = *MEMORY[0x1E69BB7F8];
+      v40.n128_u64[0] = 14.0;
+      v41.n128_u64[0] = 14.0;
+      PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v40, v41, v35, v36, v37, v38, v42);
       [(UIImageView *)buttonIconView setFrame:?];
-      CGRectDivide(v47, &slice, &v47, 4.0, CGRectMinXEdge);
-      CGRectDivide(v47, &slice, &v47, 8.0, CGRectMaxXEdge);
+      CGRectDivide(v107, &slice, &v107, 4.0, CGRectMinXEdge);
+      CGRectDivide(v107, &slice, &v107, 8.0, CGRectMaxXEdge);
       buttonLabel = self->_buttonLabel;
-      PKSizeAlignedInRect();
+      v44.n128_u64[0] = *&v107.origin.x;
+      v45.n128_u64[0] = *&v107.origin.y;
+      v46.n128_u64[0] = *&v107.size.width;
+      v47.n128_u64[0] = *&v107.size.height;
+      v48.n128_f64[0] = v17;
+      v49.n128_u64[0] = *&v107.size.width;
+      PKSizeAlignedInRect(v39, v46, v48, v44, v45, v49, v47, v50);
       [(UILabel *)buttonLabel setFrame:?];
     }
   }
 
   CGRectDivide(remainder, &slice, &remainder, 12.0, CGRectMinYEdge);
-  v44.origin = v43;
-  v44.size = v42;
-  v31 = CGRectGetMinY(v45) + -12.0 + -13.0;
-  CGRectDivide(remainder, &v44, &remainder, v31, CGRectMinYEdge);
+  v104.origin = v102;
+  v104.size = v101;
+  v51 = CGRectGetMinY(v105) + -12.0 + -13.0;
+  CGRectDivide(remainder, &v104, &remainder, v51, CGRectMinYEdge);
   if (!layout)
   {
-    [(UIView *)self->_cardView setFrame:v44.origin.x, v44.origin.y, v44.size.width, v44.size.height];
+    [(UIView *)self->_cardView setFrame:v104.origin.x, v104.origin.y, v104.size.width, v104.size.height];
     spinner = self->_spinner;
     [(UIView *)self->_cardView center];
     [(UIActivityIndicatorView *)spinner setCenter:?];
@@ -232,6 +248,8 @@ uint64_t __57__PKMessageExtensionMessageBubbleView_endValidateMessage__block_inv
   {
     image = [(UIImageView *)self->_cardArtImageView image];
     [image size];
+    v55 = v54;
+    v57 = v56;
 
     if (layout)
     {
@@ -242,32 +260,63 @@ uint64_t __57__PKMessageExtensionMessageBubbleView_endValidateMessage__block_inv
   }
 
   PKSizeScaleAspectFit();
+  v55 = v58.n128_u64[0];
+  v57 = v59.n128_u64[0];
   if (!layout)
   {
 LABEL_21:
     cardArtImageView = self->_cardArtImageView;
-    PKSizeAlignedInRect();
+    v60.n128_u64[0] = *&v104.origin.x;
+    v61.n128_u64[0] = *&v104.origin.y;
+    v62.n128_u64[0] = *&v104.size.width;
+    v63.n128_u64[0] = *&v104.size.height;
+    v58.n128_u64[0] = v55;
+    v59.n128_u64[0] = v57;
+    PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v58, v59, v60, v61, v62, v63, v64);
     [(UIImageView *)cardArtImageView setFrame:?];
-    v53 = CGRectInset(v44, 5.0, 5.0);
-    v35 = v53.size.height;
-    v36 = v53.size.width * 0.5;
-    [(UILabel *)self->_leftTitleLabel sizeThatFits:v53.size.width * 0.5, v53.size.height];
+    v113 = CGRectInset(v104, 5.0, 5.0);
+    v66 = *&v113.origin.x;
+    v67 = *&v113.origin.y;
+    v68 = *&v113.size.width;
+    v69 = v113.size.height;
+    v70 = v113.size.width * 0.5;
+    [(UILabel *)self->_leftTitleLabel sizeThatFits:v113.size.width * 0.5, v113.size.height];
+    v72 = v71;
+    v103 = height;
+    v73 = width;
+    v75 = v74;
     leftTitleLabel = self->_leftTitleLabel;
-    PKContentAlignmentMake();
-    PKSizeAlignedInRect();
+    v77 = PKContentAlignmentMake();
+    v78.n128_u64[0] = v72;
+    v79.n128_u64[0] = v75;
+    v80.n128_u64[0] = v66;
+    v81.n128_u64[0] = v67;
+    v82.n128_u64[0] = v68;
+    v83.n128_f64[0] = v69;
+    PKSizeAlignedInRect(v77, v78, v79, v80, v81, v82, v83, v84);
     [(UILabel *)leftTitleLabel setFrame:?];
-    [(UILabel *)self->_rightTitleLabel sizeThatFits:v36, v35];
+    [(UILabel *)self->_rightTitleLabel sizeThatFits:v70, v69];
+    v86 = v85;
+    v88 = v87;
     rightTitleLabel = self->_rightTitleLabel;
-    PKContentAlignmentMake();
-    PKSizeAlignedInRect();
+    v90 = PKContentAlignmentMake();
+    v91.n128_u64[0] = v86;
+    width = v73;
+    height = v103;
+    v92.n128_u64[0] = v88;
+    v93.n128_u64[0] = v66;
+    v94.n128_u64[0] = v67;
+    v95.n128_u64[0] = v68;
+    v96.n128_f64[0] = v69;
+    PKSizeAlignedInRect(v90, v91, v92, v93, v94, v95, v96, v97);
     [(UILabel *)rightTitleLabel setFrame:?];
   }
 
 LABEL_22:
-  v39 = height - CGRectGetMinY(v45) + 13.0 + v44.size.width * 0.6 + 12.0;
-  v40 = width;
-  result.height = v39;
-  result.width = v40;
+  v98 = height - CGRectGetMinY(v105) + 13.0 + v104.size.width * 0.6 + 12.0;
+  v99 = width;
+  result.height = v98;
+  result.width = v99;
   return result;
 }
 

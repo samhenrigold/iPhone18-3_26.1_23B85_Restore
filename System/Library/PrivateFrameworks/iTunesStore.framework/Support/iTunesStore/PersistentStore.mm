@@ -107,77 +107,86 @@
     shouldLog = [v7 shouldLog];
     if ([v7 shouldLogToDisk])
     {
-      v9 = shouldLog | 2;
+      LODWORD(v9) = shouldLog | 2;
     }
 
     else
     {
-      v9 = shouldLog;
+      LODWORD(v9) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v7 OSLogObject], OS_LOG_TYPE_INFO))
+    oSLogObject = [v7 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    {
+      v9 = v9;
+    }
+
+    else
     {
       v9 &= 2u;
     }
 
     if (v9)
     {
-      v23 = 138412546;
-      v24 = objc_opt_class();
-      v25 = 2112;
-      v26 = v6;
-      LODWORD(v22) = 22;
-      v21 = &v23;
-      v10 = _os_log_send_and_compose_impl();
-      if (v10)
+      v25 = 138412546;
+      v26 = objc_opt_class();
+      v27 = 2112;
+      v28 = v6;
+      v11 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Checking integrity with cookie: %@", &v25, 22);
+      if (v11)
       {
-        v11 = v10;
-        v12 = [NSString stringWithCString:v10 encoding:4, &v23, v22];
-        free(v11);
-        v21 = v12;
+        v12 = v11;
+        v13 = [NSString stringWithCString:v11 encoding:4];
+        free(v12);
+        v23 = v13;
         SSFileLog();
       }
     }
 
-    v13 = objc_alloc_init(NSFileManager);
-    if ([v13 fileExistsAtPath:v6])
+    v14 = objc_alloc_init(NSFileManager);
+    if ([v14 fileExistsAtPath:v6])
     {
-      v14 = +[SSLogConfig sharedDaemonConfig];
-      if (!v14)
+      v15 = +[SSLogConfig sharedDaemonConfig];
+      if (!v15)
       {
-        v14 = +[SSLogConfig sharedConfig];
+        v15 = +[SSLogConfig sharedConfig];
       }
 
-      shouldLog2 = [v14 shouldLog];
-      if ([v14 shouldLogToDisk])
+      shouldLog2 = [v15 shouldLog];
+      if ([v15 shouldLogToDisk])
       {
-        v16 = shouldLog2 | 2;
+        LODWORD(v17) = shouldLog2 | 2;
       }
 
       else
       {
-        v16 = shouldLog2;
+        LODWORD(v17) = shouldLog2;
       }
 
-      if (!os_log_type_enabled([v14 OSLogObject], OS_LOG_TYPE_DEFAULT))
+      oSLogObject2 = [v15 OSLogObject];
+      if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
       {
-        v16 &= 2u;
+        v17 = v17;
       }
 
-      if (v16)
+      else
       {
-        v17 = objc_opt_class();
-        v23 = 138412290;
-        v24 = v17;
-        LODWORD(v22) = 12;
-        v21 = &v23;
-        v18 = _os_log_send_and_compose_impl();
-        if (v18)
+        v17 &= 2u;
+      }
+
+      if (v17)
+      {
+        v19 = objc_opt_class();
+        v25 = 138412290;
+        v26 = v19;
+        LODWORD(v24) = 12;
+        v20 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%@: Found integrity cookie, reloading store coordinator", &v25, v24);
+        if (v20)
         {
-          v19 = v18;
-          v20 = [NSString stringWithCString:v18 encoding:4, &v23, v22];
-          free(v19);
           v21 = v20;
+          v22 = [NSString stringWithCString:v20 encoding:4];
+          free(v21);
+          v23 = v22;
           SSFileLog();
         }
       }
@@ -186,9 +195,9 @@
       [(PersistentStore *)self _loadStoreCoordinatorWithIntegrityCheck:1 error:0];
     }
 
-    [v13 createFileAtPath:v6 contents:0 attributes:{0, v21}];
+    [v14 createFileAtPath:v6 contents:0 attributes:{0, v23}];
     (*(block + 2))(block);
-    [v13 removeItemAtPath:v6 error:0];
+    [v14 removeItemAtPath:v6 error:0];
   }
 }
 
@@ -247,92 +256,104 @@
 
 - (BOOL)performLightweightMigration:(id *)migration
 {
-  v38 = 0;
+  v45 = 0;
   managedObjectModel = [(PersistentStore *)self managedObjectModel];
   _newLegacyManagedObjectModel = [(PersistentStore *)self _newLegacyManagedObjectModel];
   if (!_newLegacyManagedObjectModel)
   {
-    v21 = +[SSLogConfig sharedDaemonConfig];
-    if (!v21)
+    v22 = +[SSLogConfig sharedDaemonConfig];
+    if (!v22)
     {
-      v21 = +[SSLogConfig sharedConfig];
+      v22 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v21 shouldLog];
-    if ([v21 shouldLogToDisk])
+    shouldLog = [v22 shouldLog];
+    if ([v22 shouldLogToDisk])
     {
-      v23 = shouldLog | 2;
+      LODWORD(v24) = shouldLog | 2;
     }
 
     else
     {
-      v23 = shouldLog;
+      LODWORD(v24) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v21 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [v22 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
     {
-      v23 &= 2u;
+      v24 = v24;
     }
 
-    if (v23)
+    else
     {
-      v39 = 138412290;
-      v40 = objc_opt_class();
-      LODWORD(v35) = 12;
-LABEL_33:
-      v20 = _os_log_send_and_compose_impl();
-      if (!v20)
+      v24 &= 2u;
+    }
+
+    if (v24)
+    {
+      v46 = 138412290;
+      v47 = objc_opt_class();
+      v26 = _os_log_send_and_compose_impl(v24, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Could not load old model for migration", &v46, 12);
+LABEL_36:
+      v21 = v26;
+      if (!v26)
       {
-        goto LABEL_55;
+        goto LABEL_61;
       }
 
-      [NSString stringWithCString:v20 encoding:4, &v39, v35];
-      free(v20);
+      [NSString stringWithCString:v26 encoding:4];
+      free(v21);
       SSFileLog();
     }
 
-LABEL_35:
-    LOBYTE(v20) = 0;
-    goto LABEL_55;
+LABEL_38:
+    LOBYTE(v21) = 0;
+    goto LABEL_61;
   }
 
-  v7 = [NSMappingModel inferredMappingModelForSourceModel:_newLegacyManagedObjectModel destinationModel:managedObjectModel error:&v38];
+  v7 = [NSMappingModel inferredMappingModelForSourceModel:_newLegacyManagedObjectModel destinationModel:managedObjectModel error:&v45];
   if (!v7)
   {
-    v24 = +[SSLogConfig sharedDaemonConfig];
-    if (!v24)
+    v27 = +[SSLogConfig sharedDaemonConfig];
+    if (!v27)
     {
-      v24 = +[SSLogConfig sharedConfig];
+      v27 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog2 = [v24 shouldLog];
-    if ([v24 shouldLogToDisk])
+    shouldLog2 = [v27 shouldLog];
+    if ([v27 shouldLogToDisk])
     {
-      v26 = shouldLog2 | 2;
+      LODWORD(v29) = shouldLog2 | 2;
     }
 
     else
     {
-      v26 = shouldLog2;
+      LODWORD(v29) = shouldLog2;
     }
 
-    if (!os_log_type_enabled([v24 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject2 = [v27 OSLogObject];
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
     {
-      v26 &= 2u;
+      v29 = v29;
     }
 
-    if (v26)
+    else
     {
-      v27 = objc_opt_class();
-      v39 = 138412546;
-      v40 = v27;
-      v41 = 2112;
-      v42 = v38;
-      LODWORD(v35) = 22;
-      goto LABEL_33;
+      v29 &= 2u;
     }
 
-    goto LABEL_35;
+    if (v29)
+    {
+      v31 = objc_opt_class();
+      v46 = 138412546;
+      v47 = v31;
+      v48 = 2112;
+      v49 = v45;
+      v26 = _os_log_send_and_compose_impl(v29, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%@: Could not create inferred mapping model: %@", &v46, 22);
+      goto LABEL_36;
+    }
+
+    goto LABEL_38;
   }
 
   v8 = v7;
@@ -347,131 +368,155 @@ LABEL_35:
     v12 = +[SSLogConfig sharedConfig];
   }
 
-  shouldLog3 = [v12 shouldLog];
+  LODWORD(v13) = [v12 shouldLog];
   if ([v12 shouldLogToDisk])
   {
-    shouldLog3 |= 2u;
+    LODWORD(v13) = v13 | 2;
   }
 
-  if (!os_log_type_enabled([v12 OSLogObject], OS_LOG_TYPE_INFO))
+  oSLogObject3 = [v12 OSLogObject];
+  if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_INFO))
   {
-    shouldLog3 &= 2u;
+    v13 = v13;
   }
 
-  if (shouldLog3)
+  else
   {
-    v14 = objc_opt_class();
-    v39 = 138412546;
-    v40 = v14;
-    v41 = 2112;
-    v42 = databaseFileURL;
-    LODWORD(v35) = 22;
-    v34 = &v39;
-    v15 = _os_log_send_and_compose_impl();
-    if (v15)
+    v13 &= 2u;
+  }
+
+  if (v13)
+  {
+    v15 = objc_opt_class();
+    v46 = 138412546;
+    v47 = v15;
+    v48 = 2112;
+    v49 = databaseFileURL;
+    v16 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &_mh_execute_header, oSLogObject3, 1, "%@: Performing lightweight migration for %@", &v46, 22);
+    if (v16)
     {
-      v16 = v15;
-      v17 = [NSString stringWithCString:v15 encoding:4, &v39, v35];
-      free(v16);
-      v34 = v17;
+      v17 = v16;
+      v18 = [NSString stringWithCString:v16 encoding:4];
+      free(v17);
+      v42 = v18;
       SSFileLog();
     }
   }
 
   registeredStoreTypes = [objc_alloc(objc_msgSend(objc_msgSend(-[NSDictionary objectForKey:](+[NSPersistentStoreCoordinator registeredStoreTypes](NSPersistentStoreCoordinator registeredStoreTypes];
-  if (([registeredStoreTypes migrateStoreFromURL:databaseFileURL type:NSSQLiteStoreType options:0 withMappingModel:v8 toDestinationURL:v10 destinationType:NSSQLiteStoreType destinationOptions:0 error:&v38] & 1) == 0)
+  if (([registeredStoreTypes migrateStoreFromURL:databaseFileURL type:NSSQLiteStoreType options:0 withMappingModel:v8 toDestinationURL:v10 destinationType:NSSQLiteStoreType destinationOptions:0 error:&v45] & 1) == 0)
   {
-    v28 = +[SSLogConfig sharedDaemonConfig];
-    v19 = v11;
-    if (!v28)
+    v32 = +[SSLogConfig sharedDaemonConfig];
+    v20 = v11;
+    if (!v32)
     {
-      v28 = +[SSLogConfig sharedConfig];
+      v32 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog4 = [v28 shouldLog];
-    if ([v28 shouldLogToDisk])
+    LODWORD(v33) = [v32 shouldLog];
+    if ([v32 shouldLogToDisk])
     {
-      shouldLog4 |= 2u;
+      LODWORD(v33) = v33 | 2;
     }
 
-    if (!os_log_type_enabled([v28 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject4 = [v32 OSLogObject];
+    if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
     {
-      shouldLog4 &= 2u;
+      v33 = v33;
+    }
+
+    else
+    {
+      v33 &= 2u;
     }
 
     migration = migrationCopy;
-    if (!shouldLog4)
+    if (!v33)
     {
-      goto LABEL_53;
+      goto LABEL_59;
     }
 
-LABEL_51:
-    v32 = objc_opt_class();
-    v39 = 138412546;
-    v40 = v32;
-    v41 = 2112;
-    v42 = v38;
-    LODWORD(v36) = 22;
-    v20 = _os_log_send_and_compose_impl();
-    if (!v20)
-    {
-      goto LABEL_54;
-    }
-
-    [NSString stringWithCString:v20 encoding:4, &v39, v36];
-    free(v20);
-    SSFileLog();
-LABEL_53:
-    LOBYTE(v20) = 0;
-    goto LABEL_54;
+    v35 = objc_opt_class();
+    v46 = 138412546;
+    v47 = v35;
+    v48 = 2112;
+    v49 = v45;
+    LODWORD(v43) = 22;
+    v36 = _os_log_send_and_compose_impl(v33, 0, 0, 0, &_mh_execute_header, oSLogObject4, 0, "%@: Could not migrate: %@", &v46, v43);
+    goto LABEL_57;
   }
 
-  v19 = v11;
+  v20 = v11;
   [v11 removeItemAtURL:databaseFileURL error:0];
-  if (([v11 moveItemAtURL:v10 toURL:databaseFileURL error:&v38] & 1) == 0)
+  if (([v11 moveItemAtURL:v10 toURL:databaseFileURL error:&v45] & 1) == 0)
   {
-    v30 = +[SSLogConfig sharedDaemonConfig];
-    if (!v30)
+    v37 = +[SSLogConfig sharedDaemonConfig];
+    if (!v37)
     {
-      v30 = +[SSLogConfig sharedConfig];
+      v37 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog5 = [v30 shouldLog];
-    if ([v30 shouldLogToDisk])
+    LODWORD(v38) = [v37 shouldLog];
+    if ([v37 shouldLogToDisk])
     {
-      shouldLog5 |= 2u;
+      LODWORD(v38) = v38 | 2;
     }
 
-    if (!os_log_type_enabled([v30 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject5 = [v37 OSLogObject];
+    if (os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_DEFAULT))
     {
-      shouldLog5 &= 2u;
+      v38 = v38;
+    }
+
+    else
+    {
+      v38 &= 2u;
     }
 
     migration = migrationCopy;
-    if (!shouldLog5)
+    if (!v38)
     {
-      goto LABEL_53;
+      goto LABEL_59;
     }
 
-    goto LABEL_51;
+    v40 = objc_opt_class();
+    v46 = 138412546;
+    v47 = v40;
+    v48 = 2112;
+    v49 = v45;
+    LODWORD(v43) = 22;
+    v36 = _os_log_send_and_compose_impl(v38, 0, 0, 0, &_mh_execute_header, oSLogObject5, 0, "%@: Could not move migrated store: %@", &v46, v43);
+LABEL_57:
+    v21 = v36;
+    if (!v36)
+    {
+      goto LABEL_60;
+    }
+
+    [NSString stringWithCString:v36 encoding:4];
+    free(v21);
+    SSFileLog();
+LABEL_59:
+    LOBYTE(v21) = 0;
+    goto LABEL_60;
   }
 
-  LOBYTE(v20) = 1;
+  LOBYTE(v21) = 1;
   migration = migrationCopy;
-LABEL_54:
+LABEL_60:
 
-LABEL_55:
+LABEL_61:
   if (migration)
   {
-    *migration = v38;
+    *migration = v45;
   }
 
-  return v20;
+  return v21;
 }
 
 - (BOOL)resetStore:(id *)store
 {
-  v26 = 0;
+  v27 = 0;
   databaseFileURL = [(PersistentStore *)self databaseFileURL];
   v6 = databaseFileURL;
   if (self->_storeCoordinator)
@@ -485,157 +530,170 @@ LABEL_55:
     shouldLog = [v7 shouldLog];
     if ([v7 shouldLogToDisk])
     {
-      v9 = shouldLog | 2;
+      LODWORD(v9) = shouldLog | 2;
     }
 
     else
     {
-      v9 = shouldLog;
+      LODWORD(v9) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v7 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [v7 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v9 = v9;
+    }
+
+    else
     {
       v9 &= 2u;
     }
 
     if (v9)
     {
-      v27 = 138412546;
-      v28 = objc_opt_class();
-      v29 = 2112;
+      v28 = 138412546;
+      v29 = objc_opt_class();
+      v30 = 2112;
       p_isa = &v6->super.isa;
-      LODWORD(v25) = 22;
-      v24 = &v27;
-      v10 = _os_log_send_and_compose_impl();
-      if (v10)
+      v11 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Destroy persistent store: %@", &v28, 22);
+      if (v11)
       {
-        v11 = v10;
-        v12 = [NSString stringWithCString:v10 encoding:4, &v27, v25];
-        free(v11);
-        v24 = v12;
+        v12 = v11;
+        v13 = [NSString stringWithCString:v11 encoding:4];
+        free(v12);
+        v26 = v13;
         SSFileLog();
       }
     }
 
-    v13 = [(NSPersistentStoreCoordinator *)self->_storeCoordinator destroyPersistentStoreAtURL:v6 withType:NSSQLiteStoreType options:0 error:&v26, v24];
+    v14 = [(NSPersistentStoreCoordinator *)self->_storeCoordinator destroyPersistentStoreAtURL:v6 withType:NSSQLiteStoreType options:0 error:&v27, v26];
     if (store)
     {
-LABEL_13:
-      *store = v26;
+LABEL_14:
+      *store = v27;
     }
   }
 
   else
   {
     path = [(NSURL *)databaseFileURL path];
-    v16 = objc_alloc_init(NSFileManager);
-    v17 = [(NSString *)path stringByAppendingPathExtension:@"bad"];
-    v18 = +[SSLogConfig sharedDaemonConfig];
-    if (!v18)
+    v17 = objc_alloc_init(NSFileManager);
+    v18 = [(NSString *)path stringByAppendingPathExtension:@"bad"];
+    v19 = +[SSLogConfig sharedDaemonConfig];
+    if (!v19)
     {
-      v18 = +[SSLogConfig sharedConfig];
+      v19 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog2 = [v18 shouldLog];
-    if ([v18 shouldLogToDisk])
+    shouldLog2 = [v19 shouldLog];
+    if ([v19 shouldLogToDisk])
     {
-      v20 = shouldLog2 | 2;
+      LODWORD(v21) = shouldLog2 | 2;
     }
 
     else
     {
-      v20 = shouldLog2;
+      LODWORD(v21) = shouldLog2;
     }
 
-    if (!os_log_type_enabled([v18 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject2 = [v19 OSLogObject];
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
     {
-      v20 &= 2u;
+      v21 = v21;
     }
 
-    if (v20)
+    else
     {
-      v27 = 138412802;
-      v28 = objc_opt_class();
-      v29 = 2112;
+      v21 &= 2u;
+    }
+
+    if (v21)
+    {
+      v28 = 138412802;
+      v29 = objc_opt_class();
+      v30 = 2112;
       p_isa = path;
-      v31 = 2112;
-      v32 = v17;
-      LODWORD(v25) = 32;
-      v24 = &v27;
-      v21 = _os_log_send_and_compose_impl();
-      if (v21)
+      v32 = 2112;
+      v33 = v18;
+      v23 = _os_log_send_and_compose_impl(v21, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%@: Moving %@ to %@", &v28, 32);
+      if (v23)
       {
-        v22 = v21;
-        v23 = [NSString stringWithCString:v21 encoding:4, &v27, v25];
-        free(v22);
         v24 = v23;
+        v25 = [NSString stringWithCString:v23 encoding:4];
+        free(v24);
+        v26 = v25;
         SSFileLog();
       }
     }
 
-    [v16 removeItemAtPath:v17 error:{0, v24}];
-    v13 = [v16 moveItemAtPath:path toPath:v17 error:&v26];
+    [v17 removeItemAtPath:v18 error:{0, v26}];
+    v14 = [v17 moveItemAtPath:path toPath:v18 error:&v27];
 
     if (store)
     {
-      goto LABEL_13;
+      goto LABEL_14;
     }
   }
 
-  return v13;
+  return v14;
 }
 
 - (BOOL)loadStoreCoordinatorWithOptions:(id)options error:(id *)error
 {
-  v46 = 0;
+  v50 = 0;
   managedObjectModel = [(PersistentStore *)self managedObjectModel];
   if (!managedObjectModel)
   {
-    v20 = +[SSLogConfig sharedDaemonConfig];
-    if (!v20)
+    v21 = +[SSLogConfig sharedDaemonConfig];
+    if (!v21)
     {
-      v20 = +[SSLogConfig sharedConfig];
+      v21 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v20 shouldLog];
-    if ([v20 shouldLogToDisk])
+    shouldLog = [v21 shouldLog];
+    if ([v21 shouldLogToDisk])
     {
-      v22 = shouldLog | 2;
+      LODWORD(v23) = shouldLog | 2;
     }
 
     else
     {
-      v22 = shouldLog;
+      LODWORD(v23) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v20 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [v21 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
     {
-      v22 &= 2u;
+      v23 = v23;
     }
 
-    if (!v22)
+    else
     {
-      goto LABEL_41;
+      v23 &= 2u;
     }
 
-    v49 = 138412290;
-    v50 = objc_opt_class();
-    LODWORD(v44) = 12;
-    v23 = _os_log_send_and_compose_impl();
     if (!v23)
     {
-      goto LABEL_41;
+      goto LABEL_44;
     }
 
-    v24 = v23;
-    [NSString stringWithCString:v23 encoding:4, &v49, v44];
-    free(v24);
-LABEL_40:
+    v53 = 138412290;
+    v54 = objc_opt_class();
+    v25 = _os_log_send_and_compose_impl(v23, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Could not load model", &v53, 12);
+    if (!v25)
+    {
+      goto LABEL_44;
+    }
+
+    v26 = v25;
+    [NSString stringWithCString:v25 encoding:4];
+    free(v26);
+LABEL_43:
     SSFileLog();
-LABEL_41:
+LABEL_44:
     if (error)
     {
-      *error = v46;
+      *error = v50;
     }
 
     return self->_storeCoordinator != 0;
@@ -656,39 +714,44 @@ LABEL_41:
     shouldLog2 = [v12 shouldLog];
     if ([v12 shouldLogToDisk])
     {
-      v26 = shouldLog2 | 2;
+      LODWORD(v28) = shouldLog2 | 2;
     }
 
     else
     {
-      v26 = shouldLog2;
+      LODWORD(v28) = shouldLog2;
     }
 
-    if (!os_log_type_enabled([v12 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject2 = [v12 OSLogObject];
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
     {
-      v26 &= 2u;
+      v28 = v28;
     }
 
-    if (!v26)
+    else
     {
-      goto LABEL_41;
+      v28 &= 2u;
     }
 
-    v49 = 138412546;
-    v50 = objc_opt_class();
-    v51 = 2112;
-    v52 = databaseFileURL;
-    LODWORD(v44) = 22;
-    v27 = _os_log_send_and_compose_impl();
-    if (!v27)
+    if (!v28)
     {
-      goto LABEL_41;
+      goto LABEL_44;
     }
 
-    v28 = v27;
-    [NSString stringWithCString:v27 encoding:4, &v49, v44];
-    free(v28);
-    goto LABEL_40;
+    v53 = 138412546;
+    v54 = objc_opt_class();
+    v55 = 2112;
+    v56 = databaseFileURL;
+    v30 = _os_log_send_and_compose_impl(v28, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%@: Could not create directory for file: %@", &v53, 22);
+    if (!v30)
+    {
+      goto LABEL_44;
+    }
+
+    v31 = v30;
+    [NSString stringWithCString:v30 encoding:4];
+    free(v31);
+    goto LABEL_43;
   }
 
   if (!v11)
@@ -699,155 +762,171 @@ LABEL_41:
   shouldLog3 = [v12 shouldLog];
   if ([v12 shouldLogToDisk])
   {
-    v14 = shouldLog3 | 2;
+    LODWORD(v14) = shouldLog3 | 2;
   }
 
   else
   {
-    v14 = shouldLog3;
+    LODWORD(v14) = shouldLog3;
   }
 
-  if (!os_log_type_enabled([v12 OSLogObject], OS_LOG_TYPE_INFO))
+  oSLogObject3 = [v12 OSLogObject];
+  if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_INFO))
+  {
+    v14 = v14;
+  }
+
+  else
   {
     v14 &= 2u;
   }
 
   if (v14)
   {
-    v49 = 138412546;
-    v50 = objc_opt_class();
-    v51 = 2112;
-    v52 = databaseFileURL;
-    LODWORD(v44) = 22;
-    v15 = _os_log_send_and_compose_impl();
-    if (v15)
+    v53 = 138412546;
+    v54 = objc_opt_class();
+    v55 = 2112;
+    v56 = databaseFileURL;
+    v16 = _os_log_send_and_compose_impl(v14, 0, 0, 0, &_mh_execute_header, oSLogObject3, 1, "%@: Loading persistent store: %@", &v53, 22);
+    if (v16)
     {
-      v16 = v15;
-      [NSString stringWithCString:v15 encoding:4, &v49, v44];
-      free(v16);
+      v17 = v16;
+      [NSString stringWithCString:v16 encoding:4];
+      free(v17);
       SSFileLog();
     }
   }
 
-  v17 = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:v8];
-  v18 = [[NSMutableDictionary alloc] initWithObjectsAndKeys:{NSFileProtectionCompleteUntilFirstUserAuthentication, NSPersistentStoreFileProtectionKey, 0}];
-  v19 = v18;
+  v18 = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:v8];
+  v19 = [[NSMutableDictionary alloc] initWithObjectsAndKeys:{NSFileProtectionCompleteUntilFirstUserAuthentication, NSPersistentStoreFileProtectionKey, 0}];
+  v20 = v19;
   if (options)
   {
-    [v18 addEntriesFromDictionary:options];
+    [v19 addEntriesFromDictionary:options];
   }
 
-  if (([objc_msgSend(v19 objectForKeyedSubscript:{NSPersistentStoreFileProtectionKey), "isEqualToString:", NSFileProtectionNone}] & 1) != 0 || MKBDeviceUnlockedSinceBoot())
+  if (([objc_msgSend(v20 objectForKeyedSubscript:{NSPersistentStoreFileProtectionKey), "isEqualToString:", NSFileProtectionNone}] & 1) != 0 || MKBDeviceUnlockedSinceBoot())
   {
-    if ([v17 addPersistentStoreWithType:NSSQLiteStoreType configuration:0 URL:databaseFileURL options:v19 error:&v46])
+    if ([v18 addPersistentStoreWithType:NSSQLiteStoreType configuration:0 URL:databaseFileURL options:v20 error:&v50])
     {
-      goto LABEL_18;
+      goto LABEL_19;
     }
 
     if (!ISErrorIsEqual())
     {
-      goto LABEL_57;
+      goto LABEL_62;
     }
 
-    v30 = +[SSLogConfig sharedDaemonConfig];
-    if (!v30)
+    v33 = +[SSLogConfig sharedDaemonConfig];
+    if (!v33)
     {
-      v30 = +[SSLogConfig sharedConfig];
+      v33 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog4 = [v30 shouldLog];
-    if ([v30 shouldLogToDisk])
+    shouldLog4 = [v33 shouldLog];
+    if ([v33 shouldLogToDisk])
     {
-      v32 = shouldLog4 | 2;
+      LODWORD(v35) = shouldLog4 | 2;
     }
 
     else
     {
-      v32 = shouldLog4;
+      LODWORD(v35) = shouldLog4;
     }
 
-    if (!os_log_type_enabled([v30 OSLogObject], OS_LOG_TYPE_INFO))
+    oSLogObject4 = [v33 OSLogObject];
+    if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_INFO))
     {
-      v32 &= 2u;
+      v35 = v35;
     }
 
-    if (v32)
+    else
     {
-      v33 = objc_opt_class();
-      v49 = 138412290;
-      v50 = v33;
-      LODWORD(v45) = 12;
-      v43 = &v49;
-      v34 = _os_log_send_and_compose_impl();
-      if (v34)
+      v35 &= 2u;
+    }
+
+    if (v35)
+    {
+      v37 = objc_opt_class();
+      v53 = 138412290;
+      v54 = v37;
+      LODWORD(v49) = 12;
+      v38 = _os_log_send_and_compose_impl(v35, 0, 0, 0, &_mh_execute_header, oSLogObject4, 1, "%@: Detected incompatible model, attempting migration", &v53, v49);
+      if (v38)
       {
-        v35 = v34;
-        v36 = [NSString stringWithCString:v34 encoding:4, &v49, v45];
-        free(v35);
-        v43 = v36;
+        v39 = v38;
+        v40 = [NSString stringWithCString:v38 encoding:4];
+        free(v39);
+        v48 = v40;
         SSFileLog();
       }
     }
 
-    if (-[PersistentStore performLightweightMigration:](self, "performLightweightMigration:", &v46, v43) && [v17 addPersistentStoreWithType:NSSQLiteStoreType configuration:0 URL:databaseFileURL options:0 error:&v46])
+    if (-[PersistentStore performLightweightMigration:](self, "performLightweightMigration:", &v50, v48) && [v18 addPersistentStoreWithType:NSSQLiteStoreType configuration:0 URL:databaseFileURL options:0 error:&v50])
     {
-LABEL_18:
+LABEL_19:
 
-      self->_storeCoordinator = v17;
+      self->_storeCoordinator = v18;
     }
 
     else
     {
-LABEL_57:
-      v37 = +[SSLogConfig sharedDaemonConfig];
-      if (!v37)
+LABEL_62:
+      v41 = +[SSLogConfig sharedDaemonConfig];
+      if (!v41)
       {
-        v37 = +[SSLogConfig sharedConfig];
+        v41 = +[SSLogConfig sharedConfig];
       }
 
-      shouldLog5 = [v37 shouldLog];
-      if ([v37 shouldLogToDisk])
+      shouldLog5 = [v41 shouldLog];
+      if ([v41 shouldLogToDisk])
       {
-        v39 = shouldLog5 | 2;
+        LODWORD(v43) = shouldLog5 | 2;
       }
 
       else
       {
-        v39 = shouldLog5;
+        LODWORD(v43) = shouldLog5;
       }
 
-      if (!os_log_type_enabled([v37 OSLogObject], OS_LOG_TYPE_DEFAULT))
+      oSLogObject5 = [v41 OSLogObject];
+      if (os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_DEFAULT))
       {
-        v39 &= 2u;
+        v43 = v43;
       }
 
-      if (v39)
+      else
       {
-        v40 = objc_opt_class();
-        v49 = 138412546;
-        v50 = v40;
-        v51 = 2112;
-        v52 = v46;
-        LODWORD(v45) = 22;
-        v41 = _os_log_send_and_compose_impl();
-        if (v41)
+        v43 &= 2u;
+      }
+
+      if (v43)
+      {
+        v45 = objc_opt_class();
+        v53 = 138412546;
+        v54 = v45;
+        v55 = 2112;
+        v56 = v50;
+        LODWORD(v49) = 22;
+        v46 = _os_log_send_and_compose_impl(v43, 0, 0, 0, &_mh_execute_header, oSLogObject5, 0, "%@: Could not add persistent store: %@", &v53, v49);
+        if (v46)
         {
-          v42 = v41;
-          [NSString stringWithCString:v41 encoding:4, &v49, v45];
-          free(v42);
+          v47 = v46;
+          [NSString stringWithCString:v46 encoding:4];
+          free(v47);
           SSFileLog();
         }
       }
     }
 
-    goto LABEL_41;
+    goto LABEL_44;
   }
 
   if (error)
   {
-    v47 = NSSQLiteErrorDomain;
-    v48 = &off_10034BE98;
-    *error = [NSError errorWithDomain:NSCocoaErrorDomain code:256 userInfo:[NSDictionary dictionaryWithObjects:&v48 forKeys:&v47 count:1]];
+    v51 = NSSQLiteErrorDomain;
+    v52 = &off_10034BE98;
+    *error = [NSError errorWithDomain:NSCocoaErrorDomain code:256 userInfo:[NSDictionary dictionaryWithObjects:&v52 forKeys:&v51 count:1]];
   }
 
   return 0;
@@ -866,79 +945,89 @@ LABEL_57:
     shouldLog = [v3 shouldLog];
     if ([v3 shouldLogToDisk])
     {
-      v5 = shouldLog | 2;
+      LODWORD(v5) = shouldLog | 2;
     }
 
     else
     {
-      v5 = shouldLog;
+      LODWORD(v5) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v3 OSLogObject], OS_LOG_TYPE_INFO))
+    oSLogObject = [v3 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    {
+      v5 = v5;
+    }
+
+    else
     {
       v5 &= 2u;
     }
 
     if (v5)
     {
-      v20 = 138412546;
-      v21 = objc_opt_class();
-      v22 = 2112;
+      v22 = 138412546;
+      v23 = objc_opt_class();
+      v24 = 2112;
       modelFileURL = [(PersistentStore *)self modelFileURL];
-      LODWORD(v19) = 22;
-      v18 = &v20;
-      v6 = _os_log_send_and_compose_impl();
-      if (v6)
+      v7 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Loading model: %@", &v22, 22);
+      if (v7)
       {
-        v7 = v6;
-        v8 = [NSString stringWithCString:v6 encoding:4, &v20, v19];
-        free(v7);
-        v18 = v8;
+        v8 = v7;
+        v9 = [NSString stringWithCString:v7 encoding:4];
+        free(v8);
+        v20 = v9;
         SSFileLog();
       }
     }
 
-    v9 = [[NSManagedObjectModel alloc] initWithContentsOfURL:{-[PersistentStore modelFileURL](self, "modelFileURL")}];
-    self->_model = v9;
-    if (!v9)
+    v10 = [[NSManagedObjectModel alloc] initWithContentsOfURL:{-[PersistentStore modelFileURL](self, "modelFileURL")}];
+    self->_model = v10;
+    if (!v10)
     {
-      v11 = +[SSLogConfig sharedDaemonConfig];
-      if (!v11)
+      v12 = +[SSLogConfig sharedDaemonConfig];
+      if (!v12)
       {
-        v11 = +[SSLogConfig sharedConfig];
+        v12 = +[SSLogConfig sharedConfig];
       }
 
-      shouldLog2 = [v11 shouldLog];
-      if ([v11 shouldLogToDisk])
+      shouldLog2 = [v12 shouldLog];
+      if ([v12 shouldLogToDisk])
       {
-        v13 = shouldLog2 | 2;
+        LODWORD(v14) = shouldLog2 | 2;
       }
 
       else
       {
-        v13 = shouldLog2;
+        LODWORD(v14) = shouldLog2;
       }
 
-      if (!os_log_type_enabled([v11 OSLogObject], OS_LOG_TYPE_DEFAULT))
+      oSLogObject2 = [v12 OSLogObject];
+      if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
       {
-        v13 &= 2u;
+        v14 = v14;
       }
 
-      if (v13)
+      else
       {
-        v14 = objc_opt_class();
+        v14 &= 2u;
+      }
+
+      if (v14)
+      {
+        v16 = objc_opt_class();
         modelFileURL2 = [(PersistentStore *)self modelFileURL];
-        v20 = 138412546;
-        v21 = v14;
-        v22 = 2112;
+        v22 = 138412546;
+        v23 = v16;
+        v24 = 2112;
         modelFileURL = modelFileURL2;
-        LODWORD(v19) = 22;
-        v16 = _os_log_send_and_compose_impl();
-        if (v16)
+        LODWORD(v21) = 22;
+        v18 = _os_log_send_and_compose_impl(v14, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%@: Could not load model: %@", &v22, v21);
+        if (v18)
         {
-          v17 = v16;
-          [NSString stringWithCString:v16 encoding:4, &v20, v19];
-          free(v17);
+          v19 = v18;
+          [NSString stringWithCString:v18 encoding:4];
+          free(v19);
           SSFileLog();
         }
       }

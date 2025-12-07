@@ -36,14 +36,15 @@
 uint64_t __56__HKGAD7Assessment_assessmentWithDate_answers_metadata___block_invoke(uint64_t a1, void *a2)
 {
   v3 = *(a1 + 32);
-  v7 = a2;
+  v8 = a2;
   v4 = [v3 copy];
-  v5 = v7[13];
-  v7[13] = v4;
+  v5 = v8[13];
+  v8[13] = v4;
 
-  v7[14] = [HKGAD7Assessment _riskForAnswers:*(a1 + 32)];
+  v6 = [HKGAD7Assessment _riskForAnswers:*(a1 + 32)];
+  v8[14] = v6;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v6, v8);
 }
 
 - (HKGAD7Assessment)initWithDate:(id)date answers:(id)answers metadata:(id)metadata
@@ -55,31 +56,31 @@ uint64_t __56__HKGAD7Assessment_assessmentWithDate_answers_metadata___block_invo
 
 + (int64_t)_scoreForAnswers:(id)answers
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   answersCopy = answers;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v4 = [answersCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [answersCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(answersCopy);
         }
 
-        v6 += [*(*(&v11 + 1) + 8 * i) integerValue];
+        v6 += [*(*(&v10 + 1) + 8 * i) integerValue];
       }
 
-      v5 = [answersCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [answersCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
@@ -90,7 +91,6 @@ uint64_t __56__HKGAD7Assessment_assessmentWithDate_answers_metadata___block_invo
     v6 = 0;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -140,7 +140,7 @@ uint64_t __56__HKGAD7Assessment_assessmentWithDate_answers_metadata___block_invo
 
 - (void)_validateAnswers:(id)answers
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   answersCopy = answers;
   v4 = [answersCopy count];
   v5 = MEMORY[0x1E695D940];
@@ -149,40 +149,38 @@ uint64_t __56__HKGAD7Assessment_assessmentWithDate_answers_metadata___block_invo
     [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:{@"%@ requires 7 answers.", objc_opt_class()}];
   }
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v6 = answersCopy;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     v10 = *v5;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v14 + 1) + 8 * i);
+        v12 = *(*(&v13 + 1) + 8 * i);
         if ([v12 integerValue] > 3 || objc_msgSend(v12, "integerValue") < 0)
         {
           [MEMORY[0x1E695DF30] raise:v10 format:{@"%@ answer must be on a scale of 0 to 3.", objc_opt_class()}];
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isEquivalent:(id)equivalent

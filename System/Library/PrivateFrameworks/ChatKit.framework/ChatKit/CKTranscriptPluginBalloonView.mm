@@ -117,7 +117,7 @@ LABEL_4:
     v29 = 0u;
     v26 = 0u;
     v27 = 0u;
-    [(CKTranscriptPluginBalloonView *)v8 pluginContainerMaskBalloonDescriptor];
+    objc_msgSend_pluginContainerMaskBalloonDescriptor(v8);
     v14 = [_TtC7ChatKit18CKBalloonMaskLayer alloc];
     v25[4] = v30;
     v25[5] = v31;
@@ -353,7 +353,7 @@ LABEL_4:
     return 1;
   }
 
-  [(CKBalloonView *)self balloonDescriptor:0];
+  objc_msgSend_balloonDescriptor(self, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
   if (v9 - 1 < 4)
   {
     return 1;
@@ -380,7 +380,7 @@ LABEL_4:
   *&retstr->var7.blue = 0u;
   *&retstr->var0 = 0u;
   *&retstr->var5 = 0u;
-  [(CKBalloonView *)self balloonDescriptor];
+  objc_msgSend_balloonDescriptor(self, a3);
   retstr->var2 = 0;
   retstr->var6 = -1;
   result = [(CKTranscriptPluginBalloonView *)self isScheduled];
@@ -432,7 +432,7 @@ LABEL_4:
   *&retstr->var7.blue = 0u;
   *&retstr->var0 = 0u;
   *&retstr->var5 = 0u;
-  result = [(CKBalloonView *)self balloonDescriptor];
+  result = objc_msgSend_balloonDescriptor(self, a3);
   v6 = 0;
   var2 = retstr->var2;
   if (var2 > 2)
@@ -490,7 +490,7 @@ LABEL_4:
   *&retstr->var7.blue = 0u;
   *&retstr->var0 = 0u;
   *&retstr->var5 = 0u;
-  return [(CKTranscriptPluginBalloonView *)self backdropBalloonDescriptor];
+  return objc_msgSend_backdropBalloonDescriptor(self, a3);
 }
 
 - (void)updateBalloonMasks
@@ -504,7 +504,7 @@ LABEL_4:
   v36 = 0u;
   v33 = 0u;
   v34 = 0u;
-  [(CKTranscriptPluginBalloonView *)self pluginContainerMaskBalloonDescriptor];
+  objc_msgSend_pluginContainerMaskBalloonDescriptor(self);
   pluginContainerMaskLayer = self->_pluginContainerMaskLayer;
   v29 = v37;
   v30 = v38;
@@ -525,7 +525,7 @@ LABEL_4:
     v28 = 0u;
     v25 = 0u;
     v26 = 0u;
-    [(CKTranscriptPluginBalloonView *)self backdropBalloonDescriptor];
+    objc_msgSend_backdropBalloonDescriptor(self);
     backdropBalloonLayer = self->_backdropBalloonLayer;
     if (backdropBalloonLayer)
     {
@@ -577,7 +577,7 @@ LABEL_4:
     v28 = 0u;
     v25 = 0u;
     v26 = 0u;
-    [(CKTranscriptPluginBalloonView *)self pluginOverlayBalloonDescriptor];
+    objc_msgSend_pluginOverlayBalloonDescriptor(self);
     pluginOverlayBalloonLayer = self->_pluginOverlayBalloonLayer;
     if (pluginOverlayBalloonLayer)
     {
@@ -924,7 +924,7 @@ LABEL_21:
 
 - (BOOL)gestureRecognizer:(id)recognizer shouldReceiveTouch:(id)touch
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   recognizerCopy = recognizer;
   touchCopy = touch;
   view = [touchCopy view];
@@ -951,44 +951,45 @@ LABEL_21:
       {
 
 LABEL_18:
-        v19 = 0;
+        v20 = 0;
         goto LABEL_19;
       }
 
-      v27 = 0u;
       v28 = 0u;
-      v25 = 0u;
+      v29 = 0u;
       v26 = 0u;
+      v27 = 0u;
       v15 = interactiveViews;
-      v16 = [v15 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v16 = [v15 countByEnumeratingWithState:&v26 objects:v30 count:16];
       if (v16)
       {
-        v17 = *v26;
+        v17 = *v27;
         while (2)
         {
           for (i = 0; i != v16; ++i)
           {
-            if (*v26 != v17)
+            if (*v27 != v17)
             {
               objc_enumerationMutation(v15);
             }
 
-            if ([view isDescendantOfView:*(*(&v25 + 1) + 8 * i)] && !CKIsRunningInMessagesNotificationExtension())
+            v19 = [view isDescendantOfView:*(*(&v26 + 1) + 8 * i)];
+            if (v19 && !CKIsRunningInMessagesNotificationExtension(v19))
             {
               objc_initWeak(&location, self);
-              v22 = MEMORY[0x1E69E9820];
-              objc_copyWeak(&v23, &location);
-              v20 = [(CKTranscriptPluginBalloonView *)self dataSource:v22];
-              [v20 setWillOpenHandler:&v22];
+              v23 = MEMORY[0x1E69E9820];
+              objc_copyWeak(&v24, &location);
+              v21 = [(CKTranscriptPluginBalloonView *)self dataSource:v23];
+              [v21 setWillOpenHandler:&v23];
 
-              objc_destroyWeak(&v23);
+              objc_destroyWeak(&v24);
               objc_destroyWeak(&location);
 
               goto LABEL_18;
             }
           }
 
-          v16 = [v15 countByEnumeratingWithState:&v25 objects:v29 count:16];
+          v16 = [v15 countByEnumeratingWithState:&v26 objects:v30 count:16];
           if (v16)
           {
             continue;
@@ -1000,10 +1001,10 @@ LABEL_18:
     }
   }
 
-  v19 = 1;
+  v20 = 1;
 LABEL_19:
 
-  return v19;
+  return v20;
 }
 
 void __70__CKTranscriptPluginBalloonView_gestureRecognizer_shouldReceiveTouch___block_invoke(uint64_t a1)
@@ -1409,7 +1410,7 @@ LABEL_36:
     if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
     {
       backdropFilterLayer = [(CKBalloonView *)self backdropFilterLayer];
-      _CKAssert(backdropFilterLayer == 0);
+      _CKAssert(backdropFilterLayer == 0, 0x2Bu, @"Cannot have two backdrop filter layers", v9, v10, v11, v12, v13, v25.receiver);
     }
 
     backdropFilterLayer2 = [(CKBalloonView *)self backdropFilterLayer];
@@ -1429,17 +1430,17 @@ LABEL_36:
     layer = [(UIView *)self->_pluginContainerView layer];
     [layer setAllowsGroupBlending:0];
 
-    v13 = objc_alloc_init(MEMORY[0x1E6979310]);
-    [v13 setGroupName:@"FSMBackdropGroup"];
+    v18 = objc_alloc_init(MEMORY[0x1E6979310]);
+    [v18 setGroupName:@"FSMBackdropGroup"];
     balloonBackdropFilters2 = [filterCopy balloonBackdropFilters];
-    [v13 setFilters:balloonBackdropFilters2];
+    [v18 setFilters:balloonBackdropFilters2];
 
-    [v13 setScale:0.25];
+    [v18 setScale:0.25];
     [(UIView *)self->_pluginContainerView bounds];
-    [v13 setFrame:?];
-    [(CKBalloonView *)self setBackdropFilterLayer:v13];
+    [v18 setFrame:?];
+    [(CKBalloonView *)self setBackdropFilterLayer:v18];
     layer2 = [(UIView *)self->_pluginContainerView layer];
-    [layer2 addSublayer:v13];
+    [layer2 addSublayer:v18];
   }
 
   layer3 = [(CKTranscriptPluginBalloonView *)self layer];
@@ -1450,9 +1451,9 @@ LABEL_36:
   balloonCompositingFilter = [filterCopy balloonCompositingFilter];
   [layer4 setCompositingFilter:balloonCompositingFilter];
 
-  v20.receiver = self;
-  v20.super_class = CKTranscriptPluginBalloonView;
-  [(CKBalloonView *)&v20 addFilter:filterCopy];
+  v25.receiver = self;
+  v25.super_class = CKTranscriptPluginBalloonView;
+  [(CKBalloonView *)&v25 addFilter:filterCopy];
 }
 
 - (void)clearFilters

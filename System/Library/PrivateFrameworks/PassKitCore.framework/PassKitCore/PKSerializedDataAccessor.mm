@@ -81,9 +81,10 @@ LABEL_7:
 
 - (PKSerializedDataAccessor)initWithFileDescriptor:(int)descriptor error:(id *)p_isa outputURL:(id)l
 {
+  v6 = *&descriptor;
   v33[1] = *MEMORY[0x1E69E9840];
   lCopy = l;
-  if (descriptor < 0)
+  if ((v6 & 0x80000000) != 0)
   {
     if (p_isa)
     {
@@ -100,7 +101,7 @@ LABEL_7:
   else
   {
     memset(&v23, 0, sizeof(v23));
-    if (fstat(descriptor, &v23))
+    if (fstat(v6, &v23))
     {
       if (p_isa)
       {
@@ -144,7 +145,7 @@ LABEL_8:
         PKTemporaryItemPrepareDirectory();
       }
 
-      if ((PKUnarchiverZip(descriptor, lCopy, 0x600000uLL) & 1) == 0)
+      if ((PKUnarchiverZip(v6, lCopy, 0x600000uLL) & 1) == 0)
       {
         defaultManager = [MEMORY[0x1E696AC08] defaultManager];
         v22 = 0;

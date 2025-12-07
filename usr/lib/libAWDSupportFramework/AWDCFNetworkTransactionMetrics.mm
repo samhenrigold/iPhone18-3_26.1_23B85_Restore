@@ -3,6 +3,9 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)http3StatusAsString:(int)string;
+- (id)networkLoadTypeAsString:(int)string;
+- (id)networkProtocolNameAsString:(int)string;
 - (int)StringAsHttp3Status:(id)status;
 - (int)StringAsNetworkLoadType:(id)type;
 - (int)StringAsNetworkProtocolName:(id)name;
@@ -84,6 +87,19 @@
   *&self->_has = *&self->_has & 0xF7FF | v3;
 }
 
+- (id)networkProtocolNameAsString:(int)string
+{
+  if ((string - 1) >= 5)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE324F0[string - 1];
+  }
+}
+
 - (int)StringAsNetworkProtocolName:(id)name
 {
   if ([name isEqualToString:@"UNKNOWN_PROTOCOL_NAME"])
@@ -140,6 +156,19 @@
   }
 
   *&self->_has = *&self->_has & 0xFBFF | v3;
+}
+
+- (id)networkLoadTypeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE32518[string];
+  }
 }
 
 - (int)StringAsNetworkLoadType:(id)type
@@ -358,6 +387,19 @@
   }
 
   *&self->_has = *&self->_has & 0xFDFF | v3;
+}
+
+- (id)http3StatusAsString:(int)string
+{
+  if ((string - 1) >= 4)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE32538[string - 1];
+  }
 }
 
 - (int)StringAsHttp3Status:(id)status
@@ -642,7 +684,6 @@ LABEL_28:
   has = self->_has;
   if ((has & 0x10) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x800) == 0)
@@ -662,7 +703,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  networkProtocolName = self->_networkProtocolName;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x400) == 0)
@@ -677,7 +717,6 @@ LABEL_4:
   }
 
 LABEL_23:
-  networkLoadType = self->_networkLoadType;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x8000) == 0)
@@ -692,7 +731,6 @@ LABEL_5:
   }
 
 LABEL_24:
-  reusedConnection = self->_reusedConnection;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x4000) == 0)
@@ -707,7 +745,6 @@ LABEL_6:
   }
 
 LABEL_25:
-  isRedirected = self->_isRedirected;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 2) == 0)
@@ -722,7 +759,6 @@ LABEL_7:
   }
 
 LABEL_26:
-  requestStart = self->_requestStart;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -737,7 +773,6 @@ LABEL_8:
   }
 
 LABEL_27:
-  requestEnd = self->_requestEnd;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -752,7 +787,6 @@ LABEL_9:
   }
 
 LABEL_28:
-  responseStart = self->_responseStart;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -767,7 +801,6 @@ LABEL_10:
   }
 
 LABEL_29:
-  responseEnd = self->_responseEnd;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x100) == 0)
@@ -782,12 +815,10 @@ LABEL_11:
   }
 
 LABEL_30:
-  totalBytesWritten = self->_totalBytesWritten;
   PBDataWriterWriteUint64Field();
   if ((*&self->_has & 0x80) != 0)
   {
 LABEL_12:
-    totalBytesRead = self->_totalBytesRead;
     PBDataWriterWriteUint64Field();
   }
 
@@ -797,16 +828,15 @@ LABEL_13:
     PBDataWriterWriteStringField();
   }
 
-  v6 = self->_has;
-  if ((v6 & 0x1000) != 0)
+  v5 = self->_has;
+  if ((v5 & 0x1000) != 0)
   {
-    apsRelayAttempted = self->_apsRelayAttempted;
     PBDataWriterWriteBOOLField();
-    v6 = self->_has;
-    if ((v6 & 0x2000) == 0)
+    v5 = self->_has;
+    if ((v5 & 0x2000) == 0)
     {
 LABEL_17:
-      if ((v6 & 0x40) == 0)
+      if ((v5 & 0x40) == 0)
       {
         goto LABEL_18;
       }
@@ -820,19 +850,17 @@ LABEL_17:
     goto LABEL_17;
   }
 
-  apsRelaySucceeded = self->_apsRelaySucceeded;
   PBDataWriterWriteBOOLField();
-  v6 = self->_has;
-  if ((v6 & 0x40) == 0)
+  v5 = self->_has;
+  if ((v5 & 0x40) == 0)
   {
 LABEL_18:
-    if ((v6 & 0x20) == 0)
+    if ((v5 & 0x20) == 0)
     {
       goto LABEL_19;
     }
 
 LABEL_35:
-    totalBytesExpectedToRead = self->_totalBytesExpectedToRead;
     PBDataWriterWriteUint64Field();
     if ((*&self->_has & 0x200) == 0)
     {
@@ -843,22 +871,20 @@ LABEL_35:
   }
 
 LABEL_34:
-  totalBytesExpectedToWrite = self->_totalBytesExpectedToWrite;
   PBDataWriterWriteUint64Field();
-  v6 = self->_has;
-  if ((v6 & 0x20) != 0)
+  v5 = self->_has;
+  if ((v5 & 0x20) != 0)
   {
     goto LABEL_35;
   }
 
 LABEL_19:
-  if ((v6 & 0x200) == 0)
+  if ((v5 & 0x200) == 0)
   {
     return;
   }
 
 LABEL_36:
-  http3Status = self->_http3Status;
 
   PBDataWriterWriteInt32Field();
 }
@@ -1368,7 +1394,6 @@ LABEL_18:
       goto LABEL_96;
     }
 
-    v8 = *(equal + 103);
     if (self->_reusedConnection)
     {
       if ((*(equal + 103) & 1) == 0)
@@ -1395,7 +1420,6 @@ LABEL_18:
       goto LABEL_96;
     }
 
-    v9 = *(equal + 102);
     if (self->_isRedirected)
     {
       if ((*(equal + 102) & 1) == 0)
@@ -1505,7 +1529,7 @@ LABEL_18:
     has = self->_has;
   }
 
-  v11 = *(equal + 52);
+  v9 = *(equal + 52);
   if ((has & 0x1000) != 0)
   {
     if ((*(equal + 52) & 0x1000) == 0)
@@ -1513,7 +1537,6 @@ LABEL_18:
       goto LABEL_96;
     }
 
-    v12 = *(equal + 100);
     if (self->_apsRelayAttempted)
     {
       if ((*(equal + 100) & 1) == 0)
@@ -1537,7 +1560,6 @@ LABEL_18:
   {
     if ((*(equal + 52) & 0x2000) != 0)
     {
-      v13 = *(equal + 101);
       if (self->_apsRelaySucceeded)
       {
         if ((*(equal + 101) & 1) == 0)
@@ -1567,31 +1589,31 @@ LABEL_96:
 LABEL_70:
   if ((has & 0x40) != 0)
   {
-    if ((v11 & 0x40) == 0 || self->_totalBytesExpectedToWrite != *(equal + 7))
+    if ((v9 & 0x40) == 0 || self->_totalBytesExpectedToWrite != *(equal + 7))
     {
       goto LABEL_96;
     }
   }
 
-  else if ((v11 & 0x40) != 0)
+  else if ((v9 & 0x40) != 0)
   {
     goto LABEL_96;
   }
 
   if ((has & 0x20) != 0)
   {
-    if ((v11 & 0x20) == 0 || self->_totalBytesExpectedToRead != *(equal + 6))
+    if ((v9 & 0x20) == 0 || self->_totalBytesExpectedToRead != *(equal + 6))
     {
       goto LABEL_96;
     }
   }
 
-  else if ((v11 & 0x20) != 0)
+  else if ((v9 & 0x20) != 0)
   {
     goto LABEL_96;
   }
 
-  LOBYTE(v5) = (v11 & 0x200) == 0;
+  LOBYTE(v5) = (v9 & 0x200) == 0;
   if ((has & 0x200) != 0)
   {
     if ((*(equal + 52) & 0x200) == 0 || self->_http3Status != *(equal + 22))

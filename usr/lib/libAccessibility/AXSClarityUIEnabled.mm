@@ -3,7 +3,7 @@
 
 @implementation AXSClarityUIEnabled
 
-uint64_t ___AXSClarityUIEnabled_block_invoke()
+void *___AXSClarityUIEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

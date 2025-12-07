@@ -11,9 +11,9 @@
     +[NSBundle(NanoMediaRemote) nanoMediaRemoteBundle];
   }
 
-  v1 = nanoMediaRemoteBundle_nanoMediaRemoteBundle;
+  v2 = nanoMediaRemoteBundle_nanoMediaRemoteBundle;
 
-  return v1;
+  return v2;
 }
 
 @end

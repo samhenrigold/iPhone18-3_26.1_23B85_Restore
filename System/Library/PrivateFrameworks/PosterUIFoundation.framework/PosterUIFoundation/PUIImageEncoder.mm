@@ -71,22 +71,22 @@
 
 - (id)createUIImageWithError:(id *)error
 {
-  [objc_opt_class() snapshotInterfaceOrientationForURL:self->_url];
-  [objc_opt_class() snapshotDeviceOrientationForURL:self->_url];
+  v5 = [objc_opt_class() snapshotInterfaceOrientationForURL:self->_url];
+  v6 = [objc_opt_class() snapshotDeviceOrientationForURL:self->_url];
   [objc_opt_class() snapshotScaleForURL:self->_url];
-  if (v5 == 0.0)
+  if (v7 == 0.0)
   {
-    v6 = 1.0;
+    v8 = 1.0;
   }
 
   else
   {
-    v6 = v5;
+    v8 = v7;
   }
 
-  v7 = PUIImageOrientationForImageCapturedInInterfaceOrientationToBeDisplayedInInterfaceOrientation();
+  v9 = PUIImageOrientationForImageCapturedInInterfaceOrientationToBeDisplayedInInterfaceOrientation(v5, v6);
 
-  return [(PUIImageEncoder *)self createUIImageWithOrientation:v7 scale:error error:v6];
+  return [(PUIImageEncoder *)self createUIImageWithOrientation:v9 scale:error error:v8];
 }
 
 - (void)currentSnapshotInterfaceOrientation:(int64_t *)orientation outDeviceOrientation:(int64_t *)deviceOrientation
@@ -514,7 +514,7 @@ LABEL_50:
 
 - (id)saveImage:(CGImage *)image error:(id *)error
 {
-  v42[3] = *MEMORY[0x1E69E9840];
+  v44[3] = *MEMORY[0x1E69E9840];
   if (!image)
   {
     [PUIImageEncoder saveImage:a2 error:?];
@@ -530,84 +530,84 @@ LABEL_50:
       goto LABEL_21;
     }
 
-    v22 = MEMORY[0x1E696ABC0];
-    v23 = *MEMORY[0x1E696A578];
-    v42[0] = @"Image destination failed to be created from URL.";
-    v24 = *MEMORY[0x1E696A598];
-    v41[0] = v23;
-    v41[1] = v24;
-    v25 = MEMORY[0x1E696AEC0];
+    v24 = MEMORY[0x1E696ABC0];
+    v25 = *MEMORY[0x1E696A578];
+    v44[0] = @"Image destination failed to be created from URL.";
+    v26 = *MEMORY[0x1E696A598];
+    v43[0] = v25;
+    v43[1] = v26;
+    v27 = MEMORY[0x1E696AEC0];
     typeIdentifier = [(PUIImageOnDiskFormat *)self->_format typeIdentifier];
-    v26 = [v25 stringWithFormat:@"Ensure the path is reachable, and that the device supports the type identifier", typeIdentifier];
-    v27 = v26;
-    v41[2] = *MEMORY[0x1E696A998];
+    v28 = [v27 stringWithFormat:@"Ensure the path is reachable, and that the device supports the type identifier", typeIdentifier];
+    v29 = v28;
+    v43[2] = *MEMORY[0x1E696A998];
     url = self->_url;
     if (!url)
     {
       url = @"(null)";
     }
 
-    v42[1] = v26;
-    v42[2] = url;
-    v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v42 forKeys:v41 count:3];
-    *error = [v22 errorWithDomain:@"com.apple.PosterBoard.PosterUIFoundation.ImageEncoding" code:1 userInfo:v29];
+    v44[1] = v28;
+    v44[2] = url;
+    v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v44 forKeys:v43 count:3];
+    *error = [v24 errorWithDomain:@"com.apple.PosterBoard.PosterUIFoundation.ImageEncoding" code:1 userInfo:v31];
 
     goto LABEL_19;
   }
 
   v10 = v9;
-  v11 = PUILogSnapshotting();
+  v11 = PUILogSnapshotting(v9);
   v12 = os_signpost_id_generate(v11);
 
-  v13 = PUILogSnapshotting();
-  v14 = v13;
-  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+  v14 = PUILogSnapshotting(v13);
+  v15 = v14;
+  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
   {
-    v15 = self->_url;
+    v16 = self->_url;
     *buf = 138412290;
-    v38 = v15;
-    _os_signpost_emit_with_name_impl(&dword_1A8C85000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v12, "[PUIImageEncoder saveImage:error:]", "URL: %@", buf, 0xCu);
+    v40 = v16;
+    _os_signpost_emit_with_name_impl(&dword_1A8C85000, v15, OS_SIGNPOST_INTERVAL_BEGIN, v12, "[PUIImageEncoder saveImage:error:]", "URL: %@", buf, 0xCu);
   }
 
   typeIdentifier = [(PUIImageOnDiskFormat *)v7 resolveAddImageOptionsForImage:image];
-  v17 = objc_autoreleasePoolPush();
+  v18 = objc_autoreleasePoolPush();
   CGImageDestinationAddImage(v10, image, typeIdentifier);
-  v18 = CGImageDestinationFinalize(v10);
+  v19 = CGImageDestinationFinalize(v10);
   CFRelease(v10);
-  objc_autoreleasePoolPop(v17);
-  v19 = PUILogSnapshotting();
-  v20 = v19;
-  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
+  objc_autoreleasePoolPop(v18);
+  v21 = PUILogSnapshotting(v20);
+  v22 = v21;
+  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
   {
-    v21 = self->_url;
+    v23 = self->_url;
     *buf = 138412546;
-    v38 = v21;
-    v39 = 1024;
-    v40 = v18;
-    _os_signpost_emit_with_name_impl(&dword_1A8C85000, v20, OS_SIGNPOST_INTERVAL_END, v12, "[PUIImageEncoder saveImage:error:]", "URL: %@ success:%{BOOL}u", buf, 0x12u);
+    v40 = v23;
+    v41 = 1024;
+    v42 = v19;
+    _os_signpost_emit_with_name_impl(&dword_1A8C85000, v22, OS_SIGNPOST_INTERVAL_END, v12, "[PUIImageEncoder saveImage:error:]", "URL: %@ success:%{BOOL}u", buf, 0x12u);
   }
 
-  if (!v18)
+  if (!v19)
   {
     if (!error)
     {
       goto LABEL_20;
     }
 
-    v30 = MEMORY[0x1E696ABC0];
-    v31 = *MEMORY[0x1E696A998];
-    v35[0] = *MEMORY[0x1E696A578];
-    v35[1] = v31;
-    v32 = self->_url;
-    if (!v32)
+    v32 = MEMORY[0x1E696ABC0];
+    v33 = *MEMORY[0x1E696A998];
+    v37[0] = *MEMORY[0x1E696A578];
+    v37[1] = v33;
+    v34 = self->_url;
+    if (!v34)
     {
-      v32 = @"(null)";
+      v34 = @"(null)";
     }
 
-    v36[0] = @"Image final encoding failed for unknown reasons in CoreGraphics.";
-    v36[1] = v32;
-    v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:v35 count:2];
-    *error = [v30 errorWithDomain:@"com.apple.PosterBoard.PosterUIFoundation.ImageEncoding" code:2 userInfo:v33];
+    v38[0] = @"Image final encoding failed for unknown reasons in CoreGraphics.";
+    v38[1] = v34;
+    v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:v37 count:2];
+    *error = [v32 errorWithDomain:@"com.apple.PosterBoard.PosterUIFoundation.ImageEncoding" code:2 userInfo:v35];
 
 LABEL_19:
     error = 0;
@@ -710,7 +710,7 @@ LABEL_21:
 
 - (void)initWithURL:(char *)a1 format:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"format != ((void*)0)"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -718,7 +718,7 @@ LABEL_21:
     v3 = OUTLINED_FUNCTION_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1A8C85000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"format != ((void*)0)", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1A8C85000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -728,7 +728,7 @@ LABEL_21:
 
 - (void)initWithURL:(char *)a1 format:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"url != ((void*)0)"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -736,7 +736,7 @@ LABEL_21:
     v3 = OUTLINED_FUNCTION_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1A8C85000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"url != ((void*)0)", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1A8C85000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -746,7 +746,7 @@ LABEL_21:
 
 - (void)saveUIImage:(char *)a1 error:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"cgImage != ((void*)0)"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -754,7 +754,7 @@ LABEL_21:
     v3 = OUTLINED_FUNCTION_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1A8C85000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"cgImage != ((void*)0)", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1A8C85000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -764,7 +764,7 @@ LABEL_21:
 
 - (void)saveImage:(char *)a1 error:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"image != ((void*)0)"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -772,7 +772,7 @@ LABEL_21:
     v3 = OUTLINED_FUNCTION_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1A8C85000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"image != ((void*)0)", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1A8C85000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];

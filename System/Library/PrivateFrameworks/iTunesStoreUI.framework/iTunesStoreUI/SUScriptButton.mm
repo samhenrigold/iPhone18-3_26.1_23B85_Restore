@@ -252,7 +252,7 @@ id __24__SUScriptButton_action__block_invoke(uint64_t a1)
   return v2;
 }
 
-uint64_t __25__SUScriptButton_enabled__block_invoke(uint64_t a1)
+void *__25__SUScriptButton_enabled__block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(*(a1 + 32) "_nativeButton")];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -279,7 +279,7 @@ uint64_t __43__SUScriptButton_hideConfirmationAnimated___block_invoke(uint64_t a
   return v2;
 }
 
-uint64_t __25__SUScriptButton_loading__block_invoke(uint64_t a1)
+void *__25__SUScriptButton_loading__block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(*(a1 + 32) "_boxedNativeButton")];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -302,7 +302,7 @@ uint64_t __25__SUScriptButton_loading__block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __28__SUScriptButton_setAction___block_invoke(uint64_t a1)
+void *__28__SUScriptButton_setAction___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = v2[9];
@@ -558,7 +558,7 @@ uint64_t __53__SUScriptButton_showConfirmationWithTitle_animated___block_invoke(
   return v3;
 }
 
-uint64_t __37__SUScriptButton_showingConfirmation__block_invoke(uint64_t a1)
+void *__37__SUScriptButton_showingConfirmation__block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(*(a1 + 32) "_boxedNativeButton")];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -643,7 +643,7 @@ id __26__SUScriptButton_subtitle__block_invoke(uint64_t a1)
   return v2;
 }
 
-uint64_t __21__SUScriptButton_tag__block_invoke(uint64_t a1)
+void *__21__SUScriptButton_tag__block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(*(a1 + 32) "_boxedNativeButton")];
   *(*(*(a1 + 40) + 8) + 24) = result;

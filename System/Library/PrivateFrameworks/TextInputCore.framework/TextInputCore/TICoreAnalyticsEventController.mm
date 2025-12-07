@@ -14,7 +14,7 @@
 
 - (void)dispatchEventWithName:(id)name payload:(id)payload testingParameters:(id)parameters eventSpec:(id)spec completionHandler:(id)handler
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   handlerCopy = handler;
   specCopy = spec;
@@ -25,7 +25,7 @@
   {
     nameCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Dispatching event: %@", "-[TICoreAnalyticsEventController dispatchEventWithName:payload:testingParameters:eventSpec:completionHandler:]", nameCopy];
     *buf = 138412290;
-    v27 = nameCopy;
+    v26 = nameCopy;
     _os_log_impl(&dword_22CA55000, v16, OS_LOG_TYPE_INFO, "%@", buf, 0xCu);
   }
 
@@ -33,22 +33,20 @@
   [mEMORY[0x277D6F318] registerEventSpec:specCopy];
 
   mEMORY[0x277D6F318]2 = [MEMORY[0x277D6F318] sharedInstance];
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __110__TICoreAnalyticsEventController_dispatchEventWithName_payload_testingParameters_eventSpec_completionHandler___block_invoke;
-  v23[3] = &unk_278730308;
-  v24 = nameCopy;
-  v25 = handlerCopy;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __110__TICoreAnalyticsEventController_dispatchEventWithName_payload_testingParameters_eventSpec_completionHandler___block_invoke;
+  v22[3] = &unk_278730308;
+  v23 = nameCopy;
+  v24 = handlerCopy;
   v20 = handlerCopy;
   v21 = nameCopy;
-  [mEMORY[0x277D6F318]2 dispatchEventWithName:v21 payload:payloadCopy testingParameters:parametersCopy allowSparsePayload:0 withCompletionHandler:v23];
-
-  v22 = *MEMORY[0x277D85DE8];
+  [mEMORY[0x277D6F318]2 dispatchEventWithName:v21 payload:payloadCopy testingParameters:parametersCopy allowSparsePayload:0 withCompletionHandler:v22];
 }
 
 uint64_t __110__TICoreAnalyticsEventController_dispatchEventWithName_payload_testingParameters_eventSpec_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = [a2 count];
   v4 = IXADefaultLogFacility();
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_INFO);
@@ -61,7 +59,7 @@ uint64_t __110__TICoreAnalyticsEventController_dispatchEventWithName_payload_tes
 
     v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Event dispatch failed: %@", "-[TICoreAnalyticsEventController dispatchEventWithName:payload:testingParameters:eventSpec:completionHandler:]_block_invoke", *(a1 + 32)];
     *buf = 138412290;
-    v10 = v6;
+    v9 = v6;
   }
 
   else
@@ -73,7 +71,7 @@ uint64_t __110__TICoreAnalyticsEventController_dispatchEventWithName_payload_tes
 
     v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Event dispatched: %@", "-[TICoreAnalyticsEventController dispatchEventWithName:payload:testingParameters:eventSpec:completionHandler:]_block_invoke", *(a1 + 32)];
     *buf = 138412290;
-    v10 = v6;
+    v9 = v6;
   }
 
   _os_log_impl(&dword_22CA55000, v4, OS_LOG_TYPE_INFO, "%@", buf, 0xCu);
@@ -82,10 +80,9 @@ LABEL_7:
   result = *(a1 + 40);
   if (result)
   {
-    result = (*(result + 16))();
+    return (*(result + 16))();
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -163,108 +160,108 @@ void __60__TICoreAnalyticsEventController_adjustValues_forFieldSpec___block_invo
 
 - (void)dispatchEventWithDescriptor:(id)descriptor andSpec:(id)spec withProvider:(id)provider andContext:(id)context andMetrics:(id)metrics completionHandler:(id)handler
 {
-  v92 = *MEMORY[0x277D85DE8];
+  v91 = *MEMORY[0x277D85DE8];
   descriptorCopy = descriptor;
   specCopy = spec;
   providerCopy = provider;
   contextCopy = context;
   handlerCopy = handler;
-  v64 = objc_opt_new();
-  v76 = objc_opt_new();
+  v63 = objc_opt_new();
+  v75 = objc_opt_new();
+  v84 = 0u;
   v85 = 0u;
   v86 = 0u;
   v87 = 0u;
-  v88 = 0u;
   fieldDescriptors = [descriptorCopy fieldDescriptors];
-  v62 = contextCopy;
-  v63 = specCopy;
-  v71 = [fieldDescriptors countByEnumeratingWithState:&v85 objects:v91 count:16];
-  v60 = handlerCopy;
-  v61 = descriptorCopy;
-  v69 = providerCopy;
-  if (v71)
+  v61 = contextCopy;
+  v62 = specCopy;
+  v70 = [fieldDescriptors countByEnumeratingWithState:&v84 objects:v90 count:16];
+  v59 = handlerCopy;
+  v60 = descriptorCopy;
+  v68 = providerCopy;
+  if (v70)
   {
     obj = fieldDescriptors;
     v18 = 0;
     v19 = 0;
-    v68 = *v86;
+    v67 = *v85;
     do
     {
-      for (i = 0; i != v71; ++i)
+      for (i = 0; i != v70; ++i)
       {
-        if (*v86 != v68)
+        if (*v85 != v67)
         {
           objc_enumerationMutation(obj);
         }
 
-        v21 = *(*(&v85 + 1) + 8 * i);
+        v21 = *(*(&v84 + 1) + 8 * i);
         inactiveValue = [v21 inactiveValue];
-        v74 = inactiveValue != 0;
+        v73 = inactiveValue != 0;
 
         fieldName = [v21 fieldName];
         v24 = specCopy;
-        v72 = [specCopy fieldSpecWithName:fieldName];
+        v71 = [specCopy fieldSpecWithName:fieldName];
         metricType = [v21 metricType];
-        v26 = [metricType isEqualToString:@"bucketedWordLength"];
+        isEqualToString = objc_msgSend_isEqualToString_(metricType);
 
         metricName = [v21 metricName];
-        if (v26)
+        if (isEqualToString)
         {
-          v28 = [v69 valuesByBucketedWordLengthForMetricWithName:metricName withContext:contextCopy];
+          v28 = [v68 valuesByBucketedWordLengthForMetricWithName:metricName withContext:contextCopy];
 
           inactiveValue2 = [v21 inactiveValue];
 
           if (inactiveValue2)
           {
-            v66 = v28;
-            v67 = fieldName;
-            v83 = 0u;
-            v84 = 0u;
-            v81 = 0u;
+            v65 = v28;
+            v66 = fieldName;
             v82 = 0u;
+            v83 = 0u;
+            v80 = 0u;
+            v81 = 0u;
             v30 = v28;
-            v31 = [v30 countByEnumeratingWithState:&v81 objects:v90 count:16];
+            v31 = [v30 countByEnumeratingWithState:&v80 objects:v89 count:16];
             if (v31)
             {
               v32 = v31;
-              v33 = *v82;
+              v33 = *v81;
               do
               {
                 for (j = 0; j != v32; ++j)
                 {
-                  if (*v82 != v33)
+                  if (*v81 != v33)
                   {
                     objc_enumerationMutation(v30);
                   }
 
-                  v35 = *(*(&v81 + 1) + 8 * j);
+                  v35 = *(*(&v80 + 1) + 8 * j);
                   inactiveValue3 = [v21 inactiveValue];
                   LODWORD(v35) = [v35 isEqual:inactiveValue3];
 
                   v18 |= v35 ^ 1;
                 }
 
-                v32 = [v30 countByEnumeratingWithState:&v81 objects:v90 count:16];
+                v32 = [v30 countByEnumeratingWithState:&v80 objects:v89 count:16];
               }
 
               while (v32);
             }
 
-            contextCopy = v62;
-            v24 = v63;
-            v28 = v66;
-            fieldName = v67;
+            contextCopy = v61;
+            v24 = v62;
+            v28 = v65;
+            fieldName = v66;
           }
 
-          v37 = v72;
-          v38 = [(TICoreAnalyticsEventController *)self adjustValues:v28 forFieldSpec:v72];
-          [v76 setObject:v38 forKey:fieldName];
-          v39 = v74;
+          v37 = v71;
+          v38 = [(TICoreAnalyticsEventController *)self adjustValues:v28 forFieldSpec:v71];
+          [v75 setObject:v38 forKey:fieldName];
+          v39 = v73;
         }
 
         else
         {
-          v28 = [v69 valueForMetricWithName:metricName withContext:contextCopy];
+          v28 = [v68 valueForMetricWithName:metricName withContext:contextCopy];
 
           inactiveValue4 = [v21 inactiveValue];
           if (inactiveValue4)
@@ -277,11 +274,11 @@ void __60__TICoreAnalyticsEventController_adjustValues_forFieldSpec___block_invo
             fieldName = v42;
           }
 
-          v39 = v74;
+          v39 = v73;
 
-          v37 = v72;
-          v38 = [(TICoreAnalyticsEventController *)self adjustValue:v28 forFieldSpec:v72];
-          [v64 setObject:v38 forKey:fieldName];
+          v37 = v71;
+          v38 = [(TICoreAnalyticsEventController *)self adjustValue:v28 forFieldSpec:v71];
+          [v63 setObject:v38 forKey:fieldName];
         }
 
         v19 |= v39;
@@ -289,19 +286,19 @@ void __60__TICoreAnalyticsEventController_adjustValues_forFieldSpec___block_invo
         specCopy = v24;
       }
 
-      v71 = [obj countByEnumeratingWithState:&v85 objects:v91 count:16];
+      v70 = [obj countByEnumeratingWithState:&v84 objects:v90 count:16];
     }
 
-    while (v71);
+    while (v70);
 
-    v44 = v60;
-    descriptorCopy = v61;
-    v45 = v69;
+    v44 = v59;
+    descriptorCopy = v60;
+    v45 = v68;
     if (!(v18 & 1 | ((v19 & 1) == 0)))
     {
-      if (v60)
+      if (v59)
       {
-        v60[2](v60);
+        v59[2](v59);
       }
 
       goto LABEL_45;
@@ -323,81 +320,79 @@ void __60__TICoreAnalyticsEventController_adjustValues_forFieldSpec___block_invo
   }
 
   eventName = [descriptorCopy eventName];
-  if ([v76 count])
+  if ([v75 count])
   {
-    v73 = *MEMORY[0x277D6FDA8];
+    v72 = *MEMORY[0x277D6FDA8];
     if (*MEMORY[0x277D6FDA8])
     {
       v47 = 0;
       do
       {
         v48 = eventName;
-        v49 = [MEMORY[0x277CBEB38] dictionaryWithDictionary:v64];
+        v49 = [MEMORY[0x277CBEB38] dictionaryWithDictionary:v63];
+        v76 = 0u;
         v77 = 0u;
         v78 = 0u;
         v79 = 0u;
-        v80 = 0u;
-        allKeys = [v76 allKeys];
-        v51 = [allKeys countByEnumeratingWithState:&v77 objects:v89 count:16];
+        allKeys = [v75 allKeys];
+        v51 = [allKeys countByEnumeratingWithState:&v76 objects:v88 count:16];
         if (v51)
         {
           v52 = v51;
-          v53 = *v78;
+          v53 = *v77;
           do
           {
             for (k = 0; k != v52; ++k)
             {
-              if (*v78 != v53)
+              if (*v77 != v53)
               {
                 objc_enumerationMutation(allKeys);
               }
 
-              v55 = *(*(&v77 + 1) + 8 * k);
-              v56 = [v76 objectForKey:v55];
+              v55 = *(*(&v76 + 1) + 8 * k);
+              v56 = [v75 objectForKey:v55];
               v57 = [v56 objectAtIndexedSubscript:v47];
               [v49 setObject:v57 forKey:v55];
             }
 
-            v52 = [allKeys countByEnumeratingWithState:&v77 objects:v89 count:16];
+            v52 = [allKeys countByEnumeratingWithState:&v76 objects:v88 count:16];
           }
 
           while (v52);
         }
 
         eventName = v48;
-        specCopy = v63;
-        [(TICoreAnalyticsEventController *)self dispatchEventWithName:v48 payload:v49 testingParameters:testingParameters eventSpec:v63 completionHandler:0];
+        specCopy = v62;
+        [(TICoreAnalyticsEventController *)self dispatchEventWithName:v48 payload:v49 testingParameters:testingParameters eventSpec:v62 completionHandler:0];
 
         ++v47;
       }
 
-      while (v47 != v73);
+      while (v47 != v72);
     }
   }
 
   else
   {
-    [(TICoreAnalyticsEventController *)self dispatchEventWithName:eventName payload:v64 testingParameters:testingParameters eventSpec:specCopy completionHandler:0];
+    [(TICoreAnalyticsEventController *)self dispatchEventWithName:eventName payload:v63 testingParameters:testingParameters eventSpec:specCopy completionHandler:0];
   }
 
-  v44 = v60;
-  if (v60)
+  v44 = v59;
+  if (v59)
   {
     mEMORY[0x277D6F318] = [MEMORY[0x277D6F318] sharedInstance];
-    [mEMORY[0x277D6F318] queueCompletionHandler:v60];
+    [mEMORY[0x277D6F318] queueCompletionHandler:v59];
   }
 
-  descriptorCopy = v61;
-  contextCopy = v62;
-  v45 = v69;
+  descriptorCopy = v60;
+  contextCopy = v61;
+  v45 = v68;
 LABEL_45:
-
-  v59 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dispatchEventsFromRegistry:(id)registry withProvider:(id)provider andContext:(id)context andMetrics:(id)metrics completionHandler:(id)handler
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   registryCopy = registry;
   providerCopy = provider;
   contextCopy = context;
@@ -407,44 +402,44 @@ LABEL_45:
   v17 = registryCopy;
   if (registryCopy && metricsCopy)
   {
-    v27 = handlerCopy;
+    v26 = handlerCopy;
     [registryCopy allEventDescriptors];
+    v29 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v32 = 0u;
-    obj = v33 = 0u;
-    v18 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
+    obj = v32 = 0u;
+    v18 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v31;
+      v20 = *v30;
       do
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v31 != v20)
+          if (*v30 != v20)
           {
             objc_enumerationMutation(obj);
           }
 
-          v22 = *(*(&v30 + 1) + 8 * i);
+          v22 = *(*(&v29 + 1) + 8 * i);
           eventName = [v22 eventName];
           v24 = [v17 eventSpecWithName:eventName];
 
           [(TICoreAnalyticsEventController *)self dispatchEventWithDescriptor:v22 andSpec:v24 withProvider:providerCopy andContext:contextCopy andMetrics:metricsCopy completionHandler:0];
         }
 
-        v19 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
+        v19 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
       }
 
       while (v19);
     }
 
-    v16 = v27;
-    if (v27)
+    v16 = v26;
+    if (v26)
     {
       mEMORY[0x277D6F318] = [MEMORY[0x277D6F318] sharedInstance];
-      [mEMORY[0x277D6F318] queueCompletionHandler:v27];
+      [mEMORY[0x277D6F318] queueCompletionHandler:v26];
     }
   }
 
@@ -452,20 +447,18 @@ LABEL_45:
   {
     (*(handlerCopy + 2))(handlerCopy);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dispatchScheduledEventsWithCompletionHandler:(id)handler
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   v5 = IXADefaultLogFacility();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Dispatching scheduled events.", "-[TICoreAnalyticsEventController dispatchScheduledEventsWithCompletionHandler:]"];
     *buf = 138412290;
-    v58 = v6;
+    v57 = v6;
     _os_log_impl(&dword_22CA55000, v5, OS_LOG_TYPE_INFO, "%@", buf, 0xCu);
   }
 
@@ -477,25 +470,25 @@ LABEL_45:
   v11 = [MEMORY[0x277CBEAA8] now];
   v12 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.keyboard"];
   v13 = [v12 BOOLForKey:@"ignoreLastMigrationDate"];
-  v39 = v12;
+  v38 = v12;
   v14 = [v12 BOOLForKey:@"typingSessionNotificationsEnabled"];
   if ([mEMORY[0x277D6F548] isValid])
   {
     transientLastMigrationDate = [mEMORY[0x277D6F548] transientLastMigrationDate];
     v15 = [MEMORY[0x277CBEAA8] dateWithTimeInterval:v11 sinceDate:-(*MEMORY[0x277D6FD98] * *MEMORY[0x277D6FD28])];
     v16 = v15;
-    v37 = v15;
+    v36 = v15;
     if ((v13 & 1) == 0 && [v15 compare:transientLastMigrationDate] == -1)
     {
-      v31 = IXADefaultLogFacility();
-      v27 = v39;
-      obj = v31;
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+      v30 = IXADefaultLogFacility();
+      v27 = v38;
+      obj = v30;
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
       {
-        v32 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Scheduled events cannot be dispatched because insufficient data has been collected since last database migration.", "-[TICoreAnalyticsEventController dispatchScheduledEventsWithCompletionHandler:]"];
+        v31 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Scheduled events cannot be dispatched because insufficient data has been collected since last database migration.", "-[TICoreAnalyticsEventController dispatchScheduledEventsWithCompletionHandler:]"];
         *buf = 138412290;
-        v58 = v32;
-        _os_log_impl(&dword_22CA55000, v31, OS_LOG_TYPE_INFO, "%@", buf, 0xCu);
+        v57 = v31;
+        _os_log_impl(&dword_22CA55000, v30, OS_LOG_TYPE_INFO, "%@", buf, 0xCu);
       }
 
       v26 = 0;
@@ -503,82 +496,82 @@ LABEL_45:
 
     else
     {
-      v34 = v14;
-      v35 = v7;
-      v36 = handlerCopy;
+      v33 = v14;
+      v34 = v7;
+      v35 = handlerCopy;
       [mEMORY[0x277D6F548] getAllKnownInputModesSinceDate:v16];
+      v50 = 0u;
       v51 = 0u;
       v52 = 0u;
-      v53 = 0u;
-      obj = v54 = 0u;
-      v43 = [obj countByEnumeratingWithState:&v51 objects:v56 count:16];
-      if (v43)
+      obj = v53 = 0u;
+      v42 = [obj countByEnumeratingWithState:&v50 objects:v55 count:16];
+      if (v42)
       {
-        v41 = *v52;
-        v42 = mEMORY[0x277D6F548];
+        v40 = *v51;
+        v41 = mEMORY[0x277D6F548];
         do
         {
-          for (i = 0; i != v43; ++i)
+          for (i = 0; i != v42; ++i)
           {
-            if (*v52 != v41)
+            if (*v51 != v40)
             {
               objc_enumerationMutation(obj);
             }
 
             v18 = v11;
-            v19 = [TIKBUserModel userModelWithInputMode:*(*(&v51 + 1) + 8 * i) userModelDataStore:mEMORY[0x277D6F548] metricDescriptorRegistry:v9 fromDate:v11];
+            v19 = [TIKBUserModel userModelWithInputMode:*(*(&v50 + 1) + 8 * i) userModelDataStore:mEMORY[0x277D6F548] metricDescriptorRegistry:v9 fromDate:v11];
             kbContexts = [v19 kbContexts];
+            v46 = 0u;
             v47 = 0u;
             v48 = 0u;
             v49 = 0u;
-            v50 = 0u;
-            v21 = [kbContexts countByEnumeratingWithState:&v47 objects:v55 count:16];
+            v21 = [kbContexts countByEnumeratingWithState:&v46 objects:v54 count:16];
             if (v21)
             {
               v22 = v21;
-              v23 = *v48;
+              v23 = *v47;
               do
               {
                 for (j = 0; j != v22; ++j)
                 {
-                  if (*v48 != v23)
+                  if (*v47 != v23)
                   {
                     objc_enumerationMutation(kbContexts);
                   }
 
-                  [(TICoreAnalyticsEventController *)self dispatchEventsFromRegistry:v8 withProvider:v19 andContext:*(*(&v47 + 1) + 8 * j) andMetrics:v9 completionHandler:0];
+                  [(TICoreAnalyticsEventController *)self dispatchEventsFromRegistry:v8 withProvider:v19 andContext:*(*(&v46 + 1) + 8 * j) andMetrics:v9 completionHandler:0];
                 }
 
-                v22 = [kbContexts countByEnumeratingWithState:&v47 objects:v55 count:16];
+                v22 = [kbContexts countByEnumeratingWithState:&v46 objects:v54 count:16];
               }
 
               while (v22);
             }
 
-            mEMORY[0x277D6F548] = v42;
+            mEMORY[0x277D6F548] = v41;
             v11 = v18;
           }
 
-          v43 = [obj countByEnumeratingWithState:&v51 objects:v56 count:16];
+          v42 = [obj countByEnumeratingWithState:&v50 objects:v55 count:16];
         }
 
-        while (v43);
+        while (v42);
       }
 
       mEMORY[0x277D6F318] = [MEMORY[0x277D6F318] sharedInstance];
-      v44[0] = MEMORY[0x277D85DD0];
-      v44[1] = 3221225472;
-      v44[2] = __79__TICoreAnalyticsEventController_dispatchScheduledEventsWithCompletionHandler___block_invoke;
-      v44[3] = &unk_2787302B8;
-      handlerCopy = v36;
-      v45 = v36;
-      v14 = v34;
-      v46 = v34;
-      [mEMORY[0x277D6F318] queueCompletionHandler:v44];
+      v43[0] = MEMORY[0x277D85DD0];
+      v43[1] = 3221225472;
+      v43[2] = __79__TICoreAnalyticsEventController_dispatchScheduledEventsWithCompletionHandler___block_invoke;
+      v43[3] = &unk_2787302B8;
+      handlerCopy = v35;
+      v44 = v35;
+      v14 = v33;
+      v45 = v33;
+      [mEMORY[0x277D6F318] queueCompletionHandler:v43];
 
       v26 = 1;
-      v7 = v35;
-      v27 = v39;
+      v7 = v34;
+      v27 = v38;
     }
 
     v28 = transientLastMigrationDate;
@@ -589,14 +582,14 @@ LABEL_45:
     v28 = IXADefaultLogFacility();
     if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
-      v33 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Scheduled events cannot be dispatched because an error occurred while opening the database.", "-[TICoreAnalyticsEventController dispatchScheduledEventsWithCompletionHandler:]"];
+      v32 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Scheduled events cannot be dispatched because an error occurred while opening the database.", "-[TICoreAnalyticsEventController dispatchScheduledEventsWithCompletionHandler:]"];
       *buf = 138412290;
-      v58 = v33;
+      v57 = v32;
       _os_log_error_impl(&dword_22CA55000, v28, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
     }
 
     v26 = 0;
-    v27 = v39;
+    v27 = v38;
   }
 
   if (handlerCopy && (v26 & 1) == 0)
@@ -614,19 +607,17 @@ LABEL_45:
 
     handlerCopy[2](handlerCopy);
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void __79__TICoreAnalyticsEventController_dispatchScheduledEventsWithCompletionHandler___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = IXADefaultLogFacility();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Scheduled events dispatched.", "-[TICoreAnalyticsEventController dispatchScheduledEventsWithCompletionHandler:]_block_invoke"];
     *buf = 138412290;
-    v7 = v3;
+    v6 = v3;
     _os_log_impl(&dword_22CA55000, v2, OS_LOG_TYPE_INFO, "%@", buf, 0xCu);
   }
 
@@ -645,16 +636,12 @@ void __79__TICoreAnalyticsEventController_dispatchScheduledEventsWithCompletionH
 
     (*(*(a1 + 32) + 16))();
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)queueScheduledEventsWithCompletionHandler:(id)handler
 {
   handlerCopy = handler;
-  workQueue = self->_workQueue;
-  v7 = handlerCopy;
-  v6 = handlerCopy;
+  v3 = handlerCopy;
   TIDispatchAsync();
 }
 
@@ -676,45 +663,44 @@ void __79__TICoreAnalyticsEventController_dispatchScheduledEventsWithCompletionH
 
 + (void)registerScheduledEventsActivity
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = IXADefaultLogFacility();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Preparing for %@ activity", "+[TICoreAnalyticsEventController registerScheduledEventsActivity]", @"com.apple.keyboard.analytics.scheduledEventsActivity"];
     *buf = 138412290;
-    v7 = v3;
+    v6 = v3;
     _os_log_impl(&dword_22CA55000, v2, OS_LOG_TYPE_INFO, "%@", buf, 0xCu);
   }
 
   uTF8String = [@"com.apple.keyboard.analytics.scheduledEventsActivity" UTF8String];
   xpc_activity_register(uTF8String, *MEMORY[0x277D86238], &__block_literal_global_6188);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __65__TICoreAnalyticsEventController_registerScheduledEventsActivity__block_invoke(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = a2;
   state = xpc_activity_get_state(v2);
   if (state == 2)
   {
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v16 = 0x2020000000;
-    v17 = xpc_activity_set_state(v2, 4);
+    v15 = 0x2020000000;
+    v16 = xpc_activity_set_state(v2, 4);
     v7 = IXADefaultLogFacility();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Running activity %@, extended=%d", "+[TICoreAnalyticsEventController registerScheduledEventsActivity]_block_invoke", @"com.apple.keyboard.analytics.scheduledEventsActivity", *(*(&buf + 1) + 24)];
-      *v13 = 138412290;
-      v14 = v8;
-      _os_log_impl(&dword_22CA55000, v7, OS_LOG_TYPE_INFO, "%@", v13, 0xCu);
+      *v12 = 138412290;
+      v13 = v8;
+      _os_log_impl(&dword_22CA55000, v7, OS_LOG_TYPE_INFO, "%@", v12, 0xCu);
     }
 
     v9 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
     v10 = dispatch_queue_create("com.apple.keyboard.analytics.scheduledEventsQueue", v9);
 
-    v12 = v2;
+    v11 = v2;
     TIDispatchAsync();
 
     _Block_object_dispose(&buf, 8);
@@ -741,13 +727,11 @@ void __65__TICoreAnalyticsEventController_registerScheduledEventsActivity__block
     xpc_dictionary_set_BOOL(v6, *MEMORY[0x277D86380], 1);
     xpc_activity_set_criteria(v2, v6);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __65__TICoreAnalyticsEventController_registerScheduledEventsActivity__block_invoke_54(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (xpc_activity_should_defer(*(a1 + 32)))
   {
     xpc_activity_set_state(*(a1 + 32), 3);
@@ -756,7 +740,7 @@ void __65__TICoreAnalyticsEventController_registerScheduledEventsActivity__block
     {
       v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s xpc activity should be defered, defering %@", "+[TICoreAnalyticsEventController registerScheduledEventsActivity]_block_invoke", @"com.apple.keyboard.analytics.scheduledEventsActivity"];
       *buf = 138412290;
-      v19 = v3;
+      v18 = v3;
       _os_log_impl(&dword_22CA55000, v2, OS_LOG_TYPE_INFO, "%@", buf, 0xCu);
     }
   }
@@ -766,13 +750,13 @@ void __65__TICoreAnalyticsEventController_registerScheduledEventsActivity__block
     v4 = dispatch_semaphore_create(0);
     v5 = objc_autoreleasePoolPush();
     v6 = objc_opt_new();
-    v13 = MEMORY[0x277D85DD0];
-    v14 = 3221225472;
-    v15 = __65__TICoreAnalyticsEventController_registerScheduledEventsActivity__block_invoke_59;
-    v16 = &unk_278733308;
+    v12 = MEMORY[0x277D85DD0];
+    v13 = 3221225472;
+    v14 = __65__TICoreAnalyticsEventController_registerScheduledEventsActivity__block_invoke_59;
+    v15 = &unk_278733308;
     v2 = v4;
-    v17 = v2;
-    [v6 queueScheduledEventsWithCompletionHandler:&v13];
+    v16 = v2;
+    [v6 queueScheduledEventsWithCompletionHandler:&v12];
 
     v7 = dispatch_time(0, 60000000000);
     if (dispatch_semaphore_wait(v2, v7))
@@ -782,7 +766,7 @@ void __65__TICoreAnalyticsEventController_registerScheduledEventsActivity__block
       {
         v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Scheduled sync task timed out", "+[TICoreAnalyticsEventController registerScheduledEventsActivity]_block_invoke_2"];
         *buf = 138412290;
-        v19 = v9;
+        v18 = v9;
         _os_log_impl(&dword_22CA55000, v8, OS_LOG_TYPE_INFO, "%@", buf, 0xCu);
       }
     }
@@ -793,17 +777,15 @@ void __65__TICoreAnalyticsEventController_registerScheduledEventsActivity__block
       v10 = IXADefaultLogFacility();
       if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
-        v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Done running activity %@, extended=%d", "+[TICoreAnalyticsEventController registerScheduledEventsActivity]_block_invoke", @"com.apple.keyboard.analytics.scheduledEventsActivity", *(*(*(a1 + 40) + 8) + 24), v13, v14, v15, v16];
+        v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Done running activity %@, extended=%d", "+[TICoreAnalyticsEventController registerScheduledEventsActivity]_block_invoke", @"com.apple.keyboard.analytics.scheduledEventsActivity", *(*(*(a1 + 40) + 8) + 24), v12, v13, v14, v15];
         *buf = 138412290;
-        v19 = v11;
+        v18 = v11;
         _os_log_impl(&dword_22CA55000, v10, OS_LOG_TYPE_INFO, "%@", buf, 0xCu);
       }
     }
 
     objc_autoreleasePoolPop(v5);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 @end

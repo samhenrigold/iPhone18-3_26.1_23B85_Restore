@@ -38,15 +38,17 @@
 
 - (CGSize)sizeThatFits:(CGSize)fits
 {
+  height = fits.height;
+  width = fits.width;
   selfCopy = self;
-  sub_1001ABA00();
-  v5 = v4;
+  sub_1001ABA00(width, height);
   v7 = v6;
+  v9 = v8;
 
-  v8 = v5;
-  v9 = v7;
-  result.height = v9;
-  result.width = v8;
+  v10 = v7;
+  v11 = v9;
+  result.height = v11;
+  result.width = v10;
   return result;
 }
 
@@ -61,11 +63,12 @@
   v2 = *(&self->super.super.super.isa + OBJC_IVAR____TtC20ProductPageExtension16ArcadeLockupView_offerButtonTapHandler);
   if (v2)
   {
-    v3 = *(&self->super.super.super.isa + OBJC_IVAR____TtC20ProductPageExtension16ArcadeLockupView_offerButton);
+    v3 = *&self->wordmarkView[OBJC_IVAR____TtC20ProductPageExtension16ArcadeLockupView_offerButtonTapHandler];
+    v4 = *(&self->super.super.super.isa + OBJC_IVAR____TtC20ProductPageExtension16ArcadeLockupView_offerButton);
     selfCopy = self;
-    sub_10001CE50(v2);
-    v2(v3);
-    sub_1000167E0(v2);
+    sub_10001CE50(v2, v3);
+    v2(v4);
+    sub_1000167E0(v2, v3);
   }
 }
 
@@ -101,7 +104,7 @@
   }
 
   v7.receiver = self;
-  v7.super_class = type metadata accessor for ArcadeLockupView();
+  v7.super_class = type metadata accessor for ArcadeLockupView(0);
   [(ArcadeLockupView *)&v7 setAccessibilityIdentifier:v5];
 }
 

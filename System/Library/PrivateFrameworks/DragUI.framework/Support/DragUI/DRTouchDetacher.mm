@@ -8,13 +8,15 @@
 
 - (BOOL)detachTouchesWithTouchIdentifiers:(id)identifiers session:(id)session routingPolicy:(id)policy touchOffset:(CGPoint)offset
 {
-  v9 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  y = offset.y;
+  x = offset.x;
+  v11 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   sessionCopy = session;
   policyCopy = policy;
   selfCopy = self;
-  v13 = sub_10002F5E8(v9, sessionCopy);
+  v15 = sub_10002F5E8(v11, sessionCopy, x, y);
 
-  return v13 & 1;
+  return v15 & 1;
 }
 
 - (void)updateRoutingPolicy:(id)policy forSession:(id)session

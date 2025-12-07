@@ -15,7 +15,7 @@
     adjustmentsCopy = adjustments;
     [adjustmentsCopy slowMotionRate];
     v8 = v7;
-    [adjustmentsCopy slowMotionTimeRange];
+    objc_msgSend_slowMotionTimeRange(adjustmentsCopy);
 
     LODWORD(v9) = v8;
     v10 = [v5 timeRangeMapperForSourceDuration:&v15 slowMotionRate:1 slowMotionTimeRange:duration forExport:v9];
@@ -35,7 +35,7 @@
 {
   adjustmentsCopy = adjustments;
   assetCopy = asset;
-  [assetCopy duration];
+  objc_msgSend_duration(assetCopy);
   v8 = v7;
   if (adjustmentsCopy && [assetCopy isDefaultAdjustedSlomo])
   {
@@ -152,7 +152,7 @@ void __72__PLSlalomUtilities_synchronouslyFetchVideoAdjustmentsFromManagedAsset_
 {
   if (a6)
   {
-    v10 = [MEMORY[0x1E695DFF8] fileURLWithPath:a6 isDirectory:0];
+    v10 = [MEMORY[0x1E695DFF8] fileURLWithPath:a6 isDirectory:{0, a5}];
   }
 
   else

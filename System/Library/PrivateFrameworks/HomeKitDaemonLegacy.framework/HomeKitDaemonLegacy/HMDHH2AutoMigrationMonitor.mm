@@ -18,7 +18,7 @@
 
 - (void)handleFMFStatusUpdatedNotification:(id)notification
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   userInfo = [notificationCopy userInfo];
   v6 = [HMDFMF fmfStatusWithDict:userInfo];
@@ -32,11 +32,11 @@
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v11 = HMFGetLogIdentifier();
-      v15 = 138543618;
-      v16 = v11;
-      v17 = 2112;
-      v18 = v6;
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@FMF status changed to %@", &v15, 0x16u);
+      v14 = 138543618;
+      v15 = v11;
+      v16 = 2112;
+      v17 = v6;
+      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@FMF status changed to %@", &v14, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -57,17 +57,15 @@
     {
       v12 = HMFGetLogIdentifier();
       userInfo2 = [notificationCopy userInfo];
-      v15 = 138543618;
-      v16 = v12;
-      v17 = 2112;
-      v18 = userInfo2;
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Could not find FMF status in notification user info: %@", &v15, 0x16u);
+      v14 = 138543618;
+      v15 = v12;
+      v16 = 2112;
+      v17 = userInfo2;
+      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Could not find FMF status in notification user info: %@", &v14, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_registerForBackgroundTask
@@ -102,16 +100,16 @@
 
 void __58__HMDHH2AutoMigrationMonitor__unregisterForBackgroundTask__block_invoke(uint64_t a1, const char *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   Property = *(a1 + 32);
   if (Property)
   {
     Property = objc_getProperty(Property, a2, 24, 1);
   }
 
-  v16 = 0;
-  v4 = [Property cancelTaskRequestWithIdentifier:@"com.apple.homed.hh2.auto.migration" error:&v16];
-  v5 = v16;
+  v15 = 0;
+  v4 = [Property cancelTaskRequestWithIdentifier:@"com.apple.homed.hh2.auto.migration" error:&v15];
+  v5 = v15;
   v6 = objc_autoreleasePoolPush();
   v7 = *(a1 + 32);
   v8 = HMFGetOSLogHandle();
@@ -122,9 +120,9 @@ void __58__HMDHH2AutoMigrationMonitor__unregisterForBackgroundTask__block_invoke
     {
       v10 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v18 = v10;
-      v19 = 2112;
-      v20 = @"com.apple.homed.hh2.auto.migration";
+      v17 = v10;
+      v18 = 2112;
+      v19 = @"com.apple.homed.hh2.auto.migration";
       v11 = "%{public}@Canceled background task request with identifier: %@";
       v12 = v9;
       v13 = OS_LOG_TYPE_INFO;
@@ -138,11 +136,11 @@ LABEL_8:
   {
     v10 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v18 = v10;
-    v19 = 2112;
-    v20 = @"com.apple.homed.hh2.auto.migration";
-    v21 = 2112;
-    v22 = v5;
+    v17 = v10;
+    v18 = 2112;
+    v19 = @"com.apple.homed.hh2.auto.migration";
+    v20 = 2112;
+    v21 = v5;
     v11 = "%{public}@Failed to cancel background task request with identifier %@: %@";
     v12 = v9;
     v13 = OS_LOG_TYPE_ERROR;
@@ -151,12 +149,11 @@ LABEL_8:
   }
 
   objc_autoreleasePoolPop(v6);
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __56__HMDHH2AutoMigrationMonitor__registerForBackgroundTask__block_invoke(uint64_t a1)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -164,9 +161,9 @@ void __56__HMDHH2AutoMigrationMonitor__registerForBackgroundTask__block_invoke(u
   {
     v5 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v37 = v5;
-    v38 = 2114;
-    v39 = @"com.apple.homed.hh2.auto.migration";
+    v36 = v5;
+    v37 = 2114;
+    v38 = @"com.apple.homed.hh2.auto.migration";
     _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Registering for background task with identifier: %{public}@", buf, 0x16u);
   }
 
@@ -186,12 +183,12 @@ void __56__HMDHH2AutoMigrationMonitor__registerForBackgroundTask__block_invoke(u
   v9 = Property;
   v10 = [(HMDHH2AutoMigrationMonitor *)v8 homeManager];
   v11 = [v10 workQueue];
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = 3221225472;
-  v35[2] = __56__HMDHH2AutoMigrationMonitor__registerForBackgroundTask__block_invoke_29;
-  v35[3] = &unk_27972F7D0;
-  v35[4] = *(a1 + 32);
-  [v9 registerForTaskWithIdentifier:@"com.apple.homed.hh2.auto.migration" usingQueue:v11 launchHandler:v35];
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __56__HMDHH2AutoMigrationMonitor__registerForBackgroundTask__block_invoke_29;
+  v34[3] = &unk_27972F7D0;
+  v34[4] = *(a1 + 32);
+  [v9 registerForTaskWithIdentifier:@"com.apple.homed.hh2.auto.migration" usingQueue:v11 launchHandler:v34];
 
   v13 = *(a1 + 32);
   if (v13)
@@ -209,9 +206,9 @@ void __56__HMDHH2AutoMigrationMonitor__registerForBackgroundTask__block_invoke(u
     {
       v18 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v37 = v18;
-      v38 = 2114;
-      v39 = v14;
+      v36 = v18;
+      v37 = 2114;
+      v38 = v14;
       _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@Background task request already exists: %{public}@", buf, 0x16u);
     }
 
@@ -233,9 +230,9 @@ void __56__HMDHH2AutoMigrationMonitor__registerForBackgroundTask__block_invoke(u
     {
       v24 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v37 = v24;
-      v38 = 2114;
-      v39 = v19;
+      v36 = v24;
+      v37 = 2114;
+      v38 = v19;
       _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_INFO, "%{public}@Submitting background task request: %{public}@", buf, 0x16u);
     }
 
@@ -246,9 +243,9 @@ void __56__HMDHH2AutoMigrationMonitor__registerForBackgroundTask__block_invoke(u
       v26 = objc_getProperty(v26, v25, 24, 1);
     }
 
-    v34 = 0;
-    v27 = [v26 submitTaskRequest:v19 error:&v34];
-    v28 = v34;
+    v33 = 0;
+    v27 = [v26 submitTaskRequest:v19 error:&v33];
+    v28 = v33;
     if ((v27 & 1) == 0)
     {
       v29 = objc_autoreleasePoolPush();
@@ -258,19 +255,17 @@ void __56__HMDHH2AutoMigrationMonitor__registerForBackgroundTask__block_invoke(u
       {
         v32 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v37 = v32;
-        v38 = 2114;
-        v39 = v19;
-        v40 = 2114;
-        v41 = v28;
+        v36 = v32;
+        v37 = 2114;
+        v38 = v19;
+        v39 = 2114;
+        v40 = v28;
         _os_log_impl(&dword_2531F8000, v31, OS_LOG_TYPE_ERROR, "%{public}@Failed to submit task request %{public}@: %{public}@", buf, 0x20u);
       }
 
       objc_autoreleasePoolPop(v29);
     }
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (id)homeManager
@@ -307,7 +302,7 @@ void __56__HMDHH2AutoMigrationMonitor__registerForBackgroundTask__block_invoke_2
 
 - (void)_attemptAutoMigrationWithCompletionHandler:(void *)handler
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (handler)
   {
@@ -318,27 +313,25 @@ void __56__HMDHH2AutoMigrationMonitor__registerForBackgroundTask__block_invoke_2
     {
       v7 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v14 = v7;
+      v13 = v7;
       _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Attempting auto migration", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
     Property = objc_getProperty(handlerCopy, v8, 32, 1);
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __73__HMDHH2AutoMigrationMonitor__attemptAutoMigrationWithCompletionHandler___block_invoke;
-    v11[3] = &unk_27972F7F8;
-    v11[4] = handlerCopy;
-    v12 = v3;
-    [Property fetchIsCurrentUserEligibleForAutoMigrationWithCompletion:v11];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __73__HMDHH2AutoMigrationMonitor__attemptAutoMigrationWithCompletionHandler___block_invoke;
+    v10[3] = &unk_27972F7F8;
+    v10[4] = handlerCopy;
+    v11 = v3;
+    [Property fetchIsCurrentUserEligibleForAutoMigrationWithCompletion:v10];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __73__HMDHH2AutoMigrationMonitor__attemptAutoMigrationWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v85 = *MEMORY[0x277D85DE8];
+  v84 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [(HMDHH2AutoMigrationMonitor *)*(a1 + 32) homeManager];
   if (!v4)
@@ -350,7 +343,7 @@ void __73__HMDHH2AutoMigrationMonitor__attemptAutoMigrationWithCompletionHandler
     {
       v29 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v80 = v29;
+      v79 = v29;
       _os_log_impl(&dword_2531F8000, v28, OS_LOG_TYPE_ERROR, "%{public}@Not starting HH2 migration because home manager reference is nil", buf, 0xCu);
     }
 
@@ -370,7 +363,7 @@ void __73__HMDHH2AutoMigrationMonitor__attemptAutoMigrationWithCompletionHandler
     {
       v35 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v80 = v35;
+      v79 = v35;
       _os_log_impl(&dword_2531F8000, v34, OS_LOG_TYPE_INFO, "%{public}@Not starting HH2 migration because current user is not eligible, but will check whether we can do dry run or not", buf, 0xCu);
     }
 
@@ -389,15 +382,15 @@ void __73__HMDHH2AutoMigrationMonitor__attemptAutoMigrationWithCompletionHandler
       if (v39)
       {
         [(HMDHH2AutoMigrationMonitor *)*(a1 + 32) submitStartMigrationEventWithAutoMigration:?];
-        v77[0] = MEMORY[0x277D85DD0];
-        v77[1] = 3221225472;
-        v77[2] = __73__HMDHH2AutoMigrationMonitor__attemptAutoMigrationWithCompletionHandler___block_invoke_36;
-        v77[3] = &unk_279733F30;
+        v76[0] = MEMORY[0x277D85DD0];
+        v76[1] = 3221225472;
+        v76[2] = __73__HMDHH2AutoMigrationMonitor__attemptAutoMigrationWithCompletionHandler___block_invoke_36;
+        v76[3] = &unk_279733F30;
         v40 = *(a1 + 40);
-        v77[4] = *(a1 + 32);
-        v78 = v40;
-        [v4 dryRunHH2MigrationWithCompletionHandler:v77];
-        v41 = v78;
+        v76[4] = *(a1 + 32);
+        v77 = v40;
+        [v4 dryRunHH2MigrationWithCompletionHandler:v76];
+        v41 = v77;
         goto LABEL_44;
       }
 
@@ -408,7 +401,7 @@ void __73__HMDHH2AutoMigrationMonitor__attemptAutoMigrationWithCompletionHandler
       {
         v71 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v80 = v71;
+        v79 = v71;
         _os_log_impl(&dword_2531F8000, v70, OS_LOG_TYPE_INFO, "%{public}@Not running dry run on empty account as it will fail in absence of keyed archive", buf, 0xCu);
       }
 
@@ -428,7 +421,7 @@ void __73__HMDHH2AutoMigrationMonitor__attemptAutoMigrationWithCompletionHandler
       {
         v45 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v80 = v45;
+        v79 = v45;
         _os_log_impl(&dword_2531F8000, v44, OS_LOG_TYPE_INFO, "%{public}@Not starting HH2 Dry Run Migration because Dry Run is disabled", buf, 0xCu);
       }
 
@@ -465,7 +458,7 @@ void __73__HMDHH2AutoMigrationMonitor__attemptAutoMigrationWithCompletionHandler
     {
       v52 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v80 = v52;
+      v79 = v52;
       _os_log_impl(&dword_2531F8000, v51, OS_LOG_TYPE_FAULT, "%{public}@Should not get here, skipping auto migration due to missing build version", buf, 0xCu);
     }
 
@@ -485,9 +478,9 @@ void __73__HMDHH2AutoMigrationMonitor__attemptAutoMigrationWithCompletionHandler
       HMFGetLogIdentifier();
       v57 = v56 = v3;
       *buf = 138543618;
-      v80 = v57;
-      v81 = 2114;
-      v82 = v8;
+      v79 = v57;
+      v80 = 2114;
+      v81 = v8;
       _os_log_impl(&dword_2531F8000, v55, OS_LOG_TYPE_INFO, "%{public}@First auto migration attempt for build %{public}@", buf, 0x16u);
 
       v3 = v56;
@@ -498,7 +491,7 @@ void __73__HMDHH2AutoMigrationMonitor__attemptAutoMigrationWithCompletionHandler
     goto LABEL_34;
   }
 
-  v74 = v3;
+  v73 = v3;
   v10 = isInternalBuild();
   v11 = @"hh2AutoMigrationMaxAttempts";
   if (v10)
@@ -509,7 +502,7 @@ void __73__HMDHH2AutoMigrationMonitor__attemptAutoMigrationWithCompletionHandler
   v12 = v11;
   v13 = [v9 integerValue];
   v14 = [MEMORY[0x277D0F8D0] sharedPreferences];
-  v73 = v12;
+  v72 = v12;
   v15 = [v14 preferenceForKey:v12];
   v16 = [v15 numberValue];
   v17 = [v16 integerValue];
@@ -526,11 +519,11 @@ void __73__HMDHH2AutoMigrationMonitor__attemptAutoMigrationWithCompletionHandler
     {
       v24 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v80 = v24;
-      v81 = 2114;
-      v82 = v9;
-      v83 = 2114;
-      v84 = v8;
+      v79 = v24;
+      v80 = 2114;
+      v81 = v9;
+      v82 = 2114;
+      v83 = v8;
       v25 = "%{public}@Last auto migration attempt count %{public}@ for current build %{public}@";
       goto LABEL_32;
     }
@@ -540,18 +533,18 @@ void __73__HMDHH2AutoMigrationMonitor__attemptAutoMigrationWithCompletionHandler
   {
     v24 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v80 = v24;
-    v81 = 2114;
-    v82 = v9;
-    v83 = 2114;
-    v84 = v8;
+    v79 = v24;
+    v80 = 2114;
+    v81 = v9;
+    v82 = 2114;
+    v83 = v8;
     v25 = "%{public}@Maximum auto migration attempts (%{public}@) reached for current build %{public}@";
 LABEL_32:
     _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_INFO, v25, buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v18);
-  v3 = v74;
+  v3 = v73;
 LABEL_34:
 
 LABEL_35:
@@ -566,7 +559,7 @@ LABEL_36:
     {
       v62 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v80 = v62;
+      v79 = v62;
       _os_log_impl(&dword_2531F8000, v60, OS_LOG_TYPE_INFO, "%{public}@Will not perform HH2 auto migration since we are at maximum number of attempts", buf, 0xCu);
     }
 
@@ -589,25 +582,24 @@ LABEL_49:
   {
     v66 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v80 = v66;
+    v79 = v66;
     _os_log_impl(&dword_2531F8000, v60, OS_LOG_TYPE_INFO, "%{public}@Starting HH2 migration because current user is eligible", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v58);
   [(HMDHH2AutoMigrationMonitor *)*(a1 + 32) submitStartMigrationEventWithAutoMigration:?];
-  v75[0] = MEMORY[0x277D85DD0];
-  v75[1] = 3221225472;
-  v75[2] = __73__HMDHH2AutoMigrationMonitor__attemptAutoMigrationWithCompletionHandler___block_invoke_38;
-  v75[3] = &unk_279733F30;
+  v74[0] = MEMORY[0x277D85DD0];
+  v74[1] = 3221225472;
+  v74[2] = __73__HMDHH2AutoMigrationMonitor__attemptAutoMigrationWithCompletionHandler___block_invoke_38;
+  v74[3] = &unk_279733F30;
   v67 = *(a1 + 40);
-  v75[4] = *(a1 + 32);
-  v76 = v67;
-  [v4 autoMigrateToHH2WithCompletionHandler:v75];
-  v41 = v76;
+  v74[4] = *(a1 + 32);
+  v75 = v67;
+  [v4 autoMigrateToHH2WithCompletionHandler:v74];
+  v41 = v75;
 LABEL_44:
 
 LABEL_50:
-  v72 = *MEMORY[0x277D85DE8];
 }
 
 - (void)submitStartMigrationEventWithAutoMigration:(void *)migration
@@ -634,7 +626,7 @@ LABEL_50:
 
 void __73__HMDHH2AutoMigrationMonitor__attemptAutoMigrationWithCompletionHandler___block_invoke_36(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -645,11 +637,11 @@ void __73__HMDHH2AutoMigrationMonitor__attemptAutoMigrationWithCompletionHandler
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v8 = HMFGetLogIdentifier();
-      v11 = 138543618;
-      v12 = v8;
-      v13 = 2114;
-      v14 = v3;
-      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_ERROR, "%{public}@Failed to start HH2 dry run migration: %{public}@", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = v8;
+      v12 = 2114;
+      v13 = v3;
+      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_ERROR, "%{public}@Failed to start HH2 dry run migration: %{public}@", &v10, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -661,22 +653,20 @@ void __73__HMDHH2AutoMigrationMonitor__attemptAutoMigrationWithCompletionHandler
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       v9 = HMFGetLogIdentifier();
-      v11 = 138543362;
-      v12 = v9;
-      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Successfully started HH2 Dry run migration", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v9;
+      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Successfully started HH2 Dry run migration", &v10, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
   }
 
   (*(*(a1 + 40) + 16))();
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __73__HMDHH2AutoMigrationMonitor__attemptAutoMigrationWithCompletionHandler___block_invoke_38(uint64_t a1, void *a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   if (v3)
@@ -737,11 +727,11 @@ LABEL_18:
         if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
           v23 = HMFGetLogIdentifier();
-          v25 = 138543618;
-          v26 = v23;
-          v27 = 2114;
-          v28 = v7;
-          _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_ERROR, "%{public}@Failed to start HH2 migration: %{public}@", &v25, 0x16u);
+          v24 = 138543618;
+          v25 = v23;
+          v26 = 2114;
+          v27 = v7;
+          _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_ERROR, "%{public}@Failed to start HH2 migration: %{public}@", &v24, 0x16u);
         }
 
         objc_autoreleasePoolPop(v20);
@@ -766,21 +756,19 @@ LABEL_16:
   if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     v14 = HMFGetLogIdentifier();
-    v25 = 138543362;
-    v26 = v14;
-    _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Successfully started HH2 migration", &v25, 0xCu);
+    v24 = 138543362;
+    v25 = v14;
+    _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Successfully started HH2 migration", &v24, 0xCu);
   }
 
   objc_autoreleasePoolPop(v11);
 LABEL_21:
   (*(*(a1 + 40) + 16))();
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)attemptAutoMigrationWithCompletionHandler:(id)handler
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -788,29 +776,27 @@ LABEL_21:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v10 = 138543362;
-    v11 = v8;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Asked to attempt auto migration", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v8;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Asked to attempt auto migration", &v9, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
   [(HMDHH2AutoMigrationMonitor *)selfCopy _attemptAutoMigrationWithCompletionHandler:handlerCopy];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopMonitoring
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = HMFGetLogIdentifier();
-    v11 = 138543362;
-    v12 = v6;
-    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Asked to stop monitoring for HH2 auto-migration", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = v6;
+    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Asked to stop monitoring for HH2 auto-migration", &v10, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -828,21 +814,20 @@ LABEL_21:
   [defaultCenter removeObserver:selfCopy name:@"HMDFMFStatusUpdateNotification" object:Property];
 
   [(HMDHH2AutoMigrationMonitor *)selfCopy _unregisterForBackgroundTask];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startMonitoring
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = HMFGetLogIdentifier();
-    v17 = 138543362;
-    v18 = v6;
-    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Asked to start monitoring for HH2 auto-migration", &v17, 0xCu);
+    v16 = 138543362;
+    v17 = v6;
+    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Asked to start monitoring for HH2 auto-migration", &v16, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -869,9 +854,9 @@ LABEL_21:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       v12 = HMFGetLogIdentifier();
-      v17 = 138543362;
-      v18 = v12;
-      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Not registering for background task because this device is not designated FMF device", &v17, 0xCu);
+      v16 = 138543362;
+      v17 = v12;
+      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Not registering for background task because this device is not designated FMF device", &v16, 0xCu);
     }
 
     objc_autoreleasePoolPop(v9);
@@ -889,8 +874,6 @@ LABEL_21:
   }
 
   [defaultCenter addObserver:selfCopy selector:sel_handleFMFStatusUpdatedNotification_ name:@"HMDFMFStatusUpdateNotification" object:v15];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDHH2AutoMigrationMonitor)initWithHomeManager:(id)manager fmfHandler:(id)handler backgroundTaskScheduler:(id)scheduler eligibilityChecker:(id)checker featuresDataSource:(id)source logEventSubmitter:(id)submitter
@@ -989,12 +972,11 @@ LABEL_15:
 
 uint64_t __41__HMDHH2AutoMigrationMonitor_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v29_151258;
-  logCategory__hmf_once_v29_151258 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v29_151258;
+  logCategory__hmf_once_v29_151258 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

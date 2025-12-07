@@ -77,7 +77,7 @@ void __30__RPSiriSession_setMessenger___block_invoke(uint64_t a1, void *a2, void
   v8 = a4;
   if (gLogCategory_RPSiriSession <= 30 && (gLogCategory_RPSiriSession != -1 || _LogCategory_Initialize()))
   {
-    __30__RPSiriSession_setMessenger___block_invoke_cold_1();
+    __30__RPSiriSession_setMessenger___block_invoke_cold_1(v9);
   }
 
   [*(a1 + 32) _stopRecording];
@@ -96,17 +96,23 @@ void __30__RPSiriSession_setMessenger___block_invoke(uint64_t a1, void *a2, void
 
 - (NSString)description
 {
-  NSAppendPrintF();
+  v4 = 0;
+  NSAppendPrintF(&v4, "RPSiriSession");
+  v2 = v4;
 
-  return 0;
+  return v2;
 }
 
 - (void)activateWithCompletion:(id)completion
 {
   completionCopy = completion;
-  if (gLogCategory_RPSiriSession <= 30 && (gLogCategory_RPSiriSession != -1 || _LogCategory_Initialize()))
+  v7 = completionCopy;
+  if (gLogCategory_RPSiriSession <= 30)
   {
-    [RPSiriSession activateWithCompletion:];
+    if (gLogCategory_RPSiriSession != -1 || (completionCopy = _LogCategory_Initialize(), completionCopy))
+    {
+      [(RPSiriSession *)completionCopy activateWithCompletion:v5, v6];
+    }
   }
 
   dispatchQueue = [(RPMessageable *)self->_messenger dispatchQueue];
@@ -118,15 +124,15 @@ void __30__RPSiriSession_setMessenger___block_invoke(uint64_t a1, void *a2, void
 
   objc_storeStrong(&self->_dispatchQueue, dispatchQueue);
 
-  v7 = self->_dispatchQueue;
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __40__RPSiriSession_activateWithCompletion___block_invoke;
-  v9[3] = &unk_1E7C92E20;
-  v9[4] = self;
-  v10 = completionCopy;
-  v8 = completionCopy;
-  dispatch_async(v7, v9);
+  v10 = self->_dispatchQueue;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __40__RPSiriSession_activateWithCompletion___block_invoke;
+  v12[3] = &unk_1E7C92E20;
+  v12[4] = self;
+  v13 = v7;
+  v11 = v7;
+  dispatch_async(v10, v12);
 }
 
 - (void)prewarmWithCompletion:(id)completion
@@ -174,20 +180,20 @@ void __39__RPSiriSession_prewarmWithCompletion___block_invoke(uint64_t a1)
 
   else if (gLogCategory_RPSiriSession <= 90 && (gLogCategory_RPSiriSession != -1 || _LogCategory_Initialize()))
   {
-    __39__RPSiriSession_prewarmWithCompletion___block_invoke_cold_1();
+    __39__RPSiriSession_prewarmWithCompletion___block_invoke_cold_1(v4);
   }
 }
 
 - (void)_activateWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = self->_destinationID;
-  if (!v5)
+  v11 = self->_destinationID;
+  if (!v11)
   {
-    v6 = RPErrorF();
+    v20 = RPErrorF(4294960591, "No destinationID", v5, v6, v7, v8, v9, v10, v29);
     if (gLogCategory_RPSiriSession <= 90 && (gLogCategory_RPSiriSession != -1 || _LogCategory_Initialize()))
     {
-      [RPSiriSession _activateWithCompletion:];
+      [RPSiriSession _activateWithCompletion:v20];
       if (!completionCopy)
       {
         goto LABEL_35;
@@ -199,17 +205,18 @@ void __39__RPSiriSession_prewarmWithCompletion___block_invoke(uint64_t a1)
       goto LABEL_35;
     }
 
-    completionCopy[2](completionCopy, v6);
+    completionCopy[2](completionCopy, v20);
     goto LABEL_35;
   }
 
-  v6 = self->_messenger;
-  if (!v6)
+  v12 = self->_messenger;
+  v20 = v12;
+  if (!v12)
   {
-    v11 = RPErrorF();
+    v28 = RPErrorF(4294960591, "No messenger", v14, v15, v16, v17, v18, v19, v29);
     if (gLogCategory_RPSiriSession <= 90 && (gLogCategory_RPSiriSession != -1 || _LogCategory_Initialize()))
     {
-      [RPSiriSession _activateWithCompletion:];
+      [RPSiriSession _activateWithCompletion:v28];
       if (!completionCopy)
       {
         goto LABEL_25;
@@ -223,65 +230,73 @@ LABEL_25:
       goto LABEL_35;
     }
 
-    completionCopy[2](completionCopy, v11);
+    completionCopy[2](completionCopy, v28);
     goto LABEL_25;
   }
 
   if (self->_activateState)
   {
-    if (gLogCategory_RPSiriSession <= 40 && (gLogCategory_RPSiriSession != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_RPSiriSession <= 40)
     {
-      [RPSiriSession _activateWithCompletion:];
+      if (gLogCategory_RPSiriSession != -1 || (v12 = _LogCategory_Initialize(), v12))
+      {
+        [(RPSiriSession *)v12 _activateWithCompletion:v13, v14];
+      }
     }
 
-    activateState = self->_activateState;
-    v7 = RPErrorF();
+    v21 = RPErrorF(4294960591, "Already in activation state %d", v14, v15, v16, v17, v18, v19, self->_activateState);
     if (_os_feature_enabled_impl() && [(RPSiriSession *)self isDestinationPTTEligible]&& ((startRecordingState = self->_startRecordingState, startRecordingState == 6) || startRecordingState == 1))
     {
-      v9 = objc_alloc_init(MEMORY[0x1E695DF90]);
-      v10 = [MEMORY[0x1E696AD98] numberWithBool:self->_isSourcePTTEligible];
-      [v9 setObject:v10 forKeyedSubscript:@"_pttEligible"];
+      v23 = objc_alloc_init(MEMORY[0x1E695DF90]);
+      v24 = [MEMORY[0x1E696AD98] numberWithBool:self->_isSourcePTTEligible];
+      [v23 setObject:v24 forKeyedSubscript:@"_pttEligible"];
 
-      if (gLogCategory_RPSiriSession <= 40 && (gLogCategory_RPSiriSession != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_RPSiriSession <= 40)
       {
-        [RPSiriSession _activateWithCompletion:];
+        if (gLogCategory_RPSiriSession != -1 || (v25 = _LogCategory_Initialize(), v25))
+        {
+          [(RPSiriSession *)v25 _activateWithCompletion:v26, v27];
+        }
       }
 
-      v15[0] = MEMORY[0x1E69E9820];
-      v15[1] = 3221225472;
-      v15[2] = __41__RPSiriSession__activateWithCompletion___block_invoke;
-      v15[3] = &unk_1E7C93780;
-      v16 = completionCopy;
-      [(RPMessageable *)v6 sendRequestID:@"_siriStartWhileRecording" request:MEMORY[0x1E695E0F8] destinationID:v5 options:v9 responseHandler:v15];
+      v32[0] = MEMORY[0x1E69E9820];
+      v32[1] = 3221225472;
+      v32[2] = __41__RPSiriSession__activateWithCompletion___block_invoke;
+      v32[3] = &unk_1E7C93780;
+      v33 = completionCopy;
+      [v20 sendRequestID:@"_siriStartWhileRecording" request:MEMORY[0x1E695E0F8] destinationID:v11 options:v23 responseHandler:v32];
     }
 
     else if (completionCopy)
     {
-      completionCopy[2](completionCopy, v7);
+      completionCopy[2](completionCopy, v21);
     }
   }
 
   else if (self->_voiceController)
   {
-    [(RPSiriSession *)self _startActivationWithDestinationID:v5 messenger:v6 completion:completionCopy];
+    [(RPSiriSession *)self _startActivationWithDestinationID:v11 messenger:v12 completion:completionCopy];
   }
 
   else
   {
-    if (gLogCategory_RPSiriSession <= 40 && (gLogCategory_RPSiriSession != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_RPSiriSession <= 40)
     {
-      [RPSiriSession _activateWithCompletion:];
+      if (gLogCategory_RPSiriSession != -1 || (v12 = _LogCategory_Initialize(), v12))
+      {
+        [(RPSiriSession *)v12 _activateWithCompletion:v13, v14];
+      }
     }
 
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __41__RPSiriSession__activateWithCompletion___block_invoke_2;
-    v13[3] = &unk_1E7C94F10;
-    v13[4] = self;
-    v13[5] = v5;
-    v13[6] = v6;
-    v14 = completionCopy;
-    [(RPSiriSession *)self prewarmWithCompletion:v13];
+    v30[0] = MEMORY[0x1E69E9820];
+    v30[1] = 3221225472;
+    v30[2] = __41__RPSiriSession__activateWithCompletion___block_invoke_2;
+    v30[3] = &unk_1E7C94F10;
+    v30[4] = self;
+    v30[5] = v11;
+    v30[6] = v20;
+    v31 = completionCopy;
+    [(RPSiriSession *)self prewarmWithCompletion:v30];
   }
 
 LABEL_35:
@@ -294,7 +309,7 @@ void __41__RPSiriSession__activateWithCompletion___block_invoke(uint64_t a1, voi
   v8 = a4;
   if (gLogCategory_RPSiriSession <= 30 && (gLogCategory_RPSiriSession != -1 || _LogCategory_Initialize()))
   {
-    __41__RPSiriSession__activateWithCompletion___block_invoke_cold_1();
+    __41__RPSiriSession__activateWithCompletion___block_invoke_cold_1(v8);
   }
 
   v9 = *(a1 + 32);
@@ -319,7 +334,7 @@ void __41__RPSiriSession__activateWithCompletion___block_invoke_2(uint64_t a1, v
   {
     if (gLogCategory_RPSiriSession != -1 || (v5 = _LogCategory_Initialize(), v4 = v7, v5))
     {
-      __41__RPSiriSession__activateWithCompletion___block_invoke_2_cold_1();
+      __41__RPSiriSession__activateWithCompletion___block_invoke_2_cold_1(v4);
       v4 = v7;
     }
   }
@@ -345,7 +360,7 @@ LABEL_8:
   objc_storeStrong(&self->_selfRef, self);
   if (gLogCategory_RPSiriSession <= 30 && (gLogCategory_RPSiriSession != -1 || _LogCategory_Initialize()))
   {
-    [RPSiriSession _startActivationWithDestinationID:messenger:completion:];
+    [RPSiriSession _startActivationWithDestinationID:dCopy messenger:? completion:?];
   }
 
   [(RPSiriSession *)self _activate2];
@@ -353,54 +368,60 @@ LABEL_8:
   v13 = [MEMORY[0x1E696AD98] numberWithBool:self->_isSourcePTTEligible];
   [v12 setObject:v13 forKeyedSubscript:@"_pttEligible"];
 
-  if (_os_feature_enabled_impl())
+  isDestinationPTTEligible = _os_feature_enabled_impl();
+  if (isDestinationPTTEligible)
   {
-    if ([(RPSiriSession *)self isDestinationPTTEligible])
+    isDestinationPTTEligible = [(RPSiriSession *)self isDestinationPTTEligible];
+    if (isDestinationPTTEligible)
     {
       sourceID = self->_sourceID;
       if (sourceID)
       {
-        [v12 setObject:sourceID forKeyedSubscript:@"senderIDS"];
+        isDestinationPTTEligible = [v12 setObject:sourceID forKeyedSubscript:@"senderIDS"];
       }
     }
   }
 
-  if (gLogCategory_RPSiriSession <= 30 && (gLogCategory_RPSiriSession != -1 || _LogCategory_Initialize()))
+  if (gLogCategory_RPSiriSession <= 30)
   {
-    [RPSiriSession _startActivationWithDestinationID:messenger:completion:];
+    if (gLogCategory_RPSiriSession != -1 || (isDestinationPTTEligible = _LogCategory_Initialize(), isDestinationPTTEligible))
+    {
+      [RPSiriSession _startActivationWithDestinationID:isDestinationPTTEligible messenger:v15 completion:sourceID];
+    }
   }
 
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __72__RPSiriSession__startActivationWithDestinationID_messenger_completion___block_invoke;
-  v15[3] = &unk_1E7C93B48;
-  v15[4] = self;
-  [messengerCopy sendRequestID:@"_siriStart" request:MEMORY[0x1E695E0F8] destinationID:dCopy options:v12 responseHandler:v15];
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __72__RPSiriSession__startActivationWithDestinationID_messenger_completion___block_invoke;
+  v17[3] = &unk_1E7C93B48;
+  v17[4] = self;
+  [messengerCopy sendRequestID:@"_siriStart" request:MEMORY[0x1E695E0F8] destinationID:dCopy options:v12 responseHandler:v17];
 }
 
 void __72__RPSiriSession__startActivationWithDestinationID_messenger_completion___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v10 = a2;
+  v13 = a2;
   v7 = a3;
   v8 = a4;
-  if (gLogCategory_RPSiriSession <= 30 && (gLogCategory_RPSiriSession != -1 || _LogCategory_Initialize()))
+  v11 = v8;
+  if (gLogCategory_RPSiriSession <= 30 && (gLogCategory_RPSiriSession != -1 || (v8 = _LogCategory_Initialize(), v8)))
   {
-    __72__RPSiriSession__startActivationWithDestinationID_messenger_completion___block_invoke_cold_1();
-    if (!v8)
+    __72__RPSiriSession__startActivationWithDestinationID_messenger_completion___block_invoke_cold_1(v8, v9, v10);
+    if (!v11)
     {
       goto LABEL_7;
     }
   }
 
-  else if (!v8)
+  else if (!v11)
   {
     goto LABEL_7;
   }
 
-  v9 = *(a1 + 32);
-  if (v9[4] == 1)
+  v12 = *(a1 + 32);
+  if (v12[4] == 1)
   {
-    [v9 _activateCompletedWithError:v8];
+    [v12 _activateCompletedWithError:v11];
   }
 
 LABEL_7:
@@ -414,17 +435,17 @@ LABEL_7:
   }
 
   self->_startRecordingState = 1;
-  v3 = [objc_alloc(getAVVCStartRecordSettingsClass[0]()) initWithStreamID:self->_streamId atStartHostTime:0];
+  v3 = [objc_alloc(getAVVCStartRecordSettingsClass()) initWithStreamID:self->_streamId atStartHostTime:0];
   voiceController = self->_voiceController;
-  v8 = 0;
-  v5 = [(AVVoiceController *)voiceController startRecordForStream:v3 error:&v8];
-  v6 = v8;
+  v14 = 0;
+  v5 = [(AVVoiceController *)voiceController startRecordForStream:v3 error:&v14];
+  v6 = v14;
   [(RPSiriSession *)self _recordingLimitTimerStart:60];
   if ((v5 & 1) == 0)
   {
     self->_startRecordingState = 3;
-    v7 = RPNestedErrorF();
-    [(RPSiriSession *)self _activateCompletedWithError:v7];
+    v12 = RPNestedErrorF(v6, 4294960596, "Recording start failed", v7, v8, v9, v10, v11, v13);
+    [(RPSiriSession *)self _activateCompletedWithError:v12];
   }
 }
 
@@ -435,7 +456,7 @@ LABEL_7:
   {
     if (gLogCategory_RPSiriSession <= 90 && (gLogCategory_RPSiriSession != -1 || _LogCategory_Initialize()))
     {
-      [RPSiriSession _activateCompletedWithError:];
+      [RPSiriSession _activateCompletedWithError:errorCopy];
     }
 
     v4 = 3;
@@ -489,42 +510,56 @@ LABEL_7:
 
 - (void)receivedButtonUpWithCompletion:(id)completion
 {
-  if (_os_feature_enabled_impl() && [(RPSiriSession *)self isDestinationPTTEligible])
+  if (_os_feature_enabled_impl())
   {
-    if (gLogCategory_RPSiriSession <= 30 && (gLogCategory_RPSiriSession != -1 || _LogCategory_Initialize()))
+    isDestinationPTTEligible = [(RPSiriSession *)self isDestinationPTTEligible];
+    if (isDestinationPTTEligible)
     {
-      [RPSiriSession receivedButtonUpWithCompletion:];
-    }
+      if (gLogCategory_RPSiriSession <= 30)
+      {
+        if (gLogCategory_RPSiriSession != -1 || (isDestinationPTTEligible = _LogCategory_Initialize(), isDestinationPTTEligible))
+        {
+          [(RPSiriSession *)isDestinationPTTEligible receivedButtonUpWithCompletion:v5, v6];
+        }
+      }
 
-    [(RPSiriSession *)self _sendSiriStop];
+      [(RPSiriSession *)self _sendSiriStop];
+    }
   }
 }
 
 - (void)_sendSiriStop
 {
+  selfCopy = self;
   activateState = self->_activateState;
   if (activateState == 4 || activateState == 1)
   {
-    v6 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    v5 = [MEMORY[0x1E696AD98] numberWithBool:self->_isSourcePTTEligible];
-    [v6 setObject:v5 forKeyedSubscript:@"_pttEligible"];
+    v10 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v6 = [MEMORY[0x1E696AD98] numberWithBool:selfCopy->_isSourcePTTEligible];
+    [v10 setObject:v6 forKeyedSubscript:@"_pttEligible"];
 
-    if (gLogCategory_RPSiriSession <= 30 && (gLogCategory_RPSiriSession != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_RPSiriSession <= 30)
     {
-      [RPSiriSession _sendSiriStop];
+      if (gLogCategory_RPSiriSession != -1 || (v7 = _LogCategory_Initialize(), v7))
+      {
+        [(RPSiriSession *)v7 _sendSiriStop];
+      }
     }
 
-    [(RPMessageable *)self->_messenger sendRequestID:@"_siriStop" request:MEMORY[0x1E695E0F8] destinationID:self->_destinationID options:v6 responseHandler:&__block_literal_global_16];
+    [(RPMessageable *)selfCopy->_messenger sendRequestID:@"_siriStop" request:MEMORY[0x1E695E0F8] destinationID:selfCopy->_destinationID options:v10 responseHandler:&__block_literal_global_16];
   }
 
   else
   {
-    if (gLogCategory_RPSiriSession <= 40 && (gLogCategory_RPSiriSession != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_RPSiriSession <= 40)
     {
-      [RPSiriSession _sendSiriStop];
+      if (gLogCategory_RPSiriSession != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        [(RPSiriSession *)self _sendSiriStop];
+      }
     }
 
-    [(RPSiriSession *)self invalidateWithCompletion:0];
+    [(RPSiriSession *)selfCopy invalidateWithCompletion:0];
   }
 }
 
@@ -535,19 +570,23 @@ void __30__RPSiriSession__sendSiriStop__block_invoke(uint64_t a1, void *a2, void
   v7 = a4;
   if (v7 && gLogCategory_RPSiriSession <= 90 && (gLogCategory_RPSiriSession != -1 || _LogCategory_Initialize()))
   {
-    __30__RPSiriSession__sendSiriStop__block_invoke_cold_1();
+    __30__RPSiriSession__sendSiriStop__block_invoke_cold_1(v7);
   }
 }
 
 - (void)_invalidateWithCompletion:(id)completion
 {
   completionCopy = completion;
+  v7 = completionCopy;
   if (!self->_invalidateCalled)
   {
     self->_invalidateCalled = 1;
-    if (gLogCategory_RPSiriSession <= 30 && (gLogCategory_RPSiriSession != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_RPSiriSession <= 30)
     {
-      [RPSiriSession _invalidateWithCompletion:];
+      if (gLogCategory_RPSiriSession != -1 || (completionCopy = _LogCategory_Initialize(), completionCopy))
+      {
+        [(RPSiriSession *)completionCopy _invalidateWithCompletion:v5, v6];
+      }
     }
 
     activateState = self->_activateState;
@@ -557,38 +596,41 @@ void __30__RPSiriSession__sendSiriStop__block_invoke(uint64_t a1, void *a2, void
     {
       if (activateState == 4 || activateState == 1)
       {
-        v6 = objc_alloc_init(MEMORY[0x1E695DF90]);
-        v7 = [MEMORY[0x1E696AD98] numberWithBool:self->_isSourcePTTEligible];
-        [v6 setObject:v7 forKeyedSubscript:@"_pttEligible"];
+        v9 = objc_alloc_init(MEMORY[0x1E695DF90]);
+        v10 = [MEMORY[0x1E696AD98] numberWithBool:self->_isSourcePTTEligible];
+        [v9 setObject:v10 forKeyedSubscript:@"_pttEligible"];
 
-        if (gLogCategory_RPSiriSession <= 30 && (gLogCategory_RPSiriSession != -1 || _LogCategory_Initialize()))
+        if (gLogCategory_RPSiriSession <= 30)
         {
-          [RPSiriSession _invalidateWithCompletion:];
+          if (gLogCategory_RPSiriSession != -1 || (v11 = _LogCategory_Initialize(), v11))
+          {
+            [(RPSiriSession *)v11 _invalidateWithCompletion:v12, v13];
+          }
         }
 
         messenger = self->_messenger;
         destinationID = self->_destinationID;
-        v16[0] = MEMORY[0x1E69E9820];
-        v16[1] = 3221225472;
-        v16[2] = __43__RPSiriSession__invalidateWithCompletion___block_invoke;
-        v16[3] = &unk_1E7C94DB8;
-        v16[4] = self;
-        v17 = completionCopy;
-        [(RPMessageable *)messenger sendRequestID:@"_siriStop" request:MEMORY[0x1E695E0F8] destinationID:destinationID options:v6 responseHandler:v16];
-        v10 = self->_messenger;
+        v22[0] = MEMORY[0x1E69E9820];
+        v22[1] = 3221225472;
+        v22[2] = __43__RPSiriSession__invalidateWithCompletion___block_invoke;
+        v22[3] = &unk_1E7C94DB8;
+        v22[4] = self;
+        v23 = v7;
+        [(RPMessageable *)messenger sendRequestID:@"_siriStop" request:MEMORY[0x1E695E0F8] destinationID:destinationID options:v9 responseHandler:v22];
+        v16 = self->_messenger;
         self->_messenger = 0;
       }
 
       else
       {
-        v11 = self->_messenger;
+        v17 = self->_messenger;
         self->_messenger = 0;
 
         [(RPSiriSession *)self _invalidated];
       }
     }
 
-    v12 = self->_messenger;
+    v18 = self->_messenger;
     self->_messenger = 0;
 
     [(RPSiriSession *)self _invalidated];
@@ -600,9 +642,9 @@ void __30__RPSiriSession__sendSiriStop__block_invoke(uint64_t a1, void *a2, void
     recordingLimitTimer = self->_recordingLimitTimer;
     if (recordingLimitTimer)
     {
-      v14 = recordingLimitTimer;
-      dispatch_source_cancel(v14);
-      v15 = self->_recordingLimitTimer;
+      v20 = recordingLimitTimer;
+      dispatch_source_cancel(v20);
+      v21 = self->_recordingLimitTimer;
       self->_recordingLimitTimer = 0;
     }
   }
@@ -610,27 +652,31 @@ void __30__RPSiriSession__sendSiriStop__block_invoke(uint64_t a1, void *a2, void
 
 void __43__RPSiriSession__invalidateWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v10 = a2;
+  v13 = a2;
   v7 = a3;
   v8 = a4;
+  v11 = v8;
   if (v8)
   {
     if (gLogCategory_RPSiriSession <= 90 && (gLogCategory_RPSiriSession != -1 || _LogCategory_Initialize()))
     {
-      __43__RPSiriSession__invalidateWithCompletion___block_invoke_cold_1();
+      __43__RPSiriSession__invalidateWithCompletion___block_invoke_cold_1(v11);
     }
   }
 
-  else if (gLogCategory_RPSiriSession <= 30 && (gLogCategory_RPSiriSession != -1 || _LogCategory_Initialize()))
+  else if (gLogCategory_RPSiriSession <= 30)
   {
-    __43__RPSiriSession__invalidateWithCompletion___block_invoke_cold_2();
+    if (gLogCategory_RPSiriSession != -1 || (v8 = _LogCategory_Initialize(), v8))
+    {
+      __43__RPSiriSession__invalidateWithCompletion___block_invoke_cold_2(v8, v9, v10);
+    }
   }
 
   [*(a1 + 32) _invalidated];
-  v9 = *(a1 + 40);
-  if (v9)
+  v12 = *(a1 + 40);
+  if (v12)
   {
-    (*(v9 + 16))(v9, v8);
+    (*(v12 + 16))(v12, v11);
   }
 }
 
@@ -644,7 +690,7 @@ void __43__RPSiriSession__invalidateWithCompletion___block_invoke(uint64_t a1, v
     v4 = v7;
     if (v4 && gLogCategory_RPSiriSession <= 90 && (gLogCategory_RPSiriSession != -1 || _LogCategory_Initialize()))
     {
-      [RPSiriSession _teardownVoiceController];
+      [(RPSiriSession *)v4 _teardownVoiceController];
     }
 
     v5 = objc_autoreleasePoolPush();
@@ -657,15 +703,18 @@ void __43__RPSiriSession__invalidateWithCompletion___block_invoke(uint64_t a1, v
 
 - (void)dealloc
 {
-  [(RPSiriSession *)self _teardownVoiceController];
-  if (gLogCategory_RPSiriSession <= 30 && (gLogCategory_RPSiriSession != -1 || _LogCategory_Initialize()))
+  _teardownVoiceController = [(RPSiriSession *)self _teardownVoiceController];
+  if (gLogCategory_RPSiriSession <= 30)
   {
-    [RPSiriSession dealloc];
+    if (gLogCategory_RPSiriSession != -1 || (_teardownVoiceController = _LogCategory_Initialize(), _teardownVoiceController))
+    {
+      [(RPSiriSession *)_teardownVoiceController dealloc];
+    }
   }
 
-  v3.receiver = self;
-  v3.super_class = RPSiriSession;
-  [(RPSiriSession *)&v3 dealloc];
+  v6.receiver = self;
+  v6.super_class = RPSiriSession;
+  [(RPSiriSession *)&v6 dealloc];
 }
 
 - (void)_invalidated
@@ -679,10 +728,13 @@ void __43__RPSiriSession__invalidateWithCompletion___block_invoke(uint64_t a1, v
       [(AVVoiceController *)self->_voiceController deactivateAudioSessionForStream:self->_streamId withOptions:1 error:0];
       if (self->_voiceController)
       {
-        [(RPSiriSession *)self _teardownVoiceController];
-        if (gLogCategory_RPSiriSession <= 30 && (gLogCategory_RPSiriSession != -1 || _LogCategory_Initialize()))
+        _teardownVoiceController = [(RPSiriSession *)self _teardownVoiceController];
+        if (gLogCategory_RPSiriSession <= 30)
         {
-          [RPSiriSession _invalidated];
+          if (gLogCategory_RPSiriSession != -1 || (_teardownVoiceController = _LogCategory_Initialize(), _teardownVoiceController))
+          {
+            [(RPSiriSession *)_teardownVoiceController _invalidated];
+          }
         }
       }
 
@@ -694,9 +746,12 @@ void __43__RPSiriSession__invalidateWithCompletion___block_invoke(uint64_t a1, v
 
       self->_streamId = 0;
       self->_invalidateDone = 1;
-      if (gLogCategory_RPSiriSession <= 30 && (gLogCategory_RPSiriSession != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_RPSiriSession <= 30)
       {
-        [RPSiriSession _invalidated];
+        if (gLogCategory_RPSiriSession != -1 || (v9 = _LogCategory_Initialize(), v9))
+        {
+          [(RPSiriSession *)v9 _invalidated];
+        }
       }
 
       selfRef = self->_selfRef;
@@ -707,13 +762,13 @@ void __43__RPSiriSession__invalidateWithCompletion___block_invoke(uint64_t a1, v
 
 - (BOOL)voiceControllerSetupAndReturnError:(id *)error
 {
-  v29 = 0u;
-  v30 = 0u;
-  v28 = 0x40CF400000000000;
-  LODWORD(v29) = 1869641075;
-  HIDWORD(v29) = 320;
-  DWORD1(v30) = 1;
-  v5 = [objc_alloc(getAVAudioFormatClass()) initWithStreamDescription:&v28];
+  v57 = 0u;
+  v58 = 0u;
+  v56 = 0x40CF400000000000;
+  LODWORD(v57) = 1869641075;
+  HIDWORD(v57) = 320;
+  DWORD1(v58) = 1;
+  v5 = [objc_alloc(getAVAudioFormatClass(self a2))];
   audioFormat = self->_audioFormat;
   self->_audioFormat = v5;
 
@@ -721,110 +776,110 @@ void __43__RPSiriSession__invalidateWithCompletion___block_invoke(uint64_t a1, v
   {
     if (gLogCategory_RPSiriSession <= 30 && (gLogCategory_RPSiriSession != -1 || _LogCategory_Initialize()))
     {
-      [RPSiriSession voiceControllerSetupAndReturnError:];
+      [RPSiriSession voiceControllerSetupAndReturnError:?];
     }
 
     voiceController = self->_voiceController;
     if (voiceController)
     {
-      v8 = 0;
+      v14 = 0;
     }
 
     else
     {
-      v27 = 0;
-      v10 = [objc_alloc(getAVVoiceControllerClass[0]()) initVoiceControllerForClient:4 withError:&v27];
-      v8 = v27;
-      v11 = self->_voiceController;
-      self->_voiceController = v10;
+      v55 = 0;
+      v16 = [objc_alloc(getAVVoiceControllerClass()) initVoiceControllerForClient:4 withError:&v55];
+      v14 = v55;
+      v17 = self->_voiceController;
+      self->_voiceController = v16;
 
       voiceController = self->_voiceController;
       if (!voiceController)
       {
         if (error)
         {
-          RPNestedErrorF();
-          *error = v9 = 0;
+          RPNestedErrorF(v14, 4294960596, "AVVoiceController init failed", v18, v19, v20, v21, v22, v51);
+          *error = v15 = 0;
         }
 
         else
         {
-          v9 = 0;
+          v15 = 0;
         }
 
 LABEL_33:
 
-        return v9;
+        return v15;
       }
     }
 
-    [(AVVoiceController *)voiceController setRecordDelegate:self];
-    v12 = [objc_alloc(getAVVCContextSettingsClass[0]()) initWithMode:1969840752 deviceUID:0];
-    v25 = v8;
-    v26 = 0;
-    v13 = [(AVVoiceController *)self->_voiceController setContext:v12 streamType:&v26 error:&v25];
-    v14 = v25;
+    v23 = [(AVVoiceController *)voiceController setRecordDelegate:self];
+    v24 = [objc_alloc(getAVVCContextSettingsClass(v23)) initWithMode:1969840752 deviceUID:0];
+    v53 = v14;
+    v54 = 0;
+    v25 = [(AVVoiceController *)self->_voiceController setContext:v24 streamType:&v54 error:&v53];
+    v26 = v53;
 
-    if (v13)
+    if (v25)
     {
-      self->_streamId = v13;
+      self->_streamId = v25;
       if (gLogCategory_RPSiriSession <= 30 && (gLogCategory_RPSiriSession != -1 || _LogCategory_Initialize()))
       {
-        [RPSiriSession voiceControllerSetupAndReturnError:];
+        [RPSiriSession voiceControllerSetupAndReturnError:v25];
       }
 
       settings = [(AVAudioFormat *)self->_audioFormat settings];
       if (settings)
       {
-        v16 = self->_voiceController;
+        v39 = self->_voiceController;
         streamId = self->_streamId;
-        v24 = v14;
-        [(AVVoiceController *)v16 activateAudioSessionForStream:streamId isPrewarm:1 recordMode:1 error:&v24];
-        v18 = v24;
+        v52 = v26;
+        [(AVVoiceController *)v39 activateAudioSessionForStream:streamId isPrewarm:1 recordMode:1 error:&v52];
+        v41 = v52;
 
         if (gLogCategory_RPSiriSession <= 30 && (gLogCategory_RPSiriSession != -1 || _LogCategory_Initialize()))
         {
-          [RPSiriSession voiceControllerSetupAndReturnError:];
+          [RPSiriSession voiceControllerSetupAndReturnError:?];
         }
 
-        v19 = [objc_alloc(getAVVCPrepareRecordSettingsClass[0]()) initWithStreamID:self->_streamId settings:settings bufferDuration:0.1];
-        [v19 setMeteringEnabled:1];
-        v20 = self->_voiceController;
-        v23 = v18;
-        v21 = [(AVVoiceController *)v20 prepareRecordForStream:v19 error:&v23];
-        v14 = v23;
+        v42 = [objc_alloc(getAVVCPrepareRecordSettingsClass()) initWithStreamID:self->_streamId settings:settings bufferDuration:0.1];
+        [v42 setMeteringEnabled:1];
+        v43 = self->_voiceController;
+        v51 = v41;
+        v44 = [(AVVoiceController *)v43 prepareRecordForStream:v42 error:&v51];
+        v26 = v51;
 
-        v9 = (v14 == 0) & v21;
-        if (error && !v9)
+        v15 = (v26 == 0) & v44;
+        if (error && !v15)
         {
-          *error = RPNestedErrorF();
+          *error = RPNestedErrorF(v26, 4294960596, "AVVoiceController PrepareRecord failed", v45, v46, v47, v48, v49, v51);
         }
       }
 
       else if (error)
       {
-        RPErrorF();
-        *error = v9 = 0;
+        RPErrorF(4294960591, "No audio format settings", v32, v33, v34, v35, v36, v37, v51);
+        *error = v15 = 0;
       }
 
       else
       {
-        v9 = 0;
+        v15 = 0;
       }
     }
 
     else if (error)
     {
-      RPNestedErrorF();
-      *error = v9 = 0;
+      RPNestedErrorF(v26, 4294960596, "AVVoiceController setContext failed", v27, v28, v29, v30, v31, v51);
+      *error = v15 = 0;
     }
 
     else
     {
-      v9 = 0;
+      v15 = 0;
     }
 
-    v8 = v14;
+    v14 = v26;
     goto LABEL_33;
   }
 
@@ -833,40 +888,47 @@ LABEL_33:
     return 0;
   }
 
-  RPErrorF();
-  *error = v9 = 0;
-  return v9;
+  RPErrorF(4294960596, "AVAudioFormat init failed", v7, v8, v9, v10, v11, v12, v51);
+  *error = v15 = 0;
+  return v15;
 }
 
 - (void)voiceControllerTearDown
 {
-  if (gLogCategory_RPSiriSession <= 30 && (gLogCategory_RPSiriSession != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (gLogCategory_RPSiriSession <= 30)
   {
-    [RPSiriSession voiceControllerTearDown];
+    if (gLogCategory_RPSiriSession != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      [(RPSiriSession *)self voiceControllerTearDown];
+    }
   }
 
-  *&self->_startRecordingState = 0x100000007;
-  voiceController = self->_voiceController;
+  *&selfCopy->_startRecordingState = 0x100000007;
+  voiceController = selfCopy->_voiceController;
   if (voiceController)
   {
-    streamId = self->_streamId;
-    v7 = 0;
-    v5 = [(AVVoiceController *)voiceController stopRecordForStream:streamId error:&v7];
-    v6 = v7;
-    if ((v5 & 1) == 0 && gLogCategory_RPSiriSession <= 90 && (gLogCategory_RPSiriSession != -1 || _LogCategory_Initialize()))
+    streamId = selfCopy->_streamId;
+    v8 = 0;
+    v6 = [voiceController stopRecordForStream:streamId error:&v8];
+    v7 = v8;
+    if ((v6 & 1) == 0 && gLogCategory_RPSiriSession <= 90 && (gLogCategory_RPSiriSession != -1 || _LogCategory_Initialize()))
     {
-      [RPSiriSession voiceControllerTearDown];
+      [(RPSiriSession *)v7 voiceControllerTearDown];
     }
   }
 
   else
   {
-    if (gLogCategory_RPSiriSession <= 40 && (gLogCategory_RPSiriSession != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_RPSiriSession <= 40)
     {
-      [RPSiriSession voiceControllerTearDown];
+      if (gLogCategory_RPSiriSession != -1 || (voiceController = _LogCategory_Initialize(), voiceController))
+      {
+        [(RPSiriSession *)voiceController voiceControllerTearDown];
+      }
     }
 
-    v6 = 0;
+    v7 = 0;
   }
 }
 
@@ -886,43 +948,42 @@ LABEL_33:
   dispatch_async(dispatchQueue, v12);
 }
 
-void __79__RPSiriSession_voiceControllerDidStartRecording_forStream_successfully_error___block_invoke(uint64_t a1)
+void __79__RPSiriSession_voiceControllerDidStartRecording_forStream_successfully_error___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (*(a1 + 56))
   {
     if (*(a1 + 40))
     {
-      v2 = 3;
+      v9 = 3;
     }
 
     else
     {
-      v2 = 6;
+      v9 = 6;
     }
 
-    *(*(a1 + 32) + 56) = v2;
+    *(*(a1 + 32) + 56) = v9;
     if (gLogCategory_RPSiriSession <= 30 && (gLogCategory_RPSiriSession != -1 || _LogCategory_Initialize()))
     {
       __79__RPSiriSession_voiceControllerDidStartRecording_forStream_successfully_error___block_invoke_cold_1(a1);
     }
 
-    v3 = *(a1 + 32);
-    if (v3[40] == 1)
+    v10 = *(a1 + 32);
+    if (v10[40] == 1)
     {
-      [v3 voiceControllerTearDown];
-      v3 = *(a1 + 32);
+      [v10 voiceControllerTearDown];
+      v10 = *(a1 + 32);
     }
 
-    [v3 _activateCompletedWithError:0];
+    [v10 _activateCompletedWithError:0];
   }
 
   else
   {
     *(*(a1 + 32) + 56) = 3;
-    v5 = *(a1 + 32);
-    v4 = *(a1 + 40);
-    v6 = RPNestedErrorF();
-    [v5 _activateCompletedWithError:v6];
+    v11 = *(a1 + 32);
+    v13 = RPNestedErrorF(*(a1 + 40), 4294960596, "Recording start 2 failed", a4, a5, a6, a7, a8, v12);
+    [v11 _activateCompletedWithError:v13];
   }
 }
 
@@ -974,7 +1035,7 @@ _BYTE *__69__RPSiriSession_voiceControllerDidStopRecording_forStream_forReason__
 
 void __63__RPSiriSession_voiceControllerAudioCallback_forStream_buffer___block_invoke(uint64_t a1)
 {
-  v21[2] = *MEMORY[0x1E69E9840];
+  v20[2] = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   if (*(v1 + 56) == 6)
   {
@@ -983,7 +1044,7 @@ void __63__RPSiriSession_voiceControllerAudioCallback_forStream_buffer___block_i
     v4 = __exp10f(v3 / 20.0);
     if (gLogCategory_RPSiriSession <= 10 && (gLogCategory_RPSiriSession != -1 || _LogCategory_Initialize()))
     {
-      __63__RPSiriSession_voiceControllerAudioCallback_forStream_buffer___block_invoke_cold_1(a1);
+      __63__RPSiriSession_voiceControllerAudioCallback_forStream_buffer___block_invoke_cold_1(a1, v4);
     }
 
     v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
@@ -994,15 +1055,15 @@ void __63__RPSiriSession_voiceControllerAudioCallback_forStream_buffer___block_i
       v8 = 16 * v7;
       do
       {
-        v20[0] = &unk_1F2EEC8A8;
+        v19[0] = &unk_1F2EEC8A8;
         v9 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*(v6 + 12)];
-        v20[1] = &unk_1F2EEC8C0;
-        v21[0] = v9;
+        v19[1] = &unk_1F2EEC8C0;
+        v20[0] = v9;
         v10 = *v6;
         v6 += 16;
         v11 = [MEMORY[0x1E696AD98] numberWithLongLong:v10];
-        v21[1] = v11;
-        v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:2];
+        v20[1] = v11;
+        v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:2];
         [v5 addObject:v12];
 
         v8 -= 16;
@@ -1012,33 +1073,31 @@ void __63__RPSiriSession_voiceControllerAudioCallback_forStream_buffer___block_i
     }
 
     v13 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:objc_msgSend(*(a1 + 40) length:{"data"), objc_msgSend(*(a1 + 40), "bytesDataSize")}];
-    v19[0] = v13;
-    v18[0] = &unk_1F2EEC8D8;
-    v18[1] = &unk_1F2EEC8F0;
+    v18[0] = v13;
+    v17[0] = &unk_1F2EEC8D8;
+    v17[1] = &unk_1F2EEC8F0;
     *&v14 = v4;
     v15 = [MEMORY[0x1E696AD98] numberWithFloat:v14];
-    v18[2] = &unk_1F2EEC908;
-    v19[1] = v15;
-    v19[2] = v5;
-    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:3];
+    v17[2] = &unk_1F2EEC908;
+    v18[1] = v15;
+    v18[2] = v5;
+    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:3];
 
     [*(*(a1 + 32) + 112) sendEventID:@"_siA" event:v16 destinationID:*(*(a1 + 32) + 96) options:0 completion:0];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)voiceControllerDidDetectStartpoint:(id)startpoint
 {
   startpointCopy = startpoint;
-  v4 = startpointCopy;
+  v5 = startpointCopy;
   if (gLogCategory_RPSiriSession <= 30)
   {
     v6 = startpointCopy;
-    if (gLogCategory_RPSiriSession != -1 || (v5 = _LogCategory_Initialize(), v4 = v6, v5))
+    if (gLogCategory_RPSiriSession != -1 || (startpointCopy = _LogCategory_Initialize(), v5 = v6, startpointCopy))
     {
-      [RPSiriSession voiceControllerDidDetectStartpoint:];
-      v4 = v6;
+      [(RPSiriSession *)startpointCopy voiceControllerDidDetectStartpoint:v5, v4];
+      v5 = v6;
     }
   }
 }
@@ -1046,14 +1105,14 @@ void __63__RPSiriSession_voiceControllerAudioCallback_forStream_buffer___block_i
 - (void)voiceControllerDidDetectEndpoint:(id)endpoint ofType:(int)type atTime:(double)time
 {
   endpointCopy = endpoint;
-  v6 = endpointCopy;
+  v8 = endpointCopy;
   if (gLogCategory_RPSiriSession <= 30)
   {
-    v8 = endpointCopy;
-    if (gLogCategory_RPSiriSession != -1 || (v7 = _LogCategory_Initialize(), v6 = v8, v7))
+    v10 = endpointCopy;
+    if (gLogCategory_RPSiriSession != -1 || (v9 = _LogCategory_Initialize(), v8 = v10, v9))
     {
-      LogPrintF();
-      v6 = v8;
+      LogPrintF(&gLogCategory_RPSiriSession, "[RPSiriSession voiceControllerDidDetectEndpoint:ofType:atTime:]", 30, "Detected endpoint: type %d, time %f\n", type, time);
+      v8 = v10;
     }
   }
 }
@@ -1064,7 +1123,7 @@ void __63__RPSiriSession_voiceControllerAudioCallback_forStream_buffer___block_i
   errorCopy = error;
   if (gLogCategory_RPSiriSession <= 90 && (gLogCategory_RPSiriSession != -1 || _LogCategory_Initialize()))
   {
-    [RPSiriSession voiceControllerEncoderErrorDidOccur:error:];
+    [RPSiriSession voiceControllerEncoderErrorDidOccur:errorCopy error:?];
   }
 }
 
@@ -1087,32 +1146,32 @@ void __63__RPSiriSession_voiceControllerAudioCallback_forStream_buffer___block_i
 {
   if (gLogCategory_RPSiriSession <= 30 && (gLogCategory_RPSiriSession != -1 || _LogCategory_Initialize()))
   {
-    [RPSiriSession _recordingLimitTimerStart:];
+    [RPSiriSession _recordingLimitTimerStart:start];
   }
 
   recordingLimitTimer = self->_recordingLimitTimer;
   if (recordingLimitTimer)
   {
-    v5 = recordingLimitTimer;
-    dispatch_source_cancel(v5);
-    v6 = self->_recordingLimitTimer;
+    v6 = recordingLimitTimer;
+    dispatch_source_cancel(v6);
+    v7 = self->_recordingLimitTimer;
     self->_recordingLimitTimer = 0;
   }
 
-  v7 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, self->_dispatchQueue);
-  v8 = self->_recordingLimitTimer;
-  self->_recordingLimitTimer = v7;
-  v9 = v7;
+  v8 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, self->_dispatchQueue);
+  v9 = self->_recordingLimitTimer;
+  self->_recordingLimitTimer = v8;
+  v10 = v8;
 
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __43__RPSiriSession__recordingLimitTimerStart___block_invoke;
-  v10[3] = &unk_1E7C92D80;
-  v10[4] = v9;
-  v10[5] = self;
-  dispatch_source_set_event_handler(v9, v10);
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __43__RPSiriSession__recordingLimitTimerStart___block_invoke;
+  v11[3] = &unk_1E7C92D80;
+  v11[4] = v10;
+  v11[5] = self;
+  dispatch_source_set_event_handler(v10, v11);
   CUDispatchTimerSet();
-  dispatch_activate(v9);
+  dispatch_activate(v10);
 }
 
 void *__43__RPSiriSession__recordingLimitTimerStart___block_invoke(uint64_t a1)
@@ -1129,32 +1188,20 @@ void *__43__RPSiriSession__recordingLimitTimerStart___block_invoke(uint64_t a1)
 
 - (void)_recordingLimitTimerFired
 {
-  if (gLogCategory_RPSiriSession <= 30 && (gLogCategory_RPSiriSession != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (gLogCategory_RPSiriSession <= 30)
   {
-    [RPSiriSession _recordingLimitTimerFired];
+    if (gLogCategory_RPSiriSession != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      [(RPSiriSession *)self _recordingLimitTimerFired];
+    }
   }
 
-  if (_os_feature_enabled_impl() && [(RPSiriSession *)self isDestinationPTTEligible])
+  if (_os_feature_enabled_impl() && [(RPSiriSession *)selfCopy isDestinationPTTEligible])
   {
 
-    [(RPSiriSession *)self _stopRecording];
+    [(RPSiriSession *)selfCopy _stopRecording];
   }
-}
-
-uint64_t __69__RPSiriSession_voiceControllerDidStopRecording_forStream_forReason___block_invoke_cold_1(uint64_t a1)
-{
-  v2 = *(a1 + 40);
-  v3 = *(a1 + 48);
-  return LogPrintF();
-}
-
-uint64_t __63__RPSiriSession_voiceControllerAudioCallback_forStream_buffer___block_invoke_cold_1(uint64_t a1)
-{
-  [*(a1 + 40) timeStamp];
-  [*(a1 + 40) bytesDataSize];
-  [*(a1 + 40) packetDescriptionCount];
-  [*(a1 + 40) channels];
-  return LogPrintF();
 }
 
 @end

@@ -75,7 +75,7 @@ void __69__SBSCaptureButtonAppConfigurationClient_establishConnectionIfNeeded__b
 {
   v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = SBLogCameraCaptureAppConfiguration();
+  v3 = SBLogCameraCaptureAppConfiguration(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 138412290;
@@ -91,7 +91,7 @@ void __69__SBSCaptureButtonAppConfigurationClient_establishConnectionIfNeeded__b
   v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v5 = SBLogCameraCaptureAppConfiguration();
+  v5 = SBLogCameraCaptureAppConfiguration(WeakRetained);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
@@ -140,7 +140,7 @@ void __69__SBSCaptureButtonAppConfigurationClient_establishConnectionIfNeeded__b
 {
   v8 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
-  v4 = SBLogCameraCaptureAppConfiguration();
+  v4 = SBLogCameraCaptureAppConfiguration(identifierCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
@@ -162,7 +162,7 @@ void __95__SBSCaptureButtonAppConfigurationClient_receiveInitialOrUpdatedAssocia
 {
   v8 = *MEMORY[0x1E69E9840];
   appsCopy = apps;
-  v4 = SBLogCameraCaptureAppConfiguration();
+  v4 = SBLogCameraCaptureAppConfiguration(appsCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;

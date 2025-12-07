@@ -3,7 +3,7 @@
 
 @implementation AXSClipTracerAccessibilityModeEnabled
 
-uint64_t ___AXSClipTracerAccessibilityModeEnabled_block_invoke()
+void *___AXSClipTracerAccessibilityModeEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

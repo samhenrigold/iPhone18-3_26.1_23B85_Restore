@@ -37,7 +37,7 @@
         case 4:
           return qword_100558068;
         case 5:
-          return JavaUtilTreeMap_RelationEnum_values_;
+          return JavaUtilTreeMap_RelationEnum_values_[0];
         default:
 LABEL_13:
           v4 = new_JavaLangIllegalStateException_init();

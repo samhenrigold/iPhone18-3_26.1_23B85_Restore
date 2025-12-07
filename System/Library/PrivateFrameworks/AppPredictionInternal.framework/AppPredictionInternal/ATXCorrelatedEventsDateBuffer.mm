@@ -26,7 +26,7 @@
 
   else
   {
-    v5 = __atxlog_handle_default();
+    v5 = __atxlog_handle_default(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       [ATXCorrelatedEventsDateBuffer initWithBufferSeconds:v5 andBufferType:?];

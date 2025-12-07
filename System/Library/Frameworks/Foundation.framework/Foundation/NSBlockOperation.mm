@@ -139,11 +139,11 @@ LABEL_9:
   os_unfair_lock_unlock(&self->super._iop.__lock);
 }
 
-uint64_t __24__NSBlockOperation_main__block_invoke(uint64_t a1, uint64_t a2)
+uint64_t __24__NSBlockOperation_main__block_invoke(void *a1, uint64_t a2)
 {
   _CFSetTSD();
   _CFSetTSD();
-  __NSINDEXSET_IS_CALLING_OUT_TO_A_RANGE_BLOCK__(*(*(a1 + 48) + 8 * a2));
+  __NSINDEXSET_IS_CALLING_OUT_TO_A_RANGE_BLOCK__(*(a1[6] + 8 * a2));
   _CFSetTSD();
 
   return _CFSetTSD();

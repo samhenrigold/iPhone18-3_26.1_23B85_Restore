@@ -9,14 +9,13 @@
 {
   v4 = sub_10004C2F0();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  __chkstk_darwin(v4, v7);
-  v9 = &v11 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v4, v6);
+  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_10004C2E0();
   selfCopy = self;
   sub_10001727C();
 
-  (*(v5 + 8))(v9, v4);
+  (*(v5 + 8))(v8, v4);
 }
 
 - (NSString)accessibilityLabel

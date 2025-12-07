@@ -20,10 +20,10 @@
 
 - (id)newNativeViewController
 {
-  v3 = ISUIMobileStoreUIFramework();
+  v3 = ISUIMobileStoreUIFramework(self, a2);
   v4 = [objc_alloc(ISUIWeakLinkedClassForString(&cfstr_Suuidonationvi.isa v3))];
-  v5 = ISUIMobileStoreUIFramework();
-  [v4 setClientContext:{objc_msgSend(ISUIWeakLinkedClassForString(&cfstr_Suuiclientcont.isa, v5), "defaultContext")}];
+  v6 = ISUIMobileStoreUIFramework(v4, v5);
+  [v4 setClientContext:{objc_msgSend(ISUIWeakLinkedClassForString(&cfstr_Suuiclientcont.isa, v6), "defaultContext")}];
   return v4;
 }
 

@@ -22,7 +22,7 @@
 - (void)prepareLayout
 {
   selfCopy = self;
-  sub_BE1D8();
+  sub_BE1D8(selfCopy);
 }
 
 - (CGSize)collectionViewContentSize
@@ -65,21 +65,21 @@
   y = rect.origin.y;
   x = rect.origin.x;
   selfCopy = self;
-  sub_BE4C8(x, y, width, height);
-  v9 = v8;
+  sub_BE4C8(x, y, width, height, selfCopy, v8);
+  v10 = v9;
 
-  if (v9)
+  if (v10)
   {
-    sub_2B860(0, &qword_1C5C48);
-    v10.super.isa = sub_1449CC().super.isa;
+    sub_2B860(0, &qword_1C5C48, UICollectionViewLayoutAttributes_ptr);
+    v11.super.isa = sub_1449CC().super.isa;
   }
 
   else
   {
-    v10.super.isa = 0;
+    v11.super.isa = 0;
   }
 
-  return v10.super.isa;
+  return v11.super.isa;
 }
 
 - (id)layoutAttributesForItemAtIndexPath:(id)path
@@ -135,7 +135,7 @@
 
 - (void)prepareForCollectionViewUpdates:(id)updates
 {
-  sub_2B860(0, &qword_1C6A78);
+  sub_2B860(0, &qword_1C6A78, UICollectionViewUpdateItem_ptr);
   v5 = sub_1449DC();
   v7.receiver = self;
   v7.super_class = type metadata accessor for CompositeCollectionViewLayout();
@@ -146,14 +146,15 @@
 
 - (id)indexPathsToDeleteForDecorationViewOfKind:(id)kind
 {
-  sub_1448DC();
+  v4 = sub_1448DC();
+  v6 = v5;
   selfCopy = self;
-  sub_BF270();
+  sub_BF270(v4, v6);
 
   sub_140C2C();
-  v5.super.isa = sub_1449CC().super.isa;
+  v8.super.isa = sub_1449CC().super.isa;
 
-  return v5.super.isa;
+  return v8.super.isa;
 }
 
 + (Class)invalidationContextClass
@@ -177,9 +178,10 @@
   y = change.origin.y;
   x = change.origin.x;
   selfCopy = self;
-  v8 = sub_C0060(x, y, width, height);
+  sub_C0060(x, y, width, height);
+  v9 = v8;
 
-  return v8 & 1;
+  return v9 & 1;
 }
 
 - (id)invalidationContextForBoundsChange:(CGRect)change
@@ -189,7 +191,7 @@
   y = change.origin.y;
   x = change.origin.x;
   selfCopy = self;
-  v8 = sub_C0638(x, y, width, height);
+  v8 = sub_C0638(selfCopy, x, y, width, height);
 
   return v8;
 }
@@ -198,17 +200,18 @@
 {
   attributesCopy = attributes;
   selfCopy = self;
-  v6 = sub_C0B6C(attributesCopy);
+  v7 = sub_C0B6C(attributesCopy, v6);
 
-  return v6;
+  return v7;
 }
 
 - (BOOL)canBeEdited
 {
   selfCopy = self;
-  v3 = sub_C116C();
+  sub_C116C();
+  v4 = v3;
 
-  return v3 & 1;
+  return v4 & 1;
 }
 
 - (BOOL)isEditing

@@ -8,50 +8,48 @@
 
 - (NSDictionary)coreAnalyticsEventDictionary
 {
-  v18[11] = *MEMORY[0x277D85DE8];
-  v17[0] = @"numTransitions_toState1_Home";
-  v16 = [MEMORY[0x277CCABB0] numberWithInteger:{-[HMDHouseholdHomeActivityStateTransitionLogEvent homeCount](self, "homeCount")}];
-  v18[0] = v16;
-  v17[1] = @"numTransitions_toState2_Away";
-  v15 = [MEMORY[0x277CCABB0] numberWithInteger:{-[HMDHouseholdHomeActivityStateTransitionLogEvent awayCount](self, "awayCount")}];
-  v18[1] = v15;
-  v17[2] = @"numTransitions_toState4_Vacation";
+  v17[11] = *MEMORY[0x277D85DE8];
+  v16[0] = @"numTransitions_toState1_Home";
+  v15 = [MEMORY[0x277CCABB0] numberWithInteger:{-[HMDHouseholdHomeActivityStateTransitionLogEvent homeCount](self, "homeCount")}];
+  v17[0] = v15;
+  v16[1] = @"numTransitions_toState2_Away";
+  v14 = [MEMORY[0x277CCABB0] numberWithInteger:{-[HMDHouseholdHomeActivityStateTransitionLogEvent awayCount](self, "awayCount")}];
+  v17[1] = v14;
+  v16[2] = @"numTransitions_toState4_Vacation";
   v3 = [MEMORY[0x277CCABB0] numberWithInteger:{-[HMDHouseholdHomeActivityStateTransitionLogEvent vacationCount](self, "vacationCount")}];
-  v18[2] = v3;
-  v17[3] = @"numTransitions_toState6_ComingHome";
+  v17[2] = v3;
+  v16[3] = @"numTransitions_toState6_ComingHome";
   v4 = [MEMORY[0x277CCABB0] numberWithInteger:{-[HMDHouseholdHomeActivityStateTransitionLogEvent comingHomeCount](self, "comingHomeCount")}];
-  v18[3] = v4;
-  v17[4] = @"numTransitions_toState7_ComingHomeFromVacation";
+  v17[3] = v4;
+  v16[4] = @"numTransitions_toState7_ComingHomeFromVacation";
   v5 = [MEMORY[0x277CCABB0] numberWithInteger:{-[HMDHouseholdHomeActivityStateTransitionLogEvent comingHomeFromVacationCount](self, "comingHomeFromVacationCount")}];
-  v18[4] = v5;
-  v17[5] = @"numTransitions_reason1_automated";
+  v17[4] = v5;
+  v16[5] = @"numTransitions_reason1_automated";
   v6 = [MEMORY[0x277CCABB0] numberWithInteger:{-[HMDHouseholdHomeActivityStateTransitionLogEvent automatedCount](self, "automatedCount")}];
-  v18[5] = v6;
-  v17[6] = @"numTransitions_reason2_automatedHoldEnd";
+  v17[5] = v6;
+  v16[6] = @"numTransitions_reason2_automatedHoldEnd";
   v7 = [MEMORY[0x277CCABB0] numberWithInteger:{-[HMDHouseholdHomeActivityStateTransitionLogEvent automatedHoldEndCount](self, "automatedHoldEndCount")}];
-  v18[6] = v7;
-  v17[7] = @"numTransitions_reason3_manualHoldEnd";
+  v17[6] = v7;
+  v16[7] = @"numTransitions_reason3_manualHoldEnd";
   v8 = [MEMORY[0x277CCABB0] numberWithInteger:{-[HMDHouseholdHomeActivityStateTransitionLogEvent manualHoldEndCount](self, "manualHoldEndCount")}];
-  v18[7] = v8;
-  v17[8] = @"numTransitions_reason4_manualHoldStart";
+  v17[7] = v8;
+  v16[8] = @"numTransitions_reason4_manualHoldStart";
   v9 = [MEMORY[0x277CCABB0] numberWithInteger:{-[HMDHouseholdHomeActivityStateTransitionLogEvent manualHoldStartCount](self, "manualHoldStartCount")}];
-  v18[8] = v9;
-  v17[9] = @"numTransitions_reason5_other";
+  v17[8] = v9;
+  v16[9] = @"numTransitions_reason5_other";
   v10 = [MEMORY[0x277CCABB0] numberWithInteger:{-[HMDHouseholdHomeActivityStateTransitionLogEvent otherCount](self, "otherCount")}];
-  v18[9] = v10;
-  v17[10] = @"numTransitions_reason_total";
+  v17[9] = v10;
+  v16[10] = @"numTransitions_reason_total";
   v11 = [MEMORY[0x277CCABB0] numberWithInteger:{-[HMDHouseholdHomeActivityStateTransitionLogEvent totalCount](self, "totalCount")}];
-  v18[10] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:11];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v17[10] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:11];
 
   return v12;
 }
 
 - (HMDHouseholdHomeActivityStateTransitionLogEvent)initWithDictionary:(id)dictionary
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v5 = [dictionaryCopy objectForKeyedSubscript:@"homeUUID"];
   objc_opt_class();
@@ -68,7 +66,7 @@
   v7 = v6;
 
   [MEMORY[0x277CCAD78] UUID];
-  v60 = v7;
+  v59 = v7;
   v8 = [objc_claimAutoreleasedReturnValue() initWithUUIDString:v7];
   if (v8)
   {
@@ -140,15 +138,15 @@
       v22 = 0;
     }
 
-    v59 = v22;
+    v58 = v22;
 
-    v56 = v17;
-    v57 = v11;
-    v58 = v20;
-    if (v11 && v14 && v17 && v20 && v59)
+    v55 = v17;
+    v56 = v11;
+    v57 = v20;
+    if (v11 && v14 && v17 && v20 && v58)
     {
       selfCopy = self;
-      v55 = v14;
+      v54 = v14;
       v23 = [dictionaryCopy objectForKeyedSubscript:@"numTransitions_reason1_automated"];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
@@ -223,7 +221,7 @@
       v39 = v31;
       if (v25 && v32 && v31 && v35 && v38)
       {
-        selfCopy3 = -[HMDHouseholdHomeActivityStateTransitionLogEvent initWithHomeUUID:homeCount:awayCount:vacationCount:comingHomeCount:comingHomeFromVacationCount:automatedCount:automatedHoldEndCount:manualHoldEndCount:manualHoldStartCount:otherCount:](selfCopy, "initWithHomeUUID:homeCount:awayCount:vacationCount:comingHomeCount:comingHomeFromVacationCount:automatedCount:automatedHoldEndCount:manualHoldEndCount:manualHoldStartCount:otherCount:", v8, [v57 integerValue], objc_msgSend(v55, "integerValue"), objc_msgSend(v17, "integerValue"), objc_msgSend(v58, "integerValue"), objc_msgSend(v59, "integerValue"), objc_msgSend(v25, "integerValue"), objc_msgSend(v32, "integerValue"), objc_msgSend(v31, "integerValue"), objc_msgSend(v35, "integerValue"), objc_msgSend(v38, "integerValue"));
+        selfCopy3 = -[HMDHouseholdHomeActivityStateTransitionLogEvent initWithHomeUUID:homeCount:awayCount:vacationCount:comingHomeCount:comingHomeFromVacationCount:automatedCount:automatedHoldEndCount:manualHoldEndCount:manualHoldStartCount:otherCount:](selfCopy, "initWithHomeUUID:homeCount:awayCount:vacationCount:comingHomeCount:comingHomeFromVacationCount:automatedCount:automatedHoldEndCount:manualHoldEndCount:manualHoldStartCount:otherCount:", v8, [v56 integerValue], objc_msgSend(v54, "integerValue"), objc_msgSend(v17, "integerValue"), objc_msgSend(v57, "integerValue"), objc_msgSend(v58, "integerValue"), objc_msgSend(v25, "integerValue"), objc_msgSend(v32, "integerValue"), objc_msgSend(v31, "integerValue"), objc_msgSend(v35, "integerValue"), objc_msgSend(v38, "integerValue"));
         v41 = selfCopy3;
       }
 
@@ -235,21 +233,21 @@
         if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
         {
           HMFGetLogIdentifier();
-          v50 = v54 = v48;
+          v50 = v53 = v48;
           *buf = 138543618;
-          v62 = v50;
-          v63 = 2112;
-          v64 = dictionaryCopy;
+          v61 = v50;
+          v62 = 2112;
+          v63 = dictionaryCopy;
           _os_log_impl(&dword_229538000, v49, OS_LOG_TYPE_ERROR, "%{public}@Failed to initialize from dictionary -- missing transition reason counts: %@", buf, 0x16u);
 
-          v48 = v54;
+          v48 = v53;
         }
 
         objc_autoreleasePoolPop(v48);
         v41 = 0;
       }
 
-      v14 = v55;
+      v14 = v54;
     }
 
     else
@@ -261,9 +259,9 @@
       {
         v47 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v62 = v47;
-        v63 = 2112;
-        v64 = dictionaryCopy;
+        v61 = v47;
+        v62 = 2112;
+        v63 = dictionaryCopy;
         _os_log_impl(&dword_229538000, v46, OS_LOG_TYPE_ERROR, "%{public}@Failed to initialize from dictionary -- missing activity state type counts: %@", buf, 0x16u);
       }
 
@@ -281,9 +279,9 @@
     {
       v44 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v62 = v44;
-      v63 = 2112;
-      v64 = dictionaryCopy;
+      v61 = v44;
+      v62 = 2112;
+      v63 = dictionaryCopy;
       _os_log_impl(&dword_229538000, v43, OS_LOG_TYPE_ERROR, "%{public}@Failed to initialize from dictionary -- missing homeUUID: %@", buf, 0x16u);
     }
 
@@ -291,7 +289,6 @@
     v41 = 0;
   }
 
-  v51 = *MEMORY[0x277D85DE8];
   return v41;
 }
 

@@ -26,11 +26,11 @@
 
 void __51__SSMetricsEventTable_performTransactionWithBlock___block_invoke(uint64_t a1)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 40);
-  v23.receiver = *(a1 + 32);
-  v23.super_class = SSMetricsEventTable;
-  objc_msgSendSuper2(&v23, sel_performTransactionWithBlock_, v2);
+  v21.receiver = *(a1 + 32);
+  v21.super_class = SSMetricsEventTable;
+  objc_msgSendSuper2(&v21, sel_performTransactionWithBlock_, v2);
   v3 = [*(a1 + 32) _pragmaValueForName:@"freelist_count"];
   v4 = [v3 integerValue];
 
@@ -51,43 +51,46 @@ void __51__SSMetricsEventTable_performTransactionWithBlock___block_invoke(uint64
   v8 = [v7 shouldLog];
   if ([v7 shouldLogToDisk])
   {
-    v9 = v8 | 2;
+    LODWORD(v9) = v8 | 2;
   }
 
   else
   {
-    v9 = v8;
+    LODWORD(v9) = v8;
   }
 
   v10 = [v7 OSLogObject];
-  if (!os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  {
+    v9 = v9;
+  }
+
+  else
   {
     v9 &= 2u;
   }
 
   if (!v9)
   {
-    goto LABEL_12;
+    goto LABEL_13;
   }
 
   v11 = objc_opt_class();
-  v24 = 138543874;
-  v25 = v11;
+  v22 = 138543874;
+  v23 = v11;
+  v24 = 2048;
+  v25 = v4;
   v26 = 2048;
-  v27 = v4;
-  v28 = 2048;
-  v29 = v6;
+  v27 = v6;
   v12 = v11;
-  LODWORD(v22) = 32;
-  v21 = &v24;
-  v13 = _os_log_send_and_compose_impl();
+  v13 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &dword_1D48BA000, v10, 1, "%{public}@: Free page count (%ld) exceeded maximum. Vacuuming the database. auto_vacuum = %ld", &v22, 32);
 
   if (v13)
   {
-    v10 = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:{4, &v24, v22}];
+    v10 = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:4];
     free(v13);
     SSFileLog(v7, @"%@", v14, v15, v16, v17, v18, v19, v10);
-LABEL_12:
+LABEL_13:
   }
 
   if (v6)
@@ -105,7 +108,7 @@ LABEL_12:
     v20 = @"VACUUM;";
   }
 
-  [*(*(a1 + 32) + 8) executeSQL:{v20, v21}];
+  [*(*(a1 + 32) + 8) executeSQL:v20];
 }
 
 + (id)databasePath
@@ -121,8 +124,7 @@ LABEL_12:
 - (BOOL)_migrateToVersion1
 {
   _eventsTableName = [objc_opt_class() _eventsTableName];
-  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"CREATE TABLE IF NOT EXISTS %@ (%@ INTEGER, %@ TEXT, %@ BLOB, %@ REAL, %@ INTEGER, PRIMARY KEY (%@))", _eventsTableName, @"pid", @"report_url", @"eventBody", @"timestampInserted", @"timestampReported", @"pid"];;
-  if (-[SSSQLiteDatabase executeSQL:](self->super._database, "executeSQL:", @"PRAGMA legacy_file_format = 0;") && -[SSSQLiteDatabase executeSQL:](self->super._database, "executeSQL:", @"PRAGMA journal_mode=WAL;") && -[SSSQLiteDatabase executeSQL:](self->super._database, "executeSQL:", v4) && (v5 = self->super._database, [MEMORY[0x1E696AEC0] stringWithFormat:@"CREATE INDEX IF NOT EXISTS %@_%@ ON %@ (%@);", _eventsTableName, @"report_url", _eventsTableName, @"report_url"], v6 = objc_claimAutoreleasedReturnValue(), LODWORD(v5) = -[SSSQLiteDatabase executeSQL:](v5, "executeSQL:", v6), v6, v5) && (v7 = self->super._database, objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"CREATE INDEX IF NOT EXISTS %@_%@ ON %@ (%@);", _eventsTableName, @"timestampInserted", _eventsTableName, @"timestampInserted"), v8 = objc_claimAutoreleasedReturnValue(), LODWORD(v7) = -[SSSQLiteDatabase executeSQL:](v7, "executeSQL:", v8), v8, v7))
+  if (-[SSSQLiteDatabase executeSQL:](self->super._database, "executeSQL:", @"PRAGMA legacy_file_format = 0") && -[SSSQLiteDatabase executeSQL:](self->super._database, "executeSQL:", @"PRAGMA journal_mode=WAL;") && -[SSSQLiteDatabase executeSQL:](self->super._database, "executeSQL:", v4) && (v5 = self->super._database, [MEMORY[0x1E696AEC0] stringWithFormat:@"CREATE INDEX IF NOT EXISTS %@_%@ ON %@ (%@);", _eventsTableName, @"report_url", _eventsTableName, @"report_url"], v6 = v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"CREATE TABLE IF NOT EXISTS %@ (%@ INTEGER, %@ TEXT, %@ BLOB, %@ REAL, %@ INTEGER, PRIMARY KEY (%@))", _eventsTableName, @"pid", @"report_url", @"eventBody", @"timestampInserted", @"timestampReported", @"pid"];;
   {
     database = self->super._database;
     v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"CREATE INDEX IF NOT EXISTS %@_%@ ON %@ (%@)", _eventsTableName, @"timestampReported", _eventsTableName, @"timestampReported"];;
@@ -170,7 +172,7 @@ LABEL_12:
 
 - (BOOL)_setupDatabase
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   userVersion = [(SSSQLiteDatabase *)self->super._database userVersion];
   v4 = off_1E84AB000;
   v5 = +[SSLogConfig sharedStoreServicesConfig];
@@ -182,38 +184,41 @@ LABEL_12:
   shouldLog = [v5 shouldLog];
   if ([v5 shouldLogToDisk])
   {
-    v7 = shouldLog | 2;
+    LODWORD(v7) = shouldLog | 2;
   }
 
   else
   {
-    v7 = shouldLog;
+    LODWORD(v7) = shouldLog;
   }
 
   oSLogObject = [v5 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v7 = v7;
+  }
+
+  else
   {
     v7 &= 2u;
   }
 
   if (!v7)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
   v9 = [MEMORY[0x1E696AD98] numberWithInteger:userVersion];
-  v47 = 138412290;
-  v48 = v9;
-  LODWORD(v46) = 12;
-  v45 = &v47;
-  v10 = _os_log_send_and_compose_impl();
+  v46 = 138412290;
+  v47 = v9;
+  v10 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &dword_1D48BA000, oSLogObject, 1, "Metrics User database current version: %@", &v46, 12);
 
   if (v10)
   {
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:{4, &v47, v46}];
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:4];
     free(v10);
     SSFileLog(v5, @"%@", v11, v12, v13, v14, v15, v16, oSLogObject);
-LABEL_11:
+LABEL_12:
   }
 
   [(SSSQLiteDatabase *)self->super._database executeSQL:@"PRAGMA auto_vacuum = 2;"];
@@ -225,8 +230,8 @@ LABEL_11:
   v17 = userVersion < 3;
   if (userVersion > 2)
   {
-LABEL_38:
-    [(SSSQLiteDatabase *)self->super._database setUserVersion:3, v45];
+LABEL_40:
+    [(SSSQLiteDatabase *)self->super._database setUserVersion:3];
     return v17;
   }
 
@@ -236,59 +241,63 @@ LABEL_38:
     userVersion = 3;
     if (![(SSMetricsEventTable *)self _migrateToVersion3])
     {
-      goto LABEL_39;
+      goto LABEL_41;
     }
 
-LABEL_26:
-    sharedConfig = [(__objc2_class *)v4[75] sharedStoreServicesConfig:v45];
-    if (!sharedConfig)
+LABEL_27:
+    sharedStoreServicesConfig = [(__objc2_class *)v4[75] sharedStoreServicesConfig];
+    if (!sharedStoreServicesConfig)
     {
-      sharedConfig = [(__objc2_class *)v4[75] sharedConfig];
+      sharedStoreServicesConfig = [(__objc2_class *)v4[75] sharedConfig];
     }
 
     v20 = v4;
-    shouldLog2 = [sharedConfig shouldLog];
-    if ([sharedConfig shouldLogToDisk])
+    shouldLog2 = [sharedStoreServicesConfig shouldLog];
+    if ([sharedStoreServicesConfig shouldLogToDisk])
     {
-      v22 = shouldLog2 | 2;
+      LODWORD(v22) = shouldLog2 | 2;
     }
 
     else
     {
-      v22 = shouldLog2;
+      LODWORD(v22) = shouldLog2;
     }
 
-    oSLogObject2 = [sharedConfig OSLogObject];
-    if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
+    oSLogObject2 = [sharedStoreServicesConfig OSLogObject];
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
+    {
+      v22 = v22;
+    }
+
+    else
     {
       v22 &= 2u;
     }
 
     if (!v22)
     {
-      goto LABEL_36;
+      goto LABEL_38;
     }
 
     v24 = [MEMORY[0x1E696AD98] numberWithInteger:userVersion];
-    v47 = 138412290;
-    v48 = v24;
-    LODWORD(v46) = 12;
-    v45 = &v47;
-    v25 = _os_log_send_and_compose_impl();
+    v46 = 138412290;
+    v47 = v24;
+    LODWORD(v45) = 12;
+    v25 = _os_log_send_and_compose_impl(v22, 0, 0, 0, &dword_1D48BA000, oSLogObject2, 1, "Metrics User database migrated to version %@", &v46, v45);
 
     if (v25)
     {
-      oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v25 encoding:{4, &v47, v46}];
+      oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v25 encoding:4];
       free(v25);
-      SSFileLog(sharedConfig, @"%@", v26, v27, v28, v29, v30, v31, oSLogObject2);
-LABEL_36:
+      SSFileLog(sharedStoreServicesConfig, @"%@", v26, v27, v28, v29, v30, v31, oSLogObject2);
+LABEL_38:
     }
 
     v18 = 1;
     v4 = v20;
     if (userVersion >= 3)
     {
-      goto LABEL_38;
+      goto LABEL_40;
     }
   }
 
@@ -297,10 +306,10 @@ LABEL_36:
     userVersion = 2;
     if (![(SSMetricsEventTable *)self _migrateToVersion2])
     {
-      goto LABEL_39;
+      goto LABEL_41;
     }
 
-    goto LABEL_26;
+    goto LABEL_27;
   }
 
   if (!userVersion)
@@ -308,37 +317,42 @@ LABEL_36:
     userVersion = 1;
     if (![(SSMetricsEventTable *)self _migrateToVersion1])
     {
-      goto LABEL_39;
+      goto LABEL_41;
     }
 
-    goto LABEL_26;
+    goto LABEL_27;
   }
 
   if (v18)
   {
-    goto LABEL_26;
+    goto LABEL_27;
   }
 
-LABEL_39:
-  sharedStoreServicesConfig = [(__objc2_class *)v4[75] sharedStoreServicesConfig];
-  if (!sharedStoreServicesConfig)
+LABEL_41:
+  sharedStoreServicesConfig2 = [(__objc2_class *)v4[75] sharedStoreServicesConfig];
+  if (!sharedStoreServicesConfig2)
   {
-    sharedStoreServicesConfig = [(__objc2_class *)v4[75] sharedConfig];
+    sharedStoreServicesConfig2 = [(__objc2_class *)v4[75] sharedConfig];
   }
 
-  shouldLog3 = [sharedStoreServicesConfig shouldLog];
-  if ([sharedStoreServicesConfig shouldLogToDisk])
+  shouldLog3 = [sharedStoreServicesConfig2 shouldLog];
+  if ([sharedStoreServicesConfig2 shouldLogToDisk])
   {
-    v34 = shouldLog3 | 2;
+    LODWORD(v34) = shouldLog3 | 2;
   }
 
   else
   {
-    v34 = shouldLog3;
+    LODWORD(v34) = shouldLog3;
   }
 
-  oSLogObject3 = [sharedStoreServicesConfig OSLogObject];
-  if (!os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_INFO))
+  oSLogObject3 = [sharedStoreServicesConfig2 OSLogObject];
+  if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_INFO))
+  {
+    v34 = v34;
+  }
+
+  else
   {
     v34 &= 2u;
   }
@@ -346,23 +360,23 @@ LABEL_39:
   if (v34)
   {
     v36 = [MEMORY[0x1E696AD98] numberWithInteger:userVersion];
-    v47 = 138412290;
-    v48 = v36;
-    LODWORD(v46) = 12;
-    v37 = _os_log_send_and_compose_impl();
+    v46 = 138412290;
+    v47 = v36;
+    LODWORD(v45) = 12;
+    v37 = _os_log_send_and_compose_impl(v34, 0, 0, 0, &dword_1D48BA000, oSLogObject3, 1, "Metrics Errored out at version %@", &v46, v45);
 
     if (v37)
     {
-      oSLogObject3 = [MEMORY[0x1E696AEC0] stringWithCString:v37 encoding:{4, &v47, v46}];
+      oSLogObject3 = [MEMORY[0x1E696AEC0] stringWithCString:v37 encoding:4];
       free(v37);
-      SSFileLog(sharedStoreServicesConfig, @"%@", v38, v39, v40, v41, v42, v43, oSLogObject3);
-      goto LABEL_49;
+      SSFileLog(sharedStoreServicesConfig2, @"%@", v38, v39, v40, v41, v42, v43, oSLogObject3);
+      goto LABEL_52;
     }
   }
 
   else
   {
-LABEL_49:
+LABEL_52:
   }
 
   return 0;

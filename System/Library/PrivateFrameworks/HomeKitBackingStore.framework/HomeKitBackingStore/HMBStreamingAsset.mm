@@ -43,7 +43,7 @@
 
 - (id)hmbObjectByMergingFromObject:(id)object
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -99,21 +99,19 @@
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       v13 = HMFGetLogIdentifier();
-      v23 = 138543874;
-      v24 = v13;
-      v25 = 2112;
-      v26 = objc_opt_class();
-      v27 = 2112;
-      v28 = objectCopy;
-      v14 = v26;
-      _os_log_impl(&dword_22AD27000, v12, OS_LOG_TYPE_ERROR, "%{public}@Asked to merge from unexpected object of class %@: %@", &v23, 0x20u);
+      v22 = 138543874;
+      v23 = v13;
+      v24 = 2112;
+      v25 = objc_opt_class();
+      v26 = 2112;
+      v27 = objectCopy;
+      v14 = v25;
+      _os_log_impl(&dword_22AD27000, v12, OS_LOG_TYPE_ERROR, "%{public}@Asked to merge from unexpected object of class %@: %@", &v22, 0x20u);
     }
 
     objc_autoreleasePoolPop(v10);
     v15 = selfCopy;
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -140,18 +138,16 @@
 
 - (id)attributeDescriptions
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   uploadStreamingAsset = [(HMBStreamingAsset *)self uploadStreamingAsset];
   v5 = [v3 initWithName:@"Upload Streaming Asset" value:uploadStreamingAsset];
-  v12[0] = v5;
+  v11[0] = v5;
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   downloadStreamingAsset = [(HMBStreamingAsset *)self downloadStreamingAsset];
   v8 = [v6 initWithName:@"Download Streaming Asset" value:downloadStreamingAsset];
-  v12[1] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v11[1] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
 
   return v9;
 }
@@ -175,7 +171,7 @@
 
 + (void)applyNativeCKValue:(id)value fromSource:(unint64_t)source associatingWith:(id)with toModel:(id)model propertyNamed:(id)named
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   withCopy = with;
   modelCopy = model;
@@ -238,18 +234,18 @@
       {
         v25 = HMFGetLogIdentifier();
         [modelCopy hmbDescription];
-        v26 = v28 = v22;
+        v26 = v27 = v22;
         *buf = 138544130;
-        v30 = v25;
-        v31 = 2112;
-        v32 = v16;
-        v33 = 2112;
-        v34 = v26;
-        v35 = 2112;
-        v36 = namedCopy;
+        v29 = v25;
+        v30 = 2112;
+        v31 = v16;
+        v32 = 2112;
+        v33 = v26;
+        v34 = 2112;
+        v35 = namedCopy;
         _os_log_impl(&dword_22AD27000, v24, OS_LOG_TYPE_ERROR, "%{public}@Unexpectedly found %@ in CKRecord field for wrapped model value %@/%@ which we expected to be a CKStreamingAsset (ignoring).", buf, 0x2Au);
 
-        v22 = v28;
+        v22 = v27;
       }
 
       objc_autoreleasePoolPop(v22);
@@ -260,8 +256,6 @@
   {
     [modelCopy hmbSetProperty:0 named:namedCopy];
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 + (id)hmbDecodeData:(id)data fromStorageLocation:(unint64_t)location error:(id *)error
@@ -324,16 +318,14 @@
 
 void __61__HMBStreamingAsset_hmbDecodeData_fromStorageLocation_error___block_invoke()
 {
-  v5[2] = *MEMORY[0x277D85DE8];
+  v4[2] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEB98];
-  v5[0] = objc_opt_class();
-  v5[1] = objc_opt_class();
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:2];
+  v4[0] = objc_opt_class();
+  v4[1] = objc_opt_class();
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:2];
   v2 = [v0 setWithArray:v1];
   v3 = hmbDecodeData_fromStorageLocation_error__allowedClasses;
   hmbDecodeData_fromStorageLocation_error__allowedClasses = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 @end

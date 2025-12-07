@@ -42,12 +42,12 @@ void __52__HFCameraAnalyticsPayloadDecorator_sharedDecorator__block_invoke()
     [(HFCameraAnalyticsPayloadDecorator *)v2 _initialiseAdditionalPayload];
     v5 = +[HFHomeKitDispatcher sharedDispatcher];
     [v5 addHomeManagerObserver:v2];
-    home = [v5 home];
+    v6 = objc_msgSend_home(v5);
 
-    if (home)
+    if (v6)
     {
-      home2 = [v5 home];
-      [(HFCameraAnalyticsPayloadDecorator *)v2 _updateHomeInformation:home2];
+      v7 = objc_msgSend_home(v5);
+      [(HFCameraAnalyticsPayloadDecorator *)v2 _updateHomeInformation:v7];
     }
   }
 
@@ -98,7 +98,7 @@ void __52__HFCameraAnalyticsPayloadDecorator_sharedDecorator__block_invoke()
 
 void __60__HFCameraAnalyticsPayloadDecorator__updateHomeInformation___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -107,15 +107,15 @@ void __60__HFCameraAnalyticsPayloadDecorator__updateHomeInformation___block_invo
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v8 = *(a1 + 32);
-      v31 = 138412546;
-      v32 = v8;
-      v33 = 2112;
-      v34 = v6;
+      v30 = 138412546;
+      v31 = v8;
+      v32 = 2112;
+      v33 = v6;
       v9 = "Unable to reverse geocode home location for home:%@ error:%@";
       v10 = v7;
       v11 = 22;
 LABEL_15:
-      _os_log_error_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_ERROR, v9, &v31, v11);
+      _os_log_error_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_ERROR, v9, &v30, v11);
     }
   }
 
@@ -153,17 +153,15 @@ LABEL_15:
     v7 = HFLogForCategory(6uLL);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v30 = *(a1 + 32);
-      v31 = 138412290;
-      v32 = v30;
+      v29 = *(a1 + 32);
+      v30 = 138412290;
+      v31 = v29;
       v9 = "No placemarks from reverse geocode home location for home:%@";
       v10 = v7;
       v11 = 12;
       goto LABEL_15;
     }
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)homeManagerDidFinishInitialDatabaseLoad:(id)load

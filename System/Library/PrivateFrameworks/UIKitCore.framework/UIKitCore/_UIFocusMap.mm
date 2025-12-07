@@ -1354,9 +1354,9 @@ LABEL_103:
           if (v154)
           {
             v99 = [(_UIDynamicFocusGroupMap *)v152 focusGroupIdentifierForItem:v96];
-            v100 = [v154 isEqual:v99];
+            isEqual = objc_msgSend_isEqual_(v154);
 
-            if (!v100)
+            if (!isEqual)
             {
 
               snapshotCopy = v191;

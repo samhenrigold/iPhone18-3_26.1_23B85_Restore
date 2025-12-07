@@ -274,7 +274,7 @@ LABEL_29:
   }
 
   v20 = type - 4;
-  v21 = CAMPortraitModeInstructionLabelMeasurementFormatter();
+  v21 = CAMPortraitModeInstructionLabelMeasurementFormatter(self);
   locale = [v21 locale];
   v23 = [locale objectForKey:*MEMORY[0x1E695D9B8]];
   v24 = +[CAMCaptureCapabilities capabilities];

@@ -103,7 +103,7 @@
   v55 = 0u;
   v52 = 0u;
   v53 = 0u;
-  [(CKColoredBalloonView *)self balloonDescriptor];
+  objc_msgSend_balloonDescriptor(self);
   gradientView = [(CKColoredBalloonView *)self gradientView];
   v12 = +[CKUIBehavior sharedBehaviors];
   theme = [v12 theme];
@@ -204,7 +204,7 @@
 
     else
     {
-      [(CKBalloonView *)self balloonDescriptorForAbsentBalloonShape];
+      objc_msgSend_balloonDescriptorForAbsentBalloonShape(self);
     }
 
     traitCollection = [(CKColoredBalloonView *)self traitCollection];
@@ -577,7 +577,7 @@ LABEL_6:
   v13 = 0u;
   v10 = 0u;
   v11 = 0u;
-  [(CKColoredBalloonView *)self balloonDescriptor];
+  objc_msgSend_balloonDescriptor(self, a2);
   if (IMColorComponentsIsZero())
   {
     v3 = +[CKUIBehavior sharedBehaviors];
@@ -768,7 +768,7 @@ id __49__CKColoredBalloonView_resolvedGlassBalloonColor__block_invoke(uint64_t a
       v23 = 0u;
       v20 = 0u;
       v21 = 0u;
-      [(CKColoredBalloonView *)self balloonDescriptor];
+      objc_msgSend_balloonDescriptor(self);
       v9 = [_TtC7ChatKit18CKBalloonMaskLayer alloc];
       v19[4] = v24;
       v19[5] = v25;

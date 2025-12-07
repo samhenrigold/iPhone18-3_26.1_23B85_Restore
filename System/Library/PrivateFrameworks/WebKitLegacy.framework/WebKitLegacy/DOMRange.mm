@@ -115,36 +115,43 @@ LABEL_12:
 {
   textCopy = text;
   WebCore::makeSimpleRange();
-  v4 = *(*(*(v11 + 6) + 8) + 552);
+  v4 = *(*(*(v12 + 6) + 8) + 552);
   if (v4 && (v5 = *(v4 + 8)) != 0)
   {
     ++*(v5 + 4);
-    WebCore::createDragImageForRange(v5, &v11, textCopy);
+    WebCore::createDragImageForRange(&arg, v5, &v12, textCopy);
     v6 = arg;
-    if (arg)
+    arg = 0;
+    if (v6)
     {
-      CFAutorelease(arg);
+      CFAutorelease(v6);
+      v7 = arg;
+      arg = 0;
+      if (v7)
+      {
+        CFRelease(v7);
+      }
     }
 
     if (*(v5 + 4) == 1)
     {
       (*(*v5 + 8))(v5);
-      v7 = v12;
-      v12 = 0;
-      if (!v7)
+      v8 = v13;
+      v13 = 0;
+      if (!v8)
       {
-        goto LABEL_13;
+        goto LABEL_14;
       }
     }
 
     else
     {
       --*(v5 + 4);
-      v7 = v12;
-      v12 = 0;
-      if (!v7)
+      v8 = v13;
+      v13 = 0;
+      if (!v8)
       {
-        goto LABEL_13;
+        goto LABEL_14;
       }
     }
   }
@@ -152,44 +159,44 @@ LABEL_12:
   else
   {
     v6 = 0;
-    v7 = v12;
-    v12 = 0;
-    if (!v7)
+    v8 = v13;
+    v13 = 0;
+    if (!v8)
     {
-      goto LABEL_13;
+      goto LABEL_14;
     }
   }
 
-  if (*(v7 + 7) == 2)
+  if (*(v8 + 7) == 2)
   {
-    WebCore::Node::removedLastRef(v7);
-    v8 = v11;
-    v11 = 0;
-    if (!v8)
+    WebCore::Node::removedLastRef(v8);
+    v9 = v12;
+    v12 = 0;
+    if (!v9)
     {
       return v6;
     }
 
-    goto LABEL_14;
+    goto LABEL_15;
   }
 
-  *(v7 + 7) -= 2;
-LABEL_13:
-  v8 = v11;
-  v11 = 0;
-  if (!v8)
-  {
-    return v6;
-  }
-
+  *(v8 + 7) -= 2;
 LABEL_14:
-  if (*(v8 + 7) != 2)
+  v9 = v12;
+  v12 = 0;
+  if (!v9)
   {
-    *(v8 + 7) -= 2;
     return v6;
   }
 
-  WebCore::Node::removedLastRef(v8);
+LABEL_15:
+  if (*(v9 + 7) != 2)
+  {
+    *(v9 + 7) -= 2;
+    return v6;
+  }
+
+  WebCore::Node::removedLastRef(v9);
   return v6;
 }
 
@@ -644,27 +651,30 @@ LABEL_19:
 - (__int16)compareBoundaryPoints:(unsigned __int16)how sourceRange:(DOMRange *)sourceRange
 {
   v5 = how;
-  WebCore::JSMainThreadNullState::JSMainThreadNullState(v13);
+  WebCore::JSMainThreadNullState::JSMainThreadNullState(v15);
   if (!sourceRange)
   {
     raiseTypeErrorException();
   }
 
-  v7 = WebCore::Range::compareBoundaryPoints(self->super._internal, v5, sourceRange->super._internal);
-  if (v12)
+  v7 = WebCore::Range::compareBoundaryPoints(&v12, self->super._internal, sourceRange->super._internal, v5);
+  if (v14)
   {
-    if (v12 == 1)
+    if (v14 == 1)
     {
-      v13[80] = v10;
-      v14 = v11;
+      v15[80] = v12;
+      v11 = v13;
+      v13 = 0;
+      v16 = v11;
       raiseDOMErrorException();
     }
 
     mpark::throw_bad_variant_access(v7);
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(v13, v8);
-  return v10;
+  v9 = v12;
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(v15, v8);
+  return v9;
 }
 
 - (void)deleteContents
@@ -1095,52 +1105,58 @@ LABEL_16:
 
 - (__int16)comparePoint:(DOMNode *)refNode offset:(int)offset
 {
-  WebCore::JSMainThreadNullState::JSMainThreadNullState(v12);
+  WebCore::JSMainThreadNullState::JSMainThreadNullState(v14);
   if (!refNode)
   {
     raiseTypeErrorException();
   }
 
-  v6 = WebCore::Range::comparePoint(self->super._internal, refNode->super._internal);
-  if (v11)
+  v6 = WebCore::Range::comparePoint(&v11, self->super._internal, refNode->super._internal);
+  if (v13)
   {
-    if (v11 == 1)
+    if (v13 == 1)
     {
-      v12[80] = v9;
-      v13 = v10;
+      v14[80] = v11;
+      v10 = v12;
+      v12 = 0;
+      v15 = v10;
       raiseDOMErrorException();
     }
 
     mpark::throw_bad_variant_access(v6);
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(v12, v7);
-  return v9;
+  v8 = v11;
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(v14, v7);
+  return v8;
 }
 
 - (BOOL)isPointInRange:(DOMNode *)refNode offset:(int)offset
 {
-  WebCore::JSMainThreadNullState::JSMainThreadNullState(v12);
+  WebCore::JSMainThreadNullState::JSMainThreadNullState(v14);
   if (!refNode)
   {
     raiseTypeErrorException();
   }
 
-  isPointInRange = WebCore::Range::isPointInRange(self->super._internal, refNode->super._internal);
-  if (v11)
+  v6 = WebCore::Range::isPointInRange(&v11, self->super._internal, refNode->super._internal);
+  if (v13)
   {
-    if (v11 == 1)
+    if (v13 == 1)
     {
-      v12[80] = v9;
-      v13 = v10;
+      v14[80] = v11;
+      v10 = v12;
+      v12 = 0;
+      v15 = v10;
       raiseDOMErrorException();
     }
 
-    mpark::throw_bad_variant_access(isPointInRange);
+    mpark::throw_bad_variant_access(v6);
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(v12, v7);
-  return v9;
+  v8 = v11;
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(v14, v7);
+  return v8;
 }
 
 - (void)expand:(id)expand
@@ -1952,7 +1968,7 @@ LABEL_12:
   startPosition = [(DOMRange *)self startPosition];
   if (startPosition)
   {
-    [startPosition _visiblePosition];
+    objc_msgSend__visiblePosition(startPosition);
   }
 
   else
@@ -1963,7 +1979,7 @@ LABEL_12:
   endPosition = [(DOMRange *)self endPosition];
   if (endPosition)
   {
-    [endPosition _visiblePosition];
+    objc_msgSend__visiblePosition(endPosition);
   }
 
   else
@@ -2061,11 +2077,11 @@ LABEL_16:
 {
   if (position)
   {
-    [position _visiblePosition];
+    objc_msgSend__visiblePosition(position, a2);
     if (second)
     {
 LABEL_3:
-      [second _visiblePosition];
+      objc_msgSend__visiblePosition(second);
       goto LABEL_6;
     }
   }

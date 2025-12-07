@@ -39,7 +39,7 @@
 
 void __68__HDHRBloodPressureJournalSyncRequester_requestStateSyncWithReason___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a3;
   _HKInitializeLogging();
   v6 = HKLogBloodPressureJournal();
@@ -48,15 +48,14 @@ void __68__HDHRBloodPressureJournalSyncRequester_requestStateSyncWithReason___bl
   {
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(a1 + 32);
-      v9 = objc_opt_class();
-      v10 = *(a1 + 32);
-      v13 = 138543618;
+      v8 = objc_opt_class();
+      v9 = *(a1 + 32);
+      v11 = 138543618;
+      v12 = v8;
+      v13 = 2048;
       v14 = v9;
-      v15 = 2048;
-      v16 = v10;
-      v11 = v9;
-      _os_log_impl(&dword_229486000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@:%p] Successfully requested sync for blood pressure journal", &v13, 0x16u);
+      v10 = v8;
+      _os_log_impl(&dword_229486000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@:%p] Successfully requested sync for blood pressure journal", &v11, 0x16u);
     }
   }
 
@@ -64,26 +63,21 @@ void __68__HDHRBloodPressureJournalSyncRequester_requestStateSyncWithReason___bl
   {
     __68__HDHRBloodPressureJournalSyncRequester_requestStateSyncWithReason___block_invoke_cold_1(a1, v5, v7);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __68__HDHRBloodPressureJournalSyncRequester_requestStateSyncWithReason___block_invoke_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v6 = *(a1 + 32);
-  v7 = objc_opt_class();
-  v8 = *(a1 + 32);
-  v11 = 138543874;
+  v15 = *MEMORY[0x277D85DE8];
+  v6 = objc_opt_class();
+  v7 = *(a1 + 32);
+  v9 = 138543874;
+  v10 = v6;
+  v11 = 2048;
   v12 = v7;
-  v13 = 2048;
-  v14 = v8;
-  v15 = 2114;
-  v16 = a2;
-  v9 = v7;
-  _os_log_error_impl(&dword_229486000, a3, OS_LOG_TYPE_ERROR, "[%{public}@:%p] Failed to request sync for blood pressure journal with error: %{public}@", &v11, 0x20u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v13 = 2114;
+  v14 = a2;
+  v8 = v6;
+  _os_log_error_impl(&dword_229486000, a3, OS_LOG_TYPE_ERROR, "[%{public}@:%p] Failed to request sync for blood pressure journal with error: %{public}@", &v9, 0x20u);
 }
 
 @end

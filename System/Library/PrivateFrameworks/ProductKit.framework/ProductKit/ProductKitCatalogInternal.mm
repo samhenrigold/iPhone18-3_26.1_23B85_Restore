@@ -9,12 +9,11 @@
 {
   v3 = sub_260E68904();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x28223BE20](v3);
-  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_260E688C4();
-  v8 = _s10ProductKit22MarketingPartNumberURLV7isValid3urlSb10Foundation0F0V_tFZ_0();
-  (*(v4 + 8))(v7, v3);
+  v8 = _s10ProductKit22MarketingPartNumberURLV7isValid3urlSb10Foundation0F0V_tFZ_0(v7);
+  (*(v4 + 8))(v6, v3);
   return v8;
 }
 

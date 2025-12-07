@@ -155,32 +155,32 @@ LABEL_5:
 
 - (id)parameterStateFromDialogResponse:(id)response
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   responseCopy = response;
   if (responseCopy && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
     v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
-    v21 = responseCopy;
+    v20 = responseCopy;
     selectedItems = [responseCopy selectedItems];
-    v7 = [selectedItems countByEnumeratingWithState:&v22 objects:v30 count:16];
+    v7 = [selectedItems countByEnumeratingWithState:&v21 objects:v29 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v23;
+      v9 = *v22;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v23 != v9)
+          if (*v22 != v9)
           {
             objc_enumerationMutation(selectedItems);
           }
 
-          v11 = *(*(&v22 + 1) + 8 * i);
+          v11 = *(*(&v21 + 1) + 8 * i);
           v12 = objc_alloc([(WFEnumerationParameter *)self singleStateClass]);
           serializedPossibleState = [v11 serializedPossibleState];
           v14 = [v12 initWithSerializedRepresentation:serializedPossibleState variableProvider:0 parameter:self];
@@ -197,15 +197,15 @@ LABEL_5:
             {
               serializedPossibleState2 = [v11 serializedPossibleState];
               *buf = 136315394;
-              v27 = "[WFEnumerationParameter parameterStateFromDialogResponse:]";
-              v28 = 2112;
-              v29 = serializedPossibleState2;
+              v26 = "[WFEnumerationParameter parameterStateFromDialogResponse:]";
+              v27 = 2112;
+              v28 = serializedPossibleState2;
               _os_log_impl(&dword_1CA256000, v15, OS_LOG_TYPE_FAULT, "%s Failed to instantiate selected parameter state from serializedRepresentation: %@", buf, 0x16u);
             }
           }
         }
 
-        v8 = [selectedItems countByEnumeratingWithState:&v22 objects:v30 count:16];
+        v8 = [selectedItems countByEnumeratingWithState:&v21 objects:v29 count:16];
       }
 
       while (v8);
@@ -222,7 +222,7 @@ LABEL_5:
     }
 
     v18 = firstObject;
-    responseCopy = v21;
+    responseCopy = v20;
   }
 
   else
@@ -230,8 +230,6 @@ LABEL_5:
 
     v18 = 0;
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v18;
 }
@@ -345,7 +343,7 @@ void __99__WFEnumerationParameter_createDialogRequestWithAttribution_defaultStat
 
 - (BOOL)parameterStateIsValid:(id)valid
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   validCopy = valid;
   variable = [validCopy variable];
 
@@ -370,32 +368,32 @@ LABEL_21:
     }
 
     [validCopy parameterStates];
+    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
-    v30 = 0u;
-    supportedVariableTypes = v31 = 0u;
-    v11 = [supportedVariableTypes countByEnumeratingWithState:&v28 objects:v32 count:16];
+    supportedVariableTypes = v30 = 0u;
+    v11 = [supportedVariableTypes countByEnumeratingWithState:&v27 objects:v31 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v29;
+      v13 = *v28;
       while (2)
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v29 != v13)
+          if (*v28 != v13)
           {
             objc_enumerationMutation(supportedVariableTypes);
           }
 
-          v15 = *(*(&v28 + 1) + 8 * i);
+          v15 = *(*(&v27 + 1) + 8 * i);
           possibleStates = [(WFEnumerationParameter *)self possibleStates];
-          v27[0] = MEMORY[0x1E69E9820];
-          v27[1] = 3221225472;
-          v27[2] = __48__WFEnumerationParameter_parameterStateIsValid___block_invoke;
-          v27[3] = &unk_1E837AAC8;
-          v27[4] = v15;
-          v17 = [possibleStates indexOfObjectPassingTest:v27];
+          v26[0] = MEMORY[0x1E69E9820];
+          v26[1] = 3221225472;
+          v26[2] = __48__WFEnumerationParameter_parameterStateIsValid___block_invoke;
+          v26[3] = &unk_1E837AAC8;
+          v26[4] = v15;
+          v17 = [possibleStates indexOfObjectPassingTest:v26];
 
           if (v17 == 0x7FFFFFFFFFFFFFFFLL)
           {
@@ -404,7 +402,7 @@ LABEL_21:
           }
         }
 
-        v12 = [supportedVariableTypes countByEnumeratingWithState:&v28 objects:v32 count:16];
+        v12 = [supportedVariableTypes countByEnumeratingWithState:&v27 objects:v31 count:16];
         if (v12)
         {
           continue;
@@ -437,19 +435,18 @@ LABEL_20:
   else
   {
     possibleStates3 = [(WFEnumerationParameter *)self possibleStates];
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __48__WFEnumerationParameter_parameterStateIsValid___block_invoke_2;
-    v25[3] = &unk_1E837AAC8;
-    v26 = validCopy;
-    v21 = [possibleStates3 indexesOfObjectsPassingTest:v25];
+    v24[0] = MEMORY[0x1E69E9820];
+    v24[1] = 3221225472;
+    v24[2] = __48__WFEnumerationParameter_parameterStateIsValid___block_invoke_2;
+    v24[3] = &unk_1E837AAC8;
+    v25 = validCopy;
+    v21 = [possibleStates3 indexesOfObjectsPassingTest:v24];
 
     v10 = [v21 count] == 1;
   }
 
 LABEL_22:
 
-  v22 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -556,7 +553,7 @@ uint64_t __64__WFEnumerationParameter_statesForMultipleStateLabelWithStates___bl
 
 - (id)localizedLabelForMultipleState:(id)state
 {
-  v25[2] = *MEMORY[0x1E69E9840];
+  v24[2] = *MEMORY[0x1E69E9840];
   stateCopy = state;
   parameterStates = [stateCopy parameterStates];
   v6 = MEMORY[0x1E695DFB8];
@@ -611,9 +608,9 @@ LABEL_5:
     if (v16 && v19)
     {
       v20 = MEMORY[0x1E696AD08];
-      v25[0] = v16;
-      v25[1] = v19;
-      v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:2];
+      v24[0] = v16;
+      v24[1] = v19;
+      v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:2];
       v10 = [v20 localizedStringByJoiningStrings:v21];
     }
 
@@ -640,7 +637,6 @@ LABEL_5:
 LABEL_21:
 
 LABEL_22:
-  v23 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -952,17 +948,17 @@ id __46__WFEnumerationParameter_staticPossibleStates__block_invoke_2(uint64_t a1
 - (BOOL)wf_usesGroupTableViewStyle
 {
   tableViewStyle = [(WFEnumerationParameter *)self tableViewStyle];
-  v3 = [tableViewStyle isEqualToString:@"InsetGrouped"];
+  isEqualToString = objc_msgSend_isEqualToString_(tableViewStyle);
 
-  return v3;
+  return isEqualToString;
 }
 
 - (BOOL)wf_usesTogglesForSelection
 {
   selectionType = [(WFEnumerationParameter *)self selectionType];
-  v3 = [selectionType isEqualToString:@"Toggle"];
+  isEqualToString = objc_msgSend_isEqualToString_(selectionType);
 
-  return v3;
+  return isEqualToString;
 }
 
 @end

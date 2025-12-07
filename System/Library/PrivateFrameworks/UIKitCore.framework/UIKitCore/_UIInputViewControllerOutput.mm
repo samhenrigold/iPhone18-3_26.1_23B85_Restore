@@ -294,9 +294,9 @@ LABEL_5:
     v5 = equalCopy;
     keyboardOutputs = [(_UIInputViewControllerOutput *)self keyboardOutputs];
     keyboardOutputs2 = [v5 keyboardOutputs];
-    v8 = [keyboardOutputs isEqual:keyboardOutputs2];
+    isEqual = objc_msgSend_isEqual_(keyboardOutputs);
 
-    if (!v8)
+    if (!isEqual)
     {
       goto LABEL_27;
     }
@@ -315,7 +315,7 @@ LABEL_5:
 
     hasDictation = [(_UIInputViewControllerOutput *)self hasDictation];
     hasDictation2 = [v5 hasDictation];
-    v13 = [hasDictation isEqual:hasDictation2];
+    v13 = objc_msgSend_isEqual_(hasDictation);
 
     if (!v13)
     {
@@ -382,9 +382,9 @@ LABEL_5:
     {
       primaryLanguage3 = [(_UIInputViewControllerOutput *)self primaryLanguage];
       primaryLanguage4 = [v5 primaryLanguage];
-      v38 = [primaryLanguage3 isEqualToString:primaryLanguage4];
+      isEqualToString = objc_msgSend_isEqualToString_(primaryLanguage3);
 
-      if (!v38)
+      if (!isEqualToString)
       {
         goto LABEL_27;
       }
@@ -404,7 +404,7 @@ LABEL_5:
       {
         markedText3 = [(_UIInputViewControllerOutput *)self markedText];
         markedText4 = [v5 markedText];
-        v45 = [markedText3 isEqualToString:markedText4];
+        v45 = objc_msgSend_isEqualToString_(markedText3);
 
         if (!v45)
         {

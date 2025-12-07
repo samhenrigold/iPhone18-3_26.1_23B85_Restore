@@ -13,9 +13,9 @@
     +[SBSApplicationShortcutSystemIcon(SBHAdditions) sbh_defaultImage];
   }
 
-  v1 = sbh_defaultImage___defaultImage;
+  v2 = sbh_defaultImage___defaultImage;
 
-  return v1;
+  return v2;
 }
 
 - (id)sbh_systemImage
@@ -170,7 +170,7 @@
 
   v4 = MEMORY[0x1E69DCAB8];
   v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"SBSApplicationShortcutSystemIcon_%@", v1];
-  v6 = SBHBundle();
+  v6 = SBHBundle(v5);
   v7 = [v4 imageNamed:v5 inBundle:v6 compatibleWithTraitCollection:0];
 
   if (!v7)
@@ -184,14 +184,14 @@
     else
     {
       v10 = MEMORY[0x1E69DCAB8];
-      v11 = SBHBundle();
+      v11 = SBHBundle(0);
       v7 = [v10 imageNamed:v1 inBundle:v11 compatibleWithTraitCollection:0];
 
       if (!v7)
       {
         v12 = MEMORY[0x1E69DCAB8];
         v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"SBSApplicationShortcutSystemIcon_%@", @"UnreadDot"];
-        v14 = SBHBundle();
+        v14 = SBHBundle(v13);
         v7 = [v12 imageNamed:v13 inBundle:v14 compatibleWithTraitCollection:0];
       }
     }

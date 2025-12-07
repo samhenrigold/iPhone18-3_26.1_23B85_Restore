@@ -89,12 +89,11 @@ uint64_t __68__URTUserNotificationPresentation_registerUserNotification_handler_
 
 - (void)present
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   v2 = *self;
-  v4[0] = 67109120;
-  v4[1] = v2;
-  _os_log_error_impl(&dword_270835000, a2, OS_LOG_TYPE_ERROR, "failed to create CFUserNotification, error %i", v4, 8u);
-  v3 = *MEMORY[0x277D85DE8];
+  v3[0] = 67109120;
+  v3[1] = v2;
+  _os_log_error_impl(&dword_270835000, a2, OS_LOG_TYPE_ERROR, "failed to create CFUserNotification, error %i", v3, 8u);
 }
 
 - (void)dismiss

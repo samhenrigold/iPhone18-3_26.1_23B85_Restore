@@ -595,7 +595,7 @@ LABEL_13:
 
 void __34__CACUtilityToolServer_addClient___block_invoke(uint64_t a1)
 {
-  if (utility_tool_connection_entitled())
+  if (utility_tool_connection_entitled(*(a1 + 32)))
   {
     v2 = [*(a1 + 40) xpcClients];
     [v2 addObject:*(a1 + 32)];

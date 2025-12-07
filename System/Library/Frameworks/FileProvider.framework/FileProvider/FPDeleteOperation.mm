@@ -97,13 +97,10 @@ void __31__FPDeleteOperation_actionMain__block_invoke_2(uint64_t a1, void *a2)
 
 void __31__FPDeleteOperation_actionMain__block_invoke_2_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 fp_prettyDescription];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_15();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -7,16 +7,16 @@
 
 - (BOOL)parsePayloadData:(id)data
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   if ([dataCopy length] <= 3)
   {
-    v13 = ne_log_obj();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v12 = ne_log_obj();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v14 = 136315138;
-      v15 = "[NEIKEv2EncryptedFragmentPayload parsePayloadData:]";
-      _os_log_error_impl(&dword_1BA83C000, v13, OS_LOG_TYPE_ERROR, "BACKTRACE %s called with null (payloadData.length >= sizeof(ikev2_fragment_hdr_t))", &v14, 0xCu);
+      v13 = 136315138;
+      v14 = "[NEIKEv2EncryptedFragmentPayload parsePayloadData:]";
+      _os_log_error_impl(&dword_1BA83C000, v12, OS_LOG_TYPE_ERROR, "BACKTRACE %s called with null (payloadData.length >= sizeof(ikev2_fragment_hdr_t))", &v13, 0xCu);
     }
 
     hasRequiredFields = 0;
@@ -35,7 +35,6 @@
     hasRequiredFields = [(NEIKEv2EncryptedFragmentPayload *)self hasRequiredFields];
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return hasRequiredFields;
 }
 

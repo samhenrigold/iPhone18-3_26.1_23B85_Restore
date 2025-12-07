@@ -15,7 +15,7 @@
 - (void)traitCollectionDidChange:(id)change
 {
   v6.receiver = self;
-  v6.super_class = type metadata accessor for LanguageAwareTextView();
+  v6.super_class = type metadata accessor for LanguageAwareTextView(0);
   changeCopy = change;
   v5 = v6.receiver;
   [(LanguageAwareTextView *)&v6 traitCollectionDidChange:changeCopy];
@@ -24,7 +24,7 @@
 
 - (NSLocale)locale
 {
-  v3 = sub_100005AD4(&qword_1003AFCE0);
+  v3 = sub_100005AD4(&qword_1003AFCE0, &qword_1002D5B00);
   __chkstk_darwin(v3 - 8);
   v5 = &v13 - v4;
   v6 = OBJC_IVAR____TtC17SequoiaTranslator21LanguageAwareTextView_locale;
@@ -46,7 +46,7 @@
 
 - (void)setLocale:(id)locale
 {
-  v5 = sub_100005AD4(&qword_1003AFCE0);
+  v5 = sub_100005AD4(&qword_1003AFCE0, &qword_1002D5B00);
   v6 = __chkstk_darwin(v5 - 8);
   v8 = &v15[-((v7 + 15) & 0xFFFFFFFFFFFFFFF0)];
   __chkstk_darwin(v6);
@@ -73,8 +73,8 @@
   swift_endAccess();
   sub_100139B84(v8);
 
-  sub_100009EBC(v8, &qword_1003AFCE0);
-  sub_100009EBC(v10, &qword_1003AFCE0);
+  sub_100009EBC(v8, &qword_1003AFCE0, &qword_1002D5B00);
+  sub_100009EBC(v10, &qword_1003AFCE0, &qword_1002D5B00);
 }
 
 - (NSArray)_additionalTextInputLocales
@@ -107,7 +107,7 @@
 - (void)reloadInputViews
 {
   v2.receiver = self;
-  v2.super_class = type metadata accessor for LanguageAwareTextView();
+  v2.super_class = type metadata accessor for LanguageAwareTextView(0);
   [(LanguageAwareTextView *)&v2 reloadInputViews];
 }
 
@@ -116,10 +116,11 @@
   v3 = *(self + OBJC_IVAR____TtC17SequoiaTranslator21LanguageAwareTextView_willResignFirstResponder);
   if (v3)
   {
+    v4 = *(self + OBJC_IVAR____TtC17SequoiaTranslator21LanguageAwareTextView_willResignFirstResponder + 8);
     selfCopy = self;
-    sub_10001AD18(v3);
+    sub_10001AD18(v3, v4);
     v3(selfCopy);
-    sub_10001ABE4(v3);
+    sub_10001ABE4(v3, v4);
   }
 
   else
@@ -127,9 +128,9 @@
     selfCopy2 = self;
   }
 
-  v8.receiver = self;
-  v8.super_class = type metadata accessor for LanguageAwareTextView();
-  resignFirstResponder = [(LanguageAwareTextView *)&v8 resignFirstResponder];
+  v9.receiver = self;
+  v9.super_class = type metadata accessor for LanguageAwareTextView(0);
+  resignFirstResponder = [(LanguageAwareTextView *)&v9 resignFirstResponder];
 
   return resignFirstResponder;
 }

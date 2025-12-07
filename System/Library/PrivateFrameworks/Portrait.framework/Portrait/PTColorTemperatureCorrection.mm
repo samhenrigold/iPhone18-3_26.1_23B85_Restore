@@ -11,9 +11,9 @@
 - (PTColorTemperatureCorrection)initWithMetalContext:(id)context
 {
   contextCopy = context;
-  v49.receiver = self;
-  v49.super_class = PTColorTemperatureCorrection;
-  v6 = [(PTColorTemperatureCorrection *)&v49 init];
+  v53.receiver = self;
+  v53.super_class = PTColorTemperatureCorrection;
+  v6 = [(PTColorTemperatureCorrection *)&v53 init];
   objc_storeStrong(&v6->_metalContext, context);
   v7 = [(PTMetalContext *)v6->_metalContext computePipelineStateFor:@"colorTemperatureCorrectionYUVCube" withConstants:0];
   colorTemperatureCorrectionYUVCube = v6->_colorTemperatureCorrectionYUVCube;
@@ -21,72 +21,72 @@
 
   if (!v6->_colorTemperatureCorrectionYUVCube)
   {
-    v19 = _PTLogSystem();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v23 = _PTLogSystem(v9);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      [(PTColorTemperatureCorrection *)v19 initWithMetalContext:v20, v21, v22, v23, v24, v25, v26];
+      [(PTColorTemperatureCorrection *)v23 initWithMetalContext:v24, v25, v26, v27, v28, v29, v30];
     }
 
     goto LABEL_14;
   }
 
-  v9 = [(PTMetalContext *)v6->_metalContext computePipelineStateFor:@"colorTemperatureHistogram" withConstants:0];
+  v10 = [(PTMetalContext *)v6->_metalContext computePipelineStateFor:@"colorTemperatureHistogram" withConstants:0];
   colorTemperatureHistogram = v6->_colorTemperatureHistogram;
-  v6->_colorTemperatureHistogram = v9;
+  v6->_colorTemperatureHistogram = v10;
 
   if (!v6->_colorTemperatureHistogram)
   {
-    v19 = _PTLogSystem();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v23 = _PTLogSystem(v12);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      [(PTColorTemperatureCorrection *)v19 initWithMetalContext:v27, v28, v29, v30, v31, v32, v33];
+      [(PTColorTemperatureCorrection *)v23 initWithMetalContext:v31, v32, v33, v34, v35, v36, v37];
     }
 
     goto LABEL_14;
   }
 
-  v11 = [(PTMetalContext *)v6->_metalContext computePipelineStateFor:@"colorTemperatureClear" withConstants:0];
+  v13 = [(PTMetalContext *)v6->_metalContext computePipelineStateFor:@"colorTemperatureClear" withConstants:0];
   colorTemperatureClear = v6->_colorTemperatureClear;
-  v6->_colorTemperatureClear = v11;
+  v6->_colorTemperatureClear = v13;
 
   if (!v6->_colorTemperatureClear)
   {
-    v19 = _PTLogSystem();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v23 = _PTLogSystem(v15);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      [(PTColorTemperatureCorrection *)v19 initWithMetalContext:v34, v35, v36, v37, v38, v39, v40];
+      [(PTColorTemperatureCorrection *)v23 initWithMetalContext:v38, v39, v40, v41, v42, v43, v44];
     }
 
     goto LABEL_14;
   }
 
-  v13 = [(PTMetalContext *)v6->_metalContext computePipelineStateFor:@"colorTemperatureFromHistogram" withConstants:0];
+  v16 = [(PTMetalContext *)v6->_metalContext computePipelineStateFor:@"colorTemperatureFromHistogram" withConstants:0];
   colorTemperatureFromHistogram = v6->_colorTemperatureFromHistogram;
-  v6->_colorTemperatureFromHistogram = v13;
+  v6->_colorTemperatureFromHistogram = v16;
 
   if (!v6->_colorTemperatureFromHistogram)
   {
-    v19 = _PTLogSystem();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v23 = _PTLogSystem(v18);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      [(PTColorTemperatureCorrection *)v19 initWithMetalContext:v41, v42, v43, v44, v45, v46, v47];
+      [(PTColorTemperatureCorrection *)v23 initWithMetalContext:v45, v46, v47, v48, v49, v50, v51];
     }
 
 LABEL_14:
 
-    v18 = 0;
+    v22 = 0;
     goto LABEL_15;
   }
 
-  device = [(PTMetalContext *)v6->_metalContext device];
-  v16 = [device newBufferWithLength:44 options:0];
+  v19 = objc_msgSend_device(v6->_metalContext);
+  v20 = [v19 newBufferWithLength:44 options:0];
   colorTemperatureHistogramBuffer = v6->_colorTemperatureHistogramBuffer;
-  v6->_colorTemperatureHistogramBuffer = v16;
+  v6->_colorTemperatureHistogramBuffer = v20;
 
-  v18 = v6;
+  v22 = v6;
 LABEL_15:
 
-  return v18;
+  return v22;
 }
 
 - (void)colorTemperatureCorrectionYUVCube:(id)cube inYUV:(id)v outColorTemperatureCorrectionCube:(id)correctionCube colorTemperatureRGB:(id)b colorCorrectionIntensity:(float)intensity
@@ -101,9 +101,9 @@ LABEL_15:
 
   v24 = v17;
   memset(v23, 0, sizeof(v23));
-  [PTColorConversion getColorMatrix:vCopy toRGB:0];
+  objc_msgSend_getColorMatrix_toRGB_(PTColorConversion);
   memset(v22, 0, sizeof(v22));
-  [PTColorConversion getColorMatrix:vCopy toRGB:1];
+  objc_msgSend_getColorMatrix_toRGB_(PTColorConversion);
   computeCommandEncoder = [cubeCopy computeCommandEncoder];
   [computeCommandEncoder setComputePipelineState:self->_colorTemperatureCorrectionYUVCube];
   [computeCommandEncoder setTexture:correctionCubeCopy atIndex:0];
@@ -133,7 +133,7 @@ LABEL_15:
 
   v21 = 0uLL;
   v22 = 0;
-  [PTColorConversion getColorMatrix:vCopy toRGB:1];
+  objc_msgSend_getColorMatrix_toRGB_(PTColorConversion);
   v19 = v21;
   v20 = v22;
   [(PTColorTemperatureCorrection *)self estimateColorTemperatureFromBackground:backgroundCopy colorTransferFunction:v18 matrixYUVtoRGB:&v19 inBackgroundLuma:lumaCopy inBackgroundChroma:chromaCopy outColorTemperatureBuffer:bufferCopy];
@@ -235,6 +235,34 @@ LABEL_15:
   LODWORD(v5) = v5 + v7;
   LODWORD(v7) = atomic_load(v21);
   return [v3 stringWithFormat:@"Histogram\t%i\t%i\t%i\t%i\t%i\t%i\t%i\t%i\t%i\t%i\t(sum: %i)", v4, v6, v8, v10, v12, v14, v16, v18, v20, v22, (contents + v5 + v7)];
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_colorTemperatureFromHistogram";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_colorTemperatureClear";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 .cold.3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_colorTemperatureHistogram";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 .cold.4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_colorTemperatureCorrectionYUVCube";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

@@ -54,126 +54,125 @@
 
 - (void)sessionChanged
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v3 = _ARLogCoaching();
+  v10 = *MEMORY[0x277D85DE8];
+  v3 = _ARLogCoaching(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = objc_opt_class();
     v5 = NSStringFromClass(v4);
-    v7 = 138543618;
-    v8 = v5;
-    v9 = 2048;
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2048;
     selfCopy = self;
-    _os_log_impl(&dword_23D3AE000, v3, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Clearing cached anchors info after session change", &v7, 0x16u);
+    _os_log_impl(&dword_23D3AE000, v3, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Clearing cached anchors info after session change", &v6, 0x16u);
   }
 
   [(ARCoachingSessionCache *)self clear];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)hasAnyPlane:(id)plane
 {
   v15 = *MEMORY[0x277D85DE8];
   planeCopy = plane;
+  v5 = planeCopy;
   if (planeCopy)
   {
     if (!self->_planeCacheInitialized)
     {
-      v5 = _ARLogCoaching();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+      v6 = _ARLogCoaching(planeCopy);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
-        v6 = objc_opt_class();
-        v7 = NSStringFromClass(v6);
+        v7 = objc_opt_class();
+        v8 = NSStringFromClass(v7);
         v11 = 138543618;
-        v12 = v7;
+        v12 = v8;
         v13 = 2048;
         selfCopy = self;
-        _os_log_impl(&dword_23D3AE000, v5, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Searching frame for any planes", &v11, 0x16u);
+        _os_log_impl(&dword_23D3AE000, v6, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Searching frame for any planes", &v11, 0x16u);
       }
 
-      [(ARCoachingSessionCache *)self initializePlaneCache:planeCopy];
+      [(ARCoachingSessionCache *)self initializePlaneCache:v5];
     }
 
-    v8 = self->_planeCount > 0;
+    v9 = self->_planeCount > 0;
   }
 
   else
   {
-    v8 = 0;
+    v9 = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-  return v8;
+  return v9;
 }
 
 - (BOOL)hasHorizontalPlane:(id)plane
 {
   v15 = *MEMORY[0x277D85DE8];
   planeCopy = plane;
+  v5 = planeCopy;
   if (planeCopy)
   {
     if (!self->_planeCacheInitialized)
     {
-      v5 = _ARLogCoaching();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+      v6 = _ARLogCoaching(planeCopy);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
-        v6 = objc_opt_class();
-        v7 = NSStringFromClass(v6);
+        v7 = objc_opt_class();
+        v8 = NSStringFromClass(v7);
         v11 = 138543618;
-        v12 = v7;
+        v12 = v8;
         v13 = 2048;
         selfCopy = self;
-        _os_log_impl(&dword_23D3AE000, v5, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Searching frame for horizontal planes", &v11, 0x16u);
+        _os_log_impl(&dword_23D3AE000, v6, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Searching frame for horizontal planes", &v11, 0x16u);
       }
 
-      [(ARCoachingSessionCache *)self initializePlaneCache:planeCopy];
+      [(ARCoachingSessionCache *)self initializePlaneCache:v5];
     }
 
-    v8 = self->_horizontalPlaneCount > 0;
+    v9 = self->_horizontalPlaneCount > 0;
   }
 
   else
   {
-    v8 = 0;
+    v9 = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-  return v8;
+  return v9;
 }
 
 - (BOOL)hasVerticalPlane:(id)plane
 {
   v15 = *MEMORY[0x277D85DE8];
   planeCopy = plane;
+  v5 = planeCopy;
   if (planeCopy)
   {
     if (!self->_planeCacheInitialized)
     {
-      v5 = _ARLogCoaching();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+      v6 = _ARLogCoaching(planeCopy);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
-        v6 = objc_opt_class();
-        v7 = NSStringFromClass(v6);
+        v7 = objc_opt_class();
+        v8 = NSStringFromClass(v7);
         v11 = 138543618;
-        v12 = v7;
+        v12 = v8;
         v13 = 2048;
         selfCopy = self;
-        _os_log_impl(&dword_23D3AE000, v5, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Searching frame for vertical planes", &v11, 0x16u);
+        _os_log_impl(&dword_23D3AE000, v6, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Searching frame for vertical planes", &v11, 0x16u);
       }
 
-      [(ARCoachingSessionCache *)self initializePlaneCache:planeCopy];
+      [(ARCoachingSessionCache *)self initializePlaneCache:v5];
     }
 
-    v8 = self->_verticalPlaneCount > 0;
+    v9 = self->_verticalPlaneCount > 0;
   }
 
   else
   {
-    v8 = 0;
+    v9 = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-  return v8;
+  return v9;
 }
 
 - (void)initializePlaneCache:(id)cache
@@ -194,7 +193,7 @@
   ARCoachingEnumeratePlaneAnchors(cache, v3);
 }
 
-uint64_t __43__ARCoachingSessionCache_updatePlaneCache___block_invoke(uint64_t a1, void *a2)
+void *__43__ARCoachingSessionCache_updatePlaneCache___block_invoke(uint64_t a1, void *a2)
 {
   ++*(*(a1 + 32) + 8);
   result = [a2 alignment];
@@ -227,7 +226,7 @@ uint64_t __43__ARCoachingSessionCache_updatePlaneCache___block_invoke(uint64_t a
   ARCoachingEnumeratePlaneAnchors(cache, v3);
 }
 
-uint64_t __47__ARCoachingSessionCache_removeFromPlaneCache___block_invoke(uint64_t a1, void *a2)
+void *__47__ARCoachingSessionCache_removeFromPlaneCache___block_invoke(uint64_t a1, void *a2)
 {
   --*(*(a1 + 32) + 8);
   result = [a2 alignment];

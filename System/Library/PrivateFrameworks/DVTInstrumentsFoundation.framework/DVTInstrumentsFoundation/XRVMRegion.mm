@@ -605,10 +605,6 @@ LABEL_20:
 
   else
   {
-    user_tag = self->user_tag;
-    share_mode = self->share_mode;
-    current_prot = self->current_prot;
-    external_pager = self->external_pager;
     v3 = VMURegionTypeDescriptionForTagShareProtAndPager();
   }
 

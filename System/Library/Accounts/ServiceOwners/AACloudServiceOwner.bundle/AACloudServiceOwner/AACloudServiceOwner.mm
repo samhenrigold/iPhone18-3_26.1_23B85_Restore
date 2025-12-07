@@ -1,6 +1,6 @@
-void sub_1548(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1548(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -22,9 +22,9 @@ void sub_1580(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
   (*(*(a1 + 32) + 16))();
 }
 
-void sub_18B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -170,16 +170,7 @@ void sub_20C4()
   [v3 handleFailureInMethod:v2 object:v1 file:@"AACloudServiceOwner.m" lineNumber:101 description:{@"Unexpected service type: %@", v0}];
 }
 
-onResults:v22 completion:v24];
-
-  _Block_object_dispose(&v27, 8);
-}
-
-- (void)signOutService:(id)a3 withContext:(id)a4 completion:(id)a5
-{
-  v8 = a3;
-  v9 = a4;
-  v10 = a5;
+= a5;
   v11 = v10;
   if (v9)
   {

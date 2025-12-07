@@ -48,7 +48,7 @@
 
 - (void)engine:(id)engine didFailToPlayFirstItem:(id)item withError:(id)error
 {
-  sub_1000D3B98(0, &qword_1006E84A0);
+  sub_1000D3B98(0, &qword_1006E84A0, OS_dispatch_queue_ptr);
   v8 = swift_allocObject();
   v8[2] = error;
   v8[3] = self;
@@ -67,7 +67,7 @@
   v9 = _Block_copy(handler);
   v10 = swift_allocObject();
   *(v10 + 16) = v9;
-  sub_1000D3B98(0, &qword_1006E84A0);
+  sub_1000D3B98(0, &qword_1006E84A0, OS_dispatch_queue_ptr);
   v11 = swift_allocObject();
   v11[2] = reason;
   v11[3] = self;

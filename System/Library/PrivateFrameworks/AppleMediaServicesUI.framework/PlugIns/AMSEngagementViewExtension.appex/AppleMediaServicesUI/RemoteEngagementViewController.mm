@@ -20,8 +20,9 @@
 
 - (void)viewWillAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_100003CE4(appear, &selRef_viewWillAppear_, &ViewControllerPresenter.viewWillAppear());
+  sub_100003CE4(appearCopy, &selRef_viewWillAppear_, &ViewControllerPresenter.viewWillAppear());
 }
 
 - (void)viewDidAppear:(BOOL)appear
@@ -38,8 +39,9 @@
 
 - (void)viewDidDisappear:(BOOL)disappear
 {
+  disappearCopy = disappear;
   selfCopy = self;
-  sub_100003CE4(disappear, &selRef_viewDidDisappear_, &ViewControllerPresenter.viewDidDisappear());
+  sub_100003CE4(disappearCopy, &selRef_viewDidDisappear_, &ViewControllerPresenter.viewDidDisappear());
 }
 
 + (id)_exportedInterface

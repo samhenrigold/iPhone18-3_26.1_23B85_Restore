@@ -57,15 +57,15 @@ LABEL_12:
     return v4;
   }
 
-  v9 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  v4 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+  v11 = WBS_LOG_CHANNEL_PREFIXAuthorization(v9, v10);
+  v4 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
   if (!v4)
   {
     return v4;
   }
 
-  *v11 = 0;
-  _os_log_impl(&dword_1C20AD000, v9, OS_LOG_TYPE_DEFAULT, "Using legacy platform authenticator due to syncingPlatformAuthenticatorEnabled", v11, 2u);
+  *v13 = 0;
+  _os_log_impl(&dword_1C20AD000, v11, OS_LOG_TYPE_DEFAULT, "Using legacy platform authenticator due to syncingPlatformAuthenticatorEnabled", v13, 2u);
 LABEL_5:
   LOBYTE(v4) = 0;
   return v4;
@@ -73,7 +73,7 @@ LABEL_5:
 
 + (void)setShouldUseAlternateCredentialStore:(BOOL)store
 {
-  v3 = WBS_LOG_CHANNEL_PREFIXAuthorization();
+  v3 = WBS_LOG_CHANNEL_PREFIXAuthorization(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -102,29 +102,29 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  v11 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+  v13 = WBS_LOG_CHANNEL_PREFIXAuthorization(v11, v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_1C20AD000, v11, OS_LOG_TYPE_INFO, "Synchronously looking up passkey quirks.", buf, 2u);
+    _os_log_impl(&dword_1C20AD000, v13, OS_LOG_TYPE_INFO, "Synchronously looking up passkey quirks.", buf, 2u);
   }
 
-  v12 = dispatch_group_create();
+  v14 = dispatch_group_create();
   *buf = 0;
+  v19 = buf;
+  v20 = 0x2020000000;
+  v21 = 0;
+  dispatch_group_enter(v14);
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __60__ASCWebKitSPISupport_arePasskeysDisallowedForRelyingParty___block_invoke;
+  v15[3] = &unk_1E8160288;
   v17 = buf;
-  v18 = 0x2020000000;
-  v19 = 0;
-  dispatch_group_enter(v12);
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __60__ASCWebKitSPISupport_arePasskeysDisallowedForRelyingParty___block_invoke;
-  v13[3] = &unk_1E8160288;
-  v15 = buf;
-  v7 = v12;
-  v14 = v7;
-  [self getArePasskeysDisallowedForRelyingParty:partyCopy withCompletionHandler:v13];
+  v7 = v14;
+  v16 = v7;
+  [self getArePasskeysDisallowedForRelyingParty:partyCopy withCompletionHandler:v15];
   dispatch_group_wait(v7, 0xFFFFFFFFFFFFFFFFLL);
-  v8 = v17[24];
+  v8 = v19[24];
 
   _Block_object_dispose(buf, 8);
 LABEL_6:
@@ -222,13 +222,13 @@ uint64_t __95__ASCWebKitSPISupport_getCanCurrentProcessAccessPasskeysForRelyingP
   [(ASCAgentProxy *)v3 clearAllPlatformPublicKeyCredentialsWithCompletionHandler:v4];
 }
 
-void __43__ASCWebKitSPISupport_resetCredentialStore__block_invoke()
+void __43__ASCWebKitSPISupport_resetCredentialStore__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1C20AD000, v0, OS_LOG_TYPE_DEFAULT, "Cleared credential store.", v1, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_1C20AD000, v2, OS_LOG_TYPE_DEFAULT, "Cleared credential store.", v3, 2u);
   }
 }
 
@@ -265,28 +265,27 @@ void __43__ASCWebKitSPISupport_resetCredentialStore__block_invoke()
 + (void)getClientCapabilitiesForRelyingParty:(NSString *)party withCompletionHandler:(id)handler
 {
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EBF23490, &qword_1C2176890);
-  v8 = *(*(v7 - 8) + 64);
   MEMORY[0x1EEE9AC00](v7 - 8);
-  v10 = &v17 - v9;
-  v11 = _Block_copy(handler);
-  v12 = swift_allocObject();
-  v12[2] = party;
-  v12[3] = v11;
-  v12[4] = self;
-  v13 = sub_1C2170BE4();
-  (*(*(v13 - 8) + 56))(v10, 1, 1, v13);
+  v9 = &v16 - v8;
+  v10 = _Block_copy(handler);
+  v11 = swift_allocObject();
+  v11[2] = party;
+  v11[3] = v10;
+  v11[4] = self;
+  v12 = sub_1C2170BE4();
+  (*(*(v12 - 8) + 56))(v9, 1, 1, v12);
+  v13 = swift_allocObject();
+  v13[2] = 0;
+  v13[3] = 0;
+  v13[4] = &unk_1C217F418;
+  v13[5] = v11;
   v14 = swift_allocObject();
   v14[2] = 0;
   v14[3] = 0;
-  v14[4] = &unk_1C217F418;
-  v14[5] = v12;
-  v15 = swift_allocObject();
-  v15[2] = 0;
-  v15[3] = 0;
-  v15[4] = &unk_1C21799C0;
-  v15[5] = v14;
+  v14[4] = &unk_1C21799C0;
+  v14[5] = v13;
   partyCopy = party;
-  sub_1C2166D88(0, 0, v10, &unk_1C21768B0, v15);
+  sub_1C2166D88(0, 0, v9, &unk_1C21768B0, v14);
 }
 
 + (BOOL)shouldApplyWorkaroundFor134591531

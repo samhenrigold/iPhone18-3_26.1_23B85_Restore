@@ -305,7 +305,7 @@ LABEL_29:
     goto LABEL_29;
   }
 
-  [imageCopy extent];
+  objc_msgSend_extent(imageCopy);
   v59.a = v16;
   v59.b = v17;
   v59.c = v18;
@@ -566,7 +566,7 @@ void __75__NUImageUtilities_copyTexture_fromRect_toSurfaceImage_atPoint_withDevi
   v6 = 0uLL;
   if (v3)
   {
-    [v3 frameRect];
+    objc_msgSend_frameRect(v3);
     v6 = v15;
     v5 = v16;
   }
@@ -668,7 +668,7 @@ void __45__NUImageUtilities_copySurfaceImage_toImage___block_invoke(uint64_t a1,
   v5 = *(a1 + 40);
   if (v3)
   {
-    [v3 frameRect];
+    objc_msgSend_frameRect(v3);
     v7 = *(&v12 + 1);
     v8 = v12;
   }
@@ -732,7 +732,7 @@ void __69__NUImageUtilities_copyPixelsFromImage_srcRect_destImage_destOrigin___b
   v19 = *(a1 + 40);
   if (v3)
   {
-    [v3 frameRect];
+    objc_msgSend_frameRect(v3);
     v6 = v21;
     v5 = v22;
   }
@@ -765,7 +765,7 @@ void __69__NUImageUtilities_copyPixelsFromImage_srcRect_destImage_destOrigin___b
 
     if (v4)
     {
-      [v4 frameRect];
+      objc_msgSend_frameRect(v4);
     }
 
     else
@@ -1130,7 +1130,7 @@ void __52__NUImageUtilities_fillPixelsInImage_rect_srcPixel___block_invoke(uint6
   v15 = *(a1 + 32);
   if (v3)
   {
-    [v3 frameRect];
+    objc_msgSend_frameRect(v3);
     v6 = v16;
     v5 = v17;
   }
@@ -1162,7 +1162,7 @@ void __52__NUImageUtilities_fillPixelsInImage_rect_srcPixel___block_invoke(uint6
     v9 = [v4 mutableBuffer];
     if (v4)
     {
-      [v4 frameRect];
+      objc_msgSend_frameRect(v4);
     }
 
     else
@@ -1423,7 +1423,7 @@ void __65__NUImageUtilities_copyPixelsToImage_rect_srcPtr_srcPtrRowBytes___block
   v30 = *(a1 + 32);
   if (v3)
   {
-    [v3 frameRect];
+    objc_msgSend_frameRect(v3);
     v6 = v32;
     v5 = v33;
   }
@@ -1464,7 +1464,7 @@ void __65__NUImageUtilities_copyPixelsToImage_rect_srcPtr_srcPtrRowBytes___block
       v25 = *(a1 + 64);
       if (v4)
       {
-        [v4 frameRect];
+        objc_msgSend_frameRect(v4);
       }
 
       else
@@ -1731,7 +1731,7 @@ void __76__NUImageUtilities_copyPixelsFromSurfaceImage_rect_destPtr_destPtrRowBy
   v31 = *(a1 + 32);
   if (v3)
   {
-    [v3 contentRect];
+    objc_msgSend_contentRect(v3);
     v6 = v33;
     v5 = v34;
   }
@@ -1770,7 +1770,7 @@ void __76__NUImageUtilities_copyPixelsFromSurfaceImage_rect_destPtr_destPtrRowBy
       v27 = v9;
       if (v4)
       {
-        [v4 frameRect];
+        objc_msgSend_frameRect(v4);
       }
 
       else
@@ -2698,7 +2698,7 @@ void __69__NUImageUtilities_copyPixelsFromImage_rect_destPtr_destPtrRowBytes___b
   v4 = v3;
   if (v3)
   {
-    [v3 contentRect];
+    objc_msgSend_contentRect(v3);
     v6 = v20;
     v5 = v21;
   }
@@ -2747,7 +2747,7 @@ void __69__NUImageUtilities_copyPixelsFromImage_rect_destPtr_destPtrRowBytes___b
   v23 = v6;
   if (v7)
   {
-    [v7 frameRect];
+    objc_msgSend_frameRect(v7);
   }
 
   else

@@ -244,7 +244,6 @@ LABEL_13:
   has = self->_has;
   if ((has & 0x10) != 0)
   {
-    iconType = self->_iconType;
     PBDataWriterWriteInt32Field();
     has = self->_has;
     if ((has & 1) == 0)
@@ -264,7 +263,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  cartoID = self->_cartoID;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -279,7 +277,6 @@ LABEL_4:
   }
 
 LABEL_12:
-  defaultTransitType = self->_defaultTransitType;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -294,12 +291,10 @@ LABEL_5:
   }
 
 LABEL_13:
-  iconAttributeKey = self->_iconAttributeKey;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 8) != 0)
   {
 LABEL_6:
-    iconAttributeValue = self->_iconAttributeValue;
     PBDataWriterWriteUint32Field();
   }
 

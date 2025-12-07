@@ -74,22 +74,22 @@ void __72__ALAssetsLibrary_addAssetsGroupAlbumWithName_resultBlock_failureBlock_
   dispatch_async(v5.i64[0], block);
 }
 
-uint64_t __72__ALAssetsLibrary_addAssetsGroupAlbumWithName_resultBlock_failureBlock___block_invoke_2(uint64_t result)
+char *__72__ALAssetsLibrary_addAssetsGroupAlbumWithName_resultBlock_failureBlock___block_invoke_2(char *result)
 {
   v1 = result;
-  if (*(result + 80))
+  if (result[80])
   {
     v6[0] = MEMORY[0x277D85DD0];
     v6[1] = 3221225472;
     v6[2] = __72__ALAssetsLibrary_addAssetsGroupAlbumWithName_resultBlock_failureBlock___block_invoke_3;
     v6[3] = &unk_278A07B18;
-    return [objc_msgSend(objc_msgSend(objc_msgSend(objc_msgSend(*(result + 32) internal];
+    return [objc_msgSend(objc_msgSend(objc_msgSend(objc_msgSend(*(result + 4) internal];
   }
 
-  else if (*(result + 56))
+  else if (*(result + 7))
   {
-    v2 = *(result + 72);
-    v3 = *(result + 32);
+    v2 = *(result + 9);
+    v3 = *(result + 4);
     if (v2 == 3)
     {
       v4 = -3300;
@@ -101,7 +101,7 @@ uint64_t __72__ALAssetsLibrary_addAssetsGroupAlbumWithName_resultBlock_failureBl
     }
 
     [v3 publicErrorForPrivateDomain:@"ALAssetsLibraryErrorDomain" withPrivateCode:v4];
-    v5 = *(*(v1 + 56) + 16);
+    v5 = *(*(v1 + 7) + 16);
 
     return v5();
   }
@@ -268,7 +268,7 @@ uint64_t __56__ALAssetsLibrary_groupForURL_resultBlock_failureBlock___block_invo
   return v3;
 }
 
-uint64_t __36__ALAssetsLibrary__copyGroupForURL___block_invoke(uint64_t a1)
+ALAssetsGroup *__36__ALAssetsLibrary__copyGroupForURL___block_invoke(uint64_t a1)
 {
   v2 = [objc_msgSend(objc_msgSend(*(a1 + 32) "internal")];
   result = [v2 kindValue];
@@ -449,7 +449,7 @@ void __56__ALAssetsLibrary_assetForURL_resultBlock_failureBlock___block_invoke_2
   }
 }
 
-uint64_t __56__ALAssetsLibrary_assetForURL_resultBlock_failureBlock___block_invoke_101(void *a1, void *a2)
+ALAsset *__56__ALAssetsLibrary_assetForURL_resultBlock_failureBlock___block_invoke_101(void *a1, void *a2)
 {
   v3 = [a2 photoFromAssetURL:a1[4]];
   result = PLIsCloudPhotoLibraryEnabledForCurrentUser();
@@ -509,20 +509,20 @@ uint64_t __56__ALAssetsLibrary_assetForURL_resultBlock_failureBlock___block_invo
   [(ALAssetsLibrary *)self checkPhotosAccessAllowedWithScope:1 handler:v10];
 }
 
-void __90__ALAssetsLibrary__writeVideoAtPathToSavedPhotosAlbum_internalProperties_completionBlock___block_invoke(uint64_t a1)
+void __90__ALAssetsLibrary__writeVideoAtPathToSavedPhotosAlbum_internalProperties_completionBlock___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = PLPhotosAccessAllowed();
-  v5[0] = MEMORY[0x277D85DD0];
-  v5[1] = 3221225472;
-  v5[2] = __90__ALAssetsLibrary__writeVideoAtPathToSavedPhotosAlbum_internalProperties_completionBlock___block_invoke_2;
-  v5[3] = &unk_278A07A50;
-  v9 = v2;
-  v8 = *(a1 + 64);
-  v3 = *(a1 + 32);
-  v4 = *(a1 + 48);
-  v6 = vextq_s8(v3, v3, 8uLL);
-  v7 = v4;
-  dispatch_async(v3.i64[0], v5);
+  v3 = PLPhotosAccessAllowed();
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __90__ALAssetsLibrary__writeVideoAtPathToSavedPhotosAlbum_internalProperties_completionBlock___block_invoke_2;
+  v6[3] = &unk_278A07A50;
+  v10 = v3;
+  v9 = *(a1 + 64);
+  v4 = *(a1 + 32);
+  v5 = *(a1 + 48);
+  v7 = vextq_s8(v4, v4, 8uLL);
+  v8 = v5;
+  dispatch_async(v4.i64[0], v6);
 }
 
 void __90__ALAssetsLibrary__writeVideoAtPathToSavedPhotosAlbum_internalProperties_completionBlock___block_invoke_2(uint64_t a1)
@@ -607,23 +607,23 @@ void __90__ALAssetsLibrary__writeVideoAtPathToSavedPhotosAlbum_internalPropertie
   [(ALAssetsLibrary *)self checkPhotosAccessAllowedWithScope:1 handler:v16];
 }
 
-void __115__ALAssetsLibrary__writeImageToSavedPhotosAlbum_orientation_imageData_metadata_internalProperties_completionBlock___block_invoke(uint64_t a1)
+void __115__ALAssetsLibrary__writeImageToSavedPhotosAlbum_orientation_imageData_metadata_internalProperties_completionBlock___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = PLPhotosAccessAllowed();
+  v3 = PLPhotosAccessAllowed();
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __115__ALAssetsLibrary__writeImageToSavedPhotosAlbum_orientation_imageData_metadata_internalProperties_completionBlock___block_invoke_2;
   block[3] = &unk_278A07A00;
-  v12 = v2;
-  v3 = *(a1 + 32);
-  v4 = *(a1 + 48);
-  v7 = vextq_s8(v3, v3, 8uLL);
-  v8 = v4;
-  v5 = *(a1 + 88);
-  v10 = *(a1 + 80);
-  v11 = v5;
-  v9 = *(a1 + 64);
-  dispatch_async(v3.i64[0], block);
+  v13 = v3;
+  v4 = *(a1 + 32);
+  v5 = *(a1 + 48);
+  v8 = vextq_s8(v4, v4, 8uLL);
+  v9 = v5;
+  v6 = *(a1 + 88);
+  v11 = *(a1 + 80);
+  v12 = v6;
+  v10 = *(a1 + 64);
+  dispatch_async(v4.i64[0], block);
 }
 
 void __115__ALAssetsLibrary__writeImageToSavedPhotosAlbum_orientation_imageData_metadata_internalProperties_completionBlock___block_invoke_2(uint64_t a1)
@@ -731,165 +731,165 @@ void __68__ALAssetsLibrary_enumerateGroupsWithTypes_usingBlock_failureBlock___bl
   dispatch_async(v5, v7);
 }
 
-void __68__ALAssetsLibrary_enumerateGroupsWithTypes_usingBlock_failureBlock___block_invoke_2(uint64_t a1)
+void __68__ALAssetsLibrary_enumerateGroupsWithTypes_usingBlock_failureBlock___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 72))
   {
-    v2 = *(a1 + 48);
-    if (v2)
+    v3 = *(a1 + 48);
+    if (v3)
     {
-      v3 = *(a1 + 64);
-      v29 = 0;
-      v30 = &v29;
-      v31 = 0x2020000000;
-      v32 = 0;
-      v28[0] = MEMORY[0x277D85DD0];
-      v28[1] = 3221225472;
-      v28[2] = __68__ALAssetsLibrary_enumerateGroupsWithTypes_usingBlock_failureBlock___block_invoke_3;
-      v28[3] = &unk_278A078E8;
-      v28[4] = v2;
-      v28[5] = &v29;
+      v4 = *(a1 + 64);
+      v30 = 0;
+      v31 = &v30;
+      v32 = 0x2020000000;
+      v33 = 0;
+      v29[0] = MEMORY[0x277D85DD0];
+      v29[1] = 3221225472;
+      v29[2] = __68__ALAssetsLibrary_enumerateGroupsWithTypes_usingBlock_failureBlock___block_invoke_3;
+      v29[3] = &unk_278A078E8;
+      v29[4] = v3;
+      v29[5] = &v30;
       if (_CFExecutableLinkedOnOrAfter())
       {
-        v4 = PLIsCloudPhotoLibraryEnabledForCurrentUser() ^ 1;
+        v5 = PLIsCloudPhotoLibraryEnabledForCurrentUser() ^ 1;
       }
 
       else
       {
-        LOBYTE(v4) = 0;
+        LOBYTE(v5) = 0;
       }
 
-      v9 = [MEMORY[0x277D3AD38] _assetsLibrary_isSharedPhotoStreamsSupportEnabled];
-      v10 = 30;
-      if ((v4 | v9))
+      v10 = [MEMORY[0x277D3AD38] _assetsLibrary_isSharedPhotoStreamsSupportEnabled];
+      v11 = 30;
+      if ((v5 | v10))
       {
-        v10 = 62;
+        v11 = 62;
       }
 
-      if (v3 == -1)
+      if (v4 == -1)
       {
-        v11 = v10;
+        v12 = v11;
       }
 
       else
       {
-        v11 = v3;
+        v12 = v4;
       }
 
-      v12 = objc_alloc_init(MEMORY[0x277CBEB18]);
-      if (v11)
+      v13 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      if (v12)
       {
-        v13 = *(a1 + 32);
-        v27[0] = MEMORY[0x277D85DD0];
-        v27[1] = 3221225472;
-        v27[2] = __68__ALAssetsLibrary_enumerateGroupsWithTypes_usingBlock_failureBlock___block_invoke_4;
-        v27[3] = &unk_278A07910;
-        v27[4] = v13;
-        v27[5] = v12;
-        [v13 _performBlockAndWait:v27];
-        [v12 enumerateObjectsUsingBlock:v28];
-        [v12 removeAllObjects];
+        v14 = *(a1 + 32);
+        v28[0] = MEMORY[0x277D85DD0];
+        v28[1] = 3221225472;
+        v28[2] = __68__ALAssetsLibrary_enumerateGroupsWithTypes_usingBlock_failureBlock___block_invoke_4;
+        v28[3] = &unk_278A07910;
+        v28[4] = v14;
+        v28[5] = v13;
+        [v14 _performBlockAndWait:v28];
+        [v13 enumerateObjectsUsingBlock:v29];
+        [v13 removeAllObjects];
       }
 
-      v14 = *(v30 + 24);
-      if ((v14 & 1) == 0 && (v11 & 2) != 0)
-      {
-        v15 = *(a1 + 32);
-        v26[0] = MEMORY[0x277D85DD0];
-        v26[1] = 3221225472;
-        v26[2] = __68__ALAssetsLibrary_enumerateGroupsWithTypes_usingBlock_failureBlock___block_invoke_5;
-        v26[3] = &unk_278A07910;
-        v26[4] = v15;
-        v26[5] = v12;
-        [v15 _performBlockAndWait:v26];
-        [v12 enumerateObjectsUsingBlock:v28];
-        [v12 removeAllObjects];
-        v14 = *(v30 + 24);
-      }
-
-      if ((v14 & 1) == 0 && (v11 & 4) != 0)
+      v15 = *(v31 + 24);
+      if ((v15 & 1) == 0 && (v12 & 2) != 0)
       {
         v16 = *(a1 + 32);
-        v25[0] = MEMORY[0x277D85DD0];
-        v25[1] = 3221225472;
-        v25[2] = __68__ALAssetsLibrary_enumerateGroupsWithTypes_usingBlock_failureBlock___block_invoke_6;
-        v25[3] = &unk_278A07910;
-        v25[4] = v16;
-        v25[5] = v12;
-        [v16 _performBlockAndWait:v25];
-        [v12 enumerateObjectsUsingBlock:v28];
-        [v12 removeAllObjects];
-        v14 = *(v30 + 24);
+        v27[0] = MEMORY[0x277D85DD0];
+        v27[1] = 3221225472;
+        v27[2] = __68__ALAssetsLibrary_enumerateGroupsWithTypes_usingBlock_failureBlock___block_invoke_5;
+        v27[3] = &unk_278A07910;
+        v27[4] = v16;
+        v27[5] = v13;
+        [v16 _performBlockAndWait:v27];
+        [v13 enumerateObjectsUsingBlock:v29];
+        [v13 removeAllObjects];
+        v15 = *(v31 + 24);
       }
 
-      if ((v14 & 1) == 0 && (v11 & 8) != 0)
+      if ((v15 & 1) == 0 && (v12 & 4) != 0)
       {
         v17 = *(a1 + 32);
-        v24[0] = MEMORY[0x277D85DD0];
-        v24[1] = 3221225472;
-        v24[2] = __68__ALAssetsLibrary_enumerateGroupsWithTypes_usingBlock_failureBlock___block_invoke_7;
-        v24[3] = &unk_278A07910;
-        v24[4] = v17;
-        v24[5] = v12;
-        [v17 _performBlockAndWait:v24];
-        [v12 enumerateObjectsUsingBlock:v28];
-        [v12 removeAllObjects];
-        v14 = *(v30 + 24);
+        v26[0] = MEMORY[0x277D85DD0];
+        v26[1] = 3221225472;
+        v26[2] = __68__ALAssetsLibrary_enumerateGroupsWithTypes_usingBlock_failureBlock___block_invoke_6;
+        v26[3] = &unk_278A07910;
+        v26[4] = v17;
+        v26[5] = v13;
+        [v17 _performBlockAndWait:v26];
+        [v13 enumerateObjectsUsingBlock:v29];
+        [v13 removeAllObjects];
+        v15 = *(v31 + 24);
       }
 
-      if ((v14 & 1) == 0 && (v11 & 0x10) != 0)
+      if ((v15 & 1) == 0 && (v12 & 8) != 0)
       {
         v18 = *(a1 + 32);
-        v23[0] = MEMORY[0x277D85DD0];
-        v23[1] = 3221225472;
-        v23[2] = __68__ALAssetsLibrary_enumerateGroupsWithTypes_usingBlock_failureBlock___block_invoke_8;
-        v23[3] = &unk_278A07910;
-        v23[4] = v18;
-        v23[5] = v12;
-        [v18 _performBlockAndWait:v23];
-        [v12 enumerateObjectsUsingBlock:v28];
-        [v12 removeAllObjects];
+        v25[0] = MEMORY[0x277D85DD0];
+        v25[1] = 3221225472;
+        v25[2] = __68__ALAssetsLibrary_enumerateGroupsWithTypes_usingBlock_failureBlock___block_invoke_7;
+        v25[3] = &unk_278A07910;
+        v25[4] = v18;
+        v25[5] = v13;
+        [v18 _performBlockAndWait:v25];
+        [v13 enumerateObjectsUsingBlock:v29];
+        [v13 removeAllObjects];
+        v15 = *(v31 + 24);
       }
 
-      if (((v4 | v9) & 1) != 0 && (v30[3] & 1) == 0 && (v11 & 0x20) != 0)
+      if ((v15 & 1) == 0 && (v12 & 0x10) != 0)
       {
         v19 = *(a1 + 32);
-        v20[0] = MEMORY[0x277D85DD0];
-        v20[1] = 3221225472;
-        v20[2] = __68__ALAssetsLibrary_enumerateGroupsWithTypes_usingBlock_failureBlock___block_invoke_9;
-        v20[3] = &unk_278A07938;
-        v21 = v4;
-        v20[4] = v19;
-        v20[5] = v12;
-        v22 = v9;
-        [v19 _performBlockAndWait:v20];
-        [v12 enumerateObjectsUsingBlock:v28];
-        [v12 removeAllObjects];
+        v24[0] = MEMORY[0x277D85DD0];
+        v24[1] = 3221225472;
+        v24[2] = __68__ALAssetsLibrary_enumerateGroupsWithTypes_usingBlock_failureBlock___block_invoke_8;
+        v24[3] = &unk_278A07910;
+        v24[4] = v19;
+        v24[5] = v13;
+        [v19 _performBlockAndWait:v24];
+        [v13 enumerateObjectsUsingBlock:v29];
+        [v13 removeAllObjects];
+      }
+
+      if (((v5 | v10) & 1) != 0 && (v31[3] & 1) == 0 && (v12 & 0x20) != 0)
+      {
+        v20 = *(a1 + 32);
+        v21[0] = MEMORY[0x277D85DD0];
+        v21[1] = 3221225472;
+        v21[2] = __68__ALAssetsLibrary_enumerateGroupsWithTypes_usingBlock_failureBlock___block_invoke_9;
+        v21[3] = &unk_278A07938;
+        v22 = v5;
+        v21[4] = v20;
+        v21[5] = v13;
+        v23 = v10;
+        [v20 _performBlockAndWait:v21];
+        [v13 enumerateObjectsUsingBlock:v29];
+        [v13 removeAllObjects];
       }
 
       (*(*(a1 + 48) + 16))();
-      _Block_object_dispose(&v29, 8);
+      _Block_object_dispose(&v30, 8);
     }
   }
 
   else if (*(a1 + 40))
   {
-    v5 = *(a1 + 56);
-    v6 = *(a1 + 32);
-    if (v5 == 3)
+    v6 = *(a1 + 56);
+    v7 = *(a1 + 32);
+    if (v6 == 3)
     {
-      v7 = -3310;
+      v8 = -3310;
     }
 
     else
     {
-      v7 = -3311;
+      v8 = -3311;
     }
 
-    [v6 publicErrorForPrivateDomain:@"ALAssetsLibraryErrorDomain" withPrivateCode:v7];
-    v8 = *(*(a1 + 40) + 16);
+    [v7 publicErrorForPrivateDomain:@"ALAssetsLibraryErrorDomain" withPrivateCode:v8];
+    v9 = *(*(a1 + 40) + 16);
 
-    v8();
+    v9();
   }
 }
 
@@ -908,43 +908,41 @@ uint64_t __68__ALAssetsLibrary_enumerateGroupsWithTypes_usingBlock_failureBlock_
   return result;
 }
 
-uint64_t __68__ALAssetsLibrary_enumerateGroupsWithTypes_usingBlock_failureBlock___block_invoke_4(uint64_t a1, uint64_t a2)
+void *__68__ALAssetsLibrary_enumerateGroupsWithTypes_usingBlock_failureBlock___block_invoke_4(uint64_t a1, uint64_t a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v3 = *(a1 + 32);
-  v4 = [objc_opt_class() _albumsInLibrary:a2];
+  v14 = *MEMORY[0x277D85DE8];
+  v3 = [objc_opt_class() _albumsInLibrary:a2];
+  v9 = 0u;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v14 = 0u;
-  result = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  result = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (result)
   {
-    v6 = result;
-    v7 = *v12;
+    v5 = result;
+    v6 = *v10;
     while (2)
     {
-      v8 = 0;
+      v7 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v10 != v6)
         {
-          objc_enumerationMutation(v4);
+          objc_enumerationMutation(v3);
         }
 
-        v9 = *(*(&v11 + 1) + 8 * v8);
-        if ([v9 isLibrary])
+        v8 = *(*(&v9 + 1) + 8 * v7);
+        if ([v8 isLibrary])
         {
-          result = [*(a1 + 32) _addGroupForAlbum:v9 ofType:1 toArray:*(a1 + 40)];
-          goto LABEL_11;
+          return [*(a1 + 32) _addGroupForAlbum:v8 ofType:1 toArray:*(a1 + 40)];
         }
 
-        ++v8;
+        v7 = v7 + 1;
       }
 
-      while (v6 != v8);
-      result = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
-      v6 = result;
+      while (v5 != v7);
+      result = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = result;
       if (result)
       {
         continue;
@@ -954,14 +952,12 @@ uint64_t __68__ALAssetsLibrary_enumerateGroupsWithTypes_usingBlock_failureBlock_
     }
   }
 
-LABEL_11:
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __68__ALAssetsLibrary_enumerateGroupsWithTypes_usingBlock_failureBlock___block_invoke_5(uint64_t a1, void *a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if (_CFExecutableLinkedOnOrAfter())
   {
     v4 = [a2 syncedAlbums];
@@ -969,36 +965,35 @@ uint64_t __68__ALAssetsLibrary_enumerateGroupsWithTypes_usingBlock_failureBlock_
 
   else
   {
-    v5 = *(a1 + 32);
     v4 = [objc_opt_class() _albumsInLibrary:a2];
   }
 
-  v6 = v4;
-  v25 = 0u;
-  v26 = 0u;
+  v5 = v4;
+  v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
-  v7 = [v4 countByEnumeratingWithState:&v23 objects:v28 count:16];
-  if (v7)
+  v20 = 0u;
+  v21 = 0u;
+  v6 = [v4 countByEnumeratingWithState:&v20 objects:v25 count:16];
+  if (v6)
   {
-    v8 = v7;
-    v9 = *v24;
+    v7 = v6;
+    v8 = *v21;
     do
     {
-      for (i = 0; i != v8; ++i)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v24 != v9)
+        if (*v21 != v8)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v5);
         }
 
-        [*(a1 + 32) _addGroupForAlbum:*(*(&v23 + 1) + 8 * i) ofType:2 toArray:*(a1 + 40)];
+        [*(a1 + 32) _addGroupForAlbum:*(*(&v20 + 1) + 8 * i) ofType:2 toArray:*(a1 + 40)];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
-    while (v8);
+    while (v7);
   }
 
   result = _CFExecutableLinkedOnOrAfter();
@@ -1007,40 +1002,38 @@ uint64_t __68__ALAssetsLibrary_enumerateGroupsWithTypes_usingBlock_failureBlock_
     result = PLPhysicalDeviceIsIPad();
     if ((result & 1) == 0)
     {
-      v12 = *(a1 + 32);
-      v13 = [objc_opt_class() _albumsInLibrary:a2];
+      v11 = [objc_opt_class() _albumsInLibrary:a2];
+      v16 = 0u;
+      v17 = 0u;
+      v18 = 0u;
       v19 = 0u;
-      v20 = 0u;
-      v21 = 0u;
-      v22 = 0u;
-      result = [v13 countByEnumeratingWithState:&v19 objects:v27 count:16];
+      result = [v11 countByEnumeratingWithState:&v16 objects:v24 count:16];
       if (result)
       {
-        v14 = result;
-        v15 = *v20;
+        v12 = result;
+        v13 = *v17;
         while (2)
         {
-          v16 = 0;
+          v14 = 0;
           do
           {
-            if (*v20 != v15)
+            if (*v17 != v13)
             {
-              objc_enumerationMutation(v13);
+              objc_enumerationMutation(v11);
             }
 
-            v17 = *(*(&v19 + 1) + 8 * v16);
-            if ([v17 isLibrary])
+            v15 = *(*(&v16 + 1) + 8 * v14);
+            if ([v15 isLibrary])
             {
-              result = [*(a1 + 32) _addGroupForAlbum:v17 ofType:1 toArray:*(a1 + 40)];
-              goto LABEL_23;
+              return [*(a1 + 32) _addGroupForAlbum:v15 ofType:1 toArray:*(a1 + 40)];
             }
 
-            ++v16;
+            ++v14;
           }
 
-          while (v14 != v16);
-          result = [v13 countByEnumeratingWithState:&v19 objects:v27 count:16];
-          v14 = result;
+          while (v12 != v14);
+          result = [v11 countByEnumeratingWithState:&v16 objects:v24 count:16];
+          v12 = result;
           if (result)
           {
             continue;
@@ -1052,115 +1045,112 @@ uint64_t __68__ALAssetsLibrary_enumerateGroupsWithTypes_usingBlock_failureBlock_
     }
   }
 
-LABEL_23:
-  v18 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t __68__ALAssetsLibrary_enumerateGroupsWithTypes_usingBlock_failureBlock___block_invoke_6(uint64_t a1, uint64_t a2)
+void *__68__ALAssetsLibrary_enumerateGroupsWithTypes_usingBlock_failureBlock___block_invoke_6(uint64_t a1, uint64_t a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
-  v20 = 0u;
-  v21 = 0u;
-  v22 = 0u;
-  v23 = 0u;
-  v4 = *(a1 + 32);
-  v5 = [objc_opt_class() _albumsInLibrary:a2];
-  v6 = [v5 countByEnumeratingWithState:&v20 objects:v25 count:16];
-  if (v6)
-  {
-    v7 = v6;
-    v8 = *v21;
-    do
-    {
-      v9 = 0;
-      do
-      {
-        if (*v21 != v8)
-        {
-          objc_enumerationMutation(v5);
-        }
-
-        [*(a1 + 32) _addGroupForAlbum:*(*(&v20 + 1) + 8 * v9++) ofType:4 toArray:*(a1 + 40)];
-      }
-
-      while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v20 objects:v25 count:16];
-    }
-
-    while (v7);
-  }
-
+  v24 = *MEMORY[0x277D85DE8];
   v18 = 0u;
   v19 = 0u;
-  v16 = 0u;
-  v17 = 0u;
-  v10 = [objc_msgSend(objc_msgSend(MEMORY[0x277D3ACD8] importListInPhotoLibrary:{a2, 0), "albums"), "array"}];
-  result = [v10 countByEnumeratingWithState:&v16 objects:v24 count:16];
-  if (result)
+  v20 = 0u;
+  v21 = 0u;
+  v4 = [objc_opt_class() _albumsInLibrary:a2];
+  v5 = [v4 countByEnumeratingWithState:&v18 objects:v23 count:16];
+  if (v5)
   {
-    v12 = result;
-    v13 = *v17;
+    v6 = v5;
+    v7 = *v19;
     do
     {
-      v14 = 0;
+      v8 = 0;
       do
       {
-        if (*v17 != v13)
+        if (*v19 != v7)
         {
-          objc_enumerationMutation(v10);
+          objc_enumerationMutation(v4);
         }
 
-        [*(a1 + 32) _addGroupForAlbum:*(*(&v16 + 1) + 8 * v14++) ofType:4 toArray:*(a1 + 40)];
+        [*(a1 + 32) _addGroupForAlbum:*(*(&v18 + 1) + 8 * v8++) ofType:4 toArray:*(a1 + 40)];
       }
 
-      while (v12 != v14);
-      result = [v10 countByEnumeratingWithState:&v16 objects:v24 count:16];
-      v12 = result;
+      while (v6 != v8);
+      v6 = [v4 countByEnumeratingWithState:&v18 objects:v23 count:16];
+    }
+
+    while (v6);
+  }
+
+  v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v9 = [objc_msgSend(objc_msgSend(MEMORY[0x277D3ACD8] importListInPhotoLibrary:{a2, 0), "albums"), "array"}];
+  result = [v9 countByEnumeratingWithState:&v14 objects:v22 count:16];
+  if (result)
+  {
+    v11 = result;
+    v12 = *v15;
+    do
+    {
+      v13 = 0;
+      do
+      {
+        if (*v15 != v12)
+        {
+          objc_enumerationMutation(v9);
+        }
+
+        [*(a1 + 32) _addGroupForAlbum:*(*(&v14 + 1) + 8 * v13) ofType:4 toArray:*(a1 + 40)];
+        v13 = v13 + 1;
+      }
+
+      while (v11 != v13);
+      result = [v9 countByEnumeratingWithState:&v14 objects:v22 count:16];
+      v11 = result;
     }
 
     while (result);
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t __68__ALAssetsLibrary_enumerateGroupsWithTypes_usingBlock_failureBlock___block_invoke_7(uint64_t a1, void *a2)
+void *__68__ALAssetsLibrary_enumerateGroupsWithTypes_usingBlock_failureBlock___block_invoke_7(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v3 = [MEMORY[0x277D3AC80] albumsWithKind:15 inManagedObjectContext:{objc_msgSend(a2, "managedObjectContext", 0)}];
-  result = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  result = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (result)
   {
     v5 = result;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(a1 + 32) _addGroupForAlbum:*(*(&v9 + 1) + 8 * v7++) ofType:8 toArray:*(a1 + 40)];
+        [*(a1 + 32) _addGroupForAlbum:*(*(&v8 + 1) + 8 * v7) ofType:8 toArray:*(a1 + 40)];
+        v7 = v7 + 1;
       }
 
       while (v5 != v7);
-      result = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      result = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
       v5 = result;
     }
 
     while (result);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1173,37 +1163,38 @@ uint64_t __68__ALAssetsLibrary_enumerateGroupsWithTypes_usingBlock_failureBlock_
   return [v3 _addGroupForAlbum:v4 ofType:16 toArray:v5];
 }
 
-uint64_t __68__ALAssetsLibrary_enumerateGroupsWithTypes_usingBlock_failureBlock___block_invoke_9(uint64_t result, void *a2)
+id *__68__ALAssetsLibrary_enumerateGroupsWithTypes_usingBlock_failureBlock___block_invoke_9(id *result, void *a2)
 {
   v3 = result;
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if (*(result + 48) == 1)
   {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v4 = [a2 photoStreamAlbums];
-    result = [v4 countByEnumeratingWithState:&v17 objects:v22 count:16];
+    result = [v4 countByEnumeratingWithState:&v16 objects:v21 count:16];
     if (result)
     {
       v5 = result;
-      v6 = *v18;
+      v6 = *v17;
       do
       {
         v7 = 0;
         do
         {
-          if (*v18 != v6)
+          if (*v17 != v6)
           {
             objc_enumerationMutation(v4);
           }
 
-          [*(v3 + 32) _addGroupForAlbum:*(*(&v17 + 1) + 8 * v7++) ofType:32 toArray:*(v3 + 40)];
+          [v3[4] _addGroupForAlbum:*(*(&v16 + 1) + 8 * v7) ofType:32 toArray:v3[5]];
+          v7 = (v7 + 1);
         }
 
         while (v5 != v7);
-        result = [v4 countByEnumeratingWithState:&v17 objects:v22 count:16];
+        result = [v4 countByEnumeratingWithState:&v16 objects:v21 count:16];
         v5 = result;
       }
 
@@ -1213,31 +1204,32 @@ uint64_t __68__ALAssetsLibrary_enumerateGroupsWithTypes_usingBlock_failureBlock_
 
   if (*(v3 + 49) == 1)
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v8 = [MEMORY[0x277D3AC18] allCloudSharedAlbumsInLibrary:{a2, 0}];
-    result = [v8 countByEnumeratingWithState:&v13 objects:v21 count:16];
+    result = [v8 countByEnumeratingWithState:&v12 objects:v20 count:16];
     if (result)
     {
       v9 = result;
-      v10 = *v14;
+      v10 = *v13;
       do
       {
         v11 = 0;
         do
         {
-          if (*v14 != v10)
+          if (*v13 != v10)
           {
             objc_enumerationMutation(v8);
           }
 
-          [*(v3 + 32) _addGroupForAlbum:*(*(&v13 + 1) + 8 * v11++) ofType:32 toArray:*(v3 + 40)];
+          [v3[4] _addGroupForAlbum:*(*(&v12 + 1) + 8 * v11) ofType:32 toArray:v3[5]];
+          v11 = (v11 + 1);
         }
 
         while (v9 != v11);
-        result = [v8 countByEnumeratingWithState:&v13 objects:v21 count:16];
+        result = [v8 countByEnumeratingWithState:&v12 objects:v20 count:16];
         v9 = result;
       }
 
@@ -1245,7 +1237,6 @@ uint64_t __68__ALAssetsLibrary_enumerateGroupsWithTypes_usingBlock_failureBlock_
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1408,30 +1399,30 @@ uint64_t __33__ALAssetsLibrary__linkedBefore7__block_invoke()
 
 + (id)_library
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   objc_sync_enter(self);
   Weak = objc_loadWeak(&_library__assetsLibraryPhotoLibrary);
   if (!Weak)
   {
-    v10 = 0;
+    v9 = 0;
     systemLibraryURL = [MEMORY[0x277D3B238] systemLibraryURL];
     v5 = objc_alloc_init(MEMORY[0x277D3AD40]);
     [v5 setRequiredState:6];
     [v5 setAutomaticallyMergesContext:1];
     [v5 setAutomaticallyPinToFirstFetch:0];
     [v5 setLibraryInitiator:1];
-    v6 = [MEMORY[0x277D3AD38] newPhotoLibraryWithName:"+[ALAssetsLibrary _library]" loadedFromURL:systemLibraryURL options:v5 error:&v10];
+    v6 = [MEMORY[0x277D3AD38] newPhotoLibraryWithName:"+[ALAssetsLibrary _library]" loadedFromURL:systemLibraryURL options:v5 error:&v9];
     if (!v6)
     {
       Log = PLMigrationGetLog();
       if (os_log_type_enabled(Log, OS_LOG_TYPE_ERROR))
       {
         *buf = 136446722;
-        v12 = "+[ALAssetsLibrary _library]";
-        v13 = 2112;
-        v14 = systemLibraryURL;
-        v15 = 2112;
-        v16 = v10;
+        v11 = "+[ALAssetsLibrary _library]";
+        v12 = 2112;
+        v13 = systemLibraryURL;
+        v14 = 2112;
+        v15 = v9;
         _os_log_impl(&dword_236A83000, Log, OS_LOG_TYPE_ERROR, "failed to load photo library %{public}s with url %@, %@", buf, 0x20u);
       }
     }
@@ -1441,7 +1432,6 @@ uint64_t __33__ALAssetsLibrary__linkedBefore7__block_invoke()
   }
 
   objc_sync_exit(self);
-  v8 = *MEMORY[0x277D85DE8];
   return Weak;
 }
 

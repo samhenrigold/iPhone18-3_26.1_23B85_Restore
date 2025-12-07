@@ -1,525 +1,6 @@
-void __BTPairingAgentCreate_block_invoke(uint64_t a1, xpc_object_t xdict)
-{
-  *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgPairingAgentID");
-  uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v6 = *(a1 + 40);
-  v5 = a1 + 40;
-  *(*(v6 + 8) + 24) = uint64;
-  if (MBFLogInitOnce != -1)
-  {
-    _localBTAccessoryManagerAddCallbacks_cold_1();
-  }
-
-  if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
-  {
-    __BTPairingAgentCreate_block_invoke_cold_2(v5);
-  }
-}
-
-uint64_t BTPairingAgentDestroy(uint64_t *a1)
-{
-  if (MBFLogInitOnce != -1)
-  {
-    _localBTAccessoryManagerAddCallbacks_cold_1();
-  }
-
-  if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
-  {
-    BTPairingAgentDestroy_cold_2();
-  }
-
-  MBXpcConnection = getMBXpcConnection(*a1);
-  if (MBXpcConnection)
-  {
-    v3 = MBXpcConnection;
-    v4 = xpc_dictionary_create(0, 0, 0);
-    xpc_dictionary_set_uint64(v4, "kCBMsgArgPairingAgentID", *a1);
-    v8 = 0;
-    v9 = &v8;
-    v10 = 0x2000000000;
-    v11 = 0;
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 0x40000000;
-    v7[2] = __BTPairingAgentDestroy_block_invoke;
-    v7[3] = &unk_1E8518630;
-    v7[4] = &v8;
-    sendMessageWithReplySync(v3, "kCBMsgIdPairingAgentDestroyMsg", v4, v7);
-    if (!v9[3])
-    {
-      _localBTPairingAgentRemoveCallbacks(*a1);
-      *a1 = 0;
-    }
-
-    if (v4)
-    {
-      xpc_release(v4);
-    }
-
-    v5 = *(v9 + 6);
-    _Block_object_dispose(&v8, 8);
-  }
-
-  else
-  {
-    if (MBFLogInitOnce != -1)
-    {
-      BTDiscoveryAgentCreate_cold_2();
-    }
-
-    if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_ERROR))
-    {
-      BTPairingAgentDestroy_cold_4(a1);
-    }
-
-    return 1;
-  }
-
-  return v5;
-}
-
-void __BTPairingAgentDestroy_block_invoke(uint64_t a1, xpc_object_t xdict)
-{
-  uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v5 = *(a1 + 32);
-  v4 = a1 + 32;
-  *(*(v5 + 8) + 24) = uint64;
-  if (MBFLogInitOnce != -1)
-  {
-    _localBTAccessoryManagerAddCallbacks_cold_1();
-  }
-
-  if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
-  {
-    __BTPairingAgentDestroy_block_invoke_cold_2(v4);
-  }
-}
-
-uint64_t BTPairingAgentStart(uint64_t a1)
-{
-  if (MBFLogInitOnce != -1)
-  {
-    _localBTAccessoryManagerAddCallbacks_cold_1();
-  }
-
-  if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
-  {
-    BTPairingAgentStart_cold_2();
-  }
-
-  MBXpcConnection = getMBXpcConnection(a1);
-  if (MBXpcConnection)
-  {
-    v3 = MBXpcConnection;
-    v4 = xpc_dictionary_create(0, 0, 0);
-    xpc_dictionary_set_uint64(v4, "kCBMsgArgPairingAgentID", a1);
-    v8 = 0;
-    v9 = &v8;
-    v10 = 0x2000000000;
-    v11 = 0;
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 0x40000000;
-    v7[2] = __BTPairingAgentStart_block_invoke;
-    v7[3] = &unk_1E8518658;
-    v7[4] = &v8;
-    sendMessageWithReplySync(v3, "kCBMsgIdPairingAgentStartMsg", v4, v7);
-    if (v4)
-    {
-      xpc_release(v4);
-    }
-
-    v5 = *(v9 + 6);
-    _Block_object_dispose(&v8, 8);
-  }
-
-  else
-  {
-    if (MBFLogInitOnce != -1)
-    {
-      BTDiscoveryAgentCreate_cold_2();
-    }
-
-    if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_ERROR))
-    {
-      BTAccessoryManagerRegisterDevice_cold_6();
-    }
-
-    return 1;
-  }
-
-  return v5;
-}
-
-void __BTPairingAgentStart_block_invoke(uint64_t a1, xpc_object_t xdict)
-{
-  uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v5 = *(a1 + 32);
-  v4 = a1 + 32;
-  *(*(v5 + 8) + 24) = uint64;
-  if (MBFLogInitOnce != -1)
-  {
-    _localBTAccessoryManagerAddCallbacks_cold_1();
-  }
-
-  if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
-  {
-    __BTPairingAgentStart_block_invoke_cold_2(v4);
-  }
-}
-
-uint64_t BTPairingAgentStop(uint64_t a1)
-{
-  if (MBFLogInitOnce != -1)
-  {
-    _localBTAccessoryManagerAddCallbacks_cold_1();
-  }
-
-  if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
-  {
-    BTPairingAgentStop_cold_2();
-  }
-
-  MBXpcConnection = getMBXpcConnection(a1);
-  if (MBXpcConnection)
-  {
-    v3 = MBXpcConnection;
-    v4 = xpc_dictionary_create(0, 0, 0);
-    xpc_dictionary_set_uint64(v4, "kCBMsgArgPairingAgentID", a1);
-    v8 = 0;
-    v9 = &v8;
-    v10 = 0x2000000000;
-    v11 = 0;
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 0x40000000;
-    v7[2] = __BTPairingAgentStop_block_invoke;
-    v7[3] = &unk_1E8518680;
-    v7[4] = &v8;
-    sendMessageWithReplySync(v3, "kCBMsgIdPairingAgentStopMsg", v4, v7);
-    if (v4)
-    {
-      xpc_release(v4);
-    }
-
-    v5 = *(v9 + 6);
-    _Block_object_dispose(&v8, 8);
-  }
-
-  else
-  {
-    if (MBFLogInitOnce != -1)
-    {
-      BTDiscoveryAgentCreate_cold_2();
-    }
-
-    if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_ERROR))
-    {
-      BTAccessoryManagerRegisterDevice_cold_6();
-    }
-
-    return 1;
-  }
-
-  return v5;
-}
-
-void __BTPairingAgentStop_block_invoke(uint64_t a1, xpc_object_t xdict)
-{
-  uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v5 = *(a1 + 32);
-  v4 = a1 + 32;
-  *(*(v5 + 8) + 24) = uint64;
-  if (MBFLogInitOnce != -1)
-  {
-    _localBTAccessoryManagerAddCallbacks_cold_1();
-  }
-
-  if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
-  {
-    __BTPairingAgentStop_block_invoke_cold_2(v4);
-  }
-}
-
-uint64_t BTPairingAgentCancelPairing(uint64_t a1)
-{
-  if (MBFLogInitOnce != -1)
-  {
-    _localBTAccessoryManagerAddCallbacks_cold_1();
-  }
-
-  if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
-  {
-    BTPairingAgentCancelPairing_cold_2();
-  }
-
-  MBXpcConnection = getMBXpcConnection(a1);
-  if (MBXpcConnection)
-  {
-    v3 = MBXpcConnection;
-    v4 = xpc_dictionary_create(0, 0, 0);
-    xpc_dictionary_set_uint64(v4, "kCBMsgArgPairingAgentID", a1);
-    v8 = 0;
-    v9 = &v8;
-    v10 = 0x2000000000;
-    v11 = 0;
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 0x40000000;
-    v7[2] = __BTPairingAgentCancelPairing_block_invoke;
-    v7[3] = &unk_1E85186A8;
-    v7[4] = &v8;
-    sendMessageWithReplySync(v3, "kCBMsgIdPairingAgentCancelPairingMsg", v4, v7);
-    if (v4)
-    {
-      xpc_release(v4);
-    }
-
-    v5 = *(v9 + 6);
-    _Block_object_dispose(&v8, 8);
-  }
-
-  else
-  {
-    if (MBFLogInitOnce != -1)
-    {
-      BTDiscoveryAgentCreate_cold_2();
-    }
-
-    if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_ERROR))
-    {
-      BTAccessoryManagerRegisterDevice_cold_6();
-    }
-
-    return 1;
-  }
-
-  return v5;
-}
-
-void __BTPairingAgentCancelPairing_block_invoke(uint64_t a1, xpc_object_t xdict)
-{
-  uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v5 = *(a1 + 32);
-  v4 = a1 + 32;
-  *(*(v5 + 8) + 24) = uint64;
-  if (MBFLogInitOnce != -1)
-  {
-    _localBTAccessoryManagerAddCallbacks_cold_1();
-  }
-
-  if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
-  {
-    __BTPairingAgentCancelPairing_block_invoke_cold_2(v4);
-  }
-}
-
-uint64_t BTPairingAgentSetPincode(uint64_t a1, uint64_t a2, const char *a3)
-{
-  if (MBFLogInitOnce != -1)
-  {
-    _localBTAccessoryManagerAddCallbacks_cold_1();
-  }
-
-  if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
-  {
-    BTPairingAgentSetPincode_cold_2();
-  }
-
-  MBXpcConnection = getMBXpcConnection(a1);
-  if (MBXpcConnection)
-  {
-    v7 = MBXpcConnection;
-    v8 = xpc_dictionary_create(0, 0, 0);
-    xpc_dictionary_set_uint64(v8, "kCBMsgArgPairingAgentID", a1);
-    xpc_dictionary_set_uint64(v8, "kCBMsgArgBTDevice", a2);
-    xpc_dictionary_set_string(v8, "kCBMsgIdPairingAgentPincode", a3);
-    v12 = 0;
-    v13 = &v12;
-    v14 = 0x2000000000;
-    v15 = 0;
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 0x40000000;
-    v11[2] = __BTPairingAgentSetPincode_block_invoke;
-    v11[3] = &unk_1E85186D0;
-    v11[4] = &v12;
-    sendMessageWithReplySync(v7, "kCBMsgIdPairingAgentSetPincodeMsg", v8, v11);
-    if (v8)
-    {
-      xpc_release(v8);
-    }
-
-    v9 = *(v13 + 6);
-    _Block_object_dispose(&v12, 8);
-  }
-
-  else
-  {
-    if (MBFLogInitOnce != -1)
-    {
-      BTDiscoveryAgentCreate_cold_2();
-    }
-
-    if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_ERROR))
-    {
-      BTAccessoryManagerRegisterDevice_cold_6();
-    }
-
-    return 1;
-  }
-
-  return v9;
-}
-
-void __BTPairingAgentSetPincode_block_invoke(uint64_t a1, xpc_object_t xdict)
-{
-  uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v5 = *(a1 + 32);
-  v4 = a1 + 32;
-  *(*(v5 + 8) + 24) = uint64;
-  if (MBFLogInitOnce != -1)
-  {
-    _localBTAccessoryManagerAddCallbacks_cold_1();
-  }
-
-  if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
-  {
-    __BTPairingAgentSetPincode_block_invoke_cold_2(v4);
-  }
-}
-
-uint64_t BTPairingAgentAcceptSSP(uint64_t a1, uint64_t a2, int a3)
-{
-  if (MBFLogInitOnce != -1)
-  {
-    _localBTAccessoryManagerAddCallbacks_cold_1();
-  }
-
-  if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
-  {
-    BTPairingAgentAcceptSSP_cold_2();
-  }
-
-  MBXpcConnection = getMBXpcConnection(a1);
-  if (MBXpcConnection)
-  {
-    v7 = MBXpcConnection;
-    v8 = xpc_dictionary_create(0, 0, 0);
-    xpc_dictionary_set_uint64(v8, "kCBMsgArgPairingAgentID", a1);
-    xpc_dictionary_set_uint64(v8, "kCBMsgArgBTDevice", a2);
-    xpc_dictionary_set_uint64(v8, "kCBMsgArgError", a3);
-    v12 = 0;
-    v13 = &v12;
-    v14 = 0x2000000000;
-    v15 = 0;
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 0x40000000;
-    v11[2] = __BTPairingAgentAcceptSSP_block_invoke;
-    v11[3] = &unk_1E85186F8;
-    v11[4] = &v12;
-    sendMessageWithReplySync(v7, "kCBMsgIdPairingAgentAcceptSSPMsg", v8, v11);
-    if (v8)
-    {
-      xpc_release(v8);
-    }
-
-    v9 = *(v13 + 6);
-    _Block_object_dispose(&v12, 8);
-  }
-
-  else
-  {
-    if (MBFLogInitOnce != -1)
-    {
-      BTDiscoveryAgentCreate_cold_2();
-    }
-
-    if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_ERROR))
-    {
-      BTAccessoryManagerRegisterDevice_cold_6();
-    }
-
-    return 1;
-  }
-
-  return v9;
-}
-
-void __BTPairingAgentAcceptSSP_block_invoke(uint64_t a1, xpc_object_t xdict)
-{
-  uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v5 = *(a1 + 32);
-  v4 = a1 + 32;
-  *(*(v5 + 8) + 24) = uint64;
-  if (MBFLogInitOnce != -1)
-  {
-    _localBTAccessoryManagerAddCallbacks_cold_1();
-  }
-
-  if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
-  {
-    __BTPairingAgentAcceptSSP_block_invoke_cold_2(v4);
-  }
-}
-
-uint64_t BTPairingAgentDeletePairedDevice(uint64_t a1, uint64_t a2)
-{
-  if (MBFLogInitOnce != -1)
-  {
-    _localBTAccessoryManagerAddCallbacks_cold_1();
-  }
-
-  if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
-  {
-    BTPairingAgentDeletePairedDevice_cold_2();
-  }
-
-  MBXpcConnection = getMBXpcConnection(a1);
-  if (MBXpcConnection)
-  {
-    v5 = MBXpcConnection;
-    v6 = xpc_dictionary_create(0, 0, 0);
-    xpc_dictionary_set_uint64(v6, "kCBMsgArgPairingAgentID", a1);
-    xpc_dictionary_set_uint64(v6, "kCBMsgArgBTDevice", a2);
-    v10 = 0;
-    v11 = &v10;
-    v12 = 0x2000000000;
-    v13 = 0;
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 0x40000000;
-    v9[2] = __BTPairingAgentDeletePairedDevice_block_invoke;
-    v9[3] = &unk_1E8518720;
-    v9[4] = &v10;
-    sendMessageWithReplySync(v5, "kCBMsgIdPairingAgentDeletePairedDeviceMsg", v6, v9);
-    if (v6)
-    {
-      xpc_release(v6);
-    }
-
-    v7 = *(v11 + 6);
-    _Block_object_dispose(&v10, 8);
-  }
-
-  else
-  {
-    if (MBFLogInitOnce != -1)
-    {
-      BTDiscoveryAgentCreate_cold_2();
-    }
-
-    if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_ERROR))
-    {
-      BTAccessoryManagerRegisterDevice_cold_6();
-    }
-
-    return 1;
-  }
-
-  return v7;
-}
-
 void __BTPairingAgentDeletePairedDevice_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v5 = *(a1 + 32);
-  v4 = a1 + 32;
-  *(*(v5 + 8) + 24) = uint64;
+  *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
   if (MBFLogInitOnce != -1)
   {
     _localBTAccessoryManagerAddCallbacks_cold_1();
@@ -527,7 +8,7 @@ void __BTPairingAgentDeletePairedDevice_block_invoke(uint64_t a1, xpc_object_t x
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTPairingAgentDeletePairedDevice_block_invoke_cold_2(v4);
+    __BTPairingAgentDeletePairedDevice_block_invoke_cold_2();
   }
 }
 
@@ -589,10 +70,7 @@ uint64_t BTPairingAgentSetIOCapability(uint64_t a1, unsigned int a2)
 
 void __BTPairingAgentSetIOCapability_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v5 = *(a1 + 32);
-  v4 = a1 + 32;
-  *(*(v5 + 8) + 24) = uint64;
+  *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
   if (MBFLogInitOnce != -1)
   {
     _localBTAccessoryManagerAddCallbacks_cold_1();
@@ -600,7 +78,7 @@ void __BTPairingAgentSetIOCapability_block_invoke(uint64_t a1, xpc_object_t xdic
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTPairingAgentSetIOCapability_block_invoke_cold_2(v4);
+    __BTPairingAgentSetIOCapability_block_invoke_cold_2();
   }
 }
 
@@ -662,10 +140,7 @@ uint64_t BTPairingAgentClearOOBDataForDevice(uint64_t a1, uint64_t a2)
 
 void __BTPairingAgentClearOOBDataForDevice_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v5 = *(a1 + 32);
-  v4 = a1 + 32;
-  *(*(v5 + 8) + 24) = uint64;
+  *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
   if (MBFLogInitOnce != -1)
   {
     _localBTAccessoryManagerAddCallbacks_cold_1();
@@ -673,7 +148,7 @@ void __BTPairingAgentClearOOBDataForDevice_block_invoke(uint64_t a1, xpc_object_
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTPairingAgentClearOOBDataForDevice_block_invoke_cold_2(v4);
+    __BTPairingAgentClearOOBDataForDevice_block_invoke_cold_2();
   }
 }
 
@@ -755,10 +230,7 @@ uint64_t BTPairingAgentSetOOBDataForDevice(uint64_t a1, uint64_t a2, const void 
 
 void __BTPairingAgentSetOOBDataForDevice_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v5 = *(a1 + 32);
-  v4 = a1 + 32;
-  *(*(v5 + 8) + 24) = uint64;
+  *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
   if (MBFLogInitOnce != -1)
   {
     _localBTAccessoryManagerAddCallbacks_cold_1();
@@ -766,7 +238,7 @@ void __BTPairingAgentSetOOBDataForDevice_block_invoke(uint64_t a1, xpc_object_t 
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTPairingAgentSetOOBDataForDevice_block_invoke_cold_2(v4);
+    __BTPairingAgentSetOOBDataForDevice_block_invoke_cold_2();
   }
 }
 
@@ -827,10 +299,7 @@ uint64_t BTPairingAgentGetLocalOOBData(uint64_t a1)
 
 void __BTPairingAgentGetLocalOOBData_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v5 = *(a1 + 32);
-  v4 = a1 + 32;
-  *(*(v5 + 8) + 24) = uint64;
+  *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
   if (MBFLogInitOnce != -1)
   {
     _localBTAccessoryManagerAddCallbacks_cold_1();
@@ -838,7 +307,7 @@ void __BTPairingAgentGetLocalOOBData_block_invoke(uint64_t a1, xpc_object_t xdic
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTPairingAgentGetLocalOOBData_block_invoke_cold_2(v4);
+    __BTPairingAgentGetLocalOOBData_block_invoke_cold_2();
   }
 }
 
@@ -859,7 +328,7 @@ uint64_t pairingAgentXpcDisconnectedHandler(uint64_t a1)
 
 uint64_t pairingAgentXpcMsgHandler(uint64_t a1, const char *a2, xpc_object_t xdict)
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgPairingAgentID");
   v7 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgID");
   Callbacks = _localBTPairingAgentGetCallbacks(uint64, v7);
@@ -873,16 +342,16 @@ uint64_t pairingAgentXpcMsgHandler(uint64_t a1, const char *a2, xpc_object_t xdi
   {
     *length = 136316418;
     *&length[4] = a2;
-    v52 = 2080;
-    v53 = (a1 + 2080);
-    v54 = 2080;
-    v55 = a1 + 2336;
-    v56 = 2048;
-    v57 = uint64;
-    v58 = 2048;
-    v59 = v7;
-    v60 = 2048;
-    v61 = Callbacks;
+    v51 = 2080;
+    v52 = (a1 + 2080);
+    v53 = 2080;
+    v54 = a1 + 2336;
+    v55 = 2048;
+    v56 = uint64;
+    v57 = 2048;
+    v58 = v7;
+    v59 = 2048;
+    v60 = Callbacks;
     _os_log_debug_impl(&dword_1D85D5000, v9, OS_LOG_TYPE_DEBUG, "pairingAgentXpcMsgHandler msg:%s sessionName:%s serviceName:%s agentID:%llx cbid:%llx cbs:%llx", length, 0x3Eu);
   }
 
@@ -997,14 +466,14 @@ LABEL_34:
       pairingAgentXpcMsgHandler_cold_3();
     }
 
-    goto LABEL_59;
+    return 0;
   }
 
   v12 = data;
   v13 = a1;
-  v50 = 0;
-  v14 = xpc_dictionary_get_data(xdict, "kCBMsgArgC256", &v50);
-  if (v50 != 16)
+  v49 = 0;
+  v14 = xpc_dictionary_get_data(xdict, "kCBMsgArgC256", &v49);
+  if (v49 != 16)
   {
     if (MBFLogInitOnce != -1)
     {
@@ -1016,13 +485,13 @@ LABEL_34:
       pairingAgentXpcMsgHandler_cold_5();
     }
 
-    goto LABEL_59;
+    return 0;
   }
 
   v15 = v14;
-  v49 = 0;
-  v16 = xpc_dictionary_get_data(xdict, "kCBMsgArgR192", &v49);
-  if (v49 != 16)
+  v48 = 0;
+  v16 = xpc_dictionary_get_data(xdict, "kCBMsgArgR192", &v48);
+  if (v48 != 16)
   {
     if (MBFLogInitOnce != -1)
     {
@@ -1034,13 +503,13 @@ LABEL_34:
       pairingAgentXpcMsgHandler_cold_7();
     }
 
-    goto LABEL_59;
+    return 0;
   }
 
-  v47 = v16;
-  v48 = 0;
-  v17 = xpc_dictionary_get_data(xdict, "kCBMsgArgR256", &v48);
-  if (v48 != 16)
+  v46 = v16;
+  v47 = 0;
+  v17 = xpc_dictionary_get_data(xdict, "kCBMsgArgR256", &v47);
+  if (v47 != 16)
   {
     if (MBFLogInitOnce != -1)
     {
@@ -1052,15 +521,13 @@ LABEL_34:
       pairingAgentXpcMsgHandler_cold_9();
     }
 
-LABEL_59:
-    v10 = 0;
-    goto LABEL_39;
+    return 0;
   }
 
   v18 = v17;
   v19 = *(Callbacks + 5);
   v20 = _localBTPairingAgentGetUserData(uint64);
-  v19(uint64, v12, v47, v15, v18, v20);
+  v19(uint64, v12, v46, v15, v18, v20);
   v10 = 1;
   a1 = v13;
 LABEL_36:
@@ -1072,38 +539,37 @@ LABEL_36:
   v43 = MBFLogComponent;
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    v46 = "did not handle";
+    v45 = "did not handle";
     *length = 136316674;
     if (v10)
     {
-      v46 = "handled";
+      v45 = "handled";
     }
 
-    *&length[4] = v46;
-    v52 = 2080;
-    v53 = a2;
-    v54 = 2080;
-    v55 = a1 + 2080;
-    v56 = 2080;
-    v57 = a1 + 2336;
-    v58 = 2048;
-    v59 = uint64;
-    v60 = 2048;
-    v61 = v7;
-    v62 = 2048;
-    v63 = Callbacks;
+    *&length[4] = v45;
+    v51 = 2080;
+    v52 = a2;
+    v53 = 2080;
+    v54 = a1 + 2080;
+    v55 = 2080;
+    v56 = a1 + 2336;
+    v57 = 2048;
+    v58 = uint64;
+    v59 = 2048;
+    v60 = v7;
+    v61 = 2048;
+    v62 = Callbacks;
     _os_log_debug_impl(&dword_1D85D5000, v43, OS_LOG_TYPE_DEBUG, "pairingAgentXpcMsgHandler %s %s sessionName:%s serviceName:%s agentID:%llx cbid:%llx cbs:%llx", length, 0x48u);
   }
 
-LABEL_39:
-  v44 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
-void OUTLINED_FUNCTION_8_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_8_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, &a9, 2u);
+  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, va, 2u);
 }
 
 uint64_t removeFWSession(uint64_t a1)
@@ -1360,7 +826,7 @@ void xpcConnectionDidReset(uint64_t a1)
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    xpcConnectionDidReset_cold_2(a1);
+    xpcConnectionDidReset_cold_2();
   }
 
   FWSessionByXpcConnection = getFWSessionByXpcConnection(a1);
@@ -1405,7 +871,7 @@ void xpcConnectionInvalid(uint64_t a1)
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    xpcConnectionInvalid_cold_2(a1);
+    xpcConnectionInvalid_cold_2();
   }
 
   FWSessionByXpcConnection = getFWSessionByXpcConnection(a1);
@@ -1447,7 +913,7 @@ void __xpcConnectionInvalid_block_invoke(uint64_t a1)
 
       if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
       {
-        __xpcConnectionInvalid_block_invoke_cold_4(v1);
+        __xpcConnectionInvalid_block_invoke_cold_4();
       }
 
       _MBTSignalSessionEvent(*v1, 0, 1);
@@ -1461,7 +927,7 @@ void __xpcConnectionInvalid_block_invoke(uint64_t a1)
 
       if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
       {
-        __xpcConnectionInvalid_block_invoke_cold_2(v1);
+        __xpcConnectionInvalid_block_invoke_cold_2();
       }
 
       _MBTSignalSessionEvent(*v1, 2, 0);
@@ -1475,7 +941,7 @@ void __xpcConnectionInvalid_block_invoke(uint64_t a1)
 
       if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
       {
-        __xpcConnectionInvalid_block_invoke_cold_6(v1);
+        __xpcConnectionInvalid_block_invoke_cold_6();
       }
 
       _MBTSignalSessionEvent(*v1, 1, 0);
@@ -1501,31 +967,21 @@ void __xpcConnectionInvalid_block_invoke(uint64_t a1)
   free(*v1);
 }
 
-uint64_t OUTLINED_FUNCTION_6_1@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *(*(*result + 88) + 2072);
-  return result;
-}
-
 void BTAccessoryManagerGetDefault_cold_3()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_10();
-  _os_log_error_impl(&dword_1D85D5000, v0, OS_LOG_TYPE_ERROR, "Failed to get a valid XPC connection for session %llx sessionHandle:%llx", v2, 0x16u);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1D85D5000, v0, OS_LOG_TYPE_ERROR, "Failed to get a valid XPC connection for session %llx sessionHandle:%llx", v1, 0x16u);
 }
 
-void __BTAccessoryManagerGetDefault_block_invoke_cold_2(uint64_t a1)
+void __BTAccessoryManagerGetDefault_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
-  v2 = *(*(*v1 + 8) + 24);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
-  WORD2(v8) = 2048;
-  HIWORD(v8) = v3;
-  OUTLINED_FUNCTION_9(&dword_1D85D5000, v4, v5, "kCBMsgIdAccessoryGetDefaultMsg reply accessoryManagerID:%llx result:%llx", v7, v8);
-  v6 = *MEMORY[0x1E69E9840];
+  WORD2(v4) = 2048;
+  HIWORD(v4) = v0;
+  OUTLINED_FUNCTION_9(&dword_1D85D5000, v1, v2, "kCBMsgIdAccessoryGetDefaultMsg reply accessoryManagerID:%llx result:%llx", v3, v4);
 }
 
 void BTAccessoryManagerAddCallbacks_cold_2()
@@ -1549,21 +1005,12 @@ void BTAccessoryManagerAddCallbacks_cold_6()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void BTAccessoryManagerAddCallbacks_cold_8()
+void __BTAccessoryManagerAddCallbacks_block_invoke_cold_2()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_8();
-  OUTLINED_FUNCTION_4(&dword_1D85D5000, v0, v1, "Failed to get a valid XPC connection for BTAccessoryManager:%llx", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __BTAccessoryManagerAddCallbacks_block_invoke_cold_2(uint64_t a1)
-{
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTAccessoryManagerRemoveCallbacks_cold_2()
@@ -1573,21 +1020,12 @@ void BTAccessoryManagerRemoveCallbacks_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void BTAccessoryManagerRemoveCallbacks_cold_4()
+void __BTAccessoryManagerRemoveCallbacks_block_invoke_cold_2()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_8();
-  OUTLINED_FUNCTION_4(&dword_1D85D5000, v0, v1, "Failed to get a valid XPC connection for sessionHandle:%llx", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __BTAccessoryManagerRemoveCallbacks_block_invoke_cold_2(uint64_t a1)
-{
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTAccessoryManagerRegisterDevice_cold_2()
@@ -1604,21 +1042,12 @@ void BTAccessoryManagerRegisterDevice_cold_4()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void BTAccessoryManagerRegisterDevice_cold_6()
+void __BTAccessoryManagerRegisterDevice_block_invoke_cold_2()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_4(&dword_1D85D5000, v0, v1, "Failed to get a valid XPC connection agent:%llx", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __BTAccessoryManagerRegisterDevice_block_invoke_cold_2(uint64_t a1)
-{
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTAccessoryManagerPlugInDevice_cold_2()
@@ -1628,13 +1057,12 @@ void BTAccessoryManagerPlugInDevice_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTAccessoryManagerPlugInDevice_block_invoke_cold_2(uint64_t a1)
+void __BTAccessoryManagerPlugInDevice_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTAccessoryManagerUnplugDevice_cold_2()
@@ -1644,13 +1072,12 @@ void BTAccessoryManagerUnplugDevice_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTAccessoryManagerUnplugDevice_block_invoke_cold_2(uint64_t a1)
+void __BTAccessoryManagerUnplugDevice_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTAccessoryManagerGetDeviceState_cold_2()
@@ -1660,13 +1087,12 @@ void BTAccessoryManagerGetDeviceState_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTAccessoryManagerGetDeviceState_block_invoke_cold_2(uint64_t a1)
+void __BTAccessoryManagerGetDeviceState_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTAccessoryManagerGetDevices_cold_2()
@@ -1676,21 +1102,12 @@ void BTAccessoryManagerGetDevices_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void BTAccessoryManagerGetDevices_cold_4()
+void __BTAccessoryManagerGetDevices_block_invoke_cold_3()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_4(&dword_1D85D5000, v0, v1, "Failed to get a valid XPC connection localDevice:%llx", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __BTAccessoryManagerGetDevices_block_invoke_cold_3(uint64_t a1)
-{
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_10();
-  OUTLINED_FUNCTION_9(&dword_1D85D5000, v1, v2, "kCBMsgIdAccessoryGetDevicesMsg reply result:%llx count:%lx", v4, v5);
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_9(&dword_1D85D5000, v0, v1, "kCBMsgIdAccessoryGetDevicesMsg reply result:%llx count:%lx", v2, v3);
 }
 
 void BTAccessoryManagerGetTimeSyncId_cold_2()
@@ -1700,13 +1117,12 @@ void BTAccessoryManagerGetTimeSyncId_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTAccessoryManagerGetTimeSyncId_block_invoke_cold_2(uint64_t a1)
+void __BTAccessoryManagerGetTimeSyncId_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTAccessoryManagerGetDeviceBatteryLevel_cold_2()
@@ -1716,13 +1132,12 @@ void BTAccessoryManagerGetDeviceBatteryLevel_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTAccessoryManagerGetDeviceBatteryLevel_block_invoke_cold_2(uint64_t a1)
+void __BTAccessoryManagerGetDeviceBatteryLevel_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTAccessoryManagerIsAccessory_cold_2()
@@ -1732,13 +1147,12 @@ void BTAccessoryManagerIsAccessory_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTAccessoryManagerIsAccessory_block_invoke_cold_2(uint64_t a1)
+void __BTAccessoryManagerIsAccessory_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTAccessoryManagerGenerateLinkKey_cold_2()
@@ -1748,13 +1162,12 @@ void BTAccessoryManagerGenerateLinkKey_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTAccessoryManagerGenerateLinkKey_block_invoke_cold_2(uint64_t a1)
+void __BTAccessoryManagerGenerateLinkKey_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTAccessoryManagerSetLinkKeyEx_cold_2()
@@ -1771,13 +1184,12 @@ void BTAccessoryManagerSetLinkKeyEx_cold_4()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTAccessoryManagerSetLinkKeyEx_block_invoke_cold_2(uint64_t a1)
+void __BTAccessoryManagerSetLinkKeyEx_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTAccessoryManagerSetDoubleTapAction_cold_2()
@@ -1787,13 +1199,12 @@ void BTAccessoryManagerSetDoubleTapAction_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTAccessoryManagerSetDoubleTapAction_block_invoke_cold_2(uint64_t a1)
+void __BTAccessoryManagerSetDoubleTapAction_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTAccessoryManagerSetDoubleTapActionEx_cold_2()
@@ -1803,13 +1214,12 @@ void BTAccessoryManagerSetDoubleTapActionEx_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTAccessoryManagerSetDoubleTapActionEx_block_invoke_cold_2(uint64_t a1)
+void __BTAccessoryManagerSetDoubleTapActionEx_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTAccessoryManagerSetMicMode_cold_2()
@@ -1819,13 +1229,12 @@ void BTAccessoryManagerSetMicMode_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTAccessoryManagerSetMicMode_block_invoke_cold_2(uint64_t a1)
+void __BTAccessoryManagerSetMicMode_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTAccessoryManagerRemoteTimeSyncEnable_cold_2()
@@ -1835,13 +1244,12 @@ void BTAccessoryManagerRemoteTimeSyncEnable_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTAccessoryManagerRemoteTimeSyncEnable_block_invoke_cold_2(uint64_t a1)
+void __BTAccessoryManagerRemoteTimeSyncEnable_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTAccessoryManagerSensorStreamTimeSyncEnable_cold_2()
@@ -1851,13 +1259,12 @@ void BTAccessoryManagerSensorStreamTimeSyncEnable_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTAccessoryManagerSensorStreamTimeSyncEnable_block_invoke_cold_2(uint64_t a1)
+void __BTAccessoryManagerSensorStreamTimeSyncEnable_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTAccessoryManagerSetInEarDetectionEnable_cold_2()
@@ -1867,13 +1274,12 @@ void BTAccessoryManagerSetInEarDetectionEnable_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTAccessoryManagerSetInEarDetectionEnable_block_invoke_cold_2(uint64_t a1)
+void __BTAccessoryManagerSetInEarDetectionEnable_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTAccessoryManagerSetIsHidden_cold_2()
@@ -1883,13 +1289,12 @@ void BTAccessoryManagerSetIsHidden_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTAccessoryManagerSetIsHidden_block_invoke_cold_2(uint64_t a1)
+void __BTAccessoryManagerSetIsHidden_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTAccessoryManagerGetDoubleTapAction_cold_2()
@@ -1899,13 +1304,12 @@ void BTAccessoryManagerGetDoubleTapAction_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTAccessoryManagerGetDoubleTapAction_block_invoke_cold_2(uint64_t a1)
+void __BTAccessoryManagerGetDoubleTapAction_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTAccessoryManagerGetDoubleTapActionEx_cold_2()
@@ -1915,13 +1319,12 @@ void BTAccessoryManagerGetDoubleTapActionEx_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTAccessoryManagerGetDoubleTapActionEx_block_invoke_cold_2(uint64_t a1)
+void __BTAccessoryManagerGetDoubleTapActionEx_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTAccessoryManagerGetDoubleTapCapability_cold_2()
@@ -1931,13 +1334,12 @@ void BTAccessoryManagerGetDoubleTapCapability_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTAccessoryManagerGetDoubleTapCapability_block_invoke_cold_2(uint64_t a1)
+void __BTAccessoryManagerGetDoubleTapCapability_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTAccessoryManagerGetFeatureCapability_cold_2()
@@ -1947,13 +1349,12 @@ void BTAccessoryManagerGetFeatureCapability_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTAccessoryManagerGetFeatureCapability_block_invoke_cold_2(uint64_t a1)
+void __BTAccessoryManagerGetFeatureCapability_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTAccessoryManagerGetAnnounceMessagesSupport_cold_2()
@@ -1963,13 +1364,12 @@ void BTAccessoryManagerGetAnnounceMessagesSupport_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTAccessoryManagerGetAnnounceMessagesSupport_block_invoke_cold_2(uint64_t a1)
+void __BTAccessoryManagerGetAnnounceMessagesSupport_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTAccessoryManagerGetMicMode_cold_2()
@@ -1979,13 +1379,12 @@ void BTAccessoryManagerGetMicMode_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTAccessoryManagerGetMicMode_block_invoke_cold_2(uint64_t a1)
+void __BTAccessoryManagerGetMicMode_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTAccessoryManagerGetInEarDetectionEnable_cold_2()
@@ -2002,13 +1401,12 @@ void BTAccessoryManagerGetInEarStatus_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTAccessoryManagerGetInEarStatus_block_invoke_cold_2(uint64_t a1)
+void __BTAccessoryManagerGetInEarStatus_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTAccessoryManagerRegisterCustomMessageClient_cold_2()
@@ -2025,13 +1423,12 @@ void BTAccessoryManagerRegisterCustomMessageClient_cold_4()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTAccessoryManagerRegisterCustomMessageClient_block_invoke_cold_2(uint64_t a1)
+void __BTAccessoryManagerRegisterCustomMessageClient_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTAccessoryManagerDeregisterCustomMessageClient_cold_2()
@@ -2041,13 +1438,12 @@ void BTAccessoryManagerDeregisterCustomMessageClient_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTAccessoryManagerDeregisterCustomMessageClient_block_invoke_cold_2(uint64_t a1)
+void __BTAccessoryManagerDeregisterCustomMessageClient_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTAccessoryManagerSendCustomMessage_cold_2()
@@ -2057,13 +1453,12 @@ void BTAccessoryManagerSendCustomMessage_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTAccessoryManagerSendCustomMessage_block_invoke_cold_2(uint64_t a1)
+void __BTAccessoryManagerSendCustomMessage_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTAccessoryManagerSimulateAACP_cold_2()
@@ -2073,13 +1468,12 @@ void BTAccessoryManagerSimulateAACP_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTAccessoryManagerSimulateAACP_block_invoke_cold_2(uint64_t a1)
+void __BTAccessoryManagerSimulateAACP_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTAccessoryManagerSendAdaptiveVolumeMessage_cold_2()
@@ -2103,13 +1497,12 @@ void BTAccessoryManagerGetDeviceDiagnostics_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTAccessoryManagerGetDeviceDiagnostics_block_invoke_cold_2(uint64_t a1)
+void __BTAccessoryManagerGetDeviceDiagnostics_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTAccessoryManagerSendRequestPeriodically_cold_2()
@@ -2119,13 +1512,12 @@ void BTAccessoryManagerSendRequestPeriodically_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTAccessoryManagerSendRequestPeriodically_block_invoke_cold_2(uint64_t a1)
+void __BTAccessoryManagerSendRequestPeriodically_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTAccessoryManagerCancelRequestPeriodically_cold_2()
@@ -2135,13 +1527,12 @@ void BTAccessoryManagerCancelRequestPeriodically_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTAccessoryManagerCancelRequestPeriodically_block_invoke_cold_2(uint64_t a1)
+void __BTAccessoryManagerCancelRequestPeriodically_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTAccessoryManagerSendControlCommand_cold_2()
@@ -2151,13 +1542,12 @@ void BTAccessoryManagerSendControlCommand_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTAccessoryManagerSendControlCommand_block_invoke_cold_2(uint64_t a1)
+void __BTAccessoryManagerSendControlCommand_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTAccessoryManagerGetControlCommand_cold_2()
@@ -2167,13 +1557,12 @@ void BTAccessoryManagerGetControlCommand_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTAccessoryManagerGetControlCommand_block_invoke_cold_2(uint64_t a1)
+void __BTAccessoryManagerGetControlCommand_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTAccessoryManagerGetSettingFeatureBitMask_cold_2()
@@ -2183,13 +1572,12 @@ void BTAccessoryManagerGetSettingFeatureBitMask_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTAccessoryManagerGetSettingFeatureBitMask_block_invoke_cold_2(uint64_t a1)
+void __BTAccessoryManagerGetSettingFeatureBitMask_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTAccessoryManagerGetAccessoryInfo_cold_2()
@@ -2199,13 +1587,12 @@ void BTAccessoryManagerGetAccessoryInfo_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTAccessoryManagerGetAccessoryInfo_block_invoke_cold_2(uint64_t a1)
+void __BTAccessoryManagerGetAccessoryInfo_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTAccessoryManagerGetAACPCapabilityBits_cold_2()
@@ -2215,13 +1602,12 @@ void BTAccessoryManagerGetAACPCapabilityBits_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTAccessoryManagerGetAACPCapabilityBits_block_invoke_cold_2(uint64_t a1)
+void __BTAccessoryManagerGetAACPCapabilityBits_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTAccessoryManagerReadDeviceVersionInfo_cold_2()
@@ -2231,21 +1617,12 @@ void BTAccessoryManagerReadDeviceVersionInfo_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void BTAccessoryManagerReadDeviceVersionInfo_cold_4()
+void __BTAccessoryManagerReadDeviceVersionInfo_block_invoke_cold_2()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_4(&dword_1D85D5000, v0, v1, "Failed to get a valid XPC connection sessionhandle:%llx", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __BTAccessoryManagerReadDeviceVersionInfo_block_invoke_cold_2(uint64_t a1)
-{
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTAccessoryManagerGetDeviceColor_cold_2()
@@ -2255,13 +1632,12 @@ void BTAccessoryManagerGetDeviceColor_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTAccessoryManagerGetDeviceColor_block_invoke_cold_2(uint64_t a1)
+void __BTAccessoryManagerGetDeviceColor_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTAccessoryManagerSetupCommand_cold_2()
@@ -2271,13 +1647,12 @@ void BTAccessoryManagerSetupCommand_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTAccessoryManagerSetupCommand_block_invoke_cold_2(uint64_t a1)
+void __BTAccessoryManagerSetupCommand_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTAccessoryManagerSendRelayMsg_cold_2()
@@ -2287,13 +1662,12 @@ void BTAccessoryManagerSendRelayMsg_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTAccessoryManagerSendRelayMsg_block_invoke_cold_2(uint64_t a1)
+void __BTAccessoryManagerSendRelayMsg_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTAccessoryManagerUpdateConnPriorityList_cold_2()
@@ -2303,13 +1677,12 @@ void BTAccessoryManagerUpdateConnPriorityList_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTAccessoryManagerUpdateConnPriorityList_block_invoke_cold_2(uint64_t a1)
+void __BTAccessoryManagerUpdateConnPriorityList_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTAccessoryManagerGetNonAppleHAEPairedDevices_cold_2()
@@ -2319,21 +1692,12 @@ void BTAccessoryManagerGetNonAppleHAEPairedDevices_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void BTAccessoryManagerGetNonAppleHAEPairedDevices_cold_4()
+void __BTAccessoryManagerGetNonAppleHAEPairedDevices_block_invoke_cold_3()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_4(&dword_1D85D5000, v0, v1, "Failed to get a valid XPC connection manager:%llx", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __BTAccessoryManagerGetNonAppleHAEPairedDevices_block_invoke_cold_3(uint64_t a1)
-{
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_10();
-  OUTLINED_FUNCTION_9(&dword_1D85D5000, v1, v2, "kCBMsgIdAccessoryGetNonAppleHAEPairedDevicesMsg reply result:%llx count:%lx", v4, v5);
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_9(&dword_1D85D5000, v0, v1, "kCBMsgIdAccessoryGetNonAppleHAEPairedDevicesMsg reply result:%llx count:%lx", v2, v3);
 }
 
 void BTAccessoryManagerSmartRouteMode_cold_2()
@@ -2343,13 +1707,12 @@ void BTAccessoryManagerSmartRouteMode_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTAccessoryManagerSmartRouteMode_block_invoke_cold_2(uint64_t a1)
+void __BTAccessoryManagerSmartRouteMode_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTAccessoryManagerGetSmartRouteMode_cold_2()
@@ -2359,13 +1722,12 @@ void BTAccessoryManagerGetSmartRouteMode_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTAccessoryManagerGetSmartRouteMode_block_invoke_cold_2(uint64_t a1)
+void __BTAccessoryManagerGetSmartRouteMode_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTAccessoryManagerGetSmartRouteSupport_cold_2()
@@ -2375,13 +1737,12 @@ void BTAccessoryManagerGetSmartRouteSupport_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTAccessoryManagerGetSmartRouteSupport_block_invoke_cold_2(uint64_t a1)
+void __BTAccessoryManagerGetSmartRouteSupport_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTAccessoryManagerSetDeviceStateOnPeerSrc_cold_2()
@@ -2391,13 +1752,12 @@ void BTAccessoryManagerSetDeviceStateOnPeerSrc_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTAccessoryManagerSetDeviceStateOnPeerSrc_block_invoke_cold_2(uint64_t a1)
+void __BTAccessoryManagerSetDeviceStateOnPeerSrc_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTAccessoryManagerGetStereoHFPSupport_cold_2()
@@ -2407,13 +1767,12 @@ void BTAccessoryManagerGetStereoHFPSupport_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTAccessoryManagerGetStereoHFPSupport_block_invoke_cold_2(uint64_t a1)
+void __BTAccessoryManagerGetStereoHFPSupport_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTAccessoryManagerGetCallManagementConfig_cold_2()
@@ -2437,13 +1796,12 @@ void BTAccessoryManagerSetFeatureProxCardStatus_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTAccessoryManagerSetFeatureProxCardStatus_block_invoke_cold_2(uint64_t a1)
+void __BTAccessoryManagerSetFeatureProxCardStatus_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTAccessoryManagerGetDeviceSoundProfileSupport_cold_2()
@@ -2453,13 +1811,12 @@ void BTAccessoryManagerGetDeviceSoundProfileSupport_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTAccessoryManagerGetDeviceSoundProfileSupport_block_invoke_cold_2(uint64_t a1)
+void __BTAccessoryManagerGetDeviceSoundProfileSupport_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTAccessoryManagerGetDeviceSoundProfileAllowed_cold_2()
@@ -2469,13 +1826,12 @@ void BTAccessoryManagerGetDeviceSoundProfileAllowed_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTAccessoryManagerGetDeviceSoundProfileAllowed_block_invoke_cold_2(uint64_t a1)
+void __BTAccessoryManagerGetDeviceSoundProfileAllowed_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTAccessoryManagerSetDeviceSoundProfileAllowed_cold_2()
@@ -2485,13 +1841,12 @@ void BTAccessoryManagerSetDeviceSoundProfileAllowed_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTAccessoryManagerSetDeviceSoundProfileAllowed_block_invoke_cold_2(uint64_t a1)
+void __BTAccessoryManagerSetDeviceSoundProfileAllowed_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTAccessoryManagerGetSpatialAudioPlatformSupport_cold_2()
@@ -2508,13 +1863,12 @@ void BTAccessoryManagerGetAnnounceCallsSupport_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTAccessoryManagerGetAnnounceCallsSupport_block_invoke_cold_2(uint64_t a1)
+void __BTAccessoryManagerGetAnnounceCallsSupport_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTAccessoryManagerGetGyroInformation_cold_2()
@@ -2524,13 +1878,12 @@ void BTAccessoryManagerGetGyroInformation_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTAccessoryManagerGetGyroInformation_block_invoke_cold_2(uint64_t a1)
+void __BTAccessoryManagerGetGyroInformation_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_11();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void BTAccessoryManagerGetCaseSerialNumbersForAppleProductId_cold_2()
@@ -2540,13 +1893,12 @@ void BTAccessoryManagerGetCaseSerialNumbersForAppleProductId_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTAccessoryManagerGetCaseSerialNumbersForAppleProductId_block_invoke_cold_2(uint64_t a1)
+void __BTAccessoryManagerGetCaseSerialNumbersForAppleProductId_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTAccessoryManagerGetCaseSerialNumbersForAppleProductIds_cold_2()
@@ -2558,21 +1910,19 @@ void BTAccessoryManagerGetCaseSerialNumbersForAppleProductIds_cold_2()
 
 void BTAccessoryManagerGetCaseSerialNumbersForAppleProductIds_cold_4()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_6();
-  v4 = 1024;
-  v5 = v0;
-  _os_log_error_impl(&dword_1D85D5000, v1, OS_LOG_TYPE_ERROR, "Invalid product ID parameters. productID = %p, numProductIds = %u", v3, 0x12u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = 1024;
+  v4 = v0;
+  _os_log_error_impl(&dword_1D85D5000, v1, OS_LOG_TYPE_ERROR, "Invalid product ID parameters. productID = %p, numProductIds = %u", v2, 0x12u);
 }
 
-void __BTAccessoryManagerGetCaseSerialNumbersForAppleProductIds_block_invoke_cold_2(uint64_t a1)
+void __BTAccessoryManagerGetCaseSerialNumbersForAppleProductIds_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTAccessoryManagerGetPrimaryBudSide_cold_2()
@@ -2582,31 +1932,27 @@ void BTAccessoryManagerGetPrimaryBudSide_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTAccessoryManagerGetPrimaryBudSide_block_invoke_cold_2(uint64_t a1)
+void __BTAccessoryManagerGetPrimaryBudSide_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_11();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __BTAccessoryManagerSetHeadphoneFeatureValue_block_invoke_cold_2(uint64_t a1)
+void __BTAccessoryManagerSetHeadphoneFeatureValue_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void accessoryManagerXpcDisconnectedHandler_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void accessoryManagerXpcMsgHandler_cold_4()
@@ -2618,179 +1964,135 @@ void accessoryManagerXpcMsgHandler_cold_4()
 
 void attachSession_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_8_0();
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-void attachSession_cold_4(uint64_t a1, uint64_t a2)
+void attachSession_cold_4()
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = *(*a1 + 24);
-  v3 = *(*a2 + 24);
   OUTLINED_FUNCTION_6_0();
   OUTLINED_FUNCTION_3_0();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
-  v9 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sendMessageWithReplySync_cold_2(uint64_t a1)
+void sendMessageWithReplySync_cold_2()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 2600);
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_3_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x2Au);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x2Au);
 }
 
 void sendMessageWithReplySync_cold_4()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void handleReset_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_8_0();
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void handleInvalid_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_8_0();
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void handleMsg_cold_2()
 {
-  v8 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_8_0();
-  v1 = *(*v0 + 24);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_3_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x20u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
 void handleConnectionEvent_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_8_0();
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void handleConnectionEvent_cold_4()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_6();
-  _os_log_error_impl(&dword_1D85D5000, v0, OS_LOG_TYPE_ERROR, "Unexpected XPC type: %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1D85D5000, v0, OS_LOG_TYPE_ERROR, "Unexpected XPC type: %@", v1, 0xCu);
 }
 
 void handleConnectionEvent_cold_6()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_6();
-  _os_log_error_impl(&dword_1D85D5000, v0, OS_LOG_TYPE_ERROR, "Unexpected XPC error: %s", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1D85D5000, v0, OS_LOG_TYPE_ERROR, "Unexpected XPC error: %s", v1, 0xCu);
 }
 
-void handleConnectionEvent_cold_8(uint64_t a1)
+void handleConnectionEvent_cold_8()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 2072);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_3_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void handleConnectionEvent_cold_10(uint64_t a1)
+void handleConnectionEvent_cold_10()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 2072);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_3_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void handleConnectionEvent_cold_12()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_6();
-  _os_log_fault_impl(&dword_1D85D5000, v0, OS_LOG_TYPE_FAULT, "MBFXPC LOG Skipped handleConnectionEvent because MBXpcConnection for connection %p was NULL", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_1D85D5000, v0, OS_LOG_TYPE_FAULT, "MBFXPC LOG Skipped handleConnectionEvent because MBXpcConnection for connection %p was NULL", v1, 0xCu);
 }
 
-void createXpcConnection_cold_5(uint64_t a1, uint64_t *a2)
+void createXpcConnection_cold_5()
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v2 = *a2;
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_3_0();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void releaseMBXpcConnection_cold_2(uint64_t a1)
+void releaseMBXpcConnection_cold_2()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 2072);
   OUTLINED_FUNCTION_6_0();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void releaseXPCConnection_cold_2(uint64_t a1)
+void releaseXPCConnection_cold_2()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 2072);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_9_0();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x20u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void sendMsg_cold_2(uint64_t a1)
+void sendMsg_cold_2()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 2600);
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_3_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x2Au);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x2Au);
 }
 
-void disconnect_cold_2(uint64_t a1)
+void disconnect_cold_2()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 2600);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_9_0();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x20u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
 void BTDeviceAddressToString_cold_2()
@@ -2800,21 +2102,12 @@ void BTDeviceAddressToString_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void BTDeviceAddressToString_cold_4()
+void __BTDeviceAddressToString_block_invoke_cold_2()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_4(&dword_1D85D5000, v0, v1, "Failed to get a valid XPC connection sessionHandle:%llx", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __BTDeviceAddressToString_block_invoke_cold_2(uint64_t a1)
-{
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTDeviceAddressFromString_cold_2()
@@ -2824,30 +2117,23 @@ void BTDeviceAddressFromString_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTDeviceAddressFromString_block_invoke_cold_2(uint64_t a1)
+void __BTDeviceAddressFromString_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
-  v2 = *v1;
-  v3 = v1[1];
-  v4 = v1[2];
-  v5 = v1[3];
-  v6 = v1[4];
-  v7 = v1[5];
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
-  v17 = 1024;
-  v18 = v8;
-  v19 = 1024;
-  v20 = v9;
-  v21 = 1024;
-  v22 = v10;
-  v23 = 1024;
-  v24 = v11;
-  v25 = 1024;
-  v26 = v12;
-  v27 = 1024;
-  v28 = v13;
-  _os_log_debug_impl(&dword_1D85D5000, v14, OS_LOG_TYPE_DEBUG, "kCBMsgIdDeviceAddressFromStringMsg reply result:%llx address:%x%x%x%x%x%x", v16, 0x30u);
-  v15 = *MEMORY[0x1E69E9840];
+  v8 = 1024;
+  v9 = v0;
+  v10 = 1024;
+  v11 = v1;
+  v12 = 1024;
+  v13 = v2;
+  v14 = 1024;
+  v15 = v3;
+  v16 = 1024;
+  v17 = v4;
+  v18 = 1024;
+  v19 = v5;
+  _os_log_debug_impl(&dword_1D85D5000, v6, OS_LOG_TYPE_DEBUG, "kCBMsgIdDeviceAddressFromStringMsg reply result:%llx address:%x%x%x%x%x%x", v7, 0x30u);
 }
 
 void BTDeviceFromAddress_cold_2()
@@ -2857,21 +2143,12 @@ void BTDeviceFromAddress_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void BTDeviceFromAddress_cold_4()
+void __BTDeviceFromAddress_block_invoke_cold_2()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_4(&dword_1D85D5000, v0, v1, "Failed to get a valid XPC connection session:%llx", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __BTDeviceFromAddress_block_invoke_cold_2(uint64_t a1)
-{
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTDeviceFromIdentifier_cold_2()
@@ -2881,13 +2158,12 @@ void BTDeviceFromIdentifier_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTDeviceFromIdentifier_block_invoke_cold_2(uint64_t a1)
+void __BTDeviceFromIdentifier_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTDeviceGetAddressString_cold_2()
@@ -2897,21 +2173,12 @@ void BTDeviceGetAddressString_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void BTDeviceGetAddressString_cold_4()
+void __BTDeviceGetAddressString_block_invoke_cold_2()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_4(&dword_1D85D5000, v0, v1, "Failed to get a valid XPC connection device:%llx", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __BTDeviceGetAddressString_block_invoke_cold_2(uint64_t a1)
-{
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTDeviceGetDeviceType_cold_2()
@@ -2921,13 +2188,12 @@ void BTDeviceGetDeviceType_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTDeviceGetDeviceType_block_invoke_cold_2(uint64_t a1)
+void __BTDeviceGetDeviceType_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTDeviceGetDeviceClass_cold_2()
@@ -2937,13 +2203,12 @@ void BTDeviceGetDeviceClass_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTDeviceGetDeviceClass_block_invoke_cold_2(uint64_t a1)
+void __BTDeviceGetDeviceClass_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTDeviceGetDefaultName_cold_2()
@@ -2953,13 +2218,12 @@ void BTDeviceGetDefaultName_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTDeviceGetDefaultName_block_invoke_cold_2(uint64_t a1)
+void __BTDeviceGetDefaultName_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTDeviceGetProductName_cold_2()
@@ -2969,13 +2233,12 @@ void BTDeviceGetProductName_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTDeviceGetProductName_block_invoke_cold_2(uint64_t a1)
+void __BTDeviceGetProductName_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTDeviceGetName_cold_2()
@@ -2985,13 +2248,12 @@ void BTDeviceGetName_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTDeviceGetName_block_invoke_cold_2(uint64_t a1)
+void __BTDeviceGetName_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTDeviceSetUserName_cold_2()
@@ -3001,13 +2263,12 @@ void BTDeviceSetUserName_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTDeviceSetUserName_block_invoke_cold_2(uint64_t a1)
+void __BTDeviceSetUserName_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTDeviceGetSyncSettings_cold_2()
@@ -3017,13 +2278,12 @@ void BTDeviceGetSyncSettings_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTDeviceGetSyncSettings_block_invoke_cold_2(uint64_t a1)
+void __BTDeviceGetSyncSettings_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTDeviceSetSyncSettings_cold_2()
@@ -3033,13 +2293,12 @@ void BTDeviceSetSyncSettings_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTDeviceSetSyncSettings_block_invoke_cold_2(uint64_t a1)
+void __BTDeviceSetSyncSettings_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTDeviceGetGroups_cold_2()
@@ -3049,13 +2308,12 @@ void BTDeviceGetGroups_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTDeviceGetGroups_block_invoke_cold_2(uint64_t a1)
+void __BTDeviceGetGroups_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTDeviceSetGroup_cold_2()
@@ -3065,13 +2323,12 @@ void BTDeviceSetGroup_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTDeviceSetGroup_block_invoke_cold_2(uint64_t a1)
+void __BTDeviceSetGroup_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTDeviceGetPairingStatus_cold_2()
@@ -3081,13 +2338,12 @@ void BTDeviceGetPairingStatus_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTDeviceGetPairingStatus_block_invoke_cold_2(uint64_t a1)
+void __BTDeviceGetPairingStatus_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTDeviceGetCloudPairingStatus_cold_2()
@@ -3097,13 +2353,12 @@ void BTDeviceGetCloudPairingStatus_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTDeviceGetCloudPairingStatus_block_invoke_cold_2(uint64_t a1)
+void __BTDeviceGetCloudPairingStatus_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTDeviceGetMagicPairingStatus_cold_2()
@@ -3113,22 +2368,20 @@ void BTDeviceGetMagicPairingStatus_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTDeviceGetMagicPairingStatus_block_invoke_cold_2(uint64_t a1)
+void __BTDeviceGetMagicPairingStatus_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void __BTDeviceGetConnectionStatus_block_invoke_cold_2(uint64_t a1)
+void __BTDeviceGetConnectionStatus_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTDeviceIsAppleAudioDevice_cold_2()
@@ -3138,13 +2391,12 @@ void BTDeviceIsAppleAudioDevice_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTDeviceIsAppleAudioDevice_block_invoke_cold_2(uint64_t a1)
+void __BTDeviceIsAppleAudioDevice_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTDeviceSupportsHS_cold_2()
@@ -3154,13 +2406,12 @@ void BTDeviceSupportsHS_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTDeviceSupportsHS_block_invoke_cold_2(uint64_t a1)
+void __BTDeviceSupportsHS_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTDeviceIsProController_cold_2()
@@ -3170,22 +2421,19 @@ void BTDeviceIsProController_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTDeviceIsProController_block_invoke_cold_2(uint64_t a1)
+void __BTDeviceIsProController_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTServiceAddCallbacksWithFilter_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void BTServiceAddCallbacksWithFilter_cold_4()
@@ -3202,22 +2450,19 @@ void BTServiceAddCallbacksWithFilter_cold_6()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTServiceAddCallbacksWithFilter_block_invoke_cold_2(uint64_t a1)
+void __BTServiceAddCallbacksWithFilter_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTServiceAddCallbacks_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void BTServiceRemoveCallbacks_cold_2()
@@ -3227,13 +2472,12 @@ void BTServiceRemoveCallbacks_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTServiceRemoveCallbacks_block_invoke_cold_2(uint64_t a1)
+void __BTServiceRemoveCallbacks_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTDeviceConnect_cold_2()
@@ -3243,13 +2487,12 @@ void BTDeviceConnect_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTDeviceConnect_block_invoke_cold_2(uint64_t a1)
+void __BTDeviceConnect_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTDeviceConnectServices_cold_2()
@@ -3259,13 +2502,12 @@ void BTDeviceConnectServices_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTDeviceConnectServices_block_invoke_cold_2(uint64_t a1)
+void __BTDeviceConnectServices_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTDeviceConnectServicesWithParameters_cold_2()
@@ -3275,13 +2517,12 @@ void BTDeviceConnectServicesWithParameters_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTDeviceConnectServicesWithParameters_block_invoke_cold_2(uint64_t a1)
+void __BTDeviceConnectServicesWithParameters_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTDeviceDisconnect_cold_2()
@@ -3291,13 +2532,12 @@ void BTDeviceDisconnect_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTDeviceDisconnect_block_invoke_cold_2(uint64_t a1)
+void __BTDeviceDisconnect_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTDevicePhysicalLinkDisconnect_cold_2()
@@ -3307,13 +2547,12 @@ void BTDevicePhysicalLinkDisconnect_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTDevicePhysicalLinkDisconnect_block_invoke_cold_2(uint64_t a1)
+void __BTDevicePhysicalLinkDisconnect_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTDeviceDisconnectServices_cold_2()
@@ -3323,13 +2562,12 @@ void BTDeviceDisconnectServices_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTDeviceDisconnectServices_block_invoke_cold_2(uint64_t a1)
+void __BTDeviceDisconnectServices_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTDeviceGetConnectedServices_cold_2()
@@ -3339,13 +2577,12 @@ void BTDeviceGetConnectedServices_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTDeviceGetConnectedServices_block_invoke_cold_2(uint64_t a1)
+void __BTDeviceGetConnectedServices_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTDeviceGetSupportedServices_cold_2()
@@ -3355,13 +2592,12 @@ void BTDeviceGetSupportedServices_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTDeviceGetSupportedServices_block_invoke_cold_2(uint64_t a1)
+void __BTDeviceGetSupportedServices_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTDeviceSetServiceSettings_cold_2()
@@ -3371,13 +2607,12 @@ void BTDeviceSetServiceSettings_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTDeviceSetServiceSettings_block_invoke_cold_2(uint64_t a1)
+void __BTDeviceSetServiceSettings_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTDeviceGetServiceSettings_cold_2()
@@ -3387,13 +2622,12 @@ void BTDeviceGetServiceSettings_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTDeviceGetServiceSettings_block_invoke_cold_2(uint64_t a1)
+void __BTDeviceGetServiceSettings_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTDeviceGetComPortForService_cold_2()
@@ -3403,13 +2637,12 @@ void BTDeviceGetComPortForService_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTDeviceGetComPortForService_block_invoke_cold_2(uint64_t a1)
+void __BTDeviceGetComPortForService_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTDeviceGetComPortForServiceWithSandboxExtension_cold_2()
@@ -3419,13 +2652,12 @@ void BTDeviceGetComPortForServiceWithSandboxExtension_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTDeviceGetComPortForServiceWithSandboxExtension_block_invoke_cold_2(uint64_t a1)
+void __BTDeviceGetComPortForServiceWithSandboxExtension_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTDeviceSetVirtualType_cold_2()
@@ -3435,13 +2667,12 @@ void BTDeviceSetVirtualType_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTDeviceSetVirtualType_block_invoke_cold_2(uint64_t a1)
+void __BTDeviceSetVirtualType_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTDeviceGetVirtualType_cold_2()
@@ -3451,13 +2682,12 @@ void BTDeviceGetVirtualType_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTDeviceGetVirtualType_block_invoke_cold_2(uint64_t a1)
+void __BTDeviceGetVirtualType_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTDeviceMatchesAdvertisedKey_cold_2()
@@ -3467,13 +2697,12 @@ void BTDeviceMatchesAdvertisedKey_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTDeviceMatchesAdvertisedKey_block_invoke_cold_2(uint64_t a1)
+void __BTDeviceMatchesAdvertisedKey_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTDeviceGetAdvertisedValueForKey_cold_2()
@@ -3483,13 +2712,12 @@ void BTDeviceGetAdvertisedValueForKey_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTDeviceGetAdvertisedValueForKey_block_invoke_cold_2(uint64_t a1)
+void __BTDeviceGetAdvertisedValueForKey_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTDeviceGetDeviceId_cold_2()
@@ -3499,13 +2727,12 @@ void BTDeviceGetDeviceId_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTDeviceGetDeviceId_block_invoke_cold_2(uint64_t a1)
+void __BTDeviceGetDeviceId_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTDeviceSetHIDProperties_cold_2()
@@ -3515,13 +2742,12 @@ void BTDeviceSetHIDProperties_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTDeviceSetHIDProperties_block_invoke_cold_2(uint64_t a1)
+void __BTDeviceSetHIDProperties_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTDeviceConfigureLinkKey_cold_2()
@@ -3531,13 +2757,12 @@ void BTDeviceConfigureLinkKey_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTDeviceConfigureLinkKey_block_invoke_cold_2(uint64_t a1)
+void __BTDeviceConfigureLinkKey_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTDeviceIsTemporaryPaired_cold_2()
@@ -3547,13 +2772,12 @@ void BTDeviceIsTemporaryPaired_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTDeviceIsTemporaryPaired_block_invoke_cold_2(uint64_t a1)
+void __BTDeviceIsTemporaryPaired_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTDeviceIsWirelessSplitterSupported_cold_2()
@@ -3563,13 +2787,12 @@ void BTDeviceIsWirelessSplitterSupported_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTDeviceIsWirelessSplitterSupported_block_invoke_cold_2(uint64_t a1)
+void __BTDeviceIsWirelessSplitterSupported_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTDeviceIsTemporaryPairedNotInContacts_cold_2()
@@ -3579,13 +2802,12 @@ void BTDeviceIsTemporaryPairedNotInContacts_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTDeviceIsTemporaryPairedNotInContacts_block_invoke_cold_2(uint64_t a1)
+void __BTDeviceIsTemporaryPairedNotInContacts_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTDeviceGetLowSecurityStatus_cold_2()
@@ -3595,13 +2817,12 @@ void BTDeviceGetLowSecurityStatus_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTDeviceGetLowSecurityStatus_block_invoke_cold_2(uint64_t a1)
+void __BTDeviceGetLowSecurityStatus_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTDeviceGetHIDDeviceBehavior_cold_2()
@@ -3611,13 +2832,12 @@ void BTDeviceGetHIDDeviceBehavior_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTDeviceGetHIDDeviceBehavior_block_invoke_cold_2(uint64_t a1)
+void __BTDeviceGetHIDDeviceBehavior_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTDeviceSetHijackAudioRoute_cold_2()
@@ -3627,13 +2847,12 @@ void BTDeviceSetHijackAudioRoute_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTDeviceSetHijackAudioRoute_block_invoke_cold_2(uint64_t a1)
+void __BTDeviceSetHijackAudioRoute_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTDeviceSetACLHighPriority_cold_2()
@@ -3643,13 +2862,12 @@ void BTDeviceSetACLHighPriority_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTDeviceSetACLHighPriority_block_invoke_cold_2(uint64_t a1)
+void __BTDeviceSetACLHighPriority_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTDeviceIsCentral_cold_2()
@@ -3659,13 +2877,12 @@ void BTDeviceIsCentral_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTDeviceIsCentral_block_invoke_cold_2(uint64_t a1)
+void __BTDeviceIsCentral_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTDeviceGetUserSelectedDeviceType_cold_2()
@@ -3675,13 +2892,12 @@ void BTDeviceGetUserSelectedDeviceType_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTDeviceGetUserSelectedDeviceType_block_invoke_cold_2(uint64_t a1)
+void __BTDeviceGetUserSelectedDeviceType_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTDeviceSetUserSelectedDeviceType_cold_2()
@@ -3691,13 +2907,12 @@ void BTDeviceSetUserSelectedDeviceType_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTDeviceSetUserSelectedDeviceType_block_invoke_cold_2(uint64_t a1)
+void __BTDeviceSetUserSelectedDeviceType_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTDeviceIsGenuineAirPods_cold_2()
@@ -3707,25 +2922,22 @@ void BTDeviceIsGenuineAirPods_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTDeviceIsGenuineAirPods_block_invoke_cold_2(uint64_t a1)
+void __BTDeviceIsGenuineAirPods_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
-  v2 = *(*(*v1 + 8) + 24);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
-  v7 = 1024;
-  v8 = v3;
-  _os_log_debug_impl(&dword_1D85D5000, v4, OS_LOG_TYPE_DEBUG, "kCBMsgIdDeviceIsGenuineAirPodsMsg reply result:%llx genuine:%u", v6, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
+  v3 = 1024;
+  v4 = v0;
+  _os_log_debug_impl(&dword_1D85D5000, v1, OS_LOG_TYPE_DEBUG, "kCBMsgIdDeviceIsGenuineAirPodsMsg reply result:%llx genuine:%u", v2, 0x12u);
 }
 
 void deviceServiceXpcDisconnectedHandler_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_8();
-  v4 = 2080;
-  v5 = v0;
-  _os_log_error_impl(&dword_1D85D5000, v1, OS_LOG_TYPE_ERROR, "WARNING: deviceServiceXpcDisconnectedHandler Disconnected from bluetoothd serviceName:%s sessionName:%s", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = 2080;
+  v4 = v0;
+  _os_log_error_impl(&dword_1D85D5000, v1, OS_LOG_TYPE_ERROR, "WARNING: deviceServiceXpcDisconnectedHandler Disconnected from bluetoothd serviceName:%s sessionName:%s", v2, 0x16u);
 }
 
 void BTDiscoveryAgentCreate_cold_3()
@@ -3737,20 +2949,17 @@ void BTDiscoveryAgentCreate_cold_3()
 
 void BTDiscoveryAgentCreate_cold_7()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-void __BTDiscoveryAgentCreate_block_invoke_cold_2(uint64_t a1)
+void __BTDiscoveryAgentCreate_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTDiscoveryAgentDestroy_cold_2()
@@ -3762,20 +2971,17 @@ void BTDiscoveryAgentDestroy_cold_2()
 
 void BTDiscoveryAgentDestroy_cold_4()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-void __BTDiscoveryAgentDestroy_block_invoke_cold_2(uint64_t a1)
+void __BTDiscoveryAgentDestroy_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTDiscoveryAgentStartScan_cold_2()
@@ -3785,13 +2991,12 @@ void BTDiscoveryAgentStartScan_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTDiscoveryAgentStartScan_block_invoke_cold_2(uint64_t a1)
+void __BTDiscoveryAgentStartScan_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTDiscoveryAgentStartScanForAdvertizedData_cold_2()
@@ -3801,13 +3006,12 @@ void BTDiscoveryAgentStartScanForAdvertizedData_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTDiscoveryAgentStartScanForAdvertizedData_block_invoke_cold_2(uint64_t a1)
+void __BTDiscoveryAgentStartScanForAdvertizedData_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTDiscoveryAgentStopScan_cold_2()
@@ -3817,13 +3021,12 @@ void BTDiscoveryAgentStopScan_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTDiscoveryAgentStopScan_block_invoke_cold_2(uint64_t a1)
+void __BTDiscoveryAgentStopScan_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTDiscoveryAgentGetDevices_cold_2()
@@ -3833,14 +3036,13 @@ void BTDiscoveryAgentGetDevices_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTDiscoveryAgentGetDevices_block_invoke_cold_3(uint64_t a1)
+void __BTDiscoveryAgentGetDevices_block_invoke_cold_3()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
-  v5 = 2048;
-  v6 = v1;
-  _os_log_debug_impl(&dword_1D85D5000, v2, OS_LOG_TYPE_DEBUG, "kCBMsgIdDiscoveryAgentGetDevicesMsg reply result:%llx count:%lx", v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 2048;
+  v4 = v0;
+  _os_log_debug_impl(&dword_1D85D5000, v1, OS_LOG_TYPE_DEBUG, "kCBMsgIdDiscoveryAgentGetDevicesMsg reply result:%llx count:%lx", v2, 0x16u);
 }
 
 void BTDiscoveryAgentAddKey_cold_2()
@@ -3864,13 +3066,12 @@ void BTDiscoveryAgentAddKey_cold_6()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTDiscoveryAgentAddKey_block_invoke_cold_2(uint64_t a1)
+void __BTDiscoveryAgentAddKey_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTDiscoveryAgentRemoveKey_cold_2()
@@ -3882,11 +3083,9 @@ void BTDiscoveryAgentRemoveKey_cold_2()
 
 void discoveryAgentXpcDisconnectedHandler_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void BTLocalDeviceGetDefault_cold_2()
@@ -3896,15 +3095,13 @@ void BTLocalDeviceGetDefault_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTLocalDeviceGetDefault_block_invoke_cold_2(uint64_t a1)
+void __BTLocalDeviceGetDefault_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
-  v2 = *(*(*v1 + 8) + 24);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
-  WORD2(v8) = 2048;
-  HIWORD(v8) = v3;
-  OUTLINED_FUNCTION_9(&dword_1D85D5000, v4, v5, "kCBMsgIdLocalDeviceGetDefaultMsg reply deviceID:%llx result:%llx", v7, v8);
-  v6 = *MEMORY[0x1E69E9840];
+  WORD2(v4) = 2048;
+  HIWORD(v4) = v0;
+  OUTLINED_FUNCTION_9(&dword_1D85D5000, v1, v2, "kCBMsgIdLocalDeviceGetDefaultMsg reply deviceID:%llx result:%llx", v3, v4);
 }
 
 void BTLocalDeviceAddCallbacks_cold_2()
@@ -3914,21 +3111,12 @@ void BTLocalDeviceAddCallbacks_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void BTLocalDeviceAddCallbacks_cold_8()
+void __BTLocalDeviceAddCallbacks_block_invoke_cold_2()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3_1();
-  OUTLINED_FUNCTION_4(&dword_1D85D5000, v0, v1, "Failed to get a valid XPC connection for sessionHandle:%llx", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __BTLocalDeviceAddCallbacks_block_invoke_cold_2(uint64_t a1)
-{
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTLocalDeviceRemoveCallbacks_cold_2()
@@ -3938,13 +3126,12 @@ void BTLocalDeviceRemoveCallbacks_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTLocalDeviceRemoveCallbacks_block_invoke_cold_2(uint64_t a1)
+void __BTLocalDeviceRemoveCallbacks_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTLocalDeviceMaskCallbacks_cold_2()
@@ -3954,13 +3141,12 @@ void BTLocalDeviceMaskCallbacks_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTLocalDeviceMaskCallbacks_block_invoke_cold_2(uint64_t a1)
+void __BTLocalDeviceMaskCallbacks_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTLocalDeviceSetModulePower_cold_2()
@@ -3970,13 +3156,12 @@ void BTLocalDeviceSetModulePower_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTLocalDeviceSetModulePower_block_invoke_cold_2(uint64_t a1)
+void __BTLocalDeviceSetModulePower_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTLocalDeviceGetModulePower_cold_2()
@@ -3986,31 +3171,28 @@ void BTLocalDeviceGetModulePower_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTLocalDeviceGetSpatialPlatformSupport_block_invoke_cold_2(uint64_t a1)
+void __BTLocalDeviceGetSpatialPlatformSupport_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void __BTLocalDevicePowerReset_block_invoke_cold_2(uint64_t a1)
+void __BTLocalDevicePowerReset_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void __BTLocalDeviceGetAirplaneModeStatus_block_invoke_cold_2(uint64_t a1)
+void __BTLocalDeviceGetAirplaneModeStatus_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTLocalDeviceGetAddressString_cold_2()
@@ -4020,13 +3202,12 @@ void BTLocalDeviceGetAddressString_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTLocalDeviceGetAddressString_block_invoke_cold_2(uint64_t a1)
+void __BTLocalDeviceGetAddressString_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTLocalDeviceGetName_cold_2()
@@ -4036,58 +3217,52 @@ void BTLocalDeviceGetName_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTLocalDeviceGetName_block_invoke_cold_2(uint64_t a1)
+void __BTLocalDeviceGetName_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void __BTLocalDeviceSetDiscoverable_block_invoke_cold_2(uint64_t a1)
+void __BTLocalDeviceSetDiscoverable_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void __BTLocalDeviceGetDiscoverable_block_invoke_cold_2(uint64_t a1)
+void __BTLocalDeviceGetDiscoverable_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void __BTLocalDeviceSetConnectable_block_invoke_cold_2(uint64_t a1)
+void __BTLocalDeviceSetConnectable_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void __BTLocalDeviceGetConnectable_block_invoke_cold_2(uint64_t a1)
+void __BTLocalDeviceGetConnectable_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void __BTLocalDeviceGetPairingStatus_block_invoke_cold_2(uint64_t a1)
+void __BTLocalDeviceGetPairingStatus_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTLocalDeviceGetPairedDevices_cold_2()
@@ -4097,22 +3272,20 @@ void BTLocalDeviceGetPairedDevices_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTLocalDeviceGetPairedDevices_block_invoke_cold_3(uint64_t a1)
+void __BTLocalDeviceGetPairedDevices_block_invoke_cold_3()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_10();
-  OUTLINED_FUNCTION_9(&dword_1D85D5000, v1, v2, "kCBMsgIdLocalDeviceGetPairedDevicesMsg reply result:%llx count:%lx", v4, v5);
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_9(&dword_1D85D5000, v0, v1, "kCBMsgIdLocalDeviceGetPairedDevicesMsg reply result:%llx count:%lx", v2, v3);
 }
 
-void __BTLocalDeviceGetConnectionStatus_block_invoke_cold_2(uint64_t a1)
+void __BTLocalDeviceGetConnectionStatus_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTLocalDeviceGetConnectedDevices_cold_2()
@@ -4122,13 +3295,12 @@ void BTLocalDeviceGetConnectedDevices_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTLocalDeviceGetConnectedDevices_block_invoke_cold_3(uint64_t a1)
+void __BTLocalDeviceGetConnectedDevices_block_invoke_cold_3()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_10();
-  OUTLINED_FUNCTION_9(&dword_1D85D5000, v1, v2, "kCBMsgIdLocalDeviceGetConnectedDevicesMsg reply result:%llx count:%lx", v4, v5);
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_9(&dword_1D85D5000, v0, v1, "kCBMsgIdLocalDeviceGetConnectedDevicesMsg reply result:%llx count:%lx", v2, v3);
 }
 
 void BTLocalDeviceGetConnectingDevices_cold_2()
@@ -4138,102 +3310,84 @@ void BTLocalDeviceGetConnectingDevices_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTLocalDeviceGetConnectingDevices_block_invoke_cold_3(uint64_t a1)
+void __BTLocalDeviceGetConnectingDevices_block_invoke_cold_3()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_10();
-  OUTLINED_FUNCTION_9(&dword_1D85D5000, v1, v2, "kCBMsgIdLocalDeviceGetConnectingDevicesMsg reply result:%llx count:%lx", v4, v5);
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_9(&dword_1D85D5000, v0, v1, "kCBMsgIdLocalDeviceGetConnectingDevicesMsg reply result:%llx count:%lx", v2, v3);
 }
 
-void __BTLocalDeviceGetAdvertisingStatus_block_invoke_cold_2(uint64_t a1)
+void __BTLocalDeviceGetAdvertisingStatus_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void __BTLocalDeviceGetScanning_block_invoke_cold_2(uint64_t a1)
+void __BTLocalDeviceGetScanning_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void __BTLocalDeviceGetDUTModeEnabled_block_invoke_cold_2(uint64_t a1)
+void __BTLocalDeviceGetDUTModeEnabled_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void __BTLocalDeviceEnableLeTxTestMode_block_invoke_cold_2(uint64_t a1)
+void __BTLocalDeviceEnableLeTxTestMode_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void __BTLocalDeviceEnableLeRxTestMode_block_invoke_cold_2(uint64_t a1)
+void __BTLocalDeviceEnableLeRxTestMode_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void __BTLocalDeviceDisableLeTestMode_block_invoke_cold_2(uint64_t a1)
+void __BTLocalDeviceDisableLeTestMode_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void __BTLocalDeviceSupportsService_block_invoke_cold_2(uint64_t a1)
+void __BTLocalDeviceSupportsService_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void BTLocalDeviceAdvertiseData_cold_3()
+void __BTLocalDeviceAdvertiseData_block_invoke_cold_2()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_4(&dword_1D85D5000, v0, v1, "Failed to get a valid XPC connection for device:%llx", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __BTLocalDeviceAdvertiseData_block_invoke_cold_2(uint64_t a1)
-{
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void __BTLocalDeviceRemoveData_block_invoke_cold_2(uint64_t a1)
+void __BTLocalDeviceRemoveData_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTLocalDeviceRegisterForPowerUpdates_cold_2()
@@ -4243,13 +3397,12 @@ void BTLocalDeviceRegisterForPowerUpdates_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTLocalDeviceRegisterForPowerUpdates_block_invoke_cold_2(uint64_t a1)
+void __BTLocalDeviceRegisterForPowerUpdates_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTLocalDeviceUnregisterForPowerUpdates_cold_2()
@@ -4259,13 +3412,12 @@ void BTLocalDeviceUnregisterForPowerUpdates_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTLocalDeviceUnregisterForPowerUpdates_block_invoke_cold_2(uint64_t a1)
+void __BTLocalDeviceUnregisterForPowerUpdates_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTLocalDeviceReadPowerConsumption_cold_3()
@@ -4275,13 +3427,12 @@ void BTLocalDeviceReadPowerConsumption_cold_3()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTLocalDeviceReadPowerConsumption_block_invoke_cold_2(uint64_t a1)
+void __BTLocalDeviceReadPowerConsumption_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTLocalDeviceRegisterForPowerProfileStatistics_cold_2()
@@ -4291,13 +3442,12 @@ void BTLocalDeviceRegisterForPowerProfileStatistics_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTLocalDeviceRegisterForPowerProfileStatistics_block_invoke_cold_2(uint64_t a1)
+void __BTLocalDeviceRegisterForPowerProfileStatistics_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTLocalDeviceUnregisterForPowerProfileStatistics_cold_2()
@@ -4307,13 +3457,12 @@ void BTLocalDeviceUnregisterForPowerProfileStatistics_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTLocalDeviceUnregisterForPowerProfileStatistics_block_invoke_cold_2(uint64_t a1)
+void __BTLocalDeviceUnregisterForPowerProfileStatistics_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTLocalDeviceReadPowerProfileStatistics_cold_2()
@@ -4323,13 +3472,12 @@ void BTLocalDeviceReadPowerProfileStatistics_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTLocalDeviceReadPowerProfileStatistics_block_invoke_cold_2(uint64_t a1)
+void __BTLocalDeviceReadPowerProfileStatistics_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTLocalDeviceReadEnhancedPowerProfileStatistics_cold_2()
@@ -4339,13 +3487,12 @@ void BTLocalDeviceReadEnhancedPowerProfileStatistics_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTLocalDeviceReadEnhancedPowerProfileStatistics_block_invoke_cold_2(uint64_t a1)
+void __BTLocalDeviceReadEnhancedPowerProfileStatistics_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTLocalDeviceReadEnhancedPowerStatsPerCore_cold_2()
@@ -4355,13 +3502,12 @@ void BTLocalDeviceReadEnhancedPowerStatsPerCore_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTLocalDeviceReadEnhancedPowerStatsPerCore_block_invoke_cold_2(uint64_t a1)
+void __BTLocalDeviceReadEnhancedPowerStatsPerCore_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTLocalDeviceReadTransportSwitchStatistics_cold_2()
@@ -4371,13 +3517,12 @@ void BTLocalDeviceReadTransportSwitchStatistics_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTLocalDeviceReadTransportSwitchStatistics_block_invoke_cold_2(uint64_t a1)
+void __BTLocalDeviceReadTransportSwitchStatistics_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTLocalDeviceReadDetailedPowerProfileStatistics_cold_2()
@@ -4387,13 +3532,12 @@ void BTLocalDeviceReadDetailedPowerProfileStatistics_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTLocalDeviceReadDetailedPowerProfileStatistics_block_invoke_cold_2(uint64_t a1)
+void __BTLocalDeviceReadDetailedPowerProfileStatistics_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTStartHCITraces_cold_2()
@@ -4403,13 +3547,12 @@ void BTStartHCITraces_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTStartHCITraces_block_invoke_cold_2(uint64_t a1)
+void __BTStartHCITraces_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTStopHCITraces_cold_2()
@@ -4419,13 +3562,12 @@ void BTStopHCITraces_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTStopHCITraces_block_invoke_cold_2(uint64_t a1)
+void __BTStopHCITraces_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTLocalDeviceShowPowerPrompt_cold_2()
@@ -4435,13 +3577,12 @@ void BTLocalDeviceShowPowerPrompt_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTLocalDeviceShowPowerPrompt_block_invoke_cold_2(uint64_t a1)
+void __BTLocalDeviceShowPowerPrompt_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTLocalDeviceSetAFHMap_cold_2()
@@ -4451,13 +3592,12 @@ void BTLocalDeviceSetAFHMap_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTLocalDeviceSetAFHMap_block_invoke_cold_2(uint64_t a1)
+void __BTLocalDeviceSetAFHMap_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTLocalDeviceReadAFHMap_cold_2()
@@ -4467,13 +3607,12 @@ void BTLocalDeviceReadAFHMap_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTLocalDeviceReadAFHMap_block_invoke_cold_2(uint64_t a1)
+void __BTLocalDeviceReadAFHMap_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTLocalDeviceSetDelayedWake_cold_2()
@@ -4483,13 +3622,12 @@ void BTLocalDeviceSetDelayedWake_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTLocalDeviceSetDelayedWake_block_invoke_cold_2(uint64_t a1)
+void __BTLocalDeviceSetDelayedWake_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTLocalDeviceSetDenylistEnabled_cold_2()
@@ -4499,21 +3637,12 @@ void BTLocalDeviceSetDenylistEnabled_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void BTLocalDeviceSetDenylistEnabled_cold_4()
+void __BTLocalDeviceSetDenylistEnabled_block_invoke_cold_2()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_4(&dword_1D85D5000, v0, v1, "Failed to get a valid XPC connection localDeviceHandle:%llx", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __BTLocalDeviceSetDenylistEnabled_block_invoke_cold_2(uint64_t a1)
-{
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTLocalDeviceGetDenylistEnabled_cold_2()
@@ -4523,13 +3652,12 @@ void BTLocalDeviceGetDenylistEnabled_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTLocalDeviceGetDenylistEnabled_block_invoke_cold_2(uint64_t a1)
+void __BTLocalDeviceGetDenylistEnabled_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTLocalDeviceGetDeviceNamesThatMayBeDenylisted_cold_2()
@@ -4539,13 +3667,12 @@ void BTLocalDeviceGetDeviceNamesThatMayBeDenylisted_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTLocalDeviceGetDeviceNamesThatMayBeDenylisted_block_invoke_cold_2(uint64_t a1)
+void __BTLocalDeviceGetDeviceNamesThatMayBeDenylisted_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTLocalDeviceGetSharingAddresses_cold_2()
@@ -4555,13 +3682,12 @@ void BTLocalDeviceGetSharingAddresses_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTLocalDeviceGetSharingAddresses_block_invoke_cold_2(uint64_t a1)
+void __BTLocalDeviceGetSharingAddresses_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTLocalDeviceIsSharingEnabled_cold_2()
@@ -4571,13 +3697,12 @@ void BTLocalDeviceIsSharingEnabled_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTLocalDeviceIsSharingEnabled_block_invoke_cold_2(uint64_t a1)
+void __BTLocalDeviceIsSharingEnabled_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTLocalDeviceDumpExposureNotificationDatabase_cold_2()
@@ -4587,13 +3712,12 @@ void BTLocalDeviceDumpExposureNotificationDatabase_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTLocalDeviceDumpExposureNotificationDatabase_block_invoke_cold_2(uint64_t a1)
+void __BTLocalDeviceDumpExposureNotificationDatabase_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTLocalDeviceLinkQualityGetData_cold_2()
@@ -4603,32 +3727,29 @@ void BTLocalDeviceLinkQualityGetData_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTLocalDeviceLinkQualityGetData_block_invoke_cold_2(uint64_t a1)
+void __BTLocalDeviceLinkQualityGetData_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void __BTLocalDeviceSetCallScreening_block_invoke_cold_2(uint64_t a1)
+void __BTLocalDeviceSetCallScreening_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void localDeviceXpcDisconnectedHandler_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_8();
-  v4 = 2080;
-  v5 = v0;
-  _os_log_error_impl(&dword_1D85D5000, v1, OS_LOG_TYPE_ERROR, "WARNING: localDeviceXpcDisconnectedHandler Disconnected from bluetoothd serviceName:%s sessionName:%s", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = 2080;
+  v4 = v0;
+  _os_log_error_impl(&dword_1D85D5000, v1, OS_LOG_TYPE_ERROR, "WARNING: localDeviceXpcDisconnectedHandler Disconnected from bluetoothd serviceName:%s sessionName:%s", v2, 0x16u);
 }
 
 void BTPairingAgentCreate_cold_2()
@@ -4638,13 +3759,12 @@ void BTPairingAgentCreate_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTPairingAgentCreate_block_invoke_cold_2(uint64_t a1)
+void __BTPairingAgentCreate_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTPairingAgentDestroy_cold_2()
@@ -4654,22 +3774,12 @@ void BTPairingAgentDestroy_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void BTPairingAgentDestroy_cold_4(uint64_t *a1)
+void __BTPairingAgentDestroy_block_invoke_cold_2()
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = *a1;
-  OUTLINED_FUNCTION_8();
-  OUTLINED_FUNCTION_4(&dword_1D85D5000, v2, v3, "Failed to get a valid XPC connection agent:%llx", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-void __BTPairingAgentDestroy_block_invoke_cold_2(uint64_t a1)
-{
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTPairingAgentStart_cold_2()
@@ -4679,13 +3789,12 @@ void BTPairingAgentStart_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTPairingAgentStart_block_invoke_cold_2(uint64_t a1)
+void __BTPairingAgentStart_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTPairingAgentStop_cold_2()
@@ -4695,13 +3804,12 @@ void BTPairingAgentStop_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTPairingAgentStop_block_invoke_cold_2(uint64_t a1)
+void __BTPairingAgentStop_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTPairingAgentCancelPairing_cold_2()
@@ -4711,13 +3819,12 @@ void BTPairingAgentCancelPairing_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTPairingAgentCancelPairing_block_invoke_cold_2(uint64_t a1)
+void __BTPairingAgentCancelPairing_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTPairingAgentSetPincode_cold_2()
@@ -4727,13 +3834,12 @@ void BTPairingAgentSetPincode_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTPairingAgentSetPincode_block_invoke_cold_2(uint64_t a1)
+void __BTPairingAgentSetPincode_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTPairingAgentAcceptSSP_cold_2()
@@ -4743,13 +3849,12 @@ void BTPairingAgentAcceptSSP_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTPairingAgentAcceptSSP_block_invoke_cold_2(uint64_t a1)
+void __BTPairingAgentAcceptSSP_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTPairingAgentDeletePairedDevice_cold_2()
@@ -4759,13 +3864,12 @@ void BTPairingAgentDeletePairedDevice_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTPairingAgentDeletePairedDevice_block_invoke_cold_2(uint64_t a1)
+void __BTPairingAgentDeletePairedDevice_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTPairingAgentSetIOCapability_cold_2()
@@ -4775,13 +3879,12 @@ void BTPairingAgentSetIOCapability_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTPairingAgentSetIOCapability_block_invoke_cold_2(uint64_t a1)
+void __BTPairingAgentSetIOCapability_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTPairingAgentClearOOBDataForDevice_cold_2()
@@ -4791,13 +3894,12 @@ void BTPairingAgentClearOOBDataForDevice_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTPairingAgentClearOOBDataForDevice_block_invoke_cold_2(uint64_t a1)
+void __BTPairingAgentClearOOBDataForDevice_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTPairingAgentSetOOBDataForDevice_cold_2()
@@ -4807,13 +3909,12 @@ void BTPairingAgentSetOOBDataForDevice_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTPairingAgentSetOOBDataForDevice_block_invoke_cold_2(uint64_t a1)
+void __BTPairingAgentSetOOBDataForDevice_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void BTPairingAgentGetLocalOOBData_cold_2()
@@ -4823,72 +3924,58 @@ void BTPairingAgentGetLocalOOBData_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __BTPairingAgentGetLocalOOBData_block_invoke_cold_2(uint64_t a1)
+void __BTPairingAgentGetLocalOOBData_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void pairingAgentXpcDisconnectedHandler_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_8();
-  v4 = 2080;
-  v5 = v0;
-  _os_log_error_impl(&dword_1D85D5000, v1, OS_LOG_TYPE_ERROR, "WARNING: pairingAgentXpcDisconnectedHandler Disconnected from bluetoothd serviceName:%s sessionName:%s", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = 2080;
+  v4 = v0;
+  _os_log_error_impl(&dword_1D85D5000, v1, OS_LOG_TYPE_ERROR, "WARNING: pairingAgentXpcDisconnectedHandler Disconnected from bluetoothd serviceName:%s sessionName:%s", v2, 0x16u);
 }
 
-void _MBTGetAsyncAttachQueue_cold_2(uint64_t a1)
+void _MBTGetAsyncAttachQueue_cold_2()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void _MBTGetAsyncAttachQueue_cold_4(uint64_t a1, uint64_t *a2)
+void _MBTGetAsyncAttachQueue_cold_4()
 {
-  OUTLINED_FUNCTION_9_1(a2, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_9_1(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_3_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void _MBTGetAsyncAttachQueue_cold_6(uint64_t a1, uint64_t *a2)
+void _MBTGetAsyncAttachQueue_cold_6()
 {
-  OUTLINED_FUNCTION_9_1(a2, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_9_1(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_3_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void _MBTAsyncAttach_cold_2(uint64_t a1)
+void _MBTAsyncAttach_cold_2()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 8);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void _MBTAsyncAttach_cold_7(uint64_t a1)
+void _MBTAsyncAttach_cold_7()
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 8);
-  v2 = *(a1 + 88);
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x1Cu);
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
 void BTSessionDetachWithQueue_cold_2()
@@ -4907,119 +3994,96 @@ void BTSessionDetachWithQueue_cold_4()
 
 void notifyStubsOfDisconnection_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-void _MBTDispachAsyncAttachCompletionBlock_cold_2(uint64_t a1)
+void _MBTDispachAsyncAttachCompletionBlock_cold_2()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void _MBTDispachAsyncAttachCompletionBlock_cold_4(uint64_t a1, uint64_t *a2)
+void _MBTDispachAsyncAttachCompletionBlock_cold_4()
 {
-  OUTLINED_FUNCTION_9_1(a2, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_9_1(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_3_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void _MBTDispachAsyncAttachCompletionBlock_cold_6(uint64_t a1, uint64_t *a2)
+void _MBTDispachAsyncAttachCompletionBlock_cold_6()
 {
-  OUTLINED_FUNCTION_9_1(a2, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_9_1(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_3_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void _MBTSignalSessionEvent_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_3_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-void xpcConnectionDidReset_cold_2(uint64_t a1)
+void xpcConnectionDidReset_cold_2()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 2072);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void xpcConnectionDidReset_cold_4()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void xpcConnectionDidReset_cold_6()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_6();
-  _os_log_error_impl(&dword_1D85D5000, v0, OS_LOG_TYPE_ERROR, "MBFXPC LOG Skipped xpcConnectionDidReset because fwSession for connection %p was NULL", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1D85D5000, v0, OS_LOG_TYPE_ERROR, "MBFXPC LOG Skipped xpcConnectionDidReset because fwSession for connection %p was NULL", v1, 0xCu);
 }
 
-void xpcConnectionInvalid_cold_2(uint64_t a1)
+void xpcConnectionInvalid_cold_2()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 2072);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void xpcConnectionInvalid_cold_4()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-void __xpcConnectionInvalid_block_invoke_cold_2(uint64_t a1)
+void __xpcConnectionInvalid_block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_6_1(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_6_1(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void __xpcConnectionInvalid_block_invoke_cold_4(uint64_t a1)
+void __xpcConnectionInvalid_block_invoke_cold_4()
 {
-  OUTLINED_FUNCTION_6_1(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_6_1(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void __xpcConnectionInvalid_block_invoke_cold_6(uint64_t a1)
+void __xpcConnectionInvalid_block_invoke_cold_6()
 {
-  OUTLINED_FUNCTION_6_1(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_6_1(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }

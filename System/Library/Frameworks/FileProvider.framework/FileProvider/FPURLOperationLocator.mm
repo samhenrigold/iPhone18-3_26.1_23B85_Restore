@@ -194,24 +194,18 @@ LABEL_3:
 
 - (void)size
 {
-  v13 = *MEMORY[0x1E69E9840];
   fp_shortDescription = [self fp_shortDescription];
   fp_prettyDescription = [a2 fp_prettyDescription];
   OUTLINED_FUNCTION_12();
-  OUTLINED_FUNCTION_1_1(&dword_1AAAE1000, v5, v6, "[DEBUG] Failed to determine size of item at %@ (%@)", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_1(&dword_1AAAE1000, v5, v6, "[DEBUG] Failed to determine size of item at %@ (%@)", v7, v8, v9, v10);
 }
 
 - (void)isDownloaded
 {
-  v13 = *MEMORY[0x1E69E9840];
   fp_shortDescription = [self fp_shortDescription];
   fp_prettyDescription = [a2 fp_prettyDescription];
   OUTLINED_FUNCTION_12();
-  OUTLINED_FUNCTION_1_1(&dword_1AAAE1000, v5, v6, "[DEBUG] Failed to determine dataless status of item at %@ (%@)", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_1(&dword_1AAAE1000, v5, v6, "[DEBUG] Failed to determine dataless status of item at %@ (%@)", v7, v8, v9, v10);
 }
 
 @end

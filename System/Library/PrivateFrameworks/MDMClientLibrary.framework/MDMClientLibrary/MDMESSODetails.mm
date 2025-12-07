@@ -7,7 +7,7 @@
 
 + (id)essoDetailsWithJSONDictionary:(id)dictionary
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v4 = [dictionaryCopy objectForKeyedSubscript:@"iTunesStoreID"];
   if (v4 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) || ([MEMORY[0x277D034E8] ESSOTestModeEnabled] & 1) != 0)
@@ -22,7 +22,7 @@
         if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v43 = dictionaryCopy;
+          v42 = dictionaryCopy;
           _os_log_impl(&dword_22E997000, v6, OS_LOG_TYPE_ERROR, "ESSO app IDs is invalid: %{public}@", buf, 0xCu);
         }
 
@@ -46,7 +46,7 @@
         if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v43 = dictionaryCopy;
+          v42 = dictionaryCopy;
           _os_log_impl(&dword_22E997000, v16, OS_LOG_TYPE_ERROR, "ESSO associated domains is invalid: %{public}@", buf, 0xCu);
         }
 
@@ -65,7 +65,7 @@
         if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v43 = dictionaryCopy;
+          v42 = dictionaryCopy;
           _os_log_impl(&dword_22E997000, v27, OS_LOG_TYPE_ERROR, "ESSO associated domains enable direct downloads is invalid: %{public}@", buf, 0xCu);
         }
 
@@ -86,7 +86,7 @@
         if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v43 = dictionaryCopy;
+          v42 = dictionaryCopy;
           _os_log_impl(&dword_22E997000, v15, OS_LOG_TYPE_ERROR, "ESSO details configuration profile data is invalid or missing: %{public}@", buf, 0xCu);
         }
 
@@ -101,7 +101,7 @@
     }
 
     v17 = [dictionaryCopy objectForKeyedSubscript:@"Declarations"];
-    v36 = v17;
+    v35 = v17;
     if (v17)
     {
       v18 = v17;
@@ -112,7 +112,7 @@
         if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v43 = dictionaryCopy;
+          v42 = dictionaryCopy;
           _os_log_impl(&dword_22E997000, v29, OS_LOG_TYPE_ERROR, "ESSO details declarations data is missing: %{public}@", buf, 0xCu);
         }
 
@@ -120,44 +120,44 @@
         goto LABEL_55;
       }
 
-      v33 = v14;
-      v34 = v9;
-      v35 = v11;
+      v32 = v14;
+      v33 = v9;
+      v34 = v11;
       v19 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(0, "count")}];
+      v36 = 0u;
       v37 = 0u;
       v38 = 0u;
       v39 = 0u;
-      v40 = 0u;
       v20 = v18;
-      v21 = [v20 countByEnumeratingWithState:&v37 objects:v41 count:16];
+      v21 = [v20 countByEnumeratingWithState:&v36 objects:v40 count:16];
       if (v21)
       {
         v22 = v21;
-        v23 = *v38;
+        v23 = *v37;
         while (2)
         {
           for (i = 0; i != v22; ++i)
           {
-            if (*v38 != v23)
+            if (*v37 != v23)
             {
               objc_enumerationMutation(v20);
             }
 
-            v25 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBase64EncodedString:*(*(&v37 + 1) + 8 * i) options:0];
+            v25 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBase64EncodedString:*(*(&v36 + 1) + 8 * i) options:0];
             if (!v25)
             {
               v30 = *DMCLogObjects();
               if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138543362;
-                v43 = dictionaryCopy;
+                v42 = dictionaryCopy;
                 _os_log_impl(&dword_22E997000, v30, OS_LOG_TYPE_ERROR, "ESSO details declaration data is invalid or missing: %{public}@", buf, 0xCu);
               }
 
               v7 = 0;
-              v9 = v34;
-              v11 = v35;
-              v14 = v33;
+              v9 = v33;
+              v11 = v34;
+              v14 = v32;
               goto LABEL_55;
             }
 
@@ -165,7 +165,7 @@
             [v19 addObject:v25];
           }
 
-          v22 = [v20 countByEnumeratingWithState:&v37 objects:v41 count:16];
+          v22 = [v20 countByEnumeratingWithState:&v36 objects:v40 count:16];
           if (v22)
           {
             continue;
@@ -175,13 +175,13 @@
         }
       }
 
-      v9 = v34;
-      v14 = v33;
+      v9 = v33;
+      v14 = v32;
     }
 
     else
     {
-      v35 = v11;
+      v34 = v11;
       v19 = 0;
     }
 
@@ -202,7 +202,7 @@
       v7 = 0;
     }
 
-    v11 = v35;
+    v11 = v34;
 LABEL_55:
 
 LABEL_56:
@@ -218,14 +218,12 @@ LABEL_59:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     *buf = 138543362;
-    v43 = dictionaryCopy;
+    v42 = dictionaryCopy;
     _os_log_impl(&dword_22E997000, v8, OS_LOG_TYPE_ERROR, "ESSO details app store ID is invalid or missing: %{public}@", buf, 0xCu);
   }
 
   v7 = 0;
 LABEL_60:
-
-  v31 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

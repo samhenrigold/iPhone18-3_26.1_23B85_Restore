@@ -190,7 +190,7 @@
 
 - (void)_updateCameraLimits
 {
-  [(VKCameraController *)self camera];
+  objc_msgSend_camera(self, a2);
   if (v50)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v50);
@@ -198,7 +198,7 @@
 
   if (v49)
   {
-    [(VKCameraController *)self camera];
+    objc_msgSend_camera(self);
     LabelingPoint = grl::IconMetricsRenderResult::getLabelingPoint(v49);
     v59 = *gdc::Camera::cameraFrame(LabelingPoint);
     if (v50)
@@ -206,7 +206,7 @@
       std::__shared_weak_count::__release_shared[abi:nn200100](v50);
     }
 
-    [(VKCameraController *)self camera];
+    objc_msgSend_camera(self);
     v5 = gdc::DisplayZoomLevel::centerZoomLevel(v49, v4);
     if (v50)
     {
@@ -214,7 +214,7 @@
     }
 
     tileSize = [(VKNavCameraController *)self tileSize];
-    [(VKCameraController *)self camera];
+    objc_msgSend_camera(self);
     v7 = gdc::Camera::viewSize(minDistanceToGroundRestriction);
     gdc::NormalizedZoomLevel::NormalizedZoomLevel(&v49, v5, tileSize, *v7);
     if (v54)
@@ -233,7 +233,7 @@
     v15 = v14;
     v16 = v14;
 
-    [(VKCameraController *)self camera];
+    objc_msgSend_camera(self);
     v17 = grl::IconMetricsRenderResult::getLabelingPoint(minDistanceToGroundRestriction);
     v18 = *gdc::Camera::cameraFrame(v17);
     if (v54)
@@ -251,7 +251,7 @@
     [(VKNavCameraController *)self minimumNormalizedZoomLevel];
     v21 = v20;
     tileSize2 = [(VKNavCameraController *)self tileSize];
-    [(VKCameraController *)self camera];
+    objc_msgSend_camera(self);
     v23 = gdc::Camera::viewSize(minDistanceToGroundRestriction);
     gdc::NormalizedZoomLevel::NormalizedZoomLevel(&v49, v21, tileSize2, *v23);
     gdc::DisplayZoomLevel::DisplayZoomLevel(&v58, &v49);
@@ -263,7 +263,7 @@
     [(VKNavCameraController *)self maximumNormalizedZoomLevel];
     v25 = v24;
     tileSize3 = [(VKNavCameraController *)self tileSize];
-    [(VKCameraController *)self camera];
+    objc_msgSend_camera(self);
     v27 = gdc::Camera::viewSize(minDistanceToGroundRestriction);
     gdc::NormalizedZoomLevel::NormalizedZoomLevel(&v49, v25, tileSize3, *v27);
     gdc::DisplayZoomLevel::DisplayZoomLevel(&v57, &v49);
@@ -274,17 +274,17 @@
 
     v28 = v57;
     v29 = v58;
-    vkCamera = [(VKCameraController *)self vkCamera];
-    minDistanceToGroundRestriction = [vkCamera minDistanceToGroundRestriction];
+    v30 = objc_msgSend_vkCamera(self);
+    minDistanceToGroundRestriction = [v30 minDistanceToGroundRestriction];
     LOBYTE(v54) = v31;
 
-    vkCamera2 = [(VKCameraController *)self vkCamera];
-    maxDistanceToGroundRestriction = [vkCamera2 maxDistanceToGroundRestriction];
+    v32 = objc_msgSend_vkCamera(self);
+    maxDistanceToGroundRestriction = [v32 maxDistanceToGroundRestriction];
     v56 = v33;
 
     grl::IconRequestOptions::setContentScale(v51, v29);
     tileSize4 = [(VKNavCameraController *)self tileSize];
-    [(VKCameraController *)self camera];
+    objc_msgSend_camera(self);
     v35 = gdc::Camera::viewSize(v49);
     gdc::NormalizedZoomLevel::NormalizedZoomLevel(v52, v51[0], tileSize4, *v35);
     if (v50)
@@ -294,7 +294,7 @@
 
     grl::IconRequestOptions::setContentScale(&v47, v28);
     tileSize5 = [(VKNavCameraController *)self tileSize];
-    [(VKCameraController *)self camera];
+    objc_msgSend_camera(self);
     v37 = gdc::Camera::viewSize(v49);
     gdc::NormalizedZoomLevel::NormalizedZoomLevel(v51, *&v47, tileSize5, *v37);
     if (v50)
@@ -302,13 +302,13 @@
       std::__shared_weak_count::__release_shared[abi:nn200100](v50);
     }
 
-    [(VKCameraController *)self camera];
+    objc_msgSend_camera(self);
     v38 = gdc::Camera::cameraFrame(v47);
-    [(VKCameraController *)self camera];
+    objc_msgSend_camera(self);
     gdc::Camera::verticalFieldOfView(&v46, *&v44[1]);
-    [(VKCameraController *)self camera];
+    objc_msgSend_camera(self);
     gdc::Camera::horizontalFieldOfView(v44, v42);
-    [(VKCameraController *)self camera];
+    objc_msgSend_camera(self);
     v39 = gdc::Camera::pitch(*&v40[1]);
     v40[0] = 0.0;
     gdc::CameraLimits::CameraLimits(&v49, v38, &v46, v44, v39, &v59, v40, v52, v16, v51, &minDistanceToGroundRestriction);
@@ -332,7 +332,7 @@
       std::__shared_weak_count::__release_shared[abi:nn200100](v48);
     }
 
-    [(VKCameraController *)self camera];
+    objc_msgSend_camera(self);
     gdc::Camera::setLimits(v47, &v49);
     if (v48)
     {
@@ -421,7 +421,7 @@ LABEL_7:
 - (void)_updateSceneQuery
 {
   v19 = *MEMORY[0x1E69E9840];
-  [(VKNavCameraController *)self _getActiveSceneManager];
+  objc_msgSend__getActiveSceneManager(self, a2);
   p_sceneQuery = &self->_sceneQuery;
   cntrl = self->_sceneQuery.__cntrl_;
   self->_sceneQuery.__ptr_ = 0;
@@ -476,7 +476,7 @@ LABEL_7:
       std::__shared_weak_count::__release_shared[abi:nn200100](v11);
     }
 
-    if (v18 == 1 && (gss::RenderStyle<gss::ScenePropertyID>::hasValueForKey(v17[0][3], 0x2Eu) && gss::RenderStyleHelper<gss::ScenePropertyID,unsigned int>::valueForKey(0x2Eu, v17[0][3]) || gss::RenderStyle<gss::ScenePropertyID>::hasValueForKey(v17[0][3], 0x55u) && gss::RenderStyleHelper<gss::ScenePropertyID,unsigned int>::valueForKey(0x55u, v17[0][3])))
+    if (v18 == 1 && (gss::RenderStyle<gss::ScenePropertyID>::hasValueForKey(v17[0][3], 46) && gss::RenderStyleHelper<gss::ScenePropertyID,unsigned int>::valueForKey(46, v17[0][3]) || gss::RenderStyle<gss::ScenePropertyID>::hasValueForKey(v17[0][3], 85) && gss::RenderStyleHelper<gss::ScenePropertyID,unsigned int>::valueForKey(85, v17[0][3])))
     {
       [(VKNavCameraController *)self stopIgnoreStyleChange];
     }
@@ -535,20 +535,20 @@ LABEL_7:
 
 - (double)currentZoomLevel
 {
-  vkCamera = [(VKCameraController *)self vkCamera];
-  footprint = [vkCamera footprint];
+  v3 = objc_msgSend_vkCamera(self, a2);
+  footprint = [v3 footprint];
   [footprint nearestGroundPoint];
   v25[0] = v5;
   v25[1] = v6;
   v25[2] = v7;
 
-  vkCamera2 = [(VKCameraController *)self vkCamera];
-  position = [vkCamera2 position];
-  v23 = *position;
-  v24 = *(position + 16);
+  v8 = objc_msgSend_vkCamera(self);
+  v9 = objc_msgSend_position(v8);
+  v23 = *v9;
+  v24 = *(v9 + 16);
 
-  vkCamera3 = [(VKCameraController *)self vkCamera];
-  [vkCamera3 forwardVector];
+  v10 = objc_msgSend_vkCamera(self);
+  [v10 forwardVector];
   v22[0] = v11;
   v22[1] = v12;
   v22[2] = v13;
@@ -567,8 +567,8 @@ LABEL_7:
   }
 
   while (v15 != 3);
-  vkCamera4 = [(VKCameraController *)self vkCamera];
-  [vkCamera4 widthOfViewAtDepth:v16];
+  v17 = objc_msgSend_vkCamera(self);
+  [v17 widthOfViewAtDepth:v16];
   v19 = v18;
 
   if (v19 <= 0.0)
@@ -595,7 +595,7 @@ LABEL_7:
   v4 = sceneConfiguration;
   if (sceneConfiguration)
   {
-    [sceneConfiguration styleManager];
+    objc_msgSend_styleManager(sceneConfiguration);
   }
 
   else
@@ -629,8 +629,8 @@ LABEL_7:
     std::__shared_weak_count::__release_shared[abi:nn200100](v7);
   }
 
-  vkCamera = [(VKCameraController *)self vkCamera];
-  [vkCamera displayZoomLevel];
+  v8 = objc_msgSend_vkCamera(self);
+  [v8 displayZoomLevel];
   v10 = v9;
 
   if (v40 != 1)
@@ -811,7 +811,7 @@ LABEL_48:
 
 - (double)minZoomHeight
 {
-  [(VKCameraController *)self camera];
+  objc_msgSend_camera(self, a2);
   if (v7)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v7);
@@ -822,7 +822,7 @@ LABEL_48:
     return self->_minCameraHeight;
   }
 
-  [(VKCameraController *)self camera];
+  objc_msgSend_camera(self);
   LabelingPoint = grl::IconMetricsRenderResult::getLabelingPoint(v6);
   v4 = *grl::IconMetricsRenderResult::size(LabelingPoint);
   if (v7)
@@ -835,7 +835,7 @@ LABEL_48:
 
 - (double)maxZoomHeight
 {
-  [(VKCameraController *)self camera];
+  objc_msgSend_camera(self, a2);
   if (v7)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v7);
@@ -846,7 +846,7 @@ LABEL_48:
     return self->_maxCameraHeight;
   }
 
-  [(VKCameraController *)self camera];
+  objc_msgSend_camera(self);
   LabelingPoint = grl::IconMetricsRenderResult::getLabelingPoint(v6);
   v4 = *(grl::IconMetricsRenderResult::size(LabelingPoint) + 8);
   if (v7)
@@ -1069,7 +1069,7 @@ LABEL_2:
   {
     LODWORD(v5) = 1.0;
 
-    return [(VKNavCameraController *)self restingCameraFrameWithZoomScale:v5];
+    return objc_msgSend_restingCameraFrameWithZoomScale_(self, v5);
   }
 
   else
@@ -1128,11 +1128,11 @@ LABEL_2:
       value = retstr->_pitch._value;
       *&v24 = value;
       v27 = expf((*&v24 * -10.0) + 7.5);
-      v28.f64[0] = v34.f64[0];
-      v28.f64[1] = v34.f64[1] + halfPuckSize * 0.636619772 * (value + (-0.5 / (v27 + 1.0)));
+      v28.f64[0] = v34._e[0];
+      v28.f64[1] = v34._e[1] + halfPuckSize * 0.636619772 * (value + (-0.5 / (v27 + 1.0)));
       v35 = v28;
       v45[0] = !gdc::ToCoordinateSystem(**([(VKCameraController *)self mapDataAccess]+ 16));
-      md::MapDataAccess::groundCoordinateForScreenPoint(v37.f64, [(VKCameraController *)self mapDataAccess], &retstr->_target.latitude._value, v45, 0, v35);
+      md::MapDataAccess::groundCoordinateForScreenPoint(&v37, [(VKCameraController *)self mapDataAccess], retstr, v45, 0, v35);
       if (v45[0] == 1 && (v37.f64[0] != -3.14159265 || v37.f64[1] != -3.14159265 || v38 != 0.0))
       {
         __asm { FMOV            V2.2D, #-2.0 }
@@ -1148,11 +1148,11 @@ LABEL_2:
 - (void)_updateClipPlanes
 {
   farClipPlaneFactor = self->_farClipPlaneFactor;
-  [(VKCameraController *)self camera];
+  objc_msgSend_camera(self, a2);
   v4 = v10;
-  [(VKCameraController *)self camera];
+  objc_msgSend_camera(self);
   v5 = *grl::IconMetricsRenderResult::size(v8[1]);
-  [(VKCameraController *)self camera];
+  objc_msgSend_camera(self);
   v8[0] = fmax(*grl::IconMetricsRenderResult::size(v6) * farClipPlaneFactor, 600.0);
   gdc::Camera::setNearFar(v4, COERCE__INT64(fmax(v5 * 0.01, 0.01)), v8);
   if (v7)
@@ -1238,7 +1238,7 @@ LABEL_2:
 - (double)_movementKernelDelta
 {
   v26 = *MEMORY[0x1E69E9840];
-  [(VKNavCameraController *)self _calculateReferenceFrameForMotion];
+  objc_msgSend__calculateReferenceFrameForMotion(self, a2);
   p_movementSamplePoints = &self->_movementSamplePoints;
   v4 = (self->_movementSamplePoints.__end_ - self->_movementSamplePoints.__begin_) >> 3;
   v25 = 0uLL;
@@ -1403,12 +1403,12 @@ LABEL_15:
   [(VKNavCameraController *)self _updateRouteSinuosity];
   if (self->_cameraDistanceFromTarget._value == 0.0)
   {
-    [(VKNavCameraController *)self cameraFrame];
+    objc_msgSend_cameraFrame(self);
     *&self->_cameraDistanceFromTarget._value = v9[3];
   }
 
   self->_pitchSpring._restingPosition = self->_cameraPitch._value;
-  [(VKNavCameraController *)self calculateHeading];
+  objc_msgSend_calculateHeading(self);
   *&self->_headingSpring._restingPosition = v9[0];
   begin = self->_coordinatesToFrame.__begin_;
   end = self->_coordinatesToFrame.__end_;
@@ -1595,7 +1595,7 @@ LABEL_18:
         if (routeMatch4)
         {
           [routeMatch4 locationCoordinate3D];
-          [(VKNavCameraController *)self _coordinateForGeoLocation:?];
+          objc_msgSend__coordinateForGeoLocation_(self);
           v35 = p_coordinatesToFrame[1];
           v34 = p_coordinatesToFrame[2];
           if (v35 >= v34)
@@ -1671,7 +1671,7 @@ LABEL_18:
         }
 
         [v13 pointWithAltitudeCorrectionAtIndex:v42];
-        [(VKNavCameraController *)self _coordinateForGeoLocation:?];
+        objc_msgSend__coordinateForGeoLocation_(self);
         v44 = p_coordinatesToFrame[1];
         v43 = p_coordinatesToFrame[2];
         if (v44 >= v43)
@@ -2005,7 +2005,7 @@ LABEL_105:
               v109 = v108;
               v111 = v110;
 
-              [(VKNavCameraController *)self _coordinateForGeoLocation:v107, v109, v111];
+              objc_msgSend__coordinateForGeoLocation_(self, v107, v109, v111);
               v113 = p_coordinatesToFrame[1];
               v112 = p_coordinatesToFrame[2];
               if (v113 < v112)
@@ -2451,7 +2451,7 @@ LABEL_36:
 {
   if (self->_isIgnoringStyleChange)
   {
-    [(VKNavCameraController *)self calculateHeading];
+    objc_msgSend_calculateHeading(self, a2);
     self->_headingSpring._restingPosition = v12;
     [(VKNavCameraController *)self _updateForAnimatedEdgeInsets];
   }
@@ -2592,7 +2592,7 @@ LABEL_36:
                   md::StyleLogic::updateConfiguration(v7, *(v7 + 1096));
                 }
 
-                md::LabelMetrics::initialize(ptr);
+                md::LabelMetrics::initialize(ptr, (v7 + 256));
               }
             }
           }
@@ -2615,7 +2615,7 @@ LABEL_36:
 
   std::string::basic_string[abi:nn200100]<0>(__p, "name");
   gdc::DebugTreeValue::DebugTreeValue(v30, (v2 + 768));
-  gdc::DebugTreeNode::addProperty(&retstr->_name.__rep_.__l, __p, v30);
+  gdc::DebugTreeNode::addProperty(retstr, __p, v30);
   if (v32 < 0)
   {
     operator delete(v31);
@@ -2645,7 +2645,7 @@ LABEL_36:
 
   std::string::basic_string[abi:nn200100]<0>(&v26, v5);
   gdc::DebugTreeValue::DebugTreeValue(v27, &v26);
-  gdc::DebugTreeNode::addProperty(&retstr->_name.__rep_.__l, __p, v27);
+  gdc::DebugTreeNode::addProperty(retstr, __p, v27);
   if (v29 < 0)
   {
     operator delete(v28);
@@ -2709,7 +2709,7 @@ LABEL_36:
   v11->__r_.__value_.__r.__words[2] = 0;
   v11->__r_.__value_.__r.__words[0] = 0;
   gdc::DebugTreeValue::DebugTreeValue(v23, &v26);
-  gdc::DebugTreeNode::addProperty(&retstr->_name.__rep_.__l, __p, v23);
+  gdc::DebugTreeNode::addProperty(retstr, __p, v23);
   if (v25 < 0)
   {
     operator delete(v24);
@@ -2737,7 +2737,7 @@ LABEL_36:
 
   std::string::basic_string[abi:nn200100]<0>(__p, "Heading Delta");
   gdc::DebugTreeValue::DebugTreeValue(v17, *(v2 + 160) * 57.2957795);
-  gdc::DebugTreeNode::addProperty(&retstr->_name.__rep_.__l, __p, v17);
+  gdc::DebugTreeNode::addProperty(retstr, __p, v17);
   if (v19 < 0)
   {
     operator delete(v18);
@@ -2750,7 +2750,7 @@ LABEL_36:
 
   std::string::basic_string[abi:nn200100]<0>(__p, "Heading Delta Min");
   gdc::DebugTreeValue::DebugTreeValue(v14, *(v2 + 168) * 57.2957795);
-  gdc::DebugTreeNode::addProperty(&retstr->_name.__rep_.__l, __p, v14);
+  gdc::DebugTreeNode::addProperty(retstr, __p, v14);
   if (v16 < 0)
   {
     operator delete(v15);
@@ -2770,7 +2770,7 @@ LABEL_36:
 
 - (void)_updateSceneStyles:(BOOL)styles updatePitchLimitOnly:(BOOL)only
 {
-  [(VKNavCameraController *)self _getActiveSceneManager];
+  objc_msgSend__getActiveSceneManager(self, a2);
   ptr = self->_sceneQuery.__ptr_;
   if (ptr)
   {
@@ -2788,7 +2788,7 @@ LABEL_36:
 
     if (v92 == 1)
     {
-      [(VKCameraController *)self camera];
+      objc_msgSend_camera(self);
       v10 = gdc::DisplayZoomLevel::centerZoomLevel(v89, v9);
       if (v90)
       {
@@ -2805,13 +2805,13 @@ LABEL_36:
         v11 = v10;
       }
 
-      if (gss::RenderStyle<gss::ScenePropertyID>::hasValueForKeyAtZ(*(v91[0] + 24), 0x28u, v11))
+      if (gss::RenderStyle<gss::ScenePropertyID>::hasValueForKeyAtZ(*(v91[0] + 24), 40, v11))
       {
         gss::RenderStyle<gss::ScenePropertyID>::valueForKeyAtZ<float>(*(v91[0] + 24), 40, v11);
         self->_maxCameraPitch._value = v12 * 0.0174532925;
       }
 
-      if (gss::RenderStyle<gss::ScenePropertyID>::hasValueForKeyAtZ(*(v91[0] + 24), 0x29u, v11))
+      if (gss::RenderStyle<gss::ScenePropertyID>::hasValueForKeyAtZ(*(v91[0] + 24), 41, v11))
       {
         gss::RenderStyle<gss::ScenePropertyID>::valueForKeyAtZ<float>(*(v91[0] + 24), 41, v11);
         self->_minCameraPitch._value = v13 * 0.0174532925;
@@ -2874,13 +2874,13 @@ LABEL_29:
           }
 
 LABEL_38:
-          if (gss::RenderStyle<gss::ScenePropertyID>::hasValueForKeyAtZ(*(v91[0] + 24), 0x14u, v11))
+          if (gss::RenderStyle<gss::ScenePropertyID>::hasValueForKeyAtZ(*(v91[0] + 24), 20, v11))
           {
             gss::RenderStyle<gss::ScenePropertyID>::valueForKeyAtZ<float>(*(v91[0] + 24), 20, v11);
             self->_cameraPitch._value = v27 * 0.0174532925;
           }
 
-          if (!gss::RenderStyle<gss::ScenePropertyID>::hasValueForKeyAtZ(*(v91[0] + 24), 0x15u, v11))
+          if (!gss::RenderStyle<gss::ScenePropertyID>::hasValueForKeyAtZ(*(v91[0] + 24), 21, v11))
           {
 LABEL_52:
             [(VKNavCameraController *)self currentZoomLevel];
@@ -2889,19 +2889,19 @@ LABEL_52:
               self->_headingType = 0;
             }
 
-            if (gss::RenderStyle<gss::ScenePropertyID>::hasValueForKeyAtZ(*(v91[0] + 24), 0x1Bu, v11))
+            if (gss::RenderStyle<gss::ScenePropertyID>::hasValueForKeyAtZ(*(v91[0] + 24), 27, v11))
             {
               gss::RenderStyle<gss::ScenePropertyID>::valueForKeyAtZ<float>(*(v91[0] + 24), 27, v11);
               self->_headingDelta._value = v36 * 0.0174532925;
             }
 
-            if (gss::RenderStyle<gss::ScenePropertyID>::hasValueForKeyAtZ(*(v91[0] + 24), 0x37u, v11))
+            if (gss::RenderStyle<gss::ScenePropertyID>::hasValueForKeyAtZ(*(v91[0] + 24), 55, v11))
             {
               gss::RenderStyle<gss::ScenePropertyID>::valueForKeyAtZ<float>(*(v91[0] + 24), 55, v11);
               self->_headingMinDelta._value = v37 * 0.0174532925;
             }
 
-            if (gss::RenderStyle<gss::ScenePropertyID>::hasValueForKeyAtZ(*(v91[0] + 24), 0x1Eu, v11))
+            if (gss::RenderStyle<gss::ScenePropertyID>::hasValueForKeyAtZ(*(v91[0] + 24), 30, v11))
             {
               gss::RenderStyle<gss::ScenePropertyID>::valueForKeyAtZ<float>(*(v91[0] + 24), 30, v11);
               *&v39 = v38;
@@ -2910,7 +2910,7 @@ LABEL_52:
               *&self->_headingSpring._kSpring = vmulq_n_f64(v40, *&v39);
             }
 
-            if (gss::RenderStyle<gss::ScenePropertyID>::hasValueForKeyAtZ(*(v91[0] + 24), 0x1Du, v11))
+            if (gss::RenderStyle<gss::ScenePropertyID>::hasValueForKeyAtZ(*(v91[0] + 24), 29, v11))
             {
               gss::RenderStyle<gss::ScenePropertyID>::valueForKeyAtZ<float>(*(v91[0] + 24), 29, v11);
               *&v42 = v41;
@@ -2919,7 +2919,7 @@ LABEL_52:
               *&self->_pitchSpring._kSpring = vmulq_n_f64(v43, *&v42);
             }
 
-            if (gss::RenderStyle<gss::ScenePropertyID>::hasValueForKeyAtZ(*(v91[0] + 24), 0x1Fu, v11))
+            if (gss::RenderStyle<gss::ScenePropertyID>::hasValueForKeyAtZ(*(v91[0] + 24), 31, v11))
             {
               gss::RenderStyle<gss::ScenePropertyID>::valueForKeyAtZ<float>(*(v91[0] + 24), 31, v11);
               *&v45 = v44;
@@ -2928,7 +2928,7 @@ LABEL_52:
               *&self->_screenPositionSpring._kSpring = vmulq_n_f64(v46, *&v45);
             }
 
-            if (!gss::RenderStyle<gss::ScenePropertyID>::hasValueForKeyAtZ(*(v91[0] + 24), 0x20u, v11))
+            if (!gss::RenderStyle<gss::ScenePropertyID>::hasValueForKeyAtZ(*(v91[0] + 24), 32, v11))
             {
 LABEL_74:
               if (v16 == self->_lastTargetStyleIdentifier)
@@ -2938,32 +2938,32 @@ LABEL_143:
                 goto LABEL_144;
               }
 
-              if (gss::RenderStyle<gss::ScenePropertyID>::hasValueForKey(*(v91[0] + 24), 0x16u))
+              if (gss::RenderStyle<gss::ScenePropertyID>::hasValueForKey(*(v91[0] + 24), 22))
               {
                 gss::RenderStyleHelper<gss::ScenePropertyID,float>::valueForKey(22, *(v91[0] + 24));
                 self->_cameraDistanceFromTarget._value = v54;
               }
 
-              if (gss::RenderStyle<gss::ScenePropertyID>::hasValueForKey(*(v91[0] + 24), 0x17u))
+              if (gss::RenderStyle<gss::ScenePropertyID>::hasValueForKey(*(v91[0] + 24), 23))
               {
-                self->_cameraType = gss::RenderStyleHelper<gss::ScenePropertyID,unsigned int>::valueForKey(0x17u, *(v91[0] + 24));
+                self->_cameraType = gss::RenderStyleHelper<gss::ScenePropertyID,unsigned int>::valueForKey(23, *(v91[0] + 24));
               }
 
-              if (gss::RenderStyle<gss::ScenePropertyID>::hasValueForKey(*(v91[0] + 24), 0x18u))
+              if (gss::RenderStyle<gss::ScenePropertyID>::hasValueForKey(*(v91[0] + 24), 24))
               {
                 gss::RenderStyleHelper<gss::ScenePropertyID,float>::valueForKey(24, *(v91[0] + 24));
                 self->_maxCameraHeight = v55;
               }
 
-              if (gss::RenderStyle<gss::ScenePropertyID>::hasValueForKey(*(v91[0] + 24), 0x19u))
+              if (gss::RenderStyle<gss::ScenePropertyID>::hasValueForKey(*(v91[0] + 24), 25))
               {
                 gss::RenderStyleHelper<gss::ScenePropertyID,float>::valueForKey(25, *(v91[0] + 24));
                 self->_minCameraHeight = v56;
               }
 
-              if (gss::RenderStyle<gss::ScenePropertyID>::hasValueForKey(*(v91[0] + 24), 0x1Au))
+              if (gss::RenderStyle<gss::ScenePropertyID>::hasValueForKey(*(v91[0] + 24), 26))
               {
-                v57 = gss::RenderStyleHelper<gss::ScenePropertyID,unsigned char>::valueForKey(0x1Au, *(v91[0] + 24));
+                v57 = gss::RenderStyleHelper<gss::ScenePropertyID,unsigned char>::valueForKey(26, *(v91[0] + 24));
               }
 
               else
@@ -2972,21 +2972,21 @@ LABEL_143:
               }
 
               self->_styleManeuversToFrame = v57;
-              hasValueForKey = gss::RenderStyle<gss::ScenePropertyID>::hasValueForKey(*(v91[0] + 24), 0x4Fu);
+              hasValueForKey = gss::RenderStyle<gss::ScenePropertyID>::hasValueForKey(*(v91[0] + 24), 79);
               if (hasValueForKey)
               {
-                LOBYTE(hasValueForKey) = gss::RenderStyleHelper<gss::ScenePropertyID,unsigned char>::valueForKey(0x4Fu, *(v91[0] + 24));
+                LOBYTE(hasValueForKey) = gss::RenderStyleHelper<gss::ScenePropertyID,unsigned char>::valueForKey(79, *(v91[0] + 24));
               }
 
               self->_styleLegsToFrame = hasValueForKey;
-              v59 = gss::RenderStyle<gss::ScenePropertyID>::hasValueForKey(*(v91[0] + 24), 0x56u);
+              v59 = gss::RenderStyle<gss::ScenePropertyID>::hasValueForKey(*(v91[0] + 24), 86);
               if (v59)
               {
-                LOBYTE(v59) = gss::RenderStyleHelper<gss::ScenePropertyID,unsigned char>::valueForKey(0x56u, *(v91[0] + 24));
+                LOBYTE(v59) = gss::RenderStyleHelper<gss::ScenePropertyID,unsigned char>::valueForKey(86, *(v91[0] + 24));
               }
 
               self->_segmentsToFrame = v59;
-              if (gss::RenderStyle<gss::ScenePropertyID>::hasValueForKey(*(v91[0] + 24), 0x57u))
+              if (gss::RenderStyle<gss::ScenePropertyID>::hasValueForKey(*(v91[0] + 24), 87))
               {
                 {
                   GEOConfigGetDouble();
@@ -3009,7 +3009,7 @@ LABEL_143:
               }
 
               self->_farClipPlaneFactor = v62;
-              if (gss::RenderStyle<gss::ScenePropertyID>::hasValueForKey(*(v91[0] + 24), 0x1Cu))
+              if (gss::RenderStyle<gss::ScenePropertyID>::hasValueForKey(*(v91[0] + 24), 28))
               {
                 gss::RenderStyleHelper<gss::ScenePropertyID,float>::valueForKey(28, *(v91[0] + 24));
                 *&v64 = v63;
@@ -3018,15 +3018,15 @@ LABEL_143:
                 *&self->_distanceFromTargetSpring._kSpring = vmulq_n_f64(v65, *&v64);
               }
 
-              if (gss::RenderStyle<gss::ScenePropertyID>::hasValueForKey(*(v91[0] + 24), 0x21u))
+              if (gss::RenderStyle<gss::ScenePropertyID>::hasValueForKey(*(v91[0] + 24), 33))
               {
-                LODWORD(self->_puckMovementBoundsMin._e[0]) = gss::RenderStyleHelper<gss::ScenePropertyID,gm::Matrix<float,2,1>>::valueForKey(0x21u, *(v91[0] + 24)).u32[0];
+                LODWORD(self->_puckMovementBoundsMin._e[0]) = gss::RenderStyleHelper<gss::ScenePropertyID,gm::Matrix<float,2,1>>::valueForKey(33, *(v91[0] + 24)).u32[0];
                 self->_puckMovementBoundsMin._e[1] = v66;
               }
 
-              if (gss::RenderStyle<gss::ScenePropertyID>::hasValueForKey(*(v91[0] + 24), 0x3Fu))
+              if (gss::RenderStyle<gss::ScenePropertyID>::hasValueForKey(*(v91[0] + 24), 63))
               {
-                LODWORD(v67) = gss::RenderStyleHelper<gss::ScenePropertyID,gm::Matrix<float,2,1>>::valueForKey(0x3Fu, *(v91[0] + 24)).u32[0];
+                LODWORD(v67) = gss::RenderStyleHelper<gss::ScenePropertyID,gm::Matrix<float,2,1>>::valueForKey(63, *(v91[0] + 24)).u32[0];
               }
 
               else
@@ -3049,82 +3049,82 @@ LABEL_143:
               self->_framingEdgeInsetProportional.top = v71;
               gss::RenderStyleHelper<gss::ScenePropertyID,float>::valueForKey(71, *(v91[0] + 24));
               self->_framingEdgeInsetProportional.bottom = v72;
-              if (gss::RenderStyle<gss::ScenePropertyID>::hasValueForKey(*(v91[0] + 24), 0x26u))
+              if (gss::RenderStyle<gss::ScenePropertyID>::hasValueForKey(*(v91[0] + 24), 38))
               {
                 gss::RenderStyleHelper<gss::ScenePropertyID,float>::valueForKey(38, *(v91[0] + 24));
                 self->_minHeightDeltaChangeHorizontal = v73;
               }
 
-              if (gss::RenderStyle<gss::ScenePropertyID>::hasValueForKey(*(v91[0] + 24), 0x27u))
+              if (gss::RenderStyle<gss::ScenePropertyID>::hasValueForKey(*(v91[0] + 24), 39))
               {
                 gss::RenderStyleHelper<gss::ScenePropertyID,float>::valueForKey(39, *(v91[0] + 24));
                 self->_maxHeightDeltaChangeHorizontal = v74;
               }
 
-              if (gss::RenderStyle<gss::ScenePropertyID>::hasValueForKey(*(v91[0] + 24), 0x35u))
+              if (gss::RenderStyle<gss::ScenePropertyID>::hasValueForKey(*(v91[0] + 24), 53))
               {
                 gss::RenderStyleHelper<gss::ScenePropertyID,float>::valueForKey(53, *(v91[0] + 24));
                 self->_minHeightDeltaChangeVertical = v75;
               }
 
-              if (gss::RenderStyle<gss::ScenePropertyID>::hasValueForKey(*(v91[0] + 24), 0x36u))
+              if (gss::RenderStyle<gss::ScenePropertyID>::hasValueForKey(*(v91[0] + 24), 54))
               {
                 gss::RenderStyleHelper<gss::ScenePropertyID,float>::valueForKey(54, *(v91[0] + 24));
                 self->_maxHeightDeltaChangeVertical = v76;
               }
 
-              if (gss::RenderStyle<gss::ScenePropertyID>::hasValueForKey(*(v91[0] + 24), 0x2Fu))
+              if (gss::RenderStyle<gss::ScenePropertyID>::hasValueForKey(*(v91[0] + 24), 47))
               {
-                self->_enablePan = gss::RenderStyleHelper<gss::ScenePropertyID,BOOL>::valueForKey(0x2Fu, *(v91[0] + 24));
+                self->_enablePan = gss::RenderStyleHelper<gss::ScenePropertyID,BOOL>::valueForKey(47, *(v91[0] + 24));
               }
 
-              if (gss::RenderStyle<gss::ScenePropertyID>::hasValueForKey(*(v91[0] + 24), 0x30u))
+              if (gss::RenderStyle<gss::ScenePropertyID>::hasValueForKey(*(v91[0] + 24), 48))
               {
-                self->_enableZoom = gss::RenderStyleHelper<gss::ScenePropertyID,BOOL>::valueForKey(0x30u, *(v91[0] + 24));
+                self->_enableZoom = gss::RenderStyleHelper<gss::ScenePropertyID,BOOL>::valueForKey(48, *(v91[0] + 24));
               }
 
-              if (gss::RenderStyle<gss::ScenePropertyID>::hasValueForKey(*(v91[0] + 24), 0x32u))
+              if (gss::RenderStyle<gss::ScenePropertyID>::hasValueForKey(*(v91[0] + 24), 50))
               {
-                self->_enableRotate = gss::RenderStyleHelper<gss::ScenePropertyID,BOOL>::valueForKey(0x32u, *(v91[0] + 24));
+                self->_enableRotate = gss::RenderStyleHelper<gss::ScenePropertyID,BOOL>::valueForKey(50, *(v91[0] + 24));
               }
 
-              if (gss::RenderStyle<gss::ScenePropertyID>::hasValueForKey(*(v91[0] + 24), 0x31u))
+              if (gss::RenderStyle<gss::ScenePropertyID>::hasValueForKey(*(v91[0] + 24), 49))
               {
-                self->_enablePitch = gss::RenderStyleHelper<gss::ScenePropertyID,BOOL>::valueForKey(0x31u, *(v91[0] + 24));
+                self->_enablePitch = gss::RenderStyleHelper<gss::ScenePropertyID,BOOL>::valueForKey(49, *(v91[0] + 24));
               }
 
-              if (gss::RenderStyle<gss::ScenePropertyID>::hasValueForKey(*(v91[0] + 24), 0x2Au))
+              if (gss::RenderStyle<gss::ScenePropertyID>::hasValueForKey(*(v91[0] + 24), 42))
               {
                 gss::RenderStyleHelper<gss::ScenePropertyID,float>::valueForKey(42, *(v91[0] + 24));
                 self->_panReturnDelayTime = v77;
               }
 
-              if (gss::RenderStyle<gss::ScenePropertyID>::hasValueForKey(*(v91[0] + 24), 0x2Eu))
+              if (gss::RenderStyle<gss::ScenePropertyID>::hasValueForKey(*(v91[0] + 24), 46))
               {
-                self->_alternateFramingSource = gss::RenderStyleHelper<gss::ScenePropertyID,unsigned int>::valueForKey(0x2Eu, *(v91[0] + 24));
+                self->_alternateFramingSource = gss::RenderStyleHelper<gss::ScenePropertyID,unsigned int>::valueForKey(46, *(v91[0] + 24));
               }
 
-              if (gss::RenderStyle<gss::ScenePropertyID>::hasValueForKey(*(v91[0] + 24), 0x55u))
+              if (gss::RenderStyle<gss::ScenePropertyID>::hasValueForKey(*(v91[0] + 24), 85))
               {
-                self->_secondaryAlternateFramingSource = gss::RenderStyleHelper<gss::ScenePropertyID,unsigned int>::valueForKey(0x55u, *(v91[0] + 24));
+                self->_secondaryAlternateFramingSource = gss::RenderStyleHelper<gss::ScenePropertyID,unsigned int>::valueForKey(85, *(v91[0] + 24));
               }
 
-              if (gss::RenderStyle<gss::ScenePropertyID>::hasValueForKey(*(v91[0] + 24), 0x2Bu))
+              if (gss::RenderStyle<gss::ScenePropertyID>::hasValueForKey(*(v91[0] + 24), 43))
               {
-                self->_frameAllGroupedManeuvers = gss::RenderStyleHelper<gss::ScenePropertyID,BOOL>::valueForKey(0x2Bu, *(v91[0] + 24));
+                self->_frameAllGroupedManeuvers = gss::RenderStyleHelper<gss::ScenePropertyID,BOOL>::valueForKey(43, *(v91[0] + 24));
               }
 
-              if (gss::RenderStyle<gss::ScenePropertyID>::hasValueForKey(*(v91[0] + 24), 0x2Cu))
+              if (gss::RenderStyle<gss::ScenePropertyID>::hasValueForKey(*(v91[0] + 24), 44))
               {
-                self->_maxManeuversToFrame = gss::RenderStyleHelper<gss::ScenePropertyID,unsigned char>::valueForKey(0x2Cu, *(v91[0] + 24));
+                self->_maxManeuversToFrame = gss::RenderStyleHelper<gss::ScenePropertyID,unsigned char>::valueForKey(44, *(v91[0] + 24));
               }
 
-              if (gss::RenderStyle<gss::ScenePropertyID>::hasValueForKey(*(v91[0] + 24), 0x34u))
+              if (gss::RenderStyle<gss::ScenePropertyID>::hasValueForKey(*(v91[0] + 24), 52))
               {
-                self->_ignorePointsBehind = gss::RenderStyleHelper<gss::ScenePropertyID,BOOL>::valueForKey(0x34u, *(v91[0] + 24));
+                self->_ignorePointsBehind = gss::RenderStyleHelper<gss::ScenePropertyID,BOOL>::valueForKey(52, *(v91[0] + 24));
               }
 
-              v78 = gss::RenderStyle<gss::ScenePropertyID>::hasValueForKey(*(v91[0] + 24), 0x2Du);
+              v78 = gss::RenderStyle<gss::ScenePropertyID>::hasValueForKey(*(v91[0] + 24), 45);
               v79 = -1.0;
               if (v78)
               {
@@ -3133,7 +3133,7 @@ LABEL_143:
               }
 
               self->_maxFramingDistance = v79;
-              v81 = gss::RenderStyle<gss::ScenePropertyID>::hasValueForKey(*(v91[0] + 24), 0x38u);
+              v81 = gss::RenderStyle<gss::ScenePropertyID>::hasValueForKey(*(v91[0] + 24), 56);
               v82 = 0.0;
               if (v81)
               {
@@ -3142,7 +3142,7 @@ LABEL_143:
               }
 
               self->_framingDistanceAfterManeuver = v82;
-              if (gss::RenderStyle<gss::ScenePropertyID>::hasValueForKey(*(v91[0] + 24), 0x43u))
+              if (gss::RenderStyle<gss::ScenePropertyID>::hasValueForKey(*(v91[0] + 24), 67))
               {
                 gss::RenderStyleHelper<gss::ScenePropertyID,float>::valueForKey(67, *(v91[0] + 24));
                 v85 = v84;
@@ -3320,7 +3320,7 @@ uint64_t __51__VKNavCameraController_Debug___updateDebugOverlay__block_invoke(ui
   v9 = *(a1 + 32);
   if (v9)
   {
-    [v9 _coordinateForGeoLocation:{a2, a3, a4}];
+    objc_msgSend__coordinateForGeoLocation_(v9, a2, a3, a4);
   }
 
   else
@@ -3365,14 +3365,14 @@ uint64_t __51__VKNavCameraController_Debug___updateDebugOverlay__block_invoke(ui
   {
     if (page == 1)
     {
-      [(VKNavCameraController *)self _createMainDebugNode];
-      gdc::DebugTreeNode::toString(&__p);
+      objc_msgSend__createMainDebugNode(self);
+      gdc::DebugTreeNode::toString(&__p, &v23);
     }
 
     if (page == 2)
     {
-      [(VKNavCameraController *)self _createStyleDebugNode];
-      gdc::DebugTreeNode::toString(&__p);
+      objc_msgSend__createStyleDebugNode(self);
+      gdc::DebugTreeNode::toString(&__p, &v23);
     }
   }
 
@@ -3385,7 +3385,7 @@ uint64_t __51__VKNavCameraController_Debug___updateDebugOverlay__block_invoke(ui
         v8 = WeakRetained;
         if (WeakRetained)
         {
-          [WeakRetained sceneClientStyleState];
+          objc_msgSend_sceneClientStyleState(WeakRetained);
         }
 
         else
@@ -3394,7 +3394,7 @@ uint64_t __51__VKNavCameraController_Debug___updateDebugOverlay__block_invoke(ui
           v22 = 0;
         }
 
-        [(VKNavCameraController *)self _getActiveSceneManager];
+        objc_msgSend__getActiveSceneManager(self);
         if (__p)
         {
           [v6 appendFormat:@"Client Attributes:\n"];
@@ -3471,14 +3471,14 @@ uint64_t __51__VKNavCameraController_Debug___updateDebugOverlay__block_invoke(ui
         navContext = self->_navContext;
         if (navContext)
         {
-          [(VKNavContext *)navContext _createDebugNode];
-          gdc::DebugTreeNode::toString(&__p);
+          objc_msgSend__createDebugNode(navContext);
+          gdc::DebugTreeNode::toString(&__p, &v23);
         }
 
         break;
       case 5uLL:
-        [(VKNavCameraController *)self _createDynamicFrameRateDebugNode];
-        gdc::DebugTreeNode::toString(&__p);
+        objc_msgSend__createDynamicFrameRateDebugNode(self);
+        gdc::DebugTreeNode::toString(&__p, &v23);
     }
   }
 
@@ -3578,7 +3578,7 @@ uint64_t __51__VKNavCameraController_Debug___updateDebugOverlay__block_invoke(ui
 
   std::string::basic_string[abi:nn200100]<0>(&v29, "Req Rate");
   gdc::DebugTreeValue::DebugTreeValue(v26, *(v2 + 1384));
-  gdc::DebugTreeNode::addProperty(&retstr->_name.__rep_.__l, &v29, v26);
+  gdc::DebugTreeNode::addProperty(retstr, &v29, v26);
   if (v28 < 0)
   {
     operator delete(v27);
@@ -3591,7 +3591,7 @@ uint64_t __51__VKNavCameraController_Debug___updateDebugOverlay__block_invoke(ui
 
   std::string::basic_string[abi:nn200100]<0>(&v29, "Framestamp");
   gdc::DebugTreeValue::DebugTreeValue(v23, *(v2 + 592));
-  gdc::DebugTreeNode::addProperty(&retstr->_name.__rep_.__l, &v29, v23);
+  gdc::DebugTreeNode::addProperty(retstr, &v29, v23);
   if (v25 < 0)
   {
     operator delete(v24);
@@ -3604,7 +3604,7 @@ uint64_t __51__VKNavCameraController_Debug___updateDebugOverlay__block_invoke(ui
 
   std::string::basic_string[abi:nn200100]<0>(&v29, "Timestamp");
   gdc::DebugTreeValue::DebugTreeValue(v20, *(v2 + 600));
-  gdc::DebugTreeNode::addProperty(&retstr->_name.__rep_.__l, &v29, v20);
+  gdc::DebugTreeNode::addProperty(retstr, &v29, v20);
   if (v22 < 0)
   {
     operator delete(__p);
@@ -3661,7 +3661,7 @@ uint64_t __51__VKNavCameraController_Debug___updateDebugOverlay__block_invoke(ui
 
   std::string::basic_string[abi:nn200100]<0>(&v29, "Base Rate");
   gdc::DebugTreeValue::DebugTreeValue(v11, [v2 baseDisplayRate]);
-  gdc::DebugTreeNode::addProperty(&retstr->_name.__rep_.__l, &v29, v11);
+  gdc::DebugTreeNode::addProperty(retstr, &v29, v11);
   if (v13 < 0)
   {
     operator delete(v12);
@@ -3674,7 +3674,7 @@ uint64_t __51__VKNavCameraController_Debug___updateDebugOverlay__block_invoke(ui
 
   std::string::basic_string[abi:nn200100]<0>(&v29, "Max Rate");
   gdc::DebugTreeValue::DebugTreeValue(v8, [v2 maxDisplayRate]);
-  gdc::DebugTreeNode::addProperty(&retstr->_name.__rep_.__l, &v29, v8);
+  gdc::DebugTreeNode::addProperty(retstr, &v29, v8);
   if (v10 < 0)
   {
     operator delete(v9);
@@ -3762,7 +3762,7 @@ uint64_t __51__VKNavCameraController_Debug___updateDebugOverlay__block_invoke(ui
   }
 
   LODWORD(v5) = 1.0;
-  [v2 restingCameraFrameWithZoomScale:v5];
+  objc_msgSend_restingCameraFrameWithZoomScale_(v2, v5);
   [v2 _populateDebugNode:&v19 forFrame:&__p];
   gdc::DebugTreeNode::addChildNode(retstr, &v19);
   if ([*(v2 + 680) running])
@@ -3798,7 +3798,7 @@ uint64_t __51__VKNavCameraController_Debug___updateDebugOverlay__block_invoke(ui
 
   std::string::basic_string[abi:nn200100]<0>(&__p, "Coordinates to frame");
   gdc::DebugTreeValue::DebugTreeValue(v16, -1431655765 * ((*(v2 + 800) - *(v2 + 792)) >> 3));
-  gdc::DebugTreeNode::addProperty(&retstr->_name.__rep_.__l, &__p, v16);
+  gdc::DebugTreeNode::addProperty(retstr, &__p, v16);
   if (v18 < 0)
   {
     operator delete(v17);
@@ -3828,7 +3828,7 @@ uint64_t __51__VKNavCameraController_Debug___updateDebugOverlay__block_invoke(ui
   v11.receiver = self;
   v11.super_class = VKNavCameraController;
   [(VKCameraController *)&v11 populateDebugNode:node withOptions:options];
-  [(VKNavCameraController *)self _createMainDebugNode];
+  objc_msgSend__createMainDebugNode(self);
   gdc::DebugTreeNode::addChildNode(node, v7);
   p_super_class = &v10[1].super_class;
   std::vector<gdc::DebugTreeProperty>::__destroy_vector::operator()[abi:nn200100](&p_super_class);
@@ -3844,7 +3844,7 @@ uint64_t __51__VKNavCameraController_Debug___updateDebugOverlay__block_invoke(ui
     operator delete(v7[0]);
   }
 
-  [(VKNavCameraController *)self _createStyleDebugNode];
+  objc_msgSend__createStyleDebugNode(self);
   gdc::DebugTreeNode::addChildNode(node, v7);
   p_super_class = &v10[1].super_class;
   std::vector<gdc::DebugTreeProperty>::__destroy_vector::operator()[abi:nn200100](&p_super_class);
@@ -3860,7 +3860,7 @@ uint64_t __51__VKNavCameraController_Debug___updateDebugOverlay__block_invoke(ui
     operator delete(v7[0]);
   }
 
-  [(VKNavCameraController *)self _createDynamicFrameRateDebugNode];
+  objc_msgSend__createDynamicFrameRateDebugNode(self);
   gdc::DebugTreeNode::addChildNode(node, v7);
   p_super_class = &v10[1].super_class;
   std::vector<gdc::DebugTreeProperty>::__destroy_vector::operator()[abi:nn200100](&p_super_class);
@@ -3879,7 +3879,7 @@ uint64_t __51__VKNavCameraController_Debug___updateDebugOverlay__block_invoke(ui
   navContext = self->_navContext;
   if (navContext)
   {
-    [(VKNavContext *)navContext _createDebugNode];
+    objc_msgSend__createDebugNode(navContext);
   }
 
   else
@@ -4021,7 +4021,7 @@ uint64_t __51__VKNavCameraController_Debug___updateDebugOverlay__block_invoke(ui
 {
   if (self->_analyticFramingEnabled)
   {
-    [(VKCameraController *)self camera];
+    objc_msgSend_camera(self, a2);
     v2 = !gdc::ToCoordinateSystem(*v4);
     if (v5)
     {
@@ -4111,7 +4111,7 @@ uint64_t __51__VKNavCameraController_Debug___updateDebugOverlay__block_invoke(ui
 
     [(VKTimedAnimation *)self->_snapPitchAnimation setTimingFunction:VKAnimationCurveEaseInOut];
     objc_initWeak(&location, self);
-    [(VKCameraController *)self camera];
+    objc_msgSend_camera(self);
     v10 = *gdc::Camera::pitch(v15);
     if (v16)
     {
@@ -4140,7 +4140,7 @@ uint64_t __51__VKNavCameraController_Debug___updateDebugOverlay__block_invoke(ui
 
   else
   {
-    [(VKCameraController *)self camera];
+    objc_msgSend_camera(self);
     gdc::Camera::setPitch(v15, *&to);
     if (v16)
     {
@@ -4157,7 +4157,7 @@ void __42__VKNavCameraController_pitchTo_animated___block_invoke(uint64_t a1, fl
   {
     v6 = *(a1 + 40);
     v7 = *(a1 + 48);
-    [WeakRetained camera];
+    objc_msgSend_camera(WeakRetained);
     gdc::Camera::setPitch(v8, COERCE__INT64(v6 + (v7 - v6) * a2));
     if (v9)
     {
@@ -4219,7 +4219,7 @@ void __42__VKNavCameraController_pitchTo_animated___block_invoke_2(uint64_t a1, 
 
   else
   {
-    [(VKCameraController *)self camera];
+    objc_msgSend_camera(self);
     gdc::Camera::setHeading(v11, *&to);
     if (v12)
     {
@@ -4236,7 +4236,7 @@ void __43__VKNavCameraController_rotateTo_animated___block_invoke(uint64_t a1, f
   {
     v7 = *(a1 + 40);
     v6 = *(a1 + 48);
-    [WeakRetained camera];
+    objc_msgSend_camera(WeakRetained);
     v8 = fmod(3.14159265 - v7 + v6, 6.28318531);
     v9 = fmod(v8 + 6.28318531, 6.28318531);
     v10 = fmod(v7 + (v9 + -3.14159265) * a2, 6.28318531);
@@ -4269,7 +4269,7 @@ void __43__VKNavCameraController_rotateTo_animated___block_invoke_2(uint64_t a1,
   if (self->_isDetached)
   {
     necessaryCopy = necessary;
-    [(VKCameraController *)self camera];
+    objc_msgSend_camera(self, a2);
     if (v13)
     {
       std::__shared_weak_count::__release_shared[abi:nn200100](v13);
@@ -4277,21 +4277,21 @@ void __43__VKNavCameraController_rotateTo_animated___block_invoke_2(uint64_t a1,
 
     if (*&v12 != 0.0)
     {
-      [(VKCameraController *)self camera];
+      objc_msgSend_camera(self);
       v5 = *gdc::Camera::pitch(v12);
       if (v13)
       {
         std::__shared_weak_count::__release_shared[abi:nn200100](v13);
       }
 
-      [(VKNavCameraController *)self maxCameraPitch];
-      [(VKNavCameraController *)self minCameraPitch];
+      objc_msgSend_maxCameraPitch(self);
+      objc_msgSend_minCameraPitch(self);
       if (v5 < *&v12 && v5 > 0.0001 || (v6 = *&v12, v5 > *&v12))
       {
         [(VKNavCameraController *)self pitchTo:necessaryCopy animated:?];
       }
 
-      [(VKCameraController *)self camera];
+      objc_msgSend_camera(self, v6);
       v7 = fabs(*gdc::Camera::cameraFrame(v12));
       if (v13)
       {
@@ -4300,7 +4300,7 @@ void __43__VKNavCameraController_rotateTo_animated___block_invoke_2(uint64_t a1,
 
       if (v7 < 1.30899694)
       {
-        [(VKCameraController *)self camera];
+        objc_msgSend_camera(self);
         v8 = fabs(*gdc::Camera::heading(v12));
         v9 = v8 <= v8 * 2.22044605e-14 || v8 < 2.22507386e-308;
         if (v13)
@@ -4365,7 +4365,7 @@ void __43__VKNavCameraController_rotateTo_animated___block_invoke_2(uint64_t a1,
           if (*(v9 + 240) != !detachedCopy)
           {
             LODWORD(v16[0]) = 0;
-            std::__hash_table<md::NavigationLogicEvent,std::hash<md::NavigationLogicEvent>,std::equal_to<md::NavigationLogicEvent>,std::allocator<md::NavigationLogicEvent>>::__emplace_unique_key_args<md::NavigationLogicEvent,md::NavigationLogicEvent const&>((v9 + 248), 0);
+            std::__hash_table<md::NavigationLogicEvent,std::hash<md::NavigationLogicEvent>,std::equal_to<md::NavigationLogicEvent>,std::allocator<md::NavigationLogicEvent>>::__emplace_unique_key_args<md::NavigationLogicEvent,md::NavigationLogicEvent const&>((v9 + 248), 0, v16);
           }
 
           *(v9 + 240) = !detachedCopy;
@@ -4737,7 +4737,7 @@ void __35__VKNavCameraController__snapPitch__block_invoke_2(uint64_t a1, int a2)
 {
   v120 = *MEMORY[0x1E69E9840];
   LODWORD(v2) = 1.0;
-  [(VKNavCameraController *)self restingCameraFrameWithZoomScale:v2];
+  objc_msgSend_restingCameraFrameWithZoomScale_(self, a2, v2);
   gdc::ViewDataAccess::screenPointForCoordinate(*([(VKCameraController *)self mapDataAccess]+ 16), &self->_puckCoordinate, v112);
   v106 = v4;
   v108 = v5;
@@ -4809,7 +4809,7 @@ void __35__VKNavCameraController__snapPitch__block_invoke_2(uint64_t a1, int a2)
     *buf = vsubq_f64(v26, v27);
     *&buf[16] = vaddq_f64(v26, v27);
     mapDataAccess2 = [(VKCameraController *)self mapDataAccess];
-    [(VKCameraController *)self camera];
+    objc_msgSend_camera(self);
     v29 = gdc::Camera::cameraFrame(v110);
     gdc::ViewDataAccess::screenPointForCoordinate(mapDataAccess2[2], &self->_puckCoordinate, v29);
     v31 = v30;
@@ -5068,34 +5068,34 @@ LABEL_26:
 
 - (double)_frameCameraWithViewRotation:(double)rotation firstWorldPoint:(double)point firstTargetScreenX:(uint64_t)x secondWorldPoint:(double *)worldPoint secondTargetScreenY:(double *)y thirdWorldPoint:(double *)thirdWorldPoint thirdTargetScreenXorY:(double *)xorY frameThirdXAxis:(int)self0
 {
-  v101 = y[1];
+  v104 = y[1];
   v18 = y[2];
   v19 = tan(*y * 0.5 + 0.785398163);
   v20 = log(v19);
-  v21.f64[0] = v101;
+  v21.f64[0] = v104;
   v21.f64[1] = v20;
   __asm { FMOV            V0.2D, #0.5 }
 
-  v99 = vdupq_n_s64(0x3FC45F306DC9C883uLL);
-  v102 = _Q0;
-  v121 = vmlaq_f64(_Q0, v99, v21);
-  v122 = v18 * 0.0000000249532021;
-  v96 = thirdWorldPoint[1];
+  v102 = vdupq_n_s64(0x3FC45F306DC9C883uLL);
+  v105 = _Q0;
+  v124 = vmlaq_f64(_Q0, v102, v21);
+  v125 = v18 * 0.0000000249532021;
+  v99 = thirdWorldPoint[1];
   v27 = thirdWorldPoint[2];
   v28 = tan(*thirdWorldPoint * 0.5 + 0.785398163);
   v29 = log(v28);
-  v30.f64[0] = v96;
+  v30.f64[0] = v99;
   v30.f64[1] = v29;
-  v119 = vmlaq_f64(v102, v99, v30);
-  v120 = v27 * 0.0000000249532021;
-  v97 = xorY[1];
+  v122 = vmlaq_f64(v105, v102, v30);
+  v123 = v27 * 0.0000000249532021;
+  v100 = xorY[1];
   v31 = xorY[2];
   v32 = tan(*xorY * 0.5 + 0.785398163);
   v33 = log(v32);
-  v34.f64[0] = v97;
+  v34.f64[0] = v100;
   v34.f64[1] = v33;
-  v117 = vmlaq_f64(v102, v99, v34);
-  v118 = v31 * 0.0000000249532021;
+  v120 = vmlaq_f64(v105, v102, v34);
+  v121 = v31 * 0.0000000249532021;
   v35 = *worldPoint;
   v36 = worldPoint[1];
   v37 = worldPoint[2];
@@ -5111,18 +5111,18 @@ LABEL_26:
   v46 = v34.f64[0] * v38;
   v47 = v43 + v42;
   v48 = v34.f64[0] * v38 + v45;
-  v116[0] = 1.0 - (v39 + v40);
-  v116[1] = v47;
+  v119[0] = 1.0 - (v39 + v40);
+  v119[1] = v47;
   v49 = 1.0 - (v35 + v35) * v35;
   v50 = v38 * v37;
   v34.f64[0] = v34.f64[0] * v41;
-  v116[6] = v48;
-  v116[7] = v50 - v34.f64[0];
-  v116[2] = v45 - v46;
-  v116[3] = v44;
-  v116[4] = v49 - v40;
-  v116[5] = v34.f64[0] + v50;
-  v116[8] = v49 - v39;
+  v119[6] = v48;
+  v119[7] = v50 - v34.f64[0];
+  v119[2] = v45 - v46;
+  v119[3] = v44;
+  v119[4] = v49 - v40;
+  v119[5] = v34.f64[0] + v50;
+  v119[8] = v49 - v39;
   selfCopy = self;
   canvas = [selfCopy canvas];
   [canvas size];
@@ -5132,15 +5132,15 @@ LABEL_26:
   [canvas2 size];
   v57 = v56;
 
-  gm::inverse<double>(v115, v116);
-  v94 = gm::operator*<double,3,3,1>(v115, &v121);
-  v95 = v58;
-  gm::operator*<double,3,3,1>(v115, &v119);
-  v92 = v59;
-  v93 = v60;
-  v61 = gm::operator*<double,3,3,1>(v115, &v117);
-  v90 = v62;
-  v91 = v63;
+  gm::inverse<double>(v118, v119);
+  v97 = gm::operator*<double,3,3,1>(v118, &v124);
+  v98 = v58;
+  gm::operator*<double,3,3,1>(v118, &v122);
+  v95 = v59;
+  v96 = v60;
+  v61 = gm::operator*<double,3,3,1>(v118, &v120);
+  v93 = v62;
+  v94 = v63;
   canvas3 = [selfCopy canvas];
   [canvas3 size];
   if (axis)
@@ -5155,76 +5155,79 @@ LABEL_26:
     v67 = 0.0;
   }
 
-  v89 = v61;
+  v92 = v61;
 
-  [selfCopy camera];
-  v100 = v57;
-  gdc::Camera::verticalFieldOfView(&v114, *buf);
-  v69 = v114;
-  v70 = v54;
-  v71 = gdc::Camera::aspectRatio([selfCopy camera], *(v110 + 368), *(v110 + 376));
-  [selfCopy camera];
-  v103 = gdc::Camera::horizontalOffset([selfCopy camera], *(v108 + 488));
-  v98 = gdc::Camera::horizontalOffset(v72, *(v106 + 492));
-  v73 = tan(v69 * 0.5);
-  if (v107)
+  objc_msgSend_camera(selfCopy);
+  v103 = v57;
+  gdc::Camera::verticalFieldOfView(&v117, *buf);
+  v69 = v117;
+  v70 = objc_msgSend_camera(selfCopy);
+  v71 = v54;
+  v72 = gdc::Camera::aspectRatio(v70, *(v113 + 368), *(v113 + 376));
+  objc_msgSend_camera(selfCopy);
+  v73 = *(v111 + 488);
+  v74 = objc_msgSend_camera(selfCopy);
+  v106 = gdc::Camera::horizontalOffset(v74, v73);
+  v101 = gdc::Camera::horizontalOffset(v75, *(v109 + 492));
+  v76 = tan(v69 * 0.5);
+  if (v110)
   {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v107);
+    std::__shared_weak_count::__release_shared[abi:nn200100](v110);
   }
 
-  if (v109)
+  if (v112)
   {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v109);
+    std::__shared_weak_count::__release_shared[abi:nn200100](v112);
   }
 
-  v74 = rotation + rotation;
-  v75.f64[0] = v103;
-  v75.f64[1] = v98;
-  if (v111)
+  v77 = rotation + rotation;
+  v78.f64[0] = v106;
+  v78.f64[1] = v101;
+  if (v114)
   {
-    v104 = v75;
-    std::__shared_weak_count::__release_shared[abi:nn200100](v111);
-    v75 = v104;
+    v107 = v78;
+    std::__shared_weak_count::__release_shared[abi:nn200100](v114);
+    v78 = v107;
   }
 
-  v76 = (a2 + a2) / v70 + -1.0;
-  v77 = v73 * v71;
-  v78 = vaddq_f64(v75, v75);
-  if (v113)
+  v79 = (a2 + a2) / v71 + -1.0;
+  v80 = v76 * v72;
+  v81 = vaddq_f64(v78, v78);
+  if (v116)
   {
-    v105 = v78;
-    std::__shared_weak_count::__release_shared[abi:nn200100](v113);
-    v78 = v105;
+    v108 = v81;
+    std::__shared_weak_count::__release_shared[abi:nn200100](v116);
+    v81 = v108;
   }
 
-  v79 = v77 * (v76 - v78.f64[0]);
-  v80 = v73 - (v74 / v100 + v78.f64[1]) * v73;
-  v81 = v77 * (v67 - v78.f64[0]);
+  v82 = v80 * (v79 - v81.f64[0]);
+  v83 = v76 - (v77 / v103 + v81.f64[1]) * v76;
+  v84 = v80 * (v67 - v81.f64[0]);
   if (!axis)
   {
-    v81 = v67;
+    v84 = v67;
   }
 
-  v82 = v73 * (v68 - v78.f64[1]);
+  v85 = v76 * (v68 - v81.f64[1]);
   if (axis)
   {
-    if (v79 != v81)
+    if (v82 != v84)
     {
-      v83 = (v94 + v95 * v79 - (v89 + v91 * v81)) / (v79 - v81);
-      v84 = v94 + (v95 - v83) * v79;
-      if (fmax(v95, v93) > v83)
+      v86 = (v97 + v98 * v82 - (v92 + v94 * v84)) / (v82 - v84);
+      v87 = v97 + (v98 - v86) * v82;
+      if (fmax(v98, v96) > v86)
       {
         if (GEOGetVectorKitVKNavCameraLog_onceToken != -1)
         {
           dispatch_once(&GEOGetVectorKitVKNavCameraLog_onceToken, &__block_literal_global_45);
         }
 
-        v85 = GEOGetVectorKitVKNavCameraLog_log;
+        v88 = GEOGetVectorKitVKNavCameraLog_log;
         if (os_log_type_enabled(GEOGetVectorKitVKNavCameraLog_log, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
 LABEL_33:
-          _os_log_impl(&dword_1B2754000, v85, OS_LOG_TYPE_ERROR, "Camera z is on *wrong* side of points (inverted projection found) ", buf, 2u);
+          _os_log_impl(&dword_1B2754000, v88, OS_LOG_TYPE_ERROR, "Camera z is on *wrong* side of points (inverted projection found) ", buf, 2u);
           goto LABEL_27;
         }
       }
@@ -5238,32 +5241,32 @@ LABEL_22:
       dispatch_once(&GEOGetVectorKitVKNavCameraLog_onceToken, &__block_literal_global_45);
     }
 
-    v86 = GEOGetVectorKitVKNavCameraLog_log;
-    if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
+    v89 = GEOGetVectorKitVKNavCameraLog_log;
+    if (os_log_type_enabled(v89, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_1B2754000, v86, OS_LOG_TYPE_ERROR, "Cannot solve for eye!", buf, 2u);
+      _os_log_impl(&dword_1B2754000, v89, OS_LOG_TYPE_ERROR, "Cannot solve for eye!", buf, 2u);
     }
 
-    v84 = 0.0;
+    v87 = 0.0;
     goto LABEL_27;
   }
 
-  if (v80 == v82)
+  if (v83 == v85)
   {
     goto LABEL_22;
   }
 
-  v88 = (v92 + v93 * v80 - (v90 + v91 * v82)) / (v80 - v82);
-  v84 = v94 + (v95 - v88) * v79;
-  if (fmax(v95, v93) > v88)
+  v91 = (v95 + v96 * v83 - (v93 + v94 * v85)) / (v83 - v85);
+  v87 = v97 + (v98 - v91) * v82;
+  if (fmax(v98, v96) > v91)
   {
     if (GEOGetVectorKitVKNavCameraLog_onceToken != -1)
     {
       dispatch_once(&GEOGetVectorKitVKNavCameraLog_onceToken, &__block_literal_global_45);
     }
 
-    v85 = GEOGetVectorKitVKNavCameraLog_log;
+    v88 = GEOGetVectorKitVKNavCameraLog_log;
     if (os_log_type_enabled(GEOGetVectorKitVKNavCameraLog_log, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
@@ -5273,7 +5276,7 @@ LABEL_22:
 
 LABEL_27:
 
-  return v84;
+  return v87;
 }
 
 - (pair<double,)_solveEyeTargetingPoints:(const void *)points targetScreenCoords:(const void *)coords projection:(const ProjectionConfig *)projection axis:(unsigned int)axis
@@ -5388,7 +5391,7 @@ LABEL_7:
   v57 = 0;
   v56[0] = vdupq_n_s64(0x7FEFFFFFFFFFFFFFuLL);
   v56[1] = v56[0];
-  [(VKCameraController *)self camera];
+  objc_msgSend_camera(self, a2);
   v8 = v54;
   v9 = *gdc::Camera::near(v54) * 0.0000000249532021;
   v10 = *gdc::Camera::far(v8) * 0.0000000249532021;
@@ -5469,7 +5472,7 @@ LABEL_7:
   }
 
   while (v20 != 6);
-  geo::Frustum<double>::calculateCorners(v42, v51, v15);
+  geo::Frustum<double>::calculateCorners(v42, v15, v51);
   v71 = v42[4];
   *&v72[8] = v44;
   *v72 = v43;
@@ -5536,19 +5539,19 @@ LABEL_7:
 
 - (Matrix<double,)_frameCoordinates:(const void *)coordinates viewRot:(Quaternion<double>)rot
 {
-  v201 = *MEMORY[0x1E69E9840];
+  v204 = *MEMORY[0x1E69E9840];
   *buf = *v4;
   *&buf[16] = *(v4 + 16);
-  v181 = v4;
-  *&v194 = *(v4 + 24);
+  v184 = v4;
+  *&v197 = *(v4 + 24);
   v7 = [(VKNavCameraController *)self _findPeripheralPoints:coordinates rotation:buf];
   v8 = 0;
-  v191 = v7;
-  v192 = v9;
+  v194 = v7;
+  v195 = v9;
   v10 = 2168;
   do
   {
-    v11 = *coordinates + 24 * *(&v191 + v8);
+    v11 = *coordinates + 24 * *(&v194 + v8);
     v12 = self + v10;
     v13 = *(v11 + 16);
     *v12 = *v11;
@@ -5559,40 +5562,40 @@ LABEL_7:
 
   while (v8 != 16);
   p_framingDebug = &self->_framingDebug;
-  v188 = 0;
-  v189 = 0;
-  v190 = 0;
-  std::vector<gm::Matrix<double,3,1>>::reserve(&v188, 0xAAAAAAAAAAAAAAABLL * ((*(coordinates + 1) - *coordinates) >> 3));
+  v191 = 0;
+  v192 = 0;
+  v193 = 0;
+  std::vector<gm::Matrix<double,3,1>>::reserve(&v191, 0xAAAAAAAAAAAAAAABLL * ((*(coordinates + 1) - *coordinates) >> 3));
   v14 = *coordinates;
   v15 = *(coordinates + 1);
   if (*coordinates != v15)
   {
     do
     {
-      v186 = *v14;
-      v187.f64[0] = *(v14 + 2);
-      *buf = *v181;
-      *&buf[16] = v181[2];
-      *&v194 = v181[3];
-      [(VKNavCameraController *)self _viewCoordinatesForCoordinates:&v186 rotation:buf];
-      v19 = v189;
-      if (v189 >= v190)
+      v189 = *v14;
+      v190.f64[0] = *(v14 + 2);
+      *buf = *v184;
+      *&buf[16] = v184[2];
+      *&v197 = v184[3];
+      [(VKNavCameraController *)self _viewCoordinatesForCoordinates:&v189 rotation:buf];
+      v19 = v192;
+      if (v192 >= v193)
       {
-        v21 = v188;
-        v22 = (v189 - v188);
-        v23 = 0xAAAAAAAAAAAAAAABLL * ((v189 - v188) >> 3);
+        v21 = v191;
+        v22 = (v192 - v191);
+        v23 = 0xAAAAAAAAAAAAAAABLL * ((v192 - v191) >> 3);
         v24 = v23 + 1;
         if (v23 + 1 > 0xAAAAAAAAAAAAAAALL)
         {
           std::__throw_bad_array_new_length[abi:nn200100]();
         }
 
-        if (0x5555555555555556 * ((v190 - v188) >> 3) > v24)
+        if (0x5555555555555556 * ((v193 - v191) >> 3) > v24)
         {
-          v24 = 0x5555555555555556 * ((v190 - v188) >> 3);
+          v24 = 0x5555555555555556 * ((v193 - v191) >> 3);
         }
 
-        if (0xAAAAAAAAAAAAAAABLL * ((v190 - v188) >> 3) >= 0x555555555555555)
+        if (0xAAAAAAAAAAAAAAABLL * ((v193 - v191) >> 3) >= 0x555555555555555)
         {
           v25 = 0xAAAAAAAAAAAAAAALL;
         }
@@ -5607,7 +5610,7 @@ LABEL_7:
           std::__allocate_at_least[abi:nn200100]<std::allocator<gm::Matrix<double,3,1>>>(v25);
         }
 
-        v26 = (8 * ((v189 - v188) >> 3));
+        v26 = (8 * ((v192 - v191) >> 3));
         *v26 = v16;
         *(v26 + 1) = v17;
         *(v26 + 2) = v18;
@@ -5625,13 +5628,13 @@ LABEL_7:
           }
 
           while (v21 != v19);
-          v21 = v188;
+          v21 = v191;
         }
 
         v20 = v26 + 24;
-        v188 = v27;
-        v189 = v26 + 24;
-        v190 = 0;
+        v191 = v27;
+        v192 = v26 + 24;
+        v193 = 0;
         if (v21)
         {
           operator delete(v21);
@@ -5640,45 +5643,48 @@ LABEL_7:
 
       else
       {
-        *v189 = v16;
+        *v192 = v16;
         *(v19 + 1) = v17;
         v20 = v19 + 24;
         *(v19 + 2) = v18;
       }
 
-      v189 = v20;
+      v192 = v20;
       v14 = (v14 + 24);
     }
 
     while (v14 != v15);
   }
 
-  [(VKCameraController *)self camera];
-  gdc::Camera::verticalFieldOfView(&v185, *buf);
-  v30 = v185;
-  v31 = gdc::Camera::aspectRatio([(VKCameraController *)self camera], *(*v182 + 368), *(*v182 + 376));
-  [(VKCameraController *)self camera];
-  v178 = gdc::Camera::horizontalOffset([(VKCameraController *)self camera], *(*&v183 + 488));
-  v176 = gdc::Camera::horizontalOffset(v32, *(v199 + 492));
-  v33 = 1.0 / tan(v30 * 0.5);
-  *&v186 = v33 / v31;
-  *(&v186 + 1) = v33;
-  v34.f64[0] = v178;
-  v34.f64[1] = v176;
-  v187 = vaddq_f64(v34, v34);
-  if (v200)
+  objc_msgSend_camera(self);
+  gdc::Camera::verticalFieldOfView(&v188, *buf);
+  v30 = v188;
+  v31 = objc_msgSend_camera(self);
+  v32 = gdc::Camera::aspectRatio(v31, *(*v185 + 368), *(*v185 + 376));
+  objc_msgSend_camera(self);
+  v33 = *(*&v186 + 488);
+  v34 = objc_msgSend_camera(self);
+  v181 = gdc::Camera::horizontalOffset(v34, v33);
+  v179 = gdc::Camera::horizontalOffset(v35, *(v202 + 492));
+  v36 = 1.0 / tan(v30 * 0.5);
+  *&v189 = v36 / v32;
+  *(&v189 + 1) = v36;
+  v37.f64[0] = v181;
+  v37.f64[1] = v179;
+  v190 = vaddq_f64(v37, v37);
+  if (v203)
   {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v200);
+    std::__shared_weak_count::__release_shared[abi:nn200100](v203);
   }
 
-  if (*&v184 != 0.0)
+  if (*&v187 != 0.0)
   {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v184);
+    std::__shared_weak_count::__release_shared[abi:nn200100](v187);
   }
 
-  if (*&v182[8])
+  if (*&v185[8])
   {
-    std::__shared_weak_count::__release_shared[abi:nn200100](*&v182[8]);
+    std::__shared_weak_count::__release_shared[abi:nn200100](*&v185[8]);
   }
 
   if (*&buf[8])
@@ -5686,425 +5692,425 @@ LABEL_7:
     std::__shared_weak_count::__release_shared[abi:nn200100](*&buf[8]);
   }
 
-  v35 = 0;
-  v36 = 0;
-  v37 = 0;
-  v199 = 0x100000000;
-  v38 = v192;
-  v39 = v191;
-  v40 = HIDWORD(v191);
-  v179 = HIDWORD(v192);
-  v175 = &v188[24 * HIDWORD(v192)];
-  v177 = &v188[24 * v192];
-  v172 = v188;
-  v173 = &v188[24 * v191];
-  v174 = &v188[24 * HIDWORD(v191)];
-  v41 = 0;
-  v42 = 0.0;
+  v38 = 0;
+  v39 = 0;
+  v40 = 0;
+  v202 = 0x100000000;
+  v41 = v195;
+  v42 = v194;
+  v43 = HIDWORD(v194);
+  v182 = HIDWORD(v195);
+  v178 = &v191[24 * HIDWORD(v195)];
+  v180 = &v191[24 * v195];
+  v175 = v191;
+  v176 = &v191[24 * v194];
+  v177 = &v191[24 * HIDWORD(v194)];
+  v44 = 0;
+  v45 = 0.0;
   do
   {
-    v43 = *(&v199 + v35);
-    if (v43 == 1)
+    v46 = *(&v202 + v38);
+    if (v46 == 1)
     {
-      if (v38 != v179)
+      if (v41 != v182)
       {
-        v53 = *v177;
-        *&buf[16] = *(v177 + 2);
-        *buf = v53;
-        v54 = *v175;
-        v195 = v175[2];
-        v194 = v54;
-        v55 = *&self->_viewableScreenRect._maximum._e[0];
-        v183 = self->_viewableScreenRect._minimum._e[0];
-        v184 = v55;
-        [(VKNavCameraController *)self _solveEyeTargetingPoints:buf targetScreenCoords:&v183 projection:&v186 axis:0];
-        v58 = v57;
-        if (v57 > v42)
+        v56 = *v180;
+        *&buf[16] = *(v180 + 2);
+        *buf = v56;
+        v57 = *v178;
+        v198 = v178[2];
+        v197 = v57;
+        v58 = *&self->_viewableScreenRect._maximum._e[0];
+        v186 = self->_viewableScreenRect._minimum._e[0];
+        v187 = v58;
+        [(VKNavCameraController *)self _solveEyeTargetingPoints:buf targetScreenCoords:&v186 projection:&v189 axis:0];
+        v61 = v60;
+        if (v60 > v45)
         {
-          v59 = v56;
-          if ((v36 & 1) == 0)
+          v62 = v59;
+          if ((v39 & 1) == 0)
           {
-            v36 = 1;
+            v39 = 1;
           }
 
           self->_framingDebug._targetConstraints.__end_ = self->_framingDebug._targetConstraints.__begin_;
-          v60 = *coordinates + 24 * v38;
-          *v182 = *v60;
-          *&v182[8] = *(v60 + 8);
-          v61 = v183;
-          CameraFramingDebug::addTargetConstraint(p_framingDebug, v182, 0, v61);
-          v62 = *coordinates;
-          *v182 = *(*coordinates + 264);
-          *&v182[16] = *(v62 + 35);
-          v63 = *&v184;
-          CameraFramingDebug::addTargetConstraint(p_framingDebug, v182, 0, v63);
-          v37 = 0;
-          v42 = v58;
-          v41 = v59;
+          v63 = *coordinates + 24 * v41;
+          *v185 = *v63;
+          *&v185[8] = *(v63 + 8);
+          v64 = v186;
+          CameraFramingDebug::addTargetConstraint(&p_framingDebug->_targetConstraints.__begin_, v185, 0, v64);
+          v65 = *coordinates;
+          *v185 = *(*coordinates + 264);
+          *&v185[16] = *(v65 + 35);
+          v66 = *&v187;
+          CameraFramingDebug::addTargetConstraint(&p_framingDebug->_targetConstraints.__begin_, v185, 0, v66);
+          v40 = 0;
+          v45 = v61;
+          v44 = v62;
         }
       }
     }
 
     else
     {
-      if (v43)
+      if (v46)
       {
         _ZF = 1;
       }
 
       else
       {
-        _ZF = v40 == v39;
+        _ZF = v43 == v42;
       }
 
       if (!_ZF)
       {
-        v45 = *v174;
-        *&buf[16] = *(v174 + 2);
-        *buf = v45;
-        v46 = *v173;
-        v195 = v173[2];
-        v194 = v46;
-        v47 = *&self->_viewableScreenRect._maximum._e[1];
-        v183 = self->_viewableScreenRect._minimum._e[1];
-        v184 = v47;
-        [(VKNavCameraController *)self _solveEyeTargetingPoints:buf targetScreenCoords:&v183 projection:&v186 axis:1];
-        v41 = v48;
-        v42 = v49;
-        v50 = *coordinates + 24 * v40;
-        *v182 = *v50;
-        *&v182[8] = *(v50 + 8);
-        *&v48 = v183;
-        CameraFramingDebug::addTargetConstraint(p_framingDebug, v182, 1, *&v48);
-        v51 = *coordinates + 24 * v39;
-        *v182 = *v51;
-        *&v182[8] = *(v51 + 8);
-        v52 = *&v184;
-        CameraFramingDebug::addTargetConstraint(p_framingDebug, v182, 1, v52);
-        if ((v36 & 1) == 0)
+        v48 = *v177;
+        *&buf[16] = *(v177 + 2);
+        *buf = v48;
+        v49 = *v176;
+        v198 = v176[2];
+        v197 = v49;
+        v50 = *&self->_viewableScreenRect._maximum._e[1];
+        v186 = self->_viewableScreenRect._minimum._e[1];
+        v187 = v50;
+        [(VKNavCameraController *)self _solveEyeTargetingPoints:buf targetScreenCoords:&v186 projection:&v189 axis:1];
+        v44 = v51;
+        v45 = v52;
+        v53 = *coordinates + 24 * v43;
+        *v185 = *v53;
+        *&v185[8] = *(v53 + 8);
+        *&v51 = v186;
+        CameraFramingDebug::addTargetConstraint(&p_framingDebug->_targetConstraints.__begin_, v185, 1, *&v51);
+        v54 = *coordinates + 24 * v42;
+        *v185 = *v54;
+        *&v185[8] = *(v54 + 8);
+        v55 = *&v187;
+        CameraFramingDebug::addTargetConstraint(&p_framingDebug->_targetConstraints.__begin_, v185, 1, v55);
+        if ((v39 & 1) == 0)
         {
-          v36 = 1;
+          v39 = 1;
         }
 
-        v37 = 1;
+        v40 = 1;
       }
     }
 
-    v35 += 4;
+    v38 += 4;
   }
 
-  while (v35 != 8);
-  self->_framingDebug.isFullyFramed = v36 & 1;
-  if ((v36 & 1) == 0)
+  while (v38 != 8);
+  self->_framingDebug.isFullyFramed = v39 & 1;
+  if ((v39 & 1) == 0)
   {
     if (GEOGetVectorKitVKNavCameraLog_onceToken != -1)
     {
       dispatch_once(&GEOGetVectorKitVKNavCameraLog_onceToken, &__block_literal_global_45);
     }
 
-    v71 = v172;
-    v76 = GEOGetVectorKitVKNavCameraLog_log;
-    if (os_log_type_enabled(v76, OS_LOG_TYPE_DEBUG))
+    v74 = v175;
+    v79 = GEOGetVectorKitVKNavCameraLog_log;
+    if (os_log_type_enabled(v79, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_impl(&dword_1B2754000, v76, OS_LOG_TYPE_DEBUG, "Should have solved the eye.. but peripheral point pair is degenerate", buf, 2u);
+      _os_log_impl(&dword_1B2754000, v79, OS_LOG_TYPE_DEBUG, "Should have solved the eye.. but peripheral point pair is degenerate", buf, 2u);
     }
 
-    if (*&v172[24 * v40 + 16] <= *&v172[24 * v38 + 16])
+    if (*&v175[24 * v43 + 16] <= *&v175[24 * v41 + 16])
     {
-      v77 = v38;
+      v80 = v41;
     }
 
     else
     {
-      v77 = v40;
+      v80 = v43;
     }
 
-    v78 = *(*coordinates + 24 * v77);
-    v79 = cos(v78 + v78) * -559.82 + 111132.92;
-    v80 = v79 + cos(v78 * 4.0) * 1.175;
-    v81 = v80 + cos(v78 * 6.0) * -0.0023;
-    v82 = v78 * 0.5;
-    v83 = tan(v78 * 0.5 + 0.78103484);
-    v84 = log(v83);
-    v85 = tan(v82 + 0.789761487);
-    v86 = log(v85);
-    v87 = &v172[24 * v77];
-    *&v182[16] = *(v87 + 2);
-    *v182 = *v87;
-    *&v182[16] = fabs((v86 - v84) * 0.159154943) * 200.0 / v81 + *&v182[16];
-    v88 = *v181;
-    v89 = v181[1];
-    v90 = v181[2];
-    v91 = v181[3];
-    v92 = v89 + v89;
-    v93 = (v89 + v89) * v89;
-    v94 = (v90 + v90) * v90;
-    v95 = v88 + v88;
-    v96 = (v88 + v88) * v89;
-    v97 = (v90 + v90) * v91;
-    v98 = v96 - v97;
-    v99 = v90 * (v88 + v88);
-    v100 = v91 * v92;
-    v101 = v97 + v96;
-    v102 = v91 * v92 + v99;
-    *buf = 1.0 - (v93 + v94);
-    *&buf[8] = v101;
-    v103 = 1.0 - (v88 + v88) * v88;
-    v104 = v92 * v90;
-    v105 = v91 * v95;
-    v196 = v102;
-    v197 = v104 - v105;
-    *&buf[16] = v99 - v100;
-    *&v194 = v98;
-    *(&v194 + 1) = v103 - v94;
-    v195 = v105 + v104;
-    v198 = v103 - v93;
-    v106 = gm::operator*<double,3,3,1>(buf, v182);
-    v108 = v107;
-    v110 = v109;
+    v81 = *(*coordinates + 24 * v80);
+    v82 = cos(v81 + v81) * -559.82 + 111132.92;
+    v83 = v82 + cos(v81 * 4.0) * 1.175;
+    v84 = v83 + cos(v81 * 6.0) * -0.0023;
+    v85 = v81 * 0.5;
+    v86 = tan(v81 * 0.5 + 0.78103484);
+    v87 = log(v86);
+    v88 = tan(v85 + 0.789761487);
+    v89 = log(v88);
+    v90 = &v175[24 * v80];
+    *&v185[16] = *(v90 + 2);
+    *v185 = *v90;
+    *&v185[16] = fabs((v89 - v87) * 0.159154943) * 200.0 / v84 + *&v185[16];
+    v91 = *v184;
+    v92 = v184[1];
+    v93 = v184[2];
+    v94 = v184[3];
+    v95 = v92 + v92;
+    v96 = (v92 + v92) * v92;
+    v97 = (v93 + v93) * v93;
+    v98 = v91 + v91;
+    v99 = (v91 + v91) * v92;
+    v100 = (v93 + v93) * v94;
+    v101 = v99 - v100;
+    v102 = v93 * (v91 + v91);
+    v103 = v94 * v95;
+    v104 = v100 + v99;
+    v105 = v94 * v95 + v102;
+    *buf = 1.0 - (v96 + v97);
+    *&buf[8] = v104;
+    v106 = 1.0 - (v91 + v91) * v91;
+    v107 = v95 * v93;
+    v108 = v94 * v98;
+    v199 = v105;
+    v200 = v107 - v108;
+    *&buf[16] = v102 - v103;
+    *&v197 = v101;
+    *(&v197 + 1) = v106 - v97;
+    v198 = v108 + v107;
+    v201 = v106 - v96;
+    v109 = gm::operator*<double,3,3,1>(buf, v185);
+    v111 = v110;
+    v113 = v112;
     goto LABEL_98;
   }
 
-  *&v182[8 * v37] = v41;
-  *&v182[16] = v42;
-  v64 = (1 - v37);
+  *&v185[8 * v40] = v44;
+  *&v185[16] = v45;
+  v67 = (1 - v40);
   selfCopy = self;
   __asm { FMOV            V2.2D, #0.5 }
 
   *buf = vmlaq_f64(selfCopy->_viewableScreenRect._minimum, _Q2, vsubq_f64(selfCopy->_viewableScreenRect._maximum, selfCopy->_viewableScreenRect._minimum));
-  v70 = *(buf | (8 * v64));
+  v73 = *(buf | (8 * v67));
   [(VKCameraController *)selfCopy canvas];
-  v72 = v71 = v172;
-  [v72 size];
-  if (v37 == 1)
+  v75 = v74 = v175;
+  [v75 size];
+  if (v40 == 1)
   {
-    v75 = (v70 + v70) / v73 + -1.0;
+    v78 = (v73 + v73) / v76 + -1.0;
   }
 
   else
   {
-    v75 = 1.0 - (v70 + v70) / v74;
+    v78 = 1.0 - (v73 + v73) / v77;
   }
 
-  v111 = *&v172[8 * v64];
-  v112 = 0xAAAAAAAAAAAAAAABLL * ((v189 - v172) >> 3);
-  if (v112 < 2)
+  v114 = *&v175[8 * v67];
+  v115 = 0xAAAAAAAAAAAAAAABLL * ((v192 - v175) >> 3);
+  if (v115 < 2)
   {
-    v115 = *&v172[8 * v64];
+    v118 = *&v175[8 * v67];
   }
 
   else
   {
-    v113 = v112 - 1;
-    v114 = &v172[8 * v64 + 24];
-    v115 = *&v172[8 * v64];
+    v116 = v115 - 1;
+    v117 = &v175[8 * v67 + 24];
+    v118 = *&v175[8 * v67];
     do
     {
-      v116 = *v114;
-      v114 += 3;
-      v115 = fmin(v116, v115);
-      v111 = fmax(v111, v116);
-      --v113;
+      v119 = *v117;
+      v117 += 3;
+      v118 = fmin(v119, v118);
+      v114 = fmax(v114, v119);
+      --v116;
     }
 
-    while (v113);
+    while (v116);
   }
 
-  v117 = v115 + -0.1;
-  v118 = v111 + 0.1;
-  if (v189 == v172)
+  v120 = v118 + -0.1;
+  v121 = v114 + 0.1;
+  if (v192 == v175)
   {
-    v134 = 0.0;
-    v135 = 0.0;
+    v137 = 0.0;
+    v138 = 0.0;
   }
 
   else
   {
-    v119 = *(&v186 + v64);
-    v120 = v187.f64[v64];
-    if (v112 <= 1)
+    v122 = *(&v189 + v67);
+    v123 = v190.f64[v67];
+    if (v115 <= 1)
     {
-      v121 = 1;
+      v124 = 1;
     }
 
     else
     {
-      v121 = 0xAAAAAAAAAAAAAAABLL * ((v189 - v172) >> 3);
+      v124 = 0xAAAAAAAAAAAAAAABLL * ((v192 - v175) >> 3);
     }
 
-    v122 = 1.79769313e308;
-    v123 = v172;
-    v124 = v121;
+    v125 = 1.79769313e308;
+    v126 = v175;
+    v127 = v124;
     do
     {
-      v122 = fmin((v123[v64] - v117) * v119 / (v42 - v123[2]) + v120, v122);
-      v123 += 3;
-      --v124;
-    }
-
-    while (v124);
-    v125 = -1.79769313e308;
-    v126 = v172;
-    v127 = v121;
-    do
-    {
-      v125 = fmax((v126[v64] - v117) * v119 / (v42 - v126[2]) + v120, v125);
+      v125 = fmin((v126[v67] - v120) * v122 / (v45 - v126[2]) + v123, v125);
       v126 += 3;
       --v127;
     }
 
     while (v127);
-    v128 = v125 + v122;
-    v129 = 1.79769313e308;
-    v130 = v172;
-    v131 = v121;
+    v128 = -1.79769313e308;
+    v129 = v175;
+    v130 = v124;
     do
     {
-      v129 = fmin((v130[v64] - v118) * v119 / (v42 - v130[2]) + v120, v129);
-      v130 += 3;
-      --v131;
+      v128 = fmax((v129[v67] - v120) * v122 / (v45 - v129[2]) + v123, v128);
+      v129 += 3;
+      --v130;
     }
 
-    while (v131);
-    v132 = -1.79769313e308;
-    v133 = v172;
+    while (v130);
+    v131 = v128 + v125;
+    v132 = 1.79769313e308;
+    v133 = v175;
+    v134 = v124;
     do
     {
-      v132 = fmax((v133[v64] - v118) * v119 / (v42 - v133[2]) + v120, v132);
+      v132 = fmin((v133[v67] - v121) * v122 / (v45 - v133[2]) + v123, v132);
       v133 += 3;
-      --v121;
+      --v134;
     }
 
-    while (v121);
-    v134 = v128 * 0.5;
-    v135 = (v132 + v129) * 0.5;
+    while (v134);
+    v135 = -1.79769313e308;
+    v136 = v175;
+    do
+    {
+      v135 = fmax((v136[v67] - v121) * v122 / (v45 - v136[2]) + v123, v135);
+      v136 += 3;
+      --v124;
+    }
+
+    while (v124);
+    v137 = v131 * 0.5;
+    v138 = (v135 + v132) * 0.5;
   }
 
-  if (v135 > v75 || v134 < v75)
+  if (v138 > v78 || v137 < v78)
   {
     if (GEOGetVectorKitVKNavCameraLog_onceToken != -1)
     {
       dispatch_once(&GEOGetVectorKitVKNavCameraLog_onceToken, &__block_literal_global_45);
     }
 
-    v137 = GEOGetVectorKitVKNavCameraLog_log;
-    v138 = 0.0;
+    v140 = GEOGetVectorKitVKNavCameraLog_log;
+    v141 = 0.0;
     if (os_log_type_enabled(GEOGetVectorKitVKNavCameraLog_log, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218496;
-      *&buf[4] = v135;
+      *&buf[4] = v138;
       *&buf[12] = 2048;
-      *&buf[14] = v134;
+      *&buf[14] = v137;
       *&buf[22] = 2048;
-      *&v194 = v75;
-      _os_log_impl(&dword_1B2754000, v137, OS_LOG_TYPE_ERROR, "Average projection goes from %f to %f, but requested target is %f", buf, 0x20u);
+      *&v197 = v78;
+      _os_log_impl(&dword_1B2754000, v140, OS_LOG_TYPE_ERROR, "Average projection goes from %f to %f, but requested target is %f", buf, 0x20u);
     }
   }
 
   else
   {
-    if (v112 <= 1)
+    if (v115 <= 1)
     {
-      v112 = 1;
+      v115 = 1;
     }
 
     do
     {
-      v138 = (v117 + v118) * 0.5;
-      if (v189 == v172)
+      v141 = (v120 + v121) * 0.5;
+      if (v192 == v175)
       {
-        v147 = 0.0;
+        v150 = 0.0;
       }
 
       else
       {
-        v139 = *(&v186 + v64);
-        v140 = v187.f64[v64];
-        v141 = 1.79769313e308;
-        v142 = v172;
-        v143 = v112;
+        v142 = *(&v189 + v67);
+        v143 = v190.f64[v67];
+        v144 = 1.79769313e308;
+        v145 = v175;
+        v146 = v115;
         do
         {
-          v141 = fmin((v142[v64] - v138) * v139 / (v42 - v142[2]) + v140, v141);
-          v142 += 3;
-          --v143;
-        }
-
-        while (v143);
-        v144 = -1.79769313e308;
-        v145 = v172;
-        v146 = v112;
-        do
-        {
-          v144 = fmax((v145[v64] - v138) * v139 / (v42 - v145[2]) + v140, v144);
+          v144 = fmin((v145[v67] - v141) * v142 / (v45 - v145[2]) + v143, v144);
           v145 += 3;
           --v146;
         }
 
         while (v146);
-        v147 = (v144 + v141) * 0.5;
+        v147 = -1.79769313e308;
+        v148 = v175;
+        v149 = v115;
+        do
+        {
+          v147 = fmax((v148[v67] - v141) * v142 / (v45 - v148[2]) + v143, v147);
+          v148 += 3;
+          --v149;
+        }
+
+        while (v149);
+        v150 = (v147 + v144) * 0.5;
       }
 
-      v148 = vabdd_f64(v147, v75);
-      if (v147 > v75)
+      v151 = vabdd_f64(v150, v78);
+      if (v150 > v78)
       {
-        v117 = (v117 + v118) * 0.5;
+        v120 = (v120 + v121) * 0.5;
       }
 
       else
       {
-        v118 = (v117 + v118) * 0.5;
+        v121 = (v120 + v121) * 0.5;
       }
     }
 
-    while (v148 >= 0.00000001);
+    while (v151 >= 0.00000001);
   }
 
-  *&v182[8 * v64] = v138;
-  v149 = *v181;
-  v150 = v181[1];
-  v151 = v181[2];
-  v152 = v181[3];
-  v153 = v150 + v150;
-  v154 = (v150 + v150) * v150;
-  v155 = (v151 + v151) * v151;
-  v156 = v149 + v149;
-  v157 = (v149 + v149) * v150;
-  v158 = (v151 + v151) * v152;
-  v159 = v157 - v158;
-  v160 = v151 * (v149 + v149);
-  v161 = v152 * v153;
-  v162 = v158 + v157;
-  v163 = v152 * v153 + v160;
-  *buf = 1.0 - (v154 + v155);
-  *&buf[8] = v162;
-  v164 = 1.0 - (v149 + v149) * v149;
-  v165 = v153 * v151;
-  v166 = v152 * v156;
-  v196 = v163;
-  v197 = v165 - v166;
-  *&buf[16] = v160 - v161;
-  *&v194 = v159;
-  *(&v194 + 1) = v164 - v155;
-  v195 = v166 + v165;
-  v198 = v164 - v154;
-  v106 = gm::operator*<double,3,3,1>(buf, v182);
-  v108 = v167;
-  v110 = v168;
+  *&v185[8 * v67] = v141;
+  v152 = *v184;
+  v153 = v184[1];
+  v154 = v184[2];
+  v155 = v184[3];
+  v156 = v153 + v153;
+  v157 = (v153 + v153) * v153;
+  v158 = (v154 + v154) * v154;
+  v159 = v152 + v152;
+  v160 = (v152 + v152) * v153;
+  v161 = (v154 + v154) * v155;
+  v162 = v160 - v161;
+  v163 = v154 * (v152 + v152);
+  v164 = v155 * v156;
+  v165 = v161 + v160;
+  v166 = v155 * v156 + v163;
+  *buf = 1.0 - (v157 + v158);
+  *&buf[8] = v165;
+  v167 = 1.0 - (v152 + v152) * v152;
+  v168 = v156 * v154;
+  v169 = v155 * v159;
+  v199 = v166;
+  v200 = v168 - v169;
+  *&buf[16] = v163 - v164;
+  *&v197 = v162;
+  *(&v197 + 1) = v167 - v158;
+  v198 = v169 + v168;
+  v201 = v167 - v157;
+  v109 = gm::operator*<double,3,3,1>(buf, v185);
+  v111 = v170;
+  v113 = v171;
 
-  if (v172)
+  if (v175)
   {
 LABEL_98:
-    operator delete(v71);
+    operator delete(v74);
   }
 
-  v169 = v106;
-  v170 = v108;
-  v171 = v110;
-  result._e[2] = v171;
-  result._e[1] = v170;
-  result._e[0] = v169;
+  v172 = v109;
+  v173 = v111;
+  v174 = v113;
+  result._e[2] = v174;
+  result._e[1] = v173;
+  result._e[0] = v172;
   return result;
 }
 
@@ -6228,7 +6234,7 @@ LABEL_98:
         v93 = *&v85[16];
         v51 = v36;
         v52 = v48;
-        CameraFramingDebug::addTargetConstraint(&self->_framingDebug, buf, v34 ^ 1, v51);
+        CameraFramingDebug::addTargetConstraint(&self->_framingDebug._targetConstraints.__begin_, buf, v34 ^ 1, v51);
         v32 = v50;
         v41 = v49;
         v76 = v52;
@@ -6264,21 +6270,21 @@ LABEL_24:
     *buf = *&p_puckCoordinate->latitude._value;
     v93 = self->_puckCoordinate.altitude._value;
     v54 = *axes;
-    CameraFramingDebug::addTargetConstraint(p_framingDebug, buf, 0, v54);
+    CameraFramingDebug::addTargetConstraint(&p_framingDebug->_targetConstraints.__begin_, buf, 0, v54);
     *buf = *&p_puckCoordinate->latitude._value;
     v93 = self->_puckCoordinate.altitude._value;
     v55 = *(axes + 1);
-    CameraFramingDebug::addTargetConstraint(p_framingDebug, buf, 1, v55);
+    CameraFramingDebug::addTargetConstraint(&p_framingDebug->_targetConstraints.__begin_, buf, 1, v55);
     v56 = 0;
-    v57 = p_framingDebug + 4;
+    peripheralPoints = p_framingDebug->peripheralPoints;
     do
     {
       v58 = *coordinates + 24 * *(v90 + v56);
       v59 = *(v58 + 16);
-      *v57 = *v58;
-      v57[2] = v59;
+      *&peripheralPoints->latitude._value = *v58;
+      peripheralPoints->altitude._value = v59;
       v56 += 4;
-      v57 += 3;
+      ++peripheralPoints;
     }
 
     while (v56 != 16);
@@ -6429,7 +6435,7 @@ void __64__VKNavCameraController__addAdditionalRoutePointsToFrameToList___block_
         v12 = *(a1 + 40);
         if (v11)
         {
-          [v11 _coordinateForGeoLocation:?];
+          objc_msgSend__coordinateForGeoLocation_(v11);
         }
 
         else
@@ -6520,63 +6526,63 @@ void __64__VKNavCameraController__addAdditionalRoutePointsToFrameToList___block_
   return result;
 }
 
-void __44__VKNavCameraController_updatePointsToFrame__block_invoke(uint64_t a1)
+void __44__VKNavCameraController_updatePointsToFrame__block_invoke(uint64_t a1, const char *a2)
 {
-  v1 = *(a1 + 32);
-  if (v1)
+  v2 = *(a1 + 32);
+  if (v2)
   {
-    [*(a1 + 32) _coordinateForGeoLocation:?];
+    objc_msgSend__coordinateForGeoLocation_(*(a1 + 32), a2);
   }
 
   else
   {
-    v11 = 0;
-    v12 = 0uLL;
+    v12 = 0;
+    v13 = 0uLL;
   }
 
-  v2 = (v1 + 792);
-  v4 = v2[1];
-  v3 = v2[2];
-  if (v4 >= v3)
+  v3 = (v2 + 792);
+  v5 = v3[1];
+  v4 = v3[2];
+  if (v5 >= v4)
   {
-    v6 = 0xAAAAAAAAAAAAAAABLL * ((v4 - *v2) >> 3);
-    v7 = v6 + 1;
-    if (v6 + 1 > 0xAAAAAAAAAAAAAAALL)
+    v7 = 0xAAAAAAAAAAAAAAABLL * ((v5 - *v3) >> 3);
+    v8 = v7 + 1;
+    if (v7 + 1 > 0xAAAAAAAAAAAAAAALL)
     {
       std::__throw_bad_array_new_length[abi:nn200100]();
     }
 
-    v8 = 0xAAAAAAAAAAAAAAABLL * ((v3 - *v2) >> 3);
-    if (2 * v8 > v7)
+    v9 = 0xAAAAAAAAAAAAAAABLL * ((v4 - *v3) >> 3);
+    if (2 * v9 > v8)
     {
-      v7 = 2 * v8;
+      v8 = 2 * v9;
     }
 
-    if (v8 >= 0x555555555555555)
+    if (v9 >= 0x555555555555555)
     {
-      v9 = 0xAAAAAAAAAAAAAAALL;
+      v10 = 0xAAAAAAAAAAAAAAALL;
     }
 
     else
     {
-      v9 = v7;
+      v10 = v8;
     }
 
-    __p[4] = v2;
-    if (v9)
+    __p[4] = v3;
+    if (v10)
     {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<gm::Matrix<double,3,1>>>(v9);
+      std::__allocate_at_least[abi:nn200100]<std::allocator<gm::Matrix<double,3,1>>>(v10);
     }
 
-    v10 = 24 * v6;
+    v11 = 24 * v7;
     __p[0] = 0;
-    __p[1] = v10;
-    *v10 = v11;
-    *(v10 + 8) = v12;
-    __p[2] = (24 * v6 + 24);
+    __p[1] = v11;
+    *v11 = v12;
+    *(v11 + 8) = v13;
+    __p[2] = (24 * v7 + 24);
     __p[3] = 0;
-    std::vector<geo::Coordinate3D<geo::Radians,double>>::__swap_out_circular_buffer(v2, __p);
-    v5 = v2[1];
+    std::vector<geo::Coordinate3D<geo::Radians,double>>::__swap_out_circular_buffer(v3, __p);
+    v6 = v3[1];
     if (__p[0])
     {
       operator delete(__p[0]);
@@ -6585,71 +6591,71 @@ void __44__VKNavCameraController_updatePointsToFrame__block_invoke(uint64_t a1)
 
   else
   {
-    *v4 = v11;
-    *(v4 + 8) = v12;
-    v5 = v4 + 24;
+    *v5 = v12;
+    *(v5 + 8) = v13;
+    v6 = v5 + 24;
   }
 
-  v2[1] = v5;
+  v3[1] = v6;
 }
 
-void __44__VKNavCameraController_updatePointsToFrame__block_invoke_2(uint64_t a1)
+void __44__VKNavCameraController_updatePointsToFrame__block_invoke_2(uint64_t a1, const char *a2)
 {
-  v1 = *(a1 + 32);
-  if (v1)
+  v2 = *(a1 + 32);
+  if (v2)
   {
-    [*(a1 + 32) _coordinateForGeoLocation:?];
+    objc_msgSend__coordinateForGeoLocation_(*(a1 + 32), a2);
   }
 
   else
   {
-    v11 = 0;
-    v12 = 0uLL;
+    v12 = 0;
+    v13 = 0uLL;
   }
 
-  v2 = (v1 + 792);
-  v4 = v2[1];
-  v3 = v2[2];
-  if (v4 >= v3)
+  v3 = (v2 + 792);
+  v5 = v3[1];
+  v4 = v3[2];
+  if (v5 >= v4)
   {
-    v6 = 0xAAAAAAAAAAAAAAABLL * ((v4 - *v2) >> 3);
-    v7 = v6 + 1;
-    if (v6 + 1 > 0xAAAAAAAAAAAAAAALL)
+    v7 = 0xAAAAAAAAAAAAAAABLL * ((v5 - *v3) >> 3);
+    v8 = v7 + 1;
+    if (v7 + 1 > 0xAAAAAAAAAAAAAAALL)
     {
       std::__throw_bad_array_new_length[abi:nn200100]();
     }
 
-    v8 = 0xAAAAAAAAAAAAAAABLL * ((v3 - *v2) >> 3);
-    if (2 * v8 > v7)
+    v9 = 0xAAAAAAAAAAAAAAABLL * ((v4 - *v3) >> 3);
+    if (2 * v9 > v8)
     {
-      v7 = 2 * v8;
+      v8 = 2 * v9;
     }
 
-    if (v8 >= 0x555555555555555)
+    if (v9 >= 0x555555555555555)
     {
-      v9 = 0xAAAAAAAAAAAAAAALL;
+      v10 = 0xAAAAAAAAAAAAAAALL;
     }
 
     else
     {
-      v9 = v7;
+      v10 = v8;
     }
 
-    __p[4] = v2;
-    if (v9)
+    __p[4] = v3;
+    if (v10)
     {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<gm::Matrix<double,3,1>>>(v9);
+      std::__allocate_at_least[abi:nn200100]<std::allocator<gm::Matrix<double,3,1>>>(v10);
     }
 
-    v10 = 24 * v6;
+    v11 = 24 * v7;
     __p[0] = 0;
-    __p[1] = v10;
-    *v10 = v11;
-    *(v10 + 8) = v12;
-    __p[2] = (24 * v6 + 24);
+    __p[1] = v11;
+    *v11 = v12;
+    *(v11 + 8) = v13;
+    __p[2] = (24 * v7 + 24);
     __p[3] = 0;
-    std::vector<geo::Coordinate3D<geo::Radians,double>>::__swap_out_circular_buffer(v2, __p);
-    v5 = v2[1];
+    std::vector<geo::Coordinate3D<geo::Radians,double>>::__swap_out_circular_buffer(v3, __p);
+    v6 = v3[1];
     if (__p[0])
     {
       operator delete(__p[0]);
@@ -6658,71 +6664,71 @@ void __44__VKNavCameraController_updatePointsToFrame__block_invoke_2(uint64_t a1
 
   else
   {
-    *v4 = v11;
-    *(v4 + 8) = v12;
-    v5 = v4 + 24;
+    *v5 = v12;
+    *(v5 + 8) = v13;
+    v6 = v5 + 24;
   }
 
-  v2[1] = v5;
+  v3[1] = v6;
 }
 
-void __44__VKNavCameraController_updatePointsToFrame__block_invoke_3(uint64_t a1)
+void __44__VKNavCameraController_updatePointsToFrame__block_invoke_3(uint64_t a1, const char *a2)
 {
-  v1 = *(a1 + 32);
-  if (v1)
+  v2 = *(a1 + 32);
+  if (v2)
   {
-    [*(a1 + 32) _coordinateForGeoLocation:?];
+    objc_msgSend__coordinateForGeoLocation_(*(a1 + 32), a2);
   }
 
   else
   {
-    v11 = 0;
-    v12 = 0uLL;
+    v12 = 0;
+    v13 = 0uLL;
   }
 
-  v2 = (v1 + 792);
-  v4 = v2[1];
-  v3 = v2[2];
-  if (v4 >= v3)
+  v3 = (v2 + 792);
+  v5 = v3[1];
+  v4 = v3[2];
+  if (v5 >= v4)
   {
-    v6 = 0xAAAAAAAAAAAAAAABLL * ((v4 - *v2) >> 3);
-    v7 = v6 + 1;
-    if (v6 + 1 > 0xAAAAAAAAAAAAAAALL)
+    v7 = 0xAAAAAAAAAAAAAAABLL * ((v5 - *v3) >> 3);
+    v8 = v7 + 1;
+    if (v7 + 1 > 0xAAAAAAAAAAAAAAALL)
     {
       std::__throw_bad_array_new_length[abi:nn200100]();
     }
 
-    v8 = 0xAAAAAAAAAAAAAAABLL * ((v3 - *v2) >> 3);
-    if (2 * v8 > v7)
+    v9 = 0xAAAAAAAAAAAAAAABLL * ((v4 - *v3) >> 3);
+    if (2 * v9 > v8)
     {
-      v7 = 2 * v8;
+      v8 = 2 * v9;
     }
 
-    if (v8 >= 0x555555555555555)
+    if (v9 >= 0x555555555555555)
     {
-      v9 = 0xAAAAAAAAAAAAAAALL;
+      v10 = 0xAAAAAAAAAAAAAAALL;
     }
 
     else
     {
-      v9 = v7;
+      v10 = v8;
     }
 
-    __p[4] = v2;
-    if (v9)
+    __p[4] = v3;
+    if (v10)
     {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<gm::Matrix<double,3,1>>>(v9);
+      std::__allocate_at_least[abi:nn200100]<std::allocator<gm::Matrix<double,3,1>>>(v10);
     }
 
-    v10 = 24 * v6;
+    v11 = 24 * v7;
     __p[0] = 0;
-    __p[1] = v10;
-    *v10 = v11;
-    *(v10 + 8) = v12;
-    __p[2] = (24 * v6 + 24);
+    __p[1] = v11;
+    *v11 = v12;
+    *(v11 + 8) = v13;
+    __p[2] = (24 * v7 + 24);
     __p[3] = 0;
-    std::vector<geo::Coordinate3D<geo::Radians,double>>::__swap_out_circular_buffer(v2, __p);
-    v5 = v2[1];
+    std::vector<geo::Coordinate3D<geo::Radians,double>>::__swap_out_circular_buffer(v3, __p);
+    v6 = v3[1];
     if (__p[0])
     {
       operator delete(__p[0]);
@@ -6731,17 +6737,17 @@ void __44__VKNavCameraController_updatePointsToFrame__block_invoke_3(uint64_t a1
 
   else
   {
-    *v4 = v11;
-    *(v4 + 8) = v12;
-    v5 = v4 + 24;
+    *v5 = v12;
+    *(v5 + 8) = v13;
+    v6 = v5 + 24;
   }
 
-  v2[1] = v5;
+  v3[1] = v6;
 }
 
 - (void)_addWaypointToFramingAtStep:(unint64_t)step forRoute:(id)route
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v60 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   routeCopy = route;
   v7 = routeCopy;
@@ -6758,23 +6764,23 @@ void __44__VKNavCameraController_updatePointsToFrame__block_invoke_3(uint64_t a1
       uTF8String = [name UTF8String];
       currentLocale = [MEMORY[0x1E695DF58] currentLocale];
       localeIdentifier = [currentLocale localeIdentifier];
-      md::StringWithLocaleImp<std::basic_string<char,std::char_traits<char>,geo::allocator_adapter<char,mdm::zone_mallocator>>>::StringWithLocaleImp(v57, uTF8String, [localeIdentifier UTF8String]);
+      md::StringWithLocaleImp<std::basic_string<char,std::char_traits<char>,geo::allocator_adapter<char,mdm::zone_mallocator>>>::StringWithLocaleImp(&v56, uTF8String, [localeIdentifier UTF8String]);
 
-      md::LabelMetrics::boundingRectForItem(v54, self->_labelMetrics.__ptr_, 1, v57);
-      if (v55 == 1 && (self->_viewableScreenRect._maximum._e[0] - self->_viewableScreenRect._minimum._e[0]) * 0.75 >= (v54[2] - v54[0]))
+      md::LabelMetrics::boundingRectForItem(v53, self->_labelMetrics.__ptr_, 1, &v56);
+      if (v54 == 1 && (self->_viewableScreenRect._maximum._e[0] - self->_viewableScreenRect._minimum._e[0]) * 0.75 >= (v53[2] - v53[0]))
       {
         v17 = (self->_viewableScreenRect._maximum._e[1] - self->_viewableScreenRect._minimum._e[1]) * 0.75;
-        if (v17 >= (v54[3] - v54[1]))
+        if (v17 >= (v53[3] - v53[1]))
         {
           [v7 pointWithAltitudeCorrectionAtRouteCoordinate:{objc_msgSend(v10, "endRouteCoordinate", v17)}];
           v19 = v18;
           v21 = v20;
           v23 = v22;
           location = [destination location];
-          [location coordinate];
+          objc_msgSend_coordinate(location);
           v26 = v25;
           location2 = [destination location];
-          [location2 coordinate];
+          objc_msgSend_coordinate(location2);
           v29 = v28;
           location3 = [destination location];
           v31 = 0.0;
@@ -6810,49 +6816,48 @@ void __44__VKNavCameraController_updatePointsToFrame__block_invoke_3(uint64_t a1
 
           if (v35)
           {
-            v38 = v31;
+            objc_msgSend__coordinateForGeoLocation_(self, v36, v37, v31);
           }
 
           else
           {
-            v38 = v23;
+            objc_msgSend__coordinateForGeoLocation_(self, v36, v37, v23);
           }
 
-          [(VKNavCameraController *)self _coordinateForGeoLocation:v36, v37, v38];
-          LODWORD(v39) = 1.0;
-          [(VKNavCameraController *)self restingCameraFrameWithZoomScale:v39];
-          [(VKCameraController *)self camera];
-          [(VKCameraController *)self camera];
-          gdc::ViewDataAccess::worldViewProjectionMatrix(v48, v46, v52);
-          gdc::ViewDataAccess::screenPointForCoordinate(*&v48[16], v53, v48);
+          LODWORD(v38) = 1.0;
+          objc_msgSend_restingCameraFrameWithZoomScale_(self, v38);
+          objc_msgSend_camera(self);
+          objc_msgSend_camera(self);
+          gdc::ViewDataAccess::worldViewProjectionMatrix(v47, v45, v51);
+          gdc::ViewDataAccess::screenPointForCoordinate(*&v47[16], v52, v47);
+          v49 = v39;
           v50 = v40;
-          v51 = v41;
-          if (v47)
+          if (v46)
           {
-            std::__shared_weak_count::__release_shared[abi:nn200100](v47);
+            std::__shared_weak_count::__release_shared[abi:nn200100](v46);
           }
 
-          if (v49)
+          if (v48)
           {
-            std::__shared_weak_count::__release_shared[abi:nn200100](v49);
+            std::__shared_weak_count::__release_shared[abi:nn200100](v48);
           }
 
           operator new();
         }
       }
 
-      if (v60 < 0)
+      if (v59 < 0)
       {
-        v42 = v59;
-        v43 = mdm::zone_mallocator::instance(v16);
-        geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<char>(v43, v42);
+        v41 = v58;
+        v42 = mdm::zone_mallocator::instance(v16);
+        geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<char>(v42, v41);
       }
 
-      if (v58 < 0)
+      if (v57 < 0)
       {
-        v44 = v57[0];
-        v45 = mdm::zone_mallocator::instance(v16);
-        geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<char>(v45, v44);
+        v43 = v56;
+        v44 = mdm::zone_mallocator::instance(v16);
+        geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<char>(v44, v43);
       }
     }
   }
@@ -6957,7 +6962,7 @@ LABEL_2:
     if (([v56 startRouteCoordinate] & 0x7FFFFFFF00000000) != 0)
     {
       [routeCopy pointWithAltitudeCorrectionAtRouteCoordinate:{objc_msgSend(v56, "startRouteCoordinate")}];
-      [(VKNavCameraController *)self _coordinateForGeoLocation:?];
+      objc_msgSend__coordinateForGeoLocation_(self);
       end = self->_coordinatesToFrame.__end_;
       cap = self->_coordinatesToFrame.__cap_;
       if (end >= cap)
@@ -7029,7 +7034,7 @@ LABEL_2:
     for (; startRouteCoordinate <= endRouteCoordinate2; ++startRouteCoordinate)
     {
       [routeCopy pointWithAltitudeCorrectionAtIndex:startRouteCoordinate];
-      [(VKNavCameraController *)self _coordinateForGeoLocation:?];
+      objc_msgSend__coordinateForGeoLocation_(self);
       v32 = self->_coordinatesToFrame.__end_;
       v31 = self->_coordinatesToFrame.__cap_;
       if (v32 >= v31)
@@ -7091,7 +7096,7 @@ LABEL_2:
     if (([v56 endRouteCoordinate] & 0x7FFFFFFF00000000) != 0)
     {
       [routeCopy pointWithAltitudeCorrectionAtRouteCoordinate:{objc_msgSend(v56, "endRouteCoordinate")}];
-      [(VKNavCameraController *)self _coordinateForGeoLocation:?];
+      objc_msgSend__coordinateForGeoLocation_(self);
       v40 = self->_coordinatesToFrame.__end_;
       v39 = self->_coordinatesToFrame.__cap_;
       if (v40 < v39)
@@ -7164,7 +7169,7 @@ LABEL_74:
     }
 
     [routeCopy pointWithAltitudeCorrectionAtIndex:startRouteCoordinate];
-    [(VKNavCameraController *)self _coordinateForGeoLocation:?];
+    objc_msgSend__coordinateForGeoLocation_(self);
     v44 = self->_coordinatesToFrame.__end_;
     v43 = self->_coordinatesToFrame.__cap_;
     if (v44 >= v43)
@@ -7223,7 +7228,7 @@ LABEL_74:
     self->_coordinatesToFrame.__end_ = v45;
   }
 
-  [(VKNavCameraController *)self routeCoordinateAtDistance:v29];
+  objc_msgSend_routeCoordinateAtDistance_(self, v29);
   if (*&__p != -3.14159265 || v60 != -3.14159265 || *&v61 != 0.0)
   {
     std::vector<geo::Coordinate3D<geo::Radians,double>>::push_back[abi:nn200100](p_coordinatesToFrame, &__p);
@@ -7278,7 +7283,7 @@ LABEL_3:
   else
   {
 
-    [(VKNavCameraController *)self _coordinateForGeoLocation:v15, v17, v19];
+    objc_msgSend__coordinateForGeoLocation_(self, v15, v17, v19);
   }
 
   result.latitude = *v22.i8;
@@ -7332,7 +7337,7 @@ LABEL_3:
 
   else
   {
-    [(VKNavCameraController *)self _coordinateForGeoLocation:v28, v30, v32];
+    objc_msgSend__coordinateForGeoLocation_(self, v28, v30, v32);
   }
 
   result.altitude = *&v35;
@@ -7369,7 +7374,7 @@ LABEL_3:
   self->_routeFocusCoordinate.altitude._value = 0.0;
   self->_pitchSpring._restingPosition = self->_cameraPitch._value;
   p_headingSpring = &self->_headingSpring;
-  [(VKNavCameraController *)self calculateHeading];
+  objc_msgSend_calculateHeading(self, a2);
   p_headingSpring->_restingPosition = v6;
   self->_distanceFromTargetSpring._restingPosition = self->_cameraDistanceFromTarget._value;
   [(VKNavCameraController *)self puckScreenPoint];
@@ -7631,12 +7636,12 @@ LABEL_3:
 
 - (double)topDownMinimumZoomLevel
 {
-  vkCamera = [(VKCameraController *)self vkCamera];
-  [vkCamera maxHeightNoPitch];
+  v3 = objc_msgSend_vkCamera(self, a2);
+  [v3 maxHeightNoPitch];
   v5 = v4;
 
-  vkCamera2 = [(VKCameraController *)self vkCamera];
-  [vkCamera2 widthOfViewAtDepth:v5];
+  v6 = objc_msgSend_vkCamera(self);
+  [v6 widthOfViewAtDepth:v5];
   v8 = v7;
 
   result = 0.0;
@@ -7651,12 +7656,12 @@ LABEL_3:
 
 - (double)maximumZoomLevel
 {
-  vkCamera = [(VKCameraController *)self vkCamera];
-  [vkCamera minHeight];
+  v3 = objc_msgSend_vkCamera(self, a2);
+  [v3 minHeight];
   v5 = v4;
 
-  vkCamera2 = [(VKCameraController *)self vkCamera];
-  [vkCamera2 widthOfViewAtDepth:v5];
+  v6 = objc_msgSend_vkCamera(self);
+  [v6 widthOfViewAtDepth:v5];
   v8 = v7;
 
   result = 0.0;
@@ -7671,12 +7676,12 @@ LABEL_3:
 
 - (double)minimumZoomLevel
 {
-  vkCamera = [(VKCameraController *)self vkCamera];
-  [vkCamera maxHeight];
+  v3 = objc_msgSend_vkCamera(self, a2);
+  [v3 maxHeight];
   v5 = v4;
 
-  vkCamera2 = [(VKCameraController *)self vkCamera];
-  [vkCamera2 widthOfViewAtDepth:v5];
+  v6 = objc_msgSend_vkCamera(self);
+  [v6 widthOfViewAtDepth:v5];
   v8 = v7;
 
   result = 0.0;
@@ -7773,7 +7778,7 @@ LABEL_3:
   v16 = cameraDelegate;
   if (cameraDelegate)
   {
-    [cameraDelegate willBeginRegionChangeAccess:1];
+    objc_msgSend_willBeginRegionChangeAccess_(cameraDelegate);
   }
 
   else
@@ -7803,7 +7808,7 @@ void __97__VKNavCameraController_animateSelectiveReframingCameraWithDuration_fro
     {
       [WeakRetained zoomScale];
       *&v7 = v7;
-      [v5 restingCameraFrameWithZoomScale:v7];
+      objc_msgSend_restingCameraFrameWithZoomScale_(v5, v7);
       v8 = (a2 - v6) / (1.0 - v6);
       v9 = v5[90];
       v5[89] = v5[89] + (v17 - v5[89]) * v8;
@@ -7944,7 +7949,7 @@ void __97__VKNavCameraController_animateSelectiveReframingCameraWithDuration_fro
         v29 = cameraDelegate;
         if (cameraDelegate)
         {
-          [cameraDelegate willBeginRegionChangeAccess:1];
+          objc_msgSend_willBeginRegionChangeAccess_(cameraDelegate);
         }
 
         else
@@ -8078,7 +8083,7 @@ void *__61__VKNavCameraController_returnToTrackingWithDelay_resetZoom___block_in
     v4 = v3;
     if (v3)
     {
-      [v3 willBeginRegionChangeAccess:1];
+      objc_msgSend_willBeginRegionChangeAccess_(v3);
     }
 
     else
@@ -8154,7 +8159,7 @@ void *__61__VKNavCameraController_returnToTrackingWithDelay_resetZoom___block_in
   v17 = cameraDelegate;
   if (cameraDelegate)
   {
-    [cameraDelegate willBeginRegionChangeAccess:1];
+    objc_msgSend_willBeginRegionChangeAccess_(cameraDelegate);
   }
 
   else
@@ -8188,7 +8193,7 @@ void __79__VKNavCameraController_animateCameraWithDuration_fromFrame_completionH
     if (v7 > 0.00001)
     {
       LODWORD(v7) = 1.0;
-      [WeakRetained restingCameraFrameWithZoomScale:v7];
+      objc_msgSend_restingCameraFrameWithZoomScale_(WeakRetained, v7);
       v8 = (a2 - v6) / (1.0 - v6);
       v9 = v5[90];
       v5[89] = v5[89] + (v17 - v5[89]) * v8;
@@ -8319,11 +8324,11 @@ void __79__VKNavCameraController_animateCameraWithDuration_fromFrame_completionH
     halfPuckSize = self->_halfPuckSize;
     v24 = restingPosition;
     v25 = expf((v24 * -10.0) + 7.5);
-    v26.f64[0] = v32.f64[0];
-    v26.f64[1] = v32.f64[1] + halfPuckSize * 0.636619772 * (restingPosition + (-0.5 / (v25 + 1.0)));
+    v26.f64[0] = v32._e[0];
+    v26.f64[1] = v32._e[1] + halfPuckSize * 0.636619772 * (restingPosition + (-0.5 / (v25 + 1.0)));
     v33 = v26;
     v43[0] = !gdc::ToCoordinateSystem(**([(VKCameraController *)self mapDataAccess]+ 16));
-    md::MapDataAccess::groundCoordinateForScreenPoint(v35.f64, [(VKCameraController *)self mapDataAccess], &retstr->_target.latitude._value, v43, 0, v33);
+    md::MapDataAccess::groundCoordinateForScreenPoint(&v35, [(VKCameraController *)self mapDataAccess], retstr, v43, 0, v33);
     if (v43[0] == 1 && (v35.f64[0] != -3.14159265 || v35.f64[1] != -3.14159265 || v36 != 0.0))
     {
       __asm { FMOV            V2.2D, #-2.0 }
@@ -8758,8 +8763,8 @@ void __79__VKNavCameraController_animateCameraWithDuration_fromFrame_completionH
 
 - (Matrix<double,)_calculateMovementVector:(const void *)vector fromFrame:(const void *)frame
 {
-  v6 = [(VKCameraController *)self mapDataAccess:md::MapDataAccess::groundCoordinateForScreenPoint(v11];
-  gdc::ViewDataAccess::screenPointForCoordinate(v6[2], v11, frame);
+  v6 = [(VKCameraController *)self mapDataAccess:md::MapDataAccess::groundCoordinateForScreenPoint(&v11];
+  gdc::ViewDataAccess::screenPointForCoordinate(v6[2], &v11, frame);
   v8 = *vector - v7;
   v10 = *(vector + 1) - v9;
   result._e[1] = v10;
@@ -8818,7 +8823,7 @@ void __79__VKNavCameraController_animateCameraWithDuration_fromFrame_completionH
       v6 = fmax(v6, sqrt(vaddvq_f64(vmulq_f64(v10, v10))));
     }
 
-    md::MapDataAccess::groundCoordinateForScreenPoint(&v12, [(VKCameraController *)self mapDataAccess], &self->_cameraFrame._target.latitude._value, 0, 0, *(&minimum + v3));
+    md::MapDataAccess::groundCoordinateForScreenPoint(&v12, [(VKCameraController *)self mapDataAccess], &self->_cameraFrame, 0, 0, *(&minimum + v3));
     *&cornerCoordinates->latitude._value = v12;
     cornerCoordinates->altitude._value = v13;
     v3 += 16;
@@ -8914,7 +8919,7 @@ void __79__VKNavCameraController_animateCameraWithDuration_fromFrame_completionH
     v12 = cameraDelegate;
     if (cameraDelegate)
     {
-      [cameraDelegate willBeginRegionChangeAccess:0];
+      objc_msgSend_willBeginRegionChangeAccess_(cameraDelegate);
     }
 
     else
@@ -8932,7 +8937,7 @@ void __79__VKNavCameraController_animateCameraWithDuration_fromFrame_completionH
     if (!self->_isDetached || self->_transitionAnimation)
     {
       [(VKNavCameraController *)self updateCameraState];
-      [(VKNavCameraController *)self currentCameraFrame];
+      objc_msgSend_currentCameraFrame(self);
       v14 = v43;
       v46 = *v42;
       v47 = v43;
@@ -8949,7 +8954,7 @@ void __79__VKNavCameraController_animateCameraWithDuration_fromFrame_completionH
         if (self->_reframingInOverviewMode)
         {
           self->_reframingInOverviewMode = 0;
-          [(VKCameraController *)self camera];
+          objc_msgSend_camera(self);
           v17 = gdc::Camera::cameraFrame(v42[0]);
           LODWORD(v18) = 10.0;
           [(VKNavCameraController *)self animateSelectiveReframingCameraWithDuration:v17 fromFrame:0 completionHandler:v18];
@@ -8961,7 +8966,7 @@ void __79__VKNavCameraController_animateCameraWithDuration_fromFrame_completionH
 
         else
         {
-          [(VKCameraController *)self camera];
+          objc_msgSend_camera(self);
           v19 = gdc::Camera::cameraFrame(v42[0]);
           v20 = *v19;
           v21 = *(v19 + 16);
@@ -8997,7 +9002,7 @@ void __79__VKNavCameraController_animateCameraWithDuration_fromFrame_completionH
 
     else if (self->_isDetached)
     {
-      [(VKCameraController *)self camera];
+      objc_msgSend_camera(self);
       v33 = gdc::Camera::cameraFrame(v42[0]);
       v34 = *(v33 + 16);
       v46 = *v33;
@@ -9010,7 +9015,7 @@ void __79__VKNavCameraController_animateCameraWithDuration_fromFrame_completionH
       }
     }
 
-    [(VKCameraController *)self camera];
+    objc_msgSend_camera(self);
     *&v25 = gdc::Camera::setCameraFrame(v42[0], &v46).n128_u64[0];
     if (v42[1])
     {
@@ -9022,18 +9027,18 @@ void __79__VKNavCameraController_animateCameraWithDuration_fromFrame_completionH
       [(VKNavCameraController *)self runValidations];
     }
 
-    [(VKCameraController *)self camera];
+    objc_msgSend_camera(self);
     v26 = gdc::CameraFrame<geo::Radians,double>::toRigidTransformMercator(v42, v46.i64, *v40 == 0);
     if (v41)
     {
       std::__shared_weak_count::__release_shared[abi:nn200100](v41);
     }
 
-    vkCamera = [(VKCameraController *)self vkCamera];
-    [vkCamera setPosition:v42];
+    v27 = objc_msgSend_vkCamera(self, v26);
+    [v27 setPosition:v42];
 
-    vkCamera2 = [(VKCameraController *)self vkCamera];
-    [vkCamera2 setOrientation:&v43 + 8];
+    v28 = objc_msgSend_vkCamera(self);
+    [v28 setOrientation:&v43 + 8];
 
     [(VKNavCameraController *)self _updateClipPlanes];
     [(VKNavCameraController *)self _updateDebugOverlay];
@@ -9880,8 +9885,8 @@ uint64_t __63__VKNavCameraController_zoom_withFocusPoint_completionHandler___blo
     if (pounceCopy)
     {
       memset(&buf[24], 0, 32);
-      vkCamera = [(VKCameraController *)self vkCamera];
-      [vkCamera groundPlaneIntersectionPoint];
+      v24 = objc_msgSend_vkCamera(self);
+      [v24 groundPlaneIntersectionPoint];
       v26 = v25;
       v28 = v27;
 
@@ -9892,20 +9897,20 @@ uint64_t __63__VKNavCameraController_zoom_withFocusPoint_completionHandler___blo
       *buf = v30;
       *&buf[8] = v32 + -3.14159265;
       *&buf[16] = 0;
-      vkCamera2 = [(VKCameraController *)self vkCamera];
-      [vkCamera2 pitch];
+      v33 = objc_msgSend_vkCamera(self);
+      [v33 pitch];
       v35 = v34;
       *&buf[32] = v34;
 
-      vkCamera3 = [(VKCameraController *)self vkCamera];
-      [vkCamera3 yaw];
+      v36 = objc_msgSend_vkCamera(self);
+      [v36 yaw];
       v38 = -v37;
       *&buf[40] = -v37;
 
-      vkCamera4 = [(VKCameraController *)self vkCamera];
-      v40 = *([vkCamera4 position] + 16);
-      vkCamera5 = [(VKCameraController *)self vkCamera];
-      [vkCamera5 pitch];
+      v39 = objc_msgSend_vkCamera(self);
+      v40 = *(objc_msgSend_position(v39) + 16);
+      v41 = objc_msgSend_vkCamera(self);
+      [v41 pitch];
       v43 = v40 * 40075017.0 / cos(v42);
       *&buf[24] = v43;
 
@@ -9989,7 +9994,7 @@ uint64_t __63__VKNavCameraController_zoom_withFocusPoint_completionHandler___blo
       [(VKNavCameraController *)self updateCameraState];
       [(VKNavCameraController *)self resetSpringsToResting];
       [(VKNavCameraController *)self stopIgnoreStyleChange];
-      [(VKNavCameraController *)self currentCameraFrame];
+      objc_msgSend_currentCameraFrame(self);
       v58 = *&buf[16];
       *&self->_cameraFrame._target.latitude._value = *buf;
       *&self->_cameraFrame._target.altitude._value = v58;
@@ -10048,7 +10053,7 @@ LABEL_35:
           return;
         }
 
-        [(VKCameraController *)self camera];
+        objc_msgSend_camera(self);
         if (*&buf[8])
         {
           std::__shared_weak_count::__release_shared[abi:nn200100](*&buf[8]);
@@ -10071,14 +10076,14 @@ LABEL_35:
           goto LABEL_35;
         }
 
-        [(VKCameraController *)self camera];
+        objc_msgSend_camera(self);
         v12 = gdc::ToCoordinateSystem(**buf);
         if (*&buf[8])
         {
           std::__shared_weak_count::__release_shared[abi:nn200100](*&buf[8]);
         }
 
-        [(VKNavCameraController *)self cameraFrame];
+        objc_msgSend_cameraFrame(self);
         if (v12)
         {
           gdc::CameraFrame<geo::Radians,double>::toLookAtGeocentric(buf, &v61);
@@ -10337,7 +10342,7 @@ LABEL_35:
 {
   cntrl = a3.__cntrl_;
   ptr = a3.__ptr_;
-  v27 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v24.receiver = self;
   v24.super_class = VKNavCameraController;
   accessCopy = access;
@@ -10367,8 +10372,8 @@ LABEL_35:
     v23->_depthNear = *(v19 + 64);
     v23->_leftHanded = *(v19 + 72);
     v20 = *v16;
-    v25 = 0;
-    md::Monitorable<md::ConfigValue<GEOConfigKeyBOOL,BOOL>>::Monitorable(&v26, &VectorKitDebugConfig_NavCameraEnableOverlay, v20);
+    v26 = 0;
+    md::Monitorable<md::ConfigValue<GEOConfigKeyBOOL,BOOL>>::Monitorable(&v27, &VectorKitDebugConfig_NavCameraEnableOverlay, v20, v25);
   }
 
   return 0;
@@ -10418,7 +10423,7 @@ void __115__VKNavCameraController_initWithTaskContext_device_mapDataAccess_anima
         v32 = vmulq_f64(v15, v31);
         v33 = v17;
         mapDataAccess = [(VKCameraController *)self mapDataAccess];
-        [(VKNavCameraController *)self _testingCameraFrame];
+        objc_msgSend__testingCameraFrame(self);
         gdc::ViewDataAccess::screenPointForCoordinate(mapDataAccess[2], &v32, buf);
         if (!self->_ignorePointsBehind || v20 < v9)
         {
@@ -10524,7 +10529,7 @@ LABEL_15:
 - (Matrix<double,)_puckScreenPoint
 {
   mapDataAccess = [(VKCameraController *)self mapDataAccess];
-  [(VKNavCameraController *)self _testingCameraFrame];
+  objc_msgSend__testingCameraFrame(self);
   gdc::ViewDataAccess::screenPointForCoordinate(mapDataAccess[2], &self->_puckCoordinate, v6);
   result._e[1] = v5;
   result._e[0] = v4;

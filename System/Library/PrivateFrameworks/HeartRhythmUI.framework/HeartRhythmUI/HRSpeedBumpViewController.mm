@@ -177,7 +177,7 @@
       delegate = [(HRSpeedBumpViewController *)self stackedButtonView];
       buttons = [delegate buttons];
       firstObject = [buttons firstObject];
-      v19 = HRHeartRhythmUIFrameworkBundle();
+      v19 = HRHeartRhythmUIFrameworkBundle(firstObject);
       v20 = [v19 localizedStringForKey:@"ONBOARDING_CONTINUE" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable"];
       [firstObject setTitle:v20 forState:0];
     }
@@ -492,7 +492,7 @@ uint64_t __75__HRSpeedBumpViewController__updateUIWithLatestVisibleBubbleView_an
 - (void)_setUpStackedButtonView
 {
   v10[1] = *MEMORY[0x277D85DE8];
-  v3 = HRHeartRhythmUIFrameworkBundle();
+  v3 = HRHeartRhythmUIFrameworkBundle(self);
   v4 = [v3 localizedStringForKey:@"ONBOARDING_NEXT" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable"];
   v10[0] = v4;
   v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];

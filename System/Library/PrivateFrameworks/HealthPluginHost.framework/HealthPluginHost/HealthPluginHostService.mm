@@ -18,18 +18,17 @@
 {
   v7 = type metadata accessor for DateInterval();
   v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
   __chkstk_darwin(v7);
-  v11 = &v17 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = _Block_copy(completion);
-  v13 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  v10 = &v16 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = _Block_copy(completion);
+  v12 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   static DateInterval._unconditionallyBridgeFromObjectiveC(_:)();
-  v14 = swift_allocObject();
-  *(v14 + 16) = v12;
+  v13 = swift_allocObject();
+  *(v13 + 16) = v11;
   selfCopy = self;
-  sub_100017B18(v13, v16, sub_10002389C, v14);
+  sub_100017B18(v12, v15, sub_10002389C, v13);
 
-  (*(v8 + 8))(v11, v7);
+  (*(v8 + 8))(v10, v7);
 }
 
 - (void)submitTrainingFor:(id)for completion:(id)completion
@@ -88,14 +87,13 @@
   v10 = *(&self->super.isa + OBJC_IVAR____TtC10healthappd23HealthPluginHostService_longRunningProcessOracle);
   *(v9 + 16) = v8;
   v11 = *(v10 + 16);
-  v12 = *(&self->super.isa + OBJC_IVAR____TtC10healthappd23HealthPluginHostService_transactionBuilderManager);
-  v13 = swift_allocObject();
-  *(v13 + 16) = urgent;
-  *(v13 + 24) = sub_100023898;
-  *(v13 + 32) = v9;
-  *(v13 + 40) = ObjectType;
+  v12 = swift_allocObject();
+  *(v12 + 16) = urgent;
+  *(v12 + 24) = sub_100023898;
+  *(v12 + 32) = v9;
+  *(v12 + 40) = ObjectType;
   selfCopy = self;
-  v15 = v11;
+  v14 = v11;
 
   dispatch thunk of OpenTransactionBuilderManager.commitTransaction(healthStore:asUrgent:completion:)();
 }
@@ -139,14 +137,13 @@
 {
   v4 = type metadata accessor for Notification();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   __chkstk_darwin(v4);
-  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static Notification._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
   sub_10001DD44();
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 @end

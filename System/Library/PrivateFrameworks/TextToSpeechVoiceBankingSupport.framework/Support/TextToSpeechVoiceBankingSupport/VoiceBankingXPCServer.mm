@@ -83,56 +83,53 @@
 {
   v8 = type metadata accessor for URL();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
   __chkstk_darwin(v8);
-  v12 = &v22 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = _Block_copy(reply);
+  v11 = &v21 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = _Block_copy(reply);
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
-  v14 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v16 = v15;
-  v17 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v19 = v18;
-  v20 = swift_allocObject();
-  *(v20 + 16) = v13;
+  v13 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v15 = v14;
+  v16 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v18 = v17;
+  v19 = swift_allocObject();
+  *(v19 + 16) = v12;
   selfCopy = self;
-  VoiceBankingXPCServer.importTrainingData(fromDirectory:creatingVoiceName:localeID:reply:)(v12, v14, v16, v17, v19, sub_10000ED4C, v20);
+  VoiceBankingXPCServer.importTrainingData(fromDirectory:creatingVoiceName:localeID:reply:)(v11, v13, v15, v16, v18, sub_10000ED4C, v19);
 
-  (*(v9 + 8))(v12, v8);
+  (*(v9 + 8))(v11, v8);
 }
 
 - (void)importModelFromDirectory:(id)directory overrideLocaleID:(id)d addingToVoice:(id)voice reply:(id)reply
 {
-  v24 = type metadata accessor for UUID();
-  v9 = *(v24 - 8);
-  v10 = *(v9 + 64);
-  __chkstk_darwin(v24);
-  v12 = &v23 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = type metadata accessor for URL();
-  v14 = *(v13 - 8);
-  v15 = *(v14 + 64);
-  __chkstk_darwin(v13);
-  v17 = &v23 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v18 = _Block_copy(reply);
+  v22 = type metadata accessor for UUID();
+  v9 = *(v22 - 8);
+  __chkstk_darwin(v22);
+  v11 = &v21 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for URL();
+  v13 = *(v12 - 8);
+  __chkstk_darwin(v12);
+  v15 = &v21 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v16 = _Block_copy(reply);
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
   if (d)
   {
-    v19 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    d = v20;
+    v17 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    d = v18;
   }
 
   else
   {
-    v19 = 0;
+    v17 = 0;
   }
 
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-  v21 = swift_allocObject();
-  *(v21 + 16) = v18;
+  v19 = swift_allocObject();
+  *(v19 + 16) = v16;
   selfCopy = self;
-  VoiceBankingXPCServer.importModel(fromDirectory:overrideLocaleID:addingToVoice:reply:)(v17, v19, d, v12, sub_10000FAF8, v21);
+  VoiceBankingXPCServer.importModel(fromDirectory:overrideLocaleID:addingToVoice:reply:)(v15, v17, d, v11, sub_10000FAF8, v19);
 
-  (*(v9 + 8))(v12, v24);
-  (*(v14 + 8))(v17, v13);
+  (*(v9 + 8))(v11, v22);
+  (*(v13 + 8))(v15, v12);
 }
 
 - (void)exportTrainingDataWithVoiceID:(id)d shouldCompressResult:(BOOL)result includeEntireScript:(BOOL)script reply:(id)reply
@@ -140,17 +137,16 @@
   resultCopy = result;
   v10 = type metadata accessor for UUID();
   v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
   __chkstk_darwin(v10);
-  v14 = &v18 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = _Block_copy(reply);
+  v13 = &v17 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = _Block_copy(reply);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-  v16 = swift_allocObject();
-  *(v16 + 16) = v15;
+  v15 = swift_allocObject();
+  *(v15 + 16) = v14;
   selfCopy = self;
-  VoiceBankingXPCServer.exportTrainingData(voiceID:shouldCompressResult:includeEntireScript:reply:)(v14, resultCopy, script, sub_10000ECF8, v16);
+  VoiceBankingXPCServer.exportTrainingData(voiceID:shouldCompressResult:includeEntireScript:reply:)(v13, resultCopy, script, sub_10000ECF8, v15);
 
-  (*(v11 + 8))(v14, v10);
+  (*(v11 + 8))(v13, v10);
 }
 
 - (void)trainModelWithVoiceID:(id)d mode:(id)mode startImmediately:(BOOL)immediately skipValidation:(BOOL)validation overrideMinimumPhraseCount:(int64_t)count useUserRecordingsForTraining:(BOOL)training reply:(id)reply
@@ -160,19 +156,18 @@
   immediatelyCopy = immediately;
   v12 = type metadata accessor for UUID();
   v13 = *(v12 - 8);
-  v14 = *(v13 + 64);
   __chkstk_darwin(v12);
-  v16 = &countCopy - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v17 = _Block_copy(reply);
+  v15 = &countCopy - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v16 = _Block_copy(reply);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-  v18 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v20 = v19;
-  v21 = swift_allocObject();
-  *(v21 + 16) = v17;
+  v17 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v19 = v18;
+  v20 = swift_allocObject();
+  *(v20 + 16) = v16;
   selfCopy = self;
-  VoiceBankingXPCServer.trainModel(voiceID:mode:startImmediately:skipValidation:overrideMinimumPhraseCount:useUserRecordingsForTraining:reply:)(v16, v18, v20, immediatelyCopy, validation, countCopy, trainingCopy, sub_10000FAF8, v21);
+  VoiceBankingXPCServer.trainModel(voiceID:mode:startImmediately:skipValidation:overrideMinimumPhraseCount:useUserRecordingsForTraining:reply:)(v15, v17, v19, immediatelyCopy, validation, countCopy, trainingCopy, sub_10000FAF8, v20);
 
-  (*(v13 + 8))(v16, v12);
+  (*(v13 + 8))(v15, v12);
 }
 
 - (void)cancelTrainingTaskWithTaskID:(id)d reply:(id)reply
@@ -253,21 +248,20 @@
 {
   v8 = type metadata accessor for UUID();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
   __chkstk_darwin(v8);
-  v12 = &v22 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = _Block_copy(reply);
+  v11 = &v21 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = _Block_copy(reply);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-  v14 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v16 = v15;
-  v17 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v19 = v18;
-  v20 = swift_allocObject();
-  *(v20 + 16) = v13;
+  v13 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v15 = v14;
+  v16 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v18 = v17;
+  v19 = swift_allocObject();
+  *(v19 + 16) = v12;
   selfCopy = self;
-  VoiceBankingXPCServer.createSupplementaryModelForVoice(voiceID:sourceVersion:targetVersion:reply:)(v12, v14, v16, v17, v19, sub_10000FAF8, v20);
+  VoiceBankingXPCServer.createSupplementaryModelForVoice(voiceID:sourceVersion:targetVersion:reply:)(v11, v13, v15, v16, v18, sub_10000FAF8, v19);
 
-  (*(v9 + 8))(v12, v8);
+  (*(v9 + 8))(v11, v8);
 }
 
 - (void)sendMockUserNotification

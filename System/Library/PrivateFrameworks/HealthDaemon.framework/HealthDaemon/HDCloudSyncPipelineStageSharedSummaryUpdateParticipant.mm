@@ -15,15 +15,15 @@
   v13 = [(HDCloudSyncPipelineStage *)&v21 initWithConfiguration:configuration cloudState:0];
   if (v13)
   {
-    v14 = [entryCopy copy];
+    v14 = objc_msgSend_copy(entryCopy);
     codableEntry = v13->_codableEntry;
     v13->_codableEntry = v14;
 
-    v16 = [addCopy copy];
+    v16 = objc_msgSend_copy(addCopy);
     authorizationIdentifiersToAdd = v13->_authorizationIdentifiersToAdd;
     v13->_authorizationIdentifiersToAdd = v16;
 
-    v18 = [deleteCopy copy];
+    v18 = objc_msgSend_copy(deleteCopy);
     authorizationIdentifiersToDelete = v13->_authorizationIdentifiersToDelete;
     v13->_authorizationIdentifiersToDelete = v18;
   }
@@ -33,7 +33,7 @@
 
 - (void)main
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   v3 = [HDCloudSyncCompoundOperation alloc];
   configuration = [(HDCloudSyncOperation *)self configuration];
   cloudState = [(HDCloudSyncOperation *)self cloudState];
@@ -50,8 +50,8 @@
   v14 = [HDCloudSyncCreateZonesOperation alloc];
   configuration3 = [(HDCloudSyncOperation *)self configuration];
   cloudState2 = [(HDCloudSyncOperation *)self cloudState];
-  v26[0] = v13;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:1];
+  v25[0] = v13;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
   configuration4 = [(HDCloudSyncOperation *)self configuration];
   repository2 = [configuration4 repository];
   primaryCKContainer = [repository2 primaryCKContainer];
@@ -64,8 +64,6 @@
 
   [(HDCloudSyncCompoundOperation *)v6 addOperation:v24 transitionHandler:0];
   [(HDCloudSyncOperation *)self delegateToOperation:v6];
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 @end

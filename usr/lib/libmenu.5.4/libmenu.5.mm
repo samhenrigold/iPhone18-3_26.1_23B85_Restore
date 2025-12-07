@@ -846,7 +846,7 @@ void menu_format(const MENU *a1, int *a2, int *a3)
   }
 }
 
-uint64_t _nc_Connect_Items(MENU *a1, void *a2)
+uint64_t _nc_Connect_Items(MENU *a1, ITEM **a2)
 {
   result = 0;
   if (a1 && a2)
@@ -896,7 +896,7 @@ uint64_t _nc_Connect_Items(MENU *a1, void *a2)
                     v12 = v14;
                   }
 
-                  v15 = _nc_Calculate_Text_Width(*(v13 - 1) + 16);
+                  v15 = _nc_Calculate_Text_Width(&(*(v13 - 1))->description);
                   if (v15 > v11)
                   {
                     v11 = v15;
@@ -940,7 +940,7 @@ uint64_t _nc_Connect_Items(MENU *a1, void *a2)
       v21 = *a2;
       if (*a2)
       {
-        v22 = (a2 + 1);
+        v22 = a2 + 1;
         do
         {
           v21->index = 0;
@@ -1517,27 +1517,27 @@ const MENU *_nc_New_TopRow_and_CurrentItem(const MENU *result, int a2, ITEM *a3)
     if (itemterm)
     {
       result->status = status | 2;
-      itemterm(result);
-      status = *(v5 + 180) & 0xFFFD;
-      *(v5 + 180) = status;
+      (itemterm)(result);
+      status = v5->status & 0xFFFD;
+      v5->status = status;
     }
   }
 
-  v12 = *(v5 + 104);
-  if (v12 != a2)
+  toprow = v5->toprow;
+  if (toprow != a2)
   {
-    v13 = *(v5 + 136);
-    if (v13)
+    menuterm = v5->menuterm;
+    if (menuterm)
     {
-      *(v5 + 180) = status | 2;
-      v13(v5);
-      status = *(v5 + 180) & 0xFFFD;
-      *(v5 + 180) = status;
+      v5->status = status | 2;
+      menuterm(v5);
+      status = v5->status & 0xFFFD;
+      v5->status = status;
     }
   }
 
-  v14 = *(v5 + 96);
-  v15 = *(v5 + 4) - *(v5 + 8);
+  v14 = v5->curitem;
+  v15 = v5->rows - v5->frows;
   if (v15 >= a2)
   {
     v16 = a2;
@@ -1545,7 +1545,7 @@ const MENU *_nc_New_TopRow_and_CurrentItem(const MENU *result, int a2, ITEM *a3)
 
   else
   {
-    v16 = *(v5 + 4) - *(v5 + 8);
+    v16 = v5->rows - v5->frows;
   }
 
   if (v15 >= 0)
@@ -1558,9 +1558,9 @@ const MENU *_nc_New_TopRow_and_CurrentItem(const MENU *result, int a2, ITEM *a3)
     v17 = 0;
   }
 
-  *(v5 + 104) = v17;
-  *(v5 + 96) = a3;
-  if (v12 == a2)
+  v5->toprow = v17;
+  v5->curitem = a3;
+  if (toprow == a2)
   {
     if (curitem == a3)
     {
@@ -1571,12 +1571,12 @@ const MENU *_nc_New_TopRow_and_CurrentItem(const MENU *result, int a2, ITEM *a3)
 
   else
   {
-    v18 = *(v5 + 128);
-    if (v18)
+    menuinit = v5->menuinit;
+    if (menuinit)
     {
-      *(v5 + 180) = status | 2;
-      v18(v5);
-      *(v5 + 180) &= ~2u;
+      v5->status = status | 2;
+      menuinit(v5);
+      v5->status &= ~2u;
     }
 
     if (curitem == a3)
@@ -1585,20 +1585,20 @@ const MENU *_nc_New_TopRow_and_CurrentItem(const MENU *result, int a2, ITEM *a3)
     }
   }
 
-  if (v14 != *(v5 + 96))
+  if (v14 != v5->curitem)
   {
-    wmove(*(v5 + 48), *(v14 + 54) * *(v5 + 26), (*(v5 + 24) + *(v5 + 20)) * *(v14 + 56));
+    wmove(v5->win, *(v14 + 54) * v5->spc_rows, (v5->spc_cols + v5->itemlen) * *(v14 + 56));
     _nc_Post_Item(v5, v14);
-    wmove(*(v5 + 48), *(*(v5 + 96) + 54) * *(v5 + 26), (*(v5 + 24) + *(v5 + 20)) * *(*(v5 + 96) + 56));
-    _nc_Post_Item(v5, *(v5 + 96));
+    wmove(v5->win, v5->curitem->y * v5->spc_rows, (v5->spc_cols + v5->itemlen) * v5->curitem->x);
+    _nc_Post_Item(v5, v5->curitem);
   }
 
-  v19 = *(v5 + 144);
-  if (v19)
+  iteminit = v5->iteminit;
+  if (iteminit)
   {
-    *(v5 + 180) |= 2u;
-    v19(v5);
-    *(v5 + 180) &= ~2u;
+    v5->status |= 2u;
+    iteminit(v5);
+    v5->status &= ~2u;
   }
 
 LABEL_33:
@@ -2251,35 +2251,40 @@ BOOL item_value(const ITEM *a1)
 
 BOOL item_visible(const ITEM *a1)
 {
-  if (!a1)
+  result = 0;
+  if (a1)
   {
-    return 0;
+    imenu = a1->imenu;
+    if (imenu)
+    {
+      if (imenu->status)
+      {
+        toprow = imenu->toprow;
+        v3 = imenu->arows + toprow;
+        y = a1->y;
+        if (y >= toprow)
+        {
+          v7 = __OFSUB__(v3, y);
+          v5 = v3 == y;
+          v6 = v3 - y < 0;
+        }
+
+        else
+        {
+          v7 = 0;
+          v5 = 1;
+          v6 = 0;
+        }
+
+        if (!(v6 ^ v7 | v5))
+        {
+          return 1;
+        }
+      }
+    }
   }
 
-  imenu = a1->imenu;
-  if (!imenu || (imenu->status & 1) == 0)
-  {
-    return 0;
-  }
-
-  toprow = imenu->toprow;
-  v3 = imenu->arows + toprow;
-  y = a1->y;
-  if (y >= toprow)
-  {
-    v7 = __OFSUB__(v3, y);
-    v5 = v3 == y;
-    v6 = v3 - y < 0;
-  }
-
-  else
-  {
-    v7 = 0;
-    v5 = 1;
-    v6 = 0;
-  }
-
-  return !(v6 ^ v7 | v5);
+  return result;
 }
 
 int set_menu_items(MENU *a1, ITEM **a2)
@@ -3320,12 +3325,11 @@ int menu_request_by_name(const char *a1)
     v3 = v11[0];
     if (v11[0])
     {
-      v4 = &v12;
+      v4 = &v11[1];
       do
       {
         *(v4 - 1) = __toupper(v3);
-        v5 = *v4;
-        v4 = (v4 + 1);
+        v5 = *v4++;
         v3 = v5;
       }
 

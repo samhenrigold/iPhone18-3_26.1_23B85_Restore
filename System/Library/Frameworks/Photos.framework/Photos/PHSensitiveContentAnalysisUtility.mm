@@ -35,9 +35,11 @@
 
 uint64_t __53__PHSensitiveContentAnalysisUtility__sharedCIContext__block_invoke()
 {
-  _sharedCIContext_ciContext = objc_alloc_init(MEMORY[0x1E695F620]);
+  v0 = objc_alloc_init(MEMORY[0x1E695F620]);
+  v1 = _sharedCIContext_ciContext;
+  _sharedCIContext_ciContext = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)_blurredImage:(id)image

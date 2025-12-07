@@ -46,8 +46,8 @@
 - (id)copyForCreatingNewAction
 {
   v3 = objc_alloc(objc_opt_class());
-  home = [(HFItemBuilder *)self home];
-  v5 = [v3 initWithHome:home];
+  v4 = objc_msgSend_home(self);
+  v5 = [v3 initWithHome:v4];
 
   characteristic = [(HFCharacteristicWriteActionBuilder *)self characteristic];
   [v5 setCharacteristic:characteristic];
@@ -78,7 +78,7 @@
 
 - (void)_validateAndSetTargetValue:(id *)value
 {
-  v86 = *MEMORY[0x277D85DE8];
+  v85 = *MEMORY[0x277D85DE8];
   v4 = a2;
   if (value)
   {
@@ -97,15 +97,15 @@
           v9 = HFLogForCategory(0x2BuLL);
           if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
           {
-            v66 = objc_opt_class();
-            v67 = NSStringFromClass(v66);
+            v65 = objc_opt_class();
+            v66 = NSStringFromClass(v65);
             characteristic3 = [value characteristic];
             *buf = 138543874;
-            v79 = v67;
-            v80 = 2112;
-            v81 = v4;
-            v82 = 2112;
-            v83 = characteristic3;
+            v78 = v66;
+            v79 = 2112;
+            v80 = v4;
+            v81 = 2112;
+            v82 = characteristic3;
             _os_log_fault_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_FAULT, "%{public}@ tried to validate target value %@ but missing metadata on characteristic %@", buf, 0x20u);
           }
 
@@ -136,13 +136,13 @@ LABEL_54:
           characteristic4 = [value characteristic];
           callStackSymbols = [MEMORY[0x277CCACC8] callStackSymbols];
           *buf = 138413058;
-          v79 = v15;
-          v80 = 2112;
-          v81 = v10;
-          v82 = 2112;
-          v83 = characteristic4;
-          v84 = 2112;
-          v85 = callStackSymbols;
+          v78 = v15;
+          v79 = 2112;
+          v80 = v10;
+          v81 = 2112;
+          v82 = characteristic4;
+          v83 = 2112;
+          v84 = callStackSymbols;
           _os_log_error_impl(&dword_20D9BF000, v12, OS_LOG_TYPE_ERROR, "%@ received invalid target value %@ for characteristic %@. Stack: %@", buf, 0x2Au);
         }
 
@@ -153,10 +153,10 @@ LABEL_54:
             goto LABEL_16;
           }
 
-          v69 = objc_opt_class();
-          v15 = NSStringFromClass(v69);
+          v68 = objc_opt_class();
+          v15 = NSStringFromClass(v68);
           *buf = 138412290;
-          v79 = v15;
+          v78 = v15;
           _os_log_error_impl(&dword_20D9BF000, v12, OS_LOG_TYPE_ERROR, "%@ received invalid target value for characteristic.", buf, 0xCu);
         }
 
@@ -248,30 +248,30 @@ LABEL_53:
 
           if (isKindOfClass)
           {
-            v71 = v18;
-            v72 = metadata;
-            v75 = 0u;
-            v76 = 0u;
-            v73 = 0u;
+            v70 = v18;
+            v71 = metadata;
             v74 = 0u;
+            v75 = 0u;
+            v72 = 0u;
+            v73 = 0u;
             validValues2 = [metadata validValues];
-            v46 = [validValues2 countByEnumeratingWithState:&v73 objects:v77 count:16];
+            v46 = [validValues2 countByEnumeratingWithState:&v72 objects:v76 count:16];
             if (v46)
             {
               v47 = v46;
               v42 = 0;
-              v48 = *v74;
+              v48 = *v73;
               v49 = 1.79769313e308;
               do
               {
                 for (i = 0; i != v47; ++i)
                 {
-                  if (*v74 != v48)
+                  if (*v73 != v48)
                   {
                     objc_enumerationMutation(validValues2);
                   }
 
-                  v51 = *(*(&v73 + 1) + 8 * i);
+                  v51 = *(*(&v72 + 1) + 8 * i);
                   [v51 doubleValue];
                   v53 = v52;
                   [v21 doubleValue];
@@ -285,7 +285,7 @@ LABEL_53:
                   }
                 }
 
-                v47 = [validValues2 countByEnumeratingWithState:&v73 objects:v77 count:16];
+                v47 = [validValues2 countByEnumeratingWithState:&v72 objects:v76 count:16];
               }
 
               while (v47);
@@ -296,9 +296,9 @@ LABEL_53:
               v42 = 0;
             }
 
-            metadata = v72;
-            [(HFCharacteristicWriteActionBuilder *)value _logInvalidNumberTargetValue:v21 foundClosestValidValue:v42 metadata:v72];
-            v18 = v71;
+            metadata = v71;
+            [(HFCharacteristicWriteActionBuilder *)value _logInvalidNumberTargetValue:v21 foundClosestValidValue:v42 metadata:v71];
+            v18 = v70;
             if (v42)
             {
 LABEL_60:
@@ -326,13 +326,13 @@ LABEL_60:
             characteristic5 = [value characteristic];
             callStackSymbols2 = [MEMORY[0x277CCACC8] callStackSymbols];
             *buf = 138413058;
-            v79 = v62;
-            v80 = 2112;
-            v81 = characteristic5;
-            v82 = 2112;
-            v83 = v57;
-            v84 = 2112;
-            v85 = callStackSymbols2;
+            v78 = v62;
+            v79 = 2112;
+            v80 = characteristic5;
+            v81 = 2112;
+            v82 = v57;
+            v83 = 2112;
+            v84 = callStackSymbols2;
             _os_log_fault_impl(&dword_20D9BF000, v59, OS_LOG_TYPE_FAULT, "%@ for %@: Failed to automatically find a valid value similar to %@. Keeping it. Stack: %@", buf, 0x2Au);
 
 LABEL_62:
@@ -341,10 +341,10 @@ LABEL_62:
 
         else if (v60)
         {
-          v70 = objc_opt_class();
-          v62 = NSStringFromClass(v70);
+          v69 = objc_opt_class();
+          v62 = NSStringFromClass(v69);
           *buf = 138412290;
-          v79 = v62;
+          v78 = v62;
           _os_log_fault_impl(&dword_20D9BF000, v59, OS_LOG_TYPE_FAULT, "%@: Failed to automatically find a valid value similar to assigned value. Keeping it", buf, 0xCu);
           goto LABEL_62;
         }
@@ -364,8 +364,6 @@ LABEL_62:
   }
 
 LABEL_55:
-
-  v65 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setTargetValue:(id)value
@@ -393,7 +391,7 @@ LABEL_55:
 
 - (void)_logInvalidNumericTargetValue:(void *)value clamped:(int)clamped valid:(void *)valid metadata:
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v9 = a2;
   valueCopy = value;
   validCopy = valid;
@@ -412,8 +410,8 @@ LABEL_55:
 
       v21 = objc_opt_class();
       v22 = NSStringFromClass(v21);
-      v27 = 138543362;
-      v28 = v22;
+      v26 = 138543362;
+      v27 = v22;
       v23 = "%{public}@: Clamping";
     }
 
@@ -426,12 +424,12 @@ LABEL_55:
 
       v25 = objc_opt_class();
       v22 = NSStringFromClass(v25);
-      v27 = 138543362;
-      v28 = v22;
+      v26 = 138543362;
+      v27 = v22;
       v23 = "%{public}@: Failed clamping";
     }
 
-    _os_log_impl(&dword_20D9BF000, v14, OS_LOG_TYPE_DEFAULT, v23, &v27, 0xCu);
+    _os_log_impl(&dword_20D9BF000, v14, OS_LOG_TYPE_DEFAULT, v23, &v26, 0xCu);
 
     goto LABEL_14;
   }
@@ -448,17 +446,17 @@ LABEL_55:
     characteristic = [self characteristic];
     minimumValue = [validCopy minimumValue];
     maximumValue = [validCopy maximumValue];
-    v27 = 138544386;
-    v28 = v16;
-    v29 = 2112;
-    v30 = characteristic;
-    v31 = 2112;
-    v32 = minimumValue;
-    v33 = 2112;
-    v34 = maximumValue;
-    v35 = 2112;
-    v36 = valueCopy;
-    _os_log_error_impl(&dword_20D9BF000, v14, OS_LOG_TYPE_ERROR, "%{public}@ for %@: Failed to clamp to (%@, %@) as it produced an invalid value %@", &v27, 0x34u);
+    v26 = 138544386;
+    v27 = v16;
+    v28 = 2112;
+    v29 = characteristic;
+    v30 = 2112;
+    v31 = minimumValue;
+    v32 = 2112;
+    v33 = maximumValue;
+    v34 = 2112;
+    v35 = valueCopy;
+    _os_log_error_impl(&dword_20D9BF000, v14, OS_LOG_TYPE_ERROR, "%{public}@ for %@: Failed to clamp to (%@, %@) as it produced an invalid value %@", &v26, 0x34u);
     goto LABEL_5;
   }
 
@@ -469,28 +467,26 @@ LABEL_55:
     characteristic = [self characteristic];
     minimumValue = [validCopy minimumValue];
     maximumValue = [validCopy maximumValue];
-    v27 = 138413314;
-    v28 = v16;
-    v29 = 2112;
-    v30 = characteristic;
-    v31 = 2112;
-    v32 = minimumValue;
-    v33 = 2112;
-    v34 = maximumValue;
-    v35 = 2112;
-    v36 = valueCopy;
-    _os_log_impl(&dword_20D9BF000, v14, OS_LOG_TYPE_DEFAULT, "%@ for %@: Clamping to (%@, %@) resulting in %@", &v27, 0x34u);
+    v26 = 138413314;
+    v27 = v16;
+    v28 = 2112;
+    v29 = characteristic;
+    v30 = 2112;
+    v31 = minimumValue;
+    v32 = 2112;
+    v33 = maximumValue;
+    v34 = 2112;
+    v35 = valueCopy;
+    _os_log_impl(&dword_20D9BF000, v14, OS_LOG_TYPE_DEFAULT, "%@ for %@: Clamping to (%@, %@) resulting in %@", &v26, 0x34u);
 LABEL_5:
   }
 
 LABEL_14:
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_logInvalidNumberTargetValue:(void *)value foundClosestValidValue:(void *)validValue metadata:
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v7 = a2;
   valueCopy = value;
   validValueCopy = validValue;
@@ -504,15 +500,15 @@ LABEL_14:
       v13 = objc_opt_class();
       v14 = NSStringFromClass(v13);
       characteristic = [self characteristic];
-      v19 = 138544130;
-      v20 = v14;
-      v21 = 2112;
-      v22 = characteristic;
-      v23 = 2112;
-      v24 = valueCopy;
-      v25 = 2112;
-      v26 = v7;
-      _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ for %@: Found closest valid value %@ for requested target value %@", &v19, 0x2Au);
+      v18 = 138544130;
+      v19 = v14;
+      v20 = 2112;
+      v21 = characteristic;
+      v22 = 2112;
+      v23 = valueCopy;
+      v24 = 2112;
+      v25 = v7;
+      _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ for %@: Found closest valid value %@ for requested target value %@", &v18, 0x2Au);
     }
   }
 
@@ -520,12 +516,10 @@ LABEL_14:
   {
     v16 = objc_opt_class();
     v17 = NSStringFromClass(v16);
-    v19 = 138543362;
-    v20 = v17;
-    _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@: Found closest valid value for requested target value", &v19, 0xCu);
+    v18 = 138543362;
+    v19 = v17;
+    _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@: Found closest valid value for requested target value", &v18, 0xCu);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)description
@@ -547,11 +541,11 @@ LABEL_14:
   v7 = MEMORY[0x277CCACA8];
   targetValue = [(HFCharacteristicWriteActionBuilder *)self targetValue];
   characteristic2 = [(HFCharacteristicWriteActionBuilder *)self characteristic];
-  service = [characteristic2 service];
-  name = [service name];
+  v10 = objc_msgSend_service(characteristic2);
+  name = [v10 name];
   characteristic3 = [(HFCharacteristicWriteActionBuilder *)self characteristic];
-  service2 = [characteristic3 service];
-  uniqueIdentifier = [service2 uniqueIdentifier];
+  v13 = objc_msgSend_service(characteristic3);
+  uniqueIdentifier = [v13 uniqueIdentifier];
   v15 = [v7 stringWithFormat:@"<characteristic %@ set to targetValue: %@ in service: '%@' (%@)>", lowercaseString, targetValue, name, uniqueIdentifier];
 
   return v15;
@@ -678,8 +672,8 @@ LABEL_14:
 {
   v2 = MEMORY[0x277CBEA60];
   characteristic = [(HFCharacteristicWriteActionBuilder *)self characteristic];
-  service = [characteristic service];
-  v5 = [v2 na_arrayWithSafeObject:service];
+  v4 = objc_msgSend_service(characteristic);
+  v5 = [v2 na_arrayWithSafeObject:v4];
 
   return v5;
 }

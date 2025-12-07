@@ -40,20 +40,20 @@
 
 - (id)_getUUIDAndUpdateIDMapsForPeerInfo:(id)info
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   infoCopy = info;
-  v53 = 0;
-  v54 = &v53;
-  v55 = 0x3032000000;
-  v56 = __Block_byref_object_copy__48702;
-  v57 = __Block_byref_object_dispose__48703;
-  v58 = 0;
+  v52 = 0;
+  v53 = &v52;
+  v54 = 0x3032000000;
+  v55 = __Block_byref_object_copy__48702;
+  v56 = __Block_byref_object_dispose__48703;
+  v57 = 0;
   assistantIdentifier = [infoCopy assistantIdentifier];
   if (assistantIdentifier)
   {
     v6 = [(NSMutableDictionary *)self->_uuidsByAssistantIdentifier objectForKey:assistantIdentifier];
-    v7 = v54[5];
-    v54[5] = v6;
+    v7 = v53[5];
+    v53[5] = v6;
   }
 
   else
@@ -62,14 +62,14 @@
     if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v60 = "[AFPeerMap _getUUIDAndUpdateIDMapsForPeerInfo:]";
-      v61 = 2112;
-      v62 = infoCopy;
+      v59 = "[AFPeerMap _getUUIDAndUpdateIDMapsForPeerInfo:]";
+      v60 = 2112;
+      v61 = infoCopy;
       _os_log_error_impl(&dword_1912FE000, v8, OS_LOG_TYPE_ERROR, "%s Missing assistantId in %@", buf, 0x16u);
     }
   }
 
-  v9 = v54[5];
+  v9 = v53[5];
   if (v9)
   {
     v10 = v9;
@@ -77,37 +77,37 @@
 
   else
   {
-    v52[0] = MEMORY[0x1E69E9820];
-    v52[1] = 3221225472;
-    v52[2] = __48__AFPeerMap__getUUIDAndUpdateIDMapsForPeerInfo___block_invoke;
-    v52[3] = &unk_1E73496C0;
-    v52[4] = &v53;
-    v11 = MEMORY[0x193AFB7B0](v52);
+    v51[0] = MEMORY[0x1E69E9820];
+    v51[1] = 3221225472;
+    v51[2] = __48__AFPeerMap__getUUIDAndUpdateIDMapsForPeerInfo___block_invoke;
+    v51[3] = &unk_1E73496C0;
+    v51[4] = &v52;
+    v11 = MEMORY[0x193AFB7B0](v51);
     v12 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v50[0] = MEMORY[0x1E69E9820];
-    v50[1] = 3221225472;
-    v50[2] = __48__AFPeerMap__getUUIDAndUpdateIDMapsForPeerInfo___block_invoke_2;
-    v50[3] = &unk_1E73497C8;
+    v49[0] = MEMORY[0x1E69E9820];
+    v49[1] = 3221225472;
+    v49[2] = __48__AFPeerMap__getUUIDAndUpdateIDMapsForPeerInfo___block_invoke_2;
+    v49[3] = &unk_1E73497C8;
     v13 = v12;
-    v51 = v13;
-    v14 = MEMORY[0x193AFB7B0](v50);
-    v47[0] = MEMORY[0x1E69E9820];
-    v47[1] = 3221225472;
-    v47[2] = __48__AFPeerMap__getUUIDAndUpdateIDMapsForPeerInfo___block_invoke_3;
-    v47[3] = &unk_1E73496E8;
+    v50 = v13;
+    v14 = MEMORY[0x193AFB7B0](v49);
+    v46[0] = MEMORY[0x1E69E9820];
+    v46[1] = 3221225472;
+    v46[2] = __48__AFPeerMap__getUUIDAndUpdateIDMapsForPeerInfo___block_invoke_3;
+    v46[3] = &unk_1E73496E8;
     v15 = v11;
-    v49 = v15;
-    v47[4] = self;
-    v48 = assistantIdentifier;
-    v16 = MEMORY[0x193AFB7B0](v47);
+    v48 = v15;
+    v46[4] = self;
+    v47 = assistantIdentifier;
+    v16 = MEMORY[0x193AFB7B0](v46);
     [v13 addObject:v16];
 
     rapportEffectiveIdentifier = [infoCopy rapportEffectiveIdentifier];
     if (rapportEffectiveIdentifier)
     {
       v18 = [(NSMutableDictionary *)self->_uuidsByRapportIdentifier objectForKey:rapportEffectiveIdentifier];
-      v19 = v54[5];
-      v54[5] = v18;
+      v19 = v53[5];
+      v53[5] = v18;
     }
 
     else
@@ -116,94 +116,93 @@
       if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v60 = "[AFPeerMap _getUUIDAndUpdateIDMapsForPeerInfo:]";
-        v61 = 2112;
-        v62 = infoCopy;
+        v59 = "[AFPeerMap _getUUIDAndUpdateIDMapsForPeerInfo:]";
+        v60 = 2112;
+        v61 = infoCopy;
         _os_log_error_impl(&dword_1912FE000, v20, OS_LOG_TYPE_ERROR, "%s Missing rapportId in %@", buf, 0x16u);
       }
     }
 
-    if (v54[5])
+    if (v53[5])
     {
       v14[2](v14);
-      v10 = v54[5];
+      v10 = v53[5];
     }
 
     else
     {
-      v44[0] = MEMORY[0x1E69E9820];
-      v44[1] = 3221225472;
-      v44[2] = __48__AFPeerMap__getUUIDAndUpdateIDMapsForPeerInfo___block_invoke_3;
-      v44[3] = &unk_1E73496E8;
+      v43[0] = MEMORY[0x1E69E9820];
+      v43[1] = 3221225472;
+      v43[2] = __48__AFPeerMap__getUUIDAndUpdateIDMapsForPeerInfo___block_invoke_3;
+      v43[3] = &unk_1E73496E8;
       v21 = v15;
-      v46 = v21;
-      v44[4] = self;
-      v45 = rapportEffectiveIdentifier;
-      v22 = MEMORY[0x193AFB7B0](v44);
+      v45 = v21;
+      v43[4] = self;
+      v44 = rapportEffectiveIdentifier;
+      v22 = MEMORY[0x193AFB7B0](v43);
       [v13 addObject:v22];
 
       idsDeviceUniqueIdentifier = [infoCopy idsDeviceUniqueIdentifier];
       if (idsDeviceUniqueIdentifier)
       {
         v24 = [(NSMutableDictionary *)self->_uuidsByIdsDeviceIdentifier objectForKey:idsDeviceUniqueIdentifier];
-        v25 = v54[5];
-        v54[5] = v24;
+        v25 = v53[5];
+        v53[5] = v24;
       }
 
-      if (v54[5])
+      if (v53[5])
       {
         v14[2](v14);
-        v10 = v54[5];
+        v10 = v53[5];
       }
 
       else
       {
-        v41[0] = MEMORY[0x1E69E9820];
-        v41[1] = 3221225472;
-        v41[2] = __48__AFPeerMap__getUUIDAndUpdateIDMapsForPeerInfo___block_invoke_2_4;
-        v41[3] = &unk_1E73496E8;
-        v37 = v21;
-        v43 = v37;
-        v41[4] = self;
-        v36 = idsDeviceUniqueIdentifier;
+        v40[0] = MEMORY[0x1E69E9820];
+        v40[1] = 3221225472;
+        v40[2] = __48__AFPeerMap__getUUIDAndUpdateIDMapsForPeerInfo___block_invoke_2_4;
+        v40[3] = &unk_1E73496E8;
+        v36 = v21;
         v42 = v36;
-        v26 = MEMORY[0x193AFB7B0](v41);
+        v40[4] = self;
+        v35 = idsDeviceUniqueIdentifier;
+        v41 = v35;
+        v26 = MEMORY[0x193AFB7B0](v40);
         [v13 addObject:v26];
 
         homeKitAccessoryIdentifier = [infoCopy homeKitAccessoryIdentifier];
         if (homeKitAccessoryIdentifier)
         {
           v28 = [(NSMutableDictionary *)self->_uuidsByHomeKitIdentifier objectForKey:homeKitAccessoryIdentifier];
-          v29 = v54[5];
-          v54[5] = v28;
+          v29 = v53[5];
+          v53[5] = v28;
         }
 
-        if (!v54[5])
+        if (!v53[5])
         {
-          v38[0] = MEMORY[0x1E69E9820];
-          v38[1] = 3221225472;
-          v38[2] = __48__AFPeerMap__getUUIDAndUpdateIDMapsForPeerInfo___block_invoke_3_5;
-          v38[3] = &unk_1E73496E8;
-          v40 = v37;
-          v38[4] = self;
+          v37[0] = MEMORY[0x1E69E9820];
+          v37[1] = 3221225472;
+          v37[2] = __48__AFPeerMap__getUUIDAndUpdateIDMapsForPeerInfo___block_invoke_3_5;
+          v37[3] = &unk_1E73496E8;
           v39 = v36;
-          v30 = MEMORY[0x193AFB7B0](v38);
+          v37[4] = self;
+          v38 = v35;
+          v30 = MEMORY[0x193AFB7B0](v37);
           [v13 addObject:v30];
 
           uUID = [MEMORY[0x1E696AFB0] UUID];
           uUIDString = [uUID UUIDString];
-          v33 = v54[5];
-          v54[5] = uUIDString;
+          v33 = v53[5];
+          v53[5] = uUIDString;
         }
 
         v14[2](v14);
-        v10 = v54[5];
+        v10 = v53[5];
       }
     }
   }
 
-  _Block_object_dispose(&v53, 8);
-  v34 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v52, 8);
 
   return v10;
 }
@@ -220,39 +219,37 @@ void __48__AFPeerMap__getUUIDAndUpdateIDMapsForPeerInfo___block_invoke(uint64_t 
 
 void __48__AFPeerMap__getUUIDAndUpdateIDMapsForPeerInfo___block_invoke_2(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
+  v6 = 0u;
   v7 = 0u;
   v8 = 0u;
   v9 = 0u;
-  v10 = 0u;
   v1 = *(a1 + 32);
-  v2 = [v1 countByEnumeratingWithState:&v7 objects:v11 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v8;
+    v4 = *v7;
     do
     {
       v5 = 0;
       do
       {
-        if (*v8 != v4)
+        if (*v7 != v4)
         {
           objc_enumerationMutation(v1);
         }
 
-        (*(*(*(&v7 + 1) + 8 * v5) + 16))(*(*(&v7 + 1) + 8 * v5));
+        (*(*(*(&v6 + 1) + 8 * v5) + 16))(*(*(&v6 + 1) + 8 * v5));
         ++v5;
       }
 
       while (v3 != v5);
-      v3 = [v1 countByEnumeratingWithState:&v7 objects:v11 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
     }
 
     while (v3);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __48__AFPeerMap__getUUIDAndUpdateIDMapsForPeerInfo___block_invoke_3(void *a1)
@@ -262,37 +259,37 @@ uint64_t __48__AFPeerMap__getUUIDAndUpdateIDMapsForPeerInfo___block_invoke_3(voi
 
 - (void)enumerateObjectsUsingBlock:(id)block
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   blockCopy = block;
-  v15 = 0;
+  v14 = 0;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   allValues = [(NSMutableDictionary *)self->_objectsByUUID allValues];
-  v6 = [allValues countByEnumeratingWithState:&v11 objects:v16 count:16];
+  v6 = [allValues countByEnumeratingWithState:&v10 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
 LABEL_3:
     v9 = 0;
     while (1)
     {
-      if (*v12 != v8)
+      if (*v11 != v8)
       {
         objc_enumerationMutation(allValues);
       }
 
-      blockCopy[2](blockCopy, *(*(&v11 + 1) + 8 * v9), &v15);
-      if (v15)
+      blockCopy[2](blockCopy, *(*(&v10 + 1) + 8 * v9), &v14);
+      if (v14)
       {
         break;
       }
 
       if (v7 == ++v9)
       {
-        v7 = [allValues countByEnumeratingWithState:&v11 objects:v16 count:16];
+        v7 = [allValues countByEnumeratingWithState:&v10 objects:v15 count:16];
         if (v7)
         {
           goto LABEL_3;
@@ -302,8 +299,6 @@ LABEL_3:
       }
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeObjectForPeerInfo:(id)info

@@ -10,7 +10,7 @@
 + (NSString)reuseIdentifier
 {
   swift_getObjCClassMetadata();
-  sub_1000CE6B8(&qword_101922580);
+  sub_1000CE6B8(&qword_101922580, &qword_101208DF8);
   String.init<A>(describing:)();
   v2 = String._bridgeToObjectiveC()();
 
@@ -20,7 +20,7 @@
 - (UICellConfigurationState)_bridgedConfigurationState
 {
   ObjectType = swift_getObjectType();
-  v4 = sub_1000CE6B8(&qword_101922558);
+  v4 = sub_1000CE6B8(&qword_101922558, &qword_101208DD8);
   __chkstk_darwin(v4 - 8);
   v6 = &v17 - v5;
   v7 = type metadata accessor for UICellConfigurationState();

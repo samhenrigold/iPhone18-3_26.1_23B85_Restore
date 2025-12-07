@@ -104,7 +104,6 @@ LABEL_8:
 
   if (v4)
   {
-    tag = self->_tag;
     PBDataWriterWriteStringField();
   }
 }

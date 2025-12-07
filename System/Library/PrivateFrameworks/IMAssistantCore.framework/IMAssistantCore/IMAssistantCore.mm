@@ -17,64 +17,63 @@ id sub_25479F478(void *a1)
   return v3;
 }
 
-id _IMAssistantCoreSearchForMessageSignpostLogHandle()
+id _IMAssistantCoreSearchForMessageSignpostLogHandle(uint64_t a1)
 {
   if (qword_28118F678 != -1)
   {
     sub_25479F954();
   }
 
-  v1 = qword_28118F670;
+  v2 = qword_28118F670;
 
-  return v1;
+  return v2;
 }
 
 void sub_25479F654(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v2 = [objc_opt_class() connectToIMDaemonController];
-  [v2 timeIntervalSinceNow];
+  v19 = *MEMORY[0x277D85DE8];
+  v1 = [objc_opt_class() connectToIMDaemonController];
+  v2 = [v1 timeIntervalSinceNow];
   v4 = fabs(v3);
   if (v4 >= 5.0)
   {
-    v6 = _IMAssistantCoreGeneralSignpostLogHandle();
+    v6 = _IMAssistantCoreGeneralSignpostLogHandle(v2);
     v7 = os_signpost_id_generate(v6);
 
-    v8 = _IMAssistantCoreGeneralSignpostLogHandle();
-    v9 = v8;
-    if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
+    v9 = _IMAssistantCoreGeneralSignpostLogHandle(v8);
+    v10 = v9;
+    if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
     {
-      LOWORD(v16) = 0;
-      _os_signpost_emit_with_name_impl(&dword_25479E000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v7, "imSystemMonitorSuspendAndResume", &unk_2547CAD0B, &v16, 2u);
+      LOWORD(v17) = 0;
+      _os_signpost_emit_with_name_impl(&dword_25479E000, v10, OS_SIGNPOST_INTERVAL_BEGIN, v7, "imSystemMonitorSuspendAndResume", &unk_2547CAD0B, &v17, 2u);
     }
 
-    v10 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v11 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v16) = 0;
-      _os_log_impl(&dword_25479E000, v10, OS_LOG_TYPE_INFO, "Calling IMSystemMonitor _forceSuspended and _forceResumed", &v16, 2u);
+      LOWORD(v17) = 0;
+      _os_log_impl(&dword_25479E000, v11, OS_LOG_TYPE_INFO, "Calling IMSystemMonitor _forceSuspended and _forceResumed", &v17, 2u);
     }
-
-    v11 = [MEMORY[0x277D192A8] sharedInstance];
-    [v11 _forceSuspended];
 
     v12 = [MEMORY[0x277D192A8] sharedInstance];
-    [v12 _forceResumed];
+    [v12 _forceSuspended];
 
-    v13 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v13 = [MEMORY[0x277D192A8] sharedInstance];
+    [v13 _forceResumed];
+
+    v14 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v16) = 0;
-      _os_log_impl(&dword_25479E000, v13, OS_LOG_TYPE_INFO, "IMSystemMonitor _forceResumed completed", &v16, 2u);
+      LOWORD(v17) = 0;
+      _os_log_impl(&dword_25479E000, v14, OS_LOG_TYPE_INFO, "IMSystemMonitor _forceResumed completed", &v17, 2u);
     }
 
-    v14 = _IMAssistantCoreGeneralSignpostLogHandle();
-    v5 = v14;
-    if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
+    v16 = _IMAssistantCoreGeneralSignpostLogHandle(v15);
+    v5 = v16;
+    if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
     {
-      LOWORD(v16) = 0;
-      _os_signpost_emit_with_name_impl(&dword_25479E000, v5, OS_SIGNPOST_INTERVAL_END, v7, "imSystemMonitorSuspendAndResume", &unk_2547CAD0B, &v16, 2u);
+      LOWORD(v17) = 0;
+      _os_signpost_emit_with_name_impl(&dword_25479E000, v5, OS_SIGNPOST_INTERVAL_END, v7, "imSystemMonitorSuspendAndResume", &unk_2547CAD0B, &v17, 2u);
     }
   }
 
@@ -83,25 +82,23 @@ void sub_25479F654(uint64_t a1)
     v5 = IMLogHandleForCategory();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v16 = 134217984;
-      v17 = v4;
-      _os_log_impl(&dword_25479E000, v5, OS_LOG_TYPE_INFO, "Not triggering IMDaemonController reconnect. Connection was established %.4f seconds ago.", &v16, 0xCu);
+      v17 = 134217984;
+      v18 = v4;
+      _os_log_impl(&dword_25479E000, v5, OS_LOG_TYPE_INFO, "Not triggering IMDaemonController reconnect. Connection was established %.4f seconds ago.", &v17, 0xCu);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
-id _IMAssistantCoreGeneralSignpostLogHandle()
+id _IMAssistantCoreGeneralSignpostLogHandle(uint64_t a1)
 {
   if (qword_28118F688 != -1)
   {
     sub_25479F91C();
   }
 
-  v1 = qword_28118F680;
+  v2 = qword_28118F680;
 
-  return v1;
+  return v2;
 }
 
 id IMAssistantChatIdentifierFromConversationIdentifier(void *a1)
@@ -136,9 +133,9 @@ id sub_25479FABC(void *a1)
   return v11;
 }
 
-void sub_2547A083C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_2547A083C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -152,15 +149,15 @@ uint64_t sub_2547A086C(uint64_t result, uint64_t a2)
 
 void sub_2547A0884(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v15 = 0;
+  v17 = *MEMORY[0x277D85DE8];
+  v14 = 0;
   v2 = [*(a1 + 32) messageHandlerDataSource];
   v3 = [v2 locationManagerDataSource];
 
-  if (([*(a1 + 32) canSendLocationMessageWithLocationManager:v3 withError:&v15] & 1) == 0)
+  if (([*(a1 + 32) canSendLocationMessageWithLocationManager:v3 withError:&v14] & 1) == 0)
   {
     v4 = objc_alloc(MEMORY[0x277CD4080]);
-    v5 = [v4 initWithCode:v15 userActivity:0];
+    v5 = [v4 initWithCode:v14 userActivity:0];
     v6 = *(*(a1 + 48) + 8);
     v7 = *(v6 + 40);
     *(v6 + 40) = v5;
@@ -171,36 +168,33 @@ void sub_2547A0884(uint64_t a1)
   {
     v9 = *(*(*(a1 + 48) + 8) + 40);
     *buf = 138412290;
-    v17 = v9;
+    v16 = v9;
     _os_log_impl(&dword_25479E000, v8, OS_LOG_TYPE_INFO, "Completing confirmSendMessage with %@", buf, 0xCu);
   }
 
-  v10 = _IMAssistantCoreSendMessageSignpostLogHandle();
-  v11 = v10;
-  v12 = *(a1 + 56);
-  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  v11 = _IMAssistantCoreSendMessageSignpostLogHandle(v10);
+  v12 = v11;
+  v13 = *(a1 + 56);
+  if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_25479E000, v11, OS_SIGNPOST_INTERVAL_END, v12, "confirmSendMessageIntent", &unk_2547CAD0B, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_25479E000, v12, OS_SIGNPOST_INTERVAL_END, v13, "confirmSendMessageIntent", &unk_2547CAD0B, buf, 2u);
   }
 
-  v13 = *(*(*(a1 + 48) + 8) + 40);
   (*(*(a1 + 40) + 16))();
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2547A0C00(uint64_t a1)
 {
   v1 = a1;
-  v238 = *MEMORY[0x277D85DE8];
-  v195 = [*(a1 + 32) content];
+  v237 = *MEMORY[0x277D85DE8];
+  v194 = [*(a1 + 32) content];
   v2 = [*(v1 + 32) speakableGroupName];
-  v197 = [v2 spokenPhrase];
+  v196 = [v2 spokenPhrase];
 
-  v200 = [*(v1 + 32) recipients];
+  v199 = [*(v1 + 32) recipients];
   v3 = [*(v1 + 32) _metadata];
-  v194 = v3;
+  v193 = v3;
   if ([v3 hasOriginatingDeviceIdsIdentifier])
   {
     v4 = [v3 originatingDeviceIdsIdentifier];
@@ -212,83 +206,83 @@ void sub_2547A0C00(uint64_t a1)
   }
 
   v5 = +[IMAssistantINMessageConverter expressiveSendIdFromMessageEffectType:](IMAssistantINMessageConverter, "expressiveSendIdFromMessageEffectType:", [*(v1 + 32) effect]);
-  v193 = [*(v1 + 32) _executionContext];
-  v223[0] = MEMORY[0x277D85DD0];
-  v223[1] = 3221225472;
-  v223[2] = sub_2547A2A0C;
-  v223[3] = &unk_279786310;
+  v192 = [*(v1 + 32) _executionContext];
+  v222[0] = MEMORY[0x277D85DD0];
+  v222[1] = 3221225472;
+  v222[2] = sub_2547A2A0C;
+  v222[3] = &unk_279786310;
   v6 = *(v1 + 48);
-  v225 = *(v1 + 56);
-  v224 = v6;
-  v7 = MEMORY[0x259C19590](v223);
+  v224 = *(v1 + 56);
+  v223 = v6;
+  v7 = MEMORY[0x259C19590](v222);
   v8 = IMLogHandleForCategory();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v235 = v197;
+    v234 = v196;
     _os_log_impl(&dword_25479E000, v8, OS_LOG_TYPE_INFO, "Send Message Intent: GroupName: %@", buf, 0xCu);
   }
 
-  v198 = v4;
+  v197 = v4;
 
   v9 = IMLogHandleForCategory();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v235 = v200;
+    v234 = v199;
     _os_log_impl(&dword_25479E000, v9, OS_LOG_TYPE_INFO, "Send Message Intent: Recipients: %@", buf, 0xCu);
   }
 
-  v201 = v7;
+  v200 = v7;
 
   v10 = IMLogHandleForCategory();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v11 = [*(v1 + 32) conversationIdentifier];
     *buf = 138412290;
-    v235 = v11;
+    v234 = v11;
     _os_log_impl(&dword_25479E000, v10, OS_LOG_TYPE_INFO, "Send Message Intent: Conversation Identifier: %@", buf, 0xCu);
   }
 
   v12 = *(v1 + 32);
+  v226 = 0u;
   v227 = 0u;
   v228 = 0u;
   v229 = 0u;
-  v230 = 0u;
   v13 = [v12 attachments];
-  v14 = [v13 countByEnumeratingWithState:&v227 objects:buf count:16];
-  v199 = v5;
-  v202 = v1;
+  v14 = [v13 countByEnumeratingWithState:&v226 objects:buf count:16];
+  v198 = v5;
+  v201 = v1;
   if (v14)
   {
     v15 = v14;
     v16 = 0;
-    v17 = *v228;
+    v17 = *v227;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v228 != v17)
+        if (*v227 != v17)
         {
           objc_enumerationMutation(v13);
         }
 
-        v19 = *(*(&v227 + 1) + 8 * i);
+        v19 = *(*(&v226 + 1) + 8 * i);
         if ([v19 currentLocation])
         {
           v20 = IMLogHandleForCategory();
           if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
           {
-            *v233 = 138412290;
-            *&v233[4] = v19;
-            _os_log_impl(&dword_25479E000, v20, OS_LOG_TYPE_INFO, "Intent contains an current location attachment: %@", v233, 0xCu);
+            *v232 = 138412290;
+            *&v232[4] = v19;
+            _os_log_impl(&dword_25479E000, v20, OS_LOG_TYPE_INFO, "Intent contains an current location attachment: %@", v232, 0xCu);
           }
 
           v16 = 1;
         }
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v227 objects:buf count:16];
+      v15 = [v13 countByEnumeratingWithState:&v226 objects:buf count:16];
     }
 
     while (v15);
@@ -296,7 +290,7 @@ void sub_2547A0C00(uint64_t a1)
     if (v16)
     {
       v21 = IMLogHandleForCategory();
-      v1 = v202;
+      v1 = v201;
       if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
@@ -309,7 +303,7 @@ void sub_2547A0C00(uint64_t a1)
     else
     {
       v22 = 0;
-      v1 = v202;
+      v1 = v201;
     }
   }
 
@@ -320,7 +314,7 @@ void sub_2547A0C00(uint64_t a1)
   }
 
   v23 = *(v1 + 32);
-  v192 = v22;
+  v191 = v22;
   if ([v23 outgoingMessageType] == 2)
   {
     v24 = IMLogHandleForCategory();
@@ -330,28 +324,28 @@ void sub_2547A0C00(uint64_t a1)
       _os_log_impl(&dword_25479E000, v24, OS_LOG_TYPE_INFO, "Intent contains an audio message request, looking for the attachment", buf, 2u);
     }
 
-    v229 = 0u;
-    v230 = 0u;
-    v227 = 0u;
     v228 = 0u;
-    v209 = v23;
+    v229 = 0u;
+    v226 = 0u;
+    v227 = 0u;
+    v208 = v23;
     v25 = [v23 attachments];
-    v26 = [v25 countByEnumeratingWithState:&v227 objects:buf count:16];
+    v26 = [v25 countByEnumeratingWithState:&v226 objects:buf count:16];
     if (v26)
     {
       v27 = v26;
       v28 = 0;
-      v29 = *v228;
+      v29 = *v227;
       do
       {
         for (j = 0; j != v27; ++j)
         {
-          if (*v228 != v29)
+          if (*v227 != v29)
           {
             objc_enumerationMutation(v25);
           }
 
-          v31 = [*(*(&v227 + 1) + 8 * j) audioMessageFile];
+          v31 = [*(*(&v226 + 1) + 8 * j) audioMessageFile];
           v32 = [v31 fileURL];
 
           if (v32)
@@ -359,9 +353,9 @@ void sub_2547A0C00(uint64_t a1)
             v33 = IMLogHandleForCategory();
             if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
             {
-              *v233 = 138412290;
-              *&v233[4] = v32;
-              _os_log_impl(&dword_25479E000, v33, OS_LOG_TYPE_INFO, "Intent contains a audioFileAttachment: %@", v233, 0xCu);
+              *v232 = 138412290;
+              *&v232[4] = v32;
+              _os_log_impl(&dword_25479E000, v33, OS_LOG_TYPE_INFO, "Intent contains a audioFileAttachment: %@", v232, 0xCu);
             }
 
             v34 = v32;
@@ -369,7 +363,7 @@ void sub_2547A0C00(uint64_t a1)
           }
         }
 
-        v27 = [v25 countByEnumeratingWithState:&v227 objects:buf count:16];
+        v27 = [v25 countByEnumeratingWithState:&v226 objects:buf count:16];
       }
 
       while (v27);
@@ -380,8 +374,8 @@ void sub_2547A0C00(uint64_t a1)
       v28 = 0;
     }
 
-    v1 = v202;
-    v23 = v209;
+    v1 = v201;
+    v23 = v208;
   }
 
   else
@@ -391,14 +385,14 @@ void sub_2547A0C00(uint64_t a1)
 
   v35 = v28;
 
-  v196 = v35;
+  v195 = v35;
   if (v35)
   {
     v36 = IMLogHandleForCategory();
     if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v235 = v196;
+      v234 = v195;
       _os_log_impl(&dword_25479E000, v36, OS_LOG_TYPE_INFO, "Will try to send a Audio Message with attachment: %@", buf, 0xCu);
     }
   }
@@ -411,12 +405,12 @@ void sub_2547A0C00(uint64_t a1)
     _os_log_impl(&dword_25479E000, v38, OS_LOG_TYPE_INFO, "Checking the intent for a shared link.", buf, 2u);
   }
 
-  v229 = 0u;
-  v230 = 0u;
-  v227 = 0u;
   v228 = 0u;
+  v229 = 0u;
+  v226 = 0u;
+  v227 = 0u;
   v39 = [v37 attachments];
-  v40 = [(IMAssistantURLWithMetadata *)v39 countByEnumeratingWithState:&v227 objects:buf count:16];
+  v40 = [(IMAssistantURLWithMetadata *)v39 countByEnumeratingWithState:&v226 objects:buf count:16];
   if (!v40)
   {
     v62 = 0;
@@ -426,22 +420,22 @@ void sub_2547A0C00(uint64_t a1)
   }
 
   v41 = v40;
-  v189 = v37;
-  v210 = 0;
+  v188 = v37;
+  v209 = 0;
   v42 = 0;
-  v43 = *v228;
-  v205 = *MEMORY[0x277CE1D48];
-  v207 = v39;
+  v43 = *v227;
+  v204 = *MEMORY[0x277CE1D48];
+  v206 = v39;
   do
   {
     for (k = 0; k != v41; ++k)
     {
-      if (*v228 != v43)
+      if (*v227 != v43)
       {
         objc_enumerationMutation(v39);
       }
 
-      v45 = *(*(&v227 + 1) + 8 * k);
+      v45 = *(*(&v226 + 1) + 8 * k);
       if (objc_opt_respondsToSelector())
       {
         v46 = [v45 sharedLink];
@@ -454,16 +448,16 @@ void sub_2547A0C00(uint64_t a1)
 
         else
         {
-          v213 = v42;
+          v212 = v42;
           v48 = [v45 file];
           v49 = [v48 typeIdentifier];
-          v50 = [v205 identifier];
+          v50 = [v204 identifier];
           v51 = [v49 isEqualToString:v50];
 
           if (!v51)
           {
-            v42 = v213;
-            v39 = v207;
+            v42 = v212;
+            v39 = v206;
             continue;
           }
 
@@ -471,31 +465,31 @@ void sub_2547A0C00(uint64_t a1)
           v53 = objc_opt_class();
           v54 = [v45 file];
           v55 = [v54 data];
-          v226 = 0;
-          v56 = [v52 unarchivedObjectOfClass:v53 fromData:v55 error:&v226];
-          v47 = v226;
+          v225 = 0;
+          v56 = [v52 unarchivedObjectOfClass:v53 fromData:v55 error:&v225];
+          v47 = v225;
 
           if (!v56 || v47)
           {
             v57 = IMLogHandleForCategory();
-            v42 = v213;
+            v42 = v212;
             if (os_log_type_enabled(v57, OS_LOG_TYPE_INFO))
             {
-              *v233 = 138412290;
-              *&v233[4] = v47;
-              _os_log_impl(&dword_25479E000, v57, OS_LOG_TYPE_INFO, "There was an error unarchiving the attachment to LPLinkMetadata: %@", v233, 0xCu);
+              *v232 = 138412290;
+              *&v232[4] = v47;
+              _os_log_impl(&dword_25479E000, v57, OS_LOG_TYPE_INFO, "There was an error unarchiving the attachment to LPLinkMetadata: %@", v232, 0xCu);
             }
 
-            v210 = 0;
+            v209 = 0;
           }
 
           else
           {
-            v210 = v56;
-            v42 = v213;
+            v209 = v56;
+            v42 = v212;
           }
 
-          v39 = v207;
+          v39 = v206;
         }
       }
 
@@ -504,21 +498,21 @@ void sub_2547A0C00(uint64_t a1)
         v47 = IMLogHandleForCategory();
         if (os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
         {
-          *v233 = 0;
-          _os_log_impl(&dword_25479E000, v47, OS_LOG_TYPE_INFO, "SDK doesn't support API.", v233, 2u);
+          *v232 = 0;
+          _os_log_impl(&dword_25479E000, v47, OS_LOG_TYPE_INFO, "SDK doesn't support API.", v232, 2u);
         }
       }
     }
 
-    v41 = [(IMAssistantURLWithMetadata *)v39 countByEnumeratingWithState:&v227 objects:buf count:16];
+    v41 = [(IMAssistantURLWithMetadata *)v39 countByEnumeratingWithState:&v226 objects:buf count:16];
   }
 
   while (v41);
 
-  v58 = v210;
-  if (v42 && v210)
+  v58 = v209;
+  if (v42 && v209)
   {
-    v59 = [v210 originalURL];
+    v59 = [v209 originalURL];
     v60 = [v42 isEqual:v59];
 
     if ((v60 & 1) == 0)
@@ -526,16 +520,16 @@ void sub_2547A0C00(uint64_t a1)
       v61 = IMLogHandleForCategory();
       if (os_log_type_enabled(v61, OS_LOG_TYPE_INFO))
       {
-        *v233 = 0;
-        _os_log_impl(&dword_25479E000, v61, OS_LOG_TYPE_INFO, "We have a shared link and metadata, but there is a URL mismatch. Clearing out the metadata to avoid attaching the wrong metadata.", v233, 2u);
+        *v232 = 0;
+        _os_log_impl(&dword_25479E000, v61, OS_LOG_TYPE_INFO, "We have a shared link and metadata, but there is a URL mismatch. Clearing out the metadata to avoid attaching the wrong metadata.", v232, 2u);
       }
 
       v58 = 0;
     }
 
 LABEL_81:
-    v1 = v202;
-    v37 = v189;
+    v1 = v201;
+    v37 = v188;
     v39 = [[IMAssistantURLWithMetadata alloc] initWithURL:v42 metadata:v58];
     v62 = v39;
 LABEL_82:
@@ -549,8 +543,8 @@ LABEL_82:
     }
 
     v62 = 0;
-    v1 = v202;
-    v37 = v189;
+    v1 = v201;
+    v37 = v188;
   }
 
   if (v62)
@@ -559,12 +553,12 @@ LABEL_82:
     if (os_log_type_enabled(v63, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v235 = v62;
+      v234 = v62;
       _os_log_impl(&dword_25479E000, v63, OS_LOG_TYPE_INFO, "Will try to send a shared link for the URL at: %@", buf, 0xCu);
     }
   }
 
-  v208 = v62;
+  v207 = v62;
   v64 = *(v1 + 32);
   v65 = objc_alloc(MEMORY[0x277CBEB18]);
   v66 = [v64 attachments];
@@ -577,26 +571,26 @@ LABEL_82:
     _os_log_impl(&dword_25479E000, v68, OS_LOG_TYPE_INFO, "Checking the intent for a file attachment.", buf, 2u);
   }
 
-  v229 = 0u;
-  v230 = 0u;
-  v227 = 0u;
   v228 = 0u;
+  v229 = 0u;
+  v226 = 0u;
+  v227 = 0u;
   v69 = [v64 attachments];
-  v70 = [v69 countByEnumeratingWithState:&v227 objects:buf count:16];
+  v70 = [v69 countByEnumeratingWithState:&v226 objects:buf count:16];
   if (v70)
   {
     v71 = v70;
-    v72 = *v228;
+    v72 = *v227;
     do
     {
       for (m = 0; m != v71; ++m)
       {
-        if (*v228 != v72)
+        if (*v227 != v72)
         {
           objc_enumerationMutation(v69);
         }
 
-        v74 = *(*(&v227 + 1) + 8 * m);
+        v74 = *(*(&v226 + 1) + 8 * m);
         v75 = [v74 file];
         v76 = [v75 fileURL];
 
@@ -608,21 +602,21 @@ LABEL_82:
         }
       }
 
-      v71 = [v69 countByEnumeratingWithState:&v227 objects:buf count:16];
+      v71 = [v69 countByEnumeratingWithState:&v226 objects:buf count:16];
     }
 
     while (v71);
   }
 
   v79 = v67;
-  v214 = v79;
+  v213 = v79;
   if ([(IMAssistantURLWithMetadata *)v79 count])
   {
     v80 = IMLogHandleForCategory();
     if (os_log_type_enabled(v80, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v235 = v79;
+      v234 = v79;
       _os_log_impl(&dword_25479E000, v80, OS_LOG_TYPE_INFO, "Will try to send files at the following locations: %@", buf, 0xCu);
     }
   }
@@ -635,27 +629,27 @@ LABEL_82:
     _os_log_impl(&dword_25479E000, v82, OS_LOG_TYPE_INFO, "Checking the intent for a PHAsset attachment.", buf, 2u);
   }
 
-  v229 = 0u;
-  v230 = 0u;
-  v227 = 0u;
   v228 = 0u;
+  v229 = 0u;
+  v226 = 0u;
+  v227 = 0u;
   v83 = [v81 attachments];
-  v84 = [v83 countByEnumeratingWithState:&v227 objects:buf count:16];
+  v84 = [v83 countByEnumeratingWithState:&v226 objects:buf count:16];
   if (v84)
   {
     v85 = v84;
-    v211 = v81;
-    v86 = *v228;
+    v210 = v81;
+    v86 = *v227;
     while (2)
     {
       for (n = 0; n != v85; ++n)
       {
-        if (*v228 != v86)
+        if (*v227 != v86)
         {
           objc_enumerationMutation(v83);
         }
 
-        v88 = *(*(&v227 + 1) + 8 * n);
+        v88 = *(*(&v226 + 1) + 8 * n);
         if (objc_opt_respondsToSelector())
         {
           v89 = [v88 phAssetId];
@@ -667,14 +661,14 @@ LABEL_82:
             [v90 setIncludeHiddenAssets:1];
             v91 = MEMORY[0x277CD97A8];
             v92 = [v88 phAssetId];
-            *v233 = v92;
-            v93 = [MEMORY[0x277CBEA60] arrayWithObjects:v233 count:1];
+            *v232 = v92;
+            v93 = [MEMORY[0x277CBEA60] arrayWithObjects:v232 count:1];
             v94 = [v91 fetchAssetsWithLocalIdentifiers:v93 options:v90];
             v95 = [v94 firstObject];
 
             if (v95)
             {
-              v206 = v95;
+              v205 = v95;
 
               goto LABEL_117;
             }
@@ -682,7 +676,7 @@ LABEL_82:
         }
       }
 
-      v85 = [v83 countByEnumeratingWithState:&v227 objects:buf count:16];
+      v85 = [v83 countByEnumeratingWithState:&v226 objects:buf count:16];
       if (v85)
       {
         continue;
@@ -691,15 +685,15 @@ LABEL_82:
       break;
     }
 
-    v206 = 0;
+    v205 = 0;
 LABEL_117:
-    v1 = v202;
-    v81 = v211;
+    v1 = v201;
+    v81 = v210;
   }
 
   else
   {
-    v206 = 0;
+    v205 = 0;
   }
 
   v96 = [*(v1 + 32) shouldHideSiriAttribution];
@@ -712,15 +706,15 @@ LABEL_117:
   v101 = v99;
   v102 = v100;
   v103 = [v102 conversationIdentifier];
-  v104 = v199;
-  v212 = v101;
+  v104 = v198;
+  v211 = v101;
   if ([(IMAssistantURLWithMetadata *)v103 length])
   {
     v105 = IMLogHandleForCategory();
     if (os_log_type_enabled(v105, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v235 = v103;
+      v234 = v103;
       _os_log_impl(&dword_25479E000, v105, OS_LOG_TYPE_INFO, "Intent contains a conversation identifier. Using that to find an existing chat. conversationIdentifier=%@", buf, 0xCu);
     }
 
@@ -741,7 +735,7 @@ LABEL_117:
       if (os_log_type_enabled(v111, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v235 = v107;
+        v234 = v107;
         _os_log_impl(&dword_25479E000, v111, OS_LOG_TYPE_INFO, "Could not find a chat with the conversationIdentifier %@, ignoring.", buf, 0xCu);
       }
     }
@@ -772,8 +766,8 @@ LABEL_131:
   if (v114)
   {
     v115 = [(IMAssistantURLWithMetadata *)v114 vocabularyIdentifier];
-    v116 = v198;
-    v203 = v115;
+    v116 = v197;
+    v202 = v115;
     if ([(IMAssistantURLWithMetadata *)v115 length])
     {
       v117 = IMAssistantChatIdentifierFromConversationIdentifier(v115);
@@ -781,9 +775,9 @@ LABEL_131:
       if (os_log_type_enabled(v118, OS_LOG_TYPE_INFO))
       {
         *buf = 138412546;
-        v235 = v115;
-        v236 = 2112;
-        v237 = v117;
+        v234 = v115;
+        v235 = 2112;
+        v236 = v117;
         _os_log_impl(&dword_25479E000, v118, OS_LOG_TYPE_INFO, "Intent contains a group name vocabulary identifier. Using that to find an existing chat. vocabularyIdentifier=%@ chatIdentifier=%@", buf, 0x16u);
       }
 
@@ -799,9 +793,9 @@ LABEL_131:
       if (os_log_type_enabled(v121, OS_LOG_TYPE_INFO))
       {
         *buf = 138412546;
-        v235 = v115;
-        v236 = 2112;
-        v237 = v117;
+        v234 = v115;
+        v235 = 2112;
+        v236 = v117;
         _os_log_impl(&dword_25479E000, v121, OS_LOG_TYPE_INFO, "Could not find a chat with the vocabularyIdentifier %@ chatIdentifier %@, ignoring", buf, 0x16u);
       }
     }
@@ -812,7 +806,7 @@ LABEL_131:
       if (os_log_type_enabled(v117, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v235 = v112;
+        v234 = v112;
         _os_log_impl(&dword_25479E000, v117, OS_LOG_TYPE_INFO, "speakableGroupName does not contain a vocabularyIdentifier. speakableGroupName=%@", buf, 0xCu);
       }
     }
@@ -820,28 +814,28 @@ LABEL_131:
     v117 = [(IMAssistantURLWithMetadata *)v112 spokenPhrase];
     if ([v117 length])
     {
-      v229 = 0u;
-      v230 = 0u;
-      v227 = 0u;
       v228 = 0u;
+      v229 = 0u;
+      v226 = 0u;
+      v227 = 0u;
       v120 = [v101 allExistingChats];
-      v122 = [(IMAssistantURLWithMetadata *)v120 countByEnumeratingWithState:&v227 objects:buf count:16];
+      v122 = [(IMAssistantURLWithMetadata *)v120 countByEnumeratingWithState:&v226 objects:buf count:16];
       if (v122)
       {
         v123 = v122;
-        v188 = v102;
-        v190 = v97;
-        v124 = *v228;
+        v187 = v102;
+        v189 = v97;
+        v124 = *v227;
         while (2)
         {
           for (ii = 0; ii != v123; ++ii)
           {
-            if (*v228 != v124)
+            if (*v227 != v124)
             {
               objc_enumerationMutation(v120);
             }
 
-            v126 = *(*(&v227 + 1) + 8 * ii);
+            v126 = *(*(&v226 + 1) + 8 * ii);
             v127 = [v126 displayName];
             v128 = [v127 isEqualToString:v117];
 
@@ -852,7 +846,7 @@ LABEL_131:
             }
           }
 
-          v123 = [(IMAssistantURLWithMetadata *)v120 countByEnumeratingWithState:&v227 objects:buf count:16];
+          v123 = [(IMAssistantURLWithMetadata *)v120 countByEnumeratingWithState:&v226 objects:buf count:16];
           if (v123)
           {
             continue;
@@ -863,17 +857,17 @@ LABEL_131:
 
         v113 = 0;
 LABEL_158:
-        v116 = v198;
-        v104 = v199;
-        v101 = v212;
-        v97 = v190;
-        v102 = v188;
+        v116 = v197;
+        v104 = v198;
+        v101 = v211;
+        v97 = v189;
+        v102 = v187;
       }
 
       else
       {
         v113 = 0;
-        v116 = v198;
+        v116 = v197;
       }
 
 LABEL_161:
@@ -884,39 +878,39 @@ LABEL_161:
       v113 = 0;
     }
 
-    v1 = v202;
+    v1 = v201;
   }
 
   else
   {
     v113 = 0;
 LABEL_140:
-    v116 = v198;
+    v116 = v197;
   }
 
   if (v113)
   {
     v129 = IMLogHandleForCategory();
-    v130 = v201;
+    v130 = v200;
     if (os_log_type_enabled(v129, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v235 = v113;
+      v234 = v113;
       _os_log_impl(&dword_25479E000, v129, OS_LOG_TYPE_INFO, "Sending message to chat with identifier specified in intent. chat=%@", buf, 0xCu);
     }
 
     v131 = *(v1 + 40);
-    LOBYTE(v186) = v97;
-    v132 = v195;
-    v133 = v196;
-    v135 = v206;
-    v134 = v208;
-    v136 = v214;
-    [v131 sendMessagesWithText:v195 currentLocation:v192 sharedLinkURL:v208 audioMessageAttachment:v196 photoLibraryAttachment:v206 fileAttachments:v214 expressiveSendStyleID:v104 idsIdentifier:v116 executionContext:v193 shouldHideSiriAttribution:v186 toChat:v113 completion:v201];
+    LOBYTE(v185) = v97;
+    v132 = v194;
+    v133 = v195;
+    v135 = v205;
+    v134 = v207;
+    v136 = v213;
+    [v131 sendMessagesWithText:v194 currentLocation:v191 sharedLinkURL:v207 audioMessageAttachment:v195 photoLibraryAttachment:v205 fileAttachments:v213 expressiveSendStyleID:v104 idsIdentifier:v116 executionContext:v192 shouldHideSiriAttribution:v185 toChat:v113 completion:v200];
     goto LABEL_206;
   }
 
-  v130 = v201;
+  v130 = v200;
   if ([*(*(v1 + 40) + 32) length])
   {
     v137 = IMLogHandleForCategory();
@@ -924,7 +918,7 @@ LABEL_140:
     {
       v138 = *(*(v1 + 40) + 32);
       *buf = 138412290;
-      v235 = v138;
+      v234 = v138;
       _os_log_impl(&dword_25479E000, v137, OS_LOG_TYPE_INFO, "Using stored conversation identifier that was resolved during recipient resolution. conversationIdentifier=%@", buf, 0xCu);
     }
 
@@ -946,7 +940,7 @@ LABEL_140:
       if (os_log_type_enabled(v145, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v235 = v141;
+        v234 = v141;
         _os_log_impl(&dword_25479E000, v145, OS_LOG_TYPE_INFO, "Could not find a chat with the conversationIdentifier %@, ignoring.", buf, 0xCu);
       }
     }
@@ -968,60 +962,60 @@ LABEL_179:
     v147 = os_log_type_enabled(v146, OS_LOG_TYPE_INFO);
     if (v144)
     {
-      v104 = v199;
+      v104 = v198;
       if (v147)
       {
         *buf = 138412290;
-        v235 = v144;
+        v234 = v144;
         _os_log_impl(&dword_25479E000, v146, OS_LOG_TYPE_INFO, "Sending message to chat that has already been resolved. chat=%@", buf, 0xCu);
       }
 
       v148 = *(v1 + 40);
-      LOBYTE(v186) = v97;
-      v132 = v195;
-      v133 = v196;
-      v135 = v206;
-      v134 = v208;
-      v136 = v214;
-      [v148 sendMessagesWithText:v195 currentLocation:v192 sharedLinkURL:v208 audioMessageAttachment:v196 photoLibraryAttachment:v206 fileAttachments:v214 expressiveSendStyleID:v199 idsIdentifier:v198 executionContext:v193 shouldHideSiriAttribution:v186 toChat:v144 completion:v201];
+      LOBYTE(v185) = v97;
+      v132 = v194;
+      v133 = v195;
+      v135 = v205;
+      v134 = v207;
+      v136 = v213;
+      [v148 sendMessagesWithText:v194 currentLocation:v191 sharedLinkURL:v207 audioMessageAttachment:v195 photoLibraryAttachment:v205 fileAttachments:v213 expressiveSendStyleID:v198 idsIdentifier:v197 executionContext:v192 shouldHideSiriAttribution:v185 toChat:v144 completion:v200];
 
-      v116 = v198;
-      v130 = v201;
+      v116 = v197;
+      v130 = v200;
       goto LABEL_206;
     }
 
-    v130 = v201;
+    v130 = v200;
     if (v147)
     {
       v149 = *(*(v1 + 40) + 32);
       *buf = 138412290;
-      v235 = v149;
+      v234 = v149;
       _os_log_impl(&dword_25479E000, v146, OS_LOG_TYPE_INFO, "Could not find IMChat matching conversation identifier resolved during recipient resolution. Ignoring. conversationIdentifier=%@", buf, 0xCu);
     }
   }
 
-  v191 = v97;
-  v150 = [MEMORY[0x277CBEB18] arrayWithCapacity:{-[IMAssistantURLWithMetadata count](v200, "count")}];
+  v190 = v97;
+  v150 = [MEMORY[0x277CBEB18] arrayWithCapacity:{-[IMAssistantURLWithMetadata count](v199, "count")}];
+  v218 = 0u;
   v219 = 0u;
   v220 = 0u;
   v221 = 0u;
-  v222 = 0u;
-  v151 = v200;
-  v152 = [(IMAssistantURLWithMetadata *)v151 countByEnumeratingWithState:&v219 objects:v232 count:16];
+  v151 = v199;
+  v152 = [(IMAssistantURLWithMetadata *)v151 countByEnumeratingWithState:&v218 objects:v231 count:16];
   if (v152)
   {
     v153 = v152;
-    v154 = *v220;
+    v154 = *v219;
     while (2)
     {
       for (jj = 0; jj != v153; ++jj)
       {
-        if (*v220 != v154)
+        if (*v219 != v154)
         {
           objc_enumerationMutation(v151);
         }
 
-        v156 = *(*(&v219 + 1) + 8 * jj);
+        v156 = *(*(&v218 + 1) + 8 * jj);
         v157 = [(IMAssistantURLWithMetadata *)v156 customIdentifier];
         if (![v157 length])
         {
@@ -1029,15 +1023,15 @@ LABEL_179:
           if (os_log_type_enabled(v158, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v235 = v156;
+            v234 = v156;
             _os_log_impl(&dword_25479E000, v158, OS_LOG_TYPE_INFO, "Custom identifier not set, falling back to personHandle.value: %@", buf, 0xCu);
           }
 
-          v159 = [(IMAssistantURLWithMetadata *)v156 personHandle];
+          v159 = objc_msgSend_personHandle(v156);
           v160 = [v159 value];
 
           v157 = v160;
-          v130 = v201;
+          v130 = v200;
         }
 
         if (![v157 length])
@@ -1046,25 +1040,25 @@ LABEL_179:
           if (os_log_type_enabled(v163, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v235 = v156;
+            v234 = v156;
             _os_log_impl(&dword_25479E000, v163, OS_LOG_TYPE_INFO, "Could not send message; recipient had no usable handle: %@", buf, 0xCu);
           }
 
           v164 = [objc_alloc(MEMORY[0x277CD4080]) initWithCode:4 userActivity:0];
           (v130)[2](v130, v164);
 
-          v132 = v195;
-          v133 = v196;
-          v116 = v198;
-          v136 = v214;
-          v135 = v206;
+          v132 = v194;
+          v133 = v195;
+          v116 = v197;
+          v136 = v213;
+          v135 = v205;
           goto LABEL_205;
         }
 
         [(IMAssistantURLWithMetadata *)v150 addObject:v157];
       }
 
-      v153 = [(IMAssistantURLWithMetadata *)v151 countByEnumeratingWithState:&v219 objects:v232 count:16];
+      v153 = [(IMAssistantURLWithMetadata *)v151 countByEnumeratingWithState:&v218 objects:v231 count:16];
       if (v153)
       {
         continue;
@@ -1074,102 +1068,102 @@ LABEL_179:
     }
   }
 
-  v151 = [v212 existingChatForAddresses:v150 allowRetargeting:0 bestHandles:0];
+  v151 = [v211 existingChatForAddresses:v150 allowRetargeting:0 bestHandles:0];
   v161 = IMLogHandleForCategory();
   v162 = os_log_type_enabled(v161, OS_LOG_TYPE_INFO);
   if (v151)
   {
-    v133 = v196;
-    v136 = v214;
-    v135 = v206;
+    v133 = v195;
+    v136 = v213;
+    v135 = v205;
     if (v162)
     {
       *buf = 0;
       _os_log_impl(&dword_25479E000, v161, OS_LOG_TYPE_INFO, "Found existing chat with the recipients; sending", buf, 2u);
     }
 
-    LOBYTE(v186) = v191;
-    v116 = v198;
-    v132 = v195;
-    [*(v202 + 40) sendMessagesWithText:v195 currentLocation:v192 sharedLinkURL:v208 audioMessageAttachment:v196 photoLibraryAttachment:v206 fileAttachments:v214 expressiveSendStyleID:v199 idsIdentifier:v198 executionContext:v193 shouldHideSiriAttribution:v186 toChat:v151 completion:v130];
+    LOBYTE(v185) = v190;
+    v116 = v197;
+    v132 = v194;
+    [*(v201 + 40) sendMessagesWithText:v194 currentLocation:v191 sharedLinkURL:v207 audioMessageAttachment:v195 photoLibraryAttachment:v205 fileAttachments:v213 expressiveSendStyleID:v198 idsIdentifier:v197 executionContext:v192 shouldHideSiriAttribution:v185 toChat:v151 completion:v130];
     v157 = [MEMORY[0x277D1AC90] sharedInstance];
     [v157 sendINSendMessageIntentEvent];
   }
 
   else
   {
-    v166 = v202;
-    v133 = v196;
-    v136 = v214;
-    v135 = v206;
+    v165 = v201;
+    v133 = v195;
+    v136 = v213;
+    v135 = v205;
     if (v162)
     {
       *buf = 138412290;
-      v235 = v150;
+      v234 = v150;
       _os_log_impl(&dword_25479E000, v161, OS_LOG_TYPE_INFO, "Could not find any existing chat matching addresses. Creating new chat. Addresses: %@", buf, 0xCu);
     }
 
-    v167 = [*(v202 + 40) messageHandlerDataSource];
-    v168 = [v167 accountDataSource];
-    v169 = [v168 hasMessagingAccount];
+    v166 = [*(v201 + 40) messageHandlerDataSource];
+    v167 = [v166 accountDataSource];
+    v168 = [v167 hasMessagingAccount];
 
-    if (v169)
+    if (v168)
     {
       v157 = [MEMORY[0x277CBEB18] arrayWithCapacity:{-[IMAssistantURLWithMetadata count](v150, "count")}];
+      v214 = 0u;
       v215 = 0u;
       v216 = 0u;
       v217 = 0u;
-      v218 = 0u;
-      v170 = v150;
-      v171 = [(IMAssistantURLWithMetadata *)v170 countByEnumeratingWithState:&v215 objects:v231 count:16];
-      if (v171)
+      v169 = v150;
+      v170 = [(IMAssistantURLWithMetadata *)v169 countByEnumeratingWithState:&v214 objects:v230 count:16];
+      if (v170)
       {
-        v172 = v171;
-        v204 = *v216;
-        obj = v170;
+        v171 = v170;
+        v203 = *v215;
+        obj = v169;
         while (2)
         {
-          for (kk = 0; kk != v172; ++kk)
+          for (kk = 0; kk != v171; ++kk)
           {
-            if (*v216 != v204)
+            if (*v215 != v203)
             {
               objc_enumerationMutation(obj);
             }
 
-            v174 = *(*(&v215 + 1) + 8 * kk);
-            v175 = [*(v166 + 40) messageHandlerDataSource];
-            v176 = [v175 accountDataSource];
-            v177 = IMStripFormattingFromAddress();
-            v178 = [v176 imHandleWithID:v177];
+            v173 = *(*(&v214 + 1) + 8 * kk);
+            v174 = [*(v165 + 40) messageHandlerDataSource];
+            v175 = [v174 accountDataSource];
+            v176 = IMStripFormattingFromAddress();
+            v177 = [v175 imHandleWithID:v176];
 
-            if (!v178)
+            if (!v177)
             {
-              v183 = IMLogHandleForCategory();
-              v130 = v201;
-              v133 = v196;
-              v136 = v214;
-              v135 = v206;
-              if (os_log_type_enabled(v183, OS_LOG_TYPE_INFO))
+              v182 = IMLogHandleForCategory();
+              v130 = v200;
+              v133 = v195;
+              v136 = v213;
+              v135 = v205;
+              if (os_log_type_enabled(v182, OS_LOG_TYPE_INFO))
               {
                 *buf = 138412290;
-                v235 = v174;
-                _os_log_impl(&dword_25479E000, v183, OS_LOG_TYPE_INFO, "Could not send message; an address could not be resolved to an IMHandle: %@", buf, 0xCu);
+                v234 = v173;
+                _os_log_impl(&dword_25479E000, v182, OS_LOG_TYPE_INFO, "Could not send message; an address could not be resolved to an IMHandle: %@", buf, 0xCu);
               }
 
-              v184 = [objc_alloc(MEMORY[0x277CD4080]) initWithCode:4 userActivity:0];
-              (*(v201 + 16))(v201, v184);
-              v116 = v198;
+              v183 = [objc_alloc(MEMORY[0x277CD4080]) initWithCode:4 userActivity:0];
+              (*(v200 + 16))(v200, v183);
+              v116 = v197;
               goto LABEL_232;
             }
 
-            [v157 addObject:v178];
+            [v157 addObject:v177];
 
-            v166 = v202;
+            v165 = v201;
           }
 
-          v170 = obj;
-          v172 = [(IMAssistantURLWithMetadata *)obj countByEnumeratingWithState:&v215 objects:v231 count:16];
-          if (v172)
+          v169 = obj;
+          v171 = [(IMAssistantURLWithMetadata *)obj countByEnumeratingWithState:&v214 objects:v230 count:16];
+          if (v171)
           {
             continue;
           }
@@ -1180,44 +1174,44 @@ LABEL_179:
 
       if ([v157 count] == 1)
       {
-        v179 = [v157 firstObject];
-        v180 = [v212 chatForIMHandle:v179];
+        v178 = [v157 firstObject];
+        v179 = [v211 chatForIMHandle:v178];
 
-        v181 = v179;
+        v180 = v178;
       }
 
       else
       {
-        v181 = [v212 chatForIMHandles:v157];
-        v180 = v181;
+        v180 = [v211 chatForIMHandles:v157];
+        v179 = v180;
       }
 
-      v116 = v198;
-      v130 = v201;
-      v133 = v196;
-      v136 = v214;
-      v135 = v206;
+      v116 = v197;
+      v130 = v200;
+      v133 = v195;
+      v136 = v213;
+      v135 = v205;
 
-      obj = v180;
-      if ([*(v166 + 40) updateSenderIdentityForNewlyCreatedChat:v180])
+      obj = v179;
+      if ([*(v165 + 40) updateSenderIdentityForNewlyCreatedChat:v179])
       {
-        LOBYTE(v186) = v191;
-        [*(v166 + 40) sendMessagesWithText:v195 currentLocation:v192 sharedLinkURL:v208 audioMessageAttachment:v196 photoLibraryAttachment:v206 fileAttachments:v214 expressiveSendStyleID:v199 idsIdentifier:v198 executionContext:v193 shouldHideSiriAttribution:v186 toChat:v180 completion:{v201, v180}];
-        v184 = [MEMORY[0x277D1AC90] sharedInstance];
-        [v184 sendINSendMessageIntentEvent];
+        LOBYTE(v185) = v190;
+        [*(v165 + 40) sendMessagesWithText:v194 currentLocation:v191 sharedLinkURL:v207 audioMessageAttachment:v195 photoLibraryAttachment:v205 fileAttachments:v213 expressiveSendStyleID:v198 idsIdentifier:v197 executionContext:v192 shouldHideSiriAttribution:v185 toChat:v179 completion:{v200, v179}];
+        v183 = [MEMORY[0x277D1AC90] sharedInstance];
+        [v183 sendINSendMessageIntentEvent];
       }
 
       else
       {
-        v185 = IMLogHandleForCategory();
-        if (os_log_type_enabled(v185, OS_LOG_TYPE_INFO))
+        v184 = IMLogHandleForCategory();
+        if (os_log_type_enabled(v184, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_25479E000, v185, OS_LOG_TYPE_INFO, "Failed to determine the prefferred sender identity, returning failure requiring app launch so the user can use the sim selection UI", buf, 2u);
+          _os_log_impl(&dword_25479E000, v184, OS_LOG_TYPE_INFO, "Failed to determine the prefferred sender identity, returning failure requiring app launch so the user can use the sim selection UI", buf, 2u);
         }
 
-        v184 = [objc_alloc(MEMORY[0x277CD4080]) initWithCode:5 userActivity:0];
-        (*(v201 + 16))(v201, v184);
+        v183 = [objc_alloc(MEMORY[0x277CD4080]) initWithCode:5 userActivity:0];
+        (*(v200 + 16))(v200, v183);
       }
 
 LABEL_232:
@@ -1225,36 +1219,34 @@ LABEL_232:
 
     else
     {
-      v182 = IMLogHandleForCategory();
-      v116 = v198;
-      if (os_log_type_enabled(v182, OS_LOG_TYPE_INFO))
+      v181 = IMLogHandleForCategory();
+      v116 = v197;
+      if (os_log_type_enabled(v181, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_25479E000, v182, OS_LOG_TYPE_INFO, "Could not send message; no messaging accounts available", buf, 2u);
+        _os_log_impl(&dword_25479E000, v181, OS_LOG_TYPE_INFO, "Could not send message; no messaging accounts available", buf, 2u);
       }
 
       v157 = [objc_alloc(MEMORY[0x277CD4080]) initWithCode:6 userActivity:0];
-      v130 = v201;
-      (*(v201 + 16))(v201, v157);
+      v130 = v200;
+      (*(v200 + 16))(v200, v157);
     }
 
-    v132 = v195;
+    v132 = v194;
   }
 
 LABEL_205:
 
-  v104 = v199;
-  v134 = v208;
+  v104 = v198;
+  v134 = v207;
   v113 = 0;
 LABEL_206:
-
-  v165 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2547A2A0C(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _IMAssistantCoreSendMessageSignpostLogHandle();
+  v4 = _IMAssistantCoreSendMessageSignpostLogHandle(v3);
   v5 = v4;
   v6 = *(a1 + 40);
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
@@ -1278,23 +1270,22 @@ void sub_2547A2FE8(uint64_t a1, void *a2)
     _os_log_impl(&dword_25479E000, v4, OS_LOG_TYPE_INFO, "Resolve recipients with legacy resolution results: %@", &v9, 0xCu);
   }
 
-  v5 = _IMAssistantCoreSendMessageSignpostLogHandle();
-  v6 = v5;
-  v7 = *(a1 + 40);
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
+  v6 = _IMAssistantCoreSendMessageSignpostLogHandle(v5);
+  v7 = v6;
+  v8 = *(a1 + 40);
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
   {
     LOWORD(v9) = 0;
-    _os_signpost_emit_with_name_impl(&dword_25479E000, v6, OS_SIGNPOST_INTERVAL_END, v7, "resolveRecipientsForSendMessage", &unk_2547CAD0B, &v9, 2u);
+    _os_signpost_emit_with_name_impl(&dword_25479E000, v7, OS_SIGNPOST_INTERVAL_END, v8, "resolveRecipientsForSendMessage", &unk_2547CAD0B, &v9, 2u);
   }
 
   (*(*(a1 + 32) + 16))();
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2547A39B8(uint64_t a1)
 {
   v1 = a1;
-  v273 = *MEMORY[0x277D85DE8];
+  v278 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) count];
   v3 = *(v1 + 32);
   if (v2 == 1)
@@ -1305,9 +1296,9 @@ void sub_2547A39B8(uint64_t a1)
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
-      v266 = log;
-      v267 = 2112;
-      v268 = v4;
+      v271 = log;
+      v272 = 2112;
+      v273 = v4;
       _os_log_impl(&dword_25479E000, v5, OS_LOG_TYPE_INFO, "Intent contains one unique conversationIdentifier: %@ chatIdentifier: %@", buf, 0x16u);
     }
 
@@ -1326,155 +1317,155 @@ void sub_2547A39B8(uint64_t a1)
           _os_log_impl(&dword_25479E000, v9, OS_LOG_TYPE_INFO, "Chat resolved via conversation identifier is a business chat. Not resolving speakableGroupName to the business name, because the business name will be included in the recipients. Returning notRequired for speakableGroupName.", buf, 2u);
         }
 
-        v10 = _IMAssistantCoreSendMessageSignpostLogHandle();
-        v11 = v10;
-        v12 = *(v1 + 64);
-        if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+        v11 = _IMAssistantCoreSendMessageSignpostLogHandle(v10);
+        v12 = v11;
+        v13 = *(v1 + 64);
+        if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
         {
           *buf = 0;
-          _os_signpost_emit_with_name_impl(&dword_25479E000, v11, OS_SIGNPOST_INTERVAL_END, v12, "resolveSpeakableGroupNameForSendMessage", &unk_2547CAD0B, buf, 2u);
+          _os_signpost_emit_with_name_impl(&dword_25479E000, v12, OS_SIGNPOST_INTERVAL_END, v13, "resolveSpeakableGroupNameForSendMessage", &unk_2547CAD0B, buf, 2u);
         }
 
-        v13 = *(v1 + 56);
-        v14 = [MEMORY[0x277CD4198] notRequired];
-        (*(v13 + 16))(v13, v14);
+        v14 = *(v1 + 56);
+        v15 = [MEMORY[0x277CD4198] notRequired];
+        (*(v14 + 16))(v14, v15);
 LABEL_226:
 
 LABEL_237:
         goto LABEL_260;
       }
 
-      v80 = v8;
-      v81 = [(__CFString *)v80 isGroupChat];
-      v82 = [(__CFString *)v80 isBusinessChat];
-      v83 = [(__CFString *)v80 isStewieChat];
-      v84 = [(__CFString *)v80 displayName];
-      v85 = v84;
-      if (((v81 & 1) != 0 || (v82 & 1) != 0 || v83) && [v84 length])
+      v81 = v8;
+      v82 = [(__CFString *)v81 isGroupChat];
+      v83 = [(__CFString *)v81 isBusinessChat];
+      v84 = [(__CFString *)v81 isStewieChat];
+      v85 = [(__CFString *)v81 displayName];
+      v86 = v85;
+      if (((v82 & 1) != 0 || (v83 & 1) != 0 || v84) && [v85 length])
       {
-        v86 = objc_alloc(MEMORY[0x277CD4188]);
-        v87 = [(__CFString *)v80 chatIdentifier];
-        v88 = [(__CFString *)v80 displayName];
-        v14 = [v86 initWithVocabularyIdentifier:v87 spokenPhrase:v88 pronunciationHint:0];
+        v87 = objc_alloc(MEMORY[0x277CD4188]);
+        v88 = [(__CFString *)v81 chatIdentifier];
+        v89 = [(__CFString *)v81 displayName];
+        v15 = [v87 initWithVocabularyIdentifier:v88 spokenPhrase:v89 pronunciationHint:0];
       }
 
       else
       {
-        v87 = IMLogHandleForCategory();
-        if (os_log_type_enabled(v87, OS_LOG_TYPE_INFO))
+        v88 = IMLogHandleForCategory();
+        if (os_log_type_enabled(v88, OS_LOG_TYPE_INFO))
         {
-          v91 = @"NO";
+          v92 = @"NO";
           *buf = 138413058;
-          v266 = v80;
-          if (v81)
+          v271 = v81;
+          if (v82)
           {
-            v92 = @"YES";
+            v93 = @"YES";
           }
 
           else
           {
-            v92 = @"NO";
+            v93 = @"NO";
           }
 
-          v267 = 2112;
-          v268 = v92;
-          if (v82)
+          v272 = 2112;
+          v273 = v93;
+          if (v83)
           {
-            v91 = @"YES";
+            v92 = @"YES";
           }
 
-          v269 = 2112;
-          v270 = v91;
-          v271 = 2112;
-          v272 = v85;
-          _os_log_impl(&dword_25479E000, v87, OS_LOG_TYPE_INFO, "Could not find a name for chat, ignoring. chat: %@, isGroupChat: %@, isBusinessChat: %@, displayName: %@", buf, 0x2Au);
+          v274 = 2112;
+          v275 = v92;
+          v276 = 2112;
+          v277 = v86;
+          _os_log_impl(&dword_25479E000, v88, OS_LOG_TYPE_INFO, "Could not find a name for chat, ignoring. chat: %@, isGroupChat: %@, isBusinessChat: %@, displayName: %@", buf, 0x2Au);
         }
 
-        v14 = 0;
+        v15 = 0;
       }
 
-      v89 = IMLogHandleForCategory();
-      v93 = os_log_type_enabled(v89, OS_LOG_TYPE_INFO);
-      if (v14)
+      v90 = IMLogHandleForCategory();
+      v94 = os_log_type_enabled(v90, OS_LOG_TYPE_INFO);
+      if (v15)
       {
-        if (v93)
+        if (v94)
         {
           *buf = 138412546;
-          v266 = v4;
-          v267 = 2112;
-          v268 = v14;
-          _os_log_impl(&dword_25479E000, v89, OS_LOG_TYPE_INFO, "Found a named chat matching chatIdentifier, %@ with name %@.", buf, 0x16u);
+          v271 = v4;
+          v272 = 2112;
+          v273 = v15;
+          _os_log_impl(&dword_25479E000, v90, OS_LOG_TYPE_INFO, "Found a named chat matching chatIdentifier, %@ with name %@.", buf, 0x16u);
         }
 
-        v94 = [*(v1 + 40) messageHandlerDataSource];
-        v95 = [v94 screentimeAllowedToShowChat:v80 error:0];
+        v95 = [*(v1 + 40) messageHandlerDataSource];
+        v96 = [v95 screentimeAllowedToShowChat:v81 error:0];
 
-        v96 = IMLogHandleForCategory();
-        v97 = os_log_type_enabled(v96, OS_LOG_TYPE_INFO);
-        if (v95)
+        v97 = IMLogHandleForCategory();
+        v98 = os_log_type_enabled(v97, OS_LOG_TYPE_INFO);
+        if (v96)
         {
-          if (v97)
+          if (v98)
           {
             *buf = 138412290;
-            v266 = v14;
-            _os_log_impl(&dword_25479E000, v96, OS_LOG_TYPE_INFO, "Returning success with name %@.", buf, 0xCu);
+            v271 = v15;
+            _os_log_impl(&dword_25479E000, v97, OS_LOG_TYPE_INFO, "Returning success with name %@.", buf, 0xCu);
           }
 
-          v98 = _IMAssistantCoreSendMessageSignpostLogHandle();
-          v99 = v98;
-          v100 = *(v1 + 64);
-          if (v100 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v98))
+          v100 = _IMAssistantCoreSendMessageSignpostLogHandle(v99);
+          v101 = v100;
+          v102 = *(v1 + 64);
+          if (v102 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v100))
           {
             *buf = 0;
-            _os_signpost_emit_with_name_impl(&dword_25479E000, v99, OS_SIGNPOST_INTERVAL_END, v100, "resolveSpeakableGroupNameForSendMessage", &unk_2547CAD0B, buf, 2u);
+            _os_signpost_emit_with_name_impl(&dword_25479E000, v101, OS_SIGNPOST_INTERVAL_END, v102, "resolveSpeakableGroupNameForSendMessage", &unk_2547CAD0B, buf, 2u);
           }
 
-          v101 = *(v1 + 56);
-          v102 = [MEMORY[0x277CD4198] successWithResolvedString:v14];
+          v103 = *(v1 + 56);
+          v104 = [MEMORY[0x277CD4198] successWithResolvedString:v15];
         }
 
         else
         {
-          if (v97)
+          if (v98)
           {
             *buf = 138412290;
-            v266 = v14;
-            _os_log_impl(&dword_25479E000, v96, OS_LOG_TYPE_INFO, "Returning unsupported because the chat group (%@) contains non-allowlisted participants and isn't allowed by downtime.", buf, 0xCu);
+            v271 = v15;
+            _os_log_impl(&dword_25479E000, v97, OS_LOG_TYPE_INFO, "Returning unsupported because the chat group (%@) contains non-allowlisted participants and isn't allowed by downtime.", buf, 0xCu);
           }
 
-          v196 = _IMAssistantCoreSendMessageSignpostLogHandle();
-          v197 = v196;
-          v198 = *(v1 + 64);
-          if (v198 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v196))
+          v200 = _IMAssistantCoreSendMessageSignpostLogHandle(v199);
+          v201 = v200;
+          v202 = *(v1 + 64);
+          if (v202 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v200))
           {
             *buf = 0;
-            _os_signpost_emit_with_name_impl(&dword_25479E000, v197, OS_SIGNPOST_INTERVAL_END, v198, "resolveSpeakableGroupNameForSendMessage", &unk_2547CAD0B, buf, 2u);
+            _os_signpost_emit_with_name_impl(&dword_25479E000, v201, OS_SIGNPOST_INTERVAL_END, v202, "resolveSpeakableGroupNameForSendMessage", &unk_2547CAD0B, buf, 2u);
           }
 
-          v101 = *(v1 + 56);
-          v102 = [MEMORY[0x277CD4198] unsupported];
+          v103 = *(v1 + 56);
+          v104 = [MEMORY[0x277CD4198] unsupported];
         }
 
-        v199 = v102;
-        (*(v101 + 16))(v101, v102);
+        v203 = v104;
+        (*(v103 + 16))(v103, v104);
 
         goto LABEL_226;
       }
 
-      if (!v93)
+      if (!v94)
       {
         goto LABEL_117;
       }
 
       *buf = 138412290;
-      v266 = v4;
-      v90 = "Could not find a name for the chat with the chatIdentifier %@, ignoring.";
+      v271 = v4;
+      v91 = "Could not find a name for the chat with the chatIdentifier %@, ignoring.";
     }
 
     else
     {
-      v89 = IMLogHandleForCategory();
-      if (!os_log_type_enabled(v89, OS_LOG_TYPE_INFO))
+      v90 = IMLogHandleForCategory();
+      if (!os_log_type_enabled(v90, OS_LOG_TYPE_INFO))
       {
 LABEL_117:
 
@@ -1482,372 +1473,372 @@ LABEL_117:
       }
 
       *buf = 138412290;
-      v266 = v4;
-      v90 = "Could not find chat with the chatIdentifier %@, ignoring";
+      v271 = v4;
+      v91 = "Could not find chat with the chatIdentifier %@, ignoring";
     }
 
-    _os_log_impl(&dword_25479E000, v89, OS_LOG_TYPE_INFO, v90, buf, 0xCu);
+    _os_log_impl(&dword_25479E000, v90, OS_LOG_TYPE_INFO, v91, buf, 0xCu);
     goto LABEL_117;
   }
 
-  v15 = [v3 count];
+  v16 = [v3 count];
   log = IMLogHandleForCategory();
-  v16 = os_log_type_enabled(log, OS_LOG_TYPE_INFO);
-  if (v15 >= 2)
+  v17 = os_log_type_enabled(log, OS_LOG_TYPE_INFO);
+  if (v16 >= 2)
   {
-    if (v16)
+    if (v17)
     {
-      v17 = [*(v1 + 32) count];
-      v18 = *(v1 + 32);
+      v18 = [*(v1 + 32) count];
+      v19 = *(v1 + 32);
       *buf = 134218242;
-      v266 = v17;
-      v267 = 2112;
-      v268 = v18;
+      v271 = v18;
+      v272 = 2112;
+      v273 = v19;
       _os_log_impl(&dword_25479E000, log, OS_LOG_TYPE_INFO, "Intent contains %ld unique conversationIdentifiers: %@", buf, 0x16u);
     }
 
-    v19 = [*(v1 + 40) messageHandlerDataSource];
-    log = [v19 chatDataSource];
+    v20 = [*(v1 + 40) messageHandlerDataSource];
+    log = [v20 chatDataSource];
 
-    v20 = objc_alloc_init(MEMORY[0x277CBEB40]);
-    v231 = 0u;
-    v232 = 0u;
-    v233 = 0u;
-    v234 = 0u;
-    v217 = v1;
-    v21 = *(v1 + 32);
-    v22 = [v21 countByEnumeratingWithState:&v231 objects:v247 count:16];
-    v224 = v20;
-    if (v22)
+    v21 = objc_alloc_init(MEMORY[0x277CBEB40]);
+    v236 = 0u;
+    v237 = 0u;
+    v238 = 0u;
+    v239 = 0u;
+    v222 = v1;
+    v22 = *(v1 + 32);
+    v23 = [v22 countByEnumeratingWithState:&v236 objects:v252 count:16];
+    v229 = v21;
+    if (v23)
     {
-      v23 = v22;
-      v24 = *v232;
+      v24 = v23;
+      v25 = *v237;
       do
       {
-        for (i = 0; i != v23; ++i)
+        for (i = 0; i != v24; ++i)
         {
-          if (*v232 != v24)
+          if (*v237 != v25)
           {
-            objc_enumerationMutation(v21);
+            objc_enumerationMutation(v22);
           }
 
-          v26 = *(*(&v231 + 1) + 8 * i);
-          v27 = IMAssistantChatIdentifierFromConversationIdentifier(v26);
-          v28 = [log existingChatWithChatIdentifier:v27];
-          if (v28)
+          v27 = *(*(&v236 + 1) + 8 * i);
+          v28 = IMAssistantChatIdentifierFromConversationIdentifier(v27);
+          v29 = [log existingChatWithChatIdentifier:v28];
+          if (v29)
           {
-            [(__CFString *)v20 addObject:v28];
+            [(__CFString *)v21 addObject:v29];
           }
 
           else
           {
-            v29 = IMLogHandleForCategory();
-            if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+            v30 = IMLogHandleForCategory();
+            if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
-              v266 = v26;
-              _os_log_impl(&dword_25479E000, v29, OS_LOG_TYPE_INFO, "Could not find chat with chatIdentifier %@, ignoring", buf, 0xCu);
+              v271 = v27;
+              _os_log_impl(&dword_25479E000, v30, OS_LOG_TYPE_INFO, "Could not find chat with chatIdentifier %@, ignoring", buf, 0xCu);
             }
 
-            v20 = v224;
+            v21 = v229;
           }
         }
 
-        v23 = [v21 countByEnumeratingWithState:&v231 objects:v247 count:16];
+        v24 = [v22 countByEnumeratingWithState:&v236 objects:v252 count:16];
       }
 
-      while (v23);
+      while (v24);
     }
 
-    v30 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+    v31 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
     {
-      v31 = [(__CFString *)v20 count];
+      v32 = [(__CFString *)v21 count];
       *buf = 134218242;
-      v266 = v31;
-      v267 = 2112;
-      v268 = v20;
-      _os_log_impl(&dword_25479E000, v30, OS_LOG_TYPE_INFO, "%ld chats match chatIdentifiers. Chats: %@", buf, 0x16u);
+      v271 = v32;
+      v272 = 2112;
+      v273 = v21;
+      _os_log_impl(&dword_25479E000, v31, OS_LOG_TYPE_INFO, "%ld chats match chatIdentifiers. Chats: %@", buf, 0x16u);
     }
 
-    v32 = [(__CFString *)v20 array];
-    v222 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    v243 = 0u;
-    v244 = 0u;
-    v245 = 0u;
-    v246 = 0u;
-    obj = v32;
-    v33 = [obj countByEnumeratingWithState:&v243 objects:buf count:16];
-    if (v33)
+    v33 = [(__CFString *)v21 array];
+    v227 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v248 = 0u;
+    v249 = 0u;
+    v250 = 0u;
+    v251 = 0u;
+    obj = v33;
+    v34 = [obj countByEnumeratingWithState:&v248 objects:buf count:16];
+    if (v34)
     {
-      v34 = v33;
-      v35 = *v244;
+      v35 = v34;
+      v36 = *v249;
       do
       {
-        for (j = 0; j != v34; ++j)
+        for (j = 0; j != v35; ++j)
         {
-          if (*v244 != v35)
+          if (*v249 != v36)
           {
             objc_enumerationMutation(obj);
           }
 
-          v37 = *(*(&v243 + 1) + 8 * j);
-          v38 = [v37 isGroupChat];
-          v39 = [v37 displayName];
-          v40 = v39;
-          if (v38 && [v39 length])
+          v38 = *(*(&v248 + 1) + 8 * j);
+          v39 = [v38 isGroupChat];
+          v40 = [v38 displayName];
+          v41 = v40;
+          if (v39 && [v40 length])
           {
-            v41 = [v222 objectForKey:v40];
-            v42 = v41;
-            if (v41)
+            v42 = [v227 objectForKey:v41];
+            v43 = v42;
+            if (v42)
             {
-              [v41 addObject:v37];
+              [v42 addObject:v38];
             }
 
             else
             {
-              v44 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v37, 0}];
-              [v222 setObject:v44 forKey:v40];
+              v45 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v38, 0}];
+              [v227 setObject:v45 forKey:v41];
             }
           }
 
           else
           {
-            v42 = IMLogHandleForCategory();
-            if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
+            v43 = IMLogHandleForCategory();
+            if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
             {
-              *v254 = 138412802;
-              v43 = @"NO";
-              if (v38)
+              *v259 = 138412802;
+              v44 = @"NO";
+              if (v39)
               {
-                v43 = @"YES";
+                v44 = @"YES";
               }
 
-              *&v254[4] = v37;
-              *&v254[12] = 2112;
-              *&v254[14] = v43;
-              *&v254[22] = 2112;
-              *&v254[24] = v40;
-              _os_log_impl(&dword_25479E000, v42, OS_LOG_TYPE_INFO, "Could not construct disambiguation option for chat: %@, isGroupChat: %@, displayName: %@. Ignoring.", v254, 0x20u);
+              *&v259[4] = v38;
+              *&v259[12] = 2112;
+              *&v259[14] = v44;
+              *&v259[22] = 2112;
+              *&v259[24] = v41;
+              _os_log_impl(&dword_25479E000, v43, OS_LOG_TYPE_INFO, "Could not construct disambiguation option for chat: %@, isGroupChat: %@, displayName: %@. Ignoring.", v259, 0x20u);
             }
           }
         }
 
-        v34 = [obj countByEnumeratingWithState:&v243 objects:buf count:16];
+        v35 = [obj countByEnumeratingWithState:&v248 objects:buf count:16];
       }
 
-      while (v34);
+      while (v35);
     }
 
-    v45 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v239 = 0u;
+    v46 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v244 = 0u;
+    v245 = 0u;
+    v246 = 0u;
+    v247 = 0u;
+    v47 = [v227 allValues];
+    v48 = [v47 countByEnumeratingWithState:&v244 objects:v259 count:16];
+    v225 = v46;
+    if (v48)
+    {
+      v49 = v48;
+      v50 = *v245;
+      do
+      {
+        for (k = 0; k != v49; ++k)
+        {
+          if (*v245 != v50)
+          {
+            objc_enumerationMutation(v47);
+          }
+
+          v52 = *(*(&v244 + 1) + 8 * k);
+          v53 = [v52 sortedArrayUsingComparator:&unk_286693018];
+          v54 = [v53 firstObject];
+          [v46 addObject:v54];
+          if ([v52 count] >= 2)
+          {
+            v55 = IMLogHandleForCategory();
+            if (os_log_type_enabled(v55, OS_LOG_TYPE_INFO))
+            {
+              v56 = [v52 count];
+              v57 = [v54 displayName];
+              *v253 = 134218498;
+              v254 = v56;
+              v255 = 2112;
+              v256 = v57;
+              v257 = 2112;
+              v258 = v54;
+              _os_log_impl(&dword_25479E000, v55, OS_LOG_TYPE_INFO, "%ld chats have the name %@. Presenting disambiguation of chats with the same name is confusing, so using the most recent one, %@.", v253, 0x20u);
+
+              v46 = v225;
+            }
+          }
+        }
+
+        v49 = [v47 countByEnumeratingWithState:&v244 objects:v259 count:16];
+      }
+
+      while (v49);
+    }
+
+    v58 = [v46 sortedArrayUsingComparator:&unk_286693018];
+    v59 = objc_alloc_init(MEMORY[0x277CBEB18]);
     v240 = 0u;
     v241 = 0u;
     v242 = 0u;
-    v46 = [v222 allValues];
-    v47 = [v46 countByEnumeratingWithState:&v239 objects:v254 count:16];
-    v220 = v45;
-    if (v47)
+    v243 = 0u;
+    v231 = v58;
+    v60 = [v231 countByEnumeratingWithState:&v240 objects:v253 count:16];
+    if (v60)
     {
-      v48 = v47;
-      v49 = *v240;
+      v61 = v60;
+      v62 = *v241;
       do
       {
-        for (k = 0; k != v48; ++k)
+        for (m = 0; m != v61; ++m)
         {
-          if (*v240 != v49)
+          if (*v241 != v62)
           {
-            objc_enumerationMutation(v46);
+            objc_enumerationMutation(v231);
           }
 
-          v51 = *(*(&v239 + 1) + 8 * k);
-          v52 = [v51 sortedArrayUsingComparator:&unk_286693018];
-          v53 = [v52 firstObject];
-          [v45 addObject:v53];
-          if ([v51 count] >= 2)
+          v64 = *(*(&v240 + 1) + 8 * m);
+          v65 = [v64 isGroupChat];
+          v66 = [v64 isBusinessChat];
+          v67 = [v64 isStewieChat];
+          v68 = [v64 displayName];
+          v69 = v68;
+          if (((v65 & 1) != 0 || (v66 & 1) != 0 || v67) && [v68 length])
           {
-            v54 = IMLogHandleForCategory();
-            if (os_log_type_enabled(v54, OS_LOG_TYPE_INFO))
-            {
-              v55 = [v51 count];
-              v56 = [v53 displayName];
-              *v248 = 134218498;
-              v249 = v55;
-              v250 = 2112;
-              v251 = v56;
-              v252 = 2112;
-              v253 = v53;
-              _os_log_impl(&dword_25479E000, v54, OS_LOG_TYPE_INFO, "%ld chats have the name %@. Presenting disambiguation of chats with the same name is confusing, so using the most recent one, %@.", v248, 0x20u);
-
-              v45 = v220;
-            }
-          }
-        }
-
-        v48 = [v46 countByEnumeratingWithState:&v239 objects:v254 count:16];
-      }
-
-      while (v48);
-    }
-
-    v57 = [v45 sortedArrayUsingComparator:&unk_286693018];
-    v58 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v235 = 0u;
-    v236 = 0u;
-    v237 = 0u;
-    v238 = 0u;
-    v226 = v57;
-    v59 = [v226 countByEnumeratingWithState:&v235 objects:v248 count:16];
-    if (v59)
-    {
-      v60 = v59;
-      v61 = *v236;
-      do
-      {
-        for (m = 0; m != v60; ++m)
-        {
-          if (*v236 != v61)
-          {
-            objc_enumerationMutation(v226);
-          }
-
-          v63 = *(*(&v235 + 1) + 8 * m);
-          v64 = [v63 isGroupChat];
-          v65 = [v63 isBusinessChat];
-          v66 = [v63 isStewieChat];
-          v67 = [v63 displayName];
-          v68 = v67;
-          if (((v64 & 1) != 0 || (v65 & 1) != 0 || v66) && [v67 length])
-          {
-            v69 = objc_alloc(MEMORY[0x277CD4188]);
-            v70 = [v63 chatIdentifier];
-            v71 = [v63 displayName];
-            v72 = [v69 initWithVocabularyIdentifier:v70 spokenPhrase:v71 pronunciationHint:0];
+            v70 = objc_alloc(MEMORY[0x277CD4188]);
+            v71 = [v64 chatIdentifier];
+            v72 = [v64 displayName];
+            v73 = [v70 initWithVocabularyIdentifier:v71 spokenPhrase:v72 pronunciationHint:0];
           }
 
           else
           {
-            v70 = IMLogHandleForCategory();
-            if (os_log_type_enabled(v70, OS_LOG_TYPE_INFO))
+            v71 = IMLogHandleForCategory();
+            if (os_log_type_enabled(v71, OS_LOG_TYPE_INFO))
             {
-              *v257 = 138413058;
-              v73 = @"NO";
-              if (v64)
+              *v262 = 138413058;
+              v74 = @"NO";
+              if (v65)
               {
-                v74 = @"YES";
+                v75 = @"YES";
               }
 
               else
               {
-                v74 = @"NO";
+                v75 = @"NO";
               }
 
-              v258 = v63;
-              if (v65)
+              v263 = v64;
+              if (v66)
               {
-                v73 = @"YES";
+                v74 = @"YES";
               }
 
-              v259 = 2112;
-              v260 = v74;
-              v261 = 2112;
-              v262 = v73;
-              v263 = 2112;
-              v264 = v68;
-              _os_log_impl(&dword_25479E000, v70, OS_LOG_TYPE_INFO, "Could not find a name for chat, ignoring. chat: %@, isGroupChat: %@, isBusinessChat: %@, displayName: %@", v257, 0x2Au);
+              v264 = 2112;
+              v265 = v75;
+              v266 = 2112;
+              v267 = v74;
+              v268 = 2112;
+              v269 = v69;
+              _os_log_impl(&dword_25479E000, v71, OS_LOG_TYPE_INFO, "Could not find a name for chat, ignoring. chat: %@, isGroupChat: %@, isBusinessChat: %@, displayName: %@", v262, 0x2Au);
             }
 
-            v72 = 0;
+            v73 = 0;
           }
 
-          if (v72)
+          if (v73)
           {
-            [v58 addObject:v72];
+            [v59 addObject:v73];
           }
         }
 
-        v60 = [v226 countByEnumeratingWithState:&v235 objects:v248 count:16];
+        v61 = [v231 countByEnumeratingWithState:&v240 objects:v253 count:16];
       }
 
-      while (v60);
+      while (v61);
     }
 
-    v75 = [v58 copy];
-    v8 = v75;
+    v76 = [v59 copy];
+    v8 = v76;
     if ([(__CFString *)v8 count]== 1)
     {
-      v76 = [(__CFString *)v8 firstObject];
-      v77 = IMLogHandleForCategory();
-      v78 = v217;
-      v4 = v224;
-      if (os_log_type_enabled(v77, OS_LOG_TYPE_INFO))
+      v77 = [(__CFString *)v8 firstObject];
+      v78 = IMLogHandleForCategory();
+      v79 = v222;
+      v4 = v229;
+      if (os_log_type_enabled(v78, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v266 = v76;
-        _os_log_impl(&dword_25479E000, v77, OS_LOG_TYPE_INFO, "Only one disambiguation option remains, returning success with resolved name: %@", buf, 0xCu);
+        v271 = v77;
+        _os_log_impl(&dword_25479E000, v78, OS_LOG_TYPE_INFO, "Only one disambiguation option remains, returning success with resolved name: %@", buf, 0xCu);
       }
 
-      v79 = [MEMORY[0x277CD4198] successWithResolvedString:v76];
+      v80 = [MEMORY[0x277CD4198] successWithResolvedString:v77];
     }
 
     else
     {
-      v103 = [(__CFString *)v8 count];
-      v104 = IMLogHandleForCategory();
-      v105 = os_log_type_enabled(v104, OS_LOG_TYPE_INFO);
-      v78 = v217;
-      v4 = v224;
-      if (v103 < 2)
+      v105 = [(__CFString *)v8 count];
+      v106 = IMLogHandleForCategory();
+      v107 = os_log_type_enabled(v106, OS_LOG_TYPE_INFO);
+      v79 = v222;
+      v4 = v229;
+      if (v105 < 2)
       {
-        if (v105)
+        if (v107)
         {
           *buf = 0;
-          _os_log_impl(&dword_25479E000, v104, OS_LOG_TYPE_INFO, "No disambiguation options remain. Returning unsupported (a.k.a. notFound)", buf, 2u);
+          _os_log_impl(&dword_25479E000, v106, OS_LOG_TYPE_INFO, "No disambiguation options remain. Returning unsupported (a.k.a. notFound)", buf, 2u);
         }
 
-        v107 = [MEMORY[0x277CD4198] unsupported];
+        v109 = [MEMORY[0x277CD4198] unsupported];
       }
 
       else
       {
-        if (v105)
+        if (v107)
         {
-          v106 = [(__CFString *)v8 count];
+          v108 = [(__CFString *)v8 count];
           *buf = 134218242;
-          v266 = v106;
-          v267 = 2112;
-          v268 = v8;
-          _os_log_impl(&dword_25479E000, v104, OS_LOG_TYPE_INFO, "Asking user to disambiguate among %ld disambiguation options: %@", buf, 0x16u);
+          v271 = v108;
+          v272 = 2112;
+          v273 = v8;
+          _os_log_impl(&dword_25479E000, v106, OS_LOG_TYPE_INFO, "Asking user to disambiguate among %ld disambiguation options: %@", buf, 0x16u);
         }
 
-        v107 = [MEMORY[0x277CD4198] disambiguationWithStringsToDisambiguate:v8];
+        v109 = [MEMORY[0x277CD4198] disambiguationWithStringsToDisambiguate:v8];
       }
 
-      v79 = v107;
+      v80 = v109;
     }
 
-    v200 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v200, OS_LOG_TYPE_INFO))
+    v204 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v204, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v266 = v79;
-      _os_log_impl(&dword_25479E000, v200, OS_LOG_TYPE_INFO, "Returning speakableGroupName resolution result: %@", buf, 0xCu);
+      v271 = v80;
+      _os_log_impl(&dword_25479E000, v204, OS_LOG_TYPE_INFO, "Returning speakableGroupName resolution result: %@", buf, 0xCu);
     }
 
-    v201 = _IMAssistantCoreSendMessageSignpostLogHandle();
-    v202 = v201;
-    v203 = *(v78 + 64);
-    if (v203 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v201))
+    v206 = _IMAssistantCoreSendMessageSignpostLogHandle(v205);
+    v207 = v206;
+    v208 = *(v79 + 64);
+    if (v208 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v206))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_25479E000, v202, OS_SIGNPOST_INTERVAL_END, v203, "resolveSpeakableGroupNameForSendMessage", &unk_2547CAD0B, buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_25479E000, v207, OS_SIGNPOST_INTERVAL_END, v208, "resolveSpeakableGroupNameForSendMessage", &unk_2547CAD0B, buf, 2u);
     }
 
-    (*(*(v78 + 56) + 16))();
+    (*(*(v79 + 56) + 16))();
     goto LABEL_237;
   }
 
-  if (v16)
+  if (v17)
   {
     *buf = 0;
     _os_log_impl(&dword_25479E000, log, OS_LOG_TYPE_INFO, "Intent contains no chat guids.", buf, 2u);
@@ -1856,62 +1847,62 @@ LABEL_117:
 LABEL_118:
 
   log = [*(v1 + 48) spokenPhrase];
-  v108 = [log length];
-  v109 = IMLogHandleForCategory();
-  v110 = os_log_type_enabled(v109, OS_LOG_TYPE_INFO);
-  if (v108)
+  v110 = [log length];
+  v111 = IMLogHandleForCategory();
+  v112 = os_log_type_enabled(v111, OS_LOG_TYPE_INFO);
+  if (v110)
   {
-    if (v110)
+    if (v112)
     {
       *buf = 138412290;
-      v266 = log;
-      _os_log_impl(&dword_25479E000, v109, OS_LOG_TYPE_INFO, "Attempting to resolve via speakableGroupName.spokenPhrase = %@", buf, 0xCu);
+      v271 = log;
+      _os_log_impl(&dword_25479E000, v111, OS_LOG_TYPE_INFO, "Attempting to resolve via speakableGroupName.spokenPhrase = %@", buf, 0xCu);
     }
 
-    v111 = [*(v1 + 40) messageHandlerDataSource];
-    v112 = [v111 chatDataSource];
+    v113 = [*(v1 + 40) messageHandlerDataSource];
+    v114 = [v113 chatDataSource];
     log = log;
     if ([log length])
     {
-      v218 = v1;
-      v113 = objc_alloc_init(MEMORY[0x277CBEB40]);
-      memset(v254, 0, sizeof(v254));
-      v255 = 0u;
-      v256 = 0u;
-      v114 = [v112 allExistingChats];
-      v115 = [v114 countByEnumeratingWithState:v254 objects:buf count:16];
-      if (v115)
+      v223 = v1;
+      v115 = objc_alloc_init(MEMORY[0x277CBEB40]);
+      memset(v259, 0, sizeof(v259));
+      v260 = 0u;
+      v261 = 0u;
+      v116 = [v114 allExistingChats];
+      v117 = [v116 countByEnumeratingWithState:v259 objects:buf count:16];
+      if (v117)
       {
-        v116 = v115;
-        v117 = **&v254[16];
+        v118 = v117;
+        v119 = **&v259[16];
         do
         {
-          for (n = 0; n != v116; ++n)
+          for (n = 0; n != v118; ++n)
           {
-            if (**&v254[16] != v117)
+            if (**&v259[16] != v119)
             {
-              objc_enumerationMutation(v114);
+              objc_enumerationMutation(v116);
             }
 
-            v119 = *(*&v254[8] + 8 * n);
-            v120 = [v119 displayName];
-            v121 = [v120 isEqualToString:log];
+            v121 = *(*&v259[8] + 8 * n);
+            v122 = [v121 displayName];
+            v123 = [v122 isEqualToString:log];
 
-            if (v121)
+            if (v123)
             {
-              [v113 addObject:v119];
+              [v115 addObject:v121];
             }
           }
 
-          v116 = [v114 countByEnumeratingWithState:v254 objects:buf count:16];
+          v118 = [v116 countByEnumeratingWithState:v259 objects:buf count:16];
         }
 
-        while (v116);
+        while (v118);
       }
 
-      v4 = [v113 array];
+      v4 = [v115 array];
 
-      v1 = v218;
+      v1 = v223;
     }
 
     else
@@ -1921,457 +1912,455 @@ LABEL_118:
 
     if ([(__CFString *)v4 count]!= 1)
     {
-      v136 = [(__CFString *)v4 count];
-      v137 = IMLogHandleForCategory();
-      v138 = os_log_type_enabled(v137, OS_LOG_TYPE_INFO);
-      if (v136 < 2)
+      v139 = [(__CFString *)v4 count];
+      v140 = IMLogHandleForCategory();
+      v141 = os_log_type_enabled(v140, OS_LOG_TYPE_INFO);
+      if (v139 < 2)
       {
-        if (v138)
+        if (v141)
         {
           *buf = 0;
-          _os_log_impl(&dword_25479E000, v137, OS_LOG_TYPE_INFO, "Could not find any chats matching requested spokenPhrase. Returning unsupported (a.k.a. notFound)", buf, 2u);
+          _os_log_impl(&dword_25479E000, v140, OS_LOG_TYPE_INFO, "Could not find any chats matching requested spokenPhrase. Returning unsupported (a.k.a. notFound)", buf, 2u);
         }
 
-        v187 = [MEMORY[0x277CD4198] unsupported];
+        v190 = [MEMORY[0x277CD4198] unsupported];
       }
 
       else
       {
-        v219 = v1;
-        if (v138)
-        {
-          v139 = [(__CFString *)v4 count];
-          *buf = 134218242;
-          v266 = v139;
-          v267 = 2112;
-          v268 = v4;
-          _os_log_impl(&dword_25479E000, v137, OS_LOG_TYPE_INFO, "Found %ld chats matching requested spoken phrase. Producing disambiguation options. matchingChats: %@", buf, 0x16u);
-        }
-
-        v225 = v4;
-        v140 = v4;
-        v223 = objc_alloc_init(MEMORY[0x277CBEB38]);
-        v243 = 0u;
-        v244 = 0u;
-        v245 = 0u;
-        v246 = 0u;
-        obja = v140;
-        v141 = [(__CFString *)obja countByEnumeratingWithState:&v243 objects:buf count:16];
+        v224 = v1;
         if (v141)
         {
-          v142 = v141;
-          v143 = *v244;
+          v142 = [(__CFString *)v4 count];
+          *buf = 134218242;
+          v271 = v142;
+          v272 = 2112;
+          v273 = v4;
+          _os_log_impl(&dword_25479E000, v140, OS_LOG_TYPE_INFO, "Found %ld chats matching requested spoken phrase. Producing disambiguation options. matchingChats: %@", buf, 0x16u);
+        }
+
+        v230 = v4;
+        v143 = v4;
+        v228 = objc_alloc_init(MEMORY[0x277CBEB38]);
+        v248 = 0u;
+        v249 = 0u;
+        v250 = 0u;
+        v251 = 0u;
+        obja = v143;
+        v144 = [(__CFString *)obja countByEnumeratingWithState:&v248 objects:buf count:16];
+        if (v144)
+        {
+          v145 = v144;
+          v146 = *v249;
           do
           {
-            for (ii = 0; ii != v142; ++ii)
+            for (ii = 0; ii != v145; ++ii)
             {
-              if (*v244 != v143)
+              if (*v249 != v146)
               {
                 objc_enumerationMutation(obja);
               }
 
-              v145 = *(*(&v243 + 1) + 8 * ii);
-              v146 = [v145 isGroupChat];
-              v147 = [v145 displayName];
-              v148 = v147;
-              if (v146 && [v147 length])
+              v148 = *(*(&v248 + 1) + 8 * ii);
+              v149 = [v148 isGroupChat];
+              v150 = [v148 displayName];
+              v151 = v150;
+              if (v149 && [v150 length])
               {
-                v149 = [v223 objectForKey:v148];
-                v150 = v149;
-                if (v149)
+                v152 = [v228 objectForKey:v151];
+                v153 = v152;
+                if (v152)
                 {
-                  [v149 addObject:v145];
+                  [v152 addObject:v148];
                 }
 
                 else
                 {
-                  v152 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v145, 0}];
-                  [v223 setObject:v152 forKey:v148];
+                  v155 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v148, 0}];
+                  [v228 setObject:v155 forKey:v151];
                 }
               }
 
               else
               {
-                v150 = IMLogHandleForCategory();
-                if (os_log_type_enabled(v150, OS_LOG_TYPE_INFO))
+                v153 = IMLogHandleForCategory();
+                if (os_log_type_enabled(v153, OS_LOG_TYPE_INFO))
                 {
-                  *v254 = 138412802;
-                  v151 = @"NO";
-                  if (v146)
+                  *v259 = 138412802;
+                  v154 = @"NO";
+                  if (v149)
                   {
-                    v151 = @"YES";
+                    v154 = @"YES";
                   }
 
-                  *&v254[4] = v145;
-                  *&v254[12] = 2112;
-                  *&v254[14] = v151;
-                  *&v254[22] = 2112;
-                  *&v254[24] = v148;
-                  _os_log_impl(&dword_25479E000, v150, OS_LOG_TYPE_INFO, "Could not construct disambiguation option for chat: %@, isGroupChat: %@, displayName: %@. Ignoring.", v254, 0x20u);
+                  *&v259[4] = v148;
+                  *&v259[12] = 2112;
+                  *&v259[14] = v154;
+                  *&v259[22] = 2112;
+                  *&v259[24] = v151;
+                  _os_log_impl(&dword_25479E000, v153, OS_LOG_TYPE_INFO, "Could not construct disambiguation option for chat: %@, isGroupChat: %@, displayName: %@. Ignoring.", v259, 0x20u);
                 }
               }
             }
 
-            v142 = [(__CFString *)obja countByEnumeratingWithState:&v243 objects:buf count:16];
+            v145 = [(__CFString *)obja countByEnumeratingWithState:&v248 objects:buf count:16];
           }
 
-          while (v142);
+          while (v145);
         }
 
-        v153 = objc_alloc_init(MEMORY[0x277CBEB18]);
-        v239 = 0u;
+        v156 = objc_alloc_init(MEMORY[0x277CBEB18]);
+        v244 = 0u;
+        v245 = 0u;
+        v246 = 0u;
+        v247 = 0u;
+        v157 = [v228 allValues];
+        v158 = [v157 countByEnumeratingWithState:&v244 objects:v259 count:16];
+        v226 = v156;
+        if (v158)
+        {
+          v159 = v158;
+          v160 = *v245;
+          do
+          {
+            for (jj = 0; jj != v159; ++jj)
+            {
+              if (*v245 != v160)
+              {
+                objc_enumerationMutation(v157);
+              }
+
+              v162 = *(*(&v244 + 1) + 8 * jj);
+              v163 = [v162 sortedArrayUsingComparator:&unk_286693018];
+              v164 = [v163 firstObject];
+              [v156 addObject:v164];
+              if ([v162 count] >= 2)
+              {
+                v165 = IMLogHandleForCategory();
+                if (os_log_type_enabled(v165, OS_LOG_TYPE_INFO))
+                {
+                  v166 = [v162 count];
+                  v167 = [v164 displayName];
+                  *v253 = 134218498;
+                  v254 = v166;
+                  v255 = 2112;
+                  v256 = v167;
+                  v257 = 2112;
+                  v258 = v164;
+                  _os_log_impl(&dword_25479E000, v165, OS_LOG_TYPE_INFO, "%ld chats have the name %@. Presenting disambiguation of chats with the same name is confusing, so using the most recent one, %@.", v253, 0x20u);
+
+                  v156 = v226;
+                }
+              }
+            }
+
+            v159 = [v157 countByEnumeratingWithState:&v244 objects:v259 count:16];
+          }
+
+          while (v159);
+        }
+
+        v168 = [v156 sortedArrayUsingComparator:&unk_286693018];
+        v169 = objc_alloc_init(MEMORY[0x277CBEB18]);
         v240 = 0u;
         v241 = 0u;
         v242 = 0u;
-        v154 = [v223 allValues];
-        v155 = [v154 countByEnumeratingWithState:&v239 objects:v254 count:16];
-        v221 = v153;
-        if (v155)
+        v243 = 0u;
+        v232 = v168;
+        v170 = [v232 countByEnumeratingWithState:&v240 objects:v253 count:16];
+        if (v170)
         {
-          v156 = v155;
-          v157 = *v240;
+          v171 = v170;
+          v172 = *v241;
           do
           {
-            for (jj = 0; jj != v156; ++jj)
+            for (kk = 0; kk != v171; ++kk)
             {
-              if (*v240 != v157)
+              if (*v241 != v172)
               {
-                objc_enumerationMutation(v154);
+                objc_enumerationMutation(v232);
               }
 
-              v159 = *(*(&v239 + 1) + 8 * jj);
-              v160 = [v159 sortedArrayUsingComparator:&unk_286693018];
-              v161 = [v160 firstObject];
-              [v153 addObject:v161];
-              if ([v159 count] >= 2)
+              v174 = *(*(&v240 + 1) + 8 * kk);
+              v175 = [v174 isGroupChat];
+              v176 = [v174 isBusinessChat];
+              v177 = [v174 isStewieChat];
+              v178 = [v174 displayName];
+              v179 = v178;
+              if (((v175 & 1) != 0 || (v176 & 1) != 0 || v177) && [v178 length])
               {
-                v162 = IMLogHandleForCategory();
-                if (os_log_type_enabled(v162, OS_LOG_TYPE_INFO))
-                {
-                  v163 = [v159 count];
-                  v164 = [v161 displayName];
-                  *v248 = 134218498;
-                  v249 = v163;
-                  v250 = 2112;
-                  v251 = v164;
-                  v252 = 2112;
-                  v253 = v161;
-                  _os_log_impl(&dword_25479E000, v162, OS_LOG_TYPE_INFO, "%ld chats have the name %@. Presenting disambiguation of chats with the same name is confusing, so using the most recent one, %@.", v248, 0x20u);
-
-                  v153 = v221;
-                }
-              }
-            }
-
-            v156 = [v154 countByEnumeratingWithState:&v239 objects:v254 count:16];
-          }
-
-          while (v156);
-        }
-
-        v165 = [v153 sortedArrayUsingComparator:&unk_286693018];
-        v166 = objc_alloc_init(MEMORY[0x277CBEB18]);
-        v235 = 0u;
-        v236 = 0u;
-        v237 = 0u;
-        v238 = 0u;
-        v227 = v165;
-        v167 = [v227 countByEnumeratingWithState:&v235 objects:v248 count:16];
-        if (v167)
-        {
-          v168 = v167;
-          v169 = *v236;
-          do
-          {
-            for (kk = 0; kk != v168; ++kk)
-            {
-              if (*v236 != v169)
-              {
-                objc_enumerationMutation(v227);
-              }
-
-              v171 = *(*(&v235 + 1) + 8 * kk);
-              v172 = [v171 isGroupChat];
-              v173 = [v171 isBusinessChat];
-              v174 = [v171 isStewieChat];
-              v175 = [v171 displayName];
-              v176 = v175;
-              if (((v172 & 1) != 0 || (v173 & 1) != 0 || v174) && [v175 length])
-              {
-                v177 = objc_alloc(MEMORY[0x277CD4188]);
-                v178 = [v171 chatIdentifier];
-                v179 = [v171 displayName];
-                v180 = [v177 initWithVocabularyIdentifier:v178 spokenPhrase:v179 pronunciationHint:0];
+                v180 = objc_alloc(MEMORY[0x277CD4188]);
+                v181 = [v174 chatIdentifier];
+                v182 = [v174 displayName];
+                v183 = [v180 initWithVocabularyIdentifier:v181 spokenPhrase:v182 pronunciationHint:0];
               }
 
               else
               {
-                v178 = IMLogHandleForCategory();
-                if (os_log_type_enabled(v178, OS_LOG_TYPE_INFO))
+                v181 = IMLogHandleForCategory();
+                if (os_log_type_enabled(v181, OS_LOG_TYPE_INFO))
                 {
-                  *v257 = 138413058;
-                  v181 = @"NO";
-                  if (v172)
+                  *v262 = 138413058;
+                  v184 = @"NO";
+                  if (v175)
                   {
-                    v182 = @"YES";
+                    v185 = @"YES";
                   }
 
                   else
                   {
-                    v182 = @"NO";
+                    v185 = @"NO";
                   }
 
-                  v258 = v171;
-                  if (v173)
+                  v263 = v174;
+                  if (v176)
                   {
-                    v181 = @"YES";
+                    v184 = @"YES";
                   }
 
-                  v259 = 2112;
-                  v260 = v182;
-                  v261 = 2112;
-                  v262 = v181;
-                  v263 = 2112;
-                  v264 = v176;
-                  _os_log_impl(&dword_25479E000, v178, OS_LOG_TYPE_INFO, "Could not find a name for chat, ignoring. chat: %@, isGroupChat: %@, isBusinessChat: %@, displayName: %@", v257, 0x2Au);
+                  v264 = 2112;
+                  v265 = v185;
+                  v266 = 2112;
+                  v267 = v184;
+                  v268 = 2112;
+                  v269 = v179;
+                  _os_log_impl(&dword_25479E000, v181, OS_LOG_TYPE_INFO, "Could not find a name for chat, ignoring. chat: %@, isGroupChat: %@, isBusinessChat: %@, displayName: %@", v262, 0x2Au);
                 }
 
-                v180 = 0;
+                v183 = 0;
               }
 
-              if (v180)
+              if (v183)
               {
-                [v166 addObject:v180];
+                [v169 addObject:v183];
               }
             }
 
-            v168 = [v227 countByEnumeratingWithState:&v235 objects:v248 count:16];
+            v171 = [v232 countByEnumeratingWithState:&v240 objects:v253 count:16];
           }
 
-          while (v168);
+          while (v171);
         }
 
-        v183 = [v166 copy];
-        v184 = v183;
-        if ([(__CFString *)v184 count]== 1)
+        v186 = [v169 copy];
+        v187 = v186;
+        if ([(__CFString *)v187 count]== 1)
         {
-          v185 = [(__CFString *)v184 firstObject];
-          v186 = IMLogHandleForCategory();
-          v1 = v219;
-          v4 = v225;
-          if (os_log_type_enabled(v186, OS_LOG_TYPE_INFO))
+          v188 = [(__CFString *)v187 firstObject];
+          v189 = IMLogHandleForCategory();
+          v1 = v224;
+          v4 = v230;
+          if (os_log_type_enabled(v189, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v266 = v185;
-            _os_log_impl(&dword_25479E000, v186, OS_LOG_TYPE_INFO, "Only one disambiguation option remains, returning success with resolved name: %@", buf, 0xCu);
+            v271 = v188;
+            _os_log_impl(&dword_25479E000, v189, OS_LOG_TYPE_INFO, "Only one disambiguation option remains, returning success with resolved name: %@", buf, 0xCu);
           }
 
-          v187 = [MEMORY[0x277CD4198] successWithResolvedString:v185];
+          v190 = [MEMORY[0x277CD4198] successWithResolvedString:v188];
         }
 
         else
         {
-          v207 = [(__CFString *)v184 count];
-          v208 = IMLogHandleForCategory();
-          v209 = os_log_type_enabled(v208, OS_LOG_TYPE_INFO);
-          v1 = v219;
-          v4 = v225;
-          if (v207 < 2)
+          v212 = [(__CFString *)v187 count];
+          v213 = IMLogHandleForCategory();
+          v214 = os_log_type_enabled(v213, OS_LOG_TYPE_INFO);
+          v1 = v224;
+          v4 = v230;
+          if (v212 < 2)
           {
-            if (v209)
+            if (v214)
             {
               *buf = 0;
-              _os_log_impl(&dword_25479E000, v208, OS_LOG_TYPE_INFO, "No disambiguation options remain. Returning unsupported (a.k.a. notFound)", buf, 2u);
+              _os_log_impl(&dword_25479E000, v213, OS_LOG_TYPE_INFO, "No disambiguation options remain. Returning unsupported (a.k.a. notFound)", buf, 2u);
             }
 
-            v211 = [MEMORY[0x277CD4198] unsupported];
+            v216 = [MEMORY[0x277CD4198] unsupported];
           }
 
           else
           {
-            if (v209)
+            if (v214)
             {
-              v210 = [(__CFString *)v184 count];
+              v215 = [(__CFString *)v187 count];
               *buf = 134218242;
-              v266 = v210;
-              v267 = 2112;
-              v268 = v184;
-              _os_log_impl(&dword_25479E000, v208, OS_LOG_TYPE_INFO, "Asking user to disambiguate among %ld disambiguation options: %@", buf, 0x16u);
+              v271 = v215;
+              v272 = 2112;
+              v273 = v187;
+              _os_log_impl(&dword_25479E000, v213, OS_LOG_TYPE_INFO, "Asking user to disambiguate among %ld disambiguation options: %@", buf, 0x16u);
             }
 
-            v211 = [MEMORY[0x277CD4198] disambiguationWithStringsToDisambiguate:v184];
+            v216 = [MEMORY[0x277CD4198] disambiguationWithStringsToDisambiguate:v187];
           }
 
-          v187 = v211;
+          v190 = v216;
         }
       }
 
       goto LABEL_254;
     }
 
-    v126 = [(__CFString *)v4 firstObject];
-    v127 = [(__CFString *)v126 isGroupChat];
-    v128 = [(__CFString *)v126 isBusinessChat];
-    v129 = [(__CFString *)v126 isStewieChat];
-    v130 = [(__CFString *)v126 displayName];
-    v131 = v130;
-    if (((v127 & 1) != 0 || (v128 & 1) != 0 || v129) && [v130 length])
+    v129 = [(__CFString *)v4 firstObject];
+    v130 = [(__CFString *)v129 isGroupChat];
+    v131 = [(__CFString *)v129 isBusinessChat];
+    v132 = [(__CFString *)v129 isStewieChat];
+    v133 = [(__CFString *)v129 displayName];
+    v134 = v133;
+    if (((v130 & 1) != 0 || (v131 & 1) != 0 || v132) && [v133 length])
     {
-      v132 = objc_alloc(MEMORY[0x277CD4188]);
-      v133 = [(__CFString *)v126 chatIdentifier];
-      v134 = [(__CFString *)v126 displayName];
-      v135 = [v132 initWithVocabularyIdentifier:v133 spokenPhrase:v134 pronunciationHint:0];
+      v135 = objc_alloc(MEMORY[0x277CD4188]);
+      v136 = [(__CFString *)v129 chatIdentifier];
+      v137 = [(__CFString *)v129 displayName];
+      v138 = [v135 initWithVocabularyIdentifier:v136 spokenPhrase:v137 pronunciationHint:0];
     }
 
     else
     {
-      v133 = IMLogHandleForCategory();
-      if (os_log_type_enabled(v133, OS_LOG_TYPE_INFO))
+      v136 = IMLogHandleForCategory();
+      if (os_log_type_enabled(v136, OS_LOG_TYPE_INFO))
       {
-        v188 = @"NO";
+        v191 = @"NO";
         *buf = 138413058;
-        v266 = v126;
-        if (v127)
+        v271 = v129;
+        if (v130)
         {
-          v189 = @"YES";
+          v192 = @"YES";
         }
 
         else
         {
-          v189 = @"NO";
+          v192 = @"NO";
         }
 
-        v267 = 2112;
-        v268 = v189;
-        if (v128)
+        v272 = 2112;
+        v273 = v192;
+        if (v131)
         {
-          v188 = @"YES";
+          v191 = @"YES";
         }
 
-        v269 = 2112;
-        v270 = v188;
-        v271 = 2112;
-        v272 = v131;
-        _os_log_impl(&dword_25479E000, v133, OS_LOG_TYPE_INFO, "Could not find a name for chat, ignoring. chat: %@, isGroupChat: %@, isBusinessChat: %@, displayName: %@", buf, 0x2Au);
+        v274 = 2112;
+        v275 = v191;
+        v276 = 2112;
+        v277 = v134;
+        _os_log_impl(&dword_25479E000, v136, OS_LOG_TYPE_INFO, "Could not find a name for chat, ignoring. chat: %@, isGroupChat: %@, isBusinessChat: %@, displayName: %@", buf, 0x2Au);
       }
 
-      v135 = 0;
+      v138 = 0;
     }
 
-    v190 = IMLogHandleForCategory();
-    v191 = os_log_type_enabled(v190, OS_LOG_TYPE_INFO);
-    if (v135)
+    v193 = IMLogHandleForCategory();
+    v194 = os_log_type_enabled(v193, OS_LOG_TYPE_INFO);
+    if (v138)
     {
-      if (v191)
+      if (v194)
       {
         *buf = 138412546;
-        v266 = v135;
-        v267 = 2112;
-        v268 = v126;
-        _os_log_impl(&dword_25479E000, v190, OS_LOG_TYPE_INFO, "Found chat name %@ matching chat: %@", buf, 0x16u);
+        v271 = v138;
+        v272 = 2112;
+        v273 = v129;
+        _os_log_impl(&dword_25479E000, v193, OS_LOG_TYPE_INFO, "Found chat name %@ matching chat: %@", buf, 0x16u);
       }
 
-      v192 = [*(v1 + 40) messageHandlerDataSource];
-      v193 = [v192 screentimeAllowedToShowChat:v126 error:0];
+      v195 = [*(v1 + 40) messageHandlerDataSource];
+      v196 = [v195 screentimeAllowedToShowChat:v129 error:0];
 
-      v190 = IMLogHandleForCategory();
-      v194 = os_log_type_enabled(v190, OS_LOG_TYPE_INFO);
-      if (v193)
+      v193 = IMLogHandleForCategory();
+      v197 = os_log_type_enabled(v193, OS_LOG_TYPE_INFO);
+      if (v196)
       {
-        if (v194)
+        if (v197)
         {
           *buf = 138412546;
-          v266 = v135;
-          v267 = 2112;
-          v268 = v126;
-          _os_log_impl(&dword_25479E000, v190, OS_LOG_TYPE_INFO, "Using chat name %@ resolved from matching chat: %@", buf, 0x16u);
+          v271 = v138;
+          v272 = 2112;
+          v273 = v129;
+          _os_log_impl(&dword_25479E000, v193, OS_LOG_TYPE_INFO, "Using chat name %@ resolved from matching chat: %@", buf, 0x16u);
         }
 
-        v195 = [MEMORY[0x277CD4198] successWithResolvedString:v135];
+        v198 = [MEMORY[0x277CD4198] successWithResolvedString:v138];
         goto LABEL_244;
       }
 
-      if (v194)
+      if (v197)
       {
         *buf = 0;
-        v204 = "Returning unsupported because the chat group contains non-allowlisted participants and isn't allowed by downtime.";
-        v205 = v190;
-        v206 = 2;
+        v209 = "Returning unsupported because the chat group contains non-allowlisted participants and isn't allowed by downtime.";
+        v210 = v193;
+        v211 = 2;
         goto LABEL_242;
       }
     }
 
-    else if (v191)
+    else if (v194)
     {
       *buf = 138412290;
-      v266 = v126;
-      v204 = "Could not determine chat name from only matching chat. Returning unsupported/notFound. Matching chat: %@";
-      v205 = v190;
-      v206 = 12;
+      v271 = v129;
+      v209 = "Could not determine chat name from only matching chat. Returning unsupported/notFound. Matching chat: %@";
+      v210 = v193;
+      v211 = 12;
 LABEL_242:
-      _os_log_impl(&dword_25479E000, v205, OS_LOG_TYPE_INFO, v204, buf, v206);
+      _os_log_impl(&dword_25479E000, v210, OS_LOG_TYPE_INFO, v209, buf, v211);
     }
 
-    v195 = [MEMORY[0x277CD4198] unsupported];
+    v198 = [MEMORY[0x277CD4198] unsupported];
 LABEL_244:
-    v187 = v195;
+    v190 = v198;
 
 LABEL_254:
-    v212 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v212, OS_LOG_TYPE_INFO))
+    v217 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v217, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v266 = v187;
-      _os_log_impl(&dword_25479E000, v212, OS_LOG_TYPE_INFO, "Resolved group name result: %@", buf, 0xCu);
+      v271 = v190;
+      _os_log_impl(&dword_25479E000, v217, OS_LOG_TYPE_INFO, "Resolved group name result: %@", buf, 0xCu);
     }
 
-    v213 = _IMAssistantCoreSendMessageSignpostLogHandle();
-    v214 = v213;
-    v215 = *(v1 + 64);
-    if (v215 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v213))
+    v219 = _IMAssistantCoreSendMessageSignpostLogHandle(v218);
+    v220 = v219;
+    v221 = *(v1 + 64);
+    if (v221 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v219))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_25479E000, v214, OS_SIGNPOST_INTERVAL_END, v215, "resolveSpeakableGroupNameForSendMessage", &unk_2547CAD0B, buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_25479E000, v220, OS_SIGNPOST_INTERVAL_END, v221, "resolveSpeakableGroupNameForSendMessage", &unk_2547CAD0B, buf, 2u);
     }
 
     (*(*(v1 + 56) + 16))();
     goto LABEL_260;
   }
 
-  if (v110)
+  if (v112)
   {
     *buf = 0;
-    _os_log_impl(&dword_25479E000, v109, OS_LOG_TYPE_INFO, "Intent does not contain a spoken group name. Returning notRequired for resolveSpeakableGroupName.", buf, 2u);
+    _os_log_impl(&dword_25479E000, v111, OS_LOG_TYPE_INFO, "Intent does not contain a spoken group name. Returning notRequired for resolveSpeakableGroupName.", buf, 2u);
   }
 
-  v122 = _IMAssistantCoreSendMessageSignpostLogHandle();
-  v123 = v122;
-  v124 = *(v1 + 64);
-  if (v124 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v122))
+  v125 = _IMAssistantCoreSendMessageSignpostLogHandle(v124);
+  v126 = v125;
+  v127 = *(v1 + 64);
+  if (v127 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v125))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_25479E000, v123, OS_SIGNPOST_INTERVAL_END, v124, "resolveSpeakableGroupNameForSendMessage", &unk_2547CAD0B, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_25479E000, v126, OS_SIGNPOST_INTERVAL_END, v127, "resolveSpeakableGroupNameForSendMessage", &unk_2547CAD0B, buf, 2u);
   }
 
-  v125 = *(v1 + 56);
+  v128 = *(v1 + 56);
   v4 = [MEMORY[0x277CD4198] notRequired];
-  (*(v125 + 16))(v125, v4);
+  (*(v128 + 16))(v128, v4);
 LABEL_260:
-
-  v216 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t sub_2547A5EA8(uint64_t result, int a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v2 = result;
     v3 = IMLogHandleForCategory();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v13) = 0;
-      _os_log_impl(&dword_25479E000, v3, OS_LOG_TYPE_INFO, "refreshServiceForSending completed", &v13, 2u);
+      LOWORD(v12) = 0;
+      _os_log_impl(&dword_25479E000, v3, OS_LOG_TYPE_INFO, "refreshServiceForSending completed", &v12, 2u);
     }
 
     v4 = [*(v2 + 32) canSendMessage:*(v2 + 40)];
@@ -2381,8 +2370,8 @@ uint64_t sub_2547A5EA8(uint64_t result, int a2)
     {
       if (v6)
       {
-        LOWORD(v13) = 0;
-        _os_log_impl(&dword_25479E000, v5, OS_LOG_TYPE_INFO, "canSendMessage check succeeded", &v13, 2u);
+        LOWORD(v12) = 0;
+        _os_log_impl(&dword_25479E000, v5, OS_LOG_TYPE_INFO, "canSendMessage check succeeded", &v12, 2u);
       }
 
       v7 = [*(v2 + 48) messageSendHandlerDelegate];
@@ -2394,7 +2383,7 @@ uint64_t sub_2547A5EA8(uint64_t result, int a2)
         goto LABEL_12;
       }
 
-      LOWORD(v13) = 0;
+      LOWORD(v12) = 0;
       v8 = "message send completed";
       v9 = v5;
       v10 = 2;
@@ -2406,30 +2395,34 @@ uint64_t sub_2547A5EA8(uint64_t result, int a2)
       {
 LABEL_12:
 
-        result = (*(*(v2 + 56) + 16))();
-        goto LABEL_13;
+        return (*(*(v2 + 56) + 16))();
       }
 
       v11 = *(v2 + 32);
-      v13 = 138412290;
-      v14 = v11;
+      v12 = 138412290;
+      v13 = v11;
       v8 = "canSendMessage check failed for chat: %@";
       v9 = v5;
       v10 = 12;
     }
 
-    _os_log_impl(&dword_25479E000, v9, OS_LOG_TYPE_INFO, v8, &v13, v10);
+    _os_log_impl(&dword_25479E000, v9, OS_LOG_TYPE_INFO, v8, &v12, v10);
     goto LABEL_12;
   }
 
-LABEL_13:
-  v12 = *MEMORY[0x277D85DE8];
   return result;
+}
+
+void sub_2547A64E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, ...)
+{
+  va_start(va, a38);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void sub_2547A6510(uint64_t a1, int a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = IMLogHandleForCategory();
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_INFO);
@@ -2438,9 +2431,9 @@ void sub_2547A6510(uint64_t a1, int a2, void *a3)
     if (v7)
     {
       v8 = [v5 localizedDescription];
-      v10 = 138412290;
-      v11 = v8;
-      _os_log_impl(&dword_25479E000, v6, OS_LOG_TYPE_INFO, "Image sensitivity analysis error: '%@'", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v8;
+      _os_log_impl(&dword_25479E000, v6, OS_LOG_TYPE_INFO, "Image sensitivity analysis error: '%@'", &v9, 0xCu);
     }
   }
 
@@ -2448,9 +2441,9 @@ void sub_2547A6510(uint64_t a1, int a2, void *a3)
   {
     if (v7)
     {
-      v10 = 67109120;
-      LODWORD(v11) = a2;
-      _os_log_impl(&dword_25479E000, v6, OS_LOG_TYPE_INFO, "Image sensisitivty %d.", &v10, 8u);
+      v9 = 67109120;
+      LODWORD(v10) = a2;
+      _os_log_impl(&dword_25479E000, v6, OS_LOG_TYPE_INFO, "Image sensisitivty %d.", &v9, 8u);
     }
 
     [*(a1 + 32) lock];
@@ -2459,13 +2452,11 @@ void sub_2547A6510(uint64_t a1, int a2, void *a3)
   }
 
   dispatch_group_leave(*(a1 + 40));
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2547A6974(uint64_t a1, void *a2)
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) messageHandlerDataSource];
   v5 = [v4 fileManagerDataSource];
@@ -2475,9 +2466,9 @@ void sub_2547A6974(uint64_t a1, void *a2)
     v7 = [v6 lastPathComponent];
     v8 = [v5 im_randomTemporaryFileURLWithFileName:v7];
 
-    v59 = 0;
-    v9 = [v5 im_copySecurityScopedResourceAtURL:v6 toDestination:v8 error:&v59];
-    v10 = v59;
+    v58 = 0;
+    v9 = [v5 im_copySecurityScopedResourceAtURL:v6 toDestination:v8 error:&v58];
+    v10 = v58;
     if (v9)
     {
       v11 = v8;
@@ -2489,9 +2480,9 @@ void sub_2547A6974(uint64_t a1, void *a2)
       if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
         *buf = 138412546;
-        v62 = v6;
-        v63 = 2112;
-        v64 = v10;
+        v61 = v6;
+        v62 = 2112;
+        v63 = v10;
         _os_log_impl(&dword_25479E000, v12, OS_LOG_TYPE_INFO, "Failed to copy the file from %@ into the MessagesAssistantExtension Sandbox. Error: %@", buf, 0x16u);
       }
 
@@ -2505,7 +2496,7 @@ void sub_2547A6974(uint64_t a1, void *a2)
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v62 = v6;
+      v61 = v6;
       _os_log_impl(&dword_25479E000, v10, OS_LOG_TYPE_INFO, "Error, url is not a fileURL: %@", buf, 0xCu);
     }
 
@@ -2516,7 +2507,7 @@ void sub_2547A6974(uint64_t a1, void *a2)
   if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v62 = v11;
+    v61 = v11;
     _os_log_impl(&dword_25479E000, v13, OS_LOG_TYPE_INFO, "sendLocalFileAttachmentURLs start sending file %@", buf, 0xCu);
   }
 
@@ -2527,14 +2518,14 @@ void sub_2547A6974(uint64_t a1, void *a2)
   v18 = v11;
   v19 = IMLogHandleForCategory();
   v20 = os_log_type_enabled(v19, OS_LOG_TYPE_INFO);
-  v45 = v6;
+  v44 = v6;
   if (v18)
   {
-    v44 = v15;
+    v43 = v15;
     if (v20)
     {
       *buf = 138412290;
-      v62 = v18;
+      v61 = v18;
       _os_log_impl(&dword_25479E000, v19, OS_LOG_TYPE_INFO, "Building a file transfer message based on a file at %@", buf, 0xCu);
     }
 
@@ -2546,7 +2537,7 @@ void sub_2547A6974(uint64_t a1, void *a2)
     if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v62 = v19;
+      v61 = v19;
       _os_log_impl(&dword_25479E000, v22, OS_LOG_TYPE_INFO, "The message's file transfer guids are: %@", buf, 0xCu);
     }
 
@@ -2554,7 +2545,7 @@ void sub_2547A6974(uint64_t a1, void *a2)
     v24 = [v23 __im_attributedStringByAssigningMessagePartNumbers];
     v25 = [MEMORY[0x277D18DA0] instantMessageWithText:v24 messageSubject:0 fileTransferGUIDs:v19 flags:5 threadIdentifier:0];
 
-    v15 = v44;
+    v15 = v43;
   }
 
   else
@@ -2575,28 +2566,28 @@ void sub_2547A6974(uint64_t a1, void *a2)
   v29 = *(a1 + 32);
   if (v28)
   {
-    v60 = v18;
-    v30 = [MEMORY[0x277CBEA60] arrayWithObjects:&v60 count:1];
-    v49[0] = MEMORY[0x277D85DD0];
-    v49[1] = 3221225472;
-    v49[2] = sub_2547A6FAC;
-    v49[3] = &unk_279786470;
-    v50 = v18;
+    v59 = v18;
+    v30 = [MEMORY[0x277CBEA60] arrayWithObjects:&v59 count:1];
+    v48[0] = MEMORY[0x277D85DD0];
+    v48[1] = 3221225472;
+    v48[2] = sub_2547A6FAC;
+    v48[3] = &unk_279786470;
+    v49 = v18;
     v31 = *(a1 + 40);
     v32 = *(a1 + 48);
     v33 = *(a1 + 32);
-    v51 = v32;
-    v52 = v33;
-    v53 = v25;
-    v54 = *(a1 + 56);
+    v50 = v32;
+    v51 = v33;
+    v52 = v25;
+    v53 = *(a1 + 56);
     v34 = *(a1 + 64);
     v35 = *(a1 + 88);
-    v55 = v34;
-    v58 = v35;
-    v56 = *(a1 + 72);
-    v57 = *(a1 + 40);
+    v54 = v34;
+    v57 = v35;
+    v55 = *(a1 + 72);
+    v56 = *(a1 + 40);
     v36 = v18;
-    [v29 isSensitiveFileAttachmentURLs:v30 chat:v31 completion:v49];
+    [v29 isSensitiveFileAttachmentURLs:v30 chat:v31 completion:v48];
   }
 
   else
@@ -2605,26 +2596,24 @@ void sub_2547A6974(uint64_t a1, void *a2)
     v38 = *(a1 + 64);
     v39 = *(a1 + 88);
     v40 = *(a1 + 72);
-    v46[0] = MEMORY[0x277D85DD0];
-    v46[1] = 3221225472;
-    v46[2] = sub_2547A71E8;
-    v46[3] = &unk_279786448;
-    v47 = v18;
+    v45[0] = MEMORY[0x277D85DD0];
+    v45[1] = 3221225472;
+    v45[2] = sub_2547A71E8;
+    v45[3] = &unk_279786448;
+    v46 = v18;
     v41 = *(a1 + 40);
-    v48 = *(a1 + 48);
+    v47 = *(a1 + 48);
     v42 = v18;
-    [v29 sendMessageWithDraft:v25 expressiveSendStyleID:v37 idsIdentifier:v38 executionContext:v39 sourceApplicationID:v40 toChat:v41 completion:v46];
+    [v29 sendMessageWithDraft:v25 expressiveSendStyleID:v37 idsIdentifier:v38 executionContext:v39 sourceApplicationID:v40 toChat:v41 completion:v45];
 
     v30 = [IMAssistantINMessageConverter INMessageForOutgoingIMMessage:v25 toChat:*(a1 + 40) messageType:24 personProvider:*(a1 + 32)];
     [*(a1 + 80) addObject:v30];
   }
-
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2547A6FAC(uint64_t a1, int a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v3 = IMLogHandleForCategory();
@@ -2632,7 +2621,7 @@ void sub_2547A6FAC(uint64_t a1, int a2)
     {
       v4 = *(a1 + 32);
       *buf = 138412290;
-      v17 = v4;
+      v16 = v4;
       _os_log_impl(&dword_25479E000, v3, OS_LOG_TYPE_INFO, "Error: Sensitivity content. sendLocalFileAttachmentURLs not sending file %@", buf, 0xCu);
     }
 
@@ -2648,91 +2637,89 @@ void sub_2547A6FAC(uint64_t a1, int a2)
     v10 = *(a1 + 88);
     v9 = *(a1 + 96);
     v11 = *(a1 + 80);
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = sub_2547A712C;
-    v13[3] = &unk_279786448;
-    v14 = *(a1 + 32);
-    v15 = *(a1 + 40);
-    [v5 sendMessageWithDraft:v6 expressiveSendStyleID:v7 idsIdentifier:v8 executionContext:v9 sourceApplicationID:v11 toChat:v10 completion:v13];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = sub_2547A712C;
+    v12[3] = &unk_279786448;
+    v13 = *(a1 + 32);
+    v14 = *(a1 + 40);
+    [v5 sendMessageWithDraft:v6 expressiveSendStyleID:v7 idsIdentifier:v8 executionContext:v9 sourceApplicationID:v11 toChat:v10 completion:v12];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2547A712C(uint64_t a1, char a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if ((a2 & 1) == 0)
   {
     v3 = IMLogHandleForCategory();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       v4 = *(a1 + 32);
-      v6 = 138412290;
-      v7 = v4;
-      _os_log_impl(&dword_25479E000, v3, OS_LOG_TYPE_INFO, "sendLocalFileAttachmentURLs error sending file %@ after sensitvity check", &v6, 0xCu);
+      v5 = 138412290;
+      v6 = v4;
+      _os_log_impl(&dword_25479E000, v3, OS_LOG_TYPE_INFO, "sendLocalFileAttachmentURLs error sending file %@ after sensitvity check", &v5, 0xCu);
     }
   }
 
   dispatch_group_leave(*(a1 + 40));
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2547A71E8(uint64_t a1, char a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if ((a2 & 1) == 0)
   {
     v3 = IMLogHandleForCategory();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       v4 = *(a1 + 32);
-      v6 = 138412290;
-      v7 = v4;
-      _os_log_impl(&dword_25479E000, v3, OS_LOG_TYPE_INFO, "sendLocalFileAttachmentURLs error sending file %@", &v6, 0xCu);
+      v5 = 138412290;
+      v6 = v4;
+      _os_log_impl(&dword_25479E000, v3, OS_LOG_TYPE_INFO, "sendLocalFileAttachmentURLs error sending file %@", &v5, 0xCu);
     }
   }
 
   dispatch_group_leave(*(a1 + 40));
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t sub_2547A72A4(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = IMLogHandleForCategory();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = [*(a1 + 32) count];
-    v7 = 134217984;
-    v8 = v3;
-    _os_log_impl(&dword_25479E000, v2, OS_LOG_TYPE_INFO, "sendLocalFileAttachmentURLs INSendMessageIntentResponseCodeSuccess for %lu files", &v7, 0xCu);
+    v5 = 134217984;
+    v6 = v3;
+    _os_log_impl(&dword_25479E000, v2, OS_LOG_TYPE_INFO, "sendLocalFileAttachmentURLs INSendMessageIntentResponseCodeSuccess for %lu files", &v5, 0xCu);
   }
 
-  v4 = *(a1 + 32);
-  result = (*(*(a1 + 40) + 16))();
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 void sub_2547A7660(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
-    v6 = [IMAssistantINMessageConverter INMessageForOutgoingIMMessage:a2 toChat:*(a1 + 32) messageType:13 personProvider:*(a1 + 40)];
-    [*(a1 + 48) addObject:v6];
-    v3 = *(a1 + 48);
+    v4 = [IMAssistantINMessageConverter INMessageForOutgoingIMMessage:a2 toChat:*(a1 + 32) messageType:13 personProvider:*(a1 + 40)];
+    [*(a1 + 48) addObject:v4];
     (*(*(a1 + 56) + 16))();
   }
 
   else
   {
-    v4 = *(a1 + 56);
-    v5 = *(*(a1 + 56) + 16);
+    v3 = *(*(a1 + 56) + 16);
 
-    v5();
+    v3();
   }
+}
+
+void sub_2547A82A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, ...)
+{
+  va_start(va, a62);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void sub_2547A8304(uint64_t a1, void *a2)
@@ -2777,19 +2764,18 @@ void sub_2547A848C(uint64_t a1, char a2)
 {
   if (a2)
   {
-    v5 = [IMAssistantINMessageConverter INMessageForOutgoingIMMessage:*(a1 + 32) toChat:*(a1 + 40) messageType:15 personProvider:*(a1 + 48)];
-    [*(a1 + 56) addObject:v5];
-    v3 = *(a1 + 56);
+    v4 = [IMAssistantINMessageConverter INMessageForOutgoingIMMessage:*(a1 + 32) toChat:*(a1 + 40) messageType:15 personProvider:*(a1 + 48)];
+    [*(a1 + 56) addObject:v4];
     (*(*(a1 + 64) + 16))();
   }
 
   else
   {
-    v4 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v3 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_25479E000, v4, OS_LOG_TYPE_INFO, "Unable to send a PHAsset message as requested. Returning failure.", buf, 2u);
+      _os_log_impl(&dword_25479E000, v3, OS_LOG_TYPE_INFO, "Unable to send a PHAsset message as requested. Returning failure.", buf, 2u);
     }
 
     (*(*(a1 + 64) + 16))();
@@ -2815,17 +2801,16 @@ void sub_2547A906C(uint64_t a1, uint64_t a2, void *a3)
     _os_log_impl(&dword_25479E000, v8, OS_LOG_TYPE_INFO, "Returning %@ response.", &v13, 0xCu);
   }
 
-  v9 = _IMAssistantCoreSendMessageSignpostLogHandle();
-  v10 = v9;
-  v11 = *(a1 + 40);
-  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
+  v10 = _IMAssistantCoreSendMessageSignpostLogHandle(v9);
+  v11 = v10;
+  v12 = *(a1 + 40);
+  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
   {
     LOWORD(v13) = 0;
-    _os_signpost_emit_with_name_impl(&dword_25479E000, v10, OS_SIGNPOST_INTERVAL_END, v11, "sendMessageWithText", &unk_2547CAD0B, &v13, 2u);
+    _os_signpost_emit_with_name_impl(&dword_25479E000, v11, OS_SIGNPOST_INTERVAL_END, v12, "sendMessageWithText", &unk_2547CAD0B, &v13, 2u);
   }
 
   (*(*(a1 + 32) + 16))();
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t sub_2547A91E0(void *a1, char a2)
@@ -2835,18 +2820,11 @@ uint64_t sub_2547A91E0(void *a1, char a2)
     v3 = a1[4];
     v4 = [IMAssistantINMessageConverter INMessageForOutgoingIMMessage:a1[5] toChat:a1[6] messageType:2 personProvider:a1[7]];
     [v3 addObject:v4];
-
-    v5 = a1[4];
   }
 
-  else
-  {
-    v7 = a1[8];
-  }
+  v5 = *(a1[8] + 16);
 
-  v6 = *(a1[8] + 16);
-
-  return v6();
+  return v5();
 }
 
 void sub_2547A9278(uint64_t a1)
@@ -2866,54 +2844,47 @@ void sub_2547A9278(uint64_t a1)
     v6 = *(a1 + 56);
     v7 = *(a1 + 64);
     v8 = *(a1 + 72);
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = sub_2547A94CC;
-    v23[3] = &unk_279786510;
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = sub_2547A94CC;
+    v16[3] = &unk_279786510;
     v9 = *(a1 + 112);
-    v28 = *(a1 + 104);
-    v24 = *(a1 + 80);
-    v25 = v3;
+    v21 = *(a1 + 104);
+    v17 = *(a1 + 80);
+    v18 = v3;
     v10 = *(a1 + 72);
     v11 = *(a1 + 40);
-    v26 = v10;
-    v27 = v11;
+    v19 = v10;
+    v20 = v11;
     v12 = v3;
-    [v4 sendMessageWithDraft:v12 expressiveSendStyleID:v5 idsIdentifier:v6 executionContext:v9 sourceApplicationID:v7 toChat:v8 completion:v23];
+    [v4 sendMessageWithDraft:v12 expressiveSendStyleID:v5 idsIdentifier:v6 executionContext:v9 sourceApplicationID:v7 toChat:v8 completion:v16];
   }
 
   else if (*(a1 + 120) == 1)
   {
     v13 = *(a1 + 40);
-    v15 = *(a1 + 64);
-    v14 = *(a1 + 72);
-    v16 = *(a1 + 80);
-    v17 = *(a1 + 104);
 
     MEMORY[0x2821F9670](v13, sel_sendLocationMessageToChat_sourceApplicationID_sentMessages_completion_);
   }
 
   else if ([*(a1 + 88) count])
   {
-    v18 = *(a1 + 80);
-    [*(a1 + 40) sendFileAttachmentURLs:*(a1 + 88) chat:*(a1 + 72) executionContext:*(a1 + 112) expressiveSendStyleID:*(a1 + 48) idsIdentifier:*(a1 + 56) sourceApplicationID:*(a1 + 64) sentMessages:v18 completion:*(a1 + 104)];
+    [*(a1 + 40) sendFileAttachmentURLs:*(a1 + 88) chat:*(a1 + 72) executionContext:*(a1 + 112) expressiveSendStyleID:*(a1 + 48) idsIdentifier:*(a1 + 56) sourceApplicationID:*(a1 + 64) sentMessages:*(a1 + 80) completion:*(a1 + 104)];
   }
 
   else
   {
-    v19 = *(a1 + 96);
-    if (v19)
+    v14 = *(a1 + 96);
+    if (v14)
     {
-      v20 = *(a1 + 64);
-      [*(a1 + 40) sendPhotoAssetMessageToChat:*(a1 + 72) executionContext:*(a1 + 112) expressiveSendStyleID:*(a1 + 48) idsIdentifier:*(a1 + 56) phAsset:v19 sentMessages:*(a1 + 80) sourceApplicationID:v20 completion:*(a1 + 104)];
+      [*(a1 + 40) sendPhotoAssetMessageToChat:*(a1 + 72) executionContext:*(a1 + 112) expressiveSendStyleID:*(a1 + 48) idsIdentifier:*(a1 + 56) phAsset:v14 sentMessages:*(a1 + 80) sourceApplicationID:*(a1 + 64) completion:*(a1 + 104)];
     }
 
     else
     {
-      v21 = *(a1 + 80);
-      v22 = *(*(a1 + 104) + 16);
+      v15 = *(*(a1 + 104) + 16);
 
-      v22();
+      v15();
     }
   }
 }
@@ -2925,18 +2896,11 @@ uint64_t sub_2547A94CC(void *a1, char a2)
     v3 = a1[4];
     v4 = [IMAssistantINMessageConverter INMessageForOutgoingIMMessage:a1[5] toChat:a1[6] messageType:25 personProvider:a1[7]];
     [v3 addObject:v4];
-
-    v5 = a1[4];
   }
 
-  else
-  {
-    v7 = a1[8];
-  }
+  v5 = *(a1[8] + 16);
 
-  v6 = *(a1[8] + 16);
-
-  return v6();
+  return v5();
 }
 
 uint64_t sub_2547A9564(void *a1, char a2)
@@ -2954,10 +2918,9 @@ uint64_t sub_2547A9564(void *a1, char a2)
 
   else
   {
-    v7 = a1[8];
-    v8 = *(a1[8] + 16);
+    v7 = *(a1[8] + 16);
 
-    return v8();
+    return v7();
   }
 }
 
@@ -2971,7 +2934,7 @@ void sub_2547A9B74(uint64_t a1, void *a2, uint64_t a3)
 
 void sub_2547AAC64(uint64_t a1)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) resolveRecipientsWithGroupNameOrConversationIdentifier:*(a1 + 40) forIntent:*(a1 + 48)];
   if (!v2)
   {
@@ -2983,39 +2946,39 @@ void sub_2547AAC64(uint64_t a1)
     }
 
     v4 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(*(a1 + 40), "count")}];
+    v33 = 0u;
     v34 = 0u;
     v35 = 0u;
     v36 = 0u;
-    v37 = 0u;
-    v32 = a1;
+    v31 = a1;
     v5 = *(a1 + 40);
-    v6 = [v5 countByEnumeratingWithState:&v34 objects:v40 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v33 objects:v39 count:16];
     if (!v6)
     {
 LABEL_44:
 
-      (*(*(v32 + 56) + 16))();
+      (*(*(v31 + 56) + 16))();
       v2 = 0;
       goto LABEL_45;
     }
 
     v7 = v6;
-    v8 = *v35;
-    v33 = v5;
+    v8 = *v34;
+    v32 = v5;
 LABEL_7:
     v9 = 0;
     while (1)
     {
-      if (*v35 != v8)
+      if (*v34 != v8)
       {
         objc_enumerationMutation(v5);
       }
 
-      v10 = *(*(&v34 + 1) + 8 * v9);
+      v10 = *(*(&v33 + 1) + 8 * v9);
       v11 = [v10 contactIdentifier];
       if ([v11 length])
       {
-        v12 = [v10 personHandle];
+        v12 = objc_msgSend_personHandle(v10);
         v13 = [v12 value];
 
         if (v13)
@@ -3024,7 +2987,7 @@ LABEL_7:
           if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v39 = v10;
+            v38 = v10;
             _os_log_impl(&dword_25479E000, v14, OS_LOG_TYPE_INFO, "This recipient is already fully resolved: %@", buf, 0xCu);
           }
 
@@ -3042,7 +3005,7 @@ LABEL_7:
       if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v39 = v10;
+        v38 = v10;
         _os_log_impl(&dword_25479E000, v16, OS_LOG_TYPE_INFO, "Resolving %@", buf, 0xCu);
       }
 
@@ -3055,7 +3018,7 @@ LABEL_7:
         if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v39 = v10;
+          v38 = v10;
           _os_log_impl(&dword_25479E000, v22, OS_LOG_TYPE_INFO, "CRR offered no suggestions for %@", buf, 0xCu);
         }
 
@@ -3079,10 +3042,10 @@ LABEL_7:
           {
             v27 = [v10 siriMatches];
             *buf = 138412290;
-            v39 = v27;
+            v38 = v27;
             _os_log_impl(&dword_25479E000, v26, OS_LOG_TYPE_INFO, "CRR resolved to needs disambiguation: %@", buf, 0xCu);
 
-            v5 = v33;
+            v5 = v32;
           }
 
           v28 = MEMORY[0x277CD4088];
@@ -3096,7 +3059,7 @@ LABEL_7:
           if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v39 = v18;
+            v38 = v18;
             _os_log_impl(&dword_25479E000, v24, OS_LOG_TYPE_INFO, "CRR resolved to needs confirmation: %@", buf, 0xCu);
           }
 
@@ -3107,7 +3070,7 @@ LABEL_7:
           if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v39 = v18;
+            v38 = v18;
             _os_log_impl(&dword_25479E000, v20, OS_LOG_TYPE_INFO, "CRR resolved to a confident match: %@", buf, 0xCu);
           }
 
@@ -3120,7 +3083,7 @@ LABEL_37:
 LABEL_38:
       if (v7 == ++v9)
       {
-        v30 = [v5 countByEnumeratingWithState:&v34 objects:v40 count:16];
+        v30 = [v5 countByEnumeratingWithState:&v33 objects:v39 count:16];
         v7 = v30;
         if (!v30)
         {
@@ -3135,7 +3098,7 @@ LABEL_38:
     if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v39 = v15;
+      v38 = v15;
       _os_log_impl(&dword_25479E000, v23, OS_LOG_TYPE_INFO, "Error extracting a scoredPerson from %@", buf, 0xCu);
     }
 
@@ -3150,14 +3113,12 @@ LABEL_36:
 
   (*(*(a1 + 56) + 16))();
 LABEL_45:
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2547AB3A0(uint64_t a1)
 {
   v1 = a1;
-  v186[1] = *MEMORY[0x277D85DE8];
+  v185[1] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) resolveRecipientsWithGroupNameOrConversationIdentifier:*(v1 + 40) forIntent:*(v1 + 48)];
   if (v2)
   {
@@ -3183,10 +3144,10 @@ void sub_2547AB3A0(uint64_t a1)
     }
 
     v52 = *(v1 + 32);
-    v173 = 0;
+    v172 = 0;
     v53 = v4;
-    v54 = [v52 recipientHandleResolutionResultsAllowedByScreentime:v4 error:&v173];
-    v55 = v173;
+    v54 = [v52 recipientHandleResolutionResultsAllowedByScreentime:v4 error:&v172];
+    v55 = v172;
     v56 = IMLogHandleForCategory();
     v57 = os_log_type_enabled(v56, OS_LOG_TYPE_INFO);
     if (v54)
@@ -3223,8 +3184,8 @@ void sub_2547AB3A0(uint64_t a1)
 
       v81 = *(v1 + 56);
       v82 = [MEMORY[0x277CD4088] unsupportedForReason:v66];
-      v186[0] = v82;
-      v83 = [MEMORY[0x277CBEA60] arrayWithObjects:v186 count:1];
+      v185[0] = v82;
+      v83 = [MEMORY[0x277CBEA60] arrayWithObjects:v185 count:1];
       (*(v81 + 16))(v81, v83);
 
       v58 = v53;
@@ -3234,39 +3195,39 @@ void sub_2547AB3A0(uint64_t a1)
     goto LABEL_144;
   }
 
-  v130 = v4;
+  v129 = v4;
   v5 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(*(v1 + 40), "count")}];
-  v138 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v137 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v168 = 0u;
   v169 = 0u;
   v170 = 0u;
   v171 = 0u;
-  v172 = 0u;
   v6 = *(v1 + 40);
-  v137 = [v6 countByEnumeratingWithState:&v169 objects:v185 count:16];
-  if (!v137)
+  v136 = [v6 countByEnumeratingWithState:&v168 objects:v184 count:16];
+  if (!v136)
   {
-    v131 = 1;
+    v130 = 1;
     v7 = v5;
     goto LABEL_80;
   }
 
-  v131 = 1;
-  v136 = *v170;
-  v132 = v6;
-  v133 = v1;
+  v130 = 1;
+  v135 = *v169;
+  v131 = v6;
+  v132 = v1;
   v7 = v5;
-  v134 = v5;
+  v133 = v5;
   while (2)
   {
-    for (i = 0; i != v137; ++i)
+    for (i = 0; i != v136; ++i)
     {
-      if (*v170 != v136)
+      if (*v169 != v135)
       {
         objc_enumerationMutation(v6);
       }
 
-      v9 = *(*(&v169 + 1) + 8 * i);
-      v10 = [v9 personHandle];
+      v9 = *(*(&v168 + 1) + 8 * i);
+      v10 = objc_msgSend_personHandle(v9);
       v11 = [v10 __im_assistant_handleType];
 
       v12 = [*(v1 + 32) contactsMatchingINPerson:v9];
@@ -3277,7 +3238,7 @@ void sub_2547AB3A0(uint64_t a1)
         if (os_log_type_enabled(v60, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v179 = v9;
+          v178 = v9;
           _os_log_impl(&dword_25479E000, v60, OS_LOG_TYPE_INFO, "Recipient contains neither siriMatches nor a personHandle.value, returning unsupported/notFound for recipient: %@", buf, 0xCu);
         }
 
@@ -3288,7 +3249,7 @@ void sub_2547AB3A0(uint64_t a1)
         (*(v61 + 16))(v61, v64);
 
         v2 = 0;
-        v58 = v130;
+        v58 = v129;
         v55 = v59;
         goto LABEL_143;
       }
@@ -3297,67 +3258,67 @@ void sub_2547AB3A0(uint64_t a1)
       v13 = objc_alloc_init(MEMORY[0x277CBEB18]);
       if ((v11 - 1) < 2)
       {
-        v139 = i;
+        v138 = i;
         v28 = IMLogHandleForCategory();
         if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v179 = v9;
+          v178 = v9;
           _os_log_impl(&dword_25479E000, v28, OS_LOG_TYPE_INFO, "Recipient contains both an explicit personHandle.value and contact identifiers, attempting to extract mathcing handle from contacts. Recipient: %@", buf, 0xCu);
         }
 
         v29 = v9;
-        v30 = [v9 personHandle];
-        v143 = [v30 value];
+        v30 = objc_msgSend_personHandle(v9);
+        v142 = [v30 value];
 
-        v163 = 0u;
-        v164 = 0u;
-        v161 = 0u;
         v162 = 0u;
-        v141 = v12;
+        v163 = 0u;
+        v160 = 0u;
+        v161 = 0u;
+        v140 = v12;
         v31 = v12;
-        v32 = [v31 countByEnumeratingWithState:&v161 objects:v177 count:16];
+        v32 = [v31 countByEnumeratingWithState:&v160 objects:v176 count:16];
         if (v32)
         {
           v33 = v32;
-          v34 = *v162;
+          v34 = *v161;
           do
           {
             for (j = 0; j != v33; ++j)
             {
-              if (*v162 != v34)
+              if (*v161 != v34)
               {
                 objc_enumerationMutation(v31);
               }
 
-              v36 = *(*(&v161 + 1) + 8 * j);
-              v37 = [v36 __im_assistant_handlesMatchingHandleID:v143];
+              v36 = *(*(&v160 + 1) + 8 * j);
+              v37 = [v36 __im_assistant_handlesMatchingHandleID:v142];
               v38 = IMLogHandleForCategory();
               if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
               {
                 v39 = [v37 count];
                 *buf = 134218498;
-                v179 = v39;
-                v180 = 2112;
-                v181 = v36;
-                v182 = 2112;
-                v183 = v29;
+                v178 = v39;
+                v179 = 2112;
+                v180 = v36;
+                v181 = 2112;
+                v182 = v29;
                 _os_log_impl(&dword_25479E000, v38, OS_LOG_TYPE_INFO, "Found %ld matching handles on contact %@ for recipient: %@", buf, 0x20u);
               }
 
               [v13 addObjectsFromArray:v37];
             }
 
-            v33 = [v31 countByEnumeratingWithState:&v161 objects:v177 count:16];
+            v33 = [v31 countByEnumeratingWithState:&v160 objects:v176 count:16];
           }
 
           while (v33);
         }
 
-        v6 = v132;
-        v1 = v133;
-        v12 = v141;
-        v7 = v134;
+        v6 = v131;
+        v1 = v132;
+        v12 = v140;
+        v7 = v133;
         if ([v13 count])
         {
           goto LABEL_54;
@@ -3367,13 +3328,13 @@ void sub_2547AB3A0(uint64_t a1)
         if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v179 = v143;
+          v178 = v142;
           _os_log_impl(&dword_25479E000, v40, OS_LOG_TYPE_INFO, "Handle %@ was not found on any of the contacts, using handle without a contact", buf, 0xCu);
         }
 
         if (v11 == 2)
         {
-          v41 = [objc_alloc(MEMORY[0x277CBDB20]) initWithLabel:0 value:v143];
+          v41 = [objc_alloc(MEMORY[0x277CBDB20]) initWithLabel:0 value:v142];
           v42 = [[IMAssistantHandleFromContact alloc] initWithCNLabeledEmailAddress:v41 contact:0];
           if (v42)
           {
@@ -3391,9 +3352,9 @@ LABEL_54:
             {
               v48 = [v13 count];
               *buf = 134218242;
-              v179 = v48;
-              v180 = 2112;
-              v181 = v13;
+              v178 = v48;
+              v179 = 2112;
+              v180 = v13;
               _os_log_impl(&dword_25479E000, &v16->super, OS_LOG_TYPE_INFO, "Using %ld matching manually dictated handles: %@", buf, 0x16u);
             }
 
@@ -3401,7 +3362,7 @@ LABEL_54:
             goto LABEL_57;
           }
 
-          v41 = [objc_alloc(MEMORY[0x277CBDB70]) initWithStringValue:v143];
+          v41 = [objc_alloc(MEMORY[0x277CBDB70]) initWithStringValue:v142];
           v42 = [objc_alloc(MEMORY[0x277CBDB20]) initWithLabel:0 value:v41];
           v43 = [[IMAssistantHandleFromContact alloc] initWithCNLabeledPhoneNumber:v42 contact:0];
           if (v43)
@@ -3415,10 +3376,10 @@ LABEL_54:
 
       if (v11 == 3)
       {
-        v44 = [v9 personHandle];
+        v44 = objc_msgSend_personHandle(v9);
         v45 = [v44 value];
 
-        v143 = v45;
+        v142 = v45;
         v16 = [[IMAssistantHandleFromContact alloc] initWithBusinessID:v45];
         if (v16)
         {
@@ -3430,9 +3391,9 @@ LABEL_54:
         {
           v47 = [v13 count];
           *buf = 134218242;
-          v179 = v47;
-          v180 = 2112;
-          v181 = v13;
+          v178 = v47;
+          v179 = 2112;
+          v180 = v13;
           _os_log_impl(&dword_25479E000, v46, OS_LOG_TYPE_INFO, "Using %ld matching business chat handle: %@", buf, 0x16u);
         }
 
@@ -3444,51 +3405,51 @@ LABEL_54:
         goto LABEL_59;
       }
 
-      v139 = i;
-      v142 = v9;
-      v14 = [v9 personHandle];
+      v138 = i;
+      v141 = v9;
+      v14 = objc_msgSend_personHandle(v9);
       v15 = [v14 type];
-      v143 = v14;
+      v142 = v14;
       v16 = [v14 label];
+      v164 = 0u;
       v165 = 0u;
       v166 = 0u;
       v167 = 0u;
-      v168 = 0u;
-      v140 = v12;
+      v139 = v12;
       v17 = v12;
-      v18 = [v17 countByEnumeratingWithState:&v165 objects:v184 count:16];
+      v18 = [v17 countByEnumeratingWithState:&v164 objects:v183 count:16];
       if (v18)
       {
         v19 = v18;
-        v20 = *v166;
+        v20 = *v165;
         do
         {
           for (k = 0; k != v19; ++k)
           {
-            if (*v166 != v20)
+            if (*v165 != v20)
             {
               objc_enumerationMutation(v17);
             }
 
-            v22 = *(*(&v165 + 1) + 8 * k);
+            v22 = *(*(&v164 + 1) + 8 * k);
             v23 = [v22 __im_assistant_handlesMatchingRequestedHandleType:v15 requestedHandleLabel:v16];
             v24 = IMLogHandleForCategory();
             if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
             {
               v25 = [v23 count];
               *buf = 134218498;
-              v179 = v25;
-              v180 = 2112;
-              v181 = v22;
-              v182 = 2112;
-              v183 = v142;
+              v178 = v25;
+              v179 = 2112;
+              v180 = v22;
+              v181 = 2112;
+              v182 = v141;
               _os_log_impl(&dword_25479E000, v24, OS_LOG_TYPE_INFO, "Found %ld matching handles on contact %@ for recipient: %@", buf, 0x20u);
             }
 
             [v13 addObjectsFromArray:v23];
           }
 
-          v19 = [v17 countByEnumeratingWithState:&v165 objects:v184 count:16];
+          v19 = [v17 countByEnumeratingWithState:&v164 objects:v183 count:16];
         }
 
         while (v19);
@@ -3499,19 +3460,19 @@ LABEL_54:
       {
         v27 = [v13 count];
         *buf = 134218242;
-        v179 = v27;
-        v180 = 2112;
-        v181 = v13;
+        v178 = v27;
+        v179 = 2112;
+        v180 = v13;
         _os_log_impl(&dword_25479E000, v26, OS_LOG_TYPE_INFO, "Using %ld matching handles from contacts: %@", buf, 0x16u);
       }
 
-      v1 = v133;
-      v7 = v134;
-      v6 = v132;
-      v12 = v140;
-      v9 = v142;
+      v1 = v132;
+      v7 = v133;
+      v6 = v131;
+      v12 = v139;
+      v9 = v141;
 LABEL_57:
-      i = v139;
+      i = v138;
 LABEL_58:
 
 LABEL_59:
@@ -3521,19 +3482,19 @@ LABEL_59:
         if (os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v179 = v9;
+          v178 = v9;
           _os_log_impl(&dword_25479E000, v49, OS_LOG_TYPE_INFO, "Found no handles matching recipient: %@", buf, 0xCu);
         }
 
-        v131 = 0;
+        v130 = 0;
       }
 
       v50 = [v13 copy];
-      [v138 setObject:v50 forKey:v9];
+      [v137 setObject:v50 forKey:v9];
     }
 
-    v137 = [v6 countByEnumeratingWithState:&v169 objects:v185 count:16];
-    if (v137)
+    v136 = [v6 countByEnumeratingWithState:&v168 objects:v184 count:16];
+    if (v136)
     {
       continue;
     }
@@ -3547,35 +3508,35 @@ LABEL_80:
   v68 = [MEMORY[0x277D1A9B8] sharedFeatureFlags];
   v69 = [v68 arePreResolvedSiriMatchesEnabled];
 
-  v159 = 0u;
-  v160 = 0u;
-  v157 = 0u;
   v158 = 0u;
+  v159 = 0u;
+  v156 = 0u;
+  v157 = 0u;
   v70 = *(v1 + 40);
-  v71 = [v70 countByEnumeratingWithState:&v157 objects:v176 count:16];
+  v71 = [v70 countByEnumeratingWithState:&v156 objects:v175 count:16];
   if (v71)
   {
     v72 = v71;
     v73 = 0;
     v74 = 0;
-    v75 = *v158;
+    v75 = *v157;
     do
     {
       for (m = 0; m != v72; ++m)
       {
-        if (*v158 != v75)
+        if (*v157 != v75)
         {
           objc_enumerationMutation(v70);
         }
 
-        v77 = *(*(&v157 + 1) + 8 * m);
+        v77 = *(*(&v156 + 1) + 8 * m);
         v78 = [v77 scoredAlternatives];
         v74 |= v78 != 0;
 
         v73 |= [v77 __im_assistant_requiresHandleDisambiguationBySiriMatches];
       }
 
-      v72 = [v70 countByEnumeratingWithState:&v157 objects:v176 count:16];
+      v72 = [v70 countByEnumeratingWithState:&v156 objects:v175 count:16];
     }
 
     while (v72);
@@ -3583,7 +3544,7 @@ LABEL_80:
     if (!(v73 & 1 | ((v74 & v69 & 1) == 0)))
     {
       v12 = IMLogHandleForCategory();
-      v79 = v130;
+      v79 = v129;
       if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
@@ -3603,8 +3564,8 @@ LABEL_80:
 
   v12 = IMLogHandleForCategory();
   v84 = os_log_type_enabled(v12, OS_LOG_TYPE_INFO);
-  v79 = v130;
-  if ((v131 & 1) == 0)
+  v79 = v129;
+  if ((v130 & 1) == 0)
   {
     if (v84)
     {
@@ -3620,26 +3581,26 @@ LABEL_103:
 LABEL_127:
 
     v109 = *(v1 + 40);
-    v151[0] = MEMORY[0x277D85DD0];
-    v151[1] = 3221225472;
-    v151[2] = sub_2547AC918;
-    v151[3] = &unk_279786648;
+    v150[0] = MEMORY[0x277D85DD0];
+    v150[1] = 3221225472;
+    v150[2] = sub_2547AC918;
+    v150[3] = &unk_279786648;
     v6 = v6;
-    v152 = v6;
+    v151 = v6;
     v110 = v79;
-    v153 = v110;
+    v152 = v110;
     v111 = v67;
     v112 = *(v1 + 32);
-    v154 = v111;
-    v155 = v112;
-    v113 = [v109 __im_assistant_arrayByApplyingBlockWithIndex:v151];
+    v153 = v111;
+    v154 = v112;
+    v113 = [v109 __im_assistant_arrayByApplyingBlockWithIndex:v150];
     if ([MEMORY[0x277CD3EA0] __imcore__containsNonSuccess:v113])
     {
       v114 = IMLogHandleForCategory();
       if (os_log_type_enabled(v114, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v179 = v113;
+        v178 = v113;
         _os_log_impl(&dword_25479E000, v114, OS_LOG_TYPE_INFO, "Could not resolve a single contact for each recipient, returning resolution result: %@", buf, 0xCu);
       }
 
@@ -3649,22 +3610,22 @@ LABEL_127:
     else
     {
       v115 = *(v1 + 40);
-      v145[0] = MEMORY[0x277D85DD0];
-      v145[1] = 3221225472;
-      v145[2] = sub_2547ACFC0;
-      v145[3] = &unk_279786670;
-      v146 = v110;
-      v147 = v113;
-      v148 = v138;
+      v144[0] = MEMORY[0x277D85DD0];
+      v144[1] = 3221225472;
+      v144[2] = sub_2547ACFC0;
+      v144[3] = &unk_279786670;
+      v145 = v110;
+      v146 = v113;
+      v147 = v137;
       v116 = v111;
       v117 = *(v1 + 32);
-      v149 = v116;
-      v150 = v117;
-      v118 = [v115 __im_assistant_arrayByApplyingBlockWithIndex:v145];
+      v148 = v116;
+      v149 = v117;
+      v118 = [v115 __im_assistant_arrayByApplyingBlockWithIndex:v144];
       v119 = *(v1 + 32);
-      v144 = 0;
-      v120 = [v119 recipientHandleResolutionResultsAllowedByScreentime:v118 error:&v144];
-      v121 = v144;
+      v143 = 0;
+      v120 = [v119 recipientHandleResolutionResultsAllowedByScreentime:v118 error:&v143];
+      v121 = v143;
       v122 = IMLogHandleForCategory();
       v123 = os_log_type_enabled(v122, OS_LOG_TYPE_INFO);
       if (v120)
@@ -3673,7 +3634,7 @@ LABEL_127:
         if (v123)
         {
           *buf = 138412290;
-          v179 = v118;
+          v178 = v118;
           _os_log_impl(&dword_25479E000, v122, OS_LOG_TYPE_INFO, "Completed handle resolution with results: %@", buf, 0xCu);
         }
 
@@ -3700,8 +3661,8 @@ LABEL_127:
 
         v125 = *(v1 + 56);
         v126 = [MEMORY[0x277CD4088] unsupportedForReason:v124];
-        v174 = v126;
-        v127 = [MEMORY[0x277CBEA60] arrayWithObjects:&v174 count:1];
+        v173 = v126;
+        v127 = [MEMORY[0x277CBEA60] arrayWithObjects:&v173 count:1];
         (*(v125 + 16))(v125, v127);
 
         v2 = 0;
@@ -3710,8 +3671,8 @@ LABEL_127:
 
     v55 = v67;
 
-    v12 = v152;
-    v58 = v130;
+    v12 = v151;
+    v58 = v129;
     goto LABEL_143;
   }
 
@@ -3727,7 +3688,7 @@ LABEL_127:
   v88 = [v87 __imArrayByFilteringWithBlock:&unk_286693038];
   v12 = [v88 sortedArrayUsingSelector:sel_compareChatByDate_];
 
-  v89 = [*(v1 + 32) resolveRecipientsByFindingExistingRelevantChatsForRecipients:*(v1 + 40) withMatchingHandlesByRecipient:v138 fromChats:v12];
+  v89 = [*(v1 + 32) resolveRecipientsByFindingExistingRelevantChatsForRecipients:*(v1 + 40) withMatchingHandlesByRecipient:v137 fromChats:v12];
   if ([v89 count] != 1)
   {
     if ([v89 count] < 2)
@@ -3754,7 +3715,7 @@ LABEL_127:
         if (v94)
         {
           *buf = 138412290;
-          v179 = v93;
+          v178 = v93;
           _os_log_impl(&dword_25479E000, v91, OS_LOG_TYPE_INFO, "Returning disambiguation result: %@", buf, 0xCu);
         }
 
@@ -3780,7 +3741,7 @@ LABEL_123:
       _os_log_impl(&dword_25479E000, v108, OS_LOG_TYPE_INFO, "Did not find any existing chat matching request.", buf, 2u);
     }
 
-    v79 = v130;
+    v79 = v129;
     goto LABEL_127;
   }
 
@@ -3801,13 +3762,13 @@ LABEL_123:
 
   v93 = [v90 chat];
   v95 = [*(v1 + 32) messageHandlerDataSource];
-  v156 = 0;
-  v96 = [v95 screentimeAllowedToShowChat:v93 error:&v156];
-  v97 = v156;
+  v155 = 0;
+  v96 = [v95 screentimeAllowedToShowChat:v93 error:&v155];
+  v97 = v155;
 
   if (v96)
   {
-    v135 = v67;
+    v134 = v67;
     v98 = v12;
     v99 = [v6 resolvedPersons];
     v100 = [v99 __imArrayByApplyingBlock:&unk_286692FF8];
@@ -3816,7 +3777,7 @@ LABEL_123:
     if (os_log_type_enabled(v102, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v179 = v101;
+      v178 = v101;
       _os_log_impl(&dword_25479E000, v102, OS_LOG_TYPE_INFO, "Found an existing chat matching recipients. Storing conversationIdentifier=%@", buf, 0xCu);
     }
 
@@ -3827,7 +3788,7 @@ LABEL_123:
 
     (*(*(v1 + 56) + 16))();
     v12 = v98;
-    v67 = v135;
+    v67 = v134;
   }
 
   else
@@ -3849,24 +3810,22 @@ LABEL_123:
       v107 = *MEMORY[0x277CD4588];
     }
 
-    v129 = *(v1 + 56);
+    v128 = *(v1 + 56);
     v99 = [MEMORY[0x277CD4088] unsupportedForReason:v107];
-    v175 = v99;
-    v100 = [MEMORY[0x277CBEA60] arrayWithObjects:&v175 count:1];
-    (*(v129 + 16))(v129, v100);
+    v174 = v99;
+    v100 = [MEMORY[0x277CBEA60] arrayWithObjects:&v174 count:1];
+    (*(v128 + 16))(v128, v100);
   }
 
   v2 = 0;
 LABEL_149:
 
-  v58 = v130;
+  v58 = v129;
   v55 = v67;
 LABEL_143:
 
 LABEL_144:
 LABEL_145:
-
-  v128 = *MEMORY[0x277D85DE8];
 }
 
 id sub_2547AC884(uint64_t a1, void *a2)
@@ -3889,15 +3848,15 @@ id sub_2547AC884(uint64_t a1, void *a2)
   return v5;
 }
 
-id sub_2547AC918(id *a1, void *a2, uint64_t a3)
+NSObject *sub_2547AC918(id *a1, void *a2, uint64_t a3)
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = IMLogHandleForCategory();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v65 = v5;
+    v64 = v5;
     _os_log_impl(&dword_25479E000, v6, OS_LOG_TYPE_INFO, "Beginning contact resolution for recipient: %@", buf, 0xCu);
   }
 
@@ -3912,61 +3871,61 @@ id sub_2547AC918(id *a1, void *a2, uint64_t a3)
     if (v11 && [v5 __im_assistant_requiresHandleDisambiguationBySiriMatches])
     {
       v12 = [v9 firstObject];
-      v53 = [v12 contactIdentifier];
+      v52 = [v12 contactIdentifier];
 
-      v60 = 0u;
-      v61 = 0u;
-      v58 = 0u;
       v59 = 0u;
+      v60 = 0u;
+      v57 = 0u;
+      v58 = 0u;
       v13 = v11;
-      v51 = [v13 countByEnumeratingWithState:&v58 objects:v63 count:16];
-      if (v51)
+      v50 = [v13 countByEnumeratingWithState:&v57 objects:v62 count:16];
+      if (v50)
       {
-        v52 = *v59;
-        v46 = a1;
-        v47 = v5;
-        v49 = v11;
-        v50 = v9;
-        v44 = v10;
-        v45 = a3;
-        v48 = v13;
+        v51 = *v58;
+        v45 = a1;
+        v46 = v5;
+        v48 = v11;
+        v49 = v9;
+        v43 = v10;
+        v44 = a3;
+        v47 = v13;
         do
         {
-          for (i = 0; i != v51; ++i)
+          for (i = 0; i != v50; ++i)
           {
-            if (*v59 != v52)
+            if (*v58 != v51)
             {
               objc_enumerationMutation(v13);
             }
 
-            v15 = *(*(&v58 + 1) + 8 * i);
+            v15 = *(*(&v57 + 1) + 8 * i);
             v16 = [v15 contactIdentifier];
-            v17 = [v53 isEqualToString:v16];
+            v17 = [v52 isEqualToString:v16];
 
             if (v17)
             {
-              v56 = 0u;
-              v57 = 0u;
-              v54 = 0u;
               v55 = 0u;
+              v56 = 0u;
+              v53 = 0u;
+              v54 = 0u;
               v18 = v9;
-              v19 = [v18 countByEnumeratingWithState:&v54 objects:v62 count:16];
+              v19 = [v18 countByEnumeratingWithState:&v53 objects:v61 count:16];
               if (v19)
               {
                 v20 = v19;
-                v21 = *v55;
+                v21 = *v54;
                 while (2)
                 {
                   for (j = 0; j != v20; ++j)
                   {
-                    if (*v55 != v21)
+                    if (*v54 != v21)
                     {
                       objc_enumerationMutation(v18);
                     }
 
-                    v23 = *(*(&v54 + 1) + 8 * j);
-                    v24 = [v23 personHandle];
-                    v25 = [v15 personHandle];
+                    v23 = *(*(&v53 + 1) + 8 * j);
+                    v24 = objc_msgSend_personHandle(v23);
+                    v25 = objc_msgSend_personHandle(v15);
                     v26 = [v24 __im_assistant_matchesINPersonHandle:v25];
 
                     if (v26)
@@ -3975,24 +3934,24 @@ id sub_2547AC918(id *a1, void *a2, uint64_t a3)
                       if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
                       {
                         *buf = 138412290;
-                        v65 = v23;
+                        v64 = v23;
                         _os_log_impl(&dword_25479E000, v36, OS_LOG_TYPE_INFO, "found siriMatch with a handle in matching chat, picking it: %@", buf, 0xCu);
                       }
 
-                      v37 = [v23 personHandle];
+                      v37 = objc_msgSend_personHandle(v23);
                       v38 = [v37 value];
                       [v23 setCustomIdentifier:v38];
 
                       v28 = [MEMORY[0x277CD3EA0] successWithResolvedPerson:v23];
 
-                      v5 = v47;
-                      v11 = v49;
-                      v9 = v50;
+                      v5 = v46;
+                      v11 = v48;
+                      v9 = v49;
                       goto LABEL_38;
                     }
                   }
 
-                  v20 = [v18 countByEnumeratingWithState:&v54 objects:v62 count:16];
+                  v20 = [v18 countByEnumeratingWithState:&v53 objects:v61 count:16];
                   if (v20)
                   {
                     continue;
@@ -4002,20 +3961,20 @@ id sub_2547AC918(id *a1, void *a2, uint64_t a3)
                 }
               }
 
-              v11 = v49;
-              v9 = v50;
-              a3 = v45;
-              a1 = v46;
-              v13 = v48;
+              v11 = v48;
+              v9 = v49;
+              a3 = v44;
+              a1 = v45;
+              v13 = v47;
             }
           }
 
-          v5 = v47;
-          v10 = v44;
-          v51 = [v13 countByEnumeratingWithState:&v58 objects:v63 count:16];
+          v5 = v46;
+          v10 = v43;
+          v50 = [v13 countByEnumeratingWithState:&v57 objects:v62 count:16];
         }
 
-        while (v51);
+        while (v50);
       }
     }
 
@@ -4025,7 +3984,7 @@ id sub_2547AC918(id *a1, void *a2, uint64_t a3)
       if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v65 = v9;
+        v64 = v9;
         _os_log_impl(&dword_25479E000, v27, OS_LOG_TYPE_INFO, "found multiple resolved siri matches. disambiguating: %@", buf, 0xCu);
       }
 
@@ -4038,13 +3997,13 @@ LABEL_38:
     if (v10 == 1)
     {
       v29 = [v9 objectAtIndexedSubscript:0];
-      v30 = [v29 personHandle];
+      v30 = objc_msgSend_personHandle(v29);
       v31 = [v30 value];
       v32 = [v31 length];
 
       if (v32)
       {
-        v33 = [v29 personHandle];
+        v33 = objc_msgSend_personHandle(v29);
         v34 = [v33 value];
         [v29 setCustomIdentifier:v34];
 
@@ -4052,7 +4011,7 @@ LABEL_38:
         if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v65 = v29;
+          v64 = v29;
           _os_log_impl(&dword_25479E000, v35, OS_LOG_TYPE_INFO, "found one resolved siri match with a valid handle. picking it: %@", buf, 0xCu);
         }
 
@@ -4087,7 +4046,7 @@ LABEL_38:
     if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v65 = v9;
+      v64 = v9;
       _os_log_impl(&dword_25479E000, v40, OS_LOG_TYPE_INFO, "Already have a resolved contact and handle for this recipient. Returning success: %@", buf, 0xCu);
     }
 
@@ -4103,21 +4062,19 @@ LABEL_38:
 
 LABEL_48:
 
-  v42 = *MEMORY[0x277D85DE8];
-
   return v28;
 }
 
 id sub_2547ACFC0(id *a1, void *a2, uint64_t a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = IMLogHandleForCategory();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v21 = 138412290;
-    v22 = v5;
-    _os_log_impl(&dword_25479E000, v6, OS_LOG_TYPE_INFO, "Beginning handle resolution for recipient: %@", &v21, 0xCu);
+    v20 = 138412290;
+    v21 = v5;
+    _os_log_impl(&dword_25479E000, v6, OS_LOG_TYPE_INFO, "Beginning handle resolution for recipient: %@", &v20, 0xCu);
   }
 
   v7 = [a1[4] objectAtIndexedSubscript:a3];
@@ -4126,9 +4083,9 @@ id sub_2547ACFC0(id *a1, void *a2, uint64_t a3)
     v8 = IMLogHandleForCategory();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v21 = 138412290;
-      v22 = v7;
-      _os_log_impl(&dword_25479E000, v8, OS_LOG_TYPE_INFO, "Intent already has a resolved handle for this recipient. Returning success: %@", &v21, 0xCu);
+      v20 = 138412290;
+      v21 = v7;
+      _os_log_impl(&dword_25479E000, v8, OS_LOG_TYPE_INFO, "Intent already has a resolved handle for this recipient. Returning success: %@", &v20, 0xCu);
     }
 
     v9 = v7;
@@ -4146,9 +4103,9 @@ id sub_2547ACFC0(id *a1, void *a2, uint64_t a3)
       v14 = IMLogHandleForCategory();
       if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
-        v21 = 138412290;
-        v22 = v10;
-        _os_log_impl(&dword_25479E000, v14, OS_LOG_TYPE_INFO, "A handle was already resolved as part of contact resolution (e.g. contacts with duplicate names that only contain one valid handle). Returning success with the resolved handle: %@", &v21, 0xCu);
+        v20 = 138412290;
+        v21 = v10;
+        _os_log_impl(&dword_25479E000, v14, OS_LOG_TYPE_INFO, "A handle was already resolved as part of contact resolution (e.g. contacts with duplicate names that only contain one valid handle). Returning success with the resolved handle: %@", &v20, 0xCu);
       }
 
       v9 = v10;
@@ -4164,9 +4121,9 @@ id sub_2547ACFC0(id *a1, void *a2, uint64_t a3)
         v18 = IMLogHandleForCategory();
         if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
         {
-          v21 = 138412290;
-          v22 = v16;
-          _os_log_impl(&dword_25479E000, v18, OS_LOG_TYPE_INFO, "More than one matching contact exists after person resolution. Person resolution should have resolved the recipients down to a single contact. Something has gone horribly wrong. Picking the first one and continuing with handle resolution.\nContacts: %@", &v21, 0xCu);
+          v20 = 138412290;
+          v21 = v16;
+          _os_log_impl(&dword_25479E000, v18, OS_LOG_TYPE_INFO, "More than one matching contact exists after person resolution. Person resolution should have resolved the recipients down to a single contact. Something has gone horribly wrong. Picking the first one and continuing with handle resolution.\nContacts: %@", &v20, 0xCu);
         }
       }
 
@@ -4174,14 +4131,12 @@ id sub_2547ACFC0(id *a1, void *a2, uint64_t a3)
     }
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 void sub_2547ADD24(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if ([v6 count] >= 2)
@@ -4189,19 +4144,17 @@ void sub_2547ADD24(uint64_t a1, void *a2, void *a3)
     v7 = IMLogHandleForCategory();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v9 = 134218498;
-      v10 = [v6 count];
-      v11 = 2112;
-      v12 = v5;
-      v13 = 2112;
-      v14 = v6;
-      _os_log_impl(&dword_25479E000, v7, OS_LOG_TYPE_INFO, "%ld contacts have the name %@. Will use handles for these contacts, rather than just name, when disambiguating. Contacts: %@", &v9, 0x20u);
+      v8 = 134218498;
+      v9 = [v6 count];
+      v10 = 2112;
+      v11 = v5;
+      v12 = 2112;
+      v13 = v6;
+      _os_log_impl(&dword_25479E000, v7, OS_LOG_TYPE_INFO, "%ld contacts have the name %@. Will use handles for these contacts, rather than just name, when disambiguating. Contacts: %@", &v8, 0x20u);
     }
 
     [*(a1 + 32) addObjectsFromArray:v6];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2547AE834(uint64_t a1, void *a2, void *a3, void *a4)
@@ -4227,7 +4180,7 @@ void sub_2547AE834(uint64_t a1, void *a2, void *a3, void *a4)
 
 id sub_2547AE920(uint64_t a1, uint64_t a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = [*(a1 + 32) objectForKey:a2];
   v4 = [v3 imHandle];
   v5 = [v3 handleFromContact];
@@ -4249,17 +4202,17 @@ LABEL_2:
     v11 = IMLogHandleForCategory();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      v15 = 134219010;
-      v16 = [v9 count];
-      v17 = 2112;
-      v18 = v4;
-      v19 = 2112;
-      v20 = v10;
-      v21 = 2112;
-      v22 = v9;
-      v23 = 2112;
-      v24 = v6;
-      _os_log_impl(&dword_25479E000, v11, OS_LOG_TYPE_INFO, "Found %ld contacts matching handle: %@. Using contact identifier %@ from list %@. Contact: %@", &v15, 0x34u);
+      v14 = 134219010;
+      v15 = [v9 count];
+      v16 = 2112;
+      v17 = v4;
+      v18 = 2112;
+      v19 = v10;
+      v20 = 2112;
+      v21 = v9;
+      v22 = 2112;
+      v23 = v6;
+      _os_log_impl(&dword_25479E000, v11, OS_LOG_TYPE_INFO, "Found %ld contacts matching handle: %@. Using contact identifier %@ from list %@. Contact: %@", &v14, 0x34u);
     }
 
     if (v6)
@@ -4273,17 +4226,15 @@ LABEL_2:
     v12 = IMLogHandleForCategory();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      v15 = 138412290;
-      v16 = v4;
-      _os_log_impl(&dword_25479E000, v12, OS_LOG_TYPE_INFO, "Did not find any contacts matching manually requested handle: %@", &v15, 0xCu);
+      v14 = 138412290;
+      v15 = v4;
+      _os_log_impl(&dword_25479E000, v12, OS_LOG_TYPE_INFO, "Did not find any contacts matching manually requested handle: %@", &v14, 0xCu);
     }
   }
 
   v6 = objc_alloc(MEMORY[0x277CD3E90]);
   v8 = [v6 __im_assistant_initAnonymousRecipientWithIMHandle:v4];
 LABEL_12:
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -4334,13 +4285,13 @@ uint64_t sub_2547B0EE8(uint64_t a1, void *a2, void *a3)
 
 void sub_2547B0F58(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = IMLogHandleForCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v10) = 0;
-    _os_log_impl(&dword_25479E000, v5, OS_LOG_TYPE_INFO, "Live photo photo write completed.", &v10, 2u);
+    LOWORD(v9) = 0;
+    _os_log_impl(&dword_25479E000, v5, OS_LOG_TYPE_INFO, "Live photo photo write completed.", &v9, 2u);
   }
 
   if (v4)
@@ -4350,30 +4301,28 @@ void sub_2547B0F58(uint64_t a1, void *a2)
     {
       v7 = *(a1 + 32);
       v8 = *(*(*(a1 + 48) + 8) + 40);
-      v10 = 138412546;
-      v11 = v7;
-      v12 = 2112;
-      v13 = v8;
-      _os_log_impl(&dword_25479E000, v6, OS_LOG_TYPE_INFO, "Failed to write the photo (%@) into the MessagesAssistantExtension Sandbox. Error: %@", &v10, 0x16u);
+      v9 = 138412546;
+      v10 = v7;
+      v11 = 2112;
+      v12 = v8;
+      _os_log_impl(&dword_25479E000, v6, OS_LOG_TYPE_INFO, "Failed to write the photo (%@) into the MessagesAssistantExtension Sandbox. Error: %@", &v9, 0x16u);
     }
 
     objc_storeStrong((*(*(a1 + 48) + 8) + 40), a2);
   }
 
   dispatch_group_leave(*(a1 + 40));
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2547B10A4(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = IMLogHandleForCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v10) = 0;
-    _os_log_impl(&dword_25479E000, v5, OS_LOG_TYPE_INFO, "Live photo video write completed.", &v10, 2u);
+    LOWORD(v9) = 0;
+    _os_log_impl(&dword_25479E000, v5, OS_LOG_TYPE_INFO, "Live photo video write completed.", &v9, 2u);
   }
 
   if (v4)
@@ -4383,82 +4332,76 @@ void sub_2547B10A4(uint64_t a1, void *a2)
     {
       v7 = *(a1 + 32);
       v8 = *(*(*(a1 + 48) + 8) + 40);
-      v10 = 138412546;
-      v11 = v7;
-      v12 = 2112;
-      v13 = v8;
-      _os_log_impl(&dword_25479E000, v6, OS_LOG_TYPE_INFO, "Failed to write the live photo video compliment (%@) into the MessagesAssistantExtension Sandbox. Error: %@", &v10, 0x16u);
+      v9 = 138412546;
+      v10 = v7;
+      v11 = 2112;
+      v12 = v8;
+      _os_log_impl(&dword_25479E000, v6, OS_LOG_TYPE_INFO, "Failed to write the live photo video compliment (%@) into the MessagesAssistantExtension Sandbox. Error: %@", &v9, 0x16u);
     }
 
     objc_storeStrong((*(*(a1 + 48) + 8) + 40), a2);
   }
 
   dispatch_group_leave(*(a1 + 40));
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2547B11F0(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (*(*(*(a1 + 72) + 8) + 40))
   {
-    v2 = *(a1 + 64);
-    v3 = *(*(a1 + 64) + 16);
-    v4 = *MEMORY[0x277D85DE8];
+    v2 = *(*(a1 + 64) + 16);
 
-    v3();
+    v2();
   }
 
   else
   {
-    v5 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v3 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v6 = *(a1 + 32);
-      v7 = *(a1 + 40);
-      v17 = 138412546;
-      v18 = v6;
-      v19 = 2112;
-      v20 = v7;
-      _os_log_impl(&dword_25479E000, v5, OS_LOG_TYPE_INFO, "Attempting to transfer a live photo with photo URL %@ and video URL %@", &v17, 0x16u);
+      v4 = *(a1 + 32);
+      v5 = *(a1 + 40);
+      v14 = 138412546;
+      v15 = v4;
+      v16 = 2112;
+      v17 = v5;
+      _os_log_impl(&dword_25479E000, v3, OS_LOG_TYPE_INFO, "Attempting to transfer a live photo with photo URL %@ and video URL %@", &v14, 0x16u);
     }
 
-    v8 = [*(a1 + 48) createNewOutgoingTransferWithLocalFileURL:*(a1 + 32)];
-    [*(a1 + 48) setAuxImageForTransfer:v8 value:1];
-    v9 = [MEMORY[0x277D1A9C0] AuxGUIDFromFileTransferGUID:v8];
-    [*(a1 + 48) registerGUID:v9 forNewOutgoingTransferWithLocalURL:*(a1 + 40)];
-    [*(a1 + 48) setAuxVideoForTransfer:v9 value:1];
-    [*(a1 + 48) registerTransferWithDaemon:v9];
-    [*(a1 + 48) registerTransferWithDaemon:v8];
-    [*(a1 + 56) addObject:v8];
-    v10 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v6 = [*(a1 + 48) createNewOutgoingTransferWithLocalFileURL:*(a1 + 32)];
+    [*(a1 + 48) setAuxImageForTransfer:v6 value:1];
+    v7 = [MEMORY[0x277D1A9C0] AuxGUIDFromFileTransferGUID:v6];
+    [*(a1 + 48) registerGUID:v7 forNewOutgoingTransferWithLocalURL:*(a1 + 40)];
+    [*(a1 + 48) setAuxVideoForTransfer:v7 value:1];
+    [*(a1 + 48) registerTransferWithDaemon:v7];
+    [*(a1 + 48) registerTransferWithDaemon:v6];
+    [*(a1 + 56) addObject:v6];
+    v8 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v11 = *(a1 + 56);
-      v17 = 138412290;
-      v18 = v11;
-      _os_log_impl(&dword_25479E000, v10, OS_LOG_TYPE_INFO, "The message's file transfer guids are: %@", &v17, 0xCu);
+      v9 = *(a1 + 56);
+      v14 = 138412290;
+      v15 = v9;
+      _os_log_impl(&dword_25479E000, v8, OS_LOG_TYPE_INFO, "The message's file transfer guids are: %@", &v14, 0xCu);
     }
 
-    v12 = [MEMORY[0x277CCA898] __im_attributedStringWithFileTransfers:*(a1 + 56)];
-    v13 = [v12 __im_attributedStringByAssigningMessagePartNumbers];
-    v14 = *(a1 + 64);
-    v15 = [MEMORY[0x277D18DA0] instantMessageWithText:v13 messageSubject:0 fileTransferGUIDs:*(a1 + 56) flags:5 threadIdentifier:0];
-    (*(v14 + 16))(v14, v15);
-
-    v16 = *MEMORY[0x277D85DE8];
+    v10 = [MEMORY[0x277CCA898] __im_attributedStringWithFileTransfers:*(a1 + 56)];
+    v11 = [v10 __im_attributedStringByAssigningMessagePartNumbers];
+    v12 = *(a1 + 64);
+    v13 = [MEMORY[0x277D18DA0] instantMessageWithText:v11 messageSubject:0 fileTransferGUIDs:*(a1 + 56) flags:5 threadIdentifier:0];
+    (*(v12 + 16))(v12, v13);
   }
 }
 
 void sub_2547B1468(uint64_t a1, uint64_t a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v4 = IMLogHandleForCategory();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v22) = 0;
-    _os_log_impl(&dword_25479E000, v4, OS_LOG_TYPE_INFO, "Photo write completed.", &v22, 2u);
+    LOWORD(v21) = 0;
+    _os_log_impl(&dword_25479E000, v4, OS_LOG_TYPE_INFO, "Photo write completed.", &v21, 2u);
   }
 
   if (a2)
@@ -4468,11 +4411,11 @@ void sub_2547B1468(uint64_t a1, uint64_t a2)
     {
       v6 = *(a1 + 32);
       v7 = *(*(*(a1 + 72) + 8) + 40);
-      v22 = 138412546;
-      v23 = v6;
-      v24 = 2112;
-      v25 = v7;
-      _os_log_impl(&dword_25479E000, v5, OS_LOG_TYPE_INFO, "Failed to write the photo (%@) into the MessagesAssistantExtension Sandbox. Error: %@", &v22, 0x16u);
+      v21 = 138412546;
+      v22 = v6;
+      v23 = 2112;
+      v24 = v7;
+      _os_log_impl(&dword_25479E000, v5, OS_LOG_TYPE_INFO, "Failed to write the photo (%@) into the MessagesAssistantExtension Sandbox. Error: %@", &v21, 0x16u);
     }
 
     (*(*(a1 + 64) + 16))();
@@ -4492,9 +4435,9 @@ void sub_2547B1468(uint64_t a1, uint64_t a2)
     {
       if (v15)
       {
-        v22 = 138412290;
-        v23 = v13;
-        _os_log_impl(&dword_25479E000, v14, OS_LOG_TYPE_INFO, "Building a file transfer message based on a file at %@", &v22, 0xCu);
+        v21 = 138412290;
+        v22 = v13;
+        _os_log_impl(&dword_25479E000, v14, OS_LOG_TYPE_INFO, "Building a file transfer message based on a file at %@", &v21, 0xCu);
       }
 
       v14 = objc_alloc_init(MEMORY[0x277CBEB18]);
@@ -4504,9 +4447,9 @@ void sub_2547B1468(uint64_t a1, uint64_t a2)
       v17 = IMLogHandleForCategory();
       if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
       {
-        v22 = 138412290;
-        v23 = v14;
-        _os_log_impl(&dword_25479E000, v17, OS_LOG_TYPE_INFO, "The message's file transfer guids are: %@", &v22, 0xCu);
+        v21 = 138412290;
+        v22 = v14;
+        _os_log_impl(&dword_25479E000, v17, OS_LOG_TYPE_INFO, "The message's file transfer guids are: %@", &v21, 0xCu);
       }
 
       v18 = [MEMORY[0x277CCA898] __im_attributedStringWithFileTransfers:v14];
@@ -4518,8 +4461,8 @@ void sub_2547B1468(uint64_t a1, uint64_t a2)
     {
       if (v15)
       {
-        LOWORD(v22) = 0;
-        _os_log_impl(&dword_25479E000, v14, OS_LOG_TYPE_INFO, "Provided localFileAttachmentURL is nil", &v22, 2u);
+        LOWORD(v21) = 0;
+        _os_log_impl(&dword_25479E000, v14, OS_LOG_TYPE_INFO, "Provided localFileAttachmentURL is nil", &v21, 2u);
       }
 
       v20 = 0;
@@ -4527,18 +4470,16 @@ void sub_2547B1468(uint64_t a1, uint64_t a2)
 
     (*(v8 + 16))(v8, v20);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2547B177C(uint64_t a1, uint64_t a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v4 = IMLogHandleForCategory();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v22) = 0;
-    _os_log_impl(&dword_25479E000, v4, OS_LOG_TYPE_INFO, "Video write completed.", &v22, 2u);
+    LOWORD(v21) = 0;
+    _os_log_impl(&dword_25479E000, v4, OS_LOG_TYPE_INFO, "Video write completed.", &v21, 2u);
   }
 
   if (a2)
@@ -4548,11 +4489,11 @@ void sub_2547B177C(uint64_t a1, uint64_t a2)
     {
       v6 = *(a1 + 32);
       v7 = *(*(*(a1 + 72) + 8) + 40);
-      v22 = 138412546;
-      v23 = v6;
-      v24 = 2112;
-      v25 = v7;
-      _os_log_impl(&dword_25479E000, v5, OS_LOG_TYPE_INFO, "Failed to write the video (%@) into the MessagesAssistantExtension Sandbox. Error: %@", &v22, 0x16u);
+      v21 = 138412546;
+      v22 = v6;
+      v23 = 2112;
+      v24 = v7;
+      _os_log_impl(&dword_25479E000, v5, OS_LOG_TYPE_INFO, "Failed to write the video (%@) into the MessagesAssistantExtension Sandbox. Error: %@", &v21, 0x16u);
     }
 
     (*(*(a1 + 64) + 16))();
@@ -4572,9 +4513,9 @@ void sub_2547B177C(uint64_t a1, uint64_t a2)
     {
       if (v15)
       {
-        v22 = 138412290;
-        v23 = v13;
-        _os_log_impl(&dword_25479E000, v14, OS_LOG_TYPE_INFO, "Building a file transfer message based on a file at %@", &v22, 0xCu);
+        v21 = 138412290;
+        v22 = v13;
+        _os_log_impl(&dword_25479E000, v14, OS_LOG_TYPE_INFO, "Building a file transfer message based on a file at %@", &v21, 0xCu);
       }
 
       v14 = objc_alloc_init(MEMORY[0x277CBEB18]);
@@ -4584,9 +4525,9 @@ void sub_2547B177C(uint64_t a1, uint64_t a2)
       v17 = IMLogHandleForCategory();
       if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
       {
-        v22 = 138412290;
-        v23 = v14;
-        _os_log_impl(&dword_25479E000, v17, OS_LOG_TYPE_INFO, "The message's file transfer guids are: %@", &v22, 0xCu);
+        v21 = 138412290;
+        v22 = v14;
+        _os_log_impl(&dword_25479E000, v17, OS_LOG_TYPE_INFO, "The message's file transfer guids are: %@", &v21, 0xCu);
       }
 
       v18 = [MEMORY[0x277CCA898] __im_attributedStringWithFileTransfers:v14];
@@ -4598,8 +4539,8 @@ void sub_2547B177C(uint64_t a1, uint64_t a2)
     {
       if (v15)
       {
-        LOWORD(v22) = 0;
-        _os_log_impl(&dword_25479E000, v14, OS_LOG_TYPE_INFO, "Provided localFileAttachmentURL is nil", &v22, 2u);
+        LOWORD(v21) = 0;
+        _os_log_impl(&dword_25479E000, v14, OS_LOG_TYPE_INFO, "Provided localFileAttachmentURL is nil", &v21, 2u);
       }
 
       v20 = 0;
@@ -4607,8 +4548,6 @@ void sub_2547B177C(uint64_t a1, uint64_t a2)
 
     (*(v8 + 16))(v8, v20);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t sub_2547B1A90(uint64_t a1, void *a2)
@@ -4621,7 +4560,7 @@ uint64_t sub_2547B1A90(uint64_t a1, void *a2)
 
 id sub_2547B1ACC(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = a4;
   if (MEMORY[0x259C19130]())
@@ -4629,28 +4568,28 @@ id sub_2547B1ACC(uint64_t a1, uint64_t a2, void *a3, void *a4)
     v7 = [objc_alloc(MEMORY[0x277CBDB70]) initWithStringValue:v6];
     if (v7)
     {
-      v36 = 0u;
-      v37 = 0u;
-      v34 = 0u;
       v35 = 0u;
-      v29 = v5;
+      v36 = 0u;
+      v33 = 0u;
+      v34 = 0u;
+      v28 = v5;
       v8 = [v5 phoneNumbers];
-      v9 = [v8 countByEnumeratingWithState:&v34 objects:v41 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v33 objects:v40 count:16];
       if (v9)
       {
         v10 = v9;
         v11 = 0;
-        v12 = *v35;
+        v12 = *v34;
         do
         {
           for (i = 0; i != v10; ++i)
           {
-            if (*v35 != v12)
+            if (*v34 != v12)
             {
               objc_enumerationMutation(v8);
             }
 
-            v14 = [*(*(&v34 + 1) + 8 * i) value];
+            v14 = [*(*(&v33 + 1) + 8 * i) value];
             v15 = [v14 isLikePhoneNumber:v7];
 
             if (v15)
@@ -4661,7 +4600,7 @@ id sub_2547B1ACC(uint64_t a1, uint64_t a2, void *a3, void *a4)
             }
           }
 
-          v10 = [v8 countByEnumeratingWithState:&v34 objects:v41 count:16];
+          v10 = [v8 countByEnumeratingWithState:&v33 objects:v40 count:16];
         }
 
         while (v10);
@@ -4674,7 +4613,7 @@ id sub_2547B1ACC(uint64_t a1, uint64_t a2, void *a3, void *a4)
 
       v25 = 2;
 LABEL_34:
-      v5 = v29;
+      v5 = v28;
       goto LABEL_35;
     }
 
@@ -4687,28 +4626,28 @@ LABEL_34:
     if (IMStringIsEmail())
     {
       v7 = IMNormalizeFormattedString();
+      v29 = 0u;
       v30 = 0u;
       v31 = 0u;
       v32 = 0u;
-      v33 = 0u;
-      v29 = v5;
+      v28 = v5;
       v17 = [v5 emailAddresses];
-      v18 = [v17 countByEnumeratingWithState:&v30 objects:v40 count:16];
+      v18 = [v17 countByEnumeratingWithState:&v29 objects:v39 count:16];
       if (v18)
       {
         v19 = v18;
         v11 = 0;
-        v20 = *v31;
+        v20 = *v30;
         do
         {
           for (j = 0; j != v19; ++j)
           {
-            if (*v31 != v20)
+            if (*v30 != v20)
             {
               objc_enumerationMutation(v17);
             }
 
-            v22 = [*(*(&v30 + 1) + 8 * j) value];
+            v22 = [*(*(&v29 + 1) + 8 * j) value];
             v23 = IMNormalizeFormattedString();
 
             if ([v23 isEqual:v7])
@@ -4719,7 +4658,7 @@ LABEL_34:
             }
           }
 
-          v19 = [v17 countByEnumeratingWithState:&v30 objects:v40 count:16];
+          v19 = [v17 countByEnumeratingWithState:&v29 objects:v39 count:16];
         }
 
         while (v19);
@@ -4745,7 +4684,7 @@ LABEL_34:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v39 = v6;
+      v38 = v6;
       _os_log_impl(&dword_25479E000, v7, OS_LOG_TYPE_INFO, "Could not determine person handle label or type because [IMHandle normalizedID] was neither a phone number nor an email address: %@", buf, 0xCu);
     }
 
@@ -4758,14 +4697,12 @@ LABEL_35:
 LABEL_36:
   v26 = [objc_alloc(MEMORY[0x277CD3E98]) initWithValue:v6 type:v25 label:v11];
 
-  v27 = *MEMORY[0x277D85DE8];
-
   return v26;
 }
 
 uint64_t sub_2547B1E30(uint64_t a1, uint64_t a2, void *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a3;
   if ([v3 length])
   {
@@ -4789,9 +4726,9 @@ uint64_t sub_2547B1E30(uint64_t a1, uint64_t a2, void *a3)
       v5 = IMLogHandleForCategory();
       if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
-        v8 = 138412290;
-        v9 = v3;
-        _os_log_impl(&dword_25479E000, v5, OS_LOG_TYPE_INFO, "%@ is an invalid personHandle.value.", &v8, 0xCu);
+        v7 = 138412290;
+        v8 = v3;
+        _os_log_impl(&dword_25479E000, v5, OS_LOG_TYPE_INFO, "%@ is an invalid personHandle.value.", &v7, 0xCu);
       }
 
       v4 = 4;
@@ -4803,7 +4740,6 @@ uint64_t sub_2547B1E30(uint64_t a1, uint64_t a2, void *a3)
     v4 = 0;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -4858,16 +4794,16 @@ uint64_t sub_2547B2084()
   return MEMORY[0x2821F96F8]();
 }
 
-id _IMAssistantCoreSendMessageSignpostLogHandle()
+id _IMAssistantCoreSendMessageSignpostLogHandle(uint64_t a1)
 {
   if (qword_27F610F60 != -1)
   {
     sub_2547C8528();
   }
 
-  v1 = qword_27F610F58;
+  v2 = qword_27F610F58;
 
-  return v1;
+  return v2;
 }
 
 uint64_t sub_2547B210C()
@@ -5038,34 +4974,19 @@ id sub_2547B26F0(uint64_t a1, uint64_t a2, void *a3)
 
 id sub_2547B27EC(uint64_t a1, uint64_t a2, void *a3, void *a4, void *a5)
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a4;
   v9 = a5;
   v10 = [MEMORY[0x277D1A9B8] sharedFeatureFlags];
   v11 = [v10 stewieEnabled];
 
-  if (v11 && [v9 isEqualToString:*MEMORY[0x277D1A6F8]])
+  if (v11 && [v9 isEqualToString:*MEMORY[0x277D1A6F8]] || (objc_msgSend(MEMORY[0x277D1A9B8], "sharedFeatureFlags"), v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v12, "isTranscriptSharingEnabled"), v12, v13) && (objc_msgSend(*MEMORY[0x277D19D58], "lowercaseString"), v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v9, "hasSuffix:", v14), v14, v15))
   {
-    goto LABEL_5;
-  }
+    v16 = IMSharedUtilitiesFrameworkBundle();
+    v17 = [v16 localizedStringForKey:@"TS_NOTIFICATION_EMERGENCY_SUBTITLE_DISPLAYNAME" value:&stru_286693278 table:@"IMSharedUtilities-SYDROB_FEATURES"];
 
-  v12 = [MEMORY[0x277D1A9B8] sharedFeatureFlags];
-  v13 = [v12 isTranscriptSharingEnabled];
-
-  if (v13)
-  {
-    v14 = [*MEMORY[0x277D19D58] lowercaseString];
-    v15 = [v9 hasSuffix:v14];
-
-    if (v15)
-    {
-LABEL_5:
-      v16 = IMSharedUtilitiesFrameworkBundle();
-      v17 = [v16 localizedStringForKey:@"TS_NOTIFICATION_EMERGENCY_SUBTITLE_DISPLAYNAME" value:&stru_286693278 table:@"IMSharedUtilities-SYDROB_FEATURES"];
-
-      goto LABEL_35;
-    }
+    goto LABEL_35;
   }
 
   v18 = MEMORY[0x259C19110](v9);
@@ -5084,21 +5005,21 @@ LABEL_5:
   {
     v22 = [MEMORY[0x277D1A8D0] placeholderNameForBrandURI:v21];
     v23 = dispatch_semaphore_create(0);
-    v44 = 0;
-    v45 = &v44;
-    v46 = 0x3032000000;
-    v47 = sub_2547B2D04;
-    v48 = sub_2547B2D14;
-    v49 = 0;
+    v43 = 0;
+    v44 = &v43;
+    v45 = 0x3032000000;
+    v46 = sub_2547B2D04;
+    v47 = sub_2547B2D14;
+    v48 = 0;
     v24 = [MEMORY[0x277D18D88] sharedInstance];
-    v38 = MEMORY[0x277D85DD0];
-    v39 = 3221225472;
-    v40 = sub_2547B2D1C;
-    v41 = &unk_279786838;
-    v43 = &v44;
+    v37 = MEMORY[0x277D85DD0];
+    v38 = 3221225472;
+    v39 = sub_2547B2D1C;
+    v40 = &unk_279786838;
+    v42 = &v43;
     v25 = v23;
-    v42 = v25;
-    v26 = [v24 businessNameForUID:v21 updateHandler:&v38];
+    v41 = v25;
+    v26 = [v24 businessNameForUID:v21 updateHandler:&v37];
 
     if ([v26 length])
     {
@@ -5106,7 +5027,7 @@ LABEL_5:
       if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v51 = v26;
+        v50 = v26;
         _os_log_impl(&dword_25479E000, v27, OS_LOG_TYPE_INFO, "Using cached business name: %@", buf, 0xCu);
       }
 
@@ -5136,18 +5057,18 @@ LABEL_5:
       v33 = IMLogHandleForCategory();
       if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
       {
-        v34 = v45[5];
+        v34 = v44[5];
         *buf = 138412290;
-        v51 = v34;
+        v50 = v34;
         _os_log_impl(&dword_25479E000, v33, OS_LOG_TYPE_INFO, "Business name lookup completed with name: %@", buf, 0xCu);
       }
 
-      if (![v45[5] length])
+      if (![v44[5] length])
       {
         goto LABEL_31;
       }
 
-      v28 = v45[5];
+      v28 = v44[5];
     }
 
     v35 = v28;
@@ -5156,7 +5077,7 @@ LABEL_5:
 LABEL_31:
     v17 = v22;
 
-    _Block_object_dispose(&v44, 8);
+    _Block_object_dispose(&v43, 8);
     goto LABEL_34;
   }
 
@@ -5187,14 +5108,13 @@ LABEL_18:
 LABEL_34:
 
 LABEL_35:
-  v36 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
 
-void sub_2547B2CD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2547B2CD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5220,7 +5140,7 @@ intptr_t sub_2547B2D1C(uint64_t a1, void *a2)
 
 id sub_2547B2D6C(void *a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CBEB40]);
   v3 = [a1 contactIdentifier];
   if ([v3 length])
@@ -5229,32 +5149,32 @@ id sub_2547B2D6C(void *a1)
   }
 
   v4 = [a1 siriMatches];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = [*(*(&v13 + 1) + 8 * i) contactIdentifier];
+        v9 = [*(*(&v12 + 1) + 8 * i) contactIdentifier];
         if ([v9 length])
         {
           [v2 addObject:v9];
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
@@ -5262,14 +5182,12 @@ id sub_2547B2D6C(void *a1)
 
   v10 = [v2 array];
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 uint64_t sub_2547B2EE8(void *a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v1 = [a1 siriMatches];
   v2 = v1;
   if (v1 && [v1 count] >= 2)
@@ -5279,27 +5197,27 @@ uint64_t sub_2547B2EE8(void *a1)
 
     if (v5 && [v5 length])
     {
-      v17 = 0u;
-      v18 = 0u;
-      v15 = 0u;
       v16 = 0u;
+      v17 = 0u;
+      v14 = 0u;
+      v15 = 0u;
       v6 = v2;
-      v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v7)
       {
         v8 = v7;
-        v9 = *v16;
+        v9 = *v15;
         while (2)
         {
           v10 = 0;
           do
           {
-            if (*v16 != v9)
+            if (*v15 != v9)
             {
               objc_enumerationMutation(v6);
             }
 
-            v11 = [*(*(&v15 + 1) + 8 * v10) contactIdentifier];
+            v11 = [*(*(&v14 + 1) + 8 * v10) contactIdentifier];
             v12 = [v5 isEqualToString:v11];
 
             if (!v12)
@@ -5312,7 +5230,7 @@ uint64_t sub_2547B2EE8(void *a1)
           }
 
           while (v8 != v10);
-          v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+          v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
           if (v8)
           {
             continue;
@@ -5337,13 +5255,12 @@ LABEL_17:
     v3 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 id sub_2547B3078(void *a1, uint64_t a2, void *a3, void *a4)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v6 = a4;
   v7 = a3;
   v8 = [v7 address];
@@ -5355,9 +5272,9 @@ id sub_2547B3078(void *a1, uint64_t a2, void *a3, void *a4)
   v13 = IMLogHandleForCategory();
   if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
-    v22 = 138412290;
-    v23 = v12;
-    _os_log_impl(&dword_25479E000, v13, OS_LOG_TYPE_INFO, "Normalized handle %@", &v22, 0xCu);
+    v21 = 138412290;
+    v22 = v12;
+    _os_log_impl(&dword_25479E000, v13, OS_LOG_TYPE_INFO, "Normalized handle %@", &v21, 0xCu);
   }
 
   v14 = [MEMORY[0x277CD3E98] __im_assistant_extractIntentHandleLabelAndTypeFromContact:v6 forNormalizedID:v12];
@@ -5378,14 +5295,12 @@ id sub_2547B3078(void *a1, uint64_t a2, void *a3, void *a4)
   v19 = [v7 isMe];
   [v18 setIsMe:v19];
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return v18;
 }
 
 void sub_2547B3784(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 count])
   {
@@ -5394,20 +5309,20 @@ void sub_2547B3784(uint64_t a1, void *a2)
       v10 = [v3 objectAtIndexedSubscript:0];
       v11 = *(a1 + 40);
       v12 = [*(a1 + 32) messageIdentifier];
-      v22 = v12;
-      v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v22 count:1];
-      v17[0] = MEMORY[0x277D85DD0];
-      v17[1] = 3221225472;
-      v17[2] = sub_2547B39F0;
-      v17[3] = &unk_279786860;
-      v21 = *(a1 + 48);
-      v18 = v10;
+      v21 = v12;
+      v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v21 count:1];
+      v16[0] = MEMORY[0x277D85DD0];
+      v16[1] = 3221225472;
+      v16[2] = sub_2547B39F0;
+      v16[3] = &unk_279786860;
+      v20 = *(a1 + 48);
+      v17 = v10;
       v14 = *(a1 + 32);
       v15 = *(a1 + 40);
-      v19 = v14;
-      v20 = v15;
+      v18 = v14;
+      v19 = v15;
       v9 = v10;
-      [v11 chatsForMessageIdentifiers:v13 completion:v17];
+      [v11 chatsForMessageIdentifiers:v13 completion:v16];
 
       goto LABEL_11;
     }
@@ -5430,7 +5345,7 @@ void sub_2547B3784(uint64_t a1, void *a2)
     {
       v8 = [*(a1 + 32) messageIdentifier];
       *buf = 138412290;
-      v24 = v8;
+      v23 = v8;
       _os_log_impl(&dword_25479E000, v7, OS_LOG_TYPE_INFO, "No messages found that match the provided identifier %@", buf, 0xCu);
     }
 
@@ -5441,13 +5356,11 @@ void sub_2547B3784(uint64_t a1, void *a2)
   v9 = [v5 initWithCode:v6 userActivity:0];
   (*(*(a1 + 48) + 16))();
 LABEL_11:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2547B39F0(uint64_t a1, void *a2)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 count])
   {
@@ -5482,7 +5395,7 @@ void sub_2547B39F0(uint64_t a1, void *a2)
       if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v36 = v4;
+        v35 = v4;
         _os_log_impl(&dword_25479E000, v11, OS_LOG_TYPE_INFO, "Will not send to chat in Un-Joined state: %@", buf, 0xCu);
       }
 
@@ -5525,174 +5438,174 @@ LABEL_26:
     }
 
     v13 = [*(a1 + 32) body];
-    v15 = [v13 __im_messagePartIndexes];
-    v16 = [v15 count];
-    v17 = IMLogHandleForCategory();
-    v18 = os_log_type_enabled(v17, OS_LOG_TYPE_INFO);
-    if (v16 != 1)
+    v14 = [v13 __im_messagePartIndexes];
+    v15 = [v14 count];
+    v16 = IMLogHandleForCategory();
+    v17 = os_log_type_enabled(v16, OS_LOG_TYPE_INFO);
+    if (v15 != 1)
     {
-      if (v18)
+      if (v17)
       {
         *buf = 0;
-        _os_log_impl(&dword_25479E000, v17, OS_LOG_TYPE_INFO, "Message has more than one part, requiring app launch", buf, 2u);
+        _os_log_impl(&dword_25479E000, v16, OS_LOG_TYPE_INFO, "Message has more than one part, requiring app launch", buf, 2u);
       }
 
-      v24 = [objc_alloc(MEMORY[0x277CD3BC8]) initWithCode:5 userActivity:0];
+      v23 = [objc_alloc(MEMORY[0x277CD3BC8]) initWithCode:5 userActivity:0];
       goto LABEL_71;
     }
 
-    if (v18)
+    if (v17)
     {
       *buf = 134217984;
-      v36 = [v15 firstIndex];
-      _os_log_impl(&dword_25479E000, v17, OS_LOG_TYPE_INFO, "Determining edit eligiblity of message part with index %lu", buf, 0xCu);
+      v35 = [v14 firstIndex];
+      _os_log_impl(&dword_25479E000, v16, OS_LOG_TYPE_INFO, "Determining edit eligiblity of message part with index %lu", buf, 0xCu);
     }
 
-    v19 = 1;
-    v20 = [*(a1 + 32) eligibilityForEditType:1 messagePartIndex:{objc_msgSend(v15, "firstIndex")}];
-    v21 = 3;
-    if (v20 <= 3)
+    v18 = 1;
+    v19 = [*(a1 + 32) eligibilityForEditType:1 messagePartIndex:{objc_msgSend(v14, "firstIndex")}];
+    v20 = 3;
+    if (v19 <= 3)
     {
-      if (v20 > 1)
+      if (v19 > 1)
       {
-        if (v20 == 2)
+        if (v19 == 2)
         {
-          v22 = IMLogHandleForCategory();
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+          v21 = IMLogHandleForCategory();
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
           {
             *buf = 0;
-            _os_log_impl(&dword_25479E000, v22, OS_LOG_TYPE_INFO, "Message service does not support editing", buf, 2u);
+            _os_log_impl(&dword_25479E000, v21, OS_LOG_TYPE_INFO, "Message service does not support editing", buf, 2u);
           }
 
-          v19 = 0;
-          v21 = 9;
+          v18 = 0;
+          v20 = 9;
         }
 
         else
         {
-          v22 = IMLogHandleForCategory();
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+          v21 = IMLogHandleForCategory();
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
           {
             *buf = 0;
-            _os_log_impl(&dword_25479E000, v22, OS_LOG_TYPE_INFO, "Message is too old to be edited", buf, 2u);
+            _os_log_impl(&dword_25479E000, v21, OS_LOG_TYPE_INFO, "Message is too old to be edited", buf, 2u);
           }
 
-          v19 = 0;
-          v21 = 7;
+          v18 = 0;
+          v20 = 7;
         }
 
         goto LABEL_68;
       }
 
-      if (!v20)
+      if (!v19)
       {
-        v22 = IMLogHandleForCategory();
-        v19 = 1;
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+        v21 = IMLogHandleForCategory();
+        v18 = 1;
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          v19 = 1;
-          _os_log_impl(&dword_25479E000, v22, OS_LOG_TYPE_INFO, "Messages is eligible for editing", buf, 2u);
+          v18 = 1;
+          _os_log_impl(&dword_25479E000, v21, OS_LOG_TYPE_INFO, "Messages is eligible for editing", buf, 2u);
         }
 
-        v21 = 3;
+        v20 = 3;
         goto LABEL_68;
       }
 
-      if (v20 != 1)
+      if (v19 != 1)
       {
         goto LABEL_69;
       }
 
-      v22 = IMLogHandleForCategory();
-      if (!os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+      v21 = IMLogHandleForCategory();
+      if (!os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
       {
         goto LABEL_67;
       }
 
       *buf = 0;
-      v23 = "Messages from different senders cannot be edited";
+      v22 = "Messages from different senders cannot be edited";
       goto LABEL_66;
     }
 
-    if (v20 <= 5)
+    if (v19 <= 5)
     {
-      if (v20 == 4)
+      if (v19 == 4)
       {
-        v22 = IMLogHandleForCategory();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+        v21 = IMLogHandleForCategory();
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_25479E000, v22, OS_LOG_TYPE_INFO, "Plugin message types do not support editing", buf, 2u);
+          _os_log_impl(&dword_25479E000, v21, OS_LOG_TYPE_INFO, "Plugin message types do not support editing", buf, 2u);
         }
 
-        v19 = 0;
-        v21 = 8;
+        v18 = 0;
+        v20 = 8;
         goto LABEL_68;
       }
 
-      v22 = IMLogHandleForCategory();
-      if (!os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+      v21 = IMLogHandleForCategory();
+      if (!os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
       {
         goto LABEL_67;
       }
 
       *buf = 0;
-      v23 = "Messages has been edited too many times";
+      v22 = "Messages has been edited too many times";
     }
 
     else
     {
-      if (v20 != 6)
+      if (v19 != 6)
       {
-        if (v20 != 7)
+        if (v19 != 7)
         {
-          if (v20 != 8)
+          if (v19 != 8)
           {
             goto LABEL_69;
           }
 
-          v22 = IMLogHandleForCategory();
-          if (!os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+          v21 = IMLogHandleForCategory();
+          if (!os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
           {
             goto LABEL_67;
           }
 
           *buf = 0;
-          v23 = "Scheduled message is in a failed state and can't be edited.";
+          v22 = "Scheduled message is in a failed state and can't be edited.";
           goto LABEL_66;
         }
 
-        v22 = IMLogHandleForCategory();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+        v21 = IMLogHandleForCategory();
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          v23 = "Scheduled Messages is assumed to be sent but not yet received ack from server for sending";
+          v22 = "Scheduled Messages is assumed to be sent but not yet received ack from server for sending";
           goto LABEL_66;
         }
 
 LABEL_67:
-        v19 = 0;
-        v21 = 4;
+        v18 = 0;
+        v20 = 4;
 LABEL_68:
 
 LABEL_69:
-        v24 = [objc_alloc(MEMORY[0x277CD3BC8]) initWithCode:v21 userActivity:0];
-        if (v19)
+        v23 = [objc_alloc(MEMORY[0x277CD3BC8]) initWithCode:v20 userActivity:0];
+        if (v18)
         {
-          v32 = MEMORY[0x277D1AA70];
-          v25 = *(a1 + 32);
-          v33 = [v25 body];
-          v26 = [v33 __im_messagePartIndexes];
-          v27 = [v26 firstIndex];
-          v34 = v15;
-          v28 = objc_alloc(MEMORY[0x277CCA898]);
-          v29 = [*(a1 + 40) editedContent];
-          v30 = [v28 initWithString:v29];
-          v31 = [v32 editedMessageItemWithOriginalMessageItem:v25 editedPartIndex:v27 newPartText:v30 newPartTranslation:0];
+          v31 = MEMORY[0x277D1AA70];
+          v24 = *(a1 + 32);
+          v32 = [v24 body];
+          v25 = [v32 __im_messagePartIndexes];
+          v26 = [v25 firstIndex];
+          v33 = v14;
+          v27 = objc_alloc(MEMORY[0x277CCA898]);
+          v28 = [*(a1 + 40) editedContent];
+          v29 = [v27 initWithString:v28];
+          v30 = [v31 editedMessageItemWithOriginalMessageItem:v24 editedPartIndex:v26 newPartText:v29 newPartTranslation:0];
 
-          v15 = v34;
-          [*(a1 + 48) sendEditedMessageItem:v31 originalMessageItem:*(a1 + 32) chat:v4 backwardCompatabilityText:0];
+          v14 = v33;
+          [*(a1 + 48) sendEditedMessageItem:v30 originalMessageItem:*(a1 + 32) chat:v4 backwardCompatabilityText:0];
         }
 
 LABEL_71:
@@ -5701,18 +5614,18 @@ LABEL_71:
         goto LABEL_26;
       }
 
-      v22 = IMLogHandleForCategory();
-      if (!os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+      v21 = IMLogHandleForCategory();
+      if (!os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
       {
         goto LABEL_67;
       }
 
       *buf = 0;
-      v23 = "Messages is currently sending";
+      v22 = "Messages is currently sending";
     }
 
 LABEL_66:
-    _os_log_impl(&dword_25479E000, v22, OS_LOG_TYPE_INFO, v23, buf, 2u);
+    _os_log_impl(&dword_25479E000, v21, OS_LOG_TYPE_INFO, v22, buf, 2u);
     goto LABEL_67;
   }
 
@@ -5726,45 +5639,43 @@ LABEL_66:
   v4 = [objc_alloc(MEMORY[0x277CD3BC8]) initWithCode:4 userActivity:0];
   (*(*(a1 + 56) + 16))();
 LABEL_27:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2547B4428(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 count])
   {
     v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
     v5 = v3;
-    v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v17;
+      v8 = *v16;
       do
       {
         v9 = 0;
         do
         {
-          if (*v17 != v8)
+          if (*v16 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = [*(*(&v16 + 1) + 8 * v9) chatIdentifier];
+          v10 = [*(*(&v15 + 1) + 8 * v9) chatIdentifier];
           [v4 addObject:v10];
 
           ++v9;
         }
 
         while (v7 != v9);
-        v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v7);
@@ -5774,7 +5685,7 @@ void sub_2547B4428(uint64_t a1, void *a2)
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v22 = v4;
+      v21 = v4;
       _os_log_impl(&dword_25479E000, v11, OS_LOG_TYPE_INFO, "Searching for chat corresponding to conversation identifiers %@", buf, 0xCu);
     }
 
@@ -5789,14 +5700,12 @@ void sub_2547B4428(uint64_t a1, void *a2)
     {
       v14 = *(a1 + 32);
       *buf = 138412290;
-      v22 = v14;
+      v21 = v14;
       _os_log_impl(&dword_25479E000, v13, OS_LOG_TYPE_INFO, "Exptected at least one message matching the message identifiers %@", buf, 0xCu);
     }
 
     (*(*(a1 + 48) + 16))();
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 id sub_2547B4660(void *a1, uint64_t a2, void *a3)
@@ -5820,16 +5729,15 @@ id sub_2547B4660(void *a1, uint64_t a2, void *a3)
   return v6;
 }
 
-void sub_2547B473C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2547B473C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t sub_2547B4754(uint64_t a1)
 {
-  v2 = *(*(*(a1 + 40) + 8) + 24);
   result = (*(*(a1 + 32) + 16))();
   ++*(*(*(a1 + 40) + 8) + 24);
   return result;
@@ -5847,17 +5755,15 @@ void sub_2547B4A48(uint64_t a1, void *a2)
     _os_log_impl(&dword_25479E000, v4, OS_LOG_TYPE_INFO, "Calling resolveRecipients completion handler with result: %@", &v9, 0xCu);
   }
 
-  (*(*(a1 + 32) + 16))();
-  v5 = _IMAssistantCoreSearchForMessageSignpostLogHandle();
-  v6 = v5;
-  v7 = *(a1 + 40);
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
+  v5 = (*(*(a1 + 32) + 16))();
+  v6 = _IMAssistantCoreSearchForMessageSignpostLogHandle(v5);
+  v7 = v6;
+  v8 = *(a1 + 40);
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
   {
     LOWORD(v9) = 0;
-    _os_signpost_emit_with_name_impl(&dword_25479E000, v6, OS_SIGNPOST_INTERVAL_END, v7, "resolveRecipientsForSearchForMessages", &unk_2547CAD0B, &v9, 2u);
+    _os_signpost_emit_with_name_impl(&dword_25479E000, v7, OS_SIGNPOST_INTERVAL_END, v8, "resolveRecipientsForSearchForMessages", &unk_2547CAD0B, &v9, 2u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2547B4D48(uint64_t a1, void *a2)
@@ -5872,17 +5778,16 @@ void sub_2547B4D48(uint64_t a1, void *a2)
     _os_log_impl(&dword_25479E000, v4, OS_LOG_TYPE_INFO, "Calling resolveSenders completion handler with result: %@", &v9, 0xCu);
   }
 
-  v5 = _IMAssistantCoreSearchForMessageSignpostLogHandle();
-  v6 = v5;
-  v7 = *(a1 + 40);
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
+  v6 = _IMAssistantCoreSearchForMessageSignpostLogHandle(v5);
+  v7 = v6;
+  v8 = *(a1 + 40);
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
   {
     LOWORD(v9) = 0;
-    _os_signpost_emit_with_name_impl(&dword_25479E000, v6, OS_SIGNPOST_INTERVAL_END, v7, "resolveSendersForSearchForMessages", &unk_2547CAD0B, &v9, 2u);
+    _os_signpost_emit_with_name_impl(&dword_25479E000, v7, OS_SIGNPOST_INTERVAL_END, v8, "resolveSendersForSearchForMessages", &unk_2547CAD0B, &v9, 2u);
   }
 
   (*(*(a1 + 32) + 16))();
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2547B5544(uint64_t a1)
@@ -5900,22 +5805,21 @@ void sub_2547B5544(uint64_t a1)
     _os_log_impl(&dword_25479E000, v5, OS_LOG_TYPE_INFO, "Calling resolveSpeakableGroupNames completion handler with results: %@", &v10, 0xCu);
   }
 
-  v6 = _IMAssistantCoreSearchForMessageSignpostLogHandle();
-  v7 = v6;
-  v8 = *(a1 + 56);
-  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
+  v7 = _IMAssistantCoreSearchForMessageSignpostLogHandle(v6);
+  v8 = v7;
+  v9 = *(a1 + 56);
+  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
     LOWORD(v10) = 0;
-    _os_signpost_emit_with_name_impl(&dword_25479E000, v7, OS_SIGNPOST_INTERVAL_END, v8, "resolveSpeakableGroupNamesForSearchForMessages", &unk_2547CAD0B, &v10, 2u);
+    _os_signpost_emit_with_name_impl(&dword_25479E000, v8, OS_SIGNPOST_INTERVAL_END, v9, "resolveSpeakableGroupNamesForSearchForMessages", &unk_2547CAD0B, &v10, 2u);
   }
 
   (*(*(a1 + 48) + 16))();
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2547B5890(uint64_t a1)
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   v2 = IMLogHandleForCategory();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
@@ -5933,16 +5837,16 @@ void sub_2547B5890(uint64_t a1)
   {
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v49 = 0x3032000000;
-    v50 = sub_2547B5E3C;
-    v51 = sub_2547B5E4C;
-    v52 = 0;
-    v40 = 0;
-    v41 = &v40;
-    v42 = 0x3032000000;
-    v43 = sub_2547B5E3C;
-    v44 = sub_2547B5E4C;
-    v45 = 0;
+    v48 = 0x3032000000;
+    v49 = sub_2547B5E3C;
+    v50 = sub_2547B5E4C;
+    v51 = 0;
+    v39 = 0;
+    v40 = &v39;
+    v41 = 0x3032000000;
+    v42 = sub_2547B5E3C;
+    v43 = sub_2547B5E4C;
+    v44 = 0;
     v7 = [*(a1 + 32) identifiers];
     v8 = [v7 count] == 0;
 
@@ -5955,20 +5859,20 @@ void sub_2547B5890(uint64_t a1)
       {
         v28 = *(a1 + 32);
         v27 = *(a1 + 40);
-        v39[0] = MEMORY[0x277D85DD0];
-        v39[1] = 3221225472;
-        v39[2] = sub_2547B5E54;
-        v39[3] = &unk_279786950;
-        v39[4] = &buf;
-        v39[5] = &v40;
-        [v27 resolveRecipientsAndSender:v28 withCompletion:v39];
+        v38[0] = MEMORY[0x277D85DD0];
+        v38[1] = 3221225472;
+        v38[2] = sub_2547B5E54;
+        v38[3] = &unk_279786950;
+        v38[4] = &buf;
+        v38[5] = &v39;
+        [v27 resolveRecipientsAndSender:v28 withCompletion:v38];
         v16 = [*(a1 + 32) contents];
         v14 = [*(a1 + 32) speakableGroupNames];
         v12 = [*(a1 + 32) conversationIdentifiers];
         v13 = [*(a1 + 32) dateTimeRange];
         v15 = 0;
         v17 = 0;
-        v35 = [*(a1 + 32) attributes];
+        v34 = [*(a1 + 32) attributes];
       }
 
       else
@@ -5978,9 +5882,9 @@ void sub_2547B5890(uint64_t a1)
         {
           v25 = [*(a1 + 32) notificationIdentifiers];
           v26 = [v25 count];
-          *v46 = 67109120;
-          v47 = v26;
-          _os_log_impl(&dword_25479E000, v24, OS_LOG_TYPE_INFO, "Intent with %u notificationIdentifiers, looking at only unread messages from those threads", v46, 8u);
+          *v45 = 67109120;
+          v46 = v26;
+          _os_log_impl(&dword_25479E000, v24, OS_LOG_TYPE_INFO, "Intent with %u notificationIdentifiers, looking at only unread messages from those threads", v45, 8u);
         }
 
         [*(a1 + 32) notificationIdentifiers];
@@ -5989,7 +5893,7 @@ void sub_2547B5890(uint64_t a1)
         v14 = 0;
         v17 = 0;
         v16 = 0;
-        v15 = v35 = 2;
+        v15 = v34 = 2;
       }
     }
 
@@ -6000,9 +5904,9 @@ void sub_2547B5890(uint64_t a1)
       {
         v10 = [*(a1 + 32) identifiers];
         v11 = [v10 count];
-        *v46 = 67109120;
-        v47 = v11;
-        _os_log_impl(&dword_25479E000, v9, OS_LOG_TYPE_INFO, "Intent with %u identifiers, looking at both unread and read messages", v46, 8u);
+        *v45 = 67109120;
+        v46 = v11;
+        _os_log_impl(&dword_25479E000, v9, OS_LOG_TYPE_INFO, "Intent with %u identifiers, looking at both unread and read messages", v45, 8u);
       }
 
       [*(a1 + 32) identifiers];
@@ -6011,23 +5915,23 @@ void sub_2547B5890(uint64_t a1)
       v14 = 0;
       v15 = 0;
       v16 = 0;
-      v17 = v35 = 3;
+      v17 = v34 = 3;
     }
 
     v29 = a1;
     v30 = *(a1 + 40);
     v31 = *(*(&buf + 1) + 40);
-    v32 = v41[5];
-    v36[0] = MEMORY[0x277D85DD0];
-    v36[1] = 3221225472;
-    v36[2] = sub_2547B5EF4;
-    v36[3] = &unk_279786380;
+    v32 = v40[5];
+    v35[0] = MEMORY[0x277D85DD0];
+    v35[1] = 3221225472;
+    v35[2] = sub_2547B5EF4;
+    v35[3] = &unk_279786380;
     v33 = *(v29 + 48);
-    v38 = *(v29 + 56);
-    v37 = v33;
-    [v30 searchMessagesWithContents:v16 messageIdentifiers:v17 notificationIdentifiers:v15 chatNames:v14 conversationIdentifiers:v12 recipients:v31 senders:v32 dateTimeRange:v13 attributes:v35 completion:v36];
+    v37 = *(v29 + 56);
+    v36 = v33;
+    [v30 searchMessagesWithContents:v16 messageIdentifiers:v17 notificationIdentifiers:v15 chatNames:v14 conversationIdentifiers:v12 recipients:v31 senders:v32 dateTimeRange:v13 attributes:v34 completion:v35];
 
-    _Block_object_dispose(&v40, 8);
+    _Block_object_dispose(&v39, 8);
     _Block_object_dispose(&buf, 8);
   }
 
@@ -6041,7 +5945,7 @@ void sub_2547B5890(uint64_t a1)
     }
 
     v16 = [objc_alloc(MEMORY[0x277CD4050]) initWithCode:6 userActivity:0];
-    v19 = _IMAssistantCoreSearchForMessageSignpostLogHandle();
+    v19 = _IMAssistantCoreSearchForMessageSignpostLogHandle(v16);
     v20 = v19;
     v21 = *(a1 + 56);
     if (v21 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
@@ -6052,14 +5956,13 @@ void sub_2547B5890(uint64_t a1)
 
     (*(*(a1 + 48) + 16))();
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
-void sub_2547B5E00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_2547B5E00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
-  _Block_object_dispose(&a27, 8);
-  _Block_object_dispose((v27 - 144), 8);
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v26 - 144), 8);
   _Unwind_Resume(a1);
 }
 
@@ -6101,31 +6004,31 @@ void sub_2547B5EF4(uint64_t a1, void *a2)
       _os_log_impl(&dword_25479E000, v5, OS_LOG_TYPE_INFO, "Returning success response with %ld messages", &v12, 0xCu);
     }
 
-    v6 = _IMAssistantCoreSearchForMessageSignpostLogHandle();
-    v7 = v6;
-    v8 = *(a1 + 40);
-    if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
+    v7 = _IMAssistantCoreSearchForMessageSignpostLogHandle(v6);
+    v8 = v7;
+    v9 = *(a1 + 40);
+    if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
     {
       LOWORD(v12) = 0;
 LABEL_12:
-      _os_signpost_emit_with_name_impl(&dword_25479E000, v7, OS_SIGNPOST_INTERVAL_END, v8, "handleSearchForMessages", &unk_2547CAD0B, &v12, 2u);
+      _os_signpost_emit_with_name_impl(&dword_25479E000, v8, OS_SIGNPOST_INTERVAL_END, v9, "handleSearchForMessages", &unk_2547CAD0B, &v12, 2u);
     }
   }
 
   else
   {
-    v9 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v10 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       LOWORD(v12) = 0;
-      _os_log_impl(&dword_25479E000, v9, OS_LOG_TYPE_INFO, "Message search returned nil results (e.g. an exception was caught). Returning intent failure response.", &v12, 2u);
+      _os_log_impl(&dword_25479E000, v10, OS_LOG_TYPE_INFO, "Message search returned nil results (e.g. an exception was caught). Returning intent failure response.", &v12, 2u);
     }
 
     v4 = [objc_alloc(MEMORY[0x277CD4050]) initWithCode:4 userActivity:0];
-    v10 = _IMAssistantCoreSearchForMessageSignpostLogHandle();
-    v7 = v10;
-    v8 = *(a1 + 40);
-    if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+    v11 = _IMAssistantCoreSearchForMessageSignpostLogHandle(v4);
+    v8 = v11;
+    v9 = *(a1 + 40);
+    if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
     {
       LOWORD(v12) = 0;
       goto LABEL_12;
@@ -6133,12 +6036,11 @@ LABEL_12:
   }
 
   (*(*(a1 + 32) + 16))();
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2547B6204(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -6146,14 +6048,14 @@ void sub_2547B6204(uint64_t a1, void *a2, void *a3)
     v7 = *(a1 + 40);
     v8 = [*(a1 + 32) senders];
     v9 = *(a1 + 32);
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = sub_2547B63BC;
-    v13[3] = &unk_279786978;
-    v14 = v9;
-    v16 = *(a1 + 48);
-    v15 = v6;
-    [v7 resolvePersons:v8 forIntent:v14 completionHandler:v13];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = sub_2547B63BC;
+    v12[3] = &unk_279786978;
+    v13 = v9;
+    v15 = *(a1 + 48);
+    v14 = v6;
+    [v7 resolvePersons:v8 forIntent:v13 completionHandler:v12];
   }
 
   else
@@ -6163,19 +6065,17 @@ void sub_2547B6204(uint64_t a1, void *a2, void *a3)
     {
       v11 = [*(a1 + 32) recipients];
       *buf = 138412290;
-      v18 = v11;
+      v17 = v11;
       _os_log_impl(&dword_25479E000, v10, OS_LOG_TYPE_INFO, "IMAssistantMessageSearchHandler: Failed to resolve recipients: %@", buf, 0xCu);
     }
 
     (*(*(a1 + 48) + 16))();
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2547B63BC(uint64_t a1, void *a2, uint64_t a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (a3)
   {
     (*(*(a1 + 48) + 16))(*(a1 + 48), a2, *(a1 + 40), a3);
@@ -6188,38 +6088,36 @@ void sub_2547B63BC(uint64_t a1, void *a2, uint64_t a3)
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       v6 = [*(a1 + 32) senders];
-      v8 = 138412290;
-      v9 = v6;
-      _os_log_impl(&dword_25479E000, v5, OS_LOG_TYPE_INFO, "IMAssistantMessageSearchHandler: Failed to resolve senders: %@", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = v6;
+      _os_log_impl(&dword_25479E000, v5, OS_LOG_TYPE_INFO, "IMAssistantMessageSearchHandler: Failed to resolve senders: %@", &v7, 0xCu);
     }
 
     (*(*(a1 + 48) + 16))();
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2547B6C30(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 count])
   {
     v4 = *(a1 + 40);
     v5 = [*(a1 + 32) messageIdentifiers];
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = sub_2547B6DE4;
-    v12[3] = &unk_2797869A0;
-    v13 = *(a1 + 32);
-    v16 = *(a1 + 48);
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = sub_2547B6DE4;
+    v11[3] = &unk_2797869A0;
+    v12 = *(a1 + 32);
+    v15 = *(a1 + 48);
     v6 = v3;
     v7 = *(a1 + 40);
-    v14 = v6;
-    v15 = v7;
-    [v4 chatsForMessageIdentifiers:v5 completion:v12];
+    v13 = v6;
+    v14 = v7;
+    [v4 chatsForMessageIdentifiers:v5 completion:v11];
 
-    v8 = v13;
+    v8 = v12;
   }
 
   else
@@ -6229,20 +6127,18 @@ void sub_2547B6C30(uint64_t a1, void *a2)
     {
       v10 = [*(a1 + 32) identifier];
       *buf = 138412290;
-      v18 = v10;
+      v17 = v10;
       _os_log_impl(&dword_25479E000, v9, OS_LOG_TYPE_INFO, "Exptected at least one message matching the message identifier %@", buf, 0xCu);
     }
 
     v8 = [objc_alloc(MEMORY[0x277CD4298]) initWithCode:6 userActivity:0];
     (*(*(a1 + 48) + 16))();
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2547B6DE4(uint64_t a1, void *a2)
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 count];
   v5 = [*(a1 + 32) messageIdentifiers];
@@ -6262,26 +6158,26 @@ void sub_2547B6DE4(uint64_t a1, void *a2)
     goto LABEL_18;
   }
 
-  v49 = 0u;
-  v50 = 0u;
-  v47 = 0u;
   v48 = 0u;
+  v49 = 0u;
+  v46 = 0u;
+  v47 = 0u;
   v7 = v3;
-  v8 = [v7 countByEnumeratingWithState:&v47 objects:v54 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v46 objects:v53 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v48;
+    v10 = *v47;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v48 != v10)
+        if (*v47 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v47 + 1) + 8 * i);
+        v12 = *(*(&v46 + 1) + 8 * i);
         if (([v12 allowedByScreenTime] & 1) == 0)
         {
           if ([v12 allowedToShowConversationSync])
@@ -6310,7 +6206,7 @@ void sub_2547B6DE4(uint64_t a1, void *a2)
           if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v53 = v12;
+            v52 = v12;
             _os_log_impl(&dword_25479E000, v21, OS_LOG_TYPE_INFO, "Will not send to chat in Un-Joined state: %@", buf, 0xCu);
           }
 
@@ -6325,7 +6221,7 @@ LABEL_27:
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v47 objects:v54 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v46 objects:v53 count:16];
     }
 
     while (v9);
@@ -6348,108 +6244,108 @@ LABEL_27:
     goto LABEL_18;
   }
 
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
   v44 = 0u;
+  v45 = 0u;
+  v42 = 0u;
+  v43 = 0u;
   v19 = *(a1 + 40);
-  v40 = [v19 countByEnumeratingWithState:&v43 objects:v51 count:16];
-  if (!v40)
+  v39 = [v19 countByEnumeratingWithState:&v42 objects:v50 count:16];
+  if (!v39)
   {
     goto LABEL_47;
   }
 
-  v24 = 0;
-  v41 = *v44;
-  v39 = v3;
-  v42 = a1;
+  v23 = 0;
+  v40 = *v43;
+  v38 = v3;
+  v41 = a1;
   while (2)
   {
-    for (j = 0; j != v40; ++j)
+    for (j = 0; j != v39; ++j)
     {
-      if (*v44 != v41)
+      if (*v43 != v40)
       {
         objc_enumerationMutation(v19);
       }
 
-      v26 = *(*(&v43 + 1) + 8 * j);
-      v27 = [v26 body];
-      v28 = [v27 __im_messagePartIndexes];
-      if ([v28 count] != 1)
+      v25 = *(*(&v42 + 1) + 8 * j);
+      v26 = [v25 body];
+      v27 = [v26 __im_messagePartIndexes];
+      if ([v27 count] != 1)
       {
-        v36 = IMLogHandleForCategory();
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
+        v35 = IMLogHandleForCategory();
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_25479E000, v36, OS_LOG_TYPE_INFO, "Message has more than one part, requiring app launch", buf, 2u);
+          _os_log_impl(&dword_25479E000, v35, OS_LOG_TYPE_INFO, "Message has more than one part, requiring app launch", buf, 2u);
         }
 
-        v34 = 5;
+        v33 = 5;
         goto LABEL_65;
       }
 
-      v29 = [v28 firstIndex];
-      v30 = [v26 eligibilityForEditType:2 messagePartIndex:v24];
-      if (v30 > 3)
+      v28 = [v27 firstIndex];
+      v29 = [v25 eligibilityForEditType:2 messagePartIndex:v23];
+      if (v29 > 3)
       {
-        switch(v30)
+        switch(v29)
         {
           case 6:
-            v36 = IMLogHandleForCategory();
-            if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
+            v35 = IMLogHandleForCategory();
+            if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
             {
               *buf = 0;
-              v35 = "Messages is currently sending";
+              v34 = "Messages is currently sending";
               goto LABEL_60;
             }
 
             break;
           case 5:
-            v36 = IMLogHandleForCategory();
-            if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
+            v35 = IMLogHandleForCategory();
+            if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
             {
               *buf = 0;
-              v35 = "Messages has been edited too many times";
+              v34 = "Messages has been edited too many times";
               goto LABEL_60;
             }
 
             break;
           case 4:
 LABEL_48:
-            v36 = IMLogHandleForCategory();
-            if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
+            v35 = IMLogHandleForCategory();
+            if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
             {
               *buf = 0;
-              _os_log_impl(&dword_25479E000, v36, OS_LOG_TYPE_INFO, "Message type does not support retraction", buf, 2u);
+              _os_log_impl(&dword_25479E000, v35, OS_LOG_TYPE_INFO, "Message type does not support retraction", buf, 2u);
             }
 
-            v34 = 8;
+            v33 = 8;
             goto LABEL_65;
           default:
             goto LABEL_43;
         }
 
 LABEL_61:
-        v34 = 4;
+        v33 = 4;
 LABEL_65:
-        v3 = v39;
+        v3 = v38;
 
-        v38 = [objc_alloc(MEMORY[0x277CD4298]) initWithCode:v34 userActivity:0];
-        (*(*(v42 + 56) + 16))();
+        v37 = [objc_alloc(MEMORY[0x277CD4298]) initWithCode:v33 userActivity:0];
+        (*(*(v41 + 56) + 16))();
 
         goto LABEL_28;
       }
 
-      switch(v30)
+      switch(v29)
       {
         case 1:
-          v36 = IMLogHandleForCategory();
-          if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
+          v35 = IMLogHandleForCategory();
+          if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
           {
             *buf = 0;
-            v35 = "Messages from different senders cannot be retracted";
+            v34 = "Messages from different senders cannot be retracted";
 LABEL_60:
-            _os_log_impl(&dword_25479E000, v36, OS_LOG_TYPE_INFO, v35, buf, 2u);
+            _os_log_impl(&dword_25479E000, v35, OS_LOG_TYPE_INFO, v34, buf, 2u);
             goto LABEL_61;
           }
 
@@ -6457,36 +6353,36 @@ LABEL_60:
         case 2:
           goto LABEL_48;
         case 3:
-          v36 = IMLogHandleForCategory();
-          if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
+          v35 = IMLogHandleForCategory();
+          if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
           {
             *buf = 0;
-            _os_log_impl(&dword_25479E000, v36, OS_LOG_TYPE_INFO, "Message is too old to be retracted", buf, 2u);
+            _os_log_impl(&dword_25479E000, v35, OS_LOG_TYPE_INFO, "Message is too old to be retracted", buf, 2u);
           }
 
-          v34 = 7;
+          v33 = 7;
           goto LABEL_65;
       }
 
 LABEL_43:
-      v31 = IMLogHandleForCategory();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+      v30 = IMLogHandleForCategory();
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
       {
-        v32 = [v26 guid];
+        v31 = [v25 guid];
         *buf = 138412290;
-        v53 = v32;
-        _os_log_impl(&dword_25479E000, v31, OS_LOG_TYPE_INFO, "Retracting message with identifier %@", buf, 0xCu);
+        v52 = v31;
+        _os_log_impl(&dword_25479E000, v30, OS_LOG_TYPE_INFO, "Retracting message with identifier %@", buf, 0xCu);
       }
 
-      v33 = [v7 objectAtIndexedSubscript:v24];
-      [*(v42 + 48) retractPartIndex:v29 fromMessageItem:v26 chat:v33 backwardCompatabilityText:0];
-      ++v24;
+      v32 = [v7 objectAtIndexedSubscript:v23];
+      [*(v41 + 48) retractPartIndex:v28 fromMessageItem:v25 chat:v32 backwardCompatabilityText:0];
+      ++v23;
     }
 
-    v3 = v39;
-    a1 = v42;
-    v40 = [v19 countByEnumeratingWithState:&v43 objects:v51 count:16];
-    if (v40)
+    v3 = v38;
+    a1 = v41;
+    v39 = [v19 countByEnumeratingWithState:&v42 objects:v50 count:16];
+    if (v39)
     {
       continue;
     }
@@ -6502,45 +6398,43 @@ LABEL_18:
   v19 = [v16 initWithCode:v17 userActivity:0];
   (*(*(a1 + 56) + 16))();
 LABEL_28:
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2547B75F8(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 count])
   {
     v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
     v5 = v3;
-    v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v17;
+      v8 = *v16;
       do
       {
         v9 = 0;
         do
         {
-          if (*v17 != v8)
+          if (*v16 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = [*(*(&v16 + 1) + 8 * v9) chatIdentifier];
+          v10 = [*(*(&v15 + 1) + 8 * v9) chatIdentifier];
           [v4 addObject:v10];
 
           ++v9;
         }
 
         while (v7 != v9);
-        v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v7);
@@ -6550,7 +6444,7 @@ void sub_2547B75F8(uint64_t a1, void *a2)
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v22 = v4;
+      v21 = v4;
       _os_log_impl(&dword_25479E000, v11, OS_LOG_TYPE_INFO, "Searching for chat corresponding to conversation identifiers %@", buf, 0xCu);
     }
 
@@ -6565,14 +6459,12 @@ void sub_2547B75F8(uint64_t a1, void *a2)
     {
       v14 = *(a1 + 32);
       *buf = 138412290;
-      v22 = v14;
+      v21 = v14;
       _os_log_impl(&dword_25479E000, v13, OS_LOG_TYPE_INFO, "Exptected at least one message matching the message identifiers %@", buf, 0xCu);
     }
 
     (*(*(a1 + 48) + 16))();
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2547B7C34(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, id location)
@@ -6584,7 +6476,7 @@ void sub_2547B7C34(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void sub_2547B7C58(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = IMLogHandleForCategory();
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_INFO);
@@ -6592,8 +6484,8 @@ void sub_2547B7C58(uint64_t a1, void *a2)
   {
     if (v5)
     {
-      LOWORD(v20) = 0;
-      _os_log_impl(&dword_25479E000, v4, OS_LOG_TYPE_INFO, "Could not find audioURL", &v20, 2u);
+      LOWORD(v19) = 0;
+      _os_log_impl(&dword_25479E000, v4, OS_LOG_TYPE_INFO, "Could not find audioURL", &v19, 2u);
     }
 
     v17 = objc_alloc(MEMORY[0x277CD3EB8]);
@@ -6603,9 +6495,9 @@ void sub_2547B7C58(uint64_t a1, void *a2)
 
   if (v5)
   {
-    v20 = 138412290;
-    v21 = v3;
-    _os_log_impl(&dword_25479E000, v4, OS_LOG_TYPE_INFO, "Play audioURL: %@", &v20, 0xCu);
+    v19 = 138412290;
+    v20 = v3;
+    _os_log_impl(&dword_25479E000, v4, OS_LOG_TYPE_INFO, "Play audioURL: %@", &v19, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 56));
@@ -6621,8 +6513,8 @@ void sub_2547B7C58(uint64_t a1, void *a2)
     v16 = IMLogHandleForCategory();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v20) = 0;
-      _os_log_impl(&dword_25479E000, v16, OS_LOG_TYPE_INFO, "Failed to play audio", &v20, 2u);
+      LOWORD(v19) = 0;
+      _os_log_impl(&dword_25479E000, v16, OS_LOG_TYPE_INFO, "Failed to play audio", &v19, 2u);
     }
 
     v17 = objc_alloc(MEMORY[0x277CD3EB8]);
@@ -6636,8 +6528,8 @@ LABEL_15:
   v12 = IMLogHandleForCategory();
   if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v20) = 0;
-    _os_log_impl(&dword_25479E000, v12, OS_LOG_TYPE_INFO, "Started playing audio", &v20, 2u);
+    LOWORD(v19) = 0;
+    _os_log_impl(&dword_25479E000, v12, OS_LOG_TYPE_INFO, "Started playing audio", &v19, 2u);
   }
 
   v13 = [*(a1 + 48) copy];
@@ -6645,20 +6537,18 @@ LABEL_15:
   v15 = *(v14 + 40);
   *(v14 + 40) = v13;
 LABEL_16:
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2547B7FF0(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = IMLogHandleForCategory();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v9 = 138412290;
-    v10 = v3;
-    _os_log_impl(&dword_25479E000, v4, OS_LOG_TYPE_INFO, "Confirm intent completion audioURL: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v3;
+    _os_log_impl(&dword_25479E000, v4, OS_LOG_TYPE_INFO, "Confirm intent completion audioURL: %@", &v8, 0xCu);
   }
 
   if (v3)
@@ -6674,8 +6564,6 @@ void sub_2547B7FF0(uint64_t a1, void *a2)
   v6 = *(a1 + 32);
   v7 = [objc_alloc(MEMORY[0x277CD3EB8]) initWithCode:v5 userActivity:0];
   (*(v6 + 16))(v6, v7);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2547B8218(uint64_t a1, void *a2)
@@ -6702,75 +6590,72 @@ uint64_t sub_2547B8B00(void *a1)
   }
 }
 
-void sub_2547BAA34()
+void sub_2547BAA34(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
-  v0 = _IMAssistantCoreGeneralSignpostLogHandle();
-  v1 = os_signpost_id_generate(v0);
+  v26 = *MEMORY[0x277D85DE8];
+  v1 = _IMAssistantCoreGeneralSignpostLogHandle(a1);
+  v2 = os_signpost_id_generate(v1);
 
-  v2 = _IMAssistantCoreGeneralSignpostLogHandle();
-  v3 = v2;
-  if (v1 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v2))
+  v4 = _IMAssistantCoreGeneralSignpostLogHandle(v3);
+  v5 = v4;
+  if (v2 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
-    LOWORD(v20) = 0;
-    _os_signpost_emit_with_name_impl(&dword_25479E000, v3, OS_SIGNPOST_INTERVAL_BEGIN, v1, "imDaemonControllerConnection", &unk_2547CAD0B, &v20, 2u);
+    LOWORD(v22) = 0;
+    _os_signpost_emit_with_name_impl(&dword_25479E000, v5, OS_SIGNPOST_INTERVAL_BEGIN, v2, "imDaemonControllerConnection", &unk_2547CAD0B, &v22, 2u);
   }
 
-  v4 = IMLogHandleForCategory();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v6 = IMLogHandleForCategory();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v20) = 0;
-    _os_log_impl(&dword_25479E000, v4, OS_LOG_TYPE_INFO, "Connecting to IMDaemonController", &v20, 2u);
+    LOWORD(v22) = 0;
+    _os_log_impl(&dword_25479E000, v6, OS_LOG_TYPE_INFO, "Connecting to IMDaemonController", &v22, 2u);
   }
 
-  v5 = [MEMORY[0x277CBEAA8] date];
-  v6 = [MEMORY[0x277D18D68] sharedController];
-  [v6 addListenerID:@"IMAssistantCore" capabilities:*MEMORY[0x277D19380] | *MEMORY[0x277D19370] | *MEMORY[0x277D19358] | *MEMORY[0x277D19378] | (*MEMORY[0x277D19388] | *MEMORY[0x277D19360]) | *MEMORY[0x277D19390] | *MEMORY[0x277D19368]];
-
-  v7 = [MEMORY[0x277D18D68] sharedController];
-  [v7 blockUntilConnected];
-
+  v7 = [MEMORY[0x277CBEAA8] date];
   v8 = [MEMORY[0x277D18D68] sharedController];
-  [v8 _setBlocksConnectionAtResume:1];
+  [v8 addListenerID:@"IMAssistantCore" capabilities:*MEMORY[0x277D19380] | *MEMORY[0x277D19370] | *MEMORY[0x277D19358] | *MEMORY[0x277D19378] | (*MEMORY[0x277D19388] | *MEMORY[0x277D19360]) | *MEMORY[0x277D19390] | *MEMORY[0x277D19368]];
 
-  v9 = [MEMORY[0x277CBEAA8] date];
-  v10 = qword_28118F668;
-  qword_28118F668 = v9;
+  v9 = [MEMORY[0x277D18D68] sharedController];
+  [v9 blockUntilConnected];
 
-  [qword_28118F668 timeIntervalSinceDate:v5];
-  v12 = v11;
-  v13 = IMLogHandleForCategory();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+  v10 = [MEMORY[0x277D18D68] sharedController];
+  [v10 _setBlocksConnectionAtResume:1];
+
+  v11 = [MEMORY[0x277CBEAA8] date];
+  v12 = qword_28118F668;
+  qword_28118F668 = v11;
+
+  [qword_28118F668 timeIntervalSinceDate:v7];
+  v14 = v13;
+  v15 = IMLogHandleForCategory();
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
-    v14 = [MEMORY[0x277D18D68] sharedController];
-    v15 = [v14 isConnected];
-    v16 = @"NO";
-    if (v15)
+    v16 = [MEMORY[0x277D18D68] sharedController];
+    v17 = [v16 isConnected];
+    v18 = @"NO";
+    if (v17)
     {
-      v16 = @"YES";
+      v18 = @"YES";
     }
 
-    v20 = 134218242;
-    v21 = v12;
-    v22 = 2112;
-    v23 = v16;
-    _os_log_impl(&dword_25479E000, v13, OS_LOG_TYPE_INFO, "IMDaemonController blockUntilConnected completed in %.4f seconds. Connected: %@", &v20, 0x16u);
+    v22 = 134218242;
+    v23 = v14;
+    v24 = 2112;
+    v25 = v18;
+    _os_log_impl(&dword_25479E000, v15, OS_LOG_TYPE_INFO, "IMDaemonController blockUntilConnected completed in %.4f seconds. Connected: %@", &v22, 0x16u);
   }
 
-  v17 = _IMAssistantCoreGeneralSignpostLogHandle();
-  v18 = v17;
-  if (v1 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
+  v20 = _IMAssistantCoreGeneralSignpostLogHandle(v19);
+  v21 = v20;
+  if (v2 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
   {
-    LOWORD(v20) = 0;
-    _os_signpost_emit_with_name_impl(&dword_25479E000, v18, OS_SIGNPOST_INTERVAL_END, v1, "imDaemonControllerConnection", &unk_2547CAD0B, &v20, 2u);
+    LOWORD(v22) = 0;
+    _os_signpost_emit_with_name_impl(&dword_25479E000, v21, OS_SIGNPOST_INTERVAL_END, v2, "imDaemonControllerConnection", &unk_2547CAD0B, &v22, 2u);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t sub_2547BAF70(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   qword_28118F638 = objc_alloc_init(objc_opt_class());
 
   return MEMORY[0x2821F96F8]();
@@ -6778,7 +6663,6 @@ uint64_t sub_2547BAF70(uint64_t a1)
 
 uint64_t sub_2547BB04C(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   qword_27F610F68 = objc_alloc_init(objc_opt_class());
 
   return MEMORY[0x2821F96F8]();
@@ -6807,7 +6691,6 @@ uint64_t sub_2547BB650()
 
 uint64_t sub_2547BBB8C(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   qword_28118F630 = objc_alloc_init(objc_opt_class());
 
   return MEMORY[0x2821F96F8]();
@@ -6815,44 +6698,42 @@ uint64_t sub_2547BBB8C(uint64_t a1)
 
 void sub_2547BC0F4()
 {
-  v10[13] = *MEMORY[0x277D85DE8];
+  v9[13] = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277D1A808];
-  v9[0] = *MEMORY[0x277D1A7F8];
-  v9[1] = v0;
-  v10[0] = &unk_286695E10;
-  v10[1] = &unk_286695E28;
+  v8[0] = *MEMORY[0x277D1A7F8];
+  v8[1] = v0;
+  v9[0] = &unk_286695E10;
+  v9[1] = &unk_286695E28;
   v1 = *MEMORY[0x277D1A818];
-  v9[2] = *MEMORY[0x277D1A830];
-  v9[3] = v1;
-  v10[2] = &unk_286695E40;
-  v10[3] = &unk_286695E58;
+  v8[2] = *MEMORY[0x277D1A830];
+  v8[3] = v1;
+  v9[2] = &unk_286695E40;
+  v9[3] = &unk_286695E58;
   v2 = *MEMORY[0x277D1A800];
-  v9[4] = *MEMORY[0x277D1A848];
-  v9[5] = v2;
-  v10[4] = &unk_286695E70;
-  v10[5] = &unk_286695E88;
+  v8[4] = *MEMORY[0x277D1A848];
+  v8[5] = v2;
+  v9[4] = &unk_286695E70;
+  v9[5] = &unk_286695E88;
   v3 = *MEMORY[0x277D1A850];
-  v9[6] = *MEMORY[0x277D1A840];
-  v9[7] = v3;
-  v10[6] = &unk_286695EA0;
-  v10[7] = &unk_286695EB8;
+  v8[6] = *MEMORY[0x277D1A840];
+  v8[7] = v3;
+  v9[6] = &unk_286695EA0;
+  v9[7] = &unk_286695EB8;
   v4 = *MEMORY[0x277D1A820];
-  v9[8] = *MEMORY[0x277D1A838];
-  v9[9] = v4;
-  v10[8] = &unk_286695ED0;
-  v10[9] = &unk_286695EE8;
+  v8[8] = *MEMORY[0x277D1A838];
+  v8[9] = v4;
+  v9[8] = &unk_286695ED0;
+  v9[9] = &unk_286695EE8;
   v5 = *MEMORY[0x277D1A810];
-  v9[10] = *MEMORY[0x277D1A828];
-  v9[11] = v5;
-  v10[10] = &unk_286695F00;
-  v10[11] = &unk_286695F18;
-  v9[12] = *MEMORY[0x277D1A858];
-  v10[12] = &unk_286695F30;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:13];
+  v8[10] = *MEMORY[0x277D1A828];
+  v8[11] = v5;
+  v9[10] = &unk_286695F00;
+  v9[11] = &unk_286695F18;
+  v8[12] = *MEMORY[0x277D1A858];
+  v9[12] = &unk_286695F30;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:13];
   v7 = qword_27F610F88;
   qword_27F610F88 = v6;
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 id sub_2547BD5C8(uint64_t a1, void *a2)
@@ -6873,22 +6754,22 @@ id sub_2547BD618(uint64_t a1, void *a2)
 
 void sub_2547BED24(uint64_t a1, void *a2, unint64_t a3)
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   v5 = a2;
-  v53 = [v5 messagePartIndex];
+  v52 = [v5 messagePartIndex];
   v6 = [v5 messagePartBody];
-  v56[0] = MEMORY[0x277D85DD0];
-  v56[1] = 3221225472;
-  v56[2] = sub_2547BF748;
-  v56[3] = &unk_279786B08;
-  v57 = *(a1 + 32);
-  v7 = MEMORY[0x259C19590](v56);
+  v55[0] = MEMORY[0x277D85DD0];
+  v55[1] = 3221225472;
+  v55[2] = sub_2547BF748;
+  v55[3] = &unk_279786B08;
+  v56 = *(a1 + 32);
+  v7 = MEMORY[0x259C19590](v55);
   v8 = *(a1 + 88);
   v9 = [v6 string];
-  v55 = [v8 _stringByRemovingMessagesControlCharactersFromString:v9];
+  v54 = [v8 _stringByRemovingMessagesControlCharactersFromString:v9];
 
-  v52 = v7;
-  v54 = [*(a1 + 88) inlineGlyphContentFromAttributedMessageBody:v6 attachmentProvider:v7];
+  v51 = v7;
+  v53 = [*(a1 + 88) inlineGlyphContentFromAttributedMessageBody:v6 attachmentProvider:v7];
   v10 = [v5 transferGUID];
 
   v11 = [*(a1 + 40) messageType];
@@ -6907,7 +6788,7 @@ void sub_2547BED24(uint64_t a1, void *a2, unint64_t a3)
     v16 = 1;
   }
 
-  v51 = v6;
+  v50 = v6;
   if (*(a1 + 48))
   {
     v17 = IMLogHandleForCategory();
@@ -6915,7 +6796,7 @@ void sub_2547BED24(uint64_t a1, void *a2, unint64_t a3)
     {
       v18 = *(a1 + 56);
       *buf = 138412290;
-      v59 = v18;
+      v58 = v18;
       _os_log_impl(&dword_25479E000, v17, OS_LOG_TYPE_INFO, "This reaction has a reference to message %@", buf, 0xCu);
     }
 
@@ -7023,11 +6904,11 @@ void sub_2547BED24(uint64_t a1, void *a2, unint64_t a3)
       {
         v26 = *(a1 + 64);
         *buf = 138412802;
-        v59 = v10;
-        v60 = 2048;
-        v61 = v53;
-        v62 = 2112;
-        v63 = v26;
+        v58 = v10;
+        v59 = 2048;
+        v60 = v52;
+        v61 = 2112;
+        v62 = v26;
         _os_log_impl(&dword_25479E000, v25, OS_LOG_TYPE_INFO, "Could not find attachment matching attachmentGUID %@ for messagePart %ld of message %@", buf, 0x20u);
       }
 
@@ -7181,7 +7062,7 @@ LABEL_91:
         if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
         {
           *buf = 134217984;
-          v59 = v20;
+          v58 = v20;
           _os_log_impl(&dword_25479E000, v30, OS_LOG_TYPE_INFO, "Message is type INMessageType %ld", buf, 0xCu);
         }
 
@@ -7219,7 +7100,7 @@ LABEL_91:
         }
 
         v37 = [*(a1 + 40) translatedMessagePartsMap];
-        v38 = [MEMORY[0x277CCABB0] numberWithInteger:v53];
+        v38 = [MEMORY[0x277CCABB0] numberWithInteger:v52];
         v39 = [v37 objectForKey:v38];
         v40 = [v39 firstObject];
 
@@ -7233,7 +7114,7 @@ LABEL_91:
           v41 = 0;
         }
 
-        v27 = [*(a1 + 88) makeINMessage:v20 message:*(a1 + 40) numberOfAttachments:v19 personProvider:*(a1 + 72) referencedINMessage:*(a1 + 48) content:v55 reaction:v33 inlineGlyphContent:v54 translatedMessagePart:v41];
+        v27 = [*(a1 + 88) makeINMessage:v20 message:*(a1 + 40) numberOfAttachments:v19 personProvider:*(a1 + 72) referencedINMessage:*(a1 + 48) content:v54 reaction:v33 inlineGlyphContent:v53 translatedMessagePart:v41];
         if (v27)
         {
           v42 = [*(a1 + 80) lastObject];
@@ -7245,9 +7126,9 @@ LABEL_91:
             {
               v45 = *(a1 + 64);
               *buf = 134218242;
-              v59 = v53;
-              v60 = 2112;
-              v61 = v45;
+              v58 = v52;
+              v59 = 2112;
+              v60 = v45;
               _os_log_impl(&dword_25479E000, v44, OS_LOG_TYPE_INFO, "Aggregating message part %ld of %@ to previous INMessage", buf, 0x16u);
             }
 
@@ -7263,20 +7144,20 @@ LABEL_91:
             [*(a1 + 80) addObject:v27];
           }
 
-          v6 = v51;
+          v6 = v50;
         }
 
         else
         {
           v43 = IMLogHandleForCategory();
-          v6 = v51;
+          v6 = v50;
           if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
           {
             v49 = *(a1 + 64);
             *buf = 134218242;
-            v59 = v53;
-            v60 = 2112;
-            v61 = v49;
+            v58 = v52;
+            v59 = 2112;
+            v60 = v49;
             _os_log_impl(&dword_25479E000, v43, OS_LOG_TYPE_INFO, "Unable to convert message part %ld of %@ to INMessage", buf, 0x16u);
           }
         }
@@ -7305,7 +7186,7 @@ LABEL_55:
     goto LABEL_91;
   }
 
-  if ([v55 length])
+  if ([v54 length])
   {
 LABEL_22:
     v19 = 0;
@@ -7318,20 +7199,18 @@ LABEL_22:
   {
     v28 = *(a1 + 64);
     *buf = 134218242;
-    v59 = v53;
-    v60 = 2112;
-    v61 = v28;
+    v58 = v52;
+    v59 = 2112;
+    v60 = v28;
     _os_log_impl(&dword_25479E000, v27, OS_LOG_TYPE_INFO, "Skipping empty text message part %ld of %@", buf, 0x16u);
   }
 
 LABEL_119:
-
-  v50 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2547BF92C(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v30[1] = *MEMORY[0x277D85DE8];
+  v29[1] = *MEMORY[0x277D85DE8];
   v7 = a2;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -7367,8 +7246,8 @@ void sub_2547BF92C(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
       else
       {
         v18 = *(a1 + 48);
-        v30[0] = v8;
-        v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:1];
+        v29[0] = v8;
+        v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:1];
         v20 = [v18 INStickerForIMSPIAttachment:v19];
 
         v21 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v20, "type")}];
@@ -7417,39 +7296,37 @@ void sub_2547BF92C(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
       [*(a1 + 32) addObject:v16];
     }
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t sub_2547C071C(uint64_t a1, uint64_t a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v3 = a3;
-  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
-    v5 = *v10;
+    v5 = *v9;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        if (![*(*(&v9 + 1) + 8 * i) __imcore__isSuccess])
+        if (![*(*(&v8 + 1) + 8 * i) __imcore__isSuccess])
         {
           v4 = 1;
           goto LABEL_11;
         }
       }
 
-      v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (v4)
       {
         continue;
@@ -7461,7 +7338,6 @@ uint64_t sub_2547C071C(uint64_t a1, uint64_t a2, void *a3)
 
 LABEL_11:
 
-  v7 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -7513,22 +7389,21 @@ void sub_2547C0A0C(uint64_t a1)
     _os_log_impl(&dword_25479E000, v9, OS_LOG_TYPE_INFO, "Calling completion with response: %@", buf, 0xCu);
   }
 
-  v10 = _IMAssistantCoreGeneralSignpostLogHandle();
-  v11 = v10;
-  v12 = *(a1 + 48);
-  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  v11 = _IMAssistantCoreGeneralSignpostLogHandle(v10);
+  v12 = v11;
+  v13 = *(a1 + 48);
+  if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_25479E000, v11, OS_SIGNPOST_INTERVAL_END, v12, "handleSetMessageAttributeIntent", &unk_2547CAD0B, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_25479E000, v12, OS_SIGNPOST_INTERVAL_END, v13, "handleSetMessageAttributeIntent", &unk_2547CAD0B, buf, 2u);
   }
 
   (*(*(a1 + 40) + 16))();
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2547C0C88(uint64_t a1, int a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = IMLogHandleForCategory();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
@@ -7539,19 +7414,17 @@ void sub_2547C0C88(uint64_t a1, int a2)
       v5 = @"YES";
     }
 
-    v8 = 138412546;
-    v9 = v6;
-    v10 = 2112;
-    v11 = v5;
-    _os_log_impl(&dword_25479E000, v4, OS_LOG_TYPE_INFO, "Message marked as read: %@ success: %@", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = v6;
+    v9 = 2112;
+    v10 = v5;
+    _os_log_impl(&dword_25479E000, v4, OS_LOG_TYPE_INFO, "Message marked as read: %@ success: %@", &v7, 0x16u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 id sub_2547C1388(void *a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v6 = a4;
   if (a3 > 102)
   {
@@ -7568,32 +7441,32 @@ id sub_2547C1388(void *a1, uint64_t a2, uint64_t a3, void *a4)
       v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
 LABEL_20:
       v15 = [a1 __im_assistant_emailAddressesMatchingLabel:v6];
+      v23 = 0u;
       v24 = 0u;
       v25 = 0u;
       v26 = 0u;
-      v27 = 0u;
-      v16 = [v15 countByEnumeratingWithState:&v24 objects:v32 count:16];
+      v16 = [v15 countByEnumeratingWithState:&v23 objects:v31 count:16];
       if (v16)
       {
         v17 = v16;
-        v18 = *v25;
+        v18 = *v24;
         do
         {
           for (i = 0; i != v17; ++i)
           {
-            if (*v25 != v18)
+            if (*v24 != v18)
             {
               objc_enumerationMutation(v15);
             }
 
-            v20 = [[IMAssistantHandleFromContact alloc] initWithCNLabeledEmailAddress:*(*(&v24 + 1) + 8 * i) contact:a1];
+            v20 = [[IMAssistantHandleFromContact alloc] initWithCNLabeledEmailAddress:*(*(&v23 + 1) + 8 * i) contact:a1];
             if (v20)
             {
               [v8 addObject:v20];
             }
           }
 
-          v17 = [v15 countByEnumeratingWithState:&v24 objects:v32 count:16];
+          v17 = [v15 countByEnumeratingWithState:&v23 objects:v31 count:16];
         }
 
         while (v17);
@@ -7617,32 +7490,32 @@ LABEL_30:
 LABEL_8:
   v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v9 = [a1 __im_assistant_phoneNumbersMatchingLabel:v6];
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
-  v10 = [v9 countByEnumeratingWithState:&v28 objects:v33 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v27 objects:v32 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v29;
+    v12 = *v28;
     do
     {
       for (j = 0; j != v11; ++j)
       {
-        if (*v29 != v12)
+        if (*v28 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = [[IMAssistantHandleFromContact alloc] initWithCNLabeledPhoneNumber:*(*(&v28 + 1) + 8 * j) contact:a1];
+        v14 = [[IMAssistantHandleFromContact alloc] initWithCNLabeledPhoneNumber:*(*(&v27 + 1) + 8 * j) contact:a1];
         if (v14)
         {
           [v8 addObject:v14];
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v28 objects:v33 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v27 objects:v32 count:16];
     }
 
     while (v11);
@@ -7656,87 +7529,83 @@ LABEL_8:
 LABEL_31:
   v21 = [v8 copy];
 
-  v22 = *MEMORY[0x277D85DE8];
-
   return v21;
 }
 
 id sub_2547C1620(void *a1, uint64_t a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v6 = [a1 phoneNumbers];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * i);
+        v11 = *(*(&v14 + 1) + 8 * i);
         if (![v4 length] || INPersonHandleLabelEqualsCNLabeledValue())
         {
           [v5 addObject:v11];
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
 
   v12 = [v5 copy];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
 
 id sub_2547C1780(void *a1, uint64_t a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v6 = [a1 emailAddresses];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * i);
+        v11 = *(*(&v14 + 1) + 8 * i);
         if (![v4 length] || INPersonHandleLabelEqualsCNLabeledValue())
         {
           [v5 addObject:v11];
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
@@ -7744,39 +7613,37 @@ id sub_2547C1780(void *a1, uint64_t a2, void *a3)
 
   v12 = [v5 copy];
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
 id sub_2547C18E0(void *a1, uint64_t a2, void *a3)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v6 = [MEMORY[0x277CD3E98] __im_assistant_handleTypeForString:v4];
   if (v6 == 2)
   {
     v7 = [a1 emailAddresses];
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
-    v14 = [v7 countByEnumeratingWithState:&v23 objects:v31 count:16];
+    v14 = [v7 countByEnumeratingWithState:&v22 objects:v30 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v24;
+      v16 = *v23;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v24 != v16)
+          if (*v23 != v16)
           {
             objc_enumerationMutation(v7);
           }
 
-          v18 = [[IMAssistantHandleFromContact alloc] initWithCNLabeledEmailAddress:*(*(&v23 + 1) + 8 * i) contact:a1];
+          v18 = [[IMAssistantHandleFromContact alloc] initWithCNLabeledEmailAddress:*(*(&v22 + 1) + 8 * i) contact:a1];
           v19 = v18;
           if (v18 && [(IMAssistantHandleFromContact *)v18 matchesHandleID:v4])
           {
@@ -7784,7 +7651,7 @@ id sub_2547C18E0(void *a1, uint64_t a2, void *a3)
           }
         }
 
-        v15 = [v7 countByEnumeratingWithState:&v23 objects:v31 count:16];
+        v15 = [v7 countByEnumeratingWithState:&v22 objects:v30 count:16];
       }
 
       while (v15);
@@ -7799,25 +7666,25 @@ id sub_2547C18E0(void *a1, uint64_t a2, void *a3)
     }
 
     v7 = [a1 phoneNumbers];
+    v26 = 0u;
     v27 = 0u;
     v28 = 0u;
     v29 = 0u;
-    v30 = 0u;
-    v8 = [v7 countByEnumeratingWithState:&v27 objects:v32 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v26 objects:v31 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v28;
+      v10 = *v27;
       do
       {
         for (j = 0; j != v9; ++j)
         {
-          if (*v28 != v10)
+          if (*v27 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = [[IMAssistantHandleFromContact alloc] initWithCNLabeledPhoneNumber:*(*(&v27 + 1) + 8 * j) contact:a1];
+          v12 = [[IMAssistantHandleFromContact alloc] initWithCNLabeledPhoneNumber:*(*(&v26 + 1) + 8 * j) contact:a1];
           v13 = v12;
           if (v12 && [(IMAssistantHandleFromContact *)v12 matchesHandleID:v4])
           {
@@ -7825,7 +7692,7 @@ id sub_2547C18E0(void *a1, uint64_t a2, void *a3)
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v27 objects:v32 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v26 objects:v31 count:16];
       }
 
       while (v9);
@@ -7835,42 +7702,40 @@ id sub_2547C18E0(void *a1, uint64_t a2, void *a3)
 LABEL_25:
   v20 = [v5 copy];
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return v20;
 }
 
 id sub_2547C1B4C(void *a1, uint64_t a2, unint64_t a3, void *a4, void *a5)
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   v8 = a4;
-  v36 = a5;
+  v35 = a5;
   v9 = objc_alloc_init(MEMORY[0x277CBEB40]);
   if ((a3 & 0xFFFFFFFFFFFFFFFDLL) == 0)
   {
-    v32 = a3;
-    v33 = a1;
-    v34 = v8;
+    v31 = a3;
+    v32 = a1;
+    v33 = v8;
     v10 = [a1 __im_assistant_phoneNumbersMatchingLabel:v8];
+    v40 = 0u;
     v41 = 0u;
     v42 = 0u;
     v43 = 0u;
-    v44 = 0u;
-    v11 = [v10 countByEnumeratingWithState:&v41 objects:v46 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v40 objects:v45 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v42;
+      v13 = *v41;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v42 != v13)
+          if (*v41 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = [*(*(&v41 + 1) + 8 * i) value];
+          v15 = [*(*(&v40 + 1) + 8 * i) value];
           v16 = [v15 stringValue];
           v17 = IMInternationalForPhoneNumberWithOptions();
           if ([v17 length])
@@ -7881,40 +7746,40 @@ id sub_2547C1B4C(void *a1, uint64_t a2, unint64_t a3, void *a4, void *a5)
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v41 objects:v46 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v40 objects:v45 count:16];
       }
 
       while (v12);
     }
 
-    a1 = v33;
-    v8 = v34;
-    a3 = v32;
+    a1 = v32;
+    v8 = v33;
+    a3 = v31;
   }
 
   if (a3 <= 1)
   {
-    v35 = v8;
+    v34 = v8;
     v20 = [a1 __im_assistant_emailAddressesMatchingLabel:v8];
+    v36 = 0u;
     v37 = 0u;
     v38 = 0u;
     v39 = 0u;
-    v40 = 0u;
-    v21 = [v20 countByEnumeratingWithState:&v37 objects:v45 count:16];
+    v21 = [v20 countByEnumeratingWithState:&v36 objects:v44 count:16];
     if (v21)
     {
       v22 = v21;
-      v23 = *v38;
+      v23 = *v37;
       do
       {
         for (j = 0; j != v22; ++j)
         {
-          if (*v38 != v23)
+          if (*v37 != v23)
           {
             objc_enumerationMutation(v20);
           }
 
-          v25 = [*(*(&v37 + 1) + 8 * j) value];
+          v25 = [*(*(&v36 + 1) + 8 * j) value];
           v26 = IMCanonicalFormForEmail();
           if ([v26 length])
           {
@@ -7924,59 +7789,57 @@ id sub_2547C1B4C(void *a1, uint64_t a2, unint64_t a3, void *a4, void *a5)
           }
         }
 
-        v22 = [v20 countByEnumeratingWithState:&v37 objects:v45 count:16];
+        v22 = [v20 countByEnumeratingWithState:&v36 objects:v44 count:16];
       }
 
       while (v22);
     }
 
-    v8 = v35;
+    v8 = v34;
   }
 
   v29 = [v9 array];
-
-  v30 = *MEMORY[0x277D85DE8];
 
   return v29;
 }
 
 id sub_2547C1E5C(void *a1, uint64_t a2, void *a3)
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   v4 = a3;
-  v33 = objc_alloc_init(MEMORY[0x277CBEB40]);
-  v34 = a1;
+  v32 = objc_alloc_init(MEMORY[0x277CBEB40]);
+  v33 = a1;
   [a1 phoneNumbers];
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
-  obj = v42 = 0u;
-  v5 = [obj countByEnumeratingWithState:&v39 objects:v48 count:16];
+  obj = v41 = 0u;
+  v5 = [obj countByEnumeratingWithState:&v38 objects:v47 count:16];
   if (v5)
   {
     v7 = v5;
-    v8 = *v40;
+    v8 = *v39;
     *&v6 = 138412546;
-    v30 = v6;
+    v29 = v6;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v40 != v8)
+        if (*v39 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = [*(*(&v39 + 1) + 8 * i) value];
+        v10 = [*(*(&v38 + 1) + 8 * i) value];
         v11 = [v10 stringValue];
         v12 = [v4 imHandleWithID:v11];
         if (v12)
         {
           v13 = INPersonHandleLabelForCNLabeledValue();
           v14 = objc_alloc(MEMORY[0x277CD3E90]);
-          v15 = [v14 __im_assistant_initWithContact:v34 imHandle:v12 type:2 label:v13];
+          v15 = [v14 __im_assistant_initWithContact:v33 imHandle:v12 type:2 label:v13];
 
-          [v33 addObject:v15];
+          [v32 addObject:v15];
         }
 
         else
@@ -7984,51 +7847,51 @@ id sub_2547C1E5C(void *a1, uint64_t a2, void *a3)
           v13 = IMLogHandleForCategory();
           if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
           {
-            *buf = v30;
-            v45 = v10;
-            v46 = 2112;
-            v47 = v34;
+            *buf = v29;
+            v44 = v10;
+            v45 = 2112;
+            v46 = v33;
             _os_log_impl(&dword_25479E000, v13, OS_LOG_TYPE_INFO, "Could not create IMHandle with phone number: %@ from contact: %@", buf, 0x16u);
           }
         }
       }
 
-      v7 = [obj countByEnumeratingWithState:&v39 objects:v48 count:16];
+      v7 = [obj countByEnumeratingWithState:&v38 objects:v47 count:16];
     }
 
     while (v7);
   }
 
-  v16 = [v34 emailAddresses];
+  v16 = [v33 emailAddresses];
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
-  v17 = [v16 countByEnumeratingWithState:&v35 objects:v43 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v34 objects:v42 count:16];
   if (v17)
   {
     v19 = v17;
-    v20 = *v36;
+    v20 = *v35;
     *&v18 = 138412546;
-    v31 = v18;
+    v30 = v18;
     do
     {
       for (j = 0; j != v19; ++j)
       {
-        if (*v36 != v20)
+        if (*v35 != v20)
         {
           objc_enumerationMutation(v16);
         }
 
-        v22 = [*(*(&v35 + 1) + 8 * j) value];
+        v22 = [*(*(&v34 + 1) + 8 * j) value];
         v23 = [v4 imHandleWithID:v22];
         if (v23)
         {
           v24 = INPersonHandleLabelForCNLabeledValue();
           v25 = objc_alloc(MEMORY[0x277CD3E90]);
-          v26 = [v25 __im_assistant_initWithContact:v34 imHandle:v23 type:1 label:v24];
+          v26 = [v25 __im_assistant_initWithContact:v33 imHandle:v23 type:1 label:v24];
 
-          [v33 addObject:v26];
+          [v32 addObject:v26];
         }
 
         else
@@ -8036,76 +7899,74 @@ id sub_2547C1E5C(void *a1, uint64_t a2, void *a3)
           v24 = IMLogHandleForCategory();
           if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
           {
-            *buf = v31;
-            v45 = v22;
-            v46 = 2112;
-            v47 = v34;
+            *buf = v30;
+            v44 = v22;
+            v45 = 2112;
+            v46 = v33;
             _os_log_impl(&dword_25479E000, v24, OS_LOG_TYPE_INFO, "Could not create IMHandle with email address: %@ from contact: %@", buf, 0x16u);
           }
         }
       }
 
-      v19 = [v16 countByEnumeratingWithState:&v35 objects:v43 count:16];
+      v19 = [v16 countByEnumeratingWithState:&v34 objects:v42 count:16];
     }
 
     while (v19);
   }
 
-  v27 = [v33 array];
-
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = [v32 array];
 
   return v27;
 }
 
 id sub_2547C2234(void *a1)
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   v1 = objc_alloc_init(MEMORY[0x277CBEB40]);
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
   v2 = [MEMORY[0x277D18D28] sharedInstance];
   v3 = [v2 accounts];
 
   obj = v3;
-  v28 = [v3 countByEnumeratingWithState:&v39 objects:v51 count:16];
-  if (v28)
+  v27 = [v3 countByEnumeratingWithState:&v38 objects:v50 count:16];
+  if (v27)
   {
-    v27 = *v40;
+    v26 = *v39;
     do
     {
       v4 = 0;
       do
       {
-        if (*v40 != v27)
+        if (*v39 != v26)
         {
           objc_enumerationMutation(obj);
         }
 
-        v29 = v4;
-        v5 = *(*(&v39 + 1) + 8 * v4);
+        v28 = v4;
+        v5 = *(*(&v38 + 1) + 8 * v4);
         v6 = [a1 phoneNumbers];
+        v34 = 0u;
         v35 = 0u;
         v36 = 0u;
         v37 = 0u;
-        v38 = 0u;
-        v7 = [v6 countByEnumeratingWithState:&v35 objects:v50 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v34 objects:v49 count:16];
         if (v7)
         {
           v8 = v7;
-          v9 = *v36;
+          v9 = *v35;
           do
           {
             for (i = 0; i != v8; ++i)
             {
-              if (*v36 != v9)
+              if (*v35 != v9)
               {
                 objc_enumerationMutation(v6);
               }
 
-              v11 = [*(*(&v35 + 1) + 8 * i) value];
+              v11 = [*(*(&v34 + 1) + 8 * i) value];
               v12 = [v11 stringValue];
               v13 = [v5 imHandleWithID:v12];
               if (v13)
@@ -8119,42 +7980,42 @@ id sub_2547C2234(void *a1)
                 if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
                 {
                   *buf = 138412802;
-                  v45 = v11;
-                  v46 = 2112;
-                  v47 = v5;
-                  v48 = 2112;
-                  v49 = a1;
+                  v44 = v11;
+                  v45 = 2112;
+                  v46 = v5;
+                  v47 = 2112;
+                  v48 = a1;
                   _os_log_impl(&dword_25479E000, v14, OS_LOG_TYPE_INFO, "Could not create IMHandle with phone number: %@ account: %@ from contact: %@ ", buf, 0x20u);
                 }
               }
             }
 
-            v8 = [v6 countByEnumeratingWithState:&v35 objects:v50 count:16];
+            v8 = [v6 countByEnumeratingWithState:&v34 objects:v49 count:16];
           }
 
           while (v8);
         }
 
         v15 = [a1 emailAddresses];
+        v30 = 0u;
         v31 = 0u;
         v32 = 0u;
         v33 = 0u;
-        v34 = 0u;
-        v16 = [v15 countByEnumeratingWithState:&v31 objects:v43 count:16];
+        v16 = [v15 countByEnumeratingWithState:&v30 objects:v42 count:16];
         if (v16)
         {
           v17 = v16;
-          v18 = *v32;
+          v18 = *v31;
           do
           {
             for (j = 0; j != v17; ++j)
             {
-              if (*v32 != v18)
+              if (*v31 != v18)
               {
                 objc_enumerationMutation(v15);
               }
 
-              v20 = [*(*(&v31 + 1) + 8 * j) value];
+              v20 = [*(*(&v30 + 1) + 8 * j) value];
               v21 = [v5 imHandleWithID:v20];
               if (v21)
               {
@@ -8167,35 +8028,33 @@ id sub_2547C2234(void *a1)
                 if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
                 {
                   *buf = 138412802;
-                  v45 = v20;
-                  v46 = 2112;
-                  v47 = v5;
-                  v48 = 2112;
-                  v49 = a1;
+                  v44 = v20;
+                  v45 = 2112;
+                  v46 = v5;
+                  v47 = 2112;
+                  v48 = a1;
                   _os_log_impl(&dword_25479E000, v22, OS_LOG_TYPE_INFO, "Could not create IMHandle with email address: %@ account: %@ from contact: %@", buf, 0x20u);
                 }
               }
             }
 
-            v17 = [v15 countByEnumeratingWithState:&v31 objects:v43 count:16];
+            v17 = [v15 countByEnumeratingWithState:&v30 objects:v42 count:16];
           }
 
           while (v17);
         }
 
-        v4 = v29 + 1;
+        v4 = v28 + 1;
       }
 
-      while (v29 + 1 != v28);
-      v28 = [obj countByEnumeratingWithState:&v39 objects:v51 count:16];
+      while (v28 + 1 != v27);
+      v27 = [obj countByEnumeratingWithState:&v38 objects:v50 count:16];
     }
 
-    while (v28);
+    while (v27);
   }
 
   v23 = [v1 array];
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v23;
 }
@@ -8211,7 +8070,7 @@ void sub_2547C3048()
 void sub_2547C37BC(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _IMAssistantCoreSearchForMessageSignpostLogHandle();
+  v4 = _IMAssistantCoreSearchForMessageSignpostLogHandle(v3);
   v5 = v4;
   v6 = *(a1 + 40);
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
@@ -8225,29 +8084,29 @@ void sub_2547C37BC(uint64_t a1, void *a2)
 
 void sub_2547C3B60(uint64_t a1, void *a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v2 = a2;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v18 objects:v28 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v17 objects:v27 count:16];
   if (v3)
   {
     v5 = v3;
-    v6 = *v19;
+    v6 = *v18;
     *&v4 = 138412546;
-    v16 = v4;
+    v15 = v4;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v19 != v6)
+        if (*v18 != v6)
         {
           objc_enumerationMutation(v2);
         }
 
-        v8 = *(*(&v18 + 1) + 8 * i);
+        v8 = *(*(&v17 + 1) + 8 * i);
         v9 = [v8 account];
         v10 = [v9 service];
         v11 = [v10 name];
@@ -8266,10 +8125,10 @@ void sub_2547C3B60(uint64_t a1, void *a2)
             v14 = IMLogHandleForCategory();
             if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
             {
-              *buf = v16;
-              v23 = v12;
-              v24 = 2112;
-              v25 = v11;
+              *buf = v15;
+              v22 = v12;
+              v23 = 2112;
+              v24 = v11;
               _os_log_impl(&dword_25479E000, v14, OS_LOG_TYPE_INFO, "Could not construct chat GUID from handleID: %@ service: %@", buf, 0x16u);
             }
           }
@@ -8281,29 +8140,27 @@ void sub_2547C3B60(uint64_t a1, void *a2)
           if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
           {
             *buf = 138412802;
-            v23 = v12;
-            v24 = 2112;
-            v25 = v11;
-            v26 = 2112;
-            v27 = v8;
+            v22 = v12;
+            v23 = 2112;
+            v24 = v11;
+            v25 = 2112;
+            v26 = v8;
             _os_log_impl(&dword_25479E000, v13, OS_LOG_TYPE_INFO, "Could not extract handleID: %@ or service: %@ from IMHandle %@", buf, 0x20u);
           }
         }
       }
 
-      v5 = [v2 countByEnumeratingWithState:&v18 objects:v28 count:16];
+      v5 = [v2 countByEnumeratingWithState:&v17 objects:v27 count:16];
     }
 
     while (v5);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2547C42AC(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _IMAssistantCoreSearchForMessageSignpostLogHandle();
+  v4 = _IMAssistantCoreSearchForMessageSignpostLogHandle(v3);
   v5 = v4;
   v6 = *(a1 + 40);
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
@@ -8318,7 +8175,7 @@ void sub_2547C42AC(uint64_t a1, void *a2)
 void sub_2547C4510(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _IMAssistantCoreSearchForMessageSignpostLogHandle();
+  v4 = _IMAssistantCoreSearchForMessageSignpostLogHandle(v3);
   v5 = v4;
   v6 = *(a1 + 40);
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
@@ -8333,7 +8190,7 @@ void sub_2547C4510(uint64_t a1, void *a2)
 void sub_2547C4784(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _IMAssistantCoreSearchForMessageSignpostLogHandle();
+  v4 = _IMAssistantCoreSearchForMessageSignpostLogHandle(v3);
   v5 = v4;
   v6 = *(a1 + 40);
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
@@ -8348,7 +8205,7 @@ void sub_2547C4784(uint64_t a1, void *a2)
 void sub_2547C49F8(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _IMAssistantCoreSearchForMessageSignpostLogHandle();
+  v4 = _IMAssistantCoreSearchForMessageSignpostLogHandle(v3);
   v5 = v4;
   v6 = *(a1 + 40);
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
@@ -8362,59 +8219,59 @@ void sub_2547C49F8(uint64_t a1, void *a2)
 
 uint64_t sub_2547C4C8C(uint64_t a1, void *a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
-  v18 = a2;
+  v28 = *MEMORY[0x277D85DE8];
+  v17 = a2;
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   obj = *(a1 + 32);
-  v3 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
+  v3 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v24;
+    v5 = *v23;
     while (1)
     {
       v6 = 0;
 LABEL_4:
-      if (*v24 != v5)
+      if (*v23 != v5)
       {
         objc_enumerationMutation(obj);
       }
 
-      v7 = *(*(&v23 + 1) + 8 * v6);
+      v7 = *(*(&v22 + 1) + 8 * v6);
       v8 = [*(a1 + 40) objectForKey:v7];
+      v18 = 0u;
       v19 = 0u;
       v20 = 0u;
       v21 = 0u;
-      v22 = 0u;
-      v9 = v18;
-      v10 = [v9 countByEnumeratingWithState:&v19 objects:v27 count:16];
+      v9 = v17;
+      v10 = [v9 countByEnumeratingWithState:&v18 objects:v26 count:16];
       if (!v10)
       {
         break;
       }
 
       v11 = v10;
-      v12 = *v20;
+      v12 = *v19;
 LABEL_8:
       v13 = 0;
       while (1)
       {
-        if (*v20 != v12)
+        if (*v19 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        if ([*(*(&v19 + 1) + 8 * v13) matchesPerson:v7 withUnifiedContactIdentifiers:v8])
+        if ([*(*(&v18 + 1) + 8 * v13) matchesPerson:v7 withUnifiedContactIdentifiers:v8])
         {
           break;
         }
 
         if (v11 == ++v13)
         {
-          v11 = [v9 countByEnumeratingWithState:&v19 objects:v27 count:16];
+          v11 = [v9 countByEnumeratingWithState:&v18 objects:v26 count:16];
           if (v11)
           {
             goto LABEL_8;
@@ -8429,7 +8286,7 @@ LABEL_8:
         goto LABEL_4;
       }
 
-      v4 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v4 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
       v14 = 1;
       if (!v4)
       {
@@ -8449,35 +8306,34 @@ LABEL_18:
 
 LABEL_20:
 
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 uint64_t sub_2547C5054(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
-        v10 = [*(a1 + 40) objectForKey:{v9, v14}];
+        v9 = *(*(&v13 + 1) + 8 * i);
+        v10 = [*(a1 + 40) objectForKey:{v9, v13}];
         LOBYTE(v9) = [v3 matchesPerson:v9 withUnifiedContactIdentifiers:v10];
 
         if (v9)
@@ -8487,7 +8343,7 @@ uint64_t sub_2547C5054(uint64_t a1, void *a2)
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -8500,13 +8356,12 @@ uint64_t sub_2547C5054(uint64_t a1, void *a2)
   v11 = 0;
 LABEL_11:
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 id sub_2547C6024(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = [a2 normalizedID];
   if (MEMORY[0x259C19130]() || IMStringIsEmail())
   {
@@ -8520,9 +8375,9 @@ id sub_2547C6024(uint64_t a1, void *a2)
       v4 = IMLogHandleForCategory();
       if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
       {
-        v8 = 138412290;
-        v9 = v2;
-        _os_log_impl(&dword_25479E000, v4, OS_LOG_TYPE_INFO, "Could not canonicalize handle %@ because it is neither a phone number nor an email address.", &v8, 0xCu);
+        v7 = 138412290;
+        v8 = v2;
+        _os_log_impl(&dword_25479E000, v4, OS_LOG_TYPE_INFO, "Could not canonicalize handle %@ because it is neither a phone number nor an email address.", &v7, 0xCu);
       }
     }
 
@@ -8531,105 +8386,104 @@ id sub_2547C6024(uint64_t a1, void *a2)
 
   v5 = v3;
 
-  v6 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
 id sub_2547C7168(uint64_t a1, void *a2)
 {
-  v79 = *MEMORY[0x277D85DE8];
+  v92 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = IMLogHandleForCategory();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *buf = 134217984;
-    v78 = [v3 count];
+    v91 = [v3 count];
     _os_log_impl(&dword_25479E000, v4, OS_LOG_TYPE_INFO, "Filter block executed with %ld messages.", buf, 0xCu);
   }
 
-  v69 = [MEMORY[0x277CBEB18] array];
-  v5 = _IMAssistantCoreSearchForMessageSignpostLogHandle();
+  v82 = [MEMORY[0x277CBEB18] array];
+  v5 = _IMAssistantCoreSearchForMessageSignpostLogHandle(v82);
   v6 = os_signpost_id_generate(v5);
 
-  v7 = _IMAssistantCoreSearchForMessageSignpostLogHandle();
-  v8 = v7;
+  v8 = _IMAssistantCoreSearchForMessageSignpostLogHandle(v7);
+  v9 = v8;
   spid = v6;
-  v67 = v6 - 1;
-  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
+  v80 = v6 - 1;
+  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_25479E000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v6, "filterMessages", &unk_2547CAD0B, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_25479E000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v6, "filterMessages", &unk_2547CAD0B, buf, 2u);
   }
 
-  v74 = 0u;
-  v75 = 0u;
-  v72 = 0u;
-  v73 = 0u;
+  v87 = 0u;
+  v88 = 0u;
+  v85 = 0u;
+  v86 = 0u;
   obj = v3;
-  v9 = [obj countByEnumeratingWithState:&v72 objects:v76 count:16];
-  if (v9)
+  v10 = [obj countByEnumeratingWithState:&v85 objects:v89 count:16];
+  if (v10)
   {
-    v10 = v9;
-    v71 = *v73;
+    v11 = v10;
+    v84 = *v86;
     do
     {
-      v11 = 0;
+      v12 = 0;
       do
       {
-        if (*v73 != v71)
+        if (*v86 != v84)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v72 + 1) + 8 * v11);
-        v13 = _IMAssistantCoreSearchForMessageSignpostLogHandle();
-        v14 = os_signpost_id_generate(v13);
+        v13 = *(*(&v85 + 1) + 8 * v12);
+        v14 = _IMAssistantCoreSearchForMessageSignpostLogHandle(v10);
+        v15 = os_signpost_id_generate(v14);
 
-        v15 = _IMAssistantCoreSearchForMessageSignpostLogHandle();
-        v16 = v15;
-        v17 = v14 - 1;
-        if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
+        v17 = _IMAssistantCoreSearchForMessageSignpostLogHandle(v16);
+        v18 = v17;
+        v19 = v15 - 1;
+        if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
         {
           *buf = 0;
-          _os_signpost_emit_with_name_impl(&dword_25479E000, v16, OS_SIGNPOST_INTERVAL_BEGIN, v14, "filterIndividualMessage", &unk_2547CAD0B, buf, 2u);
+          _os_signpost_emit_with_name_impl(&dword_25479E000, v18, OS_SIGNPOST_INTERVAL_BEGIN, v15, "filterIndividualMessage", &unk_2547CAD0B, buf, 2u);
         }
 
-        v18 = _IMAssistantCoreSearchForMessageSignpostLogHandle();
-        v19 = os_signpost_id_generate(v18);
+        v21 = _IMAssistantCoreSearchForMessageSignpostLogHandle(v20);
+        v22 = os_signpost_id_generate(v21);
 
-        v20 = _IMAssistantCoreSearchForMessageSignpostLogHandle();
-        v21 = v20;
-        v22 = v19 - 1;
-        if (v19 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
+        v24 = _IMAssistantCoreSearchForMessageSignpostLogHandle(v23);
+        v25 = v24;
+        v26 = v22 - 1;
+        if (v22 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v24))
         {
           *buf = 0;
-          _os_signpost_emit_with_name_impl(&dword_25479E000, v21, OS_SIGNPOST_INTERVAL_BEGIN, v19, "filterMessageScreentimeCheck", &unk_2547CAD0B, buf, 2u);
+          _os_signpost_emit_with_name_impl(&dword_25479E000, v25, OS_SIGNPOST_INTERVAL_BEGIN, v22, "filterMessageScreentimeCheck", &unk_2547CAD0B, buf, 2u);
         }
 
-        if ([v12 allowedByScreenTime])
+        v27 = [v13 allowedByScreenTime];
+        if (v27)
         {
-          v23 = _IMAssistantCoreSearchForMessageSignpostLogHandle();
-          v24 = v23;
-          if (v22 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
+          v28 = _IMAssistantCoreSearchForMessageSignpostLogHandle(v27);
+          v29 = v28;
+          if (v26 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v28))
           {
             *buf = 0;
-            _os_signpost_emit_with_name_impl(&dword_25479E000, v24, OS_SIGNPOST_INTERVAL_END, v19, "filterMessageScreentimeCheck", &unk_2547CAD0B, buf, 2u);
+            _os_signpost_emit_with_name_impl(&dword_25479E000, v29, OS_SIGNPOST_INTERVAL_END, v22, "filterMessageScreentimeCheck", &unk_2547CAD0B, buf, 2u);
           }
 
-          if (*(a1 + 72) == 1 && [*(a1 + 32) messageIsFromBlackholedChat:v12])
+          if (*(a1 + 72) == 1 && [*(a1 + 32) messageIsFromBlackholedChat:v13])
           {
-            v25 = IMLogHandleForCategory();
-            if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+            v30 = IMLogHandleForCategory();
+            if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
-              v78 = v12;
-              _os_log_impl(&dword_25479E000, v25, OS_LOG_TYPE_INFO, "Message filtered because it is from a blackholed chat: %@", buf, 0xCu);
+              v91 = v13;
+              _os_log_impl(&dword_25479E000, v30, OS_LOG_TYPE_INFO, "Message filtered because it is from a blackholed chat: %@", buf, 0xCu);
             }
 
-            v26 = _IMAssistantCoreSearchForMessageSignpostLogHandle();
-            v27 = v26;
-            if (v17 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v26))
+            v32 = _IMAssistantCoreSearchForMessageSignpostLogHandle(v31);
+            v33 = v32;
+            if (v19 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v32))
             {
               goto LABEL_80;
             }
@@ -8637,20 +8491,20 @@ id sub_2547C7168(uint64_t a1, void *a2)
 
           else
           {
-            v32 = *(a1 + 40);
-            if (v32 && ([v12 date], v33 = objc_claimAutoreleasedReturnValue(), v34 = objc_msgSend(v32, "containsDate:", v33), v33, (v34 & 1) == 0))
+            v40 = *(a1 + 40);
+            if (v40 && ([v13 date], v41 = objc_claimAutoreleasedReturnValue(), v42 = objc_msgSend(v40, "containsDate:", v41), v41, (v42 & 1) == 0))
             {
-              v47 = IMLogHandleForCategory();
-              if (os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
+              v56 = IMLogHandleForCategory();
+              if (os_log_type_enabled(v56, OS_LOG_TYPE_INFO))
               {
                 *buf = 138412290;
-                v78 = v12;
-                _os_log_impl(&dword_25479E000, v47, OS_LOG_TYPE_INFO, "Message filtered because it did not fall within the specified date interval: %@", buf, 0xCu);
+                v91 = v13;
+                _os_log_impl(&dword_25479E000, v56, OS_LOG_TYPE_INFO, "Message filtered because it did not fall within the specified date interval: %@", buf, 0xCu);
               }
 
-              v48 = _IMAssistantCoreSearchForMessageSignpostLogHandle();
-              v27 = v48;
-              if (v17 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v48))
+              v58 = _IMAssistantCoreSearchForMessageSignpostLogHandle(v57);
+              v33 = v58;
+              if (v19 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v58))
               {
                 goto LABEL_80;
               }
@@ -8658,50 +8512,50 @@ id sub_2547C7168(uint64_t a1, void *a2)
 
             else
             {
-              if ([v12 isRead])
+              if ([v13 isRead])
               {
-                v35 = 1;
+                v43 = 1;
               }
 
               else
               {
-                v35 = [v12 isOutgoing];
+                v43 = [v13 isOutgoing];
               }
 
-              if (*(a1 + 73) == 1 && v35)
+              if (*(a1 + 73) == 1 && v43)
               {
-                v36 = IMLogHandleForCategory();
-                if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
+                v44 = IMLogHandleForCategory();
+                if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
                 {
                   *buf = 138412290;
-                  v78 = v12;
-                  _os_log_impl(&dword_25479E000, v36, OS_LOG_TYPE_INFO, "Message filtered due to not being an unread message: %@", buf, 0xCu);
+                  v91 = v13;
+                  _os_log_impl(&dword_25479E000, v44, OS_LOG_TYPE_INFO, "Message filtered due to not being an unread message: %@", buf, 0xCu);
                 }
 
-                v37 = _IMAssistantCoreSearchForMessageSignpostLogHandle();
-                v27 = v37;
-                if (v17 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v37))
+                v46 = _IMAssistantCoreSearchForMessageSignpostLogHandle(v45);
+                v33 = v46;
+                if (v19 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v46))
                 {
                   goto LABEL_80;
                 }
               }
 
-              else if (v35 & 1 | ((*(a1 + 74) & 1) == 0))
+              else if (v43 & 1 | ((*(a1 + 74) & 1) == 0))
               {
-                v38 = *(a1 + 48);
-                if (v38 && ([v12 body], v39 = objc_claimAutoreleasedReturnValue(), v40 = objc_msgSend(v38, "evaluateWithObject:", v39), v39, (v40 & 1) == 0))
+                v47 = *(a1 + 48);
+                if (v47 && ([v13 body], v48 = objc_claimAutoreleasedReturnValue(), v49 = objc_msgSend(v47, "evaluateWithObject:", v48), v48, (v49 & 1) == 0))
                 {
-                  v51 = IMLogHandleForCategory();
-                  if (os_log_type_enabled(v51, OS_LOG_TYPE_INFO))
+                  v62 = IMLogHandleForCategory();
+                  if (os_log_type_enabled(v62, OS_LOG_TYPE_INFO))
                   {
                     *buf = 138412290;
-                    v78 = v12;
-                    _os_log_impl(&dword_25479E000, v51, OS_LOG_TYPE_INFO, "Message filtered because it did not pass the contents predicate: %@", buf, 0xCu);
+                    v91 = v13;
+                    _os_log_impl(&dword_25479E000, v62, OS_LOG_TYPE_INFO, "Message filtered because it did not pass the contents predicate: %@", buf, 0xCu);
                   }
 
-                  v52 = _IMAssistantCoreSearchForMessageSignpostLogHandle();
-                  v27 = v52;
-                  if (v17 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v52))
+                  v64 = _IMAssistantCoreSearchForMessageSignpostLogHandle(v63);
+                  v33 = v64;
+                  if (v19 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v64))
                   {
                     goto LABEL_80;
                   }
@@ -8711,24 +8565,24 @@ id sub_2547C7168(uint64_t a1, void *a2)
                 {
                   if (*(a1 + 56))
                   {
-                    v27 = [v12 sender];
-                    v41 = [*(a1 + 32) chatParticipantForSPIHandle:v27];
-                    if (([*(a1 + 56) evaluateWithObject:v41] & 1) == 0)
+                    v33 = [v13 sender];
+                    v50 = [*(a1 + 32) chatParticipantForSPIHandle:v33];
+                    if (([*(a1 + 56) evaluateWithObject:v50] & 1) == 0)
                     {
-                      v53 = IMLogHandleForCategory();
-                      if (os_log_type_enabled(v53, OS_LOG_TYPE_INFO))
+                      v65 = IMLogHandleForCategory();
+                      if (os_log_type_enabled(v65, OS_LOG_TYPE_INFO))
                       {
                         *buf = 138412290;
-                        v78 = v12;
-                        _os_log_impl(&dword_25479E000, v53, OS_LOG_TYPE_INFO, "Message filtered because it did not pass the senders predicate: %@", buf, 0xCu);
+                        v91 = v13;
+                        _os_log_impl(&dword_25479E000, v65, OS_LOG_TYPE_INFO, "Message filtered because it did not pass the senders predicate: %@", buf, 0xCu);
                       }
 
-                      v54 = _IMAssistantCoreSearchForMessageSignpostLogHandle();
-                      v55 = v54;
-                      if (v17 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v54))
+                      v67 = _IMAssistantCoreSearchForMessageSignpostLogHandle(v66);
+                      v68 = v67;
+                      if (v19 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v67))
                       {
                         *buf = 0;
-                        _os_signpost_emit_with_name_impl(&dword_25479E000, v55, OS_SIGNPOST_INTERVAL_END, v14, "filterIndividualMessage", &unk_2547CAD0B, buf, 2u);
+                        _os_signpost_emit_with_name_impl(&dword_25479E000, v68, OS_SIGNPOST_INTERVAL_END, v15, "filterIndividualMessage", &unk_2547CAD0B, buf, 2u);
                       }
 
                       goto LABEL_81;
@@ -8737,55 +8591,54 @@ id sub_2547C7168(uint64_t a1, void *a2)
 
                   if (*(a1 + 64))
                   {
-                    v27 = objc_alloc_init(MEMORY[0x277CBEB18]);
-                    v42 = [v12 recipients];
-                    if (v42)
+                    v33 = objc_alloc_init(MEMORY[0x277CBEB18]);
+                    v51 = [v13 recipients];
+                    if (v51)
                     {
-                      [v27 addObjectsFromArray:v42];
+                      [v33 addObjectsFromArray:v51];
                     }
 
-                    v43 = [v12 sender];
-                    if (v43)
+                    v52 = [v13 sender];
+                    if (v52)
                     {
-                      [v27 addObject:v43];
+                      [v33 addObject:v52];
                     }
 
-                    v44 = [*(a1 + 32) chatParticipantsForSPIHandles:v27];
-                    if (([*(a1 + 64) evaluateWithObject:v44] & 1) == 0)
+                    v53 = [*(a1 + 32) chatParticipantsForSPIHandles:v33];
+                    if (([*(a1 + 64) evaluateWithObject:v53] & 1) == 0)
                     {
-                      v68 = v42;
-                      v56 = IMLogHandleForCategory();
-                      if (os_log_type_enabled(v56, OS_LOG_TYPE_INFO))
+                      v81 = v51;
+                      v69 = IMLogHandleForCategory();
+                      if (os_log_type_enabled(v69, OS_LOG_TYPE_INFO))
                       {
                         *buf = 138412290;
-                        v78 = v12;
-                        _os_log_impl(&dword_25479E000, v56, OS_LOG_TYPE_INFO, "Message filtered because it did not pass the recipients predicate: %@", buf, 0xCu);
+                        v91 = v13;
+                        _os_log_impl(&dword_25479E000, v69, OS_LOG_TYPE_INFO, "Message filtered because it did not pass the recipients predicate: %@", buf, 0xCu);
                       }
 
-                      v57 = _IMAssistantCoreSearchForMessageSignpostLogHandle();
-                      v58 = v57;
-                      if (v17 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v57))
+                      v71 = _IMAssistantCoreSearchForMessageSignpostLogHandle(v70);
+                      v72 = v71;
+                      if (v19 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v71))
                       {
                         *buf = 0;
-                        _os_signpost_emit_with_name_impl(&dword_25479E000, v58, OS_SIGNPOST_INTERVAL_END, v14, "filterIndividualMessage", &unk_2547CAD0B, buf, 2u);
+                        _os_signpost_emit_with_name_impl(&dword_25479E000, v72, OS_SIGNPOST_INTERVAL_END, v15, "filterIndividualMessage", &unk_2547CAD0B, buf, 2u);
                       }
 
                       goto LABEL_81;
                     }
                   }
 
-                  v45 = IMLogHandleForCategory();
-                  if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
+                  v54 = IMLogHandleForCategory();
+                  if (os_log_type_enabled(v54, OS_LOG_TYPE_INFO))
                   {
                     *buf = 138412290;
-                    v78 = v12;
-                    _os_log_impl(&dword_25479E000, v45, OS_LOG_TYPE_INFO, "Message passed filter: %@", buf, 0xCu);
+                    v91 = v13;
+                    _os_log_impl(&dword_25479E000, v54, OS_LOG_TYPE_INFO, "Message passed filter: %@", buf, 0xCu);
                   }
 
-                  [v69 addObject:v12];
-                  v46 = _IMAssistantCoreSearchForMessageSignpostLogHandle();
-                  v27 = v46;
-                  if (v17 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v46))
+                  v55 = _IMAssistantCoreSearchForMessageSignpostLogHandle([v82 addObject:v13]);
+                  v33 = v55;
+                  if (v19 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v55))
                   {
                     goto LABEL_80;
                   }
@@ -8794,17 +8647,17 @@ id sub_2547C7168(uint64_t a1, void *a2)
 
               else
               {
-                v49 = IMLogHandleForCategory();
-                if (os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
+                v59 = IMLogHandleForCategory();
+                if (os_log_type_enabled(v59, OS_LOG_TYPE_INFO))
                 {
                   *buf = 138412290;
-                  v78 = v12;
-                  _os_log_impl(&dword_25479E000, v49, OS_LOG_TYPE_INFO, "Message filtered due to not being a read message: %@", buf, 0xCu);
+                  v91 = v13;
+                  _os_log_impl(&dword_25479E000, v59, OS_LOG_TYPE_INFO, "Message filtered due to not being a read message: %@", buf, 0xCu);
                 }
 
-                v50 = _IMAssistantCoreSearchForMessageSignpostLogHandle();
-                v27 = v50;
-                if (v17 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v50))
+                v61 = _IMAssistantCoreSearchForMessageSignpostLogHandle(v60);
+                v33 = v61;
+                if (v19 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v61))
                 {
                   goto LABEL_80;
                 }
@@ -8815,143 +8668,139 @@ id sub_2547C7168(uint64_t a1, void *a2)
 
         else
         {
-          v28 = IMLogHandleForCategory();
-          if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+          v34 = IMLogHandleForCategory();
+          if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v78 = v12;
-            _os_log_impl(&dword_25479E000, v28, OS_LOG_TYPE_INFO, "Message filtered because it did not pass downtime allowlist check: %@", buf, 0xCu);
+            v91 = v13;
+            _os_log_impl(&dword_25479E000, v34, OS_LOG_TYPE_INFO, "Message filtered because it did not pass downtime allowlist check: %@", buf, 0xCu);
           }
 
-          v29 = _IMAssistantCoreSearchForMessageSignpostLogHandle();
-          v30 = v29;
-          if (v22 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v29))
+          v36 = _IMAssistantCoreSearchForMessageSignpostLogHandle(v35);
+          v37 = v36;
+          if (v26 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v36))
           {
             *buf = 0;
-            _os_signpost_emit_with_name_impl(&dword_25479E000, v30, OS_SIGNPOST_INTERVAL_END, v19, "filterMessageScreentimeCheck", &unk_2547CAD0B, buf, 2u);
+            _os_signpost_emit_with_name_impl(&dword_25479E000, v37, OS_SIGNPOST_INTERVAL_END, v22, "filterMessageScreentimeCheck", &unk_2547CAD0B, buf, 2u);
           }
 
-          v31 = _IMAssistantCoreSearchForMessageSignpostLogHandle();
-          v27 = v31;
-          if (v17 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v31))
+          v39 = _IMAssistantCoreSearchForMessageSignpostLogHandle(v38);
+          v33 = v39;
+          if (v19 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v39))
           {
 LABEL_80:
             *buf = 0;
-            _os_signpost_emit_with_name_impl(&dword_25479E000, v27, OS_SIGNPOST_INTERVAL_END, v14, "filterIndividualMessage", &unk_2547CAD0B, buf, 2u);
+            _os_signpost_emit_with_name_impl(&dword_25479E000, v33, OS_SIGNPOST_INTERVAL_END, v15, "filterIndividualMessage", &unk_2547CAD0B, buf, 2u);
           }
         }
 
 LABEL_81:
 
-        ++v11;
+        ++v12;
       }
 
-      while (v10 != v11);
-      v59 = [obj countByEnumeratingWithState:&v72 objects:v76 count:16];
-      v10 = v59;
+      while (v11 != v12);
+      v10 = [obj countByEnumeratingWithState:&v85 objects:v89 count:16];
+      v11 = v10;
     }
 
-    while (v59);
+    while (v10);
   }
 
-  v60 = IMLogHandleForCategory();
-  if (os_log_type_enabled(v60, OS_LOG_TYPE_INFO))
+  v73 = IMLogHandleForCategory();
+  if (os_log_type_enabled(v73, OS_LOG_TYPE_INFO))
   {
-    v61 = [v69 count];
+    v74 = [v82 count];
     *buf = 134217984;
-    v78 = v61;
-    _os_log_impl(&dword_25479E000, v60, OS_LOG_TYPE_INFO, "Filter block completed with %ld messages.", buf, 0xCu);
+    v91 = v74;
+    _os_log_impl(&dword_25479E000, v73, OS_LOG_TYPE_INFO, "Filter block completed with %ld messages.", buf, 0xCu);
   }
 
-  v62 = _IMAssistantCoreSearchForMessageSignpostLogHandle();
-  v63 = v62;
-  if (v67 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v62))
+  v76 = _IMAssistantCoreSearchForMessageSignpostLogHandle(v75);
+  v77 = v76;
+  if (v80 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v76))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_25479E000, v63, OS_SIGNPOST_INTERVAL_END, spid, "filterMessages", &unk_2547CAD0B, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_25479E000, v77, OS_SIGNPOST_INTERVAL_END, spid, "filterMessages", &unk_2547CAD0B, buf, 2u);
   }
 
-  v64 = *MEMORY[0x277D85DE8];
-
-  return v69;
+  return v82;
 }
 
 id sub_2547C7D8C(uint64_t a1, void *a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = _IMAssistantCoreSearchForMessageSignpostLogHandle();
+  v4 = _IMAssistantCoreSearchForMessageSignpostLogHandle(v3);
   v5 = os_signpost_id_generate(v4);
 
-  v6 = _IMAssistantCoreSearchForMessageSignpostLogHandle();
-  v7 = v6;
-  v23 = v5 - 1;
-  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
+  v7 = _IMAssistantCoreSearchForMessageSignpostLogHandle(v6);
+  v8 = v7;
+  v24 = v5 - 1;
+  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_25479E000, v7, OS_SIGNPOST_INTERVAL_BEGIN, v5, "convertMessages", &unk_2547CAD0B, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_25479E000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v5, "convertMessages", &unk_2547CAD0B, buf, 2u);
   }
 
   spid = v5;
 
-  v8 = IMLogHandleForCategory();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v9 = IMLogHandleForCategory();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    v9 = [v3 count];
+    v10 = [v3 count];
     *buf = 134217984;
-    v30 = v9;
-    _os_log_impl(&dword_25479E000, v8, OS_LOG_TYPE_INFO, "Conversion block executed with %ld messages.", buf, 0xCu);
+    v31 = v10;
+    _os_log_impl(&dword_25479E000, v9, OS_LOG_TYPE_INFO, "Conversion block executed with %ld messages.", buf, 0xCu);
   }
 
-  v10 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v24 = 0u;
+  v11 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v11 = v3;
-  v12 = [v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
-  if (v12)
+  v28 = 0u;
+  v12 = v3;
+  v13 = [v12 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  if (v13)
   {
-    v13 = v12;
-    v14 = *v25;
+    v14 = v13;
+    v15 = *v26;
     do
     {
-      for (i = 0; i != v13; ++i)
+      for (i = 0; i != v14; ++i)
       {
-        if (*v25 != v14)
+        if (*v26 != v15)
         {
-          objc_enumerationMutation(v11);
+          objc_enumerationMutation(v12);
         }
 
-        v16 = [IMAssistantINMessageConverter INMessagesForSPIMessage:*(*(&v24 + 1) + 8 * i) personProvider:*(a1 + 32), spid];
-        v17 = IMLogHandleForCategory();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+        v17 = [IMAssistantINMessageConverter INMessagesForSPIMessage:*(*(&v25 + 1) + 8 * i) personProvider:*(a1 + 32), spid];
+        v18 = IMLogHandleForCategory();
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v30 = v16;
-          _os_log_impl(&dword_25479E000, v17, OS_LOG_TYPE_INFO, "Finished converting message: %@", buf, 0xCu);
+          v31 = v17;
+          _os_log_impl(&dword_25479E000, v18, OS_LOG_TYPE_INFO, "Finished converting message: %@", buf, 0xCu);
         }
 
-        [v10 addObjectsFromArray:v16];
+        [v11 addObjectsFromArray:v17];
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
-    while (v13);
+    while (v14);
   }
 
-  v18 = _IMAssistantCoreSearchForMessageSignpostLogHandle();
-  v19 = v18;
-  if (v23 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
+  v20 = _IMAssistantCoreSearchForMessageSignpostLogHandle(v19);
+  v21 = v20;
+  if (v24 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_25479E000, v19, OS_SIGNPOST_INTERVAL_END, spid, "convertMessages", &unk_2547CAD0B, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_25479E000, v21, OS_SIGNPOST_INTERVAL_END, spid, "convertMessages", &unk_2547CAD0B, buf, 2u);
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-
-  return v10;
+  return v11;
 }
 
 void sub_2547C8080(void *a1)

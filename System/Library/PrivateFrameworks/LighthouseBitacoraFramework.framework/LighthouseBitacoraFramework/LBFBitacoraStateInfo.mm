@@ -46,76 +46,77 @@
   statusCopy = status;
   transitionsCopy = transitions;
   eventsCopy = events;
-  v79.receiver = self;
-  v79.super_class = LBFBitacoraStateInfo;
-  v19 = [(LBFBitacoraStateInfo *)&v79 init];
+  v70.receiver = self;
+  v70.super_class = LBFBitacoraStateInfo;
+  v19 = [(LBFBitacoraStateInfo *)&v70 init];
+  v21 = v19;
   if (v19)
   {
-    LBFLoggingUtilsInit();
-    objc_storeStrong(&v19->_bitacoraStateTransitions, transitions);
-    objc_storeStrong(&v19->_bitacoraEvents, events);
-    v24 = objc_msgSend_UUID(MEMORY[0x277CCAD78], v20, v21, v22, v23, endTimeCopy, timeCopy);
-    v29 = objc_msgSend_UUIDString(v24, v25, v26, v27, v28);
-    stateId = v19->_stateId;
-    v19->_stateId = v29;
+    LBFLoggingUtilsInit(v19, v20);
+    objc_storeStrong(&v21->_bitacoraStateTransitions, transitions);
+    objc_storeStrong(&v21->_bitacoraEvents, events);
+    v25 = objc_msgSend_UUID(MEMORY[0x277CCAD78], v22, v24, v23, endTimeCopy, timeCopy);
+    v29 = objc_msgSend_UUIDString(v25, v26, v28, v27);
+    stateId = v21->_stateId;
+    v21->_stateId = v29;
 
-    objc_storeStrong(&v19->_trialIdentifiers, state);
-    v35 = objc_msgSend_getContextId(LBFContextId, v31, v32, v33, v34);
-    contextId = v19->_contextId;
-    v19->_contextId = v35;
+    objc_storeStrong(&v21->_trialIdentifiers, state);
+    v34 = objc_msgSend_getContextId(LBFContextId, v31, v33, v32);
+    contextId = v21->_contextId;
+    v21->_contextId = v34;
 
-    v41 = objc_msgSend_isActivated(statusCopy, v37, v38, v39, v40);
-    isActivated = v19->_isActivated;
-    v19->_isActivated = v41;
+    v39 = objc_msgSend_isActivated(statusCopy, v36, v38, v37);
+    isActivated = v21->_isActivated;
+    v21->_isActivated = v39;
 
-    v47 = objc_msgSend_isAllocated(statusCopy, v43, v44, v45, v46);
-    isAllocated = v19->_isAllocated;
-    v19->_isAllocated = v47;
+    v44 = objc_msgSend_isAllocated(statusCopy, v41, v43, v42);
+    isAllocated = v21->_isAllocated;
+    v21->_isAllocated = v44;
 
-    v19->_isActivated_implicit = objc_msgSend_isActivated_implicit(statusCopy, v49, v50, v51, v52);
-    v19->_isAllocated_implicit = objc_msgSend_isAllocated_implicit(statusCopy, v53, v54, v55, v56);
-    objc_storeStrong(&v19->_bucketStartTime, time);
-    objc_storeStrong(&v19->_bucketEndTime, endTime);
-    if (objc_msgSend_count(transitionsCopy, v57, v58, v59, v60))
+    v21->_isActivated_implicit = objc_msgSend_isActivated_implicit(statusCopy, v46, v48, v47);
+    v21->_isAllocated_implicit = objc_msgSend_isAllocated_implicit(statusCopy, v49, v51, v50);
+    objc_storeStrong(&v21->_bucketStartTime, time);
+    objc_storeStrong(&v21->_bucketEndTime, endTime);
+    if (objc_msgSend_count(transitionsCopy, v52, v54, v53))
     {
-      v65 = objc_msgSend_lastObject(transitionsCopy, v61, v62, v63, v64);
-      v19->_latestState = objc_msgSend_state(v65, v66, v67, v68, v69);
+      v58 = objc_msgSend_lastObject(transitionsCopy, v55, v57, v56);
+      v21->_latestState = objc_msgSend_state(v58, v59, v61, v60);
 
-      if (v19->_latestState == 8)
+      if (v21->_latestState == 8)
       {
-        v70 = LBFLogContextBitacoraStateInfo;
+        v62 = LBFLogContextBitacoraStateInfo;
         if (os_log_type_enabled(LBFLogContextBitacoraStateInfo, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_255ED5000, v70, OS_LOG_TYPE_INFO, "LBFBitacoraState_Unexpected state", buf, 2u);
+          _os_log_impl(&dword_255ED5000, v62, OS_LOG_TYPE_INFO, "LBFBitacoraState_Unexpected state", buf, 2u);
         }
       }
     }
 
     else
     {
-      v19->_latestState = 0;
+      v21->_latestState = 0;
     }
 
     if (stateCopy)
     {
-      objc_msgSend_IsEmptyTrialIdentifiers_(LBFUtils, v61, stateCopy, v63, v64);
+      objc_msgSend_IsEmptyTrialIdentifiers_(LBFUtils, v55, v57, stateCopy);
     }
 
-    objc_msgSend_iterateEvents(v19, v61, v62, v63, v64);
-    objc_msgSend_iterateTransitions(v19, v71, v72, v73, v74);
+    objc_msgSend_iterateEvents(v21, v55, v57, v56);
+    objc_msgSend_iterateTransitions(v21, v63, v65, v64);
   }
 
-  return v19;
+  return v21;
 }
 
 - (LBFBitacoraStateInfo)initWithBitcoraStateMLHost:(id)host bucketStartTime:(id)time bucketEndTime:(id)endTime observedTrialStatus:(id)status bitacoraStateTransitions:(id)transitions bitacoraEvents:(id)events
 {
-  started = objc_msgSend_initWithBitcoraState_bucketStartTime_bucketEndTime_observedTrialStatus_bitacoraStateTransitions_bitacoraEvents_(self, a2, host, time, endTime, status, transitions, events);
+  started = objc_msgSend_initWithBitcoraState_bucketStartTime_bucketEndTime_observedTrialStatus_bitacoraStateTransitions_bitacoraEvents_(self, a2, v8, host, time, endTime, status, transitions, events);
   v12 = started;
   if (started)
   {
-    v13 = objc_msgSend_addMLHostMarkerToString_(started, v9, started[2], v10, v11);
+    v13 = objc_msgSend_addMLHostMarkerToString_(started, v10, v11, started[2]);
     stateId = v12->_stateId;
     v12->_stateId = v13;
   }
@@ -125,145 +126,145 @@
 
 - (void)iterateEvents
 {
-  v551 = *MEMORY[0x277D85DE8];
-  v544 = 0u;
-  v545 = 0u;
-  v546 = 0u;
-  v547 = 0u;
+  v456 = *MEMORY[0x277D85DE8];
+  v449 = 0u;
+  v450 = 0u;
+  v451 = 0u;
+  v452 = 0u;
   v3 = self->_bitacoraEvents;
-  v5 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v4, &v544, v550, 16);
-  if (v5)
+  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v4, v5, &v449, v455, 16);
+  if (v6)
   {
-    v6 = v5;
-    v7 = *v545;
+    v7 = v6;
+    v8 = *v450;
     do
     {
-      v8 = 0;
+      v9 = 0;
       do
       {
-        if (*v545 != v7)
+        if (*v450 != v8)
         {
           objc_enumerationMutation(v3);
         }
 
-        v9 = *(*(&v544 + 1) + 8 * v8);
+        v10 = *(*(&v449 + 1) + 8 * v9);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v10 = v9;
-          v15 = objc_msgSend_timestamp(v10, v11, v12, v13, v14);
-          v19 = objc_msgSend_compare_(v15, v16, self->_bucketStartTime, v17, v18);
+          v11 = v10;
+          v15 = objc_msgSend_timestamp(v11, v12, v14, v13);
+          v18 = objc_msgSend_compare_(v15, v16, v17, self->_bucketStartTime);
 
-          if (v19 == -1)
+          if (v18 == -1)
           {
             if (os_log_type_enabled(LBFLogContextBitacoraStateInfo, OS_LOG_TYPE_ERROR))
             {
-              sub_255F0AE60(&v542, v543);
+              sub_255F0AE60(&v447, v448);
             }
 
             goto LABEL_87;
           }
 
-          v24 = objc_msgSend_taskFetched(v10, v20, v21, v22, v23);
+          v22 = objc_msgSend_taskFetched(v11, v19, v21, v20);
 
-          if (v24)
+          if (v22)
           {
-            v29 = objc_msgSend_taskFetched(v10, v25, v26, v27, v28);
-            v34 = objc_msgSend_succeeded(v29, v30, v31, v32, v33);
+            v26 = objc_msgSend_taskFetched(v11, v23, v25, v24);
+            v30 = objc_msgSend_succeeded(v26, v27, v29, v28);
 
-            v39 = MEMORY[0x277CCABB0];
-            if (v34)
+            v34 = MEMORY[0x277CCABB0];
+            if (v30)
             {
-              v40 = objc_msgSend_intValue(self->_count_TaskFetched_Succeeded, v35, v36, v37, v38);
-              v44 = objc_msgSend_numberWithInt_(v39, v41, (v40 + 1), v42, v43);
+              v35 = objc_msgSend_intValue(self->_count_TaskFetched_Succeeded, v31, v33, v32);
+              v38 = objc_msgSend_numberWithInt_(v34, v36, v37, (v35 + 1));
               count_TaskFetched_Succeeded = self->_count_TaskFetched_Succeeded;
-              self->_count_TaskFetched_Succeeded = v44;
+              self->_count_TaskFetched_Succeeded = v38;
 
-              v50 = objc_msgSend_timestamp(v10, v46, v47, v48, v49);
+              v43 = objc_msgSend_timestamp(v11, v40, v42, v41);
               timestamp_TaskFetched_Succeeded = self->_timestamp_TaskFetched_Succeeded;
-              self->_timestamp_TaskFetched_Succeeded = v50;
+              self->_timestamp_TaskFetched_Succeeded = v43;
             }
 
             else
             {
-              v79 = objc_msgSend_intValue(self->_count_TaskFetched_Failed, v35, v36, v37, v38);
-              v83 = objc_msgSend_numberWithInt_(v39, v80, (v79 + 1), v81, v82);
+              v67 = objc_msgSend_intValue(self->_count_TaskFetched_Failed, v31, v33, v32);
+              v70 = objc_msgSend_numberWithInt_(v34, v68, v69, (v67 + 1));
               count_TaskFetched_Failed = self->_count_TaskFetched_Failed;
-              self->_count_TaskFetched_Failed = v83;
+              self->_count_TaskFetched_Failed = v70;
 
-              v89 = objc_msgSend_timestamp(v10, v85, v86, v87, v88);
+              v75 = objc_msgSend_timestamp(v11, v72, v74, v73);
               timestamp_TaskFetched_Succeeded = self->_timestamp_TaskFetched_Failed;
-              self->_timestamp_TaskFetched_Failed = v89;
+              self->_timestamp_TaskFetched_Failed = v75;
             }
 
             goto LABEL_25;
           }
 
-          v52 = objc_msgSend_taskCompleted(v10, v25, v26, v27, v28);
+          v45 = objc_msgSend_taskCompleted(v11, v23, v25, v24);
 
-          if (v52)
+          if (v45)
           {
-            v57 = objc_msgSend_taskCompleted(v10, v53, v54, v55, v56);
-            v62 = objc_msgSend_succeeded(v57, v58, v59, v60, v61);
+            v49 = objc_msgSend_taskCompleted(v11, v46, v48, v47);
+            v53 = objc_msgSend_succeeded(v49, v50, v52, v51);
 
-            v67 = MEMORY[0x277CCABB0];
-            if (v62)
+            v57 = MEMORY[0x277CCABB0];
+            if (v53)
             {
-              v68 = objc_msgSend_intValue(self->_count_TaskCompleted_Succeeded, v63, v64, v65, v66);
-              v72 = objc_msgSend_numberWithInt_(v67, v69, (v68 + 1), v70, v71);
+              v58 = objc_msgSend_intValue(self->_count_TaskCompleted_Succeeded, v54, v56, v55);
+              v61 = objc_msgSend_numberWithInt_(v57, v59, v60, (v58 + 1));
               count_TaskCompleted_Succeeded = self->_count_TaskCompleted_Succeeded;
-              self->_count_TaskCompleted_Succeeded = v72;
+              self->_count_TaskCompleted_Succeeded = v61;
 
-              v78 = objc_msgSend_timestamp(v10, v74, v75, v76, v77);
+              v66 = objc_msgSend_timestamp(v11, v63, v65, v64);
               timestamp_TaskFetched_Succeeded = self->_timestamp_TaskCompleted_Succeeded;
-              self->_timestamp_TaskCompleted_Succeeded = v78;
+              self->_timestamp_TaskCompleted_Succeeded = v66;
             }
 
             else
             {
-              v117 = objc_msgSend_intValue(self->_count_TaskCompleted_Failed, v63, v64, v65, v66);
-              v121 = objc_msgSend_numberWithInt_(v67, v118, (v117 + 1), v119, v120);
+              v98 = objc_msgSend_intValue(self->_count_TaskCompleted_Failed, v54, v56, v55);
+              v101 = objc_msgSend_numberWithInt_(v57, v99, v100, (v98 + 1));
               count_TaskCompleted_Failed = self->_count_TaskCompleted_Failed;
-              self->_count_TaskCompleted_Failed = v121;
+              self->_count_TaskCompleted_Failed = v101;
 
-              v127 = objc_msgSend_timestamp(v10, v123, v124, v125, v126);
+              v106 = objc_msgSend_timestamp(v11, v103, v105, v104);
               timestamp_TaskFetched_Succeeded = self->_timestamp_TaskCompleted_Failed;
-              self->_timestamp_TaskCompleted_Failed = v127;
+              self->_timestamp_TaskCompleted_Failed = v106;
             }
 
             goto LABEL_25;
           }
 
-          v90 = objc_msgSend_taskScheduled(v10, v53, v54, v55, v56);
+          v76 = objc_msgSend_taskScheduled(v11, v46, v48, v47);
 
-          if (v90)
+          if (v76)
           {
-            v95 = objc_msgSend_taskScheduled(v10, v91, v92, v93, v94);
-            v100 = objc_msgSend_succeeded(v95, v96, v97, v98, v99);
+            v80 = objc_msgSend_taskScheduled(v11, v77, v79, v78);
+            v84 = objc_msgSend_succeeded(v80, v81, v83, v82);
 
-            v105 = MEMORY[0x277CCABB0];
-            if (v100)
+            v88 = MEMORY[0x277CCABB0];
+            if (v84)
             {
-              v106 = objc_msgSend_intValue(self->_count_TaskScheduled_Succeeded, v101, v102, v103, v104);
-              v110 = objc_msgSend_numberWithInt_(v105, v107, (v106 + 1), v108, v109);
+              v89 = objc_msgSend_intValue(self->_count_TaskScheduled_Succeeded, v85, v87, v86);
+              v92 = objc_msgSend_numberWithInt_(v88, v90, v91, (v89 + 1));
               count_TaskScheduled_Succeeded = self->_count_TaskScheduled_Succeeded;
-              self->_count_TaskScheduled_Succeeded = v110;
+              self->_count_TaskScheduled_Succeeded = v92;
 
-              v116 = objc_msgSend_timestamp(v10, v112, v113, v114, v115);
+              v97 = objc_msgSend_timestamp(v11, v94, v96, v95);
               timestamp_TaskFetched_Succeeded = self->_timestamp_TaskScheduled_Succeeded;
-              self->_timestamp_TaskScheduled_Succeeded = v116;
+              self->_timestamp_TaskScheduled_Succeeded = v97;
             }
 
             else
             {
-              v129 = objc_msgSend_intValue(self->_count_TaskScheduled_Failed, v101, v102, v103, v104);
-              v133 = objc_msgSend_numberWithInt_(v105, v130, (v129 + 1), v131, v132);
+              v108 = objc_msgSend_intValue(self->_count_TaskScheduled_Failed, v85, v87, v86);
+              v111 = objc_msgSend_numberWithInt_(v88, v109, v110, (v108 + 1));
               count_TaskScheduled_Failed = self->_count_TaskScheduled_Failed;
-              self->_count_TaskScheduled_Failed = v133;
+              self->_count_TaskScheduled_Failed = v111;
 
-              v139 = objc_msgSend_timestamp(v10, v135, v136, v137, v138);
+              v116 = objc_msgSend_timestamp(v11, v113, v115, v114);
               timestamp_TaskFetched_Succeeded = self->_timestamp_TaskScheduled_Failed;
-              self->_timestamp_TaskScheduled_Failed = v139;
+              self->_timestamp_TaskScheduled_Failed = v116;
             }
 
 LABEL_25:
@@ -271,11 +272,11 @@ LABEL_25:
 
           else
           {
-            v128 = objc_msgSend_activityScheduleStatus(v10, v91, v92, v93, v94);
+            v107 = objc_msgSend_activityScheduleStatus(v11, v77, v79, v78);
 
-            if (!v128 && os_log_type_enabled(LBFLogContextBitacoraStateInfo, OS_LOG_TYPE_ERROR))
+            if (!v107 && os_log_type_enabled(LBFLogContextBitacoraStateInfo, OS_LOG_TYPE_ERROR))
             {
-              sub_255F0AD14(&v540, v541);
+              sub_255F0AD14(&v445, v446);
             }
           }
         }
@@ -286,103 +287,103 @@ LABEL_25:
           goto LABEL_40;
         }
 
-        v140 = v9;
-        v145 = objc_msgSend_timestamp(v140, v141, v142, v143, v144);
-        v149 = objc_msgSend_compare_(v145, v146, self->_bucketStartTime, v147, v148);
+        v117 = v10;
+        v121 = objc_msgSend_timestamp(v117, v118, v120, v119);
+        v124 = objc_msgSend_compare_(v121, v122, v123, self->_bucketStartTime);
 
-        if (v149 == -1)
+        if (v124 == -1)
         {
           if (os_log_type_enabled(LBFLogContextBitacoraStateInfo, OS_LOG_TYPE_ERROR))
           {
-            sub_255F0AE34(&v538, v539);
+            sub_255F0AE34(&v443, v444);
           }
 
           goto LABEL_87;
         }
 
-        v154 = objc_msgSend_performTaskStatus(v140, v150, v151, v152, v153);
+        v128 = objc_msgSend_performTaskStatus(v117, v125, v127, v126);
 
-        if (v154)
+        if (v128)
         {
-          v159 = objc_msgSend_performTaskStatus(v140, v155, v156, v157, v158);
+          v132 = objc_msgSend_performTaskStatus(v117, v129, v131, v130);
           goto LABEL_35;
         }
 
-        v164 = objc_msgSend_performTrialTaskStatus(v140, v155, v156, v157, v158);
+        v136 = objc_msgSend_performTrialTaskStatus(v117, v129, v131, v130);
 
-        if (v164)
+        if (v136)
         {
-          v159 = objc_msgSend_performTrialTaskStatus(v140, v165, v166, v167, v168);
+          v132 = objc_msgSend_performTrialTaskStatus(v117, v137, v139, v138);
 LABEL_35:
-          v169 = v159;
-          v170 = objc_msgSend_succeeded(v159, v160, v161, v162, v163);
+          v140 = v132;
+          v141 = objc_msgSend_succeeded(v132, v133, v135, v134);
 
-          v175 = MEMORY[0x277CCABB0];
-          if (v170)
+          v145 = MEMORY[0x277CCABB0];
+          if (v141)
           {
-            v176 = objc_msgSend_intValue(self->_count_PerformTask_Succeeded, v171, v172, v173, v174);
-            v180 = objc_msgSend_numberWithInt_(v175, v177, (v176 + 1), v178, v179);
+            v146 = objc_msgSend_intValue(self->_count_PerformTask_Succeeded, v142, v144, v143);
+            v149 = objc_msgSend_numberWithInt_(v145, v147, v148, (v146 + 1));
             count_PerformTask_Succeeded = self->_count_PerformTask_Succeeded;
-            self->_count_PerformTask_Succeeded = v180;
+            self->_count_PerformTask_Succeeded = v149;
 
-            v186 = objc_msgSend_timestamp(v140, v182, v183, v184, v185);
+            v154 = objc_msgSend_timestamp(v117, v151, v153, v152);
             timestamp_PerformTask_Succeeded = self->_timestamp_PerformTask_Succeeded;
-            self->_timestamp_PerformTask_Succeeded = v186;
+            self->_timestamp_PerformTask_Succeeded = v154;
           }
 
           else
           {
-            v188 = objc_msgSend_intValue(self->_count_PerformTask_Failed, v171, v172, v173, v174);
-            v192 = objc_msgSend_numberWithInt_(v175, v189, (v188 + 1), v190, v191);
+            v156 = objc_msgSend_intValue(self->_count_PerformTask_Failed, v142, v144, v143);
+            v159 = objc_msgSend_numberWithInt_(v145, v157, v158, (v156 + 1));
             count_PerformTask_Failed = self->_count_PerformTask_Failed;
-            self->_count_PerformTask_Failed = v192;
+            self->_count_PerformTask_Failed = v159;
 
-            v198 = objc_msgSend_timestamp(v140, v194, v195, v196, v197);
+            v164 = objc_msgSend_timestamp(v117, v161, v163, v162);
             timestamp_PerformTask_Succeeded = self->_timestamp_PerformTask_Failed;
-            self->_timestamp_PerformTask_Failed = v198;
+            self->_timestamp_PerformTask_Failed = v164;
           }
 
           goto LABEL_38;
         }
 
-        v271 = objc_msgSend_stop(v140, v165, v166, v167, v168);
+        v224 = objc_msgSend_stop(v117, v137, v139, v138);
 
-        if (!v271)
+        if (!v224)
         {
           if (os_log_type_enabled(LBFLogContextBitacoraStateInfo, OS_LOG_TYPE_ERROR))
           {
-            sub_255F0AD40(&v536, v537);
+            sub_255F0AD40(&v441, v442);
           }
 
           goto LABEL_39;
         }
 
-        v276 = objc_msgSend_stop(v140, v272, v273, v274, v275);
-        v281 = objc_msgSend_succeeded(v276, v277, v278, v279, v280);
+        v228 = objc_msgSend_stop(v117, v225, v227, v226);
+        v232 = objc_msgSend_succeeded(v228, v229, v231, v230);
 
-        v286 = MEMORY[0x277CCABB0];
-        if (v281)
+        v236 = MEMORY[0x277CCABB0];
+        if (v232)
         {
-          v287 = objc_msgSend_intValue(self->_count_Stop_Succeeded, v282, v283, v284, v285);
-          v291 = objc_msgSend_numberWithInt_(v286, v288, (v287 + 1), v289, v290);
+          v237 = objc_msgSend_intValue(self->_count_Stop_Succeeded, v233, v235, v234);
+          v240 = objc_msgSend_numberWithInt_(v236, v238, v239, (v237 + 1));
           count_Stop_Succeeded = self->_count_Stop_Succeeded;
-          self->_count_Stop_Succeeded = v291;
+          self->_count_Stop_Succeeded = v240;
 
-          v297 = objc_msgSend_timestamp(v140, v293, v294, v295, v296);
+          v245 = objc_msgSend_timestamp(v117, v242, v244, v243);
           timestamp_PerformTask_Succeeded = self->_timestamp_Stop_Succeeded;
-          self->_timestamp_Stop_Succeeded = v297;
+          self->_timestamp_Stop_Succeeded = v245;
         }
 
         else
         {
-          v523 = objc_msgSend_intValue(self->_count_Stop_Failed, v282, v283, v284, v285);
-          v527 = objc_msgSend_numberWithInt_(v286, v524, (v523 + 1), v525, v526);
+          v431 = objc_msgSend_intValue(self->_count_Stop_Failed, v233, v235, v234);
+          v434 = objc_msgSend_numberWithInt_(v236, v432, v433, (v431 + 1));
           count_Stop_Failed = self->_count_Stop_Failed;
-          self->_count_Stop_Failed = v527;
+          self->_count_Stop_Failed = v434;
 
-          v533 = objc_msgSend_timestamp(v140, v529, v530, v531, v532);
+          v439 = objc_msgSend_timestamp(v117, v436, v438, v437);
           timestamp_PerformTask_Succeeded = self->_timestamp_Stop_Failed;
-          self->_timestamp_Stop_Failed = v533;
+          self->_timestamp_Stop_Failed = v439;
         }
 
 LABEL_38:
@@ -395,107 +396,107 @@ LABEL_40:
           goto LABEL_61;
         }
 
-        v199 = v9;
-        v204 = objc_msgSend_timestamp(v199, v200, v201, v202, v203);
-        v208 = objc_msgSend_compare_(v204, v205, self->_bucketStartTime, v206, v207);
+        v165 = v10;
+        v169 = objc_msgSend_timestamp(v165, v166, v168, v167);
+        v172 = objc_msgSend_compare_(v169, v170, v171, self->_bucketStartTime);
 
-        if (v208 == -1)
+        if (v172 == -1)
         {
           goto LABEL_87;
         }
 
-        v213 = objc_msgSend_eventType(v199, v209, v210, v211, v212);
-        switch(v213)
+        v176 = objc_msgSend_eventType(v165, v173, v175, v174);
+        switch(v176)
         {
           case 1:
-            v253 = objc_msgSend_eventSucceeded(v199, v214, v215, v216, v217);
-            v258 = MEMORY[0x277CCABB0];
-            if (v253)
+            v209 = objc_msgSend_eventSucceeded(v165, v177, v179, v178);
+            v213 = MEMORY[0x277CCABB0];
+            if (v209)
             {
-              v259 = objc_msgSend_intValue(self->_count_Allocated_Succeeded, v254, v255, v256, v257);
-              v263 = objc_msgSend_numberWithInt_(v258, v260, (v259 + 1), v261, v262);
+              v214 = objc_msgSend_intValue(self->_count_Allocated_Succeeded, v210, v212, v211);
+              v217 = objc_msgSend_numberWithInt_(v213, v215, v216, (v214 + 1));
               count_Allocated_Succeeded = self->_count_Allocated_Succeeded;
-              self->_count_Allocated_Succeeded = v263;
+              self->_count_Allocated_Succeeded = v217;
 
-              v269 = objc_msgSend_timestamp(v199, v265, v266, v267, v268);
+              v222 = objc_msgSend_timestamp(v165, v219, v221, v220);
               timestamp_Allocated_Succeeded = self->_timestamp_Allocated_Succeeded;
-              self->_timestamp_Allocated_Succeeded = v269;
+              self->_timestamp_Allocated_Succeeded = v222;
             }
 
             else
             {
-              v309 = objc_msgSend_intValue(self->_count_Allocated_Failed, v254, v255, v256, v257);
-              v313 = objc_msgSend_numberWithInt_(v258, v310, (v309 + 1), v311, v312);
+              v255 = objc_msgSend_intValue(self->_count_Allocated_Failed, v210, v212, v211);
+              v258 = objc_msgSend_numberWithInt_(v213, v256, v257, (v255 + 1));
               count_Allocated_Failed = self->_count_Allocated_Failed;
-              self->_count_Allocated_Failed = v313;
+              self->_count_Allocated_Failed = v258;
 
-              v319 = objc_msgSend_timestamp(v199, v315, v316, v317, v318);
+              v263 = objc_msgSend_timestamp(v165, v260, v262, v261);
               timestamp_Allocated_Succeeded = self->_timestamp_Allocated_Failed;
-              self->_timestamp_Allocated_Failed = v319;
+              self->_timestamp_Allocated_Failed = v263;
             }
 
             break;
           case 3:
-            v236 = objc_msgSend_eventSucceeded(v199, v214, v215, v216, v217);
-            v241 = MEMORY[0x277CCABB0];
-            if (v236)
+            v195 = objc_msgSend_eventSucceeded(v165, v177, v179, v178);
+            v199 = MEMORY[0x277CCABB0];
+            if (v195)
             {
-              v242 = objc_msgSend_intValue(self->_count_Deactivated_Succeeded, v237, v238, v239, v240);
-              v246 = objc_msgSend_numberWithInt_(v241, v243, (v242 + 1), v244, v245);
+              v200 = objc_msgSend_intValue(self->_count_Deactivated_Succeeded, v196, v198, v197);
+              v203 = objc_msgSend_numberWithInt_(v199, v201, v202, (v200 + 1));
               count_Deactivated_Succeeded = self->_count_Deactivated_Succeeded;
-              self->_count_Deactivated_Succeeded = v246;
+              self->_count_Deactivated_Succeeded = v203;
 
-              v252 = objc_msgSend_timestamp(v199, v248, v249, v250, v251);
+              v208 = objc_msgSend_timestamp(v165, v205, v207, v206);
               timestamp_Allocated_Succeeded = self->_timestamp_Deactivated_Succeeded;
-              self->_timestamp_Deactivated_Succeeded = v252;
+              self->_timestamp_Deactivated_Succeeded = v208;
             }
 
             else
             {
-              v298 = objc_msgSend_intValue(self->_count_Deactivated_Failed, v237, v238, v239, v240);
-              v302 = objc_msgSend_numberWithInt_(v241, v299, (v298 + 1), v300, v301);
+              v246 = objc_msgSend_intValue(self->_count_Deactivated_Failed, v196, v198, v197);
+              v249 = objc_msgSend_numberWithInt_(v199, v247, v248, (v246 + 1));
               count_Deactivated_Failed = self->_count_Deactivated_Failed;
-              self->_count_Deactivated_Failed = v302;
+              self->_count_Deactivated_Failed = v249;
 
-              v308 = objc_msgSend_timestamp(v199, v304, v305, v306, v307);
+              v254 = objc_msgSend_timestamp(v165, v251, v253, v252);
               timestamp_Allocated_Succeeded = self->_timestamp_Deactivated_Failed;
-              self->_timestamp_Deactivated_Failed = v308;
+              self->_timestamp_Deactivated_Failed = v254;
             }
 
             break;
           case 2:
-            v218 = objc_msgSend_eventSucceeded(v199, v214, v215, v216, v217);
-            v223 = MEMORY[0x277CCABB0];
-            if (v218)
+            v180 = objc_msgSend_eventSucceeded(v165, v177, v179, v178);
+            v184 = MEMORY[0x277CCABB0];
+            if (v180)
             {
-              v224 = objc_msgSend_intValue(self->_count_Activated_Succeeded, v219, v220, v221, v222);
-              v228 = objc_msgSend_numberWithInt_(v223, v225, (v224 + 1), v226, v227);
+              v185 = objc_msgSend_intValue(self->_count_Activated_Succeeded, v181, v183, v182);
+              v188 = objc_msgSend_numberWithInt_(v184, v186, v187, (v185 + 1));
               count_Activated_Succeeded = self->_count_Activated_Succeeded;
-              self->_count_Activated_Succeeded = v228;
+              self->_count_Activated_Succeeded = v188;
 
-              v234 = objc_msgSend_timestamp(v199, v230, v231, v232, v233);
+              v193 = objc_msgSend_timestamp(v165, v190, v192, v191);
               timestamp_Allocated_Succeeded = self->_timestamp_Activated_Succeeded;
-              self->_timestamp_Activated_Succeeded = v234;
+              self->_timestamp_Activated_Succeeded = v193;
             }
 
             else
             {
-              v320 = objc_msgSend_intValue(self->_count_Activated_Failed, v219, v220, v221, v222);
-              v324 = objc_msgSend_numberWithInt_(v223, v321, (v320 + 1), v322, v323);
+              v264 = objc_msgSend_intValue(self->_count_Activated_Failed, v181, v183, v182);
+              v267 = objc_msgSend_numberWithInt_(v184, v265, v266, (v264 + 1));
               count_Activated_Failed = self->_count_Activated_Failed;
-              self->_count_Activated_Failed = v324;
+              self->_count_Activated_Failed = v267;
 
-              v330 = objc_msgSend_timestamp(v199, v326, v327, v328, v329);
+              v272 = objc_msgSend_timestamp(v165, v269, v271, v270);
               timestamp_Allocated_Succeeded = self->_timestamp_Activated_Failed;
-              self->_timestamp_Activated_Failed = v330;
+              self->_timestamp_Activated_Failed = v272;
             }
 
             break;
           default:
-            v270 = LBFLogContextBitacoraStateInfo;
+            v223 = LBFLogContextBitacoraStateInfo;
             if (os_log_type_enabled(LBFLogContextBitacoraStateInfo, OS_LOG_TYPE_ERROR))
             {
-              sub_255F0AD6C(v549, v270);
+              sub_255F0AD6C(v454, v223);
             }
 
             goto LABEL_60;
@@ -509,183 +510,183 @@ LABEL_61:
           goto LABEL_88;
         }
 
-        v332 = v9;
-        v337 = objc_msgSend_timestamp(v332, v333, v334, v335, v336);
-        v341 = objc_msgSend_compare_(v337, v338, self->_bucketStartTime, v339, v340);
+        v275 = v10;
+        v279 = objc_msgSend_timestamp(v275, v276, v278, v277);
+        v282 = objc_msgSend_compare_(v279, v280, v281, self->_bucketStartTime);
 
-        if (v341 != -1)
+        if (v282 != -1)
         {
-          v346 = objc_msgSend_event(v332, v342, v343, v344, v345);
-          v351 = objc_msgSend_phase(v346, v347, v348, v349, v350);
+          v286 = objc_msgSend_event(v275, v283, v285, v284);
+          v290 = objc_msgSend_phase(v286, v287, v289, v288);
 
-          if (v351 <= 2)
+          if (v290 <= 2)
           {
-            if (v351 == 1)
+            if (v290 == 1)
             {
-              v445 = objc_msgSend_event(v332, v352, v353, v354, v355);
-              v450 = objc_msgSend_succeeded(v445, v446, v447, v448, v449);
+              v367 = objc_msgSend_event(v275, v291, v293, v292);
+              v371 = objc_msgSend_succeeded(v367, v368, v370, v369);
 
-              v455 = MEMORY[0x277CCABB0];
-              if (v450)
+              v375 = MEMORY[0x277CCABB0];
+              if (v371)
               {
-                v456 = objc_msgSend_intValue(self->_count_DprivacydDonationReceived_Succeeded, v451, v452, v453, v454);
-                v460 = objc_msgSend_numberWithInt_(v455, v457, (v456 + 1), v458, v459);
+                v376 = objc_msgSend_intValue(self->_count_DprivacydDonationReceived_Succeeded, v372, v374, v373);
+                v379 = objc_msgSend_numberWithInt_(v375, v377, v378, (v376 + 1));
                 count_DprivacydDonationReceived_Succeeded = self->_count_DprivacydDonationReceived_Succeeded;
-                self->_count_DprivacydDonationReceived_Succeeded = v460;
+                self->_count_DprivacydDonationReceived_Succeeded = v379;
 
-                v466 = objc_msgSend_timestamp(v332, v462, v463, v464, v465);
+                v384 = objc_msgSend_timestamp(v275, v381, v383, v382);
                 timestamp_DprivacydDonationReceived_Succeeded = self->_timestamp_DprivacydDonationReceived_Succeeded;
-                self->_timestamp_DprivacydDonationReceived_Succeeded = v466;
+                self->_timestamp_DprivacydDonationReceived_Succeeded = v384;
               }
 
               else
               {
-                v490 = objc_msgSend_intValue(self->_count_DprivacydDonationReceived_Failed, v451, v452, v453, v454);
-                v494 = objc_msgSend_numberWithInt_(v455, v491, (v490 + 1), v492, v493);
+                v404 = objc_msgSend_intValue(self->_count_DprivacydDonationReceived_Failed, v372, v374, v373);
+                v407 = objc_msgSend_numberWithInt_(v375, v405, v406, (v404 + 1));
                 count_DprivacydDonationReceived_Failed = self->_count_DprivacydDonationReceived_Failed;
-                self->_count_DprivacydDonationReceived_Failed = v494;
+                self->_count_DprivacydDonationReceived_Failed = v407;
 
-                v500 = objc_msgSend_timestamp(v332, v496, v497, v498, v499);
+                v412 = objc_msgSend_timestamp(v275, v409, v411, v410);
                 timestamp_DprivacydDonationReceived_Succeeded = self->_timestamp_DprivacydDonationReceived_Failed;
-                self->_timestamp_DprivacydDonationReceived_Failed = v500;
+                self->_timestamp_DprivacydDonationReceived_Failed = v412;
               }
             }
 
             else
             {
-              if (v351 != 2)
+              if (v290 != 2)
               {
 LABEL_79:
-                v467 = LBFLogContextBitacoraStateInfo;
+                v385 = LBFLogContextBitacoraStateInfo;
                 if (os_log_type_enabled(LBFLogContextBitacoraStateInfo, OS_LOG_TYPE_ERROR))
                 {
-                  sub_255F0ADC8(v548, v467);
+                  sub_255F0ADC8(v453, v385);
                 }
 
                 goto LABEL_87;
               }
 
-              v379 = objc_msgSend_event(v332, v352, v353, v354, v355);
-              v384 = objc_msgSend_succeeded(v379, v380, v381, v382, v383);
+              v313 = objc_msgSend_event(v275, v291, v293, v292);
+              v317 = objc_msgSend_succeeded(v313, v314, v316, v315);
 
-              v389 = MEMORY[0x277CCABB0];
-              if (v384)
+              v321 = MEMORY[0x277CCABB0];
+              if (v317)
               {
-                v390 = objc_msgSend_intValue(self->_count_DprivacydRandomization_Succeeded, v385, v386, v387, v388);
-                v394 = objc_msgSend_numberWithInt_(v389, v391, (v390 + 1), v392, v393);
+                v322 = objc_msgSend_intValue(self->_count_DprivacydRandomization_Succeeded, v318, v320, v319);
+                v325 = objc_msgSend_numberWithInt_(v321, v323, v324, (v322 + 1));
                 count_DprivacydRandomization_Succeeded = self->_count_DprivacydRandomization_Succeeded;
-                self->_count_DprivacydRandomization_Succeeded = v394;
+                self->_count_DprivacydRandomization_Succeeded = v325;
 
-                v400 = objc_msgSend_timestamp(v332, v396, v397, v398, v399);
+                v330 = objc_msgSend_timestamp(v275, v327, v329, v328);
                 timestamp_DprivacydDonationReceived_Succeeded = self->_timestamp_DprivacydRandomization_Succeeded;
-                self->_timestamp_DprivacydRandomization_Succeeded = v400;
+                self->_timestamp_DprivacydRandomization_Succeeded = v330;
               }
 
               else
               {
-                v512 = objc_msgSend_intValue(self->_count_DprivacydRandomization_Failed, v385, v386, v387, v388);
-                v516 = objc_msgSend_numberWithInt_(v389, v513, (v512 + 1), v514, v515);
+                v422 = objc_msgSend_intValue(self->_count_DprivacydRandomization_Failed, v318, v320, v319);
+                v425 = objc_msgSend_numberWithInt_(v321, v423, v424, (v422 + 1));
                 count_DprivacydRandomization_Failed = self->_count_DprivacydRandomization_Failed;
-                self->_count_DprivacydRandomization_Failed = v516;
+                self->_count_DprivacydRandomization_Failed = v425;
 
-                v522 = objc_msgSend_timestamp(v332, v518, v519, v520, v521);
+                v430 = objc_msgSend_timestamp(v275, v427, v429, v428);
                 timestamp_DprivacydDonationReceived_Succeeded = self->_timestamp_DprivacydRandomization_Failed;
-                self->_timestamp_DprivacydRandomization_Failed = v522;
+                self->_timestamp_DprivacydRandomization_Failed = v430;
               }
             }
           }
 
           else
           {
-            switch(v351)
+            switch(v290)
             {
               case 3:
-                v401 = objc_msgSend_event(v332, v352, v353, v354, v355);
-                v406 = objc_msgSend_succeeded(v401, v402, v403, v404, v405);
+                v331 = objc_msgSend_event(v275, v291, v293, v292);
+                v335 = objc_msgSend_succeeded(v331, v332, v334, v333);
 
-                v411 = MEMORY[0x277CCABB0];
-                if (v406)
+                v339 = MEMORY[0x277CCABB0];
+                if (v335)
                 {
-                  v412 = objc_msgSend_intValue(self->_count_DprivacydBudgetCheck_Succeeded, v407, v408, v409, v410);
-                  v416 = objc_msgSend_numberWithInt_(v411, v413, (v412 + 1), v414, v415);
+                  v340 = objc_msgSend_intValue(self->_count_DprivacydBudgetCheck_Succeeded, v336, v338, v337);
+                  v343 = objc_msgSend_numberWithInt_(v339, v341, v342, (v340 + 1));
                   count_DprivacydBudgetCheck_Succeeded = self->_count_DprivacydBudgetCheck_Succeeded;
-                  self->_count_DprivacydBudgetCheck_Succeeded = v416;
+                  self->_count_DprivacydBudgetCheck_Succeeded = v343;
 
-                  v422 = objc_msgSend_timestamp(v332, v418, v419, v420, v421);
+                  v348 = objc_msgSend_timestamp(v275, v345, v347, v346);
                   timestamp_DprivacydDonationReceived_Succeeded = self->_timestamp_DprivacydBudgetCheck_Succeeded;
-                  self->_timestamp_DprivacydBudgetCheck_Succeeded = v422;
+                  self->_timestamp_DprivacydBudgetCheck_Succeeded = v348;
                 }
 
                 else
                 {
-                  v468 = objc_msgSend_intValue(self->_count_DprivacydBudgetCheck_Failed, v407, v408, v409, v410);
-                  v472 = objc_msgSend_numberWithInt_(v411, v469, (v468 + 1), v470, v471);
+                  v386 = objc_msgSend_intValue(self->_count_DprivacydBudgetCheck_Failed, v336, v338, v337);
+                  v389 = objc_msgSend_numberWithInt_(v339, v387, v388, (v386 + 1));
                   count_DprivacydBudgetCheck_Failed = self->_count_DprivacydBudgetCheck_Failed;
-                  self->_count_DprivacydBudgetCheck_Failed = v472;
+                  self->_count_DprivacydBudgetCheck_Failed = v389;
 
-                  v478 = objc_msgSend_timestamp(v332, v474, v475, v476, v477);
+                  v394 = objc_msgSend_timestamp(v275, v391, v393, v392);
                   timestamp_DprivacydDonationReceived_Succeeded = self->_timestamp_DprivacydBudgetCheck_Failed;
-                  self->_timestamp_DprivacydBudgetCheck_Failed = v478;
+                  self->_timestamp_DprivacydBudgetCheck_Failed = v394;
                 }
 
                 break;
               case 4:
-                v423 = objc_msgSend_event(v332, v352, v353, v354, v355);
-                v428 = objc_msgSend_succeeded(v423, v424, v425, v426, v427);
+                v349 = objc_msgSend_event(v275, v291, v293, v292);
+                v353 = objc_msgSend_succeeded(v349, v350, v352, v351);
 
-                v433 = MEMORY[0x277CCABB0];
-                if (v428)
+                v357 = MEMORY[0x277CCABB0];
+                if (v353)
                 {
-                  v434 = objc_msgSend_intValue(self->_count_DprivacydPayloadCreation_Succeeded, v429, v430, v431, v432);
-                  v438 = objc_msgSend_numberWithInt_(v433, v435, (v434 + 1), v436, v437);
+                  v358 = objc_msgSend_intValue(self->_count_DprivacydPayloadCreation_Succeeded, v354, v356, v355);
+                  v361 = objc_msgSend_numberWithInt_(v357, v359, v360, (v358 + 1));
                   count_DprivacydPayloadCreation_Succeeded = self->_count_DprivacydPayloadCreation_Succeeded;
-                  self->_count_DprivacydPayloadCreation_Succeeded = v438;
+                  self->_count_DprivacydPayloadCreation_Succeeded = v361;
 
-                  v444 = objc_msgSend_timestamp(v332, v440, v441, v442, v443);
+                  v366 = objc_msgSend_timestamp(v275, v363, v365, v364);
                   timestamp_DprivacydDonationReceived_Succeeded = self->_timestamp_DprivacydPayloadCreation_Succeeded;
-                  self->_timestamp_DprivacydPayloadCreation_Succeeded = v444;
+                  self->_timestamp_DprivacydPayloadCreation_Succeeded = v366;
                 }
 
                 else
                 {
-                  v479 = objc_msgSend_intValue(self->_count_DprivacydPayloadCreation_Failed, v429, v430, v431, v432);
-                  v483 = objc_msgSend_numberWithInt_(v433, v480, (v479 + 1), v481, v482);
+                  v395 = objc_msgSend_intValue(self->_count_DprivacydPayloadCreation_Failed, v354, v356, v355);
+                  v398 = objc_msgSend_numberWithInt_(v357, v396, v397, (v395 + 1));
                   count_DprivacydPayloadCreation_Failed = self->_count_DprivacydPayloadCreation_Failed;
-                  self->_count_DprivacydPayloadCreation_Failed = v483;
+                  self->_count_DprivacydPayloadCreation_Failed = v398;
 
-                  v489 = objc_msgSend_timestamp(v332, v485, v486, v487, v488);
+                  v403 = objc_msgSend_timestamp(v275, v400, v402, v401);
                   timestamp_DprivacydDonationReceived_Succeeded = self->_timestamp_DprivacydPayloadCreation_Failed;
-                  self->_timestamp_DprivacydPayloadCreation_Failed = v489;
+                  self->_timestamp_DprivacydPayloadCreation_Failed = v403;
                 }
 
                 break;
               case 5:
-                v356 = objc_msgSend_event(v332, v352, v353, v354, v355);
-                v361 = objc_msgSend_succeeded(v356, v357, v358, v359, v360);
+                v294 = objc_msgSend_event(v275, v291, v293, v292);
+                v298 = objc_msgSend_succeeded(v294, v295, v297, v296);
 
-                v366 = MEMORY[0x277CCABB0];
-                if (v361)
+                v302 = MEMORY[0x277CCABB0];
+                if (v298)
                 {
-                  v367 = objc_msgSend_intValue(self->_count_DprivacydUpload_Succeeded, v362, v363, v364, v365);
-                  v371 = objc_msgSend_numberWithInt_(v366, v368, (v367 + 1), v369, v370);
+                  v303 = objc_msgSend_intValue(self->_count_DprivacydUpload_Succeeded, v299, v301, v300);
+                  v306 = objc_msgSend_numberWithInt_(v302, v304, v305, (v303 + 1));
                   count_DprivacydUpload_Succeeded = self->_count_DprivacydUpload_Succeeded;
-                  self->_count_DprivacydUpload_Succeeded = v371;
+                  self->_count_DprivacydUpload_Succeeded = v306;
 
-                  v377 = objc_msgSend_timestamp(v332, v373, v374, v375, v376);
+                  v311 = objc_msgSend_timestamp(v275, v308, v310, v309);
                   timestamp_DprivacydDonationReceived_Succeeded = self->_timestamp_DprivacydUpload_Succeeded;
-                  self->_timestamp_DprivacydUpload_Succeeded = v377;
+                  self->_timestamp_DprivacydUpload_Succeeded = v311;
                 }
 
                 else
                 {
-                  v501 = objc_msgSend_intValue(self->_count_DprivacydUpload_Failed, v362, v363, v364, v365);
-                  v505 = objc_msgSend_numberWithInt_(v366, v502, (v501 + 1), v503, v504);
+                  v413 = objc_msgSend_intValue(self->_count_DprivacydUpload_Failed, v299, v301, v300);
+                  v416 = objc_msgSend_numberWithInt_(v302, v414, v415, (v413 + 1));
                   count_DprivacydUpload_Failed = self->_count_DprivacydUpload_Failed;
-                  self->_count_DprivacydUpload_Failed = v505;
+                  self->_count_DprivacydUpload_Failed = v416;
 
-                  v511 = objc_msgSend_timestamp(v332, v507, v508, v509, v510);
+                  v421 = objc_msgSend_timestamp(v275, v418, v420, v419);
                   timestamp_DprivacydDonationReceived_Succeeded = self->_timestamp_DprivacydUpload_Failed;
-                  self->_timestamp_DprivacydUpload_Failed = v511;
+                  self->_timestamp_DprivacydUpload_Failed = v421;
                 }
 
                 break;
@@ -698,44 +699,42 @@ LABEL_79:
 LABEL_87:
 
 LABEL_88:
-        ++v8;
+        ++v9;
       }
 
-      while (v6 != v8);
-      v534 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v331, &v544, v550, 16);
-      v6 = v534;
+      while (v7 != v9);
+      v440 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v273, v274, &v449, v455, 16);
+      v7 = v440;
     }
 
-    while (v534);
+    while (v440);
   }
-
-  v535 = *MEMORY[0x277D85DE8];
 }
 
 - (void)iterateTransitions
 {
-  v86 = *MEMORY[0x277D85DE8];
+  v83 = *MEMORY[0x277D85DE8];
+  v77 = 0u;
+  v78 = 0u;
+  v79 = 0u;
   v80 = 0u;
-  v81 = 0u;
-  v82 = 0u;
-  v83 = 0u;
   v3 = self->_bitacoraStateTransitions;
-  v5 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v4, &v80, v85, 16);
-  if (v5)
+  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v4, v5, &v77, v82, 16);
+  if (v6)
   {
-    v10 = v5;
-    v11 = *v81;
+    v10 = v6;
+    v11 = *v78;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v81 != v11)
+        if (*v78 != v11)
         {
           objc_enumerationMutation(v3);
         }
 
-        v13 = *(*(&v80 + 1) + 8 * i);
-        switch(objc_msgSend_state(v13, v6, v7, v8, v9, v80))
+        v13 = *(*(&v77 + 1) + 8 * i);
+        switch(objc_msgSend_state(v13, v7, v9, v8, v77))
         {
           case 0:
           case 18:
@@ -1066,97 +1065,95 @@ LABEL_88:
 
 LABEL_63:
             v70 = MEMORY[0x277CCABB0];
-            objc_msgSend_timedelta(v13, v6, v7, v8, v9);
-            v75 = objc_msgSend_numberWithDouble_(v70, v71, v72, v73, v74);
-            objc_msgSend_addObject_(timedeltas_To_State_Allocated, v76, v75, v77, v78);
+            objc_msgSend_timedelta(v13, v7, v9, v8);
+            v74 = objc_msgSend_numberWithDouble_(v70, v71, v73, v72);
+            objc_msgSend_addObject_(timedeltas_To_State_Allocated, v75, v76, v74);
 
             break;
           default:
             v53 = LBFLogContextBitacoraStateInfo;
             if (os_log_type_enabled(LBFLogContextBitacoraStateInfo, OS_LOG_TYPE_ERROR))
             {
-              sub_255F0AE8C(v84, v53);
+              sub_255F0AE8C(v81, v53);
             }
 
             break;
         }
       }
 
-      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v6, &v80, v85, 16);
+      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v7, v9, &v77, v82, 16);
     }
 
     while (v10);
   }
-
-  v79 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getDictionaryRepresentation
 {
-  v444[30] = *MEMORY[0x277D85DE8];
-  v443[0] = &unk_286801060;
-  v443[1] = &unk_286801078;
-  v444[0] = @"state_Unknown";
-  v444[1] = @"state_Allocated";
-  v443[2] = &unk_286801090;
-  v443[3] = &unk_2868010A8;
-  v444[2] = @"state_Activated";
-  v444[3] = @"state_Deativated";
-  v443[4] = &unk_2868010C0;
-  v443[5] = &unk_2868010D8;
-  v444[4] = @"state_TaskFetched";
-  v444[5] = @"state_TaskScheduled";
-  v443[6] = &unk_2868010F0;
-  v443[7] = &unk_286801108;
-  v444[6] = @"state_TaskCompleted";
-  v444[7] = @"state_PerformTaskSucceeded";
-  v443[8] = &unk_286801120;
-  v443[9] = &unk_286801138;
-  v444[8] = @"state_Unexpected";
-  v444[9] = @"state_AllocateFailed";
-  v443[10] = &unk_286801150;
-  v443[11] = &unk_286801168;
-  v444[10] = @"state_ActivateFailed";
-  v444[11] = @"state_DeativateFailed";
-  v443[12] = &unk_286801180;
-  v443[13] = &unk_286801198;
-  v444[12] = @"state_TaskFetcheFailed";
-  v444[13] = @"state_TaskScheduleFailed";
-  v443[14] = &unk_2868011B0;
-  v443[15] = &unk_2868011C8;
-  v444[14] = @"state_TaskCompleteFailed";
-  v444[15] = @"state_PerformTaskFailed";
-  v443[16] = &unk_2868011E0;
-  v443[17] = &unk_2868011F8;
-  v444[16] = @"state_PluginStop";
-  v444[17] = @"state_PluginStopFailed";
-  v443[18] = &unk_286801210;
-  v443[19] = &unk_286801228;
-  v444[18] = @"state_AllocatedIdle";
-  v444[19] = @"state_ActivatedIdle";
-  v443[20] = &unk_286801240;
-  v443[21] = &unk_286801258;
-  v444[20] = @"state_DonationReceived";
-  v444[21] = @"state_Randomization";
-  v443[22] = &unk_286801270;
-  v443[23] = &unk_286801288;
-  v444[22] = @"state_BudgetCheck";
-  v444[23] = @"state_PayloadCreation";
-  v443[24] = &unk_2868012A0;
-  v443[25] = &unk_2868012B8;
-  v444[24] = @"state_Upload";
-  v444[25] = @"state_DonationReceivedFailed";
-  v443[26] = &unk_2868012D0;
-  v443[27] = &unk_2868012E8;
-  v444[26] = @"state_RandomizationFailed";
-  v444[27] = @"state_BudgetCheckFailed";
-  v443[28] = &unk_286801300;
-  v443[29] = &unk_286801318;
-  v444[28] = @"state_PayloadCreationFailed";
-  v444[29] = @"state_UploadFailed";
-  v3 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], a2, v444, v443, 30);
+  v380[30] = *MEMORY[0x277D85DE8];
+  v379[0] = &unk_286801060;
+  v379[1] = &unk_286801078;
+  v380[0] = @"state_Unknown";
+  v380[1] = @"state_Allocated";
+  v379[2] = &unk_286801090;
+  v379[3] = &unk_2868010A8;
+  v380[2] = @"state_Activated";
+  v380[3] = @"state_Deativated";
+  v379[4] = &unk_2868010C0;
+  v379[5] = &unk_2868010D8;
+  v380[4] = @"state_TaskFetched";
+  v380[5] = @"state_TaskScheduled";
+  v379[6] = &unk_2868010F0;
+  v379[7] = &unk_286801108;
+  v380[6] = @"state_TaskCompleted";
+  v380[7] = @"state_PerformTaskSucceeded";
+  v379[8] = &unk_286801120;
+  v379[9] = &unk_286801138;
+  v380[8] = @"state_Unexpected";
+  v380[9] = @"state_AllocateFailed";
+  v379[10] = &unk_286801150;
+  v379[11] = &unk_286801168;
+  v380[10] = @"state_ActivateFailed";
+  v380[11] = @"state_DeativateFailed";
+  v379[12] = &unk_286801180;
+  v379[13] = &unk_286801198;
+  v380[12] = @"state_TaskFetcheFailed";
+  v380[13] = @"state_TaskScheduleFailed";
+  v379[14] = &unk_2868011B0;
+  v379[15] = &unk_2868011C8;
+  v380[14] = @"state_TaskCompleteFailed";
+  v380[15] = @"state_PerformTaskFailed";
+  v379[16] = &unk_2868011E0;
+  v379[17] = &unk_2868011F8;
+  v380[16] = @"state_PluginStop";
+  v380[17] = @"state_PluginStopFailed";
+  v379[18] = &unk_286801210;
+  v379[19] = &unk_286801228;
+  v380[18] = @"state_AllocatedIdle";
+  v380[19] = @"state_ActivatedIdle";
+  v379[20] = &unk_286801240;
+  v379[21] = &unk_286801258;
+  v380[20] = @"state_DonationReceived";
+  v380[21] = @"state_Randomization";
+  v379[22] = &unk_286801270;
+  v379[23] = &unk_286801288;
+  v380[22] = @"state_BudgetCheck";
+  v380[23] = @"state_PayloadCreation";
+  v379[24] = &unk_2868012A0;
+  v379[25] = &unk_2868012B8;
+  v380[24] = @"state_Upload";
+  v380[25] = @"state_DonationReceivedFailed";
+  v379[26] = &unk_2868012D0;
+  v379[27] = &unk_2868012E8;
+  v380[26] = @"state_RandomizationFailed";
+  v380[27] = @"state_BudgetCheckFailed";
+  v379[28] = &unk_286801300;
+  v379[29] = &unk_286801318;
+  v380[28] = @"state_PayloadCreationFailed";
+  v380[29] = @"state_UploadFailed";
+  v4 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], a2, v2, v380, v379, 30);
   latestState = self->_latestState;
-  v440 = v3;
+  v376 = v4;
   if (latestState >= 0x1F)
   {
     v10 = LBFLogContextBitacoraStateInfo;
@@ -1173,19 +1170,19 @@ LABEL_63:
     v9 = qword_279813A48[latestState];
   }
 
-  v441[0] = @"contextId";
-  v11 = objc_msgSend_UUIDString(self->_contextId, v4, v5, v6, v7);
+  v377[0] = @"contextId";
+  v11 = objc_msgSend_UUIDString(self->_contextId, v5, v7, v6);
   count_Activated_Succeeded = self->_count_Activated_Succeeded;
   if (!count_Activated_Succeeded)
   {
     count_Activated_Succeeded = &unk_286801060;
   }
 
-  v424 = v11;
-  v442[0] = v11;
-  v442[1] = count_Activated_Succeeded;
-  v441[1] = @"count_Activated";
-  v441[2] = @"count_Allocated";
+  v360 = v11;
+  v378[0] = v11;
+  v378[1] = count_Activated_Succeeded;
+  v377[1] = @"count_Activated";
+  v377[2] = @"count_Allocated";
   isActivated = self->_isActivated;
   count_Allocated_Succeeded = self->_count_Allocated_Succeeded;
   if (!count_Allocated_Succeeded)
@@ -1199,10 +1196,10 @@ LABEL_63:
     count_Deactivated_Succeeded = &unk_286801060;
   }
 
-  v442[2] = count_Allocated_Succeeded;
-  v442[3] = count_Deactivated_Succeeded;
-  v441[3] = @"count_Deactivated";
-  v441[4] = @"count_PerformTask_Failed";
+  v378[2] = count_Allocated_Succeeded;
+  v378[3] = count_Deactivated_Succeeded;
+  v377[3] = @"count_Deactivated";
+  v377[4] = @"count_PerformTask_Failed";
   count_PerformTask_Succeeded = self->_count_PerformTask_Succeeded;
   count_PerformTask_Failed = self->_count_PerformTask_Failed;
   if (!count_PerformTask_Failed)
@@ -1215,10 +1212,10 @@ LABEL_63:
     count_PerformTask_Succeeded = &unk_286801060;
   }
 
-  v442[4] = count_PerformTask_Failed;
-  v442[5] = count_PerformTask_Succeeded;
-  v441[5] = @"count_PerformTask_Succeeded";
-  v441[6] = @"count_Stop_Failed";
+  v378[4] = count_PerformTask_Failed;
+  v378[5] = count_PerformTask_Succeeded;
+  v377[5] = @"count_PerformTask_Succeeded";
+  v377[6] = @"count_Stop_Failed";
   count_Stop_Succeeded = self->_count_Stop_Succeeded;
   count_Stop_Failed = self->_count_Stop_Failed;
   if (!count_Stop_Failed)
@@ -1231,10 +1228,10 @@ LABEL_63:
     count_Stop_Succeeded = &unk_286801060;
   }
 
-  v442[6] = count_Stop_Failed;
-  v442[7] = count_Stop_Succeeded;
-  v441[7] = @"count_Stop_Succeeded";
-  v441[8] = @"count_TaskCompleted_Failed";
+  v378[6] = count_Stop_Failed;
+  v378[7] = count_Stop_Succeeded;
+  v377[7] = @"count_Stop_Succeeded";
+  v377[8] = @"count_TaskCompleted_Failed";
   count_TaskCompleted_Succeeded = self->_count_TaskCompleted_Succeeded;
   count_TaskCompleted_Failed = self->_count_TaskCompleted_Failed;
   if (!count_TaskCompleted_Failed)
@@ -1247,10 +1244,10 @@ LABEL_63:
     count_TaskCompleted_Succeeded = &unk_286801060;
   }
 
-  v442[8] = count_TaskCompleted_Failed;
-  v442[9] = count_TaskCompleted_Succeeded;
-  v441[9] = @"count_TaskCompleted_Succeeded";
-  v441[10] = @"count_TaskFetched_Failed";
+  v378[8] = count_TaskCompleted_Failed;
+  v378[9] = count_TaskCompleted_Succeeded;
+  v377[9] = @"count_TaskCompleted_Succeeded";
+  v377[10] = @"count_TaskFetched_Failed";
   count_TaskFetched_Succeeded = self->_count_TaskFetched_Succeeded;
   count_TaskFetched_Failed = self->_count_TaskFetched_Failed;
   if (!count_TaskFetched_Failed)
@@ -1263,10 +1260,10 @@ LABEL_63:
     count_TaskFetched_Succeeded = &unk_286801060;
   }
 
-  v442[10] = count_TaskFetched_Failed;
-  v442[11] = count_TaskFetched_Succeeded;
-  v441[11] = @"count_TaskFetched_Succeeded";
-  v441[12] = @"count_TaskScheduled_Failed";
+  v378[10] = count_TaskFetched_Failed;
+  v378[11] = count_TaskFetched_Succeeded;
+  v377[11] = @"count_TaskFetched_Succeeded";
+  v377[12] = @"count_TaskScheduled_Failed";
   count_TaskScheduled_Succeeded = self->_count_TaskScheduled_Succeeded;
   count_TaskScheduled_Failed = self->_count_TaskScheduled_Failed;
   if (!count_TaskScheduled_Failed)
@@ -1279,10 +1276,10 @@ LABEL_63:
     count_TaskScheduled_Succeeded = &unk_286801060;
   }
 
-  v442[12] = count_TaskScheduled_Failed;
-  v442[13] = count_TaskScheduled_Succeeded;
-  v441[13] = @"count_TaskScheduled_Succeeded";
-  v441[14] = @"count_DprivacydDonationReceived_Failed";
+  v378[12] = count_TaskScheduled_Failed;
+  v378[13] = count_TaskScheduled_Succeeded;
+  v377[13] = @"count_TaskScheduled_Succeeded";
+  v377[14] = @"count_DprivacydDonationReceived_Failed";
   count_DprivacydDonationReceived_Succeeded = self->_count_DprivacydDonationReceived_Succeeded;
   count_DprivacydDonationReceived_Failed = self->_count_DprivacydDonationReceived_Failed;
   if (!count_DprivacydDonationReceived_Failed)
@@ -1295,10 +1292,10 @@ LABEL_63:
     count_DprivacydDonationReceived_Succeeded = &unk_286801060;
   }
 
-  v442[14] = count_DprivacydDonationReceived_Failed;
-  v442[15] = count_DprivacydDonationReceived_Succeeded;
-  v441[15] = @"count_DprivacydDonationReceived_Succeeded";
-  v441[16] = @"count_DprivacydRandomization_Failed";
+  v378[14] = count_DprivacydDonationReceived_Failed;
+  v378[15] = count_DprivacydDonationReceived_Succeeded;
+  v377[15] = @"count_DprivacydDonationReceived_Succeeded";
+  v377[16] = @"count_DprivacydRandomization_Failed";
   count_DprivacydRandomization_Succeeded = self->_count_DprivacydRandomization_Succeeded;
   count_DprivacydRandomization_Failed = self->_count_DprivacydRandomization_Failed;
   if (!count_DprivacydRandomization_Failed)
@@ -1311,10 +1308,10 @@ LABEL_63:
     count_DprivacydRandomization_Succeeded = &unk_286801060;
   }
 
-  v442[16] = count_DprivacydRandomization_Failed;
-  v442[17] = count_DprivacydRandomization_Succeeded;
-  v441[17] = @"count_DprivacydRandomization_Succeeded";
-  v441[18] = @"count_DprivacydBudgetCheck_Failed";
+  v378[16] = count_DprivacydRandomization_Failed;
+  v378[17] = count_DprivacydRandomization_Succeeded;
+  v377[17] = @"count_DprivacydRandomization_Succeeded";
+  v377[18] = @"count_DprivacydBudgetCheck_Failed";
   count_DprivacydBudgetCheck_Succeeded = self->_count_DprivacydBudgetCheck_Succeeded;
   count_DprivacydBudgetCheck_Failed = self->_count_DprivacydBudgetCheck_Failed;
   if (!count_DprivacydBudgetCheck_Failed)
@@ -1327,10 +1324,10 @@ LABEL_63:
     count_DprivacydBudgetCheck_Succeeded = &unk_286801060;
   }
 
-  v442[18] = count_DprivacydBudgetCheck_Failed;
-  v442[19] = count_DprivacydBudgetCheck_Succeeded;
-  v441[19] = @"count_DprivacydBudgetCheck_Succeeded";
-  v441[20] = @"count_DprivacydPayloadCreation_Failed";
+  v378[18] = count_DprivacydBudgetCheck_Failed;
+  v378[19] = count_DprivacydBudgetCheck_Succeeded;
+  v377[19] = @"count_DprivacydBudgetCheck_Succeeded";
+  v377[20] = @"count_DprivacydPayloadCreation_Failed";
   count_DprivacydPayloadCreation_Succeeded = self->_count_DprivacydPayloadCreation_Succeeded;
   count_DprivacydPayloadCreation_Failed = self->_count_DprivacydPayloadCreation_Failed;
   if (!count_DprivacydPayloadCreation_Failed)
@@ -1343,10 +1340,10 @@ LABEL_63:
     count_DprivacydPayloadCreation_Succeeded = &unk_286801060;
   }
 
-  v442[20] = count_DprivacydPayloadCreation_Failed;
-  v442[21] = count_DprivacydPayloadCreation_Succeeded;
-  v441[21] = @"count_DprivacydPayloadCreation_Succeeded";
-  v441[22] = @"count_DprivacydUpload_Failed";
+  v378[20] = count_DprivacydPayloadCreation_Failed;
+  v378[21] = count_DprivacydPayloadCreation_Succeeded;
+  v377[21] = @"count_DprivacydPayloadCreation_Succeeded";
+  v377[22] = @"count_DprivacydUpload_Failed";
   count_DprivacydUpload_Succeeded = self->_count_DprivacydUpload_Succeeded;
   count_DprivacydUpload_Failed = self->_count_DprivacydUpload_Failed;
   if (!count_DprivacydUpload_Failed)
@@ -1359,852 +1356,850 @@ LABEL_63:
     count_DprivacydUpload_Succeeded = &unk_286801060;
   }
 
-  v442[22] = count_DprivacydUpload_Failed;
-  v442[23] = count_DprivacydUpload_Succeeded;
-  v441[23] = @"count_DprivacydUpload_Succeeded";
-  v441[24] = @"isActivated";
-  v40 = isActivated;
-  v423 = isActivated;
+  v378[22] = count_DprivacydUpload_Failed;
+  v378[23] = count_DprivacydUpload_Succeeded;
+  v377[23] = @"count_DprivacydUpload_Succeeded";
+  v377[24] = @"isActivated";
+  v39 = isActivated;
+  v359 = isActivated;
   if (!isActivated)
   {
-    v40 = objc_msgSend_null(MEMORY[0x277CBEB68], v12, v13, v14, v15);
+    v39 = objc_msgSend_null(MEMORY[0x277CBEB68], v12, v14, v13);
   }
 
-  v380 = v40;
-  v442[24] = v40;
-  v441[25] = @"isAllocated";
+  v316 = v39;
+  v378[24] = v39;
+  v377[25] = @"isAllocated";
   isAllocated = self->_isAllocated;
-  v422 = isAllocated;
+  v358 = isAllocated;
   if (!isAllocated)
   {
-    isAllocated = objc_msgSend_null(MEMORY[0x277CBEB68], v12, v13, v14, v15);
+    isAllocated = objc_msgSend_null(MEMORY[0x277CBEB68], v12, v14, v13);
   }
 
-  v379 = isAllocated;
-  v442[25] = isAllocated;
-  v441[26] = @"isActivated_implicit";
-  v421 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v12, self->_isActivated_implicit, v14, v15);
-  v442[26] = v421;
-  v441[27] = @"isAllocated_implicit";
-  v420 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v42, self->_isAllocated_implicit, v43, v44);
-  v442[27] = v420;
-  v441[28] = @"maxTimedelta_To_State_Activated";
-  v49 = objc_msgSend_maxTimedelta_To_State_Activated(self, v45, v46, v47, v48);
-  v54 = v49;
-  if (!v49)
+  v315 = isAllocated;
+  v378[25] = isAllocated;
+  v377[26] = @"isActivated_implicit";
+  v357 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v12, v14, self->_isActivated_implicit);
+  v378[26] = v357;
+  v377[27] = @"isAllocated_implicit";
+  v356 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v41, v42, self->_isAllocated_implicit);
+  v378[27] = v356;
+  v377[28] = @"maxTimedelta_To_State_Activated";
+  v46 = objc_msgSend_maxTimedelta_To_State_Activated(self, v43, v45, v44);
+  v50 = v46;
+  if (!v46)
   {
-    v49 = objc_msgSend_null(MEMORY[0x277CBEB68], v50, v51, v52, v53);
+    v46 = objc_msgSend_null(MEMORY[0x277CBEB68], v47, v49, v48);
   }
 
-  v378 = v49;
-  v442[28] = v49;
-  v441[29] = @"maxTimedelta_To_State_ActivatedFailed";
-  v55 = objc_msgSend_maxTimedelta_To_State_ActivatedFailed(self, v50, v51, v52, v53);
-  v60 = v55;
-  if (!v55)
+  v314 = v46;
+  v378[28] = v46;
+  v377[29] = @"maxTimedelta_To_State_ActivatedFailed";
+  v51 = objc_msgSend_maxTimedelta_To_State_ActivatedFailed(self, v47, v49, v48);
+  v55 = v51;
+  if (!v51)
   {
-    v55 = objc_msgSend_null(MEMORY[0x277CBEB68], v56, v57, v58, v59);
+    v51 = objc_msgSend_null(MEMORY[0x277CBEB68], v52, v54, v53);
   }
 
-  v377 = v55;
-  v442[29] = v55;
-  v441[30] = @"maxTimedelta_To_State_Allocated";
-  v65 = objc_msgSend_maxTimedelta_To_State_Allocated(self, v56, v57, v58, v59);
-  v417 = v65;
-  if (!v65)
+  v313 = v51;
+  v378[29] = v51;
+  v377[30] = @"maxTimedelta_To_State_Allocated";
+  v58 = objc_msgSend_maxTimedelta_To_State_Allocated(self, v52, v54, v53);
+  v353 = v58;
+  if (!v58)
   {
-    v65 = objc_msgSend_null(MEMORY[0x277CBEB68], v61, v62, v63, v64);
+    v58 = objc_msgSend_null(MEMORY[0x277CBEB68], v56, v59, v57);
   }
 
-  v376 = v65;
-  v442[30] = v65;
-  v441[31] = @"maxTimedelta_To_State_AllocatedFailed";
-  v70 = objc_msgSend_maxTimedelta_To_State_AllocatedFailed(self, v61, v62, v63, v64);
-  v416 = v70;
-  if (!v70)
+  v312 = v58;
+  v378[30] = v58;
+  v377[31] = @"maxTimedelta_To_State_AllocatedFailed";
+  v62 = objc_msgSend_maxTimedelta_To_State_AllocatedFailed(self, v56, v59, v57);
+  v352 = v62;
+  if (!v62)
   {
-    v70 = objc_msgSend_null(MEMORY[0x277CBEB68], v66, v67, v68, v69);
+    v62 = objc_msgSend_null(MEMORY[0x277CBEB68], v60, v63, v61);
   }
 
-  v375 = v70;
-  v442[31] = v70;
-  v441[32] = @"maxTimedelta_To_State_Deativated";
-  v71 = objc_msgSend_maxTimedelta_To_State_Deativated(self, v66, v67, v68, v69);
-  v76 = v71;
-  if (!v71)
+  v311 = v62;
+  v378[31] = v62;
+  v377[32] = @"maxTimedelta_To_State_Deativated";
+  v64 = objc_msgSend_maxTimedelta_To_State_Deativated(self, v60, v63, v61);
+  v68 = v64;
+  if (!v64)
   {
-    v71 = objc_msgSend_null(MEMORY[0x277CBEB68], v72, v73, v74, v75);
+    v64 = objc_msgSend_null(MEMORY[0x277CBEB68], v65, v67, v66);
   }
 
-  v374 = v71;
-  v442[32] = v71;
-  v441[33] = @"maxTimedelta_To_State_DeativatedFailed";
-  v77 = objc_msgSend_maxTimedelta_To_State_DeativatedFailed(self, v72, v73, v74, v75);
-  v82 = v77;
-  if (!v77)
+  v310 = v64;
+  v378[32] = v64;
+  v377[33] = @"maxTimedelta_To_State_DeativatedFailed";
+  v69 = objc_msgSend_maxTimedelta_To_State_DeativatedFailed(self, v65, v67, v66);
+  v73 = v69;
+  if (!v69)
   {
-    v77 = objc_msgSend_null(MEMORY[0x277CBEB68], v78, v79, v80, v81);
+    v69 = objc_msgSend_null(MEMORY[0x277CBEB68], v70, v72, v71);
   }
 
-  v373 = v77;
-  v442[33] = v77;
-  v441[34] = @"maxTimedelta_To_State_PerformTaskFailed";
-  v83 = objc_msgSend_maxTimedelta_To_State_PerformTaskFailed(self, v78, v79, v80, v81);
-  v88 = v83;
-  if (!v83)
+  v309 = v69;
+  v378[33] = v69;
+  v377[34] = @"maxTimedelta_To_State_PerformTaskFailed";
+  v74 = objc_msgSend_maxTimedelta_To_State_PerformTaskFailed(self, v70, v72, v71);
+  v78 = v74;
+  if (!v74)
   {
-    v83 = objc_msgSend_null(MEMORY[0x277CBEB68], v84, v85, v86, v87);
+    v74 = objc_msgSend_null(MEMORY[0x277CBEB68], v75, v77, v76);
   }
 
-  v372 = v83;
-  v442[34] = v83;
-  v441[35] = @"maxTimedelta_To_State_PerformTaskSucceeded";
-  v89 = objc_msgSend_maxTimedelta_To_State_PerformTask(self, v84, v85, v86, v87);
-  v94 = v89;
-  if (!v89)
+  v308 = v74;
+  v378[34] = v74;
+  v377[35] = @"maxTimedelta_To_State_PerformTaskSucceeded";
+  v79 = objc_msgSend_maxTimedelta_To_State_PerformTask(self, v75, v77, v76);
+  v83 = v79;
+  if (!v79)
   {
-    v89 = objc_msgSend_null(MEMORY[0x277CBEB68], v90, v91, v92, v93);
+    v79 = objc_msgSend_null(MEMORY[0x277CBEB68], v80, v82, v81);
   }
 
-  v371 = v89;
-  v442[35] = v89;
-  v441[36] = @"maxTimedelta_To_State_TaskCompleted";
-  v95 = objc_msgSend_maxTimedelta_To_State_TaskCompleted(self, v90, v91, v92, v93);
-  v100 = v95;
+  v307 = v79;
+  v378[35] = v79;
+  v377[36] = @"maxTimedelta_To_State_TaskCompleted";
+  v84 = objc_msgSend_maxTimedelta_To_State_TaskCompleted(self, v80, v82, v81);
+  v88 = v84;
+  if (!v84)
+  {
+    v84 = objc_msgSend_null(MEMORY[0x277CBEB68], v85, v87, v86);
+  }
+
+  v306 = v84;
+  v378[36] = v84;
+  v377[37] = @"maxTimedelta_To_State_TaskCompletedFailed";
+  v91 = objc_msgSend_maxTimedelta_To_State_TaskCompletedFailed(self, v85, v87, v86);
+  v375 = v91;
+  if (!v91)
+  {
+    v91 = objc_msgSend_null(MEMORY[0x277CBEB68], v89, v92, v90);
+  }
+
+  v305 = v91;
+  v378[37] = v91;
+  v377[38] = @"maxTimedelta_To_State_TaskFetched";
+  v95 = objc_msgSend_maxTimedelta_To_State_TaskFetched(self, v89, v92, v90);
+  v374 = v95;
   if (!v95)
   {
-    v95 = objc_msgSend_null(MEMORY[0x277CBEB68], v96, v97, v98, v99);
+    v95 = objc_msgSend_null(MEMORY[0x277CBEB68], v93, v96, v94);
   }
 
-  v370 = v95;
-  v442[36] = v95;
-  v441[37] = @"maxTimedelta_To_State_TaskCompletedFailed";
-  v105 = objc_msgSend_maxTimedelta_To_State_TaskCompletedFailed(self, v96, v97, v98, v99);
-  v439 = v105;
-  if (!v105)
+  v304 = v95;
+  v378[38] = v95;
+  v377[39] = @"maxTimedelta_To_State_TaskFetchedFailed";
+  v99 = objc_msgSend_maxTimedelta_To_State_TaskFetchedFailed(self, v93, v96, v94);
+  v373 = v99;
+  if (!v99)
   {
-    v105 = objc_msgSend_null(MEMORY[0x277CBEB68], v101, v102, v103, v104);
+    v99 = objc_msgSend_null(MEMORY[0x277CBEB68], v97, v100, v98);
   }
 
-  v369 = v105;
-  v442[37] = v105;
-  v441[38] = @"maxTimedelta_To_State_TaskFetched";
-  v110 = objc_msgSend_maxTimedelta_To_State_TaskFetched(self, v101, v102, v103, v104);
-  v438 = v110;
-  if (!v110)
+  v303 = v99;
+  v378[39] = v99;
+  v377[40] = @"maxTimedelta_To_State_TaskScheduled";
+  v103 = objc_msgSend_maxTimedelta_To_State_TaskScheduled(self, v97, v100, v98);
+  v372 = v103;
+  if (!v103)
   {
-    v110 = objc_msgSend_null(MEMORY[0x277CBEB68], v106, v107, v108, v109);
+    v103 = objc_msgSend_null(MEMORY[0x277CBEB68], v101, v104, v102);
   }
 
-  v368 = v110;
-  v442[38] = v110;
-  v441[39] = @"maxTimedelta_To_State_TaskFetchedFailed";
-  v115 = objc_msgSend_maxTimedelta_To_State_TaskFetchedFailed(self, v106, v107, v108, v109);
-  v437 = v115;
+  v302 = v103;
+  v378[40] = v103;
+  v377[41] = @"maxTimedelta_To_State_TaskScheduledFailed";
+  v107 = objc_msgSend_maxTimedelta_To_State_TaskScheduledFailed(self, v101, v104, v102);
+  v371 = v107;
+  if (!v107)
+  {
+    v107 = objc_msgSend_null(MEMORY[0x277CBEB68], v105, v108, v106);
+  }
+
+  v301 = v107;
+  v378[41] = v107;
+  v377[42] = @"maxTimedelta_To_State_DprivacydDonationReceived";
+  v111 = objc_msgSend_maxTimedelta_To_State_DprivacydDonationReceived(self, v105, v108, v106);
+  v370 = v111;
+  if (!v111)
+  {
+    v111 = objc_msgSend_null(MEMORY[0x277CBEB68], v109, v112, v110);
+  }
+
+  v300 = v111;
+  v378[42] = v111;
+  v377[43] = @"maxTimedelta_To_State_DprivacydDonationReceivedFailed";
+  v115 = objc_msgSend_maxTimedelta_To_State_DprivacydDonationReceivedFailed(self, v109, v112, v110);
+  v369 = v115;
   if (!v115)
   {
-    v115 = objc_msgSend_null(MEMORY[0x277CBEB68], v111, v112, v113, v114);
+    v115 = objc_msgSend_null(MEMORY[0x277CBEB68], v113, v116, v114);
   }
 
-  v367 = v115;
-  v442[39] = v115;
-  v441[40] = @"maxTimedelta_To_State_TaskScheduled";
-  v120 = objc_msgSend_maxTimedelta_To_State_TaskScheduled(self, v111, v112, v113, v114);
-  v436 = v120;
-  if (!v120)
+  v299 = v115;
+  v378[43] = v115;
+  v377[44] = @"maxTimedelta_To_State_DprivacydRandomization";
+  v119 = objc_msgSend_maxTimedelta_To_State_DprivacydRandomization(self, v113, v116, v114);
+  v368 = v119;
+  if (!v119)
   {
-    v120 = objc_msgSend_null(MEMORY[0x277CBEB68], v116, v117, v118, v119);
+    v119 = objc_msgSend_null(MEMORY[0x277CBEB68], v117, v120, v118);
   }
 
-  v366 = v120;
-  v442[40] = v120;
-  v441[41] = @"maxTimedelta_To_State_TaskScheduledFailed";
-  v125 = objc_msgSend_maxTimedelta_To_State_TaskScheduledFailed(self, v116, v117, v118, v119);
-  v435 = v125;
-  if (!v125)
+  v298 = v119;
+  v378[44] = v119;
+  v377[45] = @"maxTimedelta_To_State_DprivacydRandomizationFailed";
+  v123 = objc_msgSend_maxTimedelta_To_State_DprivacydRandomizationFailed(self, v117, v120, v118);
+  v367 = v123;
+  if (!v123)
   {
-    v125 = objc_msgSend_null(MEMORY[0x277CBEB68], v121, v122, v123, v124);
+    v123 = objc_msgSend_null(MEMORY[0x277CBEB68], v121, v124, v122);
   }
 
-  v365 = v125;
-  v442[41] = v125;
-  v441[42] = @"maxTimedelta_To_State_DprivacydDonationReceived";
-  v130 = objc_msgSend_maxTimedelta_To_State_DprivacydDonationReceived(self, v121, v122, v123, v124);
-  v434 = v130;
-  if (!v130)
+  v297 = v123;
+  v378[45] = v123;
+  v377[46] = @"maxTimedelta_To_State_DprivacydBudgetCheck";
+  v127 = objc_msgSend_maxTimedelta_To_State_DprivacydBudgetCheck(self, v121, v124, v122);
+  v366 = v127;
+  if (!v127)
   {
-    v130 = objc_msgSend_null(MEMORY[0x277CBEB68], v126, v127, v128, v129);
+    v127 = objc_msgSend_null(MEMORY[0x277CBEB68], v125, v128, v126);
   }
 
-  v364 = v130;
-  v442[42] = v130;
-  v441[43] = @"maxTimedelta_To_State_DprivacydDonationReceivedFailed";
-  v135 = objc_msgSend_maxTimedelta_To_State_DprivacydDonationReceivedFailed(self, v126, v127, v128, v129);
-  v433 = v135;
+  v296 = v127;
+  v378[46] = v127;
+  v377[47] = @"maxTimedelta_To_State_DprivacydBudgetCheckFailed";
+  v131 = objc_msgSend_maxTimedelta_To_State_DprivacydBudgetCheckFailed(self, v125, v128, v126);
+  v365 = v131;
+  if (!v131)
+  {
+    v131 = objc_msgSend_null(MEMORY[0x277CBEB68], v129, v132, v130);
+  }
+
+  v295 = v131;
+  v378[47] = v131;
+  v377[48] = @"maxTimedelta_To_State_DprivacydPayloadCreation";
+  v135 = objc_msgSend_maxTimedelta_To_State_DprivacydPayloadCreation(self, v129, v132, v130);
+  v364 = v135;
   if (!v135)
   {
-    v135 = objc_msgSend_null(MEMORY[0x277CBEB68], v131, v132, v133, v134);
+    v135 = objc_msgSend_null(MEMORY[0x277CBEB68], v133, v136, v134);
   }
 
-  v363 = v135;
-  v442[43] = v135;
-  v441[44] = @"maxTimedelta_To_State_DprivacydRandomization";
-  v140 = objc_msgSend_maxTimedelta_To_State_DprivacydRandomization(self, v131, v132, v133, v134);
-  v432 = v140;
-  if (!v140)
+  v294 = v135;
+  v378[48] = v135;
+  v377[49] = @"maxTimedelta_To_State_DprivacydPayloadCreationFailed";
+  v139 = objc_msgSend_maxTimedelta_To_State_DprivacydPayloadCreationFailed(self, v133, v136, v134);
+  v363 = v139;
+  if (!v139)
   {
-    v140 = objc_msgSend_null(MEMORY[0x277CBEB68], v136, v137, v138, v139);
+    v139 = objc_msgSend_null(MEMORY[0x277CBEB68], v137, v140, v138);
   }
 
-  v362 = v140;
-  v442[44] = v140;
-  v441[45] = @"maxTimedelta_To_State_DprivacydRandomizationFailed";
-  v145 = objc_msgSend_maxTimedelta_To_State_DprivacydRandomizationFailed(self, v136, v137, v138, v139);
-  v431 = v145;
-  if (!v145)
+  v293 = v139;
+  v378[49] = v139;
+  v377[50] = @"maxTimedelta_To_State_DprivacydUpload";
+  v143 = objc_msgSend_maxTimedelta_To_State_DprivacydUpload(self, v137, v140, v138);
+  v362 = v143;
+  if (!v143)
   {
-    v145 = objc_msgSend_null(MEMORY[0x277CBEB68], v141, v142, v143, v144);
+    v143 = objc_msgSend_null(MEMORY[0x277CBEB68], v141, v144, v142);
   }
 
-  v361 = v145;
-  v442[45] = v145;
-  v441[46] = @"maxTimedelta_To_State_DprivacydBudgetCheck";
-  v150 = objc_msgSend_maxTimedelta_To_State_DprivacydBudgetCheck(self, v141, v142, v143, v144);
-  v430 = v150;
-  if (!v150)
+  v292 = v143;
+  v378[50] = v143;
+  v377[51] = @"maxTimedelta_To_State_DprivacydUploadFailed";
+  v147 = objc_msgSend_maxTimedelta_To_State_DprivacydUploadFailed(self, v141, v144, v142);
+  v361 = v147;
+  if (!v147)
   {
-    v150 = objc_msgSend_null(MEMORY[0x277CBEB68], v146, v147, v148, v149);
+    v147 = objc_msgSend_null(MEMORY[0x277CBEB68], v145, v148, v146);
   }
 
-  v360 = v150;
-  v442[46] = v150;
-  v441[47] = @"maxTimedelta_To_State_DprivacydBudgetCheckFailed";
-  v155 = objc_msgSend_maxTimedelta_To_State_DprivacydBudgetCheckFailed(self, v146, v147, v148, v149);
-  v429 = v155;
-  if (!v155)
+  v291 = v147;
+  v378[51] = v147;
+  v377[52] = @"maxTimedelta_To_State_Unexpeted";
+  v151 = objc_msgSend_maxTimedelta_To_State_Unexpeted(self, v145, v148, v146);
+  v346 = v151;
+  if (!v151)
   {
-    v155 = objc_msgSend_null(MEMORY[0x277CBEB68], v151, v152, v153, v154);
+    v151 = objc_msgSend_null(MEMORY[0x277CBEB68], v149, v152, v150);
   }
 
-  v359 = v155;
-  v442[47] = v155;
-  v441[48] = @"maxTimedelta_To_State_DprivacydPayloadCreation";
-  v160 = objc_msgSend_maxTimedelta_To_State_DprivacydPayloadCreation(self, v151, v152, v153, v154);
-  v428 = v160;
-  if (!v160)
-  {
-    v160 = objc_msgSend_null(MEMORY[0x277CBEB68], v156, v157, v158, v159);
-  }
-
-  v358 = v160;
-  v442[48] = v160;
-  v441[49] = @"maxTimedelta_To_State_DprivacydPayloadCreationFailed";
-  v165 = objc_msgSend_maxTimedelta_To_State_DprivacydPayloadCreationFailed(self, v156, v157, v158, v159);
-  v427 = v165;
-  if (!v165)
-  {
-    v165 = objc_msgSend_null(MEMORY[0x277CBEB68], v161, v162, v163, v164);
-  }
-
-  v357 = v165;
-  v442[49] = v165;
-  v441[50] = @"maxTimedelta_To_State_DprivacydUpload";
-  v170 = objc_msgSend_maxTimedelta_To_State_DprivacydUpload(self, v161, v162, v163, v164);
-  v426 = v170;
-  if (!v170)
-  {
-    v170 = objc_msgSend_null(MEMORY[0x277CBEB68], v166, v167, v168, v169);
-  }
-
-  v356 = v170;
-  v442[50] = v170;
-  v441[51] = @"maxTimedelta_To_State_DprivacydUploadFailed";
-  v175 = objc_msgSend_maxTimedelta_To_State_DprivacydUploadFailed(self, v166, v167, v168, v169);
-  v425 = v175;
-  if (!v175)
-  {
-    v175 = objc_msgSend_null(MEMORY[0x277CBEB68], v171, v172, v173, v174);
-  }
-
-  v355 = v175;
-  v442[51] = v175;
-  v441[52] = @"maxTimedelta_To_State_Unexpeted";
-  v180 = objc_msgSend_maxTimedelta_To_State_Unexpeted(self, v171, v172, v173, v174);
-  v410 = v180;
-  if (!v180)
-  {
-    v180 = objc_msgSend_null(MEMORY[0x277CBEB68], v176, v177, v178, v179);
-  }
-
-  v354 = v180;
-  v442[52] = v180;
-  v442[53] = v9;
-  v441[53] = @"state";
-  v441[54] = @"stateString";
-  v181 = objc_msgSend_objectForKey_(v440, v176, v9, v178, v179);
+  v290 = v151;
+  v378[52] = v151;
+  v378[53] = v9;
+  v377[53] = @"state";
+  v377[54] = @"stateString";
+  v153 = objc_msgSend_objectForKey_(v376, v149, v152, v9);
   stateId = self->_stateId;
-  v409 = v181;
-  v442[54] = v181;
-  v442[55] = stateId;
-  v441[55] = @"stateID";
-  v441[56] = @"timestamp";
-  v408 = objc_msgSend_dateToTimestampStringInMSec_(LBFUtils, v183, self->_bucketEndTime, v184, v185);
-  v442[56] = v408;
-  v441[57] = @"timestamp_Activated";
+  v345 = v153;
+  v378[54] = v153;
+  v378[55] = stateId;
+  v377[55] = @"stateID";
+  v377[56] = @"timestamp";
+  v344 = objc_msgSend_dateToTimestampStringInMSec_(LBFUtils, v155, v156, self->_bucketEndTime);
+  v378[56] = v344;
+  v377[57] = @"timestamp_Activated";
   timestamp_Activated_Succeeded = self->_timestamp_Activated_Succeeded;
   if (timestamp_Activated_Succeeded)
   {
-    objc_msgSend_dateToTimestampStringInMSec_(LBFUtils, v186, timestamp_Activated_Succeeded, v187, v188);
+    objc_msgSend_dateToTimestampStringInMSec_(LBFUtils, v157, v158, timestamp_Activated_Succeeded);
   }
 
   else
   {
-    objc_msgSend_null(MEMORY[0x277CBEB68], v186, 0, v187, v188);
+    objc_msgSend_null(MEMORY[0x277CBEB68], v157, v158, 0);
   }
-  v407 = ;
-  v442[57] = v407;
-  v441[58] = @"timestamp_Allocated";
+  v343 = ;
+  v378[57] = v343;
+  v377[58] = @"timestamp_Allocated";
   timestamp_Allocated_Succeeded = self->_timestamp_Allocated_Succeeded;
   if (timestamp_Allocated_Succeeded)
   {
-    objc_msgSend_dateToTimestampStringInMSec_(LBFUtils, v190, timestamp_Allocated_Succeeded, v191, v192);
+    objc_msgSend_dateToTimestampStringInMSec_(LBFUtils, v160, v161, timestamp_Allocated_Succeeded);
   }
 
   else
   {
-    objc_msgSend_null(MEMORY[0x277CBEB68], v190, 0, v191, v192);
+    objc_msgSend_null(MEMORY[0x277CBEB68], v160, v161, 0);
   }
-  v406 = ;
-  v442[58] = v406;
-  v441[59] = @"timestamp_Deactivated";
+  v342 = ;
+  v378[58] = v342;
+  v377[59] = @"timestamp_Deactivated";
   timestamp_Deactivated_Succeeded = self->_timestamp_Deactivated_Succeeded;
   if (timestamp_Deactivated_Succeeded)
   {
-    objc_msgSend_dateToTimestampStringInMSec_(LBFUtils, v194, timestamp_Deactivated_Succeeded, v195, v196);
+    objc_msgSend_dateToTimestampStringInMSec_(LBFUtils, v163, v164, timestamp_Deactivated_Succeeded);
   }
 
   else
   {
-    objc_msgSend_null(MEMORY[0x277CBEB68], v194, 0, v195, v196);
+    objc_msgSend_null(MEMORY[0x277CBEB68], v163, v164, 0);
   }
-  v405 = ;
-  v442[59] = v405;
-  v441[60] = @"timestamp_PerformTask_Failed";
+  v341 = ;
+  v378[59] = v341;
+  v377[60] = @"timestamp_PerformTask_Failed";
   timestamp_PerformTask_Failed = self->_timestamp_PerformTask_Failed;
   if (timestamp_PerformTask_Failed)
   {
-    objc_msgSend_dateToTimestampStringInMSec_(LBFUtils, v198, timestamp_PerformTask_Failed, v199, v200);
+    objc_msgSend_dateToTimestampStringInMSec_(LBFUtils, v166, v167, timestamp_PerformTask_Failed);
   }
 
   else
   {
-    objc_msgSend_null(MEMORY[0x277CBEB68], v198, 0, v199, v200);
+    objc_msgSend_null(MEMORY[0x277CBEB68], v166, v167, 0);
   }
-  v404 = ;
-  v442[60] = v404;
-  v441[61] = @"timestamp_PerformTask_Succeeded";
+  v340 = ;
+  v378[60] = v340;
+  v377[61] = @"timestamp_PerformTask_Succeeded";
   timestamp_PerformTask_Succeeded = self->_timestamp_PerformTask_Succeeded;
   if (timestamp_PerformTask_Succeeded)
   {
-    objc_msgSend_dateToTimestampStringInMSec_(LBFUtils, v202, timestamp_PerformTask_Succeeded, v203, v204);
+    objc_msgSend_dateToTimestampStringInMSec_(LBFUtils, v169, v170, timestamp_PerformTask_Succeeded);
   }
 
   else
   {
-    objc_msgSend_null(MEMORY[0x277CBEB68], v202, 0, v203, v204);
+    objc_msgSend_null(MEMORY[0x277CBEB68], v169, v170, 0);
   }
-  v403 = ;
-  v442[61] = v403;
-  v441[62] = @"timestamp_Stop_Failed";
+  v339 = ;
+  v378[61] = v339;
+  v377[62] = @"timestamp_Stop_Failed";
   timestamp_Stop_Failed = self->_timestamp_Stop_Failed;
   if (timestamp_Stop_Failed)
   {
-    objc_msgSend_dateToTimestampStringInMSec_(LBFUtils, v206, timestamp_Stop_Failed, v207, v208);
+    objc_msgSend_dateToTimestampStringInMSec_(LBFUtils, v172, v173, timestamp_Stop_Failed);
   }
 
   else
   {
-    objc_msgSend_null(MEMORY[0x277CBEB68], v206, 0, v207, v208);
+    objc_msgSend_null(MEMORY[0x277CBEB68], v172, v173, 0);
   }
-  v402 = ;
-  v442[62] = v402;
-  v441[63] = @"timestamp_Stop_Succeeded";
+  v338 = ;
+  v378[62] = v338;
+  v377[63] = @"timestamp_Stop_Succeeded";
   timestamp_Stop_Succeeded = self->_timestamp_Stop_Succeeded;
   if (timestamp_Stop_Succeeded)
   {
-    objc_msgSend_dateToTimestampStringInMSec_(LBFUtils, v210, timestamp_Stop_Succeeded, v211, v212);
+    objc_msgSend_dateToTimestampStringInMSec_(LBFUtils, v175, v176, timestamp_Stop_Succeeded);
   }
 
   else
   {
-    objc_msgSend_null(MEMORY[0x277CBEB68], v210, 0, v211, v212);
+    objc_msgSend_null(MEMORY[0x277CBEB68], v175, v176, 0);
   }
-  v401 = ;
-  v442[63] = v401;
-  v441[64] = @"timestamp_TaskCompleted_Failed";
+  v337 = ;
+  v378[63] = v337;
+  v377[64] = @"timestamp_TaskCompleted_Failed";
   timestamp_TaskCompleted_Failed = self->_timestamp_TaskCompleted_Failed;
   if (timestamp_TaskCompleted_Failed)
   {
-    objc_msgSend_dateToTimestampStringInMSec_(LBFUtils, v214, timestamp_TaskCompleted_Failed, v215, v216);
+    objc_msgSend_dateToTimestampStringInMSec_(LBFUtils, v178, v179, timestamp_TaskCompleted_Failed);
   }
 
   else
   {
-    objc_msgSend_null(MEMORY[0x277CBEB68], v214, 0, v215, v216);
+    objc_msgSend_null(MEMORY[0x277CBEB68], v178, v179, 0);
   }
-  v400 = ;
-  v442[64] = v400;
-  v441[65] = @"timestamp_TaskCompleted_Succeeded";
+  v336 = ;
+  v378[64] = v336;
+  v377[65] = @"timestamp_TaskCompleted_Succeeded";
   timestamp_TaskCompleted_Succeeded = self->_timestamp_TaskCompleted_Succeeded;
   if (timestamp_TaskCompleted_Succeeded)
   {
-    objc_msgSend_dateToTimestampStringInMSec_(LBFUtils, v218, timestamp_TaskCompleted_Succeeded, v219, v220);
+    objc_msgSend_dateToTimestampStringInMSec_(LBFUtils, v181, v182, timestamp_TaskCompleted_Succeeded);
   }
 
   else
   {
-    objc_msgSend_null(MEMORY[0x277CBEB68], v218, 0, v219, v220);
+    objc_msgSend_null(MEMORY[0x277CBEB68], v181, v182, 0);
   }
-  v399 = ;
-  v442[65] = v399;
-  v441[66] = @"timestamp_TaskFetched_Failed";
+  v335 = ;
+  v378[65] = v335;
+  v377[66] = @"timestamp_TaskFetched_Failed";
   timestamp_TaskFetched_Failed = self->_timestamp_TaskFetched_Failed;
   if (timestamp_TaskFetched_Failed)
   {
-    objc_msgSend_dateToTimestampStringInMSec_(LBFUtils, v222, timestamp_TaskFetched_Failed, v223, v224);
+    objc_msgSend_dateToTimestampStringInMSec_(LBFUtils, v184, v185, timestamp_TaskFetched_Failed);
   }
 
   else
   {
-    objc_msgSend_null(MEMORY[0x277CBEB68], v222, 0, v223, v224);
+    objc_msgSend_null(MEMORY[0x277CBEB68], v184, v185, 0);
   }
-  v398 = ;
-  v442[66] = v398;
-  v441[67] = @"timestamp_TaskFetched_Succeeded";
+  v334 = ;
+  v378[66] = v334;
+  v377[67] = @"timestamp_TaskFetched_Succeeded";
   timestamp_TaskFetched_Succeeded = self->_timestamp_TaskFetched_Succeeded;
   if (timestamp_TaskFetched_Succeeded)
   {
-    objc_msgSend_dateToTimestampStringInMSec_(LBFUtils, v226, timestamp_TaskFetched_Succeeded, v227, v228);
+    objc_msgSend_dateToTimestampStringInMSec_(LBFUtils, v187, v188, timestamp_TaskFetched_Succeeded);
   }
 
   else
   {
-    objc_msgSend_null(MEMORY[0x277CBEB68], v226, 0, v227, v228);
+    objc_msgSend_null(MEMORY[0x277CBEB68], v187, v188, 0);
   }
-  v397 = ;
-  v442[67] = v397;
-  v441[68] = @"timestamp_TaskScheduled_Failed";
+  v333 = ;
+  v378[67] = v333;
+  v377[68] = @"timestamp_TaskScheduled_Failed";
   timestamp_TaskScheduled_Failed = self->_timestamp_TaskScheduled_Failed;
   if (timestamp_TaskScheduled_Failed)
   {
-    objc_msgSend_dateToTimestampStringInMSec_(LBFUtils, v230, timestamp_TaskScheduled_Failed, v231, v232);
+    objc_msgSend_dateToTimestampStringInMSec_(LBFUtils, v190, v191, timestamp_TaskScheduled_Failed);
   }
 
   else
   {
-    objc_msgSend_null(MEMORY[0x277CBEB68], v230, 0, v231, v232);
+    objc_msgSend_null(MEMORY[0x277CBEB68], v190, v191, 0);
   }
-  v396 = ;
-  v442[68] = v396;
-  v441[69] = @"timestamp_TaskScheduled_Succeeded";
+  v332 = ;
+  v378[68] = v332;
+  v377[69] = @"timestamp_TaskScheduled_Succeeded";
   timestamp_TaskScheduled_Succeeded = self->_timestamp_TaskScheduled_Succeeded;
   if (timestamp_TaskScheduled_Succeeded)
   {
-    objc_msgSend_dateToTimestampStringInMSec_(LBFUtils, v234, timestamp_TaskScheduled_Succeeded, v235, v236);
+    objc_msgSend_dateToTimestampStringInMSec_(LBFUtils, v193, v194, timestamp_TaskScheduled_Succeeded);
   }
 
   else
   {
-    objc_msgSend_null(MEMORY[0x277CBEB68], v234, 0, v235, v236);
+    objc_msgSend_null(MEMORY[0x277CBEB68], v193, v194, 0);
   }
-  v395 = ;
-  v442[69] = v395;
-  v441[70] = @"timestamp_DprivacydDonationReceived_Failed";
+  v331 = ;
+  v378[69] = v331;
+  v377[70] = @"timestamp_DprivacydDonationReceived_Failed";
   timestamp_DprivacydDonationReceived_Failed = self->_timestamp_DprivacydDonationReceived_Failed;
   if (timestamp_DprivacydDonationReceived_Failed)
   {
-    objc_msgSend_dateToTimestampStringInMSec_(LBFUtils, v238, timestamp_DprivacydDonationReceived_Failed, v239, v240);
+    objc_msgSend_dateToTimestampStringInMSec_(LBFUtils, v196, v197, timestamp_DprivacydDonationReceived_Failed);
   }
 
   else
   {
-    objc_msgSend_null(MEMORY[0x277CBEB68], v238, 0, v239, v240);
+    objc_msgSend_null(MEMORY[0x277CBEB68], v196, v197, 0);
   }
-  v394 = ;
-  v442[70] = v394;
-  v441[71] = @"timestamp_DprivacydDonationReceived_Succeeded";
+  v330 = ;
+  v378[70] = v330;
+  v377[71] = @"timestamp_DprivacydDonationReceived_Succeeded";
   timestamp_DprivacydDonationReceived_Succeeded = self->_timestamp_DprivacydDonationReceived_Succeeded;
   if (timestamp_DprivacydDonationReceived_Succeeded)
   {
-    objc_msgSend_dateToTimestampStringInMSec_(LBFUtils, v242, timestamp_DprivacydDonationReceived_Succeeded, v243, v244);
+    objc_msgSend_dateToTimestampStringInMSec_(LBFUtils, v199, v200, timestamp_DprivacydDonationReceived_Succeeded);
   }
 
   else
   {
-    objc_msgSend_null(MEMORY[0x277CBEB68], v242, 0, v243, v244);
+    objc_msgSend_null(MEMORY[0x277CBEB68], v199, v200, 0);
   }
-  v393 = ;
-  v442[71] = v393;
-  v441[72] = @"timestamp_DprivacydRandomization_Failed";
+  v329 = ;
+  v378[71] = v329;
+  v377[72] = @"timestamp_DprivacydRandomization_Failed";
   timestamp_DprivacydRandomization_Failed = self->_timestamp_DprivacydRandomization_Failed;
   if (timestamp_DprivacydRandomization_Failed)
   {
-    objc_msgSend_dateToTimestampStringInMSec_(LBFUtils, v246, timestamp_DprivacydRandomization_Failed, v247, v248);
+    objc_msgSend_dateToTimestampStringInMSec_(LBFUtils, v202, v203, timestamp_DprivacydRandomization_Failed);
   }
 
   else
   {
-    objc_msgSend_null(MEMORY[0x277CBEB68], v246, 0, v247, v248);
+    objc_msgSend_null(MEMORY[0x277CBEB68], v202, v203, 0);
   }
-  v391 = ;
-  v442[72] = v391;
-  v441[73] = @"timestamp_DprivacydRandomization_Succeeded";
+  v327 = ;
+  v378[72] = v327;
+  v377[73] = @"timestamp_DprivacydRandomization_Succeeded";
   timestamp_DprivacydRandomization_Succeeded = self->_timestamp_DprivacydRandomization_Succeeded;
   if (timestamp_DprivacydRandomization_Succeeded)
   {
-    objc_msgSend_dateToTimestampStringInMSec_(LBFUtils, v250, timestamp_DprivacydRandomization_Succeeded, v251, v252);
+    objc_msgSend_dateToTimestampStringInMSec_(LBFUtils, v205, v206, timestamp_DprivacydRandomization_Succeeded);
   }
 
   else
   {
-    objc_msgSend_null(MEMORY[0x277CBEB68], v250, 0, v251, v252);
+    objc_msgSend_null(MEMORY[0x277CBEB68], v205, v206, 0);
   }
-  v390 = ;
-  v442[73] = v390;
-  v441[74] = @"timestamp_DprivacydBudgetCheck_Failed";
+  v326 = ;
+  v378[73] = v326;
+  v377[74] = @"timestamp_DprivacydBudgetCheck_Failed";
   timestamp_DprivacydBudgetCheck_Failed = self->_timestamp_DprivacydBudgetCheck_Failed;
   if (timestamp_DprivacydBudgetCheck_Failed)
   {
-    objc_msgSend_dateToTimestampStringInMSec_(LBFUtils, v254, timestamp_DprivacydBudgetCheck_Failed, v255, v256);
+    objc_msgSend_dateToTimestampStringInMSec_(LBFUtils, v208, v209, timestamp_DprivacydBudgetCheck_Failed);
   }
 
   else
   {
-    objc_msgSend_null(MEMORY[0x277CBEB68], v254, 0, v255, v256);
+    objc_msgSend_null(MEMORY[0x277CBEB68], v208, v209, 0);
   }
-  v389 = ;
-  v442[74] = v389;
-  v441[75] = @"timestamp_DprivacydBudgetCheck_Succeeded";
+  v325 = ;
+  v378[74] = v325;
+  v377[75] = @"timestamp_DprivacydBudgetCheck_Succeeded";
   timestamp_DprivacydBudgetCheck_Succeeded = self->_timestamp_DprivacydBudgetCheck_Succeeded;
   if (timestamp_DprivacydBudgetCheck_Succeeded)
   {
-    objc_msgSend_dateToTimestampStringInMSec_(LBFUtils, v258, timestamp_DprivacydBudgetCheck_Succeeded, v259, v260);
+    objc_msgSend_dateToTimestampStringInMSec_(LBFUtils, v211, v212, timestamp_DprivacydBudgetCheck_Succeeded);
   }
 
   else
   {
-    objc_msgSend_null(MEMORY[0x277CBEB68], v258, 0, v259, v260);
+    objc_msgSend_null(MEMORY[0x277CBEB68], v211, v212, 0);
   }
-  v388 = ;
-  v442[75] = v388;
-  v441[76] = @"timestamp_DprivacydPayloadCreation_Failed";
+  v324 = ;
+  v378[75] = v324;
+  v377[76] = @"timestamp_DprivacydPayloadCreation_Failed";
   timestamp_DprivacydPayloadCreation_Failed = self->_timestamp_DprivacydPayloadCreation_Failed;
   if (timestamp_DprivacydPayloadCreation_Failed)
   {
-    objc_msgSend_dateToTimestampStringInMSec_(LBFUtils, v262, timestamp_DprivacydPayloadCreation_Failed, v263, v264);
+    objc_msgSend_dateToTimestampStringInMSec_(LBFUtils, v214, v215, timestamp_DprivacydPayloadCreation_Failed);
   }
 
   else
   {
-    objc_msgSend_null(MEMORY[0x277CBEB68], v262, 0, v263, v264);
+    objc_msgSend_null(MEMORY[0x277CBEB68], v214, v215, 0);
   }
-  v387 = ;
-  v442[76] = v387;
-  v441[77] = @"timestamp_DprivacydPayloadCreation_Succeeded";
+  v323 = ;
+  v378[76] = v323;
+  v377[77] = @"timestamp_DprivacydPayloadCreation_Succeeded";
   timestamp_DprivacydPayloadCreation_Succeeded = self->_timestamp_DprivacydPayloadCreation_Succeeded;
   if (timestamp_DprivacydPayloadCreation_Succeeded)
   {
-    objc_msgSend_dateToTimestampStringInMSec_(LBFUtils, v266, timestamp_DprivacydPayloadCreation_Succeeded, v267, v268);
+    objc_msgSend_dateToTimestampStringInMSec_(LBFUtils, v217, v218, timestamp_DprivacydPayloadCreation_Succeeded);
   }
 
   else
   {
-    objc_msgSend_null(MEMORY[0x277CBEB68], v266, 0, v267, v268);
+    objc_msgSend_null(MEMORY[0x277CBEB68], v217, v218, 0);
   }
-  v386 = ;
-  v442[77] = v386;
-  v441[78] = @"timestamp_DprivacydUpload_Failed";
+  v322 = ;
+  v378[77] = v322;
+  v377[78] = @"timestamp_DprivacydUpload_Failed";
   timestamp_DprivacydUpload_Failed = self->_timestamp_DprivacydUpload_Failed;
   if (timestamp_DprivacydUpload_Failed)
   {
-    objc_msgSend_dateToTimestampStringInMSec_(LBFUtils, v270, timestamp_DprivacydUpload_Failed, v271, v272);
+    objc_msgSend_dateToTimestampStringInMSec_(LBFUtils, v220, v221, timestamp_DprivacydUpload_Failed);
   }
 
   else
   {
-    objc_msgSend_null(MEMORY[0x277CBEB68], v270, 0, v271, v272);
+    objc_msgSend_null(MEMORY[0x277CBEB68], v220, v221, 0);
   }
-  v385 = ;
-  v442[78] = v385;
-  v441[79] = @"timestamp_DprivacydUpload_Succeeded";
+  v321 = ;
+  v378[78] = v321;
+  v377[79] = @"timestamp_DprivacydUpload_Succeeded";
   timestamp_DprivacydUpload_Succeeded = self->_timestamp_DprivacydUpload_Succeeded;
-  v413 = v88;
+  v349 = v78;
   if (timestamp_DprivacydUpload_Succeeded)
   {
-    objc_msgSend_dateToTimestampStringInMSec_(LBFUtils, v274, timestamp_DprivacydUpload_Succeeded, v275, v276);
+    objc_msgSend_dateToTimestampStringInMSec_(LBFUtils, v223, v224, timestamp_DprivacydUpload_Succeeded);
   }
 
   else
   {
-    objc_msgSend_null(MEMORY[0x277CBEB68], v274, 0, v275, v276);
+    objc_msgSend_null(MEMORY[0x277CBEB68], v223, v224, 0);
   }
 
-  v384 = v418 = v60;
-  v442[79] = v384;
-  v441[80] = @"trialIdentifiers_BMLTIdentifiers_trialDeploymentID";
-  v383 = objc_msgSend_bmltIdentifiers(self->_trialIdentifiers, v278, v279, v280, v281);
-  v286 = objc_msgSend_trialDeploymentID(v383, v282, v283, v284, v285);
-  v291 = v286;
-  if (!v286)
+  v320 = v354 = v55;
+  v378[79] = v320;
+  v377[80] = @"trialIdentifiers_BMLTIdentifiers_trialDeploymentID";
+  v319 = objc_msgSend_bmltIdentifiers(self->_trialIdentifiers, v226, v228, v227);
+  v232 = objc_msgSend_trialDeploymentID(v319, v229, v231, v230);
+  v236 = v232;
+  if (!v232)
   {
-    v286 = objc_msgSend_null(MEMORY[0x277CBEB68], v287, v288, v289, v290);
+    v232 = objc_msgSend_null(MEMORY[0x277CBEB68], v233, v235, v234);
   }
 
-  v415 = v76;
-  v419 = v54;
-  v353 = v286;
-  v442[80] = v286;
-  v441[81] = @"trialIdentifiers_BMLTIdentifiers_trialTaskID";
-  v382 = objc_msgSend_bmltIdentifiers(self->_trialIdentifiers, v287, v288, v289, v290);
-  v296 = objc_msgSend_trialTaskID(v382, v292, v293, v294, v295);
-  v301 = v296;
-  if (!v296)
+  v351 = v68;
+  v355 = v50;
+  v289 = v232;
+  v378[80] = v232;
+  v377[81] = @"trialIdentifiers_BMLTIdentifiers_trialTaskID";
+  v318 = objc_msgSend_bmltIdentifiers(self->_trialIdentifiers, v233, v235, v234);
+  v240 = objc_msgSend_trialTaskID(v318, v237, v239, v238);
+  v244 = v240;
+  if (!v240)
   {
-    v296 = objc_msgSend_null(MEMORY[0x277CBEB68], v297, v298, v299, v300);
+    v240 = objc_msgSend_null(MEMORY[0x277CBEB68], v241, v243, v242);
   }
 
-  v412 = v94;
-  v352 = v296;
-  v442[81] = v296;
-  v441[82] = @"trialIdentifiers_experimentIdentifiers_trialDeploymentID";
-  v381 = objc_msgSend_experimentIdentifiers(self->_trialIdentifiers, v297, v298, v299, v300);
-  v310 = objc_msgSend_trialDeploymentID(v381, v302, v303, v304, v305);
-  v311 = v310;
-  if (!v310)
+  v348 = v83;
+  v288 = v240;
+  v378[81] = v240;
+  v377[82] = @"trialIdentifiers_experimentIdentifiers_trialDeploymentID";
+  v317 = objc_msgSend_experimentIdentifiers(self->_trialIdentifiers, v241, v243, v242);
+  v250 = objc_msgSend_trialDeploymentID(v317, v245, v247, v246);
+  v252 = v250;
+  if (!v250)
   {
-    v311 = objc_msgSend_null(MEMORY[0x277CBEB68], v306, v307, v308, v309);
+    v252 = objc_msgSend_null(MEMORY[0x277CBEB68], v248, v251, v249);
   }
 
-  v411 = v100;
-  v414 = v82;
-  v442[82] = v311;
-  v441[83] = @"trialIdentifiers_experimentIdentifiers_trialExperimentID";
-  v312 = objc_msgSend_experimentIdentifiers(self->_trialIdentifiers, v306, v307, v308, v309);
-  v321 = objc_msgSend_trialExperimentID(v312, v313, v314, v315, v316);
-  v322 = v321;
-  if (!v321)
+  v347 = v88;
+  v350 = v73;
+  v378[82] = v252;
+  v377[83] = @"trialIdentifiers_experimentIdentifiers_trialExperimentID";
+  v253 = objc_msgSend_experimentIdentifiers(self->_trialIdentifiers, v248, v251, v249);
+  v259 = objc_msgSend_trialExperimentID(v253, v254, v256, v255);
+  v261 = v259;
+  if (!v259)
   {
-    v322 = objc_msgSend_null(MEMORY[0x277CBEB68], v317, v318, v319, v320);
+    v261 = objc_msgSend_null(MEMORY[0x277CBEB68], v257, v260, v258);
   }
 
-  v442[83] = v322;
-  v441[84] = @"trialIdentifiers_experimentIdentifiers_trialTreatmentID";
-  v323 = objc_msgSend_experimentIdentifiers(self->_trialIdentifiers, v317, v318, v319, v320);
-  v332 = objc_msgSend_trialTreatmentID(v323, v324, v325, v326, v327);
-  v333 = v332;
-  if (!v332)
+  v378[83] = v261;
+  v377[84] = @"trialIdentifiers_experimentIdentifiers_trialTreatmentID";
+  v262 = objc_msgSend_experimentIdentifiers(self->_trialIdentifiers, v257, v260, v258);
+  v268 = objc_msgSend_trialTreatmentID(v262, v263, v265, v264);
+  v270 = v268;
+  if (!v268)
   {
-    v333 = objc_msgSend_null(MEMORY[0x277CBEB68], v328, v329, v330, v331);
+    v270 = objc_msgSend_null(MEMORY[0x277CBEB68], v266, v269, v267);
   }
 
-  v442[84] = v333;
-  v392 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v328, v442, v441, 85);
-  if (!v332)
-  {
-  }
-
-  if (!v321)
+  v378[84] = v270;
+  v328 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v266, v269, v378, v377, 85);
+  if (!v268)
   {
   }
 
-  if (!v310)
+  if (!v259)
   {
   }
 
-  if (!v301)
+  if (!v250)
   {
   }
 
-  if (!v291)
+  if (!v244)
   {
   }
 
-  if (!v410)
+  if (!v236)
   {
   }
 
-  v334 = v425;
-  if (!v425)
-  {
-
-    v334 = 0;
-  }
-
-  v335 = v426;
-  if (!v426)
-  {
-
-    v335 = 0;
-  }
-
-  v336 = v427;
-  if (!v427)
-  {
-
-    v336 = 0;
-  }
-
-  v337 = v428;
-  if (!v428)
-  {
-
-    v337 = 0;
-  }
-
-  v338 = v429;
-  if (!v429)
-  {
-
-    v338 = 0;
-  }
-
-  v339 = v430;
-  if (!v430)
-  {
-
-    v339 = 0;
-  }
-
-  v340 = v431;
-  if (!v431)
-  {
-
-    v340 = 0;
-  }
-
-  v341 = v432;
-  if (!v432)
-  {
-
-    v341 = 0;
-  }
-
-  v342 = v433;
-  if (!v433)
-  {
-
-    v342 = 0;
-  }
-
-  v343 = v434;
-  if (!v434)
-  {
-
-    v343 = 0;
-  }
-
-  v344 = v435;
-  if (!v435)
-  {
-
-    v344 = 0;
-  }
-
-  v345 = v436;
-  if (!v436)
-  {
-
-    v345 = 0;
-  }
-
-  v346 = v437;
-  if (!v437)
-  {
-
-    v346 = 0;
-  }
-
-  v347 = v438;
-  if (!v438)
-  {
-
-    v347 = 0;
-  }
-
-  v348 = v439;
-  if (!v439)
-  {
-
-    v348 = 0;
-  }
-
-  if (!v411)
+  if (!v346)
   {
   }
 
-  if (!v412)
+  v271 = v361;
+  if (!v361)
+  {
+
+    v271 = 0;
+  }
+
+  v272 = v362;
+  if (!v362)
+  {
+
+    v272 = 0;
+  }
+
+  v273 = v363;
+  if (!v363)
+  {
+
+    v273 = 0;
+  }
+
+  v274 = v364;
+  if (!v364)
+  {
+
+    v274 = 0;
+  }
+
+  v275 = v365;
+  if (!v365)
+  {
+
+    v275 = 0;
+  }
+
+  v276 = v366;
+  if (!v366)
+  {
+
+    v276 = 0;
+  }
+
+  v277 = v367;
+  if (!v367)
+  {
+
+    v277 = 0;
+  }
+
+  v278 = v368;
+  if (!v368)
+  {
+
+    v278 = 0;
+  }
+
+  v279 = v369;
+  if (!v369)
+  {
+
+    v279 = 0;
+  }
+
+  v280 = v370;
+  if (!v370)
+  {
+
+    v280 = 0;
+  }
+
+  v281 = v371;
+  if (!v371)
+  {
+
+    v281 = 0;
+  }
+
+  v282 = v372;
+  if (!v372)
+  {
+
+    v282 = 0;
+  }
+
+  v283 = v373;
+  if (!v373)
+  {
+
+    v283 = 0;
+  }
+
+  v284 = v374;
+  if (!v374)
+  {
+
+    v284 = 0;
+  }
+
+  v285 = v375;
+  if (!v375)
+  {
+
+    v285 = 0;
+  }
+
+  if (!v347)
   {
   }
 
-  if (!v413)
+  if (!v348)
   {
   }
 
-  if (!v414)
+  if (!v349)
   {
   }
 
-  if (!v415)
+  if (!v350)
   {
   }
 
-  if (!v416)
+  if (!v351)
   {
   }
 
-  if (!v417)
+  if (!v352)
   {
   }
 
-  if (!v418)
+  if (!v353)
   {
   }
 
-  if (!v419)
+  if (!v354)
   {
   }
 
-  if (!v422)
+  if (!v355)
   {
   }
 
-  if (!v423)
+  if (!v358)
   {
   }
 
-  v349 = v392;
-  v350 = *MEMORY[0x277D85DE8];
-  return v392;
+  if (!v359)
+  {
+  }
+
+  v286 = v328;
+  return v328;
 }
 
 - (BOOL)uploadToCoreAnalytics
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v5 = objc_msgSend_getDictionaryRepresentation(self, a2, v2, v3, v4);
-  v6 = LBFLogContextBitacoraStateInfo;
+  v12 = *MEMORY[0x277D85DE8];
+  v4 = objc_msgSend_getDictionaryRepresentation(self, a2, v3, v2);
+  v5 = LBFLogContextBitacoraStateInfo;
   if (os_log_type_enabled(LBFLogContextBitacoraStateInfo, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v13 = v5;
-    _os_log_impl(&dword_255ED5000, v6, OS_LOG_TYPE_INFO, "Emit CA Message %@", buf, 0xCu);
+    v11 = v4;
+    _os_log_impl(&dword_255ED5000, v5, OS_LOG_TYPE_INFO, "Emit CA Message %@", buf, 0xCu);
   }
 
-  v11 = v5;
-  v7 = v5;
-  v8 = AnalyticsSendEventLazy();
+  v9 = v4;
+  v6 = v4;
+  v7 = AnalyticsSendEventLazy();
 
-  v9 = *MEMORY[0x277D85DE8];
-  return v8;
+  return v7;
 }
 
 - (id)maxTimedelta_To_State_Activated
@@ -2212,18 +2207,19 @@ LABEL_63:
   timedeltas_To_State_Activated = self->_timedeltas_To_State_Activated;
   if (timedeltas_To_State_Activated)
   {
-    v5 = MEMORY[0x277CCABB0];
-    v6 = objc_msgSend_valueForKeyPath_(timedeltas_To_State_Activated, a2, @"@max.self", v2, v3);
-    objc_msgSend_doubleValue(v6, v7, v8, v9, v10);
-    v15 = objc_msgSend_numberWithLong_(v5, v12, (v11 * 1000.0), v13, v14);
+    v4 = MEMORY[0x277CCABB0];
+    v5 = objc_msgSend_valueForKeyPath_(timedeltas_To_State_Activated, a2, v2, @"@max.self");
+    objc_msgSend_doubleValue(v5, v6, v8, v7);
+    v10.n128_f64[0] = v9 * 1000.0;
+    v12 = objc_msgSend_numberWithLong_(v4, v11, v10, v10.n128_f64[0]);
   }
 
   else
   {
-    v15 = 0;
+    v12 = 0;
   }
 
-  return v15;
+  return v12;
 }
 
 - (id)maxTimedelta_To_State_ActivatedFailed
@@ -2231,18 +2227,19 @@ LABEL_63:
   timedeltas_To_State_ActivatedFailed = self->_timedeltas_To_State_ActivatedFailed;
   if (timedeltas_To_State_ActivatedFailed)
   {
-    v5 = MEMORY[0x277CCABB0];
-    v6 = objc_msgSend_valueForKeyPath_(timedeltas_To_State_ActivatedFailed, a2, @"@max.self", v2, v3);
-    objc_msgSend_doubleValue(v6, v7, v8, v9, v10);
-    v15 = objc_msgSend_numberWithLong_(v5, v12, (v11 * 1000.0), v13, v14);
+    v4 = MEMORY[0x277CCABB0];
+    v5 = objc_msgSend_valueForKeyPath_(timedeltas_To_State_ActivatedFailed, a2, v2, @"@max.self");
+    objc_msgSend_doubleValue(v5, v6, v8, v7);
+    v10.n128_f64[0] = v9 * 1000.0;
+    v12 = objc_msgSend_numberWithLong_(v4, v11, v10, v10.n128_f64[0]);
   }
 
   else
   {
-    v15 = 0;
+    v12 = 0;
   }
 
-  return v15;
+  return v12;
 }
 
 - (id)maxTimedelta_To_State_Allocated
@@ -2250,18 +2247,19 @@ LABEL_63:
   timedeltas_To_State_Allocated = self->_timedeltas_To_State_Allocated;
   if (timedeltas_To_State_Allocated)
   {
-    v5 = MEMORY[0x277CCABB0];
-    v6 = objc_msgSend_valueForKeyPath_(timedeltas_To_State_Allocated, a2, @"@max.self", v2, v3);
-    objc_msgSend_doubleValue(v6, v7, v8, v9, v10);
-    v15 = objc_msgSend_numberWithLong_(v5, v12, (v11 * 1000.0), v13, v14);
+    v4 = MEMORY[0x277CCABB0];
+    v5 = objc_msgSend_valueForKeyPath_(timedeltas_To_State_Allocated, a2, v2, @"@max.self");
+    objc_msgSend_doubleValue(v5, v6, v8, v7);
+    v10.n128_f64[0] = v9 * 1000.0;
+    v12 = objc_msgSend_numberWithLong_(v4, v11, v10, v10.n128_f64[0]);
   }
 
   else
   {
-    v15 = 0;
+    v12 = 0;
   }
 
-  return v15;
+  return v12;
 }
 
 - (id)maxTimedelta_To_State_AllocatedFailed
@@ -2269,18 +2267,19 @@ LABEL_63:
   timedeltas_To_State_AllocatedFailed = self->_timedeltas_To_State_AllocatedFailed;
   if (timedeltas_To_State_AllocatedFailed)
   {
-    v5 = MEMORY[0x277CCABB0];
-    v6 = objc_msgSend_valueForKeyPath_(timedeltas_To_State_AllocatedFailed, a2, @"@max.self", v2, v3);
-    objc_msgSend_doubleValue(v6, v7, v8, v9, v10);
-    v15 = objc_msgSend_numberWithLong_(v5, v12, (v11 * 1000.0), v13, v14);
+    v4 = MEMORY[0x277CCABB0];
+    v5 = objc_msgSend_valueForKeyPath_(timedeltas_To_State_AllocatedFailed, a2, v2, @"@max.self");
+    objc_msgSend_doubleValue(v5, v6, v8, v7);
+    v10.n128_f64[0] = v9 * 1000.0;
+    v12 = objc_msgSend_numberWithLong_(v4, v11, v10, v10.n128_f64[0]);
   }
 
   else
   {
-    v15 = 0;
+    v12 = 0;
   }
 
-  return v15;
+  return v12;
 }
 
 - (id)maxTimedelta_To_State_Deativated
@@ -2288,18 +2287,19 @@ LABEL_63:
   timedeltas_To_State_Deactivated = self->_timedeltas_To_State_Deactivated;
   if (timedeltas_To_State_Deactivated)
   {
-    v5 = MEMORY[0x277CCABB0];
-    v6 = objc_msgSend_valueForKeyPath_(timedeltas_To_State_Deactivated, a2, @"@max.self", v2, v3);
-    objc_msgSend_doubleValue(v6, v7, v8, v9, v10);
-    v15 = objc_msgSend_numberWithLong_(v5, v12, (v11 * 1000.0), v13, v14);
+    v4 = MEMORY[0x277CCABB0];
+    v5 = objc_msgSend_valueForKeyPath_(timedeltas_To_State_Deactivated, a2, v2, @"@max.self");
+    objc_msgSend_doubleValue(v5, v6, v8, v7);
+    v10.n128_f64[0] = v9 * 1000.0;
+    v12 = objc_msgSend_numberWithLong_(v4, v11, v10, v10.n128_f64[0]);
   }
 
   else
   {
-    v15 = 0;
+    v12 = 0;
   }
 
-  return v15;
+  return v12;
 }
 
 - (id)maxTimedelta_To_State_DeativatedFailed
@@ -2307,18 +2307,19 @@ LABEL_63:
   timedeltas_To_State_DeactivatedFailed = self->_timedeltas_To_State_DeactivatedFailed;
   if (timedeltas_To_State_DeactivatedFailed)
   {
-    v5 = MEMORY[0x277CCABB0];
-    v6 = objc_msgSend_valueForKeyPath_(timedeltas_To_State_DeactivatedFailed, a2, @"@max.self", v2, v3);
-    objc_msgSend_doubleValue(v6, v7, v8, v9, v10);
-    v15 = objc_msgSend_numberWithLong_(v5, v12, (v11 * 1000.0), v13, v14);
+    v4 = MEMORY[0x277CCABB0];
+    v5 = objc_msgSend_valueForKeyPath_(timedeltas_To_State_DeactivatedFailed, a2, v2, @"@max.self");
+    objc_msgSend_doubleValue(v5, v6, v8, v7);
+    v10.n128_f64[0] = v9 * 1000.0;
+    v12 = objc_msgSend_numberWithLong_(v4, v11, v10, v10.n128_f64[0]);
   }
 
   else
   {
-    v15 = 0;
+    v12 = 0;
   }
 
-  return v15;
+  return v12;
 }
 
 - (id)maxTimedelta_To_State_PerformTaskFailed
@@ -2326,18 +2327,19 @@ LABEL_63:
   timedeltas_To_State_PerformTaskFailed = self->_timedeltas_To_State_PerformTaskFailed;
   if (timedeltas_To_State_PerformTaskFailed)
   {
-    v5 = MEMORY[0x277CCABB0];
-    v6 = objc_msgSend_valueForKeyPath_(timedeltas_To_State_PerformTaskFailed, a2, @"@max.self", v2, v3);
-    objc_msgSend_doubleValue(v6, v7, v8, v9, v10);
-    v15 = objc_msgSend_numberWithLong_(v5, v12, (v11 * 1000.0), v13, v14);
+    v4 = MEMORY[0x277CCABB0];
+    v5 = objc_msgSend_valueForKeyPath_(timedeltas_To_State_PerformTaskFailed, a2, v2, @"@max.self");
+    objc_msgSend_doubleValue(v5, v6, v8, v7);
+    v10.n128_f64[0] = v9 * 1000.0;
+    v12 = objc_msgSend_numberWithLong_(v4, v11, v10, v10.n128_f64[0]);
   }
 
   else
   {
-    v15 = 0;
+    v12 = 0;
   }
 
-  return v15;
+  return v12;
 }
 
 - (id)maxTimedelta_To_State_PerformTask
@@ -2345,18 +2347,19 @@ LABEL_63:
   timedeltas_To_State_PerformTask = self->_timedeltas_To_State_PerformTask;
   if (timedeltas_To_State_PerformTask)
   {
-    v5 = MEMORY[0x277CCABB0];
-    v6 = objc_msgSend_valueForKeyPath_(timedeltas_To_State_PerformTask, a2, @"@max.self", v2, v3);
-    objc_msgSend_doubleValue(v6, v7, v8, v9, v10);
-    v15 = objc_msgSend_numberWithLong_(v5, v12, (v11 * 1000.0), v13, v14);
+    v4 = MEMORY[0x277CCABB0];
+    v5 = objc_msgSend_valueForKeyPath_(timedeltas_To_State_PerformTask, a2, v2, @"@max.self");
+    objc_msgSend_doubleValue(v5, v6, v8, v7);
+    v10.n128_f64[0] = v9 * 1000.0;
+    v12 = objc_msgSend_numberWithLong_(v4, v11, v10, v10.n128_f64[0]);
   }
 
   else
   {
-    v15 = 0;
+    v12 = 0;
   }
 
-  return v15;
+  return v12;
 }
 
 - (id)maxTimedelta_To_State_TaskCompleted
@@ -2364,18 +2367,19 @@ LABEL_63:
   timedeltas_To_State_TaskCompleted = self->_timedeltas_To_State_TaskCompleted;
   if (timedeltas_To_State_TaskCompleted)
   {
-    v5 = MEMORY[0x277CCABB0];
-    v6 = objc_msgSend_valueForKeyPath_(timedeltas_To_State_TaskCompleted, a2, @"@max.self", v2, v3);
-    objc_msgSend_doubleValue(v6, v7, v8, v9, v10);
-    v15 = objc_msgSend_numberWithLong_(v5, v12, (v11 * 1000.0), v13, v14);
+    v4 = MEMORY[0x277CCABB0];
+    v5 = objc_msgSend_valueForKeyPath_(timedeltas_To_State_TaskCompleted, a2, v2, @"@max.self");
+    objc_msgSend_doubleValue(v5, v6, v8, v7);
+    v10.n128_f64[0] = v9 * 1000.0;
+    v12 = objc_msgSend_numberWithLong_(v4, v11, v10, v10.n128_f64[0]);
   }
 
   else
   {
-    v15 = 0;
+    v12 = 0;
   }
 
-  return v15;
+  return v12;
 }
 
 - (id)maxTimedelta_To_State_TaskCompletedFailed
@@ -2383,18 +2387,19 @@ LABEL_63:
   timedeltas_To_State_TaskCompletedFailed = self->_timedeltas_To_State_TaskCompletedFailed;
   if (timedeltas_To_State_TaskCompletedFailed)
   {
-    v5 = MEMORY[0x277CCABB0];
-    v6 = objc_msgSend_valueForKeyPath_(timedeltas_To_State_TaskCompletedFailed, a2, @"@max.self", v2, v3);
-    objc_msgSend_doubleValue(v6, v7, v8, v9, v10);
-    v15 = objc_msgSend_numberWithLong_(v5, v12, (v11 * 1000.0), v13, v14);
+    v4 = MEMORY[0x277CCABB0];
+    v5 = objc_msgSend_valueForKeyPath_(timedeltas_To_State_TaskCompletedFailed, a2, v2, @"@max.self");
+    objc_msgSend_doubleValue(v5, v6, v8, v7);
+    v10.n128_f64[0] = v9 * 1000.0;
+    v12 = objc_msgSend_numberWithLong_(v4, v11, v10, v10.n128_f64[0]);
   }
 
   else
   {
-    v15 = 0;
+    v12 = 0;
   }
 
-  return v15;
+  return v12;
 }
 
 - (id)maxTimedelta_To_State_TaskFetched
@@ -2402,18 +2407,19 @@ LABEL_63:
   timedeltas_To_State_TaskFetched = self->_timedeltas_To_State_TaskFetched;
   if (timedeltas_To_State_TaskFetched)
   {
-    v5 = MEMORY[0x277CCABB0];
-    v6 = objc_msgSend_valueForKeyPath_(timedeltas_To_State_TaskFetched, a2, @"@max.self", v2, v3);
-    objc_msgSend_doubleValue(v6, v7, v8, v9, v10);
-    v15 = objc_msgSend_numberWithLong_(v5, v12, (v11 * 1000.0), v13, v14);
+    v4 = MEMORY[0x277CCABB0];
+    v5 = objc_msgSend_valueForKeyPath_(timedeltas_To_State_TaskFetched, a2, v2, @"@max.self");
+    objc_msgSend_doubleValue(v5, v6, v8, v7);
+    v10.n128_f64[0] = v9 * 1000.0;
+    v12 = objc_msgSend_numberWithLong_(v4, v11, v10, v10.n128_f64[0]);
   }
 
   else
   {
-    v15 = 0;
+    v12 = 0;
   }
 
-  return v15;
+  return v12;
 }
 
 - (id)maxTimedelta_To_State_TaskFetchedFailed
@@ -2421,18 +2427,19 @@ LABEL_63:
   timedeltas_To_State_TaskFetchedFailed = self->_timedeltas_To_State_TaskFetchedFailed;
   if (timedeltas_To_State_TaskFetchedFailed)
   {
-    v5 = MEMORY[0x277CCABB0];
-    v6 = objc_msgSend_valueForKeyPath_(timedeltas_To_State_TaskFetchedFailed, a2, @"@max.self", v2, v3);
-    objc_msgSend_doubleValue(v6, v7, v8, v9, v10);
-    v15 = objc_msgSend_numberWithLong_(v5, v12, (v11 * 1000.0), v13, v14);
+    v4 = MEMORY[0x277CCABB0];
+    v5 = objc_msgSend_valueForKeyPath_(timedeltas_To_State_TaskFetchedFailed, a2, v2, @"@max.self");
+    objc_msgSend_doubleValue(v5, v6, v8, v7);
+    v10.n128_f64[0] = v9 * 1000.0;
+    v12 = objc_msgSend_numberWithLong_(v4, v11, v10, v10.n128_f64[0]);
   }
 
   else
   {
-    v15 = 0;
+    v12 = 0;
   }
 
-  return v15;
+  return v12;
 }
 
 - (id)maxTimedelta_To_State_TaskScheduled
@@ -2440,18 +2447,19 @@ LABEL_63:
   timedeltas_To_State_TaskScheduled = self->_timedeltas_To_State_TaskScheduled;
   if (timedeltas_To_State_TaskScheduled)
   {
-    v5 = MEMORY[0x277CCABB0];
-    v6 = objc_msgSend_valueForKeyPath_(timedeltas_To_State_TaskScheduled, a2, @"@max.self", v2, v3);
-    objc_msgSend_doubleValue(v6, v7, v8, v9, v10);
-    v15 = objc_msgSend_numberWithLong_(v5, v12, (v11 * 1000.0), v13, v14);
+    v4 = MEMORY[0x277CCABB0];
+    v5 = objc_msgSend_valueForKeyPath_(timedeltas_To_State_TaskScheduled, a2, v2, @"@max.self");
+    objc_msgSend_doubleValue(v5, v6, v8, v7);
+    v10.n128_f64[0] = v9 * 1000.0;
+    v12 = objc_msgSend_numberWithLong_(v4, v11, v10, v10.n128_f64[0]);
   }
 
   else
   {
-    v15 = 0;
+    v12 = 0;
   }
 
-  return v15;
+  return v12;
 }
 
 - (id)maxTimedelta_To_State_TaskScheduledFailed
@@ -2459,18 +2467,19 @@ LABEL_63:
   timedeltas_To_State_TaskScheduledFailed = self->_timedeltas_To_State_TaskScheduledFailed;
   if (timedeltas_To_State_TaskScheduledFailed)
   {
-    v5 = MEMORY[0x277CCABB0];
-    v6 = objc_msgSend_valueForKeyPath_(timedeltas_To_State_TaskScheduledFailed, a2, @"@max.self", v2, v3);
-    objc_msgSend_doubleValue(v6, v7, v8, v9, v10);
-    v15 = objc_msgSend_numberWithLong_(v5, v12, (v11 * 1000.0), v13, v14);
+    v4 = MEMORY[0x277CCABB0];
+    v5 = objc_msgSend_valueForKeyPath_(timedeltas_To_State_TaskScheduledFailed, a2, v2, @"@max.self");
+    objc_msgSend_doubleValue(v5, v6, v8, v7);
+    v10.n128_f64[0] = v9 * 1000.0;
+    v12 = objc_msgSend_numberWithLong_(v4, v11, v10, v10.n128_f64[0]);
   }
 
   else
   {
-    v15 = 0;
+    v12 = 0;
   }
 
-  return v15;
+  return v12;
 }
 
 - (id)maxTimedelta_To_State_Unexpeted
@@ -2478,18 +2487,19 @@ LABEL_63:
   timedeltas_To_State_Unexpeted = self->_timedeltas_To_State_Unexpeted;
   if (timedeltas_To_State_Unexpeted)
   {
-    v5 = MEMORY[0x277CCABB0];
-    v6 = objc_msgSend_valueForKeyPath_(timedeltas_To_State_Unexpeted, a2, @"@max.self", v2, v3);
-    objc_msgSend_doubleValue(v6, v7, v8, v9, v10);
-    v15 = objc_msgSend_numberWithLong_(v5, v12, (v11 * 1000.0), v13, v14);
+    v4 = MEMORY[0x277CCABB0];
+    v5 = objc_msgSend_valueForKeyPath_(timedeltas_To_State_Unexpeted, a2, v2, @"@max.self");
+    objc_msgSend_doubleValue(v5, v6, v8, v7);
+    v10.n128_f64[0] = v9 * 1000.0;
+    v12 = objc_msgSend_numberWithLong_(v4, v11, v10, v10.n128_f64[0]);
   }
 
   else
   {
-    v15 = 0;
+    v12 = 0;
   }
 
-  return v15;
+  return v12;
 }
 
 - (id)maxTimedelta_To_State_DprivacydDonationReceived
@@ -2497,18 +2507,19 @@ LABEL_63:
   timedeltas_To_State_DprivacydDonationReceived = self->_timedeltas_To_State_DprivacydDonationReceived;
   if (timedeltas_To_State_DprivacydDonationReceived)
   {
-    v5 = MEMORY[0x277CCABB0];
-    v6 = objc_msgSend_valueForKeyPath_(timedeltas_To_State_DprivacydDonationReceived, a2, @"@max.self", v2, v3);
-    objc_msgSend_doubleValue(v6, v7, v8, v9, v10);
-    v15 = objc_msgSend_numberWithLong_(v5, v12, (v11 * 1000.0), v13, v14);
+    v4 = MEMORY[0x277CCABB0];
+    v5 = objc_msgSend_valueForKeyPath_(timedeltas_To_State_DprivacydDonationReceived, a2, v2, @"@max.self");
+    objc_msgSend_doubleValue(v5, v6, v8, v7);
+    v10.n128_f64[0] = v9 * 1000.0;
+    v12 = objc_msgSend_numberWithLong_(v4, v11, v10, v10.n128_f64[0]);
   }
 
   else
   {
-    v15 = 0;
+    v12 = 0;
   }
 
-  return v15;
+  return v12;
 }
 
 - (id)maxTimedelta_To_State_DprivacydDonationReceivedFailed
@@ -2516,18 +2527,19 @@ LABEL_63:
   timedeltas_To_State_DprivacydDonationReceivedFailed = self->_timedeltas_To_State_DprivacydDonationReceivedFailed;
   if (timedeltas_To_State_DprivacydDonationReceivedFailed)
   {
-    v5 = MEMORY[0x277CCABB0];
-    v6 = objc_msgSend_valueForKeyPath_(timedeltas_To_State_DprivacydDonationReceivedFailed, a2, @"@max.self", v2, v3);
-    objc_msgSend_doubleValue(v6, v7, v8, v9, v10);
-    v15 = objc_msgSend_numberWithLong_(v5, v12, (v11 * 1000.0), v13, v14);
+    v4 = MEMORY[0x277CCABB0];
+    v5 = objc_msgSend_valueForKeyPath_(timedeltas_To_State_DprivacydDonationReceivedFailed, a2, v2, @"@max.self");
+    objc_msgSend_doubleValue(v5, v6, v8, v7);
+    v10.n128_f64[0] = v9 * 1000.0;
+    v12 = objc_msgSend_numberWithLong_(v4, v11, v10, v10.n128_f64[0]);
   }
 
   else
   {
-    v15 = 0;
+    v12 = 0;
   }
 
-  return v15;
+  return v12;
 }
 
 - (id)maxTimedelta_To_State_DprivacydRandomization
@@ -2535,18 +2547,19 @@ LABEL_63:
   timedeltas_To_State_DprivacydRandomization = self->_timedeltas_To_State_DprivacydRandomization;
   if (timedeltas_To_State_DprivacydRandomization)
   {
-    v5 = MEMORY[0x277CCABB0];
-    v6 = objc_msgSend_valueForKeyPath_(timedeltas_To_State_DprivacydRandomization, a2, @"@max.self", v2, v3);
-    objc_msgSend_doubleValue(v6, v7, v8, v9, v10);
-    v15 = objc_msgSend_numberWithLong_(v5, v12, (v11 * 1000.0), v13, v14);
+    v4 = MEMORY[0x277CCABB0];
+    v5 = objc_msgSend_valueForKeyPath_(timedeltas_To_State_DprivacydRandomization, a2, v2, @"@max.self");
+    objc_msgSend_doubleValue(v5, v6, v8, v7);
+    v10.n128_f64[0] = v9 * 1000.0;
+    v12 = objc_msgSend_numberWithLong_(v4, v11, v10, v10.n128_f64[0]);
   }
 
   else
   {
-    v15 = 0;
+    v12 = 0;
   }
 
-  return v15;
+  return v12;
 }
 
 - (id)maxTimedelta_To_State_DprivacydRandomizationFailed
@@ -2554,18 +2567,19 @@ LABEL_63:
   timedeltas_To_State_DprivacydRandomizationFailed = self->_timedeltas_To_State_DprivacydRandomizationFailed;
   if (timedeltas_To_State_DprivacydRandomizationFailed)
   {
-    v5 = MEMORY[0x277CCABB0];
-    v6 = objc_msgSend_valueForKeyPath_(timedeltas_To_State_DprivacydRandomizationFailed, a2, @"@max.self", v2, v3);
-    objc_msgSend_doubleValue(v6, v7, v8, v9, v10);
-    v15 = objc_msgSend_numberWithLong_(v5, v12, (v11 * 1000.0), v13, v14);
+    v4 = MEMORY[0x277CCABB0];
+    v5 = objc_msgSend_valueForKeyPath_(timedeltas_To_State_DprivacydRandomizationFailed, a2, v2, @"@max.self");
+    objc_msgSend_doubleValue(v5, v6, v8, v7);
+    v10.n128_f64[0] = v9 * 1000.0;
+    v12 = objc_msgSend_numberWithLong_(v4, v11, v10, v10.n128_f64[0]);
   }
 
   else
   {
-    v15 = 0;
+    v12 = 0;
   }
 
-  return v15;
+  return v12;
 }
 
 - (id)maxTimedelta_To_State_DprivacydBudgetCheck
@@ -2573,18 +2587,19 @@ LABEL_63:
   timedeltas_To_State_DprivacydBudgetCheck = self->_timedeltas_To_State_DprivacydBudgetCheck;
   if (timedeltas_To_State_DprivacydBudgetCheck)
   {
-    v5 = MEMORY[0x277CCABB0];
-    v6 = objc_msgSend_valueForKeyPath_(timedeltas_To_State_DprivacydBudgetCheck, a2, @"@max.self", v2, v3);
-    objc_msgSend_doubleValue(v6, v7, v8, v9, v10);
-    v15 = objc_msgSend_numberWithLong_(v5, v12, (v11 * 1000.0), v13, v14);
+    v4 = MEMORY[0x277CCABB0];
+    v5 = objc_msgSend_valueForKeyPath_(timedeltas_To_State_DprivacydBudgetCheck, a2, v2, @"@max.self");
+    objc_msgSend_doubleValue(v5, v6, v8, v7);
+    v10.n128_f64[0] = v9 * 1000.0;
+    v12 = objc_msgSend_numberWithLong_(v4, v11, v10, v10.n128_f64[0]);
   }
 
   else
   {
-    v15 = 0;
+    v12 = 0;
   }
 
-  return v15;
+  return v12;
 }
 
 - (id)maxTimedelta_To_State_DprivacydBudgetCheckFailed
@@ -2592,18 +2607,19 @@ LABEL_63:
   timedeltas_To_State_DprivacydBudgetCheckFailed = self->_timedeltas_To_State_DprivacydBudgetCheckFailed;
   if (timedeltas_To_State_DprivacydBudgetCheckFailed)
   {
-    v5 = MEMORY[0x277CCABB0];
-    v6 = objc_msgSend_valueForKeyPath_(timedeltas_To_State_DprivacydBudgetCheckFailed, a2, @"@max.self", v2, v3);
-    objc_msgSend_doubleValue(v6, v7, v8, v9, v10);
-    v15 = objc_msgSend_numberWithLong_(v5, v12, (v11 * 1000.0), v13, v14);
+    v4 = MEMORY[0x277CCABB0];
+    v5 = objc_msgSend_valueForKeyPath_(timedeltas_To_State_DprivacydBudgetCheckFailed, a2, v2, @"@max.self");
+    objc_msgSend_doubleValue(v5, v6, v8, v7);
+    v10.n128_f64[0] = v9 * 1000.0;
+    v12 = objc_msgSend_numberWithLong_(v4, v11, v10, v10.n128_f64[0]);
   }
 
   else
   {
-    v15 = 0;
+    v12 = 0;
   }
 
-  return v15;
+  return v12;
 }
 
 - (id)maxTimedelta_To_State_DprivacydPayloadCreation
@@ -2611,18 +2627,19 @@ LABEL_63:
   timedeltas_To_State_DprivacydPayloadCreation = self->_timedeltas_To_State_DprivacydPayloadCreation;
   if (timedeltas_To_State_DprivacydPayloadCreation)
   {
-    v5 = MEMORY[0x277CCABB0];
-    v6 = objc_msgSend_valueForKeyPath_(timedeltas_To_State_DprivacydPayloadCreation, a2, @"@max.self", v2, v3);
-    objc_msgSend_doubleValue(v6, v7, v8, v9, v10);
-    v15 = objc_msgSend_numberWithLong_(v5, v12, (v11 * 1000.0), v13, v14);
+    v4 = MEMORY[0x277CCABB0];
+    v5 = objc_msgSend_valueForKeyPath_(timedeltas_To_State_DprivacydPayloadCreation, a2, v2, @"@max.self");
+    objc_msgSend_doubleValue(v5, v6, v8, v7);
+    v10.n128_f64[0] = v9 * 1000.0;
+    v12 = objc_msgSend_numberWithLong_(v4, v11, v10, v10.n128_f64[0]);
   }
 
   else
   {
-    v15 = 0;
+    v12 = 0;
   }
 
-  return v15;
+  return v12;
 }
 
 - (id)maxTimedelta_To_State_DprivacydPayloadCreationFailed
@@ -2630,18 +2647,19 @@ LABEL_63:
   timedeltas_To_State_DprivacydPayloadCreationFailed = self->_timedeltas_To_State_DprivacydPayloadCreationFailed;
   if (timedeltas_To_State_DprivacydPayloadCreationFailed)
   {
-    v5 = MEMORY[0x277CCABB0];
-    v6 = objc_msgSend_valueForKeyPath_(timedeltas_To_State_DprivacydPayloadCreationFailed, a2, @"@max.self", v2, v3);
-    objc_msgSend_doubleValue(v6, v7, v8, v9, v10);
-    v15 = objc_msgSend_numberWithLong_(v5, v12, (v11 * 1000.0), v13, v14);
+    v4 = MEMORY[0x277CCABB0];
+    v5 = objc_msgSend_valueForKeyPath_(timedeltas_To_State_DprivacydPayloadCreationFailed, a2, v2, @"@max.self");
+    objc_msgSend_doubleValue(v5, v6, v8, v7);
+    v10.n128_f64[0] = v9 * 1000.0;
+    v12 = objc_msgSend_numberWithLong_(v4, v11, v10, v10.n128_f64[0]);
   }
 
   else
   {
-    v15 = 0;
+    v12 = 0;
   }
 
-  return v15;
+  return v12;
 }
 
 - (id)maxTimedelta_To_State_DprivacydUpload
@@ -2649,18 +2667,19 @@ LABEL_63:
   timedeltas_To_State_DprivacydUpload = self->_timedeltas_To_State_DprivacydUpload;
   if (timedeltas_To_State_DprivacydUpload)
   {
-    v5 = MEMORY[0x277CCABB0];
-    v6 = objc_msgSend_valueForKeyPath_(timedeltas_To_State_DprivacydUpload, a2, @"@max.self", v2, v3);
-    objc_msgSend_doubleValue(v6, v7, v8, v9, v10);
-    v15 = objc_msgSend_numberWithLong_(v5, v12, (v11 * 1000.0), v13, v14);
+    v4 = MEMORY[0x277CCABB0];
+    v5 = objc_msgSend_valueForKeyPath_(timedeltas_To_State_DprivacydUpload, a2, v2, @"@max.self");
+    objc_msgSend_doubleValue(v5, v6, v8, v7);
+    v10.n128_f64[0] = v9 * 1000.0;
+    v12 = objc_msgSend_numberWithLong_(v4, v11, v10, v10.n128_f64[0]);
   }
 
   else
   {
-    v15 = 0;
+    v12 = 0;
   }
 
-  return v15;
+  return v12;
 }
 
 - (id)maxTimedelta_To_State_DprivacydUploadFailed
@@ -2668,438 +2687,437 @@ LABEL_63:
   timedeltas_To_State_DprivacydUploadFailed = self->_timedeltas_To_State_DprivacydUploadFailed;
   if (timedeltas_To_State_DprivacydUploadFailed)
   {
-    v5 = MEMORY[0x277CCABB0];
-    v6 = objc_msgSend_valueForKeyPath_(timedeltas_To_State_DprivacydUploadFailed, a2, @"@max.self", v2, v3);
-    objc_msgSend_doubleValue(v6, v7, v8, v9, v10);
-    v15 = objc_msgSend_numberWithLong_(v5, v12, (v11 * 1000.0), v13, v14);
+    v4 = MEMORY[0x277CCABB0];
+    v5 = objc_msgSend_valueForKeyPath_(timedeltas_To_State_DprivacydUploadFailed, a2, v2, @"@max.self");
+    objc_msgSend_doubleValue(v5, v6, v8, v7);
+    v10.n128_f64[0] = v9 * 1000.0;
+    v12 = objc_msgSend_numberWithLong_(v4, v11, v10, v10.n128_f64[0]);
   }
 
   else
   {
-    v15 = 0;
+    v12 = 0;
   }
 
-  return v15;
+  return v12;
 }
 
 - (id)getPETState
 {
-  v479 = *MEMORY[0x277D85DE8];
-  v472 = objc_alloc_init(LIGHTHOUSE_BITACORA_PROTOLighthouseLedgerTrialIdentifiers);
+  v375 = *MEMORY[0x277D85DE8];
+  v368 = objc_alloc_init(LIGHTHOUSE_BITACORA_PROTOLighthouseLedgerTrialIdentifiers);
   v3 = objc_alloc_init(LIGHTHOUSE_BITACORA_PROTOBitacoraState);
   v4 = MEMORY[0x277CCABB0];
-  objc_msgSend_timeIntervalSince1970(self->_bucketEndTime, v5, v6, v7, v8);
-  v13 = objc_msgSend_numberWithDouble_(v4, v9, v10, v11, v12);
-  v471 = objc_msgSend_longValue(v13, v14, v15, v16, v17);
+  objc_msgSend_timeIntervalSince1970(self->_bucketEndTime, v5, v7, v6);
+  v11 = objc_msgSend_numberWithDouble_(v4, v8, v10, v9);
+  v367 = objc_msgSend_longValue(v11, v12, v14, v13);
 
-  objc_msgSend_setCountTaskFetchedFailed_(v3, v18, 0, v19, v20);
-  objc_msgSend_setCountTaskFetchedSucceeded_(v3, v21, 0, v22, v23);
-  objc_msgSend_setCountTaskScheduledFailed_(v3, v24, 0, v25, v26);
-  objc_msgSend_setCountTaskScheduledSucceeded_(v3, v27, 0, v28, v29);
-  objc_msgSend_setCountTaskCompletedFailed_(v3, v30, 0, v31, v32);
-  objc_msgSend_setCountTaskCompletedSucceeded_(v3, v33, 0, v34, v35);
-  objc_msgSend_setCountPerformTaskFailed_(v3, v36, 0, v37, v38);
-  objc_msgSend_setCountPerformTaskSucceeded_(v3, v39, 0, v40, v41);
-  objc_msgSend_setCountStopFailed_(v3, v42, 0, v43, v44);
-  objc_msgSend_setCountStopSucceeded_(v3, v45, 0, v46, v47);
-  v476 = 0u;
-  v477 = 0u;
-  v474 = 0u;
-  v475 = 0u;
+  objc_msgSend_setCountTaskFetchedFailed_(v3, v15, v16, 0);
+  objc_msgSend_setCountTaskFetchedSucceeded_(v3, v17, v18, 0);
+  objc_msgSend_setCountTaskScheduledFailed_(v3, v19, v20, 0);
+  objc_msgSend_setCountTaskScheduledSucceeded_(v3, v21, v22, 0);
+  objc_msgSend_setCountTaskCompletedFailed_(v3, v23, v24, 0);
+  objc_msgSend_setCountTaskCompletedSucceeded_(v3, v25, v26, 0);
+  objc_msgSend_setCountPerformTaskFailed_(v3, v27, v28, 0);
+  objc_msgSend_setCountPerformTaskSucceeded_(v3, v29, v30, 0);
+  objc_msgSend_setCountStopFailed_(v3, v31, v32, 0);
+  objc_msgSend_setCountStopSucceeded_(v3, v33, v34, 0);
+  v372 = 0u;
+  v373 = 0u;
+  v370 = 0u;
+  v371 = 0u;
   selfCopy = self;
-  v48 = self->_bitacoraEvents;
-  v50 = objc_msgSend_countByEnumeratingWithState_objects_count_(v48, v49, &v474, v478, 16);
-  if (v50)
+  v35 = self->_bitacoraEvents;
+  v38 = objc_msgSend_countByEnumeratingWithState_objects_count_(v35, v36, v37, &v370, v374, 16);
+  if (v38)
   {
-    v51 = v50;
-    v52 = 0;
-    v53 = *v475;
+    v39 = v38;
+    v40 = 0;
+    v41 = *v371;
     do
     {
-      for (i = 0; i != v51; ++i)
+      for (i = 0; i != v39; ++i)
       {
-        if (*v475 != v53)
+        if (*v371 != v41)
         {
-          objc_enumerationMutation(v48);
+          objc_enumerationMutation(v35);
         }
 
-        v55 = *(*(&v474 + 1) + 8 * i);
+        v43 = *(*(&v370 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v56 = v55;
-          v57 = LBFLogContextEventsHolder;
+          v44 = v43;
+          v45 = LBFLogContextEventsHolder;
           if (os_log_type_enabled(LBFLogContextEventsHolder, OS_LOG_TYPE_INFO))
           {
             *buf = 0;
-            _os_log_impl(&dword_255ED5000, v57, OS_LOG_TYPE_INFO, "Lighthouse Plugin Event.", buf, 2u);
+            _os_log_impl(&dword_255ED5000, v45, OS_LOG_TYPE_INFO, "Lighthouse Plugin Event.", buf, 2u);
           }
 
-          v62 = objc_msgSend_performTrialTaskStatus(v56, v58, v59, v60, v61);
+          v49 = objc_msgSend_performTrialTaskStatus(v44, v46, v48, v47);
 
-          if (v62)
+          if (v49)
           {
-            v67 = objc_msgSend_performTrialTaskStatus(v56, v63, v64, v65, v66);
-            v72 = objc_msgSend_succeeded(v67, v68, v69, v70, v71);
+            v53 = objc_msgSend_performTrialTaskStatus(v44, v50, v52, v51);
+            v57 = objc_msgSend_succeeded(v53, v54, v56, v55);
 
-            if (v72)
+            if (v57)
             {
-              v77 = objc_msgSend_countPerformTaskSucceeded(v3, v73, v74, v75, v76);
-              objc_msgSend_setCountPerformTaskSucceeded_(v3, v78, (v77 + 1), v79, v80);
+              v61 = objc_msgSend_countPerformTaskSucceeded(v3, v58, v60, v59);
+              objc_msgSend_setCountPerformTaskSucceeded_(v3, v62, v63, (v61 + 1));
             }
 
             else
             {
-              v81 = objc_msgSend_countPerformTaskFailed(v3, v73, v74, v75, v76);
-              objc_msgSend_setCountPerformTaskFailed_(v3, v82, (v81 + 1), v83, v84);
+              v64 = objc_msgSend_countPerformTaskFailed(v3, v58, v60, v59);
+              objc_msgSend_setCountPerformTaskFailed_(v3, v65, v66, (v64 + 1));
             }
           }
 
-          v85 = objc_msgSend_performTaskStatus(v56, v63, v64, v65, v66);
+          v67 = objc_msgSend_performTaskStatus(v44, v50, v52, v51);
+
+          if (v67)
+          {
+            v71 = objc_msgSend_performTaskStatus(v44, v68, v70, v69);
+            v75 = objc_msgSend_succeeded(v71, v72, v74, v73);
+
+            if (v75)
+            {
+              v79 = objc_msgSend_countPerformTaskSucceeded(v3, v76, v78, v77);
+              objc_msgSend_setCountPerformTaskSucceeded_(v3, v80, v81, (v79 + 1));
+            }
+
+            else
+            {
+              v82 = objc_msgSend_countPerformTaskFailed(v3, v76, v78, v77);
+              objc_msgSend_setCountPerformTaskFailed_(v3, v83, v84, (v82 + 1));
+            }
+          }
+
+          v85 = objc_msgSend_stop(v44, v68, v70, v69);
 
           if (v85)
           {
-            v90 = objc_msgSend_performTaskStatus(v56, v86, v87, v88, v89);
-            v95 = objc_msgSend_succeeded(v90, v91, v92, v93, v94);
+            v89 = objc_msgSend_stop(v44, v86, v88, v87);
+            v93 = objc_msgSend_succeeded(v89, v90, v92, v91);
 
-            if (v95)
+            if (v93)
             {
-              v100 = objc_msgSend_countPerformTaskSucceeded(v3, v96, v97, v98, v99);
-              objc_msgSend_setCountPerformTaskSucceeded_(v3, v101, (v100 + 1), v102, v103);
+              v97 = objc_msgSend_countStopSucceeded(v3, v94, v96, v95);
+              objc_msgSend_setCountStopSucceeded_(v3, v98, v99, (v97 + 1));
             }
 
             else
             {
-              v104 = objc_msgSend_countPerformTaskFailed(v3, v96, v97, v98, v99);
-              objc_msgSend_setCountPerformTaskFailed_(v3, v105, (v104 + 1), v106, v107);
+              v100 = objc_msgSend_countStopFailed(v3, v94, v96, v95);
+              objc_msgSend_setCountStopFailed_(v3, v101, v102, (v100 + 1));
             }
           }
 
-          v108 = objc_msgSend_stop(v56, v86, v87, v88, v89);
+          v103 = objc_msgSend_trialIdentifiers(v44, v86, v88, v87);
+
+          v40 = v103;
+        }
+
+        objc_opt_class();
+        if (objc_opt_isKindOfClass())
+        {
+          v104 = v43;
+          v108 = objc_msgSend_taskFetched(v104, v105, v107, v106);
 
           if (v108)
           {
-            v113 = objc_msgSend_stop(v56, v109, v110, v111, v112);
-            v118 = objc_msgSend_succeeded(v113, v114, v115, v116, v117);
+            v112 = objc_msgSend_taskFetched(v104, v109, v111, v110);
+            v116 = objc_msgSend_succeeded(v112, v113, v115, v114);
 
-            if (v118)
+            if (v116)
             {
-              v123 = objc_msgSend_countStopSucceeded(v3, v119, v120, v121, v122);
-              objc_msgSend_setCountStopSucceeded_(v3, v124, (v123 + 1), v125, v126);
+              v120 = objc_msgSend_countTaskFetchedSucceeded(v3, v117, v119, v118);
+              objc_msgSend_setCountTaskFetchedSucceeded_(v3, v121, v122, (v120 + 1));
             }
 
             else
             {
-              v127 = objc_msgSend_countStopFailed(v3, v119, v120, v121, v122);
-              objc_msgSend_setCountStopFailed_(v3, v128, (v127 + 1), v129, v130);
+              v123 = objc_msgSend_countTaskFetchedFailed(v3, v117, v119, v118);
+              objc_msgSend_setCountTaskFetchedFailed_(v3, v124, v125, (v123 + 1));
             }
           }
 
-          v131 = objc_msgSend_trialIdentifiers(v56, v109, v110, v111, v112);
+          v126 = objc_msgSend_taskCompleted(v104, v109, v111, v110);
 
-          v52 = v131;
-        }
-
-        objc_opt_class();
-        if (objc_opt_isKindOfClass())
-        {
-          v132 = v55;
-          v137 = objc_msgSend_taskFetched(v132, v133, v134, v135, v136);
-
-          if (v137)
+          if (v126)
           {
-            v142 = objc_msgSend_taskFetched(v132, v138, v139, v140, v141);
-            v147 = objc_msgSend_succeeded(v142, v143, v144, v145, v146);
+            v130 = objc_msgSend_taskCompleted(v104, v127, v129, v128);
+            v134 = objc_msgSend_succeeded(v130, v131, v133, v132);
 
-            if (v147)
+            if (v134)
             {
-              v152 = objc_msgSend_countTaskFetchedSucceeded(v3, v148, v149, v150, v151);
-              objc_msgSend_setCountTaskFetchedSucceeded_(v3, v153, (v152 + 1), v154, v155);
+              v138 = objc_msgSend_countTaskCompletedSucceeded(v3, v135, v137, v136);
+              objc_msgSend_setCountTaskCompletedSucceeded_(v3, v139, v140, (v138 + 1));
             }
 
             else
             {
-              v156 = objc_msgSend_countTaskFetchedFailed(v3, v148, v149, v150, v151);
-              objc_msgSend_setCountTaskFetchedFailed_(v3, v157, (v156 + 1), v158, v159);
+              v141 = objc_msgSend_countTaskCompletedFailed(v3, v135, v137, v136);
+              objc_msgSend_setCountTaskCompletedFailed_(v3, v142, v143, (v141 + 1));
             }
           }
 
-          v160 = objc_msgSend_taskCompleted(v132, v138, v139, v140, v141);
+          v144 = objc_msgSend_taskScheduled(v104, v127, v129, v128);
 
-          if (v160)
+          if (v144)
           {
-            v165 = objc_msgSend_taskCompleted(v132, v161, v162, v163, v164);
-            v170 = objc_msgSend_succeeded(v165, v166, v167, v168, v169);
+            v148 = objc_msgSend_taskScheduled(v104, v145, v147, v146);
+            v152 = objc_msgSend_succeeded(v148, v149, v151, v150);
+
+            if (v152)
+            {
+              v156 = objc_msgSend_countTaskScheduledSucceeded(v3, v153, v155, v154);
+              objc_msgSend_setCountTaskScheduledSucceeded_(v3, v157, v158, (v156 + 1));
+            }
+
+            else
+            {
+              v159 = objc_msgSend_countTaskScheduledFailed(v3, v153, v155, v154);
+              objc_msgSend_setCountTaskScheduledFailed_(v3, v160, v161, (v159 + 1));
+            }
+          }
+
+          v162 = objc_msgSend_activityScheduleStatus(v104, v145, v147, v146);
+
+          if (v162)
+          {
+            v166 = objc_msgSend_activityScheduleStatus(v104, v163, v165, v164);
+            v170 = objc_msgSend_scheduled(v166, v167, v169, v168);
 
             if (v170)
             {
-              v175 = objc_msgSend_countTaskCompletedSucceeded(v3, v171, v172, v173, v174);
-              objc_msgSend_setCountTaskCompletedSucceeded_(v3, v176, (v175 + 1), v177, v178);
+              v174 = objc_msgSend_countTaskScheduledSucceeded(v3, v171, v173, v172);
+              objc_msgSend_setCountTaskScheduledSucceeded_(v3, v175, v176, (v174 + 1));
             }
 
             else
             {
-              v179 = objc_msgSend_countTaskCompletedFailed(v3, v171, v172, v173, v174);
-              objc_msgSend_setCountTaskCompletedFailed_(v3, v180, (v179 + 1), v181, v182);
+              v177 = objc_msgSend_countTaskScheduledFailed(v3, v171, v173, v172);
+              objc_msgSend_setCountTaskScheduledFailed_(v3, v178, v179, (v177 + 1));
             }
           }
 
-          v183 = objc_msgSend_taskScheduled(v132, v161, v162, v163, v164);
+          v180 = objc_msgSend_trialIdentifiers(v104, v163, v165, v164);
 
-          if (v183)
-          {
-            v188 = objc_msgSend_taskScheduled(v132, v184, v185, v186, v187);
-            v193 = objc_msgSend_succeeded(v188, v189, v190, v191, v192);
-
-            if (v193)
-            {
-              v198 = objc_msgSend_countTaskScheduledSucceeded(v3, v194, v195, v196, v197);
-              objc_msgSend_setCountTaskScheduledSucceeded_(v3, v199, (v198 + 1), v200, v201);
-            }
-
-            else
-            {
-              v202 = objc_msgSend_countTaskScheduledFailed(v3, v194, v195, v196, v197);
-              objc_msgSend_setCountTaskScheduledFailed_(v3, v203, (v202 + 1), v204, v205);
-            }
-          }
-
-          v206 = objc_msgSend_activityScheduleStatus(v132, v184, v185, v186, v187);
-
-          if (v206)
-          {
-            v211 = objc_msgSend_activityScheduleStatus(v132, v207, v208, v209, v210);
-            v216 = objc_msgSend_scheduled(v211, v212, v213, v214, v215);
-
-            if (v216)
-            {
-              v221 = objc_msgSend_countTaskScheduledSucceeded(v3, v217, v218, v219, v220);
-              objc_msgSend_setCountTaskScheduledSucceeded_(v3, v222, (v221 + 1), v223, v224);
-            }
-
-            else
-            {
-              v225 = objc_msgSend_countTaskScheduledFailed(v3, v217, v218, v219, v220);
-              objc_msgSend_setCountTaskScheduledFailed_(v3, v226, (v225 + 1), v227, v228);
-            }
-          }
-
-          v229 = objc_msgSend_trialIdentifiers(v132, v207, v208, v209, v210);
-
-          v52 = v229;
+          v40 = v180;
         }
 
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v231 = v55;
-          v232 = LBFLogContextEventsHolder;
+          v183 = v43;
+          v184 = LBFLogContextEventsHolder;
           if (os_log_type_enabled(LBFLogContextEventsHolder, OS_LOG_TYPE_INFO))
           {
             *buf = 0;
-            _os_log_impl(&dword_255ED5000, v232, OS_LOG_TYPE_INFO, "Triald Event.", buf, 2u);
+            _os_log_impl(&dword_255ED5000, v184, OS_LOG_TYPE_INFO, "Triald Event.", buf, 2u);
           }
 
-          if (objc_msgSend_eventType(v231, v233, v234, v235, v236))
+          if (objc_msgSend_eventType(v183, v185, v187, v186))
           {
-            if (objc_msgSend_eventType(v231, v237, v238, v239, v240) == 2)
+            if (objc_msgSend_eventType(v183, v188, v190, v189) == 2)
             {
-              objc_msgSend_setIsActivated_(v3, v241, 1, v243, v244);
+              objc_msgSend_setIsActivated_(v3, v191, v193, 1);
             }
 
-            if (objc_msgSend_eventType(v231, v241, v242, v243, v244) == 1)
+            if (objc_msgSend_eventType(v183, v191, v193, v192) == 1)
             {
-              objc_msgSend_setIsAllocated_(v3, v245, 1, v247, v248);
+              objc_msgSend_setIsAllocated_(v3, v194, v196, 1);
             }
 
-            if (objc_msgSend_eventType(v231, v245, v246, v247, v248) == 3)
+            if (objc_msgSend_eventType(v183, v194, v196, v195) == 3)
             {
-              objc_msgSend_setIsActivated_(v3, v237, 0, v239, v240);
+              objc_msgSend_setIsActivated_(v3, v188, v190, 0);
             }
           }
 
-          if (!v52)
+          if (!v40)
           {
-            v52 = objc_msgSend_trialIdentifiers(v231, v237, v238, v239, v240);
+            v40 = objc_msgSend_trialIdentifiers(v183, v188, v190, v189);
           }
         }
       }
 
-      v51 = objc_msgSend_countByEnumeratingWithState_objects_count_(v48, v230, &v474, v478, 16);
+      v39 = objc_msgSend_countByEnumeratingWithState_objects_count_(v35, v181, v182, &v370, v374, 16);
     }
 
-    while (v51);
+    while (v39);
   }
 
   else
   {
-    v52 = 0;
+    v40 = 0;
   }
 
-  if ((objc_msgSend_isActivated(v3, v249, v250, v251, v252) & 1) == 0)
+  if ((objc_msgSend_isActivated(v3, v197, v199, v198) & 1) == 0)
   {
-    objc_msgSend_setIsActivated_(v3, v253, selfCopy->_isActivated_implicit, v255, v256);
+    objc_msgSend_setIsActivated_(v3, v200, v202, selfCopy->_isActivated_implicit);
   }
 
-  if ((objc_msgSend_isAllocated(v3, v253, v254, v255, v256) & 1) == 0)
+  if ((objc_msgSend_isAllocated(v3, v200, v202, v201) & 1) == 0)
   {
-    objc_msgSend_setIsAllocated_(v3, v257, selfCopy->_isAllocated_implicit, v259, v260);
+    objc_msgSend_setIsAllocated_(v3, v203, v205, selfCopy->_isAllocated_implicit);
   }
 
-  v261 = objc_msgSend_experimentIdentifiers(v52, v257, v258, v259, v260);
+  v206 = objc_msgSend_experimentIdentifiers(v40, v203, v205, v204);
 
-  if (v261)
+  if (v206)
   {
-    v266 = objc_alloc_init(LIGHTHOUSE_BITACORA_PROTOExperimentIdentifiers);
-    objc_msgSend_setExperimentIdentifiers_(v472, v267, v266, v268, v269);
+    v210 = objc_alloc_init(LIGHTHOUSE_BITACORA_PROTOExperimentIdentifiers);
+    objc_msgSend_setExperimentIdentifiers_(v368, v211, v212, v210);
 
-    v274 = objc_msgSend_experimentIdentifiers(v52, v270, v271, v272, v273);
-    v279 = objc_msgSend_trialTreatmentID(v274, v275, v276, v277, v278);
-    v284 = objc_msgSend_experimentIdentifiers(v472, v280, v281, v282, v283);
-    objc_msgSend_setTrialTreatmentID_(v284, v285, v279, v286, v287);
+    v216 = objc_msgSend_experimentIdentifiers(v40, v213, v215, v214);
+    v220 = objc_msgSend_trialTreatmentID(v216, v217, v219, v218);
+    v224 = objc_msgSend_experimentIdentifiers(v368, v221, v223, v222);
+    objc_msgSend_setTrialTreatmentID_(v224, v225, v226, v220);
 
-    v292 = objc_msgSend_experimentIdentifiers(v52, v288, v289, v290, v291);
-    v297 = objc_msgSend_trialDeploymentID(v292, v293, v294, v295, v296);
-    v302 = objc_msgSend_experimentIdentifiers(v472, v298, v299, v300, v301);
-    objc_msgSend_setTrialDeploymentID_(v302, v303, v297, v304, v305);
+    v230 = objc_msgSend_experimentIdentifiers(v40, v227, v229, v228);
+    v234 = objc_msgSend_trialDeploymentID(v230, v231, v233, v232);
+    v238 = objc_msgSend_experimentIdentifiers(v368, v235, v237, v236);
+    objc_msgSend_setTrialDeploymentID_(v238, v239, v240, v234);
 
-    v310 = objc_msgSend_experimentIdentifiers(v52, v306, v307, v308, v309);
-    v315 = objc_msgSend_trialExperimentID(v310, v311, v312, v313, v314);
-    v320 = objc_msgSend_experimentIdentifiers(v472, v316, v317, v318, v319);
-    objc_msgSend_setTrialExperimentID_(v320, v321, v315, v322, v323);
+    v244 = objc_msgSend_experimentIdentifiers(v40, v241, v243, v242);
+    v248 = objc_msgSend_trialExperimentID(v244, v245, v247, v246);
+    v252 = objc_msgSend_experimentIdentifiers(v368, v249, v251, v250);
+    objc_msgSend_setTrialExperimentID_(v252, v253, v254, v248);
 
-    objc_msgSend_setTrialIdentifierType_(v3, v324, 1, v325, v326);
-    v331 = objc_msgSend_experimentIdentifiers(v52, v327, v328, v329, v330);
-    v336 = objc_msgSend_trialTreatmentID(v331, v332, v333, v334, v335);
-    objc_msgSend_setTrialTreatmentID_(v3, v337, v336, v338, v339);
+    objc_msgSend_setTrialIdentifierType_(v3, v255, v256, 1);
+    v260 = objc_msgSend_experimentIdentifiers(v40, v257, v259, v258);
+    v264 = objc_msgSend_trialTreatmentID(v260, v261, v263, v262);
+    objc_msgSend_setTrialTreatmentID_(v3, v265, v266, v264);
 
-    v344 = objc_msgSend_experimentIdentifiers(v52, v340, v341, v342, v343);
-    v349 = objc_msgSend_trialDeploymentID(v344, v345, v346, v347, v348);
-    objc_msgSend_setTrialDeploymentID_(v3, v350, v349, v351, v352);
+    v270 = objc_msgSend_experimentIdentifiers(v40, v267, v269, v268);
+    v274 = objc_msgSend_trialDeploymentID(v270, v271, v273, v272);
+    objc_msgSend_setTrialDeploymentID_(v3, v275, v276, v274);
 
-    v357 = objc_msgSend_experimentIdentifiers(v52, v353, v354, v355, v356);
-    v362 = objc_msgSend_trialExperimentID(v357, v358, v359, v360, v361);
-    objc_msgSend_setTrialExperimentID_(v3, v363, v362, v364, v365);
+    v280 = objc_msgSend_experimentIdentifiers(v40, v277, v279, v278);
+    v284 = objc_msgSend_trialExperimentID(v280, v281, v283, v282);
+    objc_msgSend_setTrialExperimentID_(v3, v285, v286, v284);
   }
 
-  v366 = objc_msgSend_bmltIdentifiers(v52, v262, v263, v264, v265);
+  v287 = objc_msgSend_bmltIdentifiers(v40, v207, v209, v208);
 
-  if (v366)
+  if (v287)
   {
-    v370 = objc_alloc_init(LIGHTHOUSE_BITACORA_PROTOBMLTIdentifiers);
-    objc_msgSend_setBmltIdentifiers_(v472, v371, v370, v372, v373);
+    v290 = objc_alloc_init(LIGHTHOUSE_BITACORA_PROTOBMLTIdentifiers);
+    objc_msgSend_setBmltIdentifiers_(v368, v291, v292, v290);
 
-    v378 = objc_msgSend_bmltIdentifiers(v52, v374, v375, v376, v377);
-    v383 = objc_msgSend_trialDeploymentID(v378, v379, v380, v381, v382);
-    v388 = objc_msgSend_bmltIdentifiers(v472, v384, v385, v386, v387);
-    objc_msgSend_setTrialDeploymentID_(v388, v389, v383, v390, v391);
+    v296 = objc_msgSend_bmltIdentifiers(v40, v293, v295, v294);
+    v300 = objc_msgSend_trialDeploymentID(v296, v297, v299, v298);
+    v304 = objc_msgSend_bmltIdentifiers(v368, v301, v303, v302);
+    objc_msgSend_setTrialDeploymentID_(v304, v305, v306, v300);
 
-    v396 = objc_msgSend_bmltIdentifiers(v52, v392, v393, v394, v395);
-    v401 = objc_msgSend_trialTaskID(v396, v397, v398, v399, v400);
-    v406 = objc_msgSend_bmltIdentifiers(v472, v402, v403, v404, v405);
-    objc_msgSend_setTrialTaskID_(v406, v407, v401, v408, v409);
+    v310 = objc_msgSend_bmltIdentifiers(v40, v307, v309, v308);
+    v314 = objc_msgSend_trialTaskID(v310, v311, v313, v312);
+    v318 = objc_msgSend_bmltIdentifiers(v368, v315, v317, v316);
+    objc_msgSend_setTrialTaskID_(v318, v319, v320, v314);
 
-    objc_msgSend_setTrialIdentifierType_(v3, v410, 2, v411, v412);
-    v417 = objc_msgSend_bmltIdentifiers(v52, v413, v414, v415, v416);
-    v422 = objc_msgSend_trialDeploymentID(v417, v418, v419, v420, v421);
-    objc_msgSend_setTrialDeploymentID_(v3, v423, v422, v424, v425);
+    objc_msgSend_setTrialIdentifierType_(v3, v321, v322, 2);
+    v326 = objc_msgSend_bmltIdentifiers(v40, v323, v325, v324);
+    v330 = objc_msgSend_trialDeploymentID(v326, v327, v329, v328);
+    objc_msgSend_setTrialDeploymentID_(v3, v331, v332, v330);
 
-    v430 = objc_msgSend_bmltIdentifiers(v52, v426, v427, v428, v429);
-    v435 = objc_msgSend_trialTaskID(v430, v431, v432, v433, v434);
-    objc_msgSend_setTrialTaskID_(v3, v436, v435, v437, v438);
+    v336 = objc_msgSend_bmltIdentifiers(v40, v333, v335, v334);
+    v340 = objc_msgSend_trialTaskID(v336, v337, v339, v338);
+    objc_msgSend_setTrialTaskID_(v3, v341, v342, v340);
   }
 
-  objc_msgSend_setTrialIdentifiers_(v3, v367, v472, v368, v369);
-  objc_msgSend_setTimestamp_(v3, v439, v471, v440, v441);
-  v446 = objc_msgSend_UUID(MEMORY[0x277CCAD78], v442, v443, v444, v445);
-  v451 = objc_msgSend_UUIDString(v446, v447, v448, v449, v450);
-  objc_msgSend_setTelemetryID_(v3, v452, v451, v453, v454);
+  objc_msgSend_setTrialIdentifiers_(v3, v288, v289, v368);
+  objc_msgSend_setTimestamp_(v3, v343, v344, v367);
+  v348 = objc_msgSend_UUID(MEMORY[0x277CCAD78], v345, v347, v346);
+  v352 = objc_msgSend_UUIDString(v348, v349, v351, v350);
+  objc_msgSend_setTelemetryID_(v3, v353, v354, v352);
 
-  v459 = objc_msgSend_getContextId(LBFContextId, v455, v456, v457, v458);
-  v464 = objc_msgSend_UUIDString(v459, v460, v461, v462, v463);
-  objc_msgSend_setContextID_(v3, v465, v464, v466, v467);
-
-  v468 = *MEMORY[0x277D85DE8];
+  v358 = objc_msgSend_getContextId(LBFContextId, v355, v357, v356);
+  v362 = objc_msgSend_UUIDString(v358, v359, v361, v360);
+  objc_msgSend_setContextID_(v3, v363, v364, v362);
 
   return v3;
 }
 
 + (id)getCAEventDictionaryFromBiomeEvent:(id)event
 {
-  v994[42] = *MEMORY[0x277D85DE8];
+  v811[42] = *MEMORY[0x277D85DE8];
   eventCopy = event;
-  v8 = objc_msgSend_getContextId(LBFContextId, v4, v5, v6, v7);
-  v960 = objc_msgSend_UUIDString(v8, v9, v10, v11, v12);
+  v7 = objc_msgSend_getContextId(LBFContextId, v4, v6, v5);
+  v777 = objc_msgSend_UUIDString(v7, v8, v10, v9);
 
-  v17 = objc_msgSend_UUID(MEMORY[0x277CCAD78], v13, v14, v15, v16);
-  v959 = objc_msgSend_UUIDString(v17, v18, v19, v20, v21);
+  v14 = objc_msgSend_UUID(MEMORY[0x277CCAD78], v11, v13, v12);
+  v776 = objc_msgSend_UUIDString(v14, v15, v17, v16);
 
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v958 = 0;
-    v980 = 0;
-    v981 = 0;
-    v982 = 0;
-    v42 = 0;
-    v989 = 0;
-    v990 = 0;
-    v991 = 0;
-    v99 = 0;
-    v987 = 0;
-    v986 = 0;
-    v985 = 0;
-    v984 = 0;
-    v983 = 0;
-    v979 = 0;
-    v27 = 0;
-    v147 = &unk_286801060;
+    v775 = 0;
+    v797 = 0;
+    v798 = 0;
+    v799 = 0;
+    v34 = 0;
+    v806 = 0;
+    v807 = 0;
+    v808 = 0;
+    v79 = 0;
+    v804 = 0;
+    v803 = 0;
+    v802 = 0;
+    v801 = 0;
+    v800 = 0;
+    v796 = 0;
+    v22 = 0;
+    v117 = &unk_286801060;
     goto LABEL_22;
   }
 
-  v22 = eventCopy;
-  v27 = objc_msgSend_timestamp(v22, v23, v24, v25, v26);
-  v32 = objc_msgSend_trialIdentifiers(v22, v28, v29, v30, v31);
-  v37 = objc_msgSend_bmltIdentifiers(v32, v33, v34, v35, v36);
-  v42 = objc_msgSend_trialDeploymentID(v37, v38, v39, v40, v41);
+  v18 = eventCopy;
+  v22 = objc_msgSend_timestamp(v18, v19, v21, v20);
+  v26 = objc_msgSend_trialIdentifiers(v18, v23, v25, v24);
+  v30 = objc_msgSend_bmltIdentifiers(v26, v27, v29, v28);
+  v34 = objc_msgSend_trialDeploymentID(v30, v31, v33, v32);
 
-  v47 = objc_msgSend_trialIdentifiers(v22, v43, v44, v45, v46);
-  v52 = objc_msgSend_bmltIdentifiers(v47, v48, v49, v50, v51);
-  v989 = objc_msgSend_trialTaskID(v52, v53, v54, v55, v56);
+  v38 = objc_msgSend_trialIdentifiers(v18, v35, v37, v36);
+  v42 = objc_msgSend_bmltIdentifiers(v38, v39, v41, v40);
+  v806 = objc_msgSend_trialTaskID(v42, v43, v45, v44);
 
-  v61 = objc_msgSend_trialIdentifiers(v22, v57, v58, v59, v60);
-  v66 = objc_msgSend_experimentIdentifiers(v61, v62, v63, v64, v65);
-  v990 = objc_msgSend_trialDeploymentID(v66, v67, v68, v69, v70);
+  v49 = objc_msgSend_trialIdentifiers(v18, v46, v48, v47);
+  v53 = objc_msgSend_experimentIdentifiers(v49, v50, v52, v51);
+  v807 = objc_msgSend_trialDeploymentID(v53, v54, v56, v55);
 
-  v75 = objc_msgSend_trialIdentifiers(v22, v71, v72, v73, v74);
-  v80 = objc_msgSend_experimentIdentifiers(v75, v76, v77, v78, v79);
-  v991 = objc_msgSend_trialExperimentID(v80, v81, v82, v83, v84);
+  v60 = objc_msgSend_trialIdentifiers(v18, v57, v59, v58);
+  v64 = objc_msgSend_experimentIdentifiers(v60, v61, v63, v62);
+  v808 = objc_msgSend_trialExperimentID(v64, v65, v67, v66);
 
-  v89 = objc_msgSend_trialIdentifiers(v22, v85, v86, v87, v88);
-  v94 = objc_msgSend_experimentIdentifiers(v89, v90, v91, v92, v93);
-  v99 = objc_msgSend_trialTreatmentID(v94, v95, v96, v97, v98);
+  v71 = objc_msgSend_trialIdentifiers(v18, v68, v70, v69);
+  v75 = objc_msgSend_experimentIdentifiers(v71, v72, v74, v73);
+  v79 = objc_msgSend_trialTreatmentID(v75, v76, v78, v77);
 
-  v104 = objc_msgSend_taskFetched(v22, v100, v101, v102, v103);
+  v83 = objc_msgSend_taskFetched(v18, v80, v82, v81);
 
-  if (v104)
+  if (v83)
   {
-    v109 = MEMORY[0x277CCABB0];
-    v110 = objc_msgSend_taskFetched(v22, v105, v106, v107, v108);
-    v115 = objc_msgSend_succeeded(v110, v111, v112, v113, v114);
-    v958 = objc_msgSend_numberWithBool_(v109, v116, v115, v117, v118);
+    v87 = MEMORY[0x277CCABB0];
+    v88 = objc_msgSend_taskFetched(v18, v84, v86, v85);
+    v92 = objc_msgSend_succeeded(v88, v89, v91, v90);
+    v775 = objc_msgSend_numberWithBool_(v87, v93, v94, v92);
 
-    v123 = objc_msgSend_taskFetched(v22, v119, v120, v121, v122);
-    LOBYTE(v110) = objc_msgSend_succeeded(v123, v124, v125, v126, v127);
+    v98 = objc_msgSend_taskFetched(v18, v95, v97, v96);
+    LOBYTE(v88) = objc_msgSend_succeeded(v98, v99, v101, v100);
 
-    if ((v110 & 1) == 0)
+    if ((v88 & 1) == 0)
     {
-      v128 = objc_msgSend_taskFetched(v22, v105, v106, v107, v108);
-      v987 = objc_msgSend_errorDomain(v128, v129, v130, v131, v132);
+      v102 = objc_msgSend_taskFetched(v18, v84, v86, v85);
+      v804 = objc_msgSend_errorDomain(v102, v103, v105, v104);
 
-      v133 = MEMORY[0x277CCACA8];
-      v138 = objc_msgSend_taskFetched(v22, v134, v135, v136, v137);
-      v143 = objc_msgSend_errorCode(v138, v139, v140, v141, v142);
-      v986 = objc_msgSend_stringWithFormat_(v133, v144, @"%d", v145, v146, v143);
+      v106 = MEMORY[0x277CCACA8];
+      v110 = objc_msgSend_taskFetched(v18, v107, v109, v108);
+      v114 = objc_msgSend_errorCode(v110, v111, v113, v112);
+      v803 = objc_msgSend_stringWithFormat_(v106, v115, v116, @"%d", v114);
 
       goto LABEL_8;
     }
@@ -3107,1108 +3125,1094 @@ LABEL_63:
 
   else
   {
-    v958 = 0;
+    v775 = 0;
   }
 
-  v987 = 0;
-  v986 = 0;
+  v804 = 0;
+  v803 = 0;
 LABEL_8:
-  v148 = objc_msgSend_taskCompleted(v22, v105, v106, v107, v108);
+  v118 = objc_msgSend_taskCompleted(v18, v84, v86, v85);
 
-  if (!v148)
+  if (!v118)
   {
-    v985 = 0;
+    v802 = 0;
     goto LABEL_12;
   }
 
-  v153 = MEMORY[0x277CCABB0];
-  v154 = objc_msgSend_taskCompleted(v22, v149, v150, v151, v152);
-  v159 = objc_msgSend_succeeded(v154, v155, v156, v157, v158);
-  v985 = objc_msgSend_numberWithBool_(v153, v160, v159, v161, v162);
+  v122 = MEMORY[0x277CCABB0];
+  v123 = objc_msgSend_taskCompleted(v18, v119, v121, v120);
+  v127 = objc_msgSend_succeeded(v123, v124, v126, v125);
+  v802 = objc_msgSend_numberWithBool_(v122, v128, v129, v127);
 
-  v167 = objc_msgSend_taskCompleted(v22, v163, v164, v165, v166);
-  LOBYTE(v154) = objc_msgSend_succeeded(v167, v168, v169, v170, v171);
+  v133 = objc_msgSend_taskCompleted(v18, v130, v132, v131);
+  LOBYTE(v123) = objc_msgSend_succeeded(v133, v134, v136, v135);
 
-  if (v154)
+  if (v123)
   {
 LABEL_12:
-    v984 = 0;
-    v983 = 0;
+    v801 = 0;
+    v800 = 0;
     goto LABEL_13;
   }
 
-  v172 = objc_msgSend_taskCompleted(v22, v149, v150, v151, v152);
-  v984 = objc_msgSend_errorDomain(v172, v173, v174, v175, v176);
+  v137 = objc_msgSend_taskCompleted(v18, v119, v121, v120);
+  v801 = objc_msgSend_errorDomain(v137, v138, v140, v139);
 
-  v177 = MEMORY[0x277CCACA8];
-  v182 = objc_msgSend_taskCompleted(v22, v178, v179, v180, v181);
-  v187 = objc_msgSend_errorCode(v182, v183, v184, v185, v186);
-  v983 = objc_msgSend_stringWithFormat_(v177, v188, @"%d", v189, v190, v187);
+  v141 = MEMORY[0x277CCACA8];
+  v145 = objc_msgSend_taskCompleted(v18, v142, v144, v143);
+  v149 = objc_msgSend_errorCode(v145, v146, v148, v147);
+  v800 = objc_msgSend_stringWithFormat_(v141, v150, v151, @"%d", v149);
 
 LABEL_13:
-  v191 = objc_msgSend_taskScheduled(v22, v149, v150, v151, v152);
+  v152 = objc_msgSend_taskScheduled(v18, v119, v121, v120);
 
-  if (v191)
+  if (v152)
   {
-    v196 = MEMORY[0x277CCABB0];
-    v197 = objc_msgSend_taskScheduled(v22, v192, v193, v194, v195);
-    v202 = objc_msgSend_succeeded(v197, v198, v199, v200, v201);
-    v982 = objc_msgSend_numberWithBool_(v196, v203, v202, v204, v205);
+    v156 = MEMORY[0x277CCABB0];
+    v157 = objc_msgSend_taskScheduled(v18, v153, v155, v154);
+    v161 = objc_msgSend_succeeded(v157, v158, v160, v159);
+    v799 = objc_msgSend_numberWithBool_(v156, v162, v163, v161);
 
-    v210 = objc_msgSend_taskScheduled(v22, v206, v207, v208, v209);
-    LOBYTE(v197) = objc_msgSend_succeeded(v210, v211, v212, v213, v214);
+    v167 = objc_msgSend_taskScheduled(v18, v164, v166, v165);
+    LOBYTE(v157) = objc_msgSend_succeeded(v167, v168, v170, v169);
 
-    if (v197)
+    if (v157)
     {
-      v980 = 0;
-      v981 = 0;
+      v797 = 0;
+      v798 = 0;
     }
 
     else
     {
-      v215 = objc_msgSend_taskScheduled(v22, v192, v193, v194, v195);
-      v981 = objc_msgSend_errorDomain(v215, v216, v217, v218, v219);
+      v171 = objc_msgSend_taskScheduled(v18, v153, v155, v154);
+      v798 = objc_msgSend_errorDomain(v171, v172, v174, v173);
 
-      v220 = MEMORY[0x277CCACA8];
-      v225 = objc_msgSend_taskScheduled(v22, v221, v222, v223, v224);
-      v230 = objc_msgSend_errorCode(v225, v226, v227, v228, v229);
-      v980 = objc_msgSend_stringWithFormat_(v220, v231, @"%d", v232, v233, v230);
+      v175 = MEMORY[0x277CCACA8];
+      v179 = objc_msgSend_taskScheduled(v18, v176, v178, v177);
+      v183 = objc_msgSend_errorCode(v179, v180, v182, v181);
+      v797 = objc_msgSend_stringWithFormat_(v175, v184, v185, @"%d", v183);
     }
   }
 
   else
   {
-    v980 = 0;
-    v981 = 0;
-    v982 = 0;
+    v797 = 0;
+    v798 = 0;
+    v799 = 0;
   }
 
-  v234 = objc_msgSend_activityScheduleStatus(v22, v192, v193, v194, v195);
+  v186 = objc_msgSend_activityScheduleStatus(v18, v153, v155, v154);
 
-  if (v234)
+  if (v186)
   {
-    v239 = MEMORY[0x277CCABB0];
-    v240 = objc_msgSend_activityScheduleStatus(v22, v235, v236, v237, v238);
-    v245 = objc_msgSend_scheduled(v240, v241, v242, v243, v244);
-    v979 = objc_msgSend_numberWithBool_(v239, v246, v245, v247, v248);
+    v190 = MEMORY[0x277CCABB0];
+    v191 = objc_msgSend_activityScheduleStatus(v18, v187, v189, v188);
+    v195 = objc_msgSend_scheduled(v191, v192, v194, v193);
+    v796 = objc_msgSend_numberWithBool_(v190, v196, v197, v195);
   }
 
   else
   {
-    v979 = 0;
+    v796 = 0;
   }
 
-  v147 = &unk_286801090;
+  v117 = &unk_286801090;
 LABEL_22:
   objc_opt_class();
-  v961 = eventCopy;
+  v778 = eventCopy;
   if (objc_opt_isKindOfClass())
   {
-    v249 = eventCopy;
-    v974 = objc_msgSend_timestamp(v249, v250, v251, v252, v253);
+    v198 = eventCopy;
+    v791 = objc_msgSend_timestamp(v198, v199, v201, v200);
 
-    v258 = objc_msgSend_trialIdentifiers(v249, v254, v255, v256, v257);
-    v263 = objc_msgSend_bmltIdentifiers(v258, v259, v260, v261, v262);
-    v268 = objc_msgSend_trialDeploymentID(v263, v264, v265, v266, v267);
+    v205 = objc_msgSend_trialIdentifiers(v198, v202, v204, v203);
+    v209 = objc_msgSend_bmltIdentifiers(v205, v206, v208, v207);
+    v213 = objc_msgSend_trialDeploymentID(v209, v210, v212, v211);
 
-    v273 = objc_msgSend_trialIdentifiers(v249, v269, v270, v271, v272);
-    v278 = objc_msgSend_bmltIdentifiers(v273, v274, v275, v276, v277);
-    v283 = objc_msgSend_trialTaskID(v278, v279, v280, v281, v282);
+    v217 = objc_msgSend_trialIdentifiers(v198, v214, v216, v215);
+    v221 = objc_msgSend_bmltIdentifiers(v217, v218, v220, v219);
+    v225 = objc_msgSend_trialTaskID(v221, v222, v224, v223);
 
-    v288 = objc_msgSend_trialIdentifiers(v249, v284, v285, v286, v287);
-    objc_msgSend_experimentIdentifiers(v288, v289, v290, v291, v292);
-    v294 = v293 = v99;
-    v299 = objc_msgSend_trialDeploymentID(v294, v295, v296, v297, v298);
+    v229 = objc_msgSend_trialIdentifiers(v198, v226, v228, v227);
+    objc_msgSend_experimentIdentifiers(v229, v230, v232, v231);
+    v234 = v233 = v79;
+    v238 = objc_msgSend_trialDeploymentID(v234, v235, v237, v236);
 
-    v304 = objc_msgSend_trialIdentifiers(v249, v300, v301, v302, v303);
-    v309 = objc_msgSend_experimentIdentifiers(v304, v305, v306, v307, v308);
-    v314 = objc_msgSend_trialExperimentID(v309, v310, v311, v312, v313);
+    v242 = objc_msgSend_trialIdentifiers(v198, v239, v241, v240);
+    v246 = objc_msgSend_experimentIdentifiers(v242, v243, v245, v244);
+    v250 = objc_msgSend_trialExperimentID(v246, v247, v249, v248);
 
-    v319 = objc_msgSend_trialIdentifiers(v249, v315, v316, v317, v318);
-    v324 = objc_msgSend_experimentIdentifiers(v319, v320, v321, v322, v323);
-    v99 = objc_msgSend_trialTreatmentID(v324, v325, v326, v327, v328);
+    v254 = objc_msgSend_trialIdentifiers(v198, v251, v253, v252);
+    v258 = objc_msgSend_experimentIdentifiers(v254, v255, v257, v256);
+    v79 = objc_msgSend_trialTreatmentID(v258, v259, v261, v260);
 
-    v333 = objc_msgSend_performTaskStatus(v249, v329, v330, v331, v332);
+    v265 = objc_msgSend_performTaskStatus(v198, v262, v264, v263);
 
-    if (!v333)
+    if (v265 && (v269 = MEMORY[0x277CCABB0], objc_msgSend_performTaskStatus(v198, v266, v268, v267), v270 = objc_claimAutoreleasedReturnValue(), v274 = objc_msgSend_succeeded(v270, v271, v273, v272), objc_msgSend_numberWithBool_(v269, v275, v276, v274), v265 = objc_claimAutoreleasedReturnValue(), v270, objc_msgSend_performTaskStatus(v198, v277, v279, v278), v280 = objc_claimAutoreleasedReturnValue(), v284 = objc_msgSend_succeeded(v280, v281, v283, v282), v280, (v284 & 1) == 0))
     {
-      goto LABEL_25;
-    }
+      v288 = objc_msgSend_performTaskStatus(v198, v266, v268, v267);
+      v805 = objc_msgSend_errorDomain(v288, v289, v291, v290);
 
-    v338 = MEMORY[0x277CCABB0];
-    v339 = objc_msgSend_performTaskStatus(v249, v334, v335, v336, v337);
-    v344 = objc_msgSend_succeeded(v339, v340, v341, v342, v343);
-    v333 = objc_msgSend_numberWithBool_(v338, v345, v344, v346, v347);
+      v292 = MEMORY[0x277CCACA8];
+      v296 = objc_msgSend_performTaskStatus(v198, v293, v295, v294);
+      v300 = objc_msgSend_errorCode(v296, v297, v299, v298);
+      v303 = objc_msgSend_stringWithFormat_(v292, v301, v302, @"%d", v300);
 
-    v352 = objc_msgSend_performTaskStatus(v249, v348, v349, v350, v351);
-    v357 = objc_msgSend_succeeded(v352, v353, v354, v355, v356);
-
-    if ((v357 & 1) == 0)
-    {
-      v361 = objc_msgSend_performTaskStatus(v249, v334, v335, v336, v337);
-      v988 = objc_msgSend_errorDomain(v361, v362, v363, v364, v365);
-
-      v366 = MEMORY[0x277CCACA8];
-      v371 = objc_msgSend_performTaskStatus(v249, v367, v368, v369, v370);
-      v376 = objc_msgSend_errorCode(v371, v372, v373, v374, v375);
-      v380 = objc_msgSend_stringWithFormat_(v366, v377, @"%d", v378, v379, v376);
-
-      v358 = v380;
+      v285 = v303;
     }
 
     else
     {
-LABEL_25:
-      v358 = 0;
-      v988 = 0;
+      v285 = 0;
+      v805 = 0;
     }
 
-    v381 = objc_msgSend_performTrialTaskStatus(v249, v334, v335, v336, v337);
+    v304 = objc_msgSend_performTrialTaskStatus(v198, v266, v268, v267);
 
-    if (v381)
+    if (v304)
     {
-      v386 = v358;
-      v387 = MEMORY[0x277CCABB0];
-      v388 = objc_msgSend_performTrialTaskStatus(v249, v382, v383, v384, v385);
-      v393 = objc_msgSend_succeeded(v388, v389, v390, v391, v392);
-      v978 = objc_msgSend_numberWithBool_(v387, v394, v393, v395, v396);
+      v308 = v285;
+      v309 = MEMORY[0x277CCABB0];
+      v310 = objc_msgSend_performTrialTaskStatus(v198, v305, v307, v306);
+      v314 = objc_msgSend_succeeded(v310, v311, v313, v312);
+      v795 = objc_msgSend_numberWithBool_(v309, v315, v316, v314);
 
-      v401 = objc_msgSend_performTrialTaskStatus(v249, v397, v398, v399, v400);
-      LOBYTE(v387) = objc_msgSend_succeeded(v401, v402, v403, v404, v405);
+      v320 = objc_msgSend_performTrialTaskStatus(v198, v317, v319, v318);
+      LOBYTE(v309) = objc_msgSend_succeeded(v320, v321, v323, v322);
 
-      if (v387)
+      if (v309)
       {
-        v358 = v386;
+        v285 = v308;
       }
 
       else
       {
-        v406 = objc_msgSend_performTrialTaskStatus(v249, v382, v383, v384, v385);
-        v411 = objc_msgSend_errorDomain(v406, v407, v408, v409, v410);
+        v324 = objc_msgSend_performTrialTaskStatus(v198, v305, v307, v306);
+        v328 = objc_msgSend_errorDomain(v324, v325, v327, v326);
 
-        v412 = MEMORY[0x277CCACA8];
-        v417 = objc_msgSend_performTrialTaskStatus(v249, v413, v414, v415, v416);
-        v422 = objc_msgSend_errorCode(v417, v418, v419, v420, v421);
-        v426 = objc_msgSend_stringWithFormat_(v412, v423, @"%d", v424, v425, v422);
+        v329 = MEMORY[0x277CCACA8];
+        v333 = objc_msgSend_performTrialTaskStatus(v198, v330, v332, v331);
+        v337 = objc_msgSend_errorCode(v333, v334, v336, v335);
+        v340 = objc_msgSend_stringWithFormat_(v329, v338, v339, @"%d", v337);
 
-        v358 = v426;
-        v988 = v411;
+        v285 = v340;
+        v805 = v328;
       }
     }
 
     else
     {
-      v978 = v333;
+      v795 = v265;
     }
 
-    v360 = objc_msgSend_stop(v249, v382, v383, v384, v385);
+    v287 = objc_msgSend_stop(v198, v305, v307, v306);
 
-    if (v360)
+    if (v287)
     {
-      v431 = MEMORY[0x277CCABB0];
-      v432 = objc_msgSend_stop(v249, v427, v428, v429, v430);
-      v437 = objc_msgSend_succeeded(v432, v433, v434, v435, v436);
-      v441 = objc_msgSend_numberWithBool_(v431, v438, v437, v439, v440);
+      v344 = MEMORY[0x277CCABB0];
+      v345 = objc_msgSend_stop(v198, v341, v343, v342);
+      v349 = objc_msgSend_succeeded(v345, v346, v348, v347);
+      v352 = objc_msgSend_numberWithBool_(v344, v350, v351, v349);
 
-      v446 = objc_msgSend_stop(v249, v442, v443, v444, v445);
-      LOBYTE(v432) = objc_msgSend_succeeded(v446, v447, v448, v449, v450);
+      v356 = objc_msgSend_stop(v198, v353, v355, v354);
+      LOBYTE(v345) = objc_msgSend_succeeded(v356, v357, v359, v358);
 
-      if (v432)
+      if (v345)
       {
-        v977 = 0;
-        v359 = 0;
+        v794 = 0;
+        v286 = 0;
       }
 
       else
       {
-        v455 = objc_msgSend_stop(v249, v451, v452, v453, v454);
-        objc_msgSend_errorDomain(v455, v456, v457, v458, v459);
-        v992 = v99;
-        v460 = v314;
-        v461 = v299;
-        v462 = v283;
-        v464 = v463 = v268;
+        v363 = objc_msgSend_stop(v198, v360, v362, v361);
+        objc_msgSend_errorDomain(v363, v364, v366, v365);
+        v809 = v79;
+        v367 = v250;
+        v368 = v238;
+        v369 = v225;
+        v371 = v370 = v213;
 
-        v465 = MEMORY[0x277CCACA8];
-        v470 = objc_msgSend_stop(v249, v466, v467, v468, v469);
-        v475 = objc_msgSend_errorCode(v470, v471, v472, v473, v474);
-        v977 = objc_msgSend_stringWithFormat_(v465, v476, @"%d", v477, v478, v475);
+        v372 = MEMORY[0x277CCACA8];
+        v376 = objc_msgSend_stop(v198, v373, v375, v374);
+        v380 = objc_msgSend_errorCode(v376, v377, v379, v378);
+        v794 = objc_msgSend_stringWithFormat_(v372, v381, v382, @"%d", v380);
 
-        v359 = v464;
-        v268 = v463;
-        v283 = v462;
-        v299 = v461;
-        v314 = v460;
-        v99 = v992;
+        v286 = v371;
+        v213 = v370;
+        v225 = v369;
+        v238 = v368;
+        v250 = v367;
+        v79 = v809;
       }
 
-      v360 = v441;
+      v287 = v352;
     }
 
     else
     {
-      v977 = 0;
-      v359 = 0;
+      v794 = 0;
+      v286 = 0;
     }
 
-    v989 = v283;
-    v990 = v299;
-    v991 = v314;
-    v27 = v974;
-    v147 = &unk_2868010A8;
-    eventCopy = v961;
+    v806 = v225;
+    v807 = v238;
+    v808 = v250;
+    v22 = v791;
+    v117 = &unk_2868010A8;
+    eventCopy = v778;
   }
 
   else
   {
-    v268 = v42;
-    v358 = 0;
-    v988 = 0;
-    v977 = 0;
-    v978 = 0;
-    v359 = 0;
-    v360 = 0;
+    v213 = v34;
+    v285 = 0;
+    v805 = 0;
+    v794 = 0;
+    v795 = 0;
+    v286 = 0;
+    v287 = 0;
   }
 
   objc_opt_class();
-  v950 = v359;
-  v951 = v360;
+  v767 = v286;
+  v768 = v287;
   if (objc_opt_isKindOfClass())
   {
-    v479 = eventCopy;
-    v975 = objc_msgSend_timestamp(v479, v480, v481, v482, v483);
+    v383 = eventCopy;
+    v792 = objc_msgSend_timestamp(v383, v384, v386, v385);
 
-    v488 = objc_msgSend_trialIdentifiers(v479, v484, v485, v486, v487);
-    v493 = objc_msgSend_bmltIdentifiers(v488, v489, v490, v491, v492);
-    v972 = objc_msgSend_trialDeploymentID(v493, v494, v495, v496, v497);
+    v390 = objc_msgSend_trialIdentifiers(v383, v387, v389, v388);
+    v394 = objc_msgSend_bmltIdentifiers(v390, v391, v393, v392);
+    v789 = objc_msgSend_trialDeploymentID(v394, v395, v397, v396);
 
-    v502 = objc_msgSend_trialIdentifiers(v479, v498, v499, v500, v501);
-    v507 = objc_msgSend_bmltIdentifiers(v502, v503, v504, v505, v506);
-    v512 = objc_msgSend_trialTaskID(v507, v508, v509, v510, v511);
+    v401 = objc_msgSend_trialIdentifiers(v383, v398, v400, v399);
+    v405 = objc_msgSend_bmltIdentifiers(v401, v402, v404, v403);
+    v409 = objc_msgSend_trialTaskID(v405, v406, v408, v407);
 
-    v517 = objc_msgSend_trialIdentifiers(v479, v513, v514, v515, v516);
-    objc_msgSend_experimentIdentifiers(v517, v518, v519, v520, v521);
-    v523 = v522 = v99;
-    v528 = objc_msgSend_trialDeploymentID(v523, v524, v525, v526, v527);
+    v413 = objc_msgSend_trialIdentifiers(v383, v410, v412, v411);
+    objc_msgSend_experimentIdentifiers(v413, v414, v416, v415);
+    v418 = v417 = v79;
+    v422 = objc_msgSend_trialDeploymentID(v418, v419, v421, v420);
 
-    v533 = objc_msgSend_trialIdentifiers(v479, v529, v530, v531, v532);
-    v538 = objc_msgSend_experimentIdentifiers(v533, v534, v535, v536, v537);
-    v543 = objc_msgSend_trialExperimentID(v538, v539, v540, v541, v542);
+    v426 = objc_msgSend_trialIdentifiers(v383, v423, v425, v424);
+    v430 = objc_msgSend_experimentIdentifiers(v426, v427, v429, v428);
+    v434 = objc_msgSend_trialExperimentID(v430, v431, v433, v432);
 
-    v548 = objc_msgSend_trialIdentifiers(v479, v544, v545, v546, v547);
-    v553 = objc_msgSend_experimentIdentifiers(v548, v549, v550, v551, v552);
-    v99 = objc_msgSend_trialTreatmentID(v553, v554, v555, v556, v557);
+    v438 = objc_msgSend_trialIdentifiers(v383, v435, v437, v436);
+    v442 = objc_msgSend_experimentIdentifiers(v438, v439, v441, v440);
+    v79 = objc_msgSend_trialTreatmentID(v442, v443, v445, v444);
 
-    v562 = objc_msgSend_eventType(v479, v558, v559, v560, v561) - 1;
-    if (v562 >= 3)
+    v449 = objc_msgSend_eventType(v383, v446, v448, v447) - 1;
+    if (v449 >= 3)
     {
-      v564 = LBFLogContextBitacoraStateInfo;
-      if (os_log_type_enabled(v564, OS_LOG_TYPE_ERROR))
+      v451 = LBFLogContextBitacoraStateInfo;
+      if (os_log_type_enabled(v451, OS_LOG_TYPE_ERROR))
       {
-        sub_255F0AF64(v479, v564, v565, v566, v567);
+        sub_255F0AF64(v383, v451, v452, v453);
       }
 
-      v563 = &unk_286801060;
+      v450 = &unk_286801060;
     }
 
     else
     {
-      v563 = qword_279813B40[v562];
+      v450 = qword_279813B40[v449];
     }
 
-    v957 = v563;
-    v359 = v950;
+    v774 = v450;
+    v286 = v767;
 
-    v989 = v512;
-    v990 = v528;
-    v991 = v543;
-    v268 = v972;
-    v27 = v975;
-    v147 = &unk_286801078;
-    eventCopy = v961;
-    v360 = v951;
+    v806 = v409;
+    v807 = v422;
+    v808 = v434;
+    v213 = v789;
+    v22 = v792;
+    v117 = &unk_286801078;
+    eventCopy = v778;
+    v287 = v768;
   }
 
   else
   {
-    v957 = 0;
+    v774 = 0;
   }
 
   objc_opt_class();
-  v952 = v358;
+  v769 = v285;
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v973 = 0;
-    v976 = 0;
-    v689 = 0;
-    v970 = 0;
-    v971 = 0;
-    v953 = 0;
-    v954 = 0;
-    v968 = 0;
-    v969 = 0;
-    v965 = 0;
-    v966 = 0;
-    v963 = 0;
-    v964 = 0;
-    v967 = 0;
-    v962 = 0;
-    v664 = v958;
-    v690 = v268;
+    v790 = 0;
+    v793 = 0;
+    v550 = 0;
+    v787 = 0;
+    v788 = 0;
+    v770 = 0;
+    v771 = 0;
+    v785 = 0;
+    v786 = 0;
+    v782 = 0;
+    v783 = 0;
+    v780 = 0;
+    v781 = 0;
+    v784 = 0;
+    v779 = 0;
+    v530 = v775;
+    v551 = v213;
     goto LABEL_90;
   }
 
-  v572 = eventCopy;
-  v577 = objc_msgSend_timestamp(v572, v573, v574, v575, v576);
+  v457 = eventCopy;
+  v461 = objc_msgSend_timestamp(v457, v458, v460, v459);
 
-  v582 = objc_msgSend_trialIdentifiers(v572, v578, v579, v580, v581);
-  v587 = objc_msgSend_bmltIdentifiers(v582, v583, v584, v585, v586);
-  v946 = objc_msgSend_trialDeploymentID(v587, v588, v589, v590, v591);
+  v465 = objc_msgSend_trialIdentifiers(v457, v462, v464, v463);
+  v469 = objc_msgSend_bmltIdentifiers(v465, v466, v468, v467);
+  v763 = objc_msgSend_trialDeploymentID(v469, v470, v472, v471);
 
-  v596 = objc_msgSend_trialIdentifiers(v572, v592, v593, v594, v595);
-  v601 = objc_msgSend_bmltIdentifiers(v596, v597, v598, v599, v600);
-  v606 = objc_msgSend_trialTaskID(v601, v602, v603, v604, v605);
+  v476 = objc_msgSend_trialIdentifiers(v457, v473, v475, v474);
+  v480 = objc_msgSend_bmltIdentifiers(v476, v477, v479, v478);
+  v484 = objc_msgSend_trialTaskID(v480, v481, v483, v482);
 
-  v611 = objc_msgSend_trialIdentifiers(v572, v607, v608, v609, v610);
-  v616 = objc_msgSend_experimentIdentifiers(v611, v612, v613, v614, v615);
-  v621 = objc_msgSend_trialDeploymentID(v616, v617, v618, v619, v620);
+  v488 = objc_msgSend_trialIdentifiers(v457, v485, v487, v486);
+  v492 = objc_msgSend_experimentIdentifiers(v488, v489, v491, v490);
+  v496 = objc_msgSend_trialDeploymentID(v492, v493, v495, v494);
 
-  v626 = objc_msgSend_trialIdentifiers(v572, v622, v623, v624, v625);
-  v631 = objc_msgSend_experimentIdentifiers(v626, v627, v628, v629, v630);
-  v955 = objc_msgSend_trialExperimentID(v631, v632, v633, v634, v635);
+  v500 = objc_msgSend_trialIdentifiers(v457, v497, v499, v498);
+  v504 = objc_msgSend_experimentIdentifiers(v500, v501, v503, v502);
+  v772 = objc_msgSend_trialExperimentID(v504, v505, v507, v506);
 
-  v640 = objc_msgSend_trialIdentifiers(v572, v636, v637, v638, v639);
-  v645 = objc_msgSend_experimentIdentifiers(v640, v641, v642, v643, v644);
-  v948 = objc_msgSend_trialTreatmentID(v645, v646, v647, v648, v649);
+  v511 = objc_msgSend_trialIdentifiers(v457, v508, v510, v509);
+  v515 = objc_msgSend_experimentIdentifiers(v511, v512, v514, v513);
+  v765 = objc_msgSend_trialTreatmentID(v515, v516, v518, v517);
 
-  v654 = objc_msgSend_event(v572, v650, v651, v652, v653);
-  v659 = objc_msgSend_phase(v654, v655, v656, v657, v658);
+  v522 = objc_msgSend_event(v457, v519, v521, v520);
+  v526 = objc_msgSend_phase(v522, v523, v525, v524);
 
-  if (v659 <= 2)
+  if (v526 <= 2)
   {
-    if (v659 == 1)
+    if (v526 == 1)
     {
-      v665 = v621;
-      v27 = v577;
-      v760 = MEMORY[0x277CCABB0];
-      v761 = objc_msgSend_event(v572, v660, v661, v662, v663);
-      v766 = objc_msgSend_succeeded(v761, v762, v763, v764, v765);
-      v976 = objc_msgSend_numberWithBool_(v760, v767, v766, v768, v769);
+      v531 = v496;
+      v22 = v461;
+      v606 = MEMORY[0x277CCABB0];
+      v607 = objc_msgSend_event(v457, v527, v529, v528);
+      v611 = objc_msgSend_succeeded(v607, v608, v610, v609);
+      v793 = objc_msgSend_numberWithBool_(v606, v612, v613, v611);
 
-      v774 = objc_msgSend_event(v572, v770, v771, v772, v773);
-      LOBYTE(v761) = objc_msgSend_succeeded(v774, v775, v776, v777, v778);
+      v617 = objc_msgSend_event(v457, v614, v616, v615);
+      LOBYTE(v607) = objc_msgSend_succeeded(v617, v618, v620, v619);
 
-      v664 = v958;
-      if (v761)
+      v530 = v775;
+      if (v607)
       {
-        v689 = 0;
+        v550 = 0;
       }
 
       else
       {
-        v817 = objc_msgSend_event(v572, v779, v780, v781, v782);
-        v689 = objc_msgSend_errorMessage(v817, v818, v819, v820, v821);
+        v649 = objc_msgSend_event(v457, v621, v623, v622);
+        v550 = objc_msgSend_errorMessage(v649, v650, v652, v651);
 
-        if (objc_msgSend_localizedCaseInsensitiveContainsString_(v689, v822, @";", v823, v824))
+        if (objc_msgSend_localizedCaseInsensitiveContainsString_(v550, v653, v654, @";"))
         {
-          v783 = objc_msgSend_componentsSeparatedByString_(v689, v825, @"", v826, v827);;
-          v971 = objc_msgSend_objectAtIndexedSubscript_(v783, v828, 0, v829, v830);
+          v624 = objc_msgSend_componentsSeparatedByString_(v550, v655, v656, @"");;
+          v788 = objc_msgSend_objectAtIndexedSubscript_(v624, v657, v658, 0);
 LABEL_75:
-          v973 = 0;
-          v954 = 0;
-          v968 = 0;
+          v790 = 0;
+          v771 = 0;
+          v785 = 0;
 LABEL_76:
-          v970 = 0;
-          v953 = 0;
-          v965 = 0;
+          v787 = 0;
+          v770 = 0;
+          v782 = 0;
           goto LABEL_77;
         }
       }
 
-      v971 = 0;
-      v973 = 0;
+      v788 = 0;
+      v790 = 0;
     }
 
     else
     {
-      v664 = v958;
-      if (v659 != 2)
+      v530 = v775;
+      if (v526 != 2)
       {
         goto LABEL_66;
       }
 
-      v665 = v621;
-      v691 = MEMORY[0x277CCABB0];
-      v692 = objc_msgSend_event(v572, v660, v661, v662, v663);
-      v697 = objc_msgSend_succeeded(v692, v693, v694, v695, v696);
-      v973 = objc_msgSend_numberWithBool_(v691, v698, v697, v699, v700);
+      v531 = v496;
+      v552 = MEMORY[0x277CCABB0];
+      v553 = objc_msgSend_event(v457, v527, v529, v528);
+      v557 = objc_msgSend_succeeded(v553, v554, v556, v555);
+      v790 = objc_msgSend_numberWithBool_(v552, v558, v559, v557);
 
-      v705 = objc_msgSend_event(v572, v701, v702, v703, v704);
-      LOBYTE(v692) = objc_msgSend_succeeded(v705, v706, v707, v708, v709);
+      v563 = objc_msgSend_event(v457, v560, v562, v561);
+      LOBYTE(v553) = objc_msgSend_succeeded(v563, v564, v566, v565);
 
-      v27 = v577;
-      if ((v692 & 1) == 0)
+      v22 = v461;
+      if ((v553 & 1) == 0)
       {
-        v899 = objc_msgSend_event(v572, v710, v711, v712, v713);
-        v904 = objc_msgSend_errorMessage(v899, v900, v901, v902, v903);
+        v720 = objc_msgSend_event(v457, v567, v569, v568);
+        v724 = objc_msgSend_errorMessage(v720, v721, v723, v722);
 
-        v954 = v904;
-        if (objc_msgSend_localizedCaseInsensitiveContainsString_(v904, v905, @";", v906, v907))
+        v771 = v724;
+        if (objc_msgSend_localizedCaseInsensitiveContainsString_(v724, v725, v726, @";"))
         {
-          v783 = objc_msgSend_componentsSeparatedByString_(v904, v908, @"", v909, v910);;
-          v968 = objc_msgSend_objectAtIndexedSubscript_(v783, v911, 0, v912, v913);
-          v976 = 0;
-          v689 = 0;
-          v971 = 0;
+          v624 = objc_msgSend_componentsSeparatedByString_(v724, v727, v728, @"");;
+          v785 = objc_msgSend_objectAtIndexedSubscript_(v624, v729, v730, 0);
+          v793 = 0;
+          v550 = 0;
+          v788 = 0;
           goto LABEL_76;
         }
 
-        v976 = 0;
-        v689 = 0;
-        v971 = 0;
+        v793 = 0;
+        v550 = 0;
+        v788 = 0;
         goto LABEL_82;
       }
 
-      v976 = 0;
-      v689 = 0;
-      v971 = 0;
+      v793 = 0;
+      v550 = 0;
+      v788 = 0;
     }
 
-    v954 = 0;
+    v771 = 0;
 LABEL_82:
-    v968 = 0;
-    v970 = 0;
+    v785 = 0;
+    v787 = 0;
     goto LABEL_83;
   }
 
-  if (v659 == 3)
+  if (v526 == 3)
   {
-    v665 = v621;
-    v714 = MEMORY[0x277CCABB0];
-    v715 = objc_msgSend_event(v572, v660, v661, v662, v663);
-    v720 = objc_msgSend_succeeded(v715, v716, v717, v718, v719);
-    v970 = objc_msgSend_numberWithBool_(v714, v721, v720, v722, v723);
+    v531 = v496;
+    v570 = MEMORY[0x277CCABB0];
+    v571 = objc_msgSend_event(v457, v527, v529, v528);
+    v575 = objc_msgSend_succeeded(v571, v572, v574, v573);
+    v787 = objc_msgSend_numberWithBool_(v570, v576, v577, v575);
 
-    v728 = objc_msgSend_event(v572, v724, v725, v726, v727);
-    LOBYTE(v715) = objc_msgSend_succeeded(v728, v729, v730, v731, v732);
+    v581 = objc_msgSend_event(v457, v578, v580, v579);
+    LOBYTE(v571) = objc_msgSend_succeeded(v581, v582, v584, v583);
 
-    v664 = v958;
-    v27 = v577;
-    if ((v715 & 1) == 0)
+    v530 = v775;
+    v22 = v461;
+    if ((v571 & 1) == 0)
     {
-      v787 = objc_msgSend_event(v572, v733, v734, v735, v736);
-      v792 = objc_msgSend_errorMessage(v787, v788, v789, v790, v791);
+      v627 = objc_msgSend_event(v457, v585, v587, v586);
+      v631 = objc_msgSend_errorMessage(v627, v628, v630, v629);
 
-      v953 = v792;
-      if (objc_msgSend_localizedCaseInsensitiveContainsString_(v792, v793, @";", v794, v795))
+      v770 = v631;
+      if (objc_msgSend_localizedCaseInsensitiveContainsString_(v631, v632, v633, @";"))
       {
-        v783 = objc_msgSend_componentsSeparatedByString_(v792, v796, @"", v797, v798);;
-        v965 = objc_msgSend_objectAtIndexedSubscript_(v783, v799, 0, v800, v801);
-        v973 = 0;
-        v976 = 0;
-        v689 = 0;
-        v971 = 0;
-        v954 = 0;
-        v968 = 0;
+        v624 = objc_msgSend_componentsSeparatedByString_(v631, v634, v635, @"");;
+        v782 = objc_msgSend_objectAtIndexedSubscript_(v624, v636, v637, 0);
+        v790 = 0;
+        v793 = 0;
+        v550 = 0;
+        v788 = 0;
+        v771 = 0;
+        v785 = 0;
 LABEL_77:
-        v969 = 0;
-        v966 = 0;
-        v963 = 0;
+        v786 = 0;
+        v783 = 0;
+        v780 = 0;
         goto LABEL_78;
       }
 
-      v973 = 0;
-      v976 = 0;
-      v689 = 0;
-      v971 = 0;
-      v954 = 0;
-      v968 = 0;
+      v790 = 0;
+      v793 = 0;
+      v550 = 0;
+      v788 = 0;
+      v771 = 0;
+      v785 = 0;
       goto LABEL_84;
     }
 
-    v973 = 0;
-    v976 = 0;
-    v689 = 0;
-    v971 = 0;
-    v954 = 0;
-    v968 = 0;
+    v790 = 0;
+    v793 = 0;
+    v550 = 0;
+    v788 = 0;
+    v771 = 0;
+    v785 = 0;
 LABEL_83:
-    v953 = 0;
+    v770 = 0;
 LABEL_84:
-    v965 = 0;
-    v969 = 0;
+    v782 = 0;
+    v786 = 0;
     goto LABEL_85;
   }
 
-  v664 = v958;
-  if (v659 == 4)
+  v530 = v775;
+  if (v526 == 4)
   {
-    v665 = v621;
-    v737 = MEMORY[0x277CCABB0];
-    v738 = objc_msgSend_event(v572, v660, v661, v662, v663);
-    v743 = objc_msgSend_succeeded(v738, v739, v740, v741, v742);
-    v969 = objc_msgSend_numberWithBool_(v737, v744, v743, v745, v746);
+    v531 = v496;
+    v588 = MEMORY[0x277CCABB0];
+    v589 = objc_msgSend_event(v457, v527, v529, v528);
+    v593 = objc_msgSend_succeeded(v589, v590, v592, v591);
+    v786 = objc_msgSend_numberWithBool_(v588, v594, v595, v593);
 
-    v751 = objc_msgSend_event(v572, v747, v748, v749, v750);
-    LOBYTE(v738) = objc_msgSend_succeeded(v751, v752, v753, v754, v755);
+    v599 = objc_msgSend_event(v457, v596, v598, v597);
+    LOBYTE(v589) = objc_msgSend_succeeded(v599, v600, v602, v601);
 
-    v27 = v577;
-    if ((v738 & 1) == 0)
+    v22 = v461;
+    if ((v589 & 1) == 0)
     {
-      v802 = objc_msgSend_event(v572, v756, v757, v758, v759);
-      v807 = objc_msgSend_errorMessage(v802, v803, v804, v805, v806);
+      v638 = objc_msgSend_event(v457, v603, v605, v604);
+      v642 = objc_msgSend_errorMessage(v638, v639, v641, v640);
 
-      v966 = v807;
-      if (objc_msgSend_localizedCaseInsensitiveContainsString_(v807, v808, @";", v809, v810))
+      v783 = v642;
+      if (objc_msgSend_localizedCaseInsensitiveContainsString_(v642, v643, v644, @";"))
       {
-        v783 = objc_msgSend_componentsSeparatedByString_(v807, v811, @"", v812, v813);;
-        v963 = objc_msgSend_objectAtIndexedSubscript_(v783, v814, 0, v815, v816);
-        v973 = 0;
-        v976 = 0;
-        v689 = 0;
-        v970 = 0;
-        v971 = 0;
-        v953 = 0;
-        v954 = 0;
-        v968 = 0;
-        v965 = 0;
+        v624 = objc_msgSend_componentsSeparatedByString_(v642, v645, v646, @"");;
+        v780 = objc_msgSend_objectAtIndexedSubscript_(v624, v647, v648, 0);
+        v790 = 0;
+        v793 = 0;
+        v550 = 0;
+        v787 = 0;
+        v788 = 0;
+        v770 = 0;
+        v771 = 0;
+        v785 = 0;
+        v782 = 0;
 LABEL_78:
-        v967 = 0;
-        v964 = 0;
-        v962 = 0;
+        v784 = 0;
+        v781 = 0;
+        v779 = 0;
         goto LABEL_79;
       }
 
-      v973 = 0;
-      v976 = 0;
-      v689 = 0;
-      v970 = 0;
-      v971 = 0;
-      v953 = 0;
-      v954 = 0;
-      v968 = 0;
-      v965 = 0;
+      v790 = 0;
+      v793 = 0;
+      v550 = 0;
+      v787 = 0;
+      v788 = 0;
+      v770 = 0;
+      v771 = 0;
+      v785 = 0;
+      v782 = 0;
 LABEL_86:
-      v963 = 0;
-      v967 = 0;
+      v780 = 0;
+      v784 = 0;
       goto LABEL_87;
     }
 
-    v973 = 0;
-    v976 = 0;
-    v689 = 0;
-    v970 = 0;
-    v971 = 0;
-    v953 = 0;
-    v954 = 0;
-    v968 = 0;
-    v965 = 0;
+    v790 = 0;
+    v793 = 0;
+    v550 = 0;
+    v787 = 0;
+    v788 = 0;
+    v770 = 0;
+    v771 = 0;
+    v785 = 0;
+    v782 = 0;
 LABEL_85:
-    v966 = 0;
+    v783 = 0;
     goto LABEL_86;
   }
 
-  if (v659 != 5)
+  if (v526 != 5)
   {
 LABEL_66:
-    v665 = v621;
-    v27 = v577;
-    v783 = LBFLogContextBitacoraStateInfo;
-    if (os_log_type_enabled(v783, OS_LOG_TYPE_ERROR))
+    v531 = v496;
+    v22 = v461;
+    v624 = LBFLogContextBitacoraStateInfo;
+    if (os_log_type_enabled(v624, OS_LOG_TYPE_ERROR))
     {
-      sub_255F0AFE8(v572, v783, v784, v785, v786);
+      sub_255F0AFE8(v457, v624, v625, v626);
     }
 
-    v976 = 0;
-    v689 = 0;
-    v971 = 0;
+    v793 = 0;
+    v550 = 0;
+    v788 = 0;
     goto LABEL_75;
   }
 
-  v665 = v621;
-  v666 = MEMORY[0x277CCABB0];
-  v667 = objc_msgSend_event(v572, v660, v661, v662, v663);
-  v672 = objc_msgSend_succeeded(v667, v668, v669, v670, v671);
-  v967 = objc_msgSend_numberWithBool_(v666, v673, v672, v674, v675);
+  v531 = v496;
+  v532 = MEMORY[0x277CCABB0];
+  v533 = objc_msgSend_event(v457, v527, v529, v528);
+  v537 = objc_msgSend_succeeded(v533, v534, v536, v535);
+  v784 = objc_msgSend_numberWithBool_(v532, v538, v539, v537);
 
-  v680 = objc_msgSend_event(v572, v676, v677, v678, v679);
-  LOBYTE(v667) = objc_msgSend_succeeded(v680, v681, v682, v683, v684);
+  v543 = objc_msgSend_event(v457, v540, v542, v541);
+  LOBYTE(v533) = objc_msgSend_succeeded(v543, v544, v546, v545);
 
-  v27 = v577;
-  if (v667)
+  v22 = v461;
+  if (v533)
   {
-    v973 = 0;
-    v976 = 0;
-    v689 = 0;
-    v970 = 0;
-    v971 = 0;
-    v953 = 0;
-    v954 = 0;
-    v968 = 0;
-    v969 = 0;
-    v965 = 0;
-    v966 = 0;
-    v963 = 0;
+    v790 = 0;
+    v793 = 0;
+    v550 = 0;
+    v787 = 0;
+    v788 = 0;
+    v770 = 0;
+    v771 = 0;
+    v785 = 0;
+    v786 = 0;
+    v782 = 0;
+    v783 = 0;
+    v780 = 0;
 LABEL_87:
-    v964 = 0;
+    v781 = 0;
 LABEL_88:
-    v962 = 0;
-    v690 = v946;
+    v779 = 0;
+    v551 = v763;
     goto LABEL_89;
   }
 
-  v884 = objc_msgSend_event(v572, v685, v686, v687, v688);
-  v889 = objc_msgSend_errorMessage(v884, v885, v886, v887, v888);
+  v709 = objc_msgSend_event(v457, v547, v549, v548);
+  v713 = objc_msgSend_errorMessage(v709, v710, v712, v711);
 
-  v964 = v889;
-  if (!objc_msgSend_localizedCaseInsensitiveContainsString_(v889, v890, @";", v891, v892))
+  v781 = v713;
+  if (!objc_msgSend_localizedCaseInsensitiveContainsString_(v713, v714, v715, @";"))
   {
-    v973 = 0;
-    v976 = 0;
-    v689 = 0;
-    v970 = 0;
-    v971 = 0;
-    v953 = 0;
-    v954 = 0;
-    v968 = 0;
-    v969 = 0;
-    v965 = 0;
-    v966 = 0;
-    v963 = 0;
+    v790 = 0;
+    v793 = 0;
+    v550 = 0;
+    v787 = 0;
+    v788 = 0;
+    v770 = 0;
+    v771 = 0;
+    v785 = 0;
+    v786 = 0;
+    v782 = 0;
+    v783 = 0;
+    v780 = 0;
     goto LABEL_88;
   }
 
-  v783 = objc_msgSend_componentsSeparatedByString_(v889, v893, @"", v894, v895);;
-  v962 = objc_msgSend_objectAtIndexedSubscript_(v783, v896, 0, v897, v898);
-  v963 = 0;
-  v973 = 0;
-  v976 = 0;
-  v689 = 0;
-  v970 = 0;
-  v971 = 0;
-  v953 = 0;
-  v954 = 0;
-  v968 = 0;
-  v969 = 0;
-  v965 = 0;
-  v966 = 0;
+  v624 = objc_msgSend_componentsSeparatedByString_(v713, v716, v717, @"");;
+  v779 = objc_msgSend_objectAtIndexedSubscript_(v624, v718, v719, 0);
+  v780 = 0;
+  v790 = 0;
+  v793 = 0;
+  v550 = 0;
+  v787 = 0;
+  v788 = 0;
+  v770 = 0;
+  v771 = 0;
+  v785 = 0;
+  v786 = 0;
+  v782 = 0;
+  v783 = 0;
 LABEL_79:
-  v690 = v946;
+  v551 = v763;
 
 LABEL_89:
-  v989 = v606;
-  v990 = v665;
-  v991 = v955;
-  v99 = v948;
-  v147 = &unk_2868010C0;
-  v358 = v952;
+  v806 = v484;
+  v807 = v531;
+  v808 = v772;
+  v79 = v765;
+  v117 = &unk_2868010C0;
+  v285 = v769;
 LABEL_90:
-  v993[0] = @"contextId";
-  v993[1] = @"event_donator";
-  v994[0] = v960;
-  v994[1] = v147;
-  v994[2] = v959;
-  v831 = v358;
-  v993[2] = @"eventId";
-  v993[3] = @"lighthouseplugin_performTaskStatus_errorCode";
-  if (!v358)
+  v810[0] = @"contextId";
+  v810[1] = @"event_donator";
+  v811[0] = v777;
+  v811[1] = v117;
+  v811[2] = v776;
+  v659 = v285;
+  v810[2] = @"eventId";
+  v810[3] = @"lighthouseplugin_performTaskStatus_errorCode";
+  if (!v285)
   {
-    v831 = objc_msgSend_null(MEMORY[0x277CBEB68], v568, v569, v570, v571);
+    v659 = objc_msgSend_null(MEMORY[0x277CBEB68], v454, v456, v455);
   }
 
-  v944 = v831;
-  v994[3] = v831;
-  v993[4] = @"lighthouseplugin_performTaskStatus_errorDomain";
-  v832 = v988;
-  if (!v988)
+  v761 = v659;
+  v811[3] = v659;
+  v810[4] = @"lighthouseplugin_performTaskStatus_errorDomain";
+  v660 = v805;
+  if (!v805)
   {
-    v832 = objc_msgSend_null(MEMORY[0x277CBEB68], v568, v569, v570, v571);
+    v660 = objc_msgSend_null(MEMORY[0x277CBEB68], v454, v456, v455);
   }
 
-  v943 = v832;
-  v994[4] = v832;
-  v993[5] = @"lighthouseplugin_performTaskStatus_succeeded";
-  v833 = v978;
-  if (!v978)
+  v760 = v660;
+  v811[4] = v660;
+  v810[5] = @"lighthouseplugin_performTaskStatus_succeeded";
+  v661 = v795;
+  if (!v795)
   {
-    v833 = objc_msgSend_null(MEMORY[0x277CBEB68], v568, v569, v570, v571);
+    v661 = objc_msgSend_null(MEMORY[0x277CBEB68], v454, v456, v455);
   }
 
-  v942 = v833;
-  v994[5] = v833;
-  v993[6] = @"lighthouseplugin_stop_errorCode";
-  v834 = v977;
-  if (!v977)
+  v759 = v661;
+  v811[5] = v661;
+  v810[6] = @"lighthouseplugin_stop_errorCode";
+  v662 = v794;
+  if (!v794)
   {
-    v834 = objc_msgSend_null(MEMORY[0x277CBEB68], v568, v569, v570, v571);
+    v662 = objc_msgSend_null(MEMORY[0x277CBEB68], v454, v456, v455);
   }
 
-  v941 = v834;
-  v994[6] = v834;
-  v993[7] = @"lighthouseplugin_stop_errorDomain";
-  v835 = v359;
-  if (!v359)
+  v758 = v662;
+  v811[6] = v662;
+  v810[7] = @"lighthouseplugin_stop_errorDomain";
+  v663 = v286;
+  if (!v286)
   {
-    v835 = objc_msgSend_null(MEMORY[0x277CBEB68], v568, v569, v570, v571);
+    v663 = objc_msgSend_null(MEMORY[0x277CBEB68], v454, v456, v455);
   }
 
-  v940 = v835;
-  v994[7] = v835;
-  v993[8] = @"lighthouseplugin_stop_succeeded";
-  v836 = v360;
-  if (!v360)
+  v757 = v663;
+  v811[7] = v663;
+  v810[8] = @"lighthouseplugin_stop_succeeded";
+  v664 = v287;
+  if (!v287)
   {
-    v836 = objc_msgSend_null(MEMORY[0x277CBEB68], v568, v569, v570, v571);
+    v664 = objc_msgSend_null(MEMORY[0x277CBEB68], v454, v456, v455);
   }
 
-  v939 = v836;
-  v994[8] = v836;
-  v993[9] = @"mlruntimed_activityScheduleStatus_scheduled";
-  v837 = v979;
-  if (!v979)
+  v756 = v664;
+  v811[8] = v664;
+  v810[9] = @"mlruntimed_activityScheduleStatus_scheduled";
+  v665 = v796;
+  if (!v796)
   {
-    v837 = objc_msgSend_null(MEMORY[0x277CBEB68], v568, v569, v570, v571);
+    v665 = objc_msgSend_null(MEMORY[0x277CBEB68], v454, v456, v455);
   }
 
-  v938 = v837;
-  v994[9] = v837;
-  v993[10] = @"mlruntimed_taskCompleted_errorCode";
-  v838 = v983;
-  if (!v983)
+  v755 = v665;
+  v811[9] = v665;
+  v810[10] = @"mlruntimed_taskCompleted_errorCode";
+  v666 = v800;
+  if (!v800)
   {
-    v838 = objc_msgSend_null(MEMORY[0x277CBEB68], v568, v569, v570, v571);
+    v666 = objc_msgSend_null(MEMORY[0x277CBEB68], v454, v456, v455);
   }
 
-  v937 = v838;
-  v994[10] = v838;
-  v993[11] = @"mlruntimed_taskCompleted_errorDomain";
-  v839 = v984;
-  if (!v984)
+  v754 = v666;
+  v811[10] = v666;
+  v810[11] = @"mlruntimed_taskCompleted_errorDomain";
+  v667 = v801;
+  if (!v801)
   {
-    v839 = objc_msgSend_null(MEMORY[0x277CBEB68], v568, v569, v570, v571);
+    v667 = objc_msgSend_null(MEMORY[0x277CBEB68], v454, v456, v455);
   }
 
-  v936 = v839;
-  v994[11] = v839;
-  v993[12] = @"mlruntimed_taskCompleted_succeeded";
-  v840 = v985;
-  if (!v985)
+  v753 = v667;
+  v811[11] = v667;
+  v810[12] = @"mlruntimed_taskCompleted_succeeded";
+  v668 = v802;
+  if (!v802)
   {
-    v840 = objc_msgSend_null(MEMORY[0x277CBEB68], v568, v569, v570, v571);
+    v668 = objc_msgSend_null(MEMORY[0x277CBEB68], v454, v456, v455);
   }
 
-  v935 = v840;
-  v994[12] = v840;
-  v993[13] = @"mlruntimed_taskFetched_errorCode";
-  v841 = v986;
-  if (!v986)
+  v752 = v668;
+  v811[12] = v668;
+  v810[13] = @"mlruntimed_taskFetched_errorCode";
+  v669 = v803;
+  if (!v803)
   {
-    v841 = objc_msgSend_null(MEMORY[0x277CBEB68], v568, v569, v570, v571);
+    v669 = objc_msgSend_null(MEMORY[0x277CBEB68], v454, v456, v455);
   }
 
-  v934 = v841;
-  v994[13] = v841;
-  v993[14] = @"mlruntimed_taskFetched_errorDomain";
-  v842 = v987;
-  if (!v987)
+  v751 = v669;
+  v811[13] = v669;
+  v810[14] = @"mlruntimed_taskFetched_errorDomain";
+  v670 = v804;
+  if (!v804)
   {
-    v842 = objc_msgSend_null(MEMORY[0x277CBEB68], v568, v569, v570, v571);
+    v670 = objc_msgSend_null(MEMORY[0x277CBEB68], v454, v456, v455);
   }
 
-  v933 = v842;
-  v994[14] = v842;
-  v993[15] = @"mlruntimed_taskFetched_succeeded";
-  v843 = v664;
-  if (!v664)
+  v750 = v670;
+  v811[14] = v670;
+  v810[15] = @"mlruntimed_taskFetched_succeeded";
+  v671 = v530;
+  if (!v530)
   {
-    v843 = objc_msgSend_null(MEMORY[0x277CBEB68], v568, v569, v570, v571);
+    v671 = objc_msgSend_null(MEMORY[0x277CBEB68], v454, v456, v455);
   }
 
-  v932 = v843;
-  v994[15] = v843;
-  v993[16] = @"mlruntimed_taskScheduled_errorCode";
-  v844 = v980;
-  if (!v980)
+  v749 = v671;
+  v811[15] = v671;
+  v810[16] = @"mlruntimed_taskScheduled_errorCode";
+  v672 = v797;
+  if (!v797)
   {
-    v844 = objc_msgSend_null(MEMORY[0x277CBEB68], v568, v569, v570, v571);
+    v672 = objc_msgSend_null(MEMORY[0x277CBEB68], v454, v456, v455);
   }
 
-  v931 = v844;
-  v994[16] = v844;
-  v993[17] = @"mlruntimed_taskScheduled_errorDomain";
-  v845 = v981;
-  if (!v981)
+  v748 = v672;
+  v811[16] = v672;
+  v810[17] = @"mlruntimed_taskScheduled_errorDomain";
+  v673 = v798;
+  if (!v798)
   {
-    v845 = objc_msgSend_null(MEMORY[0x277CBEB68], v568, v569, v570, v571);
+    v673 = objc_msgSend_null(MEMORY[0x277CBEB68], v454, v456, v455);
   }
 
-  v930 = v845;
-  v994[17] = v845;
-  v993[18] = @"mlruntimed_taskScheduled_succeeded";
-  v846 = v982;
-  if (!v982)
+  v747 = v673;
+  v811[17] = v673;
+  v810[18] = @"mlruntimed_taskScheduled_succeeded";
+  v674 = v799;
+  if (!v799)
   {
-    v846 = objc_msgSend_null(MEMORY[0x277CBEB68], v568, v569, v570, v571);
+    v674 = objc_msgSend_null(MEMORY[0x277CBEB68], v454, v456, v455);
   }
 
-  v929 = v846;
-  v994[18] = v846;
-  v993[19] = @"dprivacyd_donationReceived_succeeded";
-  v847 = v976;
-  if (!v976)
+  v746 = v674;
+  v811[18] = v674;
+  v810[19] = @"dprivacyd_donationReceived_succeeded";
+  v675 = v793;
+  if (!v793)
   {
-    v847 = objc_msgSend_null(MEMORY[0x277CBEB68], v568, v569, v570, v571);
+    v675 = objc_msgSend_null(MEMORY[0x277CBEB68], v454, v456, v455);
   }
 
-  v928 = v847;
-  v994[19] = v847;
-  v993[20] = @"dprivacyd_donationReceived_errorMessage";
-  v848 = v689;
-  if (!v689)
+  v745 = v675;
+  v811[19] = v675;
+  v810[20] = @"dprivacyd_donationReceived_errorMessage";
+  v676 = v550;
+  if (!v550)
   {
-    v848 = objc_msgSend_null(MEMORY[0x277CBEB68], v568, v569, v570, v571);
+    v676 = objc_msgSend_null(MEMORY[0x277CBEB68], v454, v456, v455);
   }
 
-  v927 = v848;
-  v994[20] = v848;
-  v993[21] = @"dprivacyd_donationReceived_errorCode";
-  v849 = v971;
-  if (!v971)
+  v744 = v676;
+  v811[20] = v676;
+  v810[21] = @"dprivacyd_donationReceived_errorCode";
+  v677 = v788;
+  if (!v788)
   {
-    v849 = objc_msgSend_null(MEMORY[0x277CBEB68], v568, v569, v570, v571);
+    v677 = objc_msgSend_null(MEMORY[0x277CBEB68], v454, v456, v455);
   }
 
-  v926 = v849;
-  v994[21] = v849;
-  v993[22] = @"dprivacyd_randomization_succeeded";
-  v850 = v973;
-  if (!v973)
+  v743 = v677;
+  v811[21] = v677;
+  v810[22] = @"dprivacyd_randomization_succeeded";
+  v678 = v790;
+  if (!v790)
   {
-    v850 = objc_msgSend_null(MEMORY[0x277CBEB68], v568, v569, v570, v571);
+    v678 = objc_msgSend_null(MEMORY[0x277CBEB68], v454, v456, v455);
   }
 
-  v925 = v850;
-  v994[22] = v850;
-  v993[23] = @"dprivacyd_randomization_errorMessage";
-  v851 = v954;
-  if (!v954)
+  v742 = v678;
+  v811[22] = v678;
+  v810[23] = @"dprivacyd_randomization_errorMessage";
+  v679 = v771;
+  if (!v771)
   {
-    v851 = objc_msgSend_null(MEMORY[0x277CBEB68], v568, v569, v570, v571);
+    v679 = objc_msgSend_null(MEMORY[0x277CBEB68], v454, v456, v455);
   }
 
-  v924 = v851;
-  v994[23] = v851;
-  v993[24] = @"dprivacyd_randomization_errorCode";
-  v852 = v968;
-  if (!v968)
+  v741 = v679;
+  v811[23] = v679;
+  v810[24] = @"dprivacyd_randomization_errorCode";
+  v680 = v785;
+  if (!v785)
   {
-    v852 = objc_msgSend_null(MEMORY[0x277CBEB68], v568, v569, v570, v571);
+    v680 = objc_msgSend_null(MEMORY[0x277CBEB68], v454, v456, v455);
   }
 
-  v923 = v852;
-  v994[24] = v852;
-  v993[25] = @"dprivacyd_budgetCheck_succeeded";
-  v853 = v970;
-  if (!v970)
+  v740 = v680;
+  v811[24] = v680;
+  v810[25] = @"dprivacyd_budgetCheck_succeeded";
+  v681 = v787;
+  if (!v787)
   {
-    v853 = objc_msgSend_null(MEMORY[0x277CBEB68], v568, v569, v570, v571);
+    v681 = objc_msgSend_null(MEMORY[0x277CBEB68], v454, v456, v455);
   }
 
-  v922 = v853;
-  v994[25] = v853;
-  v993[26] = @"dprivacyd_budgetCheck_errorMessage";
-  v854 = v953;
-  if (!v953)
+  v739 = v681;
+  v811[25] = v681;
+  v810[26] = @"dprivacyd_budgetCheck_errorMessage";
+  v682 = v770;
+  if (!v770)
   {
-    v854 = objc_msgSend_null(MEMORY[0x277CBEB68], v568, v569, v570, v571);
+    v682 = objc_msgSend_null(MEMORY[0x277CBEB68], v454, v456, v455);
   }
 
-  v921 = v854;
-  v994[26] = v854;
-  v993[27] = @"dprivacyd_budgetCheck_errorCode";
-  v855 = v965;
-  if (!v965)
+  v738 = v682;
+  v811[26] = v682;
+  v810[27] = @"dprivacyd_budgetCheck_errorCode";
+  v683 = v782;
+  if (!v782)
   {
-    v855 = objc_msgSend_null(MEMORY[0x277CBEB68], v568, v569, v570, v571);
+    v683 = objc_msgSend_null(MEMORY[0x277CBEB68], v454, v456, v455);
   }
 
-  v920 = v855;
-  v994[27] = v855;
-  v993[28] = @"dprivacyd_payloadCreation_succeeded";
-  v856 = v969;
-  if (!v969)
+  v737 = v683;
+  v811[27] = v683;
+  v810[28] = @"dprivacyd_payloadCreation_succeeded";
+  v684 = v786;
+  if (!v786)
   {
-    v856 = objc_msgSend_null(MEMORY[0x277CBEB68], v568, v569, v570, v571);
+    v684 = objc_msgSend_null(MEMORY[0x277CBEB68], v454, v456, v455);
   }
 
-  v919 = v856;
-  v994[28] = v856;
-  v993[29] = @"dprivacyd_payloadCreation_errorMessage";
-  v857 = v966;
-  if (!v966)
+  v736 = v684;
+  v811[28] = v684;
+  v810[29] = @"dprivacyd_payloadCreation_errorMessage";
+  v685 = v783;
+  if (!v783)
   {
-    v857 = objc_msgSend_null(MEMORY[0x277CBEB68], v568, v569, v570, v571);
+    v685 = objc_msgSend_null(MEMORY[0x277CBEB68], v454, v456, v455);
   }
 
-  v918 = v857;
-  v994[29] = v857;
-  v993[30] = @"dprivacyd_payloadCreation_errorCode";
-  v858 = v963;
-  if (!v963)
+  v735 = v685;
+  v811[29] = v685;
+  v810[30] = @"dprivacyd_payloadCreation_errorCode";
+  v686 = v780;
+  if (!v780)
   {
-    v858 = objc_msgSend_null(MEMORY[0x277CBEB68], v568, v569, v570, v571);
+    v686 = objc_msgSend_null(MEMORY[0x277CBEB68], v454, v456, v455);
   }
 
-  v917 = v858;
-  v994[30] = v858;
-  v993[31] = @"dprivacyd_upload_succeeded";
-  v859 = v967;
-  if (!v967)
+  v734 = v686;
+  v811[30] = v686;
+  v810[31] = @"dprivacyd_upload_succeeded";
+  v687 = v784;
+  if (!v784)
   {
-    v859 = objc_msgSend_null(MEMORY[0x277CBEB68], v568, v569, v570, v571);
+    v687 = objc_msgSend_null(MEMORY[0x277CBEB68], v454, v456, v455);
   }
 
-  v916 = v859;
-  v994[31] = v859;
-  v993[32] = @"dprivacyd_upload_errorMessage";
-  v860 = v964;
-  if (!v964)
+  v733 = v687;
+  v811[31] = v687;
+  v810[32] = @"dprivacyd_upload_errorMessage";
+  v688 = v781;
+  if (!v781)
   {
-    v860 = objc_msgSend_null(MEMORY[0x277CBEB68], v568, v569, v570, v571);
+    v688 = objc_msgSend_null(MEMORY[0x277CBEB68], v454, v456, v455);
   }
 
-  v915 = v860;
-  v994[32] = v860;
-  v993[33] = @"dprivacyd_upload_errorCode";
-  v861 = v962;
-  if (!v962)
+  v732 = v688;
+  v811[32] = v688;
+  v810[33] = @"dprivacyd_upload_errorCode";
+  v689 = v779;
+  if (!v779)
   {
-    v861 = objc_msgSend_null(MEMORY[0x277CBEB68], v568, v569, v570, v571);
+    v689 = objc_msgSend_null(MEMORY[0x277CBEB68], v454, v456, v455);
   }
 
-  v914 = v861;
-  v994[33] = v861;
-  v993[34] = @"timestamp";
-  v947 = v27;
-  v945 = objc_msgSend_dateToTimestampStringInMSec_(LBFUtils, v568, v27, v570, v571);
-  v994[34] = v945;
-  v993[35] = @"triald_eventSucceeded";
-  v870 = objc_msgSend_null(MEMORY[0x277CBEB68], v862, v863, v864, v865);
-  v994[35] = v870;
-  v993[36] = @"triald_eventType";
-  v871 = v957;
-  if (!v957)
+  v731 = v689;
+  v811[33] = v689;
+  v810[34] = @"timestamp";
+  v764 = v22;
+  v762 = objc_msgSend_dateToTimestampStringInMSec_(LBFUtils, v454, v456, v22);
+  v811[34] = v762;
+  v810[35] = @"triald_eventSucceeded";
+  v695 = objc_msgSend_null(MEMORY[0x277CBEB68], v690, v692, v691);
+  v811[35] = v695;
+  v810[36] = @"triald_eventType";
+  v697 = v774;
+  if (!v774)
   {
-    v871 = objc_msgSend_null(MEMORY[0x277CBEB68], v866, v867, v868, v869);
+    v697 = objc_msgSend_null(MEMORY[0x277CBEB68], v693, v696, v694);
   }
 
-  v956 = v689;
-  v994[36] = v871;
-  v993[37] = @"trialIdentifiers_BMLTIdentifiers_trialDeploymentID";
-  v872 = v690;
-  v949 = v690;
-  if (!v690)
+  v773 = v550;
+  v811[36] = v697;
+  v810[37] = @"trialIdentifiers_BMLTIdentifiers_trialDeploymentID";
+  v698 = v551;
+  v766 = v551;
+  if (!v551)
   {
-    v872 = objc_msgSend_null(MEMORY[0x277CBEB68], v866, v867, v868, v869);
+    v698 = objc_msgSend_null(MEMORY[0x277CBEB68], v693, v696, v694);
   }
 
-  v873 = v99;
-  v994[37] = v872;
-  v993[38] = @"trialIdentifiers_BMLTIdentifiers_trialTaskID";
-  v874 = v989;
-  if (!v989)
+  v699 = v79;
+  v811[37] = v698;
+  v810[38] = @"trialIdentifiers_BMLTIdentifiers_trialTaskID";
+  v700 = v806;
+  if (!v806)
   {
-    v874 = objc_msgSend_null(MEMORY[0x277CBEB68], v866, v867, v868, v869);
+    v700 = objc_msgSend_null(MEMORY[0x277CBEB68], v693, v696, v694);
   }
 
-  v994[38] = v874;
-  v993[39] = @"trialIdentifiers_experimentIdentifiers_trialDeploymentID";
-  v875 = v990;
-  if (!v990)
+  v811[38] = v700;
+  v810[39] = @"trialIdentifiers_experimentIdentifiers_trialDeploymentID";
+  v701 = v807;
+  if (!v807)
   {
-    v875 = objc_msgSend_null(MEMORY[0x277CBEB68], v866, v867, v868, v869);
+    v701 = objc_msgSend_null(MEMORY[0x277CBEB68], v693, v696, v694);
   }
 
-  v994[39] = v875;
-  v993[40] = @"trialIdentifiers_experimentIdentifiers_trialExperimentID";
-  v876 = v991;
-  if (!v991)
+  v811[39] = v701;
+  v810[40] = @"trialIdentifiers_experimentIdentifiers_trialExperimentID";
+  v702 = v808;
+  if (!v808)
   {
-    v876 = objc_msgSend_null(MEMORY[0x277CBEB68], v866, v867, v868, v869);
+    v702 = objc_msgSend_null(MEMORY[0x277CBEB68], v693, v696, v694);
   }
 
-  v994[40] = v876;
-  v993[41] = @"trialIdentifiers_experimentIdentifiers_trialTreatmentID";
-  v877 = v873;
-  if (!v873)
+  v811[40] = v702;
+  v810[41] = @"trialIdentifiers_experimentIdentifiers_trialTreatmentID";
+  v703 = v699;
+  if (!v699)
   {
-    v877 = objc_msgSend_null(MEMORY[0x277CBEB68], v866, v867, v868, v869);
+    v703 = objc_msgSend_null(MEMORY[0x277CBEB68], v693, v696, v694);
   }
 
-  v994[41] = v877;
-  v878 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v866, v994, v993, 42);
-  if (!v873)
-  {
-  }
-
-  if (!v991)
+  v811[41] = v703;
+  v704 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v693, v696, v811, v810, 42);
+  if (!v699)
   {
   }
 
-  if (!v990)
+  if (!v808)
   {
   }
 
-  if (!v989)
+  if (!v807)
   {
   }
 
-  if (!v949)
+  if (!v806)
   {
   }
 
-  if (!v957)
+  if (!v766)
   {
   }
 
-  if (!v962)
+  if (!v774)
   {
   }
 
-  v879 = v878;
-  if (!v964)
+  if (!v779)
   {
-
-    v879 = v878;
   }
 
-  if (!v967)
+  v705 = v704;
+  if (!v781)
   {
 
-    v879 = v878;
+    v705 = v704;
   }
 
-  if (!v963)
+  if (!v784)
   {
 
-    v879 = v878;
+    v705 = v704;
   }
 
-  if (!v966)
+  if (!v780)
   {
 
-    v879 = v878;
+    v705 = v704;
   }
 
-  if (!v969)
+  if (!v783)
   {
 
-    v879 = v878;
+    v705 = v704;
   }
 
-  if (v965)
+  if (!v786)
   {
-    if (v953)
+
+    v705 = v704;
+  }
+
+  if (v782)
+  {
+    if (v770)
     {
       goto LABEL_190;
     }
@@ -4217,24 +4221,24 @@ LABEL_90:
   else
   {
 
-    v879 = v878;
-    if (v953)
+    v705 = v704;
+    if (v770)
     {
       goto LABEL_190;
     }
   }
 
-  v879 = v878;
+  v705 = v704;
 LABEL_190:
-  if (!v970)
+  if (!v787)
   {
 
-    v879 = v878;
+    v705 = v704;
   }
 
-  if (v968)
+  if (v785)
   {
-    if (v954)
+    if (v771)
     {
       goto LABEL_194;
     }
@@ -4243,54 +4247,54 @@ LABEL_190:
   else
   {
 
-    v879 = v878;
-    if (v954)
+    v705 = v704;
+    if (v771)
     {
       goto LABEL_194;
     }
   }
 
-  v879 = v878;
+  v705 = v704;
 LABEL_194:
-  if (!v973)
+  if (!v790)
   {
 
-    v879 = v878;
+    v705 = v704;
   }
 
-  if (!v971)
+  if (!v788)
   {
 
-    v879 = v878;
+    v705 = v704;
   }
 
-  if (!v956)
+  if (!v773)
   {
 
-    v879 = v878;
+    v705 = v704;
   }
 
-  if (!v976)
+  if (!v793)
   {
 
-    v879 = v878;
+    v705 = v704;
   }
 
-  if (!v982)
+  if (!v799)
   {
 
-    v879 = v878;
+    v705 = v704;
   }
 
-  if (!v981)
+  if (!v798)
   {
 
-    v879 = v878;
+    v705 = v704;
   }
 
-  if (v980)
+  if (v797)
   {
-    if (v958)
+    if (v775)
     {
       goto LABEL_208;
     }
@@ -4299,56 +4303,56 @@ LABEL_194:
   else
   {
 
-    v879 = v878;
-    if (v958)
+    v705 = v704;
+    if (v775)
     {
       goto LABEL_208;
     }
   }
 
-  v879 = v878;
+  v705 = v704;
 LABEL_208:
-  if (!v987)
+  if (!v804)
   {
 
-    v879 = v878;
+    v705 = v704;
   }
 
-  if (!v986)
+  if (!v803)
   {
 
-    v879 = v878;
+    v705 = v704;
   }
 
-  if (!v985)
+  if (!v802)
   {
 
-    v879 = v878;
+    v705 = v704;
   }
 
-  if (!v984)
+  if (!v801)
   {
 
-    v879 = v878;
+    v705 = v704;
   }
 
-  if (!v983)
+  if (!v800)
   {
 
-    v879 = v878;
+    v705 = v704;
   }
 
-  if (v979)
+  if (v796)
   {
-    if (v951)
+    if (v768)
     {
       goto LABEL_220;
     }
 
 LABEL_235:
 
-    v879 = v878;
-    if (v950)
+    v705 = v704;
+    if (v767)
     {
       goto LABEL_221;
     }
@@ -4356,212 +4360,210 @@ LABEL_235:
     goto LABEL_236;
   }
 
-  v879 = v878;
-  if (!v951)
+  v705 = v704;
+  if (!v768)
   {
     goto LABEL_235;
   }
 
 LABEL_220:
-  if (v950)
+  if (v767)
   {
     goto LABEL_221;
   }
 
 LABEL_236:
 
-  v879 = v878;
+  v705 = v704;
 LABEL_221:
-  if (!v977)
+  if (!v794)
   {
 
-    v879 = v878;
+    v705 = v704;
   }
 
-  if (!v978)
+  if (!v795)
   {
 
-    v879 = v878;
+    v705 = v704;
   }
 
-  if (!v988)
+  if (!v805)
   {
 
-    v879 = v878;
-    if (v952)
+    v705 = v704;
+    if (v769)
     {
       goto LABEL_227;
     }
 
 LABEL_238:
 
-    v879 = v878;
+    v705 = v704;
     goto LABEL_227;
   }
 
-  if (!v952)
+  if (!v769)
   {
     goto LABEL_238;
   }
 
 LABEL_227:
-  v880 = v879;
-  v881 = v879;
+  v706 = v705;
+  v707 = v705;
 
-  v882 = *MEMORY[0x277D85DE8];
-  return v880;
+  return v706;
 }
 
 - (BOOL)uploadRawEventsToCoreAnalytics
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v2 = self->_bitacoraEvents;
-  v4 = objc_msgSend_countByEnumeratingWithState_objects_count_(v2, v3, &v15, v19, 16);
-  if (v4)
+  v5 = objc_msgSend_countByEnumeratingWithState_objects_count_(v2, v3, v4, &v14, v18, 16);
+  if (v5)
   {
-    v8 = v4;
-    v9 = *v16;
+    v8 = v5;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v2);
         }
 
-        v14 = objc_msgSend_getCAEventDictionaryFromBiomeEvent_(LBFBitacoraStateInfo, v5, *(*(&v15 + 1) + 8 * i), v6, v7);
-        v11 = v14;
+        v13 = objc_msgSend_getCAEventDictionaryFromBiomeEvent_(LBFBitacoraStateInfo, v6, v7, *(*(&v14 + 1) + 8 * i));
+        v11 = v13;
         AnalyticsSendEventLazy();
       }
 
-      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v2, v5, &v15, v19, 16);
+      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v2, v6, v7, &v14, v18, 16);
     }
 
     while (v8);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 - (BOOL)uploadToDedisco
 {
-  v101 = *MEMORY[0x277D85DE8];
-  v6 = objc_msgSend_getDictionaryRepresentation(self, a2, v2, v3, v4);
-  v11 = objc_msgSend_trialIdentifiers(self, v7, v8, v9, v10);
-  v16 = objc_msgSend_experimentIdentifiers(v11, v12, v13, v14, v15);
+  v88 = *MEMORY[0x277D85DE8];
+  v5 = objc_msgSend_getDictionaryRepresentation(self, a2, v3, v2);
+  v9 = objc_msgSend_trialIdentifiers(self, v6, v8, v7);
+  v13 = objc_msgSend_experimentIdentifiers(v9, v10, v12, v11);
 
-  v17 = LBFLogContextBitacoraStateInfo;
-  if (v16)
+  v14 = LBFLogContextBitacoraStateInfo;
+  if (v13)
   {
     if (os_log_type_enabled(LBFLogContextBitacoraStateInfo, OS_LOG_TYPE_INFO))
     {
       LODWORD(buf) = 138412290;
-      *(&buf + 4) = v6;
-      _os_log_impl(&dword_255ED5000, v17, OS_LOG_TYPE_INFO, "Dedisco CA Input Dictionary: %@", &buf, 0xCu);
+      *(&buf + 4) = v5;
+      _os_log_impl(&dword_255ED5000, v14, OS_LOG_TYPE_INFO, "Dedisco CA Input Dictionary: %@", &buf, 0xCu);
     }
 
-    v22 = objc_msgSend_trialIdentifiers(self, v18, v19, v20, v21);
-    v27 = objc_msgSend_experimentIdentifiers(v22, v23, v24, v25, v26);
-    v32 = objc_msgSend_trialExperimentID(v27, v28, v29, v30, v31);
+    v18 = objc_msgSend_trialIdentifiers(self, v15, v17, v16);
+    v22 = objc_msgSend_experimentIdentifiers(v18, v19, v21, v20);
+    v26 = objc_msgSend_trialExperimentID(v22, v23, v25, v24);
 
-    v37 = objc_msgSend_trialIdentifiers(self, v33, v34, v35, v36);
-    v42 = objc_msgSend_experimentIdentifiers(v37, v38, v39, v40, v41);
-    v47 = objc_msgSend_trialDeploymentID(v42, v43, v44, v45, v46);
+    v30 = objc_msgSend_trialIdentifiers(self, v27, v29, v28);
+    v34 = objc_msgSend_experimentIdentifiers(v30, v31, v33, v32);
+    v38 = objc_msgSend_trialDeploymentID(v34, v35, v37, v36);
 
-    v52 = objc_msgSend_trialIdentifiers(self, v48, v49, v50, v51);
-    v57 = objc_msgSend_experimentIdentifiers(v52, v53, v54, v55, v56);
-    v62 = objc_msgSend_trialTreatmentID(v57, v58, v59, v60, v61);
+    v42 = objc_msgSend_trialIdentifiers(self, v39, v41, v40);
+    v46 = objc_msgSend_experimentIdentifiers(v42, v43, v45, v44);
+    v50 = objc_msgSend_trialTreatmentID(v46, v47, v49, v48);
 
-    v89 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v63, @"fedstats:com.apple.insights.telemetry:dprivacyd:%@:%@:%@", v64, v65, v32, v47, v62);
-    v88 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v66, @"fedstats:com.apple.insights.telemetry:plugin_success:%@:%@:%@", v67, v68, v32, v47, v62);
-    v72 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v69, @"fedstats:com.apple.insights.telemetry:plugin_success_time_deltas:%@:%@:%@", v70, v71, v32, v47, v62);
-    v73 = LBFLogContextBitacoraStateInfo;
+    v76 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v51, v52, @"fedstats:com.apple.insights.telemetry:dprivacyd:%@:%@:%@", v26, v38, v50);
+    v75 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v53, v54, @"fedstats:com.apple.insights.telemetry:plugin_success:%@:%@:%@", v26, v38, v50);
+    v57 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v55, v56, @"fedstats:com.apple.insights.telemetry:plugin_success_time_deltas:%@:%@:%@", v26, v38, v50);
+    v58 = LBFLogContextBitacoraStateInfo;
     if (os_log_type_enabled(LBFLogContextBitacoraStateInfo, OS_LOG_TYPE_INFO))
     {
       LOWORD(buf) = 0;
-      _os_log_impl(&dword_255ED5000, v73, OS_LOG_TYPE_INFO, "Uploading to Fedstats.", &buf, 2u);
+      _os_log_impl(&dword_255ED5000, v58, OS_LOG_TYPE_INFO, "Uploading to Fedstats.", &buf, 2u);
     }
 
-    v93 = 0;
-    v94 = &v93;
-    v95 = 0x2050000000;
-    v74 = qword_27F817DF0;
-    v96 = qword_27F817DF0;
+    v80 = 0;
+    v81 = &v80;
+    v82 = 0x2050000000;
+    v59 = qword_27F817DF0;
+    v83 = qword_27F817DF0;
     if (!qword_27F817DF0)
     {
       *&buf = MEMORY[0x277D85DD0];
       *(&buf + 1) = 3221225472;
-      v98 = sub_255EE831C;
-      v99 = &unk_2798139F0;
-      v100 = &v93;
+      v85 = sub_255EE831C;
+      v86 = &unk_2798139F0;
+      v87 = &v80;
       sub_255EE831C(&buf);
-      v74 = v94[3];
+      v59 = v81[3];
     }
 
-    v75 = v74;
-    _Block_object_dispose(&v93, 8);
-    if (!v74 && os_log_type_enabled(LBFLogContextBitacoraStateInfo, OS_LOG_TYPE_DEBUG))
+    v60 = v59;
+    _Block_object_dispose(&v80, 8);
+    if (!v59 && os_log_type_enabled(LBFLogContextBitacoraStateInfo, OS_LOG_TYPE_DEBUG))
     {
       sub_255F0B07C();
     }
 
-    v92 = 0;
-    objc_msgSend_encodeDataAndRecord_dataTypeContent_baseKey_errorOut_(v74, v76, v6, &unk_2868014C0, v89, &v92);
-    v77 = v92;
+    v79 = 0;
+    objc_msgSend_encodeDataAndRecord_dataTypeContent_baseKey_errorOut_(v59, v61, v62, v5, &unk_2868014C0, v76, &v79);
+    v63 = v79;
     if (os_log_type_enabled(LBFLogContextBitacoraStateInfo, OS_LOG_TYPE_DEBUG))
     {
       sub_255F0B0BC();
     }
 
-    if (v77)
+    if (v63)
     {
-      v79 = LBFLogContextBitacoraStateInfo;
+      v66 = LBFLogContextBitacoraStateInfo;
       if (os_log_type_enabled(LBFLogContextBitacoraStateInfo, OS_LOG_TYPE_ERROR))
       {
-        sub_255F0B148(v79, v77);
+        sub_255F0B148(v66, v63);
       }
     }
 
-    v91 = v77;
-    objc_msgSend_encodeDataAndRecord_dataTypeContent_baseKey_errorOut_(v74, v78, v6, &unk_2868016A0, v88, &v91);
-    v80 = v91;
+    v78 = v63;
+    objc_msgSend_encodeDataAndRecord_dataTypeContent_baseKey_errorOut_(v59, v64, v65, v5, &unk_2868016A0, v75, &v78);
+    v67 = v78;
 
     if (os_log_type_enabled(LBFLogContextBitacoraStateInfo, OS_LOG_TYPE_DEBUG))
     {
       sub_255F0B1FC();
     }
 
-    if (v80)
+    if (v67)
     {
-      v82 = LBFLogContextBitacoraStateInfo;
+      v70 = LBFLogContextBitacoraStateInfo;
       if (os_log_type_enabled(LBFLogContextBitacoraStateInfo, OS_LOG_TYPE_ERROR))
       {
-        sub_255F0B288(v82, v80);
+        sub_255F0B288(v70, v67);
       }
     }
 
-    v90 = v80;
-    objc_msgSend_encodeDataAndRecord_dataTypeContent_baseKey_errorOut_(v74, v81, v6, &unk_286801880, v72, &v90);
-    v83 = v90;
+    v77 = v67;
+    objc_msgSend_encodeDataAndRecord_dataTypeContent_baseKey_errorOut_(v59, v68, v69, v5, &unk_286801880, v57, &v77);
+    v71 = v77;
 
     if (os_log_type_enabled(LBFLogContextBitacoraStateInfo, OS_LOG_TYPE_DEBUG))
     {
       sub_255F0B33C();
     }
 
-    v84 = v83 == 0;
-    if (v83)
+    v72 = v71 == 0;
+    if (v71)
     {
-      v85 = LBFLogContextBitacoraStateInfo;
+      v73 = LBFLogContextBitacoraStateInfo;
       if (os_log_type_enabled(LBFLogContextBitacoraStateInfo, OS_LOG_TYPE_ERROR))
       {
-        sub_255F0B3C8(v85, v83);
+        sub_255F0B3C8(v73, v71);
       }
 
       if (os_log_type_enabled(LBFLogContextBitacoraStateInfo, OS_LOG_TYPE_DEBUG))
@@ -4575,14 +4577,13 @@ LABEL_227:
   {
     if (os_log_type_enabled(LBFLogContextBitacoraStateInfo, OS_LOG_TYPE_ERROR))
     {
-      sub_255F0B4BC(v17);
+      sub_255F0B4BC(v14);
     }
 
-    v84 = 0;
+    v72 = 0;
   }
 
-  v86 = *MEMORY[0x277D85DE8];
-  return v84;
+  return v72;
 }
 
 @end

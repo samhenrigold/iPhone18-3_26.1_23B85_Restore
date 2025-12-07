@@ -27,12 +27,12 @@
   equalCopy = equal;
   objc_opt_class();
   v5 = TSUDynamicCast();
-  v10 = v5;
-  if (v5 && (style = self->_style, objc_msgSend_style(v5, v6, v7, v8, v9), v12 = objc_claimAutoreleasedReturnValue(), v12, style == v12))
+  v9 = v5;
+  if (v5 && (style = self->_style, objc_msgSend_style(v5, v6, v7, v8), v11 = objc_claimAutoreleasedReturnValue(), v11, style == v11))
   {
     propertyMap = self->_propertyMap;
-    v19 = objc_msgSend_propertyMap(v10, v13, v14, v15, v16);
-    isEqualToPropertyMap = objc_msgSend_isEqualToPropertyMap_(propertyMap, v20, v19, v21, v22);
+    v17 = objc_msgSend_propertyMap(v9, v12, v13, v14);
+    isEqualToPropertyMap = objc_msgSend_isEqualToPropertyMap_(propertyMap, v18, v17, v19);
   }
 
   else

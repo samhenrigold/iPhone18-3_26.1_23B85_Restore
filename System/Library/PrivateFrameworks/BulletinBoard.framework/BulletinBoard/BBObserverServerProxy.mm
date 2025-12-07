@@ -55,113 +55,111 @@
 
 void __37__BBObserverServerProxy_xpcInterface__block_invoke()
 {
-  v67[1] = *MEMORY[0x277D85DE8];
+  v66[1] = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_2854410D0];
   v1 = xpcInterface___interface_1;
   xpcInterface___interface_1 = v0;
 
   v2 = xpcInterface___interface_1;
   v3 = MEMORY[0x277CBEB98];
-  v67[0] = objc_opt_class();
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v67 count:1];
+  v66[0] = objc_opt_class();
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v66 count:1];
   v5 = [v3 setWithArray:v4];
   [v2 setClasses:v5 forSelector:sel_clearSection_ argumentIndex:0 ofReply:0];
 
   v6 = xpcInterface___interface_1;
   v7 = MEMORY[0x277CBEB98];
-  v66 = objc_opt_class();
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v66 count:1];
+  v65 = objc_opt_class();
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v65 count:1];
   v9 = [v7 setWithArray:v8];
   [v6 setClasses:v9 forSelector:sel_clearBulletinsFromDate_toDate_inSections_ argumentIndex:0 ofReply:0];
 
   v10 = xpcInterface___interface_1;
   v11 = MEMORY[0x277CBEB98];
-  v65 = objc_opt_class();
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v65 count:1];
+  v64 = objc_opt_class();
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v64 count:1];
   v13 = [v11 setWithArray:v12];
   [v10 setClasses:v13 forSelector:sel_clearBulletinsFromDate_toDate_inSections_ argumentIndex:1 ofReply:0];
 
   v14 = xpcInterface___interface_1;
   v15 = MEMORY[0x277CBEB98];
-  v64[0] = objc_opt_class();
-  v64[1] = objc_opt_class();
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v64 count:2];
+  v63[0] = objc_opt_class();
+  v63[1] = objc_opt_class();
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v63 count:2];
   v17 = [v15 setWithArray:v16];
   [v14 setClasses:v17 forSelector:sel_clearBulletinsFromDate_toDate_inSections_ argumentIndex:2 ofReply:0];
 
   v18 = xpcInterface___interface_1;
   v19 = MEMORY[0x277CBEB98];
-  v63[0] = objc_opt_class();
-  v63[1] = objc_opt_class();
-  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v63 count:2];
+  v62[0] = objc_opt_class();
+  v62[1] = objc_opt_class();
+  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v62 count:2];
   v21 = [v19 setWithArray:v20];
   [v18 setClasses:v21 forSelector:sel_clearBulletinIDs_inSection_ argumentIndex:0 ofReply:0];
 
   v22 = xpcInterface___interface_1;
   v23 = MEMORY[0x277CBEB98];
-  v62[0] = objc_opt_class();
-  v62[1] = objc_opt_class();
-  v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v62 count:2];
+  v61[0] = objc_opt_class();
+  v61[1] = objc_opt_class();
+  v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v61 count:2];
   v25 = [v23 setWithArray:v24];
   [v22 setClasses:v25 forSelector:sel_clearBulletinIDs_inSection_ argumentIndex:0 ofReply:0];
 
   v26 = xpcInterface___interface_1;
   v27 = MEMORY[0x277CBEB98];
-  v61[0] = objc_opt_class();
-  v61[1] = objc_opt_class();
-  v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v61 count:2];
+  v60[0] = objc_opt_class();
+  v60[1] = objc_opt_class();
+  v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v60 count:2];
   v29 = [v27 setWithArray:v28];
   [v26 setClasses:v29 forSelector:sel_removeBulletins_inSection_fromFeeds_ argumentIndex:0 ofReply:0];
 
   v30 = xpcInterface___interface_1;
   v31 = MEMORY[0x277CBEB98];
-  v60[0] = objc_opt_class();
-  v60[1] = objc_opt_class();
-  v32 = [MEMORY[0x277CBEA60] arrayWithObjects:v60 count:2];
+  v59[0] = objc_opt_class();
+  v59[1] = objc_opt_class();
+  v32 = [MEMORY[0x277CBEA60] arrayWithObjects:v59 count:2];
   v33 = [v31 setWithArray:v32];
   [v30 setClasses:v33 forSelector:sel_getSectionInfoWithHandler_ argumentIndex:0 ofReply:1];
 
   v34 = xpcInterface___interface_1;
   v35 = MEMORY[0x277CBEB98];
-  v59[0] = objc_opt_class();
-  v59[1] = objc_opt_class();
-  v36 = [MEMORY[0x277CBEA60] arrayWithObjects:v59 count:2];
+  v58[0] = objc_opt_class();
+  v58[1] = objc_opt_class();
+  v36 = [MEMORY[0x277CBEA60] arrayWithObjects:v58 count:2];
   v37 = [v35 setWithArray:v36];
   [v34 setClasses:v37 forSelector:sel_getSectionInfoForActiveSectionsWithHandler_ argumentIndex:0 ofReply:1];
 
   v38 = xpcInterface___interface_1;
   v39 = MEMORY[0x277CBEB98];
-  v58[0] = objc_opt_class();
-  v58[1] = objc_opt_class();
-  v40 = [MEMORY[0x277CBEA60] arrayWithObjects:v58 count:2];
+  v57[0] = objc_opt_class();
+  v57[1] = objc_opt_class();
+  v40 = [MEMORY[0x277CBEA60] arrayWithObjects:v57 count:2];
   v41 = [v39 setWithArray:v40];
   [v38 setClasses:v41 forSelector:sel_getSectionInfoForSectionIDs_withHandler_ argumentIndex:0 ofReply:0];
 
   v42 = xpcInterface___interface_1;
   v43 = MEMORY[0x277CBEB98];
-  v57[0] = objc_opt_class();
-  v57[1] = objc_opt_class();
-  v44 = [MEMORY[0x277CBEA60] arrayWithObjects:v57 count:2];
+  v56[0] = objc_opt_class();
+  v56[1] = objc_opt_class();
+  v44 = [MEMORY[0x277CBEA60] arrayWithObjects:v56 count:2];
   v45 = [v43 setWithArray:v44];
   [v42 setClasses:v45 forSelector:sel_getSectionInfoForSectionIDs_withHandler_ argumentIndex:0 ofReply:1];
 
   v46 = xpcInterface___interface_1;
   v47 = MEMORY[0x277CBEB98];
-  v56[0] = objc_opt_class();
-  v56[1] = objc_opt_class();
-  v48 = [MEMORY[0x277CBEA60] arrayWithObjects:v56 count:2];
+  v55[0] = objc_opt_class();
+  v55[1] = objc_opt_class();
+  v48 = [MEMORY[0x277CBEA60] arrayWithObjects:v55 count:2];
   v49 = [v47 setWithArray:v48];
   [v46 setClasses:v49 forSelector:sel_getBulletinsForPublisherMatchIDs_sectionID_withHandler_ argumentIndex:0 ofReply:1];
 
   v50 = xpcInterface___interface_1;
   v51 = MEMORY[0x277CBEB98];
-  v55[0] = objc_opt_class();
-  v55[1] = objc_opt_class();
-  v52 = [MEMORY[0x277CBEA60] arrayWithObjects:v55 count:2];
+  v54[0] = objc_opt_class();
+  v54[1] = objc_opt_class();
+  v52 = [MEMORY[0x277CBEA60] arrayWithObjects:v54 count:2];
   v53 = [v51 setWithArray:v52];
   [v50 setClasses:v53 forSelector:sel_getBulletinsWithHandler_ argumentIndex:0 ofReply:1];
-
-  v54 = *MEMORY[0x277D85DE8];
 }
 
 - (BBObserverServerProxy)initWithObserver:(id)observer connection:(id)connection queue:(id)queue calloutQueue:(id)calloutQueue
@@ -225,27 +223,25 @@ void __37__BBObserverServerProxy_xpcInterface__block_invoke()
 
 void __72__BBObserverServerProxy_initWithObserver_connection_queue_calloutQueue___block_invoke(uint64_t a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
     v2 = BBLogConnection;
     if (os_log_type_enabled(BBLogConnection, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = 138543362;
-      v5 = WeakRetained;
-      _os_log_impl(&dword_241EFF000, v2, OS_LOG_TYPE_DEFAULT, "BBObserverServerProxy (%{public}@) connection invalidated", &v4, 0xCu);
+      v3 = 138543362;
+      v4 = WeakRetained;
+      _os_log_impl(&dword_241EFF000, v2, OS_LOG_TYPE_DEFAULT, "BBObserverServerProxy (%{public}@) connection invalidated", &v3, 0xCu);
     }
 
     WeakRetained[4] = 0;
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void __72__BBObserverServerProxy_initWithObserver_connection_queue_calloutQueue___block_invoke_62(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
@@ -253,7 +249,7 @@ void __72__BBObserverServerProxy_initWithObserver_connection_queue_calloutQueue_
     if (os_log_type_enabled(BBLogConnection, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v8 = WeakRetained;
+      v7 = WeakRetained;
       _os_log_impl(&dword_241EFF000, v2, OS_LOG_TYPE_DEFAULT, "BBObserverServerProxy (%{public}@) connection interrupted", buf, 0xCu);
     }
 
@@ -263,11 +259,9 @@ void __72__BBObserverServerProxy_initWithObserver_connection_queue_calloutQueue_
     block[1] = 3221225472;
     block[2] = __72__BBObserverServerProxy_initWithObserver_connection_queue_calloutQueue___block_invoke_63;
     block[3] = &unk_278D2A600;
-    v6 = WeakRetained;
+    v5 = WeakRetained;
     dispatch_async(v3, block);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __72__BBObserverServerProxy_initWithObserver_connection_queue_calloutQueue___block_invoke_63(uint64_t a1)
@@ -331,26 +325,24 @@ void __75__BBObserverServerProxy_setObserverFeed_asLightsAndSirensGateway_priori
 
 - (void)setObserverOptions:(unint64_t)options
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = BBLogConnection;
   if (os_log_type_enabled(BBLogConnection, OS_LOG_TYPE_DEFAULT))
   {
     connection = self->_connection;
     v7 = v5;
     remoteObjectProxy = [(NSXPCConnection *)connection remoteObjectProxy];
-    v11 = 138543874;
+    v10 = 138543874;
     selfCopy = self;
-    v13 = 2114;
-    v14 = connection;
-    v15 = 2114;
-    v16 = remoteObjectProxy;
-    _os_log_impl(&dword_241EFF000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ setObserverOptions: _connection: %{public}@ remoteObjectProxy: %{public}@", &v11, 0x20u);
+    v12 = 2114;
+    v13 = connection;
+    v14 = 2114;
+    v15 = remoteObjectProxy;
+    _os_log_impl(&dword_241EFF000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ setObserverOptions: _connection: %{public}@ remoteObjectProxy: %{public}@", &v10, 0x20u);
   }
 
   remoteObjectProxy2 = [(NSXPCConnection *)self->_connection remoteObjectProxy];
   [remoteObjectProxy2 setObserverOptions:options];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleResponse:(id)response withCompletion:(id)completion
@@ -372,44 +364,42 @@ void __75__BBObserverServerProxy_setObserverFeed_asLightsAndSirensGateway_priori
 
 void __55__BBObserverServerProxy_handleResponse_withCompletion___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = BBLogConnection;
   if (os_log_type_enabled(BBLogConnection, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
     *buf = 138543618;
-    v11 = v3;
-    v12 = 2114;
-    v13 = v4;
+    v10 = v3;
+    v11 = 2114;
+    v12 = v4;
     _os_log_impl(&dword_241EFF000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ handling response %{public}@", buf, 0x16u);
   }
 
   v5 = [*(*(a1 + 32) + 24) remoteObjectProxy];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __55__BBObserverServerProxy_handleResponse_withCompletion___block_invoke_66;
-  v8[3] = &unk_278D2A8B0;
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __55__BBObserverServerProxy_handleResponse_withCompletion___block_invoke_66;
+  v7[3] = &unk_278D2A8B0;
   v6 = *(a1 + 40);
-  v8[4] = *(a1 + 32);
-  v9 = *(a1 + 48);
-  [v5 handleResponse:v6 withCompletion:v8];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7[4] = *(a1 + 32);
+  v8 = *(a1 + 48);
+  [v5 handleResponse:v6 withCompletion:v7];
 }
 
 void __55__BBObserverServerProxy_handleResponse_withCompletion___block_invoke_66(uint64_t a1, int a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = BBLogConnection;
   if (os_log_type_enabled(BBLogConnection, OS_LOG_TYPE_DEFAULT))
   {
     v7 = *(a1 + 32);
     *buf = 138543618;
-    v16 = v7;
-    v17 = 1024;
-    v18 = a2;
+    v15 = v7;
+    v16 = 1024;
+    v17 = a2;
     _os_log_impl(&dword_241EFF000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ response handling completed with success %d", buf, 0x12u);
   }
 
@@ -421,13 +411,11 @@ void __55__BBObserverServerProxy_handleResponse_withCompletion___block_invoke_66
     block[1] = 3221225472;
     block[2] = __55__BBObserverServerProxy_handleResponse_withCompletion___block_invoke_67;
     block[3] = &unk_278D2C260;
-    v13 = v8;
-    v14 = a2;
-    v12 = v5;
+    v12 = v8;
+    v13 = a2;
+    v11 = v5;
     dispatch_async(v9, block);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)finishedWithBulletinID:(id)d transactionID:(unint64_t)iD

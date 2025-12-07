@@ -39,9 +39,9 @@ flatbuffers::DetachedBuffer *__49__QSSStartMultilingualSpeechRequest_flatbuffDat
 
 - (Offset<siri::speech::schema_fb::StartMultilingualSpeechRequest>)addObjectToBuffer:(void *)buffer
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   start_speech_request = [(QSSStartMultilingualSpeechRequest *)self start_speech_request];
-  v16 = [start_speech_request addObjectToBuffer:buffer];
+  v14 = [start_speech_request addObjectToBuffer:buffer];
 
   language_parameters_by_id = [(QSSStartMultilingualSpeechRequest *)self language_parameters_by_id];
   v7 = [language_parameters_by_id count];
@@ -55,16 +55,11 @@ flatbuffers::DetachedBuffer *__49__QSSStartMultilingualSpeechRequest_flatbuffDat
     std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::__throw_length_error[abi:ne200100]();
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
-  v19 = 0u;
+  memset(v16, 0, sizeof(v16));
   obj = [(QSSStartMultilingualSpeechRequest *)self language_parameters_by_id];
-  if ([obj countByEnumeratingWithState:&v18 objects:v22 count:16])
+  if ([obj countByEnumeratingWithState:v16 objects:v17 count:16])
   {
-    *v19;
-    *v19;
-    [**(&v18 + 1) addObjectToBuffer:buffer];
+    [**(&v16[0] + 1) addObjectToBuffer:buffer];
     std::__allocate_at_least[abi:ne200100]<std::allocator<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>>(1uLL);
   }
 
@@ -75,16 +70,14 @@ flatbuffers::DetachedBuffer *__49__QSSStartMultilingualSpeechRequest_flatbuffDat
   v9 = *(buffer + 8);
   v10 = *(buffer + 12);
   v11 = *(buffer + 10);
-  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 4, v16);
+  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 4, v14);
   if (v8)
   {
     v12 = flatbuffers::FlatBufferBuilder::ReferTo(buffer, v8);
     flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(buffer, 6, v12);
   }
 
-  v13.var0 = flatbuffers::FlatBufferBuilder::EndTable(buffer, v9 - v10 + v11);
-  v14 = *MEMORY[0x277D85DE8];
-  return v13;
+  return flatbuffers::FlatBufferBuilder::EndTable(buffer, v9 - v10 + v11);
 }
 
 - (NSArray)language_parameters_by_id

@@ -9,6 +9,7 @@
 - (id)stringForKey:(id)key defaultValue:(id)value;
 - (int64_t)integerForKey:(id)key defaultValue:(int64_t)value;
 - (unint64_t)unsignedIntegerForKey:(id)key defaultValue:(unint64_t)value;
+- (void)setBool:(BOOL)bool forKey:(id)key;
 - (void)setInteger:(int64_t)integer forKey:(id)key;
 - (void)setPreferencesValue:(id)value forKey:(id)key;
 - (void)setPreferencesValue:(id)value forKey:(id)key domain:(id)domain;
@@ -31,9 +32,11 @@
 
 uint64_t __32__TPSPreferences_sharedInstance__block_invoke()
 {
-  sharedInstance_sPreferences = objc_alloc_init(TPSPreferences);
+  v0 = objc_alloc_init(TPSPreferences);
+  v1 = sharedInstance_sPreferences;
+  sharedInstance_sPreferences = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (TPSPreferences)init
@@ -103,6 +106,15 @@ uint64_t __32__TPSPreferences_sharedInstance__block_invoke()
   }
 
   return value;
+}
+
+- (void)setBool:(BOOL)bool forKey:(id)key
+{
+  boolCopy = bool;
+  v6 = MEMORY[0x277CCABB0];
+  keyCopy = key;
+  v8 = [v6 numberWithBool:boolCopy];
+  [(TPSPreferences *)self setNumber:v8 forKey:keyCopy];
 }
 
 - (id)numberForKey:(id)key defaultValue:(id)value

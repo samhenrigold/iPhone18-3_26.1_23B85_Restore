@@ -167,7 +167,7 @@
     }
 
     v7 = v6;
-    v8 = (isKindOfClass & 1) != 0 && [(NSString *)self->_passUniqueIdentifier isEqualToString:equalCopy->_passUniqueIdentifier]&& [(PKExpressPassInformation *)self->_passInformation isEqual:equalCopy->_passInformation]&& self->_isNFCExpressEnabled == equalCopy->_isNFCExpressEnabled && self->_isUWBExpressEnabled == equalCopy->_isUWBExpressEnabled;
+    v8 = (isKindOfClass & 1) != 0 && objc_msgSend_isEqualToString_(self->_passUniqueIdentifier) && [(PKExpressPassInformation *)self->_passInformation isEqual:equalCopy->_passInformation]&& self->_isNFCExpressEnabled == equalCopy->_isNFCExpressEnabled && self->_isUWBExpressEnabled == equalCopy->_isUWBExpressEnabled;
   }
 
   return v8;

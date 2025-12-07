@@ -254,15 +254,15 @@
 {
   if (encoding && MEMORY[0x1DA6E0380](encoding, a2) == MEMORY[0x1E69E9E80])
   {
-    v7.receiver = self;
-    v7.super_class = SSItemArtworkImage;
-    v5 = [(SSItemArtworkImage *)&v7 init];
+    v9.receiver = self;
+    v9.super_class = SSItemArtworkImage;
+    v5 = [(SSItemArtworkImage *)&v9 init];
     if (v5)
     {
-      objc_opt_class();
-      v5->_dictionary = SSXPCDictionaryCopyCFObjectWithClass(encoding, "0");
-      objc_opt_class();
-      v5->_imageKind = SSXPCDictionaryCopyCFObjectWithClass(encoding, "1");
+      v7 = objc_opt_class();
+      v5->_dictionary = SSXPCDictionaryCopyCFObjectWithClass(encoding, "0", v7);
+      v8 = objc_opt_class();
+      v5->_imageKind = SSXPCDictionaryCopyCFObjectWithClass(encoding, "1", v8);
     }
   }
 

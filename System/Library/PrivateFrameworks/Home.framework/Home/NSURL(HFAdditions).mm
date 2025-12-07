@@ -365,7 +365,7 @@
 
 + (id)hf_appStoreURLForBundleIdentifier:()HFAdditions
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCACE0];
   v4 = a3;
   v5 = objc_alloc_init(v3);
@@ -373,13 +373,11 @@
   [v5 setHost:&stru_2824B1A78];
   v6 = [MEMORY[0x277CCAD18] queryItemWithName:@"bundleIdentifier" value:v4];
 
-  v11[0] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+  v10[0] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
   [v5 setQueryItems:v7];
 
   v8 = [v5 URL];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

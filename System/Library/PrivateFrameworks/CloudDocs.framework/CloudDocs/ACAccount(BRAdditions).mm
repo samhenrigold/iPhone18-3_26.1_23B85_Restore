@@ -3,8 +3,8 @@
 - (__CFString)br_personaIdentifier;
 - (id)br_volumeUUID;
 - (uint64_t)br_isEligibleiCloudAccount;
-- (uint64_t)br_isEnabledForCloudDocs;
-- (uint64_t)br_isEnabledForUbiquity;
+- (void)br_isEnabledForCloudDocs;
+- (void)br_isEnabledForUbiquity;
 - (void)br_setEnabledForiCloudDesktop:()BRAdditions;
 @end
 
@@ -27,7 +27,7 @@
   [self setProperties:dictionary forDataclass:v5];
 }
 
-- (uint64_t)br_isEnabledForCloudDocs
+- (void)br_isEnabledForCloudDocs
 {
   result = [self isEnabledForDataclass:*MEMORY[0x1E6959B58]];
   if (result)
@@ -39,12 +39,12 @@
   return result;
 }
 
-- (uint64_t)br_isEnabledForUbiquity
+- (void)br_isEnabledForUbiquity
 {
   result = [self isEnabledForDataclass:*MEMORY[0x1E6959B58]];
   if (result)
   {
-    return [self aa_isUsingCloudDocs] ^ 1;
+    return ([self aa_isUsingCloudDocs] ^ 1);
   }
 
   return result;

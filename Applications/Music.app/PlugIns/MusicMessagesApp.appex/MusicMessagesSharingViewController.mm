@@ -51,7 +51,7 @@
 - (void)traitCollectionDidChange:(id)change
 {
   v9.receiver = self;
-  v9.super_class = type metadata accessor for MusicMessagesSharingViewController();
+  v9.super_class = type metadata accessor for MusicMessagesSharingViewController(0);
   v4 = v9.receiver;
   changeCopy = change;
   [(MusicMessagesSharingViewController *)&v9 traitCollectionDidChange:changeCopy];
@@ -88,7 +88,7 @@
 {
   appearCopy = appear;
   v5.receiver = self;
-  v5.super_class = type metadata accessor for MusicMessagesSharingViewController();
+  v5.super_class = type metadata accessor for MusicMessagesSharingViewController(0);
   v4 = v5.receiver;
   [(MusicMessagesSharingViewController *)&v5 viewWillAppear:appearCopy];
   sub_10000BB34();
@@ -111,7 +111,7 @@
   height = size.height;
   width = size.width;
   v12.receiver = self;
-  v12.super_class = type metadata accessor for MusicMessagesSharingViewController();
+  v12.super_class = type metadata accessor for MusicMessagesSharingViewController(0);
   swift_unknownObjectRetain();
   v7 = v12.receiver;
   [(MusicMessagesSharingViewController *)&v12 viewWillTransitionToSize:coordinator withTransitionCoordinator:width, height];
@@ -168,12 +168,12 @@ LABEL_3:
 {
   v6 = sub_1004D85FC();
   v7 = *(v6 - 8);
-  __chkstk_darwin(v6);
+  __chkstk_darwin();
   v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1004D858C();
   viewCopy = view;
   selfCopy = self;
-  v12 = sub_10000A548();
+  v12 = sub_10000A548(viewCopy, v9);
 
   (*(v7 + 8))(v9, v6);
 
@@ -184,12 +184,12 @@ LABEL_3:
 {
   v7 = sub_1004D85FC();
   v8 = *(v7 - 8);
-  __chkstk_darwin(v7);
+  __chkstk_darwin();
   v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1004D858C();
   viewCopy = view;
   selfCopy = self;
-  v13 = sub_10000EB38();
+  v13 = sub_10000EB38(viewCopy, v10);
 
   (*(v8 + 8))(v10, v7);
 
@@ -200,7 +200,7 @@ LABEL_3:
 {
   v5 = sub_1004D85FC();
   v6 = *(v5 - 8);
-  __chkstk_darwin(v5);
+  __chkstk_darwin();
   v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1004D858C();
   v9 = *(v6 + 8);
@@ -215,12 +215,12 @@ LABEL_3:
 {
   v6 = sub_1004D85FC();
   v7 = *(v6 - 8);
-  __chkstk_darwin(v6);
+  __chkstk_darwin();
   v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1004D858C();
   viewCopy = view;
   selfCopy = self;
-  LOBYTE(self) = sub_10000ED1C();
+  LOBYTE(self) = sub_10000ED1C(v9);
 
   (*(v7 + 8))(v9, v6);
   return self & 1;
@@ -230,7 +230,7 @@ LABEL_3:
 {
   v6 = sub_1004D85FC();
   v7 = *(v6 - 8);
-  __chkstk_darwin(v6);
+  __chkstk_darwin();
   v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1004D858C();
   viewCopy = view;
@@ -244,7 +244,7 @@ LABEL_3:
 {
   v8 = sub_1004D85FC();
   v9 = *(v8 - 8);
-  __chkstk_darwin(v8);
+  __chkstk_darwin();
   v11 = &v20 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1004D858C();
   viewCopy = view;

@@ -191,7 +191,7 @@ LABEL_15:
 
 void __120__EDBusinessChatServicesBusinessesGrouping_startBusinessConnectGroupingWithCancelationToken_progressHandler_completion___block_invoke_7(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -217,31 +217,29 @@ void __120__EDBusinessChatServicesBusinessesGrouping_startBusinessConnectGroupin
     if ([*(*(*(a1 + 64) + 8) + 40) count] >= 0xA)
     {
       *buf = 0;
-      v25 = buf;
-      v26 = 0x3032000000;
-      v27 = __Block_byref_object_copy__1;
-      v28 = __Block_byref_object_dispose__1;
-      v29 = [MEMORY[0x1E699B868] promise];
+      v24 = buf;
+      v25 = 0x3032000000;
+      v26 = __Block_byref_object_copy__1;
+      v27 = __Block_byref_object_dispose__1;
+      v28 = [MEMORY[0x1E699B868] promise];
       v13 = *(a1 + 32);
-      v14 = [*(v25 + 5) future];
+      v14 = [*(v24 + 5) future];
       [v13 addObject:v14];
 
       v15 = *(a1 + 40);
       v16 = *(*(*(a1 + 64) + 8) + 40);
-      v18 = MEMORY[0x1E69E9820];
-      v19 = 3221225472;
-      v20 = __120__EDBusinessChatServicesBusinessesGrouping_startBusinessConnectGroupingWithCancelationToken_progressHandler_completion___block_invoke_9;
-      v21 = &unk_1E8250BB8;
-      v22 = *(a1 + 56);
-      v23 = buf;
-      [v15 _fetchBusinessMetadataForAddresses:v16 progressHandler:&v18];
+      v17 = MEMORY[0x1E69E9820];
+      v18 = 3221225472;
+      v19 = __120__EDBusinessChatServicesBusinessesGrouping_startBusinessConnectGroupingWithCancelationToken_progressHandler_completion___block_invoke_9;
+      v20 = &unk_1E8250BB8;
+      v21 = *(a1 + 56);
+      v22 = buf;
+      [v15 _fetchBusinessMetadataForAddresses:v16 progressHandler:&v17];
       [*(*(*(a1 + 64) + 8) + 40) removeAllObjects];
 
       _Block_object_dispose(buf, 8);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __120__EDBusinessChatServicesBusinessesGrouping_startBusinessConnectGroupingWithCancelationToken_progressHandler_completion___block_invoke_9(uint64_t a1)
@@ -276,7 +274,7 @@ uint64_t __120__EDBusinessChatServicesBusinessesGrouping_startBusinessConnectGro
 
 - (void)_fetchBusinessMetadataForAddresses:(id)addresses progressHandler:(id)handler
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   addressesCopy = addresses;
   handlerCopy = handler;
   businessConnectGroupingQueue = [(EDBusinessChatServicesBusinessesGrouping *)self businessConnectGroupingQueue];
@@ -289,57 +287,53 @@ uint64_t __120__EDBusinessChatServicesBusinessesGrouping_startBusinessConnectGro
   {
     allValues = [v10 allValues];
     *buf = 138543362;
-    v30 = allValues;
+    v29 = allValues;
     _os_log_impl(&dword_1C61EF000, v11, OS_LOG_TYPE_DEFAULT, "Fetching Business Connect metadata for addresses: %{public}@", buf, 0xCu);
   }
 
   businessPersistence = [(EDBusinessChatServicesBusinessesGrouping *)self businessPersistence];
-  v21 = MEMORY[0x1E69E9820];
-  v22 = 3221225472;
-  v23 = __95__EDBusinessChatServicesBusinessesGrouping__fetchBusinessMetadataForAddresses_progressHandler___block_invoke;
-  v24 = &unk_1E8250C80;
+  v20 = MEMORY[0x1E69E9820];
+  v21 = 3221225472;
+  v22 = __95__EDBusinessChatServicesBusinessesGrouping__fetchBusinessMetadataForAddresses_progressHandler___block_invoke;
+  v23 = &unk_1E8250C80;
   v14 = v10;
-  v25 = v14;
+  v24 = v14;
   v15 = v9;
-  v26 = v15;
+  v25 = v15;
   selfCopy = self;
   v16 = handlerCopy;
-  v28 = v16;
-  [businessPersistence fetchBusinessMetadataForAddresses:v14 completionHandler:&v21];
+  v27 = v16;
+  [businessPersistence fetchBusinessMetadataForAddresses:v14 completionHandler:&v20];
 
   v17 = dispatch_time(0, 5000000000);
   if (dispatch_semaphore_wait(v15, v17))
   {
-    v18 = [EDBusinessChatServicesBusinessesGrouping log:v21];
+    v18 = [EDBusinessChatServicesBusinessesGrouping log:v20];
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       allValues2 = [v14 allValues];
       [(EDBusinessChatServicesBusinessesGrouping *)allValues2 _fetchBusinessMetadataForAddresses:buf progressHandler:v18];
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __95__EDBusinessChatServicesBusinessesGrouping__fetchBusinessMetadataForAddresses_progressHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = +[EDBusinessChatServicesBusinessesGrouping log];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [*(a1 + 32) count];
-    v8 = 134218240;
-    v9 = a2;
-    v10 = 2048;
-    v11 = v5;
-    _os_log_impl(&dword_1C61EF000, v4, OS_LOG_TYPE_DEFAULT, "Updated %ld/%ld addresses with Business Connect.", &v8, 0x16u);
+    v7 = 134218240;
+    v8 = a2;
+    v9 = 2048;
+    v10 = v5;
+    _os_log_impl(&dword_1C61EF000, v4, OS_LOG_TYPE_DEFAULT, "Updated %ld/%ld addresses with Business Connect.", &v7, 0x16u);
   }
 
   dispatch_semaphore_signal(*(a1 + 40));
   [*(a1 + 48) setAddressesChecked:{objc_msgSend(*(a1 + 48), "addressesChecked") + objc_msgSend(*(a1 + 32), "count")}];
-  result = (*(*(a1 + 56) + 16))(*(a1 + 56), [*(a1 + 48) addressesChecked], objc_msgSend(*(a1 + 48), "addressesToCheck"));
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 56) + 16))(*(a1 + 56), [*(a1 + 48) addressesChecked], objc_msgSend(*(a1 + 48), "addressesToCheck"));
 }
 
 void __120__EDBusinessChatServicesBusinessesGrouping_startBusinessConnectGroupingWithCancelationToken_progressHandler_completion___block_invoke_7_cold_1(void *a1, uint8_t *buf, os_log_t log)

@@ -15,22 +15,22 @@
 
 - (void)setSelected:(BOOL)selected
 {
+  selectedCopy = selected;
   selfCopy = self;
-  sub_29D79B948(selected);
+  sub_29D79B948(selectedCopy, selfCopy);
 }
 
 - (void)_bridgedUpdateConfigurationUsingState:(id)state
 {
   v4 = sub_29D937998();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x2A1C7C4A8](v4, v7);
-  v9 = &v11 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x2A1C7C4A8](v4, v6);
+  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_29D937988();
   selfCopy = self;
   sub_29D79C80C();
 
-  (*(v5 + 8))(v9, v4);
+  (*(v5 + 8))(v8, v4);
 }
 
 @end

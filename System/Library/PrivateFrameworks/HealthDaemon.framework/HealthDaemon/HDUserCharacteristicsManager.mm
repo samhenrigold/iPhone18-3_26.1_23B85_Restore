@@ -4,10 +4,10 @@
 - (double)restingCaloriesFromTotalCalories:(double)calories timeInterval:(double)interval authorizedToRead:(BOOL)read;
 - (id)_getCardioFitnessMedicationsStatusWithError:(void *)error;
 - (id)_mostRecentSampleOfType:(void *)type beforeDate:(uint64_t)date error:;
+- (id)_queue_updateCharacteristicsAndUserProfileWithDelay;
 - (id)_userCharacteristicForType:(uint64_t)type entity:(uint64_t)entity error:;
 - (id)diagnosticDescription;
 - (id)modificationDateForCharacteristicWithType:(id)type error:(id *)error;
-- (uint64_t)_queue_updateCharacteristicsAndUserProfileWithDelay;
 - (void)_queue_updateCharacteristicsAndUserProfile;
 - (void)_queue_updateCharacteristicsAndUserProfileWithDate:(uint64_t)date;
 - (void)_queue_updateFitnessModeDefaultAndNotifyIfNecessary;
@@ -245,7 +245,7 @@ uint64_t __56__HDUserCharacteristicsManager__queue_updateUserProfile__block_invo
 
 - (void)dealloc
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   mEMORY[0x277D10AF8] = [MEMORY[0x277D10AF8] sharedDiagnosticManager];
   [mEMORY[0x277D10AF8] removeObject:self];
 
@@ -253,27 +253,27 @@ uint64_t __56__HDUserCharacteristicsManager__queue_updateUserProfile__block_invo
   database = [WeakRetained database];
   [database removeProtectedDataObserver:self];
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v6 = QuantityCharacteristicTypes();
-  v7 = [v6 countByEnumeratingWithState:&v30 objects:v34 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v31;
+    v9 = *v30;
     do
     {
       v10 = 0;
       do
       {
-        if (*v31 != v9)
+        if (*v30 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v30 + 1) + 8 * v10);
+        v11 = *(*(&v29 + 1) + 8 * v10);
         v12 = objc_loadWeakRetained(&self->_profile);
         dataManager = [v12 dataManager];
         _relatedQuantityType = [v11 _relatedQuantityType];
@@ -283,7 +283,7 @@ uint64_t __56__HDUserCharacteristicsManager__queue_updateUserProfile__block_invo
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v29 objects:v33 count:16];
     }
 
     while (v8);
@@ -322,10 +322,9 @@ uint64_t __56__HDUserCharacteristicsManager__queue_updateUserProfile__block_invo
     [cloudSyncManager removeObserver:self];
   }
 
-  v29.receiver = self;
-  v29.super_class = HDUserCharacteristicsManager;
-  [(HDUserCharacteristicsManager *)&v29 dealloc];
-  v28 = *MEMORY[0x277D85DE8];
+  v28.receiver = self;
+  v28.super_class = HDUserCharacteristicsManager;
+  [(HDUserCharacteristicsManager *)&v28 dealloc];
 }
 
 - (id)_userCharacteristicForType:(uint64_t)type entity:(uint64_t)entity error:
@@ -356,7 +355,7 @@ uint64_t __56__HDUserCharacteristicsManager__queue_updateUserProfile__block_invo
 
 - (BOOL)_setUserCharacteristic:(id)characteristic forType:(id)type shouldInsertSample:(BOOL)sample updateProfileAndSync:(BOOL)sync error:(id *)error
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   characteristicCopy = characteristic;
   typeCopy = type;
   _HKInitializeLogging();
@@ -364,7 +363,7 @@ uint64_t __56__HDUserCharacteristicsManager__queue_updateUserProfile__block_invo
   if (os_log_type_enabled(*MEMORY[0x277CCC2B0], OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v38 = typeCopy;
+    v37 = typeCopy;
     _os_log_debug_impl(&dword_228986000, v14, OS_LOG_TYPE_DEBUG, "Setting user characteristic for type %@", buf, 0xCu);
   }
 
@@ -372,108 +371,83 @@ uint64_t __56__HDUserCharacteristicsManager__queue_updateUserProfile__block_invo
   aBlock[1] = 3221225472;
   aBlock[2] = __109__HDUserCharacteristicsManager__setUserCharacteristic_forType_shouldInsertSample_updateProfileAndSync_error___block_invoke;
   aBlock[3] = &unk_278618918;
-  v33 = characteristicCopy;
+  v32 = characteristicCopy;
   v15 = typeCopy;
-  v34 = v15;
+  v33 = v15;
   selfCopy = self;
   sampleCopy = sample;
   v16 = characteristicCopy;
   v17 = _Block_copy(aBlock);
   WeakRetained = objc_loadWeakRetained(&self->_profile);
   database = [WeakRetained database];
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __109__HDUserCharacteristicsManager__setUserCharacteristic_forType_shouldInsertSample_updateProfileAndSync_error___block_invoke_2;
-  v27[3] = &unk_278618940;
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __109__HDUserCharacteristicsManager__setUserCharacteristic_forType_shouldInsertSample_updateProfileAndSync_error___block_invoke_2;
+  v26[3] = &unk_278618940;
   syncCopy = sync;
-  v28 = v15;
+  v27 = v15;
   selfCopy2 = self;
-  v30 = v17;
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __109__HDUserCharacteristicsManager__setUserCharacteristic_forType_shouldInsertSample_updateProfileAndSync_error___block_invoke_4;
-  v25[3] = &unk_278618968;
-  v26 = v30;
-  v20 = v30;
+  v29 = v17;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __109__HDUserCharacteristicsManager__setUserCharacteristic_forType_shouldInsertSample_updateProfileAndSync_error___block_invoke_4;
+  v24[3] = &unk_278618968;
+  v25 = v29;
+  v20 = v29;
   v21 = v15;
-  v22 = [(HDHealthEntity *)HDProtectedKeyValueEntity performWriteTransactionWithHealthDatabase:database error:error block:v27 inaccessibilityHandler:v25];
+  v22 = [(HDHealthEntity *)HDProtectedKeyValueEntity performWriteTransactionWithHealthDatabase:database error:error block:v26 inaccessibilityHandler:v24];
 
-  v23 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
 uint64_t __109__HDUserCharacteristicsManager__setUserCharacteristic_forType_shouldInsertSample_updateProfileAndSync_error___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 32);
   v5 = *(a1 + 40);
   WeakRetained = objc_loadWeakRetained((*(a1 + 48) + 8));
   v7 = [HDProtectedKeyValueEntity setUserCharacteristic:v4 forType:v5 profile:WeakRetained error:a2];
 
-  if (v7)
+  if (!v7)
   {
-    if (*(a1 + 56) == 1)
+    return 0;
+  }
+
+  if (*(a1 + 56) != 1)
+  {
+    return 1;
+  }
+
+  v8 = [*(a1 + 40) _relatedSampleForInsertionWithCharacteristicValue:*(a1 + 32)];
+  v9 = [MEMORY[0x277CCD720] characteristicTypeForIdentifier:*MEMORY[0x277CCBB18]];
+  v10 = v9;
+  if (v8 && (*(a1 + 40) != v9 || (v11 = objc_loadWeakRetained((*(a1 + 48) + 8)), [v11 daemon], v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "behavior"), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v13, "futureMigrationsEnabled"), v13, v12, v11, v14)))
+  {
+    v15 = objc_loadWeakRetained((*(a1 + 48) + 8));
+    v16 = [v15 dataProvenanceManager];
+    v17 = [v16 defaultLocalDataProvenance];
+
+    if (v17)
     {
-      v8 = [*(a1 + 40) _relatedSampleForInsertionWithCharacteristicValue:*(a1 + 32)];
-      v9 = [MEMORY[0x277CCD720] characteristicTypeForIdentifier:*MEMORY[0x277CCBB18]];
-      v10 = v9;
-      if (!v8)
-      {
-        goto LABEL_10;
-      }
-
-      if (*(a1 + 40) != v9)
-      {
-        goto LABEL_6;
-      }
-
-      v11 = objc_loadWeakRetained((*(a1 + 48) + 8));
-      v12 = [v11 daemon];
-      v13 = [v12 behavior];
-      v14 = [v13 futureMigrationsEnabled];
-
-      if (v14)
-      {
-LABEL_6:
-        v15 = objc_loadWeakRetained((*(a1 + 48) + 8));
-        v16 = [v15 dataProvenanceManager];
-        v17 = [v16 defaultLocalDataProvenance];
-
-        if (v17)
-        {
-          v18 = objc_loadWeakRetained((*(a1 + 48) + 8));
-          v19 = [v18 dataManager];
-          v24[0] = v8;
-          v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
-          v21 = [v19 insertDataObjects:v20 withProvenance:v17 creationDate:a2 error:2.22507386e-308];
-        }
-
-        else
-        {
-          [MEMORY[0x277CCA9B8] hk_assignError:a2 code:100 description:@"Failed to get local device data provenance"];
-          v21 = 0;
-        }
-      }
-
-      else
-      {
-LABEL_10:
-        v21 = 1;
-      }
+      v18 = objc_loadWeakRetained((*(a1 + 48) + 8));
+      v19 = [v18 dataManager];
+      v23[0] = v8;
+      v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
+      v21 = [v19 insertDataObjects:v20 withProvenance:v17 creationDate:a2 error:2.22507386e-308];
     }
 
     else
     {
-      v21 = 1;
+      [MEMORY[0x277CCA9B8] hk_assignError:a2 code:100 description:@"Failed to get local device data provenance"];
+      v21 = 0;
     }
   }
 
   else
   {
-    v21 = 0;
+    v21 = 1;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
@@ -640,7 +614,7 @@ void __109__HDUserCharacteristicsManager__setUserCharacteristic_forType_shouldIn
 
 - (void)_queue_updateCharacteristicsAndUserProfileWithDate:(uint64_t)date
 {
-  v123 = *MEMORY[0x277D85DE8];
+  v122 = *MEMORY[0x277D85DE8];
   if (date)
   {
     v3 = a2;
@@ -663,25 +637,25 @@ void __109__HDUserCharacteristicsManager__setUserCharacteristic_forType_shouldIn
     v14 = _HKActivityCacheDateComponentsFromDate();
     v15 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:_HKCacheIndexFromDateComponents()];
 
-    *&v97 = 0;
-    *(&v97 + 1) = &v97;
-    *&v98 = 0x2020000000;
-    BYTE8(v98) = 0;
-    v103 = 0;
+    *&v96 = 0;
+    *(&v96 + 1) = &v96;
+    *&v97 = 0x2020000000;
+    BYTE8(v97) = 0;
+    v102 = 0;
     *&buf = MEMORY[0x277D85DD0];
     *(&buf + 1) = 3221225472;
-    v116 = __84__HDUserCharacteristicsManager__queue_updateActivityMoveModeCharacteristicWithDate___block_invoke;
-    v117 = &unk_278615F88;
+    v115 = __84__HDUserCharacteristicsManager__queue_updateActivityMoveModeCharacteristicWithDate___block_invoke;
+    v116 = &unk_278615F88;
     dateCopy2 = date;
     v16 = v15;
     dateCopy4 = v16;
-    v120 = &v97;
-    LODWORD(v15) = [database performTransactionWithContext:copyForWritingProtectedData error:&v103 block:&buf inaccessibilityHandler:0];
-    v17 = v103;
+    v119 = &v96;
+    LODWORD(v15) = [database performTransactionWithContext:copyForWritingProtectedData error:&v102 block:&buf inaccessibilityHandler:0];
+    v17 = v102;
     v18 = v17;
     if (v15)
     {
-      if (*(*(&v97 + 1) + 24) == 1)
+      if (*(*(&v96 + 1) + 24) == 1)
       {
         [(HDUserCharacteristicsManager *)date _userCharacteristicsDidChangeShouldUpdateUserProfile:1 shouldSync:?];
       }
@@ -706,16 +680,16 @@ void __109__HDUserCharacteristicsManager__setUserCharacteristic_forType_shouldIn
       }
     }
 
-    _Block_object_dispose(&v97, 8);
+    _Block_object_dispose(&v96, 8);
     v20 = objc_loadWeakRetained((date + 8));
     profileType = [v20 profileType];
 
     if (profileType == 1)
     {
       v22 = [MEMORY[0x277CCD720] characteristicTypeForIdentifier:*MEMORY[0x277CCBB00]];
-      *&v97 = 0;
-      v23 = [(HDUserCharacteristicsManager *)date _userCharacteristicForType:v22 entity:0 error:&v97];
-      v24 = v97;
+      *&v96 = 0;
+      v23 = [(HDUserCharacteristicsManager *)date _userCharacteristicForType:v22 entity:0 error:&v96];
+      v24 = v96;
 
       if (v23 || !v24)
       {
@@ -779,31 +753,31 @@ void __109__HDUserCharacteristicsManager__setUserCharacteristic_forType_shouldIn
       v37 = QuantityCharacteristicTypes();
       *&keyExistsAndHasValidFormat = 0;
       *(&keyExistsAndHasValidFormat + 1) = &keyExistsAndHasValidFormat;
-      v111 = 0x2020000000;
-      LOBYTE(v112) = 0;
+      v110 = 0x2020000000;
+      LOBYTE(v111) = 0;
       dateCopy5 = date;
       v39 = objc_alloc_init(HDMutableDatabaseTransactionContext);
       [(HDMutableDatabaseTransactionContext *)v39 setCacheScope:1];
-      v107 = 0;
+      v106 = 0;
       *&buf = MEMORY[0x277D85DD0];
       *(&buf + 1) = 3221225472;
-      v116 = __68__HDUserCharacteristicsManager__queue_updateQuantityCharacteristics__block_invoke;
-      v117 = &unk_278618A68;
+      v115 = __68__HDUserCharacteristicsManager__queue_updateQuantityCharacteristics__block_invoke;
+      v116 = &unk_278618A68;
       v40 = v37;
       dateCopy2 = v40;
       dateCopy4 = date;
       v41 = v33;
-      v120 = v41;
+      v119 = v41;
       v42 = v34;
-      v121 = v42;
+      v120 = v42;
       p_keyExistsAndHasValidFormat = &keyExistsAndHasValidFormat;
-      v43 = [(HDHealthEntity *)HDSampleEntity performReadTransactionWithHealthDatabase:database2 context:v39 error:&v107 block:&buf];
-      v44 = v107;
+      v43 = [(HDHealthEntity *)HDSampleEntity performReadTransactionWithHealthDatabase:database2 context:v39 error:&v106 block:&buf];
+      v44 = v106;
       v45 = v44;
-      v103 = 0;
-      v104 = &v103;
-      v105 = 0x2020000000;
-      v106 = 0;
+      v102 = 0;
+      v103 = &v102;
+      v104 = 0x2020000000;
+      v105 = 0;
       if (!v43)
       {
         goto LABEL_84;
@@ -814,20 +788,20 @@ void __109__HDUserCharacteristicsManager__setUserCharacteristic_forType_shouldIn
         goto LABEL_32;
       }
 
-      v102 = v44;
-      *&v97 = MEMORY[0x277D85DD0];
-      *(&v97 + 1) = 3221225472;
-      *&v98 = __68__HDUserCharacteristicsManager__queue_updateQuantityCharacteristics__block_invoke_2;
-      *(&v98 + 1) = &unk_278618A68;
-      *&v99 = v40;
-      *(&v99 + 1) = v41;
-      *&v100 = date;
-      *(&v100 + 1) = v42;
-      v101 = &v103;
-      v46 = [(HDHealthEntity *)HDProtectedKeyValueEntity performWriteTransactionWithHealthDatabase:database2 context:v39 error:&v102 block:&v97];
-      v47 = v102;
+      v101 = v44;
+      *&v96 = MEMORY[0x277D85DD0];
+      *(&v96 + 1) = 3221225472;
+      *&v97 = __68__HDUserCharacteristicsManager__queue_updateQuantityCharacteristics__block_invoke_2;
+      *(&v97 + 1) = &unk_278618A68;
+      *&v98 = v40;
+      *(&v98 + 1) = v41;
+      *&v99 = date;
+      *(&v99 + 1) = v42;
+      v100 = &v102;
+      v46 = [(HDHealthEntity *)HDProtectedKeyValueEntity performWriteTransactionWithHealthDatabase:database2 context:v39 error:&v101 block:&v96];
+      v47 = v101;
 
-      if (*(v104 + 24) == 1)
+      if (*(v103 + 24) == 1)
       {
         [(HDUserCharacteristicsManager *)date _userCharacteristicsDidChangeShouldUpdateUserProfile:1 shouldSync:?];
       }
@@ -854,14 +828,14 @@ LABEL_84:
           v48 = *MEMORY[0x277CCC2B0];
           if (os_log_type_enabled(*MEMORY[0x277CCC2B0], OS_LOG_TYPE_ERROR))
           {
-            *v108 = 138543362;
-            v109 = v45;
-            _os_log_error_impl(&dword_228986000, v48, OS_LOG_TYPE_ERROR, "Error updating user characteristics quantity: %{public}@", v108, 0xCu);
+            *v107 = 138543362;
+            v108 = v45;
+            _os_log_error_impl(&dword_228986000, v48, OS_LOG_TYPE_ERROR, "Error updating user characteristics quantity: %{public}@", v107, 0xCu);
           }
         }
       }
 
-      _Block_object_dispose(&v103, 8);
+      _Block_object_dispose(&v102, 8);
 
       _Block_object_dispose(&keyExistsAndHasValidFormat, 8);
     }
@@ -869,212 +843,208 @@ LABEL_84:
     v49 = objc_loadWeakRetained((date + 8));
     profileType2 = [v49 profileType];
 
-    if (profileType2 == 1)
+    if (profileType2 != 1)
     {
-      userProfile = [MEMORY[0x277CC1CE0] userProfile];
-      if (userProfile)
+      *(date + 56) = 0;
+      return;
+    }
+
+    userProfile = [MEMORY[0x277CC1CE0] userProfile];
+    if (userProfile)
+    {
+      v51 = userProfile;
+    }
+
+    else
+    {
+      v51 = MEMORY[0x277CBEC10];
+    }
+
+    v52 = [MEMORY[0x277CBEB38] dictionaryWithDictionary:v51];
+    v92 = objc_alloc_init(HDMutableDatabaseTransactionContext);
+    [(HDMutableDatabaseTransactionContext *)v92 setCacheScope:1];
+    v53 = objc_loadWeakRetained((date + 8));
+    database3 = [v53 database];
+    v102 = 0;
+    *&keyExistsAndHasValidFormat = MEMORY[0x277D85DD0];
+    *(&keyExistsAndHasValidFormat + 1) = 3221225472;
+    v110 = __56__HDUserCharacteristicsManager__queue_updateUserProfile__block_invoke;
+    v111 = &unk_278613218;
+    dateCopy6 = date;
+    v93 = v52;
+    v113 = v93;
+    v55 = [(HDHealthEntity *)HDProtectedKeyValueEntity performReadTransactionWithHealthDatabase:database3 context:v92 error:&v102 block:&keyExistsAndHasValidFormat];
+    v91 = v102;
+
+    if (v55)
+    {
+      *(date + 56) = 0;
+      date = [MEMORY[0x277CBEAA8] date];
+      v57 = *(date + 40);
+      *(date + 40) = date;
+
+      v58 = objc_msgSend_copy(v93);
+      v59 = *(date + 48);
+      *(date + 48) = v58;
+
+      if ([userProfile isEqualToDictionary:v93])
       {
-        v51 = userProfile;
+        v60 = v91;
       }
 
       else
       {
-        v51 = MEMORY[0x277CBEC10];
-      }
+        v62 = objc_loadWeakRetained((date + 8));
+        daemon = [v62 daemon];
+        behavior = [daemon behavior];
+        isAppleInternalInstall = [behavior isAppleInternalInstall];
 
-      v52 = [MEMORY[0x277CBEB38] dictionaryWithDictionary:v51];
-      v93 = objc_alloc_init(HDMutableDatabaseTransactionContext);
-      [(HDMutableDatabaseTransactionContext *)v93 setCacheScope:1];
-      v53 = objc_loadWeakRetained((date + 8));
-      database3 = [v53 database];
-      v103 = 0;
-      *&keyExistsAndHasValidFormat = MEMORY[0x277D85DD0];
-      *(&keyExistsAndHasValidFormat + 1) = 3221225472;
-      v111 = __56__HDUserCharacteristicsManager__queue_updateUserProfile__block_invoke;
-      v112 = &unk_278613218;
-      dateCopy6 = date;
-      v94 = v52;
-      v114 = v94;
-      v55 = [(HDHealthEntity *)HDProtectedKeyValueEntity performReadTransactionWithHealthDatabase:database3 context:v93 error:&v103 block:&keyExistsAndHasValidFormat];
-      v92 = v103;
-
-      if (v55)
-      {
-        *(date + 56) = 0;
-        date = [MEMORY[0x277CBEAA8] date];
-        v57 = *(date + 40);
-        *(date + 40) = date;
-
-        v58 = [v94 copy];
-        v59 = *(date + 48);
-        *(date + 48) = v58;
-
-        if ([userProfile isEqualToDictionary:v94])
+        if (isAppleInternalInstall)
         {
-          v60 = v92;
-        }
-
-        else
-        {
-          v62 = objc_loadWeakRetained((date + 8));
-          daemon = [v62 daemon];
-          behavior = [daemon behavior];
-          isAppleInternalInstall = [behavior isAppleInternalInstall];
-
-          if (isAppleInternalInstall)
+          if (userProfile)
           {
-            if (userProfile)
+            v66 = userProfile;
+            v67 = v93;
+            allKeys3 = objc_alloc_init(MEMORY[0x277CBEB18]);
+            v69 = objc_alloc_init(MEMORY[0x277CBEB58]);
+            allKeys = [v66 allKeys];
+            [v69 addObjectsFromArray:allKeys];
+
+            allKeys2 = [v67 allKeys];
+            [v69 addObjectsFromArray:allKeys2];
+
+            v98 = 0u;
+            v99 = 0u;
+            v96 = 0u;
+            v97 = 0u;
+            v72 = v69;
+            v73 = [v72 countByEnumeratingWithState:&v96 objects:&buf count:16];
+            if (v73)
             {
-              v66 = userProfile;
-              v67 = v94;
-              allKeys3 = objc_alloc_init(MEMORY[0x277CBEB18]);
-              v69 = objc_alloc_init(MEMORY[0x277CBEB58]);
-              allKeys = [v66 allKeys];
-              [v69 addObjectsFromArray:allKeys];
-
-              allKeys2 = [v67 allKeys];
-              [v69 addObjectsFromArray:allKeys2];
-
-              v99 = 0u;
-              v100 = 0u;
-              v97 = 0u;
-              v98 = 0u;
-              v72 = v69;
-              v73 = [v72 countByEnumeratingWithState:&v97 objects:&buf count:16];
-              if (v73)
+              v74 = *v97;
+              do
               {
-                v74 = *v98;
-                do
+                for (i = 0; i != v73; ++i)
                 {
-                  for (i = 0; i != v73; ++i)
+                  if (*v97 != v74)
                   {
-                    if (*v98 != v74)
-                    {
-                      objc_enumerationMutation(v72);
-                    }
-
-                    v76 = *(*(&v97 + 1) + 8 * i);
-                    v77 = [v66 objectForKeyedSubscript:v76];
-                    v78 = [v67 objectForKeyedSubscript:v76];
-                    v79 = v78;
-                    if (v77 != v78 && (!v78 || ([v77 isEqual:v78] & 1) == 0))
-                    {
-                      [allKeys3 addObject:v76];
-                    }
+                    objc_enumerationMutation(v72);
                   }
 
-                  v73 = [v72 countByEnumeratingWithState:&v97 objects:&buf count:16];
+                  v76 = *(*(&v96 + 1) + 8 * i);
+                  v77 = [v66 objectForKeyedSubscript:v76];
+                  v78 = [v67 objectForKeyedSubscript:v76];
+                  v79 = v78;
+                  if (v77 != v78 && (!v78 || ([v77 isEqual:v78] & 1) == 0))
+                  {
+                    [allKeys3 addObject:v76];
+                  }
                 }
 
-                while (v73);
+                v73 = [v72 countByEnumeratingWithState:&v96 objects:&buf count:16];
               }
-            }
 
-            else
-            {
-              allKeys3 = [v94 allKeys];
+              while (v73);
             }
+          }
 
-            if ([allKeys3 count])
-            {
-              v81 = MEMORY[0x277CCACA8];
-              v82 = [allKeys3 componentsJoinedByString:{@", "}];
-              v80 = [v81 stringWithFormat:@"(%@)", v82];
-            }
+          else
+          {
+            allKeys3 = [v93 allKeys];
+          }
 
-            else
-            {
-              v80 = 0;
-            }
+          if ([allKeys3 count])
+          {
+            v81 = MEMORY[0x277CCACA8];
+            v82 = [allKeys3 componentsJoinedByString:{@", "}];
+            v80 = [v81 stringWithFormat:@"(%@)", v82];
           }
 
           else
           {
             v80 = 0;
           }
-
-          _HKInitializeLogging();
-          v83 = MEMORY[0x277CCC2B0];
-          v84 = *MEMORY[0x277CCC2B0];
-          if (os_log_type_enabled(*MEMORY[0x277CCC2B0], OS_LOG_TYPE_DEBUG))
-          {
-            v91 = &stru_283BF39C8;
-            if (v80)
-            {
-              v91 = v80;
-            }
-
-            LODWORD(buf) = 138543362;
-            *(&buf + 4) = v91;
-            _os_log_debug_impl(&dword_228986000, v84, OS_LOG_TYPE_DEBUG, "Updating changed user profile keys %{public}@", &buf, 0xCu);
-          }
-
-          *&v97 = v92;
-          v85 = [MEMORY[0x277CC1CE0] setUserProfile:v94 error:&v97];
-          v60 = v97;
-
-          if ((v85 & 1) == 0)
-          {
-            _HKInitializeLogging();
-            v86 = *v83;
-            if (os_log_type_enabled(*v83, OS_LOG_TYPE_ERROR))
-            {
-              LODWORD(buf) = 138543362;
-              *(&buf + 4) = v60;
-              _os_log_error_impl(&dword_228986000, v86, OS_LOG_TYPE_ERROR, "Error setting CoreMotion user profile: %{public}@", &buf, 0xCu);
-            }
-          }
         }
 
-        v87 = *(dateCopy + 48);
-        v88 = *(dateCopy + 24);
-        *&buf = MEMORY[0x277D85DD0];
-        *(&buf + 1) = 3221225472;
-        v116 = __73__HDUserCharacteristicsManager__queue_alertObserversDidUpdateUserProfile__block_invoke;
-        v117 = &unk_278618A90;
-        dateCopy2 = dateCopy;
-        dateCopy4 = v87;
-        v89 = v87;
-        [v88 notifyObservers:&buf];
-
-        goto LABEL_76;
-      }
-
-      if ([v92 hk_isDatabaseAccessibilityError])
-      {
-        *(date + 56) = 1;
-      }
-
-      else
-      {
-        _HKInitializeLogging();
-        v61 = *MEMORY[0x277CCC2B0];
-        if (os_log_type_enabled(*MEMORY[0x277CCC2B0], OS_LOG_TYPE_ERROR))
+        else
         {
+          v80 = 0;
+        }
+
+        _HKInitializeLogging();
+        v83 = MEMORY[0x277CCC2B0];
+        v84 = *MEMORY[0x277CCC2B0];
+        if (os_log_type_enabled(*MEMORY[0x277CCC2B0], OS_LOG_TYPE_DEBUG))
+        {
+          v90 = &stru_283BF39C8;
+          if (v80)
+          {
+            v90 = v80;
+          }
+
           LODWORD(buf) = 138543362;
-          v60 = v92;
-          *(&buf + 4) = v92;
-          _os_log_error_impl(&dword_228986000, v61, OS_LOG_TYPE_ERROR, "Error updating user characteristics values: %{public}@", &buf, 0xCu);
-          goto LABEL_76;
+          *(&buf + 4) = v90;
+          _os_log_debug_impl(&dword_228986000, v84, OS_LOG_TYPE_DEBUG, "Updating changed user profile keys %{public}@", &buf, 0xCu);
+        }
+
+        *&v96 = v91;
+        v85 = [MEMORY[0x277CC1CE0] setUserProfile:v93 error:&v96];
+        v60 = v96;
+
+        if ((v85 & 1) == 0)
+        {
+          _HKInitializeLogging();
+          v86 = *v83;
+          if (os_log_type_enabled(*v83, OS_LOG_TYPE_ERROR))
+          {
+            LODWORD(buf) = 138543362;
+            *(&buf + 4) = v60;
+            _os_log_error_impl(&dword_228986000, v86, OS_LOG_TYPE_ERROR, "Error setting CoreMotion user profile: %{public}@", &buf, 0xCu);
+          }
         }
       }
 
-      v60 = v92;
-LABEL_76:
+      v87 = *(dateCopy + 48);
+      v88 = *(dateCopy + 24);
+      *&buf = MEMORY[0x277D85DD0];
+      *(&buf + 1) = 3221225472;
+      v115 = __73__HDUserCharacteristicsManager__queue_alertObserversDidUpdateUserProfile__block_invoke;
+      v116 = &unk_278618A90;
+      dateCopy2 = dateCopy;
+      dateCopy4 = v87;
+      v89 = v87;
+      [v88 notifyObservers:&buf];
 
-      goto LABEL_77;
+      goto LABEL_76;
     }
 
-    *(date + 56) = 0;
-  }
+    if ([v91 hk_isDatabaseAccessibilityError])
+    {
+      *(date + 56) = 1;
+    }
 
-LABEL_77:
-  v90 = *MEMORY[0x277D85DE8];
+    else
+    {
+      _HKInitializeLogging();
+      v61 = *MEMORY[0x277CCC2B0];
+      if (os_log_type_enabled(*MEMORY[0x277CCC2B0], OS_LOG_TYPE_ERROR))
+      {
+        LODWORD(buf) = 138543362;
+        v60 = v91;
+        *(&buf + 4) = v91;
+        _os_log_error_impl(&dword_228986000, v61, OS_LOG_TYPE_ERROR, "Error updating user characteristics values: %{public}@", &buf, 0xCu);
+        goto LABEL_76;
+      }
+    }
+
+    v60 = v91;
+LABEL_76:
+  }
 }
 
-- (uint64_t)_queue_updateCharacteristicsAndUserProfileWithDelay
+- (id)_queue_updateCharacteristicsAndUserProfileWithDelay
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   if (result)
   {
     v1 = result;
@@ -1082,30 +1052,29 @@ LABEL_77:
     v2 = HKLogInfrastructure();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = 138543362;
-      v5 = objc_opt_class();
-      _os_log_impl(&dword_228986000, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@] Updating age gating due to significant time change.", &v4, 0xCu);
+      v3 = 138543362;
+      v4 = objc_opt_class();
+      _os_log_impl(&dword_228986000, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@] Updating age gating due to significant time change.", &v3, 0xCu);
     }
 
-    result = [*(v1 + 80) execute];
+    return [v1[10] execute];
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __84__HDUserCharacteristicsManager__queue_updateActivityMoveModeCharacteristicWithDate___block_invoke(void *a1, uint64_t a2, void *a3)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v5 = [MEMORY[0x277CCD720] characteristicTypeForIdentifier:*MEMORY[0x277CCBB00]];
   v6 = [v5 _relatedCategoryType];
   v7 = a1[4];
   v8 = a1[5];
-  v35 = 0;
+  v34 = 0;
   if (v7)
   {
-    v9 = [(HDUserCharacteristicsManager *)v7 _mostRecentSampleOfType:v6 beforeDate:v8 error:&v35];
-    v10 = v35;
+    v9 = [(HDUserCharacteristicsManager *)v7 _mostRecentSampleOfType:v6 beforeDate:v8 error:&v34];
+    v10 = v34;
   }
 
   else
@@ -1119,9 +1088,9 @@ uint64_t __84__HDUserCharacteristicsManager__queue_updateActivityMoveModeCharact
   if (v9 || !v11)
   {
     v15 = a1[4];
-    v34 = 0;
-    v16 = [(HDUserCharacteristicsManager *)v15 _userCharacteristicForType:v5 entity:0 error:&v34];
-    v17 = v34;
+    v33 = 0;
+    v16 = [(HDUserCharacteristicsManager *)v15 _userCharacteristicForType:v5 entity:0 error:&v33];
+    v17 = v33;
     v18 = v17;
     if (v16)
     {
@@ -1190,17 +1159,17 @@ LABEL_35:
       if (os_log_type_enabled(*MEMORY[0x277CCC2B0], OS_LOG_TYPE_DEFAULT))
       {
         v26 = v25;
-        v31 = HKActivityMoveModeToString();
+        v30 = HKActivityMoveModeToString();
         *buf = 138543362;
-        v37 = v31;
+        v36 = v30;
         _os_log_impl(&dword_228986000, v26, OS_LOG_TYPE_DEFAULT, "Updating activity move mode characteristic to %{public}@", buf, 0xCu);
       }
 
       v27 = a1[4];
-      v32 = [MEMORY[0x277CCABB0] numberWithInteger:{v22, v31}];
-      v33 = 0;
-      LOBYTE(v27) = [v27 _setUserCharacteristic:v32 forType:v5 shouldInsertSample:0 updateProfileAndSync:0 error:&v33];
-      v24 = v33;
+      v31 = [MEMORY[0x277CCABB0] numberWithInteger:{v22, v30}];
+      v32 = 0;
+      LOBYTE(v27) = [v27 _setUserCharacteristic:v31 forType:v5 shouldInsertSample:0 updateProfileAndSync:0 error:&v32];
+      v24 = v32;
 
       *(*(a1[6] + 8) + 24) = v27;
       if ((v27 & 1) == 0)
@@ -1246,150 +1215,145 @@ LABEL_34:
 
 LABEL_36:
 
-  v29 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 - (void)_queue_updateFitnessModeDefaultAndNotifyIfNecessary
 {
-  v52 = *MEMORY[0x277D85DE8];
-  if (!self)
+  v50 = *MEMORY[0x277D85DE8];
+  if (self)
   {
-LABEL_32:
-    v32 = *MEMORY[0x277D85DE8];
-    return;
-  }
-
-  WeakRetained = objc_loadWeakRetained((self + 8));
-  daemon = [WeakRetained daemon];
-  behavior = [daemon behavior];
-  if (![behavior isAppleWatch])
-  {
-    v5 = objc_loadWeakRetained((self + 8));
-    daemon2 = [v5 daemon];
-    behavior2 = [daemon2 behavior];
-    isiPad = [behavior2 isiPad];
-
-    if ((isiPad & 1) == 0)
+    WeakRetained = objc_loadWeakRetained((self + 8));
+    daemon = [WeakRetained daemon];
+    behavior = [daemon behavior];
+    if ([behavior isAppleWatch])
     {
-      v9 = objc_loadWeakRetained((self + 8));
-      nanoSyncManager = [v9 nanoSyncManager];
-      pairedDevicesSnapshot = [nanoSyncManager pairedDevicesSnapshot];
-      allDeviceInfos = [pairedDevicesSnapshot allDeviceInfos];
-      v13 = [allDeviceInfos count];
-
-      if ([*(self + 64) BOOLValue])
-      {
-        v14 = *(self + 72);
-      }
-
-      else
-      {
-        v14 = 0;
-      }
-
-      v15 = *MEMORY[0x277CCE4C8];
-      AppBooleanValue = CFPreferencesGetAppBooleanValue(@"HDUserCharacteristicsForceStandalonePhoneFitnessMode", *MEMORY[0x277CCE4C8], 0);
-      AppIntegerValue = CFPreferencesGetAppIntegerValue(@"HDUserCharacteristicsForceFitnessMode", v15, 0);
-      v18 = AppIntegerValue;
-      v19 = 2;
-      if (v14)
-      {
-        v19 = 3;
-      }
-
-      if (v13)
-      {
-        v19 = 1;
-      }
-
-      if (AppBooleanValue)
-      {
-        v20 = 1;
-      }
-
-      else
-      {
-        v20 = (v13 == 0) & (v14 ^ 1u);
-      }
-
-      if (AppIntegerValue)
-      {
-        v21 = AppIntegerValue;
-      }
-
-      else
-      {
-        v21 = v19;
-      }
-
-      _HKInitializeLogging();
-      v22 = MEMORY[0x277CCC2B0];
-      v23 = *MEMORY[0x277CCC2B0];
-      if (os_log_type_enabled(*MEMORY[0x277CCC2B0], OS_LOG_TYPE_DEFAULT))
-      {
-        v24 = *(self + 64);
-        v25 = *(self + 72);
-        *buf = 136316930;
-        v37 = "[HDUserCharacteristicsManager _queue_updateFitnessModeDefaultAndNotifyIfNecessary]";
-        v38 = 1024;
-        v39 = v13 != 0;
-        v40 = 2112;
-        v41 = v24;
-        v42 = 1024;
-        v43 = v25;
-        v44 = 1024;
-        v45 = AppBooleanValue != 0;
-        v46 = 2048;
-        v47 = v18;
-        v48 = 1024;
-        v49 = v20;
-        v50 = 2048;
-        v51 = v21;
-        _os_log_impl(&dword_228986000, v23, OS_LOG_TYPE_DEFAULT, "%s - hasPairedWatch %d hasWatchOnAccount %@ isCloudSyncEnabled %d isStandalonePhoneFitnessModeForced %d fitnessModeForcedValue %ld isStandalonePhoneFitnessMode %d fitnessMode %lu", buf, 0x42u);
-      }
-
-      keyExistsAndHasValidFormat = 0;
-      v26 = *MEMORY[0x277CCC260];
-      v27 = CFPreferencesGetAppBooleanValue(*MEMORY[0x277CCC260], v15, &keyExistsAndHasValidFormat) == 0;
-      if (!keyExistsAndHasValidFormat || ((v20 ^ v27) & 1) == 0)
-      {
-        CFPreferencesSetAppValue(v26, [MEMORY[0x277CCABB0] numberWithBool:v20], v15);
-        _HKInitializeLogging();
-        v28 = *v22;
-        if (os_log_type_enabled(*v22, OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 67109120;
-          LODWORD(v37) = v20;
-          _os_log_impl(&dword_228986000, v28, OS_LOG_TYPE_DEFAULT, "Standalone phone fitness mode default value changed to %d. Posting notification!", buf, 8u);
-        }
-
-        notify_post(*MEMORY[0x277CCCE08]);
-      }
-
-      v34 = 0;
-      v29 = *MEMORY[0x277CCC140];
-      v30 = CFPreferencesGetAppIntegerValue(*MEMORY[0x277CCC140], v15, &v34);
-      if (!v34 || v30 != v21)
-      {
-        CFPreferencesSetAppValue(v29, [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v21], v15);
-        _HKInitializeLogging();
-        v31 = *v22;
-        if (os_log_type_enabled(*v22, OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 134217984;
-          v37 = v21;
-          _os_log_impl(&dword_228986000, v31, OS_LOG_TYPE_DEFAULT, "Fitness mode default value changed to %lu. Posting notification!", buf, 0xCu);
-        }
-
-        notify_post(*MEMORY[0x277CCC148]);
-      }
     }
 
-    goto LABEL_32;
-  }
+    else
+    {
+      v4 = objc_loadWeakRetained((self + 8));
+      daemon2 = [v4 daemon];
+      behavior2 = [daemon2 behavior];
+      isiPad = [behavior2 isiPad];
 
-  v4 = *MEMORY[0x277D85DE8];
+      if ((isiPad & 1) == 0)
+      {
+        v8 = objc_loadWeakRetained((self + 8));
+        nanoSyncManager = [v8 nanoSyncManager];
+        pairedDevicesSnapshot = [nanoSyncManager pairedDevicesSnapshot];
+        allDeviceInfos = [pairedDevicesSnapshot allDeviceInfos];
+        v12 = [allDeviceInfos count];
+
+        if ([*(self + 64) BOOLValue])
+        {
+          v13 = *(self + 72);
+        }
+
+        else
+        {
+          v13 = 0;
+        }
+
+        v14 = *MEMORY[0x277CCE4C8];
+        AppBooleanValue = CFPreferencesGetAppBooleanValue(@"HDUserCharacteristicsForceStandalonePhoneFitnessMode", *MEMORY[0x277CCE4C8], 0);
+        AppIntegerValue = CFPreferencesGetAppIntegerValue(@"HDUserCharacteristicsForceFitnessMode", v14, 0);
+        v17 = AppIntegerValue;
+        v18 = 2;
+        if (v13)
+        {
+          v18 = 3;
+        }
+
+        if (v12)
+        {
+          v18 = 1;
+        }
+
+        if (AppBooleanValue)
+        {
+          v19 = 1;
+        }
+
+        else
+        {
+          v19 = (v12 == 0) & (v13 ^ 1u);
+        }
+
+        if (AppIntegerValue)
+        {
+          v20 = AppIntegerValue;
+        }
+
+        else
+        {
+          v20 = v18;
+        }
+
+        _HKInitializeLogging();
+        v21 = MEMORY[0x277CCC2B0];
+        v22 = *MEMORY[0x277CCC2B0];
+        if (os_log_type_enabled(*MEMORY[0x277CCC2B0], OS_LOG_TYPE_DEFAULT))
+        {
+          v23 = *(self + 64);
+          v24 = *(self + 72);
+          *buf = 136316930;
+          v35 = "[HDUserCharacteristicsManager _queue_updateFitnessModeDefaultAndNotifyIfNecessary]";
+          v36 = 1024;
+          v37 = v12 != 0;
+          v38 = 2112;
+          v39 = v23;
+          v40 = 1024;
+          v41 = v24;
+          v42 = 1024;
+          v43 = AppBooleanValue != 0;
+          v44 = 2048;
+          v45 = v17;
+          v46 = 1024;
+          v47 = v19;
+          v48 = 2048;
+          v49 = v20;
+          _os_log_impl(&dword_228986000, v22, OS_LOG_TYPE_DEFAULT, "%s - hasPairedWatch %d hasWatchOnAccount %@ isCloudSyncEnabled %d isStandalonePhoneFitnessModeForced %d fitnessModeForcedValue %ld isStandalonePhoneFitnessMode %d fitnessMode %lu", buf, 0x42u);
+        }
+
+        keyExistsAndHasValidFormat = 0;
+        v25 = *MEMORY[0x277CCC260];
+        v26 = CFPreferencesGetAppBooleanValue(*MEMORY[0x277CCC260], v14, &keyExistsAndHasValidFormat) == 0;
+        if (!keyExistsAndHasValidFormat || ((v19 ^ v26) & 1) == 0)
+        {
+          CFPreferencesSetAppValue(v25, [MEMORY[0x277CCABB0] numberWithBool:v19], v14);
+          _HKInitializeLogging();
+          v27 = *v21;
+          if (os_log_type_enabled(*v21, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 67109120;
+            LODWORD(v35) = v19;
+            _os_log_impl(&dword_228986000, v27, OS_LOG_TYPE_DEFAULT, "Standalone phone fitness mode default value changed to %d. Posting notification!", buf, 8u);
+          }
+
+          notify_post(*MEMORY[0x277CCCE08]);
+        }
+
+        v32 = 0;
+        v28 = *MEMORY[0x277CCC140];
+        v29 = CFPreferencesGetAppIntegerValue(*MEMORY[0x277CCC140], v14, &v32);
+        if (!v32 || v29 != v20)
+        {
+          CFPreferencesSetAppValue(v28, [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v20], v14);
+          _HKInitializeLogging();
+          v30 = *v21;
+          if (os_log_type_enabled(*v21, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 134217984;
+            v35 = v20;
+            _os_log_impl(&dword_228986000, v30, OS_LOG_TYPE_DEFAULT, "Fitness mode default value changed to %lu. Posting notification!", buf, 0xCu);
+          }
+
+          notify_post(*MEMORY[0x277CCC148]);
+        }
+      }
+    }
+  }
 }
 
 - (void)_updateHasWatchOnAccountWithRandomDelayAndResetIfNecessary:(uint64_t)necessary
@@ -1411,7 +1375,7 @@ LABEL_32:
 
 void __91__HDUserCharacteristicsManager__updateHasWatchOnAccountWithRandomDelayAndResetIfNecessary___block_invoke(uint64_t a1)
 {
-  v54[1] = *MEMORY[0x277D85DE8];
+  v53[1] = *MEMORY[0x277D85DE8];
   if (*(a1 + 40) == 1)
   {
     v2 = *(a1 + 32);
@@ -1463,31 +1427,31 @@ void __91__HDUserCharacteristicsManager__updateHasWatchOnAccountWithRandomDelayA
           v20 = [v16 aa_altDSID];
           [v19 setAltDSID:v20];
 
-          v54[0] = @"watchOS";
-          v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v54 count:1];
+          v53[0] = @"watchOS";
+          v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v53 count:1];
           [v19 setOperatingSystems:v21];
 
-          v40 = 0;
-          v41 = &v40;
-          v42 = 0x2020000000;
-          v43 = 1;
-          v34 = 0;
-          v35 = &v34;
-          v36 = 0x3032000000;
-          v37 = __Block_byref_object_copy__36;
-          v38 = __Block_byref_object_dispose__36;
-          v39 = MEMORY[0x277CBEC28];
+          v39 = 0;
+          v40 = &v39;
+          v41 = 0x2020000000;
+          v42 = 1;
+          v33 = 0;
+          v34 = &v33;
+          v35 = 0x3032000000;
+          v36 = __Block_byref_object_copy__36;
+          v37 = __Block_byref_object_dispose__36;
+          v38 = MEMORY[0x277CBEC28];
           v22 = dispatch_semaphore_create(0);
           *buf = MEMORY[0x277D85DD0];
           *&buf[8] = 3221225472;
           *&buf[16] = __62__HDUserCharacteristicsManager__queue_updateHasWatchOnAccount__block_invoke;
-          v49 = &unk_2786189B8;
-          v50 = v4;
-          v52 = &v40;
-          v53 = &v34;
+          v48 = &unk_2786189B8;
+          v49 = v4;
+          v51 = &v39;
+          v52 = &v33;
           v23 = v18;
           v24 = v22;
-          v51 = v24;
+          v50 = v24;
           [v18 deviceListWithContext:v19 completion:buf];
           v25 = dispatch_time(0, 10000000000);
           if (dispatch_semaphore_wait(v24, v25))
@@ -1502,20 +1466,20 @@ void __91__HDUserCharacteristicsManager__updateHasWatchOnAccountWithRandomDelayA
             }
           }
 
-          else if (*(v41 + 24) == 1)
+          else if (*(v40 + 24) == 1)
           {
             _HKInitializeLogging();
             log = *MEMORY[0x277CCC2B0];
             if (os_log_type_enabled(*MEMORY[0x277CCC2B0], OS_LOG_TYPE_DEFAULT))
             {
               v27 = *(v4 + 64);
-              v28 = v35[5];
+              v28 = v34[5];
               *block = 136315650;
               *&block[4] = "[HDUserCharacteristicsManager _queue_updateHasWatchOnAccount]";
               *&block[12] = 2114;
               *&block[14] = v27;
               *&block[22] = 2114;
-              v45 = v28;
+              v44 = v28;
               _os_log_impl(&dword_228986000, log, OS_LOG_TYPE_DEFAULT, "%s fetched has watch on account; %{public}@ -> %{public}@", block, 0x20u);
             }
 
@@ -1526,28 +1490,27 @@ void __91__HDUserCharacteristicsManager__updateHasWatchOnAccountWithRandomDelayA
             *block = MEMORY[0x277D85DD0];
             *&block[8] = 3221225472;
             *&block[16] = __62__HDUserCharacteristicsManager__queue_updateHasWatchOnAccount__block_invoke_367;
-            v45 = &unk_278617198;
-            v46 = v4;
-            v47 = &v34;
+            v44 = &unk_278617198;
+            v45 = v4;
+            v46 = &v33;
             dispatch_async(v30, block);
           }
 
-          _Block_object_dispose(&v34, 8);
-          _Block_object_dispose(&v40, 8);
+          _Block_object_dispose(&v33, 8);
+          _Block_object_dispose(&v39, 8);
         }
       }
     }
   }
 
   v31 = *(a1 + 32);
-  v32 = *MEMORY[0x277D85DE8];
 
   [(HDUserCharacteristicsManager *)v31 _queue_updateFitnessModeDefaultAndNotifyIfNecessary];
 }
 
 void __62__HDUserCharacteristicsManager__queue_updateHasWatchOnAccount__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -1557,14 +1520,14 @@ void __62__HDUserCharacteristicsManager__queue_updateHasWatchOnAccount__block_in
     v8 = *MEMORY[0x277CCC2B0];
     if (os_log_type_enabled(*MEMORY[0x277CCC2B0], OS_LOG_TYPE_ERROR))
     {
-      v15 = *(a1 + 32);
-      v16 = v8;
-      v17 = [v7 localizedDescription];
-      v18 = 138543618;
-      v19 = v15;
-      v20 = 2114;
-      v21 = v17;
-      _os_log_error_impl(&dword_228986000, v16, OS_LOG_TYPE_ERROR, "%{public}@ failed to fetch device list: %{public}@", &v18, 0x16u);
+      v14 = *(a1 + 32);
+      v15 = v8;
+      v16 = [v7 localizedDescription];
+      v17 = 138543618;
+      v18 = v14;
+      v19 = 2114;
+      v20 = v16;
+      _os_log_error_impl(&dword_228986000, v15, OS_LOG_TYPE_ERROR, "%{public}@ failed to fetch device list: %{public}@", &v17, 0x16u);
     }
 
     *(*(*(a1 + 48) + 8) + 24) = 0;
@@ -1578,7 +1541,6 @@ void __62__HDUserCharacteristicsManager__queue_updateHasWatchOnAccount__block_in
   *(v12 + 40) = v11;
 
   dispatch_semaphore_signal(*(a1 + 40));
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __62__HDUserCharacteristicsManager__queue_updateHasWatchOnAccount__block_invoke_367(uint64_t a1)
@@ -1663,41 +1625,41 @@ id __56__HDUserCharacteristicsManager__queue_updateUserProfile__block_invoke_3_3
 uint64_t __68__HDUserCharacteristicsManager__queue_updateQuantityCharacteristics__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a1;
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   obj = *(a1 + 32);
-  v29 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
-  if (!v29)
+  v28 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
+  if (!v28)
   {
-    v26 = 1;
+    v25 = 1;
     goto LABEL_32;
   }
 
-  v24 = v4;
-  v25 = a3;
-  v28 = *v34;
-  v26 = 1;
+  v23 = v4;
+  v24 = a3;
+  v27 = *v33;
+  v25 = 1;
   do
   {
     v5 = 0;
     do
     {
-      if (*v34 != v28)
+      if (*v33 != v27)
       {
         objc_enumerationMutation(obj);
       }
 
-      v6 = *(*(&v33 + 1) + 8 * v5);
+      v6 = *(*(&v32 + 1) + 8 * v5);
       v7 = [v6 _relatedQuantityType];
       v8 = *(v4 + 40);
-      v32 = 0;
+      v31 = 0;
       if (v8)
       {
-        v9 = [(HDUserCharacteristicsManager *)v8 _mostRecentSampleOfType:v7 beforeDate:0 error:&v32];
-        v10 = v32;
+        v9 = [(HDUserCharacteristicsManager *)v8 _mostRecentSampleOfType:v7 beforeDate:0 error:&v31];
+        v10 = v31;
       }
 
       else
@@ -1717,17 +1679,17 @@ uint64_t __68__HDUserCharacteristicsManager__queue_updateQuantityCharacteristics
       {
         v19 = v11;
         v18 = 0;
-        v26 = 0;
-        *v25 = v11;
+        v25 = 0;
+        *v24 = v11;
         goto LABEL_25;
       }
 
       v13 = *(v4 + 40);
+      v29 = 0;
       v30 = 0;
-      v31 = 0;
-      v14 = [(HDUserCharacteristicsManager *)v13 _userCharacteristicForType:v6 entity:&v31 error:&v30];
-      v15 = v31;
-      v16 = v30;
+      v14 = [(HDUserCharacteristicsManager *)v13 _userCharacteristicForType:v6 entity:&v30 error:&v29];
+      v15 = v30;
+      v16 = v29;
       v17 = v16;
       if (v15)
       {
@@ -1736,22 +1698,22 @@ uint64_t __68__HDUserCharacteristicsManager__queue_updateQuantityCharacteristics
 
       else if (v16)
       {
-        if (v25)
+        if (v24)
         {
           v20 = v16;
           v18 = 0;
-          v26 = 0;
-          *v25 = v17;
+          v25 = 0;
+          *v24 = v17;
         }
 
         else
         {
           _HKLogDroppedError();
           v18 = 0;
-          v26 = 0;
+          v25 = 0;
         }
 
-        v4 = v24;
+        v4 = v23;
         goto LABEL_24;
       }
 
@@ -1777,49 +1739,48 @@ LABEL_25:
       ++v5;
     }
 
-    while (v29 != v5);
-    v21 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
-    v29 = v21;
+    while (v28 != v5);
+    v21 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
+    v28 = v21;
   }
 
   while (v21);
 LABEL_32:
 
-  v22 = *MEMORY[0x277D85DE8];
-  return v26 & 1;
+  return v25 & 1;
 }
 
 uint64_t __68__HDUserCharacteristicsManager__queue_updateQuantityCharacteristics__block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
   obj = *(a1 + 32);
-  v30 = [obj countByEnumeratingWithState:&v35 objects:v43 count:16];
-  if (v30)
+  v29 = [obj countByEnumeratingWithState:&v34 objects:v42 count:16];
+  if (v29)
   {
-    v27 = a3;
-    v29 = *v36;
+    v26 = a3;
+    v28 = *v35;
 LABEL_3:
     v5 = 0;
     while (1)
     {
-      if (*v36 != v29)
+      if (*v35 != v28)
       {
         objc_enumerationMutation(obj);
       }
 
-      v6 = *(*(&v35 + 1) + 8 * v5);
+      v6 = *(*(&v34 + 1) + 8 * v5);
       v7 = [*(a1 + 40) objectForKeyedSubscript:v6];
-      v31 = [v7 quantity];
+      v30 = [v7 quantity];
       v8 = *(a1 + 48);
+      v32 = 0;
       v33 = 0;
-      v34 = 0;
-      v9 = [(HDUserCharacteristicsManager *)v8 _userCharacteristicForType:v6 entity:&v34 error:&v33];
-      v10 = v34;
-      v11 = v33;
+      v9 = [(HDUserCharacteristicsManager *)v8 _userCharacteristicForType:v6 entity:&v33 error:&v32];
+      v10 = v33;
+      v11 = v32;
       v12 = [*(a1 + 56) objectForKeyedSubscript:v6];
       v13 = [v12 persistentID];
       v14 = [v10 persistentID];
@@ -1837,25 +1798,25 @@ LABEL_3:
         goto LABEL_19;
       }
 
-      v17 = v31;
-      if (v31 != v9)
+      v17 = v30;
+      if (v30 != v9)
       {
-        if (!v9 || ([v31 isEqual:v9] & 1) == 0)
+        if (!v9 || ([v30 isEqual:v9] & 1) == 0)
         {
           _HKInitializeLogging();
           v18 = *MEMORY[0x277CCC2B0];
           if (os_log_type_enabled(*MEMORY[0x277CCC2B0], OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v40 = v6;
+            v39 = v6;
             _os_log_debug_impl(&dword_228986000, v18, OS_LOG_TYPE_DEBUG, "Updating quantity characteristic for %@", buf, 0xCu);
           }
 
           v19 = *(a1 + 48);
           v20 = [v7 quantity];
-          v32 = 0;
-          LOBYTE(v19) = [v19 _setUserCharacteristic:v20 forType:v6 shouldInsertSample:0 updateProfileAndSync:0 error:&v32];
-          v11 = v32;
+          v31 = 0;
+          LOBYTE(v19) = [v19 _setUserCharacteristic:v20 forType:v6 shouldInsertSample:0 updateProfileAndSync:0 error:&v31];
+          v11 = v31;
 
           *(*(*(a1 + 64) + 8) + 24) = (*(*(*(a1 + 64) + 8) + 24) | v19) & 1;
           if ((v19 & 1) == 0)
@@ -1864,10 +1825,10 @@ LABEL_3:
             v23 = v22;
             if (v22)
             {
-              if (v27)
+              if (v26)
               {
                 v24 = v22;
-                *v27 = v23;
+                *v26 = v23;
               }
 
               else
@@ -1888,10 +1849,10 @@ LABEL_3:
 
 LABEL_20:
 
-      if (v30 == ++v5)
+      if (v29 == ++v5)
       {
-        v30 = [obj countByEnumeratingWithState:&v35 objects:v43 count:16];
-        if (v30)
+        v29 = [obj countByEnumeratingWithState:&v34 objects:v42 count:16];
+        if (v29)
         {
           goto LABEL_3;
         }
@@ -1905,15 +1866,15 @@ LABEL_20:
     if (os_log_type_enabled(*MEMORY[0x277CCC2B0], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218240;
-      v40 = v13;
-      v41 = 2048;
-      v42 = v15;
+      v39 = v13;
+      v40 = 2048;
+      v41 = v15;
       _os_log_impl(&dword_228986000, v16, OS_LOG_TYPE_DEFAULT, "Not updating quantity characteristic: kv row changed from %lld to %lld", buf, 0x16u);
     }
 
     v11 = 0;
 LABEL_19:
-    v17 = v31;
+    v17 = v30;
     goto LABEL_20;
   }
 
@@ -1921,7 +1882,6 @@ LABEL_22:
   v21 = 1;
 LABEL_28:
 
-  v25 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
@@ -1931,7 +1891,7 @@ LABEL_28:
   typeCopy = type;
   if (typeCopy)
   {
-    v9 = HDSampleEntityPredicateForStartDate(3);
+    v9 = HDSampleEntityPredicateForStartDate(3, typeCopy);
   }
 
   else
@@ -1947,28 +1907,28 @@ LABEL_28:
 
 - (void)profileDidBecomeReady:(id)ready
 {
-  v68[1] = *MEMORY[0x277D85DE8];
+  v67[1] = *MEMORY[0x277D85DE8];
   readyCopy = ready;
   dispatch_assert_queue_V2(self->_queue);
   WeakRetained = objc_loadWeakRetained(&self->_profile);
   cloudSyncManager = [WeakRetained cloudSyncManager];
-  v60 = 0;
-  v6 = [cloudSyncManager canPerformCloudSyncWithError:&v60];
-  v44 = v60;
+  v59 = 0;
+  v6 = [cloudSyncManager canPerformCloudSyncWithError:&v59];
+  v43 = v59;
   self->_isCloudSyncEnabled = v6;
 
   objc_initWeak(&location, self);
   queue = self->_queue;
   handler = MEMORY[0x277D85DD0];
-  v65 = 3221225472;
-  v66 = __67__HDUserCharacteristicsManager__registerForTimeChangeNotifications__block_invoke;
-  v67 = &unk_278613BF0;
-  objc_copyWeak(v68, &location);
+  v64 = 3221225472;
+  v65 = __67__HDUserCharacteristicsManager__registerForTimeChangeNotifications__block_invoke;
+  v66 = &unk_278613BF0;
+  objc_copyWeak(v67, &location);
   notify_register_dispatch("SignificantTimeChangeNotification", &self->_significantTimeChangeNotificationToken, queue, &handler);
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter addObserver:self selector:sel_didReceiveDayChangeNotification_ name:*MEMORY[0x277CBE580] object:0];
 
-  objc_destroyWeak(v68);
+  objc_destroyWeak(v67);
   objc_destroyWeak(&location);
   v9 = objc_loadWeakRetained(&self->_profile);
   daemon = [v9 daemon];
@@ -1984,12 +1944,12 @@ LABEL_28:
   objc_initWeak(&location, self);
   v14 = objc_alloc(MEMORY[0x277CCDD98]);
   v15 = self->_queue;
-  v58[0] = MEMORY[0x277D85DD0];
-  v58[1] = 3221225472;
-  v58[2] = __54__HDUserCharacteristicsManager_profileDidBecomeReady___block_invoke;
-  v58[3] = &unk_278616F38;
-  objc_copyWeak(&v59, &location);
-  v16 = [v14 initWithMode:0 queue:v15 delay:v58 block:3.0];
+  v57[0] = MEMORY[0x277D85DD0];
+  v57[1] = 3221225472;
+  v57[2] = __54__HDUserCharacteristicsManager_profileDidBecomeReady___block_invoke;
+  v57[3] = &unk_278616F38;
+  objc_copyWeak(&v58, &location);
+  v16 = [v14 initWithMode:0 queue:v15 delay:v57 block:3.0];
   updateOperation = self->_updateOperation;
   self->_updateOperation = v16;
 
@@ -2011,33 +1971,33 @@ LABEL_28:
 
   if (self->_shouldUpdateQuantityCharacteristics)
   {
-    v56 = 0u;
-    v57 = 0u;
-    v54 = 0u;
     v55 = 0u;
+    v56 = 0u;
+    v53 = 0u;
+    v54 = 0u;
     v26 = QuantityCharacteristicTypes();
-    v27 = [v26 countByEnumeratingWithState:&v54 objects:v63 count:16];
+    v27 = [v26 countByEnumeratingWithState:&v53 objects:v62 count:16];
     if (v27)
     {
-      v28 = *v55;
+      v28 = *v54;
       do
       {
         v29 = 0;
         do
         {
-          if (*v55 != v28)
+          if (*v54 != v28)
           {
             objc_enumerationMutation(v26);
           }
 
-          _relatedQuantityType = [*(*(&v54 + 1) + 8 * v29) _relatedQuantityType];
+          _relatedQuantityType = [*(*(&v53 + 1) + 8 * v29) _relatedQuantityType];
           [dataManager addObserver:self forDataType:_relatedQuantityType];
 
           ++v29;
         }
 
         while (v27 != v29);
-        v27 = [v26 countByEnumeratingWithState:&v54 objects:v63 count:16];
+        v27 = [v26 countByEnumeratingWithState:&v53 objects:v62 count:16];
       }
 
       while (v27);
@@ -2046,47 +2006,47 @@ LABEL_28:
 
   if (self->_shouldUpdateCategoryCharacteristics)
   {
-    v52 = 0u;
-    v53 = 0u;
-    v50 = 0u;
     v51 = 0u;
+    v52 = 0u;
+    v49 = 0u;
+    v50 = 0u;
     v31 = [MEMORY[0x277CCD720] characteristicTypeForIdentifier:*MEMORY[0x277CCBB10]];
     handler = v31;
     v32 = [MEMORY[0x277CCD720] characteristicTypeForIdentifier:*MEMORY[0x277CCBB20]];
-    v65 = v32;
+    v64 = v32;
     v33 = [MEMORY[0x277CCD720] characteristicTypeForIdentifier:*MEMORY[0x277CCBB08]];
-    v66 = v33;
+    v65 = v33;
     v34 = [MEMORY[0x277CBEA60] arrayWithObjects:&handler count:3];
 
-    v35 = [v34 countByEnumeratingWithState:&v50 objects:v62 count:16];
+    v35 = [v34 countByEnumeratingWithState:&v49 objects:v61 count:16];
     if (v35)
     {
-      v36 = *v51;
+      v36 = *v50;
       do
       {
         v37 = 0;
         do
         {
-          if (*v51 != v36)
+          if (*v50 != v36)
           {
             objc_enumerationMutation(v34);
           }
 
-          _relatedCategoryType = [*(*(&v50 + 1) + 8 * v37) _relatedCategoryType];
+          _relatedCategoryType = [*(*(&v49 + 1) + 8 * v37) _relatedCategoryType];
           [dataManager addObserver:self forDataType:_relatedCategoryType];
 
           ++v37;
         }
 
         while (v35 != v37);
-        v35 = [v34 countByEnumeratingWithState:&v50 objects:v62 count:16];
+        v35 = [v34 countByEnumeratingWithState:&v49 objects:v61 count:16];
       }
 
       while (v35);
     }
   }
 
-  v39 = [MEMORY[0x277CCD720] characteristicTypeForIdentifier:{*MEMORY[0x277CCBB00], v44}];
+  v39 = [MEMORY[0x277CCD720] characteristicTypeForIdentifier:{*MEMORY[0x277CCBB00], v43}];
   _relatedCategoryType2 = [v39 _relatedCategoryType];
   [dataManager addObserver:self forDataType:_relatedCategoryType2];
 
@@ -2100,16 +2060,14 @@ LABEL_28:
     block[1] = 3221225472;
     block[2] = __54__HDUserCharacteristicsManager_profileDidBecomeReady___block_invoke_2;
     block[3] = &unk_2786177F8;
-    v48 = v18;
-    objc_copyWeak(&v49, &location);
+    v47 = v18;
+    objc_copyWeak(&v48, &location);
     dispatch_async(v42, block);
-    objc_destroyWeak(&v49);
+    objc_destroyWeak(&v48);
   }
 
-  objc_destroyWeak(&v59);
+  objc_destroyWeak(&v58);
   objc_destroyWeak(&location);
-
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 void __54__HDUserCharacteristicsManager_profileDidBecomeReady___block_invoke(uint64_t a1)
@@ -2178,9 +2136,8 @@ void __54__HDUserCharacteristicsManager_profileDidBecomeReady___block_invoke_2(u
   }
 
   [string appendFormat:@"Needs update after unlock: %s\n", v5];
-  userProfileLastUpdated = self->_userProfileLastUpdated;
-  v7 = HKDiagnosticStringFromDate();
-  [v4 appendFormat:@"Profile last updated: %@\n", v7];
+  v6 = HKDiagnosticStringFromDate();
+  [v4 appendFormat:@"Profile last updated: %@\n", v6];
 
   WeakRetained = objc_loadWeakRetained(&self->_profile);
   daemon = [WeakRetained daemon];
@@ -2220,7 +2177,7 @@ void __54__HDUserCharacteristicsManager_profileDidBecomeReady___block_invoke_2(u
 
 uint64_t __69__HDUserCharacteristicsManager_nanoSyncManager_pairedDevicesChanged___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) allDeviceInfos];
   v3 = [v2 count];
 
@@ -2235,17 +2192,15 @@ uint64_t __69__HDUserCharacteristicsManager_nanoSyncManager_pairedDevicesChanged
     v4 = *MEMORY[0x277CCC2B0];
     if (os_log_type_enabled(*MEMORY[0x277CCC2B0], OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 136315138;
-      v8 = "[HDUserCharacteristicsManager nanoSyncManager:pairedDevicesChanged:]_block_invoke";
-      _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_DEFAULT, "%s updating the watch on account state for a paired devices change", &v7, 0xCu);
+      v6 = 136315138;
+      v7 = "[HDUserCharacteristicsManager nanoSyncManager:pairedDevicesChanged:]_block_invoke";
+      _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_DEFAULT, "%s updating the watch on account state for a paired devices change", &v6, 0xCu);
     }
 
     [(HDUserCharacteristicsManager *)*(a1 + 40) _updateHasWatchOnAccountWithRandomDelayAndResetIfNecessary:?];
   }
 
-  result = [*(a1 + 48) invalidate];
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 48) invalidate];
 }
 
 - (void)cloudSyncManager:(id)manager didUpdateSyncEnabled:(BOOL)enabled
@@ -2287,18 +2242,17 @@ void __67__HDUserCharacteristicsManager__registerForTimeChangeNotifications__blo
 
 void __78__HDUserCharacteristicsManager_didReceiveAuthKitDeviceListChangeNotification___block_invoke(uint64_t a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v2 = *MEMORY[0x277CCC2B0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2B0], OS_LOG_TYPE_DEFAULT))
   {
-    v4 = 136315138;
-    v5 = "[HDUserCharacteristicsManager didReceiveAuthKitDeviceListChangeNotification:]_block_invoke";
-    _os_log_impl(&dword_228986000, v2, OS_LOG_TYPE_DEFAULT, "%s updating the watch on account state for a device list change", &v4, 0xCu);
+    v3 = 136315138;
+    v4 = "[HDUserCharacteristicsManager didReceiveAuthKitDeviceListChangeNotification:]_block_invoke";
+    _os_log_impl(&dword_228986000, v2, OS_LOG_TYPE_DEFAULT, "%s updating the watch on account state for a device list change", &v3, 0xCu);
   }
 
   [(HDUserCharacteristicsManager *)*(a1 + 32) _updateHasWatchOnAccountWithRandomDelayAndResetIfNecessary:?];
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addProfileObserver:(id)observer

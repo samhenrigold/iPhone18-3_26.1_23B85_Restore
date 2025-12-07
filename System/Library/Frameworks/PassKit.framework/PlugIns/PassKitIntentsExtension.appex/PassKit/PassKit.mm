@@ -50,11 +50,11 @@ void sub_100002FE8(void *a1, uint64_t a2)
   dispatch_async(v5, v8);
 }
 
-uint64_t sub_100003088(void *a1)
+void sub_10000350C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
-  *(a1[4] + 56) = a1[6];
-  v1 = a1[7];
-  return (*(a1[5] + 16))(a1[5]);
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 uint64_t sub_100003544(uint64_t result, uint64_t a2)
@@ -66,11 +66,7 @@ uint64_t sub_100003544(uint64_t result, uint64_t a2)
 
 uint64_t sub_10000355C(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = IMDMessageRecordCopyMostRecentUseageOfAddresses();
-  v4 = *(*(a1 + 40) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 40) + 8) + 40) = IMDMessageRecordCopyMostRecentUseageOfAddresses();
 
   return _objc_release_x1();
 }
@@ -486,7 +482,7 @@ void sub_100004DF8(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 }
 
-void sub_1000051C4(uint64_t a1, int a2, int a3, int a4, int a5)
+void sub_1000051C4(uint64_t a1, int a2, int a3, uint64_t a4, uint64_t a5)
 {
   v5 = *(a1 + 40);
   if (a2)
@@ -519,7 +515,7 @@ void sub_1000051C4(uint64_t a1, int a2, int a3, int a4, int a5)
     v6 = 2;
   }
 
-  v7 = [INRequestPaymentCurrencyAmountResolutionResult unsupportedForReason:v6];
+  v7 = [INRequestPaymentCurrencyAmountResolutionResult unsupportedForReason:v6, a4, a5];
 LABEL_8:
   v8 = v7;
   (*(v5 + 16))(v5);
@@ -585,9 +581,9 @@ void sub_1000055F0(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 }
 
-void sub_100005B08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_100005B08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -658,10 +654,9 @@ uint64_t sub_100005C70(uint64_t a1)
     *(v9 + 40) = v8;
   }
 
-  v11 = *(*(*(a1 + 80) + 8) + 40);
-  v12 = *(*(a1 + 72) + 16);
+  v11 = *(*(a1 + 72) + 16);
 
-  return v12();
+  return v11();
 }
 
 void sub_100005EA8(uint64_t a1, char a2, void *a3, void *a4)
@@ -697,39 +692,33 @@ void sub_100005FE0(uint64_t a1)
     v2 = [*(a1 + 32) payer];
     v3 = [*(a1 + 32) note];
     v4 = v3;
-    if (v3 && [v3 length])
+    if (v3)
     {
-      v5 = &PKAggDKeyPeerPaymentBubbleRequestWithMemo;
+      [v3 length];
     }
 
-    else
-    {
-      v5 = &PKAggDKeyPeerPaymentBubbleRequestWithoutMemo;
-    }
-
-    v6 = *v5;
     PKAnalyticsSendEvent();
-    v7 = [v2 personHandle];
-    v8 = [v7 value];
+    v5 = [v2 personHandle];
+    v6 = [v5 value];
 
-    v9 = [*(a1 + 40) senderPhoneOrEmail];
-    v10 = [*(a1 + 48) _peerPaymentMessageForRequestWithCurrencyAmount:*(a1 + 56) requestToken:*(a1 + 64) recipientHandle:v8 senderHandle:v9 memo:v4];
-    v11 = [v10 localProperties];
-    [v10 setLocalProperties:0];
-    [*(a1 + 48) sendMessage:v10 toRecipient:v8];
-    [v10 reportMessageSentWithLocalProperties:v11];
-    v12 = [*(a1 + 48) inCurrencyAmountFromPKAmount:*(a1 + 56)];
-    v13 = [INPaymentRecord alloc];
-    v14 = +[INPaymentMethod applePayPaymentMethod];
-    v15 = [v13 initWithPayee:0 payer:v2 currencyAmount:v12 paymentMethod:v14 note:v4 status:5 feeAmount:0];
+    v7 = [*(a1 + 40) senderPhoneOrEmail];
+    v8 = [*(a1 + 48) _peerPaymentMessageForRequestWithCurrencyAmount:*(a1 + 56) requestToken:*(a1 + 64) recipientHandle:v6 senderHandle:v7 memo:v4];
+    v9 = [v8 localProperties];
+    [v8 setLocalProperties:0];
+    [*(a1 + 48) sendMessage:v8 toRecipient:v6];
+    [v8 reportMessageSentWithLocalProperties:v9];
+    v10 = [*(a1 + 48) inCurrencyAmountFromPKAmount:*(a1 + 56)];
+    v11 = [INPaymentRecord alloc];
+    v12 = +[INPaymentMethod applePayPaymentMethod];
+    v13 = [v11 initWithPayee:0 payer:v2 currencyAmount:v10 paymentMethod:v12 note:v4 status:5 feeAmount:0];
 
-    v16 = [[INRequestPaymentIntentResponse alloc] initWithCode:3 userActivity:0];
-    [v16 setPaymentRecord:v15];
+    v14 = [[INRequestPaymentIntentResponse alloc] initWithCode:3 userActivity:0];
+    [v14 setPaymentRecord:v13];
   }
 
   else
   {
-    v16 = [*(a1 + 48) _intentResponseFromWebServiceError:*(a1 + 72)];
+    v14 = [*(a1 + 48) _intentResponseFromWebServiceError:*(a1 + 72)];
   }
 
   (*(*(a1 + 80) + 16))();
@@ -859,34 +848,33 @@ void sub_100007178(uint64_t a1)
       v4 = NSStringFromSelector(*(a1 + 56));
       v5 = *(*(a1 + 32) + 96);
       *buf = 138543618;
-      v16 = v4;
-      v17 = 2112;
-      v18 = v5;
+      v15 = v4;
+      v16 = 2112;
+      v17 = v5;
       _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Calling %{public}@ completion with preDeterminedIntentResponse %@", buf, 0x16u);
     }
 
-    v6 = *(*(a1 + 32) + 96);
     (*(*(a1 + 48) + 16))();
-    v7 = *(a1 + 32);
-    v8 = *(v7 + 96);
-    *(v7 + 96) = 0;
+    v6 = *(a1 + 32);
+    v7 = *(v6 + 96);
+    *(v6 + 96) = 0;
 
-    v9 = [*(a1 + 32) delegate];
-    [v9 pk_didFinishInteractionForIntent:*(a1 + 40)];
+    v8 = [*(a1 + 32) delegate];
+    [v8 pk_didFinishInteractionForIntent:*(a1 + 40)];
   }
 
   else
   {
-    v12[0] = _NSConcreteStackBlock;
-    v12[1] = 3221225472;
-    v12[2] = sub_100007334;
-    v12[3] = &unk_1000148D8;
-    v12[4] = v2;
-    v11 = *(a1 + 48);
-    v10 = v11;
-    v14 = v11;
-    v13 = *(a1 + 40);
-    [v2 peerPaymentRegistrationStatusWithCompletion:v12];
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = sub_100007334;
+    v11[3] = &unk_1000148D8;
+    v11[4] = v2;
+    v10 = *(a1 + 48);
+    v9 = v10;
+    v13 = v10;
+    v12 = *(a1 + 40);
+    [v2 peerPaymentRegistrationStatusWithCompletion:v11];
   }
 }
 
@@ -991,34 +979,33 @@ void sub_1000078DC(uint64_t a1)
       v4 = NSStringFromSelector(*(a1 + 56));
       v5 = *(*(a1 + 32) + 96);
       *buf = 138543618;
-      v16 = v4;
-      v17 = 2112;
-      v18 = v5;
+      v15 = v4;
+      v16 = 2112;
+      v17 = v5;
       _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Calling %{public}@ completion with preDeterminedIntentResponse %@", buf, 0x16u);
     }
 
-    v6 = *(*(a1 + 32) + 96);
     (*(*(a1 + 48) + 16))();
-    v7 = *(a1 + 32);
-    v8 = *(v7 + 96);
-    *(v7 + 96) = 0;
+    v6 = *(a1 + 32);
+    v7 = *(v6 + 96);
+    *(v6 + 96) = 0;
 
-    v9 = [*(a1 + 32) delegate];
-    [v9 pk_didFinishInteractionForIntent:*(a1 + 40)];
+    v8 = [*(a1 + 32) delegate];
+    [v8 pk_didFinishInteractionForIntent:*(a1 + 40)];
   }
 
   else
   {
-    v12[0] = _NSConcreteStackBlock;
-    v12[1] = 3221225472;
-    v12[2] = sub_100007A98;
-    v12[3] = &unk_1000148D8;
-    v12[4] = v2;
-    v11 = *(a1 + 48);
-    v10 = v11;
-    v14 = v11;
-    v13 = *(a1 + 40);
-    [v2 peerPaymentRegistrationStatusWithCompletion:v12];
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = sub_100007A98;
+    v11[3] = &unk_1000148D8;
+    v11[4] = v2;
+    v10 = *(a1 + 48);
+    v9 = v10;
+    v13 = v10;
+    v12 = *(a1 + 40);
+    [v2 peerPaymentRegistrationStatusWithCompletion:v11];
   }
 }
 
@@ -1639,51 +1626,46 @@ void sub_100009BE4(uint64_t a1)
 {
   if ((*(a1 + 72) & 4) != 0)
   {
-    v6 = *(a1 + 32);
-    if (v6[10])
+    v3 = *(a1 + 32);
+    if (v3[10])
     {
-      v7 = *(a1 + 40);
-      v8 = *(a1 + 48);
-      v24[0] = _NSConcreteStackBlock;
-      v24[1] = 3221225472;
-      v24[2] = sub_100009D88;
-      v24[3] = &unk_100014978;
-      v9 = *(a1 + 56);
-      v24[4] = *(a1 + 32);
-      v25 = v9;
-      [v6 _queue_performQuoteForIntent:v7 peerPaymentController:v8 completion:v24];
+      v4 = *(a1 + 40);
+      v5 = *(a1 + 48);
+      v19[0] = _NSConcreteStackBlock;
+      v19[1] = 3221225472;
+      v19[2] = sub_100009D88;
+      v19[3] = &unk_100014978;
+      v6 = *(a1 + 56);
+      v19[4] = *(a1 + 32);
+      v20 = v6;
+      [v3 _queue_performQuoteForIntent:v4 peerPaymentController:v5 completion:v19];
     }
 
     else
     {
-      v10 = PKLogFacilityTypeGetObject();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v7 = PKLogFacilityTypeGetObject();
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        sub_10000BFF8(v10, v11, v12, v13, v14, v15, v16, v17);
+        sub_10000BFF8(v7, v8, v9, v10, v11, v12, v13, v14);
       }
 
-      v18 = [*(a1 + 32) delegate];
-      [v18 pk_didFinishInteractionForIntent:*(a1 + 40)];
+      v15 = [*(a1 + 32) delegate];
+      [v15 pk_didFinishInteractionForIntent:*(a1 + 40)];
 
-      v19 = [*(a1 + 32) _intentResponseForGenericFailure];
-      v20 = *(*(a1 + 64) + 8);
-      v21 = *(v20 + 40);
-      *(v20 + 40) = v19;
+      v16 = [*(a1 + 32) _intentResponseForGenericFailure];
+      v17 = *(*(a1 + 64) + 8);
+      v18 = *(v17 + 40);
+      *(v17 + 40) = v16;
 
-      v22 = *(*(*(a1 + 64) + 8) + 40);
-      v23 = *(*(a1 + 32) + 88);
       (*(*(a1 + 56) + 16))();
     }
   }
 
   else
   {
-    v2 = *(a1 + 56);
-    v3 = *(*(*(a1 + 64) + 8) + 40);
-    v4 = *(*(a1 + 32) + 88);
-    v5 = *(*(a1 + 56) + 16);
+    v2 = *(*(a1 + 56) + 16);
 
-    v5();
+    v2();
   }
 }
 
@@ -1691,27 +1673,26 @@ void sub_100009DA8(uint64_t a1)
 {
   if ((*(a1 + 80) & 2) != 0 && (v2 = *(a1 + 32), !v2[10]))
   {
-    v5 = *(a1 + 40);
-    v6 = *(a1 + 48);
-    v8[0] = _NSConcreteStackBlock;
-    v8[1] = 3221225472;
-    v8[2] = sub_100009EC8;
-    v8[3] = &unk_1000149C8;
-    v7 = *(a1 + 72);
-    v8[4] = v2;
-    v12 = v7;
-    v10 = *(a1 + 56);
-    v9 = *(a1 + 40);
-    v11 = *(a1 + 64);
-    [v2 _queue_fetchQuoteForIntent:v5 peerPaymentController:v6 completion:v8];
+    v4 = *(a1 + 40);
+    v5 = *(a1 + 48);
+    v7[0] = _NSConcreteStackBlock;
+    v7[1] = 3221225472;
+    v7[2] = sub_100009EC8;
+    v7[3] = &unk_1000149C8;
+    v6 = *(a1 + 72);
+    v7[4] = v2;
+    v11 = v6;
+    v9 = *(a1 + 56);
+    v8 = *(a1 + 40);
+    v10 = *(a1 + 64);
+    [v2 _queue_fetchQuoteForIntent:v4 peerPaymentController:v5 completion:v7];
   }
 
   else
   {
-    v3 = *(a1 + 56);
-    v4 = *(*(a1 + 56) + 16);
+    v3 = *(*(a1 + 56) + 16);
 
-    v4();
+    v3();
   }
 }
 
@@ -1741,7 +1722,6 @@ void sub_100009EC8(uint64_t a1, void *a2, void *a3)
     v19 = *(v18 + 40);
     *(v18 + 40) = v17;
 
-    v20 = *(*(*(a1 + 64) + 8) + 40);
     (*(*(a1 + 56) + 16))();
   }
 }
@@ -1750,24 +1730,23 @@ void sub_100009FD4(uint64_t a1)
 {
   if ((*(a1 + 72) & 1) != 0 && (v2 = *(a1 + 32), !v2[9]))
   {
-    v5 = *(a1 + 40);
-    v6 = *(a1 + 48);
-    v7[0] = _NSConcreteStackBlock;
-    v7[1] = 3221225472;
-    v7[2] = sub_10000A0D8;
-    v7[3] = &unk_100014A18;
-    v7[4] = v2;
-    v8 = *(a1 + 56);
-    v9 = *(a1 + 64);
-    [v2 _queue_identifyRecipientWithIntent:v5 peerPaymentController:v6 completion:v7];
+    v4 = *(a1 + 40);
+    v5 = *(a1 + 48);
+    v6[0] = _NSConcreteStackBlock;
+    v6[1] = 3221225472;
+    v6[2] = sub_10000A0D8;
+    v6[3] = &unk_100014A18;
+    v6[4] = v2;
+    v7 = *(a1 + 56);
+    v8 = *(a1 + 64);
+    [v2 _queue_identifyRecipientWithIntent:v4 peerPaymentController:v5 completion:v6];
   }
 
   else
   {
-    v3 = *(a1 + 56);
-    v4 = *(*(a1 + 56) + 16);
+    v3 = *(*(a1 + 56) + 16);
 
-    v4();
+    v3();
   }
 }
 
@@ -1829,65 +1808,58 @@ void sub_10000A408(uint64_t a1)
   {
     if (v4)
     {
-      LOWORD(v20) = 0;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Received successful response from performQuote, sending payment message", &v20, 2u);
+      LOWORD(v17) = 0;
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Received successful response from performQuote, sending payment message", &v17, 2u);
     }
 
     PKAnalyticsSendEvent();
     v5 = [*(a1 + 32) payee];
     v6 = [*(a1 + 32) note];
     v7 = v6;
-    if (v6 && [v6 length])
+    if (v6)
     {
-      v8 = &PKAggDKeyPeerPaymentBubbleSendWithMemo;
+      [v6 length];
     }
 
-    else
-    {
-      v8 = &PKAggDKeyPeerPaymentBubbleSendWithoutMemo;
-    }
-
-    v10 = *v8;
     PKAnalyticsSendEvent();
-    v11 = [v5 personHandle];
-    v12 = [v11 value];
+    v9 = [v5 personHandle];
+    v10 = [v9 value];
 
-    v13 = [*(a1 + 40) senderPhoneOrEmail];
-    v14 = [*(a1 + 48) _peerPaymentMessageForAuthorizedPaymentWithQuote:*(a1 + 56) performResponse:*(a1 + 64) recipientHandle:v12 senderHandle:v13 memo:v7];
-    v15 = [v14 localProperties];
-    [v14 setLocalProperties:0];
-    [*(a1 + 48) sendMessage:v14 toRecipient:v12];
-    [v14 reportMessageSentWithLocalProperties:v15];
-    v9 = [[INSendPaymentIntentResponse alloc] initWithCode:3 userActivity:0];
-    v16 = [*(a1 + 48) _paymentRecordFromQuote:*(a1 + 56) payee:v5 note:v7 status:2];
-    [v9 setPaymentRecord:v16];
+    v11 = [*(a1 + 40) senderPhoneOrEmail];
+    v12 = [*(a1 + 48) _peerPaymentMessageForAuthorizedPaymentWithQuote:*(a1 + 56) performResponse:*(a1 + 64) recipientHandle:v10 senderHandle:v11 memo:v7];
+    v13 = [v12 localProperties];
+    [v12 setLocalProperties:0];
+    [*(a1 + 48) sendMessage:v12 toRecipient:v10];
+    [v12 reportMessageSentWithLocalProperties:v13];
+    v8 = [[INSendPaymentIntentResponse alloc] initWithCode:3 userActivity:0];
+    v14 = [*(a1 + 48) _paymentRecordFromQuote:*(a1 + 56) payee:v5 note:v7 status:2];
+    [v8 setPaymentRecord:v14];
   }
 
   else
   {
     if (v4)
     {
-      LOWORD(v20) = 0;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Received failure response from performQuote, returning error intent response", &v20, 2u);
+      LOWORD(v17) = 0;
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Received failure response from performQuote, returning error intent response", &v17, 2u);
     }
 
-    v9 = [*(a1 + 48) _intentResponseFromWebServiceError:*(a1 + 72)];
+    v8 = [*(a1 + 48) _intentResponseFromWebServiceError:*(a1 + 72)];
   }
 
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = NSStringFromSelector(*(a1 + 88));
-    v20 = 138543618;
-    v21 = v17;
-    v22 = 2112;
-    v23 = v9;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Calling %{public}@ completion with result %@", &v20, 0x16u);
+    v15 = NSStringFromSelector(*(a1 + 88));
+    v17 = 138543618;
+    v18 = v15;
+    v19 = 2112;
+    v20 = v8;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Calling %{public}@ completion with result %@", &v17, 0x16u);
   }
 
-  v18 = *(a1 + 96);
   (*(*(a1 + 80) + 16))();
-  v19 = [*(a1 + 48) delegate];
-  [v19 pk_didFinishInteractionForIntent:*(a1 + 32)];
+  v16 = [*(a1 + 48) delegate];
+  [v16 pk_didFinishInteractionForIntent:*(a1 + 32)];
 }
 
 void sub_10000A820(uint64_t a1, char a2, void *a3, void *a4)
@@ -1921,8 +1893,8 @@ void sub_10000A93C(uint64_t a1)
     v2 = PKLogFacilityTypeGetObject();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v12) = 0;
-      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Received successful quote response.", &v12, 2u);
+      LOWORD(v11) = 0;
+      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Received successful quote response.", &v11, 2u);
     }
 
     v3 = [*(a1 + 32) payee];
@@ -1931,11 +1903,11 @@ void sub_10000A93C(uint64_t a1)
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       v6 = *(a1 + 48);
-      v12 = 138412546;
-      v13 = v5;
-      v14 = 2112;
-      v15 = v6;
-      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Created payment record %@ from quote %@", &v12, 0x16u);
+      v11 = 138412546;
+      v12 = v5;
+      v13 = 2112;
+      v14 = v6;
+      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Created payment record %@ from quote %@", &v11, 0x16u);
     }
 
     v7 = [[INSendPaymentIntentResponse alloc] initWithCode:1 userActivity:0];
@@ -1952,9 +1924,9 @@ LABEL_11:
     v2 = PKLogFacilityTypeGetObject();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 138412290;
-      v13 = v8;
-      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Quote was not succesful, creating intent response from errror: %@", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = v8;
+      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Quote was not succesful, creating intent response from errror: %@", &v11, 0xCu);
     }
 
     v7 = [*(a1 + 40) _intentResponseFromWebServiceError:*(a1 + 56)];
@@ -1964,22 +1936,21 @@ LABEL_11:
   }
 
   v7 = [*(a1 + 40) _intentResponseForGenericFailure];
-  v11 = [*(a1 + 40) delegate];
-  [v11 pk_didFinishInteractionForIntent:*(a1 + 32)];
+  v10 = [*(a1 + 40) delegate];
+  [v10 pk_didFinishInteractionForIntent:*(a1 + 32)];
 
   v2 = PKLogFacilityTypeGetObject();
 LABEL_12:
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v9 = NSStringFromSelector(*(a1 + 72));
-    v12 = 138543618;
-    v13 = v9;
-    v14 = 2112;
-    v15 = v7;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Calling %{public}@ completion with result %@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v9;
+    v13 = 2112;
+    v14 = v7;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Calling %{public}@ completion with result %@", &v11, 0x16u);
   }
 
-  v10 = *(a1 + 56);
   (*(*(a1 + 64) + 16))();
 }
 
@@ -2084,10 +2055,11 @@ void sub_10000B1C0(uint64_t a1)
   (*(*(a1 + 72) + 16))();
 }
 
-void sub_10000BBB8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000BBB8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 void sub_10000C0A0(uint64_t a1, NSObject *a2)

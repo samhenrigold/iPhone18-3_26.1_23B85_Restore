@@ -71,9 +71,9 @@ uint64_t soft_AXRequestingClient()
   return v0();
 }
 
-void sub_29C1A325C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_29C1A325C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -96,128 +96,6 @@ id AXSBHIconManagerFromSharedIconController()
 }
 
 id AXSBIconControllerSharedInstance()
-{
-  v18 = *MEMORY[0x29EDCA608];
-  v16 = 0;
-  v0 = [*MEMORY[0x29EDC8008] safeValueForKey:@"windowSceneManager"];
-  v1 = __UIAccessibilitySafeClass();
-
-  [v1 safeSetForKey:@"connectedWindowScenes"];
-  v12 = 0u;
-  v13 = 0u;
-  v14 = 0u;
-  v2 = v15 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v12 objects:v17 count:16];
-  if (v3)
-  {
-    v4 = v3;
-    v5 = *v13;
-    while (2)
-    {
-      for (i = 0; i != v4; ++i)
-      {
-        if (*v13 != v5)
-        {
-          objc_enumerationMutation(v2);
-        }
-
-        v7 = *(*(&v12 + 1) + 8 * i);
-        if ([v7 safeBoolForKey:{@"isMainDisplayWindowScene", v12}])
-        {
-          v9 = [v7 safeValueForKey:@"homeScreenController"];
-          v8 = [v9 safeValueForKey:@"iconController"];
-
-          goto LABEL_11;
-        }
-      }
-
-      v4 = [v2 countByEnumeratingWithState:&v12 objects:v17 count:16];
-      if (v4)
-      {
-        continue;
-      }
-
-      break;
-    }
-  }
-
-  v8 = 0;
-LABEL_11:
-
-  v10 = *MEMORY[0x29EDCA608];
-
-  return v8;
-}
-
-id AXSBHomeScreenControllerForContinuityDisplay()
-{
-  v18 = *MEMORY[0x29EDCA608];
-  v16 = 0;
-  v0 = [*MEMORY[0x29EDC8008] safeValueForKey:@"windowSceneManager"];
-  v1 = __UIAccessibilitySafeClass();
-
-  [v1 safeSetForKey:@"connectedWindowScenes"];
-  v12 = 0u;
-  v13 = 0u;
-  v14 = 0u;
-  v2 = v15 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v12 objects:v17 count:16];
-  if (v3)
-  {
-    v4 = v3;
-    v5 = *v13;
-LABEL_3:
-    v6 = 0;
-    while (1)
-    {
-      if (*v13 != v5)
-      {
-        objc_enumerationMutation(v2);
-      }
-
-      v7 = *(*(&v12 + 1) + 8 * v6);
-      if ([v7 safeBoolForKey:{@"isContinuityDisplayWindowScene", v12}])
-      {
-        break;
-      }
-
-      if (v4 == ++v6)
-      {
-        v4 = [v2 countByEnumeratingWithState:&v12 objects:v17 count:16];
-        if (v4)
-        {
-          goto LABEL_3;
-        }
-
-        goto LABEL_9;
-      }
-    }
-
-    v8 = v7;
-
-    if (!v8)
-    {
-      goto LABEL_12;
-    }
-
-    v9 = [v8 safeValueForKey:@"homeScreenController"];
-  }
-
-  else
-  {
-LABEL_9:
-
-    v8 = 0;
-LABEL_12:
-    v9 = 0;
-  }
-
-  v10 = *MEMORY[0x29EDCA608];
-
-  return v9;
-}
-
-id AXMainSBHomeScreenController()
 {
   v17 = *MEMORY[0x29EDCA608];
   v15 = 0;
@@ -246,7 +124,9 @@ id AXMainSBHomeScreenController()
         v7 = *(*(&v11 + 1) + 8 * i);
         if ([v7 safeBoolForKey:{@"isMainDisplayWindowScene", v11}])
         {
-          v8 = [v7 safeValueForKey:@"homeScreenController"];
+          v9 = [v7 safeValueForKey:@"homeScreenController"];
+          v8 = [v9 safeValueForKey:@"iconController"];
+
           goto LABEL_11;
         }
       }
@@ -264,7 +144,121 @@ id AXMainSBHomeScreenController()
   v8 = 0;
 LABEL_11:
 
-  v9 = *MEMORY[0x29EDCA608];
+  return v8;
+}
+
+id AXSBHomeScreenControllerForContinuityDisplay()
+{
+  v17 = *MEMORY[0x29EDCA608];
+  v15 = 0;
+  v0 = [*MEMORY[0x29EDC8008] safeValueForKey:@"windowSceneManager"];
+  v1 = __UIAccessibilitySafeClass();
+
+  [v1 safeSetForKey:@"connectedWindowScenes"];
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v2 = v14 = 0u;
+  v3 = [v2 countByEnumeratingWithState:&v11 objects:v16 count:16];
+  if (v3)
+  {
+    v4 = v3;
+    v5 = *v12;
+LABEL_3:
+    v6 = 0;
+    while (1)
+    {
+      if (*v12 != v5)
+      {
+        objc_enumerationMutation(v2);
+      }
+
+      v7 = *(*(&v11 + 1) + 8 * v6);
+      if ([v7 safeBoolForKey:{@"isContinuityDisplayWindowScene", v11}])
+      {
+        break;
+      }
+
+      if (v4 == ++v6)
+      {
+        v4 = [v2 countByEnumeratingWithState:&v11 objects:v16 count:16];
+        if (v4)
+        {
+          goto LABEL_3;
+        }
+
+        goto LABEL_9;
+      }
+    }
+
+    v8 = v7;
+
+    if (!v8)
+    {
+      goto LABEL_12;
+    }
+
+    v9 = [v8 safeValueForKey:@"homeScreenController"];
+  }
+
+  else
+  {
+LABEL_9:
+
+    v8 = 0;
+LABEL_12:
+    v9 = 0;
+  }
+
+  return v9;
+}
+
+id AXMainSBHomeScreenController()
+{
+  v16 = *MEMORY[0x29EDCA608];
+  v14 = 0;
+  v0 = [*MEMORY[0x29EDC8008] safeValueForKey:@"windowSceneManager"];
+  v1 = __UIAccessibilitySafeClass();
+
+  [v1 safeSetForKey:@"connectedWindowScenes"];
+  v10 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v2 = v13 = 0u;
+  v3 = [v2 countByEnumeratingWithState:&v10 objects:v15 count:16];
+  if (v3)
+  {
+    v4 = v3;
+    v5 = *v11;
+    while (2)
+    {
+      for (i = 0; i != v4; ++i)
+      {
+        if (*v11 != v5)
+        {
+          objc_enumerationMutation(v2);
+        }
+
+        v7 = *(*(&v10 + 1) + 8 * i);
+        if ([v7 safeBoolForKey:{@"isMainDisplayWindowScene", v10}])
+        {
+          v8 = [v7 safeValueForKey:@"homeScreenController"];
+          goto LABEL_11;
+        }
+      }
+
+      v4 = [v2 countByEnumeratingWithState:&v10 objects:v15 count:16];
+      if (v4)
+      {
+        continue;
+      }
+
+      break;
+    }
+  }
+
+  v8 = 0;
+LABEL_11:
 
   return v8;
 }
@@ -466,9 +460,9 @@ id AXSwitcherController(void *a1, void *a2)
   return v6;
 }
 
-void sub_29C1A3EB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_29C1A3EB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -482,10 +476,7 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
 
 uint64_t __AXSwitcherController_block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) switcherControllerForWindowScene:*(a1 + 40)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) switcherControllerForWindowScene:*(a1 + 40)];
 
   return MEMORY[0x2A1C71028]();
 }
@@ -509,19 +500,16 @@ id AXSwitcherViewController(void *a1, void *a2)
   return v5;
 }
 
-void sub_29C1A406C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_29C1A406C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t __AXSwitcherViewController_block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) safeValueForKey:@"switcherViewController"];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) safeValueForKey:@"switcherViewController"];
 
   return MEMORY[0x2A1C71028]();
 }
@@ -592,23 +580,23 @@ LABEL_10:
 
 void *__getAXRequestingClientSymbolLoc_block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x29EDCA608];
-  v6[0] = 0;
+  v8 = *MEMORY[0x29EDCA608];
+  v5[0] = 0;
   if (!AXRuntimeLibraryCore_frameworkLibrary)
   {
-    v6[1] = MEMORY[0x29EDCA5F8];
-    v6[2] = 3221225472;
-    v6[3] = __AXRuntimeLibraryCore_block_invoke;
-    v6[4] = &__block_descriptor_40_e5_v8__0l;
-    v6[5] = v6;
-    v7 = xmmword_29F2ECAE8;
-    v8 = 0;
+    v5[1] = MEMORY[0x29EDCA5F8];
+    v5[2] = 3221225472;
+    v5[3] = __AXRuntimeLibraryCore_block_invoke;
+    v5[4] = &__block_descriptor_40_e5_v8__0l;
+    v5[5] = v5;
+    v6 = xmmword_29F2ECAE8;
+    v7 = 0;
     AXRuntimeLibraryCore_frameworkLibrary = _sl_dlopen();
-    v3 = v6[0];
+    v3 = v5[0];
     v2 = AXRuntimeLibraryCore_frameworkLibrary;
     if (AXRuntimeLibraryCore_frameworkLibrary)
     {
-      if (!v6[0])
+      if (!v5[0])
       {
         goto LABEL_5;
       }
@@ -616,7 +604,7 @@ void *__getAXRequestingClientSymbolLoc_block_invoke(uint64_t a1)
 
     else
     {
-      v3 = abort_report_np();
+      v3 = abort_report_np("%s", v5[0]);
     }
 
     free(v3);
@@ -628,17 +616,13 @@ LABEL_5:
   result = dlsym(v2, "AXRequestingClient");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getAXRequestingClientSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
-  v5 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 uint64_t __AXRuntimeLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x29EDCA608];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   AXRuntimeLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -651,7 +635,7 @@ void sub_29C1A4AD4(_Unwind_Exception *a1)
 
 void soft_AXRequestingClient_cold_1()
 {
-  dlerror();
-  abort_report_np();
+  v0 = dlerror();
+  abort_report_np("%s", v0);
   AXPerformSafeBlock();
 }

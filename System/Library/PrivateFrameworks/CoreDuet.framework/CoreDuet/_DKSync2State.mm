@@ -42,33 +42,33 @@
 
 - (void)finishWithError:(uint64_t)error
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (error)
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v4 = *(error + 32);
-    v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v5)
     {
       v6 = v5;
       v7 = 0;
-      v8 = *v14;
+      v8 = *v13;
       do
       {
         v9 = 0;
         v10 = v7;
         do
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(v4);
           }
 
-          v7 = MEMORY[0x193B00C50](*(*(&v13 + 1) + 8 * v9));
+          v7 = MEMORY[0x193B00C50](*(*(&v12 + 1) + 8 * v9));
 
           (v7)[2](v7, v3);
           ++v9;
@@ -76,7 +76,7 @@
         }
 
         while (v6 != v9);
-        v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v6);
@@ -86,8 +86,6 @@
     v11 = *(error + 32);
     *(error + 32) = 0;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 @end

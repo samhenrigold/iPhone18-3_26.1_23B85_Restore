@@ -30,30 +30,30 @@
 
 - (ANAnalyticsDailyAnnouncements)initWithDictionary:(id)dictionary
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v5 = [(ANAnalyticsDailyAnnouncements *)self init];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v6 = dictionaryCopy;
-  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v18;
+    v9 = *v17;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
-        if ([v11 isEqualToString:{@"lastAccess", v17}])
+        v11 = *(*(&v16 + 1) + 8 * i);
+        if ([v11 isEqualToString:{@"lastAccess", v16}])
         {
           v12 = [v6 objectForKey:v11];
           [v12 doubleValue];
@@ -68,115 +68,112 @@
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v8);
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (id)dictionary
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   v4 = MEMORY[0x277CCABB0];
   [(ANAnalyticsDailyAnnouncements *)self lastAccess];
   v5 = [v4 numberWithDouble:?];
   [v3 setObject:v5 forKeyedSubscript:@"lastAccess"];
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   homes = [(ANAnalyticsDailyAnnouncements *)self homes];
-  v7 = [homes countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [homes countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(homes);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * i);
+        v11 = *(*(&v15 + 1) + 8 * i);
         homes2 = [(ANAnalyticsDailyAnnouncements *)self homes];
         v13 = [homes2 objectForKey:v11];
         [v3 setObject:v13 forKeyedSubscript:v11];
       }
 
-      v8 = [homes countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [homes countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (void)merge:(id)merge
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
+  v41 = 0u;
   v42 = 0u;
   v43 = 0u;
   v44 = 0u;
-  v45 = 0u;
   mergeCopy = merge;
   obj = [mergeCopy homes];
-  v4 = [obj countByEnumeratingWithState:&v42 objects:v47 count:16];
+  v4 = [obj countByEnumeratingWithState:&v41 objects:v46 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v43;
-    v31 = *v43;
+    v6 = *v42;
+    v30 = *v42;
     do
     {
       v7 = 0;
-      v32 = v5;
+      v31 = v5;
       do
       {
-        if (*v43 != v6)
+        if (*v42 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v42 + 1) + 8 * v7);
+        v8 = *(*(&v41 + 1) + 8 * v7);
         homes = [(ANAnalyticsDailyAnnouncements *)self homes];
         v10 = [homes objectForKeyedSubscript:v8];
 
         if (v10)
         {
-          v40 = 0u;
-          v41 = 0u;
-          v38 = 0u;
           v39 = 0u;
+          v40 = 0u;
+          v37 = 0u;
+          v38 = 0u;
           homes2 = [mergeCopy homes];
           homes6 = [homes2 objectForKeyedSubscript:v8];
 
-          v37 = [homes6 countByEnumeratingWithState:&v38 objects:v46 count:16];
-          if (v37)
+          v36 = [homes6 countByEnumeratingWithState:&v37 objects:v45 count:16];
+          if (v36)
           {
-            v34 = v7;
-            v35 = *v39;
+            v33 = v7;
+            v34 = *v38;
             do
             {
-              for (i = 0; i != v37; ++i)
+              for (i = 0; i != v36; ++i)
               {
-                if (*v39 != v35)
+                if (*v38 != v34)
                 {
                   objc_enumerationMutation(homes6);
                 }
 
-                v14 = *(*(&v38 + 1) + 8 * i);
+                v14 = *(*(&v37 + 1) + 8 * i);
                 selfCopy = self;
                 homes3 = [(ANAnalyticsDailyAnnouncements *)self homes];
                 v17 = [homes3 objectForKeyedSubscript:v8];
@@ -216,13 +213,13 @@
                 self = selfCopy;
               }
 
-              v37 = [homes6 countByEnumeratingWithState:&v38 objects:v46 count:16];
+              v36 = [homes6 countByEnumeratingWithState:&v37 objects:v45 count:16];
             }
 
-            while (v37);
-            v6 = v31;
-            v5 = v32;
-            v7 = v34;
+            while (v36);
+            v6 = v30;
+            v5 = v31;
+            v7 = v33;
           }
         }
 
@@ -238,63 +235,61 @@
       }
 
       while (v7 != v5);
-      v5 = [obj countByEnumeratingWithState:&v42 objects:v47 count:16];
+      v5 = [obj countByEnumeratingWithState:&v41 objects:v46 count:16];
     }
 
     while (v5);
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)announcementsCount
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   obj = [(ANAnalyticsDailyAnnouncements *)self homes];
-  v20 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
+  v19 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
   v3 = 0;
-  if (v20)
+  if (v19)
   {
-    v19 = *v27;
+    v18 = *v26;
     do
     {
       v4 = 0;
       do
       {
-        if (*v27 != v19)
+        if (*v26 != v18)
         {
           objc_enumerationMutation(obj);
         }
 
-        v21 = v4;
-        v5 = *(*(&v26 + 1) + 8 * v4);
+        v20 = v4;
+        v5 = *(*(&v25 + 1) + 8 * v4);
+        v21 = 0u;
         v22 = 0u;
         v23 = 0u;
         v24 = 0u;
-        v25 = 0u;
         homes = [(ANAnalyticsDailyAnnouncements *)self homes];
         v7 = [homes objectForKeyedSubscript:v5];
 
-        v8 = [v7 countByEnumeratingWithState:&v22 objects:v30 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v21 objects:v29 count:16];
         if (v8)
         {
           v9 = v8;
-          v10 = *v23;
+          v10 = *v22;
           do
           {
             v11 = 0;
             do
             {
-              if (*v23 != v10)
+              if (*v22 != v10)
               {
                 objc_enumerationMutation(v7);
               }
 
-              v12 = *(*(&v22 + 1) + 8 * v11);
+              v12 = *(*(&v21 + 1) + 8 * v11);
               homes2 = [(ANAnalyticsDailyAnnouncements *)self homes];
               v14 = [homes2 objectForKeyedSubscript:v5];
               v15 = [v14 objectForKey:v12];
@@ -304,23 +299,22 @@
             }
 
             while (v9 != v11);
-            v9 = [v7 countByEnumeratingWithState:&v22 objects:v30 count:16];
+            v9 = [v7 countByEnumeratingWithState:&v21 objects:v29 count:16];
           }
 
           while (v9);
         }
 
-        v4 = v21 + 1;
+        v4 = v20 + 1;
       }
 
-      while (v21 + 1 != v20);
-      v20 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
+      while (v20 + 1 != v19);
+      v19 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
     }
 
-    while (v20);
+    while (v19);
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -344,18 +338,18 @@
 
 - (void)incrementCountInHome:(id)home group:(id)group
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   homeCopy = home;
   groupCopy = group;
-  v8 = ANLogHandleANAnalyticsDailyAnnouncements();
+  v8 = ANLogHandleANAnalyticsDailyAnnouncements(groupCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
-    v26 = &stru_2851BDB18;
-    v27 = 2112;
-    v28 = homeCopy;
-    v29 = 2112;
-    v30 = groupCopy;
+    v25 = &stru_2851BDB18;
+    v26 = 2112;
+    v27 = homeCopy;
+    v28 = 2112;
+    v29 = groupCopy;
     _os_log_impl(&dword_23F525000, v8, OS_LOG_TYPE_DEFAULT, "%@Incrementing announcement count. HomeID=%@, GroupID=%@", buf, 0x20u);
   }
 
@@ -392,9 +386,9 @@
 
     else
     {
-      v23 = groupCopy;
-      v24 = &unk_2851C49B0;
-      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+      v22 = groupCopy;
+      v23 = &unk_2851C49B0;
+      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
       [v14 setObject:v20 forKey:v10];
 
       v16 = v14;
@@ -403,16 +397,14 @@
 
   else
   {
-    v16 = ANLogHandleANAnalyticsDailyAnnouncements();
+    v16 = ANLogHandleANAnalyticsDailyAnnouncements(uUIDString);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
     {
       *buf = 138412290;
-      v26 = &stru_2851BDB18;
+      v25 = &stru_2851BDB18;
       _os_log_impl(&dword_23F525000, v16, OS_LOG_TYPE_FAULT, "%@Failed to increment count due to nil identifiers", buf, 0xCu);
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -1,5 +1,6 @@
 @interface HUNearbyLiveListenController
 + (HUNearbyLiveListenController)sharedInstance;
+- (BOOL)_updateState:(int64_t)state audioLevel:(float)level isPlayingBack:(BOOL)back transcription:(id)transcription;
 - (HUNearbyLiveListenController)init;
 - (NSString)transcription;
 - (void)registerUpdateBlock:(id)block withListener:(id)listener;
@@ -34,15 +35,15 @@
   return v3;
 }
 
-void __46__HUNearbyLiveListenController_sharedInstance__block_invoke()
+void __46__HUNearbyLiveListenController_sharedInstance__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_new();
-  v1 = sharedInstance_obj;
-  sharedInstance_obj = v0;
+  v2 = objc_opt_new();
+  v3 = sharedInstance_obj;
+  sharedInstance_obj = v2;
 
-  v2 = [HUNearbyLiveListenControlleriOS alloc];
-  v3 = [(HUNearbyLiveListenControlleriOS *)v2 initWithController:sharedInstance_obj];
-  [sharedInstance_obj setDeviceImplementation:v3];
+  v4 = [HUNearbyLiveListenControlleriOS alloc];
+  v5 = [(HUNearbyLiveListenControlleriOS *)v4 initWithController:sharedInstance_obj];
+  [sharedInstance_obj setDeviceImplementation:v5];
 }
 
 - (HUNearbyLiveListenController)init
@@ -199,6 +200,79 @@ BOOL __47__HUNearbyLiveListenController_removeListener___block_invoke(uint64_t a
     deviceImplementation = [(HUNearbyLiveListenController *)self deviceImplementation];
     [deviceImplementation stopLiveListenRewind];
   }
+}
+
+- (BOOL)_updateState:(int64_t)state audioLevel:(float)level isPlayingBack:(BOOL)back transcription:(id)transcription
+{
+  backCopy = back;
+  v36 = *MEMORY[0x1E69E9840];
+  transcriptionCopy = transcription;
+  state = [(HUNearbyLiveListenController *)self state];
+  [(HUNearbyLiveListenController *)self audioLevel];
+  v13 = v12;
+  transcription = [(HUNearbyLiveListenController *)self transcription];
+  v15 = transcription;
+  if (transcriptionCopy | transcription)
+  {
+    v16 = [transcription isEqualToString:transcriptionCopy] ^ 1;
+  }
+
+  else
+  {
+    v16 = 0;
+  }
+
+  v17 = v16 | [(HUNearbyLiveListenController *)self isPlayingBack]^ backCopy;
+  if (state != state || v13 != level || v17)
+  {
+    v30 = v17;
+    [(HUNearbyLiveListenController *)self setState:state];
+    *&v18 = level;
+    [(HUNearbyLiveListenController *)self setAudioLevel:v18];
+    [(HUNearbyLiveListenController *)self setTranscription:transcriptionCopy];
+    [(HUNearbyLiveListenController *)self setIsPlayingBack:backCopy];
+    updateLock = [(HUNearbyLiveListenController *)self updateLock];
+    [updateLock lock];
+
+    updateBlocks = [(HUNearbyLiveListenController *)self updateBlocks];
+    v21 = [updateBlocks copy];
+
+    updateLock2 = [(HUNearbyLiveListenController *)self updateLock];
+    [updateLock2 unlock];
+
+    v33 = 0u;
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
+    v23 = v21;
+    v24 = [v23 countByEnumeratingWithState:&v31 objects:v35 count:16];
+    if (v24)
+    {
+      v25 = v24;
+      v26 = *v32;
+      do
+      {
+        for (i = 0; i != v25; ++i)
+        {
+          if (*v32 != v26)
+          {
+            objc_enumerationMutation(v23);
+          }
+
+          block = [*(*(&v31 + 1) + 8 * i) block];
+          block[2](block, state, backCopy, transcriptionCopy, level);
+        }
+
+        v25 = [v23 countByEnumeratingWithState:&v31 objects:v35 count:16];
+      }
+
+      while (v25);
+    }
+
+    LOBYTE(v17) = v30;
+  }
+
+  return state != state || v17;
 }
 
 @end

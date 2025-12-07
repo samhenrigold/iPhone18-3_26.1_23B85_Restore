@@ -355,7 +355,6 @@ LABEL_28:
   toCopy = to;
   if ((*&self->_has & 4) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -366,7 +365,6 @@ LABEL_28:
 
   if (*&self->_has)
   {
-    label = self->_label;
     PBDataWriterWriteUint64Field();
   }
 
@@ -378,14 +376,12 @@ LABEL_28:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    supervisionType = self->_supervisionType;
     PBDataWriterWriteUint64Field();
     has = self->_has;
   }
 
   if ((has & 8) != 0)
   {
-    confidenceScore = self->_confidenceScore;
     PBDataWriterWriteFloatField();
   }
 }

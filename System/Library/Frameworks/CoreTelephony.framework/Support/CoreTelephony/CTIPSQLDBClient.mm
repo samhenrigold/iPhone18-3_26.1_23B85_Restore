@@ -7,15 +7,17 @@
 
 - (id)fetchResultsForUseCase:(id)case withQuery:(id)query
 {
-  static String._unconditionallyBridgeFromObjectiveC(_:)();
-  static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v5 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v7 = v6;
+  v8 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v10 = v9;
   selfCopy = self;
-  sub_100056B44();
+  sub_100056B44(v5, v7, v8, v10);
 
-  type metadata accessor for CTFlightInfo(v6);
-  v7.super.isa = Array._bridgeToObjectiveC()().super.isa;
+  type metadata accessor for CTFlightInfo(v12);
+  v13.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
-  return v7.super.isa;
+  return v13.super.isa;
 }
 
 - (CTIPSQLDBClient)init

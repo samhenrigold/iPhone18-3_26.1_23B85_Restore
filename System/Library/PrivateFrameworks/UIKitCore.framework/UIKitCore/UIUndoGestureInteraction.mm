@@ -1708,7 +1708,7 @@ void __39__UIUndoGestureInteraction_iWorkFamily__block_invoke()
           objc_enumerationMutation(iWorkFamily);
         }
 
-        if ([*(*(&v9 + 1) + 8 * i) isEqualToString:familyCopy])
+        if (objc_msgSend_isEqualToString_(*(*(&v9 + 1) + 8 * i)))
         {
           LOBYTE(v5) = 1;
           goto LABEL_11;
@@ -3260,7 +3260,7 @@ BOOL __41__UIUndoGestureInteraction_editingTraits__block_invoke(uint64_t a1, uin
 
   if (role)
   {
-    v6 = [role isEqualToString:@"SBSUIWindowSceneSessionRoleSystemNotes"] ^ 1;
+    v6 = objc_msgSend_isEqualToString_(role) ^ 1;
   }
 
   else
@@ -3283,9 +3283,9 @@ BOOL __41__UIUndoGestureInteraction_editingTraits__block_invoke(uint64_t a1, uin
 
   else
   {
-    v8 = [v5 isEqualToString:@"com.apple.purplebuddy"];
+    isEqualToString = objc_msgSend_isEqualToString_(v5);
 
-    if ((v8 & 1) == 0 && [self _isKeyWindowSceneSessionRoleValidForTutorial])
+    if ((isEqualToString & 1) == 0 && [self _isKeyWindowSceneSessionRoleValidForTutorial])
     {
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
@@ -3334,9 +3334,9 @@ void __85__UIUndoGestureInteraction_presentProductivityGestureTutorialIfNeededWi
   v7 = *MEMORY[0x1E69D9838];
   if (([preferencesActions oneTimeActionCompleted:*MEMORY[0x1E69D9838]] & 1) == 0)
   {
-    v8 = [v4 isEqualToString:@"com.apple.purplebuddy"];
+    isEqualToString = objc_msgSend_isEqualToString_(v4);
 
-    if ((v8 & 1) != 0 || ![self _isKeyWindowSceneSessionRoleValidForTutorial])
+    if ((isEqualToString & 1) != 0 || ![self _isKeyWindowSceneSessionRoleValidForTutorial])
     {
       goto LABEL_13;
     }

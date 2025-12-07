@@ -86,10 +86,10 @@ void __29__SFAutoFillHelperProxy_init__block_invoke(uint64_t a1)
 void __138__SFAutoFillHelperProxy__getAutomaticStrongPasswordForAppWithPasswordRules_confirmPasswordRules_overrideApplicationIdentifier_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXAutoFill(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __138__SFAutoFillHelperProxy__getAutomaticStrongPasswordForAppWithPasswordRules_confirmPasswordRules_overrideApplicationIdentifier_completion___block_invoke_cold_1(v4, v3);
+    __138__SFAutoFillHelperProxy__getAutomaticStrongPasswordForAppWithPasswordRules_confirmPasswordRules_overrideApplicationIdentifier_completion___block_invoke_cold_1(v5, v3);
   }
 
   (*(*(a1 + 32) + 16))();
@@ -116,10 +116,10 @@ void __138__SFAutoFillHelperProxy__getAutomaticStrongPasswordForAppWithPasswordR
 void __76__SFAutoFillHelperProxy_getRemoteAutoFillAvailabilityWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXAutoFill(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __138__SFAutoFillHelperProxy__getAutomaticStrongPasswordForAppWithPasswordRules_confirmPasswordRules_overrideApplicationIdentifier_completion___block_invoke_cold_1(v4, v3);
+    __138__SFAutoFillHelperProxy__getAutomaticStrongPasswordForAppWithPasswordRules_confirmPasswordRules_overrideApplicationIdentifier_completion___block_invoke_cold_1(v5, v3);
   }
 
   (*(*(a1 + 32) + 16))();
@@ -127,12 +127,11 @@ void __76__SFAutoFillHelperProxy_getRemoteAutoFillAvailabilityWithCompletionHand
 
 void __138__SFAutoFillHelperProxy__getAutomaticStrongPasswordForAppWithPasswordRules_confirmPasswordRules_overrideApplicationIdentifier_completion___block_invoke_cold_1(void *a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 safari_privacyPreservingDescription];
-  OUTLINED_FUNCTION_0_0(&dword_26450F000, v5, v6, "Failed to get a remote proxy object with error: %{public}@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x277D85DE8];
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_0_0(&dword_26450F000, v5, v6, "Failed to get a remote proxy object with error: %{public}@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 @end

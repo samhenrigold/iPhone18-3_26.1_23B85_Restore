@@ -26,7 +26,7 @@
 - (int64_t)reason
 {
   selfCopy = self;
-  v3 = AssetBundleBridge.reason.getter();
+  v3 = AssetBundleBridge.reason.getter(selfCopy);
 
   return v3;
 }

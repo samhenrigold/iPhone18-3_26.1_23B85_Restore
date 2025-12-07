@@ -1,62 +1,15 @@
 @interface MCMCommandAcquireSandboxExtensionWithUUID
 + (Class)incomingMessageClass;
-+ (unint64_t)command;
-- (BOOL)includedCreator;
-- (BOOL)includedInfo;
-- (BOOL)includedPath;
-- (BOOL)includedUserManagedAssetsPath;
 - (BOOL)preflightClientAllowed;
 - (MCMCommandAcquireSandboxExtensionWithUUID)initWithMessage:(id)message context:(id)context reply:(id)reply;
-- (MCMConcreteContainerIdentity)concreteContainerIdentity;
 - (id)_tokenForContainerPath:(id)path containerIdentity:(id)identity error:(id *)error;
 - (void)execute;
 @end
 
 @implementation MCMCommandAcquireSandboxExtensionWithUUID
 
-- (BOOL)includedCreator
-{
-  result = self->_includedCreator;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (BOOL)includedUserManagedAssetsPath
-{
-  result = self->_includedUserManagedAssetsPath;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (BOOL)includedInfo
-{
-  result = self->_includedInfo;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (BOOL)includedPath
-{
-  result = self->_includedPath;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (MCMConcreteContainerIdentity)concreteContainerIdentity
-{
-  result = self->_concreteContainerIdentity;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
 - (id)_tokenForContainerPath:(id)path containerIdentity:(id)identity error:(id *)error
 {
-  v17 = *MEMORY[0x1E69E9840];
   identityCopy = identity;
   pathCopy = path;
   v10 = [MCMSandboxExtension alloc];
@@ -76,23 +29,21 @@
     v14 = 0;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
-
   return v14;
 }
 
 - (void)execute
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v3 = objc_autoreleasePoolPush();
   concreteContainerIdentity = [(MCMCommandAcquireSandboxExtensionWithUUID *)self concreteContainerIdentity];
   context = [(MCMCommand *)self context];
   containerCache = [context containerCache];
-  v30 = 0;
-  v7 = [containerCache entryForContainerIdentity:concreteContainerIdentity error:&v30];
-  v8 = v30;
+  v29 = 0;
+  v7 = [containerCache entryForContainerIdentity:concreteContainerIdentity error:&v29];
+  v8 = v29;
 
-  v28 = v7;
+  v27 = v7;
   if (!v7)
   {
     v12 = 0;
@@ -103,9 +54,9 @@
   metadataMinimal = [v7 metadataMinimal];
   containerPath = [metadataMinimal containerPath];
   containerIdentity = [metadataMinimal containerIdentity];
-  v29 = v8;
-  v12 = [(MCMCommandAcquireSandboxExtensionWithUUID *)self _tokenForContainerPath:containerPath containerIdentity:containerIdentity error:&v29];
-  v13 = v29;
+  v28 = v8;
+  v12 = [(MCMCommandAcquireSandboxExtensionWithUUID *)self _tokenForContainerPath:containerPath containerIdentity:containerIdentity error:&v28];
+  v13 = v28;
 
   if (v12)
   {
@@ -130,9 +81,9 @@ LABEL_8:
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
     *buf = 67109378;
-    v32 = v12 != 0;
-    v33 = 2112;
-    v34 = v8;
+    v31 = v12 != 0;
+    v32 = 2112;
+    v33 = v8;
     _os_log_debug_impl(&dword_1DF2C3000, v14, OS_LOG_TYPE_DEBUG, "Acquire sandbox extension result: %d, error = %@", buf, 0x12u);
   }
 
@@ -165,29 +116,26 @@ LABEL_8:
   [resultPromise completeWithResult:v24];
 
   objc_autoreleasePoolPop(v3);
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)preflightClientAllowed
 {
-  v9 = *MEMORY[0x1E69E9840];
   context = [(MCMCommand *)self context];
   clientIdentity = [context clientIdentity];
 
   concreteContainerIdentity = [(MCMCommandAcquireSandboxExtensionWithUUID *)self concreteContainerIdentity];
   v6 = [clientIdentity isAllowedToPerformOperationType:0 containerIdentity:concreteContainerIdentity part:0 partDomain:0 access:2];
 
-  v7 = *MEMORY[0x1E69E9840];
   return v6 != 0;
 }
 
 - (MCMCommandAcquireSandboxExtensionWithUUID)initWithMessage:(id)message context:(id)context reply:(id)reply
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   messageCopy = message;
-  v14.receiver = self;
-  v14.super_class = MCMCommandAcquireSandboxExtensionWithUUID;
-  v9 = [(MCMCommand *)&v14 initWithMessage:messageCopy context:context reply:reply];
+  v13.receiver = self;
+  v13.super_class = MCMCommandAcquireSandboxExtensionWithUUID;
+  v9 = [(MCMCommand *)&v13 initWithMessage:messageCopy context:context reply:reply];
   if (v9)
   {
     concreteContainerIdentity = [messageCopy concreteContainerIdentity];
@@ -195,23 +143,13 @@ LABEL_8:
     v9->_concreteContainerIdentity = concreteContainerIdentity;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 + (Class)incomingMessageClass
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = *MEMORY[0x1E69E9840];
 
   return objc_opt_class();
-}
-
-+ (unint64_t)command
-{
-  v2 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return 35;
 }
 
 @end

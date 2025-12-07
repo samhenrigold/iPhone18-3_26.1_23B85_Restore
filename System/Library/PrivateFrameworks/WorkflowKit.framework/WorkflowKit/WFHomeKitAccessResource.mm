@@ -75,17 +75,16 @@ void __76__WFHomeKitAccessResource_makeAvailableWithUserInterface_completionHand
     v5 = +[WFHomeManager sharedManager];
     [v5 addEventObserver:*(a1 + 32)];
 
-    v8 = +[WFHomeManager sharedManager];
-    [v8 reloadData];
+    v7 = +[WFHomeManager sharedManager];
+    [v7 reloadData];
   }
 
   else
   {
     [*(a1 + 32) refreshAvailabilityWithForcedNotification];
-    v6 = *(a1 + 48);
-    v7 = *(*(a1 + 40) + 16);
+    v6 = *(*(a1 + 40) + 16);
 
-    v7();
+    v6();
   }
 }
 

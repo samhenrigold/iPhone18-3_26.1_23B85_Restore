@@ -45,12 +45,9 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  restrictions = self->_restrictions;
-  v7 = toCopy;
   PBDataWriterWriteDataField();
   if (*&self->_has)
   {
-    wristDetectionDisabled = self->_wristDetectionDisabled;
     PBDataWriterWriteBOOLField();
   }
 }

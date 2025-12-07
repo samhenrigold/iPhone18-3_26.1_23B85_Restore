@@ -24,16 +24,15 @@
 {
   if ((format - 1) > 6)
   {
-    v5 = 0;
+    v4 = 0;
   }
 
   else
   {
-    v4 = *off_279D1F7D8[format - 1];
-    v5 = objc_opt_new();
+    v4 = objc_opt_new();
   }
 
-  return v5;
+  return v4;
 }
 
 + (id)getDiskImageFormatDescriptors
@@ -55,16 +54,15 @@
 {
   if (encryption > 2)
   {
-    v5 = 0;
+    v4 = 0;
   }
 
   else
   {
-    v4 = *off_279D1F810[encryption];
-    v5 = objc_opt_new();
+    v4 = objc_opt_new();
   }
 
-  return v5;
+  return v4;
 }
 
 + (id)getDiskImageEncryptionDescriptors
@@ -322,7 +320,7 @@ LABEL_17:
 
 - (id)diConvertParamsWithOutputURL:(id)l error:(id *)error
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   lCopy = l;
   uRLByResolvingSymlinksInPath = [lCopy URLByResolvingSymlinksInPath];
   absoluteString = [uRLByResolvingSymlinksInPath absoluteString];
@@ -352,11 +350,11 @@ LABEL_7:
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     sourceImage3 = [(SKDiskImageCreateParams *)self sourceImage];
-    v30 = 136315394;
-    v31 = "[SKDiskImageCreateParams diConvertParamsWithOutputURL:error:]";
-    v32 = 2112;
-    v33 = sourceImage3;
-    _os_log_impl(&dword_26BBB8000, v13, OS_LOG_TYPE_DEFAULT, "%s: Creating image in place %@", &v30, 0x16u);
+    v29 = 136315394;
+    v30 = "[SKDiskImageCreateParams diConvertParamsWithOutputURL:error:]";
+    v31 = 2112;
+    v32 = sourceImage3;
+    _os_log_impl(&dword_26BBB8000, v13, OS_LOG_TYPE_DEFAULT, "%s: Creating image in place %@", &v29, 0x16u);
   }
 
   v15 = objc_alloc(MEMORY[0x277D055A0]);
@@ -413,8 +411,6 @@ LABEL_16:
 LABEL_19:
   v27 = v26;
 LABEL_20:
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return v27;
 }

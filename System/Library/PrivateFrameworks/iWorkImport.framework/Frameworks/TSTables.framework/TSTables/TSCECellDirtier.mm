@@ -33,25 +33,25 @@
 - (void)startDirtyingCellRef
 {
   self->_dirtyingInProgress = 1;
-  v10 = 0x7FFF7FFFFFFFLL;
-  v11 = 0xFFFF;
-  v12 = &v10;
-  if (!sub_2211F0730(&self->_dependentsToDirtyByFromRef.__table_.__bucket_list_.__ptr_, &v10)[4])
+  v9 = 0x7FFF7FFFFFFFLL;
+  v10 = 0xFFFF;
+  v11 = &v9;
+  if (!sub_2211F0730(&self->_dependentsToDirtyByFromRef.__table_.__bucket_list_.__ptr_, &v9, &unk_2217E0868, &v11)[4])
   {
     v3 = objc_opt_new();
-    v10 = 0x7FFF7FFFFFFFLL;
-    v11 = 0xFFFF;
-    v12 = &v10;
-    v4 = sub_2211F0730(&self->_dependentsToDirtyByFromRef.__table_.__bucket_list_.__ptr_, &v10);
+    v9 = 0x7FFF7FFFFFFFLL;
+    v10 = 0xFFFF;
+    v11 = &v9;
+    v4 = sub_2211F0730(&self->_dependentsToDirtyByFromRef.__table_.__bucket_list_.__ptr_, &v9, &unk_2217E0868, &v11);
     v5 = v4[4];
     v4[4] = v3;
   }
 
-  v10 = 0x7FFF7FFFFFFFLL;
-  v11 = 0xFFFF;
-  v12 = &v10;
-  v6 = sub_2211F0730(&self->_dependentsToDirtyByFromRef.__table_.__bucket_list_.__ptr_, &v10);
-  objc_msgSend_addCellRef_(v6[4], v7, &self->_startCellRef, v8, v9);
+  v9 = 0x7FFF7FFFFFFFLL;
+  v10 = 0xFFFF;
+  v11 = &v9;
+  v6 = sub_2211F0730(&self->_dependentsToDirtyByFromRef.__table_.__bucket_list_.__ptr_, &v9, &unk_2217E0868, &v11);
+  objc_msgSend_addCellRef_(v6[4], v7, &self->_startCellRef, v8);
 }
 
 - (void)stopDirtyingCellRef
@@ -67,8 +67,8 @@
   timeCopy = time;
   objc_storeStrong(&self->_startTime, time);
   self->_timeout = seconds;
-  objc_msgSend_incrementalMarkCellRefDirty_(self->_dependTracker, v8, self, v9, v10);
-  LOBYTE(self) = objc_msgSend_isDoneDirtying(self, v11, v12, v13, v14);
+  objc_msgSend_incrementalMarkCellRefDirty_(self->_dependTracker, v8, self, v9);
+  LOBYTE(self) = objc_msgSend_isDoneDirtying(self, v10, v11, v12);
 
   return self;
 }
@@ -77,7 +77,7 @@
 {
   timeCopy = time;
   os_unfair_lock_lock(&self->_dirtyingLock);
-  started = objc_msgSend__dirtyCellsWithNoLockForSeconds_fromStartTime_(self, v7, timeCopy, v8, v9, seconds);
+  started = objc_msgSend__dirtyCellsWithNoLockForSeconds_fromStartTime_(self, v7, timeCopy, v8, seconds);
 
   os_unfair_lock_unlock(&self->_dirtyingLock);
   return started;
@@ -99,7 +99,7 @@
     self->_startCellRef.coordinate = coordinate;
     self->_dirtyingInProgress = 0;
     sub_221087B24(&self->_dependentsToDirtyByFromRef);
-    started = objc_msgSend__dirtyCellsWithNoLockForSeconds_fromStartTime_(self, v11, timeCopy, v12, v13, seconds);
+    started = objc_msgSend__dirtyCellsWithNoLockForSeconds_fromStartTime_(self, v11, timeCopy, v12, seconds);
   }
 
   os_unfair_lock_unlock(&self->_dirtyingLock);

@@ -48,37 +48,13 @@
   scheme = [lCopy scheme];
   v5 = [scheme caseInsensitiveCompare:@"https"];
 
-  if (!v5)
+  v10 = 1;
+  if (v5)
   {
-    goto LABEL_6;
-  }
-
-  if (![MEMORY[0x277D45F48] permissiveURLSchemes])
-  {
-    goto LABEL_5;
-  }
-
-  scheme2 = [lCopy scheme];
-  v7 = [scheme2 caseInsensitiveCompare:@"http"];
-
-  if (!v7)
-  {
-    goto LABEL_6;
-  }
-
-  scheme3 = [lCopy scheme];
-  v9 = [scheme3 caseInsensitiveCompare:@"file"];
-
-  if (v9)
-  {
-LABEL_5:
-    v10 = 0;
-  }
-
-  else
-  {
-LABEL_6:
-    v10 = 1;
+    if (![MEMORY[0x277D45F48] permissiveURLSchemes] || (objc_msgSend(lCopy, "scheme"), v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "caseInsensitiveCompare:", @"http"), v6, v7) && (objc_msgSend(lCopy, "scheme"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "caseInsensitiveCompare:", @"file"), v8, v9))
+    {
+      v10 = 0;
+    }
   }
 
   return v10;

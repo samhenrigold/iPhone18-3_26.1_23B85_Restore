@@ -27,6 +27,7 @@
 - (NSString)_ringtonesPlistName;
 - (NSString)selectedToneIdentifier;
 - (TKTonePickerController)initWithAlertType:(int64_t)type;
+- (TKTonePickerController)initWithAlertType:(int64_t)type topic:(id)topic defaultToneIdentifier:(id)identifier selectedToneIdentifier:(id)toneIdentifier showsDefault:(BOOL)default showsNone:(BOOL)none isNoneAtTop:(BOOL)top noneString:(id)self0;
 - (TKTonePickerControllerDelegate)delegate;
 - (TKTonePickerItem)_topLevelSelectedTonePickerItem;
 - (TKTonePickerItem)selectedTonePickerItem;
@@ -64,6 +65,8 @@
 - (void)_didReloadTones;
 - (void)_didSelectMediaItemWithIdentifier:(id)identifier;
 - (void)_didSelectToneWithIdentifier:(id)identifier;
+- (void)_didUpdateCheckedStatus:(BOOL)status ofPickerItemForRowAtIndexPath:(id)path;
+- (void)_didUpdateCheckedStatus:(BOOL)status ofToneClassicsPickerItem:(id)item;
 - (void)_didUpdateDetailText:(id)text ofPickerItemForRowAtIndexPath:(id)path;
 - (void)_didUpdateFooterTextForToneStoreGroup;
 - (void)_didUpdateToneStoreDownloadItem;
@@ -80,6 +83,7 @@
 - (void)_reloadTonesForExternalChange:(BOOL)change shouldSkipDelegateFullReload:(BOOL)reload;
 - (void)_resetSelectedClassicAlertToneIndex;
 - (void)_resetSelectedClassicRingtoneIndex;
+- (void)_resetSelectedVibrationIdentifierForcingUpdatingVibrationName:(BOOL)name;
 - (void)_setSelectedToneIdentifier:(id)identifier currentlyReloadingTones:(BOOL)tones;
 - (void)_setSelectedVibrationIdentifier:(id)identifier forceUpdatingVibrationName:(BOOL)name explicitlySet:(BOOL)set;
 - (void)_setToneManager:(id)manager;
@@ -93,6 +97,7 @@
 - (void)deleteTonePickerItem:(id)item;
 - (void)didFinishCheckingForAvailableToneStoreDownloads:(BOOL)downloads;
 - (void)setDefaultToneIdentifier:(id)identifier;
+- (void)setIgnoreMute:(BOOL)mute updateSource:(int64_t)source;
 - (void)setMediaAtTop:(BOOL)top;
 - (void)setNoneAtTop:(BOOL)top;
 - (void)setNoneString:(id)string;
@@ -117,10 +122,10 @@
 
 - (TKTonePickerController)initWithAlertType:(int64_t)type
 {
-  v24 = *MEMORY[0x277D85DE8];
-  v21.receiver = self;
-  v21.super_class = TKTonePickerController;
-  v4 = [(TKTonePickerController *)&v21 init];
+  v23 = *MEMORY[0x277D85DE8];
+  v20.receiver = self;
+  v20.super_class = TKTonePickerController;
+  v4 = [(TKTonePickerController *)&v20 init];
   v5 = v4;
   if (v4)
   {
@@ -154,7 +159,7 @@
         if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134217984;
-          v23 = 15;
+          v22 = 15;
           _os_log_impl(&dword_21C599000, v14, OS_LOG_TYPE_DEFAULT, "Keeping redownload all tones functionality disabled for new tone picker because it was last triggered less than %ld minutes ago.", buf, 0xCu);
         }
       }
@@ -184,8 +189,31 @@
     }
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v5;
+}
+
+- (TKTonePickerController)initWithAlertType:(int64_t)type topic:(id)topic defaultToneIdentifier:(id)identifier selectedToneIdentifier:(id)toneIdentifier showsDefault:(BOOL)default showsNone:(BOOL)none isNoneAtTop:(BOOL)top noneString:(id)self0
+{
+  noneCopy = none;
+  defaultCopy = default;
+  topicCopy = topic;
+  identifierCopy = identifier;
+  toneIdentifierCopy = toneIdentifier;
+  stringCopy = string;
+  v20 = [(TKTonePickerController *)self initWithAlertType:type];
+  v21 = v20;
+  if (v20)
+  {
+    [(TKTonePickerController *)v20 setTopic:topicCopy];
+    [(TKTonePickerController *)v21 setDefaultToneIdentifier:identifierCopy];
+    [(TKTonePickerController *)v21 setShowsDefault:defaultCopy];
+    [(TKTonePickerController *)v21 setShowsNone:noneCopy];
+    [(TKTonePickerController *)v21 setNoneAtTop:top];
+    [(TKTonePickerController *)v21 setNoneString:stringCopy];
+    [(TKTonePickerController *)v21 setSelectedToneIdentifier:toneIdentifierCopy];
+  }
+
+  return v21;
 }
 
 - (void)dealloc
@@ -423,18 +451,21 @@ LABEL_16:
   if (noneString != stringCopy)
   {
     v8 = stringCopy;
-    if (![(NSString *)noneString isEqualToString:stringCopy])
+    noneString = [noneString isEqualToString:stringCopy];
+    stringCopy = v8;
+    if ((noneString & 1) == 0)
     {
-      v6 = [(NSString *)v8 copy];
+      v6 = [v8 copy];
       v7 = self->_noneString;
       self->_noneString = v6;
 
       [(TKTonePickerController *)self _invalidatePickerItemCaches];
-      [(TKTonePickerController *)self _didReloadTones];
+      noneString = [(TKTonePickerController *)self _didReloadTones];
+      stringCopy = v8;
     }
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](noneString, stringCopy);
 }
 
 - (void)setShowsNothingSelected:(BOOL)selected
@@ -603,7 +634,7 @@ LABEL_34:
 
 - (id)_pickerRowItemAtIndex:(int64_t)index inSectionForItem:(id)item
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   v7 = [(TKTonePickerController *)self _cachedPickerRowItemAtIndex:index inSectionForItem:itemCopy];
   if (!v7)
@@ -616,11 +647,11 @@ LABEL_34:
       -[TKPickerRowItem _setRow:](v7, "_setRow:", [v8 tk_row]);
       v9 = 0;
       ignoreMute = 0;
-      v58 = 0;
-      v55 = 0;
-      v56 = 0;
-      v53 = 0;
+      v57 = 0;
       v54 = 0;
+      v55 = 0;
+      v52 = 0;
+      v53 = 0;
       v10 = 0;
       _classicAlertToneIdentifiers = 0;
       _nameOfSelectedVibrationIdentifier = 0;
@@ -640,32 +671,32 @@ LABEL_50:
       }
 
       [(TKPickerDividerItem *)v9 _setShowsCheckmark:v30];
-      [(TKPickerDividerItem *)v9 _setItemKind:v54];
-      [(TKPickerDividerItem *)v9 _setShowsDisclosureIndicator:v56];
+      [(TKPickerDividerItem *)v9 _setItemKind:v53];
+      [(TKPickerDividerItem *)v9 _setShowsDisclosureIndicator:v55];
       [(TKPickerDividerItem *)v9 _setNeedsRoomForCheckmark:v12];
       [(TKPickerRowItem *)v9 _setWantsIndentedLayout:HIDWORD(ignoreMute)];
       [(TKPickerDividerItem *)v9 _setNeedsActivityIndicator:v10];
-      [(TKPickerDividerItem *)v9 _setNeedsSwitch:HIDWORD(v55)];
+      [(TKPickerDividerItem *)v9 _setNeedsSwitch:HIDWORD(v54)];
       [(TKPickerDividerItem *)v9 _setSwitchedOn:ignoreMute];
-      [(TKPickerDividerItem *)v9 _setNeedsDownloadProgress:v53];
+      [(TKPickerDividerItem *)v9 _setNeedsDownloadProgress:v52];
       LODWORD(v32) = v11;
       [(TKPickerDividerItem *)v9 _setDownloadProgress:v32];
-      [(TKPickerDividerItem *)v9 _setShouldTintText:v55];
-      [(TKPickerDividerItem *)v9 _setShouldPreventSelection:HIDWORD(v53)];
-      [(TKPickerDividerItem *)v9 _setText:v58];
+      [(TKPickerDividerItem *)v9 _setShouldTintText:v54];
+      [(TKPickerDividerItem *)v9 _setShouldPreventSelection:HIDWORD(v52)];
+      [(TKPickerDividerItem *)v9 _setText:v57];
       [(TKPickerDividerItem *)v9 _setDetailText:_nameOfSelectedVibrationIdentifier];
       if ([_classicAlertToneIdentifiers count])
       {
         v33 = objc_alloc_init(MEMORY[0x277CBEB18]);
-        v61[0] = MEMORY[0x277D85DD0];
-        v61[1] = 3221225472;
-        v61[2] = __65__TKTonePickerController__pickerRowItemAtIndex_inSectionForItem___block_invoke;
-        v61[3] = &unk_278316488;
-        v61[4] = self;
-        v62 = v9;
-        v63 = v33;
+        v60[0] = MEMORY[0x277D85DD0];
+        v60[1] = 3221225472;
+        v60[2] = __65__TKTonePickerController__pickerRowItemAtIndex_inSectionForItem___block_invoke;
+        v60[3] = &unk_278316488;
+        v60[4] = self;
+        v61 = v9;
+        v62 = v33;
         v34 = v33;
-        [_classicAlertToneIdentifiers enumerateObjectsUsingBlock:v61];
+        [_classicAlertToneIdentifiers enumerateObjectsUsingBlock:v60];
         v35 = [v34 copy];
       }
 
@@ -687,18 +718,18 @@ LABEL_50:
     v7 = v13;
     if ([(TKTonePickerController *)self _isIgnoreMuteGroupAtIndexPath:v8])
     {
-      v58 = TLLocalizedString();
+      v57 = TLLocalizedString();
       ignoreMute = [(TKTonePickerController *)self ignoreMute];
       v10 = 0;
       v12 = 0;
       _classicAlertToneIdentifiers = 0;
       _nameOfSelectedVibrationIdentifier = 0;
-      v56 = 0;
+      v55 = 0;
       v11 = 0;
-      v55 = 0x100000000;
-      v54 = 3;
+      v54 = 0x100000000;
+      v53 = 3;
       v9 = v7;
-      v53 = 0x100000000;
+      v52 = 0x100000000;
       goto LABEL_50;
     }
 
@@ -706,14 +737,14 @@ LABEL_50:
     {
       _nameOfSelectedVibrationIdentifier = [(TKTonePickerController *)self _nameOfSelectedVibrationIdentifier];
       TLLocalizedString();
-      v58 = ignoreMute = 0;
-      v54 = 0;
-      v55 = 0;
+      v57 = ignoreMute = 0;
       v53 = 0;
+      v54 = 0;
+      v52 = 0;
       v10 = 0;
       v12 = 0;
       _classicAlertToneIdentifiers = 0;
-      v56 = 1;
+      v55 = 1;
       v11 = 0;
 LABEL_49:
       v9 = v7;
@@ -729,31 +760,31 @@ LABEL_49:
         {
 LABEL_11:
           TLLocalizedString();
-          v58 = ignoreMute = 0;
+          v57 = ignoreMute = 0;
+          v52 = 0;
           v53 = 0;
-          v54 = 0;
           v10 = 0;
           v12 = 0;
           _classicAlertToneIdentifiers = 0;
           _nameOfSelectedVibrationIdentifier = 0;
-          v56 = 0;
-          v55 = 1;
+          v55 = 0;
+          v54 = 1;
           goto LABEL_49;
         }
 
         LODWORD(ignoreMute) = 0;
-        v55 = 0;
-        HIDWORD(v53) = 0;
+        v54 = 0;
+        HIDWORD(v52) = 0;
         v10 = 0;
         v12 = 0;
         _classicAlertToneIdentifiers = 0;
         _nameOfSelectedVibrationIdentifier = 0;
-        v58 = 0;
+        v57 = 0;
 LABEL_26:
-        LODWORD(v53) = 0;
+        LODWORD(v52) = 0;
         HIDWORD(ignoreMute) = 0;
-        v56 = 0;
-        v54 = 0;
+        v55 = 0;
+        v53 = 0;
         goto LABEL_49;
       }
 
@@ -768,11 +799,11 @@ LABEL_26:
 
         if (toneStoreDownloadButtonState == 3)
         {
-          v58 = TLLocalizedString();
+          v57 = TLLocalizedString();
           _classicAlertToneIdentifiers = 0;
           LODWORD(ignoreMute) = 0;
-          v55 = 0;
-          HIDWORD(v53) = 0;
+          v54 = 0;
+          HIDWORD(v52) = 0;
           v10 = 0;
           v12 = 0;
           _nameOfSelectedVibrationIdentifier = 0;
@@ -791,14 +822,14 @@ LABEL_26:
         {
 LABEL_63:
           TLLocalizedString();
-          v58 = ignoreMute = 0;
+          v57 = ignoreMute = 0;
+          v54 = 0;
           v55 = 0;
-          v56 = 0;
           v12 = 0;
           _classicAlertToneIdentifiers = 0;
           _nameOfSelectedVibrationIdentifier = 0;
-          v54 = 0;
-          v53 = 0x100000000;
+          v53 = 0;
+          v52 = 0x100000000;
           v9 = v7;
           v10 = 1;
           goto LABEL_50;
@@ -806,15 +837,15 @@ LABEL_63:
       }
 
       v9 = v7;
-      v55 = 0;
-      v53 = 0;
+      v54 = 0;
+      v52 = 0;
       v10 = 0;
       v12 = 0;
       _nameOfSelectedVibrationIdentifier = 0;
-      v58 = 0;
+      v57 = 0;
       ignoreMute = 0;
-      v56 = 0;
-      v54 = 0;
+      v55 = 0;
+      v53 = 0;
       goto LABEL_50;
     }
 
@@ -835,13 +866,13 @@ LABEL_63:
             lastPathComponent = [v17 lastPathComponent];
             callStackSymbols = [MEMORY[0x277CCACC8] callStackSymbols];
             *buf = 136381443;
-            v65 = "[TKTonePickerController _pickerRowItemAtIndex:inSectionForItem:]";
-            v66 = 2113;
-            v67 = lastPathComponent;
-            v68 = 2049;
-            v69 = 580;
-            v70 = 2113;
-            v71 = callStackSymbols;
+            v64 = "[TKTonePickerController _pickerRowItemAtIndex:inSectionForItem:]";
+            v65 = 2113;
+            v66 = lastPathComponent;
+            v67 = 2049;
+            v68 = 580;
+            v69 = 2113;
+            v70 = callStackSymbols;
             _os_log_impl(&dword_21C599000, v18, OS_LOG_TYPE_DEFAULT, "*** Assertion failure in %{private}s, %{private}@:%{private}lu.\n%{private}@", buf, 0x2Au);
           }
         }
@@ -889,37 +920,37 @@ LABEL_63:
       if ([v8 tk_row] >= _mediaItemsCount)
       {
         TLLocalizedString();
-        v58 = ignoreMute = 0;
-        v54 = 0;
-        v55 = 0;
+        v57 = ignoreMute = 0;
         v53 = 0;
+        v54 = 0;
+        v52 = 0;
         v10 = 0;
         _classicAlertToneIdentifiers = 0;
         _nameOfSelectedVibrationIdentifier = 0;
         v11 = 0;
         v12 = 1;
         v9 = v7;
-        v56 = 1;
+        v55 = 1;
         goto LABEL_50;
       }
 
       defaultToneIdentifier = [(TKTonePickerController *)self delegate];
       if ((objc_opt_respondsToSelector() & 1) == 0)
       {
-        v58 = 0;
+        v57 = 0;
         goto LABEL_47;
       }
 
       v22 = [defaultToneIdentifier tonePickerController:self titleOfMediaItemAtIndex:{objc_msgSend(v8, "tk_row")}];
 LABEL_46:
-      v58 = v22;
+      v57 = v22;
 LABEL_47:
 
-      v56 = 0;
-      ignoreMute = 0;
-      v54 = 0;
       v55 = 0;
+      ignoreMute = 0;
       v53 = 0;
+      v54 = 0;
+      v52 = 0;
       v10 = 0;
       _classicAlertToneIdentifiers = 0;
       _nameOfSelectedVibrationIdentifier = 0;
@@ -939,37 +970,37 @@ LABEL_48:
 
     if ([v25 isEqualToString:@"<classic_alert_tone_identifier>"])
     {
-      v58 = TLLocalizedString();
+      v57 = TLLocalizedString();
       _classicAlertToneIdentifiers = [(TKTonePickerController *)self _classicAlertToneIdentifiers];
       if ([(TKTonePickerController *)self _selectedClassicAlertToneIndex]== 0x7FFFFFFFFFFFFFFFLL)
       {
         _nameOfSelectedVibrationIdentifier = 0;
         HIDWORD(ignoreMute) = 0;
-        v56 = 1;
+        v55 = 1;
         v27 = 2;
 LABEL_68:
-        v54 = v27;
+        v53 = v27;
 LABEL_87:
-        v49 = [(NSMutableDictionary *)self->_activeToneStoreDownloadsByIdentifier objectForKey:v25];
-        v50 = v49;
-        if (v49)
+        v48 = [(NSMutableDictionary *)self->_activeToneStoreDownloadsByIdentifier objectForKey:v25];
+        v49 = v48;
+        if (v48)
         {
-          [v49 downloadProgress];
-          v11 = v51;
-          LODWORD(v53) = 1;
+          [v48 downloadProgress];
+          v11 = v50;
+          LODWORD(v52) = 1;
         }
 
         else
         {
-          v52 = [(NSMutableDictionary *)self->_finishedToneStoreDownloadsByIdentifier objectForKey:v25];
-          LODWORD(v53) = v52 != 0;
+          v51 = [(NSMutableDictionary *)self->_finishedToneStoreDownloadsByIdentifier objectForKey:v25];
+          LODWORD(v52) = v51 != 0;
 
           v11 = 0;
         }
 
         LODWORD(ignoreMute) = 0;
-        v55 = 0;
-        HIDWORD(v53) = 0;
+        v54 = 0;
+        HIDWORD(v52) = 0;
         v10 = 0;
         goto LABEL_48;
       }
@@ -977,20 +1008,20 @@ LABEL_87:
       selectedToneIdentifier = [(TKTonePickerController *)self selectedToneIdentifier];
       _nameOfSelectedVibrationIdentifier = [(TKTonePickerController *)self _nameForToneIdentifier:selectedToneIdentifier];
       HIDWORD(ignoreMute) = 0;
-      v56 = 1;
-      v39 = 2;
+      v55 = 1;
+      v38 = 2;
       goto LABEL_71;
     }
 
     if ([v25 isEqualToString:@"<classic_ringtone_identifier>"])
     {
-      v58 = TLLocalizedString();
+      v57 = TLLocalizedString();
       _classicAlertToneIdentifiers = [(TKTonePickerController *)self _classicRingtoneIdentifiers];
       if ([(TKTonePickerController *)self _selectedClassicRingtoneIndex]== 0x7FFFFFFFFFFFFFFFLL)
       {
         _nameOfSelectedVibrationIdentifier = 0;
         HIDWORD(ignoreMute) = 0;
-        v56 = 1;
+        v55 = 1;
         v27 = 1;
         goto LABEL_68;
       }
@@ -998,8 +1029,8 @@ LABEL_87:
       selectedToneIdentifier = [(TKTonePickerController *)self selectedToneIdentifier];
       _nameOfSelectedVibrationIdentifier = [(TKTonePickerController *)self _nameForToneIdentifier:selectedToneIdentifier];
       HIDWORD(ignoreMute) = 0;
-      v54 = 1;
-      v56 = 1;
+      v53 = 1;
+      v55 = 1;
     }
 
     else
@@ -1007,17 +1038,17 @@ LABEL_87:
       mEMORY[0x277D71F68] = [MEMORY[0x277D71F68] sharedCapabilitiesManager];
       if ([mEMORY[0x277D71F68] supportsReflectionRemixes])
       {
-        v41 = [v25 isEqualToString:@"<remix_ringtone_identifier>"];
+        v40 = [v25 isEqualToString:@"<remix_ringtone_identifier>"];
 
-        if (v41)
+        if (v40)
         {
-          v58 = TLLocalizedString();
+          v57 = TLLocalizedString();
           if ([(TKTonePickerController *)self _selectedRemixRingtoneIndex]== 0x7FFFFFFFFFFFFFFFLL)
           {
             _classicAlertToneIdentifiers = 0;
             _nameOfSelectedVibrationIdentifier = 0;
             HIDWORD(ignoreMute) = 0;
-            v56 = 1;
+            v55 = 1;
             v27 = 4;
             goto LABEL_68;
           }
@@ -1026,10 +1057,10 @@ LABEL_87:
           [(TKTonePickerController *)self _annotatedNameForToneIdentifier:selectedToneIdentifier];
           _nameOfSelectedVibrationIdentifier = _classicAlertToneIdentifiers = 0;
           HIDWORD(ignoreMute) = 0;
-          v56 = 1;
-          v39 = 4;
+          v55 = 1;
+          v38 = 4;
 LABEL_71:
-          v54 = v39;
+          v53 = v38;
           goto LABEL_86;
         }
       }
@@ -1038,7 +1069,7 @@ LABEL_71:
       {
       }
 
-      v58 = [(TKTonePickerController *)self _annotatedNameForToneIdentifier:v25];
+      v57 = [(TKTonePickerController *)self _annotatedNameForToneIdentifier:v25];
       mEMORY[0x277D71F68]2 = [MEMORY[0x277D71F68] sharedCapabilitiesManager];
       supportsReflectionRemixes = [mEMORY[0x277D71F68]2 supportsReflectionRemixes];
 
@@ -1047,13 +1078,13 @@ LABEL_71:
         _classicAlertToneIdentifiers = 0;
         _nameOfSelectedVibrationIdentifier = 0;
         HIDWORD(ignoreMute) = 0;
-        v56 = 0;
-        v54 = 0;
+        v55 = 0;
+        v53 = 0;
         goto LABEL_87;
       }
 
       selectedToneIdentifier = [(TKTonePickerController *)self _indexPathForReflectionRemixHeader];
-      if (self->_showsReflectionRemixesInline && (v44 = [v8 tk_section], v44 == objc_msgSend(selectedToneIdentifier, "tk_section")) && (v45 = objc_msgSend(v8, "tk_row"), v45 > objc_msgSend(selectedToneIdentifier, "tk_row")))
+      if (self->_showsReflectionRemixesInline && (v43 = [v8 tk_section], v43 == objc_msgSend(selectedToneIdentifier, "tk_section")) && (v44 = objc_msgSend(v8, "tk_row"), v44 > objc_msgSend(selectedToneIdentifier, "tk_row")))
       {
         tk_row = [v8 tk_row];
         tk_row2 = [selectedToneIdentifier tk_row];
@@ -1071,8 +1102,8 @@ LABEL_71:
         HIDWORD(ignoreMute) = 0;
       }
 
-      v56 = 0;
-      v54 = 0;
+      v55 = 0;
+      v53 = 0;
     }
 
 LABEL_86:
@@ -1081,8 +1112,6 @@ LABEL_86:
   }
 
 LABEL_57:
-
-  v36 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -1332,28 +1361,28 @@ LABEL_12:
 
 - (void)_invalidatePickerItemCaches
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   v3 = self->_cachedPickerSectionItems;
-  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v33 objects:v39 count:16];
+  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v32 objects:v38 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v34;
+    v6 = *v33;
     do
     {
       v7 = 0;
       do
       {
-        if (*v34 != v6)
+        if (*v33 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v33 + 1) + 8 * v7);
+        v8 = *(*(&v32 + 1) + 8 * v7);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -1364,7 +1393,7 @@ LABEL_12:
       }
 
       while (v5 != v7);
-      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v33 objects:v39 count:16];
+      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v32 objects:v38 count:16];
     }
 
     while (v5);
@@ -1373,52 +1402,52 @@ LABEL_12:
   cachedPickerSectionItems = self->_cachedPickerSectionItems;
   self->_cachedPickerSectionItems = 0;
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   selfCopy = self;
   obj = self->_cachedPickerRowItems;
-  v10 = [(NSMutableArray *)obj countByEnumeratingWithState:&v29 objects:v38 count:16];
+  v10 = [(NSMutableArray *)obj countByEnumeratingWithState:&v28 objects:v37 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v30;
+    v12 = *v29;
     do
     {
       v13 = 0;
       do
       {
-        if (*v30 != v12)
+        if (*v29 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v29 + 1) + 8 * v13);
+        v14 = *(*(&v28 + 1) + 8 * v13);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
           v15 = v14;
+          v24 = 0u;
           v25 = 0u;
           v26 = 0u;
           v27 = 0u;
-          v28 = 0u;
-          v16 = [v15 countByEnumeratingWithState:&v25 objects:v37 count:16];
+          v16 = [v15 countByEnumeratingWithState:&v24 objects:v36 count:16];
           if (v16)
           {
             v17 = v16;
-            v18 = *v26;
+            v18 = *v25;
             do
             {
               v19 = 0;
               do
               {
-                if (*v26 != v18)
+                if (*v25 != v18)
                 {
                   objc_enumerationMutation(v15);
                 }
 
-                v20 = *(*(&v25 + 1) + 8 * v19);
+                v20 = *(*(&v24 + 1) + 8 * v19);
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
@@ -1429,7 +1458,7 @@ LABEL_12:
               }
 
               while (v17 != v19);
-              v17 = [v15 countByEnumeratingWithState:&v25 objects:v37 count:16];
+              v17 = [v15 countByEnumeratingWithState:&v24 objects:v36 count:16];
             }
 
             while (v17);
@@ -1440,7 +1469,7 @@ LABEL_12:
       }
 
       while (v13 != v11);
-      v11 = [(NSMutableArray *)obj countByEnumeratingWithState:&v29 objects:v38 count:16];
+      v11 = [(NSMutableArray *)obj countByEnumeratingWithState:&v28 objects:v37 count:16];
     }
 
     while (v11);
@@ -1448,8 +1477,6 @@ LABEL_12:
 
   cachedPickerRowItems = selfCopy->_cachedPickerRowItems;
   selfCopy->_cachedPickerRowItems = 0;
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_indexPathForIgnoreMuteGroup
@@ -2797,7 +2824,7 @@ LABEL_9:
 
 - (void)deleteTonePickerItem:(id)item
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   if (![(TKTonePickerController *)self canDeleteTonePickerItem:itemCopy])
   {
@@ -2813,13 +2840,13 @@ LABEL_9:
         lastPathComponent = [v7 lastPathComponent];
         callStackSymbols = [MEMORY[0x277CCACC8] callStackSymbols];
         *buf = 136381443;
-        v24 = "[TKTonePickerController deleteTonePickerItem:]";
-        v25 = 2113;
-        v26 = lastPathComponent;
-        v27 = 2049;
-        v28 = 1625;
-        v29 = 2113;
-        v30 = callStackSymbols;
+        v23 = "[TKTonePickerController deleteTonePickerItem:]";
+        v24 = 2113;
+        v25 = lastPathComponent;
+        v26 = 2049;
+        v27 = 1625;
+        v28 = 2113;
+        v29 = callStackSymbols;
         _os_log_impl(&dword_21C599000, v8, OS_LOG_TYPE_DEFAULT, "*** Assertion failure in %{private}s, %{private}@:%{private}lu.\n%{private}@", buf, 0x2Au);
       }
     }
@@ -2847,28 +2874,26 @@ LABEL_9:
   v16 = v15;
   if (v15)
   {
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __47__TKTonePickerController_deleteTonePickerItem___block_invoke;
-    v18[3] = &unk_2783164B0;
-    v18[4] = self;
-    v21 = section;
-    v22 = v13;
-    v19 = v15;
-    v20 = itemCopy;
-    [(TKTonePickerController *)self _performBatchUpdates:v18 completion:0];
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __47__TKTonePickerController_deleteTonePickerItem___block_invoke;
+    v17[3] = &unk_2783164B0;
+    v17[4] = self;
+    v20 = section;
+    v21 = v13;
+    v18 = v15;
+    v19 = itemCopy;
+    [(TKTonePickerController *)self _performBatchUpdates:v17 completion:0];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __47__TKTonePickerController_deleteTonePickerItem___block_invoke(uint64_t a1)
 {
-  v70 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) numberOfSections];
   v3 = [*(a1 + 32) pickerItemForSection:*(a1 + 56)];
-  v55 = [v3 text];
-  v56 = [*(*(a1 + 32) + 96) copy];
+  v54 = [v3 text];
+  v55 = [*(*(a1 + 32) + 96) copy];
   v4 = [*(a1 + 32) _indexPathForFirstToneGroup];
   v5 = [v4 tk_section];
 
@@ -2890,12 +2915,12 @@ void __47__TKTonePickerController_deleteTonePickerItem___block_invoke(uint64_t a
   v9 = [v3 numberOfChildren];
   if (*(a1 + 64) + 1 >= v9)
   {
-    v57 = 0;
+    v56 = 0;
   }
 
   else
   {
-    v57 = [v3 childItemAtIndex:?];
+    v56 = [v3 childItemAtIndex:?];
   }
 
   v10 = *(a1 + 32);
@@ -2911,10 +2936,10 @@ void __47__TKTonePickerController_deleteTonePickerItem___block_invoke(uint64_t a
   if (v14 + 1 == v2)
   {
     [v13 addObject:v3];
-    v16 = v55;
-    [v15 insertObject:v55 atIndex:*(a1 + 56) - v5];
-    v53 = v3;
-    v17 = v56;
+    v16 = v54;
+    [v15 insertObject:v54 atIndex:*(a1 + 56) - v5];
+    v52 = v3;
+    v17 = v55;
   }
 
   else
@@ -2930,16 +2955,16 @@ void __47__TKTonePickerController_deleteTonePickerItem___block_invoke(uint64_t a
         v21 = TLLogGeneral();
         if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
         {
-          v54 = [v20 lastPathComponent];
+          v53 = [v20 lastPathComponent];
           [MEMORY[0x277CCACC8] callStackSymbols];
           *buf = 136381443;
-          v63 = "[TKTonePickerController deleteTonePickerItem:]_block_invoke";
-          v64 = 2113;
-          v65 = v54;
-          v66 = 2049;
-          v67 = 1663;
-          v69 = v68 = 2113;
-          v22 = v69;
+          v62 = "[TKTonePickerController deleteTonePickerItem:]_block_invoke";
+          v63 = 2113;
+          v64 = v53;
+          v65 = 2049;
+          v66 = 1663;
+          v68 = v67 = 2113;
+          v22 = v68;
           _os_log_impl(&dword_21C599000, v21, OS_LOG_TYPE_DEFAULT, "*** Assertion failure in %{private}s, %{private}@:%{private}lu.\n%{private}@", buf, 0x2Au);
         }
       }
@@ -2962,14 +2987,14 @@ void __47__TKTonePickerController_deleteTonePickerItem___block_invoke(uint64_t a
 
     v24 = [*(a1 + 32) pickerItemForSection:*(a1 + 56)];
 
-    v53 = v24;
+    v52 = v24;
     v25 = [v24 numberOfChildren];
     [v12 addObject:*(a1 + 48)];
     if (v25 + 2 == v9)
     {
-      v16 = v55;
-      v17 = v56;
-      if (!v57)
+      v16 = v54;
+      v17 = v55;
+      if (!v56)
       {
         v26 = TLLogGeneral();
         v27 = os_log_type_enabled(v26, OS_LOG_TYPE_INFO);
@@ -2983,16 +3008,16 @@ void __47__TKTonePickerController_deleteTonePickerItem___block_invoke(uint64_t a
             v30 = [v28 lastPathComponent];
             v31 = [MEMORY[0x277CCACC8] callStackSymbols];
             *buf = 136381443;
-            v63 = "[TKTonePickerController deleteTonePickerItem:]_block_invoke";
-            v64 = 2113;
-            v65 = v30;
-            v66 = 2049;
-            v67 = 1669;
-            v68 = 2113;
-            v69 = v31;
+            v62 = "[TKTonePickerController deleteTonePickerItem:]_block_invoke";
+            v63 = 2113;
+            v64 = v30;
+            v65 = 2049;
+            v66 = 1669;
+            v67 = 2113;
+            v68 = v31;
             _os_log_impl(&dword_21C599000, v29, OS_LOG_TYPE_DEFAULT, "*** Assertion failure in %{private}s, %{private}@:%{private}lu.\n%{private}@", buf, 0x2Au);
 
-            v17 = v56;
+            v17 = v55;
           }
         }
 
@@ -3017,8 +3042,8 @@ void __47__TKTonePickerController_deleteTonePickerItem___block_invoke(uint64_t a
 
     else
     {
-      v16 = v55;
-      v17 = v56;
+      v16 = v54;
+      v17 = v55;
       if (v25 + 1 != v9)
       {
         v32 = TLLogGeneral();
@@ -3033,16 +3058,16 @@ void __47__TKTonePickerController_deleteTonePickerItem___block_invoke(uint64_t a
             v36 = [v34 lastPathComponent];
             v37 = [MEMORY[0x277CCACC8] callStackSymbols];
             *buf = 136381443;
-            v63 = "[TKTonePickerController deleteTonePickerItem:]_block_invoke";
-            v64 = 2113;
-            v65 = v36;
-            v66 = 2049;
-            v67 = 1672;
-            v68 = 2113;
-            v69 = v37;
+            v62 = "[TKTonePickerController deleteTonePickerItem:]_block_invoke";
+            v63 = 2113;
+            v64 = v36;
+            v65 = 2049;
+            v66 = 1672;
+            v67 = 2113;
+            v68 = v37;
             _os_log_impl(&dword_21C599000, v35, OS_LOG_TYPE_DEFAULT, "*** Assertion failure in %{private}s, %{private}@:%{private}lu.\n%{private}@", buf, 0x2Au);
 
-            v17 = v56;
+            v17 = v55;
           }
         }
 
@@ -3080,19 +3105,19 @@ void __47__TKTonePickerController_deleteTonePickerItem___block_invoke(uint64_t a
         v46 = [v44 lastPathComponent];
         v47 = [MEMORY[0x277CCACC8] callStackSymbols];
         *buf = 136381443;
-        v63 = "[TKTonePickerController deleteTonePickerItem:]_block_invoke";
-        v64 = 2113;
-        v65 = v46;
-        v66 = 2049;
-        v67 = 1677;
-        v68 = 2113;
-        v69 = v47;
+        v62 = "[TKTonePickerController deleteTonePickerItem:]_block_invoke";
+        v63 = 2113;
+        v64 = v46;
+        v65 = 2049;
+        v66 = 1677;
+        v67 = 2113;
+        v68 = v47;
         _os_log_impl(&dword_21C599000, v45, OS_LOG_TYPE_DEFAULT, "*** Assertion failure in %{private}s, %{private}@:%{private}lu.\n%{private}@", buf, 0x2Au);
 
-        v16 = v55;
+        v16 = v54;
       }
 
-      v17 = v56;
+      v17 = v55;
     }
 
     else
@@ -3111,20 +3136,18 @@ void __47__TKTonePickerController_deleteTonePickerItem___block_invoke(uint64_t a
     }
   }
 
-  v58[0] = MEMORY[0x277D85DD0];
-  v58[1] = 3221225472;
-  v58[2] = __47__TKTonePickerController_deleteTonePickerItem___block_invoke_99;
-  v58[3] = &unk_278316488;
-  v59 = v15;
-  v60 = v6;
-  v61 = v40;
+  v57[0] = MEMORY[0x277D85DD0];
+  v57[1] = 3221225472;
+  v57[2] = __47__TKTonePickerController_deleteTonePickerItem___block_invoke_99;
+  v57[3] = &unk_278316488;
+  v58 = v15;
+  v59 = v6;
+  v60 = v40;
   v49 = v40;
   v50 = v6;
   v51 = v15;
-  [v17 enumerateObjectsUsingBlock:v58];
+  [v17 enumerateObjectsUsingBlock:v57];
   [*(a1 + 32) _applyBatchUpdatesWithDeletedPickerRowItems:v12 deletedTonePickerSectionItems:v13 insertedPickerRowItems:MEMORY[0x277CBEBF8] insertedTonePickerSectionItems:MEMORY[0x277CBEBF8] tonePickerSectionItemsWithUpdatedHeaderText:v49 tonePickerSectionItemsWithUpdatedFooterText:MEMORY[0x277CBEBF8]];
-
-  v52 = *MEMORY[0x277D85DE8];
 }
 
 void __47__TKTonePickerController_deleteTonePickerItem___block_invoke_99(uint64_t a1, void *a2, uint64_t a3)
@@ -3293,8 +3316,8 @@ LABEL_30:
 - (void)_reloadTonesForExternalChange:(BOOL)change shouldSkipDelegateFullReload:(BOOL)reload
 {
   changeCopy = change;
-  v119 = *MEMORY[0x277D85DE8];
-  v114 = 0;
+  v118 = *MEMORY[0x277D85DE8];
+  v113 = 0;
   if (!self->_shouldFreezeContentsOriginatingFromToneManager)
   {
     [(TKTonePickerController *)self _reloadMediaItems];
@@ -3304,12 +3327,12 @@ LABEL_30:
   _selectedToneIndexPath = [(TKTonePickerController *)self _selectedToneIndexPath];
   v8 = [(TKTonePickerController *)self _isDefaultGroupAtIndexPath:_selectedToneIndexPath];
 
-  HIDWORD(v88) = v8;
+  HIDWORD(v87) = v8;
   if (v8)
   {
-    LODWORD(v88) = 0;
-    v92 = 0;
-    v96 = 0;
+    LODWORD(v87) = 0;
+    v91 = 0;
+    v95 = 0;
     goto LABEL_14;
   }
 
@@ -3318,16 +3341,16 @@ LABEL_30:
 
   if (v10)
   {
-    v92 = 0;
-    v96 = 0;
-    LODWORD(v88) = 1;
+    v91 = 0;
+    v95 = 0;
+    LODWORD(v87) = 1;
     goto LABEL_14;
   }
 
   _selectedToneIndexPath3 = [(TKTonePickerController *)self _selectedToneIndexPath];
-  v12 = [(TKTonePickerController *)self _identifierAtIndexPath:_selectedToneIndexPath3 isMediaItem:&v114];
+  v12 = [(TKTonePickerController *)self _identifierAtIndexPath:_selectedToneIndexPath3 isMediaItem:&v113];
 
-  if (v114 != 1)
+  if (v113 != 1)
   {
     if ([v12 length])
     {
@@ -3337,18 +3360,18 @@ LABEL_30:
 LABEL_11:
     if (self->_showsDefault)
     {
-      v96 = v12;
-      LODWORD(v88) = 0;
-      v92 = 0;
+      v95 = v12;
+      LODWORD(v87) = 0;
+      v91 = 0;
     }
 
     else
     {
       defaultToneIdentifier = [(TKTonePickerController *)self defaultToneIdentifier];
 
-      LODWORD(v88) = 0;
-      v92 = 0;
-      v96 = defaultToneIdentifier;
+      LODWORD(v87) = 0;
+      v91 = 0;
+      v95 = defaultToneIdentifier;
     }
 
     goto LABEL_14;
@@ -3360,13 +3383,13 @@ LABEL_11:
   }
 
 LABEL_9:
-  v96 = v12;
-  LODWORD(v88) = 0;
-  v92 = 1;
+  v95 = v12;
+  LODWORD(v87) = 0;
+  v91 = 1;
 LABEL_14:
   v14 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v15 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v98 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v97 = objc_alloc_init(MEMORY[0x277CBEB58]);
   v16 = objc_alloc_init(MEMORY[0x277CBEB18]);
   toneGroupLists = self->_toneGroupLists;
   self->_toneGroupLists = v16;
@@ -3380,17 +3403,17 @@ LABEL_14:
   self->_toneGroupBucketIdentifiers = v20;
 
   _behavesAsRingtonePicker = [(TKTonePickerController *)self _behavesAsRingtonePicker];
-  v101 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v100 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v22 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v102 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v101 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v23 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v24 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v97 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v93 = changeCopy;
+  v96 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v92 = changeCopy;
   reloadCopy = reload;
-  v95 = v14;
-  v99 = v15;
-  v100 = v24;
+  v94 = v14;
+  v98 = v15;
+  v99 = v24;
   if (self->_shouldFreezeContentsOriginatingFromToneManager)
   {
     _installedTones = self->_installedTones;
@@ -3401,27 +3424,27 @@ LABEL_14:
     _installedTones = [(TLToneManager *)self->_toneManager _installedTones];
   }
 
-  v112 = 0u;
-  v113 = 0u;
-  v110 = 0u;
   v111 = 0u;
+  v112 = 0u;
+  v109 = 0u;
+  v110 = 0u;
   obj = _installedTones;
   v26 = _installedTones;
-  v27 = [(NSArray *)v26 countByEnumeratingWithState:&v110 objects:v118 count:16];
+  v27 = [(NSArray *)v26 countByEnumeratingWithState:&v109 objects:v117 count:16];
   if (v27)
   {
     v28 = v27;
-    v29 = *v111;
+    v29 = *v110;
     do
     {
       for (i = 0; i != v28; ++i)
       {
-        if (*v111 != v29)
+        if (*v110 != v29)
         {
           objc_enumerationMutation(v26);
         }
 
-        v31 = *(*(&v110 + 1) + 8 * i);
+        v31 = *(*(&v109 + 1) + 8 * i);
         identifier = [v31 identifier];
         if (([v31 isPrivateTone] & 1) == 0)
         {
@@ -3450,7 +3473,7 @@ LABEL_14:
                     goto LABEL_42;
                   }
 
-                  v35 = v101;
+                  v35 = v100;
                 }
               }
 
@@ -3468,7 +3491,7 @@ LABEL_14:
 
                 else
                 {
-                  v35 = v102;
+                  v35 = v101;
                 }
               }
 
@@ -3482,7 +3505,7 @@ LABEL_14:
             if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138543362;
-              v117 = v31;
+              v116 = v31;
               _os_log_impl(&dword_21C599000, v36, OS_LOG_TYPE_DEFAULT, "Skipping %{public}@ in tone picker because this tone is not valid.", buf, 0xCu);
             }
           }
@@ -3491,7 +3514,7 @@ LABEL_14:
 LABEL_42:
       }
 
-      v28 = [(NSArray *)v26 countByEnumeratingWithState:&v110 objects:v118 count:16];
+      v28 = [(NSArray *)v26 countByEnumeratingWithState:&v109 objects:v117 count:16];
     }
 
     while (v28);
@@ -3510,26 +3533,26 @@ LABEL_42:
     [v38 addObjectsFromArray:allValues2];
   }
 
-  v108 = 0u;
-  v109 = 0u;
-  v106 = 0u;
   v107 = 0u;
+  v108 = 0u;
+  v105 = 0u;
+  v106 = 0u;
   v41 = v38;
-  v42 = [v41 countByEnumeratingWithState:&v106 objects:v115 count:16];
+  v42 = [v41 countByEnumeratingWithState:&v105 objects:v114 count:16];
   if (v42)
   {
     v43 = v42;
-    v44 = *v107;
+    v44 = *v106;
     do
     {
       for (j = 0; j != v43; ++j)
       {
-        if (*v107 != v44)
+        if (*v106 != v44)
         {
           objc_enumerationMutation(v41);
         }
 
-        v46 = *(*(&v106 + 1) + 8 * j);
+        v46 = *(*(&v105 + 1) + 8 * j);
         toneIdentifier = [v46 toneIdentifier];
         if (!toneIdentifier)
         {
@@ -3560,14 +3583,14 @@ LABEL_59:
 LABEL_60:
       }
 
-      v43 = [v41 countByEnumeratingWithState:&v106 objects:v115 count:16];
+      v43 = [v41 countByEnumeratingWithState:&v105 objects:v114 count:16];
     }
 
     while (v43);
   }
 
   v51 = self->_toneTypes;
-  v52 = v95;
+  v52 = v94;
   if ((v51 & 4) != 0)
   {
     _loadRingtonesFromPlist = [(TKTonePickerController *)self _loadRingtonesFromPlist];
@@ -3591,22 +3614,22 @@ LABEL_60:
           [v55 replaceObjectAtIndex:v60 withObject:@"<remix_ringtone_identifier>"];
           if (self->_showsReflectionRemixesInline)
           {
-            v103 = [v58 count];
-            v62 = [objc_alloc(MEMORY[0x277CCAA78]) initWithIndexesInRange:{v61 + 1, v103}];
+            v102 = [v58 count];
+            v62 = [objc_alloc(MEMORY[0x277CCAA78]) initWithIndexesInRange:{v61 + 1, v102}];
             [v55 insertObjects:v58 atIndexes:v62];
           }
         }
       }
 
-      v52 = v95;
+      v52 = v94;
     }
 
-    [v100 addObjectsFromArray:v55];
+    [v99 addObjectsFromArray:v55];
     v63 = [_loadRingtonesFromPlist objectForKey:@"classic"];
     [(TKTonePickerController *)self _setClassicRingtoneIdentifiers:v63];
     if (v63)
     {
-      [v100 addObject:@"<classic_ringtone_identifier>"];
+      [v99 addObject:@"<classic_ringtone_identifier>"];
     }
 
     v51 = self->_toneTypes;
@@ -3616,68 +3639,68 @@ LABEL_60:
   {
     _loadAlertTonesFromPlist = [(TKTonePickerController *)self _loadAlertTonesFromPlist];
     v65 = [_loadAlertTonesFromPlist objectForKey:@"modern"];
-    [v97 addObjectsFromArray:v65];
+    [v96 addObjectsFromArray:v65];
     v66 = [_loadAlertTonesFromPlist objectForKey:@"classic"];
     [(TKTonePickerController *)self _setClassicAlertToneIdentifiers:v66];
     if (v66)
     {
-      [v97 addObject:@"<classic_alert_tone_identifier>"];
+      [v96 addObject:@"<classic_alert_tone_identifier>"];
     }
 
-    v52 = v95;
+    v52 = v94;
   }
 
   [(TKTonePickerController *)self _sortToneIdentifiersArray:v22];
-  [(TKTonePickerController *)self _sortToneIdentifiersArray:v101];
+  [(TKTonePickerController *)self _sortToneIdentifiersArray:v100];
   [(TKTonePickerController *)self _sortToneIdentifiersArray:v23];
-  [(TKTonePickerController *)self _sortToneIdentifiersArray:v102];
-  v67 = v98;
+  [(TKTonePickerController *)self _sortToneIdentifiersArray:v101];
+  v67 = v97;
   if ([v22 count])
   {
-    [v99 addObjectsFromArray:v22];
     [v98 addObjectsFromArray:v22];
-  }
-
-  if ([v101 count])
-  {
-    [v99 addObjectsFromArray:v101];
-    [v98 addObjectsFromArray:v101];
+    [v97 addObjectsFromArray:v22];
   }
 
   if ([v100 count])
   {
-    if ([v99 count])
+    [v98 addObjectsFromArray:v100];
+    [v97 addObjectsFromArray:v100];
+  }
+
+  if ([v99 count])
+  {
+    if ([v98 count])
     {
-      [v99 addObject:&stru_282E32280];
+      [v98 addObject:&stru_282E32280];
     }
 
-    [v99 addObjectsFromArray:v100];
+    [v98 addObjectsFromArray:v99];
   }
 
   if ([v23 count])
   {
     [v52 addObjectsFromArray:v23];
-    [v98 addObjectsFromArray:v23];
+    [v97 addObjectsFromArray:v23];
   }
 
-  if ([v102 count])
+  if ([v101 count])
   {
-    [v52 addObjectsFromArray:v102];
-    [v98 addObjectsFromArray:v102];
+    [v52 addObjectsFromArray:v101];
+    [v97 addObjectsFromArray:v101];
   }
 
-  if ([v97 count])
+  if ([v96 count])
   {
     if ([v52 count])
     {
       [v52 addObject:&stru_282E32280];
     }
 
-    [v52 addObjectsFromArray:v97];
+    [v52 addObjectsFromArray:v96];
   }
 
   _showsMedia = [(TKTonePickerController *)self _showsMedia];
-  v69 = [v99 count];
+  v69 = [v98 count];
   v70 = [v52 count];
   if (v70)
   {
@@ -3691,7 +3714,7 @@ LABEL_60:
 
   if (!v71 || _showsMedia)
   {
-    v104 = TLLocalizedString();
+    v103 = TLLocalizedString();
 
     v72 = TLLocalizedString();
   }
@@ -3699,15 +3722,15 @@ LABEL_60:
   else
   {
     v72 = &stru_282E32280;
-    v104 = &stru_282E32280;
+    v103 = &stru_282E32280;
   }
 
   if (_behavesAsRingtonePicker)
   {
     if (v69)
     {
-      [(NSMutableArray *)self->_toneGroupLists addObject:v99];
-      [(NSMutableArray *)self->_toneGroupNames addObject:v104];
+      [(NSMutableArray *)self->_toneGroupLists addObject:v98];
+      [(NSMutableArray *)self->_toneGroupNames addObject:v103];
       [(NSMutableArray *)self->_toneGroupBucketIdentifiers addObject:@"ringtones"];
     }
 
@@ -3720,7 +3743,7 @@ LABEL_109:
       [(NSMutableArray *)self->_toneGroupLists addObject:v74];
       [(NSMutableArray *)self->_toneGroupNames addObject:v75];
       [(NSMutableArray *)self->_toneGroupBucketIdentifiers addObject:v73];
-      v67 = v98;
+      v67 = v97;
     }
   }
 
@@ -3736,8 +3759,8 @@ LABEL_109:
     if (v69)
     {
       v73 = @"ringtones";
-      v74 = v99;
-      v75 = v104;
+      v74 = v98;
+      v75 = v103;
       goto LABEL_109;
     }
   }
@@ -3772,16 +3795,16 @@ LABEL_109:
 
   objc_storeStrong(&self->_installedTones, obj);
   objc_storeStrong(&self->_identifiersOfRemovableTones, v67);
-  if (!v92)
+  if (!v91)
   {
-    if (v90)
+    if (v89)
     {
       _indexPathForDefaultGroup = [(TKTonePickerController *)self _indexPathForDefaultGroup];
     }
 
     else
     {
-      if (!v89)
+      if (!v88)
       {
         defaultToneIdentifier2 = [(TKTonePickerController *)self defaultToneIdentifier];
         _indexPathForDefaultGroup2 = [(TKTonePickerController *)self _indexPathForToneWithIdentifier:defaultToneIdentifier2];
@@ -3799,7 +3822,7 @@ LABEL_127:
     goto LABEL_128;
   }
 
-  _indexPathForDefaultGroup = [(TKTonePickerController *)self _indexPathForToneWithIdentifier:v96];
+  _indexPathForDefaultGroup = [(TKTonePickerController *)self _indexPathForToneWithIdentifier:v95];
   if (_indexPathForDefaultGroup)
   {
     goto LABEL_126;
@@ -3819,11 +3842,11 @@ LABEL_127:
   v81 = 1;
 LABEL_128:
   [(TKTonePickerController *)self _setSelectedToneIndexPath:_indexPathForDefaultGroup2];
-  if (v93)
+  if (v92)
   {
     v82 = [(TLToneManager *)self->_toneManager currentToneIdentifierForAlertType:[(TKTonePickerController *)self alertType]];
     [(TKTonePickerController *)self _setSelectedToneIdentifier:v82 currentlyReloadingTones:1];
-    if (!v96 || ([v82 isEqualToString:v96] & 1) == 0)
+    if (!v95 || ([v82 isEqualToString:v95] & 1) == 0)
     {
       v81 = 1;
     }
@@ -3838,9 +3861,9 @@ LABEL_128:
   if (v81)
   {
     _selectedToneIndexPath4 = [(TKTonePickerController *)self _selectedToneIndexPath];
-    v84 = [(TKTonePickerController *)self _identifierAtIndexPath:_selectedToneIndexPath4 isMediaItem:&v114];
+    v84 = [(TKTonePickerController *)self _identifierAtIndexPath:_selectedToneIndexPath4 isMediaItem:&v113];
 
-    if (v114 == 1)
+    if (v113 == 1)
     {
       [(TKTonePickerController *)self _didSelectMediaItemWithIdentifier:v84];
     }
@@ -3850,8 +3873,6 @@ LABEL_128:
       [(TKTonePickerController *)self _didSelectToneWithIdentifier:v84];
     }
   }
-
-  v85 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_platformSpecificAdjustedPlistName:(id)name
@@ -3886,7 +3907,7 @@ LABEL_128:
 
 - (id)_loadTonesFromPlistNamed:(id)named
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   namedCopy = named;
   v5 = namedCopy;
   if (_os_feature_enabled_impl())
@@ -3912,8 +3933,8 @@ LABEL_128:
   {
     *buf = 138543618;
     selfCopy = self;
-    v49 = 2114;
-    v50 = v5;
+    v48 = 2114;
+    v49 = v5;
     _os_log_impl(&dword_21C599000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@: Loading tones from plist named: %{public}@.", buf, 0x16u);
   }
 
@@ -4059,8 +4080,6 @@ LABEL_35:
   {
     [v40 setObject:v16 forKey:@"remix"];
   }
-
-  v43 = *MEMORY[0x277D85DE8];
 
   return v40;
 }
@@ -4478,7 +4497,7 @@ LABEL_3:
   }
 }
 
-uint64_t __52__TKTonePickerController_storeAccountNameDidChange___block_invoke(uint64_t a1)
+void *__52__TKTonePickerController_storeAccountNameDidChange___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _enableToneStoreDownloadItemIfAppropriate];
   if ((result & 1) == 0)
@@ -4508,11 +4527,11 @@ uint64_t __52__TKTonePickerController_storeAccountNameDidChange___block_invoke(u
   }
 }
 
-uint64_t __74__TKTonePickerController_didFinishCheckingForAvailableToneStoreDownloads___block_invoke(uint64_t result)
+id *__74__TKTonePickerController_didFinishCheckingForAvailableToneStoreDownloads___block_invoke(id *result)
 {
-  if ((*(result + 40) & 1) == 0)
+  if ((result[5] & 1) == 0)
   {
-    return [*(result + 32) _disableToneStoreDownloadItem];
+    return [result[4] _disableToneStoreDownloadItem];
   }
 
   return result;
@@ -4555,7 +4574,7 @@ void __53__TKTonePickerController_toneStoreDownloadsDidStart___block_invoke(uint
 
 void __53__TKTonePickerController_toneStoreDownloadsDidStart___block_invoke_2(uint64_t a1)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CBEB58]);
   if (!*(*(a1 + 32) + 40))
   {
@@ -4565,32 +4584,32 @@ void __53__TKTonePickerController_toneStoreDownloadsDidStart___block_invoke_2(ui
     *(v4 + 40) = v3;
   }
 
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   v6 = *(a1 + 40);
-  v7 = [v6 countByEnumeratingWithState:&v34 objects:v38 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v33 objects:v37 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v35;
+    v9 = *v34;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v35 != v9)
+        if (*v34 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v34 + 1) + 8 * i);
+        v11 = *(*(&v33 + 1) + 8 * i);
         v12 = [v11 identifier];
         [*(*(a1 + 32) + 40) setObject:v11 forKey:v12];
         [v2 addObject:v12];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v34 objects:v38 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v33 objects:v37 count:16];
     }
 
     while (v8);
@@ -4606,31 +4625,29 @@ void __53__TKTonePickerController_toneStoreDownloadsDidStart___block_invoke_2(ui
 
   v19 = *(a1 + 32);
   v20 = *(v19 + 88);
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __53__TKTonePickerController_toneStoreDownloadsDidStart___block_invoke_3;
-  v27[3] = &unk_2783165A0;
-  v32 = v15;
-  v33 = v18;
-  v27[4] = v19;
-  v28 = v14;
-  v29 = v16;
-  v30 = v13;
-  v31 = v2;
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __53__TKTonePickerController_toneStoreDownloadsDidStart___block_invoke_3;
+  v26[3] = &unk_2783165A0;
+  v31 = v15;
+  v32 = v18;
+  v26[4] = v19;
+  v27 = v14;
+  v28 = v16;
+  v29 = v13;
+  v30 = v2;
   v21 = v15;
   v22 = v2;
   v23 = v13;
   v24 = v16;
   v25 = v14;
-  [v20 enumerateObjectsUsingBlock:v27];
+  [v20 enumerateObjectsUsingBlock:v26];
   [*(a1 + 32) _applyBatchUpdatesWithDeletedPickerRowItems:MEMORY[0x277CBEBF8] deletedTonePickerSectionItems:MEMORY[0x277CBEBF8] insertedPickerRowItems:v21 insertedTonePickerSectionItems:v24 tonePickerSectionItemsWithUpdatedHeaderText:MEMORY[0x277CBEBF8] tonePickerSectionItemsWithUpdatedFooterText:MEMORY[0x277CBEBF8]];
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __53__TKTonePickerController_toneStoreDownloadsDidStart___block_invoke_3(uint64_t a1, void *a2, uint64_t a3)
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = [*(a1 + 32) pickerItemForSection:*(a1 + 80) + a3];
   v7 = [*(*(a1 + 32) + 104) objectAtIndex:a3];
@@ -4643,40 +4660,40 @@ void __53__TKTonePickerController_toneStoreDownloadsDidStart___block_invoke_3(ui
   else
   {
     v9 = [*(a1 + 56) objectAtIndex:v8];
-    v40 = 0;
-    v41 = &v40;
-    v42 = 0x2020000000;
-    v43 = 0;
-    v39[0] = MEMORY[0x277D85DD0];
-    v39[1] = 3221225472;
-    v39[2] = __53__TKTonePickerController_toneStoreDownloadsDidStart___block_invoke_4;
-    v39[3] = &unk_278316550;
-    v39[4] = &v40;
-    [v9 enumerateObjectsUsingBlock:v39];
-    v35 = 0;
-    v36 = &v35;
-    v37 = 0x2020000000;
-    v38 = 0;
-    v31 = 0;
-    v32 = &v31;
-    v33 = 0x2020000000;
-    v34 = 0x7FFFFFFFFFFFFFFFLL;
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __53__TKTonePickerController_toneStoreDownloadsDidStart___block_invoke_5;
-    v24[3] = &unk_278316578;
-    v29 = &v35;
-    v30 = &v31;
+    v39 = 0;
+    v40 = &v39;
+    v41 = 0x2020000000;
+    v42 = 0;
+    v38[0] = MEMORY[0x277D85DD0];
+    v38[1] = 3221225472;
+    v38[2] = __53__TKTonePickerController_toneStoreDownloadsDidStart___block_invoke_4;
+    v38[3] = &unk_278316550;
+    v38[4] = &v39;
+    [v9 enumerateObjectsUsingBlock:v38];
+    v34 = 0;
+    v35 = &v34;
+    v36 = 0x2020000000;
+    v37 = 0;
+    v30 = 0;
+    v31 = &v30;
+    v32 = 0x2020000000;
+    v33 = 0x7FFFFFFFFFFFFFFFLL;
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __53__TKTonePickerController_toneStoreDownloadsDidStart___block_invoke_5;
+    v23[3] = &unk_278316578;
+    v28 = &v34;
+    v29 = &v30;
     v10 = *(a1 + 64);
     v11 = *(a1 + 32);
-    v25 = v10;
-    v26 = v11;
+    v24 = v10;
+    v25 = v11;
     v12 = v6;
-    v27 = v12;
-    v28 = *(a1 + 72);
-    [v5 enumerateObjectsUsingBlock:v24];
-    v13 = v36[3];
-    v14 = v41[3];
+    v26 = v12;
+    v27 = *(a1 + 72);
+    [v5 enumerateObjectsUsingBlock:v23];
+    v13 = v35[3];
+    v14 = v40[3];
     if (v13 != v14)
     {
       if (v13 != v14 + 1)
@@ -4693,13 +4710,13 @@ void __53__TKTonePickerController_toneStoreDownloadsDidStart___block_invoke_3(ui
             v19 = [v17 lastPathComponent];
             v20 = [MEMORY[0x277CCACC8] callStackSymbols];
             *buf = 136381443;
-            v45 = "[TKTonePickerController toneStoreDownloadsDidStart:]_block_invoke_3";
-            v46 = 2113;
-            v47 = v19;
-            v48 = 2049;
-            v49 = 2527;
-            v50 = 2113;
-            v51 = v20;
+            v44 = "[TKTonePickerController toneStoreDownloadsDidStart:]_block_invoke_3";
+            v45 = 2113;
+            v46 = v19;
+            v47 = 2049;
+            v48 = 2527;
+            v49 = 2113;
+            v50 = v20;
             _os_log_impl(&dword_21C599000, v18, OS_LOG_TYPE_DEFAULT, "*** Assertion failure in %{private}s, %{private}@:%{private}lu.\n%{private}@", buf, 0x2Au);
           }
         }
@@ -4720,19 +4737,17 @@ void __53__TKTonePickerController_toneStoreDownloadsDidStart___block_invoke_3(ui
         }
       }
 
-      v22 = [*(a1 + 32) _pickerRowItemAtIndex:v32[3] inSectionForItem:v12];
+      v22 = [*(a1 + 32) _pickerRowItemAtIndex:v31[3] inSectionForItem:v12];
       [*(a1 + 72) addObject:v22];
     }
 
-    _Block_object_dispose(&v31, 8);
-    _Block_object_dispose(&v35, 8);
-    _Block_object_dispose(&v40, 8);
+    _Block_object_dispose(&v30, 8);
+    _Block_object_dispose(&v34, 8);
+    _Block_object_dispose(&v39, 8);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __53__TKTonePickerController_toneStoreDownloadsDidStart___block_invoke_4(uint64_t a1, void *a2)
+void *__53__TKTonePickerController_toneStoreDownloadsDidStart___block_invoke_4(uint64_t a1, void *a2)
 {
   result = [a2 isEqualToString:&stru_282E32280];
   if (result)
@@ -4782,49 +4797,49 @@ void __53__TKTonePickerController_toneStoreDownloadsDidStart___block_invoke_5(ui
 
 void __56__TKTonePickerController_toneStoreDownloadsDidProgress___block_invoke(uint64_t a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _indexPathForFirstToneGroup];
   v3 = [v2 tk_section];
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   obj = *(a1 + 40);
-  v4 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v4 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v4)
   {
-    v5 = *v28;
+    v5 = *v27;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v28 != v5)
+        if (*v27 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v27 + 1) + 8 * i);
+        v7 = *(*(&v26 + 1) + 8 * i);
         v8 = [v7 identifier];
-        v21 = 0;
-        v22 = &v21;
-        v23 = 0x3032000000;
-        v24 = __Block_byref_object_copy_;
-        v25 = __Block_byref_object_dispose_;
-        v26 = 0;
+        v20 = 0;
+        v21 = &v20;
+        v22 = 0x3032000000;
+        v23 = __Block_byref_object_copy_;
+        v24 = __Block_byref_object_dispose_;
+        v25 = 0;
         v9 = *(*(a1 + 32) + 88);
-        v16[0] = MEMORY[0x277D85DD0];
-        v16[1] = 3221225472;
-        v16[2] = __56__TKTonePickerController_toneStoreDownloadsDidProgress___block_invoke_161;
-        v16[3] = &unk_2783165F0;
+        v15[0] = MEMORY[0x277D85DD0];
+        v15[1] = 3221225472;
+        v15[2] = __56__TKTonePickerController_toneStoreDownloadsDidProgress___block_invoke_161;
+        v15[3] = &unk_2783165F0;
         v10 = v8;
         v11 = *(a1 + 32);
-        v17 = v10;
-        v18 = v11;
-        v19 = &v21;
-        v20 = v3;
-        [v9 enumerateObjectsUsingBlock:v16];
-        v12 = v22[5];
+        v16 = v10;
+        v17 = v11;
+        v18 = &v20;
+        v19 = v3;
+        [v9 enumerateObjectsUsingBlock:v15];
+        v12 = v21[5];
         if (v12)
         {
           [v7 downloadProgress];
@@ -4832,23 +4847,21 @@ void __56__TKTonePickerController_toneStoreDownloadsDidProgress___block_invoke(u
           v13 = [*(a1 + 32) delegate];
           if (objc_opt_respondsToSelector())
           {
-            [v13 tonePickerController:*(a1 + 32) didUpdateDownloadProgressOfTonePickerItem:v22[5]];
+            [v13 tonePickerController:*(a1 + 32) didUpdateDownloadProgressOfTonePickerItem:v21[5]];
           }
         }
 
-        _Block_object_dispose(&v21, 8);
+        _Block_object_dispose(&v20, 8);
       }
 
-      v4 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v4 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
     while (v4);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __56__TKTonePickerController_toneStoreDownloadsDidProgress___block_invoke_161(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__56__TKTonePickerController_toneStoreDownloadsDidProgress___block_invoke_161(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 indexOfObject:*(a1 + 32)];
   if (result != 0x7FFFFFFFFFFFFFFFLL)
@@ -4898,33 +4911,33 @@ uint64_t __56__TKTonePickerController_toneStoreDownloadsDidProgress___block_invo
   }
 }
 
-uint64_t __54__TKTonePickerController_toneStoreDownloadsDidFinish___block_invoke(uint64_t a1)
+void *__54__TKTonePickerController_toneStoreDownloadsDidFinish___block_invoke(uint64_t a1)
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _indexPathForFirstToneGroup];
-  v31 = [v2 tk_section];
+  v30 = [v2 tk_section];
 
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
   v44 = 0u;
+  v45 = 0u;
+  v42 = 0u;
+  v43 = 0u;
   obj = *(a1 + 40);
-  v32 = [obj countByEnumeratingWithState:&v43 objects:v50 count:16];
-  if (v32)
+  v31 = [obj countByEnumeratingWithState:&v42 objects:v49 count:16];
+  if (v31)
   {
-    v30 = *v44;
+    v29 = *v43;
     *&v3 = 136381443;
-    v28 = v3;
+    v27 = v3;
     do
     {
-      for (i = 0; i != v32; ++i)
+      for (i = 0; i != v31; ++i)
       {
-        if (*v44 != v30)
+        if (*v43 != v29)
         {
           objc_enumerationMutation(obj);
         }
 
-        v5 = *(*(&v43 + 1) + 8 * i);
+        v5 = *(*(&v42 + 1) + 8 * i);
         v6 = [v5 identifier];
         v7 = [v5 toneIdentifier];
         if (!v7)
@@ -4940,14 +4953,14 @@ uint64_t __54__TKTonePickerController_toneStoreDownloadsDidFinish___block_invoke
             {
               v12 = [v10 lastPathComponent];
               v13 = [MEMORY[0x277CCACC8] callStackSymbols];
-              *buf = v28;
+              *buf = v27;
               *&buf[4] = "[TKTonePickerController toneStoreDownloadsDidFinish:]_block_invoke";
               *&buf[12] = 2113;
               *&buf[14] = v12;
               *&buf[22] = 2049;
-              v48 = 2584;
-              LOWORD(v49) = 2113;
-              *(&v49 + 2) = v13;
+              v47 = 2584;
+              LOWORD(v48) = 2113;
+              *(&v48 + 2) = v13;
               _os_log_impl(&dword_21C599000, v11, OS_LOG_TYPE_DEFAULT, "*** Assertion failure in %{private}s, %{private}@:%{private}lu.\n%{private}@", buf, 0x2Au);
             }
           }
@@ -4957,14 +4970,14 @@ uint64_t __54__TKTonePickerController_toneStoreDownloadsDidFinish___block_invoke
             v10 = TLLogGeneral();
             if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
             {
-              __54__TKTonePickerController_toneStoreDownloadsDidFinish___block_invoke_cold_1(&v41, v42, v10);
+              __54__TKTonePickerController_toneStoreDownloadsDidFinish___block_invoke_cold_1(&v40, v41, v10);
             }
           }
 
           v14 = TLLogGeneral();
           if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
           {
-            __54__TKTonePickerController_toneStoreDownloadsDidFinish___block_invoke_cold_2(&v39, v40, v14);
+            __54__TKTonePickerController_toneStoreDownloadsDidFinish___block_invoke_cold_2(&v38, v39, v14);
           }
         }
 
@@ -4984,23 +4997,23 @@ uint64_t __54__TKTonePickerController_toneStoreDownloadsDidFinish___block_invoke
         *buf = 0;
         *&buf[8] = buf;
         *&buf[16] = 0x3032000000;
-        v48 = __Block_byref_object_copy_;
-        *&v49 = __Block_byref_object_dispose_;
-        *(&v49 + 1) = 0;
+        v47 = __Block_byref_object_copy_;
+        *&v48 = __Block_byref_object_dispose_;
+        *(&v48 + 1) = 0;
         v19 = *(*(a1 + 32) + 88);
-        v33[0] = MEMORY[0x277D85DD0];
-        v33[1] = 3221225472;
-        v33[2] = __54__TKTonePickerController_toneStoreDownloadsDidFinish___block_invoke_164;
-        v33[3] = &unk_278316618;
+        v32[0] = MEMORY[0x277D85DD0];
+        v32[1] = 3221225472;
+        v32[2] = __54__TKTonePickerController_toneStoreDownloadsDidFinish___block_invoke_164;
+        v32[3] = &unk_278316618;
         v20 = v6;
         v21 = *(a1 + 32);
-        v34 = v20;
-        v35 = v21;
-        v37 = buf;
-        v38 = v31;
+        v33 = v20;
+        v34 = v21;
+        v36 = buf;
+        v37 = v30;
         v22 = v7;
-        v36 = v22;
-        [v19 enumerateObjectsUsingBlock:v33];
+        v35 = v22;
+        [v19 enumerateObjectsUsingBlock:v32];
         v23 = *(*&buf[8] + 40);
         if (v23)
         {
@@ -5017,19 +5030,18 @@ uint64_t __54__TKTonePickerController_toneStoreDownloadsDidFinish___block_invoke
         _Block_object_dispose(buf, 8);
       }
 
-      v32 = [obj countByEnumeratingWithState:&v43 objects:v50 count:16];
+      v31 = [obj countByEnumeratingWithState:&v42 objects:v49 count:16];
     }
 
-    while (v32);
+    while (v31);
   }
 
   result = [*(*(a1 + 32) + 40) count];
   if (!result)
   {
-    result = [*(a1 + 32) _disableToneStoreDownloadItem];
+    return [*(a1 + 32) _disableToneStoreDownloadItem];
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -5058,7 +5070,7 @@ void __54__TKTonePickerController_toneStoreDownloadsDidFinish___block_invoke_164
 
 - (void)_didUpdateFooterTextForToneStoreGroup
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   _indexPathForToneStoreGroup = [(TKTonePickerController *)self _indexPathForToneStoreGroup];
   tk_section = [_indexPathForToneStoreGroup tk_section];
 
@@ -5067,12 +5079,10 @@ void __54__TKTonePickerController_toneStoreDownloadsDidFinish___block_invoke_164
   {
     _footerTextForToneStoreGroup = [(TKTonePickerController *)self _footerTextForToneStoreGroup];
     [v5 _setFooterText:_footerTextForToneStoreGroup];
-    v9[0] = v5;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+    v8[0] = v5;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
     [(TKTonePickerController *)self _applyBatchUpdatesWithDeletedPickerRowItems:MEMORY[0x277CBEBF8] deletedTonePickerSectionItems:MEMORY[0x277CBEBF8] insertedPickerRowItems:MEMORY[0x277CBEBF8] insertedTonePickerSectionItems:MEMORY[0x277CBEBF8] tonePickerSectionItemsWithUpdatedHeaderText:MEMORY[0x277CBEBF8] tonePickerSectionItemsWithUpdatedFooterText:v7];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_didUpdateToneStoreDownloadItem
@@ -5211,25 +5221,22 @@ uint64_t __55__TKTonePickerController__disableToneStoreDownloadItem__block_invok
 
 void __55__TKTonePickerController__disableToneStoreDownloadItem__block_invoke_2(uint64_t a1)
 {
-  v5[1] = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
   *(*(a1 + 32) + 32) = 3;
   *(*(a1 + 32) + 28) = 0;
   [*(a1 + 40) _setNumberOfChildren:{objc_msgSend(*(a1 + 40), "numberOfChildren") - 1}];
   v2 = *(a1 + 32);
-  v5[0] = *(a1 + 48);
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
+  v4[0] = *(a1 + 48);
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
   [v2 _applyBatchUpdatesWithDeletedPickerRowItems:v3 deletedTonePickerSectionItems:MEMORY[0x277CBEBF8] insertedPickerRowItems:MEMORY[0x277CBEBF8] insertedTonePickerSectionItems:MEMORY[0x277CBEBF8] tonePickerSectionItemsWithUpdatedHeaderText:MEMORY[0x277CBEBF8] tonePickerSectionItemsWithUpdatedFooterText:MEMORY[0x277CBEBF8]];
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __55__TKTonePickerController__disableToneStoreDownloadItem__block_invoke_3(uint64_t a1)
 {
   (*(*(a1 + 40) + 16))();
-  v2 = *(a1 + 32);
-  v3 = objc_opt_class();
+  v1 = objc_opt_class();
 
-  return [v3 _updateLatestRedownloadAllTonesDate];
+  return [v1 _updateLatestRedownloadAllTonesDate];
 }
 
 - (id)_footerTextForToneStoreGroup
@@ -5340,7 +5347,7 @@ uint64_t __55__TKTonePickerController__disableToneStoreDownloadItem__block_invok
 
 - (void)_playToneWithIdentifier:(id)identifier
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   if ([identifierCopy length])
   {
@@ -5365,13 +5372,13 @@ uint64_t __55__TKTonePickerController__disableToneStoreDownloadItem__block_invok
           lastPathComponent = [v8 lastPathComponent];
           callStackSymbols = [MEMORY[0x277CCACC8] callStackSymbols];
           *buf = 136381443;
-          v26 = "[TKTonePickerController _playToneWithIdentifier:]";
-          v27 = 2113;
-          v28 = lastPathComponent;
-          v29 = 2049;
-          v30 = 2804;
-          v31 = 2113;
-          v32 = callStackSymbols;
+          v25 = "[TKTonePickerController _playToneWithIdentifier:]";
+          v26 = 2113;
+          v27 = lastPathComponent;
+          v28 = 2049;
+          v29 = 2804;
+          v30 = 2113;
+          v31 = callStackSymbols;
           _os_log_impl(&dword_21C599000, v9, OS_LOG_TYPE_DEFAULT, "*** Assertion failure in %{private}s, %{private}@:%{private}lu.\n%{private}@", buf, 0x2Au);
         }
       }
@@ -5417,15 +5424,15 @@ uint64_t __55__TKTonePickerController__disableToneStoreDownloadItem__block_invok
     objc_initWeak(buf, v18);
     objc_initWeak(&location, self);
     v19 = self->_playingAlert;
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __50__TKTonePickerController__playToneWithIdentifier___block_invoke;
-    v21[3] = &unk_2783166B8;
-    objc_copyWeak(&v22, buf);
-    objc_copyWeak(&v23, &location);
-    [(TLAlert *)v19 playWithCompletionHandler:v21];
-    objc_destroyWeak(&v23);
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __50__TKTonePickerController__playToneWithIdentifier___block_invoke;
+    v20[3] = &unk_2783166B8;
+    objc_copyWeak(&v21, buf);
+    objc_copyWeak(&v22, &location);
+    [(TLAlert *)v19 playWithCompletionHandler:v20];
     objc_destroyWeak(&v22);
+    objc_destroyWeak(&v21);
     objc_destroyWeak(&location);
     objc_destroyWeak(buf);
   }
@@ -5434,8 +5441,6 @@ uint64_t __55__TKTonePickerController__disableToneStoreDownloadItem__block_invok
   {
     [(TLAlert *)v15 stop];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __50__TKTonePickerController__playToneWithIdentifier___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -5517,10 +5522,11 @@ void __50__TKTonePickerController__playToneWithIdentifier___block_invoke_2(uint6
 
 - (void)_didFinishPlayingAlert:(id)alert
 {
-  if (self->_playingAlert == alert)
+  playingAlert = self->_playingAlert;
+  if (playingAlert == alert)
   {
     self->_playingAlert = 0;
-    MEMORY[0x2821F96F8]();
+    MEMORY[0x2821F96F8](self, playingAlert);
   }
 }
 
@@ -5556,6 +5562,48 @@ void __50__TKTonePickerController__playToneWithIdentifier___block_invoke_2(uint6
 
     [(TKTonePickerController *)self _invalidatePickerItemCaches];
     [(TKTonePickerController *)self _didReloadTones];
+  }
+}
+
+- (void)setIgnoreMute:(BOOL)mute updateSource:(int64_t)source
+{
+  if (self->_ignoreMute != mute)
+  {
+    muteCopy = mute;
+    self->_ignoreMute = mute;
+    _indexPathForIgnoreMuteGroup = [(TKTonePickerController *)self _indexPathForIgnoreMuteGroup];
+    v12 = _indexPathForIgnoreMuteGroup;
+    if (_indexPathForIgnoreMuteGroup)
+    {
+      v9 = -[TKTonePickerController _cachedPickerItemForSection:](self, "_cachedPickerItemForSection:", [_indexPathForIgnoreMuteGroup tk_section]);
+      if (v9)
+      {
+        v10 = -[TKTonePickerController _cachedPickerRowItemAtIndex:inSectionForItem:](self, "_cachedPickerRowItemAtIndex:inSectionForItem:", [v12 tk_row], v9);
+      }
+
+      else
+      {
+        v10 = 0;
+      }
+
+      objc_opt_class();
+      if (objc_opt_isKindOfClass())
+      {
+        v10 = v10;
+        [v10 _setSwitchedOn:muteCopy];
+        delegate = [(TKTonePickerController *)self delegate];
+        if (objc_opt_respondsToSelector())
+        {
+          [delegate tonePickerController:self didUpdateIgnoreMute:self->_ignoreMute updateSource:source forTonePickerItem:v10 atIndexPath:v12];
+        }
+      }
+    }
+
+    else
+    {
+      v9 = 0;
+      v10 = 0;
+    }
   }
 }
 
@@ -5740,6 +5788,29 @@ LABEL_8:
   MEMORY[0x2821F96F8](selectedVibrationIdentifier, identifierCopy);
 }
 
+- (void)_resetSelectedVibrationIdentifierForcingUpdatingVibrationName:(BOOL)name
+{
+  mEMORY[0x277D71F88] = [MEMORY[0x277D71F88] sharedVibrationManager];
+  alertType = self->_alertType;
+  topic = [(TKTonePickerController *)self topic];
+  v9 = [mEMORY[0x277D71F88] _currentVibrationIdentifierForAlertType:alertType topic:topic];
+
+  if ([MEMORY[0x277D71F50] _currentOverridePolicyForType:self->_alertType] == 1)
+  {
+    v7 = *MEMORY[0x277D72070];
+
+    v8 = v7;
+  }
+
+  else
+  {
+    v8 = v9;
+  }
+
+  v10 = v8;
+  [(TKTonePickerController *)self _setSelectedVibrationIdentifier:v8 forceUpdatingVibrationName:1 explicitlySet:0];
+}
+
 - (id)_sanitizedSelectedVibrationIdentifierAllowingNilForDefault:(BOOL)default
 {
   defaultCopy = default;
@@ -5920,6 +5991,27 @@ LABEL_13:
   }
 }
 
+- (void)_didUpdateCheckedStatus:(BOOL)status ofPickerItemForRowAtIndexPath:(id)path
+{
+  statusCopy = status;
+  pathCopy = path;
+  v11 = -[TKTonePickerController pickerItemForSection:](self, "pickerItemForSection:", [pathCopy tk_section]);
+  tk_row = [pathCopy tk_row];
+
+  v8 = [v11 childItemAtIndex:tk_row];
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    v9 = v8;
+    [v9 _setShowsCheckmark:statusCopy];
+    delegate = [(TKTonePickerController *)self delegate];
+    if (objc_opt_respondsToSelector())
+    {
+      [delegate tonePickerController:self didUpdateCheckedStatus:statusCopy ofTonePickerItem:v9];
+    }
+  }
+}
+
 - (void)_didUpdateDetailText:(id)text ofPickerItemForRowAtIndexPath:(id)path
 {
   textCopy = text;
@@ -5938,6 +6030,18 @@ LABEL_13:
     {
       [delegate tonePickerController:self didUpdateDetailText:textCopy ofTonePickerItem:v10];
     }
+  }
+}
+
+- (void)_didUpdateCheckedStatus:(BOOL)status ofToneClassicsPickerItem:(id)item
+{
+  statusCopy = status;
+  itemCopy = item;
+  [itemCopy _setShowsCheckmark:statusCopy];
+  delegate = [(TKTonePickerController *)self delegate];
+  if (objc_opt_respondsToSelector())
+  {
+    [delegate tonePickerController:self didUpdateCheckedStatus:statusCopy ofTonePickerItem:itemCopy];
   }
 }
 
@@ -6049,11 +6153,10 @@ _BYTE *__74__TKTonePickerController__handleAlertOverridePolicyDidChangeNotificat
 
 - (void)deleteTonePickerItem:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_21C599000, a2, OS_LOG_TYPE_ERROR, "Cannot delete %{public}@.", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_21C599000, a2, OS_LOG_TYPE_ERROR, "Cannot delete %{public}@.", &v2, 0xCu);
 }
 
 void __54__TKTonePickerController_toneStoreDownloadsDidFinish___block_invoke_cold_1(uint8_t *buf, _BYTE *a2, os_log_t log)

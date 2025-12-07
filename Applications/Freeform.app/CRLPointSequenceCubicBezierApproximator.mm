@@ -22,10 +22,10 @@
   v5 = v4;
   if (v4)
   {
-    p_dataPoints = &v4->_dataPoints;
+    p_begin = &v4->_dataPoints.__begin_;
     if (&v5->_dataPoints != points)
     {
-      sub_1000DB520(p_dataPoints, *points, *(points + 1), (*(points + 1) - *points) >> 4);
+      sub_1000DB520(p_begin, *points, *(points + 1), (*(points + 1) - *points) >> 4);
     }
 
     v5->_n = ((*(points + 1) - *points) >> 4) - 1;

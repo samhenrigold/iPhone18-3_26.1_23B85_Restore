@@ -1166,7 +1166,7 @@ uint64_t __40__AXElementFetcher__scheduleFetchEvent___block_invoke(uint64_t a1)
   return [*(a1 + 32) _tearDownEventCoalesceTimer];
 }
 
-uint64_t __40__AXElementFetcher__scheduleFetchEvent___block_invoke_2(uint64_t a1)
+void *__40__AXElementFetcher__scheduleFetchEvent___block_invoke_2(uint64_t a1)
 {
   _AXShouldDispatchNonMainThreadCallbacksOnMainThreadPushReason();
   v2 = [*(a1 + 32) _updateCurrentApps];

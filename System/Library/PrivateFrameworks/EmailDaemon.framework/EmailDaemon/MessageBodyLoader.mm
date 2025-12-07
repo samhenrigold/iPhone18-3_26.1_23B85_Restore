@@ -2,6 +2,7 @@
 + (OS_os_log)log;
 + (OS_os_log)signpostLog;
 + (id)attachmentManager;
++ (id)copySummaryForMessage:(id)message downloadIfNecessary:(BOOL)necessary;
 + (id)loaderForAccount:(id)account;
 + (void)_setSharedLoaderForTesting:(id)testing account:(id)account;
 + (void)accountsDidChange;
@@ -178,6 +179,108 @@
   defaultAttachmentManager = [v2 defaultAttachmentManager];
 
   return defaultAttachmentManager;
+}
+
++ (id)copySummaryForMessage:(id)message downloadIfNecessary:(BOOL)necessary
+{
+  necessaryCopy = necessary;
+  messageCopy = message;
+  summary = [messageCopy summary];
+
+  if (summary)
+  {
+    v8 = +[MessageBodyLoader log];
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    {
+      summary2 = [messageCopy summary];
+      v10 = [summary2 length];
+      v11 = NSStringFromBOOL();
+      ef_publicDescription = [messageCopy ef_publicDescription];
+      *buf = 134218498;
+      *&buf[4] = v10;
+      *&buf[12] = 2112;
+      *&buf[14] = v11;
+      *&buf[22] = 2114;
+      v43 = ef_publicDescription;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "copySummaryForMessage return existing %lu-length summary (downloadIfNecessary %@): %{public}@", buf, 0x20u);
+    }
+
+    summary3 = [messageCopy summary];
+  }
+
+  else
+  {
+    v14 = +[MessageBodyLoader log];
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    {
+      v15 = NSStringFromBOOL();
+      ef_publicDescription2 = [messageCopy ef_publicDescription];
+      *buf = 138412546;
+      *&buf[4] = v15;
+      *&buf[12] = 2114;
+      *&buf[14] = ef_publicDescription2;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "copySummaryForMessage start (downloadIfNecessary %@): %{public}@", buf, 0x16u);
+    }
+
+    v17 = [MFMessageLoadingContext alloc];
+    attachmentManager = [self attachmentManager];
+    v19 = [v17 initWithMessage:messageCopy attachmentManager:attachmentManager];
+
+    v20 = +[EFScheduler immediateScheduler];
+    [v19 load:0 scheduler:v20 shouldDownload:necessaryCopy];
+
+    *buf = 0;
+    *&buf[8] = buf;
+    *&buf[16] = 0x3032000000;
+    v43 = sub_10003EAF4;
+    v44 = sub_10003EB04;
+    v45 = 0;
+    +[MFActivityMonitor currentMonitor];
+    v30 = _NSConcreteStackBlock;
+    v31 = 3221225472;
+    v32 = sub_10003EB0C;
+    v21 = v33 = &unk_100157880;
+    v34 = v21;
+    v35 = buf;
+    v22 = [v19 addLoadObserver:&v30];
+    if (*(*&buf[8] + 40))
+    {
+      v23 = [MessageBodyLoader log:v30];
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      {
+        v24 = NSStringFromBOOL();
+        v25 = [*(*&buf[8] + 40) length];
+        ef_publicDescription3 = [messageCopy ef_publicDescription];
+        *v36 = 138412802;
+        v37 = v24;
+        v38 = 2048;
+        v39 = v25;
+        v40 = 2114;
+        v41 = ef_publicDescription3;
+        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "copySummaryForMessage end (downloadIfNecessary %@), body summary length = %lu: %{public}@", v36, 0x20u);
+      }
+    }
+
+    else
+    {
+      v23 = [MessageBodyLoader log:v30];
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      {
+        v27 = NSStringFromBOOL();
+        ef_publicDescription4 = [messageCopy ef_publicDescription];
+        *v36 = 138412546;
+        v37 = v27;
+        v38 = 2114;
+        v39 = ef_publicDescription4;
+        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "copySummaryForMessage end (downloadIfNecessary %@), no body summary loaded: %{public}@", v36, 0x16u);
+      }
+    }
+
+    summary3 = *(*&buf[8] + 40);
+    _Block_object_dispose(buf, 8);
+  }
+
+  return summary3;
 }
 
 - (MessageBodyLoader)init

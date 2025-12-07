@@ -42,10 +42,11 @@ id sub_14DC(uint64_t a1)
   return [v1 extractCrashlogsWithError:&v3];
 }
 
-void sub_2754(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_2754(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 void sub_27B4(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
@@ -105,18 +106,7 @@ void sub_47A0(void *a1)
   v3 = sub_2780();
   v4 = NSStringFromSelector(v3);
   sub_2774();
-  sub_2754(&dword_0, v5, v6, "%@", v7, v8, v9, v10, v11);
-}
-
-void sub_4830(uint64_t *a1)
-{
-  if (a1)
-  {
-    v1 = *a1;
-  }
-
-  sub_278C();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+  sub_2754(&dword_0, v5, v6, "%@", v7, v8, v9, v10);
 }
 
 void sub_48B4()
@@ -213,13 +203,6 @@ void sub_4CBC()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_4CF8(int *a1)
-{
-  v6 = *a1;
-  sub_278C();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xEu);
-}
-
 void sub_4D80(void *a1, const char *a2)
 {
   v3 = a1;
@@ -254,13 +237,6 @@ void sub_4EBC(const char *a1)
   sub_2774();
   sub_3984();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-}
-
-void sub_4F4C(uint64_t a1, uint64_t *a2)
-{
-  v7 = *a2;
-  sub_3984();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x20u);
 }
 
 void sub_4FEC()
@@ -426,15 +402,10 @@ void sub_5A20(void *a1, NSObject *a2)
   _os_log_error_impl(&dword_0, a2, OS_LOG_TYPE_ERROR, "Crashlog (%d) does not have a full header: header size %ld, crashlog header+blob size %d", v4, 0x18u);
 }
 
-void sub_5AE0(uint64_t a1, uint64_t *a2)
+void sub_5AE0()
 {
-  if (a2)
-  {
-    v2 = *a2;
-  }
-
   sub_2774();
-  v6 = 2112;
-  v7 = v3;
-  _os_log_error_impl(&dword_0, v4, OS_LOG_TYPE_ERROR, "Failed to create directory %@: error %@", v5, 0x16u);
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&dword_0, v1, OS_LOG_TYPE_ERROR, "Failed to create directory %@: error %@", v2, 0x16u);
 }

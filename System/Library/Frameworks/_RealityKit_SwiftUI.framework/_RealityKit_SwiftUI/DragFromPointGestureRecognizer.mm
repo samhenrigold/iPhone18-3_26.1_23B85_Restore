@@ -35,16 +35,15 @@
   {
     v6 = *v3;
     v5 = v3[1];
-    v8 = *(&self->super.super.super.isa + OBJC_IVAR____TtC19_RealityKit_SwiftUIP33_4ABB148B5599ED86F84C6943D86F570D30DragFromPointGestureRecognizer_onPan);
-    v7 = *(&self->super.super._gestureFlags + OBJC_IVAR____TtC19_RealityKit_SwiftUIP33_4ABB148B5599ED86F84C6943D86F570D30DragFromPointGestureRecognizer_onPan);
+    v7 = *(&self->super.super.super.isa + OBJC_IVAR____TtC19_RealityKit_SwiftUIP33_4ABB148B5599ED86F84C6943D86F570D30DragFromPointGestureRecognizer_onPan);
     internalCopy = internal;
     selfCopy = self;
     view = [(DragFromPointGestureRecognizer *)selfCopy view];
     [internalCopy locationInView_];
-    v12 = v11;
-    v14 = v13;
+    v11 = v10;
+    v13 = v12;
 
-    v8(v6, v5, v12, v14);
+    v7(v6, v5, v11, v13);
   }
 }
 

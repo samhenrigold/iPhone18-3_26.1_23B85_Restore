@@ -142,7 +142,7 @@ LABEL_12:
   [(MRNowPlayingController *)self->_nowPlayingController beginLoadingUpdates];
   if (gLogCategory_APMetadataSource <= 50 && (gLogCategory_APMetadataSource != -1 || _LogCategory_Initialize()))
   {
-    [APMRNowPlayingControllerDelegate start];
+    [(APMRNowPlayingControllerDelegate *)self start];
   }
 }
 
@@ -151,18 +151,30 @@ LABEL_12:
   [(MRNowPlayingController *)self->_nowPlayingController endLoadingUpdates];
   if (gLogCategory_APMetadataSource <= 50 && (gLogCategory_APMetadataSource != -1 || _LogCategory_Initialize()))
   {
-    [APMRNowPlayingControllerDelegate stop];
+    [(APMRNowPlayingControllerDelegate *)self stop];
   }
 }
 
 - (void)flushMetadata
 {
   metadataSource = self->_metadataSource;
-  if (gLogCategory_APMetadataSource <= 50 && (gLogCategory_APMetadataSource != -1 || _LogCategory_Initialize()))
+  if (gLogCategory_APMetadataSource <= 50)
   {
-    LogPrintF();
+    v4 = self->_metadataSource;
+    if (gLogCategory_APMetadataSource == -1)
+    {
+      if (!_LogCategory_Initialize())
+      {
+        goto LABEL_5;
+      }
+
+      v4 = self->_metadataSource;
+    }
+
+    LogPrintF(&gLogCategory_APMetadataSource, "[APMRNowPlayingControllerDelegate flushMetadata]", 33554482, "[%{ptr}] Delegate flush all metadata\n", v4);
   }
 
+LABEL_5:
   CFRetain(metadataSource);
   var1 = metadataSource->var1;
   block[0] = MEMORY[0x277D85DD0];
@@ -174,31 +186,31 @@ LABEL_12:
   dispatch_async(var1, block);
 }
 
-void __49__APMRNowPlayingControllerDelegate_flushMetadata__block_invoke(uint64_t a1)
+void __49__APMRNowPlayingControllerDelegate_flushMetadata__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (gLogCategory_APMetadataSource <= 40 && (gLogCategory_APMetadataSource != -1 || _LogCategory_Initialize()))
   {
-    __49__APMRNowPlayingControllerDelegate_flushMetadata__block_invoke_cold_1();
+    __49__APMRNowPlayingControllerDelegate_flushMetadata__block_invoke_cold_1(a1, a2, a3);
   }
 
-  v2 = *(*(*(a1 + 32) + 8) + 88);
-  if (v2)
+  v4 = *(*(*(a1 + 32) + 8) + 88);
+  if (v4)
   {
-    CFRelease(v2);
+    CFRelease(v4);
     *(*(*(a1 + 32) + 8) + 88) = 0;
   }
 
-  v3 = *(a1 + 40);
-  Empty = CFDictionaryGetEmpty();
-  metadataSource_handleNowPlayingInfoChangedInternal(v3, Empty, @"replace", 1);
-  metadataSource_handleMRPlaybackStateChangedInternal(*(a1 + 40));
-  metadataSource_handleMRSupportedCommandsChangedInternal(*(a1 + 40), MEMORY[0x277CBEBF8]);
   v5 = *(a1 + 40);
-  v6 = [getMRClientClass() localClient];
-  metadataSource_handleNowPlayingClientChangedInternal(v5, v6);
+  Empty = CFDictionaryGetEmpty();
+  metadataSource_handleNowPlayingInfoChangedInternal(v5, Empty, @"replace", 1);
+  metadataSource_handleMRPlaybackStateChangedInternal(*(a1 + 40), 3);
+  metadataSource_handleMRSupportedCommandsChangedInternal(*(a1 + 40), MEMORY[0x277CBEBF8]);
   v7 = *(a1 + 40);
+  v8 = [getMRClientClass() localClient];
+  metadataSource_handleNowPlayingClientChangedInternal(v7, v8);
+  v9 = *(a1 + 40);
 
-  CFRelease(v7);
+  CFRelease(v9);
 }
 
 void __58__APMRNowPlayingControllerDelegate_notifyNewContentItems___block_invoke(uint64_t a1)
@@ -223,12 +235,12 @@ void __58__APMRNowPlayingControllerDelegate_notifyNewContentItems___block_invoke
 
   if (gLogCategory_APMetadataSource <= 30 && (gLogCategory_APMetadataSource != -1 || _LogCategory_Initialize()))
   {
-    __58__APMRNowPlayingControllerDelegate_notifyNewContentItems___block_invoke_cold_2();
+    __58__APMRNowPlayingControllerDelegate_notifyNewContentItems___block_invoke_cold_2(a1 + 32, a1 + 40, v4);
   }
 
   metadataSource_handleNowPlayingInfoChangedInternal(*(a1 + 48), [*(a1 + 40) nowPlayingInfo], @"replace", 0);
   CFRelease(*(a1 + 48));
-  v4 = *(a1 + 40);
+  v5 = *(a1 + 40);
 }
 
 - (void)notifyContentItemUpdates:(id)updates
@@ -236,7 +248,7 @@ void __58__APMRNowPlayingControllerDelegate_notifyNewContentItems___block_invoke
   metadataSource = self->_metadataSource;
   if (gLogCategory_APMetadataSource <= 30 && (gLogCategory_APMetadataSource != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APMetadataSource, "[APMRNowPlayingControllerDelegate notifyContentItemUpdates:]", 33554462, "[%{ptr}] Delegate notify content item updates: %@\n", metadataSource, updates);
   }
 
   v6 = [objc_alloc(MEMORY[0x277CBEA60]) initWithArray:updates copyItems:1];
@@ -264,10 +276,11 @@ void __58__APMRNowPlayingControllerDelegate_notifyNewContentItems___block_invoke
 
 - (void)notifyNewPlaybackState:(unsigned int)state
 {
+  v3 = *&state;
   metadataSource = self->_metadataSource;
   if (gLogCategory_APMetadataSource <= 30 && (gLogCategory_APMetadataSource != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APMetadataSource, "[APMRNowPlayingControllerDelegate notifyNewPlaybackState:]", 33554462, "[%{ptr}] Delegate notify new playback state: %d\n", metadataSource, v3);
   }
 
   CFRetain(metadataSource);
@@ -277,13 +290,13 @@ void __58__APMRNowPlayingControllerDelegate_notifyNewContentItems___block_invoke
   block[2] = __59__APMRNowPlayingControllerDelegate_notifyNewPlaybackState___block_invoke;
   block[3] = &__block_descriptor_44_e5_v8__0l;
   block[4] = metadataSource;
-  stateCopy = state;
+  v7 = v3;
   dispatch_async(var1, block);
 }
 
 void __59__APMRNowPlayingControllerDelegate_notifyNewPlaybackState___block_invoke(uint64_t a1)
 {
-  metadataSource_handleMRPlaybackStateChangedInternal(*(a1 + 32));
+  metadataSource_handleMRPlaybackStateChangedInternal(*(a1 + 32), *(a1 + 40));
   v2 = *(a1 + 32);
 
   CFRelease(v2);
@@ -303,9 +316,7 @@ void __72__APMRNowPlayingControllerDelegate_notifyNewProxiableSupportedCommands_
     metadataSource = self->_metadataSource;
     if (gLogCategory_APMetadataSource <= 30 && (gLogCategory_APMetadataSource != -1 || _LogCategory_Initialize()))
     {
-      v8 = metadataSource;
-      clientCopy = client;
-      LogPrintF();
+      LogPrintF(&gLogCategory_APMetadataSource, "[APMRNowPlayingControllerDelegate notifyNewNowPlayingClient:]", 33554462, "[%{ptr}] Delegate notify new client properties: %@\n", metadataSource, client);
     }
 
     v5 = [client copy];
@@ -337,11 +348,11 @@ void __72__APMRNowPlayingControllerDelegate_notifyNewProxiableSupportedCommands_
   }
 }
 
-void __62__APMRNowPlayingControllerDelegate_notifyNewNowPlayingClient___block_invoke(uint64_t a1)
+void __62__APMRNowPlayingControllerDelegate_notifyNewNowPlayingClient___block_invoke(uint64_t *a1)
 {
-  metadataSource_handleNowPlayingClientChangedInternal(*(a1 + 48), *(a1 + 32));
-  CFRelease(*(a1 + 48));
-  v2 = *(a1 + 40);
+  metadataSource_handleNowPlayingClientChangedInternal(a1[6], a1[4]);
+  CFRelease(a1[6]);
+  v2 = a1[5];
 }
 
 - (void)controller:(id)controller didLoadResponse:(id)response
@@ -363,16 +374,10 @@ void __62__APMRNowPlayingControllerDelegate_notifyNewNowPlayingClient___block_in
       v11 = gLogCategory_APMetadataSource != -1 || _LogCategory_Initialize() != 0;
     }
 
-    v16 = v11;
-    playbackQueue = [response playbackQueue];
-    v14 = v10;
-    v15 = clientProperties;
-    v12 = metadataSource;
-    v13 = playbackState;
-    LogPrintF();
+    LogPrintF(&gLogCategory_APMetadataSource, "-[APMRNowPlayingControllerDelegate controller:didLoadResponse:]", 33554482, "[%{ptr}] Delegate didLoadResponse: playbackState=%u. supportedCommands=%d. client=%@. %?@\n", metadataSource, playbackState, v10, clientProperties, v11, [response playbackQueue]);
   }
 
-  -[APMRNowPlayingControllerDelegate notifyNewContentItems:](self, "notifyNewContentItems:", [objc_msgSend(response playbackQueue]);
+  -[APMRNowPlayingControllerDelegate notifyNewContentItems:](self, "notifyNewContentItems:", [objc_msgSend(response "playbackQueue")]);
   [(APMRNowPlayingControllerDelegate *)self notifyNewPlaybackState:playbackState];
   [(APMRNowPlayingControllerDelegate *)self notifyNewProxiableSupportedCommands:proxiableSupportedCommands];
 
@@ -383,9 +388,7 @@ void __62__APMRNowPlayingControllerDelegate_notifyNewNowPlayingClient___block_in
 {
   if (gLogCategory_APMetadataSource <= 30 && (gLogCategory_APMetadataSource != -1 || _LogCategory_Initialize()))
   {
-    metadataSource = self->_metadataSource;
-    toCopy = to;
-    LogPrintF();
+    LogPrintF(&gLogCategory_APMetadataSource, "[APMRNowPlayingControllerDelegate controller:playbackQueueDidChangeFrom:to:]", 33554462, "[%{ptr}] Delegate playbackQueueDidChange to: %@\n", self->_metadataSource, to);
   }
 
   contentItems = [to contentItems];
@@ -397,7 +400,7 @@ void __62__APMRNowPlayingControllerDelegate_notifyNewNowPlayingClient___block_in
 {
   if (gLogCategory_APMetadataSource <= 30 && (gLogCategory_APMetadataSource != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APMetadataSource, "[APMRNowPlayingControllerDelegate controller:contentItemsDidUpdateWithContentItemChanges:]", 33554462, "[%{ptr}] Delegate contentItemsDidUpdateWithContentItemChanges: %@\n", self->_metadataSource, changes);
   }
 
   [(APMRNowPlayingControllerDelegate *)self notifyContentItemUpdates:changes];
@@ -407,26 +410,28 @@ void __62__APMRNowPlayingControllerDelegate_notifyNewNowPlayingClient___block_in
 {
   if (gLogCategory_APMetadataSource <= 30 && (gLogCategory_APMetadataSource != -1 || _LogCategory_Initialize()))
   {
-    metadataSource = self->_metadataSource;
-    itemsCopy = items;
-    LogPrintF();
+    LogPrintF(&gLogCategory_APMetadataSource, "[APMRNowPlayingControllerDelegate controller:didLoadArtworkForContentItems:]", 33554462, "[%{ptr}] Delegate didLoadArtworkForContentItems: %@\n", self->_metadataSource, items);
   }
 
-  response = [objc_msgSend(objc_msgSend(controller response];
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __77__APMRNowPlayingControllerDelegate_controller_didLoadArtworkForContentItems___block_invoke;
-  v10[3] = &unk_27849ACA0;
-  v10[4] = items;
-  -[APMRNowPlayingControllerDelegate notifyContentItemUpdates:](self, "notifyContentItemUpdates:", [response filteredArrayUsingPredicate:{objc_msgSend(MEMORY[0x277CCAC30], "predicateWithBlock:", v10)}]);
+  v7 = [objc_msgSend(objc_msgSend(controller "response")];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __77__APMRNowPlayingControllerDelegate_controller_didLoadArtworkForContentItems___block_invoke;
+  v8[3] = &unk_27849ACA0;
+  v8[4] = items;
+  -[APMRNowPlayingControllerDelegate notifyContentItemUpdates:](self, "notifyContentItemUpdates:", [v7 filteredArrayUsingPredicate:{objc_msgSend(MEMORY[0x277CCAC30], "predicateWithBlock:", v8)}]);
 }
 
 - (void)controller:(id)controller playbackStateDidChangeFrom:(unsigned int)from to:(unsigned int)to
 {
   v5 = *&to;
-  if (gLogCategory_APMetadataSource <= 30 && (gLogCategory_APMetadataSource != -1 || _LogCategory_Initialize()))
+  if (gLogCategory_APMetadataSource <= 30)
   {
-    LogPrintF();
+    v7 = *&from;
+    if (gLogCategory_APMetadataSource != -1 || _LogCategory_Initialize())
+    {
+      LogPrintF(&gLogCategory_APMetadataSource, "[APMRNowPlayingControllerDelegate controller:playbackStateDidChangeFrom:to:]", 33554462, "[%{ptr}] Delegate playbackStateDidChange: %d -> %d\n", self->_metadataSource, v7, v5);
+    }
   }
 
   [(APMRNowPlayingControllerDelegate *)self notifyNewPlaybackState:v5];
@@ -436,7 +441,7 @@ void __62__APMRNowPlayingControllerDelegate_notifyNewNowPlayingClient___block_in
 {
   if (gLogCategory_APMetadataSource <= 30 && (gLogCategory_APMetadataSource != -1 || _LogCategory_Initialize()))
   {
-    [APMRNowPlayingControllerDelegate controller:supportedCommandsDidChangeFrom:to:];
+    [APMRNowPlayingControllerDelegate controller:a2 supportedCommandsDidChangeFrom:controller to:?];
   }
 
   v7 = [objc_msgSend(controller "response")];
@@ -448,7 +453,7 @@ void __62__APMRNowPlayingControllerDelegate_notifyNewNowPlayingClient___block_in
 {
   if (gLogCategory_APMetadataSource <= 30 && (gLogCategory_APMetadataSource != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APMetadataSource, "[APMRNowPlayingControllerDelegate controller:clientPropertiesDidChangeFrom:to:]", 33554462, "[%{ptr}] Delegate clientPropertiesDidChange: %@ -> %@\n", self->_metadataSource, from, to);
   }
 
   [(APMRNowPlayingControllerDelegate *)self notifyNewNowPlayingClient:to];
@@ -458,7 +463,7 @@ void __62__APMRNowPlayingControllerDelegate_notifyNewNowPlayingClient___block_in
 {
   if (gLogCategory_APMetadataSource <= 50 && (gLogCategory_APMetadataSource != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APMetadataSource, "[APMRNowPlayingControllerDelegate controller:playerPathDidChange:]", 33554482, "[%{ptr}] Delegate playerPathDidChange to: %@\n", self->_metadataSource, change);
   }
 
   [(APMRNowPlayingControllerDelegate *)self flushMetadata];
@@ -471,7 +476,7 @@ void __62__APMRNowPlayingControllerDelegate_notifyNewNowPlayingClient___block_in
   {
     v9 = metadataSource;
     itemsCopy = items;
-    OUTLINED_FUNCTION_4_1();
+    OUTLINED_FUNCTION_4_1(&gLogCategory_APMetadataSource, "[APMRNowPlayingControllerDelegate notifyNewContentItems:]", items, "[%{ptr}] Delegate notify new content item: %@\n");
   }
 
   firstObject = [objc_msgSend(items firstObject];
@@ -522,9 +527,9 @@ void __61__APMRNowPlayingControllerDelegate_notifyContentItemUpdates___block_inv
         {
           if (gLogCategory_APMetadataSource <= 30 && (gLogCategory_APMetadataSource != -1 || _LogCategory_Initialize()))
           {
-            v8 = *(*(a1 + 40) + 8);
-            v9 = ValueAtIndex;
-            OUTLINED_FUNCTION_4_1();
+            v9 = *(*(a1 + 40) + 8);
+            v10 = ValueAtIndex;
+            OUTLINED_FUNCTION_4_1(&gLogCategory_APMetadataSource, "[APMRNowPlayingControllerDelegate notifyContentItemUpdates:]_block_invoke", v7, "[%{ptr}] Current ContentItem update: %@\n");
           }
 
           metadataSource_handleNowPlayingInfoChangedInternal(*(a1 + 56), [ValueAtIndex nowPlayingInfo], @"update", 0);
@@ -540,7 +545,7 @@ void __61__APMRNowPlayingControllerDelegate_notifyContentItemUpdates___block_inv
 
 LABEL_14:
   CFRelease(*(a1 + 56));
-  v7 = *(a1 + 48);
+  v8 = *(a1 + 48);
 }
 
 - (void)notifyNewProxiableSupportedCommands:(id)commands
@@ -551,16 +556,16 @@ LABEL_14:
     metadataSource = self->_metadataSource;
     if (gLogCategory_APMetadataSource <= 30 && (gLogCategory_APMetadataSource != -1 || _LogCategory_Initialize()))
     {
-      v7 = metadataSource;
-      v8 = [commandsCopy count];
-      OUTLINED_FUNCTION_4_1();
+      v8 = metadataSource;
+      v9 = [commandsCopy count];
+      OUTLINED_FUNCTION_4_1(&gLogCategory_APMetadataSource, "[APMRNowPlayingControllerDelegate notifyNewProxiableSupportedCommands:]", v5, "[%{ptr}] Delegate notify new proxiable supported commands: %d\n");
     }
 
     commandsCopy = [commandsCopy copy];
     if (commandsCopy)
     {
       CFRetain(metadataSource);
-      v5 = commandsCopy;
+      v6 = commandsCopy;
       var1 = metadataSource->var1;
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;

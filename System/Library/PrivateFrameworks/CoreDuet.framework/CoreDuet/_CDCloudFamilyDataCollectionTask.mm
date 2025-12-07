@@ -26,11 +26,11 @@
 - (id)relationshipRegularExpressionForRelationship;
 - (id)thirdPartyMessageFeaturesFromFeatureDictionary:(uint64_t)dictionary;
 - (id)truncatedFileHandle;
-- (uint64_t)indexToInsertDate:(void *)date array:;
 - (void)_execute;
 - (void)airDropPeopleAtHome;
 - (void)cleanup;
 - (void)execute;
+- (void)indexToInsertDate:(void *)date array:;
 - (void)messagesCumulativeFeaturesFromInteractionsBatch:(void *)batch mutableMessagesDictionary:;
 - (void)messagesFeaturesFromCumulativeDict:(uint64_t)dict;
 - (void)setSession:(uint64_t)session;
@@ -177,26 +177,26 @@
 
 - (id)contactsEmergency
 {
-  v69 = *MEMORY[0x1E69E9840];
+  v68 = *MEMORY[0x1E69E9840];
   if (self)
   {
-    v41 = *(self + 72);
-    v46 = [MEMORY[0x1E695DFA8] set];
-    v60 = 0;
-    v61 = &v60;
-    v62 = 0x3032000000;
-    v63 = __Block_byref_object_copy__14;
-    v64 = __Block_byref_object_dispose__14;
-    v65 = 0;
+    v40 = *(self + 72);
+    v45 = [MEMORY[0x1E695DFA8] set];
+    v59 = 0;
+    v60 = &v59;
+    v61 = 0x3032000000;
+    v62 = __Block_byref_object_copy__14;
+    v63 = __Block_byref_object_dispose__14;
+    v64 = 0;
     v2 = dispatch_semaphore_create(0);
-    v54 = MEMORY[0x1E69E9820];
-    v55 = 3221225472;
-    v56 = __53___CDCloudFamilyDataCollectionTask_contactsEmergency__block_invoke;
-    v57 = &unk_1E7369970;
-    v59 = &v60;
+    v53 = MEMORY[0x1E69E9820];
+    v54 = 3221225472;
+    v55 = __53___CDCloudFamilyDataCollectionTask_contactsEmergency__block_invoke;
+    v56 = &unk_1E7369970;
+    v58 = &v59;
     dsema = v2;
-    v58 = dsema;
-    [v41 fetchMedicalIDEmergencyContactsWithCompletion:&v54];
+    v57 = dsema;
+    [v40 fetchMedicalIDEmergencyContactsWithCompletion:&v53];
     v3 = dispatch_time(0, 300000000000);
     if (dispatch_semaphore_wait(dsema, v3))
     {
@@ -208,31 +208,31 @@
 
       v5 = [MEMORY[0x1E695DFA8] set];
 
-      v46 = v5;
+      v45 = v5;
     }
 
-    v52 = 0u;
-    v53 = 0u;
-    v50 = 0u;
     v51 = 0u;
-    obj = v61[5];
+    v52 = 0u;
+    v49 = 0u;
+    v50 = 0u;
+    obj = v60[5];
     v6 = 0;
-    v7 = [obj countByEnumeratingWithState:&v50 objects:v68 count:16];
+    v7 = [obj countByEnumeratingWithState:&v49 objects:v67 count:16];
     if (v7)
     {
-      v47 = *v51;
+      v46 = *v50;
       *&v8 = 138412290;
-      v43 = v8;
+      v42 = v8;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v51 != v47)
+          if (*v50 != v46)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v50 + 1) + 8 * i);
+          v10 = *(*(&v49 + 1) + 8 * i);
           nameContactIdentifier = [v10 nameContactIdentifier];
 
           if (nameContactIdentifier)
@@ -240,21 +240,21 @@
             v12 = *(self + 64);
             nameContactIdentifier2 = [v10 nameContactIdentifier];
             v21 = [(_CDCloudFamilyDataCollectionTask *)self contactKeysToFetch:v14];
-            v49 = v6;
-            v22 = [v12 unifiedContactWithIdentifier:nameContactIdentifier2 keysToFetch:v21 error:&v49];
-            v23 = v49;
+            v48 = v6;
+            v22 = [v12 unifiedContactWithIdentifier:nameContactIdentifier2 keysToFetch:v21 error:&v48];
+            v23 = v48;
 
             v24 = +[_CDLogging dataCollectionChannel];
             if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
             {
-              *buf = v43;
-              v67 = v23;
+              *buf = v42;
+              v66 = v23;
               _os_log_error_impl(&dword_191750000, v24, OS_LOG_TYPE_ERROR, "Error querying contacts %@", buf, 0xCu);
             }
 
             if (v22)
             {
-              [v46 addObject:v22];
+              [v45 addObject:v22];
             }
           }
 
@@ -270,21 +270,21 @@
             v26 = *(self + 64);
             phoneNumberContactIdentifier2 = [v10 phoneNumberContactIdentifier];
             v35 = [(_CDCloudFamilyDataCollectionTask *)self contactKeysToFetch:v28];
-            v48 = v23;
-            v36 = [v26 unifiedContactWithIdentifier:phoneNumberContactIdentifier2 keysToFetch:v35 error:&v48];
-            v6 = v48;
+            v47 = v23;
+            v36 = [v26 unifiedContactWithIdentifier:phoneNumberContactIdentifier2 keysToFetch:v35 error:&v47];
+            v6 = v47;
 
             v37 = +[_CDLogging dataCollectionChannel];
             if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
             {
-              *buf = v43;
-              v67 = v6;
+              *buf = v42;
+              v66 = v6;
               _os_log_error_impl(&dword_191750000, v37, OS_LOG_TYPE_ERROR, "Error querying contacts %@", buf, 0xCu);
             }
 
             if (v36)
             {
-              [v46 addObject:v36];
+              [v45 addObject:v36];
             }
           }
 
@@ -294,62 +294,60 @@
           }
         }
 
-        v7 = [obj countByEnumeratingWithState:&v50 objects:v68 count:16];
+        v7 = [obj countByEnumeratingWithState:&v49 objects:v67 count:16];
       }
 
       while (v7);
     }
 
-    allObjects = [v46 allObjects];
+    allObjects = [v45 allObjects];
 
-    _Block_object_dispose(&v60, 8);
+    _Block_object_dispose(&v59, 8);
   }
 
   else
   {
     allObjects = 0;
   }
-
-  v39 = *MEMORY[0x1E69E9840];
 
   return allObjects;
 }
 
 - (id)contactsInContactStore
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   if (self)
   {
-    v24 = 0;
-    v25 = &v24;
-    v26 = 0x3032000000;
-    v27 = __Block_byref_object_copy__14;
-    v28 = __Block_byref_object_dispose__14;
-    v29 = [MEMORY[0x1E695DFA8] set];
+    v23 = 0;
+    v24 = &v23;
+    v25 = 0x3032000000;
+    v26 = __Block_byref_object_copy__14;
+    v27 = __Block_byref_object_dispose__14;
+    v28 = [MEMORY[0x1E695DFA8] set];
     v2 = objc_alloc_init(getCNContactStoreClass());
     v3 = objc_alloc(getCNContactFetchRequestClass());
     v11 = [(_CDCloudFamilyDataCollectionTask *)self contactKeysToFetch:v4];
     v12 = [v3 initWithKeysToFetch:v11];
 
     [v12 setContactBatchCount:25];
-    v19 = MEMORY[0x1E69E9820];
-    v20 = 3221225472;
-    v21 = __58___CDCloudFamilyDataCollectionTask_contactsInContactStore__block_invoke;
-    v22 = &unk_1E7369900;
-    v23 = &v24;
-    [v2 enumerateContactsWithFetchRequest:v12 error:0 usingBlock:&v19];
+    v18 = MEMORY[0x1E69E9820];
+    v19 = 3221225472;
+    v20 = __58___CDCloudFamilyDataCollectionTask_contactsInContactStore__block_invoke;
+    v21 = &unk_1E7369900;
+    v22 = &v23;
+    [v2 enumerateContactsWithFetchRequest:v12 error:0 usingBlock:&v18];
     v13 = +[_CDLogging dataCollectionChannel];
     if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
-      v14 = [v25[5] count];
+      v14 = [v24[5] count];
       LODWORD(buf) = 134217984;
       *(&buf + 4) = v14;
       _os_log_impl(&dword_191750000, v13, OS_LOG_TYPE_INFO, "_PSFamilyRecommender: Fetched %tu contact ids from contact store", &buf, 0xCu);
     }
 
-    allObjects = [v25[5] allObjects];
+    allObjects = [v24[5] allObjects];
 
-    _Block_object_dispose(&v24, 8);
+    _Block_object_dispose(&v23, 8);
   }
 
   else
@@ -357,14 +355,12 @@
     allObjects = 0;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
-
   return allObjects;
 }
 
 - (id)airDropPeopleAtHome
 {
-  v92 = *MEMORY[0x1E69E9840];
+  v91 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   if (!self)
   {
@@ -374,31 +370,31 @@
 
   context = objc_autoreleasePoolPush();
   defaultManager = [getRTRoutineManagerClass() defaultManager];
-  v83 = 0;
-  v84 = &v83;
-  v85 = 0x3032000000;
-  v86 = __Block_byref_object_copy__14;
-  v87 = __Block_byref_object_dispose__14;
-  v88 = 0;
-  v80 = 0;
-  v81[0] = &v80;
-  v81[1] = 0x3032000000;
-  v81[2] = __Block_byref_object_copy__14;
-  v81[3] = __Block_byref_object_dispose__14;
   v82 = 0;
+  v83 = &v82;
+  v84 = 0x3032000000;
+  v85 = __Block_byref_object_copy__14;
+  v86 = __Block_byref_object_dispose__14;
+  v87 = 0;
+  v79 = 0;
+  v80[0] = &v79;
+  v80[1] = 0x3032000000;
+  v80[2] = __Block_byref_object_copy__14;
+  v80[3] = __Block_byref_object_dispose__14;
+  v81 = 0;
   array = [MEMORY[0x1E695DF70] array];
   v2 = dispatch_semaphore_create(0);
-  v76[0] = MEMORY[0x1E69E9820];
-  v76[1] = 3221225472;
-  v76[2] = __55___CDCloudFamilyDataCollectionTask_airDropPeopleAtHome__block_invoke;
-  v76[3] = &unk_1E73685F0;
-  v78 = &v83;
-  v79 = &v80;
+  v75[0] = MEMORY[0x1E69E9820];
+  v75[1] = 3221225472;
+  v75[2] = __55___CDCloudFamilyDataCollectionTask_airDropPeopleAtHome__block_invoke;
+  v75[3] = &unk_1E73685F0;
+  v77 = &v82;
+  v78 = &v79;
   v3 = v2;
-  v77 = v3;
-  [defaultManager fetchLocationsOfInterestOfType:0 withHandler:v76];
+  v76 = v3;
+  [defaultManager fetchLocationsOfInterestOfType:0 withHandler:v75];
   v4 = dispatch_time(0, 300000000000);
-  v58 = v3;
+  v57 = v3;
   if (dispatch_semaphore_wait(v3, v4))
   {
     v5 = +[_CDLogging dataCollectionChannel];
@@ -412,67 +408,67 @@ LABEL_23:
     goto LABEL_24;
   }
 
-  if (*(v81[0] + 40))
+  if (*(v80[0] + 40))
   {
     v5 = +[_CDLogging dataCollectionChannel];
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      [(_CDCloudFamilyDataCollectionTask *)v81 airDropPeopleAtHome:v5];
+      [(_CDCloudFamilyDataCollectionTask *)v80 airDropPeopleAtHome:v5];
     }
 
     goto LABEL_23;
   }
 
-  if (v84[5])
+  if (v83[5])
   {
-    v74 = 0u;
-    v75 = 0u;
-    v72 = 0u;
     v73 = 0u;
-    v5 = v84[5];
-    v12 = [v5 countByEnumeratingWithState:&v72 objects:v91 count:16];
+    v74 = 0u;
+    v71 = 0u;
+    v72 = 0u;
+    v5 = v83[5];
+    v12 = [v5 countByEnumeratingWithState:&v71 objects:v90 count:16];
     if (v12)
     {
-      v13 = *v73;
+      v13 = *v72;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v73 != v13)
+          if (*v72 != v13)
           {
             objc_enumerationMutation(v5);
           }
 
-          v15 = *(*(&v72 + 1) + 8 * i);
+          v15 = *(*(&v71 + 1) + 8 * i);
+          v67 = 0u;
           v68 = 0u;
           v69 = 0u;
           v70 = 0u;
-          v71 = 0u;
           visits = [v15 visits];
-          v17 = [visits countByEnumeratingWithState:&v68 objects:v90 count:16];
+          v17 = [visits countByEnumeratingWithState:&v67 objects:v89 count:16];
           if (v17)
           {
-            v18 = *v69;
+            v18 = *v68;
             do
             {
               for (j = 0; j != v17; ++j)
               {
-                if (*v69 != v18)
+                if (*v68 != v18)
                 {
                   objc_enumerationMutation(visits);
                 }
 
-                [array addObject:*(*(&v68 + 1) + 8 * j)];
+                [array addObject:*(*(&v67 + 1) + 8 * j)];
               }
 
-              v17 = [visits countByEnumeratingWithState:&v68 objects:v90 count:16];
+              v17 = [visits countByEnumeratingWithState:&v67 objects:v89 count:16];
             }
 
             while (v17);
           }
         }
 
-        v12 = [v5 countByEnumeratingWithState:&v72 objects:v91 count:16];
+        v12 = [v5 countByEnumeratingWithState:&v71 objects:v90 count:16];
       }
 
       while (v12);
@@ -482,30 +478,30 @@ LABEL_23:
   }
 
 LABEL_24:
-  v62 = [array valueForKey:@"entryDate"];
+  v61 = [array valueForKey:@"entryDate"];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   v20 = selfCopy[7];
   v21 = [(_CDCloudFamilyDataCollectionTask *)selfCopy allAirDropInteractionsFromStore:v20 fetchLimit:0];
 
-  v66 = 0u;
-  v67 = 0u;
-  v64 = 0u;
   v65 = 0u;
+  v66 = 0u;
+  v63 = 0u;
+  v64 = 0u;
   obj = v21;
-  v22 = [obj countByEnumeratingWithState:&v64 objects:v89 count:16];
+  v22 = [obj countByEnumeratingWithState:&v63 objects:v88 count:16];
   if (v22)
   {
-    v23 = *v65;
+    v23 = *v64;
     do
     {
       for (k = 0; k != v22; ++k)
       {
-        if (*v65 != v23)
+        if (*v64 != v23)
         {
           objc_enumerationMutation(obj);
         }
 
-        v25 = *(*(&v64 + 1) + 8 * k);
+        v25 = *(*(&v63 + 1) + 8 * k);
         recipients = [v25 recipients];
         firstObject = [recipients firstObject];
         personId = [firstObject personId];
@@ -513,7 +509,7 @@ LABEL_24:
         if (personId)
         {
           startDate = [v25 startDate];
-          v30 = [(_CDCloudFamilyDataCollectionTask *)selfCopy indexToInsertDate:startDate array:v62];
+          v30 = [(_CDCloudFamilyDataCollectionTask *)selfCopy indexToInsertDate:startDate array:v61];
 
           if (v30)
           {
@@ -546,18 +542,17 @@ LABEL_24:
         }
       }
 
-      v22 = [obj countByEnumeratingWithState:&v64 objects:v89 count:16];
+      v22 = [obj countByEnumeratingWithState:&v63 objects:v88 count:16];
     }
 
     while (v22);
   }
 
-  _Block_object_dispose(&v80, 8);
-  _Block_object_dispose(&v83, 8);
+  _Block_object_dispose(&v79, 8);
+  _Block_object_dispose(&v82, 8);
 
   objc_autoreleasePoolPop(context);
 LABEL_38:
-  v54 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -731,61 +726,60 @@ LABEL_38:
     objc_claimAutoreleasedReturnValue();
   }
 
-  v42 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_72_0();
 
-  return v43;
+  return v42;
 }
 
 - (id)contactRelationsUsingMe:
 {
   OUTLINED_FUNCTION_50_0();
   v1 = v0;
-  v47[7] = *MEMORY[0x1E69E9840];
+  v46[7] = *MEMORY[0x1E69E9840];
   v3 = v2;
-  v34 = v3;
-  v35 = v1;
+  v33 = v3;
+  v34 = v1;
   if (v1)
   {
     v4 = v3;
     v5 = [MEMORY[0x1E695DFA8] set];
     v6 = getCNLabelContactRelationManager();
-    v47[0] = v6;
+    v46[0] = v6;
     v7 = getCNLabelContactRelationAssistant();
-    v47[1] = v7;
+    v46[1] = v7;
     v8 = getCNLabelContactRelationColleague();
-    v47[2] = v8;
+    v46[2] = v8;
     v9 = getCNLabelContactRelationTeacher();
-    v47[3] = v9;
+    v46[3] = v9;
     v10 = getCNLabelContactRelationFriend();
-    v47[4] = v10;
+    v46[4] = v10;
     v11 = getCNLabelContactRelationMaleFriend();
-    v47[5] = v11;
+    v46[5] = v11;
     v12 = getCNLabelContactRelationFemaleFriend();
-    v47[6] = v12;
-    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v47 count:7];
+    v46[6] = v12;
+    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v46 count:7];
 
     contactRelations = [v4 contactRelations];
+    v40 = 0u;
     v41 = 0u;
     v42 = 0u;
     v43 = 0u;
-    v44 = 0u;
-    v15 = [contactRelations countByEnumeratingWithState:&v41 objects:v46 count:16];
+    v15 = [contactRelations countByEnumeratingWithState:&v40 objects:v45 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v42;
+      v17 = *v41;
       do
       {
         v18 = 0;
         do
         {
-          if (*v42 != v17)
+          if (*v41 != v17)
           {
             objc_enumerationMutation(contactRelations);
           }
 
-          v19 = *(*(&v41 + 1) + 8 * v18);
+          v19 = *(*(&v40 + 1) + 8 * v18);
           label = [v19 label];
           v21 = [OUTLINED_FUNCTION_66_0() containsObject:?];
 
@@ -794,30 +788,30 @@ LABEL_38:
             value = [v19 value];
             name = [value name];
 
-            v36 = name;
-            v24 = [(_CDCloudFamilyDataCollectionTask *)v35 queryContactsForGivenName:name];
+            v35 = name;
+            v24 = [(_CDCloudFamilyDataCollectionTask *)v34 queryContactsForGivenName:name];
+            v36 = 0u;
             v37 = 0u;
             v38 = 0u;
             v39 = 0u;
-            v40 = 0u;
-            v25 = [v24 countByEnumeratingWithState:&v37 objects:v45 count:16];
+            v25 = [v24 countByEnumeratingWithState:&v36 objects:v44 count:16];
             if (v25)
             {
               v26 = v25;
-              v27 = *v38;
+              v27 = *v37;
               do
               {
                 for (i = 0; i != v26; ++i)
                 {
-                  if (*v38 != v27)
+                  if (*v37 != v27)
                   {
                     objc_enumerationMutation(v24);
                   }
 
-                  [v5 addObject:*(*(&v37 + 1) + 8 * i)];
+                  [v5 addObject:*(*(&v36 + 1) + 8 * i)];
                 }
 
-                v26 = [v24 countByEnumeratingWithState:&v37 objects:v45 count:16];
+                v26 = [v24 countByEnumeratingWithState:&v36 objects:v44 count:16];
               }
 
               while (v26);
@@ -828,7 +822,7 @@ LABEL_38:
         }
 
         while (v18 != v16);
-        v29 = [contactRelations countByEnumeratingWithState:&v41 objects:v46 count:16];
+        v29 = [contactRelations countByEnumeratingWithState:&v40 objects:v45 count:16];
         v16 = v29;
       }
 
@@ -839,212 +833,202 @@ LABEL_38:
     objc_claimAutoreleasedReturnValue();
   }
 
-  v30 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_49_0();
 
-  return v31;
+  return v30;
 }
 
 - (id)avgOfAllCallsUsingManager:(uint64_t)manager
 {
-  v2 = *MEMORY[0x1E69E9840];
   if (manager)
   {
-    v3 = [a2 callsWithPredicate:0 limit:0 offset:0 batchSize:0];
-    v4 = [v3 count];
+    v2 = [a2 callsWithPredicate:0 limit:0 offset:0 batchSize:0];
+    v3 = [v2 count];
     OUTLINED_FUNCTION_43_0();
-    v5 = v3;
+    v4 = v2;
     OUTLINED_FUNCTION_36();
-    duration = [v6 countByEnumeratingWithState:? objects:? count:?];
-    if (duration)
+    v6 = [v5 countByEnumeratingWithState:? objects:? count:?];
+    if (v6)
     {
-      v15 = duration;
-      v16 = *v26;
-      v17 = 0.0;
+      v7 = v6;
+      v8 = *v16;
+      v9 = 0.0;
+      do
+      {
+        for (i = 0; i != v7; ++i)
+        {
+          OUTLINED_FUNCTION_29_1();
+          if (v11 != v8)
+          {
+            objc_enumerationMutation(v4);
+          }
+
+          [*(v15 + 8 * i) duration];
+          v9 = v9 + v12;
+        }
+
+        OUTLINED_FUNCTION_36();
+        v7 = [v4 countByEnumeratingWithState:? objects:? count:?];
+      }
+
+      while (v7);
+    }
+
+    else
+    {
+      v9 = 0.0;
+    }
+
+    v13 = [MEMORY[0x1E696AD98] numberWithDouble:v9 / v3];
+  }
+
+  else
+  {
+    v13 = 0;
+  }
+
+  return v13;
+}
+
+- (id)contactsEmergencyFamily
+{
+  v68[7] = *MEMORY[0x1E69E9840];
+  if (self)
+  {
+    v49 = [MEMORY[0x1E695DFA8] set];
+    v2 = getCNLabelContactRelationManager();
+    v68[0] = v2;
+    v3 = getCNLabelContactRelationAssistant();
+    v68[1] = v3;
+    v4 = getCNLabelContactRelationColleague();
+    v68[2] = v4;
+    v5 = getCNLabelContactRelationTeacher();
+    v68[3] = v5;
+    nameContactIdentifier = getCNLabelContactRelationFriend();
+    v68[4] = nameContactIdentifier;
+    v7 = getCNLabelContactRelationMaleFriend();
+    v68[5] = v7;
+    v8 = getCNLabelContactRelationFemaleFriend();
+    v68[6] = v8;
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v68 count:7];
+
+    fetchEmergencyContacts = [(_CDCloudFamilyDataCollectionTask *)self fetchEmergencyContacts];
+    v11 = OUTLINED_FUNCTION_16_2();
+    v13 = [v12 countByEnumeratingWithState:&v55 objects:&v65 count:{16, v11}];
+    if (v13)
+    {
+      v15 = v13;
+      selfCopy = self;
+      v16 = 0;
+      v17 = *v57;
+      *&v14 = 138412290;
+      v48 = v14;
+      v51 = fetchEmergencyContacts;
       do
       {
         v18 = 0;
         do
         {
-          OUTLINED_FUNCTION_29_1(duration, v8, v9, v10, v11, v12, v13, v14, v24, v25, v26);
-          if (v19 != v16)
-          {
-            objc_enumerationMutation(v5);
-          }
-
-          duration = [*(v25 + 8 * v18) duration];
-          v17 = v17 + v20;
-          ++v18;
-        }
-
-        while (v15 != v18);
-        OUTLINED_FUNCTION_36();
-        duration = [v5 countByEnumeratingWithState:? objects:? count:?];
-        v15 = duration;
-      }
-
-      while (duration);
-    }
-
-    else
-    {
-      v17 = 0.0;
-    }
-
-    v21 = [MEMORY[0x1E696AD98] numberWithDouble:v17 / v4];
-  }
-
-  else
-  {
-    v21 = 0;
-  }
-
-  v22 = *MEMORY[0x1E69E9840];
-
-  return v21;
-}
-
-- (id)contactsEmergencyFamily
-{
-  v75[7] = *MEMORY[0x1E69E9840];
-  if (self)
-  {
-    v56 = [MEMORY[0x1E695DFA8] set];
-    v2 = getCNLabelContactRelationManager();
-    v75[0] = v2;
-    v3 = getCNLabelContactRelationAssistant();
-    v75[1] = v3;
-    v4 = getCNLabelContactRelationColleague();
-    v75[2] = v4;
-    v5 = getCNLabelContactRelationTeacher();
-    v75[3] = v5;
-    nameContactIdentifier = getCNLabelContactRelationFriend();
-    v75[4] = nameContactIdentifier;
-    v7 = getCNLabelContactRelationMaleFriend();
-    v75[5] = v7;
-    v8 = getCNLabelContactRelationFemaleFriend();
-    v75[6] = v8;
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v75 count:7];
-
-    fetchEmergencyContacts = [(_CDCloudFamilyDataCollectionTask *)self fetchEmergencyContacts];
-    v11 = OUTLINED_FUNCTION_16_2();
-    v13 = [v12 countByEnumeratingWithState:&v62 objects:&v72 count:{16, v11}];
-    if (v13)
-    {
-      v22 = v13;
-      selfCopy = self;
-      v23 = 0;
-      v24 = *v64;
-      *&v21 = 138412290;
-      v55 = v21;
-      v58 = fetchEmergencyContacts;
-      do
-      {
-        v25 = 0;
-        do
-        {
-          OUTLINED_FUNCTION_48_0(v13, v14, v15, v16, v17, v18, v19, v20, v55, *(&v55 + 1), v56, v57, v58, selfCopy, v60, v61, v62, v63, v64);
-          if (v26 != v24)
+          OUTLINED_FUNCTION_48_0();
+          if (v19 != v17)
           {
             objc_enumerationMutation(fetchEmergencyContacts);
           }
 
-          v27 = *(v63 + 8 * v25);
-          [v27 relationship];
+          v20 = *(v56 + 8 * v18);
+          [v20 relationship];
           objc_claimAutoreleasedReturnValue();
-          v28 = [OUTLINED_FUNCTION_40_0() containsObject:?];
+          v21 = [OUTLINED_FUNCTION_40_0() containsObject:?];
 
-          if ((v28 & 1) == 0)
+          if ((v21 & 1) == 0)
           {
-            nameContactIdentifier = [v27 nameContactIdentifier];
+            nameContactIdentifier = [v20 nameContactIdentifier];
 
             if (nameContactIdentifier)
             {
-              v31 = selfCopy[8];
-              nameContactIdentifier2 = [v27 nameContactIdentifier];
-              nameContactIdentifier = [(_CDCloudFamilyDataCollectionTask *)selfCopy contactKeysToFetch:v33];
-              v61 = v23;
-              v57 = [v31 unifiedContactWithIdentifier:nameContactIdentifier2 keysToFetch:nameContactIdentifier error:&v61];
-              v29 = v61;
+              v24 = selfCopy[8];
+              nameContactIdentifier2 = [v20 nameContactIdentifier];
+              nameContactIdentifier = [(_CDCloudFamilyDataCollectionTask *)selfCopy contactKeysToFetch:v26];
+              v54 = v16;
+              v50 = [v24 unifiedContactWithIdentifier:nameContactIdentifier2 keysToFetch:nameContactIdentifier error:&v54];
+              v22 = v54;
 
-              v40 = +[_CDLogging dataCollectionChannel];
-              if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+              v33 = +[_CDLogging dataCollectionChannel];
+              if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
               {
-                LODWORD(buf) = v55;
-                *(&buf + 4) = v29;
-                _os_log_error_impl(&dword_191750000, v40, OS_LOG_TYPE_ERROR, "Error querying contacts %@", &buf, 0xCu);
+                LODWORD(buf) = v48;
+                *(&buf + 4) = v22;
+                _os_log_error_impl(&dword_191750000, v33, OS_LOG_TYPE_ERROR, "Error querying contacts %@", &buf, 0xCu);
               }
 
-              if (v57)
+              if (v50)
               {
-                [v56 addObject:v57];
+                [v49 addObject:v50];
               }
 
-              fetchEmergencyContacts = v58;
+              fetchEmergencyContacts = v51;
             }
 
             else
             {
-              v29 = v23;
+              v22 = v16;
             }
 
-            phoneNumberContactIdentifier = [v27 phoneNumberContactIdentifier];
+            phoneNumberContactIdentifier = [v20 phoneNumberContactIdentifier];
 
             if (phoneNumberContactIdentifier)
             {
-              v41 = selfCopy[8];
-              phoneNumberContactIdentifier2 = [v27 phoneNumberContactIdentifier];
-              v50 = [(_CDCloudFamilyDataCollectionTask *)selfCopy contactKeysToFetch:v43];
-              v60 = v29;
-              nameContactIdentifier = [v41 unifiedContactWithIdentifier:phoneNumberContactIdentifier2 keysToFetch:v50 error:&v60];
-              v23 = v60;
+              v34 = selfCopy[8];
+              phoneNumberContactIdentifier2 = [v20 phoneNumberContactIdentifier];
+              v43 = [(_CDCloudFamilyDataCollectionTask *)selfCopy contactKeysToFetch:v36];
+              v53 = v22;
+              nameContactIdentifier = [v34 unifiedContactWithIdentifier:phoneNumberContactIdentifier2 keysToFetch:v43 error:&v53];
+              v16 = v53;
 
-              v51 = +[_CDLogging dataCollectionChannel];
-              if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+              v44 = +[_CDLogging dataCollectionChannel];
+              if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
               {
-                LODWORD(buf) = v55;
-                *(&buf + 4) = v23;
-                _os_log_error_impl(&dword_191750000, v51, OS_LOG_TYPE_ERROR, "Error querying contacts %@", &buf, 0xCu);
+                LODWORD(buf) = v48;
+                *(&buf + 4) = v16;
+                _os_log_error_impl(&dword_191750000, v44, OS_LOG_TYPE_ERROR, "Error querying contacts %@", &buf, 0xCu);
               }
 
-              fetchEmergencyContacts = v58;
+              fetchEmergencyContacts = v51;
               if (nameContactIdentifier)
               {
-                [v56 addObject:nameContactIdentifier];
+                [v49 addObject:nameContactIdentifier];
               }
             }
 
             else
             {
-              v23 = v29;
+              v16 = v22;
             }
           }
 
-          ++v25;
+          ++v18;
         }
 
-        while (v22 != v25);
-        v13 = [fetchEmergencyContacts countByEnumeratingWithState:&v62 objects:&v72 count:16];
-        v22 = v13;
+        while (v15 != v18);
+        v45 = [fetchEmergencyContacts countByEnumeratingWithState:&v55 objects:&v65 count:16];
+        v15 = v45;
       }
 
-      while (v13);
+      while (v45);
     }
 
     else
     {
-      v23 = 0;
+      v16 = 0;
     }
 
-    allObjects = [v56 allObjects];
+    allObjects = [v49 allObjects];
   }
 
   else
   {
     allObjects = 0;
   }
-
-  v53 = *MEMORY[0x1E69E9840];
 
   return allObjects;
 }
@@ -1053,9 +1037,8 @@ LABEL_38:
 {
   OUTLINED_FUNCTION_50_0();
   v1 = v0;
-  v92 = *MEMORY[0x1E69E9840];
   v3 = v2;
-  v61 = v3;
+  v37 = v3;
   if (v1)
   {
     v4 = v3;
@@ -1064,112 +1047,110 @@ LABEL_38:
     v6 = v4;
     OUTLINED_FUNCTION_55();
     obj = v7;
-    v8 = [v7 countByEnumeratingWithState:? objects:? count:?];
-    if (!v8)
+    v41 = [v7 countByEnumeratingWithState:? objects:? count:?];
+    if (!v41)
     {
       goto LABEL_26;
     }
 
-    OUTLINED_FUNCTION_54(v8, v9, v10, v11, v12, v13, v14, v15, v61, obj, v63, relationshipRegularExpressionForRelationship, v8, v67, v69, v71, v73, v75, v77, v79, v81, v83, v85, v87, 0, 0, 0);
-    v64 = v24;
+    OUTLINED_FUNCTION_54();
+    v39 = v8;
     while (1)
     {
-      v25 = 0;
+      v9 = 0;
       do
       {
-        OUTLINED_FUNCTION_54(v16, v17, v18, v19, v20, v21, v22, v23, v61, obj, v64, relationshipRegularExpressionForRelationship, v66, v68, v70, v72, v74, v76, v78, v80, v82, v84, v86, v88, v89, v90, v91);
-        if (v26 != v64)
+        OUTLINED_FUNCTION_54();
+        if (v10 != v39)
         {
           objc_enumerationMutation(obj);
         }
 
-        v68 = v25;
-        v27 = *(v90 + 8 * v25);
+        v42 = v9;
+        v11 = *(8 * v9);
         OUTLINED_FUNCTION_16_2();
-        v28 = relationshipRegularExpressionForRelationship;
+        v12 = relationshipRegularExpressionForRelationship;
         OUTLINED_FUNCTION_60_0();
-        v30 = [v29 countByEnumeratingWithState:? objects:? count:?];
-        if (v30)
+        v14 = [v13 countByEnumeratingWithState:? objects:? count:?];
+        if (v14)
         {
-          v38 = v30;
-          v39 = *v78;
-          v70 = v28;
+          v15 = v14;
+          v16 = *v45;
+          v43 = v12;
           do
           {
-            v40 = 0;
-            v72 = v38;
+            v17 = 0;
+            v44 = v15;
             do
             {
-              OUTLINED_FUNCTION_48_0(v30, v31, v32, v33, v34, v35, v36, v37, v61, obj, v64, relationshipRegularExpressionForRelationship, v66, v68, v70, v72, v74, v76, v78);
-              if (v41 != v39)
+              OUTLINED_FUNCTION_48_0();
+              if (v18 != v16)
               {
-                objc_enumerationMutation(v28);
+                objc_enumerationMutation(v12);
               }
 
-              v42 = *(v76 + 8 * v40);
-              givenName = [v27 givenName];
-              v44 = OUTLINED_FUNCTION_64_0();
-              if ([(_CDCloudFamilyDataCollectionTask *)v44 regexMatchForRegex:v45 string:givenName])
+              givenName = [v11 givenName];
+              v20 = OUTLINED_FUNCTION_64_0();
+              if ([(_CDCloudFamilyDataCollectionTask *)v20 regexMatchForRegex:v21 string:givenName])
               {
                 goto LABEL_17;
               }
 
-              middleName = [v27 middleName];
-              v47 = OUTLINED_FUNCTION_64_0();
-              if ([(_CDCloudFamilyDataCollectionTask *)v47 regexMatchForRegex:v48 string:middleName])
+              middleName = [v11 middleName];
+              v23 = OUTLINED_FUNCTION_64_0();
+              if ([(_CDCloudFamilyDataCollectionTask *)v23 regexMatchForRegex:v24 string:middleName])
               {
                 goto LABEL_16;
               }
 
-              familyName = [v27 familyName];
-              v50 = OUTLINED_FUNCTION_64_0();
-              if ([(_CDCloudFamilyDataCollectionTask *)v50 regexMatchForRegex:v51 string:familyName])
+              familyName = [v11 familyName];
+              v26 = OUTLINED_FUNCTION_64_0();
+              if ([(_CDCloudFamilyDataCollectionTask *)v26 regexMatchForRegex:v27 string:familyName])
               {
 
-                v38 = v72;
+                v15 = v44;
 LABEL_16:
 
 LABEL_17:
 LABEL_18:
-                v30 = [v5 addObject:v27];
+                [v5 addObject:v11];
                 goto LABEL_19;
               }
 
-              [v27 nickname];
-              v53 = v52 = v5;
-              v54 = OUTLINED_FUNCTION_64_0();
-              v56 = [(_CDCloudFamilyDataCollectionTask *)v54 regexMatchForRegex:v55 string:v53];
+              [v11 nickname];
+              v29 = v28 = v5;
+              v30 = OUTLINED_FUNCTION_64_0();
+              v32 = [(_CDCloudFamilyDataCollectionTask *)v30 regexMatchForRegex:v31 string:v29];
 
-              v5 = v52;
-              v28 = v70;
+              v5 = v28;
+              v12 = v43;
 
-              v38 = v72;
-              if (v56)
+              v15 = v44;
+              if (v32)
               {
                 goto LABEL_18;
               }
 
 LABEL_19:
-              ++v40;
+              ++v17;
             }
 
-            while (v38 != v40);
+            while (v15 != v17);
             OUTLINED_FUNCTION_60_0();
-            v30 = [v28 countByEnumeratingWithState:? objects:? count:?];
-            v38 = v30;
+            v33 = [v12 countByEnumeratingWithState:? objects:? count:?];
+            v15 = v33;
           }
 
-          while (v30);
+          while (v33);
         }
 
-        v25 = v68 + 1;
+        v9 = v42 + 1;
       }
 
-      while (v68 + 1 != v66);
+      while (v42 + 1 != v41);
       OUTLINED_FUNCTION_55();
-      v16 = [obj countByEnumeratingWithState:? objects:? count:?];
-      v66 = v16;
-      if (!v16)
+      v41 = [obj countByEnumeratingWithState:? objects:? count:?];
+      if (!v41)
       {
 LABEL_26:
 
@@ -1181,10 +1162,9 @@ LABEL_26:
     }
   }
 
-  v57 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_49_0();
 
-  return v58;
+  return v34;
 }
 
 - (id)contactsInHome
@@ -1205,7 +1185,7 @@ LABEL_26:
 
 - (void)_execute
 {
-  v215 = *MEMORY[0x1E69E9840];
+  v214 = *MEMORY[0x1E69E9840];
   if (self)
   {
     selfCopy = self;
@@ -1222,7 +1202,7 @@ LABEL_26:
         if (v2)
         {
           *(selfCopy + 9) = 0;
-          goto LABEL_12;
+          return;
         }
       }
 
@@ -1233,503 +1213,502 @@ LABEL_26:
 
     v7 = *(selfCopy + 48);
     labelMembers = [(_CDCloudFamilyDataCollectionTask *)selfCopy labelMembers];
-    if ([labelMembers count])
+    if (![labelMembers count])
     {
-      if (!*(selfCopy + 88))
+      goto LABEL_11;
+    }
+
+    if (!*(selfCopy + 88))
+    {
+      v9 = *(selfCopy + 96);
+      v10 = arc4random_uniform(0xF4241u) / 1000000.0;
+      *(selfCopy + 8) = v10 <= v9;
+      if (v10 > v9)
       {
-        v9 = *(selfCopy + 96);
-        v10 = arc4random_uniform(0xF4241u) / 1000000.0;
-        *(selfCopy + 8) = v10 <= v9;
-        if (v10 > v9)
-        {
-          goto LABEL_11;
-        }
-
-        v12 = +[_CDLogging dataCollectionChannel];
-        if (OUTLINED_FUNCTION_53_0(v12))
-        {
-          *buf = 0;
-          OUTLINED_FUNCTION_24_3();
-          _os_log_debug_impl(v14, v15, v16, v17, v18, 2u);
-        }
-
-        activity3 = +[_CDCloudFamilyDataCollectionSession generateNewSession];
-        [(_CDCloudFamilyDataCollectionTask *)selfCopy setSession:activity3];
+        goto LABEL_11;
       }
 
-      if ([(_CDCloudFamilyDataCollectionSession *)*(selfCopy + 88) isValidForCollectionDate:v7])
+      v11 = +[_CDLogging dataCollectionChannel];
+      if (OUTLINED_FUNCTION_53_0(v11))
       {
-        v19 = +[_CDLogging dataCollectionChannel];
-        if (OUTLINED_FUNCTION_53_0(v19))
+        *buf = 0;
+        OUTLINED_FUNCTION_24_3();
+        _os_log_debug_impl(v13, v14, v15, v16, v17, 2u);
+      }
+
+      activity3 = +[_CDCloudFamilyDataCollectionSession generateNewSession];
+      [(_CDCloudFamilyDataCollectionTask *)selfCopy setSession:activity3];
+    }
+
+    if ([(_CDCloudFamilyDataCollectionSession *)*(selfCopy + 88) isValidForCollectionDate:v7])
+    {
+      v18 = +[_CDLogging dataCollectionChannel];
+      if (OUTLINED_FUNCTION_53_0(v18))
+      {
+        v31 = MEMORY[0x1E696AD98];
+        v32 = *(selfCopy + 88);
+        if (v32)
         {
-          v32 = MEMORY[0x1E696AD98];
-          v33 = *(selfCopy + 88);
-          if (v33)
-          {
-            v34 = v33[5];
-          }
-
-          else
-          {
-            v34 = 0;
-          }
-
-          contextb = v33;
-          v2 = [v32 numberWithUnsignedInteger:v34];
-          *buf = 138412290;
-          v212 = v2;
-          OUTLINED_FUNCTION_24_3();
-          _os_log_debug_impl(v35, v36, v37, v38, v39, 0xCu);
+          v33 = v32[5];
         }
 
-        v20 = *(selfCopy + 88);
-        if (v20)
+        else
         {
-          v20 = *(v20 + 32);
+          v33 = 0;
         }
 
-        if (v20)
-        {
-          v21 = *(selfCopy + 112) * 86400.0;
-          v22 = *(selfCopy + 88);
-          v23 = v22 ? v22[4] : 0;
-          v24 = v22;
-          [OUTLINED_FUNCTION_67_0() timeIntervalSinceDate:v23];
-          v26 = v25;
+        contextb = v32;
+        v2 = [v31 numberWithUnsignedInteger:v33];
+        *buf = 138412290;
+        v211 = v2;
+        OUTLINED_FUNCTION_24_3();
+        _os_log_debug_impl(v34, v35, v36, v37, v38, 0xCu);
+      }
 
-          if (v26 < v21)
+      v19 = *(selfCopy + 88);
+      if (v19)
+      {
+        v19 = *(v19 + 32);
+      }
+
+      if (v19)
+      {
+        v20 = *(selfCopy + 112) * 86400.0;
+        v21 = *(selfCopy + 88);
+        v22 = v21 ? v21[4] : 0;
+        v23 = v21;
+        [OUTLINED_FUNCTION_67_0() timeIntervalSinceDate:v22];
+        v25 = v24;
+
+        if (v25 < v20)
+        {
+          v30 = +[_CDLogging dataCollectionChannel];
+          if (OUTLINED_FUNCTION_53_0(v30))
           {
-            v31 = +[_CDLogging dataCollectionChannel];
-            if (OUTLINED_FUNCTION_53_0(v31))
+            *buf = 0;
+            OUTLINED_FUNCTION_24_3();
+            _os_log_debug_impl(v51, v52, v53, v54, v55, 2u);
+          }
+
+          *(selfCopy + 9) = 0;
+          goto LABEL_11;
+        }
+      }
+
+      v26 = *(selfCopy + 88);
+      if (v26)
+      {
+        v27 = v26[5];
+        v28 = *(selfCopy + 104);
+
+        if (v27 > v28)
+        {
+          v29 = +[_CDLogging dataCollectionChannel];
+          if (OUTLINED_FUNCTION_53_0(v29))
+          {
+            v41 = MEMORY[0x1E696AD98];
+            v42 = *(selfCopy + 88);
+            if (v42)
             {
-              *buf = 0;
-              OUTLINED_FUNCTION_24_3();
-              _os_log_debug_impl(v52, v53, v54, v55, v56, 2u);
+              v43 = v42[5];
             }
 
-            *(selfCopy + 9) = 0;
-            goto LABEL_11;
+            else
+            {
+              v43 = 0;
+            }
+
+            v44 = v42;
+            v45 = [v41 numberWithUnsignedInteger:v43];
+            [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(selfCopy + 104)];
+            *buf = 138412546;
+            v211 = v45;
+            v213 = v212 = 2112;
+            OUTLINED_FUNCTION_24_3();
+            _os_log_debug_impl(v46, v47, v48, v49, v50, 0x16u);
           }
+
+          goto LABEL_27;
+        }
+      }
+
+      truncatedFileHandle = [(_CDCloudFamilyDataCollectionTask *)selfCopy truncatedFileHandle];
+      v27 = truncatedFileHandle;
+      if (!truncatedFileHandle)
+      {
+        v40 = +[_CDLogging dataCollectionChannel];
+        if (OUTLINED_FUNCTION_73_0(v40))
+        {
+          *buf = 0;
+          _os_log_error_impl(&dword_191750000, selfCopy, OS_LOG_TYPE_ERROR, "Failed to open file for writing cloud family data collection data", buf, 2u);
         }
 
-        v27 = *(selfCopy + 88);
-        if (v27)
-        {
-          v28 = v27[5];
-          v29 = *(selfCopy + 104);
+        goto LABEL_37;
+      }
 
-          if (v28 > v29)
+      v149 = truncatedFileHandle;
+      context = MEMORY[0x1E696AEC0];
+      v56 = *(selfCopy + 88);
+      if (v56)
+      {
+        v57 = v56[1];
+      }
+
+      else
+      {
+        v57 = 0;
+      }
+
+      v58 = MEMORY[0x1E696AD98];
+      v59 = *(selfCopy + 88);
+      if (v59)
+      {
+        v60 = v59[5];
+      }
+
+      else
+      {
+        v60 = 0;
+      }
+
+      v61 = v59;
+      v62 = v57;
+      v63 = v56;
+      v144 = [v58 numberWithUnsignedInteger:v60];
+      v64 = [context stringWithFormat:@"{collection_id:cloud_family, sessionID:%@, batch:%@, events:["];
+
+      v147 = v64;
+      v65 = [v64 dataUsingEncoding:4];
+      [v149 writeData:v65];
+
+      contactsInContactStore = [(_CDCloudFamilyDataCollectionTask *)selfCopy contactsInContactStore];
+      activity5 = *(selfCopy + 64);
+      [(_CDCloudFamilyDataCollectionTask *)selfCopy contactKeysToFetch:v68];
+      objc_claimAutoreleasedReturnValue();
+      v75 = [OUTLINED_FUNCTION_28_2() _ios_meContactWithKeysToFetch:v60 error:0];
+
+      v187 = v75;
+      v166 = [_CDCloudFamilyDataCollectionTask contactRelationsUsingMe:];
+      contactsEmergencyFamily = [(_CDCloudFamilyDataCollectionTask *)selfCopy contactsEmergencyFamily];
+      contactsEmergency = [(_CDCloudFamilyDataCollectionTask *)selfCopy contactsEmergency];
+      contactsInHome = [(_CDCloudFamilyDataCollectionTask *)selfCopy contactsInHome];
+      v158 = [_CDCloudFamilyDataCollectionTask contactParentsUsingRegexNamesUsingContacts:];
+      photosPeople = [(_CDCloudFamilyDataCollectionTask *)selfCopy photosPeople];
+      airDropPeople = [(_CDCloudFamilyDataCollectionTask *)selfCopy airDropPeople];
+      airDropPeopleAtHome = [(_CDCloudFamilyDataCollectionTask *)selfCopy airDropPeopleAtHome];
+      v154 = objc_alloc_init(getCHManagerClass());
+      v152 = [(_CDCloudFamilyDataCollectionTask *)selfCopy avgOfAllCallsUsingManager:v154];
+      v198 = 0u;
+      v199 = 0u;
+      v200 = 0u;
+      v201 = 0u;
+      obj = contactsInContactStore;
+      v186 = [obj countByEnumeratingWithState:&v198 objects:v209 count:16];
+      if (v186)
+      {
+        v185 = *v199;
+        do
+        {
+          v76 = 0;
+          do
           {
-            v30 = +[_CDLogging dataCollectionChannel];
-            if (OUTLINED_FUNCTION_53_0(v30))
+            if (*v199 != v185)
             {
-              v42 = MEMORY[0x1E696AD98];
-              v43 = *(selfCopy + 88);
-              if (v43)
+              objc_enumerationMutation(obj);
+            }
+
+            v77 = *(*(&v198 + 1) + 8 * v76);
+            contexta = objc_autoreleasePoolPush();
+            activity4 = [selfCopy activity];
+            if (activity4)
+            {
+              v79 = activity4;
+              activity5 = [selfCopy activity];
+              if (xpc_activity_should_defer(activity5))
               {
-                v44 = v43[5];
+                activity6 = [selfCopy activity];
+                v81 = xpc_activity_set_state(activity6, 3);
+
+                if (v81)
+                {
+                  *(selfCopy + 9) = 1;
+                  objc_autoreleasePoolPop(contexta);
+                  v137 = obj;
+                  goto LABEL_89;
+                }
               }
 
               else
               {
-                v44 = 0;
               }
-
-              v45 = v43;
-              v46 = [v42 numberWithUnsignedInteger:v44];
-              [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(selfCopy + 104)];
-              *buf = 138412546;
-              v212 = v46;
-              v214 = v213 = 2112;
-              OUTLINED_FUNCTION_24_3();
-              _os_log_debug_impl(v47, v48, v49, v50, v51, 0x16u);
             }
 
-            goto LABEL_27;
-          }
-        }
+            identifier = [v187 identifier];
+            [v77 identifier];
+            objc_claimAutoreleasedReturnValue();
+            v83 = [OUTLINED_FUNCTION_8_6() isEqualToString:?];
 
-        truncatedFileHandle = [(_CDCloudFamilyDataCollectionTask *)selfCopy truncatedFileHandle];
-        v28 = truncatedFileHandle;
-        if (!truncatedFileHandle)
-        {
-          v41 = +[_CDLogging dataCollectionChannel];
-          if (OUTLINED_FUNCTION_73_0(v41))
-          {
-            *buf = 0;
-            _os_log_error_impl(&dword_191750000, selfCopy, OS_LOG_TYPE_ERROR, "Failed to open file for writing cloud family data collection data", buf, 2u);
-          }
-
-          goto LABEL_37;
-        }
-
-        v150 = truncatedFileHandle;
-        context = MEMORY[0x1E696AEC0];
-        v57 = *(selfCopy + 88);
-        if (v57)
-        {
-          v58 = v57[1];
-        }
-
-        else
-        {
-          v58 = 0;
-        }
-
-        v59 = MEMORY[0x1E696AD98];
-        v60 = *(selfCopy + 88);
-        if (v60)
-        {
-          v61 = v60[5];
-        }
-
-        else
-        {
-          v61 = 0;
-        }
-
-        v62 = v60;
-        v63 = v58;
-        v64 = v57;
-        v145 = [v59 numberWithUnsignedInteger:v61];
-        v65 = [context stringWithFormat:@"{collection_id:cloud_family, sessionID:%@, batch:%@, events:["];
-
-        v148 = v65;
-        v66 = [v65 dataUsingEncoding:4];
-        [v150 writeData:v66];
-
-        contactsInContactStore = [(_CDCloudFamilyDataCollectionTask *)selfCopy contactsInContactStore];
-        activity5 = *(selfCopy + 64);
-        [(_CDCloudFamilyDataCollectionTask *)selfCopy contactKeysToFetch:v69];
-        objc_claimAutoreleasedReturnValue();
-        v76 = [OUTLINED_FUNCTION_28_2() _ios_meContactWithKeysToFetch:v61 error:0];
-
-        v188 = v76;
-        v167 = [_CDCloudFamilyDataCollectionTask contactRelationsUsingMe:];
-        contactsEmergencyFamily = [(_CDCloudFamilyDataCollectionTask *)selfCopy contactsEmergencyFamily];
-        contactsEmergency = [(_CDCloudFamilyDataCollectionTask *)selfCopy contactsEmergency];
-        contactsInHome = [(_CDCloudFamilyDataCollectionTask *)selfCopy contactsInHome];
-        v159 = [_CDCloudFamilyDataCollectionTask contactParentsUsingRegexNamesUsingContacts:];
-        photosPeople = [(_CDCloudFamilyDataCollectionTask *)selfCopy photosPeople];
-        airDropPeople = [(_CDCloudFamilyDataCollectionTask *)selfCopy airDropPeople];
-        airDropPeopleAtHome = [(_CDCloudFamilyDataCollectionTask *)selfCopy airDropPeopleAtHome];
-        v155 = objc_alloc_init(getCHManagerClass());
-        v153 = [(_CDCloudFamilyDataCollectionTask *)selfCopy avgOfAllCallsUsingManager:v155];
-        v199 = 0u;
-        v200 = 0u;
-        v201 = 0u;
-        v202 = 0u;
-        obj = contactsInContactStore;
-        v187 = [obj countByEnumeratingWithState:&v199 objects:v210 count:16];
-        if (v187)
-        {
-          v186 = *v200;
-          do
-          {
-            v77 = 0;
-            do
+            if ((v83 & 1) == 0)
             {
-              if (*v200 != v186)
+              v84 = OUTLINED_FUNCTION_32_1();
+              v86 = [(_CDCloudFamilyDataCollectionTask *)v84 allEmailAndPhoneNumberHandlesForContact:v85];
+              v194 = 0u;
+              v195 = 0u;
+              v196 = 0u;
+              v197 = 0u;
+              v87 = v86;
+              v88 = [v87 countByEnumeratingWithState:&v194 objects:v208 count:16];
+              if (v88)
               {
-                objc_enumerationMutation(obj);
-              }
-
-              v78 = *(*(&v199 + 1) + 8 * v77);
-              contexta = objc_autoreleasePoolPush();
-              activity4 = [selfCopy activity];
-              if (activity4)
-              {
-                v80 = activity4;
-                activity5 = [selfCopy activity];
-                if (xpc_activity_should_defer(activity5))
+                v90 = v88;
+                v91 = *v195;
+                while (2)
                 {
-                  activity6 = [selfCopy activity];
-                  v82 = xpc_activity_set_state(activity6, 3);
-
-                  if (v82)
+                  for (i = 0; i != v90; ++i)
                   {
-                    *(selfCopy + 9) = 1;
-                    objc_autoreleasePoolPop(contexta);
-                    v138 = obj;
-                    goto LABEL_89;
-                  }
-                }
-
-                else
-                {
-                }
-              }
-
-              identifier = [v188 identifier];
-              [v78 identifier];
-              objc_claimAutoreleasedReturnValue();
-              v84 = [OUTLINED_FUNCTION_8_6() isEqualToString:?];
-
-              if ((v84 & 1) == 0)
-              {
-                v85 = OUTLINED_FUNCTION_32_1();
-                v87 = [(_CDCloudFamilyDataCollectionTask *)v85 allEmailAndPhoneNumberHandlesForContact:v86];
-                v195 = 0u;
-                v196 = 0u;
-                v197 = 0u;
-                v198 = 0u;
-                v88 = v87;
-                v89 = [v88 countByEnumeratingWithState:&v195 objects:v209 count:16];
-                if (v89)
-                {
-                  v91 = v89;
-                  v92 = *v196;
-                  while (2)
-                  {
-                    for (i = 0; i != v91; ++i)
+                    if (*v195 != v91)
                     {
-                      if (*v196 != v92)
-                      {
-                        objc_enumerationMutation(v88);
-                      }
-
-                      if ([labelMembers containsObject:*(*(&v195 + 1) + 8 * i)])
-                      {
-                        v90 = &unk_1F05EEA90;
-                        goto LABEL_69;
-                      }
+                      objc_enumerationMutation(v87);
                     }
 
-                    v91 = [v88 countByEnumeratingWithState:&v195 objects:v209 count:16];
-                    if (v91)
+                    if ([labelMembers containsObject:*(*(&v194 + 1) + 8 * i)])
                     {
-                      continue;
+                      v89 = &unk_1F05EEA90;
+                      goto LABEL_69;
                     }
-
-                    break;
                   }
-                }
 
-                v90 = &unk_1F05EEA78;
+                  v90 = [v87 countByEnumeratingWithState:&v194 objects:v208 count:16];
+                  if (v90)
+                  {
+                    continue;
+                  }
+
+                  break;
+                }
+              }
+
+              v89 = &unk_1F05EEA78;
 LABEL_69:
-                v183 = v90;
+              v182 = v89;
 
-                v94 = [(_CDCloudFamilyDataCollectionTask *)selfCopy aggregateInteractionDataUsingStore:v78 contact:v155 callHistoryManager:v153 avgCallDur:?];
-                v95 = [v94 mutableCopy];
+              v93 = [(_CDCloudFamilyDataCollectionTask *)selfCopy aggregateInteractionDataUsingStore:v77 contact:v154 callHistoryManager:v152 avgCallDur:?];
+              v94 = [v93 mutableCopy];
 
-                OUTLINED_FUNCTION_32_1();
-                v96 = [_CDCloudFamilyDataCollectionTask contactFamilyRelationForContact:contactRelations:me:];
-                v181 = [v96 mutableCopy];
+              OUTLINED_FUNCTION_32_1();
+              v95 = [_CDCloudFamilyDataCollectionTask contactFamilyRelationForContact:contactRelations:me:];
+              v180 = [v95 mutableCopy];
 
-                v97 = OUTLINED_FUNCTION_32_1();
-                v98 = [_CDCloudFamilyDataCollectionTask contactFamilyEmergencyForContact:v97 contactFamilyEmergency:?];
-                v179 = [v98 mutableCopy];
+              v96 = OUTLINED_FUNCTION_32_1();
+              v97 = [_CDCloudFamilyDataCollectionTask contactFamilyEmergencyForContact:v96 contactFamilyEmergency:?];
+              v178 = [v97 mutableCopy];
 
-                v99 = OUTLINED_FUNCTION_32_1();
-                v100 = [_CDCloudFamilyDataCollectionTask contactEmergencyForContact:v99 contactEmergency:?];
-                v177 = [v100 mutableCopy];
+              v98 = OUTLINED_FUNCTION_32_1();
+              v99 = [_CDCloudFamilyDataCollectionTask contactEmergencyForContact:v98 contactEmergency:?];
+              v176 = [v99 mutableCopy];
 
-                v101 = OUTLINED_FUNCTION_32_1();
-                v102 = [_CDCloudFamilyDataCollectionTask contactParentsForContact:v101 contactParents:?];
-                v175 = [v102 mutableCopy];
+              v100 = OUTLINED_FUNCTION_32_1();
+              v101 = [_CDCloudFamilyDataCollectionTask contactParentsForContact:v100 contactParents:?];
+              v174 = [v101 mutableCopy];
 
-                v103 = OUTLINED_FUNCTION_32_1();
-                v104 = [_CDCloudFamilyDataCollectionTask contactsInHomeForContact:v103 homeContacts:?];
-                v105 = [v104 mutableCopy];
+              v102 = OUTLINED_FUNCTION_32_1();
+              v103 = [_CDCloudFamilyDataCollectionTask contactsInHomeForContact:v102 homeContacts:?];
+              v104 = [v103 mutableCopy];
 
-                [v95 addEntriesFromDictionary:v181];
-                [v95 addEntriesFromDictionary:v179];
-                [v95 addEntriesFromDictionary:v177];
-                [v95 addEntriesFromDictionary:v175];
-                v171 = v105;
-                [v95 addEntriesFromDictionary:v105];
-                OUTLINED_FUNCTION_32_1();
-                [_CDCloudFamilyDataCollectionTask contactFamilyNameForContact:me:];
-                objc_claimAutoreleasedReturnValue();
-                [OUTLINED_FUNCTION_8_6() addEntriesFromDictionary:?];
+              [v94 addEntriesFromDictionary:v180];
+              [v94 addEntriesFromDictionary:v178];
+              [v94 addEntriesFromDictionary:v176];
+              [v94 addEntriesFromDictionary:v174];
+              v170 = v104;
+              [v94 addEntriesFromDictionary:v104];
+              OUTLINED_FUNCTION_32_1();
+              [_CDCloudFamilyDataCollectionTask contactFamilyNameForContact:me:];
+              objc_claimAutoreleasedReturnValue();
+              [OUTLINED_FUNCTION_8_6() addEntriesFromDictionary:?];
 
-                v207 = @"labelFinal";
-                v208 = v183;
-                v106 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v208 forKeys:&v207 count:1];
-                v184 = v95;
-                [v95 addEntriesFromDictionary:v106];
+              v206 = @"labelFinal";
+              v207 = v182;
+              v105 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v207 forKeys:&v206 count:1];
+              v183 = v94;
+              [v94 addEntriesFromDictionary:v105];
 
-                if ([photosPeople count])
+              if ([photosPeople count])
+              {
+                identifier2 = [v77 identifier];
+                v107 = [photosPeople containsObject:identifier2];
+
+                if (v107)
                 {
-                  identifier2 = [v78 identifier];
-                  v108 = [photosPeople containsObject:identifier2];
-
-                  if (v108)
-                  {
-                    v205 = @"contactInPhotos";
-                    v206 = &unk_1F05EEA90;
-                    v109 = MEMORY[0x1E695DF20];
-                    v110 = &v206;
-                    v111 = &v205;
-                  }
-
-                  else
-                  {
-                    v203 = @"contactInPhotos";
-                    v204 = &unk_1F05EEA78;
-                    v109 = MEMORY[0x1E695DF20];
-                    v110 = &v204;
-                    v111 = &v203;
-                  }
-
-                  v112 = [v109 dictionaryWithObjects:v110 forKeys:v111 count:1];
-                  [v95 addEntriesFromDictionary:v112];
-                }
-
-                allKeys = [airDropPeople allKeys];
-                identifier3 = [v78 identifier];
-                v115 = [allKeys containsObject:identifier3];
-
-                if (v115)
-                {
-                  identifier4 = [v78 identifier];
-                  v117 = [airDropPeople objectForKeyedSubscript:identifier4];
-                  [v184 setObject:v117 forKeyedSubscript:@"contactInAirDrop"];
+                  v204 = @"contactInPhotos";
+                  v205 = &unk_1F05EEA90;
+                  v108 = MEMORY[0x1E695DF20];
+                  v109 = &v205;
+                  v110 = &v204;
                 }
 
                 else
                 {
-                  [v184 setObject:&unk_1F05EEA78 forKeyedSubscript:@"contactInAirDrop"];
+                  v202 = @"contactInPhotos";
+                  v203 = &unk_1F05EEA78;
+                  v108 = MEMORY[0x1E695DF20];
+                  v109 = &v203;
+                  v110 = &v202;
                 }
 
-                allKeys2 = [airDropPeopleAtHome allKeys];
-                identifier5 = [v78 identifier];
-                v120 = [allKeys2 containsObject:identifier5];
+                v111 = [v108 dictionaryWithObjects:v109 forKeys:v110 count:1];
+                [v94 addEntriesFromDictionary:v111];
+              }
 
-                if (v120)
+              allKeys = [airDropPeople allKeys];
+              identifier3 = [v77 identifier];
+              v114 = [allKeys containsObject:identifier3];
+
+              if (v114)
+              {
+                identifier4 = [v77 identifier];
+                v116 = [airDropPeople objectForKeyedSubscript:identifier4];
+                [v183 setObject:v116 forKeyedSubscript:@"contactInAirDrop"];
+              }
+
+              else
+              {
+                [v183 setObject:&unk_1F05EEA78 forKeyedSubscript:@"contactInAirDrop"];
+              }
+
+              allKeys2 = [airDropPeopleAtHome allKeys];
+              identifier5 = [v77 identifier];
+              v119 = [allKeys2 containsObject:identifier5];
+
+              if (v119)
+              {
+                identifier6 = [v77 identifier];
+                v121 = [airDropPeople objectForKeyedSubscript:identifier6];
+                v122 = v183;
+                [v183 setObject:v121 forKeyedSubscript:@"contactInAirDropAtHome"];
+              }
+
+              else
+              {
+                v122 = v183;
+                [v183 setObject:&unk_1F05EEA78 forKeyedSubscript:@"contactInAirDropAtHome"];
+              }
+
+              activity5 = MEMORY[0x1E696ACB0];
+              v123 = [v122 copy];
+              v193 = 0;
+              v124 = [activity5 dataWithJSONObject:v123 options:0 error:&v193];
+              v125 = v193;
+
+              if (v125)
+              {
+                activity5 = +[_CDLogging dataCollectionChannel];
+                if (os_log_type_enabled(activity5, OS_LOG_TYPE_ERROR))
                 {
-                  identifier6 = [v78 identifier];
-                  v122 = [airDropPeople objectForKeyedSubscript:identifier6];
-                  v123 = v184;
-                  [v184 setObject:v122 forKeyedSubscript:@"contactInAirDropAtHome"];
-                }
-
-                else
-                {
-                  v123 = v184;
-                  [v184 setObject:&unk_1F05EEA78 forKeyedSubscript:@"contactInAirDropAtHome"];
-                }
-
-                activity5 = MEMORY[0x1E696ACB0];
-                v124 = [v123 copy];
-                v194 = 0;
-                v125 = [activity5 dataWithJSONObject:v124 options:0 error:&v194];
-                v126 = v194;
-
-                if (v126)
-                {
-                  activity5 = +[_CDLogging dataCollectionChannel];
-                  if (os_log_type_enabled(activity5, OS_LOG_TYPE_ERROR))
-                  {
-                    *buf = 138412290;
-                    v212 = v126;
-                    _os_log_error_impl(&dword_191750000, activity5, OS_LOG_TYPE_ERROR, "Error during JSON serialization %@", buf, 0xCu);
-                  }
-                }
-
-                else
-                {
-                  [v151 writeData:v125];
-                  [@" "];
-                  objc_claimAutoreleasedReturnValue();
-                  [OUTLINED_FUNCTION_8_6() writeData:?];
+                  *buf = 138412290;
+                  v211 = v125;
+                  _os_log_error_impl(&dword_191750000, activity5, OS_LOG_TYPE_ERROR, "Error during JSON serialization %@", buf, 0xCu);
                 }
               }
 
-              objc_autoreleasePoolPop(contexta);
-              ++v77;
+              else
+              {
+                [v150 writeData:v124];
+                [@" "];
+                objc_claimAutoreleasedReturnValue();
+                [OUTLINED_FUNCTION_8_6() writeData:?];
+              }
             }
 
-            while (v77 != v187);
-            v127 = [obj countByEnumeratingWithState:&v199 objects:v210 count:16];
-            v187 = v127;
+            objc_autoreleasePoolPop(contexta);
+            ++v76;
           }
 
-          while (v127);
+          while (v76 != v186);
+          v126 = [obj countByEnumeratingWithState:&v198 objects:v209 count:16];
+          v186 = v126;
         }
 
-        v128 = [@" "];
-        v129 = [v128 length];
+        while (v126);
+      }
 
-        [v151 truncateFileAtOffset:{objc_msgSend(v151, "offsetInFile") - v129}];
-        v130 = [MEMORY[0x1E696AEC0] stringWithFormat:@"]}"];
-        [v130 dataUsingEncoding:4];
-        objc_claimAutoreleasedReturnValue();
-        [OUTLINED_FUNCTION_17_5() writeData:?];
+      v127 = [@" "];
+      v128 = [v127 length];
 
-        [v151 closeFile];
-        [_CDCloudFamilyDataCollectionTask submitDataForCollection];
-        if (!v131)
-        {
+      [v150 truncateFileAtOffset:{objc_msgSend(v150, "offsetInFile") - v128}];
+      v129 = [MEMORY[0x1E696AEC0] stringWithFormat:@"]}"];
+      [v129 dataUsingEncoding:4];
+      objc_claimAutoreleasedReturnValue();
+      [OUTLINED_FUNCTION_17_5() writeData:?];
+
+      [v150 closeFile];
+      [_CDCloudFamilyDataCollectionTask submitDataForCollection];
+      if (!v130)
+      {
 LABEL_90:
 
-          selfCopy = v149;
-          v28 = v151;
+        selfCopy = v148;
+        v27 = v150;
 LABEL_37:
 
 LABEL_27:
-          goto LABEL_11;
-        }
+        goto LABEL_11;
+      }
 
-        v132 = MEMORY[0x1E695DF00];
-        v133 = *(selfCopy + 88);
-        [v132 distantPast];
-        objc_claimAutoreleasedReturnValue();
-        v134 = OUTLINED_FUNCTION_28_2();
-        v138 = [(_CDCloudFamilyDataCollectionSession *)v134 subsequentSessionWithlatestStartDate:v151 lastCollectionDate:v7];
+      v131 = MEMORY[0x1E695DF00];
+      v132 = *(selfCopy + 88);
+      [v131 distantPast];
+      objc_claimAutoreleasedReturnValue();
+      v133 = OUTLINED_FUNCTION_28_2();
+      v137 = [(_CDCloudFamilyDataCollectionSession *)v133 subsequentSessionWithlatestStartDate:v150 lastCollectionDate:v7];
 
-        v193 = 0;
-        v135 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v138 requiringSecureCoding:1 error:&v193];
-        v136 = v193;
-        if (v136)
+      v192 = 0;
+      v134 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v137 requiringSecureCoding:1 error:&v192];
+      v135 = v192;
+      if (v135)
+      {
+        v136 = v135;
+      }
+
+      else
+      {
+        stringByDeletingLastPathComponent = [*(selfCopy + 40) stringByDeletingLastPathComponent];
+        defaultManager = [MEMORY[0x1E696AC08] defaultManager];
+        [defaultManager createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:0];
+
+        v140 = *(selfCopy + 40);
+        v191 = 0;
+        v141 = v140;
+        [v134 writeToFile:v141 options:0 error:&v191];
+        v136 = v191;
+
+        if (!v136)
         {
-          v137 = v136;
+          *(selfCopy + 9) = 0;
+          goto LABEL_95;
         }
+      }
 
-        else
-        {
-          stringByDeletingLastPathComponent = [*(selfCopy + 40) stringByDeletingLastPathComponent];
-          defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-          [defaultManager createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:0];
-
-          v141 = *(selfCopy + 40);
-          v192 = 0;
-          v142 = v141;
-          [v135 writeToFile:v142 options:0 error:&v192];
-          v137 = v192;
-
-          if (!v137)
-          {
-            *(selfCopy + 9) = 0;
-            goto LABEL_95;
-          }
-        }
-
-        v143 = +[_CDLogging dataCollectionChannel];
-        if (OUTLINED_FUNCTION_73_0(v143))
-        {
-          *buf = 138412290;
-          v212 = v137;
-          OUTLINED_FUNCTION_10(&dword_191750000, selfCopy, v144, "Error archiving subsequent airplay data collection session: %@", buf);
-        }
+      v142 = +[_CDLogging dataCollectionChannel];
+      if (OUTLINED_FUNCTION_73_0(v142))
+      {
+        *buf = 138412290;
+        v211 = v136;
+        OUTLINED_FUNCTION_10(&dword_191750000, selfCopy, v143, "Error archiving subsequent airplay data collection session: %@", buf);
+      }
 
 LABEL_95:
 LABEL_89:
 
-        goto LABEL_90;
-      }
+      goto LABEL_90;
     }
 
 LABEL_11:
   }
-
-LABEL_12:
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cleanup
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (self && *(self + 9) == 1)
   {
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
@@ -1741,7 +1720,7 @@ LABEL_12:
     {
 LABEL_13:
 
-      goto LABEL_14;
+      return;
     }
 
     userInfo = [v4 userInfo];
@@ -1767,9 +1746,9 @@ LABEL_13:
       v9 = +[_CDLogging dataCollectionChannel];
       if (OUTLINED_FUNCTION_73_0(v9))
       {
-        v12 = 138412290;
-        v13 = v4;
-        OUTLINED_FUNCTION_10(&dword_191750000, domain, v10, "Error remove previous session file: %@", &v12);
+        v11 = 138412290;
+        v12 = v4;
+        OUTLINED_FUNCTION_10(&dword_191750000, domain, v10, "Error remove previous session file: %@", &v11);
       }
     }
 
@@ -1777,9 +1756,6 @@ LABEL_12:
 
     goto LABEL_13;
   }
-
-LABEL_14:
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setSession:(uint64_t)session
@@ -1792,24 +1768,24 @@ LABEL_14:
 
 - (id)truncatedFileHandle
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (self)
   {
     dataPath = [(_CDCloudFamilyDataCollectionTask *)self dataPath];
     stringByDeletingLastPathComponent = [dataPath stringByDeletingLastPathComponent];
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-    v12 = 0;
-    [defaultManager createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v12];
-    v4 = v12;
+    v11 = 0;
+    [defaultManager createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v11];
+    v4 = v11;
 
     if (v4)
     {
       v5 = +[_CDLogging dataCollectionChannel];
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        v13 = 138412290;
-        v14 = v4;
-        OUTLINED_FUNCTION_10(&dword_191750000, v5, v6, "Error creating directory for data collection: %@", &v13);
+        v12 = 138412290;
+        v13 = v4;
+        OUTLINED_FUNCTION_10(&dword_191750000, v5, v6, "Error creating directory for data collection: %@", &v12);
       }
 
       v7 = 0;
@@ -1830,14 +1806,11 @@ LABEL_14:
     v7 = 0;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
-
   return v7;
 }
 
 - (id)allEmailAndPhoneNumberHandlesForContact:(void *)contact
 {
-  v35 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (contact)
@@ -1852,54 +1825,47 @@ LABEL_14:
     v9 = [v8 countByEnumeratingWithState:? objects:? count:?];
     if (v9)
     {
-      v17 = v9;
-      v18 = *v34;
+      v10 = v9;
+      v11 = *v25;
       do
       {
-        v19 = 0;
-        do
+        for (i = 0; i != v10; ++i)
         {
-          OUTLINED_FUNCTION_29_1(v9, v10, v11, v12, v13, v14, v15, v16, v32, v33, v34);
-          if (v20 != v18)
+          OUTLINED_FUNCTION_29_1();
+          if (v13 != v11)
           {
             objc_enumerationMutation(v7);
           }
 
-          v21 = *(v33 + 8 * v19);
-          unformattedInternationalStringValue = [v21 unformattedInternationalStringValue];
+          v14 = *(v24 + 8 * i);
+          unformattedInternationalStringValue = [v14 unformattedInternationalStringValue];
 
           if (unformattedInternationalStringValue)
           {
-            unformattedInternationalStringValue2 = [v21 unformattedInternationalStringValue];
+            unformattedInternationalStringValue2 = [v14 unformattedInternationalStringValue];
             [contact addObject:unformattedInternationalStringValue2];
           }
-
-          ++v19;
         }
 
-        while (v17 != v19);
         OUTLINED_FUNCTION_36();
-        v9 = OUTLINED_FUNCTION_47_0(v24, v25, v26, v27);
-        v17 = v9;
+        v10 = OUTLINED_FUNCTION_47_0(v17, v18, v19, v20);
       }
 
-      while (v9);
+      while (v10);
     }
 
     emailAddresses = [v4 emailAddresses];
-    v29 = [emailAddresses valueForKey:@"value"];
+    v22 = [emailAddresses valueForKey:@"value"];
 
-    [contact addObjectsFromArray:v29];
+    [contact addObjectsFromArray:v22];
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 
   return contact;
 }
 
 - (id)aggregateInteractionDataUsingStore:(void *)store contact:(void *)contact callHistoryManager:(void *)manager avgCallDur:
 {
-  v43[1] = *MEMORY[0x1E69E9840];
+  v42[1] = *MEMORY[0x1E69E9840];
   if (self)
   {
     v9 = MEMORY[0x1E695DF90];
@@ -1907,38 +1873,38 @@ LABEL_14:
     contactCopy = contact;
     storeCopy = store;
     v10 = a2;
-    v31 = objc_alloc_init(v9);
+    v30 = objc_alloc_init(v9);
     v11 = [(_CDCloudFamilyDataCollectionTask *)self allEmailAndPhoneNumberHandlesForContact:storeCopy];
-    v38 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"startDate" ascending:0];
+    v37 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"startDate" ascending:0];
     v12 = MEMORY[0x1E696AE18];
-    v43[0] = @"com.apple.MobileSMS";
-    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v43 count:1];
-    v35 = [v12 predicateWithFormat:@"bundleId IN %@", v13];
+    v42[0] = @"com.apple.MobileSMS";
+    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v42 count:1];
+    v34 = [v12 predicateWithFormat:@"bundleId IN %@", v13];
 
     v14 = MEMORY[0x1E696AE18];
-    v42 = @"com.apple.UIKit.activity.Message";
-    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v42 count:1];
-    v34 = [v14 predicateWithFormat:@"targetBundleId IN %@", v15];
+    v41 = @"com.apple.UIKit.activity.Message";
+    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v41 count:1];
+    v33 = [v14 predicateWithFormat:@"targetBundleId IN %@", v15];
 
-    v41[0] = v35;
-    v41[1] = v34;
-    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v41 count:2];
-    v33 = [OUTLINED_FUNCTION_63_0() orPredicateWithSubpredicates:?];
+    v40[0] = v34;
+    v40[1] = v33;
+    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v40 count:2];
+    v32 = [OUTLINED_FUNCTION_63_0() orPredicateWithSubpredicates:?];
 
-    v32 = [MEMORY[0x1E696AE18] predicateWithFormat:@"ANY recipients.identifier IN %@", v11];
-    v40[0] = v33;
-    v40[1] = v32;
-    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v40 count:2];
-    v30 = [OUTLINED_FUNCTION_63_0() andPredicateWithSubpredicates:?];
+    v31 = [MEMORY[0x1E696AE18] predicateWithFormat:@"ANY recipients.identifier IN %@", v11];
+    v39[0] = v32;
+    v39[1] = v31;
+    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:2];
+    v29 = [OUTLINED_FUNCTION_63_0() andPredicateWithSubpredicates:?];
 
-    v18 = [(_CDCloudFamilyDataCollectionTask *)self fetchInteractionFeatureDictionaryWithPredicate:v30 store:v10 sortDescription:v38];
-    v19 = v31;
-    [v31 addEntriesFromDictionary:v18];
+    v18 = [(_CDCloudFamilyDataCollectionTask *)self fetchInteractionFeatureDictionaryWithPredicate:v29 store:v10 sortDescription:v37];
+    v19 = v30;
+    [v30 addEntriesFromDictionary:v18];
     v20 = [(_CDCloudFamilyDataCollectionTask *)self getThirdPartyPredicateForContact:storeCopy handles:v11];
-    v21 = [(_CDCloudFamilyDataCollectionTask *)self fetchInteractionFeatureDictionaryWithPredicate:v20 store:v10 sortDescription:v38];
+    v21 = [(_CDCloudFamilyDataCollectionTask *)self fetchInteractionFeatureDictionaryWithPredicate:v20 store:v10 sortDescription:v37];
 
     v22 = [(_CDCloudFamilyDataCollectionTask *)self thirdPartyMessageFeaturesFromFeatureDictionary:v21];
-    [v31 addEntriesFromDictionary:v22];
+    [v30 addEntriesFromDictionary:v22];
     v23 = [getCHRecentCallClass() predicateForCallsWithAnyRemoteParticipantHandleNormalizedValues:v11];
     v24 = [contactCopy callsWithPredicate:v23 limit:0 offset:0 batchSize:0];
 
@@ -1955,8 +1921,6 @@ LABEL_14:
     v19 = 0;
   }
 
-  v28 = *MEMORY[0x1E69E9840];
-
   return v19;
 }
 
@@ -1966,46 +1930,46 @@ LABEL_14:
   v1 = v0;
   v3 = v2;
   v5 = v4;
-  v63[17] = *MEMORY[0x1E69E9840];
+  v54[17] = *MEMORY[0x1E69E9840];
   v7 = v6;
   v8 = v3;
   v9 = v1;
   if (v5)
   {
-    v55 = 0u;
-    v56 = 0u;
-    v53 = 0u;
-    v54 = 0u;
-    v49 = v8;
+    v46 = 0u;
+    v47 = 0u;
+    v44 = 0u;
+    v45 = 0u;
+    v41 = v8;
     v10 = v8;
     OUTLINED_FUNCTION_61_0();
     v12 = [v11 countByEnumeratingWithState:? objects:? count:?];
     if (v12)
     {
       v13 = v12;
-      v14 = *v54;
+      v14 = *v45;
       while (2)
       {
         v15 = 0;
         do
         {
-          if (*v54 != v14)
+          if (*v45 != v14)
           {
             objc_enumerationMutation(v10);
           }
 
-          v16 = *(*(&v53 + 1) + 8 * v15);
+          v16 = *(*(&v44 + 1) + 8 * v15);
           identifier = [v7 identifier];
           identifier2 = [v16 identifier];
           v19 = [identifier isEqualToString:identifier2];
 
           if (v19)
           {
-            v62 = @"contactFamilyRelation";
-            v63[0] = &unk_1F05EEA90;
-            v41 = MEMORY[0x1E695DF20];
-            v42 = v63;
-            v43 = &v62;
+            v53 = @"contactFamilyRelation";
+            v54[0] = &unk_1F05EEA90;
+            v35 = MEMORY[0x1E695DF20];
+            v36 = v54;
+            v37 = &v53;
             goto LABEL_20;
           }
 
@@ -2028,44 +1992,42 @@ LABEL_14:
     objc_claimAutoreleasedReturnValue();
     OUTLINED_FUNCTION_26_3();
     v10 = v24;
-    v25 = [v10 countByEnumeratingWithState:&v50 objects:v61 count:16];
+    v25 = [v10 countByEnumeratingWithState:v42 objects:v52 count:16];
     if (v25)
     {
-      v33 = v25;
-      v34 = *v52;
+      v26 = v25;
       while (2)
       {
-        v35 = 0;
+        v27 = 0;
         do
         {
-          OUTLINED_FUNCTION_44_0(v25, v26, v27, v28, v29, v30, v31, v32, v48, v49, v50, v51, v52);
-          if (!v36)
+          OUTLINED_FUNCTION_44_0();
+          if (!v28)
           {
             objc_enumerationMutation(v10);
           }
 
-          v37 = *(v51 + 8 * v35);
+          v29 = *(v43 + 8 * v27);
           identifier3 = [v9 identifier];
-          identifier4 = [v37 identifier];
-          v40 = [identifier3 isEqualToString:identifier4];
+          identifier4 = [v29 identifier];
+          v32 = [identifier3 isEqualToString:identifier4];
 
-          if (v40)
+          if (v32)
           {
-            v59 = @"contactFamilyRelation";
-            v60 = &unk_1F05EEA90;
-            [MEMORY[0x1E695DF20] dictionaryWithObjects:&v60 forKeys:&v59 count:1];
+            v50 = @"contactFamilyRelation";
+            v51 = &unk_1F05EEA90;
+            [MEMORY[0x1E695DF20] dictionaryWithObjects:&v51 forKeys:&v50 count:1];
             objc_claimAutoreleasedReturnValue();
 
             goto LABEL_21;
           }
 
-          ++v35;
+          ++v27;
         }
 
-        while (v33 != v35);
-        v25 = OUTLINED_FUNCTION_74(v25, v26, &v50, v61);
-        v33 = v25;
-        if (v25)
+        while (v26 != v27);
+        v26 = OUTLINED_FUNCTION_74(v33, v34, v42, v52);
+        if (v26)
         {
           continue;
         }
@@ -2074,29 +2036,28 @@ LABEL_14:
       }
     }
 
-    v57 = @"contactFamilyRelation";
-    v58 = &unk_1F05EEA78;
-    v41 = MEMORY[0x1E695DF20];
-    v42 = &v58;
-    v43 = &v57;
+    v48 = @"contactFamilyRelation";
+    v49 = &unk_1F05EEA78;
+    v35 = MEMORY[0x1E695DF20];
+    v36 = &v49;
+    v37 = &v48;
 LABEL_20:
-    [v41 dictionaryWithObjects:v42 forKeys:v43 count:1];
+    [v35 dictionaryWithObjects:v36 forKeys:v37 count:1];
     objc_claimAutoreleasedReturnValue();
 LABEL_21:
 
-    v8 = v49;
+    v8 = v41;
   }
 
-  v44 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_49_0();
 
-  return v45;
+  return v38;
 }
 
 - (id)contactFamilyNameForContact:me:
 {
   OUTLINED_FUNCTION_52_0();
-  v24[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   v4 = v3;
   v5 = v0;
   v6 = v5;
@@ -2118,11 +2079,11 @@ LABEL_21:
 
         if (!v14)
         {
-          v23 = @"contactFamilyName";
-          v24[0] = &unk_1F05EEA90;
+          v22 = @"contactFamilyName";
+          v23[0] = &unk_1F05EEA90;
           v15 = MEMORY[0x1E695DF20];
-          v16 = v24;
-          v17 = &v23;
+          v16 = v23;
+          v17 = &v22;
 LABEL_8:
           v18 = [v15 dictionaryWithObjects:v16 forKeys:v17 count:1];
 
@@ -2135,18 +2096,16 @@ LABEL_8:
       }
     }
 
-    v21 = @"contactFamilyName";
-    v22 = &unk_1F05EEA78;
+    v20 = @"contactFamilyName";
+    v21 = &unk_1F05EEA78;
     v15 = MEMORY[0x1E695DF20];
-    v16 = &v22;
-    v17 = &v21;
+    v16 = &v21;
+    v17 = &v20;
     goto LABEL_8;
   }
 
   v18 = 0;
 LABEL_9:
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v18;
 }
@@ -2154,7 +2113,7 @@ LABEL_9:
 - (void)submitDataForCollection
 {
   OUTLINED_FUNCTION_50_0();
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   if (v1)
   {
     v2 = v1;
@@ -2178,8 +2137,8 @@ LABEL_9:
       OUTLINED_FUNCTION_65_0();
       if (!archive_write_open_filename())
       {
-        bzero(&v19, 0x90uLL);
-        stat(v0, &v19);
+        bzero(&v18, 0x90uLL);
+        stat(v0, &v18);
         archive_entry_new();
         archive_entry_set_size();
         archive_entry_set_filetype();
@@ -2188,27 +2147,27 @@ LABEL_9:
         OUTLINED_FUNCTION_65_0();
         if (!archive_write_header())
         {
-          v12 = open(v0, 0);
-          while (read(v12, buf, 0x2000uLL))
+          v11 = open(v0, 0);
+          while (read(v11, buf, 0x2000uLL))
           {
             archive_write_data();
           }
 
-          close(v12);
+          close(v11);
           archive_entry_free();
           archive_write_close();
           archive_write_free();
-          v18 = 0;
-          v13 = [MEMORY[0x1E695DEF0] dataWithContentsOfFile:v5 options:8 error:&v18];
-          v14 = v18;
-          if (v14)
+          v17 = 0;
+          v12 = [MEMORY[0x1E695DEF0] dataWithContentsOfFile:v5 options:8 error:&v17];
+          v13 = v17;
+          if (v13)
           {
             lastPathComponent2 = +[_CDLogging dataCollectionChannel];
             if (os_log_type_enabled(lastPathComponent2, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v21 = v14;
-              OUTLINED_FUNCTION_10(&dword_191750000, lastPathComponent2, v16, "Error mapping gzipped data collection file for DA submission: %@", buf);
+              v20 = v13;
+              OUTLINED_FUNCTION_10(&dword_191750000, lastPathComponent2, v15, "Error mapping gzipped data collection file for DA submission: %@", buf);
             }
           }
 
@@ -2216,7 +2175,7 @@ LABEL_9:
           {
             lastPathComponent2 = [v5 lastPathComponent];
             submissionBlock = [v2 submissionBlock];
-            (submissionBlock)[2](submissionBlock, lastPathComponent2, v13);
+            (submissionBlock)[2](submissionBlock, lastPathComponent2, v12);
           }
 
           goto LABEL_12;
@@ -2231,11 +2190,11 @@ LABEL_9:
     v9 = +[_CDLogging dataCollectionChannel];
     if (OUTLINED_FUNCTION_73_0(v9))
     {
-      v11 = [MEMORY[0x1E696AD98] numberWithInt:v7];
+      v10 = [MEMORY[0x1E696AD98] numberWithInt:v7];
       *buf = 138412546;
-      v21 = v11;
-      v22 = 2080;
-      v23 = v8;
+      v20 = v10;
+      v21 = 2080;
+      v22 = v8;
       _os_log_error_impl(&dword_191750000, v2, OS_LOG_TYPE_ERROR, "Error compressing data collection file. code:%@ %s", buf, 0x16u);
     }
 
@@ -2244,7 +2203,6 @@ LABEL_9:
 LABEL_12:
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_49_0();
 }
 
@@ -2267,18 +2225,12 @@ LABEL_12:
       }
 
       v4 = self[11];
-      if (v4)
-      {
-        v5 = v4[5];
-      }
+      v5 = v3;
+      v6 = v2;
+      v7 = [OUTLINED_FUNCTION_37_0() numberWithUnsignedInteger:?];
+      v8 = [v5 stringByAppendingFormat:@".%@.json", v7];
 
-      v6 = v4;
-      v7 = v3;
-      v8 = v2;
-      v9 = [OUTLINED_FUNCTION_37_0() numberWithUnsignedInteger:?];
-      v10 = [v7 stringByAppendingFormat:@".%@.json", v9];
-
-      selfCopy = [selfCopy[4] stringByAppendingPathComponent:v10];
+      selfCopy = [selfCopy[4] stringByAppendingPathComponent:v8];
     }
 
     else
@@ -2290,7 +2242,7 @@ LABEL_12:
   return selfCopy;
 }
 
-- (uint64_t)indexToInsertDate:(void *)date array:
+- (void)indexToInsertDate:(void *)date array:
 {
   if (result)
   {
@@ -2307,32 +2259,32 @@ LABEL_12:
 
 - (id)allAirDropInteractionsFromStore:(uint64_t)store fetchLimit:
 {
-  v22[2] = *MEMORY[0x1E69E9840];
+  v21[2] = *MEMORY[0x1E69E9840];
   if (self)
   {
     v4 = MEMORY[0x1E696AE18];
     v5 = a2;
     v6 = [v4 predicateWithFormat:@"(targetBundleId == %@)", @"com.apple.UIKit.activity.AirDrop"];
     v7 = [MEMORY[0x1E696AE18] predicateWithFormat:@"(mechanism == %@)", &unk_1F05EEAA8];
-    v22[0] = v7;
-    v22[1] = v6;
-    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:2];
+    v21[0] = v7;
+    v21[1] = v6;
+    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:2];
     v9 = [OUTLINED_FUNCTION_62_0() andPredicateWithSubpredicates:?];
 
     v10 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"startDate" ascending:0];
-    v21 = v10;
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v21 count:1];
-    v18 = 0;
-    v12 = [v5 queryInteractionsUsingPredicate:v9 sortDescriptors:v11 limit:store error:&v18];
+    v20 = v10;
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v20 count:1];
+    v17 = 0;
+    v12 = [v5 queryInteractionsUsingPredicate:v9 sortDescriptors:v11 limit:store error:&v17];
 
-    v13 = v18;
+    v13 = v17;
     if (v13)
     {
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v19 = 138412290;
-        v20 = v13;
-        OUTLINED_FUNCTION_10(&dword_191750000, MEMORY[0x1E69E9C10], v14, "Error querying interactions database: %@", &v19);
+        v18 = 138412290;
+        v19 = v13;
+        OUTLINED_FUNCTION_10(&dword_191750000, MEMORY[0x1E69E9C10], v14, "Error querying interactions database: %@", &v18);
       }
 
       v15 = 0;
@@ -2349,103 +2301,94 @@ LABEL_12:
     v15 = 0;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
-
   return v15;
 }
 
 - (id)relationshipRegularExpressionForRelationship
 {
   OUTLINED_FUNCTION_50_0();
-  v68 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   if (v0)
   {
     personRelationshipVocabularyByLocaleDictionary = [(_CDCloudFamilyDataCollectionTask *)v0 personRelationshipVocabularyByLocaleDictionary];
     allValues = [personRelationshipVocabularyByLocaleDictionary allValues];
     array = [MEMORY[0x1E695DF70] array];
-    v64 = 0u;
-    v65 = 0u;
-    v66 = 0u;
-    v67 = 0u;
+    v28 = 0u;
+    v29 = 0u;
+    v30 = 0u;
+    v31 = 0u;
     v2 = allValues;
     OUTLINED_FUNCTION_55();
     obj = v3;
-    v4 = [v3 countByEnumeratingWithState:? objects:? count:?];
-    if (v4)
+    v24 = [v3 countByEnumeratingWithState:? objects:? count:?];
+    if (v24)
     {
-      OUTLINED_FUNCTION_54(v4, v5, v6, v7, v8, v9, v10, v11, v44, personRelationshipVocabularyByLocaleDictionary, obj, v48, v4, v51, array, v55, v56, v57, v58, v59, v60, v61, v62, v63, v64, *(&v64 + 1), v65);
-      v49 = v20;
+      OUTLINED_FUNCTION_54();
+      v23 = v4;
       do
       {
-        v21 = 0;
+        v5 = 0;
         do
         {
-          OUTLINED_FUNCTION_54(v12, v13, v14, v15, v16, v17, v18, v19, v45, personRelationshipVocabularyByLocaleDictionary, obj, v49, v50, v52, v54, v55, v56, v57, v58, v59, v60, v61, v62, v63, v64, *(&v64 + 1), v65);
-          if (v22 != v49)
+          OUTLINED_FUNCTION_54();
+          if (v6 != v23)
           {
             objc_enumerationMutation(obj);
           }
 
-          v52 = v21;
-          allValues2 = [*(*(&v64 + 1) + 8 * v21) allValues];
+          v25 = v5;
+          allValues2 = [*(*(&v28 + 1) + 8 * v5) allValues];
           OUTLINED_FUNCTION_16_2();
           OUTLINED_FUNCTION_60_0();
-          v25 = [v24 countByEnumeratingWithState:? objects:? count:?];
-          if (v25)
+          v9 = [v8 countByEnumeratingWithState:? objects:? count:?];
+          if (v9)
           {
-            v33 = v25;
-            v34 = *v58;
+            v10 = v9;
+            v11 = *v27[3];
             do
             {
-              v35 = 0;
-              do
+              for (i = 0; i != v10; ++i)
               {
-                OUTLINED_FUNCTION_48_0(v25, v26, v27, v28, v29, v30, v31, v32, v45, personRelationshipVocabularyByLocaleDictionary, obj, v49, v50, v52, v54, v55, v56, v57, v58);
-                if (v36 != v34)
+                OUTLINED_FUNCTION_48_0();
+                if (v13 != v11)
                 {
                   objc_enumerationMutation(allValues2);
                 }
 
-                v37 = MEMORY[0x1E696AEC0];
-                v45 = [*(v57 + 8 * v35) componentsJoinedByString:@"|"];
-                v38 = [v37 stringWithFormat:@"^(%@)$"];
+                v14 = MEMORY[0x1E696AEC0];
+                v15 = [*(v27[2] + 8 * i) componentsJoinedByString:@"|"];
+                v16 = [v14 stringWithFormat:@"^(%@)$", v15];
 
-                v55 = 0;
-                v39 = [MEMORY[0x1E696AE70] regularExpressionWithPattern:v38 options:1 error:&v55];
-                if (v39)
+                v27[0] = 0;
+                v17 = [MEMORY[0x1E696AE70] regularExpressionWithPattern:v16 options:1 error:v27];
+                if (v17)
                 {
-                  [v54 addObject:v39];
+                  [array addObject:v17];
                 }
-
-                ++v35;
               }
 
-              while (v33 != v35);
               OUTLINED_FUNCTION_60_0();
-              v25 = [allValues2 countByEnumeratingWithState:? objects:? count:?];
-              v33 = v25;
+              v10 = [allValues2 countByEnumeratingWithState:? objects:? count:?];
             }
 
-            while (v25);
+            while (v10);
           }
 
-          v21 = v52 + 1;
+          v5 = v25 + 1;
         }
 
-        while (v52 + 1 != v50);
+        while (v25 + 1 != v24);
         OUTLINED_FUNCTION_55();
-        v12 = [obj countByEnumeratingWithState:? objects:? count:?];
-        v50 = v12;
+        v24 = [obj countByEnumeratingWithState:? objects:? count:?];
       }
 
-      while (v12);
+      while (v24);
     }
   }
 
-  v40 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_49_0();
 
-  return v41;
+  return v18;
 }
 
 - (id)personRelationshipVocabularyByLocaleDictionary
@@ -2471,17 +2414,17 @@ LABEL_12:
 
 - (id)callFeaturesFromInteractions:(void *)interactions avgCallLength:(double)length contact:
 {
-  v248 = *MEMORY[0x1E69E9840];
+  v247 = *MEMORY[0x1E69E9840];
   v7 = a2;
   interactionsCopy = interactions;
   if (self)
   {
     v9 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    v237 = objc_alloc_init(MEMORY[0x1E696AB78]);
-    [v237 setDateFormat:@"dd/MM/yyyy"];
+    v236 = objc_alloc_init(MEMORY[0x1E696AB78]);
+    [v236 setDateFormat:@"dd/MM/yyyy"];
     currentCalendar = [MEMORY[0x1E695DEE8] currentCalendar];
     birthday = [interactionsCopy birthday];
-    v238 = [MEMORY[0x1E695DFA8] set];
+    v237 = [MEMORY[0x1E695DFA8] set];
     lastObject = [v7 lastObject];
     date = [lastObject date];
 
@@ -2493,47 +2436,47 @@ LABEL_12:
 
       if (v15 && [v7 count])
       {
-        v229 = v15;
-        v230 = v14;
-        v231 = date;
+        v228 = v15;
+        v229 = v14;
+        v230 = date;
         v17 = +[_CDContactFavoritesUtilities sharedInstance];
-        v245[0] = MEMORY[0x1E69E9820];
-        v245[1] = 3221225472;
-        v245[2] = __87___CDCloudFamilyDataCollectionTask_callFeaturesFromInteractions_avgCallLength_contact___block_invoke;
-        v245[3] = &unk_1E7369998;
-        v232 = v9;
+        v244[0] = MEMORY[0x1E69E9820];
+        v244[1] = 3221225472;
+        v244[2] = __87___CDCloudFamilyDataCollectionTask_callFeaturesFromInteractions_avgCallLength_contact___block_invoke;
+        v244[3] = &unk_1E7369998;
+        v231 = v9;
         v18 = v9;
-        v246 = v18;
-        v233 = interactionsCopy;
-        [v17 accessEntriesForContact:interactionsCopy withBlock:v245];
+        v245 = v18;
+        v232 = interactionsCopy;
+        [v17 accessEntriesForContact:interactionsCopy withBlock:v244];
 
         [v18 setObject:&unk_1F05EF180 forKeyedSubscript:@"callMaxDur"];
-        v243 = 0u;
-        v244 = 0u;
-        v241 = 0u;
         v242 = 0u;
-        v234 = v7;
+        v243 = 0u;
+        v240 = 0u;
+        v241 = 0u;
+        v233 = v7;
         obj = v7;
         v19 = 0x1E696A000uLL;
-        v239 = [obj countByEnumeratingWithState:&v241 objects:v247 count:16];
-        if (!v239)
+        v238 = [obj countByEnumeratingWithState:&v240 objects:v246 count:16];
+        if (!v238)
         {
           goto LABEL_74;
         }
 
-        v236 = *v242;
+        v235 = *v241;
         v20 = length + length;
         while (1)
         {
           v21 = 0;
           do
           {
-            if (*v242 != v236)
+            if (*v241 != v235)
             {
               objc_enumerationMutation(obj);
             }
 
-            v22 = *(*(&v241 + 1) + 8 * v21);
+            v22 = *(*(&v240 + 1) + 8 * v21);
             v23 = *(v19 + 3480);
             v24 = [v18 objectForKeyedSubscript:@"callTotalDur"];
             [v24 doubleValue];
@@ -2580,9 +2523,9 @@ LABEL_12:
             }
 
             date2 = [v22 date];
-            v42 = [v237 stringFromDate:date2];
+            v42 = [v236 stringFromDate:date2];
 
-            [v238 addObject:v42];
+            [v237 addObject:v42];
             date3 = [v22 date];
             v19 = currentCalendar;
             v44 = [currentCalendar components:568 fromDate:date3];
@@ -3009,19 +2952,8 @@ LABEL_35:
             v66 = v65;
 
             v67 = @"callTwoWeeks";
-            if (v66 >= -1209600.0)
+            if (v66 >= -1209600.0 || ([v22 date], v68 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v68, "timeIntervalSinceNow"), v70 = v69, v68, v67 = @"callSixWeeks", v70 >= -3628800.0) || (objc_msgSend(v22, "date"), v71 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v71, "timeIntervalSinceNow"), v73 = v72, v71, v67 = @"callTwelveWeeks", v73 >= -7257600.0))
             {
-              goto LABEL_38;
-            }
-
-            date5 = [v22 date];
-            [date5 timeIntervalSinceNow];
-            v70 = v69;
-
-            v67 = @"callSixWeeks";
-            if (v70 >= -3628800.0 || ([v22 date], v71 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v71, "timeIntervalSinceNow"), v73 = v72, v71, v67 = @"callTwelveWeeks", v73 >= -7257600.0))
-            {
-LABEL_38:
               v74 = *(v19 + 3480);
               v75 = [v18 objectForKeyedSubscript:v67];
               v76 = [v74 numberWithInteger:{objc_msgSend(v75, "integerValue") + 1}];
@@ -3031,9 +2963,9 @@ LABEL_38:
             ++v21;
           }
 
-          while (v239 != v21);
-          v109 = [obj countByEnumeratingWithState:&v241 objects:v247 count:16];
-          v239 = v109;
+          while (v238 != v21);
+          v109 = [obj countByEnumeratingWithState:&v240 objects:v246 count:16];
+          v238 = v109;
           if (!v109)
           {
 LABEL_74:
@@ -3041,7 +2973,7 @@ LABEL_74:
             v110 = [v18 objectForKeyedSubscript:@"callTotal"];
             integerValue = [v110 integerValue];
 
-            v112 = [*(v19 + 3480) numberWithDouble:{objc_msgSend(v238, "count") / v229}];
+            v112 = [*(v19 + 3480) numberWithDouble:{objc_msgSend(v237, "count") / v228}];
             [v18 setObject:v112 forKeyedSubscript:@"callDayRatio"];
 
             v113 = *(v19 + 3480);
@@ -3416,11 +3348,11 @@ LABEL_74:
             [OUTLINED_FUNCTION_1_15() setObject:? forKeyedSubscript:?];
 
             v224 = v18;
-            interactionsCopy = v233;
-            v7 = v234;
-            date = v231;
-            v9 = v232;
-            v14 = v230;
+            interactionsCopy = v232;
+            v7 = v233;
+            date = v230;
+            v9 = v231;
+            v14 = v229;
             goto LABEL_77;
           }
         }
@@ -3443,14 +3375,12 @@ LABEL_77:
     v225 = 0;
   }
 
-  v227 = *MEMORY[0x1E69E9840];
-
   return v225;
 }
 
 - (void)messagesCumulativeFeaturesFromInteractionsBatch:(void *)batch mutableMessagesDictionary:
 {
-  v56 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   v5 = a2;
   batchCopy = batch;
   if (!self)
@@ -3458,8 +3388,8 @@ LABEL_77:
     goto LABEL_37;
   }
 
-  v49 = objc_alloc_init(MEMORY[0x1E696AB78]);
-  [v49 setDateFormat:@"dd/MM/yyyy"];
+  v46 = objc_alloc_init(MEMORY[0x1E696AB78]);
+  [v46 setDateFormat:@"dd/MM/yyyy"];
   currentCalendar = [MEMORY[0x1E695DEE8] currentCalendar];
   if (![v5 count])
   {
@@ -3472,29 +3402,29 @@ LABEL_77:
   v10 = [v8 numberWithUnsignedInteger:{objc_msgSend(v5, "count") + objc_msgSend(v9, "integerValue")}];
   [OUTLINED_FUNCTION_51_0() setObject:? forKeyedSubscript:?];
 
-  v53 = 0u;
-  v54 = 0u;
+  v50 = 0u;
   v51 = 0u;
-  v52 = 0u;
-  v45 = v5;
+  v48 = 0u;
+  v49 = 0u;
+  v42 = v5;
   obj = v5;
-  v50 = [obj countByEnumeratingWithState:&v51 objects:v55 count:16];
-  if (!v50)
+  v47 = [obj countByEnumeratingWithState:&v48 objects:v52 count:16];
+  if (!v47)
   {
     goto LABEL_35;
   }
 
-  v47 = *v52;
+  v44 = *v49;
   do
   {
-    for (i = 0; i != v50; ++i)
+    for (i = 0; i != v47; ++i)
     {
-      if (*v52 != v47)
+      if (*v49 != v44)
       {
         objc_enumerationMutation(obj);
       }
 
-      v12 = *(*(&v51 + 1) + 8 * i);
+      v12 = *(*(&v48 + 1) + 8 * i);
       if ([v12 direction] == 1)
       {
         v13 = *(v7 + 3480);
@@ -3504,7 +3434,7 @@ LABEL_77:
       }
 
       startDate = [v12 startDate];
-      v17 = [v49 stringFromDate:startDate];
+      v17 = [v46 stringFromDate:startDate];
 
       v18 = [batchCopy objectForKeyedSubscript:@"daysSeen"];
 
@@ -3561,39 +3491,36 @@ LABEL_29:
         goto LABEL_29;
       }
 
-      v31 = *(v7 + 3480);
       [OUTLINED_FUNCTION_37_0() objectForKeyedSubscript:?];
-      v33 = v32 = v7;
-      [v33 integerValue];
-      v34 = [OUTLINED_FUNCTION_13_4() numberWithInteger:?];
+      v32 = v31 = v7;
+      [v32 integerValue];
+      v33 = [OUTLINED_FUNCTION_13_4() numberWithInteger:?];
       [OUTLINED_FUNCTION_11_0() setObject:? forKeyedSubscript:?];
 
-      v7 = v32;
+      v7 = v31;
       startDate4 = [v12 startDate];
       [startDate4 timeIntervalSinceNow];
-      v37 = v36;
+      v36 = v35;
 
-      if (v37 >= -1209600.0 || ([v12 startDate], v38 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v38, "timeIntervalSinceNow"), v40 = v39, v38, v40 >= -3628800.0))
+      if (v36 >= -1209600.0 || ([v12 startDate], v37 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v37, "timeIntervalSinceNow"), v39 = v38, v37, v39 >= -3628800.0))
       {
-        v41 = *(v32 + 3480);
-        v42 = [batchCopy objectForKeyedSubscript:@"firstPartyMsgTwoWeeks"];
-        [v42 integerValue];
-        v43 = [OUTLINED_FUNCTION_13_4() numberWithInteger:?];
+        v40 = [batchCopy objectForKeyedSubscript:@"firstPartyMsgTwoWeeks"];
+        [v40 integerValue];
+        v41 = [OUTLINED_FUNCTION_13_4() numberWithInteger:?];
         [OUTLINED_FUNCTION_11_0() setObject:? forKeyedSubscript:?];
       }
     }
 
-    v50 = [obj countByEnumeratingWithState:&v51 objects:v55 count:16];
+    v47 = [obj countByEnumeratingWithState:&v48 objects:v52 count:16];
   }
 
-  while (v50);
+  while (v47);
 LABEL_35:
 
-  v5 = v45;
+  v5 = v42;
 LABEL_36:
 
 LABEL_37:
-  v44 = *MEMORY[0x1E69E9840];
 }
 
 - (void)messagesFeaturesFromCumulativeDict:(uint64_t)dict
@@ -3875,99 +3802,91 @@ LABEL_12:
 
 - (id)getThirdPartyPredicateForContact:(void *)contact handles:
 {
-  v51 = *MEMORY[0x1E69E9840];
-  v44 = a2;
+  v42 = *MEMORY[0x1E69E9840];
+  v35 = a2;
   contactCopy = contact;
-  v43 = contactCopy;
+  v34 = contactCopy;
   if (self)
   {
     v7 = contactCopy;
     array = [MEMORY[0x1E695DF70] array];
     v9 = [MEMORY[0x1E696AE18] predicateWithFormat:@"bundleId != %@", @"com.apple.MobileSMS"];
     v10 = [MEMORY[0x1E696AE18] predicateWithFormat:@"direction IN %@", &unk_1F05EF488];
-    v38 = &unk_1F05EF4A0;
-    [MEMORY[0x1E696AE18] predicateWithFormat:@"mechanism IN %@"];
+    [MEMORY[0x1E696AE18] predicateWithFormat:@"mechanism IN %@", &unk_1F05EF4A0];
     objc_claimAutoreleasedReturnValue();
-    v41 = v9;
+    v32 = v9;
     [OUTLINED_FUNCTION_67_0() addObject:v9];
-    v40 = v10;
+    v31 = v10;
     [array addObject:v10];
-    v42 = array;
-    v39 = v3;
+    v33 = array;
+    v30 = v3;
     [array addObject:v3];
     v11 = objc_opt_new();
     v12 = objc_opt_new();
     OUTLINED_FUNCTION_16_2();
     obj = v7;
-    v13 = [obj countByEnumeratingWithState:&v46 objects:v50 count:16];
+    v13 = [obj countByEnumeratingWithState:v37 objects:v41 count:16];
     if (v13)
     {
-      v21 = v13;
-      v22 = *v48;
+      v14 = v13;
+      v15 = *v39;
       do
       {
-        v23 = 0;
-        do
+        for (i = 0; i != v14; ++i)
         {
-          OUTLINED_FUNCTION_48_0(v13, v14, v15, v16, v17, v18, v19, v20, v38, v39, v40, v41, v42, v43, v44, obj, v46, v47, v48);
-          if (v24 != v22)
+          OUTLINED_FUNCTION_48_0();
+          if (v17 != v15)
           {
             objc_enumerationMutation(obj);
           }
 
-          v25 = *(v47 + 8 * v23);
-          v26 = [_CDContactResolver normalizedStringFromContactString:v25];
+          v18 = *(v38 + 8 * i);
+          v19 = [_CDContactResolver normalizedStringFromContactString:v18];
           alphanumericCharacterSet = [MEMORY[0x1E696AB08] alphanumericCharacterSet];
-          v28 = [v25 stringByAddingPercentEncodingWithAllowedCharacters:alphanumericCharacterSet];
+          v21 = [v18 stringByAddingPercentEncodingWithAllowedCharacters:alphanumericCharacterSet];
 
-          v38 = v28;
-          v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"conversationIdentifier(%@)"];
+          v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"conversationIdentifier(%@)", v21];
           [v12 addObject:v3];
 
           [OUTLINED_FUNCTION_62_0() addObject:?];
-          ++v23;
         }
 
-        while (v21 != v23);
-        v13 = [obj countByEnumeratingWithState:&v46 objects:v50 count:16];
-        v21 = v13;
+        v14 = [obj countByEnumeratingWithState:v37 objects:v41 count:16];
       }
 
-      while (v13);
+      while (v14);
     }
 
-    v29 = [MEMORY[0x1E696AE18] predicateWithFormat:@"(ANY recipients.identifier IN %@)", v11];
-    v30 = [MEMORY[0x1E696AE18] predicateWithFormat:@"(derivedIntentIdentifier IN %@)", v12];
-    v31 = MEMORY[0x1E696AE18];
-    [v44 identifier];
+    v22 = [MEMORY[0x1E696AE18] predicateWithFormat:@"(ANY recipients.identifier IN %@)", v11];
+    v23 = [MEMORY[0x1E696AE18] predicateWithFormat:@"(derivedIntentIdentifier IN %@)", v12];
+    v24 = MEMORY[0x1E696AE18];
+    [v35 identifier];
     objc_claimAutoreleasedReturnValue();
-    v32 = [OUTLINED_FUNCTION_8_6() setWithObject:?];
-    v33 = [v31 predicateWithFormat:@"(ANY recipients.personId IN %@)", v32];
+    v25 = [OUTLINED_FUNCTION_8_6() setWithObject:?];
+    v26 = [v24 predicateWithFormat:@"(ANY recipients.personId IN %@)", v25];
 
-    v49[0] = v29;
-    v49[1] = v30;
-    v49[2] = v33;
-    [MEMORY[0x1E695DEC8] arrayWithObjects:v49 count:3];
+    v40[0] = v22;
+    v40[1] = v23;
+    v40[2] = v26;
+    [MEMORY[0x1E695DEC8] arrayWithObjects:v40 count:3];
     objc_claimAutoreleasedReturnValue();
-    v34 = [OUTLINED_FUNCTION_8_6() orPredicateWithSubpredicates:?];
-    [v42 addObject:v34];
+    v27 = [OUTLINED_FUNCTION_8_6() orPredicateWithSubpredicates:?];
+    [v33 addObject:v27];
 
-    v35 = [MEMORY[0x1E696AB28] andPredicateWithSubpredicates:v42];
+    v28 = [MEMORY[0x1E696AB28] andPredicateWithSubpredicates:v33];
   }
 
   else
   {
-    v35 = 0;
+    v28 = 0;
   }
 
-  v36 = *MEMORY[0x1E69E9840];
-
-  return v35;
+  return v28;
 }
 
 - (id)fetchInteractionFeatureDictionaryWithPredicate:(void *)predicate store:(void *)store sortDescription:
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   v7 = a2;
   predicateCopy = predicate;
   storeCopy = store;
@@ -3980,8 +3899,8 @@ LABEL_12:
     {
       v13 = v12;
       v14 = objc_autoreleasePoolPush();
-      v18[0] = storeCopy;
-      v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
+      v17[0] = storeCopy;
+      v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
       v12 = [OUTLINED_FUNCTION_51_0() queryInteractionsUsingPredicate:? sortDescriptors:? limit:? offset:? error:?];
 
       [(_CDCloudFamilyDataCollectionTask *)self messagesCumulativeFeaturesFromInteractionsBatch:v12 mutableMessagesDictionary:v10];
@@ -3998,24 +3917,21 @@ LABEL_12:
     v10 = 0;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
-
   return v10;
 }
 
 - (void)initWithStorage:(uint64_t)a3 contactStore:(uint64_t)a4 medicalIDStore:(uint64_t)a5 activity:(uint64_t)a6 sessionPath:(uint64_t)a7 dataDirectory:(uint64_t)a8 collectionDate:samplingRate:maxBatches:daysPerBatch:.cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2(&dword_191750000, a2, a3, "Error unarchiving cloud family data collection session: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_2(&dword_191750000, a2, a3, "Error unarchiving cloud family data collection session: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)airDropPeopleAtHome
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = HIDWORD(*(*self + 40));
-  OUTLINED_FUNCTION_0_2(&dword_191750000, a2, a3, "Error fetching home visits: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(*self + 40);
+  OUTLINED_FUNCTION_0_2(&dword_191750000, a2, a3, "Error fetching home visits: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

@@ -49,7 +49,7 @@
       v7 = [(PUVFXImageGenerator *)self blendForeground:foregroundCopy withBackground:inputImage];
 
       inputImage2 = [(PUVFXImageGenerator *)self inputImage];
-      [inputImage2 extent];
+      objc_msgSend_extent(inputImage2);
       v6 = [v7 imageByCroppingToRect:?];
     }
 
@@ -104,10 +104,10 @@
     do
     {
       v15 = arc4random() / 4294967300.0;
-      [(PUVFXImageGenerator *)self extent];
+      objc_msgSend_extent(self);
       v16 = v15 * CGRectGetWidth(v33);
       v17 = arc4random() / 4294967300.0;
-      [(PUVFXImageGenerator *)self extent];
+      objc_msgSend_extent(self);
       Height = CGRectGetHeight(v34);
       memset(&v27, 0, sizeof(v27));
       CGAffineTransformMakeTranslation(&v27, v16, v17 * Height);
@@ -127,7 +127,7 @@
     while (v14);
   }
 
-  [(PUVFXImageGenerator *)self extent];
+  objc_msgSend_extent(self);
   v23 = [outputImage2 imageByCroppingToRect:?];
   generatedFieldImage = self->_generatedFieldImage;
   self->_generatedFieldImage = v23;

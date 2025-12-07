@@ -5,6 +5,7 @@
 - (NSURL)applicationIconFileURL;
 - (id)_availabilityOptions;
 - (id)_retrieveInstalledApplicationIconWithAppIconURL:(id)l clipBundleID:(id)d;
+- (void)_didDetermineAvailability:(BOOL)availability;
 - (void)_didFetchBusinessIconWithURL:(id)l;
 - (void)_didFinishLoadingWithError:(id)error;
 - (void)_didUpdateMetadata:(id)metadata;
@@ -149,43 +150,42 @@ void *__35__CPSSession_addRemoteObjectProxy___block_invoke(uint64_t a1)
     result = [*(v15 + 136) hasUpToDateVersionInstalledOnSystemIsPlaceholder:&v23];
     if (result && v23 == 1)
     {
-      v16 = CPS_LOG_CHANNEL_PREFIXClipServices();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v17 = CPS_LOG_CHANNEL_PREFIXClipServices(result, v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
-        v17 = *(a1 + 40);
-        v18 = *(*(a1 + 32) + 136);
-        v19 = v16;
-        v20 = [v18 clipBundleID];
+        v18 = *(a1 + 40);
+        v19 = *(*(a1 + 32) + 136);
+        v20 = v17;
+        v21 = [v19 clipBundleID];
         *buf = 134218243;
-        v25 = v17;
+        v25 = v18;
         v26 = 2113;
-        v27 = v20;
-        _os_log_impl(&dword_2436ED000, v19, OS_LOG_TYPE_DEFAULT, "CPSSession: placeholder already installed when objectProxy (%p) is added for %{private}@", buf, 0x16u);
+        v27 = v21;
+        _os_log_impl(&dword_2436ED000, v20, OS_LOG_TYPE_DEFAULT, "CPSSession: placeholder already installed when objectProxy (%p) is added for %{private}@", buf, 0x16u);
       }
 
       result = [*(a1 + 40) didInstallApplicationPlaceholder];
     }
 
-    v21 = *(a1 + 32);
-    if (*(v21 + 88) == 1)
+    v22 = *(a1 + 32);
+    if (*(v22 + 88) == 1)
     {
-      result = [*(a1 + 40) didRetrieveApplicationIcon:*(v21 + 32)];
-      v21 = *(a1 + 32);
+      result = [*(a1 + 40) didRetrieveApplicationIcon:*(v22 + 32)];
+      v22 = *(a1 + 32);
     }
 
-    if (*(v21 + 40))
+    if (*(v22 + 40))
     {
       result = [*(a1 + 40) didRetrieveHeroImage:?];
-      v21 = *(a1 + 32);
+      v22 = *(a1 + 32);
     }
 
-    if (*(v21 + 48))
+    if (*(v22 + 48))
     {
-      result = [*(a1 + 40) didRetrieveBusinessIcon:?];
+      return [*(a1 + 40) didRetrieveBusinessIcon:?];
     }
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -222,65 +222,64 @@ void *__35__CPSSession_addRemoteObjectProxy___block_invoke(uint64_t a1)
   dispatch_async(queue, block);
 }
 
-void __36__CPSSession__fetchBusinessMetadata__block_invoke(uint64_t a1)
+void __36__CPSSession__fetchBusinessMetadata__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  if (*(v1 + 160) && *(v1 + 72) != 1)
+  v23 = *MEMORY[0x277D85DE8];
+  v2 = *(a1 + 32);
+  if (*(v2 + 160) && *(v2 + 72) != 1)
   {
-    *(v1 + 72) = 1;
-    v3 = CPS_LOG_CHANNEL_PREFIXClipServices();
-    if (os_signpost_enabled(v3))
+    *(v2 + 72) = 1;
+    v4 = CPS_LOG_CHANNEL_PREFIXClipServices(a1, a2);
+    v5 = os_signpost_enabled(v4);
+    if (v5)
     {
-      v4 = *(a1 + 32);
-      v5 = v3;
-      v6 = [v4 logID];
+      v7 = *(a1 + 32);
+      v8 = v4;
+      v9 = [v7 logID];
       *buf = 138543618;
-      *&buf[4] = v6;
+      *&buf[4] = v9;
       *&buf[12] = 2082;
       *&buf[14] = "[begin] fetching ABR metadata";
-      _os_signpost_emit_with_name_impl(&dword_2436ED000, v5, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "ABRMetaData", " ID=[%{public, signpost.description:logID}@]  Message=%{public}s ", buf, 0x16u);
+      _os_signpost_emit_with_name_impl(&dword_2436ED000, v8, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "ABRMetaData", " ID=[%{public, signpost.description:logID}@]  Message=%{public}s ", buf, 0x16u);
     }
 
-    v7 = CPS_LOG_CHANNEL_PREFIXClipServices();
-    if (os_signpost_enabled(v7))
+    v10 = CPS_LOG_CHANNEL_PREFIXClipServices(v5, v6);
+    if (os_signpost_enabled(v10))
     {
-      v8 = *(a1 + 32);
-      v9 = v7;
-      v10 = [v8 logID];
+      v11 = *(a1 + 32);
+      v12 = v10;
+      v13 = [v11 logID];
       *buf = 138543618;
-      *&buf[4] = v10;
+      *&buf[4] = v13;
       *&buf[12] = 2082;
       *&buf[14] = "[begin] Marking Placeholder request";
-      _os_signpost_emit_with_name_impl(&dword_2436ED000, v9, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "OpenButtonBecomeActive", " ID=[%{public, signpost.description:logID}@]  Message=%{public}s ", buf, 0x16u);
+      _os_signpost_emit_with_name_impl(&dword_2436ED000, v12, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "OpenButtonBecomeActive", " ID=[%{public, signpost.description:logID}@]  Message=%{public}s ", buf, 0x16u);
     }
 
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v18 = __Block_byref_object_copy__5;
-    v19 = __Block_byref_object_dispose__5;
-    v20 = 0;
-    v11 = *(a1 + 32);
-    v12 = *(v11 + 160);
-    v13 = *(v11 + 128);
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __36__CPSSession__fetchBusinessMetadata__block_invoke_11;
-    v16[3] = &unk_278DCE5A8;
-    v16[4] = v11;
-    v16[5] = buf;
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __36__CPSSession__fetchBusinessMetadata__block_invoke_3;
-    v15[3] = &unk_278DCE670;
-    v15[4] = v11;
-    v15[5] = buf;
-    [v12 fetchBusinessMetadataForURL:v13 availabilityHandler:v16 completion:v15];
+    v20 = __Block_byref_object_copy__5;
+    v21 = __Block_byref_object_dispose__5;
+    v22 = 0;
+    v14 = *(a1 + 32);
+    v15 = *(v14 + 160);
+    v16 = *(v14 + 128);
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __36__CPSSession__fetchBusinessMetadata__block_invoke_11;
+    v18[3] = &unk_278DCE5A8;
+    v18[4] = v14;
+    v18[5] = buf;
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __36__CPSSession__fetchBusinessMetadata__block_invoke_3;
+    v17[3] = &unk_278DCE670;
+    v17[4] = v14;
+    v17[5] = buf;
+    [v15 fetchBusinessMetadataForURL:v16 availabilityHandler:v18 completion:v17];
     _Block_object_dispose(buf, 8);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __36__CPSSession__fetchBusinessMetadata__block_invoke_11(uint64_t a1, char a2, void *a3)
@@ -298,41 +297,40 @@ void __36__CPSSession__fetchBusinessMetadata__block_invoke_11(uint64_t a1, char 
   dispatch_async(v6, v8);
 }
 
-uint64_t __36__CPSSession__fetchBusinessMetadata__block_invoke_2(uint64_t a1)
+void *__36__CPSSession__fetchBusinessMetadata__block_invoke_2(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   objc_storeStrong((*(*(a1 + 48) + 8) + 40), *(a1 + 32));
   if (*(*(*(a1 + 48) + 8) + 40))
   {
-    v2 = CPS_LOG_CHANNEL_PREFIXClipServices();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v4 = CPS_LOG_CHANNEL_PREFIXClipServices(v2, v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      v3 = *(*(a1 + 40) + 128);
-      v4 = *(*(*(a1 + 48) + 8) + 40);
+      v5 = *(*(a1 + 40) + 128);
+      v6 = *(*(*(a1 + 48) + 8) + 40);
       *buf = 138740227;
-      v13 = v3;
-      v14 = 2113;
-      v15 = v4;
-      _os_log_impl(&dword_2436ED000, v2, OS_LOG_TYPE_INFO, "Found a pattern match for url %{sensitive}@ with matched bundleID %{private}@", buf, 0x16u);
+      v14 = v5;
+      v15 = 2113;
+      v16 = v6;
+      _os_log_impl(&dword_2436ED000, v4, OS_LOG_TYPE_INFO, "Found a pattern match for url %{sensitive}@ with matched bundleID %{private}@", buf, 0x16u);
     }
   }
 
   result = [*(a1 + 40) _didDetermineAvailability:*(a1 + 56)];
   if (*(a1 + 56) == 1)
   {
-    v6 = *(a1 + 40);
-    v7 = *(*(*(a1 + 48) + 8) + 40);
-    v9 = v6[16];
-    v8 = v6[17];
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __36__CPSSession__fetchBusinessMetadata__block_invoke_12;
-    v11[3] = &unk_278DCE580;
-    v11[4] = v6;
-    result = [v6 _synthesizeFullAppMetadataFromMetadata:v8 patternMatchedBundleID:v7 URL:v9 completionHandler:v11];
+    v8 = *(a1 + 40);
+    v9 = *(*(*(a1 + 48) + 8) + 40);
+    v11 = v8[16];
+    v10 = v8[17];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __36__CPSSession__fetchBusinessMetadata__block_invoke_12;
+    v12[3] = &unk_278DCE580;
+    v12[4] = v8;
+    return [v8 _synthesizeFullAppMetadataFromMetadata:v10 patternMatchedBundleID:v9 URL:v11 completionHandler:v12];
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -382,69 +380,69 @@ void __36__CPSSession__fetchBusinessMetadata__block_invoke_3(uint64_t a1, void *
   dispatch_async(v9, v12);
 }
 
-void __36__CPSSession__fetchBusinessMetadata__block_invoke_4(uint64_t a1)
+void __36__CPSSession__fetchBusinessMetadata__block_invoke_4(uint64_t a1, uint64_t a2)
 {
-  v37 = *MEMORY[0x277D85DE8];
-  v2 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  if (os_signpost_enabled(v2))
+  v41 = *MEMORY[0x277D85DE8];
+  v3 = CPS_LOG_CHANNEL_PREFIXClipServices(a1, a2);
+  if (os_signpost_enabled(v3))
   {
-    v3 = *(a1 + 32);
-    v4 = v2;
-    v5 = [v3 logID];
+    v4 = *(a1 + 32);
+    v5 = v3;
+    v6 = [v4 logID];
     *buf = 138543618;
-    *&buf[4] = v5;
+    *&buf[4] = v6;
     *&buf[12] = 2082;
     *&buf[14] = "[end] fetching ABR metadata enableTelemetry=YES ";
-    _os_signpost_emit_with_name_impl(&dword_2436ED000, v4, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "ABRMetaData", " ID=[%{public, signpost.description:logID}@]  Message=%{public}s ", buf, 0x16u);
+    _os_signpost_emit_with_name_impl(&dword_2436ED000, v5, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "ABRMetaData", " ID=[%{public, signpost.description:logID}@]  Message=%{public}s ", buf, 0x16u);
   }
 
-  v6 = (a1 + 40);
-  v7 = [*(a1 + 40) domain];
-  *&v34 = 0;
-  *(&v34 + 1) = &v34;
-  v35 = 0x2020000000;
-  v8 = getCKErrorDomainSymbolLoc_ptr;
-  v36 = getCKErrorDomainSymbolLoc_ptr;
+  v7 = (a1 + 40);
+  v8 = [*(a1 + 40) domain];
+  *&v38 = 0;
+  *(&v38 + 1) = &v38;
+  v39 = 0x2020000000;
+  v9 = getCKErrorDomainSymbolLoc_ptr;
+  v40 = getCKErrorDomainSymbolLoc_ptr;
   if (!getCKErrorDomainSymbolLoc_ptr)
   {
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = __getCKErrorDomainSymbolLoc_block_invoke;
-    v31 = &unk_278DCDC00;
-    v32 = &v34;
+    v35 = &unk_278DCDC00;
+    v36 = &v38;
     __getCKErrorDomainSymbolLoc_block_invoke(buf);
-    v8 = *(*(&v34 + 1) + 24);
+    v9 = *(*(&v38 + 1) + 24);
   }
 
-  _Block_object_dispose(&v34, 8);
-  if (!v8)
+  _Block_object_dispose(&v38, 8);
+  if (!v9)
   {
     __36__CPSSession__fetchBusinessMetadata__block_invoke_4_cold_2();
   }
 
-  v9 = *v8;
-  if ([v7 isEqualToString:v9])
+  v10 = *v9;
+  if ([v8 isEqualToString:v10])
   {
-    if ([*v6 code] == 3)
+    if ([*v7 code] == 3)
     {
 
 LABEL_16:
-      v14 = CPS_LOG_CHANNEL_PREFIXClipServices();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v17 = CPS_LOG_CHANNEL_PREFIXClipServices(v11, v12);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        __36__CPSSession__fetchBusinessMetadata__block_invoke_4_cold_1((a1 + 40), v14);
+        __36__CPSSession__fetchBusinessMetadata__block_invoke_4_cold_1((a1 + 40), v17);
       }
 
-      v15 = *(a1 + 32);
-      v16 = [MEMORY[0x277CCA9B8] cps_errorWithCode:19];
-      [v15 _didFinishLoadingWithError:v16];
+      v18 = *(a1 + 32);
+      v19 = [MEMORY[0x277CCA9B8] cps_errorWithCode:19];
+      [v18 _didFinishLoadingWithError:v19];
 
-      goto LABEL_26;
+      return;
     }
 
-    v13 = [*v6 code] == 4;
+    v16 = [*v7 code] == 4;
 
-    if (v13)
+    if (v16)
     {
       goto LABEL_16;
     }
@@ -457,63 +455,62 @@ LABEL_16:
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v31 = __Block_byref_object_copy__5;
-  v32 = __Block_byref_object_dispose__5;
-  v33 = *(a1 + 48);
-  v10 = [*(*&buf[8] + 40) clipBundleID];
-  if (!v10)
+  v35 = __Block_byref_object_copy__5;
+  v36 = __Block_byref_object_dispose__5;
+  v37 = *(a1 + 48);
+  v13 = [*(*&buf[8] + 40) clipBundleID];
+  if (!v13)
   {
-    v10 = [*(*(a1 + 32) + 176) fallbackClipBundleID];
-    if (!v10)
+    v13 = [*(*(a1 + 32) + 176) fallbackClipBundleID];
+    if (!v13)
     {
-      v10 = *(*(*(a1 + 56) + 8) + 40);
+      v13 = *(*(*(a1 + 56) + 8) + 40);
     }
   }
 
-  if (*v6 || ![v10 length])
+  if (*v7 || ![v13 length])
   {
-    v11 = *(a1 + 32);
-    v12 = [MEMORY[0x277CCA9B8] cps_errorWithCode:2];
-    [v11 _didFinishLoadingWithError:v12];
+    v14 = *(a1 + 32);
+    v15 = [MEMORY[0x277CCA9B8] cps_errorWithCode:2];
+    [v14 _didFinishLoadingWithError:v15];
   }
 
   else
   {
-    v17 = [*(*&buf[8] + 40) clipLaunchURL];
-    if ([v10 cps_isAMSPlaceholderBundleIdentifier])
+    v20 = [*(*&buf[8] + 40) clipLaunchURL];
+    v21 = [v13 cps_isAMSPlaceholderBundleIdentifier];
+    if (v21)
     {
-      v18 = CPS_LOG_CHANNEL_PREFIXClipServices();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+      v23 = CPS_LOG_CHANNEL_PREFIXClipServices(v21, v22);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
       {
-        v19 = *(*(a1 + 32) + 128);
-        LODWORD(v34) = 138477827;
-        *(&v34 + 4) = v19;
-        _os_log_impl(&dword_2436ED000, v18, OS_LOG_TYPE_INFO, "Find a AMS placeholder app clip experience; use ODJ replacement metadata for URL %{private}@", &v34, 0xCu);
+        v24 = *(*(a1 + 32) + 128);
+        LODWORD(v38) = 138477827;
+        *(&v38 + 4) = v24;
+        _os_log_impl(&dword_2436ED000, v23, OS_LOG_TYPE_INFO, "Find a AMS placeholder app clip experience; use ODJ replacement metadata for URL %{private}@", &v38, 0xCu);
       }
 
-      v20 = *(*&buf[8] + 40);
+      v25 = *(*&buf[8] + 40);
       *(*&buf[8] + 40) = 0;
     }
 
-    v21 = [*(*&buf[8] + 40) clipLaunchURL];
-    v22 = *(a1 + 32);
-    v23 = *(*&buf[8] + 40);
-    v24 = *(*(*(a1 + 56) + 8) + 40);
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __36__CPSSession__fetchBusinessMetadata__block_invoke_17;
-    v26[3] = &unk_278DCE620;
-    v29 = buf;
-    v26[4] = v22;
-    v27 = v10;
-    v12 = v17;
-    v28 = v12;
-    [v22 _synthesizeFullAppMetadataFromMetadata:v23 patternMatchedBundleID:v24 URL:v21 completionHandler:v26];
+    v26 = [*(*&buf[8] + 40) clipLaunchURL];
+    v27 = *(a1 + 32);
+    v28 = *(*&buf[8] + 40);
+    v29 = *(*(*(a1 + 56) + 8) + 40);
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v30[2] = __36__CPSSession__fetchBusinessMetadata__block_invoke_17;
+    v30[3] = &unk_278DCE620;
+    v33 = buf;
+    v30[4] = v27;
+    v31 = v13;
+    v15 = v20;
+    v32 = v15;
+    [v27 _synthesizeFullAppMetadataFromMetadata:v28 patternMatchedBundleID:v29 URL:v26 completionHandler:v30];
   }
 
   _Block_object_dispose(buf, 8);
-LABEL_26:
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __36__CPSSession__fetchBusinessMetadata__block_invoke_17(uint64_t a1, int a2, void *a3)
@@ -585,37 +582,35 @@ void __36__CPSSession__fetchBusinessMetadata__block_invoke_3_20(uint64_t a1, voi
 
 - (void)_fetchAppMetadataWithBundleID:(id)d url:(id)url accountInvocationPolicy:(id)policy
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   policyCopy = policy;
   queue = self->_queue;
   urlCopy = url;
   dCopy = d;
   dispatch_assert_queue_V2(queue);
-  v12 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  if (os_signpost_enabled(v12))
+  v14 = CPS_LOG_CHANNEL_PREFIXClipServices(v12, v13);
+  if (os_signpost_enabled(v14))
   {
-    v13 = v12;
+    v15 = v14;
     logID = [(CPSSession *)self logID];
     *buf = 138543618;
-    v23 = logID;
-    v24 = 2082;
-    v25 = "[begin] Fetching App metadata";
-    _os_signpost_emit_with_name_impl(&dword_2436ED000, v13, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "AppMetaData", " ID=[%{public, signpost.description:logID}@]  Message=%{public}s ", buf, 0x16u);
+    v24 = logID;
+    v25 = 2082;
+    v26 = "[begin] Fetching App metadata";
+    _os_signpost_emit_with_name_impl(&dword_2436ED000, v15, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "AppMetaData", " ID=[%{public, signpost.description:logID}@]  Message=%{public}s ", buf, 0x16u);
   }
 
   appInfoFetcher = self->_appInfoFetcher;
   sourceBundleID = [(CPSSessionConfiguration *)self->_configuration sourceBundleID];
   registeredForTest = [(CPSSession *)self registeredForTest];
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __72__CPSSession__fetchAppMetadataWithBundleID_url_accountInvocationPolicy___block_invoke;
-  v20[3] = &unk_278DCE698;
-  v20[4] = self;
-  v21 = policyCopy;
-  v18 = policyCopy;
-  [(CPSAppInfoFetching *)appInfoFetcher lookUpClipMetadataByBundleID:dCopy sourceBundleID:sourceBundleID URL:urlCopy downloadIconIfNeeded:0 skipCaching:registeredForTest completionHandler:v20];
-
-  v19 = *MEMORY[0x277D85DE8];
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __72__CPSSession__fetchAppMetadataWithBundleID_url_accountInvocationPolicy___block_invoke;
+  v21[3] = &unk_278DCE698;
+  v21[4] = self;
+  v22 = policyCopy;
+  v20 = policyCopy;
+  [(CPSAppInfoFetching *)appInfoFetcher lookUpClipMetadataByBundleID:dCopy sourceBundleID:sourceBundleID URL:urlCopy downloadIconIfNeeded:0 skipCaching:registeredForTest completionHandler:v21];
 }
 
 void __72__CPSSession__fetchAppMetadataWithBundleID_url_accountInvocationPolicy___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -638,110 +633,108 @@ void __72__CPSSession__fetchAppMetadataWithBundleID_url_accountInvocationPolicy_
   dispatch_async(v9, v12);
 }
 
-void __72__CPSSession__fetchAppMetadataWithBundleID_url_accountInvocationPolicy___block_invoke_2(uint64_t a1)
+void __72__CPSSession__fetchAppMetadataWithBundleID_url_accountInvocationPolicy___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v35 = *MEMORY[0x277D85DE8];
-  v2 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  if (os_signpost_enabled(v2))
+  v39 = *MEMORY[0x277D85DE8];
+  v3 = CPS_LOG_CHANNEL_PREFIXClipServices(a1, a2);
+  v4 = os_signpost_enabled(v3);
+  if (v4)
   {
-    v3 = *(a1 + 32);
-    v4 = v2;
-    v5 = [v3 logID];
-    *v32 = 138543618;
-    *&v32[4] = v5;
-    v33 = 2082;
-    v34 = "[end] Fetching App metadata enableTelemetry=YES ";
-    _os_signpost_emit_with_name_impl(&dword_2436ED000, v4, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "AppMetaData", " ID=[%{public, signpost.description:logID}@]  Message=%{public}s ", v32, 0x16u);
+    v6 = *(a1 + 32);
+    v7 = v3;
+    v8 = [v6 logID];
+    *v36 = 138543618;
+    *&v36[4] = v8;
+    v37 = 2082;
+    v38 = "[end] Fetching App metadata enableTelemetry=YES ";
+    _os_signpost_emit_with_name_impl(&dword_2436ED000, v7, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "AppMetaData", " ID=[%{public, signpost.description:logID}@]  Message=%{public}s ", v36, 0x16u);
   }
 
-  if (*(a1 + 40) || (v10 = (a1 + 48), !*(a1 + 48)))
+  if (*(a1 + 40) || (v12 = (a1 + 48), !*(a1 + 48)))
   {
-    v6 = CPS_LOG_CHANNEL_PREFIXClipServices();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v9 = CPS_LOG_CHANNEL_PREFIXClipServices(v4, v5);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __72__CPSSession__fetchAppMetadataWithBundleID_url_accountInvocationPolicy___block_invoke_2_cold_2(a1, v6, (a1 + 40));
+      __72__CPSSession__fetchAppMetadataWithBundleID_url_accountInvocationPolicy___block_invoke_2_cold_2(a1, v9, (a1 + 40));
     }
 
-    v7 = *(a1 + 32);
-    v8 = [MEMORY[0x277CCA9B8] cps_errorWithCode:10];
-    [v7 _didFinishLoadingWithError:v8];
+    v10 = *(a1 + 32);
+    v11 = [MEMORY[0x277CCA9B8] cps_errorWithCode:10];
+    [v10 _didFinishLoadingWithError:v11];
 
     [*(a1 + 32) _retrieveApplicationIconWithAppIconURL:0 clipBundleID:0];
   }
 
   else
   {
-    v11 = (a1 + 32);
-    v12 = *(*(a1 + 32) + 136);
-    if (v12)
+    v13 = (a1 + 32);
+    v14 = *(*(a1 + 32) + 136);
+    if (v14)
     {
-      v13 = [v12 clipBundleID];
-      v14 = [*v10 clipBundleID];
-      v15 = [v13 isEqualToString:v14];
+      v15 = [v14 clipBundleID];
+      v16 = [*v12 clipBundleID];
+      v17 = [v15 isEqualToString:v16];
 
-      if ((v15 & 1) == 0)
+      if ((v17 & 1) == 0)
       {
-        v16 = CPS_LOG_CHANNEL_PREFIXClipServices();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        v20 = CPS_LOG_CHANNEL_PREFIXClipServices(v18, v19);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
-          __72__CPSSession__fetchAppMetadataWithBundleID_url_accountInvocationPolicy___block_invoke_2_cold_1(v11, v16, v10);
+          __72__CPSSession__fetchAppMetadataWithBundleID_url_accountInvocationPolicy___block_invoke_2_cold_1(v13, v20, v12);
         }
       }
     }
 
     else
     {
-      v17 = objc_alloc_init(CPSClipMetadata);
-      v18 = *(a1 + 32);
-      v19 = *(v18 + 136);
-      *(v18 + 136) = v17;
+      v21 = objc_alloc_init(CPSClipMetadata);
+      v22 = *(a1 + 32);
+      v23 = *(v22 + 136);
+      *(v22 + 136) = v21;
 
       [*(*(a1 + 32) + 136) setInvocationPolicy:*(a1 + 56)];
-      v20 = [*(a1 + 48) clipBundleID];
-      [*(*(a1 + 32) + 136) setClipBundleID:v20];
+      v24 = [*(a1 + 48) clipBundleID];
+      [*(*(a1 + 32) + 136) setClipBundleID:v24];
 
       [*(*(a1 + 32) + 136) setClipRequestURL:*(*(a1 + 32) + 128)];
     }
 
-    [*(*v11 + 17) _updateWithAMSMetadata:*v10];
-    *(*v11 + 9) = 2;
-    [*v11 _didUpdateMetadata:*(*v11 + 17)];
-    v21 = [*(*v11 + 17) invocationPolicy];
-    v22 = [v21 isEligible];
+    [*(*v13 + 17) _updateWithAMSMetadata:*v12];
+    *(*v13 + 9) = 2;
+    [*v13 _didUpdateMetadata:*(*v13 + 17)];
+    v25 = [*(*v13 + 17) invocationPolicy];
+    v26 = [v25 isEligible];
 
-    if (v22)
+    if (v26)
     {
-      v32[0] = 0;
-      v23 = +[CPSAnalyticsLogger sharedLogger];
-      v24 = [*(*v11 + 17) clipBundleID];
-      v25 = [*(*v11 + 22) launchReason];
-      [v23 didDiscoverClip:v24 event:v25 alreadyInstalled:{objc_msgSend(*(*v11 + 17), "hasUpToDateVersionInstalledOnSystemIsPlaceholder:", v32)}];
+      v36[0] = 0;
+      v27 = +[CPSAnalyticsLogger sharedLogger];
+      v28 = [*(*v13 + 17) clipBundleID];
+      v29 = [*(*v13 + 22) launchReason];
+      [v27 didDiscoverClip:v28 event:v29 alreadyInstalled:{objc_msgSend(*(*v13 + 17), "hasUpToDateVersionInstalledOnSystemIsPlaceholder:", v36)}];
     }
 
-    v26 = [*(*v11 + 17) invocationPolicy];
-    if ([v26 isEligible])
+    v30 = [*(*v13 + 17) invocationPolicy];
+    if ([v30 isEligible])
     {
 
 LABEL_19:
-      v29 = *v11;
-      v30 = [*(*v11 + 17) fullAppIconURL];
-      v31 = [*(*v11 + 17) clipBundleID];
-      [v29 _retrieveApplicationIconWithAppIconURL:v30 clipBundleID:v31];
+      v33 = *v13;
+      v34 = [*(*v13 + 17) fullAppIconURL];
+      v35 = [*(*v13 + 17) clipBundleID];
+      [v33 _retrieveApplicationIconWithAppIconURL:v34 clipBundleID:v35];
 
-      goto LABEL_7;
+      return;
     }
 
-    v27 = [*(*v11 + 17) invocationPolicy];
-    v28 = [v27 isRecoverable];
+    v31 = [*(*v13 + 17) invocationPolicy];
+    v32 = [v31 isRecoverable];
 
-    if (v28)
+    if (v32)
     {
       goto LABEL_19;
     }
   }
-
-LABEL_7:
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_fetchBusinessIconIfNeeded
@@ -751,16 +744,16 @@ LABEL_7:
   clipBusinessIconURL = [(CPSClipMetadata *)self->_metadata clipBusinessIconURL];
   clipMapItemMUID = [(CPSClipMetadata *)self->_metadata clipMapItemMUID];
   clipBusinessIconStyleAttributes = [(CPSClipMetadata *)self->_metadata clipBusinessIconStyleAttributes];
-  v6 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  if (os_signpost_enabled(v6))
+  v7 = CPS_LOG_CHANNEL_PREFIXClipServices(clipBusinessIconStyleAttributes, v6);
+  if (os_signpost_enabled(v7))
   {
-    v7 = v6;
+    v8 = v7;
     logID = [(CPSSession *)self logID];
     *buf = 138543618;
     v20 = logID;
     v21 = 2082;
     v22 = "[begin] Fetching business icon data";
-    _os_signpost_emit_with_name_impl(&dword_2436ED000, v7, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "BusinessIconData", " ID=[%{public, signpost.description:logID}@]  Message=%{public}s ", buf, 0x16u);
+    _os_signpost_emit_with_name_impl(&dword_2436ED000, v8, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "BusinessIconData", " ID=[%{public, signpost.description:logID}@]  Message=%{public}s ", buf, 0x16u);
   }
 
   v18[0] = MEMORY[0x277D85DD0];
@@ -768,36 +761,34 @@ LABEL_7:
   v18[2] = __40__CPSSession__fetchBusinessIconIfNeeded__block_invoke;
   v18[3] = &unk_278DCE6C0;
   v18[4] = self;
-  v9 = MEMORY[0x245D3D5F0](v18);
+  v10 = MEMORY[0x245D3D5F0](v18);
   if (clipBusinessIconURL)
   {
-    v10 = +[CPSPromise promise];
+    v11 = +[CPSPromise promise];
     businessIconFetchingPromise = self->_businessIconFetchingPromise;
-    self->_businessIconFetchingPromise = v10;
+    self->_businessIconFetchingPromise = v11;
 
-    [(CPSImageLoader *)self->_imageLoader loadImageWithURL:clipBusinessIconURL completionHandler:v9];
+    [(CPSImageLoader *)self->_imageLoader loadImageWithURL:clipBusinessIconURL completionHandler:v10];
   }
 
   else if (clipMapItemMUID)
   {
-    v12 = +[CPSPromise promise];
-    v13 = self->_businessIconFetchingPromise;
-    self->_businessIconFetchingPromise = v12;
+    v13 = +[CPSPromise promise];
+    v14 = self->_businessIconFetchingPromise;
+    self->_businessIconFetchingPromise = v13;
 
-    -[CPSImageLoader loadImageForMapItemMUID:completionHandler:](self->_imageLoader, "loadImageForMapItemMUID:completionHandler:", [clipMapItemMUID unsignedLongLongValue], v9);
+    -[CPSImageLoader loadImageForMapItemMUID:completionHandler:](self->_imageLoader, "loadImageForMapItemMUID:completionHandler:", [clipMapItemMUID unsignedLongLongValue], v10);
   }
 
   else if (clipBusinessIconStyleAttributes)
   {
-    v14 = +[CPSPromise promise];
-    v15 = self->_businessIconFetchingPromise;
-    self->_businessIconFetchingPromise = v14;
+    v15 = +[CPSPromise promise];
+    v16 = self->_businessIconFetchingPromise;
+    self->_businessIconFetchingPromise = v15;
 
-    v16 = [objc_alloc(MEMORY[0x277D0ED90]) initWithDictionary:clipBusinessIconStyleAttributes];
-    [(CPSImageLoader *)self->_imageLoader loadImageForGEOStyleAttributes:v16 completionHandler:v9];
+    v17 = [objc_alloc(MEMORY[0x277D0ED90]) initWithDictionary:clipBusinessIconStyleAttributes];
+    [(CPSImageLoader *)self->_imageLoader loadImageForGEOStyleAttributes:v17 completionHandler:v10];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __40__CPSSession__fetchBusinessIconIfNeeded__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -805,44 +796,42 @@ void __40__CPSSession__fetchBusinessIconIfNeeded__block_invoke(uint64_t a1, void
   v24 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  if (os_signpost_enabled(v7))
+  v8 = CPS_LOG_CHANNEL_PREFIXClipServices(v6, v7);
+  if (os_signpost_enabled(v8))
   {
-    v8 = *(a1 + 32);
-    v9 = v7;
-    v10 = [v8 logID];
+    v9 = *(a1 + 32);
+    v10 = v8;
+    v11 = [v9 logID];
     *buf = 138543618;
-    v21 = v10;
+    v21 = v11;
     v22 = 2082;
     v23 = "[end] Fetching business icon data";
-    _os_signpost_emit_with_name_impl(&dword_2436ED000, v9, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "BusinessIconData", " ID=[%{public, signpost.description:logID}@]  Message=%{public}s ", buf, 0x16u);
+    _os_signpost_emit_with_name_impl(&dword_2436ED000, v10, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "BusinessIconData", " ID=[%{public, signpost.description:logID}@]  Message=%{public}s ", buf, 0x16u);
   }
 
-  v11 = *(a1 + 32);
-  v12 = *(v11 + 8);
+  v12 = *(a1 + 32);
+  v13 = *(v12 + 8);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __40__CPSSession__fetchBusinessIconIfNeeded__block_invoke_29;
   block[3] = &unk_278DCE110;
   v17 = v6;
-  v18 = v11;
+  v18 = v12;
   v19 = v5;
-  v13 = v5;
-  v14 = v6;
-  dispatch_async(v12, block);
-
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = v5;
+  v15 = v6;
+  dispatch_async(v13, block);
 }
 
-uint64_t __40__CPSSession__fetchBusinessIconIfNeeded__block_invoke_29(uint64_t a1)
+uint64_t __40__CPSSession__fetchBusinessIconIfNeeded__block_invoke_29(uint64_t a1, uint64_t a2)
 {
-  v2 = (a1 + 32);
+  v3 = (a1 + 32);
   if (*(a1 + 32))
   {
-    v3 = CPS_LOG_CHANNEL_PREFIXClipServices();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = CPS_LOG_CHANNEL_PREFIXClipServices(a1, a2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __40__CPSSession__fetchBusinessIconIfNeeded__block_invoke_29_cold_1(v2, v3);
+      __40__CPSSession__fetchBusinessIconIfNeeded__block_invoke_29_cold_1(v3, v4);
     }
 
     [*(*(a1 + 40) + 112) finishWithError:*(a1 + 32)];
@@ -984,174 +973,222 @@ void __58__CPSSession__fetchParentApplicationMetadataWithBundleID___block_invoke
 
 void __98__CPSSession__synthesizeFullAppMetadataFromMetadata_patternMatchedBundleID_URL_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   v5 = a3;
+  v7 = v5;
   if (a2)
   {
-    v6 = [a2 targetApplicationRecord];
-    v7 = [v6 bundleIdentifier];
-    if ([v7 length])
+    v8 = [a2 targetApplicationRecord];
+    v9 = [v8 bundleIdentifier];
+    v10 = [v9 length];
+    if (v10)
     {
-      if (!*(a1 + 56) || ([v7 cps_looksLikeParentAppOfAppClipBundleIdentifier:?] & 1) != 0)
+      if (!*(a1 + 56) || (v10 = [v9 cps_looksLikeParentAppOfAppClipBundleIdentifier:?], (v10 & 1) != 0))
       {
-        v8 = CPS_LOG_CHANNEL_PREFIXClipServices();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+        v12 = CPS_LOG_CHANNEL_PREFIXClipServices(v10, v11);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
         {
-          v9 = *(a1 + 48);
-          v10 = v8;
-          v11 = objc_opt_class();
-          v12 = *(a1 + 48);
+          v13 = v12;
+          v14 = objc_opt_class();
+          v15 = *(a1 + 48);
           *buf = 138543618;
-          v51 = v11;
-          v52 = 2048;
-          v53 = v12;
-          _os_log_impl(&dword_2436ED000, v10, OS_LOG_TYPE_INFO, "%{public}@ (%p): Full app already installed, synthesizing metadata to allow early open", buf, 0x16u);
+          v49 = v14;
+          v50 = 2048;
+          v51 = v15;
+          _os_log_impl(&dword_2436ED000, v13, OS_LOG_TYPE_INFO, "%{public}@ (%p): Full app already installed, synthesizing metadata to allow early open", buf, 0x16u);
         }
 
-        v13 = *(a1 + 40);
-        if (!v13)
-        {
-          v13 = objc_alloc_init(CPSClipMetadata);
-        }
-
-        v14 = [(CPSClipMetadata *)v13 clipRequestURL];
-
-        if (!v14)
-        {
-          [(CPSClipMetadata *)v13 setClipRequestURL:*(a1 + 32)];
-        }
-
-        v15 = [(CPSClipMetadata *)v13 fullAppBundleID];
-
-        if (!v15)
-        {
-          [(CPSClipMetadata *)v13 setFullAppBundleID:v7];
-        }
-
-        v16 = [(CPSClipMetadata *)v13 fullAppName];
-
+        v16 = *(a1 + 40);
         if (!v16)
         {
-          v17 = [v6 iTunesMetadata];
-          v18 = [v17 itemName];
-          if (v18)
+          v16 = objc_alloc_init(CPSClipMetadata);
+        }
+
+        v17 = [(CPSClipMetadata *)v16 clipRequestURL];
+
+        if (!v17)
+        {
+          [(CPSClipMetadata *)v16 setClipRequestURL:*(a1 + 32)];
+        }
+
+        v18 = [(CPSClipMetadata *)v16 fullAppBundleID];
+
+        if (!v18)
+        {
+          [(CPSClipMetadata *)v16 setFullAppBundleID:v9];
+        }
+
+        v19 = [(CPSClipMetadata *)v16 fullAppName];
+
+        if (!v19)
+        {
+          v20 = [v8 iTunesMetadata];
+          v21 = [v20 itemName];
+          if (v21)
           {
-            [(CPSClipMetadata *)v13 setFullAppName:v18];
+            [(CPSClipMetadata *)v16 setFullAppName:v21];
           }
 
           else
           {
-            v35 = [v6 localizedName];
-            [(CPSClipMetadata *)v13 setFullAppName:v35];
+            v34 = [v8 localizedName];
+            [(CPSClipMetadata *)v16 setFullAppName:v34];
           }
         }
 
-        v36 = [(CPSClipMetadata *)v13 fullAppContentRating];
+        v35 = [(CPSClipMetadata *)v16 fullAppContentRating];
 
-        if (!v36)
+        if (!v35)
         {
-          v37 = [v6 iTunesMetadata];
-          v38 = [v37 ratingLabel];
-          [(CPSClipMetadata *)v13 setFullAppContentRating:v38];
+          v36 = [v8 iTunesMetadata];
+          v37 = [v36 ratingLabel];
+          [(CPSClipMetadata *)v16 setFullAppContentRating:v37];
         }
 
-        v39 = [(CPSClipMetadata *)v13 fullAppStoreURL];
+        v38 = [(CPSClipMetadata *)v16 fullAppStoreURL];
 
-        if (!v39)
+        if (!v38)
         {
-          v40 = [v6 iTunesMetadata];
-          v41 = [v40 storeItemIdentifier];
+          v39 = [v8 iTunesMetadata];
+          v40 = [v39 storeItemIdentifier];
 
-          if (v41)
+          if (v40)
           {
-            v42 = MEMORY[0x277CBEBC0];
-            v43 = [MEMORY[0x277CCACA8] stringWithFormat:@"https://apps.apple.com/app/id%llu", v41];
-            v44 = [v42 URLWithString:v43];
-            [(CPSClipMetadata *)v13 setFullAppStoreURL:v44];
+            v41 = MEMORY[0x277CBEBC0];
+            v42 = [MEMORY[0x277CCACA8] stringWithFormat:@"https://apps.apple.com/app/id%llu", v40];
+            v43 = [v41 URLWithString:v42];
+            [(CPSClipMetadata *)v16 setFullAppStoreURL:v43];
           }
         }
 
-        v47[0] = MEMORY[0x277D85DD0];
-        v47[1] = 3221225472;
-        v47[2] = __98__CPSSession__synthesizeFullAppMetadataFromMetadata_patternMatchedBundleID_URL_completionHandler___block_invoke_41;
-        v47[3] = &unk_278DCE4F8;
-        v48 = v13;
-        v49 = *(a1 + 64);
-        v45 = v13;
-        [CPSClipInvocationPolicy requestAccountPolicyForClipMetadata:v45 withCompletion:v47];
+        v45[0] = MEMORY[0x277D85DD0];
+        v45[1] = 3221225472;
+        v45[2] = __98__CPSSession__synthesizeFullAppMetadataFromMetadata_patternMatchedBundleID_URL_completionHandler___block_invoke_41;
+        v45[3] = &unk_278DCE4F8;
+        v46 = v16;
+        v47 = *(a1 + 64);
+        v44 = v16;
+        [CPSClipInvocationPolicy requestAccountPolicyForClipMetadata:v44 withCompletion:v45];
 
         goto LABEL_33;
       }
 
-      v30 = CPS_LOG_CHANNEL_PREFIXClipServices();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+      v31 = CPS_LOG_CHANNEL_PREFIXClipServices(v10, v11);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
       {
-        v31 = *(a1 + 48);
-        v26 = v30;
+        v27 = v31;
         v32 = objc_opt_class();
         v33 = *(a1 + 48);
         *buf = 138543618;
-        v51 = v32;
-        v52 = 2048;
-        v53 = v33;
-        v29 = "%{public}@ (%p): Failed to synthesize full app metadata: full app bundle identifier isn't prefix of app clip bundle identifier";
+        v49 = v32;
+        v50 = 2048;
+        v51 = v33;
+        v30 = "%{public}@ (%p): Failed to synthesize full app metadata: full app bundle identifier isn't prefix of app clip bundle identifier";
         goto LABEL_23;
       }
     }
 
     else
     {
-      v24 = CPS_LOG_CHANNEL_PREFIXClipServices();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+      v26 = CPS_LOG_CHANNEL_PREFIXClipServices(0, v11);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
       {
-        v25 = *(a1 + 48);
-        v26 = v24;
-        v27 = objc_opt_class();
-        v28 = *(a1 + 48);
+        v27 = v26;
+        v28 = objc_opt_class();
+        v29 = *(a1 + 48);
         *buf = 138543618;
-        v51 = v27;
-        v52 = 2048;
-        v53 = v28;
-        v29 = "%{public}@ (%p): Failed to synthesize full app metadata: full app bundle ID is invalid";
+        v49 = v28;
+        v50 = 2048;
+        v51 = v29;
+        v30 = "%{public}@ (%p): Failed to synthesize full app metadata: full app bundle ID is invalid";
 LABEL_23:
-        _os_log_impl(&dword_2436ED000, v26, OS_LOG_TYPE_INFO, v29, buf, 0x16u);
+        _os_log_impl(&dword_2436ED000, v27, OS_LOG_TYPE_INFO, v30, buf, 0x16u);
       }
     }
 
-    v34 = *(a1 + 40);
     (*(*(a1 + 64) + 16))();
 LABEL_33:
 
     goto LABEL_34;
   }
 
-  v19 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+  v22 = CPS_LOG_CHANNEL_PREFIXClipServices(v5, v6);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
   {
-    v20 = *(a1 + 32);
-    v21 = v19;
-    v22 = [v5 cps_privacyPreservingDescription];
+    v23 = *(a1 + 32);
+    v24 = v22;
+    v25 = [v7 cps_privacyPreservingDescription];
     *buf = 138740227;
-    v51 = v20;
-    v52 = 2114;
-    v53 = v22;
-    _os_log_impl(&dword_2436ED000, v21, OS_LOG_TYPE_INFO, "Failed to resolve App Link for URL %{sensitive}@ with error %{public}@", buf, 0x16u);
+    v49 = v23;
+    v50 = 2114;
+    v51 = v25;
+    _os_log_impl(&dword_2436ED000, v24, OS_LOG_TYPE_INFO, "Failed to resolve App Link for URL %{sensitive}@ with error %{public}@", buf, 0x16u);
   }
 
-  v23 = *(a1 + 40);
   (*(*(a1 + 64) + 16))();
 LABEL_34:
-
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __98__CPSSession__synthesizeFullAppMetadataFromMetadata_patternMatchedBundleID_URL_completionHandler___block_invoke_41(uint64_t a1, uint64_t a2)
 {
   [*(a1 + 32) setInvocationPolicy:a2];
-  v3 = *(a1 + 32);
-  v4 = *(*(a1 + 40) + 16);
+  v3 = *(*(a1 + 40) + 16);
 
-  return v4();
+  return v3();
+}
+
+- (void)_didDetermineAvailability:(BOOL)availability
+{
+  availabilityCopy = availability;
+  v18 = *MEMORY[0x277D85DE8];
+  dispatch_assert_queue_V2(self->_queue);
+  v5 = 1;
+  if (!availabilityCopy)
+  {
+    v5 = 2;
+  }
+
+  self->_clipAvailabilityState = v5;
+  _availabilityOptions = [(CPSSession *)self _availabilityOptions];
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v7 = self->_proxyObjects;
+  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  if (v8)
+  {
+    v9 = v8;
+    v10 = *v14;
+    do
+    {
+      v11 = 0;
+      do
+      {
+        if (*v14 != v10)
+        {
+          objc_enumerationMutation(v7);
+        }
+
+        [*(*(&v13 + 1) + 8 * v11++) didDetermineAvailability:availabilityCopy options:{_availabilityOptions, v13}];
+      }
+
+      while (v9 != v11);
+      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    }
+
+    while (v9);
+  }
+
+  if (!availabilityCopy)
+  {
+    fallbackClipBundleID = [(CPSSessionConfiguration *)self->_configuration fallbackClipBundleID];
+
+    if (!fallbackClipBundleID)
+    {
+      [(CPSSession *)self _evictFromCache];
+    }
+  }
 }
 
 - (id)_availabilityOptions
@@ -1206,33 +1243,33 @@ uint64_t __98__CPSSession__synthesizeFullAppMetadataFromMetadata_patternMatchedB
 
 - (void)_notifyObserversOfMetadataFetchResultUpdates:(id)updates
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   updatesCopy = updates;
   v5 = updatesCopy;
   if (self->_metadataFetchError)
   {
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
-    v6 = [updatesCopy countByEnumeratingWithState:&v20 objects:v25 count:16];
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
+    v6 = [updatesCopy countByEnumeratingWithState:&v19 objects:v24 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v21;
+      v8 = *v20;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v21 != v8)
+          if (*v20 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          [*(*(&v20 + 1) + 8 * i) didFinishLoadingWithError:self->_metadataFetchError];
+          [*(*(&v19 + 1) + 8 * i) didFinishLoadingWithError:self->_metadataFetchError];
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v20 objects:v25 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v19 objects:v24 count:16];
       }
 
       while (v7);
@@ -1244,36 +1281,34 @@ uint64_t __98__CPSSession__synthesizeFullAppMetadataFromMetadata_patternMatchedB
     metadataFetchState = self->_metadataFetchState;
     if (metadataFetchState == 2 || metadataFetchState == 1 && self->_metadata)
     {
-      v18 = 0u;
-      v19 = 0u;
-      v16 = 0u;
       v17 = 0u;
-      v11 = [updatesCopy countByEnumeratingWithState:&v16 objects:v24 count:16];
+      v18 = 0u;
+      v15 = 0u;
+      v16 = 0u;
+      v11 = [updatesCopy countByEnumeratingWithState:&v15 objects:v23 count:16];
       if (v11)
       {
         v12 = v11;
-        v13 = *v17;
+        v13 = *v16;
         do
         {
           for (j = 0; j != v12; ++j)
           {
-            if (*v17 != v13)
+            if (*v16 != v13)
             {
               objc_enumerationMutation(v5);
             }
 
-            [*(*(&v16 + 1) + 8 * j) didUpdateMetadata:self->_metadata];
+            [*(*(&v15 + 1) + 8 * j) didUpdateMetadata:self->_metadata];
           }
 
-          v12 = [v5 countByEnumeratingWithState:&v16 objects:v24 count:16];
+          v12 = [v5 countByEnumeratingWithState:&v15 objects:v23 count:16];
         }
 
         while (v12);
       }
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_didFinishLoadingWithError:(id)error
@@ -1312,40 +1347,38 @@ uint64_t __98__CPSSession__synthesizeFullAppMetadataFromMetadata_patternMatchedB
 
 - (void)_didFetchBusinessIconWithURL:(id)l
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   lCopy = l;
   objc_storeStrong(&self->_businessIconFileURL, l);
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v6 = self->_proxyObjects;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [*(*(&v12 + 1) + 8 * v10++) didRetrieveBusinessIcon:{lCopy, v12}];
+        [*(*(&v11 + 1) + 8 * v10++) didRetrieveBusinessIcon:{lCopy, v11}];
       }
 
       while (v8 != v10);
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_evictFromCache
@@ -1384,19 +1417,19 @@ uint64_t __98__CPSSession__synthesizeFullAppMetadataFromMetadata_patternMatchedB
   dispatch_async(queue, block);
 }
 
-uint64_t __37__CPSSession_clearMetadataAndRefetch__block_invoke(uint64_t result)
+void *__37__CPSSession_clearMetadataAndRefetch__block_invoke(void *result)
 {
-  v2 = *(result + 32);
+  v2 = result[4];
   if (*(v2 + 72) != 1)
   {
     v3 = result;
     *(v2 + 56) = 0;
-    *(*(result + 32) + 72) = 0;
-    v4 = *(result + 32);
+    *(result[4] + 72) = 0;
+    v4 = result[4];
     v5 = *(v4 + 80);
     *(v4 + 80) = 0;
 
-    v6 = *(v3 + 32);
+    v6 = v3[4];
 
     return [v6 _fetchBusinessMetadata];
   }
@@ -1418,41 +1451,39 @@ uint64_t __37__CPSSession_clearMetadataAndRefetch__block_invoke(uint64_t result)
 
 void __43__CPSSession_didCompleteTestSessionAtTime___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) registeredForTest])
   {
-    v10 = 0u;
-    v11 = 0u;
-    v8 = 0u;
     v9 = 0u;
+    v10 = 0u;
+    v7 = 0u;
+    v8 = 0u;
     v2 = *(*(a1 + 32) + 16);
-    v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+    v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     if (v3)
     {
       v4 = v3;
-      v5 = *v9;
+      v5 = *v8;
       do
       {
         v6 = 0;
         do
         {
-          if (*v9 != v5)
+          if (*v8 != v5)
           {
             objc_enumerationMutation(v2);
           }
 
-          [*(*(&v8 + 1) + 8 * v6++) didFinishTestingAtTime:{*(a1 + 40), v8}];
+          [*(*(&v7 + 1) + 8 * v6++) didFinishTestingAtTime:{*(a1 + 40), v7}];
         }
 
         while (v4 != v6);
-        v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+        v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
       }
 
       while (v4);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)checkAndConsumeShowsAppAttributionBannerLaunchOption
@@ -1551,15 +1582,9 @@ uint64_t __42__CPSSession_fetchMetadataWithCompletion___block_invoke_2(uint64_t 
   }
 
   [*(a1 + 32) _didUpdateMetadata:*(*(a1 + 32) + 136)];
-  v7 = *(a1 + 32);
-  if (!*(v7 + 80))
-  {
-    v8 = *(v7 + 136);
-  }
+  v7 = *(*(a1 + 40) + 16);
 
-  v9 = *(*(a1 + 40) + 16);
-
-  return v9();
+  return v7();
 }
 
 void __42__CPSSession_fetchMetadataWithCompletion___block_invoke_3(uint64_t a1, void *a2, void *a3)
@@ -1837,80 +1862,81 @@ void __60__CPSSession__retrieveApplicationIconWithCompletionHandler___block_invo
 
 - (id)_retrieveInstalledApplicationIconWithAppIconURL:(id)l clipBundleID:(id)d
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   lCopy = l;
   dCopy = d;
-  v26 = 0;
-  v7 = [objc_alloc(MEMORY[0x277CC1E70]) initWithBundleIdentifier:dCopy allowPlaceholder:0 error:&v26];
-  v8 = v26;
+  v31 = 0;
+  v7 = [objc_alloc(MEMORY[0x277CC1E70]) initWithBundleIdentifier:dCopy allowPlaceholder:0 error:&v31];
+  v8 = v31;
+  v10 = v8;
   if (!v7)
   {
-    v15 = CPS_LOG_CHANNEL_PREFIXClipServices();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    v19 = CPS_LOG_CHANNEL_PREFIXClipServices(v8, v9);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
     {
-      v16 = v15;
-      cps_privacyPreservingDescription = [v8 cps_privacyPreservingDescription];
+      v20 = v19;
+      cps_privacyPreservingDescription = [v10 cps_privacyPreservingDescription];
       *buf = 138478083;
-      v28 = dCopy;
-      v29 = 2114;
-      v30 = cps_privacyPreservingDescription;
-      _os_log_impl(&dword_2436ED000, v16, OS_LOG_TYPE_INFO, "Unable to find local application record, clip %{private}@ not installed: %{public}@", buf, 0x16u);
+      v33 = dCopy;
+      v34 = 2114;
+      v35 = cps_privacyPreservingDescription;
+      _os_log_impl(&dword_2436ED000, v20, OS_LOG_TYPE_INFO, "Unable to find local application record, clip %{private}@ not installed: %{public}@", buf, 0x16u);
     }
 
     goto LABEL_9;
   }
 
-  v9 = _CPSCreateUnmaskedIconDataForBundle(dCopy);
-  if (!v9)
+  v11 = _CPSCreateUnmaskedIconDataForBundle(dCopy);
+  if (!v11)
   {
 LABEL_9:
-    v14 = 0;
+    v18 = 0;
     goto LABEL_17;
   }
 
-  v10 = v9;
-  v25 = 0;
-  v11 = [CPSImageStore keyForImageURL:lCopy error:&v25];
-  v12 = v25;
-  if (v12)
+  v12 = v11;
+  v30 = 0;
+  v13 = [CPSImageStore keyForImageURL:lCopy error:&v30];
+  v14 = v30;
+  v16 = v14;
+  if (v14)
   {
-    v13 = CPS_LOG_CHANNEL_PREFIXClipServices();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v17 = CPS_LOG_CHANNEL_PREFIXClipServices(v14, v15);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      [CPSSession _retrieveInstalledApplicationIconWithAppIconURL:v13 clipBundleID:v12];
+      [CPSSession _retrieveInstalledApplicationIconWithAppIconURL:v17 clipBundleID:v16];
     }
 
-    v14 = 0;
+    v18 = 0;
   }
 
   else
   {
-    v18 = objc_alloc_init(CPSImageStore);
-    v24 = 0;
-    v19 = [(CPSImageStore *)v18 storeImageData:v10 forKey:v11 error:&v24];
-    v20 = v24;
+    v22 = objc_alloc_init(CPSImageStore);
+    v29 = 0;
+    v23 = [(CPSImageStore *)v22 storeImageData:v12 forKey:v13 error:&v29];
+    v24 = v29;
 
-    if (v20)
+    if (v24)
     {
-      v21 = CPS_LOG_CHANNEL_PREFIXClipServices();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v27 = CPS_LOG_CHANNEL_PREFIXClipServices(v25, v26);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
-        [CPSSession _retrieveInstalledApplicationIconWithAppIconURL:v21 clipBundleID:v20];
+        [CPSSession _retrieveInstalledApplicationIconWithAppIconURL:v27 clipBundleID:v24];
       }
 
-      v14 = 0;
+      v18 = 0;
     }
 
     else
     {
-      v14 = v19;
+      v18 = v23;
     }
   }
 
 LABEL_17:
-  v22 = *MEMORY[0x277D85DE8];
 
-  return v14;
+  return v18;
 }
 
 - (void)_retrieveApplicationIconWithAppIconURL:(id)l clipBundleID:(id)d
@@ -1933,7 +1959,7 @@ LABEL_17:
 
 - (void)_retrieveImageWithURL:(id)l didFetchImage:(BOOL *)image fileURL:(id *)rL fetchCompletion:(id)completion proxyCompletion:(id)proxyCompletion
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   lCopy = l;
   completionCopy = completion;
   proxyCompletionCopy = proxyCompletion;
@@ -1942,18 +1968,18 @@ LABEL_17:
     *image = 0;
   }
 
-  v33[0] = MEMORY[0x277D85DD0];
-  v33[1] = 3221225472;
-  v33[2] = __90__CPSSession__retrieveImageWithURL_didFetchImage_fileURL_fetchCompletion_proxyCompletion___block_invoke;
-  v33[3] = &unk_278DCE848;
-  v33[4] = self;
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __90__CPSSession__retrieveImageWithURL_didFetchImage_fileURL_fetchCompletion_proxyCompletion___block_invoke;
+  v34[3] = &unk_278DCE848;
+  v34[4] = self;
   rLCopy = rL;
   imageCopy = image;
   v15 = completionCopy;
-  v34 = v15;
+  v35 = v15;
   v16 = proxyCompletionCopy;
-  v35 = v16;
-  v17 = MEMORY[0x245D3D5F0](v33);
+  v36 = v16;
+  v17 = MEMORY[0x245D3D5F0](v34);
   if ([lCopy cps_isFileURL] && !-[CPSClipMetadata isDeveloperOverride](self->_metadata, "isDeveloperOverride"))
   {
     (v17)[2](v17, lCopy);
@@ -1966,60 +1992,58 @@ LABEL_17:
     clipHeroImageURL = [(CPSClipMetadata *)self->_metadata clipHeroImageURL];
     v20 = [lCopy isEqual:clipHeroImageURL];
 
-    v21 = CPS_LOG_CHANNEL_PREFIXClipServices();
-    v22 = os_signpost_enabled(v21);
+    v23 = CPS_LOG_CHANNEL_PREFIXClipServices(v21, v22);
+    v24 = os_signpost_enabled(v23);
     if (v20)
     {
-      if (v22)
+      if (v24)
       {
-        v23 = v21;
+        v25 = v23;
         logID = [(CPSSession *)self logID];
         *buf = 138543618;
-        v39 = logID;
-        v40 = 2082;
-        v41 = "[begin] Fetching header image data";
-        v25 = "HeaderImage";
+        v40 = logID;
+        v41 = 2082;
+        v42 = "[begin] Fetching header image data";
+        v27 = "HeaderImage";
 LABEL_14:
-        _os_signpost_emit_with_name_impl(&dword_2436ED000, v23, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, v25, " ID=[%{public, signpost.description:logID}@]  Message=%{public}s ", buf, 0x16u);
+        _os_signpost_emit_with_name_impl(&dword_2436ED000, v25, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, v27, " ID=[%{public, signpost.description:logID}@]  Message=%{public}s ", buf, 0x16u);
       }
     }
 
-    else if (v22)
+    else if (v24)
     {
-      v23 = v21;
+      v25 = v23;
       logID = [(CPSSession *)self logID];
       *buf = 138543618;
-      v39 = logID;
-      v40 = 2082;
-      v41 = "[begin] Fetching application icon data";
-      v25 = "AppIcon";
+      v40 = logID;
+      v41 = 2082;
+      v42 = "[begin] Fetching application icon data";
+      v27 = "AppIcon";
       goto LABEL_14;
     }
 
     imageLoader = self->_imageLoader;
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __90__CPSSession__retrieveImageWithURL_didFetchImage_fileURL_fetchCompletion_proxyCompletion___block_invoke_67;
-    v29[3] = &unk_278DCE898;
-    v29[4] = self;
-    v30 = v18;
-    v31 = v17;
-    v32 = v20;
-    v27 = v18;
-    [(CPSImageLoader *)imageLoader loadImageWithURL:lCopy completionHandler:v29];
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v30[2] = __90__CPSSession__retrieveImageWithURL_didFetchImage_fileURL_fetchCompletion_proxyCompletion___block_invoke_67;
+    v30[3] = &unk_278DCE898;
+    v30[4] = self;
+    v31 = v18;
+    v32 = v17;
+    v33 = v20;
+    v29 = v18;
+    [(CPSImageLoader *)imageLoader loadImageWithURL:lCopy completionHandler:v30];
 
     goto LABEL_16;
   }
 
   v17[2](v17, 0);
 LABEL_16:
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __90__CPSSession__retrieveImageWithURL_didFetchImage_fileURL_fetchCompletion_proxyCompletion___block_invoke(void *a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a1[7];
   if (v5)
@@ -2041,40 +2065,37 @@ void __90__CPSSession__retrieveImageWithURL_didFetchImage_fileURL_fetchCompletio
 
   if (v4)
   {
-    v17 = 0u;
-    v18 = 0u;
     v15 = 0u;
     v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v8 = *(a1[4] + 16);
-    v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v16;
+      v11 = *v14;
       do
       {
         v12 = 0;
         do
         {
-          if (*v16 != v11)
+          if (*v14 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v15 + 1) + 8 * v12);
           (*(a1[6] + 16))(a1[6]);
           ++v12;
         }
 
         while (v10 != v12);
-        v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v10);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __90__CPSSession__retrieveImageWithURL_didFetchImage_fileURL_fetchCompletion_proxyCompletion___block_invoke_67(uint64_t a1, void *a2, void *a3)
@@ -2101,52 +2122,56 @@ void __90__CPSSession__retrieveImageWithURL_didFetchImage_fileURL_fetchCompletio
 
 void __90__CPSSession__retrieveImageWithURL_didFetchImage_fileURL_fetchCompletion_proxyCompletion___block_invoke_2(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
-  (*(*(a1 + 64) + 16))();
+  v18 = *MEMORY[0x277D85DE8];
+  v2 = (*(*(a1 + 64) + 16))();
   v3 = *(a1 + 72);
-  v4 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  v5 = os_signpost_enabled(v4);
+  v5 = CPS_LOG_CHANNEL_PREFIXClipServices(v2, v4);
+  v6 = os_signpost_enabled(v5);
   if (v3 == 1)
   {
-    if (v5)
+    if (!v6)
     {
-      v6 = *(a1 + 48);
-      v7 = v4;
-      v8 = [v6 logID];
-      v13 = 138543618;
-      v14 = v8;
-      v15 = 2082;
-      v16 = "[end] Fetching header image data enableTelemetry=YES ";
-      v9 = "HeaderImage";
-LABEL_6:
-      _os_signpost_emit_with_name_impl(&dword_2436ED000, v7, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, v9, " ID=[%{public, signpost.description:logID}@]  Message=%{public}s ", &v13, 0x16u);
+      goto LABEL_7;
     }
+
+    v8 = *(a1 + 48);
+    v9 = v5;
+    v10 = [v8 logID];
+    v14 = 138543618;
+    v15 = v10;
+    v16 = 2082;
+    v17 = "[end] Fetching header image data enableTelemetry=YES ";
+    v11 = "HeaderImage";
   }
 
-  else if (v5)
+  else
   {
-    v10 = *(a1 + 48);
-    v7 = v4;
-    v8 = [v10 logID];
-    v13 = 138543618;
-    v14 = v8;
-    v15 = 2082;
-    v16 = "[end] Fetching application icon data enableTelemetry=YES ";
-    v9 = "AppIcon";
-    goto LABEL_6;
+    if (!v6)
+    {
+      goto LABEL_7;
+    }
+
+    v12 = *(a1 + 48);
+    v9 = v5;
+    v10 = [v12 logID];
+    v14 = 138543618;
+    v15 = v10;
+    v16 = 2082;
+    v17 = "[end] Fetching application icon data enableTelemetry=YES ";
+    v11 = "AppIcon";
   }
 
+  _os_signpost_emit_with_name_impl(&dword_2436ED000, v9, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, v11, " ID=[%{public, signpost.description:logID}@]  Message=%{public}s ", &v14, 0x16u);
+
+LABEL_7:
   if (*(a1 + 56))
   {
-    v11 = CPS_LOG_CHANNEL_PREFIXClipServices();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = CPS_LOG_CHANNEL_PREFIXClipServices(v6, v7);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      __90__CPSSession__retrieveImageWithURL_didFetchImage_fileURL_fetchCompletion_proxyCompletion___block_invoke_2_cold_1(a1, v11, (a1 + 56));
+      __90__CPSSession__retrieveImageWithURL_didFetchImage_fileURL_fetchCompletion_proxyCompletion___block_invoke_2_cold_1(a1, v13, (a1 + 56));
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateEntryPointForWebClip:(id)clip
@@ -2245,11 +2270,11 @@ void __42__CPSSession__updateEntryPointForWebClip___block_invoke_3(uint64_t a1, 
   dispatch_async(v9, block);
 }
 
-uint64_t __42__CPSSession__updateEntryPointForWebClip___block_invoke_4(uint64_t result)
+id *__42__CPSSession__updateEntryPointForWebClip___block_invoke_4(id *result)
 {
-  if (!*(result + 32))
+  if (!result[4])
   {
-    return [*(result + 40) _updateWebClipIcon:*(result + 48) metadata:*(result + 56)];
+    return [result[5] _updateWebClipIcon:result[6] metadata:result[7]];
   }
 
   return result;
@@ -2447,52 +2472,50 @@ void __53__CPSSession_installationControllerWillStartInstall___block_invoke(uint
 
 void __58__CPSSession_installationControllerDidInstallPlaceholder___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   *(*(a1 + 32) + 64) = 1;
-  v14 = 0u;
   v15 = 0u;
-  v12 = 0u;
+  v16 = 0u;
   v13 = 0u;
+  v14 = 0u;
   v2 = *(*(a1 + 32) + 16);
-  v3 = [v2 countByEnumeratingWithState:&v12 objects:v20 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v13 objects:v21 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v13;
+    v5 = *v14;
     do
     {
       v6 = 0;
       do
       {
-        if (*v13 != v5)
+        if (*v14 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v12 + 1) + 8 * v6++) didInstallApplicationPlaceholder];
+        [*(*(&v13 + 1) + 8 * v6++) didInstallApplicationPlaceholder];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v12 objects:v20 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v13 objects:v21 count:16];
     }
 
     while (v4);
   }
 
-  v7 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  if (os_signpost_enabled(v7))
+  v9 = CPS_LOG_CHANNEL_PREFIXClipServices(v7, v8);
+  if (os_signpost_enabled(v9))
   {
-    v8 = *(a1 + 32);
-    v9 = v7;
-    v10 = [v8 logID];
+    v10 = *(a1 + 32);
+    v11 = v9;
+    v12 = [v10 logID];
     *buf = 138543618;
-    v17 = v10;
-    v18 = 2082;
-    v19 = "[end] Marking Placeholder request enableTelemetry=YES ";
-    _os_signpost_emit_with_name_impl(&dword_2436ED000, v9, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "OpenButtonBecomeActive", " ID=[%{public, signpost.description:logID}@]  Message=%{public}s ", buf, 0x16u);
+    v18 = v12;
+    v19 = 2082;
+    v20 = "[end] Marking Placeholder request enableTelemetry=YES ";
+    _os_signpost_emit_with_name_impl(&dword_2436ED000, v11, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "OpenButtonBecomeActive", " ID=[%{public, signpost.description:logID}@]  Message=%{public}s ", buf, 0x16u);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)installationController:(id)controller didUpdateProgress:(double)progress
@@ -2509,43 +2532,41 @@ void __58__CPSSession_installationControllerDidInstallPlaceholder___block_invoke
 
 void __55__CPSSession_installationController_didUpdateProgress___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 40)];
   v3 = *(a1 + 32);
   v4 = *(v3 + 144);
   *(v3 + 144) = v2;
 
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v5 = *(*(a1 + 32) + 16);
-  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [*(*(&v11 + 1) + 8 * v9++) didUpdateInstallProgress:{*(*(a1 + 32) + 144), v11}];
+        [*(*(&v10 + 1) + 8 * v9++) didUpdateInstallProgress:{*(*(a1 + 32) + 144), v10}];
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)installationController:(id)controller didFinishWithError:(id)error
@@ -2564,7 +2585,7 @@ void __55__CPSSession_installationController_didUpdateProgress___block_invoke(ui
 
 void __56__CPSSession_installationController_didFinishWithError___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 40);
   if (v2)
   {
@@ -2586,47 +2607,44 @@ void __56__CPSSession_installationController_didFinishWithError___block_invoke(u
   v6 = [*(*(a1 + 32) + 136) clipBundleID];
   [v5 recordDidInstallWithBundleID:v6 succeeded:*(*(a1 + 32) + 64) == 3];
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v7 = *(*(a1 + 32) + 16);
-  v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v14;
+    v10 = *v13;
     do
     {
       v11 = 0;
       do
       {
-        if (*v14 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [*(*(&v13 + 1) + 8 * v11++) didFinishLoadingWithError:{*(a1 + 40), v13}];
+        [*(*(&v12 + 1) + 8 * v11++) didFinishLoadingWithError:{*(a1 + 40), v12}];
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v9);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __36__CPSSession__fetchBusinessMetadata__block_invoke_4_cold_1(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_2436ED000, a2, OS_LOG_TYPE_ERROR, "-_fetchBusinessMetadata: Calling _didFinishLoadingWithError with CPSErrorNetworkUnavailable. Original error is: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_2436ED000, a2, OS_LOG_TYPE_ERROR, "-_fetchBusinessMetadata: Calling _didFinishLoadingWithError with CPSErrorNetworkUnavailable. Original error is: %@", &v3, 0xCu);
 }
 
 void __36__CPSSession__fetchBusinessMetadata__block_invoke_4_cold_2()
@@ -2640,68 +2658,68 @@ void __36__CPSSession__fetchBusinessMetadata__block_invoke_4_cold_2()
 
 void __72__CPSSession__fetchAppMetadataWithBundleID_url_accountInvocationPolicy___block_invoke_2_cold_1(uint64_t a1, void *a2, id *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
   v4 = *(*a1 + 136);
   v5 = a2;
   v6 = [v4 clipBundleID];
-  v14 = [*a3 clipBundleID];
-  OUTLINED_FUNCTION_0_2(&dword_2436ED000, v7, v8, "ABR BundleID: %{private}@ and AMP BundleID: %{private}@ do not match.", v9, v10, v11, v12, 3u);
-
-  v13 = *MEMORY[0x277D85DE8];
+  v7 = [*a3 clipBundleID];
+  *v14 = 138478083;
+  *&v14[4] = v6;
+  *&v14[12] = 2113;
+  *&v14[14] = v7;
+  OUTLINED_FUNCTION_0_2(&dword_2436ED000, v8, v9, "ABR BundleID: %{private}@ and AMP BundleID: %{private}@ do not match.", v10, v11, v12, v13, *v14, *&v14[8], *&v14[16]);
 }
 
 void __72__CPSSession__fetchAppMetadataWithBundleID_url_accountInvocationPolicy___block_invoke_2_cold_2(uint64_t a1, void *a2, id *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 32);
   v5 = a2;
   v6 = [v4 logID];
-  v14 = [*a3 cps_privacyPreservingDescription];
-  OUTLINED_FUNCTION_0_2(&dword_2436ED000, v7, v8, "Fail to fetch AppMetadata. ID = [%@] Error: %@", v9, v10, v11, v12, 2u);
-
-  v13 = *MEMORY[0x277D85DE8];
+  v7 = [*a3 cps_privacyPreservingDescription];
+  *v14 = 138412546;
+  *&v14[4] = v6;
+  *&v14[12] = 2112;
+  *&v14[14] = v7;
+  OUTLINED_FUNCTION_0_2(&dword_2436ED000, v8, v9, "Fail to fetch AppMetadata. ID = [%@] Error: %@", v10, v11, v12, v13, *v14, *&v14[8], *&v14[16]);
 }
 
 void __40__CPSSession__fetchBusinessIconIfNeeded__block_invoke_29_cold_1(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4 = 138477827;
-  v5 = v2;
-  _os_log_error_impl(&dword_2436ED000, a2, OS_LOG_TYPE_ERROR, "Business icon fetching failed: %{private}@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138477827;
+  v4 = v2;
+  _os_log_error_impl(&dword_2436ED000, a2, OS_LOG_TYPE_ERROR, "Business icon fetching failed: %{private}@", &v3, 0xCu);
 }
 
 - (void)_retrieveInstalledApplicationIconWithAppIconURL:(void *)a1 clipBundleID:(void *)a2 .cold.1(void *a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 cps_privacyPreservingDescription];
-  OUTLINED_FUNCTION_0(&dword_2436ED000, v5, v6, "Unable to get image store key for app icon url: %{public}@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x277D85DE8];
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_0(&dword_2436ED000, v5, v6, "Unable to get image store key for app icon url: %{public}@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 - (void)_retrieveInstalledApplicationIconWithAppIconURL:(void *)a1 clipBundleID:(void *)a2 .cold.2(void *a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 cps_privacyPreservingDescription];
-  OUTLINED_FUNCTION_0(&dword_2436ED000, v5, v6, "Unable to write app icon to disk: %{public}@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x277D85DE8];
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_0(&dword_2436ED000, v5, v6, "Unable to write app icon to disk: %{public}@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 void __90__CPSSession__retrieveImageWithURL_didFetchImage_fileURL_fetchCompletion_proxyCompletion___block_invoke_2_cold_1(uint64_t a1, void *a2, id *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 48);
   v5 = a2;
   v6 = [v4 logID];
-  v14 = [*a3 cps_privacyPreservingDescription];
-  OUTLINED_FUNCTION_0_2(&dword_2436ED000, v7, v8, "Fail to fetch image or icon data. ID = [%{public}@] Error: %{public}@", v9, v10, v11, v12, 2u);
-
-  v13 = *MEMORY[0x277D85DE8];
+  v7 = [*a3 cps_privacyPreservingDescription];
+  *v14 = 138543618;
+  *&v14[4] = v6;
+  *&v14[12] = 2114;
+  *&v14[14] = v7;
+  OUTLINED_FUNCTION_0_2(&dword_2436ED000, v8, v9, "Fail to fetch image or icon data. ID = [%{public}@] Error: %{public}@", v10, v11, v12, v13, *v14, *&v14[8], *&v14[16]);
 }
 
 @end

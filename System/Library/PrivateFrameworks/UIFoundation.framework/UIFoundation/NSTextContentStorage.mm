@@ -332,13 +332,13 @@ Class __56__NSTextContentStorage___isNotesTextContentStorageClass__block_invoke(
   }
 }
 
-uint64_t __44__NSTextContentStorage_setAttributedString___block_invoke(uint64_t a1, void *a2)
+void *__44__NSTextContentStorage_setAttributedString___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 textContentManager];
   v5 = *(a1 + 32);
   if (result == v5)
   {
-    v6 = *(v5 + 80);
+    v6 = v5[10];
 
     return [a2 invalidateLayoutForRange:v6];
   }
@@ -766,7 +766,7 @@ LABEL_67:
             [NSRunStorage replaceElementsInRange:"replaceElementsInRange:withElement:coalesceRuns:" withElement:v19 coalesceRuns:?];
             __NSTextContentStorageReleaseElementsInRange(self, v58, v57);
             [(NSStorage *)self->_elements removeElementsInRange:v58, v57];
-            __NSTextContentStorageUpdateElementIndexRangeForRange(self, 0, 0, 0, v19 + v18, [(NSRunStorage *)self->_indexTable count]- (v19 + v18), -v57);
+            __NSTextContentStorageUpdateElementIndexRangeForRange(&self->super.super.isa, 0, 0, 0, v19 + v18, [(NSRunStorage *)self->_indexTable count]- (v19 + v18), -v57);
             v65 = [(NSStorage *)self->_elements count];
             if (v65 && v65 <= [(NSStorage *)self->_elements count])
             {
@@ -1046,7 +1046,7 @@ LABEL_111:
   objc_sync_exit(self);
 }
 
-uint64_t __98__NSTextContentStorage_processEditingForTextStorage_edited_range_changeInLength_invalidatedRange___block_invoke(uint64_t result, id *a2, uint64_t a3, uint64_t a4)
+id *__98__NSTextContentStorage_processEditingForTextStorage_edited_range_changeInLength_invalidatedRange___block_invoke(id *result, id *a2, uint64_t a3, uint64_t a4)
 {
   v4.f64[0] = NAN;
   v4.f64[1] = NAN;
@@ -1060,14 +1060,14 @@ uint64_t __98__NSTextContentStorage_processEditingForTextStorage_edited_range_ch
     v8 = &a2[a4];
     do
     {
-      [*(v7 + 32) updateRangesForTextElement:*v6 locationDelta:{*(v7 + 40), *&v13, v14, v15}];
+      [v7[4] updateRangesForTextElement:*v6 locationDelta:{v7[5], *&v13, v14, v15}];
       result = [*v6 elementRange];
       if (result)
       {
         v9 = result;
         *&v13.f64[0] = a3;
         LOBYTE(v15) = [*v6 coalescingType];
-        v10 = *(*(v7 + 32) + 88);
+        v10 = *(v7[4] + 11);
         v11 = [v9 range];
         result = [v10 replaceElementsInRange:v11 withElement:v12 coalesceRuns:{&v13, 0}];
       }

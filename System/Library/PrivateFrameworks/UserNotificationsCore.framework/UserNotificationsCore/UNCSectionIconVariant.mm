@@ -268,7 +268,7 @@
   equalCopy = equal;
   if (self == equalCopy)
   {
-    LOBYTE(v12) = 1;
+    LOBYTE(v10) = 1;
   }
 
   else
@@ -278,35 +278,35 @@
     {
       v5 = equalCopy;
       format = [(UNCSectionIconVariant *)self format];
-      if (format == [(UNCSectionIconVariant *)v5 format]&& (imageInfo = self->_imageInfo, v8 = v5->_imageInfo, BSEqualObjects()) && self->_imageInfoType == v5->_imageInfoType)
+      if (format == [(UNCSectionIconVariant *)v5 format]&& BSEqualObjects() && self->_imageInfoType == v5->_imageInfoType)
       {
         bundlePath = [(UNCSectionIconVariant *)self bundlePath];
         bundlePath2 = [(UNCSectionIconVariant *)v5 bundlePath];
         if (BSEqualObjects())
         {
           isPrecomposed = [(UNCSectionIconVariant *)self isPrecomposed];
-          v12 = isPrecomposed ^ [(UNCSectionIconVariant *)v5 isPrecomposed]^ 1;
+          v10 = isPrecomposed ^ [(UNCSectionIconVariant *)v5 isPrecomposed]^ 1;
         }
 
         else
         {
-          LOBYTE(v12) = 0;
+          LOBYTE(v10) = 0;
         }
       }
 
       else
       {
-        LOBYTE(v12) = 0;
+        LOBYTE(v10) = 0;
       }
     }
 
     else
     {
-      LOBYTE(v12) = 0;
+      LOBYTE(v10) = 0;
     }
   }
 
-  return v12;
+  return v10;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -329,20 +329,12 @@
   {
     if ([coderCopy decodeIntegerForKey:@"codingVersion"] == 2)
     {
-      v6 = [coderCopy decodeIntegerForKey:@"imageInfoType"];
-      v7 = 0x1E695DEF0;
-      v5->_imageInfoType = v6;
-      if (v6 != 1)
-      {
-        v7 = 0x1E696AEC0;
-      }
-
-      v8 = *v7;
-      v9 = objc_opt_class();
-      v10 = v9;
-      v11 = [coderCopy decodeObjectOfClass:v9 forKey:@"imageInfo"];
+      v5->_imageInfoType = [coderCopy decodeIntegerForKey:@"imageInfoType"];
+      v6 = objc_opt_class();
+      v7 = v6;
+      v8 = [coderCopy decodeObjectOfClass:v6 forKey:@"imageInfo"];
       imageInfo = v5->_imageInfo;
-      v5->_imageInfo = v11;
+      v5->_imageInfo = v8;
     }
 
     else
@@ -353,23 +345,23 @@
         [(UNCSectionIconVariant *)v5 setImageData:imageInfo];
       }
 
-      v13 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"imagePath"];
-      if (v13)
+      v10 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"imagePath"];
+      if (v10)
       {
-        [(UNCSectionIconVariant *)v5 setImageName:v13];
+        [(UNCSectionIconVariant *)v5 setImageName:v10];
       }
 
-      v14 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"applicationIdentifier"];
-      if (v13)
+      v11 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"applicationIdentifier"];
+      if (v10)
       {
-        [(UNCSectionIconVariant *)v5 setApplicationIdentifier:v14];
+        [(UNCSectionIconVariant *)v5 setApplicationIdentifier:v11];
       }
     }
 
     v5->_format = [coderCopy decodeIntegerForKey:@"format"];
-    v15 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"bundlePath"];
+    v12 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"bundlePath"];
     bundlePath = v5->_bundlePath;
-    v5->_bundlePath = v15;
+    v5->_bundlePath = v12;
 
     v5->_precomposed = [coderCopy decodeBoolForKey:@"precomposed"];
   }

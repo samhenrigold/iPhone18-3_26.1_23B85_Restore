@@ -33,7 +33,7 @@
   return [PAEColorize properties]::sPropertiesDict;
 }
 
-uint64_t __25__PAEColorize_properties__block_invoke()
+void *__25__PAEColorize_properties__block_invoke()
 {
   v0 = objc_alloc(MEMORY[0x277CBEAC0]);
   v1 = [MEMORY[0x277CCABB0] numberWithBool:1];
@@ -114,7 +114,7 @@ uint64_t __25__PAEColorize_properties__block_invoke()
   {
     PCGetRec709LuminanceCoefficients(v38);
     v19 = *v38;
-    v20.n128_u64[0] = *&v38[4];
+    v20.f64[0] = *&v38[4];
     v35 = v20;
     convertRGBColor(&v45, &v44, &v43);
     convertRGBColor(&v42, &v41, &v40);
@@ -127,13 +127,13 @@ uint64_t __25__PAEColorize_properties__block_invoke()
   else
   {
     v19 = v16;
-    v21.n128_u64[1] = *&v34.f64[1];
-    v21.n128_u64[0] = vcvt_f32_f64(v34);
+    v21.f64[1] = v34.f64[1];
+    *&v21.f64[0] = vcvt_f32_f64(v34);
     v35 = v21;
     if (input)
     {
 LABEL_8:
-      [input heliumRef];
+      objc_msgSend_heliumRef(input, *&v35);
       if (!v18)
       {
         goto LABEL_18;

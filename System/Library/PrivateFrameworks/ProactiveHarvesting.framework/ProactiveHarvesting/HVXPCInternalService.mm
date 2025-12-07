@@ -1,9 +1,13 @@
 @interface HVXPCInternalService
+- (BOOL)contentAvailableFromSources:(unsigned int)sources error:(id *)error;
 - (BOOL)deleteContentWithRequest:(id)request error:(id *)error;
+- (BOOL)disableConsumptionOfDataSources:(unsigned int)sources error:(id *)error;
 - (BOOL)donateSearchableItem:(id)item error:(id *)error;
+- (BOOL)enableConsumptionOfDataSources:(unsigned int)sources error:(id *)error;
 - (BOOL)harvestWithError:(id *)error;
 - (BOOL)overrideIsConnectedToPower:(id)power error:(id *)error;
 - (BOOL)refillHarvestBudgetWithError:(id *)error;
+- (BOOL)restoreConsumptionOfDataSources:(unsigned int)sources error:(id *)error;
 - (HVXPCInternalService)init;
 - (id)statsWithError:(id *)error;
 @end
@@ -289,19 +293,185 @@ void __39__HVXPCInternalService_statsWithError___block_invoke(uint64_t a1, void 
   return v9 & 1;
 }
 
+- (BOOL)contentAvailableFromSources:(unsigned int)sources error:(id *)error
+{
+  v5 = *&sources;
+  v7 = hv_default_log_handle();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_2321EC000, v7, OS_LOG_TYPE_DEFAULT, "HVXPCInternalService: contentAvailableFromSources", buf, 2u);
+  }
+
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x2020000000;
+  v21 = 1;
+  *buf = 0;
+  v13 = buf;
+  v14 = 0x3032000000;
+  v15 = __Block_byref_object_copy__1752;
+  v16 = __Block_byref_object_dispose__1753;
+  v17 = 0;
+  synchronousProxy = [(HVXPCInternalService *)self synchronousProxy];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __58__HVXPCInternalService_contentAvailableFromSources_error___block_invoke;
+  v11[3] = &unk_278969A90;
+  v11[4] = &v18;
+  v11[5] = buf;
+  [synchronousProxy contentAvailableFromSources:v5 completion:v11];
+
+  v9 = *(v19 + 24);
+  if (error && (v19[3] & 1) == 0)
+  {
+    *error = *(v13 + 5);
+    v9 = *(v19 + 24);
+  }
+
+  _Block_object_dispose(buf, 8);
+
+  _Block_object_dispose(&v18, 8);
+  return v9 & 1;
+}
+
+- (BOOL)restoreConsumptionOfDataSources:(unsigned int)sources error:(id *)error
+{
+  v5 = *&sources;
+  v7 = hv_default_log_handle();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_2321EC000, v7, OS_LOG_TYPE_DEFAULT, "HVXPCInternalService: restoreConsumptionOfDataSources", buf, 2u);
+  }
+
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x2020000000;
+  v21 = 1;
+  *buf = 0;
+  v13 = buf;
+  v14 = 0x3032000000;
+  v15 = __Block_byref_object_copy__1752;
+  v16 = __Block_byref_object_dispose__1753;
+  v17 = 0;
+  synchronousProxy = [(HVXPCInternalService *)self synchronousProxy];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __62__HVXPCInternalService_restoreConsumptionOfDataSources_error___block_invoke;
+  v11[3] = &unk_278969A90;
+  v11[4] = &v18;
+  v11[5] = buf;
+  [synchronousProxy restoreConsumptionOfDataSources:v5 completion:v11];
+
+  v9 = *(v19 + 24);
+  if (error && (v19[3] & 1) == 0)
+  {
+    *error = *(v13 + 5);
+    v9 = *(v19 + 24);
+  }
+
+  _Block_object_dispose(buf, 8);
+
+  _Block_object_dispose(&v18, 8);
+  return v9 & 1;
+}
+
+- (BOOL)disableConsumptionOfDataSources:(unsigned int)sources error:(id *)error
+{
+  v5 = *&sources;
+  v7 = hv_default_log_handle();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_2321EC000, v7, OS_LOG_TYPE_DEFAULT, "HVXPCInternalService: disableConsumptionOfDataSources", buf, 2u);
+  }
+
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x2020000000;
+  v21 = 1;
+  *buf = 0;
+  v13 = buf;
+  v14 = 0x3032000000;
+  v15 = __Block_byref_object_copy__1752;
+  v16 = __Block_byref_object_dispose__1753;
+  v17 = 0;
+  synchronousProxy = [(HVXPCInternalService *)self synchronousProxy];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __62__HVXPCInternalService_disableConsumptionOfDataSources_error___block_invoke;
+  v11[3] = &unk_278969A90;
+  v11[4] = &v18;
+  v11[5] = buf;
+  [synchronousProxy disableConsumptionOfDataSources:v5 completion:v11];
+
+  v9 = *(v19 + 24);
+  if (error && (v19[3] & 1) == 0)
+  {
+    *error = *(v13 + 5);
+    v9 = *(v19 + 24);
+  }
+
+  _Block_object_dispose(buf, 8);
+
+  _Block_object_dispose(&v18, 8);
+  return v9 & 1;
+}
+
+- (BOOL)enableConsumptionOfDataSources:(unsigned int)sources error:(id *)error
+{
+  v5 = *&sources;
+  v7 = hv_default_log_handle();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_2321EC000, v7, OS_LOG_TYPE_DEFAULT, "HVXPCInternalService: enableConsumptionOfDataSources", buf, 2u);
+  }
+
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x2020000000;
+  v21 = 1;
+  *buf = 0;
+  v13 = buf;
+  v14 = 0x3032000000;
+  v15 = __Block_byref_object_copy__1752;
+  v16 = __Block_byref_object_dispose__1753;
+  v17 = 0;
+  synchronousProxy = [(HVXPCInternalService *)self synchronousProxy];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __61__HVXPCInternalService_enableConsumptionOfDataSources_error___block_invoke;
+  v11[3] = &unk_278969A90;
+  v11[4] = &v18;
+  v11[5] = buf;
+  [synchronousProxy enableConsumptionOfDataSources:v5 completion:v11];
+
+  v9 = *(v19 + 24);
+  if (error && (v19[3] & 1) == 0)
+  {
+    *error = *(v13 + 5);
+    v9 = *(v19 + 24);
+  }
+
+  _Block_object_dispose(buf, 8);
+
+  _Block_object_dispose(&v18, 8);
+  return v9 & 1;
+}
+
 void __40__HVXPCInternalService_synchronousProxy__block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = hv_default_log_handle();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_error_impl(&dword_2321EC000, v3, OS_LOG_TYPE_ERROR, "HVXPCInternalService: error: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_error_impl(&dword_2321EC000, v3, OS_LOG_TYPE_ERROR, "HVXPCInternalService: error: %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (HVXPCInternalService)init
@@ -335,30 +505,26 @@ void __40__HVXPCInternalService_synchronousProxy__block_invoke(uint64_t a1, void
 
 void __28__HVXPCInternalService_init__block_invoke_35()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   v0 = hv_default_log_handle();
   if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
   {
-    v2 = 138412290;
-    v3 = @"com.apple.proactive.ProactiveHarvesting.Internal";
-    _os_log_impl(&dword_2321EC000, v0, OS_LOG_TYPE_DEFAULT, "Connection to %@ invalidated", &v2, 0xCu);
+    v1 = 138412290;
+    v2 = @"com.apple.proactive.ProactiveHarvesting.Internal";
+    _os_log_impl(&dword_2321EC000, v0, OS_LOG_TYPE_DEFAULT, "Connection to %@ invalidated", &v1, 0xCu);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 void __28__HVXPCInternalService_init__block_invoke()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   v0 = hv_default_log_handle();
   if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
   {
-    v2 = 138412290;
-    v3 = @"com.apple.proactive.ProactiveHarvesting.Internal";
-    _os_log_impl(&dword_2321EC000, v0, OS_LOG_TYPE_DEFAULT, "Connection to %@ interrupted", &v2, 0xCu);
+    v1 = 138412290;
+    v2 = @"com.apple.proactive.ProactiveHarvesting.Internal";
+    _os_log_impl(&dword_2321EC000, v0, OS_LOG_TYPE_DEFAULT, "Connection to %@ interrupted", &v1, 0xCu);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 @end

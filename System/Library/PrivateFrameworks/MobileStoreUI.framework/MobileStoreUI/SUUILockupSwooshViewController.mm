@@ -160,7 +160,7 @@
 
     if (swooshCopy)
     {
-      [swooshCopy lockupStyle];
+      objc_msgSend_lockupStyle(swooshCopy);
     }
 
     else
@@ -550,7 +550,7 @@ LABEL_8:
   v5.receiver = self;
   v5.super_class = SUUILockupSwooshViewController;
   [(SUUISwooshViewController *)&v5 setClientContext:context];
-  [(SUUILockupSwooshViewController *)self _lockupSwooshMetrics];
+  objc_msgSend__lockupSwooshMetrics(self);
   self->_metrics = v4;
   [(SUUILockupSwooshViewController *)self _reloadSizes];
 }
@@ -823,7 +823,7 @@ void __46__SUUILockupSwooshViewController_unhideImages__block_invoke(uint64_t a1
   [layout setVideoSize:{self->_metrics.videoThumbnailSize.width, self->_metrics.videoThumbnailSize.height}];
   if (v11)
   {
-    [v11 lockupStyle];
+    objc_msgSend_lockupStyle(v11);
     v14 = v24;
   }
 
@@ -850,7 +850,7 @@ void __46__SUUILockupSwooshViewController_unhideImages__block_invoke(uint64_t a1
   [layout setIconImage:v16];
   if (v11)
   {
-    [v11 lockupStyle];
+    objc_msgSend_lockupStyle(v11);
     if (v21 & 0x400) != 0 && (objc_opt_respondsToSelector())
     {
       v17 = [delegate swoosh:self videoThumbnailForCellAtIndex:item];
@@ -924,7 +924,7 @@ void __46__SUUILockupSwooshViewController_unhideImages__block_invoke(uint64_t a1
   [layout setVideoSize:{self->_metrics.videoThumbnailSize.width, self->_metrics.videoThumbnailSize.height}];
   if (v11)
   {
-    [v11 lockupStyle];
+    objc_msgSend_lockupStyle(v11);
     v12 = v24;
   }
 
@@ -998,7 +998,7 @@ void __46__SUUILockupSwooshViewController_unhideImages__block_invoke(uint64_t a1
         [layout setVideoSize:{v8, v9}];
         if (v19)
         {
-          [v19 lockupStyle];
+          objc_msgSend_lockupStyle(v19);
           v20 = v28;
         }
 

@@ -406,7 +406,7 @@ uint64_t __43___RemoteUIManager_showUIWithParams_reply___block_invoke(uint64_t a
 
 void __79___RemoteUIManager_dismissRemoteUI_uiMechanism_uiDisappeared_shouldIdle_reply___block_invoke(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (*(*(a1 + 32) + 24) == *(a1 + 40))
   {
@@ -414,11 +414,11 @@ void __79___RemoteUIManager_dismissRemoteUI_uiMechanism_uiDisappeared_shouldIdle
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = *(a1 + 64);
-      v15[0] = 67109378;
-      v15[1] = v5;
-      v16 = 2114;
-      v17 = v3;
-      _os_log_impl(&dword_238B95000, v4, OS_LOG_TYPE_DEFAULT, "UI dismissed - index:%d reason:%{public}@", v15, 0x12u);
+      v14[0] = 67109378;
+      v14[1] = v5;
+      v15 = 2114;
+      v16 = v3;
+      _os_log_impl(&dword_238B95000, v4, OS_LOG_TYPE_DEFAULT, "UI dismissed - index:%d reason:%{public}@", v14, 0x12u);
     }
 
     v6 = *(a1 + 48);
@@ -446,8 +446,6 @@ void __79___RemoteUIManager_dismissRemoteUI_uiMechanism_uiDisappeared_shouldIdle
 
     [*(a1 + 32) _activatePendingUIIfNeeded];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __79___RemoteUIManager_dismissRemoteUI_uiMechanism_uiDisappeared_shouldIdle_reply___block_invoke_98(id *a1)
@@ -520,7 +518,7 @@ void __55___RemoteUIManager__setupUiActivationTimeoutForParams___block_invoke(ui
 
 void __52___RemoteUIManager_connectRemoteUI_requestID_reply___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a4;
   v9 = a3;
@@ -545,17 +543,16 @@ void __52___RemoteUIManager_connectRemoteUI_requestID_reply___block_invoke(uint6
       v13 = v8;
     }
 
-    v16 = 138543874;
-    v17 = v7;
-    v18 = 2114;
-    v19 = v14;
-    v20 = 2114;
-    v21 = v13;
-    _os_log_impl(&dword_238B95000, v11, v12, "connecting %{public}@ with %{public}@: %{public}@", &v16, 0x20u);
+    v15 = 138543874;
+    v16 = v7;
+    v17 = 2114;
+    v18 = v14;
+    v19 = 2114;
+    v20 = v13;
+    _os_log_impl(&dword_238B95000, v11, v12, "connecting %{public}@ with %{public}@: %{public}@", &v15, 0x20u);
   }
 
   (*(*(a1 + 40) + 16))();
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __52___RemoteUIManager_connectRemoteUI_requestID_reply___block_invoke_131(uint64_t a1, void *a2, void *a3, void *a4)

@@ -80,16 +80,15 @@ void __49__NPKPassLibrarySyncState_initWithPasses_device___block_invoke(uint64_t
 
 void __49__NPKPassLibrarySyncState_initWithPasses_device___block_invoke_2(uint64_t a1, void *a2)
 {
-  v5 = a2;
+  v4 = a2;
   v3 = [*(a1 + 32) objectForKeyedSubscript:?];
   if (!v3)
   {
     v3 = objc_alloc_init(MEMORY[0x277CBEB58]);
-    [*(a1 + 32) setObject:v3 forKeyedSubscript:v5];
+    [*(a1 + 32) setObject:v3 forKeyedSubscript:v4];
   }
 
-  v4 = *(a1 + 40);
-  if ([objc_opt_class() _shouldAddPass:*(a1 + 48) withDeviceIsTinker:*(a1 + 64) supportHealthPass:*(a1 + 65) stateVersion:{objc_msgSend(v5, "unsignedIntegerValue")}])
+  if ([objc_opt_class() _shouldAddPass:*(a1 + 48) withDeviceIsTinker:*(a1 + 64) supportHealthPass:*(a1 + 65) stateVersion:{objc_msgSend(v4, "unsignedIntegerValue")}])
   {
     [v3 addObject:*(a1 + 56)];
   }

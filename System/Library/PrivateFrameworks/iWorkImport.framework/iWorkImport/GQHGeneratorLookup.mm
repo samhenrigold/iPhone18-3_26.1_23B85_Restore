@@ -11,8 +11,10 @@
     return 0;
   }
 
-  v3 = *off_807B8[application - 1];
-  return objc_opt_class();
+  else
+  {
+    return objc_opt_class();
+  }
 }
 
 @end

@@ -46,7 +46,7 @@ uint64_t __90___TVStackCollectionViewController__adjustedContentOffsetForRowInde
   {
     if (v9)
     {
-      [v9 rowMetrics];
+      objc_msgSend_rowMetrics(v9);
     }
 
     v11 = 0.0 - 0.0;
@@ -63,7 +63,7 @@ uint64_t __90___TVStackCollectionViewController__adjustedContentOffsetForRowInde
       v16 = v15;
       if (v15)
       {
-        [v15 rowMetrics];
+        objc_msgSend_rowMetrics(v15);
       }
 
       v17 = *(a2 + 24);
@@ -193,7 +193,7 @@ LABEL_7:
         v20 = objc_alloc_init(_TVStackRow);
         if (v19)
         {
-          [v19 tv_rowMetricsValue];
+          objc_msgSend_tv_rowMetricsValue(v19);
         }
 
         else
@@ -238,7 +238,7 @@ LABEL_7:
   [*(a1 + 48) addObject:v21];
 }
 
-void __55___TVStackCollectionViewController__buildStackSections__block_invoke_2(uint64_t a1, void *a2, unint64_t a3)
+void __55___TVStackCollectionViewController__buildStackSections__block_invoke_2(uint64_t a1, void *a2, char *a3)
 {
   v5 = *(a1 + 32);
   v6 = a2;
@@ -264,7 +264,7 @@ void __55___TVStackCollectionViewController__buildStackSections__block_invoke_2(
     v20 = v19;
     if (v19)
     {
-      [v19 rowMetrics];
+      objc_msgSend_rowMetrics(v19);
     }
 
     else
@@ -306,7 +306,7 @@ void __55___TVStackCollectionViewController__buildStackSections__block_invoke_2(
     v28 = v27;
     if (v27)
     {
-      [v27 tv_rowMetricsValue];
+      objc_msgSend_tv_rowMetricsValue(v27);
     }
 
     else

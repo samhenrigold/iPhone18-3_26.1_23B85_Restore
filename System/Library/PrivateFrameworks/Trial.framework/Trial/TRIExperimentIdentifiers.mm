@@ -31,36 +31,8 @@
 {
   identifiersCopy = identifiers;
   v5 = identifiersCopy;
-  if (!identifiersCopy)
+  if (!identifiersCopy || (v6 = self->_experimentId == 0, [identifiersCopy experimentId], v7 = objc_claimAutoreleasedReturnValue(), v8 = v7 != 0, v7, v6 == v8) || (experimentId = self->_experimentId) != 0 && (objc_msgSend(v5, "experimentId"), v10 = objc_claimAutoreleasedReturnValue(), v11 = -[NSString isEqual:](experimentId, "isEqual:", v10), v10, !v11) || (deploymentId = self->_deploymentId, deploymentId != objc_msgSend(v5, "deploymentId")) || (v13 = self->_treatmentId == 0, objc_msgSend(v5, "treatmentId"), v14 = objc_claimAutoreleasedReturnValue(), v15 = v14 != 0, v14, v13 == v15))
   {
-    goto LABEL_9;
-  }
-
-  v6 = self->_experimentId == 0;
-  experimentId = [identifiersCopy experimentId];
-  v8 = experimentId != 0;
-
-  if (v6 == v8)
-  {
-    goto LABEL_9;
-  }
-
-  experimentId = self->_experimentId;
-  if (experimentId)
-  {
-    experimentId2 = [v5 experimentId];
-    v11 = [(NSString *)experimentId isEqual:experimentId2];
-
-    if (!v11)
-    {
-      goto LABEL_9;
-    }
-  }
-
-  deploymentId = self->_deploymentId;
-  if (deploymentId != [v5 deploymentId] || (v13 = self->_treatmentId == 0, objc_msgSend(v5, "treatmentId"), v14 = objc_claimAutoreleasedReturnValue(), v15 = v14 != 0, v14, v13 == v15))
-  {
-LABEL_9:
     v18 = 0;
   }
 

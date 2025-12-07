@@ -879,7 +879,7 @@ LABEL_8:
 {
   foregroundCopy = foreground;
   name = [foregroundCopy name];
-  if (([name isEqualToString:@"UISceneWillEnterForegroundNotification"] & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(name) & 1) == 0)
   {
 
 LABEL_5:
@@ -976,7 +976,7 @@ LABEL_6:
 {
   backgroundCopy = background;
   name = [backgroundCopy name];
-  if ([name isEqualToString:@"UISceneDidEnterBackgroundNotification"])
+  if (objc_msgSend_isEqualToString_(name))
   {
     object = [backgroundCopy object];
     window = [(_UIRemoteViewControllerLegacyImpl *)self window];
@@ -1587,9 +1587,9 @@ LABEL_18:
 
   if (v7 && v8)
   {
-    v10 = [v7 isEqual:v8];
+    isEqual = objc_msgSend_isEqual_(v7);
 
-    if (v10)
+    if (isEqual)
     {
       goto LABEL_43;
     }
@@ -2322,7 +2322,7 @@ LABEL_12:
   windowScene = [window2 windowScene];
   v8 = [_UIRemoteViewControllerSceneContext contextForWindow:window inScene:windowScene];
 
-  if (v8 && ([v8 isEqual:self->_serviceSceneContext] & 1) == 0)
+  if (v8 && (objc_msgSend_isEqual_(v8) & 1) == 0)
   {
     v9[0] = MEMORY[0x1E69E9820];
     v9[1] = 3221225472;
@@ -2407,9 +2407,9 @@ LABEL_12:
         goto LABEL_12;
       }
 
-      v11 = [(FBSDisplayIdentity *)v8 isEqual:v9];
+      isEqual = objc_msgSend_isEqual_(v8);
 
-      if (!v11)
+      if (!isEqual)
       {
         goto LABEL_13;
       }
@@ -2475,9 +2475,9 @@ LABEL_15:
     goto LABEL_14;
   }
 
-  v13 = [v14 isEqual:v12];
+  isEqual = objc_msgSend_isEqual_(v14);
 
-  if (v13)
+  if (isEqual)
   {
 LABEL_12:
     [(_UIRemoteViewControllerLegacyImpl *)self _updateServiceSceneContext];
@@ -2570,7 +2570,7 @@ LABEL_14:
 {
   neededCopy = needed;
   displayIdentity = [neededCopy displayIdentity];
-  v6 = [(FBSDisplayIdentity *)self->_lastNotifiedServiceScreenDisplayIdentity isEqual:displayIdentity]^ 1;
+  v6 = objc_msgSend_isEqual_(self->_lastNotifiedServiceScreenDisplayIdentity) ^ 1;
   if (neededCopy)
   {
     v7 = v6;
@@ -3313,7 +3313,7 @@ LABEL_30:
   [(_UIRemoteViewControllerLegacyImpl *)self _setIsUpdatingSizeInHost:1];
   if (coordinatorCopy)
   {
-    [coordinatorCopy targetTransform];
+    objc_msgSend_targetTransform(coordinatorCopy);
   }
 
   else
@@ -3675,7 +3675,7 @@ LABEL_30:
 
   if (userInterfaceStyle == userInterfaceStyle2)
   {
-    v11 = 0;
+    isEqual = 0;
   }
 
   else
@@ -3683,7 +3683,7 @@ LABEL_30:
     traitCollection2 = [(_UIRemoteViewControllerLegacyImpl *)self traitCollection];
     v13 = [traitCollection2 _traitCollectionByReplacingNSIntegerValue:objc_msgSend(collectionCopy forTraitToken:{"userInterfaceStyle"), 0x1EFE323B0}];
 
-    v11 = [v13 isEqual:collectionCopy];
+    isEqual = objc_msgSend_isEqual_(v13);
   }
 
   v14 = [(_UIRemoteViewControllerLegacyImpl *)self _traitCollectionForServiceFromTraitCollection:collectionCopy];
@@ -3695,7 +3695,7 @@ LABEL_30:
   v17[3] = &unk_1E7102858;
   v17[4] = self;
   v18 = v14;
-  v19 = v11;
+  v19 = isEqual;
   v16[0] = MEMORY[0x1E69E9820];
   v16[1] = 3221225472;
   v16[2] = __95___UIRemoteViewControllerLegacyImpl_willTransitionToTraitCollection_withTransitionCoordinator___block_invoke_3;
@@ -4098,9 +4098,9 @@ LABEL_8:
     goto LABEL_10;
   }
 
-  v8 = [(_UISheetPresentationControllerConfiguration *)v6 isEqual:v7];
+  isEqual = objc_msgSend_isEqual_(v6, v7, v7);
 
-  if (!v8)
+  if ((isEqual & 1) == 0)
   {
     goto LABEL_8;
   }
@@ -4122,9 +4122,9 @@ LABEL_11:
   {
     if (v6 && v5)
     {
-      v8 = [(_UISheetPresentationControllerConfiguration *)v5 isEqual:v6];
+      isEqual = objc_msgSend_isEqual_(v5);
 
-      if (v8)
+      if (isEqual)
       {
         goto LABEL_11;
       }
@@ -4344,15 +4344,15 @@ LABEL_11:
   v8 = v7;
   if (v6 == v7)
   {
-    v9 = 1;
+    isEqual = 1;
   }
 
   else
   {
-    v9 = 0;
+    isEqual = 0;
     if (v7 && v6)
     {
-      v9 = [(_UIPhysicalButtonConfigurationSet *)v6 isEqual:v7];
+      isEqual = objc_msgSend_isEqual_(v6);
     }
   }
 
@@ -4371,13 +4371,13 @@ LABEL_11:
     *buf = 138543874;
     v33 = selfCopy;
     v34 = 1026;
-    v35 = v9 ^ 1;
+    v35 = isEqual ^ 1;
     v36 = 2114;
     *v37 = succinctDescription;
     _os_log_impl(&dword_188A29000, v13, OS_LOG_TYPE_DEFAULT, "Received resolved configurations update from service: self: %{public}@; didChange: %{public}d; configurations: %{public}@", buf, 0x1Cu);
   }
 
-  if ((v9 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     v19 = self->_serviceResolvedPhysicalButtonConfigurations;
     objc_storeStrong(&self->_serviceResolvedPhysicalButtonConfigurations, configurations);

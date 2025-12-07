@@ -88,9 +88,9 @@ void __49__UIPointerAccessory_arrowAccessoryWithPosition___block_invoke()
           goto LABEL_17;
         }
 
-        v11 = [v8 isEqual:v9];
+        isEqual = objc_msgSend_isEqual_(v8);
 
-        if (!v11)
+        if (!isEqual)
         {
           goto LABEL_17;
         }

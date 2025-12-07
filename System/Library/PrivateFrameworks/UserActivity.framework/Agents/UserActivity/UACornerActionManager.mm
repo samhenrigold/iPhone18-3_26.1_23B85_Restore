@@ -52,6 +52,7 @@
 - (void)resume;
 - (void)resumeListeningForBluetooth;
 - (void)scheduleUpdatingAdvertisableItems:(double)items;
+- (void)setAdvertisingSuspended:(BOOL)suspended;
 - (void)setDebugCornerItem:(id)item;
 - (void)setSuspended:(BOOL)suspended;
 - (void)setSystemHasSuspendedAdvertisements:(BOOL)advertisements;
@@ -1177,64 +1178,63 @@ LABEL_12:
 
 - (id)cornerActionItems
 {
-  v17 = +[NSMutableSet set];
+  v16 = +[NSMutableSet set];
   debugCornerItem = [(UACornerActionManager *)self debugCornerItem];
 
   if (debugCornerItem)
   {
     debugCornerItem2 = [(UACornerActionManager *)self debugCornerItem];
-    [v17 addObject:debugCornerItem2];
+    [v16 addObject:debugCornerItem2];
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   obj = [(UACornerActionManager *)self receivers];
-  v5 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
+  v5 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
   if (v5)
   {
-    v6 = *v24;
+    v6 = *v23;
     do
     {
       for (i = 0; i != v5; i = i + 1)
       {
-        if (*v24 != v6)
+        if (*v23 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v23 + 1) + 8 * i);
+        v8 = *(*(&v22 + 1) + 8 * i);
         if ([v8 active])
         {
           receivedItems = [v8 receivedItems];
           if (receivedItems)
           {
-            [v17 addObjectsFromArray:receivedItems];
-            v21 = 0u;
-            v22 = 0u;
-            v19 = 0u;
+            [v16 addObjectsFromArray:receivedItems];
             v20 = 0u;
+            v21 = 0u;
+            v18 = 0u;
+            v19 = 0u;
             v10 = receivedItems;
-            v11 = [v10 countByEnumeratingWithState:&v19 objects:v27 count:16];
+            v11 = [v10 countByEnumeratingWithState:&v18 objects:v26 count:16];
             if (v11)
             {
-              v12 = *v20;
+              v12 = *v19;
               do
               {
-                for (j = 0; j != v11; j = j + 1)
+                for (j = 0; j != v11; ++j)
                 {
-                  if (*v20 != v12)
+                  if (*v19 != v12)
                   {
                     objc_enumerationMutation(v10);
                   }
 
-                  v14 = *(*(&v19 + 1) + 8 * j);
                   objc_opt_class();
                   objc_opt_isKindOfClass();
                 }
 
-                v11 = [v10 countByEnumeratingWithState:&v19 objects:v27 count:16];
+                v11 = [v10 countByEnumeratingWithState:&v18 objects:v26 count:16];
               }
 
               while (v11);
@@ -1243,23 +1243,23 @@ LABEL_12:
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v5 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
     }
 
     while (v5);
   }
 
-  if ([v17 count])
+  if ([v16 count])
   {
-    v15 = [v17 copy];
+    v14 = [v16 copy];
   }
 
   else
   {
-    v15 = 0;
+    v14 = 0;
   }
 
-  return v15;
+  return v14;
 }
 
 + (id)cornerActionManager
@@ -1781,6 +1781,50 @@ LABEL_31:
 {
   nextUserIdleDeterminationScheduler = [(UACornerActionManager *)self nextUserIdleDeterminationScheduler];
   [nextUserIdleDeterminationScheduler scheduleNext:determination];
+}
+
+- (void)setAdvertisingSuspended:(BOOL)suspended
+{
+  suspendedCopy = suspended;
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  selfCopy->_advertisingSuspended = suspendedCopy;
+  v9 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  advertisers = [(UACornerActionManager *)selfCopy advertisers];
+  v6 = [advertisers countByEnumeratingWithState:&v9 objects:v13 count:16];
+  if (v6)
+  {
+    v7 = *v10;
+    do
+    {
+      v8 = 0;
+      do
+      {
+        if (*v10 != v7)
+        {
+          objc_enumerationMutation(advertisers);
+        }
+
+        [*(*(&v9 + 1) + 8 * v8) setSuspended:suspendedCopy];
+        v8 = v8 + 1;
+      }
+
+      while (v6 != v8);
+      v6 = [advertisers countByEnumeratingWithState:&v9 objects:v13 count:16];
+    }
+
+    while (v6);
+  }
+
+  if (!suspendedCopy)
+  {
+    [(UACornerActionManager *)selfCopy scheduleUpdatingAdvertisableItems];
+  }
+
+  objc_sync_exit(selfCopy);
 }
 
 - (void)setSystemHasSuspendedAdvertisements:(BOOL)advertisements
@@ -3066,7 +3110,7 @@ LABEL_11:
     sub_10007BD28();
   }
 
-  [v3 appendFormat:@"Manager status: pid=%lld, uid=%lld, uptime=%@ %@ (Version %s, built %s %s %s)\n", v4, v5, v8, v9, &unk_1000E5C21, "Oct 11 2025", "00:26:56", ""];
+  [v3 appendFormat:@"Manager status: pid=%lld, uid=%lld, uptime=%@ %@ (Version %s, built %s %s %s)\n", v4, v5, v8, v9, byte_1000E5C21, "Oct 11 2025", "00:26:56", ""];
 
   advertisers = [(UACornerActionManager *)self advertisers];
   if ([advertisers count])
@@ -3187,7 +3231,7 @@ LABEL_11:
     selfCopy4 = self;
   }
 
-  [v150 appendFormat:@"Manager status: pid=%lld, uid=%lld, uptime=%@ %@ runtime=%@ (Version %s, built %s %s %s)\n", v5, v6, v10, v11, v12, &unk_1000E5C21, "Oct 11 2025", "00:26:56", ""];
+  [v150 appendFormat:@"Manager status: pid=%lld, uid=%lld, uptime=%@ %@ runtime=%@ (Version %s, built %s %s %s)\n", v5, v6, v10, v11, v12, byte_1000E5C21, "Oct 11 2025", "00:26:56", ""];
 
   advertisers = [(UACornerActionManager *)selfCopy4 advertisers];
   if ([advertisers count])

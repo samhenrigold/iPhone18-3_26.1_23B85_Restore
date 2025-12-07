@@ -35,7 +35,7 @@
     {
       identifier = [(WFSerializedAccessResourcePerWorkflowState *)self identifier];
       identifier2 = [(WFSerializedAccessResourcePerWorkflowState *)v6 identifier];
-      if ([identifier isEqualToString:identifier2])
+      if (objc_msgSend_isEqualToString_(identifier))
       {
         data = [(WFSerializedAccessResourcePerWorkflowState *)self data];
         data2 = [(WFSerializedAccessResourcePerWorkflowState *)v6 data];
@@ -77,16 +77,14 @@
 
 - (NSDictionary)dictionaryRepresentation
 {
-  v9[2] = *MEMORY[0x1E69E9840];
-  v8[0] = @"identifier";
+  v8[2] = *MEMORY[0x1E69E9840];
+  v7[0] = @"identifier";
   identifier = [(WFSerializedAccessResourcePerWorkflowState *)self identifier];
-  v8[1] = @"data";
-  v9[0] = identifier;
+  v7[1] = @"data";
+  v8[0] = identifier;
   data = [(WFSerializedAccessResourcePerWorkflowState *)self data];
-  v9[1] = data;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:2];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v8[1] = data;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:2];
 
   return v5;
 }

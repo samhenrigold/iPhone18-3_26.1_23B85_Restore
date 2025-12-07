@@ -136,7 +136,6 @@ LABEL_15:
   objc_storeStrong(&v40, 0);
   objc_storeStrong(&location, 0);
   objc_storeStrong(&selfCopy, 0);
-  *MEMORY[0x277D85DE8];
   return v45;
 }
 
@@ -729,7 +728,6 @@ LABEL_15:
   objc_storeStrong(&ownerManager, 0);
   objc_storeStrong(&documentation, 0);
   objc_storeStrong(v60, 0);
-  *MEMORY[0x277D85DE8];
   v16 = v62;
 
   return v16;
@@ -943,7 +941,6 @@ void __144__SUUIStatefulDescriptor_updateStateFromConcreteDownload_downloadable_
   }
 
   objc_storeStrong(v20, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)updateStateFromProgressedDownload:(id)download
@@ -1047,7 +1044,6 @@ void __60__SUUIStatefulDescriptor_updateStateFromProgressedDownload___block_invo
   }
 
   objc_storeStrong(v16, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)maskedDescriptorRole
@@ -1100,7 +1096,6 @@ void __60__SUUIStatefulDescriptor_updateStateFromProgressedDownload___block_invo
   }
 
   objc_storeStrong(v15, 0);
-  *MEMORY[0x277D85DE8];
   return v17;
 }
 
@@ -1309,7 +1304,6 @@ LABEL_25:
   objc_storeStrong(&v56, 0);
   objc_storeStrong(&v57, 0);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)assignState:(int64_t)state
@@ -1425,52 +1419,47 @@ LABEL_25:
 
     objc_storeStrong(&ownerManager, 0);
   }
-
-  *MEMORY[0x277D85DE8];
 }
 
 void __38__SUUIStatefulDescriptor_assignState___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v14[2] = a1;
-  v14[1] = a1;
-  v14[0] = objc_loadWeakRetained((a1 + 40));
-  v9 = 0;
-  if (!v14[0])
+  v14 = *MEMORY[0x277D85DE8];
+  v12[2] = a1;
+  v12[1] = a1;
+  v12[0] = objc_loadWeakRetained((a1 + 40));
+  v7 = 0;
+  if (!v12[0])
   {
-    v8 = +[SUUILoggingContext softwareUpdateUILogger];
-    v13 = [v8 oslog];
-    MEMORY[0x277D82BD8](v8);
-    v12 = 16;
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v6 = +[SUUILoggingContext softwareUpdateUILogger];
+    v11 = [v6 oslog];
+    MEMORY[0x277D82BD8](v6);
+    v10 = 16;
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      log = v13;
-      type = v12;
-      v7 = NSStringFromSelector(*(a1 + 48));
-      v11 = MEMORY[0x277D82BE0](v7);
-      __os_log_helper_16_2_2_8_32_8_66(v15, "[SUUIStatefulDescriptor assignState:]_block_invoke", v11);
-      _os_log_error_impl(&dword_26ADE5000, log, type, "%s: Self is nil in %{public}@. Stopping.", v15, 0x16u);
-      MEMORY[0x277D82BD8](v7);
-      objc_storeStrong(&v11, 0);
+      log = v11;
+      type = v10;
+      v5 = NSStringFromSelector(*(a1 + 48));
+      v9 = MEMORY[0x277D82BE0](v5);
+      __os_log_helper_16_2_2_8_32_8_66(v13, "[SUUIStatefulDescriptor assignState:]_block_invoke", v9);
+      _os_log_error_impl(&dword_26ADE5000, log, type, "%s: Self is nil in %{public}@. Stopping.", v13, 0x16u);
+      MEMORY[0x277D82BD8](v5);
+      objc_storeStrong(&v9, 0);
     }
 
-    objc_storeStrong(&v13, 0);
-    v9 = 1;
+    objc_storeStrong(&v11, 0);
+    v7 = 1;
   }
 
-  if ((v9 & 1) == 0)
+  if ((v7 & 1) == 0)
   {
-    v4 = [*(a1 + 32) delegate];
-    v3 = [v14[0] ownerManager];
-    v1 = *(a1 + 56);
-    v2 = *(a1 + 64);
-    [v4 statefulUIManager:? descriptor:? didTransitionFromDescriptorState:? toState:?];
-    MEMORY[0x277D82BD8](v3);
-    MEMORY[0x277D82BD8](v4);
+    v2 = [*(a1 + 32) delegate];
+    v1 = [v12[0] ownerManager];
+    [v2 statefulUIManager:? descriptor:? didTransitionFromDescriptorState:? toState:?];
+    MEMORY[0x277D82BD8](v1);
+    MEMORY[0x277D82BD8](v2);
   }
 
-  objc_storeStrong(v14, 0);
-  *MEMORY[0x277D85DE8];
+  objc_storeStrong(v12, 0);
 }
 
 - (void)resolveInstallationError:(id)error fromConcreteDownload:(id)download downloadable:(BOOL)downloadable downloadError:(id)downloadError error:(id)a7
@@ -1605,7 +1594,6 @@ void __38__SUUIStatefulDescriptor_assignState___block_invoke(uint64_t a1)
   objc_storeStrong(&v49, 0);
   objc_storeStrong(&v51, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (SUUIStatefulUIManager)ownerManager

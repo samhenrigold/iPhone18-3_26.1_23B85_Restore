@@ -1,5 +1,10 @@
 @interface AAAssetHelper
 + (BOOL)_productColorAssetExists:(unsigned int)exists withColor:(unsigned __int8)color;
++ (id)_bluetoothProductDefaultAsset:(unsigned int)asset;
++ (id)_bluetoothProductIDToAsset:(unsigned int)asset;
++ (id)_bluetoothProductIDToAsset:(unsigned int)asset withColor:(unsigned __int8)color;
++ (id)_bluetoothProductIDToCaseAsset:(unsigned int)asset withColor:(unsigned __int8)color;
++ (id)_bluetoothProductIDToCaseDefaultAsset:(unsigned int)asset;
 + (id)bluetoothProductIDToAsset:(unsigned int)asset withColor:(unsigned __int8)color isCase:(BOOL)case;
 + (unsigned)_getDefaultColorCode:(unsigned int)code;
 @end
@@ -21,6 +26,264 @@
   if (gLogCategory_AAAssetHelper <= 30 && (gLogCategory_AAAssetHelper != -1 || _LogCategory_Initialize()))
   {
     LogPrintF();
+  }
+
+  return v5;
+}
+
++ (id)_bluetoothProductDefaultAsset:(unsigned int)asset
+{
+  v3 = *&asset;
+  v5 = [self _bluetoothProductIDToAsset:?];
+  if (![self _productHasColors:v3] || (v6 = objc_msgSend(self, "_getDefaultColorCode:", v3), v6 == 255))
+  {
+    v7 = v5;
+  }
+
+  else
+  {
+    v7 = [v5 stringByAppendingFormat:@"-%u", v6];
+  }
+
+  v8 = v7;
+
+  return v8;
+}
+
++ (id)_bluetoothProductIDToAsset:(unsigned int)asset
+{
+  v3 = *&asset;
+  if (asset <= 8223)
+  {
+    if (asset != 8219 && asset != 8222)
+    {
+      goto LABEL_15;
+    }
+
+    goto LABEL_11;
+  }
+
+  if (asset == 8224)
+  {
+LABEL_11:
+    if (gLogCategory_AAAssetHelper <= 30 && (gLogCategory_AAAssetHelper != -1 || _LogCategory_Initialize()))
+    {
+      +[AAAssetHelper _bluetoothProductIDToAsset:];
+    }
+
+    v3 = 8217;
+    goto LABEL_15;
+  }
+
+  if (asset == 8228)
+  {
+    if (gLogCategory_AAAssetHelper <= 30 && (gLogCategory_AAAssetHelper != -1 || _LogCategory_Initialize()))
+    {
+      +[AAAssetHelper _bluetoothProductIDToAsset:];
+    }
+
+    v3 = 8212;
+  }
+
+LABEL_15:
+  v4 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Banner-PID-%u", v3];
+
+  return v4;
+}
+
++ (id)_bluetoothProductIDToAsset:(unsigned int)asset withColor:(unsigned __int8)color
+{
+  colorCopy = color;
+  v5 = *&asset;
+  if (gLogCategory_AAAssetHelper <= 30 && (gLogCategory_AAAssetHelper != -1 || _LogCategory_Initialize()))
+  {
+    v10 = v5;
+    v12 = colorCopy;
+    LogPrintF();
+  }
+
+  if (([self _productHasColors:{v5, v10, v12}] & 1) == 0)
+  {
+    if (gLogCategory_AAAssetHelper <= 30 && (gLogCategory_AAAssetHelper != -1 || _LogCategory_Initialize()))
+    {
+      +[AAAssetHelper _bluetoothProductIDToAsset:withColor:];
+    }
+
+    goto LABEL_25;
+  }
+
+  if (colorCopy == 255)
+  {
+    if (gLogCategory_AAAssetHelper <= 30 && (gLogCategory_AAAssetHelper != -1 || _LogCategory_Initialize()))
+    {
+      +[AAAssetHelper _bluetoothProductIDToAsset:withColor:];
+    }
+
+    goto LABEL_25;
+  }
+
+  if (![self _productColorAssetExists:v5 withColor:colorCopy])
+  {
+    if (gLogCategory_AAAssetHelper <= 30 && (gLogCategory_AAAssetHelper != -1 || _LogCategory_Initialize()))
+    {
+      v11 = v5;
+      v13 = colorCopy;
+      LogPrintF();
+    }
+
+LABEL_25:
+    colorCopy = [self _bluetoothProductDefaultAsset:{v5, v11, v13}];
+    goto LABEL_26;
+  }
+
+  if (gLogCategory_AAAssetHelper <= 30 && (gLogCategory_AAAssetHelper != -1 || _LogCategory_Initialize()))
+  {
+    v11 = v5;
+    v13 = colorCopy;
+    LogPrintF();
+  }
+
+  v7 = [self _bluetoothProductIDToAsset:{v5, v11, v13}];
+  colorCopy = [v7 stringByAppendingFormat:@"-%u", colorCopy];
+
+LABEL_26:
+
+  return colorCopy;
+}
+
++ (id)_bluetoothProductIDToCaseAsset:(unsigned int)asset withColor:(unsigned __int8)color
+{
+  colorCopy = color;
+  v5 = *&asset;
+  if (gLogCategory_AAAssetHelper <= 30 && (gLogCategory_AAAssetHelper != -1 || _LogCategory_Initialize()))
+  {
+    v13 = v5;
+    v15 = colorCopy;
+    LogPrintF();
+  }
+
+  if ((v5 - 8213) > 0xF)
+  {
+    goto LABEL_17;
+  }
+
+  v7 = 1 << (v5 - 21);
+  if ((v7 & 0xAC0) == 0)
+  {
+    if ((v7 & 0x8009) != 0)
+    {
+      if (gLogCategory_AAAssetHelper > 30)
+      {
+        v9 = 8212;
+        goto LABEL_21;
+      }
+
+      if (gLogCategory_AAAssetHelper != -1)
+      {
+        v8 = 8212;
+        goto LABEL_14;
+      }
+
+      v10 = _LogCategory_Initialize();
+      v8 = 8212;
+      goto LABEL_20;
+    }
+
+LABEL_17:
+    v9 = v5;
+    goto LABEL_21;
+  }
+
+  if (gLogCategory_AAAssetHelper > 30)
+  {
+    v9 = 8217;
+    goto LABEL_21;
+  }
+
+  if (gLogCategory_AAAssetHelper != -1)
+  {
+    v8 = 8217;
+LABEL_14:
+    v13 = v8;
+    v15 = v5;
+    LogPrintF();
+    v9 = v8;
+    goto LABEL_21;
+  }
+
+  v10 = _LogCategory_Initialize();
+  v8 = 8217;
+LABEL_20:
+  v9 = v8;
+  if (v10)
+  {
+    goto LABEL_14;
+  }
+
+LABEL_21:
+  if ([self _productCaseHasColors:{v9, v13, v15}])
+  {
+    if (colorCopy == 255)
+    {
+      if (gLogCategory_AAAssetHelper <= 30 && (gLogCategory_AAAssetHelper != -1 || _LogCategory_Initialize()))
+      {
+        +[AAAssetHelper _bluetoothProductIDToCaseAsset:withColor:];
+      }
+    }
+
+    else
+    {
+      if ([self _productColorAssetExists:v9 withColor:colorCopy])
+      {
+        if (gLogCategory_AAAssetHelper <= 30 && (gLogCategory_AAAssetHelper != -1 || _LogCategory_Initialize()))
+        {
+          LogPrintF();
+        }
+
+        colorCopy = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Banner-PID-%u-%u-Case", v9, colorCopy];
+        goto LABEL_42;
+      }
+
+      if (gLogCategory_AAAssetHelper <= 30 && (gLogCategory_AAAssetHelper != -1 || _LogCategory_Initialize()))
+      {
+        v14 = v9;
+        v16 = colorCopy;
+        LogPrintF();
+      }
+    }
+
+    colorCopy = [self _bluetoothProductIDToCaseDefaultAsset:{v9, v14, v16}];
+    goto LABEL_42;
+  }
+
+  if (gLogCategory_AAAssetHelper <= 30 && (gLogCategory_AAAssetHelper != -1 || _LogCategory_Initialize()))
+  {
+    +[AAAssetHelper _bluetoothProductIDToCaseAsset:withColor:];
+  }
+
+  colorCopy = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Banner-PID-%u-Case", v9, v16];
+LABEL_42:
+
+  return colorCopy;
+}
+
++ (id)_bluetoothProductIDToCaseDefaultAsset:(unsigned int)asset
+{
+  v3 = *&asset;
+  v4 = [self _getDefaultColorCode:?];
+  if (v4 == 255)
+  {
+    if (gLogCategory_AAAssetHelper <= 90 && (gLogCategory_AAAssetHelper != -1 || _LogCategory_Initialize()))
+    {
+      +[AAAssetHelper _bluetoothProductIDToCaseDefaultAsset:];
+    }
+
+    v5 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Banner-PID-%u-default-Case", v3, v7];
+  }
+
+  else
+  {
+    v5 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Banner-PID-%u-%u-Case", v3, v4];
   }
 
   return v5;

@@ -426,18 +426,18 @@ LABEL_7:
   segments = [(RCWaveform *)selfCopy segments];
   firstObject = [segments firstObject];
   [firstObject timeRange];
-  v6 = v5;
   segments2 = [(RCWaveform *)selfCopy segments];
   lastObject = [segments2 lastObject];
   [lastObject timeRange];
-  v10 = RCTimeRangeMake(v6, v9);
-  v12 = v11;
+  RCTimeRangeMake();
+  v8 = v7;
+  v10 = v9;
 
   objc_sync_exit(selfCopy);
-  v13 = v10;
-  v14 = v12;
-  result.var1 = v14;
-  result.var0 = v13;
+  v11 = v8;
+  v12 = v10;
+  result.var1 = v12;
+  result.var0 = v11;
   return result;
 }
 

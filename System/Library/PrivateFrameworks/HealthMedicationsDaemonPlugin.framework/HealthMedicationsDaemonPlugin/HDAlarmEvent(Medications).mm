@@ -12,35 +12,35 @@
 - (uint64_t)isFollowUpNotificationEvent
 {
   eventIdentifier = [self eventIdentifier];
-  v3 = [eventIdentifier componentsSeparatedByString:{@", "}];
-  v4 = [v3 count];
+  v4 = [eventIdentifier componentsSeparatedByString:{@", "}];
+  v5 = [v4 count];
 
-  if (v4 != 3)
+  if (v5 != 3)
   {
     [(HDAlarmEvent(Medications) *)self isFollowUpNotificationEvent];
   }
 
   eventIdentifier2 = [self eventIdentifier];
-  v6 = BoolValueFromIdentifierForKey(eventIdentifier2, @"isFollowUp");
+  v7 = BoolValueFromIdentifierForKey(eventIdentifier2, @"isFollowUp");
 
-  return v6;
+  return v7;
 }
 
 - (uint64_t)isCriticalNotificationEvent
 {
   eventIdentifier = [self eventIdentifier];
-  v3 = [eventIdentifier componentsSeparatedByString:{@", "}];
-  v4 = [v3 count];
+  v4 = [eventIdentifier componentsSeparatedByString:{@", "}];
+  v5 = [v4 count];
 
-  if (v4 != 3)
+  if (v5 != 3)
   {
     [(HDAlarmEvent(Medications) *)self isCriticalNotificationEvent];
   }
 
   eventIdentifier2 = [self eventIdentifier];
-  v6 = BoolValueFromIdentifierForKey(eventIdentifier2, @"isCritical");
+  v7 = BoolValueFromIdentifierForKey(eventIdentifier2, @"isCritical");
 
-  return v6;
+  return v7;
 }
 
 - (id)scheduleItemIdentifier
@@ -55,9 +55,9 @@
   {
     eventIdentifier3 = [self eventIdentifier];
     [eventIdentifier3 doubleValue];
-    v6 = v5;
+    v7 = v6;
 
-    if (v6 > 0.0)
+    if (v7 > 0.0)
     {
       lastObject = eventIdentifier;
       goto LABEL_8;
@@ -65,24 +65,24 @@
   }
 
   eventIdentifier4 = [self eventIdentifier];
-  v9 = [eventIdentifier4 componentsSeparatedByString:{@", "}];
-  v10 = [v9 count];
+  v10 = [eventIdentifier4 componentsSeparatedByString:{@", "}];
+  v11 = [v10 count];
 
-  if (v10 != 3)
+  if (v11 != 3)
   {
     [(HDAlarmEvent(Medications) *)self scheduleItemIdentifier];
   }
 
-  v11 = [eventIdentifier componentsSeparatedByString:{@", "}];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __KeyValuePairFromIdentifierForKey_block_invoke;
-  v15[3] = &unk_2796CE388;
-  v16 = @"scheduleItemId";
-  v12 = [v11 hk_firstObjectPassingTest:v15];
+  v12 = [eventIdentifier componentsSeparatedByString:{@", "}];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __KeyValuePairFromIdentifierForKey_block_invoke;
+  v16[3] = &unk_2796CE388;
+  v17 = @"scheduleItemId";
+  v13 = [v12 hk_firstObjectPassingTest:v16];
 
-  v13 = [v12 componentsSeparatedByString:@":"];
-  lastObject = [v13 lastObject];
+  v14 = [v13 componentsSeparatedByString:@":"];
+  lastObject = [v14 lastObject];
 
 LABEL_8:
 

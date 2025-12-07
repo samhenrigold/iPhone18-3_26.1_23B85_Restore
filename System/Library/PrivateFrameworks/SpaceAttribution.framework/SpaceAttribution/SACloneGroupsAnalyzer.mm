@@ -4,6 +4,7 @@
 - (void)attributeCloneSizeForClone:(id)clone volumesInfo:(id)info clonesData:(id)data appSizeBreakdownList:(id)list collectClonesPaths:(BOOL)paths;
 - (void)fixUpCloneSizeForClone:(id)clone volumesInfo:(id)info clonesData:(id)data appSizeBreakdownList:(id)list revert:(BOOL)revert;
 - (void)iterateCloneGroupsOnVolume:(id)volume volumesInfo:(id)info appSizeBreakdownList:(id)list collectClonesPaths:(BOOL)paths reply:(id)reply;
+- (void)processCloneGroupsOnVol:(id)vol volumesInfo:(id)info appSizeBreakdownList:(id)list collectClonesPaths:(BOOL)paths reply:(id)reply;
 - (void)updateAppSizeBreakdownForClone:(id)clone appSizeBreakdownList:(id)list dataSize:(unint64_t)size;
 @end
 
@@ -558,6 +559,18 @@ LABEL_58:
   }
 
 LABEL_62:
+}
+
+- (void)processCloneGroupsOnVol:(id)vol volumesInfo:(id)info appSizeBreakdownList:(id)list collectClonesPaths:(BOOL)paths reply:(id)reply
+{
+  pathsCopy = paths;
+  v13[0] = _NSConcreteStackBlock;
+  v13[1] = 3221225472;
+  v13[2] = sub_100014904;
+  v13[3] = &unk_100064EA8;
+  replyCopy = reply;
+  v12 = replyCopy;
+  [(SACloneGroupsAnalyzer *)self iterateCloneGroupsOnVolume:vol volumesInfo:info appSizeBreakdownList:list collectClonesPaths:pathsCopy reply:v13];
 }
 
 @end

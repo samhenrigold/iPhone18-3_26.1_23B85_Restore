@@ -1869,7 +1869,7 @@ LABEL_17:
   _Block_object_dispose(buf, 8);
 }
 
-uint64_t __58__ICContentKeySession_waitForAllKeysToProcessWithTimeout___block_invoke(uint64_t a1)
+void *__58__ICContentKeySession_waitForAllKeysToProcessWithTimeout___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 64) count];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -3048,12 +3048,12 @@ void __66__ICContentKeySession_copyKeysToPendingInvalidationStoreFromPath___bloc
   }
 }
 
-void __56__ICContentKeySession_enhancedAudioSharedContentKeyPath__block_invoke()
+void __56__ICContentKeySession_enhancedAudioSharedContentKeyPath__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = MSVMobileHomeDirectory();
-  v0 = [v2 stringByAppendingPathComponent:@"Media/EnhancedAudioSharedKeys/"];
-  v1 = enhancedAudioSharedContentKeyPath_path;
-  enhancedAudioSharedContentKeyPath_path = v0;
+  v4 = MSVMobileHomeDirectory();
+  v2 = [v4 stringByAppendingPathComponent:@"Media/EnhancedAudioSharedKeys/"];
+  v3 = enhancedAudioSharedContentKeyPath_path;
+  enhancedAudioSharedContentKeyPath_path = v2;
 }
 
 @end

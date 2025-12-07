@@ -194,7 +194,7 @@
         memset(v28, 0, sizeof(v28));
         if (v9)
         {
-          [v9 timeMapping];
+          objc_msgSend_timeMapping(v9);
           v10 = (v28[0].start.flags & 1) == 0;
         }
 
@@ -370,7 +370,7 @@
   memset(&v54, 0, sizeof(v54));
   if (itemCopy)
   {
-    [itemCopy destinationDuration];
+    objc_msgSend_destinationDuration(itemCopy);
   }
 
   else
@@ -405,7 +405,7 @@
         [(NSMutableArray *)self->_videoSegments addObject:v14];
         if (v14)
         {
-          [v14 timeMapping];
+          objc_msgSend_timeMapping(v14);
         }
 
         else
@@ -447,11 +447,11 @@ LABEL_18:
     memset(&lhs, 0, sizeof(lhs));
     CMTimeMake(&lhs, 0, [(JFXCompositionTrackGroup *)self timeScale]);
     v42 = cursor;
-    [(JFXCompositionTrackGroup *)self lastRampToZeroEnd];
+    objc_msgSend_lastRampToZeroEnd(self);
     duration.start = cursor;
     if (CMTimeCompare(&duration.start, &v54.start) < 0)
     {
-      [(JFXCompositionTrackGroup *)self lastRampToZeroEnd];
+      objc_msgSend_lastRampToZeroEnd(self);
     }
 
     v26 = itemCopy;
@@ -496,7 +496,7 @@ LABEL_18:
           memset(&v54, 0, sizeof(v54));
           if (v22)
           {
-            [v22 timeMapping];
+            objc_msgSend_timeMapping(v22);
             v23 = 0uLL;
           }
 
@@ -552,7 +552,7 @@ LABEL_18:
           {
             if (v22)
             {
-              [v22 timeMapping];
+              objc_msgSend_timeMapping(v22);
             }
 
             else
@@ -567,7 +567,7 @@ LABEL_18:
             if (v22)
             {
 LABEL_41:
-              [v22 timeMapping];
+              objc_msgSend_timeMapping(v22, v26);
               goto LABEL_47;
             }
           }
@@ -609,8 +609,8 @@ LABEL_47:
   memset(&v18, 0, sizeof(v18));
   CMTimeMake(&v18, 0, [(JFXCompositionTrackGroup *)self timeScale]);
   memset(&v17, 0, sizeof(v17));
-  [(JFXCompositionTrackGroup *)self cursor];
-  [(JFXCompositionTrackGroup *)self cursor];
+  objc_msgSend_cursor(self);
+  objc_msgSend_cursor(self);
   lhs = *time;
   CMTimeSubtract(&duration, &lhs, &rhs);
   CMTimeRangeMake(&v17, &start.start, &duration);
@@ -627,7 +627,7 @@ LABEL_47:
       [(NSMutableArray *)self->_videoSegments addObject:v7];
       if (v7)
       {
-        [v7 timeMapping];
+        objc_msgSend_timeMapping(v7);
       }
 
       else
@@ -664,7 +664,7 @@ LABEL_47:
       {
         if (v9)
         {
-          [v9 timeMapping];
+          objc_msgSend_timeMapping(v9);
         }
 
         else
@@ -678,7 +678,7 @@ LABEL_47:
       p_cursorForMovieAudio = &self->_cursorForMovieAudio;
       if (v9)
       {
-        [v9 timeMapping];
+        objc_msgSend_timeMapping(v9);
       }
 
       else
@@ -706,7 +706,7 @@ LABEL_47:
 {
   audioCopy = audio;
   itemCopy = item;
-  [(JFXCompositionTrackGroup *)self cursor];
+  objc_msgSend_cursor(self);
   v9 = *time;
   if ((CMTimeCompare(&v9, &time2) & 0x80000000) == 0)
   {
@@ -757,7 +757,7 @@ LABEL_47:
           {
             if (v14)
             {
-              [v14 timeMapping];
+              objc_msgSend_timeMapping(v14);
             }
 
             else
@@ -1001,12 +1001,12 @@ void __61__JFXCompositionTrackGroup_applyToTrack_withSegments_assets___block_inv
     v7 = *(a1 + 40);
     if (v7)
     {
-      [v7 timeMapping];
+      objc_msgSend_timeMapping(v7);
       v9 = *(a1 + 40);
       time1 = v46;
       if (v9)
       {
-        [v9 timeMapping];
+        objc_msgSend_timeMapping(v9);
         goto LABEL_10;
       }
     }
@@ -1036,13 +1036,13 @@ LABEL_10:
     v12 = *(a1 + 40);
     if (v12)
     {
-      [v12 timeMapping];
+      objc_msgSend_timeMapping(v12);
       v13 = *(a1 + 40);
       *&time1.start.value = *(&v38[3] + 8);
       time1.start.epoch = *(&v38[4] + 1);
       if (v13)
       {
-        [v13 timeMapping];
+        objc_msgSend_timeMapping(v13);
         goto LABEL_15;
       }
     }
@@ -1071,20 +1071,20 @@ LABEL_15:
     v14 = *(a1 + 40);
     if (v14)
     {
-      [v14 timeMapping];
+      objc_msgSend_timeMapping(v14);
       v15 = *(a1 + 40);
       *&v18.start.value = v31;
       v18.start.epoch = v32;
       if (v15)
       {
-        [v15 timeMapping];
+        objc_msgSend_timeMapping(v15, *&v18.start.value, v18.start.epoch);
 LABEL_21:
         duration = *(&v23[3] + 8);
         CMTimeRangeMake(&time1, &v18.start, &duration);
         v16 = *(a1 + 40);
         if (v16)
         {
-          [v16 timeMapping];
+          objc_msgSend_timeMapping(v16);
         }
 
         else
@@ -1268,9 +1268,9 @@ LABEL_26:
 
 - (float)linearFadeOutValueForTime:(id *)time
 {
-  [(JFXCompositionTrackGroup *)self fadeOutStart];
+  objc_msgSend_fadeOutStart(self, a2);
   Seconds = CMTimeGetSeconds(&v10);
-  [(JFXCompositionTrackGroup *)self fadeOutDuration];
+  objc_msgSend_fadeOutDuration(self);
   v6 = CMTimeGetSeconds(&v10);
   v10 = *time;
   v7 = CMTimeGetSeconds(&v10);
@@ -1296,8 +1296,8 @@ LABEL_26:
 {
   v87 = *MEMORY[0x277D85DE8];
   memset(&v84, 0, sizeof(v84));
-  [(JFXCompositionTrackGroup *)self fadeOutStart];
-  [(JFXCompositionTrackGroup *)self fadeOutDuration];
+  objc_msgSend_fadeOutStart(self, a2);
+  objc_msgSend_fadeOutDuration(self);
   CMTimeRangeMake(&v84, start, &duration.start);
   if ((v84.start.flags & 1) != 0 && (v84.duration.flags & 1) != 0 && !v84.duration.epoch && (v84.duration.value & 0x8000000000000000) == 0)
   {
@@ -1679,7 +1679,7 @@ LABEL_20:
   v48 = *MEMORY[0x277D85DE8];
   memset(&v45, 0, sizeof(v45));
   CMTimeMake(&v45, 1, [(JFXCompositionTrackGroup *)self timeScale]);
-  [(JFXCompositionTrackGroup *)self timeOfLastVolumeChange];
+  objc_msgSend_timeOfLastVolumeChange(self);
   *&time1.start.value = *&range->var0.var0;
   time1.start.epoch = range->var0.var3;
   if (CMTimeCompare(&time1.start, time2) >= 1)
@@ -1690,7 +1690,7 @@ LABEL_20:
       *time2 = *&range->var0.var0;
       *&time2[16] = range->var0.var3;
       Seconds = CMTimeGetSeconds(time2);
-      [(JFXCompositionTrackGroup *)self timeOfLastVolumeChange];
+      objc_msgSend_timeOfLastVolumeChange(self);
       v30 = CMTimeGetSeconds(time2);
       *time2 = 134218240;
       *&time2[4] = Seconds;
@@ -1699,7 +1699,7 @@ LABEL_20:
       _os_log_debug_impl(&dword_242A3B000, v9, OS_LOG_TYPE_DEBUG, "commitVolumeRampFromStartVolume startTime %f < timeOfLastVolumeChange %f -- Adjusting", time2, 0x16u);
     }
 
-    [(JFXCompositionTrackGroup *)self timeOfLastVolumeChange];
+    objc_msgSend_timeOfLastVolumeChange(self);
     v10 = *&range->var0.var3;
     *time2 = *&range->var0.var0;
     *&time2[16] = v10;
@@ -1850,7 +1850,7 @@ LABEL_21:
 
 - (BOOL)commitPendingVolumeToTime:(id *)time
 {
-  [(JFXCompositionTrackGroup *)self timeOfLastVolumeChange];
+  objc_msgSend_timeOfLastVolumeChange(self, a2);
   v13.start = *time;
   v5 = CMTimeCompare(&v13.start, &time2.start);
   if (v5 <= 0)
@@ -1871,7 +1871,7 @@ LABEL_21:
     }
 
     memset(&time2, 0, sizeof(time2));
-    [(JFXCompositionTrackGroup *)self timeOfLastVolumeChange];
+    objc_msgSend_timeOfLastVolumeChange(self);
     end = *time;
     CMTimeRangeFromTimeToTime(&time2, &v13.start, &end);
     [(JFXCompositionTrackGroup *)self volumeChangePending];
@@ -1901,7 +1901,7 @@ LABEL_21:
 {
   v16 = *MEMORY[0x277D85DE8];
   v14 = *time;
-  [(JFXCompositionTrackGroup *)self timeOfLastVolumeChange];
+  objc_msgSend_timeOfLastVolumeChange(self, a2);
   v13 = v14;
   if (CMTimeCompare(&v13, &time2) < 0)
   {
@@ -1910,7 +1910,7 @@ LABEL_21:
     {
       time2 = *time;
       Seconds = CMTimeGetSeconds(&time2);
-      [(JFXCompositionTrackGroup *)self timeOfLastVolumeChange];
+      objc_msgSend_timeOfLastVolumeChange(self);
       v12 = CMTimeGetSeconds(&time2);
       LODWORD(time2.value) = 134218240;
       *(&time2.value + 4) = Seconds;
@@ -1951,7 +1951,7 @@ LABEL_21:
 
   range = v27;
   CMTimeRangeGetEnd(&rangeCopy.start, &range);
-  [(JFXCompositionTrackGroup *)self timeOfLastVolumeChange];
+  objc_msgSend_timeOfLastVolumeChange(self);
   v12 = CMTimeCompare(&rangeCopy.start, &range.start);
   if (v12 < 0)
   {
@@ -1961,7 +1961,7 @@ LABEL_21:
       range = v27;
       CMTimeRangeGetEnd(&rangeCopy.start, &range);
       Seconds = CMTimeGetSeconds(&rangeCopy.start);
-      [(JFXCompositionTrackGroup *)self timeOfLastVolumeChange];
+      objc_msgSend_timeOfLastVolumeChange(self);
       v20 = CMTimeGetSeconds(&range.start);
       LODWORD(range.start.value) = 134218240;
       *(&range.start.value + 4) = Seconds;
@@ -1973,7 +1973,7 @@ LABEL_21:
 
   else
   {
-    [(JFXCompositionTrackGroup *)self timeOfLastVolumeChange];
+    objc_msgSend_timeOfLastVolumeChange(self);
     *&rangeCopy.start.value = *&v27.start.value;
     rangeCopy.start.epoch = v27.start.epoch;
     if (CMTimeCompare(&rangeCopy.start, &range.start) < 0)
@@ -1984,7 +1984,7 @@ LABEL_21:
         *&range.start.value = *&range->var0.var0;
         range.start.epoch = range->var0.var3;
         v21 = CMTimeGetSeconds(&range.start);
-        [(JFXCompositionTrackGroup *)self timeOfLastVolumeChange];
+        objc_msgSend_timeOfLastVolumeChange(self);
         v22 = CMTimeGetSeconds(&range.start);
         LODWORD(range.start.value) = 134218240;
         *(&range.start.value + 4) = v21;
@@ -1993,7 +1993,7 @@ LABEL_21:
         _os_log_debug_impl(&dword_242A3B000, v13, OS_LOG_TYPE_DEBUG, "setVolumeRamp startTime %f < timeOfLastVolumeChange %f -- Adjusting", &range, 0x16u);
       }
 
-      [(JFXCompositionTrackGroup *)self timeOfLastVolumeChange];
+      objc_msgSend_timeOfLastVolumeChange(self);
       range = v27;
       CMTimeRangeGetEnd(&end, &range);
       CMTimeRangeFromTimeToTime(&v27, &rangeCopy.start, &end);
@@ -2008,14 +2008,14 @@ LABEL_21:
 
     if (segmentCopy)
     {
-      [(JFXCompositionTrackGroup *)self timeOfLastVolumeChange];
+      objc_msgSend_timeOfLastVolumeChange(self);
       *&rangeCopy.start.value = *&v27.start.value;
       rangeCopy.start.epoch = v27.start.epoch;
       if (CMTimeCompare(&rangeCopy.start, &range.start) >= 1)
       {
         memset(&range, 0, sizeof(range));
-        [(JFXCompositionTrackGroup *)self timeOfLastVolumeChange];
-        [(JFXCompositionTrackGroup *)self timeOfLastVolumeChange];
+        objc_msgSend_timeOfLastVolumeChange(self);
+        objc_msgSend_timeOfLastVolumeChange(self);
         lhs = v27.start;
         CMTimeSubtract(&end, &lhs, &rhs);
         CMTimeRangeMake(&range, &rangeCopy.start, &end);
@@ -2097,7 +2097,9 @@ LABEL_21:
 void __61__JFXCompositionTrackGroup_applyToTrack_withSegments_assets___block_invoke_cold_1(uint64_t a1)
 {
   v1 = [*(a1 + 40) sourceURL];
-  OUTLINED_FUNCTION_1_0(&dword_242A3B000, v2, v3, "Unable to insert %@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_1_0(&dword_242A3B000, v2, v3, "Unable to insert %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 - (void)commitVolumeRampFromStartVolume:(void *)a1 toEndVolume:(uint8_t *)buf timeRange:(os_log_t)log .cold.2(void *a1, uint8_t *buf, os_log_t log)
@@ -2112,8 +2114,9 @@ void __61__JFXCompositionTrackGroup_applyToTrack_withSegments_assets___block_inv
   v9 = *MEMORY[0x277D85DE8];
   v8 = *a1;
   Seconds = CMTimeGetSeconds(&v8);
-  v8.timescale = HIDWORD(Seconds);
-  OUTLINED_FUNCTION_1_0(&dword_242A3B000, v2, v3, "commitPendingVolumeToTime: %f in Past", v4, v5, v6, v7, 0);
+  LODWORD(v8.value) = 134217984;
+  *(&v8.value + 4) = Seconds;
+  OUTLINED_FUNCTION_1_0(&dword_242A3B000, v2, v3, "commitPendingVolumeToTime: %f in Past", v4, v5, v6, v7, *&v8.value);
 }
 
 @end

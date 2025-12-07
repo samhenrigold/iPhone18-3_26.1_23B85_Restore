@@ -173,7 +173,7 @@ void __44___UIVectorLabelLayer__layersForTextLayout___block_invoke_3(uint64_t a1
   memset(&v7, 0, sizeof(v7));
   if (v3)
   {
-    [v3 pathTransform];
+    objc_msgSend_pathTransform(v3, *&v7.a, *&v7.c, *&v7.tx);
   }
 
   v5 = *(a1 + 32);

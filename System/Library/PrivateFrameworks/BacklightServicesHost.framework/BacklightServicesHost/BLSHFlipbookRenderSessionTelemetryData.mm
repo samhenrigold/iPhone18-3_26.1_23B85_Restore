@@ -66,25 +66,24 @@
 id __53__BLSHFlipbookRenderSessionTelemetryData_description__block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
-  v3 = *(*(a1 + 40) + 16);
-  v4 = BLSShortLoggingStringForContinuousMachTime();
-  v5 = [v2 appendObject:v4 withName:@"done@"];
+  v3 = BLSShortLoggingStringForContinuousMachTime();
+  v4 = [v2 appendObject:v3 withName:@"done@"];
 
-  v6 = [*(a1 + 32) appendObject:*(*(a1 + 40) + 32) withName:@"reason"];
-  v7 = [*(a1 + 32) bls_appendTimeInterval:@"total" withName:0 decomposeUnits:*(*(a1 + 40) + 48)];
-  v8 = [*(a1 + 32) bls_appendTimeInterval:@"layout" withName:0 decomposeUnits:*(*(a1 + 40) + 56)];
-  v9 = [*(a1 + 32) bls_appendTimeInterval:@"render" withName:0 decomposeUnits:*(*(a1 + 40) + 64)];
+  v5 = [*(a1 + 32) appendObject:*(*(a1 + 40) + 32) withName:@"reason"];
+  v6 = [*(a1 + 32) bls_appendTimeInterval:@"total" withName:0 decomposeUnits:*(*(a1 + 40) + 48)];
+  v7 = [*(a1 + 32) bls_appendTimeInterval:@"layout" withName:0 decomposeUnits:*(*(a1 + 40) + 56)];
+  v8 = [*(a1 + 32) bls_appendTimeInterval:@"render" withName:0 decomposeUnits:*(*(a1 + 40) + 64)];
   if ([*(a1 + 40) preventedSleep])
   {
-    v10 = [*(a1 + 32) bls_appendTimeInterval:@"preventedSleep" withName:0 decomposeUnits:*(*(a1 + 40) + 72)];
+    v9 = [*(a1 + 32) bls_appendTimeInterval:@"preventedSleep" withName:0 decomposeUnits:*(*(a1 + 40) + 72)];
   }
 
-  v11 = [*(a1 + 32) appendInteger:objc_msgSend(*(*(a1 + 40) + 24) withName:{"count"), @"env∑"}];
+  v10 = [*(a1 + 32) appendInteger:objc_msgSend(*(*(a1 + 40) + 24) withName:{"count"), @"env∑"}];
   result = [*(a1 + 32) appendBool:*(*(a1 + 40) + 8) withName:@"failedToRender" ifEqualTo:1];
-  v13 = *(*(a1 + 40) + 12);
-  if (v13)
+  v12 = *(*(a1 + 40) + 12);
+  if (v12)
   {
-    return [*(a1 + 32) appendUnsignedInt:v13 withName:@"timeouts"];
+    return [*(a1 + 32) appendUnsignedInt:v12 withName:@"timeouts"];
   }
 
   return result;

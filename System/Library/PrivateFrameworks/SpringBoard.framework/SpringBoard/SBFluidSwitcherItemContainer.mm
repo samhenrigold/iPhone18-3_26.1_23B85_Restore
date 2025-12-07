@@ -214,7 +214,7 @@
   v17 = v16;
   v19 = v18;
   v21 = v20;
-  [(SBFluidSwitcherTouchPassThroughScrollView *)self->_killScrollView frame];
+  objc_msgSend_frame(self->_killScrollView);
   v55.origin.x = v15;
   v55.origin.y = v17;
   v55.size.width = v19;
@@ -1036,7 +1036,7 @@ void __46__SBFluidSwitcherItemContainer_layoutSubviews__block_invoke(uint64_t a1
         v26 = view;
 
         v27 = [SBApplicationBlurContentView alloc];
-        [(SBAppSwitcherPageView *)self->_pageView frame];
+        objc_msgSend_frame(self->_pageView);
         v28 = [SBApplicationBlurContentView initWithFrame:v27 bundleIdentifier:"initWithFrame:bundleIdentifier:targetViewToBlur:initialIconScale:" targetViewToBlur:bundleIdentifier initialIconScale:v26];
         blurView = self->_blurView;
         self->_blurView = v28;
@@ -1893,7 +1893,7 @@ uint64_t __73__SBFluidSwitcherItemContainer_dragInteraction_itemsForBeginningSes
   pageView = self->_pageView;
   if (pageView)
   {
-    [(SBAppSwitcherPageView *)pageView transform];
+    objc_msgSend_transform(pageView);
     v16 = *&v35;
   }
 
@@ -2560,7 +2560,7 @@ LABEL_22:
 
 - (BOOL)_scrollViewShouldPanGestureTryToBegin:(id)begin
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   beginCopy = begin;
   panGestureRecognizer = [beginCopy panGestureRecognizer];
   [panGestureRecognizer translationInView:beginCopy];
@@ -2578,40 +2578,41 @@ LABEL_22:
     v11 = v9;
   }
 
-  v13 = 0;
-  if ((BSFloatIsZero() & 1) == 0)
+  IsZero = BSFloatIsZero();
+  v14 = 0;
+  if ((IsZero & 1) == 0)
   {
-    v12 = killAxis ? v9 : v7;
-    if (fabs(v12 / v11) <= 0.5)
+    v13 = killAxis ? v9 : v7;
+    if (fabs(v13 / v11) <= 0.5)
     {
-      v13 = 1;
+      v14 = 1;
     }
   }
 
-  v14 = SBLogAppSwitcher();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v15 = SBLogAppSwitcher(IsZero);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    if (v13)
+    if (v14)
     {
-      v15 = @"Allow";
+      v16 = @"Allow";
     }
 
     else
     {
-      v15 = @"Don't allow";
+      v16 = @"Don't allow";
     }
 
-    v23.x = v7;
-    v23.y = v9;
-    v16 = NSStringFromPoint(v23);
-    v18 = 138543618;
-    v19 = v15;
-    v20 = 2114;
-    v21 = v16;
-    _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@ panning in scroll view [translation: %{public}@", &v18, 0x16u);
+    v24.x = v7;
+    v24.y = v9;
+    v17 = NSStringFromPoint(v24);
+    v19 = 138543618;
+    v20 = v16;
+    v21 = 2114;
+    v22 = v17;
+    _os_log_impl(&dword_21ED4E000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@ panning in scroll view [translation: %{public}@", &v19, 0x16u);
   }
 
-  return v13;
+  return v14;
 }
 
 - (void)_handleHoverGesture:(id)gesture

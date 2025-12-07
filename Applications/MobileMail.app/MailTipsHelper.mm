@@ -33,7 +33,7 @@
 - (void)updateFilterByUnreadRulesWithAmountOfEmails:(int64_t)emails amountOfUnreads:(int64_t)unreads
 {
   _objc_retain(self);
-  sub_1003A3310();
+  sub_1003A3310(emails, unreads);
   _objc_release(self);
 }
 

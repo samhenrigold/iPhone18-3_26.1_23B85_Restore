@@ -56,11 +56,9 @@ void __76__WFContactAccessResource_makeAvailableWithUserInterface_completionHand
 uint64_t __76__WFContactAccessResource_makeAvailableWithUserInterface_completionHandler___block_invoke_2(uint64_t a1)
 {
   [*(a1 + 32) refreshAvailabilityWithForcedNotification];
-  v2 = *(a1 + 56);
-  v3 = *(a1 + 40);
-  v4 = *(*(a1 + 48) + 16);
+  v2 = *(*(a1 + 48) + 16);
 
-  return v4();
+  return v2();
 }
 
 @end

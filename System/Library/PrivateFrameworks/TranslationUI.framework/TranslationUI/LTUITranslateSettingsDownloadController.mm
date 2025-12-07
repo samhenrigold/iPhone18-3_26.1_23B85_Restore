@@ -5,6 +5,7 @@
 - (LTUITranslateSettingsDownloadController)initWithNibName:(id)name bundle:(id)bundle usageContext:(unint64_t)context;
 - (LTUITranslateSettingsDownloadController)initWithNibName:(id)name bundle:(id)bundle usageContext:(unint64_t)context headerController:(id)controller;
 - (void)loadBridge;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -138,6 +139,37 @@
 LABEL_10:
   bridge = self->_bridge;
   self->_bridge = v7;
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v22[2] = *MEMORY[0x277D85DE8];
+  v21.receiver = self;
+  v21.super_class = LTUITranslateSettingsDownloadController;
+  [(LTUITranslateSettingsDownloadController *)&v21 viewDidAppear:appear];
+  v20 = [MEMORY[0x277CBEBC0] URLWithString:@"settings-navigation://com.apple.Settings.Apps/com.apple.Translate/DOWNLOADED_LANGUAGES_SPECIFIER"];
+  v4 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
+  v6 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  bundleURL = [v6 bundleURL];
+  v8 = [v4 initWithKey:@"ON_DEVICE_LANGUAGES_TITLE" table:@"Localizable" locale:currentLocale bundleURL:bundleURL];
+
+  v9 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale2 = [MEMORY[0x277CBEAF8] currentLocale];
+  v11 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  bundleURL2 = [v11 bundleURL];
+  v13 = [v9 initWithKey:@"TRANSLATE" table:@"Localizable" locale:currentLocale2 bundleURL:bundleURL2];
+
+  v14 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale3 = [MEMORY[0x277CBEAF8] currentLocale];
+  v16 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  bundleURL3 = [v16 bundleURL];
+  v18 = [v14 initWithKey:@"APPS" table:@"Localizable" locale:currentLocale3 bundleURL:bundleURL3];
+
+  v22[0] = v18;
+  v22[1] = v13;
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
+  [(LTUITranslateSettingsDownloadController *)self pe_emitNavigationEventForApplicationSettingsWithApplicationBundleIdentifier:@"com.apple.Translate" title:v8 localizedNavigationComponents:v19 deepLink:v20];
 }
 
 @end

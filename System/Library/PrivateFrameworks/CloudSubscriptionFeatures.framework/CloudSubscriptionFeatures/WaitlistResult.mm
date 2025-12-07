@@ -12,27 +12,24 @@
 {
   if (*(self + OBJC_IVAR____TtC25CloudSubscriptionFeatures14WaitlistResult_ticket + 8))
   {
-    v2 = *(self + OBJC_IVAR____TtC25CloudSubscriptionFeatures14WaitlistResult_ticket);
-    v3 = *(self + OBJC_IVAR____TtC25CloudSubscriptionFeatures14WaitlistResult_ticket + 8);
 
-    v4 = sub_1DF564914();
+    v2 = sub_1DF564914();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (NSArray)featureIDs
 {
-  v2 = *(self + OBJC_IVAR____TtC25CloudSubscriptionFeatures14WaitlistResult_featureIDs);
 
-  v3 = sub_1DF564A94();
+  v2 = sub_1DF564A94();
 
-  return v3;
+  return v2;
 }
 
 - (_TtC25CloudSubscriptionFeatures14WaitlistResult)initWithTicket:(id)ticket status:(id)status featureIDs:(id)ds

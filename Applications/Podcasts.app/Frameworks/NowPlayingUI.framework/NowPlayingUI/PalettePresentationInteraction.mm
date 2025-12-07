@@ -87,7 +87,7 @@ LABEL_6:
 {
   selfCopy = self;
   v6 = *(&self->super.isa + OBJC_IVAR____TtC12NowPlayingUI30PalettePresentationInteraction_panGestureRecognizer);
-  sub_2B860(0, &unk_1C95B8);
+  sub_2B860(0, &unk_1C95B8, UIGestureRecognizer_ptr);
   recognizerCopy = recognizer;
   v8 = selfCopy;
   v9 = v6;
@@ -100,7 +100,7 @@ LABEL_6:
 {
   beginCopy = begin;
   selfCopy = self;
-  LOBYTE(self) = sub_111730();
+  LOBYTE(self) = sub_111730(beginCopy);
 
   return self & 1;
 }

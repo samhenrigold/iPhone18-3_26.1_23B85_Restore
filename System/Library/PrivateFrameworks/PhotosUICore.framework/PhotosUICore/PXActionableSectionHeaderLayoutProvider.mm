@@ -67,32 +67,32 @@
   selectionSnapshot = [selectionManager selectionSnapshot];
   dataSource = [selectionSnapshot dataSource];
 
+  v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   if (layoutCopy)
   {
-    [layoutCopy sectionIndexPath];
+    objc_msgSend_sectionIndexPath(layoutCopy);
   }
 
   else
   {
-    memset(v19, 0, sizeof(v19));
+    memset(&v18[2], 0, 32);
   }
 
   dataSource2 = [layoutCopy dataSource];
   if (dataSource)
   {
-    [dataSource convertIndexPath:v19 fromSectionedDataSource:dataSource2];
+    objc_msgSend_convertIndexPath_fromSectionedDataSource_(dataSource);
   }
 
   else
   {
+    v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
   }
 
-  v18[0] = v20;
-  v18[1] = v21;
+  v18[0] = v19;
+  v18[1] = v20;
   v12 = [off_1E7721768 indexPathSetWithIndexPath:v18];
   v13 = [dataSource itemIndexPathsForSections:v12];
 
@@ -156,7 +156,7 @@
   dataSource = [layoutCopy dataSource];
   if (layoutCopy)
   {
-    [layoutCopy sectionIndexPath];
+    objc_msgSend_sectionIndexPath(layoutCopy);
   }
 
   else
@@ -264,7 +264,7 @@
 
   if (layoutCopy)
   {
-    [layoutCopy sectionIndexPath];
+    objc_msgSend_sectionIndexPath(layoutCopy);
   }
 
   else
@@ -280,7 +280,7 @@
   v53 = 0u;
   if (layoutCopy)
   {
-    [layoutCopy sectionIndexPath];
+    objc_msgSend_sectionIndexPath(layoutCopy);
   }
 
   dataSource2 = [layoutCopy dataSource];
@@ -319,7 +319,7 @@ id __76__PXActionableSectionHeaderLayoutProvider_configurationForSingleViewLayou
   v7 = layoutCopy;
   if (layoutCopy)
   {
-    [layoutCopy sectionIndexPath];
+    objc_msgSend_sectionIndexPath(layoutCopy);
     v8 = location[0];
   }
 
@@ -386,7 +386,7 @@ id __76__PXActionableSectionHeaderLayoutProvider_configurationForSingleViewLayou
     dataSource = [v7 dataSource];
     if (v7)
     {
-      [v7 sectionIndexPath];
+      objc_msgSend_sectionIndexPath(v7);
     }
 
     else
@@ -504,7 +504,7 @@ id __88__PXActionableSectionHeaderLayoutProvider_singleViewLayout_desiredSizeFor
   dataSource = [layoutCopy dataSource];
   if (layoutCopy)
   {
-    [layoutCopy sectionIndexPath];
+    objc_msgSend_sectionIndexPath(layoutCopy);
   }
 
   else
@@ -518,7 +518,7 @@ id __88__PXActionableSectionHeaderLayoutProvider_singleViewLayout_desiredSizeFor
   dataSource2 = [layoutCopy dataSource];
   if (layoutCopy)
   {
-    [layoutCopy sectionIndexPath];
+    objc_msgSend_sectionIndexPath(layoutCopy);
   }
 
   else

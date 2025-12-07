@@ -9,7 +9,7 @@
 
 - (PGPublicEventCategoryFeatureExtractor)initWithVersion:(int64_t)version error:(id *)error
 {
-  v24[2] = *MEMORY[0x277D85DE8];
+  v23[2] = *MEMORY[0x277D85DE8];
   v6 = [objc_opt_class() _processedLabelsForVersion:version];
   v7 = MEMORY[0x277CBEB98];
   v8 = [objc_opt_class() _rawLabelsForVersion:version];
@@ -17,25 +17,24 @@
 
   v10 = MEMORY[0x277D22C90];
   v11 = +[PGGraphMomentNode publicEventOfMoment];
-  v24[0] = v11;
+  v23[0] = v11;
   v12 = +[PGGraphPublicEventNode categoryOfPublicEvent];
-  v24[1] = v12;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
+  v23[1] = v12;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
   v14 = [v10 chain:v13];
 
   v15 = [objc_opt_class() _labelProcessingForVersion:version label:@"None"];
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __63__PGPublicEventCategoryFeatureExtractor_initWithVersion_error___block_invoke;
-  v21[3] = &unk_27887FBF8;
-  v22 = v9;
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __63__PGPublicEventCategoryFeatureExtractor_initWithVersion_error___block_invoke;
+  v20[3] = &unk_27887FBF8;
+  v21 = v9;
   versionCopy = version;
-  v20.receiver = self;
-  v20.super_class = PGPublicEventCategoryFeatureExtractor;
+  v19.receiver = self;
+  v19.super_class = PGPublicEventCategoryFeatureExtractor;
   v16 = v9;
-  v17 = [(MARelationCollectionFeatureExtractor *)&v20 initWithName:@"PublicEventCategory" featureNames:v6 relation:v14 labelForEmptyRelation:v15 labelForTargetBlock:v21];
+  v17 = [(MARelationCollectionFeatureExtractor *)&v19 initWithName:@"PublicEventCategory" featureNames:v6 relation:v14 labelForEmptyRelation:v15 labelForTargetBlock:v20];
 
-  v18 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
@@ -85,20 +84,20 @@ LABEL_6:
 
 + (id)_rawLabelsForVersion:(int64_t)version
 {
-  v6[8] = *MEMORY[0x277D85DE8];
+  v5[8] = *MEMORY[0x277D85DE8];
   if ((version - 1) >= 2)
   {
     if (version == 3)
     {
-      v6[0] = @"GEOSpatialEventLookupCategoryArtsAndMuseums";
-      v6[1] = @"GEOSpatialEventLookupCategoryDance";
-      v6[2] = @"GEOSpatialEventLookupCategoryFestivalsAndFairs";
-      v6[3] = @"GEOSpatialEventLookupCategoryMusicConcerts";
-      v6[4] = @"GEOSpatialEventLookupCategoryNightLife";
-      v6[5] = @"GEOSpatialEventLookupCategorySports";
-      v6[6] = @"GEOSpatialEventLookupCategoryTheater";
-      v6[7] = @"None";
-      v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:8];
+      v5[0] = @"GEOSpatialEventLookupCategoryArtsAndMuseums";
+      v5[1] = @"GEOSpatialEventLookupCategoryDance";
+      v5[2] = @"GEOSpatialEventLookupCategoryFestivalsAndFairs";
+      v5[3] = @"GEOSpatialEventLookupCategoryMusicConcerts";
+      v5[4] = @"GEOSpatialEventLookupCategoryNightLife";
+      v5[5] = @"GEOSpatialEventLookupCategorySports";
+      v5[6] = @"GEOSpatialEventLookupCategoryTheater";
+      v5[7] = @"None";
+      v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:8];
     }
 
     else
@@ -112,46 +111,42 @@ LABEL_6:
     v3 = &unk_284485508;
   }
 
-  v4 = *MEMORY[0x277D85DE8];
-
   return v3;
 }
 
 + (id)_processedLabelsForVersion:(int64_t)version
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = [self _rawLabelsForVersion:?];
   v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v7 = v5;
-  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v15;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = [self _labelProcessingForVersion:version label:{*(*(&v15 + 1) + 8 * i), v15}];
+        v12 = [self _labelProcessingForVersion:version label:{*(*(&v14 + 1) + 8 * i), v14}];
         [v6 addObject:v12];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v9);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

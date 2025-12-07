@@ -38,17 +38,7 @@
     if (![v23 resolutionType])
     {
       digestRemovedTimestamp = [v37 digestRemovedTimestamp];
-      if (!digestRemovedTimestamp)
-      {
-        goto LABEL_5;
-      }
-
-      v27 = digestRemovedTimestamp;
-      digestRemovedTimestamp2 = [v37 digestRemovedTimestamp];
-      resolutionTimestamp = [v23 resolutionTimestamp];
-      v30 = [digestRemovedTimestamp2 compare:resolutionTimestamp];
-
-      if (v30 == -1)
+      if (digestRemovedTimestamp && (v27 = digestRemovedTimestamp, [v37 digestRemovedTimestamp], v28 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v23, "resolutionTimestamp"), v29 = objc_claimAutoreleasedReturnValue(), v30 = objc_msgSend(v28, "compare:", v29), v29, v28, v27, v30 == -1))
       {
         digestEngagementTrackingMetrics5 = [self digestEngagementTrackingMetrics];
         [digestEngagementTrackingMetrics5 setNumEngagementsAfterExpiration:1];
@@ -56,19 +46,8 @@
 
       else
       {
-LABEL_5:
         firstScheduledViewTimestamp = [v37 firstScheduledViewTimestamp];
-        if (!firstScheduledViewTimestamp)
-        {
-          goto LABEL_7;
-        }
-
-        v32 = firstScheduledViewTimestamp;
-        firstScheduledViewTimestamp2 = [v37 firstScheduledViewTimestamp];
-        resolutionTimestamp2 = [v23 resolutionTimestamp];
-        v35 = [firstScheduledViewTimestamp2 compare:resolutionTimestamp2];
-
-        if (v35 == -1)
+        if (firstScheduledViewTimestamp && (v32 = firstScheduledViewTimestamp, [v37 firstScheduledViewTimestamp], v33 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v23, "resolutionTimestamp"), v34 = objc_claimAutoreleasedReturnValue(), v35 = objc_msgSend(v33, "compare:", v34), v34, v33, v32, v35 == -1))
         {
           digestEngagementTrackingMetrics5 = [self digestEngagementTrackingMetrics];
           [digestEngagementTrackingMetrics5 setNumEngagementsInScheduled:1];
@@ -76,7 +55,6 @@ LABEL_5:
 
         else
         {
-LABEL_7:
           digestEngagementTrackingMetrics5 = [self digestEngagementTrackingMetrics];
           [digestEngagementTrackingMetrics5 setNumEngagementsInUpcoming:1];
         }

@@ -11,10 +11,13 @@
 - (void)handleDeliveryOfIdentifier:(id)identifier withData:(id)data withError:(id)error;
 - (void)handleSyncTimer;
 - (void)restartSync;
+- (void)sendAutomaticTimeEnabled:(BOOL)enabled;
 - (void)sendBTConversionFailure;
+- (void)sendData:(id)data localOnly:(BOOL)only nonWaking:(BOOL)waking includeTinker:(BOOL)tinker;
 - (void)sendDrift:(double)drift;
 - (void)sendReset;
 - (void)sendSyncRequest;
+- (void)sendTime:(double)time localRTC:(double)c uncertainty:(double)uncertainty source:(id)source reliable:(BOOL)reliable;
 - (void)sendTimeZone:(id)zone forSource:(id)source;
 - (void)setCompatible:(BOOL)compatible;
 - (void)setSyncState:(int)state;
@@ -73,6 +76,39 @@
   return v13;
 }
 
+- (void)sendTime:(double)time localRTC:(double)c uncertainty:(double)uncertainty source:(id)source reliable:(BOOL)reliable
+{
+  reliableCopy = reliable;
+  sourceCopy = source;
+  v22[0] = &off_112A8;
+  v21[0] = @"kTMLSLinkMsgKey";
+  v21[1] = @"kTMLSLinkTimeKey";
+  v13 = [NSNumber numberWithDouble:time];
+  v22[1] = v13;
+  v21[2] = @"kTMLSLinkRTCKey";
+  v14 = [NSNumber numberWithDouble:c];
+  v22[2] = v14;
+  v21[3] = @"kTMLSLinkUncertaintyKey";
+  v15 = [NSNumber numberWithDouble:uncertainty];
+  v22[3] = v15;
+  v22[4] = sourceCopy;
+  v21[4] = @"kTMLSLinkSourceKey";
+  v21[5] = @"kTMLSLinkReliableKey";
+  v16 = [NSNumber numberWithBool:reliableCopy];
+  v22[5] = v16;
+  v17 = [NSDictionary dictionaryWithObjects:v22 forKeys:v21 count:6];
+
+  v18 = TIMELINK_FACILITY;
+  if (os_log_type_enabled(TIMELINK_FACILITY, OS_LOG_TYPE_INFO))
+  {
+    v19 = 138412290;
+    v20 = v17;
+    _os_log_impl(&dword_0, v18, OS_LOG_TYPE_INFO, "sendingTime: %@", &v19, 0xCu);
+  }
+
+  -[TMLSLink sendData:localOnly:nonWaking:includeTinker:](self, "sendData:localOnly:nonWaking:includeTinker:", v17, 0, 0, [sourceCopy isEqualToString:@"TMLSSourceComputed"]);
+}
+
 - (void)sendTimeZone:(id)zone forSource:(id)source
 {
   zoneCopy = zone;
@@ -98,6 +134,32 @@
   }
 
   [(TMLSLink *)self sendData:v8 localOnly:1 nonWaking:0];
+}
+
+- (void)sendAutomaticTimeEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  if ([(TMLSLink *)self isGizmo])
+  {
+    sub_889C();
+  }
+
+  v10[0] = @"kTMLSLinkMsgKey";
+  v10[1] = @"kTMLSLinkAutomaticTimeEnabledKey";
+  v11[0] = &off_112D8;
+  v5 = [NSNumber numberWithBool:enabledCopy];
+  v11[1] = v5;
+  v6 = [NSDictionary dictionaryWithObjects:v11 forKeys:v10 count:2];
+
+  v7 = TIMELINK_FACILITY;
+  if (os_log_type_enabled(TIMELINK_FACILITY, OS_LOG_TYPE_INFO))
+  {
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_INFO, "sendingAutomaticTimeEnabled: %@", &v8, 0xCu);
+  }
+
+  [(TMLSLink *)self sendData:v6 localOnly:1 nonWaking:0];
 }
 
 - (void)sendDrift:(double)drift
@@ -634,6 +696,38 @@ LABEL_33:
   }
 }
 
+- (void)sendData:(id)data localOnly:(BOOL)only nonWaking:(BOOL)waking includeTinker:(BOOL)tinker
+{
+  tinkerCopy = tinker;
+  wakingCopy = waking;
+  dataCopy = data;
+  if ([(TMLSLink *)self isCompatible])
+  {
+    v10 = sub_573C(dataCopy);
+    transport = [(TMLSLink *)self transport];
+    v14[0] = _NSConcreteStackBlock;
+    v14[1] = 3221225472;
+    v14[2] = sub_6750;
+    v14[3] = &unk_106F0;
+    v15 = dataCopy;
+    selfCopy = self;
+    v17 = v10;
+    v12 = v10;
+    [transport sendData:v15 localOnly:1 nonWaking:wakingCopy queueOne:v12 withHandler:v14 includeTinker:tinkerCopy];
+  }
+
+  else
+  {
+    v13 = TIMELINK_FACILITY;
+    if (os_log_type_enabled(TIMELINK_FACILITY, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412290;
+      v19 = dataCopy;
+      _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "Not compatible, dropping %@", buf, 0xCu);
+    }
+  }
+}
+
 - (void)doSyncRTC
 {
   if (os_log_type_enabled(TIMELINK_FACILITY, OS_LOG_TYPE_ERROR))
@@ -854,7 +948,7 @@ LABEL_33:
   {
     if (os_log_type_enabled(TIMELINK_FACILITY, OS_LOG_TYPE_DEBUG))
     {
-      sub_9108(self);
+      sub_9108();
     }
 
     v9 = -1;
@@ -867,7 +961,7 @@ LABEL_13:
   {
     if (os_log_type_enabled(TIMELINK_FACILITY, OS_LOG_TYPE_DEBUG))
     {
-      sub_9090(&self->_syncState);
+      sub_9090();
     }
 
     v9 = dispatch_walltime(0, 30000000000);

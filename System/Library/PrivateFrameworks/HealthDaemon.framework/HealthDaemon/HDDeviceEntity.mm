@@ -20,42 +20,40 @@
 
 + (id)_propertiesForDevice
 {
-  v5[12] = *MEMORY[0x277D85DE8];
-  v5[0] = @"uuid";
-  v5[1] = @"creation_date";
-  v5[2] = @"name";
-  v5[3] = @"manufacturer";
-  v5[4] = @"model";
-  v5[5] = @"hardware";
-  v5[6] = @"firmware";
-  v5[7] = @"software";
-  v5[8] = @"localIdentifier";
-  v5[9] = @"FDAUDI";
-  v5[10] = @"sync_identity";
-  v5[11] = @"bluetooth_identifier";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:12];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[12] = *MEMORY[0x277D85DE8];
+  v4[0] = @"uuid";
+  v4[1] = @"creation_date";
+  v4[2] = @"name";
+  v4[3] = @"manufacturer";
+  v4[4] = @"model";
+  v4[5] = @"hardware";
+  v4[6] = @"firmware";
+  v4[7] = @"software";
+  v4[8] = @"localIdentifier";
+  v4[9] = @"FDAUDI";
+  v4[10] = @"sync_identity";
+  v4[11] = @"bluetooth_identifier";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:12];
 
   return v2;
 }
 
 + (id)uniquedColumns
 {
-  v5[12] = *MEMORY[0x277D85DE8];
-  v5[0] = @"name";
-  v5[1] = @"manufacturer";
-  v5[2] = @"model";
-  v5[3] = @"hardware";
-  v5[4] = @"firmware";
-  v5[5] = @"software";
-  v5[6] = @"localIdentifier";
-  v5[7] = @"FDAUDI";
-  v5[8] = @"sync_provenance";
-  v5[9] = @"uuid";
-  v5[10] = @"sync_identity";
-  v5[11] = @"bluetooth_identifier";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:12];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[12] = *MEMORY[0x277D85DE8];
+  v4[0] = @"name";
+  v4[1] = @"manufacturer";
+  v4[2] = @"model";
+  v4[3] = @"hardware";
+  v4[4] = @"firmware";
+  v4[5] = @"software";
+  v4[6] = @"localIdentifier";
+  v4[7] = @"FDAUDI";
+  v4[8] = @"sync_provenance";
+  v4[9] = @"uuid";
+  v4[10] = @"sync_identity";
+  v4[11] = @"bluetooth_identifier";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:12];
 
   return v2;
 }
@@ -115,7 +113,7 @@
 
 BOOL __75__HDDeviceEntity_deviceEntityWithDevice_syncIdentity_healthDatabase_error___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   v5 = *(a1 + 56);
   v6 = a2;
   v7 = [v6 databaseForEntityClass:v5];
@@ -127,25 +125,25 @@ BOOL __75__HDDeviceEntity_deviceEntityWithDevice_syncIdentity_healthDatabase_err
 
   if (!*(*(*(a1 + 40) + 8) + 40))
   {
-    v39 = *(a1 + 56);
-    v42 = [MEMORY[0x277CCAD78] UUID];
-    v40 = [MEMORY[0x277CBEAA8] date];
-    [v40 timeIntervalSinceReferenceDate];
+    v38 = *(a1 + 56);
+    v41 = [MEMORY[0x277CCAD78] UUID];
+    v39 = [MEMORY[0x277CBEAA8] date];
+    [v39 timeIntervalSinceReferenceDate];
     v12 = v11;
-    v37 = [*(a1 + 32) name];
-    v38 = [*(a1 + 32) bluetoothIdentifier];
+    v36 = [*(a1 + 32) name];
+    v37 = [*(a1 + 32) bluetoothIdentifier];
     v13 = [*(a1 + 32) manufacturer];
-    v36 = [*(a1 + 32) model];
+    v35 = [*(a1 + 32) model];
     v14 = [*(a1 + 32) hardwareVersion];
-    v35 = [*(a1 + 32) firmwareVersion];
+    v34 = [*(a1 + 32) firmwareVersion];
     v15 = [*(a1 + 32) softwareVersion];
     v16 = [*(a1 + 32) localIdentifier];
     v17 = [*(a1 + 32) UDIDeviceIdentifier];
     v18 = *(a1 + 64);
     v19 = *(*(a1 + 48) + 8);
     obj = *(v19 + 40);
-    v41 = v7;
-    v20 = [v39 _insertDeviceWithUUID:v42 creationDate:v37 name:v38 bluetoothIdentifier:v13 manufacturer:v36 model:v14 hardwareVersion:v12 firmwareVersion:v35 softwareVersion:v15 localIdentifier:v16 UDIDeviceIdentifier:v17 syncProvenance:0 syncIdentity:v18 database:v7 error:&obj];
+    v40 = v7;
+    v20 = [v38 _insertDeviceWithUUID:v41 creationDate:v36 name:v37 bluetoothIdentifier:v13 manufacturer:v35 model:v14 hardwareVersion:v12 firmwareVersion:v34 softwareVersion:v15 localIdentifier:v16 UDIDeviceIdentifier:v17 syncProvenance:0 syncIdentity:v18 database:v7 error:&obj];
     objc_storeStrong((v19 + 40), obj);
     v21 = *(*(a1 + 40) + 8);
     v22 = *(v21 + 40);
@@ -157,7 +155,7 @@ BOOL __75__HDDeviceEntity_deviceEntityWithDevice_syncIdentity_healthDatabase_err
     v25 = *MEMORY[0x277CCC2A0];
     if (v23)
     {
-      v7 = v41;
+      v7 = v40;
       if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
       {
         v26 = *(*(*(a1 + 40) + 8) + 40);
@@ -165,24 +163,24 @@ BOOL __75__HDDeviceEntity_deviceEntityWithDevice_syncIdentity_healthDatabase_err
         v28 = [v26 persistentID];
         v29 = *(a1 + 32);
         *buf = 134218242;
-        v45 = v28;
-        v46 = 2114;
-        v47 = v29;
+        v44 = v28;
+        v45 = 2114;
+        v46 = v29;
         _os_log_debug_impl(&dword_228986000, v27, OS_LOG_TYPE_DEBUG, "Inserted new device entity %lld for device: %{public}@", buf, 0x16u);
       }
     }
 
     else
     {
-      v7 = v41;
+      v7 = v40;
       if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
       {
         v30 = *(a1 + 32);
         v31 = *(*(*(a1 + 48) + 8) + 40);
         *buf = 138412546;
-        v45 = v30;
-        v46 = 2114;
-        v47 = v31;
+        v44 = v30;
+        v45 = 2114;
+        v46 = v31;
         _os_log_impl(&dword_228986000, v24, OS_LOG_TYPE_INFO, "Insert new device %@ failed: %{public}@", buf, 0x16u);
       }
     }
@@ -190,7 +188,6 @@ BOOL __75__HDDeviceEntity_deviceEntityWithDevice_syncIdentity_healthDatabase_err
 
   v32 = *(*(*(a1 + 40) + 8) + 40) != 0;
 
-  v33 = *MEMORY[0x277D85DE8];
   return v32;
 }
 
@@ -420,7 +417,7 @@ BOOL __75__HDDeviceEntity_deviceEntityWithDevice_syncIdentity_healthDatabase_err
 
 + (id)deviceEntitiesWithProperty:(id)property matchingValues:(id)values healthDatabase:(id)database error:(id *)error
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   databaseCopy = database;
   propertyCopy = property;
   valuesCopy = values;
@@ -428,57 +425,57 @@ BOOL __75__HDDeviceEntity_deviceEntityWithDevice_syncIdentity_healthDatabase_err
   v13 = propertyCopy;
   objc_opt_self();
   v14 = *MEMORY[0x277CCBC58];
-  *&v34 = *MEMORY[0x277CCBC68];
-  *(&v34 + 1) = v14;
-  v33[0] = @"name";
-  v33[1] = @"manufacturer";
+  *&v33 = *MEMORY[0x277CCBC68];
+  *(&v33 + 1) = v14;
+  v32[0] = @"name";
+  v32[1] = @"manufacturer";
   v15 = *MEMORY[0x277CCBC48];
-  *&v35 = *MEMORY[0x277CCBC60];
-  *(&v35 + 1) = v15;
-  v33[2] = @"model";
-  v33[3] = @"hardware";
+  *&v34 = *MEMORY[0x277CCBC60];
+  *(&v34 + 1) = v15;
+  v32[2] = @"model";
+  v32[3] = @"hardware";
   v16 = *MEMORY[0x277CCBC70];
-  *&v36 = *MEMORY[0x277CCBC40];
-  *(&v36 + 1) = v16;
-  v33[4] = @"firmware";
-  v33[5] = @"software";
+  *&v35 = *MEMORY[0x277CCBC40];
+  *(&v35 + 1) = v16;
+  v32[4] = @"firmware";
+  v32[5] = @"software";
   v17 = *MEMORY[0x277CCBC78];
-  *&v37 = *MEMORY[0x277CCBC50];
-  *(&v37 + 1) = v17;
-  v33[6] = @"localIdentifier";
-  v33[7] = @"FDAUDI";
-  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:&v34 count:8];
+  *&v36 = *MEMORY[0x277CCBC50];
+  *(&v36 + 1) = v17;
+  v32[6] = @"localIdentifier";
+  v32[7] = @"FDAUDI";
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:&v33 count:8];
   v19 = [v18 objectForKeyedSubscript:v13];
 
   if (v19)
   {
-    v31 = databaseCopy;
+    v30 = databaseCopy;
     errorCopy = error;
     v20 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v33 = 0u;
     v34 = 0u;
     v35 = 0u;
     v36 = 0u;
-    v37 = 0u;
     v21 = valuesCopy;
-    v22 = [v21 countByEnumeratingWithState:&v34 objects:v33 count:16];
+    v22 = [v21 countByEnumeratingWithState:&v33 objects:v32 count:16];
     if (v22)
     {
       v23 = v22;
-      v24 = *v35;
+      v24 = *v34;
       do
       {
         for (i = 0; i != v23; ++i)
         {
-          if (*v35 != v24)
+          if (*v34 != v24)
           {
             objc_enumerationMutation(v21);
           }
 
-          v26 = [MEMORY[0x277D10B18] predicateWithProperty:v19 equalToValue:*(*(&v34 + 1) + 8 * i)];
+          v26 = [MEMORY[0x277D10B18] predicateWithProperty:v19 equalToValue:*(*(&v33 + 1) + 8 * i)];
           [v20 addObject:v26];
         }
 
-        v23 = [v21 countByEnumeratingWithState:&v34 objects:v33 count:16];
+        v23 = [v21 countByEnumeratingWithState:&v33 objects:v32 count:16];
       }
 
       while (v23);
@@ -494,7 +491,7 @@ BOOL __75__HDDeviceEntity_deviceEntityWithDevice_syncIdentity_healthDatabase_err
       [MEMORY[0x277D10B20] predicateMatchingAnyPredicates:v20];
     }
     falsePredicate = ;
-    databaseCopy = v31;
+    databaseCopy = v30;
     error = errorCopy;
   }
 
@@ -504,8 +501,6 @@ BOOL __75__HDDeviceEntity_deviceEntityWithDevice_syncIdentity_healthDatabase_err
   }
 
   v28 = [(HDDeviceEntity *)self _deviceEntitiesWithPredicate:falsePredicate healthDatabase:databaseCopy error:error];
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v28;
 }
@@ -586,16 +581,16 @@ uint64_t __68__HDDeviceEntity__deviceEntitiesWithPredicate_healthDatabase_error_
 
 uint64_t __47__HDDeviceEntity_deviceInHealthDatabase_error___block_invoke(void *a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = [a2 databaseForEntity:a1[4]];
   v4 = a1[4];
   v5 = a1[5];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __47__HDDeviceEntity_deviceInHealthDatabase_error___block_invoke_2;
-  v12[3] = &unk_278618B98;
-  v12[4] = a1[6];
-  [v4 getValuesForProperties:v5 database:v3 handler:v12];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __47__HDDeviceEntity_deviceInHealthDatabase_error___block_invoke_2;
+  v11[3] = &unk_278618B98;
+  v11[4] = a1[6];
+  [v4 getValuesForProperties:v5 database:v3 handler:v11];
   if (!*(*(a1[6] + 8) + 40))
   {
     _HKInitializeLogging();
@@ -606,12 +601,11 @@ uint64_t __47__HDDeviceEntity_deviceInHealthDatabase_error___block_invoke(void *
       v8 = v6;
       v9 = [v7 persistentID];
       *buf = 134217984;
-      v14 = v9;
+      v13 = v9;
       _os_log_impl(&dword_228986000, v8, OS_LOG_TYPE_INFO, "Missing database device entity %lld", buf, 0xCu);
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -743,66 +737,19 @@ uint64_t __224__HDDeviceEntity__insertDeviceWithUUID_creationDate_name_bluetooth
   HDSQLiteBindFoundationValueToStatement();
 
   sqlite3_bind_double(a2, 2, *(a1 + 112));
-  v5 = *MEMORY[0x277CCBC38];
-  if (*(a1 + 40))
-  {
-    v6 = *(a1 + 40);
-  }
-
-  else
-  {
-    v6 = *MEMORY[0x277CCBC38];
-  }
-
   HDSQLiteBindFoundationValueToStatement();
-  v7 = *(a1 + 48);
   HDSQLiteBindFoundationValueToStatement();
-  if (*(a1 + 56))
-  {
-    v8 = *(a1 + 56);
-  }
-
   HDSQLiteBindFoundationValueToStatement();
-  if (*(a1 + 64))
-  {
-    v9 = *(a1 + 64);
-  }
-
   HDSQLiteBindFoundationValueToStatement();
-  if (*(a1 + 72))
-  {
-    v10 = *(a1 + 72);
-  }
-
   HDSQLiteBindFoundationValueToStatement();
-  if (*(a1 + 80))
-  {
-    v11 = *(a1 + 80);
-  }
-
   HDSQLiteBindFoundationValueToStatement();
-  if (*(a1 + 88))
-  {
-    v12 = *(a1 + 88);
-  }
-
   HDSQLiteBindFoundationValueToStatement();
-  if (*(a1 + 96))
-  {
-    v13 = *(a1 + 96);
-  }
-
   HDSQLiteBindFoundationValueToStatement();
-  if (*(a1 + 104))
-  {
-    v14 = *(a1 + 104);
-  }
-
   HDSQLiteBindFoundationValueToStatement();
   sqlite3_bind_int64(a2, 12, *(a1 + 120));
-  v15 = *(a1 + 128);
+  v5 = *(a1 + 128);
 
-  return sqlite3_bind_int64(a2, 13, v15);
+  return sqlite3_bind_int64(a2, 13, v5);
 }
 
 + (BOOL)insertCodableDevices:(id)devices syncProvenance:(int64_t)provenance profile:(id)profile error:(id *)error
@@ -825,48 +772,46 @@ uint64_t __224__HDDeviceEntity__insertDeviceWithUUID_creationDate_name_bluetooth
   return error;
 }
 
-uint64_t __68__HDDeviceEntity_insertCodableDevices_syncProvenance_profile_error___block_invoke(uint64_t a1, void *a2)
+uint64_t __68__HDDeviceEntity_insertCodableDevices_syncProvenance_profile_error___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
-  v3 = a2;
-  v4 = [v3 databaseForEntityClass:*(a1 + 48)];
+  v24 = *MEMORY[0x277D85DE8];
+  v4 = a2;
+  v5 = [v4 databaseForEntityClass:*(a1 + 48)];
+  v19 = 0u;
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  v5 = *(a1 + 32);
-  v6 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
-  if (v6)
+  v6 = *(a1 + 32);
+  v7 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  if (v7)
   {
-    v7 = v6;
-    v8 = *v22;
+    v8 = v7;
+    v9 = *v20;
     while (2)
     {
-      for (i = 0; i != v7; ++i)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v22 != v8)
+        if (*v20 != v9)
         {
-          objc_enumerationMutation(v5);
+          objc_enumerationMutation(v6);
         }
 
         v14 = MEMORY[0x277D85DD0];
-        v19 = *(a1 + 48);
-        v15 = *(*(&v21 + 1) + 8 * i);
+        v15 = *(*(&v19 + 1) + 8 * i);
         v16 = *(a1 + 40);
-        v17 = v3;
-        v20 = *(a1 + 56);
-        v18 = v4;
-        v10 = HKWithAutoreleasePool();
+        v17 = v4;
+        v18 = v5;
+        v11 = HKWithAutoreleasePool();
 
-        if (!v10)
+        if (!v11)
         {
-          v11 = 0;
+          v12 = 0;
           goto LABEL_11;
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:{16, v14, 3221225472, __68__HDDeviceEntity_insertCodableDevices_syncProvenance_profile_error___block_invoke_2, &unk_27862F660, v15}];
-      if (v7)
+      v8 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:{16, v14, 3221225472, __68__HDDeviceEntity_insertCodableDevices_syncProvenance_profile_error___block_invoke_2, &unk_27862F660, v15}];
+      if (v8)
       {
         continue;
       }
@@ -875,67 +820,65 @@ uint64_t __68__HDDeviceEntity_insertCodableDevices_syncProvenance_profile_error_
     }
   }
 
-  v11 = 1;
+  v12 = 1;
 LABEL_11:
 
-  v12 = *MEMORY[0x277D85DE8];
-  return v11;
+  return v12;
 }
 
 uint64_t __68__HDDeviceEntity_insertCodableDevices_syncProvenance_profile_error___block_invoke_2(uint64_t a1, void *a2)
 {
-  v57 = *MEMORY[0x277D85DE8];
-  v4 = *(a1 + 64);
-  v5 = *(a1 + 32);
+  v55 = *MEMORY[0x277D85DE8];
+  v4 = *(a1 + 32);
   objc_opt_self();
-  v6 = MEMORY[0x277CCAD78];
-  v7 = [v5 uuid];
-  v8 = [v6 hk_UUIDWithData:v7];
+  v5 = MEMORY[0x277CCAD78];
+  v6 = [v4 uuid];
+  v7 = [v5 hk_UUIDWithData:v6];
 
-  if (v8)
+  if (v7)
   {
-    if ([v5 hasCreationDate])
+    if ([v4 hasCreationDate])
     {
 
       goto LABEL_8;
     }
 
-    v9 = @"missing creation date for codable device";
+    v8 = @"missing creation date for codable device";
   }
 
   else
   {
-    v9 = @"missing UUID for codable device";
+    v8 = @"missing UUID for codable device";
   }
 
-  v10 = [MEMORY[0x277CCA9B8] hk_errorForInvalidArgument:@"@" class:objc_opt_class() selector:sel__validateCodableDevice_error_ format:v9];
+  v9 = [MEMORY[0x277CCA9B8] hk_errorForInvalidArgument:@"@" class:objc_opt_class() selector:sel__validateCodableDevice_error_ format:v8];
 
-  if (v10)
+  if (v9)
   {
-    v11 = 0;
+    v10 = 0;
 LABEL_15:
-    if ([v11 hd_isConstraintViolation])
+    if ([v10 hd_isConstraintViolation])
     {
-      v32 = 0;
+      v31 = 0;
       goto LABEL_17;
     }
 
     _HKInitializeLogging();
-    v34 = *MEMORY[0x277CCC2A0];
+    v33 = *MEMORY[0x277CCC2A0];
     if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_INFO))
     {
       *buf = 138543362;
-      v56 = v11;
-      _os_log_impl(&dword_228986000, v34, OS_LOG_TYPE_INFO, "Failed to insert codable device: %{public}@", buf, 0xCu);
+      v54 = v10;
+      _os_log_impl(&dword_228986000, v33, OS_LOG_TYPE_INFO, "Failed to insert codable device: %{public}@", buf, 0xCu);
     }
 
-    v14 = v11;
-    if (v14)
+    v13 = v10;
+    if (v13)
     {
       if (a2)
       {
-        v35 = v14;
-        *a2 = v14;
+        v34 = v13;
+        *a2 = v13;
       }
 
       else
@@ -943,69 +886,69 @@ LABEL_15:
         _HKLogDroppedError();
       }
 
-      v11 = v14;
+      v10 = v13;
     }
 
     else
     {
-      v11 = 0;
+      v10 = 0;
     }
 
 LABEL_42:
 
+    v31 = 0;
     v32 = 0;
-    v33 = 0;
     goto LABEL_43;
   }
 
 LABEL_8:
-  v12 = MEMORY[0x277CCAD78];
-  v13 = [*(a1 + 32) uuid];
-  v14 = [v12 hk_UUIDWithData:v13];
+  v11 = MEMORY[0x277CCAD78];
+  v12 = [*(a1 + 32) uuid];
+  v13 = [v11 hk_UUIDWithData:v12];
 
-  v15 = [*(a1 + 40) syncIdentityManager];
-  v16 = [v15 legacySyncIdentity];
+  v14 = [*(a1 + 40) syncIdentityManager];
+  v15 = [v14 legacySyncIdentity];
 
   if ([*(a1 + 32) hasSyncIdentity])
   {
-    v17 = [*(a1 + 32) syncIdentity];
-    v54 = 0;
-    v18 = [HDSyncIdentity syncIdentityWithCodable:v17 error:&v54];
-    v19 = v54;
+    v16 = [*(a1 + 32) syncIdentity];
+    v52 = 0;
+    v17 = [HDSyncIdentity syncIdentityWithCodable:v16 error:&v52];
+    v18 = v52;
 
-    if (v18)
+    if (v17)
     {
-      v20 = [*(a1 + 40) syncIdentityManager];
-      v21 = *(a1 + 48);
-      v53 = v19;
-      v22 = [v20 concreteIdentityForIdentity:v18 shouldCreate:1 transaction:v21 error:&v53];
-      v23 = v53;
+      v19 = [*(a1 + 40) syncIdentityManager];
+      v20 = *(a1 + 48);
+      v51 = v18;
+      v21 = [v19 concreteIdentityForIdentity:v17 shouldCreate:1 transaction:v20 error:&v51];
+      v22 = v51;
 
-      if (v22)
+      if (v21)
       {
-        v51 = v14;
-        v42 = a2;
+        v49 = v13;
+        v40 = a2;
 
-        v16 = v22;
+        v15 = v21;
         goto LABEL_13;
       }
 
       _HKInitializeLogging();
-      v38 = *MEMORY[0x277CCC2A0];
+      v37 = *MEMORY[0x277CCC2A0];
       if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_INFO))
       {
         *buf = 138543362;
-        v56 = v23;
-        _os_log_impl(&dword_228986000, v38, OS_LOG_TYPE_INFO, "ConcreteSyncIdentity from received codable is nil %{public}@", buf, 0xCu);
+        v54 = v22;
+        _os_log_impl(&dword_228986000, v37, OS_LOG_TYPE_INFO, "ConcreteSyncIdentity from received codable is nil %{public}@", buf, 0xCu);
       }
 
-      v16 = v23;
-      if (v16)
+      v15 = v22;
+      if (v15)
       {
         if (a2)
         {
-          v39 = v16;
-          *a2 = v16;
+          v38 = v15;
+          *a2 = v15;
         }
 
         else
@@ -1013,33 +956,33 @@ LABEL_8:
           _HKLogDroppedError();
         }
 
-        v11 = v16;
+        v10 = v15;
       }
 
       else
       {
-        v11 = 0;
+        v10 = 0;
       }
     }
 
     else
     {
       _HKInitializeLogging();
-      v36 = *MEMORY[0x277CCC2A0];
+      v35 = *MEMORY[0x277CCC2A0];
       if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_INFO))
       {
         *buf = 138543362;
-        v56 = v19;
-        _os_log_impl(&dword_228986000, v36, OS_LOG_TYPE_INFO, "SyncIdentity from received codable is nil %{public}@", buf, 0xCu);
+        v54 = v18;
+        _os_log_impl(&dword_228986000, v35, OS_LOG_TYPE_INFO, "SyncIdentity from received codable is nil %{public}@", buf, 0xCu);
       }
 
-      v11 = v19;
-      if (v11)
+      v10 = v18;
+      if (v10)
       {
         if (a2)
         {
-          v37 = v11;
-          *a2 = v11;
+          v36 = v10;
+          *a2 = v10;
         }
 
         else
@@ -1052,42 +995,41 @@ LABEL_8:
     goto LABEL_42;
   }
 
-  v51 = v14;
-  v42 = a2;
-  v23 = 0;
+  v49 = v13;
+  v40 = a2;
+  v22 = 0;
 LABEL_13:
-  v50 = v16;
+  v48 = v15;
   [*(a1 + 32) creationDate];
-  v25 = v24;
-  v46 = [*(a1 + 32) name];
-  v49 = [*(a1 + 32) bluetoothIdentifier];
-  v48 = [*(a1 + 32) manufacturer];
-  v47 = [*(a1 + 32) model];
-  v45 = [*(a1 + 32) hardwareVersion];
-  v44 = [*(a1 + 32) firmwareVersion];
-  v43 = [*(a1 + 32) softwareVersion];
-  v26 = [*(a1 + 32) localIdentifier];
-  v27 = [*(a1 + 32) fDAUDI];
-  v28 = *(a1 + 72);
-  v29 = [v16 entity];
-  v30 = [v29 persistentID];
-  v31 = *(a1 + 56);
-  v52 = v23;
-  v32 = [HDDeviceEntity _insertDeviceWithUUID:v51 creationDate:v46 name:v49 bluetoothIdentifier:v48 manufacturer:v47 model:v45 hardwareVersion:v25 firmwareVersion:v44 softwareVersion:v43 localIdentifier:v26 UDIDeviceIdentifier:v27 syncProvenance:v28 syncIdentity:v30 database:v31 error:&v52];
-  v11 = v52;
+  v24 = v23;
+  v44 = [*(a1 + 32) name];
+  v47 = [*(a1 + 32) bluetoothIdentifier];
+  v46 = [*(a1 + 32) manufacturer];
+  v45 = [*(a1 + 32) model];
+  v43 = [*(a1 + 32) hardwareVersion];
+  v42 = [*(a1 + 32) firmwareVersion];
+  v41 = [*(a1 + 32) softwareVersion];
+  v25 = [*(a1 + 32) localIdentifier];
+  v26 = [*(a1 + 32) fDAUDI];
+  v27 = *(a1 + 72);
+  v28 = [v15 entity];
+  v29 = [v28 persistentID];
+  v30 = *(a1 + 56);
+  v50 = v22;
+  v31 = [HDDeviceEntity _insertDeviceWithUUID:v49 creationDate:v44 name:v47 bluetoothIdentifier:v46 manufacturer:v45 model:v43 hardwareVersion:v24 firmwareVersion:v42 softwareVersion:v41 localIdentifier:v25 UDIDeviceIdentifier:v26 syncProvenance:v27 syncIdentity:v29 database:v30 error:&v50];
+  v10 = v50;
 
-  if (!v32)
+  if (!v31)
   {
-    a2 = v42;
+    a2 = v40;
     goto LABEL_15;
   }
 
 LABEL_17:
-  v33 = 1;
+  v32 = 1;
 LABEL_43:
 
-  v40 = *MEMORY[0x277D85DE8];
-  return v33;
+  return v32;
 }
 
 + (id)_codableDeviceWithRow:(HDSQLiteRow *)row

@@ -19,7 +19,7 @@
 - (id)existingContactWithKeysToFetch:()CloudRecentsExtensions
 {
   v4 = a3;
-  v5 = CNAutocompleteSharedContactStore();
+  v5 = CNAutocompleteSharedContactStore(v4);
   v6 = [self existingContactWithKeysToFetch:v4 contactStore:v5];
 
   return v6;
@@ -105,7 +105,7 @@ LABEL_12:
 - (id)contactWithKeysToFetch:()CloudRecentsExtensions
 {
   v4 = a3;
-  v5 = CNAutocompleteSharedContactStore();
+  v5 = CNAutocompleteSharedContactStore(v4);
   v6 = [self contactWithKeysToFetch:v4 contactStore:v5];
 
   return v6;

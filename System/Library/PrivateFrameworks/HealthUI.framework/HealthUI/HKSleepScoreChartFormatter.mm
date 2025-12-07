@@ -13,7 +13,7 @@
   v4 = sub_1C3D1E654();
   (*(*(v4 - 8) + 56))(self + v3, 1, 1, v4);
   v6.receiver = self;
-  v6.super_class = type metadata accessor for SleepScoreChartFormatter();
+  v6.super_class = type metadata accessor for SleepScoreChartFormatter(0);
   return [(HKSleepScoreChartFormatter *)&v6 init];
 }
 
@@ -24,7 +24,7 @@
   selfCopy = self;
   sub_1C3CAA4E0(v6, context);
 
-  sub_1C3C27CB4(0, &qword_1EC0866B0);
+  sub_1C3C27CB4(0, &qword_1EC0866B0, off_1E81B2DB0);
   v8 = sub_1C3D202A4();
 
   return v8;

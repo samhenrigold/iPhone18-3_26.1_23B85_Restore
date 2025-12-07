@@ -33,26 +33,25 @@ void __66___DDUIRapportPairingTransport_setAvailableDevicesChangedHandler___bloc
 
 void __70___DDUIRapportPairingTransport_activateForDeviceTypes_withCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = os_log_create("com.apple.DeviceDiscoveryUI", "rapport");
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v7 = 134218242;
-    v8 = v5;
-    v9 = 2112;
-    v10 = v3;
-    _os_log_impl(&dword_230EF9000, v4, OS_LOG_TYPE_DEFAULT, "_DDUIRapportPairingTransport activated {self: %p, inError: %@}", &v7, 0x16u);
+    v6 = 134218242;
+    v7 = v5;
+    v8 = 2112;
+    v9 = v3;
+    _os_log_impl(&dword_230EF9000, v4, OS_LOG_TYPE_DEFAULT, "_DDUIRapportPairingTransport activated {self: %p, inError: %@}", &v6, 0x16u);
   }
 
   (*(*(a1 + 40) + 16))();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __74___DDUIRapportPairingTransport__setupListeningForResponseMessagesIfNeeded__block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a4;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -68,13 +67,13 @@ void __74___DDUIRapportPairingTransport__setupListeningForResponseMessagesIfNeed
     {
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = 134218498;
-        v17 = WeakRetained;
-        v18 = 2112;
-        v19 = v11;
-        v20 = 2112;
-        v21 = v6;
-        _os_log_impl(&dword_230EF9000, v14, OS_LOG_TYPE_DEFAULT, "_DDUIRapportPairingTransport - incoming ResponderMessage w/ session {self: %p, messageID: %@, inRequest: %@}", &v16, 0x20u);
+        v15 = 134218498;
+        v16 = WeakRetained;
+        v17 = 2112;
+        v18 = v11;
+        v19 = 2112;
+        v20 = v6;
+        _os_log_impl(&dword_230EF9000, v14, OS_LOG_TYPE_DEFAULT, "_DDUIRapportPairingTransport - incoming ResponderMessage w/ session {self: %p, messageID: %@, inRequest: %@}", &v15, 0x20u);
       }
 
       (*(v7 + 2))(v7, 0, 0, 0);
@@ -85,25 +84,23 @@ void __74___DDUIRapportPairingTransport__setupListeningForResponseMessagesIfNeed
     {
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        v16 = 134218498;
-        v17 = WeakRetained;
-        v18 = 2112;
-        v19 = v11;
-        v20 = 2112;
-        v21 = v6;
-        _os_log_error_impl(&dword_230EF9000, v14, OS_LOG_TYPE_ERROR, "_DDUIRapportPairingTransport - incoming ResponderMessage w/o session {self: %p, messageID: %@, inRequest: %@}", &v16, 0x20u);
+        v15 = 134218498;
+        v16 = WeakRetained;
+        v17 = 2112;
+        v18 = v11;
+        v19 = 2112;
+        v20 = v6;
+        _os_log_error_impl(&dword_230EF9000, v14, OS_LOG_TYPE_ERROR, "_DDUIRapportPairingTransport - incoming ResponderMessage w/o session {self: %p, messageID: %@, inRequest: %@}", &v15, 0x20u);
       }
 
       (*(v7 + 2))(v7, 0, 0, 0);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __69___DDUIRapportPairingTransport_setupListeningForSessionsWithHandler___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -124,13 +121,13 @@ void __69___DDUIRapportPairingTransport_setupListeningForSessionsWithHandler___b
         if (v16)
         {
           v17 = *(a1 + 32);
-          v24 = 134218498;
-          v25 = v17;
-          v26 = 2112;
-          v27 = v13;
-          v28 = 2112;
-          v29 = v7;
-          _os_log_impl(&dword_230EF9000, v15, OS_LOG_TYPE_DEFAULT, "_DDUIRapportPairingTransport - incoming InitiatorMessage w/ session {self: %p, messageID: %@, inRequest: %@}", &v24, 0x20u);
+          v23 = 134218498;
+          v24 = v17;
+          v25 = 2112;
+          v26 = v13;
+          v27 = 2112;
+          v28 = v7;
+          _os_log_impl(&dword_230EF9000, v15, OS_LOG_TYPE_DEFAULT, "_DDUIRapportPairingTransport - incoming InitiatorMessage w/ session {self: %p, messageID: %@, inRequest: %@}", &v23, 0x20u);
         }
 
         v18 = [(_DDUIRapportIncomingTransportSession *)v14 messageHandler];
@@ -147,13 +144,13 @@ void __69___DDUIRapportPairingTransport_setupListeningForSessionsWithHandler___b
         if (v16)
         {
           v22 = *(a1 + 32);
-          v24 = 134218498;
-          v25 = v22;
-          v26 = 2112;
-          v27 = v13;
-          v28 = 2112;
-          v29 = v7;
-          _os_log_impl(&dword_230EF9000, v15, OS_LOG_TYPE_DEFAULT, "_DDUIRapportPairingTransport - incoming InitiatorMessage w/o session {self: %p, messageID: %@, inRequest: %@}", &v24, 0x20u);
+          v23 = 134218498;
+          v24 = v22;
+          v25 = 2112;
+          v26 = v13;
+          v27 = 2112;
+          v28 = v7;
+          _os_log_impl(&dword_230EF9000, v15, OS_LOG_TYPE_DEFAULT, "_DDUIRapportPairingTransport - incoming InitiatorMessage w/o session {self: %p, messageID: %@, inRequest: %@}", &v23, 0x20u);
         }
 
         v14 = [[_DDUIRapportIncomingTransportSession alloc] initWithOptions:v8];
@@ -171,25 +168,23 @@ void __69___DDUIRapportPairingTransport_setupListeningForSessionsWithHandler___b
       if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         v21 = *(a1 + 32);
-        v24 = 134218498;
-        v25 = v21;
-        v26 = 2112;
-        v27 = v13;
-        v28 = 2112;
-        v29 = v7;
-        _os_log_impl(&dword_230EF9000, v20, OS_LOG_TYPE_DEFAULT, "_DDUIRapportPairingTransport - incoming InitiatorMessage missing sessionID, ignoring {self: %p, messageID: %@, inRequest: %@}", &v24, 0x20u);
+        v23 = 134218498;
+        v24 = v21;
+        v25 = 2112;
+        v26 = v13;
+        v27 = 2112;
+        v28 = v7;
+        _os_log_impl(&dword_230EF9000, v20, OS_LOG_TYPE_DEFAULT, "_DDUIRapportPairingTransport - incoming InitiatorMessage missing sessionID, ignoring {self: %p, messageID: %@, inRequest: %@}", &v23, 0x20u);
       }
 
       (*(v9 + 2))(v9, 0, 0, 0);
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __69___DDUIRapportPairingTransport_setupListeningForSessionsWithHandler___block_invoke_33(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [v5 objectForKeyedSubscript:@"sesID"];
@@ -197,13 +192,13 @@ void __69___DDUIRapportPairingTransport_setupListeningForSessionsWithHandler___b
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = *(a1 + 32);
-    v12 = 134218498;
-    v13 = v9;
-    v14 = 2112;
-    v15 = v7;
-    v16 = 2112;
-    v17 = v5;
-    _os_log_impl(&dword_230EF9000, v8, OS_LOG_TYPE_DEFAULT, "_DDUIRapportPairingTransport - incoming continuity camera InitiatorMessage w/o session {self: %p, sessionID: %@, inRequest: %@}", &v12, 0x20u);
+    v11 = 134218498;
+    v12 = v9;
+    v13 = 2112;
+    v14 = v7;
+    v15 = 2112;
+    v16 = v5;
+    _os_log_impl(&dword_230EF9000, v8, OS_LOG_TYPE_DEFAULT, "_DDUIRapportPairingTransport - incoming continuity camera InitiatorMessage w/o session {self: %p, sessionID: %@, inRequest: %@}", &v11, 0x20u);
   }
 
   v10 = [[_DDUIRapportIncomingTransportSession alloc] initWithOptions:v6];
@@ -211,8 +206,6 @@ void __69___DDUIRapportPairingTransport_setupListeningForSessionsWithHandler___b
   [(_DDUIRapportIncomingTransportSession *)v10 setClient:*(*(a1 + 32) + 24)];
   [(_DDUIRapportIncomingTransportSession *)v10 setSessionType:1];
   (*(*(a1 + 40) + 16))();
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __91___DDUIRapportPairingTransport_shouldReauthenticateDevice_forServiceIdentifier_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -249,20 +242,18 @@ void __95___DDUIRapportPairingTransport_createListenerMappingForDevice_forServic
 
 void __91___DDUIRapportPairingTransport_shouldReauthenticateDevice_forServiceIdentifier_completion___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_230EF9000, a2, OS_LOG_TYPE_ERROR, "Could not query listener mapping with error %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_230EF9000, a2, OS_LOG_TYPE_ERROR, "Could not query listener mapping with error %@", &v2, 0xCu);
 }
 
 void __95___DDUIRapportPairingTransport_createListenerMappingForDevice_forServiceIdentifier_completion___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_230EF9000, a2, OS_LOG_TYPE_ERROR, "Could not create device listener mapping with error %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_230EF9000, a2, OS_LOG_TYPE_ERROR, "Could not create device listener mapping with error %@", &v2, 0xCu);
 }
 
 @end

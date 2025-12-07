@@ -10,289 +10,289 @@
 {
   dateCopy = date;
   recordCopy = record;
-  v84.receiver = self;
-  v84.super_class = IMDIndexableChatRecord;
-  v9 = [(IMDIndexableChatRecord *)&v84 init];
-  if (v9)
+  v105.receiver = self;
+  v105.super_class = IMDIndexableChatRecord;
+  v10 = [(IMDIndexableChatRecord *)&v105 init];
+  if (v10)
   {
-    v10 = objc_msgSend_guid(recordCopy, v7, v8);
-    guid = v9->_guid;
-    v9->_guid = v10;
+    v11 = objc_msgSend_guid(recordCopy, v7, v8, v9);
+    guid = v10->_guid;
+    v10->_guid = v11;
 
-    v14 = objc_msgSend_groupName(recordCopy, v12, v13);
-    groupName = v9->_groupName;
-    v9->_groupName = v14;
+    v16 = objc_msgSend_groupName(recordCopy, v13, v14, v15);
+    groupName = v10->_groupName;
+    v10->_groupName = v16;
 
-    v18 = objc_msgSend_accountLogin(recordCopy, v16, v17);
-    loginID = v9->_loginID;
-    v9->_loginID = v18;
+    v21 = objc_msgSend_accountLogin(recordCopy, v18, v19, v20);
+    loginID = v10->_loginID;
+    v10->_loginID = v21;
 
-    v22 = objc_msgSend_accountID(recordCopy, v20, v21);
-    accountID = v9->_accountID;
-    v9->_accountID = v22;
+    v26 = objc_msgSend_accountID(recordCopy, v23, v24, v25);
+    accountID = v10->_accountID;
+    v10->_accountID = v26;
 
-    v26 = objc_msgSend_properties(recordCopy, v24, v25);
-    properties = v9->_properties;
-    v9->_properties = v26;
+    v31 = objc_msgSend_properties(recordCopy, v28, v29, v30);
+    properties = v10->_properties;
+    v10->_properties = v31;
 
-    v30 = objc_msgSend_chatIdentifier(recordCopy, v28, v29);
-    chatIdentifier = v9->_chatIdentifier;
-    v9->_chatIdentifier = v30;
+    v36 = objc_msgSend_chatIdentifier(recordCopy, v33, v34, v35);
+    chatIdentifier = v10->_chatIdentifier;
+    v10->_chatIdentifier = v36;
 
-    v34 = objc_msgSend_groupID(recordCopy, v32, v33);
-    groupID = v9->_groupID;
-    v9->_groupID = v34;
+    v41 = objc_msgSend_groupID(recordCopy, v38, v39, v40);
+    groupID = v10->_groupID;
+    v10->_groupID = v41;
 
-    v38 = objc_msgSend_originalGroupID(recordCopy, v36, v37);
-    originalGroupID = v9->_originalGroupID;
-    v9->_originalGroupID = v38;
+    v46 = objc_msgSend_originalGroupID(recordCopy, v43, v44, v45);
+    originalGroupID = v10->_originalGroupID;
+    v10->_originalGroupID = v46;
 
-    v42 = objc_msgSend_lastAddressedHandle(recordCopy, v40, v41);
-    lastAddressedLocalHandle = v9->_lastAddressedLocalHandle;
-    v9->_lastAddressedLocalHandle = v42;
+    v51 = objc_msgSend_lastAddressedHandle(recordCopy, v48, v49, v50);
+    lastAddressedLocalHandle = v10->_lastAddressedLocalHandle;
+    v10->_lastAddressedLocalHandle = v51;
 
-    v46 = objc_msgSend_properties(v9, v44, v45);
-    v48 = objc_msgSend_objectForKeyedSubscript_(v46, v47, *MEMORY[0x1E69A6B80]);
-    groupPhotoGUID = v9->_groupPhotoGUID;
-    v9->_groupPhotoGUID = v48;
+    v56 = objc_msgSend_properties(v10, v53, v54, v55);
+    v59 = objc_msgSend_objectForKeyedSubscript_(v56, v57, *MEMORY[0x1E69A6B80], v58);
+    groupPhotoGUID = v10->_groupPhotoGUID;
+    v10->_groupPhotoGUID = v59;
 
-    v52 = objc_msgSend_groupPhotoGUID(v9, v50, v51);
-    v55 = objc_msgSend_length(v52, v53, v54);
+    v64 = objc_msgSend_groupPhotoGUID(v10, v61, v62, v63);
+    v68 = objc_msgSend_length(v64, v65, v66, v67);
 
-    if (v55)
+    if (v68)
     {
-      v58 = objc_msgSend_groupPhotoGUID(v9, v56, v57);
-      v59 = IMDAttachmentRecordCopyAttachmentForGUID(v58);
+      v72 = objc_msgSend_groupPhotoGUID(v10, v69, v70, v71);
+      v73 = IMDAttachmentRecordCopyAttachmentForGUID(v72);
 
-      if (v59)
+      if (v73)
       {
-        v62 = objc_msgSend_path(v59, v60, v61);
-        groupPhotoPath = v9->_groupPhotoPath;
-        v9->_groupPhotoPath = v62;
+        v77 = objc_msgSend_path(v73, v74, v75, v76);
+        groupPhotoPath = v10->_groupPhotoPath;
+        v10->_groupPhotoPath = v77;
       }
     }
 
-    v64 = objc_msgSend_handleRecords(recordCopy, v56, v57);
-    v66 = objc_msgSend___imArrayByApplyingBlock_(v64, v65, &unk_1F2FA0510);
-    participants = v9->_participants;
-    v9->_participants = v66;
+    v79 = objc_msgSend_handleRecords(recordCopy, v69, v70, v71);
+    v82 = objc_msgSend___imArrayByApplyingBlock_(v79, v80, &unk_1F2FA0510, v81);
+    participants = v10->_participants;
+    v10->_participants = v82;
 
-    v9->_filtered = objc_msgSend_isFiltered(recordCopy, v68, v69);
-    v9->_blackholed = objc_msgSend_isBlackholed(recordCopy, v70, v71);
-    v9->_syndicationType = objc_msgSend_syndicationType(recordCopy, v72, v73);
-    v76 = objc_msgSend_syndicationDate(recordCopy, v74, v75);
-    syndicationDate = v9->_syndicationDate;
-    v9->_syndicationDate = v76;
+    v10->_filtered = objc_msgSend_isFiltered(recordCopy, v84, v85, v86);
+    v10->_blackholed = objc_msgSend_isBlackholed(recordCopy, v87, v88, v89);
+    v10->_syndicationType = objc_msgSend_syndicationType(recordCopy, v90, v91, v92);
+    v96 = objc_msgSend_syndicationDate(recordCopy, v93, v94, v95);
+    syndicationDate = v10->_syndicationDate;
+    v10->_syndicationDate = v96;
 
     if (dateCopy)
     {
       Message = IMDChatRecordCopyLastMessage(recordCopy);
-      v81 = objc_msgSend_date(Message, v79, v80);
-      lastMessageDate = v9->_lastMessageDate;
-      v9->_lastMessageDate = v81;
+      v102 = objc_msgSend_date(Message, v99, v100, v101);
+      lastMessageDate = v10->_lastMessageDate;
+      v10->_lastMessageDate = v102;
     }
   }
 
-  return v9;
+  return v10;
 }
 
 - (IMDIndexableChatRecord)initWithDictionaryRepresentation:(id)representation
 {
   representationCopy = representation;
-  v65.receiver = self;
-  v65.super_class = IMDIndexableChatRecord;
-  v6 = [(IMDIndexableChatRecord *)&v65 init];
-  if (v6)
+  v87.receiver = self;
+  v87.super_class = IMDIndexableChatRecord;
+  v7 = [(IMDIndexableChatRecord *)&v87 init];
+  if (v7)
   {
-    v7 = objc_msgSend_objectForKeyedSubscript_(representationCopy, v5, @"guid");
-    guid = v6->_guid;
-    v6->_guid = v7;
+    v8 = objc_msgSend_objectForKeyedSubscript_(representationCopy, v5, @"guid", v6);
+    guid = v7->_guid;
+    v7->_guid = v8;
 
-    v10 = objc_msgSend_objectForKeyedSubscript_(representationCopy, v9, @"groupName");
-    groupName = v6->_groupName;
-    v6->_groupName = v10;
+    v12 = objc_msgSend_objectForKeyedSubscript_(representationCopy, v10, @"groupName", v11);
+    groupName = v7->_groupName;
+    v7->_groupName = v12;
 
-    v13 = objc_msgSend_objectForKeyedSubscript_(representationCopy, v12, @"style");
-    v6->_chatStyle = objc_msgSend_integerValue(v13, v14, v15);
+    v16 = objc_msgSend_objectForKeyedSubscript_(representationCopy, v14, @"style", v15);
+    v7->_chatStyle = objc_msgSend_integerValue(v16, v17, v18, v19);
 
-    v17 = objc_msgSend_objectForKeyedSubscript_(representationCopy, v16, @"loginID");
-    loginID = v6->_loginID;
-    v6->_loginID = v17;
+    v22 = objc_msgSend_objectForKeyedSubscript_(representationCopy, v20, @"loginID", v21);
+    loginID = v7->_loginID;
+    v7->_loginID = v22;
 
-    v20 = objc_msgSend_objectForKeyedSubscript_(representationCopy, v19, @"properties");
-    properties = v6->_properties;
-    v6->_properties = v20;
+    v26 = objc_msgSend_objectForKeyedSubscript_(representationCopy, v24, @"properties", v25);
+    properties = v7->_properties;
+    v7->_properties = v26;
 
-    v23 = objc_msgSend_objectForKeyedSubscript_(representationCopy, v22, @"chatIdentifier");
-    chatIdentifier = v6->_chatIdentifier;
-    v6->_chatIdentifier = v23;
+    v30 = objc_msgSend_objectForKeyedSubscript_(representationCopy, v28, @"chatIdentifier", v29);
+    chatIdentifier = v7->_chatIdentifier;
+    v7->_chatIdentifier = v30;
 
-    v26 = objc_msgSend_objectForKeyedSubscript_(representationCopy, v25, @"groupID");
-    groupID = v6->_groupID;
-    v6->_groupID = v26;
+    v34 = objc_msgSend_objectForKeyedSubscript_(representationCopy, v32, @"groupID", v33);
+    groupID = v7->_groupID;
+    v7->_groupID = v34;
 
-    v29 = objc_msgSend_objectForKeyedSubscript_(representationCopy, v28, @"originalGroupID");
-    originalGroupID = v6->_originalGroupID;
-    v6->_originalGroupID = v29;
+    v38 = objc_msgSend_objectForKeyedSubscript_(representationCopy, v36, @"originalGroupID", v37);
+    originalGroupID = v7->_originalGroupID;
+    v7->_originalGroupID = v38;
 
-    v32 = objc_msgSend_objectForKeyedSubscript_(representationCopy, v31, @"accountID");
-    accountID = v6->_accountID;
-    v6->_accountID = v32;
+    v42 = objc_msgSend_objectForKeyedSubscript_(representationCopy, v40, @"accountID", v41);
+    accountID = v7->_accountID;
+    v7->_accountID = v42;
 
-    v35 = objc_msgSend_objectForKeyedSubscript_(representationCopy, v34, @"lalh");
-    lastAddressedLocalHandle = v6->_lastAddressedLocalHandle;
-    v6->_lastAddressedLocalHandle = v35;
+    v46 = objc_msgSend_objectForKeyedSubscript_(representationCopy, v44, @"lalh", v45);
+    lastAddressedLocalHandle = v7->_lastAddressedLocalHandle;
+    v7->_lastAddressedLocalHandle = v46;
 
-    v38 = objc_msgSend_objectForKeyedSubscript_(representationCopy, v37, @"groupPhotoGUID");
-    groupPhotoGUID = v6->_groupPhotoGUID;
-    v6->_groupPhotoGUID = v38;
+    v50 = objc_msgSend_objectForKeyedSubscript_(representationCopy, v48, @"groupPhotoGUID", v49);
+    groupPhotoGUID = v7->_groupPhotoGUID;
+    v7->_groupPhotoGUID = v50;
 
-    v41 = objc_msgSend_objectForKeyedSubscript_(representationCopy, v40, @"groupPhotoPath");
-    groupPhotoPath = v6->_groupPhotoPath;
-    v6->_groupPhotoPath = v41;
+    v54 = objc_msgSend_objectForKeyedSubscript_(representationCopy, v52, @"groupPhotoPath", v53);
+    groupPhotoPath = v7->_groupPhotoPath;
+    v7->_groupPhotoPath = v54;
 
-    v44 = objc_msgSend_objectForKeyedSubscript_(representationCopy, v43, @"participants");
-    participants = v6->_participants;
-    v6->_participants = v44;
+    v58 = objc_msgSend_objectForKeyedSubscript_(representationCopy, v56, @"participants", v57);
+    participants = v7->_participants;
+    v7->_participants = v58;
 
-    v47 = objc_msgSend_objectForKeyedSubscript_(representationCopy, v46, @"isFiltered");
-    v6->_filtered = objc_msgSend_integerValue(v47, v48, v49);
+    v62 = objc_msgSend_objectForKeyedSubscript_(representationCopy, v60, @"isFiltered", v61);
+    v7->_filtered = objc_msgSend_integerValue(v62, v63, v64, v65);
 
-    v51 = objc_msgSend_objectForKeyedSubscript_(representationCopy, v50, @"isBlackholed");
-    v6->_blackholed = objc_msgSend_integerValue(v51, v52, v53) != 0;
+    v68 = objc_msgSend_objectForKeyedSubscript_(representationCopy, v66, @"isBlackholed", v67);
+    v7->_blackholed = objc_msgSend_integerValue(v68, v69, v70, v71) != 0;
 
-    v55 = objc_msgSend_objectForKeyedSubscript_(representationCopy, v54, @"syndicationType");
-    v6->_syndicationType = objc_msgSend_integerValue(v55, v56, v57);
+    v74 = objc_msgSend_objectForKeyedSubscript_(representationCopy, v72, @"syndicationType", v73);
+    v7->_syndicationType = objc_msgSend_integerValue(v74, v75, v76, v77);
 
-    v59 = objc_msgSend_objectForKeyedSubscript_(representationCopy, v58, @"syndicationDate");
-    syndicationDate = v6->_syndicationDate;
-    v6->_syndicationDate = v59;
+    v80 = objc_msgSend_objectForKeyedSubscript_(representationCopy, v78, @"syndicationDate", v79);
+    syndicationDate = v7->_syndicationDate;
+    v7->_syndicationDate = v80;
 
-    v62 = objc_msgSend_objectForKeyedSubscript_(representationCopy, v61, @"lastMessageDate");
-    lastMessageDate = v6->_lastMessageDate;
-    v6->_lastMessageDate = v62;
+    v84 = objc_msgSend_objectForKeyedSubscript_(representationCopy, v82, @"lastMessageDate", v83);
+    lastMessageDate = v7->_lastMessageDate;
+    v7->_lastMessageDate = v84;
   }
 
-  return v6;
+  return v7;
 }
 
 - (id)dictionaryRepresentation
 {
   v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v6 = objc_msgSend_guid(self, v4, v5);
-  if (v6)
+  v7 = objc_msgSend_guid(self, v4, v5, v6);
+  if (v7)
   {
-    CFDictionarySetValue(v3, @"guid", v6);
+    CFDictionarySetValue(v3, @"guid", v7);
   }
 
-  v9 = objc_msgSend_groupName(self, v7, v8);
-  if (v9)
+  v11 = objc_msgSend_groupName(self, v8, v9, v10);
+  if (v11)
   {
-    CFDictionarySetValue(v3, @"groupName", v9);
+    CFDictionarySetValue(v3, @"groupName", v11);
   }
 
-  v10 = MEMORY[0x1E696AD98];
-  v13 = objc_msgSend_chatStyle(self, v11, v12);
-  v15 = objc_msgSend_numberWithUnsignedChar_(v10, v14, v13);
-  if (v15)
+  v12 = MEMORY[0x1E696AD98];
+  v16 = objc_msgSend_chatStyle(self, v13, v14, v15);
+  v19 = objc_msgSend_numberWithUnsignedChar_(v12, v17, v16, v18);
+  if (v19)
   {
-    CFDictionarySetValue(v3, @"style", v15);
+    CFDictionarySetValue(v3, @"style", v19);
   }
 
-  v18 = objc_msgSend_loginID(self, v16, v17);
-  if (v18)
+  v23 = objc_msgSend_loginID(self, v20, v21, v22);
+  if (v23)
   {
-    CFDictionarySetValue(v3, @"loginID", v18);
+    CFDictionarySetValue(v3, @"loginID", v23);
   }
 
-  v21 = objc_msgSend_properties(self, v19, v20);
-  if (v21)
-  {
-    CFDictionarySetValue(v3, @"properties", v21);
-  }
-
-  v24 = objc_msgSend_chatIdentifier(self, v22, v23);
-  if (v24)
-  {
-    CFDictionarySetValue(v3, @"chatIdentifier", v24);
-  }
-
-  v27 = objc_msgSend_groupID(self, v25, v26);
+  v27 = objc_msgSend_properties(self, v24, v25, v26);
   if (v27)
   {
-    CFDictionarySetValue(v3, @"groupID", v27);
+    CFDictionarySetValue(v3, @"properties", v27);
   }
 
-  v30 = objc_msgSend_originalGroupID(self, v28, v29);
-  if (v30)
+  v31 = objc_msgSend_chatIdentifier(self, v28, v29, v30);
+  if (v31)
   {
-    CFDictionarySetValue(v3, @"originalGroupID", v30);
+    CFDictionarySetValue(v3, @"chatIdentifier", v31);
   }
 
-  v33 = objc_msgSend_accountID(self, v31, v32);
-  if (v33)
+  v35 = objc_msgSend_groupID(self, v32, v33, v34);
+  if (v35)
   {
-    CFDictionarySetValue(v3, @"accountID", v33);
+    CFDictionarySetValue(v3, @"groupID", v35);
   }
 
-  v36 = objc_msgSend_lastAddressedLocalHandle(self, v34, v35);
-  if (v36)
-  {
-    CFDictionarySetValue(v3, @"lalh", v36);
-  }
-
-  v39 = objc_msgSend_groupPhotoGUID(self, v37, v38);
+  v39 = objc_msgSend_originalGroupID(self, v36, v37, v38);
   if (v39)
   {
-    CFDictionarySetValue(v3, @"groupPhotoGUID", v39);
+    CFDictionarySetValue(v3, @"originalGroupID", v39);
   }
 
-  v42 = objc_msgSend_groupPhotoPath(self, v40, v41);
-  if (v42)
+  v43 = objc_msgSend_accountID(self, v40, v41, v42);
+  if (v43)
   {
-    CFDictionarySetValue(v3, @"groupPhotoPath", v42);
+    CFDictionarySetValue(v3, @"accountID", v43);
   }
 
-  v45 = objc_msgSend_participants(self, v43, v44);
-  if (v45)
+  v47 = objc_msgSend_lastAddressedLocalHandle(self, v44, v45, v46);
+  if (v47)
   {
-    CFDictionarySetValue(v3, @"participants", v45);
+    CFDictionarySetValue(v3, @"lalh", v47);
   }
 
-  v46 = MEMORY[0x1E696AD98];
-  isFiltered = objc_msgSend_isFiltered(self, v47, v48);
-  v51 = objc_msgSend_numberWithInteger_(v46, v50, isFiltered);
+  v51 = objc_msgSend_groupPhotoGUID(self, v48, v49, v50);
   if (v51)
   {
-    CFDictionarySetValue(v3, @"isFiltered", v51);
+    CFDictionarySetValue(v3, @"groupPhotoGUID", v51);
   }
 
-  v52 = MEMORY[0x1E696AD98];
-  isBlackholed = objc_msgSend_isBlackholed(self, v53, v54);
-  v57 = objc_msgSend_numberWithBool_(v52, v56, isBlackholed);
-  if (v57)
+  v55 = objc_msgSend_groupPhotoPath(self, v52, v53, v54);
+  if (v55)
   {
-    CFDictionarySetValue(v3, @"isBlackholed", v57);
+    CFDictionarySetValue(v3, @"groupPhotoPath", v55);
   }
 
-  v58 = MEMORY[0x1E696AD98];
-  v61 = objc_msgSend_syndicationType(self, v59, v60);
-  v63 = objc_msgSend_numberWithInteger_(v58, v62, v61);
-  if (v63)
+  v59 = objc_msgSend_participants(self, v56, v57, v58);
+  if (v59)
   {
-    CFDictionarySetValue(v3, @"syndicationType", v63);
+    CFDictionarySetValue(v3, @"participants", v59);
   }
 
-  v66 = objc_msgSend_syndicationDate(self, v64, v65);
-  if (v66)
+  v60 = MEMORY[0x1E696AD98];
+  isFiltered = objc_msgSend_isFiltered(self, v61, v62, v63);
+  v67 = objc_msgSend_numberWithInteger_(v60, v65, isFiltered, v66);
+  if (v67)
   {
-    CFDictionarySetValue(v3, @"syndicationDate", v66);
+    CFDictionarySetValue(v3, @"isFiltered", v67);
   }
 
-  v69 = objc_msgSend_lastMessageDate(self, v67, v68);
-  if (v69)
+  v68 = MEMORY[0x1E696AD98];
+  isBlackholed = objc_msgSend_isBlackholed(self, v69, v70, v71);
+  v75 = objc_msgSend_numberWithBool_(v68, v73, isBlackholed, v74);
+  if (v75)
   {
-    CFDictionarySetValue(v3, @"lastMessageDate", v69);
+    CFDictionarySetValue(v3, @"isBlackholed", v75);
+  }
+
+  v76 = MEMORY[0x1E696AD98];
+  v80 = objc_msgSend_syndicationType(self, v77, v78, v79);
+  v83 = objc_msgSend_numberWithInteger_(v76, v81, v80, v82);
+  if (v83)
+  {
+    CFDictionarySetValue(v3, @"syndicationType", v83);
+  }
+
+  v87 = objc_msgSend_syndicationDate(self, v84, v85, v86);
+  if (v87)
+  {
+    CFDictionarySetValue(v3, @"syndicationDate", v87);
+  }
+
+  v91 = objc_msgSend_lastMessageDate(self, v88, v89, v90);
+  if (v91)
+  {
+    CFDictionarySetValue(v3, @"lastMessageDate", v91);
   }
 
   return v3;

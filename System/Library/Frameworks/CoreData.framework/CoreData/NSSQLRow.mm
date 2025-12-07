@@ -1,4 +1,5 @@
 @interface NSSQLRow
++ (unsigned)newBatchRowAllocation:(id *)allocation count:(unsigned int)count forSQLEntity:(id)entity withOwnedObjectIDs:(id *)ds andTimestamp:(double)timestamp;
 + (void)allocForSQLEntity:(uint64_t)entity;
 - (BOOL)hasUniqueConstraintDiffFrom:(const __CFBitVector *)from;
 - (CFBitVectorRef)newColumnMaskFrom:(unint64_t)from columnInclusionOptions:;
@@ -10,7 +11,7 @@
 - (id)description;
 - (id)newObjectIDForToOne:(id)one;
 - (id)valueForKey:(id)key;
-- (uint64_t)_validateToOnes;
+- (unint64_t)_validateToOnes;
 - (unint64_t)attributeValueForSlot:(unint64_t *)result;
 - (unint64_t)foreignKeyForSlot:(unint64_t *)result;
 - (unint64_t)version;
@@ -42,37 +43,37 @@
   return 0;
 }
 
-- (uint64_t)_validateToOnes
+- (unint64_t)_validateToOnes
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (result)
   {
     v1 = result;
-    if ((*(result + 16) & 1) == 0)
+    if ((result[2] & 1) == 0)
     {
-      v2 = atomic_load((result + 40));
+      v2 = atomic_load(result + 5);
       _storeInfo1 = [*(v2 + 16) _storeInfo1];
       foreignKeyColumns = [_storeInfo1 foreignKeyColumns];
+      v14 = 0u;
       v15 = 0u;
       v16 = 0u;
       v17 = 0u;
-      v18 = 0u;
-      result = [foreignKeyColumns countByEnumeratingWithState:&v15 objects:v19 count:16];
+      result = [foreignKeyColumns countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (result)
       {
         v5 = result;
-        v6 = *v16;
+        v6 = *v15;
         do
         {
           v7 = 0;
           do
           {
-            if (*v16 != v6)
+            if (*v15 != v6)
             {
               objc_enumerationMutation(foreignKeyColumns);
             }
 
-            toOneRelationship = [*(*(&v15 + 1) + 8 * v7) toOneRelationship];
+            toOneRelationship = [*(*(&v14 + 1) + 8 * v7) toOneRelationship];
             v9 = toOneRelationship;
             if (!toOneRelationship || (toOneRelationship[88] & 1) == 0)
             {
@@ -88,26 +89,25 @@
               }
 
               v12 = [v1 newObjectIDForToOne:v9];
-              v13 = atomic_load((v1 + 40));
+              v13 = atomic_load(v1 + 5);
               snapshot_set_object(v13, v11 + slot, v12);
             }
 
-            ++v7;
+            v7 = (v7 + 1);
           }
 
           while (v5 != v7);
-          result = [foreignKeyColumns countByEnumeratingWithState:&v15 objects:v19 count:16];
+          result = [foreignKeyColumns countByEnumeratingWithState:&v14 objects:v18 count:16];
           v5 = result;
         }
 
         while (result);
       }
 
-      atomic_store(0, (v1 + 20));
+      atomic_store(0, v1 + 20);
     }
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -170,6 +170,66 @@
   return _PFAllocateObject(v3, v6);
 }
 
++ (unsigned)newBatchRowAllocation:(id *)allocation count:(unsigned int)count forSQLEntity:(id)entity withOwnedObjectIDs:(id *)ds andTimestamp:(double)timestamp
+{
+  v10 = *&count;
+  v29[1] = *MEMORY[0x1E69E9840];
+  v13 = [-[NSSQLEntity virtualForeignKeyColumns](entity) count];
+  v14 = [objc_msgSend(entity "foreignEntityKeyColumns")];
+  v15 = [objc_msgSend(entity "foreignOrderKeyColumns")];
+  v16 = _PFCDSnapshotClassForEntity([entity entityDescription]);
+  MEMORY[0x1EEE9AC00](v16);
+  v19 = (v29 - v18);
+  if (v10 > 0x200)
+  {
+    v19 = NSAllocateScannedUncollectable();
+  }
+
+  else
+  {
+    bzero(v29 - v18, 8 * v17);
+  }
+
+  v20 = [v16 newBatchAllocation:v19 count:v10 withOwnedObjectIDs:ds];
+  if (v20 >= v10)
+  {
+    v22 = _PFAllocateObjects(self, allocation, v10, 2 * v14 + 8 * v13 + 4 * v15);
+    v21 = v22;
+    if (v22)
+    {
+      v23 = v22;
+      v24 = v19;
+      do
+      {
+        v26 = *allocation++;
+        v25 = v26;
+        v27 = *v24++;
+        atomic_store(v27, (v25 + 40));
+        snapshot_set_transient_default_values(v27);
+        *(v27 + 24) |= 1u;
+        *(v25 + 32) = timestamp;
+        *(v25 + 16) = (2 * (v13 & 0x3FFF)) & 0x7FFF | ((v15 & 0x3FFF) << 15) | *(v25 + 16) & 0xE0000001;
+        --v23;
+      }
+
+      while (v23);
+    }
+  }
+
+  else
+  {
+    _PFDeallocateObjects(v19, v20);
+    v21 = 0;
+  }
+
+  if (v10 >= 0x201)
+  {
+    NSZoneFree(0, v19);
+  }
+
+  return v21;
+}
+
 - (NSSQLRow)initWithSQLEntity:(id)entity objectID:(id)d
 {
   dCopy = d;
@@ -217,11 +277,6 @@
       v12 = *&v11[2 * [v10 slot]];
       v13 = atomic_load(&self->_snapshot);
       _sqlEntityForEntityID(*([*(v13 + 16) _storeInfo1] + 16), v12);
-    }
-
-    else
-    {
-      v14 = *(one + 6);
     }
 
     return [NSSQLCore newForeignKeyID:persistentStore entity:v8];
@@ -308,17 +363,15 @@
     v11 = atomic_load(&self->_snapshot);
     _referenceData64 = [*(v11 + 16) _referenceData64];
     v13 = atomic_load(&self->_snapshot);
-    v14 = *(v13 + 12);
+    v14 = objc_msgSend_stringWithFormat_(v5, v6, name, v10, _referenceData64, *(v13 + 12));
   }
 
   else
   {
-    v10 = 0;
-    _referenceData64 = 0;
-    v14 = 0;
+    v14 = objc_msgSend_stringWithFormat_(v5, v6, name, 0, 0, 0);
   }
 
-  v15 = [v5 stringWithFormat:@"%@{%@ %d-%qd-%qi", v6, name, v10, _referenceData64, v14];
+  v15 = v14;
   attributeColumns = [v51 attributeColumns];
   v17 = [attributeColumns count];
   if (v17)
@@ -523,7 +576,8 @@
 
           if ([v8 propertyType] != 3)
           {
-            objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:objc_msgSend(MEMORY[0x1E696AEC0] userInfo:{"stringWithFormat:", @"unexpected key found for: %@", v9), 0}]);
+            v18 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0] userInfo:{v9), 0}];
+            objc_exception_throw(v18);
           }
         }
 
@@ -545,9 +599,9 @@
     v13 = [objc_msgSend(objc_msgSend(v7 "entityDescription")];
     if ([v13 _propertyType] != 7)
     {
-      v18.receiver = self;
-      v18.super_class = NSSQLRow;
-      return [(NSSQLRow *)&v18 valueForKey:key];
+      v19.receiver = self;
+      v19.super_class = NSSQLRow;
+      return [(NSSQLRow *)&v19 valueForKey:key];
     }
 
     v14 = [-[NSSQLEntity sqlAttributesForCompositeAttributeName:](v7 objc_msgSend(v13];
@@ -651,7 +705,7 @@ LABEL_21:
 
 - (CFBitVectorRef)newColumnMaskFrom:(unint64_t)from columnInclusionOptions:
 {
-  v131 = *MEMORY[0x1E69E9840];
+  v130 = *MEMORY[0x1E69E9840];
   if (result)
   {
     v5 = result;
@@ -671,29 +725,29 @@ LABEL_21:
     foreignOrderKeyColumns = [_storeInfo1 foreignOrderKeyColumns];
     attributeColumns = [_storeInfo1 attributeColumns];
     v11 = [attributeColumns count];
-    v107 = foreignOrderKeyColumns;
+    v106 = foreignOrderKeyColumns;
     v12 = [foreignOrderKeyColumns count];
-    v106 = foreignEntityKeyColumns;
+    v105 = foreignEntityKeyColumns;
     v13 = [foreignEntityKeyColumns count];
     v14 = [foreignKeyColumns count];
-    v105 = &v101;
-    v104 = v12 + v11 + v13 + v14;
+    v104 = &v100;
+    v103 = v12 + v11 + v13 + v14;
     MEMORY[0x1EEE9AC00](v14);
-    v16 = &v101 - v15;
-    bzero(&v101 - v15, v17);
+    v16 = &v100 - v15;
+    bzero(&v100 - v15, v17);
     fromCopy = from;
-    v110 = v5;
+    v109 = v5;
     if ((from & 0xA) == 0)
     {
       v20 = [foreignKeyColumns count];
       goto LABEL_23;
     }
 
-    v125 = 0u;
-    v126 = 0u;
-    v123 = 0u;
     v124 = 0u;
-    v18 = [foreignKeyColumns countByEnumeratingWithState:&v123 objects:v130 count:16];
+    v125 = 0u;
+    v122 = 0u;
+    v123 = 0u;
+    v18 = [foreignKeyColumns countByEnumeratingWithState:&v122 objects:v129 count:16];
     if (!v18)
     {
       v20 = 0;
@@ -707,24 +761,24 @@ LABEL_21:
 
     v19 = v18;
     v20 = 0;
-    v21 = *v124;
+    v21 = *v123;
 LABEL_8:
     v22 = 0;
     while (1)
     {
-      if (*v124 != v21)
+      if (*v123 != v21)
       {
         objc_enumerationMutation(foreignKeyColumns);
       }
 
-      v23 = *(*(&v123 + 1) + 8 * v22);
+      v23 = *(*(&v122 + 1) + 8 * v22);
       if ((from & 2) == 0)
       {
         break;
       }
 
       LODWORD(from) = [v23 slot];
-      v25 = [(NSSQLRow *)v110 foreignKeyForSlot:from];
+      v25 = [(NSSQLRow *)v109 foreignKeyForSlot:from];
       fromCopy2 = from;
       LOBYTE(from) = fromCopy;
       if (v25 != [(NSSQLRow *)a2 foreignKeyForSlot:fromCopy2])
@@ -736,32 +790,32 @@ LABEL_17:
       ++v20;
       if (v19 == ++v22)
       {
-        v19 = [foreignKeyColumns countByEnumeratingWithState:&v123 objects:v130 count:16];
+        v19 = [foreignKeyColumns countByEnumeratingWithState:&v122 objects:v129 count:16];
         if (!v19)
         {
           if ((from & 2) != 0)
           {
 LABEL_24:
-            v121 = 0u;
-            v122 = 0u;
-            v119 = 0u;
             v120 = 0u;
-            v28 = [v106 countByEnumeratingWithState:&v119 objects:v129 count:16];
+            v121 = 0u;
+            v118 = 0u;
+            v119 = 0u;
+            v28 = [v105 countByEnumeratingWithState:&v118 objects:v128 count:16];
             if (v28)
             {
               v29 = v28;
-              v30 = *v120;
+              v30 = *v119;
               do
               {
                 v31 = 0;
                 do
                 {
-                  if (*v120 != v30)
+                  if (*v119 != v30)
                   {
-                    objc_enumerationMutation(v106);
+                    objc_enumerationMutation(v105);
                   }
 
-                  slot = [*(*(&v119 + 1) + 8 * v31) slot];
+                  slot = [*(*(&v118 + 1) + 8 * v31) slot];
                   if (a2)
                   {
                     v33 = *(a2 + _NSSQLRowInstanceSize + ((4 * *(a2 + 16)) & 0x1FFF8) + ((*(a2 + 16) >> 13) & 0xFFFC) + 2 * slot);
@@ -772,7 +826,7 @@ LABEL_24:
                     v33 = 0;
                   }
 
-                  if (v33 != *(v110 + 2 * slot + _NSSQLRowInstanceSize + ((4 * *(v110 + 4)) & 0x1FFF8) + ((*(v110 + 4) >> 13) & 0xFFFC)))
+                  if (v33 != *(v109 + 2 * slot + _NSSQLRowInstanceSize + ((4 * *(v109 + 4)) & 0x1FFF8) + ((*(v109 + 4) >> 13) & 0xFFFC)))
                   {
                     v16[v20 >> 3] |= 1 << (~v20 & 7);
                   }
@@ -782,33 +836,33 @@ LABEL_24:
                 }
 
                 while (v29 != v31);
-                v34 = [v106 countByEnumeratingWithState:&v119 objects:v129 count:16];
+                v34 = [v105 countByEnumeratingWithState:&v118 objects:v128 count:16];
                 v29 = v34;
               }
 
               while (v34);
             }
 
-            v117 = 0u;
-            v118 = 0u;
-            v115 = 0u;
             v116 = 0u;
-            v35 = [v107 countByEnumeratingWithState:&v115 objects:v128 count:16];
+            v117 = 0u;
+            v114 = 0u;
+            v115 = 0u;
+            v35 = [v106 countByEnumeratingWithState:&v114 objects:v127 count:16];
             if (v35)
             {
               v36 = v35;
-              v37 = *v116;
+              v37 = *v115;
               do
               {
                 v38 = 0;
                 do
                 {
-                  if (*v116 != v37)
+                  if (*v115 != v37)
                   {
-                    objc_enumerationMutation(v107);
+                    objc_enumerationMutation(v106);
                   }
 
-                  slot2 = [*(*(&v115 + 1) + 8 * v38) slot];
+                  slot2 = [*(*(&v114 + 1) + 8 * v38) slot];
                   if (a2)
                   {
                     v40 = *(a2 + _NSSQLRowInstanceSize + ((4 * *(a2 + 16)) & 0x1FFF8) + 4 * slot2);
@@ -819,7 +873,7 @@ LABEL_24:
                     v40 = 0;
                   }
 
-                  if (*(v110 + 4 * slot2 + _NSSQLRowInstanceSize + ((4 * *(v110 + 4)) & 0x1FFF8)) != v40)
+                  if (*(v109 + 4 * slot2 + _NSSQLRowInstanceSize + ((4 * *(v109 + 4)) & 0x1FFF8)) != v40)
                   {
                     v16[v20 >> 3] |= 1 << (~v20 & 7);
                   }
@@ -829,7 +883,7 @@ LABEL_24:
                 }
 
                 while (v36 != v38);
-                v41 = [v107 countByEnumeratingWithState:&v115 objects:v128 count:16];
+                v41 = [v106 countByEnumeratingWithState:&v114 objects:v127 count:16];
                 v36 = v41;
               }
 
@@ -837,30 +891,30 @@ LABEL_24:
             }
 
 LABEL_50:
-            v113 = 0u;
-            v114 = 0u;
-            v111 = 0u;
             v112 = 0u;
-            v42 = [attributeColumns countByEnumeratingWithState:&v111 objects:v127 count:16];
-            v43 = v110;
+            v113 = 0u;
+            v110 = 0u;
+            v111 = 0u;
+            v42 = [attributeColumns countByEnumeratingWithState:&v110 objects:v126 count:16];
+            v43 = v109;
             if (!v42)
             {
-              goto LABEL_126;
+              return CFBitVectorCreate(0, v16, v103);
             }
 
             v44 = v42;
-            v107 = ((fromCopy >> 4) & 1);
-            v45 = *v112;
+            v106 = ((fromCopy >> 4) & 1);
+            v45 = *v111;
             while (2)
             {
               v46 = 0;
 LABEL_53:
-              if (*v112 != v45)
+              if (*v111 != v45)
               {
                 objc_enumerationMutation(attributeColumns);
               }
 
-              v47 = *(*(&v111 + 1) + 8 * v46);
+              v47 = *(*(&v110 + 1) + 8 * v46);
               if (v47 && (v47[16] & 0x18) != 0)
               {
                 goto LABEL_75;
@@ -877,7 +931,7 @@ LABEL_53:
                 v49 = 1;
               }
 
-              if ((v49 | v107) != 1)
+              if ((v49 | v106) != 1)
               {
                 goto LABEL_74;
               }
@@ -934,7 +988,7 @@ LABEL_74:
                 goto LABEL_75;
               }
 
-              v106 = v54;
+              v105 = v54;
               v56 = slot3;
               type = snapshot_get_type(v53, slot3);
               if (type > 0x68)
@@ -945,24 +999,24 @@ LABEL_74:
                     Class = object_getClass(v53);
                     v75 = v56;
                     v66 = *&v53[*(object_getIndexedIvars(Class) + v56 + 19)];
-                    v76 = v106;
-                    v77 = object_getClass(v106);
+                    v76 = v105;
+                    v77 = object_getClass(v105);
                     v69 = *(v76 + *(object_getIndexedIvars(v77) + v75 + 19));
                     break;
                   case 'q':
                     v86 = object_getClass(v53);
                     v87 = v56;
                     v88 = *&v53[*(object_getIndexedIvars(v86) + v56 + 19)];
-                    v89 = v106;
-                    v90 = object_getClass(v106);
+                    v89 = v105;
+                    v90 = object_getClass(v105);
                     v63 = v88 == *(v89 + *(object_getIndexedIvars(v90) + v87 + 19));
                     goto LABEL_97;
                   case 's':
                     v64 = object_getClass(v53);
                     v65 = v56;
                     v66 = *&v53[*(object_getIndexedIvars(v64) + v56 + 19)];
-                    v67 = v106;
-                    v68 = object_getClass(v106);
+                    v67 = v105;
+                    v68 = object_getClass(v105);
                     v69 = *(v67 + *(object_getIndexedIvars(v68) + v65 + 19));
                     break;
                   default:
@@ -979,8 +1033,8 @@ LABEL_74:
                     v81 = object_getClass(v53);
                     v82 = v56;
                     v83 = *&v53[*(object_getIndexedIvars(v81) + v56 + 19)];
-                    v84 = v106;
-                    v85 = object_getClass(v106);
+                    v84 = v105;
+                    v85 = object_getClass(v105);
                     v63 = v83 == *(v84 + *(object_getIndexedIvars(v85) + v82 + 19));
                     goto LABEL_97;
                   }
@@ -990,11 +1044,11 @@ LABEL_74:
                     v58 = object_getClass(v53);
                     v59 = v56;
                     v60 = *&v53[*(object_getIndexedIvars(v58) + v56 + 19)];
-                    v61 = v106;
-                    v62 = object_getClass(v106);
+                    v61 = v105;
+                    v62 = object_getClass(v105);
                     v63 = v60 == *(v61 + *(object_getIndexedIvars(v62) + v59 + 19));
 LABEL_97:
-                    v43 = v110;
+                    v43 = v109;
                     if (!v63)
                     {
                       goto LABEL_74;
@@ -1005,13 +1059,11 @@ LABEL_75:
 LABEL_76:
                     if (v44 == ++v46)
                     {
-                      v99 = [attributeColumns countByEnumeratingWithState:&v111 objects:v127 count:16];
+                      v99 = [attributeColumns countByEnumeratingWithState:&v110 objects:v126 count:16];
                       v44 = v99;
                       if (!v99)
                       {
-LABEL_126:
-                        result = CFBitVectorCreate(0, v16, v104);
-                        goto LABEL_127;
+                        return CFBitVectorCreate(0, v16, v103);
                       }
 
                       continue;
@@ -1022,14 +1074,14 @@ LABEL_126:
 
 LABEL_91:
                   object = snapshot_get_object(v53, v56);
-                  v78 = snapshot_get_object(v106, v56);
+                  v78 = snapshot_get_object(v105, v56);
                   sqlType = [v47 sqlType];
-                  v106 = v78;
+                  v105 = v78;
                   if (sqlType == 16)
                   {
                     v80 = object;
                     v63 = object == v78;
-                    v43 = v110;
+                    v43 = v109;
                     if (v63)
                     {
                       goto LABEL_75;
@@ -1048,10 +1100,10 @@ LABEL_122:
                   {
                     v80 = object;
                     sqlType2 = [v47 sqlType];
-                    v43 = v110;
+                    v43 = v109;
                     if (sqlType2 != 15)
                     {
-                      if (v80 == v106)
+                      if (v80 == v105)
                       {
                         goto LABEL_75;
                       }
@@ -1066,20 +1118,20 @@ LABEL_122:
                       goto LABEL_74;
                     }
 
-                    v102 = [objc_msgSend(objc_msgSend(v43 "objectID")];
+                    v101 = [objc_msgSend(objc_msgSend(v43 "objectID")];
                     v95 = object_getClass(v80);
                     if (v95 == PFFaultingTransformedValue_Decoded || v95 == PFFaultingTransformedValue_Encoded || (v96 = v80, v95 == PFFaultingTransformedValue_Decoded_Dirty))
                     {
-                      v96 = -[PFFaultingTransformedValue valueWithRegistry:](v80, [v102 codableAdapterRegistry]);
+                      v96 = -[PFFaultingTransformedValue valueWithRegistry:](v80, [v101 codableAdapterRegistry]);
                     }
 
-                    v97 = object_getClass(v106);
+                    v97 = object_getClass(v105);
                     if (v97 == PFFaultingTransformedValue_Decoded || v97 == PFFaultingTransformedValue_Encoded || v97 == PFFaultingTransformedValue_Decoded_Dirty)
                     {
-                      v106 = -[PFFaultingTransformedValue valueWithRegistry:](v80, [v102 codableAdapterRegistry]);
+                      v105 = -[PFFaultingTransformedValue valueWithRegistry:](v80, [v101 codableAdapterRegistry]);
                     }
 
-                    if (v96 == v106)
+                    if (v96 == v105)
                     {
                       goto LABEL_75;
                     }
@@ -1087,7 +1139,7 @@ LABEL_122:
                     v98 = v96;
                   }
 
-                  if (([v98 isEqual:v106] & 1) == 0)
+                  if (([v98 isEqual:v105] & 1) == 0)
                   {
                     goto LABEL_74;
                   }
@@ -1098,8 +1150,8 @@ LABEL_122:
                 v70 = object_getClass(v53);
                 v71 = v56;
                 v66 = v53[*(object_getIndexedIvars(v70) + v56 + 19)];
-                v72 = v106;
-                v73 = object_getClass(v106);
+                v72 = v105;
+                v73 = object_getClass(v105);
                 v69 = *(v72 + *(object_getIndexedIvars(v73) + v71 + 19));
               }
 
@@ -1111,8 +1163,8 @@ LABEL_122:
           }
 
 LABEL_23:
-          v27 = v20 + [v106 count];
-          v20 = v27 + [v107 count];
+          v27 = v20 + [v105 count];
+          v20 = v27 + [v106 count];
           goto LABEL_50;
         }
 
@@ -1131,8 +1183,6 @@ LABEL_16:
     goto LABEL_17;
   }
 
-LABEL_127:
-  v100 = *MEMORY[0x1E69E9840];
   return result;
 }
 

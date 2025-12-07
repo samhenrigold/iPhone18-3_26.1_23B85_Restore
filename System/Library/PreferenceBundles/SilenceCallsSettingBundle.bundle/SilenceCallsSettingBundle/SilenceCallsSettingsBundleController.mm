@@ -189,17 +189,17 @@ LABEL_10:
   specifierID = [parentListController specifierID];
   v12 = [specifierID isEqualToString:@"com.apple.preferences.facetime"];
 
-  v13 = PHDefaultLog();
-  v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
+  v14 = PHDefaultLog(v13);
+  v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
   if (deviceExpertMigrationEnabled)
   {
     if (v12)
     {
-      if (v14)
+      if (v15)
       {
-        v19 = 138412290;
-        v20 = contactsCopy;
-        _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "User toggled Silence Unknown Callers FaceTime switch to %@", &v19, 0xCu);
+        v20 = 138412290;
+        v21 = contactsCopy;
+        _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "User toggled Silence Unknown Callers FaceTime switch to %@", &v20, 0xCu);
       }
 
       bOOLValue = [contactsCopy BOOLValue];
@@ -209,11 +209,11 @@ LABEL_10:
 
     else
     {
-      if (v14)
+      if (v15)
       {
-        v19 = 138412290;
-        v20 = contactsCopy;
-        _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "User toggled Silence Unknown Callers switch to %@", &v19, 0xCu);
+        v20 = 138412290;
+        v21 = contactsCopy;
+        _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "User toggled Silence Unknown Callers switch to %@", &v20, 0xCu);
       }
 
       bOOLValue2 = [contactsCopy BOOLValue];
@@ -226,29 +226,29 @@ LABEL_10:
   {
     if (v12)
     {
-      if (v14)
+      if (v15)
       {
-        v19 = 138412290;
-        v20 = contactsCopy;
-        _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "User toggled Silence Unknown Callers FaceTime switch to %@", &v19, 0xCu);
+        v20 = 138412290;
+        v21 = contactsCopy;
+        _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "User toggled Silence Unknown Callers FaceTime switch to %@", &v20, 0xCu);
       }
 
-      v17 = &TUCallFilteringPreferencesSilenceUnknownFaceTimeCallersKey;
+      v18 = &TUCallFilteringPreferencesSilenceUnknownFaceTimeCallersKey;
     }
 
     else
     {
-      if (v14)
+      if (v15)
       {
-        v19 = 138412290;
-        v20 = contactsCopy;
-        _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "User toggled Silence Unknown Callers switch to %@", &v19, 0xCu);
+        v20 = 138412290;
+        v21 = contactsCopy;
+        _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "User toggled Silence Unknown Callers switch to %@", &v20, 0xCu);
       }
 
-      v17 = &TUCallFilteringPreferencesContactsOnlyKey;
+      v18 = &TUCallFilteringPreferencesContactsOnlyKey;
     }
 
-    [(SilenceCallsSettingsBundleController *)self setValueInUserDefaults:contactsCopy forKey:*v17];
+    [(SilenceCallsSettingsBundleController *)self setValueInUserDefaults:contactsCopy forKey:*v18];
   }
 }
 

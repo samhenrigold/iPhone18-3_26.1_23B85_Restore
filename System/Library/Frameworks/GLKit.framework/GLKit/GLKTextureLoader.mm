@@ -982,14 +982,12 @@ void __77__GLKTextureLoader_textureWithContentsOfURL_options_queue_completionHan
   dispatch_async(*(a1 + 56), block);
 }
 
-void __77__GLKTextureLoader_textureWithContentsOfURL_options_queue_completionHandler___block_invoke_2(void *a1)
+void __77__GLKTextureLoader_textureWithContentsOfURL_options_queue_completionHandler___block_invoke_2(uint64_t a1)
 {
-  v2 = a1[4];
-  v3 = a1[5];
-  (*(a1[7] + 16))();
-  v4 = a1[6];
+  (*(*(a1 + 56) + 16))();
+  v2 = *(a1 + 48);
 
-  dispatch_release(v4);
+  dispatch_release(v2);
 }
 
 - (void)textureWithName:(NSString *)name scaleFactor:(CGFloat)scaleFactor bundle:(NSBundle *)bundle options:(NSDictionary *)options queue:(dispatch_queue_t)queue completionHandler:(GLKTextureLoaderCallback)block
@@ -1033,14 +1031,12 @@ void __87__GLKTextureLoader_textureWithName_scaleFactor_bundle_options_queue_com
   dispatch_async(*(a1 + 64), block);
 }
 
-void __87__GLKTextureLoader_textureWithName_scaleFactor_bundle_options_queue_completionHandler___block_invoke_2(void *a1)
+void __87__GLKTextureLoader_textureWithName_scaleFactor_bundle_options_queue_completionHandler___block_invoke_2(uint64_t a1)
 {
-  v2 = a1[4];
-  v3 = a1[5];
-  (*(a1[7] + 16))();
-  v4 = a1[6];
+  (*(*(a1 + 56) + 16))();
+  v2 = *(a1 + 48);
 
-  dispatch_release(v4);
+  dispatch_release(v2);
 }
 
 - (void)textureWithContentsOfData:(NSData *)data options:(NSDictionary *)options queue:(dispatch_queue_t)queue completionHandler:(GLKTextureLoaderCallback)block
@@ -1082,14 +1078,12 @@ void __78__GLKTextureLoader_textureWithContentsOfData_options_queue_completionHa
   dispatch_async(*(a1 + 56), block);
 }
 
-void __78__GLKTextureLoader_textureWithContentsOfData_options_queue_completionHandler___block_invoke_2(void *a1)
+void __78__GLKTextureLoader_textureWithContentsOfData_options_queue_completionHandler___block_invoke_2(uint64_t a1)
 {
-  v2 = a1[4];
-  v3 = a1[5];
-  (*(a1[7] + 16))();
-  v4 = a1[6];
+  (*(*(a1 + 56) + 16))();
+  v2 = *(a1 + 48);
 
-  dispatch_release(v4);
+  dispatch_release(v2);
 }
 
 - (void)textureWithCGImage:(CGImageRef)cgImage options:(NSDictionary *)options queue:(dispatch_queue_t)queue completionHandler:(GLKTextureLoaderCallback)block
@@ -1131,14 +1125,12 @@ void __71__GLKTextureLoader_textureWithCGImage_options_queue_completionHandler__
   dispatch_async(*(a1 + 48), block);
 }
 
-void __71__GLKTextureLoader_textureWithCGImage_options_queue_completionHandler___block_invoke_2(void *a1)
+void __71__GLKTextureLoader_textureWithCGImage_options_queue_completionHandler___block_invoke_2(uint64_t a1)
 {
-  v2 = a1[4];
-  v3 = a1[5];
-  (*(a1[7] + 16))();
-  v4 = a1[6];
+  (*(*(a1 + 56) + 16))();
+  v2 = *(a1 + 48);
 
-  dispatch_release(v4);
+  dispatch_release(v2);
 }
 
 - (void)cubeMapWithContentsOfFiles:(NSArray *)paths options:(NSDictionary *)options queue:(dispatch_queue_t)queue completionHandler:(GLKTextureLoaderCallback)block
@@ -1180,14 +1172,12 @@ void __79__GLKTextureLoader_cubeMapWithContentsOfFiles_options_queue_completionH
   dispatch_async(*(a1 + 56), block);
 }
 
-void __79__GLKTextureLoader_cubeMapWithContentsOfFiles_options_queue_completionHandler___block_invoke_2(void *a1)
+void __79__GLKTextureLoader_cubeMapWithContentsOfFiles_options_queue_completionHandler___block_invoke_2(uint64_t a1)
 {
-  v2 = a1[4];
-  v3 = a1[5];
-  (*(a1[7] + 16))();
-  v4 = a1[6];
+  (*(*(a1 + 56) + 16))();
+  v2 = *(a1 + 48);
 
-  dispatch_release(v4);
+  dispatch_release(v2);
 }
 
 - (void)cubeMapWithContentsOfFile:(NSString *)path options:(NSDictionary *)options queue:(dispatch_queue_t)queue completionHandler:(GLKTextureLoaderCallback)block
@@ -1236,14 +1226,12 @@ void __77__GLKTextureLoader_cubeMapWithContentsOfURL_options_queue_completionHan
   dispatch_async(*(a1 + 56), block);
 }
 
-void __77__GLKTextureLoader_cubeMapWithContentsOfURL_options_queue_completionHandler___block_invoke_2(void *a1)
+void __77__GLKTextureLoader_cubeMapWithContentsOfURL_options_queue_completionHandler___block_invoke_2(uint64_t a1)
 {
-  v2 = a1[4];
-  v3 = a1[5];
-  (*(a1[7] + 16))();
-  v4 = a1[6];
+  (*(*(a1 + 56) + 16))();
+  v2 = *(a1 + 48);
 
-  dispatch_release(v4);
+  dispatch_release(v2);
 }
 
 @end

@@ -6,65 +6,63 @@
 
 - (void)performWithCompletion:(id)completion
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v76 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  if (![(NSString *)self->_requestAceHash length])
+  if (!objc_msgSend_length(self->_requestAceHash, v5, v6, v7, v8))
   {
-    aceId = [(MPAssistantAddOutputDevicesToGroup *)self aceId];
-    v6 = sub_233505670(@"Add Output Devices To Group", aceId);
+    v13 = objc_msgSend_aceId(self, v9, v10, v11, v12);
+    v14 = sub_233505670(@"Add Output Devices To Group", v13);
     requestAceHash = self->_requestAceHash;
-    self->_requestAceHash = v6;
+    self->_requestAceHash = v14;
   }
 
-  v8 = _MPLogCategoryAssistant();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v16 = _MPLogCategoryAssistant();
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = self->_requestAceHash;
+    v17 = self->_requestAceHash;
     *buf = 138543362;
-    v30 = v9;
-    _os_log_impl(&dword_2334D9000, v8, OS_LOG_TYPE_DEFAULT, "Add Output Devices To Group (invoke) <%{public}@>: invoked", buf, 0xCu);
+    v75 = v17;
+    _os_log_impl(&dword_2334D9000, v16, OS_LOG_TYPE_DEFAULT, "Add Output Devices To Group (invoke) <%{public}@>: invoked", buf, 0xCu);
   }
 
-  v10 = self->_requestAceHash;
-  hashedRouteUIDs = [(MPAssistantAddOutputDevicesToGroup *)self hashedRouteUIDs];
-  sub_2335057BC(@"Add Output Devices To Group", v10, hashedRouteUIDs);
+  v18 = self->_requestAceHash;
+  v23 = objc_msgSend_hashedRouteUIDs(self, v19, v20, v21, v22);
+  sub_2335057BC(@"Add Output Devices To Group", v18, v23);
 
-  array = [MEMORY[0x277CBEB18] array];
-  groupID = [(MPAssistantAddOutputDevicesToGroup *)self groupID];
-  v14 = [groupID isEqualToString:@"LOCAL_DEVICE"];
+  v28 = objc_msgSend_array(MEMORY[0x277CBEB18], v24, v25, v26, v27);
+  v33 = objc_msgSend_groupID(self, v29, v30, v31, v32);
+  isEqualToString = objc_msgSend_isEqualToString_(v33, v34, @"LOCAL_DEVICE", v35, v36);
 
-  if (v14)
+  if (isEqualToString)
   {
-    v15 = 0;
+    v42 = 0;
   }
 
   else
   {
-    groupID2 = [(MPAssistantAddOutputDevicesToGroup *)self groupID];
-    [array addObject:groupID2];
+    v43 = objc_msgSend_groupID(self, v38, v39, v40, v41);
+    objc_msgSend_addObject_(v28, v44, v43, v45, v46);
 
-    hashedRouteUIDs2 = [(MPAssistantAddOutputDevicesToGroup *)self hashedRouteUIDs];
-    groupID3 = [(MPAssistantAddOutputDevicesToGroup *)self groupID];
-    v15 = [hashedRouteUIDs2 containsObject:groupID3];
+    v51 = objc_msgSend_hashedRouteUIDs(self, v47, v48, v49, v50);
+    v56 = objc_msgSend_groupID(self, v52, v53, v54, v55);
+    v42 = objc_msgSend_containsObject_(v51, v57, v56, v58, v59);
   }
 
-  hashedRouteUIDs3 = [(MPAssistantAddOutputDevicesToGroup *)self hashedRouteUIDs];
-  [array addObjectsFromArray:hashedRouteUIDs3];
+  v60 = objc_msgSend_hashedRouteUIDs(self, v38, v39, v40, v41);
+  objc_msgSend_addObjectsFromArray_(v28, v61, v60, v62, v63);
 
-  v20 = objc_alloc_init(MEMORY[0x277D27840]);
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = sub_2334E5188;
-  v24[3] = &unk_2789DB558;
-  v25 = v20;
+  v64 = objc_alloc_init(MEMORY[0x277D27840]);
+  v69[0] = MEMORY[0x277D85DD0];
+  v69[1] = 3221225472;
+  v69[2] = sub_2334E5188;
+  v69[3] = &unk_2789DB558;
+  v70 = v64;
   selfCopy = self;
-  v28 = v15;
-  v27 = completionCopy;
-  v21 = completionCopy;
-  v22 = v20;
-  [v22 decodeHashedRouteUIDs:array completion:v24];
-
-  v23 = *MEMORY[0x277D85DE8];
+  v73 = v42;
+  v72 = completionCopy;
+  v65 = completionCopy;
+  v66 = v64;
+  objc_msgSend_decodeHashedRouteUIDs_completion_(v66, v67, v28, v69, v68);
 }
 
 @end

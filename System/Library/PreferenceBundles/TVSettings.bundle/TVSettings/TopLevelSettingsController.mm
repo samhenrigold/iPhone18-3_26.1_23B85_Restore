@@ -64,6 +64,10 @@
 - (void)_setUseDefaultSubtitleLanguages:(id)languages;
 - (void)_showPrivacySheet:(id)sheet;
 - (void)_syncDevicePreferenceValues;
+- (void)_updateCellularQualitySpecifiersAnimated:(BOOL)animated shouldUpdateUsingTableView:(BOOL)view forPlayback:(BOOL)playback;
+- (void)_updateCellularSpecifierVisibility:(id)visibility shouldUpdateUsingTableView:(BOOL)view animated:(BOOL)animated mutableSpecifiers:(id)specifiers;
+- (void)_updateCellularSpecifiersAnimated:(BOOL)animated shouldUpdateUsingTableView:(BOOL)view;
+- (void)_updateHomeSharingSpecifiersAnimated:(BOOL)animated shouldUpdateUsingTableView:(BOOL)view;
 - (void)_updateRestrictions;
 - (void)_updateUIAfterChangingCellularUse:(id)use specifier:(id)specifier;
 - (void)checkSettingsAndReloadWithCompletion:(id)completion;
@@ -91,6 +95,8 @@
 - (void)setUseCellularDataPlayback:(id)playback specifier:(id)specifier;
 - (void)setUseDefaultSubtitleLanguages:(id)languages;
 - (void)sharedInit;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation TopLevelSettingsController
@@ -229,6 +235,70 @@
   objc_destroyWeak(&location);
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v13.receiver = self;
+  v13.super_class = TopLevelSettingsController;
+  [(TopLevelSettingsController *)&v13 viewWillAppear:appear];
+  v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
+  v4 = *(&self->_permissionsSpecifiers + 4);
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v14 count:16];
+  if (v5)
+  {
+    v6 = v5;
+    v7 = *v10;
+    do
+    {
+      v8 = 0;
+      do
+      {
+        if (*v10 != v7)
+        {
+          objc_enumerationMutation(v4);
+        }
+
+        [(TopLevelSettingsController *)self reloadSpecifier:*(*(&v9 + 1) + 8 * v8) animated:0, v9];
+        v8 = v8 + 1;
+      }
+
+      while (v6 != v8);
+      v6 = [v4 countByEnumeratingWithState:&v9 objects:v14 count:16];
+    }
+
+    while (v6);
+  }
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v9.receiver = self;
+  v9.super_class = TopLevelSettingsController;
+  [(TopLevelSettingsController *)&v9 viewDidAppear:appear];
+  v4 = [NSURL URLWithString:@"settings-navigation://com.apple.Settings.Apps/com.apple.tv"];
+  v5 = [TopLevelSettingsController preferencesExtendedLocalizedName:@"SETTINGS_TITLE_APPS" defaultValue:@"Apps"];
+  if (WLKIsRegulatedSKU())
+  {
+    v6 = @"SETTINGS_TITLE_VIDEOS";
+  }
+
+  else
+  {
+    v6 = @"SETTINGS_TITLE_TV";
+  }
+
+  v7 = [TopLevelSettingsController preferencesExtendedLocalizedName:v6 defaultValue:&stru_21328];
+  if (objc_opt_respondsToSelector())
+  {
+    NSLog(@"TVSettingsLog - Emitting navigation event for Top Level application settings");
+    v10 = v5;
+    v8 = [NSArray arrayWithObjects:&v10 count:1];
+    [(TopLevelSettingsController *)self pe_emitNavigationEventForApplicationSettingsWithApplicationBundleIdentifier:@"com.apple.tv" title:v7 localizedNavigationComponents:v8 deepLink:v4];
+  }
+}
+
 - (id)accountModificationsAllowed
 {
   v2 = +[MCProfileConnection sharedConnection];
@@ -262,7 +332,7 @@ LABEL_67:
   activeAccount = [v6 activeAccount];
 
   v8 = +[WLKSettingsStore sharedSettings];
-  v9 = sub_7478();
+  v9 = sub_7478(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10 = *(&self->_libraryOnly + 4);
@@ -969,16 +1039,16 @@ LABEL_68:
   v6 = +[WLKSystemPreferencesStore sharedPreferences];
   [v6 setSportsScoreSpoilersAllowed:bOOLValue];
 
-  v7 = sub_7478();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = sub_7478(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v9[0] = 67109120;
-    v9[1] = bOOLValue;
-    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Settings Show Sports Scores value changed to %d", v9, 8u);
+    v10[0] = 67109120;
+    v10[1] = bOOLValue;
+    _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Settings Show Sports Scores value changed to %d", v10, 8u);
   }
 
-  v8 = +[PluginAnalytics sharedInstance];
-  [v8 recordSettingsChange:@"showSportsScores" value:allowedCopy];
+  v9 = +[PluginAnalytics sharedInstance];
+  [v9 recordSettingsChange:@"showSportsScores" value:allowedCopy];
 
   [(TopLevelSettingsController *)self reloadSpecifierID:@"com.apple.videos:SportsSpoilers"];
 }
@@ -1766,6 +1836,448 @@ LABEL_13:
   [(TopLevelSettingsController *)self _updateCellularQualitySpecifiersAnimated:1 shouldUpdateUsingTableView:1 forPlayback:1];
 
   [(TopLevelSettingsController *)self _updateCellularQualitySpecifiersAnimated:1 shouldUpdateUsingTableView:1 forPlayback:0];
+}
+
+- (void)_updateCellularSpecifiersAnimated:(BOOL)animated shouldUpdateUsingTableView:(BOOL)view
+{
+  viewCopy = view;
+  animatedCopy = animated;
+  v7 = animated && view;
+  if (animated && view)
+  {
+    [(TopLevelSettingsController *)self beginUpdates];
+  }
+
+  downloadQualitySpecifier = [(TopLevelSettingsController *)self downloadQualitySpecifier];
+  if (viewCopy)
+  {
+    [(TopLevelSettingsController *)self reloadSpecifier:downloadQualitySpecifier animated:animatedCopy];
+  }
+
+  v8 = OBJC_IVAR___PSListController__specifiers;
+  v9 = [*&self->super.PSListController_opaque[OBJC_IVAR___PSListController__specifiers] mutableCopy];
+  [(TopLevelSettingsController *)self _updateCellularSpecifierVisibility:*(&self->_downloadCellularSpecifier + 4) shouldUpdateUsingTableView:viewCopy animated:animatedCopy mutableSpecifiers:v9];
+  playbackQualityWifiSpecifier = [(TopLevelSettingsController *)self playbackQualityWifiSpecifier];
+  if (viewCopy)
+  {
+    [(TopLevelSettingsController *)self reloadSpecifier:playbackQualityWifiSpecifier animated:animatedCopy];
+    [(TopLevelSettingsController *)self _updateCellularSpecifierVisibility:*(&self->_playbackCellularSpecifier + 4) shouldUpdateUsingTableView:1 animated:animatedCopy mutableSpecifiers:v9];
+    if (v7)
+    {
+      [(TopLevelSettingsController *)self endUpdates];
+    }
+  }
+
+  else
+  {
+    [(TopLevelSettingsController *)self _updateCellularSpecifierVisibility:*(&self->_playbackCellularSpecifier + 4) shouldUpdateUsingTableView:0 animated:animatedCopy mutableSpecifiers:v9];
+    if (([*&self->super.PSListController_opaque[v8] isEqualToArray:v9] & 1) == 0 && *&self->super.PSListController_opaque[v8] != v9)
+    {
+      v11 = [v9 copy];
+      v12 = *&self->super.PSListController_opaque[v8];
+      *&self->super.PSListController_opaque[v8] = v11;
+    }
+  }
+}
+
+- (void)_updateCellularSpecifierVisibility:(id)visibility shouldUpdateUsingTableView:(BOOL)view animated:(BOOL)animated mutableSpecifiers:(id)specifiers
+{
+  animatedCopy = animated;
+  viewCopy = view;
+  visibilityCopy = visibility;
+  specifiersCopy = specifiers;
+  if ([(TopLevelSettingsController *)self _okayToShowCellularPlaybackAndDownloadSettings]|| [(TopLevelSettingsController *)self _isDebugMode])
+  {
+    v12 = OBJC_IVAR___PSListController__specifiers;
+    v13 = *&self->super.PSListController_opaque[OBJC_IVAR___PSListController__specifiers];
+    identifier = [visibilityCopy identifier];
+    v15 = [v13 specifierForID:identifier];
+
+    if (!v15)
+    {
+      identifier2 = [visibilityCopy identifier];
+      v17 = [identifier2 isEqualToString:@"com.apple.videos:CellularDataMode"];
+
+      if (v17)
+      {
+        v18 = @"com.apple.videos:PlaybackQualityGroup";
+      }
+
+      else
+      {
+        identifier3 = [visibilityCopy identifier];
+        v20 = [identifier3 isEqualToString:@"com.apple.videos:CellularDataModeDownload"];
+
+        if (v20)
+        {
+          v18 = @"com.apple.videos:DownloadQualityGroup";
+        }
+
+        else
+        {
+          identifier4 = [visibilityCopy identifier];
+          v22 = [identifier4 isEqualToString:@"com.apple.videos:AppAppearance"];
+
+          if (!v22)
+          {
+            goto LABEL_16;
+          }
+
+          v18 = @"com.apple.videos:AppAppearanceGroup";
+        }
+      }
+
+      v23 = [*&self->super.PSListController_opaque[v12] specifierForID:v18];
+      if (v23)
+      {
+        v24 = v23;
+        if (viewCopy)
+        {
+          [(TopLevelSettingsController *)self insertSpecifier:visibilityCopy afterSpecifier:v23 animated:animatedCopy];
+        }
+
+        else
+        {
+          v25 = [*&self->super.PSListController_opaque[v12] indexOfObject:v23];
+          v26 = [specifiersCopy count];
+          if (v25 + 1 < v26)
+          {
+            v27 = v25 + 1;
+          }
+
+          else
+          {
+            v27 = v26;
+          }
+
+          [specifiersCopy insertObject:visibilityCopy atIndex:v27];
+        }
+
+LABEL_22:
+
+        goto LABEL_23;
+      }
+
+LABEL_16:
+      v24 = sub_7478(v23);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+      {
+        v28 = 138412290;
+        v29 = visibilityCopy;
+        _os_log_impl(&dword_0, v24, OS_LOG_TYPE_DEFAULT, "[TVLog] Error: No group found for invalid cellular specifier used for visibility update %@", &v28, 0xCu);
+      }
+
+      goto LABEL_22;
+    }
+  }
+
+  else if (viewCopy)
+  {
+    [(TopLevelSettingsController *)self removeSpecifier:visibilityCopy animated:animatedCopy];
+  }
+
+  else
+  {
+    [specifiersCopy removeObject:visibilityCopy];
+  }
+
+LABEL_23:
+}
+
+- (void)_updateCellularQualitySpecifiersAnimated:(BOOL)animated shouldUpdateUsingTableView:(BOOL)view forPlayback:(BOOL)playback
+{
+  playbackCopy = playback;
+  viewCopy = view;
+  animatedCopy = animated;
+  v9 = animated && view;
+  if (animated && view)
+  {
+    [(TopLevelSettingsController *)self beginUpdates];
+  }
+
+  v10 = &OBJC_IVAR___TopLevelSettingsController__downloadQualityCellularSpecifier;
+  if (playbackCopy)
+  {
+    v10 = &OBJC_IVAR___TopLevelSettingsController__playbackQualityCellularSpecifier;
+  }
+
+  v11 = *&self->super.PSListController_opaque[*v10];
+  v12 = +[WLKSystemPreferencesStore sharedPreferences];
+  v13 = v12;
+  if (playbackCopy)
+  {
+    useCellularDataPlayback = [v12 useCellularDataPlayback];
+  }
+
+  else
+  {
+    useCellularDataPlayback = [v12 useCellularDataDownload];
+  }
+
+  v15 = useCellularDataPlayback;
+
+  if ([(TopLevelSettingsController *)self _okayToShowCellularPlaybackAndDownloadSettings]&& v15)
+  {
+    v16 = &self->super.PSListController_opaque[OBJC_IVAR___PSListController__specifiers];
+    v17 = [*v16 mutableCopy];
+LABEL_12:
+    v20 = *v16;
+    identifier = [v11 identifier];
+    v22 = [v20 specifierForID:identifier];
+
+    if (v22)
+    {
+      if (viewCopy)
+      {
+        goto LABEL_14;
+      }
+
+      goto LABEL_34;
+    }
+
+    if (playbackCopy)
+    {
+      v23 = @"com.apple.videos:CellularDataMode";
+    }
+
+    else
+    {
+      v23 = @"com.apple.videos:CellularDataModeDownload";
+    }
+
+    v24 = [*v16 specifierForID:v23];
+    if (v24)
+    {
+      v25 = v24;
+      if (viewCopy)
+      {
+        [(TopLevelSettingsController *)self insertSpecifier:v11 afterSpecifier:v24 animated:animatedCopy];
+      }
+
+      else
+      {
+        v27 = [*v16 indexOfObject:v24];
+        v28 = [v17 count];
+        if (v27 + 1 < v28)
+        {
+          v29 = v27 + 1;
+        }
+
+        else
+        {
+          v29 = v28;
+        }
+
+        [v17 insertObject:v11 atIndex:v29];
+      }
+
+      if (viewCopy)
+      {
+LABEL_14:
+        if (!v9)
+        {
+          goto LABEL_37;
+        }
+
+        goto LABEL_24;
+      }
+
+      goto LABEL_34;
+    }
+
+    v26 = sub_7478(0);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    {
+      sub_124CC(v11, v26);
+    }
+
+    goto LABEL_37;
+  }
+
+  _isDebugMode = [(TopLevelSettingsController *)self _isDebugMode];
+  v16 = &self->super.PSListController_opaque[OBJC_IVAR___PSListController__specifiers];
+  v19 = [*v16 mutableCopy];
+  v17 = v19;
+  if (_isDebugMode)
+  {
+    goto LABEL_12;
+  }
+
+  if (!viewCopy)
+  {
+    [v19 removeObject:v11];
+LABEL_34:
+    if (([*v16 isEqualToArray:v17] & 1) == 0 && *v16 != v17)
+    {
+      v30 = [v17 copy];
+      v31 = *v16;
+      *v16 = v30;
+    }
+
+    goto LABEL_37;
+  }
+
+  [(TopLevelSettingsController *)self removeSpecifier:v11 animated:animatedCopy];
+  if (v9)
+  {
+LABEL_24:
+    [(TopLevelSettingsController *)self endUpdates];
+  }
+
+LABEL_37:
+}
+
+- (void)_updateHomeSharingSpecifiersAnimated:(BOOL)animated shouldUpdateUsingTableView:(BOOL)view
+{
+  viewCopy = view;
+  animatedCopy = animated;
+  v7 = animated && view;
+  if (animated && view)
+  {
+    [(TopLevelSettingsController *)self beginUpdates];
+  }
+
+  v8 = +[HSAccountStore defaultStore];
+  groupID = [v8 groupID];
+
+  v9 = OBJC_IVAR___PSListController__specifiers;
+  v10 = [*&self->super.PSListController_opaque[OBJC_IVAR___PSListController__specifiers] mutableCopy];
+  v11 = v10;
+  if (v10)
+  {
+    v12 = v10;
+  }
+
+  else
+  {
+    v12 = objc_alloc_init(NSMutableArray);
+  }
+
+  v13 = v12;
+
+  v14 = [*&self->super.PSListController_opaque[v9] specifierForID:@"com.apple.videos:HomeSharingFooter"];
+  _isDebugMode = [(TopLevelSettingsController *)self _isDebugMode];
+  if (groupID)
+  {
+    if ((_isDebugMode & 1) == 0)
+    {
+      v16 = *(&self->_homeSharingSignInButtonSpecifier + 4);
+      if (viewCopy)
+      {
+        [(TopLevelSettingsController *)self removeSpecifier:v16 animated:animatedCopy];
+      }
+
+      else
+      {
+        [v13 removeObject:v16];
+      }
+    }
+
+    v32 = v14;
+    v18 = animatedCopy;
+    v19 = [NSBundle bundleForClass:objc_opt_class()];
+    v20 = [v19 localizedStringForKey:@"HOME_SHARING_APPLE_ID_BUTTON" value:&stru_21328 table:@"TVSettings"];
+    homeSharingAppleID = [(TopLevelSettingsController *)self homeSharingAppleID];
+    v22 = [NSString stringWithFormat:@"%@ %@", v20, homeSharingAppleID];
+    [*(&self->_homeSharingSignOutButtonSpecifier + 4) setName:v22];
+
+    v23 = [*&self->super.PSListController_opaque[v9] specifierForID:@"com.apple.videos:HomeSharingSignOutButton"];
+
+    animatedCopy = v18;
+    if (v23)
+    {
+      v14 = v32;
+      if (viewCopy)
+      {
+        [(TopLevelSettingsController *)self reloadSpecifier:*(&self->_homeSharingSignOutButtonSpecifier + 4) animated:animatedCopy];
+      }
+    }
+
+    else if (viewCopy)
+    {
+      v14 = v32;
+      [(TopLevelSettingsController *)self insertSpecifier:*(&self->_homeSharingSignOutButtonSpecifier + 4) afterSpecifier:v32 animated:animatedCopy];
+    }
+
+    else
+    {
+      v14 = v32;
+      v24 = [*&self->super.PSListController_opaque[v9] indexOfObject:v32];
+      v25 = [v13 count];
+      if (v24 + 1 < v25)
+      {
+        v26 = v24 + 1;
+      }
+
+      else
+      {
+        v26 = v25;
+      }
+
+      [v13 insertObject:*(&self->_homeSharingSignOutButtonSpecifier + 4) atIndex:v26];
+    }
+
+    [v14 setObject:&stru_21328 forKeyedSubscript:PSFooterTextGroupKey];
+    if (viewCopy)
+    {
+LABEL_24:
+      [(TopLevelSettingsController *)self reloadSpecifier:v14 animated:animatedCopy];
+      if (v7)
+      {
+        [(TopLevelSettingsController *)self endUpdates];
+      }
+
+      goto LABEL_35;
+    }
+  }
+
+  else
+  {
+    if ((_isDebugMode & 1) == 0)
+    {
+      v17 = *(&self->_homeSharingSignOutButtonSpecifier + 4);
+      if (viewCopy)
+      {
+        [(TopLevelSettingsController *)self removeSpecifier:v17 animated:animatedCopy];
+      }
+
+      else
+      {
+        [v13 removeObject:v17];
+      }
+    }
+
+    v27 = [*&self->super.PSListController_opaque[v9] specifierForID:@"com.apple.videos:HomeSharingSignInButton"];
+
+    if (!v27)
+    {
+      [(TopLevelSettingsController *)self insertSpecifier:*(&self->_homeSharingSignInButtonSpecifier + 4) afterSpecifier:v14 animated:animatedCopy];
+    }
+
+    v28 = [NSBundle bundleForClass:objc_opt_class()];
+    v29 = [v28 localizedStringForKey:@"HOME_SHARING_FOOTER" value:&stru_21328 table:@"TVSettings"];
+    [v14 setObject:v29 forKeyedSubscript:PSFooterTextGroupKey];
+
+    if (viewCopy)
+    {
+      goto LABEL_24;
+    }
+  }
+
+  if (![v13 count])
+  {
+
+    v13 = 0;
+  }
+
+  if (([*&self->super.PSListController_opaque[v9] isEqualToArray:v13] & 1) == 0 && *&self->super.PSListController_opaque[v9] != v13)
+  {
+    v30 = [v13 copy];
+    v31 = *&self->super.PSListController_opaque[v9];
+    *&self->super.PSListController_opaque[v9] = v30;
+  }
+
+LABEL_35:
 }
 
 - (void)_updateRestrictions

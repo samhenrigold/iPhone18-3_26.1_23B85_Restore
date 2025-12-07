@@ -9,6 +9,7 @@
 - (void)dealloc;
 - (void)invalidate;
 - (void)startManualVolumeUpdateTimer;
+- (void)updateVolumeActiveAudioCategoryMap:(unsigned __int8)map audioCategory:(id)category;
 @end
 
 @implementation BTAudioPersonalizedVolumeDevice
@@ -84,6 +85,62 @@
 
     self->_volumeAudioCategoryMap = 0;
   }
+}
+
+- (void)updateVolumeActiveAudioCategoryMap:(unsigned __int8)map audioCategory:(id)category
+{
+  if (!category)
+  {
+    v8 = qword_C22B8;
+    if (!os_log_type_enabled(qword_C22B8, OS_LOG_TYPE_DEFAULT))
+    {
+      return;
+    }
+
+    LOWORD(v14) = 0;
+    v9 = "BTAudioAVNotificationMonitor: returning as audioCategory is nil";
+    v10 = v8;
+    v11 = 2;
+    goto LABEL_13;
+  }
+
+  mapCopy = map;
+  if ([category isEqualToString:kMXSessionAudioCategory_PhoneCall])
+  {
+    v7 = @"PhoneCall";
+LABEL_10:
+    [(NSMutableDictionary *)self->_volumeAudioCategoryMap removeObjectForKey:v7];
+    [(NSMutableDictionary *)self->_volumeAudioCategoryMap setObject:[NSNumber forKey:"numberWithUnsignedChar:" numberWithUnsignedChar:mapCopy], v7];
+    goto LABEL_11;
+  }
+
+  if ([category isEqualToString:kMXSessionAudioCategory_AudioVideo])
+  {
+    v7 = @"Audio/Video";
+    goto LABEL_10;
+  }
+
+  if ([category isEqualToString:kMXSessionAudioCategory_VoiceCommand])
+  {
+    v7 = @"VoiceCommand";
+    goto LABEL_10;
+  }
+
+LABEL_11:
+  v12 = qword_C22B8;
+  if (!os_log_type_enabled(qword_C22B8, OS_LOG_TYPE_DEFAULT))
+  {
+    return;
+  }
+
+  volumeAudioCategoryMap = self->_volumeAudioCategoryMap;
+  v14 = 138412290;
+  v15 = volumeAudioCategoryMap;
+  v9 = "BTAudioAVNotificationMonitor: _volumeAudioCategoryMap %@";
+  v10 = v12;
+  v11 = 12;
+LABEL_13:
+  _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, v9, &v14, v11);
 }
 
 - (id)getVolumeForCurrentAudioCategory:(id)category

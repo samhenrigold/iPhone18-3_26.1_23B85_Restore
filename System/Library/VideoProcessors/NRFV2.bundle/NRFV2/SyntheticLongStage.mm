@@ -402,7 +402,7 @@ LABEL_6:
   divisorTexCopy = divisorTex;
   metadataCopy = metadata;
   v428 = 0;
-  v429 = 0;
+  v429[0] = 0;
   v427 = 0;
   v22 = MEMORY[0x29EDB9270];
   v23 = *MEMORY[0x29EDB9270];
@@ -969,7 +969,7 @@ LABEL_57:
       goto LABEL_133;
     }
 
-    if (!v429)
+    if (!v429[0])
     {
       sub_2958A5048(v418);
       goto LABEL_133;
@@ -977,7 +977,7 @@ LABEL_57:
 
     objc_msgSend_setTexture_atIndex_(v157, v288, v428, 1);
     objc_msgSend_setTexture_atIndex_(v157, v328, v427, 2);
-    objc_msgSend_setTexture_atIndex_(v157, v329, v429, 24);
+    objc_msgSend_setTexture_atIndex_(v157, v329, v429[0], 24);
 LABEL_72:
     objc_msgSend_setTexture_atIndex_(v157, v288, texCopy, 0);
     if (v198)
@@ -1097,8 +1097,8 @@ LABEL_106:
       FigMetalDecRef();
     }
 
-    v355 = v429;
-    v429 = v414;
+    v355 = v429[0];
+    v429[0] = v414;
 
     v356 = v428;
     v428 = v77;
@@ -1214,7 +1214,7 @@ LABEL_112:
   divisorTexCopy = divisorTex;
   noiseDivisorTexCopy = noiseDivisorTex;
   v406 = 0;
-  v407 = 0;
+  v407[0] = 0;
   v405 = 0;
   v20 = *MEMORY[0x29EDB9270];
   if (*MEMORY[0x29EDB9270] == 1)
@@ -1653,7 +1653,7 @@ LABEL_82:
         objc_msgSend_setTexture_atIndex_(v102, v299, *&v182[2 * v179 + 126], 11);
         objc_msgSend_setTexture_atIndex_(v102, v300, v365[v179 + 43], 14);
         objc_msgSend_setTexture_atIndex_(v102, v301, v365[v179 + 63], 15);
-        if (!v407)
+        if (!v407[0])
         {
           sub_2958A63C8(&v382);
           goto LABEL_86;
@@ -1677,7 +1677,7 @@ LABEL_86:
           goto LABEL_68;
         }
 
-        objc_msgSend_setTexture_atIndex_(v102, v302, v407, 1);
+        objc_msgSend_setTexture_atIndex_(v102, v302, v407[0], 1);
         objc_msgSend_setTexture_atIndex_(v102, v303, v406, 2);
         objc_msgSend_setTexture_atIndex_(v102, v304, v405, 24);
       }
@@ -1770,8 +1770,8 @@ LABEL_86:
       FigMetalDecRef();
       FigMetalDecRef();
       FigMetalDecRef();
-      v330 = v407;
-      v407 = v377;
+      v330 = v407[0];
+      v407[0] = v377;
 
       v331 = v406;
       v406 = v378;
@@ -1804,7 +1804,7 @@ LABEL_76:
   v183 = 0;
 LABEL_64:
   v350 = MEMORY[0x29EDB9270];
-  if (v407 == outputCopy[2])
+  if (v407[0] == outputCopy[2])
   {
     pyramidCopy = v351;
     v298 = v373;

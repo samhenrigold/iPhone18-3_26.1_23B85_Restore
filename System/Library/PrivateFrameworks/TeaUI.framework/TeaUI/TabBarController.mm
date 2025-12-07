@@ -18,7 +18,7 @@
 
   if (v3)
   {
-    sub_1D7E0A1A8(0, &qword_1EDBB31B0);
+    sub_1D7E0A1A8(0, &qword_1EDBB31B0, 0x1E69DD258);
     v4 = sub_1D8191304();
   }
 
@@ -34,7 +34,7 @@
 {
   if (controllers)
   {
-    sub_1D7E0A1A8(0, &qword_1EDBB31B0);
+    sub_1D7E0A1A8(0, &qword_1EDBB31B0, 0x1E69DD258);
     sub_1D8191314();
   }
 
@@ -56,7 +56,7 @@
 
 - (_TtC5TeaUI16TabBarController)initWithTabs:(id)tabs
 {
-  sub_1D7E0A1A8(0, &qword_1ECA11088);
+  sub_1D7E0A1A8(0, &qword_1ECA11088, 0x1E69DCFE0);
   sub_1D8191314();
   TabBarController.init(tabs:)();
 }

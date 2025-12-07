@@ -20,33 +20,31 @@
 {
   v5 = sub_22A4DB74C();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = &v19 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = sub_22A4DB7DC();
-  v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
-  MEMORY[0x28223BE20](v10);
-  v14 = &v19 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v17 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = sub_22A4DB7DC();
+  v10 = *(v9 - 8);
+  MEMORY[0x28223BE20](v9);
+  v12 = &v17 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_22A4DB79C();
   sub_22A4DB70C();
   selfCopy = self;
-  v16 = sub_2295EF94C(v14, v9);
+  v14 = sub_2295EF94C(v12, v8);
 
-  (*(v6 + 8))(v9, v5);
-  (*(v11 + 8))(v14, v10);
-  if (v16)
+  (*(v6 + 8))(v8, v5);
+  (*(v10 + 8))(v12, v9);
+  if (v14)
   {
     sub_229562F68(0, &qword_281401C40, 0x277D17DC0);
-    v17 = sub_22A4DD81C();
+    v15 = sub_22A4DD81C();
   }
 
   else
   {
-    v17 = 0;
+    v15 = 0;
   }
 
-  return v17;
+  return v15;
 }
 
 - (id)serializeLogEvents:(id)events
@@ -94,19 +92,18 @@
 {
   v5 = sub_22A4DB7DC();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_229562F68(0, &qword_281401C40, 0x277D17DC0);
-  v10 = sub_22A4DD83C();
+  v9 = sub_22A4DD83C();
   sub_22A4DB79C();
   selfCopy = self;
-  sub_2295F2740(v10, v9);
+  sub_2295F2740(v9, v8);
 
-  (*(v6 + 8))(v9, v5);
-  v12 = sub_22A4DD81C();
+  (*(v6 + 8))(v8, v5);
+  v11 = sub_22A4DD81C();
 
-  return v12;
+  return v11;
 }
 
 - (_TtC13HomeKitDaemon49CleanEnergyAutomationConfigurationLogEventFactory)init

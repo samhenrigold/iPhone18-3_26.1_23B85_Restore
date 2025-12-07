@@ -14,7 +14,7 @@
   *(&self->super.super.super.isa + OBJC_IVAR___ICContentInsetViewController_configuration) = configuration;
   configurationCopy = configuration;
   selfCopy = self;
-  sub_100481B78();
+  sub_100481B78(v4);
 }
 
 - (ICContentInsetViewController)initWithContentViewController:(id)controller

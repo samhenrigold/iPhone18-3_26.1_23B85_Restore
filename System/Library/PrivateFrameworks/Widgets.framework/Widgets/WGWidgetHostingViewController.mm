@@ -503,7 +503,7 @@ void __54__WGWidgetHostingViewController_setActiveDisplayMode___block_invoke(uin
   remoteViewController = self->_remoteViewController;
   if (remoteViewController)
   {
-    [(_UIRemoteViewController *)remoteViewController serviceAuditToken];
+    objc_msgSend_serviceAuditToken(remoteViewController, a2);
   }
 
   else
@@ -4074,10 +4074,10 @@ uint64_t __67__WGWidgetHostingViewController__removeAllSnapshotFilesDueToIssue__
   [(WGWidgetHostingViewController *)self _removeAllSnapshotFilesMatchingPredicate:v11 dueToIssue:0];
 }
 
-uint64_t __76__WGWidgetHostingViewController__removeAllSnapshotFilesForActiveDisplayMode__block_invoke(uint64_t a1, void *a2)
+uint64_t __76__WGWidgetHostingViewController__removeAllSnapshotFilesForActiveDisplayMode__block_invoke(void *a1, void *a2)
 {
   v3 = [a2 lastPathComponent];
-  if ([v3 hasPrefix:*(a1 + 32)] && objc_msgSend(v3, "containsString:", *(a1 + 40)))
+  if ([v3 hasPrefix:a1[4]] && objc_msgSend(v3, "containsString:", a1[5]))
   {
     v4 = NCStringFromWidgetDisplayMode();
     v5 = [v3 containsString:v4] ^ 1;
@@ -4110,15 +4110,15 @@ uint64_t __76__WGWidgetHostingViewController__removeAllSnapshotFilesForActiveDis
   [(WGWidgetHostingViewController *)self _removeAllSnapshotFilesMatchingPredicate:v10 dueToIssue:0];
 }
 
-uint64_t __98__WGWidgetHostingViewController__removeAllSnapshotFilesInActiveDisplayModeForContentSizeCategory___block_invoke(uint64_t a1, void *a2)
+uint64_t __98__WGWidgetHostingViewController__removeAllSnapshotFilesInActiveDisplayModeForContentSizeCategory___block_invoke(void *a1, void *a2)
 {
   v3 = [a2 lastPathComponent];
-  if ([v3 hasPrefix:*(a1 + 32)])
+  if ([v3 hasPrefix:a1[4]])
   {
     v4 = NCStringFromWidgetDisplayMode();
     if ([v3 containsString:v4])
     {
-      v5 = [v3 containsString:*(a1 + 40)];
+      v5 = [v3 containsString:a1[5]];
     }
 
     else
@@ -4155,15 +4155,15 @@ uint64_t __98__WGWidgetHostingViewController__removeAllSnapshotFilesInActiveDisp
   [(WGWidgetHostingViewController *)self _removeAllSnapshotFilesMatchingPredicate:v9 dueToIssue:0];
 }
 
-uint64_t __108__WGWidgetHostingViewController__removeAllSnapshotFilesInActiveDisplayModeForAllButActiveUserInterfaceStyle__block_invoke(uint64_t a1, void *a2)
+uint64_t __108__WGWidgetHostingViewController__removeAllSnapshotFilesInActiveDisplayModeForAllButActiveUserInterfaceStyle__block_invoke(void *a1, void *a2)
 {
   v3 = [a2 lastPathComponent];
-  if ([v3 hasPrefix:*(a1 + 32)])
+  if ([v3 hasPrefix:a1[4]])
   {
     v4 = NCStringFromWidgetDisplayMode();
     if ([v3 containsString:v4])
     {
-      v5 = WGStringFromUserInterfaceStyle(*(a1 + 48));
+      v5 = WGStringFromUserInterfaceStyle(a1[6]);
       v6 = [v3 containsString:v5] ^ 1;
     }
 
@@ -6796,7 +6796,7 @@ LABEL_4:
   selfCopy = self;
   widgetIdentifier = [a2 widgetIdentifier];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_27425E000, v5, v6, "%{public}@: Attempting to invalidate disconnection timer on non-main thread!", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_2(&dword_27425E000, v5, v6, "%{public}@: Attempting to invalidate disconnection timer on non-main thread!", v7, v8, v9, v10);
 }
 
 - (void)_attemptReconnectionAfterUnanticipatedDisconnection
@@ -7534,7 +7534,7 @@ void __56__WGWidgetHostingViewController__invalidateVisibleFrame__block_invoke_2
   v1 = a1;
   v2 = WGStringFromWidgetLifeCycleSequenceState(2uLL);
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_2(&dword_27425E000, v3, v4, "Encountered error transitioning to target state '%{public}@': %{public}@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_1_2(&dword_27425E000, v3, v4, "Encountered error transitioning to target state '%{public}@': %{public}@", v5, v6, v7, v8);
 }
 
 - (void)_connectRemoteViewControllerForReason:(void *)a1 sequence:completionHandler:.cold.2(void *a1)
@@ -7542,7 +7542,7 @@ void __56__WGWidgetHostingViewController__invalidateVisibleFrame__block_invoke_2
   v1 = a1;
   v2 = WGStringFromWidgetLifeCycleSequenceState(1uLL);
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_2(&dword_27425E000, v3, v4, "Encountered error transitioning to target state '%{public}@': %{public}@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_1_2(&dword_27425E000, v3, v4, "Encountered error transitioning to target state '%{public}@': %{public}@", v5, v6, v7, v8);
 }
 
 - (void)_requestRemoteViewControllerForSequence:completionHander:.cold.1()
@@ -7563,7 +7563,7 @@ void __90__WGWidgetHostingViewController__requestRemoteViewControllerForSequence
   v1 = a1;
   v2 = WGStringFromWidgetLifeCycleSequenceState(5uLL);
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_2(&dword_27425E000, v3, v4, "Encountered error transitioning to target state '%{public}@': %{public}@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_1_2(&dword_27425E000, v3, v4, "Encountered error transitioning to target state '%{public}@': %{public}@", v5, v6, v7, v8);
 }
 
 - (void)_packageViewWithBlock:reply:.cold.1()
@@ -7587,7 +7587,7 @@ void __90__WGWidgetHostingViewController__requestRemoteViewControllerForSequence
   v1 = a1;
   v2 = WGStringFromWidgetLifeCycleSequenceState(3uLL);
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_2(&dword_27425E000, v3, v4, "Encountered error transitioning to target state '%{public}@': %{public}@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_1_2(&dword_27425E000, v3, v4, "Encountered error transitioning to target state '%{public}@': %{public}@", v5, v6, v7, v8);
 }
 
 - (void)_requestInsertionOfRemoteViewAfterViewWillAppearForSequence:(void *)a1 completionHandler:.cold.2(void *a1)
@@ -7595,7 +7595,7 @@ void __90__WGWidgetHostingViewController__requestRemoteViewControllerForSequence
   v1 = a1;
   v2 = WGStringFromWidgetLifeCycleSequenceState(4uLL);
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_2(&dword_27425E000, v3, v4, "Encountered error transitioning to target state '%{public}@': %{public}@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_1_2(&dword_27425E000, v3, v4, "Encountered error transitioning to target state '%{public}@': %{public}@", v5, v6, v7, v8);
 }
 
 - (void)_requestInsertionOfRemoteViewAfterViewWillAppearForSequence:completionHandler:.cold.3()
@@ -7611,7 +7611,7 @@ void __90__WGWidgetHostingViewController__requestRemoteViewControllerForSequence
   v1 = a1;
   v2 = WGStringFromWidgetLifeCycleSequenceState(6uLL);
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_2(&dword_27425E000, v3, v4, "Encountered error transitioning to target state '%{public}@': %{public}@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_1_2(&dword_27425E000, v3, v4, "Encountered error transitioning to target state '%{public}@': %{public}@", v5, v6, v7, v8);
 }
 
 - (void)_disconnectRemoteViewControllerForReason:(void *)a1 sequence:coalesce:completionHandler:.cold.2(void *a1)
@@ -7619,7 +7619,7 @@ void __90__WGWidgetHostingViewController__requestRemoteViewControllerForSequence
   v1 = a1;
   v2 = WGStringFromWidgetLifeCycleSequenceState(0);
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_2(&dword_27425E000, v3, v4, "Encountered error transitioning to target state '%{public}@': %{public}@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_1_2(&dword_27425E000, v3, v4, "Encountered error transitioning to target state '%{public}@': %{public}@", v5, v6, v7, v8);
 }
 
 - (void)_disconnectRemoteViewControllerForReason:sequence:coalesce:completionHandler:.cold.3()
@@ -7635,7 +7635,7 @@ void __90__WGWidgetHostingViewController__requestRemoteViewControllerForSequence
   v3 = a1;
   v4 = [a2 widgetIdentifier];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_27425E000, v5, v6, "%{public}@: Attempting to schedule disconnection timer on non-main thread!", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_2(&dword_27425E000, v5, v6, "%{public}@: Attempting to schedule disconnection timer on non-main thread!", v7, v8, v9, v10);
 }
 
 - (void)_scheduleDisconnectionTimerForSequence:endTransitionBlock:completion:.cold.2()
@@ -7651,7 +7651,7 @@ void __90__WGWidgetHostingViewController__requestRemoteViewControllerForSequence
   v3 = a1;
   v4 = [a2 widgetIdentifier];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_27425E000, v5, v6, "%{public}@: Timer fired on non-main thread!", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_2(&dword_27425E000, v5, v6, "%{public}@: Timer fired on non-main thread!", v7, v8, v9, v10);
 }
 
 - (void)_noteOutstandingUpdateRequestForSequence:.cold.1()

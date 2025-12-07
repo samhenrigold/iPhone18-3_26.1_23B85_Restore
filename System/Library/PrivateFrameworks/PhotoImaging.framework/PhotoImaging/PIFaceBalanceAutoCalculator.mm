@@ -227,7 +227,7 @@ void __68__PIFaceBalanceAutoCalculator_faceBalanceFromFaceImage_forFaceRect___bl
   v3 = [v2 buffer];
   if (v2)
   {
-    [v2 frameRect];
+    objc_msgSend_frameRect(v2);
   }
 
   [v3 size];
@@ -372,7 +372,7 @@ void __68__PIFaceBalanceAutoCalculator_faceBalanceFromFaceImage_forFaceRect___bl
   v83 = 0u;
   if (v5)
   {
-    [v5 bounds];
+    objc_msgSend_bounds(v5);
   }
 
   v78 = v82;
@@ -579,7 +579,7 @@ void __83__PIFaceBalanceAutoCalculator_faceBalanceResultFromFaceObservations_req
           v28 = 0uLL;
           *&v29 = v6;
           *(&v29 + 1) = v8;
-          [PIFaceBalanceAutoCalculator faceRectFromNormalizedFaceRet:"faceRectFromNormalizedFaceRet:forImageExtent:scaleX:scaleY:" forImageExtent:&v28 scaleX:? scaleY:?];
+          objc_msgSend_faceRectFromNormalizedFaceRet_forImageExtent_scaleX_scaleY_(PIFaceBalanceAutoCalculator);
           v28 = *buf;
           v29 = *&buf[16];
           [PIFaceBalanceAutoCalculator faceBalanceFromFaceImage:v5 forFaceRect:&v28];

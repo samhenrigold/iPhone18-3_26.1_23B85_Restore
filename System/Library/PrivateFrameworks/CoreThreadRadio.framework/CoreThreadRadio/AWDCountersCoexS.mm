@@ -389,12 +389,11 @@ LABEL_14:
 {
   toCopy = to;
   has = self->_has;
-  v23 = toCopy;
+  v10 = toCopy;
   if ((has & 0x40) != 0)
   {
-    coexUnsolicitedGrants = self->_coexUnsolicitedGrants;
     PBDataWriterWriteUint32Field();
-    toCopy = v23;
+    toCopy = v10;
     has = self->_has;
     if ((has & 0x20) == 0)
     {
@@ -413,9 +412,8 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  coexTxRequests = self->_coexTxRequests;
   PBDataWriterWriteUint32Field();
-  toCopy = v23;
+  toCopy = v10;
   has = self->_has;
   if ((has & 0x10) == 0)
   {
@@ -429,9 +427,8 @@ LABEL_4:
   }
 
 LABEL_12:
-  coexTxGrantedRequests = self->_coexTxGrantedRequests;
   PBDataWriterWriteUint32Field();
-  toCopy = v23;
+  toCopy = v10;
   has = self->_has;
   if ((has & 8) == 0)
   {
@@ -445,9 +442,8 @@ LABEL_5:
   }
 
 LABEL_13:
-  coexTxDeniedRequests = self->_coexTxDeniedRequests;
   PBDataWriterWriteUint32Field();
-  toCopy = v23;
+  toCopy = v10;
   has = self->_has;
   if ((has & 4) == 0)
   {
@@ -461,9 +457,8 @@ LABEL_6:
   }
 
 LABEL_14:
-  coexRxRequests = self->_coexRxRequests;
   PBDataWriterWriteUint32Field();
-  toCopy = v23;
+  toCopy = v10;
   has = self->_has;
   if ((has & 2) == 0)
   {
@@ -477,9 +472,8 @@ LABEL_7:
   }
 
 LABEL_15:
-  coexRxGrantedRequests = self->_coexRxGrantedRequests;
   PBDataWriterWriteUint32Field();
-  toCopy = v23;
+  toCopy = v10;
   if ((*&self->_has & 1) == 0)
   {
 LABEL_8:
@@ -493,9 +487,8 @@ LABEL_8:
   }
 
 LABEL_16:
-  coexRxDeniedRequests = self->_coexRxDeniedRequests;
   PBDataWriterWriteUint32Field();
-  toCopy = v23;
+  toCopy = v10;
   p_coexRxGrantTimeHistograms = &self->_coexRxGrantTimeHistograms;
   if (!self->_coexRxGrantTimeHistograms.count)
   {
@@ -503,42 +496,39 @@ LABEL_16:
   }
 
 LABEL_17:
-  v14 = 0;
+  v7 = 0;
   do
   {
-    v15 = p_coexRxGrantTimeHistograms->list[v14];
     PBDataWriterWriteUint32Field();
-    toCopy = v23;
-    ++v14;
+    toCopy = v10;
+    ++v7;
   }
 
-  while (v14 < p_coexRxGrantTimeHistograms->count);
+  while (v7 < p_coexRxGrantTimeHistograms->count);
 LABEL_19:
   if (self->_coexTxGrantTimeHistograms.count)
   {
-    v16 = 0;
+    v8 = 0;
     do
     {
-      v17 = self->_coexTxGrantTimeHistograms.list[v16];
       PBDataWriterWriteUint32Field();
-      toCopy = v23;
-      ++v16;
+      toCopy = v10;
+      ++v8;
     }
 
-    while (v16 < self->_coexTxGrantTimeHistograms.count);
+    while (v8 < self->_coexTxGrantTimeHistograms.count);
   }
 
-  v18 = self->_has;
-  if ((v18 & 0x400) != 0)
+  v9 = self->_has;
+  if ((v9 & 0x400) != 0)
   {
-    txGrantedReqPercentage = self->_txGrantedReqPercentage;
     PBDataWriterWriteUint32Field();
-    toCopy = v23;
-    v18 = self->_has;
-    if ((v18 & 0x100) == 0)
+    toCopy = v10;
+    v9 = self->_has;
+    if ((v9 & 0x100) == 0)
     {
 LABEL_24:
-      if ((v18 & 0x200) == 0)
+      if ((v9 & 0x200) == 0)
       {
         goto LABEL_25;
       }
@@ -552,14 +542,13 @@ LABEL_24:
     goto LABEL_24;
   }
 
-  rxGrantedReqPercentage = self->_rxGrantedReqPercentage;
   PBDataWriterWriteUint32Field();
-  toCopy = v23;
-  v18 = self->_has;
-  if ((v18 & 0x200) == 0)
+  toCopy = v10;
+  v9 = self->_has;
+  if ((v9 & 0x200) == 0)
   {
 LABEL_25:
-    if ((v18 & 0x80) == 0)
+    if ((v9 & 0x80) == 0)
     {
       goto LABEL_26;
     }
@@ -568,9 +557,8 @@ LABEL_25:
   }
 
 LABEL_31:
-  txDeniedReqPercentage = self->_txDeniedReqPercentage;
   PBDataWriterWriteUint32Field();
-  toCopy = v23;
+  toCopy = v10;
   if ((*&self->_has & 0x80) == 0)
   {
 LABEL_26:
@@ -579,9 +567,8 @@ LABEL_26:
   }
 
 LABEL_32:
-  rxDeniedReqPercentage = self->_rxDeniedReqPercentage;
   PBDataWriterWriteUint32Field();
-  toCopy = v23;
+  toCopy = v10;
 
 LABEL_28:
 }

@@ -101,7 +101,7 @@
         [(ARHWFaceDetection *)v30 setDetectionOrientation:3];
         if (v17)
         {
-          [(ARHWFaceDetection *)v17 time];
+          objc_msgSend_time(v17);
         }
 
         else
@@ -199,11 +199,11 @@ LABEL_28:
 
 - (ARFaceData)initWithCoder:(id)coder
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v23.receiver = self;
-  v23.super_class = ARFaceData;
-  v5 = [(ARFaceData *)&v23 init];
+  v24.receiver = self;
+  v24.super_class = ARFaceData;
+  v5 = [(ARFaceData *)&v24 init];
   if (v5)
   {
     [MEMORY[0x1E696ACD0] setClass:objc_opt_class() forClassName:@"AVTFaceDetection"];
@@ -213,26 +213,27 @@ LABEL_28:
     v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"detectedFaces"];
 
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v21 = 0u;
       v22 = 0u;
-      v19 = 0u;
+      v23 = 0u;
       v20 = 0u;
-      v10 = v9;
-      v11 = [v10 countByEnumeratingWithState:&v19 objects:v24 count:16];
-      if (v11)
+      v21 = 0u;
+      v11 = v9;
+      v12 = [v11 countByEnumeratingWithState:&v20 objects:v25 count:16];
+      if (v12)
       {
-        v12 = v11;
-        v13 = *v20;
+        v13 = v12;
+        v14 = *v21;
         while (2)
         {
-          v14 = 0;
+          v15 = 0;
           do
           {
-            if (*v20 != v13)
+            if (*v21 != v14)
             {
-              objc_enumerationMutation(v10);
+              objc_enumerationMutation(v11);
             }
 
             objc_opt_class();
@@ -242,12 +243,12 @@ LABEL_28:
               goto LABEL_13;
             }
 
-            ++v14;
+            ++v15;
           }
 
-          while (v12 != v14);
-          v12 = [v10 countByEnumeratingWithState:&v19 objects:v24 count:16];
-          if (v12)
+          while (v13 != v15);
+          v13 = [v11 countByEnumeratingWithState:&v20 objects:v25 count:16];
+          if (v13)
           {
             continue;
           }
@@ -256,28 +257,28 @@ LABEL_28:
         }
       }
 
-      [(ARFaceData *)v5 setDetectedFaces:v10];
+      isKindOfClass = [(ARFaceData *)v5 setDetectedFaces:v11];
     }
 
 LABEL_13:
-    v15 = ARApprovedDecoderClasses();
-    v16 = [coderCopy decodeObjectOfClasses:v15 forKey:@"faceMeshPayload"];
+    v16 = ARApprovedDecoderClasses(isKindOfClass);
+    v17 = [coderCopy decodeObjectOfClasses:v16 forKey:@"faceMeshPayload"];
 
     if ([coderCopy containsValueForKey:@"mirrored"])
     {
-      v17 = [coderCopy decodeBoolForKey:@"mirrored"];
+      v18 = [coderCopy decodeBoolForKey:@"mirrored"];
     }
 
     else
     {
-      v17 = 1;
+      v18 = 1;
     }
 
-    v5->_mirrored = v17;
+    v5->_mirrored = v18;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      [(ARFaceData *)v5 setFaceMeshPayload:v16];
+      [(ARFaceData *)v5 setFaceMeshPayload:v17];
     }
   }
 

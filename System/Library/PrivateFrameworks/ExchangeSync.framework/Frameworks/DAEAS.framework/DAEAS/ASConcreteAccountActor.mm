@@ -118,7 +118,7 @@ void __49__ASConcreteAccountActor__initializeActorRunLoop__block_invoke(uint64_t
 
 - (void)_performSynchronousSerialOnActorQueue:(id)queue
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   queueCopy = queue;
   _actorRunLoop = [objc_opt_class() _actorRunLoop];
   _actorPThread = [objc_opt_class() _actorPThread];
@@ -138,7 +138,7 @@ void __49__ASConcreteAccountActor__initializeActorRunLoop__block_invoke(uint64_t
       {
         v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v6];
         *buf = 138412290;
-        v24 = v11;
+        v23 = v11;
         _os_log_impl(&dword_24A0AC000, v9, v10, "Overriding QoS of actor runloop to: [%@]", buf, 0xCu);
       }
     }
@@ -150,7 +150,7 @@ void __49__ASConcreteAccountActor__initializeActorRunLoop__block_invoke(uint64_t
       {
         v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v6];
         *buf = 138412290;
-        v24 = v13;
+        v23 = v13;
         _os_log_impl(&dword_24A0AC000, v9, v12, "Error overriding actor QoS: [%@]", buf, 0xCu);
       }
 
@@ -164,9 +164,9 @@ void __49__ASConcreteAccountActor__initializeActorRunLoop__block_invoke(uint64_t
   block[1] = 3221225472;
   block[2] = __64__ASConcreteAccountActor__performSynchronousSerialOnActorQueue___block_invoke;
   block[3] = &unk_278FC7870;
-  v21 = queueCopy;
+  v20 = queueCopy;
   v16 = v14;
-  v20 = v16;
+  v19 = v16;
   v17 = queueCopy;
   CFRunLoopPerformBlock(_actorRunLoop, v15, block);
   CFRunLoopWakeUp(_actorRunLoop);
@@ -175,8 +175,6 @@ void __49__ASConcreteAccountActor__initializeActorRunLoop__block_invoke(uint64_t
   {
     pthread_override_qos_class_end_np(started);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 intptr_t __64__ASConcreteAccountActor__performSynchronousSerialOnActorQueue___block_invoke(uint64_t a1)
@@ -218,7 +216,7 @@ uint64_t __35__ASConcreteAccountActor_mailboxes__block_invoke(uint64_t a1)
     v5 = *(v4 + 40);
     *(v4 + 40) = v3;
 
-    return MEMORY[0x2821F96F8]();
+    return MEMORY[0x2821F96F8](v3, v5);
   }
 
   return result;
@@ -242,7 +240,7 @@ uint64_t __35__ASConcreteAccountActor_mailboxes__block_invoke(uint64_t a1)
   return v2;
 }
 
-uint64_t __52__ASConcreteAccountActor_mailNumberOfPastDaysToSync__block_invoke(uint64_t a1)
+void *__52__ASConcreteAccountActor_mailNumberOfPastDaysToSync__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isDisabled];
   if ((result & 1) == 0)
@@ -272,7 +270,7 @@ uint64_t __52__ASConcreteAccountActor_mailNumberOfPastDaysToSync__block_invoke(u
   return v2;
 }
 
-uint64_t __47__ASConcreteAccountActor_supportsMailboxSearch__block_invoke(uint64_t a1)
+void *__47__ASConcreteAccountActor_supportsMailboxSearch__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isDisabled];
   if ((result & 1) == 0)
@@ -302,7 +300,7 @@ uint64_t __47__ASConcreteAccountActor_supportsMailboxSearch__block_invoke(uint64
   return v2;
 }
 
-uint64_t __47__ASConcreteAccountActor_supportsEmailFlagging__block_invoke(uint64_t a1)
+void *__47__ASConcreteAccountActor_supportsEmailFlagging__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isDisabled];
   if ((result & 1) == 0)
@@ -332,7 +330,7 @@ uint64_t __47__ASConcreteAccountActor_supportsEmailFlagging__block_invoke(uint64
   return v2;
 }
 
-uint64_t __47__ASConcreteAccountActor_supportsConversations__block_invoke(uint64_t a1)
+void *__47__ASConcreteAccountActor_supportsConversations__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isDisabled];
   if ((result & 1) == 0)
@@ -362,7 +360,7 @@ uint64_t __47__ASConcreteAccountActor_supportsConversations__block_invoke(uint64
   return v2;
 }
 
-uint64_t __49__ASConcreteAccountActor_supportsDraftFolderSync__block_invoke(uint64_t a1)
+void *__49__ASConcreteAccountActor_supportsDraftFolderSync__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isDisabled];
   if ((result & 1) == 0)
@@ -392,7 +390,7 @@ uint64_t __49__ASConcreteAccountActor_supportsDraftFolderSync__block_invoke(uint
   return v2;
 }
 
-uint64_t __51__ASConcreteAccountActor_supportsSmartForwardReply__block_invoke(uint64_t a1)
+void *__51__ASConcreteAccountActor_supportsSmartForwardReply__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isDisabled];
   if ((result & 1) == 0)
@@ -422,7 +420,7 @@ uint64_t __51__ASConcreteAccountActor_supportsSmartForwardReply__block_invoke(ui
   return v2;
 }
 
-uint64_t __48__ASConcreteAccountActor_supportsUniqueServerId__block_invoke(uint64_t a1)
+void *__48__ASConcreteAccountActor_supportsUniqueServerId__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isDisabled];
   if ((result & 1) == 0)
@@ -482,18 +480,16 @@ void __44__ASConcreteAccountActor_generatesBulletins__block_invoke(uint64_t a1)
 
 void __48__ASConcreteAccountActor_setGeneratesBulletins___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
   if (([*(a1 + 32) isDisabled] & 1) == 0)
   {
-    v5 = @"kASSupportsGeneratingBulletins";
+    v4 = @"kASSupportsGeneratingBulletins";
     v2 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 40)];
-    v6[0] = v2;
-    v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
+    v5[0] = v2;
+    v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
     [*(*(a1 + 32) + 16) applyNewAccountProperties:v3 saveIfDifferent:1];
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (id)signingIdentityPersistentReference
@@ -527,7 +523,7 @@ uint64_t __60__ASConcreteAccountActor_signingIdentityPersistentReference__block_
     v5 = *(v4 + 40);
     *(v4 + 40) = v3;
 
-    return MEMORY[0x2821F96F8]();
+    return MEMORY[0x2821F96F8](v3, v5);
   }
 
   return result;
@@ -590,7 +586,7 @@ uint64_t __63__ASConcreteAccountActor_encryptionIdentityPersistentReference__blo
     v5 = *(v4 + 40);
     *(v4 + 40) = v3;
 
-    return MEMORY[0x2821F96F8]();
+    return MEMORY[0x2821F96F8](v3, v5);
   }
 
   return result;
@@ -674,7 +670,7 @@ void __41__ASConcreteAccountActor_customSignature__block_invoke(uint64_t a1)
 
 void __45__ASConcreteAccountActor_setCustomSignature___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
   if (([*(a1 + 32) isDisabled] & 1) == 0)
   {
     v2 = &stru_285D39BD0;
@@ -683,13 +679,11 @@ void __45__ASConcreteAccountActor_setCustomSignature___block_invoke(uint64_t a1)
       v2 = *(a1 + 40);
     }
 
-    v5 = @"kASCustomSignature";
-    v6[0] = v2;
-    v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
+    v4 = @"kASCustomSignature";
+    v5[0] = v2;
+    v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
     [*(*(a1 + 32) + 16) applyNewAccountProperties:v3 saveIfDifferent:1];
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setMailNumberOfPastDaysToSync:(int)sync
@@ -703,7 +697,7 @@ void __45__ASConcreteAccountActor_setCustomSignature___block_invoke(uint64_t a1)
   [(ASConcreteAccountActor *)self _performAsynchronousSerialOnActorQueue:v3];
 }
 
-uint64_t __56__ASConcreteAccountActor_setMailNumberOfPastDaysToSync___block_invoke(uint64_t a1)
+void *__56__ASConcreteAccountActor_setMailNumberOfPastDaysToSync___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isDisabled];
   if ((result & 1) == 0)
@@ -731,7 +725,7 @@ uint64_t __56__ASConcreteAccountActor_setMailNumberOfPastDaysToSync___block_invo
   [(ASConcreteAccountActor *)self _performAsynchronousSerialOnActorQueue:v8];
 }
 
-uint64_t __62__ASConcreteAccountActor_monitorFoldersForUpdates_persistent___block_invoke(uint64_t a1)
+void *__62__ASConcreteAccountActor_monitorFoldersForUpdates_persistent___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isDisabled];
   if ((result & 1) == 0)
@@ -759,7 +753,7 @@ uint64_t __62__ASConcreteAccountActor_monitorFoldersForUpdates_persistent___bloc
   [(ASConcreteAccountActor *)self _performAsynchronousSerialOnActorQueue:v6];
 }
 
-uint64_t __58__ASConcreteAccountActor_stopMonitoringFoldersForUpdates___block_invoke(uint64_t a1)
+void *__58__ASConcreteAccountActor_stopMonitoringFoldersForUpdates___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isDisabled];
   if ((result & 1) == 0)
@@ -783,7 +777,7 @@ uint64_t __58__ASConcreteAccountActor_stopMonitoringFoldersForUpdates___block_in
   [(ASConcreteAccountActor *)self _performAsynchronousSerialOnActorQueue:v2];
 }
 
-uint64_t __50__ASConcreteAccountActor_stopMonitoringAllFolders__block_invoke(uint64_t a1)
+void *__50__ASConcreteAccountActor_stopMonitoringAllFolders__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isDisabled];
   if ((result & 1) == 0)
@@ -846,7 +840,7 @@ uint64_t __71__ASConcreteAccountActor_folderIDsThatExternalClientsCareAboutWithT
     v8 = *(v7 + 40);
     *(v7 + 40) = v6;
 
-    return MEMORY[0x2821F96F8]();
+    return MEMORY[0x2821F96F8](v6, v8);
   }
 
   return result;
@@ -903,7 +897,7 @@ uint64_t __86__ASConcreteAccountActor_folderIDsThatExternalClientsCareAboutForDa
     v8 = *(v7 + 40);
     *(v7 + 40) = v6;
 
-    return MEMORY[0x2821F96F8]();
+    return MEMORY[0x2821F96F8](v6, v8);
   }
 
   return result;
@@ -937,7 +931,7 @@ uint64_t __86__ASConcreteAccountActor_folderIDsThatExternalClientsCareAboutForDa
   return self;
 }
 
-uint64_t __91__ASConcreteAccountActor_setFolderIdsThatExternalClientsCareAboutAdded_deleted_foldersTag___block_invoke(uint64_t a1)
+void *__91__ASConcreteAccountActor_setFolderIdsThatExternalClientsCareAboutAdded_deleted_foldersTag___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isDisabled];
   if ((result & 1) == 0)
@@ -974,7 +968,7 @@ uint64_t __91__ASConcreteAccountActor_setFolderIdsThatExternalClientsCareAboutAd
   return self;
 }
 
-uint64_t __79__ASConcreteAccountActor_reattemptInvitationLinkageForMetaData_inFolderWithId___block_invoke(uint64_t a1)
+void *__79__ASConcreteAccountActor_reattemptInvitationLinkageForMetaData_inFolderWithId___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isDisabled];
   if ((result & 1) == 0)
@@ -1098,7 +1092,7 @@ void __93__ASConcreteAccountActor_unactionableICSRepresentationForMetaData_inFol
   return self;
 }
 
-uint64_t __225__ASConcreteAccountActor_sendMessageWithRFC822Data_messageID_outgoingMessageType_originalMessageFolderID_originalMessageItemID_originalMessageLongID_originalAccountID_useSmartTasksIfPossible_isUserRequested_consumer_context___block_invoke(uint64_t a1)
+void *__225__ASConcreteAccountActor_sendMessageWithRFC822Data_messageID_outgoingMessageType_originalMessageFolderID_originalMessageItemID_originalMessageLongID_originalAccountID_useSmartTasksIfPossible_isUserRequested_consumer_context___block_invoke(uint64_t a1)
 {
   if ([*(a1 + 32) isDisabled])
   {
@@ -1117,20 +1111,19 @@ uint64_t __225__ASConcreteAccountActor_sendMessageWithRFC822Data_messageID_outgo
     v7 = [*(a1 + 32) account];
     [v7 setWasUserInitiated:v6];
 
-    v8 = *(a1 + 40);
-    LOBYTE(v11) = *(a1 + 117);
-    result = [*(*(a1 + 32) + 16) sendMessageWithRFC822Data:*(a1 + 48) messageID:*(a1 + 56) outgoingMessageType:*(a1 + 112) originalMessageFolderID:*(a1 + 64) originalMessageItemID:*(a1 + 72) originalMessageLongID:*(a1 + 80) originalAccountID:*(a1 + 88) useSmartTasksIfPossible:v11 sourceApplicationBundleIdentifier:0 consumer:v8 context:*(a1 + 96)];
+    LOBYTE(v10) = *(a1 + 117);
+    result = [*(*(a1 + 32) + 16) sendMessageWithRFC822Data:*(a1 + 48) messageID:*(a1 + 56) outgoingMessageType:*(a1 + 112) originalMessageFolderID:*(a1 + 64) originalMessageItemID:*(a1 + 72) originalMessageLongID:*(a1 + 80) originalAccountID:*(a1 + 88) useSmartTasksIfPossible:v10 sourceApplicationBundleIdentifier:0 consumer:*(a1 + 40) context:*(a1 + 96)];
     *(*(*(a1 + 104) + 8) + 24) = result;
   }
 
   else
   {
-    v9 = DALoggingwithCategory();
-    v10 = *(MEMORY[0x277D03988] + 3);
-    if (os_log_type_enabled(v9, v10))
+    v8 = DALoggingwithCategory();
+    v9 = *(MEMORY[0x277D03988] + 3);
+    if (os_log_type_enabled(v8, v9))
     {
       *buf = 0;
-      _os_log_impl(&dword_24A0AC000, v9, v10, "SendMessage with nil data", buf, 2u);
+      _os_log_impl(&dword_24A0AC000, v8, v9, "SendMessage with nil data", buf, 2u);
     }
 
     return [*(a1 + 32) _sendFailureToConsumer:*(a1 + 40)];
@@ -1185,7 +1178,7 @@ uint64_t __225__ASConcreteAccountActor_sendMessageWithRFC822Data_messageID_outgo
   return self;
 }
 
-uint64_t __226__ASConcreteAccountActor_sendSmartMessageWithRFC822Data_messageID_outgoingMessageType_originalMessageFolderID_originalMessageItemID_originalMessageLongID_originalAccountID_replaceOriginalMime_isUserRequested_consumer_context___block_invoke(uint64_t a1)
+void *__226__ASConcreteAccountActor_sendSmartMessageWithRFC822Data_messageID_outgoingMessageType_originalMessageFolderID_originalMessageItemID_originalMessageLongID_originalAccountID_replaceOriginalMime_isUserRequested_consumer_context___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) isDisabled];
   v3 = *(a1 + 32);
@@ -1205,42 +1198,41 @@ uint64_t __226__ASConcreteAccountActor_sendSmartMessageWithRFC822Data_messageID_
         v10 = [*(a1 + 32) account];
         [v10 setWasUserInitiated:v9];
 
-        v11 = *(a1 + 40);
-        LOBYTE(v16) = *(a1 + 117);
-        result = [*(*(a1 + 32) + 16) sendSmartMessageWithRFC822Data:*(a1 + 72) messageID:*(a1 + 80) outgoingMessageType:*(a1 + 112) originalMessageFolderID:*(a1 + 56) originalMessageItemID:*(a1 + 48) originalMessageLongID:*(a1 + 64) originalAccountID:*(a1 + 88) replaceOriginalMime:v16 sourceApplicationBundleIdentifier:0 consumer:v11 context:*(a1 + 96)];
+        LOBYTE(v15) = *(a1 + 117);
+        result = [*(*(a1 + 32) + 16) sendSmartMessageWithRFC822Data:*(a1 + 72) messageID:*(a1 + 80) outgoingMessageType:*(a1 + 112) originalMessageFolderID:*(a1 + 56) originalMessageItemID:*(a1 + 48) originalMessageLongID:*(a1 + 64) originalAccountID:*(a1 + 88) replaceOriginalMime:v15 sourceApplicationBundleIdentifier:0 consumer:*(a1 + 40) context:*(a1 + 96)];
         *(*(*(a1 + 104) + 8) + 24) = result;
         return result;
       }
 
-      v12 = DALoggingwithCategory();
-      v13 = *(MEMORY[0x277D03988] + 3);
-      if (!os_log_type_enabled(v12, v13))
+      v11 = DALoggingwithCategory();
+      v12 = *(MEMORY[0x277D03988] + 3);
+      if (!os_log_type_enabled(v11, v12))
       {
         goto LABEL_16;
       }
 
       *buf = 0;
-      v14 = "Incorrect parameters for smart message";
-      v15 = buf;
+      v13 = "Incorrect parameters for smart message";
+      v14 = buf;
     }
 
     else
     {
-      v12 = DALoggingwithCategory();
-      v13 = *(MEMORY[0x277D03988] + 3);
-      if (!os_log_type_enabled(v12, v13))
+      v11 = DALoggingwithCategory();
+      v12 = *(MEMORY[0x277D03988] + 3);
+      if (!os_log_type_enabled(v11, v12))
       {
 LABEL_16:
 
         return [*(a1 + 32) _sendFailureToConsumer:*(a1 + 40)];
       }
 
-      v18 = 0;
-      v14 = "Account does not support smart message";
-      v15 = &v18;
+      v17 = 0;
+      v13 = "Account does not support smart message";
+      v14 = &v17;
     }
 
-    _os_log_impl(&dword_24A0AC000, v12, v13, v14, v15, 2u);
+    _os_log_impl(&dword_24A0AC000, v11, v12, v13, v14, 2u);
     goto LABEL_16;
   }
 
@@ -1282,7 +1274,7 @@ LABEL_16:
   return self;
 }
 
-uint64_t __118__ASConcreteAccountActor_performMailboxRequest_mailbox_previousTag_clientWinsOnSyncConflict_isUserRequested_consumer___block_invoke(uint64_t a1)
+void *__118__ASConcreteAccountActor_performMailboxRequest_mailbox_previousTag_clientWinsOnSyncConflict_isUserRequested_consumer___block_invoke(uint64_t a1)
 {
   if ([*(a1 + 32) isDisabled])
   {
@@ -1343,56 +1335,54 @@ uint64_t __118__ASConcreteAccountActor_performMailboxRequest_mailbox_previousTag
   return self;
 }
 
-uint64_t __119__ASConcreteAccountActor_performMailboxRequests_mailbox_previousTag_clientWinsOnSyncConflict_isUserRequested_consumer___block_invoke(uint64_t a1)
+void *__119__ASConcreteAccountActor_performMailboxRequests_mailbox_previousTag_clientWinsOnSyncConflict_isUserRequested_consumer___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) isDisabled])
   {
     v2 = *(a1 + 32);
     v3 = *(a1 + 40);
-    v4 = *MEMORY[0x277D85DE8];
 
     return [v2 _sendFailureToConsumer:v3];
   }
 
   else
   {
-    v6 = *(a1 + 48);
-    if (!v6 || ![v6 length] || objc_msgSend(*(a1 + 48), "isEqualToString:", @"0"))
+    v5 = *(a1 + 48);
+    if (!v5 || ![v5 length] || objc_msgSend(*(a1 + 48), "isEqualToString:", @"0"))
     {
-      v17 = 0u;
-      v18 = 0u;
       v15 = 0u;
       v16 = 0u;
-      v7 = *(a1 + 56);
-      v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
-      if (v8)
+      v13 = 0u;
+      v14 = 0u;
+      v6 = *(a1 + 56);
+      v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      if (v7)
       {
-        v9 = v8;
-        v10 = *v16;
+        v8 = v7;
+        v9 = *v14;
         while (2)
         {
-          v11 = 0;
+          v10 = 0;
           do
           {
-            if (*v16 != v10)
+            if (*v14 != v9)
             {
-              objc_enumerationMutation(v7);
+              objc_enumerationMutation(v6);
             }
 
-            if ([*(*(&v15 + 1) + 8 * v11) requestType] != 1)
+            if ([*(*(&v13 + 1) + 8 * v10) requestType] != 1)
             {
 
-              result = [*(a1 + 32) _sendFailureToConsumer:*(a1 + 40)];
-              goto LABEL_21;
+              return [*(a1 + 32) _sendFailureToConsumer:*(a1 + 40)];
             }
 
-            ++v11;
+            ++v10;
           }
 
-          while (v9 != v11);
-          v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
-          if (v9)
+          while (v8 != v10);
+          v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+          if (v8)
           {
             continue;
           }
@@ -1404,17 +1394,15 @@ uint64_t __119__ASConcreteAccountActor_performMailboxRequests_mailbox_previousTa
 
     if (*(a1 + 80) == 1)
     {
-      v12 = [*(a1 + 32) account];
-      [v12 setShouldUseOpportunisticSockets:0];
+      v11 = [*(a1 + 32) account];
+      [v11 setShouldUseOpportunisticSockets:0];
 
-      v13 = [*(a1 + 32) account];
-      [v13 setWasUserInitiated:1];
+      v12 = [*(a1 + 32) account];
+      [v12 setWasUserInitiated:1];
     }
 
-    result = [*(*(a1 + 32) + 16) performMailboxRequests:*(a1 + 56) mailbox:*(a1 + 64) previousTag:*(a1 + 48) clientWinsOnSyncConflict:*(a1 + 81) consumer:{*(a1 + 40), v15}];
+    result = [*(*(a1 + 32) + 16) performMailboxRequests:*(a1 + 56) mailbox:*(a1 + 64) previousTag:*(a1 + 48) clientWinsOnSyncConflict:*(a1 + 81) consumer:{*(a1 + 40), v13}];
     *(*(*(a1 + 72) + 8) + 24) = result;
-LABEL_21:
-    v14 = *MEMORY[0x277D85DE8];
   }
 
   return result;
@@ -1445,7 +1433,7 @@ LABEL_21:
   return self;
 }
 
-uint64_t __55__ASConcreteAccountActor_performMoveRequests_consumer___block_invoke(uint64_t a1)
+void *__55__ASConcreteAccountActor_performMoveRequests_consumer___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) isDisabled];
   v3 = *(a1 + 32);
@@ -1533,7 +1521,7 @@ void __65__ASConcreteAccountActor_performFetchAttachmentRequest_consumer___block
   return self;
 }
 
-uint64_t __75__ASConcreteAccountActor_performFetchMessageSearchResultRequests_consumer___block_invoke(uint64_t a1)
+void *__75__ASConcreteAccountActor_performFetchMessageSearchResultRequests_consumer___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) isDisabled];
   v3 = *(a1 + 32);
@@ -1579,7 +1567,7 @@ uint64_t __75__ASConcreteAccountActor_performFetchMessageSearchResultRequests_co
   return self;
 }
 
-uint64_t __67__ASConcreteAccountActor_performResolveRecipientsRequest_consumer___block_invoke(uint64_t a1)
+void *__67__ASConcreteAccountActor_performResolveRecipientsRequest_consumer___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) isDisabled];
   v3 = *(a1 + 32);
@@ -1653,7 +1641,7 @@ void __62__ASConcreteAccountActor_performFolderChange_isUserRequested___block_in
   [(ASConcreteAccountActor *)self _performAsynchronousSerialOnActorQueue:v3];
 }
 
-uint64_t __43__ASConcreteAccountActor_cancelTaskWithID___block_invoke(uint64_t a1)
+void *__43__ASConcreteAccountActor_cancelTaskWithID___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isDisabled];
   if ((result & 1) == 0)
@@ -1713,7 +1701,7 @@ void __45__ASConcreteAccountActor_performSearchQuery___block_invoke(uint64_t a1)
   [(ASConcreteAccountActor *)self _performAsynchronousSerialOnActorQueue:v6];
 }
 
-uint64_t __44__ASConcreteAccountActor_cancelSearchQuery___block_invoke(uint64_t a1)
+void *__44__ASConcreteAccountActor_cancelSearchQuery___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isDisabled];
   if ((result & 1) == 0)
@@ -1737,7 +1725,7 @@ uint64_t __44__ASConcreteAccountActor_cancelSearchQuery___block_invoke(uint64_t 
   [(ASConcreteAccountActor *)self _performAsynchronousSerialOnActorQueue:v2];
 }
 
-uint64_t __48__ASConcreteAccountActor_cancelAllSearchQueries__block_invoke(uint64_t a1)
+void *__48__ASConcreteAccountActor_cancelAllSearchQueries__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isDisabled];
   if ((result & 1) == 0)
@@ -1768,7 +1756,7 @@ uint64_t __48__ASConcreteAccountActor_cancelAllSearchQueries__block_invoke(uint6
   return v2;
 }
 
-uint64_t __46__ASConcreteAccountActor_searchQueriesRunning__block_invoke(uint64_t a1)
+void *__46__ASConcreteAccountActor_searchQueriesRunning__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isDisabled];
   if ((result & 1) == 0)
@@ -1811,7 +1799,7 @@ uint64_t __37__ASConcreteAccountActor_inboxFolder__block_invoke(uint64_t a1)
     v5 = *(v4 + 40);
     *(v4 + 40) = v3;
 
-    return MEMORY[0x2821F96F8]();
+    return MEMORY[0x2821F96F8](v3, v5);
   }
 
   return result;
@@ -1848,7 +1836,7 @@ uint64_t __41__ASConcreteAccountActor_sentItemsFolder__block_invoke(uint64_t a1)
     v5 = *(v4 + 40);
     *(v4 + 40) = v3;
 
-    return MEMORY[0x2821F96F8]();
+    return MEMORY[0x2821F96F8](v3, v5);
   }
 
   return result;
@@ -1885,7 +1873,7 @@ uint64_t __44__ASConcreteAccountActor_deletedItemsFolder__block_invoke(uint64_t 
     v5 = *(v4 + 40);
     *(v4 + 40) = v3;
 
-    return MEMORY[0x2821F96F8]();
+    return MEMORY[0x2821F96F8](v3, v5);
   }
 
   return result;
@@ -1922,7 +1910,7 @@ uint64_t __38__ASConcreteAccountActor_draftsFolder__block_invoke(uint64_t a1)
     v5 = *(v4 + 40);
     *(v4 + 40) = v3;
 
-    return MEMORY[0x2821F96F8]();
+    return MEMORY[0x2821F96F8](v3, v5);
   }
 
   return result;
@@ -1997,7 +1985,7 @@ void __33__ASConcreteAccountActor_startup__block_invoke(uint64_t a1)
 
 void __37__ASConcreteAccountActor_setAccount___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v1 = (a1 + 32);
   v2 = (a1 + 40);
   if (*(a1 + 32) != *(*(a1 + 40) + 16))
@@ -2009,29 +1997,26 @@ void __37__ASConcreteAccountActor_setAccount___block_invoke(uint64_t a1)
       v6 = *v2;
       v7 = *(*v2 + 16);
       v8 = *v1;
-      v12 = 134218498;
-      v13 = v6;
+      v10 = 134218498;
+      v11 = v6;
+      v12 = 2112;
+      v13 = v7;
       v14 = 2112;
-      v15 = v7;
-      v16 = 2112;
-      v17 = v8;
-      _os_log_impl(&dword_24A0AC000, v4, v5, "ASAccountActor %p setAccount.  Old Account: %@, New Account: %@", &v12, 0x20u);
+      v15 = v8;
+      _os_log_impl(&dword_24A0AC000, v4, v5, "ASAccountActor %p setAccount.  Old Account: %@, New Account: %@", &v10, 0x20u);
     }
 
-    v9 = *v1;
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
       __37__ASConcreteAccountActor_setAccount___block_invoke_cold_1(a1, v2, v1);
     }
 
-    v10 = [*(*v2 + 16) existingTaskManager];
-    [v10 shutdown];
+    v9 = [*(*v2 + 16) existingTaskManager];
+    [v9 shutdown];
 
     objc_storeStrong((*v2 + 16), *v1);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)disable
@@ -2090,7 +2075,7 @@ void __33__ASConcreteAccountActor_disable__block_invoke(uint64_t a1)
   [(ASConcreteAccountActor *)self _performAsynchronousSerialOnActorQueue:v3];
 }
 
-uint64_t __50__ASConcreteAccountActor__daemonDiedNotification___block_invoke(uint64_t a1)
+void *__50__ASConcreteAccountActor__daemonDiedNotification___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isDisabled];
   if ((result & 1) == 0)
@@ -2190,7 +2175,7 @@ void __54__ASConcreteAccountActor__newASPolicyKeyNotification___block_invoke(uin
   [(ASConcreteAccountActor *)self _performAsynchronousSerialOnActorQueue:v2];
 }
 
-uint64_t __49__ASConcreteAccountActor__folderHierarchyChanged__block_invoke(uint64_t a1)
+void *__49__ASConcreteAccountActor__folderHierarchyChanged__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isDisabled];
   if ((result & 1) == 0)
@@ -2213,7 +2198,7 @@ uint64_t __49__ASConcreteAccountActor__folderHierarchyChanged__block_invoke(uint
   [(ASConcreteAccountActor *)self _performAsynchronousSerialOnActorQueue:v2];
 }
 
-uint64_t __69__ASConcreteAccountActor__foldersThatExternalClientsCareAboutChanged__block_invoke(uint64_t a1)
+void *__69__ASConcreteAccountActor__foldersThatExternalClientsCareAboutChanged__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isDisabled];
   if ((result & 1) == 0)

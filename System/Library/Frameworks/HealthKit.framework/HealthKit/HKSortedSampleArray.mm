@@ -60,10 +60,10 @@
 
 - (BOOL)insertSamples:(id)samples
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   v4 = [samples mutableCopy];
-  v12[0] = self->_sortDescriptor;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
+  v11[0] = self->_sortDescriptor;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
   [v4 sortUsingDescriptors:v5];
 
   [(HKSortedSampleArray *)self _addResultsToUUIDMappingRemovingDuplicates:v4];
@@ -97,7 +97,6 @@
     [(NSMutableArray *)self->_samples addObjectsFromArray:v4];
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v6 != 0;
 }
 
@@ -131,35 +130,35 @@
 
 - (BOOL)removeSamplesWithUUIDs:(id)ds
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v5 = [dsCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [dsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(dsCopy);
         }
 
-        v10 = [(NSMutableDictionary *)self->_samplesByUUID objectForKeyedSubscript:*(*(&v13 + 1) + 8 * i)];
+        v10 = [(NSMutableDictionary *)self->_samplesByUUID objectForKeyedSubscript:*(*(&v12 + 1) + 8 * i)];
         if (v10)
         {
           v7 |= [(HKSortedSampleArray *)self removeSample:v10];
         }
       }
 
-      v6 = [dsCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [dsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
@@ -170,7 +169,6 @@
     LOBYTE(v7) = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v7 & 1;
 }
 

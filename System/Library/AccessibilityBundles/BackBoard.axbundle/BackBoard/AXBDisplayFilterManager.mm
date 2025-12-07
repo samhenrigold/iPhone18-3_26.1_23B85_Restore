@@ -210,56 +210,54 @@ void __44__AXBDisplayFilterManager_initializeMonitor__block_invoke_4()
 
 void __48__AXBDisplayFilterManager__handleFrameRateLimit__block_invoke()
 {
-  v22 = *MEMORY[0x29EDCA608];
+  v21 = *MEMORY[0x29EDCA608];
   v0 = [MEMORY[0x29EDBDFA0] sharedInstance];
   v1 = [v0 shouldLimitDisplayRefreshRate];
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v2 = [MEMORY[0x29EDBBAE0] serverIfRunning];
   v3 = [v2 displays];
 
-  v4 = [v3 countByEnumeratingWithState:&v13 objects:v21 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v12 objects:v20 count:16];
   if (v4)
   {
     v6 = v4;
-    v7 = *v14;
+    v7 = *v13;
     *&v5 = 67109378;
-    v12 = v5;
+    v11 = v5;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v3);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
+        v9 = *(*(&v12 + 1) + 8 * i);
         if (![v9 displayType])
         {
           [v9 setAccessibilityFrameRateLimitEnabled:v1];
           v10 = AXLogCommon();
           if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
           {
-            *buf = v12;
-            v18 = v1;
-            v19 = 2112;
-            v20 = v9;
+            *buf = v11;
+            v17 = v1;
+            v18 = 2112;
+            v19 = v9;
             _os_log_impl(&dword_29BBBD000, v10, OS_LOG_TYPE_INFO, "AX: Setting frame rate limit: %d on %@", buf, 0x12u);
           }
         }
       }
 
-      v6 = [v3 countByEnumeratingWithState:&v13 objects:v21 count:16];
+      v6 = [v3 countByEnumeratingWithState:&v12 objects:v20 count:16];
     }
 
     while (v6);
   }
-
-  v11 = *MEMORY[0x29EDCA608];
 }
 
 - (void)_updateBrightnessFilters:(BOOL)filters
@@ -400,14 +398,14 @@ void __48__AXBDisplayFilterManager__handleFrameRateLimit__block_invoke()
 
 - (void)_updateCoreSupportForDisplayType:(unint64_t)type
 {
-  v46 = *MEMORY[0x29EDCA608];
+  v45 = *MEMORY[0x29EDCA608];
   if (![(AXBDisplayFilterManager *)self _forceSoftwareFilters])
   {
     server = [MEMORY[0x29EDBDF40] server];
     supportsAccessibilityDisplayFilters = [server supportsAccessibilityDisplayFilters];
 
     _invertColorsEnabled = [(AXBDisplayFilterManager *)self _invertColorsEnabled];
-    v30 = _AXSGrayscaleEnabled();
+    v29 = _AXSGrayscaleEnabled();
     CategoryEnabled = MADisplayFilterPrefGetCategoryEnabled();
     v8 = !_invertColorsEnabled;
     if (CategoryEnabled)
@@ -415,8 +413,8 @@ void __48__AXBDisplayFilterManager__handleFrameRateLimit__block_invoke()
       v8 = 0;
     }
 
-    v31 = v8;
-    v32 = _invertColorsEnabled;
+    v30 = v8;
+    v31 = _invertColorsEnabled;
     if (CategoryEnabled)
     {
       v9 = 0.89;
@@ -427,32 +425,32 @@ void __48__AXBDisplayFilterManager__handleFrameRateLimit__block_invoke()
       v9 = 1.0;
     }
 
+    v34 = 0u;
     v35 = 0u;
     v36 = 0u;
     v37 = 0u;
-    v38 = 0u;
     serverIfRunning = [MEMORY[0x29EDBBAE0] serverIfRunning];
     displays = [serverIfRunning displays];
 
     obj = displays;
-    v12 = [displays countByEnumeratingWithState:&v35 objects:v45 count:16];
+    v12 = [displays countByEnumeratingWithState:&v34 objects:v44 count:16];
     if (v12)
     {
       v14 = v12;
-      v15 = *v36;
+      v15 = *v35;
       *&v13 = 138412802;
-      v29 = v13;
+      v28 = v13;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v36 != v15)
+          if (*v35 != v15)
           {
             objc_enumerationMutation(obj);
           }
 
-          v17 = *(*(&v35 + 1) + 8 * i);
-          if ([(AXBDisplayFilterManager *)self _display:v17 matchesDisplayType:type, v29])
+          v17 = *(*(&v34 + 1) + 8 * i);
+          if ([(AXBDisplayFilterManager *)self _display:v17 matchesDisplayType:type, v28])
           {
             if ([v17 displayType] == 2)
             {
@@ -468,8 +466,8 @@ void __48__AXBDisplayFilterManager__handleFrameRateLimit__block_invoke()
             }
 
             [v17 invertsColors];
-            [v17 setInvertsColors:v32];
-            [v17 setAllowsExtendedDynamicRange:v31];
+            [v17 setInvertsColors:v31];
+            [v17 setAllowsExtendedDynamicRange:v30];
             if (![v17 displayType] && AXDeviceSupportsPulseWidthMaximization())
             {
               mEMORY[0x29EDBDFA0] = [MEMORY[0x29EDBDFA0] sharedInstance];
@@ -481,12 +479,12 @@ void __48__AXBDisplayFilterManager__handleFrameRateLimit__block_invoke()
               {
                 v25 = [MEMORY[0x29EDBA070] numberWithBool:pulseWidthMaximization];
                 v26 = [MEMORY[0x29EDBA070] numberWithBool:{objc_msgSend(v17, "pulseWidthMaximization")}];
-                *buf = v29;
-                v40 = v25;
-                v41 = 2112;
-                v42 = v26;
-                v43 = 2112;
-                v44 = v17;
+                *buf = v28;
+                v39 = v25;
+                v40 = 2112;
+                v41 = v26;
+                v42 = 2112;
+                v43 = v17;
                 _os_log_impl(&dword_29BBBD000, v24, OS_LOG_TYPE_DEFAULT, "Enabling pulse width maximization on display: %@ %@ -> %@", buf, 0x20u);
               }
             }
@@ -494,26 +492,24 @@ void __48__AXBDisplayFilterManager__handleFrameRateLimit__block_invoke()
             if ((supportsAccessibilityDisplayFilters & 1) == 0)
             {
               [v17 isGrayscale];
-              [v17 setGrayscale:v30 != 0];
+              [v17 setGrayscale:v29 != 0];
               *&v27 = v9;
               [v17 setMaximumBrightness:v27];
             }
           }
         }
 
-        v14 = [obj countByEnumeratingWithState:&v35 objects:v45 count:16];
+        v14 = [obj countByEnumeratingWithState:&v34 objects:v44 count:16];
       }
 
       while (v14);
     }
   }
-
-  v28 = *MEMORY[0x29EDCA608];
 }
 
 - (void)_whitePointRampDown
 {
-  v28 = *MEMORY[0x29EDCA608];
+  v27 = *MEMORY[0x29EDCA608];
   Current = CFAbsoluteTimeGetCurrent();
   [(AXBDisplayFilterManager *)self reduceWhitePointRampStartTime];
   v5 = Current - v4;
@@ -525,13 +521,28 @@ void __48__AXBDisplayFilterManager__handleFrameRateLimit__block_invoke()
   v11 = v10;
   [(AXBDisplayFilterManager *)self reduceWhitePointRampStartValue];
   v13 = v9 + (v11 - v12) * v7;
-  if (v7 <= 1.0)
+  if (v7 > 1.0)
   {
-    if (v7 - *&_whitePointRampDown_LastPercentage <= 0.01)
+    v14 = AXLogDisplayFilters();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
-      goto LABEL_9;
+      v15 = [MEMORY[0x29EDBA070] numberWithDouble:v13];
+      v21 = 138412290;
+      v22 = v15;
+      _os_log_impl(&dword_29BBBD000, v14, OS_LOG_TYPE_INFO, "Finish white point ramp down: %@", &v21, 0xCu);
     }
 
+    currentDisplayLinkManager = [MEMORY[0x29EDBDF50] currentDisplayLinkManager];
+    [currentDisplayLinkManager removeTarget:self selector:sel__whitePointRampDown];
+    v7 = 0.0;
+LABEL_5:
+
+    _whitePointRampDown_LastPercentage = *&v7;
+    return;
+  }
+
+  if (v7 - *&_whitePointRampDown_LastPercentage > 0.01)
+  {
     [(AXBDisplayFilterManager *)self _applyMatrixFilter:[(AXBDisplayFilterManager *)self reduceWhitePointRampDownFilter] whitePointReduction:0 displayType:v13];
     currentDisplayLinkManager = AXLogDisplayFilters();
     if (os_log_type_enabled(currentDisplayLinkManager, OS_LOG_TYPE_INFO))
@@ -541,40 +552,22 @@ void __48__AXBDisplayFilterManager__handleFrameRateLimit__block_invoke()
       v19 = MEMORY[0x29EDBA070];
       [(AXBDisplayFilterManager *)self reduceWhitePointRampEndValue];
       v20 = [v19 numberWithDouble:?];
-      v22 = 138412802;
-      v23 = v17;
-      v24 = 2112;
-      v25 = v18;
-      v26 = 2112;
-      v27 = v20;
-      _os_log_impl(&dword_29BBBD000, currentDisplayLinkManager, OS_LOG_TYPE_INFO, "Apply ramp down: %@ -> percentage: %@ : startValue: %@", &v22, 0x20u);
-    }
-  }
-
-  else
-  {
-    v14 = AXLogDisplayFilters();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
-    {
-      v15 = [MEMORY[0x29EDBA070] numberWithDouble:v13];
-      v22 = 138412290;
-      v23 = v15;
-      _os_log_impl(&dword_29BBBD000, v14, OS_LOG_TYPE_INFO, "Finish white point ramp down: %@", &v22, 0xCu);
+      v21 = 138412802;
+      v22 = v17;
+      v23 = 2112;
+      v24 = v18;
+      v25 = 2112;
+      v26 = v20;
+      _os_log_impl(&dword_29BBBD000, currentDisplayLinkManager, OS_LOG_TYPE_INFO, "Apply ramp down: %@ -> percentage: %@ : startValue: %@", &v21, 0x20u);
     }
 
-    currentDisplayLinkManager = [MEMORY[0x29EDBDF50] currentDisplayLinkManager];
-    [currentDisplayLinkManager removeTarget:self selector:sel__whitePointRampDown];
-    v7 = 0.0;
+    goto LABEL_5;
   }
-
-  _whitePointRampDown_LastPercentage = *&v7;
-LABEL_9:
-  v21 = *MEMORY[0x29EDCA608];
 }
 
 - (void)_updateMatrixSupportForDisplayType:(unint64_t)type
 {
-  v54 = *MEMORY[0x29EDCA608];
+  v53 = *MEMORY[0x29EDCA608];
   _forceSoftwareFilters = [(AXBDisplayFilterManager *)self _forceSoftwareFilters];
   [(AXBDisplayFilterManager *)self _invertColorsEnabled];
   v6 = +[AXBDisplayFilterManager sharedInstance];
@@ -630,9 +623,9 @@ LABEL_9:
     v23 = v11 <= 0.0001;
 LABEL_25:
     didEnableHWFiltersForDisplayType = [(AXBDisplayFilterManager *)self didEnableHWFiltersForDisplayType];
-    v34 = [*(v19 + 112) numberWithUnsignedInteger:type];
-    v35 = [didEnableHWFiltersForDisplayType objectForKeyedSubscript:v34];
-    bOOLValue = [v35 BOOLValue];
+    v33 = [*(v19 + 112) numberWithUnsignedInteger:type];
+    v34 = [didEnableHWFiltersForDisplayType objectForKeyedSubscript:v33];
+    bOOLValue = [v34 BOOLValue];
 
     if ((v22 & 1) == 0 && (bOOLValue & 1) == 0)
     {
@@ -640,13 +633,13 @@ LABEL_25:
 
       if (!didEnableHWFiltersForDisplayType2)
       {
-        v38 = objc_opt_new();
-        [(AXBDisplayFilterManager *)self setDidEnableHWFiltersForDisplayType:v38];
+        v37 = objc_opt_new();
+        [(AXBDisplayFilterManager *)self setDidEnableHWFiltersForDisplayType:v37];
       }
 
       didEnableHWFiltersForDisplayType3 = [(AXBDisplayFilterManager *)self didEnableHWFiltersForDisplayType];
-      v40 = [MEMORY[0x29EDBA070] numberWithUnsignedInteger:type];
-      [didEnableHWFiltersForDisplayType3 setObject:MEMORY[0x29EDB8EB0] forKeyedSubscript:v40];
+      v39 = [MEMORY[0x29EDBA070] numberWithUnsignedInteger:type];
+      [didEnableHWFiltersForDisplayType3 setObject:MEMORY[0x29EDB8EB0] forKeyedSubscript:v39];
     }
 
     if ((v23 | AXDeviceIsJ5XX() ^ 1))
@@ -656,31 +649,31 @@ LABEL_25:
 
     else
     {
-      v41 = fmin(v11, 0.999);
+      v40 = fmin(v11, 0.999);
       if (v8 == 0.0)
       {
         v10 = 0.0;
       }
 
-      v42 = log2(vabdd_f64(v41, v10) + 1.0);
+      v41 = log2(vabdd_f64(v40, v10) + 1.0);
       [(AXBDisplayFilterManager *)self setReduceWhitePointRampStartTime:CFAbsoluteTimeGetCurrent()];
-      [(AXBDisplayFilterManager *)self setReduceWhitePointRampTime:v42];
-      [(AXBDisplayFilterManager *)self setReduceWhitePointRampEndValue:v41];
+      [(AXBDisplayFilterManager *)self setReduceWhitePointRampTime:v41];
+      [(AXBDisplayFilterManager *)self setReduceWhitePointRampEndValue:v40];
       [(AXBDisplayFilterManager *)self setReduceWhitePointRampStartValue:v10];
       [(AXBDisplayFilterManager *)self setReduceWhitePointRampDownFilter:Identity];
-      v43 = AXLogDisplayFilters();
-      if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
+      v42 = AXLogDisplayFilters();
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
       {
-        v44 = [MEMORY[0x29EDBA070] numberWithDouble:v10];
+        v43 = [MEMORY[0x29EDBA070] numberWithDouble:v10];
+        v44 = [MEMORY[0x29EDBA070] numberWithDouble:v40];
         v45 = [MEMORY[0x29EDBA070] numberWithDouble:v41];
-        v46 = [MEMORY[0x29EDBA070] numberWithDouble:v42];
-        v48 = 138412802;
-        v49 = v44;
-        v50 = 2112;
-        v51 = v45;
-        v52 = 2112;
-        v53 = v46;
-        _os_log_impl(&dword_29BBBD000, v43, OS_LOG_TYPE_INFO, "White point start %@ -> end %@ : duration: %@", &v48, 0x20u);
+        v47 = 138412802;
+        v48 = v43;
+        v49 = 2112;
+        v50 = v44;
+        v51 = 2112;
+        v52 = v45;
+        _os_log_impl(&dword_29BBBD000, v42, OS_LOG_TYPE_INFO, "White point start %@ -> end %@ : duration: %@", &v47, 0x20u);
       }
 
       currentDisplayLinkManager = [MEMORY[0x29EDBDF50] currentDisplayLinkManager];
@@ -729,7 +722,7 @@ LABEL_22:
     displayFilterUIClient = [(AXBDisplayFilterManager *)self displayFilterUIClient];
     [displayFilterUIClient sendAsynchronousMessage:v29 withIdentifier:0 targetAccessQueue:0 completion:0];
 
-    goto LABEL_23;
+    return;
   }
 
 LABEL_19:
@@ -738,14 +731,11 @@ LABEL_19:
     v28 = MEMORY[0x29EDB8EA8];
     goto LABEL_22;
   }
-
-LABEL_23:
-  v32 = *MEMORY[0x29EDCA608];
 }
 
 - (void)_applyMatrixFilter:(__MADisplayFilter *)filter whitePointReduction:(double)reduction displayType:(unint64_t)type
 {
-  v71 = *MEMORY[0x29EDCA608];
+  v70 = *MEMORY[0x29EDCA608];
   v8 = _AXSGrayscaleEnabled();
   if (_AXSInvertColorsEnabled())
   {
@@ -758,24 +748,24 @@ LABEL_23:
     classicInvertColors = [mEMORY[0x29EDBDFA0] classicInvertColors];
   }
 
-  v44 = 0;
-  memset(v43, 0, sizeof(v43));
+  v43 = 0;
+  memset(v42, 0, sizeof(v42));
   MADisplayFilterGetMatrix();
   v11 = 0.0;
-  v68 = 0.0;
-  v12 = vcvt_f32_f64(*(v43 + 8));
+  v67 = 0.0;
+  v12 = vcvt_f32_f64(*(v42 + 8));
   v13 = *&v12.i32[1];
-  v37 = v12;
-  v38 = vcvt_f32_f64(*(&v43[1] + 8));
-  v14 = v38.f32[1];
-  v69 = vcvt_hight_f32_f64(v12, *(&v43[1] + 8));
-  v15 = vcvt_f32_f64(*(&v43[2] + 8));
+  v36 = v12;
+  v37 = vcvt_f32_f64(*(&v42[1] + 8));
+  v14 = v37.f32[1];
+  v68 = vcvt_hight_f32_f64(v12, *(&v42[1] + 8));
+  v15 = vcvt_f32_f64(*(&v42[2] + 8));
   v16 = *&v15.i32[1];
   *&v17.f64[0] = vcvt_f32_f64(0);
-  v35 = v17;
-  v36 = v15;
+  v34 = v17;
+  v35 = v15;
   v18 = *(v17.f64 + 1);
-  v70 = vcvt_hight_f32_f64(v15, 0);
+  v69 = vcvt_hight_f32_f64(v15, 0);
   MADisplayFilterGetGain();
   if (reduction > 0.0001)
   {
@@ -785,32 +775,32 @@ LABEL_23:
       if (v8)
       {
         v11 = reduction * 0.05 + v20;
-        v68 = v11;
+        v67 = v11;
         v21 = vdupq_lane_s64(COERCE__INT64(reduction * 0.05), 0);
-        *v69.f32 = vcvt_f32_f64(vaddq_f64(v21, vcvtq_f64_f32(v37)));
-        *&v69.u32[2] = vcvt_f32_f64(vaddq_f64(v21, vcvtq_f64_f32(v38)));
-        v22 = vaddq_f64(v21, vcvtq_f64_f32(*&v35.f64[0]));
+        *v68.f32 = vcvt_f32_f64(vaddq_f64(v21, vcvtq_f64_f32(v36)));
+        *&v68.u32[2] = vcvt_f32_f64(vaddq_f64(v21, vcvtq_f64_f32(v37)));
+        v22 = vaddq_f64(v21, vcvtq_f64_f32(*&v34.f64[0]));
         *&v22.f64[0] = vcvt_f32_f64(v22);
-        *v70.f32 = vcvt_f32_f64(vaddq_f64(v21, vcvtq_f64_f32(v36)));
-        v70.i64[1] = *&v22.f64[0];
-        v37.i32[0] = v69.i32[0];
-        v38.i32[0] = v69.i32[2];
-        v13 = v69.f32[1];
-        v14 = v69.f32[3];
-        v35 = v22;
-        v16 = v70.f32[1];
-        v36.i32[0] = v70.i32[0];
+        *v69.f32 = vcvt_f32_f64(vaddq_f64(v21, vcvtq_f64_f32(v35)));
+        v69.i64[1] = *&v22.f64[0];
+        v36.i32[0] = v68.i32[0];
+        v37.i32[0] = v68.i32[2];
+        v13 = v68.f32[1];
+        v14 = v68.f32[3];
+        v34 = v22;
+        v16 = v69.f32[1];
+        v35.i32[0] = v69.i32[0];
         v18 = *(v22.f64 + 1);
       }
 
       else
       {
         v11 = reduction * 0.3 + v20;
-        v14 = reduction * 0.3 + v38.f32[1];
-        v68 = v11;
-        v69.f32[3] = v14;
+        v14 = reduction * 0.3 + v37.f32[1];
+        v67 = v11;
+        v68.f32[3] = v14;
         v18 = reduction * 0.3 + v18;
-        v70.f32[3] = v18;
+        v69.f32[3] = v18;
       }
     }
 
@@ -834,67 +824,65 @@ LABEL_23:
   if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134220544;
-    v47 = v23;
-    v48 = 2048;
+    v46 = v23;
+    v47 = 2048;
     reductionCopy = reduction;
-    v50 = 2048;
-    v51 = v11;
-    v52 = 2048;
-    v53 = v37.f32[0];
-    v54 = 2048;
-    v55 = v13;
-    v56 = 2048;
-    v57 = v38.f32[0];
-    v58 = 2048;
-    v59 = v14;
-    v60 = 2048;
-    v61 = v36.f32[0];
-    v62 = 2048;
-    v63 = v16;
-    v64 = 2048;
-    v65 = *v35.f64;
-    v66 = 2048;
-    v67 = v18;
+    v49 = 2048;
+    v50 = v11;
+    v51 = 2048;
+    v52 = v36.f32[0];
+    v53 = 2048;
+    v54 = v13;
+    v55 = 2048;
+    v56 = v37.f32[0];
+    v57 = 2048;
+    v58 = v14;
+    v59 = 2048;
+    v60 = v35.f32[0];
+    v61 = 2048;
+    v62 = v16;
+    v63 = 2048;
+    v64 = *v34.f64;
+    v65 = 2048;
+    v66 = v18;
     _os_log_debug_impl(&dword_29BBBD000, v24, OS_LOG_TYPE_DEBUG, "Setting Matrix; Gain: %f WhitePointReduction: %f Matrix: [ [%0.5f, %0.5f, %0.5f], [%0.5f, %0.5f, %0.5f], [%0.5f, %0.5f, %0.5f] ]", buf, 0x70u);
   }
 
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
   v40 = 0u;
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
   serverIfRunning = [MEMORY[0x29EDBBAE0] serverIfRunning];
   displays = [serverIfRunning displays];
 
-  v27 = [displays countByEnumeratingWithState:&v39 objects:v45 count:16];
+  v27 = [displays countByEnumeratingWithState:&v38 objects:v44 count:16];
   if (v27)
   {
     v28 = v27;
-    v29 = *v40;
+    v29 = *v39;
     do
     {
       for (i = 0; i != v28; ++i)
       {
-        if (*v40 != v29)
+        if (*v39 != v29)
         {
           objc_enumerationMutation(displays);
         }
 
-        v32 = *(*(&v39 + 1) + 8 * i);
-        if ([(AXBDisplayFilterManager *)self _display:v32 matchesDisplayType:type, *&v35])
+        v32 = *(*(&v38 + 1) + 8 * i);
+        if ([(AXBDisplayFilterManager *)self _display:v32 matchesDisplayType:type, *&v34])
         {
           v30 = v23;
           *&v33 = v30;
-          [v32 setAccessibilityColorMatrix:&v68 scale:v33];
+          [v32 setAccessibilityColorMatrix:&v67 scale:v33];
         }
       }
 
-      v28 = [displays countByEnumeratingWithState:&v39 objects:v45 count:16];
+      v28 = [displays countByEnumeratingWithState:&v38 objects:v44 count:16];
     }
 
     while (v28);
   }
-
-  v34 = *MEMORY[0x29EDCA608];
 }
 
 - (void)updateSettings

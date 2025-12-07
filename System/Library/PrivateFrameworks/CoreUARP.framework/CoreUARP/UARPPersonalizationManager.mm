@@ -56,19 +56,19 @@
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   listenerCopy = listener;
   connectionCopy = connection;
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x2020000000;
-  v21 = 0;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x2020000000;
+  v20 = 0;
   v8 = self->_log;
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     processIdentifier = [connectionCopy processIdentifier];
     *buf = 67109120;
-    v23 = processIdentifier;
+    v22 = processIdentifier;
     _os_log_impl(&dword_247AA7000, v8, OS_LOG_TYPE_INFO, "Connection from PID %d", buf, 8u);
   }
 
@@ -78,20 +78,19 @@
   block[2] = __65__UARPPersonalizationManager_listener_shouldAcceptNewConnection___block_invoke;
   block[3] = &unk_278EC2480;
   block[4] = self;
-  v16 = connectionCopy;
-  v17 = &v18;
+  v15 = connectionCopy;
+  v16 = &v17;
   v11 = connectionCopy;
   dispatch_sync(queue, block);
-  v12 = *(v19 + 24);
+  v12 = *(v18 + 24);
 
-  _Block_object_dispose(&v18, 8);
-  v13 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v17, 8);
   return v12 & 1;
 }
 
 void __65__UARPPersonalizationManager_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) xpcConnectionHasEntitlement:*(a1 + 40)])
   {
     v2 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_2859CF7A8];
@@ -99,36 +98,34 @@ void __65__UARPPersonalizationManager_listener_shouldAcceptNewConnection___block
 
     [*(a1 + 40) setExportedObject:*(a1 + 32)];
     v3 = [*(a1 + 40) processIdentifier];
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __65__UARPPersonalizationManager_listener_shouldAcceptNewConnection___block_invoke_2;
-    v10[3] = &unk_278EC2458;
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __65__UARPPersonalizationManager_listener_shouldAcceptNewConnection___block_invoke_2;
+    v9[3] = &unk_278EC2458;
     v4 = *(a1 + 40);
-    v10[4] = *(a1 + 32);
-    v11 = v3;
-    [v4 setInterruptionHandler:v10];
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __65__UARPPersonalizationManager_listener_shouldAcceptNewConnection___block_invoke_11;
-    v8[3] = &unk_278EC2458;
+    v9[4] = *(a1 + 32);
+    v10 = v3;
+    [v4 setInterruptionHandler:v9];
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __65__UARPPersonalizationManager_listener_shouldAcceptNewConnection___block_invoke_11;
+    v7[3] = &unk_278EC2458;
     v5 = *(a1 + 40);
-    v8[4] = *(a1 + 32);
-    v9 = v3;
-    [v5 setInvalidationHandler:v8];
+    v7[4] = *(a1 + 32);
+    v8 = v3;
+    [v5 setInvalidationHandler:v7];
     [*(a1 + 40) _setQueue:*(*(a1 + 32) + 16)];
     [*(a1 + 40) resume];
     v6 = *(*(a1 + 32) + 8);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       *buf = 67109120;
-      v13 = v3;
+      v12 = v3;
       _os_log_impl(&dword_247AA7000, v6, OS_LOG_TYPE_INFO, "New connection from PID %d", buf, 8u);
     }
 
     *(*(*(a1 + 48) + 8) + 24) = 1;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __65__UARPPersonalizationManager_listener_shouldAcceptNewConnection___block_invoke_2(uint64_t a1)
@@ -142,17 +139,15 @@ void __65__UARPPersonalizationManager_listener_shouldAcceptNewConnection___block
 
 void __65__UARPPersonalizationManager_listener_shouldAcceptNewConnection___block_invoke_11(uint64_t a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 8);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 40);
-    v5[0] = 67109120;
-    v5[1] = v3;
-    _os_log_impl(&dword_247AA7000, v2, OS_LOG_TYPE_INFO, "Connection from PID %d invalidated", v5, 8u);
+    v4[0] = 67109120;
+    v4[1] = v3;
+    _os_log_impl(&dword_247AA7000, v2, OS_LOG_TYPE_INFO, "Connection from PID %d invalidated", v4, 8u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)xpcConnectionHasEntitlement:(id)entitlement
@@ -187,7 +182,7 @@ void __65__UARPPersonalizationManager_listener_shouldAcceptNewConnection___block
 
 - (void)getOutstandingPersonalizationRequests:(id)requests reply:(id)reply
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   requestsCopy = requests;
   replyCopy = reply;
   log = self->_log;
@@ -202,18 +197,16 @@ void __65__UARPPersonalizationManager_listener_shouldAcceptNewConnection___block
   v11 = self->_log;
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
-    v13 = 136315650;
-    v14 = "[UARPPersonalizationManager getOutstandingPersonalizationRequests:reply:]";
-    v15 = 2112;
-    v16 = requestsCopy;
-    v17 = 2112;
-    v18 = v10;
-    _os_log_impl(&dword_247AA7000, v11, OS_LOG_TYPE_INFO, "%s: Updater Name %@, pending tss requests %@", &v13, 0x20u);
+    v12 = 136315650;
+    v13 = "[UARPPersonalizationManager getOutstandingPersonalizationRequests:reply:]";
+    v14 = 2112;
+    v15 = requestsCopy;
+    v16 = 2112;
+    v17 = v10;
+    _os_log_impl(&dword_247AA7000, v11, OS_LOG_TYPE_INFO, "%s: Updater Name %@, pending tss requests %@", &v12, 0x20u);
   }
 
   replyCopy[2](replyCopy, v10);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)personalizationResponse:(id)response updaterName:(id)name
@@ -242,76 +235,61 @@ void __65__UARPPersonalizationManager_listener_shouldAcceptNewConnection___block
 
 void __65__UARPPersonalizationManager_listener_shouldAcceptNewConnection___block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 40);
-  v4[0] = 67109120;
-  v4[1] = v2;
-  _os_log_error_impl(&dword_247AA7000, a2, OS_LOG_TYPE_ERROR, "Connection to PID %d interrupted", v4, 8u);
-  v3 = *MEMORY[0x277D85DE8];
+  v3[0] = 67109120;
+  v3[1] = v2;
+  _os_log_error_impl(&dword_247AA7000, a2, OS_LOG_TYPE_ERROR, "Connection to PID %d interrupted", v3, 8u);
 }
 
 - (void)xpcConnectionHasEntitlement:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v3 = a1;
   [a2 processIdentifier];
   OUTLINED_FUNCTION_1_4();
   _os_log_error_impl(v4, v5, OS_LOG_TYPE_ERROR, v6, v7, 8u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)xpcConnectionHasEntitlement:(void *)a1 .cold.2(void *a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v3 = a1;
   [a2 processIdentifier];
   OUTLINED_FUNCTION_1_4();
   _os_log_error_impl(v4, v5, OS_LOG_TYPE_ERROR, v6, v7, 8u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getOutstandingPersonalizationRequests:(uint64_t)a1 reply:(void *)a2 .cold.1(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_4();
   OUTLINED_FUNCTION_2_1(v5, v6, v7, v8, v9);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)personalizationResponse:updaterName:.cold.1()
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 136315394;
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 136315394;
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_1(&dword_247AA7000, v0, v1, "%s: Updater Name %@", v3);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_1(&dword_247AA7000, v0, v1, "%s: Updater Name %@", v2);
 }
 
 - (void)personalizationResponse:updaterName:.cold.2()
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 136315394;
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 136315394;
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_1(&dword_247AA7000, v0, v1, "%s: TSS Response %@", v3);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_1(&dword_247AA7000, v0, v1, "%s: TSS Response %@", v2);
 }
 
 - (void)personalizationResponse:(uint64_t)a1 updaterName:(void *)a2 .cold.3(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_4();
   OUTLINED_FUNCTION_2_1(v5, v6, v7, v8, v9);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

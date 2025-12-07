@@ -252,12 +252,12 @@
     return 7;
   }
 
-  if (([(_MKPlaceItem *)self->_placeItem options]& 1) != 0)
+  if (objc_msgSend_options(self->_placeItem))
   {
     return 5;
   }
 
-  if (([(_MKPlaceItem *)self->_placeItem options]& 2) != 0)
+  if ((objc_msgSend_options(self->_placeItem) & 2) != 0)
   {
     return 3;
   }
@@ -1242,15 +1242,16 @@ LABEL_25:
 
   if (_annotatedItemList)
   {
-    v5 = displayStyleForAnnotatedItemList(_annotatedItemList, ([(_MKPlaceViewController *)self options]>> 23) & 1);
+    v5 = objc_msgSend_options(self);
+    v6 = displayStyleForAnnotatedItemList(_annotatedItemList, (v5 >> 23) & 1);
   }
 
   else
   {
-    v5 = 0;
+    v6 = 0;
   }
 
-  return v5;
+  return v6;
 }
 
 - (id)attributionsVC
@@ -1392,7 +1393,7 @@ LABEL_11:
 
   if (photosCount)
   {
-    v7 = [[MKPlacePhotosViewController alloc] initWithMapItem:mapItem mode:([(_MKPlaceViewController *)self options]>> 8) & 2 options:0];
+    v7 = [[MKPlacePhotosViewController alloc] initWithMapItem:mapItem mode:(objc_msgSend_options(self) >> 8) & 2 options:0];
     [(MKPlacePhotosViewController *)v7 setPhotosControllerDelegate:self];
   }
 
@@ -1406,7 +1407,7 @@ LABEL_11:
 
 - (id)poisInlineMapVC
 {
-  v3 = [MKPlaceInlineMapViewControllerConfiguration configurationForPlaceViewControllerOptions:[(_MKPlaceViewController *)self options]];
+  v3 = [MKPlaceInlineMapViewControllerConfiguration configurationForPlaceViewControllerOptions:objc_msgSend_options(self, a2)];
   mapItem = [(_MKPlaceViewController *)self mapItem];
   v5 = [MKPlacePoisInlineMapViewController inlineMapWithMapItem:mapItem configuration:v3];
 
@@ -1418,9 +1419,9 @@ LABEL_11:
 
 - (id)inlineMapVC
 {
-  if (((-[_MKPlaceViewController options](self, "options") & 2) != 0 || (-[_MKPlaceViewController options](self, "options") & 1) == 0) && (-[_MKPlaceViewController mapItem](self, "mapItem"), v3 = objc_claimAutoreleasedReturnValue(), [v3 _displayMapRegion], v4 = objc_claimAutoreleasedReturnValue(), v4, v3, v4))
+  if (((objc_msgSend_options(self, a2) & 2) != 0 || (objc_msgSend_options(self) & 1) == 0) && (-[_MKPlaceViewController mapItem](self, "mapItem"), v3 = objc_claimAutoreleasedReturnValue(), [v3 _displayMapRegion], v4 = objc_claimAutoreleasedReturnValue(), v4, v3, v4))
   {
-    v5 = [MKPlaceInlineMapViewControllerConfiguration configurationForPlaceViewControllerOptions:[(_MKPlaceViewController *)self options]];
+    v5 = [MKPlaceInlineMapViewControllerConfiguration configurationForPlaceViewControllerOptions:objc_msgSend_options(self)];
     mapItem = [(_MKPlaceViewController *)self mapItem];
     v7 = [MKPlaceInlineMapViewController inlineMapWithMapItem:mapItem configuration:v5];
 
@@ -1985,7 +1986,7 @@ LABEL_20:
     location = self->_location;
     self->_location = currentLocation;
 
-    if (([(_MKPlaceItem *)self->_placeItem options]& 1) == 0)
+    if ((objc_msgSend_options(self->_placeItem) & 1) == 0)
     {
       mapItem2 = [(_MKPlaceItem *)self->_placeItem mapItem];
       _detourInfo = [mapItem2 _detourInfo];
@@ -2207,7 +2208,7 @@ LABEL_42:
       isGuardianRestrictedCNContainer = 1;
     }
 
-    else if (([(_MKPlaceItem *)self->_placeItem options]& 8) != 0)
+    else if ((objc_msgSend_options(self->_placeItem) & 8) != 0)
     {
       isGuardianRestrictedCNContainer = 1;
       if (!contact)
@@ -2344,15 +2345,15 @@ LABEL_10:
   if (_MKRAPIsAvailable())
   {
     placeItem = [(_MKPlaceViewController *)self placeItem];
-    if (([placeItem options] & 4) != 0)
+    if ((objc_msgSend_options(placeItem) & 4) != 0)
     {
       goto LABEL_8;
     }
 
     placeItem2 = [(_MKPlaceViewController *)self placeItem];
-    options = [placeItem2 options];
+    v5 = objc_msgSend_options(placeItem2);
 
-    if ((options & 8) == 0)
+    if ((v5 & 8) == 0)
     {
       placeItem = [(_MKPlaceViewController *)self mapItem];
       if (placeItem && (self->_options & 0x40) == 0)

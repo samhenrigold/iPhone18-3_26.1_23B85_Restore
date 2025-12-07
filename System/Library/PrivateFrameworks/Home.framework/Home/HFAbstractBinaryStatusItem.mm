@@ -48,25 +48,24 @@
 
 id __58__HFAbstractBinaryStatusItem__subclass_updateWithOptions___block_invoke(uint64_t a1, void *a2)
 {
-  v2 = *(a1 + 32);
-  v3 = a2;
-  v4 = [objc_opt_class() characteristicTypesForServiceType:v3 includingAssociatedTypes:1];
+  v2 = a2;
+  v3 = [objc_opt_class() characteristicTypesForServiceType:v2 includingAssociatedTypes:1];
 
-  return v4;
+  return v3;
 }
 
 id __58__HFAbstractBinaryStatusItem__subclass_updateWithOptions___block_invoke_2(uint64_t a1, void *a2)
 {
-  v30[1] = *MEMORY[0x277D85DE8];
+  v29[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = WeakRetained;
   if (!WeakRetained)
   {
     v13 = MEMORY[0x277D2C900];
-    v29 = @"hidden";
-    v30[0] = MEMORY[0x277CBEC38];
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:&v29 count:1];
+    v28 = @"hidden";
+    v29[0] = MEMORY[0x277CBEC38];
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:&v28 count:1];
     v15 = [HFItemUpdateOutcome outcomeWithResults:v14];
     v12 = [v13 futureWithResult:v15];
 
@@ -152,7 +151,6 @@ LABEL_17:
 LABEL_19:
 
 LABEL_20:
-  v27 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

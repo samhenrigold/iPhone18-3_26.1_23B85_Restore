@@ -128,9 +128,9 @@ void __59__HMDSecureUnarchiveFromDataTransformer_isEncodedNilValue___block_invok
     goto LABEL_7;
   }
 
-  v4 = v0;
+  v3 = v0;
   isEncodedNilValue__encodedNilSize = [v0 length];
-  v1 = [MEMORY[0x277CCAC58] propertyListWithData:v4 options:0 format:0 error:0];
+  v1 = [MEMORY[0x277CCAC58] propertyListWithData:v3 options:0 format:0 error:0];
   v2 = isEncodedNilValue__encodedNilPList;
   isEncodedNilValue__encodedNilPList = v1;
 
@@ -138,46 +138,44 @@ void __59__HMDSecureUnarchiveFromDataTransformer_isEncodedNilValue___block_invok
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
 LABEL_7:
-    v3 = _HMFPreconditionFailure();
-    __63__HMDSecureUnarchiveFromDataTransformer_allowedTopLevelClasses__block_invoke(v3);
+    _HMFPreconditionFailure();
+    __63__HMDSecureUnarchiveFromDataTransformer_allowedTopLevelClasses__block_invoke();
     return;
   }
 }
 
 void __63__HMDSecureUnarchiveFromDataTransformer_allowedTopLevelClasses__block_invoke()
 {
-  v3[26] = *MEMORY[0x277D85DE8];
-  v3[0] = objc_opt_class();
-  v3[1] = objc_opt_class();
-  v3[2] = objc_opt_class();
-  v3[3] = objc_opt_class();
-  v3[4] = objc_opt_class();
-  v3[5] = objc_opt_class();
-  v3[6] = objc_opt_class();
-  v3[7] = objc_opt_class();
-  v3[8] = objc_opt_class();
-  v3[9] = objc_opt_class();
-  v3[10] = objc_opt_class();
-  v3[11] = objc_opt_class();
-  v3[12] = objc_opt_class();
-  v3[13] = objc_opt_class();
-  v3[14] = objc_opt_class();
-  v3[15] = objc_opt_class();
-  v3[16] = objc_opt_class();
-  v3[17] = objc_opt_class();
-  v3[18] = objc_opt_class();
-  v3[19] = objc_opt_class();
-  v3[20] = objc_opt_class();
-  v3[21] = objc_opt_class();
-  v3[22] = objc_opt_class();
-  v3[23] = objc_opt_class();
-  v3[24] = objc_opt_class();
-  v3[25] = objc_opt_class();
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:26];
+  v2[26] = *MEMORY[0x277D85DE8];
+  v2[0] = objc_opt_class();
+  v2[1] = objc_opt_class();
+  v2[2] = objc_opt_class();
+  v2[3] = objc_opt_class();
+  v2[4] = objc_opt_class();
+  v2[5] = objc_opt_class();
+  v2[6] = objc_opt_class();
+  v2[7] = objc_opt_class();
+  v2[8] = objc_opt_class();
+  v2[9] = objc_opt_class();
+  v2[10] = objc_opt_class();
+  v2[11] = objc_opt_class();
+  v2[12] = objc_opt_class();
+  v2[13] = objc_opt_class();
+  v2[14] = objc_opt_class();
+  v2[15] = objc_opt_class();
+  v2[16] = objc_opt_class();
+  v2[17] = objc_opt_class();
+  v2[18] = objc_opt_class();
+  v2[19] = objc_opt_class();
+  v2[20] = objc_opt_class();
+  v2[21] = objc_opt_class();
+  v2[22] = objc_opt_class();
+  v2[23] = objc_opt_class();
+  v2[24] = objc_opt_class();
+  v2[25] = objc_opt_class();
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:26];
   v1 = allowedTopLevelClasses__hmf_once_v1;
   allowedTopLevelClasses__hmf_once_v1 = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

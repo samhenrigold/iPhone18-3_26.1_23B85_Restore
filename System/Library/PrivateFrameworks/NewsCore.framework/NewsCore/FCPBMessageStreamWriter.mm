@@ -102,7 +102,7 @@
 
 - (void)_open
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E695DFC0];
   v4 = [(FCPBMessageStreamWriter *)self URL];
   v5 = [v3 outputStreamWithURL:v4 append:0];
@@ -121,15 +121,13 @@
   else
   {
     v8 = MEMORY[0x1E696ABC0];
-    v13 = @"URL";
+    v12 = @"URL";
     v9 = [(FCPBMessageStreamWriter *)self URL];
-    v14[0] = v9;
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    v13[0] = v9;
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
     v11 = [v8 fc_errorWithCode:16 description:@"Failed to create output stream" additionalUserInfo:v10];
     [(FCPBMessageStreamWriter *)self setError:v11];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_writeMessage:(id)message range:(_NSRange *)range error:(id *)error

@@ -180,7 +180,6 @@ LABEL_7:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 4) == 0)
@@ -200,7 +199,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  didPressLock = self->_didPressLock;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -215,7 +213,6 @@ LABEL_4:
   }
 
 LABEL_10:
-  didPressVolumeUp = self->_didPressVolumeUp;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 8) == 0)
@@ -227,7 +224,6 @@ LABEL_5:
     }
 
 LABEL_12:
-    didTriggerSOS = self->_didTriggerSOS;
     PBDataWriterWriteBOOLField();
     if ((*&self->_has & 1) == 0)
     {
@@ -238,7 +234,6 @@ LABEL_12:
   }
 
 LABEL_11:
-  didPressVolumeDown = self->_didPressVolumeDown;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x20) != 0)
@@ -253,7 +248,6 @@ LABEL_6:
   }
 
 LABEL_13:
-  duration = self->_duration;
 
   PBDataWriterWriteUint64Field();
 }
@@ -451,7 +445,6 @@ LABEL_7:
       goto LABEL_42;
     }
 
-    v6 = *(equal + 24);
     if (self->_didPressLock)
     {
       if ((*(equal + 24) & 1) == 0)
@@ -478,7 +471,6 @@ LABEL_7:
       goto LABEL_42;
     }
 
-    v7 = *(equal + 26);
     if (self->_didPressVolumeUp)
     {
       if ((*(equal + 26) & 1) == 0)
@@ -505,7 +497,6 @@ LABEL_7:
       goto LABEL_42;
     }
 
-    v8 = *(equal + 25);
     if (self->_didPressVolumeDown)
     {
       if ((*(equal + 25) & 1) == 0)
@@ -542,7 +533,6 @@ LABEL_42:
     goto LABEL_42;
   }
 
-  v9 = *(equal + 27);
   if (self->_didTriggerSOS)
   {
     if ((*(equal + 27) & 1) == 0)

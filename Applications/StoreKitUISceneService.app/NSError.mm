@@ -17,11 +17,11 @@
 {
   metadataCopy = metadata;
   selfCopy = self;
-  sub_10001FBFC(metadata);
+  sub_10001FBFC(metadata, v7);
 
-  v7 = _convertErrorToNSError(_:)();
+  v8 = _convertErrorToNSError(_:)();
 
-  return v7;
+  return v8;
 }
 
 @end

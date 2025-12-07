@@ -3,7 +3,7 @@
 
 @implementation UIActiveTimer
 
-uint64_t __49___UIActiveTimer_initWithDuration_updateHandler___block_invoke(uint64_t a1)
+void *__49___UIActiveTimer_initWithDuration_updateHandler___block_invoke(uint64_t a1)
 {
   v2 = (CACurrentMediaTime() - *(a1 + 48)) / *(a1 + 56);
   result = (*(*(a1 + 40) + 16))(v2);

@@ -33,34 +33,35 @@ void __27__ULTimerFactory__instance__block_invoke()
   v10 = +[ULTimerFactory _instance];
   primaryQueue = [v10 primaryQueue];
 
-  if ([MEMORY[0x277D28868] isRunningInXCTestEnvironment])
+  isRunningInXCTestEnvironment = [MEMORY[0x277D28868] isRunningInXCTestEnvironment];
+  if (isRunningInXCTestEnvironment)
   {
-    v12 = primaryQueue == 0;
+    v13 = primaryQueue == 0;
   }
 
   else
   {
-    v12 = 0;
+    v13 = 0;
   }
 
-  if (!v12)
+  if (!v13)
   {
     if (primaryQueue)
     {
       goto LABEL_8;
     }
 
-    +[ULTimerFactory timerOnPrimaryQueueWithInterval:repeats:block:];
+    [ULTimerFactory timerOnPrimaryQueueWithInterval:isRunningInXCTestEnvironment repeats:? block:?];
   }
 
   primaryQueue = MEMORY[0x277D85CD0];
-  v13 = MEMORY[0x277D85CD0];
+  v14 = MEMORY[0x277D85CD0];
 LABEL_8:
-  v14 = [ULTimer alloc];
+  v15 = [ULTimer alloc];
   [intervalCopy doubleValue];
-  v16 = -[ULTimer initWithInterval:repeats:queue:block:](v14, "initWithInterval:repeats:queue:block:", [repeatsCopy BOOLValue], primaryQueue, blockCopy, v15);
+  v17 = -[ULTimer initWithInterval:repeats:queue:block:](v15, "initWithInterval:repeats:queue:block:", [repeatsCopy BOOLValue], primaryQueue, blockCopy, v16);
 
-  return v16;
+  return v17;
 }
 
 + (void)setPrimaryQueue:(id)queue
@@ -77,36 +78,35 @@ LABEL_8:
 
   else
   {
-    v7 = +[ULTimerFactory(queueSetter) setPrimaryQueue:];
-    ___CLLogObjectForCategory_MicroLocation_Default_block_invoke_17(v7);
+    [ULTimerFactory(queueSetter) setPrimaryQueue:queueCopy];
+    ___CLLogObjectForCategory_MicroLocation_Default_block_invoke_17();
   }
 }
 
-+ (void)timerOnPrimaryQueueWithInterval:repeats:block:.cold.1()
++ (void)timerOnPrimaryQueueWithInterval:(uint64_t)a1 repeats:block:.cold.1(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
-  v0 = _CLLogObjectForCategory_MicroLocation_Default();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
+  v1 = _CLLogObjectForCategory_MicroLocation_Default(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_4(&dword_258FE9000, v1, v2, "{msg%{public}.0s:#ULTimerFactory, Trying to create a timer on global queue without queue being set, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v3, v4, v5, v6, v20, v21, v22, v23, v24);
+    OUTLINED_FUNCTION_4(&dword_258FE9000, v2, v3, "{msg%{public}.0s:#ULTimerFactory, Trying to create a timer on global queue without queue being set, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v4, v5, v6, v7, v23, v24, v25, v26);
   }
 
-  v7 = _CLLogObjectForCategory_MicroLocation_Default();
-  if (os_signpost_enabled(v7))
+  v9 = _CLLogObjectForCategory_MicroLocation_Default(v8);
+  if (os_signpost_enabled(v9))
   {
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_258FE9000, v8, v9, v10, "#ULTimerFactory, Trying to create a timer on global queue without queue being set", "{msg%{public}.0s:#ULTimerFactory, Trying to create a timer on global queue without queue being set, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v11, v12, v20, v21, v22, v23, v24);
+    OUTLINED_FUNCTION_2(&dword_258FE9000, v10, v11, v12, "#ULTimerFactory, Trying to create a timer on global queue without queue being set", "{msg%{public}.0s:#ULTimerFactory, Trying to create a timer on global queue without queue being set, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v13, v14, v23, v24, v25, v26);
   }
 
-  v13 = _CLLogObjectForCategory_MicroLocation_Default();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+  v16 = _CLLogObjectForCategory_MicroLocation_Default(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
   {
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_258FE9000, v14, v15, "{msg%{public}.0s:#ULTimerFactory, Trying to create a timer on global queue without queue being set, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v16, v17, v18, v19, v20, v21, v22, v23, v24);
+    OUTLINED_FUNCTION_3(&dword_258FE9000, v17, v18, "{msg%{public}.0s:#ULTimerFactory, Trying to create a timer on global queue without queue being set, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v19, v20, v21, v22, v23, v24, v25, v26);
   }
 
-  abort_report_np();
+  abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/MicroLocation/MicroLocationDaemon/Utilities/ULTimerFactory.m", 45, "+[ULTimerFactory timerOnPrimaryQueueWithInterval:repeats:block:]");
   _CLLogObjectForCategory_MicroLocation_Default_cold_1();
 }
 

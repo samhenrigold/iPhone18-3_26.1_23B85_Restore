@@ -1,13 +1,13 @@
-id _uiQueue()
+id _uiQueue(uint64_t a1)
 {
   if (_uiQueue_onceToken != -1)
   {
     _uiQueue_cold_1();
   }
 
-  v1 = _uiQueue_uiQueue;
+  v2 = _uiQueue_uiQueue;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ___isUnlockDialogPresent_block_invoke(uint64_t result)
@@ -1415,28 +1415,28 @@ ACCUserNotification *acc_userNotifications_disabledHSAID()
   return v0;
 }
 
-void sub_8BA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_8BA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_8D88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_8D88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_92B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_92B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va1, a10);
-  va_start(va, a10);
-  v11 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
+  va_start(va1, a17);
+  va_start(va, a17);
+  v18 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -1509,9 +1509,9 @@ LABEL_8:
 LABEL_9:
 }
 
-void sub_9B44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_9B44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1587,9 +1587,9 @@ void ___userNotificationCallback_block_invoke(uint64_t a1)
   CFRelease(*(a1 + 48));
 }
 
-void sub_D490(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_D490(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1601,39 +1601,39 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_E0B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_E0B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v14 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
-  v19 = va_arg(va1, void);
-  v20 = va_arg(va1, void);
-  objc_destroyWeak((v11 + 64));
+  va_start(va1, a18);
+  va_start(va, a18);
+  v21 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
+  v26 = va_arg(va1, void);
+  v27 = va_arg(va1, void);
+  objc_destroyWeak((v18 + 64));
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
-  objc_destroyWeak((v12 - 112));
+  objc_destroyWeak((v19 - 112));
   _Unwind_Resume(a1);
 }
 
-void sub_E65C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_E65C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 80), 8);
+  _Block_object_dispose((v18 - 80), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_EA38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_EA38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va1, a13);
-  va_start(va, a13);
-  v14 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  va_start(va1, a20);
+  va_start(va, a20);
+  v21 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -1962,7 +1962,7 @@ void __init_logging_modules_block_invoke(uint64_t a1)
         v8 = "<Undefined>";
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
-          __init_logging_modules_block_invoke_cold_1(v15, v4, &v16);
+          __init_logging_modules_block_invoke_cold_1(v15, v4, &v15[4]);
           v8 = "<Undefined>";
         }
       }
@@ -2418,7 +2418,7 @@ CFNumberRef acc_analytics_createBucketizedBatteryChargeLevel(unsigned int a1)
   return CFNumberCreate(kCFAllocatorDefault, kCFNumberCharType, &valuePtr);
 }
 
-CFNumberRef acc_analytics_createBucketizedBatteryChargeDelta(int a1)
+CFNumberRef acc_analytics_createBucketizedBatteryChargeDelta(unsigned int a1)
 {
   if (a1 > -90)
   {
@@ -2836,10 +2836,11 @@ void __38__ueaPluginSystemSettingsMonitor_init__block_invoke(uint64_t a1)
   *(v14 + 24) = v13;
 }
 
-void OUTLINED_FUNCTION_1_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x12u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x12u);
 }
 
 void OUTLINED_FUNCTION_3(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
@@ -2905,7 +2906,7 @@ unint64_t systemInfo_getCurrentUnixTimeMS()
   }
 }
 
-uint64_t systemInfo_isInternalBuild()
+uint64_t systemInfo_isInternalBuild(uint64_t a1, uint64_t a2)
 {
   if (systemInfo_isInternalBuild_onceToken != -1)
   {
@@ -2915,7 +2916,7 @@ uint64_t systemInfo_isInternalBuild()
   return systemInfo_isInternalBuild_internalBuild;
 }
 
-uint64_t systemInfo_isDeveloperBuild()
+uint64_t systemInfo_isDeveloperBuild(uint64_t a1, uint64_t a2)
 {
   if (systemInfo_isDeveloperBuild_onceToken != -1)
   {
@@ -2942,7 +2943,7 @@ void __systemInfo_isDeveloperBuild_block_invoke(id a1)
   }
 }
 
-uint64_t systemInfo_systemSupportsPearl()
+uint64_t systemInfo_systemSupportsPearl(uint64_t a1, uint64_t a2)
 {
   if (systemInfo_systemSupportsPearl_onceToken != -1)
   {
@@ -2952,7 +2953,7 @@ uint64_t systemInfo_systemSupportsPearl()
   return systemInfo_systemSupportsPearl_supportsPearl;
 }
 
-uint64_t systemInfo_systemSupportsWAPI()
+uint64_t systemInfo_systemSupportsWAPI(uint64_t a1, uint64_t a2)
 {
   if (systemInfo_systemSupportsWAPI_onceToken != -1)
   {
@@ -3108,10 +3109,11 @@ void printDictionaryDelta(void *a1, void *a2)
   }
 }
 
-void OUTLINED_FUNCTION_0_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 8u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 8u);
 }
 
 ACCUserNotification *ACCUNCreate(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, double a9, uint64_t a10)
@@ -3181,7 +3183,7 @@ void *ACCUNCopyUUIDString(void *result)
   return result;
 }
 
-id logObjectForModule(int a1)
+id logObjectForModule(unsigned int a1)
 {
   if (gLogObjects)
   {
@@ -3258,55 +3260,55 @@ void __43__accessorydMatchingPlugin_initWithModule___block_invoke(id a1, int a2)
 
   if (!v2)
   {
-    *&v16 = 0;
-    *(&v16 + 1) = &v16;
-    *&v17 = 0x2020000000;
-    BYTE8(v17) = 0;
-    v7 = _uiQueue();
+    *&v18 = 0;
+    *(&v18 + 1) = &v18;
+    *&v19 = 0x2020000000;
+    BYTE8(v19) = 0;
+    v8 = _uiQueue(v7);
     *&buf = _NSConcreteStackBlock;
     *(&buf + 1) = 3221225472;
-    v21 = ___isUnlockDialogPresent_block_invoke;
-    v22 = &unk_59998;
-    v23 = &v16;
-    dispatch_sync(v7, &buf);
+    v23 = ___isUnlockDialogPresent_block_invoke;
+    v24 = &unk_59998;
+    v25 = &v18;
+    dispatch_sync(v8, &buf);
 
-    LODWORD(v7) = *(*(&v16 + 1) + 24);
-    _Block_object_dispose(&v16, 8);
-    if (v7 == 1)
+    LODWORD(v8) = *(*(&v18 + 1) + 24);
+    _Block_object_dispose(&v18, 8);
+    if (v8 == 1)
     {
-      _dismissUnlockDialog();
+      _dismissUnlockDialog(v9);
     }
 
     else if ([_userNotificationsTRM count])
     {
+      v20 = 0u;
+      v21 = 0u;
       v18 = 0u;
       v19 = 0u;
-      v16 = 0u;
-      v17 = 0u;
-      v8 = [_userNotificationsTRM allValues];
-      v9 = [v8 countByEnumeratingWithState:&v16 objects:&buf count:16];
-      if (v9)
+      v10 = [_userNotificationsTRM allValues];
+      v11 = [v10 countByEnumeratingWithState:&v18 objects:&buf count:16];
+      if (v11)
       {
-        v10 = v9;
-        v11 = *v17;
+        v12 = v11;
+        v13 = *v19;
         do
         {
-          for (i = 0; i != v10; i = i + 1)
+          for (i = 0; i != v12; i = i + 1)
           {
-            if (*v17 != v11)
+            if (*v19 != v13)
             {
-              objc_enumerationMutation(v8);
+              objc_enumerationMutation(v10);
             }
 
-            v13 = *(*(&v16 + 1) + 8 * i);
-            v14 = +[ACCUserNotificationManager sharedManager];
-            [v14 updateNotification:v13];
+            v15 = *(*(&v18 + 1) + 8 * i);
+            v16 = +[ACCUserNotificationManager sharedManager];
+            [v16 updateNotification:v15];
           }
 
-          v10 = [v8 countByEnumeratingWithState:&v16 objects:&buf count:16];
+          v12 = [v10 countByEnumeratingWithState:&v18 objects:&buf count:16];
         }
 
-        while (v10);
+        while (v12);
       }
     }
   }
@@ -4515,10 +4517,10 @@ id __46__accessorydMatchingPlugin_handleUSBPortAdded__block_invoke_2(uint64_t a1
 
 uint64_t _shouldPresentTRMDialog()
 {
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x2020000000;
-  v38 = 0;
+  v36 = 0;
+  v37 = &v36;
+  v38 = 0x2020000000;
+  v39 = 0;
   v0 = IOServiceMatching("IOAccessoryTRM");
   existing = 0;
   if (!IOServiceGetMatchingServices(kIOMainPortDefault, v0, &existing))
@@ -4567,9 +4569,9 @@ uint64_t _shouldPresentTRMDialog()
           if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
           {
             *buf = 134218240;
-            *v40 = v18;
-            *&v40[8] = 1024;
-            v41[0] = v19;
+            *v41 = v18;
+            *&v41[8] = 1024;
+            v42[0] = v19;
             _os_log_error_impl(&def_3A0E8, &_os_log_default, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
           }
 
@@ -4580,17 +4582,17 @@ uint64_t _shouldPresentTRMDialog()
         if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
         {
           *buf = 67109632;
-          *v40 = v13;
-          *&v40[4] = 1024;
-          *&v40[6] = v15;
-          LOWORD(v41[0]) = 1024;
-          *(v41 + 2) = v17;
+          *v41 = v13;
+          *&v41[4] = 1024;
+          *&v41[6] = v15;
+          LOWORD(v42[0]) = 1024;
+          *(v42 + 2) = v17;
           _os_log_impl(&def_3A0E8, v20, OS_LOG_TYPE_INFO, "supervisedAccessoryAttached: %d, supervisedTransportsRestricted: %d, primaryPortNumber: %d", buf, 0x14u);
         }
 
         if ((v13 & v15) == 1)
         {
-          *(v36 + 24) = 1;
+          *(v37 + 24) = 1;
         }
 
         ++v1;
@@ -4610,9 +4612,9 @@ uint64_t _shouldPresentTRMDialog()
           if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
           {
             *buf = 134218240;
-            *v40 = v9;
-            *&v40[8] = 1024;
-            v41[0] = v10;
+            *v41 = v9;
+            *&v41[8] = 1024;
+            v42[0] = v10;
             _os_log_error_impl(&def_3A0E8, &_os_log_default, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
           }
 
@@ -4623,7 +4625,7 @@ uint64_t _shouldPresentTRMDialog()
         if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
         {
           *buf = 67109120;
-          *v40 = v8;
+          *v41 = v8;
           _os_log_debug_impl(&def_3A0E8, v11, OS_LOG_TYPE_DEBUG, "Ignoring USB-C port... (portNumber: %d)", buf, 8u);
         }
       }
@@ -4663,17 +4665,17 @@ uint64_t _shouldPresentTRMDialog()
       _shouldPresentTRMDialog_cold_2();
     }
 
-    v26 = _uiQueue();
+    v27 = _uiQueue(v26);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = ___shouldPresentTRMDialog_block_invoke;
     block[3] = &unk_59998;
-    block[4] = &v35;
-    dispatch_sync(v26, block);
+    block[4] = &v36;
+    dispatch_sync(v27, block);
 
     if (gLogObjects && gNumLogObjects >= 4)
     {
-      v27 = *(gLogObjects + 24);
+      v28 = *(gLogObjects + 24);
     }
 
     else
@@ -4683,44 +4685,44 @@ uint64_t _shouldPresentTRMDialog()
         [AirplaneMode init];
       }
 
-      v27 = &_os_log_default;
       v28 = &_os_log_default;
+      v29 = &_os_log_default;
     }
 
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
-      if (*(v36 + 24))
+      if (*(v37 + 24))
       {
-        v29 = "YES";
+        v30 = "YES";
       }
 
       else
       {
-        v29 = "NO";
+        v30 = "NO";
       }
 
       *buf = 136315138;
-      *v40 = v29;
-      _os_log_impl(&def_3A0E8, v27, OS_LOG_TYPE_DEFAULT, "shouldPresentTRMDialog: %s", buf, 0xCu);
+      *v41 = v30;
+      _os_log_impl(&def_3A0E8, v28, OS_LOG_TYPE_DEFAULT, "shouldPresentTRMDialog: %s", buf, 0xCu);
     }
   }
 
-  v30 = *(v36 + 24);
-  _Block_object_dispose(&v35, 8);
-  return v30;
+  v31 = *(v37 + 24);
+  _Block_object_dispose(&v36, 8);
+  return v31;
 }
 
-void sub_20414(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_20414(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void _dismissUnlockDialog()
+void _dismissUnlockDialog(uint64_t a1)
 {
-  v0 = _uiQueue();
-  dispatch_sync(v0, &__block_literal_global_935);
+  v1 = _uiQueue(a1);
+  dispatch_sync(v1, &__block_literal_global_935);
 }
 
 uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
@@ -4864,7 +4866,7 @@ uint64_t _mainTransportTypeForPort(void *a1)
 
 void __55__accessorydMatchingPlugin_addUserNotificationForPort___block_invoke_308(uint64_t a1)
 {
-  v2 = _uiQueue();
+  v2 = _uiQueue(a1);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = __55__accessorydMatchingPlugin_addUserNotificationForPort___block_invoke_2;
@@ -4879,35 +4881,35 @@ void __55__accessorydMatchingPlugin_addUserNotificationForPort___block_invoke_30
 
 void __55__accessorydMatchingPlugin_addUserNotificationForPort___block_invoke_2(uint64_t a1)
 {
-  v2 = _trmDialogTimer();
+  v2 = _trmDialogTimer(a1);
   dispatch_source_set_timer(v2, 0xFFFFFFFFFFFFFFFFLL, 0xFFFFFFFFFFFFFFFFLL, 0x2FAF080uLL);
 
-  v3 = _trmDialogTimer();
+  v4 = _trmDialogTimer(v3);
   handler[0] = _NSConcreteStackBlock;
   handler[1] = 3221225472;
   handler[2] = __55__accessorydMatchingPlugin_addUserNotificationForPort___block_invoke_3;
   handler[3] = &unk_594D8;
-  v10 = *(a1 + 48);
-  v4 = *(a1 + 32);
-  v5 = *(a1 + 40);
-  v8 = v4;
-  v9 = v5;
-  dispatch_source_set_event_handler(v3, handler);
+  v12 = *(a1 + 48);
+  v5 = *(a1 + 32);
+  v6 = *(a1 + 40);
+  v10 = v5;
+  v11 = v6;
+  dispatch_source_set_event_handler(v4, handler);
 
-  v6 = _trmDialogTimer();
-  dispatch_resume(v6);
+  v8 = _trmDialogTimer(v7);
+  dispatch_resume(v8);
 }
 
-id _trmDialogTimer()
+id _trmDialogTimer(uint64_t a1)
 {
   if (_trmDialogTimer_onceToken != -1)
   {
     _trmDialogTimer_cold_1();
   }
 
-  v1 = _gTRMNotificationTimer;
+  v2 = _gTRMNotificationTimer;
 
-  return v1;
+  return v2;
 }
 
 void __55__accessorydMatchingPlugin_addUserNotificationForPort___block_invoke_3(uint64_t a1)
@@ -4944,36 +4946,37 @@ void __55__accessorydMatchingPlugin_addUserNotificationForPort___block_invoke_3(
     _os_log_impl(&def_3A0E8, v4, OS_LOG_TYPE_DEFAULT, "TRM dialog timer fired!", buf, 2u);
   }
 
-  v5 = _uiQueue();
+  v6 = _uiQueue(v5);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = __55__accessorydMatchingPlugin_addUserNotificationForPort___block_invoke_309;
   block[3] = &unk_59998;
   block[4] = *(a1 + 48);
-  dispatch_sync(v5, block);
+  dispatch_sync(v6, block);
 
-  if (_shouldPresentTRMDialog())
+  shouldPresentTRMDialog = _shouldPresentTRMDialog();
+  if (shouldPresentTRMDialog)
   {
-    v6 = _uiQueue();
-    v11[0] = _NSConcreteStackBlock;
-    v11[1] = 3221225472;
-    v11[2] = __55__accessorydMatchingPlugin_addUserNotificationForPort___block_invoke_312;
-    v11[3] = &unk_594D8;
-    v14 = *(a1 + 48);
-    v7 = *(a1 + 32);
-    v8 = *(a1 + 40);
-    v12 = v7;
-    v13 = v8;
-    dispatch_async(v6, v11);
+    v8 = _uiQueue(shouldPresentTRMDialog);
+    v13[0] = _NSConcreteStackBlock;
+    v13[1] = 3221225472;
+    v13[2] = __55__accessorydMatchingPlugin_addUserNotificationForPort___block_invoke_312;
+    v13[3] = &unk_594D8;
+    v16 = *(a1 + 48);
+    v9 = *(a1 + 32);
+    v10 = *(a1 + 40);
+    v14 = v9;
+    v15 = v10;
+    dispatch_async(v8, v13);
 
-    v9 = v12;
+    v11 = v14;
   }
 
   else
   {
     if (gLogObjects && gNumLogObjects >= 4)
     {
-      v9 = *(gLogObjects + 24);
+      v11 = *(gLogObjects + 24);
     }
 
     else
@@ -4983,14 +4986,14 @@ void __55__accessorydMatchingPlugin_addUserNotificationForPort___block_invoke_3(
         [AirplaneMode init];
       }
 
-      v9 = &_os_log_default;
-      v10 = &_os_log_default;
+      v11 = &_os_log_default;
+      v12 = &_os_log_default;
     }
 
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&def_3A0E8, v9, OS_LOG_TYPE_DEFAULT, "TRM dialog should no longer be presented, not presenting dialog!", buf, 2u);
+      _os_log_impl(&def_3A0E8, v11, OS_LOG_TYPE_DEFAULT, "TRM dialog should no longer be presented, not presenting dialog!", buf, 2u);
     }
   }
 }
@@ -5346,8 +5349,8 @@ void __55__accessorydMatchingPlugin_addUserNotificationForPort___block_invoke_32
     v6 = _userNotificationsTRM;
     v7 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [*(a1 + 32) registryEntryID]);
     v8 = [v6 objectForKeyedSubscript:v7];
-    *v25 = 136315650;
-    *&v25[4] = "[accessorydMatchingPlugin addUserNotificationForPort:]_block_invoke";
+    *v26 = 136315650;
+    *&v26[4] = "[accessorydMatchingPlugin addUserNotificationForPort:]_block_invoke";
     if (v8)
     {
       v9 = "YES";
@@ -5358,11 +5361,11 @@ void __55__accessorydMatchingPlugin_addUserNotificationForPort___block_invoke_32
       v9 = "NO";
     }
 
-    *&v25[12] = 2080;
-    *&v25[14] = v5;
-    v26 = 2080;
-    v27 = v9;
-    _os_log_impl(&def_3A0E8, v4, OS_LOG_TYPE_DEFAULT, "%s: (_gTRMNotificationTimerRunning: %s, userNotification: %s)", v25, 0x20u);
+    *&v26[12] = 2080;
+    *&v26[14] = v5;
+    v27 = 2080;
+    v28 = v9;
+    _os_log_impl(&def_3A0E8, v4, OS_LOG_TYPE_DEFAULT, "%s: (_gTRMNotificationTimerRunning: %s, userNotification: %s)", v26, 0x20u);
   }
 
   if ((_gTRMNotificationTimerRunning & 1) != 0 || (v10 = _userNotificationsTRM, +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [*(a1 + 32) registryEntryID]), v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "objectForKeyedSubscript:", v11), v12 = objc_claimAutoreleasedReturnValue(), v12, v11, v12))
@@ -5385,8 +5388,8 @@ void __55__accessorydMatchingPlugin_addUserNotificationForPort___block_invoke_32
 
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      *v25 = 0;
-      _os_log_impl(&def_3A0E8, v13, OS_LOG_TYPE_DEFAULT, "TRM dialog timer already running or dialog already up - not starting timer again.", v25, 2u);
+      *v26 = 0;
+      _os_log_impl(&def_3A0E8, v13, OS_LOG_TYPE_DEFAULT, "TRM dialog timer already running or dialog already up - not starting timer again.", v26, 2u);
     }
   }
 
@@ -5410,15 +5413,15 @@ void __55__accessorydMatchingPlugin_addUserNotificationForPort___block_invoke_32
 
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      *v25 = 67109120;
-      *&v25[4] = 1500;
-      _os_log_impl(&def_3A0E8, v15, OS_LOG_TYPE_DEFAULT, "Starting TRM dialog timer for %dms...", v25, 8u);
+      *v26 = 67109120;
+      *&v26[4] = 1500;
+      _os_log_impl(&def_3A0E8, v15, OS_LOG_TYPE_DEFAULT, "Starting TRM dialog timer for %dms...", v26, 8u);
     }
 
     _gTRMNotificationTimerRunning = 1;
-    v17 = _trmDialogTimer();
-    v18 = dispatch_time(0, 1500000000);
-    dispatch_source_set_timer(v17, v18, 0xFFFFFFFFFFFFFFFFLL, 0x2FAF080uLL);
+    v18 = _trmDialogTimer(v17);
+    v19 = dispatch_time(0, 1500000000);
+    dispatch_source_set_timer(v18, v19, 0xFFFFFFFFFFFFFFFFLL, 0x2FAF080uLL);
 
     if (gLogObjects && gNumLogObjects >= 4)
     {
@@ -5433,39 +5436,39 @@ void __55__accessorydMatchingPlugin_addUserNotificationForPort___block_invoke_32
       }
 
       v13 = &_os_log_default;
-      v19 = &_os_log_default;
+      v20 = &_os_log_default;
     }
 
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       if (_gTRMNotificationTimerRunning)
       {
-        v20 = "YES";
+        v21 = "YES";
       }
 
       else
       {
-        v20 = "NO";
+        v21 = "NO";
       }
 
-      v21 = _userNotificationsTRM;
-      v22 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [*(a1 + 32) registryEntryID]);
-      v23 = [v21 objectForKeyedSubscript:v22];
-      if (v23)
+      v22 = _userNotificationsTRM;
+      v23 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [*(a1 + 32) registryEntryID]);
+      v24 = [v22 objectForKeyedSubscript:v23];
+      if (v24)
       {
-        v24 = "YES";
+        v25 = "YES";
       }
 
       else
       {
-        v24 = "NO";
+        v25 = "NO";
       }
 
-      *v25 = 136315394;
-      *&v25[4] = v20;
-      *&v25[12] = 2080;
-      *&v25[14] = v24;
-      _os_log_impl(&def_3A0E8, v13, OS_LOG_TYPE_DEFAULT, "_gTRMNotificationTimerRunning: %s, userNotification: %s", v25, 0x16u);
+      *v26 = 136315394;
+      *&v26[4] = v21;
+      *&v26[12] = 2080;
+      *&v26[14] = v25;
+      _os_log_impl(&def_3A0E8, v13, OS_LOG_TYPE_DEFAULT, "_gTRMNotificationTimerRunning: %s, userNotification: %s", v26, 0x16u);
     }
   }
 }
@@ -5512,7 +5515,7 @@ void __58__accessorydMatchingPlugin_removeUserNotificationForPort___block_invoke
 
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __58__accessorydMatchingPlugin_removeUserNotificationForPort___block_invoke_cold_2(v1);
+      __58__accessorydMatchingPlugin_removeUserNotificationForPort___block_invoke_cold_2();
     }
   }
 }
@@ -6294,7 +6297,7 @@ uint64_t _checkFor128KHzRestriction()
   if (v3)
   {
     v19 = v2;
-    v20 = logObjectForModule(2);
+    v20 = logObjectForModule(2u);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315906;
@@ -6824,19 +6827,18 @@ void __IOAccessoryManagerEventCallback_block_invoke_874(uint64_t a1)
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v8 = 138412546;
-    v9 = @"com.apple.accessories.cable.typeChanged";
-    v10 = 2112;
-    v11 = v5;
-    _os_log_impl(&def_3A0E8, v4, OS_LOG_TYPE_DEFAULT, "CoreAnalytics event: %@\neventDict: %@", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = @"com.apple.accessories.cable.typeChanged";
+    v9 = 2112;
+    v10 = v5;
+    _os_log_impl(&def_3A0E8, v4, OS_LOG_TYPE_DEFAULT, "CoreAnalytics event: %@\neventDict: %@", &v7, 0x16u);
   }
 
-  v6 = *(a1 + 32);
   AnalyticsSendEvent();
   if (*(a1 + 40) != 1)
   {
-    v7 = [ACCAnalytics loggerForUser:0];
-    [v7 logACCAnalyticsForEventNamed:@"accessoryCableTypeChanged" withAttributes:*(a1 + 32)];
+    v6 = [ACCAnalytics loggerForUser:0];
+    [v6 logACCAnalyticsForEventNamed:@"accessoryCableTypeChanged" withAttributes:*(a1 + 32)];
   }
 }
 
@@ -7095,30 +7097,30 @@ LABEL_33:
   {
     *buf = 67109376;
     *&buf[4] = v3;
-    LOWORD(v18) = 1024;
-    *(&v18 + 2) = _hook_currentLimitChanged_previousUSBCurrentLimitMA;
+    LOWORD(v20) = 1024;
+    *(&v20 + 2) = _hook_currentLimitChanged_previousUSBCurrentLimitMA;
     _os_log_impl(&def_3A0E8, v7, OS_LOG_TYPE_DEFAULT, "_hook_currentLimitChanged: (usbCurrentLimitMA: %dma, previousUSBCurrentLimitMA: %dma)", buf, 0xEu);
   }
 
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x2020000000;
-  v16 = 0;
-  v9 = _uiQueue();
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x2020000000;
+  v18 = 0;
+  v10 = _uiQueue(v9);
   *buf = _NSConcreteStackBlock;
-  v18 = 3221225472;
-  v19 = ___isTRMDialogTimerRunning_block_invoke;
-  v20 = &unk_59998;
-  v21 = &v13;
-  dispatch_sync(v9, buf);
+  v20 = 3221225472;
+  v21 = ___isTRMDialogTimerRunning_block_invoke;
+  v22 = &unk_59998;
+  v23 = &v15;
+  dispatch_sync(v10, buf);
 
-  LODWORD(v9) = *(v14 + 24);
-  _Block_object_dispose(&v13, 8);
-  if (v9 == 1 && _hook_currentLimitChanged_previousUSBCurrentLimitMA <= 0x1F3 && v3 >= 0x1F4)
+  LODWORD(v10) = *(v16 + 24);
+  _Block_object_dispose(&v15, 8);
+  if (v10 == 1 && _hook_currentLimitChanged_previousUSBCurrentLimitMA <= 0x1F3 && v3 >= 0x1F4)
   {
     if (gLogObjects && gNumLogObjects >= 4)
     {
-      v10 = *(gLogObjects + 24);
+      v11 = *(gLogObjects + 24);
     }
 
     else
@@ -7128,19 +7130,19 @@ LABEL_33:
         [AirplaneMode init];
       }
 
-      v10 = &_os_log_default;
       v11 = &_os_log_default;
+      v12 = &_os_log_default;
     }
 
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
       *&buf[4] = (SBSBatteryUIDismissDuration * 1000.0);
-      _os_log_impl(&def_3A0E8, v10, OS_LOG_TYPE_DEFAULT, "Resetting TRM dialog timer to %ums...", buf, 8u);
+      _os_log_impl(&def_3A0E8, v11, OS_LOG_TYPE_DEFAULT, "Resetting TRM dialog timer to %ums...", buf, 8u);
     }
 
-    v12 = _uiQueue();
-    dispatch_sync(v12, &__block_literal_global_886);
+    v14 = _uiQueue(v13);
+    dispatch_sync(v14, &__block_literal_global_886);
   }
 
   _hook_currentLimitChanged_previousUSBCurrentLimitMA = v3;
@@ -7177,14 +7179,13 @@ uint64_t __IOAccessoryManagerEventCallback_block_invoke_875(uint64_t a1)
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v8 = 138412546;
-    v9 = @"com.apple.accessories.charging.configurationChanged";
-    v10 = 2112;
-    v11 = v5;
-    _os_log_impl(&def_3A0E8, v4, OS_LOG_TYPE_DEFAULT, "CoreAnalytics event: %@\neventDict: %@", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = @"com.apple.accessories.charging.configurationChanged";
+    v9 = 2112;
+    v10 = v5;
+    _os_log_impl(&def_3A0E8, v4, OS_LOG_TYPE_DEFAULT, "CoreAnalytics event: %@\neventDict: %@", &v7, 0x16u);
   }
 
-  v6 = *(a1 + 32);
   return AnalyticsSendEvent();
 }
 
@@ -7401,11 +7402,9 @@ void ___generateUSBAccessoryConnectionStatisticsEvent_block_invoke(uint64_t a1)
     _os_log_impl(&def_3A0E8, v4, OS_LOG_TYPE_DEFAULT, "CoreAnalytics event: %@\neventDict: %@", &v9, 0x16u);
   }
 
-  v6 = *(a1 + 32);
   AnalyticsSendEvent();
-  v7 = *(a1 + 32);
-  AnalyticsSendEvent();
-  if (systemInfo_isInternalBuild())
+  v6 = AnalyticsSendEvent();
+  if (systemInfo_isInternalBuild(v6, v7))
   {
     v8 = [ACCAnalytics loggerForUser:0];
     [v8 logACCAnalyticsForEventNamed:@"accessoryConnectionStatistics" withAttributes:*(a1 + 32)];
@@ -7415,7 +7414,7 @@ void ___generateUSBAccessoryConnectionStatisticsEvent_block_invoke(uint64_t a1)
 void ___hook_currentLimitChanged_block_invoke(id a1)
 {
   _gTRMNotificationTimerRunning = 1;
-  source = _trmDialogTimer();
+  source = _trmDialogTimer(a1);
   v1 = dispatch_time(0, (SBSBatteryUIDismissDuration * 1000000000.0));
   dispatch_source_set_timer(source, v1, 0xFFFFFFFFFFFFFFFFLL, 0x2FAF080uLL);
 }
@@ -7461,55 +7460,55 @@ void ___generateUnlockDialogSeenAnalyticEvent_block_invoke(uint64_t a1)
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v23 = 138412546;
-    v24 = @"com.apple.accessories.unlockDialogSeen";
-    v25 = 2112;
-    v26 = v5;
-    _os_log_impl(&def_3A0E8, v4, OS_LOG_TYPE_DEFAULT, "CoreAnalytics event: %@\neventDict: %@", &v23, 0x16u);
+    v26 = 138412546;
+    v27 = @"com.apple.accessories.unlockDialogSeen";
+    v28 = 2112;
+    v29 = v5;
+    _os_log_impl(&def_3A0E8, v4, OS_LOG_TYPE_DEFAULT, "CoreAnalytics event: %@\neventDict: %@", &v26, 0x16u);
   }
 
-  v6 = *(a1 + 32);
-  AnalyticsSendEvent();
-  if (systemInfo_systemSupportsPearl() && systemInfo_isInternalBuild())
+  v6 = AnalyticsSendEvent();
+  v8 = systemInfo_systemSupportsPearl(v6, v7);
+  if (v8 && systemInfo_isInternalBuild(v8, v9))
   {
-    v7 = *(a1 + 32);
-    v8 = IOServiceMatching("ApplePearlSEPDriver");
-    MatchingService = IOServiceGetMatchingService(kIOMainPortDefault, v8);
+    v10 = *(a1 + 32);
+    v11 = IOServiceMatching("ApplePearlSEPDriver");
+    MatchingService = IOServiceGetMatchingService(kIOMainPortDefault, v11);
     if (MatchingService)
     {
-      v10 = MatchingService;
+      v13 = MatchingService;
       CFProperty = IORegistryEntryCreateCFProperty(MatchingService, @"CombinedSequenceEnabled", kCFAllocatorDefault, 0);
-      v12 = IORegistryEntryCreateCFProperty(v10, @"CombinedSequenceAutoSet", kCFAllocatorDefault, 0);
-      v13 = v12;
-      if (CFProperty && v12)
+      v15 = IORegistryEntryCreateCFProperty(v13, @"CombinedSequenceAutoSet", kCFAllocatorDefault, 0);
+      v16 = v15;
+      if (CFProperty && v15)
       {
-        v14 = [v12 BOOLValue];
-        v15 = [CFProperty BOOLValue];
-        if (v14)
+        v17 = [v15 BOOLValue];
+        v18 = [CFProperty BOOLValue];
+        if (v17)
         {
-          v16 = @"autoDisabled";
-          v17 = @"autoEnabled";
+          v19 = @"autoDisabled";
+          v20 = @"autoEnabled";
         }
 
         else
         {
-          v16 = @"explicitlyDisabled";
-          v17 = @"explicitlyEnabled";
+          v19 = @"explicitlyDisabled";
+          v20 = @"explicitlyEnabled";
         }
 
-        if (v15)
+        if (v18)
         {
-          v16 = v17;
+          v19 = v20;
         }
 
-        v20 = v16;
+        v23 = v19;
       }
 
       else
       {
         if (gLogObjects && gNumLogObjects >= 1)
         {
-          v18 = *gLogObjects;
+          v21 = *gLogObjects;
         }
 
         else
@@ -7519,19 +7518,19 @@ void ___generateUnlockDialogSeenAnalyticEvent_block_invoke(uint64_t a1)
             [AirplaneMode init];
           }
 
-          v18 = &_os_log_default;
           v21 = &_os_log_default;
+          v24 = &_os_log_default;
         }
 
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
         {
           ___generateUnlockDialogSeenAnalyticEvent_block_invoke_cold_3();
         }
 
-        v20 = @"errorOccurred";
+        v23 = @"errorOccurred";
       }
 
-      IOObjectRelease(v10);
+      IOObjectRelease(v13);
     }
 
     else
@@ -7549,7 +7548,7 @@ void ___generateUnlockDialogSeenAnalyticEvent_block_invoke(uint64_t a1)
         }
 
         CFProperty = &_os_log_default;
-        v19 = &_os_log_default;
+        v22 = &_os_log_default;
       }
 
       if (os_log_type_enabled(CFProperty, OS_LOG_TYPE_ERROR))
@@ -7557,14 +7556,14 @@ void ___generateUnlockDialogSeenAnalyticEvent_block_invoke(uint64_t a1)
         ___generateUnlockDialogSeenAnalyticEvent_block_invoke_cold_5();
       }
 
-      v20 = @"errorOccurred";
+      v23 = @"errorOccurred";
     }
 
-    [v7 setObject:v20 forKey:@"fastPathState"];
+    [v10 setObject:v23 forKey:@"fastPathState"];
   }
 
-  v22 = [ACCAnalytics loggerForUser:1];
-  [v22 logACCAnalyticsForEventNamed:@"accessoryUnlockDialogSeen" withAttributes:*(a1 + 32)];
+  v25 = [ACCAnalytics loggerForUser:1];
+  [v25 logACCAnalyticsForEventNamed:@"accessoryUnlockDialogSeen" withAttributes:*(a1 + 32)];
 }
 
 id serviceNotificationTRM(void *a1)
@@ -7603,8 +7602,10 @@ id serviceNotificationTRM(void *a1)
   return [a1 trmStatusDidChange];
 }
 
-void serviceNotificationLDCM(void *a1, io_registry_entry_t a2, int a3)
+void serviceNotificationLDCM(void *a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
+  v4 = a2;
   if (gLogObjects)
   {
     v6 = gNumLogObjects < 5;
@@ -7636,7 +7637,7 @@ void serviceNotificationLDCM(void *a1, io_registry_entry_t a2, int a3)
     serviceNotificationLDCM_cold_2();
   }
 
-  if (a3 == -469794613)
+  if (v3 == -469794613)
   {
     if (gLogObjects && gNumLogObjects >= 5)
     {
@@ -7660,7 +7661,7 @@ void serviceNotificationLDCM(void *a1, io_registry_entry_t a2, int a3)
       _os_log_impl(&def_3A0E8, v9, OS_LOG_TYPE_INFO, "LDCM mitigation state changed!", v11, 2u);
     }
 
-    serviceLDCMMitigationStatusChanged(a1, a2);
+    serviceLDCMMitigationStatusChanged(a1, v4);
   }
 }
 
@@ -8081,10 +8082,11 @@ LABEL_21:
   return v15;
 }
 
-void OUTLINED_FUNCTION_9(void *a1, NSObject *a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint8_t buf)
+void OUTLINED_FUNCTION_9(void *a1, NSObject *a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &buf, 0x12u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x12u);
 }
 
 _BYTE *OUTLINED_FUNCTION_14(_BYTE *result, _BYTE *a2)
@@ -8112,10 +8114,11 @@ BOOL OUTLINED_FUNCTION_20(NSObject *a1)
   return os_log_type_enabled(a1, OS_LOG_TYPE_ERROR);
 }
 
-void OUTLINED_FUNCTION_24(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_24(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_DEFAULT, a4, &a9, 0xCu);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_DEFAULT, a4, va, 0xCu);
 }
 
 const char *acm_mem_alloc_info(const char *result, const void *a2, uint64_t a3, const char *a4, int a5, const char *a6)
@@ -8548,12 +8551,12 @@ uint64_t OUTLINED_FUNCTION_3_0(uint64_t a1, void *a2)
   return result;
 }
 
-void OUTLINED_FUNCTION_4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, unint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22)
+uint64_t OUTLINED_FUNCTION_4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  a9 = *v22 - v25;
-  v29 = *(v27 + 8 * v26);
+  a9 = *v9 - v12;
+  v16 = *(v14 + 8 * v13);
 
-  SerializeRequirement(v24, v29, v23 + v25, &a9, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22);
+  return SerializeRequirement(v11, v16, v10 + v12, &a9);
 }
 
 uint64_t OUTLINED_FUNCTION_5(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, char a11)
@@ -8991,7 +8994,7 @@ void crypto_encryptText_version1()
   ccaes_gcm_encrypt_mode();
   ccgcm_context_size();
   OUTLINED_FUNCTION_6_1();
-  v5 = (off_58B50)();
+  v5 = off_58B50();
   OUTLINED_FUNCTION_3_1(v5, v6, v7, v8, v9, v10, v11, v12, v19);
   if (v4)
   {
@@ -9006,32 +9009,9 @@ void crypto_encryptText_version1()
             v13 = v1 + 32;
             if (v1 != -32)
             {
-              if (v13 > *v0)
+              if (v13 > *v0 || (OUTLINED_FUNCTION_2_2(), v14 = ccgcm_init(), !checkCCError(v14, "ccgcm_init")) && !generateRandom(v3, 16) && (OUTLINED_FUNCTION_0_4(), v15 = ccgcm_set_iv(), !checkCCError(v15, "ccgcm_set_iv")) && (OUTLINED_FUNCTION_2_2(), v16 = ccgcm_update(), !checkCCError(v16, "ccgcm_update")) && (OUTLINED_FUNCTION_0_4(), v17 = ccgcm_finalize(), !checkCCError(v17, "ccgcm_finalize")))
               {
-                goto LABEL_13;
-              }
-
-              OUTLINED_FUNCTION_2_2();
-              v14 = ccgcm_init();
-              if (!checkCCError(v14, "ccgcm_init") && !generateRandom(v3, 16))
-              {
-                OUTLINED_FUNCTION_0_4();
-                v15 = ccgcm_set_iv();
-                if (!checkCCError(v15, "ccgcm_set_iv"))
-                {
-                  OUTLINED_FUNCTION_2_2();
-                  v16 = ccgcm_update();
-                  if (!checkCCError(v16, "ccgcm_update"))
-                  {
-                    OUTLINED_FUNCTION_0_4();
-                    v17 = ccgcm_finalize();
-                    if (!checkCCError(v17, "ccgcm_finalize"))
-                    {
-LABEL_13:
-                      *v0 = v13;
-                    }
-                  }
-                }
+                *v0 = v13;
               }
             }
           }
@@ -9059,7 +9039,7 @@ void crypto_encryptText_version2()
   ccaes_gcm_encrypt_mode();
   ccgcm_context_size();
   OUTLINED_FUNCTION_6_1();
-  v5 = (off_58B50)();
+  v5 = off_58B50();
   OUTLINED_FUNCTION_3_1(v5, v6, v7, v8, v9, v10, v11, v12, v23);
   if (v4)
   {
@@ -9074,43 +9054,9 @@ void crypto_encryptText_version2()
             v13 = v1 + 33;
             if (v1 != -33)
             {
-              if (v13 > *v0)
+              if (v13 > *v0 || (OUTLINED_FUNCTION_2_2(), v14 = ccgcm_init(), !checkCCError(v14, "ccgcm_init")) && (*v3 = 2, v15 = (v3 + 1), OUTLINED_FUNCTION_13_1(), !v16) && !generateRandom(v15, 16) && (OUTLINED_FUNCTION_0_4(), v17 = ccgcm_set_iv(), !checkCCError(v17, "ccgcm_set_iv")) && (v18 = v15 + 16, OUTLINED_FUNCTION_13_1(), !v19) && (OUTLINED_FUNCTION_2_2(), v20 = ccgcm_update(), !checkCCError(v20, "ccgcm_update")) && !__CFADD__(v18, v1) && (OUTLINED_FUNCTION_0_4(), v21 = ccgcm_finalize(), !checkCCError(v21, "ccgcm_finalize")))
               {
-                goto LABEL_16;
-              }
-
-              OUTLINED_FUNCTION_2_2();
-              v14 = ccgcm_init();
-              if (!checkCCError(v14, "ccgcm_init"))
-              {
-                *v3 = 2;
-                v15 = (v3 + 1);
-                OUTLINED_FUNCTION_13_1();
-                if (!v16 && !generateRandom(v15, 16))
-                {
-                  OUTLINED_FUNCTION_0_4();
-                  v17 = ccgcm_set_iv();
-                  if (!checkCCError(v17, "ccgcm_set_iv"))
-                  {
-                    v18 = v15 + 16;
-                    OUTLINED_FUNCTION_13_1();
-                    if (!v19)
-                    {
-                      OUTLINED_FUNCTION_2_2();
-                      v20 = ccgcm_update();
-                      if (!checkCCError(v20, "ccgcm_update") && !__CFADD__(v18, v1))
-                      {
-                        OUTLINED_FUNCTION_0_4();
-                        v21 = ccgcm_finalize();
-                        if (!checkCCError(v21, "ccgcm_finalize"))
-                        {
-LABEL_16:
-                          *v0 = v13;
-                        }
-                      }
-                    }
-                  }
-                }
+                *v0 = v13;
               }
             }
           }
@@ -9158,33 +9104,9 @@ void crypto_decryptText_version1()
             v19 = v5 - 32;
             if (v18)
             {
-              if (*v1 < v19)
+              if (*v1 < v19 || (OUTLINED_FUNCTION_2_2(), v20 = ccgcm_init(), !checkCCError(v20, "ccgcm_init")) && (OUTLINED_FUNCTION_0_4(), v21 = ccgcm_set_iv(), !checkCCError(v21, "ccgcm_set_iv")) && (OUTLINED_FUNCTION_2_2(), v22 = ccgcm_update(), !checkCCError(v22, "ccgcm_update")) && (OUTLINED_FUNCTION_0_4(), ccgcm_finalize(), v23 = cc_cmp_safe(), !checkCCError(v23, "cc_cmp_safe")))
               {
-                goto LABEL_13;
-              }
-
-              OUTLINED_FUNCTION_2_2();
-              v20 = ccgcm_init();
-              if (!checkCCError(v20, "ccgcm_init"))
-              {
-                OUTLINED_FUNCTION_0_4();
-                v21 = ccgcm_set_iv();
-                if (!checkCCError(v21, "ccgcm_set_iv"))
-                {
-                  OUTLINED_FUNCTION_2_2();
-                  v22 = ccgcm_update();
-                  if (!checkCCError(v22, "ccgcm_update"))
-                  {
-                    OUTLINED_FUNCTION_0_4();
-                    ccgcm_finalize();
-                    v23 = cc_cmp_safe();
-                    if (!checkCCError(v23, "cc_cmp_safe"))
-                    {
-LABEL_13:
-                      *v1 = v19;
-                    }
-                  }
-                }
+                *v1 = v19;
               }
             }
           }
@@ -9231,41 +9153,9 @@ void crypto_decryptText_version2()
             if (v5 >= 0x22)
             {
               v18 = v5 - 33;
-              if (*v1 < v18)
+              if (*v1 < v18 || (OUTLINED_FUNCTION_13_1(), !v19) && *v7 == 2 && (OUTLINED_FUNCTION_2_2(), v20 = ccgcm_init(), !checkCCError(v20, "ccgcm_init")) && (OUTLINED_FUNCTION_0_4(), v21 = ccgcm_set_iv(), !checkCCError(v21, "ccgcm_set_iv")) && (OUTLINED_FUNCTION_13_1(), !v22) && (OUTLINED_FUNCTION_2_2(), v23 = ccgcm_update(), !checkCCError(v23, "ccgcm_update")) && !__CFADD__(v7 + 17, v18) && (OUTLINED_FUNCTION_0_4(), ccgcm_finalize(), v24 = cc_cmp_safe(), !checkCCError(v24, "cc_cmp_safe")))
               {
-                goto LABEL_16;
-              }
-
-              OUTLINED_FUNCTION_13_1();
-              if (!v19 && *v7 == 2)
-              {
-                OUTLINED_FUNCTION_2_2();
-                v20 = ccgcm_init();
-                if (!checkCCError(v20, "ccgcm_init"))
-                {
-                  OUTLINED_FUNCTION_0_4();
-                  v21 = ccgcm_set_iv();
-                  if (!checkCCError(v21, "ccgcm_set_iv"))
-                  {
-                    OUTLINED_FUNCTION_13_1();
-                    if (!v22)
-                    {
-                      OUTLINED_FUNCTION_2_2();
-                      v23 = ccgcm_update();
-                      if (!checkCCError(v23, "ccgcm_update") && !__CFADD__(v7 + 17, v18))
-                      {
-                        OUTLINED_FUNCTION_0_4();
-                        ccgcm_finalize();
-                        v24 = cc_cmp_safe();
-                        if (!checkCCError(v24, "cc_cmp_safe"))
-                        {
-LABEL_16:
-                          *v1 = v18;
-                        }
-                      }
-                    }
-                  }
-                }
+                *v1 = v18;
               }
             }
           }
@@ -9377,4 +9267,121 @@ uint64_t LibCall_ACMSEPControl_Block(uint64_t a1, uint64_t a2, uint64_t a3, uint
   }
 
   return v17;
+}
+
+uint64_t LibCall_ACMGlobalContextVerifyPolicy_Block(uint64_t (*a1)(void), uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+{
+  if (gACMLoggingLevel <= 0xAu)
+  {
+    printf("%s: %s: called.\n", "ACM", "LibCall_ACMGlobalContextVerifyPolicy_Block");
+  }
+
+  v15 = 0;
+  result = LibCall_ACMContextCreate(a1, a2, &v15, 0, 0, 1);
+  if (result)
+  {
+    if (a7)
+    {
+      result = (*(a7 + 16))(a7, result, 0, 0);
+    }
+  }
+
+  else
+  {
+    result = LibCall_ACMContextVerifyPolicyEx_Block(a1, a2, v15, a3, a4, a5, a6, 0xFFFFFFFFLL, a7);
+  }
+
+  if (v15)
+  {
+    result = LibCall_ACMContextDelete(a1, a2, v15, 1);
+  }
+
+  if (gACMLoggingLevel <= 0xAu)
+  {
+    return printf("%s: %s: returning.\n", "ACM", "LibCall_ACMGlobalContextVerifyPolicy_Block");
+  }
+
+  return result;
+}
+
+uint64_t LibCall_ACMGetAclAuthMethod_Block(uint64_t result, uint64_t a2, __n128 *a3, uint64_t a4)
+{
+  v7 = result;
+  if (gACMLoggingLevel <= 0xAu)
+  {
+    result = printf("%s: %s: called.\n", "ACM", "LibCall_ACMGetAclAuthMethod_Block");
+  }
+
+  memset(v13, 0, sizeof(v13));
+  v11 = 256;
+  if (v7 && a3 && a4)
+  {
+    v12 = 0uLL;
+    v10 = 16;
+    AclAuthMethod_Serialize = LibSer_GetAclAuthMethod_Serialize(a3, &v12, &v10);
+    if (!v9 && v10 == 16)
+    {
+      v7(a2, 31, 0, &v12, 16, v13, &v11, AclAuthMethod_Serialize);
+    }
+
+    goto LABEL_9;
+  }
+
+  if (a4)
+  {
+LABEL_9:
+    result = (*(a4 + 16))(a4);
+  }
+
+  if (gACMLoggingLevel <= 0xAu)
+  {
+    return printf("%s: %s: returning.\n", "ACM", "LibCall_ACMGetAclAuthMethod_Block");
+  }
+
+  return result;
+}
+
+uint64_t verifyAclConstraintForOperationCommandInternal(uint64_t result, int a2, unsigned __int8 a3, uint64_t a4, uint64_t a5, uint64_t a6, const void *a7, uint64_t a8, char a9, uint64_t a10, int a11, int a12, uint64_t a13)
+{
+  v20 = result;
+  if (gACMLoggingLevel <= 0xAu)
+  {
+    result = printf("%s: %s: called.\n", "ACM", "verifyAclConstraintForOperationCommandInternal");
+  }
+
+  v25 = 0;
+  v24 = 0;
+  if (a4 && a5 && a6 && a13)
+  {
+    v21 = verifyAclConstraintInternal(v20, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, &v24, &v25);
+    v22 = v25;
+    v23 = v24;
+  }
+
+  else
+  {
+    if (!a13)
+    {
+      goto LABEL_10;
+    }
+
+    v22 = 0;
+    v23 = 0;
+    v21 = 4294967293;
+  }
+
+  (*(a13 + 16))(a13, v21, v23, v22);
+  result = v25;
+  if (v25)
+  {
+    result = Util_DeallocRequirement(v25);
+  }
+
+LABEL_10:
+  if (gACMLoggingLevel <= 0xAu)
+  {
+    return printf("%s: %s: returning.\n", "ACM", "verifyAclConstraintForOperationCommandInternal");
+  }
+
+  return result;
 }

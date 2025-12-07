@@ -1,5 +1,6 @@
 @interface ABSPBDate
 - (BOOL)isEqual:(id)equal;
+- (id)calendarAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
@@ -29,6 +30,21 @@
   {
     return 1;
   }
+}
+
+- (id)calendarAsString:(int)string
+{
+  if ((string - 1) >= 0x10)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_10005D828[string - 1];
+  }
+
+  return v4;
 }
 
 - (int)StringAsCalendar:(id)calendar
@@ -306,7 +322,6 @@ LABEL_12:
   has = self->_has;
   if (has)
   {
-    calendar = self->_calendar;
     PBDataWriterWriteInt32Field();
     has = self->_has;
     if ((has & 0x20) == 0)
@@ -326,7 +341,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  isLeapMonth = self->_isLeapMonth;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 4) == 0)
@@ -341,7 +355,6 @@ LABEL_4:
   }
 
 LABEL_13:
-  era = self->_era;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -356,7 +369,6 @@ LABEL_5:
   }
 
 LABEL_14:
-  year = self->_year;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -371,12 +383,10 @@ LABEL_6:
   }
 
 LABEL_15:
-  month = self->_month;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 2) != 0)
   {
 LABEL_7:
-    day = self->_day;
     PBDataWriterWriteInt32Field();
   }
 
@@ -579,7 +589,7 @@ LABEL_7:
     }
 
 LABEL_34:
-    v6 = 0;
+    v5 = 0;
     goto LABEL_35;
   }
 
@@ -588,7 +598,6 @@ LABEL_34:
     goto LABEL_34;
   }
 
-  v5 = *(equalCopy + 28);
   if (self->_isLeapMonth)
   {
     if ((*(equalCopy + 28) & 1) == 0)
@@ -642,7 +651,7 @@ LABEL_9:
     goto LABEL_34;
   }
 
-  v6 = (*(equalCopy + 32) & 2) == 0;
+  v5 = (*(equalCopy + 32) & 2) == 0;
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 32) & 2) == 0 || self->_day != *(equalCopy + 3))
@@ -650,12 +659,12 @@ LABEL_9:
       goto LABEL_34;
     }
 
-    v6 = 1;
+    v5 = 1;
   }
 
 LABEL_35:
 
-  return v6;
+  return v5;
 }
 
 - (unint64_t)hash

@@ -204,18 +204,18 @@ LABEL_17:
       [v24 appendString:v25];
     }
 
-    [v24 appendString:@".png"];
+    v26 = [v24 appendString:@".png"];
     if (v24)
     {
-      v26 = [v21 URLByAppendingPathComponent:v24];
+      v27 = [v21 URLByAppendingPathComponent:v24];
 
-      v21 = v26;
+      v21 = v27;
     }
 
-    v27 = logger();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+    v28 = logger(v26);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
     {
-      sub_5954(v21, deviceCopy, v27);
+      sub_5954(v21, deviceCopy, v28);
     }
 
     v5 = v21;

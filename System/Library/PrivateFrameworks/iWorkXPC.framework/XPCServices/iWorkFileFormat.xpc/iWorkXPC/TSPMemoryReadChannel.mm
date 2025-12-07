@@ -148,7 +148,7 @@
 {
   dispatchData = self->_dispatchData;
   self->_dispatchData = 0;
-  _objc_release_x1();
+  _objc_release_x1(self, dispatchData);
 }
 
 @end

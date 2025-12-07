@@ -1,1635 +1,529 @@
-uint64_t specialized _NativeSet.insertNew(_:at:isUnique:)(uint64_t a1, unint64_t a2, char a3)
+uint64_t dispatch thunk of MLS.XPCClientCoordinator.add(members:toGroup:context:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v33 = a1;
-  v6 = type metadata accessor for MLS.Identity.Credential();
+  v14 = (*(*v5 + 240) + **(*v5 + 240));
+  v12 = swift_task_alloc();
+  *(v6 + 16) = v12;
+  *v12 = v6;
+  v12[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v14(a1, a2, a3, a4, a5);
+}
+
+uint64_t dispatch thunk of MLS.XPCClientCoordinator.kick(members:fromGroup:context:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v14 = (*(*v5 + 248) + **(*v5 + 248));
+  v12 = swift_task_alloc();
+  *(v6 + 16) = v12;
+  *v12 = v6;
+  v12[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v14(a1, a2, a3, a4, a5);
+}
+
+uint64_t dispatch thunk of MLS.XPCClientCoordinator.leave(group:context:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v12 = (*(*v4 + 256) + **(*v4 + 256));
+  v10 = swift_task_alloc();
+  *(v5 + 16) = v10;
+  *v10 = v5;
+  v10[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v12(a1, a2, a3, a4);
+}
+
+uint64_t dispatch thunk of MLS.XPCClientCoordinator.downgrade(group:context:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v12 = (*(*v4 + 264) + **(*v4 + 264));
+  v10 = swift_task_alloc();
+  *(v5 + 16) = v10;
+  *v10 = v5;
+  v10[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v12(a1, a2, a3, a4);
+}
+
+uint64_t dispatch thunk of MLS.XPCClientCoordinator.applicationEncrypt(data:withGroup:context:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+{
+  v16 = (*(*v6 + 272) + **(*v6 + 272));
+  v14 = swift_task_alloc();
+  *(v7 + 16) = v14;
+  *v14 = v7;
+  v14[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v16(a1, a2, a3, a4, a5, a6);
+}
+
+uint64_t dispatch thunk of MLS.XPCClientCoordinator.applicationSign(input:withGroup:context:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v14 = (*(*v5 + 280) + **(*v5 + 280));
+  v12 = swift_task_alloc();
+  *(v6 + 16) = v12;
+  *v12 = v6;
+  v12[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v14(a1, a2, a3, a4, a5);
+}
+
+uint64_t dispatch thunk of MLS.XPCClientCoordinator.applicationEncrypt(groupName:withGroup:context:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+{
+  v16 = (*(*v6 + 288) + **(*v6 + 288));
+  v14 = swift_task_alloc();
+  *(v7 + 16) = v14;
+  *v14 = v7;
+  v14[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v16(a1, a2, a3, a4, a5, a6);
+}
+
+uint64_t dispatch thunk of MLS.XPCClientCoordinator.processIncoming(groupName:forGroup:context:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+{
+  v16 = (*(*v6 + 296) + **(*v6 + 296));
+  v14 = swift_task_alloc();
+  *(v7 + 16) = v14;
+  *v14 = v7;
+  v14[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v16(a1, a2, a3, a4, a5, a6);
+}
+
+uint64_t dispatch thunk of MLS.XPCClientCoordinator.processIncoming(message:forGroup:context:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v14 = (*(*v5 + 304) + **(*v5 + 304));
+  v12 = swift_task_alloc();
+  *(v6 + 16) = v12;
+  *v12 = v6;
+  v12[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v14(a1, a2, a3, a4, a5);
+}
+
+uint64_t dispatch thunk of MLS.XPCClientCoordinator.processIncoming(message:context:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v10 = (*(*v3 + 312) + **(*v3 + 312));
+  v8 = swift_task_alloc();
+  *(v4 + 16) = v8;
+  *v8 = v4;
+  v8[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v10(a1, a2, a3);
+}
+
+uint64_t dispatch thunk of MLS.XPCClientCoordinator.processIncoming(failureToDecrypt:withGroup:context:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v14 = (*(*v5 + 320) + **(*v5 + 320));
+  v12 = swift_task_alloc();
+  *(v6 + 16) = v12;
+  *v12 = v6;
+  v12[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v14(a1, a2, a3, a4, a5);
+}
+
+uint64_t dispatch thunk of MLS.XPCClientCoordinator.processIncoming(errorMessage:withGroup:context:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v14 = (*(*v5 + 328) + **(*v5 + 328));
+  v12 = swift_task_alloc();
+  *(v6 + 16) = v12;
+  *v12 = v6;
+  v12[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v14(a1, a2, a3, a4, a5);
+}
+
+uint64_t sub_26513EAB8(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCy10Foundation4DataVs5Error_pGMd, &_sScCy10Foundation4DataVs5Error_pGMR);
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  MEMORY[0x28223BE20](v6);
-  v10 = &v30 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = *(*v3 + 16);
-  v12 = *(*v3 + 24);
-  v30 = v3;
-  v31 = v7;
-  if (v12 > v11 && (a3 & 1) != 0)
+  if (*(v7 + 84) == a2)
   {
-    goto LABEL_12;
-  }
+    v8 = *(v7 + 48);
 
-  if (a3)
-  {
-    specialized _NativeSet.resize(capacity:)(v11 + 1);
+    return v8(a1, a2, v6);
   }
 
   else
   {
-    if (v12 > v11)
+    v10 = *(a1 + *(a3 + 20));
+    if (v10 >= 0xB)
     {
-      specialized _NativeSet.copy()(MEMORY[0x277D6AC88], &_ss11_SetStorageCy8SwiftMLS0D0O8IdentityO10CredentialOGMd, &_ss11_SetStorageCy8SwiftMLS0D0O8IdentityO10CredentialOGMR);
-      goto LABEL_12;
-    }
-
-    specialized _NativeSet.copyAndResize(capacity:)(v11 + 1);
-  }
-
-  v13 = *v3;
-  v14 = *(*v3 + 40);
-  _s8SwiftMLS0B0O8IdentityO07SigningC0VAGSHAAWlTm_0(&lazy protocol witness table cache variable for type MLS.Identity.Credential and conformance MLS.Identity.Credential, MEMORY[0x277D6AC88]);
-  v15 = dispatch thunk of Hashable._rawHashValue(seed:)();
-  v16 = v13 + 56;
-  v32 = v13;
-  v17 = -1 << *(v13 + 32);
-  a2 = v15 & ~v17;
-  if ((*(v13 + 56 + ((a2 >> 3) & 0xFFFFFFFFFFFFFF8)) >> a2))
-  {
-    v18 = ~v17;
-    v21 = *(v7 + 16);
-    v20 = v7 + 16;
-    v19 = v21;
-    v22 = *(v20 + 56);
-    do
-    {
-      v19(v10, *(v32 + 48) + v22 * a2, v6);
-      _s8SwiftMLS0B0O8IdentityO07SigningC0VAGSHAAWlTm_0(&lazy protocol witness table cache variable for type MLS.Identity.Credential and conformance MLS.Identity.Credential, MEMORY[0x277D6AC88]);
-      v23 = dispatch thunk of static Equatable.== infix(_:_:)();
-      (*(v20 - 8))(v10, v6);
-      if (v23)
-      {
-        goto LABEL_15;
-      }
-
-      a2 = (a2 + 1) & v18;
-    }
-
-    while (((*(v16 + ((a2 >> 3) & 0xFFFFFFFFFFFFFF8)) >> a2) & 1) != 0);
-  }
-
-LABEL_12:
-  v24 = v31;
-  v25 = *v30;
-  *(v25 + 8 * (a2 >> 6) + 56) |= 1 << a2;
-  result = (*(v24 + 32))(*(v25 + 48) + *(v24 + 72) * a2, v33, v6);
-  v27 = *(v25 + 16);
-  v28 = __OFADD__(v27, 1);
-  v29 = v27 + 1;
-  if (!v28)
-  {
-    *(v25 + 16) = v29;
-    return result;
-  }
-
-  __break(1u);
-LABEL_15:
-  result = ELEMENT_TYPE_OF_SET_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
-  __break(1u);
-  return result;
-}
-
-{
-  v33 = a1;
-  v6 = type metadata accessor for MLS.Identity.SigningIdentity();
-  v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  MEMORY[0x28223BE20](v6);
-  v10 = &v30 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = *(*v3 + 16);
-  v12 = *(*v3 + 24);
-  v30 = v3;
-  v31 = v7;
-  if (v12 > v11 && (a3 & 1) != 0)
-  {
-    goto LABEL_12;
-  }
-
-  if (a3)
-  {
-    specialized _NativeSet.resize(capacity:)(v11 + 1);
-  }
-
-  else
-  {
-    if (v12 > v11)
-    {
-      specialized _NativeSet.copy()(MEMORY[0x277D6AC60], &_ss11_SetStorageCy8SwiftMLS0D0O8IdentityO07SigningE0VGMd, &_ss11_SetStorageCy8SwiftMLS0D0O8IdentityO07SigningE0VGMR);
-      goto LABEL_12;
-    }
-
-    specialized _NativeSet.copyAndResize(capacity:)(v11 + 1);
-  }
-
-  v13 = *v3;
-  v14 = *(*v3 + 40);
-  _s8SwiftMLS0B0O8IdentityO07SigningC0VAGSHAAWlTm_0(&lazy protocol witness table cache variable for type MLS.Identity.SigningIdentity and conformance MLS.Identity.SigningIdentity, MEMORY[0x277D6AC60]);
-  v15 = dispatch thunk of Hashable._rawHashValue(seed:)();
-  v16 = v13 + 56;
-  v32 = v13;
-  v17 = -1 << *(v13 + 32);
-  a2 = v15 & ~v17;
-  if ((*(v13 + 56 + ((a2 >> 3) & 0xFFFFFFFFFFFFFF8)) >> a2))
-  {
-    v18 = ~v17;
-    v21 = *(v7 + 16);
-    v20 = v7 + 16;
-    v19 = v21;
-    v22 = *(v20 + 56);
-    do
-    {
-      v19(v10, *(v32 + 48) + v22 * a2, v6);
-      _s8SwiftMLS0B0O8IdentityO07SigningC0VAGSHAAWlTm_0(&lazy protocol witness table cache variable for type MLS.Identity.SigningIdentity and conformance MLS.Identity.SigningIdentity, MEMORY[0x277D6AC60]);
-      v23 = dispatch thunk of static Equatable.== infix(_:_:)();
-      (*(v20 - 8))(v10, v6);
-      if (v23)
-      {
-        goto LABEL_15;
-      }
-
-      a2 = (a2 + 1) & v18;
-    }
-
-    while (((*(v16 + ((a2 >> 3) & 0xFFFFFFFFFFFFFF8)) >> a2) & 1) != 0);
-  }
-
-LABEL_12:
-  v24 = v31;
-  v25 = *v30;
-  *(v25 + 8 * (a2 >> 6) + 56) |= 1 << a2;
-  result = (*(v24 + 32))(*(v25 + 48) + *(v24 + 72) * a2, v33, v6);
-  v27 = *(v25 + 16);
-  v28 = __OFADD__(v27, 1);
-  v29 = v27 + 1;
-  if (!v28)
-  {
-    *(v25 + 16) = v29;
-    return result;
-  }
-
-  __break(1u);
-LABEL_15:
-  result = ELEMENT_TYPE_OF_SET_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
-  __break(1u);
-  return result;
-}
-
-Swift::Int specialized _NativeSet.insertNew(_:at:isUnique:)(Swift::Int result, Swift::Int a2, unint64_t a3, char a4)
-{
-  v7 = result;
-  v8 = *(*v4 + 16);
-  v9 = *(*v4 + 24);
-  if (v9 > v8 && (a4 & 1) != 0)
-  {
-    goto LABEL_16;
-  }
-
-  if (a4)
-  {
-    specialized _NativeSet.resize(capacity:)(v8 + 1);
-  }
-
-  else
-  {
-    if (v9 > v8)
-    {
-      result = specialized _NativeSet.copy()();
-      goto LABEL_16;
-    }
-
-    specialized _NativeSet.copyAndResize(capacity:)(v8 + 1);
-  }
-
-  v10 = *v4;
-  v11 = *(*v4 + 40);
-  Hasher.init(_seed:)();
-  String.hash(into:)();
-  result = Hasher._finalize()();
-  v12 = -1 << *(v10 + 32);
-  a3 = result & ~v12;
-  if ((*(v10 + 56 + ((a3 >> 3) & 0xFFFFFFFFFFFFFF8)) >> a3))
-  {
-    v13 = ~v12;
-    do
-    {
-      v14 = (*(v10 + 48) + 16 * a3);
-      if (*v14 == v7 && v14[1] == a2)
-      {
-        goto LABEL_19;
-      }
-
-      result = _stringCompareWithSmolCheck(_:_:expecting:)();
-      if (result)
-      {
-        goto LABEL_19;
-      }
-
-      a3 = (a3 + 1) & v13;
-    }
-
-    while (((*(v10 + 56 + ((a3 >> 3) & 0xFFFFFFFFFFFFFF8)) >> a3) & 1) != 0);
-  }
-
-LABEL_16:
-  v16 = *v4;
-  *(*v4 + 8 * (a3 >> 6) + 56) |= 1 << a3;
-  v17 = (*(v16 + 48) + 16 * a3);
-  *v17 = v7;
-  v17[1] = a2;
-  v18 = *(v16 + 16);
-  v19 = __OFADD__(v18, 1);
-  v20 = v18 + 1;
-  if (!v19)
-  {
-    *(v16 + 16) = v20;
-    return result;
-  }
-
-  __break(1u);
-LABEL_19:
-  result = ELEMENT_TYPE_OF_SET_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
-  __break(1u);
-  return result;
-}
-
-{
-  v5 = v4;
-  v8 = result;
-  v9 = *(*v4 + 16);
-  v10 = *(*v4 + 24);
-  if (v10 > v9 && (a4 & 1) != 0)
-  {
-    goto LABEL_16;
-  }
-
-  if (a4)
-  {
-    specialized _NativeSet.resize(capacity:)(v9 + 1);
-  }
-
-  else
-  {
-    if (v10 > v9)
-    {
-      result = specialized _NativeSet.copy()();
-      goto LABEL_16;
-    }
-
-    specialized _NativeSet.copyAndResize(capacity:)(v9 + 1);
-  }
-
-  v11 = *v4;
-  v12 = *(*v4 + 40);
-  Hasher.init(_seed:)();
-  String.hash(into:)();
-  String.hash(into:)();
-  MEMORY[0x266754DE0](0);
-  result = Hasher._finalize()();
-  v13 = v11 + 56;
-  v14 = -1 << *(v11 + 32);
-  a3 = result & ~v14;
-  if ((*(v11 + 56 + ((a3 >> 3) & 0xFFFFFFFFFFFFFF8)) >> a3))
-  {
-    v15 = ~v14;
-    v16 = *(v11 + 48);
-    do
-    {
-      v17 = (v16 + 16 * a3);
-      if (*v17 == v8 && v17[1] == a2)
-      {
-        goto LABEL_19;
-      }
-
-      result = _stringCompareWithSmolCheck(_:_:expecting:)();
-      if (result)
-      {
-        goto LABEL_19;
-      }
-
-      a3 = (a3 + 1) & v15;
-    }
-
-    while (((*(v13 + ((a3 >> 3) & 0xFFFFFFFFFFFFFF8)) >> a3) & 1) != 0);
-  }
-
-LABEL_16:
-  v19 = *v5;
-  *(*v5 + 8 * (a3 >> 6) + 56) |= 1 << a3;
-  v20 = (*(v19 + 48) + 16 * a3);
-  *v20 = v8;
-  v20[1] = a2;
-  v21 = *(v19 + 16);
-  v22 = __OFADD__(v21, 1);
-  v23 = v21 + 1;
-  if (!v22)
-  {
-    *(v19 + 16) = v23;
-    return result;
-  }
-
-  __break(1u);
-LABEL_19:
-  result = ELEMENT_TYPE_OF_SET_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
-  __break(1u);
-  return result;
-}
-
-void *specialized _NativeSet.copy()()
-{
-  v1 = v0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCy15SecureMessaging3MLSO9AllMemberOGMd, &_ss11_SetStorageCy15SecureMessaging3MLSO9AllMemberOGMR);
-  v2 = *v0;
-  v3 = static _SetStorage.copy(original:)();
-  v4 = v3;
-  if (*(v2 + 16))
-  {
-    result = (v3 + 56);
-    v6 = ((1 << *(v4 + 32)) + 63) >> 6;
-    if (v4 != v2 || result >= v2 + 56 + 8 * v6)
-    {
-      result = memmove(result, (v2 + 56), 8 * v6);
-    }
-
-    v8 = 0;
-    *(v4 + 16) = *(v2 + 16);
-    v9 = 1 << *(v2 + 32);
-    v10 = *(v2 + 56);
-    v11 = -1;
-    if (v9 < 64)
-    {
-      v11 = ~(-1 << v9);
-    }
-
-    v12 = v11 & v10;
-    v13 = (v9 + 63) >> 6;
-    if ((v11 & v10) != 0)
-    {
-      do
-      {
-        v14 = __clz(__rbit64(v12));
-        v12 &= v12 - 1;
-LABEL_17:
-        v17 = 32 * (v14 | (v8 << 6));
-        v18 = *(v2 + 48) + v17;
-        v19 = *(v18 + 8);
-        v20 = *(v18 + 16);
-        v21 = *(v4 + 48) + v17;
-        v22 = *(v18 + 24);
-        *v21 = *v18;
-        *(v21 + 8) = v19;
-        *(v21 + 16) = v20;
-        *(v21 + 24) = v22;
-        result = outlined copy of MLS.AllMember();
-      }
-
-      while (v12);
-    }
-
-    v15 = v8;
-    while (1)
-    {
-      v8 = v15 + 1;
-      if (__OFADD__(v15, 1))
-      {
-        break;
-      }
-
-      if (v8 >= v13)
-      {
-        goto LABEL_19;
-      }
-
-      v16 = *(v2 + 56 + 8 * v8);
-      ++v15;
-      if (v16)
-      {
-        v14 = __clz(__rbit64(v16));
-        v12 = (v16 - 1) & v16;
-        goto LABEL_17;
-      }
-    }
-
-    __break(1u);
-  }
-
-  else
-  {
-LABEL_19:
-
-    *v1 = v4;
-  }
-
-  return result;
-}
-
-{
-  v1 = v0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCySSGMd, &_ss11_SetStorageCySSGMR);
-  v2 = *v0;
-  v3 = static _SetStorage.copy(original:)();
-  v4 = v3;
-  if (*(v2 + 16))
-  {
-    result = (v3 + 56);
-    v6 = ((1 << *(v4 + 32)) + 63) >> 6;
-    if (v4 != v2 || result >= v2 + 56 + 8 * v6)
-    {
-      result = memmove(result, (v2 + 56), 8 * v6);
-    }
-
-    v8 = 0;
-    *(v4 + 16) = *(v2 + 16);
-    v9 = 1 << *(v2 + 32);
-    v10 = *(v2 + 56);
-    v11 = -1;
-    if (v9 < 64)
-    {
-      v11 = ~(-1 << v9);
-    }
-
-    v12 = v11 & v10;
-    v13 = (v9 + 63) >> 6;
-    if ((v11 & v10) != 0)
-    {
-      do
-      {
-        v14 = __clz(__rbit64(v12));
-        v12 &= v12 - 1;
-LABEL_17:
-        v17 = 16 * (v14 | (v8 << 6));
-        v18 = (*(v2 + 48) + v17);
-        v19 = v18[1];
-        v20 = (*(v4 + 48) + v17);
-        *v20 = *v18;
-        v20[1] = v19;
-      }
-
-      while (v12);
-    }
-
-    v15 = v8;
-    while (1)
-    {
-      v8 = v15 + 1;
-      if (__OFADD__(v15, 1))
-      {
-        break;
-      }
-
-      if (v8 >= v13)
-      {
-        goto LABEL_19;
-      }
-
-      v16 = *(v2 + 56 + 8 * v8);
-      ++v15;
-      if (v16)
-      {
-        v14 = __clz(__rbit64(v16));
-        v12 = (v16 - 1) & v16;
-        goto LABEL_17;
-      }
-    }
-
-    __break(1u);
-  }
-
-  else
-  {
-LABEL_19:
-
-    *v1 = v4;
-  }
-
-  return result;
-}
-
-{
-  v1 = v0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCy15SecureMessaging3MLSO22UniqueClientIdentifierVGMd, &_ss11_SetStorageCy15SecureMessaging3MLSO22UniqueClientIdentifierVGMR);
-  v2 = *v0;
-  v3 = static _SetStorage.copy(original:)();
-  v4 = v3;
-  if (*(v2 + 16))
-  {
-    result = (v3 + 56);
-    v6 = ((1 << *(v4 + 32)) + 63) >> 6;
-    if (v4 != v2 || result >= v2 + 56 + 8 * v6)
-    {
-      result = memmove(result, (v2 + 56), 8 * v6);
-    }
-
-    v8 = 0;
-    *(v4 + 16) = *(v2 + 16);
-    v9 = 1 << *(v2 + 32);
-    v10 = *(v2 + 56);
-    v11 = -1;
-    if (v9 < 64)
-    {
-      v11 = ~(-1 << v9);
-    }
-
-    v12 = v11 & v10;
-    v13 = (v9 + 63) >> 6;
-    if ((v11 & v10) != 0)
-    {
-      do
-      {
-        v14 = __clz(__rbit64(v12));
-        v12 &= v12 - 1;
-LABEL_17:
-        v17 = 16 * (v14 | (v8 << 6));
-        v18 = (*(v2 + 48) + v17);
-        v19 = v18[1];
-        v20 = (*(v4 + 48) + v17);
-        *v20 = *v18;
-        v20[1] = v19;
-      }
-
-      while (v12);
-    }
-
-    v15 = v8;
-    while (1)
-    {
-      v8 = v15 + 1;
-      if (__OFADD__(v15, 1))
-      {
-        break;
-      }
-
-      if (v8 >= v13)
-      {
-        goto LABEL_19;
-      }
-
-      v16 = *(v2 + 56 + 8 * v8);
-      ++v15;
-      if (v16)
-      {
-        v14 = __clz(__rbit64(v16));
-        v12 = (v16 - 1) & v16;
-        goto LABEL_17;
-      }
-    }
-
-    __break(1u);
-  }
-
-  else
-  {
-LABEL_19:
-
-    *v1 = v4;
-  }
-
-  return result;
-}
-
-void *specialized _NativeSet.copy()(uint64_t (*a1)(void), uint64_t *a2, uint64_t *a3)
-{
-  v6 = v3;
-  v7 = a1(0);
-  v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  MEMORY[0x28223BE20](v7);
-  v11 = &v27 - v10;
-  __swift_instantiateConcreteTypeFromMangledNameV2(a2, a3);
-  v12 = *v3;
-  v13 = static _SetStorage.copy(original:)();
-  v14 = v13;
-  if (*(v12 + 16))
-  {
-    v28 = v6;
-    result = (v13 + 56);
-    v16 = ((1 << *(v14 + 32)) + 63) >> 6;
-    if (v14 != v12 || result >= v12 + 56 + 8 * v16)
-    {
-      result = memmove(result, (v12 + 56), 8 * v16);
-    }
-
-    v18 = 0;
-    *(v14 + 16) = *(v12 + 16);
-    v19 = 1 << *(v12 + 32);
-    v20 = -1;
-    if (v19 < 64)
-    {
-      v20 = ~(-1 << v19);
-    }
-
-    v21 = v20 & *(v12 + 56);
-    v22 = (v19 + 63) >> 6;
-    v29 = v8 + 32;
-    for (i = v8 + 16; v21; result = (*(v8 + 32))(*(v14 + 48) + v26, v11, v7))
-    {
-      v23 = __clz(__rbit64(v21));
-      v21 &= v21 - 1;
-LABEL_17:
-      v26 = *(v8 + 72) * (v23 | (v18 << 6));
-      (*(v8 + 16))(v11, *(v12 + 48) + v26, v7);
-    }
-
-    v24 = v18;
-    while (1)
-    {
-      v18 = v24 + 1;
-      if (__OFADD__(v24, 1))
-      {
-        break;
-      }
-
-      if (v18 >= v22)
-      {
-
-        v6 = v28;
-        goto LABEL_21;
-      }
-
-      v25 = *(v12 + 56 + 8 * v18);
-      ++v24;
-      if (v25)
-      {
-        v23 = __clz(__rbit64(v25));
-        v21 = (v25 - 1) & v25;
-        goto LABEL_17;
-      }
-    }
-
-    __break(1u);
-  }
-
-  else
-  {
-
-LABEL_21:
-    *v6 = v14;
-  }
-
-  return result;
-}
-
-uint64_t specialized _NativeSet.copyAndResize(capacity:)(uint64_t a1)
-{
-  v2 = v1;
-  v3 = *v1;
-  if (*(*v1 + 24) > a1)
-  {
-    v4 = *(*v1 + 24);
-  }
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCy15SecureMessaging3MLSO9AllMemberOGMd, &_ss11_SetStorageCy15SecureMessaging3MLSO9AllMemberOGMR);
-  result = static _SetStorage.resize(original:capacity:move:)();
-  v6 = result;
-  if (!*(v3 + 16))
-  {
-
-LABEL_34:
-    *v2 = v6;
-    return result;
-  }
-
-  v32 = v2;
-  v33 = v3;
-  v7 = 0;
-  v8 = v3 + 56;
-  v9 = 1 << *(v3 + 32);
-  if (v9 < 64)
-  {
-    v10 = ~(-1 << v9);
-  }
-
-  else
-  {
-    v10 = -1;
-  }
-
-  v11 = v10 & *(v3 + 56);
-  v12 = (v9 + 63) >> 6;
-  v13 = result + 56;
-  while (v11)
-  {
-    v16 = __clz(__rbit64(v11));
-    v11 &= v11 - 1;
-LABEL_17:
-    v19 = *(v3 + 48) + 32 * (v16 | (v7 << 6));
-    v20 = *v19;
-    v21 = *(v19 + 8);
-    v34 = *(v19 + 16);
-    v22 = *(v19 + 24);
-    v23 = *(v6 + 40);
-    Hasher.init(_seed:)();
-    if (v22 < 0)
-    {
-      MEMORY[0x266754DE0](1);
-
-      String.hash(into:)();
-      MEMORY[0x266754DE0](0);
-      if (v22)
-      {
-        Hasher._combine(_:)(0);
-        goto LABEL_23;
-      }
-
-      Hasher._combine(_:)(1u);
-      v24 = v34;
+      return v10 - 10;
     }
 
     else
-    {
-      MEMORY[0x266754DE0](0);
-
-      String.hash(into:)();
-      v24 = 0;
-    }
-
-    MEMORY[0x266754DE0](v24);
-LABEL_23:
-    result = Hasher._finalize()();
-    v25 = -1 << *(v6 + 32);
-    v26 = result & ~v25;
-    v27 = v26 >> 6;
-    if (((-1 << v26) & ~*(v13 + 8 * (v26 >> 6))) == 0)
-    {
-      v28 = 0;
-      v29 = (63 - v25) >> 6;
-      while (++v27 != v29 || (v28 & 1) == 0)
-      {
-        v30 = v27 == v29;
-        if (v27 == v29)
-        {
-          v27 = 0;
-        }
-
-        v28 |= v30;
-        v31 = *(v13 + 8 * v27);
-        if (v31 != -1)
-        {
-          v14 = __clz(__rbit64(~v31)) + (v27 << 6);
-          goto LABEL_9;
-        }
-      }
-
-      goto LABEL_36;
-    }
-
-    v14 = __clz(__rbit64((-1 << v26) & ~*(v13 + 8 * (v26 >> 6)))) | v26 & 0x7FFFFFFFFFFFFFC0;
-LABEL_9:
-    *(v13 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v14;
-    v15 = *(v6 + 48) + 32 * v14;
-    *v15 = v20;
-    *(v15 + 8) = v21;
-    v3 = v33;
-    *(v15 + 16) = v34;
-    *(v15 + 24) = v22;
-    ++*(v6 + 16);
-  }
-
-  v17 = v7;
-  while (1)
-  {
-    v7 = v17 + 1;
-    if (__OFADD__(v17, 1))
-    {
-      break;
-    }
-
-    if (v7 >= v12)
-    {
-
-      v2 = v32;
-      goto LABEL_34;
-    }
-
-    v18 = *(v8 + 8 * v7);
-    ++v17;
-    if (v18)
-    {
-      v16 = __clz(__rbit64(v18));
-      v11 = (v18 - 1) & v18;
-      goto LABEL_17;
-    }
-  }
-
-  __break(1u);
-LABEL_36:
-  __break(1u);
-  return result;
-}
-
-{
-  v2 = v1;
-  v37 = type metadata accessor for MLS.Identity.Credential();
-  v4 = *(v37 - 8);
-  v5 = *(v4 + 64);
-  MEMORY[0x28223BE20](v37);
-  v7 = &v32 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = *v2;
-  if (*(*v2 + 24) > a1)
-  {
-    v9 = *(*v2 + 24);
-  }
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCy8SwiftMLS0D0O8IdentityO10CredentialOGMd, &_ss11_SetStorageCy8SwiftMLS0D0O8IdentityO10CredentialOGMR);
-  v10 = static _SetStorage.resize(original:capacity:move:)();
-  result = v8;
-  if (*(v8 + 16))
-  {
-    v32 = v2;
-    v12 = 0;
-    v13 = v8 + 56;
-    v14 = 1 << *(v8 + 32);
-    if (v14 < 64)
-    {
-      v15 = ~(-1 << v14);
-    }
-
-    else
-    {
-      v15 = -1;
-    }
-
-    v16 = v15 & *(v8 + 56);
-    v17 = (v14 + 63) >> 6;
-    v35 = v4 + 16;
-    v36 = v4;
-    v18 = v10 + 56;
-    v33 = (v4 + 32);
-    v34 = result;
-    while (v16)
-    {
-      v20 = __clz(__rbit64(v16));
-      v16 &= v16 - 1;
-LABEL_17:
-      v23 = *(v36 + 72);
-      (*(v36 + 16))(v7, *(result + 48) + v23 * (v20 | (v12 << 6)), v37);
-      v24 = *(v10 + 40);
-      _s8SwiftMLS0B0O8IdentityO07SigningC0VAGSHAAWlTm_0(&lazy protocol witness table cache variable for type MLS.Identity.Credential and conformance MLS.Identity.Credential, MEMORY[0x277D6AC88]);
-      result = dispatch thunk of Hashable._rawHashValue(seed:)();
-      v25 = -1 << *(v10 + 32);
-      v26 = result & ~v25;
-      v27 = v26 >> 6;
-      if (((-1 << v26) & ~*(v18 + 8 * (v26 >> 6))) == 0)
-      {
-        v28 = 0;
-        v29 = (63 - v25) >> 6;
-        while (++v27 != v29 || (v28 & 1) == 0)
-        {
-          v30 = v27 == v29;
-          if (v27 == v29)
-          {
-            v27 = 0;
-          }
-
-          v28 |= v30;
-          v31 = *(v18 + 8 * v27);
-          if (v31 != -1)
-          {
-            v19 = __clz(__rbit64(~v31)) + (v27 << 6);
-            goto LABEL_9;
-          }
-        }
-
-        goto LABEL_30;
-      }
-
-      v19 = __clz(__rbit64((-1 << v26) & ~*(v18 + 8 * (v26 >> 6)))) | v26 & 0x7FFFFFFFFFFFFFC0;
-LABEL_9:
-      *(v18 + ((v19 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v19;
-      (*v33)(*(v10 + 48) + v19 * v23, v7, v37);
-      ++*(v10 + 16);
-      result = v34;
-    }
-
-    v21 = v12;
-    while (1)
-    {
-      v12 = v21 + 1;
-      if (__OFADD__(v21, 1))
-      {
-        break;
-      }
-
-      if (v12 >= v17)
-      {
-
-        v2 = v32;
-        goto LABEL_28;
-      }
-
-      v22 = *(v13 + 8 * v12);
-      ++v21;
-      if (v22)
-      {
-        v20 = __clz(__rbit64(v22));
-        v16 = (v22 - 1) & v22;
-        goto LABEL_17;
-      }
-    }
-
-    __break(1u);
-LABEL_30:
-    __break(1u);
-  }
-
-  else
-  {
-
-LABEL_28:
-    *v2 = v10;
-  }
-
-  return result;
-}
-
-{
-  v2 = v1;
-  v37 = type metadata accessor for MLS.Identity.SigningIdentity();
-  v4 = *(v37 - 8);
-  v5 = *(v4 + 64);
-  MEMORY[0x28223BE20](v37);
-  v7 = &v32 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = *v2;
-  if (*(*v2 + 24) > a1)
-  {
-    v9 = *(*v2 + 24);
-  }
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCy8SwiftMLS0D0O8IdentityO07SigningE0VGMd, &_ss11_SetStorageCy8SwiftMLS0D0O8IdentityO07SigningE0VGMR);
-  v10 = static _SetStorage.resize(original:capacity:move:)();
-  result = v8;
-  if (*(v8 + 16))
-  {
-    v32 = v2;
-    v12 = 0;
-    v13 = v8 + 56;
-    v14 = 1 << *(v8 + 32);
-    if (v14 < 64)
-    {
-      v15 = ~(-1 << v14);
-    }
-
-    else
-    {
-      v15 = -1;
-    }
-
-    v16 = v15 & *(v8 + 56);
-    v17 = (v14 + 63) >> 6;
-    v35 = v4 + 16;
-    v36 = v4;
-    v18 = v10 + 56;
-    v33 = (v4 + 32);
-    v34 = result;
-    while (v16)
-    {
-      v20 = __clz(__rbit64(v16));
-      v16 &= v16 - 1;
-LABEL_17:
-      v23 = *(v36 + 72);
-      (*(v36 + 16))(v7, *(result + 48) + v23 * (v20 | (v12 << 6)), v37);
-      v24 = *(v10 + 40);
-      _s8SwiftMLS0B0O8IdentityO07SigningC0VAGSHAAWlTm_0(&lazy protocol witness table cache variable for type MLS.Identity.SigningIdentity and conformance MLS.Identity.SigningIdentity, MEMORY[0x277D6AC60]);
-      result = dispatch thunk of Hashable._rawHashValue(seed:)();
-      v25 = -1 << *(v10 + 32);
-      v26 = result & ~v25;
-      v27 = v26 >> 6;
-      if (((-1 << v26) & ~*(v18 + 8 * (v26 >> 6))) == 0)
-      {
-        v28 = 0;
-        v29 = (63 - v25) >> 6;
-        while (++v27 != v29 || (v28 & 1) == 0)
-        {
-          v30 = v27 == v29;
-          if (v27 == v29)
-          {
-            v27 = 0;
-          }
-
-          v28 |= v30;
-          v31 = *(v18 + 8 * v27);
-          if (v31 != -1)
-          {
-            v19 = __clz(__rbit64(~v31)) + (v27 << 6);
-            goto LABEL_9;
-          }
-        }
-
-        goto LABEL_30;
-      }
-
-      v19 = __clz(__rbit64((-1 << v26) & ~*(v18 + 8 * (v26 >> 6)))) | v26 & 0x7FFFFFFFFFFFFFC0;
-LABEL_9:
-      *(v18 + ((v19 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v19;
-      (*v33)(*(v10 + 48) + v19 * v23, v7, v37);
-      ++*(v10 + 16);
-      result = v34;
-    }
-
-    v21 = v12;
-    while (1)
-    {
-      v12 = v21 + 1;
-      if (__OFADD__(v21, 1))
-      {
-        break;
-      }
-
-      if (v12 >= v17)
-      {
-
-        v2 = v32;
-        goto LABEL_28;
-      }
-
-      v22 = *(v13 + 8 * v12);
-      ++v21;
-      if (v22)
-      {
-        v20 = __clz(__rbit64(v22));
-        v16 = (v22 - 1) & v22;
-        goto LABEL_17;
-      }
-    }
-
-    __break(1u);
-LABEL_30:
-    __break(1u);
-  }
-
-  else
-  {
-
-LABEL_28:
-    *v2 = v10;
-  }
-
-  return result;
-}
-
-{
-  v2 = v1;
-  v3 = *v1;
-  if (*(*v1 + 24) > a1)
-  {
-    v4 = *(*v1 + 24);
-  }
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCySSGMd, &_ss11_SetStorageCySSGMR);
-  result = static _SetStorage.resize(original:capacity:move:)();
-  v6 = result;
-  if (*(v3 + 16))
-  {
-    v29 = v2;
-    v7 = 0;
-    v8 = 1 << *(v3 + 32);
-    if (v8 < 64)
-    {
-      v9 = ~(-1 << v8);
-    }
-
-    else
-    {
-      v9 = -1;
-    }
-
-    v10 = v9 & *(v3 + 56);
-    v11 = (v8 + 63) >> 6;
-    v12 = result + 56;
-    while (v10)
-    {
-      v15 = __clz(__rbit64(v10));
-      v10 &= v10 - 1;
-LABEL_17:
-      v18 = (*(v3 + 48) + 16 * (v15 | (v7 << 6)));
-      v19 = *v18;
-      v20 = v18[1];
-      v21 = *(v6 + 40);
-      Hasher.init(_seed:)();
-
-      String.hash(into:)();
-      result = Hasher._finalize()();
-      v22 = -1 << *(v6 + 32);
-      v23 = result & ~v22;
-      v24 = v23 >> 6;
-      if (((-1 << v23) & ~*(v12 + 8 * (v23 >> 6))) == 0)
-      {
-        v25 = 0;
-        v26 = (63 - v22) >> 6;
-        while (++v24 != v26 || (v25 & 1) == 0)
-        {
-          v27 = v24 == v26;
-          if (v24 == v26)
-          {
-            v24 = 0;
-          }
-
-          v25 |= v27;
-          v28 = *(v12 + 8 * v24);
-          if (v28 != -1)
-          {
-            v13 = __clz(__rbit64(~v28)) + (v24 << 6);
-            goto LABEL_9;
-          }
-        }
-
-        goto LABEL_30;
-      }
-
-      v13 = __clz(__rbit64((-1 << v23) & ~*(v12 + 8 * (v23 >> 6)))) | v23 & 0x7FFFFFFFFFFFFFC0;
-LABEL_9:
-      *(v12 + ((v13 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v13;
-      v14 = (*(v6 + 48) + 16 * v13);
-      *v14 = v19;
-      v14[1] = v20;
-      ++*(v6 + 16);
-    }
-
-    v16 = v7;
-    while (1)
-    {
-      v7 = v16 + 1;
-      if (__OFADD__(v16, 1))
-      {
-        break;
-      }
-
-      if (v7 >= v11)
-      {
-
-        v2 = v29;
-        goto LABEL_28;
-      }
-
-      v17 = *(v3 + 56 + 8 * v7);
-      ++v16;
-      if (v17)
-      {
-        v15 = __clz(__rbit64(v17));
-        v10 = (v17 - 1) & v17;
-        goto LABEL_17;
-      }
-    }
-
-    __break(1u);
-LABEL_30:
-    __break(1u);
-  }
-
-  else
-  {
-
-LABEL_28:
-    *v2 = v6;
-  }
-
-  return result;
-}
-
-{
-  v2 = v1;
-  v3 = *v1;
-  if (*(*v1 + 24) > a1)
-  {
-    v4 = *(*v1 + 24);
-  }
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCy15SecureMessaging3MLSO22UniqueClientIdentifierVGMd, &_ss11_SetStorageCy15SecureMessaging3MLSO22UniqueClientIdentifierVGMR);
-  result = static _SetStorage.resize(original:capacity:move:)();
-  v6 = result;
-  if (*(v3 + 16))
-  {
-    v29 = v2;
-    v7 = 0;
-    v8 = 1 << *(v3 + 32);
-    if (v8 < 64)
-    {
-      v9 = ~(-1 << v8);
-    }
-
-    else
-    {
-      v9 = -1;
-    }
-
-    v10 = v9 & *(v3 + 56);
-    v11 = (v8 + 63) >> 6;
-    v12 = result + 56;
-    while (v10)
-    {
-      v15 = __clz(__rbit64(v10));
-      v10 &= v10 - 1;
-LABEL_17:
-      v18 = (*(v3 + 48) + 16 * (v15 | (v7 << 6)));
-      v19 = *v18;
-      v20 = v18[1];
-      v21 = *(v6 + 40);
-      Hasher.init(_seed:)();
-
-      String.hash(into:)();
-      String.hash(into:)();
-      MEMORY[0x266754DE0](0);
-      result = Hasher._finalize()();
-      v22 = -1 << *(v6 + 32);
-      v23 = result & ~v22;
-      v24 = v23 >> 6;
-      if (((-1 << v23) & ~*(v12 + 8 * (v23 >> 6))) == 0)
-      {
-        v25 = 0;
-        v26 = (63 - v22) >> 6;
-        while (++v24 != v26 || (v25 & 1) == 0)
-        {
-          v27 = v24 == v26;
-          if (v24 == v26)
-          {
-            v24 = 0;
-          }
-
-          v25 |= v27;
-          v28 = *(v12 + 8 * v24);
-          if (v28 != -1)
-          {
-            v13 = __clz(__rbit64(~v28)) + (v24 << 6);
-            goto LABEL_9;
-          }
-        }
-
-        goto LABEL_30;
-      }
-
-      v13 = __clz(__rbit64((-1 << v23) & ~*(v12 + 8 * (v23 >> 6)))) | v23 & 0x7FFFFFFFFFFFFFC0;
-LABEL_9:
-      *(v12 + ((v13 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v13;
-      v14 = (*(v6 + 48) + 16 * v13);
-      *v14 = v19;
-      v14[1] = v20;
-      ++*(v6 + 16);
-    }
-
-    v16 = v7;
-    while (1)
-    {
-      v7 = v16 + 1;
-      if (__OFADD__(v16, 1))
-      {
-        break;
-      }
-
-      if (v7 >= v11)
-      {
-
-        v2 = v29;
-        goto LABEL_28;
-      }
-
-      v17 = *(v3 + 56 + 8 * v7);
-      ++v16;
-      if (v17)
-      {
-        v15 = __clz(__rbit64(v17));
-        v10 = (v17 - 1) & v17;
-        goto LABEL_17;
-      }
-    }
-
-    __break(1u);
-LABEL_30:
-    __break(1u);
-  }
-
-  else
-  {
-
-LABEL_28:
-    *v2 = v6;
-  }
-
-  return result;
-}
-
-uint64_t specialized Set._Variant.remove(_:)(uint64_t a1, uint64_t a2)
-{
-  v5 = *v2;
-  v6 = *(*v2 + 40);
-  Hasher.init(_seed:)();
-  String.hash(into:)();
-  v7 = Hasher._finalize()();
-  v8 = -1 << *(v5 + 32);
-  v9 = v7 & ~v8;
-  if (((*(v5 + 56 + ((v9 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v9) & 1) == 0)
-  {
-    return 0;
-  }
-
-  v10 = ~v8;
-  while (1)
-  {
-    v11 = (*(v5 + 48) + 16 * v9);
-    v12 = *v11 == a1 && v11[1] == a2;
-    if (v12 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-    {
-      break;
-    }
-
-    v9 = (v9 + 1) & v10;
-    if (((*(v5 + 56 + ((v9 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v9) & 1) == 0)
     {
       return 0;
     }
   }
-
-  v14 = *v2;
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v16 = *v2;
-  v20 = *v2;
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    specialized _NativeSet.copy()();
-    v16 = v20;
-  }
-
-  v17 = (*(v16 + 48) + 16 * v9);
-  v13 = *v17;
-  v18 = v17[1];
-  specialized _NativeSet._delete(at:)(v9);
-  *v2 = v20;
-  return v13;
 }
 
-unint64_t specialized _NativeSet._delete(at:)(unint64_t result)
+uint64_t sub_26513EB90(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 {
-  v2 = result;
-  v3 = *v1;
-  v4 = *v1 + 56;
-  v5 = -1 << *(*v1 + 32);
-  v6 = (result + 1) & ~v5;
-  if (((1 << v6) & *(v4 + 8 * (v6 >> 6))) != 0)
+  result = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCy10Foundation4DataVs5Error_pGMd, &_sScCy10Foundation4DataVs5Error_pGMR);
+  v9 = *(result - 8);
+  if (*(v9 + 84) == a3)
   {
-    v7 = ~v5;
-    v8 = *v1;
+    v10 = *(v9 + 56);
 
-    v9 = _HashTable.previousHole(before:)();
-    if ((*(v4 + 8 * (v6 >> 6)) & (1 << v6)) != 0)
+    return v10(a1, a2, a2, result);
+  }
+
+  else
+  {
+    *(a1 + *(a4 + 20)) = a2 + 10;
+  }
+
+  return result;
+}
+
+void type metadata completion function for MLS.XPCRequest(uint64_t a1)
+{
+  type metadata accessor for CheckedContinuation<Data, Error>(319);
+  if (v1 <= 0x3F)
+  {
+    swift_cvw_initStructMetadataWithLayoutString();
+  }
+}
+
+uint64_t getEnumTagSinglePayload for MLS.XPCRequest.RequestType(unsigned __int8 *a1, unsigned int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 < 0xF6)
+  {
+    goto LABEL_17;
+  }
+
+  if (a2 + 10 >= 0xFFFF00)
+  {
+    v2 = 4;
+  }
+
+  else
+  {
+    v2 = 2;
+  }
+
+  if ((a2 + 10) >> 8 < 0xFF)
+  {
+    v3 = 1;
+  }
+
+  else
+  {
+    v3 = v2;
+  }
+
+  if (v3 == 4)
+  {
+    v4 = *(a1 + 1);
+    if (v4)
     {
-      v10 = (v9 + 1) & v7;
-      do
+      return (*a1 | (v4 << 8)) - 10;
+    }
+  }
+
+  else
+  {
+    if (v3 == 2)
+    {
+      v4 = *(a1 + 1);
+      if (!*(a1 + 1))
       {
-        v11 = *(v3 + 40);
-        v12 = (*(v3 + 48) + 16 * v6);
-        v13 = *v12;
-        v14 = v12[1];
-        Hasher.init(_seed:)();
-
-        String.hash(into:)();
-        v15 = Hasher._finalize()();
-
-        v16 = v15 & v7;
-        if (v2 >= v10)
-        {
-          if (v16 < v10)
-          {
-            goto LABEL_5;
-          }
-        }
-
-        else if (v16 >= v10)
-        {
-          goto LABEL_11;
-        }
-
-        if (v2 >= v16)
-        {
-LABEL_11:
-          v17 = *(v3 + 48);
-          v18 = (v17 + 16 * v2);
-          v19 = (v17 + 16 * v6);
-          if (v2 != v6 || v18 >= v19 + 1)
-          {
-            *v18 = *v19;
-            v2 = v6;
-          }
-        }
-
-LABEL_5:
-        v6 = (v6 + 1) & v7;
+        goto LABEL_17;
       }
 
-      while (((*(v4 + ((v6 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v6) & 1) != 0);
+      return (*a1 | (v4 << 8)) - 10;
     }
 
-    *(v4 + ((v2 >> 3) & 0x1FFFFFFFFFFFFFF8)) &= (-1 << v2) - 1;
+    v4 = a1[1];
+    if (a1[1])
+    {
+      return (*a1 | (v4 << 8)) - 10;
+    }
+  }
+
+LABEL_17:
+  v6 = *a1;
+  v7 = v6 >= 0xB;
+  v8 = v6 - 11;
+  if (!v7)
+  {
+    v8 = -1;
+  }
+
+  return (v8 + 1);
+}
+
+uint64_t storeEnumTagSinglePayload for MLS.XPCRequest.RequestType(uint64_t result, unsigned int a2, unsigned int a3)
+{
+  if (a3 + 10 >= 0xFFFF00)
+  {
+    v3 = 4;
   }
 
   else
   {
-    *(v4 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8)) &= (-1 << result) - 1;
+    v3 = 2;
   }
 
-  v20 = *(v3 + 16);
-  v21 = __OFSUB__(v20, 1);
-  v22 = v20 - 1;
-  if (v21)
+  if ((a3 + 10) >> 8 < 0xFF)
   {
-    __break(1u);
+    v4 = 1;
   }
 
   else
   {
-    *(v3 + 16) = v22;
-    ++*(v3 + 36);
+    v4 = v3;
+  }
+
+  if (a3 < 0xF6)
+  {
+    v4 = 0;
+  }
+
+  if (a2 > 0xF5)
+  {
+    v5 = ((a2 - 246) >> 8) + 1;
+    *result = a2 + 10;
+    if (v4 > 1)
+    {
+      if (v4 == 2)
+      {
+        *(result + 1) = v5;
+      }
+
+      else
+      {
+        *(result + 1) = v5;
+      }
+    }
+
+    else if (v4)
+    {
+      *(result + 1) = v5;
+    }
+
+    return result;
+  }
+
+  if (v4 > 1)
+  {
+    if (v4 != 2)
+    {
+      *(result + 1) = 0;
+      if (a2)
+      {
+        goto LABEL_20;
+      }
+
+      return result;
+    }
+
+    *(result + 1) = 0;
+  }
+
+  else if (v4)
+  {
+    *(result + 1) = 0;
+    if (!a2)
+    {
+      return result;
+    }
+
+LABEL_20:
+    *result = a2 + 10;
+    return result;
+  }
+
+  if (a2)
+  {
+    goto LABEL_20;
   }
 
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type MLS.EncryptedRCSMemberCredentialError.CodingKeys and conformance MLS.EncryptedRCSMemberCredentialError.CodingKeys()
+uint64_t sub_26513EF30()
 {
-  result = lazy protocol witness table cache variable for type MLS.EncryptedRCSMemberCredentialError.CodingKeys and conformance MLS.EncryptedRCSMemberCredentialError.CodingKeys;
-  if (!lazy protocol witness table cache variable for type MLS.EncryptedRCSMemberCredentialError.CodingKeys and conformance MLS.EncryptedRCSMemberCredentialError.CodingKeys)
+  _Block_release(*(v0 + 16));
+
+  return MEMORY[0x2821FE8E8](v0, 24, 7);
+}
+
+unint64_t lazy protocol witness table accessor for type [MLS.AllMember] and conformance <A> [A]()
+{
+  result = lazy protocol witness table cache variable for type [MLS.AllMember] and conformance <A> [A];
+  if (!lazy protocol witness table cache variable for type [MLS.AllMember] and conformance <A> [A])
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay15SecureMessaging3MLSO9AllMemberOGMd, &_sSay15SecureMessaging3MLSO9AllMemberOGMR);
+    lazy protocol witness table accessor for type MLS.AllMember and conformance MLS.AllMember();
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type [MLS.AllMember] and conformance <A> [A]);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type [MLS.AllMember] and conformance <A> [A];
+  if (!lazy protocol witness table cache variable for type [MLS.AllMember] and conformance <A> [A])
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay15SecureMessaging3MLSO9AllMemberOGMd, &_sSay15SecureMessaging3MLSO9AllMemberOGMR);
+    lazy protocol witness table accessor for type MLS.AllMember and conformance MLS.AllMember();
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type [MLS.AllMember] and conformance <A> [A]);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type MLS.KeyPackageRetrievalContext? and conformance <A> A?()
+{
+  result = lazy protocol witness table cache variable for type MLS.KeyPackageRetrievalContext? and conformance <A> A?;
+  if (!lazy protocol witness table cache variable for type MLS.KeyPackageRetrievalContext? and conformance <A> A?)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s15SecureMessaging3MLSO26KeyPackageRetrievalContextVSgMd, &_s15SecureMessaging3MLSO26KeyPackageRetrievalContextVSgMR);
+    lazy protocol witness table accessor for type MLS.KeyPackageRetrievalContext and conformance MLS.KeyPackageRetrievalContext();
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type MLS.KeyPackageRetrievalContext? and conformance <A> A?);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type MLS.KeyPackageRetrievalContext and conformance MLS.KeyPackageRetrievalContext()
+{
+  result = lazy protocol witness table cache variable for type MLS.KeyPackageRetrievalContext and conformance MLS.KeyPackageRetrievalContext;
+  if (!lazy protocol witness table cache variable for type MLS.KeyPackageRetrievalContext and conformance MLS.KeyPackageRetrievalContext)
   {
     result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type MLS.EncryptedRCSMemberCredentialError.CodingKeys and conformance MLS.EncryptedRCSMemberCredentialError.CodingKeys);
+    atomic_store(result, &lazy protocol witness table cache variable for type MLS.KeyPackageRetrievalContext and conformance MLS.KeyPackageRetrievalContext);
   }
 
   return result;
 }
 
+unint64_t lazy protocol witness table accessor for type MLS.FetchMemberContext? and conformance <A> A?()
 {
-  result = lazy protocol witness table cache variable for type MLS.EncryptedRCSMemberCredentialError.CodingKeys and conformance MLS.EncryptedRCSMemberCredentialError.CodingKeys;
-  if (!lazy protocol witness table cache variable for type MLS.EncryptedRCSMemberCredentialError.CodingKeys and conformance MLS.EncryptedRCSMemberCredentialError.CodingKeys)
+  result = lazy protocol witness table cache variable for type MLS.FetchMemberContext? and conformance <A> A?;
+  if (!lazy protocol witness table cache variable for type MLS.FetchMemberContext? and conformance <A> A?)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s15SecureMessaging3MLSO18FetchMemberContextVSgMd, &_s15SecureMessaging3MLSO18FetchMemberContextVSgMR);
+    lazy protocol witness table accessor for type MLS.FetchMemberContext and conformance MLS.FetchMemberContext();
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type MLS.FetchMemberContext? and conformance <A> A?);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type MLS.FetchMemberContext and conformance MLS.FetchMemberContext()
+{
+  result = lazy protocol witness table cache variable for type MLS.FetchMemberContext and conformance MLS.FetchMemberContext;
+  if (!lazy protocol witness table cache variable for type MLS.FetchMemberContext and conformance MLS.FetchMemberContext)
   {
     result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type MLS.EncryptedRCSMemberCredentialError.CodingKeys and conformance MLS.EncryptedRCSMemberCredentialError.CodingKeys);
+    atomic_store(result, &lazy protocol witness table cache variable for type MLS.FetchMemberContext and conformance MLS.FetchMemberContext);
   }
 
   return result;
 }
 
+uint64_t sub_26513F19C()
 {
-  result = lazy protocol witness table cache variable for type MLS.EncryptedRCSMemberCredentialError.CodingKeys and conformance MLS.EncryptedRCSMemberCredentialError.CodingKeys;
-  if (!lazy protocol witness table cache variable for type MLS.EncryptedRCSMemberCredentialError.CodingKeys and conformance MLS.EncryptedRCSMemberCredentialError.CodingKeys)
+  outlined consume of Data._Representation(*(v0 + 16), *(v0 + 24));
+
+  return MEMORY[0x2821FE8E8](v0, 32, 7);
+}
+
+uint64_t partial apply for closure #2 in MLS.XPCClientCoordinator.fetchGroupRecoveryInfo(group:context:completion:)(uint64_t a1, uint64_t a2, _BYTE *a3)
+{
+  v8 = swift_task_alloc();
+  *(v4 + 16) = v8;
+  *v8 = v4;
+  v8[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return closure #2 in MLS.XPCClientCoordinator.fetchGroupRecoveryInfo(group:context:completion:)(a1, a2, a3, v3);
+}
+
+uint64_t sub_26513F2A4()
+{
+
+  return MEMORY[0x2821FE8E8](v0, 32, 7);
+}
+
+uint64_t partial apply for thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.Group, @in_guaranteed MLS.FetchGroupRecoveryInfoContext?) -> (@out MLS.FetchGroupRecoveryInfoResult, @error @owned Error)(uint64_t a1, uint64_t a2)
+{
+  v6 = *(v2 + 16);
+  v7 = swift_task_alloc();
+  *(v3 + 16) = v7;
+  *v7 = v3;
+  v7[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.Group, @in_guaranteed MLS.FetchGroupRecoveryInfoContext?) -> (@out MLS.FetchGroupRecoveryInfoResult, @error @owned Error)(a1, a2, v6);
+}
+
+unint64_t lazy protocol witness table accessor for type MLS.FetchGroupRecoveryInfoContext? and conformance <A> A?()
+{
+  result = lazy protocol witness table cache variable for type MLS.FetchGroupRecoveryInfoContext? and conformance <A> A?;
+  if (!lazy protocol witness table cache variable for type MLS.FetchGroupRecoveryInfoContext? and conformance <A> A?)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s15SecureMessaging3MLSO29FetchGroupRecoveryInfoContextVSgMd, &_s15SecureMessaging3MLSO29FetchGroupRecoveryInfoContextVSgMR);
+    lazy protocol witness table accessor for type MLS.FetchGroupRecoveryInfoContext and conformance MLS.FetchGroupRecoveryInfoContext();
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type MLS.FetchGroupRecoveryInfoContext? and conformance <A> A?);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type MLS.FetchGroupRecoveryInfoContext and conformance MLS.FetchGroupRecoveryInfoContext()
+{
+  result = lazy protocol witness table cache variable for type MLS.FetchGroupRecoveryInfoContext and conformance MLS.FetchGroupRecoveryInfoContext;
+  if (!lazy protocol witness table cache variable for type MLS.FetchGroupRecoveryInfoContext and conformance MLS.FetchGroupRecoveryInfoContext)
   {
     result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type MLS.EncryptedRCSMemberCredentialError.CodingKeys and conformance MLS.EncryptedRCSMemberCredentialError.CodingKeys);
+    atomic_store(result, &lazy protocol witness table cache variable for type MLS.FetchGroupRecoveryInfoContext and conformance MLS.FetchGroupRecoveryInfoContext);
   }
 
   return result;
 }
 
+uint64_t block_copy_helper_2(uint64_t a1, uint64_t a2)
 {
-  result = lazy protocol witness table cache variable for type MLS.EncryptedRCSMemberCredentialError.CodingKeys and conformance MLS.EncryptedRCSMemberCredentialError.CodingKeys;
-  if (!lazy protocol witness table cache variable for type MLS.EncryptedRCSMemberCredentialError.CodingKeys and conformance MLS.EncryptedRCSMemberCredentialError.CodingKeys)
+  v2 = *(a2 + 40);
+  *(a1 + 32) = *(a2 + 32);
+  *(a1 + 40) = v2;
+}
+
+unint64_t lazy protocol witness table accessor for type MLS.GroupMembersContext and conformance MLS.GroupMembersContext()
+{
+  result = lazy protocol witness table cache variable for type MLS.GroupMembersContext and conformance MLS.GroupMembersContext;
+  if (!lazy protocol witness table cache variable for type MLS.GroupMembersContext and conformance MLS.GroupMembersContext)
   {
     result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type MLS.EncryptedRCSMemberCredentialError.CodingKeys and conformance MLS.EncryptedRCSMemberCredentialError.CodingKeys);
+    atomic_store(result, &lazy protocol witness table cache variable for type MLS.GroupMembersContext and conformance MLS.GroupMembersContext);
   }
 
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type MLS.EncryptedRCSMemberCredentialError.ErrorType and conformance MLS.EncryptedRCSMemberCredentialError.ErrorType()
+unint64_t lazy protocol witness table accessor for type MLS.GroupFetchContext and conformance MLS.GroupFetchContext()
 {
-  result = lazy protocol witness table cache variable for type MLS.EncryptedRCSMemberCredentialError.ErrorType and conformance MLS.EncryptedRCSMemberCredentialError.ErrorType;
-  if (!lazy protocol witness table cache variable for type MLS.EncryptedRCSMemberCredentialError.ErrorType and conformance MLS.EncryptedRCSMemberCredentialError.ErrorType)
+  result = lazy protocol witness table cache variable for type MLS.GroupFetchContext and conformance MLS.GroupFetchContext;
+  if (!lazy protocol witness table cache variable for type MLS.GroupFetchContext and conformance MLS.GroupFetchContext)
   {
     result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type MLS.EncryptedRCSMemberCredentialError.ErrorType and conformance MLS.EncryptedRCSMemberCredentialError.ErrorType);
+    atomic_store(result, &lazy protocol witness table cache variable for type MLS.GroupFetchContext and conformance MLS.GroupFetchContext);
   }
 
   return result;
 }
 
-{
-  result = lazy protocol witness table cache variable for type MLS.EncryptedRCSMemberCredentialError.ErrorType and conformance MLS.EncryptedRCSMemberCredentialError.ErrorType;
-  if (!lazy protocol witness table cache variable for type MLS.EncryptedRCSMemberCredentialError.ErrorType and conformance MLS.EncryptedRCSMemberCredentialError.ErrorType)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type MLS.EncryptedRCSMemberCredentialError.ErrorType and conformance MLS.EncryptedRCSMemberCredentialError.ErrorType);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type MLS.EncryptedRCSMemberCredentialError.ErrorType and conformance MLS.EncryptedRCSMemberCredentialError.ErrorType;
-  if (!lazy protocol witness table cache variable for type MLS.EncryptedRCSMemberCredentialError.ErrorType and conformance MLS.EncryptedRCSMemberCredentialError.ErrorType)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type MLS.EncryptedRCSMemberCredentialError.ErrorType and conformance MLS.EncryptedRCSMemberCredentialError.ErrorType);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type MLS.EncryptedRCSMemberCredentialError.ErrorType and conformance MLS.EncryptedRCSMemberCredentialError.ErrorType;
-  if (!lazy protocol witness table cache variable for type MLS.EncryptedRCSMemberCredentialError.ErrorType and conformance MLS.EncryptedRCSMemberCredentialError.ErrorType)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type MLS.EncryptedRCSMemberCredentialError.ErrorType and conformance MLS.EncryptedRCSMemberCredentialError.ErrorType);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type MLS.EncryptedRCSMemberCredentialError.ErrorType and conformance MLS.EncryptedRCSMemberCredentialError.ErrorType;
-  if (!lazy protocol witness table cache variable for type MLS.EncryptedRCSMemberCredentialError.ErrorType and conformance MLS.EncryptedRCSMemberCredentialError.ErrorType)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type MLS.EncryptedRCSMemberCredentialError.ErrorType and conformance MLS.EncryptedRCSMemberCredentialError.ErrorType);
-  }
-
-  return result;
-}
-
-uint64_t specialized MLS.EncryptedRCSMemberCredentialError.init(from:)(uint64_t *a1)
-{
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy15SecureMessaging3MLSO33EncryptedRCSMemberCredentialErrorV10CodingKeys33_46B7670155C48EB6C84CF9E06BC36E7BLLOGMd, &_ss22KeyedDecodingContainerVy15SecureMessaging3MLSO33EncryptedRCSMemberCredentialErrorV10CodingKeys33_46B7670155C48EB6C84CF9E06BC36E7BLLOGMR);
-  v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  MEMORY[0x28223BE20](v3);
-  v7 = &v10[-v6];
-  v8 = a1[3];
-  __swift_project_boxed_opaque_existential_1(a1, v8);
-  lazy protocol witness table accessor for type MLS.EncryptedRCSMemberCredentialError.CodingKeys and conformance MLS.EncryptedRCSMemberCredentialError.CodingKeys();
-  dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (!v1)
-  {
-    v10[14] = 0;
-    lazy protocol witness table accessor for type MLS.EncryptedRCSMemberCredentialError.ErrorType and conformance MLS.EncryptedRCSMemberCredentialError.ErrorType();
-    KeyedDecodingContainer.decode<A>(_:forKey:)();
-    v8 = v10[15];
-    v10[13] = 1;
-    KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-    (*(v4 + 8))(v7, v3);
-  }
-
-  __swift_destroy_boxed_opaque_existential_1Tm(a1);
-  return v8;
-}
-
-unint64_t lazy protocol witness table accessor for type MLS.EncryptedRCSMemberCredentialError and conformance MLS.EncryptedRCSMemberCredentialError()
-{
-  result = lazy protocol witness table cache variable for type MLS.EncryptedRCSMemberCredentialError and conformance MLS.EncryptedRCSMemberCredentialError;
-  if (!lazy protocol witness table cache variable for type MLS.EncryptedRCSMemberCredentialError and conformance MLS.EncryptedRCSMemberCredentialError)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type MLS.EncryptedRCSMemberCredentialError and conformance MLS.EncryptedRCSMemberCredentialError);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type MLS.EncryptedRCSMemberCredentialError and conformance MLS.EncryptedRCSMemberCredentialError;
-  if (!lazy protocol witness table cache variable for type MLS.EncryptedRCSMemberCredentialError and conformance MLS.EncryptedRCSMemberCredentialError)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type MLS.EncryptedRCSMemberCredentialError and conformance MLS.EncryptedRCSMemberCredentialError);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type MLS.EncryptedRCSMemberCredentialError and conformance MLS.EncryptedRCSMemberCredentialError;
-  if (!lazy protocol witness table cache variable for type MLS.EncryptedRCSMemberCredentialError and conformance MLS.EncryptedRCSMemberCredentialError)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type MLS.EncryptedRCSMemberCredentialError and conformance MLS.EncryptedRCSMemberCredentialError);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type MLS.EncryptedRCSMemberCredentialError and conformance MLS.EncryptedRCSMemberCredentialError;
-  if (!lazy protocol witness table cache variable for type MLS.EncryptedRCSMemberCredentialError and conformance MLS.EncryptedRCSMemberCredentialError)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type MLS.EncryptedRCSMemberCredentialError and conformance MLS.EncryptedRCSMemberCredentialError);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type MLS.EncryptedRCSMemberCredentialError and conformance MLS.EncryptedRCSMemberCredentialError;
-  if (!lazy protocol witness table cache variable for type MLS.EncryptedRCSMemberCredentialError and conformance MLS.EncryptedRCSMemberCredentialError)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type MLS.EncryptedRCSMemberCredentialError and conformance MLS.EncryptedRCSMemberCredentialError);
-  }
-
-  return result;
-}
-
-unint64_t instantiation function for generic protocol witness table for MLS.EncryptedRCSMemberCredentialError(void *a1)
-{
-  a1[1] = lazy protocol witness table accessor for type MLS.EncryptedRCSMemberCredentialError and conformance MLS.EncryptedRCSMemberCredentialError();
-  a1[2] = lazy protocol witness table accessor for type MLS.EncryptedRCSMemberCredentialError and conformance MLS.EncryptedRCSMemberCredentialError();
-  a1[3] = lazy protocol witness table accessor for type MLS.EncryptedRCSMemberCredentialError and conformance MLS.EncryptedRCSMemberCredentialError();
-  result = lazy protocol witness table accessor for type MLS.EncryptedRCSMemberCredentialError and conformance MLS.EncryptedRCSMemberCredentialError();
-  a1[4] = result;
-  return result;
-}
-
-uint64_t _s8SwiftMLS0B0O8IdentityO07SigningC0VAGSHAAWlTm_0(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t _s15SecureMessaging8XPCActorCACScAAAWlTm_3(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -1642,125 +536,588 @@ uint64_t _s8SwiftMLS0B0O8IdentityO07SigningC0VAGSHAAWlTm_0(unint64_t *a1, void (
   return result;
 }
 
-uint64_t MLS.KeyUpdateOperation.__allocating_init(group:causedByOutgoingMessage:context:policy:featureFlagsStore:persister:clientIdentifier:)(uint64_t a1, uint64_t a2, char a3, uint64_t a4, __int128 *a5, uint64_t *a6, uint64_t a7, uint64_t a8, uint64_t *a9)
+uint64_t sub_26513F7A0()
 {
-  v18 = *(v9 + 48);
-  v19 = *(v9 + 52);
-  v20 = swift_allocObject();
-  MLS.KeyUpdateOperation.init(group:causedByOutgoingMessage:context:policy:featureFlagsStore:persister:clientIdentifier:)(a1, a2, a3, a4, a5, a6, a7, a8, a9);
-  return v20;
+  swift_unknownObjectRelease();
+
+  return MEMORY[0x2821FE8E8](v0, 40, 7);
 }
 
-uint64_t MLS.KeyUpdateOperation.group.getter()
+uint64_t partial apply for closure #1 in closure #2 in MLS.XPCClientCoordinator.init(clientIdentifier:selfMember:clientEventDeliverer:)(uint64_t a1)
+{
+  v4 = v1[2];
+  v5 = v1[3];
+  v6 = v1[4];
+  v7 = swift_task_alloc();
+  *(v2 + 16) = v7;
+  *v7 = v2;
+  v7[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return closure #1 in closure #2 in MLS.XPCClientCoordinator.init(clientIdentifier:selfMember:clientEventDeliverer:)(a1, v4, v5, v6);
+}
+
+uint64_t partial apply for closure #2 in closure #1 in closure #2 in MLS.XPCClientCoordinator.init(clientIdentifier:selfMember:clientEventDeliverer:)(uint64_t a1)
+{
+  v4 = swift_task_alloc();
+  *(v2 + 16) = v4;
+  *v4 = v2;
+  v4[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return closure #2 in closure #1 in closure #2 in MLS.XPCClientCoordinator.init(clientIdentifier:selfMember:clientEventDeliverer:)(a1, v1);
+}
+
+uint64_t partial apply for closure #3 in closure #1 in closure #2 in MLS.XPCClientCoordinator.init(clientIdentifier:selfMember:clientEventDeliverer:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v10 = swift_task_alloc();
+  *(v5 + 16) = v10;
+  *v10 = v5;
+  v10[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return closure #3 in closure #1 in closure #2 in MLS.XPCClientCoordinator.init(clientIdentifier:selfMember:clientEventDeliverer:)(a1, a2, a3, a4, v4);
+}
+
+uint64_t partial apply for closure #4 in closure #1 in closure #2 in MLS.XPCClientCoordinator.init(clientIdentifier:selfMember:clientEventDeliverer:)()
+{
+  v2 = swift_task_alloc();
+  *(v1 + 16) = v2;
+  *v2 = v1;
+  v2[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return closure #4 in closure #1 in closure #2 in MLS.XPCClientCoordinator.init(clientIdentifier:selfMember:clientEventDeliverer:)(v0);
+}
+
+uint64_t MLS.Configuration.init(clientIdentifier:communicator:delegate:keyPackageExchanger:persister:runInDaemon:selfMember:)@<X0>(uint64_t a1@<X1>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t a4@<X4>, uint64_t a5@<X5>, uint64_t a6@<X6>, uint64_t a7@<X7>, uint64_t a8@<X8>, uint64_t a9, char a10, uint64_t a11, uint64_t a12, __int128 a13, uint64_t a14)
+{
+  *a8 = a1;
+  *(a8 + 8) = a2;
+  *(a8 + 16) = a3;
+  *(a8 + 24) = a4;
+  *(a8 + 32) = a5;
+  *(a8 + 40) = a6;
+  *(a8 + 48) = a7;
+  *(a8 + 56) = a9;
+  *(a8 + 64) = a10;
+  v18 = a12;
+  v19 = a13;
+  v20 = a14;
+  v15 = *(type metadata accessor for MLS.Configuration(0, &v18) + 72);
+  v16 = type metadata accessor for Optional();
+  return (*(*(v16 - 8) + 32))(a8 + v15, a11, v16);
+}
+
+uint64_t MLS.ClientIdentifier.init(rawValue:)@<X0>(Swift::String string@<0:X0, 8:X1>, BOOL *a2@<X8>)
+{
+  object = string._object;
+  v3._countAndFlagsBits = string._countAndFlagsBits;
+  v3._object = object;
+  v5 = _findStringSwitchCase(cases:string:)(&outlined read-only object #0 of MLS.ClientIdentifier.init(rawValue:), v3);
+
+  *a2 = v5 != 0;
+  return result;
+}
+
+uint64_t protocol witness for RawRepresentable.init(rawValue:) in conformance MLS.ClientIdentifier@<X0>(Swift::String *a1@<X0>, BOOL *a2@<X8>)
+{
+  v3 = _findStringSwitchCase(cases:string:)(&outlined read-only object #0 of protocol witness for RawRepresentable.init(rawValue:) in conformance MLS.ClientIdentifier, *a1);
+
+  *a2 = v3 != 0;
+  return result;
+}
+
+uint64_t MLS.Configuration.selfMember.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  v4 = *(a1 + 72);
+  v5 = type metadata accessor for Optional();
+  v6 = *(*(v5 - 8) + 16);
+
+  return v6(a2, v2 + v4, v5);
+}
+
+unint64_t type metadata completion function for MLS.Configuration(uint64_t a1)
+{
+  swift_getExtendedExistentialTypeMetadata();
+  swift_getExtendedExistentialTypeMetadata();
+  swift_getExtendedExistentialTypeMetadata();
+  result = type metadata accessor for MLS.Persister();
+  if (v2 <= 0x3F)
+  {
+    result = type metadata accessor for Optional();
+    if (v3 <= 0x3F)
+    {
+      swift_cvw_initStructMetadataWithLayoutString();
+      return 0;
+    }
+  }
+
+  return result;
+}
+
+uint64_t getEnumTagSinglePayload for MLS.Configuration(unsigned __int16 *a1, unsigned int a2, uint64_t a3)
+{
+  v4 = *(*(a3 + 16) - 8);
+  v5 = *(v4 + 84);
+  if (v5)
+  {
+    v6 = v5 - 1;
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  if (v6 <= 0x7FFFFFFF)
+  {
+    v7 = 0x7FFFFFFF;
+  }
+
+  else
+  {
+    v7 = v6;
+  }
+
+  v8 = *(v4 + 80);
+  v9 = *(*(*(a3 + 16) - 8) + 64);
+  if (!v5)
+  {
+    ++v9;
+  }
+
+  if (!a2)
+  {
+    return 0;
+  }
+
+  v10 = a2 - v7;
+  if (a2 <= v7)
+  {
+    goto LABEL_31;
+  }
+
+  v11 = v9 + ((v8 + 65) & ~v8);
+  v12 = 8 * v11;
+  if (v11 <= 3)
+  {
+    v15 = ((v10 + ~(-1 << v12)) >> v12) + 1;
+    if (HIWORD(v15))
+    {
+      v13 = *(a1 + v11);
+      if (!v13)
+      {
+        goto LABEL_31;
+      }
+
+      goto LABEL_20;
+    }
+
+    if (v15 > 0xFF)
+    {
+      v13 = *(a1 + v11);
+      if (!*(a1 + v11))
+      {
+        goto LABEL_31;
+      }
+
+      goto LABEL_20;
+    }
+
+    if (v15 < 2)
+    {
+LABEL_31:
+      v17 = ((a1 + 7) & 0xFFFFFFFFFFFFFFF8);
+      if ((v6 & 0x80000000) != 0)
+      {
+        v19 = (*(v4 + 48))((((((((v17 + 23) & 0xFFFFFFFFFFFFFFF8) + 23) & 0xFFFFFFFFFFFFFFF8) + 23) & 0xFFFFFFFFFFFFFFF8) + v8 + 17) & ~v8);
+        if (v19 >= 2)
+        {
+          return v19 - 1;
+        }
+
+        else
+        {
+          return 0;
+        }
+      }
+
+      else
+      {
+        v18 = *v17;
+        if (v18 >= 0xFFFFFFFF)
+        {
+          LODWORD(v18) = -1;
+        }
+
+        return (v18 + 1);
+      }
+    }
+  }
+
+  v13 = *(a1 + v11);
+  if (!*(a1 + v11))
+  {
+    goto LABEL_31;
+  }
+
+LABEL_20:
+  v16 = (v13 - 1) << v12;
+  if (v11 > 3)
+  {
+    v16 = 0;
+  }
+
+  if (v11)
+  {
+    if (v11 > 3)
+    {
+      LODWORD(v11) = 4;
+    }
+
+    if (v11 > 2)
+    {
+      if (v11 == 3)
+      {
+        LODWORD(v11) = *a1 | (*(a1 + 2) << 16);
+      }
+
+      else
+      {
+        LODWORD(v11) = *a1;
+      }
+    }
+
+    else if (v11 == 1)
+    {
+      LODWORD(v11) = *a1;
+    }
+
+    else
+    {
+      LODWORD(v11) = *a1;
+    }
+  }
+
+  return v7 + (v11 | v16) + 1;
+}
+
+void storeEnumTagSinglePayload for MLS.Configuration(char *a1, unsigned int a2, unsigned int a3, uint64_t a4)
+{
+  v6 = 0;
+  v7 = *(*(a4 + 16) - 8);
+  v8 = *(v7 + 84);
+  v9 = v8 - 1;
+  if (!v8)
+  {
+    v9 = 0;
+  }
+
+  if (v9 <= 0x7FFFFFFF)
+  {
+    v10 = 0x7FFFFFFF;
+  }
+
+  else
+  {
+    v10 = v9;
+  }
+
+  v11 = *(v7 + 80);
+  v12 = *(*(*(a4 + 16) - 8) + 64);
+  if (!v8)
+  {
+    ++v12;
+  }
+
+  v13 = ((v11 + 65) & ~v11) + v12;
+  v14 = a3 >= v10;
+  v15 = a3 - v10;
+  if (v15 == 0 || !v14)
+  {
+LABEL_20:
+    if (v10 < a2)
+    {
+      goto LABEL_21;
+    }
+
+    goto LABEL_30;
+  }
+
+  if (v13 > 3)
+  {
+    v6 = 1;
+    if (v10 < a2)
+    {
+      goto LABEL_21;
+    }
+
+    goto LABEL_30;
+  }
+
+  v16 = ((v15 + ~(-1 << (8 * v13))) >> (8 * v13)) + 1;
+  if (!HIWORD(v16))
+  {
+    if (v16 < 0x100)
+    {
+      v17 = 1;
+    }
+
+    else
+    {
+      v17 = 2;
+    }
+
+    if (v16 >= 2)
+    {
+      v6 = v17;
+    }
+
+    else
+    {
+      v6 = 0;
+    }
+
+    goto LABEL_20;
+  }
+
+  v6 = 4;
+  if (v10 < a2)
+  {
+LABEL_21:
+    v18 = ~v10 + a2;
+    if (v13 < 4)
+    {
+      v19 = (v18 >> (8 * v13)) + 1;
+      if (v13)
+      {
+        v20 = v18 & ~(-1 << (8 * v13));
+        bzero(a1, v13);
+        if (v13 != 3)
+        {
+          if (v13 == 2)
+          {
+            *a1 = v20;
+            if (v6 > 1)
+            {
+LABEL_62:
+              if (v6 == 2)
+              {
+                *&a1[v13] = v19;
+              }
+
+              else
+              {
+                *&a1[v13] = v19;
+              }
+
+              return;
+            }
+          }
+
+          else
+          {
+            *a1 = v18;
+            if (v6 > 1)
+            {
+              goto LABEL_62;
+            }
+          }
+
+          goto LABEL_59;
+        }
+
+        *a1 = v20;
+        a1[2] = BYTE2(v20);
+      }
+
+      if (v6 > 1)
+      {
+        goto LABEL_62;
+      }
+    }
+
+    else
+    {
+      bzero(a1, v13);
+      *a1 = v18;
+      v19 = 1;
+      if (v6 > 1)
+      {
+        goto LABEL_62;
+      }
+    }
+
+LABEL_59:
+    if (v6)
+    {
+      a1[v13] = v19;
+    }
+
+    return;
+  }
+
+LABEL_30:
+  if (v6 > 1)
+  {
+    if (v6 != 2)
+    {
+      *&a1[v13] = 0;
+      if (!a2)
+      {
+        return;
+      }
+
+      goto LABEL_37;
+    }
+
+    *&a1[v13] = 0;
+LABEL_36:
+    if (!a2)
+    {
+      return;
+    }
+
+    goto LABEL_37;
+  }
+
+  if (!v6)
+  {
+    goto LABEL_36;
+  }
+
+  a1[v13] = 0;
+  if (!a2)
+  {
+    return;
+  }
+
+LABEL_37:
+  v21 = ((a1 + 7) & 0xFFFFFFFFFFFFFFF8);
+  if ((v9 & 0x80000000) != 0)
+  {
+    v22 = ((((((((v21 + 23) & 0xFFFFFFFFFFFFFFF8) + 23) & 0xFFFFFFFFFFFFFFF8) + 23) & 0xFFFFFFFFFFFFFFF8) + v11 + 17) & ~v11);
+    if (v9 >= a2)
+    {
+      v26 = *(v7 + 56);
+      v27 = a2 + 1;
+
+      v26((((((((v21 + 23) & 0xFFFFFFFFFFFFFFF8) + 23) & 0xFFFFFFFFFFFFFFF8) + 23) & 0xFFFFFFFFFFFFFFF8) + v11 + 17) & ~v11, v27);
+    }
+
+    else
+    {
+      if (v12 <= 3)
+      {
+        v23 = ~(-1 << (8 * v12));
+      }
+
+      else
+      {
+        v23 = -1;
+      }
+
+      if (v12)
+      {
+        v24 = v23 & (~v9 + a2);
+        if (v12 <= 3)
+        {
+          v25 = v12;
+        }
+
+        else
+        {
+          v25 = 4;
+        }
+
+        bzero(v22, v12);
+        if (v25 > 2)
+        {
+          if (v25 == 3)
+          {
+            *v22 = v24;
+            v22[2] = BYTE2(v24);
+          }
+
+          else
+          {
+            *v22 = v24;
+          }
+        }
+
+        else if (v25 == 1)
+        {
+          *v22 = v24;
+        }
+
+        else
+        {
+          *v22 = v24;
+        }
+      }
+    }
+  }
+
+  else if ((a2 & 0x80000000) != 0)
+  {
+    *v21 = a2 & 0x7FFFFFFF;
+    v21[1] = 0;
+  }
+
+  else
+  {
+    *v21 = a2 - 1;
+  }
+}
+
+uint64_t MLS.DowngradeOperation.__allocating_init(group:context:clientIdentifier:shouldHeal:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t a5)
+{
+  v5 = a5;
+  v10 = swift_allocObject();
+  MLS.DowngradeOperation.init(group:context:clientIdentifier:shouldHeal:)(a1, a2, a3, a4, v5);
+  return v10;
+}
+
+uint64_t MLS.DowngradeOperation.group.getter()
 {
   v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
 
   return v1;
 }
 
-uint64_t MLS.KeyUpdateOperation.persister.getter()
+double MLS.DowngradeOperation.clientIdentifier.getter@<D0>(void *a1@<X8>)
 {
-  v1 = (v0 + *(*v0 + 168));
-  v2 = *v1;
-  v3 = v1[1];
-  return swift_unknownObjectRetain();
-}
-
-uint64_t MLS.KeyUpdateOperation.clientIdentifier.getter@<X0>(void *a1@<X8>)
-{
-  v2 = (v1 + *(*v1 + 176));
+  v2 = (v1 + *(*v1 + 144));
   v3 = v2[1];
   *a1 = *v2;
   a1[1] = v3;
+
+  return result;
 }
 
-uint64_t MLS.KeyUpdateOperation.logger.getter@<X0>(uint64_t a1@<X8>)
+uint64_t MLS.DowngradeOperation.logger.getter@<X0>(uint64_t a1@<X8>)
 {
-  v3 = *(*v1 + 184);
+  v3 = *(*v1 + 160);
   v4 = type metadata accessor for Logger();
   v5 = *(*(v4 - 8) + 16);
 
   return v5(a1, v1 + v3, v4);
 }
 
-uint64_t *MLS.KeyUpdateOperation.init(group:causedByOutgoingMessage:context:policy:featureFlagsStore:persister:clientIdentifier:)(uint64_t a1, uint64_t a2, char a3, uint64_t a4, __int128 *a5, uint64_t *a6, uint64_t a7, uint64_t a8, uint64_t *a9)
+char *MLS.DowngradeOperation.init(group:context:clientIdentifier:shouldHeal:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, char a5)
 {
-  v15 = *v9;
-  v16 = *a6;
-  v18 = *a9;
-  v17 = a9[1];
-  v19 = v9 + *(*v9 + 184);
+  v10 = *v5;
+  v11 = *a4;
+  v12 = a4[1];
   Logger.init(subsystem:category:)();
-  v9[2] = a1;
-  v9[3] = a2;
-  *(v9 + 32) = a3;
-  (*(*(*(v15 + 88) - 8) + 32))(v9 + *(*v9 + 144), a4);
-  outlined init with take of MLS.KeyUpdatePolicy(a5, v9 + *(*v9 + 152));
-  *(v9 + *(*v9 + 160)) = v16;
-  v20 = (v9 + *(*v9 + 168));
-  *v20 = a7;
-  v20[1] = a8;
-  v21 = (v9 + *(*v9 + 176));
-  *v21 = v18;
-  v21[1] = v17;
-  return v9;
+  *(v5 + 2) = a1;
+  *(v5 + 3) = a2;
+  (*(*(*(v10 + 88) - 8) + 32))(&v5[*(*v5 + 136)], a3);
+  v13 = &v5[*(*v5 + 144)];
+  *v13 = v11;
+  *(v13 + 1) = v12;
+  v5[*(*v5 + 152)] = a5;
+  return v5;
 }
 
-uint64_t MLS.KeyUpdateOperation.isDisabled.getter()
-{
-  v1 = v0;
-  v2 = *v0;
-  v3 = *(v0 + *(*v0 + 160));
-  if (!*(v3 + 16) || (v4 = specialized __RawDictionaryStorage.find<A>(_:)(0), (v5 & 1) == 0))
-  {
-    v17[3] = &type metadata for SMAFeatureFlagsKey;
-    v17[4] = lazy protocol witness table accessor for type SMAFeatureFlagsKey and conformance SMAFeatureFlagsKey();
-    LOBYTE(v17[0]) = 0;
-
-    v16 = isFeatureEnabled(_:)();
-    __swift_destroy_boxed_opaque_existential_1Tm(v17);
-
-    if ((v16 & 1) == 0)
-    {
-      goto LABEL_4;
-    }
-
-    return 0;
-  }
-
-  if (*(*(v3 + 56) + v4))
-  {
-    return 0;
-  }
-
-LABEL_4:
-  v6 = *(*v1 + 184);
-
-  v7 = Logger.logObject.getter();
-  v8 = static os_log_type_t.default.getter();
-
-  if (os_log_type_enabled(v7, v8))
-  {
-    v9 = swift_slowAlloc();
-    v10 = swift_slowAlloc();
-    v17[0] = v10;
-    *v9 = 136315138;
-    v11 = *(*v1 + 144);
-    v12 = (*(*(v2 + 112) + 16))(*(v2 + 88));
-    v14 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v12, v13, v17);
-
-    *(v9 + 4) = v14;
-    _os_log_impl(&dword_264F1F000, v7, v8, "KeyUpdateOperation key roll check disabled { identifier: %s }", v9, 0xCu);
-    __swift_destroy_boxed_opaque_existential_1Tm(v10);
-    MEMORY[0x266755550](v10, -1, -1);
-    MEMORY[0x266755550](v9, -1, -1);
-  }
-
-  return 1;
-}
-
-uint64_t MLS.KeyUpdateOperation.membersRequiringKeyPackages(swiftMLSGroup:)()
+uint64_t MLS.DowngradeOperation.membersRequiringKeyPackages(swiftMLSGroup:)()
 {
   if (one-time initialization token for shared != -1)
   {
@@ -1773,48 +1130,25 @@ uint64_t MLS.KeyUpdateOperation.membersRequiringKeyPackages(swiftMLSGroup:)()
   return v1(v2);
 }
 
-uint64_t MLS.KeyUpdateOperation.perform(on:metricCollector:keyPackageResult:)(uint64_t a1, uint64_t a2, void *a3)
+uint64_t MLS.DowngradeOperation.perform(on:metricCollector:keyPackageResult:)(uint64_t a1, uint64_t a2, void *a3)
 {
-  v4[101] = v3;
-  v4[100] = a2;
-  v4[99] = a1;
+  v4[114] = v3;
+  v4[113] = a2;
+  v4[112] = a1;
   v6 = *v3;
-  v4[102] = *v3;
-  v7 = type metadata accessor for UUID();
-  v4[103] = v7;
-  v8 = *(v7 - 8);
-  v4[104] = v8;
-  v9 = *(v8 + 64) + 15;
-  v4[105] = swift_task_alloc();
-  v10 = type metadata accessor for MetricCollector.Event();
-  v4[106] = v10;
-  v11 = *(*(v10 - 8) + 64) + 15;
-  v4[107] = swift_task_alloc();
-  v4[108] = swift_task_alloc();
-  v12 = *(v6 + 104);
-  v4[109] = v12;
-  v13 = *(v12 + 8);
-  v4[110] = v13;
-  v4[111] = *(v13 + 8);
-  v14 = *(v6 + 80);
-  v4[112] = v14;
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v4[113] = AssociatedTypeWitness;
-  v16 = *(*(AssociatedTypeWitness - 8) + 64) + 15;
-  v4[114] = swift_task_alloc();
-  v17 = *(v14 - 8);
-  v4[115] = v17;
-  v18 = *(v17 + 64) + 15;
-  v4[116] = swift_task_alloc();
-  v4[117] = swift_task_alloc();
-  v4[118] = swift_task_alloc();
-  v4[119] = swift_task_alloc();
+  v4[115] = *v3;
+  v7 = *(v6 + 104);
+  v4[116] = v7;
+  v4[117] = *(*(v7 + 8) + 8);
+  v8 = *(v6 + 80);
+  v4[118] = v8;
+  v4[119] = swift_getAssociatedTypeWitness();
   v4[120] = swift_task_alloc();
-  v4[121] = swift_task_alloc();
+  v4[121] = *(v8 - 8);
   v4[122] = swift_task_alloc();
   v4[123] = swift_task_alloc();
   v4[124] = swift_task_alloc();
-  v4[125] = swift_task_alloc();
+  v4[125] = type metadata accessor for MetricCollector.Event(0);
   v4[126] = swift_task_alloc();
   v4[127] = swift_task_alloc();
   v4[128] = *a3;
@@ -1823,1298 +1157,559 @@ uint64_t MLS.KeyUpdateOperation.perform(on:metricCollector:keyPackageResult:)(ui
     swift_once();
   }
 
-  v19 = static MLSActor.shared;
+  v9 = static MLSActor.shared;
   v4[129] = static MLSActor.shared;
 
-  return MEMORY[0x2822009F8](MLS.KeyUpdateOperation.perform(on:metricCollector:keyPackageResult:), v19, 0);
+  return MEMORY[0x2822009F8](MLS.DowngradeOperation.perform(on:metricCollector:keyPackageResult:), v9, 0);
 }
 
-uint64_t MLS.KeyUpdateOperation.perform(on:metricCollector:keyPackageResult:)()
+uint64_t MLS.DowngradeOperation.perform(on:metricCollector:keyPackageResult:)()
 {
-  v1 = v0[114];
-  v2 = v0[113];
-  v3 = v0[112];
-  v20 = v0[111];
-  v21 = v0[127];
-  v19 = v0[110];
-  v4 = v0[102];
-  v5 = v0[101];
-  v0[96] = v0[128];
-  v0[130] = *(*v5 + 144);
-  v6 = *(v4 + 112);
-  v0[131] = v6;
-  v7 = *(v6 + 16);
-  v8 = *(v4 + 88);
-  v0[132] = v8;
-
-  v9 = v7(v8, v6);
-  v11 = v10;
-  v0[133] = v9;
-  v0[134] = v10;
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  (*(AssociatedConformanceWitness + 16))(v2, AssociatedConformanceWitness);
-  VersatileError.init(type:)(v1, v3, v20);
-  v13 = swift_allocObject();
-  v0[135] = v13;
-  v13[2] = v5;
-  v13[3] = v9;
-  v13[4] = v11;
-
-  v14 = swift_task_alloc();
-  v0[136] = v14;
-  type metadata accessor for MLS.KeyUpdateTracker();
-  *v14 = v0;
-  v14[1] = MLS.KeyUpdateOperation.perform(on:metricCollector:keyPackageResult:);
-  v15 = v0[127];
-  v16 = v0[112];
-  v17 = v0[101];
-  v23 = v0[111];
-  v24 = v0[126];
-
-  return _s15SecureMessaging12asyncRethrow_2as3logq_q_yYaYbKXK_xySSYbcSgtYaxYKAA14VersatileErrorRzr0_lF((v0 + 97), &async function pointer to partial apply for implicit closure #1 in MLS.KeyUpdateOperation.perform(on:metricCollector:keyPackageResult:), v17, v15, partial apply for closure #1 in MLS.KeyUpdateOperation.perform(on:metricCollector:keyPackageResult:), v13, v16);
-}
-
-{
-  v2 = *v1;
-  v3 = *(*v1 + 1088);
-  v21 = *v1;
-
-  if (v0)
-  {
-    v4 = v2[135];
-    v5 = v2[134];
-    v6 = v2[129];
-    v7 = v2[127];
-    v8 = v2[115];
-    v9 = v2[112];
-    v10 = *(v8 + 8);
-    v2[165] = v10;
-    v2[166] = (v8 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
-    v10(v7, v9);
-
-    v11 = v2[96];
-
-    v12 = MLS.KeyUpdateOperation.perform(on:metricCollector:keyPackageResult:);
-    v13 = v6;
-  }
-
-  else
-  {
-    v14 = v2[135];
-    v15 = v2[129];
-    v16 = v2[127];
-    v17 = v2[115];
-    v18 = v2[112];
-    v19 = *(v17 + 8);
-    v2[137] = v19;
-    v2[138] = (v17 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
-    v19(v16, v18);
-
-    v12 = MLS.KeyUpdateOperation.perform(on:metricCollector:keyPackageResult:);
-    v13 = v15;
-  }
-
-  return MEMORY[0x2822009F8](v12, v13, 0);
-}
-
-{
-  v1 = v0[134];
-  v17 = v0[125];
-  v18 = v0[133];
+  v30 = v0;
+  v1 = v0[115];
   v2 = v0[114];
-  v3 = v0[113];
-  v4 = v0[112];
-  v5 = v0[111];
-  v6 = v0[109];
-  v7 = v0[101];
-  v8 = v0[97];
-  v0[139] = v8;
-  v9 = swift_task_alloc();
-  v0[140] = v9;
-  *(v9 + 16) = v8;
-  *(v9 + 24) = v7;
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  v0[141] = AssociatedConformanceWitness;
-  v11 = *(AssociatedConformanceWitness + 96);
-  v0[142] = v11;
-  v0[143] = (AssociatedConformanceWitness + 96) & 0xFFFFFFFFFFFFLL | 0xCA1B000000000000;
-  v11(v3, AssociatedConformanceWitness);
-  VersatileError.init(type:)(v2, v4, v5);
-  v12 = swift_allocObject();
-  v0[144] = v12;
-  v12[2] = v7;
-  v12[3] = v18;
-  v12[4] = v1;
+  v0[110] = v0[128];
+  v0[130] = *(*v2 + 136);
+  v3 = *(v1 + 112);
+  v0[131] = v3;
+  v4 = *(v3 + 16);
+  v5 = *(v1 + 88);
+  v0[132] = v5;
 
-  v13 = swift_task_alloc();
-  v0[145] = v13;
-  *v13 = v0;
-  v13[1] = MLS.KeyUpdateOperation.perform(on:metricCollector:keyPackageResult:);
-  v14 = v0[125];
-  v15 = v0[112];
-  v20 = v0[111];
-  v21 = v0[124];
+  v6 = v4(v5, v3);
+  v8 = v7;
+  v0[133] = v6;
+  v0[134] = v7;
+  v0[135] = *(*v2 + 160);
 
-  return _s15SecureMessaging12asyncRethrow_2as3logq_q_yYaYbKXK_xySSYbcSgtYaxYKAA14VersatileErrorRzr0_lF(v0 + 193, &async function pointer to partial apply for implicit closure #2 in MLS.KeyUpdateOperation.perform(on:metricCollector:keyPackageResult:), v9, v14, partial apply for closure #2 in MLS.KeyUpdateOperation.perform(on:metricCollector:keyPackageResult:), v12, v15);
-}
+  v9 = Logger.logObject.getter();
+  v10 = static os_log_type_t.default.getter();
 
-{
-  v2 = *v1;
-  v3 = *(*v1 + 1160);
-  v14 = *v1;
-
-  if (v0)
+  if (os_log_type_enabled(v9, v10))
   {
-    v4 = *(v2 + 1152);
-    v5 = *(v2 + 1104);
-    v6 = *(v2 + 1072);
-    v7 = *(v2 + 1032);
-    (*(v2 + 1096))(*(v2 + 1000), *(v2 + 896));
-
-    v8 = *(v2 + 768);
-
-    v9 = MLS.KeyUpdateOperation.perform(on:metricCollector:keyPackageResult:);
-  }
-
-  else
-  {
-    v10 = *(v2 + 1152);
-    v11 = *(v2 + 1120);
-    v12 = *(v2 + 1104);
-    v7 = *(v2 + 1032);
-    (*(v2 + 1096))(*(v2 + 1000), *(v2 + 896));
-
-    v9 = MLS.KeyUpdateOperation.perform(on:metricCollector:keyPackageResult:);
-  }
-
-  return MEMORY[0x2822009F8](v9, v7, 0);
-}
-
-{
-  v48 = v0;
-  if (*(v0 + 193) == 1)
-  {
-    v1 = *(v0 + 864);
-    v2 = *(v0 + 856);
-    v3 = *(v0 + 848);
-    v4 = *(v0 + 800);
-    Date.init()();
-    v5 = *(v3 + 20);
-    v6 = type metadata accessor for Date();
-    (*(*(v6 - 8) + 56))(v1 + v5, 1, 1, v6);
-    outlined init with take of MetricCollector.Event(v1, v2);
-    v7 = *(v0 + 768);
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v47 = v7;
-    specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v2, 0x534C4D7466697753, 0xEE0074696D6D6F43, isUniquelyReferenced_nonNull_native);
-    *(v0 + 1168) = v7;
-
-    *(v0 + 768) = v7;
-    v9 = v4[3];
-    v10 = v4[4];
-    __swift_project_boxed_opaque_existential_1(v4, v9);
-    v11 = *(v10 + 208);
-    v45 = (v11 + *v11);
-    v12 = v11[1];
-    v13 = swift_task_alloc();
-    *(v0 + 1176) = v13;
-    *v13 = v0;
-    v13[1] = MLS.KeyUpdateOperation.perform(on:metricCollector:keyPackageResult:);
-
-    return v45(v0 + 664, v9, v10);
-  }
-
-  else
-  {
-    v15 = *(v0 + 1072);
-    v16 = *(**(v0 + 808) + 184);
-
-    v17 = Logger.logObject.getter();
-    v18 = static os_log_type_t.default.getter();
-
-    v19 = os_log_type_enabled(v17, v18);
-    v20 = *(v0 + 1112);
-    v21 = *(v0 + 1072);
-    if (v19)
-    {
-      v22 = *(v0 + 1064);
-      v23 = swift_slowAlloc();
-      v24 = swift_slowAlloc();
-      v47 = v24;
-      *v23 = 136315138;
-      v25 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v22, v21, &v47);
-
-      *(v23 + 4) = v25;
-      _os_log_impl(&dword_264F1F000, v17, v18, "KeyUpdateOperation determined it should not roll { identifier: %s }", v23, 0xCu);
-      __swift_destroy_boxed_opaque_existential_1Tm(v24);
-      MEMORY[0x266755550](v24, -1, -1);
-      MEMORY[0x266755550](v23, -1, -1);
-    }
-
-    else
-    {
-      v26 = *(v0 + 1112);
-    }
-
-    v27 = *(v0 + 800);
-    v28 = *(v0 + 792);
-    *(v28 + 64) = 0u;
-    *(v28 + 80) = 0u;
-    *(v28 + 32) = 0u;
-    *(v28 + 48) = 0u;
-    *v28 = 0u;
-    *(v28 + 16) = 0u;
-    *(v28 + 96) = 3;
-    outlined init with copy of ServerBag.MLS(v27, v28 + 104);
-    *(v28 + 408) = 1;
-    *(v28 + 416) = *(v0 + 768);
-    *(v28 + 424) = 0;
-    *(v28 + 432) = 0;
-    v29 = *(v0 + 1016);
-    v30 = *(v0 + 1008);
-    v31 = *(v0 + 1000);
-    v32 = *(v0 + 992);
-    v33 = *(v0 + 984);
-    v34 = *(v0 + 976);
-    v35 = *(v0 + 968);
-    v36 = *(v0 + 960);
-    v37 = *(v0 + 952);
-    v38 = *(v0 + 944);
-    v40 = *(v0 + 936);
-    v41 = *(v0 + 928);
-    v42 = *(v0 + 912);
-    v43 = *(v0 + 864);
-    v44 = *(v0 + 856);
-    v46 = *(v0 + 840);
-
-    v39 = *(v0 + 8);
-
-    return v39();
-  }
-}
-
-{
-  v2 = *v1;
-  v3 = *(*v1 + 1176);
-  v10 = *v1;
-  *(*v1 + 1184) = v0;
-
-  if (v0)
-  {
-    v4 = v2[146];
-    v5 = v2[134];
-    v6 = v2[129];
-
-    v7 = MLS.KeyUpdateOperation.perform(on:metricCollector:keyPackageResult:);
-    v8 = v6;
-  }
-
-  else
-  {
-    v8 = v2[129];
-    v7 = MLS.KeyUpdateOperation.perform(on:metricCollector:keyPackageResult:);
-  }
-
-  return MEMORY[0x2822009F8](v7, v8, 0);
-}
-
-{
-  v108 = v0;
-  v1 = *(v0 + 1072);
-  v2 = *(v0 + 808);
-  v3._countAndFlagsBits = 0x534C4D7466697753;
-  v3._object = 0xEE0074696D6D6F43;
-  MetricCollector.end(label:)(v3);
-  v4 = *(*v2 + 184);
-  outlined init with copy of ServerBag.MLS(v0 + 664, v0 + 704);
-
-  v5 = Logger.logObject.getter();
-  v6 = static os_log_type_t.default.getter();
-
-  if (os_log_type_enabled(v5, v6))
-  {
-    v7 = *(v0 + 1072);
-    v8 = *(v0 + 1064);
-    v9 = swift_slowAlloc();
-    v10 = swift_slowAlloc();
-    *&v104 = v10;
-    *v9 = 136315394;
-    *(v9 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v8, v7, &v104);
-    *(v9 + 12) = 2080;
-    v11 = *(v0 + 728);
-    __swift_project_boxed_opaque_existential_1((v0 + 704), v11);
-    v12 = *(v11 - 8);
-    v13 = *(v12 + 64) + 15;
-    swift_task_alloc();
-    (*(v12 + 16))();
-    v14 = String.init<A>(describing:)();
-    v16 = v15;
-
-    __swift_destroy_boxed_opaque_existential_1Tm((v0 + 704));
-    v17 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v14, v16, &v104);
-
-    *(v9 + 14) = v17;
-    _os_log_impl(&dword_264F1F000, v5, v6, "KeyUpdateOperation generated commit for key roll { identifier: %s, commitOutput: %s }", v9, 0x16u);
-    swift_arrayDestroy();
-    MEMORY[0x266755550](v10, -1, -1);
-    MEMORY[0x266755550](v9, -1, -1);
-  }
-
-  else
-  {
-
-    __swift_destroy_boxed_opaque_existential_1Tm((v0 + 704));
-  }
-
-  v18 = *(v0 + 1184);
-  v19 = *(v0 + 1056);
-  v20 = *(v0 + 1048);
-  v21 = *(v0 + 896);
-  v22 = *(v0 + 872);
-  v23 = *(v0 + 816);
-  v24 = *(v0 + 808);
-  v25 = *(v0 + 688);
-  v26 = *(v0 + 696);
-  __swift_project_boxed_opaque_existential_1((v0 + 664), v25);
-  MLS.SwiftMLSCommitOutputProtocol.outgoingCommit.getter(v25, v26, &v104);
-  v27 = *(&v104 + 1);
-  v96 = v104;
-  *(v0 + 1192) = *(&v104 + 1);
-  v102 = v105;
-  *(v0 + 1200) = v105;
-  *(v0 + 784) = v24;
-  v28 = *(v23 + 96);
-  v29 = *(v23 + 120);
-  *(v0 + 616) = v21;
-  *(v0 + 624) = v19;
-  *(v0 + 632) = v28;
-  *(v0 + 640) = v22;
-  *(v0 + 648) = v20;
-  *(v0 + 656) = v29;
-  updated = type metadata accessor for MLS.KeyUpdateOperation();
-  WitnessTable = swift_getWitnessTable();
-  MLS.GroupOperation.context(commitOutput:)((v0 + 664), updated, WitnessTable, &v104);
-  v32 = v104;
-  *(v0 + 1216) = v104;
-  v33 = v105;
-  *(v0 + 1232) = v105;
-  v34 = v106;
-  v35 = v107;
-  *(v0 + 1248) = v106;
-  *(v0 + 1256) = v35;
-  if (v18)
-  {
-    v36 = *(v0 + 1112);
-    v37 = *(v0 + 1072);
-    v38 = *(v0 + 768);
-
-    outlined consume of Data._Representation(v102, *(&v102 + 1));
-
-    __swift_destroy_boxed_opaque_existential_1Tm((v0 + 664));
-    v39 = *(v0 + 1016);
-    v40 = *(v0 + 1008);
-    v41 = *(v0 + 1000);
-    v42 = *(v0 + 992);
-    v43 = *(v0 + 984);
-    v44 = *(v0 + 976);
-    v45 = *(v0 + 968);
-    v46 = *(v0 + 960);
-    v47 = *(v0 + 952);
-    v48 = *(v0 + 944);
-    v90 = *(v0 + 936);
-    v92 = *(v0 + 928);
-    v94 = *(v0 + 912);
-    v97 = *(v0 + 864);
-    v99 = *(v0 + 856);
-    v100 = *(v0 + 840);
-
-    v49 = *(v0 + 8);
-
-    return v49();
-  }
-
-  else
-  {
-    v85 = v34;
-    v51 = *(v0 + 1072);
-    v52 = *(v0 + 1064);
-    v87 = *(v0 + 1048);
-    v91 = *(v0 + 1040);
-    v93 = *(v0 + 1056);
-    v53 = *(v0 + 840);
-    v54 = *(v0 + 832);
-    v84 = *(v0 + 824);
-    v89 = *(v0 + 808);
-    v95 = v32;
-
-    UUID.init()();
-    v88 = UUID.uuidString.getter();
-    v56 = v55;
-    v86 = v55;
-    (*(v54 + 8))(v53, v84);
-    v57 = *(v0 + 768);
-    *(v0 + 200) = v52;
-    *(v0 + 208) = v51;
-    *(v0 + 216) = v88;
-    *(v0 + 224) = v56;
-    *(v0 + 232) = xmmword_2651B5F50;
-    *(v0 + 248) = v57;
-    *(v0 + 256) = v96;
-    *(v0 + 264) = v27;
-    *(v0 + 272) = v102;
-    *(v0 + 288) = v95;
-    *(v0 + 304) = v33;
-    *(v0 + 320) = v85;
-    *(v0 + 328) = v35;
-    v58 = *(v0 + 216);
-    *(v0 + 16) = *(v0 + 200);
-    *(v0 + 32) = v58;
-    v59 = *(v0 + 312);
-    *(v0 + 112) = *(v0 + 296);
-    *(v0 + 128) = v59;
-    *(v0 + 144) = *(v0 + 328);
-    v60 = *(v0 + 248);
-    *(v0 + 48) = *(v0 + 232);
-    *(v0 + 64) = v60;
-    v61 = *(v0 + 280);
-    *(v0 + 80) = *(v0 + 264);
-    *(v0 + 96) = v61;
-    _s15SecureMessaging3MLSO17OutgoingEventTypeOy_AC9AllMemberO10Foundation4DataVGWOi3_(v0 + 16);
-    v98 = *(v87 + 8);
-
-    outlined copy of Data._Representation(v102, *(&v102 + 1));
-    outlined copy of Data._Representation(v95, *(&v95 + 1));
-    outlined copy of Data?(v33, *(&v33 + 1));
-    outlined copy of Data._Representation(v85, v35);
-    outlined init with copy of MLS.OutgoingKeyUpdate<Data>(v0 + 200, v0 + 336);
-
-    v62 = v98(v93, v87);
-    *(v0 + 472) = v88;
-    *(v0 + 480) = v86;
-    *(v0 + 488) = 0;
-    *(v0 + 496) = 0;
-    *(v0 + 504) = 4;
-    *(v0 + 512) = v52;
-    *(v0 + 520) = v51;
-    *(v0 + 528) = v62;
-    *(v0 + 536) = v63;
-
-    v64 = Logger.logObject.getter();
-    v65 = static os_log_type_t.default.getter();
-
-    if (os_log_type_enabled(v64, v65))
-    {
-      v66 = *(v0 + 1072);
-      v67 = *(v0 + 1064);
-      v68 = swift_slowAlloc();
-      v69 = swift_slowAlloc();
-      *&v104 = v69;
-      *v68 = 136315138;
-      *(v68 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v67, v66, &v104);
-      _os_log_impl(&dword_264F1F000, v64, v65, "KeyUpdateOperation returning operation result { identifier: %s }", v68, 0xCu);
-      __swift_destroy_boxed_opaque_existential_1Tm(v69);
-      MEMORY[0x266755550](v69, -1, -1);
-      MEMORY[0x266755550](v68, -1, -1);
-    }
-
-    v70 = *(v0 + 1128);
-    v101 = *(v0 + 1064);
-    v103 = *(v0 + 1072);
-    v71 = *(v0 + 984);
-    v72 = *(v0 + 912);
-    v73 = *(v0 + 904);
-    v74 = *(v0 + 896);
-    v75 = *(v0 + 888);
-    v76 = *(v0 + 808);
-    v77 = *(v0 + 800);
-    v78 = swift_task_alloc();
-    *(v0 + 1264) = v78;
-    *(v78 + 16) = v77;
-    (*(v70 + 56))(v73, v70);
-    VersatileError.init(type:)(v72, v74, v75);
-    v79 = swift_allocObject();
-    *(v0 + 1272) = v79;
-    v79[2] = v76;
-    v79[3] = v101;
-    v79[4] = v103;
-
-    v80 = swift_task_alloc();
-    *(v0 + 1280) = v80;
-    *v80 = v0;
-    v80[1] = MLS.KeyUpdateOperation.perform(on:metricCollector:keyPackageResult:);
-    v81 = *(v0 + 984);
-    v82 = *(v0 + 976);
-    v83 = *(v0 + 896);
-    v110 = *(v0 + 888);
-    v111 = v82;
-
-    return _s15SecureMessaging12asyncRethrow_2as3logq_q_yYaYbKXK_xySSYbcSgtYaxYKAA14VersatileErrorRzr0_lF(v0 + 744, &async function pointer to partial apply for implicit closure #7 in MLS.KeyUpdateOperation.perform(on:metricCollector:keyPackageResult:), v78, v81, partial apply for closure #3 in MLS.KeyUpdateOperation.perform(on:metricCollector:keyPackageResult:), v79, v83);
-  }
-}
-
-{
-  v2 = *v1;
-  v3 = *(*v1 + 1280);
-  v14 = *v1;
-
-  if (v0)
-  {
-    v4 = *(v2 + 1272);
-    v5 = *(v2 + 1104);
-    v6 = *(v2 + 1072);
-    v7 = *(v2 + 1032);
-    (*(v2 + 1096))(*(v2 + 984), *(v2 + 896));
-
-    v8 = *(v2 + 768);
-
-    v9 = MLS.KeyUpdateOperation.perform(on:metricCollector:keyPackageResult:);
-  }
-
-  else
-  {
-    v10 = *(v2 + 1272);
-    v11 = *(v2 + 1264);
-    v12 = *(v2 + 1104);
-    v7 = *(v2 + 1032);
-    (*(v2 + 1096))(*(v2 + 984), *(v2 + 896));
-
-    v9 = MLS.KeyUpdateOperation.perform(on:metricCollector:keyPackageResult:);
-  }
-
-  return MEMORY[0x2822009F8](v9, v7, 0);
-}
-
-{
-  v1 = *(v0 + 1144);
-  v2 = *(v0 + 1136);
-  v3 = *(v0 + 1128);
-  v4 = *(v0 + 1072);
-  v5 = *(v0 + 1064);
-  v6 = *(v0 + 968);
-  v7 = *(v0 + 912);
-  v8 = *(v0 + 904);
-  v9 = *(v0 + 896);
-  v10 = *(v0 + 888);
-  v11 = *(v0 + 808);
-  *(v0 + 1288) = *(v0 + 744);
-  *(v0 + 196) = *(v0 + 752);
-  *(v0 + 1296) = *(v0 + 760);
-  v2();
-  VersatileError.init(type:)(v7, v9, v10);
-  v12 = swift_allocObject();
-  *(v0 + 1304) = v12;
-  v12[2] = v11;
-  v12[3] = v5;
-  v12[4] = v4;
-
-  v13 = swift_task_alloc();
-  *(v0 + 1312) = v13;
-  *v13 = v0;
-  v13[1] = MLS.KeyUpdateOperation.perform(on:metricCollector:keyPackageResult:);
-  v14 = *(v0 + 1112);
-  v15 = *(v0 + 968);
-  v16 = *(v0 + 896);
-  v19 = *(v0 + 888);
-  v20 = *(v0 + 960);
-
-  return _s15SecureMessaging12asyncRethrow_2as3logq_q_yYaYbKXK_xySSYbcSgtYaxYKAA14VersatileErrorRzr0_lF(v13, &async function pointer to partial apply for implicit closure #8 in MLS.KeyUpdateOperation.perform(on:metricCollector:keyPackageResult:), v14, v15, partial apply for closure #4 in MLS.KeyUpdateOperation.perform(on:metricCollector:keyPackageResult:), v12, v16);
-}
-
-{
-  v2 = *v1;
-  v3 = *(*v1 + 1312);
-  v12 = *v1;
-
-  if (v0)
-  {
-    v4 = *(v2 + 1304);
-    v5 = *(v2 + 1104);
-    v6 = *(v2 + 1032);
-    (*(v2 + 1096))(*(v2 + 968), *(v2 + 896));
-
-    v7 = *(v2 + 768);
-
-    v8 = MLS.KeyUpdateOperation.perform(on:metricCollector:keyPackageResult:);
-  }
-
-  else
-  {
-    v9 = *(v2 + 1304);
-    v10 = *(v2 + 1104);
-    v6 = *(v2 + 1032);
-    (*(v2 + 1096))(*(v2 + 968), *(v2 + 896));
-
-    v8 = MLS.KeyUpdateOperation.perform(on:metricCollector:keyPackageResult:);
-  }
-
-  return MEMORY[0x2822009F8](v8, v6, 0);
-}
-
-{
-  v43 = *(v0 + 196);
-  v1 = *(v0 + 1256);
-  v2 = *(v0 + 1248);
-  v3 = *(v0 + 1240);
-  v4 = *(v0 + 1232);
-  v5 = *(v0 + 1224);
-  v6 = *(v0 + 1216);
-  v39 = *(v0 + 1208);
-  v41 = *(v0 + 1288);
-  v37 = *(v0 + 1200);
-  v7 = *(v0 + 1192);
-  v8 = *(v0 + 1112);
-  v45 = *(v0 + 1296);
-  v47 = *(v0 + 800);
-  v9 = *(v0 + 792);
-
-  outlined destroy of MLS.OutgoingKeyUpdate<Data>(v0 + 200);
-  outlined consume of Data._Representation(v2, v1);
-  outlined consume of Data?(v4, v3);
-  outlined consume of Data._Representation(v6, v5);
-
-  outlined consume of Data._Representation(v37, v39);
-  v10 = *(v0 + 16);
-  v11 = *(v0 + 32);
-  v12 = *(v0 + 64);
-  *(v9 + 32) = *(v0 + 48);
-  *(v9 + 48) = v12;
-  *v9 = v10;
-  *(v9 + 16) = v11;
-  v13 = *(v0 + 80);
-  v14 = *(v0 + 96);
-  v15 = *(v0 + 128);
-  *(v9 + 96) = *(v0 + 112);
-  *(v9 + 112) = v15;
-  *(v9 + 64) = v13;
-  *(v9 + 80) = v14;
-  v16 = *(v0 + 144);
-  v17 = *(v0 + 160);
-  v18 = *(v0 + 176);
-  *(v9 + 176) = *(v0 + 192);
-  *(v9 + 144) = v17;
-  *(v9 + 160) = v18;
-  *(v9 + 128) = v16;
-  *(v9 + 184) = *(v0 + 472);
-  v19 = *(v0 + 488);
-  v20 = *(v0 + 504);
-  v21 = *(v0 + 520);
-  *(v9 + 248) = *(v0 + 536);
-  *(v9 + 232) = v21;
-  *(v9 + 216) = v20;
-  *(v9 + 200) = v19;
-  *(v9 + 256) = 0;
-  *(v9 + 264) = v41;
-  *(v9 + 272) = v43;
-  *(v9 + 280) = v45;
-  *(v9 + 288) = *(v0 + 472);
-  v22 = *(v0 + 488);
-  v23 = *(v0 + 504);
-  v24 = *(v0 + 520);
-  *(v9 + 352) = *(v0 + 536);
-  *(v9 + 320) = v23;
-  *(v9 + 336) = v24;
-  *(v9 + 304) = v22;
-  *(v9 + 360) = 0;
-  outlined init with copy of ServerBag.MLS(v47, v9 + 368);
-  *(v9 + 408) = 0;
-  *(v9 + 416) = *(v0 + 768);
-  *(v9 + 424) = 0;
-  *(v9 + 432) = 0;
-  outlined init with copy of MLS.OutgoingEventState(v0 + 472, v0 + 544);
-  __swift_destroy_boxed_opaque_existential_1Tm((v0 + 664));
-  v25 = *(v0 + 1016);
-  v26 = *(v0 + 1008);
-  v27 = *(v0 + 1000);
-  v28 = *(v0 + 992);
-  v29 = *(v0 + 984);
-  v30 = *(v0 + 976);
-  v31 = *(v0 + 968);
-  v32 = *(v0 + 960);
-  v33 = *(v0 + 952);
-  v34 = *(v0 + 944);
-  v38 = *(v0 + 936);
-  v40 = *(v0 + 928);
-  v42 = *(v0 + 912);
-  v44 = *(v0 + 864);
-  v46 = *(v0 + 856);
-  v48 = *(v0 + 840);
-
-  v35 = *(v0 + 8);
-
-  return v35();
-}
-
-{
-  v1 = *(v0 + 888);
-  v2 = *(*(v0 + 920) + 32);
-  v2(*(v0 + 952), *(v0 + 1008), *(v0 + 896));
-  v3 = *(*(v1 + 8) + 8);
-  if (_getErrorEmbeddedNSError<A>(_:)())
-  {
-    v4 = *(v0 + 1328);
-    (*(v0 + 1320))(*(v0 + 952), *(v0 + 896));
-  }
-
-  else
-  {
-    v5 = *(v0 + 952);
-    v6 = *(v0 + 896);
-    swift_allocError();
-    v2(v7, v5, v6);
-  }
-
-  v8 = *(v0 + 1016);
-  v9 = *(v0 + 1008);
-  v10 = *(v0 + 1000);
-  v11 = *(v0 + 992);
-  v12 = *(v0 + 984);
-  v13 = *(v0 + 976);
-  v14 = *(v0 + 968);
-  v15 = *(v0 + 960);
-  v16 = *(v0 + 952);
-  v17 = *(v0 + 944);
-  v20 = *(v0 + 936);
-  v21 = *(v0 + 928);
-  v22 = *(v0 + 912);
-  v23 = *(v0 + 864);
-  v24 = *(v0 + 856);
-  v25 = *(v0 + 840);
-
-  v18 = *(v0 + 8);
-
-  return v18();
-}
-
-{
-  v1 = *(v0 + 888);
-  v2 = *(*(v0 + 920) + 32);
-  v2(*(v0 + 944), *(v0 + 992), *(v0 + 896));
-  v3 = *(*(v1 + 8) + 8);
-  if (_getErrorEmbeddedNSError<A>(_:)())
-  {
-    v4 = *(v0 + 1104);
-    (*(v0 + 1096))(*(v0 + 944), *(v0 + 896));
-  }
-
-  else
-  {
-    v5 = *(v0 + 944);
-    v6 = *(v0 + 896);
-    swift_allocError();
-    v2(v7, v5, v6);
-  }
-
-  v8 = *(v0 + 1120);
-  v9 = *(v0 + 1112);
-
-  v10 = *(v0 + 1016);
-  v11 = *(v0 + 1008);
-  v12 = *(v0 + 1000);
-  v13 = *(v0 + 992);
-  v14 = *(v0 + 984);
-  v15 = *(v0 + 976);
-  v16 = *(v0 + 968);
-  v17 = *(v0 + 960);
-  v18 = *(v0 + 952);
-  v19 = *(v0 + 944);
-  v22 = *(v0 + 936);
-  v23 = *(v0 + 928);
-  v24 = *(v0 + 912);
-  v25 = *(v0 + 864);
-  v26 = *(v0 + 856);
-  v27 = *(v0 + 840);
-
-  v20 = *(v0 + 8);
-
-  return v20();
-}
-
-{
-  v1 = v0[139];
-
-  v20 = v0[148];
-  v2 = v0[127];
-  v3 = v0[126];
-  v4 = v0[125];
-  v5 = v0[124];
-  v6 = v0[123];
-  v7 = v0[122];
-  v8 = v0[121];
-  v9 = v0[120];
-  v10 = v0[119];
-  v11 = v0[118];
-  v14 = v0[117];
-  v15 = v0[116];
-  v16 = v0[114];
-  v17 = v0[108];
-  v18 = v0[107];
-  v19 = v0[105];
-
-  v12 = v0[1];
-
-  return v12();
-}
-
-{
-  v1 = *(v0 + 888);
-  v2 = *(*(v0 + 920) + 32);
-  v2(*(v0 + 936), *(v0 + 976), *(v0 + 896));
-  v3 = *(*(v1 + 8) + 8);
-  if (_getErrorEmbeddedNSError<A>(_:)())
-  {
-    v4 = *(v0 + 1104);
-    (*(v0 + 1096))(*(v0 + 936), *(v0 + 896));
-  }
-
-  else
-  {
-    v5 = *(v0 + 936);
-    v6 = *(v0 + 896);
-    swift_allocError();
-    v2(v7, v5, v6);
-  }
-
-  v35 = *(v0 + 1264);
-  v8 = *(v0 + 1256);
-  v9 = *(v0 + 1248);
-  v10 = *(v0 + 1240);
-  v11 = *(v0 + 1232);
-  v12 = *(v0 + 1224);
-  v13 = *(v0 + 1216);
-  v14 = *(v0 + 1208);
-  v15 = *(v0 + 1200);
-  v16 = *(v0 + 1192);
-  v17 = *(v0 + 1112);
-
-  outlined consume of Data._Representation(v15, v14);
-  outlined consume of Data._Representation(v13, v12);
-  outlined consume of Data?(v11, v10);
-  outlined consume of Data._Representation(v9, v8);
-  outlined destroy of MLS.OutgoingKeyUpdate<Data>(v0 + 200);
-  outlined destroy of MLS.OutgoingEventState(v0 + 472);
-  outlined destroy of MLS.OutgoingKeyUpdate<Data>(v0 + 200);
-
-  __swift_destroy_boxed_opaque_existential_1Tm((v0 + 664));
-  v18 = *(v0 + 1016);
-  v19 = *(v0 + 1008);
-  v20 = *(v0 + 1000);
-  v21 = *(v0 + 992);
-  v22 = *(v0 + 984);
-  v23 = *(v0 + 976);
-  v24 = *(v0 + 968);
-  v25 = *(v0 + 960);
-  v26 = *(v0 + 952);
-  v27 = *(v0 + 944);
-  v30 = *(v0 + 936);
-  v31 = *(v0 + 928);
-  v32 = *(v0 + 912);
-  v33 = *(v0 + 864);
-  v34 = *(v0 + 856);
-  v36 = *(v0 + 840);
-
-  v28 = *(v0 + 8);
-
-  return v28();
-}
-
-{
-  v1 = *(v0 + 888);
-  v2 = *(*(v0 + 920) + 32);
-  v2(*(v0 + 928), *(v0 + 960), *(v0 + 896));
-  v3 = *(*(v1 + 8) + 8);
-  if (_getErrorEmbeddedNSError<A>(_:)())
-  {
-    v4 = *(v0 + 1104);
-    (*(v0 + 1096))(*(v0 + 928), *(v0 + 896));
-  }
-
-  else
-  {
-    v5 = *(v0 + 928);
-    v6 = *(v0 + 896);
-    swift_allocError();
-    v2(v7, v5, v6);
-  }
-
-  v8 = *(v0 + 1256);
-  v9 = *(v0 + 1248);
-  v10 = *(v0 + 1240);
-  v11 = *(v0 + 1232);
-  v12 = *(v0 + 1224);
-  v13 = *(v0 + 1216);
-  v14 = *(v0 + 1208);
-  v15 = *(v0 + 1200);
-  v16 = *(v0 + 1192);
-  v17 = *(v0 + 1112);
-
-  outlined consume of Data._Representation(v15, v14);
-  outlined consume of Data._Representation(v13, v12);
-  outlined consume of Data?(v11, v10);
-  outlined consume of Data._Representation(v9, v8);
-  outlined destroy of MLS.OutgoingKeyUpdate<Data>(v0 + 200);
-  outlined destroy of MLS.OutgoingEventState(v0 + 472);
-  outlined destroy of MLS.OutgoingKeyUpdate<Data>(v0 + 200);
-  __swift_destroy_boxed_opaque_existential_1Tm((v0 + 664));
-  v18 = *(v0 + 1016);
-  v19 = *(v0 + 1008);
-  v20 = *(v0 + 1000);
-  v21 = *(v0 + 992);
-  v22 = *(v0 + 984);
-  v23 = *(v0 + 976);
-  v24 = *(v0 + 968);
-  v25 = *(v0 + 960);
-  v26 = *(v0 + 952);
-  v27 = *(v0 + 944);
-  v30 = *(v0 + 936);
-  v31 = *(v0 + 928);
-  v32 = *(v0 + 912);
-  v33 = *(v0 + 864);
-  v34 = *(v0 + 856);
-  v35 = *(v0 + 840);
-
-  v28 = *(v0 + 8);
-
-  return v28();
-}
-
-uint64_t implicit closure #1 in MLS.KeyUpdateOperation.perform(on:metricCollector:keyPackageResult:)(uint64_t a1, uint64_t a2)
-{
-  v2[12] = a1;
-  v2[13] = a2;
-  v3 = type metadata accessor for Date();
-  v2[14] = v3;
-  v4 = *(v3 - 8);
-  v2[15] = v4;
-  v5 = *(v4 + 64) + 15;
-  v2[16] = swift_task_alloc();
-
-  return MEMORY[0x2822009F8](implicit closure #1 in MLS.KeyUpdateOperation.perform(on:metricCollector:keyPackageResult:), 0, 0);
-}
-
-uint64_t implicit closure #1 in MLS.KeyUpdateOperation.perform(on:metricCollector:keyPackageResult:)()
-{
-  v1 = v0[13];
-  v0[17] = v1[2];
-  v0[18] = v1[3];
-  v2 = *v1;
-  v3 = (v1 + *(*v1 + 176));
-  v0[19] = *v3;
-  v0[20] = v3[1];
-  v4 = (v1 + *(v2 + 168));
-  v0[21] = *v4;
-  v0[22] = v4[1];
-  outlined init with copy of ServerBag.MLS(v1 + *(v2 + 152), (v0 + 2));
-  v0[23] = type metadata accessor for MLS.KeyUpdateTracker();
-  v0[24] = swift_allocObject();
-  if (one-time initialization token for shared != -1)
-  {
-    swift_once();
-  }
-
-  v5 = static MLSActor.shared;
-  v0[25] = static MLSActor.shared;
-
-  return MEMORY[0x2822009F8](implicit closure #1 in MLS.KeyUpdateOperation.perform(on:metricCollector:keyPackageResult:), v5, 0);
-}
-
-{
-  v1 = v0[24];
-  v2 = v0[21];
-  v16 = v0[22];
-  v4 = v0[19];
-  v3 = v0[20];
-  v5 = v0[18];
-  v1[6] = v0[17];
-  v1[7] = v5;
-  v1[4] = v4;
-  v1[5] = v3;
-  v1[2] = v2;
-  v1[3] = v16;
-  outlined init with copy of ServerBag.MLS((v0 + 2), (v1 + 11));
-  ObjectType = swift_getObjectType();
-  v0[10] = v4;
-  v0[11] = v3;
-  v7 = *(v16 + 144);
-
-  swift_unknownObjectRetain();
-  v15 = (v7 + *v7);
-  v8 = v7[1];
-  v9 = swift_task_alloc();
-  v0[26] = v9;
-  *v9 = v0;
-  v9[1] = implicit closure #1 in MLS.KeyUpdateOperation.perform(on:metricCollector:keyPackageResult:);
-  v11 = v0[21];
-  v10 = v0[22];
-  v12 = v0[17];
-  v13 = v0[18];
-
-  return (v15)(v0 + 7, v12, v13, v0 + 10, ObjectType, v10);
-}
-
-{
-  v2 = *v1;
-  v3 = *(*v1 + 208);
-  v7 = *v1;
-  *(*v1 + 216) = v0;
-
-  v4 = *(v2 + 200);
-  if (v0)
-  {
-    v5 = implicit closure #1 in MLS.KeyUpdateOperation.perform(on:metricCollector:keyPackageResult:);
-  }
-
-  else
-  {
-    v5 = implicit closure #1 in MLS.KeyUpdateOperation.perform(on:metricCollector:keyPackageResult:);
-  }
-
-  return MEMORY[0x2822009F8](v5, v4, 0);
-}
-
-{
-  LODWORD(v1) = *(v0 + 72);
-  if (v1 == 2)
-  {
-    v2 = *(v0 + 120);
-    v1 = *(v0 + 128);
-    v3 = *(v0 + 112);
-    Date.init()();
-    Date.timeIntervalSince1970.getter();
-    v5 = v4;
-    (*(v2 + 8))(v1, v3);
-    __swift_destroy_boxed_opaque_existential_1Tm((v0 + 16));
-    v6 = 0;
-    LOBYTE(v1) = 1;
-  }
-
-  else
-  {
-    v5 = *(v0 + 64);
-    v6 = *(v0 + 56);
-    __swift_destroy_boxed_opaque_existential_1Tm((v0 + 16));
-  }
-
-  v7 = *(v0 + 192);
-  *(v7 + 64) = v6;
-  *(v7 + 72) = v5;
-  *(v7 + 80) = v1 & 1;
-
-  return MEMORY[0x2822009F8](implicit closure #1 in MLS.KeyUpdateOperation.perform(on:metricCollector:keyPackageResult:), 0, 0);
-}
-
-{
-  v1 = v0[23];
-  v2 = v0[24];
-  __swift_destroy_boxed_opaque_existential_1Tm(v0 + 2);
-  v3 = v2[2];
-  swift_unknownObjectRelease();
-  v4 = v2[5];
-
-  v5 = v2[7];
-
-  __swift_destroy_boxed_opaque_existential_1Tm(v2 + 11);
-  swift_deallocPartialClassInstance();
-
-  return MEMORY[0x2822009F8](implicit closure #1 in MLS.KeyUpdateOperation.perform(on:metricCollector:keyPackageResult:), 0, 0);
-}
-
-{
-  v1 = v0[16];
-
-  v2 = v0[1];
-  v3 = v0[27];
-
-  return v2();
-}
-
-{
-  v1 = *(v0 + 128);
-  **(v0 + 96) = *(v0 + 192);
-
-  v2 = *(v0 + 8);
-
-  return v2();
-}
-
-uint64_t implicit closure #2 in MLS.KeyUpdateOperation.perform(on:metricCollector:keyPackageResult:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v3[3] = a2;
-  v3[4] = a3;
-  v3[2] = a1;
-  return MEMORY[0x2822009F8](implicit closure #2 in MLS.KeyUpdateOperation.perform(on:metricCollector:keyPackageResult:), 0, 0);
-}
-
-uint64_t implicit closure #2 in MLS.KeyUpdateOperation.perform(on:metricCollector:keyPackageResult:)()
-{
-  v1 = *(*(v0 + 32) + 32);
-  v2 = *(**(v0 + 24) + 152);
-  v7 = (v2 + *v2);
-  v3 = v2[1];
-  v4 = swift_task_alloc();
-  *(v0 + 40) = v4;
-  *v4 = v0;
-  v4[1] = implicit closure #2 in MLS.KeyUpdateOperation.perform(on:metricCollector:keyPackageResult:);
-  v5 = *(v0 + 24);
-
-  return v7(v1);
-}
-
-{
-  **(v0 + 16) = *(v0 + 48);
-  return (*(v0 + 8))();
-}
-
-uint64_t implicit closure #2 in MLS.KeyUpdateOperation.perform(on:metricCollector:keyPackageResult:)(char a1)
-{
-  v4 = *v2;
-  v5 = *(*v2 + 40);
-  v6 = *v2;
-
-  if (v1)
-  {
-    v7 = *(v6 + 8);
-
-    return v7();
-  }
-
-  else
-  {
-    *(v4 + 48) = a1 & 1;
-
-    return MEMORY[0x2822009F8](implicit closure #2 in MLS.KeyUpdateOperation.perform(on:metricCollector:keyPackageResult:), 0, 0);
-  }
-}
-
-uint64_t implicit closure #8 in MLS.KeyUpdateOperation.perform(on:metricCollector:keyPackageResult:)(uint64_t a1, uint64_t a2)
-{
-  v3 = *(*a2 + 160);
-  v7 = (v3 + *v3);
-  v4 = v3[1];
-  v5 = swift_task_alloc();
-  *(v2 + 16) = v5;
-  *v5 = v2;
-  v5[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
-
-  return v7();
-}
-
-void closure #1 in MLS.KeyUpdateOperation.perform(on:metricCollector:keyPackageResult:)(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5, const char *a6)
-{
-  v11 = *(*a3 + 184);
-
-  oslog = Logger.logObject.getter();
-  v12 = static os_log_type_t.error.getter();
-
-  if (os_log_type_enabled(oslog, v12))
-  {
+    v11 = v0 + 110;
+    v12 = v0[114];
     v13 = swift_slowAlloc();
     v14 = swift_slowAlloc();
-    v16 = v14;
+    v29 = v14;
     *v13 = 136315394;
-    *(v13 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(a4, a5, &v16);
+    *(v13 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v6, v8, &v29);
     *(v13 + 12) = 2080;
-    *(v13 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(a1, a2, &v16);
-    _os_log_impl(&dword_264F1F000, oslog, v12, a6, v13, 0x16u);
+    *(v13 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(*(v12 + 16), *(v12 + 24), &v29);
+    _os_log_impl(&dword_264F1F000, v9, v10, "DowngradeOperation downgrading group { identifier: %s, group: %s }", v13, 0x16u);
     swift_arrayDestroy();
     MEMORY[0x266755550](v14, -1, -1);
     MEMORY[0x266755550](v13, -1, -1);
   }
+
+  else
+  {
+    v11 = v0 + 128;
+  }
+
+  v15 = *v11;
+  v16 = v0[127];
+  v17 = v0[126];
+  v18 = v0[125];
+  v19 = v0[113];
+  Date.init()();
+  v20 = *(v18 + 20);
+  v21 = type metadata accessor for Date();
+  (*(*(v21 - 8) + 56))(v16 + v20, 1, 1, v21);
+  outlined init with take of MetricCollector.Event(v16, v17);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v29 = v15;
+  specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v17, 0x534C4D7466697753, 0xEE0074696D6D6F43, isUniquelyReferenced_nonNull_native);
+  v23 = v29;
+  v0[136] = v29;
+
+  v0[110] = v23;
+  v24 = v19[3];
+  v25 = v19[4];
+  __swift_project_boxed_opaque_existential_1(v19, v24);
+  v28 = (*(v25 + 200) + **(v25 + 200));
+  v26 = swift_task_alloc();
+  v0[137] = v26;
+  *v26 = v0;
+  v26[1] = MLS.DowngradeOperation.perform(on:metricCollector:keyPackageResult:);
+
+  return v28(v0 + 97, v24, v25);
 }
 
-char *MLS.KeyUpdateOperation.deinit()
+{
+  v2 = *v1;
+  *(*v1 + 1104) = v0;
+
+  if (v0)
+  {
+    v3 = *(v2 + 1032);
+
+    v4 = MLS.DowngradeOperation.perform(on:metricCollector:keyPackageResult:);
+    v5 = v3;
+  }
+
+  else
+  {
+    v5 = *(v2 + 1032);
+    v4 = MLS.DowngradeOperation.perform(on:metricCollector:keyPackageResult:);
+  }
+
+  return MEMORY[0x2822009F8](v4, v5, 0);
+}
+
+{
+  v88 = v0;
+  v1 = *(v0 + 800);
+  v2 = *(v0 + 808);
+  __swift_project_boxed_opaque_existential_1((v0 + 776), v1);
+  (*(v2 + 8))(v1, v2);
+  __swift_destroy_boxed_opaque_existential_1Tm((v0 + 776));
+  v3._countAndFlagsBits = 0x534C4D7466697753;
+  v3._object = 0xEE0074696D6D6F43;
+  MetricCollector.end(label:)(v3);
+  outlined init with copy of ServerBag.MLS(v0 + 736, v0 + 816);
+
+  v4 = Logger.logObject.getter();
+  v5 = static os_log_type_t.default.getter();
+
+  if (os_log_type_enabled(v4, v5))
+  {
+    v6 = *(v0 + 1072);
+    v7 = *(v0 + 1064);
+    v8 = swift_slowAlloc();
+    v9 = swift_slowAlloc();
+    *&v84 = v9;
+    *v8 = 136315394;
+    *(v8 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v7, v6, &v84);
+    *(v8 + 12) = 2080;
+    v10 = *(v0 + 840);
+    __swift_project_boxed_opaque_existential_1((v0 + 816), v10);
+    v11 = *(v10 - 8);
+    swift_task_alloc();
+    (*(v11 + 16))();
+    v12 = String.init<A>(describing:)();
+    v14 = v13;
+
+    __swift_destroy_boxed_opaque_existential_1Tm((v0 + 816));
+    v15 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v12, v14, &v84);
+
+    *(v8 + 14) = v15;
+    _os_log_impl(&dword_264F1F000, v4, v5, "DowngradeOperation creating event { identifier: %s, commitOutput: %s }", v8, 0x16u);
+    swift_arrayDestroy();
+    MEMORY[0x266755550](v9, -1, -1);
+    MEMORY[0x266755550](v8, -1, -1);
+  }
+
+  else
+  {
+
+    __swift_destroy_boxed_opaque_existential_1Tm((v0 + 816));
+  }
+
+  v16 = *(v0 + 1104);
+  v17 = *(v0 + 1056);
+  v18 = *(v0 + 1048);
+  v19 = *(v0 + 944);
+  v20 = *(v0 + 928);
+  v21 = *(v0 + 920);
+  v22 = *(v0 + 912);
+  v23 = *(v0 + 760);
+  v24 = *(v0 + 768);
+  __swift_project_boxed_opaque_existential_1((v0 + 736), v23);
+  MLS.SwiftMLSCommitOutputProtocol.outgoingCommit.getter(v23, v24, &v84);
+  v80 = v84;
+  *(v0 + 1112) = *(&v84 + 1);
+  v82 = v85;
+  *(v0 + 1120) = v85;
+  *(v0 + 888) = v22;
+  v25 = *(v21 + 96);
+  v26 = *(v21 + 120);
+  *(v0 + 688) = v19;
+  *(v0 + 696) = v17;
+  *(v0 + 704) = v25;
+  *(v0 + 712) = v20;
+  *(v0 + 720) = v18;
+  *(v0 + 728) = v26;
+  v27 = type metadata accessor for MLS.DowngradeOperation(0, v0 + 688);
+  WitnessTable = swift_getWitnessTable();
+  MLS.GroupOperation.context(commitOutput:)((v0 + 736), v27, WitnessTable, &v84);
+  v29 = v84;
+  *(v0 + 1136) = v84;
+  v30 = v85;
+  *(v0 + 1152) = v85;
+  v32 = v86;
+  v31 = v87;
+  *(v0 + 1168) = v86;
+  *(v0 + 1176) = v31;
+  if (v16)
+  {
+
+    outlined consume of Data._Representation(v82, *(&v82 + 1));
+
+    __swift_destroy_boxed_opaque_existential_1Tm((v0 + 736));
+
+    v33 = *(v0 + 8);
+
+    return v33();
+  }
+
+  else
+  {
+    v35 = *(v0 + 1072);
+    v78 = *(v0 + 1056);
+    v79 = *(v0 + 1064);
+    v76 = *(v0 + 1048);
+    v77 = v29;
+    v36 = objc_allocWithZone(MEMORY[0x277CCAD78]);
+
+    v37 = [v36 init];
+    v38 = [v37 UUIDString];
+
+    v39 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v74 = v40;
+    v41 = v40;
+
+    v75 = *(v76 + 8);
+    v42 = v75(v78);
+    v43 = *(v0 + 880);
+    *(v0 + 200) = v79;
+    *(v0 + 208) = v35;
+    *(v0 + 216) = v39;
+    *(v0 + 224) = v41;
+    *(v0 + 232) = v42;
+    *(v0 + 240) = v44;
+    *(v0 + 248) = v43;
+    *(v0 + 256) = v80;
+    *(v0 + 272) = v82;
+    *(v0 + 288) = v77;
+    *(v0 + 304) = v30;
+    *(v0 + 320) = v32;
+    *(v0 + 328) = v31;
+    v45 = *(v0 + 216);
+    *(v0 + 16) = *(v0 + 200);
+    *(v0 + 32) = v45;
+    v46 = *(v0 + 248);
+    *(v0 + 48) = *(v0 + 232);
+    *(v0 + 64) = v46;
+    v47 = *(v0 + 264);
+    v48 = *(v0 + 280);
+    v49 = *(v0 + 296);
+    v50 = *(v0 + 312);
+    *(v0 + 144) = *(v0 + 328);
+    *(v0 + 112) = v49;
+    *(v0 + 128) = v50;
+    *(v0 + 80) = v47;
+    *(v0 + 96) = v48;
+    _s15SecureMessaging3MLSO17OutgoingEventTypeOy_AC9AllMemberO10Foundation4DataVGWOi10_(v0 + 16);
+
+    outlined copy of Data._Representation(v82, *(&v82 + 1));
+    outlined copy of Data._Representation(v77, *(&v77 + 1));
+    outlined copy of Data?(v30, *(&v30 + 1));
+    outlined copy of Data._Representation(v32, v31);
+    outlined init with copy of MLS.OutgoingDowngrade<Data>(v0 + 200, v0 + 336);
+
+    v51 = (v75)(v78, v76);
+    *(v0 + 544) = v39;
+    *(v0 + 552) = v74;
+    *(v0 + 560) = 0u;
+    *(v0 + 576) = 6;
+    *(v0 + 584) = v79;
+    *(v0 + 592) = v35;
+    *(v0 + 600) = v51;
+    *(v0 + 608) = v52;
+    v53 = *(v0 + 592);
+    *(v0 + 504) = *(v0 + 576);
+    *(v0 + 520) = v53;
+    *(v0 + 536) = *(v0 + 608);
+    v54 = *(v0 + 560);
+    *(v0 + 472) = *(v0 + 544);
+    *(v0 + 488) = v54;
+
+    outlined init with copy of MLS.OutgoingEventState(v0 + 544, v0 + 616);
+    v55 = Logger.logObject.getter();
+    v56 = static os_log_type_t.default.getter();
+
+    if (os_log_type_enabled(v55, v56))
+    {
+      v57 = *(v0 + 1072);
+      v58 = *(v0 + 1064);
+      v59 = swift_slowAlloc();
+      v60 = swift_slowAlloc();
+      *&v84 = v60;
+      *v59 = 136315138;
+      *(v59 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v58, v57, &v84);
+      _os_log_impl(&dword_264F1F000, v55, v56, "DowngradeOperation returning operation result { identifier: %s }", v59, 0xCu);
+      __swift_destroy_boxed_opaque_existential_1Tm(v60);
+      MEMORY[0x266755550](v60, -1, -1);
+      MEMORY[0x266755550](v59, -1, -1);
+    }
+
+    v81 = *(v0 + 1064);
+    v83 = *(v0 + 1072);
+    v61 = *(v0 + 960);
+    v62 = *(v0 + 952);
+    v63 = *(v0 + 944);
+    v64 = *(v0 + 936);
+    v65 = *(v0 + 912);
+    v66 = *(v0 + 904);
+    v67 = swift_task_alloc();
+    *(v0 + 1184) = v67;
+    *(v67 + 16) = v66;
+    AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+    (*(AssociatedConformanceWitness + 56))(v62, AssociatedConformanceWitness);
+    VersatileError.init(type:)(v61, v63, v64);
+    v69 = swift_allocObject();
+    *(v0 + 1192) = v69;
+    v69[2] = v65;
+    v69[3] = v81;
+    v69[4] = v83;
+
+    v70 = swift_task_alloc();
+    *(v0 + 1200) = v70;
+    *v70 = v0;
+    v70[1] = MLS.DowngradeOperation.perform(on:metricCollector:keyPackageResult:);
+    v71 = *(v0 + 992);
+    v72 = *(v0 + 984);
+    v73 = *(v0 + 944);
+    v90 = *(v0 + 936);
+    v91 = v72;
+
+    return _s15SecureMessaging12asyncRethrow_2as3logq_q_yYaYbKXK_xySSYbcSgtYaxYKAA14VersatileErrorRzr0_lF(v0 + 856, &async function pointer to partial apply for implicit closure #6 in MLS.DowngradeOperation.perform(on:metricCollector:keyPackageResult:), v67, v71, partial apply for closure #1 in MLS.DowngradeOperation.perform(on:metricCollector:keyPackageResult:), v69, v73);
+  }
+}
+
+{
+  v2 = *v1;
+  v3 = *(*v1 + 968);
+
+  v4 = (v3 + 8);
+  v5 = v2[129];
+  if (v0)
+  {
+    v6 = v2[124];
+    v7 = v2[118];
+    outlined destroy of MLS.OutgoingEventState((v2 + 68));
+
+    v8 = *v4;
+    v2[151] = *v4;
+    v2[152] = v4 & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+    v8(v6, v7);
+
+    v9 = MLS.DowngradeOperation.perform(on:metricCollector:keyPackageResult:);
+  }
+
+  else
+  {
+    (*v4)(v2[124], v2[118]);
+
+    v9 = MLS.DowngradeOperation.perform(on:metricCollector:keyPackageResult:);
+  }
+
+  return MEMORY[0x2822009F8](v9, v5, 0);
+}
+
+{
+  v1 = *(v0 + 1176);
+  v2 = *(v0 + 1168);
+  v3 = *(v0 + 1160);
+  v4 = *(v0 + 1152);
+  v5 = *(v0 + 1144);
+  v6 = *(v0 + 1136);
+  v28 = *(v0 + 1120);
+  v29 = *(v0 + 1128);
+  v30 = *(v0 + 904);
+  v7 = *(v0 + 896);
+  outlined destroy of MLS.OutgoingDowngrade<Data>(v0 + 200);
+  outlined consume of Data._Representation(v2, v1);
+  outlined consume of Data?(v4, v3);
+  outlined consume of Data._Representation(v6, v5);
+
+  outlined consume of Data._Representation(v28, v29);
+  v8 = *(v0 + 856);
+  v9 = *(v0 + 864);
+  v10 = *(v0 + 872);
+  v11 = *(v0 + 128);
+  v13 = *(v0 + 80);
+  v12 = *(v0 + 96);
+  *(v7 + 96) = *(v0 + 112);
+  *(v7 + 112) = v11;
+  *(v7 + 64) = v13;
+  *(v7 + 80) = v12;
+  v15 = *(v0 + 160);
+  v14 = *(v0 + 176);
+  v16 = *(v0 + 144);
+  *(v7 + 176) = *(v0 + 192);
+  *(v7 + 144) = v15;
+  *(v7 + 160) = v14;
+  *(v7 + 128) = v16;
+  v17 = *(v0 + 16);
+  v18 = *(v0 + 32);
+  v19 = *(v0 + 64);
+  *(v7 + 32) = *(v0 + 48);
+  *(v7 + 48) = v19;
+  *v7 = v17;
+  *(v7 + 16) = v18;
+  *(v7 + 184) = *(v0 + 472);
+  v20 = *(v0 + 488);
+  v21 = *(v0 + 504);
+  v22 = *(v0 + 520);
+  *(v7 + 248) = *(v0 + 536);
+  *(v7 + 232) = v22;
+  *(v7 + 216) = v21;
+  *(v7 + 200) = v20;
+  *(v7 + 256) = 0;
+  *(v7 + 264) = v8;
+  *(v7 + 272) = v9;
+  *(v7 + 280) = v10;
+  *(v7 + 288) = *(v0 + 544);
+  v23 = *(v0 + 560);
+  v24 = *(v0 + 576);
+  v25 = *(v0 + 592);
+  *(v7 + 352) = *(v0 + 608);
+  *(v7 + 320) = v24;
+  *(v7 + 336) = v25;
+  *(v7 + 304) = v23;
+  *(v7 + 360) = 0;
+  outlined init with copy of ServerBag.MLS(v30, v7 + 368);
+  *(v7 + 408) = 0;
+  *(v7 + 416) = *(v0 + 880);
+  *(v7 + 424) = 0;
+  *(v7 + 432) = 0;
+  __swift_destroy_boxed_opaque_existential_1Tm((v0 + 736));
+
+  v26 = *(v0 + 8);
+
+  return v26();
+}
+
+{
+
+  v1 = *(v0 + 8);
+
+  return v1();
+}
+
+{
+  v1 = *(*(v0 + 968) + 32);
+  v1(*(v0 + 976), *(v0 + 984), *(v0 + 944));
+  if (_getErrorEmbeddedNSError<A>(_:)())
+  {
+    (*(v0 + 1208))(*(v0 + 976), *(v0 + 944));
+  }
+
+  else
+  {
+    v2 = *(v0 + 976);
+    v3 = *(v0 + 944);
+    swift_allocError();
+    v1(v4, v2, v3);
+  }
+
+  v5 = *(v0 + 1176);
+  v6 = *(v0 + 1168);
+  v7 = *(v0 + 1160);
+  v8 = *(v0 + 1152);
+  v9 = *(v0 + 1144);
+  v10 = *(v0 + 1136);
+  v11 = *(v0 + 1128);
+  v12 = *(v0 + 1120);
+
+  outlined consume of Data._Representation(v12, v11);
+  outlined consume of Data._Representation(v10, v9);
+  outlined consume of Data?(v8, v7);
+  outlined consume of Data._Representation(v6, v5);
+  outlined destroy of MLS.OutgoingDowngrade<Data>(v0 + 200);
+  outlined destroy of MLS.OutgoingEventState(v0 + 544);
+  outlined destroy of MLS.OutgoingDowngrade<Data>(v0 + 200);
+
+  __swift_destroy_boxed_opaque_existential_1Tm((v0 + 736));
+
+  v13 = *(v0 + 8);
+
+  return v13();
+}
+
+void closure #1 in MLS.DowngradeOperation.perform(on:metricCollector:keyPackageResult:)(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5)
+{
+
+  oslog = Logger.logObject.getter();
+  v9 = static os_log_type_t.error.getter();
+
+  if (os_log_type_enabled(oslog, v9))
+  {
+    v10 = swift_slowAlloc();
+    v11 = swift_slowAlloc();
+    v13 = v11;
+    *v10 = 136315394;
+    *(v10 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(a4, a5, &v13);
+    *(v10 + 12) = 2080;
+    *(v10 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(a1, a2, &v13);
+    _os_log_impl(&dword_264F1F000, oslog, v9, "DowngradeOperation failed to obtain era { identifier: %s, error: %s }", v10, 0x16u);
+    swift_arrayDestroy();
+    MEMORY[0x266755550](v11, -1, -1);
+    MEMORY[0x266755550](v10, -1, -1);
+  }
+}
+
+char *MLS.DowngradeOperation.deinit()
 {
   v1 = *v0;
-  v2 = *(v0 + 3);
 
-  (*(*(*(v1 + 88) - 8) + 8))(&v0[*(*v0 + 144)]);
-  __swift_destroy_boxed_opaque_existential_1Tm(&v0[*(*v0 + 152)]);
-  v3 = *&v0[*(*v0 + 160)];
+  (*(*(*(v1 + 88) - 8) + 8))(v0 + *(*v0 + 136));
 
-  v4 = *&v0[*(*v0 + 168)];
-  swift_unknownObjectRelease();
-  v5 = *&v0[*(*v0 + 176) + 8];
-
-  v6 = *(*v0 + 184);
-  v7 = type metadata accessor for Logger();
-  (*(*(v7 - 8) + 8))(&v0[v6], v7);
+  v2 = *(*v0 + 160);
+  v3 = type metadata accessor for Logger();
+  (*(*(v3 - 8) + 8))(v0 + v2, v3);
   return v0;
 }
 
-uint64_t MLS.KeyUpdateOperation.__deallocating_deinit()
+uint64_t MLS.DowngradeOperation.__deallocating_deinit()
 {
-  MLS.KeyUpdateOperation.deinit();
-  v1 = *(*v0 + 48);
-  v2 = *(*v0 + 52);
+  MLS.DowngradeOperation.deinit();
 
   return swift_deallocClassInstance();
 }
 
-uint64_t protocol witness for MLS.RequiresGroupGroupOperation.membersRequiringKeyPackages(swiftMLSGroup:) in conformance MLS.KeyUpdateOperation<A, B, C>(uint64_t a1)
+uint64_t protocol witness for MLS.RequiresGroupGroupOperation.membersRequiringKeyPackages(swiftMLSGroup:) in conformance MLS.DowngradeOperation<A, B, C>(uint64_t a1)
 {
-  v4 = *(**v1 + 248);
-  v8 = (v4 + *v4);
-  v5 = v4[1];
-  v6 = swift_task_alloc();
-  *(v2 + 16) = v6;
-  *v6 = v2;
-  v6[1] = specialized KDSRegistration.XPCCoordinator.__allocating_init(clientIdentifier:provider:simUniqueID:simLabelID:supportedState:testPhoneNumberURI:);
+  v6 = (*(**v1 + 224) + **(**v1 + 224));
+  v4 = swift_task_alloc();
+  *(v2 + 16) = v4;
+  *v4 = v2;
+  v4[1] = specialized KDSRegistration.XPCCoordinator.__allocating_init(clientIdentifier:provider:simUniqueID:simLabelID:supportedState:testPhoneNumberURI:);
 
-  return v8(a1);
+  return v6(a1);
 }
 
-uint64_t protocol witness for MLS.RequiresGroupGroupOperation.perform(on:metricCollector:keyPackageResult:) in conformance MLS.KeyUpdateOperation<A, B, C>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t protocol witness for MLS.RequiresGroupGroupOperation.perform(on:metricCollector:keyPackageResult:) in conformance MLS.DowngradeOperation<A, B, C>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v10 = *(**v4 + 256);
-  v14 = (v10 + *v10);
-  v11 = v10[1];
-  v12 = swift_task_alloc();
-  *(v5 + 16) = v12;
-  *v12 = v5;
-  v12[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+  v12 = (*(**v4 + 232) + **(**v4 + 232));
+  v10 = swift_task_alloc();
+  *(v5 + 16) = v10;
+  *v10 = v5;
+  v10[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
 
-  return v14(a1, a2, a3, a4);
+  return v12(a1, a2, a3, a4);
 }
 
-uint64_t protocol witness for MLS.GroupOperation.logger.getter in conformance MLS.KeyUpdateOperation<A, B, C>@<X0>(uint64_t a1@<X8>)
+uint64_t protocol witness for MLS.GroupOperation.logger.getter in conformance MLS.DowngradeOperation<A, B, C>@<X0>(uint64_t a1@<X8>)
 {
   v3 = *v1;
-  v4 = *(*v3 + 184);
+  v4 = *(*v3 + 160);
   v5 = type metadata accessor for Logger();
   v6 = *(*(v5 - 8) + 16);
 
   return v6(a1, v3 + v4, v5);
 }
 
-uint64_t partial apply for implicit closure #1 in MLS.KeyUpdateOperation.perform(on:metricCollector:keyPackageResult:)(uint64_t a1)
+uint64_t outlined init with copy of MLS.OutgoingDowngrade<Data>(uint64_t a1, uint64_t a2)
 {
-  v4 = swift_task_alloc();
-  *(v2 + 16) = v4;
-  *v4 = v2;
-  v4[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
-
-  return implicit closure #1 in MLS.KeyUpdateOperation.perform(on:metricCollector:keyPackageResult:)(a1, v1);
-}
-
-uint64_t partial apply for implicit closure #2 in MLS.KeyUpdateOperation.perform(on:metricCollector:keyPackageResult:)(uint64_t a1)
-{
-  v5 = *(v1 + 16);
-  v4 = *(v1 + 24);
-  v6 = swift_task_alloc();
-  *(v2 + 16) = v6;
-  *v6 = v2;
-  v6[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
-
-  return implicit closure #2 in MLS.KeyUpdateOperation.perform(on:metricCollector:keyPackageResult:)(a1, v5, v4);
-}
-
-uint64_t outlined init with copy of MLS.OutgoingKeyUpdate<Data>(uint64_t a1, uint64_t a2)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO17OutgoingKeyUpdateVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO17OutgoingKeyUpdateVy_10Foundation4DataVGMR);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO17OutgoingDowngradeVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO17OutgoingDowngradeVy_10Foundation4DataVGMR);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
 
-uint64_t partial apply for implicit closure #7 in MLS.KeyUpdateOperation.perform(on:metricCollector:keyPackageResult:)(uint64_t a1)
+uint64_t partial apply for implicit closure #6 in MLS.DowngradeOperation.perform(on:metricCollector:keyPackageResult:)(uint64_t a1)
 {
   v4 = *(v1 + 16);
   v5 = swift_task_alloc();
@@ -3125,2775 +1720,3316 @@ uint64_t partial apply for implicit closure #7 in MLS.KeyUpdateOperation.perform
   return implicit closure #5 in MLS.UpdateOtherExpiredKeyPackagesOperation.perform(on:metricCollector:keyPackageResult:)(a1, v4);
 }
 
-uint64_t outlined destroy of MLS.OutgoingKeyUpdate<Data>(uint64_t a1)
+uint64_t sub_265142804()
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO17OutgoingKeyUpdateVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO17OutgoingKeyUpdateVy_10Foundation4DataVGMR);
+
+  return MEMORY[0x2821FE8E8](v0, 40, 7);
+}
+
+uint64_t outlined destroy of MLS.OutgoingDowngrade<Data>(uint64_t a1)
+{
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO17OutgoingDowngradeVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO17OutgoingDowngradeVy_10Foundation4DataVGMR);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
 
-uint64_t partial apply for implicit closure #8 in MLS.KeyUpdateOperation.perform(on:metricCollector:keyPackageResult:)(uint64_t a1)
-{
-  v4 = swift_task_alloc();
-  *(v2 + 16) = v4;
-  *v4 = v2;
-  v4[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
-
-  return implicit closure #8 in MLS.KeyUpdateOperation.perform(on:metricCollector:keyPackageResult:)(a1, v1);
-}
-
-uint64_t instantiation function for generic protocol witness table for MLS.KeyUpdateOperation<A, B, C>(uint64_t a1)
+uint64_t instantiation function for generic protocol witness table for MLS.DowngradeOperation<A, B, C>(uint64_t a1, uint64_t a2)
 {
   result = swift_getWitnessTable();
   *(a1 + 8) = result;
   return result;
 }
 
-uint64_t type metadata completion function for MLS.KeyUpdateOperation(uint64_t a1)
+uint64_t type metadata completion function for MLS.DowngradeOperation(uint64_t a1)
 {
-  v1 = *(a1 + 88);
   result = swift_checkMetadataState();
-  if (v3 <= 0x3F)
+  if (v2 <= 0x3F)
   {
-    v5 = *(result - 8) + 64;
     result = type metadata accessor for Logger();
-    if (v4 <= 0x3F)
+    if (v3 <= 0x3F)
     {
-      v6 = *(result - 8) + 64;
-      return swift_initClassMetadata2();
+      result = swift_initClassMetadata2();
+      if (!result)
+      {
+        return 0;
+      }
     }
   }
 
   return result;
 }
 
-uint64_t dispatch thunk of MLS.KeyUpdateOperation.membersRequiringKeyPackages(swiftMLSGroup:)(uint64_t a1)
+uint64_t dispatch thunk of MLS.DowngradeOperation.membersRequiringKeyPackages(swiftMLSGroup:)(uint64_t a1)
 {
-  v4 = *(*v1 + 248);
-  v8 = (v4 + *v4);
-  v5 = v4[1];
-  v6 = swift_task_alloc();
-  *(v2 + 16) = v6;
-  *v6 = v2;
-  v6[1] = dispatch thunk of KDSRegistration.XPCCoordinator.__allocating_init(clientIdentifier:provider:simUniqueID:simLabelID:supportedState:testPhoneNumberURI:);
+  v6 = (*(*v1 + 224) + **(*v1 + 224));
+  v4 = swift_task_alloc();
+  *(v2 + 16) = v4;
+  *v4 = v2;
+  v4[1] = dispatch thunk of KDSRegistration.XPCCoordinator.__allocating_init(clientIdentifier:provider:simUniqueID:simLabelID:supportedState:testPhoneNumberURI:);
 
-  return v8(a1);
+  return v6(a1);
 }
 
-uint64_t dispatch thunk of MLS.KeyUpdateOperation.perform(on:metricCollector:keyPackageResult:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t dispatch thunk of MLS.DowngradeOperation.perform(on:metricCollector:keyPackageResult:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v10 = *(*v4 + 256);
-  v14 = (v10 + *v10);
-  v11 = v10[1];
-  v12 = swift_task_alloc();
-  *(v5 + 16) = v12;
-  *v12 = v5;
-  v12[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
-
-  return v14(a1, a2, a3, a4);
-}
-
-uint64_t thunk for @escaping @callee_guaranteed @Sendable (@guaranteed Data?, @guaranteed Data?) -> ()(uint64_t a1, void *a2, void *a3)
-{
-  v4 = a2;
-  v6 = *(a1 + 32);
-  v5 = *(a1 + 40);
-  if (a2)
-  {
-
-    v7 = v4;
-    v4 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
-    v9 = v8;
-
-    if (a3)
-    {
-LABEL_3:
-      v10 = a3;
-      a3 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
-      v12 = v11;
-
-      goto LABEL_6;
-    }
-  }
-
-  else
-  {
-
-    v9 = 0xF000000000000000;
-    if (a3)
-    {
-      goto LABEL_3;
-    }
-  }
-
-  v12 = 0xF000000000000000;
-LABEL_6:
-  v6(v4, v9, a3, v12);
-  outlined consume of Data?(a3, v12);
-  outlined consume of Data?(v4, v9);
-}
-
-void thunk for @escaping @callee_unowned @convention(block) @Sendable (@unowned NSData?, @unowned NSData?) -> ()(uint64_t a1, unint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5)
-{
-  if (a2 >> 60 == 15)
-  {
-    isa = 0;
-  }
-
-  else
-  {
-    isa = Data._bridgeToObjectiveC()().super.isa;
-  }
-
-  if (a4 >> 60 == 15)
-  {
-    v8 = 0;
-  }
-
-  else
-  {
-    v8 = Data._bridgeToObjectiveC()().super.isa;
-  }
-
-  v9 = v8;
-  (*(a5 + 16))(a5, isa);
-}
-
-uint64_t MLS.XPCClientCoordinator.__allocating_init(clientIdentifier:selfMember:clientEventDeliverer:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v5 = v3;
-  v8 = *(v5 + 48);
-  v9 = *(v5 + 52);
-  swift_allocObject();
+  v12 = (*(*v4 + 232) + **(*v4 + 232));
   v10 = swift_task_alloc();
-  *(v4 + 16) = v10;
-  *v10 = v4;
-  v10[1] = specialized KDSRegistration.XPCCoordinator.__allocating_init(clientIdentifier:provider:simUniqueID:simLabelID:supportedState:testPhoneNumberURI:);
+  *(v5 + 16) = v10;
+  *v10 = v5;
+  v10[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
 
-  return MLS.XPCClientCoordinator.init(clientIdentifier:selfMember:clientEventDeliverer:)(v10, a2, a3);
+  return v12(a1, a2, a3, a4);
 }
 
-void MLS.UniqueClientIdentifier.init(clientIdentifier:clientURI:)(void *a1@<X1>, void *a2@<X8>)
+uint64_t MLS.NoOpPersister.atomically<A>(with:do:rollback:)(uint64_t a1, uint64_t a2, uint64_t a3, int *a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
-  v2 = a1[1];
-  *a2 = *a1;
-  a2[1] = v2;
-}
-
-uint64_t MLS.UniqueClientIdentifier.clientURI.getter@<X0>(void *a1@<X8>)
-{
-  v2 = v1[1];
-  *a1 = *v1;
-  a1[1] = v2;
-}
-
-uint64_t MLS.UniqueClientIdentifier.description.getter()
-{
-  v1 = *v0;
-  v2 = v0[1];
-  strcpy(v4, "EncryptedRCS.");
-  MEMORY[0x2667545A0](v1, v2);
-  return v4[0];
-}
-
-uint64_t static MLS.UniqueClientIdentifier.== infix(_:_:)(void *a1, void *a2)
-{
-  if (*a1 == *a2 && a1[1] == a2[1])
-  {
-    return 1;
-  }
-
-  else
-  {
-    return _stringCompareWithSmolCheck(_:_:expecting:)();
-  }
-}
-
-unint64_t protocol witness for CodingKey.stringValue.getter in conformance MLS.UniqueClientIdentifier.CodingKeys()
-{
-  if (*v0)
-  {
-    result = 0x5255746E65696C63;
-  }
-
-  else
-  {
-    result = 0xD000000000000010;
-  }
-
-  *v0;
-  return result;
-}
-
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance MLS.UniqueClientIdentifier.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char *a3@<X8>)
-{
-  if (a1 == 0xD000000000000010 && 0x80000002651E81D0 == a2 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-  {
-
-    v7 = 0;
-  }
-
-  else if (a1 == 0x5255746E65696C63 && a2 == 0xE900000000000049)
-  {
-
-    v7 = 1;
-  }
-
-  else
-  {
-    v8 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-    if (v8)
-    {
-      v7 = 1;
-    }
-
-    else
-    {
-      v7 = 2;
-    }
-  }
-
-  *a3 = v7;
-  return result;
-}
-
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance MLS.UniqueClientIdentifier.CodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type MLS.UniqueClientIdentifier.CodingKeys and conformance MLS.UniqueClientIdentifier.CodingKeys();
-
-  return MEMORY[0x2821FE718](a1, v2);
-}
-
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance MLS.UniqueClientIdentifier.CodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type MLS.UniqueClientIdentifier.CodingKeys and conformance MLS.UniqueClientIdentifier.CodingKeys();
-
-  return MEMORY[0x2821FE720](a1, v2);
-}
-
-uint64_t MLS.UniqueClientIdentifier.encode(to:)(void *a1)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy15SecureMessaging3MLSO22UniqueClientIdentifierV10CodingKeys33_81D0A976D58F423DE3B3485741045346LLOGMd, &_ss22KeyedEncodingContainerVy15SecureMessaging3MLSO22UniqueClientIdentifierV10CodingKeys33_81D0A976D58F423DE3B3485741045346LLOGMR);
-  v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](v4);
-  v8 = &v12 - v7;
-  v9 = v1[1];
-  v13 = *v1;
-  v10 = a1[4];
-  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-  lazy protocol witness table accessor for type MLS.UniqueClientIdentifier.CodingKeys and conformance MLS.UniqueClientIdentifier.CodingKeys();
-  dispatch thunk of Encoder.container<A>(keyedBy:)();
-  LOBYTE(v14) = 0;
-  lazy protocol witness table accessor for type MLS.ClientIdentifier and conformance MLS.ClientIdentifier();
-  KeyedEncodingContainer.encode<A>(_:forKey:)();
-  if (!v2)
-  {
-    v14 = v13;
-    v15 = v9;
-    v16 = 1;
-    lazy protocol witness table accessor for type URI and conformance URI();
-
-    KeyedEncodingContainer.encode<A>(_:forKey:)();
-  }
-
-  return (*(v5 + 8))(v8, v4);
-}
-
-uint64_t MLS.UniqueClientIdentifier.hash(into:)()
-{
-  v2 = *v0;
-  v1 = v0[1];
-  String.hash(into:)();
-  String.hash(into:)();
-  return MEMORY[0x266754DE0](0);
-}
-
-Swift::Int MLS.UniqueClientIdentifier.hashValue.getter()
-{
-  v1 = *v0;
-  v2 = v0[1];
-  Hasher.init(_seed:)();
-  String.hash(into:)();
-  String.hash(into:)();
-  MEMORY[0x266754DE0](0);
-  return Hasher._finalize()();
-}
-
-uint64_t MLS.UniqueClientIdentifier.init(from:)@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
-{
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy15SecureMessaging3MLSO22UniqueClientIdentifierV10CodingKeys33_81D0A976D58F423DE3B3485741045346LLOGMd, &_ss22KeyedDecodingContainerVy15SecureMessaging3MLSO22UniqueClientIdentifierV10CodingKeys33_81D0A976D58F423DE3B3485741045346LLOGMR);
-  v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  MEMORY[0x28223BE20](v5);
-  v9 = v13 - v8;
-  v10 = a1[4];
-  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-  lazy protocol witness table accessor for type MLS.UniqueClientIdentifier.CodingKeys and conformance MLS.UniqueClientIdentifier.CodingKeys();
-  dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (!v2)
-  {
-    LOBYTE(v13[0]) = 0;
-    lazy protocol witness table accessor for type MLS.ClientIdentifier and conformance MLS.ClientIdentifier();
-    KeyedDecodingContainer.decode<A>(_:forKey:)();
-    v14 = 1;
-    lazy protocol witness table accessor for type URI and conformance URI();
-    KeyedDecodingContainer.decode<A>(_:forKey:)();
-    (*(v6 + 8))(v9, v5);
-    v11 = v13[1];
-    *a2 = v13[0];
-    a2[1] = v11;
-  }
-
-  return __swift_destroy_boxed_opaque_existential_1Tm(a1);
-}
-
-Swift::Int protocol witness for Hashable.hashValue.getter in conformance MLS.UniqueClientIdentifier()
-{
-  v1 = *v0;
-  v2 = v0[1];
-  Hasher.init(_seed:)();
-  String.hash(into:)();
-  String.hash(into:)();
-  MEMORY[0x266754DE0](0);
-  return Hasher._finalize()();
-}
-
-uint64_t protocol witness for Hashable.hash(into:) in conformance MLS.UniqueClientIdentifier()
-{
-  v2 = *v0;
-  v1 = v0[1];
-  String.hash(into:)();
-  String.hash(into:)();
-  return MEMORY[0x266754DE0](0);
-}
-
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance MLS.UniqueClientIdentifier()
-{
-  v1 = *v0;
-  v2 = v0[1];
-  Hasher.init(_seed:)();
-  String.hash(into:)();
-  String.hash(into:)();
-  MEMORY[0x266754DE0](0);
-  return Hasher._finalize()();
-}
-
-uint64_t MLS.XPCClientCoordinator.logger.getter@<X0>(uint64_t a1@<X8>)
-{
-  v3 = direct field offset for MLS.XPCClientCoordinator.logger;
-  v4 = type metadata accessor for Logger();
-  v5 = *(*(v4 - 8) + 16);
-
-  return v5(a1, v1 + v3, v4);
-}
-
-uint64_t MLS.XPCClientCoordinator.uniqueClientIdentifier.getter@<X0>(void *a1@<X8>)
-{
-  v2 = *(v1 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier + 8);
-  *a1 = *(v1 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier);
-  a1[1] = v2;
-}
-
-uint64_t MLS.XPCClientCoordinator.selfMember.getter@<X0>(uint64_t a1@<X8>)
-{
-  v2 = v1 + direct field offset for MLS.XPCClientCoordinator.selfMember;
-  v3 = *(v1 + direct field offset for MLS.XPCClientCoordinator.selfMember + 8);
-  v4 = *(v1 + direct field offset for MLS.XPCClientCoordinator.selfMember + 16);
-  *a1 = *(v1 + direct field offset for MLS.XPCClientCoordinator.selfMember);
-  *(a1 + 8) = v3;
-  *(a1 + 16) = v4;
-  *(a1 + 24) = *(v2 + 24);
-  return outlined copy of MLS.AllMember();
-}
-
-uint64_t MLS.XPCClientCoordinator.keyPackage.getter(uint64_t a1)
-{
-  v2[4] = a1;
-  v2[5] = v1;
+  v9 = v7;
+  v9[2] = a6;
+  v9[3] = a7;
   if (one-time initialization token for shared != -1)
   {
     swift_once();
   }
 
-  v3 = static MLSActor.shared;
-  v2[6] = static MLSActor.shared;
+  v9[4] = static MLSActor.shared;
+  v13 = (a4 + *a4);
+  v11 = swift_task_alloc();
+  v9[5] = v11;
+  *v11 = v9;
+  v11[1] = MLS.NoOpPersister.atomically<A>(with:do:rollback:);
 
-  return MEMORY[0x2822009F8](MLS.XPCClientCoordinator.keyPackage.getter, v3, 0);
+  return v13(a1);
 }
 
-void MLS.XPCClientCoordinator.keyPackage.getter()
-{
-  v1 = v0[5];
-
-  v2 = Logger.logObject.getter();
-  v3 = static os_log_type_t.default.getter();
-  v4 = os_log_type_enabled(v2, v3);
-  v5 = v0[5];
-  if (v4)
-  {
-    v6 = swift_slowAlloc();
-    v7 = swift_slowAlloc();
-    *v6 = 136315138;
-    v8 = *(v5 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier);
-    v9 = *(v5 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier + 8);
-    v20 = v7;
-    strcpy(v21, "EncryptedRCS.");
-    HIWORD(v21[1]) = -4864;
-
-    MEMORY[0x2667545A0](v8, v9);
-
-    v10 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v21[0], v21[1], &v20);
-
-    *(v6 + 4) = v10;
-    _os_log_impl(&dword_264F1F000, v2, v3, "XPCClientCoordinator keyPackage { client: %s }", v6, 0xCu);
-    __swift_destroy_boxed_opaque_existential_1Tm(v7);
-    MEMORY[0x266755550](v7, -1, -1);
-    MEMORY[0x266755550](v6, -1, -1);
-  }
-
-  else
-  {
-  }
-
-  v11 = *(*(v0[5] + direct field offset for MLS.XPCClientCoordinator.xpcClient) + OBJC_IVAR____TtCO15SecureMessaging8XPCUtils9XPCClient_deliveryInterface);
-  v0[7] = v11;
-  v12 = *(*v11 + 360);
-
-  v19 = v12 + *v12;
-  v13 = v12[1];
-  v14 = swift_task_alloc();
-  v0[8] = v14;
-  v15 = lazy protocol witness table accessor for type MLS.KeyPackageInfo and conformance MLS.KeyPackageInfo();
-  v16 = lazy protocol witness table accessor for type MLS.KeyPackageInfo and conformance MLS.KeyPackageInfo();
-  v17 = lazy protocol witness table accessor for type MLS.SelfKeyPackageError and conformance MLS.SelfKeyPackageError();
-  *v14 = v0;
-  v14[1] = MLS.XPCClientCoordinator.keyPackage.getter;
-  v18 = v0[5];
-  v29 = v16;
-  v30 = v17;
-  v28 = v15;
-  v27 = MEMORY[0x277CC9318];
-  v26 = &type metadata for MLS.SelfKeyPackageError;
-  v24 = 0;
-  v25 = &type metadata for MLS.KeyPackageInfo;
-  v23 = closure #3 in MLS.XPCClientCoordinator.keyPackage.getter;
-
-  __asm { BRAA            X8, X16 }
-}
-
-uint64_t MLS.XPCClientCoordinator.keyPackage.getter()
+uint64_t MLS.NoOpPersister.atomically<A>(with:do:rollback:)()
 {
   v2 = *v1;
-  v3 = *(*v1 + 64);
-  v9 = *v1;
-  *(*v1 + 72) = v0;
+  v2[6] = v0;
 
   if (v0)
   {
-    v4 = *(v2 + 48);
-    v5 = MLS.XPCClientCoordinator.keyPackage.getter;
+    v3 = v2[4];
+
+    return MEMORY[0x2822009F8](MLS.NoOpPersister.atomically<A>(with:do:rollback:), v3, 0);
   }
 
   else
   {
-    v7 = *(v2 + 48);
-    v6 = *(v2 + 56);
+    v4 = v2[1];
 
-    v5 = MLS.XPCClientCoordinator.keyPackage.getter;
-    v4 = v7;
+    return v4();
+  }
+}
+
+{
+  v2 = *v1;
+  *(*v1 + 64) = v0;
+
+  v3 = *(v2 + 32);
+  if (v0)
+  {
+    v4 = MLS.NoOpPersister.atomically<A>(with:do:rollback:);
   }
 
-  return MEMORY[0x2822009F8](v5, v4, 0);
+  else
+  {
+    v4 = MLS.NoOpPersister.atomically<A>(with:do:rollback:);
+  }
+
+  return MEMORY[0x2822009F8](v4, v3, 0);
 }
 
 {
-  **(v0 + 32) = *(v0 + 16);
-  return (*(v0 + 8))();
+
+  v1 = *(v0 + 8);
+
+  return v1();
+}
+
+uint64_t MLS.NoOpPersister.atomically<A>(with:do:rollback:)(uint64_t a1)
+{
+  v2 = v1[2];
+  if (v2)
+  {
+    v6 = (v2 + *v2);
+    v3 = swift_task_alloc();
+    v1[7] = v3;
+    *v3 = v1;
+    v3[1] = MLS.NoOpPersister.atomically<A>(with:do:rollback:);
+
+    return v6();
+  }
+
+  else
+  {
+    swift_willThrow();
+    v5 = v1[1];
+
+    return v5();
+  }
 }
 
 {
-  v1 = v0[7];
-
-  v2 = v0[1];
-  v3 = v0[9];
+  swift_willThrow();
+  v2 = *(v1 + 8);
 
   return v2();
 }
 
-uint64_t closure #1 in MLS.XPCClientCoordinator.keyPackage.getter@<X0>(uint64_t a1@<X1>, uint64_t *a2@<X8>)
+uint64_t MLS.NoOpPersister.loadRetryCount(forGroup:messageID:clientIdentifier:)()
 {
-  v9 = *(a1 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier);
-  v10 = *(a1 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier + 8);
-  lazy protocol witness table accessor for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier();
-
-  v4 = dispatch thunk of JSONEncoder.encode<A>(_:)();
-  if (v2)
-  {
-  }
-
-  v7 = v4;
-  v8 = v5;
-
-  *a2 = v7;
-  a2[1] = v8;
-  return result;
-}
-
-uint64_t MLS.XPCRequest.init(continuation:type:)@<X0>(uint64_t a1@<X0>, char a2@<W1>, uint64_t a3@<X8>)
-{
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCy10Foundation4DataVs5Error_pGMd, &_sScCy10Foundation4DataVs5Error_pGMR);
-  (*(*(v6 - 8) + 32))(a3, a1, v6);
-  result = type metadata accessor for MLS.XPCRequest();
-  *(a3 + *(result + 20)) = a2;
-  return result;
-}
-
-void closure #3 in MLS.XPCClientCoordinator.keyPackage.getter(void **a1, uint64_t *a2, uint64_t a3, uint64_t a4)
-{
-  v6 = *a1;
-  v7 = *a2;
-  v8 = a2[1];
-  isa = Data._bridgeToObjectiveC()().super.isa;
-  v11[4] = a3;
-  v11[5] = a4;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 1107296256;
-  v11[2] = thunk for @escaping @callee_guaranteed @Sendable (@guaranteed Data?, @guaranteed Data?) -> ();
-  v11[3] = &block_descriptor_297;
-  v10 = _Block_copy(v11);
-
-  [v6 selfKeyPackageWithUniqueClientIdentifier:isa completion:v10];
-  _Block_release(v10);
-}
-
-uint64_t MLS.XPCClientCoordinator.init(clientIdentifier:selfMember:clientEventDeliverer:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v5 = v3;
-  *(v4 + 48) = a3;
-  *(v4 + 56) = v5;
-  *(v4 + 64) = *v5;
-  v7 = type metadata accessor for Logger();
-  *(v4 + 72) = v7;
-  v8 = *(v7 - 8);
-  *(v4 + 80) = v8;
-  v9 = *(v8 + 64) + 15;
-  *(v4 + 88) = swift_task_alloc();
-  *(v4 + 96) = *a2;
-  *(v4 + 112) = *(a2 + 16);
-  *(v4 + 224) = *(a2 + 24);
   if (one-time initialization token for shared != -1)
   {
     swift_once();
   }
 
-  v10 = static MLSActor.shared;
-  *(v4 + 120) = static MLSActor.shared;
+  v1 = *(v0 + 8);
 
-  return MEMORY[0x2822009F8](MLS.XPCClientCoordinator.init(clientIdentifier:selfMember:clientEventDeliverer:), v10, 0);
+  return v1(0, 1);
 }
 
-uint64_t MLS.XPCClientCoordinator.init(clientIdentifier:selfMember:clientEventDeliverer:)()
+uint64_t MLS.NoOpPersister.save(retryCount:forGroup:messageID:clientIdentifier:)()
 {
-  v31 = v0;
-  v1 = *(v0 + 224);
-  v2 = *(v0 + 88);
-  Logger.init(subsystem:category:)();
-  if (v1 <= 0xFD)
-  {
-    v21 = *(v0 + 104);
-    v22 = *(v0 + 112);
-    v23 = *(v0 + 96);
-    v24 = *(v0 + 56);
-    v25 = *(v0 + 224);
-    *(v24 + 16) = *(v0 + 48);
-    v26 = v24 + direct field offset for MLS.XPCClientCoordinator.selfMember;
-    *v26 = v23;
-    *(v26 + 8) = v21;
-    *(v26 + 16) = v22;
-    *(v26 + 24) = v25;
-    v27 = direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier;
-    *(v0 + 128) = direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier;
-    v28 = (v24 + v27);
-    *v28 = v23;
-    v28[1] = v21;
-
-    outlined copy of MLS.AllMember();
-    v29 = swift_task_alloc();
-    *(v0 + 136) = v29;
-    *v29 = v0;
-    v29[1] = MLS.XPCClientCoordinator.init(clientIdentifier:selfMember:clientEventDeliverer:);
-
-    return specialized static XPCUtils.XPCClient.weakSharedInstance.getter();
-  }
-
-  else
-  {
-    v3 = *(v0 + 88);
-    v4 = Logger.logObject.getter();
-    v5 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v4, v5))
-    {
-      v6 = swift_slowAlloc();
-      v7 = swift_slowAlloc();
-      v30 = v7;
-      *v6 = 136315138;
-      *(v6 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0x6574707972636E45, 0xEC00000053435264, &v30);
-      _os_log_impl(&dword_264F1F000, v4, v5, "XPCClientCoordinator created without selfMember { client: %s }", v6, 0xCu);
-      __swift_destroy_boxed_opaque_existential_1Tm(v7);
-      MEMORY[0x266755550](v7, -1, -1);
-      MEMORY[0x266755550](v6, -1, -1);
-    }
-
-    v9 = *(v0 + 80);
-    v8 = *(v0 + 88);
-    v11 = *(v0 + 64);
-    v10 = *(v0 + 72);
-    v13 = *(v0 + 48);
-    v12 = *(v0 + 56);
-    lazy protocol witness table accessor for type MLS.ClientCreationError and conformance MLS.ClientCreationError();
-    swift_allocError();
-    *v14 = 1;
-    *(v14 + 8) = 0;
-    *(v14 + 16) = 0;
-    swift_willThrow();
-
-    (*(v9 + 8))(v8, v10);
-    v15 = *(v11 + 96);
-    *(v0 + 16) = *(v11 + 80);
-    *(v0 + 32) = v15;
-    type metadata accessor for MLS.XPCClientCoordinator();
-    v16 = *(*v12 + 48);
-    v17 = *(*v12 + 52);
-    swift_deallocPartialClassInstance();
-    v18 = *(v0 + 88);
-
-    v19 = *(v0 + 8);
-
-    return v19();
-  }
-}
-
-{
-  v1 = v0[18];
-  v3 = v0[10];
-  v2 = v0[11];
-  v5 = v0[8];
-  v4 = v0[9];
-  v6 = v0[7];
-  *(v6 + direct field offset for MLS.XPCClientCoordinator.xpcClient) = v1;
-  type metadata accessor for XPCUtils.XPCNotifyListener();
-  v7 = swift_allocObject();
-  *(v7 + 16) = 0;
-  v8 = direct field offset for MLS.XPCClientCoordinator.notifyListener;
-  v0[19] = direct field offset for MLS.XPCClientCoordinator.notifyListener;
-  *(v6 + v8) = v7;
-  (*(v3 + 16))(v6 + direct field offset for MLS.XPCClientCoordinator.logger, v2, v4);
-  v9 = *(v1 + OBJC_IVAR____TtCO15SecureMessaging8XPCUtils9XPCClient_deliveryInterface);
-  v0[20] = v9;
-  v10 = swift_allocObject();
-  v0[21] = v10;
-  swift_weakInit();
-  v11 = swift_allocObject();
-  v0[22] = v11;
-  v12 = v5[10];
-  v0[23] = v12;
-  v11[2] = v12;
-  v13 = v5[11];
-  v0[24] = v13;
-  v11[3] = v13;
-  v14 = v5[12];
-  v0[25] = v14;
-  v11[4] = v14;
-  v15 = v5[13];
-  v0[26] = v15;
-  v11[5] = v15;
-  v11[6] = v10;
-  v16 = *(*v9 + 352);
-
-  v20 = (v16 + *v16);
-  v17 = v16[1];
-  v18 = swift_task_alloc();
-  v0[27] = v18;
-  *v18 = v0;
-  v18[1] = MLS.XPCClientCoordinator.init(clientIdentifier:selfMember:clientEventDeliverer:);
-
-  return (v20)(&async function pointer to partial apply for closure #1 in MLS.XPCClientCoordinator.init(clientIdentifier:selfMember:clientEventDeliverer:), v11);
-}
-
-{
-  v1 = *(*v0 + 216);
-  v2 = *(*v0 + 176);
-  v3 = *(*v0 + 168);
-  v4 = *(*v0 + 160);
-  v5 = *(*v0 + 120);
-  v7 = *v0;
-
-  return MEMORY[0x2822009F8](MLS.XPCClientCoordinator.init(clientIdentifier:selfMember:clientEventDeliverer:), v5, 0);
-}
-
-{
-  v35 = v0;
-  v1 = *(v0 + 88);
-  v2 = *(v0 + 56);
-
-  v3 = Logger.logObject.getter();
-  v4 = static os_log_type_t.error.getter();
-  if (os_log_type_enabled(v3, v4))
-  {
-    v5 = (*(v0 + 56) + *(v0 + 128));
-    v6 = swift_slowAlloc();
-    v7 = swift_slowAlloc();
-    *v6 = 136315138;
-    v8 = *v5;
-    v9 = v5[1];
-    v33 = v7;
-    strcpy(v34, "EncryptedRCS.");
-    HIWORD(v34[1]) = -4864;
-
-    MEMORY[0x2667545A0](v8, v9);
-
-    v10 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v34[0], v34[1], &v33);
-
-    *(v6 + 4) = v10;
-    _os_log_impl(&dword_264F1F000, v3, v4, "XPCClientCoordinator setting up notifyListener { client: %s }", v6, 0xCu);
-    __swift_destroy_boxed_opaque_existential_1Tm(v7);
-    MEMORY[0x266755550](v7, -1, -1);
-    MEMORY[0x266755550](v6, -1, -1);
-  }
-
-  else
-  {
-    v11 = *(v0 + 56);
-  }
-
-  v12 = *(v0 + 152);
-  v13 = *(v0 + 56);
-  v14 = (v13 + *(v0 + 128));
-  v34[0] = 0xD000000000000036;
-  v34[1] = 0x80000002651EA160;
-  v15 = *v14;
-  v16 = v14[1];
-
-  v17 = *(v0 + 200);
-  v31 = v17;
-  v32 = *(v0 + 184);
-  MEMORY[0x2667545A0](v15, v16);
-
-  v18 = v34[0];
-  v19 = v34[1];
-  v20 = *(v13 + v12);
-  v21 = swift_allocObject();
-  swift_weakInit();
-
-  v22 = swift_allocObject();
-  *(v22 + 16) = v32;
-  *(v22 + 32) = v31;
-  *(v22 + 48) = v21;
-  *(v22 + 56) = v18;
-  *(v22 + 64) = v19;
-  v23 = *(*v20 + 120);
-
-  v23(v18, v19, partial apply for closure #2 in MLS.XPCClientCoordinator.init(clientIdentifier:selfMember:clientEventDeliverer:), v22);
-  v25 = *(v0 + 80);
-  v24 = *(v0 + 88);
-  v26 = *(v0 + 72);
-  v27 = *(v0 + 48);
-
-  (*(v25 + 8))(v24, v26);
-
-  v28 = *(v0 + 8);
-  v29 = *(v0 + 56);
-
-  return v28(v29);
-}
-
-uint64_t MLS.XPCClientCoordinator.init(clientIdentifier:selfMember:clientEventDeliverer:)(uint64_t a1)
-{
-  v2 = *(*v1 + 136);
-  v3 = *(*v1 + 120);
-  v5 = *v1;
-  *(*v1 + 144) = a1;
-
-  return MEMORY[0x2822009F8](MLS.XPCClientCoordinator.init(clientIdentifier:selfMember:clientEventDeliverer:), v3, 0);
-}
-
-uint64_t closure #1 in MLS.XPCClientCoordinator.init(clientIdentifier:selfMember:clientEventDeliverer:)()
-{
-  v1 = v0[5];
-  swift_beginAccess();
-  Strong = swift_weakLoadStrong();
-  v0[6] = Strong;
-  if (Strong)
-  {
-    v3 = *(*Strong + 184);
-    v8 = (v3 + *v3);
-    v4 = v3[1];
-    v5 = swift_task_alloc();
-    v0[7] = v5;
-    *v5 = v0;
-    v5[1] = closure #1 in KDSRegistration.XPCCoordinator.init(clientIdentifier:provider:simUniqueID:simLabelID:supportedState:testPhoneNumberURI:);
-
-    return v8();
-  }
-
-  else
-  {
-    v7 = v0[1];
-
-    return v7();
-  }
-}
-
-uint64_t closure #2 in MLS.XPCClientCoordinator.init(clientIdentifier:selfMember:clientEventDeliverer:)(uint64_t a1, uint64_t a2, unint64_t a3)
-{
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
-  v6 = *(*(v5 - 8) + 64);
-  MEMORY[0x28223BE20](v5 - 8);
-  v8 = &v20 - v7;
-  swift_beginAccess();
-  result = swift_weakLoadStrong();
-  if (result)
-  {
-    v10 = result;
-
-    v11 = Logger.logObject.getter();
-    v12 = static os_log_type_t.default.getter();
-
-    if (os_log_type_enabled(v11, v12))
-    {
-      v13 = swift_slowAlloc();
-      v14 = swift_slowAlloc();
-      v20 = v14;
-      *v13 = 136315138;
-      *(v13 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(a2, a3, &v20);
-      _os_log_impl(&dword_264F1F000, v11, v12, "Received XPC Notification { notificationName: %s }", v13, 0xCu);
-      __swift_destroy_boxed_opaque_existential_1Tm(v14);
-      MEMORY[0x266755550](v14, -1, -1);
-      MEMORY[0x266755550](v13, -1, -1);
-    }
-
-    v15 = type metadata accessor for TaskPriority();
-    (*(*(v15 - 8) + 56))(v8, 1, 1, v15);
-    v16 = one-time initialization token for shared;
-
-    if (v16 != -1)
-    {
-      swift_once();
-    }
-
-    v17 = static MLSActor.shared;
-    v18 = _s15SecureMessaging8XPCActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLSActor and conformance MLSActor, type metadata accessor for MLSActor);
-    v19 = swift_allocObject();
-    v19[2] = v17;
-    v19[3] = v18;
-    v19[4] = v10;
-
-    _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5(0, 0, v8, &async function pointer to partial apply for closure #1 in closure #2 in MLS.XPCClientCoordinator.init(clientIdentifier:selfMember:clientEventDeliverer:), v19);
-  }
-
-  return result;
-}
-
-uint64_t closure #1 in closure #2 in MLS.XPCClientCoordinator.init(clientIdentifier:selfMember:clientEventDeliverer:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  *(v4 + 16) = a4;
   if (one-time initialization token for shared != -1)
   {
     swift_once();
   }
 
-  v5 = static MLSActor.shared;
+  v1 = *(v0 + 8);
 
-  return MEMORY[0x2822009F8](closure #1 in closure #2 in MLS.XPCClientCoordinator.init(clientIdentifier:selfMember:clientEventDeliverer:), v5, 0);
+  return v1();
 }
 
-void closure #1 in closure #2 in MLS.XPCClientCoordinator.init(clientIdentifier:selfMember:clientEventDeliverer:)()
+uint64_t MLS.NoOpPersister.readEpochData(swiftMLSEpochRead:clientIdentifier:)()
 {
-  v1 = v0[2];
-  v6[0] = 0;
-  v6[1] = 0xE000000000000000;
-  _StringGuts.grow(_:)(18);
-  MEMORY[0x2667545A0](0xD000000000000010, 0x80000002651EA1C0);
-  v2 = *(v1 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier);
-  v3 = *(v1 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier + 8);
-  strcpy(v6, "EncryptedRCS.");
-  HIWORD(v6[1]) = -4864;
-  MEMORY[0x2667545A0](v2, v3);
-  MEMORY[0x2667545A0](v6[0], v6[1]);
-
-  v0[3] = 0xE000000000000000;
-  swift_retain_n();
-  v4 = swift_task_alloc();
-  v0[4] = v4;
-  *v4 = v0;
-  v4[1] = closure #1 in closure #2 in MLS.XPCClientCoordinator.init(clientIdentifier:selfMember:clientEventDeliverer:);
-  v5 = v0[2];
-  v8 = v1;
-
-  JUMPOUT(0x264FC1CA0);
-}
-
-uint64_t closure #1 in closure #2 in MLS.XPCClientCoordinator.init(clientIdentifier:selfMember:clientEventDeliverer:)()
-{
-  v1 = *(*v0 + 32);
-  v2 = *(*v0 + 24);
-  v3 = *(*v0 + 16);
-  v6 = *v0;
-
-  v4 = *(v6 + 8);
-
-  return v4();
-}
-
-uint64_t closure #2 in closure #1 in closure #2 in MLS.XPCClientCoordinator.init(clientIdentifier:selfMember:clientEventDeliverer:)(uint64_t a1, uint64_t a2)
-{
-  *(v2 + 16) = a1;
-  v3 = *(*a2 + 184);
-  v7 = (v3 + *v3);
-  v4 = v3[1];
-  v5 = swift_task_alloc();
-  *(v2 + 24) = v5;
-  *v5 = v2;
-  v5[1] = closure #2 in closure #1 in closure #2 in MLS.XPCClientCoordinator.init(clientIdentifier:selfMember:clientEventDeliverer:);
-
-  return v7();
-}
-
-uint64_t closure #2 in closure #1 in closure #2 in MLS.XPCClientCoordinator.init(clientIdentifier:selfMember:clientEventDeliverer:)()
-{
-  v2 = *(*v1 + 24);
-  v3 = *v1;
-
-  if (v0)
+  if (one-time initialization token for shared != -1)
   {
-    v4 = *(v3 + 8);
-
-    return v4();
+    swift_once();
   }
 
-  else
+  v1 = *(v0 + 8);
+
+  return v1(0, 0xF000000000000000);
+}
+
+uint64_t MLS.NoOpPersister.readEpochData(_:)()
+{
+  if (one-time initialization token for shared != -1)
   {
-
-    return MEMORY[0x2822009F8](closure #2 in closure #1 in closure #2 in MLS.XPCClientCoordinator.init(clientIdentifier:selfMember:clientEventDeliverer:), 0, 0);
-  }
-}
-
-{
-  **(v0 + 16) = 0;
-  return (*(v0 + 8))();
-}
-
-uint64_t closure #3 in closure #1 in closure #2 in MLS.XPCClientCoordinator.init(clientIdentifier:selfMember:clientEventDeliverer:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  v5[5] = a4;
-  v5[6] = a5;
-  v5[3] = a2;
-  v5[4] = a3;
-  v5[2] = a1;
-  return MEMORY[0x2822009F8](closure #3 in closure #1 in closure #2 in MLS.XPCClientCoordinator.init(clientIdentifier:selfMember:clientEventDeliverer:), 0, 0);
-}
-
-uint64_t closure #3 in closure #1 in closure #2 in MLS.XPCClientCoordinator.init(clientIdentifier:selfMember:clientEventDeliverer:)()
-{
-  v19 = v0;
-  v1 = v0[5];
-  v2 = v0[6];
-  v3 = v0[3];
-
-  v4 = v1;
-  v5 = Logger.logObject.getter();
-  v6 = static os_log_type_t.error.getter();
-
-  if (os_log_type_enabled(v5, v6))
-  {
-    v8 = v0[4];
-    v7 = v0[5];
-    v10 = v0[2];
-    v9 = v0[3];
-    v11 = swift_slowAlloc();
-    v12 = swift_slowAlloc();
-    v13 = swift_slowAlloc();
-    v18 = v13;
-    *v11 = 136315650;
-    *(v11 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v10, v9, &v18);
-    *(v11 + 12) = 2048;
-    *(v11 + 14) = v8;
-    *(v11 + 22) = 2112;
-    v14 = v7;
-    v15 = _swift_stdlib_bridgeErrorToNSError();
-    *(v11 + 24) = v15;
-    *v12 = v15;
-    _os_log_impl(&dword_264F1F000, v5, v6, "XPCClientCoordinator hit error reconnecting after notify { client: %s, attempt: %lu, error: %@", v11, 0x20u);
-    outlined destroy of NSObject?(v12, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    MEMORY[0x266755550](v12, -1, -1);
-    __swift_destroy_boxed_opaque_existential_1Tm(v13);
-    MEMORY[0x266755550](v13, -1, -1);
-    MEMORY[0x266755550](v11, -1, -1);
+    swift_once();
   }
 
-  v16 = v0[1];
+  v1 = *(v0 + 8);
 
-  return v16();
+  return v1(0, 0xF000000000000000);
 }
 
-uint64_t closure #4 in closure #1 in closure #2 in MLS.XPCClientCoordinator.init(clientIdentifier:selfMember:clientEventDeliverer:)()
+uint64_t MLS.NoOpPersister.write(_:)()
 {
-  v15 = v0;
-  v1 = *(v0 + 16);
-
-  v2 = Logger.logObject.getter();
-  v3 = static os_log_type_t.fault.getter();
-  v4 = os_log_type_enabled(v2, v3);
-  v5 = *(v0 + 16);
-  if (v4)
+  if (one-time initialization token for shared != -1)
   {
-    v6 = swift_slowAlloc();
-    v7 = swift_slowAlloc();
-    *v6 = 136315138;
-    v8 = *(v5 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier);
-    v9 = *(v5 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier + 8);
-    v13 = v7;
-    strcpy(v14, "EncryptedRCS.");
-    HIWORD(v14[1]) = -4864;
-
-    MEMORY[0x2667545A0](v8, v9);
-
-    v10 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v14[0], v14[1], &v13);
-
-    *(v6 + 4) = v10;
-    _os_log_impl(&dword_264F1F000, v2, v3, "XPCClientCoordinator unable to reconnect after multiple attempts { client: %s }", v6, 0xCu);
-    __swift_destroy_boxed_opaque_existential_1Tm(v7);
-    MEMORY[0x266755550](v7, -1, -1);
-    MEMORY[0x266755550](v6, -1, -1);
+    swift_once();
   }
 
-  else
-  {
-  }
+  v1 = *(v0 + 8);
 
-  v11 = *(v0 + 8);
-
-  return v11();
+  return v1();
 }
 
-uint64_t MLS.XPCClientCoordinator.setupXPCConnection()()
+uint64_t MLS.NoOpPersister.save(swiftMLSClientID:forIdentifier:)()
 {
-  *(v1 + 16) = v0;
+  if (one-time initialization token for shared != -1)
+  {
+    swift_once();
+  }
+
+  v1 = *(v0 + 8);
+
+  return v1();
+}
+
+uint64_t MLS.NoOpPersister.loadSwiftMLSClientID(identifier:)(uint64_t a1)
+{
+  *(v1 + 16) = a1;
   if (one-time initialization token for shared != -1)
   {
     swift_once();
   }
 
   v2 = static MLSActor.shared;
-  *(v1 + 24) = static MLSActor.shared;
 
-  return MEMORY[0x2822009F8](MLS.XPCClientCoordinator.setupXPCConnection(), v2, 0);
+  return MEMORY[0x2822009F8](MLS.NoOpPersister.loadSwiftMLSClientID(identifier:), v2, 0);
 }
 
+uint64_t MLS.NoOpPersister.loadSwiftMLSClientID(identifier:)()
 {
-  v2 = *v1;
-  v3 = *(*v1 + 48);
-  v9 = *v1;
-  *(*v1 + 56) = v0;
+  v1 = *(v0 + 16);
+  v2 = type metadata accessor for UUID();
+  (*(*(v2 - 8) + 56))(v1, 1, 1, v2);
+  v3 = *(v0 + 8);
 
-  if (v0)
-  {
-    v4 = *(v2 + 24);
-    v5 = MLS.XPCClientCoordinator.setupXPCConnection();
-  }
-
-  else
-  {
-    v6 = *(v2 + 40);
-    v7 = *(v2 + 24);
-
-    v5 = MLS.XPCClientCoordinator.setupXPCConnection();
-    v4 = v7;
-  }
-
-  return MEMORY[0x2822009F8](v5, v4, 0);
+  return v3();
 }
 
+uint64_t MLS.NoOpPersister.loadGroupMembers(identifier:includePendingMembers:clientIdentifier:)()
 {
-  v16 = v0;
-  v1 = v0[4];
-  v2 = v0[2];
-
-  v3 = Logger.logObject.getter();
-  v4 = static os_log_type_t.default.getter();
-  v5 = os_log_type_enabled(v3, v4);
-  v6 = v0[2];
-  if (v5)
-  {
-    v7 = swift_slowAlloc();
-    v8 = swift_slowAlloc();
-    *v7 = 136315138;
-    v9 = *(v6 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier);
-    v10 = *(v6 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier + 8);
-    v14 = v8;
-    strcpy(v15, "EncryptedRCS.");
-    HIWORD(v15[1]) = -4864;
-
-    MEMORY[0x2667545A0](v9, v10);
-
-    v11 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v15[0], v15[1], &v14);
-
-    *(v7 + 4) = v11;
-    _os_log_impl(&dword_264F1F000, v3, v4, "XPCClientCoordinator XPC setup { client: %s }", v7, 0xCu);
-    __swift_destroy_boxed_opaque_existential_1Tm(v8);
-    MEMORY[0x266755550](v8, -1, -1);
-    MEMORY[0x266755550](v7, -1, -1);
-  }
-
-  else
-  {
-  }
-
-  v12 = v0[1];
-
-  return v12();
-}
-
-{
-  v25 = v0;
-  v1 = v0[7];
-  v3 = v0[4];
-  v2 = v0[5];
-  v4 = v0[2];
-
-  v5 = v1;
-  v6 = Logger.logObject.getter();
-  v7 = static os_log_type_t.error.getter();
-
-  if (os_log_type_enabled(v6, v7))
-  {
-    v22 = v0[7];
-    v8 = v0[2];
-    v9 = swift_slowAlloc();
-    v10 = swift_slowAlloc();
-    v11 = swift_slowAlloc();
-    *v9 = 136315394;
-    v13 = *(v8 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier);
-    v12 = *(v8 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier + 8);
-    v23 = v11;
-    strcpy(v24, "EncryptedRCS.");
-    HIWORD(v24[1]) = -4864;
-
-    MEMORY[0x2667545A0](v13, v12);
-
-    v14 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v24[0], v24[1], &v23);
-
-    *(v9 + 4) = v14;
-    *(v9 + 12) = 2112;
-    v15 = v22;
-    v16 = _swift_stdlib_bridgeErrorToNSError();
-    *(v9 + 14) = v16;
-    *v10 = v16;
-    _os_log_impl(&dword_264F1F000, v6, v7, "XPCClientCoordinator setupXPCConnection failed { client: %s, error: %@ }", v9, 0x16u);
-    outlined destroy of NSObject?(v10, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    MEMORY[0x266755550](v10, -1, -1);
-    __swift_destroy_boxed_opaque_existential_1Tm(v11);
-    MEMORY[0x266755550](v11, -1, -1);
-    MEMORY[0x266755550](v9, -1, -1);
-  }
-
-  else
-  {
-    v17 = v0[2];
-  }
-
-  v18 = v0[7];
-  swift_willThrow();
-  v19 = v0[1];
-  v20 = v0[7];
-
-  return v19();
-}
-
-void MLS.XPCClientCoordinator.setupXPCConnection()()
-{
-  v1 = v0[2];
-  v0[4] = direct field offset for MLS.XPCClientCoordinator.logger;
-
-  v2 = Logger.logObject.getter();
-  v3 = static os_log_type_t.default.getter();
-  v4 = os_log_type_enabled(v2, v3);
-  v5 = v0[2];
-  if (v4)
-  {
-    v6 = swift_slowAlloc();
-    v7 = swift_slowAlloc();
-    *v6 = 136315138;
-    v8 = *(v5 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier);
-    v9 = *(v5 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier + 8);
-    v19 = v7;
-    strcpy(v20, "EncryptedRCS.");
-    HIWORD(v20[1]) = -4864;
-
-    MEMORY[0x2667545A0](v8, v9);
-
-    v10 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v20[0], v20[1], &v19);
-
-    *(v6 + 4) = v10;
-    _os_log_impl(&dword_264F1F000, v2, v3, "XPCClientCoordinator setting up XPC { client: %s }", v6, 0xCu);
-    __swift_destroy_boxed_opaque_existential_1Tm(v7);
-    MEMORY[0x266755550](v7, -1, -1);
-    MEMORY[0x266755550](v6, -1, -1);
-  }
-
-  else
-  {
-  }
-
-  v11 = *(*(v0[2] + direct field offset for MLS.XPCClientCoordinator.xpcClient) + OBJC_IVAR____TtCO15SecureMessaging8XPCUtils9XPCClient_deliveryInterface);
-  v0[5] = v11;
-  v12 = *(*v11 + 360);
-
-  v18 = v12 + *v12;
-  v13 = v12[1];
-  v14 = swift_task_alloc();
-  v0[6] = v14;
-  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DataV_ACtMd, &_s10Foundation4DataV_ACtMR);
-  v16 = lazy protocol witness table accessor for type MLS.ClientCreationError and conformance MLS.ClientCreationError();
-  *v14 = v0;
-  v14[1] = MLS.XPCClientCoordinator.setupXPCConnection();
-  v17 = v0[2];
-  v28 = MEMORY[0x277D839B8];
-  v29 = v16;
-  v26 = v15;
-  v27 = MEMORY[0x277D839D0];
-  v25 = &type metadata for MLS.ClientCreationError;
-  v23 = v17;
-  v24 = MEMORY[0x277D839B0];
-  v22 = partial apply for closure #3 in MLS.XPCClientCoordinator.setupXPCConnection();
-
-  __asm { BRAA            X8, X16 }
-}
-
-uint64_t closure #1 in MLS.XPCClientCoordinator.setupXPCConnection()@<X0>(uint64_t a1@<X1>, uint64_t *a2@<X8>)
-{
-  v12 = *(a1 + direct field offset for MLS.XPCClientCoordinator.selfMember);
-  v14 = *(a1 + direct field offset for MLS.XPCClientCoordinator.selfMember + 8);
-  v16 = *(a1 + direct field offset for MLS.XPCClientCoordinator.selfMember + 16);
-  v17 = *(a1 + direct field offset for MLS.XPCClientCoordinator.selfMember + 24);
-  outlined copy of MLS.AllMember();
-  lazy protocol witness table accessor for type MLS.AllMember and conformance MLS.AllMember();
-  v5 = dispatch thunk of JSONEncoder.encode<A>(_:)();
-  v7 = v6;
-  result = outlined consume of MLS.AllMember();
-  if (!v2)
-  {
-    v13 = *(a1 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier);
-    v15 = *(a1 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier + 8);
-    lazy protocol witness table accessor for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier();
-
-    v9 = dispatch thunk of JSONEncoder.encode<A>(_:)();
-    v11 = v10;
-
-    *a2 = v9;
-    a2[1] = v11;
-    a2[2] = v5;
-    a2[3] = v7;
-  }
-
-  return result;
-}
-
-uint64_t closure #3 in MLS.XPCClientCoordinator.setupXPCConnection()(void **a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  v7 = *a1;
-  v8 = *a2;
-  v9 = a2[1];
-  v10 = a2[2];
-  v11 = a2[3];
-  outlined copy of Data._Representation(*a2, v9);
-  outlined copy of Data._Representation(v10, v11);
-  isa = Data._bridgeToObjectiveC()().super.isa;
-  v13 = Data._bridgeToObjectiveC()().super.isa;
-  aBlock[4] = a3;
-  aBlock[5] = a4;
-  aBlock[0] = MEMORY[0x277D85DD0];
-  aBlock[1] = 1107296256;
-  aBlock[2] = thunk for @escaping @callee_guaranteed @Sendable (@guaranteed Data?, @guaranteed Data?) -> ();
-  aBlock[3] = &block_descriptor_282;
-  v14 = _Block_copy(aBlock);
-
-  [v7 setupXPCConnectionWithClient:a5 uniqueClientIdentifier:isa selfMember:v13 completion:v14];
-  _Block_release(v14);
-
-  outlined consume of Data._Representation(v10, v11);
-  return outlined consume of Data._Representation(v8, v9);
-}
-
-uint64_t MLS.XPCClientCoordinator.createGroup(identifier:otherMembers:context:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  *(v6 + 744) = v5;
-  *(v6 + 736) = a4;
-  *(v6 + 728) = a3;
-  *(v6 + 720) = a2;
-  *(v6 + 712) = a1;
-  v8 = type metadata accessor for MetricCollector.Event();
-  *(v6 + 752) = v8;
-  v9 = *(*(v8 - 8) + 64) + 15;
-  *(v6 + 760) = swift_task_alloc();
-  *(v6 + 768) = swift_task_alloc();
-  v10 = *(a5 + 48);
-  *(v6 + 176) = *(a5 + 32);
-  *(v6 + 192) = v10;
-  *(v6 + 208) = *(a5 + 64);
-  v11 = *(a5 + 16);
-  *(v6 + 144) = *a5;
-  *(v6 + 160) = v11;
   if (one-time initialization token for shared != -1)
   {
     swift_once();
   }
 
-  v12 = static MLSActor.shared;
-  *(v6 + 776) = static MLSActor.shared;
+  v1 = *(v0 + 8);
+  v2 = MEMORY[0x277D84F90];
 
-  return MEMORY[0x2822009F8](MLS.XPCClientCoordinator.createGroup(identifier:otherMembers:context:), v12, 0);
+  return v1(v2);
 }
 
-void MLS.XPCClientCoordinator.createGroup(identifier:otherMembers:context:)()
+uint64_t MLS.NoOpPersister.saveGroupMembers(identifier:membersToAdd:membersToDelete:clientIdentifier:)()
 {
-  v1 = *(v0 + 744);
-  *(v0 + 784) = direct field offset for MLS.XPCClientCoordinator.logger;
-  outlined init with copy of MLS.OutgoingEventState?(v0 + 144, v0 + 288, &_s15SecureMessaging3MLSO20GroupCreationContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO20GroupCreationContextVy_10Foundation4DataVGMR);
-
-  v2 = Logger.logObject.getter();
-  v3 = static os_log_type_t.default.getter();
-  outlined destroy of NSObject?(v0 + 144, &_s15SecureMessaging3MLSO20GroupCreationContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO20GroupCreationContextVy_10Foundation4DataVGMR);
-  v4 = os_log_type_enabled(v2, v3);
-  v5 = *(v0 + 744);
-  if (v4)
-  {
-    v6 = swift_slowAlloc();
-    v7 = swift_slowAlloc();
-    v42 = v7;
-    *v6 = 136315394;
-    v8 = *(v0 + 144);
-    v9 = *(v0 + 152);
-
-    v10 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v8, v9, &v42);
-
-    *(v6 + 4) = v10;
-    *(v6 + 12) = 2080;
-    v11 = *(v5 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier);
-    v12 = *(v5 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier + 8);
-    strcpy(v43, "EncryptedRCS.");
-    HIWORD(v43[1]) = -4864;
-
-    MEMORY[0x2667545A0](v11, v12);
-
-    v13 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v43[0], v43[1], &v42);
-
-    *(v6 + 14) = v13;
-    _os_log_impl(&dword_264F1F000, v2, v3, "XPCClientCoordinator createGroup { identifier: %s, client: %s }", v6, 0x16u);
-    swift_arrayDestroy();
-    MEMORY[0x266755550](v7, -1, -1);
-    MEMORY[0x266755550](v6, -1, -1);
-  }
-
-  else
-  {
-  }
-
-  v14 = *(v0 + 768);
-  v15 = *(v0 + 760);
-  v16 = *(v0 + 752);
-  v17 = *(v0 + 744);
-  v18 = *(v0 + 736);
-  v39 = *(v0 + 720);
-  v41 = *(v0 + 728);
-  v19 = *(v0 + 160);
-  *(v0 + 648) = *(v0 + 144);
-  *(v0 + 664) = v19;
-  v20 = *(v0 + 176);
-  v21 = *(v0 + 200);
-  *(v0 + 680) = *(v0 + 184);
-  *(v0 + 696) = v21;
-  outlined init with copy of MLS.OutgoingEventState?(v0 + 144, v0 + 360, &_s15SecureMessaging3MLSO20GroupCreationContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO20GroupCreationContextVy_10Foundation4DataVGMR);
-  Date.init()();
-  v22 = *(v16 + 20);
-  v23 = type metadata accessor for Date();
-  (*(*(v23 - 8) + 56))(v14 + v22, 1, 1, v23);
-  outlined init with take of MetricCollector.Event(v14, v15);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v43[0] = v20;
-  specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v15, 0x5864726177726F46, 0xEA00000000004350, isUniquelyReferenced_nonNull_native);
-  v25 = v43[0];
-  *(v0 + 792) = v43[0];
-
-  v26 = *(v0 + 664);
-  *(v0 + 216) = *(v0 + 648);
-  *(v0 + 232) = v26;
-  *(v0 + 248) = v25;
-  v27 = *(v0 + 696);
-  *(v0 + 256) = *(v0 + 680);
-  *(v0 + 272) = v27;
-  v28 = *(*(v17 + direct field offset for MLS.XPCClientCoordinator.xpcClient) + OBJC_IVAR____TtCO15SecureMessaging8XPCUtils9XPCClient_deliveryInterface);
-  *(v0 + 800) = v28;
-  v29 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO29GroupCreationProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO29GroupCreationProcessedContextVy_10Foundation4DataVGMR);
-  v30 = swift_task_alloc();
-  *(v0 + 808) = v30;
-  v30[2] = v18;
-  v30[3] = v0 + 216;
-  v30[4] = v17;
-  v31 = swift_task_alloc();
-  *(v0 + 816) = v31;
-  *(v31 + 16) = v39;
-  *(v31 + 24) = v41;
-  v32 = *(*v28 + 360);
-
-  v40 = v32 + *v32;
-  v33 = v32[1];
-  v34 = swift_task_alloc();
-  *(v0 + 824) = v34;
-  v35 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DataV_A2CtMd, &_s10Foundation4DataV_A2CtMR);
-  v36 = lazy protocol witness table accessor for type MLS.KeyPackageRetrievalResult<MLS.AllMember> and conformance MLS.KeyPackageRetrievalResult<A>(&lazy protocol witness table cache variable for type MLS.GroupCreationProcessedContext<Data> and conformance MLS.GroupCreationProcessedContext<A>, &_s15SecureMessaging3MLSO29GroupCreationProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO29GroupCreationProcessedContextVy_10Foundation4DataVGMR);
-  v37 = lazy protocol witness table accessor for type MLS.KeyPackageRetrievalResult<MLS.AllMember> and conformance MLS.KeyPackageRetrievalResult<A>(&lazy protocol witness table cache variable for type MLS.GroupCreationProcessedContext<Data> and conformance MLS.GroupCreationProcessedContext<A>, &_s15SecureMessaging3MLSO29GroupCreationProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO29GroupCreationProcessedContextVy_10Foundation4DataVGMR);
-  v38 = lazy protocol witness table accessor for type MLS.GroupCreationError and conformance MLS.GroupCreationError();
-  *v34 = v0;
-  v34[1] = MLS.XPCClientCoordinator.createGroup(identifier:otherMembers:context:);
-  v51 = v37;
-  v52 = v38;
-  v49 = v35;
-  v50 = v36;
-  v47 = v29;
-  v48 = &type metadata for MLS.GroupCreationError;
-  v45 = partial apply for closure #3 in MLS.XPCClientCoordinator.createGroup(identifier:otherMembers:context:);
-  v46 = v31;
-
-  __asm { BRAA            X8, X16 }
-}
-
-uint64_t MLS.XPCClientCoordinator.createGroup(identifier:otherMembers:context:)()
-{
-  v2 = *v1;
-  v3 = *(*v1 + 824);
-  v4 = *v1;
-  *(*v1 + 832) = v0;
-
-  v5 = *(v2 + 800);
-  v6 = *(v2 + 776);
-
-  if (v0)
-  {
-    v7 = MLS.XPCClientCoordinator.createGroup(identifier:otherMembers:context:);
-  }
-
-  else
-  {
-    v7 = MLS.XPCClientCoordinator.createGroup(identifier:otherMembers:context:);
-  }
-
-  return MEMORY[0x2822009F8](v7, v6, 0);
-}
-
-{
-  v1 = *(v0 + 816);
-  v2 = *(v0 + 808);
-  v3 = *(v0 + 792);
-  v4 = *(v0 + 768);
-  v5 = *(v0 + 760);
-  v6 = *(v0 + 712);
-  v7 = *(v0 + 664);
-  *(v0 + 576) = *(v0 + 648);
-  *(v0 + 592) = v7;
-  *(v0 + 608) = v3;
-  v8 = *(v0 + 696);
-  *(v0 + 616) = *(v0 + 680);
-  *(v0 + 632) = v8;
-  outlined destroy of NSObject?(v0 + 576, &_s15SecureMessaging3MLSO20GroupCreationContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO20GroupCreationContextVy_10Foundation4DataVGMR);
-  v9 = *(v0 + 64);
-  v11 = *(v0 + 16);
-  v10 = *(v0 + 32);
-  v6[2] = *(v0 + 48);
-  v6[3] = v9;
-  *v6 = v11;
-  v6[1] = v10;
-  v12 = *(v0 + 128);
-  v14 = *(v0 + 80);
-  v13 = *(v0 + 96);
-  v6[6] = *(v0 + 112);
-  v6[7] = v12;
-  v6[4] = v14;
-  v6[5] = v13;
-
-  v15 = *(v0 + 8);
-
-  return v15();
-}
-
-{
-  v34 = v0;
-  v1 = *(v0 + 832);
-  v2 = *(v0 + 792);
-  v3 = *(v0 + 784);
-  v4 = *(v0 + 744);
-  v5 = *(v0 + 664);
-  *(v0 + 432) = *(v0 + 648);
-  *(v0 + 448) = v5;
-  *(v0 + 464) = v2;
-  v6 = *(v0 + 696);
-  *(v0 + 472) = *(v0 + 680);
-  *(v0 + 488) = v6;
-  outlined destroy of NSObject?(v0 + 432, &_s15SecureMessaging3MLSO20GroupCreationContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO20GroupCreationContextVy_10Foundation4DataVGMR);
-
-  outlined init with copy of MLS.OutgoingEventState?(v0 + 144, v0 + 504, &_s15SecureMessaging3MLSO20GroupCreationContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO20GroupCreationContextVy_10Foundation4DataVGMR);
-
-  v7 = v1;
-  v8 = Logger.logObject.getter();
-  v9 = static os_log_type_t.error.getter();
-  outlined destroy of NSObject?(v0 + 144, &_s15SecureMessaging3MLSO20GroupCreationContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO20GroupCreationContextVy_10Foundation4DataVGMR);
-
-  if (os_log_type_enabled(v8, v9))
-  {
-    v10 = *(v0 + 832);
-    v11 = *(v0 + 744);
-    v12 = swift_slowAlloc();
-    v13 = swift_slowAlloc();
-    v14 = swift_slowAlloc();
-    v32 = v14;
-    *v12 = 136315650;
-    v15 = *(v0 + 144);
-    v16 = *(v0 + 152);
-
-    v17 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v15, v16, &v32);
-
-    *(v12 + 4) = v17;
-    *(v12 + 12) = 2112;
-    v18 = v10;
-    v19 = _swift_stdlib_bridgeErrorToNSError();
-    *(v12 + 14) = v19;
-    *v13 = v19;
-    *(v12 + 22) = 2080;
-    v20 = *(v11 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier);
-    v21 = *(v11 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier + 8);
-
-    strcpy(v33, "EncryptedRCS.");
-    HIWORD(v33[1]) = -4864;
-    MEMORY[0x2667545A0](v20, v21);
-
-    v22 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v33[0], v33[1], &v32);
-
-    *(v12 + 24) = v22;
-    _os_log_impl(&dword_264F1F000, v8, v9, "XPCClientCoordinator createGroup failed { identifier: %s, error: %@, client: %s }", v12, 0x20u);
-    outlined destroy of NSObject?(v13, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    MEMORY[0x266755550](v13, -1, -1);
-    swift_arrayDestroy();
-    MEMORY[0x266755550](v14, -1, -1);
-    MEMORY[0x266755550](v12, -1, -1);
-  }
-
-  else
-  {
-    v23 = *(v0 + 744);
-  }
-
-  v24 = *(v0 + 832);
-  v25 = *(v0 + 816);
-  v26 = *(v0 + 808);
-  v27 = *(v0 + 768);
-  v28 = *(v0 + 760);
-  swift_willThrow();
-
-  v29 = *(v0 + 8);
-  v30 = *(v0 + 832);
-
-  return v29();
-}
-
-uint64_t closure #1 in MLS.XPCClientCoordinator.createGroup(identifier:otherMembers:context:)@<X0>(__int128 *a1@<X2>, uint64_t a2@<X3>, uint64_t *a3@<X8>)
-{
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay15SecureMessaging3MLSO9AllMemberOGMd, &_sSay15SecureMessaging3MLSO9AllMemberOGMR);
-  lazy protocol witness table accessor for type [MLS.AllMember] and conformance <A> [A]();
-  result = dispatch thunk of JSONEncoder.encode<A>(_:)();
-  if (!v3)
-  {
-    v9 = result;
-    v10 = v8;
-    v20 = a1[2];
-    v21 = a1[3];
-    v22 = *(a1 + 8);
-    v17 = *a1;
-    v19 = a1[1];
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO20GroupCreationContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO20GroupCreationContextVy_10Foundation4DataVGMR);
-    lazy protocol witness table accessor for type MLS.KeyPackageRetrievalResult<MLS.AllMember> and conformance MLS.KeyPackageRetrievalResult<A>(&lazy protocol witness table cache variable for type MLS.GroupCreationContext<Data> and conformance MLS.GroupCreationContext<A>, &_s15SecureMessaging3MLSO20GroupCreationContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO20GroupCreationContextVy_10Foundation4DataVGMR);
-    v11 = dispatch thunk of JSONEncoder.encode<A>(_:)();
-    v13 = v12;
-    v18 = *(a2 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier);
-    lazy protocol witness table accessor for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier();
-
-    v14 = dispatch thunk of JSONEncoder.encode<A>(_:)();
-    v16 = v15;
-
-    *a3 = v14;
-    a3[1] = v16;
-    a3[2] = v9;
-    a3[3] = v10;
-    a3[4] = v11;
-    a3[5] = v13;
-  }
-
-  return result;
-}
-
-uint64_t closure #3 in MLS.XPCClientCoordinator.createGroup(identifier:otherMembers:context:)(id *a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
-{
-  v9 = a2[2];
-  v10 = a2[3];
-  v11 = a2[4];
-  v12 = a2[5];
-  v23 = *a2;
-  v21 = *a1;
-  v22 = a2[1];
-  outlined copy of Data._Representation(*a2, v22);
-  v20 = v9;
-  outlined copy of Data._Representation(v9, v10);
-  outlined copy of Data._Representation(v11, v12);
-  isa = Data._bridgeToObjectiveC()().super.isa;
-  v14 = MEMORY[0x266754510](a5, a6);
-  v15 = Data._bridgeToObjectiveC()().super.isa;
-  v16 = Data._bridgeToObjectiveC()().super.isa;
-  aBlock[4] = a3;
-  aBlock[5] = a4;
-  aBlock[0] = MEMORY[0x277D85DD0];
-  aBlock[1] = 1107296256;
-  aBlock[2] = thunk for @escaping @callee_guaranteed @Sendable (@guaranteed Data?, @guaranteed Data?) -> ();
-  aBlock[3] = &block_descriptor_279;
-  v17 = _Block_copy(aBlock);
-
-  [v21 createGroupWithUniqueClientIdentifier:isa identifier:v14 otherMembers:v15 groupCreationContext:v16 completion:v17];
-  _Block_release(v17);
-
-  outlined consume of Data._Representation(v11, v12);
-  outlined consume of Data._Representation(v20, v10);
-  return outlined consume of Data._Representation(v23, v22);
-}
-
-uint64_t MLS.XPCClientCoordinator.joinGroup(identifier:otherMembers:welcome:context:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _OWORD *a5, uint64_t a6)
-{
-  *(v7 + 808) = v6;
-  *(v7 + 800) = a4;
-  *(v7 + 792) = a3;
-  *(v7 + 784) = a2;
-  *(v7 + 776) = a1;
-  v10 = type metadata accessor for MetricCollector.Event();
-  *(v7 + 816) = v10;
-  v11 = *(*(v10 - 8) + 64) + 15;
-  *(v7 + 824) = swift_task_alloc();
-  *(v7 + 832) = swift_task_alloc();
-  v12 = a5[1];
-  *(v7 + 648) = *a5;
-  *(v7 + 664) = v12;
-  *(v7 + 680) = a5[2];
-  *(v7 + 690) = *(a5 + 42);
-  v13 = *(a6 + 48);
-  *(v7 + 176) = *(a6 + 32);
-  *(v7 + 192) = v13;
-  *(v7 + 208) = *(a6 + 64);
-  v14 = *(a6 + 16);
-  *(v7 + 144) = *a6;
-  *(v7 + 160) = v14;
   if (one-time initialization token for shared != -1)
   {
     swift_once();
   }
 
-  v15 = static MLSActor.shared;
-  *(v7 + 840) = static MLSActor.shared;
+  v1 = *(v0 + 8);
 
-  return MEMORY[0x2822009F8](MLS.XPCClientCoordinator.joinGroup(identifier:otherMembers:welcome:context:), v15, 0);
+  return v1();
 }
 
-void MLS.XPCClientCoordinator.joinGroup(identifier:otherMembers:welcome:context:)()
+uint64_t MLS.NoOpPersister.replaceGroupMembers(identifier:newMembers:clientIdentifier:)()
 {
-  v1 = *(v0 + 808);
-  *(v0 + 848) = direct field offset for MLS.XPCClientCoordinator.logger;
-  outlined init with copy of MLS.OutgoingEventState?(v0 + 144, v0 + 288, &_s15SecureMessaging3MLSO20GroupCreationContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO20GroupCreationContextVy_10Foundation4DataVGMR);
-
-  v2 = Logger.logObject.getter();
-  v3 = static os_log_type_t.default.getter();
-  outlined destroy of NSObject?(v0 + 144, &_s15SecureMessaging3MLSO20GroupCreationContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO20GroupCreationContextVy_10Foundation4DataVGMR);
-  v4 = os_log_type_enabled(v2, v3);
-  v5 = *(v0 + 808);
-  if (v4)
-  {
-    v6 = swift_slowAlloc();
-    v7 = swift_slowAlloc();
-    v42 = v7;
-    *v6 = 136315394;
-    v8 = *(v0 + 144);
-    v9 = *(v0 + 152);
-
-    v10 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v8, v9, &v42);
-
-    *(v6 + 4) = v10;
-    *(v6 + 12) = 2080;
-    v11 = *(v5 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier);
-    v12 = *(v5 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier + 8);
-    strcpy(v43, "EncryptedRCS.");
-    HIWORD(v43[1]) = -4864;
-
-    MEMORY[0x2667545A0](v11, v12);
-
-    v13 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v43[0], v43[1], &v42);
-
-    *(v6 + 14) = v13;
-    _os_log_impl(&dword_264F1F000, v2, v3, "XPCClientCoordinator joinGroup { identifier: %s, client: %s }", v6, 0x16u);
-    swift_arrayDestroy();
-    MEMORY[0x266755550](v7, -1, -1);
-    MEMORY[0x266755550](v6, -1, -1);
-  }
-
-  else
-  {
-  }
-
-  v14 = *(v0 + 832);
-  v15 = *(v0 + 824);
-  v16 = *(v0 + 816);
-  v17 = *(v0 + 808);
-  v18 = *(v0 + 800);
-  v41 = *(v0 + 792);
-  v39 = *(v0 + 784);
-  v19 = *(v0 + 160);
-  *(v0 + 712) = *(v0 + 144);
-  *(v0 + 728) = v19;
-  v20 = *(v0 + 176);
-  v21 = *(v0 + 200);
-  *(v0 + 744) = *(v0 + 184);
-  *(v0 + 760) = v21;
-  outlined init with copy of MLS.OutgoingEventState?(v0 + 144, v0 + 360, &_s15SecureMessaging3MLSO20GroupCreationContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO20GroupCreationContextVy_10Foundation4DataVGMR);
-  Date.init()();
-  v22 = *(v16 + 20);
-  v23 = type metadata accessor for Date();
-  (*(*(v23 - 8) + 56))(v14 + v22, 1, 1, v23);
-  outlined init with take of MetricCollector.Event(v14, v15);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v43[0] = v20;
-  specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v15, 0x5864726177726F46, 0xEA00000000004350, isUniquelyReferenced_nonNull_native);
-  v25 = v43[0];
-  *(v0 + 856) = v43[0];
-
-  v26 = *(v0 + 728);
-  *(v0 + 216) = *(v0 + 712);
-  *(v0 + 232) = v26;
-  *(v0 + 248) = v25;
-  v27 = *(v0 + 760);
-  *(v0 + 256) = *(v0 + 744);
-  *(v0 + 272) = v27;
-  v28 = *(*(v17 + direct field offset for MLS.XPCClientCoordinator.xpcClient) + OBJC_IVAR____TtCO15SecureMessaging8XPCUtils9XPCClient_deliveryInterface);
-  *(v0 + 864) = v28;
-  v29 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO29GroupCreationProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO29GroupCreationProcessedContextVy_10Foundation4DataVGMR);
-  v30 = swift_task_alloc();
-  *(v0 + 872) = v30;
-  v30[2] = v18;
-  v30[3] = v0 + 648;
-  v30[4] = v0 + 216;
-  v30[5] = v17;
-  v31 = swift_task_alloc();
-  *(v0 + 880) = v31;
-  *(v31 + 16) = v39;
-  *(v31 + 24) = v41;
-  v32 = *(*v28 + 360);
-
-  v40 = v32 + *v32;
-  v33 = v32[1];
-  v34 = swift_task_alloc();
-  *(v0 + 888) = v34;
-  v35 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DataV_A3CtMd, &_s10Foundation4DataV_A3CtMR);
-  v36 = lazy protocol witness table accessor for type MLS.KeyPackageRetrievalResult<MLS.AllMember> and conformance MLS.KeyPackageRetrievalResult<A>(&lazy protocol witness table cache variable for type MLS.GroupCreationProcessedContext<Data> and conformance MLS.GroupCreationProcessedContext<A>, &_s15SecureMessaging3MLSO29GroupCreationProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO29GroupCreationProcessedContextVy_10Foundation4DataVGMR);
-  v37 = lazy protocol witness table accessor for type MLS.KeyPackageRetrievalResult<MLS.AllMember> and conformance MLS.KeyPackageRetrievalResult<A>(&lazy protocol witness table cache variable for type MLS.GroupCreationProcessedContext<Data> and conformance MLS.GroupCreationProcessedContext<A>, &_s15SecureMessaging3MLSO29GroupCreationProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO29GroupCreationProcessedContextVy_10Foundation4DataVGMR);
-  v38 = lazy protocol witness table accessor for type MLS.GroupCreationError and conformance MLS.GroupCreationError();
-  *v34 = v0;
-  v34[1] = MLS.XPCClientCoordinator.joinGroup(identifier:otherMembers:welcome:context:);
-  v51 = v37;
-  v52 = v38;
-  v49 = v35;
-  v50 = v36;
-  v47 = v29;
-  v48 = &type metadata for MLS.GroupCreationError;
-  v45 = partial apply for closure #3 in MLS.XPCClientCoordinator.joinGroup(identifier:otherMembers:welcome:context:);
-  v46 = v31;
-
-  __asm { BRAA            X8, X16 }
-}
-
-uint64_t MLS.XPCClientCoordinator.joinGroup(identifier:otherMembers:welcome:context:)()
-{
-  v2 = *v1;
-  v3 = *(*v1 + 888);
-  v4 = *v1;
-  *(*v1 + 896) = v0;
-
-  v5 = *(v2 + 864);
-  v6 = *(v2 + 840);
-
-  if (v0)
-  {
-    v7 = MLS.XPCClientCoordinator.joinGroup(identifier:otherMembers:welcome:context:);
-  }
-
-  else
-  {
-    v7 = MLS.XPCClientCoordinator.joinGroup(identifier:otherMembers:welcome:context:);
-  }
-
-  return MEMORY[0x2822009F8](v7, v6, 0);
-}
-
-{
-  v1 = *(v0 + 880);
-  v2 = *(v0 + 872);
-  v3 = *(v0 + 856);
-  v4 = *(v0 + 832);
-  v5 = *(v0 + 824);
-  v6 = *(v0 + 776);
-  v7 = *(v0 + 728);
-  *(v0 + 576) = *(v0 + 712);
-  *(v0 + 592) = v7;
-  *(v0 + 608) = v3;
-  v8 = *(v0 + 760);
-  *(v0 + 616) = *(v0 + 744);
-  *(v0 + 632) = v8;
-  outlined destroy of NSObject?(v0 + 576, &_s15SecureMessaging3MLSO20GroupCreationContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO20GroupCreationContextVy_10Foundation4DataVGMR);
-  v9 = *(v0 + 64);
-  v11 = *(v0 + 16);
-  v10 = *(v0 + 32);
-  v6[2] = *(v0 + 48);
-  v6[3] = v9;
-  *v6 = v11;
-  v6[1] = v10;
-  v12 = *(v0 + 128);
-  v14 = *(v0 + 80);
-  v13 = *(v0 + 96);
-  v6[6] = *(v0 + 112);
-  v6[7] = v12;
-  v6[4] = v14;
-  v6[5] = v13;
-
-  v15 = *(v0 + 8);
-
-  return v15();
-}
-
-{
-  v34 = v0;
-  v1 = *(v0 + 896);
-  v2 = *(v0 + 856);
-  v3 = *(v0 + 848);
-  v4 = *(v0 + 808);
-  v5 = *(v0 + 728);
-  *(v0 + 432) = *(v0 + 712);
-  *(v0 + 448) = v5;
-  *(v0 + 464) = v2;
-  v6 = *(v0 + 760);
-  *(v0 + 472) = *(v0 + 744);
-  *(v0 + 488) = v6;
-  outlined destroy of NSObject?(v0 + 432, &_s15SecureMessaging3MLSO20GroupCreationContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO20GroupCreationContextVy_10Foundation4DataVGMR);
-
-  outlined init with copy of MLS.OutgoingEventState?(v0 + 144, v0 + 504, &_s15SecureMessaging3MLSO20GroupCreationContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO20GroupCreationContextVy_10Foundation4DataVGMR);
-
-  v7 = v1;
-  v8 = Logger.logObject.getter();
-  v9 = static os_log_type_t.error.getter();
-  outlined destroy of NSObject?(v0 + 144, &_s15SecureMessaging3MLSO20GroupCreationContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO20GroupCreationContextVy_10Foundation4DataVGMR);
-
-  if (os_log_type_enabled(v8, v9))
-  {
-    v10 = *(v0 + 896);
-    v11 = *(v0 + 808);
-    v12 = swift_slowAlloc();
-    v13 = swift_slowAlloc();
-    v14 = swift_slowAlloc();
-    v32 = v14;
-    *v12 = 136315650;
-    v15 = *(v0 + 144);
-    v16 = *(v0 + 152);
-
-    v17 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v15, v16, &v32);
-
-    *(v12 + 4) = v17;
-    *(v12 + 12) = 2112;
-    v18 = v10;
-    v19 = _swift_stdlib_bridgeErrorToNSError();
-    *(v12 + 14) = v19;
-    *v13 = v19;
-    *(v12 + 22) = 2080;
-    v20 = *(v11 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier);
-    v21 = *(v11 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier + 8);
-
-    strcpy(v33, "EncryptedRCS.");
-    HIWORD(v33[1]) = -4864;
-    MEMORY[0x2667545A0](v20, v21);
-
-    v22 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v33[0], v33[1], &v32);
-
-    *(v12 + 24) = v22;
-    _os_log_impl(&dword_264F1F000, v8, v9, "XPCClientCoordinator joinGroup failed { identifier: %s, error: %@, client: %s }", v12, 0x20u);
-    outlined destroy of NSObject?(v13, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    MEMORY[0x266755550](v13, -1, -1);
-    swift_arrayDestroy();
-    MEMORY[0x266755550](v14, -1, -1);
-    MEMORY[0x266755550](v12, -1, -1);
-  }
-
-  else
-  {
-    v23 = *(v0 + 808);
-  }
-
-  v24 = *(v0 + 896);
-  v25 = *(v0 + 880);
-  v26 = *(v0 + 872);
-  v27 = *(v0 + 832);
-  v28 = *(v0 + 824);
-  swift_willThrow();
-
-  v29 = *(v0 + 8);
-  v30 = *(v0 + 896);
-
-  return v29();
-}
-
-uint64_t closure #1 in MLS.XPCClientCoordinator.joinGroup(identifier:otherMembers:welcome:context:)@<X0>(__int128 *a1@<X2>, __int128 *a2@<X3>, uint64_t a3@<X4>, uint64_t *a4@<X8>)
-{
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay15SecureMessaging3MLSO9AllMemberOGMd, &_sSay15SecureMessaging3MLSO9AllMemberOGMR);
-  lazy protocol witness table accessor for type [MLS.AllMember] and conformance <A> [A]();
-  result = dispatch thunk of JSONEncoder.encode<A>(_:)();
-  if (!v4)
-  {
-    v11 = result;
-    v28 = v10;
-    v21 = *a1;
-    v24 = a1[1];
-    *v26 = a1[2];
-    *&v26[10] = *(a1 + 42);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO15IncomingMessageVy_AC9AllMemberOGMd, &_s15SecureMessaging3MLSO15IncomingMessageVy_AC9AllMemberOGMR);
-    lazy protocol witness table accessor for type MLS.KeyPackageRetrievalResult<MLS.AllMember> and conformance MLS.KeyPackageRetrievalResult<A>(&lazy protocol witness table cache variable for type MLS.IncomingMessage<MLS.AllMember> and conformance MLS.IncomingMessage<A>, &_s15SecureMessaging3MLSO15IncomingMessageVy_AC9AllMemberOGMd, &_s15SecureMessaging3MLSO15IncomingMessageVy_AC9AllMemberOGMR);
-    v12 = dispatch thunk of JSONEncoder.encode<A>(_:)();
-    v20 = v13;
-    *v26 = a2[2];
-    *&v26[16] = a2[3];
-    v27 = *(a2 + 8);
-    v22 = *a2;
-    v25 = a2[1];
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO20GroupCreationContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO20GroupCreationContextVy_10Foundation4DataVGMR);
-    lazy protocol witness table accessor for type MLS.KeyPackageRetrievalResult<MLS.AllMember> and conformance MLS.KeyPackageRetrievalResult<A>(&lazy protocol witness table cache variable for type MLS.GroupCreationContext<Data> and conformance MLS.GroupCreationContext<A>, &_s15SecureMessaging3MLSO20GroupCreationContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO20GroupCreationContextVy_10Foundation4DataVGMR);
-    v14 = dispatch thunk of JSONEncoder.encode<A>(_:)();
-    v19 = v15;
-    v23 = *(a3 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier);
-    lazy protocol witness table accessor for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier();
-
-    v16 = dispatch thunk of JSONEncoder.encode<A>(_:)();
-    v18 = v17;
-
-    *a4 = v16;
-    a4[1] = v18;
-    a4[2] = v11;
-    a4[3] = v28;
-    a4[4] = v12;
-    a4[5] = v20;
-    a4[6] = v14;
-    a4[7] = v19;
-  }
-
-  return result;
-}
-
-uint64_t closure #3 in MLS.XPCClientCoordinator.joinGroup(identifier:otherMembers:welcome:context:)(id *a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
-{
-  v27 = *a1;
-  v8 = a2[2];
-  v7 = a2[3];
-  v10 = a2[4];
-  v9 = a2[5];
-  v12 = a2[6];
-  v11 = a2[7];
-  v29 = a2[1];
-  v30 = *a2;
-  outlined copy of Data._Representation(*a2, v29);
-  v28 = v7;
-  outlined copy of Data._Representation(v8, v7);
-  v26 = v9;
-  outlined copy of Data._Representation(v10, v9);
-  v13 = v12;
-  v14 = v12;
-  v15 = v11;
-  outlined copy of Data._Representation(v14, v11);
-  isa = Data._bridgeToObjectiveC()().super.isa;
-  v16 = MEMORY[0x266754510](a5, a6);
-  v17 = Data._bridgeToObjectiveC()().super.isa;
-  v18 = Data._bridgeToObjectiveC()().super.isa;
-  v19 = Data._bridgeToObjectiveC()().super.isa;
-  aBlock[4] = a3;
-  aBlock[5] = a4;
-  aBlock[0] = MEMORY[0x277D85DD0];
-  aBlock[1] = 1107296256;
-  aBlock[2] = thunk for @escaping @callee_guaranteed @Sendable (@guaranteed Data?, @guaranteed Data?) -> ();
-  aBlock[3] = &block_descriptor_276;
-  v20 = _Block_copy(aBlock);
-
-  [v27 joinGroupWithUniqueClientIdentifier:isa identifier:v16 otherMembers:v17 welcome:v18 groupCreationContext:v19 completion:v20];
-  _Block_release(v20);
-
-  outlined consume of Data._Representation(v13, v15);
-  outlined consume of Data._Representation(v10, v26);
-  outlined consume of Data._Representation(v8, v28);
-  return outlined consume of Data._Representation(v30, v29);
-}
-
-uint64_t MLS.XPCClientCoordinator.delete(group:context:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  *(v5 + 48) = a3;
-  *(v5 + 56) = v4;
-  *(v5 + 32) = a1;
-  *(v5 + 40) = a2;
-  v6 = *(a4 + 8);
-  *(v5 + 64) = *a4;
-  *(v5 + 72) = v6;
-  *(v5 + 80) = *(a4 + 16);
   if (one-time initialization token for shared != -1)
   {
     swift_once();
   }
 
-  v7 = static MLSActor.shared;
-  *(v5 + 96) = static MLSActor.shared;
+  v1 = *(v0 + 8);
 
-  return MEMORY[0x2822009F8](MLS.XPCClientCoordinator.delete(group:context:), v7, 0);
+  return v1();
 }
 
-void MLS.XPCClientCoordinator.delete(group:context:)()
+uint64_t MLS.NoOpPersister.save(swiftMLSGroupID:forIdentifier:clientIdentifier:)()
 {
-  v2 = v0[10];
-  v1 = v0[11];
-  v3 = v0[9];
-  v4 = v0[7];
-  v0[13] = direct field offset for MLS.XPCClientCoordinator.logger;
-
-  outlined copy of Data?(v2, v1);
-
-  v5 = Logger.logObject.getter();
-  v6 = static os_log_type_t.default.getter();
-
-  outlined consume of Data?(v2, v1);
-  if (os_log_type_enabled(v5, v6))
-  {
-    v8 = v0[8];
-    v7 = v0[9];
-    v9 = v0[7];
-    v10 = swift_slowAlloc();
-    v11 = swift_slowAlloc();
-    v35 = v11;
-    *v10 = 136315394;
-
-    v12 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v8, v7, &v35);
-
-    *(v10 + 4) = v12;
-    *(v10 + 12) = 2080;
-    v13 = *(v9 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier);
-    v14 = *(v9 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier + 8);
-    strcpy(v36, "EncryptedRCS.");
-    HIWORD(v36[1]) = -4864;
-
-    MEMORY[0x2667545A0](v13, v14);
-
-    v15 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v36[0], v36[1], &v35);
-
-    *(v10 + 14) = v15;
-    _os_log_impl(&dword_264F1F000, v5, v6, "XPCClientCoordinator delete { identifier: %s, client: %s }", v10, 0x16u);
-    swift_arrayDestroy();
-    MEMORY[0x266755550](v11, -1, -1);
-    MEMORY[0x266755550](v10, -1, -1);
-  }
-
-  else
-  {
-    v16 = v0[7];
-  }
-
-  v18 = v0[10];
-  v17 = v0[11];
-  v34 = *(v0 + 4);
-  v20 = v0[6];
-  v19 = v0[7];
-  v21 = v0[5];
-  v22 = *(*(v19 + direct field offset for MLS.XPCClientCoordinator.xpcClient) + OBJC_IVAR____TtCO15SecureMessaging8XPCUtils9XPCClient_deliveryInterface);
-  v0[14] = v22;
-  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO29GroupDeletionProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO29GroupDeletionProcessedContextVy_10Foundation4DataVGMR);
-  v24 = swift_task_alloc();
-  v0[15] = v24;
-  *(v24 + 16) = v34;
-  *(v24 + 32) = v18;
-  *(v24 + 40) = v17;
-  *(v24 + 48) = v19;
-  v25 = swift_task_alloc();
-  v0[16] = v25;
-  *(v25 + 16) = v21;
-  *(v25 + 24) = v20;
-  v26 = *(*v22 + 360);
-
-  v33 = v26 + *v26;
-  v27 = v26[1];
-  v28 = swift_task_alloc();
-  v0[17] = v28;
-  v29 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DataV_ACtMd, &_s10Foundation4DataV_ACtMR);
-  v30 = lazy protocol witness table accessor for type MLS.KeyPackageRetrievalResult<MLS.AllMember> and conformance MLS.KeyPackageRetrievalResult<A>(&lazy protocol witness table cache variable for type MLS.GroupDeletionProcessedContext<Data> and conformance MLS.GroupDeletionProcessedContext<A>, &_s15SecureMessaging3MLSO29GroupDeletionProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO29GroupDeletionProcessedContextVy_10Foundation4DataVGMR);
-  v31 = lazy protocol witness table accessor for type MLS.KeyPackageRetrievalResult<MLS.AllMember> and conformance MLS.KeyPackageRetrievalResult<A>(&lazy protocol witness table cache variable for type MLS.GroupDeletionProcessedContext<Data> and conformance MLS.GroupDeletionProcessedContext<A>, &_s15SecureMessaging3MLSO29GroupDeletionProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO29GroupDeletionProcessedContextVy_10Foundation4DataVGMR);
-  v32 = lazy protocol witness table accessor for type MLS.GroupDeletionError and conformance MLS.GroupDeletionError();
-  *v28 = v0;
-  v28[1] = MLS.XPCClientCoordinator.delete(group:context:);
-  v44 = v31;
-  v45 = v32;
-  v42 = v29;
-  v43 = v30;
-  v40 = v23;
-  v41 = &type metadata for MLS.GroupDeletionError;
-  v38 = partial apply for closure #3 in MLS.XPCClientCoordinator.delete(group:context:);
-  v39 = v25;
-
-  __asm { BRAA            X8, X16 }
-}
-
-uint64_t MLS.XPCClientCoordinator.delete(group:context:)()
-{
-  v2 = *v1;
-  v3 = *(*v1 + 136);
-  v11 = *v1;
-  *(*v1 + 144) = v0;
-
-  if (v0)
-  {
-    v4 = v2[12];
-    v5 = MLS.XPCClientCoordinator.delete(group:context:);
-  }
-
-  else
-  {
-    v7 = v2[15];
-    v6 = v2[16];
-    v8 = v2[14];
-    v9 = v2[12];
-
-    v5 = MLS.XPCClientCoordinator.delete(group:context:);
-    v4 = v9;
-  }
-
-  return MEMORY[0x2822009F8](v5, v4, 0);
-}
-
-{
-  v33 = v0;
-  v1 = v0[18];
-  v2 = v0[15];
-  v3 = v0[16];
-  v5 = v0[13];
-  v4 = v0[14];
-  v7 = v0[10];
-  v6 = v0[11];
-  v8 = v0[9];
-  v9 = v0[7];
-
-  outlined copy of Data?(v7, v6);
-
-  v10 = v1;
-  v11 = Logger.logObject.getter();
-  v12 = static os_log_type_t.error.getter();
-
-  outlined consume of Data?(v7, v6);
-
-  if (os_log_type_enabled(v11, v12))
-  {
-    v13 = v0[18];
-    v15 = v0[8];
-    v14 = v0[9];
-    v16 = v0[7];
-    v17 = swift_slowAlloc();
-    v18 = swift_slowAlloc();
-    v19 = swift_slowAlloc();
-    v31 = v19;
-    *v17 = 136315650;
-
-    v20 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v15, v14, &v31);
-
-    *(v17 + 4) = v20;
-    *(v17 + 12) = 2112;
-    v21 = v13;
-    v22 = _swift_stdlib_bridgeErrorToNSError();
-    *(v17 + 14) = v22;
-    *v18 = v22;
-    *(v17 + 22) = 2080;
-    v23 = *(v16 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier);
-    v24 = *(v16 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier + 8);
-
-    strcpy(v32, "EncryptedRCS.");
-    HIWORD(v32[1]) = -4864;
-    MEMORY[0x2667545A0](v23, v24);
-
-    v25 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v32[0], v32[1], &v31);
-
-    *(v17 + 24) = v25;
-    _os_log_impl(&dword_264F1F000, v11, v12, "XPCClientCoordinator delete failed { identifier: %s, error: %@, client: %s }", v17, 0x20u);
-    outlined destroy of NSObject?(v18, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    MEMORY[0x266755550](v18, -1, -1);
-    swift_arrayDestroy();
-    MEMORY[0x266755550](v19, -1, -1);
-    MEMORY[0x266755550](v17, -1, -1);
-  }
-
-  else
-  {
-    v26 = v0[7];
-  }
-
-  v27 = v0[18];
-  swift_willThrow();
-  v28 = v0[1];
-  v29 = v0[18];
-
-  return v28();
-}
-
-uint64_t closure #1 in MLS.XPCClientCoordinator.delete(group:context:)@<X0>(uint64_t a1@<X5>, uint64_t *a2@<X8>)
-{
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO20GroupDeletionContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO20GroupDeletionContextVy_10Foundation4DataVGMR);
-  lazy protocol witness table accessor for type MLS.KeyPackageRetrievalResult<MLS.AllMember> and conformance MLS.KeyPackageRetrievalResult<A>(&lazy protocol witness table cache variable for type MLS.GroupDeletionContext<Data> and conformance MLS.GroupDeletionContext<A>, &_s15SecureMessaging3MLSO20GroupDeletionContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO20GroupDeletionContextVy_10Foundation4DataVGMR);
-  result = dispatch thunk of JSONEncoder.encode<A>(_:)();
-  if (!v2)
-  {
-    v7 = result;
-    v8 = v6;
-    v12 = *(a1 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier);
-    v13 = *(a1 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier + 8);
-    lazy protocol witness table accessor for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier();
-
-    v9 = dispatch thunk of JSONEncoder.encode<A>(_:)();
-    v11 = v10;
-
-    *a2 = v9;
-    a2[1] = v11;
-    a2[2] = v7;
-    a2[3] = v8;
-  }
-
-  return result;
-}
-
-uint64_t MLS.XPCClientCoordinator.group(identifier:context:)(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
-{
-  v5[17] = a3;
-  v5[18] = v4;
-  v5[15] = a1;
-  v5[16] = a2;
-  v6 = a4[1];
-  v5[19] = *a4;
-  v5[20] = v6;
   if (one-time initialization token for shared != -1)
   {
     swift_once();
   }
 
-  v7 = static MLSActor.shared;
-  v5[21] = static MLSActor.shared;
+  v1 = *(v0 + 8);
 
-  return MEMORY[0x2822009F8](MLS.XPCClientCoordinator.group(identifier:context:), v7, 0);
+  return v1();
 }
 
-void MLS.XPCClientCoordinator.group(identifier:context:)()
+uint64_t MLS.NoOpPersister.loadSwiftMLSGroupID(identifier:clientIdentifier:)()
 {
-  v1 = v0[20];
-  v2 = v0[18];
-  v0[22] = direct field offset for MLS.XPCClientCoordinator.logger;
-
-  v3 = Logger.logObject.getter();
-  v4 = static os_log_type_t.default.getter();
-
-  if (os_log_type_enabled(v3, v4))
+  if (one-time initialization token for shared != -1)
   {
-    v6 = v0[19];
-    v5 = v0[20];
-    v7 = v0[18];
-    v8 = swift_slowAlloc();
-    v9 = swift_slowAlloc();
-    v30 = v9;
-    *v8 = 136315394;
-    *(v8 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v6, v5, &v30);
-    *(v8 + 12) = 2080;
-    v10 = *(v7 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier);
-    v11 = *(v7 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier + 8);
-    strcpy(v31, "EncryptedRCS.");
-    HIWORD(v31[1]) = -4864;
-
-    MEMORY[0x2667545A0](v10, v11);
-
-    v12 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v31[0], v31[1], &v30);
-
-    *(v8 + 14) = v12;
-    _os_log_impl(&dword_264F1F000, v3, v4, "XPCClientCoordinator group { identifier: %s, client: %s }", v8, 0x16u);
-    swift_arrayDestroy();
-    MEMORY[0x266755550](v9, -1, -1);
-    MEMORY[0x266755550](v8, -1, -1);
+    swift_once();
   }
 
-  else
-  {
-    v13 = v0[18];
-  }
+  v1 = *(v0 + 8);
 
-  v15 = v0[19];
-  v14 = v0[20];
-  v17 = v0[17];
-  v16 = v0[18];
-  v18 = v0[16];
-  v19 = *(*(v16 + direct field offset for MLS.XPCClientCoordinator.xpcClient) + OBJC_IVAR____TtCO15SecureMessaging8XPCUtils9XPCClient_deliveryInterface);
-  v0[23] = v19;
-  v20 = swift_task_alloc();
-  v0[24] = v20;
-  v20[2] = v15;
-  v20[3] = v14;
-  v20[4] = v16;
-  v21 = swift_task_alloc();
-  v0[25] = v21;
-  *(v21 + 16) = v18;
-  *(v21 + 24) = v17;
-  v22 = *(*v19 + 360);
-
-  v29 = v22 + *v22;
-  v23 = v22[1];
-  v24 = swift_task_alloc();
-  v0[26] = v24;
-  v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DataV_ACtMd, &_s10Foundation4DataV_ACtMR);
-  v26 = lazy protocol witness table accessor for type MLS.Group and conformance MLS.Group();
-  v27 = lazy protocol witness table accessor for type MLS.Group and conformance MLS.Group();
-  Error = lazy protocol witness table accessor for type MLS.GroupFetchError and conformance MLS.GroupFetchError();
-  *v24 = v0;
-  v24[1] = MLS.XPCClientCoordinator.group(identifier:context:);
-  v39 = v27;
-  v40 = Error;
-  v37 = v25;
-  v38 = v26;
-  v36 = &type metadata for MLS.GroupFetchError;
-  v34 = v21;
-  v35 = &type metadata for MLS.Group;
-  v33 = partial apply for closure #3 in MLS.XPCClientCoordinator.group(identifier:context:);
-
-  __asm { BRAA            X8, X16 }
+  return v1(0, 0xF000000000000000);
 }
 
-uint64_t MLS.XPCClientCoordinator.group(identifier:context:)()
+uint64_t MLS.NoOpPersister.loadSecureMessagingGroupID(swiftMLSGroupID:clientIdentifier:)()
 {
-  v2 = *v1;
-  v3 = *(*v1 + 208);
-  v9 = *v1;
-  *(*v1 + 216) = v0;
-
-  if (v0)
+  if (one-time initialization token for shared != -1)
   {
-    v4 = *(v2 + 168);
-    v5 = MLS.XPCClientCoordinator.group(identifier:context:);
+    swift_once();
   }
 
-  else
-  {
-    v6 = *(v2 + 184);
-    v7 = *(v2 + 168);
+  v1 = *(v0 + 8);
 
-    v5 = MLS.XPCClientCoordinator.group(identifier:context:);
-    v4 = v7;
-  }
-
-  return MEMORY[0x2822009F8](v5, v4, 0);
+  return v1(0, 0);
 }
 
+uint64_t MLS.NoOpPersister.save(eventsSinceLastKeyUpdate:forIdentifier:clientIdentifier:)()
 {
-  v2 = *(v0 + 192);
-  v1 = *(v0 + 200);
-  v4 = *(v0 + 80);
-  v3 = *(v0 + 96);
-  v5 = *(v0 + 120);
-  v6 = *(v0 + 64);
-  *(v5 + 96) = *(v0 + 112);
-  *(v5 + 64) = v4;
-  *(v5 + 80) = v3;
-  *(v5 + 48) = v6;
-  v7 = *(v0 + 16);
-  v8 = *(v0 + 48);
-  *(v5 + 16) = *(v0 + 32);
-  *(v5 + 32) = v8;
-  *v5 = v7;
+  if (one-time initialization token for shared != -1)
+  {
+    swift_once();
+  }
 
-  v9 = *(v0 + 8);
+  v1 = *(v0 + 8);
 
-  return v9();
+  return v1();
 }
 
+uint64_t MLS.NoOpPersister.loadEventsSinceLastKeyUpdate(forIdentifier:clientIdentifier:)(uint64_t a1)
 {
-  v30 = v0;
-  v1 = v0[27];
-  v2 = v0[24];
-  v3 = v0[25];
-  v5 = v0[22];
-  v4 = v0[23];
-  v6 = v0[20];
-  v7 = v0[18];
-
-  swift_retain_n();
-
-  v8 = v1;
-  v9 = Logger.logObject.getter();
-  v10 = static os_log_type_t.error.getter();
-
-  if (os_log_type_enabled(v9, v10))
+  *(v1 + 16) = a1;
+  if (one-time initialization token for shared != -1)
   {
-    v11 = v0[27];
-    v13 = v0[19];
-    v12 = v0[20];
-    v14 = v0[18];
-    v15 = swift_slowAlloc();
-    v16 = swift_slowAlloc();
-    v17 = swift_slowAlloc();
-    v28 = v17;
-    *v15 = 136315650;
-    *(v15 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v13, v12, &v28);
-    *(v15 + 12) = 2112;
-    v18 = v11;
-    v19 = _swift_stdlib_bridgeErrorToNSError();
-    *(v15 + 14) = v19;
-    *v16 = v19;
-    *(v15 + 22) = 2080;
-    v20 = *(v14 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier);
-    v21 = *(v14 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier + 8);
-
-    strcpy(v29, "EncryptedRCS.");
-    HIWORD(v29[1]) = -4864;
-    MEMORY[0x2667545A0](v20, v21);
-
-    v22 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v29[0], v29[1], &v28);
-
-    *(v15 + 24) = v22;
-    _os_log_impl(&dword_264F1F000, v9, v10, "XPCClientCoordinator group failed { identifier: %s, error: %@, client: %s }", v15, 0x20u);
-    outlined destroy of NSObject?(v16, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    MEMORY[0x266755550](v16, -1, -1);
-    swift_arrayDestroy();
-    MEMORY[0x266755550](v17, -1, -1);
-    MEMORY[0x266755550](v15, -1, -1);
+    swift_once();
   }
 
-  else
-  {
-    v23 = v0[18];
-  }
+  v2 = static MLSActor.shared;
 
-  v24 = v0[27];
-  swift_willThrow();
-  v25 = v0[1];
-  v26 = v0[27];
-
-  return v25();
+  return MEMORY[0x2822009F8](MLS.NoOpPersister.loadEventsSinceLastKeyUpdate(forIdentifier:clientIdentifier:), v2, 0);
 }
 
-uint64_t closure #1 in MLS.XPCClientCoordinator.group(identifier:context:)@<X0>(uint64_t a1@<X3>, uint64_t *a2@<X8>)
+uint64_t MLS.NoOpPersister.loadEventsSinceLastKeyUpdate(forIdentifier:clientIdentifier:)()
 {
-  lazy protocol witness table accessor for type MLS.GroupFetchContext and conformance MLS.GroupFetchContext();
-  result = dispatch thunk of JSONEncoder.encode<A>(_:)();
-  if (!v2)
+  v1 = *(v0 + 16);
+  *v1 = 0;
+  *(v1 + 8) = 0;
+  *(v1 + 16) = 2;
+  return (*(v0 + 8))();
+}
+
+uint64_t MLS.NoOpPersister.loadClientIdentifiersWithEvents()()
+{
+  if (one-time initialization token for shared != -1)
   {
-    v7 = result;
-    v8 = v6;
-    v12 = *(a1 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier);
-    v13 = *(a1 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier + 8);
-    lazy protocol witness table accessor for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier();
-
-    v9 = dispatch thunk of JSONEncoder.encode<A>(_:)();
-    v11 = v10;
-
-    *a2 = v9;
-    a2[1] = v11;
-    a2[2] = v7;
-    a2[3] = v8;
+    swift_once();
   }
 
+  v1 = *(v0 + 8);
+  v2 = MEMORY[0x277D84F90];
+
+  return v1(v2);
+}
+
+unint64_t MLS.NoOpPersister.loadEvents(clientIdentifier:)@<X0>(unint64_t *a1@<X8>)
+{
+  v2 = MEMORY[0x277D84F90];
+  v3 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_Say15SecureMessaging3MLSO17OutgoingEventTypeOy_AE9AllMemberO10Foundation4DataVG_AE0fG5StateVSgAE12GroupVersionVtGTt0g5Tf4g_n(MEMORY[0x277D84F90]);
+  result = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_Say15SecureMessaging3MLSO17IncomingEventTypeOy_AE9AllMemberO10Foundation4DataVGGTt0g5Tf4g_n(v2);
+  *a1 = v3;
+  a1[1] = result;
   return result;
 }
 
-uint64_t MLS.XPCClientCoordinator.update(groupDetails:forGroup:)(_OWORD *a1, uint64_t a2, uint64_t a3)
+uint64_t MLS.NoOpPersister.loadRetriableEventStates(clientIdentifier:)(uint64_t a1)
 {
-  *(v4 + 24) = a3;
-  *(v4 + 32) = v3;
-  *(v4 + 16) = a2;
-  *(v4 + 40) = *a1;
+  *(v1 + 16) = a1;
+  if (one-time initialization token for shared != -1)
+  {
+    swift_once();
+  }
+
+  v2 = static MLSActor.shared;
+
+  return MEMORY[0x2822009F8](MLS.NoOpPersister.loadRetriableEventStates(clientIdentifier:), v2, 0);
+}
+
+uint64_t MLS.NoOpPersister.loadRetriableEventStates(clientIdentifier:)()
+{
+  v1 = *(v0 + 16);
+  *v1 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_Say15SecureMessaging3MLSO18OutgoingEventStateVGTt0g5Tf4g_n(MEMORY[0x277D84F90]);
+  v2 = *(v0 + 8);
+
+  return v2();
+}
+
+uint64_t MLS.NoOpPersister.write(clientUUID:clientState:)()
+{
+  if (one-time initialization token for shared != -1)
+  {
+    swift_once();
+  }
+
+  v1 = *(v0 + 8);
+
+  return v1();
+}
+
+uint64_t MLS.NoOpPersister.readGroupState(groupID:clientIdentifier:)()
+{
+  if (one-time initialization token for shared != -1)
+  {
+    swift_once();
+  }
+
+  v1 = *(v0 + 8);
+
+  return v1(0, 0xF000000000000000);
+}
+
+uint64_t MLS.NoOpPersister.readEpochData(groupID:epochID:clientIdentifier:)()
+{
+  if (one-time initialization token for shared != -1)
+  {
+    swift_once();
+  }
+
+  v1 = *(v0 + 8);
+
+  return v1(0, 0xF000000000000000);
+}
+
+uint64_t MLS.NoOpPersister.write(groupID:groupStateUpdate:clientIdentifier:)()
+{
+  if (one-time initialization token for shared != -1)
+  {
+    swift_once();
+  }
+
+  v1 = *(v0 + 8);
+
+  return v1();
+}
+
+uint64_t MLS.NoOpPersister.readGroupState(groupID:)()
+{
+  if (one-time initialization token for shared != -1)
+  {
+    swift_once();
+  }
+
+  v1 = *(v0 + 8);
+
+  return v1(0, 0xF000000000000000);
+}
+
+uint64_t MLS.NoOpPersister.readEpochData(groupID:epochID:)()
+{
+  if (one-time initialization token for shared != -1)
+  {
+    swift_once();
+  }
+
+  v1 = *(v0 + 8);
+
+  return v1(0, 0xF000000000000000);
+}
+
+uint64_t MLS.NoOpPersister.write(groupID:groupStateUpdate:)()
+{
+  if (one-time initialization token for shared != -1)
+  {
+    swift_once();
+  }
+
+  v1 = *(v0 + 8);
+
+  return v1();
+}
+
+uint64_t MLS.NoOpPersister.getSwiftMLSPersister(forClientIdentifier:)(uint64_t a1)
+{
+  *(v2 + 16) = a1;
+  *(v2 + 24) = v1;
+  if (one-time initialization token for shared != -1)
+  {
+    swift_once();
+  }
+
+  v3 = static MLSActor.shared;
+
+  return MEMORY[0x2822009F8](MLS.NoOpPersister.getSwiftMLSPersister(forClientIdentifier:), v3, 0);
+}
+
+{
+  v2 = v1[2];
+  v3 = v1[3];
+  v2[3] = type metadata accessor for MLS.NoOpPersister();
+  v2[4] = lazy protocol witness table accessor for type MLS.NoOpPersister and conformance MLS.NoOpPersister(&lazy protocol witness table cache variable for type MLS.NoOpPersister and conformance MLS.NoOpPersister, &protocol conformance descriptor for MLS.NoOpPersister);
+  *v2 = v3;
+  v5 = v1[1];
+
+  return v5();
+}
+
+uint64_t protocol witness for MLS.Persister.atomically<A>(with:do:rollback:) in conformance MLS.NoOpPersister(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  v20 = (*(*v8 + 80) + **(*v8 + 80));
+  v18 = swift_task_alloc();
+  *(v9 + 16) = v18;
+  *v18 = v9;
+  v18[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v20(a1, a2, a3, a4, a5, a6, a7, a8);
+}
+
+uint64_t protocol witness for MLS.Persister.save(swiftMLSClientID:forIdentifier:) in conformance MLS.NoOpPersister(uint64_t a1, uint64_t a2)
+{
+  v8 = (*(*v2 + 152) + **(*v2 + 152));
+  v6 = swift_task_alloc();
+  *(v3 + 16) = v6;
+  *v6 = v3;
+  v6[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v8(a1, a2);
+}
+
+uint64_t protocol witness for MLS.Persister.loadSwiftMLSClientID(identifier:) in conformance MLS.NoOpPersister(uint64_t a1, uint64_t a2)
+{
+  v8 = (*(*v2 + 160) + **(*v2 + 160));
+  v6 = swift_task_alloc();
+  *(v3 + 16) = v6;
+  *v6 = v3;
+  v6[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v8(a1, a2);
+}
+
+uint64_t protocol witness for MLS.Persister.save(swiftMLSGroupID:forIdentifier:clientIdentifier:) in conformance MLS.NoOpPersister(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v14 = (*(*v5 + 192) + **(*v5 + 192));
+  v12 = swift_task_alloc();
+  *(v6 + 16) = v12;
+  *v12 = v6;
+  v12[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v14(a1, a2, a3, a4, a5);
+}
+
+uint64_t protocol witness for MLS.Persister.loadSwiftMLSGroupID(identifier:clientIdentifier:) in conformance MLS.NoOpPersister(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v10 = (*(*v3 + 200) + **(*v3 + 200));
+  v8 = swift_task_alloc();
+  *(v4 + 16) = v8;
+  *v8 = v4;
+  v8[1] = protocol witness for MLS.Storage.ClientStateStorage.read(clientUUID:) in conformance MLS.SwiftMLSPersister;
+
+  return v10(a1, a2, a3);
+}
+
+uint64_t protocol witness for MLS.Persister.loadSecureMessagingGroupID(swiftMLSGroupID:clientIdentifier:) in conformance MLS.NoOpPersister(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v10 = (*(*v3 + 208) + **(*v3 + 208));
+  v8 = swift_task_alloc();
+  *(v4 + 16) = v8;
+  *v8 = v4;
+  v8[1] = protocol witness for MLS.Storage.ClientStateStorage.read(clientUUID:) in conformance MLS.SwiftMLSPersister;
+
+  return v10(a1, a2, a3);
+}
+
+uint64_t protocol witness for MLS.Persister.save(groupClientContextBlob:forIdentifier:clientIdentifier:) in conformance MLS.NoOpPersister(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v14 = (*(*v5 + 216) + **(*v5 + 216));
+  v12 = swift_task_alloc();
+  *(v6 + 16) = v12;
+  *v12 = v6;
+  v12[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v14(a1, a2, a3, a4, a5);
+}
+
+uint64_t protocol witness for MLS.Persister.loadGroupClientContextBlob(identifier:clientIdentifier:) in conformance MLS.NoOpPersister(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v10 = (*(*v3 + 224) + **(*v3 + 224));
+  v8 = swift_task_alloc();
+  *(v4 + 16) = v8;
+  *v8 = v4;
+  v8[1] = protocol witness for MLS.Storage.ClientStateStorage.read(clientUUID:) in conformance MLS.SwiftMLSPersister;
+
+  return v10(a1, a2, a3);
+}
+
+uint64_t protocol witness for MLS.Persister.loadGroupMembers(identifier:includePendingMembers:clientIdentifier:) in conformance MLS.NoOpPersister(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v12 = (*(*v4 + 168) + **(*v4 + 168));
+  v10 = swift_task_alloc();
+  *(v5 + 16) = v10;
+  *v10 = v5;
+  v10[1] = specialized KDSRegistration.XPCCoordinator.__allocating_init(clientIdentifier:provider:simUniqueID:simLabelID:supportedState:testPhoneNumberURI:);
+
+  return v12(a1, a2, a3, a4);
+}
+
+uint64_t protocol witness for MLS.Persister.saveGroupMembers(identifier:membersToAdd:membersToDelete:clientIdentifier:) in conformance MLS.NoOpPersister(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v14 = (*(*v5 + 176) + **(*v5 + 176));
+  v12 = swift_task_alloc();
+  *(v6 + 16) = v12;
+  *v12 = v6;
+  v12[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v14(a1, a2, a3, a4, a5);
+}
+
+uint64_t protocol witness for MLS.Persister.replaceGroupMembers(identifier:newMembers:clientIdentifier:) in conformance MLS.NoOpPersister(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v12 = (*(*v4 + 184) + **(*v4 + 184));
+  v10 = swift_task_alloc();
+  *(v5 + 16) = v10;
+  *v10 = v5;
+  v10[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v12(a1, a2, a3, a4);
+}
+
+uint64_t protocol witness for MLS.Persister.deleteGroup(identifier:clientIdentifier:) in conformance MLS.NoOpPersister(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v4[4] = a3;
+  v4[5] = v3;
+  v4[2] = a1;
+  v4[3] = a2;
   if (one-time initialization token for shared != -1)
   {
     swift_once();
   }
 
   v5 = static MLSActor.shared;
-  *(v4 + 56) = static MLSActor.shared;
 
-  return MEMORY[0x2822009F8](MLS.XPCClientCoordinator.update(groupDetails:forGroup:), v5, 0);
+  return MEMORY[0x2822009F8](protocol witness for MLS.Persister.deleteGroup(identifier:clientIdentifier:) in conformance MLS.NoOpPersister, v5, 0);
 }
 
-void MLS.XPCClientCoordinator.update(groupDetails:forGroup:)()
+uint64_t protocol witness for MLS.Persister.deleteGroup(identifier:clientIdentifier:) in conformance MLS.NoOpPersister()
 {
-  v2 = v0[3];
-  v1 = v0[4];
-  v0[8] = direct field offset for MLS.XPCClientCoordinator.logger;
+  (*(**(v0 + 40) + 232))(*(v0 + 16), *(v0 + 24), *(v0 + 32));
+  v1 = *(v0 + 8);
 
-  v3 = Logger.logObject.getter();
-  v4 = static os_log_type_t.default.getter();
-
-  if (os_log_type_enabled(v3, v4))
-  {
-    v6 = v0[2];
-    v5 = v0[3];
-    v7 = swift_slowAlloc();
-    v8 = swift_slowAlloc();
-    v23 = v8;
-    *v7 = 136315138;
-    *(v7 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v6, v5, &v23);
-    _os_log_impl(&dword_264F1F000, v3, v4, "XPCClientCoordinator updateGroupDetails { group: %s }", v7, 0xCu);
-    __swift_destroy_boxed_opaque_existential_1Tm(v8);
-    MEMORY[0x266755550](v8, -1, -1);
-    MEMORY[0x266755550](v7, -1, -1);
-  }
-
-  v10 = v0[5];
-  v9 = v0[6];
-  v12 = v0[3];
-  v11 = v0[4];
-  v13 = v0[2];
-  v14 = *(*(v11 + direct field offset for MLS.XPCClientCoordinator.xpcClient) + OBJC_IVAR____TtCO15SecureMessaging8XPCUtils9XPCClient_deliveryInterface);
-  v0[9] = v14;
-  v15 = swift_task_alloc();
-  v0[10] = v15;
-  v15[2] = v11;
-  v15[3] = v10;
-  v15[4] = v9;
-  v16 = swift_task_alloc();
-  v0[11] = v16;
-  *(v16 + 16) = v13;
-  *(v16 + 24) = v12;
-  v17 = *(*v14 + 360);
-
-  v22 = v17 + *v17;
-  v18 = v17[1];
-  v19 = swift_task_alloc();
-  v0[12] = v19;
-  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DataV_ACtMd, &_s10Foundation4DataV_ACtMR);
-  updated = lazy protocol witness table accessor for type MLS.GroupUpdateError and conformance MLS.GroupUpdateError();
-  *v19 = v0;
-  v19[1] = MLS.XPCClientCoordinator.update(groupDetails:forGroup:);
-  v31 = MEMORY[0x277D839B8];
-  v32 = updated;
-  v29 = v20;
-  v30 = MEMORY[0x277D839D0];
-  v28 = &type metadata for MLS.GroupUpdateError;
-  v26 = v16;
-  v27 = MEMORY[0x277D839B0];
-  v25 = partial apply for closure #3 in MLS.XPCClientCoordinator.update(groupDetails:forGroup:);
-
-  __asm { BRAA            X8, X16 }
+  return v1();
 }
 
-uint64_t MLS.XPCClientCoordinator.update(groupDetails:forGroup:)()
+uint64_t protocol witness for MLS.Persister.deleteSecureMessagingGroup(identifier:clientIdentifier:) in conformance MLS.NoOpPersister(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = *v1;
-  v3 = *(*v1 + 96);
-  v11 = *v1;
-  *(*v1 + 104) = v0;
-
-  if (v0)
-  {
-    v4 = v2[7];
-    v5 = MLS.XPCClientCoordinator.update(groupDetails:forGroup:);
-  }
-
-  else
-  {
-    v7 = v2[10];
-    v6 = v2[11];
-    v8 = v2[9];
-    v9 = v2[7];
-
-    v5 = MLS.EventQueue.reenqueueAtFront(identifier:eventState:andBlockOnVersion:sendBlock:);
-    v4 = v9;
-  }
-
-  return MEMORY[0x2822009F8](v5, v4, 0);
-}
-
-{
-  v30 = v0;
-  v1 = v0[13];
-  v2 = v0[10];
-  v3 = v0[11];
-  v5 = v0[8];
-  v4 = v0[9];
-  v7 = v0[3];
-  v6 = v0[4];
-
-  swift_retain_n();
-
-  v8 = v1;
-  v9 = Logger.logObject.getter();
-  v10 = static os_log_type_t.error.getter();
-
-  if (os_log_type_enabled(v9, v10))
-  {
-    v11 = v0[13];
-    v13 = v0[3];
-    v12 = v0[4];
-    v14 = v0[2];
-    v15 = swift_slowAlloc();
-    v16 = swift_slowAlloc();
-    v17 = swift_slowAlloc();
-    v28 = v17;
-    *v15 = 136315650;
-    *(v15 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v14, v13, &v28);
-    *(v15 + 12) = 2112;
-    v18 = v11;
-    v19 = _swift_stdlib_bridgeErrorToNSError();
-    *(v15 + 14) = v19;
-    *v16 = v19;
-    *(v15 + 22) = 2080;
-    v20 = *(v12 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier);
-    v21 = *(v12 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier + 8);
-
-    strcpy(v29, "EncryptedRCS.");
-    HIWORD(v29[1]) = -4864;
-    MEMORY[0x2667545A0](v20, v21);
-
-    v22 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v29[0], v29[1], &v28);
-
-    *(v15 + 24) = v22;
-    _os_log_impl(&dword_264F1F000, v9, v10, "XPCClientCoordinator updateGroupDetails failed { group: %s, error: %@, client: %s }", v15, 0x20u);
-    outlined destroy of NSObject?(v16, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    MEMORY[0x266755550](v16, -1, -1);
-    swift_arrayDestroy();
-    MEMORY[0x266755550](v17, -1, -1);
-    MEMORY[0x266755550](v15, -1, -1);
-  }
-
-  else
-  {
-    v23 = v0[4];
-  }
-
-  v24 = v0[13];
-  swift_willThrow();
-  v25 = v0[1];
-  v26 = v0[13];
-
-  return v25();
-}
-
-uint64_t closure #1 in MLS.XPCClientCoordinator.update(groupDetails:forGroup:)@<X0>(uint64_t a1@<X1>, uint64_t *a2@<X8>)
-{
-  v4 = *(a1 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier + 8);
-  v10 = *(a1 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier);
-  lazy protocol witness table accessor for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier();
-
-  v5 = dispatch thunk of JSONEncoder.encode<A>(_:)();
-  v7 = v6;
-
-  if (!v2)
-  {
-    lazy protocol witness table accessor for type MLS.GroupDetails and conformance MLS.GroupDetails();
-    result = dispatch thunk of JSONEncoder.encode<A>(_:)();
-    *a2 = v5;
-    a2[1] = v7;
-    a2[2] = result;
-    a2[3] = v9;
-  }
-
-  return result;
-}
-
-uint64_t closure #3 in MLS.XPCClientCoordinator.update(groupDetails:forGroup:)(id *a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
-{
-  v19 = *a1;
-  v10 = *a2;
-  v11 = a2[1];
-  v12 = a2[2];
-  v13 = a2[3];
-  outlined copy of Data._Representation(*a2, v11);
-  outlined copy of Data._Representation(v12, v13);
-  isa = Data._bridgeToObjectiveC()().super.isa;
-  v15 = Data._bridgeToObjectiveC()().super.isa;
-  v16 = MEMORY[0x266754510](a5, a6);
-  aBlock[4] = a3;
-  aBlock[5] = a4;
-  aBlock[0] = MEMORY[0x277D85DD0];
-  aBlock[1] = 1107296256;
-  aBlock[2] = thunk for @escaping @callee_guaranteed @Sendable (@guaranteed Data?, @guaranteed Data?) -> ();
-  aBlock[3] = &block_descriptor_267;
-  v17 = _Block_copy(aBlock);
-
-  [v19 updateWithUniqueClientIdentifier:isa groupDetails:v15 forGroup:v16 completion:v17];
-  _Block_release(v17);
-
-  outlined consume of Data._Representation(v12, v13);
-  return outlined consume of Data._Representation(v10, v11);
-}
-
-uint64_t MLS.XPCClientCoordinator.otherMembers(group:context:)(uint64_t a1, uint64_t a2, uint64_t *a3)
-{
-  *(v4 + 24) = a1;
-  *(v4 + 32) = a2;
-  v5 = *a3;
-  v6 = a3[1];
-  *(v4 + 40) = v3;
-  *(v4 + 48) = v5;
-  *(v4 + 56) = v6;
-  *(v4 + 120) = *(a3 + 16);
+  v4[4] = a3;
+  v4[5] = v3;
+  v4[2] = a1;
+  v4[3] = a2;
   if (one-time initialization token for shared != -1)
   {
     swift_once();
   }
 
-  v7 = static MLSActor.shared;
-  *(v4 + 64) = static MLSActor.shared;
+  v5 = static MLSActor.shared;
 
-  return MEMORY[0x2822009F8](MLS.XPCClientCoordinator.otherMembers(group:context:), v7, 0);
+  return MEMORY[0x2822009F8](protocol witness for MLS.Persister.deleteSecureMessagingGroup(identifier:clientIdentifier:) in conformance MLS.NoOpPersister, v5, 0);
 }
 
-void MLS.XPCClientCoordinator.otherMembers(group:context:)()
+uint64_t protocol witness for MLS.Persister.deleteSecureMessagingGroup(identifier:clientIdentifier:) in conformance MLS.NoOpPersister()
 {
-  v1 = *(v0 + 56);
-  v2 = *(v0 + 40);
-  *(v0 + 72) = direct field offset for MLS.XPCClientCoordinator.logger;
+  (*(**(v0 + 40) + 240))(*(v0 + 16), *(v0 + 24), *(v0 + 32));
+  v1 = *(v0 + 8);
 
-  v3 = Logger.logObject.getter();
-  v4 = static os_log_type_t.default.getter();
+  return v1();
+}
 
-  if (os_log_type_enabled(v3, v4))
+uint64_t protocol witness for MLS.Persister.save(outgoingEventUpdate:forGroup:clientIdentifier:) in conformance MLS.NoOpPersister(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v5[5] = a4;
+  v5[6] = v4;
+  v5[3] = a2;
+  v5[4] = a3;
+  v5[2] = a1;
+  if (one-time initialization token for shared != -1)
   {
-    v6 = *(v0 + 48);
-    v5 = *(v0 + 56);
-    v7 = *(v0 + 40);
+    swift_once();
+  }
+
+  v6 = static MLSActor.shared;
+
+  return MEMORY[0x2822009F8](protocol witness for MLS.Persister.save(outgoingEventUpdate:forGroup:clientIdentifier:) in conformance MLS.NoOpPersister, v6, 0);
+}
+
+uint64_t protocol witness for MLS.Persister.save(outgoingEventUpdate:forGroup:clientIdentifier:) in conformance MLS.NoOpPersister()
+{
+  (*(**(v0 + 48) + 248))(*(v0 + 16), *(v0 + 24), *(v0 + 32), *(v0 + 40));
+  v1 = *(v0 + 8);
+
+  return v1();
+}
+
+uint64_t protocol witness for MLS.Persister.save(incomingEvent:forGroup:clientIdentifier:) in conformance MLS.NoOpPersister(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v5[5] = a4;
+  v5[6] = v4;
+  v5[3] = a2;
+  v5[4] = a3;
+  v5[2] = a1;
+  if (one-time initialization token for shared != -1)
+  {
+    swift_once();
+  }
+
+  v6 = static MLSActor.shared;
+
+  return MEMORY[0x2822009F8](protocol witness for MLS.Persister.save(incomingEvent:forGroup:clientIdentifier:) in conformance MLS.NoOpPersister, v6, 0);
+}
+
+uint64_t protocol witness for MLS.Persister.save(incomingEvent:forGroup:clientIdentifier:) in conformance MLS.NoOpPersister()
+{
+  (*(**(v0 + 48) + 256))(*(v0 + 16), *(v0 + 24), *(v0 + 32), *(v0 + 40));
+  v1 = *(v0 + 8);
+
+  return v1();
+}
+
+uint64_t protocol witness for MLS.Persister.delete(incomingEvent:forGroup:clientIdentifier:) in conformance MLS.NoOpPersister(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v5[5] = a4;
+  v5[6] = v4;
+  v5[3] = a2;
+  v5[4] = a3;
+  v5[2] = a1;
+  if (one-time initialization token for shared != -1)
+  {
+    swift_once();
+  }
+
+  v6 = static MLSActor.shared;
+
+  return MEMORY[0x2822009F8](protocol witness for MLS.Persister.delete(incomingEvent:forGroup:clientIdentifier:) in conformance MLS.NoOpPersister, v6, 0);
+}
+
+uint64_t protocol witness for MLS.Persister.delete(incomingEvent:forGroup:clientIdentifier:) in conformance MLS.NoOpPersister()
+{
+  (*(**(v0 + 48) + 264))(*(v0 + 16), *(v0 + 24), *(v0 + 32), *(v0 + 40));
+  v1 = *(v0 + 8);
+
+  return v1();
+}
+
+uint64_t protocol witness for MLS.Persister.save(eventsSinceLastKeyUpdate:forIdentifier:clientIdentifier:) in conformance MLS.NoOpPersister(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v12 = (*(*v4 + 272) + **(*v4 + 272));
+  v10 = swift_task_alloc();
+  *(v5 + 16) = v10;
+  *v10 = v5;
+  v10[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v12(a1, a2, a3, a4);
+}
+
+uint64_t protocol witness for MLS.Persister.loadEventsSinceLastKeyUpdate(forIdentifier:clientIdentifier:) in conformance MLS.NoOpPersister(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v12 = (*(*v4 + 280) + **(*v4 + 280));
+  v10 = swift_task_alloc();
+  *(v5 + 16) = v10;
+  *v10 = v5;
+  v10[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v12(a1, a2, a3, a4);
+}
+
+uint64_t protocol witness for MLS.Persister.loadClientIdentifiersWithEvents() in conformance MLS.NoOpPersister()
+{
+  v4 = (*(*v0 + 288) + **(*v0 + 288));
+  v2 = swift_task_alloc();
+  *(v1 + 16) = v2;
+  *v2 = v1;
+  v2[1] = protocol witness for MLS.Persister.loadClientIdentifiersWithEvents() in conformance MLS.InMemoryPersister;
+
+  return v4();
+}
+
+uint64_t protocol witness for MLS.Persister.loadEvents(clientIdentifier:) in conformance MLS.NoOpPersister(uint64_t a1, uint64_t a2)
+{
+  v3[3] = a2;
+  v3[4] = v2;
+  v3[2] = a1;
+  if (one-time initialization token for shared != -1)
+  {
+    swift_once();
+  }
+
+  v4 = static MLSActor.shared;
+
+  return MEMORY[0x2822009F8](protocol witness for MLS.Persister.loadEvents(clientIdentifier:) in conformance MLS.NoOpPersister, v4, 0);
+}
+
+uint64_t protocol witness for MLS.Persister.loadEvents(clientIdentifier:) in conformance MLS.NoOpPersister()
+{
+  (*(**(v0 + 32) + 296))(*(v0 + 24));
+  v1 = *(v0 + 8);
+
+  return v1();
+}
+
+uint64_t protocol witness for MLS.Persister.loadRetriableEventStates(clientIdentifier:) in conformance MLS.NoOpPersister(uint64_t a1, uint64_t a2)
+{
+  v8 = (*(*v2 + 304) + **(*v2 + 304));
+  v6 = swift_task_alloc();
+  *(v3 + 16) = v6;
+  *v6 = v3;
+  v6[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v8(a1, a2);
+}
+
+uint64_t protocol witness for MLS.Persister.readGroupState(swiftMLSGroupRead:clientIdentifier:) in conformance MLS.NoOpPersister(uint64_t a1, uint64_t a2)
+{
+  v8 = (*(*v2 + 104) + **(*v2 + 104));
+  v6 = swift_task_alloc();
+  *(v3 + 16) = v6;
+  *v6 = v3;
+  v6[1] = protocol witness for MLS.Storage.ClientStateStorage.read(clientUUID:) in conformance MLS.SwiftMLSPersister;
+
+  return v8(a1, a2);
+}
+
+uint64_t protocol witness for MLS.Persister.readEpochData(swiftMLSEpochRead:clientIdentifier:) in conformance MLS.NoOpPersister(uint64_t a1, uint64_t a2)
+{
+  v8 = (*(*v2 + 112) + **(*v2 + 112));
+  v6 = swift_task_alloc();
+  *(v3 + 16) = v6;
+  *v6 = v3;
+  v6[1] = protocol witness for MLS.Storage.ClientStateStorage.read(clientUUID:) in conformance MLS.SwiftMLSPersister;
+
+  return v8(a1, a2);
+}
+
+uint64_t protocol witness for MLS.Persister.write(swiftMLSGroupWrite:clientIdentifier:) in conformance MLS.NoOpPersister(uint64_t a1, uint64_t a2)
+{
+  v8 = (*(*v2 + 120) + **(*v2 + 120));
+  v6 = swift_task_alloc();
+  *(v3 + 16) = v6;
+  *v6 = v3;
+  v6[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v8(a1, a2);
+}
+
+uint64_t protocol witness for MLS.Persister.read(clientUUID:) in conformance MLS.NoOpPersister(uint64_t a1)
+{
+  v6 = (*(*v1 + 312) + **(*v1 + 312));
+  v4 = swift_task_alloc();
+  *(v2 + 16) = v4;
+  *v4 = v2;
+  v4[1] = protocol witness for MLS.Storage.ClientStateStorage.read(clientUUID:) in conformance MLS.SwiftMLSPersister;
+
+  return v6(a1);
+}
+
+uint64_t protocol witness for MLS.Persister.write(clientUUID:clientState:) in conformance MLS.NoOpPersister(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v10 = (*(*v3 + 320) + **(*v3 + 320));
+  v8 = swift_task_alloc();
+  *(v4 + 16) = v8;
+  *v8 = v4;
+  v8[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v10(a1, a2, a3);
+}
+
+uint64_t protocol witness for MLS.Persister.loadRetryCount(forGroup:messageID:clientIdentifier:) in conformance MLS.NoOpPersister(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v14 = (*(*v5 + 88) + **(*v5 + 88));
+  v12 = swift_task_alloc();
+  *(v6 + 16) = v12;
+  *v12 = v6;
+  v12[1] = protocol witness for MLS.Persister.loadRetryCount(forGroup:messageID:clientIdentifier:) in conformance MLS.InMemoryPersister;
+
+  return v14(a1, a2, a3, a4, a5);
+}
+
+uint64_t protocol witness for MLS.Persister.save(retryCount:forGroup:messageID:clientIdentifier:) in conformance MLS.NoOpPersister(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+{
+  v16 = (*(*v6 + 96) + **(*v6 + 96));
+  v14 = swift_task_alloc();
+  *(v7 + 16) = v14;
+  *v14 = v7;
+  v14[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v16(a1, a2, a3, a4, a5, a6);
+}
+
+uint64_t protocol witness for MLS.Persister.getSwiftMLSPersister(forClientIdentifier:) in conformance MLS.NoOpPersister(uint64_t a1, uint64_t a2)
+{
+  v8 = (*(*v2 + 376) + **(*v2 + 376));
+  v6 = swift_task_alloc();
+  *(v3 + 16) = v6;
+  *v6 = v3;
+  v6[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v8(a1, a2);
+}
+
+uint64_t protocol witness for MLS.Storage.ClientStateStorage.read(clientUUID:) in conformance MLS.NoOpPersister(uint64_t a1)
+{
+  v6 = (*(**v1 + 312) + **(**v1 + 312));
+  v4 = swift_task_alloc();
+  *(v2 + 16) = v4;
+  *v4 = v2;
+  v4[1] = protocol witness for MLS.Storage.ClientStateStorage.read(clientUUID:) in conformance MLS.SwiftMLSPersister;
+
+  return v6(a1);
+}
+
+uint64_t protocol witness for MLS.Storage.ClientStateStorage.write(clientUUID:clientState:) in conformance MLS.NoOpPersister(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v10 = (*(**v3 + 320) + **(**v3 + 320));
+  v8 = swift_task_alloc();
+  *(v4 + 16) = v8;
+  *v8 = v4;
+  v8[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v10(a1, a2, a3);
+}
+
+uint64_t protocol witness for MLS.Storage.GroupStateStorage.readGroupState(groupID:) in conformance MLS.NoOpPersister(uint64_t a1, uint64_t a2)
+{
+  v8 = (*(**v2 + 352) + **(**v2 + 352));
+  v6 = swift_task_alloc();
+  *(v3 + 16) = v6;
+  *v6 = v3;
+  v6[1] = protocol witness for MLS.Storage.GroupStateStorage.readGroupState(groupID:) in conformance MLS.SwiftMLSPersister;
+
+  return v8(a1, a2);
+}
+
+uint64_t protocol witness for MLS.Storage.GroupStateStorage.readEpochData(groupID:epochID:) in conformance MLS.NoOpPersister(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v10 = (*(**v3 + 360) + **(**v3 + 360));
+  v8 = swift_task_alloc();
+  *(v4 + 16) = v8;
+  *v8 = v4;
+  v8[1] = protocol witness for MLS.Storage.ClientStateStorage.read(clientUUID:) in conformance MLS.SwiftMLSPersister;
+
+  return v10(a1, a2, a3);
+}
+
+uint64_t protocol witness for MLS.Storage.GroupStateStorage.write(groupID:groupStateUpdate:) in conformance MLS.NoOpPersister(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v10 = (*(**v3 + 368) + **(**v3 + 368));
+  v8 = swift_task_alloc();
+  *(v4 + 16) = v8;
+  *v8 = v4;
+  v8[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v10(a1, a2, a3);
+}
+
+uint64_t protocol witness for MLS.Storage.GroupStateStorageV2.readGroupState(_:) in conformance MLS.NoOpPersister(uint64_t a1)
+{
+  v6 = (*(**v1 + 128) + **(**v1 + 128));
+  v4 = swift_task_alloc();
+  *(v2 + 16) = v4;
+  *v4 = v2;
+  v4[1] = protocol witness for MLS.Storage.ClientStateStorage.read(clientUUID:) in conformance MLS.SwiftMLSPersister;
+
+  return v6(a1);
+}
+
+uint64_t protocol witness for MLS.Storage.GroupStateStorageV2.readEpochData(_:) in conformance MLS.NoOpPersister(uint64_t a1)
+{
+  v6 = (*(**v1 + 136) + **(**v1 + 136));
+  v4 = swift_task_alloc();
+  *(v2 + 16) = v4;
+  *v4 = v2;
+  v4[1] = protocol witness for MLS.Storage.ClientStateStorage.read(clientUUID:) in conformance MLS.SwiftMLSPersister;
+
+  return v6(a1);
+}
+
+uint64_t protocol witness for MLS.Storage.GroupStateStorageV2.write(_:) in conformance MLS.NoOpPersister(uint64_t a1)
+{
+  v6 = (*(**v1 + 144) + **(**v1 + 144));
+  v4 = swift_task_alloc();
+  *(v2 + 16) = v4;
+  *v4 = v2;
+  v4[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v6(a1);
+}
+
+uint64_t instantiation function for generic protocol witness table for MLS.NoOpPersister(void *a1)
+{
+  a1[1] = lazy protocol witness table accessor for type MLS.NoOpPersister and conformance MLS.NoOpPersister(&lazy protocol witness table cache variable for type MLS.NoOpPersister and conformance MLS.NoOpPersister, &protocol conformance descriptor for MLS.NoOpPersister);
+  a1[2] = lazy protocol witness table accessor for type MLS.NoOpPersister and conformance MLS.NoOpPersister(&lazy protocol witness table cache variable for type MLS.NoOpPersister and conformance MLS.NoOpPersister, &protocol conformance descriptor for MLS.NoOpPersister);
+  result = lazy protocol witness table accessor for type MLS.NoOpPersister and conformance MLS.NoOpPersister(&lazy protocol witness table cache variable for type MLS.NoOpPersister and conformance MLS.NoOpPersister, &protocol conformance descriptor for MLS.NoOpPersister);
+  a1[3] = result;
+  return result;
+}
+
+uint64_t lazy protocol witness table accessor for type MLS.NoOpPersister and conformance MLS.NoOpPersister(unint64_t *a1, uint64_t a2)
+{
+  result = *a1;
+  if (!result)
+  {
+    type metadata accessor for MLS.NoOpPersister();
+    result = swift_getWitnessTable();
+    atomic_store(result, a1);
+  }
+
+  return result;
+}
+
+uint64_t dispatch thunk of MLS.NoOpPersister.atomically<A>(with:do:rollback:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  v20 = (*(*v8 + 80) + **(*v8 + 80));
+  v18 = swift_task_alloc();
+  *(v9 + 16) = v18;
+  *v18 = v9;
+  v18[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v20(a1, a2, a3, a4, a5, a6, a7, a8);
+}
+
+uint64_t dispatch thunk of MLS.NoOpPersister.loadRetryCount(forGroup:messageID:clientIdentifier:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v14 = (*(*v5 + 88) + **(*v5 + 88));
+  v12 = swift_task_alloc();
+  *(v6 + 16) = v12;
+  *v12 = v6;
+  v12[1] = dispatch thunk of MLS.InMemoryPersister.loadRetryCount(forGroup:messageID:clientIdentifier:);
+
+  return v14(a1, a2, a3, a4, a5);
+}
+
+uint64_t dispatch thunk of MLS.NoOpPersister.save(retryCount:forGroup:messageID:clientIdentifier:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+{
+  v16 = (*(*v6 + 96) + **(*v6 + 96));
+  v14 = swift_task_alloc();
+  *(v7 + 16) = v14;
+  *v14 = v7;
+  v14[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v16(a1, a2, a3, a4, a5, a6);
+}
+
+uint64_t dispatch thunk of MLS.NoOpPersister.readGroupState(swiftMLSGroupRead:clientIdentifier:)(uint64_t a1, uint64_t a2)
+{
+  v8 = (*(*v2 + 104) + **(*v2 + 104));
+  v6 = swift_task_alloc();
+  *(v3 + 16) = v6;
+  *v6 = v3;
+  v6[1] = dispatch thunk of MLS.SwiftMLSPersister.readGroupState(groupID:);
+
+  return v8(a1, a2);
+}
+
+uint64_t dispatch thunk of MLS.NoOpPersister.readEpochData(swiftMLSEpochRead:clientIdentifier:)(uint64_t a1, uint64_t a2)
+{
+  v8 = (*(*v2 + 112) + **(*v2 + 112));
+  v6 = swift_task_alloc();
+  *(v3 + 16) = v6;
+  *v6 = v3;
+  v6[1] = dispatch thunk of MLS.SwiftMLSPersister.readGroupState(groupID:);
+
+  return v8(a1, a2);
+}
+
+uint64_t dispatch thunk of MLS.NoOpPersister.write(swiftMLSGroupWrite:clientIdentifier:)(uint64_t a1, uint64_t a2)
+{
+  v8 = (*(*v2 + 120) + **(*v2 + 120));
+  v6 = swift_task_alloc();
+  *(v3 + 16) = v6;
+  *v6 = v3;
+  v6[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v8(a1, a2);
+}
+
+uint64_t dispatch thunk of MLS.NoOpPersister.readGroupState(_:)(uint64_t a1)
+{
+  v6 = (*(*v1 + 128) + **(*v1 + 128));
+  v4 = swift_task_alloc();
+  *(v2 + 16) = v4;
+  *v4 = v2;
+  v4[1] = dispatch thunk of MLS.SwiftMLSPersister.readGroupState(groupID:);
+
+  return v6(a1);
+}
+
+uint64_t dispatch thunk of MLS.NoOpPersister.readEpochData(_:)(uint64_t a1)
+{
+  v6 = (*(*v1 + 136) + **(*v1 + 136));
+  v4 = swift_task_alloc();
+  *(v2 + 16) = v4;
+  *v4 = v2;
+  v4[1] = dispatch thunk of MLS.SwiftMLSPersister.readGroupState(groupID:);
+
+  return v6(a1);
+}
+
+uint64_t dispatch thunk of MLS.NoOpPersister.write(_:)(uint64_t a1)
+{
+  v6 = (*(*v1 + 144) + **(*v1 + 144));
+  v4 = swift_task_alloc();
+  *(v2 + 16) = v4;
+  *v4 = v2;
+  v4[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v6(a1);
+}
+
+uint64_t dispatch thunk of MLS.NoOpPersister.save(swiftMLSClientID:forIdentifier:)(uint64_t a1, uint64_t a2)
+{
+  v8 = (*(*v2 + 152) + **(*v2 + 152));
+  v6 = swift_task_alloc();
+  *(v3 + 16) = v6;
+  *v6 = v3;
+  v6[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v8(a1, a2);
+}
+
+uint64_t dispatch thunk of MLS.NoOpPersister.loadSwiftMLSClientID(identifier:)(uint64_t a1, uint64_t a2)
+{
+  v8 = (*(*v2 + 160) + **(*v2 + 160));
+  v6 = swift_task_alloc();
+  *(v3 + 16) = v6;
+  *v6 = v3;
+  v6[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v8(a1, a2);
+}
+
+uint64_t dispatch thunk of MLS.NoOpPersister.loadGroupMembers(identifier:includePendingMembers:clientIdentifier:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v12 = (*(*v4 + 168) + **(*v4 + 168));
+  v10 = swift_task_alloc();
+  *(v5 + 16) = v10;
+  *v10 = v5;
+  v10[1] = dispatch thunk of KDSRegistration.XPCCoordinator.__allocating_init(clientIdentifier:provider:simUniqueID:simLabelID:supportedState:testPhoneNumberURI:);
+
+  return v12(a1, a2, a3, a4);
+}
+
+uint64_t dispatch thunk of MLS.NoOpPersister.saveGroupMembers(identifier:membersToAdd:membersToDelete:clientIdentifier:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v14 = (*(*v5 + 176) + **(*v5 + 176));
+  v12 = swift_task_alloc();
+  *(v6 + 16) = v12;
+  *v12 = v6;
+  v12[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v14(a1, a2, a3, a4, a5);
+}
+
+uint64_t dispatch thunk of MLS.NoOpPersister.replaceGroupMembers(identifier:newMembers:clientIdentifier:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v12 = (*(*v4 + 184) + **(*v4 + 184));
+  v10 = swift_task_alloc();
+  *(v5 + 16) = v10;
+  *v10 = v5;
+  v10[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v12(a1, a2, a3, a4);
+}
+
+uint64_t dispatch thunk of MLS.NoOpPersister.save(swiftMLSGroupID:forIdentifier:clientIdentifier:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v14 = (*(*v5 + 192) + **(*v5 + 192));
+  v12 = swift_task_alloc();
+  *(v6 + 16) = v12;
+  *v12 = v6;
+  v12[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v14(a1, a2, a3, a4, a5);
+}
+
+uint64_t dispatch thunk of MLS.NoOpPersister.loadSwiftMLSGroupID(identifier:clientIdentifier:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v10 = (*(*v3 + 200) + **(*v3 + 200));
+  v8 = swift_task_alloc();
+  *(v4 + 16) = v8;
+  *v8 = v4;
+  v8[1] = dispatch thunk of MLS.SwiftMLSPersister.readGroupState(groupID:);
+
+  return v10(a1, a2, a3);
+}
+
+uint64_t dispatch thunk of MLS.NoOpPersister.loadSecureMessagingGroupID(swiftMLSGroupID:clientIdentifier:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v10 = (*(*v3 + 208) + **(*v3 + 208));
+  v8 = swift_task_alloc();
+  *(v4 + 16) = v8;
+  *v8 = v4;
+  v8[1] = dispatch thunk of MLS.SwiftMLSPersister.readEpochData(groupID:epochID:);
+
+  return v10(a1, a2, a3);
+}
+
+uint64_t dispatch thunk of MLS.NoOpPersister.save(groupClientContextBlob:forIdentifier:clientIdentifier:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v14 = (*(*v5 + 216) + **(*v5 + 216));
+  v12 = swift_task_alloc();
+  *(v6 + 16) = v12;
+  *v12 = v6;
+  v12[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v14(a1, a2, a3, a4, a5);
+}
+
+uint64_t dispatch thunk of MLS.NoOpPersister.loadGroupClientContextBlob(identifier:clientIdentifier:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v10 = (*(*v3 + 224) + **(*v3 + 224));
+  v8 = swift_task_alloc();
+  *(v4 + 16) = v8;
+  *v8 = v4;
+  v8[1] = dispatch thunk of MLS.SwiftMLSPersister.readGroupState(groupID:);
+
+  return v10(a1, a2, a3);
+}
+
+uint64_t dispatch thunk of MLS.NoOpPersister.save(eventsSinceLastKeyUpdate:forIdentifier:clientIdentifier:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v12 = (*(*v4 + 272) + **(*v4 + 272));
+  v10 = swift_task_alloc();
+  *(v5 + 16) = v10;
+  *v10 = v5;
+  v10[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v12(a1, a2, a3, a4);
+}
+
+uint64_t dispatch thunk of MLS.NoOpPersister.loadEventsSinceLastKeyUpdate(forIdentifier:clientIdentifier:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v12 = (*(*v4 + 280) + **(*v4 + 280));
+  v10 = swift_task_alloc();
+  *(v5 + 16) = v10;
+  *v10 = v5;
+  v10[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v12(a1, a2, a3, a4);
+}
+
+uint64_t dispatch thunk of MLS.NoOpPersister.loadClientIdentifiersWithEvents()()
+{
+  v4 = (*(*v0 + 288) + **(*v0 + 288));
+  v2 = swift_task_alloc();
+  *(v1 + 16) = v2;
+  *v2 = v1;
+  v2[1] = dispatch thunk of MLS.RequiresGroupGroupOperation.membersRequiringKeyPackages(swiftMLSGroup:);
+
+  return v4();
+}
+
+uint64_t dispatch thunk of MLS.NoOpPersister.loadRetriableEventStates(clientIdentifier:)(uint64_t a1, uint64_t a2)
+{
+  v8 = (*(*v2 + 304) + **(*v2 + 304));
+  v6 = swift_task_alloc();
+  *(v3 + 16) = v6;
+  *v6 = v3;
+  v6[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v8(a1, a2);
+}
+
+uint64_t dispatch thunk of MLS.NoOpPersister.read(clientUUID:)(uint64_t a1)
+{
+  v6 = (*(*v1 + 312) + **(*v1 + 312));
+  v4 = swift_task_alloc();
+  *(v2 + 16) = v4;
+  *v4 = v2;
+  v4[1] = dispatch thunk of MLS.SwiftMLSPersister.readGroupState(groupID:);
+
+  return v6(a1);
+}
+
+uint64_t dispatch thunk of MLS.NoOpPersister.write(clientUUID:clientState:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v10 = (*(*v3 + 320) + **(*v3 + 320));
+  v8 = swift_task_alloc();
+  *(v4 + 16) = v8;
+  *v8 = v4;
+  v8[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v10(a1, a2, a3);
+}
+
+uint64_t dispatch thunk of MLS.NoOpPersister.readGroupState(groupID:clientIdentifier:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v10 = (*(*v3 + 328) + **(*v3 + 328));
+  v8 = swift_task_alloc();
+  *(v4 + 16) = v8;
+  *v8 = v4;
+  v8[1] = dispatch thunk of MLS.SwiftMLSPersister.readGroupState(groupID:);
+
+  return v10(a1, a2, a3);
+}
+
+uint64_t dispatch thunk of MLS.NoOpPersister.readEpochData(groupID:epochID:clientIdentifier:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v12 = (*(*v4 + 336) + **(*v4 + 336));
+  v10 = swift_task_alloc();
+  *(v5 + 16) = v10;
+  *v10 = v5;
+  v10[1] = dispatch thunk of MLS.SwiftMLSPersister.readGroupState(groupID:);
+
+  return v12(a1, a2, a3, a4);
+}
+
+uint64_t dispatch thunk of MLS.NoOpPersister.write(groupID:groupStateUpdate:clientIdentifier:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v12 = (*(*v4 + 344) + **(*v4 + 344));
+  v10 = swift_task_alloc();
+  *(v5 + 16) = v10;
+  *v10 = v5;
+  v10[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v12(a1, a2, a3, a4);
+}
+
+uint64_t dispatch thunk of MLS.NoOpPersister.readGroupState(groupID:)(uint64_t a1, uint64_t a2)
+{
+  v8 = (*(*v2 + 352) + **(*v2 + 352));
+  v6 = swift_task_alloc();
+  *(v3 + 16) = v6;
+  *v6 = v3;
+  v6[1] = dispatch thunk of MLS.SwiftMLSPersister.readGroupState(groupID:);
+
+  return v8(a1, a2);
+}
+
+uint64_t dispatch thunk of MLS.NoOpPersister.readEpochData(groupID:epochID:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v10 = (*(*v3 + 360) + **(*v3 + 360));
+  v8 = swift_task_alloc();
+  *(v4 + 16) = v8;
+  *v8 = v4;
+  v8[1] = dispatch thunk of MLS.SwiftMLSPersister.readGroupState(groupID:);
+
+  return v10(a1, a2, a3);
+}
+
+uint64_t dispatch thunk of MLS.NoOpPersister.write(groupID:groupStateUpdate:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v10 = (*(*v3 + 368) + **(*v3 + 368));
+  v8 = swift_task_alloc();
+  *(v4 + 16) = v8;
+  *v8 = v4;
+  v8[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v10(a1, a2, a3);
+}
+
+uint64_t dispatch thunk of MLS.NoOpPersister.getSwiftMLSPersister(forClientIdentifier:)(uint64_t a1, uint64_t a2)
+{
+  v8 = (*(*v2 + 376) + **(*v2 + 376));
+  v6 = swift_task_alloc();
+  *(v3 + 16) = v6;
+  *v6 = v3;
+  v6[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v8(a1, a2);
+}
+
+uint64_t _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFShy15SecureMessaging3MLSO9AllMemberOG_AH09PersistedH0Vs5NeverOTg504_s15d96Messaging3MLSO9PersisterPAAE17addPendingMembers10identifier05otherG016clientIdentifierySS_ShyAC9gh31OGAC012UniqueClientK0VtYaKFAC09I10M0VAKXEfU_Tf1cn_nTm(uint64_t a1, char a2)
+{
+  v2 = *(a1 + 16);
+  v3 = MEMORY[0x277D84F90];
+  if (!v2)
+  {
+    return v3;
+  }
+
+  v4 = a1;
+  v34 = MEMORY[0x277D84F90];
+  specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v2, 0);
+  v3 = v34;
+  v5 = v4 + 56;
+  result = _HashTable.startBucket.getter();
+  v7 = result;
+  v8 = 0;
+  v27 = v4 + 64;
+  v28 = v2;
+  v29 = v4 + 56;
+  while ((v7 & 0x8000000000000000) == 0 && v7 < 1 << *(v4 + 32))
+  {
+    v10 = v7 >> 6;
+    if ((*(v5 + 8 * (v7 >> 6)) & (1 << v7)) == 0)
+    {
+      goto LABEL_21;
+    }
+
+    v31 = v8;
+    v32 = *(v4 + 36);
+    v11 = *(v4 + 48) + 32 * v7;
+    v12 = *v11;
+    v13 = *(v11 + 8);
+    v14 = *(v11 + 16);
+    v33 = *(v11 + 24);
+    result = outlined copy of MLS.AllMember(*v11, v13);
+    v15 = v4;
+    v17 = *(v34 + 16);
+    v16 = *(v34 + 24);
+    v18 = v17 + 1;
+    if (v17 >= v16 >> 1)
+    {
+      result = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v16 > 1), v17 + 1, 1);
+      v18 = v17 + 1;
+    }
+
+    *(v34 + 16) = v18;
+    v19 = v34 + 32 * v17;
+    *(v19 + 32) = v12;
+    *(v19 + 40) = v13;
+    *(v19 + 48) = v14;
+    *(v19 + 56) = v33;
+    *(v19 + 57) = a2;
+    v9 = 1 << *(v15 + 32);
+    if (v7 >= v9)
+    {
+      goto LABEL_22;
+    }
+
+    v5 = v29;
+    v20 = *(v29 + 8 * v10);
+    if ((v20 & (1 << v7)) == 0)
+    {
+      goto LABEL_23;
+    }
+
+    v4 = v15;
+    if (v32 != *(v15 + 36))
+    {
+      goto LABEL_24;
+    }
+
+    v21 = v20 & (-2 << (v7 & 0x3F));
+    if (v21)
+    {
+      v9 = __clz(__rbit64(v21)) | v7 & 0x7FFFFFFFFFFFFFC0;
+    }
+
+    else
+    {
+      v22 = v10 << 6;
+      v23 = v10 + 1;
+      v24 = (v27 + 8 * v10);
+      while (v23 < (v9 + 63) >> 6)
+      {
+        v26 = *v24++;
+        v25 = v26;
+        v22 += 64;
+        ++v23;
+        if (v26)
+        {
+          result = outlined consume of Set<MLS.Identity.SigningIdentity>.Index._Variant(v7, v32, 0);
+          v9 = __clz(__rbit64(v25)) + v22;
+          goto LABEL_4;
+        }
+      }
+
+      result = outlined consume of Set<MLS.Identity.SigningIdentity>.Index._Variant(v7, v32, 0);
+    }
+
+LABEL_4:
+    v8 = v31 + 1;
+    v7 = v9;
+    if (v31 + 1 == v28)
+    {
+      return v3;
+    }
+  }
+
+  __break(1u);
+LABEL_21:
+  __break(1u);
+LABEL_22:
+  __break(1u);
+LABEL_23:
+  __break(1u);
+LABEL_24:
+  __break(1u);
+  return result;
+}
+
+uint64_t MLS.Persister.addPendingMembers(identifier:otherMembers:clientIdentifier:)(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5, uint64_t a6)
+{
+  v7[8] = a6;
+  v7[9] = v6;
+  v7[6] = a3;
+  v7[7] = a5;
+  v7[4] = a1;
+  v7[5] = a2;
+  v8 = a4[1];
+  v7[10] = *a4;
+  v7[11] = v8;
+  return MEMORY[0x2822009F8](MLS.Persister.addPendingMembers(identifier:otherMembers:clientIdentifier:), 0, 0);
+}
+
+uint64_t MLS.Persister.addPendingMembers(identifier:otherMembers:clientIdentifier:)()
+{
+  v2 = v0[10];
+  v1 = v0[11];
+  v12 = v0[8];
+  v3 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFShy15SecureMessaging3MLSO9AllMemberOG_AH09PersistedH0Vs5NeverOTg504_s15d96Messaging3MLSO9PersisterPAAE17addPendingMembers10identifier05otherG016clientIdentifierySS_ShyAC9gh31OGAC012UniqueClientK0VtYaKFAC09I10M0VAKXEfU_Tf1cn_nTm(v0[6], 1);
+  v0[12] = v3;
+  v0[2] = v2;
+  v0[3] = v1;
+  v11 = (*(v12 + 80) + **(v12 + 80));
+  v4 = swift_task_alloc();
+  v0[13] = v4;
+  *v4 = v0;
+  v4[1] = MLS.Persister.addPendingMembers(identifier:otherMembers:clientIdentifier:);
+  v5 = v0[8];
+  v6 = v0[7];
+  v7 = v0[5];
+  v8 = MEMORY[0x277D84F90];
+  v9 = v0[4];
+
+  return v11(v9, v7, v3, v8, v0 + 2, v6, v5);
+}
+
+{
+  v2 = *v1;
+  *(v2 + 112) = v0;
+
+  if (v0)
+  {
+
+    return MEMORY[0x2822009F8](MLS.Persister.addPendingMembers(identifier:otherMembers:clientIdentifier:), 0, 0);
+  }
+
+  else
+  {
+
+    v3 = *(v2 + 8);
+
+    return v3();
+  }
+}
+
+{
+  return (*(v0 + 8))();
+}
+
+void MLS.Persister.atomically<A>(with:do:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  v10 = *(a8 + 8) + **(a8 + 8);
+  v9 = swift_task_alloc();
+  *(v8 + 16) = v9;
+  *v9 = v8;
+  v9[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  __asm { BRAA            X8, X16 }
+}
+
+uint64_t MLS.Persister.removePendingMembers(identifier:otherMembers:clientIdentifier:)(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5, uint64_t a6)
+{
+  v7[8] = a6;
+  v7[9] = v6;
+  v7[6] = a3;
+  v7[7] = a5;
+  v7[4] = a1;
+  v7[5] = a2;
+  v8 = a4[1];
+  v7[10] = *a4;
+  v7[11] = v8;
+  return MEMORY[0x2822009F8](MLS.Persister.removePendingMembers(identifier:otherMembers:clientIdentifier:), 0, 0);
+}
+
+uint64_t MLS.Persister.removePendingMembers(identifier:otherMembers:clientIdentifier:)()
+{
+  v2 = v0[10];
+  v1 = v0[11];
+  v12 = v0[8];
+  v3 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFShy15SecureMessaging3MLSO9AllMemberOG_AH09PersistedH0Vs5NeverOTg504_s15d96Messaging3MLSO9PersisterPAAE17addPendingMembers10identifier05otherG016clientIdentifierySS_ShyAC9gh31OGAC012UniqueClientK0VtYaKFAC09I10M0VAKXEfU_Tf1cn_nTm(v0[6], 2);
+  v0[12] = v3;
+  v0[2] = v2;
+  v0[3] = v1;
+  v11 = (*(v12 + 80) + **(v12 + 80));
+  v4 = swift_task_alloc();
+  v0[13] = v4;
+  *v4 = v0;
+  v4[1] = MLS.Persister.removePendingMembers(identifier:otherMembers:clientIdentifier:);
+  v5 = v0[8];
+  v6 = v0[7];
+  v7 = v0[5];
+  v8 = MEMORY[0x277D84F90];
+  v9 = v0[4];
+
+  return v11(v9, v7, v8, v3, v0 + 2, v6, v5);
+}
+
+{
+  v2 = *v1;
+  *(v2 + 112) = v0;
+
+  if (v0)
+  {
+
+    return MEMORY[0x2822009F8](MLS.Persister.removePendingMembers(identifier:otherMembers:clientIdentifier:), 0, 0);
+  }
+
+  else
+  {
+
+    v3 = *(v2 + 8);
+
+    return v3();
+  }
+}
+
+uint64_t MLS.ReadGroupKey.init(groupID:)@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+{
+  *a3 = result;
+  a3[1] = a2;
+  return result;
+}
+
+uint64_t MLS.EpochKey.init(era:epochID:)@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+{
+  *a3 = result;
+  a3[1] = a2;
+  return result;
+}
+
+__n128 MLS.ReadEpochKey.init(groupID:epochKey:)@<Q0>(unint64_t a1@<X0>, unint64_t a2@<X1>, __n128 *a3@<X2>, __n128 *a4@<X8>)
+{
+  a4->n128_u64[0] = a1;
+  a4->n128_u64[1] = a2;
+  result = *a3;
+  a4[1] = *a3;
+  return result;
+}
+
+__n128 MLS.Record.init(epochKey:data:)@<Q0>(__n128 *a1@<X0>, unint64_t a2@<X1>, unint64_t a3@<X2>, __n128 *a4@<X8>)
+{
+  result = *a1;
+  *a4 = *a1;
+  a4[1].n128_u64[0] = a2;
+  a4[1].n128_u64[1] = a3;
+  return result;
+}
+
+uint64_t MLS.WriteGroupData.init(groupID:groupState:epochInsertRecords:epochUpdateRecords:epochDeleteKeys:)@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, void *a8@<X8>)
+{
+  *a8 = result;
+  a8[1] = a2;
+  a8[2] = a3;
+  a8[3] = a4;
+  a8[4] = a5;
+  a8[5] = a6;
+  a8[6] = a7;
+  return result;
+}
+
+__n128 MLS.PersistedMember.init(member:state:)@<Q0>(__n128 *a1@<X0>, unsigned __int8 *a2@<X1>, __n128 *a3@<X8>)
+{
+  v3 = a1[1].n128_u64[0];
+  v4 = a1[1].n128_u8[8];
+  v5 = *a2;
+  result = *a1;
+  *a3 = *a1;
+  a3[1].n128_u64[0] = v3;
+  a3[1].n128_u8[8] = v4;
+  a3[1].n128_u8[9] = v5;
+  return result;
+}
+
+uint64_t MLS.StoredEvents.init(groupToOutgoingEvents:groupToIncomingEvents:)@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+{
+  *a3 = result;
+  a3[1] = a2;
+  return result;
+}
+
+__n128 MLS.Record.epochKey.getter@<Q0>(__n128 *a1@<X8>)
+{
+  result = *v1;
+  *a1 = *v1;
+  return result;
+}
+
+uint64_t MLS.Record.data.getter()
+{
+  v1 = *(v0 + 16);
+  outlined copy of Data._Representation(v1, *(v0 + 24));
+  return v1;
+}
+
+uint64_t MLS.ReadGroupKey.groupID.getter()
+{
+  v1 = *v0;
+  outlined copy of Data._Representation(*v0, *(v0 + 8));
+  return v1;
+}
+
+uint64_t MLS.ReadEpochKey.groupID.getter()
+{
+  v1 = *v0;
+  outlined copy of Data._Representation(*v0, *(v0 + 8));
+  return v1;
+}
+
+__n128 MLS.ReadEpochKey.epochKey.getter@<Q0>(__n128 *a1@<X8>)
+{
+  result = v1[1];
+  *a1 = result;
+  return result;
+}
+
+uint64_t MLS.WriteGroupData.groupID.getter()
+{
+  v1 = *v0;
+  outlined copy of Data._Representation(*v0, *(v0 + 8));
+  return v1;
+}
+
+uint64_t MLS.WriteGroupData.groupState.getter()
+{
+  v1 = *(v0 + 16);
+  outlined copy of Data?(v1, *(v0 + 24));
+  return v1;
+}
+
+uint64_t MLS.Storage.EpochKey.secureMessagingRepresentation.getter@<X0>(uint64_t *a2@<X8>)
+{
+  v3 = MLS.Storage.EpochKey.era.getter();
+  result = MLS.Storage.EpochKey.epochID.getter();
+  *a2 = v3;
+  a2[1] = result;
+  return result;
+}
+
+uint64_t MLS.Storage.Record.secureMessagingRepresentation.getter@<X0>(uint64_t *a1@<X8>)
+{
+  v2 = type metadata accessor for MLS.Storage.EpochKey();
+  v3 = *(v2 - 8);
+  MEMORY[0x28223BE20](v2);
+  v5 = &v10 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MLS.Storage.Record.key.getter();
+  v6 = MLS.Storage.EpochKey.era.getter();
+  v7 = MLS.Storage.EpochKey.epochID.getter();
+  (*(v3 + 8))(v5, v2);
+  result = MLS.Storage.Record.data.getter();
+  *a1 = v6;
+  a1[1] = v7;
+  a1[2] = result;
+  a1[3] = v9;
+  return result;
+}
+
+uint64_t MLS.Storage.ReadGroupKey.secureMessagingRepresentation.getter@<X0>(uint64_t *a1@<X8>)
+{
+  result = MLS.Storage.ReadGroupKey.groupID.getter();
+  *a1 = result;
+  a1[1] = v3;
+  return result;
+}
+
+uint64_t MLS.Storage.ReadEpochKey.secureMessagingRepresentation.getter@<X0>(uint64_t *a1@<X8>)
+{
+  v2 = type metadata accessor for MLS.Storage.EpochKey();
+  v3 = *(v2 - 8);
+  MEMORY[0x28223BE20](v2);
+  v5 = &v12 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  Epoch = MLS.Storage.ReadEpochKey.groupID.getter();
+  v8 = v7;
+  MLS.Storage.ReadEpochKey.key.getter();
+  v9 = MLS.Storage.EpochKey.era.getter();
+  v10 = MLS.Storage.EpochKey.epochID.getter();
+  result = (*(v3 + 8))(v5, v2);
+  *a1 = Epoch;
+  a1[1] = v8;
+  a1[2] = v9;
+  a1[3] = v10;
+  return result;
+}
+
+uint64_t MLS.Storage.WriteGroupData.secureMessagingRepresentation.getter@<X0>(uint64_t *a1@<X8>)
+{
+  v68 = a1;
+  v80 = type metadata accessor for MLS.Storage.EpochKey();
+  v2 = *(v80 - 8);
+  MEMORY[0x28223BE20](v80);
+  v4 = &v63 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v79 = type metadata accessor for MLS.Storage.Record();
+  v5 = *(v79 - 1);
+  MEMORY[0x28223BE20](v79);
+  v78 = &v63 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = MLS.Storage.WriteGroupData.groupID.getter();
+  v66 = v8;
+  v67 = v7;
+  v9 = MLS.Storage.WriteGroupData.groupState.getter();
+  v64 = v10;
+  v65 = v9;
+  v11 = MLS.Storage.WriteGroupData.epochInserts.getter();
+  v12 = *(v11 + 16);
+  v13 = MEMORY[0x277D84F90];
+  v69 = v1;
+  v70 = v2;
+  if (v12)
+  {
+    v81 = MEMORY[0x277D84F90];
+    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v12, 0);
+    v14 = v81;
+    v76 = v5;
+    v16 = *(v5 + 16);
+    v15 = v5 + 16;
+    v17 = (*(v15 + 64) + 32) & ~*(v15 + 64);
+    v63 = v11;
+    v18 = v11 + v17;
+    v73 = *(v15 + 56);
+    v74 = v16;
+    v75 = v15;
+    v71 = (v15 - 8);
+    v72 = (v2 + 8);
+    do
+    {
+      v20 = v78;
+      v19 = v79;
+      v74(v78, v18, v79);
+      MLS.Storage.Record.key.getter();
+      v77 = MLS.Storage.EpochKey.era.getter();
+      v21 = MLS.Storage.EpochKey.epochID.getter();
+      (*v72)(v4, v80);
+      v22 = MLS.Storage.Record.data.getter();
+      v24 = v23;
+      (*v71)(v20, v19);
+      v81 = v14;
+      v26 = *(v14 + 16);
+      v25 = *(v14 + 24);
+      if (v26 >= v25 >> 1)
+      {
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v25 > 1), v26 + 1, 1);
+        v14 = v81;
+      }
+
+      *(v14 + 16) = v26 + 1;
+      v27 = (v14 + 32 * v26);
+      v27[4] = v77;
+      v27[5] = v21;
+      v27[6] = v22;
+      v27[7] = v24;
+      v18 += v73;
+      --v12;
+    }
+
+    while (v12);
+    v71 = v14;
+
+    v2 = v70;
+    v5 = v76;
+    v13 = MEMORY[0x277D84F90];
+  }
+
+  else
+  {
+
+    v71 = MEMORY[0x277D84F90];
+  }
+
+  v28 = MLS.Storage.WriteGroupData.epochUpdates.getter();
+  v29 = *(v28 + 16);
+  if (v29)
+  {
+    v81 = v13;
+    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v29, 0);
+    v30 = v81;
+    v32 = *(v5 + 16);
+    v31 = v5 + 16;
+    v33 = (*(v31 + 64) + 32) & ~*(v31 + 64);
+    v63 = v28;
+    v34 = v28 + v33;
+    v74 = *(v31 + 56);
+    v75 = v32;
+    v72 = (v31 - 8);
+    v73 = (v2 + 8);
+    v76 = v31;
+    do
+    {
+      v36 = v78;
+      v35 = v79;
+      v75(v78, v34, v79);
+      MLS.Storage.Record.key.getter();
+      v77 = MLS.Storage.EpochKey.era.getter();
+      v37 = MLS.Storage.EpochKey.epochID.getter();
+      (*v73)(v4, v80);
+      v38 = MLS.Storage.Record.data.getter();
+      v40 = v39;
+      (*v72)(v36, v35);
+      v81 = v30;
+      v42 = *(v30 + 16);
+      v41 = *(v30 + 24);
+      if (v42 >= v41 >> 1)
+      {
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v41 > 1), v42 + 1, 1);
+        v30 = v81;
+      }
+
+      *(v30 + 16) = v42 + 1;
+      v43 = (v30 + 32 * v42);
+      v43[4] = v77;
+      v43[5] = v37;
+      v43[6] = v38;
+      v43[7] = v40;
+      v34 += v74;
+      --v29;
+    }
+
+    while (v29);
+    v76 = v30;
+
+    v2 = v70;
+    v13 = MEMORY[0x277D84F90];
+  }
+
+  else
+  {
+
+    v76 = MEMORY[0x277D84F90];
+  }
+
+  v44 = MLS.Storage.WriteGroupData.epochDeletes.getter();
+  v45 = *(v44 + 16);
+  if (v45)
+  {
+    v81 = v13;
+    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v45, 0);
+    v46 = v81;
+    v48 = *(v2 + 16);
+    v47 = v2 + 16;
+    v49 = *(v47 + 64);
+    v75 = v44;
+    v50 = v44 + ((v49 + 32) & ~v49);
+    v78 = *(v47 + 56);
+    v79 = v48;
+    v77 = (v47 - 8);
+    do
+    {
+      v51 = v80;
+      v52 = v47;
+      (v79)(v4, v50, v80);
+      v53 = MLS.Storage.EpochKey.era.getter();
+      v54 = MLS.Storage.EpochKey.epochID.getter();
+      (*v77)(v4, v51);
+      v81 = v46;
+      v56 = *(v46 + 16);
+      v55 = *(v46 + 24);
+      if (v56 >= v55 >> 1)
+      {
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v55 > 1), v56 + 1, 1);
+        v46 = v81;
+      }
+
+      *(v46 + 16) = v56 + 1;
+      v57 = v46 + 16 * v56;
+      *(v57 + 32) = v53;
+      *(v57 + 40) = v54;
+      v50 += v78;
+      --v45;
+      v47 = v52;
+    }
+
+    while (v45);
+  }
+
+  else
+  {
+
+    v46 = MEMORY[0x277D84F90];
+  }
+
+  v59 = v68;
+  v60 = v65;
+  v61 = v66;
+  *v68 = v67;
+  v59[1] = v61;
+  v59[2] = v60;
+  v62 = v71;
+  v59[3] = v64;
+  v59[4] = v62;
+  v59[5] = v76;
+  v59[6] = v46;
+  return result;
+}
+
+uint64_t MLS.PersistedMember.MemberState.description.getter()
+{
+  v1 = 0x676E69646E6570;
+  if (*v0 != 1)
+  {
+    v1 = 0x44676E69646E6570;
+  }
+
+  if (*v0)
+  {
+    return v1;
+  }
+
+  else
+  {
+    return 0x657474696D6D6F63;
+  }
+}
+
+uint64_t MLS.PersistedMember.MemberState.init(rawValue:)@<X0>(uint64_t result@<X0>, char *a2@<X8>)
+{
+  if (result >= 3)
+  {
+    v2 = 3;
+  }
+
+  else
+  {
+    v2 = result;
+  }
+
+  *a2 = v2;
+  return result;
+}
+
+Swift::Int protocol witness for Hashable.hashValue.getter in conformance MLS.PersistedMember.MemberState()
+{
+  v1 = *v0;
+  Hasher.init(_seed:)();
+  Hasher._combine(_:)(v1);
+  return Hasher._finalize()();
+}
+
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance MLS.PersistedMember.MemberState(uint64_t a1)
+{
+  v2 = *v1;
+  Hasher.init(_seed:)();
+  Hasher._combine(_:)(v2);
+  return Hasher._finalize()();
+}
+
+uint64_t protocol witness for CustomStringConvertible.description.getter in conformance MLS.PersistedMember.MemberState()
+{
+  v1 = 0x676E69646E6570;
+  if (*v0 != 1)
+  {
+    v1 = 0x44676E69646E6570;
+  }
+
+  if (*v0)
+  {
+    return v1;
+  }
+
+  else
+  {
+    return 0x657474696D6D6F63;
+  }
+}
+
+uint64_t MLS.PersistedMember.member.getter@<X0>(uint64_t a1@<X8>)
+{
+  v2 = *v1;
+  v3 = *(v1 + 8);
+  v4 = *(v1 + 16);
+  *a1 = *v1;
+  *(a1 + 8) = v3;
+  *(a1 + 16) = v4;
+  *(a1 + 24) = *(v1 + 24);
+  return outlined copy of MLS.AllMember(v2, v3);
+}
+
+uint64_t MLS.PersistedMember.description.getter()
+{
+  v1 = 0xE700000000000000;
+  v2 = 0x676E69646E6570;
+  if (*(v0 + 25) != 1)
+  {
+    v2 = 0x44676E69646E6570;
+    v1 = 0xED00006574656C65;
+  }
+
+  if (*(v0 + 25))
+  {
+    v3 = v2;
+  }
+
+  else
+  {
+    v3 = 0x657474696D6D6F63;
+  }
+
+  if (*(v0 + 25))
+  {
+    v4 = v1;
+  }
+
+  else
+  {
+    v4 = 0xE900000000000064;
+  }
+
+  MEMORY[0x2667545A0](v3, v4);
+
+  MEMORY[0x2667545A0](14906, 0xE200000000000000);
+  v5 = MLS.AllMember.description.getter();
+  MEMORY[0x2667545A0](v5);
+
+  return 0;
+}
+
+unint64_t lazy protocol witness table accessor for type MLS.PersistedMember.MemberState and conformance MLS.PersistedMember.MemberState()
+{
+  result = lazy protocol witness table cache variable for type MLS.PersistedMember.MemberState and conformance MLS.PersistedMember.MemberState;
+  if (!lazy protocol witness table cache variable for type MLS.PersistedMember.MemberState and conformance MLS.PersistedMember.MemberState)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type MLS.PersistedMember.MemberState and conformance MLS.PersistedMember.MemberState);
+  }
+
+  return result;
+}
+
+uint64_t getEnumTagSinglePayload for MLS.EpochKey(uint64_t a1, int a2)
+{
+  if (a2 && *(a1 + 16))
+  {
+    return (*a1 + 1);
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t storeEnumTagSinglePayload for MLS.EpochKey(uint64_t result, int a2, int a3)
+{
+  if (a2)
+  {
+    *result = (a2 - 1);
+    *(result + 8) = 0;
+    if (!a3)
+    {
+      return result;
+    }
+
+    v3 = 1;
+  }
+
+  else
+  {
+    if (!a3)
+    {
+      return result;
+    }
+
+    v3 = 0;
+  }
+
+  *(result + 16) = v3;
+  return result;
+}
+
+uint64_t getEnumTagSinglePayload for MLS.Record(uint64_t a1, unsigned int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 >= 0xD && *(a1 + 32))
+  {
+    return (*a1 + 13);
+  }
+
+  v3 = (((*(a1 + 24) >> 60) >> 2) & 0xFFFFFFF3 | (4 * ((*(a1 + 24) >> 60) & 3))) ^ 0xF;
+  if (v3 >= 0xC)
+  {
+    v3 = -1;
+  }
+
+  return v3 + 1;
+}
+
+uint64_t storeEnumTagSinglePayload for MLS.Record(uint64_t result, unsigned int a2, unsigned int a3)
+{
+  if (a2 > 0xC)
+  {
+    *(result + 16) = 0;
+    *(result + 24) = 0;
+    *result = a2 - 13;
+    *(result + 8) = 0;
+    if (a3 >= 0xD)
+    {
+      *(result + 32) = 1;
+    }
+  }
+
+  else
+  {
+    if (a3 >= 0xD)
+    {
+      *(result + 32) = 0;
+    }
+
+    if (a2)
+    {
+      *(result + 16) = 0;
+      *(result + 24) = (((-a2 >> 2) & 3) - 4 * a2) << 60;
+    }
+  }
+
+  return result;
+}
+
+uint64_t getEnumTagSinglePayload for MLS.WriteGroupData(uint64_t a1, int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 < 0 && *(a1 + 56))
+  {
+    return *a1 + 0x80000000;
+  }
+
+  v2 = *(a1 + 32);
+  if (v2 >= 0xFFFFFFFF)
+  {
+    LODWORD(v2) = -1;
+  }
+
+  return (v2 + 1);
+}
+
+uint64_t storeEnumTagSinglePayload for MLS.WriteGroupData(uint64_t result, int a2, int a3)
+{
+  if (a2 < 0)
+  {
+    *(result + 40) = 0u;
+    *(result + 24) = 0u;
+    *(result + 8) = 0u;
+    *result = a2 & 0x7FFFFFFF;
+    if (a3 < 0)
+    {
+      *(result + 56) = 1;
+    }
+  }
+
+  else
+  {
+    if ((a3 & 0x80000000) == 0)
+    {
+      if (!a2)
+      {
+        return result;
+      }
+
+LABEL_8:
+      *(result + 32) = (a2 - 1);
+      return result;
+    }
+
+    *(result + 56) = 0;
+    if (a2)
+    {
+      goto LABEL_8;
+    }
+  }
+
+  return result;
+}
+
+uint64_t dispatch thunk of MLS.Persister.atomically<A>(with:do:rollback:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+{
+  v20 = (*(a10 + 8) + **(a10 + 8));
+  v18 = swift_task_alloc();
+  *(v10 + 16) = v18;
+  *v18 = v10;
+  v18[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v20(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10);
+}
+
+uint64_t dispatch thunk of MLS.Persister.save(swiftMLSClientID:forIdentifier:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v11 = (*(a4 + 16) + **(a4 + 16));
+  v9 = swift_task_alloc();
+  *(v4 + 16) = v9;
+  *v9 = v4;
+  v9[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v11(a1, a2, a3, a4);
+}
+
+uint64_t dispatch thunk of MLS.Persister.loadSwiftMLSClientID(identifier:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v11 = (*(a4 + 24) + **(a4 + 24));
+  v9 = swift_task_alloc();
+  *(v4 + 16) = v9;
+  *v9 = v4;
+  v9[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v11(a1, a2, a3, a4);
+}
+
+uint64_t dispatch thunk of MLS.Persister.save(swiftMLSGroupID:forIdentifier:clientIdentifier:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+{
+  v17 = (*(a7 + 32) + **(a7 + 32));
+  v15 = swift_task_alloc();
+  *(v7 + 16) = v15;
+  *v15 = v7;
+  v15[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v17(a1, a2, a3, a4, a5, a6, a7);
+}
+
+uint64_t dispatch thunk of MLS.Persister.loadSwiftMLSGroupID(identifier:clientIdentifier:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v13 = (*(a5 + 40) + **(a5 + 40));
+  v11 = swift_task_alloc();
+  *(v5 + 16) = v11;
+  *v11 = v5;
+  v11[1] = dispatch thunk of MLS.SwiftMLSPersister.readGroupState(groupID:);
+
+  return v13(a1, a2, a3, a4, a5);
+}
+
+uint64_t dispatch thunk of MLS.Persister.loadSecureMessagingGroupID(swiftMLSGroupID:clientIdentifier:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v13 = (*(a5 + 48) + **(a5 + 48));
+  v11 = swift_task_alloc();
+  *(v5 + 16) = v11;
+  *v11 = v5;
+  v11[1] = dispatch thunk of MLS.SwiftMLSPersister.readEpochData(groupID:epochID:);
+
+  return v13(a1, a2, a3, a4, a5);
+}
+
+uint64_t dispatch thunk of MLS.Persister.save(groupClientContextBlob:forIdentifier:clientIdentifier:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+{
+  v17 = (*(a7 + 56) + **(a7 + 56));
+  v15 = swift_task_alloc();
+  *(v7 + 16) = v15;
+  *v15 = v7;
+  v15[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v17(a1, a2, a3, a4, a5, a6, a7);
+}
+
+uint64_t dispatch thunk of MLS.Persister.loadGroupClientContextBlob(identifier:clientIdentifier:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v13 = (*(a5 + 64) + **(a5 + 64));
+  v11 = swift_task_alloc();
+  *(v5 + 16) = v11;
+  *v11 = v5;
+  v11[1] = dispatch thunk of MLS.SwiftMLSPersister.readGroupState(groupID:);
+
+  return v13(a1, a2, a3, a4, a5);
+}
+
+uint64_t dispatch thunk of MLS.Persister.loadGroupMembers(identifier:includePendingMembers:clientIdentifier:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+{
+  v15 = (*(a6 + 72) + **(a6 + 72));
+  v13 = swift_task_alloc();
+  *(v6 + 16) = v13;
+  *v13 = v6;
+  v13[1] = dispatch thunk of KDSRegistration.XPCCoordinator.__allocating_init(clientIdentifier:provider:simUniqueID:simLabelID:supportedState:testPhoneNumberURI:);
+
+  return v15(a1, a2, a3, a4, a5, a6);
+}
+
+uint64_t dispatch thunk of MLS.Persister.saveGroupMembers(identifier:membersToAdd:membersToDelete:clientIdentifier:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+{
+  v17 = (*(a7 + 80) + **(a7 + 80));
+  v15 = swift_task_alloc();
+  *(v7 + 16) = v15;
+  *v15 = v7;
+  v15[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v17(a1, a2, a3, a4, a5, a6, a7);
+}
+
+uint64_t dispatch thunk of MLS.Persister.replaceGroupMembers(identifier:newMembers:clientIdentifier:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+{
+  v15 = (*(a6 + 88) + **(a6 + 88));
+  v13 = swift_task_alloc();
+  *(v6 + 16) = v13;
+  *v13 = v6;
+  v13[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v15(a1, a2, a3, a4, a5, a6);
+}
+
+uint64_t dispatch thunk of MLS.Persister.deleteGroup(identifier:clientIdentifier:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v13 = (*(a5 + 96) + **(a5 + 96));
+  v11 = swift_task_alloc();
+  *(v5 + 16) = v11;
+  *v11 = v5;
+  v11[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v13(a1, a2, a3, a4, a5);
+}
+
+uint64_t dispatch thunk of MLS.Persister.deleteSecureMessagingGroup(identifier:clientIdentifier:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v13 = (*(a5 + 104) + **(a5 + 104));
+  v11 = swift_task_alloc();
+  *(v5 + 16) = v11;
+  *v11 = v5;
+  v11[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v13(a1, a2, a3, a4, a5);
+}
+
+uint64_t dispatch thunk of MLS.Persister.save(outgoingEventUpdate:forGroup:clientIdentifier:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+{
+  v15 = (*(a6 + 112) + **(a6 + 112));
+  v13 = swift_task_alloc();
+  *(v6 + 16) = v13;
+  *v13 = v6;
+  v13[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v15(a1, a2, a3, a4, a5, a6);
+}
+
+uint64_t dispatch thunk of MLS.Persister.save(incomingEvent:forGroup:clientIdentifier:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+{
+  v15 = (*(a6 + 120) + **(a6 + 120));
+  v13 = swift_task_alloc();
+  *(v6 + 16) = v13;
+  *v13 = v6;
+  v13[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v15(a1, a2, a3, a4, a5, a6);
+}
+
+uint64_t dispatch thunk of MLS.Persister.delete(incomingEvent:forGroup:clientIdentifier:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+{
+  v15 = (*(a6 + 128) + **(a6 + 128));
+  v13 = swift_task_alloc();
+  *(v6 + 16) = v13;
+  *v13 = v6;
+  v13[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v15(a1, a2, a3, a4, a5, a6);
+}
+
+uint64_t dispatch thunk of MLS.Persister.save(eventsSinceLastKeyUpdate:forIdentifier:clientIdentifier:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+{
+  v15 = (*(a6 + 136) + **(a6 + 136));
+  v13 = swift_task_alloc();
+  *(v6 + 16) = v13;
+  *v13 = v6;
+  v13[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v15(a1, a2, a3, a4, a5, a6);
+}
+
+uint64_t dispatch thunk of MLS.Persister.loadEventsSinceLastKeyUpdate(forIdentifier:clientIdentifier:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+{
+  v15 = (*(a6 + 144) + **(a6 + 144));
+  v13 = swift_task_alloc();
+  *(v6 + 16) = v13;
+  *v13 = v6;
+  v13[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v15(a1, a2, a3, a4, a5, a6);
+}
+
+uint64_t dispatch thunk of MLS.Persister.loadClientIdentifiersWithEvents()(uint64_t a1, uint64_t a2)
+{
+  v7 = (*(a2 + 152) + **(a2 + 152));
+  v5 = swift_task_alloc();
+  *(v2 + 16) = v5;
+  *v5 = v2;
+  v5[1] = dispatch thunk of MLS.RequiresGroupGroupOperation.membersRequiringKeyPackages(swiftMLSGroup:);
+
+  return v7(a1, a2);
+}
+
+uint64_t dispatch thunk of MLS.Persister.loadEvents(clientIdentifier:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v11 = (*(a4 + 160) + **(a4 + 160));
+  v9 = swift_task_alloc();
+  *(v4 + 16) = v9;
+  *v9 = v4;
+  v9[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v11(a1, a2, a3, a4);
+}
+
+uint64_t dispatch thunk of MLS.Persister.loadRetriableEventStates(clientIdentifier:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v11 = (*(a4 + 168) + **(a4 + 168));
+  v9 = swift_task_alloc();
+  *(v4 + 16) = v9;
+  *v9 = v4;
+  v9[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v11(a1, a2, a3, a4);
+}
+
+uint64_t dispatch thunk of MLS.Persister.readGroupState(swiftMLSGroupRead:clientIdentifier:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v11 = (*(a4 + 176) + **(a4 + 176));
+  v9 = swift_task_alloc();
+  *(v4 + 16) = v9;
+  *v9 = v4;
+  v9[1] = dispatch thunk of MLS.SwiftMLSPersister.readGroupState(groupID:);
+
+  return v11(a1, a2, a3, a4);
+}
+
+uint64_t dispatch thunk of MLS.Persister.readEpochData(swiftMLSEpochRead:clientIdentifier:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v11 = (*(a4 + 184) + **(a4 + 184));
+  v9 = swift_task_alloc();
+  *(v4 + 16) = v9;
+  *v9 = v4;
+  v9[1] = dispatch thunk of MLS.SwiftMLSPersister.readGroupState(groupID:);
+
+  return v11(a1, a2, a3, a4);
+}
+
+uint64_t dispatch thunk of MLS.Persister.write(swiftMLSGroupWrite:clientIdentifier:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v11 = (*(a4 + 192) + **(a4 + 192));
+  v9 = swift_task_alloc();
+  *(v4 + 16) = v9;
+  *v9 = v4;
+  v9[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v11(a1, a2, a3, a4);
+}
+
+uint64_t dispatch thunk of MLS.Persister.read(clientUUID:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v9 = (*(a3 + 200) + **(a3 + 200));
+  v7 = swift_task_alloc();
+  *(v3 + 16) = v7;
+  *v7 = v3;
+  v7[1] = dispatch thunk of MLS.SwiftMLSPersister.readGroupState(groupID:);
+
+  return v9(a1, a2, a3);
+}
+
+uint64_t dispatch thunk of MLS.Persister.write(clientUUID:clientState:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v13 = (*(a5 + 208) + **(a5 + 208));
+  v11 = swift_task_alloc();
+  *(v5 + 16) = v11;
+  *v11 = v5;
+  v11[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v13(a1, a2, a3, a4, a5);
+}
+
+uint64_t dispatch thunk of MLS.Persister.loadRetryCount(forGroup:messageID:clientIdentifier:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+{
+  v17 = (*(a7 + 216) + **(a7 + 216));
+  v15 = swift_task_alloc();
+  *(v7 + 16) = v15;
+  *v15 = v7;
+  v15[1] = dispatch thunk of MLS.InMemoryPersister.loadRetryCount(forGroup:messageID:clientIdentifier:);
+
+  return v17(a1, a2, a3, a4, a5, a6, a7);
+}
+
+uint64_t dispatch thunk of MLS.Persister.save(retryCount:forGroup:messageID:clientIdentifier:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  v19 = (*(a8 + 224) + **(a8 + 224));
+  v17 = swift_task_alloc();
+  *(v8 + 16) = v17;
+  *v17 = v8;
+  v17[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v19(a1, a2, a3, a4, a5, a6, a7, a8);
+}
+
+uint64_t dispatch thunk of MLS.Persister.getSwiftMLSPersister(forClientIdentifier:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v11 = (*(a4 + 232) + **(a4 + 232));
+  v9 = swift_task_alloc();
+  *(v4 + 16) = v9;
+  *v9 = v4;
+  v9[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v11(a1, a2, a3, a4);
+}
+
+__n128 __swift_memcpy26_8(uint64_t a1, uint64_t a2)
+{
+  result = *a2;
+  *(a1 + 10) = *(a2 + 10);
+  *a1 = result;
+  return result;
+}
+
+uint64_t getEnumTagSinglePayload for MLS.PersistedMember(uint64_t a1, unsigned int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 >= 0xFE && *(a1 + 26))
+  {
+    return (*a1 + 254);
+  }
+
+  v3 = *(a1 + 25);
+  v4 = v3 >= 3;
+  v5 = v3 - 3;
+  if (!v4)
+  {
+    v5 = -1;
+  }
+
+  return (v5 + 1);
+}
+
+uint64_t storeEnumTagSinglePayload for MLS.PersistedMember(uint64_t result, unsigned int a2, unsigned int a3)
+{
+  if (a2 > 0xFD)
+  {
+    *(result + 8) = 0;
+    *(result + 16) = 0;
+    *(result + 24) = 0;
+    *result = a2 - 254;
+    if (a3 >= 0xFE)
+    {
+      *(result + 26) = 1;
+    }
+  }
+
+  else
+  {
+    if (a3 >= 0xFE)
+    {
+      *(result + 26) = 0;
+    }
+
+    if (a2)
+    {
+      *(result + 25) = a2 + 2;
+    }
+  }
+
+  return result;
+}
+
+uint64_t getEnumTagSinglePayload for MLS.OutgoingEventUpdate(uint64_t a1, int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 < 0 && *(a1 + 280))
+  {
+    return *a1 + 0x80000000;
+  }
+
+  v2 = *(a1 + 176) >> 5;
+  if (v2 > 0x80000000)
+  {
+    v3 = ~v2;
+  }
+
+  else
+  {
+    v3 = -1;
+  }
+
+  return (v3 + 1);
+}
+
+uint64_t storeEnumTagSinglePayload for MLS.OutgoingEventUpdate(uint64_t result, int a2, int a3)
+{
+  if (a2 < 0)
+  {
+    *(result + 248) = 0u;
+    *(result + 232) = 0u;
+    *(result + 216) = 0u;
+    *(result + 200) = 0u;
+    *(result + 184) = 0u;
+    *(result + 168) = 0u;
+    *(result + 152) = 0u;
+    *(result + 136) = 0u;
+    *(result + 120) = 0u;
+    *(result + 104) = 0u;
+    *(result + 88) = 0u;
+    *(result + 72) = 0u;
+    *(result + 56) = 0u;
+    *(result + 40) = 0u;
+    *(result + 24) = 0u;
+    *(result + 8) = 0u;
+    *(result + 264) = 0u;
+    *result = a2 & 0x7FFFFFFF;
+    if (a3 < 0)
+    {
+      *(result + 280) = 1;
+    }
+  }
+
+  else
+  {
+    if ((a3 & 0x80000000) == 0)
+    {
+      if (!a2)
+      {
+        return result;
+      }
+
+LABEL_8:
+      *(result + 144) = 0u;
+      *(result + 160) = 0u;
+      *(result + 112) = 0u;
+      *(result + 128) = 0u;
+      *(result + 80) = 0u;
+      *(result + 96) = 0u;
+      *(result + 48) = 0u;
+      *(result + 64) = 0u;
+      *(result + 16) = 0u;
+      *(result + 32) = 0u;
+      *result = 0u;
+      *(result + 176) = 32 * -a2;
+      *(result + 200) = 0u;
+      *(result + 216) = 0u;
+      *(result + 232) = 0u;
+      *(result + 248) = 0u;
+      *(result + 184) = 0u;
+      result += 184;
+      *(result + 80) = 0u;
+      return result;
+    }
+
+    *(result + 280) = 0;
+    if (a2)
+    {
+      goto LABEL_8;
+    }
+  }
+
+  return result;
+}
+
+uint64_t destructiveInjectEnumTag for MLS.OutgoingEventUpdate(uint64_t result, int a2)
+{
+  *(result + 176) &= 0x1FuLL;
+  *(result + 268) = a2 << 30;
+  return result;
+}
+
+double MLS.OperationRunner.featureFlagsStore.getter@<D0>(void *a1@<X8>)
+{
+  *a1 = *(v1 + OBJC_IVAR____TtCO15SecureMessaging3MLS15OperationRunner_featureFlagsStore);
+
+  return result;
+}
+
+double MLS.OperationRunner.uniqueClientIdentifier.getter@<D0>(void *a1@<X8>)
+{
+  v2 = *(v1 + OBJC_IVAR____TtCO15SecureMessaging3MLS15OperationRunner_uniqueClientIdentifier + 8);
+  *a1 = *(v1 + OBJC_IVAR____TtCO15SecureMessaging3MLS15OperationRunner_uniqueClientIdentifier);
+  a1[1] = v2;
+
+  return result;
+}
+
+uint64_t MLS.OperationRunner.selfMember.getter@<X0>(uint64_t a1@<X8>)
+{
+  v2 = v1 + OBJC_IVAR____TtCO15SecureMessaging3MLS15OperationRunner_selfMember;
+  v3 = *(v1 + OBJC_IVAR____TtCO15SecureMessaging3MLS15OperationRunner_selfMember);
+  v4 = *(v1 + OBJC_IVAR____TtCO15SecureMessaging3MLS15OperationRunner_selfMember + 8);
+  v5 = *(v1 + OBJC_IVAR____TtCO15SecureMessaging3MLS15OperationRunner_selfMember + 16);
+  *a1 = v3;
+  *(a1 + 8) = v4;
+  *(a1 + 16) = v5;
+  *(a1 + 24) = *(v2 + 24);
+  return outlined copy of MLS.AllMember(v3, v4);
+}
+
+uint64_t key path getter for MLS.OperationRunner.processIncoming : MLS.OperationRunner@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
+{
+  result = (*(**a1 + 184))();
+  if (result)
+  {
+    v5 = result;
+    v6 = v4;
+    result = swift_allocObject();
+    *(result + 16) = v5;
+    *(result + 24) = v6;
+    v7 = &async function pointer to partial apply for thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.IncomingMessage<MLS.AllMember>) -> (@error @owned Error);
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  *a2 = v7;
+  a2[1] = result;
+  return result;
+}
+
+uint64_t thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.IncomingMessage<MLS.AllMember>) -> (@error @owned Error)(uint64_t a1, uint64_t a2, int *a3)
+{
+  v7 = (a3 + *a3);
+  v5 = swift_task_alloc();
+  *(v3 + 16) = v5;
+  *v5 = v3;
+  v5[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v7(a2);
+}
+
+uint64_t key path setter for MLS.OperationRunner.processIncoming : MLS.OperationRunner(uint64_t *a1, uint64_t a2)
+{
+  v3 = *a1;
+  v4 = a1[1];
+  if (*a1)
+  {
+    v5 = swift_allocObject();
+    *(v5 + 16) = v3;
+    *(v5 + 24) = v4;
+    v6 = &async function pointer to partial apply for thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.IncomingMessage<MLS.AllMember>) -> (@out (), @error @owned Error);
+  }
+
+  else
+  {
+    v6 = 0;
+    v5 = 0;
+  }
+
+  v7 = *(**a2 + 192);
+  _sxSbs5Error_pRi_zRi0_zlyxIseghndzo_Sgs8SendableRzlWOy(v3, v4);
+  return v7(v6, v5);
+}
+
+uint64_t thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.IncomingMessage<MLS.AllMember>) -> (@out (), @error @owned Error)(uint64_t a1, int *a2)
+{
+  v5 = (a2 + *a2);
+  v3 = swift_task_alloc();
+  *(v2 + 16) = v3;
+  *v3 = v2;
+  v3[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v5();
+}
+
+uint64_t MLS.OperationRunner.processIncoming.getter()
+{
+  v1 = (v0 + OBJC_IVAR____TtCO15SecureMessaging3MLS15OperationRunner_processIncoming);
+  swift_beginAccess();
+  v2 = *v1;
+  _sxSbs5Error_pRi_zRi0_zlyxIseghndzo_Sgs8SendableRzlWOy(*v1, v1[1]);
+  return v2;
+}
+
+uint64_t MLS.OperationRunner.processIncoming.setter(uint64_t a1, uint64_t a2)
+{
+  v5 = (v2 + OBJC_IVAR____TtCO15SecureMessaging3MLS15OperationRunner_processIncoming);
+  swift_beginAccess();
+  v6 = *v5;
+  v7 = v5[1];
+  *v5 = a1;
+  v5[1] = a2;
+  return outlined consume of (@escaping @callee_guaranteed @Sendable @async (@guaranteed String) -> (@error @owned Error))?(v6, v7);
+}
+
+uint64_t MLS.OperationRunner.logger.getter@<X0>(uint64_t a1@<X8>)
+{
+  v3 = OBJC_IVAR____TtCO15SecureMessaging3MLS15OperationRunner_logger;
+  v4 = type metadata accessor for Logger();
+  v5 = *(*(v4 - 8) + 16);
+
+  return v5(a1, v1 + v3, v4);
+}
+
+uint64_t _s15SecureMessaging3MLSO15OperationRunnerC3run9operation20ProcessedContextTypeQzx_tYa05ErrorJ0QzYKAC05GroupD0RzlF(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v6[29] = v5;
+  v6[30] = a5;
+  v6[27] = a3;
+  v6[28] = a4;
+  v6[25] = a1;
+  v6[26] = a2;
+  swift_getAssociatedTypeWitness();
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+  v6[31] = AssociatedConformanceWitness;
+  v6[32] = *(*(AssociatedConformanceWitness + 8) + 8);
+  v6[33] = swift_getAssociatedTypeWitness();
+  v6[34] = swift_task_alloc();
+  v9 = *(a3 - 8);
+  v6[35] = v9;
+  v6[36] = *(v9 + 64);
+  v6[37] = swift_task_alloc();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging15MetricCollectorV5EventVSgMd, &_s15SecureMessaging15MetricCollectorV5EventVSgMR);
+  v6[38] = swift_task_alloc();
+  v10 = swift_checkMetadataState();
+  v6[39] = v10;
+  v6[40] = *(v10 - 8);
+  v6[41] = swift_task_alloc();
+  v6[42] = swift_task_alloc();
+  v6[43] = swift_task_alloc();
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v6[44] = AssociatedTypeWitness;
+  v6[45] = *(AssociatedTypeWitness - 8);
+  v6[46] = swift_task_alloc();
+  type metadata accessor for MLS.KeyPackageProvider(0);
+  v6[47] = swift_task_alloc();
+  v12 = swift_getAssociatedTypeWitness();
+  v6[48] = v12;
+  v6[49] = *(v12 - 8);
+  v6[50] = swift_task_alloc();
+  if (one-time initialization token for shared != -1)
+  {
+    swift_once();
+  }
+
+  v13 = static MLSActor.shared;
+  v6[51] = static MLSActor.shared;
+
+  return MEMORY[0x2822009F8](_s15SecureMessaging3MLSO15OperationRunnerC3run9operation20ProcessedContextTypeQzx_tYa05ErrorJ0QzYKAC05GroupD0RzlFTY0_, v13, 0);
+}
+
+uint64_t _s15SecureMessaging3MLSO15OperationRunnerC3run9operation20ProcessedContextTypeQzx_tYa05ErrorJ0QzYKAC05GroupD0RzlFTY0_()
+{
+  v98 = v0;
+  v2 = *(v0 + 392);
+  v1 = *(v0 + 400);
+  v3 = *(v0 + 384);
+  v5 = *(v0 + 216);
+  v4 = *(v0 + 224);
+  v93 = *(v4 + 80);
+  v93(v5, v4);
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+  v7 = (*(AssociatedConformanceWitness + 8))(v3, AssociatedConformanceWitness);
+  v80 = v8;
+  v82 = v7;
+  *(v0 + 416) = v7;
+  *(v0 + 424) = v8;
+  v9 = *(v2 + 8);
+  v9(v1, v3);
+  v93(v5, v4);
+  v78 = (*(AssociatedConformanceWitness + 16))(v3, AssociatedConformanceWitness);
+  *(v0 + 432) = v78;
+  *(v0 + 440) = v10;
+  v88 = v10;
+  v9(v1, v3);
+  v11 = swift_allocObject();
+  *(v0 + 448) = v11;
+  v93(v5, v4);
+  v79 = v11;
+  v77 = AssociatedConformanceWitness;
+  (*(AssociatedConformanceWitness + 24))(v3, AssociatedConformanceWitness);
+  v9(v1, v3);
+  v12 = (*(v4 + 72))(v5, v4);
+  v14 = v13;
+  v15 = (*(v4 + 56))(v5, v4);
+  v17 = v16;
+  *(v0 + 456) = v15;
+  *(v0 + 464) = v16;
+  if ((*(v4 + 96))(v5, v4))
+  {
+
+    v18 = Logger.logObject.getter();
+    v19 = static os_log_type_t.default.getter();
+
+    if (os_log_type_enabled(v18, v19))
+    {
+      v20 = swift_slowAlloc();
+      v21 = swift_slowAlloc();
+      v97[0] = v21;
+      *v20 = 136315394;
+      v22 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v15, v17, v97);
+
+      *(v20 + 4) = v22;
+      *(v20 + 12) = 2080;
+      v23 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v78, v88, v97);
+
+      *(v20 + 14) = v23;
+      _os_log_impl(&dword_264F1F000, v18, v19, "OperationRunner %s is disabled { identifier: %s } }", v20, 0x16u);
+      swift_arrayDestroy();
+      MEMORY[0x266755550](v21, -1, -1);
+      MEMORY[0x266755550](v20, -1, -1);
+    }
+
+    else
+    {
+    }
+
+    v49 = *(v0 + 352);
+    v97[0] = *(v79 + 16);
+    v50 = swift_getAssociatedConformanceWitness();
+    v51 = *(v50 + 8);
+
+    v51(v82, v80, v97, 0, v49, v50);
+
+    v52 = *(v0 + 8);
+
+    return v52();
+  }
+
+  else if ((*(*(v0 + 224) + 64))(*(v0 + 216)))
+  {
+    v91 = v12;
+
+    v24 = Logger.logObject.getter();
+    v25 = static os_log_type_t.default.getter();
+
+    v86 = v14;
+    if (os_log_type_enabled(v24, v25))
+    {
+      v26 = swift_slowAlloc();
+      v27 = swift_slowAlloc();
+      v97[0] = v27;
+      *v26 = 136315394;
+      *(v26 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v15, v17, v97);
+      *(v26 + 12) = 2080;
+      *(v26 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v78, v88, v97);
+      _os_log_impl(&dword_264F1F000, v24, v25, "OperationRunner %s performing expired key package refresh { identifier: %s } }", v26, 0x16u);
+      swift_arrayDestroy();
+      MEMORY[0x266755550](v27, -1, -1);
+      MEMORY[0x266755550](v26, -1, -1);
+    }
+
+    v89 = *(v0 + 400);
+    v28 = *(v0 + 384);
+    v84 = *(v0 + 376);
+    v29 = *(v0 + 352);
+    v30 = *(v0 + 312);
+    v31 = *(v0 + 248);
+    v33 = *(v0 + 224);
+    v32 = *(v0 + 232);
+    v34 = *(v0 + 216);
+    v35 = swift_getAssociatedConformanceWitness();
+    *(v0 + 16) = v30;
+    *(v0 + 24) = v28;
+    *(v0 + 32) = v29;
+    *(v0 + 40) = v31;
+    *(v0 + 48) = v77;
+    *(v0 + 56) = v35;
+    v36 = type metadata accessor for MLS.CheckKeyPackageExpirationOperation(0, v0 + 16);
+    v93(v34, v33);
+    v37 = v32[10];
+    v38 = v32[11];
+    v39 = v32[2];
+    v40 = v32[3];
+    outlined init with copy of ServerBag.MLS((v32 + 4), v0 + 64);
+    outlined init with copy of MLS.KeyPackageProvider(v32 + OBJC_IVAR____TtCO15SecureMessaging3MLS15OperationRunner_keyPackageProvider, v84);
+    v41 = *(v32 + OBJC_IVAR____TtCO15SecureMessaging3MLS15OperationRunner_uniqueClientIdentifier);
+    v42 = *(v32 + OBJC_IVAR____TtCO15SecureMessaging3MLS15OperationRunner_uniqueClientIdentifier + 8);
+    v96 = *(v32 + OBJC_IVAR____TtCO15SecureMessaging3MLS15OperationRunner_featureFlagsStore);
+    v97[0] = v41;
+    v97[1] = v42;
+    swift_unknownObjectRetain();
+    swift_unknownObjectRetain();
+
+    v43 = MLS.CheckKeyPackageExpirationOperation.__allocating_init(group:context:persister:eventSender:credentialProvider:keyPackageProvider:featureFlagsStore:clientIdentifier:)(v91, v86, v89, v37, v38, v39, v40, (v0 + 64), v84, &v96, v97);
+    *(v0 + 472) = v43;
+    *(v0 + 192) = v43;
+    v94 = (*(*v32 + 216) + **(*v32 + 216));
+    v44 = swift_task_alloc();
+    *(v0 + 480) = v44;
+    WitnessTable = swift_getWitnessTable();
+    *v44 = v0;
+    v44[1] = _s15SecureMessaging3MLSO15OperationRunnerC3run9operation20ProcessedContextTypeQzx_tYa05ErrorJ0QzYKAC05GroupD0RzlFTQ1_;
+    v46 = *(v0 + 368);
+    v47 = *(v0 + 344);
+
+    return v94(v46, v0 + 192, v36, WitnessTable, v47);
+  }
+
+  else
+  {
+
+    *(v0 + 488) = OBJC_IVAR____TtCO15SecureMessaging3MLS15OperationRunner_logger;
+
+    v53 = Logger.logObject.getter();
+    v54 = static os_log_type_t.default.getter();
+
+    if (os_log_type_enabled(v53, v54))
+    {
+      v56 = *(v0 + 456);
+      v55 = *(v0 + 464);
+      v58 = *(v0 + 432);
+      v57 = *(v0 + 440);
+      v59 = swift_slowAlloc();
+      v60 = swift_slowAlloc();
+      v97[0] = v60;
+      *v59 = 136315394;
+      *(v59 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v56, v55, v97);
+      *(v59 + 12) = 2080;
+      *(v59 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v58, v57, v97);
+      _os_log_impl(&dword_264F1F000, v53, v54, "OperationRunner %s enqueueing event { identifier: %s }", v59, 0x16u);
+      swift_arrayDestroy();
+      MEMORY[0x266755550](v60, -1, -1);
+      MEMORY[0x266755550](v59, -1, -1);
+    }
+
+    v90 = *(v0 + 456);
+    v92 = *(v0 + 464);
+    v61 = *(v0 + 448);
+    v62 = *(v0 + 296);
+    v63 = *(v0 + 304);
+    v81 = v62;
+    v83 = *(v0 + 440);
+    v64 = *(v0 + 280);
+    v85 = *(v0 + 288);
+    v87 = *(v0 + 432);
+    v65 = *(v0 + 232);
+    v66 = *(v0 + 208);
+    v95 = *(v0 + 216);
+    Date.init()();
+    v67 = type metadata accessor for MetricCollector.Event(0);
+    v68 = *(v67 + 20);
+    v69 = type metadata accessor for Date();
+    (*(*(v69 - 8) + 56))(v63 + v68, 1, 1, v69);
+    (*(*(v67 - 8) + 56))(v63, 0, 1, v67);
+    specialized Dictionary.subscript.setter(v63, 0x676E6975657551, 0xE700000000000000);
+    v70 = swift_allocObject();
+    *(v0 + 496) = v70;
+    *(v70 + 16) = 0;
+    (*(v64 + 16))(v62, v66);
+    v71 = (*(v64 + 80) + 80) & ~*(v64 + 80);
+    v72 = swift_allocObject();
+    *(v0 + 504) = v72;
+    *(v72 + 16) = v95;
+    *(v72 + 32) = v65;
+    *(v72 + 40) = v90;
+    *(v72 + 48) = v92;
+    *(v72 + 56) = v87;
+    *(v72 + 64) = v83;
+    *(v72 + 72) = v61;
+    (*(v64 + 32))(v72 + v71, v81, v95);
+    *(v72 + ((v85 + v71 + 7) & 0xFFFFFFFFFFFFFFF8)) = v70;
+
+    v73 = swift_task_alloc();
+    *(v0 + 512) = v73;
+    *v73 = v0;
+    v73[1] = _s15SecureMessaging3MLSO15OperationRunnerC3run9operation20ProcessedContextTypeQzx_tYa05ErrorJ0QzYKAC05GroupD0RzlFTQ3_;
+    v74 = *(v0 + 224);
+    v76 = *(v0 + 208);
+    v75 = *(v0 + 216);
+
+    return MLS.OperationRunner.enqueue<A>(operation:sendBlock:)(v76, &_s15SecureMessaging3MLSO15OperationRunnerC3run9operation20ProcessedContextTypeQzx_tYa05ErrorJ0QzYKAC05GroupD0RzlFAC10EventQueueC6ResultOAC08OutgoingM5StateVSg_SStYaYbKAA8MLSActorCYccfU_TATu, v72, v75, v74);
+  }
+}
+
+uint64_t _s15SecureMessaging3MLSO15OperationRunnerC3run9operation20ProcessedContextTypeQzx_tYa05ErrorJ0QzYKAC05GroupD0RzlFTQ1_()
+{
+  v2 = *v1;
+
+  if (v0)
+  {
+    v3 = v2[51];
+
+    v4 = _s15SecureMessaging3MLSO15OperationRunnerC3run9operation20ProcessedContextTypeQzx_tYa05ErrorJ0QzYKAC05GroupD0RzlFTY5_;
+    v5 = v3;
+  }
+
+  else
+  {
+    v6 = v2[51];
+    (*(v2[45] + 8))(v2[46], v2[44]);
+    v4 = _s15SecureMessaging3MLSO15OperationRunnerC3run9operation20ProcessedContextTypeQzx_tYa05ErrorJ0QzYKAC05GroupD0RzlFTY2_;
+    v5 = v6;
+  }
+
+  return MEMORY[0x2822009F8](v4, v5, 0);
+}
+
+uint64_t _s15SecureMessaging3MLSO15OperationRunnerC3run9operation20ProcessedContextTypeQzx_tYa05ErrorJ0QzYKAC05GroupD0RzlFTY2_()
+{
+  v34 = v0;
+
+  v0[61] = OBJC_IVAR____TtCO15SecureMessaging3MLS15OperationRunner_logger;
+
+  v1 = Logger.logObject.getter();
+  v2 = static os_log_type_t.default.getter();
+
+  if (os_log_type_enabled(v1, v2))
+  {
+    v4 = v0[57];
+    v3 = v0[58];
+    v6 = v0[54];
+    v5 = v0[55];
+    v7 = swift_slowAlloc();
+    v8 = swift_slowAlloc();
+    v33 = v8;
+    *v7 = 136315394;
+    *(v7 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v4, v3, &v33);
+    *(v7 + 12) = 2080;
+    *(v7 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v6, v5, &v33);
+    _os_log_impl(&dword_264F1F000, v1, v2, "OperationRunner %s enqueueing event { identifier: %s }", v7, 0x16u);
+    swift_arrayDestroy();
+    MEMORY[0x266755550](v8, -1, -1);
+    MEMORY[0x266755550](v7, -1, -1);
+  }
+
+  v30 = v0[57];
+  v31 = v0[58];
+  v9 = v0[56];
+  v10 = v0[37];
+  v11 = v0[38];
+  v26 = v10;
+  v27 = v0[55];
+  v12 = v0[35];
+  v28 = v0[36];
+  v29 = v0[54];
+  v13 = v0[29];
+  v14 = v0[26];
+  v32 = *(v0 + 27);
+  Date.init()();
+  v15 = type metadata accessor for MetricCollector.Event(0);
+  v16 = *(v15 + 20);
+  v17 = type metadata accessor for Date();
+  (*(*(v17 - 8) + 56))(v11 + v16, 1, 1, v17);
+  (*(*(v15 - 8) + 56))(v11, 0, 1, v15);
+  specialized Dictionary.subscript.setter(v11, 0x676E6975657551, 0xE700000000000000);
+  v18 = swift_allocObject();
+  v0[62] = v18;
+  *(v18 + 16) = 0;
+  (*(v12 + 16))(v10, v14);
+  v19 = (*(v12 + 80) + 80) & ~*(v12 + 80);
+  v20 = swift_allocObject();
+  v0[63] = v20;
+  *(v20 + 16) = v32;
+  *(v20 + 32) = v13;
+  *(v20 + 40) = v30;
+  *(v20 + 48) = v31;
+  *(v20 + 56) = v29;
+  *(v20 + 64) = v27;
+  *(v20 + 72) = v9;
+  (*(v12 + 32))(v20 + v19, v26, v32);
+  *(v20 + ((v28 + v19 + 7) & 0xFFFFFFFFFFFFFFF8)) = v18;
+
+  v21 = swift_task_alloc();
+  v0[64] = v21;
+  *v21 = v0;
+  v21[1] = _s15SecureMessaging3MLSO15OperationRunnerC3run9operation20ProcessedContextTypeQzx_tYa05ErrorJ0QzYKAC05GroupD0RzlFTQ3_;
+  v22 = v0[28];
+  v24 = v0[26];
+  v23 = v0[27];
+
+  return MLS.OperationRunner.enqueue<A>(operation:sendBlock:)(v24, &_s15SecureMessaging3MLSO15OperationRunnerC3run9operation20ProcessedContextTypeQzx_tYa05ErrorJ0QzYKAC05GroupD0RzlFAC10EventQueueC6ResultOAC08OutgoingM5StateVSg_SStYaYbKAA8MLSActorCYccfU_TATu, v20, v23, v22);
+}
+
+uint64_t _s15SecureMessaging3MLSO15OperationRunnerC3run9operation20ProcessedContextTypeQzx_tYa05ErrorJ0QzYKAC05GroupD0RzlFTQ3_()
+{
+  v2 = *v1;
+  *(*v1 + 520) = v0;
+
+  if (v0)
+  {
+    v3 = *(v2 + 408);
+
+    v4 = _s15SecureMessaging3MLSO15OperationRunnerC3run9operation20ProcessedContextTypeQzx_tYa05ErrorJ0QzYKAC05GroupD0RzlFTY6_;
+    v5 = v3;
+  }
+
+  else
+  {
+    v6 = *(v2 + 408);
+
+    v4 = _s15SecureMessaging3MLSO15OperationRunnerC3run9operation20ProcessedContextTypeQzx_tYa05ErrorJ0QzYKAC05GroupD0RzlFTY4_;
+    v5 = v6;
+  }
+
+  return MEMORY[0x2822009F8](v4, v5, 0);
+}
+
+uint64_t _s15SecureMessaging3MLSO15OperationRunnerC3run9operation20ProcessedContextTypeQzx_tYa05ErrorJ0QzYKAC05GroupD0RzlFTY4_()
+{
+  v23 = v0;
+
+  v1 = Logger.logObject.getter();
+  v2 = static os_log_type_t.default.getter();
+
+  v3 = os_log_type_enabled(v1, v2);
+  v4 = v0[58];
+  if (v3)
+  {
+    v5 = v0[57];
+    v7 = v0[54];
+    v6 = v0[55];
     v8 = swift_slowAlloc();
     v9 = swift_slowAlloc();
-    v32 = v9;
+    v22 = v9;
     *v8 = 136315394;
-    *(v8 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v6, v5, &v32);
+    v10 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v5, v4, &v22);
+
+    *(v8 + 4) = v10;
     *(v8 + 12) = 2080;
-    v10 = *(v7 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier);
-    v11 = *(v7 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier + 8);
-    strcpy(v33, "EncryptedRCS.");
-    HIWORD(v33[1]) = -4864;
+    v11 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v7, v6, &v22);
 
-    MEMORY[0x2667545A0](v10, v11);
-
-    v12 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v33[0], v33[1], &v32);
-
-    *(v8 + 14) = v12;
-    _os_log_impl(&dword_264F1F000, v3, v4, "XPCClientCoordinator otherMembers { identifier: %s, client: %s }", v8, 0x16u);
+    *(v8 + 14) = v11;
+    _os_log_impl(&dword_264F1F000, v1, v2, "OperationRunner %s returning processedContext to caller { identifier: %s }", v8, 0x16u);
     swift_arrayDestroy();
     MEMORY[0x266755550](v9, -1, -1);
     MEMORY[0x266755550](v8, -1, -1);
@@ -5901,3797 +5037,2940 @@ void MLS.XPCClientCoordinator.otherMembers(group:context:)()
 
   else
   {
-    v13 = *(v0 + 40);
   }
 
-  v14 = *(v0 + 120);
-  v16 = *(v0 + 48);
-  v15 = *(v0 + 56);
-  v18 = *(v0 + 32);
-  v17 = *(v0 + 40);
-  v19 = *(v0 + 24);
-  v20 = *(*(v17 + direct field offset for MLS.XPCClientCoordinator.xpcClient) + OBJC_IVAR____TtCO15SecureMessaging8XPCUtils9XPCClient_deliveryInterface);
-  *(v0 + 80) = v20;
-  v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sShy15SecureMessaging3MLSO9AllMemberOGMd, &_sShy15SecureMessaging3MLSO9AllMemberOGMR);
-  v22 = swift_task_alloc();
-  *(v0 + 88) = v22;
-  *(v22 + 16) = v16;
-  *(v22 + 24) = v15;
-  *(v22 + 32) = v14;
-  *(v22 + 40) = v17;
-  v23 = swift_task_alloc();
-  *(v0 + 96) = v23;
-  *(v23 + 16) = v19;
-  *(v23 + 24) = v18;
-  v24 = *(*v20 + 360);
+  v12 = v0[62];
+  v13 = v0[56];
+  v20 = v0[52];
+  v21 = v0[53];
+  v14 = v0[44];
+  swift_beginAccess();
+  v22 = *(v13 + 16);
+  swift_beginAccess();
+  v15 = *(v12 + 16);
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+  v17 = *(AssociatedConformanceWitness + 8);
 
-  v31 = v24 + *v24;
-  v25 = v24[1];
-  v26 = swift_task_alloc();
-  *(v0 + 104) = v26;
-  v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DataV_ACtMd, &_s10Foundation4DataV_ACtMR);
-  v28 = lazy protocol witness table accessor for type Set<MLS.AllMember> and conformance <> Set<A>();
-  v29 = lazy protocol witness table accessor for type Set<MLS.AllMember> and conformance <> Set<A>();
-  v30 = lazy protocol witness table accessor for type MLS.GroupMembersError and conformance MLS.GroupMembersError();
-  *v26 = v0;
-  v26[1] = MLS.XPCClientCoordinator.otherMembers(group:context:);
-  v41 = v29;
-  v42 = v30;
-  v39 = v27;
-  v40 = v28;
-  v37 = v21;
-  v38 = &type metadata for MLS.GroupMembersError;
-  v35 = partial apply for closure #3 in MLS.XPCClientCoordinator.otherMembers(group:context:);
-  v36 = v23;
+  v17(v20, v21, &v22, v15, v14, AssociatedConformanceWitness);
 
-  __asm { BRAA            X8, X16 }
+  v18 = v0[1];
+
+  return v18();
 }
 
-uint64_t MLS.XPCClientCoordinator.otherMembers(group:context:)()
+uint64_t _s15SecureMessaging3MLSO15OperationRunnerC3run9operation20ProcessedContextTypeQzx_tYa05ErrorJ0QzYKAC05GroupD0RzlFTY5_()
 {
-  v2 = *v1;
-  v3 = *(*v1 + 104);
-  v11 = *v1;
-  *(*v1 + 112) = v0;
-
-  if (v0)
-  {
-    v4 = v2[8];
-    v5 = MLS.XPCClientCoordinator.otherMembers(group:context:);
-  }
-
-  else
-  {
-    v7 = v2[11];
-    v6 = v2[12];
-    v8 = v2[10];
-    v9 = v2[8];
-
-    v5 = MLS.XPCClientCoordinator.otherMembers(group:context:);
-    v4 = v9;
-  }
-
-  return MEMORY[0x2822009F8](v5, v4, 0);
-}
-
-{
-  return (*(v0 + 8))(*(v0 + 16));
-}
-
-{
-  v30 = v0;
-  v1 = v0[14];
-  v2 = v0[11];
-  v3 = v0[12];
-  v5 = v0[9];
-  v4 = v0[10];
-  v6 = v0[7];
-  v7 = v0[5];
-
-  swift_retain_n();
-
-  v8 = v1;
-  v9 = Logger.logObject.getter();
-  v10 = static os_log_type_t.error.getter();
-
-  if (os_log_type_enabled(v9, v10))
-  {
-    v11 = v0[14];
-    v13 = v0[6];
-    v12 = v0[7];
-    v14 = v0[5];
-    v15 = swift_slowAlloc();
-    v16 = swift_slowAlloc();
-    v17 = swift_slowAlloc();
-    v28 = v17;
-    *v15 = 136315650;
-    *(v15 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v13, v12, &v28);
-    *(v15 + 12) = 2112;
-    v18 = v11;
-    v19 = _swift_stdlib_bridgeErrorToNSError();
-    *(v15 + 14) = v19;
-    *v16 = v19;
-    *(v15 + 22) = 2080;
-    v20 = *(v14 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier);
-    v21 = *(v14 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier + 8);
-
-    strcpy(v29, "EncryptedRCS.");
-    HIWORD(v29[1]) = -4864;
-    MEMORY[0x2667545A0](v20, v21);
-
-    v22 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v29[0], v29[1], &v28);
-
-    *(v15 + 24) = v22;
-    _os_log_impl(&dword_264F1F000, v9, v10, "XPCClientCoordinator otherMembers failed { identifier: %s, error: %@, client: %s }", v15, 0x20u);
-    outlined destroy of NSObject?(v16, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    MEMORY[0x266755550](v16, -1, -1);
-    swift_arrayDestroy();
-    MEMORY[0x266755550](v17, -1, -1);
-    MEMORY[0x266755550](v15, -1, -1);
-  }
-
-  else
-  {
-    v23 = v0[5];
-  }
-
-  v24 = v0[14];
-  swift_willThrow();
-  v25 = v0[1];
-  v26 = v0[14];
-
-  return v25();
-}
-
-uint64_t closure #1 in MLS.XPCClientCoordinator.otherMembers(group:context:)@<X0>(uint64_t a1@<X4>, uint64_t *a2@<X8>)
-{
-  lazy protocol witness table accessor for type MLS.GroupMembersContext and conformance MLS.GroupMembersContext();
-  result = dispatch thunk of JSONEncoder.encode<A>(_:)();
-  if (!v2)
-  {
-    v7 = result;
-    v8 = v6;
-    v12 = *(a1 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier);
-    v13 = *(a1 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier + 8);
-    lazy protocol witness table accessor for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier();
-
-    v9 = dispatch thunk of JSONEncoder.encode<A>(_:)();
-    v11 = v10;
-
-    *a2 = v9;
-    a2[1] = v11;
-    a2[2] = v7;
-    a2[3] = v8;
-  }
-
-  return result;
-}
-
-uint64_t MLS.XPCClientCoordinator.add(members:toGroup:context:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5)
-{
-  *(v6 + 112) = a4;
-  *(v6 + 120) = v5;
-  *(v6 + 96) = a2;
-  *(v6 + 104) = a3;
-  *(v6 + 88) = a1;
-  v8 = type metadata accessor for MetricCollector.Event();
-  *(v6 + 128) = v8;
-  v9 = *(*(v8 - 8) + 64) + 15;
-  *(v6 + 136) = swift_task_alloc();
-  v10 = swift_task_alloc();
-  v11 = *a5;
-  v12 = a5[1];
-  *(v6 + 144) = v10;
-  *(v6 + 152) = v11;
-  *(v6 + 160) = v12;
-  *(v6 + 168) = *(a5 + 1);
-  *(v6 + 184) = a5[4];
-  if (one-time initialization token for shared != -1)
-  {
-    swift_once();
-  }
-
-  v13 = static MLSActor.shared;
-  *(v6 + 192) = static MLSActor.shared;
-
-  return MEMORY[0x2822009F8](MLS.XPCClientCoordinator.add(members:toGroup:context:), v13, 0);
-}
-
-void MLS.XPCClientCoordinator.add(members:toGroup:context:)()
-{
-  v2 = v0[22];
-  v1 = v0[23];
-  v4 = v0[20];
-  v3 = v0[21];
-  v5 = v0[15];
-  v0[25] = direct field offset for MLS.XPCClientCoordinator.logger;
-
-  outlined copy of Data?(v3, v2);
-
-  v6 = Logger.logObject.getter();
-  v7 = static os_log_type_t.default.getter();
-
-  outlined consume of Data?(v3, v2);
-
-  if (os_log_type_enabled(v6, v7))
-  {
-    v9 = v0[19];
-    v8 = v0[20];
-    v10 = v0[15];
-    v11 = swift_slowAlloc();
-    v12 = swift_slowAlloc();
-    v46 = v12;
-    *v11 = 136315394;
-
-    v13 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v9, v8, &v46);
-
-    *(v11 + 4) = v13;
-    *(v11 + 12) = 2080;
-    v14 = *(v10 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier);
-    v15 = *(v10 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier + 8);
-    strcpy(v47, "EncryptedRCS.");
-    HIWORD(v47[1]) = -4864;
-
-    MEMORY[0x2667545A0](v14, v15);
-
-    v16 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v47[0], v47[1], &v46);
-
-    *(v11 + 14) = v16;
-    _os_log_impl(&dword_264F1F000, v6, v7, "XPCClientCoordinator add { identifier: %s, client: %s }", v11, 0x16u);
-    swift_arrayDestroy();
-    MEMORY[0x266755550](v12, -1, -1);
-    MEMORY[0x266755550](v11, -1, -1);
-  }
-
-  else
-  {
-    v17 = v0[15];
-  }
-
-  v18 = v0[22];
-  v19 = v0[23];
-  v21 = v0[20];
-  v20 = v0[21];
-  v22 = v0[18];
-  v23 = v0[19];
-  v25 = v0[16];
-  v24 = v0[17];
-  v26 = v0[15];
-  v43 = v0[13];
-  v45 = v0[14];
-  v42 = v0[12];
-
-  outlined copy of Data?(v20, v18);
-
-  Date.init()();
-  v27 = *(v25 + 20);
-  v28 = type metadata accessor for Date();
-  (*(*(v28 - 8) + 56))(v22 + v27, 1, 1, v28);
-  outlined init with take of MetricCollector.Event(v22, v24);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v47[0] = v19;
-  specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v24, 0x5864726177726F46, 0xEA00000000004350, isUniquelyReferenced_nonNull_native);
-  v30 = v47[0];
-  v0[26] = v47[0];
-
-  v0[2] = v23;
-  v0[3] = v21;
-  v0[4] = v20;
-  v0[5] = v18;
-  v0[6] = v30;
-  v31 = *(*(v26 + direct field offset for MLS.XPCClientCoordinator.xpcClient) + OBJC_IVAR____TtCO15SecureMessaging8XPCUtils9XPCClient_deliveryInterface);
-  v0[27] = v31;
-  v32 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO30GroupOperationProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO30GroupOperationProcessedContextVy_10Foundation4DataVGMR);
-  v33 = swift_task_alloc();
-  v0[28] = v33;
-  v33[2] = v42;
-  v33[3] = v0 + 2;
-  v33[4] = v26;
-  v34 = swift_task_alloc();
-  v0[29] = v34;
-  *(v34 + 16) = v43;
-  *(v34 + 24) = v45;
-  v35 = *(*v31 + 360);
-
-  v44 = v35 + *v35;
-  v36 = v35[1];
-  v37 = swift_task_alloc();
-  v0[30] = v37;
-  v38 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DataV_A2CtMd, &_s10Foundation4DataV_A2CtMR);
-  v39 = lazy protocol witness table accessor for type MLS.KeyPackageRetrievalResult<MLS.AllMember> and conformance MLS.KeyPackageRetrievalResult<A>(&lazy protocol witness table cache variable for type MLS.GroupOperationProcessedContext<Data> and conformance MLS.GroupOperationProcessedContext<A>, &_s15SecureMessaging3MLSO30GroupOperationProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO30GroupOperationProcessedContextVy_10Foundation4DataVGMR);
-  v40 = lazy protocol witness table accessor for type MLS.KeyPackageRetrievalResult<MLS.AllMember> and conformance MLS.KeyPackageRetrievalResult<A>(&lazy protocol witness table cache variable for type MLS.GroupOperationProcessedContext<Data> and conformance MLS.GroupOperationProcessedContext<A>, &_s15SecureMessaging3MLSO30GroupOperationProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO30GroupOperationProcessedContextVy_10Foundation4DataVGMR);
-  v41 = lazy protocol witness table accessor for type MLS.GroupOperationError and conformance MLS.GroupOperationError();
-  *v37 = v0;
-  v37[1] = MLS.XPCClientCoordinator.add(members:toGroup:context:);
-  v55 = v40;
-  v56 = v41;
-  v53 = v38;
-  v54 = v39;
-  v51 = v32;
-  v52 = &type metadata for MLS.GroupOperationError;
-  v49 = partial apply for closure #3 in MLS.XPCClientCoordinator.add(members:toGroup:context:);
-  v50 = v34;
-
-  __asm { BRAA            X8, X16 }
-}
-
-uint64_t MLS.XPCClientCoordinator.add(members:toGroup:context:)()
-{
-  v2 = *v1;
-  v3 = *(*v1 + 240);
-  v4 = *v1;
-  *(*v1 + 248) = v0;
-
-  v5 = v2[29];
-  v6 = v2[28];
-  v7 = v2[27];
-  v8 = v2[24];
-
-  if (v0)
-  {
-    v9 = MLS.XPCClientCoordinator.add(members:toGroup:context:);
-  }
-
-  else
-  {
-    v9 = MLS.XPCClientCoordinator.add(members:toGroup:context:);
-  }
-
-  return MEMORY[0x2822009F8](v9, v8, 0);
-}
-
-{
-  v1 = *(v0 + 208);
-  v3 = *(v0 + 168);
-  v2 = *(v0 + 176);
-  v4 = *(v0 + 160);
-  v6 = *(v0 + 136);
-  v5 = *(v0 + 144);
-  v7 = *(v0 + 88);
-
-  outlined consume of Data?(v3, v2);
-
-  v8 = *(v0 + 72);
-  v9 = *(v0 + 80);
-  *v7 = *(v0 + 56);
-  *(v7 + 16) = v8;
-  *(v7 + 24) = v9;
-
-  v10 = *(v0 + 8);
-
-  return v10();
-}
-
-{
-  v34 = v0;
-  v1 = v0[31];
-  v3 = v0[25];
-  v2 = v0[26];
-  v5 = v0[22];
-  v4 = v0[23];
-  v7 = v0[20];
-  v6 = v0[21];
-  v8 = v0[15];
-
-  outlined consume of Data?(v6, v5);
-
-  outlined copy of Data?(v6, v5);
-
-  v9 = v1;
-  v10 = Logger.logObject.getter();
-  v11 = static os_log_type_t.error.getter();
-
-  outlined consume of Data?(v6, v5);
-
-  if (os_log_type_enabled(v10, v11))
-  {
-    v12 = v0[31];
-    v14 = v0[19];
-    v13 = v0[20];
-    v15 = v0[15];
-    v16 = swift_slowAlloc();
-    v17 = swift_slowAlloc();
-    v18 = swift_slowAlloc();
-    v32 = v18;
-    *v16 = 136315650;
-
-    v19 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v14, v13, &v32);
-
-    *(v16 + 4) = v19;
-    *(v16 + 12) = 2112;
-    v20 = v12;
-    v21 = _swift_stdlib_bridgeErrorToNSError();
-    *(v16 + 14) = v21;
-    *v17 = v21;
-    *(v16 + 22) = 2080;
-    v22 = *(v15 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier);
-    v23 = *(v15 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier + 8);
-
-    strcpy(v33, "EncryptedRCS.");
-    HIWORD(v33[1]) = -4864;
-    MEMORY[0x2667545A0](v22, v23);
-
-    v24 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v33[0], v33[1], &v32);
-
-    *(v16 + 24) = v24;
-    _os_log_impl(&dword_264F1F000, v10, v11, "XPCClientCoordinator add failed { identifier: %s, error: %@, client: %s }", v16, 0x20u);
-    outlined destroy of NSObject?(v17, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    MEMORY[0x266755550](v17, -1, -1);
-    swift_arrayDestroy();
-    MEMORY[0x266755550](v18, -1, -1);
-    MEMORY[0x266755550](v16, -1, -1);
-  }
-
-  else
-  {
-    v25 = v0[15];
-  }
-
-  v26 = v0[31];
-  v27 = v0[17];
-  v28 = v0[18];
-  swift_willThrow();
-
-  v29 = v0[1];
-  v30 = v0[31];
-
-  return v29();
-}
-
-uint64_t MLS.XPCClientCoordinator.kick(members:fromGroup:context:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5)
-{
-  *(v6 + 112) = a4;
-  *(v6 + 120) = v5;
-  *(v6 + 96) = a2;
-  *(v6 + 104) = a3;
-  *(v6 + 88) = a1;
-  v8 = type metadata accessor for MetricCollector.Event();
-  *(v6 + 128) = v8;
-  v9 = *(*(v8 - 8) + 64) + 15;
-  *(v6 + 136) = swift_task_alloc();
-  v10 = swift_task_alloc();
-  v11 = *a5;
-  v12 = a5[1];
-  *(v6 + 144) = v10;
-  *(v6 + 152) = v11;
-  *(v6 + 160) = v12;
-  *(v6 + 168) = *(a5 + 1);
-  *(v6 + 184) = a5[4];
-  if (one-time initialization token for shared != -1)
-  {
-    swift_once();
-  }
-
-  v13 = static MLSActor.shared;
-  *(v6 + 192) = static MLSActor.shared;
-
-  return MEMORY[0x2822009F8](MLS.XPCClientCoordinator.kick(members:fromGroup:context:), v13, 0);
-}
-
-void MLS.XPCClientCoordinator.kick(members:fromGroup:context:)()
-{
-  v2 = v0[22];
-  v1 = v0[23];
-  v4 = v0[20];
-  v3 = v0[21];
-  v5 = v0[15];
-  v0[25] = direct field offset for MLS.XPCClientCoordinator.logger;
-
-  outlined copy of Data?(v3, v2);
-
-  v6 = Logger.logObject.getter();
-  v7 = static os_log_type_t.default.getter();
-
-  outlined consume of Data?(v3, v2);
-
-  if (os_log_type_enabled(v6, v7))
-  {
-    v9 = v0[19];
-    v8 = v0[20];
-    v10 = v0[15];
-    v11 = swift_slowAlloc();
-    v12 = swift_slowAlloc();
-    v46 = v12;
-    *v11 = 136315394;
-
-    v13 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v9, v8, &v46);
-
-    *(v11 + 4) = v13;
-    *(v11 + 12) = 2080;
-    v14 = *(v10 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier);
-    v15 = *(v10 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier + 8);
-    strcpy(v47, "EncryptedRCS.");
-    HIWORD(v47[1]) = -4864;
-
-    MEMORY[0x2667545A0](v14, v15);
-
-    v16 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v47[0], v47[1], &v46);
-
-    *(v11 + 14) = v16;
-    _os_log_impl(&dword_264F1F000, v6, v7, "XPCClientCoordinator kick { identifier: %s, client: %s }", v11, 0x16u);
-    swift_arrayDestroy();
-    MEMORY[0x266755550](v12, -1, -1);
-    MEMORY[0x266755550](v11, -1, -1);
-  }
-
-  else
-  {
-    v17 = v0[15];
-  }
-
-  v18 = v0[22];
-  v19 = v0[23];
-  v21 = v0[20];
-  v20 = v0[21];
-  v22 = v0[18];
-  v23 = v0[19];
-  v25 = v0[16];
-  v24 = v0[17];
-  v26 = v0[15];
-  v43 = v0[13];
-  v45 = v0[14];
-  v42 = v0[12];
-
-  outlined copy of Data?(v20, v18);
-
-  Date.init()();
-  v27 = *(v25 + 20);
-  v28 = type metadata accessor for Date();
-  (*(*(v28 - 8) + 56))(v22 + v27, 1, 1, v28);
-  outlined init with take of MetricCollector.Event(v22, v24);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v47[0] = v19;
-  specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v24, 0x5864726177726F46, 0xEA00000000004350, isUniquelyReferenced_nonNull_native);
-  v30 = v47[0];
-  v0[26] = v47[0];
-
-  v0[2] = v23;
-  v0[3] = v21;
-  v0[4] = v20;
-  v0[5] = v18;
-  v0[6] = v30;
-  v31 = *(*(v26 + direct field offset for MLS.XPCClientCoordinator.xpcClient) + OBJC_IVAR____TtCO15SecureMessaging8XPCUtils9XPCClient_deliveryInterface);
-  v0[27] = v31;
-  v32 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO30GroupOperationProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO30GroupOperationProcessedContextVy_10Foundation4DataVGMR);
-  v33 = swift_task_alloc();
-  v0[28] = v33;
-  v33[2] = v42;
-  v33[3] = v0 + 2;
-  v33[4] = v26;
-  v34 = swift_task_alloc();
-  v0[29] = v34;
-  *(v34 + 16) = v43;
-  *(v34 + 24) = v45;
-  v35 = *(*v31 + 360);
-
-  v44 = v35 + *v35;
-  v36 = v35[1];
-  v37 = swift_task_alloc();
-  v0[30] = v37;
-  v38 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DataV_A2CtMd, &_s10Foundation4DataV_A2CtMR);
-  v39 = lazy protocol witness table accessor for type MLS.KeyPackageRetrievalResult<MLS.AllMember> and conformance MLS.KeyPackageRetrievalResult<A>(&lazy protocol witness table cache variable for type MLS.GroupOperationProcessedContext<Data> and conformance MLS.GroupOperationProcessedContext<A>, &_s15SecureMessaging3MLSO30GroupOperationProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO30GroupOperationProcessedContextVy_10Foundation4DataVGMR);
-  v40 = lazy protocol witness table accessor for type MLS.KeyPackageRetrievalResult<MLS.AllMember> and conformance MLS.KeyPackageRetrievalResult<A>(&lazy protocol witness table cache variable for type MLS.GroupOperationProcessedContext<Data> and conformance MLS.GroupOperationProcessedContext<A>, &_s15SecureMessaging3MLSO30GroupOperationProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO30GroupOperationProcessedContextVy_10Foundation4DataVGMR);
-  v41 = lazy protocol witness table accessor for type MLS.GroupOperationError and conformance MLS.GroupOperationError();
-  *v37 = v0;
-  v37[1] = MLS.XPCClientCoordinator.kick(members:fromGroup:context:);
-  v55 = v40;
-  v56 = v41;
-  v53 = v38;
-  v54 = v39;
-  v51 = v32;
-  v52 = &type metadata for MLS.GroupOperationError;
-  v49 = partial apply for closure #3 in MLS.XPCClientCoordinator.kick(members:fromGroup:context:);
-  v50 = v34;
-
-  __asm { BRAA            X8, X16 }
-}
-
-uint64_t MLS.XPCClientCoordinator.kick(members:fromGroup:context:)()
-{
-  v2 = *v1;
-  v3 = *(*v1 + 240);
-  v4 = *v1;
-  *(*v1 + 248) = v0;
-
-  v5 = v2[29];
-  v6 = v2[28];
-  v7 = v2[27];
-  v8 = v2[24];
-
-  if (v0)
-  {
-    v9 = MLS.XPCClientCoordinator.kick(members:fromGroup:context:);
-  }
-
-  else
-  {
-    v9 = MLS.XPCClientCoordinator.kick(members:fromGroup:context:);
-  }
-
-  return MEMORY[0x2822009F8](v9, v8, 0);
-}
-
-{
-  v34 = v0;
-  v1 = v0[31];
-  v3 = v0[25];
-  v2 = v0[26];
-  v5 = v0[22];
-  v4 = v0[23];
-  v7 = v0[20];
-  v6 = v0[21];
-  v8 = v0[15];
-
-  outlined consume of Data?(v6, v5);
-
-  outlined copy of Data?(v6, v5);
-
-  v9 = v1;
-  v10 = Logger.logObject.getter();
-  v11 = static os_log_type_t.error.getter();
-
-  outlined consume of Data?(v6, v5);
-
-  if (os_log_type_enabled(v10, v11))
-  {
-    v12 = v0[31];
-    v14 = v0[19];
-    v13 = v0[20];
-    v15 = v0[15];
-    v16 = swift_slowAlloc();
-    v17 = swift_slowAlloc();
-    v18 = swift_slowAlloc();
-    v32 = v18;
-    *v16 = 136315650;
-
-    v19 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v14, v13, &v32);
-
-    *(v16 + 4) = v19;
-    *(v16 + 12) = 2112;
-    v20 = v12;
-    v21 = _swift_stdlib_bridgeErrorToNSError();
-    *(v16 + 14) = v21;
-    *v17 = v21;
-    *(v16 + 22) = 2080;
-    v22 = *(v15 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier);
-    v23 = *(v15 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier + 8);
-
-    strcpy(v33, "EncryptedRCS.");
-    HIWORD(v33[1]) = -4864;
-    MEMORY[0x2667545A0](v22, v23);
-
-    v24 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v33[0], v33[1], &v32);
-
-    *(v16 + 24) = v24;
-    _os_log_impl(&dword_264F1F000, v10, v11, "XPCClientCoordinator kick failed { identifier: %s, error: %@, client: %s }", v16, 0x20u);
-    outlined destroy of NSObject?(v17, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    MEMORY[0x266755550](v17, -1, -1);
-    swift_arrayDestroy();
-    MEMORY[0x266755550](v18, -1, -1);
-    MEMORY[0x266755550](v16, -1, -1);
-  }
-
-  else
-  {
-    v25 = v0[15];
-  }
-
-  v26 = v0[31];
-  v27 = v0[17];
-  v28 = v0[18];
-  swift_willThrow();
-
-  v29 = v0[1];
-  v30 = v0[31];
-
-  return v29();
-}
-
-uint64_t closure #1 in MLS.XPCClientCoordinator.add(members:toGroup:context:)@<X0>(__int128 *a1@<X2>, uint64_t a2@<X3>, uint64_t *a3@<X8>)
-{
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay15SecureMessaging3MLSO9AllMemberOGMd, &_sSay15SecureMessaging3MLSO9AllMemberOGMR);
-  lazy protocol witness table accessor for type [MLS.AllMember] and conformance <A> [A]();
-  result = dispatch thunk of JSONEncoder.encode<A>(_:)();
-  if (!v3)
-  {
-    v9 = result;
-    v10 = v8;
-    v17 = *a1;
-    v19 = a1[1];
-    v20 = *(a1 + 4);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO21GroupOperationContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO21GroupOperationContextVy_10Foundation4DataVGMR);
-    lazy protocol witness table accessor for type MLS.KeyPackageRetrievalResult<MLS.AllMember> and conformance MLS.KeyPackageRetrievalResult<A>(&lazy protocol witness table cache variable for type MLS.GroupOperationContext<Data> and conformance MLS.GroupOperationContext<A>, &_s15SecureMessaging3MLSO21GroupOperationContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO21GroupOperationContextVy_10Foundation4DataVGMR);
-    v11 = dispatch thunk of JSONEncoder.encode<A>(_:)();
-    v13 = v12;
-    v18 = *(a2 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier);
-    lazy protocol witness table accessor for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier();
-
-    v14 = dispatch thunk of JSONEncoder.encode<A>(_:)();
-    v16 = v15;
-
-    *a3 = v14;
-    a3[1] = v16;
-    a3[2] = v9;
-    a3[3] = v10;
-    a3[4] = v11;
-    a3[5] = v13;
-  }
-
-  return result;
-}
-
-uint64_t MLS.XPCClientCoordinator.leave(group:context:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
-{
-  *(v5 + 104) = a3;
-  *(v5 + 112) = v4;
-  *(v5 + 88) = a1;
-  *(v5 + 96) = a2;
-  v7 = type metadata accessor for MetricCollector.Event();
-  *(v5 + 120) = v7;
-  v8 = *(*(v7 - 8) + 64) + 15;
-  *(v5 + 128) = swift_task_alloc();
-  v9 = swift_task_alloc();
-  v10 = *a4;
-  v11 = a4[1];
-  *(v5 + 136) = v9;
-  *(v5 + 144) = v10;
-  *(v5 + 152) = v11;
-  *(v5 + 160) = *(a4 + 1);
-  *(v5 + 176) = a4[4];
-  if (one-time initialization token for shared != -1)
-  {
-    swift_once();
-  }
-
-  v12 = static MLSActor.shared;
-  *(v5 + 184) = static MLSActor.shared;
-
-  return MEMORY[0x2822009F8](MLS.XPCClientCoordinator.leave(group:context:), v12, 0);
-}
-
-void MLS.XPCClientCoordinator.leave(group:context:)()
-{
-  v2 = v0[21];
-  v1 = v0[22];
-  v4 = v0[19];
-  v3 = v0[20];
-  v5 = v0[14];
-  v0[24] = direct field offset for MLS.XPCClientCoordinator.logger;
-
-  outlined copy of Data?(v3, v2);
-
-  v6 = Logger.logObject.getter();
-  v7 = static os_log_type_t.default.getter();
-
-  outlined consume of Data?(v3, v2);
-
-  if (os_log_type_enabled(v6, v7))
-  {
-    v9 = v0[18];
-    v8 = v0[19];
-    v10 = v0[14];
-    v11 = swift_slowAlloc();
-    v12 = swift_slowAlloc();
-    v45 = v12;
-    *v11 = 136315394;
-
-    v13 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v9, v8, &v45);
-
-    *(v11 + 4) = v13;
-    *(v11 + 12) = 2080;
-    v14 = *(v10 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier);
-    v15 = *(v10 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier + 8);
-    strcpy(v46, "EncryptedRCS.");
-    HIWORD(v46[1]) = -4864;
-
-    MEMORY[0x2667545A0](v14, v15);
-
-    v16 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v46[0], v46[1], &v45);
-
-    *(v11 + 14) = v16;
-    _os_log_impl(&dword_264F1F000, v6, v7, "XPCClientCoordinator leave { identifier: %s, client: %s }", v11, 0x16u);
-    swift_arrayDestroy();
-    MEMORY[0x266755550](v12, -1, -1);
-    MEMORY[0x266755550](v11, -1, -1);
-  }
-
-  else
-  {
-    v17 = v0[14];
-  }
-
-  v18 = v0[21];
-  v19 = v0[22];
-  v21 = v0[19];
-  v20 = v0[20];
-  v22 = v0[17];
-  v23 = v0[18];
-  v25 = v0[15];
-  v24 = v0[16];
-  v26 = v0[14];
-  v42 = v0[12];
-  v44 = v0[13];
-
-  outlined copy of Data?(v20, v18);
-
-  Date.init()();
-  v27 = *(v25 + 20);
-  v28 = type metadata accessor for Date();
-  (*(*(v28 - 8) + 56))(v22 + v27, 1, 1, v28);
-  outlined init with take of MetricCollector.Event(v22, v24);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v46[0] = v19;
-  specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v24, 0x5864726177726F46, 0xEA00000000004350, isUniquelyReferenced_nonNull_native);
-  v30 = v46[0];
-  v0[25] = v46[0];
-
-  v0[2] = v23;
-  v0[3] = v21;
-  v0[4] = v20;
-  v0[5] = v18;
-  v0[6] = v30;
-  v31 = *(*(v26 + direct field offset for MLS.XPCClientCoordinator.xpcClient) + OBJC_IVAR____TtCO15SecureMessaging8XPCUtils9XPCClient_deliveryInterface);
-  v0[26] = v31;
-  v32 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO30GroupOperationProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO30GroupOperationProcessedContextVy_10Foundation4DataVGMR);
-  v33 = swift_task_alloc();
-  v0[27] = v33;
-  *(v33 + 16) = v0 + 2;
-  *(v33 + 24) = v26;
-  v34 = swift_task_alloc();
-  v0[28] = v34;
-  *(v34 + 16) = v42;
-  *(v34 + 24) = v44;
-  v35 = *(*v31 + 360);
-
-  v43 = v35 + *v35;
-  v36 = v35[1];
-  v37 = swift_task_alloc();
-  v0[29] = v37;
-  v38 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DataV_ACtMd, &_s10Foundation4DataV_ACtMR);
-  v39 = lazy protocol witness table accessor for type MLS.KeyPackageRetrievalResult<MLS.AllMember> and conformance MLS.KeyPackageRetrievalResult<A>(&lazy protocol witness table cache variable for type MLS.GroupOperationProcessedContext<Data> and conformance MLS.GroupOperationProcessedContext<A>, &_s15SecureMessaging3MLSO30GroupOperationProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO30GroupOperationProcessedContextVy_10Foundation4DataVGMR);
-  v40 = lazy protocol witness table accessor for type MLS.KeyPackageRetrievalResult<MLS.AllMember> and conformance MLS.KeyPackageRetrievalResult<A>(&lazy protocol witness table cache variable for type MLS.GroupOperationProcessedContext<Data> and conformance MLS.GroupOperationProcessedContext<A>, &_s15SecureMessaging3MLSO30GroupOperationProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO30GroupOperationProcessedContextVy_10Foundation4DataVGMR);
-  v41 = lazy protocol witness table accessor for type MLS.GroupOperationError and conformance MLS.GroupOperationError();
-  *v37 = v0;
-  v37[1] = MLS.XPCClientCoordinator.leave(group:context:);
-  v54 = v40;
-  v55 = v41;
-  v52 = v38;
-  v53 = v39;
-  v50 = v32;
-  v51 = &type metadata for MLS.GroupOperationError;
-  v48 = partial apply for closure #3 in MLS.XPCClientCoordinator.leave(group:context:);
-  v49 = v34;
-
-  __asm { BRAA            X8, X16 }
-}
-
-uint64_t MLS.XPCClientCoordinator.leave(group:context:)()
-{
-  v2 = *v1;
-  v3 = *(*v1 + 232);
-  v4 = *v1;
-  *(*v1 + 240) = v0;
-
-  v5 = v2[28];
-  v6 = v2[27];
-  v7 = v2[26];
-  v8 = v2[23];
-
-  if (v0)
-  {
-    v9 = MLS.XPCClientCoordinator.leave(group:context:);
-  }
-
-  else
-  {
-    v9 = MLS.XPCClientCoordinator.leave(group:context:);
-  }
-
-  return MEMORY[0x2822009F8](v9, v8, 0);
-}
-
-{
-  v1 = *(v0 + 200);
-  v3 = *(v0 + 160);
-  v2 = *(v0 + 168);
-  v4 = *(v0 + 152);
-  v6 = *(v0 + 128);
-  v5 = *(v0 + 136);
-  v7 = *(v0 + 88);
-
-  outlined consume of Data?(v3, v2);
-
-  v8 = *(v0 + 72);
-  v9 = *(v0 + 80);
-  *v7 = *(v0 + 56);
-  *(v7 + 16) = v8;
-  *(v7 + 24) = v9;
-
-  v10 = *(v0 + 8);
-
-  return v10();
-}
-
-{
-  v34 = v0;
-  v1 = v0[30];
-  v3 = v0[24];
-  v2 = v0[25];
-  v5 = v0[21];
-  v4 = v0[22];
-  v7 = v0[19];
-  v6 = v0[20];
-  v8 = v0[14];
-
-  outlined consume of Data?(v6, v5);
-
-  outlined copy of Data?(v6, v5);
-
-  v9 = v1;
-  v10 = Logger.logObject.getter();
-  v11 = static os_log_type_t.error.getter();
-
-  outlined consume of Data?(v6, v5);
-
-  if (os_log_type_enabled(v10, v11))
-  {
-    v12 = v0[30];
-    v14 = v0[18];
-    v13 = v0[19];
-    v15 = v0[14];
-    v16 = swift_slowAlloc();
-    v17 = swift_slowAlloc();
-    v18 = swift_slowAlloc();
-    v32 = v18;
-    *v16 = 136315650;
-
-    v19 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v14, v13, &v32);
-
-    *(v16 + 4) = v19;
-    *(v16 + 12) = 2112;
-    v20 = v12;
-    v21 = _swift_stdlib_bridgeErrorToNSError();
-    *(v16 + 14) = v21;
-    *v17 = v21;
-    *(v16 + 22) = 2080;
-    v22 = *(v15 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier);
-    v23 = *(v15 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier + 8);
-
-    strcpy(v33, "EncryptedRCS.");
-    HIWORD(v33[1]) = -4864;
-    MEMORY[0x2667545A0](v22, v23);
-
-    v24 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v33[0], v33[1], &v32);
-
-    *(v16 + 24) = v24;
-    _os_log_impl(&dword_264F1F000, v10, v11, "XPCClientCoordinator leave failed { identifier: %s, error: %@, client: %s }", v16, 0x20u);
-    outlined destroy of NSObject?(v17, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    MEMORY[0x266755550](v17, -1, -1);
-    swift_arrayDestroy();
-    MEMORY[0x266755550](v18, -1, -1);
-    MEMORY[0x266755550](v16, -1, -1);
-  }
-
-  else
-  {
-    v25 = v0[14];
-  }
-
-  v26 = v0[30];
-  v27 = v0[16];
-  v28 = v0[17];
-  swift_willThrow();
-
-  v29 = v0[1];
-  v30 = v0[30];
-
-  return v29();
-}
-
-uint64_t MLS.XPCClientCoordinator.downgrade(group:context:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
-{
-  *(v5 + 104) = a3;
-  *(v5 + 112) = v4;
-  *(v5 + 88) = a1;
-  *(v5 + 96) = a2;
-  v7 = type metadata accessor for MetricCollector.Event();
-  *(v5 + 120) = v7;
-  v8 = *(*(v7 - 8) + 64) + 15;
-  *(v5 + 128) = swift_task_alloc();
-  v9 = swift_task_alloc();
-  v10 = *a4;
-  v11 = a4[1];
-  *(v5 + 136) = v9;
-  *(v5 + 144) = v10;
-  *(v5 + 152) = v11;
-  *(v5 + 160) = *(a4 + 1);
-  *(v5 + 176) = a4[4];
-  if (one-time initialization token for shared != -1)
-  {
-    swift_once();
-  }
-
-  v12 = static MLSActor.shared;
-  *(v5 + 184) = static MLSActor.shared;
-
-  return MEMORY[0x2822009F8](MLS.XPCClientCoordinator.downgrade(group:context:), v12, 0);
-}
-
-void MLS.XPCClientCoordinator.downgrade(group:context:)()
-{
-  v2 = v0[21];
-  v1 = v0[22];
-  v4 = v0[19];
-  v3 = v0[20];
-  v5 = v0[14];
-  v0[24] = direct field offset for MLS.XPCClientCoordinator.logger;
-
-  outlined copy of Data?(v3, v2);
-
-  v6 = Logger.logObject.getter();
-  v7 = static os_log_type_t.default.getter();
-
-  outlined consume of Data?(v3, v2);
-
-  if (os_log_type_enabled(v6, v7))
-  {
-    v9 = v0[18];
-    v8 = v0[19];
-    v10 = v0[14];
-    v11 = swift_slowAlloc();
-    v12 = swift_slowAlloc();
-    v45 = v12;
-    *v11 = 136315394;
-
-    v13 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v9, v8, &v45);
-
-    *(v11 + 4) = v13;
-    *(v11 + 12) = 2080;
-    v14 = *(v10 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier);
-    v15 = *(v10 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier + 8);
-    strcpy(v46, "EncryptedRCS.");
-    HIWORD(v46[1]) = -4864;
-
-    MEMORY[0x2667545A0](v14, v15);
-
-    v16 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v46[0], v46[1], &v45);
-
-    *(v11 + 14) = v16;
-    _os_log_impl(&dword_264F1F000, v6, v7, "XPCClientCoordinator downgrade { identifier: %s, client: %s }", v11, 0x16u);
-    swift_arrayDestroy();
-    MEMORY[0x266755550](v12, -1, -1);
-    MEMORY[0x266755550](v11, -1, -1);
-  }
-
-  else
-  {
-    v17 = v0[14];
-  }
-
-  v18 = v0[21];
-  v19 = v0[22];
-  v21 = v0[19];
-  v20 = v0[20];
-  v22 = v0[17];
-  v23 = v0[18];
-  v25 = v0[15];
-  v24 = v0[16];
-  v26 = v0[14];
-  v42 = v0[12];
-  v44 = v0[13];
-
-  outlined copy of Data?(v20, v18);
-
-  Date.init()();
-  v27 = *(v25 + 20);
-  v28 = type metadata accessor for Date();
-  (*(*(v28 - 8) + 56))(v22 + v27, 1, 1, v28);
-  outlined init with take of MetricCollector.Event(v22, v24);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v46[0] = v19;
-  specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v24, 0x5864726177726F46, 0xEA00000000004350, isUniquelyReferenced_nonNull_native);
-  v30 = v46[0];
-  v0[25] = v46[0];
-
-  v0[2] = v23;
-  v0[3] = v21;
-  v0[4] = v20;
-  v0[5] = v18;
-  v0[6] = v30;
-  v31 = *(*(v26 + direct field offset for MLS.XPCClientCoordinator.xpcClient) + OBJC_IVAR____TtCO15SecureMessaging8XPCUtils9XPCClient_deliveryInterface);
-  v0[26] = v31;
-  v32 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO25DowngradeProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO25DowngradeProcessedContextVy_10Foundation4DataVGMR);
-  v33 = swift_task_alloc();
-  v0[27] = v33;
-  *(v33 + 16) = v0 + 2;
-  *(v33 + 24) = v26;
-  v34 = swift_task_alloc();
-  v0[28] = v34;
-  *(v34 + 16) = v42;
-  *(v34 + 24) = v44;
-  v35 = *(*v31 + 360);
-
-  v43 = v35 + *v35;
-  v36 = v35[1];
-  v37 = swift_task_alloc();
-  v0[29] = v37;
-  v38 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DataV_ACtMd, &_s10Foundation4DataV_ACtMR);
-  v39 = lazy protocol witness table accessor for type MLS.KeyPackageRetrievalResult<MLS.AllMember> and conformance MLS.KeyPackageRetrievalResult<A>(&lazy protocol witness table cache variable for type MLS.DowngradeProcessedContext<Data> and conformance MLS.DowngradeProcessedContext<A>, &_s15SecureMessaging3MLSO25DowngradeProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO25DowngradeProcessedContextVy_10Foundation4DataVGMR);
-  v40 = lazy protocol witness table accessor for type MLS.KeyPackageRetrievalResult<MLS.AllMember> and conformance MLS.KeyPackageRetrievalResult<A>(&lazy protocol witness table cache variable for type MLS.DowngradeProcessedContext<Data> and conformance MLS.DowngradeProcessedContext<A>, &_s15SecureMessaging3MLSO25DowngradeProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO25DowngradeProcessedContextVy_10Foundation4DataVGMR);
-  v41 = lazy protocol witness table accessor for type MLS.DowngradeError and conformance MLS.DowngradeError();
-  *v37 = v0;
-  v37[1] = MLS.XPCClientCoordinator.downgrade(group:context:);
-  v54 = v40;
-  v55 = v41;
-  v52 = v38;
-  v53 = v39;
-  v50 = v32;
-  v51 = &type metadata for MLS.DowngradeError;
-  v48 = partial apply for closure #3 in MLS.XPCClientCoordinator.downgrade(group:context:);
-  v49 = v34;
-
-  __asm { BRAA            X8, X16 }
-}
-
-uint64_t MLS.XPCClientCoordinator.downgrade(group:context:)()
-{
-  v2 = *v1;
-  v3 = *(*v1 + 232);
-  v4 = *v1;
-  *(*v1 + 240) = v0;
-
-  v5 = v2[28];
-  v6 = v2[27];
-  v7 = v2[26];
-  v8 = v2[23];
-
-  if (v0)
-  {
-    v9 = MLS.XPCClientCoordinator.downgrade(group:context:);
-  }
-
-  else
-  {
-    v9 = MLS.XPCClientCoordinator.downgrade(group:context:);
-  }
-
-  return MEMORY[0x2822009F8](v9, v8, 0);
-}
-
-{
-  v34 = v0;
-  v1 = v0[30];
-  v3 = v0[24];
-  v2 = v0[25];
-  v5 = v0[21];
-  v4 = v0[22];
-  v7 = v0[19];
-  v6 = v0[20];
-  v8 = v0[14];
-
-  outlined consume of Data?(v6, v5);
-
-  outlined copy of Data?(v6, v5);
-
-  v9 = v1;
-  v10 = Logger.logObject.getter();
-  v11 = static os_log_type_t.error.getter();
-
-  outlined consume of Data?(v6, v5);
-
-  if (os_log_type_enabled(v10, v11))
-  {
-    v12 = v0[30];
-    v14 = v0[18];
-    v13 = v0[19];
-    v15 = v0[14];
-    v16 = swift_slowAlloc();
-    v17 = swift_slowAlloc();
-    v18 = swift_slowAlloc();
-    v32 = v18;
-    *v16 = 136315650;
-
-    v19 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v14, v13, &v32);
-
-    *(v16 + 4) = v19;
-    *(v16 + 12) = 2112;
-    v20 = v12;
-    v21 = _swift_stdlib_bridgeErrorToNSError();
-    *(v16 + 14) = v21;
-    *v17 = v21;
-    *(v16 + 22) = 2080;
-    v22 = *(v15 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier);
-    v23 = *(v15 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier + 8);
-
-    strcpy(v33, "EncryptedRCS.");
-    HIWORD(v33[1]) = -4864;
-    MEMORY[0x2667545A0](v22, v23);
-
-    v24 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v33[0], v33[1], &v32);
-
-    *(v16 + 24) = v24;
-    _os_log_impl(&dword_264F1F000, v10, v11, "XPCClientCoordinator downgrade failed { identifier: %s, error: %@, client: %s }", v16, 0x20u);
-    outlined destroy of NSObject?(v17, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    MEMORY[0x266755550](v17, -1, -1);
-    swift_arrayDestroy();
-    MEMORY[0x266755550](v18, -1, -1);
-    MEMORY[0x266755550](v16, -1, -1);
-  }
-
-  else
-  {
-    v25 = v0[14];
-  }
-
-  v26 = v0[30];
-  v27 = v0[16];
-  v28 = v0[17];
-  swift_willThrow();
-
-  v29 = v0[1];
-  v30 = v0[30];
-
-  return v29();
-}
-
-uint64_t closure #1 in MLS.XPCClientCoordinator.leave(group:context:)@<X0>(__int128 *a1@<X1>, uint64_t a2@<X2>, uint64_t *a3@<X3>, uint64_t *a4@<X4>, unint64_t *a5@<X5>, uint64_t *a6@<X8>)
-{
-  v19 = *a1;
-  v22 = a1[1];
-  v23 = *(a1 + 4);
-  __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
-  lazy protocol witness table accessor for type MLS.KeyPackageRetrievalResult<MLS.AllMember> and conformance MLS.KeyPackageRetrievalResult<A>(a5, a3, a4);
-  result = dispatch thunk of JSONEncoder.encode<A>(_:)();
-  if (!v6)
-  {
-    v14 = result;
-    v15 = v13;
-    v20 = *(a2 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier);
-    v21 = *(a2 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier + 8);
-    lazy protocol witness table accessor for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier();
-
-    v16 = dispatch thunk of JSONEncoder.encode<A>(_:)();
-    v18 = v17;
-
-    *a6 = v16;
-    a6[1] = v18;
-    a6[2] = v14;
-    a6[3] = v15;
-  }
-
-  return result;
-}
-
-uint64_t closure #3 in MLS.XPCClientCoordinator.delete(group:context:)(void **a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, SEL *a8)
-{
-  v22 = *a1;
-  v13 = *a2;
-  v14 = a2[1];
-  v15 = a2[2];
-  v16 = a2[3];
-  outlined copy of Data._Representation(*a2, v14);
-  outlined copy of Data._Representation(v15, v16);
-  isa = Data._bridgeToObjectiveC()().super.isa;
-  v18 = MEMORY[0x266754510](a5, a6);
-  v19 = Data._bridgeToObjectiveC()().super.isa;
-  aBlock[4] = a3;
-  aBlock[5] = a4;
-  aBlock[0] = MEMORY[0x277D85DD0];
-  aBlock[1] = 1107296256;
-  aBlock[2] = thunk for @escaping @callee_guaranteed @Sendable (@guaranteed Data?, @guaranteed Data?) -> ();
-  aBlock[3] = a7;
-  v20 = _Block_copy(aBlock);
-
-  [v22 *a8];
-  _Block_release(v20);
-
-  outlined consume of Data._Representation(v15, v16);
-  return outlined consume of Data._Representation(v13, v14);
-}
-
-uint64_t MLS.XPCClientCoordinator.applicationEncrypt(data:withGroup:context:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
-{
-  *(v7 + 1296) = v6;
-  *(v7 + 1288) = a5;
-  *(v7 + 1280) = a4;
-  *(v7 + 1272) = a3;
-  *(v7 + 1264) = a2;
-  *(v7 + 1256) = a1;
-  v9 = type metadata accessor for MetricCollector.Event();
-  *(v7 + 1304) = v9;
-  v10 = *(*(v9 - 8) + 64) + 15;
-  *(v7 + 1312) = swift_task_alloc();
-  *(v7 + 1320) = swift_task_alloc();
-  v11 = *(a6 + 112);
-  *(v7 + 112) = *(a6 + 96);
-  *(v7 + 128) = v11;
-  *(v7 + 144) = *(a6 + 128);
-  *(v7 + 160) = *(a6 + 144);
-  v12 = *(a6 + 48);
-  *(v7 + 48) = *(a6 + 32);
-  *(v7 + 64) = v12;
-  v13 = *(a6 + 80);
-  *(v7 + 80) = *(a6 + 64);
-  *(v7 + 96) = v13;
-  v14 = *(a6 + 16);
-  *(v7 + 16) = *a6;
-  *(v7 + 32) = v14;
-  if (one-time initialization token for shared != -1)
-  {
-    swift_once();
-  }
-
-  v15 = static MLSActor.shared;
-  *(v7 + 1328) = static MLSActor.shared;
-
-  return MEMORY[0x2822009F8](MLS.XPCClientCoordinator.applicationEncrypt(data:withGroup:context:), v15, 0);
-}
-
-void MLS.XPCClientCoordinator.applicationEncrypt(data:withGroup:context:)()
-{
-  v1 = *(v0 + 1296);
-  *(v0 + 1336) = direct field offset for MLS.XPCClientCoordinator.logger;
-  outlined init with copy of MLS.OutgoingEventState?(v0 + 16, v0 + 320, &_s15SecureMessaging3MLSO17EncryptionContextVy_AC9AllMemberO10Foundation4DataVGMd, &_s15SecureMessaging3MLSO17EncryptionContextVy_AC9AllMemberO10Foundation4DataVGMR);
-
-  v2 = Logger.logObject.getter();
-  v3 = static os_log_type_t.default.getter();
-  outlined destroy of NSObject?(v0 + 16, &_s15SecureMessaging3MLSO17EncryptionContextVy_AC9AllMemberO10Foundation4DataVGMd, &_s15SecureMessaging3MLSO17EncryptionContextVy_AC9AllMemberO10Foundation4DataVGMR);
-  v4 = os_log_type_enabled(v2, v3);
-  v5 = *(v0 + 1296);
-  if (v4)
-  {
-    v6 = swift_slowAlloc();
-    v7 = swift_slowAlloc();
-    v46 = v7;
-    *v6 = 136315394;
-    v8 = *(v0 + 16);
-    v9 = *(v0 + 24);
-
-    v10 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v8, v9, &v46);
-
-    *(v6 + 4) = v10;
-    *(v6 + 12) = 2080;
-    v11 = *(v5 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier);
-    v12 = *(v5 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier + 8);
-    strcpy(v47, "EncryptedRCS.");
-    HIWORD(v47[1]) = -4864;
-
-    MEMORY[0x2667545A0](v11, v12);
-
-    v13 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v47[0], v47[1], &v46);
-
-    *(v6 + 14) = v13;
-    _os_log_impl(&dword_264F1F000, v2, v3, "XPCClientCoordinator applicationEncrypt { identifier: %s, client: %s }", v6, 0x16u);
-    swift_arrayDestroy();
-    MEMORY[0x266755550](v7, -1, -1);
-    MEMORY[0x266755550](v6, -1, -1);
-  }
-
-  else
-  {
-  }
-
-  v14 = *(v0 + 1320);
-  v15 = *(v0 + 1312);
-  v16 = *(v0 + 1304);
-  v17 = *(v0 + 1296);
-  v18 = *(v0 + 1288);
-  v19 = *(v0 + 1280);
-  v45 = *(v0 + 1264);
-  v20 = *(v0 + 128);
-  *(v0 + 1176) = *(v0 + 112);
-  *(v0 + 1192) = v20;
-  *(v0 + 1208) = *(v0 + 144);
-  v21 = *(v0 + 64);
-  *(v0 + 1112) = *(v0 + 48);
-  *(v0 + 1128) = v21;
-  v22 = *(v0 + 96);
-  *(v0 + 1144) = *(v0 + 80);
-  *(v0 + 1160) = v22;
-  v23 = *(v0 + 32);
-  *(v0 + 1080) = *(v0 + 16);
-  *(v0 + 1096) = v23;
-  v24 = *(v0 + 160);
-  outlined init with copy of MLS.OutgoingEventState?(v0 + 16, v0 + 472, &_s15SecureMessaging3MLSO17EncryptionContextVy_AC9AllMemberO10Foundation4DataVGMd, &_s15SecureMessaging3MLSO17EncryptionContextVy_AC9AllMemberO10Foundation4DataVGMR);
-  Date.init()();
-  v25 = *(v16 + 20);
-  v26 = type metadata accessor for Date();
-  (*(*(v26 - 8) + 56))(v14 + v25, 1, 1, v26);
-  outlined init with take of MetricCollector.Event(v14, v15);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v47[0] = v24;
-  specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v15, 0x5864726177726F46, 0xEA00000000004350, isUniquelyReferenced_nonNull_native);
-  v28 = v47[0];
-  *(v0 + 1344) = v47[0];
-
-  v29 = *(v0 + 1144);
-  *(v0 + 248) = *(v0 + 1160);
-  v30 = *(v0 + 1192);
-  *(v0 + 264) = *(v0 + 1176);
-  *(v0 + 280) = v30;
-  *(v0 + 296) = *(v0 + 1208);
-  v31 = *(v0 + 1080);
-  *(v0 + 184) = *(v0 + 1096);
-  v32 = *(v0 + 1128);
-  *(v0 + 200) = *(v0 + 1112);
-  *(v0 + 216) = v32;
-  *(v0 + 232) = v29;
-  *(v0 + 168) = v31;
-  *(v0 + 312) = v28;
-  v33 = *(*(v17 + direct field offset for MLS.XPCClientCoordinator.xpcClient) + OBJC_IVAR____TtCO15SecureMessaging8XPCUtils9XPCClient_deliveryInterface);
-  *(v0 + 1352) = v33;
-  v34 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO26EncryptionProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO26EncryptionProcessedContextVy_10Foundation4DataVGMR);
-  v35 = swift_task_alloc();
-  *(v0 + 1360) = v35;
-  *(v35 + 16) = v0 + 168;
-  *(v35 + 24) = v17;
-  v36 = swift_task_alloc();
-  *(v0 + 1368) = v36;
-  *(v36 + 16) = v45;
-  *(v36 + 32) = v19;
-  *(v36 + 40) = v18;
-  v37 = *(*v33 + 360);
-
-  v44 = v37 + *v37;
-  v38 = v37[1];
-  v39 = swift_task_alloc();
-  *(v0 + 1376) = v39;
-  v40 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DataV_ACtMd, &_s10Foundation4DataV_ACtMR);
-  v41 = lazy protocol witness table accessor for type MLS.KeyPackageRetrievalResult<MLS.AllMember> and conformance MLS.KeyPackageRetrievalResult<A>(&lazy protocol witness table cache variable for type MLS.EncryptionProcessedContext<Data> and conformance MLS.EncryptionProcessedContext<A>, &_s15SecureMessaging3MLSO26EncryptionProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO26EncryptionProcessedContextVy_10Foundation4DataVGMR);
-  v42 = lazy protocol witness table accessor for type MLS.KeyPackageRetrievalResult<MLS.AllMember> and conformance MLS.KeyPackageRetrievalResult<A>(&lazy protocol witness table cache variable for type MLS.EncryptionProcessedContext<Data> and conformance MLS.EncryptionProcessedContext<A>, &_s15SecureMessaging3MLSO26EncryptionProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO26EncryptionProcessedContextVy_10Foundation4DataVGMR);
-  v43 = lazy protocol witness table accessor for type MLS.EncryptionError and conformance MLS.EncryptionError();
-  *v39 = v0;
-  v39[1] = MLS.XPCClientCoordinator.applicationEncrypt(data:withGroup:context:);
-  v55 = v42;
-  v56 = v43;
-  v53 = v40;
-  v54 = v41;
-  v51 = v34;
-  v52 = &type metadata for MLS.EncryptionError;
-  v49 = partial apply for closure #3 in MLS.XPCClientCoordinator.applicationEncrypt(data:withGroup:context:);
-  v50 = v36;
-
-  __asm { BRAA            X8, X16 }
-}
-
-uint64_t MLS.XPCClientCoordinator.applicationEncrypt(data:withGroup:context:)()
-{
-  v2 = *v1;
-  v3 = *(*v1 + 1376);
-  v4 = *v1;
-  *(*v1 + 1384) = v0;
-
-  v5 = *(v2 + 1352);
-  v6 = *(v2 + 1328);
-
-  if (v0)
-  {
-    v7 = MLS.XPCClientCoordinator.applicationEncrypt(data:withGroup:context:);
-  }
-
-  else
-  {
-    v7 = MLS.XPCClientCoordinator.applicationEncrypt(data:withGroup:context:);
-  }
-
-  return MEMORY[0x2822009F8](v7, v6, 0);
-}
-
-{
-  v1 = *(v0 + 1368);
-  v2 = *(v0 + 1360);
-  v3 = *(v0 + 1344);
-  v4 = *(v0 + 1320);
-  v5 = *(v0 + 1312);
-  v6 = *(v0 + 1256);
-  v7 = *(v0 + 1176);
-  *(v0 + 1040) = *(v0 + 1192);
-  *(v0 + 1056) = *(v0 + 1208);
-  v8 = *(v0 + 1128);
-  *(v0 + 960) = *(v0 + 1112);
-  *(v0 + 976) = v8;
-  v9 = *(v0 + 1144);
-  *(v0 + 1008) = *(v0 + 1160);
-  *(v0 + 1024) = v7;
-  *(v0 + 992) = v9;
-  v10 = *(v0 + 1096);
-  *(v0 + 928) = *(v0 + 1080);
-  *(v0 + 944) = v10;
-  *(v0 + 1072) = v3;
-  outlined destroy of NSObject?(v0 + 928, &_s15SecureMessaging3MLSO17EncryptionContextVy_AC9AllMemberO10Foundation4DataVGMd, &_s15SecureMessaging3MLSO17EncryptionContextVy_AC9AllMemberO10Foundation4DataVGMR);
-  v11 = *(v0 + 1240);
-  v12 = *(v0 + 1248);
-  *v6 = *(v0 + 1224);
-  *(v6 + 16) = v11;
-  *(v6 + 24) = v12;
-
-  v13 = *(v0 + 8);
-
-  return v13();
-}
-
-{
-  v36 = v0;
-  v1 = *(v0 + 1384);
-  v2 = *(v0 + 1344);
-  v3 = *(v0 + 1336);
-  v4 = *(v0 + 1296);
-  v5 = *(v0 + 1192);
-  *(v0 + 720) = *(v0 + 1176);
-  *(v0 + 736) = v5;
-  *(v0 + 752) = *(v0 + 1208);
-  v6 = *(v0 + 1128);
-  *(v0 + 656) = *(v0 + 1112);
-  *(v0 + 672) = v6;
-  v7 = *(v0 + 1160);
-  *(v0 + 688) = *(v0 + 1144);
-  *(v0 + 704) = v7;
-  v8 = *(v0 + 1096);
-  *(v0 + 624) = *(v0 + 1080);
-  *(v0 + 640) = v8;
-  *(v0 + 768) = v2;
-  outlined destroy of NSObject?(v0 + 624, &_s15SecureMessaging3MLSO17EncryptionContextVy_AC9AllMemberO10Foundation4DataVGMd, &_s15SecureMessaging3MLSO17EncryptionContextVy_AC9AllMemberO10Foundation4DataVGMR);
-
-  outlined init with copy of MLS.OutgoingEventState?(v0 + 16, v0 + 776, &_s15SecureMessaging3MLSO17EncryptionContextVy_AC9AllMemberO10Foundation4DataVGMd, &_s15SecureMessaging3MLSO17EncryptionContextVy_AC9AllMemberO10Foundation4DataVGMR);
-
-  v9 = v1;
-  v10 = Logger.logObject.getter();
-  v11 = static os_log_type_t.error.getter();
-  outlined destroy of NSObject?(v0 + 16, &_s15SecureMessaging3MLSO17EncryptionContextVy_AC9AllMemberO10Foundation4DataVGMd, &_s15SecureMessaging3MLSO17EncryptionContextVy_AC9AllMemberO10Foundation4DataVGMR);
-
-  if (os_log_type_enabled(v10, v11))
-  {
-    v12 = *(v0 + 1384);
-    v13 = *(v0 + 1296);
-    v14 = swift_slowAlloc();
-    v15 = swift_slowAlloc();
-    v16 = swift_slowAlloc();
-    v34 = v16;
-    *v14 = 136315650;
-    v17 = *(v0 + 16);
-    v18 = *(v0 + 24);
-
-    v19 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v17, v18, &v34);
-
-    *(v14 + 4) = v19;
-    *(v14 + 12) = 2112;
-    v20 = v12;
-    v21 = _swift_stdlib_bridgeErrorToNSError();
-    *(v14 + 14) = v21;
-    *v15 = v21;
-    *(v14 + 22) = 2080;
-    v22 = *(v13 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier);
-    v23 = *(v13 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier + 8);
-
-    strcpy(v35, "EncryptedRCS.");
-    HIWORD(v35[1]) = -4864;
-    MEMORY[0x2667545A0](v22, v23);
-
-    v24 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v35[0], v35[1], &v34);
-
-    *(v14 + 24) = v24;
-    _os_log_impl(&dword_264F1F000, v10, v11, "XPCClientCoordinator applicationEncrypt failed { identifier: %s, error: %@, client: %s }", v14, 0x20u);
-    outlined destroy of NSObject?(v15, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    MEMORY[0x266755550](v15, -1, -1);
-    swift_arrayDestroy();
-    MEMORY[0x266755550](v16, -1, -1);
-    MEMORY[0x266755550](v14, -1, -1);
-  }
-
-  else
-  {
-    v25 = *(v0 + 1296);
-  }
-
-  v26 = *(v0 + 1384);
-  v27 = *(v0 + 1368);
-  v28 = *(v0 + 1360);
-  v29 = *(v0 + 1320);
-  v30 = *(v0 + 1312);
-  swift_willThrow();
-
-  v31 = *(v0 + 8);
-  v32 = *(v0 + 1384);
-
-  return v31();
-}
-
-uint64_t closure #1 in MLS.XPCClientCoordinator.applicationEncrypt(data:withGroup:context:)@<X0>(__int128 *a1@<X1>, uint64_t a2@<X2>, uint64_t *a3@<X8>)
-{
-  v21 = a1[6];
-  v22 = a1[7];
-  v23 = a1[8];
-  v24 = *(a1 + 18);
-  v17 = a1[2];
-  v18 = a1[3];
-  v19 = a1[4];
-  v20 = a1[5];
-  v13 = *a1;
-  v16 = a1[1];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO17EncryptionContextVy_AC9AllMemberO10Foundation4DataVGMd, &_s15SecureMessaging3MLSO17EncryptionContextVy_AC9AllMemberO10Foundation4DataVGMR);
-  lazy protocol witness table accessor for type MLS.KeyPackageRetrievalResult<MLS.AllMember> and conformance MLS.KeyPackageRetrievalResult<A>(&lazy protocol witness table cache variable for type MLS.EncryptionContext<MLS.AllMember, Data> and conformance MLS.EncryptionContext<A, B>, &_s15SecureMessaging3MLSO17EncryptionContextVy_AC9AllMemberO10Foundation4DataVGMd, &_s15SecureMessaging3MLSO17EncryptionContextVy_AC9AllMemberO10Foundation4DataVGMR);
-  result = dispatch thunk of JSONEncoder.encode<A>(_:)();
-  if (!v3)
-  {
-    v8 = result;
-    v9 = v7;
-    v14 = *(a2 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier);
-    v15 = *(a2 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier + 8);
-    lazy protocol witness table accessor for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier();
-
-    v10 = dispatch thunk of JSONEncoder.encode<A>(_:)();
-    v12 = v11;
-
-    *a3 = v10;
-    a3[1] = v12;
-    a3[2] = v8;
-    a3[3] = v9;
-  }
-
-  return result;
-}
-
-uint64_t MLS.XPCClientCoordinator.applicationSign(input:withGroup:context:)(uint64_t a1, _OWORD *a2, uint64_t a3, uint64_t a4, uint64_t *a5)
-{
-  *(v6 + 168) = a4;
-  *(v6 + 176) = v5;
-  *(v6 + 152) = a1;
-  *(v6 + 160) = a3;
-  v9 = type metadata accessor for MetricCollector.Event();
-  *(v6 + 184) = v9;
-  v10 = *(*(v9 - 8) + 64) + 15;
-  *(v6 + 192) = swift_task_alloc();
-  v11 = swift_task_alloc();
-  v12 = a2[1];
-  *(v6 + 16) = *a2;
-  *(v6 + 32) = v12;
-  *(v6 + 48) = a2[2];
-  *(v6 + 60) = *(a2 + 44);
-  v13 = *a5;
-  v14 = a5[1];
-  *(v6 + 200) = v11;
-  *(v6 + 208) = v13;
-  *(v6 + 216) = v14;
-  *(v6 + 224) = *(a5 + 1);
-  *(v6 + 240) = a5[4];
-  if (one-time initialization token for shared != -1)
-  {
-    swift_once();
-  }
-
-  v15 = static MLSActor.shared;
-  *(v6 + 248) = static MLSActor.shared;
-
-  return MEMORY[0x2822009F8](MLS.XPCClientCoordinator.applicationSign(input:withGroup:context:), v15, 0);
-}
-
-void MLS.XPCClientCoordinator.applicationSign(input:withGroup:context:)()
-{
-  v2 = v0[29];
-  v1 = v0[30];
-  v4 = v0[27];
-  v3 = v0[28];
-  v5 = v0[22];
-  v0[32] = direct field offset for MLS.XPCClientCoordinator.logger;
-
-  outlined copy of Data?(v3, v2);
-
-  v6 = Logger.logObject.getter();
-  v7 = static os_log_type_t.default.getter();
-
-  outlined consume of Data?(v3, v2);
-
-  if (os_log_type_enabled(v6, v7))
-  {
-    v9 = v0[26];
-    v8 = v0[27];
-    v10 = v0[22];
-    v11 = swift_slowAlloc();
-    v12 = swift_slowAlloc();
-    v45 = v12;
-    *v11 = 136315394;
-
-    v13 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v9, v8, &v45);
-
-    *(v11 + 4) = v13;
-    *(v11 + 12) = 2080;
-    v14 = *(v10 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier);
-    v15 = *(v10 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier + 8);
-    strcpy(v46, "EncryptedRCS.");
-    HIWORD(v46[1]) = -4864;
-
-    MEMORY[0x2667545A0](v14, v15);
-
-    v16 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v46[0], v46[1], &v45);
-
-    *(v11 + 14) = v16;
-    _os_log_impl(&dword_264F1F000, v6, v7, "XPCClientCoordinator applicationSign { identifier: %s, client: %s }", v11, 0x16u);
-    swift_arrayDestroy();
-    MEMORY[0x266755550](v12, -1, -1);
-    MEMORY[0x266755550](v11, -1, -1);
-  }
-
-  else
-  {
-    v17 = v0[22];
-  }
-
-  v18 = v0[29];
-  v19 = v0[30];
-  v21 = v0[27];
-  v20 = v0[28];
-  v22 = v0[25];
-  v23 = v0[26];
-  v25 = v0[23];
-  v24 = v0[24];
-  v26 = v0[22];
-  v44 = v0[21];
-  v42 = v0[20];
-
-  outlined copy of Data?(v20, v18);
-
-  Date.init()();
-  v27 = *(v25 + 20);
-  v28 = type metadata accessor for Date();
-  (*(*(v28 - 8) + 56))(v22 + v27, 1, 1, v28);
-  outlined init with take of MetricCollector.Event(v22, v24);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v46[0] = v19;
-  specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v24, 0x5864726177726F46, 0xEA00000000004350, isUniquelyReferenced_nonNull_native);
-  v30 = v46[0];
-  v0[33] = v46[0];
-
-  v0[10] = v23;
-  v0[11] = v21;
-  v0[12] = v20;
-  v0[13] = v18;
-  v0[14] = v30;
-  v31 = *(*(v26 + direct field offset for MLS.XPCClientCoordinator.xpcClient) + OBJC_IVAR____TtCO15SecureMessaging8XPCUtils9XPCClient_deliveryInterface);
-  v0[34] = v31;
-  v32 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO23SigningProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO23SigningProcessedContextVy_10Foundation4DataVGMR);
-  v33 = swift_task_alloc();
-  v0[35] = v33;
-  v33[2] = v0 + 2;
-  v33[3] = v0 + 10;
-  v33[4] = v26;
-  v34 = swift_task_alloc();
-  v0[36] = v34;
-  *(v34 + 16) = v42;
-  *(v34 + 24) = v44;
-  v35 = *(*v31 + 360);
-
-  v43 = v35 + *v35;
-  v36 = v35[1];
-  v37 = swift_task_alloc();
-  v0[37] = v37;
-  v38 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DataV_A2CtMd, &_s10Foundation4DataV_A2CtMR);
-  v39 = lazy protocol witness table accessor for type MLS.KeyPackageRetrievalResult<MLS.AllMember> and conformance MLS.KeyPackageRetrievalResult<A>(&lazy protocol witness table cache variable for type MLS.SigningProcessedContext<Data> and conformance MLS.SigningProcessedContext<A>, &_s15SecureMessaging3MLSO23SigningProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO23SigningProcessedContextVy_10Foundation4DataVGMR);
-  v40 = lazy protocol witness table accessor for type MLS.KeyPackageRetrievalResult<MLS.AllMember> and conformance MLS.KeyPackageRetrievalResult<A>(&lazy protocol witness table cache variable for type MLS.SigningProcessedContext<Data> and conformance MLS.SigningProcessedContext<A>, &_s15SecureMessaging3MLSO23SigningProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO23SigningProcessedContextVy_10Foundation4DataVGMR);
-  v41 = lazy protocol witness table accessor for type MLS.SigningError and conformance MLS.SigningError();
-  *v37 = v0;
-  v37[1] = MLS.XPCClientCoordinator.applicationSign(input:withGroup:context:);
-  v54 = v40;
-  v55 = v41;
-  v52 = v38;
-  v53 = v39;
-  v50 = v32;
-  v51 = &type metadata for MLS.SigningError;
-  v48 = partial apply for closure #3 in MLS.XPCClientCoordinator.applicationSign(input:withGroup:context:);
-  v49 = v34;
-
-  __asm { BRAA            X8, X16 }
-}
-
-uint64_t MLS.XPCClientCoordinator.applicationSign(input:withGroup:context:)()
-{
-  v2 = *v1;
-  v3 = *(*v1 + 296);
-  v4 = *v1;
-  *(*v1 + 304) = v0;
-
-  v5 = v2[36];
-  v6 = v2[35];
-  v7 = v2[34];
-  v8 = v2[31];
-
-  if (v0)
-  {
-    v9 = MLS.XPCClientCoordinator.applicationSign(input:withGroup:context:);
-  }
-
-  else
-  {
-    v9 = MLS.XPCClientCoordinator.applicationSign(input:withGroup:context:);
-  }
-
-  return MEMORY[0x2822009F8](v9, v8, 0);
-}
-
-{
-  v1 = *(v0 + 264);
-  v3 = *(v0 + 224);
-  v2 = *(v0 + 232);
-  v4 = *(v0 + 216);
-  v6 = *(v0 + 192);
-  v5 = *(v0 + 200);
-  v7 = *(v0 + 152);
-
-  outlined consume of Data?(v3, v2);
-
-  v8 = *(v0 + 136);
-  v9 = *(v0 + 144);
-  *v7 = *(v0 + 120);
-  *(v7 + 16) = v8;
-  *(v7 + 24) = v9;
-
-  v10 = *(v0 + 8);
-
-  return v10();
-}
-
-{
-  v34 = v0;
-  v1 = v0[38];
-  v3 = v0[32];
-  v2 = v0[33];
-  v5 = v0[29];
+  v1 = v0[43];
+  v2 = v0[39];
+  v3 = v0[40];
   v4 = v0[30];
-  v7 = v0[27];
-  v6 = v0[28];
-  v8 = v0[22];
+  outlined consume of Data?(v0[52], v0[53]);
+  (*(v3 + 32))(v4, v1, v2);
 
-  outlined consume of Data?(v6, v5);
+  v5 = v0[1];
 
-  outlined copy of Data?(v6, v5);
+  return v5();
+}
 
-  v9 = v1;
-  v10 = Logger.logObject.getter();
-  v11 = static os_log_type_t.error.getter();
-
-  outlined consume of Data?(v6, v5);
-
-  if (os_log_type_enabled(v10, v11))
+uint64_t _s15SecureMessaging3MLSO15OperationRunnerC3run9operation20ProcessedContextTypeQzx_tYa05ErrorJ0QzYKAC05GroupD0RzlFTY6_()
+{
+  v1 = *(v0 + 520);
+  *(v0 + 176) = v1;
+  v2 = v1;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
+  if (swift_dynamicCast())
   {
-    v12 = v0[38];
-    v14 = v0[26];
-    v13 = v0[27];
-    v15 = v0[22];
-    v16 = swift_slowAlloc();
-    v17 = swift_slowAlloc();
-    v18 = swift_slowAlloc();
-    v32 = v18;
-    *v16 = 136315650;
+    v4 = *(v0 + 416);
+    v3 = *(v0 + 424);
+    v6 = *(v0 + 328);
+    v5 = *(v0 + 336);
+    v7 = *(v0 + 312);
+    v8 = *(v0 + 320);
+    v9 = *(v0 + 256);
+    v10 = *(v0 + 240);
 
-    v19 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v14, v13, &v32);
-
-    *(v16 + 4) = v19;
-    *(v16 + 12) = 2112;
-    v20 = v12;
-    v21 = _swift_stdlib_bridgeErrorToNSError();
-    *(v16 + 14) = v21;
-    *v17 = v21;
-    *(v16 + 22) = 2080;
-    v22 = *(v15 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier);
-    v23 = *(v15 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier + 8);
-
-    strcpy(v33, "EncryptedRCS.");
-    HIWORD(v33[1]) = -4864;
-    MEMORY[0x2667545A0](v22, v23);
-
-    v24 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v33[0], v33[1], &v32);
-
-    *(v16 + 24) = v24;
-    _os_log_impl(&dword_264F1F000, v10, v11, "XPCClientCoordinator applicationSign failed { identifier: %s, error: %@, client: %s }", v16, 0x20u);
-    outlined destroy of NSObject?(v17, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    MEMORY[0x266755550](v17, -1, -1);
-    swift_arrayDestroy();
-    MEMORY[0x266755550](v18, -1, -1);
-    MEMORY[0x266755550](v16, -1, -1);
+    (*(v8 + 32))(v6, v5, v7);
+    (*(v8 + 16))(v10, v6, v7);
+    swift_willThrowTyped(v10, v7, *(*(v9 + 8) + 8));
+    outlined consume of Data?(v4, v3);
+    (*(v8 + 8))(v6, v7);
   }
 
   else
   {
-    v25 = v0[22];
+    v11 = *(v0 + 520);
+    v13 = *(v0 + 416);
+    v12 = *(v0 + 424);
+    v14 = *(v0 + 312);
+    v15 = *(v0 + 264);
+    v16 = *(v0 + 272);
+    v17 = *(v0 + 256);
+    v18 = *(v0 + 240);
+
+    AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+    (*(AssociatedConformanceWitness + 104))(v15, AssociatedConformanceWitness);
+    swift_getErrorValue();
+    v20 = Error.readableDescription.getter(*(v0 + 112), *(v0 + 120));
+    (*(v17 + 104))(v16, v20, v21, v14, v17);
+    swift_willThrowTyped(v18, v14, *(*(v17 + 8) + 8));
+    outlined consume of Data?(v13, v12);
   }
 
-  v26 = v0[38];
-  v27 = v0[24];
-  v28 = v0[25];
-  swift_willThrow();
+  v22 = *(v0 + 8);
 
-  v29 = v0[1];
-  v30 = v0[38];
-
-  return v29();
+  return v22();
 }
 
-uint64_t closure #1 in MLS.XPCClientCoordinator.applicationSign(input:withGroup:context:)@<X0>(__int128 *a1@<X1>, __int128 *a2@<X2>, uint64_t a3@<X3>, uint64_t *a4@<X8>)
+uint64_t _s15SecureMessaging3MLSO15OperationRunnerC3run9operation20ProcessedContextTypeQzx_tYa05ErrorJ0QzYKAC05GroupD0RzlFAC10EventQueueC6ResultOAC08OutgoingM5StateVSg_SStYaYbKAA8MLSActorCYccfU_(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v18 = *a1;
-  v21 = a1[1];
-  *v23 = a1[2];
-  *&v23[12] = *(a1 + 44);
-  lazy protocol witness table accessor for type MLS.SigningInput and conformance MLS.SigningInput();
-  result = dispatch thunk of JSONEncoder.encode<A>(_:)();
-  if (!v4)
+  *(v8 + 608) = v17;
+  *(v8 + 600) = v16;
+  *(v8 + 592) = v15;
+  *(v8 + 584) = v14;
+  *(v8 + 568) = v13;
+  *(v8 + 560) = a8;
+  *(v8 + 552) = a7;
+  *(v8 + 544) = a6;
+  *(v8 + 536) = a5;
+  *(v8 + 528) = a1;
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  *(v8 + 616) = AssociatedTypeWitness;
+  *(v8 + 624) = *(AssociatedTypeWitness - 8);
+  *(v8 + 632) = swift_task_alloc();
+  *(v8 + 640) = swift_task_alloc();
+  if (one-time initialization token for shared != -1)
   {
-    v10 = result;
-    v11 = v9;
-    v19 = *a2;
-    v22 = a2[1];
-    v24 = *(a2 + 4);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO14SigningContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO14SigningContextVy_10Foundation4DataVGMR);
-    lazy protocol witness table accessor for type MLS.KeyPackageRetrievalResult<MLS.AllMember> and conformance MLS.KeyPackageRetrievalResult<A>(&lazy protocol witness table cache variable for type MLS.SigningContext<Data> and conformance MLS.SigningContext<A>, &_s15SecureMessaging3MLSO14SigningContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO14SigningContextVy_10Foundation4DataVGMR);
-    v12 = dispatch thunk of JSONEncoder.encode<A>(_:)();
-    v14 = v13;
-    v20 = *(a3 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier);
-    lazy protocol witness table accessor for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier();
-
-    v15 = dispatch thunk of JSONEncoder.encode<A>(_:)();
-    v17 = v16;
-
-    *a4 = v15;
-    a4[1] = v17;
-    a4[2] = v10;
-    a4[3] = v11;
-    a4[4] = v12;
-    a4[5] = v14;
+    swift_once();
   }
+
+  v10 = static MLSActor.shared;
+  *(v8 + 648) = static MLSActor.shared;
+
+  return MEMORY[0x2822009F8](_s15SecureMessaging3MLSO15OperationRunnerC3run9operation20ProcessedContextTypeQzx_tYa05ErrorJ0QzYKAC05GroupD0RzlFAC10EventQueueC6ResultOAC08OutgoingM5StateVSg_SStYaYbKAA8MLSActorCYccfU_TY0_, v10, 0);
+}
+
+uint64_t _s15SecureMessaging3MLSO15OperationRunnerC3run9operation20ProcessedContextTypeQzx_tYa05ErrorJ0QzYKAC05GroupD0RzlFAC10EventQueueC6ResultOAC08OutgoingM5StateVSg_SStYaYbKAA8MLSActorCYccfU_TY0_()
+{
+  v21 = v0;
+
+  v1 = Logger.logObject.getter();
+  v2 = static os_log_type_t.default.getter();
+
+  if (os_log_type_enabled(v1, v2))
+  {
+    v3 = *(v0 + 568);
+    v4 = *(v0 + 560);
+    v5 = *(v0 + 552);
+    v6 = *(v0 + 544);
+    v7 = swift_slowAlloc();
+    v8 = swift_slowAlloc();
+    v20 = v8;
+    *v7 = 136315394;
+    *(v7 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v6, v5, &v20);
+    *(v7 + 12) = 2080;
+    *(v7 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v4, v3, &v20);
+    _os_log_impl(&dword_264F1F000, v1, v2, "OperationRunner %s event dequeued { identifier: %s }", v7, 0x16u);
+    swift_arrayDestroy();
+    MEMORY[0x266755550](v8, -1, -1);
+    MEMORY[0x266755550](v7, -1, -1);
+  }
+
+  v9 = *(v0 + 576);
+  v10 = *(v0 + 536);
+  swift_beginAccess();
+  v11._countAndFlagsBits = 0x676E6975657551;
+  v11._object = 0xE700000000000000;
+  MetricCollector.end(label:)(v11);
+  swift_endAccess();
+  swift_beginAccess();
+  *(v0 + 520) = *(v9 + 16);
+  *(v0 + 360) = 0u;
+  *(v0 + 376) = 0u;
+  *(v0 + 392) = 0;
+  *(v0 + 456) = 0;
+  *(v0 + 464) = 0;
+  *(v0 + 448) = 0;
+  v12 = *(*v10 + 224);
+
+  v19 = (v12 + *v12);
+  v13 = swift_task_alloc();
+  *(v0 + 656) = v13;
+  *v13 = v0;
+  v13[1] = _s15SecureMessaging3MLSO15OperationRunnerC3run9operation20ProcessedContextTypeQzx_tYa05ErrorJ0QzYKAC05GroupD0RzlFAC10EventQueueC6ResultOAC08OutgoingM5StateVSg_SStYaYbKAA8MLSActorCYccfU_TQ1_;
+  v14 = *(v0 + 640);
+  v15 = *(v0 + 608);
+  v16 = *(v0 + 600);
+  v17 = *(v0 + 584);
+
+  return v19(v0 + 16, v17, v0 + 520, v0 + 360, v0 + 448, v16, v15, v14);
+}
+
+uint64_t _s15SecureMessaging3MLSO15OperationRunnerC3run9operation20ProcessedContextTypeQzx_tYa05ErrorJ0QzYKAC05GroupD0RzlFAC10EventQueueC6ResultOAC08OutgoingM5StateVSg_SStYaYbKAA8MLSActorCYccfU_TQ1_()
+{
+  v2 = *v1;
+
+  if (v0)
+  {
+    v3 = *(v2 + 648);
+    outlined destroy of NSObject?(v2 + 360, &_s15SecureMessaging3MLSO21SwiftMLSGroupProtocol_pSgMd, &_s15SecureMessaging3MLSO21SwiftMLSGroupProtocol_pSgMR);
+
+    v4 = _s15SecureMessaging3MLSO15OperationRunnerC3run9operation20ProcessedContextTypeQzx_tYa05ErrorJ0QzYKAC05GroupD0RzlFAC10EventQueueC6ResultOAC08OutgoingM5StateVSg_SStYaYbKAA8MLSActorCYccfU_TY3_;
+  }
+
+  else
+  {
+    v3 = *(v2 + 648);
+    outlined destroy of NSObject?(v2 + 360, &_s15SecureMessaging3MLSO21SwiftMLSGroupProtocol_pSgMd, &_s15SecureMessaging3MLSO21SwiftMLSGroupProtocol_pSgMR);
+
+    v4 = _s15SecureMessaging3MLSO15OperationRunnerC3run9operation20ProcessedContextTypeQzx_tYa05ErrorJ0QzYKAC05GroupD0RzlFAC10EventQueueC6ResultOAC08OutgoingM5StateVSg_SStYaYbKAA8MLSActorCYccfU_TY2_;
+  }
+
+  return MEMORY[0x2822009F8](v4, v3, 0);
+}
+
+uint64_t _s15SecureMessaging3MLSO15OperationRunnerC3run9operation20ProcessedContextTypeQzx_tYa05ErrorJ0QzYKAC05GroupD0RzlFAC10EventQueueC6ResultOAC08OutgoingM5StateVSg_SStYaYbKAA8MLSActorCYccfU_TY2_()
+{
+  v1 = *(v0 + 96);
+  *(v0 + 200) = *(v0 + 80);
+  *(v0 + 216) = v1;
+  *(v0 + 232) = *(v0 + 112);
+  v2 = *(v0 + 32);
+  *(v0 + 136) = *(v0 + 16);
+  *(v0 + 152) = v2;
+  v3 = *(v0 + 64);
+  *(v0 + 168) = *(v0 + 48);
+  v4 = *(v0 + 592);
+  v5 = *(v0 + 576);
+  v6 = *(v0 + 136);
+  *(v0 + 248) = *(v0 + 128);
+  v7 = *(v0 + 528);
+  *(v0 + 184) = v3;
+  swift_beginAccess();
+  *(v5 + 16) = v6;
+
+  v8 = *(v0 + 248);
+  swift_beginAccess();
+  *(v4 + 16) = v8;
+
+  outlined init with copy of MLS.EventQueue.Result(v0 + 144, v0 + 256);
+  outlined destroy of MLS.OperationRunner.OnQueueRunResult(v0 + 136);
+  v10 = *(v0 + 160);
+  v9 = *(v0 + 176);
+  *v7 = *(v0 + 144);
+  *(v7 + 16) = v10;
+  *(v7 + 32) = v9;
+  v12 = *(v0 + 208);
+  v11 = *(v0 + 224);
+  v13 = *(v0 + 192);
+  *(v7 + 96) = *(v0 + 240);
+  *(v7 + 64) = v12;
+  *(v7 + 80) = v11;
+  *(v7 + 48) = v13;
+
+  v14 = *(v0 + 8);
+
+  return v14();
+}
+
+uint64_t _s15SecureMessaging3MLSO15OperationRunnerC3run9operation20ProcessedContextTypeQzx_tYa05ErrorJ0QzYKAC05GroupD0RzlFAC10EventQueueC6ResultOAC08OutgoingM5StateVSg_SStYaYbKAA8MLSActorCYccfU_TY3_()
+{
+  v1 = *(v0[78] + 32);
+  v1(v0[79], v0[80], v0[77]);
+  swift_getAssociatedConformanceWitness();
+  v2 = _getErrorEmbeddedNSError<A>(_:)();
+  v3 = v0[79];
+  if (v2)
+  {
+    (*(v0[78] + 8))(v0[79], v0[77]);
+  }
+
+  else
+  {
+    v4 = v0[77];
+    swift_allocError();
+    v1(v5, v3, v4);
+  }
+
+  v6 = v0[1];
+
+  return v6();
+}
+
+double MLS.OperationRunner.OnQueueRunResult.metricCollector.getter@<D0>(uint64_t *a1@<X8>)
+{
+  *a1 = *v1;
 
   return result;
 }
 
-uint64_t MLS.XPCClientCoordinator.applicationEncrypt(groupName:withGroup:context:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t *a6)
+uint64_t MLS.OperationRunner.OnQueueRunResult.eventQueueResult.getter@<X0>(uint64_t a1@<X8>)
 {
-  *(v7 + 120) = a5;
-  *(v7 + 128) = v6;
-  *(v7 + 104) = a3;
-  *(v7 + 112) = a4;
-  *(v7 + 88) = a1;
-  *(v7 + 96) = a2;
-  v9 = type metadata accessor for MetricCollector.Event();
-  *(v7 + 136) = v9;
-  v10 = *(*(v9 - 8) + 64) + 15;
-  *(v7 + 144) = swift_task_alloc();
-  v11 = swift_task_alloc();
-  v12 = *a6;
-  v13 = a6[1];
-  *(v7 + 152) = v11;
-  *(v7 + 160) = v12;
-  *(v7 + 168) = v13;
-  *(v7 + 176) = *(a6 + 1);
-  *(v7 + 192) = a6[4];
+  v2 = *(v1 + 56);
+  v4 = *(v1 + 88);
+  v13 = *(v1 + 72);
+  v3 = v13;
+  v14 = v4;
+  v15 = *(v1 + 104);
+  v5 = v15;
+  v6 = *(v1 + 24);
+  v10[0] = *(v1 + 8);
+  v10[1] = v6;
+  v11 = *(v1 + 40);
+  v7 = v11;
+  v12 = v2;
+  *a1 = v10[0];
+  *(a1 + 16) = v6;
+  *(a1 + 32) = v7;
+  *(a1 + 48) = v2;
+  *(a1 + 64) = v3;
+  *(a1 + 80) = v4;
+  *(a1 + 96) = v5;
+  return outlined init with copy of MLS.EventQueue.Result(v10, v9);
+}
+
+__n128 MLS.OperationRunner.OnQueueRunResult.init(metricCollector:eventQueueResult:eventSendTask:)@<Q0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+{
+  v4 = *(a2 + 32);
+  *(a4 + 56) = *(a2 + 48);
+  v5 = *(a2 + 80);
+  *(a4 + 72) = *(a2 + 64);
+  *(a4 + 88) = v5;
+  result = *a2;
+  v7 = *(a2 + 16);
+  *(a4 + 8) = *a2;
+  *(a4 + 24) = v7;
+  *a4 = *a1;
+  *(a4 + 104) = *(a2 + 96);
+  *(a4 + 40) = v4;
+  *(a4 + 112) = a3;
+  return result;
+}
+
+uint64_t _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlF(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  *(v9 + 3016) = a8;
+  *(v9 + 3008) = v8;
+  *(v9 + 3000) = a7;
+  *(v9 + 2992) = a6;
+  *(v9 + 2984) = a4;
+  *(v9 + 2976) = a2;
+  *(v9 + 2968) = a1;
+  swift_getAssociatedTypeWitness();
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+  *(v9 + 3024) = AssociatedConformanceWitness;
+  *(v9 + 3032) = *(*(AssociatedConformanceWitness + 8) + 8);
+  *(v9 + 3040) = swift_getAssociatedTypeWitness();
+  *(v9 + 3048) = swift_task_alloc();
+  v13 = type metadata accessor for MLS.MLSError();
+  *(v9 + 3056) = v13;
+  *(v9 + 3064) = *(v13 - 8);
+  *(v9 + 3072) = swift_task_alloc();
+  *(v9 + 3080) = swift_task_alloc();
+  *(v9 + 3088) = swift_task_alloc();
+  *(v9 + 3096) = swift_task_alloc();
+  *(v9 + 3104) = type metadata accessor for MetricCollector.Event(0);
+  *(v9 + 3112) = swift_task_alloc();
+  *(v9 + 3120) = swift_task_alloc();
+  v14 = swift_checkMetadataState();
+  *(v9 + 3128) = v14;
+  *(v9 + 3136) = *(v14 - 8);
+  *(v9 + 3144) = swift_task_alloc();
+  *(v9 + 3152) = swift_task_alloc();
+  *(v9 + 3160) = swift_task_alloc();
+  *(v9 + 3168) = swift_task_alloc();
+  *(v9 + 3176) = swift_task_alloc();
+  *(v9 + 3184) = swift_task_alloc();
+  *(v9 + 3192) = swift_task_alloc();
+  *(v9 + 3200) = swift_task_alloc();
+  *(v9 + 3208) = swift_task_alloc();
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  *(v9 + 3216) = AssociatedTypeWitness;
+  *(v9 + 3224) = *(AssociatedTypeWitness - 8);
+  *(v9 + 3232) = swift_task_alloc();
+  *(v9 + 3240) = *a3;
+  *(v9 + 3248) = *a5;
+  *(v9 + 3264) = *(a5 + 16);
   if (one-time initialization token for shared != -1)
   {
     swift_once();
   }
 
-  v14 = static MLSActor.shared;
-  *(v7 + 200) = static MLSActor.shared;
+  v16 = static MLSActor.shared;
+  *(v9 + 3272) = static MLSActor.shared;
 
-  return MEMORY[0x2822009F8](MLS.XPCClientCoordinator.applicationEncrypt(groupName:withGroup:context:), v14, 0);
+  return MEMORY[0x2822009F8](_s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTY0_, v16, 0);
 }
 
-void MLS.XPCClientCoordinator.applicationEncrypt(groupName:withGroup:context:)()
+uint64_t _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTY0_()
 {
-  v2 = *(v0 + 184);
-  v1 = *(v0 + 192);
-  v4 = *(v0 + 168);
-  v3 = *(v0 + 176);
-  v5 = *(v0 + 128);
-  *(v0 + 208) = direct field offset for MLS.XPCClientCoordinator.logger;
+  v1 = v0[405];
+  v2 = v0[404];
+  v3 = v0[403];
+  v4 = v0[402];
+  v5 = v0[376];
+  v6 = v0[375];
+  v7 = v0[374];
+  (*(v6 + 80))(v7, v6);
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+  v0[410] = (*(AssociatedConformanceWitness + 16))(v4, AssociatedConformanceWitness);
+  v0[411] = v9;
+  (*(v3 + 8))(v2, v4);
+  v0[370] = v1;
+  v10 = *(v6 + 72);
 
-  outlined copy of Data?(v3, v2);
+  v0[412] = v10(v7, v6);
+  v0[413] = v11;
+  v0[414] = (*(v6 + 56))(v7, v6);
+  v0[415] = v12;
+  v20 = (*(**(v5 + 72) + 176) + **(**(v5 + 72) + 176));
+  v13 = swift_task_alloc();
+  v0[416] = v13;
+  *v13 = v0;
+  v13[1] = _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTQ1_;
+  v14 = v0[401];
+  v15 = v0[375];
+  v16 = v0[374];
+  v17 = v0[373];
+  v18 = v0[372];
 
-  v6 = Logger.logObject.getter();
-  v7 = static os_log_type_t.default.getter();
-
-  outlined consume of Data?(v3, v2);
-
-  if (os_log_type_enabled(v6, v7))
-  {
-    v9 = *(v0 + 160);
-    v8 = *(v0 + 168);
-    v10 = *(v0 + 128);
-    v11 = swift_slowAlloc();
-    v12 = swift_slowAlloc();
-    v46 = v12;
-    *v11 = 136315394;
-
-    v13 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v9, v8, &v46);
-
-    *(v11 + 4) = v13;
-    *(v11 + 12) = 2080;
-    v14 = *(v10 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier);
-    v15 = *(v10 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier + 8);
-    strcpy(v47, "EncryptedRCS.");
-    HIWORD(v47[1]) = -4864;
-
-    MEMORY[0x2667545A0](v14, v15);
-
-    v16 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v47[0], v47[1], &v46);
-
-    *(v11 + 14) = v16;
-    _os_log_impl(&dword_264F1F000, v6, v7, "XPCClientCoordinator applicationEncrypt groupName { identifier: %s, client: %s }", v11, 0x16u);
-    swift_arrayDestroy();
-    MEMORY[0x266755550](v12, -1, -1);
-    MEMORY[0x266755550](v11, -1, -1);
-  }
-
-  else
-  {
-    v17 = *(v0 + 128);
-  }
-
-  v18 = *(v0 + 184);
-  v19 = *(v0 + 192);
-  v21 = *(v0 + 168);
-  v20 = *(v0 + 176);
-  v22 = *(v0 + 152);
-  v23 = *(v0 + 160);
-  v25 = *(v0 + 136);
-  v24 = *(v0 + 144);
-  v26 = *(v0 + 128);
-  v43 = *(v0 + 112);
-  v45 = *(v0 + 120);
-  v42 = *(v0 + 96);
-
-  outlined copy of Data?(v20, v18);
-
-  Date.init()();
-  v27 = *(v25 + 20);
-  v28 = type metadata accessor for Date();
-  (*(*(v28 - 8) + 56))(v22 + v27, 1, 1, v28);
-  outlined init with take of MetricCollector.Event(v22, v24);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v47[0] = v19;
-  specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v24, 0x5864726177726F46, 0xEA00000000004350, isUniquelyReferenced_nonNull_native);
-  v30 = v47[0];
-  *(v0 + 216) = v47[0];
-
-  *(v0 + 16) = v23;
-  *(v0 + 24) = v21;
-  *(v0 + 32) = v20;
-  *(v0 + 40) = v18;
-  *(v0 + 48) = v30;
-  v31 = *(*(v26 + direct field offset for MLS.XPCClientCoordinator.xpcClient) + OBJC_IVAR____TtCO15SecureMessaging8XPCUtils9XPCClient_deliveryInterface);
-  *(v0 + 224) = v31;
-  v32 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO35GroupNameEncryptionProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO35GroupNameEncryptionProcessedContextVy_10Foundation4DataVGMR);
-  v33 = swift_task_alloc();
-  *(v0 + 232) = v33;
-  *(v33 + 16) = v0 + 16;
-  *(v33 + 24) = v26;
-  v34 = swift_task_alloc();
-  *(v0 + 240) = v34;
-  *(v34 + 16) = v42;
-  *(v34 + 32) = v43;
-  *(v34 + 40) = v45;
-  v35 = *(*v31 + 360);
-
-  v44 = v35 + *v35;
-  v36 = v35[1];
-  v37 = swift_task_alloc();
-  *(v0 + 248) = v37;
-  v38 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DataV_ACtMd, &_s10Foundation4DataV_ACtMR);
-  v39 = lazy protocol witness table accessor for type MLS.KeyPackageRetrievalResult<MLS.AllMember> and conformance MLS.KeyPackageRetrievalResult<A>(&lazy protocol witness table cache variable for type MLS.GroupNameEncryptionProcessedContext<Data> and conformance MLS.GroupNameEncryptionProcessedContext<A>, &_s15SecureMessaging3MLSO35GroupNameEncryptionProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO35GroupNameEncryptionProcessedContextVy_10Foundation4DataVGMR);
-  v40 = lazy protocol witness table accessor for type MLS.KeyPackageRetrievalResult<MLS.AllMember> and conformance MLS.KeyPackageRetrievalResult<A>(&lazy protocol witness table cache variable for type MLS.GroupNameEncryptionProcessedContext<Data> and conformance MLS.GroupNameEncryptionProcessedContext<A>, &_s15SecureMessaging3MLSO35GroupNameEncryptionProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO35GroupNameEncryptionProcessedContextVy_10Foundation4DataVGMR);
-  v41 = lazy protocol witness table accessor for type MLS.EncryptionError and conformance MLS.EncryptionError();
-  *v37 = v0;
-  v37[1] = MLS.XPCClientCoordinator.applicationEncrypt(groupName:withGroup:context:);
-  v55 = v40;
-  v56 = v41;
-  v53 = v38;
-  v54 = v39;
-  v51 = v32;
-  v52 = &type metadata for MLS.EncryptionError;
-  v49 = partial apply for closure #3 in MLS.XPCClientCoordinator.applicationEncrypt(groupName:withGroup:context:);
-  v50 = v34;
-
-  __asm { BRAA            X8, X16 }
+  return v20(v0 + 235, v18, v17, v16, v15, v14);
 }
 
-uint64_t MLS.XPCClientCoordinator.applicationEncrypt(groupName:withGroup:context:)()
+uint64_t _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTQ1_()
 {
   v2 = *v1;
-  v3 = *(*v1 + 248);
-  v4 = *v1;
-  *(*v1 + 256) = v0;
-
-  v5 = v2[30];
-  v6 = v2[29];
-  v7 = v2[28];
-  v8 = v2[25];
 
   if (v0)
   {
-    v9 = MLS.XPCClientCoordinator.applicationEncrypt(groupName:withGroup:context:);
+    v3 = *(v2 + 3272);
+
+    v4 = _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTY13_;
+    v5 = v3;
   }
 
   else
   {
-    v9 = MLS.XPCClientCoordinator.applicationEncrypt(groupName:withGroup:context:);
+    v5 = *(v2 + 3272);
+    v4 = _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTY2_;
   }
 
-  return MEMORY[0x2822009F8](v9, v8, 0);
+  return MEMORY[0x2822009F8](v4, v5, 0);
 }
 
+uint64_t _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTY2_()
 {
-  v1 = *(v0 + 216);
-  v3 = *(v0 + 176);
-  v2 = *(v0 + 184);
-  v4 = *(v0 + 168);
-  v6 = *(v0 + 144);
-  v5 = *(v0 + 152);
-  v7 = *(v0 + 88);
-
-  outlined consume of Data?(v3, v2);
-
-  v8 = *(v0 + 72);
-  v9 = *(v0 + 80);
-  *v7 = *(v0 + 56);
-  *(v7 + 16) = v8;
-  *(v7 + 24) = v9;
-
-  v10 = *(v0 + 8);
-
-  return v10();
-}
-
-{
-  v34 = v0;
-  v1 = v0[32];
-  v3 = v0[26];
-  v2 = v0[27];
-  v5 = v0[23];
-  v4 = v0[24];
-  v7 = v0[21];
-  v6 = v0[22];
-  v8 = v0[16];
-
-  outlined consume of Data?(v6, v5);
-
-  outlined copy of Data?(v6, v5);
-
-  v9 = v1;
-  v10 = Logger.logObject.getter();
-  v11 = static os_log_type_t.error.getter();
-
-  outlined consume of Data?(v6, v5);
-
-  if (os_log_type_enabled(v10, v11))
+  v48 = v0;
+  if ((*(*(v0 + 3000) + 96))(*(v0 + 2992)))
   {
-    v12 = v0[32];
-    v14 = v0[20];
-    v13 = v0[21];
-    v15 = v0[16];
-    v16 = swift_slowAlloc();
-    v17 = swift_slowAlloc();
-    v18 = swift_slowAlloc();
-    v32 = v18;
-    *v16 = 136315650;
 
-    v19 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v14, v13, &v32);
+    v1 = Logger.logObject.getter();
+    v2 = static os_log_type_t.default.getter();
 
-    *(v16 + 4) = v19;
-    *(v16 + 12) = 2112;
-    v20 = v12;
-    v21 = _swift_stdlib_bridgeErrorToNSError();
-    *(v16 + 14) = v21;
-    *v17 = v21;
-    *(v16 + 22) = 2080;
-    v22 = *(v15 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier);
-    v23 = *(v15 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier + 8);
+    v3 = os_log_type_enabled(v1, v2);
+    v4 = *(v0 + 3320);
+    if (v3)
+    {
+      v5 = *(v0 + 3312);
+      v6 = *(v0 + 3288);
+      v7 = *(v0 + 3280);
+      v8 = swift_slowAlloc();
+      v9 = swift_slowAlloc();
+      v47 = v9;
+      *v8 = 136315394;
+      v10 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v5, v4, &v47);
 
-    strcpy(v33, "EncryptedRCS.");
-    HIWORD(v33[1]) = -4864;
-    MEMORY[0x2667545A0](v22, v23);
+      *(v8 + 4) = v10;
+      *(v8 + 12) = 2080;
+      v11 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v7, v6, &v47);
 
-    v24 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v33[0], v33[1], &v32);
+      *(v8 + 14) = v11;
+      _os_log_impl(&dword_264F1F000, v1, v2, "OperationRunner %s told not to run on group { identifier: %s } }", v8, 0x16u);
+      swift_arrayDestroy();
+      MEMORY[0x266755550](v9, -1, -1);
+      MEMORY[0x266755550](v8, -1, -1);
+    }
 
-    *(v16 + 24) = v24;
-    _os_log_impl(&dword_264F1F000, v10, v11, "XPCClientCoordinator applicationEncrypt groupName failed { identifier: %s, error: %@, client: %s }", v16, 0x20u);
-    outlined destroy of NSObject?(v17, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    MEMORY[0x266755550](v17, -1, -1);
-    swift_arrayDestroy();
-    MEMORY[0x266755550](v18, -1, -1);
-    MEMORY[0x266755550](v16, -1, -1);
+    else
+    {
+    }
+
+    outlined destroy of MLS.GroupLoader.LoadedGroupAndOperation(v0 + 1880);
+    v37 = *(v0 + 2968);
+    *v37 = *(v0 + 2960);
+    *(v37 + 8) = 1;
+    *(v37 + 16) = 0u;
+    *(v37 + 32) = 0u;
+    *(v37 + 48) = 0u;
+    *(v37 + 64) = 0u;
+    *(v37 + 80) = 0u;
+    *(v37 + 96) = 0;
+    *(v37 + 104) = 3;
+    *(v37 + 112) = 0;
+
+    v38 = *(v0 + 8);
+
+    return v38();
   }
 
   else
   {
-    v25 = v0[16];
+    v12 = *(v0 + 3248);
+    v13 = *(v0 + 3120);
+    v14 = *(v0 + 3112);
+    v15 = *(v0 + 3104);
+
+    Date.init()();
+    v16 = *(v15 + 20);
+    v17 = type metadata accessor for Date();
+    (*(*(v17 - 8) + 56))(v13 + v16, 1, 1, v17);
+    outlined init with take of MetricCollector.Event(v13, v14, type metadata accessor for MetricCollector.Event);
+    v18 = *(v0 + 2960);
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    v47 = v18;
+    specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v14, 0xD000000000000013, 0x80000002651E7920, isUniquelyReferenced_nonNull_native);
+
+    *(v0 + 2960) = v18;
+    if (v12)
+    {
+      v20 = *(v0 + 3264);
+      v21 = *(v0 + 3256);
+      v22 = *(v0 + 3248);
+      *(v0 + 3360) = v22;
+      *(v0 + 3352) = v21;
+      *(v0 + 3344) = v20;
+      outlined copy of MLS.KeyPackageFetcher.FetchResult?(v22, v21, v20);
+      v23._object = 0x80000002651E7920;
+      v23._countAndFlagsBits = 0xD000000000000013;
+      MetricCollector.end(label:)(v23);
+      v24 = *(v0 + 2960);
+      outlined init with copy of MLS.GroupLoader.LoadedGroupAndOperation(v0 + 1880, v0 + 2144);
+      v25 = (v0 + 2144);
+      if (*(v0 + 2224))
+      {
+        outlined init with take of MLS.KeyUpdatePolicy(v25, v0 + 2360);
+        v26 = *(v0 + 2200);
+        *(v0 + 2320) = *(v0 + 2184);
+        *(v0 + 2336) = v26;
+        *(v0 + 2352) = *(v0 + 2216);
+        v27 = *(v0 + 2384);
+        v28 = *(v0 + 2392);
+        __swift_project_boxed_opaque_existential_1((v0 + 2360), v27);
+        *(v0 + 2952) = v24;
+        *(v0 + 2720) = v22;
+        *(v0 + 2728) = v21;
+        *(v0 + 2736) = v20;
+        v44 = (*(v28 + 24) + **(v28 + 24));
+        v29 = swift_task_alloc();
+        *(v0 + 3368) = v29;
+        *v29 = v0;
+        v29[1] = _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTQ5_;
+        v30 = v0 + 1336;
+        v31 = v0 + 2320;
+        v32 = v0 + 2952;
+        v33 = v0 + 2720;
+        v34 = v27;
+        v35 = v28;
+        v36 = v44;
+      }
+
+      else
+      {
+        outlined init with take of MLS.KeyUpdatePolicy(v25, v0 + 2640);
+        outlined init with take of MLS.KeyUpdatePolicy((v0 + 2184), v0 + 2680);
+        v41 = *(v0 + 2664);
+        v42 = *(v0 + 2672);
+        __swift_project_boxed_opaque_existential_1((v0 + 2640), v41);
+        *(v0 + 2896) = v24;
+        *(v0 + 2768) = v22;
+        *(v0 + 2776) = v21;
+        *(v0 + 2784) = v20;
+        v46 = (*(v42 + 24) + **(v42 + 24));
+        v43 = swift_task_alloc();
+        *(v0 + 3384) = v43;
+        *v43 = v0;
+        v43[1] = _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTQ6_;
+        v30 = v0 + 1336;
+        v31 = v0 + 2680;
+        v32 = v0 + 2896;
+        v33 = v0 + 2768;
+        v34 = v41;
+        v35 = v42;
+        v36 = v46;
+      }
+    }
+
+    else
+    {
+      v45 = (*(**(*(v0 + 3008) + 96) + 104) + **(**(*(v0 + 3008) + 96) + 104));
+      v40 = swift_task_alloc();
+      *(v0 + 3336) = v40;
+      *v40 = v0;
+      v40[1] = _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTQ3_;
+      v35 = *(v0 + 3200);
+      v34 = *(v0 + 3000);
+      v33 = *(v0 + 2992);
+      v31 = *(v0 + 2976);
+      v30 = v0 + 2864;
+      v32 = v0 + 1880;
+      v36 = v45;
+    }
+
+    return v36(v30, v31, v32, v33, v34, v35);
   }
-
-  v26 = v0[32];
-  v27 = v0[18];
-  v28 = v0[19];
-  swift_willThrow();
-
-  v29 = v0[1];
-  v30 = v0[32];
-
-  return v29();
 }
 
-uint64_t MLS.XPCClientCoordinator.processIncoming(groupName:forGroup:context:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t *a6)
+uint64_t _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTQ3_()
 {
-  *(v7 + 216) = a5;
-  *(v7 + 224) = v6;
-  *(v7 + 200) = a3;
-  *(v7 + 208) = a4;
-  *(v7 + 184) = a1;
-  *(v7 + 192) = a2;
-  v9 = type metadata accessor for MetricCollector.Event();
-  *(v7 + 232) = v9;
-  v10 = *(*(v9 - 8) + 64) + 15;
-  *(v7 + 240) = swift_task_alloc();
-  v11 = swift_task_alloc();
-  v12 = *a6;
-  v13 = a6[1];
-  *(v7 + 248) = v11;
-  *(v7 + 256) = v12;
-  *(v7 + 264) = v13;
-  *(v7 + 272) = *(a6 + 1);
-  *(v7 + 288) = a6[4];
+  v2 = *v1;
+
+  v3 = *(v2 + 3272);
+  if (v0)
+  {
+    v4 = _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTY19_;
+  }
+
+  else
+  {
+    v4 = _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTY4_;
+  }
+
+  return MEMORY[0x2822009F8](v4, v3, 0);
+}
+
+uint64_t _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTY4_()
+{
+  v1 = *(v0 + 2864);
+  v2 = *(v0 + 2872);
+  v3 = *(v0 + 2880);
+  *(v0 + 3360) = v1;
+  *(v0 + 3352) = v2;
+  *(v0 + 3344) = v3;
+  outlined copy of MLS.KeyPackageFetcher.FetchResult?(*(v0 + 3248), *(v0 + 3256), *(v0 + 3264));
+  v4._object = 0x80000002651E7920;
+  v4._countAndFlagsBits = 0xD000000000000013;
+  MetricCollector.end(label:)(v4);
+  v5 = *(v0 + 2960);
+  outlined init with copy of MLS.GroupLoader.LoadedGroupAndOperation(v0 + 1880, v0 + 2144);
+  v6 = (v0 + 2144);
+  if (*(v0 + 2224) == 1)
+  {
+    outlined init with take of MLS.KeyUpdatePolicy(v6, v0 + 2360);
+    v7 = *(v0 + 2200);
+    *(v0 + 2320) = *(v0 + 2184);
+    *(v0 + 2336) = v7;
+    *(v0 + 2352) = *(v0 + 2216);
+    v8 = *(v0 + 2384);
+    v9 = *(v0 + 2392);
+    __swift_project_boxed_opaque_existential_1((v0 + 2360), v8);
+    *(v0 + 2952) = v5;
+    *(v0 + 2720) = v1;
+    *(v0 + 2728) = v2;
+    *(v0 + 2736) = v3;
+    v22 = (*(v9 + 24) + **(v9 + 24));
+    v10 = swift_task_alloc();
+    *(v0 + 3368) = v10;
+    *v10 = v0;
+    v10[1] = _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTQ5_;
+    v11 = v0 + 1336;
+    v12 = v0 + 2320;
+    v13 = v0 + 2952;
+    v14 = v0 + 2720;
+    v15 = v8;
+    v16 = v9;
+    v17 = v22;
+  }
+
+  else
+  {
+    outlined init with take of MLS.KeyUpdatePolicy(v6, v0 + 2640);
+    outlined init with take of MLS.KeyUpdatePolicy((v0 + 2184), v0 + 2680);
+    v18 = *(v0 + 2664);
+    v19 = *(v0 + 2672);
+    __swift_project_boxed_opaque_existential_1((v0 + 2640), v18);
+    *(v0 + 2896) = v5;
+    *(v0 + 2768) = v1;
+    *(v0 + 2776) = v2;
+    *(v0 + 2784) = v3;
+    v23 = (*(v19 + 24) + **(v19 + 24));
+    v20 = swift_task_alloc();
+    *(v0 + 3384) = v20;
+    *v20 = v0;
+    v20[1] = _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTQ6_;
+    v11 = v0 + 1336;
+    v12 = v0 + 2680;
+    v13 = v0 + 2896;
+    v14 = v0 + 2768;
+    v15 = v18;
+    v16 = v19;
+    v17 = v23;
+  }
+
+  return v17(v11, v12, v13, v14, v15, v16);
+}
+
+uint64_t _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTQ5_()
+{
+  v2 = *v1;
+  *(*v1 + 3376) = v0;
+
+  v3 = *(v2 + 3272);
+  if (v0)
+  {
+    v4 = _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTY8_;
+  }
+
+  else
+  {
+    v4 = _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTY7_;
+  }
+
+  return MEMORY[0x2822009F8](v4, v3, 0);
+}
+
+uint64_t _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTQ6_()
+{
+  v2 = *v1;
+  *(*v1 + 3392) = v0;
+
+  v3 = *(v2 + 3272);
+  if (v0)
+  {
+    v4 = _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTY10_;
+  }
+
+  else
+  {
+    v4 = _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTY9_;
+  }
+
+  return MEMORY[0x2822009F8](v4, v3, 0);
+}
+
+uint64_t _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTY7_()
+{
+
+  outlined destroy of NSObject?((v0 + 290), &_s15SecureMessaging3MLSO21SwiftMLSGroupProtocol_pSgMd, &_s15SecureMessaging3MLSO21SwiftMLSGroupProtocol_pSgMR);
+  __swift_destroy_boxed_opaque_existential_1Tm(v0 + 295);
+  memcpy(v0 + 112, v0 + 167, 0x1B8uLL);
+  v1 = swift_task_alloc();
+  v0[425] = v1;
+  *v1 = v0;
+  v1[1] = _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTQ11_;
+  v2 = v0[375];
+  v3 = v0[374];
+  v4 = v0[372];
+  v5 = v0[371];
+
+  return MLS.OperationRunner.handle<A>(operationResult:for:)(v5, (v0 + 112), v4, v3, v2);
+}
+
+uint64_t _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTY8_()
+{
+  outlined destroy of NSObject?(v0 + 2320, &_s15SecureMessaging3MLSO21SwiftMLSGroupProtocol_pSgMd, &_s15SecureMessaging3MLSO21SwiftMLSGroupProtocol_pSgMR);
+  __swift_destroy_boxed_opaque_existential_1Tm((v0 + 2360));
+  v1 = *(v0 + 3376);
+
+  *(v0 + 2888) = v1;
+  v2 = v1;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
+  if (swift_dynamicCast())
+  {
+    v3 = *(v0 + 3072);
+    v4 = *(v0 + 3008);
+    (*(*(v0 + 3064) + 32))(v3, *(v0 + 3096), *(v0 + 3056));
+    if ((*(**(v4 + OBJC_IVAR____TtCO15SecureMessaging3MLS15OperationRunner_groupHealer) + 176))(v3) == 5)
+    {
+      v5 = *(v0 + 3008);
+
+      v55 = (*(**(v5 + 96) + 104) + **(**(v5 + 96) + 104));
+      v6 = swift_task_alloc();
+      *(v0 + 3480) = v6;
+      *v6 = v0;
+      v6[1] = _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTQ20_;
+      v7 = *(v0 + 3160);
+      v8 = *(v0 + 3000);
+      v9 = *(v0 + 2992);
+      v10 = *(v0 + 2976);
+
+      return v55(v0 + 2744, v10, v0 + 1880, v9, v8, v7);
+    }
+
+    (*(*(v0 + 3064) + 8))(*(v0 + 3072), *(v0 + 3056));
+  }
+
+  *(v0 + 3416) = v1;
+  v12 = *(v0 + 3000);
+  v13 = *(v0 + 2992);
+  v14 = *(v12 + 112);
+  v15 = v1;
+  v16 = v14(v13, v12);
+  outlined consume of MLS.GroupOperationErrorHandlingPolicy(v16, v17);
+
+  if (v16 < 2)
+  {
+    *(v0 + 2944) = v1;
+    v18 = v1;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
+    if (swift_dynamicCast())
+    {
+      v19 = *(v0 + 3000);
+      v20 = *(v0 + 2992);
+      (*(*(v0 + 3064) + 32))(*(v0 + 3080), *(v0 + 3088), *(v0 + 3056));
+      v21 = v14(v20, v19);
+      if (v21 == 1)
+      {
+        v23 = *(v0 + 3008);
+
+        v24 = *(v23 + OBJC_IVAR____TtCO15SecureMessaging3MLS15OperationRunner_groupHealer);
+        outlined init with copy of MLS.GroupLoader.LoadedGroupAndOperation(v0 + 1880, v0 + 1968);
+        v25 = (v0 + 2008);
+        if (*(v0 + 2048))
+        {
+          v26 = *(v0 + 2024);
+          *(v0 + 2520) = *v25;
+          *(v0 + 2536) = v26;
+          *(v0 + 2552) = *(v0 + 2040);
+        }
+
+        else
+        {
+          outlined init with take of MLS.KeyUpdatePolicy(v25, v0 + 2520);
+        }
+
+        __swift_destroy_boxed_opaque_existential_1Tm((v0 + 1968));
+        v57 = *(*v24 + 168) + **(*v24 + 168);
+        v54 = swift_task_alloc();
+        *(v0 + 3472) = v54;
+        *v54 = v0;
+        v54[1] = _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTQ17_;
+
+        __asm { BRAA            X8, X16 }
+      }
+
+      v35 = *(v0 + 3080);
+      v36 = *(v0 + 3064);
+      v37 = *(v0 + 3056);
+      outlined consume of MLS.GroupOperationErrorHandlingPolicy(v21, v22);
+
+      (*(v36 + 8))(v35, v37);
+    }
+
+    else
+    {
+    }
+
+    goto LABEL_19;
+  }
+
+  v27 = *(v0 + 3000);
+  v28 = *(v0 + 2992);
+
+  v29 = v14(v28, v27);
+  *(v0 + 3424) = v29;
+  *(v0 + 3432) = v30;
+  if (v29 < 2)
+  {
+    outlined consume of MLS.GroupOperationErrorHandlingPolicy(v29, v30);
+
+    swift_willThrow();
+LABEL_19:
+    *(v0 + 2928) = v1;
+    v38 = v1;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
+    if (swift_dynamicCast())
+    {
+      v39 = *(v0 + 3184);
+      v40 = *(v0 + 3136);
+      v41 = *(v0 + 3128);
+      v42 = *(v0 + 3032);
+      v43 = *(v0 + 3016);
+      (*(v40 + 32))(v39, *(v0 + 3192), v41);
+      (*(v40 + 16))(v43, v39, v41);
+      swift_willThrowTyped(v43, v41, *(*(v42 + 8) + 8));
+
+      (*(v40 + 8))(v39, v41);
+      outlined destroy of MLS.GroupLoader.LoadedGroupAndOperation(v0 + 1880);
+    }
+
+    else
+    {
+      v44 = *(v0 + 3128);
+      v45 = *(v0 + 3048);
+      v46 = *(v0 + 3040);
+      v47 = *(v0 + 3032);
+      v48 = *(v0 + 3016);
+
+      AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+      (*(AssociatedConformanceWitness + 104))(v46, AssociatedConformanceWitness);
+      swift_getErrorValue();
+      v50 = Error.readableDescription.getter(*(v0 + 2800), *(v0 + 2808));
+      (*(v47 + 104))(v45, v50, v51, v44, v47);
+      swift_willThrowTyped(v48, v44, *(*(v47 + 8) + 8));
+
+      outlined destroy of MLS.GroupLoader.LoadedGroupAndOperation(v0 + 1880);
+    }
+
+    v52 = *(v0 + 8);
+
+    return v52();
+  }
+
+  v31 = v29;
+  v32 = (v0 + 2560);
+  outlined init with copy of MLS.GroupLoader.LoadedGroupAndOperation(v0 + 1880, v0 + 2056);
+  v33 = (v0 + 2096);
+  if (*(v0 + 2136))
+  {
+    v34 = *(v0 + 2112);
+    *v32 = *v33;
+    *(v0 + 2576) = v34;
+    *(v0 + 2592) = *(v0 + 2128);
+  }
+
+  else
+  {
+    outlined init with take of MLS.KeyUpdatePolicy(v33, v0 + 2560);
+  }
+
+  __swift_destroy_boxed_opaque_existential_1Tm((v0 + 2056));
+  *(v0 + 2904) = *(v0 + 2960);
+  v56 = (v31 + *v31);
+  v53 = swift_task_alloc();
+  *(v0 + 3440) = v53;
+  *v53 = v0;
+  v53[1] = _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTQ14_;
+
+  return v56(v0 + 456, v1, v32, v0 + 2904);
+}
+
+uint64_t _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTY9_()
+{
+
+  __swift_destroy_boxed_opaque_existential_1Tm(v0 + 335);
+  __swift_destroy_boxed_opaque_existential_1Tm(v0 + 330);
+  memcpy(v0 + 112, v0 + 167, 0x1B8uLL);
+  v1 = swift_task_alloc();
+  v0[425] = v1;
+  *v1 = v0;
+  v1[1] = _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTQ11_;
+  v2 = v0[375];
+  v3 = v0[374];
+  v4 = v0[372];
+  v5 = v0[371];
+
+  return MLS.OperationRunner.handle<A>(operationResult:for:)(v5, (v0 + 112), v4, v3, v2);
+}
+
+uint64_t _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTY10_()
+{
+  __swift_destroy_boxed_opaque_existential_1Tm((v0 + 2680));
+  __swift_destroy_boxed_opaque_existential_1Tm((v0 + 2640));
+  v1 = *(v0 + 3392);
+
+  *(v0 + 2888) = v1;
+  v2 = v1;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
+  if (swift_dynamicCast())
+  {
+    v3 = *(v0 + 3072);
+    v4 = *(v0 + 3008);
+    (*(*(v0 + 3064) + 32))(v3, *(v0 + 3096), *(v0 + 3056));
+    if ((*(**(v4 + OBJC_IVAR____TtCO15SecureMessaging3MLS15OperationRunner_groupHealer) + 176))(v3) == 5)
+    {
+      v5 = *(v0 + 3008);
+
+      v55 = (*(**(v5 + 96) + 104) + **(**(v5 + 96) + 104));
+      v6 = swift_task_alloc();
+      *(v0 + 3480) = v6;
+      *v6 = v0;
+      v6[1] = _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTQ20_;
+      v7 = *(v0 + 3160);
+      v8 = *(v0 + 3000);
+      v9 = *(v0 + 2992);
+      v10 = *(v0 + 2976);
+
+      return v55(v0 + 2744, v10, v0 + 1880, v9, v8, v7);
+    }
+
+    (*(*(v0 + 3064) + 8))(*(v0 + 3072), *(v0 + 3056));
+  }
+
+  *(v0 + 3416) = v1;
+  v12 = *(v0 + 3000);
+  v13 = *(v0 + 2992);
+  v14 = *(v12 + 112);
+  v15 = v1;
+  v16 = v14(v13, v12);
+  outlined consume of MLS.GroupOperationErrorHandlingPolicy(v16, v17);
+
+  if (v16 < 2)
+  {
+    *(v0 + 2944) = v1;
+    v18 = v1;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
+    if (swift_dynamicCast())
+    {
+      v19 = *(v0 + 3000);
+      v20 = *(v0 + 2992);
+      (*(*(v0 + 3064) + 32))(*(v0 + 3080), *(v0 + 3088), *(v0 + 3056));
+      v21 = v14(v20, v19);
+      if (v21 == 1)
+      {
+        v23 = *(v0 + 3008);
+
+        v24 = *(v23 + OBJC_IVAR____TtCO15SecureMessaging3MLS15OperationRunner_groupHealer);
+        outlined init with copy of MLS.GroupLoader.LoadedGroupAndOperation(v0 + 1880, v0 + 1968);
+        v25 = (v0 + 2008);
+        if (*(v0 + 2048))
+        {
+          v26 = *(v0 + 2024);
+          *(v0 + 2520) = *v25;
+          *(v0 + 2536) = v26;
+          *(v0 + 2552) = *(v0 + 2040);
+        }
+
+        else
+        {
+          outlined init with take of MLS.KeyUpdatePolicy(v25, v0 + 2520);
+        }
+
+        __swift_destroy_boxed_opaque_existential_1Tm((v0 + 1968));
+        v57 = *(*v24 + 168) + **(*v24 + 168);
+        v54 = swift_task_alloc();
+        *(v0 + 3472) = v54;
+        *v54 = v0;
+        v54[1] = _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTQ17_;
+
+        __asm { BRAA            X8, X16 }
+      }
+
+      v35 = *(v0 + 3080);
+      v36 = *(v0 + 3064);
+      v37 = *(v0 + 3056);
+      outlined consume of MLS.GroupOperationErrorHandlingPolicy(v21, v22);
+
+      (*(v36 + 8))(v35, v37);
+    }
+
+    else
+    {
+    }
+
+    goto LABEL_19;
+  }
+
+  v27 = *(v0 + 3000);
+  v28 = *(v0 + 2992);
+
+  v29 = v14(v28, v27);
+  *(v0 + 3424) = v29;
+  *(v0 + 3432) = v30;
+  if (v29 < 2)
+  {
+    outlined consume of MLS.GroupOperationErrorHandlingPolicy(v29, v30);
+
+    swift_willThrow();
+LABEL_19:
+    *(v0 + 2928) = v1;
+    v38 = v1;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
+    if (swift_dynamicCast())
+    {
+      v39 = *(v0 + 3184);
+      v40 = *(v0 + 3136);
+      v41 = *(v0 + 3128);
+      v42 = *(v0 + 3032);
+      v43 = *(v0 + 3016);
+      (*(v40 + 32))(v39, *(v0 + 3192), v41);
+      (*(v40 + 16))(v43, v39, v41);
+      swift_willThrowTyped(v43, v41, *(*(v42 + 8) + 8));
+
+      (*(v40 + 8))(v39, v41);
+      outlined destroy of MLS.GroupLoader.LoadedGroupAndOperation(v0 + 1880);
+    }
+
+    else
+    {
+      v44 = *(v0 + 3128);
+      v45 = *(v0 + 3048);
+      v46 = *(v0 + 3040);
+      v47 = *(v0 + 3032);
+      v48 = *(v0 + 3016);
+
+      AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+      (*(AssociatedConformanceWitness + 104))(v46, AssociatedConformanceWitness);
+      swift_getErrorValue();
+      v50 = Error.readableDescription.getter(*(v0 + 2800), *(v0 + 2808));
+      (*(v47 + 104))(v45, v50, v51, v44, v47);
+      swift_willThrowTyped(v48, v44, *(*(v47 + 8) + 8));
+
+      outlined destroy of MLS.GroupLoader.LoadedGroupAndOperation(v0 + 1880);
+    }
+
+    v52 = *(v0 + 8);
+
+    return v52();
+  }
+
+  v31 = v29;
+  v32 = (v0 + 2560);
+  outlined init with copy of MLS.GroupLoader.LoadedGroupAndOperation(v0 + 1880, v0 + 2056);
+  v33 = (v0 + 2096);
+  if (*(v0 + 2136))
+  {
+    v34 = *(v0 + 2112);
+    *v32 = *v33;
+    *(v0 + 2576) = v34;
+    *(v0 + 2592) = *(v0 + 2128);
+  }
+
+  else
+  {
+    outlined init with take of MLS.KeyUpdatePolicy(v33, v0 + 2560);
+  }
+
+  __swift_destroy_boxed_opaque_existential_1Tm((v0 + 2056));
+  *(v0 + 2904) = *(v0 + 2960);
+  v56 = (v31 + *v31);
+  v53 = swift_task_alloc();
+  *(v0 + 3440) = v53;
+  *v53 = v0;
+  v53[1] = _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTQ14_;
+
+  return v56(v0 + 456, v1, v32, v0 + 2904);
+}
+
+uint64_t _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTQ11_()
+{
+  v2 = *v1;
+  *(*v1 + 3408) = v0;
+
+  if (v0)
+  {
+    v3 = *(v2 + 3272);
+    v4 = _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTY29_;
+  }
+
+  else
+  {
+    v5 = *(v2 + 3272);
+
+    v4 = _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTY12_;
+    v3 = v5;
+  }
+
+  return MEMORY[0x2822009F8](v4, v3, 0);
+}
+
+uint64_t _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTY12_()
+{
+  outlined destroy of MLS.GroupOperationResult(v0 + 896);
+  outlined destroy of MLS.GroupLoader.LoadedGroupAndOperation(v0 + 1880);
+
+  v1 = *(v0 + 8);
+
+  return v1();
+}
+
+uint64_t _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTY13_()
+{
+  (*(v0[392] + 32))(v0[377], v0[401], v0[391]);
+
+  v1 = v0[1];
+
+  return v1();
+}
+
+uint64_t _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTQ14_()
+{
+  v2 = *v1;
+  v2[431] = v0;
+
+  if (v0)
+  {
+    v3 = v2[409];
+
+    outlined destroy of NSObject?((v2 + 320), &_s15SecureMessaging3MLSO21SwiftMLSGroupProtocol_pSgMd, &_s15SecureMessaging3MLSO21SwiftMLSGroupProtocol_pSgMR);
+
+    return MEMORY[0x2822009F8](_s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTY30_, v3, 0);
+  }
+
+  else
+  {
+
+    outlined destroy of NSObject?((v2 + 320), &_s15SecureMessaging3MLSO21SwiftMLSGroupProtocol_pSgMd, &_s15SecureMessaging3MLSO21SwiftMLSGroupProtocol_pSgMR);
+    v4 = swift_task_alloc();
+    v2[432] = v4;
+    *v4 = v2;
+    v4[1] = _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTQ15_;
+    v5 = v2[375];
+    v6 = v2[374];
+    v7 = v2[372];
+    v8 = v2[371];
+
+    return MLS.OperationRunner.handle<A>(operationResult:for:)(v8, (v2 + 57), v7, v6, v5);
+  }
+}
+
+uint64_t _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTQ15_()
+{
+  v2 = *v1;
+  *(v2 + 3464) = v0;
+
+  v3 = *(v2 + 3272);
+  outlined destroy of MLS.GroupOperationResult(v2 + 456);
+  if (v0)
+  {
+    v4 = _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTY31_;
+  }
+
+  else
+  {
+    v4 = _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTY16_;
+  }
+
+  return MEMORY[0x2822009F8](v4, v3, 0);
+}
+
+uint64_t _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTY16_()
+{
+  v1 = v0[427];
+  outlined consume of MLS.GroupOperationErrorHandlingPolicy(v0[428], v0[429]);
+
+  outlined destroy of MLS.GroupLoader.LoadedGroupAndOperation((v0 + 235));
+
+  v2 = v0[1];
+
+  return v2();
+}
+
+uint64_t _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTQ17_()
+{
+  v2 = *v1;
+
+  v3 = *(v2 + 3272);
+  outlined destroy of NSObject?(v2 + 2520, &_s15SecureMessaging3MLSO21SwiftMLSGroupProtocol_pSgMd, &_s15SecureMessaging3MLSO21SwiftMLSGroupProtocol_pSgMR);
+
+  if (v0)
+  {
+
+    v4 = _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTY32_;
+  }
+
+  else
+  {
+    v4 = _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTY18_;
+  }
+
+  return MEMORY[0x2822009F8](v4, v3, 0);
+}
+
+uint64_t _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTY18_()
+{
+  v1 = *(v0 + 2968);
+  (*(*(v0 + 3064) + 8))(*(v0 + 3080), *(v0 + 3056));
+  outlined destroy of MLS.GroupLoader.LoadedGroupAndOperation(v0 + 1880);
+  *v1 = *(v0 + 2960);
+  v2 = *(v0 + 1872);
+  v3 = *(v0 + 1856);
+  v4 = *(v0 + 1840);
+  *(v1 + 56) = *(v0 + 1824);
+  *(v1 + 72) = v4;
+  *(v1 + 88) = v3;
+  *(v1 + 104) = v2;
+  v5 = *(v0 + 1808);
+  v6 = *(v0 + 1792);
+  *(v1 + 8) = *(v0 + 1776);
+  *(v1 + 24) = v6;
+  *(v1 + 40) = v5;
+  *(v1 + 112) = 0;
+
+  v7 = *(v0 + 8);
+
+  return v7();
+}
+
+uint64_t _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTY19_()
+{
+  v1 = *(*(v0 + 3136) + 32);
+  v1(*(v0 + 3168), *(v0 + 3200), *(v0 + 3128));
+  v2 = _getErrorEmbeddedNSError<A>(_:)();
+  v3 = *(v0 + 3168);
+  if (v2)
+  {
+    v4 = v2;
+    (*(*(v0 + 3136) + 8))(*(v0 + 3168), *(v0 + 3128));
+  }
+
+  else
+  {
+    v5 = *(v0 + 3128);
+    v4 = swift_allocError();
+    v1(v6, v3, v5);
+  }
+
+  *(v0 + 3416) = v4;
+  v7 = *(v0 + 3000);
+  v8 = *(v0 + 2992);
+  v9 = *(v7 + 112);
+  v10 = v4;
+  v11 = v9(v8, v7);
+  outlined consume of MLS.GroupOperationErrorHandlingPolicy(v11, v12);
+
+  if (v11 < 2)
+  {
+    *(v0 + 2944) = v4;
+    v13 = v4;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
+    if (swift_dynamicCast())
+    {
+      v14 = *(v0 + 3000);
+      v15 = *(v0 + 2992);
+      (*(*(v0 + 3064) + 32))(*(v0 + 3080), *(v0 + 3088), *(v0 + 3056));
+      v16 = v9(v15, v14);
+      if (v16 == 1)
+      {
+        v18 = *(v0 + 3008);
+
+        v19 = *(v18 + OBJC_IVAR____TtCO15SecureMessaging3MLS15OperationRunner_groupHealer);
+        outlined init with copy of MLS.GroupLoader.LoadedGroupAndOperation(v0 + 1880, v0 + 1968);
+        v20 = (v0 + 2008);
+        if (*(v0 + 2048))
+        {
+          v21 = *(v0 + 2024);
+          *(v0 + 2520) = *v20;
+          *(v0 + 2536) = v21;
+          *(v0 + 2552) = *(v0 + 2040);
+        }
+
+        else
+        {
+          outlined init with take of MLS.KeyUpdatePolicy(v20, v0 + 2520);
+        }
+
+        __swift_destroy_boxed_opaque_existential_1Tm((v0 + 1968));
+        v52 = *(*v19 + 168) + **(*v19 + 168);
+        v50 = swift_task_alloc();
+        *(v0 + 3472) = v50;
+        *v50 = v0;
+        v50[1] = _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTQ17_;
+
+        __asm { BRAA            X8, X16 }
+      }
+
+      v30 = *(v0 + 3080);
+      v31 = *(v0 + 3064);
+      v32 = *(v0 + 3056);
+      outlined consume of MLS.GroupOperationErrorHandlingPolicy(v16, v17);
+
+      (*(v31 + 8))(v30, v32);
+    }
+
+    else
+    {
+    }
+
+    goto LABEL_16;
+  }
+
+  v22 = *(v0 + 3000);
+  v23 = *(v0 + 2992);
+
+  v24 = v9(v23, v22);
+  *(v0 + 3424) = v24;
+  *(v0 + 3432) = v25;
+  if (v24 < 2)
+  {
+    outlined consume of MLS.GroupOperationErrorHandlingPolicy(v24, v25);
+
+    swift_willThrow();
+LABEL_16:
+    *(v0 + 2928) = v4;
+    v33 = v4;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
+    v34 = swift_dynamicCast();
+    v35 = *(v0 + 3032);
+    if (v34)
+    {
+      v36 = *(v0 + 3184);
+      v37 = *(v0 + 3136);
+      v38 = *(v0 + 3128);
+      v39 = *(v0 + 3016);
+      (*(v37 + 32))(v36, *(v0 + 3192), v38);
+      (*(v37 + 16))(v39, v36, v38);
+      swift_willThrowTyped(v39, v38, *(*(v35 + 8) + 8));
+
+      (*(v37 + 8))(v36, v38);
+      outlined destroy of MLS.GroupLoader.LoadedGroupAndOperation(v0 + 1880);
+    }
+
+    else
+    {
+      v40 = *(v0 + 3128);
+      v41 = *(v0 + 3048);
+      v42 = *(v0 + 3040);
+      v43 = *(v0 + 3016);
+
+      AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+      (*(AssociatedConformanceWitness + 104))(v42, AssociatedConformanceWitness);
+      swift_getErrorValue();
+      v45 = Error.readableDescription.getter(*(v0 + 2800), *(v0 + 2808));
+      (*(v35 + 104))(v41, v45, v46, v40, v35);
+      swift_willThrowTyped(v43, v40, *(*(v35 + 8) + 8));
+
+      outlined destroy of MLS.GroupLoader.LoadedGroupAndOperation(v0 + 1880);
+    }
+
+    v47 = *(v0 + 8);
+
+    return v47();
+  }
+
+  v26 = v24;
+  v27 = (v0 + 2560);
+  outlined init with copy of MLS.GroupLoader.LoadedGroupAndOperation(v0 + 1880, v0 + 2056);
+  v28 = (v0 + 2096);
+  if (*(v0 + 2136))
+  {
+    v29 = *(v0 + 2112);
+    *v27 = *v28;
+    *(v0 + 2576) = v29;
+    *(v0 + 2592) = *(v0 + 2128);
+  }
+
+  else
+  {
+    outlined init with take of MLS.KeyUpdatePolicy(v28, v0 + 2560);
+  }
+
+  __swift_destroy_boxed_opaque_existential_1Tm((v0 + 2056));
+  *(v0 + 2904) = *(v0 + 2960);
+  v51 = (v26 + *v26);
+  v49 = swift_task_alloc();
+  *(v0 + 3440) = v49;
+  *v49 = v0;
+  v49[1] = _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTQ14_;
+
+  return v51(v0 + 456, v4, v27, v0 + 2904);
+}
+
+uint64_t _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTQ20_()
+{
+  v2 = *v1;
+
+  v3 = *(v2 + 3272);
+  if (v0)
+  {
+    v4 = _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTY28_;
+  }
+
+  else
+  {
+    v4 = _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTY21_;
+  }
+
+  return MEMORY[0x2822009F8](v4, v3, 0);
+}
+
+uint64_t _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTY21_()
+{
+  v1 = *(v0 + 2744);
+  *(v0 + 3488) = v1;
+  v2 = *(v0 + 2752);
+  *(v0 + 3496) = v2;
+  v3 = *(v0 + 2760);
+  *(v0 + 3504) = v3;
+  v4 = *(v0 + 2960);
+  outlined init with copy of MLS.GroupLoader.LoadedGroupAndOperation(v0 + 1880, v0 + 2232);
+  v5 = (v0 + 2232);
+  if (*(v0 + 2312) == 1)
+  {
+    outlined init with take of MLS.KeyUpdatePolicy(v5, v0 + 2440);
+    v6 = *(v0 + 2288);
+    *(v0 + 2400) = *(v0 + 2272);
+    *(v0 + 2416) = v6;
+    *(v0 + 2432) = *(v0 + 2304);
+    v7 = *(v0 + 2464);
+    v8 = *(v0 + 2472);
+    __swift_project_boxed_opaque_existential_1((v0 + 2440), v7);
+    *(v0 + 2936) = v4;
+    *(v0 + 2840) = v1;
+    *(v0 + 2848) = v2;
+    *(v0 + 2856) = v3;
+    v21 = (*(v8 + 24) + **(v8 + 24));
+    v9 = swift_task_alloc();
+    *(v0 + 3512) = v9;
+    *v9 = v0;
+    v9[1] = _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTQ22_;
+    v10 = v0 + 16;
+    v11 = v0 + 2400;
+    v12 = v0 + 2936;
+    v13 = v0 + 2840;
+    v14 = v7;
+    v15 = v8;
+    v16 = v21;
+  }
+
+  else
+  {
+    outlined init with take of MLS.KeyUpdatePolicy(v5, v0 + 2600);
+    outlined init with take of MLS.KeyUpdatePolicy((v0 + 2272), v0 + 2480);
+    v17 = *(v0 + 2624);
+    v18 = *(v0 + 2632);
+    __swift_project_boxed_opaque_existential_1((v0 + 2600), v17);
+    *(v0 + 2912) = v4;
+    *(v0 + 2816) = v1;
+    *(v0 + 2824) = v2;
+    *(v0 + 2832) = v3;
+    v22 = (*(v18 + 24) + **(v18 + 24));
+    v19 = swift_task_alloc();
+    *(v0 + 3528) = v19;
+    *v19 = v0;
+    v19[1] = _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTQ23_;
+    v10 = v0 + 16;
+    v11 = v0 + 2480;
+    v12 = v0 + 2912;
+    v13 = v0 + 2816;
+    v14 = v17;
+    v15 = v18;
+    v16 = v22;
+  }
+
+  return v16(v10, v11, v12, v13, v14, v15);
+}
+
+uint64_t _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTQ22_()
+{
+  v2 = *v1;
+  *(*v1 + 3520) = v0;
+
+  v3 = *(v2 + 3272);
+  if (v0)
+  {
+    v4 = _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTY25_;
+  }
+
+  else
+  {
+    v4 = _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTY24_;
+  }
+
+  return MEMORY[0x2822009F8](v4, v3, 0);
+}
+
+uint64_t _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTQ23_()
+{
+  v2 = *v1;
+  *(*v1 + 3536) = v0;
+
+  v3 = *(v2 + 3272);
+  if (v0)
+  {
+    v4 = _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTY27_;
+  }
+
+  else
+  {
+    v4 = _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTY26_;
+  }
+
+  return MEMORY[0x2822009F8](v4, v3, 0);
+}
+
+uint64_t _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTY24_()
+{
+
+  outlined destroy of NSObject?(v0 + 2400, &_s15SecureMessaging3MLSO21SwiftMLSGroupProtocol_pSgMd, &_s15SecureMessaging3MLSO21SwiftMLSGroupProtocol_pSgMR);
+  __swift_destroy_boxed_opaque_existential_1Tm((v0 + 2440));
+  (*(*(v0 + 3064) + 8))(*(v0 + 3072), *(v0 + 3056));
+  memcpy((v0 + 896), (v0 + 16), 0x1B8uLL);
+
+  v1 = swift_task_alloc();
+  *(v0 + 3400) = v1;
+  *v1 = v0;
+  v1[1] = _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTQ11_;
+  v2 = *(v0 + 3000);
+  v3 = *(v0 + 2992);
+  v4 = *(v0 + 2976);
+  v5 = *(v0 + 2968);
+
+  return MLS.OperationRunner.handle<A>(operationResult:for:)(v5, v0 + 896, v4, v3, v2);
+}
+
+uint64_t _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTY25_()
+{
+  outlined destroy of NSObject?(v0 + 2400, &_s15SecureMessaging3MLSO21SwiftMLSGroupProtocol_pSgMd, &_s15SecureMessaging3MLSO21SwiftMLSGroupProtocol_pSgMR);
+  __swift_destroy_boxed_opaque_existential_1Tm((v0 + 2440));
+  v1 = *(v0 + 3520);
+  v2 = *(v0 + 3072);
+  v3 = *(v0 + 3064);
+  v4 = *(v0 + 3056);
+
+  (*(v3 + 8))(v2, v4);
+
+  *(v0 + 3416) = v1;
+  v5 = *(v0 + 3000);
+  v6 = *(v0 + 2992);
+  v7 = *(v5 + 112);
+  v8 = v1;
+  v9 = v7(v6, v5);
+  outlined consume of MLS.GroupOperationErrorHandlingPolicy(v9, v10);
+
+  if (v9 < 2)
+  {
+    *(v0 + 2944) = v1;
+    v11 = v1;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
+    if (swift_dynamicCast())
+    {
+      v12 = *(v0 + 3000);
+      v13 = *(v0 + 2992);
+      (*(*(v0 + 3064) + 32))(*(v0 + 3080), *(v0 + 3088), *(v0 + 3056));
+      v14 = v7(v13, v12);
+      if (v14 == 1)
+      {
+        v16 = *(v0 + 3008);
+
+        v17 = *(v16 + OBJC_IVAR____TtCO15SecureMessaging3MLS15OperationRunner_groupHealer);
+        outlined init with copy of MLS.GroupLoader.LoadedGroupAndOperation(v0 + 1880, v0 + 1968);
+        v18 = (v0 + 2008);
+        if (*(v0 + 2048))
+        {
+          v19 = *(v0 + 2024);
+          *(v0 + 2520) = *v18;
+          *(v0 + 2536) = v19;
+          *(v0 + 2552) = *(v0 + 2040);
+        }
+
+        else
+        {
+          outlined init with take of MLS.KeyUpdatePolicy(v18, v0 + 2520);
+        }
+
+        __swift_destroy_boxed_opaque_existential_1Tm((v0 + 1968));
+        v50 = *(*v17 + 168) + **(*v17 + 168);
+        v48 = swift_task_alloc();
+        *(v0 + 3472) = v48;
+        *v48 = v0;
+        v48[1] = _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTQ17_;
+
+        __asm { BRAA            X8, X16 }
+      }
+
+      v28 = *(v0 + 3080);
+      v29 = *(v0 + 3064);
+      v30 = *(v0 + 3056);
+      outlined consume of MLS.GroupOperationErrorHandlingPolicy(v14, v15);
+
+      (*(v29 + 8))(v28, v30);
+    }
+
+    else
+    {
+    }
+
+    goto LABEL_13;
+  }
+
+  v20 = *(v0 + 3000);
+  v21 = *(v0 + 2992);
+
+  v22 = v7(v21, v20);
+  *(v0 + 3424) = v22;
+  *(v0 + 3432) = v23;
+  if (v22 < 2)
+  {
+    outlined consume of MLS.GroupOperationErrorHandlingPolicy(v22, v23);
+
+    swift_willThrow();
+LABEL_13:
+    *(v0 + 2928) = v1;
+    v31 = v1;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
+    if (swift_dynamicCast())
+    {
+      v32 = *(v0 + 3184);
+      v33 = *(v0 + 3136);
+      v34 = *(v0 + 3128);
+      v35 = *(v0 + 3032);
+      v36 = *(v0 + 3016);
+      (*(v33 + 32))(v32, *(v0 + 3192), v34);
+      (*(v33 + 16))(v36, v32, v34);
+      swift_willThrowTyped(v36, v34, *(*(v35 + 8) + 8));
+
+      (*(v33 + 8))(v32, v34);
+      outlined destroy of MLS.GroupLoader.LoadedGroupAndOperation(v0 + 1880);
+    }
+
+    else
+    {
+      v37 = *(v0 + 3128);
+      v38 = *(v0 + 3048);
+      v39 = *(v0 + 3040);
+      v40 = *(v0 + 3032);
+      v41 = *(v0 + 3016);
+
+      AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+      (*(AssociatedConformanceWitness + 104))(v39, AssociatedConformanceWitness);
+      swift_getErrorValue();
+      v43 = Error.readableDescription.getter(*(v0 + 2800), *(v0 + 2808));
+      (*(v40 + 104))(v38, v43, v44, v37, v40);
+      swift_willThrowTyped(v41, v37, *(*(v40 + 8) + 8));
+
+      outlined destroy of MLS.GroupLoader.LoadedGroupAndOperation(v0 + 1880);
+    }
+
+    v45 = *(v0 + 8);
+
+    return v45();
+  }
+
+  v24 = v22;
+  v25 = (v0 + 2560);
+  outlined init with copy of MLS.GroupLoader.LoadedGroupAndOperation(v0 + 1880, v0 + 2056);
+  v26 = (v0 + 2096);
+  if (*(v0 + 2136))
+  {
+    v27 = *(v0 + 2112);
+    *v25 = *v26;
+    *(v0 + 2576) = v27;
+    *(v0 + 2592) = *(v0 + 2128);
+  }
+
+  else
+  {
+    outlined init with take of MLS.KeyUpdatePolicy(v26, v0 + 2560);
+  }
+
+  __swift_destroy_boxed_opaque_existential_1Tm((v0 + 2056));
+  *(v0 + 2904) = *(v0 + 2960);
+  v49 = (v24 + *v24);
+  v47 = swift_task_alloc();
+  *(v0 + 3440) = v47;
+  *v47 = v0;
+  v47[1] = _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTQ14_;
+
+  return v49(v0 + 456, v1, v25, v0 + 2904);
+}
+
+uint64_t _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTY26_()
+{
+
+  __swift_destroy_boxed_opaque_existential_1Tm((v0 + 2480));
+  __swift_destroy_boxed_opaque_existential_1Tm((v0 + 2600));
+  (*(*(v0 + 3064) + 8))(*(v0 + 3072), *(v0 + 3056));
+  memcpy((v0 + 896), (v0 + 16), 0x1B8uLL);
+
+  v1 = swift_task_alloc();
+  *(v0 + 3400) = v1;
+  *v1 = v0;
+  v1[1] = _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTQ11_;
+  v2 = *(v0 + 3000);
+  v3 = *(v0 + 2992);
+  v4 = *(v0 + 2976);
+  v5 = *(v0 + 2968);
+
+  return MLS.OperationRunner.handle<A>(operationResult:for:)(v5, v0 + 896, v4, v3, v2);
+}
+
+uint64_t _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTY27_()
+{
+  __swift_destroy_boxed_opaque_existential_1Tm((v0 + 2480));
+  __swift_destroy_boxed_opaque_existential_1Tm((v0 + 2600));
+  v1 = *(v0 + 3536);
+  v2 = *(v0 + 3072);
+  v3 = *(v0 + 3064);
+  v4 = *(v0 + 3056);
+
+  (*(v3 + 8))(v2, v4);
+
+  *(v0 + 3416) = v1;
+  v5 = *(v0 + 3000);
+  v6 = *(v0 + 2992);
+  v7 = *(v5 + 112);
+  v8 = v1;
+  v9 = v7(v6, v5);
+  outlined consume of MLS.GroupOperationErrorHandlingPolicy(v9, v10);
+
+  if (v9 < 2)
+  {
+    *(v0 + 2944) = v1;
+    v11 = v1;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
+    if (swift_dynamicCast())
+    {
+      v12 = *(v0 + 3000);
+      v13 = *(v0 + 2992);
+      (*(*(v0 + 3064) + 32))(*(v0 + 3080), *(v0 + 3088), *(v0 + 3056));
+      v14 = v7(v13, v12);
+      if (v14 == 1)
+      {
+        v16 = *(v0 + 3008);
+
+        v17 = *(v16 + OBJC_IVAR____TtCO15SecureMessaging3MLS15OperationRunner_groupHealer);
+        outlined init with copy of MLS.GroupLoader.LoadedGroupAndOperation(v0 + 1880, v0 + 1968);
+        v18 = (v0 + 2008);
+        if (*(v0 + 2048))
+        {
+          v19 = *(v0 + 2024);
+          *(v0 + 2520) = *v18;
+          *(v0 + 2536) = v19;
+          *(v0 + 2552) = *(v0 + 2040);
+        }
+
+        else
+        {
+          outlined init with take of MLS.KeyUpdatePolicy(v18, v0 + 2520);
+        }
+
+        __swift_destroy_boxed_opaque_existential_1Tm((v0 + 1968));
+        v50 = *(*v17 + 168) + **(*v17 + 168);
+        v48 = swift_task_alloc();
+        *(v0 + 3472) = v48;
+        *v48 = v0;
+        v48[1] = _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTQ17_;
+
+        __asm { BRAA            X8, X16 }
+      }
+
+      v28 = *(v0 + 3080);
+      v29 = *(v0 + 3064);
+      v30 = *(v0 + 3056);
+      outlined consume of MLS.GroupOperationErrorHandlingPolicy(v14, v15);
+
+      (*(v29 + 8))(v28, v30);
+    }
+
+    else
+    {
+    }
+
+    goto LABEL_13;
+  }
+
+  v20 = *(v0 + 3000);
+  v21 = *(v0 + 2992);
+
+  v22 = v7(v21, v20);
+  *(v0 + 3424) = v22;
+  *(v0 + 3432) = v23;
+  if (v22 < 2)
+  {
+    outlined consume of MLS.GroupOperationErrorHandlingPolicy(v22, v23);
+
+    swift_willThrow();
+LABEL_13:
+    *(v0 + 2928) = v1;
+    v31 = v1;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
+    if (swift_dynamicCast())
+    {
+      v32 = *(v0 + 3184);
+      v33 = *(v0 + 3136);
+      v34 = *(v0 + 3128);
+      v35 = *(v0 + 3032);
+      v36 = *(v0 + 3016);
+      (*(v33 + 32))(v32, *(v0 + 3192), v34);
+      (*(v33 + 16))(v36, v32, v34);
+      swift_willThrowTyped(v36, v34, *(*(v35 + 8) + 8));
+
+      (*(v33 + 8))(v32, v34);
+      outlined destroy of MLS.GroupLoader.LoadedGroupAndOperation(v0 + 1880);
+    }
+
+    else
+    {
+      v37 = *(v0 + 3128);
+      v38 = *(v0 + 3048);
+      v39 = *(v0 + 3040);
+      v40 = *(v0 + 3032);
+      v41 = *(v0 + 3016);
+
+      AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+      (*(AssociatedConformanceWitness + 104))(v39, AssociatedConformanceWitness);
+      swift_getErrorValue();
+      v43 = Error.readableDescription.getter(*(v0 + 2800), *(v0 + 2808));
+      (*(v40 + 104))(v38, v43, v44, v37, v40);
+      swift_willThrowTyped(v41, v37, *(*(v40 + 8) + 8));
+
+      outlined destroy of MLS.GroupLoader.LoadedGroupAndOperation(v0 + 1880);
+    }
+
+    v45 = *(v0 + 8);
+
+    return v45();
+  }
+
+  v24 = v22;
+  v25 = (v0 + 2560);
+  outlined init with copy of MLS.GroupLoader.LoadedGroupAndOperation(v0 + 1880, v0 + 2056);
+  v26 = (v0 + 2096);
+  if (*(v0 + 2136))
+  {
+    v27 = *(v0 + 2112);
+    *v25 = *v26;
+    *(v0 + 2576) = v27;
+    *(v0 + 2592) = *(v0 + 2128);
+  }
+
+  else
+  {
+    outlined init with take of MLS.KeyUpdatePolicy(v26, v0 + 2560);
+  }
+
+  __swift_destroy_boxed_opaque_existential_1Tm((v0 + 2056));
+  *(v0 + 2904) = *(v0 + 2960);
+  v49 = (v24 + *v24);
+  v47 = swift_task_alloc();
+  *(v0 + 3440) = v47;
+  *v47 = v0;
+  v47[1] = _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTQ14_;
+
+  return v49(v0 + 456, v1, v25, v0 + 2904);
+}
+
+uint64_t _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTY28_()
+{
+  v1 = *(*(v0 + 3136) + 32);
+  v1(*(v0 + 3152), *(v0 + 3160), *(v0 + 3128));
+  v2 = _getErrorEmbeddedNSError<A>(_:)();
+  v3 = *(v0 + 3152);
+  if (v2)
+  {
+    v4 = v2;
+    (*(*(v0 + 3136) + 8))(*(v0 + 3152), *(v0 + 3128));
+  }
+
+  else
+  {
+    v5 = *(v0 + 3128);
+    v4 = swift_allocError();
+    v1(v6, v3, v5);
+  }
+
+  (*(*(v0 + 3064) + 8))(*(v0 + 3072), *(v0 + 3056));
+
+  *(v0 + 3416) = v4;
+  v7 = *(v0 + 3000);
+  v8 = *(v0 + 2992);
+  v9 = *(v7 + 112);
+  v10 = v4;
+  v11 = v9(v8, v7);
+  outlined consume of MLS.GroupOperationErrorHandlingPolicy(v11, v12);
+
+  if (v11 < 2)
+  {
+    *(v0 + 2944) = v4;
+    v13 = v4;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
+    if (swift_dynamicCast())
+    {
+      v14 = *(v0 + 3000);
+      v15 = *(v0 + 2992);
+      (*(*(v0 + 3064) + 32))(*(v0 + 3080), *(v0 + 3088), *(v0 + 3056));
+      v16 = v9(v15, v14);
+      if (v16 == 1)
+      {
+        v18 = *(v0 + 3008);
+
+        v19 = *(v18 + OBJC_IVAR____TtCO15SecureMessaging3MLS15OperationRunner_groupHealer);
+        outlined init with copy of MLS.GroupLoader.LoadedGroupAndOperation(v0 + 1880, v0 + 1968);
+        v20 = (v0 + 2008);
+        if (*(v0 + 2048))
+        {
+          v21 = *(v0 + 2024);
+          *(v0 + 2520) = *v20;
+          *(v0 + 2536) = v21;
+          *(v0 + 2552) = *(v0 + 2040);
+        }
+
+        else
+        {
+          outlined init with take of MLS.KeyUpdatePolicy(v20, v0 + 2520);
+        }
+
+        __swift_destroy_boxed_opaque_existential_1Tm((v0 + 1968));
+        v52 = *(*v19 + 168) + **(*v19 + 168);
+        v50 = swift_task_alloc();
+        *(v0 + 3472) = v50;
+        *v50 = v0;
+        v50[1] = _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTQ17_;
+
+        __asm { BRAA            X8, X16 }
+      }
+
+      v30 = *(v0 + 3080);
+      v31 = *(v0 + 3064);
+      v32 = *(v0 + 3056);
+      outlined consume of MLS.GroupOperationErrorHandlingPolicy(v16, v17);
+
+      (*(v31 + 8))(v30, v32);
+    }
+
+    else
+    {
+    }
+
+    goto LABEL_16;
+  }
+
+  v22 = *(v0 + 3000);
+  v23 = *(v0 + 2992);
+
+  v24 = v9(v23, v22);
+  *(v0 + 3424) = v24;
+  *(v0 + 3432) = v25;
+  if (v24 < 2)
+  {
+    outlined consume of MLS.GroupOperationErrorHandlingPolicy(v24, v25);
+
+    swift_willThrow();
+LABEL_16:
+    *(v0 + 2928) = v4;
+    v33 = v4;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
+    v34 = swift_dynamicCast();
+    v35 = *(v0 + 3032);
+    if (v34)
+    {
+      v36 = *(v0 + 3184);
+      v37 = *(v0 + 3136);
+      v38 = *(v0 + 3128);
+      v39 = *(v0 + 3016);
+      (*(v37 + 32))(v36, *(v0 + 3192), v38);
+      (*(v37 + 16))(v39, v36, v38);
+      swift_willThrowTyped(v39, v38, *(*(v35 + 8) + 8));
+
+      (*(v37 + 8))(v36, v38);
+      outlined destroy of MLS.GroupLoader.LoadedGroupAndOperation(v0 + 1880);
+    }
+
+    else
+    {
+      v40 = *(v0 + 3128);
+      v41 = *(v0 + 3048);
+      v42 = *(v0 + 3040);
+      v43 = *(v0 + 3016);
+
+      AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+      (*(AssociatedConformanceWitness + 104))(v42, AssociatedConformanceWitness);
+      swift_getErrorValue();
+      v45 = Error.readableDescription.getter(*(v0 + 2800), *(v0 + 2808));
+      (*(v35 + 104))(v41, v45, v46, v40, v35);
+      swift_willThrowTyped(v43, v40, *(*(v35 + 8) + 8));
+
+      outlined destroy of MLS.GroupLoader.LoadedGroupAndOperation(v0 + 1880);
+    }
+
+    v47 = *(v0 + 8);
+
+    return v47();
+  }
+
+  v26 = v24;
+  v27 = (v0 + 2560);
+  outlined init with copy of MLS.GroupLoader.LoadedGroupAndOperation(v0 + 1880, v0 + 2056);
+  v28 = (v0 + 2096);
+  if (*(v0 + 2136))
+  {
+    v29 = *(v0 + 2112);
+    *v27 = *v28;
+    *(v0 + 2576) = v29;
+    *(v0 + 2592) = *(v0 + 2128);
+  }
+
+  else
+  {
+    outlined init with take of MLS.KeyUpdatePolicy(v28, v0 + 2560);
+  }
+
+  __swift_destroy_boxed_opaque_existential_1Tm((v0 + 2056));
+  *(v0 + 2904) = *(v0 + 2960);
+  v51 = (v26 + *v26);
+  v49 = swift_task_alloc();
+  *(v0 + 3440) = v49;
+  *v49 = v0;
+  v49[1] = _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTQ14_;
+
+  return v51(v0 + 456, v4, v27, v0 + 2904);
+}
+
+uint64_t _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTY29_()
+{
+  outlined destroy of MLS.GroupOperationResult(v0 + 896);
+  v1 = *(v0 + 3408);
+  *(v0 + 3416) = v1;
+  v2 = *(v0 + 3000);
+  v3 = *(v0 + 2992);
+  v4 = *(v2 + 112);
+  v5 = v1;
+  v6 = v4(v3, v2);
+  outlined consume of MLS.GroupOperationErrorHandlingPolicy(v6, v7);
+
+  if (v6 < 2)
+  {
+    *(v0 + 2944) = v1;
+    v8 = v1;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
+    if (swift_dynamicCast())
+    {
+      v9 = *(v0 + 3000);
+      v10 = *(v0 + 2992);
+      (*(*(v0 + 3064) + 32))(*(v0 + 3080), *(v0 + 3088), *(v0 + 3056));
+      v11 = v4(v10, v9);
+      if (v11 == 1)
+      {
+        v13 = *(v0 + 3008);
+
+        v14 = *(v13 + OBJC_IVAR____TtCO15SecureMessaging3MLS15OperationRunner_groupHealer);
+        outlined init with copy of MLS.GroupLoader.LoadedGroupAndOperation(v0 + 1880, v0 + 1968);
+        v15 = (v0 + 2008);
+        if (*(v0 + 2048))
+        {
+          v16 = *(v0 + 2024);
+          *(v0 + 2520) = *v15;
+          *(v0 + 2536) = v16;
+          *(v0 + 2552) = *(v0 + 2040);
+        }
+
+        else
+        {
+          outlined init with take of MLS.KeyUpdatePolicy(v15, v0 + 2520);
+        }
+
+        __swift_destroy_boxed_opaque_existential_1Tm((v0 + 1968));
+        v47 = *(*v14 + 168) + **(*v14 + 168);
+        v45 = swift_task_alloc();
+        *(v0 + 3472) = v45;
+        *v45 = v0;
+        v45[1] = _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTQ17_;
+
+        __asm { BRAA            X8, X16 }
+      }
+
+      v25 = *(v0 + 3080);
+      v26 = *(v0 + 3064);
+      v27 = *(v0 + 3056);
+      outlined consume of MLS.GroupOperationErrorHandlingPolicy(v11, v12);
+
+      (*(v26 + 8))(v25, v27);
+    }
+
+    else
+    {
+    }
+
+    goto LABEL_13;
+  }
+
+  v17 = *(v0 + 3000);
+  v18 = *(v0 + 2992);
+
+  v19 = v4(v18, v17);
+  *(v0 + 3424) = v19;
+  *(v0 + 3432) = v20;
+  if (v19 < 2)
+  {
+    outlined consume of MLS.GroupOperationErrorHandlingPolicy(v19, v20);
+
+    swift_willThrow();
+LABEL_13:
+    *(v0 + 2928) = v1;
+    v28 = v1;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
+    if (swift_dynamicCast())
+    {
+      v29 = *(v0 + 3184);
+      v30 = *(v0 + 3136);
+      v31 = *(v0 + 3128);
+      v32 = *(v0 + 3032);
+      v33 = *(v0 + 3016);
+      (*(v30 + 32))(v29, *(v0 + 3192), v31);
+      (*(v30 + 16))(v33, v29, v31);
+      swift_willThrowTyped(v33, v31, *(*(v32 + 8) + 8));
+
+      (*(v30 + 8))(v29, v31);
+      outlined destroy of MLS.GroupLoader.LoadedGroupAndOperation(v0 + 1880);
+    }
+
+    else
+    {
+      v34 = *(v0 + 3128);
+      v35 = *(v0 + 3048);
+      v36 = *(v0 + 3040);
+      v37 = *(v0 + 3032);
+      v38 = *(v0 + 3016);
+
+      AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+      (*(AssociatedConformanceWitness + 104))(v36, AssociatedConformanceWitness);
+      swift_getErrorValue();
+      v40 = Error.readableDescription.getter(*(v0 + 2800), *(v0 + 2808));
+      (*(v37 + 104))(v35, v40, v41, v34, v37);
+      swift_willThrowTyped(v38, v34, *(*(v37 + 8) + 8));
+
+      outlined destroy of MLS.GroupLoader.LoadedGroupAndOperation(v0 + 1880);
+    }
+
+    v42 = *(v0 + 8);
+
+    return v42();
+  }
+
+  v21 = v19;
+  v22 = (v0 + 2560);
+  outlined init with copy of MLS.GroupLoader.LoadedGroupAndOperation(v0 + 1880, v0 + 2056);
+  v23 = (v0 + 2096);
+  if (*(v0 + 2136))
+  {
+    v24 = *(v0 + 2112);
+    *v22 = *v23;
+    *(v0 + 2576) = v24;
+    *(v0 + 2592) = *(v0 + 2128);
+  }
+
+  else
+  {
+    outlined init with take of MLS.KeyUpdatePolicy(v23, v0 + 2560);
+  }
+
+  __swift_destroy_boxed_opaque_existential_1Tm((v0 + 2056));
+  *(v0 + 2904) = *(v0 + 2960);
+  v46 = (v21 + *v21);
+  v44 = swift_task_alloc();
+  *(v0 + 3440) = v44;
+  *v44 = v0;
+  v44[1] = _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTQ14_;
+
+  return v46(v0 + 456, v1, v22, v0 + 2904);
+}
+
+uint64_t _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTY30_()
+{
+  v1 = *(v0 + 3416);
+  outlined consume of MLS.GroupOperationErrorHandlingPolicy(*(v0 + 3424), *(v0 + 3432));
+
+  v2 = *(v0 + 3448);
+  *(v0 + 2928) = v2;
+  v3 = v2;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
+  if (swift_dynamicCast())
+  {
+    v4 = *(v0 + 3184);
+    v5 = *(v0 + 3136);
+    v6 = *(v0 + 3128);
+    v7 = *(v0 + 3032);
+    v8 = *(v0 + 3016);
+    (*(v5 + 32))(v4, *(v0 + 3192), v6);
+    (*(v5 + 16))(v8, v4, v6);
+    swift_willThrowTyped(v8, v6, *(*(v7 + 8) + 8));
+
+    (*(v5 + 8))(v4, v6);
+    outlined destroy of MLS.GroupLoader.LoadedGroupAndOperation(v0 + 1880);
+  }
+
+  else
+  {
+    v9 = *(v0 + 3128);
+    v10 = *(v0 + 3048);
+    v11 = *(v0 + 3040);
+    v12 = *(v0 + 3032);
+    v13 = *(v0 + 3016);
+
+    AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+    (*(AssociatedConformanceWitness + 104))(v11, AssociatedConformanceWitness);
+    swift_getErrorValue();
+    v15 = Error.readableDescription.getter(*(v0 + 2800), *(v0 + 2808));
+    (*(v12 + 104))(v10, v15, v16, v9, v12);
+    swift_willThrowTyped(v13, v9, *(*(v12 + 8) + 8));
+
+    outlined destroy of MLS.GroupLoader.LoadedGroupAndOperation(v0 + 1880);
+  }
+
+  v17 = *(v0 + 8);
+
+  return v17();
+}
+
+uint64_t _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTY31_()
+{
+  v1 = *(v0 + 3416);
+  outlined consume of MLS.GroupOperationErrorHandlingPolicy(*(v0 + 3424), *(v0 + 3432));
+
+  v2 = *(v0 + 3464);
+  *(v0 + 2928) = v2;
+  v3 = v2;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
+  if (swift_dynamicCast())
+  {
+    v4 = *(v0 + 3184);
+    v5 = *(v0 + 3136);
+    v6 = *(v0 + 3128);
+    v7 = *(v0 + 3032);
+    v8 = *(v0 + 3016);
+    (*(v5 + 32))(v4, *(v0 + 3192), v6);
+    (*(v5 + 16))(v8, v4, v6);
+    swift_willThrowTyped(v8, v6, *(*(v7 + 8) + 8));
+
+    (*(v5 + 8))(v4, v6);
+    outlined destroy of MLS.GroupLoader.LoadedGroupAndOperation(v0 + 1880);
+  }
+
+  else
+  {
+    v9 = *(v0 + 3128);
+    v10 = *(v0 + 3048);
+    v11 = *(v0 + 3040);
+    v12 = *(v0 + 3032);
+    v13 = *(v0 + 3016);
+
+    AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+    (*(AssociatedConformanceWitness + 104))(v11, AssociatedConformanceWitness);
+    swift_getErrorValue();
+    v15 = Error.readableDescription.getter(*(v0 + 2800), *(v0 + 2808));
+    (*(v12 + 104))(v10, v15, v16, v9, v12);
+    swift_willThrowTyped(v13, v9, *(*(v12 + 8) + 8));
+
+    outlined destroy of MLS.GroupLoader.LoadedGroupAndOperation(v0 + 1880);
+  }
+
+  v17 = *(v0 + 8);
+
+  return v17();
+}
+
+uint64_t _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTY32_()
+{
+  v1 = *(*(v0 + 3136) + 32);
+  v1(*(v0 + 3144), *(v0 + 3176), *(v0 + 3128));
+  v2 = _getErrorEmbeddedNSError<A>(_:)();
+  v3 = *(v0 + 3144);
+  if (v2)
+  {
+    v4 = v2;
+    (*(*(v0 + 3136) + 8))(*(v0 + 3144), *(v0 + 3128));
+  }
+
+  else
+  {
+    v5 = *(v0 + 3128);
+    v4 = swift_allocError();
+    v1(v6, v3, v5);
+  }
+
+  (*(*(v0 + 3064) + 8))(*(v0 + 3080), *(v0 + 3056));
+
+  *(v0 + 2928) = v4;
+  v7 = v4;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
+  v8 = swift_dynamicCast();
+  v9 = *(v0 + 3032);
+  if (v8)
+  {
+    v10 = *(v0 + 3184);
+    v11 = *(v0 + 3136);
+    v12 = *(v0 + 3128);
+    v13 = *(v0 + 3016);
+    (*(v11 + 32))(v10, *(v0 + 3192), v12);
+    (*(v11 + 16))(v13, v10, v12);
+    swift_willThrowTyped(v13, v12, *(*(v9 + 8) + 8));
+
+    (*(v11 + 8))(v10, v12);
+    outlined destroy of MLS.GroupLoader.LoadedGroupAndOperation(v0 + 1880);
+  }
+
+  else
+  {
+    v14 = *(v0 + 3128);
+    v15 = *(v0 + 3048);
+    v16 = *(v0 + 3040);
+    v17 = *(v0 + 3016);
+
+    AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+    (*(AssociatedConformanceWitness + 104))(v16, AssociatedConformanceWitness);
+    swift_getErrorValue();
+    v19 = Error.readableDescription.getter(*(v0 + 2800), *(v0 + 2808));
+    (*(v9 + 104))(v15, v19, v20, v14, v9);
+    swift_willThrowTyped(v17, v14, *(*(v9 + 8) + 8));
+
+    outlined destroy of MLS.GroupLoader.LoadedGroupAndOperation(v0 + 1880);
+  }
+
+  v21 = *(v0 + 8);
+
+  return v21();
+}
+
+uint64_t MLS.OperationRunner.handle<A>(operationResult:for:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v6[181] = v5;
+  v6[180] = a5;
+  v6[179] = a4;
+  v6[178] = a3;
+  v6[177] = a2;
+  v6[176] = a1;
+  v7 = *(a4 - 8);
+  v6[182] = v7;
+  v6[183] = *(v7 + 64);
+  v6[184] = swift_task_alloc();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
+  v6[185] = swift_task_alloc();
+  swift_getAssociatedTypeWitness();
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+  v6[186] = AssociatedConformanceWitness;
+  v6[187] = *(*(AssociatedConformanceWitness + 8) + 8);
+  v6[188] = swift_getAssociatedTypeWitness();
+  v6[189] = swift_task_alloc();
+  v9 = swift_checkMetadataState();
+  v6[190] = v9;
+  v6[191] = *(v9 - 8);
+  v6[192] = swift_task_alloc();
+  v6[193] = swift_task_alloc();
+  v6[194] = swift_task_alloc();
+  v6[195] = swift_task_alloc();
+  v6[196] = swift_task_alloc();
+  v6[197] = swift_task_alloc();
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v6[198] = AssociatedTypeWitness;
+  v6[199] = *(AssociatedTypeWitness - 8);
+  v6[200] = swift_task_alloc();
   if (one-time initialization token for shared != -1)
   {
     swift_once();
   }
 
-  v14 = static MLSActor.shared;
-  *(v7 + 296) = static MLSActor.shared;
+  v11 = static MLSActor.shared;
+  v6[201] = static MLSActor.shared;
 
-  return MEMORY[0x2822009F8](MLS.XPCClientCoordinator.processIncoming(groupName:forGroup:context:), v14, 0);
+  return MEMORY[0x2822009F8](MLS.OperationRunner.handle<A>(operationResult:for:), v11, 0);
 }
 
-void MLS.XPCClientCoordinator.processIncoming(groupName:forGroup:context:)()
+uint64_t MLS.OperationRunner.handle<A>(operationResult:for:)()
 {
-  v2 = *(v0 + 280);
-  v1 = *(v0 + 288);
-  v4 = *(v0 + 264);
-  v3 = *(v0 + 272);
-  v5 = *(v0 + 224);
-  *(v0 + 304) = direct field offset for MLS.XPCClientCoordinator.logger;
+  v84 = v0;
+  v1 = *(v0 + 1600);
+  v2 = *(v0 + 1592);
+  v3 = *(v0 + 1584);
+  v4 = *(v0 + 1440);
+  v5 = *(v0 + 1432);
+  v6 = *(v0 + 1416);
+  v7 = *(v6 + 416);
+  *(v0 + 1616) = v7;
+  v8 = *(v4 + 56);
+  v71 = v7;
 
-  outlined copy of Data?(v3, v2);
-
-  v6 = Logger.logObject.getter();
-  v7 = static os_log_type_t.default.getter();
-
-  outlined consume of Data?(v3, v2);
-
-  if (os_log_type_enabled(v6, v7))
+  v73 = v8(v5, v4);
+  v75 = v9;
+  *(v0 + 1624) = v73;
+  *(v0 + 1632) = v9;
+  v10 = (*(v4 + 72))(v5, v4);
+  v12 = v11;
+  *(v0 + 1640) = v10;
+  *(v0 + 1648) = v11;
+  (*(v4 + 80))(v5, v4);
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+  v14 = (*(AssociatedConformanceWitness + 16))(v3, AssociatedConformanceWitness);
+  v16 = v15;
+  v72 = v14;
+  *(v0 + 1656) = v14;
+  *(v0 + 1664) = v15;
+  (*(v2 + 8))(v1, v3);
+  outlined init with copy of MLS.GroupOperationResult.Kind(v6, v0 + 16);
+  if (*(v0 + 424))
   {
-    v9 = *(v0 + 256);
-    v8 = *(v0 + 264);
-    v10 = *(v0 + 224);
-    v11 = swift_slowAlloc();
-    v12 = swift_slowAlloc();
-    v46 = v12;
-    *v11 = 136315394;
+    if (*(v0 + 424) == 1)
+    {
 
-    v13 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v9, v8, &v46);
+      v17 = *(v0 + 96);
+      v80 = *(v0 + 80);
+      v81 = v17;
+      v82 = *(v0 + 112);
+      v18 = *(v0 + 32);
+      v76 = *(v0 + 16);
+      v77 = v18;
+      v19 = *(v0 + 64);
+      v78 = *(v0 + 48);
+      v79 = v19;
 
-    *(v11 + 4) = v13;
-    *(v11 + 12) = 2080;
-    v14 = *(v10 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier);
-    v15 = *(v10 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier + 8);
-    strcpy(v47, "EncryptedRCS.");
-    HIWORD(v47[1]) = -4864;
+      v20 = Logger.logObject.getter();
+      v21 = static os_log_type_t.default.getter();
 
-    MEMORY[0x2667545A0](v14, v15);
+      if (os_log_type_enabled(v20, v21))
+      {
+        v22 = swift_slowAlloc();
+        v23 = swift_slowAlloc();
+        v83 = v23;
+        *v22 = 136315394;
+        v24 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v73, v75, &v83);
 
-    v16 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v47[0], v47[1], &v46);
+        *(v22 + 4) = v24;
+        *(v22 + 12) = 2080;
+        v25 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v72, v16, &v83);
 
-    *(v11 + 14) = v16;
-    _os_log_impl(&dword_264F1F000, v6, v7, "XPCClientCoordinator processIncoming groupName { identifier: %s, client: %s }", v11, 0x16u);
-    swift_arrayDestroy();
-    MEMORY[0x266755550](v12, -1, -1);
-    MEMORY[0x266755550](v11, -1, -1);
+        *(v22 + 14) = v25;
+        _os_log_impl(&dword_264F1F000, v20, v21, "OperationRunner %s returning from queue operation { identifier: %s }", v22, 0x16u);
+        swift_arrayDestroy();
+        MEMORY[0x266755550](v23, -1, -1);
+        MEMORY[0x266755550](v22, -1, -1);
+      }
+
+      else
+      {
+      }
+
+      v55 = *(v0 + 1408);
+      v56 = v78;
+      *(v55 + 56) = v79;
+      v57 = v81;
+      *(v55 + 72) = v80;
+      *(v55 + 88) = v57;
+      v58 = v77;
+      *(v55 + 8) = v76;
+      *(v55 + 24) = v58;
+      *v55 = v71;
+      *(v55 + 104) = v82;
+      *(v55 + 40) = v56;
+      *(v55 + 112) = 0;
+      __swift_destroy_boxed_opaque_existential_1Tm((v0 + 120));
+
+      v59 = *(v0 + 8);
+
+      return v59();
+    }
+
+    else
+    {
+
+      outlined init with take of MLS.KeyUpdatePolicy((v0 + 16), v0 + 1248);
+      v48 = *(v0 + 72);
+      *(v0 + 1288) = *(v0 + 56);
+      *(v0 + 1304) = v48;
+      *(v0 + 1320) = *(v0 + 88);
+
+      v49 = Logger.logObject.getter();
+      v50 = static os_log_type_t.default.getter();
+
+      if (os_log_type_enabled(v49, v50))
+      {
+        v51 = swift_slowAlloc();
+        v52 = swift_slowAlloc();
+        *&v76 = v52;
+        *v51 = 136315394;
+        v53 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v73, v75, &v76);
+
+        *(v51 + 4) = v53;
+        *(v51 + 12) = 2080;
+        v54 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v72, v16, &v76);
+
+        *(v51 + 14) = v54;
+        _os_log_impl(&dword_264F1F000, v49, v50, "OperationRunner %s enqueueing new sub-operation { identifier: %s }", v51, 0x16u);
+        swift_arrayDestroy();
+        MEMORY[0x266755550](v52, -1, -1);
+        MEMORY[0x266755550](v51, -1, -1);
+      }
+
+      else
+      {
+      }
+
+      v60 = *(v0 + 1448);
+      v61 = *(v0 + 1272);
+      *(v0 + 1752) = v61;
+      v62 = *(v0 + 1280);
+      *(v0 + 1760) = v62;
+      v63 = __swift_project_boxed_opaque_existential_1((v0 + 1248), v61);
+      *(v0 + 1392) = v71;
+      *(v0 + 1368) = 0;
+      *(v0 + 1384) = 0;
+      *(v0 + 1376) = 0;
+      v64 = *(*v60 + 224);
+      AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+      *(v0 + 1768) = AssociatedTypeWitness;
+      v66 = *(AssociatedTypeWitness - 8);
+      *(v0 + 1776) = v66;
+      *(v0 + 1784) = *(v66 + 64);
+      v67 = swift_task_alloc();
+      *(v0 + 1792) = v67;
+      v74 = (v64 + *v64);
+      v68 = swift_task_alloc();
+      *(v0 + 1800) = v68;
+      *v68 = v0;
+      v68[1] = MLS.OperationRunner.handle<A>(operationResult:for:);
+      v69 = *(v0 + 1408);
+
+      return (v74)(v69, v63, v0 + 1392, v0 + 1288, v0 + 1368, v61, v62, v67);
+    }
   }
 
   else
   {
-    v17 = *(v0 + 224);
+    v26 = *(v0 + 1520);
+    v27 = *(v0 + 1512);
+    v28 = *(v0 + 1504);
+    v70 = *(v0 + 1496);
+    v29 = *(v0 + 1448);
+    v30 = *(v0 + 160);
+    *(v0 + 560) = *(v0 + 144);
+    *(v0 + 576) = v30;
+    *(v0 + 592) = *(v0 + 176);
+    *(v0 + 608) = *(v0 + 192);
+    v31 = *(v0 + 96);
+    *(v0 + 496) = *(v0 + 80);
+    *(v0 + 512) = v31;
+    v32 = *(v0 + 128);
+    *(v0 + 528) = *(v0 + 112);
+    *(v0 + 544) = v32;
+    v33 = *(v0 + 32);
+    *(v0 + 432) = *(v0 + 16);
+    *(v0 + 448) = v33;
+    v34 = *(v0 + 64);
+    *(v0 + 464) = *(v0 + 48);
+    *(v0 + 480) = v34;
+    v35 = *(v0 + 216);
+    v36 = *(v0 + 248);
+    *(v0 + 960) = *(v0 + 232);
+    *(v0 + 976) = v36;
+    *(v0 + 985) = *(v0 + 257);
+    *(v0 + 928) = *(v0 + 200);
+    *(v0 + 944) = v35;
+    v37 = *(v0 + 360);
+    *(v0 + 888) = *(v0 + 344);
+    *(v0 + 904) = v37;
+    *(v0 + 920) = *(v0 + 376);
+    v38 = *(v0 + 296);
+    *(v0 + 824) = *(v0 + 280);
+    *(v0 + 840) = v38;
+    v39 = *(v0 + 328);
+    *(v0 + 856) = *(v0 + 312);
+    *(v0 + 872) = v39;
+    outlined init with take of MLS.KeyUpdatePolicy((v0 + 384), v0 + 1328);
+    v40 = swift_task_alloc();
+    *(v0 + 1672) = v40;
+    v40[2] = v10;
+    v40[3] = v12;
+    v40[4] = v0 + 1328;
+    v40[5] = v29;
+    v41 = swift_getAssociatedConformanceWitness();
+    *(v0 + 1680) = v41;
+    (*(v41 + 56))(v28, v41);
+    VersatileError.init(type:)(v27, v26, v70);
+    v42 = swift_allocObject();
+    *(v0 + 1688) = v42;
+    v42[2] = v29;
+    v42[3] = v73;
+    v42[4] = v75;
+    v42[5] = v72;
+    v42[6] = v16;
+
+    v43 = swift_task_alloc();
+    *(v0 + 1696) = v43;
+    *v43 = v0;
+    v43[1] = MLS.OperationRunner.handle<A>(operationResult:for:);
+    v44 = *(v0 + 1576);
+    v45 = *(v0 + 1568);
+    v46 = *(v0 + 1520);
+    v86 = *(v0 + 1496);
+    v87 = v45;
+
+    return _s15SecureMessaging12asyncRethrow_2as3logq_q_yYaYbKXK_xySSYbcSgtYaxYKAA14VersatileErrorRzr0_lF(v0 + 720, async function pointer to partial apply for implicit closure #1 in MLS.OperationRunner.handle<A>(operationResult:for:), v40, v44, partial apply for closure #1 in MLS.OperationRunner.handle<A>(operationResult:for:), v42, v46);
   }
-
-  v18 = *(v0 + 280);
-  v19 = *(v0 + 288);
-  v21 = *(v0 + 264);
-  v20 = *(v0 + 272);
-  v22 = *(v0 + 248);
-  v23 = *(v0 + 256);
-  v25 = *(v0 + 232);
-  v24 = *(v0 + 240);
-  v26 = *(v0 + 224);
-  v43 = *(v0 + 208);
-  v45 = *(v0 + 216);
-  v42 = *(v0 + 192);
-
-  outlined copy of Data?(v20, v18);
-
-  Date.init()();
-  v27 = *(v25 + 20);
-  v28 = type metadata accessor for Date();
-  (*(*(v28 - 8) + 56))(v22 + v27, 1, 1, v28);
-  outlined init with take of MetricCollector.Event(v22, v24);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v47[0] = v19;
-  specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v24, 0x5864726177726F46, 0xEA00000000004350, isUniquelyReferenced_nonNull_native);
-  v30 = v47[0];
-  *(v0 + 312) = v47[0];
-
-  *(v0 + 144) = v23;
-  *(v0 + 152) = v21;
-  *(v0 + 160) = v20;
-  *(v0 + 168) = v18;
-  *(v0 + 176) = v30;
-  v31 = *(*(v26 + direct field offset for MLS.XPCClientCoordinator.xpcClient) + OBJC_IVAR____TtCO15SecureMessaging8XPCUtils9XPCClient_deliveryInterface);
-  *(v0 + 320) = v31;
-  v32 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO33IncomingGroupNameProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO33IncomingGroupNameProcessedContextVy_10Foundation4DataVGMR);
-  v33 = swift_task_alloc();
-  *(v0 + 328) = v33;
-  *(v33 + 16) = v0 + 144;
-  *(v33 + 24) = v26;
-  v34 = swift_task_alloc();
-  *(v0 + 336) = v34;
-  *(v34 + 16) = v42;
-  *(v34 + 32) = v43;
-  *(v34 + 40) = v45;
-  v35 = *(*v31 + 360);
-
-  v44 = v35 + *v35;
-  v36 = v35[1];
-  v37 = swift_task_alloc();
-  *(v0 + 344) = v37;
-  v38 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DataV_ACtMd, &_s10Foundation4DataV_ACtMR);
-  v39 = lazy protocol witness table accessor for type MLS.KeyPackageRetrievalResult<MLS.AllMember> and conformance MLS.KeyPackageRetrievalResult<A>(&lazy protocol witness table cache variable for type MLS.IncomingGroupNameProcessedContext<Data> and conformance MLS.IncomingGroupNameProcessedContext<A>, &_s15SecureMessaging3MLSO33IncomingGroupNameProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO33IncomingGroupNameProcessedContextVy_10Foundation4DataVGMR);
-  v40 = lazy protocol witness table accessor for type MLS.KeyPackageRetrievalResult<MLS.AllMember> and conformance MLS.KeyPackageRetrievalResult<A>(&lazy protocol witness table cache variable for type MLS.IncomingGroupNameProcessedContext<Data> and conformance MLS.IncomingGroupNameProcessedContext<A>, &_s15SecureMessaging3MLSO33IncomingGroupNameProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO33IncomingGroupNameProcessedContextVy_10Foundation4DataVGMR);
-  v41 = lazy protocol witness table accessor for type MLS.IncomingMessageError and conformance MLS.IncomingMessageError();
-  *v37 = v0;
-  v37[1] = MLS.XPCClientCoordinator.processIncoming(groupName:forGroup:context:);
-  v55 = v40;
-  v56 = v41;
-  v53 = v38;
-  v54 = v39;
-  v51 = v32;
-  v52 = &type metadata for MLS.IncomingMessageError;
-  v49 = partial apply for closure #3 in MLS.XPCClientCoordinator.processIncoming(groupName:forGroup:context:);
-  v50 = v34;
-
-  __asm { BRAA            X8, X16 }
 }
 
-uint64_t MLS.XPCClientCoordinator.processIncoming(groupName:forGroup:context:)()
 {
   v2 = *v1;
-  v3 = *(*v1 + 344);
-  v13 = *v1;
-  *(*v1 + 352) = v0;
+  v3 = *(*v1 + 1576);
+  v4 = *(*v1 + 1528);
+  v5 = *(*v1 + 1520);
 
+  v6 = *(v4 + 8);
+  v2[213] = v6;
+  v2[214] = (v4 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+  v6(v3, v5);
   if (v0)
   {
-    v5 = v2[41];
-    v4 = v2[42];
-    v6 = v2[40];
-    v7 = v2[37];
+    v7 = v2[201];
 
-    v8 = MLS.XPCClientCoordinator.processIncoming(groupName:forGroup:context:);
+    v8 = MLS.OperationRunner.handle<A>(operationResult:for:);
     v9 = v7;
   }
 
   else
   {
-    v10 = v2[40];
-    v11 = v2[37];
+    v10 = v2[201];
 
-    v8 = MLS.XPCClientCoordinator.processIncoming(groupName:forGroup:context:);
-    v9 = v11;
+    v8 = MLS.OperationRunner.handle<A>(operationResult:for:);
+    v9 = v10;
   }
 
   return MEMORY[0x2822009F8](v8, v9, 0);
 }
 
 {
-  v1 = *(v0 + 328);
-  v2 = *(v0 + 336);
-  v3 = *(v0 + 312);
-  v5 = *(v0 + 272);
-  v4 = *(v0 + 280);
-  v6 = *(v0 + 264);
-  v8 = *(v0 + 240);
-  v7 = *(v0 + 248);
-  v9 = *(v0 + 184);
-
-  outlined consume of Data?(v5, v4);
-
-  v10 = *(v0 + 16);
-  v11 = *(v0 + 32);
-  v12 = *(v0 + 64);
-  v9[2] = *(v0 + 48);
-  v9[3] = v12;
-  *v9 = v10;
-  v9[1] = v11;
-  v13 = *(v0 + 80);
-  v14 = *(v0 + 96);
-  v15 = *(v0 + 128);
-  v9[6] = *(v0 + 112);
-  v9[7] = v15;
-  v9[4] = v13;
-  v9[5] = v14;
-
-  v16 = *(v0 + 8);
-
-  return v16();
-}
-
-{
-  v34 = v0;
-  v1 = v0[44];
-  v3 = v0[38];
-  v2 = v0[39];
-  v5 = v0[35];
-  v4 = v0[36];
-  v7 = v0[33];
-  v6 = v0[34];
-  v8 = v0[28];
-
-  outlined consume of Data?(v6, v5);
-
-  outlined copy of Data?(v6, v5);
-
-  v9 = v1;
-  v10 = Logger.logObject.getter();
-  v11 = static os_log_type_t.error.getter();
-
-  outlined consume of Data?(v6, v5);
-
-  if (os_log_type_enabled(v10, v11))
-  {
-    v12 = v0[44];
-    v14 = v0[32];
-    v13 = v0[33];
-    v15 = v0[28];
-    v16 = swift_slowAlloc();
-    v17 = swift_slowAlloc();
-    v18 = swift_slowAlloc();
-    v32 = v18;
-    *v16 = 136315650;
-
-    v19 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v14, v13, &v32);
-
-    *(v16 + 4) = v19;
-    *(v16 + 12) = 2112;
-    v20 = v12;
-    v21 = _swift_stdlib_bridgeErrorToNSError();
-    *(v16 + 14) = v21;
-    *v17 = v21;
-    *(v16 + 22) = 2080;
-    v22 = *(v15 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier);
-    v23 = *(v15 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier + 8);
-
-    strcpy(v33, "EncryptedRCS.");
-    HIWORD(v33[1]) = -4864;
-    MEMORY[0x2667545A0](v22, v23);
-
-    v24 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v33[0], v33[1], &v32);
-
-    *(v16 + 24) = v24;
-    _os_log_impl(&dword_264F1F000, v10, v11, "XPCClientCoordinator processIncoming groupName failed { identifier: %s, error: %@, client: %s }", v16, 0x20u);
-    outlined destroy of NSObject?(v17, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    MEMORY[0x266755550](v17, -1, -1);
-    swift_arrayDestroy();
-    MEMORY[0x266755550](v18, -1, -1);
-    MEMORY[0x266755550](v16, -1, -1);
-  }
-
-  else
-  {
-    v25 = v0[28];
-  }
-
-  v26 = v0[44];
-  v27 = v0[30];
-  v28 = v0[31];
-  swift_willThrow();
-
-  v29 = v0[1];
-  v30 = v0[44];
-
-  return v29();
-}
-
-uint64_t closure #3 in MLS.XPCClientCoordinator.applicationEncrypt(data:withGroup:context:)(void **a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t (*a9)(uint64_t, uint64_t), uint64_t a10, SEL *a11)
-{
-  v26 = *a1;
-  v16 = a2[1];
-  v17 = a2[2];
-  v18 = a2[3];
-  v27 = *a2;
-  outlined copy of Data._Representation(*a2, v16);
-  outlined copy of Data._Representation(v17, v18);
-  isa = Data._bridgeToObjectiveC()().super.isa;
-  v20 = a9(a5, a6);
-  v21 = MEMORY[0x266754510](a7, a8);
-  v22 = Data._bridgeToObjectiveC()().super.isa;
-  aBlock[4] = a3;
-  aBlock[5] = a4;
-  aBlock[0] = MEMORY[0x277D85DD0];
-  aBlock[1] = 1107296256;
-  aBlock[2] = thunk for @escaping @callee_guaranteed @Sendable (@guaranteed Data?, @guaranteed Data?) -> ();
-  aBlock[3] = a10;
-  v23 = _Block_copy(aBlock);
-
-  [v26 *a11];
-  _Block_release(v23);
-
-  outlined consume of Data._Representation(v17, v18);
-  return outlined consume of Data._Representation(v27, v16);
-}
-
-uint64_t MLS.XPCClientCoordinator.processIncoming(message:forGroup:context:)(uint64_t a1, _OWORD *a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  *(v6 + 1568) = v5;
-  *(v6 + 1560) = a4;
-  *(v6 + 1552) = a3;
-  *(v6 + 1544) = a1;
-  v9 = type metadata accessor for MetricCollector.Event();
-  *(v6 + 1576) = v9;
-  v10 = *(*(v9 - 8) + 64) + 15;
-  *(v6 + 1584) = swift_task_alloc();
-  *(v6 + 1592) = swift_task_alloc();
-  v11 = a2[1];
-  *(v6 + 1480) = *a2;
-  *(v6 + 1496) = v11;
-  *(v6 + 1512) = a2[2];
-  *(v6 + 1522) = *(a2 + 42);
-  v12 = *(a5 + 144);
-  *(v6 + 144) = *(a5 + 128);
-  *(v6 + 160) = v12;
-  *(v6 + 176) = *(a5 + 160);
-  v13 = *(a5 + 80);
-  *(v6 + 80) = *(a5 + 64);
-  *(v6 + 96) = v13;
-  v14 = *(a5 + 112);
-  *(v6 + 112) = *(a5 + 96);
-  *(v6 + 128) = v14;
-  v15 = *(a5 + 16);
-  *(v6 + 16) = *a5;
-  *(v6 + 32) = v15;
-  v16 = *(a5 + 48);
-  *(v6 + 48) = *(a5 + 32);
-  *(v6 + 64) = v16;
-  if (one-time initialization token for shared != -1)
-  {
-    swift_once();
-  }
-
-  v17 = static MLSActor.shared;
-  *(v6 + 1600) = static MLSActor.shared;
-
-  return MEMORY[0x2822009F8](MLS.XPCClientCoordinator.processIncoming(message:forGroup:context:), v17, 0);
-}
-
-void MLS.XPCClientCoordinator.processIncoming(message:forGroup:context:)()
-{
-  v1 = *(v0 + 1568);
-  *(v0 + 1608) = direct field offset for MLS.XPCClientCoordinator.logger;
-  outlined init with copy of MLS.OutgoingEventState?(v0 + 16, v0 + 352, &_s15SecureMessaging3MLSO22IncomingMessageContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO22IncomingMessageContextVy_10Foundation4DataVGMR);
-
-  v2 = Logger.logObject.getter();
-  v3 = static os_log_type_t.default.getter();
-  outlined destroy of NSObject?(v0 + 16, &_s15SecureMessaging3MLSO22IncomingMessageContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO22IncomingMessageContextVy_10Foundation4DataVGMR);
-  v4 = os_log_type_enabled(v2, v3);
-  v5 = *(v0 + 1568);
-  if (v4)
-  {
-    v6 = swift_slowAlloc();
-    v7 = swift_slowAlloc();
-    v48 = v7;
-    *v6 = 136315394;
-    v8 = *(v0 + 16);
-    v9 = *(v0 + 24);
-
-    v10 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v8, v9, &v48);
-
-    *(v6 + 4) = v10;
-    *(v6 + 12) = 2080;
-    v11 = *(v5 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier);
-    v12 = *(v5 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier + 8);
-    strcpy(v49, "EncryptedRCS.");
-    HIWORD(v49[1]) = -4864;
-
-    MEMORY[0x2667545A0](v11, v12);
-
-    v13 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v49[0], v49[1], &v48);
-
-    *(v6 + 14) = v13;
-    _os_log_impl(&dword_264F1F000, v2, v3, "XPCClientCoordinator processIncoming { identifier: %s, client: %s }", v6, 0x16u);
-    swift_arrayDestroy();
-    MEMORY[0x266755550](v7, -1, -1);
-    MEMORY[0x266755550](v6, -1, -1);
-  }
-
-  else
-  {
-  }
-
-  v14 = *(v0 + 1592);
-  v15 = *(v0 + 1584);
-  v16 = *(v0 + 1576);
-  v17 = *(v0 + 1568);
-  v47 = *(v0 + 1560);
-  v18 = *(v0 + 1552);
-  v19 = *(v0 + 128);
-  *(v0 + 1288) = *(v0 + 112);
-  *(v0 + 1304) = v19;
-  v20 = *(v0 + 160);
-  *(v0 + 1320) = *(v0 + 144);
-  *(v0 + 1336) = v20;
-  v21 = *(v0 + 64);
-  *(v0 + 1224) = *(v0 + 48);
-  *(v0 + 1240) = v21;
-  v22 = *(v0 + 96);
-  *(v0 + 1256) = *(v0 + 80);
-  *(v0 + 1272) = v22;
-  v23 = *(v0 + 32);
-  *(v0 + 1192) = *(v0 + 16);
-  *(v0 + 1208) = v23;
-  v24 = *(v0 + 176);
-  outlined init with copy of MLS.OutgoingEventState?(v0 + 16, v0 + 520, &_s15SecureMessaging3MLSO22IncomingMessageContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO22IncomingMessageContextVy_10Foundation4DataVGMR);
-  Date.init()();
-  v25 = *(v16 + 20);
-  v26 = type metadata accessor for Date();
-  (*(*(v26 - 8) + 56))(v14 + v25, 1, 1, v26);
-  outlined init with take of MetricCollector.Event(v14, v15);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v49[0] = v24;
-  specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v15, 0x5864726177726F46, 0xEA00000000004350, isUniquelyReferenced_nonNull_native);
-  v28 = v49[0];
-  *(v0 + 1616) = v49[0];
-
-  v29 = *(v0 + 1288);
-  v30 = *(v0 + 1320);
-  v31 = *(v0 + 1336);
-  *(v0 + 296) = *(v0 + 1304);
-  *(v0 + 312) = v30;
-  *(v0 + 328) = v31;
-  v32 = *(v0 + 1240);
-  *(v0 + 216) = *(v0 + 1224);
-  *(v0 + 232) = v32;
-  v33 = *(v0 + 1272);
-  *(v0 + 248) = *(v0 + 1256);
-  *(v0 + 264) = v33;
-  *(v0 + 280) = v29;
-  v34 = *(v0 + 1208);
-  *(v0 + 184) = *(v0 + 1192);
-  *(v0 + 200) = v34;
-  *(v0 + 344) = v28;
-  v35 = *(*(v17 + direct field offset for MLS.XPCClientCoordinator.xpcClient) + OBJC_IVAR____TtCO15SecureMessaging8XPCUtils9XPCClient_deliveryInterface);
-  *(v0 + 1624) = v35;
-  v36 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO31IncomingMessageProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO31IncomingMessageProcessedContextVy_10Foundation4DataVGMR);
-  v37 = swift_task_alloc();
-  *(v0 + 1632) = v37;
-  v37[2] = v0 + 1480;
-  v37[3] = v0 + 184;
-  v37[4] = v17;
-  v38 = swift_task_alloc();
-  *(v0 + 1640) = v38;
-  *(v38 + 16) = v18;
-  *(v38 + 24) = v47;
-  v39 = *(*v35 + 360);
-
-  v46 = v39 + *v39;
-  v40 = v39[1];
-  v41 = swift_task_alloc();
-  *(v0 + 1648) = v41;
-  v42 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DataV_A2CtMd, &_s10Foundation4DataV_A2CtMR);
-  v43 = lazy protocol witness table accessor for type MLS.KeyPackageRetrievalResult<MLS.AllMember> and conformance MLS.KeyPackageRetrievalResult<A>(&lazy protocol witness table cache variable for type MLS.IncomingMessageProcessedContext<Data> and conformance MLS.IncomingMessageProcessedContext<A>, &_s15SecureMessaging3MLSO31IncomingMessageProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO31IncomingMessageProcessedContextVy_10Foundation4DataVGMR);
-  v44 = lazy protocol witness table accessor for type MLS.KeyPackageRetrievalResult<MLS.AllMember> and conformance MLS.KeyPackageRetrievalResult<A>(&lazy protocol witness table cache variable for type MLS.IncomingMessageProcessedContext<Data> and conformance MLS.IncomingMessageProcessedContext<A>, &_s15SecureMessaging3MLSO31IncomingMessageProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO31IncomingMessageProcessedContextVy_10Foundation4DataVGMR);
-  v45 = lazy protocol witness table accessor for type MLS.IncomingMessageError and conformance MLS.IncomingMessageError();
-  *v41 = v0;
-  v41[1] = MLS.XPCClientCoordinator.processIncoming(message:forGroup:context:);
-  v57 = v44;
-  v58 = v45;
-  v55 = v42;
-  v56 = v43;
-  v53 = v36;
-  v54 = &type metadata for MLS.IncomingMessageError;
-  v51 = partial apply for closure #3 in MLS.XPCClientCoordinator.processIncoming(message:forGroup:context:);
-  v52 = v38;
-
-  __asm { BRAA            X8, X16 }
-}
-
-uint64_t MLS.XPCClientCoordinator.processIncoming(message:forGroup:context:)()
-{
-  v2 = *v1;
-  v3 = *(*v1 + 1648);
-  v4 = *v1;
-  *(*v1 + 1656) = v0;
-
-  v5 = *(v2 + 1624);
-  v6 = *(v2 + 1600);
-
-  if (v0)
-  {
-    v7 = MLS.XPCClientCoordinator.processIncoming(message:forGroup:context:);
-  }
-
-  else
-  {
-    v7 = MLS.XPCClientCoordinator.processIncoming(message:forGroup:context:);
-  }
-
-  return MEMORY[0x2822009F8](v7, v6, 0);
-}
-
-{
-  v1 = *(v0 + 1304);
-  *(v0 + 1120) = *(v0 + 1288);
-  *(v0 + 1136) = v1;
-  v2 = *(v0 + 1336);
-  *(v0 + 1152) = *(v0 + 1320);
-  *(v0 + 1168) = v2;
-  v3 = *(v0 + 1240);
-  *(v0 + 1056) = *(v0 + 1224);
-  *(v0 + 1072) = v3;
-  v4 = *(v0 + 1272);
-  *(v0 + 1088) = *(v0 + 1256);
-  *(v0 + 1104) = v4;
-  v5 = *(v0 + 1208);
-  *(v0 + 1024) = *(v0 + 1192);
-  v6 = *(v0 + 1640);
-  v7 = *(v0 + 1632);
-  v8 = *(v0 + 1616);
-  v9 = *(v0 + 1592);
-  v10 = *(v0 + 1584);
-  v11 = *(v0 + 1544);
-  *(v0 + 1040) = v5;
-  *(v0 + 1184) = v8;
-  outlined destroy of NSObject?(v0 + 1024, &_s15SecureMessaging3MLSO22IncomingMessageContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO22IncomingMessageContextVy_10Foundation4DataVGMR);
-  v12 = *(v0 + 1400);
-  v14 = *(v0 + 1352);
-  v13 = *(v0 + 1368);
-  v11[2] = *(v0 + 1384);
-  v11[3] = v12;
-  *v11 = v14;
-  v11[1] = v13;
-  v15 = *(v0 + 1464);
-  v17 = *(v0 + 1416);
-  v16 = *(v0 + 1432);
-  v11[6] = *(v0 + 1448);
-  v11[7] = v15;
-  v11[4] = v17;
-  v11[5] = v16;
-
-  v18 = *(v0 + 8);
-
-  return v18();
-}
-
-{
-  v37 = v0;
-  v1 = *(v0 + 1656);
-  v2 = *(v0 + 1616);
-  v3 = *(v0 + 1608);
-  v4 = *(v0 + 1568);
-  v5 = *(v0 + 1304);
-  *(v0 + 784) = *(v0 + 1288);
-  *(v0 + 800) = v5;
-  v6 = *(v0 + 1336);
-  *(v0 + 816) = *(v0 + 1320);
-  *(v0 + 832) = v6;
-  v7 = *(v0 + 1240);
-  *(v0 + 720) = *(v0 + 1224);
-  *(v0 + 736) = v7;
-  v8 = *(v0 + 1272);
-  *(v0 + 752) = *(v0 + 1256);
-  *(v0 + 768) = v8;
-  v9 = *(v0 + 1208);
-  *(v0 + 688) = *(v0 + 1192);
-  *(v0 + 704) = v9;
-  *(v0 + 848) = v2;
-  outlined destroy of NSObject?(v0 + 688, &_s15SecureMessaging3MLSO22IncomingMessageContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO22IncomingMessageContextVy_10Foundation4DataVGMR);
-
-  outlined init with copy of MLS.OutgoingEventState?(v0 + 16, v0 + 856, &_s15SecureMessaging3MLSO22IncomingMessageContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO22IncomingMessageContextVy_10Foundation4DataVGMR);
-
-  v10 = v1;
-  v11 = Logger.logObject.getter();
-  v12 = static os_log_type_t.error.getter();
-  outlined destroy of NSObject?(v0 + 16, &_s15SecureMessaging3MLSO22IncomingMessageContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO22IncomingMessageContextVy_10Foundation4DataVGMR);
-
-  if (os_log_type_enabled(v11, v12))
-  {
-    v13 = *(v0 + 1656);
-    v14 = *(v0 + 1568);
-    v15 = swift_slowAlloc();
-    v16 = swift_slowAlloc();
-    v17 = swift_slowAlloc();
-    v35 = v17;
-    *v15 = 136315650;
-    v18 = *(v0 + 16);
-    v19 = *(v0 + 24);
-
-    v20 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v18, v19, &v35);
-
-    *(v15 + 4) = v20;
-    *(v15 + 12) = 2112;
-    v21 = v13;
-    v22 = _swift_stdlib_bridgeErrorToNSError();
-    *(v15 + 14) = v22;
-    *v16 = v22;
-    *(v15 + 22) = 2080;
-    v23 = *(v14 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier);
-    v24 = *(v14 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier + 8);
-
-    strcpy(v36, "EncryptedRCS.");
-    HIWORD(v36[1]) = -4864;
-    MEMORY[0x2667545A0](v23, v24);
-
-    v25 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v36[0], v36[1], &v35);
-
-    *(v15 + 24) = v25;
-    _os_log_impl(&dword_264F1F000, v11, v12, "XPCClientCoordinator processIncoming failed { identifier: %s, error: %@, client: %s }", v15, 0x20u);
-    outlined destroy of NSObject?(v16, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    MEMORY[0x266755550](v16, -1, -1);
-    swift_arrayDestroy();
-    MEMORY[0x266755550](v17, -1, -1);
-    MEMORY[0x266755550](v15, -1, -1);
-  }
-
-  else
-  {
-    v26 = *(v0 + 1568);
-  }
-
-  v27 = *(v0 + 1656);
-  v28 = *(v0 + 1640);
-  v29 = *(v0 + 1632);
-  v30 = *(v0 + 1592);
-  v31 = *(v0 + 1584);
-  swift_willThrow();
-
-  v32 = *(v0 + 8);
-  v33 = *(v0 + 1656);
-
-  return v32();
-}
-
-uint64_t MLS.XPCClientCoordinator.processIncoming(message:context:)(uint64_t a1, _OWORD *a2, uint64_t a3)
-{
-  *(v4 + 1552) = v3;
-  *(v4 + 1544) = a1;
-  v7 = type metadata accessor for MetricCollector.Event();
-  *(v4 + 1560) = v7;
-  v8 = *(*(v7 - 8) + 64) + 15;
-  *(v4 + 1568) = swift_task_alloc();
-  *(v4 + 1576) = swift_task_alloc();
-  v9 = a2[1];
-  *(v4 + 1480) = *a2;
-  *(v4 + 1496) = v9;
-  *(v4 + 1512) = a2[2];
-  *(v4 + 1522) = *(a2 + 42);
-  v10 = *(a3 + 144);
-  *(v4 + 144) = *(a3 + 128);
-  *(v4 + 160) = v10;
-  *(v4 + 176) = *(a3 + 160);
-  v11 = *(a3 + 80);
-  *(v4 + 80) = *(a3 + 64);
-  *(v4 + 96) = v11;
-  v12 = *(a3 + 112);
-  *(v4 + 112) = *(a3 + 96);
-  *(v4 + 128) = v12;
-  v13 = *(a3 + 16);
-  *(v4 + 16) = *a3;
-  *(v4 + 32) = v13;
-  v14 = *(a3 + 48);
-  *(v4 + 48) = *(a3 + 32);
-  *(v4 + 64) = v14;
-  if (one-time initialization token for shared != -1)
-  {
-    swift_once();
-  }
-
-  v15 = static MLSActor.shared;
-  *(v4 + 1584) = static MLSActor.shared;
-
-  return MEMORY[0x2822009F8](MLS.XPCClientCoordinator.processIncoming(message:context:), v15, 0);
-}
-
-void MLS.XPCClientCoordinator.processIncoming(message:context:)()
-{
-  v1 = *(v0 + 1552);
-  *(v0 + 1592) = direct field offset for MLS.XPCClientCoordinator.logger;
-  outlined init with copy of MLS.OutgoingEventState?(v0 + 16, v0 + 352, &_s15SecureMessaging3MLSO22IncomingMessageContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO22IncomingMessageContextVy_10Foundation4DataVGMR);
-
-  v2 = Logger.logObject.getter();
-  v3 = static os_log_type_t.default.getter();
-  outlined destroy of NSObject?(v0 + 16, &_s15SecureMessaging3MLSO22IncomingMessageContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO22IncomingMessageContextVy_10Foundation4DataVGMR);
-  v4 = os_log_type_enabled(v2, v3);
-  v5 = *(v0 + 1552);
-  if (v4)
-  {
-    v6 = swift_slowAlloc();
-    v7 = swift_slowAlloc();
-    v45 = v7;
-    *v6 = 136315394;
-    v8 = *(v0 + 16);
-    v9 = *(v0 + 24);
-
-    v10 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v8, v9, &v45);
-
-    *(v6 + 4) = v10;
-    *(v6 + 12) = 2080;
-    v11 = *(v5 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier);
-    v12 = *(v5 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier + 8);
-    strcpy(v46, "EncryptedRCS.");
-    HIWORD(v46[1]) = -4864;
-
-    MEMORY[0x2667545A0](v11, v12);
-
-    v13 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v46[0], v46[1], &v45);
-
-    *(v6 + 14) = v13;
-    _os_log_impl(&dword_264F1F000, v2, v3, "XPCClientCoordinator processIncoming { identifier: %s, client: %s }", v6, 0x16u);
-    swift_arrayDestroy();
-    MEMORY[0x266755550](v7, -1, -1);
-    MEMORY[0x266755550](v6, -1, -1);
-  }
-
-  else
-  {
-  }
-
-  v14 = *(v0 + 1576);
-  v15 = *(v0 + 1568);
-  v16 = *(v0 + 1560);
-  v17 = *(v0 + 1552);
-  v18 = *(v0 + 128);
-  *(v0 + 1288) = *(v0 + 112);
-  *(v0 + 1304) = v18;
-  v19 = *(v0 + 160);
-  *(v0 + 1320) = *(v0 + 144);
-  *(v0 + 1336) = v19;
-  v20 = *(v0 + 64);
-  *(v0 + 1224) = *(v0 + 48);
-  *(v0 + 1240) = v20;
-  v21 = *(v0 + 96);
-  *(v0 + 1256) = *(v0 + 80);
-  *(v0 + 1272) = v21;
-  v22 = *(v0 + 32);
-  *(v0 + 1192) = *(v0 + 16);
-  *(v0 + 1208) = v22;
-  v23 = *(v0 + 176);
-  outlined init with copy of MLS.OutgoingEventState?(v0 + 16, v0 + 520, &_s15SecureMessaging3MLSO22IncomingMessageContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO22IncomingMessageContextVy_10Foundation4DataVGMR);
-  Date.init()();
-  v24 = *(v16 + 20);
-  v25 = type metadata accessor for Date();
-  (*(*(v25 - 8) + 56))(v14 + v24, 1, 1, v25);
-  outlined init with take of MetricCollector.Event(v14, v15);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v46[0] = v23;
-  specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v15, 0x5864726177726F46, 0xEA00000000004350, isUniquelyReferenced_nonNull_native);
-  v27 = v46[0];
-  *(v0 + 1600) = v46[0];
-
-  v28 = *(v0 + 1288);
-  v29 = *(v0 + 1320);
-  v30 = *(v0 + 1336);
-  *(v0 + 296) = *(v0 + 1304);
-  *(v0 + 312) = v29;
-  *(v0 + 328) = v30;
-  v31 = *(v0 + 1240);
-  *(v0 + 216) = *(v0 + 1224);
-  *(v0 + 232) = v31;
-  v32 = *(v0 + 1272);
-  *(v0 + 248) = *(v0 + 1256);
-  *(v0 + 264) = v32;
-  *(v0 + 280) = v28;
-  v33 = *(v0 + 1208);
-  *(v0 + 184) = *(v0 + 1192);
-  *(v0 + 200) = v33;
-  *(v0 + 344) = v27;
-  v34 = *(*(v17 + direct field offset for MLS.XPCClientCoordinator.xpcClient) + OBJC_IVAR____TtCO15SecureMessaging8XPCUtils9XPCClient_deliveryInterface);
-  *(v0 + 1608) = v34;
-  v35 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO31IncomingMessageProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO31IncomingMessageProcessedContextVy_10Foundation4DataVGMR);
-  v36 = swift_task_alloc();
-  *(v0 + 1616) = v36;
-  v36[2] = v0 + 1480;
-  v36[3] = v0 + 184;
-  v36[4] = v17;
-  v37 = *(*v34 + 360);
-
-  v44 = v37 + *v37;
-  v38 = v37[1];
-  v39 = swift_task_alloc();
-  *(v0 + 1624) = v39;
-  v40 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DataV_A2CtMd, &_s10Foundation4DataV_A2CtMR);
-  v41 = lazy protocol witness table accessor for type MLS.KeyPackageRetrievalResult<MLS.AllMember> and conformance MLS.KeyPackageRetrievalResult<A>(&lazy protocol witness table cache variable for type MLS.IncomingMessageProcessedContext<Data> and conformance MLS.IncomingMessageProcessedContext<A>, &_s15SecureMessaging3MLSO31IncomingMessageProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO31IncomingMessageProcessedContextVy_10Foundation4DataVGMR);
-  v42 = lazy protocol witness table accessor for type MLS.KeyPackageRetrievalResult<MLS.AllMember> and conformance MLS.KeyPackageRetrievalResult<A>(&lazy protocol witness table cache variable for type MLS.IncomingMessageProcessedContext<Data> and conformance MLS.IncomingMessageProcessedContext<A>, &_s15SecureMessaging3MLSO31IncomingMessageProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO31IncomingMessageProcessedContextVy_10Foundation4DataVGMR);
-  v43 = lazy protocol witness table accessor for type MLS.IncomingMessageError and conformance MLS.IncomingMessageError();
-  *v39 = v0;
-  v39[1] = MLS.XPCClientCoordinator.processIncoming(message:context:);
-  v54 = v42;
-  v55 = v43;
-  v52 = v40;
-  v53 = v41;
-  v50 = v35;
-  v51 = &type metadata for MLS.IncomingMessageError;
-  v48 = closure #3 in MLS.XPCClientCoordinator.processIncoming(message:context:);
-  v49 = 0;
-
-  __asm { BRAA            X8, X16 }
-}
-
-uint64_t MLS.XPCClientCoordinator.processIncoming(message:context:)()
-{
-  v2 = *v1;
-  v3 = *(*v1 + 1624);
-  v4 = *v1;
-  *(*v1 + 1632) = v0;
-
-  v5 = *(v2 + 1608);
-  v6 = *(v2 + 1584);
-
-  if (v0)
-  {
-    v7 = MLS.XPCClientCoordinator.processIncoming(message:context:);
-  }
-
-  else
-  {
-    v7 = MLS.XPCClientCoordinator.processIncoming(message:context:);
-  }
-
-  return MEMORY[0x2822009F8](v7, v6, 0);
-}
-
-{
-  v1 = *(v0 + 1304);
-  *(v0 + 1120) = *(v0 + 1288);
-  *(v0 + 1136) = v1;
-  v2 = *(v0 + 1336);
-  *(v0 + 1152) = *(v0 + 1320);
-  *(v0 + 1168) = v2;
-  v3 = *(v0 + 1240);
-  *(v0 + 1056) = *(v0 + 1224);
-  *(v0 + 1072) = v3;
-  v4 = *(v0 + 1272);
-  *(v0 + 1088) = *(v0 + 1256);
-  *(v0 + 1104) = v4;
-  v5 = *(v0 + 1208);
-  *(v0 + 1024) = *(v0 + 1192);
-  v6 = *(v0 + 1616);
-  v7 = *(v0 + 1600);
-  v8 = *(v0 + 1576);
-  v9 = *(v0 + 1568);
-  v10 = *(v0 + 1544);
-  *(v0 + 1040) = v5;
-  *(v0 + 1184) = v7;
-  outlined destroy of NSObject?(v0 + 1024, &_s15SecureMessaging3MLSO22IncomingMessageContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO22IncomingMessageContextVy_10Foundation4DataVGMR);
-  v11 = *(v0 + 1400);
-  v13 = *(v0 + 1352);
-  v12 = *(v0 + 1368);
-  v10[2] = *(v0 + 1384);
-  v10[3] = v11;
-  *v10 = v13;
-  v10[1] = v12;
-  v14 = *(v0 + 1464);
-  v16 = *(v0 + 1416);
-  v15 = *(v0 + 1432);
-  v10[6] = *(v0 + 1448);
-  v10[7] = v14;
-  v10[4] = v16;
-  v10[5] = v15;
-
-  v17 = *(v0 + 8);
-
-  return v17();
-}
-
-{
   v36 = v0;
-  v1 = *(v0 + 1632);
-  v2 = *(v0 + 1600);
-  v3 = *(v0 + 1592);
-  v4 = *(v0 + 1552);
-  v5 = *(v0 + 1304);
-  *(v0 + 784) = *(v0 + 1288);
-  *(v0 + 800) = v5;
-  v6 = *(v0 + 1336);
-  *(v0 + 816) = *(v0 + 1320);
-  *(v0 + 832) = v6;
-  v7 = *(v0 + 1240);
-  *(v0 + 720) = *(v0 + 1224);
-  *(v0 + 736) = v7;
-  v8 = *(v0 + 1272);
-  *(v0 + 752) = *(v0 + 1256);
-  *(v0 + 768) = v8;
-  v9 = *(v0 + 1208);
-  *(v0 + 688) = *(v0 + 1192);
-  *(v0 + 704) = v9;
-  *(v0 + 848) = v2;
-  outlined destroy of NSObject?(v0 + 688, &_s15SecureMessaging3MLSO22IncomingMessageContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO22IncomingMessageContextVy_10Foundation4DataVGMR);
-
-  outlined init with copy of MLS.OutgoingEventState?(v0 + 16, v0 + 856, &_s15SecureMessaging3MLSO22IncomingMessageContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO22IncomingMessageContextVy_10Foundation4DataVGMR);
-
-  v10 = v1;
-  v11 = Logger.logObject.getter();
-  v12 = static os_log_type_t.error.getter();
-  outlined destroy of NSObject?(v0 + 16, &_s15SecureMessaging3MLSO22IncomingMessageContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO22IncomingMessageContextVy_10Foundation4DataVGMR);
-
-  if (os_log_type_enabled(v11, v12))
-  {
-    v13 = *(v0 + 1632);
-    v14 = *(v0 + 1552);
-    v15 = swift_slowAlloc();
-    v16 = swift_slowAlloc();
-    v17 = swift_slowAlloc();
-    v34 = v17;
-    *v15 = 136315650;
-    v18 = *(v0 + 16);
-    v19 = *(v0 + 24);
-
-    v20 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v18, v19, &v34);
-
-    *(v15 + 4) = v20;
-    *(v15 + 12) = 2112;
-    v21 = v13;
-    v22 = _swift_stdlib_bridgeErrorToNSError();
-    *(v15 + 14) = v22;
-    *v16 = v22;
-    *(v15 + 22) = 2080;
-    v23 = *(v14 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier);
-    v24 = *(v14 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier + 8);
-
-    strcpy(v35, "EncryptedRCS.");
-    HIWORD(v35[1]) = -4864;
-    MEMORY[0x2667545A0](v23, v24);
-
-    v25 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v35[0], v35[1], &v34);
-
-    *(v15 + 24) = v25;
-    _os_log_impl(&dword_264F1F000, v11, v12, "XPCClientCoordinator processIncoming failed { identifier: %s, error: %@, client: %s }", v15, 0x20u);
-    outlined destroy of NSObject?(v16, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    MEMORY[0x266755550](v16, -1, -1);
-    swift_arrayDestroy();
-    MEMORY[0x266755550](v17, -1, -1);
-    MEMORY[0x266755550](v15, -1, -1);
-  }
-
-  else
-  {
-    v26 = *(v0 + 1552);
-  }
-
-  v27 = *(v0 + 1632);
-  v28 = *(v0 + 1616);
-  v29 = *(v0 + 1576);
-  v30 = *(v0 + 1568);
-  swift_willThrow();
-
-  v31 = *(v0 + 8);
-  v32 = *(v0 + 1632);
-
-  return v31();
-}
-
-uint64_t closure #1 in MLS.XPCClientCoordinator.processIncoming(message:forGroup:context:)@<X0>(__int128 *a1@<X1>, __int128 *a2@<X2>, uint64_t a3@<X3>, uint64_t *a4@<X8>)
-{
-  v18 = *a1;
-  v21 = a1[1];
-  *v23 = a1[2];
-  *&v23[10] = *(a1 + 42);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO15IncomingMessageVy_AC9AllMemberOGMd, &_s15SecureMessaging3MLSO15IncomingMessageVy_AC9AllMemberOGMR);
-  lazy protocol witness table accessor for type MLS.KeyPackageRetrievalResult<MLS.AllMember> and conformance MLS.KeyPackageRetrievalResult<A>(&lazy protocol witness table cache variable for type MLS.IncomingMessage<MLS.AllMember> and conformance MLS.IncomingMessage<A>, &_s15SecureMessaging3MLSO15IncomingMessageVy_AC9AllMemberOGMd, &_s15SecureMessaging3MLSO15IncomingMessageVy_AC9AllMemberOGMR);
-  result = dispatch thunk of JSONEncoder.encode<A>(_:)();
-  if (!v4)
-  {
-    v10 = result;
-    v11 = v9;
-    v30 = a2[8];
-    v31 = a2[9];
-    v32 = *(a2 + 20);
-    v26 = a2[4];
-    v27 = a2[5];
-    v28 = a2[6];
-    v29 = a2[7];
-    v19 = *a2;
-    v22 = a2[1];
-    v24 = a2[2];
-    v25 = a2[3];
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22IncomingMessageContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO22IncomingMessageContextVy_10Foundation4DataVGMR);
-    lazy protocol witness table accessor for type MLS.KeyPackageRetrievalResult<MLS.AllMember> and conformance MLS.KeyPackageRetrievalResult<A>(&lazy protocol witness table cache variable for type MLS.IncomingMessageContext<Data> and conformance MLS.IncomingMessageContext<A>, &_s15SecureMessaging3MLSO22IncomingMessageContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO22IncomingMessageContextVy_10Foundation4DataVGMR);
-    v12 = dispatch thunk of JSONEncoder.encode<A>(_:)();
-    v14 = v13;
-    v20 = *(a3 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier);
-    lazy protocol witness table accessor for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier();
-
-    v15 = dispatch thunk of JSONEncoder.encode<A>(_:)();
-    v17 = v16;
-
-    *a4 = v15;
-    a4[1] = v17;
-    a4[2] = v10;
-    a4[3] = v11;
-    a4[4] = v12;
-    a4[5] = v14;
-  }
-
-  return result;
-}
-
-uint64_t closure #3 in MLS.XPCClientCoordinator.processIncoming(message:context:)(id *a1, uint64_t *a2, uint64_t a3, uint64_t a4)
-{
-  v15 = *a1;
-  v5 = a2[2];
-  v6 = a2[3];
-  v7 = a2[4];
-  v8 = a2[5];
-  v16 = a2[1];
-  v17 = *a2;
-  outlined copy of Data._Representation(*a2, v16);
-  outlined copy of Data._Representation(v5, v6);
-  outlined copy of Data._Representation(v7, v8);
-  isa = Data._bridgeToObjectiveC()().super.isa;
-  v10 = Data._bridgeToObjectiveC()().super.isa;
-  v11 = Data._bridgeToObjectiveC()().super.isa;
-  aBlock[4] = a3;
-  aBlock[5] = a4;
-  aBlock[0] = MEMORY[0x277D85DD0];
-  aBlock[1] = 1107296256;
-  aBlock[2] = thunk for @escaping @callee_guaranteed @Sendable (@guaranteed Data?, @guaranteed Data?) -> ();
-  aBlock[3] = &block_descriptor_234;
-  v12 = _Block_copy(aBlock);
-
-  [v15 processIncomingWithUniqueClientIdentifier:isa message:v10 incomingMessageContext:v11 completion:v12];
-  _Block_release(v12);
-
-  outlined consume of Data._Representation(v7, v8);
-  outlined consume of Data._Representation(v5, v6);
-  return outlined consume of Data._Representation(v17, v16);
-}
-
-uint64_t MLS.XPCClientCoordinator.processIncoming(failureToDecrypt:withGroup:context:)(uint64_t a1, _OWORD *a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  *(v6 + 1568) = v5;
-  *(v6 + 1560) = a4;
-  *(v6 + 1552) = a3;
-  *(v6 + 1544) = a1;
-  v9 = type metadata accessor for MetricCollector.Event();
-  *(v6 + 1576) = v9;
-  v10 = *(*(v9 - 8) + 64) + 15;
-  *(v6 + 1584) = swift_task_alloc();
-  *(v6 + 1592) = swift_task_alloc();
-  v11 = a2[1];
-  *(v6 + 1432) = *a2;
-  *(v6 + 1448) = v11;
-  *(v6 + 1464) = a2[2];
-  *(v6 + 1473) = *(a2 + 41);
-  v12 = *(a5 + 144);
-  *(v6 + 144) = *(a5 + 128);
-  *(v6 + 160) = v12;
-  *(v6 + 176) = *(a5 + 160);
-  v13 = *(a5 + 80);
-  *(v6 + 80) = *(a5 + 64);
-  *(v6 + 96) = v13;
-  v14 = *(a5 + 112);
-  *(v6 + 112) = *(a5 + 96);
-  *(v6 + 128) = v14;
-  v15 = *(a5 + 16);
-  *(v6 + 16) = *a5;
-  *(v6 + 32) = v15;
-  v16 = *(a5 + 48);
-  *(v6 + 48) = *(a5 + 32);
-  *(v6 + 64) = v16;
-  if (one-time initialization token for shared != -1)
-  {
-    swift_once();
-  }
-
-  v17 = static MLSActor.shared;
-  *(v6 + 1600) = static MLSActor.shared;
-
-  return MEMORY[0x2822009F8](MLS.XPCClientCoordinator.processIncoming(failureToDecrypt:withGroup:context:), v17, 0);
-}
-
-void MLS.XPCClientCoordinator.processIncoming(failureToDecrypt:withGroup:context:)()
-{
-  v1 = *(v0 + 1568);
-  *(v0 + 1608) = direct field offset for MLS.XPCClientCoordinator.logger;
-  outlined init with copy of MLS.OutgoingEventState?(v0 + 16, v0 + 352, &_s15SecureMessaging3MLSO31IncomingFailureToDecryptContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO31IncomingFailureToDecryptContextVy_10Foundation4DataVGMR);
-
-  v2 = Logger.logObject.getter();
-  v3 = static os_log_type_t.default.getter();
-  outlined destroy of NSObject?(v0 + 16, &_s15SecureMessaging3MLSO31IncomingFailureToDecryptContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO31IncomingFailureToDecryptContextVy_10Foundation4DataVGMR);
-  v4 = os_log_type_enabled(v2, v3);
-  v5 = *(v0 + 1568);
-  if (v4)
-  {
-    v6 = swift_slowAlloc();
-    v7 = swift_slowAlloc();
-    v48 = v7;
-    *v6 = 136315394;
-    v8 = *(v0 + 16);
-    v9 = *(v0 + 24);
-
-    v10 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v8, v9, &v48);
-
-    *(v6 + 4) = v10;
-    *(v6 + 12) = 2080;
-    v11 = *(v5 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier);
-    v12 = *(v5 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier + 8);
-    strcpy(v49, "EncryptedRCS.");
-    HIWORD(v49[1]) = -4864;
-
-    MEMORY[0x2667545A0](v11, v12);
-
-    v13 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v49[0], v49[1], &v48);
-
-    *(v6 + 14) = v13;
-    _os_log_impl(&dword_264F1F000, v2, v3, "XPCClientCoordinator processIncomingFTD { identifier: %s, client: %s }", v6, 0x16u);
-    swift_arrayDestroy();
-    MEMORY[0x266755550](v7, -1, -1);
-    MEMORY[0x266755550](v6, -1, -1);
-  }
-
-  else
-  {
-  }
-
-  v14 = *(v0 + 1592);
-  v15 = *(v0 + 1584);
-  v16 = *(v0 + 1576);
-  v17 = *(v0 + 1568);
-  v45 = *(v0 + 1552);
-  v47 = *(v0 + 1560);
-  v18 = *(v0 + 96);
-  *(v0 + 1384) = *(v0 + 80);
-  *(v0 + 1400) = v18;
-  *(v0 + 1416) = *(v0 + 112);
-  v19 = *(v0 + 32);
-  *(v0 + 1320) = *(v0 + 16);
-  *(v0 + 1336) = v19;
-  v20 = *(v0 + 64);
-  *(v0 + 1352) = *(v0 + 48);
-  *(v0 + 1368) = v20;
-  v21 = *(v0 + 128);
-  v22 = *(v0 + 168);
-  v23 = *(v0 + 136);
-  *(v0 + 1512) = *(v0 + 152);
-  *(v0 + 1528) = v22;
-  *(v0 + 1496) = v23;
-  outlined init with copy of MLS.OutgoingEventState?(v0 + 16, v0 + 520, &_s15SecureMessaging3MLSO31IncomingFailureToDecryptContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO31IncomingFailureToDecryptContextVy_10Foundation4DataVGMR);
-  Date.init()();
-  v24 = *(v16 + 20);
-  v25 = type metadata accessor for Date();
-  (*(*(v25 - 8) + 56))(v14 + v24, 1, 1, v25);
-  outlined init with take of MetricCollector.Event(v14, v15);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v49[0] = v21;
-  specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v15, 0x5864726177726F46, 0xEA00000000004350, isUniquelyReferenced_nonNull_native);
-  v27 = v49[0];
-  *(v0 + 1616) = v49[0];
-
-  v28 = *(v0 + 1352);
-  *(v0 + 232) = *(v0 + 1368);
-  v29 = *(v0 + 1400);
-  *(v0 + 248) = *(v0 + 1384);
-  v30 = *(v0 + 1416);
-  *(v0 + 264) = v29;
-  *(v0 + 280) = v30;
-  v31 = *(v0 + 1336);
-  *(v0 + 184) = *(v0 + 1320);
-  *(v0 + 200) = v31;
-  *(v0 + 216) = v28;
-  *(v0 + 296) = v27;
-  v32 = *(v0 + 1496);
-  v33 = *(v0 + 1528);
-  *(v0 + 320) = *(v0 + 1512);
-  *(v0 + 336) = v33;
-  *(v0 + 304) = v32;
-  v34 = *(*(v17 + direct field offset for MLS.XPCClientCoordinator.xpcClient) + OBJC_IVAR____TtCO15SecureMessaging8XPCUtils9XPCClient_deliveryInterface);
-  *(v0 + 1624) = v34;
-  v35 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO40IncomingFailureToDecryptProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO40IncomingFailureToDecryptProcessedContextVy_10Foundation4DataVGMR);
-  v36 = swift_task_alloc();
-  *(v0 + 1632) = v36;
-  v36[2] = v0 + 1432;
-  v36[3] = v0 + 184;
-  v36[4] = v17;
-  v37 = swift_task_alloc();
-  *(v0 + 1640) = v37;
-  *(v37 + 16) = v45;
-  *(v37 + 24) = v47;
-  v38 = *(*v34 + 360);
-
-  v46 = v38 + *v38;
-  v39 = v38[1];
-  v40 = swift_task_alloc();
-  *(v0 + 1648) = v40;
-  v41 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DataV_A2CtMd, &_s10Foundation4DataV_A2CtMR);
-  v42 = lazy protocol witness table accessor for type MLS.KeyPackageRetrievalResult<MLS.AllMember> and conformance MLS.KeyPackageRetrievalResult<A>(&lazy protocol witness table cache variable for type MLS.IncomingFailureToDecryptProcessedContext<Data> and conformance MLS.IncomingFailureToDecryptProcessedContext<A>, &_s15SecureMessaging3MLSO40IncomingFailureToDecryptProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO40IncomingFailureToDecryptProcessedContextVy_10Foundation4DataVGMR);
-  v43 = lazy protocol witness table accessor for type MLS.KeyPackageRetrievalResult<MLS.AllMember> and conformance MLS.KeyPackageRetrievalResult<A>(&lazy protocol witness table cache variable for type MLS.IncomingFailureToDecryptProcessedContext<Data> and conformance MLS.IncomingFailureToDecryptProcessedContext<A>, &_s15SecureMessaging3MLSO40IncomingFailureToDecryptProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO40IncomingFailureToDecryptProcessedContextVy_10Foundation4DataVGMR);
-  v44 = lazy protocol witness table accessor for type MLS.IncomingMessageError and conformance MLS.IncomingMessageError();
-  *v40 = v0;
-  v40[1] = MLS.XPCClientCoordinator.processIncoming(failureToDecrypt:withGroup:context:);
-  v57 = v43;
-  v58 = v44;
-  v55 = v41;
-  v56 = v42;
-  v53 = v35;
-  v54 = &type metadata for MLS.IncomingMessageError;
-  v51 = partial apply for closure #3 in MLS.XPCClientCoordinator.processIncoming(failureToDecrypt:withGroup:context:);
-  v52 = v37;
-
-  __asm { BRAA            X8, X16 }
-}
-
-uint64_t MLS.XPCClientCoordinator.processIncoming(failureToDecrypt:withGroup:context:)()
-{
-  v2 = *v1;
-  v3 = *(*v1 + 1648);
-  v4 = *v1;
-  *(*v1 + 1656) = v0;
-
-  v5 = *(v2 + 1624);
-  v6 = *(v2 + 1600);
-
-  if (v0)
-  {
-    v7 = MLS.XPCClientCoordinator.processIncoming(failureToDecrypt:withGroup:context:);
-  }
-
-  else
-  {
-    v7 = MLS.XPCClientCoordinator.processIncoming(failureToDecrypt:withGroup:context:);
-  }
-
-  return MEMORY[0x2822009F8](v7, v6, 0);
-}
-
-{
-  v1 = *(v0 + 1352);
-  *(v0 + 1072) = *(v0 + 1368);
-  v2 = *(v0 + 1400);
-  *(v0 + 1088) = *(v0 + 1384);
-  *(v0 + 1104) = v2;
-  *(v0 + 1120) = *(v0 + 1416);
-  v3 = *(v0 + 1336);
-  *(v0 + 1024) = *(v0 + 1320);
-  v4 = *(v0 + 1640);
-  v5 = *(v0 + 1632);
-  v6 = *(v0 + 1616);
-  v7 = *(v0 + 1592);
-  v8 = *(v0 + 1584);
-  v9 = *(v0 + 1544);
-  *(v0 + 1040) = v3;
-  *(v0 + 1056) = v1;
-  *(v0 + 1136) = v6;
-  v10 = *(v0 + 1528);
-  *(v0 + 1160) = *(v0 + 1512);
-  *(v0 + 1176) = v10;
-  *(v0 + 1144) = *(v0 + 1496);
-  outlined destroy of NSObject?(v0 + 1024, &_s15SecureMessaging3MLSO31IncomingFailureToDecryptContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO31IncomingFailureToDecryptContextVy_10Foundation4DataVGMR);
-  v11 = *(v0 + 1240);
-  v13 = *(v0 + 1192);
-  v12 = *(v0 + 1208);
-  v9[2] = *(v0 + 1224);
-  v9[3] = v11;
-  *v9 = v13;
-  v9[1] = v12;
-  v14 = *(v0 + 1304);
-  v16 = *(v0 + 1256);
-  v15 = *(v0 + 1272);
-  v9[6] = *(v0 + 1288);
-  v9[7] = v14;
-  v9[4] = v16;
-  v9[5] = v15;
-
-  v17 = *(v0 + 8);
-
-  return v17();
-}
-
-{
-  v36 = v0;
-  v1 = *(v0 + 1656);
-  v2 = *(v0 + 1616);
-  v3 = *(v0 + 1608);
-  v4 = *(v0 + 1568);
-  v5 = *(v0 + 1400);
-  *(v0 + 752) = *(v0 + 1384);
-  *(v0 + 768) = v5;
-  *(v0 + 784) = *(v0 + 1416);
-  v6 = *(v0 + 1336);
-  *(v0 + 688) = *(v0 + 1320);
-  *(v0 + 704) = v6;
-  v7 = *(v0 + 1368);
-  *(v0 + 720) = *(v0 + 1352);
-  *(v0 + 736) = v7;
-  *(v0 + 800) = v2;
-  v8 = *(v0 + 1528);
-  *(v0 + 824) = *(v0 + 1512);
-  *(v0 + 840) = v8;
-  *(v0 + 808) = *(v0 + 1496);
-  outlined destroy of NSObject?(v0 + 688, &_s15SecureMessaging3MLSO31IncomingFailureToDecryptContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO31IncomingFailureToDecryptContextVy_10Foundation4DataVGMR);
-
-  outlined init with copy of MLS.OutgoingEventState?(v0 + 16, v0 + 856, &_s15SecureMessaging3MLSO31IncomingFailureToDecryptContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO31IncomingFailureToDecryptContextVy_10Foundation4DataVGMR);
-
-  v9 = v1;
-  v10 = Logger.logObject.getter();
-  v11 = static os_log_type_t.error.getter();
-  outlined destroy of NSObject?(v0 + 16, &_s15SecureMessaging3MLSO31IncomingFailureToDecryptContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO31IncomingFailureToDecryptContextVy_10Foundation4DataVGMR);
-
-  if (os_log_type_enabled(v10, v11))
-  {
-    v12 = *(v0 + 1656);
-    v13 = *(v0 + 1568);
-    v14 = swift_slowAlloc();
-    v15 = swift_slowAlloc();
-    v16 = swift_slowAlloc();
-    v34 = v16;
-    *v14 = 136315650;
-    v17 = *(v0 + 16);
-    v18 = *(v0 + 24);
-
-    v19 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v17, v18, &v34);
-
-    *(v14 + 4) = v19;
-    *(v14 + 12) = 2112;
-    v20 = v12;
-    v21 = _swift_stdlib_bridgeErrorToNSError();
-    *(v14 + 14) = v21;
-    *v15 = v21;
-    *(v14 + 22) = 2080;
-    v22 = *(v13 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier);
-    v23 = *(v13 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier + 8);
-
-    strcpy(v35, "EncryptedRCS.");
-    HIWORD(v35[1]) = -4864;
-    MEMORY[0x2667545A0](v22, v23);
-
-    v24 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v35[0], v35[1], &v34);
-
-    *(v14 + 24) = v24;
-    _os_log_impl(&dword_264F1F000, v10, v11, "XPCClientCoordinator processIncomingFTD failed { identifier: %s, error: %@, client: %s }", v14, 0x20u);
-    outlined destroy of NSObject?(v15, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    MEMORY[0x266755550](v15, -1, -1);
-    swift_arrayDestroy();
-    MEMORY[0x266755550](v16, -1, -1);
-    MEMORY[0x266755550](v14, -1, -1);
-  }
-
-  else
-  {
-    v25 = *(v0 + 1568);
-  }
-
-  v26 = *(v0 + 1656);
-  v27 = *(v0 + 1640);
-  v28 = *(v0 + 1632);
-  v29 = *(v0 + 1592);
-  v30 = *(v0 + 1584);
-  swift_willThrow();
-
-  v31 = *(v0 + 8);
-  v32 = *(v0 + 1656);
-
-  return v31();
-}
-
-uint64_t closure #1 in MLS.XPCClientCoordinator.processIncoming(failureToDecrypt:withGroup:context:)@<X0>(__int128 *a1@<X1>, __int128 *a2@<X2>, uint64_t a3@<X3>, uint64_t *a4@<X8>)
-{
-  v18 = *a1;
-  v21 = a1[1];
-  *v23 = a1[2];
-  *&v23[9] = *(a1 + 41);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO24IncomingFailureToDecryptVy_AC9AllMemberOGMd, &_s15SecureMessaging3MLSO24IncomingFailureToDecryptVy_AC9AllMemberOGMR);
-  lazy protocol witness table accessor for type MLS.KeyPackageRetrievalResult<MLS.AllMember> and conformance MLS.KeyPackageRetrievalResult<A>(&lazy protocol witness table cache variable for type MLS.IncomingFailureToDecrypt<MLS.AllMember> and conformance MLS.IncomingFailureToDecrypt<A>, &_s15SecureMessaging3MLSO24IncomingFailureToDecryptVy_AC9AllMemberOGMd, &_s15SecureMessaging3MLSO24IncomingFailureToDecryptVy_AC9AllMemberOGMR);
-  result = dispatch thunk of JSONEncoder.encode<A>(_:)();
-  if (!v4)
-  {
-    v10 = result;
-    v11 = v9;
-    v30 = a2[8];
-    v31 = a2[9];
-    v32 = *(a2 + 20);
-    v26 = a2[4];
-    v27 = a2[5];
-    v28 = a2[6];
-    v29 = a2[7];
-    v19 = *a2;
-    v22 = a2[1];
-    v24 = a2[2];
-    v25 = a2[3];
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO31IncomingFailureToDecryptContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO31IncomingFailureToDecryptContextVy_10Foundation4DataVGMR);
-    lazy protocol witness table accessor for type MLS.KeyPackageRetrievalResult<MLS.AllMember> and conformance MLS.KeyPackageRetrievalResult<A>(&lazy protocol witness table cache variable for type MLS.IncomingFailureToDecryptContext<Data> and conformance MLS.IncomingFailureToDecryptContext<A>, &_s15SecureMessaging3MLSO31IncomingFailureToDecryptContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO31IncomingFailureToDecryptContextVy_10Foundation4DataVGMR);
-    v12 = dispatch thunk of JSONEncoder.encode<A>(_:)();
-    v14 = v13;
-    v20 = *(a3 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier);
-    lazy protocol witness table accessor for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier();
-
-    v15 = dispatch thunk of JSONEncoder.encode<A>(_:)();
-    v17 = v16;
-
-    *a4 = v15;
-    a4[1] = v17;
-    a4[2] = v10;
-    a4[3] = v11;
-    a4[4] = v12;
-    a4[5] = v14;
-  }
-
-  return result;
-}
-
-uint64_t MLS.XPCClientCoordinator.processIncoming(errorMessage:withGroup:context:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5)
-{
-  *(v6 + 96) = a4;
-  *(v6 + 104) = v5;
-  *(v6 + 80) = a1;
-  *(v6 + 88) = a3;
-  v9 = type metadata accessor for MetricCollector.Event();
-  *(v6 + 112) = v9;
-  v10 = *(*(v9 - 8) + 64) + 15;
-  *(v6 + 120) = swift_task_alloc();
-  v11 = swift_task_alloc();
-  v12 = *(a2 + 16);
-  *(v6 + 16) = *a2;
-  *(v6 + 32) = v12;
-  *(v6 + 48) = *(a2 + 32);
-  v13 = *a5;
-  *(v6 + 128) = v11;
-  *(v6 + 136) = v13;
-  *(v6 + 144) = *(a5 + 1);
-  if (one-time initialization token for shared != -1)
-  {
-    swift_once();
-  }
-
-  v14 = static MLSActor.shared;
-  *(v6 + 160) = static MLSActor.shared;
-
-  return MEMORY[0x2822009F8](MLS.XPCClientCoordinator.processIncoming(errorMessage:withGroup:context:), v14, 0);
-}
-
-void MLS.XPCClientCoordinator.processIncoming(errorMessage:withGroup:context:)()
-{
-  v2 = v0[18];
-  v1 = v0[19];
-  v3 = v0[13];
-  v0[21] = direct field offset for MLS.XPCClientCoordinator.logger;
-
+  v1 = *(v0 + 800);
+  *(v0 + 680) = *(v0 + 784);
+  *(v0 + 696) = v1;
+  *(v0 + 712) = *(v0 + 816);
+  v2 = *(v0 + 736);
+  *(v0 + 616) = *(v0 + 720);
+  *(v0 + 632) = v2;
+  v3 = *(v0 + 768);
+  *(v0 + 648) = *(v0 + 752);
+  *(v0 + 664) = v3;
+  *(v0 + 1720) = OBJC_IVAR____TtCO15SecureMessaging3MLS15OperationRunner_logger;
+
+  outlined init with copy of MLS.RetryAfterGroupVersionBehavior(v0 + 928, v0 + 1008);
   v4 = Logger.logObject.getter();
   v5 = static os_log_type_t.default.getter();
 
+  outlined destroy of MLS.RetryAfterGroupVersionBehavior(v0 + 928);
   if (os_log_type_enabled(v4, v5))
   {
-    v7 = v0[17];
-    v6 = v0[18];
-    v8 = v0[13];
+    v33 = *(v0 + 1664);
+    v6 = *(v0 + 1656);
+    v7 = *(v0 + 1632);
+    v8 = *(v0 + 1624);
     v9 = swift_slowAlloc();
     v10 = swift_slowAlloc();
-    v40 = v10;
-    *v9 = 136315394;
-    *(v9 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v7, v6, &v40);
+    v35 = v10;
+    *v9 = 136315650;
+    *(v9 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v8, v7, &v35);
     *(v9 + 12) = 2080;
-    v11 = *(v8 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier);
-    v12 = *(v8 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier + 8);
-    strcpy(v41, "EncryptedRCS.");
-    HIWORD(v41[1]) = -4864;
+    *(v9 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v6, v33, &v35);
+    *(v9 + 22) = 2080;
+    v11 = *(v0 + 928);
+    *(v0 + 1104) = *(v0 + 944);
+    v12 = *(v0 + 976);
+    *(v0 + 1120) = *(v0 + 960);
+    *(v0 + 1136) = v12;
+    *(v0 + 1145) = *(v0 + 985);
+    *(v0 + 1088) = v11;
+    outlined init with copy of MLS.RetryAfterGroupVersionBehavior(v0 + 928, v0 + 1168);
+    v13 = String.init<A>(describing:)();
+    v15 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v13, v14, &v35);
 
-    MEMORY[0x2667545A0](v11, v12);
-
-    v13 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v41[0], v41[1], &v40);
-
-    *(v9 + 14) = v13;
-    _os_log_impl(&dword_264F1F000, v4, v5, "XPCClientCoordinator processIncoming errorMessage { identifier: %s, client: %s }", v9, 0x16u);
+    *(v9 + 24) = v15;
+    _os_log_impl(&dword_264F1F000, v4, v5, "OperationRunner %s sending event { identifier: %s, retryBehavior: %s }", v9, 0x20u);
     swift_arrayDestroy();
     MEMORY[0x266755550](v10, -1, -1);
     MEMORY[0x266755550](v9, -1, -1);
   }
 
-  else
-  {
-    v14 = v0[13];
-  }
+  v16 = *(v0 + 1680);
+  v32 = *(v0 + 1656);
+  v34 = *(v0 + 1664);
+  v30 = *(v0 + 1624);
+  v31 = *(v0 + 1632);
+  v17 = *(v0 + 1520);
+  v18 = *(v0 + 1512);
+  v19 = *(v0 + 1504);
+  v20 = *(v0 + 1496);
+  v21 = *(v0 + 1448);
+  v22 = *(v0 + 1416);
+  v23 = swift_task_alloc();
+  *(v0 + 1728) = v23;
+  v23[2] = v21;
+  v23[3] = v0 + 432;
+  v23[4] = v0 + 616;
+  v23[5] = v0 + 928;
+  v23[6] = v22;
+  (*(v16 + 96))(v19, v16);
+  VersatileError.init(type:)(v18, v17, v20);
+  v24 = swift_allocObject();
+  *(v0 + 1736) = v24;
+  v24[2] = v21;
+  v24[3] = v30;
+  v24[4] = v31;
+  v24[5] = v32;
+  v24[6] = v34;
 
-  v16 = v0[18];
-  v15 = v0[19];
-  v17 = v0[16];
-  v18 = v0[17];
-  v20 = v0[14];
-  v19 = v0[15];
-  v21 = v0[13];
-  v39 = v0[12];
-  v37 = v0[11];
+  v25 = swift_task_alloc();
+  *(v0 + 1744) = v25;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScTyyts5NeverOGMd, &_sScTyyts5NeverOGMR);
+  *v25 = v0;
+  v25[1] = MLS.OperationRunner.handle<A>(operationResult:for:);
+  v26 = *(v0 + 1560);
+  v27 = *(v0 + 1552);
+  v28 = *(v0 + 1520);
+  v38 = *(v0 + 1496);
+  v39 = v27;
 
-  Date.init()();
-  v22 = *(v20 + 20);
-  v23 = type metadata accessor for Date();
-  (*(*(v23 - 8) + 56))(v17 + v22, 1, 1, v23);
-  outlined init with take of MetricCollector.Event(v17, v19);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v41[0] = v15;
-  specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v19, 0x5864726177726F46, 0xEA00000000004350, isUniquelyReferenced_nonNull_native);
-  v25 = v41[0];
-  v0[22] = v41[0];
-
-  v26 = *(*(v21 + direct field offset for MLS.XPCClientCoordinator.xpcClient) + OBJC_IVAR____TtCO15SecureMessaging8XPCUtils9XPCClient_deliveryInterface);
-  v0[23] = v26;
-  v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO36IncomingErrorMessageProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO36IncomingErrorMessageProcessedContextVy_10Foundation4DataVGMR);
-  v28 = swift_task_alloc();
-  v0[24] = v28;
-  v28[2] = v0 + 2;
-  v28[3] = v18;
-  v28[4] = v16;
-  v28[5] = v25;
-  v28[6] = v21;
-  v29 = swift_task_alloc();
-  v0[25] = v29;
-  *(v29 + 16) = v37;
-  *(v29 + 24) = v39;
-  v30 = *(*v26 + 360);
-
-  v38 = v30 + *v30;
-  v31 = v30[1];
-  v32 = swift_task_alloc();
-  v0[26] = v32;
-  v33 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DataV_A2CtMd, &_s10Foundation4DataV_A2CtMR);
-  v34 = lazy protocol witness table accessor for type MLS.KeyPackageRetrievalResult<MLS.AllMember> and conformance MLS.KeyPackageRetrievalResult<A>(&lazy protocol witness table cache variable for type MLS.IncomingErrorMessageProcessedContext<Data> and conformance MLS.IncomingErrorMessageProcessedContext<A>, &_s15SecureMessaging3MLSO36IncomingErrorMessageProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO36IncomingErrorMessageProcessedContextVy_10Foundation4DataVGMR);
-  v35 = lazy protocol witness table accessor for type MLS.KeyPackageRetrievalResult<MLS.AllMember> and conformance MLS.KeyPackageRetrievalResult<A>(&lazy protocol witness table cache variable for type MLS.IncomingErrorMessageProcessedContext<Data> and conformance MLS.IncomingErrorMessageProcessedContext<A>, &_s15SecureMessaging3MLSO36IncomingErrorMessageProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO36IncomingErrorMessageProcessedContextVy_10Foundation4DataVGMR);
-  v36 = lazy protocol witness table accessor for type MLS.IncomingMessageError and conformance MLS.IncomingMessageError();
-  *v32 = v0;
-  v32[1] = MLS.XPCClientCoordinator.processIncoming(errorMessage:withGroup:context:);
-  v49 = v35;
-  v50 = v36;
-  v47 = v33;
-  v48 = v34;
-  v45 = v27;
-  v46 = &type metadata for MLS.IncomingMessageError;
-  v43 = partial apply for closure #3 in MLS.XPCClientCoordinator.processIncoming(errorMessage:withGroup:context:);
-  v44 = v29;
-
-  __asm { BRAA            X8, X16 }
+  return _s15SecureMessaging12asyncRethrow_2as3logq_q_yYaYbKXK_xySSYbcSgtYaxYKAA14VersatileErrorRzr0_lF(v0 + 1400, async function pointer to partial apply for implicit closure #5 in MLS.OperationRunner.handle<A>(operationResult:for:), v23, v26, partial apply for closure #2 in MLS.OperationRunner.handle<A>(operationResult:for:), v24, v28);
 }
 
-uint64_t MLS.XPCClientCoordinator.processIncoming(errorMessage:withGroup:context:)()
 {
   v2 = *v1;
-  v3 = *(*v1 + 208);
-  v13 = *v1;
-  *(*v1 + 216) = v0;
+  v3 = *(*v1 + 1704);
+  v4 = *(*v1 + 1560);
+  v5 = *(*v1 + 1520);
+
+  v3(v4, v5);
+  v6 = *(v2 + 1608);
 
   if (v0)
   {
-    v4 = v2[20];
-    v5 = MLS.XPCClientCoordinator.processIncoming(errorMessage:withGroup:context:);
+
+    v7 = MLS.OperationRunner.handle<A>(operationResult:for:);
   }
 
   else
   {
-    v7 = v2[24];
-    v6 = v2[25];
-    v9 = v2[22];
-    v8 = v2[23];
-    v10 = v2[20];
-    v11 = v2[18];
 
-    v5 = MLS.XPCClientCoordinator.processIncoming(errorMessage:withGroup:context:);
-    v4 = v10;
+    v7 = MLS.OperationRunner.handle<A>(operationResult:for:);
   }
 
-  return MEMORY[0x2822009F8](v5, v4, 0);
+  return MEMORY[0x2822009F8](v7, v6, 0);
 }
 
 {
-  v2 = *(v0 + 120);
-  v1 = *(v0 + 128);
-  v4 = *(v0 + 72);
-  v3 = *(v0 + 80);
-  *v3 = *(v0 + 56);
-  *(v3 + 16) = v4;
+  v40 = v0;
+  v1 = *(v0 + 1400);
+  v2 = (*(*(v0 + 1440) + 120))(*(v0 + 1432));
+  v3 = *(v0 + 1648);
+  if (v2)
+  {
+    v4 = *(v0 + 1608);
+    v5 = *(v0 + 1480);
+    v36 = v5;
+    v37 = v1;
+    v6 = *(v0 + 1472);
+    v7 = *(v0 + 1464);
+    v8 = *(v0 + 1456);
+    v34 = *(v0 + 1640);
+    v35 = *(v0 + 1448);
+    v9 = *(v0 + 1424);
+    v10 = type metadata accessor for TaskPriority();
+    v38 = *(v0 + 1432);
+    (*(*(v10 - 8) + 56))(v5, 1, 1, v10);
+    (*(v8 + 16))(v6, v9, v38);
+    v11 = lazy protocol witness table accessor for type MLSActor and conformance MLSActor();
+    v12 = (*(v8 + 80) + 64) & ~*(v8 + 80);
+    v13 = (v7 + v12 + 7) & 0xFFFFFFFFFFFFFFF8;
+    v14 = swift_allocObject();
+    *(v14 + 16) = v4;
+    *(v14 + 24) = v11;
+    *(v14 + 32) = v38;
+    *(v14 + 48) = v34;
+    *(v14 + 56) = v3;
+    (*(v8 + 32))(v14 + v12, v6, v38);
+    v1 = v37;
+    *(v14 + v13) = v35;
+
+    _sScTss5Error_pRs_rlE4name8priority9operationScTyxsAA_pGSSSg_ScPSgxyYaKYAcntcfCyt_Tt2g5(0, 0, v36, &async function pointer to partial apply for closure #3 in MLS.OperationRunner.handle<A>(operationResult:for:), v14);
+  }
+
+  else
+  {
+  }
+
+  v15 = Logger.logObject.getter();
+  v16 = static os_log_type_t.default.getter();
+
+  v17 = os_log_type_enabled(v15, v16);
+  v18 = *(v0 + 1664);
+  if (v17)
+  {
+    v19 = *(v0 + 1656);
+    v20 = *(v0 + 1632);
+    v21 = *(v0 + 1624);
+    v22 = swift_slowAlloc();
+    v23 = swift_slowAlloc();
+    v39 = v23;
+    *v22 = 136315394;
+    v24 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v21, v20, &v39);
+
+    *(v22 + 4) = v24;
+    *(v22 + 12) = 2080;
+    v25 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v19, v18, &v39);
+
+    *(v22 + 14) = v25;
+    _os_log_impl(&dword_264F1F000, v15, v16, "OperationRunner %s returning from queue operation { identifier: %s }", v22, 0x16u);
+    swift_arrayDestroy();
+    MEMORY[0x266755550](v23, -1, -1);
+    MEMORY[0x266755550](v22, -1, -1);
+    outlined destroy of NSObject?(v0 + 432, &_s15SecureMessaging3MLSO17OutgoingEventTypeOy_AC9AllMemberO10Foundation4DataVGMd, &_s15SecureMessaging3MLSO17OutgoingEventTypeOy_AC9AllMemberO10Foundation4DataVGMR);
+    outlined destroy of MLS.Group(v0 + 616);
+    outlined destroy of MLS.RetryAfterGroupVersionBehavior(v0 + 928);
+  }
+
+  else
+  {
+    outlined destroy of NSObject?(v0 + 432, &_s15SecureMessaging3MLSO17OutgoingEventTypeOy_AC9AllMemberO10Foundation4DataVGMd, &_s15SecureMessaging3MLSO17OutgoingEventTypeOy_AC9AllMemberO10Foundation4DataVGMR);
+    outlined destroy of MLS.Group(v0 + 616);
+    outlined destroy of MLS.RetryAfterGroupVersionBehavior(v0 + 928);
+  }
+
+  v26 = *(v0 + 1408);
+  *v26 = *(v0 + 1616);
+  v27 = *(v0 + 824);
+  v28 = *(v0 + 840);
+  *(v26 + 40) = *(v0 + 856);
+  *(v26 + 24) = v28;
+  *(v26 + 8) = v27;
+  v29 = *(v0 + 872);
+  v30 = *(v0 + 888);
+  v31 = *(v0 + 904);
+  *(v26 + 104) = *(v0 + 920);
+  *(v26 + 88) = v31;
+  *(v26 + 72) = v30;
+  *(v26 + 56) = v29;
+  *(v26 + 112) = v1;
+  __swift_destroy_boxed_opaque_existential_1Tm((v0 + 1328));
+
+  v32 = *(v0 + 8);
+
+  return v32();
+}
+
+{
+  v2 = *v1;
+
+  if (v0)
+  {
+    v3 = *(v2 + 1608);
+    v4 = MLS.OperationRunner.handle<A>(operationResult:for:);
+  }
+
+  else
+  {
+    v5 = *(v2 + 1608);
+
+    v4 = MLS.OperationRunner.handle<A>(operationResult:for:);
+    v3 = v5;
+  }
+
+  return MEMORY[0x2822009F8](v4, v3, 0);
+}
+
+{
+  outlined destroy of NSObject?(v0 + 1288, &_s15SecureMessaging3MLSO21SwiftMLSGroupProtocol_pSgMd, &_s15SecureMessaging3MLSO21SwiftMLSGroupProtocol_pSgMR);
+  __swift_destroy_boxed_opaque_existential_1Tm((v0 + 1248));
+
+  v1 = *(v0 + 8);
+
+  return v1();
+}
+
+{
+  v1 = *(*(v0 + 1528) + 32);
+  v1(*(v0 + 1544), *(v0 + 1568), *(v0 + 1520));
+  if (_getErrorEmbeddedNSError<A>(_:)())
+  {
+    (*(v0 + 1704))(*(v0 + 1544), *(v0 + 1520));
+  }
+
+  else
+  {
+    v2 = *(v0 + 1544);
+    v3 = *(v0 + 1520);
+    swift_allocError();
+    v1(v4, v2, v3);
+  }
+
+  outlined destroy of MLS.RetryAfterGroupVersionBehavior(v0 + 928);
+  outlined destroy of NSObject?(v0 + 432, &_s15SecureMessaging3MLSO17OutgoingEventTypeOy_AC9AllMemberO10Foundation4DataVGMd, &_s15SecureMessaging3MLSO17OutgoingEventTypeOy_AC9AllMemberO10Foundation4DataVGMR);
+  outlined destroy of MLS.EventQueue.Result(v0 + 824);
+
+  __swift_destroy_boxed_opaque_existential_1Tm((v0 + 1328));
 
   v5 = *(v0 + 8);
 
@@ -9699,246 +7978,1994 @@ uint64_t MLS.XPCClientCoordinator.processIncoming(errorMessage:withGroup:context
 }
 
 {
-  v34 = v0;
-  v1 = v0[27];
-  v2 = v0[24];
-  v3 = v0[25];
-  v5 = v0[22];
-  v4 = v0[23];
-  v6 = v0[21];
-  v8 = v0[18];
-  v7 = v0[19];
-  v9 = v0[13];
-
-  swift_retain_n();
-
-  v10 = v1;
-  v11 = Logger.logObject.getter();
-  v12 = static os_log_type_t.error.getter();
-
-  if (os_log_type_enabled(v11, v12))
+  v1 = *(*(v0 + 1528) + 32);
+  v1(*(v0 + 1536), *(v0 + 1552), *(v0 + 1520));
+  if (_getErrorEmbeddedNSError<A>(_:)())
   {
-    v13 = v0[27];
-    v15 = v0[17];
-    v14 = v0[18];
-    v16 = v0[13];
+    (*(v0 + 1704))(*(v0 + 1536), *(v0 + 1520));
+  }
+
+  else
+  {
+    v2 = *(v0 + 1536);
+    v3 = *(v0 + 1520);
+    swift_allocError();
+    v1(v4, v2, v3);
+  }
+
+  outlined destroy of MLS.RetryAfterGroupVersionBehavior(v0 + 928);
+  outlined destroy of NSObject?(v0 + 432, &_s15SecureMessaging3MLSO17OutgoingEventTypeOy_AC9AllMemberO10Foundation4DataVGMd, &_s15SecureMessaging3MLSO17OutgoingEventTypeOy_AC9AllMemberO10Foundation4DataVGMR);
+  outlined destroy of MLS.Group(v0 + 616);
+  outlined destroy of MLS.EventQueue.Result(v0 + 824);
+
+  __swift_destroy_boxed_opaque_existential_1Tm((v0 + 1328));
+
+  v5 = *(v0 + 8);
+
+  return v5();
+}
+
+{
+  v1 = v0[224];
+  v2 = v0[222];
+  v3 = v0[221];
+  v4 = swift_task_alloc();
+  v5 = *(v2 + 32);
+  v5(v4, v1, v3);
+  swift_getAssociatedConformanceWitness();
+  if (_getErrorEmbeddedNSError<A>(_:)())
+  {
+    (*(v0[222] + 8))(v4, v0[221]);
+  }
+
+  else
+  {
+    v6 = v0[221];
+    swift_allocError();
+    v5(v7, v4, v6);
+  }
+
+  outlined destroy of NSObject?((v0 + 161), &_s15SecureMessaging3MLSO21SwiftMLSGroupProtocol_pSgMd, &_s15SecureMessaging3MLSO21SwiftMLSGroupProtocol_pSgMR);
+
+  __swift_destroy_boxed_opaque_existential_1Tm(v0 + 156);
+
+  v8 = v0[1];
+
+  return v8();
+}
+
+uint64_t implicit closure #1 in MLS.OperationRunner.handle<A>(operationResult:for:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v5[54] = a4;
+  v5[55] = a5;
+  v5[52] = a2;
+  v5[53] = a3;
+  v5[51] = a1;
+  v6 = type metadata accessor for MLS.Group.GroupInfo();
+  v5[56] = v6;
+  v5[57] = *(v6 - 8);
+  v5[58] = swift_task_alloc();
+
+  return MEMORY[0x2822009F8](implicit closure #1 in MLS.OperationRunner.handle<A>(operationResult:for:), 0, 0);
+}
+
+uint64_t implicit closure #1 in MLS.OperationRunner.handle<A>(operationResult:for:)()
+{
+  v1 = v0[55];
+  outlined init with copy of ServerBag.MLS(v0[54], (v0 + 41));
+  v0[59] = *(v1 + 80);
+  v0[60] = *(v1 + 88);
+  v2 = v1 + OBJC_IVAR____TtCO15SecureMessaging3MLS15OperationRunner_uniqueClientIdentifier;
+  v0[61] = *(v1 + OBJC_IVAR____TtCO15SecureMessaging3MLS15OperationRunner_uniqueClientIdentifier);
+  v0[62] = *(v2 + 8);
+  v3 = v0[44];
+  v4 = v0[45];
+  __swift_project_boxed_opaque_existential_1(v0 + 41, v3);
+  v5 = *(v4 + 32);
+
+  v8 = (v5 + *v5);
+  v6 = swift_task_alloc();
+  v0[63] = v6;
+  *v6 = v0;
+  v6[1] = implicit closure #1 in MLS.OperationRunner.handle<A>(operationResult:for:);
+
+  return v8(v3, v4);
+}
+
+{
+  v1 = v0[44];
+  v2 = v0[45];
+  __swift_project_boxed_opaque_existential_1(v0 + 41, v1);
+  v5 = (*(v2 + 24) + **(v2 + 24));
+  v3 = swift_task_alloc();
+  v0[65] = v3;
+  *v3 = v0;
+  v3[1] = implicit closure #1 in MLS.OperationRunner.handle<A>(operationResult:for:);
+
+  return v5(v1, v2);
+}
+
+{
+  __swift_destroy_boxed_opaque_existential_1Tm((v0 + 328));
+
+  v1 = *(v0 + 8);
+
+  return v1();
+}
+
+{
+  *(*v1 + 544) = v0;
+
+  if (v0)
+  {
+    v2 = implicit closure #1 in MLS.OperationRunner.handle<A>(operationResult:for:);
+  }
+
+  else
+  {
+    v2 = implicit closure #1 in MLS.OperationRunner.handle<A>(operationResult:for:);
+  }
+
+  return MEMORY[0x2822009F8](v2, 0, 0);
+}
+
+{
+  v1 = v0[44];
+  v2 = v0[45];
+  __swift_project_boxed_opaque_existential_1(v0 + 41, v1);
+  v5 = (*(v2 + 64) + **(v2 + 64));
+  v3 = swift_task_alloc();
+  v0[74] = v3;
+  *v3 = v0;
+  v3[1] = implicit closure #1 in MLS.OperationRunner.handle<A>(operationResult:for:);
+
+  return v5(v1, v2);
+}
+
+{
+  __swift_destroy_boxed_opaque_existential_1Tm((v0 + 328));
+
+  v1 = *(v0 + 8);
+
+  return v1();
+}
+
+{
+  v1 = v0[73];
+  v2 = v0[70];
+  v3 = v0[69];
+  if (v1 >> 60 == 15)
+  {
+    v4 = 0xC000000000000000;
+  }
+
+  else
+  {
+    v4 = v0[73];
+  }
+
+  if (v1 >> 60 == 15)
+  {
+    v5 = 0;
+  }
+
+  else
+  {
+    v5 = v0[72];
+  }
+
+  __swift_destroy_boxed_opaque_existential_1Tm(v0 + 41);
+
+  outlined consume of Data._Representation(v3, v2);
+  outlined consume of Data._Representation(v5, v4);
+
+  v6 = v0[1];
+
+  return v6();
+}
+
+{
+  v1 = *(v0 + 656);
+  v2 = *(v0 + 648);
+  v3 = *(v0 + 640);
+  v4 = *(v0 + 608);
+  v5 = *(v0 + 584);
+  v6 = *(v0 + 560);
+  v25 = v6;
+  v26 = v1;
+  v7 = *(v0 + 552);
+  v24 = v7;
+  v8 = *(v0 + 528);
+  v10 = *(v0 + 416);
+  v9 = *(v0 + 424);
+  v11 = *(v0 + 408);
+  if ((v3 & 0x100000000) != 0)
+  {
+    v12 = 1;
+  }
+
+  else
+  {
+    v12 = v3;
+  }
+
+  if (v4 >> 60 == 15)
+  {
+    v13 = 0xC000000000000000;
+  }
+
+  else
+  {
+    v13 = *(v0 + 608);
+  }
+
+  if (v4 >> 60 == 15)
+  {
+    v14 = 0;
+  }
+
+  else
+  {
+    v14 = *(v0 + 616);
+  }
+
+  if (v5 >> 60 == 15)
+  {
+    v15 = 0xC000000000000000;
+  }
+
+  else
+  {
+    v15 = *(v0 + 584);
+  }
+
+  if (v5 >> 60 == 15)
+  {
+    v16 = 0;
+  }
+
+  else
+  {
+    v16 = *(v0 + 576);
+  }
+
+  *(v0 + 120) = v10;
+  *(v0 + 128) = v9;
+  *(v0 + 136) = v12;
+  *(v0 + 144) = v12;
+  *(v0 + 152) = v8;
+  *(v0 + 160) = v7;
+  *(v0 + 168) = v6;
+  *(v0 + 176) = v16;
+  *(v0 + 184) = v15;
+  *(v0 + 192) = v14;
+  *(v0 + 200) = v13;
+  *(v0 + 208) = v1;
+  *(v0 + 216) = v2;
+  v17 = *(v0 + 184);
+  v18 = *(v0 + 168);
+  v19 = *(v0 + 200);
+  *(v11 + 96) = v2;
+  *(v11 + 64) = v17;
+  *(v11 + 80) = v19;
+  *(v11 + 48) = v18;
+  v20 = *(v0 + 120);
+  v21 = *(v0 + 152);
+  *(v11 + 16) = *(v0 + 136);
+  *(v11 + 32) = v21;
+  *v11 = v20;
+  outlined init with copy of MLS.Group(v0 + 120, v0 + 224);
+  __swift_destroy_boxed_opaque_existential_1Tm((v0 + 328));
+  *(v0 + 16) = v10;
+  *(v0 + 24) = v9;
+  *(v0 + 32) = v12;
+  *(v0 + 40) = v12;
+  *(v0 + 48) = v8;
+  *(v0 + 56) = v24;
+  *(v0 + 64) = v25;
+  *(v0 + 72) = v16;
+  *(v0 + 80) = v15;
+  *(v0 + 88) = v14;
+  *(v0 + 96) = v13;
+  *(v0 + 104) = v26;
+  *(v0 + 112) = v2;
+  outlined destroy of MLS.Group(v0 + 16);
+
+  v22 = *(v0 + 8);
+
+  return v22();
+}
+
+{
+  v1 = v0[76];
+  v2 = v0[73];
+  v3 = v0[70];
+  v4 = v0[69];
+  if (v1 >> 60 == 15)
+  {
+    v5 = 0xC000000000000000;
+  }
+
+  else
+  {
+    v5 = v0[76];
+  }
+
+  if (v1 >> 60 == 15)
+  {
+    v6 = 0;
+  }
+
+  else
+  {
+    v6 = v0[77];
+  }
+
+  if (v2 >> 60 == 15)
+  {
+    v7 = 0xC000000000000000;
+  }
+
+  else
+  {
+    v7 = v0[73];
+  }
+
+  if (v2 >> 60 == 15)
+  {
+    v8 = 0;
+  }
+
+  else
+  {
+    v8 = v0[72];
+  }
+
+  __swift_destroy_boxed_opaque_existential_1Tm(v0 + 41);
+
+  outlined consume of Data._Representation(v4, v3);
+  outlined consume of Data._Representation(v8, v7);
+  outlined consume of Data._Representation(v6, v5);
+
+  v9 = v0[1];
+
+  return v9();
+}
+
+uint64_t implicit closure #1 in MLS.OperationRunner.handle<A>(operationResult:for:)(uint64_t a1)
+{
+  v3 = *v2;
+  v3[46] = v2;
+  v3[47] = a1;
+  v3[48] = v1;
+  v3[64] = v1;
+
+  if (v1)
+  {
+    v4 = implicit closure #1 in MLS.OperationRunner.handle<A>(operationResult:for:);
+  }
+
+  else
+  {
+    v4 = implicit closure #1 in MLS.OperationRunner.handle<A>(operationResult:for:);
+  }
+
+  return MEMORY[0x2822009F8](v4, 0, 0);
+}
+
+{
+  *(*v1 + 528) = a1;
+
+  return MEMORY[0x2822009F8](implicit closure #1 in MLS.OperationRunner.handle<A>(operationResult:for:), 0, 0);
+}
+
+{
+  v3 = v1[57];
+  v2 = v1[58];
+  v4 = v1[56];
+  v1[69] = MLS.Group.GroupInfo.rawRepresentation.getter();
+  v1[70] = v5;
+  (*(v3 + 8))(v2, v4);
+  v6 = v1[44];
+  v7 = v1[45];
+  __swift_project_boxed_opaque_existential_1(v1 + 41, v6);
+  v10 = (*(v7 + 56) + **(v7 + 56));
+  v8 = swift_task_alloc();
+  v1[71] = v8;
+  *v8 = v1;
+  v8[1] = implicit closure #1 in MLS.OperationRunner.handle<A>(operationResult:for:);
+
+  return v10(v6, v7);
+}
+
+void implicit closure #1 in MLS.OperationRunner.handle<A>(operationResult:for:)()
+{
+  if ((v0[66] & 0x8000000000000000) != 0)
+  {
+    __break(1u);
+  }
+
+  else
+  {
+    v1 = v0[44];
+    v2 = v0[45];
+    __swift_project_boxed_opaque_existential_1(v0 + 41, v1);
+    v5 = (*(v2 + 80) + **(v2 + 80));
+    v3 = swift_task_alloc();
+    v0[67] = v3;
+    *v3 = v0;
+    v3[1] = implicit closure #1 in MLS.OperationRunner.handle<A>(operationResult:for:);
+    v4 = v0[58];
+
+    v5(v4, v1, v2);
+  }
+}
+
+uint64_t implicit closure #1 in MLS.OperationRunner.handle<A>(operationResult:for:)(uint64_t a1, uint64_t a2)
+{
+  v3 = *v2;
+  *(v3 + 576) = a1;
+  *(v3 + 584) = a2;
+
+  return MEMORY[0x2822009F8](implicit closure #1 in MLS.OperationRunner.handle<A>(operationResult:for:), 0, 0);
+}
+
+{
+  v6 = *v3;
+  v6[75] = v2;
+
+  if (v2)
+  {
+
+    return MEMORY[0x2822009F8](implicit closure #1 in MLS.OperationRunner.handle<A>(operationResult:for:), 0, 0);
+  }
+
+  else
+  {
+    v8 = v6[61];
+    v7 = v6[62];
+    v16 = v6[60];
+    v6[76] = a2;
+    v6[77] = a1;
+    ObjectType = swift_getObjectType();
+    v6[49] = v8;
+    v6[50] = v7;
+    v15 = (*(v16 + 64) + **(v16 + 64));
+    v10 = swift_task_alloc();
+    v6[78] = v10;
+    *v10 = v6;
+    v10[1] = implicit closure #1 in MLS.OperationRunner.handle<A>(operationResult:for:);
+    v11 = v6[60];
+    v12 = v6[53];
+    v13 = v6[52];
+
+    return v15(v13, v12, v6 + 49, ObjectType, v11);
+  }
+}
+
+{
+  v6 = *v3;
+  *(*v3 + 632) = v2;
+
+  if (v2)
+  {
+    v7 = implicit closure #1 in MLS.OperationRunner.handle<A>(operationResult:for:);
+  }
+
+  else
+  {
+    v6[80] = v6[47];
+    v6[81] = a2;
+    v6[82] = a1;
+    v7 = implicit closure #1 in MLS.OperationRunner.handle<A>(operationResult:for:);
+  }
+
+  return MEMORY[0x2822009F8](v7, 0, 0);
+}
+
+uint64_t implicit closure #5 in MLS.OperationRunner.handle<A>(operationResult:for:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+{
+  v6[52] = a5;
+  v6[53] = a6;
+  v6[50] = a3;
+  v6[51] = a4;
+  v6[48] = a1;
+  v6[49] = a2;
+  return MEMORY[0x2822009F8](implicit closure #5 in MLS.OperationRunner.handle<A>(operationResult:for:), 0, 0);
+}
+
+uint64_t implicit closure #5 in MLS.OperationRunner.handle<A>(operationResult:for:)()
+{
+  v1 = *(v0 + 416);
+  v2 = *(v0 + 424);
+  v4 = *(v0 + 400);
+  v3 = *(v0 + 408);
+  v5 = *(*(v0 + 392) + 24);
+  ObjectType = swift_getObjectType();
+  v7 = v4[3];
+  v9 = *v4;
+  v8 = v4[1];
+  *(v0 + 48) = v4[2];
+  *(v0 + 64) = v7;
+  *(v0 + 16) = v9;
+  *(v0 + 32) = v8;
+  v10 = v4[7];
+  v12 = v4[4];
+  v11 = v4[5];
+  *(v0 + 112) = v4[6];
+  *(v0 + 128) = v10;
+  *(v0 + 80) = v12;
+  *(v0 + 96) = v11;
+  v14 = v4[9];
+  v13 = v4[10];
+  v15 = v4[8];
+  *(v0 + 192) = *(v4 + 176);
+  *(v0 + 160) = v14;
+  *(v0 + 176) = v13;
+  *(v0 + 144) = v15;
+  v17 = *(v3 + 16);
+  v16 = *(v3 + 32);
+  *(v0 + 200) = *v3;
+  *(v0 + 216) = v17;
+  *(v0 + 232) = v16;
+  v18 = *(v3 + 48);
+  v19 = *(v3 + 64);
+  v20 = *(v3 + 80);
+  *(v0 + 296) = *(v3 + 96);
+  *(v0 + 264) = v19;
+  *(v0 + 280) = v20;
+  *(v0 + 248) = v18;
+  v22 = v1[2];
+  v21 = v1[3];
+  v23 = v1[1];
+  *(v0 + 361) = *(v1 + 57);
+  *(v0 + 336) = v22;
+  *(v0 + 352) = v21;
+  *(v0 + 320) = v23;
+  *(v0 + 304) = *v1;
+  v24 = *(v2 + 424);
+  v25 = *(v2 + 432);
+  v28 = (*(v5 + 32) + **(v5 + 32));
+  v26 = swift_task_alloc();
+  *(v0 + 432) = v26;
+  *v26 = v0;
+  v26[1] = implicit closure #5 in MLS.OperationRunner.handle<A>(operationResult:for:);
+
+  return v28(v0 + 16, v0 + 200, v0 + 304, 1, v24, v25, ObjectType, v5);
+}
+
+{
+  **(v0 + 384) = *(v0 + 448);
+  return (*(v0 + 8))();
+}
+
+{
+  return (*(v0 + 8))();
+}
+
+uint64_t implicit closure #5 in MLS.OperationRunner.handle<A>(operationResult:for:)(uint64_t a1)
+{
+  v4 = *v2;
+  *(*v2 + 440) = v1;
+
+  if (v1)
+  {
+    v5 = implicit closure #5 in MLS.OperationRunner.handle<A>(operationResult:for:);
+  }
+
+  else
+  {
+    *(v4 + 448) = a1;
+    v5 = implicit closure #5 in MLS.OperationRunner.handle<A>(operationResult:for:);
+  }
+
+  return MEMORY[0x2822009F8](v5, 0, 0);
+}
+
+void closure #1 in MLS.OperationRunner.handle<A>(operationResult:for:)(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5, uint64_t a6, unint64_t a7, const char *a8)
+{
+
+  oslog = Logger.logObject.getter();
+  v15 = static os_log_type_t.error.getter();
+
+  if (os_log_type_enabled(oslog, v15))
+  {
+    v16 = swift_slowAlloc();
     v17 = swift_slowAlloc();
-    v18 = swift_slowAlloc();
-    v19 = swift_slowAlloc();
-    v32 = v19;
-    *v17 = 136315650;
-    *(v17 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v15, v14, &v32);
-    *(v17 + 12) = 2112;
-    v20 = v13;
-    v21 = _swift_stdlib_bridgeErrorToNSError();
-    *(v17 + 14) = v21;
-    *v18 = v21;
-    *(v17 + 22) = 2080;
-    v22 = *(v16 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier);
-    v23 = *(v16 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier + 8);
-
-    strcpy(v33, "EncryptedRCS.");
-    HIWORD(v33[1]) = -4864;
-    MEMORY[0x2667545A0](v22, v23);
-
-    v24 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v33[0], v33[1], &v32);
-
-    *(v17 + 24) = v24;
-    _os_log_impl(&dword_264F1F000, v11, v12, "XPCClientCoordinator processIncomingFTD failed { identifier: %s, error: %@, client: %s }", v17, 0x20u);
-    outlined destroy of NSObject?(v18, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    MEMORY[0x266755550](v18, -1, -1);
+    v19 = v17;
+    *v16 = 136315650;
+    *(v16 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(a4, a5, &v19);
+    *(v16 + 12) = 2080;
+    *(v16 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(a6, a7, &v19);
+    *(v16 + 22) = 2080;
+    *(v16 + 24) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(a1, a2, &v19);
+    _os_log_impl(&dword_264F1F000, oslog, v15, a8, v16, 0x20u);
     swift_arrayDestroy();
-    MEMORY[0x266755550](v19, -1, -1);
     MEMORY[0x266755550](v17, -1, -1);
+    MEMORY[0x266755550](v16, -1, -1);
   }
-
-  else
-  {
-    v25 = v0[13];
-  }
-
-  v26 = v0[27];
-  v27 = v0[15];
-  v28 = v0[16];
-  swift_willThrow();
-
-  v29 = v0[1];
-  v30 = v0[27];
-
-  return v29();
 }
 
-uint64_t closure #1 in MLS.XPCClientCoordinator.processIncoming(errorMessage:withGroup:context:)@<X0>(__int128 *a1@<X1>, uint64_t a2@<X5>, uint64_t *a3@<X8>)
+uint64_t closure #3 in MLS.OperationRunner.handle<A>(operationResult:for:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v18 = *a1;
-  v21 = a1[1];
-  v22 = *(a1 + 32);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO20IncomingErrorMessageVy_AC9AllMemberOGMd, &_s15SecureMessaging3MLSO20IncomingErrorMessageVy_AC9AllMemberOGMR);
-  lazy protocol witness table accessor for type MLS.KeyPackageRetrievalResult<MLS.AllMember> and conformance MLS.KeyPackageRetrievalResult<A>(&lazy protocol witness table cache variable for type MLS.IncomingErrorMessage<MLS.AllMember> and conformance MLS.IncomingErrorMessage<A>, &_s15SecureMessaging3MLSO20IncomingErrorMessageVy_AC9AllMemberOGMd, &_s15SecureMessaging3MLSO20IncomingErrorMessageVy_AC9AllMemberOGMR);
-  result = dispatch thunk of JSONEncoder.encode<A>(_:)();
-  if (!v3)
-  {
-    v8 = a2;
-    v17 = a3;
-    v9 = result;
-    v10 = v7;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO27IncomingErrorMessageContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO27IncomingErrorMessageContextVy_10Foundation4DataVGMR);
-    lazy protocol witness table accessor for type MLS.KeyPackageRetrievalResult<MLS.AllMember> and conformance MLS.KeyPackageRetrievalResult<A>(&lazy protocol witness table cache variable for type MLS.IncomingErrorMessageContext<Data> and conformance MLS.IncomingErrorMessageContext<A>, &_s15SecureMessaging3MLSO27IncomingErrorMessageContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO27IncomingErrorMessageContextVy_10Foundation4DataVGMR);
-    v11 = dispatch thunk of JSONEncoder.encode<A>(_:)();
-    v13 = v12;
-    v19 = *(v8 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier);
-    v20 = *(v8 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier + 8);
-    lazy protocol witness table accessor for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier();
-
-    v14 = dispatch thunk of JSONEncoder.encode<A>(_:)();
-    v16 = v15;
-
-    *v17 = v14;
-    v17[1] = v16;
-    v17[2] = v9;
-    v17[3] = v10;
-    v17[4] = v11;
-    v17[5] = v13;
-  }
-
-  return result;
-}
-
-uint64_t closure #2 in MLS.XPCClientCoordinator.keyPackage.getter@<X0>(uint64_t a1@<X0>, char a2@<W1>, uint64_t *a3@<X8>)
-{
-  v6 = type metadata accessor for MLS.XPCRequest();
-  a3[3] = v6;
-  a3[4] = &protocol witness table for MLS.XPCRequest;
-  boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(a3);
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCy10Foundation4DataVs5Error_pGMd, &_sScCy10Foundation4DataVs5Error_pGMR);
-  result = (*(*(v8 - 8) + 16))(boxed_opaque_existential_1, a1, v8);
-  *(boxed_opaque_existential_1 + *(v6 + 20)) = a2;
-  return result;
-}
-
-uint64_t closure #3 in MLS.XPCClientCoordinator.add(members:toGroup:context:)(id *a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, SEL *a8)
-{
-  v23 = *a1;
-  v11 = a2[2];
-  v12 = a2[3];
-  v13 = a2[4];
-  v14 = a2[5];
-  v27 = *a2;
-  v26 = a2[1];
-  outlined copy of Data._Representation(*a2, v26);
-  v24 = v11;
-  outlined copy of Data._Representation(v11, v12);
-  outlined copy of Data._Representation(v13, v14);
-  isa = Data._bridgeToObjectiveC()().super.isa;
-  v16 = Data._bridgeToObjectiveC()().super.isa;
-  v17 = MEMORY[0x266754510](a5, a6);
-  v18 = Data._bridgeToObjectiveC()().super.isa;
-  aBlock[4] = a3;
-  aBlock[5] = a4;
-  aBlock[0] = MEMORY[0x277D85DD0];
-  aBlock[1] = 1107296256;
-  aBlock[2] = thunk for @escaping @callee_guaranteed @Sendable (@guaranteed Data?, @guaranteed Data?) -> ();
-  aBlock[3] = a7;
-  v19 = _Block_copy(aBlock);
-
-  [v23 *a8];
-  _Block_release(v19);
-
-  outlined consume of Data._Representation(v13, v14);
-  outlined consume of Data._Representation(v24, v12);
-  return outlined consume of Data._Representation(v27, v26);
-}
-
-uint64_t MLS.XPCClientCoordinator.send(event:forGroup:completion:)(uint64_t a1, unint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6)
-{
-  v7 = v6;
-  v46 = a3;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
-  v14 = *(*(v13 - 8) + 64);
-  MEMORY[0x28223BE20](v13 - 8);
-  v16 = &v42 - v15;
-  swift_retain_n();
-  outlined copy of Data._Representation(a1, a2);
-  v17 = Logger.logObject.getter();
-  v18 = static os_log_type_t.default.getter();
-  outlined consume of Data._Representation(a1, a2);
-  if (os_log_type_enabled(v17, v18))
-  {
-    v19 = swift_slowAlloc();
-    v44 = v16;
-    v20 = v19;
-    v21 = swift_slowAlloc();
-    v45 = a6;
-    v42 = v21;
-    v48 = v21;
-    *v20 = 136315394;
-    v22 = Data.description.getter();
-    v24 = a5;
-    v25 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v22, v23, &v48);
-
-    *(v20 + 4) = v25;
-    *(v20 + 12) = 2080;
-    v43 = a4;
-    v27 = *(v6 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier);
-    v26 = *(v6 + direct field offset for MLS.XPCClientCoordinator.uniqueClientIdentifier + 8);
-
-    strcpy(v47, "EncryptedRCS.");
-    HIWORD(v47[1]) = -4864;
-    v28 = v27;
-    a5 = v24;
-    MEMORY[0x2667545A0](v28, v26);
-
-    v29 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v47[0], v47[1], &v48);
-
-    *(v20 + 14) = v29;
-    a4 = v43;
-    _os_log_impl(&dword_264F1F000, v17, v18, "XPCClientCoordinator sendEvent { eventBlob: %s, client: %s }", v20, 0x16u);
-    v30 = v42;
-    swift_arrayDestroy();
-    a6 = v45;
-    MEMORY[0x266755550](v30, -1, -1);
-    v31 = v20;
-    v16 = v44;
-    MEMORY[0x266755550](v31, -1, -1);
-  }
-
-  else
-  {
-  }
-
-  v32 = swift_allocObject();
-  v32[2] = a1;
-  v32[3] = a2;
-  v33 = v46;
-  v32[4] = v46;
-  v32[5] = a4;
-  v34 = swift_allocObject();
-  *(v34 + 16) = &async function pointer to partial apply for closure #2 in MLS.XPCClientCoordinator.send(event:forGroup:completion:);
-  *(v34 + 24) = v7;
-  v35 = type metadata accessor for TaskPriority();
-  (*(*(v35 - 8) + 56))(v16, 1, 1, v35);
-
-  outlined copy of Data._Representation(a1, a2);
-  outlined copy of Data._Representation(v33, a4);
-  v36 = one-time initialization token for shared;
-
-  v37 = v16;
-  if (v36 != -1)
+  v8[18] = a8;
+  v8[19] = v14;
+  v8[16] = a6;
+  v8[17] = a7;
+  v8[14] = a4;
+  v8[15] = a5;
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v8[20] = AssociatedTypeWitness;
+  v8[21] = *(AssociatedTypeWitness - 8);
+  v8[22] = swift_task_alloc();
+  v8[23] = swift_task_alloc();
+  v10 = swift_getAssociatedTypeWitness();
+  v8[24] = v10;
+  v8[25] = *(v10 - 8);
+  v8[26] = swift_task_alloc();
+  v8[27] = swift_getAssociatedTypeWitness();
+  v8[28] = swift_task_alloc();
+  if (one-time initialization token for shared != -1)
   {
     swift_once();
   }
 
-  v38 = static XPCActor.shared;
-  v39 = _s15SecureMessaging8XPCActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type XPCActor and conformance XPCActor, type metadata accessor for XPCActor);
-  v40 = swift_allocObject();
-  v40[2] = v38;
-  v40[3] = v39;
-  v40[4] = partial apply for closure #1 in MLS.XPCClientCoordinator.send(event:forGroup:completion:);
-  v40[5] = v32;
-  v40[6] = &async function pointer to partial apply for thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.OutgoingEventType<MLS.AllMember, Data>, @in_guaranteed MLS.Group) -> (@out MLS.SendResult, @error @owned Error);
-  v40[7] = v34;
-  v40[8] = a5;
-  v40[9] = a6;
+  v11 = static MLSActor.shared;
+  v8[29] = static MLSActor.shared;
 
-  _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5(0, 0, v37, &async function pointer to partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:), v40);
+  return MEMORY[0x2822009F8](closure #3 in MLS.OperationRunner.handle<A>(operationResult:for:), v11, 0);
+}
+
+uint64_t closure #3 in MLS.OperationRunner.handle<A>(operationResult:for:)()
+{
+  v28 = v0;
+  v1 = *(v0 + 216);
+  v2 = *(v0 + 192);
+  v3 = *(v0 + 152);
+  v4 = *(v0 + 160);
+  v5 = *(v0 + 136);
+  v6 = *(v0 + 144);
+  v23 = *(v0 + 224);
+  v22 = *(v0 + 120);
+  v24 = *(v0 + 112);
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+  *(v0 + 240) = AssociatedConformanceWitness;
+  v8 = swift_getAssociatedConformanceWitness();
+  v9 = swift_getAssociatedConformanceWitness();
+  *(v0 + 16) = v4;
+  *(v0 + 24) = v1;
+  *(v0 + 32) = v2;
+  *(v0 + 40) = AssociatedConformanceWitness;
+  *(v0 + 48) = v8;
+  *(v0 + 56) = v9;
+  updated = type metadata accessor for MLS.KeyUpdateOperation(0, v0 + 16);
+  v11 = *(v3 + 80);
+
+  v11(v6, v3);
+  outlined init with copy of ServerBag.MLS(v5 + OBJC_IVAR____TtCO15SecureMessaging3MLS15OperationRunner_keyUpdatePolicy, v0 + 64);
+  v12 = v5[10];
+  v13 = v5[11];
+  v14 = *(v5 + OBJC_IVAR____TtCO15SecureMessaging3MLS15OperationRunner_uniqueClientIdentifier);
+  v15 = *(v5 + OBJC_IVAR____TtCO15SecureMessaging3MLS15OperationRunner_uniqueClientIdentifier + 8);
+  v26 = *(v5 + OBJC_IVAR____TtCO15SecureMessaging3MLS15OperationRunner_featureFlagsStore);
+  v27[0] = v14;
+  v27[1] = v15;
+
+  swift_unknownObjectRetain();
+
+  v16 = MLS.KeyUpdateOperation.__allocating_init(group:causedByOutgoingMessage:context:policy:featureFlagsStore:persister:clientIdentifier:)(v24, v22, 1, v23, (v0 + 64), &v26, v12, v13, v27);
+  *(v0 + 248) = v16;
+  *(v0 + 104) = v16;
+  v25 = (*(*v5 + 216) + **(*v5 + 216));
+  v17 = swift_task_alloc();
+  *(v0 + 256) = v17;
+  WitnessTable = swift_getWitnessTable();
+  *v17 = v0;
+  v17[1] = _s15SecureMessaging3MLSO11GroupHealerC6handle5error5group06cachedD09operation6runnerAC10EventQueueC6ResultO05SwiftC0ABO8MLSErrorO_SSAC0O16MLSGroupProtocol_pSgxAC15OperationRunnerCtYa9ErrorTypeQzYKAC0dS0RzlFyyYaYbKAA8MLSActorCYccfU0_TQ1_;
+  v19 = *(v0 + 208);
+  v20 = *(v0 + 184);
+
+  return v25(v19, v0 + 104, updated, WitnessTable, v20);
+}
+
+uint64_t MLS.OperationRunner.enqueue<A>(operation:sendBlock:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v6[14] = a5;
+  v6[15] = v5;
+  v6[12] = a3;
+  v6[13] = a4;
+  v6[10] = a1;
+  v6[11] = a2;
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v6[16] = AssociatedTypeWitness;
+  v6[17] = *(AssociatedTypeWitness - 8);
+  v6[18] = swift_task_alloc();
+  v6[19] = swift_task_alloc();
+  if (one-time initialization token for shared != -1)
+  {
+    swift_once();
+  }
+
+  v8 = static MLSActor.shared;
+  v6[20] = static MLSActor.shared;
+
+  return MEMORY[0x2822009F8](MLS.OperationRunner.enqueue<A>(operation:sendBlock:), v8, 0);
+}
+
+void MLS.OperationRunner.enqueue<A>(operation:sendBlock:)()
+{
+  v1 = *(v0 + 136);
+  v3 = *(v0 + 112);
+  v2 = *(v0 + 120);
+  v4 = *(v0 + 104);
+  v5 = (*(v3 + 104))(v4, v3);
+  v6 = *(v2 + 24);
+  swift_getObjectType();
+  (*(v3 + 72))(v4, v3);
+  *(v0 + 168) = v7;
+  v8 = *(v3 + 80);
+  v9 = (v1 + 8);
+  if (v5)
+  {
+    v10 = *(v0 + 144);
+    v11 = *(v0 + 128);
+    v8(*(v0 + 104), *(v0 + 112));
+    AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+    (*(AssociatedConformanceWitness + 16))(v11, AssociatedConformanceWitness);
+    *(v0 + 200) = v13;
+    (*v9)(v10, v11);
+    *(v0 + 48) = 0u;
+    *(v0 + 64) = 0u;
+    *(v0 + 32) = 0u;
+    *(v0 + 16) = 0u;
+    v20 = *(v6 + 16) + **(v6 + 16);
+    v14 = swift_task_alloc();
+    *(v0 + 208) = v14;
+    *v14 = v0;
+    v14[1] = MLS.OperationRunner.enqueue<A>(operation:sendBlock:);
+
+    __asm { BRAA            X8, X16 }
+  }
+
+  v15 = *(v0 + 152);
+  v16 = *(v0 + 128);
+  v8(*(v0 + 104), *(v0 + 112));
+  v17 = swift_getAssociatedConformanceWitness();
+  (*(v17 + 16))(v16, v17);
+  *(v0 + 176) = v18;
+  (*v9)(v15, v16);
+  v21 = *(v6 + 8) + **(v6 + 8);
+  v19 = swift_task_alloc();
+  *(v0 + 184) = v19;
+  *v19 = v0;
+  v19[1] = MLS.OperationRunner.enqueue<A>(operation:sendBlock:);
+
+  __asm { BRAA            X8, X16 }
+}
+
+uint64_t MLS.OperationRunner.enqueue<A>(operation:sendBlock:)()
+{
+  v2 = *v1;
+  v3 = *v1;
+  *(*v1 + 192) = v0;
+
+  if (v0)
+  {
+    v4 = *(v2 + 160);
+
+    return MEMORY[0x2822009F8](MLS.OperationRunner.enqueue<A>(operation:sendBlock:), v4, 0);
+  }
+
+  else
+  {
+
+    v5 = *(v3 + 8);
+
+    return v5();
+  }
+}
+
+{
+  v2 = *v1;
+  v2[27] = v0;
+
+  if (v0)
+  {
+    v3 = v2[20];
+
+    return MEMORY[0x2822009F8](MLS.OperationRunner.enqueue<A>(operation:sendBlock:), v3, 0);
+  }
+
+  else
+  {
+
+    v4 = v2[1];
+
+    return v4();
+  }
+}
+
+{
+
+  v1 = *(v0 + 8);
+
+  return v1();
+}
+
+{
+
+  v1 = *(v0 + 8);
+
+  return v1();
+}
+
+char *MLS.OperationRunner.deinit()
+{
+  swift_unknownObjectRelease();
+  __swift_destroy_boxed_opaque_existential_1Tm((v0 + 32));
+
+  swift_unknownObjectRelease();
+
+  outlined destroy of MLS.KeyPackageProvider(v0 + OBJC_IVAR____TtCO15SecureMessaging3MLS15OperationRunner_keyPackageProvider);
+  __swift_destroy_boxed_opaque_existential_1Tm((v0 + OBJC_IVAR____TtCO15SecureMessaging3MLS15OperationRunner_keyUpdatePolicy));
+
+  outlined consume of MLS.AllMember(*(v0 + OBJC_IVAR____TtCO15SecureMessaging3MLS15OperationRunner_selfMember), *(v0 + OBJC_IVAR____TtCO15SecureMessaging3MLS15OperationRunner_selfMember + 8));
+  outlined consume of (@escaping @callee_guaranteed @Sendable @async (@guaranteed String) -> (@error @owned Error))?(*(v0 + OBJC_IVAR____TtCO15SecureMessaging3MLS15OperationRunner_processIncoming), *(v0 + OBJC_IVAR____TtCO15SecureMessaging3MLS15OperationRunner_processIncoming + 8));
+  v1 = OBJC_IVAR____TtCO15SecureMessaging3MLS15OperationRunner_logger;
+  v2 = type metadata accessor for Logger();
+  (*(*(v2 - 8) + 8))(v0 + v1, v2);
+  return v0;
+}
+
+uint64_t MLS.OperationRunner.__deallocating_deinit()
+{
+  MLS.OperationRunner.deinit();
+
+  return swift_deallocClassInstance();
+}
+
+void *specialized MLS.OperationRunner.__allocating_init(eventSender:credentialProvider:groupLoader:persister:keyPackageFetcher:keyPackageProvider:keyUpdatePolicy:groupHealer:featureFlagsStore:uniqueClientIdentifier:selfMember:)(uint64_t a1, __int128 *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, __int128 *a8, uint64_t a9, uint64_t *a10, uint64_t *a11, __int128 *a12, uint64_t a13, uint64_t a14, uint64_t a15)
+{
+  type metadata accessor for MLS.OperationRunner(0);
+  v25 = swift_allocObject();
+
+  return specialized MLS.OperationRunner.init(eventSender:credentialProvider:groupLoader:persister:keyPackageFetcher:keyPackageProvider:keyUpdatePolicy:groupHealer:featureFlagsStore:uniqueClientIdentifier:selfMember:)(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, v25, a14, a15);
+}
+
+void *specialized MLS.OperationRunner.init(eventSender:credentialProvider:groupLoader:persister:keyPackageFetcher:keyPackageProvider:keyUpdatePolicy:groupHealer:featureFlagsStore:uniqueClientIdentifier:selfMember:)(uint64_t a1, __int128 *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, __int128 *a8, uint64_t a9, uint64_t *a10, uint64_t *a11, __int128 *a12, void *a13, uint64_t a14, uint64_t a15)
+{
+  v28 = *a11;
+  v26 = *a10;
+  v27 = a11[1];
+  v31 = *a12;
+  v30 = *(a12 + 2);
+  v29 = *(a12 + 24);
+  v22 = (a13 + OBJC_IVAR____TtCO15SecureMessaging3MLS15OperationRunner_processIncoming);
+  *v22 = 0;
+  v22[1] = 0;
+  Logger.init(subsystem:category:)();
+  a13[2] = a1;
+  a13[3] = a15;
+  outlined init with take of MLS.KeyUpdatePolicy(a2, (a13 + 4));
+  a13[9] = a3;
+  a13[10] = a4;
+  a13[11] = a5;
+  a13[12] = a6;
+  outlined init with take of MetricCollector.Event(a7, a13 + OBJC_IVAR____TtCO15SecureMessaging3MLS15OperationRunner_keyPackageProvider, type metadata accessor for MLS.KeyPackageProvider);
+  outlined init with take of MLS.KeyUpdatePolicy(a8, a13 + OBJC_IVAR____TtCO15SecureMessaging3MLS15OperationRunner_keyUpdatePolicy);
+  *(a13 + OBJC_IVAR____TtCO15SecureMessaging3MLS15OperationRunner_groupHealer) = a9;
+  *(a13 + OBJC_IVAR____TtCO15SecureMessaging3MLS15OperationRunner_featureFlagsStore) = v26;
+  v23 = (a13 + OBJC_IVAR____TtCO15SecureMessaging3MLS15OperationRunner_uniqueClientIdentifier);
+  *v23 = v28;
+  v23[1] = v27;
+  v24 = a13 + OBJC_IVAR____TtCO15SecureMessaging3MLS15OperationRunner_selfMember;
+  *v24 = v31;
+  *(v24 + 2) = v30;
+  v24[24] = v29;
+  return a13;
+}
+
+uint64_t sub_26515C018()
+{
+
+  return MEMORY[0x2821FE8E8](v0, 24, 7);
+}
+
+uint64_t sub_26515C050()
+{
+
+  return MEMORY[0x2821FE8E8](v0, 24, 7);
+}
+
+uint64_t sub_26515C088()
+{
+  v1 = *(v0 + 16);
+  v2 = *(v1 - 8);
+  v3 = *(v2 + 80);
+  v4 = (v3 + 80) & ~v3;
+  v5 = (*(v2 + 64) + v4 + 7) & 0xFFFFFFFFFFFFFFF8;
+
+  (*(v2 + 8))(v0 + v4, v1);
+
+  return MEMORY[0x2821FE8E8](v0, v5 + 8, v3 | 7);
+}
+
+uint64_t _s15SecureMessaging3MLSO15OperationRunnerC3run9operation20ProcessedContextTypeQzx_tYa05ErrorJ0QzYKAC05GroupD0RzlFAC10EventQueueC6ResultOAC08OutgoingM5StateVSg_SStYaYbKAA8MLSActorCYccfU_TA(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v6 = v4[4];
+  v7 = v4[5];
+  v8 = v4[6];
+  v9 = v4[7];
+  v10 = swift_task_alloc();
+  *(v5 + 16) = v10;
+  *v10 = v5;
+  v10[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return _s15SecureMessaging3MLSO15OperationRunnerC3run9operation20ProcessedContextTypeQzx_tYa05ErrorJ0QzYKAC05GroupD0RzlFAC10EventQueueC6ResultOAC08OutgoingM5StateVSg_SStYaYbKAA8MLSActorCYccfU_(a1, a2, a3, a4, v6, v7, v8, v9);
+}
+
+unint64_t outlined consume of MLS.GroupOperationErrorHandlingPolicy(unint64_t result, uint64_t a2)
+{
+  if (result >= 2)
+  {
+  }
+
+  return result;
+}
+
+double outlined copy of MLS.KeyPackageFetcher.FetchResult?(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (a1)
+  {
+  }
+
+  return result;
+}
+
+uint64_t type metadata accessor for MLS.OperationRunner(uint64_t a1)
+{
+  result = type metadata singleton initialization cache for MLS.OperationRunner;
+  if (!type metadata singleton initialization cache for MLS.OperationRunner)
+  {
+    return swift_getSingletonMetadata();
+  }
+
+  return result;
+}
+
+uint64_t type metadata completion function for MLS.OperationRunner(uint64_t a1)
+{
+  result = type metadata accessor for MLS.KeyPackageProvider(319);
+  if (v2 <= 0x3F)
+  {
+    result = type metadata accessor for Logger();
+    if (v3 <= 0x3F)
+    {
+      return swift_updateClassMetadata2();
+    }
+  }
+
+  return result;
+}
+
+uint64_t _s15SecureMessaging3MLSO15OperationRunnerC3run9operation20ProcessedContextTypeQzx_tYa05ErrorJ0QzYKAC05GroupD0RzlFTj(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v14 = (*(*v5 + 216) + **(*v5 + 216));
+  v12 = swift_task_alloc();
+  *(v6 + 16) = v12;
+  *v12 = v6;
+  v12[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v14(a1, a2, a3, a4, a5);
+}
+
+uint64_t _s15SecureMessaging3MLSO15OperationRunnerC10onQueueRun9operation15metricCollector11cachedGroup0L11KeyPackagesAE02OngH6ResultVx_AA06MetricK0VAC21SwiftMLSGroupProtocol_pSgAC0N14PackageFetcherC05FetchQ0VSgtYa9ErrorTypeQzYKAC0mD0RzlFTj(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  v20 = (*(*v8 + 224) + **(*v8 + 224));
+  v18 = swift_task_alloc();
+  *(v9 + 16) = v18;
+  *v18 = v9;
+  v18[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v20(a1, a2, a3, a4, a5, a6, a7, a8);
+}
+
+uint64_t sub_26515C8D4()
+{
+
+  return MEMORY[0x2821FE8E8](v0, 32, 7);
+}
+
+uint64_t partial apply for thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.IncomingMessage<MLS.AllMember>) -> (@out (), @error @owned Error)(uint64_t a1)
+{
+  v4 = *(v1 + 16);
+  v5 = swift_task_alloc();
+  *(v2 + 16) = v5;
+  *v5 = v2;
+  v5[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.IncomingMessage<MLS.AllMember>) -> (@out (), @error @owned Error)(a1, v4);
+}
+
+uint64_t partial apply for thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.IncomingMessage<MLS.AllMember>) -> (@error @owned Error)(uint64_t a1, uint64_t a2)
+{
+  v6 = *(v2 + 16);
+  v7 = swift_task_alloc();
+  *(v3 + 16) = v7;
+  *v7 = v3;
+  v7[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.IncomingMessage<MLS.AllMember>) -> (@error @owned Error)(a1, a2, v6);
+}
+
+uint64_t partial apply for implicit closure #1 in MLS.OperationRunner.handle<A>(operationResult:for:)(uint64_t a1)
+{
+  v4 = v1[2];
+  v5 = v1[3];
+  v7 = v1[4];
+  v6 = v1[5];
+  v8 = swift_task_alloc();
+  *(v2 + 16) = v8;
+  *v8 = v2;
+  v8[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return implicit closure #1 in MLS.OperationRunner.handle<A>(operationResult:for:)(a1, v4, v5, v7, v6);
+}
+
+uint64_t partial apply for implicit closure #5 in MLS.OperationRunner.handle<A>(operationResult:for:)(uint64_t a1)
+{
+  v4 = v1[2];
+  v5 = v1[3];
+  v6 = v1[4];
+  v7 = v1[5];
+  v8 = v1[6];
+  v9 = swift_task_alloc();
+  *(v2 + 16) = v9;
+  *v9 = v2;
+  v9[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return implicit closure #5 in MLS.OperationRunner.handle<A>(operationResult:for:)(a1, v4, v5, v6, v7, v8);
+}
+
+uint64_t objectdestroy_43Tm()
+{
+
+  return MEMORY[0x2821FE8E8](v0, 56, 7);
+}
+
+uint64_t sub_26515CCF8()
+{
+  v1 = *(v0 + 32);
+  v2 = *(v1 - 8);
+  v3 = *(v2 + 80);
+  v4 = (v3 + 64) & ~v3;
+  v5 = (*(v2 + 64) + v4 + 7) & 0xFFFFFFFFFFFFFFF8;
+  swift_unknownObjectRelease();
+
+  (*(v2 + 8))(v0 + v4, v1);
+
+  return MEMORY[0x2821FE8E8](v0, v5 + 8, v3 | 7);
+}
+
+uint64_t partial apply for closure #3 in MLS.OperationRunner.handle<A>(operationResult:for:)(uint64_t a1)
+{
+  v3 = v1[4];
+  v4 = (*(*(v3 - 8) + 80) + 64) & ~*(*(v3 - 8) + 80);
+  v5 = v1[2];
+  v6 = v1[3];
+  v7 = v1[6];
+  v8 = v1[7];
+  v9 = *(v1 + ((*(*(v3 - 8) + 64) + v4 + 7) & 0xFFFFFFFFFFFFFFF8));
+  v10 = swift_task_alloc();
+  *(v2 + 16) = v10;
+  *v10 = v2;
+  v10[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return closure #3 in MLS.OperationRunner.handle<A>(operationResult:for:)(a1, v5, v6, v7, v8, v1 + v4, v9, v3);
+}
+
+uint64_t outlined init with take of MetricCollector.Event(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
+{
+  v5 = a3(0);
+  (*(*(v5 - 8) + 32))(a2, a1, v5);
+  return a2;
+}
+
+uint64_t MLS.EventSender.__allocating_init(eventDeliverer:bag:persister:groupLoader:clientIdentifier:)(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t *a7)
+{
+  v14 = swift_allocObject();
+  MLS.EventSender.init(eventDeliverer:bag:persister:groupLoader:clientIdentifier:)(a1, a2, a3, a4, a5, a6, a7);
+  return v14;
+}
+
+uint64_t protocol witness for Error._code.getter in conformance MLS.EventSenderError.ErrorType(uint64_t a1, uint64_t a2)
+{
+  v4 = lazy protocol witness table accessor for type MLS.EventSenderError.ErrorType and conformance MLS.EventSenderError.ErrorType();
+  v5 = lazy protocol witness table accessor for type Int and conformance Int();
+
+  return MEMORY[0x2821FE2D0](a1, a2, v4, v5);
+}
+
+uint64_t MLS.EventSenderError.underlyingErrorDescription.setter(uint64_t a1, uint64_t a2)
+{
+
+  *(v2 + 8) = a1;
+  *(v2 + 16) = a2;
+  return result;
+}
+
+uint64_t protocol witness for CustomStringConvertible.description.getter in conformance MLS.EventSenderError.CodingKeys(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type MLS.EventSenderError.CodingKeys and conformance MLS.EventSenderError.CodingKeys();
+
+  return MEMORY[0x2821FE718](a1, v2);
+}
+
+uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance MLS.EventSenderError.CodingKeys(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type MLS.EventSenderError.CodingKeys and conformance MLS.EventSenderError.CodingKeys();
+
+  return MEMORY[0x2821FE720](a1, v2);
+}
+
+uint64_t MLS.EventSenderError.encode(to:)(void *a1, char a2, uint64_t a3, uint64_t a4)
+{
+  v12[1] = a4;
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy15SecureMessaging3MLSO16EventSenderErrorV10CodingKeys33_CD9D9A573DA392194EC02FE56EA74BE1LLOGMd, &_ss22KeyedEncodingContainerVy15SecureMessaging3MLSO16EventSenderErrorV10CodingKeys33_CD9D9A573DA392194EC02FE56EA74BE1LLOGMR);
+  v8 = *(v7 - 8);
+  MEMORY[0x28223BE20](v7);
+  v10 = v12 - v9;
+  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
+  lazy protocol witness table accessor for type MLS.EventSenderError.CodingKeys and conformance MLS.EventSenderError.CodingKeys();
+  dispatch thunk of Encoder.container<A>(keyedBy:)();
+  v15 = a2;
+  v14 = 0;
+  lazy protocol witness table accessor for type MLS.EventSenderError.ErrorType and conformance MLS.EventSenderError.ErrorType();
+  KeyedEncodingContainer.encode<A>(_:forKey:)();
+  if (!v4)
+  {
+    v13 = 1;
+    KeyedEncodingContainer.encodeIfPresent(_:forKey:)();
+  }
+
+  return (*(v8 + 8))(v10, v7);
+}
+
+uint64_t protocol witness for Error._domain.getter in conformance MLS.EventSenderError(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type MLS.EventSenderError and conformance MLS.EventSenderError();
+
+  return MEMORY[0x28211F4B8](a1, v2);
+}
+
+uint64_t protocol witness for Error._code.getter in conformance MLS.EventSenderError(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type MLS.EventSenderError and conformance MLS.EventSenderError();
+
+  return MEMORY[0x28211F4A8](a1, v2);
+}
+
+uint64_t protocol witness for Decodable.init(from:) in conformance MLS.EventSenderError@<X0>(uint64_t a1@<X8>, void *a2@<X0>)
+{
+  result = specialized MLS.EventSenderError.init(from:)(a2);
+  if (!v2)
+  {
+    *a1 = result;
+    *(a1 + 8) = v5;
+    *(a1 + 16) = v6;
+  }
+
+  return result;
+}
+
+double MLS.RetryAfterGroupVersionBehavior.outgoingEventState.getter@<D0>(uint64_t a1@<X8>)
+{
+  if (*(v1 + 72) == 1)
+  {
+    v7 = v1[2];
+    v8 = v1[3];
+    *(a1 + 32) = v7;
+    *(a1 + 48) = v8;
+    v9 = *(v1 + 8);
+    *(a1 + 64) = v9;
+    v11 = *v1;
+    v10 = v1[1];
+    *a1 = *v1;
+    *(a1 + 16) = v10;
+    v16 = v7;
+    v17 = v8;
+    v18 = v9;
+    v14 = v11;
+    v15 = v10;
+    v19 = 1;
+    goto LABEL_5;
+  }
+
+  if (!*(v1 + 72))
+  {
+    v2 = v1[2];
+    v3 = v1[3];
+    *(a1 + 32) = v2;
+    *(a1 + 48) = v3;
+    v4 = *(v1 + 8);
+    *(a1 + 64) = v4;
+    v6 = *v1;
+    v5 = v1[1];
+    *a1 = *v1;
+    *(a1 + 16) = v5;
+    v16 = v2;
+    v17 = v3;
+    v18 = v4;
+    v14 = v6;
+    v15 = v5;
+    v19 = 0;
+LABEL_5:
+    outlined init with copy of MLS.OutgoingEventState?(&v14, v13, &_s15SecureMessaging3MLSO18OutgoingEventStateV05eventF0_tMd, &_s15SecureMessaging3MLSO18OutgoingEventStateV05eventF0_tMR);
+    return result;
+  }
+
+  *(a1 + 64) = 0;
+  result = 0.0;
+  *(a1 + 32) = 0u;
+  *(a1 + 48) = 0u;
+  *a1 = 0u;
+  *(a1 + 16) = 0u;
+  return result;
+}
+
+uint64_t MLS.EventSender.logger.getter@<X0>(uint64_t a1@<X8>)
+{
+  v3 = direct field offset for MLS.EventSender.logger;
+  v4 = type metadata accessor for Logger();
+  v5 = *(*(v4 - 8) + 16);
+
+  return v5(a1, v1 + v3, v4);
+}
+
+double MLS.EventSender.eventQueueMap.getter()
+{
+  swift_beginAccess();
+
+  return result;
+}
+
+uint64_t MLS.EventSender.eventQueueMap.setter(uint64_t a1)
+{
+  v3 = direct field offset for MLS.EventSender.eventQueueMap;
+  swift_beginAccess();
+  *(v1 + v3) = a1;
+}
+
+uint64_t closure #1 in variable initialization expression of MLS.EventSender.retryBlock(uint64_t a1)
+{
+  *(v1 + 16) = a1;
+  if (one-time initialization token for shared != -1)
+  {
+    swift_once();
+  }
+
+  v2 = static MLSActor.shared;
+
+  return MEMORY[0x2822009F8](closure #1 in variable initialization expression of MLS.EventSender.retryBlock, v2, 0);
+}
+
+uint64_t closure #1 in variable initialization expression of MLS.EventSender.retryBlock()
+{
+  v1 = *(v0 + 16);
+  *v1 = 1;
+  *(v1 + 8) = 0u;
+  *(v1 + 24) = 0u;
+  *(v1 + 40) = 0u;
+  *(v1 + 56) = 0u;
+  *(v1 + 72) = 0u;
+  *(v1 + 88) = 0;
+  *(v1 + 96) = 3;
+  return (*(v0 + 8))();
+}
+
+uint64_t thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.OutgoingEventState?, @guaranteed String) -> (@out MLS.EventQueue.Result, @error @owned Error)(uint64_t a1, uint64_t a2, uint64_t *a3, int *a4)
+{
+  v7 = *a3;
+  v8 = a3[1];
+  v11 = (a4 + *a4);
+  v9 = swift_task_alloc();
+  *(v4 + 16) = v9;
+  *v9 = v4;
+  v9[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v11(a1, a2, v7, v8);
+}
+
+uint64_t key path setter for MLS.EventSender.retryBlock : <A, B>MLS.EventSender<A, B>(uint64_t *a1, uint64_t a2)
+{
+  v3 = *a1;
+  v4 = a1[1];
+  v5 = swift_allocObject();
+  *(v5 + 16) = v3;
+  *(v5 + 24) = v4;
+  v6 = *(**a2 + 240);
+
+  return v6(&thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.OutgoingEventState?, @in_guaranteed String) -> (@out MLS.EventQueue.Result, @error @owned Error)partial apply, v5);
+}
+
+uint64_t thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.OutgoingEventState?, @in_guaranteed String) -> (@out MLS.EventQueue.Result, @error @owned Error)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int *a5)
+{
+  v5[2] = a3;
+  v5[3] = a4;
+  v10 = a5 + *a5;
+  v8 = swift_task_alloc();
+  v5[4] = v8;
+  *v8 = v5;
+  v8[1] = implicit closure #12 in MLS.SelfHealOperation.perform(on:metricCollector:keyPackageResult:);
+
+  return (v10)(a1, a2, v5 + 2);
+}
+
+uint64_t closure #1 in variable initialization expression of MLS.EventSender.selfHealBlock()
+{
+  if (one-time initialization token for shared != -1)
+  {
+    swift_once();
+  }
+
+  v1 = *(v0 + 8);
+
+  return v1();
+}
+
+uint64_t thunk for @escaping @callee_guaranteed @Sendable @async (@guaranteed String) -> (@error @owned Error)(uint64_t a1, uint64_t *a2, int *a3)
+{
+  v4 = *a2;
+  v5 = a2[1];
+  v8 = (a3 + *a3);
+  v6 = swift_task_alloc();
+  *(v3 + 16) = v6;
+  *v6 = v3;
+  v6[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v8(v4, v5);
+}
+
+uint64_t key path setter for MLS.EventSender.selfHealBlock : <A, B>MLS.EventSender<A, B>(uint64_t *a1, uint64_t a2)
+{
+  v4 = *a1;
+  v3 = a1[1];
+  v5 = swift_allocObject();
+  *(v5 + 16) = v4;
+  *(v5 + 24) = v3;
+  v6 = *(**a2 + 264);
+
+  return v6(&async function pointer to partial apply for thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed String) -> (@out (), @error @owned Error), v5);
+}
+
+uint64_t thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed String) -> (@out (), @error @owned Error)(uint64_t a1, uint64_t a2, int *a3)
+{
+  v3[2] = a1;
+  v3[3] = a2;
+  v6 = (a3 + *a3);
+  v4 = swift_task_alloc();
+  v3[4] = v4;
+  *v4 = v3;
+  v4[1] = thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed String) -> (@out (), @error @owned Error);
+
+  return v6();
+}
+
+uint64_t thunk for @escaping @callee_guaranteed @Sendable @async (@guaranteed String, @in_guaranteed MLS.QueuedFTDInfo) -> (@error @owned Error)(uint64_t a1, uint64_t *a2, uint64_t a3, int *a4)
+{
+  v6 = *a2;
+  v7 = a2[1];
+  v10 = (a4 + *a4);
+  v8 = swift_task_alloc();
+  *(v4 + 16) = v8;
+  *v8 = v4;
+  v8[1] = partial apply for specialized closure #1 in static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventDeliveryBlock:);
+
+  return v10(v6, v7, a3);
+}
+
+uint64_t key path setter for MLS.EventSender.enqueueFTDBlock : <A, B>MLS.EventSender<A, B>(uint64_t *a1, uint64_t a2)
+{
+  v4 = *a1;
+  v3 = a1[1];
+  v5 = swift_allocObject();
+  *(v5 + 16) = v4;
+  *(v5 + 24) = v3;
+  v6 = *(**a2 + 288);
+
+  return v6(&async function pointer to partial apply for thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed String, @in_guaranteed MLS.QueuedFTDInfo) -> (@out (), @error @owned Error), v5);
+}
+
+uint64_t thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed String, @in_guaranteed MLS.QueuedFTDInfo) -> (@out (), @error @owned Error)(uint64_t a1, uint64_t a2, uint64_t a3, int *a4)
+{
+  v4[2] = a1;
+  v4[3] = a2;
+  v7 = (a4 + *a4);
+  v5 = swift_task_alloc();
+  v4[4] = v5;
+  *v5 = v4;
+  v5[1] = thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed String) -> (@out (), @error @owned Error);
+
+  return v7();
+}
+
+uint64_t MLS.EventSender.retryBlock.getter(void *a1)
+{
+  v2 = (v1 + *a1);
+  swift_beginAccess();
+  v3 = *v2;
+
+  return v3;
+}
+
+uint64_t MLS.EventSender.retryBlock.setter(uint64_t a1, uint64_t a2, void *a3)
+{
+  v6 = (v3 + *a3);
+  swift_beginAccess();
+  *v6 = a1;
+  v6[1] = a2;
+}
+
+double MLS.EventSender.clientIdentifier.getter@<D0>(void *a1@<X8>)
+{
+  v2 = *(v1 + direct field offset for MLS.EventSender.clientIdentifier + 8);
+  *a1 = *(v1 + direct field offset for MLS.EventSender.clientIdentifier);
+  a1[1] = v2;
+
+  return result;
+}
+
+void *MLS.EventSender.init(eventDeliverer:bag:persister:groupLoader:clientIdentifier:)(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t *a7)
+{
+  v14 = *a7;
+  v15 = a7[1];
+  Logger.init(subsystem:category:)();
+  v16 = (v7 + direct field offset for MLS.EventSender.retryBlock);
+  *v16 = &async function pointer to closure #1 in variable initialization expression of MLS.EventSender.retryBlock;
+  v16[1] = 0;
+  v17 = (v7 + direct field offset for MLS.EventSender.selfHealBlock);
+  *v17 = &async function pointer to closure #1 in variable initialization expression of MLS.EventSender.selfHealBlock;
+  v17[1] = 0;
+  v18 = (v7 + direct field offset for MLS.EventSender.enqueueFTDBlock);
+  *v18 = &async function pointer to closure #1 in variable initialization expression of MLS.EventSender.enqueueFTDBlock;
+  v18[1] = 0;
+  v19 = (v7 + direct field offset for MLS.EventSender.eventRetryPolicy);
+  *v19 = closure #1 in variable initialization expression of MLS.EventSender.eventRetryPolicy;
+  v19[1] = 0;
+  v20 = (v7 + direct field offset for MLS.EventSender.deletionRetryPolicy);
+  *v20 = closure #1 in variable initialization expression of MLS.EventSender.deletionRetryPolicy;
+  v20[1] = 0;
+  v7[2] = a1;
+  v7[3] = a2;
+  outlined init with copy of ServerBag.MLS(a3, (v7 + 7));
+  v7[4] = a4;
+  v7[5] = a5;
+  v7[6] = a6;
+  v21 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_15SecureMessaging3MLSO10EventQueueCTt0g5Tf4g_n(MEMORY[0x277D84F90]);
+  __swift_destroy_boxed_opaque_existential_1Tm(a3);
+  *(v7 + direct field offset for MLS.EventSender.eventQueueMap) = v21;
+  v22 = (v7 + direct field offset for MLS.EventSender.clientIdentifier);
+  *v22 = v14;
+  v22[1] = v15;
+  return v7;
+}
+
+uint64_t MLS.EventSender.eventQueue(groupIdentifier:)(uint64_t a1, uint64_t a2)
+{
+  v3 = v2;
+  v6 = (*(*v2 + 208))();
+  if (*(v6 + 16) && (v7 = specialized __RawDictionaryStorage.find<A>(_:)(a1, a2), (v8 & 1) != 0))
+  {
+    v9 = *(*(v6 + 56) + 8 * v7);
+  }
+
+  else
+  {
+
+    outlined init with copy of ServerBag.MLS(v3 + 56, v22);
+    v10 = *(*v3 + 280);
+
+    v12 = v10(v11);
+    v14 = v13;
+    type metadata accessor for MLS.EventQueue(0);
+    swift_allocObject();
+    v9 = MLS.EventQueue.init(groupIdentifier:bag:enqueueFTDBlock:)(a1, a2, v22, v12, v14);
+    v15 = *(*v3 + 224);
+
+    v16 = v15(v22);
+    v18 = v17;
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    v21 = *v18;
+    *v18 = 0x8000000000000000;
+    specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v9, a1, a2, isUniquelyReferenced_nonNull_native);
+
+    *v18 = v21;
+    v16(v22, 0);
+  }
+
+  return v9;
+}
+
+uint64_t MLS.EventSender.enqueue(groupIdentifier:identifier:isWithinPersisterTransaction:sendBlock:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5, uint64_t a6, uint64_t a7)
+{
+  *(v8 + 128) = a7;
+  *(v8 + 136) = v7;
+  *(v8 + 112) = a4;
+  *(v8 + 120) = a6;
+  *(v8 + 184) = a5;
+  *(v8 + 96) = a2;
+  *(v8 + 104) = a3;
+  *(v8 + 88) = a1;
+  if (one-time initialization token for shared != -1)
+  {
+    swift_once();
+  }
+
+  v9 = static MLSActor.shared;
+  *(v8 + 144) = static MLSActor.shared;
+
+  return MEMORY[0x2822009F8](MLS.EventSender.enqueue(groupIdentifier:identifier:isWithinPersisterTransaction:sendBlock:), v9, 0);
+}
+
+uint64_t MLS.EventSender.enqueue(groupIdentifier:identifier:isWithinPersisterTransaction:sendBlock:)()
+{
+  v2 = *(v0 + 128);
+  v1 = *(v0 + 136);
+  v3 = *(v0 + 112);
+  v4 = *(v0 + 120);
+  v5 = *(v0 + 184);
+  v6 = *(v0 + 104);
+  v7 = MLS.EventSender.eventQueue(groupIdentifier:)(*(v0 + 88), *(v0 + 96));
+  *(v0 + 152) = v7;
+  *(v0 + 32) = 0u;
+  *(v0 + 48) = 0u;
+  *(v0 + 64) = 0u;
+  *(v0 + 80) = 0;
+  *(v0 + 16) = 0u;
+  v8 = swift_allocObject();
+  *(v8 + 16) = v5;
+  *(v0 + 160) = v8;
+  *(v8 + 24) = v4;
+  *(v8 + 32) = v2;
+  *(v8 + 40) = v1;
+  *(v8 + 48) = v6;
+  *(v8 + 56) = v3;
+  v9 = *(*v7 + 280);
+
+  v14 = (v9 + *v9);
+  v10 = swift_task_alloc();
+  *(v0 + 168) = v10;
+  *v10 = v0;
+  v10[1] = MLS.EventSender.enqueue(groupIdentifier:identifier:isWithinPersisterTransaction:sendBlock:);
+  v12 = *(v0 + 104);
+  v11 = *(v0 + 112);
+
+  return v14(v12, v11, v0 + 16, &async function pointer to partial apply for closure #1 in MLS.EventSender.enqueue(groupIdentifier:identifier:isWithinPersisterTransaction:sendBlock:), v8);
+}
+
+{
+  v2 = *v1;
+  *(*v1 + 176) = v0;
+
+  if (v0)
+  {
+    v3 = *(v2 + 144);
+    v4 = MLS.EventSender.enqueue(groupIdentifier:identifier:isWithinPersisterTransaction:sendBlock:);
+  }
+
+  else
+  {
+    v5 = *(v2 + 144);
+
+    v4 = MLS.EventSender.enqueue(groupIdentifier:identifier:isWithinPersisterTransaction:sendBlock:);
+    v3 = v5;
+  }
+
+  return MEMORY[0x2822009F8](v4, v3, 0);
+}
+
+{
+
+  v1 = *(v0 + 8);
+
+  return v1();
+}
+
+uint64_t closure #1 in MLS.EventSender.enqueue(groupIdentifier:identifier:isWithinPersisterTransaction:sendBlock:)(uint64_t a1, __int128 *a2, uint64_t a3, uint64_t a4, char a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  v9 = *a2;
+  *(v8 + 136) = a2[1];
+  v10 = a2[3];
+  *(v8 + 152) = a2[2];
+  *(v8 + 168) = v10;
+  *(v8 + 320) = v14;
+  *(v8 + 328) = v15;
+  *(v8 + 304) = a7;
+  *(v8 + 312) = a8;
+  *(v8 + 288) = a4;
+  *(v8 + 296) = a6;
+  *(v8 + 113) = a5;
+  *(v8 + 272) = a2;
+  *(v8 + 280) = a3;
+  *(v8 + 264) = a1;
+  *(v8 + 184) = *(a2 + 8);
+  *(v8 + 120) = v9;
+  if (one-time initialization token for shared != -1)
+  {
+    swift_once();
+  }
+
+  v11 = static MLSActor.shared;
+  *(v8 + 336) = static MLSActor.shared;
+
+  return MEMORY[0x2822009F8](closure #1 in MLS.EventSender.enqueue(groupIdentifier:identifier:isWithinPersisterTransaction:sendBlock:), v11, 0);
+}
+
+uint64_t closure #1 in MLS.EventSender.enqueue(groupIdentifier:identifier:isWithinPersisterTransaction:sendBlock:)()
+{
+  if (*(v0 + 113) == 1)
+  {
+    v1 = *(v0 + 296);
+    v2 = *(v0 + 272);
+    *(v0 + 192) = *v2;
+    v4 = *(v2 + 32);
+    v3 = *(v2 + 48);
+    v5 = *(v2 + 16);
+    *(v0 + 256) = *(v2 + 64);
+    *(v0 + 224) = v4;
+    *(v0 + 240) = v3;
+    *(v0 + 208) = v5;
+    v17 = (v1 + *v1);
+    v6 = swift_task_alloc();
+    *(v0 + 344) = v6;
+    *v6 = v0;
+    v6[1] = closure #1 in MLS.EventSender.enqueue(groupIdentifier:identifier:isWithinPersisterTransaction:sendBlock:);
+    v7 = *(v0 + 280);
+    v8 = *(v0 + 288);
+
+    return v17(v0 + 16, v0 + 192, v7, v8);
+  }
+
+  else
+  {
+    v11 = *(v0 + 280);
+    v10 = *(v0 + 288);
+    v12 = *(*(v0 + 312) + 48);
+    v13 = swift_task_alloc();
+    *(v0 + 360) = v13;
+    *(v13 + 16) = *(v0 + 296);
+    *(v13 + 32) = v0 + 120;
+    *(v13 + 40) = v11;
+    *(v13 + 48) = v10;
+    v18 = (*(*v12 + 152) + **(*v12 + 152));
+    v14 = swift_task_alloc();
+    *(v0 + 368) = v14;
+    *v14 = v0;
+    v14[1] = closure #1 in MLS.EventSender.enqueue(groupIdentifier:identifier:isWithinPersisterTransaction:sendBlock:);
+    v15 = *(v0 + 320);
+    v16 = *(v0 + 328);
+
+    return v18(v0 + 16, v15, v16, &async function pointer to partial apply for closure #1 in closure #1 in MLS.EventSender.enqueue(groupIdentifier:identifier:isWithinPersisterTransaction:sendBlock:), v13, &type metadata for MLS.EventQueue.Result);
+  }
+}
+
+{
+  v2 = *v1;
+  *(*v1 + 352) = v0;
+
+  v3 = *(v2 + 336);
+  if (v0)
+  {
+    v4 = closure #1 in MLS.EventSender.enqueue(groupIdentifier:identifier:isWithinPersisterTransaction:sendBlock:);
+  }
+
+  else
+  {
+    v4 = closure #1 in MLS.EventSender.enqueue(groupIdentifier:identifier:isWithinPersisterTransaction:sendBlock:);
+  }
+
+  return MEMORY[0x2822009F8](v4, v3, 0);
+}
+
+{
+  v2 = *v1;
+  *(*v1 + 376) = v0;
+
+  if (v0)
+  {
+    v3 = *(v2 + 336);
+    v4 = closure #1 in MLS.EventSender.enqueue(groupIdentifier:identifier:isWithinPersisterTransaction:sendBlock:);
+  }
+
+  else
+  {
+    v5 = *(v2 + 336);
+
+    v4 = closure #1 in MLS.EventSender.enqueue(groupIdentifier:identifier:isWithinPersisterTransaction:sendBlock:);
+    v3 = v5;
+  }
+
+  return MEMORY[0x2822009F8](v4, v3, 0);
+}
+
+uint64_t closure #1 in closure #1 in MLS.EventSender.enqueue(groupIdentifier:identifier:isWithinPersisterTransaction:sendBlock:)(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+{
+  v10 = v6;
+  if (one-time initialization token for shared != -1)
+  {
+    v17 = a4;
+    swift_once();
+    a4 = v17;
+  }
+
+  v12 = static MLSActor.shared;
+  *(v10 + 80) = *(a4 + 64);
+  *(v10 + 88) = v12;
+  v13 = *(a4 + 48);
+  *(v10 + 48) = *(a4 + 32);
+  *(v10 + 64) = v13;
+  v14 = *(a4 + 16);
+  *(v10 + 16) = *a4;
+  *(v10 + 32) = v14;
+  v18 = (a2 + *a2);
+  v15 = swift_task_alloc();
+  *(v10 + 96) = v15;
+  *v15 = v10;
+  v15[1] = closure #1 in closure #1 in MLS.EventSender.enqueue(groupIdentifier:identifier:isWithinPersisterTransaction:sendBlock:);
+
+  return v18(a1, v10 + 16, a5, a6);
+}
+
+uint64_t closure #1 in closure #1 in MLS.EventSender.enqueue(groupIdentifier:identifier:isWithinPersisterTransaction:sendBlock:)()
+{
+  v2 = *v1;
+  v2[13] = v0;
+
+  if (v0)
+  {
+    v3 = v2[11];
+
+    return MEMORY[0x2822009F8](closure #1 in closure #1 in MLS.EventSender.enqueue(groupIdentifier:identifier:isWithinPersisterTransaction:sendBlock:), v3, 0);
+  }
+
+  else
+  {
+    v4 = v2[1];
+
+    return v4();
+  }
+}
+
+uint64_t MLS.EventSender.enqueueSelfHeal(groupIdentifier:identifier:ftdInfo:isWithinPersisterTransaction:sendBlock:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, char a6, uint64_t a7, uint64_t a8)
+{
+  *(v9 + 128) = a8;
+  *(v9 + 136) = v8;
+  *(v9 + 184) = a6;
+  *(v9 + 112) = a5;
+  *(v9 + 120) = a7;
+  *(v9 + 96) = a3;
+  *(v9 + 104) = a4;
+  *(v9 + 80) = a1;
+  *(v9 + 88) = a2;
+  if (one-time initialization token for shared != -1)
+  {
+    swift_once();
+  }
+
+  v10 = static MLSActor.shared;
+  *(v9 + 144) = static MLSActor.shared;
+
+  return MEMORY[0x2822009F8](MLS.EventSender.enqueueSelfHeal(groupIdentifier:identifier:ftdInfo:isWithinPersisterTransaction:sendBlock:), v10, 0);
+}
+
+uint64_t MLS.EventSender.enqueueSelfHeal(groupIdentifier:identifier:ftdInfo:isWithinPersisterTransaction:sendBlock:)()
+{
+  v2 = *(v0 + 128);
+  v1 = *(v0 + 136);
+  v3 = *(v0 + 184);
+  v4 = *(v0 + 112);
+  v5 = *(v0 + 120);
+  v7 = *(v0 + 96);
+  v6 = *(v0 + 104);
+  v8 = MLS.EventSender.eventQueue(groupIdentifier:)(*(v0 + 80), *(v0 + 88));
+  *(v0 + 152) = v8;
+  v9 = v4[3];
+  v11 = *v4;
+  v10 = v4[1];
+  *(v0 + 48) = v4[2];
+  *(v0 + 64) = v9;
+  *(v0 + 16) = v11;
+  *(v0 + 32) = v10;
+  v12 = swift_allocObject();
+  *(v12 + 16) = v3;
+  *(v0 + 160) = v12;
+  *(v12 + 24) = v5;
+  *(v12 + 32) = v2;
+  *(v12 + 40) = v1;
+  *(v12 + 48) = v7;
+  *(v12 + 56) = v6;
+  v13 = *(*v8 + 320);
+
+  v18 = (v13 + *v13);
+  v14 = swift_task_alloc();
+  *(v0 + 168) = v14;
+  *v14 = v0;
+  v14[1] = MLS.EventSender.enqueueSelfHeal(groupIdentifier:identifier:ftdInfo:isWithinPersisterTransaction:sendBlock:);
+  v16 = *(v0 + 96);
+  v15 = *(v0 + 104);
+
+  return v18(v16, v15, v0 + 16, &async function pointer to partial apply for closure #1 in MLS.EventSender.enqueueSelfHeal(groupIdentifier:identifier:ftdInfo:isWithinPersisterTransaction:sendBlock:), v12);
+}
+
+{
+  v2 = *v1;
+  *(*v1 + 176) = v0;
+
+  if (v0)
+  {
+    v3 = *(v2 + 144);
+    v4 = MLS.EventSender.enqueue(groupIdentifier:identifier:isWithinPersisterTransaction:sendBlock:);
+  }
+
+  else
+  {
+    v5 = *(v2 + 144);
+
+    v4 = MLS.EventSender.enqueueSelfHeal(groupIdentifier:identifier:ftdInfo:isWithinPersisterTransaction:sendBlock:);
+    v3 = v5;
+  }
+
+  return MEMORY[0x2822009F8](v4, v3, 0);
+}
+
+{
+
+  v1 = *(v0 + 8);
+
+  return v1();
+}
+
+uint64_t closure #1 in MLS.EventSender.enqueueSelfHeal(groupIdentifier:identifier:ftdInfo:isWithinPersisterTransaction:sendBlock:)(uint64_t a1, __int128 *a2, uint64_t a3, uint64_t a4, char a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  v9 = *a2;
+  *(v8 + 136) = a2[1];
+  v10 = a2[3];
+  *(v8 + 152) = a2[2];
+  *(v8 + 168) = v10;
+  *(v8 + 320) = v14;
+  *(v8 + 328) = v15;
+  *(v8 + 304) = a7;
+  *(v8 + 312) = a8;
+  *(v8 + 288) = a4;
+  *(v8 + 296) = a6;
+  *(v8 + 113) = a5;
+  *(v8 + 272) = a2;
+  *(v8 + 280) = a3;
+  *(v8 + 264) = a1;
+  *(v8 + 184) = *(a2 + 8);
+  *(v8 + 120) = v9;
+  if (one-time initialization token for shared != -1)
+  {
+    swift_once();
+  }
+
+  v11 = static MLSActor.shared;
+  *(v8 + 336) = static MLSActor.shared;
+
+  return MEMORY[0x2822009F8](closure #1 in MLS.EventSender.enqueueSelfHeal(groupIdentifier:identifier:ftdInfo:isWithinPersisterTransaction:sendBlock:), v11, 0);
+}
+
+uint64_t closure #1 in MLS.EventSender.enqueueSelfHeal(groupIdentifier:identifier:ftdInfo:isWithinPersisterTransaction:sendBlock:)()
+{
+  if (*(v0 + 113) == 1)
+  {
+    v1 = *(v0 + 296);
+    v2 = *(v0 + 272);
+    *(v0 + 192) = *v2;
+    v4 = *(v2 + 32);
+    v3 = *(v2 + 48);
+    v5 = *(v2 + 16);
+    *(v0 + 256) = *(v2 + 64);
+    *(v0 + 224) = v4;
+    *(v0 + 240) = v3;
+    *(v0 + 208) = v5;
+    v17 = (v1 + *v1);
+    v6 = swift_task_alloc();
+    *(v0 + 344) = v6;
+    *v6 = v0;
+    v6[1] = closure #1 in MLS.EventSender.enqueueSelfHeal(groupIdentifier:identifier:ftdInfo:isWithinPersisterTransaction:sendBlock:);
+    v7 = *(v0 + 280);
+    v8 = *(v0 + 288);
+
+    return v17(v0 + 16, v0 + 192, v7, v8);
+  }
+
+  else
+  {
+    v11 = *(v0 + 280);
+    v10 = *(v0 + 288);
+    v12 = *(*(v0 + 312) + 48);
+    v13 = swift_task_alloc();
+    *(v0 + 360) = v13;
+    *(v13 + 16) = *(v0 + 296);
+    *(v13 + 32) = v0 + 120;
+    *(v13 + 40) = v11;
+    *(v13 + 48) = v10;
+    v18 = (*(*v12 + 152) + **(*v12 + 152));
+    v14 = swift_task_alloc();
+    *(v0 + 368) = v14;
+    *v14 = v0;
+    v14[1] = closure #1 in MLS.EventSender.enqueueSelfHeal(groupIdentifier:identifier:ftdInfo:isWithinPersisterTransaction:sendBlock:);
+    v15 = *(v0 + 320);
+    v16 = *(v0 + 328);
+
+    return v18(v0 + 16, v15, v16, &async function pointer to partial apply for closure #1 in closure #1 in MLS.EventSender.enqueueSelfHeal(groupIdentifier:identifier:ftdInfo:isWithinPersisterTransaction:sendBlock:), v13, &type metadata for MLS.EventQueue.Result);
+  }
+}
+
+{
+  v2 = *v1;
+  *(*v1 + 352) = v0;
+
+  v3 = *(v2 + 336);
+  if (v0)
+  {
+    v4 = closure #1 in MLS.EventSender.enqueueSelfHeal(groupIdentifier:identifier:ftdInfo:isWithinPersisterTransaction:sendBlock:);
+  }
+
+  else
+  {
+    v4 = closure #1 in MLS.EventSender.enqueueSelfHeal(groupIdentifier:identifier:ftdInfo:isWithinPersisterTransaction:sendBlock:);
+  }
+
+  return MEMORY[0x2822009F8](v4, v3, 0);
+}
+
+{
+  v1 = *(v0 + 264);
+  v2 = *(v0 + 16);
+  v3 = *(v0 + 48);
+  *(v1 + 16) = *(v0 + 32);
+  *(v1 + 32) = v3;
+  *v1 = v2;
+  v4 = *(v0 + 64);
+  v5 = *(v0 + 80);
+  v6 = *(v0 + 96);
+  *(v1 + 96) = *(v0 + 112);
+  *(v1 + 64) = v5;
+  *(v1 + 80) = v6;
+  *(v1 + 48) = v4;
+  return (*(v0 + 8))();
+}
+
+{
+  v2 = *v1;
+  *(*v1 + 376) = v0;
+
+  if (v0)
+  {
+    v3 = *(v2 + 336);
+    v4 = closure #1 in MLS.EventSender.enqueueSelfHeal(groupIdentifier:identifier:ftdInfo:isWithinPersisterTransaction:sendBlock:);
+  }
+
+  else
+  {
+    v5 = *(v2 + 336);
+
+    v4 = closure #1 in MLS.EventSender.enqueue(groupIdentifier:identifier:isWithinPersisterTransaction:sendBlock:);
+    v3 = v5;
+  }
+
+  return MEMORY[0x2822009F8](v4, v3, 0);
+}
+
+{
+  return (*(v0 + 8))();
+}
+
+{
+
+  v1 = *(v0 + 8);
+
+  return v1();
 }

@@ -870,7 +870,6 @@ LABEL_30:
   has = self->_has;
   if (*&has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((*&has & 2) == 0)
@@ -890,7 +889,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  count = self->_count;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 8) == 0)
@@ -905,7 +903,6 @@ LABEL_4:
   }
 
 LABEL_33:
-  nCallIdle = self->_nCallIdle;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 4) == 0)
@@ -920,7 +917,6 @@ LABEL_5:
   }
 
 LABEL_34:
-  nCallActive = self->_nCallActive;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x20) == 0)
@@ -935,7 +931,6 @@ LABEL_6:
   }
 
 LABEL_35:
-  nData = self->_nData;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x40000) == 0)
@@ -950,7 +945,6 @@ LABEL_7:
   }
 
 LABEL_36:
-  nVoice = self->_nVoice;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x200) == 0)
@@ -965,7 +959,6 @@ LABEL_8:
   }
 
 LABEL_37:
-  nStationary = self->_nStationary;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x80000) == 0)
@@ -980,7 +973,6 @@ LABEL_9:
   }
 
 LABEL_38:
-  nWalking = self->_nWalking;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x100) == 0)
@@ -995,7 +987,6 @@ LABEL_10:
   }
 
 LABEL_39:
-  nRunning = self->_nRunning;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x20000) == 0)
@@ -1010,7 +1001,6 @@ LABEL_11:
   }
 
 LABEL_40:
-  nVehicular = self->_nVehicular;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x8000000) == 0)
@@ -1025,7 +1015,6 @@ LABEL_12:
   }
 
 LABEL_41:
-  nWifiNotInit = self->_nWifiNotInit;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x10000000) == 0)
@@ -1040,7 +1029,6 @@ LABEL_13:
   }
 
 LABEL_42:
-  nWifiNotReady = self->_nWifiNotReady;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x1000000) == 0)
@@ -1055,7 +1043,6 @@ LABEL_14:
   }
 
 LABEL_43:
-  nWifiBadSNR = self->_nWifiBadSNR;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x800000) == 0)
@@ -1070,7 +1057,6 @@ LABEL_15:
   }
 
 LABEL_44:
-  nWifiBadRSSI = self->_nWifiBadRSSI;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x400000) == 0)
@@ -1085,7 +1071,6 @@ LABEL_16:
   }
 
 LABEL_45:
-  nWifiBadPER = self->_nWifiBadPER;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x4000000) == 0)
@@ -1100,7 +1085,6 @@ LABEL_17:
   }
 
 LABEL_46:
-  nWifiBadTransportSymptom = self->_nWifiBadTransportSymptom;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x2000000) == 0)
@@ -1115,7 +1099,6 @@ LABEL_18:
   }
 
 LABEL_47:
-  nWifiBadTransportRTP = self->_nWifiBadTransportRTP;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x200000) == 0)
@@ -1130,7 +1113,6 @@ LABEL_19:
   }
 
 LABEL_48:
-  nWifiBadLoad = self->_nWifiBadLoad;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x100000) == 0)
@@ -1145,7 +1127,6 @@ LABEL_20:
   }
 
 LABEL_49:
-  nWifiBadBcn = self->_nWifiBadBcn;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x10) == 0)
@@ -1160,7 +1141,6 @@ LABEL_21:
   }
 
 LABEL_50:
-  nCellularGood = self->_nCellularGood;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x80) == 0)
@@ -1175,7 +1155,6 @@ LABEL_22:
   }
 
 LABEL_51:
-  nPositiveStatusUpdate = self->_nPositiveStatusUpdate;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x40) == 0)
@@ -1190,7 +1169,6 @@ LABEL_23:
   }
 
 LABEL_52:
-  nNegativeStatusUpdate = self->_nNegativeStatusUpdate;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x10000) == 0)
@@ -1205,7 +1183,6 @@ LABEL_24:
   }
 
 LABEL_53:
-  nUnknownStatusUpdat = self->_nUnknownStatusUpdat;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x400) == 0)
@@ -1220,7 +1197,6 @@ LABEL_25:
   }
 
 LABEL_54:
-  nStatusUpdateDelayBin1 = self->_nStatusUpdateDelayBin1;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x800) == 0)
@@ -1235,7 +1211,6 @@ LABEL_26:
   }
 
 LABEL_55:
-  nStatusUpdateDelayBin2 = self->_nStatusUpdateDelayBin2;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x1000) == 0)
@@ -1250,7 +1225,6 @@ LABEL_27:
   }
 
 LABEL_56:
-  nStatusUpdateDelayBin3 = self->_nStatusUpdateDelayBin3;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x2000) == 0)
@@ -1262,7 +1236,6 @@ LABEL_28:
     }
 
 LABEL_58:
-    nStatusUpdateDelayBin5 = self->_nStatusUpdateDelayBin5;
     PBDataWriterWriteUint32Field();
     if ((*&self->_has & 0x8000) == 0)
     {
@@ -1273,7 +1246,6 @@ LABEL_58:
   }
 
 LABEL_57:
-  nStatusUpdateDelayBin4 = self->_nStatusUpdateDelayBin4;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x4000) != 0)
@@ -1288,7 +1260,6 @@ LABEL_29:
   }
 
 LABEL_59:
-  nStatusUpdateDelayBin6 = self->_nStatusUpdateDelayBin6;
 
   PBDataWriterWriteUint32Field();
 }

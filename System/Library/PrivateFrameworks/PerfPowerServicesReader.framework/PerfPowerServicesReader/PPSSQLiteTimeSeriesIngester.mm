@@ -63,8 +63,7 @@ void __54__PPSSQLiteTimeSeriesIngester_databaseConnectionCache__block_invoke(uin
 
   [databaseConnectionCache_connectionCache setTotalCostLimit:0x100000];
   [databaseConnectionCache_connectionCache setName:@"com.apple.perfpowerservices.databaseConnectionCache"];
-  [databaseConnectionCache_connectionCache setDelegate:*(a1 + 32)];
-  v4 = PPSReaderLog();
+  v4 = PPSReaderLog([databaseConnectionCache_connectionCache setDelegate:*(a1 + 32)]);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __54__PPSSQLiteTimeSeriesIngester_databaseConnectionCache__block_invoke_cold_1();
@@ -76,7 +75,7 @@ void __54__PPSSQLiteTimeSeriesIngester_databaseConnectionCache__block_invoke(uin
 
 + (void)evicttriggering
 {
-  v3 = PPSReaderLog();
+  v3 = PPSReaderLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     +[PPSSQLiteTimeSeriesIngester evicttriggering];
@@ -129,12 +128,10 @@ void __54__PPSSQLiteTimeSeriesIngester_databaseConnectionCache__block_invoke(uin
 
 void __53__PPSSQLiteTimeSeriesIngester_cache_willEvictObject___block_invoke(uint64_t a1)
 {
-  v1 = (a1 + 32);
-  [*(a1 + 32) close];
-  v2 = PPSReaderLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v1 = PPSReaderLog([*(a1 + 32) close]);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
-    __53__PPSSQLiteTimeSeriesIngester_cache_willEvictObject___block_invoke_cold_1(v1);
+    __53__PPSSQLiteTimeSeriesIngester_cache_willEvictObject___block_invoke_cold_1();
   }
 }
 
@@ -173,21 +170,19 @@ void __53__PPSSQLiteTimeSeriesIngester_cache_willEvictObject___block_invoke(uint
 
 void __38__PPSSQLiteTimeSeriesIngester_dealloc__block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = [objc_opt_class() databaseConnectionCache];
-  v4 = [*(a1 + 32) filepath];
-  v5 = [v3 objectForKey:v4];
+  v2 = [objc_opt_class() databaseConnectionCache];
+  v3 = [*(a1 + 32) filepath];
+  v4 = [v2 objectForKey:v3];
 
-  if (v5)
+  if (v4)
   {
-    [v5 close];
-    v6 = *(a1 + 32);
-    v7 = [objc_opt_class() databaseConnectionCache];
-    v8 = [*(a1 + 32) filepath];
-    [v7 removeObjectForKey:v8];
+    [v4 close];
+    v5 = [objc_opt_class() databaseConnectionCache];
+    v6 = [*(a1 + 32) filepath];
+    [v5 removeObjectForKey:v6];
 
-    v9 = PPSReaderLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v8 = PPSReaderLog(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       __38__PPSSQLiteTimeSeriesIngester_dealloc__block_invoke_cold_1();
     }
@@ -254,43 +249,41 @@ LABEL_11:
 
 - (void)setResponse:(id)response forKey:(id)key timeWindow:(id)window
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   responseCopy = response;
   keyCopy = key;
   windowCopy = window;
-  v15[0] = responseCopy;
+  v14[0] = responseCopy;
   null = windowCopy;
   if (!windowCopy)
   {
     null = [MEMORY[0x277CBEB68] null];
   }
 
-  v15[1] = null;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+  v14[1] = null;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
   if (!windowCopy)
   {
   }
 
   responseCache = [(PPSSQLiteTimeSeriesIngester *)self responseCache];
   [responseCache setObject:v12 forKey:keyCopy];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)parseDataForRequest:(id)request outError:(id *)error
 {
-  v103[2] = *MEMORY[0x277D85DE8];
+  v102[2] = *MEMORY[0x277D85DE8];
   requestCopy = request;
   subsystem = [requestCopy subsystem];
   category = [requestCopy category];
-  v94 = 0;
-  v95 = &v94;
-  v96 = 0x3032000000;
-  v97 = __Block_byref_object_copy__2;
-  v98 = __Block_byref_object_dispose__2;
-  v99 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@:%@:%@_Prepare", @"QueryExecution", subsystem, category];
+  v93 = 0;
+  v94 = &v93;
+  v95 = 0x3032000000;
+  v96 = __Block_byref_object_copy__2;
+  v97 = __Block_byref_object_dispose__2;
+  v98 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@:%@:%@_Prepare", @"QueryExecution", subsystem, category];
   v4 = +[PPSPerformanceProfiler sharedInstance];
-  [v4 startProfilingForPhase:v95[5]];
+  [v4 startProfilingForPhase:v94[5]];
 
   valueFilter = [requestCopy valueFilter];
   timeFilter = [requestCopy timeFilter];
@@ -310,26 +303,26 @@ LABEL_11:
     v14 = v13;
 
     [v6 monotonicTimeFromEpochTime:v14];
-    v59 = [PPSPredicateUtilities predicateForStartTimestamp:@"timestamp" endTimestamp:v11 withKeyPath:v15];
+    v58 = [PPSPredicateUtilities predicateForStartTimestamp:@"timestamp" endTimestamp:v11 withKeyPath:v15];
     if (valueFilter)
     {
       v16 = MEMORY[0x277CCA920];
-      v103[0] = valueFilter;
-      v103[1] = v59;
-      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v103 count:2];
-      v60 = [v16 andPredicateWithSubpredicates:v17];
+      v102[0] = valueFilter;
+      v102[1] = v58;
+      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v102 count:2];
+      v59 = [v16 andPredicateWithSubpredicates:v17];
     }
 
     else
     {
-      v60 = v59;
+      v59 = v58;
     }
   }
 
   else
   {
-    v59 = 0;
-    v60 = valueFilter;
+    v58 = 0;
+    v59 = valueFilter;
   }
 
   metrics = [requestCopy metrics];
@@ -346,34 +339,34 @@ LABEL_11:
   v22 = [PPSOffDeviceIngesterUtilities metricDefinitionsForFilepath:filepath2 subsystem:subsystem category:category metricNames:allObjects];
   v23 = [v22 mutableCopy];
 
-  v67 = [MEMORY[0x277CBEB58] set];
-  v92 = 0u;
-  v93 = 0u;
-  v90 = 0u;
+  v66 = [MEMORY[0x277CBEB58] set];
   v91 = 0u;
+  v92 = 0u;
+  v89 = 0u;
+  v90 = 0u;
   obj = allObjects;
   v24 = 0;
-  v25 = [obj countByEnumeratingWithState:&v90 objects:v102 count:16];
+  v25 = [obj countByEnumeratingWithState:&v89 objects:v101 count:16];
   if (v25)
   {
-    v26 = *v91;
+    v26 = *v90;
     do
     {
       for (i = 0; i != v25; ++i)
       {
-        if (*v91 != v26)
+        if (*v90 != v26)
         {
           objc_enumerationMutation(obj);
         }
 
-        v28 = *(*(&v90 + 1) + 8 * i);
+        v28 = *(*(&v89 + 1) + 8 * i);
         v29 = [v23 objectForKeyedSubscript:v28];
         if (v29)
         {
           v24 |= [PPSDataIngesterCommonUtilities directionalityForMetricDefinition:v29]== 3;
           if ([v29 datatype] == 10)
           {
-            [v67 addObject:v28];
+            [v66 addObject:v28];
           }
         }
 
@@ -396,13 +389,13 @@ LABEL_11:
         }
       }
 
-      v25 = [obj countByEnumeratingWithState:&v90 objects:v102 count:16];
+      v25 = [obj countByEnumeratingWithState:&v89 objects:v101 count:16];
     }
 
     while (v25);
   }
 
-  v35 = [PPSPredicateUtilities predicateByReplacingUnsignedIntegerWithSignedInteger:v60 legalMetricNames:v67];
+  v35 = [PPSPredicateUtilities predicateByReplacingUnsignedIntegerWithSignedInteger:v59 legalMetricNames:v66];
 
   if ((v24 & 1) != 0 && ([obj containsObject:@"timestampEnd"] & 1) == 0)
   {
@@ -428,7 +421,7 @@ LABEL_11:
   v42 = [objc_opt_class() _stringForSourceNames:v41 metrics:obj predicate:valueFilter];
   if ([(PPSSQLiteTimeSeriesIngester *)self shouldUseCache]&& ([(PPSSQLiteTimeSeriesIngester *)self responseForKey:v42 withinTimeWindow:timeFilter], (v43 = objc_claimAutoreleasedReturnValue()) != 0))
   {
-    v44 = [objc_opt_class() filterTimeSeries:v43 withPredicate:v59];
+    v44 = [objc_opt_class() filterTimeSeries:v43 withPredicate:v58];
   }
 
   else
@@ -438,44 +431,44 @@ LABEL_11:
     pps_sqlPredicateForSelect = [v35 pps_sqlPredicateForSelect];
     v48 = -[PPSSQLiteQueryDescriptor initWithEntity:predicate:limitCount:offsetCount:](v46, "initWithEntity:predicate:limitCount:offsetCount:", v45, pps_sqlPredicateForSelect, [requestCopy limitCount], objc_msgSend(requestCopy, "offsetCount"));
 
-    v101 = @"timestamp";
-    v49 = [MEMORY[0x277CBEA60] arrayWithObjects:&v101 count:1];
+    v100 = @"timestamp";
+    v49 = [MEMORY[0x277CBEA60] arrayWithObjects:&v100 count:1];
     [(PPSSQLiteQueryDescriptor *)v48 setOrderByProperties:v49];
 
-    v100 = v38;
-    v50 = [MEMORY[0x277CBEA60] arrayWithObjects:&v100 count:1];
+    v99 = v38;
+    v50 = [MEMORY[0x277CBEA60] arrayWithObjects:&v99 count:1];
     [(PPSSQLiteQueryDescriptor *)v48 setOrderByDirections:v50];
 
-    v84 = 0;
-    v85 = &v84;
-    v86 = 0x3032000000;
-    v87 = __Block_byref_object_copy__2;
-    v88 = __Block_byref_object_dispose__2;
-    v89 = 0;
-    v78 = 0;
-    v79 = &v78;
-    v80 = 0x3032000000;
-    v81 = __Block_byref_object_copy__2;
-    v82 = __Block_byref_object_dispose__2;
     v83 = 0;
+    v84 = &v83;
+    v85 = 0x3032000000;
+    v86 = __Block_byref_object_copy__2;
+    v87 = __Block_byref_object_dispose__2;
+    v88 = 0;
+    v77 = 0;
+    v78 = &v77;
+    v79 = 0x3032000000;
+    v80 = __Block_byref_object_copy__2;
+    v81 = __Block_byref_object_dispose__2;
+    v82 = 0;
     databaseQueue = [objc_opt_class() databaseQueue];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __60__PPSSQLiteTimeSeriesIngester_parseDataForRequest_outError___block_invoke;
     block[3] = &unk_279A11668;
     block[4] = self;
-    v75 = &v78;
+    v74 = &v77;
     v52 = v48;
-    v70 = v52;
-    v71 = obj;
-    v76 = &v94;
-    v72 = subsystem;
-    v73 = category;
-    v77 = &v84;
-    v74 = v23;
+    v69 = v52;
+    v70 = obj;
+    v75 = &v93;
+    v71 = subsystem;
+    v72 = category;
+    v76 = &v83;
+    v73 = v23;
     dispatch_sync(databaseQueue, block);
 
-    v53 = v79[5];
+    v53 = v78[5];
     if (v53)
     {
       v43 = 0;
@@ -484,115 +477,111 @@ LABEL_11:
 
     else
     {
-      v54 = v85[5];
+      v54 = v84[5];
       if (v54 && [(PPSSQLiteTimeSeriesIngester *)self shouldUseCache])
       {
         [(PPSSQLiteTimeSeriesIngester *)self setResponse:v54 forKey:v42 timeWindow:timeFilter];
       }
 
       v55 = +[PPSPerformanceProfiler sharedInstance];
-      [v55 endProfilingForPhase:v95[5]];
+      [v55 endProfilingForPhase:v94[5]];
 
       v43 = v54;
     }
 
-    _Block_object_dispose(&v78, 8);
-    _Block_object_dispose(&v84, 8);
+    _Block_object_dispose(&v77, 8);
+    _Block_object_dispose(&v83, 8);
 
     v44 = v43;
   }
 
-  _Block_object_dispose(&v94, 8);
-  v56 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v93, 8);
 
   return v44;
 }
 
 void __60__PPSSQLiteTimeSeriesIngester_parseDataForRequest_outError___block_invoke(uint64_t a1)
 {
-  v28[3] = *MEMORY[0x277D85DE8];
-  v3 = (a1 + 32);
-  v2 = *(a1 + 32);
-  v4 = [objc_opt_class() databaseConnectionCache];
-  v5 = [*v3 filepath];
-  v6 = [v4 objectForKey:v5];
+  v25[3] = *MEMORY[0x277D85DE8];
+  v2 = (a1 + 32);
+  v3 = [objc_opt_class() databaseConnectionCache];
+  v4 = [*v2 filepath];
+  v5 = [v3 objectForKey:v4];
 
-  if (!v6)
+  if (!v5)
   {
-    v20 = [PPSSQLiteDatabase alloc];
-    v21 = [*(a1 + 32) filepath];
-    v6 = [(PPSSQLiteDatabase *)v20 initWithDatabaseURL:v21];
+    v19 = [PPSSQLiteDatabase alloc];
+    v20 = [*(a1 + 32) filepath];
+    v5 = [(PPSSQLiteDatabase *)v19 initWithDatabaseURL:v20];
 
-    v22 = *(*(a1 + 80) + 8);
-    v28[0] = *(v22 + 40);
-    [(PPSSQLiteDatabase *)v6 openForReadingWithError:v28];
-    objc_storeStrong((v22 + 40), v28[0]);
+    v21 = *(*(a1 + 80) + 8);
+    v25[0] = *(v21 + 40);
+    [(PPSSQLiteDatabase *)v5 openForReadingWithError:v25];
+    objc_storeStrong((v21 + 40), v25[0]);
     if (*(*(*(a1 + 80) + 8) + 40))
     {
       goto LABEL_6;
     }
 
-    v24 = *(a1 + 32);
-    v25 = [objc_opt_class() databaseConnectionCache];
-    v26 = [*(a1 + 32) filepath];
-    [v25 setObject:v6 forKey:v26];
+    v22 = [objc_opt_class() databaseConnectionCache];
+    v23 = [*(a1 + 32) filepath];
+    [v22 setObject:v5 forKey:v23];
   }
 
-  v7 = [[PPSSQLiteQuery alloc] initWithDatabase:v6 descriptor:*(a1 + 40)];
-  v8 = PPSReaderLog();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v6 = [[PPSSQLiteQuery alloc] initWithDatabase:v5 descriptor:*(a1 + 40)];
+  v7 = PPSReaderLog(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    __60__PPSSQLiteTimeSeriesIngester_parseDataForRequest_outError___block_invoke_cold_1(a1, v7, v8);
+    __60__PPSSQLiteTimeSeriesIngester_parseDataForRequest_outError___block_invoke_cold_1(a1, v6, v7);
   }
 
-  v9 = +[PPSPerformanceProfiler sharedInstance];
-  [v9 endProfilingForPhase:*(*(*(a1 + 88) + 8) + 40)];
+  v8 = +[PPSPerformanceProfiler sharedInstance];
+  [v8 endProfilingForPhase:*(*(*(a1 + 88) + 8) + 40)];
 
-  v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@:%@:%@_SQLEnumerate", @"QueryExecution", *(a1 + 56), *(a1 + 64)];
-  v11 = *(*(a1 + 88) + 8);
-  v12 = *(v11 + 40);
-  *(v11 + 40) = v10;
+  v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@:%@:%@_SQLEnumerate", @"QueryExecution", *(a1 + 56), *(a1 + 64)];
+  v10 = *(*(a1 + 88) + 8);
+  v11 = *(v10 + 40);
+  *(v10 + 40) = v9;
 
-  v13 = +[PPSPerformanceProfiler sharedInstance];
-  [v13 startProfilingForPhase:*(*(*(a1 + 88) + 8) + 40)];
+  v12 = +[PPSPerformanceProfiler sharedInstance];
+  [v12 startProfilingForPhase:*(*(*(a1 + 88) + 8) + 40)];
 
-  v14 = *(a1 + 32);
-  v15 = *(a1 + 72);
-  v16 = *(*(a1 + 80) + 8);
-  obj = *(v16 + 40);
-  v17 = [v14 _convertSQLiteDataFromQuery:v7 withMetricDefinitions:v15 error:&obj];
-  objc_storeStrong((v16 + 40), obj);
-  v18 = *(*(a1 + 96) + 8);
-  v19 = *(v18 + 40);
-  *(v18 + 40) = v17;
+  v13 = *(a1 + 32);
+  v14 = *(a1 + 72);
+  v15 = *(*(a1 + 80) + 8);
+  obj = *(v15 + 40);
+  v16 = [v13 _convertSQLiteDataFromQuery:v6 withMetricDefinitions:v14 error:&obj];
+  objc_storeStrong((v15 + 40), obj);
+  v17 = *(*(a1 + 96) + 8);
+  v18 = *(v17 + 40);
+  *(v17 + 40) = v16;
 
 LABEL_6:
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_validBaseMetricFromDefinitions:(id)definitions
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   definitionsCopy = definitions;
-  v4 = [definitionsCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [definitionsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
-    v5 = *v14;
+    v5 = *v13;
     while (2)
     {
       for (i = 0; i != v4; i = i + 1)
       {
-        if (*v14 != v5)
+        if (*v13 != v5)
         {
           objc_enumerationMutation(definitionsCopy);
         }
 
-        v7 = *(*(&v13 + 1) + 8 * i);
-        v8 = [definitionsCopy objectForKeyedSubscript:{v7, v13}];
+        v7 = *(*(&v12 + 1) + 8 * i);
+        v8 = [definitionsCopy objectForKeyedSubscript:{v7, v12}];
         null = [MEMORY[0x277CBEB68] null];
         v10 = [v8 isEqual:null];
 
@@ -603,7 +592,7 @@ LABEL_6:
         }
       }
 
-      v4 = [definitionsCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v4 = [definitionsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v4)
       {
         continue;
@@ -614,8 +603,6 @@ LABEL_6:
   }
 
 LABEL_11:
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -700,7 +687,7 @@ LABEL_11:
     }
 
     v18 = [v40 columnNamesForProperties:v43];
-    v19 = PPSReaderLog();
+    v19 = PPSReaderLog(v18);
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
     {
       [PPSSQLiteTimeSeriesIngester _convertSQLiteDataFromQuery:withMetricDefinitions:error:];
@@ -776,8 +763,8 @@ LABEL_11:
 
           if (v32)
           {
-            v34 = PPSReaderLog();
-            if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+            v35 = PPSReaderLog(v34);
+            if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
             {
               [PPSSQLiteTimeSeriesIngester _convertSQLiteDataFromQuery:withMetricDefinitions:error:];
             }
@@ -797,19 +784,17 @@ LABEL_11:
     definitionsCopy = v37;
   }
 
-  v35 = *MEMORY[0x277D85DE8];
-
   return queryCopy;
 }
 
 uint64_t __87__PPSSQLiteTimeSeriesIngester__convertSQLiteDataFromQuery_withMetricDefinitions_error___block_invoke(uint64_t a1, void *a2, PPSSQLiteRow *a3)
 {
-  v77 = *MEMORY[0x277D85DE8];
+  v78 = *MEMORY[0x277D85DE8];
   v6 = a2;
-  v55 = objc_autoreleasePoolPush();
-  v59 = objc_opt_new();
-  v56 = PPSSQLiteColumnValueWithNameAsInt(a3, @"ID");
-  v58 = v6;
+  v56 = objc_autoreleasePoolPush();
+  v60 = objc_opt_new();
+  v57 = PPSSQLiteColumnValueWithNameAsInt(a3, @"ID");
+  v59 = v6;
   if ([*(a1 + 32) count])
   {
     v7 = 0;
@@ -856,16 +841,16 @@ LABEL_28:
           v21 = [v18 longLongValue];
           v22 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v21];
 
-          v23 = PPSReaderLog();
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+          v24 = PPSReaderLog(v23);
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
           {
             *buf = 134218498;
-            v72 = v21;
-            v73 = 2048;
-            v74 = v21;
-            v75 = 2112;
-            v76 = v22;
-            _os_log_debug_impl(&dword_25E225000, v23, OS_LOG_TYPE_DEBUG, "The readback for Uint64 path is triggered with values for signedVal= %lld, unsignedVal=%llu and correctedVal=%@", buf, 0x20u);
+            v73 = v21;
+            v74 = 2048;
+            v75 = v21;
+            v76 = 2112;
+            v77 = v22;
+            _os_log_debug_impl(&dword_25E225000, v24, OS_LOG_TYPE_DEBUG, "The readback for Uint64 path is triggered with values for signedVal= %lld, unsignedVal=%llu and correctedVal=%@", buf, 0x20u);
           }
         }
 
@@ -876,33 +861,33 @@ LABEL_28:
 
         if ([PPSEnumerationDecoder isDecodableMetric:v16])
         {
-          v24 = [PPSEnumerationDecoder decodeValue:v22 withMetric:v16];
+          v25 = [PPSEnumerationDecoder decodeValue:v22 withMetric:v16];
 
-          v22 = v24;
+          v22 = v25;
         }
 
-        v25 = +[PPSRecipeEngine sharedInstance];
-        v26 = [v25 createMetricRecipeForMetric:v16];
+        v26 = +[PPSRecipeEngine sharedInstance];
+        v27 = [v26 createMetricRecipeForMetric:v16];
 
-        if (v26)
+        if (v27)
         {
-          v27 = +[PPSRecipeEngine sharedInstance];
-          v70 = 0;
-          v57 = [v27 executeMetricRecipe:v26 on:v22 metric:v16 error:&v70];
-          v28 = v70;
+          v28 = +[PPSRecipeEngine sharedInstance];
+          v71 = 0;
+          v58 = [v28 executeMetricRecipe:v27 on:v22 metric:v16 error:&v71];
+          v29 = v71;
 
-          if (v28)
+          if (v29)
           {
-            v29 = PPSReaderLog();
-            if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+            v31 = PPSReaderLog(v30);
+            if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v72 = v26;
-              _os_log_error_impl(&dword_25E225000, v29, OS_LOG_TYPE_ERROR, "Metric Recipe '%@' failed during time series ingestion", buf, 0xCu);
+              v73 = v27;
+              _os_log_error_impl(&dword_25E225000, v31, OS_LOG_TYPE_ERROR, "Metric Recipe '%@' failed during time series ingestion", buf, 0xCu);
             }
           }
 
-          v22 = v57;
+          v22 = v58;
         }
 
         v18 = v22;
@@ -911,24 +896,24 @@ LABEL_28:
 
     if ([v16 auxiliaryType] == 3)
     {
-      v30 = [MEMORY[0x277CBEB18] arrayWithObjects:{v18, 0}];
-      v31 = [*(a1 + 32) objectAtIndexedSubscript:v7];
-      [v59 setValue:v30 forKey:v31];
+      v32 = [MEMORY[0x277CBEB18] arrayWithObjects:{v18, 0}];
+      v33 = [*(a1 + 32) objectAtIndexedSubscript:v7];
+      [v60 setValue:v32 forKey:v33];
     }
 
     else
     {
-      v32 = v18;
+      v34 = v18;
       if (!v18)
       {
         v3 = [MEMORY[0x277CBEB68] null];
-        v32 = v3;
+        v34 = v3;
       }
 
-      v33 = [*(a1 + 32) objectAtIndexedSubscript:v7];
-      [v59 setValue:v32 forKey:v33];
+      v35 = [*(a1 + 32) objectAtIndexedSubscript:v7];
+      [v60 setValue:v34 forKey:v35];
 
-      v30 = v3;
+      v32 = v3;
       if (v18)
       {
         goto LABEL_27;
@@ -936,92 +921,91 @@ LABEL_28:
     }
 
 LABEL_27:
-    v6 = v58;
+    v6 = v59;
     goto LABEL_28;
   }
 
   v9 = 0;
   v8 = 0.0;
 LABEL_31:
-  v62[0] = MEMORY[0x277D85DD0];
-  v62[1] = 3221225472;
-  v62[2] = __87__PPSSQLiteTimeSeriesIngester__convertSQLiteDataFromQuery_withMetricDefinitions_error___block_invoke_69;
-  v62[3] = &unk_279A11690;
-  v34 = *(a1 + 48);
-  v35 = *(a1 + 56);
-  v63 = v34;
-  v64 = v35;
-  v68 = v8;
-  v69 = v9;
-  v36 = v59;
-  v37 = *(a1 + 72);
-  v65 = v36;
-  v67 = v37;
-  v66 = *(a1 + 40);
-  v38 = MEMORY[0x25F8B0940](v62);
-  v39 = v38;
-  v40 = v56;
-  if (*(*(*(a1 + 80) + 8) + 24) != v56)
+  v63[0] = MEMORY[0x277D85DD0];
+  v63[1] = 3221225472;
+  v63[2] = __87__PPSSQLiteTimeSeriesIngester__convertSQLiteDataFromQuery_withMetricDefinitions_error___block_invoke_69;
+  v63[3] = &unk_279A11690;
+  v36 = *(a1 + 48);
+  v37 = *(a1 + 56);
+  v64 = v36;
+  v65 = v37;
+  v69 = v8;
+  v70 = v9;
+  v38 = v60;
+  v39 = *(a1 + 72);
+  v66 = v38;
+  v68 = v39;
+  v67 = *(a1 + 40);
+  v40 = MEMORY[0x25F8B0940](v63);
+  v41 = v40;
+  v42 = v57;
+  if (*(*(*(a1 + 80) + 8) + 24) != v57)
   {
-    v52 = (*(v38 + 16))(v38);
-    if (v52)
+    v54 = (*(v40 + 16))(v40);
+    if (v54)
     {
-      [*(*(*(a1 + 88) + 8) + 40) addEvent:v52];
+      [*(*(*(a1 + 88) + 8) + 40) addEvent:v54];
     }
 
-    v51 = v55;
+    v53 = v56;
     goto LABEL_46;
   }
 
-  v60 = v38;
+  v61 = v40;
   if (*(a1 + 96) == 1 && [*(a1 + 32) count])
   {
-    v41 = 0;
-    v42 = @"timestampEnd";
+    v43 = 0;
+    v44 = @"timestampEnd";
     do
     {
-      v43 = [*(a1 + 32) objectAtIndexedSubscript:v41];
-      if (([v43 isEqualToString:@"timestamp"] & 1) == 0 && (objc_msgSend(v43, "isEqualToString:", v42) & 1) == 0)
+      v45 = [*(a1 + 32) objectAtIndexedSubscript:v43];
+      if (([v45 isEqualToString:@"timestamp"] & 1) == 0 && (objc_msgSend(v45, "isEqualToString:", v44) & 1) == 0)
       {
-        v44 = [*(a1 + 40) objectForKeyedSubscript:v43];
-        if ([v44 auxiliaryType] == 3)
+        v46 = [*(a1 + 40) objectForKeyedSubscript:v45];
+        if ([v46 auxiliaryType] == 3)
         {
-          v45 = [*(*(*(a1 + 88) + 8) + 40) array];
-          v61 = [v45 lastObject];
+          v47 = [*(*(*(a1 + 88) + 8) + 40) array];
+          v62 = [v47 lastObject];
 
-          v46 = [v61 metrics];
-          v47 = [v46 objectForKeyedSubscript:v43];
-          [v36 objectForKeyedSubscript:v43];
-          v48 = v42;
-          v50 = v49 = v36;
-          [v47 addObjectsFromArray:v50];
+          v48 = [v62 metrics];
+          v49 = [v48 objectForKeyedSubscript:v45];
+          [v38 objectForKeyedSubscript:v45];
+          v50 = v44;
+          v52 = v51 = v38;
+          [v49 addObjectsFromArray:v52];
 
-          v36 = v49;
-          v42 = v48;
+          v38 = v51;
+          v44 = v50;
         }
       }
 
-      ++v41;
+      ++v43;
     }
 
-    while (v41 < [*(a1 + 32) count]);
+    while (v43 < [*(a1 + 32) count]);
   }
 
-  v51 = v55;
-  v40 = v56;
-  v6 = v58;
-  v39 = v60;
+  v53 = v56;
+  v42 = v57;
+  v6 = v59;
+  v41 = v61;
   if (*(a1 + 97) == 1)
   {
-    v52 = v60[2](v60);
-    [*(*(*(a1 + 88) + 8) + 40) addEvent:v52];
+    v54 = v61[2](v61);
+    [*(*(*(a1 + 88) + 8) + 40) addEvent:v54];
 LABEL_46:
   }
 
-  *(*(*(a1 + 80) + 8) + 24) = v40;
+  *(*(*(a1 + 80) + 8) + 24) = v42;
 
-  objc_autoreleasePoolPop(v51);
-  v53 = *MEMORY[0x277D85DE8];
+  objc_autoreleasePoolPop(v53);
   return 1;
 }
 
@@ -1031,77 +1015,76 @@ id __87__PPSSQLiteTimeSeriesIngester__convertSQLiteDataFromQuery_withMetricDefin
   v3 = [v2 entity];
   v4 = [v3 tableNames];
 
-  v5 = *(a1 + 40);
-  v6 = +[PPSEvent eventWithMonotonicTimestamp:timeOffset:dictionary:groupId:](PPSEvent, "eventWithMonotonicTimestamp:timeOffset:dictionary:groupId:", *(a1 + 48), [objc_opt_class() _hashForStringArray:v4], *(a1 + 72), *(a1 + 80));
-  v7 = *(*(*(a1 + 64) + 8) + 40);
-  if (v7)
+  v5 = +[PPSEvent eventWithMonotonicTimestamp:timeOffset:dictionary:groupId:](PPSEvent, "eventWithMonotonicTimestamp:timeOffset:dictionary:groupId:", *(a1 + 48), [objc_opt_class() _hashForStringArray:v4], *(a1 + 72), *(a1 + 80));
+  v6 = *(*(*(a1 + 64) + 8) + 40);
+  if (v6)
   {
-    v8 = [MEMORY[0x277CBEB68] null];
-    v9 = [v7 isEqual:v8];
+    v7 = [MEMORY[0x277CBEB68] null];
+    v8 = [v6 isEqual:v7];
 
-    if ((v9 & 1) == 0)
+    if ((v8 & 1) == 0)
     {
-      v10 = MEMORY[0x277CCACA8];
-      v11 = [*(*(*(a1 + 64) + 8) + 40) subsystem];
-      v12 = [*(*(*(a1 + 64) + 8) + 40) category];
-      v13 = [v10 stringWithFormat:@"%@:%@", v11, v12];
-      [v6 setLabel:v13];
+      v9 = MEMORY[0x277CCACA8];
+      v10 = [*(*(*(a1 + 64) + 8) + 40) subsystem];
+      v11 = [*(*(*(a1 + 64) + 8) + 40) category];
+      v12 = [v9 stringWithFormat:@"%@:%@", v10, v11];
+      [v5 setLabel:v12];
 
-      v14 = +[PPSRecipeEngine sharedInstance];
-      v15 = [v14 createEventRecipeForMetric:*(*(*(a1 + 64) + 8) + 40)];
+      v13 = +[PPSRecipeEngine sharedInstance];
+      v14 = [v13 createEventRecipeForMetric:*(*(*(a1 + 64) + 8) + 40)];
 
-      if (v15)
+      if (v14)
       {
-        v16 = +[PPSRecipeEngine sharedInstance];
-        v17 = *(a1 + 56);
+        v15 = +[PPSRecipeEngine sharedInstance];
+        v16 = *(a1 + 56);
         v22 = 0;
-        v18 = [v16 executeEventRecipe:v15 on:v6 metrics:v17 error:&v22];
-        v19 = v22;
+        v17 = [v15 executeEventRecipe:v14 on:v5 metrics:v16 error:&v22];
+        v18 = v22;
 
-        if (v19)
+        if (v18)
         {
-          v20 = PPSReaderLog();
+          v20 = PPSReaderLog(v19);
           if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
           {
             __87__PPSSQLiteTimeSeriesIngester__convertSQLiteDataFromQuery_withMetricDefinitions_error___block_invoke_69_cold_1();
           }
         }
 
-        v6 = v18;
+        v5 = v17;
       }
     }
   }
 
-  return v6;
+  return v5;
 }
 
 + (unint64_t)_hashForStringArray:(id)array
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v4 = [arrayCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [arrayCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(arrayCopy);
         }
 
-        v6 ^= (v6 << 6) + (v6 >> 2) + 2654435769u + [*(*(&v11 + 1) + 8 * i) hash];
+        v6 ^= (v6 << 6) + (v6 >> 2) + 2654435769u + [*(*(&v10 + 1) + 8 * i) hash];
       }
 
-      v5 = [arrayCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [arrayCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
@@ -1112,7 +1095,6 @@ id __87__PPSSQLiteTimeSeriesIngester__convertSQLiteDataFromQuery_withMetricDefin
     v6 = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -1135,7 +1117,7 @@ id __87__PPSSQLiteTimeSeriesIngester__convertSQLiteDataFromQuery_withMetricDefin
 
 + (id)filterTimeSeries:(id)series withPredicate:(id)predicate
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   seriesCopy = series;
   predicateCopy = predicate;
   if (!predicateCopy)
@@ -1157,43 +1139,43 @@ LABEL_5:
   if (objc_opt_isKindOfClass())
   {
     v7 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(seriesCopy, "count")}];
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
-    v20 = seriesCopy;
-    v10 = seriesCopy;
-    v11 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
-    if (v11)
+    v19 = seriesCopy;
+    v9 = seriesCopy;
+    v10 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    if (v10)
     {
-      v12 = v11;
-      v13 = *v23;
+      v11 = v10;
+      v12 = *v22;
       do
       {
-        for (i = 0; i != v12; ++i)
+        for (i = 0; i != v11; ++i)
         {
-          if (*v23 != v13)
+          if (*v22 != v12)
           {
-            objc_enumerationMutation(v10);
+            objc_enumerationMutation(v9);
           }
 
-          v15 = *(*(&v22 + 1) + 8 * i);
-          v16 = objc_autoreleasePoolPush();
-          v17 = objc_opt_class();
-          v18 = [v10 objectForKeyedSubscript:v15];
-          v19 = [v17 filterTimeSeries:v18 withPredicate:predicateCopy];
+          v14 = *(*(&v21 + 1) + 8 * i);
+          v15 = objc_autoreleasePoolPush();
+          v16 = objc_opt_class();
+          v17 = [v9 objectForKeyedSubscript:v14];
+          v18 = [v16 filterTimeSeries:v17 withPredicate:predicateCopy];
 
-          [v7 setObject:v19 forKeyedSubscript:v15];
-          objc_autoreleasePoolPop(v16);
+          [v7 setObject:v18 forKeyedSubscript:v14];
+          objc_autoreleasePoolPop(v15);
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
-      while (v12);
+      while (v11);
     }
 
-    seriesCopy = v20;
+    seriesCopy = v19;
   }
 
   else
@@ -1203,63 +1185,45 @@ LABEL_5:
 
 LABEL_6:
 
-  v8 = *MEMORY[0x277D85DE8];
-
   return v7;
-}
-
-void __53__PPSSQLiteTimeSeriesIngester_cache_willEvictObject___block_invoke_cold_1(uint64_t *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *a1;
-  OUTLINED_FUNCTION_1_2();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __38__PPSSQLiteTimeSeriesIngester_dealloc__block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __60__PPSSQLiteTimeSeriesIngester_parseDataForRequest_outError___block_invoke_cold_1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v4 = [a2 selectSQLWithProperties:*(a1 + 48)];
   OUTLINED_FUNCTION_4();
-  _os_log_debug_impl(&dword_25E225000, a3, OS_LOG_TYPE_DEBUG, "Query before value-binding: %@", v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_25E225000, a3, OS_LOG_TYPE_DEBUG, "Query before value-binding: %@", v5, 0xCu);
 }
 
 - (void)_convertSQLiteDataFromQuery:withMetricDefinitions:error:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_debug_impl(&dword_25E225000, v1, OS_LOG_TYPE_DEBUG, "Column Names %@ Properties %@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_debug_impl(&dword_25E225000, v1, OS_LOG_TYPE_DEBUG, "Column Names %@ Properties %@", v2, 0x16u);
 }
 
 - (void)_convertSQLiteDataFromQuery:withMetricDefinitions:error:.cold.2()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
-  _os_log_error_impl(&dword_25E225000, v0, OS_LOG_TYPE_ERROR, "Time Series Recipe '%@' failed during time series ingestion", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_25E225000, v0, OS_LOG_TYPE_ERROR, "Time Series Recipe '%@' failed during time series ingestion", v1, 0xCu);
 }
 
 void __87__PPSSQLiteTimeSeriesIngester__convertSQLiteDataFromQuery_withMetricDefinitions_error___block_invoke_69_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
-  _os_log_error_impl(&dword_25E225000, v0, OS_LOG_TYPE_ERROR, "Event Recipe '%@' failed during time series ingestion", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_25E225000, v0, OS_LOG_TYPE_ERROR, "Event Recipe '%@' failed during time series ingestion", v1, 0xCu);
 }
 
 @end

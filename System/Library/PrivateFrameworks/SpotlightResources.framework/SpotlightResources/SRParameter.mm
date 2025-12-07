@@ -8,6 +8,7 @@
 + (id)longNil;
 + (id)longZero;
 + (id)nilParameterWithType:(int64_t)type;
++ (id)parameterWithBoolean:(BOOL)boolean name:(id)name;
 + (id)parameterWithDouble:(double)double name:(id)name;
 + (id)parameterWithFilePath:(id)path name:(id)name;
 + (id)parameterWithLong:(int64_t)long name:(id)name;
@@ -16,10 +17,12 @@
 + (id)typeStringFromParameterType:(int64_t)type;
 - (BOOL)isNil;
 - (BOOL)isPositiveLong;
+- (BOOL)updateWithBoolean:(BOOL)boolean;
 - (BOOL)updateWithDouble:(double)double;
 - (BOOL)updateWithFilePath:(id)path;
 - (BOOL)updateWithLong:(int64_t)long;
 - (BOOL)updateWithString:(id)string;
+- (SRParameter)initWithBoolean:(BOOL)boolean flags:(int64_t)flags name:(id)name;
 - (SRParameter)initWithDouble:(double)double flags:(int64_t)flags name:(id)name;
 - (SRParameter)initWithFilePath:(id)path flags:(int64_t)flags name:(id)name;
 - (SRParameter)initWithLong:(int64_t)long flags:(int64_t)flags name:(id)name;
@@ -49,39 +52,41 @@
 
 - (id)getFilePathValue
 {
-  if ([(SRParameter *)self isFilePath])
+  isFilePath = [(SRParameter *)self isFilePath];
+  if (isFilePath)
   {
-    v3 = self->_value;
+    v4 = self->_value;
   }
 
   else
   {
-    v4 = SRLogCategoryTrial();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = SRLogCategoryTrial(isFilePath);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      [(SRParameter *)self getFilePathValue];
+      [SRParameter getFilePathValue];
     }
 
-    v3 = 0;
+    v4 = 0;
   }
 
-  return v3;
+  return v4;
 }
 
 - (id)getFilePathNameValue
 {
-  if ([(SRParameter *)self isFilePath])
+  isFilePath = [(SRParameter *)self isFilePath];
+  if (isFilePath)
   {
-    v3 = [MEMORY[0x1E695DFF8] URLWithString:self->_value];
-    lastPathComponent = [v3 lastPathComponent];
+    v4 = [MEMORY[0x1E695DFF8] URLWithString:self->_value];
+    lastPathComponent = [v4 lastPathComponent];
   }
 
   else
   {
-    v5 = SRLogCategoryTrial();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = SRLogCategoryTrial(isFilePath);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      [(SRParameter *)self getFilePathValue];
+      [SRParameter getFilePathValue];
     }
 
     lastPathComponent = 0;
@@ -92,16 +97,15 @@
 
 - (BOOL)isNil
 {
-  p_type = &self->_type;
   if (self->_type <= 4uLL)
   {
     return self->_value == 0;
   }
 
-  v4 = SRLogCategoryTrial();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v3 = SRLogCategoryTrial(self);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    [(SRParameter *)p_type isNil];
+    [SRParameter isNil];
   }
 
   return 1;
@@ -109,23 +113,24 @@
 
 - (id)getBooleanValue
 {
-  if ([(SRParameter *)self isBool])
+  isBool = [(SRParameter *)self isBool];
+  if (isBool)
   {
-    v3 = self->_value;
+    v4 = self->_value;
   }
 
   else
   {
-    v4 = SRLogCategoryTrial();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = SRLogCategoryTrial(isBool);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      [(SRParameter *)self getBooleanValue];
+      [SRParameter getBooleanValue];
     }
 
-    v3 = 0;
+    v4 = 0;
   }
 
-  return v3;
+  return v4;
 }
 
 - (BOOL)isPositiveLong
@@ -149,57 +154,59 @@
 
 - (id)getDoubleValue
 {
-  if ([(SRParameter *)self isDouble])
+  isDouble = [(SRParameter *)self isDouble];
+  if (isDouble)
   {
-    v3 = self->_value;
+    v4 = self->_value;
   }
 
   else
   {
-    v4 = SRLogCategoryTrial();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = SRLogCategoryTrial(isDouble);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      [(SRParameter *)self getDoubleValue];
+      [SRParameter getDoubleValue];
     }
 
-    v3 = 0;
+    v4 = 0;
   }
 
-  return v3;
+  return v4;
 }
 
 - (id)getLongValue
 {
-  if ([(SRParameter *)self isLong])
+  isLong = [(SRParameter *)self isLong];
+  if (isLong)
   {
-    v3 = self->_value;
+    v4 = self->_value;
   }
 
   else
   {
-    v4 = SRLogCategoryTrial();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = SRLogCategoryTrial(isLong);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      [(SRParameter *)self getLongValue];
+      [SRParameter getLongValue];
     }
 
-    v3 = 0;
+    v4 = 0;
   }
 
-  return v3;
+  return v4;
 }
 
 - (SRParameter)initWithType:(int64_t)type flags:(int64_t)flags name:(id)name
 {
   nameCopy = name;
-  v18.receiver = self;
-  v18.super_class = SRParameter;
-  v9 = [(SRParameter *)&v18 init];
+  v19.receiver = self;
+  v19.super_class = SRParameter;
+  v9 = [(SRParameter *)&v19 init];
   v10 = v9;
   if (!v9)
   {
-    v14 = SRLogCategoryTrial();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    value = SRLogCategoryTrial(0);
+    if (os_log_type_enabled(value, OS_LOG_TYPE_ERROR))
     {
       [SRParameter initWithType:flags:name:];
     }
@@ -210,32 +217,65 @@
   v9->_type = type;
   v9->_flag = flags;
   v11 = [nameCopy copy];
-  v12 = v10[3];
-  v10[3] = v11;
+  name = v10->_name;
+  v10->_name = v11;
 
-  v13 = v10[5];
-  v10[5] = 0;
+  irisName = v10->_irisName;
+  v10->_irisName = 0;
 
   if (type < 3 || (type - 3) < 2)
   {
-    v14 = v10[4];
-    v10[4] = 0;
+    value = v10->_value;
+    v10->_value = 0;
 LABEL_7:
 
-    v15 = v10;
+    v16 = v10;
     goto LABEL_8;
   }
 
-  v17 = SRLogCategoryTrial();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+  v18 = SRLogCategoryTrial(v14);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
   {
-    [SRParameter initWithType:? flags:? name:?];
+    [SRParameter initWithType:flags:name:];
   }
 
-  v15 = 0;
+  v16 = 0;
 LABEL_8:
 
-  return v15;
+  return v16;
+}
+
+- (SRParameter)initWithBoolean:(BOOL)boolean flags:(int64_t)flags name:(id)name
+{
+  booleanCopy = boolean;
+  nameCopy = name;
+  v16.receiver = self;
+  v16.super_class = SRParameter;
+  v9 = [(SRParameter *)&v16 init];
+  v10 = v9;
+  if (v9)
+  {
+    v9->_type = 0;
+    v9->_flag = flags;
+    v11 = [MEMORY[0x1E696AD98] numberWithBool:booleanCopy];
+    value = v10->_value;
+    v10->_value = v11;
+
+    v13 = [nameCopy copy];
+    name = v10->_name;
+    v10->_name = v13;
+  }
+
+  else
+  {
+    name = SRLogCategoryTrial(0);
+    if (os_log_type_enabled(name, OS_LOG_TYPE_ERROR))
+    {
+      [SRParameter initWithBoolean:flags:name:];
+    }
+  }
+
+  return v10;
 }
 
 - (SRParameter)initWithLong:(int64_t)long flags:(int64_t)flags name:(id)name
@@ -260,7 +300,7 @@ LABEL_8:
 
   else
   {
-    name = SRLogCategoryTrial();
+    name = SRLogCategoryTrial(0);
     if (os_log_type_enabled(name, OS_LOG_TYPE_ERROR))
     {
       [SRParameter initWithLong:flags:name:];
@@ -292,7 +332,7 @@ LABEL_8:
 
   else
   {
-    name = SRLogCategoryTrial();
+    name = SRLogCategoryTrial(0);
     if (os_log_type_enabled(name, OS_LOG_TYPE_ERROR))
     {
       [SRParameter initWithDouble:flags:name:];
@@ -325,7 +365,7 @@ LABEL_8:
 
   else
   {
-    name = SRLogCategoryTrial();
+    name = SRLogCategoryTrial(0);
     if (os_log_type_enabled(name, OS_LOG_TYPE_ERROR))
     {
       [SRParameter initWithString:flags:name:];
@@ -358,7 +398,7 @@ LABEL_8:
 
   else
   {
-    name = SRLogCategoryTrial();
+    name = SRLogCategoryTrial(0);
     if (os_log_type_enabled(name, OS_LOG_TYPE_ERROR))
     {
       [SRParameter initWithFilePath:flags:name:];
@@ -373,6 +413,15 @@ LABEL_8:
   v3 = [[self alloc] initWithType:type flags:0 name:@"Unknown"];
 
   return v3;
+}
+
++ (id)parameterWithBoolean:(BOOL)boolean name:(id)name
+{
+  booleanCopy = boolean;
+  nameCopy = name;
+  v7 = [[self alloc] initWithBoolean:booleanCopy flags:0 name:nameCopy];
+
+  return v7;
 }
 
 + (id)parameterWithLong:(int64_t)long name:(id)name
@@ -424,9 +473,7 @@ LABEL_8:
 
 - (void)setName:(id)name
 {
-  v4 = [name copy];
-  name = self->_name;
-  self->_name = v4;
+  self->_name = [name copy];
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -456,7 +503,6 @@ LABEL_8:
     v4 = 0;
   }
 
-  value = self->_value;
   self->_value = v4;
 
   MEMORY[0x1EEE66BB8]();
@@ -467,7 +513,7 @@ LABEL_8:
   v4 = objc_alloc_init(objc_opt_class());
   if (!v4)
   {
-    v5 = SRLogCategoryTrial();
+    v5 = SRLogCategoryTrial(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [SRParameter copyWithZone:];
@@ -486,14 +532,14 @@ LABEL_8:
 
   else
   {
-    [v4 setIrisName:0];
+    v9 = [v4 setIrisName:0];
   }
 
   if (*p_type < 3)
   {
     [v4 setNumber:self->_value];
 LABEL_12:
-    v9 = v4;
+    v10 = v4;
     goto LABEL_13;
   }
 
@@ -503,24 +549,23 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  v11 = SRLogCategoryTrial();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+  v12 = SRLogCategoryTrial(v9);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
-    [SRParameter copyWithZone:?];
+    [SRParameter copyWithZone:];
   }
 
-  v9 = 0;
+  v10 = 0;
 LABEL_13:
 
-  return v9;
+  return v10;
 }
 
 - (void)makeNil
 {
-  OUTLINED_FUNCTION_2_2(self, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_1(&dword_1AE58E000, v1, v2, "makeNil for SRParameter with invalid type %ld", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_1AE58E000, v0, v1, "makeNil for SRParameter with invalid type %ld", v2, v3, v4, v5);
 }
 
 - (id)description
@@ -809,121 +854,149 @@ uint64_t __26__SRParameter_filePathNil__block_invoke()
 
 - (id)getStringValue
 {
-  if ([(SRParameter *)self isString])
+  isString = [(SRParameter *)self isString];
+  if (isString)
   {
-    v3 = self->_value;
+    v4 = self->_value;
   }
 
   else
   {
-    v4 = SRLogCategoryTrial();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = SRLogCategoryTrial(isString);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      [(SRParameter *)self getStringValue];
+      [SRParameter getStringValue];
     }
 
-    v3 = 0;
+    v4 = 0;
   }
 
-  return v3;
+  return v4;
+}
+
+- (BOOL)updateWithBoolean:(BOOL)boolean
+{
+  booleanCopy = boolean;
+  isBool = [(SRParameter *)self isBool];
+  v6 = isBool;
+  if (isBool)
+  {
+    v7 = [MEMORY[0x1E696AD98] numberWithBool:booleanCopy];
+    value = self->_value;
+    self->_value = v7;
+  }
+
+  else
+  {
+    v9 = SRLogCategoryTrial(isBool);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      [SRParameter updateWithBoolean:];
+    }
+  }
+
+  return v6;
 }
 
 - (BOOL)updateWithLong:(int64_t)long
 {
   isLong = [(SRParameter *)self isLong];
+  v6 = isLong;
   if (isLong)
   {
-    v6 = [MEMORY[0x1E696AD98] numberWithLong:long];
+    v7 = [MEMORY[0x1E696AD98] numberWithLong:long];
     value = self->_value;
-    self->_value = v6;
+    self->_value = v7;
   }
 
   else
   {
-    v8 = SRLogCategoryTrial();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = SRLogCategoryTrial(isLong);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [SRParameter updateWithLong:?];
+      [SRParameter updateWithLong:];
     }
   }
 
-  return isLong;
+  return v6;
 }
 
 - (BOOL)updateWithDouble:(double)double
 {
   isDouble = [(SRParameter *)self isDouble];
+  v6 = isDouble;
   if (isDouble)
   {
-    v6 = [MEMORY[0x1E696AD98] numberWithDouble:double];
+    v7 = [MEMORY[0x1E696AD98] numberWithDouble:double];
     value = self->_value;
-    self->_value = v6;
+    self->_value = v7;
   }
 
   else
   {
-    v8 = SRLogCategoryTrial();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = SRLogCategoryTrial(isDouble);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [SRParameter updateWithDouble:?];
+      [SRParameter updateWithDouble:];
     }
   }
 
-  return isDouble;
+  return v6;
 }
 
 - (BOOL)updateWithString:(id)string
 {
   stringCopy = string;
   isString = [(SRParameter *)self isString];
+  v6 = isString;
   if (isString)
   {
-    v6 = [MEMORY[0x1E696AEC0] stringWithString:stringCopy];
+    v7 = [MEMORY[0x1E696AEC0] stringWithString:stringCopy];
     value = self->_value;
-    self->_value = v6;
+    self->_value = v7;
   }
 
   else
   {
-    v8 = SRLogCategoryTrial();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = SRLogCategoryTrial(isString);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [SRParameter updateWithString:?];
+      [SRParameter updateWithString:];
     }
   }
 
-  return isString;
+  return v6;
 }
 
 - (BOOL)updateWithFilePath:(id)path
 {
   pathCopy = path;
   isFilePath = [(SRParameter *)self isFilePath];
+  v6 = isFilePath;
   if (isFilePath)
   {
-    v6 = [MEMORY[0x1E696AEC0] stringWithString:pathCopy];
+    v7 = [MEMORY[0x1E696AEC0] stringWithString:pathCopy];
     value = self->_value;
-    self->_value = v6;
+    self->_value = v7;
   }
 
   else
   {
-    v8 = SRLogCategoryTrial();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = SRLogCategoryTrial(isFilePath);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [SRParameter updateWithFilePath:?];
+      [SRParameter updateWithFilePath:];
     }
   }
 
-  return isFilePath;
+  return v6;
 }
 
-- (void)initWithType:(uint64_t *)a1 flags:name:.cold.1(uint64_t *a1)
+- (void)initWithType:flags:name:.cold.1()
 {
-  OUTLINED_FUNCTION_2_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_1(&dword_1AE58E000, v1, v2, "initWithType for SRParameter with invalid type: %ld", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_1AE58E000, v0, v1, "initWithType for SRParameter with invalid type: %ld", v2, v3, v4, v5);
 }
 
 - (void)initWithType:flags:name:.cold.2()
@@ -975,100 +1048,88 @@ uint64_t __26__SRParameter_filePathNil__block_invoke()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-- (void)copyWithZone:(uint64_t *)a1 .cold.2(uint64_t *a1)
+- (void)copyWithZone:.cold.2()
 {
-  OUTLINED_FUNCTION_2_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_1(&dword_1AE58E000, v1, v2, "copyWithZone for SRParameter with invalid type %ld", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_1AE58E000, v0, v1, "copyWithZone for SRParameter with invalid type %ld", v2, v3, v4, v5);
 }
 
 - (void)isNil
 {
-  OUTLINED_FUNCTION_2_2(self, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_1(&dword_1AE58E000, v1, v2, "isNil for SRParameter with invalid type %ld", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_1AE58E000, v0, v1, "isNil for SRParameter with invalid type %ld", v2, v3, v4, v5);
 }
 
 - (void)getBooleanValue
 {
-  OUTLINED_FUNCTION_3_1(self, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3_1(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_1(&dword_1AE58E000, v1, v2, "SRParameter getBooleanValue called for type %ld", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_1AE58E000, v0, v1, "SRParameter getBooleanValue called for type %ld", v2, v3, v4, v5);
 }
 
 - (void)getLongValue
 {
-  OUTLINED_FUNCTION_3_1(self, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3_1(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_1(&dword_1AE58E000, v1, v2, "SRParameter getLongValue called for type %ld", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_1AE58E000, v0, v1, "SRParameter getLongValue called for type %ld", v2, v3, v4, v5);
 }
 
 - (void)getDoubleValue
 {
-  OUTLINED_FUNCTION_3_1(self, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3_1(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_1(&dword_1AE58E000, v1, v2, "SRParameter getDoubleValue called for type %ld", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_1AE58E000, v0, v1, "SRParameter getDoubleValue called for type %ld", v2, v3, v4, v5);
 }
 
 - (void)getStringValue
 {
-  OUTLINED_FUNCTION_3_1(self, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3_1(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_1(&dword_1AE58E000, v1, v2, "SRParameter getStringValue called for type %ld", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_1AE58E000, v0, v1, "SRParameter getStringValue called for type %ld", v2, v3, v4, v5);
 }
 
 - (void)getFilePathValue
 {
-  OUTLINED_FUNCTION_3_1(self, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3_1(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_1(&dword_1AE58E000, v1, v2, "SRParameter getFilePathValue called for type %ld", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_1AE58E000, v0, v1, "SRParameter getFilePathValue called for type %ld", v2, v3, v4, v5);
 }
 
-- (void)updateWithBoolean:(uint64_t)a1 .cold.1(uint64_t a1)
+- (void)updateWithBoolean:.cold.1()
 {
-  OUTLINED_FUNCTION_3_1(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3_1(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_1(&dword_1AE58E000, v1, v2, "SRParameter updateWithBoolean called for type %ld", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_1AE58E000, v0, v1, "SRParameter updateWithBoolean called for type %ld", v2, v3, v4, v5);
 }
 
-- (void)updateWithLong:(uint64_t)a1 .cold.1(uint64_t a1)
+- (void)updateWithLong:.cold.1()
 {
-  OUTLINED_FUNCTION_3_1(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3_1(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_1(&dword_1AE58E000, v1, v2, "SRParameter updateWithLong called for type %ld", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_1AE58E000, v0, v1, "SRParameter updateWithLong called for type %ld", v2, v3, v4, v5);
 }
 
-- (void)updateWithDouble:(uint64_t)a1 .cold.1(uint64_t a1)
+- (void)updateWithDouble:.cold.1()
 {
-  OUTLINED_FUNCTION_3_1(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3_1(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_1(&dword_1AE58E000, v1, v2, "SRParameter updateWithDouble called for type %ld", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_1AE58E000, v0, v1, "SRParameter updateWithDouble called for type %ld", v2, v3, v4, v5);
 }
 
-- (void)updateWithString:(uint64_t)a1 .cold.1(uint64_t a1)
+- (void)updateWithString:.cold.1()
 {
-  OUTLINED_FUNCTION_3_1(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3_1(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_1(&dword_1AE58E000, v1, v2, "SRParameter updateWithString called for type %ld", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_1AE58E000, v0, v1, "SRParameter updateWithString called for type %ld", v2, v3, v4, v5);
 }
 
-- (void)updateWithFilePath:(uint64_t)a1 .cold.1(uint64_t a1)
+- (void)updateWithFilePath:.cold.1()
 {
-  OUTLINED_FUNCTION_3_1(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3_1(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_1(&dword_1AE58E000, v1, v2, "SRParameter updateWithFilePath called for type %ld", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_1AE58E000, v0, v1, "SRParameter updateWithFilePath called for type %ld", v2, v3, v4, v5);
 }
 
 @end

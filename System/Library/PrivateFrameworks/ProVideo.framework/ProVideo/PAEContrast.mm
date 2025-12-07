@@ -27,7 +27,7 @@
   return [PAEContrast properties]::sPropertiesDict;
 }
 
-uint64_t __25__PAEContrast_properties__block_invoke()
+void *__25__PAEContrast_properties__block_invoke()
 {
   v10 = objc_alloc(MEMORY[0x277CBEAC0]);
   v0 = [MEMORY[0x277CCABB0] numberWithInt:6];
@@ -82,25 +82,25 @@ uint64_t __25__PAEContrast_properties__block_invoke()
 
 - (void)generateLut:(RGBAfPixel *)lut forContrast:(double)contrast andPivot:(double)pivot
 {
-  v5 = MEMORY[0x28223BE20](self);
+  v5 = (MEMORY[0x28223BE20])(self, a2, lut).n128_f64[0];
   v7 = v6;
   v9 = v8;
-  v10 = v5;
+  v11 = v10;
   v34[2047] = *MEMORY[0x277D85DE8];
   v12 = v6 + -1.0 + 1.0;
-  v13 = __sincos_stret((1.0 - (v11 + -1.0)) * 1.57079633 * 0.5);
+  v13 = __sincos_stret((1.0 - (v5 + -1.0)) * 1.57079633 * 0.5);
   v14 = 0;
   v15 = v34;
   do
   {
     if (v14 > 0x1FF)
     {
-      [v10 calculateBezier:(v14 - 512) / 511.0 startPt:v7 controlPoint1:v7 controlPoint2:v7 endPt:{v7, (v12 + -1.0) * v13.__cosval - v13.__sinval * 0.0 + 1.0, (v12 + -1.0) * v13.__sinval + v13.__cosval * 0.0 + 1.0, 0x3FF0000000000000, 0x3FF0000000000000}];
+      [v11 calculateBezier:(v14 - 512) / 511.0 startPt:v7 controlPoint1:v7 controlPoint2:v7 endPt:{v7, (v12 + -1.0) * v13.__cosval - v13.__sinval * 0.0 + 1.0, (v12 + -1.0) * v13.__sinval + v13.__cosval * 0.0 + 1.0, 0x3FF0000000000000, 0x3FF0000000000000}];
     }
 
     else
     {
-      [v10 calculateBezier:vcvtd_n_f64_u32(v14 startPt:9uLL) controlPoint1:0.0 controlPoint2:0.0 endPt:{v13.__cosval * v7 - v13.__sinval * 0.0, v13.__sinval * v7 + v13.__cosval * 0.0, v7, v7, *&v7, *&v7}];
+      [v11 calculateBezier:vcvtd_n_f64_u32(v14 startPt:9uLL) controlPoint1:0.0 controlPoint2:0.0 endPt:{v13.__cosval * v7 - v13.__sinval * 0.0, v13.__sinval * v7 + v13.__cosval * 0.0, v7, v7, *&v7, *&v7}];
     }
 
     *(v15 - 1) = v16;
@@ -161,7 +161,7 @@ uint64_t __25__PAEContrast_properties__block_invoke()
     v13 = v12;
     if (input)
     {
-      [input heliumRef];
+      objc_msgSend_heliumRef(input);
     }
 
     else
@@ -173,7 +173,7 @@ uint64_t __25__PAEContrast_properties__block_invoke()
     v15 = v11 & 0xFFFFFFFE;
     if (HIBYTE(v28) == 1)
     {
-      v16 = HGRectMake4i(0, 0, 0x400u, 1u);
+      v16 = HGRectMake4i(0, 0, 1024, 1);
       v18 = v17;
       v19 = HGObject::operator new(0x80uLL);
       HGBitmap::HGBitmap(v19, v16, v18, 28);

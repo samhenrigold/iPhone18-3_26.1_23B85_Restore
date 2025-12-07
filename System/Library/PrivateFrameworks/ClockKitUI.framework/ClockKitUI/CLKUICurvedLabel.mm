@@ -767,7 +767,7 @@ LABEL_12:
     v8[3] = &unk_1E8762F48;
     v8[4] = self;
     [(CLKUICurvedLabel *)self _transformForImage:v8];
-    [(CLKUICurvedLabel *)self transformForImage];
+    objc_msgSend_transformForImage(self);
     imageView = [(CLKUICurvedLabel *)self imageView];
     *v7 = *&v7[7];
     *&v7[2] = *&v7[9];
@@ -922,7 +922,7 @@ void __45__CLKUICurvedLabel_traitCollectionDidChange___block_invoke(uint64_t a1,
   _Block_object_dispose(v15, 8);
 }
 
-uint64_t __35__CLKUICurvedLabel_drawTextInRect___block_invoke(uint64_t a1, CGFloat a2, CGFloat a3, CGFloat a4, CGFloat a5)
+void *__35__CLKUICurvedLabel_drawTextInRect___block_invoke(uint64_t a1, CGFloat a2, CGFloat a3, CGFloat a4, CGFloat a5)
 {
   result = [*(a1 + 32) imagePlacement];
   if (result == 1)
@@ -1434,7 +1434,7 @@ uint64_t __39__CLKUICurvedLabel__transformForImage___block_invoke(uint64_t a1, d
         }
 
         [(CLKUICurvedLabel *)self centerAngle];
-        [(CLKUICurvedLabel *)self _transformForLayoutLocation:MidX usedWidth:v44 distance:v20 centerAngle:v106 bounds:v89, v105, v104, v103, v12];
+        objc_msgSend__transformForLayoutLocation_usedWidth_distance_centerAngle_bounds_(self, MidX, v44, v20, v106, v89, v105, v104, v103, v12);
         v31 = rect;
         v32 = v39;
       }
@@ -1486,7 +1486,7 @@ uint64_t __39__CLKUICurvedLabel__transformForImage___block_invoke(uint64_t a1, d
         v128 = 0u;
         v126 = 0u;
         [(CLKUICurvedLabel *)self centerAngle];
-        [(CLKUICurvedLabel *)self _transformForLayoutLocation:v60 usedWidth:v57 distance:v20 centerAngle:v106 bounds:v61, v105, v104, v103, v12];
+        objc_msgSend__transformForLayoutLocation_usedWidth_distance_centerAngle_bounds_(self, v60, v57, v20, v106, v61, v105, v104, v103, v12);
         v137.origin.x = v59;
         v137.origin.y = v98;
         v137.size.height = v55;
@@ -1607,7 +1607,7 @@ uint64_t __39__CLKUICurvedLabel__transformForImage___block_invoke(uint64_t a1, d
         v128 = 0u;
         v126 = 0u;
         [(CLKUICurvedLabel *)self centerAngle];
-        [(CLKUICurvedLabel *)self _transformForLayoutLocation:v82 usedWidth:v79 distance:v20 centerAngle:v106 bounds:v83, v105, v104, v103, v12];
+        objc_msgSend__transformForLayoutLocation_usedWidth_distance_centerAngle_bounds_(self, v82, v79, v20, v106, v83, v105, v104, v103, v12);
         v143.origin.x = v80;
         v143.origin.y = v81;
         v143.size.width = v102;
@@ -1689,7 +1689,7 @@ void __50__CLKUICurvedLabel__enumerateTransforms_callback___block_invoke(uint64_
   [v31 centerAngle];
   if (v31)
   {
-    [v31 _transformForLayoutLocation:MidX usedWidth:v9 distance:v32 centerAngle:v33 bounds:{v34, *(a1 + 104), *(a1 + 112), *(a1 + 120), *(a1 + 128)}];
+    objc_msgSend__transformForLayoutLocation_usedWidth_distance_centerAngle_bounds_(v31, MidX, v9, v32, v33, v34, *(a1 + 104), *(a1 + 112), *(a1 + 120), *(a1 + 128));
   }
 
   else
@@ -1734,7 +1734,7 @@ void __50__CLKUICurvedLabel__enumerateTransforms_callback___block_invoke(uint64_
   result = *(&self->super.super.super.super.isa + v12);
   if (result)
   {
-    result = [(CGAffineTransform *)result makeTransform];
+    result = objc_msgSend_makeTransform(result);
   }
 
   else

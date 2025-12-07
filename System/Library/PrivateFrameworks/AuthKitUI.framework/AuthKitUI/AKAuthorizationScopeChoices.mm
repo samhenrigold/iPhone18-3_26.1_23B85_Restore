@@ -278,7 +278,6 @@
     v12 = MEMORY[0x277D82BE0](&stru_28358EF68);
   }
 
-  *MEMORY[0x277D85DE8];
   v3 = v12;
 
   return v3;

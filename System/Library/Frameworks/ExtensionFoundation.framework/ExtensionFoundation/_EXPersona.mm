@@ -62,7 +62,7 @@
 
   else
   {
-    v7 = _EXDefaultLog();
+    v7 = _EXDefaultLog(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
       [_EXPersona personaWithPersonaUniqueString:v7];
@@ -76,15 +76,14 @@
 
 + (void)personaWithPersonaUniqueString:(os_log_t)log .cold.1(os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v3 = "personaUniqueString != nil";
-  v4 = 2080;
-  v2 = 136315650;
-  v5 = "/Library/Caches/com.apple.xbs/Sources/ExtensionFoundation/ExtensionFoundation/Source/NSExtension/NSExtensionSupport/EXPersona.m";
-  v6 = 1024;
-  v7 = 63;
-  _os_log_fault_impl(&dword_1847D1000, log, OS_LOG_TYPE_FAULT, "%s - %s:%d: Persona unique string should not be nil", &v2, 0x1Cu);
-  v1 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v2 = "personaUniqueString != nil";
+  v3 = 2080;
+  v1 = 136315650;
+  v4 = "/Library/Caches/com.apple.xbs/Sources/ExtensionFoundation/ExtensionFoundation/Source/NSExtension/NSExtensionSupport/EXPersona.m";
+  v5 = 1024;
+  v6 = 63;
+  _os_log_fault_impl(&dword_1847D1000, log, OS_LOG_TYPE_FAULT, "%s - %s:%d: Persona unique string should not be nil", &v1, 0x1Cu);
 }
 
 @end

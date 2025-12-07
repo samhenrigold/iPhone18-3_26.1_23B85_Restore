@@ -38,22 +38,18 @@
 
 - (void)unmap
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v7 = *self;
-  v8 = *__error();
+  __error();
   OUTLINED_FUNCTION_0_1();
-  _os_log_fault_impl(v1, v2, v3, v4, v5, 0x1Cu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
 - (void)sync
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   v2 = *__error();
-  v4[0] = 67240192;
-  v4[1] = v2;
-  _os_log_error_impl(&dword_1C928A000, self, OS_LOG_TYPE_ERROR, "Failed to msync because %{public, darwin.errno}d", v4, 8u);
-  v3 = *MEMORY[0x1E69E9840];
+  v3[0] = 67240192;
+  v3[1] = v2;
+  _os_log_error_impl(&dword_1C928A000, self, OS_LOG_TYPE_ERROR, "Failed to msync because %{public, darwin.errno}d", v3, 8u);
 }
 
 - (BMMemoryMapping)initWithSize:(unint64_t)size protection:(int)protection advice:(int)advice offset:(int64_t)offset
@@ -75,7 +71,7 @@
 
 - (BOOL)mapWithFileHandle:(id)handle fileSize:(unint64_t)size
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   handleCopy = handle;
   offset = [(BMMemoryMapping *)self offset];
   if ((offset & 0x8000000000000000) != 0)
@@ -100,15 +96,15 @@
       attributes = [handleCopy attributes];
       path = [attributes path];
       v14 = [v11 privacyPathname:path];
-      v40 = 134218754;
+      v39 = 134218754;
       sizeCopy = size;
-      v42 = 2048;
-      *v43 = size;
-      *&v43[8] = 2048;
-      *&v43[10] = v8;
-      *&v43[18] = 2114;
-      *&v43[20] = v14;
-      _os_log_fault_impl(&dword_1C928A000, v9, OS_LOG_TYPE_FAULT, "Offset too large, frame size:%zu fileSize:%zu offset:%lld file:%{public}@", &v40, 0x2Au);
+      v41 = 2048;
+      *v42 = size;
+      *&v42[8] = 2048;
+      *&v42[10] = v8;
+      *&v42[18] = 2114;
+      *&v42[20] = v14;
+      _os_log_fault_impl(&dword_1C928A000, v9, OS_LOG_TYPE_FAULT, "Offset too large, frame size:%zu fileSize:%zu offset:%lld file:%{public}@", &v39, 0x2Au);
 
 LABEL_17:
       goto LABEL_20;
@@ -131,13 +127,13 @@ LABEL_17:
       attributes2 = [handleCopy attributes];
       path2 = [attributes2 path];
       v14 = [v30 privacyPathname:path2];
-      v40 = 134218498;
+      v39 = 134218498;
       sizeCopy = v28;
-      v42 = 2048;
-      *v43 = offset;
-      *&v43[8] = 2114;
-      *&v43[10] = v14;
-      _os_log_fault_impl(&dword_1C928A000, v9, OS_LOG_TYPE_FAULT, "Attempt to map zero bytes, size:%zu offset:%lld file:%{public}@", &v40, 0x20u);
+      v41 = 2048;
+      *v42 = offset;
+      *&v42[8] = 2114;
+      *&v42[10] = v14;
+      _os_log_fault_impl(&dword_1C928A000, v9, OS_LOG_TYPE_FAULT, "Attempt to map zero bytes, size:%zu offset:%lld file:%{public}@", &v39, 0x20u);
 
       goto LABEL_17;
     }
@@ -154,20 +150,20 @@ LABEL_20:
     v9 = __biome_log_for_category();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
-      v35 = MEMORY[0x1E698E9C8];
+      v34 = MEMORY[0x1E698E9C8];
       attributes3 = [handleCopy attributes];
       path3 = [attributes3 path];
-      v38 = [v35 privacyPathname:path3];
-      v39 = *__error();
-      v40 = 138544130;
-      sizeCopy = v38;
-      v42 = 1026;
-      *v43 = v39;
-      *&v43[4] = 2048;
-      *&v43[6] = v17;
-      *&v43[14] = 2048;
-      *&v43[16] = v15;
-      _os_log_fault_impl(&dword_1C928A000, v9, OS_LOG_TYPE_FAULT, "Unable to mmap storage file %{public}@ because %{public, darwin.errno}d, size:%zu, offset:%ld", &v40, 0x26u);
+      v37 = [v34 privacyPathname:path3];
+      v38 = *__error();
+      v39 = 138544130;
+      sizeCopy = v37;
+      v41 = 1026;
+      *v42 = v38;
+      *&v42[4] = 2048;
+      *&v42[6] = v17;
+      *&v42[14] = 2048;
+      *&v42[16] = v15;
+      _os_log_fault_impl(&dword_1C928A000, v9, OS_LOG_TYPE_FAULT, "Unable to mmap storage file %{public}@ because %{public, darwin.errno}d, size:%zu, offset:%ld", &v39, 0x26u);
     }
 
     goto LABEL_20;
@@ -197,28 +193,27 @@ LABEL_20:
     v25 = [v22 privacyPathname:path4];
     v27 = self->_size;
     v26 = self->_offset;
-    v40 = 138544131;
+    v39 = 138544131;
     sizeCopy = v25;
-    v42 = 2049;
-    *v43 = v19;
-    *&v43[8] = 2048;
-    *&v43[10] = v26;
-    *&v43[18] = 2048;
-    *&v43[20] = v27;
+    v41 = 2049;
+    *v42 = v19;
+    *&v42[8] = 2048;
+    *&v42[10] = v26;
+    *&v42[18] = 2048;
+    *&v42[20] = v27;
     v21 = 1;
-    _os_log_impl(&dword_1C928A000, v9, OS_LOG_TYPE_INFO, "Successfully mapped file: %{public}@ address: 0x%{private}llx offset:%llu size:%llu", &v40, 0x2Au);
+    _os_log_impl(&dword_1C928A000, v9, OS_LOG_TYPE_INFO, "Successfully mapped file: %{public}@ address: 0x%{private}llx offset:%llu size:%llu", &v39, 0x2Au);
   }
 
 LABEL_21:
 
-  v33 = *MEMORY[0x1E69E9840];
   return v21;
 }
 
 - (id)dataAtOffset:(unint64_t)offset withLength:(unint64_t)length makeCopy:(BOOL)copy
 {
   copyCopy = copy;
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if ([BMMemoryMapping isValidReadFromOffset:"isValidReadFromOffset:withLength:" withLength:?])
   {
     v9 = [(BMMemoryMapping *)self start]+ offset;
@@ -239,19 +234,17 @@ LABEL_21:
     v11 = __biome_log_for_category();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v14 = 134218496;
+      v13 = 134218496;
       offsetCopy = offset;
-      v16 = 2048;
+      v15 = 2048;
       lengthCopy = length;
-      v18 = 2048;
-      v19 = [(BMMemoryMapping *)self size];
-      _os_log_error_impl(&dword_1C928A000, v11, OS_LOG_TYPE_ERROR, "Cannot read data from offset: %lld with length: %lld. Size (%lld) too small", &v14, 0x20u);
+      v17 = 2048;
+      v18 = [(BMMemoryMapping *)self size];
+      _os_log_error_impl(&dword_1C928A000, v11, OS_LOG_TYPE_ERROR, "Cannot read data from offset: %lld with length: %lld. Size (%lld) too small", &v13, 0x20u);
     }
 
     v10 = 0;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -544,17 +537,6 @@ LABEL_15:
 
           if (_X0 == *v5)
           {
-            v5[1];
-            _ZF = 1;
-          }
-
-          else
-          {
-            _ZF = 0;
-          }
-
-          if (_ZF)
-          {
             LOBYTE(_X0) = 1;
           }
 
@@ -676,72 +658,60 @@ LABEL_15:
 
 - (void)mapWithFileHandle:fileSize:.cold.1()
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v6 = *__error();
+  __error();
   OUTLINED_FUNCTION_0_1();
   _os_log_fault_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)mapWithFileHandle:(uint64_t)a1 fileSize:(void *)a2 .cold.2(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 40);
-  v4 = MEMORY[0x1E698E9C8];
-  v5 = [a2 attributes];
-  v6 = [v5 path];
-  v13 = [v4 privacyPathname:v6];
+  v2 = MEMORY[0x1E698E9C8];
+  v3 = [a2 attributes];
+  v4 = [v3 path];
+  v10 = [v2 privacyPathname:v4];
   OUTLINED_FUNCTION_0_1();
-  _os_log_fault_impl(v7, v8, v9, v10, v11, 0x20u);
-
-  v12 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(v5, v6, v7, v8, v9, 0x20u);
 }
 
 - (void)atomicReadAtOffset:(uint64_t)a1 value:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_error_impl(&dword_1C928A000, a2, OS_LOG_TYPE_ERROR, "Cannot atomically access bytes if offset isn't 8 byte aligned. Given offset: %ld", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_error_impl(&dword_1C928A000, a2, OS_LOG_TYPE_ERROR, "Cannot atomically access bytes if offset isn't 8 byte aligned. Given offset: %ld", &v2, 0xCu);
 }
 
 - (void)atomicReadAtOffset:(uint64_t)a1 value:.cold.2(uint64_t a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 134218240;
-  v4 = a1;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 134218240;
+  v3 = a1;
   OUTLINED_FUNCTION_1_3();
-  _os_log_error_impl(&dword_1C928A000, v1, OS_LOG_TYPE_ERROR, "Unable to read data at offset: %ld with length: %ld", &v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1C928A000, v1, OS_LOG_TYPE_ERROR, "Unable to read data at offset: %ld with length: %ld", &v2, 0x16u);
 }
 
 - (void)atomicUpdateOffset:(uint64_t)a1 withValue:shouldReplace:.cold.2(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = __biome_log_for_category();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    v4 = 134218240;
-    v5 = a1;
+    v3 = 134218240;
+    v4 = a1;
     OUTLINED_FUNCTION_1_3();
-    _os_log_error_impl(&dword_1C928A000, v2, OS_LOG_TYPE_ERROR, "Unable to read/write data at offset: %ld with length: %ld", &v4, 0x16u);
+    _os_log_error_impl(&dword_1C928A000, v2, OS_LOG_TYPE_ERROR, "Unable to read/write data at offset: %ld with length: %ld", &v3, 0x16u);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateToMaxOfCurrentWriteOffsetAnd:(os_log_t)log .cold.1(uint64_t *a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *a1;
-  v5 = 134218240;
-  v6 = a2;
-  v7 = 2048;
-  v8 = v3;
-  _os_log_error_impl(&dword_1C928A000, log, OS_LOG_TYPE_ERROR, "Attempted to move cursor beyond end of file, offset:%zu size:%zu. Setting to End of File instead", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 134218240;
+  v5 = a2;
+  v6 = 2048;
+  v7 = v3;
+  _os_log_error_impl(&dword_1C928A000, log, OS_LOG_TYPE_ERROR, "Attempted to move cursor beyond end of file, offset:%zu size:%zu. Setting to End of File instead", &v4, 0x16u);
 }
 
 @end

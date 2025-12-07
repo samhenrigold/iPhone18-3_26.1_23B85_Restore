@@ -7,24 +7,23 @@
 
 + (id)getCDMServiceAssetConfig
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(CDMServiceAssetConfig);
-  v7 = @"uaap/mds";
-  v8 = @"com.apple.siri.nl.uaap.mds";
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v7 count:1];
-  v9[0] = v3;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v6 = @"uaap/mds";
+  v7 = @"com.apple.siri.nl.uaap.mds";
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v6 count:1];
+  v8[0] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   [(CDMServiceAssetConfig *)v2 addCDMFactorToFoldersMapping:v4 forAssetSet:0];
 
   [(CDMServiceAssetConfig *)v2 setIsAssetRequiredForSetup:0];
-  v5 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
 
 - (id)setup:(id)setup
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   setupCopy = setup;
   self->super.super.super._serviceState = 2;
   if ([objc_opt_class() isEnabled])
@@ -44,16 +43,16 @@
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315138;
-        v41 = "[CDMMDSUaaPNLService setup:]";
+        v40 = "[CDMMDSUaaPNLService setup:]";
         _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s Fetching app model configurations", buf, 0xCu);
       }
 
       bundleURL = [v9 bundleURL];
       v13 = [bundleURL URLByAppendingPathComponent:@"customLU" isDirectory:1];
 
-      v39 = 0;
-      v14 = [MEMORY[0x1E69D14C8] configurationFromDirectoryUrl:v13 error:&v39];
-      v15 = v39;
+      v38 = 0;
+      v14 = [MEMORY[0x1E69D14C8] configurationFromDirectoryUrl:v13 error:&v38];
+      v15 = v38;
       v16 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithObjects:{v14, 0}];
       v17 = v16;
       if (v16 && [v16 count])
@@ -62,7 +61,7 @@
         if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315138;
-          v41 = "[CDMMDSUaaPNLService setup:]";
+          v40 = "[CDMMDSUaaPNLService setup:]";
           _os_log_debug_impl(&dword_1DC287000, v18, OS_LOG_TYPE_DEBUG, "%s Loading MDS model bundle", buf, 0xCu);
         }
 
@@ -79,9 +78,9 @@
           {
             v24 = [(NSSet *)self->super.__appModelBundles count];
             *buf = 136315394;
-            v41 = "[CDMMDSUaaPNLService setup:]";
-            v42 = 2048;
-            v43 = v24;
+            v40 = "[CDMMDSUaaPNLService setup:]";
+            v41 = 2048;
+            v42 = v24;
             _os_log_debug_impl(&dword_1DC287000, v23, OS_LOG_TYPE_DEBUG, "%s Loaded %lu app model bundles", buf, 0x16u);
           }
         }
@@ -89,7 +88,7 @@
         else if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
         {
           *buf = 136315138;
-          v41 = "[CDMMDSUaaPNLService setup:]";
+          v40 = "[CDMMDSUaaPNLService setup:]";
           _os_log_impl(&dword_1DC287000, v23, OS_LOG_TYPE_INFO, "%s [WARN]: Failed to load MDS model bundle (despite having configurations)", buf, 0xCu);
         }
 
@@ -98,7 +97,7 @@
 
       else
       {
-        v38 = v14;
+        v37 = v14;
         v26 = v13;
         v27 = MEMORY[0x1E696AEC0];
         v28 = v15;
@@ -115,9 +114,9 @@
         if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315394;
-          v41 = "[CDMMDSUaaPNLService setup:]";
-          v42 = 2112;
-          v43 = v30;
+          v40 = "[CDMMDSUaaPNLService setup:]";
+          v41 = 2112;
+          v42 = v30;
           _os_log_error_impl(&dword_1DC287000, v33, OS_LOG_TYPE_ERROR, "%s [ERR]: %@", buf, 0x16u);
         }
 
@@ -126,7 +125,7 @@
 
         v15 = v28;
         v13 = v26;
-        v14 = v38;
+        v14 = v37;
       }
     }
 
@@ -135,9 +134,9 @@
       if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v41 = "[CDMMDSUaaPNLService setup:]";
-        v42 = 2112;
-        v43 = @"Failed to find an asset for service";
+        v40 = "[CDMMDSUaaPNLService setup:]";
+        v41 = 2112;
+        v42 = @"Failed to find an asset for service";
         _os_log_impl(&dword_1DC287000, v11, OS_LOG_TYPE_INFO, "%s [WARN]: %@", buf, 0x16u);
       }
 
@@ -153,8 +152,6 @@
     self->super.super.super._serviceState = 4;
     createSetupResponseCommand = [(CDMBaseService *)self createSetupResponseCommand];
   }
-
-  v36 = *MEMORY[0x1E69E9840];
 
   return createSetupResponseCommand;
 }

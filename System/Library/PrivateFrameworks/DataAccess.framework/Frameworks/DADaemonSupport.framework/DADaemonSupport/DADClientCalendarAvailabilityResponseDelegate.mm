@@ -46,7 +46,7 @@
 
 - (void)finishWithError:(id)error
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   if (![(DADisableableObject *)self isDisabled]&& ![(DADClientDelegate *)self finished])
   {
@@ -57,10 +57,10 @@
     if (os_log_type_enabled(v5, v7))
     {
       *buf = 138412546;
-      v30 = objc_opt_class();
-      v31 = 2112;
-      v32 = errorCopy;
-      v8 = v30;
+      v29 = objc_opt_class();
+      v30 = 2112;
+      v31 = errorCopy;
+      v8 = v29;
       _os_log_impl(&dword_248524000, v5, v7, "[%@] finished with error %@", buf, 0x16u);
     }
 
@@ -84,18 +84,18 @@
 
           else
           {
-            v18 = DALoggingwithCategory();
-            v19 = *(v6 + 3);
-            if (os_log_type_enabled(v18, v19))
+            v17 = DALoggingwithCategory();
+            v18 = *(v6 + 3);
+            if (os_log_type_enabled(v17, v18))
             {
-              v20 = objc_opt_class();
-              v21 = v20;
+              v19 = objc_opt_class();
+              v20 = v19;
               accountID2 = [(DADClientDelegate *)self accountID];
               *buf = 138412546;
-              v30 = v20;
-              v31 = 2114;
-              v32 = accountID2;
-              _os_log_impl(&dword_248524000, v18, v19, "[%@] finished, but could not find an account with the ID %{public}@", buf, 0x16u);
+              v29 = v19;
+              v30 = 2114;
+              v31 = accountID2;
+              _os_log_impl(&dword_248524000, v17, v18, "[%@] finished, but could not find an account with the ID %{public}@", buf, 0x16u);
             }
           }
 
@@ -109,21 +109,19 @@
     }
 
     queue = self->_queue;
-    v23 = MEMORY[0x277D85DD0];
-    v24 = 3221225472;
-    v25 = __65__DADClientCalendarAvailabilityResponseDelegate_finishWithError___block_invoke;
-    v26 = &unk_278F1CD98;
+    v22 = MEMORY[0x277D85DD0];
+    v23 = 3221225472;
+    v24 = __65__DADClientCalendarAvailabilityResponseDelegate_finishWithError___block_invoke;
+    v25 = &unk_278F1CD98;
     selfCopy = self;
-    v28 = errorCopy;
-    dispatch_sync(queue, &v23);
+    v27 = errorCopy;
+    dispatch_sync(queue, &v22);
 
 LABEL_12:
-    v15 = [(DADClientDelegate *)self client:v23];
+    v15 = [(DADClientDelegate *)self client:v22];
     delegateID = [(DADClientDelegate *)self delegateID];
     [v15 delegateWithIDIsGoingAway:delegateID];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __65__DADClientCalendarAvailabilityResponseDelegate_finishWithError___block_invoke(uint64_t a1)
@@ -154,7 +152,7 @@ void __65__DADClientCalendarAvailabilityResponseDelegate_finishWithError___block
 
 - (void)performRequest
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (![(DADisableableObject *)self isDisabled])
   {
     v3 = +[DADAgentManager sharedManager];
@@ -175,17 +173,15 @@ void __65__DADClientCalendarAvailabilityResponseDelegate_finishWithError___block
       if (os_log_type_enabled(v8, v9))
       {
         accountID2 = [(DADClientDelegate *)self accountID];
-        v13 = 138543362;
-        v14 = accountID2;
-        _os_log_impl(&dword_248524000, v8, v9, "Could not get an account with the ID [%{public}@]", &v13, 0xCu);
+        v12 = 138543362;
+        v13 = accountID2;
+        _os_log_impl(&dword_248524000, v8, v9, "Could not get an account with the ID [%{public}@]", &v12, 0xCu);
       }
 
       v11 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277D038E0] code:55 userInfo:0];
       [(DADClientCalendarAvailabilityResponseDelegate *)self finishWithError:v11];
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)calendarAvailabilityRequestReturnedResults:(id)results
@@ -206,7 +202,7 @@ void __65__DADClientCalendarAvailabilityResponseDelegate_finishWithError___block
 
 void __92__DADClientCalendarAvailabilityResponseDelegate_calendarAvailabilityRequestReturnedResults___block_invoke(uint64_t a1)
 {
-  v12[3] = *MEMORY[0x277D85DE8];
+  v11[3] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) client];
   v3 = [v2 rawConnection];
 
@@ -214,21 +210,19 @@ void __92__DADClientCalendarAvailabilityResponseDelegate_calendarAvailabilityReq
   {
     v4 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:*(a1 + 40)];
     v5 = *MEMORY[0x277D03C88];
-    v12[0] = *MEMORY[0x277D03A60];
+    v11[0] = *MEMORY[0x277D03A60];
     v6 = *MEMORY[0x277D03A58];
-    v11[0] = v5;
-    v11[1] = v6;
+    v10[0] = v5;
+    v10[1] = v6;
     v7 = [*(a1 + 32) delegateID];
-    v11[2] = *MEMORY[0x277D03A68];
-    v12[1] = v7;
-    v12[2] = v4;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:3];
+    v10[2] = *MEMORY[0x277D03A68];
+    v11[1] = v7;
+    v11[2] = v4;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:3];
 
     v9 = _CFXPCCreateXPCObjectFromCFObject();
     xpc_connection_send_message(v3, v9);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

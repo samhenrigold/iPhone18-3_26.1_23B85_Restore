@@ -1,6 +1,5 @@
 @interface CMIVideoDeghostingBrightLightCommonV1
 - (CMIVideoDeghostingBrightLightCommonV1)initWithMetalContext:(id)context;
-- (id)_functionNameForProgram:(int)program;
 - (int)_compileDilateVerticalShaders;
 - (int)_compileShaders;
 - (int)brightnessDetectionInputReflectedLuma:(id)luma output:(id)output params:(BrightnessTuning)params processingROIInfo:(ProcessingROIInfo *)info;
@@ -8,20 +7,10 @@
 - (int)detectionWithReflectedLuma:(id)luma croppedLuma:(id)croppedLuma chroma:(id)chroma outputMask:(id)mask params:(DetectionTuning *)params processingROIInfo:(ProcessingROIInfo *)info inputIsHDR:(BOOL)r;
 - (int)dilateTexture:(id)texture withNormalizedRadius:(float)radius withThreshold:(id)threshold subtractTexture:(id)subtractTexture output:(id)output;
 - (int)erodeTexture:(id)texture withNormalizedRadius:(float)radius output:(id)output;
+- (int)greenDetectionLuma:(id)luma chroma:(id)chroma output:(id)output params:(GreenTuning)params processingROIInfo:(ProcessingROIInfo *)info inputIsHDR:(BOOL)r;
 @end
 
 @implementation CMIVideoDeghostingBrightLightCommonV1
-
-- (id)_functionNameForProgram:(int)program
-{
-  if (program < 0xB)
-  {
-    return off_347F8[program];
-  }
-
-  FigDebugAssert3();
-  return 0;
-}
 
 - (int)_compileDilateVerticalShaders
 {
@@ -590,24 +579,24 @@ LABEL_13:
   outputCopy = output;
   var0 = info->var0;
   v13 = *(v7 + 16);
-  v42 = 0;
+  v43 = 0;
   commandQueue = [(FigMetalContext *)self->_metal commandQueue];
   commandBuffer = [commandQueue commandBuffer];
 
   if (!commandBuffer)
   {
-    sub_1A038(v41);
+    sub_1A038(v42);
     newTextureDescriptor = 0;
     computeCommandEncoder = 0;
 LABEL_15:
-    v37 = v41[0];
+    v38 = v42[0];
     goto LABEL_10;
   }
 
   computeCommandEncoder = [commandBuffer computeCommandEncoder];
   if (!computeCommandEncoder)
   {
-    sub_19FB0(v41);
+    sub_19FB0(v42);
     newTextureDescriptor = 0;
     goto LABEL_15;
   }
@@ -617,7 +606,7 @@ LABEL_15:
 
   if (!newTextureDescriptor)
   {
-    sub_19F28(v41);
+    sub_19F28(v42);
     goto LABEL_15;
   }
 
@@ -645,11 +634,11 @@ LABEL_15:
   [newTextureDescriptor setLabel:0];
   allocator2 = [(FigMetalContext *)self->_metal allocator];
   v29 = [allocator2 newTextureWithDescriptor:newTextureDescriptor];
-  v42 = v29;
+  v43 = v29;
 
   if (!v29)
   {
-    sub_19EA0(v41);
+    sub_19EA0(v42);
     goto LABEL_15;
   }
 
@@ -660,13 +649,13 @@ LABEL_15:
   [computeCommandEncoder setBytes:&var0 length:4 atIndex:0];
   threadExecutionWidth = [(MTLComputePipelineState *)self->_pipelineStates[7] threadExecutionWidth];
   v31 = [(MTLComputePipelineState *)self->_pipelineStates[7] maxTotalThreadsPerThreadgroup]/ threadExecutionWidth;
-  v41[0] = [outputCopy width] >> 1;
-  v41[1] = [outputCopy height] >> 1;
+  v42[0] = [outputCopy width] >> 1;
+  v42[1] = [outputCopy height] >> 1;
+  v42[2] = 1;
+  v41[0] = threadExecutionWidth;
+  v41[1] = v31;
   v41[2] = 1;
-  v40[0] = threadExecutionWidth;
-  v40[1] = v31;
-  v40[2] = 1;
-  [computeCommandEncoder dispatchThreads:v41 threadsPerThreadgroup:v40];
+  [computeCommandEncoder dispatchThreads:v42 threadsPerThreadgroup:v41];
   [computeCommandEncoder endEncoding];
   if (gGMFigKTraceEnabled)
   {
@@ -685,7 +674,7 @@ LABEL_15:
   v35 = [(CMIVideoDeghostingBrightLightCommonV1 *)self erodeTexture:outputCopy withNormalizedRadius:v29 output:v34];
   if (v35)
   {
-    v37 = v35;
+    v38 = v35;
     sub_19DE0();
   }
 
@@ -693,16 +682,173 @@ LABEL_15:
   {
     *&v36 = v13 * infoCopy[4].var0;
     v37 = [(CMIVideoDeghostingBrightLightCommonV1 *)self dilateTexture:v29 withNormalizedRadius:outputCopy output:v36];
+    v38 = v37;
     if (v37)
     {
-      sub_19E40();
+      sub_19E40(v37);
     }
   }
 
 LABEL_10:
   FigMetalDecRef();
 
-  return v37;
+  return v38;
+}
+
+- (int)greenDetectionLuma:(id)luma chroma:(id)chroma output:(id)output params:(GreenTuning)params processingROIInfo:(ProcessingROIInfo *)info inputIsHDR:(BOOL)r
+{
+  v9 = v8;
+  rCopy = r;
+  lumaCopy = luma;
+  chromaCopy = chroma;
+  outputCopy = output;
+  v55 = 0;
+  v56 = 0;
+  v17 = *(rCopy + 16);
+  v53 = 0;
+  v54 = 0;
+  v52 = 0;
+  commandQueue = [(FigMetalContext *)self->_metal commandQueue];
+  commandBuffer = [commandQueue commandBuffer];
+
+  if (!commandBuffer)
+  {
+    sub_1A338(v51);
+    newTextureDescriptor = 0;
+    computeCommandEncoder = 0;
+LABEL_18:
+    v46 = v51[0];
+    goto LABEL_13;
+  }
+
+  computeCommandEncoder = [commandBuffer computeCommandEncoder];
+  if (!computeCommandEncoder)
+  {
+    sub_1A2B0(v51);
+    newTextureDescriptor = 0;
+    goto LABEL_18;
+  }
+
+  allocator = [(FigMetalContext *)self->_metal allocator];
+  newTextureDescriptor = [allocator newTextureDescriptor];
+
+  if (!newTextureDescriptor)
+  {
+    sub_1A228(v51);
+    goto LABEL_18;
+  }
+
+  desc = [newTextureDescriptor desc];
+  [desc setCompressionMode:2];
+
+  desc2 = [newTextureDescriptor desc];
+  [desc2 setCompressionFootprint:0];
+
+  desc3 = [newTextureDescriptor desc];
+  [desc3 setUsage:7];
+
+  pixelFormat = [lumaCopy pixelFormat];
+  desc4 = [newTextureDescriptor desc];
+  [desc4 setPixelFormat:pixelFormat];
+
+  width = [lumaCopy width];
+  desc5 = [newTextureDescriptor desc];
+  [desc5 setWidth:width];
+
+  height = [lumaCopy height];
+  desc6 = [newTextureDescriptor desc];
+  [desc6 setHeight:height];
+
+  [newTextureDescriptor setLabel:0];
+  allocator2 = [(FigMetalContext *)self->_metal allocator];
+  v33 = [allocator2 newTextureWithDescriptor:newTextureDescriptor];
+  v56 = v33;
+
+  if (!v33)
+  {
+    sub_1A1E0(v51);
+    goto LABEL_18;
+  }
+
+  v34 = 8;
+  if (v9)
+  {
+    v34 = 9;
+  }
+
+  v35 = (&self->super.isa + v34 * 8);
+  [computeCommandEncoder setComputePipelineState:self->_pipelineStates[v34]];
+  [computeCommandEncoder setTexture:lumaCopy atIndex:0];
+  v48 = chromaCopy;
+  [computeCommandEncoder setTexture:chromaCopy atIndex:1];
+  [computeCommandEncoder setTexture:v33 atIndex:2];
+  [computeCommandEncoder setTexture:0 atIndex:3];
+  [computeCommandEncoder setTexture:0 atIndex:4];
+  [computeCommandEncoder setTexture:0 atIndex:5];
+  [computeCommandEncoder setTexture:0 atIndex:6];
+  [computeCommandEncoder setBytes:info length:32 atIndex:0];
+  threadExecutionWidth = [v35[2] threadExecutionWidth];
+  v37 = [v35[2] maxTotalThreadsPerThreadgroup] / threadExecutionWidth;
+  v51[0] = [outputCopy width];
+  v51[1] = [outputCopy height];
+  v51[2] = 1;
+  v50[0] = threadExecutionWidth;
+  v50[1] = v37;
+  v50[2] = 1;
+  [computeCommandEncoder dispatchThreads:v51 threadsPerThreadgroup:v50];
+  [computeCommandEncoder endEncoding];
+  if (gGMFigKTraceEnabled)
+  {
+    commandQueue2 = [commandBuffer commandQueue];
+    commandBuffer2 = [commandQueue2 commandBuffer];
+
+    [commandBuffer2 setLabel:@"KTRACE_MTLCMDBUF"];
+    [commandBuffer2 addCompletedHandler:&stru_34778];
+    [commandBuffer2 commit];
+    [commandBuffer addCompletedHandler:&stru_34798];
+  }
+
+  [commandBuffer setLabel:@"VideoDeghostingV1BrightLight_GreenDetect"];
+  [commandBuffer commit];
+  *&v40 = v17 * info[6].var0;
+  v41 = [(CMIVideoDeghostingBrightLightCommonV1 *)self dilateTexture:v33 withNormalizedRadius:outputCopy output:v40];
+  chromaCopy = v48;
+  if (v41)
+  {
+    v46 = v41;
+    sub_1A0C0();
+  }
+
+  else
+  {
+    *&v42 = v17 * info[6].var0;
+    v43 = [(CMIVideoDeghostingBrightLightCommonV1 *)self erodeTexture:outputCopy withNormalizedRadius:v33 output:v42];
+    if (v43)
+    {
+      v46 = v43;
+      sub_1A120();
+    }
+
+    else
+    {
+      *&v44 = v17 * info[7].var0;
+      v45 = [(CMIVideoDeghostingBrightLightCommonV1 *)self dilateTexture:v33 withNormalizedRadius:outputCopy output:v44];
+      v46 = v45;
+      if (v45)
+      {
+        sub_1A180(v45);
+      }
+    }
+  }
+
+LABEL_13:
+  FigMetalDecRef();
+  FigMetalDecRef();
+  FigMetalDecRef();
+  FigMetalDecRef();
+  FigMetalDecRef();
+
+  return v46;
 }
 
 - (int)combineBrightnessMask:(id)mask greenMask:(id)greenMask output:(id)output
@@ -781,17 +927,17 @@ LABEL_8:
   croppedLumaCopy = croppedLuma;
   chromaCopy = chroma;
   maskCopy = mask;
-  v47 = 0;
   v48 = 0;
+  v49 = 0;
   allocator = [(FigMetalContext *)self->_metal allocator];
   newTextureDescriptor = [allocator newTextureDescriptor];
 
   if (!newTextureDescriptor)
   {
     v31 = lumaCopy;
-    sub_1A7A8(&v43);
+    sub_1A7A8(&v44);
 LABEL_15:
-    v40 = v43;
+    v41 = v44;
     goto LABEL_16;
   }
 
@@ -819,22 +965,22 @@ LABEL_15:
   [newTextureDescriptor setLabel:0];
   allocator2 = [(FigMetalContext *)self->_metal allocator];
   v30 = [allocator2 newTextureWithDescriptor:newTextureDescriptor];
-  v48 = v30;
+  v49 = v30;
 
   if (!v30)
   {
     v31 = lumaCopy;
-    sub_1A720(&v43);
+    sub_1A720(&v44);
     goto LABEL_15;
   }
 
-  v43 = *&params->brightParams.threshold;
-  *&v44 = *&params->var1;
+  v44 = *&params->brightParams.threshold;
+  *&v45 = *&params->var1;
   v31 = lumaCopy;
-  v32 = [(CMIVideoDeghostingBrightLightCommonV1 *)self brightnessDetectionInputReflectedLuma:lumaCopy output:v30 params:&v43 processingROIInfo:info];
+  v32 = [(CMIVideoDeghostingBrightLightCommonV1 *)self brightnessDetectionInputReflectedLuma:lumaCopy output:v30 params:&v44 processingROIInfo:info];
   if (v32)
   {
-    v40 = v32;
+    v41 = v32;
     sub_1A578();
 LABEL_16:
     v38 = croppedLumaCopy;
@@ -844,11 +990,11 @@ LABEL_16:
   [newTextureDescriptor setLabel:0];
   allocator3 = [(FigMetalContext *)self->_metal allocator];
   v34 = [allocator3 newTextureWithDescriptor:newTextureDescriptor];
-  v47 = v34;
+  v48 = v34;
 
   if (!v34)
   {
-    sub_1A698(&v43);
+    sub_1A698(&v44);
     goto LABEL_15;
   }
 
@@ -860,24 +1006,25 @@ LABEL_16:
 
   v36 = (params + v35);
   v37 = v36[1];
-  v45 = *v36;
-  v46 = v37;
-  v43 = v45;
-  v44 = v37;
+  v46 = *v36;
+  v47 = v37;
+  v44 = v46;
+  v45 = v37;
   v38 = croppedLumaCopy;
-  v39 = [(CMIVideoDeghostingBrightLightCommonV1 *)self greenDetectionLuma:croppedLumaCopy chroma:chromaCopy output:v34 params:&v43 processingROIInfo:info inputIsHDR:?];
+  v39 = [(CMIVideoDeghostingBrightLightCommonV1 *)self greenDetectionLuma:croppedLumaCopy chroma:chromaCopy output:v34 params:&v44 processingROIInfo:info inputIsHDR:?];
   if (v39)
   {
-    v40 = v39;
+    v41 = v39;
     sub_1A5D8();
   }
 
   else
   {
     v40 = [(CMIVideoDeghostingBrightLightCommonV1 *)self combineBrightnessMask:v30 greenMask:v34 output:maskCopy];
+    v41 = v40;
     if (v40)
     {
-      sub_1A638();
+      sub_1A638(v40);
     }
   }
 
@@ -885,7 +1032,7 @@ LABEL_10:
   FigMetalDecRef();
   FigMetalDecRef();
 
-  return v40;
+  return v41;
 }
 
 @end

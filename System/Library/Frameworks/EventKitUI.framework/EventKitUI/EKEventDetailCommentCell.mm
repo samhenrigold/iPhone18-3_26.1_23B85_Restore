@@ -7,9 +7,9 @@
 
 - (EKEventDetailCommentCell)initWithEvent:(id)event editable:(BOOL)editable
 {
-  v13.receiver = self;
-  v13.super_class = EKEventDetailCommentCell;
-  v4 = [(EKEventDetailCell *)&v13 initWithEvent:event editable:editable style:1000];
+  v15.receiver = self;
+  v15.super_class = EKEventDetailCommentCell;
+  v4 = [(EKEventDetailCell *)&v15 initWithEvent:event editable:editable style:1000];
   v5 = v4;
   if (v4)
   {
@@ -19,18 +19,18 @@
     editableTextField2 = [(EKEventDetailCommentCell *)v5 editableTextField];
     [editableTextField2 setClearButtonMode:1];
 
-    if (CalInterfaceIsLeftToRight())
+    if (CalInterfaceIsLeftToRight(v8, v9))
     {
-      v8 = 0;
+      v10 = 0;
     }
 
     else
     {
-      v8 = 2;
+      v10 = 2;
     }
 
     editableTextField3 = [(EKEventDetailCommentCell *)v5 editableTextField];
-    [editableTextField3 setTextAlignment:v8];
+    [editableTextField3 setTextAlignment:v10];
 
     editableTextField4 = [(EKEventDetailCommentCell *)v5 editableTextField];
     [editableTextField4 setAdjustsFontSizeToFitWidth:0];

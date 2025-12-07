@@ -6,11 +6,11 @@
 
 + (id)__ck_durationFormatter
 {
-  v0 = objc_opt_new();
-  [v0 setUnitsStyle:0];
-  [v0 setZeroFormattingBehavior:0x10000];
+  v1 = objc_opt_new();
+  [v1 setUnitsStyle:0];
+  [v1 setZeroFormattingBehavior:0x10000];
 
-  return v0;
+  return v1;
 }
 
 @end

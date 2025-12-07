@@ -399,9 +399,8 @@ void __46__NRRegistry_grabRegistryWithWriteBlockAsync___block_invoke(uint64_t a1
   return v6;
 }
 
-void __44__NRRegistry_addDiffObserverWithWriteBlock___block_invoke(uint64_t a1)
+void __44__NRRegistry_addDiffObserverWithWriteBlock___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
   v3 = [objc_opt_class() _nextToken];
   v4 = *(*(a1 + 48) + 8);
   v5 = *(v4 + 40);
@@ -435,54 +434,53 @@ void __44__NRRegistry_addDiffObserverWithWriteBlock___block_invoke(uint64_t a1)
 
 - (void)_notifyDiffObserversWithDiff:(id)diff deviceCollection:(id)collection secureProperties:(id)properties
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   diffCopy = diff;
   collectionCopy = collection;
   propertiesCopy = properties;
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x3032000000;
-  v26 = __Block_byref_object_copy__5;
-  v27 = __Block_byref_object_dispose__5;
-  v28 = 0;
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __77__NRRegistry__notifyDiffObserversWithDiff_deviceCollection_secureProperties___block_invoke;
-  v22[3] = &unk_1E86DB8F0;
-  v22[4] = self;
-  v22[5] = &v23;
-  [(NRRegistry *)self performUnderCollectionLock:v22];
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x3032000000;
+  v25 = __Block_byref_object_copy__5;
+  v26 = __Block_byref_object_dispose__5;
+  v27 = 0;
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __77__NRRegistry__notifyDiffObserversWithDiff_deviceCollection_secureProperties___block_invoke;
+  v21[3] = &unk_1E86DB8F0;
+  v21[4] = self;
+  v21[5] = &v22;
+  [(NRRegistry *)self performUnderCollectionLock:v21];
   v19 = 0u;
-  v11 = v24[5];
-  v12 = [v11 countByEnumeratingWithState:&v18 objects:v29 count:16];
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v11 = v23[5];
+  v12 = [v11 countByEnumeratingWithState:&v17 objects:v28 count:16];
   if (v12)
   {
-    v13 = *v19;
+    v13 = *v18;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v19 != v13)
+        if (*v18 != v13)
         {
           objc_enumerationMutation(v11);
         }
 
-        v15 = *(*(&v18 + 1) + 8 * i);
-        v16 = [v24[5] objectForKeyedSubscript:{v15, v18}];
+        v15 = *(*(&v17 + 1) + 8 * i);
+        v16 = [v23[5] objectForKeyedSubscript:{v15, v17}];
         (v16)[2](v16, diffCopy, collectionCopy, propertiesCopy, v15);
       }
 
-      v12 = [v11 countByEnumeratingWithState:&v18 objects:v29 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v17 objects:v28 count:16];
     }
 
     while (v12);
   }
 
-  _Block_object_dispose(&v23, 8);
-  v17 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v22, 8);
 }
 
 uint64_t __77__NRRegistry__notifyDiffObserversWithDiff_deviceCollection_secureProperties___block_invoke(uint64_t a1)
@@ -526,9 +524,8 @@ uint64_t __77__NRRegistry__notifyDiffObserversWithDiff_deviceCollection_securePr
   return v6;
 }
 
-void __55__NRRegistry_addSecurePropertiesObserverWithReadBlock___block_invoke(uint64_t a1)
+void __55__NRRegistry_addSecurePropertiesObserverWithReadBlock___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
   v3 = [objc_opt_class() _nextToken];
   v4 = *(*(a1 + 48) + 8);
   v5 = *(v4 + 40);
@@ -601,59 +598,57 @@ uint64_t __24__NRRegistry_invalidate__block_invoke_3(uint64_t a1)
 
 - (void)_notifyObserversSecurePropertiesAreAvailableWithCollection:(id)collection secureProperties:(id)properties
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   collectionCopy = collection;
   propertiesCopy = properties;
   secureProperties = [(NRRegistry *)self secureProperties];
 
   if (secureProperties)
   {
-    v21 = 0;
-    v22 = &v21;
-    v23 = 0x3032000000;
-    v24 = __Block_byref_object_copy__5;
-    v25 = __Block_byref_object_dispose__5;
-    v26 = 0;
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __90__NRRegistry__notifyObserversSecurePropertiesAreAvailableWithCollection_secureProperties___block_invoke;
-    v20[3] = &unk_1E86DB8F0;
-    v20[4] = self;
-    v20[5] = &v21;
-    [(NRRegistry *)self performUnderCollectionLock:v20];
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
+    v20 = 0;
+    v21 = &v20;
+    v22 = 0x3032000000;
+    v23 = __Block_byref_object_copy__5;
+    v24 = __Block_byref_object_dispose__5;
+    v25 = 0;
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __90__NRRegistry__notifyObserversSecurePropertiesAreAvailableWithCollection_secureProperties___block_invoke;
+    v19[3] = &unk_1E86DB8F0;
+    v19[4] = self;
+    v19[5] = &v20;
+    [(NRRegistry *)self performUnderCollectionLock:v19];
     v17 = 0u;
-    v9 = v22[5];
-    v10 = [v9 countByEnumeratingWithState:&v16 objects:v27 count:16];
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
+    v9 = v21[5];
+    v10 = [v9 countByEnumeratingWithState:&v15 objects:v26 count:16];
     if (v10)
     {
-      v11 = *v17;
+      v11 = *v16;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v17 != v11)
+          if (*v16 != v11)
           {
             objc_enumerationMutation(v9);
           }
 
-          v13 = *(*(&v16 + 1) + 8 * i);
-          v14 = [v22[5] objectForKeyedSubscript:{v13, v16}];
+          v13 = *(*(&v15 + 1) + 8 * i);
+          v14 = [v21[5] objectForKeyedSubscript:{v13, v15}];
           (v14)[2](v14, collectionCopy, propertiesCopy, v13);
         }
 
-        v10 = [v9 countByEnumeratingWithState:&v16 objects:v27 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v15 objects:v26 count:16];
       }
 
       while (v10);
     }
 
-    _Block_object_dispose(&v21, 8);
+    _Block_object_dispose(&v20, 8);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __90__NRRegistry__notifyObserversSecurePropertiesAreAvailableWithCollection_secureProperties___block_invoke(uint64_t a1)
@@ -666,55 +661,55 @@ void __90__NRRegistry__notifyObserversSecurePropertiesAreAvailableWithCollection
 
 + (id)getReferencedSecurePropertyIDsFromDiff:(id)diff
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   diffCopy = diff;
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
-  v4 = [diffCopy countByEnumeratingWithState:&v30 objects:v35 count:16];
+  v4 = [diffCopy countByEnumeratingWithState:&v29 objects:v34 count:16];
   if (v4)
   {
     v5 = v4;
     array = 0;
-    v7 = *v31;
-    v22 = *v31;
-    v23 = diffCopy;
+    v7 = *v30;
+    v21 = *v30;
+    v22 = diffCopy;
     do
     {
       v8 = 0;
-      v24 = v5;
+      v23 = v5;
       do
       {
-        if (*v31 != v7)
+        if (*v30 != v7)
         {
           objc_enumerationMutation(diffCopy);
         }
 
-        v9 = [diffCopy objectForKeyedSubscript:{*(*(&v30 + 1) + 8 * v8), v22, v23}];
+        v9 = [diffCopy objectForKeyedSubscript:{*(*(&v29 + 1) + 8 * v8), v21, v22}];
         if ([v9 changeType] != 2)
         {
-          v25 = v8;
-          v28 = 0u;
-          v29 = 0u;
-          v26 = 0u;
+          v24 = v8;
           v27 = 0u;
+          v28 = 0u;
+          v25 = 0u;
+          v26 = 0u;
           diff = [v9 diff];
-          v11 = [diff countByEnumeratingWithState:&v26 objects:v34 count:16];
+          v11 = [diff countByEnumeratingWithState:&v25 objects:v33 count:16];
           if (v11)
           {
             v12 = v11;
-            v13 = *v27;
+            v13 = *v26;
             do
             {
               for (i = 0; i != v12; ++i)
               {
-                if (*v27 != v13)
+                if (*v26 != v13)
                 {
                   objc_enumerationMutation(diff);
                 }
 
-                v15 = *(*(&v26 + 1) + 8 * i);
+                v15 = *(*(&v25 + 1) + 8 * i);
                 diff2 = [v9 diff];
                 v17 = [diff2 objectForKeyedSubscript:v15];
 
@@ -736,23 +731,23 @@ void __90__NRRegistry__notifyObserversSecurePropertiesAreAvailableWithCollection
                 }
               }
 
-              v12 = [diff countByEnumeratingWithState:&v26 objects:v34 count:16];
+              v12 = [diff countByEnumeratingWithState:&v25 objects:v33 count:16];
             }
 
             while (v12);
           }
 
-          v7 = v22;
-          diffCopy = v23;
-          v5 = v24;
-          v8 = v25;
+          v7 = v21;
+          diffCopy = v22;
+          v5 = v23;
+          v8 = v24;
         }
 
         ++v8;
       }
 
       while (v8 != v5);
-      v5 = [diffCopy countByEnumeratingWithState:&v30 objects:v35 count:16];
+      v5 = [diffCopy countByEnumeratingWithState:&v29 objects:v34 count:16];
     }
 
     while (v5);
@@ -763,37 +758,35 @@ void __90__NRRegistry__notifyObserversSecurePropertiesAreAvailableWithCollection
     array = 0;
   }
 
-  v20 = *MEMORY[0x1E69E9840];
-
   return array;
 }
 
 + (id)getReferencedSecureProperties:(id)properties fromDiff:(id)diff
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   propertiesCopy = properties;
   diffCopy = diff;
   v8 = [self getReferencedSecurePropertyIDsFromDiff:diffCopy];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v9)
   {
     v10 = v9;
     v11 = 0;
-    v12 = *v19;
+    v12 = *v18;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v19 != v12)
+        if (*v18 != v12)
         {
           objc_enumerationMutation(v8);
         }
 
-        v14 = *(*(&v18 + 1) + 8 * i);
+        v14 = *(*(&v17 + 1) + 8 * i);
         v15 = [propertiesCopy objectForKeyedSubscript:v14];
         if (v15)
         {
@@ -806,7 +799,7 @@ void __90__NRRegistry__notifyObserversSecurePropertiesAreAvailableWithCollection
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v10);
@@ -817,14 +810,12 @@ void __90__NRRegistry__notifyObserversSecurePropertiesAreAvailableWithCollection
     v11 = 0;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
-
   return v11;
 }
 
 + (void)fixSecurePropertiesWithCollection:(id)collection secureProperties:(id)properties insecurePropertyNames:(id)names
 {
-  v71 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   collectionCopy = collection;
   propertiesCopy = properties;
   namesCopy = names;
@@ -837,201 +828,184 @@ void __90__NRRegistry__notifyObserversSecurePropertiesAreAvailableWithCollection
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v70 = "+[NRRegistry fixSecurePropertiesWithCollection:secureProperties:insecurePropertyNames:]";
+      v66 = "+[NRRegistry fixSecurePropertiesWithCollection:secureProperties:insecurePropertyNames:]";
       _os_log_impl(&dword_1E0ADF000, v11, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
     }
   }
 
   dictionary = [MEMORY[0x1E695DF90] dictionary];
-  v63 = 0u;
-  v64 = 0u;
-  v65 = 0u;
-  v66 = 0u;
+  v59 = 0u;
+  v60 = 0u;
+  v61 = 0u;
+  v62 = 0u;
   obj = collectionCopy;
-  v53 = [obj countByEnumeratingWithState:&v63 objects:v68 count:16];
-  if (v53)
+  v49 = [obj countByEnumeratingWithState:&v59 objects:v64 count:16];
+  if (v49)
   {
-    v52 = *v64;
-    v12 = 0x1E86DA000uLL;
+    v48 = *v60;
     do
     {
-      v13 = 0;
+      v12 = 0;
       do
       {
-        if (*v64 != v52)
+        if (*v60 != v48)
         {
           objc_enumerationMutation(obj);
         }
 
-        v55 = *(*(&v63 + 1) + 8 * v13);
-        v56 = v13;
-        v14 = [obj objectForKeyedSubscript:dictionary];
+        v51 = *(*(&v59 + 1) + 8 * v12);
+        v52 = v12;
+        v13 = [obj objectForKeyedSubscript:dictionary];
         dictionary2 = [MEMORY[0x1E695DF90] dictionary];
-        v59 = 0u;
-        v60 = 0u;
-        v61 = 0u;
-        v62 = 0u;
-        v15 = v14;
-        v16 = [v15 countByEnumeratingWithState:&v59 objects:v67 count:16];
-        if (v16)
+        v55 = 0u;
+        v56 = 0u;
+        v57 = 0u;
+        v58 = 0u;
+        v14 = v13;
+        v15 = [v14 countByEnumeratingWithState:&v55 objects:v63 count:16];
+        if (v15)
         {
-          v17 = v16;
-          v18 = *v60;
+          v16 = v15;
+          v17 = *v56;
           do
           {
-            for (i = 0; i != v17; ++i)
+            for (i = 0; i != v16; ++i)
             {
-              if (*v60 != v18)
+              if (*v56 != v17)
               {
-                objc_enumerationMutation(v15);
+                objc_enumerationMutation(v14);
               }
 
-              v20 = *(*(&v59 + 1) + 8 * i);
-              if (![namesCopy containsObject:v20])
+              v19 = *(*(&v55 + 1) + 8 * i);
+              if ([namesCopy containsObject:v19] && (objc_msgSend(v14, "objectForKeyedSubscript:", v19), v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v20, "value"), v21 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), v22 = objc_opt_isKindOfClass(), v21, v20, (v22 & 1) != 0))
               {
-                goto LABEL_51;
-              }
+                v23 = nr_daemon_log();
+                v24 = os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT);
 
-              v21 = [v15 objectForKeyedSubscript:v20];
-              value = [v21 value];
-              v23 = *(v12 + 2712);
-              objc_opt_class();
-              isKindOfClass = objc_opt_isKindOfClass();
-
-              if (isKindOfClass)
-              {
-                v25 = nr_daemon_log();
-                v26 = os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT);
-
-                if (v26)
+                if (v24)
                 {
-                  v27 = nr_daemon_log();
-                  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+                  v25 = nr_daemon_log();
+                  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 138412290;
-                    v70 = v20;
-                    _os_log_impl(&dword_1E0ADF000, v27, OS_LOG_TYPE_DEFAULT, "Property %@ was marked as secure but is now in allowlist, converting to insecure property", buf, 0xCu);
+                    v66 = v19;
+                    _os_log_impl(&dword_1E0ADF000, v25, OS_LOG_TYPE_DEFAULT, "Property %@ was marked as secure but is now in allowlist, converting to insecure property", buf, 0xCu);
                   }
                 }
 
-                v28 = [v15 objectForKeyedSubscript:v20];
-                value2 = [v28 value];
+                v26 = [v14 objectForKeyedSubscript:v19];
+                value = [v26 value];
 
-                v30 = [propertiesCopy securePropertyForID:value2];
+                v28 = [propertiesCopy securePropertyForID:value];
               }
 
               else
               {
-LABEL_51:
-                if ([namesCopy containsObject:v20])
+                if ([namesCopy containsObject:v19])
                 {
                   continue;
                 }
 
-                v31 = [v15 objectForKeyedSubscript:v20];
-                value3 = [v31 value];
-                v33 = *(v12 + 2712);
+                v29 = [v14 objectForKeyedSubscript:v19];
+                value2 = [v29 value];
                 objc_opt_class();
-                v34 = objc_opt_isKindOfClass();
+                isKindOfClass = objc_opt_isKindOfClass();
 
-                if (v34)
+                if (isKindOfClass)
                 {
                   continue;
                 }
 
-                v35 = nr_daemon_log();
-                v36 = os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT);
+                v32 = nr_daemon_log();
+                v33 = os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT);
 
-                if (v36)
+                if (v33)
                 {
-                  v37 = nr_daemon_log();
-                  if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+                  v34 = nr_daemon_log();
+                  if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 138412290;
-                    v70 = v20;
-                    _os_log_impl(&dword_1E0ADF000, v37, OS_LOG_TYPE_DEFAULT, "Property %@ is not in allowlist and is stored as insecure, converting to secure property", buf, 0xCu);
+                    v66 = v19;
+                    _os_log_impl(&dword_1E0ADF000, v34, OS_LOG_TYPE_DEFAULT, "Property %@ is not in allowlist and is stored as insecure, converting to secure property", buf, 0xCu);
                   }
                 }
 
-                v38 = [v15 objectForKeyedSubscript:v20];
-                value2 = [v38 value];
+                v35 = [v14 objectForKeyedSubscript:v19];
+                value = [v35 value];
 
-                v30 = [propertiesCopy storeSecureProperty:value2];
+                v28 = [propertiesCopy storeSecureProperty:value];
               }
 
-              v39 = v30;
-              if (v30)
+              v36 = v28;
+              if (v28)
               {
-                v40 = [[NRDevicePropertyDiff alloc] initWithValue:v30];
-                v41 = [[NRDevicePropertyDiffType alloc] initWithDiff:v40 andChangeType:1];
-                [dictionary2 setObject:v41 forKeyedSubscript:v20];
-
-                v12 = 0x1E86DA000;
+                v37 = [[NRDevicePropertyDiff alloc] initWithValue:v28];
+                v38 = [[NRDevicePropertyDiffType alloc] initWithDiff:v37 andChangeType:1];
+                [dictionary2 setObject:v38 forKeyedSubscript:v19];
               }
             }
 
-            v17 = [v15 countByEnumeratingWithState:&v59 objects:v67 count:16];
+            v16 = [v14 countByEnumeratingWithState:&v55 objects:v63 count:16];
           }
 
-          while (v17);
+          while (v16);
         }
 
         if ([dictionary2 count])
         {
-          v42 = [[NRDeviceDiff alloc] initWithDiffPropertyDiffs:dictionary2];
-          v43 = [[NRDeviceDiffType alloc] initWithDiff:v42 andChangeType:1];
-          [dictionary setObject:v43 forKeyedSubscript:v55];
+          v39 = [[NRDeviceDiff alloc] initWithDiffPropertyDiffs:dictionary2];
+          v40 = [[NRDeviceDiffType alloc] initWithDiff:v39 andChangeType:1];
+          [dictionary setObject:v40 forKeyedSubscript:v51];
         }
 
-        v13 = v56 + 1;
+        v12 = v52 + 1;
       }
 
-      while (v56 + 1 != v53);
-      v53 = [obj countByEnumeratingWithState:&v63 objects:v68 count:16];
+      while (v52 + 1 != v49);
+      v49 = [obj countByEnumeratingWithState:&v59 objects:v64 count:16];
     }
 
-    while (v53);
+    while (v49);
   }
 
-  v44 = [dictionary count];
-  v45 = nr_daemon_log();
-  v46 = os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT);
+  v41 = [dictionary count];
+  v42 = nr_daemon_log();
+  v43 = os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT);
 
-  if (v44)
+  if (v41)
   {
-    if (v46)
+    if (v43)
     {
-      v47 = nr_daemon_log();
-      if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+      v44 = nr_daemon_log();
+      if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v70 = "+[NRRegistry fixSecurePropertiesWithCollection:secureProperties:insecurePropertyNames:]";
-        _os_log_impl(&dword_1E0ADF000, v47, OS_LOG_TYPE_DEFAULT, "%s: Updating some allowlisted properties", buf, 0xCu);
+        v66 = "+[NRRegistry fixSecurePropertiesWithCollection:secureProperties:insecurePropertyNames:]";
+        _os_log_impl(&dword_1E0ADF000, v44, OS_LOG_TYPE_DEFAULT, "%s: Updating some allowlisted properties", buf, 0xCu);
       }
     }
 
-    v48 = [[NRDeviceCollectionDiff alloc] initWithDeviceCollectionDiffDeviceDiffs:dictionary];
-    v49 = [obj applyDiff:v48];
+    v45 = [[NRDeviceCollectionDiff alloc] initWithDeviceCollectionDiffDeviceDiffs:dictionary];
+    v46 = [obj applyDiff:v45];
   }
 
   else
   {
-    if (!v46)
+    if (!v43)
     {
       goto LABEL_45;
     }
 
-    v48 = nr_daemon_log();
-    if (os_log_type_enabled(&v48->super.super, OS_LOG_TYPE_DEFAULT))
+    v45 = nr_daemon_log();
+    if (os_log_type_enabled(&v45->super.super, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v70 = "+[NRRegistry fixSecurePropertiesWithCollection:secureProperties:insecurePropertyNames:]";
-      _os_log_impl(&dword_1E0ADF000, &v48->super.super, OS_LOG_TYPE_DEFAULT, "%s: Not updating any properties", buf, 0xCu);
+      v66 = "+[NRRegistry fixSecurePropertiesWithCollection:secureProperties:insecurePropertyNames:]";
+      _os_log_impl(&dword_1E0ADF000, &v45->super.super, OS_LOG_TYPE_DEFAULT, "%s: Not updating any properties", buf, 0xCu);
     }
   }
 
 LABEL_45:
-  v50 = *MEMORY[0x1E69E9840];
 }
 
 + (unint64_t)readNotifyToken:(int)token
@@ -1055,7 +1029,7 @@ LABEL_45:
 
 + (int)registerNotifyTokenWithName:(id)name withQueue:(id)queue withBlock:(id)block
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   queueCopy = queue;
   blockCopy = block;
@@ -1083,7 +1057,7 @@ LABEL_45:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v19 = nameCopy;
+      v18 = nameCopy;
       _os_log_error_impl(&dword_1E0ADF000, v13, OS_LOG_TYPE_ERROR, "Failed to register block and get notify token for %@", buf, 0xCu);
     }
   }
@@ -1091,7 +1065,6 @@ LABEL_45:
 LABEL_9:
   v14 = out_token;
 
-  v15 = *MEMORY[0x1E69E9840];
   return v14;
 }
 

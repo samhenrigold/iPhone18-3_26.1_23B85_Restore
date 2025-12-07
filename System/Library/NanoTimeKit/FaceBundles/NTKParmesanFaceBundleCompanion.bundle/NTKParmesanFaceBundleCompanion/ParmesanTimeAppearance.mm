@@ -48,9 +48,9 @@ LABEL_9:
 - (int64_t)hash
 {
   selfCopy = self;
-  v3 = sub_23BF8931C();
+  v4 = sub_23BF8931C(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 - (_TtC30NTKParmesanFaceBundleCompanion22ParmesanTimeAppearance)init

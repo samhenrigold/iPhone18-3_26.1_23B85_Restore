@@ -144,7 +144,7 @@
         v9 = *(*(&v11 + 1) + 8 * v8);
         if (dword_1002F78F0 <= 30 && (dword_1002F78F0 != -1 || _LogCategory_Initialize()))
         {
-          sub_1001FF180();
+          sub_1001FF180(v9);
         }
 
         [v9 invalidate];
@@ -163,26 +163,30 @@
 - (void)remoteAlertHandleDidActivate:(id)activate
 {
   activateCopy = activate;
-  v4 = activateCopy;
+  v5 = activateCopy;
   if (dword_1002F78F0 <= 30)
   {
-    v5 = activateCopy;
-    if (dword_1002F78F0 != -1 || (activateCopy = _LogCategory_Initialize(), v4 = v5, activateCopy))
+    v6 = activateCopy;
+    if (dword_1002F78F0 != -1 || (activateCopy = _LogCategory_Initialize(), v5 = v6, activateCopy))
     {
-      activateCopy = sub_1001FF1C0();
-      v4 = v5;
+      activateCopy = sub_1001FF1C0(activateCopy, v5, v4);
+      v5 = v6;
     }
   }
 
-  _objc_release_x1(activateCopy, v4);
+  _objc_release_x1(activateCopy, v5);
 }
 
 - (void)remoteAlertHandleDidDeactivate:(id)deactivate
 {
   deactivateCopy = deactivate;
-  if (dword_1002F78F0 <= 30 && (dword_1002F78F0 != -1 || _LogCategory_Initialize()))
+  v7 = deactivateCopy;
+  if (dword_1002F78F0 <= 30)
   {
-    sub_1001FF1DC();
+    if (dword_1002F78F0 != -1 || (deactivateCopy = _LogCategory_Initialize(), deactivateCopy))
+    {
+      sub_1001FF1DC(deactivateCopy, v5, v6);
+    }
   }
 
   dispatchQueue = [(AAProxCardHandler *)self dispatchQueue];

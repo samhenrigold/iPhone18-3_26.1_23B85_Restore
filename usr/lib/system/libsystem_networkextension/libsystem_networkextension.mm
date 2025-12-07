@@ -36,10 +36,10 @@ os_log_t __ne_tracker_should_save_stacktrace_block_invoke()
 
 uint64_t ne_tracker_check_is_hostname_blocked(uint64_t a1, uint64_t a2)
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   if (!a1)
   {
-    goto LABEL_54;
+    return 0;
   }
 
   if (qword_1ED4C39A0 != -1)
@@ -62,7 +62,7 @@ uint64_t ne_tracker_check_is_hostname_blocked(uint64_t a1, uint64_t a2)
     v4 = ne_log_obj_log_obj;
     if (!os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_DEBUG))
     {
-      goto LABEL_54;
+      return 0;
     }
 
     LODWORD(buffer[0]) = 136315138;
@@ -81,7 +81,7 @@ uint64_t ne_tracker_check_is_hostname_blocked(uint64_t a1, uint64_t a2)
     v4 = ne_log_obj_log_obj;
     if (!os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_DEBUG))
     {
-      goto LABEL_54;
+      return 0;
     }
 
     LODWORD(buffer[0]) = 136315138;
@@ -92,7 +92,7 @@ LABEL_26:
     v9 = 12;
 LABEL_53:
     _os_log_debug_impl(&dword_1A90C6000, v8, OS_LOG_TYPE_DEBUG, v5, buffer, v9);
-    goto LABEL_54;
+    return 0;
   }
 
   if (!a2)
@@ -105,9 +105,7 @@ LABEL_53:
 LABEL_16:
     if (!off_1ED4C39D8)
     {
-LABEL_54:
-      v7 = 0;
-      goto LABEL_55;
+      return 0;
     }
 
     if (ne_log_obj_g_init != -1)
@@ -125,8 +123,7 @@ LABEL_54:
       _os_log_debug_impl(&dword_1A90C6000, v6, OS_LOG_TYPE_DEBUG, "%s() proceeding with the external check for hostname: %{private}s", buffer, 0x16u);
     }
 
-    v7 = off_1ED4C39D8(a1, a2);
-    goto LABEL_55;
+    return off_1ED4C39D8(a1, a2);
   }
 
   v10 = *(a2 + 8);
@@ -148,8 +145,8 @@ LABEL_54:
     if (*(a2 + 16))
     {
       v13 = getpid();
-      *&v29 = 0;
-      v28 = 0u;
+      *&v28 = 0;
+      v27 = 0u;
       memset(buffer, 0, sizeof(buffer));
       if (proc_pidinfo(v13, 17, 1uLL, buffer, 56) == 56 && uuid_compare(*(a2 + 16), buffer))
       {
@@ -197,7 +194,7 @@ LABEL_37:
     v16 = ne_log_obj_log_obj;
     if (!os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_DEBUG))
     {
-      goto LABEL_54;
+      return 0;
     }
 
     LODWORD(buffer[0]) = 136315395;
@@ -217,55 +214,55 @@ LABEL_37:
       dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
     }
 
-    v19 = ne_log_obj_log_obj;
+    v18 = ne_log_obj_log_obj;
     if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_DEBUG))
     {
       LODWORD(buffer[0]) = 136315395;
       *(buffer + 4) = "ne_tracker_check_is_hostname_blocked";
       WORD6(buffer[0]) = 2081;
       *(buffer + 14) = a1;
-      _os_log_debug_impl(&dword_1A90C6000, v19, OS_LOG_TYPE_DEBUG, "%s(): Tracking is not allowed by the user, hostname %{private}s is a declared tracker. Returning: ne_tracker_status_blocked", buffer, 0x16u);
+      _os_log_debug_impl(&dword_1A90C6000, v18, OS_LOG_TYPE_DEBUG, "%s(): Tracking is not allowed by the user, hostname %{private}s is a declared tracker. Returning: ne_tracker_status_blocked", buffer, 0x16u);
     }
 
-    v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
     v39 = 0u;
-    v36 = 0u;
+    v40 = 0u;
     v37 = 0u;
-    v34 = 0u;
+    v38 = 0u;
     v35 = 0u;
-    v32 = 0u;
+    v36 = 0u;
     v33 = 0u;
-    v30 = 0u;
+    v34 = 0u;
     v31 = 0u;
-    v28 = 0u;
+    v32 = 0u;
     v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     memset(buffer, 0, sizeof(buffer));
-    v20 = getpid();
-    proc_name(v20, buffer, 0x100u);
+    v19 = getpid();
+    proc_name(v19, buffer, 0x100u);
     if (ne_log_obj_g_init != -1)
     {
       dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
     }
 
-    v21 = ne_log_obj_log_obj;
+    v20 = ne_log_obj_log_obj;
     if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_DEFAULT))
     {
-      v22 = buffer;
+      v21 = buffer;
       if (!LOBYTE(buffer[0]))
       {
-        v22 = "";
+        v21 = "";
       }
 
-      v23 = 136315394;
-      v24 = a1;
-      v25 = 2080;
-      v26 = v22;
-      _os_log_impl(&dword_1A90C6000, v21, OS_LOG_TYPE_DEFAULT, "Denied access to %s because it matches a domain in the NSTrackingDomains of %s, which does not have permission to track.", &v23, 0x16u);
+      v22 = 136315394;
+      v23 = a1;
+      v24 = 2080;
+      v25 = v21;
+      _os_log_impl(&dword_1A90C6000, v20, OS_LOG_TYPE_DEFAULT, "Denied access to %s because it matches a domain in the NSTrackingDomains of %s, which does not have permission to track.", &v22, 0x16u);
     }
 
-    v7 = 1;
+    return 1;
   }
 
   else
@@ -287,8 +284,6 @@ LABEL_37:
     }
   }
 
-LABEL_55:
-  v17 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -442,7 +437,7 @@ uint64_t ne_tracker_build_cache(uint64_t a1, _BYTE *a2)
     }
 
     v10 = !v12;
-    goto LABEL_52;
+    return v10 & 1;
   }
 
   if (ne_log_obj_g_init != -1)
@@ -515,23 +510,23 @@ uint64_t ne_tracker_build_cache(uint64_t a1, _BYTE *a2)
       else
       {
         value = xpc_dictionary_get_value(v8, "domain-dictionary");
-        v19 = xpc_dictionary_get_value(v8, "sorted-domains");
-        v20 = xpc_dictionary_get_int64(v8, "unique-prefix-count");
-        v21 = xpc_dictionary_get_int64(v8, "total-byte-count");
+        v20 = xpc_dictionary_get_value(v8, "sorted-domains");
+        v21 = xpc_dictionary_get_int64(v8, "unique-prefix-count");
+        v22 = xpc_dictionary_get_int64(v8, "total-byte-count");
         if (ne_log_obj_g_init != -1)
         {
           dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
         }
 
-        v22 = ne_log_obj_log_obj;
+        v23 = ne_log_obj_log_obj;
         if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315138;
           v30 = "ne_tracker_fetch_trie_from_nehelper";
-          _os_log_impl(&dword_1A90C6000, v22, OS_LOG_TYPE_DEFAULT, "%s: Building trie from scratch", buf, 0xCu);
+          _os_log_impl(&dword_1A90C6000, v23, OS_LOG_TYPE_DEFAULT, "%s: Building trie from scratch", buf, 0xCu);
         }
 
-        ne_tracker_build_trie(a1, v19, value, v20, v21, -1, 0.0);
+        ne_tracker_build_trie(a1, v20, value, v21, v22, 0xFFFFFFFFLL, 0.0);
         v10 = 1;
       }
     }
@@ -561,7 +556,7 @@ uint64_t ne_tracker_build_cache(uint64_t a1, _BYTE *a2)
 LABEL_51:
     xpc_release(v6);
     ne_tracker_build_cache_cache_ok = v10;
-    goto LABEL_52;
+    return v10 & 1;
   }
 
   v16 = open("/private/var/db/com.apple.networkextension.tracker-info", 0, "/private/var/db/com.apple.networkextension.tracker-info");
@@ -591,19 +586,18 @@ LABEL_51:
   else
   {
     v17 = v16;
-    ne_tracker_build_cache_cache_ok = ne_trie_init_from_file(a1, v16, 0);
+    ne_trie_init_from_file(a1, v16, 0);
+    ne_tracker_build_cache_cache_ok = v18;
     close(v17);
     v10 = ne_tracker_build_cache_cache_ok;
   }
 
-LABEL_52:
-  v23 = *MEMORY[0x1E69E9840];
   return v10 & 1;
 }
 
 BOOL ne_tracker_check_info_changed()
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   check = 0;
   v0 = ne_tracker_check_info_changed_current_info_token;
   if (ne_tracker_check_info_changed_current_info_token < 0)
@@ -614,7 +608,7 @@ BOOL ne_tracker_check_info_changed()
     }
 
     v0 = ne_tracker_check_info_changed_current_info_token;
-    v6 = 0;
+    v5 = 0;
     if (ne_tracker_check_info_changed_current_info_token < 0)
     {
       v1 = 0;
@@ -624,7 +618,7 @@ BOOL ne_tracker_check_info_changed()
 
   else
   {
-    v6 = 0;
+    v5 = 0;
   }
 
   if (notify_check(v0, &check))
@@ -634,24 +628,24 @@ LABEL_4:
 LABEL_6:
     v1 = 0;
     ne_tracker_check_info_changed_current_info_token = -1;
-    v6 = 0;
+    v5 = 0;
     goto LABEL_7;
   }
 
   if (check)
   {
-    if (notify_get_state(ne_tracker_check_info_changed_current_info_token, &v6))
+    if (notify_get_state(ne_tracker_check_info_changed_current_info_token, &v5))
     {
       goto LABEL_4;
     }
 
-    v1 = v6;
+    v1 = v5;
   }
 
   else
   {
     v1 = ne_tracker_check_info_changed_current_timestamp;
-    v6 = ne_tracker_check_info_changed_current_timestamp;
+    v5 = ne_tracker_check_info_changed_current_timestamp;
   }
 
 LABEL_7:
@@ -667,23 +661,21 @@ LABEL_7:
     if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218240;
-      v9 = ne_tracker_check_info_changed_current_timestamp;
-      v10 = 2048;
-      v11 = v6;
+      v8 = ne_tracker_check_info_changed_current_timestamp;
+      v9 = 2048;
+      v10 = v5;
       _os_log_impl(&dword_1A90C6000, v3, OS_LOG_TYPE_DEFAULT, "Tracker info timestamp changed from %llu to %llu", buf, 0x16u);
     }
 
-    ne_tracker_check_info_changed_current_timestamp = v6;
+    ne_tracker_check_info_changed_current_timestamp = v5;
   }
 
-  result = v1 != v2;
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  return v1 != v2;
 }
 
 void __ne_tracker_check_init_block_invoke()
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v0 = dlopen("/usr/lib/libnetworkextension.dylib", 6);
   qword_1ED4C39B0 = v0;
   if (v0)
@@ -703,25 +695,25 @@ void __ne_tracker_check_init_block_invoke()
     v1 = ne_log_obj_log_obj;
     if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_DEBUG))
     {
-      v7 = 67110656;
-      *v8 = off_1ED4C39B8 == 0;
-      *&v8[4] = 1024;
-      *&v8[6] = off_1ED4C39C0 == 0;
-      v9 = 1024;
-      v10 = off_1ED4C39C8 == 0;
-      v11 = 1024;
-      v12 = off_1ED4C39D0 == 0;
-      v13 = 1024;
-      v14 = off_1ED4C39D8 == 0;
-      v15 = 1024;
-      v16 = off_1ED4C39E0 == 0;
-      v17 = 1024;
-      v18 = off_1ED4C39E8 == 0;
+      v6 = 67110656;
+      *v7 = off_1ED4C39B8 == 0;
+      *&v7[4] = 1024;
+      *&v7[6] = off_1ED4C39C0 == 0;
+      v8 = 1024;
+      v9 = off_1ED4C39C8 == 0;
+      v10 = 1024;
+      v11 = off_1ED4C39D0 == 0;
+      v12 = 1024;
+      v13 = off_1ED4C39D8 == 0;
+      v14 = 1024;
+      v15 = off_1ED4C39E0 == 0;
+      v16 = 1024;
+      v17 = off_1ED4C39E8 == 0;
       v2 = "ne_tracker_check subsystem is initialized with: {%d%d%d%d%d%d%d}";
       v3 = v1;
       v4 = 44;
 LABEL_11:
-      _os_log_debug_impl(&dword_1A90C6000, v3, OS_LOG_TYPE_DEBUG, v2, &v7, v4);
+      _os_log_debug_impl(&dword_1A90C6000, v3, OS_LOG_TYPE_DEBUG, v2, &v6, v4);
     }
   }
 
@@ -735,16 +727,14 @@ LABEL_11:
     v5 = ne_log_obj_log_obj;
     if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_DEBUG))
     {
-      v7 = 136315138;
-      *v8 = "/usr/lib/libnetworkextension.dylib";
+      v6 = 136315138;
+      *v7 = "/usr/lib/libnetworkextension.dylib";
       v2 = "ne_tracker_check subsystem failed to load: %s";
       v3 = v5;
       v4 = 12;
       goto LABEL_11;
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 os_log_t __ne_log_obj_block_invoke()
@@ -877,14 +867,20 @@ LABEL_8:
 BOOL __ne_copy_cached_bundle_identifier_for_uuid_block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
   buffer[2] = *MEMORY[0x1E69E9840];
-  result = !a3 || MEMORY[0x1AC5803D0](a3) != MEMORY[0x1E69E9E70] || (buffer[0] = 0, buffer[1] = 0, bytes = xpc_data_get_bytes(a3, buffer, 0, 0x10uLL), bytes != xpc_data_get_length(a3)) || uuid_compare(buffer, *(a1 + 32)) != 0;
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  if (a3 && MEMORY[0x1AC5803D0](a3, a2) == MEMORY[0x1E69E9E70] && (buffer[0] = 0, buffer[1] = 0, bytes = xpc_data_get_bytes(a3, buffer, 0, 0x10uLL), bytes == xpc_data_get_length(a3)))
+  {
+    return uuid_compare(buffer, *(a1 + 32)) != 0;
+  }
+
+  else
+  {
+    return 1;
+  }
 }
 
 void *ne_copy_uuid_cache_locked()
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   os_unfair_lock_assert_owner(&g_uuid_cache_lock);
   g_ne_read_uuid_cache = 0;
   getpid();
@@ -893,51 +889,51 @@ void *ne_copy_uuid_cache_locked()
     getpid();
     if (!sandbox_check())
     {
-      v4 = ne_uuid_cache_changed_cache_change_token;
+      v3 = ne_uuid_cache_changed_cache_change_token;
       if (ne_uuid_cache_changed_cache_change_token == -1)
       {
-        v5 = notify_register_check("com.apple.networkextension.uuidcache", &ne_uuid_cache_changed_cache_change_token);
-        if (v5)
+        v4 = notify_register_check("com.apple.networkextension.uuidcache", &ne_uuid_cache_changed_cache_change_token);
+        if (v4)
         {
-          v6 = v5;
+          v5 = v4;
           ne_uuid_cache_changed_cache_change_token = -1;
           if (ne_log_obj_g_init != -1)
           {
             dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
           }
 
-          v7 = ne_log_obj_log_obj;
+          v6 = ne_log_obj_log_obj;
           if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
           {
             *buf = 136315394;
             *&buf[4] = "com.apple.networkextension.uuidcache";
             *&buf[12] = 1024;
-            *&buf[14] = v6;
-            _os_log_error_impl(&dword_1A90C6000, v7, OS_LOG_TYPE_ERROR, "Failed to register for %s notifications: %u", buf, 0x12u);
+            *&buf[14] = v5;
+            _os_log_error_impl(&dword_1A90C6000, v6, OS_LOG_TYPE_ERROR, "Failed to register for %s notifications: %u", buf, 0x12u);
           }
         }
 
-        v4 = ne_uuid_cache_changed_cache_change_token;
+        v3 = ne_uuid_cache_changed_cache_change_token;
       }
 
-      v8 = ne_uuid_cache_changed_cache_generation;
-      *v54 = ne_uuid_cache_changed_cache_generation;
-      if (v4 < 0)
+      v7 = ne_uuid_cache_changed_cache_generation;
+      *v53 = ne_uuid_cache_changed_cache_generation;
+      if (v3 < 0)
       {
         goto LABEL_23;
       }
 
       check = 0;
-      v9 = notify_check(v4, &check);
-      if (v9)
+      v8 = notify_check(v3, &check);
+      if (v8)
       {
-        v10 = v9;
+        v9 = v8;
         if (ne_log_obj_g_init != -1)
         {
           dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
         }
 
-        v11 = ne_log_obj_log_obj;
+        v10 = ne_log_obj_log_obj;
         if (!os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_21;
@@ -948,30 +944,30 @@ void *ne_copy_uuid_cache_locked()
         *&buf[12] = 1024;
         *&buf[14] = ne_uuid_cache_changed_cache_change_token;
         *&buf[18] = 1024;
-        *&buf[20] = v10;
-        v21 = "Failed to check for changes to notification %s, token %d: %u";
+        *&buf[20] = v9;
+        v20 = "Failed to check for changes to notification %s, token %d: %u";
 LABEL_71:
-        _os_log_error_impl(&dword_1A90C6000, v11, OS_LOG_TYPE_ERROR, v21, buf, 0x18u);
+        _os_log_error_impl(&dword_1A90C6000, v10, OS_LOG_TYPE_ERROR, v20, buf, 0x18u);
 LABEL_21:
         notify_cancel(ne_uuid_cache_changed_cache_change_token);
-        v8 = 0;
+        v7 = 0;
         ne_uuid_cache_changed_cache_change_token = -1;
-        *v54 = 0;
+        *v53 = 0;
         goto LABEL_22;
       }
 
       if (check)
       {
-        state = notify_get_state(ne_uuid_cache_changed_cache_change_token, v54);
+        state = notify_get_state(ne_uuid_cache_changed_cache_change_token, v53);
         if (state)
         {
-          v20 = state;
+          v19 = state;
           if (ne_log_obj_g_init != -1)
           {
             dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
           }
 
-          v11 = ne_log_obj_log_obj;
+          v10 = ne_log_obj_log_obj;
           if (!os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_21;
@@ -982,36 +978,36 @@ LABEL_21:
           *&buf[12] = 1024;
           *&buf[14] = ne_uuid_cache_changed_cache_change_token;
           *&buf[18] = 1024;
-          *&buf[20] = v20;
-          v21 = "Failed to get the state of notification %s, token %d: %u";
+          *&buf[20] = v19;
+          v20 = "Failed to get the state of notification %s, token %d: %u";
           goto LABEL_71;
         }
 
-        v8 = *v54;
+        v7 = *v53;
       }
 
 LABEL_22:
-      if (v8 != ne_uuid_cache_changed_cache_generation)
+      if (v7 != ne_uuid_cache_changed_cache_generation)
       {
         if (ne_log_obj_g_init != -1)
         {
           dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
         }
 
-        v12 = ne_log_obj_log_obj;
-        v13 = os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_DEBUG);
-        v14 = *v54;
-        if (v13)
+        v11 = ne_log_obj_log_obj;
+        v12 = os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_DEBUG);
+        v13 = *v53;
+        if (v12)
         {
           *buf = 134218240;
           *&buf[4] = ne_uuid_cache_changed_cache_generation;
           *&buf[12] = 2048;
-          *&buf[14] = *v54;
-          _os_log_debug_impl(&dword_1A90C6000, v12, OS_LOG_TYPE_DEBUG, "UUID cache generation changed from %llu to %llu", buf, 0x16u);
-          v14 = *v54;
+          *&buf[14] = *v53;
+          _os_log_debug_impl(&dword_1A90C6000, v11, OS_LOG_TYPE_DEBUG, "UUID cache generation changed from %llu to %llu", buf, 0x16u);
+          v13 = *v53;
         }
 
-        ne_uuid_cache_changed_cache_generation = v14;
+        ne_uuid_cache_changed_cache_generation = v13;
         g_ne_read_uuid_cache = 1;
         if (g_uuid_cache)
         {
@@ -1023,7 +1019,7 @@ LABEL_22:
       }
 
 LABEL_23:
-      ne_uuid_cache_changed_cache_generation = v8;
+      ne_uuid_cache_changed_cache_generation = v7;
       v1 = g_uuid_cache;
       if (g_uuid_cache)
       {
@@ -1032,13 +1028,13 @@ LABEL_23:
 
       g_ne_read_uuid_cache = 1;
 LABEL_31:
-      v15 = open("/Library/Preferences/com.apple.networkextension.uuidcache.plist", 0, "/Library/Preferences/com.apple.networkextension.uuidcache.plist");
-      if (v15 < 0)
+      v14 = open("/Library/Preferences/com.apple.networkextension.uuidcache.plist", 0, "/Library/Preferences/com.apple.networkextension.uuidcache.plist");
+      if (v14 < 0)
       {
         if (*__error() != 2 && *__error() != 1)
         {
-          v22 = *__error();
-          if (strerror_r(v22, buf, 0x80uLL))
+          v21 = *__error();
+          if (strerror_r(v21, buf, 0x80uLL))
           {
             buf[0] = 0;
           }
@@ -1048,16 +1044,16 @@ LABEL_31:
             dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
           }
 
-          v23 = ne_log_obj_log_obj;
+          v22 = ne_log_obj_log_obj;
           if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_FAULT))
           {
-            *v54 = 136315650;
-            *&v54[4] = "/Library/Preferences/com.apple.networkextension.uuidcache.plist";
-            *&v54[12] = 1024;
-            *&v54[14] = v22;
-            *&v54[18] = 2080;
-            *&v54[20] = buf;
-            _os_log_fault_impl(&dword_1A90C6000, v23, OS_LOG_TYPE_FAULT, "Failed to open %s: [%d] %s", v54, 0x1Cu);
+            *v53 = 136315650;
+            *&v53[4] = "/Library/Preferences/com.apple.networkextension.uuidcache.plist";
+            *&v53[12] = 1024;
+            *&v53[14] = v21;
+            *&v53[18] = 2080;
+            *&v53[20] = buf;
+            _os_log_fault_impl(&dword_1A90C6000, v22, OS_LOG_TYPE_FAULT, "Failed to open %s: [%d] %s", v53, 0x1Cu);
           }
         }
 
@@ -1065,20 +1061,20 @@ LABEL_68:
         v1 = g_uuid_cache;
         if (!g_uuid_cache)
         {
-          goto LABEL_8;
+          return v1;
         }
 
 LABEL_69:
         xpc_retain(v1);
-        goto LABEL_8;
+        return v1;
       }
 
-      v16 = v15;
-      memset(&v48, 0, sizeof(v48));
-      if (fstat(v15, &v48))
+      v15 = v14;
+      memset(&v47, 0, sizeof(v47));
+      if (fstat(v14, &v47))
       {
-        v17 = *__error();
-        if (strerror_r(v17, buf, 0x80uLL))
+        v16 = *__error();
+        if (strerror_r(v16, buf, 0x80uLL))
         {
           buf[0] = 0;
         }
@@ -1088,30 +1084,30 @@ LABEL_69:
           dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
         }
 
-        v18 = ne_log_obj_log_obj;
+        v17 = ne_log_obj_log_obj;
         if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_FAULT))
         {
-          *v54 = 136315650;
-          *&v54[4] = "/Library/Preferences/com.apple.networkextension.uuidcache.plist";
-          *&v54[12] = 1024;
-          *&v54[14] = v17;
-          *&v54[18] = 2080;
-          *&v54[20] = buf;
-          _os_log_fault_impl(&dword_1A90C6000, v18, OS_LOG_TYPE_FAULT, "Failed to fstat %s: [%d] %s", v54, 0x1Cu);
+          *v53 = 136315650;
+          *&v53[4] = "/Library/Preferences/com.apple.networkextension.uuidcache.plist";
+          *&v53[12] = 1024;
+          *&v53[14] = v16;
+          *&v53[18] = 2080;
+          *&v53[20] = buf;
+          _os_log_fault_impl(&dword_1A90C6000, v17, OS_LOG_TYPE_FAULT, "Failed to fstat %s: [%d] %s", v53, 0x1Cu);
         }
 
         goto LABEL_67;
       }
 
-      st_size = v48.st_size;
-      if ((v48.st_size - 131073) <= 0xFFFFFFFFFFFDFFFFLL)
+      st_size = v47.st_size;
+      if ((v47.st_size - 131073) <= 0xFFFFFFFFFFFDFFFFLL)
       {
         if (ne_log_obj_g_init != -1)
         {
           dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
         }
 
-        v25 = ne_log_obj_log_obj;
+        v24 = ne_log_obj_log_obj;
         if (!os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_67;
@@ -1121,21 +1117,21 @@ LABEL_69:
         *&buf[4] = "/Library/Preferences/com.apple.networkextension.uuidcache.plist";
         *&buf[12] = 2048;
         *&buf[14] = st_size;
-        v26 = "%s size is 0 or is too big: %lu";
-        v27 = v25;
-        v28 = 22;
+        v25 = "%s size is 0 or is too big: %lu";
+        v26 = v24;
+        v27 = 22;
         goto LABEL_89;
       }
 
-      v29 = malloc_type_malloc(v48.st_size, 0x100004077774924uLL);
-      if (!v29)
+      v28 = malloc_type_malloc(v47.st_size, 0x100004077774924uLL);
+      if (!v28)
       {
         if (ne_log_obj_g_init != -1)
         {
           dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
         }
 
-        v34 = ne_log_obj_log_obj;
+        v33 = ne_log_obj_log_obj;
         if (!os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_67;
@@ -1143,23 +1139,23 @@ LABEL_69:
 
         *buf = 134217984;
         *&buf[4] = st_size;
-        v26 = "Failed to allocate %lu bytes";
-        v27 = v34;
-        v28 = 12;
+        v25 = "Failed to allocate %lu bytes";
+        v26 = v33;
+        v27 = 12;
 LABEL_89:
-        _os_log_error_impl(&dword_1A90C6000, v27, OS_LOG_TYPE_ERROR, v26, buf, v28);
+        _os_log_error_impl(&dword_1A90C6000, v26, OS_LOG_TYPE_ERROR, v25, buf, v27);
 LABEL_67:
-        close(v16);
+        close(v15);
         goto LABEL_68;
       }
 
-      v30 = v29;
-      v31 = pread(v16, v29, st_size, 0);
-      if (v31 != st_size)
+      v29 = v28;
+      v30 = pread(v15, v28, st_size, 0);
+      if (v30 != st_size)
       {
-        v35 = v31;
-        v36 = *__error();
-        if (strerror_r(v36, buf, 0x80uLL))
+        v34 = v30;
+        v35 = *__error();
+        if (strerror_r(v35, buf, 0x80uLL))
         {
           buf[0] = 0;
         }
@@ -1169,39 +1165,39 @@ LABEL_67:
           dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
         }
 
-        v37 = ne_log_obj_log_obj;
+        v36 = ne_log_obj_log_obj;
         if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_FAULT))
         {
-          *v54 = 136316162;
-          *&v54[4] = "/Library/Preferences/com.apple.networkextension.uuidcache.plist";
-          *&v54[12] = 2048;
-          *&v54[14] = v35;
-          *&v54[22] = 2048;
-          *&v54[24] = st_size;
-          *&v54[32] = 1024;
-          *&v54[34] = v36;
-          v55 = 2080;
-          v56 = buf;
-          _os_log_fault_impl(&dword_1A90C6000, v37, OS_LOG_TYPE_FAULT, "Failed to read entire contents of %s, %ld != %lu: [%d] %s", v54, 0x30u);
+          *v53 = 136316162;
+          *&v53[4] = "/Library/Preferences/com.apple.networkextension.uuidcache.plist";
+          *&v53[12] = 2048;
+          *&v53[14] = v34;
+          *&v53[22] = 2048;
+          *&v53[24] = st_size;
+          *&v53[32] = 1024;
+          *&v53[34] = v35;
+          v54 = 2080;
+          v55 = buf;
+          _os_log_fault_impl(&dword_1A90C6000, v36, OS_LOG_TYPE_FAULT, "Failed to read entire contents of %s, %ld != %lu: [%d] %s", v53, 0x30u);
         }
 
         goto LABEL_78;
       }
 
-      v32 = xpc_create_from_plist();
-      if (!v32)
+      v31 = xpc_create_from_plist();
+      if (!v31)
       {
 LABEL_78:
-        close(v16);
-        free(v30);
+        close(v15);
+        free(v29);
         goto LABEL_68;
       }
 
-      v33 = v32;
+      v32 = v31;
       if (MEMORY[0x1AC5803D0]() != MEMORY[0x1E69E9E80])
       {
 LABEL_62:
-        xpc_release(v33);
+        xpc_release(v32);
         goto LABEL_78;
       }
 
@@ -1210,12 +1206,12 @@ LABEL_62:
         dispatch_once(&ne_copy_uuid_cache_locked_once_token, &__block_literal_global_161);
       }
 
-      string = xpc_dictionary_get_string(v33, "os-version");
+      string = xpc_dictionary_get_string(v32, "os-version");
       if (string)
       {
         if (ne_copy_uuid_cache_locked_g_my_os_version)
         {
-          v39 = string;
+          v38 = string;
           if (strcmp(string, ne_copy_uuid_cache_locked_g_my_os_version))
           {
             if (ne_log_obj_g_init != -1)
@@ -1223,7 +1219,7 @@ LABEL_62:
               dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
             }
 
-            v40 = ne_log_obj_log_obj;
+            v39 = ne_log_obj_log_obj;
             if (!os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_DEFAULT))
             {
 LABEL_103:
@@ -1238,12 +1234,12 @@ LABEL_103:
             *buf = 136315394;
             *&buf[4] = ne_copy_uuid_cache_locked_g_my_os_version;
             *&buf[12] = 2080;
-            *&buf[14] = v39;
-            v41 = "Not using the UUID cache because the current OS version (%s) does not equal the cache OS version (%s)";
+            *&buf[14] = v38;
+            v40 = "Not using the UUID cache because the current OS version (%s) does not equal the cache OS version (%s)";
             p_check = buf;
-            v43 = v40;
+            v42 = v39;
 LABEL_102:
-            _os_log_impl(&dword_1A90C6000, v43, OS_LOG_TYPE_DEFAULT, v41, p_check, 0x16u);
+            _os_log_impl(&dword_1A90C6000, v42, OS_LOG_TYPE_DEFAULT, v40, p_check, 0x16u);
             goto LABEL_103;
           }
         }
@@ -1255,46 +1251,46 @@ LABEL_102:
             dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
           }
 
-          v44 = ne_log_obj_log_obj;
+          v43 = ne_log_obj_log_obj;
           if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
           {
             *buf = 0;
-            _os_log_error_impl(&dword_1A90C6000, v44, OS_LOG_TYPE_ERROR, "Failed to get the current OS version", buf, 2u);
+            _os_log_error_impl(&dword_1A90C6000, v43, OS_LOG_TYPE_ERROR, "Failed to get the current OS version", buf, 2u);
           }
         }
       }
 
       memset(dst, 0, sizeof(dst));
       length = 0;
-      data = xpc_dictionary_get_data(v33, "boot-uuid", &length);
+      data = xpc_dictionary_get_data(v32, "boot-uuid", &length);
       if (length != 16 || (uuid_copy(dst, data), uuid_is_null(ne_copy_uuid_cache_locked_g_my_boot_session_uuid)) || !uuid_compare(dst, ne_copy_uuid_cache_locked_g_my_boot_session_uuid))
       {
-        g_uuid_cache = v33;
+        g_uuid_cache = v32;
         goto LABEL_78;
       }
 
       memset(buf, 0, 37);
-      memset(v54, 0, 37);
+      memset(v53, 0, 37);
       uuid_unparse(ne_copy_uuid_cache_locked_g_my_boot_session_uuid, buf);
-      uuid_unparse(dst, v54);
+      uuid_unparse(dst, v53);
       if (ne_log_obj_g_init != -1)
       {
         dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
       }
 
-      v46 = ne_log_obj_log_obj;
+      v45 = ne_log_obj_log_obj;
       if (!os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_103;
       }
 
       check = 136315394;
-      v50 = buf;
-      v51 = 2080;
-      v52 = v54;
-      v41 = "Not using the UUID cache because the current boot session UUID (%s) does not equal the cache boot session UUID (%s)";
+      v49 = buf;
+      v50 = 2080;
+      v51 = v53;
+      v40 = "Not using the UUID cache because the current boot session UUID (%s) does not equal the cache boot session UUID (%s)";
       p_check = &check;
-      v43 = v46;
+      v42 = v45;
       goto LABEL_102;
     }
   }
@@ -1311,10 +1307,7 @@ LABEL_102:
     _os_log_impl(&dword_1A90C6000, v0, OS_LOG_TYPE_DEFAULT, "UUID cache sandbox check failed", buf, 2u);
   }
 
-  v1 = 0;
-LABEL_8:
-  v2 = *MEMORY[0x1E69E9840];
-  return v1;
+  return 0;
 }
 
 uint64_t ne_copy_cached_bundle_identifier_for_uuid(uint64_t a1)
@@ -1335,15 +1328,8 @@ uint64_t ne_copy_cached_bundle_identifier_for_uuid(uint64_t a1)
     if (v4 == MEMORY[0x1E69E9E80])
     {
       dictionary = xpc_dictionary_get_dictionary(v3, "uuid-mappings");
-      if (!dictionary)
+      if (!dictionary || (v7 = dictionary, MEMORY[0x1AC5803D0]() != v5) || (v13[0] = MEMORY[0x1E69E9820], v13[1] = 0x40000000, v13[2] = __ne_copy_cached_bundle_identifier_for_uuid_block_invoke, v13[3] = &unk_1E786A898, v13[4] = &v14, v13[5] = a1, xpc_dictionary_apply(v7, v13), !v15[3]))
       {
-        goto LABEL_17;
-      }
-
-      v7 = dictionary;
-      if (MEMORY[0x1AC5803D0]() != v5 || (v13[0] = MEMORY[0x1E69E9820], v13[1] = 0x40000000, v13[2] = __ne_copy_cached_bundle_identifier_for_uuid_block_invoke, v13[3] = &unk_1E786A898, v13[4] = &v14, v13[5] = a1, xpc_dictionary_apply(v7, v13), !v15[3]))
-      {
-LABEL_17:
         if (MEMORY[0x1AC5803D0](v3) == v5 && (v11 = xpc_dictionary_get_dictionary(v3, "synthesized-uuid-mappings")) != 0 && (v12 = v11, MEMORY[0x1AC5803D0]() == v5))
         {
           v19 = 0;
@@ -1382,7 +1368,7 @@ LABEL_17:
 unsigned __int8 *NEHelperCacheCopySigningIdentifierMapping(unsigned __int8 *uu)
 {
   v1 = uu;
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (uu)
   {
     memset(out, 0, 37);
@@ -1399,11 +1385,11 @@ unsigned __int8 *NEHelperCacheCopySigningIdentifierMapping(unsigned __int8 *uu)
     {
       if (v3)
       {
-        v6 = 136315394;
-        v7 = out;
-        v8 = 2080;
+        v5 = 136315394;
+        v6 = out;
+        v7 = 2080;
         string_ptr = xpc_string_get_string_ptr(v1);
-        _os_log_debug_impl(&dword_1A90C6000, v2, OS_LOG_TYPE_DEBUG, "Signing identifier cache hit for %s: %s", &v6, 0x16u);
+        _os_log_debug_impl(&dword_1A90C6000, v2, OS_LOG_TYPE_DEBUG, "Signing identifier cache hit for %s: %s", &v5, 0x16u);
       }
     }
 
@@ -1411,29 +1397,27 @@ unsigned __int8 *NEHelperCacheCopySigningIdentifierMapping(unsigned __int8 *uu)
     {
       if (v3)
       {
-        v6 = 136315138;
-        v7 = out;
-        _os_log_debug_impl(&dword_1A90C6000, v2, OS_LOG_TYPE_DEBUG, "Signing identifier cache miss for %s", &v6, 0xCu);
+        v5 = 136315138;
+        v6 = out;
+        _os_log_debug_impl(&dword_1A90C6000, v2, OS_LOG_TYPE_DEBUG, "Signing identifier cache miss for %s", &v5, 0xCu);
       }
 
-      v1 = 0;
+      return 0;
     }
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return v1;
 }
 
-xpc_object_t NEHelperCacheCopyAppUUIDMappingForUIDExtended(unsigned int a1, const char *a2, const char *a3, int a4)
+xpc_object_t NEHelperCacheCopyAppUUIDMappingForUIDExtended(unsigned int a1, const char *a2, const char *a3, uint64_t a4)
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   if (!a2)
   {
-LABEL_39:
-    v21 = 0;
-    goto LABEL_40;
+    return 0;
   }
 
+  v4 = a4;
   if (a3)
   {
     if (ne_log_obj_g_init != -1)
@@ -1447,16 +1431,16 @@ LABEL_39:
       goto LABEL_8;
     }
 
-    v38 = 136315394;
-    v39 = a2;
-    v40 = 2080;
-    v41 = a3;
+    v37 = 136315394;
+    v38 = a2;
+    v39 = 2080;
+    v40 = a3;
     v9 = "UUID cache ignored for %s, path is set: %s";
     v10 = v8;
     v11 = OS_LOG_TYPE_INFO;
     v12 = 22;
 LABEL_7:
-    _os_log_impl(&dword_1A90C6000, v10, v11, v9, &v38, v12);
+    _os_log_impl(&dword_1A90C6000, v10, v11, v9, &v37, v12);
 LABEL_8:
     v13 = xpc_dictionary_create(0, 0, 0);
     xpc_dictionary_set_uint64(v13, "delegate-class-id", 1uLL);
@@ -1467,7 +1451,7 @@ LABEL_8:
       xpc_dictionary_set_string(v13, "cache-executable-path", a3);
     }
 
-    if (a4)
+    if (v4)
     {
       xpc_dictionary_set_BOOL(v13, "cache-allow-synthesis", 1);
     }
@@ -1502,7 +1486,7 @@ LABEL_8:
     }
 
     xpc_release(v13);
-    goto LABEL_40;
+    return v21;
   }
 
   v22 = ne_copy_cached_uuids_for_bundle_identifier(a2, a4);
@@ -1519,8 +1503,8 @@ LABEL_8:
       goto LABEL_8;
     }
 
-    v38 = 136315138;
-    v39 = a2;
+    v37 = 136315138;
+    v38 = a2;
     v9 = "UUID cache miss for %s";
     v10 = v34;
     v11 = OS_LOG_TYPE_DEFAULT;
@@ -1540,12 +1524,12 @@ LABEL_8:
     v35 = ne_log_obj_log_obj;
     if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_INFO))
     {
-      v38 = 136315138;
-      v39 = a2;
-      _os_log_impl(&dword_1A90C6000, v35, OS_LOG_TYPE_INFO, "UUID cache hit (negative) for %s", &v38, 0xCu);
+      v37 = 136315138;
+      v38 = a2;
+      _os_log_impl(&dword_1A90C6000, v35, OS_LOG_TYPE_INFO, "UUID cache hit (negative) for %s", &v37, 0xCu);
     }
 
-    goto LABEL_39;
+    return 0;
   }
 
   if (ne_log_obj_g_init != -1)
@@ -1556,13 +1540,11 @@ LABEL_8:
   v23 = ne_log_obj_log_obj;
   if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_INFO))
   {
-    v38 = 136315138;
-    v39 = a2;
-    _os_log_impl(&dword_1A90C6000, v23, OS_LOG_TYPE_INFO, "UUID cache hit for %s", &v38, 0xCu);
+    v37 = 136315138;
+    v38 = a2;
+    _os_log_impl(&dword_1A90C6000, v23, OS_LOG_TYPE_INFO, "UUID cache hit for %s", &v37, 0xCu);
   }
 
-LABEL_40:
-  v36 = *MEMORY[0x1E69E9840];
   return v21;
 }
 
@@ -1651,7 +1633,7 @@ uint64_t __ne_copy_cached_uuids_for_bundle_identifier_block_invoke(uint64_t a1, 
   buffer[2] = *MEMORY[0x1E69E9840];
   if (a3)
   {
-    if (MEMORY[0x1AC5803D0](a3) == MEMORY[0x1E69E9E70])
+    if (MEMORY[0x1AC5803D0](a3, a2) == MEMORY[0x1E69E9E70])
     {
       buffer[0] = 0;
       buffer[1] = 0;
@@ -1669,7 +1651,6 @@ uint64_t __ne_copy_cached_uuids_for_bundle_identifier_block_invoke(uint64_t a1, 
     }
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -1686,19 +1667,27 @@ uint64_t ne_log_obj()
 uint64_t __ne_copy_cached_bundle_identifier_for_synthesized_uuid_locked_block_invoke(uint64_t a1, const char *a2, void *a3)
 {
   buffer[2] = *MEMORY[0x1E69E9840];
-  if (a3 && MEMORY[0x1AC5803D0](a3) == MEMORY[0x1E69E9E70] && (buffer[0] = 0, buffer[1] = 0, bytes = xpc_data_get_bytes(a3, buffer, 0, 0x10uLL), bytes == xpc_data_get_length(a3)) && !uuid_compare(buffer, *(a1 + 40)))
+  if (!a3)
   {
-    v9 = xpc_string_create(a2);
-    result = 0;
-    *(*(*(a1 + 32) + 8) + 24) = v9;
+    return 1;
   }
 
-  else
+  if (MEMORY[0x1AC5803D0](a3) != MEMORY[0x1E69E9E70])
   {
-    result = 1;
+    return 1;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
+  buffer[0] = 0;
+  buffer[1] = 0;
+  bytes = xpc_data_get_bytes(a3, buffer, 0, 0x10uLL);
+  if (bytes != xpc_data_get_length(a3) || uuid_compare(buffer, *(a1 + 40)))
+  {
+    return 1;
+  }
+
+  v8 = xpc_string_create(a2);
+  result = 0;
+  *(*(*(a1 + 32) + 8) + 24) = v8;
   return result;
 }
 
@@ -1769,9 +1758,9 @@ void __ne_copy_uuid_cache_locked_block_invoke()
 
 void *ne_session_copy_os_version_string()
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v9 = 0;
-  if (sysctlbyname("kern.osversion", 0, &v9, 0, 0))
+  v15 = *MEMORY[0x1E69E9840];
+  v8 = 0;
+  if (sysctlbyname("kern.osversion", 0, &v8, 0, 0))
   {
     v0 = *__error();
     if (strerror_r(v0, __strerrbuf, 0x80uLL))
@@ -1788,27 +1777,27 @@ void *ne_session_copy_os_version_string()
     if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_FAULT))
     {
       *buf = 67109378;
-      *v11 = v0;
-      *&v11[4] = 2080;
-      *&v11[6] = __strerrbuf;
+      *v10 = v0;
+      *&v10[4] = 2080;
+      *&v10[6] = __strerrbuf;
       _os_log_fault_impl(&dword_1A90C6000, v1, OS_LOG_TYPE_FAULT, "Failed to get the size of the kern.osversion sysctl value: [%d] %s", buf, 0x12u);
     }
   }
 
   else
   {
-    v5 = malloc_type_malloc(v9 + 1, 0x100004077774924uLL);
-    if (v5)
+    v4 = malloc_type_malloc(v8 + 1, 0x100004077774924uLL);
+    if (v4)
     {
-      v2 = v5;
-      bzero(v5, v9 + 1);
-      if (!sysctlbyname("kern.osversion", v2, &v9, 0, 0))
+      v2 = v4;
+      bzero(v4, v8 + 1);
+      if (!sysctlbyname("kern.osversion", v2, &v8, 0, 0))
       {
-        goto LABEL_9;
+        return v2;
       }
 
-      v6 = *__error();
-      if (strerror_r(v6, __strerrbuf, 0x80uLL))
+      v5 = *__error();
+      if (strerror_r(v5, __strerrbuf, 0x80uLL))
       {
         __strerrbuf[0] = 0;
       }
@@ -1818,16 +1807,16 @@ void *ne_session_copy_os_version_string()
         dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
       }
 
-      v7 = ne_log_obj_log_obj;
+      v6 = ne_log_obj_log_obj;
       if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_FAULT))
       {
         *buf = 134218498;
-        *v11 = v9;
-        *&v11[8] = 1024;
-        *&v11[10] = v6;
-        v12 = 2080;
-        v13 = __strerrbuf;
-        _os_log_fault_impl(&dword_1A90C6000, v7, OS_LOG_TYPE_FAULT, "Failed to get the kern.osversion sysctl value (%lu bytes): [%d] %s", buf, 0x1Cu);
+        *v10 = v8;
+        *&v10[8] = 1024;
+        *&v10[10] = v5;
+        v11 = 2080;
+        v12 = __strerrbuf;
+        _os_log_fault_impl(&dword_1A90C6000, v6, OS_LOG_TYPE_FAULT, "Failed to get the kern.osversion sysctl value (%lu bytes): [%d] %s", buf, 0x1Cu);
       }
 
       free(v2);
@@ -1840,28 +1829,25 @@ void *ne_session_copy_os_version_string()
         dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
       }
 
-      v8 = ne_log_obj_log_obj;
+      v7 = ne_log_obj_log_obj;
       if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
       {
         *__strerrbuf = 134217984;
-        v15 = v9 + 1;
-        _os_log_error_impl(&dword_1A90C6000, v8, OS_LOG_TYPE_ERROR, "Failed to allocate %lu bytes for the version string", __strerrbuf, 0xCu);
+        v14 = v8 + 1;
+        _os_log_error_impl(&dword_1A90C6000, v7, OS_LOG_TYPE_ERROR, "Failed to allocate %lu bytes for the version string", __strerrbuf, 0xCu);
       }
     }
   }
 
-  v2 = 0;
-LABEL_9:
-  v3 = *MEMORY[0x1E69E9840];
-  return v2;
+  return 0;
 }
 
 BOOL ne_session_get_boot_session_uuid(unsigned __int8 *a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   memset(in, 0, sizeof(in));
-  v7 = 37;
-  v2 = sysctlbyname("kern.bootsessionuuid", in, &v7, 0, 0);
+  v6 = 37;
+  v2 = sysctlbyname("kern.bootsessionuuid", in, &v6, 0, 0);
   if (v2)
   {
     v3 = *__error();
@@ -1879,9 +1865,9 @@ BOOL ne_session_get_boot_session_uuid(unsigned __int8 *a1)
     if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_FAULT))
     {
       *buf = 67109378;
-      v9 = v3;
-      v10 = 2080;
-      v11 = __strerrbuf;
+      v8 = v3;
+      v9 = 2080;
+      v10 = __strerrbuf;
       _os_log_fault_impl(&dword_1A90C6000, v4, OS_LOG_TYPE_FAULT, "Failed to get kern.bootsessionuuid: [%d] %s", buf, 0x12u);
     }
   }
@@ -1891,9 +1877,7 @@ BOOL ne_session_get_boot_session_uuid(unsigned __int8 *a1)
     uuid_parse(in, a1);
   }
 
-  result = v2 == 0;
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return v2 == 0;
 }
 
 uint64_t ne_tracker_check_tcc(uint64_t a1)
@@ -1946,10 +1930,10 @@ uint64_t ne_tracker_check_tcc(uint64_t a1)
 
 xpc_object_t NEHelperGetAppTrackerDomains(const char *a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (!a1)
   {
-    goto LABEL_8;
+    return 0;
   }
 
   v2 = xpc_dictionary_create(0, 0, 0);
@@ -1960,9 +1944,7 @@ xpc_object_t NEHelperGetAppTrackerDomains(const char *a1)
   if (!v3)
   {
     xpc_release(v2);
-LABEL_8:
-    v7 = 0;
-    goto LABEL_9;
+    return 0;
   }
 
   v4 = v3;
@@ -1979,24 +1961,24 @@ LABEL_8:
 
     if (MEMORY[0x1AC5803D0](value) == v6)
     {
-      v11 = xpc_dictionary_get_value(v7, "app-tracker-domains");
-      if (v11)
+      v10 = xpc_dictionary_get_value(v7, "app-tracker-domains");
+      if (v10)
       {
-        v12 = v11;
+        v11 = v10;
         if (MEMORY[0x1AC5803D0]() == MEMORY[0x1E69E9E50])
         {
-          v7 = xpc_copy(v12);
+          v7 = xpc_copy(v11);
           if (ne_log_obj_g_init != -1)
           {
             dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
           }
 
-          v14 = ne_log_obj_log_obj;
+          v13 = ne_log_obj_log_obj;
           if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_DEBUG))
           {
-            v15 = 134217984;
+            v14 = 134217984;
             count = xpc_array_get_count(v7);
-            _os_log_debug_impl(&dword_1A90C6000, v14, OS_LOG_TYPE_DEBUG, "NEHelperGetAppTrackerDomains(): number of elements in return_array: (%zu)", &v15, 0xCu);
+            _os_log_debug_impl(&dword_1A90C6000, v13, OS_LOG_TYPE_DEBUG, "NEHelperGetAppTrackerDomains(): number of elements in return_array: (%zu)", &v14, 0xCu);
           }
 
           goto LABEL_6;
@@ -2008,11 +1990,11 @@ LABEL_8:
         dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
       }
 
-      v13 = ne_log_obj_log_obj;
+      v12 = ne_log_obj_log_obj;
       if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_DEBUG))
       {
-        LOWORD(v15) = 0;
-        _os_log_debug_impl(&dword_1A90C6000, v13, OS_LOG_TYPE_DEBUG, "NEHelperGetAppTrackerDomains(): return_array is empty", &v15, 2u);
+        LOWORD(v14) = 0;
+        _os_log_debug_impl(&dword_1A90C6000, v12, OS_LOG_TYPE_DEBUG, "NEHelperGetAppTrackerDomains(): return_array is empty", &v14, 2u);
       }
     }
   }
@@ -2021,14 +2003,12 @@ LABEL_8:
 LABEL_6:
   xpc_release(v2);
   xpc_release(v4);
-LABEL_9:
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 xpc_object_t NEHelperCopyResponse(void *a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (!a1 || (v2 = MEMORY[0x1AC5803D0](), v3 = MEMORY[0x1E69E9E80], v2 != MEMORY[0x1E69E9E80]))
   {
     if (ne_log_obj_g_init != -1)
@@ -2039,16 +2019,14 @@ xpc_object_t NEHelperCopyResponse(void *a1)
     v4 = ne_log_obj_log_obj;
     if (!os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_6;
+      return 0;
     }
 
-    LOWORD(v14) = 0;
-    v9 = "request is not a valid XPC dictionary";
+    LOWORD(v13) = 0;
+    v8 = "request is not a valid XPC dictionary";
 LABEL_22:
-    _os_log_error_impl(&dword_1A90C6000, v4, OS_LOG_TYPE_ERROR, v9, &v14, 2u);
-LABEL_6:
-    v5 = 0;
-    goto LABEL_7;
+    _os_log_error_impl(&dword_1A90C6000, v4, OS_LOG_TYPE_ERROR, v8, &v13, 2u);
+    return 0;
   }
 
   uint64 = xpc_dictionary_get_uint64(a1, "delegate-class-id");
@@ -2062,16 +2040,16 @@ LABEL_6:
     v4 = ne_log_obj_log_obj;
     if (!os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_6;
+      return 0;
     }
 
-    LOWORD(v14) = 0;
-    v9 = "request has an invalid delegate class ID";
+    LOWORD(v13) = 0;
+    v8 = "request has an invalid delegate class ID";
     goto LABEL_22;
   }
 
-  v10 = nehelper_copy_connection_for_delegate_class(uint64 & 0xF);
-  if (!v10)
+  v9 = nehelper_copy_connection_for_delegate_class(uint64 & 0xF);
+  if (!v9)
   {
     if (ne_log_obj_g_init != -1)
     {
@@ -2081,17 +2059,17 @@ LABEL_6:
     v4 = ne_log_obj_log_obj;
     if (!os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_6;
+      return 0;
     }
 
-    LOWORD(v14) = 0;
-    v9 = "nehelper_copy_connection_for_delegate_class() returned NULL";
+    LOWORD(v13) = 0;
+    v8 = "nehelper_copy_connection_for_delegate_class() returned NULL";
     goto LABEL_22;
   }
 
-  v11 = v10;
-  v5 = xpc_connection_send_message_with_reply_sync(v10, a1);
-  xpc_release(v11);
+  v10 = v9;
+  v5 = xpc_connection_send_message_with_reply_sync(v9, a1);
+  xpc_release(v10);
   if (!v5)
   {
     if (ne_log_obj_g_init != -1)
@@ -2102,35 +2080,33 @@ LABEL_6:
     v4 = ne_log_obj_log_obj;
     if (!os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_6;
+      return 0;
     }
 
-    LOWORD(v14) = 0;
-    v9 = "nehelper sent NULL response";
+    LOWORD(v13) = 0;
+    v8 = "nehelper sent NULL response";
     goto LABEL_22;
   }
 
   if (MEMORY[0x1AC5803D0](v5) != v3)
   {
-    v12 = MEMORY[0x1AC5801F0](v5);
+    v11 = MEMORY[0x1AC5801F0](v5);
     if (ne_log_obj_g_init != -1)
     {
       dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
     }
 
-    v13 = ne_log_obj_log_obj;
+    v12 = ne_log_obj_log_obj;
     if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
     {
-      v14 = 136315138;
-      v15 = v12;
-      _os_log_error_impl(&dword_1A90C6000, v13, OS_LOG_TYPE_ERROR, "nehelper sent invalid response: %s", &v14, 0xCu);
+      v13 = 136315138;
+      v14 = v11;
+      _os_log_error_impl(&dword_1A90C6000, v12, OS_LOG_TYPE_ERROR, "nehelper sent invalid response: %s", &v13, 0xCu);
     }
 
-    free(v12);
+    free(v11);
   }
 
-LABEL_7:
-  v6 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -2145,7 +2121,7 @@ dispatch_queue_t __globals_init_block_invoke()
 
 _xpc_connection_s *nehelper_copy_connection_for_delegate_class(unint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (globals_init_sess_init != -1)
   {
     dispatch_once(&globals_init_sess_init, &__block_literal_global_181);
@@ -2167,7 +2143,7 @@ _xpc_connection_s *nehelper_copy_connection_for_delegate_class(unint64_t a1)
       if (v5)
       {
         *buf = 134217984;
-        v12 = a1;
+        v11 = a1;
         _os_log_debug_impl(&dword_1A90C6000, v4, OS_LOG_TYPE_DEBUG, "Re-using existing nehelper connection for delegate class %llu", buf, 0xCu);
       }
     }
@@ -2177,7 +2153,7 @@ _xpc_connection_s *nehelper_copy_connection_for_delegate_class(unint64_t a1)
       if (v5)
       {
         *buf = 134217984;
-        v12 = a1;
+        v11 = a1;
         _os_log_debug_impl(&dword_1A90C6000, v4, OS_LOG_TYPE_DEBUG, "Creating a new nehelper connection for delegate class %llu", buf, 0xCu);
       }
 
@@ -2189,14 +2165,14 @@ _xpc_connection_s *nehelper_copy_connection_for_delegate_class(unint64_t a1)
           dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
         }
 
-        v9 = ne_log_obj_log_obj;
+        v8 = ne_log_obj_log_obj;
         if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315394;
-          v12 = "com.apple.nehelper";
-          v13 = 2048;
-          v14 = a1;
-          _os_log_error_impl(&dword_1A90C6000, v9, OS_LOG_TYPE_ERROR, "xpc_connection_create_mach_service(%s, XPC_CONNECTION_MACH_SERVICE_PRIVILEGED) failed for delegate class %llu", buf, 0x16u);
+          v11 = "com.apple.nehelper";
+          v12 = 2048;
+          v13 = a1;
+          _os_log_error_impl(&dword_1A90C6000, v8, OS_LOG_TYPE_ERROR, "xpc_connection_create_mach_service(%s, XPC_CONNECTION_MACH_SERVICE_PRIVILEGED) failed for delegate class %llu", buf, 0x16u);
         }
 
         v3 = 0;
@@ -2204,13 +2180,13 @@ _xpc_connection_s *nehelper_copy_connection_for_delegate_class(unint64_t a1)
       }
 
       v3 = mach_service;
-      v10[0] = MEMORY[0x1E69E9820];
-      v10[1] = 0x40000000;
-      v10[2] = __nehelper_copy_connection_for_delegate_class_block_invoke;
-      v10[3] = &__block_descriptor_tmp_72;
-      v10[4] = a1;
-      v10[5] = mach_service;
-      xpc_connection_set_event_handler(mach_service, v10);
+      v9[0] = MEMORY[0x1E69E9820];
+      v9[1] = 0x40000000;
+      v9[2] = __nehelper_copy_connection_for_delegate_class_block_invoke;
+      v9[3] = &__block_descriptor_tmp_72;
+      v9[4] = a1;
+      v9[5] = mach_service;
+      xpc_connection_set_event_handler(mach_service, v9);
       xpc_connection_resume(v3);
       nehelper_copy_connection_for_delegate_class_g_connection_cache[a1] = v3;
     }
@@ -2218,7 +2194,7 @@ _xpc_connection_s *nehelper_copy_connection_for_delegate_class(unint64_t a1)
     xpc_retain(v3);
 LABEL_19:
     os_unfair_lock_unlock(&nehelper_copy_connection_for_delegate_class_g_connection_cache_lock);
-    goto LABEL_20;
+    return v3;
   }
 
   if (ne_log_obj_g_init != -1)
@@ -2230,14 +2206,11 @@ LABEL_19:
   if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
   {
     *buf = 134217984;
-    v12 = a1;
+    v11 = a1;
     _os_log_error_impl(&dword_1A90C6000, v2, OS_LOG_TYPE_ERROR, "Invalid delegate class id: %llu", buf, 0xCu);
   }
 
-  v3 = 0;
-LABEL_20:
-  v7 = *MEMORY[0x1E69E9840];
-  return v3;
+  return 0;
 }
 
 BOOL nelog_is_debug_logging_enabled()
@@ -2252,7 +2225,7 @@ BOOL nelog_is_debug_logging_enabled()
   return os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG);
 }
 
-void ne_trie_free(uint64_t a1)
+double ne_trie_free(uint64_t a1)
 {
   v9 = *MEMORY[0x1E69E9840];
   if (a1)
@@ -2294,6 +2267,7 @@ void ne_trie_free(uint64_t a1)
         free(v2);
       }
 
+      result = 0.0;
       *(a1 + 80) = 0u;
       *(a1 + 96) = 0u;
       *(a1 + 48) = 0u;
@@ -2304,13 +2278,13 @@ void ne_trie_free(uint64_t a1)
     }
   }
 
-  v5 = *MEMORY[0x1E69E9840];
+  return result;
 }
 
-BOOL ne_trie_init_from_file(uint64_t a1, int a2, void *a3)
+double ne_trie_init_from_file(uint64_t a1, int a2, void *a3)
 {
-  v64 = *MEMORY[0x1E69E9840];
-  memset(&v47, 0, sizeof(v47));
+  v63 = *MEMORY[0x1E69E9840];
+  memset(&v46, 0, sizeof(v46));
   if (!a1)
   {
     if (ne_log_obj_g_init != -1)
@@ -2319,10 +2293,9 @@ BOOL ne_trie_init_from_file(uint64_t a1, int a2, void *a3)
     }
 
     v11 = ne_log_obj_log_obj;
-    result = os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR);
-    if (!result)
+    if (!os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_28;
+      return result;
     }
 
     *buf = 0;
@@ -2341,10 +2314,9 @@ LABEL_18:
     }
 
     v11 = ne_log_obj_log_obj;
-    result = os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR);
-    if (!result)
+    if (!os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_28;
+      return result;
     }
 
     *buf = 0;
@@ -2352,7 +2324,7 @@ LABEL_18:
     goto LABEL_18;
   }
 
-  if (fstat(a2, &v47) == -1 || !v47.st_size)
+  if (fstat(a2, &v46) == -1 || !v46.st_size)
   {
     v12 = *__error();
     if (strerror_r(v12, buf, 0x80uLL))
@@ -2368,28 +2340,28 @@ LABEL_18:
     v13 = ne_log_obj_log_obj;
     if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_FAULT))
     {
-      *v48 = 67109890;
-      v49 = a2;
-      v50 = 2048;
-      st_size = v47.st_size;
-      v52 = 1024;
-      v53 = v12;
-      v54 = 2080;
-      v55 = buf;
-      _os_log_fault_impl(&dword_1A90C6000, v13, OS_LOG_TYPE_FAULT, "failed to get file stats for trie mmap file <fd %d, file size %lld>: [%d] %s", v48, 0x22u);
+      *v47 = 67109890;
+      v48 = a2;
+      v49 = 2048;
+      st_size = v46.st_size;
+      v51 = 1024;
+      v52 = v12;
+      v53 = 2080;
+      v54 = buf;
+      _os_log_fault_impl(&dword_1A90C6000, v13, OS_LOG_TYPE_FAULT, "failed to get file stats for trie mmap file <fd %d, file size %lld>: [%d] %s", v47, 0x22u);
     }
 
     close(a2);
-    goto LABEL_27;
+    return result;
   }
 
-  if ((v47.st_size - 0x100000000) > 0xFFFFFFFF0000006FLL)
+  if ((v46.st_size - 0x100000000) > 0xFFFFFFFF0000006FLL)
   {
-    v15 = mmap(0, v47.st_size, 1, 2, a2, 0);
-    if (v15 == -1)
+    v14 = mmap(0, v46.st_size, 1, 2, a2, 0);
+    if (v14 == -1)
     {
-      v31 = *__error();
-      if (strerror_r(v31, buf, 0x80uLL))
+      v30 = *__error();
+      if (strerror_r(v30, buf, 0x80uLL))
       {
         buf[0] = 0;
       }
@@ -2399,49 +2371,49 @@ LABEL_18:
         dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
       }
 
-      v32 = ne_log_obj_log_obj;
+      v31 = ne_log_obj_log_obj;
       if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_FAULT))
       {
-        *v48 = 67109378;
-        v49 = v31;
-        v50 = 2080;
+        *v47 = 67109378;
+        v48 = v30;
+        v49 = 2080;
         st_size = buf;
-        _os_log_fault_impl(&dword_1A90C6000, v32, OS_LOG_TYPE_FAULT, "mmap failed: [%d] %s", v48, 0x12u);
+        _os_log_fault_impl(&dword_1A90C6000, v31, OS_LOG_TYPE_FAULT, "mmap failed: [%d] %s", v47, 0x12u);
       }
 
-      goto LABEL_27;
+      return result;
     }
 
-    v16 = v15;
+    v15 = v14;
     if (ne_log_obj_g_init != -1)
     {
       dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
     }
 
-    v17 = ne_log_obj_log_obj;
+    v16 = ne_log_obj_log_obj;
     if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315650;
-      v57 = "ne_trie_init_from_file";
-      v58 = 1024;
-      *v59 = a2;
-      *&v59[4] = 2048;
-      *&v59[6] = v47.st_size;
-      _os_log_debug_impl(&dword_1A90C6000, v17, OS_LOG_TYPE_DEBUG, "%s: NETrie - read mmap <fd %d, size %lld>", buf, 0x1Cu);
+      v56 = "ne_trie_init_from_file";
+      v57 = 1024;
+      *v58 = a2;
+      *&v58[4] = 2048;
+      *&v58[6] = v46.st_size;
+      _os_log_debug_impl(&dword_1A90C6000, v16, OS_LOG_TYPE_DEBUG, "%s: NETrie - read mmap <fd %d, size %lld>", buf, 0x1Cu);
     }
 
-    v18 = v16[2];
-    v19 = *v16;
-    *(a1 + 16) = v16[1];
-    *(a1 + 32) = v18;
-    *a1 = v19;
-    v20 = v16[3];
-    v21 = v16[4];
-    v22 = v16[6];
-    *(a1 + 80) = v16[5];
-    *(a1 + 96) = v22;
-    *(a1 + 48) = v20;
-    *(a1 + 64) = v21;
+    v17 = v15[2];
+    v18 = *v15;
+    *(a1 + 16) = v15[1];
+    *(a1 + 32) = v17;
+    *a1 = v18;
+    v19 = v15[3];
+    v20 = v15[4];
+    v21 = v15[6];
+    *(a1 + 80) = v15[5];
+    *(a1 + 96) = v21;
+    *(a1 + 48) = v19;
+    *(a1 + 64) = v20;
     if (*a1 != 0x5061747269636961)
     {
       if (ne_log_obj_g_init != -1)
@@ -2449,64 +2421,64 @@ LABEL_18:
         dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
       }
 
-      v33 = ne_log_obj_log_obj;
+      v32 = ne_log_obj_log_obj;
       if (!os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
       {
-        goto LABEL_65;
+        goto LABEL_64;
       }
 
-      v34 = *a1;
+      v33 = *a1;
       *buf = 134218240;
-      v57 = v34;
-      v58 = 2048;
-      *v59 = 0x5061747269636961;
-      v35 = "Trie magic number (%llx) does not equal the expected value (%llx)";
-      v36 = v33;
-      v37 = 22;
-      goto LABEL_64;
+      v56 = v33;
+      v57 = 2048;
+      *v58 = 0x5061747269636961;
+      v34 = "Trie magic number (%llx) does not equal the expected value (%llx)";
+      v35 = v32;
+      v36 = 22;
+      goto LABEL_63;
     }
 
-    v23 = *(a1 + 8);
+    v22 = *(a1 + 8);
     if (ne_log_obj_g_init != -1)
     {
-      v46 = *(a1 + 8);
+      v45 = *(a1 + 8);
       dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
-      v23 = v46;
+      v22 = v45;
     }
 
-    v24 = ne_log_obj_log_obj;
-    if (v23 == 2)
+    v23 = ne_log_obj_log_obj;
+    if (v22 == 2)
     {
       if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_DEBUG))
       {
-        v41 = *(a1 + 64);
-        v42 = *(a1 + 72);
-        v43 = *(a1 + 80);
-        v44 = *(a1 + 88);
-        v45 = *(a1 + 96);
+        v40 = *(a1 + 64);
+        v41 = *(a1 + 72);
+        v42 = *(a1 + 80);
+        v43 = *(a1 + 88);
+        v44 = *(a1 + 96);
         *buf = 136316418;
-        v57 = "ne_trie_init_from_file";
-        v58 = 2048;
-        *v59 = v41;
-        *&v59[8] = 2048;
-        *&v59[10] = v42;
-        *&v59[18] = 2048;
-        *&v59[20] = v43;
-        v60 = 2048;
-        v61 = v44;
-        v62 = 1024;
-        v63 = v45;
-        _os_log_debug_impl(&dword_1A90C6000, v24, OS_LOG_TYPE_DEBUG, "%s: NETrie - read trie with mmap <memory %zu nodes %zu maps %zu bytes %zu is_mmap %d>", buf, 0x3Au);
+        v56 = "ne_trie_init_from_file";
+        v57 = 2048;
+        *v58 = v40;
+        *&v58[8] = 2048;
+        *&v58[10] = v41;
+        *&v58[18] = 2048;
+        *&v58[20] = v42;
+        v59 = 2048;
+        v60 = v43;
+        v61 = 1024;
+        v62 = v44;
+        _os_log_debug_impl(&dword_1A90C6000, v23, OS_LOG_TYPE_DEBUG, "%s: NETrie - read trie with mmap <memory %zu nodes %zu maps %zu bytes %zu is_mmap %d>", buf, 0x3Au);
       }
 
-      if (*(a1 + 64) + 112 == v47.st_size)
+      if (*(a1 + 64) + 112 == v46.st_size)
       {
-        v25 = *(a1 + 80);
-        v26 = v16 + *(a1 + 72) + 112;
-        *(a1 + 16) = v16 + 7;
-        *(a1 + 24) = v26;
-        *(a1 + 32) = v26 + v25;
-        *(a1 + 40) = v16;
+        v24 = *(a1 + 80);
+        v25 = v15 + *(a1 + 72) + 112;
+        *(a1 + 16) = v15 + 7;
+        *(a1 + 24) = v25;
+        *(a1 + 32) = v25 + v24;
+        *(a1 + 40) = v15;
         if (a3)
         {
           *a3 = *(a1 + 104);
@@ -2517,29 +2489,28 @@ LABEL_18:
           dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
         }
 
-        v27 = ne_log_obj_log_obj;
+        v26 = ne_log_obj_log_obj;
         if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_DEFAULT))
         {
-          v28 = *(a1 + 54);
-          v29 = *(a1 + 56);
-          v30 = *(a1 + 58);
+          v27 = *(a1 + 54);
+          v28 = *(a1 + 56);
+          v29 = *(a1 + 58);
           *buf = 136316418;
-          v57 = "ne_trie_init_from_file";
-          v58 = 1024;
-          *v59 = a2;
-          *&v59[4] = 1024;
-          *&v59[6] = v47.st_size;
-          *&v59[10] = 1024;
-          *&v59[12] = v28;
-          *&v59[16] = 1024;
-          *&v59[18] = v29;
-          *&v59[22] = 1024;
-          *&v59[24] = v30;
-          _os_log_impl(&dword_1A90C6000, v27, OS_LOG_TYPE_DEFAULT, "%s: Initialized trie with file %d size %d (Nodes used = %d, child maps used = %d, bytes used = %d)", buf, 0x2Au);
+          v56 = "ne_trie_init_from_file";
+          v57 = 1024;
+          *v58 = a2;
+          *&v58[4] = 1024;
+          *&v58[6] = v46.st_size;
+          *&v58[10] = 1024;
+          *&v58[12] = v27;
+          *&v58[16] = 1024;
+          *&v58[18] = v28;
+          *&v58[22] = 1024;
+          *&v58[24] = v29;
+          _os_log_impl(&dword_1A90C6000, v26, OS_LOG_TYPE_DEFAULT, "%s: Initialized trie with file %d size %d (Nodes used = %d, child maps used = %d, bytes used = %d)", buf, 0x2Au);
         }
 
-        result = 1;
-        goto LABEL_28;
+        return result;
       }
 
       if (ne_log_obj_g_init != -1)
@@ -2547,42 +2518,42 @@ LABEL_18:
         dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
       }
 
-      v39 = ne_log_obj_log_obj;
+      v38 = ne_log_obj_log_obj;
       if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
       {
-        v40 = *(a1 + 64);
+        v39 = *(a1 + 64);
         *buf = 136315906;
-        v57 = "ne_trie_init_from_file";
-        v58 = 2048;
-        *v59 = v40;
-        *&v59[8] = 1024;
-        *&v59[10] = 112;
-        *&v59[14] = 2048;
-        *&v59[16] = v47.st_size;
-        v35 = "%s: NETrie - Invalid mmap trie size - mem size %zu + offset %d != file size %lld";
-        v36 = v39;
-        v37 = 38;
-        goto LABEL_64;
+        v56 = "ne_trie_init_from_file";
+        v57 = 2048;
+        *v58 = v39;
+        *&v58[8] = 1024;
+        *&v58[10] = 112;
+        *&v58[14] = 2048;
+        *&v58[16] = v46.st_size;
+        v34 = "%s: NETrie - Invalid mmap trie size - mem size %zu + offset %d != file size %lld";
+        v35 = v38;
+        v36 = 38;
+        goto LABEL_63;
       }
     }
 
     else if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
     {
-      v38 = *(a1 + 8);
+      v37 = *(a1 + 8);
       *buf = 134218240;
-      v57 = v38;
-      v58 = 1024;
-      *v59 = 2;
-      v35 = "Trie format version (%llu) does not equal the current version (%u)";
-      v36 = v24;
-      v37 = 18;
-LABEL_64:
-      _os_log_error_impl(&dword_1A90C6000, v36, OS_LOG_TYPE_ERROR, v35, buf, v37);
+      v56 = v37;
+      v57 = 1024;
+      *v58 = 2;
+      v34 = "Trie format version (%llu) does not equal the current version (%u)";
+      v35 = v23;
+      v36 = 18;
+LABEL_63:
+      _os_log_error_impl(&dword_1A90C6000, v35, OS_LOG_TYPE_ERROR, v34, buf, v36);
     }
 
-LABEL_65:
-    munmap(v16, v47.st_size);
-    result = 0;
+LABEL_64:
+    munmap(v15, v46.st_size);
+    result = 0.0;
     *a1 = 0u;
     *(a1 + 16) = 0u;
     *(a1 + 32) = 0u;
@@ -2590,7 +2561,7 @@ LABEL_65:
     *(a1 + 64) = 0u;
     *(a1 + 80) = 0u;
     *(a1 + 96) = 0u;
-    goto LABEL_28;
+    return result;
   }
 
   if (ne_log_obj_g_init != -1)
@@ -2599,24 +2570,19 @@ LABEL_65:
   }
 
   v6 = ne_log_obj_log_obj;
-  result = os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR);
-  if (result)
+  if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v57 = "ne_trie_init_from_file";
-    v58 = 2048;
-    *v59 = v47.st_size;
+    v56 = "ne_trie_init_from_file";
+    v57 = 2048;
+    *v58 = v46.st_size;
     v8 = "%s: invalid file size %lld";
     v9 = v6;
     v10 = 22;
 LABEL_19:
     _os_log_error_impl(&dword_1A90C6000, v9, OS_LOG_TYPE_ERROR, v8, buf, v10);
-LABEL_27:
-    result = 0;
   }
 
-LABEL_28:
-  v14 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -2708,7 +2674,7 @@ void fetch_status(uint64_t a1, uint64_t a2, NSObject *a3, void *a4)
 uint64_t get_connection(uint64_t a1)
 {
   result = 0;
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     v3 = g_sessions;
@@ -2719,23 +2685,21 @@ uint64_t get_connection(uint64_t a1)
         v3 = *(v3 + 48);
         if (!v3)
         {
-          goto LABEL_7;
+          return 0;
         }
       }
 
       if (*(a1 + 64))
       {
-LABEL_7:
-        result = 0;
-        goto LABEL_8;
+        return 0;
       }
 
       result = *(a1 + 40);
       if (!result)
       {
-        v5 = xpc_dictionary_create(0, 0, 0);
+        v4 = xpc_dictionary_create(0, 0, 0);
         getpid();
-        v6 = "com.apple.nesessionmanager";
+        v5 = "com.apple.nesessionmanager";
         if (sandbox_check())
         {
           if (ne_log_obj_g_init != -1)
@@ -2743,17 +2707,17 @@ LABEL_7:
             dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
           }
 
-          v7 = ne_log_obj_log_obj;
-          v6 = "com.apple.nesessionmanager.flow-divert-token";
+          v6 = ne_log_obj_log_obj;
+          v5 = "com.apple.nesessionmanager.flow-divert-token";
           if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_INFO))
           {
             *buf = 136315138;
-            v11 = "com.apple.nesessionmanager.flow-divert-token";
-            _os_log_impl(&dword_1A90C6000, v7, OS_LOG_TYPE_INFO, "Falling back to %s", buf, 0xCu);
+            v10 = "com.apple.nesessionmanager.flow-divert-token";
+            _os_log_impl(&dword_1A90C6000, v6, OS_LOG_TYPE_INFO, "Falling back to %s", buf, 0xCu);
           }
         }
 
-        mach_service = xpc_connection_create_mach_service(v6, g_queue, 2uLL);
+        mach_service = xpc_connection_create_mach_service(v5, g_queue, 2uLL);
         *(a1 + 40) = mach_service;
         handler[0] = MEMORY[0x1E69E9820];
         handler[1] = 0x40000000;
@@ -2762,18 +2726,16 @@ LABEL_7:
         handler[4] = a1;
         xpc_connection_set_event_handler(mach_service, handler);
         xpc_connection_resume(*(a1 + 40));
-        xpc_dictionary_set_int64(v5, "SessionClientType", 1);
-        xpc_dictionary_set_uuid(v5, "SessionIdentifier", a1);
-        xpc_dictionary_set_int64(v5, "SessionConfigType", *(a1 + 16));
-        xpc_connection_send_message(*(a1 + 40), v5);
-        xpc_release(v5);
-        result = *(a1 + 40);
+        xpc_dictionary_set_int64(v4, "SessionClientType", 1);
+        xpc_dictionary_set_uuid(v4, "SessionIdentifier", a1);
+        xpc_dictionary_set_int64(v4, "SessionConfigType", *(a1 + 16));
+        xpc_connection_send_message(*(a1 + 40), v4);
+        xpc_release(v4);
+        return *(a1 + 40);
       }
     }
   }
 
-LABEL_8:
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -2860,12 +2822,11 @@ void notify_client(uint64_t a1, int a2)
 
 void __fetch_status_block_invoke_3(uint64_t a1)
 {
-  v2 = *(a1 + 40);
   (*(*(a1 + 32) + 16))();
   _Block_release(*(a1 + 32));
-  v3 = *(a1 + 48);
+  v2 = *(a1 + 48);
 
-  dispatch_release(v3);
+  dispatch_release(v2);
 }
 
 void __notify_client_block_invoke(uint64_t a1)
@@ -2995,14 +2956,13 @@ void __ne_session_clear_event_handler_block_invoke(uint64_t a1)
 {
   if (*(a1 + 48) == 1)
   {
-    v2 = *(a1 + 32);
     (*(*(a1 + 32) + 16))();
   }
 
   _Block_release(*(a1 + 32));
-  v3 = *(a1 + 40);
+  v2 = *(a1 + 40);
 
-  dispatch_release(v3);
+  dispatch_release(v2);
 }
 
 void __get_connection_block_invoke(uint64_t a1, void *a2)
@@ -3283,20 +3243,20 @@ BOOL ne_session_applications_have_local_network_entitlements()
 
 uint64_t ne_get_configuration_generation()
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v0 = ne_get_configuration_generation_configuration_changed_token;
   if (ne_get_configuration_generation_configuration_changed_token < 0)
   {
     if (notify_register_check("com.apple.neconfigurationchanged", &ne_get_configuration_generation_configuration_changed_token))
     {
       ne_get_configuration_generation_configuration_changed_token = -1;
-      goto LABEL_18;
+      return ne_get_configuration_generation_current_generation;
     }
 
     v0 = ne_get_configuration_generation_configuration_changed_token;
     if (ne_get_configuration_generation_configuration_changed_token < 0)
     {
-      goto LABEL_18;
+      return ne_get_configuration_generation_current_generation;
     }
   }
 
@@ -3317,11 +3277,11 @@ uint64_t ne_get_configuration_generation()
     }
 
     *buf = 136315650;
-    v12 = "com.apple.neconfigurationchanged";
-    v13 = 1024;
-    v14 = ne_get_configuration_generation_configuration_changed_token;
-    v15 = 1024;
-    v16 = v2;
+    v11 = "com.apple.neconfigurationchanged";
+    v12 = 1024;
+    v13 = ne_get_configuration_generation_configuration_changed_token;
+    v14 = 1024;
+    v15 = v2;
     v6 = "notify_check failed for %s, token = %d: %u";
   }
 
@@ -3329,15 +3289,15 @@ uint64_t ne_get_configuration_generation()
   {
     if (!check)
     {
-      goto LABEL_18;
+      return ne_get_configuration_generation_current_generation;
     }
 
-    v9 = 0;
-    state = notify_get_state(ne_get_configuration_generation_configuration_changed_token, &v9);
+    v8 = 0;
+    state = notify_get_state(ne_get_configuration_generation_configuration_changed_token, &v8);
     if (!state)
     {
-      ne_get_configuration_generation_current_generation = v9 & 0x7FFFFFFFFFFFFLL;
-      goto LABEL_18;
+      ne_get_configuration_generation_current_generation = v8 & 0x7FFFFFFFFFFFFLL;
+      return ne_get_configuration_generation_current_generation;
     }
 
     v5 = state;
@@ -3353,11 +3313,11 @@ uint64_t ne_get_configuration_generation()
     }
 
     *buf = 136315650;
-    v12 = "com.apple.neconfigurationchanged";
-    v13 = 1024;
-    v14 = ne_get_configuration_generation_configuration_changed_token;
-    v15 = 1024;
-    v16 = v5;
+    v11 = "com.apple.neconfigurationchanged";
+    v12 = 1024;
+    v13 = ne_get_configuration_generation_configuration_changed_token;
+    v14 = 1024;
+    v15 = v5;
     v6 = "notify_get_state failed for %s, token = %d: %u";
   }
 
@@ -3366,13 +3326,10 @@ LABEL_6:
   notify_cancel(ne_get_configuration_generation_configuration_changed_token);
   ne_get_configuration_generation_configuration_changed_token = -1;
   ne_get_configuration_generation_current_generation = 0;
-LABEL_18:
-  result = ne_get_configuration_generation_current_generation;
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return ne_get_configuration_generation_current_generation;
 }
 
-uint64_t ne_session_always_on_vpn_configs_present_at_boot()
+BOOL ne_session_always_on_vpn_configs_present_at_boot()
 {
   if ((get_current_config_state() & 0x2000000000000000) != 0)
   {
@@ -3426,7 +3383,7 @@ uint64_t ne_session_always_on_vpn_configs_present_at_boot()
 
 uint64_t ne_session_is_always_on_vpn_enabled(NSObject *a1, const void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&ne_session_is_always_on_vpn_enabled_notify_lock);
   ne_session_is_always_on_vpn_enabled_enabled = ne_session_always_on_vpn_configs_present_at_boot();
   v4 = ne_session_is_always_on_vpn_enabled_queue;
@@ -3471,20 +3428,18 @@ uint64_t ne_session_is_always_on_vpn_enabled(NSObject *a1, const void *a2)
         v8 = ne_log_obj_log_obj;
         if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
         {
-          v11 = 136315394;
-          v12 = "com.apple.neconfigurationchanged";
-          v13 = 1024;
-          v14 = v7;
-          _os_log_error_impl(&dword_1A90C6000, v8, OS_LOG_TYPE_ERROR, "Failed to register for %s notifications in ne_session_is_always_on_vpn_enabled: %u", &v11, 0x12u);
+          v10 = 136315394;
+          v11 = "com.apple.neconfigurationchanged";
+          v12 = 1024;
+          v13 = v7;
+          _os_log_error_impl(&dword_1A90C6000, v8, OS_LOG_TYPE_ERROR, "Failed to register for %s notifications in ne_session_is_always_on_vpn_enabled: %u", &v10, 0x12u);
         }
       }
     }
   }
 
   os_unfair_lock_unlock(&ne_session_is_always_on_vpn_enabled_notify_lock);
-  result = ne_session_is_always_on_vpn_enabled_enabled;
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
+  return ne_session_is_always_on_vpn_enabled_enabled;
 }
 
 void __ne_session_is_always_on_vpn_enabled_block_invoke(uint64_t a1, int a2)
@@ -3540,9 +3495,9 @@ void *__ne_session_create_block_invoke(uint64_t a1)
   v2 = g_sessions;
   if (g_sessions)
   {
-    while (uuid_compare(*(a1 + 40), v2) || *(v2 + 16) != *(a1 + 48) || *(v2 + 64) == 1)
+    while (uuid_compare(*(a1 + 40), v2) || *(v2 + 4) != *(a1 + 48) || *(v2 + 64) == 1)
     {
-      v2 = *(v2 + 48);
+      v2 = v2[6];
       if (!v2)
       {
         goto LABEL_6;
@@ -3567,9 +3522,9 @@ LABEL_6:
     *(result + 3) = 0u;
     v4 = result + 6;
     uuid_copy(result, *(a1 + 40));
-    *(v2 + 16) = *(a1 + 48);
-    *(v2 + 24) = 0;
-    *(v2 + 32) = 1;
+    *(v2 + 4) = *(a1 + 48);
+    v2[3] = 0;
+    *(v2 + 8) = 1;
     v5 = g_sessions;
     *v4 = g_sessions;
     if (v5)
@@ -3578,7 +3533,7 @@ LABEL_6:
     }
 
     g_sessions = v2;
-    *(v2 + 56) = &g_sessions;
+    v2[7] = &g_sessions;
   }
 
   result = malloc_type_malloc(0x30uLL, 0x10A0040D517E767uLL);
@@ -3589,8 +3544,8 @@ LABEL_6:
   v6[2] = 0u;
   **(*(*(a1 + 32) + 8) + 24) = v2;
   atomic_fetch_add_explicit((*(*(*(a1 + 32) + 8) + 24) + 40), 1u, memory_order_relaxed);
-  v9 = *(v2 + 24);
-  v8 = (v2 + 24);
+  v9 = v2[3];
+  v8 = v2 + 3;
   v7 = v9;
   *(*(*(*(a1 + 32) + 8) + 24) + 8) = v9;
   if (v9)
@@ -3752,13 +3707,12 @@ void __ne_session_get_status_block_invoke_2(uint64_t a1)
 
 void __ne_session_get_status_block_invoke_3(uint64_t a1)
 {
-  v2 = *(a1 + 56);
   (*(*(a1 + 32) + 16))();
   _Block_release(*(a1 + 32));
   dispatch_release(*(a1 + 40));
-  v3 = *(a1 + 48);
+  v2 = *(a1 + 48);
 
-  ne_session_release(v3);
+  ne_session_release(v2);
 }
 
 const char *ne_session_info_type_to_string(int a1)
@@ -3859,7 +3813,7 @@ void __ne_session_local_communication_send_info_block_invoke_2(uint64_t a1)
 
 void __ne_session_local_communication_send_info_block_invoke_3(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (a2 && (v4 = MEMORY[0x1AC5803D0](a2), v5 = MEMORY[0x1E69E9E80], v4 == MEMORY[0x1E69E9E80]))
   {
     value = xpc_dictionary_get_value(a2, "SessionAppPushSendMessageResult");
@@ -3886,27 +3840,25 @@ void __ne_session_local_communication_send_info_block_invoke_3(uint64_t a1, void
     v6 = ne_log_obj_log_obj;
     if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
     {
-      v10 = *(a1 + 56);
+      v9 = *(a1 + 56);
       string = xpc_dictionary_get_string(a2, *MEMORY[0x1E69E9E28]);
       *buf = 67109378;
-      v15 = v10;
-      v16 = 2080;
-      v17 = string;
+      v13 = v9;
+      v14 = 2080;
+      v15 = string;
       _os_log_error_impl(&dword_1A90C6000, v6, OS_LOG_TYPE_ERROR, "Failed to send info with type %d: %s", buf, 0x12u);
     }
   }
 
   v7 = 0;
 LABEL_8:
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 0x40000000;
-  v12[2] = __ne_session_local_communication_send_info_block_invoke_26;
-  v12[3] = &unk_1E786A5A0;
-  v12[4] = *(a1 + 32);
-  v12[5] = v7;
-  v13 = *(a1 + 40);
-  dispatch_async(v13, v12);
-  v8 = *MEMORY[0x1E69E9840];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 0x40000000;
+  v11[2] = __ne_session_local_communication_send_info_block_invoke_26;
+  v11[3] = &unk_1E786A5A0;
+  v11[4] = *(a1 + 32);
+  v11[5] = v7;
+  dispatch_async(*(a1 + 40), v11);
 }
 
 void __ne_session_local_communication_send_info_block_invoke_2_30(uint64_t a1)
@@ -3921,24 +3873,23 @@ void __ne_session_local_communication_send_info_block_invoke_2_30(uint64_t a1)
 
 void __ne_session_local_communication_send_info_block_invoke_26(uint64_t a1)
 {
-  v2 = *(a1 + 40);
   (*(*(a1 + 32) + 16))();
-  v3 = *(a1 + 40);
-  if (v3)
+  v2 = *(a1 + 40);
+  if (v2)
   {
-    xpc_release(v3);
+    xpc_release(v2);
   }
 
   _Block_release(*(a1 + 32));
   dispatch_release(*(a1 + 48));
-  v4 = *(a1 + 56);
+  v3 = *(a1 + 56);
 
-  ne_session_release(v4);
+  ne_session_release(v3);
 }
 
 uint64_t ne_session_map_interface_to_provider_uuid(const char *a1, uuid_t uu)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   uuid_clear(uu);
   if (a1)
   {
@@ -3956,7 +3907,7 @@ uint64_t ne_session_map_interface_to_provider_uuid(const char *a1, uuid_t uu)
       if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v18 = "com.apple.nesessionmanager.flow-divert-token";
+        v17 = "com.apple.nesessionmanager.flow-divert-token";
         _os_log_impl(&dword_1A90C6000, v5, OS_LOG_TYPE_INFO, "Falling back to %s", buf, 0xCu);
       }
     }
@@ -3975,7 +3926,7 @@ LABEL_27:
       xpc_release(empty);
       xpc_connection_cancel(mach_service);
       xpc_release(mach_service);
-      goto LABEL_28;
+      return v11;
     }
 
     v9 = v8;
@@ -3995,11 +3946,11 @@ LABEL_27:
         if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_INFO))
         {
           *buf = 136315650;
-          v18 = a1;
-          v19 = 1040;
-          v20 = 16;
-          v21 = 2096;
-          v22 = uu;
+          v17 = a1;
+          v18 = 1040;
+          v19 = 16;
+          v20 = 2096;
+          v21 = uu;
           _os_log_impl(&dword_1A90C6000, v13, OS_LOG_TYPE_INFO, "Mapped interface %s to provider UUID: %{uuid_t}.16P", buf, 0x1Cu);
         }
 
@@ -4040,10 +3991,7 @@ LABEL_26:
     goto LABEL_27;
   }
 
-  v11 = 0;
-LABEL_28:
-  v15 = *MEMORY[0x1E69E9840];
-  return v11;
+  return 0;
 }
 
 void __ne_session_map_interface_to_provider_uuid_block_invoke(uint64_t a1, uint64_t a2)
@@ -4070,7 +4018,7 @@ void __ne_session_map_interface_to_provider_uuid_block_invoke(uint64_t a1, uint6
 
 uint64_t ne_session_set_device_communication_exception(_BOOL4 a1)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   getpid();
   v2 = "com.apple.nesessionmanager";
   if (sandbox_check())
@@ -4085,9 +4033,9 @@ uint64_t ne_session_set_device_communication_exception(_BOOL4 a1)
     if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v21 = "ne_session_set_device_communication_exception";
-      v22 = 2080;
-      v23 = "com.apple.nesessionmanager.flow-divert-token";
+      v20 = "ne_session_set_device_communication_exception";
+      v21 = 2080;
+      v22 = "com.apple.nesessionmanager.flow-divert-token";
       _os_log_impl(&dword_1A90C6000, v3, OS_LOG_TYPE_INFO, "%s: Falling back to %s", buf, 0x16u);
     }
   }
@@ -4113,7 +4061,7 @@ uint64_t ne_session_set_device_communication_exception(_BOOL4 a1)
 LABEL_33:
       xpc_release(empty);
       xpc_release(v5);
-      goto LABEL_34;
+      return v11;
     }
 
     v8 = v7;
@@ -4138,7 +4086,7 @@ LABEL_33:
           }
 
           *buf = 136315138;
-          v21 = v15;
+          v20 = v15;
           v11 = 1;
           _os_log_impl(&dword_1A90C6000, v13, OS_LOG_TYPE_INFO, "DeviceCommunicationException succeeded: %s", buf, 0xCu);
         }
@@ -4160,7 +4108,7 @@ LABEL_33:
         }
 
         *buf = 136315138;
-        v21 = v16;
+        v20 = v16;
         _os_log_impl(&dword_1A90C6000, v13, OS_LOG_TYPE_INFO, "DeviceCommunicationException failed: %s", buf, 0xCu);
       }
     }
@@ -4176,7 +4124,7 @@ LABEL_33:
       if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v21 = v2;
+        v20 = v2;
         _os_log_error_impl(&dword_1A90C6000, v9, OS_LOG_TYPE_ERROR, "Error sending a DeviceCommunicationException message to %s", buf, 0xCu);
       }
     }
@@ -4196,21 +4144,18 @@ LABEL_32:
   if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v21 = "ne_session_set_device_communication_exception";
-    v22 = 2080;
-    v23 = v2;
+    v20 = "ne_session_set_device_communication_exception";
+    v21 = 2080;
+    v22 = v2;
     _os_log_error_impl(&dword_1A90C6000, v10, OS_LOG_TYPE_ERROR, "%s: Error failed to create connection to %s", buf, 0x16u);
   }
 
-  v11 = 0;
-LABEL_34:
-  v17 = *MEMORY[0x1E69E9840];
-  return v11;
+  return 0;
 }
 
 void __ne_session_set_device_communication_exception_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (a2)
   {
     v4 = MEMORY[0x1AC5803D0](a2);
@@ -4224,15 +4169,13 @@ void __ne_session_set_device_communication_exception_block_invoke(uint64_t a1, u
       v6 = ne_log_obj_log_obj;
       if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
       {
-        v8 = *(a1 + 32);
-        v9 = 136315138;
-        v10 = v8;
-        _os_log_error_impl(&dword_1A90C6000, v6, OS_LOG_TYPE_ERROR, "XPC Event - Error sending a DeviceCommunicationException message to %s", &v9, 0xCu);
+        v7 = *(a1 + 32);
+        v8 = 136315138;
+        v9 = v7;
+        _os_log_error_impl(&dword_1A90C6000, v6, OS_LOG_TYPE_ERROR, "XPC Event - Error sending a DeviceCommunicationException message to %s", &v8, 0xCu);
       }
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void ne_session_get_info_with_parameters(uint64_t a1, int a2, uint64_t a3, char a4, dispatch_object_t object, const void *a6)
@@ -4321,7 +4264,7 @@ void __ne_session_get_info_with_parameters_block_invoke_2(uint64_t a1)
 
 void __ne_session_get_info_with_parameters_block_invoke_3(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (a2 && (v4 = MEMORY[0x1AC5803D0](a2), v5 = MEMORY[0x1E69E9E80], v4 == MEMORY[0x1E69E9E80]))
   {
     value = xpc_dictionary_get_value(a2, "SessionInfo");
@@ -4348,27 +4291,25 @@ void __ne_session_get_info_with_parameters_block_invoke_3(uint64_t a1, void *a2)
     v6 = ne_log_obj_log_obj;
     if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
     {
-      v10 = *(a1 + 56);
+      v9 = *(a1 + 56);
       string = xpc_dictionary_get_string(a2, *MEMORY[0x1E69E9E28]);
       *buf = 67109378;
-      v15 = v10;
-      v16 = 2080;
-      v17 = string;
+      v13 = v9;
+      v14 = 2080;
+      v15 = string;
       _os_log_error_impl(&dword_1A90C6000, v6, OS_LOG_TYPE_ERROR, "Failed to fetch info with type %d: %s", buf, 0x12u);
     }
   }
 
   v7 = 0;
 LABEL_8:
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 0x40000000;
-  v12[2] = __ne_session_get_info_with_parameters_block_invoke_197;
-  v12[3] = &unk_1E786AA70;
-  v12[4] = *(a1 + 32);
-  v12[5] = v7;
-  v13 = *(a1 + 40);
-  dispatch_async(v13, v12);
-  v8 = *MEMORY[0x1E69E9840];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 0x40000000;
+  v11[2] = __ne_session_get_info_with_parameters_block_invoke_197;
+  v11[3] = &unk_1E786AA70;
+  v11[4] = *(a1 + 32);
+  v11[5] = v7;
+  dispatch_async(*(a1 + 40), v11);
 }
 
 void __ne_session_get_info_with_parameters_block_invoke_2_200(uint64_t a1)
@@ -4383,19 +4324,18 @@ void __ne_session_get_info_with_parameters_block_invoke_2_200(uint64_t a1)
 
 void __ne_session_get_info_with_parameters_block_invoke_197(uint64_t a1)
 {
-  v2 = *(a1 + 40);
   (*(*(a1 + 32) + 16))();
-  v3 = *(a1 + 40);
-  if (v3)
+  v2 = *(a1 + 40);
+  if (v2)
   {
-    xpc_release(v3);
+    xpc_release(v2);
   }
 
   _Block_release(*(a1 + 32));
   dispatch_release(*(a1 + 48));
-  v4 = *(a1 + 56);
+  v3 = *(a1 + 56);
 
-  ne_session_release(v4);
+  ne_session_release(v3);
 }
 
 void ne_session_send_barrier(uint64_t a1)
@@ -4477,26 +4417,24 @@ void __ne_session_start_on_behalf_of_block_invoke(uint64_t a1)
     v4 = connection;
     v5 = xpc_dictionary_create(0, 0, 0);
     xpc_dictionary_set_int64(v5, "SessionCommandType", 2);
-    v6 = *(a1 + 48);
     xpc_dictionary_set_mach_send();
-    v7 = *(a1 + 52);
     xpc_dictionary_set_mach_send();
     xpc_dictionary_set_int64(v5, "SessionGroupID", *(a1 + 56));
     xpc_dictionary_set_int64(v5, "SessionUserID", *(a1 + 60));
     xpc_dictionary_set_int64(v5, "SessionPID", *(a1 + 64));
-    v8 = *(a1 + 40);
-    if (v8)
+    v6 = *(a1 + 40);
+    if (v6)
     {
-      xpc_dictionary_set_value(v5, "SessionOptions", v8);
+      xpc_dictionary_set_value(v5, "SessionOptions", v6);
     }
 
     xpc_connection_send_message(v4, v5);
     xpc_release(v5);
-    v9 = *v2;
+    v7 = *v2;
     if (*(*v2 + 32) != 2)
     {
-      *(v9 + 32) = 2;
-      for (i = *(v9 + 24); i; i = *(i + 8))
+      *(v7 + 32) = 2;
+      for (i = *(v7 + 24); i; i = *(i + 8))
       {
         notify_client(i, 1);
       }
@@ -4505,11 +4443,11 @@ void __ne_session_start_on_behalf_of_block_invoke(uint64_t a1)
 
   else
   {
-    v11 = *v2;
+    v9 = *v2;
     if (*(*v2 + 32))
     {
-      *(v11 + 32) = 0;
-      for (j = *(v11 + 24); j; j = *(j + 8))
+      *(v9 + 32) = 0;
+      for (j = *(v9 + 24); j; j = *(j + 8))
       {
         notify_client(j, 1);
       }
@@ -4681,7 +4619,7 @@ LABEL_4:
 
 void __ne_session_establish_ipc_block_invoke_4(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (ne_log_obj_g_init != -1)
   {
     dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
@@ -4690,33 +4628,31 @@ void __ne_session_establish_ipc_block_invoke_4(uint64_t a1)
   v2 = ne_log_obj_log_obj;
   if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_DEBUG))
   {
-    v6 = *(a1 + 40);
-    v7 = 134217984;
-    v8 = v6;
-    _os_log_debug_impl(&dword_1A90C6000, v2, OS_LOG_TYPE_DEBUG, "Establish IPC returning primary = %p", &v7, 0xCu);
+    v4 = *(a1 + 40);
+    v5 = 134217984;
+    v6 = v4;
+    _os_log_debug_impl(&dword_1A90C6000, v2, OS_LOG_TYPE_DEBUG, "Establish IPC returning primary = %p", &v5, 0xCu);
   }
 
-  v3 = *(a1 + 40);
   (*(*(a1 + 32) + 16))();
-  v4 = *(a1 + 40);
-  if (v4)
+  v3 = *(a1 + 40);
+  if (v3)
   {
-    xpc_release(v4);
+    xpc_release(v3);
   }
 
   _Block_release(*(a1 + 32));
   dispatch_release(*(a1 + 48));
   ne_session_release(*(a1 + 56));
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t ne_session_add_necp_drop_dest_from_path(const char *a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
-  v21 = 0;
-  memset(v20, 0, sizeof(v20));
-  v19 = 324;
-  if (sysctlbyname("net.necp.drop_dest_level", 0, &v19, 0, 0))
+  v22 = *MEMORY[0x1E69E9840];
+  v20 = 0;
+  memset(v19, 0, sizeof(v19));
+  v18 = 324;
+  if (sysctlbyname("net.necp.drop_dest_level", 0, &v18, 0, 0))
   {
     v2 = *__error();
     if (ne_log_obj_g_init != -1)
@@ -4738,7 +4674,7 @@ LABEL_11:
     }
   }
 
-  else if (sysctlbyname("net.necp.drop_dest_level", v20, &v19, 0, 0))
+  else if (sysctlbyname("net.necp.drop_dest_level", v19, &v18, 0, 0))
   {
     v2 = *__error();
     if (ne_log_obj_g_init != -1)
@@ -4825,7 +4761,7 @@ LABEL_11:
               v13 = v12;
               if (MEMORY[0x1AC5803D0]() == MEMORY[0x1E69E9E50])
               {
-                v2 = ne_session_parse_necp_drop_dest_array(v13, v20);
+                v2 = ne_session_parse_necp_drop_dest_array(v13, v19);
               }
 
               else
@@ -4861,10 +4797,9 @@ LABEL_11:
 
     if (!v2)
     {
-      if (!sysctlbyname("net.necp.drop_dest_level", 0, 0, v20, 0x144uLL))
+      if (!sysctlbyname("net.necp.drop_dest_level", 0, 0, v19, 0x144uLL))
       {
-        v2 = 0;
-        goto LABEL_43;
+        return 0;
       }
 
       v2 = *__error();
@@ -4887,27 +4822,25 @@ LABEL_11:
     }
   }
 
-LABEL_43:
-  v17 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
 uint64_t ne_session_parse_necp_drop_dest_array(void *a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (xpc_array_get_count(a1))
   {
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v10 = 0x2000000000;
-    v11 = 1;
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 0x40000000;
-    v8[2] = __ne_session_parse_necp_drop_dest_array_block_invoke;
-    v8[3] = &unk_1E786AB30;
-    v8[4] = &buf;
-    v8[5] = a2;
-    xpc_array_apply(a1, v8);
+    v9 = 0x2000000000;
+    v10 = 1;
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 0x40000000;
+    v7[2] = __ne_session_parse_necp_drop_dest_array_block_invoke;
+    v7[3] = &unk_1E786AB30;
+    v7[4] = &buf;
+    v7[5] = a2;
+    xpc_array_apply(a1, v7);
     if (*(*(&buf + 1) + 24))
     {
       v4 = 0;
@@ -4936,17 +4869,16 @@ uint64_t ne_session_parse_necp_drop_dest_array(void *a1, uint64_t a2)
       _os_log_error_impl(&dword_1A90C6000, v5, OS_LOG_TYPE_ERROR, "%s: empty array", &buf, 0xCu);
     }
 
-    v4 = 0;
+    return 0;
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
 BOOL __ne_session_parse_necp_drop_dest_array_block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v71 = *MEMORY[0x1E69E9840];
-  memset(v39, 0, 40);
+  v70 = *MEMORY[0x1E69E9840];
+  memset(v38, 0, 40);
   if (**(a1 + 40) == 8)
   {
     if (ne_log_obj_g_init != -1)
@@ -4961,13 +4893,13 @@ BOOL __ne_session_parse_necp_drop_dest_array_block_invoke(uint64_t a1, uint64_t 
       LODWORD(buf) = 136315138;
       *(&buf + 4) = "ne_session_parse_necp_drop_dest_array_block_invoke";
       _os_log_error_impl(&dword_1A90C6000, v3, OS_LOG_TYPE_ERROR, "%s: too many entries", &buf, 0xCu);
-      result = 0;
+      return 0;
     }
 
-    goto LABEL_70;
+    return result;
   }
 
-  if (!a3 || MEMORY[0x1AC5803D0](a3) != MEMORY[0x1E69E9E80])
+  if (!a3 || MEMORY[0x1AC5803D0](a3, a2) != MEMORY[0x1E69E9E80])
   {
     if (ne_log_obj_g_init != -1)
     {
@@ -4977,48 +4909,48 @@ BOOL __ne_session_parse_necp_drop_dest_array_block_invoke(uint64_t a1, uint64_t 
     v7 = ne_log_obj_log_obj;
     if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
     {
-      *v65 = 136315138;
-      v66 = "ne_parse_necp_drop_dest_dictionary";
-      _os_log_error_impl(&dword_1A90C6000, v7, OS_LOG_TYPE_ERROR, "%s: item is not a dictionary", v65, 0xCu);
+      *v64 = 136315138;
+      v65 = "ne_parse_necp_drop_dest_dictionary";
+      _os_log_error_impl(&dword_1A90C6000, v7, OS_LOG_TYPE_ERROR, "%s: item is not a dictionary", v64, 0xCu);
     }
 
     goto LABEL_65;
   }
 
-  v52 = 0;
-  v53 = &v52;
-  v54 = 0x2000000000;
-  v55 = -1;
-  v48 = 0;
-  v49 = &v48;
-  v50 = 0x2000000000;
   v51 = 0;
-  v44 = 0;
-  v45 = &v44;
-  v46 = 0x2000000000;
-  v47 = -1;
-  v40 = 0;
-  v41 = &v40;
-  v42 = 0x2000000000;
-  v43 = 1;
+  v52 = &v51;
+  v53 = 0x2000000000;
+  v54 = -1;
+  v47 = 0;
+  v48 = &v47;
+  v49 = 0x2000000000;
+  v50 = 0;
+  v43 = 0;
+  v44 = &v43;
+  v45 = 0x2000000000;
+  v46 = -1;
+  v39 = 0;
+  v40 = &v39;
+  v41 = 0x2000000000;
+  v42 = 1;
   *&buf = MEMORY[0x1E69E9820];
   *(&buf + 1) = 0x40000000;
-  v58 = __ne_parse_necp_drop_dest_dictionary_block_invoke;
-  v59 = &unk_1E786AB58;
-  v63 = &v40;
-  v64 = a3;
-  v60 = &v52;
-  v61 = &v48;
-  v62 = &v44;
+  v57 = __ne_parse_necp_drop_dest_dictionary_block_invoke;
+  v58 = &unk_1E786AB58;
+  v62 = &v39;
+  v63 = a3;
+  v59 = &v51;
+  v60 = &v47;
+  v61 = &v43;
   xpc_dictionary_apply(a3, &buf);
-  if (*(v41 + 24) == 1)
+  if (*(v40 + 24) == 1)
   {
-    v8 = *(v53 + 6);
-    v9 = v49[3];
-    v10 = *(v45 + 6);
-    *v56 = 0uLL;
-    *&v56[21] = 0;
-    *&v56[16] = 0;
+    v8 = *(v52 + 6);
+    v9 = v48[3];
+    v10 = *(v44 + 6);
+    *v55 = 0uLL;
+    *&v55[21] = 0;
+    *&v55[16] = 0;
     if (!v9)
     {
       if (ne_log_obj_g_init != -1)
@@ -5032,8 +4964,8 @@ BOOL __ne_session_parse_necp_drop_dest_array_block_invoke(uint64_t a1, uint64_t 
         goto LABEL_64;
       }
 
-      *v65 = 136315138;
-      v66 = "ne_parse_necp_drop_dest_entry";
+      *v64 = 136315138;
+      v65 = "ne_parse_necp_drop_dest_entry";
       v15 = "%s: address_str is NULL";
       v16 = v18;
       v17 = 12;
@@ -5053,20 +4985,20 @@ BOOL __ne_session_parse_necp_drop_dest_array_block_invoke(uint64_t a1, uint64_t 
         goto LABEL_64;
       }
 
-      *v65 = 136315394;
-      v66 = "ne_parse_necp_drop_dest_entry";
-      v67 = 1024;
-      LODWORD(v68) = v8;
+      *v64 = 136315394;
+      v65 = "ne_parse_necp_drop_dest_entry";
+      v66 = 1024;
+      LODWORD(v67) = v8;
       v15 = "%s: bad priority level %d";
 LABEL_51:
       v16 = v24;
       v17 = 18;
 LABEL_52:
-      _os_log_error_impl(&dword_1A90C6000, v16, OS_LOG_TYPE_ERROR, v15, v65, v17);
+      _os_log_error_impl(&dword_1A90C6000, v16, OS_LOG_TYPE_ERROR, v15, v64, v17);
       goto LABEL_64;
     }
 
-    v11 = inet_pton(30, v9, &v56[9]);
+    v11 = inet_pton(30, v9, &v55[9]);
     if (v11 == 1)
     {
       v19 = 7708;
@@ -5089,19 +5021,19 @@ LABEL_52:
 
         v13 = __error();
         v14 = strerror(*v13);
-        *v65 = 136315650;
-        v66 = "ne_parse_necp_drop_dest_entry";
-        v67 = 2080;
-        v68 = v9;
-        v69 = 2080;
-        v70 = v14;
+        *v64 = 136315650;
+        v65 = "ne_parse_necp_drop_dest_entry";
+        v66 = 2080;
+        v67 = v9;
+        v68 = 2080;
+        v69 = v14;
         v15 = "%s: inet_pton(AF_INET6, %s) failed %s";
         v16 = v12;
         v17 = 32;
         goto LABEL_52;
       }
 
-      v20 = inet_pton(2, v9, &v56[5]);
+      v20 = inet_pton(2, v9, &v55[5]);
       if (v20 != 1)
       {
         if (v20 != -1)
@@ -5117,10 +5049,10 @@ LABEL_52:
             goto LABEL_64;
           }
 
-          *v65 = 136315394;
-          v66 = "ne_parse_necp_drop_dest_entry";
-          v67 = 2080;
-          v68 = v9;
+          *v64 = 136315394;
+          v65 = "ne_parse_necp_drop_dest_entry";
+          v66 = 2080;
+          v67 = v9;
           v15 = "%s: bad address %s";
           v16 = v34;
           v17 = 22;
@@ -5137,18 +5069,18 @@ LABEL_52:
         {
           v22 = __error();
           v23 = strerror(*v22);
-          *v65 = 136315650;
-          v66 = "ne_parse_necp_drop_dest_entry";
-          v67 = 2080;
-          v68 = v9;
-          v69 = 2080;
-          v70 = v23;
-          _os_log_error_impl(&dword_1A90C6000, v21, OS_LOG_TYPE_ERROR, "%s: inet_pton(AF_INET, %s) failed %s", v65, 0x20u);
+          *v64 = 136315650;
+          v65 = "ne_parse_necp_drop_dest_entry";
+          v66 = 2080;
+          v67 = v9;
+          v68 = 2080;
+          v69 = v23;
+          _os_log_error_impl(&dword_1A90C6000, v21, OS_LOG_TYPE_ERROR, "%s: inet_pton(AF_INET, %s) failed %s", v64, 0x20u);
         }
 
 LABEL_39:
-        v56[0] = v10;
-        if ((v10 - 129) <= 0xFFFFFF7F && v56[2] == 30)
+        v55[0] = v10;
+        if ((v10 - 129) <= 0xFFFFFF7F && v55[2] == 30)
         {
           if (ne_log_obj_g_init != -1)
           {
@@ -5161,15 +5093,15 @@ LABEL_39:
             goto LABEL_64;
           }
 
-          *v65 = 136315394;
-          v66 = "ne_parse_necp_drop_dest_entry";
-          v67 = 1024;
-          LODWORD(v68) = v56[0];
+          *v64 = 136315394;
+          v65 = "ne_parse_necp_drop_dest_entry";
+          v66 = 1024;
+          LODWORD(v67) = v55[0];
           v15 = "%s: bad IPv6 prefix %d";
           goto LABEL_51;
         }
 
-        if ((v10 - 33) <= 0xFFFFFFDF && v56[2] == 2)
+        if ((v10 - 33) <= 0xFFFFFFDF && v55[2] == 2)
         {
           if (ne_log_obj_g_init != -1)
           {
@@ -5182,35 +5114,35 @@ LABEL_39:
             goto LABEL_64;
           }
 
-          *v65 = 136315394;
-          v66 = "ne_parse_necp_drop_dest_entry";
-          v67 = 1024;
-          LODWORD(v68) = v56[0];
+          *v64 = 136315394;
+          v65 = "ne_parse_necp_drop_dest_entry";
+          v66 = 1024;
+          LODWORD(v67) = v55[0];
           v15 = "%s: bad IPv4 prefix %d";
           goto LABEL_51;
         }
 
-        LODWORD(v39[0]) = v8;
-        *(v39 + 8) = *v56;
-        *(&v39[1] + 5) = *&v56[13];
-        _Block_object_dispose(&v40, 8);
-        _Block_object_dispose(&v44, 8);
-        _Block_object_dispose(&v48, 8);
-        _Block_object_dispose(&v52, 8);
+        LODWORD(v38[0]) = v8;
+        *(v38 + 8) = *v55;
+        *(&v38[1] + 5) = *&v55[13];
+        _Block_object_dispose(&v39, 8);
+        _Block_object_dispose(&v43, 8);
+        _Block_object_dispose(&v47, 8);
+        _Block_object_dispose(&v51, 8);
         v25 = *(a1 + 40);
         v28 = *v25;
         v26 = v25 + 1;
         v27 = v28;
         if (v28)
         {
-          v29 = BYTE8(v39[0]);
+          v29 = BYTE8(v38[0]);
           v30 = (*(a1 + 40) + 13);
           v31 = 1;
           v32 = v27;
           v33 = 1;
           do
           {
-            if (*(v30 - 9) == v8 && *(v30 - 1) == v29 && !memcmp(v30, (v39 | 9), *v30))
+            if (*(v30 - 9) == v8 && *(v30 - 1) == v29 && !memcmp(v30, (v38 | 9), *v30))
             {
               break;
             }
@@ -5223,7 +5155,7 @@ LABEL_39:
           while (v32);
           if (v33)
           {
-            goto LABEL_73;
+            return 1;
           }
         }
 
@@ -5232,29 +5164,27 @@ LABEL_39:
           LODWORD(v27) = 0;
         }
 
-        v37 = &v26[10 * v27];
-        v38 = v39[1];
-        *v37 = v39[0];
-        *(v37 + 1) = v38;
-        *(v37 + 4) = *&v39[2];
+        v36 = &v26[10 * v27];
+        v37 = v38[1];
+        *v36 = v38[0];
+        *(v36 + 1) = v37;
+        *(v36 + 4) = *&v38[2];
         ++**(a1 + 40);
-LABEL_73:
-        result = 1;
-        goto LABEL_70;
+        return 1;
       }
 
       v19 = 528;
     }
 
-    *&v56[1] = v19;
+    *&v55[1] = v19;
     goto LABEL_39;
   }
 
 LABEL_64:
-  _Block_object_dispose(&v40, 8);
-  _Block_object_dispose(&v44, 8);
-  _Block_object_dispose(&v48, 8);
-  _Block_object_dispose(&v52, 8);
+  _Block_object_dispose(&v39, 8);
+  _Block_object_dispose(&v43, 8);
+  _Block_object_dispose(&v47, 8);
+  _Block_object_dispose(&v51, 8);
 LABEL_65:
   if (ne_log_obj_g_init != -1)
   {
@@ -5271,33 +5201,29 @@ LABEL_65:
 
   result = 0;
   *(*(*(a1 + 32) + 8) + 24) = 0;
-LABEL_70:
-  v36 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __ne_parse_necp_drop_dest_dictionary_block_invoke(uint64_t a1, char *__s1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (!strcmp(__s1, "Level"))
   {
     value = xpc_dictionary_get_value(*(a1 + 64), "Level");
     *(*(*(a1 + 32) + 8) + 24) = ne_session_get_necp_level_from_xpc_value(value);
-LABEL_12:
-    result = 1;
-    goto LABEL_13;
+    return 1;
   }
 
   if (!strcmp(__s1, "Address"))
   {
     *(*(*(a1 + 40) + 8) + 24) = xpc_dictionary_get_string(*(a1 + 64), "Address");
-    goto LABEL_12;
+    return 1;
   }
 
   if (!strcmp(__s1, "Prefix"))
   {
     *(*(*(a1 + 48) + 8) + 24) = xpc_dictionary_get_int64(*(a1 + 64), "Prefix");
-    goto LABEL_12;
+    return 1;
   }
 
   if (ne_log_obj_g_init != -1)
@@ -5308,17 +5234,15 @@ LABEL_12:
   v4 = ne_log_obj_log_obj;
   if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
   {
-    v8 = 136315394;
-    v9 = "ne_parse_necp_drop_dest_dictionary_block_invoke";
-    v10 = 2080;
-    v11 = __s1;
-    _os_log_error_impl(&dword_1A90C6000, v4, OS_LOG_TYPE_ERROR, "%s: unexpected key %s", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "ne_parse_necp_drop_dest_dictionary_block_invoke";
+    v9 = 2080;
+    v10 = __s1;
+    _os_log_error_impl(&dword_1A90C6000, v4, OS_LOG_TYPE_ERROR, "%s: unexpected key %s", &v7, 0x16u);
   }
 
   result = 0;
   *(*(*(a1 + 56) + 8) + 24) = 0;
-LABEL_13:
-  v7 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -5360,29 +5284,29 @@ char *ne_session_get_necp_level_from_xpc_value(char *result)
 
 uint64_t ne_session_add_necp_drop_dest_from_dest_list(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v43 = *MEMORY[0x1E69E9840];
-  v38 = 0;
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
+  v42 = *MEMORY[0x1E69E9840];
+  v37 = 0;
   v35 = 0u;
-  v32 = 0u;
+  v36 = 0u;
   v33 = 0u;
-  v30 = 0u;
+  v34 = 0u;
   v31 = 0u;
-  v28 = 0u;
+  v32 = 0u;
   v29 = 0u;
-  v26 = 0u;
+  v30 = 0u;
   v27 = 0u;
-  v24 = 0u;
+  v28 = 0u;
   v25 = 0u;
-  v22 = 0u;
+  v26 = 0u;
   v23 = 0u;
-  v20 = 0u;
+  v24 = 0u;
   v21 = 0u;
-  v18 = 0u;
+  v22 = 0u;
   v19 = 0u;
-  if (!a1 || MEMORY[0x1AC5803D0](a1, a2, a3, a4, a5, a6, a7, a8, v18, *(&v18 + 1), v19, *(&v19 + 1), v20, *(&v20 + 1), v21, *(&v21 + 1), v22, *(&v22 + 1), v23, *(&v23 + 1), v24, *(&v24 + 1), v25, *(&v25 + 1), v26, *(&v26 + 1), v27, *(&v27 + 1), v28, *(&v28 + 1), v29, *(&v29 + 1), v30, *(&v30 + 1), v31, *(&v31 + 1), v32, *(&v32 + 1), v33, *(&v33 + 1), v34) != MEMORY[0x1E69E9E50])
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  if (!a1 || MEMORY[0x1AC5803D0](a1, a2, a3, a4, a5, a6, a7, a8, v17, *(&v17 + 1), v18, *(&v18 + 1), v19, *(&v19 + 1), v20, *(&v20 + 1), v21, *(&v21 + 1), v22, *(&v22 + 1), v23, *(&v23 + 1), v24, *(&v24 + 1), v25, *(&v25 + 1), v26, *(&v26 + 1), v27, *(&v27 + 1), v28, *(&v28 + 1), v29, *(&v29 + 1), v30, *(&v30 + 1), v31, *(&v31 + 1), v32, *(&v32 + 1), v33, *(&v33 + 1), v34, *(&v34 + 1), v35, *(&v35 + 1), v36, *(&v36 + 1), v37) != MEMORY[0x1E69E9E50])
   {
     v9 = 22;
 LABEL_4:
@@ -5394,31 +5318,30 @@ LABEL_4:
     v10 = ne_log_obj_log_obj;
     if (!os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_7;
+      return v9;
     }
 
-    v16 = __error();
-    v17 = strerror(*v16);
+    v15 = __error();
+    v16 = strerror(*v15);
     *buf = 136315394;
-    v40 = "ne_session_add_necp_drop_dest_from_dest_list";
-    v41 = 2080;
-    v42 = v17;
-    v15 = "%s: failed %s";
+    v39 = "ne_session_add_necp_drop_dest_from_dest_list";
+    v40 = 2080;
+    v41 = v16;
+    v14 = "%s: failed %s";
 LABEL_15:
-    _os_log_error_impl(&dword_1A90C6000, v10, OS_LOG_TYPE_ERROR, v15, buf, 0x16u);
-    goto LABEL_7;
+    _os_log_error_impl(&dword_1A90C6000, v10, OS_LOG_TYPE_ERROR, v14, buf, 0x16u);
+    return v9;
   }
 
-  v9 = ne_session_parse_necp_drop_dest_array(a1, &v18);
+  v9 = ne_session_parse_necp_drop_dest_array(a1, &v17);
   if (v9)
   {
     goto LABEL_4;
   }
 
-  if (!sysctlbyname("net.necp.drop_dest_level", 0, 0, &v18, 0x144uLL))
+  if (!sysctlbyname("net.necp.drop_dest_level", 0, 0, &v17, 0x144uLL))
   {
-    v9 = 0;
-    goto LABEL_7;
+    return 0;
   }
 
   v9 = *__error();
@@ -5430,64 +5353,62 @@ LABEL_15:
   v10 = ne_log_obj_log_obj;
   if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
   {
-    v13 = __error();
-    v14 = strerror(*v13);
+    v12 = __error();
+    v13 = strerror(*v12);
     *buf = 136315394;
-    v40 = "ne_session_add_necp_drop_dest_from_dest_list";
-    v41 = 2080;
-    v42 = v14;
-    v15 = "%s: set sysctlbyname(net.necp.drop_dest_level) failed %s";
+    v39 = "ne_session_add_necp_drop_dest_from_dest_list";
+    v40 = 2080;
+    v41 = v13;
+    v14 = "%s: set sysctlbyname(net.necp.drop_dest_level) failed %s";
     goto LABEL_15;
   }
 
-LABEL_7:
-  v11 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 uint64_t ne_session_initialize_necp_drop_dest()
 {
   v0 = 0;
-  v42 = *MEMORY[0x1E69E9840];
-  LODWORD(v40) = 0;
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
+  v41 = *MEMORY[0x1E69E9840];
+  LODWORD(v39) = 0;
   v37 = 0u;
-  v34 = 0u;
+  v38 = 0u;
   v35 = 0u;
-  v32 = 0u;
+  v36 = 0u;
   v33 = 0u;
-  v30 = 0u;
+  v34 = 0u;
   v31 = 0u;
-  v28 = 0u;
+  v32 = 0u;
   v29 = 0u;
-  v26 = 0u;
+  v30 = 0u;
   v27 = 0u;
-  v24 = 0u;
+  v28 = 0u;
   v25 = 0u;
-  v22 = 0u;
+  v26 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v1 = "/var/mobile/Library/terminus/com.apple.necp_drop_dest.plist";
   v2 = &off_1E786A788;
+  v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v3 = MEMORY[0x1E69E9E50];
   do
   {
-    v4 = open(v1, 0, v20, v21, v22, v23, v24, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34, v35, v36, v37, v38, v39, v40);
+    v4 = open(v1, 0, v19, v20, v21, v22, v23, v24, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34, v35, v36, v37, v38, v39);
     if (v4 != -1)
     {
       v5 = v4;
-      memset(&v41, 0, sizeof(v41));
-      if (fstat(v4, &v41))
+      memset(&v40, 0, sizeof(v40));
+      if (fstat(v4, &v40))
       {
         st_size = 0;
       }
 
       else
       {
-        st_size = v41.st_size;
+        st_size = v40.st_size;
       }
 
       if ((st_size - 1) > 0x27FE)
@@ -5517,7 +5438,7 @@ uint64_t ne_session_initialize_necp_drop_dest()
               v10 = v9;
               if (MEMORY[0x1AC5803D0]() == v3)
               {
-                v0 = ne_session_parse_necp_drop_dest_array(v10, &v20);
+                v0 = ne_session_parse_necp_drop_dest_array(v10, &v19);
               }
 
               else
@@ -5563,22 +5484,21 @@ uint64_t ne_session_initialize_necp_drop_dest()
     {
       v13 = __error();
       v14 = strerror(*v13);
-      v41.st_dev = 136315394;
-      *&v41.st_mode = "ne_session_initialize_necp_drop_dest";
-      WORD2(v41.st_ino) = 2080;
-      *(&v41.st_ino + 6) = v14;
+      v40.st_dev = 136315394;
+      *&v40.st_mode = "ne_session_initialize_necp_drop_dest";
+      WORD2(v40.st_ino) = 2080;
+      *(&v40.st_ino + 6) = v14;
       v15 = "%s: failed %s";
 LABEL_32:
-      _os_log_error_impl(&dword_1A90C6000, v12, OS_LOG_TYPE_ERROR, v15, &v41, 0x16u);
+      _os_log_error_impl(&dword_1A90C6000, v12, OS_LOG_TYPE_ERROR, v15, &v40, 0x16u);
     }
   }
 
   else
   {
-    if (!sysctlbyname("net.necp.drop_dest_level", 0, 0, &v20, 0x144uLL))
+    if (!sysctlbyname("net.necp.drop_dest_level", 0, 0, &v19, 0x144uLL))
     {
-      v0 = 0;
-      goto LABEL_34;
+      return 0;
     }
 
     v0 = *__error();
@@ -5592,27 +5512,25 @@ LABEL_32:
     {
       v16 = __error();
       v17 = strerror(*v16);
-      v41.st_dev = 136315394;
-      *&v41.st_mode = "ne_session_initialize_necp_drop_dest";
-      WORD2(v41.st_ino) = 2080;
-      *(&v41.st_ino + 6) = v17;
+      v40.st_dev = 136315394;
+      *&v40.st_mode = "ne_session_initialize_necp_drop_dest";
+      WORD2(v40.st_ino) = 2080;
+      *(&v40.st_ino + 6) = v17;
       v15 = "%s: set sysctlbyname(net.necp.drop_dest_level) failed %s";
       goto LABEL_32;
     }
   }
 
-LABEL_34:
-  v18 = *MEMORY[0x1E69E9840];
   return v0;
 }
 
 void *necp_drop_dest_copy_dest_entry_list()
 {
-  v36 = *MEMORY[0x1E69E9840];
-  v25 = 0;
-  memset(v24, 0, sizeof(v24));
-  v23 = 0;
-  if (sysctlbyname("net.necp.drop_dest_level", 0, &v23, 0, 0))
+  v35 = *MEMORY[0x1E69E9840];
+  v24 = 0;
+  memset(v23, 0, sizeof(v23));
+  v22 = 0;
+  if (sysctlbyname("net.necp.drop_dest_level", 0, &v22, 0, 0))
   {
     if (ne_log_obj_g_init != -1)
     {
@@ -5622,17 +5540,17 @@ void *necp_drop_dest_copy_dest_entry_list()
     v0 = ne_log_obj_log_obj;
     if (!os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_10;
+      return 0;
     }
 
     goto LABEL_40;
   }
 
-  v23 = 324;
-  if (!sysctlbyname("net.necp.drop_dest_level", v24, &v23, 0, 0))
+  v22 = 324;
+  if (!sysctlbyname("net.necp.drop_dest_level", v23, &v22, 0, 0))
   {
-    v4 = xpc_array_create(0, 0);
-    if (!v4)
+    v3 = xpc_array_create(0, 0);
+    if (!v3)
     {
       if (ne_log_obj_g_init != -1)
       {
@@ -5642,69 +5560,69 @@ void *necp_drop_dest_copy_dest_entry_list()
       v0 = ne_log_obj_log_obj;
       if (!os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
       {
-        goto LABEL_10;
+        return 0;
       }
 
-      v15 = __error();
-      v16 = strerror(*v15);
+      v14 = __error();
+      v15 = strerror(*v14);
       *string = 136315394;
-      v33 = "necp_drop_dest_copy_dest_entry_list";
-      v34 = 2080;
-      v35 = v16;
-      v17 = "%s: xpc_array_create() failed %s";
+      v32 = "necp_drop_dest_copy_dest_entry_list";
+      v33 = 2080;
+      v34 = v15;
+      v16 = "%s: xpc_array_create() failed %s";
       goto LABEL_41;
     }
 
-    v1 = v4;
-    v5 = &v24[1] + 5;
-    v6 = 8;
+    v1 = v3;
+    v4 = &v23[1] + 5;
+    v5 = 8;
     while (1)
     {
-      v7 = xpc_dictionary_create(0, 0, 0);
-      if (!v7)
+      v6 = xpc_dictionary_create(0, 0, 0);
+      if (!v6)
       {
         if (ne_log_obj_g_init != -1)
         {
           dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
         }
 
-        v18 = ne_log_obj_log_obj;
+        v17 = ne_log_obj_log_obj;
         if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
         {
-          v21 = __error();
-          v22 = strerror(*v21);
+          v20 = __error();
+          v21 = strerror(*v20);
           *buf = 136315394;
-          v27 = "necp_drop_dest_copy_dest_entry_list";
-          v28 = 2080;
-          *v29 = v22;
-          _os_log_error_impl(&dword_1A90C6000, v18, OS_LOG_TYPE_ERROR, "%s: xpc_dictionary_create() failed %s", buf, 0x16u);
+          v26 = "necp_drop_dest_copy_dest_entry_list";
+          v27 = 2080;
+          *v28 = v21;
+          _os_log_error_impl(&dword_1A90C6000, v17, OS_LOG_TYPE_ERROR, "%s: xpc_dictionary_create() failed %s", buf, 0x16u);
         }
 
         xpc_release(v1);
-        goto LABEL_10;
+        return 0;
       }
 
-      v8 = v7;
-      v9 = *(v5 - 7);
-      if (v9 == 30)
+      v7 = v6;
+      v8 = *(v4 - 7);
+      if (v8 == 30)
       {
-        if (*(v5 - 8) != 28)
+        if (*(v4 - 8) != 28)
         {
           goto LABEL_27;
         }
 
-        inet_ntop(30, v5, string, 0x2Eu);
-        xpc_string_from_necp_level = ne_session_create_xpc_string_from_necp_level(*(v5 - 17));
-        xpc_dictionary_set_value(v8, "Level", xpc_string_from_necp_level);
+        inet_ntop(30, v4, string, 0x2Eu);
+        xpc_string_from_necp_level = ne_session_create_xpc_string_from_necp_level(*(v4 - 17));
+        xpc_dictionary_set_value(v7, "Level", xpc_string_from_necp_level);
         xpc_release(xpc_string_from_necp_level);
-        xpc_dictionary_set_int64(v8, "Prefix", *(v5 - 9));
-        xpc_dictionary_set_string(v8, "Address", string);
+        xpc_dictionary_set_int64(v7, "Prefix", *(v4 - 9));
+        xpc_dictionary_set_string(v7, "Address", string);
         if (ne_log_obj_g_init != -1)
         {
           dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
         }
 
-        v11 = ne_log_obj_log_obj;
+        v10 = ne_log_obj_log_obj;
         if (!os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_INFO))
         {
           goto LABEL_27;
@@ -5713,51 +5631,51 @@ void *necp_drop_dest_copy_dest_entry_list()
 
       else
       {
-        if (v9 != 2 || *(v5 - 8) != 16)
+        if (v8 != 2 || *(v4 - 8) != 16)
         {
           goto LABEL_27;
         }
 
-        inet_ntop(2, v5 - 4, string, 0x2Eu);
-        v10 = ne_session_create_xpc_string_from_necp_level(*(v5 - 17));
-        xpc_dictionary_set_value(v8, "Level", v10);
-        xpc_release(v10);
-        xpc_dictionary_set_int64(v8, "Prefix", *(v5 - 9));
-        xpc_dictionary_set_string(v8, "Address", string);
+        inet_ntop(2, v4 - 4, string, 0x2Eu);
+        v9 = ne_session_create_xpc_string_from_necp_level(*(v4 - 17));
+        xpc_dictionary_set_value(v7, "Level", v9);
+        xpc_release(v9);
+        xpc_dictionary_set_int64(v7, "Prefix", *(v4 - 9));
+        xpc_dictionary_set_string(v7, "Address", string);
         if (ne_log_obj_g_init != -1)
         {
           dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
         }
 
-        v11 = ne_log_obj_log_obj;
+        v10 = ne_log_obj_log_obj;
         if (!os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_INFO))
         {
           goto LABEL_27;
         }
       }
 
-      v13 = *(v5 - 17);
-      v14 = *(v5 - 9);
+      v12 = *(v4 - 17);
+      v13 = *(v4 - 9);
       *buf = 136315906;
-      v27 = "necp_drop_dest_copy_dest_entry_list";
-      v28 = 1024;
-      *v29 = v13;
-      *&v29[4] = 1024;
-      *&v29[6] = v14;
-      v30 = 2080;
-      v31 = string;
-      _os_log_impl(&dword_1A90C6000, v11, OS_LOG_TYPE_INFO, "%s: level %u prefix %u address %s", buf, 0x22u);
+      v26 = "necp_drop_dest_copy_dest_entry_list";
+      v27 = 1024;
+      *v28 = v12;
+      *&v28[4] = 1024;
+      *&v28[6] = v13;
+      v29 = 2080;
+      v30 = string;
+      _os_log_impl(&dword_1A90C6000, v10, OS_LOG_TYPE_INFO, "%s: level %u prefix %u address %s", buf, 0x22u);
 LABEL_27:
-      if (xpc_dictionary_get_count(v8))
+      if (xpc_dictionary_get_count(v7))
       {
-        xpc_array_append_value(v1, v8);
+        xpc_array_append_value(v1, v7);
       }
 
-      xpc_release(v8);
-      v5 += 40;
-      if (!--v6)
+      xpc_release(v7);
+      v4 += 40;
+      if (!--v5)
       {
-        goto LABEL_11;
+        return v1;
       }
     }
   }
@@ -5770,24 +5688,20 @@ LABEL_27:
   v0 = ne_log_obj_log_obj;
   if (!os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
   {
-    goto LABEL_10;
+    return 0;
   }
 
 LABEL_40:
-  v19 = __error();
-  v20 = strerror(*v19);
+  v18 = __error();
+  v19 = strerror(*v18);
   *string = 136315394;
-  v33 = "necp_drop_dest_copy_dest_entry_list";
-  v34 = 2080;
-  v35 = v20;
-  v17 = "%s: sysctlbyname(net.necp.drop_dest_level) failed %s";
+  v32 = "necp_drop_dest_copy_dest_entry_list";
+  v33 = 2080;
+  v34 = v19;
+  v16 = "%s: sysctlbyname(net.necp.drop_dest_level) failed %s";
 LABEL_41:
-  _os_log_error_impl(&dword_1A90C6000, v0, OS_LOG_TYPE_ERROR, v17, string, 0x16u);
-LABEL_10:
-  v1 = 0;
-LABEL_11:
-  v2 = *MEMORY[0x1E69E9840];
-  return v1;
+  _os_log_error_impl(&dword_1A90C6000, v0, OS_LOG_TYPE_ERROR, v16, string, 0x16u);
+  return 0;
 }
 
 xpc_object_t ne_session_create_xpc_string_from_necp_level(unsigned int a1)
@@ -5980,7 +5894,7 @@ uint64_t nehelper_queue()
 
 void __nehelper_copy_connection_for_delegate_class_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (a2)
   {
     if (MEMORY[0x1AC5803D0](a2) == MEMORY[0x1E69E9E98])
@@ -5996,9 +5910,9 @@ void __nehelper_copy_connection_for_delegate_class_block_invoke(uint64_t a1, uin
         if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_DEFAULT))
         {
           v12 = *(a1 + 32);
-          v15 = 134217984;
-          v16 = v12;
-          _os_log_impl(&dword_1A90C6000, v11, OS_LOG_TYPE_DEFAULT, "nehelper connection for delegate class %llu was interrupted", &v15, 0xCu);
+          v14 = 134217984;
+          v15 = v12;
+          _os_log_impl(&dword_1A90C6000, v11, OS_LOG_TYPE_DEFAULT, "nehelper connection for delegate class %llu was interrupted", &v14, 0xCu);
         }
       }
 
@@ -6017,9 +5931,9 @@ void __nehelper_copy_connection_for_delegate_class_block_invoke(uint64_t a1, uin
           if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_DEFAULT))
           {
             v10 = *(a1 + 32);
-            v15 = 134217984;
-            v16 = v10;
-            _os_log_impl(&dword_1A90C6000, v9, OS_LOG_TYPE_DEFAULT, "nehelper connection for delegate class %llu received XPC_ERROR_CONNECTION_INVALID", &v15, 0xCu);
+            v14 = 134217984;
+            v15 = v10;
+            _os_log_impl(&dword_1A90C6000, v9, OS_LOG_TYPE_DEFAULT, "nehelper connection for delegate class %llu received XPC_ERROR_CONNECTION_INVALID", &v14, 0xCu);
           }
 
           nehelper_copy_connection_for_delegate_class_g_connection_cache[*(a1 + 32)] = 0;
@@ -6041,12 +5955,12 @@ void __nehelper_copy_connection_for_delegate_class_block_invoke(uint64_t a1, uin
       v5 = ne_log_obj_log_obj;
       if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
       {
-        v14 = *(a1 + 32);
-        v15 = 134218242;
-        v16 = v14;
-        v17 = 2080;
-        v18 = v4;
-        _os_log_error_impl(&dword_1A90C6000, v5, OS_LOG_TYPE_ERROR, "nehelper connection for delegate class %llu received unknown message: %s", &v15, 0x16u);
+        v13 = *(a1 + 32);
+        v14 = 134218242;
+        v15 = v13;
+        v16 = 2080;
+        v17 = v4;
+        _os_log_error_impl(&dword_1A90C6000, v5, OS_LOG_TYPE_ERROR, "nehelper connection for delegate class %llu received unknown message: %s", &v14, 0x16u);
       }
 
       free(v4);
@@ -6064,13 +5978,11 @@ void __nehelper_copy_connection_for_delegate_class_block_invoke(uint64_t a1, uin
     if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
     {
       v7 = *(a1 + 32);
-      v15 = 134217984;
-      v16 = v7;
-      _os_log_error_impl(&dword_1A90C6000, v6, OS_LOG_TYPE_ERROR, "nehelper connection for delegate class %llu received a NULL message", &v15, 0xCu);
+      v14 = 134217984;
+      v15 = v7;
+      _os_log_error_impl(&dword_1A90C6000, v6, OS_LOG_TYPE_ERROR, "nehelper connection for delegate class %llu received a NULL message", &v14, 0xCu);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t ne_session_address_matches_subnets(uint64_t a1, void *a2)
@@ -6226,8 +6138,9 @@ LABEL_43:
   return result;
 }
 
-BOOL ne_session_service_matches_address_for_interface(const unsigned __int8 *a1, int a2, uint64_t a3, const char *a4, char *a5, _BYTE *a6)
+BOOL ne_session_service_matches_address_for_interface(const unsigned __int8 *a1, uint64_t a2, uint64_t a3, const char *a4, char *a5, _BYTE *a6)
 {
+  v10 = a2;
   if (a6)
   {
     *a6 = 0;
@@ -6245,7 +6158,7 @@ BOOL ne_session_service_matches_address_for_interface(const unsigned __int8 *a1,
       if (v15)
       {
         v16 = v15;
-        session_dict_from_cache = ne_session_get_session_dict_from_cache(v15, a1, a2);
+        session_dict_from_cache = ne_session_get_session_dict_from_cache(v15, a1, v10);
         domain_dict_from_session_dict = ne_session_get_domain_dict_from_session_dict(session_dict_from_cache, a5, a4);
         v19 = MEMORY[0x1E69E9E80];
         if (domain_dict_from_session_dict && (v20 = domain_dict_from_session_dict, MEMORY[0x1AC5803D0]() == v19) && xpc_dictionary_get_BOOL(v20, "service-probe-failed") || (v21 = xpc_dictionary_get_value(v16, "redirected-addresses")) != 0 && (v22 = v21, MEMORY[0x1AC5803D0]() == v19) && (v23 = xpc_dictionary_get_value(v22, a4), ne_session_address_matches_subnets(a3, v23)))
@@ -6260,7 +6173,7 @@ BOOL ne_session_service_matches_address_for_interface(const unsigned __int8 *a1,
         else
         {
           v12 = 0;
-          if (a2 == 1)
+          if (v10 == 1)
           {
             if (session_dict_from_cache)
             {
@@ -6342,44 +6255,50 @@ xpc_object_t ne_session_copy_cached_values_locked()
 
 xpc_object_t ne_session_get_session_dict_from_cache(void *a1, const unsigned __int8 *a2, int a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v6 = MEMORY[0x1AC5803D0]();
   v7 = MEMORY[0x1E69E9E80];
   if (v6 != MEMORY[0x1E69E9E80])
   {
-    goto LABEL_2;
+    return 0;
   }
 
   result = xpc_dictionary_get_value(a1, "services");
-  if (!result)
+  if (result)
   {
-    goto LABEL_3;
-  }
+    v9 = result;
+    if (MEMORY[0x1AC5803D0]() != v7)
+    {
+      return 0;
+    }
 
-  v10 = result;
-  if (MEMORY[0x1AC5803D0]() == v7 && (memset(v14, 0, sizeof(v14)), uuid_unparse(a2, v14), (value = xpc_dictionary_get_value(v10, v14)) != 0) && (v12 = value, MEMORY[0x1AC5803D0]() == v7))
-  {
+    memset(v13, 0, sizeof(v13));
+    uuid_unparse(a2, v13);
+    value = xpc_dictionary_get_value(v9, v13);
+    if (!value)
+    {
+      return 0;
+    }
+
+    v11 = value;
+    if (MEMORY[0x1AC5803D0]() != v7)
+    {
+      return 0;
+    }
+
     if ((a3 - 1) > 0xB)
     {
-      v13 = "<unknown>";
+      v12 = "<unknown>";
     }
 
     else
     {
-      v13 = off_1E786AE60[a3 - 1];
+      v12 = off_1E786AE60[a3 - 1];
     }
 
-    result = xpc_dictionary_get_value(v12, v13);
+    return xpc_dictionary_get_value(v11, v12);
   }
 
-  else
-  {
-LABEL_2:
-    result = 0;
-  }
-
-LABEL_3:
-  v9 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -6681,45 +6600,45 @@ LABEL_6:
 
 uint64_t ne_session_copy_socket_attributes(int a1, void **a2, void **a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v18 = 256;
+  v19 = *MEMORY[0x1E69E9840];
+  v17 = 256;
   if (a1 == -1)
   {
-    goto LABEL_5;
+    return 0;
   }
 
   if (a2 | a3)
   {
-    if (!getsockopt(a1, 0xFFFF, 4361, v19, &v18))
+    if (!getsockopt(a1, 0xFFFF, 4361, v18, &v17))
     {
-      if (a2 && v18)
+      if (a2 && v17)
       {
+        v7 = 0;
         v8 = 0;
-        v9 = 0;
         while (1)
         {
-          v10 = &v19[v8];
-          v11 = *&v19[v8 + 1];
-          if (v19[v8] == 7)
+          v9 = &v18[v7];
+          v10 = *&v18[v7 + 1];
+          if (v18[v7] == 7)
           {
             break;
           }
 
-          v8 = (v9 + v11 + 5);
-          v9 = v8;
-          if (v8 >= v18)
+          v7 = (v8 + v10 + 5);
+          v8 = v7;
+          if (v7 >= v17)
           {
             goto LABEL_17;
           }
         }
 
-        if (v11)
+        if (v10)
         {
-          v12 = malloc_type_calloc(v11 + 1, 1uLL, 0x100004077774924uLL);
-          *a2 = v12;
-          if (v12)
+          v11 = malloc_type_calloc(v10 + 1, 1uLL, 0x100004077774924uLL);
+          *a2 = v11;
+          if (v11)
           {
-            memcpy(v12, v10 + 5, v11);
+            memcpy(v11, v9 + 5, v10);
           }
         }
 
@@ -6730,59 +6649,52 @@ uint64_t ne_session_copy_socket_attributes(int a1, void **a2, void **a3)
       }
 
 LABEL_17:
-      if (a3 && v18)
+      if (a3 && v17)
       {
+        v12 = 0;
         v13 = 0;
-        v14 = 0;
         while (1)
         {
-          v15 = &v19[v13];
-          v16 = *&v19[v13 + 1];
-          if (v19[v13] == 8)
+          v14 = &v18[v12];
+          v15 = *&v18[v12 + 1];
+          if (v18[v12] == 8)
           {
             break;
           }
 
-          v13 = (v14 + v16 + 5);
+          v12 = (v13 + v15 + 5);
           v5 = 1;
-          v14 = v13;
-          if (v13 >= v18)
+          v13 = v12;
+          if (v12 >= v17)
           {
-            goto LABEL_6;
+            return v5;
           }
         }
 
-        if (!v16)
+        if (!v15)
         {
           v5 = 1;
           *a3 = malloc_type_calloc(1uLL, 1uLL, 0x100004077774924uLL);
-          goto LABEL_6;
+          return v5;
         }
 
-        v17 = malloc_type_calloc(v16 + 1, 1uLL, 0x100004077774924uLL);
-        *a3 = v17;
-        if (!v17)
+        v16 = malloc_type_calloc(v15 + 1, 1uLL, 0x100004077774924uLL);
+        *a3 = v16;
+        if (!v16)
         {
-          v5 = 1;
-          goto LABEL_6;
+          return 1;
         }
 
-        memcpy(v17, v15 + 5, v16);
+        memcpy(v16, v14 + 5, v15);
       }
 
-      goto LABEL_3;
+      return 1;
     }
 
-LABEL_5:
-    v5 = 0;
-    goto LABEL_6;
+    return 0;
   }
 
-LABEL_3:
-  v5 = 1;
-LABEL_6:
-  v6 = *MEMORY[0x1E69E9840];
-  return v5;
+  return 1;
 }
 
 const char *ne_session_status_to_string(int a1)
@@ -6800,25 +6712,25 @@ const char *ne_session_status_to_string(int a1)
 
 uint64_t ne_session_copy_security_session_info(uint64_t a1, _DWORD *a2, _DWORD *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x2000000000;
-  v17 = 0;
+  v19 = *MEMORY[0x1E69E9840];
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x2000000000;
+  v16 = 0;
   *a2 = 0;
   *a3 = 0;
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 0x40000000;
-  v13[2] = __ne_session_copy_security_session_info_block_invoke;
-  v13[3] = &unk_1E786A7C0;
-  v13[4] = &v14;
-  v13[5] = a1;
-  dispatch_sync(g_queue, v13);
-  if (v15[3])
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 0x40000000;
+  v12[2] = __ne_session_copy_security_session_info_block_invoke;
+  v12[3] = &unk_1E786A7C0;
+  v12[4] = &v13;
+  v12[5] = a1;
+  dispatch_sync(g_queue, v12);
+  if (v14[3])
   {
     v5 = xpc_dictionary_create(0, 0, 0);
     xpc_dictionary_set_int64(v5, "SessionCommandType", 5);
-    v6 = xpc_connection_send_message_with_reply_sync(v15[3], v5);
+    v6 = xpc_connection_send_message_with_reply_sync(v14[3], v5);
     v7 = v6;
     if (v6)
     {
@@ -6840,7 +6752,7 @@ uint64_t ne_session_copy_security_session_info(uint64_t a1, _DWORD *a2, _DWORD *
         {
           string = xpc_dictionary_get_string(v7, *MEMORY[0x1E69E9E28]);
           *buf = 136315138;
-          v19 = string;
+          v18 = string;
           _os_log_error_impl(&dword_1A90C6000, v8, OS_LOG_TYPE_ERROR, "Failed to fetch security session info: %s", buf, 0xCu);
         }
 
@@ -6853,14 +6765,13 @@ uint64_t ne_session_copy_security_session_info(uint64_t a1, _DWORD *a2, _DWORD *
 LABEL_13:
     xpc_release(v5);
     xpc_release(v7);
-    xpc_release(v15[3]);
+    xpc_release(v14[3]);
     goto LABEL_14;
   }
 
   v9 = 0;
 LABEL_14:
-  _Block_object_dispose(&v14, 8);
-  v10 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v13, 8);
   return v9;
 }
 
@@ -6908,11 +6819,11 @@ uint64_t ne_session_get_type(uint64_t a1)
 
 xpc_object_t ne_session_policy_copy_flow_divert_token(const unsigned __int8 *a1, unsigned int a2, xpc_object_t xdict, const char *a4)
 {
-  v33 = *MEMORY[0x1E69E9840];
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x2000000000;
-  v19 = 0;
+  v32 = *MEMORY[0x1E69E9840];
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x2000000000;
+  v18 = 0;
   if (!a4 || uuid_is_null(a1))
   {
     v8 = ne_session_policy_copy_flow_divert_token_with_key(a2, xdict, 0, 0);
@@ -6926,18 +6837,18 @@ LABEL_17:
     goto LABEL_4;
   }
 
-  v11 = dispatch_semaphore_create(0);
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 0x40000000;
-  v15[2] = __ne_session_policy_copy_flow_divert_token_block_invoke;
-  v15[3] = &unk_1E786A810;
-  v15[4] = &v16;
-  v15[5] = v11;
-  v12 = ne_session_create(a1, 2);
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x2000000000;
-  v24 = 0;
+  v10 = dispatch_semaphore_create(0);
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 0x40000000;
+  v14[2] = __ne_session_policy_copy_flow_divert_token_block_invoke;
+  v14[3] = &unk_1E786A810;
+  v14[4] = &v15;
+  v14[5] = v10;
+  v11 = ne_session_create(a1, 2);
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x2000000000;
+  v23 = 0;
   if (get_flow_divert_token_from_session_manager_token_init != -1)
   {
     dispatch_once(&get_flow_divert_token_from_session_manager_token_init, &__block_literal_global_239);
@@ -6945,48 +6856,48 @@ LABEL_17:
 
   *&block = MEMORY[0x1E69E9820];
   *(&block + 1) = 0x40000000;
-  v26 = __get_flow_divert_token_from_session_manager_block_invoke_2;
-  v27 = &unk_1E786AD60;
-  v28 = &v21;
-  v29 = v12;
+  v25 = __get_flow_divert_token_from_session_manager_block_invoke_2;
+  v26 = &unk_1E786AD60;
+  v27 = &v20;
+  v28 = v11;
   dispatch_sync(g_queue, &block);
-  if (*(v22 + 24) == 1)
+  if (*(v21 + 24) == 1)
   {
-    atomic_fetch_add_explicit((v12 + 40), 1u, memory_order_relaxed);
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 0x40000000;
-    v20[2] = __get_flow_divert_token_from_session_manager_block_invoke_3;
-    v20[3] = &__block_descriptor_tmp_244;
-    v20[4] = v12;
+    atomic_fetch_add_explicit((v11 + 40), 1u, memory_order_relaxed);
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 0x40000000;
+    v19[2] = __get_flow_divert_token_from_session_manager_block_invoke_3;
+    v19[3] = &__block_descriptor_tmp_244;
+    v19[4] = v11;
     out[0] = MEMORY[0x1E69E9820];
     out[1] = 0x40000000;
     out[2] = __ne_session_set_event_handler_block_invoke;
     out[3] = &unk_1E786A4B8;
-    out[4] = v20;
-    v31 = v12;
-    v32 = get_flow_divert_token_from_session_manager_token_queue;
+    out[4] = v19;
+    v30 = v11;
+    v31 = get_flow_divert_token_from_session_manager_token_queue;
     dispatch_sync(g_queue, out);
   }
 
-  v13 = xpc_dictionary_create(0, 0, 0);
-  xpc_dictionary_set_uint64(v13, "SessionFlowDivertTokenControlUnit", a2);
+  v12 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_uint64(v12, "SessionFlowDivertTokenControlUnit", a2);
   if (xdict)
   {
-    xpc_dictionary_set_value(v13, "SessionFlowDivertTokenProperties", xdict);
+    xpc_dictionary_set_value(v12, "SessionFlowDivertTokenProperties", xdict);
   }
 
-  xpc_dictionary_set_string(v13, "SessionFlowDivertTokenSigningIdentifier", a4);
+  xpc_dictionary_set_string(v12, "SessionFlowDivertTokenSigningIdentifier", a4);
   out[0] = MEMORY[0x1E69E9820];
   out[1] = 0x40000000;
   out[2] = __get_flow_divert_token_from_session_manager_block_invoke_248;
   out[3] = &unk_1E786ADC8;
-  out[4] = v15;
-  v31 = v12;
-  ne_session_get_info_with_parameters(v12, 4, v13, 0, get_flow_divert_token_from_session_manager_token_queue, out);
-  _Block_object_dispose(&v21, 8);
-  dispatch_semaphore_wait(v11, 0xFFFFFFFFFFFFFFFFLL);
-  dispatch_release(v11);
-  v8 = v17[3];
+  out[4] = v14;
+  v30 = v11;
+  ne_session_get_info_with_parameters(v11, 4, v12, 0, get_flow_divert_token_from_session_manager_token_queue, out);
+  _Block_object_dispose(&v20, 8);
+  dispatch_semaphore_wait(v10, 0xFFFFFFFFFFFFFFFFLL);
+  dispatch_release(v10);
+  v8 = v16[3];
   if (!v8)
   {
     memset(out, 0, 37);
@@ -6996,26 +6907,25 @@ LABEL_17:
       dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
     }
 
-    v14 = ne_log_obj_log_obj;
+    v13 = ne_log_obj_log_obj;
     if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
     {
       LODWORD(block) = 136315138;
       *(&block + 4) = out;
-      _os_log_error_impl(&dword_1A90C6000, v14, OS_LOG_TYPE_ERROR, "Failed to obtain the flow divert token for configuration %s", &block, 0xCu);
+      _os_log_error_impl(&dword_1A90C6000, v13, OS_LOG_TYPE_ERROR, "Failed to obtain the flow divert token for configuration %s", &block, 0xCu);
     }
 
     goto LABEL_17;
   }
 
 LABEL_4:
-  _Block_object_dispose(&v16, 8);
-  v9 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v15, 8);
   return v8;
 }
 
 xpc_object_t ne_session_policy_copy_flow_divert_token_with_key(unsigned int a1, xpc_object_t xdict, const char *a3, void *a4)
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   length = 0;
   string = xpc_dictionary_get_string(xdict, "flow-host-name");
   data = xpc_dictionary_get_data(xdict, "flow-host-address", &length);
@@ -7028,7 +6938,7 @@ xpc_object_t ne_session_policy_copy_flow_divert_token_with_key(unsigned int a1, 
   v14 = 0;
   if (!v13)
   {
-    goto LABEL_58;
+    return v14;
   }
 
   if (v11)
@@ -7041,7 +6951,7 @@ xpc_object_t ne_session_policy_copy_flow_divert_token_with_key(unsigned int a1, 
     v15 = 0;
   }
 
-  v53 = v15;
+  v52 = v15;
   if (string)
   {
     v16 = strlen(string) + 5;
@@ -7108,7 +7018,7 @@ LABEL_9:
 
   v23 = malloc_type_malloc(v22, 0x100004077774924uLL);
   v24 = v23;
-  v54 = v22;
+  v53 = v22;
   if (string)
   {
     v25 = v12;
@@ -7164,33 +7074,7 @@ LABEL_9:
   }
 
 LABEL_34:
-  if (v22 <= 8)
-  {
-    goto LABEL_59;
-  }
-
-  *v32 = 23;
-  *(v32 + 1) = 0x4000000;
-  *(v32 + 5) = int64;
-  if (v22 - 9 <= 8)
-  {
-    goto LABEL_59;
-  }
-
-  v32[9] = 10;
-  *(v32 + 10) = 0x4000000;
-  *(v32 + 14) = bswap32(a1);
-  is_debug_logging_enabled = nelog_is_debug_logging_enabled();
-  if (v22 - 18 <= 8)
-  {
-    goto LABEL_59;
-  }
-
-  v36 = is_debug_logging_enabled ? 7 : 5;
-  v32[18] = 20;
-  *(v32 + 19) = 0x4000000;
-  *(v32 + 23) = v36;
-  if (v22 - 27 <= 8)
+  if (v22 <= 8 || (*v32 = 23, *(v32 + 1) = 0x4000000, *(v32 + 5) = int64, v22 - 9 <= 8) || (v32[9] = 10, *(v32 + 10) = 0x4000000, *(v32 + 14) = bswap32(a1), is_debug_logging_enabled = nelog_is_debug_logging_enabled(), v22 - 18 <= 8) || (!is_debug_logging_enabled ? (v36 = 5) : (v36 = 7), v32[18] = 20, *(v32 + 19) = 0x4000000, *(v32 + 23) = v36, v22 - 27 <= 8))
   {
 LABEL_59:
     __assert_rtn("ne_tlv_add", "ne_session.c", 2888, "tlv_iter->remaining >= add_size");
@@ -7198,7 +7082,7 @@ LABEL_59:
 
   v32[27] = 29;
   *(v32 + 7) = 0x4000000;
-  *(v32 + 8) = v53;
+  *(v32 + 8) = v52;
   v37 = v22 - 36;
   if (a3)
   {
@@ -7207,7 +7091,7 @@ LABEL_59:
     v40 = v38 + 5;
     v31 = v37 >= v40;
     v37 -= v40;
-    v41 = v54;
+    v41 = v53;
     if (!v31)
     {
       goto LABEL_59;
@@ -7227,7 +7111,7 @@ LABEL_59:
   else
   {
     v43 = v32 + 36;
-    v41 = v54;
+    v41 = v53;
     if (!v12)
     {
       goto LABEL_51;
@@ -7270,7 +7154,7 @@ LABEL_51:
   if (xdata)
   {
     macOut = 0uLL;
-    v59 = 0;
+    v58 = 0;
     bytes_ptr = xpc_data_get_bytes_ptr(xdata);
     v48 = xpc_data_get_length(xdata);
     CCHmac(0, bytes_ptr, v48, v24, v41 - v37, &macOut);
@@ -7282,15 +7166,13 @@ LABEL_51:
     *v43 = 18;
     *(v43 + 1) = 335544320;
     v49 = macOut;
-    *(v43 + 21) = v59;
+    *(v43 + 21) = v58;
     *(v43 + 5) = v49;
     v37 -= 25;
   }
 
   v14 = xpc_data_create(v24, v41 - v37);
   free(v24);
-LABEL_58:
-  v50 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -7544,7 +7426,7 @@ void __get_flow_divert_token_from_session_manager_block_invoke_248(uint64_t a1, 
 
 void __get_flow_divert_token_from_session_manager_block_invoke_4(uint64_t a1, unsigned int a2)
 {
-  v7[5] = *MEMORY[0x1E69E9840];
+  v6[5] = *MEMORY[0x1E69E9840];
   if (a2 <= 1)
   {
     if (ne_log_obj_g_init != -1)
@@ -7555,21 +7437,19 @@ void __get_flow_divert_token_from_session_manager_block_invoke_4(uint64_t a1, un
     v4 = ne_log_obj_log_obj;
     if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_INFO))
     {
-      LODWORD(v7[0]) = 67109120;
-      HIDWORD(v7[0]) = a2;
-      _os_log_impl(&dword_1A90C6000, v4, OS_LOG_TYPE_INFO, "Flow divert token session status changed to %d, cleaning up", v7, 8u);
+      LODWORD(v6[0]) = 67109120;
+      HIDWORD(v6[0]) = a2;
+      _os_log_impl(&dword_1A90C6000, v4, OS_LOG_TYPE_INFO, "Flow divert token session status changed to %d, cleaning up", v6, 8u);
     }
 
     v5 = *(a1 + 32);
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 0x40000000;
-    v7[2] = __ne_session_cancel_block_invoke;
-    v7[3] = &__block_descriptor_tmp_11;
-    v7[4] = v5;
-    dispatch_sync(g_queue, v7);
+    v6[0] = MEMORY[0x1E69E9820];
+    v6[1] = 0x40000000;
+    v6[2] = __ne_session_cancel_block_invoke;
+    v6[3] = &__block_descriptor_tmp_11;
+    v6[4] = v5;
+    dispatch_sync(g_queue, v6);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 dispatch_queue_t __get_flow_divert_token_from_session_manager_block_invoke()
@@ -7582,119 +7462,115 @@ dispatch_queue_t __get_flow_divert_token_from_session_manager_block_invoke()
 
 xpc_object_t ne_session_copy_app_data_from_flow_divert_socket(int a1)
 {
-  v25 = *MEMORY[0x1E69E9840];
-  v22 = 0;
-  if (getsockopt(a1, 0xFFFF, 4358, 0, &v22))
+  v24 = *MEMORY[0x1E69E9840];
+  v21 = 0;
+  if (getsockopt(a1, 0xFFFF, 4358, 0, &v21))
   {
-    goto LABEL_2;
+    return 0;
   }
 
-  if (!v22)
+  if (!v21)
   {
-    if (ne_log_obj_g_init != -1)
-    {
-      dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
-    }
-
-    v9 = ne_log_obj_log_obj;
-    if (!os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_2;
-    }
-
-    *buf = 0;
-    v10 = "flow divert token size is 0";
-    v11 = v9;
-    v12 = 2;
-LABEL_20:
-    _os_log_error_impl(&dword_1A90C6000, v11, OS_LOG_TYPE_ERROR, v10, buf, v12);
-LABEL_2:
-    v2 = 0;
-    goto LABEL_3;
-  }
-
-  v5 = malloc_type_malloc(v22, 0x100004077774924uLL);
-  if (!v5)
-  {
-    if (ne_log_obj_g_init != -1)
-    {
-      dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
-    }
-
-    v13 = ne_log_obj_log_obj;
-    if (!os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_2;
-    }
-
-    *buf = 67109120;
-    LODWORD(v24) = v22;
-    v10 = "Failed to allocate %u bytes for the flow divert token";
-    v11 = v13;
-    v12 = 8;
-    goto LABEL_20;
-  }
-
-  v6 = v5;
-  if (getsockopt(a1, 0xFFFF, 4358, v5, &v22))
-  {
-    v7 = *__error();
     if (ne_log_obj_g_init != -1)
     {
       dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
     }
 
     v8 = ne_log_obj_log_obj;
-    if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
+    if (!os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
     {
-      v21 = strerror(v7);
-      *buf = 136315138;
-      v24 = v21;
-      _os_log_error_impl(&dword_1A90C6000, v8, OS_LOG_TYPE_ERROR, "getsockopt(SO_FLOW_DIVERT_TOKEN) failed: %s", buf, 0xCu);
+      return 0;
     }
 
-    free(v6);
-    goto LABEL_2;
+    *buf = 0;
+    v9 = "flow divert token size is 0";
+    v10 = v8;
+    v11 = 2;
+LABEL_20:
+    _os_log_error_impl(&dword_1A90C6000, v10, OS_LOG_TYPE_ERROR, v9, buf, v11);
+    return 0;
   }
 
-  v14 = v22;
-  v15 = v6;
-  while (v14 >= 5)
+  v4 = malloc_type_malloc(v21, 0x100004077774924uLL);
+  if (!v4)
   {
-    v16 = *v15;
-    v17 = *(v15 + 1);
-    v18 = bswap32(v17);
-    if (v17)
+    if (ne_log_obj_g_init != -1)
     {
-      v19 = v18 + 5;
-      if (v18 + 5 > v14)
+      dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
+    }
+
+    v12 = ne_log_obj_log_obj;
+    if (!os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
+    {
+      return 0;
+    }
+
+    *buf = 67109120;
+    LODWORD(v23) = v21;
+    v9 = "Failed to allocate %u bytes for the flow divert token";
+    v10 = v12;
+    v11 = 8;
+    goto LABEL_20;
+  }
+
+  v5 = v4;
+  if (getsockopt(a1, 0xFFFF, 4358, v4, &v21))
+  {
+    v6 = *__error();
+    if (ne_log_obj_g_init != -1)
+    {
+      dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
+    }
+
+    v7 = ne_log_obj_log_obj;
+    if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
+    {
+      v20 = strerror(v6);
+      *buf = 136315138;
+      v23 = v20;
+      _os_log_error_impl(&dword_1A90C6000, v7, OS_LOG_TYPE_ERROR, "getsockopt(SO_FLOW_DIVERT_TOKEN) failed: %s", buf, 0xCu);
+    }
+
+    free(v5);
+    return 0;
+  }
+
+  v13 = v21;
+  v14 = v5;
+  while (v13 >= 5)
+  {
+    v15 = *v14;
+    v16 = *(v14 + 1);
+    v17 = bswap32(v16);
+    if (v16)
+    {
+      v18 = v17 + 5;
+      if (v17 + 5 > v13)
       {
         break;
       }
 
-      v20 = v15 + 5;
+      v19 = v14 + 5;
     }
 
     else
     {
-      v20 = 0;
-      v19 = 5;
+      v19 = 0;
+      v18 = 5;
     }
 
-    v15 += v19;
-    v14 -= v19;
-    if (v16 == 31)
+    v14 += v18;
+    v13 -= v18;
+    if (v15 == 31)
     {
-      v2 = xpc_data_create(v20, v18);
+      v2 = xpc_data_create(v19, v17);
       goto LABEL_30;
     }
   }
 
   v2 = 0;
 LABEL_30:
-  free(v6);
-LABEL_3:
-  v3 = *MEMORY[0x1E69E9840];
+  free(v5);
   return v2;
 }
 
@@ -7791,12 +7667,13 @@ const char *ne_session_stop_reason_to_string(int a1)
   }
 }
 
-xpc_object_t ne_copy_signing_identifier_for_pid_with_audit_token(int a1, uint64_t a2)
+xpc_object_t ne_copy_signing_identifier_for_pid_with_audit_token(uint64_t a1, uint64_t a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
-  bzero(v18, 0x400uLL);
+  v3 = a1;
+  v18 = *MEMORY[0x1E69E9840];
+  bzero(v17, 0x400uLL);
   v4 = 1023;
-  v5 = v18;
+  v5 = v17;
   while (a2)
   {
     if (!csops_audittoken())
@@ -7806,7 +7683,7 @@ xpc_object_t ne_copy_signing_identifier_for_pid_with_audit_token(int a1, uint64_
 
 LABEL_6:
     v6 = __error();
-    if (v5 != v18 || *v6 != 34)
+    if (v5 != v17 || *v6 != 34)
     {
       if (ne_log_obj_g_init != -1)
       {
@@ -7818,11 +7695,11 @@ LABEL_6:
       {
         v10 = __error();
         v11 = strerror(*v10);
-        v16 = 67109378;
-        LODWORD(v17[0]) = a1;
-        WORD2(v17[0]) = 2080;
-        *(v17 + 6) = v11;
-        _os_log_error_impl(&dword_1A90C6000, v9, OS_LOG_TYPE_ERROR, "Failed to get the signing identifier for %d: %s", &v16, 0x12u);
+        v15 = 67109378;
+        LODWORD(v16[0]) = v3;
+        WORD2(v16[0]) = 2080;
+        *(v16 + 6) = v11;
+        _os_log_error_impl(&dword_1A90C6000, v9, OS_LOG_TYPE_ERROR, "Failed to get the signing identifier for %d: %s", &v15, 0x12u);
       }
 
       goto LABEL_22;
@@ -7839,9 +7716,9 @@ LABEL_6:
       v12 = ne_log_obj_log_obj;
       if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
       {
-        v16 = 134217984;
-        v17[0] = v4;
-        _os_log_error_impl(&dword_1A90C6000, v12, OS_LOG_TYPE_ERROR, "signing identifier length is invalid: %lu", &v16, 0xCu);
+        v15 = 134217984;
+        v16[0] = v4;
+        _os_log_error_impl(&dword_1A90C6000, v12, OS_LOG_TYPE_ERROR, "signing identifier length is invalid: %lu", &v15, 0xCu);
       }
 
       v5 = 0;
@@ -7878,22 +7755,22 @@ LABEL_11:
 
   v13 = 1;
 LABEL_25:
-  if (v13 && v5 != v18)
+  if (v13 && v5 != v17)
   {
     free(v5);
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
-void *ne_copy_signature_info_for_pid(int a1)
+void *ne_copy_signature_info_for_pid(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v1 = a1;
+  v16 = *MEMORY[0x1E69E9840];
   v2 = ne_copy_signing_identifier_for_pid_with_audit_token(a1, 0);
   bytes[0] = 0;
   bytes[1] = 0;
-  v16 = 0;
+  v15 = 0;
   if (csops())
   {
     if (ne_log_obj_g_init != -1)
@@ -7904,13 +7781,13 @@ void *ne_copy_signature_info_for_pid(int a1)
     v3 = ne_log_obj_log_obj;
     if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
     {
-      v10 = __error();
-      v11 = strerror(*v10);
-      v12[0] = 67109378;
-      v12[1] = a1;
-      v13 = 2080;
-      v14 = v11;
-      _os_log_error_impl(&dword_1A90C6000, v3, OS_LOG_TYPE_ERROR, "Failed to get the code directory hash for %d: %s", v12, 0x12u);
+      v9 = __error();
+      v10 = strerror(*v9);
+      v11[0] = 67109378;
+      v11[1] = v1;
+      v12 = 2080;
+      v13 = v10;
+      _os_log_error_impl(&dword_1A90C6000, v3, OS_LOG_TYPE_ERROR, "Failed to get the code directory hash for %d: %s", v11, 0x12u);
     }
 
     v4 = 0;
@@ -7923,8 +7800,7 @@ void *ne_copy_signature_info_for_pid(int a1)
 
   if (!(v4 | v2))
   {
-    v6 = 0;
-    goto LABEL_23;
+    return 0;
   }
 
   v5 = xpc_dictionary_create(0, 0, 0);
@@ -7982,8 +7858,6 @@ LABEL_21:
     xpc_release(v2);
   }
 
-LABEL_23:
-  v8 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -8017,14 +7891,14 @@ xpc_object_t ne_copy_cached_synthesized_uuids_for_bundle_identifier_locked(const
     dictionary = xpc_dictionary_get_dictionary(a2, "synthesized-uuid-mappings");
     if (dictionary)
     {
-      v10 = dictionary;
+      v9 = dictionary;
       if (MEMORY[0x1AC5803D0]() == v5)
       {
-        value = xpc_dictionary_get_value(v10, a1);
+        value = xpc_dictionary_get_value(v9, a1);
         v6 = value;
         if (!value)
         {
-          goto LABEL_3;
+          return v6;
         }
 
         if (MEMORY[0x1AC5803D0](value) == MEMORY[0x1E69E9E70])
@@ -8034,15 +7908,15 @@ xpc_object_t ne_copy_cached_synthesized_uuids_for_bundle_identifier_locked(const
           bytes = xpc_data_get_bytes(v6, buffer, 0, 0x10uLL);
           if (bytes == xpc_data_get_length(v6))
           {
-            v13 = xpc_uuid_create(buffer);
-            if (v13)
+            v12 = xpc_uuid_create(buffer);
+            if (v12)
             {
-              v14 = v13;
+              v13 = v12;
               v6 = xpc_array_create(0, 0);
-              xpc_array_append_value(v6, v14);
-              xpc_release(v14);
+              xpc_array_append_value(v6, v13);
+              xpc_release(v13);
               g_ne_uuid_cache_hit = 1;
-              goto LABEL_3;
+              return v6;
             }
           }
         }
@@ -8050,31 +7924,26 @@ xpc_object_t ne_copy_cached_synthesized_uuids_for_bundle_identifier_locked(const
     }
   }
 
-  v6 = 0;
-LABEL_3:
-  v7 = *MEMORY[0x1E69E9840];
-  return v6;
+  return 0;
 }
 
-uint64_t ne_session_is_safeboot()
+BOOL ne_session_is_safeboot()
 {
-  v6 = *MEMORY[0x1E69E9840];
-  *v5 = 0x4200000001;
-  v4 = 0;
-  v3 = 4;
-  if (sysctl(v5, 2u, &v4, &v3, 0, 0))
+  v5 = *MEMORY[0x1E69E9840];
+  *v4 = 0x4200000001;
+  v3 = 0;
+  v2 = 4;
+  if (sysctl(v4, 2u, &v3, &v2, 0, 0))
   {
     v0 = 1;
   }
 
   else
   {
-    v0 = v4 == 0;
+    v0 = v3 == 0;
   }
 
-  result = !v0;
-  v2 = *MEMORY[0x1E69E9840];
-  return result;
+  return !v0;
 }
 
 unsigned __int8 *ne_is_sockaddr_valid(unsigned __int8 *result, unint64_t a2)
@@ -8274,46 +8143,46 @@ char *ne_session_set_socket_context_attribute(int a1, char *__s)
 
 uint64_t ne_session_copy_socket_domain_attributes(int a1, void **a2, void **a3, void **a4, void **a5)
 {
-  v35 = *MEMORY[0x1E69E9840];
-  bzero(v34, 0x300uLL);
-  v33 = 768;
+  v34 = *MEMORY[0x1E69E9840];
+  bzero(v33, 0x300uLL);
+  v32 = 768;
   if (a1 == -1)
   {
-    goto LABEL_7;
+    return 0;
   }
 
   if (a2 || a3 || a4)
   {
-    if (!getsockopt(a1, 0xFFFF, 4361, v34, &v33))
+    if (!getsockopt(a1, 0xFFFF, 4361, v33, &v32))
     {
-      if (a2 && v33)
+      if (a2 && v32)
       {
+        v12 = 0;
         v13 = 0;
-        v14 = 0;
         while (1)
         {
-          v15 = &v34[v13];
-          v16 = *&v34[v13 + 1];
-          if (v34[v13] == 7)
+          v14 = &v33[v12];
+          v15 = *&v33[v12 + 1];
+          if (v33[v12] == 7)
           {
             break;
           }
 
-          v13 = (v14 + v16 + 5);
-          v14 = v13;
-          if (v13 >= v33)
+          v12 = (v13 + v15 + 5);
+          v13 = v12;
+          if (v12 >= v32)
           {
             goto LABEL_19;
           }
         }
 
-        if (v16)
+        if (v15)
         {
-          v17 = malloc_type_calloc(v16 + 1, 1uLL, 0x100004077774924uLL);
-          *a2 = v17;
-          if (v17)
+          v16 = malloc_type_calloc(v15 + 1, 1uLL, 0x100004077774924uLL);
+          *a2 = v16;
+          if (v16)
           {
-            memcpy(v17, v15 + 5, v16);
+            memcpy(v16, v14 + 5, v15);
           }
         }
 
@@ -8324,34 +8193,34 @@ uint64_t ne_session_copy_socket_domain_attributes(int a1, void **a2, void **a3, 
       }
 
 LABEL_19:
-      if (a3 && v33)
+      if (a3 && v32)
       {
+        v17 = 0;
         v18 = 0;
-        v19 = 0;
         while (1)
         {
-          v20 = &v34[v18];
-          v21 = *&v34[v18 + 1];
-          if (v34[v18] == 11)
+          v19 = &v33[v17];
+          v20 = *&v33[v17 + 1];
+          if (v33[v17] == 11)
           {
             break;
           }
 
-          v18 = (v19 + v21 + 5);
-          v19 = v18;
-          if (v18 >= v33)
+          v17 = (v18 + v20 + 5);
+          v18 = v17;
+          if (v17 >= v32)
           {
             goto LABEL_29;
           }
         }
 
-        if (v21)
+        if (v20)
         {
-          v22 = malloc_type_calloc(v21 + 1, 1uLL, 0x100004077774924uLL);
-          *a3 = v22;
-          if (v22)
+          v21 = malloc_type_calloc(v20 + 1, 1uLL, 0x100004077774924uLL);
+          *a3 = v21;
+          if (v21)
           {
-            memcpy(v22, v20 + 5, v21);
+            memcpy(v21, v19 + 5, v20);
           }
         }
 
@@ -8362,34 +8231,34 @@ LABEL_19:
       }
 
 LABEL_29:
-      if (a4 && v33)
+      if (a4 && v32)
       {
+        v22 = 0;
         v23 = 0;
-        v24 = 0;
         while (1)
         {
-          v25 = &v34[v23];
-          v26 = *&v34[v23 + 1];
-          if (v34[v23] == 12)
+          v24 = &v33[v22];
+          v25 = *&v33[v22 + 1];
+          if (v33[v22] == 12)
           {
             break;
           }
 
-          v23 = (v24 + v26 + 5);
-          v24 = v23;
-          if (v23 >= v33)
+          v22 = (v23 + v25 + 5);
+          v23 = v22;
+          if (v22 >= v32)
           {
             goto LABEL_39;
           }
         }
 
-        if (v26)
+        if (v25)
         {
-          v27 = malloc_type_calloc(v26 + 1, 1uLL, 0x100004077774924uLL);
-          *a4 = v27;
-          if (v27)
+          v26 = malloc_type_calloc(v25 + 1, 1uLL, 0x100004077774924uLL);
+          *a4 = v26;
+          if (v26)
           {
-            memcpy(v27, v25 + 5, v26);
+            memcpy(v26, v24 + 5, v25);
           }
         }
 
@@ -8400,59 +8269,52 @@ LABEL_29:
       }
 
 LABEL_39:
-      if (a5 && v33)
+      if (a5 && v32)
       {
+        v27 = 0;
         v28 = 0;
-        v29 = 0;
         while (1)
         {
-          v30 = &v34[v28];
-          v31 = *&v34[v28 + 1];
-          if (v34[v28] == 13)
+          v29 = &v33[v27];
+          v30 = *&v33[v27 + 1];
+          if (v33[v27] == 13)
           {
             break;
           }
 
-          v28 = (v29 + v31 + 5);
+          v27 = (v28 + v30 + 5);
           v10 = 1;
-          v29 = v28;
-          if (v28 >= v33)
+          v28 = v27;
+          if (v27 >= v32)
           {
-            goto LABEL_8;
+            return v10;
           }
         }
 
-        if (!v31)
+        if (!v30)
         {
           v10 = 1;
           *a5 = malloc_type_calloc(1uLL, 1uLL, 0x100004077774924uLL);
-          goto LABEL_8;
+          return v10;
         }
 
-        v32 = malloc_type_calloc(v31 + 1, 1uLL, 0x100004077774924uLL);
-        *a5 = v32;
-        if (!v32)
+        v31 = malloc_type_calloc(v30 + 1, 1uLL, 0x100004077774924uLL);
+        *a5 = v31;
+        if (!v31)
         {
-          v10 = 1;
-          goto LABEL_8;
+          return 1;
         }
 
-        memcpy(v32, v30 + 5, v31);
+        memcpy(v31, v29 + 5, v30);
       }
 
-      goto LABEL_5;
+      return 1;
     }
 
-LABEL_7:
-    v10 = 0;
-    goto LABEL_8;
+    return 0;
   }
 
-LABEL_5:
-  v10 = 1;
-LABEL_8:
-  v11 = *MEMORY[0x1E69E9840];
-  return v10;
+  return 1;
 }
 
 void ne_session_clear_caches()
@@ -8668,7 +8530,7 @@ void __NEHelperSendRequest_block_invoke_2(uint64_t a1, void *a2)
 
 uint64_t NEHelperGetPFKeySocket()
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v0 = xpc_dictionary_create(0, 0, 0);
   xpc_dictionary_set_uint64(v0, "delegate-class-id", 4uLL);
   xpc_dictionary_set_uint64(v0, "socket-type", 1uLL);
@@ -8697,11 +8559,11 @@ uint64_t NEHelperGetPFKeySocket()
     v4 = ne_log_obj_log_obj;
     if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
     {
-      v8 = 136315394;
-      v9 = strerror(int64);
-      v10 = 1024;
-      v11 = int64;
-      _os_log_error_impl(&dword_1A90C6000, v4, OS_LOG_TYPE_ERROR, "Failed to get pfkey socket with error %s(%d)", &v8, 0x12u);
+      v7 = 136315394;
+      v8 = strerror(int64);
+      v9 = 1024;
+      v10 = int64;
+      _os_log_error_impl(&dword_1A90C6000, v4, OS_LOG_TYPE_ERROR, "Failed to get pfkey socket with error %s(%d)", &v7, 0x12u);
     }
   }
 
@@ -8710,13 +8572,12 @@ LABEL_9:
   xpc_release(v2);
 LABEL_11:
   xpc_release(v0);
-  v6 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 uint64_t NEHelperGetIKESocketWithResult(unsigned __int8 *a1, unsigned __int8 *a2, const char *a3, int a4, int *a5)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if (a1 && a2)
   {
     v10 = xpc_dictionary_create(0, 0, 0);
@@ -8740,7 +8601,7 @@ uint64_t NEHelperGetIKESocketWithResult(unsigned __int8 *a1, unsigned __int8 *a2
       v13 = 0xFFFFFFFFLL;
 LABEL_24:
       xpc_release(v10);
-      goto LABEL_25;
+      return v13;
     }
 
     v12 = v11;
@@ -8763,11 +8624,11 @@ LABEL_24:
         v16 = ne_log_obj_log_obj;
         if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
         {
-          v19[0] = 67109378;
-          v19[1] = v15;
-          v20 = 2080;
-          v21 = __strerrbuf;
-          _os_log_error_impl(&dword_1A90C6000, v16, OS_LOG_TYPE_ERROR, "NEHelperGetIKESocket failed: [%d] %s", v19, 0x12u);
+          v18[0] = 67109378;
+          v18[1] = v15;
+          v19 = 2080;
+          v20 = __strerrbuf;
+          _os_log_error_impl(&dword_1A90C6000, v16, OS_LOG_TYPE_ERROR, "NEHelperGetIKESocket failed: [%d] %s", v18, 0x12u);
         }
 
         v13 = 0xFFFFFFFFLL;
@@ -8804,15 +8665,12 @@ LABEL_23:
     *a5 = 22;
   }
 
-  v13 = 0xFFFFFFFFLL;
-LABEL_25:
-  v17 = *MEMORY[0x1E69E9840];
-  return v13;
+  return 0xFFFFFFFFLL;
 }
 
 uint64_t NEHelperGetRawSocket(int a1, int a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v4 = xpc_dictionary_create(0, 0, 0);
   xpc_dictionary_set_uint64(v4, "delegate-class-id", 4uLL);
   xpc_dictionary_set_uint64(v4, "socket-type", 5uLL);
@@ -8843,11 +8701,11 @@ uint64_t NEHelperGetRawSocket(int a1, int a2)
     v8 = ne_log_obj_log_obj;
     if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
     {
-      v12 = 136315394;
-      v13 = strerror(int64);
-      v14 = 1024;
-      v15 = int64;
-      _os_log_error_impl(&dword_1A90C6000, v8, OS_LOG_TYPE_ERROR, "Failed to get traceroute socket with error %s(%d)", &v12, 0x12u);
+      v11 = 136315394;
+      v12 = strerror(int64);
+      v13 = 1024;
+      v14 = int64;
+      _os_log_error_impl(&dword_1A90C6000, v8, OS_LOG_TYPE_ERROR, "Failed to get traceroute socket with error %s(%d)", &v11, 0x12u);
     }
   }
 
@@ -8856,13 +8714,12 @@ LABEL_9:
   xpc_release(v6);
 LABEL_11:
   xpc_release(v4);
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 xpc_object_t NEHelperCopyAppInfo(int a1, const char *a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if (a1 || a2)
   {
     v4 = xpc_dictionary_create(0, 0, 0);
@@ -8891,8 +8748,8 @@ xpc_object_t NEHelperCopyAppInfo(int a1, const char *a2)
         v11 = ne_log_obj_log_obj;
         if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
         {
-          LOWORD(v21) = 0;
-          _os_log_error_impl(&dword_1A90C6000, v11, OS_LOG_TYPE_ERROR, "nehelper sent NULL copy app info response", &v21, 2u);
+          LOWORD(v20) = 0;
+          _os_log_error_impl(&dword_1A90C6000, v11, OS_LOG_TYPE_ERROR, "nehelper sent NULL copy app info response", &v20, 2u);
         }
 
         v10 = 0;
@@ -8911,9 +8768,9 @@ xpc_object_t NEHelperCopyAppInfo(int a1, const char *a2)
         v9 = ne_log_obj_log_obj;
         if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
         {
-          v21 = 136315138;
-          v22 = v8;
-          _os_log_error_impl(&dword_1A90C6000, v9, OS_LOG_TYPE_ERROR, "nehelper sent invalid copy app info response: %s", &v21, 0xCu);
+          v20 = 136315138;
+          v21 = v8;
+          _os_log_error_impl(&dword_1A90C6000, v9, OS_LOG_TYPE_ERROR, "nehelper sent invalid copy app info response: %s", &v20, 0xCu);
         }
 
         free(v8);
@@ -8934,11 +8791,11 @@ xpc_object_t NEHelperCopyAppInfo(int a1, const char *a2)
           goto LABEL_25;
         }
 
-        v21 = 67109120;
-        LODWORD(v22) = int64;
-        v18 = "received invalid copy app info response result %d";
-        v19 = v13;
-        v20 = 8;
+        v20 = 67109120;
+        LODWORD(v21) = int64;
+        v17 = "received invalid copy app info response result %d";
+        v18 = v13;
+        v19 = 8;
       }
 
       else
@@ -8955,7 +8812,7 @@ xpc_object_t NEHelperCopyAppInfo(int a1, const char *a2)
           dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
         }
 
-        v17 = ne_log_obj_log_obj;
+        v16 = ne_log_obj_log_obj;
         if (!os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
         {
 LABEL_25:
@@ -8964,29 +8821,26 @@ LABEL_26:
           xpc_release(v7);
 LABEL_27:
           xpc_release(v5);
-          goto LABEL_28;
+          return v10;
         }
 
-        LOWORD(v21) = 0;
-        v18 = "received NULL copy app info result";
-        v19 = v17;
-        v20 = 2;
+        LOWORD(v20) = 0;
+        v17 = "received NULL copy app info result";
+        v18 = v16;
+        v19 = 2;
       }
 
-      _os_log_error_impl(&dword_1A90C6000, v19, OS_LOG_TYPE_ERROR, v18, &v21, v20);
+      _os_log_error_impl(&dword_1A90C6000, v18, OS_LOG_TYPE_ERROR, v17, &v20, v19);
       goto LABEL_25;
     }
   }
 
-  v10 = 0;
-LABEL_28:
-  v14 = *MEMORY[0x1E69E9840];
-  return v10;
+  return 0;
 }
 
 uint64_t NEHelperGetKernelControlSocket(const char *a1)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     v2 = xpc_dictionary_create(0, 0, 0);
@@ -9025,7 +8879,7 @@ uint64_t NEHelperGetKernelControlSocket(const char *a1)
       if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v25 = v5;
+        v24 = v5;
         _os_log_error_impl(&dword_1A90C6000, v6, OS_LOG_TYPE_ERROR, "nehelper sent invalid kernel control socket response: %s", buf, 0xCu);
       }
 
@@ -9048,7 +8902,7 @@ uint64_t NEHelperGetKernelControlSocket(const char *a1)
       }
 
       *buf = 67109120;
-      LODWORD(v25) = int64;
+      LODWORD(v24) = int64;
       v11 = "received invalid kernel control socket result %d";
       v12 = v10;
       v13 = 8;
@@ -9063,8 +8917,8 @@ uint64_t NEHelperGetKernelControlSocket(const char *a1)
         v7 = xpc_fd_dup(v15);
         if ((v7 & 0x80000000) != 0)
         {
-          v19 = *__error();
-          if (strerror_r(v19, buf, 0x80uLL))
+          v18 = *__error();
+          if (strerror_r(v18, buf, 0x80uLL))
           {
             buf[0] = 0;
           }
@@ -9074,14 +8928,14 @@ uint64_t NEHelperGetKernelControlSocket(const char *a1)
             dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
           }
 
-          v20 = ne_log_obj_log_obj;
+          v19 = ne_log_obj_log_obj;
           if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_FAULT))
           {
-            v21[0] = 67109378;
-            v21[1] = v19;
-            v22 = 2080;
-            v23 = buf;
-            _os_log_fault_impl(&dword_1A90C6000, v20, OS_LOG_TYPE_FAULT, "Failed to dup the file descriptor returned by nehelper: [%d] %s", v21, 0x12u);
+            v20[0] = 67109378;
+            v20[1] = v18;
+            v21 = 2080;
+            v22 = buf;
+            _os_log_fault_impl(&dword_1A90C6000, v19, OS_LOG_TYPE_FAULT, "Failed to dup the file descriptor returned by nehelper: [%d] %s", v20, 0x12u);
           }
         }
 
@@ -9102,11 +8956,11 @@ LABEL_26:
         xpc_release(v4);
 LABEL_27:
         xpc_release(v2);
-        goto LABEL_28;
+        return v7;
       }
 
       *buf = 134217984;
-      v25 = v15;
+      v24 = v15;
       v11 = "Response from nehelper does not contain a file descriptor: %p";
       v12 = v16;
       v13 = 12;
@@ -9116,15 +8970,12 @@ LABEL_27:
     goto LABEL_25;
   }
 
-  v7 = 0xFFFFFFFFLL;
-LABEL_28:
-  v17 = *MEMORY[0x1E69E9840];
-  return v7;
+  return 0xFFFFFFFFLL;
 }
 
 uint64_t NEHelperGetKernelControlSocketExtended(const char *a1, void *a2)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     v4 = xpc_dictionary_create(0, 0, 0);
@@ -9168,7 +9019,7 @@ uint64_t NEHelperGetKernelControlSocketExtended(const char *a1, void *a2)
       if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v28 = v7;
+        v27 = v7;
         _os_log_error_impl(&dword_1A90C6000, v8, OS_LOG_TYPE_ERROR, "nehelper sent invalid kernel control socket response: %s", buf, 0xCu);
       }
 
@@ -9191,7 +9042,7 @@ uint64_t NEHelperGetKernelControlSocketExtended(const char *a1, void *a2)
       }
 
       *buf = 67109120;
-      LODWORD(v28) = int64;
+      LODWORD(v27) = int64;
       v13 = "received invalid kernel control socket result %d";
       v14 = v12;
       v15 = 8;
@@ -9206,8 +9057,8 @@ uint64_t NEHelperGetKernelControlSocketExtended(const char *a1, void *a2)
         v10 = xpc_fd_dup(v17);
         if ((v10 & 0x80000000) != 0)
         {
-          v21 = *__error();
-          if (strerror_r(v21, buf, 0x80uLL))
+          v20 = *__error();
+          if (strerror_r(v20, buf, 0x80uLL))
           {
             buf[0] = 0;
           }
@@ -9217,14 +9068,14 @@ uint64_t NEHelperGetKernelControlSocketExtended(const char *a1, void *a2)
             dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
           }
 
-          v22 = ne_log_obj_log_obj;
+          v21 = ne_log_obj_log_obj;
           if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_FAULT))
           {
-            v24[0] = 67109378;
-            v24[1] = v21;
-            v25 = 2080;
-            v26 = buf;
-            _os_log_fault_impl(&dword_1A90C6000, v22, OS_LOG_TYPE_FAULT, "Failed to dup the file descriptor returned by nehelper: [%d] %s", v24, 0x12u);
+            v23[0] = 67109378;
+            v23[1] = v20;
+            v24 = 2080;
+            v25 = buf;
+            _os_log_fault_impl(&dword_1A90C6000, v21, OS_LOG_TYPE_FAULT, "Failed to dup the file descriptor returned by nehelper: [%d] %s", v23, 0x12u);
           }
         }
 
@@ -9245,11 +9096,11 @@ LABEL_27:
         xpc_release(v6);
 LABEL_28:
         xpc_release(v4);
-        goto LABEL_29;
+        return v10;
       }
 
       *buf = 134217984;
-      v28 = v17;
+      v27 = v17;
       v13 = "Response from nehelper does not contain a file descriptor: %p";
       v14 = v18;
       v15 = 12;
@@ -9264,23 +9115,20 @@ LABEL_28:
     dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
   }
 
-  v23 = ne_log_obj_log_obj;
+  v22 = ne_log_obj_log_obj;
   if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_FAULT))
   {
     *buf = 136315138;
-    v28 = "NEHelperGetKernelControlSocketExtended";
-    _os_log_fault_impl(&dword_1A90C6000, v23, OS_LOG_TYPE_FAULT, "%s called with null controlName", buf, 0xCu);
+    v27 = "NEHelperGetKernelControlSocketExtended";
+    _os_log_fault_impl(&dword_1A90C6000, v22, OS_LOG_TYPE_FAULT, "%s called with null controlName", buf, 0xCu);
   }
 
-  v10 = 0xFFFFFFFFLL;
-LABEL_29:
-  v19 = *MEMORY[0x1E69E9840];
-  return v10;
+  return 0xFFFFFFFFLL;
 }
 
 uint64_t NEHelperGetNECPSessionFD()
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v0 = xpc_dictionary_create(0, 0, 0);
   xpc_dictionary_set_uint64(v0, "delegate-class-id", 4uLL);
   xpc_dictionary_set_uint64(v0, "socket-type", 4uLL);
@@ -9315,7 +9163,7 @@ LABEL_9:
     if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v13 = v5;
+      v12 = v5;
       _os_log_error_impl(&dword_1A90C6000, v6, OS_LOG_TYPE_ERROR, "nehelper sent invalid necp session fd response: %s", buf, 0xCu);
     }
 
@@ -9336,7 +9184,7 @@ LABEL_9:
     if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      LODWORD(v13) = int64;
+      LODWORD(v12) = int64;
       _os_log_error_impl(&dword_1A90C6000, v9, OS_LOG_TYPE_ERROR, "received invalid necp session fd result %d", buf, 8u);
     }
 
@@ -9351,7 +9199,6 @@ LABEL_9:
   xpc_release(v4);
 LABEL_19:
   xpc_release(v0);
-  v10 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -9418,7 +9265,7 @@ LABEL_13:
   return 0;
 }
 
-uint64_t NEHelperInterfaceDestroy(const char *a1)
+int64_t NEHelperInterfaceDestroy(const char *a1)
 {
   if (!a1)
   {
@@ -9541,7 +9388,7 @@ int64_t NEHelperInterfaceRemoveAddress(const char *a1, unsigned __int8 *a2)
   return int64;
 }
 
-uint64_t NEHelperInterfaceSetMTU(const char *a1, int a2)
+int64_t NEHelperInterfaceSetMTU(const char *a1, int a2)
 {
   if (!a1)
   {
@@ -9618,7 +9465,7 @@ int64_t NEHelperInterfaceSetDelegate(const char *a1, uint64_t a2, const char *a3
   return int64;
 }
 
-uint64_t NEHelperInterfaceSetOption(int a1, int a2, const void *a3, size_t a4)
+int64_t NEHelperInterfaceSetOption(int a1, int a2, const void *a3, size_t a4)
 {
   if (a1 < 0)
   {
@@ -9768,7 +9615,7 @@ int64_t NEHelperSettingsSetNumber(const char *a1, int64_t a2)
 
 int64_t NEHelperSettingsSetArray(const char *a1, void *a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v4 = xpc_dictionary_create(0, 0, 0);
   if (a1 && *a1)
   {
@@ -9783,12 +9630,12 @@ int64_t NEHelperSettingsSetArray(const char *a1, void *a2)
       v6 = ne_log_obj_log_obj;
       if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
       {
-        v19 = 136315138;
-        v20 = a1;
-        _os_log_error_impl(&dword_1A90C6000, v6, OS_LOG_TYPE_ERROR, "Cannot use NEHelperSettingsSetArray to set %s to a non-array", &v19, 0xCu);
+        v18 = 136315138;
+        v19 = a1;
+        _os_log_error_impl(&dword_1A90C6000, v6, OS_LOG_TYPE_ERROR, "Cannot use NEHelperSettingsSetArray to set %s to a non-array", &v18, 0xCu);
       }
 
-      goto LABEL_9;
+      return 22;
     }
 
     if (ne_log_obj_g_init != -1)
@@ -9799,35 +9646,35 @@ int64_t NEHelperSettingsSetArray(const char *a1, void *a2)
     v8 = ne_log_obj_log_obj;
     if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 136315138;
-      v20 = a1;
-      _os_log_impl(&dword_1A90C6000, v8, OS_LOG_TYPE_DEFAULT, "NEHelperSettingsSetArray called with %s", &v19, 0xCu);
+      v18 = 136315138;
+      v19 = a1;
+      _os_log_impl(&dword_1A90C6000, v8, OS_LOG_TYPE_DEFAULT, "NEHelperSettingsSetArray called with %s", &v18, 0xCu);
     }
 
     if (!strcmp(a1, "CriticalDomains"))
     {
       if (a2)
       {
-        v14 = MEMORY[0x1AC5801F0](a2);
-        if (v14)
+        v13 = MEMORY[0x1AC5801F0](a2);
+        if (v13)
         {
-          v15 = v14;
+          v14 = v13;
           if (ne_log_large_obj_g_large_init != -1)
           {
             dispatch_once(&ne_log_large_obj_g_large_init, &__block_literal_global_5);
           }
 
-          v16 = ne_log_large_obj_large_log_obj;
+          v15 = ne_log_large_obj_large_log_obj;
           if (os_log_type_enabled(ne_log_large_obj_large_log_obj, OS_LOG_TYPE_DEFAULT))
           {
-            v19 = 136315394;
-            v20 = "CriticalDomains";
-            v21 = 2080;
-            v22 = v15;
-            _os_log_impl(&dword_1A90C6000, v16, OS_LOG_TYPE_DEFAULT, "Setting %s to %s", &v19, 0x16u);
+            v18 = 136315394;
+            v19 = "CriticalDomains";
+            v20 = 2080;
+            v21 = v14;
+            _os_log_impl(&dword_1A90C6000, v15, OS_LOG_TYPE_DEFAULT, "Setting %s to %s", &v18, 0x16u);
           }
 
-          free(v15);
+          free(v14);
         }
 
         else
@@ -9837,12 +9684,12 @@ int64_t NEHelperSettingsSetArray(const char *a1, void *a2)
             dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
           }
 
-          v18 = ne_log_obj_log_obj;
+          v17 = ne_log_obj_log_obj;
           if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
           {
-            v19 = 136315138;
-            v20 = "CriticalDomains";
-            _os_log_error_impl(&dword_1A90C6000, v18, OS_LOG_TYPE_ERROR, "Setting %s to an unknown value", &v19, 0xCu);
+            v18 = 136315138;
+            v19 = "CriticalDomains";
+            _os_log_error_impl(&dword_1A90C6000, v17, OS_LOG_TYPE_ERROR, "Setting %s to an unknown value", &v18, 0xCu);
           }
         }
       }
@@ -9854,12 +9701,12 @@ int64_t NEHelperSettingsSetArray(const char *a1, void *a2)
           dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
         }
 
-        v17 = ne_log_obj_log_obj;
+        v16 = ne_log_obj_log_obj;
         if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_DEFAULT))
         {
-          v19 = 136315138;
-          v20 = "CriticalDomains";
-          _os_log_impl(&dword_1A90C6000, v17, OS_LOG_TYPE_DEFAULT, "Removing %s", &v19, 0xCu);
+          v18 = 136315138;
+          v19 = "CriticalDomains";
+          _os_log_impl(&dword_1A90C6000, v16, OS_LOG_TYPE_DEFAULT, "Removing %s", &v18, 0xCu);
         }
       }
     }
@@ -9892,9 +9739,9 @@ int64_t NEHelperSettingsSetArray(const char *a1, void *a2)
     v11 = ne_log_obj_log_obj;
     if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
     {
-      v19 = 67109120;
-      LODWORD(v20) = int64;
-      _os_log_error_impl(&dword_1A90C6000, v11, OS_LOG_TYPE_ERROR, "NEHelperSettingsSetArray failed with error: %d", &v19, 8u);
+      v18 = 67109120;
+      LODWORD(v19) = int64;
+      _os_log_error_impl(&dword_1A90C6000, v11, OS_LOG_TYPE_ERROR, "NEHelperSettingsSetArray failed with error: %d", &v18, 8u);
       if (!v10)
       {
         goto LABEL_23;
@@ -9905,7 +9752,7 @@ int64_t NEHelperSettingsSetArray(const char *a1, void *a2)
     {
 LABEL_23:
       xpc_release(v5);
-      goto LABEL_24;
+      return int64;
     }
 
 LABEL_22:
@@ -9913,9 +9760,5 @@ LABEL_22:
     goto LABEL_23;
   }
 
-LABEL_9:
-  int64 = 22;
-LABEL_24:
-  v12 = *MEMORY[0x1E69E9840];
-  return int64;
+  return 22;
 }

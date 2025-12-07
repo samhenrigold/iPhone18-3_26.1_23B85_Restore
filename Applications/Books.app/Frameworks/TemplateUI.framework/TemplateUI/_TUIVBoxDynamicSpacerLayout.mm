@@ -31,7 +31,7 @@
 
 - ($E297CC25127479E857BE23A4F8632EA4)computeIntrinsicWidth
 {
-  [(TUILayout *)self validateLayout];
+  objc_msgSend_validateLayout(self, a3);
   width = self->_summary.width;
   if (width <= -3.40282347e38)
   {
@@ -54,7 +54,7 @@
 
 - ($E297CC25127479E857BE23A4F8632EA4)computeIntrinsicHeight
 {
-  [(TUILayout *)self validateLayout];
+  objc_msgSend_validateLayout(self, a3);
   height = self->_summary.height;
   if (height <= -3.40282347e38)
   {

@@ -14,10 +14,10 @@
 
 - (SBUIActionViewLabel)initWithFrame:(CGRect)frame
 {
-  v19[1] = *MEMORY[0x277D85DE8];
-  v15.receiver = self;
-  v15.super_class = SBUIActionViewLabel;
-  v3 = [(SBUIActionViewLabel *)&v15 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v18[1] = *MEMORY[0x277D85DE8];
+  v14.receiver = self;
+  v14.super_class = SBUIActionViewLabel;
+  v3 = [(SBUIActionViewLabel *)&v14 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
   if (v3)
   {
     v4 = objc_alloc(MEMORY[0x277D756B8]);
@@ -28,21 +28,20 @@
     [(UILabel *)v3->_label setTranslatesAutoresizingMaskIntoConstraints:0];
     [(SBUIActionViewLabel *)v3 addSubview:v3->_label];
     v7 = MEMORY[0x277CCAAD0];
-    v18 = @"label";
-    v19[0] = v3->_label;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+    v17 = @"label";
+    v18[0] = v3->_label;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
     v9 = [v7 constraintsWithVisualFormat:@"H:|[label]|" options:0 metrics:0 views:v8];
     [v7 activateConstraints:v9];
 
     v10 = MEMORY[0x277CCAAD0];
-    v16 = @"label";
-    v17 = v3->_label;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
+    v15 = @"label";
+    v16 = v3->_label;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
     v12 = [v10 constraintsWithVisualFormat:@"V:|[label]|" options:0 metrics:0 views:v11];
     [v10 activateConstraints:v12];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -58,22 +57,22 @@
 
 - (void)setText:(id)text
 {
-  v35[1] = *MEMORY[0x277D85DE8];
+  v34[1] = *MEMORY[0x277D85DE8];
   textCopy = text;
   if (![(NSString *)self->_text isEqualToString:textCopy])
   {
     objc_storeStrong(&self->_text, text);
-    v31 = 0;
-    v6 = [textCopy sbui_rangesOfEmojiTokens:&v31];
-    v7 = v31;
+    v30 = 0;
+    v6 = [textCopy sbui_rangesOfEmojiTokens:&v30];
+    v7 = v30;
     if ([v6 count])
     {
-      v29[0] = MEMORY[0x277D85DD0];
-      v29[1] = 3221225472;
-      v29[2] = __31__SBUIActionViewLabel_setText___block_invoke;
-      v29[3] = &unk_27836B4F8;
-      v30 = textCopy;
-      v8 = MEMORY[0x223D63700](v29);
+      v28[0] = MEMORY[0x277D85DD0];
+      v28[1] = 3221225472;
+      v28[2] = __31__SBUIActionViewLabel_setText___block_invoke;
+      v28[3] = &unk_27836B4F8;
+      v29 = textCopy;
+      v8 = MEMORY[0x223D63700](v28);
       label = self->_label;
       v10 = (v8)[2](v8, v6);
       [(UILabel *)label setAttributedText:v10];
@@ -97,17 +96,17 @@
         [(SBUIActionViewLabel *)self addSubview:self->_emojiLabel];
         v17 = MEMORY[0x277CCAAD0];
         v18 = self->_emojiLabel;
-        v34 = @"emojiLabel";
-        v35[0] = v18;
-        v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:&v34 count:1];
+        v33 = @"emojiLabel";
+        v34[0] = v18;
+        v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:&v33 count:1];
         v20 = [v17 constraintsWithVisualFormat:@"H:|[emojiLabel]|" options:0 metrics:0 views:v19];
         [v17 activateConstraints:v20];
 
         v21 = MEMORY[0x277CCAAD0];
         v22 = self->_emojiLabel;
-        v32 = @"emojiLabel";
-        v33 = v22;
-        v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+        v31 = @"emojiLabel";
+        v32 = v22;
+        v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
         v24 = [v21 constraintsWithVisualFormat:@"V:|[emojiLabel]|" options:0 metrics:0 views:v23];
         [v21 activateConstraints:v24];
 
@@ -117,7 +116,7 @@
       v25 = (v8)[2](v8, v7);
       [(UILabel *)emojiLabel setAttributedText:v25];
 
-      v26 = v30;
+      v26 = v29;
     }
 
     else
@@ -140,52 +139,49 @@ LABEL_9:
   }
 
 LABEL_10:
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 id __31__SBUIActionViewLabel_setText___block_invoke(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [objc_alloc(MEMORY[0x277CCAB48]) initWithString:*(a1 + 32)];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   obj = v3;
-  v5 = [obj countByEnumeratingWithState:&v18 objects:v24 count:16];
+  v5 = [obj countByEnumeratingWithState:&v17 objects:v23 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v19;
+    v7 = *v18;
     v8 = *MEMORY[0x277D740C0];
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v19 != v7)
+        if (*v18 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v18 + 1) + 8 * i);
-        v22 = v8;
+        v10 = *(*(&v17 + 1) + 8 * i);
+        v21 = v8;
         v11 = [MEMORY[0x277D75348] clearColor];
-        v23 = v11;
-        v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+        v22 = v11;
+        v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
         v13 = NSRangeFromString(v10);
         [v4 addAttributes:v12 range:{v13.location, v13.length}];
       }
 
-      v6 = [obj countByEnumeratingWithState:&v18 objects:v24 count:16];
+      v6 = [obj countByEnumeratingWithState:&v17 objects:v23 count:16];
     }
 
     while (v6);
   }
 
   v14 = [v4 copy];
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

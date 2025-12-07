@@ -5,7 +5,7 @@
 - (unint64_t)application:(id)application supportedInterfaceOrientationsForWindow:(id)window;
 - (void)applicationWillTerminate:(id)terminate;
 - (void)buildMenuWithBuilder:(id)builder;
-- (void)newSpeechTranslation:;
+- (void)newSpeechTranslation:(uint64_t)translation;
 - (void)newTranslation:;
 - (void)openDownloadSheet:(id)sheet;
 - (void)setWindow:(id)window;
@@ -122,7 +122,7 @@ LABEL_10:
           v15 = *(v13 + 16);
           if (*(v15 + 16))
           {
-            v16 = sub_10028DDAC(2u);
+            v16 = sub_10028DDAC(2);
             if (v17)
             {
               v18 = *(*(v15 + 56) + 16 * v16);
@@ -141,24 +141,24 @@ LABEL_10:
   }
 }
 
-- (void)newSpeechTranslation:
+- (void)newSpeechTranslation:(uint64_t)translation
 {
   sub_10000B744();
-  if (v0)
+  if (v1)
   {
-    v1 = *&v0[OBJC_IVAR____TtC17SequoiaTranslator13SceneDelegate_menuCommandController];
-    v2 = v0;
+    v2 = *&v1[OBJC_IVAR____TtC17SequoiaTranslator13SceneDelegate_menuCommandController];
+    v3 = v1;
 
     swift_beginAccess();
-    v3 = *(v1 + 16);
-    if (*(v3 + 16))
+    v4 = *(v2 + 16);
+    if (*(v4 + 16))
     {
-      v4 = sub_10028DDAC(1u);
-      if (v5)
+      v5 = sub_10028DDAC(1);
+      if (v6)
       {
-        v6 = *(*(v3 + 56) + 16 * v4);
+        v7 = *(*(v4 + 56) + 16 * v5);
 
-        v6(v7);
+        v7(v8);
       }
     }
   }
@@ -269,10 +269,10 @@ LABEL_10:
 {
   v7 = static String._unconditionallyBridgeFromObjectiveC(_:)();
   v9 = v8;
-  static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
+  v10 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   applicationCopy = application;
   selfCopy = self;
-  LOBYTE(v7) = sub_1000110E0(applicationCopy, v7, v9);
+  LOBYTE(v7) = sub_1000110E0(applicationCopy, v7, v9, v10);
 
   return v7 & 1;
 }

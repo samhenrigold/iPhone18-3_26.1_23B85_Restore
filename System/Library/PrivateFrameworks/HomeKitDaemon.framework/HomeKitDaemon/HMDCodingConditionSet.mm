@@ -73,7 +73,7 @@
     v14 = bitmask;
     v6 = v5;
     [(NSOrderedSet *)conditions enumerateObjectsUsingBlock:&v9];
-    v7 = [v6 copy];
+    v7 = objc_msgSend_copy(v6, v9, v10, v11, v12);
   }
 
   else
@@ -108,7 +108,7 @@ void __55__HMDCodingConditionSet_descriptionForBitmask_withSet___block_invoke(ui
 
 - (void)resolve:(uint64_t)resolve
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (resolve)
   {
     v3 = *(resolve + 8);
@@ -116,63 +116,60 @@ void __55__HMDCodingConditionSet_descriptionForBitmask_withSet___block_invoke(ui
     [HMDCodingConditionSet resolve:a2 fromSet:v4];
     if (!v5)
     {
-      v7 = objc_autoreleasePoolPush();
-      v8 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+      v6 = objc_autoreleasePoolPush();
+      v7 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
-        v9 = HMFGetLogIdentifier();
-        v10 = 138543618;
-        v11 = v9;
-        v12 = 2114;
-        v13 = a2;
-        _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_DEBUG, "%{public}@Ignoring coding condition '%{public}@' that is not defined in the coding model", &v10, 0x16u);
+        v8 = HMFGetLogIdentifier();
+        v9 = 138543618;
+        v10 = v8;
+        v11 = 2114;
+        v12 = a2;
+        _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Ignoring coding condition '%{public}@' that is not defined in the coding model", &v9, 0x16u);
       }
 
-      objc_autoreleasePoolPop(v7);
+      objc_autoreleasePoolPop(v6);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDCodingConditionSet)initWithModel:(id)model conditions:(id)conditions
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = [(HMDCodingConditionSet *)self initWithModel:model];
   if (v5)
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     conditionsCopy = conditions;
-    v7 = [conditionsCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v7 = [conditionsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v14;
+      v9 = *v13;
       do
       {
         v10 = 0;
         do
         {
-          if (*v14 != v9)
+          if (*v13 != v9)
           {
             objc_enumerationMutation(conditionsCopy);
           }
 
-          [(HMDCodingConditionSet *)v5 addCondition:*(*(&v13 + 1) + 8 * v10++), v13];
+          [(HMDCodingConditionSet *)v5 addCondition:*(*(&v12 + 1) + 8 * v10++), v12];
         }
 
         while (v8 != v10);
-        v8 = [conditionsCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v8 = [conditionsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v8);
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

@@ -49,15 +49,13 @@
 
 - (id)defaultPropertiesToLoad
 {
-  v8[2] = *MEMORY[0x277D85DE8];
+  v7[2] = *MEMORY[0x277D85DE8];
   v2 = CADEKPersistentEventDefaultPropertiesToLoad();
   v3 = *MEMORY[0x277CF72B0];
-  v8[0] = *MEMORY[0x277CF71F0];
-  v8[1] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:2];
+  v7[0] = *MEMORY[0x277CF71F0];
+  v7[1] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:2];
   v5 = [v2 arrayByAddingObjectsFromArray:v4];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -128,11 +126,10 @@
   else if (equalCopy && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
     v6 = v5;
-    opaqueKey = self->_opaqueKey;
     opaqueKey = [(CADEventCreatedFromSuggestionPredicate *)v6 opaqueKey];
-    LODWORD(opaqueKey) = CalEqualStrings();
+    v8 = CalEqualStrings();
 
-    if (opaqueKey)
+    if (v8)
     {
       extractionGroupIdentifier = [(CADEventCreatedFromSuggestionPredicate *)self extractionGroupIdentifier];
       extractionGroupIdentifier2 = [(CADEventCreatedFromSuggestionPredicate *)v6 extractionGroupIdentifier];
@@ -155,7 +152,7 @@
 
 - (id)copyMatchingItemsWithDatabase:(CalDatabase *)database
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   opaqueKey = [(CADEventCreatedFromSuggestionPredicate *)self opaqueKey];
 
   if (opaqueKey)
@@ -180,35 +177,34 @@ LABEL_6:
   if ([v5 count])
   {
     v8 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v5, "count")}];
+    v16 = 0u;
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
-    v21 = 0u;
     v9 = v5;
-    v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v19;
+      v12 = *v17;
       do
       {
         v13 = 0;
         do
         {
-          if (*v19 != v12)
+          if (*v17 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v18 + 1) + 8 * v13);
-          v15 = CalEventOccurrenceCreateForInitialOccurrence();
-          [v8 addObject:{v15, v18}];
-          CFRelease(v15);
+          v14 = CalEventOccurrenceCreateForInitialOccurrence();
+          [v8 addObject:{v14, v16}];
+          CFRelease(v14);
           ++v13;
         }
 
         while (v11 != v13);
-        v11 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v11);
@@ -220,7 +216,6 @@ LABEL_6:
     v8 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

@@ -84,7 +84,6 @@ LABEL_7:
 {
   if (*&self->_has)
   {
-    sleepWakeState = self->_sleepWakeState;
     PBDataWriterWriteInt64Field();
   }
 }

@@ -65,7 +65,7 @@
 
 void __62__ISURLBagBackend_deltaDictionaryRepresentationForBagWithKey___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) bagValuesDictionary];
   v3 = [v2 objectForKey:*(a1 + 40)];
 
@@ -77,25 +77,25 @@ void __62__ISURLBagBackend_deltaDictionaryRepresentationForBagWithKey___block_in
     *(v5 + 40) = v4;
 
     v7 = [v3 object];
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
-    v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v17;
+      v10 = *v16;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v17 != v10)
+          if (*v16 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v16 + 1) + 8 * i);
+          v12 = *(*(&v15 + 1) + 8 * i);
           v13 = [v7 objectForKey:v12];
           v14 = [MEMORY[0x277CBEB68] null];
 
@@ -105,14 +105,12 @@ void __62__ISURLBagBackend_deltaDictionaryRepresentationForBagWithKey___block_in
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v9);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)diagnostics
@@ -140,89 +138,89 @@ void __62__ISURLBagBackend_deltaDictionaryRepresentationForBagWithKey___block_in
 
 void __30__ISURLBagBackend_diagnostics__block_invoke(uint64_t a1)
 {
-  v80 = *MEMORY[0x277D85DE8];
+  v79 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CCAB68]);
   v3 = *(*(a1 + 40) + 8);
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
   [*(*(*(a1 + 40) + 8) + 40) appendString:@"ISURLBagBackend Diagnostics\n\n"];
-  v54 = objc_alloc_init(MEMORY[0x277CBEB58]);
-  v47 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v53 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v46 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v70 = 0u;
   v71 = 0u;
   v72 = 0u;
   v73 = 0u;
-  v74 = 0u;
-  v41 = a1;
+  v40 = a1;
   v5 = [*(a1 + 32) bagValuesDictionary];
   v6 = [v5 allValues];
 
   obj = v6;
-  v44 = [v6 countByEnumeratingWithState:&v71 objects:v79 count:16];
-  if (!v44)
+  v43 = [v6 countByEnumeratingWithState:&v70 objects:v78 count:16];
+  if (!v43)
   {
-    v48 = 0;
-    v52 = 0;
+    v47 = 0;
+    v51 = 0;
     goto LABEL_38;
   }
 
-  v48 = 0;
-  v52 = 0;
-  v43 = *v72;
+  v47 = 0;
+  v51 = 0;
+  v42 = *v71;
   do
   {
     v7 = 0;
     do
     {
-      if (*v72 != v43)
+      if (*v71 != v42)
       {
         objc_enumerationMutation(obj);
       }
 
-      v45 = v7;
-      v8 = *(*(&v71 + 1) + 8 * v7);
+      v44 = v7;
+      v8 = *(*(&v70 + 1) + 8 * v7);
+      v66 = 0u;
       v67 = 0u;
       v68 = 0u;
       v69 = 0u;
-      v70 = 0u;
-      v50 = [v8 object];
-      v9 = [v50 countByEnumeratingWithState:&v67 objects:v78 count:16];
+      v49 = [v8 object];
+      v9 = [v49 countByEnumeratingWithState:&v66 objects:v77 count:16];
       if (v9)
       {
         v10 = v9;
-        v11 = *v68;
+        v11 = *v67;
         do
         {
           for (i = 0; i != v10; ++i)
           {
-            if (*v68 != v11)
+            if (*v67 != v11)
             {
-              objc_enumerationMutation(v50);
+              objc_enumerationMutation(v49);
             }
 
-            v13 = *(*(&v67 + 1) + 8 * i);
+            v13 = *(*(&v66 + 1) + 8 * i);
+            v62 = 0u;
             v63 = 0u;
             v64 = 0u;
             v65 = 0u;
-            v66 = 0u;
-            v14 = v54;
-            v15 = [v14 countByEnumeratingWithState:&v63 objects:v77 count:16];
+            v14 = v53;
+            v15 = [v14 countByEnumeratingWithState:&v62 objects:v76 count:16];
             if (v15)
             {
               v16 = v15;
               v17 = 0;
               v18 = 0;
-              v19 = *v64;
+              v19 = *v63;
               while (2)
               {
                 for (j = 0; j != v16; ++j)
                 {
-                  if (*v64 != v19)
+                  if (*v63 != v19)
                   {
                     objc_enumerationMutation(v14);
                   }
 
-                  v18 |= v13 == *(*(&v63 + 1) + 8 * j);
+                  v18 |= v13 == *(*(&v62 + 1) + 8 * j);
                   v17 |= [v13 isEqualToString:?];
                   if (v18 & 1) != 0 && (v17)
                   {
@@ -233,7 +231,7 @@ void __30__ISURLBagBackend_diagnostics__block_invoke(uint64_t a1)
                   }
                 }
 
-                v16 = [v14 countByEnumeratingWithState:&v63 objects:v77 count:16];
+                v16 = [v14 countByEnumeratingWithState:&v62 objects:v76 count:16];
                 if (v16)
                 {
                   continue;
@@ -258,87 +256,87 @@ void __30__ISURLBagBackend_diagnostics__block_invoke(uint64_t a1)
 LABEL_22:
             if (v18 & 1) != 0 && (v17)
             {
-              ++v52;
+              ++v51;
               continue;
             }
 
             if (!(v18 & 1 | ((v17 & 1) == 0)))
             {
-              v21 = v47;
-              ++v48;
+              v21 = v46;
+              ++v47;
 LABEL_31:
               [v21 addObject:v13];
               continue;
             }
           }
 
-          v10 = [v50 countByEnumeratingWithState:&v67 objects:v78 count:16];
+          v10 = [v49 countByEnumeratingWithState:&v66 objects:v77 count:16];
         }
 
         while (v10);
       }
 
-      v7 = v45 + 1;
+      v7 = v44 + 1;
     }
 
-    while (v45 + 1 != v44);
-    v44 = [obj countByEnumeratingWithState:&v71 objects:v79 count:16];
+    while (v44 + 1 != v43);
+    v43 = [obj countByEnumeratingWithState:&v70 objects:v78 count:16];
   }
 
-  while (v44);
+  while (v43);
 LABEL_38:
 
-  [*(*(*(v41 + 40) + 8) + 40) appendString:@"KEYS\n"];
-  v22 = (v52 + v48);
-  [*(*(*(v41 + 40) + 8) + 40) appendFormat:@"Total Reused Keys: %li (%f)\n", v52, v52 / v22];
-  [*(*(*(v41 + 40) + 8) + 40) appendFormat:@"Total Copied Keys: %li (%f)\n\n", v48, v48 / v22];
+  [*(*(*(v40 + 40) + 8) + 40) appendString:@"KEYS\n"];
+  v22 = (v51 + v47);
+  [*(*(*(v40 + 40) + 8) + 40) appendFormat:@"Total Reused Keys: %li (%f)\n", v51, v51 / v22];
+  [*(*(*(v40 + 40) + 8) + 40) appendFormat:@"Total Copied Keys: %li (%f)\n\n", v47, v47 / v22];
   v23 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v58 = 0u;
   v59 = 0u;
   v60 = 0u;
   v61 = 0u;
-  v62 = 0u;
-  v24 = [*(v41 + 32) bagValuesDictionary];
+  v24 = [*(v40 + 32) bagValuesDictionary];
   v25 = [v24 allValues];
 
-  v46 = v25;
-  v51 = [v25 countByEnumeratingWithState:&v59 objects:v76 count:16];
+  v45 = v25;
+  v50 = [v25 countByEnumeratingWithState:&v58 objects:v75 count:16];
   v26 = 0;
   v27 = 0;
-  if (v51)
+  if (v50)
   {
-    v49 = *v60;
+    v48 = *v59;
     do
     {
       v28 = 0;
       do
       {
-        if (*v60 != v49)
+        if (*v59 != v48)
         {
-          objc_enumerationMutation(v46);
+          objc_enumerationMutation(v45);
         }
 
-        v53 = v28;
-        v29 = *(*(&v59 + 1) + 8 * v28);
+        v52 = v28;
+        v29 = *(*(&v58 + 1) + 8 * v28);
+        v54 = 0u;
         v55 = 0u;
         v56 = 0u;
         v57 = 0u;
-        v58 = 0u;
         v30 = [v29 object];
-        v31 = [v30 countByEnumeratingWithState:&v55 objects:v75 count:16];
+        v31 = [v30 countByEnumeratingWithState:&v54 objects:v74 count:16];
         if (v31)
         {
           v32 = v31;
-          v33 = *v56;
+          v33 = *v55;
           do
           {
             for (k = 0; k != v32; ++k)
             {
-              if (*v56 != v33)
+              if (*v55 != v33)
               {
                 objc_enumerationMutation(v30);
               }
 
-              v35 = *(*(&v55 + 1) + 8 * k);
+              v35 = *(*(&v54 + 1) + 8 * k);
               v36 = [v29 object];
               v37 = [v36 objectForKey:v35];
 
@@ -360,29 +358,27 @@ LABEL_38:
               }
             }
 
-            v32 = [v30 countByEnumeratingWithState:&v55 objects:v75 count:16];
+            v32 = [v30 countByEnumeratingWithState:&v54 objects:v74 count:16];
           }
 
           while (v32);
         }
 
-        v28 = v53 + 1;
+        v28 = v52 + 1;
       }
 
-      while ((v53 + 1) != v51);
-      v51 = [v46 countByEnumeratingWithState:&v59 objects:v76 count:16];
+      while ((v52 + 1) != v50);
+      v50 = [v45 countByEnumeratingWithState:&v58 objects:v75 count:16];
     }
 
-    while (v51);
+    while (v50);
   }
 
-  [*(*(*(v41 + 40) + 8) + 40) appendString:@"VALUES\n"];
+  [*(*(*(v40 + 40) + 8) + 40) appendString:@"VALUES\n"];
   v39 = (v27 + v26);
-  [*(*(*(v41 + 40) + 8) + 40) appendFormat:@"Total Delta Values: %li (%f)\n", v26, v26 / v39];
-  [*(*(*(v41 + 40) + 8) + 40) appendFormat:@"Total Duplicate Values: %li (%f)\n\n", v27, v27 / v39];
-  [*(*(*(v41 + 40) + 8) + 40) appendFormat:@"Copied Keys: %@", v47];
-
-  v40 = *MEMORY[0x277D85DE8];
+  [*(*(*(v40 + 40) + 8) + 40) appendFormat:@"Total Delta Values: %li (%f)\n", v26, v26 / v39];
+  [*(*(*(v40 + 40) + 8) + 40) appendFormat:@"Total Duplicate Values: %li (%f)\n\n", v27, v27 / v39];
+  [*(*(*(v40 + 40) + 8) + 40) appendFormat:@"Copied Keys: %@", v46];
 }
 
 - (id)dictionaryRepresentationForBagWithKey:(id)key
@@ -413,7 +409,7 @@ LABEL_38:
 
 void __57__ISURLBagBackend_dictionaryRepresentationForBagWithKey___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) bagValuesDictionary];
   v3 = [v2 objectForKey:*(a1 + 40)];
 
@@ -426,26 +422,26 @@ void __57__ISURLBagBackend_dictionaryRepresentationForBagWithKey___block_invoke(
     v8 = *(v7 + 40);
     *(v7 + 40) = v6;
 
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v9 = [v3 object];
-    v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v18;
+      v12 = *v17;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v18 != v12)
+          if (*v17 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v17 + 1) + 8 * i);
+          v14 = *(*(&v16 + 1) + 8 * i);
           v15 = [*(a1 + 32) _valueForKey:v14 forBagValuesNode:v3];
           if (v15)
           {
@@ -453,14 +449,12 @@ void __57__ISURLBagBackend_dictionaryRepresentationForBagWithKey___block_invoke(
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v11);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)valueForKey:(id)key forBagWithKey:(id)withKey
@@ -547,38 +541,38 @@ void __46__ISURLBagBackend_addBagValues_forBagWithKey___block_invoke(uint64_t a1
 
 void __48__ISURLBagBackend_removeBagValuesForBagWithKey___block_invoke(uint64_t a1)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) bagValuesDictionary];
   v3 = [v2 objectForKey:*(a1 + 40)];
 
   if (v3)
   {
-    v21 = a1;
+    v20 = a1;
     v4 = [v3 next];
     v5 = [v4 object];
-    v22 = [v5 copy];
+    v21 = [v5 copy];
 
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     obj = [v4 object];
-    v6 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v6 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v25;
+      v8 = *v24;
       do
       {
         v9 = 0;
         do
         {
-          if (*v25 != v8)
+          if (*v24 != v8)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v24 + 1) + 8 * v9);
+          v10 = *(*(&v23 + 1) + 8 * v9);
           v11 = [v4 object];
           v12 = [v11 objectForKey:v10];
 
@@ -596,7 +590,7 @@ void __48__ISURLBagBackend_removeBagValuesForBagWithKey___block_invoke(uint64_t 
 
               if (v16 != v17)
               {
-                [v22 setObject:v16 forKey:v10];
+                [v21 setObject:v16 forKey:v10];
               }
             }
 
@@ -607,21 +601,19 @@ void __48__ISURLBagBackend_removeBagValuesForBagWithKey___block_invoke(uint64_t 
         }
 
         while (v7 != v9);
-        v7 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v7 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
       while (v7);
     }
 
-    [v4 setObject:v22];
-    v18 = [*(v21 + 32) bagValuesDictionary];
-    [v18 removeObjectForKey:*(v21 + 40)];
+    [v4 setObject:v21];
+    v18 = [*(v20 + 32) bagValuesDictionary];
+    [v18 removeObjectForKey:*(v20 + 40)];
 
-    v19 = [*(v21 + 32) bagValuesList];
+    v19 = [*(v20 + 32) bagValuesList];
     [v19 removeNode:v3];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (id)description
@@ -721,21 +713,20 @@ void __30__ISURLBagBackend_description__block_invoke(uint64_t a1)
 
 void __55__ISURLBagBackend__bagValuesMapTableWithInitialValues___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v11 = a2;
+  v10 = a2;
   v5 = a3;
-  v6 = [*(a1 + 32) _valueForKey:v11 forBagValuesNode:*(a1 + 40)];
-  v7 = *(a1 + 32);
-  v8 = [objc_opt_class() _bagValue:v5 equalsBagValue:v6];
-  v9 = *(a1 + 48);
-  if (v8)
+  v6 = [*(a1 + 32) _valueForKey:v10 forBagValuesNode:*(a1 + 40)];
+  v7 = [objc_opt_class() _bagValue:v5 equalsBagValue:v6];
+  v8 = *(a1 + 48);
+  if (v7)
   {
-    v10 = [MEMORY[0x277CBEB68] null];
-    [v9 setObject:v10 forKey:v11];
+    v9 = [MEMORY[0x277CBEB68] null];
+    [v8 setObject:v9 forKey:v10];
   }
 
   else
   {
-    [v9 setObject:v5 forKey:v11];
+    [v8 setObject:v5 forKey:v10];
   }
 }
 

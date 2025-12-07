@@ -123,20 +123,21 @@
 
 - (void)addPendingItem:(id)item
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   itemCopy = item;
+  v5 = itemCopy;
   if (itemCopy)
   {
-    v5 = SBLogActivity();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = SBLogActivity(itemCopy);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      identifier = [itemCopy identifier];
-      v7 = 138543362;
-      v8 = identifier;
-      _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "[ActivityID: %{public}@] adding ambient item to pending items", &v7, 0xCu);
+      identifier = [v5 identifier];
+      v8 = 138543362;
+      v9 = identifier;
+      _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "[ActivityID: %{public}@] adding ambient item to pending items", &v8, 0xCu);
     }
 
-    [(NSMutableOrderedSet *)self->_pendingItems addObject:itemCopy];
+    [(NSMutableOrderedSet *)self->_pendingItems addObject:v5];
   }
 }
 
@@ -172,7 +173,7 @@
 
   itemCopy = item;
   activeActivityItems = [(SBActivityAmbientObserver *)self activeActivityItems];
-  v6 = [activeActivityItems containsObject:itemCopy];
+  v6 = objc_msgSend_containsObject_(activeActivityItems);
 
   return v6;
 }
@@ -180,7 +181,7 @@
 - (void)activityDidStart:(id)start
 {
   startCopy = start;
-  if (([(NSMutableOrderedSet *)self->_activeActivityItems containsObject:?]& 1) == 0)
+  if ((objc_msgSend_containsObject_(self->_activeActivityItems) & 1) == 0)
   {
     [(NSMutableOrderedSet *)self->_activeActivityItems addObject:startCopy];
   }
@@ -192,7 +193,7 @@
 - (void)activityDidEnd:(id)end
 {
   endCopy = end;
-  if ([(NSMutableOrderedSet *)self->_activeActivityItems containsObject:?])
+  if (objc_msgSend_containsObject_(self->_activeActivityItems))
   {
     [(NSMutableOrderedSet *)self->_activeActivityItems removeObject:endCopy];
     [(NSMutableOrderedSet *)self->_pendingItems removeObject:endCopy];
@@ -226,7 +227,7 @@
   activeActivityItems = self->_activeActivityItems;
   v8 = alertCopy;
   item = [alertCopy item];
-  LODWORD(activeActivityItems) = [(NSMutableOrderedSet *)activeActivityItems containsObject:item];
+  LODWORD(activeActivityItems) = objc_msgSend_containsObject_(activeActivityItems);
 
   if (activeActivityItems)
   {
@@ -244,7 +245,7 @@
   activeActivityItems = self->_activeActivityItems;
   v8 = alertCopy;
   item = [alertCopy item];
-  LODWORD(activeActivityItems) = [(NSMutableOrderedSet *)activeActivityItems containsObject:item];
+  LODWORD(activeActivityItems) = objc_msgSend_containsObject_(activeActivityItems);
 
   if (activeActivityItems)
   {

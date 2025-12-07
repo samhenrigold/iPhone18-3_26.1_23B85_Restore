@@ -6,11 +6,10 @@
 
 + (char)temperatureEvent:()HIDTemperatureEvent level:options:
 {
-  v2 = *MEMORY[0x277CBECE8];
-  v3 = _IOHIDEventCreate();
-  *(*&v3[*MEMORY[0x277CD2870] + 88] + 16) = vcvtd_n_s64_f64(self, 0x10uLL);
+  v6 = _IOHIDEventCreate();
+  *(*&v6[*MEMORY[0x277CD2870] + 88] + 16) = vcvtd_n_s64_f64(self, 0x10uLL);
 
-  return v3;
+  return v6;
 }
 
 @end

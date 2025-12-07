@@ -19,7 +19,7 @@
     swift_task_reportUnexpectedExecutor();
   }
 
-  sub_1C3C27CB4(0, &qword_1EC0857A0);
+  sub_1C3C27CB4(0, &qword_1EC0857A0, 0x1E696C3D0);
   audiogramSampleType = [swift_getObjCClassFromMetadata() audiogramSampleType];
 
   return audiogramSampleType;

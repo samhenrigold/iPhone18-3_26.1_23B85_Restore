@@ -49,12 +49,10 @@
   *(&self->super.super.isa + OBJC_IVAR____TtC19ComplicationDisplay24WidgetNamedImageProvider_font) = 0;
   *(&self->super.super.isa + OBJC_IVAR____TtC19ComplicationDisplay24WidgetNamedImageProvider_scale) = 2;
   *(&self->super.super.isa + OBJC_IVAR____TtC19ComplicationDisplay24WidgetNamedImageProvider_finalized) = 0;
-  v4 = (&self->super.super.isa + OBJC_IVAR____TtC19ComplicationDisplay24WidgetNamedImageProvider__maxSize);
+  v3 = (&self->super.super.isa + OBJC_IVAR____TtC19ComplicationDisplay24WidgetNamedImageProvider__maxSize);
   type metadata accessor for WidgetNamedImageProvider(0);
-  *v4 = 0;
-  v4[1] = 0;
-  v5 = *((*MEMORY[0x277D85000] & self->super.super.isa) + 0x30);
-  v6 = *((*MEMORY[0x277D85000] & self->super.super.isa) + 0x34);
+  *v3 = 0;
+  v3[1] = 0;
   swift_deallocPartialClassInstance();
   return 0;
 }

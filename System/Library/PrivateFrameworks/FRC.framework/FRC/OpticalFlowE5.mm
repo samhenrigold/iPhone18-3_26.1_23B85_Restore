@@ -18,6 +18,7 @@
 - (void)encodeUnormNormalize:(__CVBuffer *)normalize destination:(__CVBuffer *)destination toCommandBuffer:(id)buffer;
 - (void)executeModel;
 - (void)opticalFlowFirstFrame:(__CVBuffer *)frame secondFrame:(__CVBuffer *)secondFrame flow:(__CVBuffer *)flow;
+- (void)opticalFlowFirstFrame:(__CVBuffer *)frame secondFrame:(__CVBuffer *)secondFrame flowForward:(__CVBuffer *)forward flowBackward:(__CVBuffer *)backward reUseFlow:(BOOL)flow;
 - (void)opticalFlowFirstFrame:(__CVBuffer *)frame secondFrame:(__CVBuffer *)secondFrame originalFirst:(__CVBuffer *)first originalSecond:(__CVBuffer *)second flow:(__CVBuffer *)flow;
 - (void)releaseAdaptationLayerStorage;
 - (void)releaseBufferObjects;
@@ -95,11 +96,11 @@ LABEL_15:
 
 - (BOOL)checkInputResolutions
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v10 = 0uLL;
-  FRCGetInputFrameSizeForUsage(self->super._usage, &v10 + 1, &v10);
+  v18 = *MEMORY[0x277D85DE8];
+  v9 = 0uLL;
+  FRCGetInputFrameSizeForUsage(self->super._usage, &v9 + 1, &v9);
   p_inputSize = &self->_inputSize;
-  if (__PAIR128__(self->_inputSize.width, self->_inputSize.height) == v10)
+  if (__PAIR128__(self->_inputSize.width, self->_inputSize.height) == v9)
   {
     LOBYTE(v4) = 1;
   }
@@ -113,19 +114,18 @@ LABEL_15:
       width = p_inputSize->width;
       height = p_inputSize->height;
       *buf = 134218752;
-      v12 = width;
-      v13 = 2048;
-      v14 = height;
-      v15 = 2048;
-      v16 = *(&v10 + 1);
-      v17 = 2048;
-      v18 = v10;
+      v11 = width;
+      v12 = 2048;
+      v13 = height;
+      v14 = 2048;
+      v15 = *(&v9 + 1);
+      v16 = 2048;
+      v17 = v9;
       _os_log_error_impl(&dword_24A8C8000, logger, OS_LOG_TYPE_ERROR, "Error! Model input resolution does not match with usage (Model expects %ld x %ld, Usage: %ld x %ld", buf, 0x2Au);
       LOBYTE(v4) = 0;
     }
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -252,7 +252,7 @@ LABEL_15:
 
 - (BOOL)initializeModel:(id)model
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   if (modelCopy)
   {
@@ -271,142 +271,137 @@ LABEL_15:
     [OpticalFlowE5 initializeModel:];
   }
 
-  library = self->_library;
-  v8 = e5rt_program_library_retain_program_function();
-  if (v8)
+  v7 = e5rt_program_library_retain_program_function();
+  if (v7)
   {
-    v33 = v8;
+    v28 = v7;
     last_error_message = e5rt_get_last_error_message();
-    v35 = "e5rt_program_library_retain_program_function(_library, main, &_function)";
+    v30 = "e5rt_program_library_retain_program_function(_library, main, &_function)";
 LABEL_29:
-    printf("FAILURE: %s returned error = %u. msg = %s\n", v35, v33, last_error_message);
+    printf("FAILURE: %s returned error = %u. msg = %s\n", v30, v28, last_error_message);
 LABEL_23:
     exit(1);
   }
 
-  v39[1] = 0;
-  function = self->_function;
-  v10 = e5rt_precompiled_compute_op_create_options_create_with_program_function();
-  if (v10)
+  v35[1] = 0;
+  v8 = e5rt_precompiled_compute_op_create_options_create_with_program_function();
+  if (v8)
   {
-    v33 = v10;
+    v28 = v8;
     last_error_message = e5rt_get_last_error_message();
-    v35 = "e5rt_precompiled_compute_op_create_options_create_with_program_function(&create_options, _function)";
+    v30 = "e5rt_precompiled_compute_op_create_options_create_with_program_function(&create_options, _function)";
     goto LABEL_29;
   }
 
-  v36 = stringByDeletingPathExtension;
+  v31 = stringByDeletingPathExtension;
   precompiled_compute_operation_with_options = e5rt_execution_stream_operation_create_precompiled_compute_operation_with_options();
   if (precompiled_compute_operation_with_options)
   {
-    v33 = precompiled_compute_operation_with_options;
+    v28 = precompiled_compute_operation_with_options;
     last_error_message = e5rt_get_last_error_message();
-    v35 = "e5rt_execution_stream_operation_create_precompiled_compute_operation_with_options(&_operation, create_options)";
+    v30 = "e5rt_execution_stream_operation_create_precompiled_compute_operation_with_options(&_operation, create_options)";
     goto LABEL_29;
   }
 
   e5rt_precompiled_compute_op_create_options_release();
   [(OpticalFlowE5 *)self getPortNames];
-  v12 = 0;
-  v13 = 1;
+  v10 = 0;
+  v11 = 1;
   do
   {
-    v14 = v13;
-    operation = self->_operation;
-    v16 = [(NSMutableArray *)self->_inputPortNames objectAtIndexedSubscript:v12];
-    [v16 UTF8String];
-    v17 = e5rt_execution_stream_operation_retain_input_port();
+    v12 = v11;
+    v13 = [(NSMutableArray *)self->_inputPortNames objectAtIndexedSubscript:v10];
+    [v13 UTF8String];
+    v14 = e5rt_execution_stream_operation_retain_input_port();
 
-    if (v17)
+    if (v14)
     {
-      v32 = e5rt_get_last_error_message();
-      printf("FAILURE: %s returned error = %u. msg = %s\n", "e5rt_execution_stream_operation_retain_input_port(_operation, _inputPortNames[inputIdx].UTF8String, &_input_ports[inputIdx])", v17, v32);
+      v27 = e5rt_get_last_error_message();
+      printf("FAILURE: %s returned error = %u. msg = %s\n", "e5rt_execution_stream_operation_retain_input_port(_operation, _inputPortNames[inputIdx].UTF8String, &_input_ports[inputIdx])", v14, v27);
       goto LABEL_23;
     }
 
-    v38 = 0;
-    v39[0] = 0;
-    v37 = 0;
-    getPortShape(self->_input_ports[v12], v39, &v38, &v37);
+    v34 = 0;
+    v35[0] = 0;
+    v33 = 0;
+    getPortShape(self->_input_ports[v10], v35, &v34, &v33, &v32);
     logger = self->_logger;
     if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
     {
       inputPortNames = self->_inputPortNames;
-      v20 = logger;
-      v21 = [(NSMutableArray *)inputPortNames objectAtIndexedSubscript:v12];
-      v22 = v37;
+      v17 = logger;
+      v18 = [(NSMutableArray *)inputPortNames objectAtIndexedSubscript:v10];
+      v19 = v33;
       *buf = 138413058;
-      *&buf[4] = v21;
+      *&buf[4] = v18;
       *&buf[12] = 2048;
-      *&buf[14] = v39[0];
+      *&buf[14] = v35[0];
       *&buf[22] = 2048;
-      v41 = v38;
-      v42 = 2048;
-      v43 = v37;
-      _os_log_impl(&dword_24A8C8000, v20, OS_LOG_TYPE_DEFAULT, "Input image [%@]: %ld x %ld x %ld", buf, 0x2Au);
+      v37 = v34;
+      v38 = 2048;
+      v39 = v33;
+      _os_log_impl(&dword_24A8C8000, v17, OS_LOG_TYPE_DEFAULT, "Input image [%@]: %ld x %ld x %ld", buf, 0x2Au);
     }
 
     else
     {
-      v22 = v37;
+      v19 = v33;
     }
 
-    TensorSizeMake(v39[0], v38, v22, buf);
-    v13 = 0;
+    TensorSizeMake(v35[0], v34, v19, buf);
+    v11 = 0;
     *&self->_inputSize.width = *buf;
     self->_inputSize.channels = *&buf[16];
-    v12 = 1;
+    v10 = 1;
   }
 
-  while ((v14 & 1) != 0);
-  v23 = self->_operation;
+  while ((v12 & 1) != 0);
   [(NSString *)self->_outputPortName UTF8String];
-  v24 = e5rt_execution_stream_operation_retain_output_port();
-  if (v24)
+  v20 = e5rt_execution_stream_operation_retain_output_port();
+  if (v20)
   {
-    v33 = v24;
+    v28 = v20;
     last_error_message = e5rt_get_last_error_message();
-    v35 = "e5rt_execution_stream_operation_retain_output_port(_operation, _outputPortName.UTF8String, &_output_port)";
+    v30 = "e5rt_execution_stream_operation_retain_output_port(_operation, _outputPortName.UTF8String, &_output_port)";
     goto LABEL_29;
   }
 
-  v38 = 0;
-  v39[0] = 0;
-  v37 = 0;
-  getPortShape(self->_output_port, v39, &v38, &v37);
-  v25 = self->_logger;
-  v26 = os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT);
-  v27 = v37;
-  if (v26)
+  v34 = 0;
+  v35[0] = 0;
+  v33 = 0;
+  getPortShape(self->_output_port, v35, &v34, &v33, &v32);
+  v21 = self->_logger;
+  v22 = os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
+  v23 = v33;
+  if (v22)
   {
     outputPortName = self->_outputPortName;
     *buf = 138413058;
     *&buf[4] = outputPortName;
     *&buf[12] = 2048;
-    *&buf[14] = v39[0];
+    *&buf[14] = v35[0];
     *&buf[22] = 2048;
-    v41 = v38;
-    v42 = 2048;
-    v43 = v37;
-    _os_log_impl(&dword_24A8C8000, v25, OS_LOG_TYPE_DEFAULT, "Output Flow [%@]: %ld x %ld x %ld", buf, 0x2Au);
+    v37 = v34;
+    v38 = 2048;
+    v39 = v33;
+    _os_log_impl(&dword_24A8C8000, v21, OS_LOG_TYPE_DEFAULT, "Output Flow [%@]: %ld x %ld x %ld", buf, 0x2Au);
   }
 
-  TensorSizeMake(v39[0], v38, v27, buf);
+  TensorSizeMake(v35[0], v34, v23, buf);
   *&self->_outputSize.width = *buf;
   self->_outputSize.channels = *&buf[16];
-  v29 = e5rt_execution_stream_create();
-  if (v29)
+  v25 = e5rt_execution_stream_create();
+  if (v25)
   {
-    v33 = v29;
+    v28 = v25;
     last_error_message = e5rt_get_last_error_message();
-    v35 = "e5rt_execution_stream_create(&_stream)";
+    v30 = "e5rt_execution_stream_create(&_stream)";
     goto LABEL_29;
   }
 
   [(OpticalFlowE5 *)self allocateBufferObjects];
   [(OpticalFlowE5 *)self bindPorts];
 
-  v30 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -429,54 +424,53 @@ LABEL_23:
 
   else
   {
-    v16 = getInternalBundle(v6);
+    v15 = getInternalBundle(v6);
 
-    v17 = [v16 pathForResource:modelCopy ofType:@"mlmodelc"];
-    if (!v17)
+    v16 = [v15 pathForResource:modelCopy ofType:@"mlmodelc"];
+    if (!v16)
     {
-      v17 = [v16 pathForResource:modelCopy ofType:@"mlpackage"];
+      v16 = [v15 pathForResource:modelCopy ofType:@"mlpackage"];
     }
 
-    v8 = v17;
-    v6 = v16;
+    v8 = v16;
+    v6 = v15;
   }
 
   v9 = [v8 stringByAppendingPathComponent:@"model.mil"];
   *buf = 0;
-  deviceType = self->_deviceType;
-  v11 = e5rt_e5_compiler_create();
-  if (v11)
+  v10 = e5rt_e5_compiler_create();
+  if (v10)
   {
-    v18 = v11;
+    v17 = v10;
     last_error_message = e5rt_get_last_error_message();
-    v20 = "e5rt_e5_compiler_create (&compiler)";
+    v19 = "e5rt_e5_compiler_create (&compiler)";
 LABEL_19:
-    printf("FAILURE: %s returned error = %u. msg = %s\n", v20, v18, last_error_message);
+    printf("FAILURE: %s returned error = %u. msg = %s\n", v19, v17, last_error_message);
     goto LABEL_21;
   }
 
-  v12 = e5rt_e5_compiler_options_create();
-  if (v12)
+  v11 = e5rt_e5_compiler_options_create();
+  if (v11)
   {
-    v18 = v12;
+    v17 = v11;
     last_error_message = e5rt_get_last_error_message();
-    v20 = "e5rt_e5_compiler_options_create(&options)";
+    v19 = "e5rt_e5_compiler_options_create(&options)";
     goto LABEL_19;
   }
 
-  v13 = e5rt_e5_compiler_options_set_compute_device_types_mask();
-  if (v13)
+  v12 = e5rt_e5_compiler_options_set_compute_device_types_mask();
+  if (v12)
   {
-    v21 = v13;
-    v22 = e5rt_get_last_error_message();
-    printf("FAILURE: %s returned error = %u. msg = %s\n", "e5rt_e5_compiler_options_set_compute_device_types_mask(options, deviceMask)", v21, v22);
+    v20 = v12;
+    v21 = e5rt_get_last_error_message();
+    printf("FAILURE: %s returned error = %u. msg = %s\n", "e5rt_e5_compiler_options_set_compute_device_types_mask(options, deviceMask)", v20, v21);
 LABEL_21:
     exit(1);
   }
 
   [v9 UTF8String];
-  v14 = e5rt_e5_compiler_compile();
-  if (v14)
+  v13 = e5rt_e5_compiler_compile();
+  if (v13)
   {
     if (os_log_type_enabled(self->_logger, OS_LOG_TYPE_ERROR))
     {
@@ -490,12 +484,12 @@ LABEL_21:
     e5rt_e5_compiler_options_release();
   }
 
-  return v14 == 0;
+  return v13 == 0;
 }
 
 - (BOOL)buildLibraryFromE5BundleForModel:(id)model
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   v5 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   stringByDeletingPathExtension = [modelCopy stringByDeletingPathExtension];
@@ -518,9 +512,9 @@ LABEL_4:
     logger = self->_logger;
     if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 138412290;
-      v16 = v7;
-      _os_log_impl(&dword_24A8C8000, logger, OS_LOG_TYPE_DEFAULT, "Creating library from pre-built bundle at %@", &v15, 0xCu);
+      v14 = 138412290;
+      v15 = v7;
+      _os_log_impl(&dword_24A8C8000, logger, OS_LOG_TYPE_DEFAULT, "Creating library from pre-built bundle at %@", &v14, 0xCu);
     }
 
     [v7 UTF8String];
@@ -543,26 +537,24 @@ LABEL_4:
     goto LABEL_12;
   }
 
-  v14 = self->_logger;
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v13 = self->_logger;
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 138412290;
-    v16 = modelCopy;
-    _os_log_impl(&dword_24A8C8000, v14, OS_LOG_TYPE_DEFAULT, "Pre-compiled E5 Bundle for %@ is not available. Switching to runtime compilation.", &v15, 0xCu);
+    v14 = 138412290;
+    v15 = modelCopy;
+    _os_log_impl(&dword_24A8C8000, v13, OS_LOG_TYPE_DEFAULT, "Pre-compiled E5 Bundle for %@ is not available. Switching to runtime compilation.", &v14, 0xCu);
   }
 
   v7 = 0;
   v11 = 0;
 LABEL_12:
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (BOOL)getPortNames
 {
-  v25 = *MEMORY[0x277D85DE8];
-  operation = self->_operation;
+  v20 = *MEMORY[0x277D85DE8];
   if (e5rt_execution_stream_operation_get_num_inputs())
   {
     puts("failed to obtain input info");
@@ -570,71 +562,68 @@ LABEL_12:
   }
 
   num_input_ports = self->_num_input_ports;
-  v5 = &buf[-((8 * num_input_ports + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v4 = &buf[-((8 * num_input_ports + 15) & 0xFFFFFFFFFFFFFFF0)];
   if (8 * num_input_ports >= 0x200)
   {
-    v6 = 512;
+    v5 = 512;
   }
 
   else
   {
-    v6 = 8 * num_input_ports;
+    v5 = 8 * num_input_ports;
   }
 
-  bzero(&buf[-((8 * num_input_ports + 15) & 0xFFFFFFFFFFFFFFF0)], v6);
-  v7 = self->_operation;
+  bzero(&buf[-((8 * num_input_ports + 15) & 0xFFFFFFFFFFFFFFF0)], v5);
   e5rt_execution_stream_operation_get_input_names();
   logger = self->_logger;
   if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = self->_num_input_ports;
+    v7 = self->_num_input_ports;
     *buf = 134217984;
-    *&buf[4] = v9;
+    *&buf[4] = v7;
     _os_log_impl(&dword_24A8C8000, logger, OS_LOG_TYPE_DEFAULT, "Number of Input Ports = %ld", buf, 0xCu);
   }
 
-  v10 = self->_num_input_ports;
-  if (v10 == 2)
+  v8 = self->_num_input_ports;
+  if (v8 == 2)
   {
-    v11 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
     inputPortNames = self->_inputPortNames;
-    self->_inputPortNames = v11;
+    self->_inputPortNames = v9;
 
     if (self->_num_input_ports)
     {
-      v13 = 0;
+      v11 = 0;
       do
       {
-        v14 = self->_inputPortNames;
-        v15 = [MEMORY[0x277CCACA8] stringWithUTF8String:*&v5[8 * v13]];
-        [(NSMutableArray *)v14 addObject:v15];
+        v12 = self->_inputPortNames;
+        v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:*&v4[8 * v11]];
+        [(NSMutableArray *)v12 addObject:v13];
 
-        ++v13;
+        ++v11;
       }
 
-      while (self->_num_input_ports > v13);
+      while (self->_num_input_ports > v11);
     }
 
     *buf = 0;
-    v16 = self->_operation;
     e5rt_execution_stream_operation_get_num_outputs();
-    v17 = *buf;
+    v14 = *buf;
     if ((8 * *buf) >= 0x200)
     {
-      v18 = 512;
+      v15 = 512;
     }
 
     else
     {
-      v18 = 8 * *buf;
+      v15 = 8 * *buf;
     }
 
-    bzero(&buf[-((8 * *buf + 15) & 0xFFFFFFFFFFFFFFF0)], v18);
-    v19 = self->_operation;
+    bzero(&buf[-((8 * *buf + 15) & 0xFFFFFFFFFFFFFFF0)], v15);
     e5rt_execution_stream_operation_get_output_names();
-    v20 = [MEMORY[0x277CCACA8] stringWithUTF8String:*&buf[-((8 * v17 + 15) & 0xFFFFFFFFFFFFFFF0)]];
+    v16 = [MEMORY[0x277CCACA8] stringWithUTF8String:*&buf[-((8 * v14 + 15) & 0xFFFFFFFFFFFFFFF0)]];
     outputPortName = self->_outputPortName;
-    self->_outputPortName = v20;
+    self->_outputPortName = v16;
   }
 
   else
@@ -642,93 +631,83 @@ LABEL_12:
     printf("Error invalid number of input ports (%ld)\n", self->_num_input_ports);
   }
 
-  result = v10 == 2;
-  v23 = *MEMORY[0x277D85DE8];
-  return result;
+  return v8 == 2;
 }
 
 - (void)allocateBufferObjects
 {
-  v3 = 0;
-  input_ports = self->_input_ports;
-  v5 = 1;
+  v2 = 1;
   do
   {
-    v6 = v5;
-    v7 = input_ports[v3];
-    v8 = e5rt_io_port_retain_tensor_desc();
-    if (v8)
+    v3 = v2;
+    v4 = e5rt_io_port_retain_tensor_desc();
+    if (v4)
     {
-      v19 = v8;
+      v11 = v4;
       last_error_message = e5rt_get_last_error_message();
-      v21 = "e5rt_io_port_retain_tensor_desc(_input_ports[inputIdx], &input_tensor_desc)";
+      v13 = "e5rt_io_port_retain_tensor_desc(_input_ports[inputIdx], &input_tensor_desc)";
       goto LABEL_13;
     }
 
-    v9 = e5rt_tensor_desc_alloc_buffer_object();
-    if (v9)
+    v5 = e5rt_tensor_desc_alloc_buffer_object();
+    if (v5)
     {
-      v19 = v9;
+      v11 = v5;
       last_error_message = e5rt_get_last_error_message();
-      v21 = "e5rt_tensor_desc_alloc_buffer_object(input_tensor_desc, E5RT_BUFFER_OBJECT_TYPE_IOSURFACE, 1, &_inputBufferObject[inputIdx])";
+      v13 = "e5rt_tensor_desc_alloc_buffer_object(input_tensor_desc, E5RT_BUFFER_OBJECT_TYPE_IOSURFACE, 1, &_inputBufferObject[inputIdx])";
       goto LABEL_13;
     }
 
     e5rt_tensor_desc_release();
-    v5 = 0;
-    v3 = 1;
+    v2 = 0;
   }
 
-  while ((v6 & 1) != 0);
-  output_port = self->_output_port;
-  v11 = e5rt_io_port_retain_tensor_desc();
-  if (v11)
+  while ((v3 & 1) != 0);
+  v6 = e5rt_io_port_retain_tensor_desc();
+  if (v6)
   {
-    v19 = v11;
+    v11 = v6;
     last_error_message = e5rt_get_last_error_message();
-    v21 = "e5rt_io_port_retain_tensor_desc(_output_port, &output_tensor_desc)";
+    v13 = "e5rt_io_port_retain_tensor_desc(_output_port, &output_tensor_desc)";
     goto LABEL_13;
   }
 
-  v12 = e5rt_tensor_desc_alloc_buffer_object();
-  if (v12)
+  v7 = e5rt_tensor_desc_alloc_buffer_object();
+  if (v7)
   {
-    v19 = v12;
+    v11 = v7;
     last_error_message = e5rt_get_last_error_message();
-    v21 = "e5rt_tensor_desc_alloc_buffer_object(output_tensor_desc, E5RT_BUFFER_OBJECT_TYPE_IOSURFACE, 1, &_outputBufferObject)";
+    v13 = "e5rt_tensor_desc_alloc_buffer_object(output_tensor_desc, E5RT_BUFFER_OBJECT_TYPE_IOSURFACE, 1, &_outputBufferObject)";
     goto LABEL_13;
   }
 
   e5rt_tensor_desc_release();
-  v13 = self->_inputBufferObject[0];
   iosurface = e5rt_buffer_object_get_iosurface();
   if (iosurface)
   {
-    v19 = iosurface;
+    v11 = iosurface;
     last_error_message = e5rt_get_last_error_message();
-    v21 = "e5rt_buffer_object_get_iosurface(_inputBufferObject[0], &_firstFrameSurface)";
+    v13 = "e5rt_buffer_object_get_iosurface(_inputBufferObject[0], &_firstFrameSurface)";
     goto LABEL_13;
   }
 
-  v15 = self->_inputBufferObject[1];
-  v16 = e5rt_buffer_object_get_iosurface();
-  if (v16)
+  v9 = e5rt_buffer_object_get_iosurface();
+  if (v9)
   {
-    v19 = v16;
+    v11 = v9;
     last_error_message = e5rt_get_last_error_message();
-    v21 = "e5rt_buffer_object_get_iosurface(_inputBufferObject[1], &_secondFrameSurface)";
+    v13 = "e5rt_buffer_object_get_iosurface(_inputBufferObject[1], &_secondFrameSurface)";
     goto LABEL_13;
   }
 
-  outputBufferObject = self->_outputBufferObject;
-  v18 = e5rt_buffer_object_get_iosurface();
-  if (v18)
+  v10 = e5rt_buffer_object_get_iosurface();
+  if (v10)
   {
-    v19 = v18;
+    v11 = v10;
     last_error_message = e5rt_get_last_error_message();
-    v21 = "e5rt_buffer_object_get_iosurface(_outputBufferObject, &_outputSurface)";
+    v13 = "e5rt_buffer_object_get_iosurface(_outputBufferObject, &_outputSurface)";
 LABEL_13:
-    printf("FAILURE: %s returned error = %u. msg = %s\n", v21, v19, last_error_message);
+    printf("FAILURE: %s returned error = %u. msg = %s\n", v13, v11, last_error_message);
     exit(1);
   }
 }
@@ -834,52 +813,52 @@ LABEL_8:
   }
 }
 
+- (void)opticalFlowFirstFrame:(__CVBuffer *)frame secondFrame:(__CVBuffer *)secondFrame flowForward:(__CVBuffer *)forward flowBackward:(__CVBuffer *)backward reUseFlow:(BOOL)flow
+{
+  [(OpticalFlowE5 *)self opticalFlowFirstFrame:frame secondFrame:secondFrame originalFirst:[(OpticalFlow *)self originalFirst:frame] originalSecond:[(OpticalFlow *)self originalSecond] flow:forward];
+  originalSecond = [(OpticalFlow *)self originalSecond];
+  originalFirst = [(OpticalFlow *)self originalFirst];
+
+  [(OpticalFlowE5 *)self opticalFlowFirstFrame:secondFrame secondFrame:frame originalFirst:originalSecond originalSecond:originalFirst flow:backward];
+}
+
 - (void)executeModel
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 67109378;
-  v4[1] = a2;
-  v5 = 2080;
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 67109378;
+  v3[1] = a2;
+  v4 = 2080;
   selfCopy = self;
-  _os_log_error_impl(&dword_24A8C8000, log, OS_LOG_TYPE_ERROR, "Execution failed. returned error = %u. msg = %s\n", v4, 0x12u);
-  v3 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_24A8C8000, log, OS_LOG_TYPE_ERROR, "Execution failed. returned error = %u. msg = %s\n", v3, 0x12u);
 }
 
 - (void)bindPorts
 {
-  v3 = 0;
-  input_ports = self->_input_ports;
-  inputBufferObject = self->_inputBufferObject;
-  v6 = 1;
+  v2 = 1;
   do
   {
-    v7 = v6;
-    v8 = input_ports[v3];
-    v9 = inputBufferObject[v3];
-    v10 = e5rt_io_port_bind_buffer_object();
-    if (v10)
+    v3 = v2;
+    v4 = e5rt_io_port_bind_buffer_object();
+    if (v4)
     {
-      v14 = v10;
+      v6 = v4;
       last_error_message = e5rt_get_last_error_message();
-      v16 = "e5rt_io_port_bind_buffer_object(_input_ports[i], _inputBufferObject[i])";
+      v8 = "e5rt_io_port_bind_buffer_object(_input_ports[i], _inputBufferObject[i])";
       goto LABEL_7;
     }
 
-    v6 = 0;
-    v3 = 1;
+    v2 = 0;
   }
 
-  while ((v7 & 1) != 0);
-  output_port = self->_output_port;
-  outputBufferObject = self->_outputBufferObject;
-  v13 = e5rt_io_port_bind_buffer_object();
-  if (v13)
+  while ((v3 & 1) != 0);
+  v5 = e5rt_io_port_bind_buffer_object();
+  if (v5)
   {
-    v14 = v13;
+    v6 = v5;
     last_error_message = e5rt_get_last_error_message();
-    v16 = "e5rt_io_port_bind_buffer_object(_output_port, _outputBufferObject)";
+    v8 = "e5rt_io_port_bind_buffer_object(_output_port, _outputBufferObject)";
 LABEL_7:
-    printf("FAILURE: %s returned error = %u. msg = %s\n", v16, v14, last_error_message);
+    printf("FAILURE: %s returned error = %u. msg = %s\n", v8, v6, last_error_message);
     exit(1);
   }
 }
@@ -1165,22 +1144,6 @@ LABEL_7:
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-- (void)buildLibraryForModel:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)buildLibraryFromE5BundleForModel:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -9,7 +9,7 @@
 
 - (id)encodeMessageSecurityObject:(id *)object
 {
-  v45[1] = *MEMORY[0x277D85DE8];
+  v44[1] = *MEMORY[0x277D85DE8];
   if (object && *object)
   {
     v5 = [*object copy];
@@ -21,9 +21,9 @@
   }
 
   asn1OID = 0;
+  v39 = 0;
   v40 = 0;
-  v41 = 0;
-  v37 = 0;
+  v36 = 0;
   bytes = 0;
   contentType = self->_contentType;
   if (!contentType)
@@ -38,22 +38,22 @@
     if (embeddedContent)
     {
       asn1OID = 0;
-      v40 = 0;
-      v41 = &v37;
+      v39 = 0;
+      v40 = &v36;
       goto LABEL_14;
     }
 
 LABEL_38:
-    [(MSCMSContentInfo *)v5 encodeMessageSecurityObject:v35];
+    [(MSCMSContentInfo *)v5 encodeMessageSecurityObject:v34];
     v15 = 0;
     v22 = 0;
-    v16 = v35[0];
+    v16 = v34[0];
     goto LABEL_32;
   }
 
   asn1OID = 0;
-  v40 = 0;
-  v41 = &v37;
+  v39 = 0;
+  v40 = &v36;
   if (!embeddedContent)
   {
     if (![(MSOID *)contentType isEqualToString:@"1.2.840.113549.1.7.1"])
@@ -64,18 +64,18 @@ LABEL_24:
       goto LABEL_25;
     }
 
-    v35[0] = [(NSData *)*p_content length];
-    v35[1] = [(NSData *)*p_content bytes];
-    v34 = 0;
-    v9 = length_DataContent(v35);
+    v34[0] = [(NSData *)*p_content length];
+    v34[1] = [(NSData *)*p_content bytes];
+    v33 = 0;
+    v9 = length_DataContent(v34);
     v10 = [MEMORY[0x277CBEB28] dataWithLength:v9];
     if (v10)
     {
       v11 = v10;
-      v12 = encode_DataContent([v10 mutableBytes] + v9 - 1, v9, v35, &v34);
+      v12 = encode_DataContent([v10 mutableBytes] + v9 - 1, v9, v34, &v33);
       if (!v12)
       {
-        if (v9 != v34)
+        if (v9 != v33)
         {
           goto LABEL_41;
         }
@@ -96,9 +96,9 @@ LABEL_24:
     if (object)
     {
       v17 = MEMORY[0x277CCA9B8];
-      v44 = *MEMORY[0x277CCA450];
-      v45[0] = @"Failed encoding type DataContent";
-      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:&v44 count:1];
+      v43 = *MEMORY[0x277CCA450];
+      v44[0] = @"Failed encoding type DataContent";
+      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:&v43 count:1];
       *object = [v17 errorWithDomain:@"com.apple.HeimASN1" code:v14 userInfo:v18];
     }
 
@@ -117,9 +117,9 @@ LABEL_22:
   }
 
 LABEL_14:
-  v36 = v5;
-  v15 = [(MSCMSMessage *)embeddedContent encodeMessageSecurityObject:&v36];
-  v16 = v36;
+  v35 = v5;
+  v15 = [(MSCMSMessage *)embeddedContent encodeMessageSecurityObject:&v35];
+  v16 = v35;
 
   if (!v15)
   {
@@ -130,10 +130,10 @@ LABEL_14:
   objc_storeStrong(&self->_content, v15);
 LABEL_25:
   bytes = [(NSData *)v15 bytes];
-  v37 = [(NSData *)v15 length];
+  v36 = [(NSData *)v15 length];
   asn1OID = [(MSOID *)self->_contentType Asn1OID];
-  v40 = v19;
-  v35[0] = 0;
+  v39 = v19;
+  v34[0] = 0;
   v20 = length_ContentInfo(&asn1OID);
   v21 = [MEMORY[0x277CBEB28] dataWithLength:v20];
   if (!v21)
@@ -143,7 +143,7 @@ LABEL_25:
   }
 
   v22 = v21;
-  v23 = encode_ContentInfo([v21 mutableBytes] + v20 - 1, v20, &asn1OID, v35);
+  v23 = encode_ContentInfo([v21 mutableBytes] + v20 - 1, v20, &asn1OID, v34);
   if (v23)
   {
     v24 = v23;
@@ -151,9 +151,9 @@ LABEL_25:
     v25 = v24;
 LABEL_29:
     v26 = MEMORY[0x277CCA9B8];
-    v42 = *MEMORY[0x277CCA450];
-    v43 = @"Failed encoding type ContentInfo";
-    v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
+    v41 = *MEMORY[0x277CCA450];
+    v42 = @"Failed encoding type ContentInfo";
+    v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
     v5 = [v26 errorWithDomain:@"com.apple.HeimASN1" code:v25 userInfo:v27];
 
 LABEL_30:
@@ -162,11 +162,11 @@ LABEL_30:
     goto LABEL_32;
   }
 
-  if (v20 != v35[0])
+  if (v20 != v34[0])
   {
 LABEL_41:
-    v31 = asn1_abort();
-    return [(MSCMSContentInfo *)v31 initWithEmbeddedContent:v32, v33];
+    v30 = asn1_abort();
+    return [(MSCMSContentInfo *)v30 initWithEmbeddedContent:v31, v32];
   }
 
 LABEL_32:
@@ -175,8 +175,6 @@ LABEL_32:
     v28 = v16;
     *object = v16;
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v22;
 }
@@ -231,10 +229,10 @@ LABEL_32:
     v9 = 0;
   }
 
-  v27[0] = 0;
-  v27[1] = 0;
-  v28 = 0;
-  v10 = nsheim_decode_ContentInfo(objectCopy);
+  v29[0] = 0;
+  v29[1] = 0;
+  v30 = 0;
+  v10 = nsheim_decode_ContentInfo(objectCopy, v29);
   if (v10)
   {
     v11 = MSErrorASN1Domain[0];
@@ -265,16 +263,18 @@ LABEL_14:
     goto LABEL_23;
   }
 
-  v26 = v9;
-  v14 = [MSOID OIDWithAsn1OID:v27 error:&v26];
-  v15 = v26;
+  v28 = v9;
+  v14 = [MSOID OIDWithAsn1OID:v29 error:&v28];
+  v15 = v28;
 
-  v16 = NSDataFromAny(v28);
+  v16 = NSDataFromAny(v30);
   if (v16)
   {
     if ([v14 isEqualToString:@"1.2.840.113549.1.7.1"])
     {
-      v17 = nsheim_decode_DataContent(v16);
+      v25 = 0;
+      v26 = 0;
+      v17 = nsheim_decode_DataContent(v16, &v25);
       if (v17)
       {
         v18 = +[MSError MSErrorWithDomain:code:underlyingError:description:](MSError, "MSErrorWithDomain:code:underlyingError:description:", MSErrorASN1Domain[0], v17, v15, @"unable to decode data content (%ld bytes)", [v16 length]);
@@ -284,18 +284,18 @@ LABEL_14:
         goto LABEL_14;
       }
 
-      v21 = [MEMORY[0x277CBEA90] dataWithBytes:0 length:0];
+      v21 = [MEMORY[0x277CBEA90] dataWithBytes:v26 length:v25];
 
-      free_DataContent();
+      free_DataContent(&v25);
       v20 = 0;
       v16 = v21;
     }
 
     else
     {
-      v25 = v15;
-      v20 = decodeEmbeddedCMSContent(v14, v16, optionsCopy, &v25);
-      v18 = v25;
+      v27 = v15;
+      v20 = decodeEmbeddedCMSContent(v14, v16, optionsCopy, &v27);
+      v18 = v27;
 
       if (!v20)
       {
@@ -337,7 +337,7 @@ LABEL_23:
   }
 
 LABEL_25:
-  free_ContentInfo();
+  free_ContentInfo(v29);
   v23 = v19;
 
   return v23;

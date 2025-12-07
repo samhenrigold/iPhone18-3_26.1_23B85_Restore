@@ -43,497 +43,497 @@
 - (NTKCParmesanPreviewViewController)initWithPreviewProvider:(id)provider
 {
   providerCopy = provider;
-  v15.receiver = self;
-  v15.super_class = NTKCParmesanPreviewViewController;
-  v6 = [(NTKCParmesanPreviewViewController *)&v15 initWithNibName:0 bundle:0];
-  v10 = v6;
+  v13.receiver = self;
+  v13.super_class = NTKCParmesanPreviewViewController;
+  v6 = [(NTKCParmesanPreviewViewController *)&v13 initWithNibName:0 bundle:0];
+  v9 = v6;
   if (v6)
   {
-    v11 = objc_msgSend_navigationItem(v6, v7, v8, v9);
-    objc_msgSend_setHidesBackButton_(v11, v12, 1, v13);
+    v10 = objc_msgSend_navigationItem(v6, v7, v8);
+    objc_msgSend_setHidesBackButton_(v10, v11, 1);
 
-    v10->_initialPreviewState = 0;
-    objc_storeStrong(&v10->_previewProvider, provider);
-    v10->_cropValidationState = 0;
+    v9->_initialPreviewState = 0;
+    objc_storeStrong(&v9->_previewProvider, provider);
+    v9->_cropValidationState = 0;
   }
 
-  return v10;
+  return v9;
 }
 
 - (void)dealloc
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v5 = objc_msgSend__KVOScrollViewKeys(NTKCParmesanPreviewViewController, a2, v2, v3);
-  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v13, v17, 16);
-  if (v7)
+  v4 = objc_msgSend__KVOScrollViewKeys(NTKCParmesanPreviewViewController, a2, v2);
+  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v5, &v12, v16, 16);
+  if (v6)
   {
-    v9 = v7;
-    v10 = *v14;
+    v8 = v6;
+    v9 = *v13;
     do
     {
-      v11 = 0;
+      v10 = 0;
       do
       {
-        if (*v14 != v10)
+        if (*v13 != v9)
         {
-          objc_enumerationMutation(v5);
+          objc_enumerationMutation(v4);
         }
 
-        objc_msgSend_removeObserver_forKeyPath_context_(self->_scrollView, v8, self, *(*(&v13 + 1) + 8 * v11++), qword_27E1DF950);
+        objc_msgSend_removeObserver_forKeyPath_context_(self->_scrollView, v7, self, *(*(&v12 + 1) + 8 * v10++), qword_27E1DF950);
       }
 
-      while (v9 != v11);
-      v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v8, &v13, v17, 16);
+      while (v8 != v10);
+      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v7, &v12, v16, 16);
     }
 
-    while (v9);
+    while (v8);
   }
 
-  v12.receiver = self;
-  v12.super_class = NTKCParmesanPreviewViewController;
-  [(NTKCParmesanPreviewViewController *)&v12 dealloc];
+  v11.receiver = self;
+  v11.super_class = NTKCParmesanPreviewViewController;
+  [(NTKCParmesanPreviewViewController *)&v11 dealloc];
 }
 
 - (void)viewDidLoad
 {
-  v278 = *MEMORY[0x277D85DE8];
-  v276.receiver = self;
-  v276.super_class = NTKCParmesanPreviewViewController;
-  [(NTKCParmesanPreviewViewController *)&v276 viewDidLoad];
-  v6 = objc_msgSend_navigationController(self, v3, v4, v5);
-  objc_msgSend_setNavigationBarHidden_(v6, v7, 1, v8);
+  v203 = *MEMORY[0x277D85DE8];
+  v201.receiver = self;
+  v201.super_class = NTKCParmesanPreviewViewController;
+  [(NTKCParmesanPreviewViewController *)&v201 viewDidLoad];
+  v5 = objc_msgSend_navigationController(self, v3, v4);
+  objc_msgSend_setNavigationBarHidden_(v5, v6, 1);
 
-  v12 = objc_msgSend_navigationController(self, v9, v10, v11);
-  objc_msgSend_setToolbarHidden_(v12, v13, 0, v14);
+  v9 = objc_msgSend_navigationController(self, v7, v8);
+  objc_msgSend_setToolbarHidden_(v9, v10, 0);
 
-  v18 = objc_msgSend_systemBlackColor(MEMORY[0x277D75348], v15, v16, v17);
-  v22 = objc_msgSend_view(self, v19, v20, v21);
-  objc_msgSend_setBackgroundColor_(v22, v23, v18, v24);
+  v13 = objc_msgSend_systemBlackColor(MEMORY[0x277D75348], v11, v12);
+  v16 = objc_msgSend_view(self, v14, v15);
+  objc_msgSend_setBackgroundColor_(v16, v17, v13);
 
-  v25 = objc_opt_new();
+  v18 = objc_opt_new();
   infoContainer = self->_infoContainer;
-  self->_infoContainer = v25;
+  self->_infoContainer = v18;
 
-  v27 = objc_opt_new();
+  v20 = objc_opt_new();
   contentContainer = self->_contentContainer;
-  self->_contentContainer = v27;
+  self->_contentContainer = v20;
 
-  v32 = objc_msgSend_view(self, v29, v30, v31);
-  objc_msgSend_addSubview_(v32, v33, self->_contentContainer, v34);
+  v24 = objc_msgSend_view(self, v22, v23);
+  objc_msgSend_addSubview_(v24, v25, self->_contentContainer);
 
-  v38 = objc_msgSend_view(self, v35, v36, v37);
-  objc_msgSend_addSubview_(v38, v39, self->_infoContainer, v40);
+  v28 = objc_msgSend_view(self, v26, v27);
+  objc_msgSend_addSubview_(v28, v29, self->_infoContainer);
 
-  objc_msgSend_setUserInteractionEnabled_(self->_infoContainer, v41, 0, v42);
-  v46 = objc_msgSend_view(self, v43, v44, v45);
-  objc_msgSend_bounds(v46, v47, v48, v49);
-  v51 = v50;
-  v53 = v52;
-  v55 = v54;
-  v57 = v56;
+  objc_msgSend_setUserInteractionEnabled_(self->_infoContainer, v30, 0);
+  v33 = objc_msgSend_view(self, v31, v32);
+  objc_msgSend_bounds(v33, v34, v35);
+  v37 = v36;
+  v39 = v38;
+  v41 = v40;
+  v43 = v42;
 
-  v58 = objc_alloc(MEMORY[0x277D2BF70]);
-  v62 = objc_msgSend_initWithFrame_(v58, v59, v60, v61, v51, v53, v55, v57);
+  v44 = objc_alloc(MEMORY[0x277D2BF70]);
+  v47 = objc_msgSend_initWithFrame_(v44, v45, v46, v37, v39, v41, v43);
   scrollView = self->_scrollView;
-  self->_scrollView = v62;
+  self->_scrollView = v47;
 
-  objc_msgSend_setNtk_delegate_(self->_scrollView, v64, self, v65);
-  objc_msgSend_setMinimumZoomScale_(self->_scrollView, v66, v67, v68, 0.1);
-  objc_msgSend_setClipsToBounds_(self->_scrollView, v69, 0, v70);
-  objc_msgSend_setIsAccessibilityElement_(self->_scrollView, v71, 1, v72);
-  objc_msgSend_setAccessibilityTraits_(self->_scrollView, v73, *MEMORY[0x277D765B8], v74);
-  v76 = objc_msgSend_localizedStringForKey_comment_(NTKParmesanFaceBundle, v75, @"PARMESAN_AX_CROP_AREA_LABEL", @"Accessibility label for crop area when editing layout.");
-  objc_msgSend_setAccessibilityLabel_(self->_scrollView, v77, v76, v78);
+  objc_msgSend_setNtk_delegate_(self->_scrollView, v49, self);
+  objc_msgSend_setMinimumZoomScale_(self->_scrollView, v50, v51, 0.1);
+  objc_msgSend_setClipsToBounds_(self->_scrollView, v52, 0);
+  objc_msgSend_setIsAccessibilityElement_(self->_scrollView, v53, 1);
+  objc_msgSend_setAccessibilityTraits_(self->_scrollView, v54, *MEMORY[0x277D765B8]);
+  v56 = objc_msgSend_localizedStringForKey_comment_(NTKParmesanFaceBundle, v55, @"PARMESAN_AX_CROP_AREA_LABEL", @"Accessibility label for crop area when editing layout.");
+  objc_msgSend_setAccessibilityLabel_(self->_scrollView, v57, v56);
 
-  v80 = objc_msgSend_localizedStringForKey_comment_(NTKParmesanFaceBundle, v79, @"PARMESAN_AX_CROP_AREA_HINT", @"Accessibility hint for crop area when editing layout.");
-  objc_msgSend_setAccessibilityHint_(self->_scrollView, v81, v80, v82);
+  v59 = objc_msgSend_localizedStringForKey_comment_(NTKParmesanFaceBundle, v58, @"PARMESAN_AX_CROP_AREA_HINT", @"Accessibility hint for crop area when editing layout.");
+  objc_msgSend_setAccessibilityHint_(self->_scrollView, v60, v59);
 
-  v274 = 0u;
-  v275 = 0u;
-  v272 = 0u;
-  v273 = 0u;
-  v86 = objc_msgSend__KVOScrollViewKeys(NTKCParmesanPreviewViewController, v83, v84, v85, 0);
-  v88 = objc_msgSend_countByEnumeratingWithState_objects_count_(v86, v87, &v272, v277, 16);
-  if (v88)
+  v199 = 0u;
+  v200 = 0u;
+  v197 = 0u;
+  v198 = 0u;
+  v63 = objc_msgSend__KVOScrollViewKeys(NTKCParmesanPreviewViewController, v61, v62, 0);
+  v65 = objc_msgSend_countByEnumeratingWithState_objects_count_(v63, v64, &v197, v202, 16);
+  if (v65)
   {
-    v90 = v88;
-    v91 = *v273;
+    v67 = v65;
+    v68 = *v198;
     do
     {
-      for (i = 0; i != v90; ++i)
+      for (i = 0; i != v67; ++i)
       {
-        if (*v273 != v91)
+        if (*v198 != v68)
         {
-          objc_enumerationMutation(v86);
+          objc_enumerationMutation(v63);
         }
 
-        objc_msgSend_addObserver_forKeyPath_options_context_(self->_scrollView, v89, self, *(*(&v272 + 1) + 8 * i), 0, qword_27E1DF950);
+        objc_msgSend_addObserver_forKeyPath_options_context_(self->_scrollView, v66, self, *(*(&v197 + 1) + 8 * i), 0, qword_27E1DF950);
       }
 
-      v90 = objc_msgSend_countByEnumeratingWithState_objects_count_(v86, v89, &v272, v277, 16);
+      v67 = objc_msgSend_countByEnumeratingWithState_objects_count_(v63, v66, &v197, v202, 16);
     }
 
-    while (v90);
+    while (v67);
   }
 
-  v93 = [_NTKCParmesanOverlayScrollView alloc];
-  v97 = objc_msgSend_initWithFrame_(v93, v94, v95, v96, v51, v53, v55, v57);
+  v70 = [_NTKCParmesanOverlayScrollView alloc];
+  v73 = objc_msgSend_initWithFrame_(v70, v71, v72, v37, v39, v41, v43);
   overlayScrollView = self->_overlayScrollView;
-  self->_overlayScrollView = v97;
+  self->_overlayScrollView = v73;
 
-  v102 = objc_msgSend_clearColor(MEMORY[0x277D75348], v99, v100, v101);
-  objc_msgSend_setBackgroundColor_(self->_overlayScrollView, v103, v102, v104);
+  v77 = objc_msgSend_clearColor(MEMORY[0x277D75348], v75, v76);
+  objc_msgSend_setBackgroundColor_(self->_overlayScrollView, v78, v77);
 
-  objc_msgSend_setUserInteractionEnabled_(self->_overlayScrollView, v105, 0, v106);
-  if (objc_msgSend_Parmesan_canCrop(self->_previewProvider, v107, v108, v109))
+  objc_msgSend_setUserInteractionEnabled_(self->_overlayScrollView, v79, 0);
+  if (objc_msgSend_Parmesan_canCrop(self->_previewProvider, v80, v81))
   {
-    objc_msgSend_Parmesan_minimumNormalizedCropSize(self->_previewProvider, v110, v111, v112);
-    v117 = 1.0 / v116;
-    v119 = 1.0 / v118;
-    if (v117 >= v119)
+    objc_msgSend_Parmesan_minimumNormalizedCropSize(self->_previewProvider, v82, v83);
+    v87 = 1.0 / v86;
+    v89 = 1.0 / v88;
+    if (v87 >= v89)
     {
-      v117 = v119;
+      v87 = v89;
     }
 
-    objc_msgSend_setMaximumZoomRatio_(self->_scrollView, v113, v114, v115, v117);
-    objc_msgSend_maximumZoomRatio(self->_scrollView, v120, v121, v122);
-    objc_msgSend_setMaximumZoomRatio_(self->_overlayScrollView, v123, v124, v125);
+    objc_msgSend_setMaximumZoomRatio_(self->_scrollView, v84, v85, v87);
+    objc_msgSend_maximumZoomRatio(self->_scrollView, v90, v91);
+    objc_msgSend_setMaximumZoomRatio_(self->_overlayScrollView, v92, v93);
   }
 
   else
   {
-    objc_msgSend_setMaximumZoomRatio_(self->_scrollView, v110, v111, v112, 1.0);
-    objc_msgSend_maximumZoomRatio(self->_scrollView, v128, v129, v130);
-    objc_msgSend_setMaximumZoomRatio_(self->_overlayScrollView, v131, v132, v133);
-    objc_msgSend_setScrollEnabled_(self->_scrollView, v134, 0, v135);
-    v139 = objc_msgSend_leadingButton(self->_navigationBar, v136, v137, v138);
-    objc_msgSend_setEnabled_(v139, v140, 0, v141);
+    objc_msgSend_setMaximumZoomRatio_(self->_scrollView, v82, v83, 1.0);
+    objc_msgSend_maximumZoomRatio(self->_scrollView, v95, v96);
+    objc_msgSend_setMaximumZoomRatio_(self->_overlayScrollView, v97, v98);
+    objc_msgSend_setScrollEnabled_(self->_scrollView, v99, 0);
+    v102 = objc_msgSend_leadingButton(self->_navigationBar, v100, v101);
+    objc_msgSend_setEnabled_(v102, v103, 0);
   }
 
-  objc_msgSend_addSubview_(self->_contentContainer, v126, self->_scrollView, v127);
-  objc_msgSend__loadInitialCropPreview(self, v142, v143, v144);
-  v145 = objc_opt_new();
+  objc_msgSend_addSubview_(self->_contentContainer, v94, self->_scrollView);
+  objc_msgSend__loadInitialCropPreview(self, v104, v105);
+  v106 = objc_opt_new();
   timeContainer = self->_timeContainer;
-  self->_timeContainer = v145;
+  self->_timeContainer = v106;
 
-  objc_msgSend_setUserInteractionEnabled_(self->_timeContainer, v147, 0, v148);
-  objc_msgSend_setAccessibilityElementsHidden_(self->_timeContainer, v149, 1, v150);
-  objc_msgSend_addSubview_(self->_contentContainer, v151, self->_timeContainer, v152);
-  v153 = [NTKParmesanTimeLayout alloc];
-  v155 = objc_msgSend_initWithAlignment_scale_(v153, v154, 1, 3);
-  v156 = [NTKParmesanTimeView alloc];
-  v157 = *MEMORY[0x277CBF3A0];
-  v158 = *(MEMORY[0x277CBF3A0] + 8);
-  v159 = *(MEMORY[0x277CBF3A0] + 16);
-  v160 = *(MEMORY[0x277CBF3A0] + 24);
-  v163 = objc_msgSend_initWithFrame_layout_(v156, v161, v155, v162, *MEMORY[0x277CBF3A0], v158, v159, v160);
+  objc_msgSend_setUserInteractionEnabled_(self->_timeContainer, v108, 0);
+  objc_msgSend_setAccessibilityElementsHidden_(self->_timeContainer, v109, 1);
+  objc_msgSend_addSubview_(self->_contentContainer, v110, self->_timeContainer);
+  v111 = [NTKParmesanTimeLayout alloc];
+  v113 = objc_msgSend_initWithAlignment_scale_(v111, v112, 1, 3);
+  v114 = [NTKParmesanTimeView alloc];
+  v115 = *MEMORY[0x277CBF3A0];
+  v116 = *(MEMORY[0x277CBF3A0] + 8);
+  v117 = *(MEMORY[0x277CBF3A0] + 16);
+  v118 = *(MEMORY[0x277CBF3A0] + 24);
+  v120 = objc_msgSend_initWithFrame_layout_(v114, v119, v113, *MEMORY[0x277CBF3A0], v116, v117, v118);
   time = self->_time;
-  self->_time = v163;
+  self->_time = v120;
 
-  v165 = self->_time;
-  v169 = objc_msgSend_faceDate(MEMORY[0x277D2BFD8], v166, v167, v168);
-  objc_msgSend_setOverrideDate_duration_(v165, v170, v169, v171, 0.0);
+  v122 = self->_time;
+  v125 = objc_msgSend_faceDate(MEMORY[0x277D2BFD8], v123, v124);
+  objc_msgSend_setOverrideDate_duration_(v122, v126, v125, 0.0);
 
-  objc_msgSend_setHidden_(self->_time, v172, 1, v173);
-  objc_msgSend_addSubview_(self->_timeContainer, v174, self->_time, v175);
-  objc_msgSend_insertSubview_aboveSubview_(self->_contentContainer, v176, self->_overlayScrollView, self->_timeContainer);
-  v180 = objc_msgSend_layer(MEMORY[0x277CD9F90], v177, v178, v179);
+  objc_msgSend_setHidden_(self->_time, v127, 1);
+  objc_msgSend_addSubview_(self->_timeContainer, v128, self->_time);
+  objc_msgSend_insertSubview_aboveSubview_(self->_contentContainer, v129, self->_overlayScrollView, self->_timeContainer);
+  v132 = objc_msgSend_layer(MEMORY[0x277CD9F90], v130, v131);
   mask = self->_mask;
-  self->_mask = v180;
+  self->_mask = v132;
 
-  objc_msgSend_setFillRule_(self->_mask, v182, *MEMORY[0x277CDA248], v183);
-  v187 = objc_msgSend_colorWithWhite_alpha_(MEMORY[0x277D75348], v184, v185, v186, 0.0, 0.6);
-  v188 = v187;
-  v192 = objc_msgSend_CGColor(v188, v189, v190, v191);
-  objc_msgSend_setFillColor_(self->_mask, v193, v192, v194);
+  objc_msgSend_setFillRule_(self->_mask, v134, *MEMORY[0x277CDA248]);
+  v137 = objc_msgSend_colorWithWhite_alpha_(MEMORY[0x277D75348], v135, v136, 0.0, 0.6);
+  v138 = v137;
+  v141 = objc_msgSend_CGColor(v138, v139, v140);
+  objc_msgSend_setFillColor_(self->_mask, v142, v141);
 
-  v198 = objc_msgSend_layer(self->_contentContainer, v195, v196, v197);
-  objc_msgSend_addSublayer_(v198, v199, self->_mask, v200);
+  v145 = objc_msgSend_layer(self->_contentContainer, v143, v144);
+  objc_msgSend_addSublayer_(v145, v146, self->_mask);
 
-  v201 = objc_opt_new();
+  v147 = objc_opt_new();
   placementGuideContainer = self->_placementGuideContainer;
-  self->_placementGuideContainer = v201;
+  self->_placementGuideContainer = v147;
 
-  objc_msgSend_setAlpha_(self->_placementGuideContainer, v203, v204, v205, 0.0);
-  objc_msgSend_setUserInteractionEnabled_(self->_placementGuideContainer, v206, 0, v207);
-  objc_msgSend_addSubview_(self->_infoContainer, v208, self->_placementGuideContainer, v209);
-  v210 = objc_opt_new();
+  objc_msgSend_setAlpha_(self->_placementGuideContainer, v149, v150, 0.0);
+  objc_msgSend_setUserInteractionEnabled_(self->_placementGuideContainer, v151, 0);
+  objc_msgSend_addSubview_(self->_infoContainer, v152, self->_placementGuideContainer);
+  v153 = objc_opt_new();
   placementGuideLabel = self->_placementGuideLabel;
-  self->_placementGuideLabel = v210;
+  self->_placementGuideLabel = v153;
 
-  v215 = objc_msgSend_systemFontOfSize_weight_(MEMORY[0x277D74300], v212, v213, v214, 16.0, *MEMORY[0x277D74418]);
-  objc_msgSend_setFont_(self->_placementGuideLabel, v216, v215, v217);
+  v157 = objc_msgSend_systemFontOfSize_weight_(MEMORY[0x277D74300], v155, v156, 16.0, *MEMORY[0x277D74418]);
+  objc_msgSend_setFont_(self->_placementGuideLabel, v158, v157);
 
-  objc_msgSend_setTextAlignment_(self->_placementGuideLabel, v218, 1, v219);
-  v221 = objc_msgSend_localizedStringForKey_comment_(NTKParmesanFaceBundle, v220, @"MANUAL_LAYOUT_PLACEMENT_GUIDE_INVALID", &stru_284EC2B20);
-  objc_msgSend_setText_(self->_placementGuideLabel, v222, v221, v223);
+  objc_msgSend_setTextAlignment_(self->_placementGuideLabel, v159, 1);
+  v161 = objc_msgSend_localizedStringForKey_comment_(NTKParmesanFaceBundle, v160, @"MANUAL_LAYOUT_PLACEMENT_GUIDE_INVALID", &stru_284EC2B20);
+  objc_msgSend_setText_(self->_placementGuideLabel, v162, v161);
 
-  v227 = objc_msgSend_systemRedColor(MEMORY[0x277D75348], v224, v225, v226);
-  objc_msgSend_setTextColor_(self->_placementGuideLabel, v228, v227, v229);
+  v165 = objc_msgSend_systemRedColor(MEMORY[0x277D75348], v163, v164);
+  objc_msgSend_setTextColor_(self->_placementGuideLabel, v166, v165);
 
-  objc_msgSend_addSubview_(self->_placementGuideContainer, v230, self->_placementGuideLabel, v231);
-  v232 = [NTKParmesanEditorNavigationBar alloc];
-  v236 = objc_msgSend_initWithFrame_(v232, v233, v234, v235, v157, v158, v159, v160);
+  objc_msgSend_addSubview_(self->_placementGuideContainer, v167, self->_placementGuideLabel);
+  v168 = [NTKParmesanEditorNavigationBar alloc];
+  v171 = objc_msgSend_initWithFrame_(v168, v169, v170, v115, v116, v117, v118);
   navigationBar = self->_navigationBar;
-  self->_navigationBar = v236;
+  self->_navigationBar = v171;
 
-  v241 = objc_msgSend_view(self, v238, v239, v240);
-  objc_msgSend_addSubview_(v241, v242, self->_navigationBar, v243);
+  v175 = objc_msgSend_view(self, v173, v174);
+  objc_msgSend_addSubview_(v175, v176, self->_navigationBar);
 
-  objc_msgSend_setTranslatesAutoresizingMaskIntoConstraints_(self->_navigationBar, v244, 0, v245);
-  objc_msgSend_constrainToSuperviewWithEdges_insets_useLayoutMargins_(self->_navigationBar, v246, 11, 0, *MEMORY[0x277D75060], *(MEMORY[0x277D75060] + 8), *(MEMORY[0x277D75060] + 16), *(MEMORY[0x277D75060] + 24));
-  v248 = objc_msgSend_localizedStringForKey_comment_(NTKParmesanFaceBundle, v247, @"MANUAL_LAYOUT_TITLE", @"Title for manual layout page.");
-  v252 = objc_msgSend_titleLabel(self->_navigationBar, v249, v250, v251);
-  objc_msgSend_setText_(v252, v253, v248, v254);
+  objc_msgSend_setTranslatesAutoresizingMaskIntoConstraints_(self->_navigationBar, v177, 0);
+  objc_msgSend_constrainToSuperviewWithEdges_insets_useLayoutMargins_(self->_navigationBar, v178, 11, 0, *MEMORY[0x277D75060], *(MEMORY[0x277D75060] + 8), *(MEMORY[0x277D75060] + 16), *(MEMORY[0x277D75060] + 24));
+  v180 = objc_msgSend_localizedStringForKey_comment_(NTKParmesanFaceBundle, v179, @"MANUAL_LAYOUT_TITLE", @"Title for manual layout page.");
+  v183 = objc_msgSend_titleLabel(self->_navigationBar, v181, v182);
+  objc_msgSend_setText_(v183, v184, v180);
 
-  v256 = objc_msgSend_localizedStringForKey_comment_(NTKParmesanFaceBundle, v255, @"MANUAL_LAYOUT_INSTRUCTIONS", @"Instructive text shown under the title during manual layout.");
-  v260 = objc_msgSend_descriptionLabel(self->_navigationBar, v257, v258, v259);
-  objc_msgSend_setText_(v260, v261, v256, v262);
+  v186 = objc_msgSend_localizedStringForKey_comment_(NTKParmesanFaceBundle, v185, @"MANUAL_LAYOUT_INSTRUCTIONS", @"Instructive text shown under the title during manual layout.");
+  v189 = objc_msgSend_descriptionLabel(self->_navigationBar, v187, v188);
+  objc_msgSend_setText_(v189, v190, v186);
 
-  objc_msgSend__updateNavigationBarItems(self, v263, v264, v265);
-  objc_msgSend__updateDoneButtonEnabledState(self, v266, v267, v268);
-  objc_msgSend__updateToolbarItems(self, v269, v270, v271);
+  objc_msgSend__updateNavigationBarItems(self, v191, v192);
+  objc_msgSend__updateDoneButtonEnabledState(self, v193, v194);
+  objc_msgSend__updateToolbarItems(self, v195, v196);
 }
 
 - (void)_updateNavigationBarItems
 {
-  isRevertable = objc_msgSend_isRevertable(self->_currentPreview, a2, v2, v3);
-  v9 = objc_msgSend_didInteractWithCropView(self, v6, v7, v8);
-  v13 = objc_msgSend_trailingButton(self->_navigationBar, v10, v11, v12);
-  objc_msgSend_removeTarget_action_forControlEvents_(v13, v14, 0, 0, 64);
+  isRevertable = objc_msgSend_isRevertable(self->_currentPreview, a2, v2);
+  v7 = objc_msgSend_didInteractWithCropView(self, v5, v6);
+  v10 = objc_msgSend_trailingButton(self->_navigationBar, v8, v9);
+  objc_msgSend_removeTarget_action_forControlEvents_(v10, v11, 0, 0, 64);
 
-  v19 = objc_msgSend_trailingButton(self->_navigationBar, v15, v16, v17);
-  if ((v9 & 1) != 0 || !isRevertable)
+  v15 = objc_msgSend_trailingButton(self->_navigationBar, v12, v13);
+  if ((v7 & 1) != 0 || !isRevertable)
   {
-    v33 = objc_msgSend_localizedStringForKey_comment_(NTKParmesanFaceBundle, v18, @"MANUAL_LAYOUT_SAVE_BUTTON", @"Title for saving the photo layout.");
-    objc_msgSend_setTitle_forState_(v19, v34, v33, 0);
+    v26 = objc_msgSend_localizedStringForKey_comment_(NTKParmesanFaceBundle, v14, @"MANUAL_LAYOUT_SAVE_BUTTON", @"Title for saving the photo layout.");
+    objc_msgSend_setTitle_forState_(v15, v27, v26, 0);
 
-    v25 = objc_msgSend_trailingButton(self->_navigationBar, v35, v36, v37);
-    v29 = objc_msgSend_tintColor(MEMORY[0x277D75348], v38, v39, v40);
-    objc_msgSend_setTintColor_(v25, v41, v29, v42);
-    v32 = &selRef__donePressed;
+    v20 = objc_msgSend_trailingButton(self->_navigationBar, v28, v29);
+    v23 = objc_msgSend_tintColor(MEMORY[0x277D75348], v30, v31);
+    objc_msgSend_setTintColor_(v20, v32, v23);
+    v25 = &selRef__donePressed;
   }
 
   else
   {
-    v20 = objc_msgSend_localizedStringForKey_comment_(NTKParmesanFaceBundle, v18, @"MANUAL_LAYOUT_REVERT_BUTTON", @"Title for reverting back to original layout.");
-    objc_msgSend_setTitle_forState_(v19, v21, v20, 0);
+    v16 = objc_msgSend_localizedStringForKey_comment_(NTKParmesanFaceBundle, v14, @"MANUAL_LAYOUT_REVERT_BUTTON", @"Title for reverting back to original layout.");
+    objc_msgSend_setTitle_forState_(v15, v17, v16, 0);
 
-    v25 = objc_msgSend_trailingButton(self->_navigationBar, v22, v23, v24);
-    v29 = objc_msgSend_systemRedColor(MEMORY[0x277D75348], v26, v27, v28);
-    objc_msgSend_setTintColor_(v25, v30, v29, v31);
-    v32 = &selRef__revertPressed;
+    v20 = objc_msgSend_trailingButton(self->_navigationBar, v18, v19);
+    v23 = objc_msgSend_systemRedColor(MEMORY[0x277D75348], v21, v22);
+    objc_msgSend_setTintColor_(v20, v24, v23);
+    v25 = &selRef__revertPressed;
   }
 
-  v46 = objc_msgSend_trailingButton(self->_navigationBar, v43, v44, v45);
-  objc_msgSend_addTarget_action_forControlEvents_(v46, v47, self, *v32, 64);
+  v35 = objc_msgSend_trailingButton(self->_navigationBar, v33, v34);
+  objc_msgSend_addTarget_action_forControlEvents_(v35, v36, self, *v25, 64);
 
-  v51 = objc_msgSend_leadingButton(self->_navigationBar, v48, v49, v50);
-  v53 = objc_msgSend_localizedStringForKey_comment_(NTKParmesanFaceBundle, v52, @"MANUAL_LAYOUT_CANCEL_BUTTON", @"Button for discarding layout changes.");
-  objc_msgSend_setTitle_forState_(v51, v54, v53, 0);
+  v39 = objc_msgSend_leadingButton(self->_navigationBar, v37, v38);
+  v41 = objc_msgSend_localizedStringForKey_comment_(NTKParmesanFaceBundle, v40, @"MANUAL_LAYOUT_CANCEL_BUTTON", @"Button for discarding layout changes.");
+  objc_msgSend_setTitle_forState_(v39, v42, v41, 0);
 
-  v58 = objc_msgSend_leadingButton(self->_navigationBar, v55, v56, v57);
-  v62 = objc_msgSend_allTargets(v58, v59, v60, v61);
-  v65 = objc_msgSend_containsObject_(v62, v63, self, v64);
+  v45 = objc_msgSend_leadingButton(self->_navigationBar, v43, v44);
+  v48 = objc_msgSend_allTargets(v45, v46, v47);
+  v50 = objc_msgSend_containsObject_(v48, v49, self);
 
-  if ((v65 & 1) == 0)
+  if ((v50 & 1) == 0)
   {
-    v69 = objc_msgSend_leadingButton(self->_navigationBar, v66, v67, v68);
-    objc_msgSend_addTarget_action_forControlEvents_(v69, v70, self, sel__cancelPressed, 64);
+    v53 = objc_msgSend_leadingButton(self->_navigationBar, v51, v52);
+    objc_msgSend_addTarget_action_forControlEvents_(v53, v54, self, sel__cancelPressed, 64);
   }
 
-  v77 = objc_msgSend_leadingButton(self->_navigationBar, v66, v67, v68);
-  canCrop = objc_msgSend_Parmesan_canCrop(self->_previewProvider, v71, v72, v73);
-  objc_msgSend_setEnabled_(v77, v75, canCrop, v76);
+  v59 = objc_msgSend_leadingButton(self->_navigationBar, v51, v52);
+  canCrop = objc_msgSend_Parmesan_canCrop(self->_previewProvider, v55, v56);
+  objc_msgSend_setEnabled_(v59, v58, canCrop);
 }
 
 - (void)_updateToolbarItems
 {
-  v34[3] = *MEMORY[0x277D85DE8];
-  if (objc_msgSend_Parmesan_canAddPhotoAssets(self->_previewProvider, a2, v2, v3))
+  v27[3] = *MEMORY[0x277D85DE8];
+  if (objc_msgSend_Parmesan_canAddPhotoAssets(self->_previewProvider, a2, v2))
   {
-    v8 = objc_msgSend_maskedPhoto(self->_currentPreview, v5, v6, v7);
+    v6 = objc_msgSend_maskedPhoto(self->_currentPreview, v4, v5);
 
-    if (v8)
+    if (v6)
     {
-      v11 = objc_msgSend__symbolForUsingDepthEffect_(self, v9, self->_displayDepthEffect, v10);
-      v14 = objc_msgSend_systemImageNamed_(MEMORY[0x277D755B8], v12, v11, v13);
-      v15 = objc_alloc(MEMORY[0x277D751E0]);
-      v18 = objc_msgSend_initWithImage_style_target_action_(v15, v16, v14, 0, self, sel__toggleDepthEffectPressed);
+      v8 = objc_msgSend__symbolForUsingDepthEffect_(self, v7, self->_displayDepthEffect);
+      v10 = objc_msgSend_systemImageNamed_(MEMORY[0x277D755B8], v9, v8);
+      v11 = objc_alloc(MEMORY[0x277D751E0]);
+      v14 = objc_msgSend_initWithImage_style_target_action_(v11, v12, v10, 0, self, sel__toggleDepthEffectPressed);
       if (self->_displayDepthEffect)
       {
-        objc_msgSend_localizedStringForKey_comment_(NTKParmesanFaceBundle, v17, @"PARMESAN_AX_DEPTH_EFFECT_ON", @"Accessibility label for depth effect on icon.");
+        objc_msgSend_localizedStringForKey_comment_(NTKParmesanFaceBundle, v13, @"PARMESAN_AX_DEPTH_EFFECT_ON", @"Accessibility label for depth effect on icon.");
       }
 
       else
       {
-        objc_msgSend_localizedStringForKey_comment_(NTKParmesanFaceBundle, v17, @"PARMESAN_AX_DEPTH_EFFECT_OFF", @"Accessibility label for depth effect off icon.");
+        objc_msgSend_localizedStringForKey_comment_(NTKParmesanFaceBundle, v13, @"PARMESAN_AX_DEPTH_EFFECT_OFF", @"Accessibility label for depth effect off icon.");
       }
-      v21 = ;
-      objc_msgSend_setAccessibilityLabel_(v14, v22, v21, v23);
+      v17 = ;
+      objc_msgSend_setAccessibilityLabel_(v10, v18, v17);
 
-      v27 = objc_msgSend_flexibleSpaceItem(MEMORY[0x277D751E0], v24, v25, v26);
-      v31 = objc_msgSend_flexibleSpaceItem(MEMORY[0x277D751E0], v28, v29, v30, v27, v18);
-      v34[2] = v31;
-      v20 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v32, v34, 3);
+      v21 = objc_msgSend_flexibleSpaceItem(MEMORY[0x277D751E0], v19, v20);
+      v24 = objc_msgSend_flexibleSpaceItem(MEMORY[0x277D751E0], v22, v23, v21, v14);
+      v27[2] = v24;
+      v16 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v25, v27, 3);
 
-      objc_msgSend_setToolbarItems_animated_(self, v33, v20, 0);
+      objc_msgSend_setToolbarItems_animated_(self, v26, v16, 0);
     }
 
     else
     {
-      v20 = 0;
-      objc_msgSend_setToolbarItems_animated_(self, v9, 0, 0);
+      v16 = 0;
+      objc_msgSend_setToolbarItems_animated_(self, v7, 0, 0);
     }
   }
 
   else
   {
-    v19 = MEMORY[0x277CBEBF8];
+    v15 = MEMORY[0x277CBEBF8];
 
-    objc_msgSend_setToolbarItems_animated_(self, v5, v19, 0);
+    objc_msgSend_setToolbarItems_animated_(self, v4, v15, 0);
   }
 }
 
 - (void)viewDidLayoutSubviews
 {
-  v199.receiver = self;
-  v199.super_class = NTKCParmesanPreviewViewController;
-  [(NTKCParmesanPreviewViewController *)&v199 viewDidLayoutSubviews];
-  v6 = objc_msgSend_view(self, v3, v4, v5);
-  objc_msgSend_bounds(v6, v7, v8, v9);
-  objc_msgSend_setFrame_(self->_infoContainer, v10, v11, v12);
+  v153.receiver = self;
+  v153.super_class = NTKCParmesanPreviewViewController;
+  [(NTKCParmesanPreviewViewController *)&v153 viewDidLayoutSubviews];
+  v5 = objc_msgSend_view(self, v3, v4);
+  objc_msgSend_bounds(v5, v6, v7);
+  objc_msgSend_setFrame_(self->_infoContainer, v8, v9);
 
-  v16 = objc_msgSend_view(self, v13, v14, v15);
-  objc_msgSend_bounds(v16, v17, v18, v19);
-  objc_msgSend_setFrame_(self->_contentContainer, v20, v21, v22);
+  v12 = objc_msgSend_view(self, v10, v11);
+  objc_msgSend_bounds(v12, v13, v14);
+  objc_msgSend_setFrame_(self->_contentContainer, v15, v16);
 
-  objc_msgSend_frame(self->_navigationBar, v23, v24, v25);
-  MaxY = CGRectGetMaxY(v200);
-  objc_msgSend__heightForTimeSelectionView(self, v26, v27, v28);
-  v30 = v29;
-  v34 = objc_msgSend_previewProvider(self, v31, v32, v33);
-  objc_msgSend_Parmesan_screenBounds(v34, v35, v36, v37);
-  v39 = v38;
-  v41 = v40;
-  v43 = v42;
+  objc_msgSend_frame(self->_navigationBar, v17, v18);
+  MaxY = CGRectGetMaxY(v154);
+  objc_msgSend__heightForTimeSelectionView(self, v19, v20);
+  v22 = v21;
+  v25 = objc_msgSend_previewProvider(self, v23, v24);
+  objc_msgSend_Parmesan_screenBounds(v25, v26, v27);
+  v29 = v28;
+  v31 = v30;
+  v33 = v32;
+  v35 = v34;
+
+  v38 = objc_msgSend_previewProvider(self, v36, v37);
+  objc_msgSend_Parmesan_screenCornerRadius(v38, v39, v40);
+  v150 = v41;
+
+  objc_msgSend_cutoutSize(self, v42, v43);
   v45 = v44;
-
-  v49 = objc_msgSend_previewProvider(self, v46, v47, v48);
-  objc_msgSend_Parmesan_screenCornerRadius(v49, v50, v51, v52);
-  v196 = v53;
-
-  objc_msgSend_cutoutSize(self, v54, v55, v56);
-  v58 = v57;
-  v60 = v59;
-  v201.origin.x = v39;
-  v201.origin.y = v41;
-  v201.size.width = v43;
-  v201.size.height = v45;
-  v61 = v58 / CGRectGetWidth(v201);
-  v202.origin.x = v39;
-  v202.origin.y = v41;
-  v202.size.width = v43;
-  v202.size.height = v45;
-  v65 = v60 / CGRectGetHeight(v202);
-  if (v61 >= v65)
+  v47 = v46;
+  v155.origin.x = v29;
+  v155.origin.y = v31;
+  v155.size.width = v33;
+  v155.size.height = v35;
+  v48 = v45 / CGRectGetWidth(v155);
+  v156.origin.x = v29;
+  v156.origin.y = v31;
+  v156.size.width = v33;
+  v156.size.height = v35;
+  v51 = v47 / CGRectGetHeight(v156);
+  if (v48 >= v51)
   {
-    v65 = v61;
+    v51 = v48;
   }
 
-  self->_timeContainerScale = v65;
-  v66 = objc_msgSend_view(self, v62, v63, v64);
-  objc_msgSend_bounds(v66, v67, v68, v69);
-  v71 = v70;
-  v75 = objc_msgSend_view(self, v72, v73, v74);
-  objc_msgSend_safeAreaInsets(v75, v76, v77, v78);
-  v80 = v71 - v79 - v30;
-  objc_msgSend_frame(self->_navigationBar, v81, v82, v83);
-  v84 = v80 - CGRectGetMaxY(v203);
+  self->_timeContainerScale = v51;
+  v52 = objc_msgSend_view(self, v49, v50);
+  objc_msgSend_bounds(v52, v53, v54);
+  v56 = v55;
+  v59 = objc_msgSend_view(self, v57, v58);
+  objc_msgSend_safeAreaInsets(v59, v60, v61);
+  v63 = v56 - v62 - v22;
+  objc_msgSend_frame(self->_navigationBar, v64, v65);
+  v66 = v63 - CGRectGetMaxY(v157);
 
-  v88 = objc_msgSend_view(self, v85, v86, v87);
-  objc_msgSend_bounds(v88, v89, v90, v91);
-  v93 = v92;
+  v69 = objc_msgSend_view(self, v67, v68);
+  objc_msgSend_bounds(v69, v70, v71);
+  v73 = v72;
 
-  objc_msgSend_setFrame_(self->_scrollView, v94, v95, v96, 0.0, MaxY, v93, v84);
-  v97 = *MEMORY[0x277D768C8];
-  v98 = *(MEMORY[0x277D768C8] + 8);
-  v100 = *(MEMORY[0x277D768C8] + 16);
-  v99 = *(MEMORY[0x277D768C8] + 24);
-  objc_msgSend_setContentInset_(self->_scrollView, v101, v102, v103, *MEMORY[0x277D768C8], v98, v100, v99);
-  objc_msgSend_setFrame_(self->_overlayScrollView, v104, v105, v106, 0.0, MaxY, v93, v84);
-  objc_msgSend_setContentInset_(self->_overlayScrollView, v107, v108, v109, v97, v98, v100, v99);
-  v110 = v84;
+  objc_msgSend_setFrame_(self->_scrollView, v74, v75, 0.0, MaxY, v73, v66);
+  v76 = *MEMORY[0x277D768C8];
+  v77 = *(MEMORY[0x277D768C8] + 8);
+  v79 = *(MEMORY[0x277D768C8] + 16);
+  v78 = *(MEMORY[0x277D768C8] + 24);
+  objc_msgSend_setContentInset_(self->_scrollView, v80, v81, *MEMORY[0x277D768C8], v77, v79, v78);
+  objc_msgSend_setFrame_(self->_overlayScrollView, v82, v83, 0.0, MaxY, v73, v66);
+  objc_msgSend_setContentInset_(self->_overlayScrollView, v84, v85, v76, v77, v79, v78);
+  v86 = v66;
   UIRectCenteredIntegralRectScale();
-  v112 = v111;
-  v114 = v113;
-  v116 = v115;
-  v118 = v117;
-  v122 = objc_msgSend_view(self, v119, v120, v121, 0);
-  objc_msgSend_bounds(v122, v123, v124, v125);
-  v127 = v126;
-  v131 = objc_msgSend_view(self, v128, v129, v130);
-  objc_msgSend_bounds(v131, v132, v133, v134);
-  objc_msgSend_setFrame_(self->_mask, v135, v136, v137, 0.0, 0.0, v127);
+  v88 = v87;
+  v90 = v89;
+  v92 = v91;
+  v94 = v93;
+  v97 = objc_msgSend_view(self, v95, v96, 0);
+  objc_msgSend_bounds(v97, v98, v99);
+  v101 = v100;
+  v104 = objc_msgSend_view(self, v102, v103);
+  objc_msgSend_bounds(v104, v105, v106);
+  objc_msgSend_setFrame_(self->_mask, v107, v108, 0.0, 0.0, v101);
 
-  v138 = MEMORY[0x277D75208];
-  objc_msgSend_frame(self->_mask, v139, v140, v141);
-  v145 = objc_msgSend_bezierPathWithRect_(v138, v142, v143, v144);
-  v149 = objc_msgSend_bezierPathWithRoundedRect_cornerRadius_(MEMORY[0x277D75208], v146, v147, v148, v112, v114, v116, v118, v196);
-  objc_msgSend_appendPath_(v145, v150, v149, v151);
+  v109 = MEMORY[0x277D75208];
+  objc_msgSend_frame(self->_mask, v110, v111);
+  v114 = objc_msgSend_bezierPathWithRect_(v109, v112, v113);
+  v117 = objc_msgSend_bezierPathWithRoundedRect_cornerRadius_(MEMORY[0x277D75208], v115, v116, v88, v90, v92, v94, v150);
+  objc_msgSend_appendPath_(v114, v118, v117);
 
-  v152 = v145;
-  v156 = objc_msgSend_CGPath(v152, v153, v154, v155);
-  objc_msgSend_setPath_(self->_mask, v157, v156, v158);
-  v162 = objc_msgSend_view(self, v159, v160, v161);
-  v204.origin.x = v112;
-  v204.origin.y = v114;
-  v204.size.width = v116;
-  v204.size.height = v118;
-  v205 = UIAccessibilityConvertFrameToScreenCoordinates(v204, v162);
-  objc_msgSend_setAccessibilityFrame_(self->_scrollView, v163, v164, v165, v205.origin.x, v205.origin.y, v205.size.width, v205.size.height);
+  v119 = v114;
+  v122 = objc_msgSend_CGPath(v119, v120, v121);
+  objc_msgSend_setPath_(self->_mask, v123, v122);
+  v126 = objc_msgSend_view(self, v124, v125);
+  v158.origin.x = v88;
+  v158.origin.y = v90;
+  v158.size.width = v92;
+  v158.size.height = v94;
+  v159 = UIAccessibilityConvertFrameToScreenCoordinates(v158, v126);
+  objc_msgSend_setAccessibilityFrame_(self->_scrollView, v127, v128, v159.origin.x, v159.origin.y, v159.size.width, v159.size.height);
 
   timeContainer = self->_timeContainer;
-  v167 = *(MEMORY[0x277CBF2C0] + 16);
-  *&v198.a = *MEMORY[0x277CBF2C0];
-  *&v198.c = v167;
-  *&v198.tx = *(MEMORY[0x277CBF2C0] + 32);
-  objc_msgSend_setTransform_(timeContainer, v168, &v198, v169);
+  v130 = *(MEMORY[0x277CBF2C0] + 16);
+  *&v152.a = *MEMORY[0x277CBF2C0];
+  *&v152.c = v130;
+  *&v152.tx = *(MEMORY[0x277CBF2C0] + 32);
+  objc_msgSend_setTransform_(timeContainer, v131, &v152);
   UIRectCenteredIntegralRectScale();
-  objc_msgSend_setFrame_(self->_timeContainer, v170, v171, v172, 0);
-  CGAffineTransformMakeScale(&v197, self->_timeContainerScale, self->_timeContainerScale);
-  v173 = self->_timeContainer;
-  v198 = v197;
-  objc_msgSend_setTransform_(v173, v174, &v198, v175);
-  objc_msgSend_bounds(self->_timeContainer, v176, v177, v178);
-  objc_msgSend_setFrame_(self->_time, v179, v180, v181);
-  objc_msgSend_setMinimumDisplaySize_withCropRectCushion_(self->_scrollView, v182, v183, v184, v116, v118, *MEMORY[0x277D3B3B8]);
-  objc_msgSend_setFrame_(self->_placementGuideContainer, v185, v186, v187, 0.0, MaxY, v93, v110);
-  objc_msgSend_frame(self->_navigationBar, v188, v189, v190);
-  v191 = CGRectGetMaxY(v206);
-  objc_msgSend_setFrame_(self->_placementGuideLabel, v192, v193, v194, 0.0, 0.0, v93, v114 - v191);
+  objc_msgSend_setFrame_(self->_timeContainer, v132, v133, 0);
+  CGAffineTransformMakeScale(&v151, self->_timeContainerScale, self->_timeContainerScale);
+  v134 = self->_timeContainer;
+  v152 = v151;
+  objc_msgSend_setTransform_(v134, v135, &v152);
+  objc_msgSend_bounds(self->_timeContainer, v136, v137);
+  objc_msgSend_setFrame_(self->_time, v138, v139);
+  objc_msgSend_setMinimumDisplaySize_withCropRectCushion_(self->_scrollView, v140, v141, v92, v94, *MEMORY[0x277D3B3B8]);
+  objc_msgSend_setFrame_(self->_placementGuideContainer, v142, v143, 0.0, MaxY, v73, v86);
+  objc_msgSend_frame(self->_navigationBar, v144, v145);
+  v146 = CGRectGetMaxY(v160);
+  objc_msgSend_setFrame_(self->_placementGuideLabel, v147, v148, 0.0, 0.0, v73, v90 - v146);
 }
 
 - (CGSize)cutoutSize
 {
-  v5 = objc_msgSend_previewProvider(self, a2, v2, v3);
-  objc_msgSend_Parmesan_screenBounds(v5, v6, v7, v8);
+  v4 = objc_msgSend_previewProvider(self, a2, v2);
+  objc_msgSend_Parmesan_screenBounds(v4, v5, v6);
+  v8 = v7;
   v10 = v9;
-  v12 = v11;
 
-  v16 = objc_msgSend_view(self, v13, v14, v15);
-  v20 = objc_msgSend_window(v16, v17, v18, v19);
-  objc_msgSend_bounds(v20, v21, v22, v23);
-  v25 = v24;
+  v13 = objc_msgSend_view(self, v11, v12);
+  v16 = objc_msgSend_window(v13, v14, v15);
+  objc_msgSend_bounds(v16, v17, v18);
+  v20 = v19;
 
-  v26 = v25 * 0.26;
-  v27 = v10 / v12 * (v25 * 0.26);
-  result.height = v26;
-  result.width = v27;
+  v21 = v20 * 0.26;
+  v22 = v8 / v10 * (v20 * 0.26);
+  result.height = v21;
+  result.width = v22;
   return result;
 }
 
@@ -546,25 +546,25 @@
 
 - (void)viewDidDisappear:(BOOL)disappear
 {
-  v10.receiver = self;
-  v10.super_class = NTKCParmesanPreviewViewController;
-  [(NTKCParmesanPreviewViewController *)&v10 viewDidDisappear:disappear];
-  v7 = objc_msgSend_delegate(self, v4, v5, v6);
-  objc_msgSend_ParmesanPreviewViewControllerDidDismiss_(v7, v8, self, v9);
+  v8.receiver = self;
+  v8.super_class = NTKCParmesanPreviewViewController;
+  [(NTKCParmesanPreviewViewController *)&v8 viewDidDisappear:disappear];
+  v6 = objc_msgSend_delegate(self, v4, v5);
+  objc_msgSend_ParmesanPreviewViewControllerDidDismiss_(v6, v7, self);
 }
 
 - (void)_loadInitialCropPreview
 {
-  objc_msgSend_setInitialPreviewState_(self, a2, 1, v2);
+  objc_msgSend_setInitialPreviewState_(self, a2, 1);
   objc_initWeak(&location, self);
   previewProvider = self->_previewProvider;
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = sub_23BF14AD0;
-  v7[3] = &unk_278BA69B0;
-  objc_copyWeak(&v8, &location);
-  objc_msgSend_Parmesan_getPreviewWithCompletion_(previewProvider, v5, v7, v6);
-  objc_destroyWeak(&v8);
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = sub_23BF14AD0;
+  v5[3] = &unk_278BA69B0;
+  objc_copyWeak(&v6, &location);
+  objc_msgSend_Parmesan_getPreviewWithCompletion_(previewProvider, v4, v5);
+  objc_destroyWeak(&v6);
   objc_destroyWeak(&location);
 }
 
@@ -573,11 +573,11 @@
   self->_initialPreviewState = state;
   if (state == 3)
   {
-    objc_msgSend__hideLoadingSpinner(self, a2, 3, v3);
-    objc_msgSend__hideLoadingLabel(self, v20, v21, v22);
+    objc_msgSend__hideLoadingSpinner(self, a2, 3);
+    objc_msgSend__hideLoadingLabel(self, v14, v15);
 LABEL_9:
 
-    objc_msgSend__updateNavigationBarItems(self, v14, v15, v16);
+    objc_msgSend__updateNavigationBarItems(self, v10, v11);
     return;
   }
 
@@ -588,17 +588,17 @@ LABEL_9:
       return;
     }
 
-    v5 = objc_msgSend_trailingButton(self->_navigationBar, a2, 1, v3);
-    objc_msgSend_setEnabled_(v5, v6, 0, v7);
+    v4 = objc_msgSend_trailingButton(self->_navigationBar, a2, 1);
+    objc_msgSend_setEnabled_(v4, v5, 0);
 
-    objc_msgSend__showLoadingLabel(self, v8, v9, v10);
-    objc_msgSend__showLoadingSpinner(self, v11, v12, v13);
+    objc_msgSend__showLoadingLabel(self, v6, v7);
+    objc_msgSend__showLoadingSpinner(self, v8, v9);
     goto LABEL_9;
   }
 
-  objc_msgSend__hideLoadingSpinner(self, a2, 2, v3);
-  v23 = objc_msgSend_localizedStringForKey_comment_(NTKParmesanFaceBundle, v17, @"MANUAL_LAYOUT_LOADING_IMAGE_ERROR_MESSAGE", @"Something went wrong.");
-  objc_msgSend_setText_(self->_loadingLabel, v18, v23, v19);
+  objc_msgSend__hideLoadingSpinner(self, a2, 2);
+  v16 = objc_msgSend_localizedStringForKey_comment_(NTKParmesanFaceBundle, v12, @"MANUAL_LAYOUT_LOADING_IMAGE_ERROR_MESSAGE", @"Something went wrong.");
+  objc_msgSend_setText_(self->_loadingLabel, v13, v16);
 }
 
 - (void)_showLoadingSpinner
@@ -606,236 +606,236 @@ LABEL_9:
   if (!self->_loadingSpinner)
   {
     v3 = objc_alloc(MEMORY[0x277D750E8]);
-    v6 = objc_msgSend_initWithActivityIndicatorStyle_(v3, v4, 100, v5);
+    v5 = objc_msgSend_initWithActivityIndicatorStyle_(v3, v4, 100);
     loadingSpinner = self->_loadingSpinner;
-    self->_loadingSpinner = v6;
+    self->_loadingSpinner = v5;
 
-    objc_msgSend_startAnimating(self->_loadingSpinner, v8, v9, v10);
+    objc_msgSend_startAnimating(self->_loadingSpinner, v7, v8);
   }
 
-  v11 = objc_alloc(MEMORY[0x277D751E0]);
-  v20 = objc_msgSend_initWithCustomView_(v11, v12, self->_loadingSpinner, v13);
-  v17 = objc_msgSend_navigationItem(self, v14, v15, v16);
-  objc_msgSend_setRightBarButtonItem_(v17, v18, v20, v19);
+  v9 = objc_alloc(MEMORY[0x277D751E0]);
+  v15 = objc_msgSend_initWithCustomView_(v9, v10, self->_loadingSpinner);
+  v13 = objc_msgSend_navigationItem(self, v11, v12);
+  objc_msgSend_setRightBarButtonItem_(v13, v14, v15);
 }
 
 - (void)_hideLoadingSpinner
 {
-  v5 = objc_msgSend_navigationItem(self, a2, v2, v3);
-  objc_msgSend_setRightBarButtonItem_(v5, v6, 0, v7);
+  v4 = objc_msgSend_navigationItem(self, a2, v2);
+  objc_msgSend_setRightBarButtonItem_(v4, v5, 0);
 
-  objc_msgSend_stopAnimating(self->_loadingSpinner, v8, v9, v10);
+  objc_msgSend_stopAnimating(self->_loadingSpinner, v6, v7);
   loadingSpinner = self->_loadingSpinner;
   self->_loadingSpinner = 0;
 }
 
 - (void)_showLoadingLabel
 {
-  v157[2] = *MEMORY[0x277D85DE8];
+  v118[2] = *MEMORY[0x277D85DE8];
   if (!self->_loadingView)
   {
-    objc_msgSend_cutoutSize(self, a2, v2, v3);
-    v8 = objc_msgSend_view(self, v5, v6, v7);
-    objc_msgSend_bounds(v8, v9, v10, v11);
+    objc_msgSend_cutoutSize(self, a2, v2);
+    v6 = objc_msgSend_view(self, v4, v5);
+    objc_msgSend_bounds(v6, v7, v8);
     UIRectCenteredIntegralRectScale();
-    v13 = v12;
-    v15 = v14;
-    v17 = v16;
-    v19 = v18;
+    v10 = v9;
+    v12 = v11;
+    v14 = v13;
+    v16 = v15;
 
-    v23 = objc_msgSend_navigationController(self, v20, v21, v22, 0);
-    v27 = objc_msgSend_view(v23, v24, v25, v26);
-    objc_msgSend_safeAreaInsets(v27, v28, v29, v30);
-    v32 = v31;
-    v36 = objc_msgSend_navigationController(self, v33, v34, v35);
-    v40 = objc_msgSend_view(v36, v37, v38, v39);
-    objc_msgSend_safeAreaInsets(v40, v41, v42, v43);
-    v45 = v32 - v44;
+    v19 = objc_msgSend_navigationController(self, v17, v18, 0);
+    v22 = objc_msgSend_view(v19, v20, v21);
+    objc_msgSend_safeAreaInsets(v22, v23, v24);
+    v26 = v25;
+    v29 = objc_msgSend_navigationController(self, v27, v28);
+    v32 = objc_msgSend_view(v29, v30, v31);
+    objc_msgSend_safeAreaInsets(v32, v33, v34);
+    v36 = v26 - v35;
 
-    v158.origin.x = v13;
-    v158.origin.y = v15;
-    v158.size.width = v17;
-    v158.size.height = v19;
-    v159 = CGRectOffset(v158, 0.0, v45);
-    x = v159.origin.x;
-    y = v159.origin.y;
-    width = v159.size.width;
-    height = v159.size.height;
-    v50 = objc_alloc(MEMORY[0x277D756B8]);
-    v54 = objc_msgSend_initWithFrame_(v50, v51, v52, v53, x, y, width, height);
+    v119.origin.x = v10;
+    v119.origin.y = v12;
+    v119.size.width = v14;
+    v119.size.height = v16;
+    v120 = CGRectOffset(v119, 0.0, v36);
+    x = v120.origin.x;
+    y = v120.origin.y;
+    width = v120.size.width;
+    height = v120.size.height;
+    v41 = objc_alloc(MEMORY[0x277D756B8]);
+    v44 = objc_msgSend_initWithFrame_(v41, v42, v43, x, y, width, height);
     loadingLabel = self->_loadingLabel;
-    self->_loadingLabel = v54;
+    self->_loadingLabel = v44;
 
-    v58 = objc_msgSend_preferredFontForTextStyle_(MEMORY[0x277D74300], v56, *MEMORY[0x277D76918], v57);
-    objc_msgSend_setFont_(self->_loadingLabel, v59, v58, v60);
+    v47 = objc_msgSend_preferredFontForTextStyle_(MEMORY[0x277D74300], v46, *MEMORY[0x277D76918]);
+    objc_msgSend_setFont_(self->_loadingLabel, v48, v47);
 
-    v62 = objc_msgSend_localizedStringForKey_comment_(NTKParmesanFaceBundle, v61, @"MANUAL_LAYOUT_LOADING_IMAGE_MESSAGE", @"Loading Image...");
-    objc_msgSend_setText_(self->_loadingLabel, v63, v62, v64);
+    v50 = objc_msgSend_localizedStringForKey_comment_(NTKParmesanFaceBundle, v49, @"MANUAL_LAYOUT_LOADING_IMAGE_MESSAGE", @"Loading Image...");
+    objc_msgSend_setText_(self->_loadingLabel, v51, v50);
 
-    objc_msgSend_setTextAlignment_(self->_loadingLabel, v65, 1, v66);
-    v70 = objc_msgSend_secondaryLabelColor(MEMORY[0x277D75348], v67, v68, v69);
-    objc_msgSend_setTextColor_(self->_loadingLabel, v71, v70, v72);
+    objc_msgSend_setTextAlignment_(self->_loadingLabel, v52, 1);
+    v55 = objc_msgSend_secondaryLabelColor(MEMORY[0x277D75348], v53, v54);
+    objc_msgSend_setTextColor_(self->_loadingLabel, v56, v55);
 
-    v73 = objc_alloc(MEMORY[0x277D750E8]);
-    v155 = objc_msgSend_initWithActivityIndicatorStyle_(v73, v74, 100, v75);
-    v76 = objc_alloc(MEMORY[0x277D75A68]);
-    v157[0] = self->_loadingLabel;
-    v157[1] = v155;
-    v78 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v77, v157, 2);
-    v81 = objc_msgSend_initWithArrangedSubviews_(v76, v79, v78, v80);
+    v57 = objc_alloc(MEMORY[0x277D750E8]);
+    v116 = objc_msgSend_initWithActivityIndicatorStyle_(v57, v58, 100);
+    v59 = objc_alloc(MEMORY[0x277D75A68]);
+    v118[0] = self->_loadingLabel;
+    v118[1] = v116;
+    v61 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v60, v118, 2);
+    v63 = objc_msgSend_initWithArrangedSubviews_(v59, v62, v61);
 
     loadingView = self->_loadingView;
-    self->_loadingView = v81;
-    v83 = v81;
+    self->_loadingView = v63;
+    v65 = v63;
 
-    objc_msgSend_setAxis_(v83, v84, 1, v85);
-    objc_msgSend_setAlignment_(v83, v86, 3, v87);
-    objc_msgSend_setSpacing_(v83, v88, v89, v90, 8.0);
-    objc_msgSend_addSubview_(self->_infoContainer, v91, self->_loadingView, v92);
-    objc_msgSend_setTranslatesAutoresizingMaskIntoConstraints_(self->_loadingView, v93, 0, v94);
-    v148 = MEMORY[0x277CCAAD0];
-    v154 = objc_msgSend_centerYAnchor(self->_loadingView, v95, v96, v97);
-    v153 = objc_msgSend_centerYAnchor(self->_infoContainer, v98, v99, v100);
-    v152 = objc_msgSend_constraintEqualToAnchor_(v154, v101, v153, v102);
-    v156[0] = v152;
-    v151 = objc_msgSend_centerXAnchor(self->_loadingView, v103, v104, v105);
-    v150 = objc_msgSend_centerXAnchor(self->_infoContainer, v106, v107, v108);
-    v149 = objc_msgSend_constraintEqualToAnchor_(v151, v109, v150, v110);
-    v156[1] = v149;
-    v114 = objc_msgSend_widthAnchor(self->_loadingView, v111, v112, v113);
-    v118 = objc_msgSend_safeAreaLayoutGuide(self->_infoContainer, v115, v116, v117);
-    v122 = objc_msgSend_widthAnchor(v118, v119, v120, v121);
-    v125 = objc_msgSend_constraintLessThanOrEqualToAnchor_(v114, v123, v122, v124);
-    v156[2] = v125;
-    v129 = objc_msgSend_heightAnchor(self->_loadingView, v126, v127, v128);
-    v133 = objc_msgSend_safeAreaLayoutGuide(self->_infoContainer, v130, v131, v132);
-    v137 = objc_msgSend_heightAnchor(v133, v134, v135, v136);
-    v140 = objc_msgSend_constraintLessThanOrEqualToAnchor_(v129, v138, v137, v139);
-    v156[3] = v140;
-    v142 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v141, v156, 4);
-    objc_msgSend_activateConstraints_(v148, v143, v142, v144);
+    objc_msgSend_setAxis_(v65, v66, 1);
+    objc_msgSend_setAlignment_(v65, v67, 3);
+    objc_msgSend_setSpacing_(v65, v68, v69, 8.0);
+    objc_msgSend_addSubview_(self->_infoContainer, v70, self->_loadingView);
+    objc_msgSend_setTranslatesAutoresizingMaskIntoConstraints_(self->_loadingView, v71, 0);
+    v109 = MEMORY[0x277CCAAD0];
+    v115 = objc_msgSend_centerYAnchor(self->_loadingView, v72, v73);
+    v114 = objc_msgSend_centerYAnchor(self->_infoContainer, v74, v75);
+    v113 = objc_msgSend_constraintEqualToAnchor_(v115, v76, v114);
+    v117[0] = v113;
+    v112 = objc_msgSend_centerXAnchor(self->_loadingView, v77, v78);
+    v111 = objc_msgSend_centerXAnchor(self->_infoContainer, v79, v80);
+    v110 = objc_msgSend_constraintEqualToAnchor_(v112, v81, v111);
+    v117[1] = v110;
+    v84 = objc_msgSend_widthAnchor(self->_loadingView, v82, v83);
+    v87 = objc_msgSend_safeAreaLayoutGuide(self->_infoContainer, v85, v86);
+    v90 = objc_msgSend_widthAnchor(v87, v88, v89);
+    v92 = objc_msgSend_constraintLessThanOrEqualToAnchor_(v84, v91, v90);
+    v117[2] = v92;
+    v95 = objc_msgSend_heightAnchor(self->_loadingView, v93, v94);
+    v98 = objc_msgSend_safeAreaLayoutGuide(self->_infoContainer, v96, v97);
+    v101 = objc_msgSend_heightAnchor(v98, v99, v100);
+    v103 = objc_msgSend_constraintLessThanOrEqualToAnchor_(v95, v102, v101);
+    v117[3] = v103;
+    v105 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v104, v117, 4);
+    objc_msgSend_activateConstraints_(v109, v106, v105);
 
-    objc_msgSend_startAnimating(v155, v145, v146, v147);
+    objc_msgSend_startAnimating(v116, v107, v108);
   }
 }
 
 - (void)_hideLoadingLabel
 {
-  objc_msgSend_removeFromSuperview(self->_loadingView, a2, v2, v3);
+  objc_msgSend_removeFromSuperview(self->_loadingView, a2, v2);
   loadingView = self->_loadingView;
   self->_loadingView = 0;
 }
 
 - (void)_setupCenteredViewWithPhoto:(id)photo maskedPhoto:(id)maskedPhoto
 {
-  v167[3] = *MEMORY[0x277D85DE8];
+  v125[3] = *MEMORY[0x277D85DE8];
   photoCopy = photo;
   maskedPhotoCopy = maskedPhoto;
-  v12 = maskedPhotoCopy;
-  v13 = self->_currentBackgroundImage != photoCopy || self->_currentForegroundImage != maskedPhotoCopy;
-  v14 = objc_msgSend_centeredView(self->_scrollView, v9, v10, v11);
+  v11 = maskedPhotoCopy;
+  v12 = self->_currentBackgroundImage != photoCopy || self->_currentForegroundImage != maskedPhotoCopy;
+  v13 = objc_msgSend_centeredView(self->_scrollView, v9, v10);
 
-  if (v13)
+  if (v12)
   {
     objc_storeStrong(&self->_currentBackgroundImage, photo);
     objc_storeStrong(&self->_currentForegroundImage, maskedPhoto);
-    v18 = objc_alloc(MEMORY[0x277D755E8]);
-    v21 = objc_msgSend_initWithImage_(v18, v19, photoCopy, v20);
-    objc_msgSend_setCenteredView_(self->_scrollView, v22, v21, v23);
+    v16 = objc_alloc(MEMORY[0x277D755E8]);
+    v18 = objc_msgSend_initWithImage_(v16, v17, photoCopy);
+    objc_msgSend_setCenteredView_(self->_scrollView, v19, v18);
 
-    objc_msgSend_setHidden_(self->_overlayScrollView, v24, v12 == 0, v25);
-    if (v12)
+    objc_msgSend_setHidden_(self->_overlayScrollView, v20, v11 == 0);
+    if (v11)
     {
-      v26 = objc_alloc(MEMORY[0x277D755E8]);
-      v29 = objc_msgSend_initWithImage_(v26, v27, v12, v28);
-      objc_msgSend_setCenteredView_(self->_overlayScrollView, v30, v29, v31);
+      v21 = objc_alloc(MEMORY[0x277D755E8]);
+      v23 = objc_msgSend_initWithImage_(v21, v22, v11);
+      objc_msgSend_setCenteredView_(self->_overlayScrollView, v24, v23);
     }
   }
 
-  if (!v14)
+  if (!v13)
   {
-    objc_msgSend_Parmesan_screenBounds(self->_previewProvider, v15, v16, v17);
-    v33 = v32;
-    v35 = v34;
-    objc_msgSend_Parmesan_screenCornerRadius(self->_previewProvider, v36, v37, v38);
-    v40 = v39;
-    objc_msgSend__heightForTimeSelectionItem(self, v41, v42, v43);
-    v45 = v44;
-    v46 = [NTKParmesanTimeLayoutSelectionViewController alloc];
-    v50 = objc_msgSend_allLayouts(NTKParmesanTimeLayout, v47, v48, v49);
-    v53 = objc_msgSend_initWithLayoutOptions_itemHeight_deviceSize_deviceScreenRadius_(v46, v51, v50, v52, v45, v33, v35, v40);
+    objc_msgSend_Parmesan_screenBounds(self->_previewProvider, v14, v15);
+    v26 = v25;
+    v28 = v27;
+    objc_msgSend_Parmesan_screenCornerRadius(self->_previewProvider, v29, v30);
+    v32 = v31;
+    objc_msgSend__heightForTimeSelectionItem(self, v33, v34);
+    v36 = v35;
+    v37 = [NTKParmesanTimeLayoutSelectionViewController alloc];
+    v40 = objc_msgSend_allLayouts(NTKParmesanTimeLayout, v38, v39);
+    v42 = objc_msgSend_initWithLayoutOptions_itemHeight_deviceSize_deviceScreenRadius_(v37, v41, v40, v36, v26, v28, v32);
 
-    v54 = BPSBridgeTintColor();
-    v58 = objc_msgSend_view(v53, v55, v56, v57);
-    objc_msgSend_setTintColor_(v58, v59, v54, v60);
+    v43 = BPSBridgeTintColor();
+    v46 = objc_msgSend_view(v42, v44, v45);
+    objc_msgSend_setTintColor_(v46, v47, v43);
 
-    objc_msgSend_addChildViewController_(self, v61, v53, v62);
-    v66 = objc_msgSend_view(self, v63, v64, v65);
-    v70 = objc_msgSend_view(v53, v67, v68, v69);
-    objc_msgSend_addSubview_(v66, v71, v70, v72);
+    objc_msgSend_addChildViewController_(self, v48, v42);
+    v51 = objc_msgSend_view(self, v49, v50);
+    v54 = objc_msgSend_view(v42, v52, v53);
+    objc_msgSend_addSubview_(v51, v55, v54);
 
-    objc_msgSend_didMoveToParentViewController_(v53, v73, self, v74);
+    objc_msgSend_didMoveToParentViewController_(v42, v56, self);
     timeLayoutSelectionViewController = self->_timeLayoutSelectionViewController;
-    self->_timeLayoutSelectionViewController = v53;
-    v163 = v53;
+    self->_timeLayoutSelectionViewController = v42;
+    v121 = v42;
 
-    objc_msgSend_setDelegate_(self->_timeLayoutSelectionViewController, v76, self, v77);
-    objc_msgSend_bottomPadding(NTKParmesanTimeLayoutSelectionViewController, v78, v79, v80);
-    v82 = v81;
-    v86 = objc_msgSend_view(self->_timeLayoutSelectionViewController, v83, v84, v85);
-    v90 = objc_msgSend_clearColor(MEMORY[0x277D75348], v87, v88, v89);
-    objc_msgSend_setBackgroundColor_(v86, v91, v90, v92);
+    objc_msgSend_setDelegate_(self->_timeLayoutSelectionViewController, v58, self);
+    objc_msgSend_bottomPadding(NTKParmesanTimeLayoutSelectionViewController, v59, v60);
+    v62 = v61;
+    v65 = objc_msgSend_view(self->_timeLayoutSelectionViewController, v63, v64);
+    v68 = objc_msgSend_clearColor(MEMORY[0x277D75348], v66, v67);
+    objc_msgSend_setBackgroundColor_(v65, v69, v68);
 
-    objc_msgSend_setTranslatesAutoresizingMaskIntoConstraints_(v86, v93, 0, v94);
-    v156 = MEMORY[0x277CCAAD0];
-    v162 = objc_msgSend_leadingAnchor(v86, v95, v96, v97);
-    v164 = objc_msgSend_view(self, v98, v99, v100);
-    v161 = objc_msgSend_safeAreaLayoutGuide(v164, v101, v102, v103);
-    v160 = objc_msgSend_leadingAnchor(v161, v104, v105, v106);
-    v159 = objc_msgSend_constraintEqualToAnchor_(v162, v107, v160, v108);
-    v167[0] = v159;
-    v157 = objc_msgSend_trailingAnchor(v86, v109, v110, v111);
-    v158 = objc_msgSend_view(self, v112, v113, v114);
-    v155 = objc_msgSend_safeAreaLayoutGuide(v158, v115, v116, v117);
-    objc_msgSend_trailingAnchor(v155, v118, v119, v120);
-    v121 = v166 = photoCopy;
-    objc_msgSend_constraintEqualToAnchor_(v157, v122, v121, v123);
-    v124 = v165 = v12;
-    v167[1] = v124;
-    v128 = objc_msgSend_bottomAnchor(v86, v125, v126, v127);
-    v132 = objc_msgSend_view(self, v129, v130, v131);
-    v136 = objc_msgSend_safeAreaLayoutGuide(v132, v133, v134, v135);
-    v140 = objc_msgSend_bottomAnchor(v136, v137, v138, v139);
-    v143 = objc_msgSend_constraintEqualToAnchor_constant_(v128, v141, v140, v142, -v82);
-    v167[2] = v143;
-    v145 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v144, v167, 3);
-    objc_msgSend_activateConstraints_(v156, v146, v145, v147);
+    objc_msgSend_setTranslatesAutoresizingMaskIntoConstraints_(v65, v70, 0);
+    v114 = MEMORY[0x277CCAAD0];
+    v120 = objc_msgSend_leadingAnchor(v65, v71, v72);
+    v122 = objc_msgSend_view(self, v73, v74);
+    v119 = objc_msgSend_safeAreaLayoutGuide(v122, v75, v76);
+    v118 = objc_msgSend_leadingAnchor(v119, v77, v78);
+    v117 = objc_msgSend_constraintEqualToAnchor_(v120, v79, v118);
+    v125[0] = v117;
+    v115 = objc_msgSend_trailingAnchor(v65, v80, v81);
+    v116 = objc_msgSend_view(self, v82, v83);
+    v113 = objc_msgSend_safeAreaLayoutGuide(v116, v84, v85);
+    objc_msgSend_trailingAnchor(v113, v86, v87);
+    v88 = v124 = photoCopy;
+    objc_msgSend_constraintEqualToAnchor_(v115, v89, v88);
+    v90 = v123 = v11;
+    v125[1] = v90;
+    v93 = objc_msgSend_bottomAnchor(v65, v91, v92);
+    v96 = objc_msgSend_view(self, v94, v95);
+    v99 = objc_msgSend_safeAreaLayoutGuide(v96, v97, v98);
+    v102 = objc_msgSend_bottomAnchor(v99, v100, v101);
+    v104 = objc_msgSend_constraintEqualToAnchor_constant_(v93, v103, v102, -v62);
+    v125[2] = v104;
+    v106 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v105, v125, 3);
+    objc_msgSend_activateConstraints_(v114, v107, v106);
 
-    v12 = v165;
-    photoCopy = v166;
+    v11 = v123;
+    photoCopy = v124;
 
-    v151 = objc_msgSend_view(self, v148, v149, v150);
-    objc_msgSend_setNeedsLayout(v151, v152, v153, v154);
+    v110 = objc_msgSend_view(self, v108, v109);
+    objc_msgSend_setNeedsLayout(v110, v111, v112);
   }
 }
 
 - (double)_heightForTimeSelectionItem
 {
-  v4 = objc_msgSend_navigationController(self, a2, v2, v3);
-  v8 = objc_msgSend_presentingViewController(v4, v5, v6, v7);
-  v12 = objc_msgSend_view(v8, v9, v10, v11);
+  v3 = objc_msgSend_navigationController(self, a2, v2);
+  v6 = objc_msgSend_presentingViewController(v3, v4, v5);
+  v9 = objc_msgSend_view(v6, v7, v8);
 
-  objc_msgSend_bounds(v12, v13, v14, v15);
-  v17 = v16 * 0.09;
+  objc_msgSend_bounds(v9, v10, v11);
+  v13 = v12 * 0.09;
 
-  return v17;
+  return v13;
 }
 
 - (double)_heightForTimeSelectionView
 {
-  objc_msgSend__heightForTimeSelectionItem(self, a2, v2, v3);
+  objc_msgSend__heightForTimeSelectionItem(self, a2, v2);
 
-  MEMORY[0x2821F9670](NTKParmesanTimeLayoutSelectionViewController, sel_totalHeightForPreviewHeight_, v4, v5);
+  MEMORY[0x2821F9670](NTKParmesanTimeLayoutSelectionViewController, sel_totalHeightForPreviewHeight_, v3);
   return result;
 }
 
@@ -845,136 +845,136 @@ LABEL_9:
   {
     if (objc_msgSend_isEqualToString_(path, a2, @"bounds", object, change))
     {
-      objc_msgSend_zoomScale(self->_scrollView, v7, v8, v9);
-      objc_msgSend_setZoomScale_animated_(self->_overlayScrollView, v10, 0, v11);
-      objc_msgSend_contentInset(self->_scrollView, v12, v13, v14);
-      objc_msgSend_setContentInset_(self->_overlayScrollView, v15, v16, v17);
-      objc_msgSend_bounds(self->_scrollView, v18, v19, v20);
+      objc_msgSend_zoomScale(self->_scrollView, v7, v8);
+      objc_msgSend_setZoomScale_animated_(self->_overlayScrollView, v9, 0);
+      objc_msgSend_contentInset(self->_scrollView, v10, v11);
+      objc_msgSend_setContentInset_(self->_overlayScrollView, v12, v13);
+      objc_msgSend_bounds(self->_scrollView, v14, v15);
       overlayScrollView = self->_overlayScrollView;
 
-      MEMORY[0x2821F9670](overlayScrollView, sel_setBounds_, v21, v22);
+      MEMORY[0x2821F9670](overlayScrollView, sel_setBounds_, v16);
     }
   }
 
   else
   {
-    v24.receiver = self;
-    v24.super_class = NTKCParmesanPreviewViewController;
-    [(NTKCParmesanPreviewViewController *)&v24 observeValueForKeyPath:path ofObject:object change:change context:?];
+    v18.receiver = self;
+    v18.super_class = NTKCParmesanPreviewViewController;
+    [(NTKCParmesanPreviewViewController *)&v18 observeValueForKeyPath:path ofObject:object change:change context:?];
   }
 }
 
 - (void)scrollViewWillBeginInteraction:(id)interaction
 {
-  objc_msgSend_setDidInteractWithCropView_(self, a2, 1, v3);
-  v8 = objc_msgSend_currentPreview(self, v5, v6, v7);
-  objc_msgSend_cropRect(self->_scrollView, v9, v10, v11);
-  objc_msgSend__validatePreview_withCrop_animated_(self, v12, v8, 0);
+  objc_msgSend_setDidInteractWithCropView_(self, a2, 1);
+  v6 = objc_msgSend_currentPreview(self, v4, v5);
+  objc_msgSend_cropRect(self->_scrollView, v7, v8);
+  objc_msgSend__validatePreview_withCrop_animated_(self, v9, v6, 0);
 
-  objc_msgSend__updateNavigationBarItems(self, v13, v14, v15);
+  objc_msgSend__updateNavigationBarItems(self, v10, v11);
 }
 
 - (void)scrollViewDidScroll:(id)scroll
 {
-  v9 = objc_msgSend_currentPreview(self, a2, scroll, v3);
-  objc_msgSend_cropRect(self->_scrollView, v5, v6, v7);
-  objc_msgSend__validatePreview_withCrop_animated_(self, v8, v9, 0);
+  v7 = objc_msgSend_currentPreview(self, a2, scroll);
+  objc_msgSend_cropRect(self->_scrollView, v4, v5);
+  objc_msgSend__validatePreview_withCrop_animated_(self, v6, v7, 0);
 }
 
 - (void)scrollViewDidSettleFromInteracting:(id)interacting
 {
-  v5 = objc_msgSend_currentPreview(self, a2, interacting, v3);
-  objc_msgSend_cropRect(self->_scrollView, v6, v7, v8);
-  x = v9;
-  y = v11;
-  width = v13;
-  height = v15;
+  v4 = objc_msgSend_currentPreview(self, a2, interacting);
+  objc_msgSend_cropRect(self->_scrollView, v5, v6);
+  x = v7;
+  y = v9;
+  width = v11;
+  height = v13;
   photoScale = self->_photoScale;
   if (photoScale != 0.0)
   {
-    CGAffineTransformMakeScale(&v44, photoScale, self->_photoScale);
-    v45.origin.x = x;
-    v45.origin.y = y;
-    v45.size.width = width;
-    v45.size.height = height;
-    v46 = CGRectApplyAffineTransform(v45, &v44);
-    x = v46.origin.x;
-    y = v46.origin.y;
-    width = v46.size.width;
-    height = v46.size.height;
+    CGAffineTransformMakeScale(&v37, photoScale, self->_photoScale);
+    v38.origin.x = x;
+    v38.origin.y = y;
+    v38.size.width = width;
+    v38.size.height = height;
+    v39 = CGRectApplyAffineTransform(v38, &v37);
+    x = v39.origin.x;
+    y = v39.origin.y;
+    width = v39.size.width;
+    height = v39.size.height;
   }
 
-  v18 = [NTKParmesanCrop alloc];
-  v22 = objc_msgSend_initWithRect_(v18, v19, v20, v21, x, y, width, height);
-  v23 = [NTKParmesanCropPreviewModel alloc];
-  v27 = objc_msgSend_photo(v5, v24, v25, v26);
-  v31 = objc_msgSend_maskedPhoto(v5, v28, v29, v30);
-  v35 = objc_msgSend_previewValidator(v5, v32, v33, v34);
-  v39 = objc_msgSend_timeLayout(v5, v36, v37, v38);
-  v43 = 1;
-  v41 = objc_msgSend_initWithPhoto_maskedPhoto_previewValidator_crop_timeLayout_useDepthEffect_revertable_(v23, v40, v27, v31, v35, v22, v39, self->_displayDepthEffect, v43);
+  v16 = [NTKParmesanCrop alloc];
+  v19 = objc_msgSend_initWithRect_(v16, v17, v18, x, y, width, height);
+  v20 = [NTKParmesanCropPreviewModel alloc];
+  v23 = objc_msgSend_photo(v4, v21, v22);
+  v26 = objc_msgSend_maskedPhoto(v4, v24, v25);
+  v29 = objc_msgSend_previewValidator(v4, v27, v28);
+  v32 = objc_msgSend_timeLayout(v4, v30, v31);
+  v36 = 1;
+  v34 = objc_msgSend_initWithPhoto_maskedPhoto_previewValidator_crop_timeLayout_useDepthEffect_revertable_(v20, v33, v23, v26, v29, v19, v32, self->_displayDepthEffect, v36);
 
-  objc_msgSend__setPreview_animated_(self, v42, v41, 1);
+  objc_msgSend__setPreview_animated_(self, v35, v34, 1);
 }
 
 - (void)_setPreview:(id)preview animated:(BOOL)animated
 {
   previewCopy = preview;
   objc_storeStrong(&self->_currentPreview, preview);
-  self->_displayDepthEffect = objc_msgSend_useDepthEffect(previewCopy, v7, v8, v9);
-  if (objc_msgSend_isHidden(self->_time, v10, v11, v12))
+  self->_displayDepthEffect = objc_msgSend_useDepthEffect(previewCopy, v7, v8);
+  if (objc_msgSend_isHidden(self->_time, v9, v10))
   {
-    objc_msgSend_setHidden_(self->_time, v13, 0, v15);
+    objc_msgSend_setHidden_(self->_time, v11, 0);
   }
 
-  v16 = objc_msgSend_crop(previewCopy, v13, v14, v15);
-  objc_msgSend_cgRect(v16, v17, v18, v19);
-  x = v20;
-  y = v22;
-  width = v24;
-  height = v26;
+  v13 = objc_msgSend_crop(previewCopy, v11, v12);
+  objc_msgSend_cgRect(v13, v14, v15);
+  x = v16;
+  y = v18;
+  width = v20;
+  height = v22;
 
-  v31 = objc_msgSend_photo(previewCopy, v28, v29, v30);
-  v35 = objc_msgSend_maskedPhoto(previewCopy, v32, v33, v34);
-  objc_msgSend_scale(v31, v36, v37, v38);
-  self->_photoScale = v39;
-  objc_msgSend__setupCenteredViewWithPhoto_maskedPhoto_(self, v40, v31, v35);
-  v46 = objc_msgSend_timeLayout(previewCopy, v41, v42, v43);
-  if (v46)
+  v26 = objc_msgSend_photo(previewCopy, v24, v25);
+  v29 = objc_msgSend_maskedPhoto(previewCopy, v27, v28);
+  objc_msgSend_scale(v26, v30, v31);
+  self->_photoScale = v32;
+  objc_msgSend__setupCenteredViewWithPhoto_maskedPhoto_(self, v33, v26, v29);
+  v37 = objc_msgSend_timeLayout(previewCopy, v34, v35);
+  if (v37)
   {
-    objc_msgSend_updateTimeLayout_(self->_time, v44, v46, v45);
-    objc_msgSend_setSelectedLayout_(self->_timeLayoutSelectionViewController, v47, v46, v48);
+    objc_msgSend_updateTimeLayout_(self->_time, v36, v37);
+    objc_msgSend_setSelectedLayout_(self->_timeLayoutSelectionViewController, v38, v37);
   }
 
-  v69.origin.x = x;
-  v69.origin.y = y;
-  v69.size.width = width;
-  v69.size.height = height;
-  if (!CGRectIsEmpty(v69))
+  v53.origin.x = x;
+  v53.origin.y = y;
+  v53.size.width = width;
+  v53.size.height = height;
+  if (!CGRectIsEmpty(v53))
   {
     photoScale = self->_photoScale;
     if (photoScale != 0.0)
     {
-      CGAffineTransformMakeScale(&v68, 1.0 / photoScale, 1.0 / photoScale);
-      v70.origin.x = x;
-      v70.origin.y = y;
-      v70.size.width = width;
-      v70.size.height = height;
-      v71 = CGRectApplyAffineTransform(v70, &v68);
-      x = v71.origin.x;
-      y = v71.origin.y;
-      width = v71.size.width;
-      height = v71.size.height;
+      CGAffineTransformMakeScale(&v52, 1.0 / photoScale, 1.0 / photoScale);
+      v54.origin.x = x;
+      v54.origin.y = y;
+      v54.size.width = width;
+      v54.size.height = height;
+      v55 = CGRectApplyAffineTransform(v54, &v52);
+      x = v55.origin.x;
+      y = v55.origin.y;
+      width = v55.size.width;
+      height = v55.size.height;
     }
   }
 
-  objc_msgSend_setCropRect_(self->_scrollView, v49, v50, v51, x, y, width, height);
-  objc_msgSend_setCropRect_(self->_overlayScrollView, v53, v54, v55, x, y, width, height);
-  objc_msgSend__updatePreviewForDepthEffect_(self, v56, self->_displayDepthEffect, v57);
-  objc_msgSend__updateNavigationBarItems(self, v58, v59, v60);
-  objc_msgSend__updateToolbarItems(self, v61, v62, v63);
-  objc_msgSend__validatePreview_withCrop_animated_(self, v64, previewCopy, 0, x, y, width, height);
-  objc_msgSend__updateAllButtonStates(self, v65, v66, v67);
+  objc_msgSend_setCropRect_(self->_scrollView, v39, v40, x, y, width, height);
+  objc_msgSend_setCropRect_(self->_overlayScrollView, v42, v43, x, y, width, height);
+  objc_msgSend__updatePreviewForDepthEffect_(self, v44, self->_displayDepthEffect);
+  objc_msgSend__updateNavigationBarItems(self, v45, v46);
+  objc_msgSend__updateToolbarItems(self, v47, v48);
+  objc_msgSend__validatePreview_withCrop_animated_(self, v49, previewCopy, 0, x, y, width, height);
+  objc_msgSend__updateAllButtonStates(self, v50, v51);
 }
 
 - (void)_setCropValidationState:(unint64_t)state animated:(BOOL)animated
@@ -994,7 +994,7 @@ LABEL_9:
   block[4] = self;
   *&block[5] = v5;
   dispatch_async(MEMORY[0x277D85CD0], block);
-  objc_msgSend__updateDoneButtonEnabledState(self, v6, v7, v8);
+  objc_msgSend__updateDoneButtonEnabledState(self, v6, v7);
 }
 
 - (void)_validatePreview:(id)preview withCrop:(CGRect)crop animated:(BOOL)animated
@@ -1003,61 +1003,61 @@ LABEL_9:
   y = crop.origin.y;
   x = crop.origin.x;
   previewCopy = preview;
-  v13 = previewCopy;
+  v12 = previewCopy;
   if (self->_displayDepthEffect)
   {
-    v14 = objc_msgSend_photo(previewCopy, v10, v11, v12);
-    objc_msgSend_size(v14, v15, v16, v17);
+    v13 = objc_msgSend_photo(previewCopy, v10, v11);
+    objc_msgSend_size(v13, v14, v15);
+    v17 = v16;
     v19 = v18;
-    v21 = v20;
 
-    objc_msgSend_zoomScale(self->_scrollView, v22, v23, v24);
-    v26 = v25;
-    v30 = objc_msgSend_layout(self->_time, v27, v28, v29);
-    objc_msgSend_normalizedTimeRectWithoutComplications(v30, v31, v32, v33);
-    v35 = v34;
-    v37 = v36;
-    v39 = v38;
+    objc_msgSend_zoomScale(self->_scrollView, v20, v21);
+    v23 = v22;
+    v26 = objc_msgSend_layout(self->_time, v24, v25);
+    objc_msgSend_normalizedTimeRectWithoutComplications(v26, v27, v28);
+    v30 = v29;
+    v32 = v31;
+    v34 = v33;
     dy = y;
-    v41 = v40;
+    v36 = v35;
 
-    objc_msgSend_bounds(self->_time, v42, v43, v44);
-    v46 = v35 * v45;
-    objc_msgSend_bounds(self->_time, v47, v48, v49);
-    v51 = v37 * v50;
-    objc_msgSend_bounds(self->_time, v52, v53, v54);
-    v56 = v39 * v55;
-    objc_msgSend_bounds(self->_time, v57, v58, v59);
-    v61 = v41 * v60;
-    CGAffineTransformMakeScale(&v79, self->_timeContainerScale, self->_timeContainerScale);
-    v80.origin.x = v46;
-    v80.origin.y = v51;
-    v80.size.width = v56;
-    v80.size.height = v61;
-    v81 = CGRectApplyAffineTransform(v80, &v79);
-    v62 = v81.origin.x;
-    v63 = v81.origin.y;
-    width = v81.size.width;
-    height = v81.size.height;
-    CGAffineTransformMakeScale(&v79, 1.0 / v26, 1.0 / v26);
-    v82.origin.x = v62;
-    v82.origin.y = v63;
-    v82.size.width = width;
-    v82.size.height = height;
-    v83 = CGRectApplyAffineTransform(v82, &v79);
-    v84 = CGRectOffset(v83, x, dy);
-    v66 = v84.origin.x / v19;
-    v67 = v84.origin.y / v21;
-    v68 = v84.size.width / v19;
-    v69 = v84.size.height / v21;
-    v73 = objc_msgSend_previewValidator(v13, v70, v71, v72);
-    v77[0] = MEMORY[0x277D85DD0];
-    v77[1] = 3221225472;
-    v77[2] = sub_23BF160E4;
-    v77[3] = &unk_278BA6A28;
-    v77[4] = self;
-    v78 = animatedCopy;
-    objc_msgSend_validateTimeLabel_completion_(v73, v74, v77, v75, v66, v67, v68, v69);
+    objc_msgSend_bounds(self->_time, v37, v38);
+    v40 = v30 * v39;
+    objc_msgSend_bounds(self->_time, v41, v42);
+    v44 = v32 * v43;
+    objc_msgSend_bounds(self->_time, v45, v46);
+    v48 = v34 * v47;
+    objc_msgSend_bounds(self->_time, v49, v50);
+    v52 = v36 * v51;
+    CGAffineTransformMakeScale(&v68, self->_timeContainerScale, self->_timeContainerScale);
+    v69.origin.x = v40;
+    v69.origin.y = v44;
+    v69.size.width = v48;
+    v69.size.height = v52;
+    v70 = CGRectApplyAffineTransform(v69, &v68);
+    v53 = v70.origin.x;
+    v54 = v70.origin.y;
+    width = v70.size.width;
+    height = v70.size.height;
+    CGAffineTransformMakeScale(&v68, 1.0 / v23, 1.0 / v23);
+    v71.origin.x = v53;
+    v71.origin.y = v54;
+    v71.size.width = width;
+    v71.size.height = height;
+    v72 = CGRectApplyAffineTransform(v71, &v68);
+    v73 = CGRectOffset(v72, x, dy);
+    v57 = v73.origin.x / v17;
+    v58 = v73.origin.y / v19;
+    v59 = v73.size.width / v17;
+    v60 = v73.size.height / v19;
+    v63 = objc_msgSend_previewValidator(v12, v61, v62);
+    v66[0] = MEMORY[0x277D85DD0];
+    v66[1] = 3221225472;
+    v66[2] = sub_23BF160E4;
+    v66[3] = &unk_278BA6A28;
+    v66[4] = self;
+    v67 = animatedCopy;
+    objc_msgSend_validateTimeLabel_completion_(v63, v64, v66, v57, v58, v59, v60);
   }
 
   else
@@ -1068,62 +1068,62 @@ LABEL_9:
 
 - (void)_updateDoneButtonEnabledState
 {
-  isDragging = objc_msgSend_isDragging(self->_scrollView, a2, v2, v3);
-  isDecelerating = objc_msgSend_isDecelerating(self->_scrollView, v6, v7, v8);
+  isDragging = objc_msgSend_isDragging(self->_scrollView, a2, v2);
+  isDecelerating = objc_msgSend_isDecelerating(self->_scrollView, v5, v6);
   cropValidationState = self->_cropValidationState;
   initialPreviewState = self->_initialPreviewState;
-  v15 = objc_msgSend_trailingButton(self->_navigationBar, v12, v13, v14);
-  v20 = v15;
-  v19 = cropValidationState != 1 && initialPreviewState == 3;
+  v12 = objc_msgSend_trailingButton(self->_navigationBar, v10, v11);
+  v16 = v12;
+  v15 = cropValidationState != 1 && initialPreviewState == 3;
   if (isDecelerating)
   {
-    v19 = 0;
+    v15 = 0;
   }
 
   if (isDragging)
   {
-    objc_msgSend_setEnabled_(v15, v16, 0, v17);
+    objc_msgSend_setEnabled_(v12, v13, 0);
   }
 
   else
   {
-    objc_msgSend_setEnabled_(v15, v16, v19, v17);
+    objc_msgSend_setEnabled_(v12, v13, v15);
   }
 }
 
 - (void)_cancelPressed
 {
-  if (objc_msgSend_didInteractWithCropView(self, a2, v2, v3))
+  if (objc_msgSend_didInteractWithCropView(self, a2, v2))
   {
-    v8 = objc_msgSend_alertControllerWithTitle_message_preferredStyle_(MEMORY[0x277D75110], v5, 0, 0, 0);
-    v10 = objc_msgSend_localizedStringForKey_comment_(NTKParmesanFaceBundle, v9, @"MANUAL_LAYOUT_CANCEL_ALERT_TITLE", @"Discard Changes");
-    v12 = objc_msgSend_localizedStringForKey_comment_(NTKParmesanFaceBundle, v11, @"MANUAL_LAYOUT_CANCEL_ALERT_BUTTON", @"Cancel");
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = sub_23BF1637C;
-    v29[3] = &unk_278BA6A50;
-    v29[4] = self;
-    v14 = objc_msgSend_actionWithTitle_style_handler_(MEMORY[0x277D750F8], v13, v10, 0, v29);
-    objc_msgSend_addAction_(v8, v15, v14, v16);
+    v6 = objc_msgSend_alertControllerWithTitle_message_preferredStyle_(MEMORY[0x277D75110], v4, 0, 0, 0);
+    v8 = objc_msgSend_localizedStringForKey_comment_(NTKParmesanFaceBundle, v7, @"MANUAL_LAYOUT_CANCEL_ALERT_TITLE", @"Discard Changes");
+    v10 = objc_msgSend_localizedStringForKey_comment_(NTKParmesanFaceBundle, v9, @"MANUAL_LAYOUT_CANCEL_ALERT_BUTTON", @"Cancel");
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = sub_23BF1637C;
+    v23[3] = &unk_278BA6A50;
+    v23[4] = self;
+    v12 = objc_msgSend_actionWithTitle_style_handler_(MEMORY[0x277D750F8], v11, v8, 0, v23);
+    objc_msgSend_addAction_(v6, v13, v12);
 
-    v18 = objc_msgSend_actionWithTitle_style_handler_(MEMORY[0x277D750F8], v17, v12, 1, 0);
-    objc_msgSend_addAction_(v8, v19, v18, v20);
+    v15 = objc_msgSend_actionWithTitle_style_handler_(MEMORY[0x277D750F8], v14, v10, 1, 0);
+    objc_msgSend_addAction_(v6, v16, v15);
 
-    v24 = objc_msgSend_parentViewController(self, v21, v22, v23);
-    objc_msgSend_presentViewController_animated_completion_(v24, v25, v8, 1, 0);
+    v19 = objc_msgSend_parentViewController(self, v17, v18);
+    objc_msgSend_presentViewController_animated_completion_(v19, v20, v6, 1, 0);
   }
 
   else
   {
-    v28 = objc_msgSend_delegate(self, v5, v6, v7);
-    objc_msgSend_ParmesanPreviewViewControllerWantsToCancel_(v28, v26, self, v27);
+    v22 = objc_msgSend_delegate(self, v4, v5);
+    objc_msgSend_ParmesanPreviewViewControllerWantsToCancel_(v22, v21, self);
   }
 }
 
 - (void)_donePressed
 {
-  v7 = objc_msgSend_delegate(self, a2, v2, v3);
-  objc_msgSend_ParmesanPreviewViewControllerWantsToSave_(v7, v5, self, v6);
+  v5 = objc_msgSend_delegate(self, a2, v2);
+  objc_msgSend_ParmesanPreviewViewControllerWantsToSave_(v5, v4, self);
 }
 
 - (void)_revertPressed
@@ -1133,20 +1133,20 @@ LABEL_9:
   v7 = objc_msgSend_localizedStringForKey_comment_(NTKParmesanFaceBundle, v6, @"MANUAL_LAYOUT_REVERT_ALERT_BUTTON", @"Revert to Original");
   objc_initWeak(&location, self);
   v8 = MEMORY[0x277D750F8];
-  v20 = MEMORY[0x277D85DD0];
-  v21 = 3221225472;
-  v22 = sub_23BF165F4;
-  v23 = &unk_278BA6A78;
-  objc_copyWeak(&v24, &location);
-  v10 = objc_msgSend_actionWithTitle_style_handler_(v8, v9, v7, 2, &v20);
-  objc_msgSend_addAction_(v5, v11, v10, v12, v20, v21, v22, v23);
+  v18 = MEMORY[0x277D85DD0];
+  v19 = 3221225472;
+  v20 = sub_23BF165F4;
+  v21 = &unk_278BA6A78;
+  objc_copyWeak(&v22, &location);
+  v10 = objc_msgSend_actionWithTitle_style_handler_(v8, v9, v7, 2, &v18);
+  objc_msgSend_addAction_(v5, v11, v10, v18, v19, v20, v21);
 
-  v14 = objc_msgSend_localizedStringForKey_comment_(NTKParmesanFaceBundle, v13, @"MANUAL_LAYOUT_CANCEL_ALERT_BUTTON", @"Cancel");
-  v16 = objc_msgSend_actionWithTitle_style_handler_(MEMORY[0x277D750F8], v15, v14, 1, 0);
-  objc_msgSend_addAction_(v5, v17, v16, v18);
+  v13 = objc_msgSend_localizedStringForKey_comment_(NTKParmesanFaceBundle, v12, @"MANUAL_LAYOUT_CANCEL_ALERT_BUTTON", @"Cancel");
+  v15 = objc_msgSend_actionWithTitle_style_handler_(MEMORY[0x277D750F8], v14, v13, 1, 0);
+  objc_msgSend_addAction_(v5, v16, v15);
 
-  objc_msgSend_presentViewController_animated_completion_(self, v19, v5, 1, 0);
-  objc_destroyWeak(&v24);
+  objc_msgSend_presentViewController_animated_completion_(self, v17, v5, 1, 0);
+  objc_destroyWeak(&v22);
   objc_destroyWeak(&location);
 }
 
@@ -1159,13 +1159,13 @@ LABEL_9:
     _os_log_impl(&dword_23BF0C000, v3, OS_LOG_TYPE_INFO, "User tapped Change Photo", buf, 2u);
   }
 
-  v6 = objc_msgSend_parmesanConfigurationWithLimit_(MEMORY[0x277D2BFA0], v4, 1, v5);
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = sub_23BF168A0;
-  v8[3] = &unk_278BA6960;
-  v8[4] = self;
-  objc_msgSend_presentPhotosAddControllerFromViewController_configuration_withCompletion_(MEMORY[0x277D2BFA0], v7, self, v6, v8);
+  v5 = objc_msgSend_parmesanConfigurationWithLimit_(MEMORY[0x277D2BFA0], v4, 1);
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = sub_23BF168A0;
+  v7[3] = &unk_278BA6960;
+  v7[4] = self;
+  objc_msgSend_presentPhotosAddControllerFromViewController_configuration_withCompletion_(MEMORY[0x277D2BFA0], v6, self, v5, v7);
 }
 
 - (void)_didSelectPhotoForChangePhoto:(id)photo
@@ -1184,9 +1184,9 @@ LABEL_9:
 
 - (void)_toggleDepthEffectPressed
 {
-  v5 = objc_msgSend_displayDepthEffect(self, a2, v2, v3) ^ 1;
+  v4 = objc_msgSend_displayDepthEffect(self, a2, v2) ^ 1;
 
-  MEMORY[0x2821F9670](self, sel_setDisplayDepthEffect_, v5, v6);
+  MEMORY[0x2821F9670](self, sel_setDisplayDepthEffect_, v4);
 }
 
 - (id)_symbolForUsingDepthEffect:(BOOL)effect
@@ -1209,15 +1209,15 @@ LABEL_9:
     effectCopy = effect;
     self->_displayDepthEffect = effect;
     v6 = [NTKParmesanCropPreviewModel alloc];
-    v10 = objc_msgSend_photo(self->_currentPreview, v7, v8, v9);
-    v14 = objc_msgSend_maskedPhoto(self->_currentPreview, v11, v12, v13);
-    v18 = objc_msgSend_previewValidator(self->_currentPreview, v15, v16, v17);
-    v22 = objc_msgSend_crop(self->_currentPreview, v19, v20, v21);
-    v26 = objc_msgSend_timeLayout(self->_currentPreview, v23, v24, v25);
-    isRevertable = objc_msgSend_isRevertable(self->_currentPreview, v27, v28, v29);
-    v33 = objc_msgSend_initWithPhoto_maskedPhoto_previewValidator_crop_timeLayout_useDepthEffect_revertable_(v6, v30, v10, v14, v18, v22, v26, effectCopy, isRevertable);
+    v9 = objc_msgSend_photo(self->_currentPreview, v7, v8);
+    v12 = objc_msgSend_maskedPhoto(self->_currentPreview, v10, v11);
+    v15 = objc_msgSend_previewValidator(self->_currentPreview, v13, v14);
+    v18 = objc_msgSend_crop(self->_currentPreview, v16, v17);
+    v21 = objc_msgSend_timeLayout(self->_currentPreview, v19, v20);
+    isRevertable = objc_msgSend_isRevertable(self->_currentPreview, v22, v23);
+    v27 = objc_msgSend_initWithPhoto_maskedPhoto_previewValidator_crop_timeLayout_useDepthEffect_revertable_(v6, v24, v9, v12, v15, v18, v21, effectCopy, isRevertable);
 
-    objc_msgSend__setPreview_animated_(self, v31, v33, 0);
+    objc_msgSend__setPreview_animated_(self, v25, v27, 0);
   }
 }
 
@@ -1225,31 +1225,31 @@ LABEL_9:
 {
   if (effect)
   {
-    objc_msgSend_setAlpha_(self->_overlayScrollView, a2, effect, v3, 1.0);
+    objc_msgSend_setAlpha_(self->_overlayScrollView, a2, effect, 1.0);
   }
 
   else
   {
-    objc_msgSend_setAlpha_(self->_overlayScrollView, a2, effect, v3, 0.0);
+    objc_msgSend_setAlpha_(self->_overlayScrollView, a2, effect, 0.0);
   }
 }
 
 - (void)timeLayoutSelectionController:(id)controller didChangeSelection:(id)selection
 {
   selectionCopy = selection;
-  v10 = objc_msgSend_currentPreview(self, v5, v6, v7);
-  if (v10)
+  v8 = objc_msgSend_currentPreview(self, v5, v6);
+  if (v8)
   {
-    objc_msgSend_setDidInteractWithCropView_(self, v8, 1, v9);
-    v11 = [NTKParmesanCropPreviewModel alloc];
-    v15 = objc_msgSend_photo(v10, v12, v13, v14);
-    v19 = objc_msgSend_maskedPhoto(v10, v16, v17, v18);
-    v23 = objc_msgSend_previewValidator(v10, v20, v21, v22);
-    v27 = objc_msgSend_crop(v10, v24, v25, v26);
-    v31 = 1;
-    v29 = objc_msgSend_initWithPhoto_maskedPhoto_previewValidator_crop_timeLayout_useDepthEffect_revertable_(v11, v28, v15, v19, v23, v27, selectionCopy, self->_displayDepthEffect, v31);
+    objc_msgSend_setDidInteractWithCropView_(self, v7, 1);
+    v9 = [NTKParmesanCropPreviewModel alloc];
+    v12 = objc_msgSend_photo(v8, v10, v11);
+    v15 = objc_msgSend_maskedPhoto(v8, v13, v14);
+    v18 = objc_msgSend_previewValidator(v8, v16, v17);
+    v21 = objc_msgSend_crop(v8, v19, v20);
+    v25 = 1;
+    v23 = objc_msgSend_initWithPhoto_maskedPhoto_previewValidator_crop_timeLayout_useDepthEffect_revertable_(v9, v22, v12, v15, v18, v21, selectionCopy, self->_displayDepthEffect, v25);
 
-    objc_msgSend__setPreview_animated_(self, v30, v29, 1);
+    objc_msgSend__setPreview_animated_(self, v24, v23, 1);
   }
 }
 

@@ -90,7 +90,7 @@
     _prefersDimmingVisible = [(_UISheetPresentationControllerAppearance *)self _prefersDimmingVisible];
     if (_prefersDimmingVisible != [v5 _prefersDimmingVisible])
     {
-      LOBYTE(v7) = 0;
+      LOBYTE(isEqual) = 0;
 LABEL_19:
 
       goto LABEL_20;
@@ -107,7 +107,7 @@ LABEL_19:
 
     else
     {
-      LOBYTE(v7) = 0;
+      LOBYTE(isEqual) = 0;
       v13 = v11;
       v14 = v10;
       if (!v10 || !v11)
@@ -118,9 +118,9 @@ LABEL_18:
         goto LABEL_19;
       }
 
-      v7 = [v10 isEqual:v11];
+      isEqual = objc_msgSend_isEqual_(v10);
 
-      if (!v7)
+      if (!isEqual)
       {
         goto LABEL_18;
       }
@@ -133,25 +133,25 @@ LABEL_18:
     v13 = v17;
     if (v14 == v17)
     {
-      LOBYTE(v7) = 1;
+      LOBYTE(isEqual) = 1;
     }
 
     else
     {
-      LOBYTE(v7) = 0;
+      LOBYTE(isEqual) = 0;
       if (v14 && v17)
       {
-        LOBYTE(v7) = [v14 isEqual:v17];
+        LOBYTE(isEqual) = objc_msgSend_isEqual_(v14);
       }
     }
 
     goto LABEL_17;
   }
 
-  LOBYTE(v7) = 0;
+  LOBYTE(isEqual) = 0;
 LABEL_20:
 
-  return v7;
+  return isEqual;
 }
 
 - (_UISheetPresentationControllerAppearance)initWithCoder:(id)coder

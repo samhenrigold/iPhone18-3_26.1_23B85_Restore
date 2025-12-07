@@ -28,7 +28,7 @@
   v8 = spec2;
   if (spec2)
   {
-    [spec2 startTime];
+    objc_msgSend_startTime(spec2);
   }
 
   else
@@ -43,7 +43,7 @@
   v11 = spec3;
   if (spec3)
   {
-    [spec3 timeRange];
+    objc_msgSend_timeRange(spec3);
   }
 
   else

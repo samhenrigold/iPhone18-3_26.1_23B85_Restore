@@ -24,34 +24,31 @@
 
 - (uint64_t)mf_setInteger:()Goodies forKey:
 {
-  v6 = [MEMORY[0x277CCABB0] numberWithInt:?];
+  v6 = [MEMORY[0x277CCABB0] numberWithInt:a3];
 
   return [self setObject:v6 forKey:a4];
 }
 
 - (void)mf_addObject:()Goodies forKey:
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (a3 && a4)
   {
-    v10 = [a4 copyWithZone:0];
-    CFDictionaryAddValue(self, v10, a3);
-    v7 = *MEMORY[0x277D85DE8];
+    v8 = [a4 copyWithZone:0];
+    CFDictionaryAddValue(self, v8, a3);
   }
 
   else
   {
-    v8 = MFLogGeneral();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v7 = MFLogGeneral();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
-      v12 = a3;
-      v13 = 2112;
-      v14 = a4;
-      _os_log_impl(&dword_258BDA000, v8, OS_LOG_TYPE_INFO, "Bad arguments to %@, %@", buf, 0x16u);
+      v10 = a3;
+      v11 = 2112;
+      v12 = a4;
+      _os_log_impl(&dword_258BDA000, v7, OS_LOG_TYPE_INFO, "Bad arguments to %@, %@", buf, 0x16u);
     }
-
-    v9 = *MEMORY[0x277D85DE8];
   }
 }
 

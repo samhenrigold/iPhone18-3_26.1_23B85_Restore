@@ -19,6 +19,8 @@
 - (void)addCrashEvent:(id)event to:(id)to;
 - (void)checkForOSUpdate;
 - (void)evaluateStability;
+- (void)reportResultsForBundleID:(id)d crashes:(id)crashes uptime:(id)uptime MTBF:(id)f result:(BOOL)result status:(id)status;
+- (void)totalCrashesFrom:(id)from to:(id)to targetBundleID:(id)d appVersions:(id)versions isBaseline:(BOOL)baseline completionHandler:(id)handler;
 - (void)totalUptimeFrom:(id)from to:(id)to targetBundleID:(id)d targetAppVersions:(id)versions firstPartyBundleIDs:(id)ds completionHandler:(id)handler;
 @end
 
@@ -342,7 +344,7 @@ LABEL_24:
     v19 = OSAStabilityMonitorLogDomain();
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      sub_100014F40(&self->_targetBundleID);
+      sub_100014F40();
     }
 
     v17 = 0;
@@ -510,6 +512,46 @@ LABEL_25:
   v31 = v40;
   v32 = handlerCopy;
   v33 = [v30 sinkWithCompletion:v39 receiveInput:v37];
+}
+
+- (void)totalCrashesFrom:(id)from to:(id)to targetBundleID:(id)d appVersions:(id)versions isBaseline:(BOOL)baseline completionHandler:(id)handler
+{
+  baselineCopy = baseline;
+  dCopy = d;
+  handlerCopy = handler;
+  versionsCopy = versions;
+  toCopy = to;
+  fromCopy = from;
+  v19 = [[OSACrashAccumulator alloc] initWithTargetAppVersions:versionsCopy isBaseline:baselineCopy];
+
+  if (dCopy)
+  {
+    [(OSAAccumulator *)v19 setTargetKey:dCopy];
+  }
+
+  v20 = [[BMPublisherOptions alloc] initWithStartDate:fromCopy endDate:toCopy maxEvents:0 lastN:0 reversed:0];
+
+  v21 = BiomeLibrary();
+  oSAnalytics = [v21 OSAnalytics];
+  stability = [oSAnalytics Stability];
+  crash = [stability Crash];
+  v25 = [crash publisherWithOptions:v20];
+
+  v31[0] = _NSConcreteStackBlock;
+  v31[1] = 3221225472;
+  v31[2] = sub_100007B60;
+  v31[3] = &unk_100024EC8;
+  v33 = handlerCopy;
+  v32 = v19;
+  v29[0] = _NSConcreteStackBlock;
+  v29[1] = 3221225472;
+  v29[2] = sub_100007BFC;
+  v29[3] = &unk_100024F18;
+  v29[4] = self;
+  v30 = v32;
+  v26 = v32;
+  v27 = handlerCopy;
+  v28 = [v25 sinkWithCompletion:v31 receiveInput:v29];
 }
 
 - (void)addCrashEvent:(id)event to:(id)to
@@ -747,6 +789,32 @@ LABEL_5:
   }
 
   return v24;
+}
+
+- (void)reportResultsForBundleID:(id)d crashes:(id)crashes uptime:(id)uptime MTBF:(id)f result:(BOOL)result status:(id)status
+{
+  resultCopy = result;
+  dCopy = d;
+  crashesCopy = crashes;
+  uptimeCopy = uptime;
+  fCopy = f;
+  statusCopy = status;
+  completionHandler = self->_completionHandler;
+  if (completionHandler)
+  {
+    completionHandler[2](completionHandler, resultCopy);
+  }
+
+  v25 = crashesCopy;
+  v26 = uptimeCopy;
+  v27 = dCopy;
+  v28 = fCopy;
+  v20 = statusCopy;
+  v21 = fCopy;
+  v22 = dCopy;
+  v23 = uptimeCopy;
+  v24 = crashesCopy;
+  AnalyticsSendEventLazy();
 }
 
 - (BOOL)isValidBundleID:(id)d

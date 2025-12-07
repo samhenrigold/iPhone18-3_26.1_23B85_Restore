@@ -33,7 +33,7 @@
 
 - (void)playFeedbackForStateFeedbackType:(int64_t)type withResponseMode:(id)mode completion:(id)completion
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   modeCopy = mode;
   completionCopy = completion;
   if (type == 1)
@@ -46,9 +46,9 @@
     v10 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 136315138;
-      v13 = "[SRUIFStateFeedbackDefaultProvider playFeedbackForStateFeedbackType:withResponseMode:completion:]";
-      _os_log_impl(&dword_26951F000, v10, OS_LOG_TYPE_DEFAULT, "%s #statefeedback state feedback type not handled by feedback provier", &v12, 0xCu);
+      v11 = 136315138;
+      v12 = "[SRUIFStateFeedbackDefaultProvider playFeedbackForStateFeedbackType:withResponseMode:completion:]";
+      _os_log_impl(&dword_26951F000, v10, OS_LOG_TYPE_DEFAULT, "%s #statefeedback state feedback type not handled by feedback provier", &v11, 0xCu);
     }
   }
 
@@ -56,8 +56,6 @@
   {
     [(SRUIFStateFeedbackDefaultProvider *)self _startDelayFeedbackWithResponseMode:modeCopy withCompletion:completionCopy];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)playAudioPlaybackRequest:(id)request completion:(id)completion
@@ -227,7 +225,7 @@ void __73__SRUIFStateFeedbackDefaultProvider_playAudioPlaybackRequest_completion
 
 - (void)cancelFeedbackWithCompletion:(id)completion
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   if (self->_currentAudioPlaybackRequest)
   {
@@ -240,7 +238,7 @@ void __73__SRUIFStateFeedbackDefaultProvider_playAudioPlaybackRequest_completion
       if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v16 = "[SRUIFStateFeedbackDefaultProvider cancelFeedbackWithCompletion:]";
+        v15 = "[SRUIFStateFeedbackDefaultProvider cancelFeedbackWithCompletion:]";
         _os_log_impl(&dword_26951F000, v6, OS_LOG_TYPE_DEFAULT, "%s #statefeedback cancelling feedback, calling audio session relinquish block", buf, 0xCu);
       }
 
@@ -263,7 +261,7 @@ void __73__SRUIFStateFeedbackDefaultProvider_playAudioPlaybackRequest_completion
     aBlock[1] = 3221225472;
     aBlock[2] = __66__SRUIFStateFeedbackDefaultProvider_cancelFeedbackWithCompletion___block_invoke;
     aBlock[3] = &unk_279C61A08;
-    v14 = completionCopy;
+    v13 = completionCopy;
     v10 = _Block_copy(aBlock);
     audioSessionAcquiredBlock = self->_audioSessionAcquiredBlock;
     self->_audioSessionAcquiredBlock = v10;
@@ -273,8 +271,6 @@ void __73__SRUIFStateFeedbackDefaultProvider_playAudioPlaybackRequest_completion
   {
     completionCopy[2](completionCopy);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __66__SRUIFStateFeedbackDefaultProvider_cancelFeedbackWithCompletion___block_invoke(uint64_t a1)
@@ -297,7 +293,7 @@ uint64_t __66__SRUIFStateFeedbackDefaultProvider_cancelFeedbackWithCompletion___
 
 - (void)_playFeedbackWithSoundId:(int64_t)id hapticLibraryKey:(id)key UUID:(id)d completion:(id)completion
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   dCopy = d;
   completionCopy = completion;
@@ -315,25 +311,25 @@ uint64_t __66__SRUIFStateFeedbackDefaultProvider_cancelFeedbackWithCompletion___
   if (keyCopy | v14)
   {
     v15 = objc_alloc(MEMORY[0x277CEF188]);
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __95__SRUIFStateFeedbackDefaultProvider__playFeedbackWithSoundId_hapticLibraryKey_UUID_completion___block_invoke;
-    v24[3] = &unk_279C61A30;
-    v25 = v14;
-    v26 = dCopy;
-    v27 = keyCopy;
-    v16 = [v15 initWithBuilder:v24];
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __95__SRUIFStateFeedbackDefaultProvider__playFeedbackWithSoundId_hapticLibraryKey_UUID_completion___block_invoke;
+    v23[3] = &unk_279C61A30;
+    v24 = v14;
+    v25 = dCopy;
+    v26 = keyCopy;
+    v16 = [v15 initWithBuilder:v23];
     currentAudioPlaybackRequest = self->_currentAudioPlaybackRequest;
     self->_currentAudioPlaybackRequest = v16;
     v18 = v16;
 
     v19 = self->_currentAudioPlaybackRequest;
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __95__SRUIFStateFeedbackDefaultProvider__playFeedbackWithSoundId_hapticLibraryKey_UUID_completion___block_invoke_2;
-    v22[3] = &unk_279C619E0;
-    v23 = completionCopy;
-    [(SRUIFStateFeedbackDefaultProvider *)self _playAudioPlaybackRequest:v19 completion:v22];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __95__SRUIFStateFeedbackDefaultProvider__playFeedbackWithSoundId_hapticLibraryKey_UUID_completion___block_invoke_2;
+    v21[3] = &unk_279C619E0;
+    v22 = completionCopy;
+    [(SRUIFStateFeedbackDefaultProvider *)self _playAudioPlaybackRequest:v19 completion:v21];
   }
 
   else
@@ -342,7 +338,7 @@ uint64_t __66__SRUIFStateFeedbackDefaultProvider_cancelFeedbackWithCompletion___
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v29 = "[SRUIFStateFeedbackDefaultProvider _playFeedbackWithSoundId:hapticLibraryKey:UUID:completion:]";
+      v28 = "[SRUIFStateFeedbackDefaultProvider _playFeedbackWithSoundId:hapticLibraryKey:UUID:completion:]";
       _os_log_impl(&dword_26951F000, v20, OS_LOG_TYPE_DEFAULT, "%s #statefeedback no audio or haptic specified, visual only feedback", buf, 0xCu);
     }
 
@@ -351,8 +347,6 @@ uint64_t __66__SRUIFStateFeedbackDefaultProvider_cancelFeedbackWithCompletion___
       (*(completionCopy + 2))(completionCopy, 1, 0);
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __95__SRUIFStateFeedbackDefaultProvider__playFeedbackWithSoundId_hapticLibraryKey_UUID_completion___block_invoke(void *a1, void *a2)
@@ -381,7 +375,7 @@ uint64_t __95__SRUIFStateFeedbackDefaultProvider__playFeedbackWithSoundId_haptic
 
 - (void)_playAudioPlaybackRequest:(id)request completion:(id)completion
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   completionCopy = completion;
   v8 = [objc_alloc(MEMORY[0x277CEF398]) initWithBuilder:&__block_literal_global];
@@ -391,26 +385,24 @@ uint64_t __95__SRUIFStateFeedbackDefaultProvider__playFeedbackWithSoundId_haptic
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v20 = "[SRUIFStateFeedbackDefaultProvider _playAudioPlaybackRequest:completion:]";
+    v19 = "[SRUIFStateFeedbackDefaultProvider _playAudioPlaybackRequest:completion:]";
     _os_log_impl(&dword_26951F000, v9, OS_LOG_TYPE_DEFAULT, "%s #statefeedback Acquiring Audio Session", buf, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_connection);
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __74__SRUIFStateFeedbackDefaultProvider__playAudioPlaybackRequest_completion___block_invoke_9;
-  v14[3] = &unk_279C61A78;
-  objc_copyWeak(&v17, &location);
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __74__SRUIFStateFeedbackDefaultProvider__playAudioPlaybackRequest_completion___block_invoke_9;
+  v13[3] = &unk_279C61A78;
+  objc_copyWeak(&v16, &location);
   v11 = requestCopy;
-  v15 = v11;
+  v14 = v11;
   v12 = completionCopy;
-  v16 = v12;
-  [WeakRetained acquireAudioSessionWithContext:v8 completion:v14];
+  v15 = v12;
+  [WeakRetained acquireAudioSessionWithContext:v8 completion:v13];
 
-  objc_destroyWeak(&v17);
+  objc_destroyWeak(&v16);
   objc_destroyWeak(&location);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __74__SRUIFStateFeedbackDefaultProvider__playAudioPlaybackRequest_completion___block_invoke(uint64_t a1, void *a2)
@@ -422,7 +414,7 @@ void __74__SRUIFStateFeedbackDefaultProvider__playAudioPlaybackRequest_completio
 
 void __74__SRUIFStateFeedbackDefaultProvider__playAudioPlaybackRequest_completion___block_invoke_9(uint64_t a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
@@ -456,11 +448,11 @@ void __74__SRUIFStateFeedbackDefaultProvider__playAudioPlaybackRequest_completio
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         v15 = v13;
-        v21 = 136315394;
-        v22 = "[SRUIFStateFeedbackDefaultProvider _playAudioPlaybackRequest:completion:]_block_invoke";
-        v23 = 1024;
-        v24 = [v5 audioSessionID];
-        _os_log_impl(&dword_26951F000, v15, OS_LOG_TYPE_DEFAULT, "%s #statefeedback Acquired Audio Session: %d", &v21, 0x12u);
+        v20 = 136315394;
+        v21 = "[SRUIFStateFeedbackDefaultProvider _playAudioPlaybackRequest:completion:]_block_invoke";
+        v22 = 1024;
+        v23 = [v5 audioSessionID];
+        _os_log_impl(&dword_26951F000, v15, OS_LOG_TYPE_DEFAULT, "%s #statefeedback Acquired Audio Session: %d", &v20, 0x12u);
       }
 
       if (*(v8 + 2))
@@ -478,17 +470,15 @@ void __74__SRUIFStateFeedbackDefaultProvider__playAudioPlaybackRequest_completio
         v19 = *v12;
         if (os_log_type_enabled(*v12, OS_LOG_TYPE_DEFAULT))
         {
-          v21 = 136315138;
-          v22 = "[SRUIFStateFeedbackDefaultProvider _playAudioPlaybackRequest:completion:]_block_invoke";
-          _os_log_impl(&dword_26951F000, v19, OS_LOG_TYPE_DEFAULT, "%s #statefeedback Relinquishing audio session as there is no active audio playback request anymore", &v21, 0xCu);
+          v20 = 136315138;
+          v21 = "[SRUIFStateFeedbackDefaultProvider _playAudioPlaybackRequest:completion:]_block_invoke";
+          _os_log_impl(&dword_26951F000, v19, OS_LOG_TYPE_DEFAULT, "%s #statefeedback Relinquishing audio session as there is no active audio playback request anymore", &v20, 0xCu);
         }
 
         v6[2](v6);
       }
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startSuccessFeedback:(id)feedback withCompletion:(id)completion
@@ -581,7 +571,7 @@ LABEL_13:
 
 void __88__SRUIFStateFeedbackDefaultProvider__startDelayFeedbackWithResponseMode_withCompletion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
@@ -599,15 +589,15 @@ void __88__SRUIFStateFeedbackDefaultProvider__startDelayFeedbackWithResponseMode
       v7 = objc_alloc(MEMORY[0x277CEF530]);
       v8 = *(a1 + 64);
       v9 = *(WeakRetained + 9);
-      v21[0] = MEMORY[0x277D85DD0];
-      v21[1] = 3221225472;
-      v21[2] = __88__SRUIFStateFeedbackDefaultProvider__startDelayFeedbackWithResponseMode_withCompletion___block_invoke_21;
-      v21[3] = &unk_279C61AC0;
+      v20[0] = MEMORY[0x277D85DD0];
+      v20[1] = 3221225472;
+      v20[2] = __88__SRUIFStateFeedbackDefaultProvider__startDelayFeedbackWithResponseMode_withCompletion___block_invoke_21;
+      v20[3] = &unk_279C61AC0;
       v10 = *(a1 + 56);
-      v21[4] = WeakRetained;
-      v23 = v10;
-      v22 = *(a1 + 32);
-      v11 = [v7 initWithTimeoutInterval:v9 onQueue:v21 timeoutHandler:v8];
+      v20[4] = WeakRetained;
+      v22 = v10;
+      v21 = *(a1 + 32);
+      v11 = [v7 initWithTimeoutInterval:v9 onQueue:v20 timeoutHandler:v8];
       v12 = *(WeakRetained + 5);
       *(WeakRetained + 5) = v11;
 
@@ -619,9 +609,9 @@ void __88__SRUIFStateFeedbackDefaultProvider__startDelayFeedbackWithResponseMode
         {
           v17 = *(a1 + 64);
           *buf = 136315394;
-          v25 = "[SRUIFStateFeedbackDefaultProvider _startDelayFeedbackWithResponseMode:withCompletion:]_block_invoke";
-          v26 = 2048;
-          v27 = v17;
+          v24 = "[SRUIFStateFeedbackDefaultProvider _startDelayFeedbackWithResponseMode:withCompletion:]_block_invoke";
+          v25 = 2048;
+          v26 = v17;
           _os_log_impl(&dword_26951F000, v16, OS_LOG_TYPE_DEFAULT, "%s #statefeedback Starting timer for second delay tone for %f seconds", buf, 0x16u);
         }
 
@@ -634,7 +624,7 @@ void __88__SRUIFStateFeedbackDefaultProvider__startDelayFeedbackWithResponseMode
         if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315138;
-          v25 = "[SRUIFStateFeedbackDefaultProvider _startDelayFeedbackWithResponseMode:withCompletion:]_block_invoke";
+          v24 = "[SRUIFStateFeedbackDefaultProvider _startDelayFeedbackWithResponseMode:withCompletion:]_block_invoke";
           _os_log_impl(&dword_26951F000, v18, OS_LOG_TYPE_DEFAULT, "%s #statefeedback Not playing second delay tone, delay feedback has been cancelled", buf, 0xCu);
         }
       }
@@ -646,8 +636,6 @@ void __88__SRUIFStateFeedbackDefaultProvider__startDelayFeedbackWithResponseMode
       (*(v19 + 16))(v19, a2, v5);
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __88__SRUIFStateFeedbackDefaultProvider__startDelayFeedbackWithResponseMode_withCompletion___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
@@ -659,59 +647,36 @@ void __88__SRUIFStateFeedbackDefaultProvider__startDelayFeedbackWithResponseMode
   }
 }
 
-- (void)playAudioPlaybackRequest:completion:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __73__SRUIFStateFeedbackDefaultProvider_playAudioPlaybackRequest_completion___block_invoke_2_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 void __74__SRUIFStateFeedbackDefaultProvider__playAudioPlaybackRequest_completion___block_invoke_9_cold_1(void *a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 error];
-  v6[0] = 136315394;
+  v5[0] = 136315394;
   OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(&dword_26951F000, v3, OS_LOG_TYPE_ERROR, "%s #statefeedback Failed to acquire Audio Session for playback with error: %@", v6, 0x16u);
-
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_26951F000, v3, OS_LOG_TYPE_ERROR, "%s #statefeedback Failed to acquire Audio Session for playback with error: %@", v5, 0x16u);
 }
 
 - (void)_startDelayFeedbackWithResponseMode:withCompletion:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_1_0();
-  _os_log_debug_impl(&dword_26951F000, v0, OS_LOG_TYPE_DEBUG, "%s #statefeedback Stripping delay tone sound for response mode: %@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_26951F000, v0, OS_LOG_TYPE_DEBUG, "%s #statefeedback Stripping delay tone sound for response mode: %@", v1, 0x16u);
 }
 
 void __88__SRUIFStateFeedbackDefaultProvider__startDelayFeedbackWithResponseMode_withCompletion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __88__SRUIFStateFeedbackDefaultProvider__startDelayFeedbackWithResponseMode_withCompletion___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

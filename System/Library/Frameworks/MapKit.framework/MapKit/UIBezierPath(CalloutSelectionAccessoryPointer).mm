@@ -1,11 +1,11 @@
 @interface UIBezierPath(CalloutSelectionAccessoryPointer)
 + (id)bezierPathWithCalloutRect:()CalloutSelectionAccessoryPointer unitLocation:edge:;
-- (uint64_t)addPointerAtUnitLocation:()CalloutSelectionAccessoryPointer rect:edge:;
+- (void)addPointerAtUnitLocation:()CalloutSelectionAccessoryPointer rect:edge:;
 @end
 
 @implementation UIBezierPath(CalloutSelectionAccessoryPointer)
 
-- (uint64_t)addPointerAtUnitLocation:()CalloutSelectionAccessoryPointer rect:edge:
+- (void)addPointerAtUnitLocation:()CalloutSelectionAccessoryPointer rect:edge:
 {
   v15 = a8 - 1;
   v16 = a3;

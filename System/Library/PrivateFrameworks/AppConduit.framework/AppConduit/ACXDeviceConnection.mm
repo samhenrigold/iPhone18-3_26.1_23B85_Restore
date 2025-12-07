@@ -26,6 +26,7 @@
 - (BOOL)installApplicationAtURL:(id)l onDeviceWithPairingID:(id)d installOptions:(id)options size:(int64_t)size installationStatus:(int64_t *)status error:(id *)error;
 - (BOOL)installApplicationAtURL:(id)l onPairedDevice:(id)device installOptions:(id)options size:(int64_t)size installationStatus:(int64_t *)status error:(id *)error;
 - (BOOL)installProvisioningProfileWithURL:(id)l onPairedDevice:(id)device error:(id *)error;
+- (BOOL)installRequestFailedForApp:(id)app onDeviceWithPairingID:(id)d failureReason:(id)reason wasUserInitiated:(BOOL)initiated error:(id *)error;
 - (BOOL)killDaemonForTestingWithError:(id *)error;
 - (BOOL)removeApplication:(id)application fromPairedDevice:(id)device removalStatus:(int64_t *)status error:(id *)error;
 - (BOOL)removeProvisioningProfileWithID:(id)d fromPairedDevice:(id)device error:(id *)error;
@@ -108,6 +109,7 @@
 - (void)removeObserver:(id)observer;
 - (void)removeProvisioningProfileWithID:(id)d fromPairedDevice:(id)device completion:(id)completion;
 - (void)retryPendingAppInstallationsForPairedDevice:(id)device;
+- (void)setAllExistingAppsShouldBeInstalled:(BOOL)installed forNewDevice:(id)device;
 - (void)setAlwaysInstall:(id)install;
 - (void)setAlwaysInstall:(id)install forDevice:(id)device;
 - (void)setUpdatePendingForCompanionApp:(id)app completion:(id)completion;
@@ -139,10 +141,11 @@
 
 uint64_t __45__ACXDeviceConnection_sharedDeviceConnection__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  sharedDeviceConnection_sharedConnection = objc_alloc_init(objc_opt_class());
+  v1 = objc_alloc_init(objc_opt_class());
+  v2 = sharedDeviceConnection_sharedConnection;
+  sharedDeviceConnection_sharedConnection = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 - (ACXDeviceConnection)init
@@ -469,11 +472,10 @@ void __63__ACXDeviceConnection__onQueue_createXPCConnectionIfNecessary___block_i
 
 void __77__ACXDeviceConnection__onQueue_enableObserversIfNeededForAValidXPCConnection__block_invoke(uint64_t a1, void *a2)
 {
-  v5 = a2;
+  v4 = a2;
   objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
   if (!gLogHandle || *(gLogHandle + 44) >= 3)
   {
-    v4 = *(a1 + 40);
     MOLogWrite();
   }
 }
@@ -705,108 +707,105 @@ void __57__ACXDeviceConnection__synchronousProxyWithErrorHandler___block_invoke(
 
 void __66__ACXDeviceConnection_updatedInstallStateForApplicationsWithInfo___block_invoke(uint64_t a1)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   obj = [*(a1 + 32) observers];
-  v2 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
+  v2 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v29;
+    v4 = *v28;
     v5 = MEMORY[0x277D85CD0];
-    v17 = *v29;
+    v16 = *v28;
     do
     {
       v6 = 0;
-      v18 = v3;
+      v17 = v3;
       do
       {
-        if (*v29 != v4)
+        if (*v28 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v28 + 1) + 8 * v6);
+        v7 = *(*(&v27 + 1) + 8 * v6);
         if (objc_opt_respondsToSelector())
         {
-          v20 = v6;
-          v26 = 0u;
-          v27 = 0u;
-          v24 = 0u;
+          v19 = v6;
           v25 = 0u;
+          v26 = 0u;
+          v23 = 0u;
+          v24 = 0u;
           v8 = *(a1 + 40);
-          v9 = [v8 countByEnumeratingWithState:&v24 objects:v32 count:16];
+          v9 = [v8 countByEnumeratingWithState:&v23 objects:v31 count:16];
           if (v9)
           {
             v10 = v9;
-            v11 = *v25;
+            v11 = *v24;
             do
             {
               for (i = 0; i != v10; ++i)
               {
-                if (*v25 != v11)
+                if (*v24 != v11)
                 {
                   objc_enumerationMutation(v8);
                 }
 
-                v13 = *(*(&v24 + 1) + 8 * i);
-                v14 = [*(a1 + 40) objectForKeyedSubscript:{v13, v17}];
+                v13 = *(*(&v23 + 1) + 8 * i);
+                v14 = [*(a1 + 40) objectForKeyedSubscript:{v13, v16}];
                 block[0] = MEMORY[0x277D85DD0];
                 block[1] = 3221225472;
                 block[2] = __66__ACXDeviceConnection_updatedInstallStateForApplicationsWithInfo___block_invoke_2;
                 block[3] = &unk_278C8D420;
                 block[4] = v7;
-                v22 = v14;
-                v23 = v13;
+                v21 = v14;
+                v22 = v13;
                 v15 = v14;
                 dispatch_async(v5, block);
               }
 
-              v10 = [v8 countByEnumeratingWithState:&v24 objects:v32 count:16];
+              v10 = [v8 countByEnumeratingWithState:&v23 objects:v31 count:16];
             }
 
             while (v10);
           }
 
-          v4 = v17;
-          v3 = v18;
-          v6 = v20;
+          v4 = v16;
+          v3 = v17;
+          v6 = v19;
         }
 
         ++v6;
       }
 
       while (v6 != v3);
-      v3 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
+      v3 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
     }
 
     while (v3);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __66__ACXDeviceConnection_updatedInstallStateForApplicationsWithInfo___block_invoke_2(uint64_t a1)
 {
   if (!gLogHandle || *(gLogHandle + 44) >= 5)
   {
-    v2 = *(a1 + 32);
-    v3 = objc_opt_class();
-    v4 = NSStringFromClass(v3);
-    v11 = *(a1 + 48);
-    v10 = *(a1 + 32);
-    v9 = v4;
+    v2 = objc_opt_class();
+    v3 = NSStringFromClass(v2);
+    v10 = *(a1 + 48);
+    v9 = *(a1 + 32);
+    v8 = v3;
     MOLogWrite();
   }
 
-  v5 = *(a1 + 48);
-  v6 = *(a1 + 32);
-  v7 = [*(a1 + 40) integerValue];
+  v4 = *(a1 + 48);
+  v5 = *(a1 + 32);
+  v6 = [*(a1 + 40) integerValue];
 
-  return [v6 updateInstallStateForApplication:v5 installState:v7];
+  return [v5 updateInstallStateForApplication:v4 installState:v6];
 }
 
 - (void)updateInstallProgressForApplication:(id)application progress:(double)progress phase:(unint64_t)phase
@@ -827,54 +826,52 @@ uint64_t __66__ACXDeviceConnection_updatedInstallStateForApplicationsWithInfo___
 
 void __74__ACXDeviceConnection_updateInstallProgressForApplication_progress_phase___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v2 = [*(a1 + 32) observers];
-  v3 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v16;
+    v5 = *v15;
     v6 = MEMORY[0x277D85CD0];
     do
     {
       v7 = 0;
       do
       {
-        if (*v16 != v5)
+        if (*v15 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v8 = *(*(&v15 + 1) + 8 * v7);
+        v8 = *(*(&v14 + 1) + 8 * v7);
         if (objc_opt_respondsToSelector())
         {
-          v11[0] = MEMORY[0x277D85DD0];
-          v11[1] = 3221225472;
-          v11[2] = __74__ACXDeviceConnection_updateInstallProgressForApplication_progress_phase___block_invoke_2;
-          v11[3] = &unk_278C8D448;
+          v10[0] = MEMORY[0x277D85DD0];
+          v10[1] = 3221225472;
+          v10[2] = __74__ACXDeviceConnection_updateInstallProgressForApplication_progress_phase___block_invoke_2;
+          v10[3] = &unk_278C8D448;
           v9 = *(a1 + 40);
-          v13 = *(a1 + 48);
-          v11[4] = v8;
-          v14 = *(a1 + 56);
-          v12 = v9;
-          dispatch_async(v6, v11);
+          v12 = *(a1 + 48);
+          v10[4] = v8;
+          v13 = *(a1 + 56);
+          v11 = v9;
+          dispatch_async(v6, v10);
         }
 
         ++v7;
       }
 
       while (v4 != v7);
-      v4 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v4);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __74__ACXDeviceConnection_updateInstallProgressForApplication_progress_phase___block_invoke_2(double *a1)
@@ -891,20 +888,16 @@ uint64_t __74__ACXDeviceConnection_updateInstallProgressForApplication_progress_
 
   if (gLogHandle && *(gLogHandle + 44) >= 7)
   {
-    v3 = *(a1 + 4);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
-    v12 = *(a1 + 5);
-    v11 = *(a1 + 7);
-    v10 = *(a1 + 4);
+    v3 = objc_opt_class();
+    v4 = NSStringFromClass(v3);
     MOLogWrite();
   }
 
-  v6 = *(a1 + 4);
-  v7 = *(a1 + 5);
-  v8 = a1[7];
+  v5 = *(a1 + 4);
+  v6 = *(a1 + 5);
+  v7 = a1[7];
 
-  return [v6 updateInstallProgressForApplication:v7 progress:v2 installPhase:v8];
+  return [v5 updateInstallProgressForApplication:v6 progress:v2 installPhase:v7];
 }
 
 - (void)applicationsInstalled:(id)installed onDeviceWithPairingID:(id)d
@@ -926,28 +919,28 @@ uint64_t __74__ACXDeviceConnection_updateInstallProgressForApplication_progress_
 
 void __67__ACXDeviceConnection_applicationsInstalled_onDeviceWithPairingID___block_invoke(id *a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v2 = [a1[4] observers];
-  v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v14;
+    v5 = *v13;
     do
     {
       v6 = 0;
       do
       {
-        if (*v14 != v5)
+        if (*v13 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v13 + 1) + 8 * v6);
+        v7 = *(*(&v12 + 1) + 8 * v6);
         if (objc_opt_respondsToSelector())
         {
           v8 = [a1[4] observerQueue];
@@ -956,8 +949,8 @@ void __67__ACXDeviceConnection_applicationsInstalled_onDeviceWithPairingID___blo
           block[2] = __67__ACXDeviceConnection_applicationsInstalled_onDeviceWithPairingID___block_invoke_2;
           block[3] = &unk_278C8D420;
           block[4] = v7;
-          v11 = a1[5];
-          v12 = a1[6];
+          v10 = a1[5];
+          v11 = a1[6];
           dispatch_async(v8, block);
         }
 
@@ -965,33 +958,28 @@ void __67__ACXDeviceConnection_applicationsInstalled_onDeviceWithPairingID___blo
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v4);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __67__ACXDeviceConnection_applicationsInstalled_onDeviceWithPairingID___block_invoke_2(uint64_t a1)
 {
   if (!gLogHandle || *(gLogHandle + 44) >= 5)
   {
-    v2 = *(a1 + 32);
-    v3 = objc_opt_class();
-    v4 = NSStringFromClass(v3);
-    v5 = *(a1 + 32);
+    v2 = objc_opt_class();
+    v3 = NSStringFromClass(v2);
     [*(a1 + 40) count];
-    v10 = *(a1 + 48);
     MOLogWrite();
   }
 
-  v6 = *(a1 + 32);
-  v7 = *(a1 + 40);
-  v8 = *(a1 + 48);
+  v4 = *(a1 + 32);
+  v5 = *(a1 + 40);
+  v6 = *(a1 + 48);
 
-  return [v6 applicationsInstalled:v7 onDeviceWithPairingID:v8];
+  return [v4 applicationsInstalled:v5 onDeviceWithPairingID:v6];
 }
 
 - (void)applicationsUpdated:(id)updated onDeviceWithPairingID:(id)d
@@ -1013,28 +1001,28 @@ uint64_t __67__ACXDeviceConnection_applicationsInstalled_onDeviceWithPairingID__
 
 void __65__ACXDeviceConnection_applicationsUpdated_onDeviceWithPairingID___block_invoke(id *a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v2 = [a1[4] observers];
-  v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v14;
+    v5 = *v13;
     do
     {
       v6 = 0;
       do
       {
-        if (*v14 != v5)
+        if (*v13 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v13 + 1) + 8 * v6);
+        v7 = *(*(&v12 + 1) + 8 * v6);
         if (objc_opt_respondsToSelector())
         {
           v8 = [a1[4] observerQueue];
@@ -1043,8 +1031,8 @@ void __65__ACXDeviceConnection_applicationsUpdated_onDeviceWithPairingID___block
           block[2] = __65__ACXDeviceConnection_applicationsUpdated_onDeviceWithPairingID___block_invoke_2;
           block[3] = &unk_278C8D420;
           block[4] = v7;
-          v11 = a1[5];
-          v12 = a1[6];
+          v10 = a1[5];
+          v11 = a1[6];
           dispatch_async(v8, block);
         }
 
@@ -1052,33 +1040,28 @@ void __65__ACXDeviceConnection_applicationsUpdated_onDeviceWithPairingID___block
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v4);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __65__ACXDeviceConnection_applicationsUpdated_onDeviceWithPairingID___block_invoke_2(uint64_t a1)
 {
   if (!gLogHandle || *(gLogHandle + 44) >= 5)
   {
-    v2 = *(a1 + 32);
-    v3 = objc_opt_class();
-    v4 = NSStringFromClass(v3);
-    v5 = *(a1 + 32);
+    v2 = objc_opt_class();
+    v3 = NSStringFromClass(v2);
     [*(a1 + 40) count];
-    v10 = *(a1 + 48);
     MOLogWrite();
   }
 
-  v6 = *(a1 + 32);
-  v7 = *(a1 + 40);
-  v8 = *(a1 + 48);
+  v4 = *(a1 + 32);
+  v5 = *(a1 + 40);
+  v6 = *(a1 + 48);
 
-  return [v6 applicationsUpdated:v7 onDeviceWithPairingID:v8];
+  return [v4 applicationsUpdated:v5 onDeviceWithPairingID:v6];
 }
 
 - (void)applicationsUninstalled:(id)uninstalled onDeviceWithPairingID:(id)d
@@ -1100,96 +1083,12 @@ uint64_t __65__ACXDeviceConnection_applicationsUpdated_onDeviceWithPairingID___b
 
 void __69__ACXDeviceConnection_applicationsUninstalled_onDeviceWithPairingID___block_invoke(id *a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v13 = 0u;
-  v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v2 = [a1[4] observers];
-  v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
-  if (v3)
-  {
-    v4 = v3;
-    v5 = *v14;
-    do
-    {
-      v6 = 0;
-      do
-      {
-        if (*v14 != v5)
-        {
-          objc_enumerationMutation(v2);
-        }
-
-        v7 = *(*(&v13 + 1) + 8 * v6);
-        if (objc_opt_respondsToSelector())
-        {
-          v8 = [a1[4] observerQueue];
-          block[0] = MEMORY[0x277D85DD0];
-          block[1] = 3221225472;
-          block[2] = __69__ACXDeviceConnection_applicationsUninstalled_onDeviceWithPairingID___block_invoke_2;
-          block[3] = &unk_278C8D420;
-          block[4] = v7;
-          v11 = a1[5];
-          v12 = a1[6];
-          dispatch_async(v8, block);
-        }
-
-        ++v6;
-      }
-
-      while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
-    }
-
-    while (v4);
-  }
-
-  v9 = *MEMORY[0x277D85DE8];
-}
-
-uint64_t __69__ACXDeviceConnection_applicationsUninstalled_onDeviceWithPairingID___block_invoke_2(uint64_t a1)
-{
-  if (!gLogHandle || *(gLogHandle + 44) >= 5)
-  {
-    v2 = *(a1 + 32);
-    v3 = objc_opt_class();
-    v4 = NSStringFromClass(v3);
-    v5 = *(a1 + 32);
-    [*(a1 + 40) count];
-    v10 = *(a1 + 48);
-    MOLogWrite();
-  }
-
-  v6 = *(a1 + 32);
-  v7 = *(a1 + 40);
-  v8 = *(a1 + 48);
-
-  return [v6 applicationsUninstalled:v7 onDeviceWithPairingID:v8];
-}
-
-- (void)applicationDatabaseResyncedForDeviceWithPairingID:(id)d
-{
-  dCopy = d;
-  internalQueue = [(ACXDeviceConnection *)self internalQueue];
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __73__ACXDeviceConnection_applicationDatabaseResyncedForDeviceWithPairingID___block_invoke;
-  v7[3] = &unk_278C8D358;
-  v7[4] = self;
-  v8 = dCopy;
-  v6 = dCopy;
-  dispatch_sync(internalQueue, v7);
-}
-
-void __73__ACXDeviceConnection_applicationDatabaseResyncedForDeviceWithPairingID___block_invoke(uint64_t a1)
-{
   v17 = *MEMORY[0x277D85DE8];
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v2 = [*(a1 + 32) observers];
+  v2 = [a1[4] observers];
   v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v3)
   {
@@ -1208,14 +1107,15 @@ void __73__ACXDeviceConnection_applicationDatabaseResyncedForDeviceWithPairingID
         v7 = *(*(&v12 + 1) + 8 * v6);
         if (objc_opt_respondsToSelector())
         {
-          v8 = [*(a1 + 32) observerQueue];
-          v10[0] = MEMORY[0x277D85DD0];
-          v10[1] = 3221225472;
-          v10[2] = __73__ACXDeviceConnection_applicationDatabaseResyncedForDeviceWithPairingID___block_invoke_2;
-          v10[3] = &unk_278C8D358;
-          v10[4] = v7;
-          v11 = *(a1 + 40);
-          dispatch_async(v8, v10);
+          v8 = [a1[4] observerQueue];
+          block[0] = MEMORY[0x277D85DD0];
+          block[1] = 3221225472;
+          block[2] = __69__ACXDeviceConnection_applicationsUninstalled_onDeviceWithPairingID___block_invoke_2;
+          block[3] = &unk_278C8D420;
+          block[4] = v7;
+          v10 = a1[5];
+          v11 = a1[6];
+          dispatch_async(v8, block);
         }
 
         ++v6;
@@ -1227,127 +1127,40 @@ void __73__ACXDeviceConnection_applicationDatabaseResyncedForDeviceWithPairingID
 
     while (v4);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __73__ACXDeviceConnection_applicationDatabaseResyncedForDeviceWithPairingID___block_invoke_2(uint64_t a1)
+uint64_t __69__ACXDeviceConnection_applicationsUninstalled_onDeviceWithPairingID___block_invoke_2(uint64_t a1)
 {
   if (!gLogHandle || *(gLogHandle + 44) >= 5)
   {
-    v2 = *(a1 + 32);
-    v3 = objc_opt_class();
-    v4 = NSStringFromClass(v3);
-    v8 = *(a1 + 32);
-    v9 = *(a1 + 40);
+    v2 = objc_opt_class();
+    v3 = NSStringFromClass(v2);
+    [*(a1 + 40) count];
     MOLogWrite();
   }
 
-  v5 = *(a1 + 32);
-  v6 = *(a1 + 40);
+  v4 = *(a1 + 32);
+  v5 = *(a1 + 40);
+  v6 = *(a1 + 48);
 
-  return [v5 applicationDatabaseResyncedForDeviceWithPairingID:v6];
+  return [v4 applicationsUninstalled:v5 onDeviceWithPairingID:v6];
 }
 
-- (void)removabilityDidChangeForApplications:(id)applications onDeviceWithPairingID:(id)d
+- (void)applicationDatabaseResyncedForDeviceWithPairingID:(id)d
 {
-  applicationsCopy = applications;
   dCopy = d;
   internalQueue = [(ACXDeviceConnection *)self internalQueue];
-  block[0] = MEMORY[0x277D85DD0];
-  block[1] = 3221225472;
-  block[2] = __82__ACXDeviceConnection_removabilityDidChangeForApplications_onDeviceWithPairingID___block_invoke;
-  block[3] = &unk_278C8D420;
-  block[4] = self;
-  v12 = applicationsCopy;
-  v13 = dCopy;
-  v9 = dCopy;
-  v10 = applicationsCopy;
-  dispatch_sync(internalQueue, block);
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __73__ACXDeviceConnection_applicationDatabaseResyncedForDeviceWithPairingID___block_invoke;
+  v7[3] = &unk_278C8D358;
+  v7[4] = self;
+  v8 = dCopy;
+  v6 = dCopy;
+  dispatch_sync(internalQueue, v7);
 }
 
-void __82__ACXDeviceConnection_removabilityDidChangeForApplications_onDeviceWithPairingID___block_invoke(id *a1)
-{
-  v18 = *MEMORY[0x277D85DE8];
-  v13 = 0u;
-  v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v2 = [a1[4] observers];
-  v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
-  if (v3)
-  {
-    v4 = v3;
-    v5 = *v14;
-    do
-    {
-      v6 = 0;
-      do
-      {
-        if (*v14 != v5)
-        {
-          objc_enumerationMutation(v2);
-        }
-
-        v7 = *(*(&v13 + 1) + 8 * v6);
-        if (objc_opt_respondsToSelector())
-        {
-          v8 = [a1[4] observerQueue];
-          block[0] = MEMORY[0x277D85DD0];
-          block[1] = 3221225472;
-          block[2] = __82__ACXDeviceConnection_removabilityDidChangeForApplications_onDeviceWithPairingID___block_invoke_2;
-          block[3] = &unk_278C8D420;
-          block[4] = v7;
-          v11 = a1[5];
-          v12 = a1[6];
-          dispatch_async(v8, block);
-        }
-
-        ++v6;
-      }
-
-      while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
-    }
-
-    while (v4);
-  }
-
-  v9 = *MEMORY[0x277D85DE8];
-}
-
-uint64_t __82__ACXDeviceConnection_removabilityDidChangeForApplications_onDeviceWithPairingID___block_invoke_2(uint64_t a1)
-{
-  if (!gLogHandle || *(gLogHandle + 44) >= 5)
-  {
-    v2 = *(a1 + 32);
-    v3 = objc_opt_class();
-    v4 = NSStringFromClass(v3);
-    v5 = *(a1 + 32);
-    [*(a1 + 40) count];
-    v10 = *(a1 + 48);
-    MOLogWrite();
-  }
-
-  v6 = *(a1 + 32);
-  v7 = *(a1 + 40);
-  v8 = *(a1 + 48);
-
-  return [v6 removabilityDidChangeForApplications:v7 onDeviceWithPairingID:v8];
-}
-
-- (void)observerRegistrationSuccessful
-{
-  internalQueue = [(ACXDeviceConnection *)self internalQueue];
-  block[0] = MEMORY[0x277D85DD0];
-  block[1] = 3221225472;
-  block[2] = __53__ACXDeviceConnection_observerRegistrationSuccessful__block_invoke;
-  block[3] = &unk_278C8D380;
-  block[4] = self;
-  dispatch_sync(internalQueue, block);
-}
-
-void __53__ACXDeviceConnection_observerRegistrationSuccessful__block_invoke(uint64_t a1)
+void __73__ACXDeviceConnection_applicationDatabaseResyncedForDeviceWithPairingID___block_invoke(uint64_t a1)
 {
   v16 = *MEMORY[0x277D85DE8];
   v11 = 0u;
@@ -1374,6 +1187,161 @@ void __53__ACXDeviceConnection_observerRegistrationSuccessful__block_invoke(uint
         if (objc_opt_respondsToSelector())
         {
           v8 = [*(a1 + 32) observerQueue];
+          v9[0] = MEMORY[0x277D85DD0];
+          v9[1] = 3221225472;
+          v9[2] = __73__ACXDeviceConnection_applicationDatabaseResyncedForDeviceWithPairingID___block_invoke_2;
+          v9[3] = &unk_278C8D358;
+          v9[4] = v7;
+          v10 = *(a1 + 40);
+          dispatch_async(v8, v9);
+        }
+
+        ++v6;
+      }
+
+      while (v4 != v6);
+      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    }
+
+    while (v4);
+  }
+}
+
+uint64_t __73__ACXDeviceConnection_applicationDatabaseResyncedForDeviceWithPairingID___block_invoke_2(uint64_t a1)
+{
+  if (!gLogHandle || *(gLogHandle + 44) >= 5)
+  {
+    v2 = objc_opt_class();
+    v3 = NSStringFromClass(v2);
+    MOLogWrite();
+  }
+
+  v4 = *(a1 + 32);
+  v5 = *(a1 + 40);
+
+  return [v4 applicationDatabaseResyncedForDeviceWithPairingID:v5];
+}
+
+- (void)removabilityDidChangeForApplications:(id)applications onDeviceWithPairingID:(id)d
+{
+  applicationsCopy = applications;
+  dCopy = d;
+  internalQueue = [(ACXDeviceConnection *)self internalQueue];
+  block[0] = MEMORY[0x277D85DD0];
+  block[1] = 3221225472;
+  block[2] = __82__ACXDeviceConnection_removabilityDidChangeForApplications_onDeviceWithPairingID___block_invoke;
+  block[3] = &unk_278C8D420;
+  block[4] = self;
+  v12 = applicationsCopy;
+  v13 = dCopy;
+  v9 = dCopy;
+  v10 = applicationsCopy;
+  dispatch_sync(internalQueue, block);
+}
+
+void __82__ACXDeviceConnection_removabilityDidChangeForApplications_onDeviceWithPairingID___block_invoke(id *a1)
+{
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v2 = [a1[4] observers];
+  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v3)
+  {
+    v4 = v3;
+    v5 = *v13;
+    do
+    {
+      v6 = 0;
+      do
+      {
+        if (*v13 != v5)
+        {
+          objc_enumerationMutation(v2);
+        }
+
+        v7 = *(*(&v12 + 1) + 8 * v6);
+        if (objc_opt_respondsToSelector())
+        {
+          v8 = [a1[4] observerQueue];
+          block[0] = MEMORY[0x277D85DD0];
+          block[1] = 3221225472;
+          block[2] = __82__ACXDeviceConnection_removabilityDidChangeForApplications_onDeviceWithPairingID___block_invoke_2;
+          block[3] = &unk_278C8D420;
+          block[4] = v7;
+          v10 = a1[5];
+          v11 = a1[6];
+          dispatch_async(v8, block);
+        }
+
+        ++v6;
+      }
+
+      while (v4 != v6);
+      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    }
+
+    while (v4);
+  }
+}
+
+uint64_t __82__ACXDeviceConnection_removabilityDidChangeForApplications_onDeviceWithPairingID___block_invoke_2(uint64_t a1)
+{
+  if (!gLogHandle || *(gLogHandle + 44) >= 5)
+  {
+    v2 = objc_opt_class();
+    v3 = NSStringFromClass(v2);
+    [*(a1 + 40) count];
+    MOLogWrite();
+  }
+
+  v4 = *(a1 + 32);
+  v5 = *(a1 + 40);
+  v6 = *(a1 + 48);
+
+  return [v4 removabilityDidChangeForApplications:v5 onDeviceWithPairingID:v6];
+}
+
+- (void)observerRegistrationSuccessful
+{
+  internalQueue = [(ACXDeviceConnection *)self internalQueue];
+  block[0] = MEMORY[0x277D85DD0];
+  block[1] = 3221225472;
+  block[2] = __53__ACXDeviceConnection_observerRegistrationSuccessful__block_invoke;
+  block[3] = &unk_278C8D380;
+  block[4] = self;
+  dispatch_sync(internalQueue, block);
+}
+
+void __53__ACXDeviceConnection_observerRegistrationSuccessful__block_invoke(uint64_t a1)
+{
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v2 = [*(a1 + 32) observers];
+  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v3)
+  {
+    v4 = v3;
+    v5 = *v11;
+    do
+    {
+      v6 = 0;
+      do
+      {
+        if (*v11 != v5)
+        {
+          objc_enumerationMutation(v2);
+        }
+
+        v7 = *(*(&v10 + 1) + 8 * v6);
+        if (objc_opt_respondsToSelector())
+        {
+          v8 = [*(a1 + 32) observerQueue];
           block[0] = MEMORY[0x277D85DD0];
           block[1] = 3221225472;
           block[2] = __53__ACXDeviceConnection_observerRegistrationSuccessful__block_invoke_2;
@@ -1386,29 +1354,25 @@ void __53__ACXDeviceConnection_observerRegistrationSuccessful__block_invoke(uint
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v4);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __53__ACXDeviceConnection_observerRegistrationSuccessful__block_invoke_2(uint64_t a1)
 {
   if (!gLogHandle || *(gLogHandle + 44) >= 5)
   {
-    v2 = *(a1 + 32);
-    v3 = objc_opt_class();
-    v6 = NSStringFromClass(v3);
-    v7 = *(a1 + 32);
+    v2 = objc_opt_class();
+    v5 = NSStringFromClass(v2);
     MOLogWrite();
   }
 
-  v4 = *(a1 + 32);
+  v3 = *(a1 + 32);
 
-  return [v4 observerRegistered];
+  return [v3 observerRegistered];
 }
 
 + (void)performUninstallationCleanup
@@ -2021,18 +1985,18 @@ void __82__ACXDeviceConnection_installApplication_onPairedDevice_installationSta
   profilesCopy = profiles;
   if (!profilesCopy)
   {
-    v17 = objc_opt_new();
-    v10 = 0;
+    v18 = objc_opt_new();
+    v11 = 0;
     goto LABEL_14;
   }
 
-  objc_opt_class();
-  if ((ACXArrayContainsOnlyClass(profilesCopy) & 1) == 0)
+  v6 = objc_opt_class();
+  if ((ACXArrayContainsOnlyClass(profilesCopy, v6) & 1) == 0)
   {
-    v10 = _CreateAndLogError("[ACXDeviceConnection _validateAndExtractProfiles:error:]", 693, @"ACXErrorDomain", 20, 0, 0, @"Profiles array did not contain only NSURL objects", v6, v24);
-    v17 = 0;
+    v11 = _CreateAndLogError("[ACXDeviceConnection _validateAndExtractProfiles:error:]", 693, @"ACXErrorDomain", 20, 0, 0, @"Profiles array did not contain only NSURL objects", v7, v24);
+    v18 = 0;
 LABEL_14:
-    v7 = 0;
+    v8 = 0;
     if (!error)
     {
       goto LABEL_22;
@@ -2041,55 +2005,55 @@ LABEL_14:
     goto LABEL_20;
   }
 
-  v7 = objc_opt_new();
+  v8 = objc_opt_new();
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v25 = profilesCopy;
   obj = profilesCopy;
-  v8 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
-  if (v8)
+  v9 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+  if (v9)
   {
-    v9 = v8;
-    v10 = 0;
-    v11 = *v29;
+    v10 = v9;
+    v11 = 0;
+    v12 = *v29;
     while (2)
     {
-      v12 = 0;
-      v13 = v10;
+      v13 = 0;
+      v14 = v11;
       do
       {
-        if (*v29 != v11)
+        if (*v29 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v28 + 1) + 8 * v12);
-        lastPathComponent = [v14 lastPathComponent];
-        v27 = v13;
-        v16 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:v14 options:3 error:&v27];
-        v10 = v27;
+        v15 = *(*(&v28 + 1) + 8 * v13);
+        lastPathComponent = [v15 lastPathComponent];
+        v27 = v14;
+        v17 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:v15 options:3 error:&v27];
+        v11 = v27;
 
-        if (!v16)
+        if (!v17)
         {
-          path = [v14 path];
-          v20 = _CreateAndLogError("[ACXDeviceConnection _validateAndExtractProfiles:error:]", 702, @"ACXErrorDomain", 21, v10, 0, @"Failed to read profile at %@ : %@", v19, path);
+          path = [v15 path];
+          v21 = _CreateAndLogError("[ACXDeviceConnection _validateAndExtractProfiles:error:]", 702, @"ACXErrorDomain", 21, v11, 0, @"Failed to read profile at %@ : %@", v20, path);
 
-          v17 = 0;
-          v10 = v20;
+          v18 = 0;
+          v11 = v21;
           goto LABEL_19;
         }
 
-        [v7 setObject:v16 forKeyedSubscript:lastPathComponent];
+        [v8 setObject:v17 forKeyedSubscript:lastPathComponent];
 
-        ++v12;
-        v13 = v10;
+        ++v13;
+        v14 = v11;
       }
 
-      while (v9 != v12);
-      v9 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
-      if (v9)
+      while (v10 != v13);
+      v10 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+      if (v10)
       {
         continue;
       }
@@ -2100,28 +2064,26 @@ LABEL_14:
 
   else
   {
-    v10 = 0;
+    v11 = 0;
   }
 
-  v17 = v7;
-  v7 = v17;
+  v18 = v8;
+  v8 = v18;
 LABEL_19:
   profilesCopy = v25;
   if (error)
   {
 LABEL_20:
-    if (!v17)
+    if (!v18)
     {
-      v21 = v10;
-      *error = v10;
+      v22 = v11;
+      *error = v11;
     }
   }
 
 LABEL_22:
 
-  v22 = *MEMORY[0x277D85DE8];
-
-  return v17;
+  return v18;
 }
 
 - (void)installApplication:(id)application withProvisioningProfiles:(id)profiles onPairedDevice:(id)device completion:(id)completion
@@ -2554,6 +2516,35 @@ void __78__ACXDeviceConnection_removeApplication_fromPairedDevice_removalStatus_
   else if (!gLogHandle || *(gLogHandle + 44) >= 3)
   {
     uUIDString2 = [v8 UUIDString];
+    MOLogWrite();
+  }
+}
+
+- (void)setAllExistingAppsShouldBeInstalled:(BOOL)installed forNewDevice:(id)device
+{
+  installedCopy = installed;
+  v5 = MEMORY[0x277D2BA58];
+  deviceCopy = device;
+  v12 = [[v5 alloc] initWithDomain:@"com.apple.appconduitd.gizmostate" pairedDevice:deviceCopy];
+  v7 = [deviceCopy valueForProperty:*MEMORY[0x277D2BBB8]];
+
+  if (v12)
+  {
+    if (!gLogHandle || *(gLogHandle + 44) >= 5)
+    {
+      uUIDString = [v7 UUIDString];
+      v10 = ACXYOrN(installedCopy);
+      MOLogWrite();
+    }
+
+    [v12 setBool:installedCopy forKey:{@"InitiallyInstallAllExistingApps", uUIDString, v10}];
+    synchronize = [v12 synchronize];
+  }
+
+  else if (!gLogHandle || *(gLogHandle + 44) >= 3)
+  {
+    ACXYOrN(installedCopy);
+    uUIDString2 = [v7 UUIDString];
     MOLogWrite();
   }
 }
@@ -3535,38 +3526,37 @@ void __85__ACXDeviceConnection_enumerateInstalledApplicationsOnDeviceWithPairing
     if ([v5 count])
     {
       v7 = [v5 mutableCopy];
-      v20 = 0;
-      v21 = &v20;
-      v22 = 0x3042000000;
-      v23 = __Block_byref_object_copy__155;
-      v24 = __Block_byref_object_dispose__156;
-      v25 = 0;
-      v15[0] = MEMORY[0x277D85DD0];
-      v15[1] = 3221225472;
-      v15[2] = __85__ACXDeviceConnection_enumerateInstalledApplicationsOnDeviceWithPairingID_withBlock___block_invoke_157;
-      v15[3] = &unk_278C8D668;
-      v19 = &v20;
-      v18 = *(a1 + 48);
+      v19 = 0;
+      v20 = &v19;
+      v21 = 0x3042000000;
+      v22 = __Block_byref_object_copy__155;
+      v23 = __Block_byref_object_dispose__156;
+      v24 = 0;
+      v14[0] = MEMORY[0x277D85DD0];
+      v14[1] = 3221225472;
+      v14[2] = __85__ACXDeviceConnection_enumerateInstalledApplicationsOnDeviceWithPairingID_withBlock___block_invoke_157;
+      v14[3] = &unk_278C8D668;
+      v18 = &v19;
+      v17 = *(a1 + 48);
       v8 = v7;
-      v16 = v8;
-      v14 = *(a1 + 32);
-      v9 = v14.i64[0];
-      v17 = vextq_s8(v14, v14, 8uLL);
-      v10 = [v15 copy];
-      objc_storeWeak(v21 + 5, v10);
+      v15 = v8;
+      v13 = *(a1 + 32);
+      v9 = v13.i64[0];
+      v16 = vextq_s8(v13, v13, 8uLL);
+      v10 = [v14 copy];
+      objc_storeWeak(v20 + 5, v10);
       v11 = qos_class_self();
       v12 = dispatch_get_global_queue(v11, 0);
       dispatch_async(v12, v10);
 
-      _Block_object_dispose(&v20, 8);
-      objc_destroyWeak(&v25);
+      _Block_object_dispose(&v19, 8);
+      objc_destroyWeak(&v24);
 
       goto LABEL_8;
     }
 
     if (!gLogHandle || *(gLogHandle + 44) >= 5)
     {
-      v13 = *(a1 + 32);
       MOLogWrite();
     }
   }
@@ -3676,16 +3666,13 @@ void __85__ACXDeviceConnection_enumerateInstalledApplicationsOnDeviceWithPairing
 LABEL_14:
       if (!gLogHandle || *(gLogHandle + 44) >= 3)
       {
-        v10 = *(a1 + 40);
-        v12 = *(a1 + 32);
         MOLogWrite();
       }
 
-      v7 = *(a1 + 32);
-      v8 = *(*(a1 + 64) + 16);
+      v6 = *(*(a1 + 64) + 16);
 LABEL_26:
 
-      v8();
+      v6();
       return;
     }
   }
@@ -3694,16 +3681,14 @@ LABEL_26:
   {
     if (!gLogHandle || *(gLogHandle + 44) >= 5)
     {
-      v9 = *(a1 + 40);
+      v7 = *(a1 + 40);
       MOLogWrite();
     }
 
-    v5 = *(a1 + 48);
     if (!(*(*(a1 + 64) + 16))(*(a1 + 64)))
     {
       if (!gLogHandle || *(gLogHandle + 44) >= 5)
       {
-        v11 = *(a1 + 40);
         MOLogWrite();
       }
 
@@ -3718,13 +3703,13 @@ LABEL_26:
       MOLogWrite();
     }
 
-    v8 = *(*(a1 + 64) + 16);
+    v6 = *(*(a1 + 64) + 16);
     goto LABEL_26;
   }
 
-  v6 = qos_class_self();
-  v13 = dispatch_get_global_queue(v6, 0);
-  dispatch_async(v13, *(a1 + 72));
+  v5 = qos_class_self();
+  v8 = dispatch_get_global_queue(v5, 0);
+  dispatch_async(v8, *(a1 + 72));
 }
 
 - (void)enumerateLocallyAvailableApplicationsForPairedDevice:(id)device options:(unint64_t)options withBlock:(id)block
@@ -3923,8 +3908,8 @@ void __101__ACXDeviceConnection_enumerateLocallyAvailableApplicationsForDeviceWi
   {
     if (*(a1 + 80))
     {
-      v4 = [v2 domain];
-      if ([v4 isEqualToString:@"ACXErrorDomain"] && objc_msgSend(*(a1 + 32), "code") == 37)
+      v3 = [v2 domain];
+      if ([v3 isEqualToString:@"ACXErrorDomain"] && objc_msgSend(*(a1 + 32), "code") == 37)
       {
 
 LABEL_22:
@@ -3932,9 +3917,9 @@ LABEL_22:
 LABEL_23:
         if ([*(a1 + 56) count])
         {
-          v9 = qos_class_self();
-          v16 = dispatch_get_global_queue(v9, 0);
-          dispatch_async(v16, *(a1 + 72));
+          v8 = qos_class_self();
+          v11 = dispatch_get_global_queue(v8, 0);
+          dispatch_async(v11, *(a1 + 72));
 
           return;
         }
@@ -3944,16 +3929,16 @@ LABEL_23:
           MOLogWrite();
         }
 
-        v11 = *(*(a1 + 64) + 16);
+        v9 = *(*(a1 + 64) + 16);
         goto LABEL_36;
       }
 
-      v5 = [*(a1 + 32) domain];
-      if ([v5 isEqualToString:@"ACXErrorDomain"])
+      v4 = [*(a1 + 32) domain];
+      if ([v4 isEqualToString:@"ACXErrorDomain"])
       {
-        v6 = [*(a1 + 32) code];
+        v5 = [*(a1 + 32) code];
 
-        if (v6 == 38)
+        if (v5 == 38)
         {
           goto LABEL_22;
         }
@@ -3964,12 +3949,12 @@ LABEL_23:
       }
     }
 
-    v7 = [*(a1 + 32) domain];
-    if ([v7 isEqualToString:@"ACXErrorDomain"])
+    v6 = [*(a1 + 32) domain];
+    if ([v6 isEqualToString:@"ACXErrorDomain"])
     {
-      v8 = [*(a1 + 32) code];
+      v7 = [*(a1 + 32) code];
 
-      if (v8 == 19)
+      if (v7 == 19)
       {
         goto LABEL_22;
       }
@@ -3981,16 +3966,13 @@ LABEL_23:
 
     if (!gLogHandle || *(gLogHandle + 44) >= 3)
     {
-      v14 = *(a1 + 40);
-      v15 = *(a1 + 32);
       MOLogWrite();
     }
 
-    v10 = *(a1 + 32);
-    v11 = *(*(a1 + 64) + 16);
+    v9 = *(*(a1 + 64) + 16);
 LABEL_36:
 
-    v11();
+    v9();
     return;
   }
 
@@ -4001,11 +3983,10 @@ LABEL_36:
 
   if (!gLogHandle || *(gLogHandle + 44) >= 5)
   {
-    v12 = *(a1 + 40);
+    v10 = *(a1 + 40);
     MOLogWrite();
   }
 
-  v3 = *(a1 + 48);
   if ((*(*(a1 + 64) + 16))(*(a1 + 64)))
   {
     goto LABEL_23;
@@ -4013,7 +3994,6 @@ LABEL_36:
 
   if (!gLogHandle || *(gLogHandle + 44) >= 5)
   {
-    v13 = *(a1 + 40);
     MOLogWrite();
   }
 }
@@ -5130,38 +5110,37 @@ void __85__ACXDeviceConnection_enumerateInstallableSystemAppsOnDeviceWithPairing
     if ([v5 count])
     {
       v7 = [v5 mutableCopy];
-      v20 = 0;
-      v21 = &v20;
-      v22 = 0x3042000000;
-      v23 = __Block_byref_object_copy__155;
-      v24 = __Block_byref_object_dispose__156;
-      v25 = 0;
-      v15[0] = MEMORY[0x277D85DD0];
-      v15[1] = 3221225472;
-      v15[2] = __85__ACXDeviceConnection_enumerateInstallableSystemAppsOnDeviceWithPairingID_withBlock___block_invoke_3;
-      v15[3] = &unk_278C8D668;
-      v19 = &v20;
-      v18 = *(a1 + 48);
+      v19 = 0;
+      v20 = &v19;
+      v21 = 0x3042000000;
+      v22 = __Block_byref_object_copy__155;
+      v23 = __Block_byref_object_dispose__156;
+      v24 = 0;
+      v14[0] = MEMORY[0x277D85DD0];
+      v14[1] = 3221225472;
+      v14[2] = __85__ACXDeviceConnection_enumerateInstallableSystemAppsOnDeviceWithPairingID_withBlock___block_invoke_3;
+      v14[3] = &unk_278C8D668;
+      v18 = &v19;
+      v17 = *(a1 + 48);
       v8 = v7;
-      v16 = v8;
-      v14 = *(a1 + 32);
-      v9 = v14.i64[0];
-      v17 = vextq_s8(v14, v14, 8uLL);
-      v10 = [v15 copy];
-      objc_storeWeak(v21 + 5, v10);
+      v15 = v8;
+      v13 = *(a1 + 32);
+      v9 = v13.i64[0];
+      v16 = vextq_s8(v13, v13, 8uLL);
+      v10 = [v14 copy];
+      objc_storeWeak(v20 + 5, v10);
       v11 = qos_class_self();
       v12 = dispatch_get_global_queue(v11, 0);
       dispatch_async(v12, v10);
 
-      _Block_object_dispose(&v20, 8);
-      objc_destroyWeak(&v25);
+      _Block_object_dispose(&v19, 8);
+      objc_destroyWeak(&v24);
 
       goto LABEL_8;
     }
 
     if (!gLogHandle || *(gLogHandle + 44) >= 5)
     {
-      v13 = *(a1 + 32);
       MOLogWrite();
     }
   }
@@ -5271,16 +5250,13 @@ void __85__ACXDeviceConnection_enumerateInstallableSystemAppsOnDeviceWithPairing
 LABEL_14:
       if (!gLogHandle || *(gLogHandle + 44) >= 3)
       {
-        v10 = *(a1 + 40);
-        v12 = *(a1 + 32);
         MOLogWrite();
       }
 
-      v7 = *(a1 + 32);
-      v8 = *(*(a1 + 64) + 16);
+      v6 = *(*(a1 + 64) + 16);
 LABEL_26:
 
-      v8();
+      v6();
       return;
     }
   }
@@ -5289,16 +5265,14 @@ LABEL_26:
   {
     if (!gLogHandle || *(gLogHandle + 44) >= 5)
     {
-      v9 = *(a1 + 40);
+      v7 = *(a1 + 40);
       MOLogWrite();
     }
 
-    v5 = *(a1 + 48);
     if (!(*(*(a1 + 64) + 16))(*(a1 + 64)))
     {
       if (!gLogHandle || *(gLogHandle + 44) >= 5)
       {
-        v11 = *(a1 + 40);
         MOLogWrite();
       }
 
@@ -5313,13 +5287,13 @@ LABEL_26:
       MOLogWrite();
     }
 
-    v8 = *(*(a1 + 64) + 16);
+    v6 = *(*(a1 + 64) + 16);
     goto LABEL_26;
   }
 
-  v6 = qos_class_self();
-  v13 = dispatch_get_global_queue(v6, 0);
-  dispatch_async(v13, *(a1 + 72));
+  v5 = qos_class_self();
+  v8 = dispatch_get_global_queue(v5, 0);
+  dispatch_async(v8, *(a1 + 72));
 }
 
 - (void)fetchInstallableSystemAppWithBundleID:(id)d onPairedDevice:(id)device completion:(id)completion
@@ -5570,6 +5544,48 @@ void __91__ACXDeviceConnection_getSystemAppInstallability_onDeviceWithPairingID_
   {
     *(*(*(a1 + 40) + 8) + 24) = a2;
   }
+}
+
+- (BOOL)installRequestFailedForApp:(id)app onDeviceWithPairingID:(id)d failureReason:(id)reason wasUserInitiated:(BOOL)initiated error:(id *)error
+{
+  initiatedCopy = initiated;
+  appCopy = app;
+  dCopy = d;
+  reasonCopy = reason;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x3032000000;
+  v25 = __Block_byref_object_copy_;
+  v26 = __Block_byref_object_dispose_;
+  v27 = 0;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __109__ACXDeviceConnection_installRequestFailedForApp_onDeviceWithPairingID_failureReason_wasUserInitiated_error___block_invoke;
+  v21[3] = &unk_278C8D4D8;
+  v21[4] = &v22;
+  v15 = [(ACXDeviceConnection *)self _synchronousProxyWithErrorHandler:v21];
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __109__ACXDeviceConnection_installRequestFailedForApp_onDeviceWithPairingID_failureReason_wasUserInitiated_error___block_invoke_2;
+  v20[3] = &unk_278C8D4D8;
+  v20[4] = &v22;
+  [v15 installRequestFailedForApp:appCopy forDeviceWithPairingID:dCopy failureReason:reasonCopy wasUserInitiated:initiatedCopy completion:v20];
+
+  v16 = v23;
+  if (error)
+  {
+    v17 = v23[5];
+    if (v17)
+    {
+      *error = v17;
+      v16 = v23;
+    }
+  }
+
+  v18 = v16[5] == 0;
+  _Block_object_dispose(&v22, 8);
+
+  return v18;
 }
 
 void __109__ACXDeviceConnection_installRequestFailedForApp_onDeviceWithPairingID_failureReason_wasUserInitiated_error___block_invoke(uint64_t a1, void *a2)
@@ -5903,11 +5919,10 @@ void __62__ACXDeviceConnection_copyRemoteDuplicatedClassInfoWithError___block_in
 
 - (void)_onQueue_createXPCConnectionIfNecessary:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v1 = 138412290;
-  v2 = @"com.apple.companionappd.connect.allow";
-  _os_log_fault_impl(&dword_23FF1B000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "This process does not have the %@:=TRUE entitlement. AppConduit interfaces will all return errors", &v1, 0xCu);
-  v0 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
+  v0 = 138412290;
+  v1 = @"com.apple.companionappd.connect.allow";
+  _os_log_fault_impl(&dword_23FF1B000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "This process does not have the %@:=TRUE entitlement. AppConduit interfaces will all return errors", &v0, 0xCu);
 }
 
 @end

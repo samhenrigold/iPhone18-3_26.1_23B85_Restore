@@ -115,28 +115,28 @@ void __41__SHMediaTimeline_startTimerForNextEvent__block_invoke(uint64_t a1)
 
 - (NSNumber)timeToNextMediaItemScopeChange
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   mediaItems = [(SHMediaTimeline *)self mediaItems];
-  v3 = [mediaItems countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v3 = [mediaItems countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = 0;
-    v6 = *v15;
+    v6 = *v14;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(mediaItems);
         }
 
-        [objc_opt_class() countdownForMatchedMediaItem:*(*(&v14 + 1) + 8 * i)];
+        [objc_opt_class() countdownForMatchedMediaItem:*(*(&v13 + 1) + 8 * i)];
         if (v8 > 0.0)
         {
           v9 = v8;
@@ -149,7 +149,7 @@ void __41__SHMediaTimeline_startTimerForNextEvent__block_invoke(uint64_t a1)
         }
       }
 
-      v4 = [mediaItems countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v4 = [mediaItems countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v4);
@@ -160,38 +160,36 @@ void __41__SHMediaTimeline_startTimerForNextEvent__block_invoke(uint64_t a1)
     v5 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
 - (NSArray)inScopeMediaItems
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEB18];
   mediaItems = [(SHMediaTimeline *)self mediaItems];
   v5 = [v3 arrayWithCapacity:{objc_msgSend(mediaItems, "count")}];
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   mediaItems2 = [(SHMediaTimeline *)self mediaItems];
-  v7 = [mediaItems2 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v7 = [mediaItems2 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v21;
+    v9 = *v20;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v21 != v9)
+        if (*v20 != v9)
         {
           objc_enumerationMutation(mediaItems2);
         }
 
-        v11 = *(*(&v20 + 1) + 8 * i);
+        v11 = *(*(&v19 + 1) + 8 * i);
         [v11 predictedCurrentMatchOffset];
         if ([v11 describesOffset:?])
         {
@@ -203,7 +201,7 @@ void __41__SHMediaTimeline_startTimerForNextEvent__block_invoke(uint64_t a1)
         }
       }
 
-      v8 = [mediaItems2 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v8 = [mediaItems2 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v8);
@@ -219,8 +217,6 @@ void __41__SHMediaTimeline_startTimerForNextEvent__block_invoke(uint64_t a1)
 
   v16 = [v5 copy];
   v17 = [(SHMediaTimeline *)self sortMediaItems:v16];
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -280,29 +276,29 @@ LABEL_8:
 
 - (id)earliestInscopeRangeForMatchedMediaItem:(id)item
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   itemCopy = item;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   timeRanges = [itemCopy timeRanges];
-  v5 = [timeRanges countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [timeRanges countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     v8 = 1.79769313e308;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(timeRanges);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         [v10 lowerBound];
         if (v11 < v8)
         {
@@ -315,7 +311,7 @@ LABEL_8:
         }
       }
 
-      v6 = [timeRanges countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [timeRanges countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v6);
@@ -328,71 +324,68 @@ LABEL_8:
 
   v13 = [MEMORY[0x277CCABB0] numberWithDouble:v8];
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
 + (id)blankMediaItemWhenNothingIsInScope:(id)scope
 {
-  v17[5] = *MEMORY[0x277D85DE8];
+  v16[5] = *MEMORY[0x277D85DE8];
   firstObject = [scope firstObject];
-  v16[0] = @"sh_matchOffset";
+  v15[0] = @"sh_matchOffset";
   v4 = MEMORY[0x277CCABB0];
   [firstObject matchOffset];
   v5 = [v4 numberWithDouble:?];
-  v17[0] = v5;
-  v16[1] = @"sh_speedSkew";
+  v16[0] = v5;
+  v15[1] = @"sh_speedSkew";
   v6 = MEMORY[0x277CCABB0];
   [firstObject speedSkew];
   v7 = [v6 numberWithFloat:?];
-  v17[1] = v7;
-  v16[2] = @"sh_frequencySkew";
+  v16[1] = v7;
+  v15[2] = @"sh_frequencySkew";
   v8 = MEMORY[0x277CCABB0];
   [firstObject frequencySkew];
   v9 = [v8 numberWithFloat:?];
-  v17[2] = v9;
-  v16[3] = @"sh_score";
+  v16[2] = v9;
+  v15[3] = @"sh_score";
   v10 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(firstObject, "matchScore")}];
-  v17[3] = v10;
-  v16[4] = @"sh_audioStartDate";
+  v16[3] = v10;
+  v15[4] = @"sh_audioStartDate";
   audioStartDate = [firstObject audioStartDate];
-  v17[4] = audioStartDate;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:5];
+  v16[4] = audioStartDate;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:5];
 
   v13 = [[SHMatchedMediaItem alloc] initWithMatchedMediaItemDictionary:v12];
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
 
 + (double)countdownForMatchedMediaItem:(id)item
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   [itemCopy predictedCurrentMatchOffset];
   v6 = v5;
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   timeRanges = [itemCopy timeRanges];
-  v8 = [timeRanges countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v8 = [timeRanges countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v8)
   {
     v9 = v8;
     timeRanges2 = 0;
-    v11 = *v26;
+    v11 = *v25;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v26 != v11)
+        if (*v25 != v11)
         {
           objc_enumerationMutation(timeRanges);
         }
 
-        [self nextEventForRange:*(*(&v25 + 1) + 8 * i) atMatchOffset:v6];
+        [self nextEventForRange:*(*(&v24 + 1) + 8 * i) atMatchOffset:v6];
         if (v13 > 0.0)
         {
           v14 = v13;
@@ -405,7 +398,7 @@ LABEL_8:
         }
       }
 
-      v9 = [timeRanges countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v9 = [timeRanges countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v9);
@@ -438,7 +431,6 @@ LABEL_8:
   }
 
 LABEL_19:
-  v23 = *MEMORY[0x277D85DE8];
   return v18;
 }
 

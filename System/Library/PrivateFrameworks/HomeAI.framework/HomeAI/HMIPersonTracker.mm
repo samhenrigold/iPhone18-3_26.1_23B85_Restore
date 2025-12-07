@@ -23,143 +23,84 @@
 
 - (void)trackNewPersons:(id)persons knownPersons:(id)knownPersons regionOfInterest:(CGRect)interest timeStamp:(id *)stamp
 {
-  height = interest.size.height;
-  width = interest.size.width;
-  y = interest.origin.y;
-  x = interest.origin.x;
-  v83[0] = MEMORY[0x277D85DD0];
-  v83[1] = 3221225472;
-  v83[2] = __76__HMIPersonTracker_trackNewPersons_knownPersons_regionOfInterest_timeStamp___block_invoke;
-  v83[3] = &__block_descriptor_56_e52___HMIPersonBlob_16__0__HMIVideoAnalyzerEventPerson_8l;
-  v84 = *stamp;
   knownPersonsCopy = knownPersons;
   personsCopy = persons;
-  v50 = [knownPersonsCopy na_map:v83];
-  v15 = [MEMORY[0x277CBEB98] setWithArray:knownPersonsCopy];
+  v39 = [knownPersonsCopy na_map:?];
+  v10 = [MEMORY[0x277CBEB98] setWithArray:?];
 
-  v16 = [v15 na_map:&__block_literal_global_12];
+  v11 = [v10 na_map:?];
 
-  v81[0] = MEMORY[0x277D85DD0];
-  v81[1] = 3221225472;
-  v81[2] = __76__HMIPersonTracker_trackNewPersons_knownPersons_regionOfInterest_timeStamp___block_invoke_3;
-  v81[3] = &__block_descriptor_56_e52___HMIPersonBlob_16__0__HMIVideoAnalyzerEventPerson_8l;
-  v82 = *stamp;
-  v17 = [personsCopy na_map:v81];
+  v12 = [personsCopy na_map:?];
 
   previousPersons = [(HMIPersonTracker *)self previousPersons];
-  v77[0] = MEMORY[0x277D85DD0];
-  v77[1] = 3221225472;
-  v77[2] = __76__HMIPersonTracker_trackNewPersons_knownPersons_regionOfInterest_timeStamp___block_invoke_4;
-  v77[3] = &unk_278753440;
-  v79 = *&stamp->var0;
-  var3 = stamp->var3;
-  v78 = v16;
-  v80 = var3;
-  v51 = v16;
-  v20 = [previousPersons na_map:v77];
+  v52 = v11;
+  v40 = v11;
+  v14 = [previousPersons na_map:?];
 
   array = [MEMORY[0x277CBEB18] array];
-  v74[0] = MEMORY[0x277D85DD0];
-  v74[1] = 3221225472;
-  v74[2] = __76__HMIPersonTracker_trackNewPersons_knownPersons_regionOfInterest_timeStamp___block_invoke_5;
-  v74[3] = &unk_278753490;
-  v22 = v17;
-  v75 = v22;
-  v76 = array;
-  v48 = array;
-  [v20 enumerateObjectsUsingBlock:v74];
-  v23 = [MEMORY[0x277CCAB58] indexSetWithIndexesInRange:{0, objc_msgSend(v20, "count")}];
-  v24 = [MEMORY[0x277CCAB58] indexSetWithIndexesInRange:{0, objc_msgSend(v22, "count")}];
+  v50 = v12;
+  v51 = array;
+  v37 = array;
+  [v14 enumerateObjectsUsingBlock:?];
+  v16 = MEMORY[0x277CCAB58];
+  [v14 count];
+  v17 = [v16 indexSetWithIndexesInRange:?];
+  v18 = MEMORY[0x277CCAB58];
+  [v50 count];
+  v19 = [v18 indexSetWithIndexesInRange:?];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   dictionary2 = [MEMORY[0x277CBEB38] dictionary];
   indexSet = [MEMORY[0x277CCAB58] indexSet];
   indexSet2 = [MEMORY[0x277CCAB58] indexSet];
-  v67[0] = MEMORY[0x277D85DD0];
-  v67[1] = 3221225472;
-  v67[2] = __76__HMIPersonTracker_trackNewPersons_knownPersons_regionOfInterest_timeStamp___block_invoke_7;
-  v67[3] = &unk_2787534B8;
-  v68 = v23;
-  v69 = v24;
-  v29 = indexSet;
-  v70 = v29;
-  v30 = indexSet2;
-  v71 = v30;
-  v72 = dictionary;
-  v73 = dictionary2;
-  v31 = dictionary2;
-  v32 = dictionary;
-  v47 = v24;
-  v33 = v23;
-  [v48 na_each:v67];
-  v64[0] = MEMORY[0x277D85DD0];
-  v64[1] = 3221225472;
-  v64[2] = __76__HMIPersonTracker_trackNewPersons_knownPersons_regionOfInterest_timeStamp___block_invoke_8;
-  v64[3] = &unk_2787534E0;
-  v34 = v22;
-  v65 = v34;
-  v35 = v20;
-  v66 = v35;
-  [v32 na_each:v64];
-  v59[0] = MEMORY[0x277D85DD0];
-  v59[1] = 3221225472;
-  v59[2] = __76__HMIPersonTracker_trackNewPersons_knownPersons_regionOfInterest_timeStamp___block_invoke_9;
-  v59[3] = &unk_278753508;
-  v60 = v34;
-  v36 = v35;
-  v61 = v36;
-  v62 = v30;
-  v63 = v29;
-  v46 = v29;
-  v37 = v30;
-  v38 = v34;
-  [v31 na_each:v59];
+  v45 = v17;
+  v46 = indexSet;
+  v47 = indexSet2;
+  v48 = dictionary;
+  v49 = dictionary2;
+  v24 = dictionary2;
+  v25 = dictionary;
+  v36 = v19;
+  v26 = v17;
+  [v37 na_each:?];
+  v43 = v50;
+  v44 = v14;
+  [v25 na_each:?];
+  v42 = v44;
+  v35 = v46;
+  v27 = v47;
+  v28 = v43;
+  [v24 na_each:?];
   array2 = [MEMORY[0x277CBEB18] array];
-  v52[0] = MEMORY[0x277D85DD0];
-  v52[1] = 3221225472;
-  v52[2] = __76__HMIPersonTracker_trackNewPersons_knownPersons_regionOfInterest_timeStamp___block_invoke_10;
-  v52[3] = &unk_278753530;
-  v55 = x;
-  v56 = y;
-  v57 = width;
-  v58 = height;
-  v53 = v36;
-  v54 = array2;
-  v40 = array2;
-  v41 = v36;
-  [v33 enumerateIndexesUsingBlock:v52];
+  v29 = array2;
+  v30 = v42;
+  [v26 enumerateIndexesUsingBlock:?];
   previousPersons2 = [(HMIPersonTracker *)self previousPersons];
   [previousPersons2 removeAllObjects];
 
   previousPersons3 = [(HMIPersonTracker *)self previousPersons];
-  [previousPersons3 addObjectsFromArray:v38];
+  [previousPersons3 addObjectsFromArray:?];
 
   previousPersons4 = [(HMIPersonTracker *)self previousPersons];
-  [previousPersons4 addObjectsFromArray:v50];
+  [previousPersons4 addObjectsFromArray:?];
 
   previousPersons5 = [(HMIPersonTracker *)self previousPersons];
-  [previousPersons5 addObjectsFromArray:v40];
+  [previousPersons5 addObjectsFromArray:?];
 }
 
 HMIPersonBlob *__76__HMIPersonTracker_trackNewPersons_knownPersons_regionOfInterest_timeStamp___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = [HMIPersonBlob alloc];
-  v7 = *(a1 + 32);
-  v8 = *(a1 + 48);
-  v5 = [(HMIPersonBlob *)v4 initWithNewPersonEvent:v3 timeStamp:&v7];
+  v4 = [[HMIPersonBlob alloc] initWithNewPersonEvent:*(a1 + 32) timeStamp:*(a1 + 48)];
 
-  return v5;
+  return v4;
 }
 
 HMIPersonBlob *__76__HMIPersonTracker_trackNewPersons_knownPersons_regionOfInterest_timeStamp___block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = [HMIPersonBlob alloc];
-  v7 = *(a1 + 32);
-  v8 = *(a1 + 48);
-  v5 = [(HMIPersonBlob *)v4 initWithNewPersonEvent:v3 timeStamp:&v7];
+  v4 = [[HMIPersonBlob alloc] initWithNewPersonEvent:*(a1 + 32) timeStamp:*(a1 + 48)];
 
-  return v5;
+  return v4;
 }
 
 void *__76__HMIPersonTracker_trackNewPersons_knownPersons_regionOfInterest_timeStamp___block_invoke_4(uint64_t a1, void *a2)
@@ -170,7 +111,7 @@ void *__76__HMIPersonTracker_trackNewPersons_knownPersons_regionOfInterest_timeS
 
   v5 = *(a1 + 32);
   v6 = [v3 blobID];
-  if ([v5 containsObject:v6])
+  if ([v5 containsObject:?])
   {
     v7 = 0;
   }
@@ -179,7 +120,7 @@ void *__76__HMIPersonTracker_trackNewPersons_knownPersons_regionOfInterest_timeS
   {
     v10 = *(a1 + 40);
     v11 = *(a1 + 56);
-    if ([v3 isExpiredAtTimeStamp:&v10])
+    if ([v3 isExpiredAtTimeStamp:{v10, v11}])
     {
       v7 = 0;
     }
@@ -198,110 +139,132 @@ void *__76__HMIPersonTracker_trackNewPersons_knownPersons_regionOfInterest_timeS
 void __76__HMIPersonTracker_trackNewPersons_knownPersons_regionOfInterest_timeStamp___block_invoke_5(uint64_t a1, void *a2, uint64_t a3)
 {
   v5 = a2;
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __76__HMIPersonTracker_trackNewPersons_knownPersons_regionOfInterest_timeStamp___block_invoke_6;
-  v8[3] = &unk_278753468;
-  v9 = v5;
-  v11 = a3;
+  v8 = MEMORY[0x277D85DD0];
+  v9 = 3221225472;
+  v10 = __76__HMIPersonTracker_trackNewPersons_knownPersons_regionOfInterest_timeStamp___block_invoke_6;
+  v11 = &unk_278753468;
+  v12 = v5;
+  v14 = a3;
   v6 = *(a1 + 32);
-  v10 = *(a1 + 40);
+  v13 = *(a1 + 40);
   v7 = v5;
-  [v6 enumerateObjectsUsingBlock:v8];
+  [v6 enumerateObjectsUsingBlock:?];
 }
 
 void __76__HMIPersonTracker_trackNewPersons_knownPersons_regionOfInterest_timeStamp___block_invoke_6(uint64_t a1, void *a2, uint64_t a3)
 {
-  v26 = a2;
-  [v26 similarityToPersonBlob:*(a1 + 32)];
-  v6 = v5;
-  if (v5 > 0.0)
+  v24 = a2;
+  [v24 similarityToPersonBlob:?];
+  v5 = v4;
+  if (v4 > 0.0)
   {
-    v7 = [HMIPairwiseMatch alloc];
-    *&v8 = v6;
-    v9 = [(HMIPairwiseMatch *)v7 initWithFirstIndex:*(a1 + 48) secondIndex:a3 score:v8];
-    [*(a1 + 40) insertObject:v9 atIndex:{objc_msgSend(*(a1 + 40), "indexOfObject:inSortedRange:options:usingComparator:", v9, 0, objc_msgSend(*(a1 + 40), "count"), 1024, &__block_literal_global_2)}];
+    v6 = [HMIPairwiseMatch initWithFirstIndex:"initWithFirstIndex:secondIndex:score:" secondIndex:? score:?];
+    v7 = *(a1 + 40);
+    [v7 count];
+    [v7 indexOfObject:? inSortedRange:? options:? usingComparator:?];
+    [*(a1 + 40) insertObject:? atIndex:?];
   }
 
   [*(a1 + 32) boundingBox];
+  v9 = v8;
   v11 = v10;
   v13 = v12;
   v15 = v14;
-  v17 = v16;
-  [v26 boundingBox];
-  v29.origin.x = v18;
-  v29.origin.y = v19;
-  v29.size.width = v20;
-  v29.size.height = v21;
-  v28.origin.x = v11;
-  v28.origin.y = v13;
-  v28.size.width = v15;
-  v28.size.height = v17;
-  v22 = CGRectIntersectsRect(v28, v29);
-  if (v6 >= 0.0 && v22)
+  [v24 boundingBox];
+  v27.origin.x = v16;
+  v27.origin.y = v17;
+  v27.size.width = v18;
+  v27.size.height = v19;
+  v26.origin.x = v9;
+  v26.origin.y = v11;
+  v26.size.width = v13;
+  v26.size.height = v15;
+  v20 = CGRectIntersectsRect(v26, v27);
+  if (v5 >= 0.0 && v20)
   {
-    v24 = [*(a1 + 32) personIndices];
-    [v24 addIndex:a3];
+    v22 = [*(a1 + 32) personIndices];
+    [v22 addIndex:?];
 
-    v25 = [v26 personIndices];
-    [v25 addIndex:*(a1 + 48)];
+    v23 = [v24 personIndices];
+    [v23 addIndex:?];
   }
 }
 
 void __76__HMIPersonTracker_trackNewPersons_knownPersons_regionOfInterest_timeStamp___block_invoke_7(id *a1, void *a2)
 {
-  v8 = a2;
-  if ([a1[4] containsIndex:{objc_msgSend(v8, "firstIndex")}] && objc_msgSend(a1[5], "containsIndex:", objc_msgSend(v8, "secondIndex")))
+  v3 = a2;
+  v4 = a1[4];
+  v17 = v3;
+  [v3 firstIndex];
+  if ([v4 containsIndex:?])
   {
-    [a1[4] removeIndex:{objc_msgSend(v8, "firstIndex")}];
-    [a1[5] removeIndex:{objc_msgSend(v8, "secondIndex")}];
-    [v8 score];
-    if (v3 <= 1.0)
+    v5 = a1[5];
+    [v17 secondIndex];
+    if ([v5 containsIndex:?])
     {
-      v4 = 9;
-    }
+      v6 = a1[4];
+      [v17 firstIndex];
+      [v6 removeIndex:?];
+      v7 = a1[5];
+      [v17 secondIndex];
+      [v7 removeIndex:?];
+      [v17 score];
+      if (v8 <= 1.0)
+      {
+        v11 = 9;
+      }
 
-    else
-    {
-      [a1[6] addIndex:{objc_msgSend(v8, "firstIndex")}];
-      [a1[7] addIndex:{objc_msgSend(v8, "secondIndex")}];
-      v4 = 8;
-    }
+      else
+      {
+        v9 = a1[6];
+        [v17 firstIndex];
+        [v9 addIndex:?];
+        v10 = a1[7];
+        [v17 secondIndex];
+        [v10 addIndex:?];
+        v11 = 8;
+      }
 
-    v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v8, "firstIndex")}];
-    v6 = a1[v4];
-    v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v8, "secondIndex")}];
-    [v6 setObject:v5 forKeyedSubscript:v7];
+      v12 = MEMORY[0x277CCABB0];
+      [v17 firstIndex];
+      v13 = [v12 numberWithUnsignedInteger:?];
+      v14 = a1[v11];
+      v15 = MEMORY[0x277CCABB0];
+      [v17 secondIndex];
+      v16 = [v15 numberWithUnsignedInteger:?];
+      [v14 setObject:? forKeyedSubscript:?];
+    }
   }
 }
 
 void __76__HMIPersonTracker_trackNewPersons_knownPersons_regionOfInterest_timeStamp___block_invoke_8(uint64_t a1, void *a2, void *a3)
 {
-  v4 = a1;
   v5 = *(a1 + 32);
   v6 = a3;
-  v9 = [v5 objectAtIndexedSubscript:{objc_msgSend(a2, "intValue")}];
-  v7 = *(v4 + 40);
-  LODWORD(v4) = [v6 intValue];
+  [a2 intValue];
+  v9 = [v5 objectAtIndexedSubscript:?];
+  v7 = *(a1 + 40);
+  [v6 intValue];
 
-  v8 = [v7 objectAtIndexedSubscript:v4];
-  [v9 trackPersonBlob:v8];
+  v8 = [v7 objectAtIndexedSubscript:?];
+  [v9 trackPersonBlob:?];
 }
 
 void __76__HMIPersonTracker_trackNewPersons_knownPersons_regionOfInterest_timeStamp___block_invoke_9(void *a1, void *a2, void *a3)
 {
   v5 = a1[4];
   v6 = a3;
-  v14 = [v5 objectAtIndexedSubscript:{objc_msgSend(a2, "intValue")}];
+  [a2 intValue];
+  v14 = [v5 objectAtIndexedSubscript:?];
   v7 = a1[5];
-  LODWORD(v5) = [v6 intValue];
+  [v6 intValue];
 
-  v8 = [v7 objectAtIndexedSubscript:v5];
+  v8 = [v7 objectAtIndexedSubscript:?];
   v9 = [v14 personIndices];
-  [v9 removeIndexes:a1[6]];
+  [v9 removeIndexes:?];
 
   v10 = [v8 personIndices];
-  [v10 removeIndexes:a1[7]];
+  [v10 removeIndexes:?];
 
   v11 = [v14 personIndices];
   if ([v11 count] >= 2)
@@ -315,14 +278,14 @@ void __76__HMIPersonTracker_trackNewPersons_knownPersons_regionOfInterest_timeSt
 
     if (v13 <= 1)
     {
-      [v14 trackPersonBlob:v8];
+      [v14 trackPersonBlob:?];
     }
   }
 }
 
 void __76__HMIPersonTracker_trackNewPersons_knownPersons_regionOfInterest_timeStamp___block_invoke_10(uint64_t a1, uint64_t a2)
 {
-  v7 = [*(a1 + 32) objectAtIndexedSubscript:a2];
+  v7 = [*(a1 + 32) objectAtIndexedSubscript:?];
   [v7 boundingBox];
   v9.origin.x = v3;
   v9.origin.y = v4;
@@ -330,7 +293,7 @@ void __76__HMIPersonTracker_trackNewPersons_knownPersons_regionOfInterest_timeSt
   v9.size.height = v6;
   if (!CGRectIntersectsRect(*(a1 + 48), v9))
   {
-    [*(a1 + 40) addObject:v7];
+    [*(a1 + 40) addObject:?];
   }
 }
 
@@ -367,7 +330,7 @@ void __76__HMIPersonTracker_trackNewPersons_knownPersons_regionOfInterest_timeSt
   else
   {
     previousPersons3 = [(HMIPersonTracker *)self previousPersons];
-    v8 = [previousPersons3 objectAtIndexedSubscript:index];
+    v8 = [previousPersons3 objectAtIndexedSubscript:?];
     uUID = [v8 blobID];
   }
 

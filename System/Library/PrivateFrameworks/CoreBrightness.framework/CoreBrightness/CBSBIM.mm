@@ -76,8 +76,6 @@
       [(CBSBIM *)self sendEDRHeadroomRequest:v6];
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (float)mitigatedHeadroomFromRequestedHeadroom
@@ -149,15 +147,15 @@ LABEL_22:
 
 - (void)dataTimerHandler
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   selfCopy = self;
-  v41 = a2;
+  v40 = a2;
   dispatch_assert_queue_V2(self->_timerQueue);
-  v40 = selfCopy->mitigation.sbim_read_stage == 0;
-  v37 = os_signpost_id_generate(selfCopy->_log);
+  v39 = selfCopy->mitigation.sbim_read_stage == 0;
+  v36 = os_signpost_id_generate(selfCopy->_log);
   if (selfCopy->_log)
   {
-    v14 = selfCopy->_log;
+    v13 = selfCopy->_log;
   }
 
   else
@@ -172,80 +170,79 @@ LABEL_22:
       inited = init_default_corebrightness_log();
     }
 
-    v14 = inited;
+    v13 = inited;
   }
 
-  v36 = v14;
-  v35 = 1;
-  v34 = v37;
-  if (v37 && v34 != -1 && os_signpost_enabled(v36))
+  v35 = v13;
+  v34 = 1;
+  v33 = v36;
+  if (v36 && v33 != -1 && os_signpost_enabled(v35))
   {
-    log = v36;
-    type = v35;
-    spid = v34;
-    __os_log_helper_16_0_0(v33);
-    _os_signpost_emit_with_name_impl(&dword_1DE8E5000, log, type, spid, "SBIM Request", &unk_1DEAD656F, v33, 2u);
+    log = v35;
+    type = v34;
+    spid = v33;
+    __os_log_helper_16_0_0(v32);
+    _os_signpost_emit_with_name_impl(&dword_1DE8E5000, log, type, spid, "SBIM Request", &unk_1DEAD656F, v32, 2u);
   }
 
-  iomfb = selfCopy->_iomfb;
-  v32 = IOMobileFramebufferGetBlock();
-  if (v32)
+  v31 = IOMobileFramebufferGetBlock();
+  if (v31)
   {
     if (selfCopy->_log)
     {
-      v9 = selfCopy->_log;
+      v8 = selfCopy->_log;
     }
 
     else
     {
       if (_COREBRIGHTNESS_LOG_DEFAULT)
       {
-        v8 = _COREBRIGHTNESS_LOG_DEFAULT;
+        v7 = _COREBRIGHTNESS_LOG_DEFAULT;
       }
 
       else
       {
-        v8 = init_default_corebrightness_log();
+        v7 = init_default_corebrightness_log();
       }
 
-      v9 = v8;
+      v8 = v7;
     }
 
-    v31 = v9;
-    v30 = OS_LOG_TYPE_ERROR;
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v30 = v8;
+    v29 = OS_LOG_TYPE_ERROR;
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __os_log_helper_16_0_1_4_0(v45, v32);
-      _os_log_error_impl(&dword_1DE8E5000, v31, v30, "SBIM Sampling | Reading SBIM state from IOMFB failed | ErrorCode=0x%x", v45, 8u);
+      __os_log_helper_16_0_1_4_0(v44, v31);
+      _os_log_error_impl(&dword_1DE8E5000, v30, v29, "SBIM Sampling | Reading SBIM state from IOMFB failed | ErrorCode=0x%x", v44, 8u);
     }
 
     if (selfCopy->_log)
     {
-      v7 = selfCopy->_log;
+      v6 = selfCopy->_log;
     }
 
     else
     {
       if (_COREBRIGHTNESS_LOG_DEFAULT)
       {
-        v6 = _COREBRIGHTNESS_LOG_DEFAULT;
+        v5 = _COREBRIGHTNESS_LOG_DEFAULT;
       }
 
       else
       {
-        v6 = init_default_corebrightness_log();
+        v5 = init_default_corebrightness_log();
       }
 
-      v7 = v6;
+      v6 = v5;
     }
 
-    v29 = v7;
-    v28 = OS_SIGNPOST_INTERVAL_END;
-    v27 = v37;
-    if (v37 && v27 != -1 && os_signpost_enabled(v29))
+    v28 = v6;
+    v27 = OS_SIGNPOST_INTERVAL_END;
+    v26 = v36;
+    if (v36 && v26 != -1 && os_signpost_enabled(v28))
     {
-      __os_log_helper_16_0_1_4_0(v44, v32);
-      _os_signpost_emit_with_name_impl(&dword_1DE8E5000, v29, v28, v27, "SBIM Request", "Failed with %d", v44, 8u);
+      __os_log_helper_16_0_1_4_0(v43, v31);
+      _os_signpost_emit_with_name_impl(&dword_1DE8E5000, v28, v27, v26, "SBIM Request", "Failed with %d", v43, 8u);
     }
   }
 
@@ -253,51 +250,49 @@ LABEL_22:
   {
     for (i = 0; i < selfCopy->mitigation.sbim_size; ++i)
     {
-      *(&v38 + i + 2) *= 2;
+      *(&v37 + i + 2) *= 2;
     }
 
     if (selfCopy->_log)
     {
-      v5 = selfCopy->_log;
+      v4 = selfCopy->_log;
     }
 
     else
     {
       if (_COREBRIGHTNESS_LOG_DEFAULT)
       {
-        v4 = _COREBRIGHTNESS_LOG_DEFAULT;
+        v3 = _COREBRIGHTNESS_LOG_DEFAULT;
       }
 
       else
       {
-        v4 = init_default_corebrightness_log();
+        v3 = init_default_corebrightness_log();
       }
 
-      v5 = v4;
+      v4 = v3;
     }
 
-    v25 = v5;
-    v24 = OS_SIGNPOST_INTERVAL_END;
-    v23 = v37;
-    if (v37 && v23 != -1 && os_signpost_enabled(v25))
+    v24 = v4;
+    v23 = OS_SIGNPOST_INTERVAL_END;
+    v22 = v36;
+    if (v36 && v22 != -1 && os_signpost_enabled(v24))
     {
-      __os_log_helper_16_0_4_4_0_4_0_4_0_8_0(v43, SDWORD2(v38), SHIDWORD(v38), v39, 1000 * *(&v39 + 1));
-      _os_signpost_emit_with_name_impl(&dword_1DE8E5000, v25, v24, v23, "SBIM Request", "Violation RGB=(%u,%u,%u) over %{xcode:duration}llu", v43, 0x1Eu);
+      __os_log_helper_16_0_4_4_0_4_0_4_0_8_0(v42, SDWORD2(v37), SHIDWORD(v37), v38, 1000 * *(&v38 + 1));
+      _os_signpost_emit_with_name_impl(&dword_1DE8E5000, v24, v23, v22, "SBIM Request", "Violation RGB=(%u,%u,%u) over %{xcode:duration}llu", v42, 0x1Eu);
     }
 
     queue = selfCopy->_queue;
     block = MEMORY[0x1E69E9820];
-    v16 = -1073741824;
-    v17 = 0;
-    v18 = __26__CBSBIM_dataTimerHandler__block_invoke;
-    v19 = &unk_1E867B458;
-    v20 = selfCopy;
+    v15 = -1073741824;
+    v16 = 0;
+    v17 = __26__CBSBIM_dataTimerHandler__block_invoke;
+    v18 = &unk_1E867B458;
+    v19 = selfCopy;
+    v20 = v37;
     v21 = v38;
-    v22 = v39;
     dispatch_async(queue, &block);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 void __26__CBSBIM_dataTimerHandler__block_invoke(uint64_t a1, double a2, double a3, double a4)
@@ -355,21 +350,19 @@ void __26__CBSBIM_dataTimerHandler__block_invoke(uint64_t a1, double a2, double 
 
     *(*(a1 + 32) + 176) = (*(*(a1 + 32) + 176) + 1) % *(*(a1 + 32) + 120);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (CBSBIM)initWithQueue:(id)queue andDisplayModule:(id)module andEDRModule:(id)rModule
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   selfCopy = self;
-  v47 = a2;
+  v46 = a2;
   queueCopy = queue;
   moduleCopy = module;
   rModuleCopy = rModule;
-  v43.receiver = self;
-  v43.super_class = CBSBIM;
-  selfCopy = [(CBSBIM *)&v43 init];
+  v42.receiver = self;
+  v42.super_class = CBSBIM;
+  selfCopy = [(CBSBIM *)&v42 init];
   if (selfCopy)
   {
     v5 = os_log_create("com.apple.CoreBrightness.SBIM", "default");
@@ -385,7 +378,7 @@ void __26__CBSBIM_dataTimerHandler__block_invoke(uint64_t a1, double a2, double 
     {
       if (*(selfCopy + 3))
       {
-        v27 = *(selfCopy + 3);
+        v26 = *(selfCopy + 3);
       }
 
       else
@@ -400,23 +393,22 @@ void __26__CBSBIM_dataTimerHandler__block_invoke(uint64_t a1, double a2, double 
           inited = init_default_corebrightness_log();
         }
 
-        v27 = inited;
+        v26 = inited;
       }
 
-      v42 = v27;
-      v41 = 16;
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+      v41 = v26;
+      v40 = 16;
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
-        log = v42;
-        type = v41;
-        __os_log_helper_16_0_0(v40);
-        _os_log_error_impl(&dword_1DE8E5000, log, type, "SBIM Initialization | Device does not use CoreBrightness SBIM", v40, 2u);
+        log = v41;
+        type = v40;
+        __os_log_helper_16_0_0(v39);
+        _os_log_error_impl(&dword_1DE8E5000, log, type, "SBIM Initialization | Device does not use CoreBrightness SBIM", v39, 2u);
       }
 
 LABEL_52:
       MEMORY[0x1E69E5920](selfCopy);
-      v49 = 0;
-      goto LABEL_53;
+      return 0;
     }
 
     MainDisplay = IOMobileFramebufferGetMainDisplay();
@@ -424,67 +416,66 @@ LABEL_52:
     {
       if (*(selfCopy + 3))
       {
-        v23 = *(selfCopy + 3);
+        v22 = *(selfCopy + 3);
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v22 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v21 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v22 = init_default_corebrightness_log();
+          v21 = init_default_corebrightness_log();
         }
 
-        v23 = v22;
+        v22 = v21;
       }
 
-      v38 = v23;
-      v37 = OS_LOG_TYPE_ERROR;
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      v37 = v22;
+      v36 = OS_LOG_TYPE_ERROR;
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
-        __os_log_helper_16_0_1_4_0(v50, MainDisplay);
-        _os_log_error_impl(&dword_1DE8E5000, v38, v37, "SBIM Initialization | Unable to obtain IOMFB display object | ErrorCode=0x%x", v50, 8u);
+        __os_log_helper_16_0_1_4_0(v49, MainDisplay);
+        _os_log_error_impl(&dword_1DE8E5000, v37, v36, "SBIM Initialization | Unable to obtain IOMFB display object | ErrorCode=0x%x", v49, 8u);
       }
 
       goto LABEL_52;
     }
 
-    v8 = *(selfCopy + 8);
     *(selfCopy + 18) = IOMobileFramebufferGetServiceObject();
     if (!*(selfCopy + 18))
     {
       if (*(selfCopy + 3))
       {
-        v21 = *(selfCopy + 3);
+        v20 = *(selfCopy + 3);
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v20 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v19 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v20 = init_default_corebrightness_log();
+          v19 = init_default_corebrightness_log();
         }
 
-        v21 = v20;
+        v20 = v19;
       }
 
-      v36 = v21;
-      v35 = 16;
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v35 = v20;
+      v34 = 16;
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        v18 = v36;
-        v19 = v35;
-        __os_log_helper_16_0_0(v34);
-        _os_log_error_impl(&dword_1DE8E5000, v18, v19, "SBIM Initialization | Unable to obtain IOMFB service object", v34, 2u);
+        v17 = v35;
+        v18 = v34;
+        __os_log_helper_16_0_0(v33);
+        _os_log_error_impl(&dword_1DE8E5000, v17, v18, "SBIM Initialization | Unable to obtain IOMFB service object", v33, 2u);
       }
 
       goto LABEL_52;
@@ -494,32 +485,32 @@ LABEL_52:
     {
       if (*(selfCopy + 3))
       {
-        v17 = *(selfCopy + 3);
+        v16 = *(selfCopy + 3);
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v16 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v15 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v16 = init_default_corebrightness_log();
+          v15 = init_default_corebrightness_log();
         }
 
-        v17 = v16;
+        v16 = v15;
       }
 
-      v33 = v17;
-      v32 = 16;
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v32 = v16;
+      v31 = 16;
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        v14 = v33;
-        v15 = v32;
-        __os_log_helper_16_0_0(v31);
-        _os_log_error_impl(&dword_1DE8E5000, v14, v15, "SBIM Initialization | Unable to obtain SBIM tables", v31, 2u);
+        v13 = v32;
+        v14 = v31;
+        __os_log_helper_16_0_0(v30);
+        _os_log_error_impl(&dword_1DE8E5000, v13, v14, "SBIM Initialization | Unable to obtain SBIM tables", v30, 2u);
       }
 
       goto LABEL_52;
@@ -527,32 +518,32 @@ LABEL_52:
 
     if (*(selfCopy + 3))
     {
-      v13 = *(selfCopy + 3);
+      v12 = *(selfCopy + 3);
     }
 
     else
     {
       if (_COREBRIGHTNESS_LOG_DEFAULT)
       {
-        v12 = _COREBRIGHTNESS_LOG_DEFAULT;
+        v11 = _COREBRIGHTNESS_LOG_DEFAULT;
       }
 
       else
       {
-        v12 = init_default_corebrightness_log();
+        v11 = init_default_corebrightness_log();
       }
 
-      v13 = v12;
+      v12 = v11;
     }
 
-    v30 = v13;
-    v29 = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v29 = v12;
+    v28 = OS_LOG_TYPE_DEFAULT;
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = v30;
-      v11 = v29;
-      __os_log_helper_16_0_0(v28);
-      _os_log_impl(&dword_1DE8E5000, v10, v11, "SBIM Initialization | SBIM supported", v28, 2u);
+      v9 = v29;
+      v10 = v28;
+      __os_log_helper_16_0_0(v27);
+      _os_log_impl(&dword_1DE8E5000, v9, v10, "SBIM Initialization | SBIM supported", v27, 2u);
     }
 
     *(selfCopy + 57) = 1.0;
@@ -563,112 +554,103 @@ LABEL_52:
     [selfCopy resetMitigationState];
   }
 
-  v49 = selfCopy;
-LABEL_53:
-  *MEMORY[0x1E69E9840];
-  return v49;
+  return selfCopy;
 }
 
 + (BOOL)needsSBIM
 {
-  v4 = *MEMORY[0x1E69E9840];
   if (MGIsDeviceOneOfType())
   {
-    v3 = 1;
+    return 1;
   }
 
-  else if (MGIsDeviceOneOfType())
+  if (MGIsDeviceOneOfType())
   {
-    v3 = 1;
+    return 1;
   }
 
-  else if (MGIsDeviceOneOfType())
+  if (MGIsDeviceOneOfType())
   {
-    v3 = 1;
+    return 1;
   }
 
-  else
+  if (MGIsDeviceOneOfType())
   {
-    v3 = (MGIsDeviceOneOfType() & 1) != 0 || (MGIsDeviceOneOfType() & 1) != 0 || (MGIsDeviceOneOfType() & 1) != 0;
+    return 1;
   }
 
-  *MEMORY[0x1E69E9840];
-  return v3;
+  return (MGIsDeviceOneOfType() & 1) != 0 || (MGIsDeviceOneOfType() & 1) != 0;
 }
 
 - (BOOL)initialiseLimits
 {
-  v5 = *MEMORY[0x1E69E9840];
   if (MGIsDeviceOneOfType())
   {
     self->_limits = &CoreBrightness::sbimLimits1;
     self->_limitsSize = 121;
-    v4 = 1;
+    return 1;
   }
 
   else if (MGIsDeviceOneOfType())
   {
     self->_limits = &CoreBrightness::sbimLimits2;
     self->_limitsSize = 121;
-    v4 = 1;
+    return 1;
   }
 
   else if (MGIsDeviceOneOfType())
   {
     self->_limits = &CoreBrightness::sbimLimits3;
     self->_limitsSize = 121;
-    v4 = 1;
+    return 1;
   }
 
   else if (MGIsDeviceOneOfType())
   {
     self->_limits = &CoreBrightness::sbimLimits4;
     self->_limitsSize = 121;
-    v4 = 1;
+    return 1;
   }
 
   else if (MGIsDeviceOneOfType())
   {
     self->_limits = &CoreBrightness::sbimLimits5;
     self->_limitsSize = 121;
-    v4 = 1;
+    return 1;
   }
 
   else if (MGIsDeviceOneOfType())
   {
     self->_limits = &CoreBrightness::sbimLimitsD9x;
     self->_limitsSize = 121;
-    v4 = 1;
+    return 1;
   }
 
   else if (MGIsDeviceOneOfType())
   {
     self->_limits = &CoreBrightness::sbimLimitsD4y;
     self->_limitsSize = 121;
-    v4 = 1;
+    return 1;
   }
 
   else if (MGIsDeviceOneOfType())
   {
     self->_limits = &CoreBrightness::sbimLimits6;
     self->_limitsSize = 121;
-    v4 = 1;
+    return 1;
   }
 
   else if (MGIsDeviceOneOfType())
   {
     self->_limits = &CoreBrightness::sbimLimitsV5zD23;
     self->_limitsSize = 121;
-    v4 = 1;
+    return 1;
   }
 
   else
   {
-    v4 = 0;
+    return 0;
   }
-
-  *MEMORY[0x1E69E9840];
-  return v4 & 1;
 }
 
 - (void)dealloc
@@ -877,8 +859,6 @@ LABEL_53:
       [(CBSBIM *)selfCopy stopMonitoring];
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)stopMonitoring
@@ -976,8 +956,6 @@ LABEL_53:
     [(CBSBIM *)selfCopy enableSBIM:0];
     selfCopy->_isMonitoring = 0;
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)enable
@@ -1164,8 +1142,6 @@ LABEL_53:
       _os_log_error_impl(&dword_1DE8E5000, v6, OS_LOG_TYPE_ERROR, "SBIM IOMFB | %s SBIM failed | ErrorCode=0x%x", v14, 0x12u);
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)resetMitigationState
@@ -1217,8 +1193,6 @@ LABEL_53:
       _os_log_impl(&dword_1DE8E5000, log, OS_LOG_TYPE_DEFAULT, "SBIM Reset | CurrentStage=%s", v16, 0xCu);
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (const)mitigationStageToString:(int)string
@@ -1251,7 +1225,7 @@ LABEL_53:
   dispatch_assert_queue_V2(self->_queue);
   {
     v43 = 0.0;
-    std::valarray<float>::valarray(&[CBSBIM updateMitigationStateWithData:andCurrentHeadroom:andRequestedHeadroom:andSDRBrightness:andReset:]::previousAccumulatedSBIM, &v43, selfCopy->mitigation.sbim_size);
+    std::valarray<float>::valarray(&[CBSBIM updateMitigationStateWithData:andCurrentHeadroom:andRequestedHeadroom:andSDRBrightness:andReset:]::previousAccumulatedSBIM, &v43, selfCopy->mitigation.sbim_size, 0.0);
     __cxa_atexit(std::valarray<float>::~valarray, &[CBSBIM updateMitigationStateWithData:andCurrentHeadroom:andRequestedHeadroom:andSDRBrightness:andReset:]::previousAccumulatedSBIM, &dword_1DE8E5000);
   }
 
@@ -1266,15 +1240,15 @@ LABEL_53:
   if (resetCopy)
   {
     v39 = 1107296256;
-    std::operator/[abi:de200100]<std::valarray<float>,0>(v41, &v39, v55);
+    std::operator/[abi:de200100]<std::valarray<float>,0>(v41, v55, &v39);
     std::valarray<float>::operator=<std::_BinaryOp<std::divides<float>,std::valarray<float>,std::__scalar_expr<float>>>(v42, v55);
   }
 
   else
   {
-    std::operator-[abi:de200100]<std::valarray<float>,std::valarray<float>,0>(v41, &-[CBSBIM updateMitigationStateWithData:andCurrentHeadroom:andRequestedHeadroom:andSDRBrightness:andReset:]::previousAccumulatedSBIM, &v53);
+    std::operator-[abi:de200100]<std::valarray<float>,std::valarray<float>,0>(v41, &-[CBSBIM updateMitigationStateWithData:andCurrentHeadroom:andRequestedHeadroom:andSDRBrightness:andReset:]::previousAccumulatedSBIM, v53);
     v38 = 1107296256;
-    std::operator/[abi:de200100]<std::__val_expr<std::_BinaryOp<std::minus<float>,std::valarray<float>,std::valarray<float>>>,0>(&v53, &v38, v54);
+    std::operator/[abi:de200100]<std::__val_expr<std::_BinaryOp<std::minus<float>,std::valarray<float>,std::valarray<float>>>,0>(v53, v54, &v38);
     std::valarray<float>::operator=<std::_BinaryOp<std::divides<float>,std::__val_expr<std::_BinaryOp<std::minus<float>,std::valarray<float>,std::valarray<float>>>,std::__scalar_expr<float>>>(v42, v54);
   }
 
@@ -1284,8 +1258,8 @@ LABEL_53:
   v29 = std::max[abi:de200100]<int>(&v35, &v34);
   v37 = *std::min[abi:de200100]<int>(&v36, v29);
   std::valarray<float>::valarray(v33, selfCopy->_limits[v37], selfCopy->mitigation.sbim_size);
-  std::operator>[abi:de200100]<std::valarray<float>,std::valarray<float>,0>(v42, v33, &v52);
-  selfCopy->mitigation.violation = std::__val_expr<std::_BinaryOp<std::greater<float>,std::valarray<float>,std::valarray<float>>>::max[abi:de200100](&v52);
+  std::operator>[abi:de200100]<std::valarray<float>,std::valarray<float>,0>(v42, v33, v52);
+  selfCopy->mitigation.violation = std::__val_expr<std::_BinaryOp<std::greater<float>,std::valarray<float>,std::valarray<float>>>::max[abi:de200100](v52);
   if (selfCopy->_log)
   {
     log = selfCopy->_log;
@@ -1386,7 +1360,6 @@ LABEL_53:
   std::valarray<float>::~valarray(v33);
   std::valarray<float>::~valarray(v41);
   std::valarray<float>::~valarray(v42);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)sendEDRHeadroomRequest:(float)request
@@ -1424,7 +1397,6 @@ LABEL_53:
   *&v3 = request;
   v10 = [MEMORY[0x1E696AD98] numberWithFloat:v3];
   -[CBDisplayModuleiOS setProperty:forKey:](displayModule, "setProperty:forKey:", [MEMORY[0x1E695DF20] dictionaryWithObjects:&v10 forKeys:&v9 count:1], @"EDRHeadroomRequest");
-  *MEMORY[0x1E69E9840];
 }
 
 @end

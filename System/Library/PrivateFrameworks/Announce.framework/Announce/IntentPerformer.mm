@@ -14,7 +14,7 @@
   v4 = sub_223800FA0();
   (*(*(v4 - 8) + 56))(self + v3, 1, 1, v4);
   v6.receiver = self;
-  v6.super_class = type metadata accessor for IntentPerformer();
+  v6.super_class = type metadata accessor for IntentPerformer(0);
   return [(IntentPerformer *)&v6 init];
 }
 

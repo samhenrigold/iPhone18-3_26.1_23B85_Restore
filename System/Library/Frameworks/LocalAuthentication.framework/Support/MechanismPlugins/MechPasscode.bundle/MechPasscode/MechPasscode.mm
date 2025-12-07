@@ -43,16 +43,16 @@ id sub_1374(uint64_t a1)
   return [v3 _lockStateDidChange:v2];
 }
 
-id sub_13BC()
+id sub_13BC(uint64_t a1)
 {
   if (qword_20A78 != -1)
   {
     sub_BC4C();
   }
 
-  v1 = qword_20A80;
+  v2 = qword_20A80;
 
-  return v1;
+  return v2;
 }
 
 void sub_20AC(id a1)
@@ -136,16 +136,16 @@ void sub_2CC8(id a1)
   _objc_release_x1();
 }
 
-id sub_3208()
+id sub_3208(uint64_t a1)
 {
   if (qword_20AA8 != -1)
   {
     sub_BC88();
   }
 
-  v1 = qword_20AB0;
+  v2 = qword_20AB0;
 
-  return v1;
+  return v2;
 }
 
 void sub_3630(_Unwind_Exception *a1)
@@ -193,7 +193,7 @@ id sub_4184(uint64_t a1)
   v10 = v9;
   if (v9)
   {
-    [v9 auditToken];
+    objc_msgSend_auditToken(v9);
   }
 
   else
@@ -653,12 +653,12 @@ uint64_t sub_5280(uint64_t a1, void *a2)
   return result;
 }
 
-void sub_5290(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, unint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22)
+uint64_t sub_5290(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  a9 = *v22 - v25;
-  v29 = *(v27 + 8 * v26);
+  a9 = *v9 - v12;
+  v16 = *(v14 + 8 * v13);
 
-  SerializeRequirement(v24, v29, v23 + v25, &a9, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22);
+  return SerializeRequirement(v11, v16, v10 + v12, &a9);
 }
 
 uint64_t sub_52BC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, char a11)
@@ -1111,32 +1111,9 @@ void sub_5D38()
             v14 = v1 + 32;
             if (v1 != -32)
             {
-              if (v14 > *v0)
+              if (v14 > *v0 || (sub_5ACC(), v15 = ccgcm_init(), !sub_5A14(v15, "ccgcm_init")) && !sub_5BEC(v3, 16) && (sub_5AA4(), v16 = ccgcm_set_iv(), !sub_5A14(v16, "ccgcm_set_iv")) && (sub_5ACC(), v17 = ccgcm_update(), !sub_5A14(v17, "ccgcm_update")) && (sub_5AA4(), v18 = ccgcm_finalize(), !sub_5A14(v18, "ccgcm_finalize")))
               {
-                goto LABEL_13;
-              }
-
-              sub_5ACC();
-              v15 = ccgcm_init();
-              if (!sub_5A14(v15, "ccgcm_init") && !sub_5BEC(v3, 16))
-              {
-                sub_5AA4();
-                v16 = ccgcm_set_iv();
-                if (!sub_5A14(v16, "ccgcm_set_iv"))
-                {
-                  sub_5ACC();
-                  v17 = ccgcm_update();
-                  if (!sub_5A14(v17, "ccgcm_update"))
-                  {
-                    sub_5AA4();
-                    v18 = ccgcm_finalize();
-                    if (!sub_5A14(v18, "ccgcm_finalize"))
-                    {
-LABEL_13:
-                      *v0 = v14;
-                    }
-                  }
-                }
+                *v0 = v14;
               }
             }
           }
@@ -1179,43 +1156,9 @@ void sub_5EF8()
             v14 = v1 + 33;
             if (v1 != -33)
             {
-              if (v14 > *v0)
+              if (v14 > *v0 || (sub_5ACC(), v15 = ccgcm_init(), !sub_5A14(v15, "ccgcm_init")) && (*v3 = 2, v16 = (v3 + 1), sub_5BB0(), !v17) && !sub_5BEC(v16, 16) && (sub_5AA4(), v18 = ccgcm_set_iv(), !sub_5A14(v18, "ccgcm_set_iv")) && (v19 = v16 + 16, sub_5BB0(), !v20) && (sub_5ACC(), v21 = ccgcm_update(), !sub_5A14(v21, "ccgcm_update")) && !__CFADD__(v19, v1) && (sub_5AA4(), v22 = ccgcm_finalize(), !sub_5A14(v22, "ccgcm_finalize")))
               {
-                goto LABEL_16;
-              }
-
-              sub_5ACC();
-              v15 = ccgcm_init();
-              if (!sub_5A14(v15, "ccgcm_init"))
-              {
-                *v3 = 2;
-                v16 = (v3 + 1);
-                sub_5BB0();
-                if (!v17 && !sub_5BEC(v16, 16))
-                {
-                  sub_5AA4();
-                  v18 = ccgcm_set_iv();
-                  if (!sub_5A14(v18, "ccgcm_set_iv"))
-                  {
-                    v19 = v16 + 16;
-                    sub_5BB0();
-                    if (!v20)
-                    {
-                      sub_5ACC();
-                      v21 = ccgcm_update();
-                      if (!sub_5A14(v21, "ccgcm_update") && !__CFADD__(v19, v1))
-                      {
-                        sub_5AA4();
-                        v22 = ccgcm_finalize();
-                        if (!sub_5A14(v22, "ccgcm_finalize"))
-                        {
-LABEL_16:
-                          *v0 = v14;
-                        }
-                      }
-                    }
-                  }
-                }
+                *v0 = v14;
               }
             }
           }
@@ -1263,33 +1206,9 @@ void sub_60E8()
             v20 = v5 - 32;
             if (v19)
             {
-              if (*v1 < v20)
+              if (*v1 < v20 || (sub_5ACC(), v21 = ccgcm_init(), !sub_5A14(v21, "ccgcm_init")) && (sub_5AA4(), v22 = ccgcm_set_iv(), !sub_5A14(v22, "ccgcm_set_iv")) && (sub_5ACC(), v23 = ccgcm_update(), !sub_5A14(v23, "ccgcm_update")) && (sub_5AA4(), ccgcm_finalize(), v24 = cc_cmp_safe(), !sub_5A14(v24, "cc_cmp_safe")))
               {
-                goto LABEL_13;
-              }
-
-              sub_5ACC();
-              v21 = ccgcm_init();
-              if (!sub_5A14(v21, "ccgcm_init"))
-              {
-                sub_5AA4();
-                v22 = ccgcm_set_iv();
-                if (!sub_5A14(v22, "ccgcm_set_iv"))
-                {
-                  sub_5ACC();
-                  v23 = ccgcm_update();
-                  if (!sub_5A14(v23, "ccgcm_update"))
-                  {
-                    sub_5AA4();
-                    ccgcm_finalize();
-                    v24 = cc_cmp_safe();
-                    if (!sub_5A14(v24, "cc_cmp_safe"))
-                    {
-LABEL_13:
-                      *v1 = v20;
-                    }
-                  }
-                }
+                *v1 = v20;
               }
             }
           }
@@ -1336,41 +1255,9 @@ void sub_62C4()
             if (v5 >= 0x22)
             {
               v19 = v5 - 33;
-              if (*v1 < v19)
+              if (*v1 < v19 || (sub_5BB0(), !v20) && *v7 == 2 && (sub_5ACC(), v21 = ccgcm_init(), !sub_5A14(v21, "ccgcm_init")) && (sub_5AA4(), v22 = ccgcm_set_iv(), !sub_5A14(v22, "ccgcm_set_iv")) && (sub_5BB0(), !v23) && (sub_5ACC(), v24 = ccgcm_update(), !sub_5A14(v24, "ccgcm_update")) && !__CFADD__(v7 + 17, v19) && (sub_5AA4(), ccgcm_finalize(), v25 = cc_cmp_safe(), !sub_5A14(v25, "cc_cmp_safe")))
               {
-                goto LABEL_16;
-              }
-
-              sub_5BB0();
-              if (!v20 && *v7 == 2)
-              {
-                sub_5ACC();
-                v21 = ccgcm_init();
-                if (!sub_5A14(v21, "ccgcm_init"))
-                {
-                  sub_5AA4();
-                  v22 = ccgcm_set_iv();
-                  if (!sub_5A14(v22, "ccgcm_set_iv"))
-                  {
-                    sub_5BB0();
-                    if (!v23)
-                    {
-                      sub_5ACC();
-                      v24 = ccgcm_update();
-                      if (!sub_5A14(v24, "ccgcm_update") && !__CFADD__(v7 + 17, v19))
-                      {
-                        sub_5AA4();
-                        ccgcm_finalize();
-                        v25 = cc_cmp_safe();
-                        if (!sub_5A14(v25, "cc_cmp_safe"))
-                        {
-LABEL_16:
-                          *v1 = v19;
-                        }
-                      }
-                    }
-                  }
-                }
+                *v1 = v19;
               }
             }
           }
@@ -1556,7 +1443,7 @@ LABEL_9:
   return result;
 }
 
-rsize_t sub_6AF8(rsize_t result, int a2, unsigned __int8 a3, uint64_t a4, uint64_t a5, uint64_t a6, const void *a7, uint64_t a8, char a9, uint64_t a10, int a11, unsigned int a12, uint64_t a13)
+uint64_t sub_6AF8(uint64_t result, int a2, unsigned __int8 a3, uint64_t a4, uint64_t a5, uint64_t a6, const void *a7, uint64_t a8, char a9, uint64_t a10, int a11, int a12, uint64_t a13)
 {
   v20 = result;
   if (gACMLoggingLevel <= 0xAu)
@@ -1693,14 +1580,14 @@ unint64_t Util_KeybagLockStateToEnvVar(unsigned int a1)
   return v1 & 3;
 }
 
-void Util_SafeDeallocParameters(unsigned int *a1, unsigned int a2)
+void Util_SafeDeallocParameters(unsigned int *result, unsigned int a2)
 {
-  if (a1)
+  if (result)
   {
     v3 = a2;
     if (a2)
     {
-      v4 = a1 + 4;
+      v4 = result + 4;
       v5 = a2;
       do
       {
@@ -1719,9 +1606,9 @@ void Util_SafeDeallocParameters(unsigned int *a1, unsigned int a2)
       while (v5);
     }
 
-    acm_mem_free_info("array of ACMParameter", a1, 24 * v3, "/Library/Caches/com.apple.xbs/Sources/AppleCredentialManager_ClientLibs/common/CommonUtil.c", 121, "Util_SafeDeallocParameters");
+    acm_mem_free_info("array of ACMParameter", result, 24 * v3, "/Library/Caches/com.apple.xbs/Sources/AppleCredentialManager_ClientLibs/common/CommonUtil.c", 121, "Util_SafeDeallocParameters");
 
-    acm_mem_free(a1, 24 * v3);
+    acm_mem_free(result, 24 * v3);
   }
 }
 
@@ -1836,8 +1723,9 @@ uint64_t ACMContextCreateWithExternalForm(uint64_t a1, uint64_t a2)
   return v4;
 }
 
-uint64_t ACMContextDelete(_DWORD *a1, int a2)
+uint64_t ACMContextDelete(_DWORD *a1, uint64_t a2)
 {
+  v2 = a2;
   v4 = byte_20A61;
   if (byte_20A61 <= 0xAu && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
   {
@@ -1857,7 +1745,7 @@ uint64_t ACMContextDelete(_DWORD *a1, int a2)
     v12 = "ACMLib";
     v14 = "ACMContextDelete";
     v13 = 2080;
-    if (a2)
+    if (v2)
     {
       v6 = "YES";
     }
@@ -1870,7 +1758,7 @@ uint64_t ACMContextDelete(_DWORD *a1, int a2)
   }
 
   v10 = a1;
-  v7 = LibCall_ACMContextDelete(sub_A634, &v10, a1, a2);
+  v7 = LibCall_ACMContextDelete(sub_A634, &v10, a1, v2);
   if (v7)
   {
     v8 = 70;
@@ -1932,8 +1820,9 @@ LABEL_9:
   }
 }
 
-uint64_t ACMContextRemoveCredentialsByType(_OWORD *a1, int a2)
+uint64_t ACMContextRemoveCredentialsByType(_OWORD *a1, uint64_t a2)
 {
+  v2 = a2;
   if (byte_20A61 <= 0xAu && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
   {
     v5 = 136315394;
@@ -1943,7 +1832,7 @@ uint64_t ACMContextRemoveCredentialsByType(_OWORD *a1, int a2)
     _os_log_impl(&def_13158, &_os_log_default, OS_LOG_TYPE_INFO, "%s: %s: called.\n", &v5, 0x16u);
   }
 
-  return ACMContextRemoveCredentialsByTypeAndScope(a1, a2, 1);
+  return ACMContextRemoveCredentialsByTypeAndScope(a1, v2, 1);
 }
 
 uint64_t ACMContextContainsCredentialType(uint64_t a1, int a2)
@@ -2252,82 +2141,84 @@ void ACMGetAclAuthMethod(__n128 *a1, uint64_t a2)
   }
 }
 
-uint64_t ACMSetEnvironmentVariable(int a1)
+uint64_t ACMSetEnvironmentVariable(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a1;
   if (byte_20A61 <= 0xAu && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v7 = "ACMLib";
-    v8 = 2080;
-    v9 = "ACMSetEnvironmentVariable";
+    v9 = "ACMLib";
+    v10 = 2080;
+    v11 = "ACMSetEnvironmentVariable";
     _os_log_impl(&def_13158, &_os_log_default, OS_LOG_TYPE_INFO, "%s: %s: called.\n", buf, 0x16u);
   }
 
   LibCall_ACMSetEnvironmentVariable();
-  v3 = v2;
-  if (v2)
+  v5 = v4;
+  if (v4)
   {
-    v4 = 70;
+    v6 = 70;
   }
 
   else
   {
-    v4 = 10;
+    v6 = 10;
   }
 
-  if (v4 >= byte_20A61 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
+  if (v6 >= byte_20A61 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
   {
     *buf = 136315906;
-    v7 = "ACMLib";
-    v8 = 2080;
-    v9 = "ACMSetEnvironmentVariable";
-    v10 = 2048;
-    v11 = v3;
-    v12 = 1024;
-    v13 = a1;
+    v9 = "ACMLib";
+    v10 = 2080;
+    v11 = "ACMSetEnvironmentVariable";
+    v12 = 2048;
+    v13 = v5;
+    v14 = 1024;
+    v15 = v3;
     _os_log_impl(&def_13158, &_os_log_default, OS_LOG_TYPE_INFO, "%s: %s: returning, err = %ld, var=%u.\n", buf, 0x26u);
   }
 
-  return v3;
+  return v5;
 }
 
-uint64_t ACMSetEnvironmentVariableWithAccessPolicy(int a1)
+uint64_t ACMSetEnvironmentVariableWithAccessPolicy(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
+  v6 = a1;
   if (byte_20A61 <= 0xAu && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v7 = "ACMLib";
-    v8 = 2080;
-    v9 = "ACMSetEnvironmentVariableWithAccessPolicy";
+    v12 = "ACMLib";
+    v13 = 2080;
+    v14 = "ACMSetEnvironmentVariableWithAccessPolicy";
     _os_log_impl(&def_13158, &_os_log_default, OS_LOG_TYPE_INFO, "%s: %s: called.\n", buf, 0x16u);
   }
 
   LibCall_ACMSetEnvironmentVariable();
-  v3 = v2;
-  if (v2)
+  v8 = v7;
+  if (v7)
   {
-    v4 = 70;
+    v9 = 70;
   }
 
   else
   {
-    v4 = 10;
+    v9 = 10;
   }
 
-  if (v4 >= byte_20A61 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
+  if (v9 >= byte_20A61 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
   {
     *buf = 136315906;
-    v7 = "ACMLib";
-    v8 = 2080;
-    v9 = "ACMSetEnvironmentVariableWithAccessPolicy";
-    v10 = 2048;
-    v11 = v3;
-    v12 = 1024;
-    v13 = a1;
+    v12 = "ACMLib";
+    v13 = 2080;
+    v14 = "ACMSetEnvironmentVariableWithAccessPolicy";
+    v15 = 2048;
+    v16 = v8;
+    v17 = 1024;
+    v18 = v6;
     _os_log_impl(&def_13158, &_os_log_default, OS_LOG_TYPE_INFO, "%s: %s: returning, err = %ld, var=%u.\n", buf, 0x26u);
   }
 
-  return v3;
+  return v8;
 }
 
 uint64_t ACMGetEnvironmentVariable(uint64_t a1, uint64_t a2)
@@ -2407,8 +2298,10 @@ uint64_t ACMKernelControl(int a1)
   return v2;
 }
 
-void ACMGlobalContextCredentialGetProperty(int a1, int a2, uint64_t a3)
+void ACMGlobalContextCredentialGetProperty(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v4 = a2;
+  v5 = a1;
   if (byte_20A61 <= 0xAu && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
@@ -2419,7 +2312,7 @@ void ACMGlobalContextCredentialGetProperty(int a1, int a2, uint64_t a3)
   }
 
   v6 = 0;
-  LibCall_ACMGlobalContextCredentialGetProperty_Block(sub_A634, &v6, a1, a2, a3);
+  LibCall_ACMGlobalContextCredentialGetProperty_Block(sub_A634, &v6, v5, v4, a3);
   if (byte_20A61 <= 0xAu && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
@@ -2430,8 +2323,10 @@ void ACMGlobalContextCredentialGetProperty(int a1, int a2, uint64_t a3)
   }
 }
 
-void ACMContextCredentialGetProperty(__n128 *a1, unsigned __int32 a2, unsigned __int32 a3, uint64_t a4)
+void ACMContextCredentialGetProperty(__n128 *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
+  v5 = a3;
+  v6 = a2;
   if (byte_20A61 <= 0xAu && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
@@ -2460,7 +2355,7 @@ void ACMContextCredentialGetProperty(__n128 *a1, unsigned __int32 a2, unsigned _
   if (a4)
   {
     v9 = a1;
-    v8 = LibCall_ACMContextCredentialGetProperty(sub_A634, &v9, a1, a2, a3, buf, &v10);
+    v8 = LibCall_ACMContextCredentialGetProperty(sub_A634, &v9, a1, v6, v5, buf, &v10);
     (*(a4 + 16))(a4, v8, buf, v10);
   }
 
@@ -2618,45 +2513,46 @@ uint64_t ACMContextGetDataProperty(uint64_t a1, unsigned __int16 a2, unsigned __
   return Data;
 }
 
-uint64_t ACMContextCopyData(__int128 *a1, uint64_t a2, __int128 *a3, uint64_t a4)
+uint64_t ACMContextCopyData(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   if (byte_20A61 <= 0xAu && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v13 = "ACMLib";
-    v14 = 2080;
-    v15 = "ACMContextCopyData";
+    v15 = "ACMLib";
+    v16 = 2080;
+    v17 = "ACMContextCopyData";
     _os_log_impl(&def_13158, &_os_log_default, OS_LOG_TYPE_INFO, "%s: %s: called.\n", buf, 0x16u);
   }
 
-  v11 = 0;
-  v8 = LibCall_ACMContextCopyData(sub_A634, &v11, a1, a2, a3, a4);
-  if (v8)
+  v13 = 0;
+  v10 = LibCall_ACMContextCopyData(sub_A634, &v13, a1, a2, a3, a4);
+  if (v10)
   {
-    v9 = 70;
+    v11 = 70;
   }
 
   else
   {
-    v9 = 10;
+    v11 = 10;
   }
 
-  if (v9 >= byte_20A61 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
+  if (v11 >= byte_20A61 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v13 = "ACMLib";
-    v14 = 2080;
-    v15 = "ACMContextCopyData";
-    v16 = 2048;
-    v17 = v8;
+    v15 = "ACMLib";
+    v16 = 2080;
+    v17 = "ACMContextCopyData";
+    v18 = 2048;
+    v19 = v10;
     _os_log_impl(&def_13158, &_os_log_default, OS_LOG_TYPE_INFO, "%s: %s: returning, err = %ld.\n", buf, 0x20u);
   }
 
-  return v8;
+  return v10;
 }
 
-uint64_t ACMContextGetInfo(__int128 *a1, int a2, void *a3)
+uint64_t ACMContextGetInfo(__int128 *a1, uint64_t a2, void *a3)
 {
+  v4 = a2;
   if (byte_20A61 <= 0xAu && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
@@ -2667,7 +2563,7 @@ uint64_t ACMContextGetInfo(__int128 *a1, int a2, void *a3)
   }
 
   v9 = a1;
-  v6 = LibCall_ACMContextGetInfo(sub_A634, &v9, a1, a2, a3);
+  v6 = LibCall_ACMContextGetInfo(sub_A634, &v9, a1, v4, a3);
   if (v6)
   {
     v7 = 70;
@@ -2729,20 +2625,13 @@ LABEL_12:
   }
 }
 
-uint64_t sub_A51C(uint64_t a1, char a2, uint64_t a3, uint64_t a4, size_t a5)
+uint64_t sub_A51C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, size_t a5)
 {
 
   return sub_A9AC(a1, a2, 0, v5, a5, 0, 0);
 }
 
-uint64_t sub_A554()
-{
-  v3 = *(v2 + 8 * v1);
-  v4 = *(v0 + 16);
-  return v0;
-}
-
-uint64_t sub_A634(uint64_t *a1, char a2, char a3, const void *a4, size_t a5, void *a6, size_t *a7)
+uint64_t sub_A634(uint64_t *a1, uint64_t a2, uint64_t a3, const void *a4, size_t a5, void *a6, size_t *a7)
 {
   if (byte_20A61 <= 0xAu && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
   {
@@ -2844,57 +2733,53 @@ LABEL_10:
   return v5;
 }
 
-uint64_t sub_A9AC(uint64_t a1, char a2, char a3, const void *a4, size_t a5, void *a6, size_t *a7)
+uint64_t sub_A9AC(uint64_t a1, uint64_t a2, uint64_t a3, const void *a4, size_t a5, void *a6, size_t *a7)
 {
+  v11 = a3;
+  v12 = a2;
   if (byte_20A61 <= 0xAu && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
   {
     sub_A484();
     sub_A460();
-    _os_log_impl(v14, v15, v16, v17, v18, 0x16u);
+    _os_log_impl(v13, v14, v15, v16, v17, 0x16u);
   }
 
   inputStructCnt = 0;
-  v19 = LibCall_BuildCommand(a2, 0, a3, a4, a5, &inputStructCnt);
-  if (v19)
+  v18 = LibCall_BuildCommand(v12, 0, v11, a4, a5, &inputStructCnt);
+  if (v18)
   {
-    v20 = v19;
+    v19 = v18;
     if (!a6 && a7)
     {
-      v23 = 4294967293;
+      v21 = 4294967293;
     }
 
     else
     {
       if (a7)
       {
-        v21 = *a7;
+        v20 = *a7;
       }
 
       else
       {
-        v21 = 0;
+        v20 = 0;
       }
 
-      v44 = v21;
-      v22 = IOConnectCallStructMethod(dword_20ADC, 0, v19, inputStructCnt, a6, &v44);
-      v23 = v22;
-      if (a1)
-      {
-        v24 = *(a1 + 16);
-      }
-
-      if (v22)
+      v41 = v20;
+      v21 = IOConnectCallStructMethod(dword_20ADC, 0, v18, inputStructCnt, a6, &v41);
+      if (v21)
       {
         if (byte_20A61 <= 0x46u && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
         {
           sub_A484();
           sub_A5B8();
-          v49 = v25;
-          v50 = v23;
-          v51 = v25;
-          v52 = v23;
+          v46 = v22;
+          v47 = v21;
+          v48 = v22;
+          v49 = v21;
           sub_A460();
-          _os_log_impl(v26, v27, v28, v29, v30, 0x2Eu);
+          _os_log_impl(v23, v24, v25, v26, v27, 0x2Eu);
         }
       }
 
@@ -2905,49 +2790,49 @@ uint64_t sub_A9AC(uint64_t a1, char a2, char a3, const void *a4, size_t a5, void
           sub_A484();
           sub_A5B8();
           sub_A460();
-          _os_log_impl(v31, v32, v33, v34, v35, 0x22u);
+          _os_log_impl(v28, v29, v30, v31, v32, 0x22u);
         }
 
-        v23 = 0;
+        v21 = 0;
         if (a7)
         {
-          *a7 = v44;
+          *a7 = v41;
         }
       }
     }
 
-    v36 = inputStructCnt;
-    acm_mem_free_info("<data>", v20, inputStructCnt, "/Library/Caches/com.apple.xbs/Sources/AppleCredentialManager_ClientLibs/ACMLib/ACMLib.c", 134, "performCommand");
-    acm_mem_free_data(v20, v36);
-    if (v23)
+    v33 = inputStructCnt;
+    acm_mem_free_info("<data>", v19, inputStructCnt, "/Library/Caches/com.apple.xbs/Sources/AppleCredentialManager_ClientLibs/ACMLib/ACMLib.c", 134, "performCommand");
+    acm_mem_free_data(v19, v33);
+    if (v21)
     {
-      v37 = 70;
+      v34 = 70;
     }
 
     else
     {
-      v37 = 10;
+      v34 = 10;
     }
   }
 
   else
   {
-    v37 = 70;
-    v23 = 4294967291;
+    v34 = 70;
+    v21 = 4294967291;
   }
 
-  if (v37 >= byte_20A61 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
+  if (v34 >= byte_20A61 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
   {
-    v46 = 136315650;
-    v47 = "ACMLib";
+    v43 = 136315650;
+    v44 = "ACMLib";
     sub_A4F8();
-    v48 = "performCommand";
+    v45 = "performCommand";
     sub_A428();
     sub_A460();
-    _os_log_impl(v38, v39, v40, v41, v42, 0x20u);
+    _os_log_impl(v35, v36, v37, v38, v39, 0x20u);
   }
 
-  return v23;
+  return v21;
 }
 
 void sub_ACC4()
@@ -2957,7 +2842,7 @@ void sub_ACC4()
   _os_log_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
-uint64_t LibCall_ACMContextDelete(void (*a1)(uint64_t, uint64_t, void, void *, uint64_t, void, void), uint64_t a2, void *a3, int a4)
+uint64_t LibCall_ACMContextDelete(void (*a1)(uint64_t, uint64_t, void, const void *, uint64_t, void, void), uint64_t a2, void *a3, int a4)
 {
   if (gACMLoggingLevel <= 0xAu)
   {
@@ -3066,20 +2951,13 @@ void *sub_B1F8()
   return acm_mem_alloc_typed(0x14uLL, 0x1000040A86A77D5uLL);
 }
 
-uint64_t sub_B320(uint64_t a1, uint64_t a2, unsigned int *a3)
-{
-  result = 0;
-  v4 = *a3;
-  return result;
-}
-
-void sub_B374()
+void sub_B374(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
 
   LibCall_ACMSetEnvironmentVariable();
 }
 
-uint64_t sub_B394(uint64_t (*a1)(uint64_t, void, void, void *, size_t, _DWORD *, unint64_t *), uint64_t a2, int a3, _OWORD *a4, unsigned __int8 *a5, uint64_t a6, unsigned __int8 *a7, uint64_t a8, const void *a9, unsigned int a10, unsigned int a11, _DWORD *a12, BOOL *a13, void *a14, unint64_t *a15)
+uint64_t sub_B394(uint64_t (*a1)(uint64_t, void, void, const void *, size_t, _DWORD *, unint64_t *), uint64_t a2, int a3, _OWORD *a4, unsigned __int8 *a5, uint64_t a6, unsigned __int8 *a7, uint64_t a8, const void *a9, unsigned int a10, unsigned int a11, _DWORD *a12, BOOL *a13, void *a14, unint64_t *a15)
 {
   v19 = gACMLoggingLevel;
   v20 = "processAclCommandInternal";
@@ -3677,7 +3555,7 @@ uint64_t GetSerializedVerifyAclConstraintSize(int a1, uint64_t a2, uint64_t a3, 
   return result;
 }
 
-uint64_t SerializeVerifyAclConstraint(int a1, _OWORD *a2, const void *a3, unsigned int a4, const void *a5, unsigned int a6, char a7, int a8, uint64_t a9, unsigned int a10, uint64_t a11, void *a12)
+uint64_t SerializeVerifyAclConstraint(int a1, _OWORD *a2, const void *a3, unsigned int a4, const void *a5, unsigned int a6, char a7, int a8, uint64_t a9, unsigned int a10, uint64_t a11, uint64_t *a12)
 {
   if (!a3)
   {
@@ -3860,13 +3738,13 @@ void GetSerializedRequirementSize(uint64_t a1, uint64_t a2, void *a3)
         *a3 = 20;
         while (*(a2 + 16))
         {
-          SerializedRequirementSize = GetSerializedRequirementSize(a1, *(a2 + 20), &v26);
-          if (SerializedRequirementSize)
+          GetSerializedRequirementSize(a1, *(a2 + 20), &v26);
+          if (v9)
           {
             break;
           }
 
-          sub_5314(SerializedRequirementSize, v10, v11, v12, v13, v14, v15, v16, v25, v26);
+          sub_5314(v9, v10, v11, v12, v13, v14, v15, v16, v25, v26);
         }
       }
 
@@ -3875,7 +3753,7 @@ void GetSerializedRequirementSize(uint64_t a1, uint64_t a2, void *a3)
         *a3 = 24;
         while (*(a2 + 20))
         {
-          v17 = GetSerializedRequirementSize(a1, *(a2 + 24), &v26);
+          GetSerializedRequirementSize(a1, *(a2 + 24), &v26);
           if (v17)
           {
             break;
@@ -3891,100 +3769,6 @@ void GetSerializedRequirementSize(uint64_t a1, uint64_t a2, void *a3)
       *a3 = sub_5018(a1, a2) + 16;
     }
   }
-}
-
-void SerializeRequirement(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, unint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22)
-{
-  sub_53E0();
-  a21 = v22;
-  a22 = v27;
-  v28 = v23;
-  a12 = 0;
-  if (v24)
-  {
-    v29 = v25;
-    if (v25)
-    {
-      v30 = v26;
-      if (v26)
-      {
-        v31 = v24;
-        GetSerializedRequirementSize(v23, v24, &a12);
-        if (!v32 && a12 <= *v30)
-        {
-          v41 = *v31;
-          v42 = v31[2];
-          v33 = sub_5018(v28, v31);
-          *v29 = v41;
-          *(v29 + 8) = v42;
-          *(v29 + 12) = v33;
-          if (*v31 <= 0x1Cu)
-          {
-            sub_52E4();
-            if (!v36)
-            {
-              v37 = sub_5018(v28, v31);
-              memcpy((v29 + 16), v31 + 4, v37);
-              v38 = v37 + 16;
-LABEL_9:
-              *v30 = v38;
-              goto LABEL_10;
-            }
-
-            if ((v35 & 0x30) != 0)
-            {
-              *(v29 + 16) = v31[4];
-              if (!v31[4])
-              {
-                v38 = 20;
-                goto LABEL_9;
-              }
-
-              v39 = 0;
-              v38 = 20;
-              while (!sub_5290())
-              {
-                v38 += a9;
-                if (++v39 >= v31[4])
-                {
-                  goto LABEL_9;
-                }
-              }
-            }
-
-            else
-            {
-              if (v34 != 7)
-              {
-                goto LABEL_10;
-              }
-
-              *(v29 + 16) = *(v31 + 2);
-              if (!v31[5])
-              {
-                v38 = 24;
-                goto LABEL_9;
-              }
-
-              v40 = 0;
-              v38 = 24;
-              while (!sub_5290())
-              {
-                v38 += a9;
-                if (++v40 >= v31[5])
-                {
-                  goto LABEL_9;
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-LABEL_10:
-  sub_53F8();
 }
 
 uint64_t GetSerializedCredentialSize(_DWORD *a1, void *a2)
@@ -4173,7 +3957,7 @@ LABEL_15:
   sub_5368();
 }
 
-uint64_t CopyCredential(uint64_t a1, void **a2)
+uint64_t CopyCredential(unsigned int *a1, void **a2)
 {
   __dst = 0;
   v2 = 4294967293;
@@ -4190,7 +3974,7 @@ uint64_t CopyCredential(uint64_t a1, void **a2)
 
     else if (__dst)
     {
-      memcpy(__dst, a1, *(a1 + 28) + 32);
+      memcpy(__dst, a1, a1[7] + 32);
       v2 = 0;
       *a2 = __dst;
     }
@@ -4636,7 +4420,7 @@ LABEL_12:
   return v4;
 }
 
-void DeallocCredentialList(_DWORD **a1, unsigned int a2)
+void DeallocCredentialList(void *a1, unsigned int a2)
 {
   if (a1)
   {
@@ -5262,7 +5046,7 @@ uint64_t LibSer_SEPControlResponse_Serialize(void *__src, size_t __n, _DWORD *a3
   return result;
 }
 
-uint64_t LibSer_SEPControlResponse_Deserialize(unsigned int *a1, unint64_t a2, void *a3, void *a4)
+uint64_t LibSer_SEPControlResponse_Deserialize(unsigned int *a1, unint64_t a2, unsigned int **a3, void *a4)
 {
   if (!a1)
   {
@@ -6045,7 +5829,7 @@ uint64_t LibCall_ACMContextUnloadToImage_Block(uint64_t a1)
   return v4;
 }
 
-uint64_t Util_WriteToBuffer(uint64_t a1, size_t a2, void *a3, void *__src, size_t __n)
+uint64_t Util_WriteToBuffer(uint64_t a1, size_t a2, size_t *a3, void *__src, size_t __n)
 {
   if (gACMLoggingLevel <= 0xAu)
   {
@@ -6099,7 +5883,7 @@ LABEL_13:
   return v12;
 }
 
-uint64_t Util_ReadFromBuffer(uint64_t a1, size_t a2, void *a3, void *__dst, size_t __n)
+uint64_t Util_ReadFromBuffer(uint64_t a1, size_t a2, size_t *a3, void *__dst, size_t __n)
 {
   if (gACMLoggingLevel <= 0xAu)
   {
@@ -7172,9 +6956,9 @@ void ACMContextRemoveCredentialsByValueAndScope(int a1, int a2, int a3, int a4, 
       if (v39)
       {
         v40 = sub_A450();
-        if (!SerializeRemoveCredential(v40))
+        if (!SerializeRemoveCredential(v40, v41, v42, v39, v43))
         {
-          sub_A51C(v26, 6, v41, v42, size);
+          sub_A51C(v26, 6, v44, v45, size);
         }
 
         acm_mem_free_info("<data>", v39, size, "/Library/Caches/com.apple.xbs/Sources/AppleCredentialManager_ClientLibs/ACMLib/ACMLib.c", 478, "ACMContextRemoveCredentialsByValueAndScope");
@@ -7189,11 +6973,11 @@ void ACMContextRemoveCredentialsByValueAndScope(int a1, int a2, int a3, int a4, 
   }
 
   sub_A5AC();
-  if (v43 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
+  if (v46 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
   {
     sub_A404();
     sub_A460();
-    _os_log_impl(v44, v45, v46, v47, v48, 0x20u);
+    _os_log_impl(v47, v48, v49, v50, v51, 0x20u);
   }
 
   sub_A5D0();
@@ -7344,9 +7128,9 @@ void ACMContextReplacePassphraseCredentialsWithScope(int a1, int a2, int a3, int
       if (v39)
       {
         v40 = sub_A450();
-        if (!SerializeReplacePassphraseCredential(v40))
+        if (!SerializeReplacePassphraseCredential(v40, v41, v42, v39, v43))
         {
-          sub_A51C(v26, 15, v41, v42, size);
+          sub_A51C(v26, 15, v44, v45, size);
         }
 
         bzero(v39, size);
@@ -7362,11 +7146,11 @@ void ACMContextReplacePassphraseCredentialsWithScope(int a1, int a2, int a3, int
   }
 
   sub_A5AC();
-  if (v43 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
+  if (v46 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
   {
     sub_A404();
     sub_A460();
-    _os_log_impl(v44, v45, v46, v47, v48, 0x20u);
+    _os_log_impl(v47, v48, v49, v50, v51, 0x20u);
   }
 
   sub_A5D0();
@@ -7898,7 +7682,7 @@ uint64_t LibCall_ACMContextVerifyPolicyAndCopyRequirementEx(int a1, int a2, uint
         v19 += 6;
         if (!--v18)
         {
-          goto LABEL_23;
+          goto LABEL_22;
         }
       }
 
@@ -7914,15 +7698,10 @@ uint64_t LibCall_ACMContextVerifyPolicyAndCopyRequirementEx(int a1, int a2, uint
         v22 = 0;
       }
 
-      if (v22)
+      if (v22 && !a11)
       {
-        if (!a11)
-        {
-          v17 = 4294967293;
-          goto LABEL_35;
-        }
-
-        v22 = *v20 == 0;
+        v17 = 4294967293;
+        goto LABEL_34;
       }
     }
 
@@ -7931,11 +7710,11 @@ uint64_t LibCall_ACMContextVerifyPolicyAndCopyRequirementEx(int a1, int a2, uint
       v17 = 4294967293;
       if (a6 || a7)
       {
-        goto LABEL_35;
+        goto LABEL_34;
       }
     }
 
-LABEL_23:
+LABEL_22:
     sub_B2C4();
     SerializedVerifyPolicySize = GetSerializedVerifyPolicySize();
     if (SerializedVerifyPolicySize)
@@ -8021,7 +7800,7 @@ LABEL_23:
     }
   }
 
-LABEL_35:
+LABEL_34:
   if (v17 && v42)
   {
     Util_DeallocRequirement(v42);
@@ -8097,21 +7876,20 @@ unsigned int *LibCall_ACMCredentialGetType(unsigned int *result)
   return result;
 }
 
-void LibCall_ACMCredentialSetProperty(uint64_t a1, uint64_t a2, unsigned int *__src, size_t a4)
+void LibCall_ACMCredentialSetProperty(int *a1, uint64_t a2, _OWORD *__src, size_t a4)
 {
   if (!a1 || (__src != 0) != (a4 != 0))
   {
     return;
   }
 
-  v5 = a1;
   if (!a4)
   {
     switch(a2)
     {
       case 300:
         sub_B288();
-        if (v72)
+        if (v68)
         {
           v8 = v7 == 3;
         }
@@ -8128,66 +7906,61 @@ void LibCall_ACMCredentialSetProperty(uint64_t a1, uint64_t a2, unsigned int *__
 
         goto LABEL_50;
       case 301:
-        v53 = *a1;
+      case 303:
+      case 305:
         return;
       case 302:
         sub_B288();
-        if (v72)
+        if (v68)
         {
-          v48 = v47 == 3;
+          v47 = v46 == 3;
         }
 
         else
         {
-          v48 = 0;
+          v47 = 0;
         }
 
-        if (!v48)
+        if (!v47)
         {
           return;
         }
 
-        goto LABEL_143;
-      case 303:
-        v52 = *a1;
-        return;
+        goto LABEL_140;
       case 304:
         sub_B288();
-        if (v72)
+        if (v68)
         {
-          v26 = v25 == 3;
+          v25 = v24 == 3;
         }
 
         else
         {
-          v26 = 0;
+          v25 = 0;
         }
 
-        if (v26)
+        if (v25)
         {
-          *(v5 + 185) = sub_B27C(v22, v23, v24);
+          *(a1 + 185) = sub_B27C(v21, v22, v23);
         }
 
-        return;
-      case 305:
-        v58 = *a1;
         return;
       case 306:
         sub_B350();
-        if (!v72 & v71)
+        if (!v68 & v67)
         {
-          v63 = 0;
+          v59 = 0;
         }
 
         else
         {
-          v63 = v62 == 3;
+          v59 = v58 == 3;
         }
 
-        if (v63)
+        if (v59)
         {
-          memcpy((v5 + 209), v61, a4);
-          *(v5 + 205) = a4;
+          memcpy(a1 + 209, v57, a4);
+          *(a1 + 205) = a4;
         }
 
         return;
@@ -8201,42 +7974,40 @@ void LibCall_ACMCredentialSetProperty(uint64_t a1, uint64_t a2, unsigned int *__
     case 5:
       if (a4 == 4)
       {
-        sub_B320(a1, a2, __src);
-        *(v5 + 12) = v78;
+        sub_B320();
+        a1[3] = v74;
       }
 
       return;
     case 0x3E9:
       sub_B350();
-      if (!v72 & v71)
+      if (!v68 & v67)
       {
-        v75 = 0;
+        v71 = 0;
       }
 
       else
       {
-        v75 = v74 == 21;
+        v71 = v70 == 21;
       }
 
-      if (v75)
+      if (v71)
       {
-        memcpy((v5 + 36), v73, a4);
-        *(v5 + 32) = a4;
+        memcpy(a1 + 9, v69, a4);
+        a1[8] = a4;
       }
 
       return;
     case 0x65:
       if (a4 == 4)
       {
-        v9 = *a1;
-        a1 = 4294967293;
-        switch(v9)
+        switch(*a1)
         {
           case 1:
           case 3:
           case 9:
           case 10:
-            goto LABEL_158;
+            goto LABEL_155;
           case 2:
           case 4:
           case 5:
@@ -8245,9 +8016,9 @@ void LibCall_ACMCredentialSetProperty(uint64_t a1, uint64_t a2, unsigned int *__
           case 8:
             return;
           default:
-            if (v9 == 18)
+            if (*a1 == 18)
             {
-              goto LABEL_158;
+              goto LABEL_155;
             }
 
             break;
@@ -8261,26 +8032,26 @@ void LibCall_ACMCredentialSetProperty(uint64_t a1, uint64_t a2, unsigned int *__
         return;
       }
 
-      goto LABEL_146;
+      goto LABEL_143;
     case 0xC8:
       sub_B350();
-      if (!v17 & v16)
+      if (!v16 & v15)
       {
-        v20 = 0;
+        v19 = 0;
       }
 
       else
       {
-        v20 = v19 == 2;
+        v19 = v18 == 2;
       }
 
-      if (!v20)
+      if (!v19)
       {
         return;
       }
 
-      *(v5 + 36) = a4;
-      v21 = (v5 + 40);
+      a1[9] = a4;
+      v20 = a1 + 10;
       goto LABEL_69;
     case 0xC9:
       if (a4 != 4 || *a1 != 2)
@@ -8288,9 +8059,9 @@ void LibCall_ACMCredentialSetProperty(uint64_t a1, uint64_t a2, unsigned int *__
         return;
       }
 
-LABEL_158:
-      sub_B320(a1, a2, __src);
-      *(v5 + 32) = v77;
+LABEL_155:
+      sub_B320();
+      a1[8] = v73;
       return;
     case 0x190:
       if (a4 != 32 || *a1 != 7)
@@ -8298,92 +8069,90 @@ LABEL_158:
         return;
       }
 
-      goto LABEL_121;
+      goto LABEL_119;
     case 0x191:
       if (a4 == 24 && *a1 == 7)
       {
-        v50 = sub_B27C(a1, a2, __src);
-        *(v5 + 80) = *(v51 + 16);
-        *(v5 + 64) = v50;
+        v49 = sub_B27C(a1, a2, __src);
+        *(a1 + 10) = *(v50 + 16);
+        *(a1 + 4) = v49;
       }
 
       return;
     case 0x1F5:
       sub_B288();
-      if (v10)
+      if (v9)
       {
-        v15 = v14 == 10;
+        v14 = v13 == 10;
       }
 
       else
       {
-        v15 = 0;
+        v14 = 0;
       }
 
-      if (v15)
+      if (v14)
       {
 LABEL_50:
-        *(v5 + 36) = sub_B27C(v11, v12, v13);
+        *(a1 + 9) = sub_B27C(v10, v11, v12);
       }
 
       return;
     case 0x1F6:
       sub_B288();
-      if (v64)
+      if (v60)
       {
-        v69 = v68 == 10;
+        v65 = v64 == 10;
       }
 
       else
       {
-        v69 = 0;
+        v65 = 0;
       }
 
-      if (v69)
+      if (v65)
       {
-LABEL_143:
-        *(v5 + 52) = sub_B27C(v65, v66, v67);
+LABEL_140:
+        *(a1 + 13) = sub_B27C(v61, v62, v63);
       }
 
       return;
     case 0x1F7:
       sub_B288();
-      if (v41)
+      if (v40)
       {
-        v46 = v45 == 10;
+        v45 = v44 == 10;
       }
 
       else
       {
-        v46 = 0;
+        v45 = 0;
       }
 
-      if (v46)
+      if (v45)
       {
-        *(v5 + 68) = sub_B27C(v42, v43, v44);
+        *(a1 + 17) = sub_B27C(v41, v42, v43);
       }
 
       return;
     case 0x259:
-      v40 = *a1 == 12 || *a1 == 15;
-      a1 = 4294967293;
-      if (a4 != 4 || !v40)
+      v39 = *a1 == 12 || *a1 == 15;
+      if (a4 != 4 || !v39)
       {
         return;
       }
 
-      goto LABEL_158;
+      goto LABEL_155;
     case 0x25A:
-      v60 = *a1 == 12 || *a1 == 15;
-      a1 = 4294967293;
-      if (a4 != 4 || !v60)
+      v56 = *a1 == 12 || *a1 == 15;
+      if (a4 != 4 || !v56)
       {
         return;
       }
 
-LABEL_146:
-      sub_B320(a1, a2, __src);
-      *(v5 + 36) = v70;
+LABEL_143:
+      sub_B320();
+      a1[9] = v66;
       return;
   }
 
@@ -8392,19 +8161,19 @@ LABEL_146:
     if (a2 == 801)
     {
       sub_B288();
-      if (v33)
+      if (v32)
       {
-        v38 = v37 == 17;
+        v37 = v36 == 17;
       }
 
       else
       {
-        v38 = 0;
+        v37 = 0;
       }
 
-      if (v38)
+      if (v37)
       {
-        *(v5 + 32) = sub_B27C(v34, v35, v36);
+        *(a1 + 2) = sub_B27C(v33, v34, v35);
       }
 
       return;
@@ -8414,10 +8183,10 @@ LABEL_146:
     {
       if (a4 == 65 && *a1 == 17)
       {
-        v21 = (a1 + 48);
-        v31 = __src;
-        v32 = 65;
-        goto LABEL_110;
+        v20 = a1 + 12;
+        v30 = __src;
+        v31 = 65;
+        goto LABEL_108;
       }
 
       return;
@@ -8433,21 +8202,21 @@ LABEL_146:
           switch(v6)
           {
             case 3:
-              *(a1 + 100) = 16;
+              a1[25] = 16;
               break;
             case 9:
-              *(a1 + 36) = 16;
+              a1[9] = 16;
               break;
             case 1:
-              *(a1 + 40) = 16;
+              a1[10] = 16;
               break;
             default:
               return;
           }
         }
 
-        v79 = sub_B27C(a1, a2, __src);
-        *v80 = v79;
+        v75 = sub_B27C(a1, a2, __src);
+        *v76 = v75;
       }
 
       return;
@@ -8458,33 +8227,33 @@ LABEL_146:
       return;
     }
 
-LABEL_121:
-    v57 = *(__src + 1);
-    *(a1 + 32) = *__src;
-    *(a1 + 48) = v57;
+LABEL_119:
+    v54 = __src[1];
+    *(a1 + 2) = *__src;
+    *(a1 + 3) = v54;
     return;
   }
 
   sub_B350();
-  if (!v28 & v27)
+  if (!v27 & v26)
   {
-    v30 = 0;
+    v29 = 0;
   }
 
   else
   {
-    v30 = v29 == 13;
+    v29 = v28 == 13;
   }
 
-  if (v30)
+  if (v29)
   {
-    *(v5 + 32) = a4;
-    v21 = (v5 + 36);
+    a1[8] = a4;
+    v20 = a1 + 9;
 LABEL_69:
-    v31 = v18;
-    v32 = a4;
-LABEL_110:
-    memcpy(v21, v31, v32);
+    v30 = v17;
+    v31 = a4;
+LABEL_108:
+    memcpy(v20, v30, v31);
   }
 }
 
@@ -8832,7 +8601,7 @@ uint64_t LibCall_ACMRequirementGetPriority(uint64_t result)
   return result;
 }
 
-uint64_t LibCall_ACMRequirementGetPropertyData(unsigned int *a1, int a2, unsigned int **a3, unint64_t *a4)
+uint64_t LibCall_ACMRequirementGetPropertyData(int *a1, int a2, int **a3, unint64_t *a4)
 {
   v6 = 4294967293;
   if (a1 && a3 && a4)
@@ -8842,69 +8611,69 @@ uint64_t LibCall_ACMRequirementGetPropertyData(unsigned int *a1, int a2, unsigne
       switch(a2)
       {
         case 300:
-          v9 = sub_B2B8(a1);
+          sub_B2B8();
           if (!v5)
           {
             return 4294967293;
           }
 
-          v10 = v9 + 5;
+          v10 = (v9 + 20);
           goto LABEL_34;
         case 301:
-          v19 = sub_B2B8(a1);
+          sub_B2B8();
           if (!v5)
           {
             return 4294967293;
           }
 
-          v18 = v19 + 13;
+          v18 = (v19 + 52);
           goto LABEL_62;
         case 302:
-          v13 = sub_B2B8(a1);
+          sub_B2B8();
           if (!v5)
           {
             return 4294967293;
           }
 
-          v10 = v13 + 9;
+          v10 = (v13 + 36);
           goto LABEL_34;
         case 303:
-          v16 = sub_B2B8(a1);
+          sub_B2B8();
           if (!v5)
           {
             return 4294967293;
           }
 
           v14 = 0;
-          v17 = v16 + 21;
+          v17 = (v16 + 84);
           break;
         case 304:
-          v12 = sub_B2B8(a1);
+          sub_B2B8();
           if (!v5)
           {
             return 4294967293;
           }
 
-          if (v12[3] < 0x9C)
+          if (*(v12 + 12) < 0x9Cu)
           {
             return 4294967282;
           }
 
-          v11 = v12 + 41;
+          v11 = (v12 + 164);
           goto LABEL_77;
         case 305:
-          v20 = sub_B2B8(a1);
+          sub_B2B8();
           if (!v5)
           {
             return 4294967293;
           }
 
-          if (v20[3] < 0x9C)
+          if (*(v20 + 12) < 0x9Cu)
           {
             return 4294967282;
           }
 
-          v11 = v20 + 42;
+          v11 = (v20 + 168);
           goto LABEL_77;
         case 306:
           if (*a1 != 24)
@@ -9254,7 +9023,18 @@ void LibCall_ACMSetEnvironmentVariable()
     v0 = printf("%s: %s: called.\n", "ACM", "LibCall_ACMSetEnvironmentVariable");
   }
 
-  if (v13 && v6 == 16 * (v8 != 0) && (v4 ? (v14 = v2 - 129 < 0xFFFFFFFFFFFFFF80) : (v14 = v2 != 0), !v14))
+  if (!v13 || v6 != 16 * (v8 != 0))
+  {
+    goto LABEL_20;
+  }
+
+  v14 = v2 != 0;
+  if (v4)
+  {
+    v14 = v2 - 129 < 0xFFFFFFFFFFFFFF80;
+  }
+
+  if (!v14)
   {
     __chkstk_darwin(v0);
     v15 = (&v17 - ((v2 + 59) & 0xFFFFFFFFFFFFFFF0));
@@ -9294,6 +9074,7 @@ void LibCall_ACMSetEnvironmentVariable()
 
   else
   {
+LABEL_20:
     sub_5B54();
   }
 
@@ -9480,7 +9261,7 @@ void LibCall_ACMContextUnloadToImage()
   sub_5BD4();
 }
 
-uint64_t LibCall_ACMContextCopyData(uint64_t a1, uint64_t a2, __int128 *a3, uint64_t a4, __int128 *a5, uint64_t a6)
+uint64_t LibCall_ACMContextCopyData(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   sub_B1EC();
   if (gACMLoggingLevel <= 0xAu)
@@ -9498,8 +9279,6 @@ uint64_t LibCall_ACMContextCopyData(uint64_t a1, uint64_t a2, __int128 *a3, uint
       {
         if (a6 == 16)
         {
-          v17 = *a3;
-          v18 = *a5;
           sub_B17C();
           v11 = v6();
         }
@@ -9617,7 +9396,7 @@ uint64_t LibCall_ACMContextGetInfo(uint64_t (*a1)(uint64_t, uint64_t, void, int 
   return v10;
 }
 
-uint64_t verifyAclConstraintInternal(int a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const void *a7, uint64_t a8, unsigned __int8 a9, uint64_t a10, int a11, unsigned int a12, BOOL *a13, uint64_t *a14)
+uint64_t verifyAclConstraintInternal(int a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const void *a7, uint64_t a8, char a9, uint64_t a10, int a11, int a12, BOOL *a13, uint64_t *a14)
 {
   sub_B35C();
   if (gACMLoggingLevel <= 0xAu)
@@ -9823,20 +9602,20 @@ uint64_t LibCall_ACMSecSetBuiltinBiometry(uint64_t a1, uint64_t a2)
     printf("%s: %s: called.\n", "ACM", "LibCall_ACMSecSetBuiltinBiometry");
   }
 
-  sub_B294();
-  sub_B374();
+  v3 = sub_B294();
+  sub_B374(v3, v4, 30, v5, v6, v7, v8);
   sub_5B98();
-  if (v3)
+  if (v9)
   {
-    v4 = 10;
+    v10 = 10;
   }
 
   else
   {
-    v4 = 70;
+    v10 = 70;
   }
 
-  if (v4 >= gACMLoggingLevel)
+  if (v10 >= gACMLoggingLevel)
   {
     printf("%s: %s: returning, err = %ld.\n", "ACM", "LibCall_ACMSecSetBuiltinBiometry", a2);
   }

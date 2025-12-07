@@ -16,44 +16,45 @@
 - (id)activityViewController:(id)controller itemForActivityType:(id)type
 {
   typeCopy = type;
-  if ([(AEAssetActivityItemProviderSource *)self supportsActivityType:typeCopy])
+  v6 = [(AEAssetActivityItemProviderSource *)self supportsActivityType:typeCopy];
+  if (v6)
   {
-    v17.receiver = self;
-    v17.super_class = AEAnnotationAirDropTextActivityItemProvider;
-    v6 = [(AEAnnotationTextActivityItemProvider *)&v17 textForActivityType:typeCopy];
-    v7 = NSTemporaryDirectory();
-    v8 = IMCommonCoreBundle();
-    v9 = [v8 localizedStringForKey:@"AirDrop" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
-    v10 = [v7 stringByAppendingPathComponent:v9];
-    v11 = [v10 stringByAppendingPathExtension:@"txt"];
+    v18.receiver = self;
+    v18.super_class = AEAnnotationAirDropTextActivityItemProvider;
+    v7 = [(AEAnnotationTextActivityItemProvider *)&v18 textForActivityType:typeCopy];
+    v8 = NSTemporaryDirectory();
+    v9 = IMCommonCoreBundle(v8);
+    v10 = [v9 localizedStringForKey:@"AirDrop" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
+    v11 = [v8 stringByAppendingPathComponent:v10];
+    v12 = [v11 stringByAppendingPathExtension:@"txt"];
 
-    v16 = 0;
-    [v6 writeToFile:v11 atomically:0 encoding:4 error:&v16];
-    v12 = 0;
-    if (!v16)
+    v17 = 0;
+    [v7 writeToFile:v12 atomically:0 encoding:4 error:&v17];
+    v13 = 0;
+    if (!v17)
     {
-      v12 = [NSURL fileURLWithPath:v11];
+      v13 = [NSURL fileURLWithPath:v12];
     }
   }
 
   else
   {
-    v6 = AESharingLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = AESharingLog(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v13 = objc_opt_class();
-      v14 = NSStringFromClass(v13);
+      v14 = objc_opt_class();
+      v15 = NSStringFromClass(v14);
       *buf = 138412546;
-      v19 = v14;
-      v20 = 2112;
-      v21 = typeCopy;
-      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_INFO, "%@ returning nil for activity:%@", buf, 0x16u);
+      v20 = v15;
+      v21 = 2112;
+      v22 = typeCopy;
+      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_INFO, "%@ returning nil for activity:%@", buf, 0x16u);
     }
 
-    v12 = 0;
+    v13 = 0;
   }
 
-  return v12;
+  return v13;
 }
 
 @end

@@ -60,12 +60,13 @@
       [(FMFSchedule *)v5 setTimeZone:v14];
 
       validityError = [(FMFSchedule *)v5 validityError];
+      v16 = validityError;
       if (validityError)
       {
-        v16 = LogCategory_Daemon();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+        v17 = LogCategory_Daemon(validityError);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
         {
-          [(FMFSchedule *)validityError initWithDictionary:v16];
+          [(FMFSchedule *)v16 initWithDictionary:v17];
         }
 
         v5 = 0;
@@ -78,10 +79,10 @@
 
   else
   {
-    v18 = LogCategory_Daemon();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
+    v19 = LogCategory_Daemon(0);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
     {
-      [FMFSchedule initWithDictionary:v18];
+      [FMFSchedule initWithDictionary:v19];
     }
 
     selfCopy = 0;
@@ -263,31 +264,31 @@
   v17 = *MEMORY[0x277D85DE8];
   atCopy = at;
   v5 = [(FMFSchedule *)self nextStartDateFrom:atCopy options:4];
+  v6 = v5;
   if (v5)
   {
-    v6 = [(FMFSchedule *)self _endDateForStartDate:v5];
-    v7 = [v5 compare:atCopy] == -1 && objc_msgSend(atCopy, "compare:", v6) == -1;
+    v7 = [(FMFSchedule *)self _endDateForStartDate:v5];
+    v8 = [v6 compare:atCopy] == -1 && objc_msgSend(atCopy, "compare:", v7) == -1;
   }
 
   else
   {
-    v7 = 0;
+    v8 = 0;
   }
 
-  v8 = LogCategory_Daemon();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = LogCategory_Daemon(v5);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v11 = 136315650;
     v12 = "[FMFSchedule isCurrentAt:]";
     v13 = 1024;
-    v14 = v7;
+    v14 = v8;
     v15 = 2112;
     v16 = atCopy;
-    _os_log_impl(&dword_24A33F000, v8, OS_LOG_TYPE_DEFAULT, "%s: %d at: %@", &v11, 0x1Cu);
+    _os_log_impl(&dword_24A33F000, v9, OS_LOG_TYPE_DEFAULT, "%s: %d at: %@", &v11, 0x1Cu);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-  return v7;
+  return v8;
 }
 
 - (id)nextStartOrEndDateFrom:(id)from
@@ -354,10 +355,10 @@
 
     if ((v11 & 0x8000000000000000) != 0)
     {
-      v14 = LogCategory_Daemon();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+      v15 = LogCategory_Daemon(v12);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
       {
-        [(FMFSchedule *)self _endDateForStartDate:v14];
+        [(FMFSchedule *)self _endDateForStartDate:v15];
       }
     }
 
@@ -365,7 +366,7 @@
     {
       do
       {
-        v12 = v8;
+        v13 = v8;
         _gregorian3 = [(FMFSchedule *)self _gregorian];
         v8 = [_gregorian3 nextDateAfterDate:v8 matchingComponents:v5 options:1024];
 
@@ -404,26 +405,24 @@
 
 void __26__FMFSchedule__daysOfWeek__block_invoke()
 {
-  v4[7] = *MEMORY[0x277D85DE8];
-  v3[0] = &unk_285D80658;
-  v3[1] = &unk_285D80688;
-  v4[0] = &unk_285D80670;
-  v4[1] = &unk_285D806A0;
-  v3[2] = &unk_285D806B8;
-  v3[3] = &unk_285D806E8;
-  v4[2] = &unk_285D806D0;
-  v4[3] = &unk_285D80700;
-  v3[4] = &unk_285D80718;
-  v3[5] = &unk_285D80748;
-  v4[4] = &unk_285D80730;
-  v4[5] = &unk_285D80760;
-  v3[6] = &unk_285D80778;
-  v4[6] = &unk_285D80790;
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:7];
+  v3[7] = *MEMORY[0x277D85DE8];
+  v2[0] = &unk_285D80658;
+  v2[1] = &unk_285D80688;
+  v3[0] = &unk_285D80670;
+  v3[1] = &unk_285D806A0;
+  v2[2] = &unk_285D806B8;
+  v2[3] = &unk_285D806E8;
+  v3[2] = &unk_285D806D0;
+  v3[3] = &unk_285D80700;
+  v2[4] = &unk_285D80718;
+  v2[5] = &unk_285D80748;
+  v3[4] = &unk_285D80730;
+  v3[5] = &unk_285D80760;
+  v2[6] = &unk_285D80778;
+  v3[6] = &unk_285D80790;
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:7];
   v1 = _daysOfWeek_daysOfWeekMap;
   _daysOfWeek_daysOfWeekMap = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __26__FMFSchedule__daysOfWeek__block_invoke_78(uint64_t a1, uint64_t a2)
@@ -491,29 +490,29 @@ uint64_t __41__FMFSchedule_nextStartDateFrom_options___block_invoke(void *a1, vo
 
 + (id)firstDateFromDates:(id)dates order:(int64_t)order
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   datesCopy = dates;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v6 = [datesCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [datesCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(datesCopy);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * i);
-        if (!v8 || [*(*(&v15 + 1) + 8 * i) compare:v8] == order)
+        v11 = *(*(&v14 + 1) + 8 * i);
+        if (!v8 || [*(*(&v14 + 1) + 8 * i) compare:v8] == order)
         {
           v12 = v11;
 
@@ -521,7 +520,7 @@ uint64_t __41__FMFSchedule_nextStartDateFrom_options___block_invoke(void *a1, vo
         }
       }
 
-      v7 = [datesCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [datesCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
@@ -531,8 +530,6 @@ uint64_t __41__FMFSchedule_nextStartDateFrom_options___block_invoke(void *a1, vo
   {
     v8 = 0;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -937,20 +934,18 @@ void __46__FMFSchedule_NSString___stringForDaysOfWeek___block_invoke(uint64_t a1
 
 - (void)initWithDictionary:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_24A33F000, a2, OS_LOG_TYPE_FAULT, "validityError: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_24A33F000, a2, OS_LOG_TYPE_FAULT, "validityError: %@", &v2, 0xCu);
 }
 
 - (void)_endDateForStartDate:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_24A33F000, a2, OS_LOG_TYPE_FAULT, "%@: spanDays should have been >= 0", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_24A33F000, a2, OS_LOG_TYPE_FAULT, "%@: spanDays should have been >= 0", &v2, 0xCu);
 }
 
 @end

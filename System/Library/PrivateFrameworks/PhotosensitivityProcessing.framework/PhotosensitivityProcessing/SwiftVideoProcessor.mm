@@ -59,11 +59,11 @@
   *v7 = v6;
   v7[1] = v5;
   selfCopy = self;
-  sub_25E78D970(v6);
-  sub_25E79268C(v8);
+  sub_25E78D970(v6, v5);
+  sub_25E79268C(v8, v9);
   if (v4)
   {
-    sub_25E79268C(v6);
+    sub_25E79268C(v6, v5);
   }
 
   v11 = v4 != 0;

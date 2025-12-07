@@ -7,6 +7,7 @@
 - (SCNLevelOfDetail)initWithGeometry:(id)geometry thresholdMode:(int64_t)mode lod:(__C3DLOD *)lod;
 - (SCNLevelOfDetail)initWithGeometry:(id)geometry thresholdMode:(int64_t)mode thresholdValue:(id)value;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)description;
 - (id)thresholdValue;
 - (void)_customEncodingOfSCNLevelOfDetail:(id)detail;
 - (void)_didDecodeSCNLevelOfDetail:(id)detail;
@@ -98,7 +99,7 @@
 
 - (id)thresholdValue
 {
-  v2 = C3DLODGetThreshold(self->_lod);
+  v2 = C3DLODGetThreshold(self->_lod, a2);
   v3 = MEMORY[0x277CCABB0];
 
   return [v3 numberWithDouble:v2];
@@ -119,7 +120,7 @@
   result = 0.0;
   if (self->_mode == 1)
   {
-    return C3DLODGetThreshold(self->_lod);
+    return C3DLODGetThreshold(self->_lod, a2);
   }
 
   return result;
@@ -130,15 +131,22 @@
   result = 0.0;
   if (!self->_mode)
   {
-    return C3DLODGetThreshold(self->_lod);
+    return C3DLODGetThreshold(self->_lod, a2);
   }
 
   return result;
 }
 
+- (id)description
+{
+  v3 = MEMORY[0x277CCACA8];
+  geometry = [(SCNLevelOfDetail *)self geometry];
+  return [v3 stringWithFormat:@"levelOfDetail <%p>: geometry:%@ threshold:%f useDistance:%d", self, geometry, C3DLODGetThreshold(self->_lod, v5), self->_mode == 0];
+}
+
 - (void)_customEncodingOfSCNLevelOfDetail:(id)detail
 {
-  v4 = [MEMORY[0x277CCABB0] numberWithDouble:C3DLODGetThreshold(self->_lod)];
+  v4 = [MEMORY[0x277CCABB0] numberWithDouble:{C3DLODGetThreshold(self->_lod, a2)}];
 
   [detail encodeObject:v4 forKey:@"threshold"];
 }

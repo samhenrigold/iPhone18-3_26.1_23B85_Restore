@@ -12,7 +12,7 @@
 
 - (void)fetchPredictionsFromBackendWithCompletion:(id)completion
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   if (self)
   {
@@ -29,7 +29,7 @@
       *&buf[12] = 2112;
       *&buf[14] = v11;
       *&buf[22] = 2112;
-      v24 = v6;
+      v23 = v6;
       _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_INFO, "%{public}@Fetched %@ predictions from duet: %@", buf, 0x20u);
     }
 
@@ -37,14 +37,14 @@
     *buf = MEMORY[0x1E69E9820];
     *&buf[8] = 3221225472;
     *&buf[16] = __64__HMUserActionPredictionDuetDataSource_fetchPredictionsFromDuet__block_invoke;
-    v24 = &unk_1E754ACC8;
-    v25 = selfCopy;
-    v22 = [v6 na_map:buf];
+    v23 = &unk_1E754ACC8;
+    v24 = selfCopy;
+    v21 = [v6 na_map:buf];
     [(HMUserActionPredictionDuetDataSource *)selfCopy openCacheIfNeeded];
     if (objc_getProperty(selfCopy, v13, 32, 1))
     {
       v14 = objc_alloc_init(HMUserActionPredictionDuetPredictionStore);
-      v15 = [v22 mutableCopy];
+      v15 = [v21 mutableCopy];
       [(HMUserActionPredictionDuetPredictionStore *)v14 setPredictions:v15];
 
       v17 = objc_getProperty(selfCopy, v16, 32, 1);
@@ -52,24 +52,22 @@
       [v17 setData:data forKey:@"HMUserActionPredictionDuetDataSourceCacheKey"];
     }
 
-    v19 = [v22 copy];
+    v19 = [v21 copy];
     objc_setProperty_atomic_copy(selfCopy, v20, v19, 24);
 
-    completionCopy[2](completionCopy, v22);
+    completionCopy[2](completionCopy, v21);
   }
 
   else
   {
-    v22 = 0;
+    v21 = 0;
     completionCopy[2](completionCopy, 0);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 HMUserActionPredictionDuetPredictionValue *__64__HMUserActionPredictionDuetDataSource_fetchPredictionsFromDuet__block_invoke(uint64_t a1, void *a2)
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 homeUUID];
   if (v4 && (v5 = v4, [v3 targetUUID], v6 = objc_claimAutoreleasedReturnValue(), v6, v5, v6))
@@ -124,11 +122,11 @@ HMUserActionPredictionDuetPredictionValue *__64__HMUserActionPredictionDuetDataS
       if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
         v31 = HMFGetLogIdentifier();
-        v34 = 138543618;
-        v35 = v31;
-        v36 = 2112;
-        v37 = v3;
-        _os_log_impl(&dword_19BB39000, v30, OS_LOG_TYPE_ERROR, "%{public}@Skipping prediction (%@) of unknown type from duet", &v34, 0x16u);
+        v33 = 138543618;
+        v34 = v31;
+        v35 = 2112;
+        v36 = v3;
+        _os_log_impl(&dword_19BB39000, v30, OS_LOG_TYPE_ERROR, "%{public}@Skipping prediction (%@) of unknown type from duet", &v33, 0x16u);
       }
 
       objc_autoreleasePoolPop(v28);
@@ -146,22 +144,20 @@ HMUserActionPredictionDuetPredictionValue *__64__HMUserActionPredictionDuetDataS
       v25 = HMFGetLogIdentifier();
       v26 = [v3 homeUUID];
       v27 = [v3 targetUUID];
-      v34 = 138544130;
-      v35 = v25;
-      v36 = 2112;
-      v37 = v26;
-      v38 = 2112;
-      v39 = v27;
-      v40 = 2112;
-      v41 = v3;
-      _os_log_impl(&dword_19BB39000, v24, OS_LOG_TYPE_ERROR, "%{public}@No home identifier (%@) or target identifier (%@) in duet prediction: %@", &v34, 0x2Au);
+      v33 = 138544130;
+      v34 = v25;
+      v35 = 2112;
+      v36 = v26;
+      v37 = 2112;
+      v38 = v27;
+      v39 = 2112;
+      v40 = v3;
+      _os_log_impl(&dword_19BB39000, v24, OS_LOG_TYPE_ERROR, "%{public}@No home identifier (%@) or target identifier (%@) in duet prediction: %@", &v33, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v22);
     v21 = 0;
   }
-
-  v32 = *MEMORY[0x1E69E9840];
 
   return v21;
 }
@@ -198,7 +194,7 @@ HMUserActionPredictionDuetPredictionValue *__64__HMUserActionPredictionDuetDataS
 
 - (id)fetchPredictionsFromCache
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   [(HMUserActionPredictionDuetDataSource *)self openCacheIfNeeded];
   if (self && objc_getProperty(self, v3, 32, 1))
   {
@@ -218,11 +214,11 @@ HMUserActionPredictionDuetPredictionValue *__64__HMUserActionPredictionDuetDataS
           v12 = MEMORY[0x1E696AD98];
           predictions = [(HMUserActionPredictionDuetPredictionStore *)v6 predictions];
           v14 = [v12 numberWithUnsignedInteger:{objc_msgSend(predictions, "count")}];
-          v27 = 138543618;
-          v28 = v11;
-          v29 = 2112;
+          v26 = 138543618;
+          v27 = v11;
+          v28 = 2112;
           Property = v14;
-          _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Loaded %@ duet predictions from cache", &v27, 0x16u);
+          _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Loaded %@ duet predictions from cache", &v26, 0x16u);
         }
 
         objc_autoreleasePoolPop(v7);
@@ -237,9 +233,9 @@ HMUserActionPredictionDuetPredictionValue *__64__HMUserActionPredictionDuetDataS
         if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
         {
           v24 = HMFGetLogIdentifier();
-          v27 = 138543362;
-          v28 = v24;
-          _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@Unable to load cached predictions from duet prediction store data.", &v27, 0xCu);
+          v26 = 138543362;
+          v27 = v24;
+          _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@Unable to load cached predictions from duet prediction store data.", &v26, 0xCu);
         }
 
         objc_autoreleasePoolPop(v7);
@@ -255,13 +251,13 @@ HMUserActionPredictionDuetPredictionValue *__64__HMUserActionPredictionDuetDataS
       if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
       {
         v22 = HMFGetLogIdentifier();
-        v27 = 138543874;
-        v28 = v22;
-        v29 = 2112;
+        v26 = 138543874;
+        v27 = v22;
+        v28 = 2112;
         Property = objc_getProperty(selfCopy2, v23, 32, 1);
-        v31 = 2112;
-        v32 = @"HMUserActionPredictionDuetDataSourceCacheKey";
-        _os_log_impl(&dword_19BB39000, v21, OS_LOG_TYPE_INFO, "%{public}@No duet prediction data found in cache (%@) for key: %@", &v27, 0x20u);
+        v30 = 2112;
+        v31 = @"HMUserActionPredictionDuetDataSourceCacheKey";
+        _os_log_impl(&dword_19BB39000, v21, OS_LOG_TYPE_INFO, "%{public}@No duet prediction data found in cache (%@) for key: %@", &v26, 0x20u);
       }
 
       objc_autoreleasePoolPop(v19);
@@ -273,8 +269,6 @@ HMUserActionPredictionDuetPredictionValue *__64__HMUserActionPredictionDuetDataS
   {
     v18 = MEMORY[0x1E695E0F0];
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 
   return v18;
 }
@@ -323,12 +317,11 @@ HMUserActionPredictionDuetPredictionValue *__64__HMUserActionPredictionDuetDataS
 
 uint64_t __51__HMUserActionPredictionDuetDataSource_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x1E69A2980];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v7_35349;
-  logCategory__hmf_once_v7_35349 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v7_35349;
+  logCategory__hmf_once_v7_35349 = v0;
 
-  return MEMORY[0x1EEE66BB8](v1, v2);
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

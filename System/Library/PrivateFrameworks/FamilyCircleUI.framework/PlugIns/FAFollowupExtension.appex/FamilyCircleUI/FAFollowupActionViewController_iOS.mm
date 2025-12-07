@@ -4,9 +4,18 @@
 - (void)handleAKAction:(id)action completion:(id)completion;
 - (void)handleActionWithURL:(id)l;
 - (void)handleActionWithURLKey:(id)key completion:(id)completion;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation FAFollowupActionViewController_iOS
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = FAFollowupActionViewController_iOS;
+  [(FAFollowupActionViewController_iOS *)&v4 viewDidAppear:appear];
+  [(FAFollowupActionViewController_iOS *)self _beginLoadingFamilyCircleUI];
+}
 
 - (void)handleActionWithURLKey:(id)key completion:(id)completion
 {

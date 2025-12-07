@@ -772,12 +772,11 @@ LABEL_23:
 {
   toCopy = to;
   has = self->_has;
-  v42 = toCopy;
+  v15 = toCopy;
   if ((*&has & 0x40000) != 0)
   {
-    txTotal = self->_txTotal;
     PBDataWriterWriteUint32Field();
-    toCopy = v42;
+    toCopy = v15;
     has = self->_has;
     if ((*&has & 0x100) == 0)
     {
@@ -796,9 +795,8 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  txData = self->_txData;
   PBDataWriterWriteUint32Field();
-  toCopy = v42;
+  toCopy = v15;
   has = self->_has;
   if ((*&has & 0x80000) == 0)
   {
@@ -812,9 +810,8 @@ LABEL_4:
   }
 
 LABEL_14:
-  txUnicast = self->_txUnicast;
   PBDataWriterWriteUint32Field();
-  toCopy = v42;
+  toCopy = v15;
   has = self->_has;
   if ((*&has & 0x80) == 0)
   {
@@ -828,9 +825,8 @@ LABEL_5:
   }
 
 LABEL_15:
-  txBroadcast = self->_txBroadcast;
   PBDataWriterWriteUint32Field();
-  toCopy = v42;
+  toCopy = v15;
   has = self->_has;
   if ((*&has & 0x4000) == 0)
   {
@@ -844,9 +840,8 @@ LABEL_6:
   }
 
 LABEL_16:
-  txErrCca = self->_txErrCca;
   PBDataWriterWriteUint32Field();
-  toCopy = v42;
+  toCopy = v15;
   has = self->_has;
   if ((*&has & 0x400) == 0)
   {
@@ -860,9 +855,8 @@ LABEL_7:
   }
 
 LABEL_17:
-  txErrAbort = self->_txErrAbort;
   PBDataWriterWriteUint32Field();
-  toCopy = v42;
+  toCopy = v15;
   has = self->_has;
   if ((*&has & 0x1000) == 0)
   {
@@ -876,9 +870,8 @@ LABEL_8:
   }
 
 LABEL_18:
-  txErrBusyChannel = self->_txErrBusyChannel;
   PBDataWriterWriteUint32Field();
-  toCopy = v42;
+  toCopy = v15;
   has = self->_has;
   if ((*&has & 0x200) == 0)
   {
@@ -892,9 +885,8 @@ LABEL_9:
   }
 
 LABEL_19:
-  txDirectMaxRetryExpiry = self->_txDirectMaxRetryExpiry;
   PBDataWriterWriteUint32Field();
-  toCopy = v42;
+  toCopy = v15;
   if ((*&self->_has & 0x20000) == 0)
   {
 LABEL_10:
@@ -908,9 +900,8 @@ LABEL_10:
   }
 
 LABEL_20:
-  txIndirectMaxRetryExpiry = self->_txIndirectMaxRetryExpiry;
   PBDataWriterWriteUint32Field();
-  toCopy = v42;
+  toCopy = v15;
   p_txPacketCountHistograms = &self->_txPacketCountHistograms;
   if (!self->_txPacketCountHistograms.count)
   {
@@ -918,112 +909,104 @@ LABEL_20:
   }
 
 LABEL_21:
-  v16 = 0;
+  v7 = 0;
   do
   {
-    v17 = p_txPacketCountHistograms->list[v16];
     PBDataWriterWriteUint32Field();
-    toCopy = v42;
-    ++v16;
+    toCopy = v15;
+    ++v7;
   }
 
-  while (v16 < p_txPacketCountHistograms->count);
+  while (v7 < p_txPacketCountHistograms->count);
 LABEL_23:
   if (self->_txDirectRetryAttemptsHistograms.count)
   {
-    v18 = 0;
+    v8 = 0;
     do
     {
-      v19 = self->_txDirectRetryAttemptsHistograms.list[v18];
       PBDataWriterWriteUint32Field();
-      toCopy = v42;
-      ++v18;
+      toCopy = v15;
+      ++v8;
     }
 
-    while (v18 < self->_txDirectRetryAttemptsHistograms.count);
+    while (v8 < self->_txDirectRetryAttemptsHistograms.count);
   }
 
   if (self->_txIndirectRetryAttemptsHistograms.count)
   {
-    v20 = 0;
+    v9 = 0;
     do
     {
-      v21 = self->_txIndirectRetryAttemptsHistograms.list[v20];
       PBDataWriterWriteUint32Field();
-      toCopy = v42;
-      ++v20;
+      toCopy = v15;
+      ++v9;
     }
 
-    while (v20 < self->_txIndirectRetryAttemptsHistograms.count);
+    while (v9 < self->_txIndirectRetryAttemptsHistograms.count);
   }
 
   if (self->_txCcaEnergyDetectedHistograms.count)
   {
-    v22 = 0;
+    v10 = 0;
     do
     {
-      v23 = self->_txCcaEnergyDetectedHistograms.list[v22];
       PBDataWriterWriteUint32Field();
-      toCopy = v42;
-      ++v22;
+      toCopy = v15;
+      ++v10;
     }
 
-    while (v22 < self->_txCcaEnergyDetectedHistograms.count);
+    while (v10 < self->_txCcaEnergyDetectedHistograms.count);
   }
 
   if (self->_txDirectNoackHistograms.count)
   {
-    v24 = 0;
+    v11 = 0;
     do
     {
-      v25 = self->_txDirectNoackHistograms.list[v24];
       PBDataWriterWriteUint32Field();
-      toCopy = v42;
-      ++v24;
+      toCopy = v15;
+      ++v11;
     }
 
-    while (v24 < self->_txDirectNoackHistograms.count);
+    while (v11 < self->_txDirectNoackHistograms.count);
   }
 
   if (self->_txDirectChannelaccessfailureHistograms.count)
   {
-    v26 = 0;
+    v12 = 0;
     do
     {
-      v27 = self->_txDirectChannelaccessfailureHistograms.list[v26];
       PBDataWriterWriteUint32Field();
-      toCopy = v42;
-      ++v26;
+      toCopy = v15;
+      ++v12;
     }
 
-    while (v26 < self->_txDirectChannelaccessfailureHistograms.count);
+    while (v12 < self->_txDirectChannelaccessfailureHistograms.count);
   }
 
   if (self->_txCsmaBackoffHistograms.count)
   {
-    v28 = 0;
+    v13 = 0;
     do
     {
-      v29 = self->_txCsmaBackoffHistograms.list[v28];
       PBDataWriterWriteUint32Field();
-      toCopy = v42;
-      ++v28;
+      toCopy = v15;
+      ++v13;
     }
 
-    while (v28 < self->_txCsmaBackoffHistograms.count);
+    while (v13 < self->_txCsmaBackoffHistograms.count);
   }
 
-  v30 = self->_has;
-  if ((*&v30 & 0x40) != 0)
+  v14 = self->_has;
+  if ((*&v14 & 0x40) != 0)
   {
-    cslTxTotal = self->_cslTxTotal;
     PBDataWriterWriteUint32Field();
-    toCopy = v42;
-    v30 = self->_has;
-    if ((*&v30 & 0x20) == 0)
+    toCopy = v15;
+    v14 = self->_has;
+    if ((*&v14 & 0x20) == 0)
     {
 LABEL_43:
-      if ((*&v30 & 0x10) == 0)
+      if ((*&v14 & 0x10) == 0)
       {
         goto LABEL_44;
       }
@@ -1032,19 +1015,18 @@ LABEL_43:
     }
   }
 
-  else if ((*&v30 & 0x20) == 0)
+  else if ((*&v14 & 0x20) == 0)
   {
     goto LABEL_43;
   }
 
-  cslTxErrNoack = self->_cslTxErrNoack;
   PBDataWriterWriteUint32Field();
-  toCopy = v42;
-  v30 = self->_has;
-  if ((*&v30 & 0x10) == 0)
+  toCopy = v15;
+  v14 = self->_has;
+  if ((*&v14 & 0x10) == 0)
   {
 LABEL_44:
-    if ((*&v30 & 4) == 0)
+    if ((*&v14 & 4) == 0)
     {
       goto LABEL_45;
     }
@@ -1053,14 +1035,13 @@ LABEL_44:
   }
 
 LABEL_57:
-  cslTxErrCca = self->_cslTxErrCca;
   PBDataWriterWriteUint32Field();
-  toCopy = v42;
-  v30 = self->_has;
-  if ((*&v30 & 4) == 0)
+  toCopy = v15;
+  v14 = self->_has;
+  if ((*&v14 & 4) == 0)
   {
 LABEL_45:
-    if ((*&v30 & 8) == 0)
+    if ((*&v14 & 8) == 0)
     {
       goto LABEL_46;
     }
@@ -1069,14 +1050,13 @@ LABEL_45:
   }
 
 LABEL_58:
-  cslTxErrAbort = self->_cslTxErrAbort;
   PBDataWriterWriteUint32Field();
-  toCopy = v42;
-  v30 = self->_has;
-  if ((*&v30 & 8) == 0)
+  toCopy = v15;
+  v14 = self->_has;
+  if ((*&v14 & 8) == 0)
   {
 LABEL_46:
-    if ((*&v30 & 1) == 0)
+    if ((*&v14 & 1) == 0)
     {
       goto LABEL_47;
     }
@@ -1085,14 +1065,13 @@ LABEL_46:
   }
 
 LABEL_59:
-  cslTxErrBusyChannel = self->_cslTxErrBusyChannel;
   PBDataWriterWriteUint32Field();
-  toCopy = v42;
-  v30 = self->_has;
-  if ((*&v30 & 1) == 0)
+  toCopy = v15;
+  v14 = self->_has;
+  if ((*&v14 & 1) == 0)
   {
 LABEL_47:
-    if ((*&v30 & 2) == 0)
+    if ((*&v14 & 2) == 0)
     {
       goto LABEL_48;
     }
@@ -1101,14 +1080,13 @@ LABEL_47:
   }
 
 LABEL_60:
-  cslLossOfSyncDueToCslTimeout = self->_cslLossOfSyncDueToCslTimeout;
   PBDataWriterWriteUint32Field();
-  toCopy = v42;
-  v30 = self->_has;
-  if ((*&v30 & 2) == 0)
+  toCopy = v15;
+  v14 = self->_has;
+  if ((*&v14 & 2) == 0)
   {
 LABEL_48:
-    if ((*&v30 & 0x8000) == 0)
+    if ((*&v14 & 0x8000) == 0)
     {
       goto LABEL_49;
     }
@@ -1117,14 +1095,13 @@ LABEL_48:
   }
 
 LABEL_61:
-  cslLossOfSyncDueToMaxRetx = self->_cslLossOfSyncDueToMaxRetx;
   PBDataWriterWriteUint32Field();
-  toCopy = v42;
-  v30 = self->_has;
-  if ((*&v30 & 0x8000) == 0)
+  toCopy = v15;
+  v14 = self->_has;
+  if ((*&v14 & 0x8000) == 0)
   {
 LABEL_49:
-    if ((*&v30 & 0x800) == 0)
+    if ((*&v14 & 0x800) == 0)
     {
       goto LABEL_50;
     }
@@ -1133,14 +1110,13 @@ LABEL_49:
   }
 
 LABEL_62:
-  txErrCcaPercentage = self->_txErrCcaPercentage;
   PBDataWriterWriteUint32Field();
-  toCopy = v42;
-  v30 = self->_has;
-  if ((*&v30 & 0x800) == 0)
+  toCopy = v15;
+  v14 = self->_has;
+  if ((*&v14 & 0x800) == 0)
   {
 LABEL_50:
-    if ((*&v30 & 0x2000) == 0)
+    if ((*&v14 & 0x2000) == 0)
     {
       goto LABEL_51;
     }
@@ -1149,14 +1125,13 @@ LABEL_50:
   }
 
 LABEL_63:
-  txErrAbortPercentage = self->_txErrAbortPercentage;
   PBDataWriterWriteUint32Field();
-  toCopy = v42;
-  v30 = self->_has;
-  if ((*&v30 & 0x2000) == 0)
+  toCopy = v15;
+  v14 = self->_has;
+  if ((*&v14 & 0x2000) == 0)
   {
 LABEL_51:
-    if ((*&v30 & 0x10000) == 0)
+    if ((*&v14 & 0x10000) == 0)
     {
       goto LABEL_52;
     }
@@ -1165,9 +1140,8 @@ LABEL_51:
   }
 
 LABEL_64:
-  txErrBusyChannelPercentage = self->_txErrBusyChannelPercentage;
   PBDataWriterWriteUint32Field();
-  toCopy = v42;
+  toCopy = v15;
   if ((*&self->_has & 0x10000) == 0)
   {
 LABEL_52:
@@ -1176,9 +1150,8 @@ LABEL_52:
   }
 
 LABEL_65:
-  txErrPercentage = self->_txErrPercentage;
   PBDataWriterWriteUint32Field();
-  toCopy = v42;
+  toCopy = v15;
 
 LABEL_54:
 }

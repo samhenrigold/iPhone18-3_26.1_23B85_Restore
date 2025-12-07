@@ -1,7 +1,7 @@
 @interface UITableView(PKUIUtilities)
 + (uint64_t)pkui_groupedStyleDefaultRoundedCornerBehavior;
 + (uint64_t)pkui_groupedStyleWithRoundedCorners:()PKUIUtilities;
-- (uint64_t)pkui_setupForReadableContentGuide;
+- (char)pkui_setupForReadableContentGuide;
 @end
 
 @implementation UITableView(PKUIUtilities)
@@ -34,7 +34,7 @@
   }
 }
 
-- (uint64_t)pkui_setupForReadableContentGuide
+- (char)pkui_setupForReadableContentGuide
 {
   result = [self pkui_userInterfaceIdiomSupportsLargeLayouts];
   if (result)

@@ -149,7 +149,7 @@
 
   else
   {
-    v12 = VUIDefaultLogObject();
+    v12 = VUIDefaultLogObject(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [UIImage(VideosUI) vui_croppedImageOfSize:v12];

@@ -31,14 +31,15 @@
         }
 
         v11 = *(*(&v16 + 1) + 8 * i);
-        if ([v11 needsMigration])
+        needsMigration = [v11 needsMigration];
+        if (needsMigration)
         {
-          v12 = _LSDefaultLog();
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+          v13 = _LSDefaultLog(needsMigration);
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
           {
             *buf = v15;
             v21 = v11;
-            _os_log_fault_impl(&dword_18162D000, v12, OS_LOG_TYPE_FAULT, "identity %@ needs migration!? How!?", buf, 0xCu);
+            _os_log_fault_impl(&dword_18162D000, v13, OS_LOG_TYPE_FAULT, "identity %@ needs migration!? How!?", buf, 0xCu);
           }
         }
 
@@ -50,8 +51,6 @@
 
     while (v7);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

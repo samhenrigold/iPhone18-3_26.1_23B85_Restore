@@ -81,47 +81,48 @@ uint64_t __46__ATXParameterSuggestionServer_sharedInstance__block_invoke()
   connectionCopy = connection;
   v6 = *MEMORY[0x277D41FE0];
   v7 = [connectionCopy valueForEntitlement:*MEMORY[0x277D41FE0]];
-  if (v7 && (objc_opt_respondsToSelector() & 1) != 0 && ([v7 BOOLValue] & 1) != 0)
+  v8 = v7;
+  if (v7 && (v7 = objc_opt_respondsToSelector(), (v7 & 1) != 0) && (v7 = [v8 BOOLValue], (v7 & 1) != 0))
   {
-    v8 = ATXProactivePredictionXPCInterface();
-    [connectionCopy setExportedInterface:v8];
+    v9 = ATXProactivePredictionXPCInterface();
+    [connectionCopy setExportedInterface:v9];
 
     [connectionCopy setExportedObject:self];
     [connectionCopy setInterruptionHandler:&__block_literal_global_24_5];
     [connectionCopy setInvalidationHandler:&__block_literal_global_27_1];
     [connectionCopy resume];
-    v9 = 1;
+    v10 = 1;
   }
 
   else
   {
-    v10 = __atxlog_handle_default();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = __atxlog_handle_default(v7);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [(ATXNotificationDigestRankerServer *)connectionCopy listener:v6 shouldAcceptNewConnection:v10];
+      [(ATXNotificationDigestRankerServer *)connectionCopy listener:v6 shouldAcceptNewConnection:v11];
     }
 
-    v9 = 0;
+    v10 = 0;
   }
 
-  return v9;
+  return v10;
 }
 
-void __67__ATXParameterSuggestionServer_listener_shouldAcceptNewConnection___block_invoke()
+void __67__ATXParameterSuggestionServer_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1)
 {
-  v0 = __atxlog_handle_default();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v1 = __atxlog_handle_default(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
-    __67__ATXParameterSuggestionServer_listener_shouldAcceptNewConnection___block_invoke_cold_1(v0);
+    __67__ATXParameterSuggestionServer_listener_shouldAcceptNewConnection___block_invoke_cold_1(v1);
   }
 }
 
-void __67__ATXParameterSuggestionServer_listener_shouldAcceptNewConnection___block_invoke_25()
+void __67__ATXParameterSuggestionServer_listener_shouldAcceptNewConnection___block_invoke_25(uint64_t a1)
 {
-  v0 = __atxlog_handle_default();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v1 = __atxlog_handle_default(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
-    __67__ATXParameterSuggestionServer_listener_shouldAcceptNewConnection___block_invoke_25_cold_1(v0);
+    __67__ATXParameterSuggestionServer_listener_shouldAcceptNewConnection___block_invoke_25_cold_1(v1);
   }
 }
 

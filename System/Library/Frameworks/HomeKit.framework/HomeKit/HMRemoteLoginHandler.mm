@@ -73,7 +73,7 @@
 
 - (id)_accountFromAccountInfo:(id)info
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -81,11 +81,11 @@
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v35 = 138543618;
-    v36 = v8;
-    v37 = 2112;
-    v38 = infoCopy;
-    _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_INFO, "%{public}@Transferring account: %@", &v35, 0x16u);
+    v34 = 138543618;
+    v35 = v8;
+    v36 = 2112;
+    v37 = infoCopy;
+    _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_INFO, "%{public}@Transferring account: %@", &v34, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -100,17 +100,17 @@
     amsAltDSID = [infoCopy amsAltDSID];
     [infoCopy signedIn];
     v16 = HMFBooleanToString();
-    v35 = 138544386;
-    v36 = v12;
-    v37 = 2112;
-    v38 = username;
-    v39 = 2112;
-    v40 = aaAltDSID;
-    v41 = 2112;
-    v42 = amsAltDSID;
-    v43 = 2112;
-    v44 = v16;
-    _os_log_impl(&dword_19BB39000, v11, OS_LOG_TYPE_DEBUG, "%{public}@Transferring account username: %@, aaAltDSID:%@, amsAltDSID: %@, signedIn: %@", &v35, 0x34u);
+    v34 = 138544386;
+    v35 = v12;
+    v36 = 2112;
+    v37 = username;
+    v38 = 2112;
+    v39 = aaAltDSID;
+    v40 = 2112;
+    v41 = amsAltDSID;
+    v42 = 2112;
+    v43 = v16;
+    _os_log_impl(&dword_19BB39000, v11, OS_LOG_TYPE_DEBUG, "%{public}@Transferring account username: %@, aaAltDSID:%@, amsAltDSID: %@, signedIn: %@", &v34, 0x34u);
   }
 
   objc_autoreleasePoolPop(v9);
@@ -145,11 +145,11 @@
         if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
         {
           v32 = HMFGetLogIdentifier();
-          v35 = 138543618;
-          v36 = v32;
-          v37 = 2112;
-          v38 = infoCopy;
-          _os_log_impl(&dword_19BB39000, v31, OS_LOG_TYPE_ERROR, "%{public}@Failed to transform accountInfo %@", &v35, 0x16u);
+          v34 = 138543618;
+          v35 = v32;
+          v36 = 2112;
+          v37 = infoCopy;
+          _os_log_impl(&dword_19BB39000, v31, OS_LOG_TYPE_ERROR, "%{public}@Failed to transform accountInfo %@", &v34, 0x16u);
         }
 
         objc_autoreleasePoolPop(v29);
@@ -165,9 +165,9 @@
       if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
         v28 = HMFGetLogIdentifier();
-        v35 = 138543362;
-        v36 = v28;
-        _os_log_impl(&dword_19BB39000, v27, OS_LOG_TYPE_ERROR, "%{public}@Unable to determine store account type for iTunesStore", &v35, 0xCu);
+        v34 = 138543362;
+        v35 = v28;
+        _os_log_impl(&dword_19BB39000, v27, OS_LOG_TYPE_ERROR, "%{public}@Unable to determine store account type for iTunesStore", &v34, 0xCu);
       }
 
       objc_autoreleasePoolPop(v25);
@@ -180,14 +180,12 @@
     v24 = 0;
   }
 
-  v33 = *MEMORY[0x1E69E9840];
-
   return v24;
 }
 
 - (void)accessoryInfoDataProvider:(id)provider didReceiveUpdatesForAccessoryWithIdentifier:(id)identifier accountInfo:(id)info
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   providerCopy = provider;
   identifierCopy = identifier;
   infoCopy = info;
@@ -197,11 +195,11 @@
   if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     v14 = HMFGetLogIdentifier();
-    v18 = 138543618;
-    v19 = v14;
-    v20 = 2112;
-    v21 = infoCopy;
-    _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_INFO, "%{public}@Received updated accountInfo: %@", &v18, 0x16u);
+    v17 = 138543618;
+    v18 = v14;
+    v19 = 2112;
+    v20 = infoCopy;
+    _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_INFO, "%{public}@Received updated accountInfo: %@", &v17, 0x16u);
   }
 
   objc_autoreleasePoolPop(v11);
@@ -213,8 +211,6 @@
   selfCopy->_didReceiveAccountInfo = 1;
   os_unfair_lock_unlock(&selfCopy->_lock);
   [(HMRemoteLoginHandler *)selfCopy _callAccountUpdateDelegate];
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (HMRemoteLoginHandler)initWithCoder:(id)coder
@@ -241,7 +237,7 @@
 
 - (void)_handleRemoteLoginSignoutResponse:(id)response error:(id)error completion:(id)completion
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   responseCopy = response;
   errorCopy = error;
   completionCopy = completion;
@@ -255,13 +251,13 @@
     {
       v15 = HMFGetLogIdentifier();
       loggedInAccount = [(HMRemoteLoginHandler *)selfCopy loggedInAccount];
-      v22 = 138543874;
-      v23 = v15;
-      v24 = 2112;
-      v25 = loggedInAccount;
-      v26 = 2112;
-      v27 = errorCopy;
-      _os_log_impl(&dword_19BB39000, v14, OS_LOG_TYPE_ERROR, "%{public}@Signing out of account %@ failed with error: %@", &v22, 0x20u);
+      v21 = 138543874;
+      v22 = v15;
+      v23 = 2112;
+      v24 = loggedInAccount;
+      v25 = 2112;
+      v26 = errorCopy;
+      _os_log_impl(&dword_19BB39000, v14, OS_LOG_TYPE_ERROR, "%{public}@Signing out of account %@ failed with error: %@", &v21, 0x20u);
     }
 
     objc_autoreleasePoolPop(v11);
@@ -273,11 +269,11 @@
     {
       v17 = HMFGetLogIdentifier();
       loggedInAccount2 = [(HMRemoteLoginHandler *)selfCopy loggedInAccount];
-      v22 = 138543618;
-      v23 = v17;
-      v24 = 2112;
-      v25 = loggedInAccount2;
-      _os_log_impl(&dword_19BB39000, v14, OS_LOG_TYPE_INFO, "%{public}@Signed out of account %@ successfully", &v22, 0x16u);
+      v21 = 138543618;
+      v22 = v17;
+      v23 = 2112;
+      v24 = loggedInAccount2;
+      _os_log_impl(&dword_19BB39000, v14, OS_LOG_TYPE_INFO, "%{public}@Signed out of account %@ successfully", &v21, 0x16u);
     }
 
     objc_autoreleasePoolPop(v11);
@@ -289,12 +285,11 @@
   [delegateCaller callCompletion:completionCopy error:errorCopy];
 
   [(HMRemoteLoginHandler *)selfCopy setCurrentSessionID:0];
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_signout:(id)_signout
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   _signoutCopy = _signout;
   currentSessionID = [(HMRemoteLoginHandler *)self currentSessionID];
 
@@ -321,10 +316,10 @@ LABEL_17:
       if (context)
       {
         uUID = [MEMORY[0x1E696AFB0] UUID];
-        v39 = @"kRemoteLoginSessionID";
+        v38 = @"kRemoteLoginSessionID";
         uUIDString = [uUID UUIDString];
-        v40 = uUIDString;
-        v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
+        v39 = uUIDString;
+        v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
 
         v13 = objc_alloc(MEMORY[0x1E69A2A10]);
         v14 = objc_alloc(MEMORY[0x1E69A2A00]);
@@ -332,24 +327,24 @@ LABEL_17:
         v16 = [v14 initWithTarget:uuid];
         v17 = [v13 initWithName:@"kRemoteLoginSignout" destination:v16 payload:v12];
 
-        v33 = MEMORY[0x1E69E9820];
-        v34 = 3221225472;
-        v35 = __33__HMRemoteLoginHandler__signout___block_invoke;
-        v36 = &unk_1E754DE00;
+        v32 = MEMORY[0x1E69E9820];
+        v33 = 3221225472;
+        v34 = __33__HMRemoteLoginHandler__signout___block_invoke;
+        v35 = &unk_1E754DE00;
         selfCopy = self;
-        v38 = _signoutCopy;
-        [v17 setResponseHandler:&v33];
+        v37 = _signoutCopy;
+        [v17 setResponseHandler:&v32];
         v18 = objc_autoreleasePoolPush();
         selfCopy2 = self;
         v20 = HMFGetOSLogHandle();
         if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
         {
           v21 = HMFGetLogIdentifier();
-          v22 = [(HMRemoteLoginHandler *)selfCopy2 loggedInAccount:v33];
+          v22 = [(HMRemoteLoginHandler *)selfCopy2 loggedInAccount:v32];
           *buf = 138543618;
-          v42 = v21;
-          v43 = 2112;
-          v44 = v22;
+          v41 = v21;
+          v42 = 2112;
+          v43 = v22;
           _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_INFO, "%{public}@Signing out of account: %@", buf, 0x16u);
         }
 
@@ -367,9 +362,9 @@ LABEL_17:
         {
           v31 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v42 = v31;
-          v43 = 2080;
-          v44 = "[HMRemoteLoginHandler _signout:]";
+          v41 = v31;
+          v42 = 2080;
+          v43 = "[HMRemoteLoginHandler _signout:]";
           _os_log_impl(&dword_19BB39000, v30, OS_LOG_TYPE_ERROR, "%{public}@Nil context - %s", buf, 0x16u);
         }
 
@@ -386,7 +381,7 @@ LABEL_17:
     {
       v27 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v42 = v27;
+      v41 = v27;
       _os_log_impl(&dword_19BB39000, v26, OS_LOG_TYPE_ERROR, "%{public}@There is no logged in account, cannot sign out", buf, 0xCu);
     }
 
@@ -398,34 +393,32 @@ LABEL_17:
       goto LABEL_4;
     }
   }
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 - (void)signout:(id)signout
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   signoutCopy = signout;
   context = [(HMRemoteLoginHandler *)self context];
   if (!signoutCopy)
   {
-    v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMRemoteLoginHandler signout:]", @"completion"];
-    v15 = objc_autoreleasePoolPush();
+    v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMRemoteLoginHandler signout:]", @"completion"];
+    v14 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v17 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v16 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v18 = HMFGetLogIdentifier();
+      v17 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v23 = v18;
-      v24 = 2112;
-      v25 = v14;
-      _os_log_impl(&dword_19BB39000, v17, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v22 = v17;
+      v23 = 2112;
+      v24 = v13;
+      _os_log_impl(&dword_19BB39000, v16, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v15);
-    v19 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v14 userInfo:0];
-    objc_exception_throw(v19);
+    objc_autoreleasePoolPop(v14);
+    v18 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v13 userInfo:0];
+    objc_exception_throw(v18);
   }
 
   v6 = context;
@@ -437,7 +430,7 @@ LABEL_17:
     block[2] = __32__HMRemoteLoginHandler_signout___block_invoke;
     block[3] = &unk_1E754E458;
     block[4] = self;
-    v21 = signoutCopy;
+    v20 = signoutCopy;
     dispatch_async(queue, block);
   }
 
@@ -450,9 +443,9 @@ LABEL_17:
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v23 = v11;
-      v24 = 2080;
-      v25 = "[HMRemoteLoginHandler signout:]";
+      v22 = v11;
+      v23 = 2080;
+      v24 = "[HMRemoteLoginHandler signout:]";
       _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", buf, 0x16u);
     }
 
@@ -460,13 +453,11 @@ LABEL_17:
     v12 = [MEMORY[0x1E696ABC0] hmErrorWithCode:12];
     (*(signoutCopy + 2))(signoutCopy, v12);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleLoginResponse:(id)response error:(id)error completion:(id)completion
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   responseCopy = response;
   errorCopy = error;
   completionCopy = completion;
@@ -479,9 +470,9 @@ LABEL_17:
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v28 = v14;
-      v29 = 2112;
-      v30 = errorCopy;
+      v27 = v14;
+      v28 = 2112;
+      v29 = errorCopy;
       _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to login with error: %@", buf, 0x16u);
     }
 
@@ -493,9 +484,9 @@ LABEL_17:
     v15 = [responseCopy hmf_dataForKey:@"kRemoteLoginAccount"];
     if (v15)
     {
-      v26 = 0;
-      v16 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v15 error:&v26];
-      v17 = v26;
+      v25 = 0;
+      v16 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v15 error:&v25];
+      v17 = v25;
       if (!v16)
       {
         v18 = objc_autoreleasePoolPush();
@@ -504,14 +495,14 @@ LABEL_17:
         if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
           HMFGetLogIdentifier();
-          v21 = v25 = v18;
+          v21 = v24 = v18;
           *buf = 138543618;
-          v28 = v21;
-          v29 = 2112;
-          v30 = v17;
+          v27 = v21;
+          v28 = 2112;
+          v29 = v17;
           _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_ERROR, "%{public}@Failed to unarchive logged in account from logged in account data: %@", buf, 0x16u);
 
-          v18 = v25;
+          v18 = v24;
         }
 
         objc_autoreleasePoolPop(v18);
@@ -523,7 +514,7 @@ LABEL_17:
       v16 = 0;
     }
 
-    [(HMRemoteLoginHandler *)self setLoggedInAccount:v16, v25];
+    [(HMRemoteLoginHandler *)self setLoggedInAccount:v16, v24];
   }
 
   context = [(HMRemoteLoginHandler *)self context];
@@ -531,12 +522,11 @@ LABEL_17:
   [delegateCaller callCompletion:completionCopy error:errorCopy];
 
   [(HMRemoteLoginHandler *)self setCurrentSessionID:0];
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_proxyLoginWithAuthResults:(id)results completion:(id)completion
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   v7 = [results copy];
   currentSessionID = [(HMRemoteLoginHandler *)self currentSessionID];
@@ -552,7 +542,7 @@ LABEL_17:
     }
 
     v15 = v14;
-    v51 = uUID;
+    v50 = uUID;
     v16 = *MEMORY[0x1E698DBD0];
     v17 = [v7 hmf_stringForKey:*MEMORY[0x1E698DBD0]];
     if (v17)
@@ -563,37 +553,37 @@ LABEL_17:
       if (v20)
       {
         v21 = v20;
-        v50 = *MEMORY[0x1E698DB40];
+        v49 = *MEMORY[0x1E698DB40];
         v22 = [v7 hmf_stringForKey:?];
 
-        uUID = v51;
+        uUID = v50;
         if (v22)
         {
           context = [(HMRemoteLoginHandler *)self context];
           if (context)
           {
             context2 = context;
-            v56[0] = v13;
+            v55[0] = v13;
             v25 = [v7 hmf_stringForKey:v13];
-            v57[0] = v25;
-            v56[1] = v16;
+            v56[0] = v25;
+            v55[1] = v16;
             v26 = [v7 hmf_stringForKey:v16];
-            v57[1] = v26;
-            v56[2] = v19;
+            v56[1] = v26;
+            v55[2] = v19;
             v27 = [v7 hmf_stringForKey:v19];
-            v57[2] = v27;
-            v56[3] = v50;
+            v56[2] = v27;
+            v55[3] = v49;
             v28 = [v7 hmf_stringForKey:?];
-            v57[3] = v28;
-            v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v57 forKeys:v56 count:4];
+            v56[3] = v28;
+            v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v56 forKeys:v55 count:4];
 
-            v54[0] = @"kRemoteLoginSessionID";
-            uUIDString = [v51 UUIDString];
-            v54[1] = @"kRemoteLoginAuthResults";
-            v55[0] = uUIDString;
+            v53[0] = @"kRemoteLoginSessionID";
+            uUIDString = [v50 UUIDString];
+            v53[1] = @"kRemoteLoginAuthResults";
+            v54[0] = uUIDString;
             v31 = encodeRootObject(v29);
-            v55[1] = v31;
-            v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v55 forKeys:v54 count:2];
+            v54[1] = v31;
+            v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v54 forKeys:v53 count:2];
 
             v33 = objc_alloc(MEMORY[0x1E69A2A10]);
             v34 = objc_alloc(MEMORY[0x1E69A2A00]);
@@ -601,34 +591,34 @@ LABEL_17:
             v36 = [v34 initWithTarget:uuid];
             v37 = [v33 initWithName:@"kRemoteLoginProxyAuthentication" destination:v36 payload:v32];
 
-            uUID = v51;
-            v52[0] = MEMORY[0x1E69E9820];
-            v52[1] = 3221225472;
-            v52[2] = __62__HMRemoteLoginHandler__proxyLoginWithAuthResults_completion___block_invoke;
-            v52[3] = &unk_1E754DE00;
-            v52[4] = self;
-            v53 = completionCopy;
-            [v37 setResponseHandler:v52];
+            uUID = v50;
+            v51[0] = MEMORY[0x1E69E9820];
+            v51[1] = 3221225472;
+            v51[2] = __62__HMRemoteLoginHandler__proxyLoginWithAuthResults_completion___block_invoke;
+            v51[3] = &unk_1E754DE00;
+            v51[4] = self;
+            v52 = completionCopy;
+            [v37 setResponseHandler:v51];
             messageDispatcher = [context2 messageDispatcher];
             [messageDispatcher sendMessage:v37];
           }
 
           else
           {
-            v46 = objc_autoreleasePoolPush();
+            v45 = objc_autoreleasePoolPush();
             selfCopy = self;
-            v48 = HMFGetOSLogHandle();
-            if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+            v47 = HMFGetOSLogHandle();
+            if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
             {
-              v49 = HMFGetLogIdentifier();
+              v48 = HMFGetLogIdentifier();
               *buf = 138543618;
-              v59 = v49;
-              v60 = 2080;
-              v61 = "[HMRemoteLoginHandler _proxyLoginWithAuthResults:completion:]";
-              _os_log_impl(&dword_19BB39000, v48, OS_LOG_TYPE_ERROR, "%{public}@Nil context - %s", buf, 0x16u);
+              v58 = v48;
+              v59 = 2080;
+              v60 = "[HMRemoteLoginHandler _proxyLoginWithAuthResults:completion:]";
+              _os_log_impl(&dword_19BB39000, v47, OS_LOG_TYPE_ERROR, "%{public}@Nil context - %s", buf, 0x16u);
             }
 
-            objc_autoreleasePoolPop(v46);
+            objc_autoreleasePoolPop(v45);
             context2 = 0;
           }
 
@@ -643,7 +633,7 @@ LABEL_12:
         {
           v42 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v59 = v42;
+          v58 = v42;
           _os_log_impl(&dword_19BB39000, v41, OS_LOG_TYPE_ERROR, "%{public}@Missing required auth parameters", buf, 0xCu);
         }
 
@@ -665,7 +655,7 @@ LABEL_17:
       }
     }
 
-    uUID = v51;
+    uUID = v50;
     goto LABEL_12;
   }
 
@@ -678,35 +668,33 @@ LABEL_17:
   }
 
 LABEL_18:
-
-  v45 = *MEMORY[0x1E69E9840];
 }
 
 - (void)proxyLoginWithAuthResults:(id)results completion:(id)completion
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   resultsCopy = results;
   completionCopy = completion;
   context = [(HMRemoteLoginHandler *)self context];
   if (!completionCopy)
   {
-    v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMRemoteLoginHandler proxyLoginWithAuthResults:completion:]", @"completion"];
-    v18 = objc_autoreleasePoolPush();
+    v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMRemoteLoginHandler proxyLoginWithAuthResults:completion:]", @"completion"];
+    v17 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v20 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v19 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v21 = HMFGetLogIdentifier();
+      v20 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v27 = v21;
-      v28 = 2112;
-      v29 = v17;
-      _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v26 = v20;
+      v27 = 2112;
+      v28 = v16;
+      _os_log_impl(&dword_19BB39000, v19, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v18);
-    v22 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v17 userInfo:0];
-    objc_exception_throw(v22);
+    objc_autoreleasePoolPop(v17);
+    v21 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v16 userInfo:0];
+    objc_exception_throw(v21);
   }
 
   v9 = context;
@@ -718,8 +706,8 @@ LABEL_18:
     block[2] = __61__HMRemoteLoginHandler_proxyLoginWithAuthResults_completion___block_invoke;
     block[3] = &unk_1E754E0F8;
     block[4] = self;
-    v24 = resultsCopy;
-    v25 = completionCopy;
+    v23 = resultsCopy;
+    v24 = completionCopy;
     dispatch_async(queue, block);
   }
 
@@ -732,9 +720,9 @@ LABEL_18:
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v27 = v14;
-      v28 = 2080;
-      v29 = "[HMRemoteLoginHandler proxyLoginWithAuthResults:completion:]";
+      v26 = v14;
+      v27 = 2080;
+      v28 = "[HMRemoteLoginHandler proxyLoginWithAuthResults:completion:]";
       _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", buf, 0x16u);
     }
 
@@ -742,13 +730,11 @@ LABEL_18:
     v15 = [MEMORY[0x1E696ABC0] hmErrorWithCode:12];
     (*(completionCopy + 2))(completionCopy, v15);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleQueryProxiedDeviceResponse:(id)response error:(id)error completion:(id)completion
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   responseCopy = response;
   errorCopy = error;
   completionCopy = completion;
@@ -758,9 +744,9 @@ LABEL_18:
     context3 = [responseCopy hmf_dataForKey:@"kRemoteLoginProxiedDevice"];
     if (context3)
     {
-      v30 = errorCopy;
-      context2 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:context3 error:&v30];
-      v13 = v30;
+      v29 = errorCopy;
+      context2 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:context3 error:&v29];
+      v13 = v29;
 
       if (context2)
       {
@@ -771,9 +757,9 @@ LABEL_18:
         {
           v17 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v32 = v17;
-          v33 = 2112;
-          v34 = context2;
+          v31 = v17;
+          v32 = 2112;
+          v33 = context2;
           _os_log_impl(&dword_19BB39000, v16, OS_LOG_TYPE_INFO, "%{public}@Query proxied device responded with device: %@", buf, 0x16u);
         }
 
@@ -800,11 +786,11 @@ LABEL_18:
     {
       v28 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v32 = v28;
-      v33 = 2112;
-      v34 = responseCopy;
-      v35 = 2112;
-      v36 = v13;
+      v31 = v28;
+      v32 = 2112;
+      v33 = responseCopy;
+      v34 = 2112;
+      v35 = v13;
       _os_log_impl(&dword_19BB39000, v27, OS_LOG_TYPE_ERROR, "%{public}@Query proxied device failed to decode with response: %@ error: %@", buf, 0x20u);
     }
 
@@ -828,9 +814,9 @@ LABEL_18:
     }
 
     *buf = 138543618;
-    v32 = v23;
-    v33 = 2112;
-    v34 = v24;
+    v31 = v23;
+    v32 = 2112;
+    v33 = v24;
     _os_log_impl(&dword_19BB39000, v22, OS_LOG_TYPE_ERROR, "%{public}@Query proxied device responded with error: %@", buf, 0x16u);
     if (!errorCopy)
     {
@@ -842,13 +828,11 @@ LABEL_18:
   context2 = [context3 delegateCaller];
   [context2 callCompletion:completionCopy error:errorCopy proxiedDevice:0];
 LABEL_19:
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_queryProxiedDevice:(id)device
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   deviceCopy = device;
   context = [(HMRemoteLoginHandler *)self context];
   if (context)
@@ -867,10 +851,10 @@ LABEL_19:
     else
     {
       uUID = [MEMORY[0x1E696AFB0] UUID];
-      v29 = @"kRemoteLoginSessionID";
+      v28 = @"kRemoteLoginSessionID";
       uUIDString = [uUID UUIDString];
-      v30 = uUIDString;
-      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+      v29 = uUIDString;
+      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
 
       v15 = objc_alloc(MEMORY[0x1E69A2A10]);
       v16 = objc_alloc(MEMORY[0x1E69A2A00]);
@@ -878,13 +862,13 @@ LABEL_19:
       v18 = [v16 initWithTarget:uuid];
       v19 = [v15 initWithName:@"kRemoteLoginQueryProxiedDevice" destination:v18 payload:v14];
 
-      v23 = MEMORY[0x1E69E9820];
-      v24 = 3221225472;
-      v25 = __44__HMRemoteLoginHandler__queryProxiedDevice___block_invoke;
-      v26 = &unk_1E754DE00;
+      v22 = MEMORY[0x1E69E9820];
+      v23 = 3221225472;
+      v24 = __44__HMRemoteLoginHandler__queryProxiedDevice___block_invoke;
+      v25 = &unk_1E754DE00;
       selfCopy = self;
-      v28 = deviceCopy;
-      [v19 setResponseHandler:&v23];
+      v27 = deviceCopy;
+      [v19 setResponseHandler:&v22];
       messageDispatcher = [context messageDispatcher];
       [messageDispatcher sendMessage:v19];
 
@@ -902,21 +886,19 @@ LABEL_19:
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v32 = v11;
-      v33 = 2080;
-      v34 = "[HMRemoteLoginHandler _queryProxiedDevice:]";
+      v31 = v11;
+      v32 = 2080;
+      v33 = "[HMRemoteLoginHandler _queryProxiedDevice:]";
       _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@Nil context - %s", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)queryProxiedDevice:(id)device
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   deviceCopy = device;
   context = [(HMRemoteLoginHandler *)self context];
   v6 = context;
@@ -924,29 +906,29 @@ LABEL_19:
   {
     if (!deviceCopy)
     {
-      v13 = objc_autoreleasePoolPush();
-      v14 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v12 = objc_autoreleasePoolPush();
+      v13 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        v15 = HMFGetLogIdentifier();
+        v14 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v20 = v15;
-        _os_log_impl(&dword_19BB39000, v14, OS_LOG_TYPE_ERROR, "%{public}@queryProxiedDevice - nil completion", buf, 0xCu);
+        v19 = v14;
+        _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_ERROR, "%{public}@queryProxiedDevice - nil completion", buf, 0xCu);
       }
 
-      objc_autoreleasePoolPop(v13);
-      v16 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"You must provide a completion handler" userInfo:0];
-      objc_exception_throw(v16);
+      objc_autoreleasePoolPop(v12);
+      v15 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"You must provide a completion handler" userInfo:0];
+      objc_exception_throw(v15);
     }
 
     queue = [context queue];
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __43__HMRemoteLoginHandler_queryProxiedDevice___block_invoke;
-    v17[3] = &unk_1E754E458;
-    v17[4] = self;
-    v18 = deviceCopy;
-    dispatch_async(queue, v17);
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __43__HMRemoteLoginHandler_queryProxiedDevice___block_invoke;
+    v16[3] = &unk_1E754E458;
+    v16[4] = self;
+    v17 = deviceCopy;
+    dispatch_async(queue, v16);
   }
 
   else
@@ -958,21 +940,19 @@ LABEL_19:
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v20 = v11;
-      v21 = 2080;
-      v22 = "[HMRemoteLoginHandler queryProxiedDevice:]";
+      v19 = v11;
+      v20 = 2080;
+      v21 = "[HMRemoteLoginHandler queryProxiedDevice:]";
       _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@Nil context - %s", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_companionLoginWithAccount:(id)account completion:(id)completion
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   completionCopy = completion;
   context = [(HMRemoteLoginHandler *)self context];
@@ -992,13 +972,13 @@ LABEL_19:
     else
     {
       uUID = [MEMORY[0x1E696AFB0] UUID];
-      v33[0] = @"kRemoteLoginSessionID";
+      v32[0] = @"kRemoteLoginSessionID";
       uUIDString = [uUID UUIDString];
-      v33[1] = @"kRemoteLoginAccount";
-      v34[0] = uUIDString;
+      v32[1] = @"kRemoteLoginAccount";
+      v33[0] = uUIDString;
       v17 = encodeRootObject(accountCopy);
-      v34[1] = v17;
-      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:v33 count:2];
+      v33[1] = v17;
+      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:v32 count:2];
 
       v19 = objc_alloc(MEMORY[0x1E69A2A10]);
       v20 = objc_alloc(MEMORY[0x1E69A2A00]);
@@ -1006,13 +986,13 @@ LABEL_19:
       v22 = [v20 initWithTarget:uuid];
       v23 = [v19 initWithName:@"kRemoteLoginCompanionAuthentication" destination:v22 payload:v18];
 
-      v27 = MEMORY[0x1E69E9820];
-      v28 = 3221225472;
-      v29 = __62__HMRemoteLoginHandler__companionLoginWithAccount_completion___block_invoke;
-      v30 = &unk_1E754DE00;
+      v26 = MEMORY[0x1E69E9820];
+      v27 = 3221225472;
+      v28 = __62__HMRemoteLoginHandler__companionLoginWithAccount_completion___block_invoke;
+      v29 = &unk_1E754DE00;
       selfCopy = self;
-      v32 = completionCopy;
-      [v23 setResponseHandler:&v27];
+      v31 = completionCopy;
+      [v23 setResponseHandler:&v26];
       messageDispatcher = [context messageDispatcher];
       [messageDispatcher sendMessage:v23];
 
@@ -1030,43 +1010,41 @@ LABEL_19:
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v36 = v14;
-      v37 = 2080;
-      v38 = "[HMRemoteLoginHandler _companionLoginWithAccount:completion:]";
+      v35 = v14;
+      v36 = 2080;
+      v37 = "[HMRemoteLoginHandler _companionLoginWithAccount:completion:]";
       _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_ERROR, "%{public}@Nil context - %s", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v11);
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)companionLoginWithAccount:(id)account completion:(id)completion
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   completionCopy = completion;
   context = [(HMRemoteLoginHandler *)self context];
   if (!completionCopy)
   {
-    v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMRemoteLoginHandler companionLoginWithAccount:completion:]", @"completion"];
-    v18 = objc_autoreleasePoolPush();
+    v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMRemoteLoginHandler companionLoginWithAccount:completion:]", @"completion"];
+    v17 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v20 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v19 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v21 = HMFGetLogIdentifier();
+      v20 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v27 = v21;
-      v28 = 2112;
-      v29 = v17;
-      _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v26 = v20;
+      v27 = 2112;
+      v28 = v16;
+      _os_log_impl(&dword_19BB39000, v19, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v18);
-    v22 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v17 userInfo:0];
-    objc_exception_throw(v22);
+    objc_autoreleasePoolPop(v17);
+    v21 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v16 userInfo:0];
+    objc_exception_throw(v21);
   }
 
   v9 = context;
@@ -1078,8 +1056,8 @@ LABEL_19:
     block[2] = __61__HMRemoteLoginHandler_companionLoginWithAccount_completion___block_invoke;
     block[3] = &unk_1E754E0F8;
     block[4] = self;
-    v24 = accountCopy;
-    v25 = completionCopy;
+    v23 = accountCopy;
+    v24 = completionCopy;
     dispatch_async(queue, block);
   }
 
@@ -1092,9 +1070,9 @@ LABEL_19:
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v27 = v14;
-      v28 = 2080;
-      v29 = "[HMRemoteLoginHandler companionLoginWithAccount:completion:]";
+      v26 = v14;
+      v27 = 2080;
+      v28 = "[HMRemoteLoginHandler companionLoginWithAccount:completion:]";
       _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", buf, 0x16u);
     }
 
@@ -1102,24 +1080,22 @@ LABEL_19:
     v15 = [MEMORY[0x1E696ABC0] hmErrorWithCode:12];
     (*(completionCopy + 2))(completionCopy, v15);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_callAccountUpdateDelegate
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   context = [(HMRemoteLoginHandler *)self context];
   delegateCaller = [context delegateCaller];
   v5 = delegateCaller;
   if (delegateCaller)
   {
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __50__HMRemoteLoginHandler__callAccountUpdateDelegate__block_invoke;
-    v11[3] = &unk_1E754E2A8;
-    v11[4] = self;
-    [delegateCaller invokeBlock:v11];
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __50__HMRemoteLoginHandler__callAccountUpdateDelegate__block_invoke;
+    v10[3] = &unk_1E754E2A8;
+    v10[4] = self;
+    [delegateCaller invokeBlock:v10];
   }
 
   else
@@ -1131,21 +1107,19 @@ LABEL_19:
     {
       v9 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v13 = v9;
-      v14 = 2112;
-      v15 = context;
+      v12 = v9;
+      v13 = 2112;
+      v14 = context;
       _os_log_impl(&dword_19BB39000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to notify of updated logged in account due to no delegate caller on context: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __50__HMRemoteLoginHandler__callAccountUpdateDelegate__block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) accessory];
   v3 = [v2 delegate];
   if ([v3 conformsToProtocol:&unk_1F0F63E80])
@@ -1167,13 +1141,13 @@ void __50__HMRemoteLoginHandler__callAccountUpdateDelegate__block_invoke(uint64_
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     v10 = HMFGetLogIdentifier();
-    v12 = 138543874;
-    v13 = v10;
-    v14 = 2112;
-    v15 = v6;
-    v16 = 2112;
-    v17 = v5;
-    _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_INFO, "%{public}@Notifying clients of did update logged in account: %@ delegate: %@", &v12, 0x20u);
+    v11 = 138543874;
+    v12 = v10;
+    v13 = 2112;
+    v14 = v6;
+    v15 = 2112;
+    v16 = v5;
+    _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_INFO, "%{public}@Notifying clients of did update logged in account: %@ delegate: %@", &v11, 0x20u);
   }
 
   objc_autoreleasePoolPop(v7);
@@ -1181,13 +1155,11 @@ void __50__HMRemoteLoginHandler__callAccountUpdateDelegate__block_invoke(uint64_
   {
     [v5 accessory:v2 didUpdateLoggedInAccount:v6];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)mergeFromNewObject:(id)object
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   _configureAccessoryInfoDataProviderIfNeeded = [(HMRemoteLoginHandler *)self _configureAccessoryInfoDataProviderIfNeeded];
   v6 = objectCopy;
@@ -1218,7 +1190,7 @@ void __50__HMRemoteLoginHandler__callAccountUpdateDelegate__block_invoke(uint64_
       {
         v14 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v51 = v14;
+        v50 = v14;
         _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_INFO, "%{public}@Unsubscribe to new object's accessory info data provider", buf, 0xCu);
       }
 
@@ -1227,12 +1199,12 @@ void __50__HMRemoteLoginHandler__callAccountUpdateDelegate__block_invoke(uint64_
       accessoryInfoDataProvider2 = [v8 accessoryInfoDataProvider];
       uniqueIdentifier = [home uniqueIdentifier];
       uniqueIdentifier2 = [accessory uniqueIdentifier];
-      v49[0] = MEMORY[0x1E69E9820];
-      v49[1] = 3221225472;
-      v49[2] = __43__HMRemoteLoginHandler_mergeFromNewObject___block_invoke;
-      v49[3] = &unk_1E754E148;
-      v49[4] = selfCopy;
-      [accessoryInfoDataProvider2 unsubscribeToAccessoryInfoWithHomeIdentifier:uniqueIdentifier accessoryIdentifier:uniqueIdentifier2 accessoryInfoOptions:2 completionHandler:v49];
+      v48[0] = MEMORY[0x1E69E9820];
+      v48[1] = 3221225472;
+      v48[2] = __43__HMRemoteLoginHandler_mergeFromNewObject___block_invoke;
+      v48[3] = &unk_1E754E148;
+      v48[4] = selfCopy;
+      [accessoryInfoDataProvider2 unsubscribeToAccessoryInfoWithHomeIdentifier:uniqueIdentifier accessoryIdentifier:uniqueIdentifier2 accessoryInfoOptions:2 completionHandler:v48];
     }
 
     loggedInAccount = [(HMRemoteLoginHandler *)self loggedInAccount];
@@ -1249,9 +1221,9 @@ void __50__HMRemoteLoginHandler__callAccountUpdateDelegate__block_invoke(uint64_
         v25 = HMFGetLogIdentifier();
         loggedInAccount3 = [v8 loggedInAccount];
         *buf = 138543618;
-        v51 = v25;
-        v52 = 2112;
-        v53 = loggedInAccount3;
+        v50 = v25;
+        v51 = 2112;
+        v52 = loggedInAccount3;
         _os_log_impl(&dword_19BB39000, v24, OS_LOG_TYPE_INFO, "%{public}@Merging logged in account: %@", buf, 0x16u);
       }
 
@@ -1288,9 +1260,9 @@ void __50__HMRemoteLoginHandler__callAccountUpdateDelegate__block_invoke(uint64_
         v36 = HMFGetLogIdentifier();
         stagedLoggedInAccount3 = [v8 stagedLoggedInAccount];
         *buf = 138543618;
-        v51 = v36;
-        v52 = 2112;
-        v53 = stagedLoggedInAccount3;
+        v50 = v36;
+        v51 = 2112;
+        v52 = stagedLoggedInAccount3;
         _os_log_impl(&dword_19BB39000, v35, OS_LOG_TYPE_INFO, "%{public}@Merging staged logged in account: %@", buf, 0x16u);
       }
 
@@ -1303,12 +1275,12 @@ void __50__HMRemoteLoginHandler__callAccountUpdateDelegate__block_invoke(uint64_
 
       if (queue2)
       {
-        v47[0] = MEMORY[0x1E69E9820];
-        v47[1] = 3221225472;
-        v47[2] = __43__HMRemoteLoginHandler_mergeFromNewObject___block_invoke_65;
-        v47[3] = &unk_1E754E2A8;
-        v47[4] = selfCopy3;
-        dispatch_async(queue2, v47);
+        v46[0] = MEMORY[0x1E69E9820];
+        v46[1] = 3221225472;
+        v46[2] = __43__HMRemoteLoginHandler_mergeFromNewObject___block_invoke_65;
+        v46[3] = &unk_1E754E2A8;
+        v46[4] = selfCopy3;
+        dispatch_async(queue2, v46);
         _configureAccessoryInfoDataProviderIfNeeded = 1;
       }
     }
@@ -1323,20 +1295,19 @@ void __50__HMRemoteLoginHandler__callAccountUpdateDelegate__block_invoke(uint64_
     {
       v44 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v51 = v44;
+      v50 = v44;
       _os_log_impl(&dword_19BB39000, v43, OS_LOG_TYPE_ERROR, "%{public}@Remote login handler from new home data is nil", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v41);
   }
 
-  v45 = *MEMORY[0x1E69E9840];
   return _configureAccessoryInfoDataProviderIfNeeded;
 }
 
 void __43__HMRemoteLoginHandler_mergeFromNewObject___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -1346,22 +1317,20 @@ void __43__HMRemoteLoginHandler_mergeFromNewObject___block_invoke(uint64_t a1, v
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = HMFGetLogIdentifier();
-      v9 = 138543618;
-      v10 = v7;
-      v11 = 2112;
-      v12 = v3;
-      _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to unsubscribe to accessory info data provider with error: %@", &v9, 0x16u);
+      v8 = 138543618;
+      v9 = v7;
+      v10 = 2112;
+      v11 = v3;
+      _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to unsubscribe to accessory info data provider with error: %@", &v8, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleRemoteLoginAccountUpdated:(id)updated
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   updatedCopy = updated;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -1371,9 +1340,9 @@ void __43__HMRemoteLoginHandler_mergeFromNewObject___block_invoke(uint64_t a1, v
     v8 = HMFGetLogIdentifier();
     shortDescription = [updatedCopy shortDescription];
     *buf = 138543618;
-    v20 = v8;
-    v21 = 2112;
-    v22 = shortDescription;
+    v19 = v8;
+    v20 = 2112;
+    v21 = shortDescription;
     _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_INFO, "%{public}@Handling remote login account updated message: %@", buf, 0x16u);
   }
 
@@ -1381,9 +1350,9 @@ void __43__HMRemoteLoginHandler_mergeFromNewObject___block_invoke(uint64_t a1, v
   v10 = [updatedCopy dataForKey:@"kRemoteLoginAccount"];
   if (v10)
   {
-    v18 = 0;
-    v11 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v10 error:&v18];
-    v12 = v18;
+    v17 = 0;
+    v11 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v10 error:&v17];
+    v12 = v17;
     if (!v11)
     {
       v13 = objc_autoreleasePoolPush();
@@ -1393,9 +1362,9 @@ void __43__HMRemoteLoginHandler_mergeFromNewObject___block_invoke(uint64_t a1, v
       {
         v16 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v20 = v16;
-        v21 = 2112;
-        v22 = v12;
+        v19 = v16;
+        v20 = 2112;
+        v21 = v12;
         _os_log_impl(&dword_19BB39000, v15, OS_LOG_TYPE_ERROR, "%{public}@Failed to unarchive logged in account from logged in account data: %@", buf, 0x16u);
       }
 
@@ -1410,8 +1379,6 @@ void __43__HMRemoteLoginHandler_mergeFromNewObject___block_invoke(uint64_t a1, v
 
   [(HMRemoteLoginHandler *)selfCopy setLoggedInAccount:v11];
   [(HMRemoteLoginHandler *)selfCopy _callAccountUpdateDelegate];
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isControllable
@@ -1452,29 +1419,29 @@ void __43__HMRemoteLoginHandler_mergeFromNewObject___block_invoke(uint64_t a1, v
 
 - (void)updateLoggedInAccount:(id)account completionHandler:(id)handler
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   handlerCopy = handler;
   context = [(HMRemoteLoginHandler *)self context];
   if (!handlerCopy)
   {
-    v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMRemoteLoginHandler updateLoggedInAccount:completionHandler:]", @"completionHandler"];
-    v19 = objc_autoreleasePoolPush();
+    v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMRemoteLoginHandler updateLoggedInAccount:completionHandler:]", @"completionHandler"];
+    v18 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v21 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v20 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      v22 = HMFGetLogIdentifier();
+      v21 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v30 = v22;
-      v31 = 2112;
-      v32 = v18;
-      _os_log_impl(&dword_19BB39000, v21, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v29 = v21;
+      v30 = 2112;
+      v31 = v17;
+      _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v19);
-    v23 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v18 userInfo:0];
-    objc_exception_throw(v23);
+    objc_autoreleasePoolPop(v18);
+    v22 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v17 userInfo:0];
+    objc_exception_throw(v22);
   }
 
   v9 = context;
@@ -1486,10 +1453,10 @@ void __43__HMRemoteLoginHandler_mergeFromNewObject___block_invoke(uint64_t a1, v
     block[1] = 3221225472;
     block[2] = __64__HMRemoteLoginHandler_updateLoggedInAccount_completionHandler___block_invoke;
     block[3] = &unk_1E754D208;
-    v25 = v10;
+    v24 = v10;
     selfCopy2 = self;
-    v28 = handlerCopy;
-    v27 = v9;
+    v27 = handlerCopy;
+    v26 = v9;
     v12 = v10;
     dispatch_async(queue, block);
   }
@@ -1503,9 +1470,9 @@ void __43__HMRemoteLoginHandler_mergeFromNewObject___block_invoke(uint64_t a1, v
     {
       v16 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v30 = v16;
-      v31 = 2080;
-      v32 = "[HMRemoteLoginHandler updateLoggedInAccount:completionHandler:]";
+      v29 = v16;
+      v30 = 2080;
+      v31 = "[HMRemoteLoginHandler updateLoggedInAccount:completionHandler:]";
       _os_log_impl(&dword_19BB39000, v15, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", buf, 0x16u);
     }
 
@@ -1513,18 +1480,16 @@ void __43__HMRemoteLoginHandler_mergeFromNewObject___block_invoke(uint64_t a1, v
     v12 = [MEMORY[0x1E696ABC0] hmErrorWithCode:12];
     (*(handlerCopy + 2))(handlerCopy, v12);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __64__HMRemoteLoginHandler_updateLoggedInAccount_completionHandler___block_invoke(void **a1)
 {
-  v31[1] = *MEMORY[0x1E69E9840];
-  v30 = @"kRemoteLoginAccount";
+  v30[1] = *MEMORY[0x1E69E9840];
+  v29 = @"kRemoteLoginAccount";
   v2 = a1 + 4;
   v3 = encodeRootObject(a1[4]);
-  v31[0] = v3;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:&v30 count:1];
+  v30[0] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:&v29 count:1];
 
   v5 = MEMORY[0x1E69A2A10];
   v6 = [a1[5] messageDestination];
@@ -1535,9 +1500,9 @@ void __64__HMRemoteLoginHandler_updateLoggedInAccount_completionHandler___block_
   aBlock[1] = 3221225472;
   aBlock[2] = __64__HMRemoteLoginHandler_updateLoggedInAccount_completionHandler___block_invoke_2;
   aBlock[3] = &unk_1E754D988;
-  objc_copyWeak(&v28, &location);
-  v26 = *v2;
-  v27 = a1[7];
+  objc_copyWeak(&v27, &location);
+  v25 = *v2;
+  v26 = a1[7];
   v8 = _Block_copy(aBlock);
   v9 = [a1[5] context];
   v10 = [v9 pendingRequests];
@@ -1546,29 +1511,27 @@ void __64__HMRemoteLoginHandler_updateLoggedInAccount_completionHandler___block_
   v12 = _Block_copy(v8);
   [v10 addCompletionBlock:v12 forIdentifier:v11];
 
-  v18 = MEMORY[0x1E69E9820];
-  v19 = 3221225472;
-  v20 = __64__HMRemoteLoginHandler_updateLoggedInAccount_completionHandler___block_invoke_58;
-  v21 = &unk_1E754E480;
+  v17 = MEMORY[0x1E69E9820];
+  v18 = 3221225472;
+  v19 = __64__HMRemoteLoginHandler_updateLoggedInAccount_completionHandler___block_invoke_58;
+  v20 = &unk_1E754E480;
   v13 = v10;
-  v22 = v13;
+  v21 = v13;
   v14 = v11;
-  v23 = v14;
+  v22 = v14;
   v15 = v8;
-  v24 = v15;
-  [v7 setResponseHandler:&v18];
+  v23 = v15;
+  [v7 setResponseHandler:&v17];
   v16 = [a1[6] messageDispatcher];
   [v16 sendMessage:v7 completionHandler:0];
 
-  objc_destroyWeak(&v28);
+  objc_destroyWeak(&v27);
   objc_destroyWeak(&location);
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __64__HMRemoteLoginHandler_updateLoggedInAccount_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (!v3)
@@ -1580,11 +1543,11 @@ void __64__HMRemoteLoginHandler_updateLoggedInAccount_completionHandler___block_
     {
       v8 = HMFGetLogIdentifier();
       v9 = *(a1 + 32);
-      v13 = 138543618;
-      v14 = v8;
-      v15 = 2112;
-      v16 = v9;
-      _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_INFO, "%{public}@Update logged in account: %@ responded with success", &v13, 0x16u);
+      v12 = 138543618;
+      v13 = v8;
+      v14 = 2112;
+      v15 = v9;
+      _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_INFO, "%{public}@Update logged in account: %@ responded with success", &v12, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -1594,8 +1557,6 @@ void __64__HMRemoteLoginHandler_updateLoggedInAccount_completionHandler___block_
   v10 = [WeakRetained context];
   v11 = [v10 delegateCaller];
   [v11 callCompletion:*(a1 + 40) error:v3];
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __64__HMRemoteLoginHandler_updateLoggedInAccount_completionHandler___block_invoke_58(uint64_t a1, void *a2)
@@ -1610,7 +1571,7 @@ void __64__HMRemoteLoginHandler_updateLoggedInAccount_completionHandler___block_
 
 - (void)setLoggedInAccount:(id)account
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -1619,13 +1580,13 @@ void __64__HMRemoteLoginHandler_updateLoggedInAccount_completionHandler___block_
   {
     v8 = HMFGetLogIdentifier();
     loggedInAccount = [(HMRemoteLoginHandler *)selfCopy loggedInAccount];
-    v13 = 138543874;
-    v14 = v8;
-    v15 = 2112;
-    v16 = accountCopy;
-    v17 = 2112;
-    v18 = loggedInAccount;
-    _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_INFO, "%{public}@Updating logged in account: %@ from: %@", &v13, 0x20u);
+    v12 = 138543874;
+    v13 = v8;
+    v14 = 2112;
+    v15 = accountCopy;
+    v16 = 2112;
+    v17 = loggedInAccount;
+    _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_INFO, "%{public}@Updating logged in account: %@ from: %@", &v12, 0x20u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -1635,7 +1596,6 @@ void __64__HMRemoteLoginHandler_updateLoggedInAccount_completionHandler___block_
   selfCopy->_loggedInAccount = v10;
 
   os_unfair_lock_unlock(&selfCopy->_lock);
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (ACAccount)loggedInAccount
@@ -1691,7 +1651,7 @@ void __64__HMRemoteLoginHandler_updateLoggedInAccount_completionHandler___block_
 
 - (BOOL)_configureAccessoryInfoDataProviderIfNeeded
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   accessory = [(HMRemoteLoginHandler *)self accessory];
   home = [accessory home];
   if (!home || ([accessory supportsMessagedHomePodSettings] & 1) == 0)
@@ -1708,13 +1668,13 @@ void __64__HMRemoteLoginHandler_updateLoggedInAccount_completionHandler___block_
       [accessory2 supportsMessagedHomePodSettings];
       v25 = HMFBooleanToString();
       *buf = 138544130;
-      v30 = v21;
-      v31 = 2112;
-      v32 = uuid;
-      v33 = 2112;
-      v34 = uuid2;
-      v35 = 2112;
-      v36 = v25;
+      v29 = v21;
+      v30 = 2112;
+      v31 = uuid;
+      v32 = 2112;
+      v33 = uuid2;
+      v34 = 2112;
+      v35 = v25;
       _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_INFO, "%{public}@Did not subscribe to accessory info data provider due to home: %@ accessory: %@ supportsMessagedHomePodSettings: %@", buf, 0x2Au);
     }
 
@@ -1743,7 +1703,7 @@ LABEL_16:
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v30 = v11;
+      v29 = v11;
       _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Configuring accessory info data provider", buf, 0xCu);
     }
 
@@ -1755,12 +1715,12 @@ LABEL_16:
     accessoryInfoDataProvider2 = [(HMRemoteLoginHandler *)selfCopy2 accessoryInfoDataProvider];
     uniqueIdentifier = [home uniqueIdentifier];
     uniqueIdentifier2 = [accessory uniqueIdentifier];
-    v28[0] = MEMORY[0x1E69E9820];
-    v28[1] = 3221225472;
-    v28[2] = __67__HMRemoteLoginHandler__configureAccessoryInfoDataProviderIfNeeded__block_invoke;
-    v28[3] = &unk_1E754E148;
-    v28[4] = selfCopy2;
-    [accessoryInfoDataProvider2 configureWithHomeIdentifier:uniqueIdentifier accessoryIdentifier:uniqueIdentifier2 accessoryInfoOptions:2 dataProviderDelegate:selfCopy2 completionHandler:v28];
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = __67__HMRemoteLoginHandler__configureAccessoryInfoDataProviderIfNeeded__block_invoke;
+    v27[3] = &unk_1E754E148;
+    v27[4] = selfCopy2;
+    [accessoryInfoDataProvider2 configureWithHomeIdentifier:uniqueIdentifier accessoryIdentifier:uniqueIdentifier2 accessoryInfoOptions:2 dataProviderDelegate:selfCopy2 completionHandler:v27];
 
     v17 = 1;
   }
@@ -1771,13 +1731,12 @@ LABEL_16:
   }
 
 LABEL_17:
-  v26 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
 void __67__HMRemoteLoginHandler__configureAccessoryInfoDataProviderIfNeeded__block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -1787,17 +1746,15 @@ void __67__HMRemoteLoginHandler__configureAccessoryInfoDataProviderIfNeeded__blo
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = HMFGetLogIdentifier();
-      v9 = 138543618;
-      v10 = v7;
-      v11 = 2112;
-      v12 = v3;
-      _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_ERROR, "%{public}@Subscribed to accessory info data provider with error: %@", &v9, 0x16u);
+      v8 = 138543618;
+      v9 = v7;
+      v10 = 2112;
+      v11 = v3;
+      _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_ERROR, "%{public}@Subscribed to accessory info data provider with error: %@", &v8, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_configureWithContext:(id)context accessory:(id)accessory
@@ -1849,12 +1806,11 @@ void __67__HMRemoteLoginHandler__configureAccessoryInfoDataProviderIfNeeded__blo
 
 uint64_t __35__HMRemoteLoginHandler_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x1E69A2980];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v52_43727;
-  logCategory__hmf_once_v52_43727 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v52_43727;
+  logCategory__hmf_once_v52_43727 = v0;
 
-  return MEMORY[0x1EEE66BB8](v1, v2);
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

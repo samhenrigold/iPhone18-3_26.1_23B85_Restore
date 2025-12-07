@@ -72,16 +72,18 @@
 
 - (void)remoteVideoClient:(id)client videoDidSuspend:(BOOL)suspend
 {
+  suspendCopy = suspend;
   clientCopy = client;
   selfCopy = self;
-  ConversationController.remoteVideoClient(_:videoDidSuspend:)();
+  ConversationController.remoteVideoClient(_:videoDidSuspend:)(clientCopy, suspendCopy);
 }
 
 - (void)remoteVideoClient:(id)client remoteVideoDidPause:(BOOL)pause
 {
+  pauseCopy = pause;
   clientCopy = client;
   selfCopy = self;
-  ConversationController.remoteVideoClient(_:remoteVideoDidPause:)();
+  ConversationController.remoteVideoClient(_:remoteVideoDidPause:)(clientCopy, pauseCopy);
 }
 
 - (void)remoteVideoClient:(id)client networkQualityDidDegrade:(BOOL)degrade info:(id)info
@@ -105,9 +107,10 @@
 
 - (void)remoteVideoClient:(id)client remoteMediaDidStall:(BOOL)stall
 {
+  stallCopy = stall;
   clientCopy = client;
   selfCopy = self;
-  ConversationController.remoteVideoClient(_:remoteMediaDidStall:)();
+  ConversationController.remoteVideoClient(_:remoteMediaDidStall:)(clientCopy, stallCopy);
 }
 
 - (void)remoteVideoClient:(id)client remoteVideoAttributesDidChange:(id)change

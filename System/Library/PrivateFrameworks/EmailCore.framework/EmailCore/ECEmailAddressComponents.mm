@@ -467,7 +467,7 @@ uint64_t __36__ECEmailAddressComponents_isEqual___block_invoke(uint64_t a1, uint
   v7 = v6;
   if (a2 && a3)
   {
-    v8 = (*(v6 + 2))(v6);
+    v8 = v6[2](v6);
   }
 
   else

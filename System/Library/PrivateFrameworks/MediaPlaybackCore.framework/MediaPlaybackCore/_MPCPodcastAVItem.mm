@@ -57,8 +57,9 @@
 
 - (void)setEnhanceDialogueActive:(BOOL)active error:(id *)error
 {
+  activeCopy = active;
   selfCopy = self;
-  sub_1C5CD7310();
+  sub_1C5CD7310(activeCopy);
 }
 
 - (BOOL)isExplicitTrack
@@ -171,7 +172,7 @@
 
   if (v3)
   {
-    sub_1C5CFB374(0, &qword_1EC1A9490);
+    sub_1C5CFB374(0, &qword_1EC1A9490, MEMORY[0x1E69E7CA0] + 8);
     v4 = sub_1C6016AF0();
   }
 

@@ -150,17 +150,17 @@ void __63__HKMHPromptedAssessmentsManager_promptedAssessmentsWithError___block_i
   _Block_object_dispose(&v16, 8);
 }
 
-void __75__HKMHPromptedAssessmentsManager_registerObserver_queue_activationHandler___block_invoke(uint64_t a1)
+void __75__HKMHPromptedAssessmentsManager_registerObserver_queue_activationHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
   v9 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
-  v2 = *MEMORY[0x277CCC2F0];
+  v3 = *MEMORY[0x277CCC2F0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2F0], OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
+    v4 = *(a1 + 32);
     *buf = 138543362;
-    v8 = v3;
-    _os_log_impl(&dword_25895E000, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@] Beginning observation", buf, 0xCu);
+    v8 = v4;
+    _os_log_impl(&dword_25895E000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] Beginning observation", buf, 0xCu);
   }
 
   *(*(*(a1 + 48) + 8) + 24) = 1;
@@ -175,7 +175,6 @@ void __75__HKMHPromptedAssessmentsManager_registerObserver_queue_activationHandl
   [*(a1 + 32) _startObservingWithActivationHandler:*(a1 + 40)];
   objc_destroyWeak(&v6);
   objc_destroyWeak(buf);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __75__HKMHPromptedAssessmentsManager_registerObserver_queue_activationHandler___block_invoke_301(uint64_t a1)
@@ -195,39 +194,37 @@ void __75__HKMHPromptedAssessmentsManager_registerObserver_queue_activationHandl
   [(HKObserverSet *)observers unregisterObserver:observer runIfLastObserver:v4];
 }
 
-uint64_t __53__HKMHPromptedAssessmentsManager_unregisterObserver___block_invoke(uint64_t a1)
+uint64_t __53__HKMHPromptedAssessmentsManager_unregisterObserver___block_invoke(uint64_t a1, uint64_t a2)
 {
   v11 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
-  v2 = *MEMORY[0x277CCC2F0];
+  v3 = *MEMORY[0x277CCC2F0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2F0], OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
+    v4 = *(a1 + 32);
     *buf = 138543362;
-    v10 = v3;
-    _os_log_impl(&dword_25895E000, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@] Ending observation", buf, 0xCu);
+    v10 = v4;
+    _os_log_impl(&dword_25895E000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] Ending observation", buf, 0xCu);
   }
 
   [*(*(a1 + 32) + 16) setAutomaticProxyReconnectionHandler:0];
-  v4 = *(a1 + 32);
-  v5 = *(v4 + 16);
+  v5 = *(a1 + 32);
+  v6 = *(v5 + 16);
   v8[0] = MEMORY[0x277D85DD0];
   v8[1] = 3221225472;
   v8[2] = __53__HKMHPromptedAssessmentsManager_unregisterObserver___block_invoke_2;
   v8[3] = &unk_2798A9B60;
-  v8[4] = v4;
-  result = [v5 fetchProxyWithHandler:&__block_literal_global_0 errorHandler:v8];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  v8[4] = v5;
+  return [v6 fetchProxyWithHandler:&__block_literal_global_0 errorHandler:v8];
 }
 
 void __53__HKMHPromptedAssessmentsManager_unregisterObserver___block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = a2;
+  v2 = a2;
   _HKInitializeLogging();
   if (os_log_type_enabled(*MEMORY[0x277CCC2F0], OS_LOG_TYPE_ERROR))
   {
-    __53__HKMHPromptedAssessmentsManager_unregisterObserver___block_invoke_2_cold_1(a1);
+    __53__HKMHPromptedAssessmentsManager_unregisterObserver___block_invoke_2_cold_1();
   }
 }
 
@@ -256,7 +253,7 @@ void __71__HKMHPromptedAssessmentsManager__startObservingWithActivationHandler__
   _HKInitializeLogging();
   if (os_log_type_enabled(*MEMORY[0x277CCC2F0], OS_LOG_TYPE_ERROR))
   {
-    __71__HKMHPromptedAssessmentsManager__startObservingWithActivationHandler___block_invoke_2_cold_1(a1);
+    __71__HKMHPromptedAssessmentsManager__startObservingWithActivationHandler___block_invoke_2_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -327,7 +324,7 @@ void __72__HKMHPromptedAssessmentsManager__synchronouslyStartObservingWithError_
   _HKInitializeLogging();
   if (os_log_type_enabled(*MEMORY[0x277CCC2F0], OS_LOG_TYPE_ERROR))
   {
-    __72__HKMHPromptedAssessmentsManager__synchronouslyStartObservingWithError___block_invoke_3_cold_1(a1);
+    __72__HKMHPromptedAssessmentsManager__synchronouslyStartObservingWithError___block_invoke_3_cold_1();
   }
 
   v4 = *(*(a1 + 40) + 8);
@@ -337,33 +334,31 @@ void __72__HKMHPromptedAssessmentsManager__synchronouslyStartObservingWithError_
 
 - (void)_handleAutomaticProxyReconnection
 {
-  *v4 = 138543618;
-  *&v4[4] = self;
-  *&v4[12] = 2114;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_1_0(&dword_25895E000, a2, a3, "[%{public}@] Failed to resume observation on server reconnection: %{public}@", *v4, *&v4[8], *&v4[16], *MEMORY[0x277D85DE8]);
-  v3 = *MEMORY[0x277D85DE8];
+  *v3 = 138543618;
+  *&v3[4] = self;
+  *&v3[12] = 2114;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_1_0(&dword_25895E000, a2, a3, "[%{public}@] Failed to resume observation on server reconnection: %{public}@", *v3, *&v3[8], *&v3[16], *MEMORY[0x277D85DE8]);
 }
 
 - (void)client_promptedAssessmentsManagerDidUpdatePromptedAssessments
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v3 = *MEMORY[0x277CCC2F0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2F0], OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138543362;
+    v4 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_25895E000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] Received server notification of prompted assessment update", &v5, 0xCu);
+    _os_log_impl(&dword_25895E000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] Received server notification of prompted assessment update", &v4, 0xCu);
   }
 
   [(HKMHPromptedAssessmentsManager *)self _notifyObserversForPromptedAssessmentUpdate];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_notifyObserversForPromptedAssessmentUpdate
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v3 = *MEMORY[0x277CCC2F0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2F0], OS_LOG_TYPE_DEFAULT))
@@ -374,48 +369,26 @@ void __72__HKMHPromptedAssessmentsManager__synchronouslyStartObservingWithError_
     v7 = [v4 numberWithUnsignedInteger:{-[HKObserverSet count](observers, "count")}];
     *buf = 138543618;
     selfCopy = self;
-    v13 = 2112;
-    v14 = v7;
+    v12 = 2112;
+    v13 = v7;
     _os_log_impl(&dword_25895E000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Notifying %@ observers of prompted assessment update", buf, 0x16u);
   }
 
   v8 = self->_observers;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __77__HKMHPromptedAssessmentsManager__notifyObserversForPromptedAssessmentUpdate__block_invoke;
-  v10[3] = &unk_2798A9C50;
-  v10[4] = self;
-  [(HKObserverSet *)v8 notifyObservers:v10];
-  v9 = *MEMORY[0x277D85DE8];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __77__HKMHPromptedAssessmentsManager__notifyObserversForPromptedAssessmentUpdate__block_invoke;
+  v9[3] = &unk_2798A9C50;
+  v9[4] = self;
+  [(HKObserverSet *)v8 notifyObservers:v9];
 }
 
-void __53__HKMHPromptedAssessmentsManager_unregisterObserver___block_invoke_2_cold_1(uint64_t a1)
+void __72__HKMHPromptedAssessmentsManager__synchronouslyStartObservingWithError___block_invoke_3_cold_1()
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_25895E000, v2, v3, "[%{public}@] Failed to communicate with task server for observation stop: %{public}@");
   v4 = *MEMORY[0x277D85DE8];
-}
-
-void __71__HKMHPromptedAssessmentsManager__startObservingWithActivationHandler___block_invoke_2_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_25895E000, v2, v3, "[%{public}@] Failed to communicate with task server for observation start: %{public}@");
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-void __72__HKMHPromptedAssessmentsManager__synchronouslyStartObservingWithError___block_invoke_3_cold_1(uint64_t a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v2 = *(*(*(a1 + 40) + 8) + 40);
-  OUTLINED_FUNCTION_0_0();
-  v7 = v3;
-  _os_log_error_impl(&dword_25895E000, v4, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to communicate with task server for observation start: %{public}@", v6, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
+  v3 = v0;
+  _os_log_error_impl(&dword_25895E000, v1, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to communicate with task server for observation start: %{public}@", v2, 0x16u);
 }
 
 @end

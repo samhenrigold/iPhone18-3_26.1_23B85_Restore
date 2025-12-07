@@ -1,4 +1,5 @@
 @interface MLCDeviceOptimizer
++ (MLCDeviceOptimizer)deviceOptimizerWithFunction:(unsigned int)function optimizerAlgFields:(id)fields accumulatorBufferCount:(unint64_t)count;
 + (MLCDeviceOptimizer)deviceOptimizerWithKernel:(id)kernel;
 - (MLCDeviceOptimizer)initWithFunction:(unsigned int)function optimizerAlgFields:(id)fields accumulatorBufferCount:(unint64_t)count;
 - (MLCDeviceOptimizer)initWithKernel:(id)kernel;
@@ -14,6 +15,15 @@
   v5 = [[self alloc] initWithKernel:kernelCopy];
 
   return v5;
+}
+
++ (MLCDeviceOptimizer)deviceOptimizerWithFunction:(unsigned int)function optimizerAlgFields:(id)fields accumulatorBufferCount:(unint64_t)count
+{
+  v6 = *&function;
+  fieldsCopy = fields;
+  v9 = [[self alloc] initWithFunction:v6 optimizerAlgFields:fieldsCopy accumulatorBufferCount:count];
+
+  return v9;
 }
 
 - (MLCDeviceOptimizer)initWithKernel:(id)kernel

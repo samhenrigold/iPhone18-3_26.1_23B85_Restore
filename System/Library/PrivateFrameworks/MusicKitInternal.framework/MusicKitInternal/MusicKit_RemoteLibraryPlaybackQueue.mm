@@ -14,12 +14,12 @@
 
 - (MusicKit_RemoteLibraryPlaybackQueue)initWithRequest:(id)request startItem:(id)item replaceQueueIntent:(int64_t)intent
 {
-  v96 = *MEMORY[0x1E69E9840];
+  v95 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   itemCopy = item;
-  v85.receiver = self;
-  v85.super_class = MusicKit_RemoteLibraryPlaybackQueue;
-  v9 = [(MusicKit_RemotePlaybackQueue *)&v85 initWithReplaceQueueIntent:intent];
+  v84.receiver = self;
+  v84.super_class = MusicKit_RemoteLibraryPlaybackQueue;
+  v9 = [(MusicKit_RemotePlaybackQueue *)&v84 initWithReplaceQueueIntent:intent];
   if (!v9)
   {
     goto LABEL_51;
@@ -73,26 +73,26 @@ LABEL_10:
 
     if (!v30)
     {
-      v83 = 0u;
-      v84 = 0u;
-      v81 = 0u;
       v82 = 0u;
+      v83 = 0u;
+      v80 = 0u;
+      v81 = 0u;
       obj = [v10 scopedContainers];
-      v31 = [obj countByEnumeratingWithState:&v81 objects:v95 count:16];
+      v31 = [obj countByEnumeratingWithState:&v80 objects:v94 count:16];
       if (v31)
       {
-        v79 = *v82;
-        v77 = &v88;
+        v78 = *v81;
+        v76 = &v87;
 LABEL_16:
         v32 = 0;
         while (1)
         {
-          if (*v82 != v79)
+          if (*v81 != v78)
           {
             objc_enumerationMutation(obj);
           }
 
-          identifiers = [*(*(&v81 + 1) + 8 * v32) identifiers];
+          identifiers = [*(*(&v80 + 1) + 8 * v32) identifiers];
           library = [identifiers library];
           persistentID = [library persistentID];
 
@@ -129,49 +129,49 @@ LABEL_16:
 
             else
             {
-              v91 = 0;
-              v92 = &v91;
-              v93 = 0x2050000000;
+              v90 = 0;
+              v91 = &v90;
+              v92 = 0x2050000000;
               v44 = getMPModelArtistClass_softClass;
-              v94 = getMPModelArtistClass_softClass;
+              v93 = getMPModelArtistClass_softClass;
               if (!getMPModelArtistClass_softClass)
               {
-                v86 = MEMORY[0x1E69E9820];
-                v87 = 3221225472;
-                v88 = __getMPModelArtistClass_block_invoke;
-                v89 = &unk_1E84C3838;
-                v90 = &v91;
-                __getMPModelArtistClass_block_invoke(&v86);
-                v44 = v92[3];
+                v85 = MEMORY[0x1E69E9820];
+                v86 = 3221225472;
+                v87 = __getMPModelArtistClass_block_invoke;
+                v88 = &unk_1E84C3838;
+                v89 = &v90;
+                __getMPModelArtistClass_block_invoke(&v85);
+                v44 = v91[3];
               }
 
               v45 = v44;
-              _Block_object_dispose(&v91, 8);
+              _Block_object_dispose(&v90, 8);
               objc_opt_class();
               if (objc_opt_isKindOfClass() & 1) != 0 && ([v10 sectionKind], v46 = objc_claimAutoreleasedReturnValue(), getMPModelAlbumKindClass(), objc_opt_class(), v47 = objc_opt_isKindOfClass(), v46, (v47))
               {
                 v48 = getMPMediaPropertyPredicateClass();
                 v49 = [MEMORY[0x1E696AD98] numberWithLongLong:persistentID];
-                v91 = 0;
-                v92 = &v91;
-                v93 = 0x2020000000;
+                v90 = 0;
+                v91 = &v90;
+                v92 = 0x2020000000;
                 v50 = getMPMediaItemPropertyAlbumArtistPersistentIDSymbolLoc_ptr;
-                v94 = getMPMediaItemPropertyAlbumArtistPersistentIDSymbolLoc_ptr;
+                v93 = getMPMediaItemPropertyAlbumArtistPersistentIDSymbolLoc_ptr;
                 if (!getMPMediaItemPropertyAlbumArtistPersistentIDSymbolLoc_ptr)
                 {
-                  v86 = MEMORY[0x1E69E9820];
-                  v87 = 3221225472;
-                  v88 = __getMPMediaItemPropertyAlbumArtistPersistentIDSymbolLoc_block_invoke;
-                  v89 = &unk_1E84C3838;
-                  v90 = &v91;
+                  v85 = MEMORY[0x1E69E9820];
+                  v86 = 3221225472;
+                  v87 = __getMPMediaItemPropertyAlbumArtistPersistentIDSymbolLoc_block_invoke;
+                  v88 = &unk_1E84C3838;
+                  v89 = &v90;
                   v51 = MediaPlayerLibrary_13();
                   v52 = dlsym(v51, "MPMediaItemPropertyAlbumArtistPersistentID");
-                  *(v90[1] + 24) = v52;
-                  getMPMediaItemPropertyAlbumArtistPersistentIDSymbolLoc_ptr = *(v90[1] + 24);
-                  v50 = v92[3];
+                  *(v89[1] + 24) = v52;
+                  getMPMediaItemPropertyAlbumArtistPersistentIDSymbolLoc_ptr = *(v89[1] + 24);
+                  v50 = v91[3];
                 }
 
-                _Block_object_dispose(&v91, 8);
+                _Block_object_dispose(&v90, 8);
                 if (!v50)
                 {
                   getMPModelLibraryPlaylistEditControllerDidChangeNotification_cold_1();
@@ -185,24 +185,24 @@ LABEL_16:
 
               else
               {
-                v91 = 0;
-                v92 = &v91;
-                v93 = 0x2050000000;
+                v90 = 0;
+                v91 = &v90;
+                v92 = 0x2050000000;
                 v55 = getMPModelComposerClass_softClass;
-                v94 = getMPModelComposerClass_softClass;
+                v93 = getMPModelComposerClass_softClass;
                 if (!getMPModelComposerClass_softClass)
                 {
-                  v86 = MEMORY[0x1E69E9820];
-                  v87 = 3221225472;
-                  v88 = __getMPModelComposerClass_block_invoke;
-                  v89 = &unk_1E84C3838;
-                  v90 = &v91;
-                  __getMPModelComposerClass_block_invoke(&v86);
-                  v55 = v92[3];
+                  v85 = MEMORY[0x1E69E9820];
+                  v86 = 3221225472;
+                  v87 = __getMPModelComposerClass_block_invoke;
+                  v88 = &unk_1E84C3838;
+                  v89 = &v90;
+                  __getMPModelComposerClass_block_invoke(&v85);
+                  v55 = v91[3];
                 }
 
                 v56 = v55;
-                _Block_object_dispose(&v91, 8);
+                _Block_object_dispose(&v90, 8);
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
@@ -217,24 +217,24 @@ LABEL_16:
                   }
                 }
 
-                v91 = 0;
-                v92 = &v91;
-                v93 = 0x2050000000;
+                v90 = 0;
+                v91 = &v90;
+                v92 = 0x2050000000;
                 v59 = getMPModelGenreClass_softClass;
-                v94 = getMPModelGenreClass_softClass;
+                v93 = getMPModelGenreClass_softClass;
                 if (!getMPModelGenreClass_softClass)
                 {
-                  v86 = MEMORY[0x1E69E9820];
-                  v87 = 3221225472;
-                  v88 = __getMPModelGenreClass_block_invoke;
-                  v89 = &unk_1E84C3838;
-                  v90 = &v91;
-                  __getMPModelGenreClass_block_invoke(&v86);
-                  v59 = v92[3];
+                  v85 = MEMORY[0x1E69E9820];
+                  v86 = 3221225472;
+                  v87 = __getMPModelGenreClass_block_invoke;
+                  v88 = &unk_1E84C3838;
+                  v89 = &v90;
+                  __getMPModelGenreClass_block_invoke(&v85);
+                  v59 = v91[3];
                 }
 
                 v60 = v59;
-                _Block_object_dispose(&v91, 8);
+                _Block_object_dispose(&v90, 8);
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
@@ -259,7 +259,7 @@ LABEL_40:
 
           if (v31 == ++v32)
           {
-            v31 = [obj countByEnumeratingWithState:&v81 objects:v95 count:16];
+            v31 = [obj countByEnumeratingWithState:&v80 objects:v94 count:16];
             if (v31)
             {
               goto LABEL_16;
@@ -330,7 +330,6 @@ LABEL_48:
   v9->_underlyingStartObject = _underlyingModelObject;
 
 LABEL_51:
-  v75 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -443,12 +442,11 @@ LABEL_8:
 
 - (void)_setQueueWithPath:(id)path shuffleMode:(int64_t)mode sessionID:(id)d completionHandler:(id)handler
 {
-  v42[3] = *MEMORY[0x1E69E9840];
+  v38[3] = *MEMORY[0x1E69E9840];
   pathCopy = path;
   dCopy = d;
   handlerCopy = handler;
-  v13 = *MEMORY[0x1E695E480];
-  v14 = MRSystemAppPlaybackQueueCreate();
+  v12 = MRSystemAppPlaybackQueueCreate();
   protobufferEncodableObject = [(MPMediaQuery *)self->_mediaQuery protobufferEncodableObject];
   [protobufferEncodableObject data];
   MRSystemAppPlaybackQueueSetLocalQueryData();
@@ -456,79 +454,72 @@ LABEL_8:
   _persistentIDForStartItem = [(MusicKit_RemoteLibraryPlaybackQueue *)self _persistentIDForStartItem];
   if (_persistentIDForStartItem)
   {
-    v17 = _persistentIDForStartItem;
+    v15 = _persistentIDForStartItem;
     defaultMediaLibrary = [getMPMediaLibraryClass_0() defaultMediaLibrary];
-    v19 = [defaultMediaLibrary multiverseIdentifierForTrackWithPersistentID:v17];
+    v17 = [defaultMediaLibrary multiverseIdentifierForTrackWithPersistentID:v15];
 
-    [v19 data];
+    [v17 data];
     MRSystemAppPlaybackQueueSetLocalQueryFirstItemMultiverseIDData();
   }
 
-  if (mode <= 2)
-  {
-    v20 = dword_1D5619C60[mode];
-  }
-
   MRSystemAppPlaybackQueueSetLocalQueryShuffleMode();
-  v37 = 0;
-  v38 = &v37;
-  v39 = 0x2050000000;
-  v21 = getMPRemotePlaybackQueueClass_softClass_0;
-  v40 = getMPRemotePlaybackQueueClass_softClass_0;
+  v33 = 0;
+  v34 = &v33;
+  v35 = 0x2050000000;
+  v18 = getMPRemotePlaybackQueueClass_softClass_0;
+  v36 = getMPRemotePlaybackQueueClass_softClass_0;
   if (!getMPRemotePlaybackQueueClass_softClass_0)
   {
-    v36[0] = MEMORY[0x1E69E9820];
-    v36[1] = 3221225472;
-    v36[2] = __getMPRemotePlaybackQueueClass_block_invoke_0;
-    v36[3] = &unk_1E84C3838;
-    v36[4] = &v37;
-    __getMPRemotePlaybackQueueClass_block_invoke_0(v36);
-    v21 = v38[3];
+    v32[0] = MEMORY[0x1E69E9820];
+    v32[1] = 3221225472;
+    v32[2] = __getMPRemotePlaybackQueueClass_block_invoke_0;
+    v32[3] = &unk_1E84C3838;
+    v32[4] = &v33;
+    __getMPRemotePlaybackQueueClass_block_invoke_0(v32);
+    v18 = v34[3];
   }
 
-  v22 = v21;
-  _Block_object_dispose(&v37, 8);
-  v23 = [v21 queueWithMediaRemotePlaybackQueue:v14];
-  v24 = v23;
-  [v23 _mediaRemotePlaybackQueue];
+  v19 = v18;
+  _Block_object_dispose(&v33, 8);
+  v20 = [v18 queueWithMediaRemotePlaybackQueue:v12];
+  v21 = v20;
+  [v20 _mediaRemotePlaybackQueue];
   [(MusicKit_RemotePlaybackQueue *)self mrReplaceIntentFromMusicKitReplaceQueueIntent:[(MusicKit_RemotePlaybackQueue *)self replaceQueueIntent]];
   MRSystemAppPlaybackQueueSetReplaceIntent();
   MRSystemAppPlaybackQueueSetIsRequestingImmediatePlayback();
   ExternalRepresentation = MRSystemAppPlaybackQueueCreateExternalRepresentation();
-  v26 = dCopy;
-  v27 = v26;
-  if (!v26)
+  v23 = dCopy;
+  v24 = v23;
+  if (!v23)
   {
-    v28 = +[MusicKit_PlayerPathSessionManager sharedSessionManager];
-    v27 = [v28 sessionIDForPlayerPath:pathCopy];
+    v25 = +[MusicKit_PlayerPathSessionManager sharedSessionManager];
+    v24 = [v25 sessionIDForPlayerPath:pathCopy];
   }
 
-  v29 = *MEMORY[0x1E69B1090];
-  v41[0] = *MEMORY[0x1E69B10E8];
-  v41[1] = v29;
-  v42[0] = v27;
-  v42[1] = MEMORY[0x1E695E118];
-  v41[2] = *MEMORY[0x1E69B1268];
-  v42[2] = ExternalRepresentation;
-  v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v42 forKeys:v41 count:3];
-  v35 = 0;
-  v31 = [(MusicKit_RemotePlaybackQueue *)self mrPlayerPathFromPlaybackPath:pathCopy error:&v35];
-  v32 = v35;
-  if (v32)
+  v26 = *MEMORY[0x1E69B1090];
+  v37[0] = *MEMORY[0x1E69B10E8];
+  v37[1] = v26;
+  v38[0] = v24;
+  v38[1] = MEMORY[0x1E695E118];
+  v37[2] = *MEMORY[0x1E69B1268];
+  v38[2] = ExternalRepresentation;
+  v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:v37 count:3];
+  v31 = 0;
+  v28 = [(MusicKit_RemotePlaybackQueue *)self mrPlayerPathFromPlaybackPath:pathCopy error:&v31];
+  v29 = v31;
+  if (v29)
   {
     if (handlerCopy)
     {
-      handlerCopy[2](handlerCopy, 0, v32);
+      handlerCopy[2](handlerCopy, 0, v29);
     }
   }
 
   else
   {
-    v34 = handlerCopy;
+    v30 = handlerCopy;
     MRMediaRemoteSendCommandToPlayerWithResult();
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 - (void)insertQueueWithPath:(id)path position:(int64_t)position sessionID:(id)d completionHandler:(id)handler
@@ -559,46 +550,43 @@ LABEL_8:
 
 - (void)_insertQueueWithPath:(id)path position:(int64_t)position sessionID:(id)d completionHandler:(id)handler
 {
-  v45[3] = *MEMORY[0x1E69E9840];
+  v41[3] = *MEMORY[0x1E69E9840];
   pathCopy = path;
   dCopy = d;
   handlerCopy = handler;
-  v11 = *MEMORY[0x1E695E480];
   MRSystemAppPlaybackQueueCreate();
   _persistentIDForStartItem = [(MusicKit_RemoteLibraryPlaybackQueue *)self _persistentIDForStartItem];
-  v13 = &off_1D5619000;
   if (_persistentIDForStartItem)
   {
-    v14 = _persistentIDForStartItem;
+    v12 = _persistentIDForStartItem;
     mediaQuery = self->_mediaQuery;
     MPMediaPropertyPredicateClass = getMPMediaPropertyPredicateClass();
-    v16 = [MEMORY[0x1E696AD98] numberWithLongLong:v14];
-    v17 = handlerCopy;
-    v40 = 0;
-    v41 = &v40;
-    v42 = 0x2020000000;
-    v18 = getMPMediaItemPropertyPersistentIDSymbolLoc_ptr;
-    v43 = getMPMediaItemPropertyPersistentIDSymbolLoc_ptr;
+    v14 = [MEMORY[0x1E696AD98] numberWithLongLong:v12];
+    v15 = handlerCopy;
+    v36 = 0;
+    v37 = &v36;
+    v38 = 0x2020000000;
+    v16 = getMPMediaItemPropertyPersistentIDSymbolLoc_ptr;
+    v39 = getMPMediaItemPropertyPersistentIDSymbolLoc_ptr;
     if (!getMPMediaItemPropertyPersistentIDSymbolLoc_ptr)
     {
-      v19 = MediaPlayerLibrary_13();
-      v41[3] = dlsym(v19, "MPMediaItemPropertyPersistentID");
-      getMPMediaItemPropertyPersistentIDSymbolLoc_ptr = v41[3];
-      v18 = v41[3];
+      v17 = MediaPlayerLibrary_13();
+      v37[3] = dlsym(v17, "MPMediaItemPropertyPersistentID");
+      getMPMediaItemPropertyPersistentIDSymbolLoc_ptr = v37[3];
+      v16 = v37[3];
     }
 
-    _Block_object_dispose(&v40, 8);
-    if (!v18)
+    _Block_object_dispose(&v36, 8);
+    if (!v16)
     {
       getMPModelLibraryPlaylistEditControllerDidChangeNotification_cold_1();
       __break(1u);
     }
 
-    v20 = *v18;
-    [MPMediaPropertyPredicateClass predicateWithValue:v16 forProperty:v20 comparisonType:0];
-    handlerCopy = v17;
-    v21 = v13 = &off_1D5619000;
-    [(MPMediaQuery *)mediaQuery addFilterPredicate:v21];
+    v18 = *v16;
+    [MPMediaPropertyPredicateClass predicateWithValue:v14 forProperty:v18 comparisonType:0];
+    v19 = handlerCopy = v15;
+    [(MPMediaQuery *)mediaQuery addFilterPredicate:v19];
   }
 
   protobufferEncodableObject = [(MPMediaQuery *)self->_mediaQuery protobufferEncodableObject];
@@ -606,42 +594,39 @@ LABEL_8:
   MRSystemAppPlaybackQueueSetLocalQueryData();
 
   ExternalRepresentation = MRSystemAppPlaybackQueueCreateExternalRepresentation();
-  v24 = dCopy;
-  v25 = v24;
-  if (!v24)
+  v22 = dCopy;
+  v23 = v22;
+  if (!v22)
   {
-    v26 = +[MusicKit_PlayerPathSessionManager sharedSessionManager];
-    v25 = [v26 sessionIDForPlayerPath:pathCopy];
+    v24 = +[MusicKit_PlayerPathSessionManager sharedSessionManager];
+    v23 = [v24 sessionIDForPlayerPath:pathCopy];
   }
 
   if (position == 2)
   {
-    v27 = 1;
+    v25 = 1;
   }
 
   else
   {
-    v27 = 2 * (position == 1);
+    v25 = 2 * (position == 1);
   }
 
-  v28 = *MEMORY[0x1E69B10E8];
-  v45[0] = v25;
-  v29 = *MEMORY[0x1E69B1178];
-  v44[0] = v28;
-  v44[1] = v29;
-  v30 = [MEMORY[0x1E696AD98] numberWithInt:v27];
-  v45[1] = v30;
-  v44[2] = *MEMORY[0x1E69B1268];
-  v45[2] = ExternalRepresentation;
-  v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v45 forKeys:v44 count:3];
+  v26 = *MEMORY[0x1E69B10E8];
+  v41[0] = v23;
+  v27 = *MEMORY[0x1E69B1178];
+  v40[0] = v26;
+  v40[1] = v27;
+  v28 = [MEMORY[0x1E696AD98] numberWithInt:v25];
+  v41[1] = v28;
+  v40[2] = *MEMORY[0x1E69B1268];
+  v41[2] = ExternalRepresentation;
+  v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v41 forKeys:v40 count:3];
 
   mrPlayerPath = [pathCopy mrPlayerPath];
-  v38 = *(v13 + 375);
-  v39 = handlerCopy;
-  v33 = handlerCopy;
+  v35 = handlerCopy;
+  v31 = handlerCopy;
   MRMediaRemoteSendCommandToPlayerWithResult();
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_resolveMediaQueryForLibraryRequest:(id)request completionHandler:(id)handler
@@ -668,31 +653,30 @@ LABEL_8:
   library = [identifiers library];
   persistentID = [library persistentID];
 
-  v7 = self->_underlyingStartObject;
   getMPModelPlaylistEntryClass_0();
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v8 = self->_underlyingStartObject;
-    song = [(MPModelObject *)v8 song];
+    v7 = self->_underlyingStartObject;
+    song = [(MPModelObject *)v7 song];
 
     if (song)
     {
-      song2 = [(MPModelObject *)v8 song];
+      song2 = [(MPModelObject *)v7 song];
     }
 
     else
     {
-      tvEpisode = [(MPModelObject *)v8 tvEpisode];
+      tvEpisode = [(MPModelObject *)v7 tvEpisode];
 
       if (tvEpisode)
       {
-        song2 = [(MPModelObject *)v8 tvEpisode];
+        song2 = [(MPModelObject *)v7 tvEpisode];
       }
 
       else
       {
-        movie = [(MPModelObject *)v8 movie];
+        movie = [(MPModelObject *)v7 movie];
 
         if (!movie)
         {
@@ -701,11 +685,11 @@ LABEL_11:
           return persistentID;
         }
 
-        song2 = [(MPModelObject *)v8 movie];
+        song2 = [(MPModelObject *)v7 movie];
       }
     }
 
-    v13 = song2;
+    v12 = song2;
     identifiers2 = [song2 identifiers];
     library2 = [identifiers2 library];
     persistentID = [library2 persistentID];

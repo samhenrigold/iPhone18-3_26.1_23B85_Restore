@@ -134,7 +134,7 @@ LABEL_4:
   if (result)
   {
 
-    return [(CGAffineTransform *)result transformInRoot];
+    return objc_msgSend_transformInRoot(result);
   }
 
   else

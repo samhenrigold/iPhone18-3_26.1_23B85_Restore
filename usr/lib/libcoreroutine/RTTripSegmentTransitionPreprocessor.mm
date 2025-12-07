@@ -2941,7 +2941,7 @@ LABEL_21:
   }
 
 LABEL_27:
-  v22 = [MEMORY[0x277CCABB0] numberWithInteger:{v18, *v35}];
+  v22 = [MEMORY[0x277CCABB0] numberWithInteger:{v18, *v35, *&v35[8]}];
 
 LABEL_28:
 
@@ -4772,7 +4772,7 @@ void __69__RTTripSegmentTransitionPreprocessor_appendTransitionToCurrentVisit__b
     v36 = v35;
     if (v35)
     {
-      [v35 clientLocation];
+      objc_msgSend_clientLocation(v35);
     }
 
     else
@@ -5506,7 +5506,7 @@ LABEL_51:
             memset(v213, 0, sizeof(v213));
             memset(v212, 0, sizeof(v212));
             memset(buf, 0, sizeof(buf));
-            [v6 clientLocation];
+            objc_msgSend_clientLocation(v6);
             [v111 timeIntervalSinceReferenceDate];
             *(v213 + 12) = v118;
             v119 = objc_alloc(MEMORY[0x277CE41F8]);
@@ -5618,7 +5618,7 @@ LABEL_67:
           memset(v213, 0, sizeof(v213));
           memset(v212, 0, sizeof(v212));
           memset(buf, 0, sizeof(buf));
-          [v7 clientLocation];
+          objc_msgSend_clientLocation(v7);
           [v130 timeIntervalSinceReferenceDate];
           *(v213 + 12) = v137;
           v138 = objc_alloc(MEMORY[0x277CE41F8]);

@@ -1,3 +1,720 @@
+char *llvm::itanium_demangle::ObjCProtoName::printLeft(void *a1, char **a2)
+{
+  v4 = a1[2];
+  (*(*v4 + 32))(v4);
+  if ((*(v4 + 9) & 0xC0) != 0x40)
+  {
+    (*(*v4 + 40))(v4, a2);
+  }
+
+  v5 = *a2;
+  v6 = a2[1];
+  v7 = a2[2];
+  if ((v6 + 1) > v7)
+  {
+    v8 = v6 + 993;
+    v9 = 2 * v7;
+    if (v9 <= v8)
+    {
+      v10 = v8;
+    }
+
+    else
+    {
+      v10 = v9;
+    }
+
+    a2[2] = v10;
+    v5 = realloc(v5, v10);
+    *a2 = v5;
+    if (!v5)
+    {
+      goto LABEL_24;
+    }
+
+    v6 = a2[1];
+  }
+
+  v6[v5] = 60;
+  v11 = a2[1] + 1;
+  a2[1] = v11;
+  v12 = a1[4];
+  if (v12)
+  {
+    v13 = a1[3];
+    v14 = &v11[v12];
+    v15 = a2[2];
+    v16 = *a2;
+    if (&v11[v12] > v15)
+    {
+      if (2 * v15 <= (v14 + 992))
+      {
+        v17 = v14 + 992;
+      }
+
+      else
+      {
+        v17 = (2 * v15);
+      }
+
+      a2[2] = v17;
+      v16 = realloc(v16, v17);
+      *a2 = v16;
+      if (!v16)
+      {
+        goto LABEL_24;
+      }
+
+      v11 = a2[1];
+    }
+
+    memcpy(&v11[v16], v13, v12);
+    v11 = &a2[1][v12];
+    a2[1] = v11;
+  }
+
+  v18 = a2[2];
+  result = *a2;
+  if ((v11 + 1) > v18)
+  {
+    v20 = v11 + 993;
+    v21 = 2 * v18;
+    if (v21 <= v20)
+    {
+      v22 = v20;
+    }
+
+    else
+    {
+      v22 = v21;
+    }
+
+    a2[2] = v22;
+    result = realloc(result, v22);
+    *a2 = result;
+    if (result)
+    {
+      v11 = a2[1];
+      goto LABEL_23;
+    }
+
+LABEL_24:
+    abort();
+  }
+
+LABEL_23:
+  v11[result] = 62;
+  ++a2[1];
+  return result;
+}
+
+uint64_t llvm::itanium_demangle::VendorExtQualType::printLeft(void *a1, char **a2)
+{
+  v4 = a1[2];
+  (*(*v4 + 32))(v4);
+  if ((*(v4 + 9) & 0xC0) != 0x40)
+  {
+    (*(*v4 + 40))(v4, a2);
+  }
+
+  result = *a2;
+  v6 = a2[1];
+  v7 = a2[2];
+  if ((v6 + 1) > v7)
+  {
+    v8 = v6 + 993;
+    v9 = 2 * v7;
+    if (v9 <= v8)
+    {
+      v10 = v8;
+    }
+
+    else
+    {
+      v10 = v9;
+    }
+
+    a2[2] = v10;
+    result = realloc(result, v10);
+    *a2 = result;
+    if (!result)
+    {
+      goto LABEL_23;
+    }
+
+    v6 = a2[1];
+  }
+
+  v6[result] = 32;
+  v11 = a2[1] + 1;
+  a2[1] = v11;
+  v12 = a1[4];
+  if (v12)
+  {
+    v13 = a1[3];
+    v14 = &v11[v12];
+    v15 = a2[2];
+    v16 = *a2;
+    if (&v11[v12] <= v15)
+    {
+LABEL_16:
+      result = memcpy(&v11[v16], v13, v12);
+      a2[1] += v12;
+      goto LABEL_17;
+    }
+
+    if (2 * v15 <= (v14 + 992))
+    {
+      v17 = v14 + 992;
+    }
+
+    else
+    {
+      v17 = (2 * v15);
+    }
+
+    a2[2] = v17;
+    v16 = realloc(v16, v17);
+    *a2 = v16;
+    if (v16)
+    {
+      v11 = a2[1];
+      goto LABEL_16;
+    }
+
+LABEL_23:
+    abort();
+  }
+
+LABEL_17:
+  v18 = a1[5];
+  if (v18)
+  {
+    result = (*(*v18 + 32))(v18, a2);
+    if ((*(v18 + 9) & 0xC0) != 0x40)
+    {
+      v19 = *(*v18 + 40);
+
+      return v19(v18, a2);
+    }
+  }
+
+  return result;
+}
+
+uint64_t llvm::itanium_demangle::QualType::hasRHSComponentSlow(uint64_t a1)
+{
+  v1 = *(a1 + 16);
+  v2 = *(v1 + 9);
+  if ((v2 & 0xC0) == 0x80)
+  {
+    return (**v1)(v1);
+  }
+
+  else
+  {
+    return v2 < 0x40;
+  }
+}
+
+uint64_t llvm::itanium_demangle::QualType::hasArraySlow(uint64_t a1)
+{
+  v1 = *(a1 + 16);
+  v2 = v1[10] & 3;
+  if (v2 == 2)
+  {
+    return (*(*v1 + 8))();
+  }
+
+  else
+  {
+    return v2 == 0;
+  }
+}
+
+uint64_t llvm::itanium_demangle::QualType::hasFunctionSlow(uint64_t a1)
+{
+  v1 = *(a1 + 16);
+  v2 = (*(v1 + 9) >> 10) & 3;
+  if (v2 == 2)
+  {
+    return (*(*v1 + 16))();
+  }
+
+  else
+  {
+    return v2 == 0;
+  }
+}
+
+_DWORD *llvm::itanium_demangle::QualType::printLeft(uint64_t a1, uint64_t a2)
+{
+  (*(**(a1 + 16) + 32))(*(a1 + 16));
+
+  return llvm::itanium_demangle::QualType::printQuals(a1, a2);
+}
+
+_DWORD *llvm::itanium_demangle::QualType::printQuals(_DWORD *result, uint64_t a2)
+{
+  v3 = result;
+  v4 = result[3];
+  if (v4)
+  {
+    result = *a2;
+    v5 = *(a2 + 8);
+    v6 = *(a2 + 16);
+    if (v5 + 6 > v6)
+    {
+      v7 = v5 + 998;
+      v8 = 2 * v6;
+      if (v8 <= v7)
+      {
+        v9 = v7;
+      }
+
+      else
+      {
+        v9 = v8;
+      }
+
+      *(a2 + 16) = v9;
+      result = realloc(result, v9);
+      *a2 = result;
+      if (!result)
+      {
+        goto LABEL_26;
+      }
+
+      v5 = *(a2 + 8);
+    }
+
+    v10 = result + v5;
+    *(v10 + 2) = 29811;
+    *v10 = 1852793632;
+    *(a2 + 8) += 6;
+    v4 = v3[3];
+  }
+
+  if ((v4 & 2) != 0)
+  {
+    result = *a2;
+    v11 = *(a2 + 8);
+    v12 = *(a2 + 16);
+    if (v11 + 9 > v12)
+    {
+      v13 = v11 + 1001;
+      v14 = 2 * v12;
+      if (v14 <= v13)
+      {
+        v15 = v13;
+      }
+
+      else
+      {
+        v15 = v14;
+      }
+
+      *(a2 + 16) = v15;
+      result = realloc(result, v15);
+      *a2 = result;
+      if (!result)
+      {
+        goto LABEL_26;
+      }
+
+      v11 = *(a2 + 8);
+    }
+
+    v16 = result + v11;
+    *v16 = *" volatile";
+    v16[8] = 101;
+    *(a2 + 8) += 9;
+    v4 = v3[3];
+  }
+
+  if ((v4 & 4) == 0)
+  {
+    return result;
+  }
+
+  result = *a2;
+  v17 = *(a2 + 8);
+  v18 = *(a2 + 16);
+  if (v17 + 9 > v18)
+  {
+    v19 = v17 + 1001;
+    v20 = 2 * v18;
+    if (v20 <= v19)
+    {
+      v21 = v19;
+    }
+
+    else
+    {
+      v21 = v20;
+    }
+
+    *(a2 + 16) = v21;
+    result = realloc(result, v21);
+    *a2 = result;
+    if (result)
+    {
+      v17 = *(a2 + 8);
+      goto LABEL_24;
+    }
+
+LABEL_26:
+    abort();
+  }
+
+LABEL_24:
+  v22 = result + v17;
+  *v22 = *" restrict";
+  v22[8] = 116;
+  *(a2 + 8) += 9;
+  return result;
+}
+
+char *llvm::itanium_demangle::TransformedType::printLeft(void *a1, char **a2)
+{
+  v4 = a1[3];
+  v5 = a2[1];
+  if (v4)
+  {
+    v6 = a1[2];
+    v7 = &v5[v4];
+    v8 = a2[2];
+    v9 = *a2;
+    if (&v5[v4] > v8)
+    {
+      if (2 * v8 <= (v7 + 992))
+      {
+        v10 = v7 + 992;
+      }
+
+      else
+      {
+        v10 = (2 * v8);
+      }
+
+      a2[2] = v10;
+      v9 = realloc(v9, v10);
+      *a2 = v9;
+      if (!v9)
+      {
+        goto LABEL_24;
+      }
+
+      v5 = a2[1];
+    }
+
+    memcpy(&v5[v9], v6, v4);
+    v5 = &a2[1][v4];
+    a2[1] = v5;
+  }
+
+  v11 = v5 + 1;
+  v12 = a2[2];
+  v13 = *a2;
+  if ((v5 + 1) > v12)
+  {
+    v14 = (v5 + 993);
+    if (2 * v12 <= v14)
+    {
+      v15 = v14;
+    }
+
+    else
+    {
+      v15 = (2 * v12);
+    }
+
+    a2[2] = v15;
+    v13 = realloc(v13, v15);
+    *a2 = v13;
+    if (!v13)
+    {
+      goto LABEL_24;
+    }
+
+    v5 = a2[1];
+    v11 = v5 + 1;
+  }
+
+  a2[1] = v11;
+  v5[v13] = 40;
+  v16 = a1[4];
+  (*(*v16 + 32))(v16, a2);
+  if ((*(v16 + 9) & 0xC0) != 0x40)
+  {
+    (*(*v16 + 40))(v16, a2);
+  }
+
+  result = *a2;
+  v18 = a2[1];
+  v19 = v18 + 1;
+  v20 = a2[2];
+  if ((v18 + 1) > v20)
+  {
+    v21 = (v18 + 993);
+    if (2 * v20 <= v21)
+    {
+      v22 = v21;
+    }
+
+    else
+    {
+      v22 = (2 * v20);
+    }
+
+    a2[2] = v22;
+    result = realloc(result, v22);
+    *a2 = result;
+    if (result)
+    {
+      v18 = a2[1];
+      v19 = v18 + 1;
+      goto LABEL_23;
+    }
+
+LABEL_24:
+    abort();
+  }
+
+LABEL_23:
+  a2[1] = v19;
+  v18[result] = 41;
+  return result;
+}
+
+uint64_t llvm::itanium_demangle::BinaryFPType::printLeft(uint64_t a1, char **a2)
+{
+  v4 = *a2;
+  v5 = a2[1];
+  v6 = a2[2];
+  if ((v5 + 6) > v6)
+  {
+    v7 = v5 + 998;
+    v8 = 2 * v6;
+    if (v8 <= v7)
+    {
+      v9 = v7;
+    }
+
+    else
+    {
+      v9 = v8;
+    }
+
+    a2[2] = v9;
+    v4 = realloc(v4, v9);
+    *a2 = v4;
+    if (!v4)
+    {
+      abort();
+    }
+
+    v5 = a2[1];
+  }
+
+  v10 = &v5[v4];
+  *(v10 + 2) = 29793;
+  *v10 = 1869366879;
+  a2[1] += 6;
+  v11 = *(a1 + 16);
+  result = (*(*v11 + 32))(v11, a2);
+  if ((*(v11 + 9) & 0xC0) != 0x40)
+  {
+    v13 = *(*v11 + 40);
+
+    return v13(v11, a2);
+  }
+
+  return result;
+}
+
+char *llvm::itanium_demangle::BitIntType::printLeft(uint64_t a1, char **a2)
+{
+  v4 = a2[1];
+  if ((*(a1 + 24) & 1) == 0)
+  {
+    v5 = a2[2];
+    v6 = *a2;
+    if (v4 + 9 > v5)
+    {
+      v7 = v4 + 1001;
+      v8 = 2 * v5;
+      if (v8 <= v7)
+      {
+        v9 = v7;
+      }
+
+      else
+      {
+        v9 = v8;
+      }
+
+      a2[2] = v9;
+      v6 = realloc(v6, v9);
+      *a2 = v6;
+      if (!v6)
+      {
+        goto LABEL_28;
+      }
+
+      v4 = a2[1];
+    }
+
+    v10 = &v6[v4];
+    *v10 = *"unsigned ";
+    v10[8] = 32;
+    v4 = (a2[1] + 9);
+    a2[1] = v4;
+  }
+
+  v11 = a2[2];
+  v12 = *a2;
+  if (v4 + 7 > v11)
+  {
+    v13 = v4 + 999;
+    v14 = 2 * v11;
+    if (v14 <= v13)
+    {
+      v15 = v13;
+    }
+
+    else
+    {
+      v15 = v14;
+    }
+
+    a2[2] = v15;
+    v12 = realloc(v12, v15);
+    *a2 = v12;
+    if (!v12)
+    {
+      goto LABEL_28;
+    }
+
+    v4 = a2[1];
+  }
+
+  v16 = &v12[v4];
+  *(v16 + 3) = 1953384820;
+  *v16 = 1953055327;
+  v17 = *a2;
+  v18 = a2[1];
+  v19 = v18 + 7;
+  a2[1] = v18 + 7;
+  ++*(a2 + 8);
+  v20 = v18 + 8;
+  v21 = a2[2];
+  if ((v18 + 8) > v21)
+  {
+    if (2 * v21 <= (v18 + 1000))
+    {
+      v22 = (v18 + 1000);
+    }
+
+    else
+    {
+      v22 = 2 * v21;
+    }
+
+    a2[2] = v22;
+    v17 = realloc(v17, v22);
+    *a2 = v17;
+    if (!v17)
+    {
+      goto LABEL_28;
+    }
+
+    v19 = a2[1];
+    v20 = v19 + 1;
+  }
+
+  a2[1] = v20;
+  v19[v17] = 40;
+  llvm::itanium_demangle::Node::printAsOperand(*(a1 + 16), a2, 19, 0);
+  --*(a2 + 8);
+  result = *a2;
+  v24 = a2[1];
+  v25 = v24 + 1;
+  v26 = a2[2];
+  if ((v24 + 1) > v26)
+  {
+    v27 = (v24 + 993);
+    if (2 * v26 <= v27)
+    {
+      v28 = v27;
+    }
+
+    else
+    {
+      v28 = 2 * v26;
+    }
+
+    a2[2] = v28;
+    result = realloc(result, v28);
+    *a2 = result;
+    if (result)
+    {
+      v24 = a2[1];
+      v25 = v24 + 1;
+      goto LABEL_27;
+    }
+
+LABEL_28:
+    abort();
+  }
+
+LABEL_27:
+  a2[1] = v25;
+  v24[result] = 41;
+  return result;
+}
+
+void *llvm::itanium_demangle::PostfixQualifiedType::printLeft(uint64_t a1, char **a2)
+{
+  result = (*(**(a1 + 16) + 32))(*(a1 + 16));
+  v5 = *(a1 + 32);
+  if (v5)
+  {
+    v6 = *(a1 + 24);
+    v7 = *a2;
+    v8 = a2[1];
+    v9 = &v8[v5];
+    v10 = a2[2];
+    if (&v8[v5] > v10)
+    {
+      if (2 * v10 <= (v9 + 992))
+      {
+        v11 = v9 + 992;
+      }
+
+      else
+      {
+        v11 = (2 * v10);
+      }
+
+      a2[2] = v11;
+      v7 = realloc(v7, v11);
+      *a2 = v7;
+      if (!v7)
+      {
+        abort();
+      }
+
+      v8 = a2[1];
+    }
+
+    result = memcpy(&v8[v7], v6, v5);
+    a2[1] += v5;
+  }
+
+  return result;
+}
+
 char *llvm::itanium_demangle::AbstractManglingParser<llvm::itanium_demangle::ManglingParser<anonymous namespace::DefaultAllocator>,anonymous namespace::DefaultAllocator>::make<llvm::itanium_demangle::PixelVectorType,llvm::itanium_demangle::Node *&>(uint64_t a1, uint64_t a2)
 {
   v3 = *(a1 + 4904);
@@ -64,7 +781,7 @@ char *llvm::itanium_demangle::PixelVectorType::printLeft(uint64_t a1, char **a2)
   v6 = a2[2];
   if ((v5 + 13) > v6)
   {
-    v7 = (v5 + 1005);
+    v7 = v5 + 1005;
     v8 = 2 * v6;
     if (v8 <= v7)
     {
@@ -101,7 +818,7 @@ char *llvm::itanium_demangle::PixelVectorType::printLeft(uint64_t a1, char **a2)
   v13 = a2[2];
   if ((v12 + 1) > v13)
   {
-    v14 = (v12 + 993);
+    v14 = v12 + 993;
     v15 = 2 * v13;
     if (v15 <= v14)
     {
@@ -146,7 +863,7 @@ char *llvm::itanium_demangle::VectorType::printLeft(uint64_t a1, char **a2)
   v7 = a2[2];
   if ((v6 + 8) > v7)
   {
-    v8 = (v6 + 1000);
+    v8 = v6 + 1000;
     v9 = 2 * v7;
     if (v9 <= v8)
     {
@@ -186,7 +903,7 @@ char *llvm::itanium_demangle::VectorType::printLeft(uint64_t a1, char **a2)
   v14 = a2[2];
   if ((v13 + 1) > v14)
   {
-    v15 = (v13 + 993);
+    v15 = v13 + 993;
     v16 = 2 * v14;
     if (v16 <= v15)
     {
@@ -385,7 +1102,7 @@ uint64_t llvm::itanium_demangle::NodeArray::printAsString(uint64_t **a1, char **
     v7 = 2 * v6;
     if (v7 <= (v5 + 993))
     {
-      v8 = (v5 + 993);
+      v8 = v5 + 993;
     }
 
     else
@@ -496,7 +1213,7 @@ LABEL_28:
         v23 = a2[2];
         if ((v22 + 2) > v23)
         {
-          v24 = (v22 + 994);
+          v24 = v22 + 994;
           v25 = 2 * v23;
           if (v25 <= v24)
           {
@@ -537,7 +1254,7 @@ LABEL_104:
             v68 = a2[2];
             if ((v34 + 2) > v68)
             {
-              v69 = (v34 + 994);
+              v69 = v34 + 994;
               v70 = 2 * v68;
               if (v70 <= v69)
               {
@@ -582,7 +1299,7 @@ LABEL_38:
             v29 = a2[2];
             if ((v28 + 2) > v29)
             {
-              v30 = (v28 + 994);
+              v30 = v28 + 994;
               v31 = 2 * v29;
               if (v31 <= v30)
               {
@@ -623,7 +1340,7 @@ LABEL_47:
             v50 = a2[2];
             if ((v34 + 2) > v50)
             {
-              v51 = (v34 + 994);
+              v51 = v34 + 994;
               v52 = 2 * v50;
               if (v52 <= v51)
               {
@@ -657,7 +1374,7 @@ LABEL_47:
             v40 = a2[2];
             if ((v34 + 2) > v40)
             {
-              v41 = (v34 + 994);
+              v41 = v34 + 994;
               v42 = 2 * v40;
               if (v42 <= v41)
               {
@@ -694,7 +1411,7 @@ LABEL_47:
           v46 = a2[2];
           if ((v45 + 2) > v46)
           {
-            v47 = (v45 + 994);
+            v47 = v45 + 994;
             v48 = 2 * v46;
             if (v48 <= v47)
             {
@@ -729,7 +1446,7 @@ LABEL_47:
           v35 = a2[2];
           if ((v34 + 2) > v35)
           {
-            v36 = (v34 + 994);
+            v36 = v34 + 994;
             v37 = 2 * v35;
             if (v37 <= v36)
             {
@@ -775,7 +1492,7 @@ LABEL_80:
           v58 = a2[2];
           if ((v34 + 2) > v58)
           {
-            v59 = (v34 + 994);
+            v59 = v34 + 994;
             v60 = 2 * v58;
             if (v60 <= v59)
             {
@@ -809,7 +1526,7 @@ LABEL_80:
           v54 = a2[2];
           if ((v34 + 2) > v54)
           {
-            v55 = (v34 + 994);
+            v55 = v34 + 994;
             v56 = 2 * v54;
             if (v56 <= v55)
             {
@@ -852,7 +1569,7 @@ LABEL_97:
         v64 = a2[2];
         if ((v63 + 2) > v64)
         {
-          v65 = (v63 + 994);
+          v65 = v63 + 994;
           v66 = 2 * v64;
           if (v66 <= v65)
           {
@@ -897,7 +1614,7 @@ LABEL_115:
 
           else
           {
-            v84 = 2 * v82;
+            v84 = (2 * v82);
           }
 
           a2[2] = v84;
@@ -930,7 +1647,7 @@ LABEL_115:
 
             else
             {
-              v90 = 2 * v88;
+              v90 = (2 * v88);
             }
 
             a2[2] = v90;
@@ -964,7 +1681,7 @@ LABEL_115:
 
               else
               {
-                v97 = 2 * v95;
+                v97 = (2 * v95);
               }
 
               a2[2] = v97;
@@ -999,7 +1716,7 @@ LABEL_115:
 
           else
           {
-            v104 = 2 * v102;
+            v104 = (2 * v102);
           }
 
           a2[2] = v104;
@@ -1027,7 +1744,7 @@ LABEL_115:
         v75 = a2[2];
         if ((v73 + 1) > v75)
         {
-          v76 = (v73 + 993);
+          v76 = v73 + 993;
           v77 = 2 * v75;
           if (v77 <= v76)
           {
@@ -1078,7 +1795,7 @@ LABEL_153:
 
     else
     {
-      v111 = 2 * v109;
+      v111 = (2 * v109);
     }
 
     a2[2] = v111;
@@ -1168,7 +1885,7 @@ LABEL_8:
       v10 = a2[2];
       if ((v9 + 1) > v10)
       {
-        v11 = (v9 + 993);
+        v11 = v9 + 993;
         v12 = 2 * v10;
         if (v12 <= v11)
         {
@@ -1210,7 +1927,7 @@ LABEL_8:
   v15 = a2[2];
   if ((v9 + 1) > v15)
   {
-    v16 = (v9 + 993);
+    v16 = v9 + 993;
     v17 = 2 * v15;
     if (v17 <= v16)
     {
@@ -1249,7 +1966,7 @@ LABEL_22:
   v22 = a2[2];
   if ((v21 + 3) > v22)
   {
-    v23 = (v21 + 995);
+    v23 = v21 + 995;
     v24 = 2 * v22;
     if (v24 <= v23)
     {
@@ -1353,19 +2070,19 @@ uint64_t llvm::itanium_demangle::ElaboratedTypeSpefType::printLeft(void *a1, cha
   if (v4)
   {
     v6 = a1[2];
-    v7 = v5 + v4;
+    v7 = &v5[v4];
     v8 = a2[2];
     v9 = *a2;
-    if (v5 + v4 > v8)
+    if (&v5[v4] > v8)
     {
-      if (2 * v8 <= v7 + 992)
+      if (2 * v8 <= (v7 + 992))
       {
         v10 = v7 + 992;
       }
 
       else
       {
-        v10 = 2 * v8;
+        v10 = (2 * v8);
       }
 
       a2[2] = v10;
@@ -1379,7 +2096,7 @@ uint64_t llvm::itanium_demangle::ElaboratedTypeSpefType::printLeft(void *a1, cha
       v5 = a2[1];
     }
 
-    memcpy(&v9[v5], v6, v4);
+    memcpy(&v5[v9], v6, v4);
     v5 = &a2[1][v4];
     a2[1] = v5;
   }
@@ -1387,12 +2104,12 @@ uint64_t llvm::itanium_demangle::ElaboratedTypeSpefType::printLeft(void *a1, cha
   v11 = v5 + 1;
   v12 = a2[2];
   v13 = *a2;
-  if (v5 + 1 <= v12)
+  if ((v5 + 1) <= v12)
   {
     goto LABEL_15;
   }
 
-  v14 = v5 + 993;
+  v14 = (v5 + 993);
   if (2 * v12 <= v14)
   {
     v15 = v14;
@@ -1400,7 +2117,7 @@ uint64_t llvm::itanium_demangle::ElaboratedTypeSpefType::printLeft(void *a1, cha
 
   else
   {
-    v15 = 2 * v12;
+    v15 = (2 * v12);
   }
 
   a2[2] = v15;
@@ -1416,7 +2133,7 @@ LABEL_19:
   v11 = v5 + 1;
 LABEL_15:
   a2[1] = v11;
-  v13[v5] = 32;
+  v5[v13] = 32;
   v16 = a1[4];
   result = (*(*v16 + 32))(v16, a2);
   if ((*(v16 + 9) & 0xC0) != 0x40)
@@ -1457,11 +2174,11 @@ char *llvm::itanium_demangle::PointerType::printLeft(uint64_t a1, char **a2)
       v8 = *(v6 + 3);
       if (v7 == 0x6A626F5F636A626FLL && v8 == 0x7463656A626F5F63)
       {
-        v28 = (a2 + 1);
+        v28 = a2 + 1;
         v35 = a2[1];
         v36 = a2[2];
         v37 = *a2;
-        if (v35 + 3 > v36)
+        if ((v35 + 3) > v36)
         {
           v38 = v4;
           v39 = v35 + 995;
@@ -1489,10 +2206,10 @@ char *llvm::itanium_demangle::PointerType::printLeft(uint64_t a1, char **a2)
           v4 = v38;
         }
 
-        v43 = &v37[v35];
+        v43 = &v35[v37];
         v43[2] = 60;
         *v43 = 25705;
-        v27 = *v28 + 3;
+        v27 = (*v28 + 3);
         *v28 = v27;
         v44 = *(v4 + 32);
         if (v44)
@@ -1505,12 +2222,12 @@ char *llvm::itanium_demangle::PointerType::printLeft(uint64_t a1, char **a2)
           {
             if (2 * v47 <= v46 + 992)
             {
-              v49 = v46 + 992;
+              v49 = (v46 + 992);
             }
 
             else
             {
-              v49 = 2 * v47;
+              v49 = (2 * v47);
             }
 
             a2[2] = v49;
@@ -1525,7 +2242,7 @@ char *llvm::itanium_demangle::PointerType::printLeft(uint64_t a1, char **a2)
           }
 
           memcpy(&v48[v27], v45, v44);
-          v27 = *v28 + v44;
+          v27 = &(*v28)[v44];
           *v28 = v27;
         }
 
@@ -1533,7 +2250,7 @@ char *llvm::itanium_demangle::PointerType::printLeft(uint64_t a1, char **a2)
         result = *a2;
         if (v27 + 1 > v50)
         {
-          v51 = v27 + 993;
+          v51 = (v27 + 993);
           v52 = 2 * v50;
           if (v52 <= v51)
           {
@@ -1571,7 +2288,7 @@ char *llvm::itanium_demangle::PointerType::printLeft(uint64_t a1, char **a2)
     v13 = a2[2];
     if ((v12 + 1) > v13)
     {
-      v14 = (v12 + 993);
+      v14 = v12 + 993;
       v15 = 2 * v13;
       if (v15 <= v14)
       {
@@ -1629,7 +2346,7 @@ LABEL_25:
   v23 = a2[2];
   if ((v22 + 1) > v23)
   {
-    v24 = (v22 + 993);
+    v24 = v22 + 993;
     v25 = 2 * v23;
     if (v25 <= v24)
     {
@@ -1655,13 +2372,13 @@ LABEL_25:
   v22[v21] = 40;
   ++a2[1];
 LABEL_32:
-  v28 = (a2 + 1);
+  v28 = a2 + 1;
   v27 = a2[1];
   v29 = a2[2];
   result = *a2;
   if (v27 + 1 > v29)
   {
-    v31 = v27 + 993;
+    v31 = (v27 + 993);
     v32 = 2 * v29;
     if (v32 <= v31)
     {
@@ -1776,18 +2493,18 @@ uint64_t llvm::itanium_demangle::ReferenceType::hasRHSComponentSlow(uint64_t a1)
   }
 }
 
-uint64_t llvm::itanium_demangle::ReferenceType::printLeft(uint64_t result, char **a2)
+_BYTE *llvm::itanium_demangle::ReferenceType::printLeft(_BYTE *result, char **a2)
 {
-  v2 = *(result + 28);
+  v2 = result[28];
   if ((v2 & 1) == 0)
   {
     v4 = result;
-    *(result + 28) = 1;
+    result[28] = 1;
     result = llvm::itanium_demangle::ReferenceType::collapse(result);
     if (!v5)
     {
 LABEL_40:
-      *(v4 + 28) = v2;
+      v4[28] = v2;
       return result;
     }
 
@@ -1801,7 +2518,7 @@ LABEL_40:
       v10 = a2[2];
       if ((v9 + 1) > v10)
       {
-        v11 = (v9 + 993);
+        v11 = v9 + 993;
         v12 = 2 * v10;
         if (v12 <= v11)
         {
@@ -1880,12 +2597,12 @@ LABEL_27:
 
       if (2 * v28 <= (v27 + 992))
       {
-        v29 = (v27 + 992);
+        v29 = v27 + 992;
       }
 
       else
       {
-        v29 = 2 * v28;
+        v29 = (2 * v28);
       }
 
       a2[2] = v29;
@@ -1910,7 +2627,7 @@ LABEL_20:
     v19 = a2[2];
     if ((v18 + 1) > v19)
     {
-      v20 = (v18 + 993);
+      v20 = v18 + 993;
       v21 = 2 * v19;
       if (v21 <= v20)
       {
@@ -2340,7 +3057,7 @@ void sub_1E05C0E10()
   llvm::DenseMap<llvm::StringRef,llvm::SmallVector<mlir::Operation *,6u>,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::SmallVector<mlir::Operation *,6u>>>::~DenseMap(v1);
 }
 
-uint64_t GPURegionRuntime::createEntryInfos(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t GPURegionRuntime::createEntryInfos(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   if (a3)
   {
@@ -2381,18 +3098,18 @@ void sub_1E05C150C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-unint64_t GPURegionRuntime::MPSRuntimeEntryInfo::postHandlerCreationInit(mlir::Operation **this, GPURegionRuntime *a2)
+void GPURegionRuntime::MPSRuntimeEntryInfo::postHandlerCreationInit(mlir::Operation **this, GPURegionRuntime *a2)
 {
   v53 = a2;
   v3 = *this;
-  if (!*(*this + 47) || (v55.var0 = "mps.fullyPlacedOnANE", v55.var1 = 20, result = mlir::Operation::getInherentAttr(*this, v55), (v5 & 1) == 0))
+  if (!*(*this + 47) || (v55.var0 = "mps.fullyPlacedOnANE", v55.var1 = 20, InherentAttr = mlir::Operation::getInherentAttr(*this, v55), (v5 & 1) == 0))
   {
     v56.var0 = "mps.fullyPlacedOnANE";
     v56.var1 = 20;
-    result = mlir::DictionaryAttr::get((v3 + 56), v56);
+    InherentAttr = mlir::DictionaryAttr::get((v3 + 56), v56);
   }
 
-  if (result && *(*result + 136) == &mlir::detail::TypeIDResolver<mlir::UnitAttr,void>::id)
+  if (InherentAttr && *(*InherentAttr + 136) == &mlir::detail::TypeIDResolver<mlir::UnitAttr,void>::id)
   {
     operator new();
   }
@@ -2407,61 +3124,56 @@ unint64_t GPURegionRuntime::MPSRuntimeEntryInfo::postHandlerCreationInit(mlir::O
     v51 = v9 + 32;
     if (v10 != v9 + 32)
     {
-      v11 = &mlir::detail::TypeIDResolver<mlir::mpsx::ReturnStitchedOp,void>::id;
-      v12 = &mlir::detail::TypeIDResolver<mlir::mps::IdentityOp,void>::id;
       while (1)
       {
-        result = MPSGraphDelegateCompiler.precompilationDescriptor.modify(v10, v5);
-        v13 = *(result + 44);
-        if (*(*(result + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::mpsx::StitchedOp,void>::id)
+        MPSGraphDelegateCompiler.precompilationDescriptor.modify();
+        v12 = *(v11 + 44);
+        if (*(*(v11 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::mpsx::StitchedOp,void>::id)
         {
           break;
         }
 
-        if ((v13 & 0x7FFFFF) != 0)
+        if ((v12 & 0x7FFFFF) != 0)
         {
           goto LABEL_13;
         }
 
-        v54 = result;
-        result = std::__hash_table<std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>,std::__unordered_map_hasher<mlir::Operation *,std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>,std::hash<mlir::Operation *>,std::equal_to<mlir::Operation *>,true>,std::__unordered_map_equal<mlir::Operation *,std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>,std::equal_to<mlir::Operation *>,std::hash<mlir::Operation *>,true>,std::allocator<std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>>>::find<mlir::Operation *>((*(v6 + 1) + 248), &v54);
-        if (!result)
+        v54 = v11;
+        v13 = std::__hash_table<std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>,std::__unordered_map_hasher<mlir::Operation *,std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>,std::hash<mlir::Operation *>,std::equal_to<mlir::Operation *>,true>,std::__unordered_map_equal<mlir::Operation *,std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>,std::equal_to<mlir::Operation *>,std::hash<mlir::Operation *>,true>,std::allocator<std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>>>::find<mlir::Operation *>((*(v6 + 1) + 248), &v54);
+        if (!v13)
         {
 LABEL_92:
           std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
         }
 
-        v5 = *(result + 24);
-        if ((*(v5 + 56) & 1) == 0 && (*(v5 + 57) & 1) == 0)
+        v14 = v13[3];
+        if ((*(v14 + 56) & 1) == 0 && (*(v14 + 57) & 1) == 0)
         {
-          v14 = v54;
-          v15 = *(*(v54 + 48) + 16);
-          if (v15 != &mlir::detail::TypeIDResolver<mlir::placement::RegionCall,void>::id)
+          v15 = v54;
+          v16 = *(*(v54 + 6) + 16);
+          if (v16 != &mlir::detail::TypeIDResolver<mlir::placement::RegionCall,void>::id)
           {
-            v14 = 0;
+            v15 = 0;
           }
 
-          v52 = v14;
-          if (!v14)
+          v52 = v15;
+          if (!v15)
           {
             goto LABEL_24;
           }
 
-          v16 = v5;
-          result = mlir::placement::RegionCall::getRegionType(&v52);
-          v5 = v16;
-          if (result)
+          if (mlir::placement::RegionCall::getRegionType(&v52))
           {
-            v15 = *(*(v54 + 48) + 16);
+            v16 = *(*(v54 + 6) + 16);
 LABEL_24:
-            if (v15 != v11 && v15 != v12)
+            if (v16 != &mlir::detail::TypeIDResolver<mlir::mpsx::ReturnStitchedOp,void>::id && v16 != &mlir::detail::TypeIDResolver<mlir::mps::IdentityOp,void>::id)
             {
               goto LABEL_13;
             }
           }
         }
 
-        result = (*(*v6 + 80))(v6);
+        (*(*v6 + 80))(v6);
 LABEL_13:
         v10 = *(v10 + 8);
         if (v10 == v51)
@@ -2470,7 +3182,7 @@ LABEL_13:
         }
       }
 
-      v18 = *(result + 16 * ((v13 >> 23) & 1) + ((v13 >> 21) & 0x7F8) + 32 * *(result + 40) + 72);
+      v18 = *(v11 + 16 * ((v12 >> 23) & 1) + ((v12 >> 21) & 0x7F8) + 32 * *(v11 + 40) + 72);
       if (v18)
       {
         v19 = v18 - 8;
@@ -2489,65 +3201,65 @@ LABEL_35:
         goto LABEL_13;
       }
 
-      result = MPSGraphDelegateCompiler.precompilationDescriptor.modify(v21, v5);
-      v22 = *(v6 + 1);
-      v23 = v22[32];
-      if (!*&v23)
+      MPSGraphDelegateCompiler.precompilationDescriptor.modify();
+      v23 = *(v6 + 1);
+      v24 = v23[32];
+      if (!*&v24)
       {
         goto LABEL_92;
       }
 
-      v24 = 0x9DDFEA08EB382D69 * (((((result >> 3) & 0x3FFFFFF) << 6) | 8) ^ HIDWORD(result));
-      v25 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (HIDWORD(result) ^ (v24 >> 47) ^ v24)) ^ ((0x9DDFEA08EB382D69 * (HIDWORD(result) ^ (v24 >> 47) ^ v24)) >> 47));
-      v26 = vcnt_s8(v23);
-      v26.i16[0] = vaddlv_u8(v26);
-      if (v26.u32[0] > 1uLL)
+      v25 = 0x9DDFEA08EB382D69 * (((((v22 >> 3) & 0x3FFFFFF) << 6) | 8) ^ (v22 >> 32));
+      v26 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * ((v22 >> 32) ^ (v25 >> 47) ^ v25)) ^ ((0x9DDFEA08EB382D69 * ((v22 >> 32) ^ (v25 >> 47) ^ v25)) >> 47));
+      v27 = vcnt_s8(v24);
+      v27.i16[0] = vaddlv_u8(v27);
+      if (v27.u32[0] > 1uLL)
       {
-        v27 = v25;
-        if (v25 >= *&v23)
+        v28 = v26;
+        if (v26 >= *&v24)
         {
-          v27 = v25 % *&v23;
+          v28 = v26 % *&v24;
         }
       }
 
       else
       {
-        v27 = v25 & (*&v23 - 1);
+        v28 = v26 & (*&v24 - 1);
       }
 
-      v28 = *(*&v22[31] + 8 * v27);
-      if (!v28)
-      {
-        goto LABEL_92;
-      }
-
-      v29 = *v28;
+      v29 = *(*&v23[31] + 8 * v28);
       if (!v29)
       {
         goto LABEL_92;
       }
 
-      if (v26.u32[0] < 2uLL)
+      v30 = *v29;
+      if (!v30)
       {
-        v30 = *&v23 - 1;
+        goto LABEL_92;
+      }
+
+      if (v27.u32[0] < 2uLL)
+      {
+        v31 = *&v24 - 1;
         while (1)
         {
-          v31 = v29[1];
-          if (v31 == v25)
+          v32 = v30[1];
+          if (v32 == v26)
           {
-            if (v29[2] == result)
+            if (v30[2] == v22)
             {
               goto LABEL_49;
             }
           }
 
-          else if ((v31 & v30) != v27)
+          else if ((v32 & v31) != v28)
           {
             goto LABEL_92;
           }
 
-          v29 = *v29;
-          if (!v29)
+          v30 = *v30;
+          if (!v30)
           {
             goto LABEL_92;
           }
@@ -2556,57 +3268,50 @@ LABEL_35:
 
       while (1)
       {
-        v35 = v29[1];
-        if (v35 == v25)
+        v37 = v30[1];
+        if (v37 == v26)
         {
-          if (v29[2] == result)
+          if (v30[2] == v22)
           {
 LABEL_49:
-            v5 = v29[3];
-            if (*(v5 + 56) & 1) != 0 || (*(v5 + 57))
+            v33 = v30[3];
+            if (*(v33 + 56) & 1) != 0 || (*(v33 + 57))
             {
               goto LABEL_33;
             }
 
-            v32 = *(*(result + 48) + 16);
-            if (v32 == &mlir::detail::TypeIDResolver<mlir::placement::RegionCall,void>::id)
+            v34 = *(*(v22 + 6) + 16);
+            if (v34 == &mlir::detail::TypeIDResolver<mlir::placement::RegionCall,void>::id)
             {
-              v33 = result;
+              v35 = v22;
             }
 
             else
             {
-              v33 = 0;
+              v35 = 0;
             }
 
-            v52 = v33;
-            if (v32 != &mlir::detail::TypeIDResolver<mlir::placement::RegionCall,void>::id)
+            v52 = v35;
+            if (v34 != &mlir::detail::TypeIDResolver<mlir::placement::RegionCall,void>::id)
             {
-              if (v32 != v11 && v32 != v12)
+              if (v34 != &mlir::detail::TypeIDResolver<mlir::mpsx::ReturnStitchedOp,void>::id && v34 != &mlir::detail::TypeIDResolver<mlir::mps::IdentityOp,void>::id)
               {
                 goto LABEL_34;
               }
 
 LABEL_33:
-              result = (*(*v6 + 80))(v6);
+              (*(*v6 + 80))(v6);
               goto LABEL_34;
             }
 
-            v36 = result;
-            v37 = v12;
-            v38 = v11;
-            v39 = v5;
-            result = mlir::placement::RegionCall::getRegionType(&v52);
-            v5 = v39;
-            v11 = v38;
-            v12 = v37;
-            if (!result)
+            v38 = v22;
+            if (!mlir::placement::RegionCall::getRegionType(&v52))
             {
               goto LABEL_33;
             }
 
-            v40 = *(*(v36 + 48) + 16);
-            if (v40 == v11 || v40 == v37)
+            v39 = *(*(v38 + 6) + 16);
+            if (v39 == &mlir::detail::TypeIDResolver<mlir::mpsx::ReturnStitchedOp,void>::id || v39 == &mlir::detail::TypeIDResolver<mlir::mps::IdentityOp,void>::id)
             {
               goto LABEL_33;
             }
@@ -2619,19 +3324,19 @@ LABEL_34:
 
         else
         {
-          if (v35 >= *&v23)
+          if (v37 >= *&v24)
           {
-            v35 %= *&v23;
+            v37 %= *&v24;
           }
 
-          if (v35 != v27)
+          if (v37 != v28)
           {
             goto LABEL_92;
           }
         }
 
-        v29 = *v29;
-        if (!v29)
+        v30 = *v30;
+        if (!v30)
         {
           goto LABEL_92;
         }
@@ -2642,25 +3347,25 @@ LABEL_34:
 LABEL_73:
   if (*(v53 + 240) == 1)
   {
-    v42 = this[2];
-    if ((*(v42 + 46) & 0x80) != 0)
+    v41 = this[2];
+    if ((*(v41 + 46) & 0x80) != 0)
     {
-      v43 = *(v42 + 17);
-      if (v43)
+      v42 = *(v41 + 17);
+      if (v42)
       {
-        v44 = 0;
-        v45 = *(v42 + 9);
+        v43 = 0;
+        v44 = *(v41 + 9);
         do
         {
-          v52 = *(v45 + 32 * v44 + 24);
-          result = mlir::Value::getDefiningOp(&v52);
-          v54 = result;
-          if (result)
+          v52 = *(v44 + 32 * v43 + 24);
+          DefiningOp = mlir::Value::getDefiningOp(&v52);
+          v54 = DefiningOp;
+          if (DefiningOp)
           {
-            v46 = *(result + 36);
+            v46 = *(DefiningOp + 36);
             if (v46)
             {
-              v47 = result - 16;
+              v47 = DefiningOp - 16;
             }
 
             else
@@ -2698,18 +3403,16 @@ LABEL_73:
               goto LABEL_92;
             }
 
-            result = (*(*v50[3] + 56))(v50[3], v48);
+            (*(*v50[3] + 56))(v50[3], v48);
           }
 
-          ++v44;
+          ++v43;
         }
 
-        while (v44 != v43);
+        while (v43 != v42);
       }
     }
   }
-
-  return result;
 }
 
 uint64_t GPURegionRuntime::initializeOps(uint64_t this)
@@ -2808,479 +3511,479 @@ LABEL_21:
   return this;
 }
 
-uint64_t GPURegionRuntime::initOp(GPURegionRuntime *this, mlir::Operation *a2, GPU::MPSGraphKernelDAG *a3)
+void (***GPURegionRuntime::initOp(GPURegionRuntime *this, mlir::Operation *a2, GPU::MPSGraphKernelDAG *a3))(void)
 {
-  v16[0] = *(*(a2 + 6) + 8);
-  AttrData = mlir::OpaqueAttr::getAttrData(v16);
-  v6 = strlen(AttrData);
-  if (v6 >= 0x7FFFFFFFFFFFFFF8)
+  *&v16 = *(*(a2 + 6) + 8);
+  AttrData = mlir::OpaqueAttr::getAttrData(&v16);
+  v7 = strlen(AttrData);
+  if (v7 >= 0x7FFFFFFFFFFFFFF8)
   {
     std::string::__throw_length_error[abi:ne200100]();
   }
 
-  v7 = v6;
-  if (v6 >= 0x17)
+  v8 = v7;
+  if (v7 >= 0x17)
   {
     operator new();
   }
 
-  v13 = v6;
-  if (v6)
+  v14 = v7;
+  if (v7)
   {
-    memmove(&__dst, AttrData, v6);
+    memmove(&__dst, AttrData, v7);
   }
 
-  *(&__dst + v7) = 0;
-  v8 = std::__hash_table<std::__hash_value_type<std::string,MPSMLIROps>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MPSMLIROps>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MPSMLIROps>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MPSMLIROps>>>::find<std::string>(this + 1, &__dst);
-  if (!v8)
+  *(&__dst + v8) = 0;
+  v9 = std::__hash_table<std::__hash_value_type<std::string,MPSMLIROps>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MPSMLIROps>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MPSMLIROps>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MPSMLIROps>>>::find<std::string>(this + 1, &__dst);
+  if (!v9)
   {
     std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
   }
 
-  switch(*(v8 + 10))
+  switch(*(v9 + 10))
   {
     case 1:
-      GPURegionRuntime::createOp<GPU::AbsoluteOpHandler>();
+      GPURegionRuntime::createOp<GPU::AbsoluteOpHandler>(this, a2, a3);
     case 2:
-      GPURegionRuntime::createOp<GPU::AbsoluteSquareOpHandler>();
+      GPURegionRuntime::createOp<GPU::AbsoluteSquareOpHandler>(this, a2, a3);
     case 3:
-      GPURegionRuntime::createOp<GPU::ACosOpHandler>();
+      GPURegionRuntime::createOp<GPU::ACosOpHandler>(this, a2, a3);
     case 4:
-      GPURegionRuntime::createOp<GPU::ACoshOpHandler>();
+      GPURegionRuntime::createOp<GPU::ACoshOpHandler>(this, a2, a3);
     case 5:
-      GPURegionRuntime::createOp<GPU::AddOpHandler>();
+      GPURegionRuntime::createOp<GPU::AddOpHandler>(this, a2, a3);
     case 6:
-      GPURegionRuntime::createOp<GPU::AllocOpHandler>();
+      GPURegionRuntime::createOp<GPU::AllocOpHandler>(this, a2, a3);
     case 7:
-      GPURegionRuntime::createOp<GPU::AndOpHandler>();
+      GPURegionRuntime::createOp<GPU::AndOpHandler>(this, a2, a3);
     case 8:
-      GPURegionRuntime::createOp<GPU::ASinOpHandler>();
+      GPURegionRuntime::createOp<GPU::ASinOpHandler>(this, a2, a3);
     case 9:
-      GPURegionRuntime::createOp<GPU::ASinhOpHandler>();
+      GPURegionRuntime::createOp<GPU::ASinhOpHandler>(this, a2, a3);
     case 0xA:
-      GPURegionRuntime::createOp<GPU::ATanOpHandler>();
+      GPURegionRuntime::createOp<GPU::ATanOpHandler>(this, a2, a3);
     case 0xB:
-      GPURegionRuntime::createOp<GPU::ATan2OpHandler>();
+      GPURegionRuntime::createOp<GPU::ATan2OpHandler>(this, a2, a3);
     case 0xC:
-      GPURegionRuntime::createOp<GPU::ATanhOpHandler>();
+      GPURegionRuntime::createOp<GPU::ATanhOpHandler>(this, a2, a3);
     case 0xD:
-      GPURegionRuntime::createOp<GPU::AssignVariableOpHandler>();
+      GPURegionRuntime::createOp<GPU::AssignVariableOpHandler>(this, a2, a3);
     case 0xE:
-      GPURegionRuntime::createOp<GPU::BandPartOpHandler>();
+      GPURegionRuntime::createOp<GPU::BandPartOpHandler>(this, a2, a3);
     case 0xF:
-      GPURegionRuntime::createOp<GPU::BatchToSpaceOpHandler>();
+      GPURegionRuntime::createOp<GPU::BatchToSpaceOpHandler>(this, a2, a3);
     case 0x11:
-      GPURegionRuntime::createOp<GPU::BitwiseAndOpHandler>();
+      GPURegionRuntime::createOp<GPU::BitwiseAndOpHandler>(this, a2, a3);
     case 0x12:
-      GPURegionRuntime::createOp<GPU::BitwiseLeftShiftOpHandler>();
+      GPURegionRuntime::createOp<GPU::BitwiseLeftShiftOpHandler>(this, a2, a3);
     case 0x13:
-      GPURegionRuntime::createOp<GPU::BitwiseNotOpHandler>();
+      GPURegionRuntime::createOp<GPU::BitwiseNotOpHandler>(this, a2, a3);
     case 0x14:
-      GPURegionRuntime::createOp<GPU::BitwiseOrOpHandler>();
+      GPURegionRuntime::createOp<GPU::BitwiseOrOpHandler>(this, a2, a3);
     case 0x15:
-      GPURegionRuntime::createOp<GPU::BitwisePopcountOpHandler>();
+      GPURegionRuntime::createOp<GPU::BitwisePopcountOpHandler>(this, a2, a3);
     case 0x16:
-      GPURegionRuntime::createOp<GPU::BitwiseRightShiftOpHandler>();
+      GPURegionRuntime::createOp<GPU::BitwiseRightShiftOpHandler>(this, a2, a3);
     case 0x17:
-      GPURegionRuntime::createOp<GPU::BitwiseXorOpHandler>();
+      GPURegionRuntime::createOp<GPU::BitwiseXorOpHandler>(this, a2, a3);
     case 0x18:
-      GPURegionRuntime::createOp<GPU::BroadcastGradientArgsOpHandler>();
+      GPURegionRuntime::createOp<GPU::BroadcastGradientArgsOpHandler>(this, a2, a3);
     case 0x19:
-      GPURegionRuntime::createOp<GPU::BroadcastToOpHandler>();
+      GPURegionRuntime::createOp<GPU::BroadcastToOpHandler>(this, a2, a3);
     case 0x1A:
-      GPURegionRuntime::createOp<GPU::CallOpHandler>();
+      GPURegionRuntime::createOp<GPU::CallOpHandler>(this, a2, a3);
     case 0x1B:
-      GPURegionRuntime::createOp<GPU::CastOpHandler>();
+      GPURegionRuntime::createOp<GPU::CastOpHandler>(this, a2, a3);
     case 0x1C:
-      GPURegionRuntime::createOp<GPU::CeilOpHandler>();
+      GPURegionRuntime::createOp<GPU::CeilOpHandler>(this, a2, a3);
     case 0x1D:
-      GPURegionRuntime::createOp<GPU::ClampOpHandler>();
+      GPURegionRuntime::createOp<GPU::ClampOpHandler>(this, a2, a3);
     case 0x1E:
-      GPURegionRuntime::createOp<GPU::ColToImOpHandler>();
+      GPURegionRuntime::createOp<GPU::ColToImOpHandler>(this, a2, a3);
     case 0x1F:
-      GPURegionRuntime::createOp<GPU::ConcatOpHandler>();
+      GPURegionRuntime::createOp<GPU::ConcatOpHandler>(this, a2, a3);
     case 0x20:
-      GPURegionRuntime::createOp<GPU::ConditionOpHandler>();
+      GPURegionRuntime::createOp<GPU::ConditionOpHandler>(this, a2, a3);
     case 0x21:
-      GPURegionRuntime::createOp<GPU::ConjugateOpHandler>();
+      GPURegionRuntime::createOp<GPU::ConjugateOpHandler>(this, a2, a3);
     case 0x22:
-      GPURegionRuntime::createOp<GPU::Conv2DOpHandler>();
+      GPURegionRuntime::createOp<GPU::Conv2DOpHandler>(this, a2, a3);
     case 0x23:
-      GPURegionRuntime::createOp<GPU::Conv2DDataGradientOpHandler>();
+      GPURegionRuntime::createOp<GPU::Conv2DDataGradientOpHandler>(this, a2, a3);
     case 0x24:
-      GPURegionRuntime::createOp<GPU::Conv2DWeightsGradientOpHandler>();
+      GPURegionRuntime::createOp<GPU::Conv2DWeightsGradientOpHandler>(this, a2, a3);
     case 0x25:
-      GPURegionRuntime::createOp<GPU::Conv3DOpHandler>();
+      GPURegionRuntime::createOp<GPU::Conv3DOpHandler>(this, a2, a3);
     case 0x26:
-      GPURegionRuntime::createOp<GPU::Conv3DDataGradientOpHandler>();
+      GPURegionRuntime::createOp<GPU::Conv3DDataGradientOpHandler>(this, a2, a3);
     case 0x27:
-      GPURegionRuntime::createOp<GPU::Conv3DWeightsGradientOpHandler>();
+      GPURegionRuntime::createOp<GPU::Conv3DWeightsGradientOpHandler>(this, a2, a3);
     case 0x28:
-      GPURegionRuntime::createOp<GPU::ConstantOpHandler>();
+      GPURegionRuntime::createOp<GPU::ConstantOpHandler>(this, a2, a3);
     case 0x29:
-      GPURegionRuntime::createOp<GPU::ConstantArithOpHandler>();
+      GPURegionRuntime::createOp<GPU::ConstantArithOpHandler>(this, a2, a3);
     case 0x2A:
-      GPURegionRuntime::createOp<GPU::CosOpHandler>();
+      GPURegionRuntime::createOp<GPU::CosOpHandler>(this, a2, a3);
     case 0x2B:
-      GPURegionRuntime::createOp<GPU::CoshOpHandler>();
+      GPURegionRuntime::createOp<GPU::CoshOpHandler>(this, a2, a3);
     case 0x2C:
-      GPURegionRuntime::createOp<GPU::CostVolumeOpHandler>();
+      GPURegionRuntime::createOp<GPU::CostVolumeOpHandler>(this, a2, a3);
     case 0x2D:
-      GPURegionRuntime::createOp<GPU::CreateComplexOpHandler>();
+      GPURegionRuntime::createOp<GPU::CreateComplexOpHandler>(this, a2, a3);
     case 0x2E:
-      GPURegionRuntime::createOp<GPU::CreateTextureTensorOpHandler>();
+      GPURegionRuntime::createOp<GPU::CreateTextureTensorOpHandler>(this, a2, a3);
     case 0x2F:
-      GPURegionRuntime::createOp<GPU::CropOpHandler>();
+      GPURegionRuntime::createOp<GPU::CropOpHandler>(this, a2, a3);
     case 0x30:
-      GPURegionRuntime::createOp<GPU::CropResizeOpHandler>();
+      GPURegionRuntime::createOp<GPU::CropResizeOpHandler>(this, a2, a3);
     case 0x31:
-      GPURegionRuntime::createOp<GPU::CumulativeSumOpHandler>();
+      GPURegionRuntime::createOp<GPU::CumulativeSumOpHandler>(this, a2, a3);
     case 0x32:
-      GPURegionRuntime::createOp<GPU::CumulativeProductOpHandler>();
+      GPURegionRuntime::createOp<GPU::CumulativeProductOpHandler>(this, a2, a3);
     case 0x33:
-      GPURegionRuntime::createOp<GPU::CumulativeMaximumOpHandler>();
+      GPURegionRuntime::createOp<GPU::CumulativeMaximumOpHandler>(this, a2, a3);
     case 0x34:
-      GPURegionRuntime::createOp<GPU::CumulativeMinimumOpHandler>();
+      GPURegionRuntime::createOp<GPU::CumulativeMinimumOpHandler>(this, a2, a3);
     case 0x35:
-      GPURegionRuntime::createOp<GPU::DeallocOpHandler>();
+      GPURegionRuntime::createOp<GPU::DeallocOpHandler>(this, a2, a3);
     case 0x36:
-      GPURegionRuntime::createOp<GPU::DepthToSpace2DOpHandler>();
+      GPURegionRuntime::createOp<GPU::DepthToSpace2DOpHandler>(this, a2, a3);
     case 0x37:
-      GPURegionRuntime::createOp<GPU::DepthwiseConv2DOpHandler>();
+      GPURegionRuntime::createOp<GPU::DepthwiseConv2DOpHandler>(this, a2, a3);
     case 0x38:
-      GPURegionRuntime::createOp<GPU::DepthwiseConv2DDataGradientOpHandler>();
+      GPURegionRuntime::createOp<GPU::DepthwiseConv2DDataGradientOpHandler>(this, a2, a3);
     case 0x39:
-      GPURegionRuntime::createOp<GPU::DepthwiseConv2DWeightsGradientOpHandler>();
+      GPURegionRuntime::createOp<GPU::DepthwiseConv2DWeightsGradientOpHandler>(this, a2, a3);
     case 0x3A:
-      GPURegionRuntime::createOp<GPU::DepthwiseConv3DOpHandler>();
+      GPURegionRuntime::createOp<GPU::DepthwiseConv3DOpHandler>(this, a2, a3);
     case 0x3B:
-      GPURegionRuntime::createOp<GPU::DepthwiseConv3DDataGradientOpHandler>();
+      GPURegionRuntime::createOp<GPU::DepthwiseConv3DDataGradientOpHandler>(this, a2, a3);
     case 0x3C:
-      GPURegionRuntime::createOp<GPU::DepthwiseConv3DWeightsGradientOpHandler>();
+      GPURegionRuntime::createOp<GPU::DepthwiseConv3DWeightsGradientOpHandler>(this, a2, a3);
     case 0x3D:
-      GPURegionRuntime::createOp<GPU::DequantizeLutOpHandler>();
+      GPURegionRuntime::createOp<GPU::DequantizeLutOpHandler>(this, a2, a3);
     case 0x3E:
-      GPURegionRuntime::createOp<GPU::DequantizeOpHandler>();
+      GPURegionRuntime::createOp<GPU::DequantizeOpHandler>(this, a2, a3);
     case 0x3F:
-      GPURegionRuntime::createOp<GPU::DimensionSizeOpHandler>();
+      GPURegionRuntime::createOp<GPU::DimensionSizeOpHandler>(this, a2, a3);
     case 0x40:
-      GPURegionRuntime::createOp<GPU::DivideOpHandler>();
+      GPURegionRuntime::createOp<GPU::DivideOpHandler>(this, a2, a3);
     case 0x41:
-      GPURegionRuntime::createOp<GPU::DynamicShapeCastOpHandler>();
+      GPURegionRuntime::createOp<GPU::DynamicShapeCastOpHandler>(this, a2, a3);
     case 0x43:
-      GPURegionRuntime::createOp<GPU::EqualToOpHandler>();
+      GPURegionRuntime::createOp<GPU::EqualToOpHandler>(this, a2, a3);
     case 0x44:
-      GPURegionRuntime::createOp<GPU::ErfOpHandler>();
+      GPURegionRuntime::createOp<GPU::ErfOpHandler>(this, a2, a3);
     case 0x45:
-      GPURegionRuntime::createOp<GPU::ExpandDimsOpHandler>();
+      GPURegionRuntime::createOp<GPU::ExpandDimsOpHandler>(this, a2, a3);
     case 0x46:
-      GPURegionRuntime::createOp<GPU::ExponentOpHandler>();
+      GPURegionRuntime::createOp<GPU::ExponentOpHandler>(this, a2, a3);
     case 0x47:
-      GPURegionRuntime::createOp<GPU::ExponentBase2OpHandler>();
+      GPURegionRuntime::createOp<GPU::ExponentBase2OpHandler>(this, a2, a3);
     case 0x48:
-      GPURegionRuntime::createOp<GPU::ExponentBase10OpHandler>();
+      GPURegionRuntime::createOp<GPU::ExponentBase10OpHandler>(this, a2, a3);
     case 0x49:
-      GPURegionRuntime::createOp<GPU::ExtractOpHandler>();
+      GPURegionRuntime::createOp<GPU::ExtractOpHandler>(this, a2, a3);
     case 0x4A:
-      GPURegionRuntime::createOp<GPU::FFTOpHandler>();
+      GPURegionRuntime::createOp<GPU::FFTOpHandler>(this, a2, a3);
     case 0x4B:
-      GPURegionRuntime::createOp<GPU::FFT_RToCOpHandler>();
+      GPURegionRuntime::createOp<GPU::FFT_RToCOpHandler>(this, a2, a3);
     case 0x4C:
-      GPURegionRuntime::createOp<GPU::FFT_CToROpHandler>();
+      GPURegionRuntime::createOp<GPU::FFT_CToROpHandler>(this, a2, a3);
     case 0x4D:
-      GPURegionRuntime::createOp<GPU::Flatten2DOpHandler>();
+      GPURegionRuntime::createOp<GPU::Flatten2DOpHandler>(this, a2, a3);
     case 0x4E:
-      GPURegionRuntime::createOp<GPU::FloorOpHandler>();
+      GPURegionRuntime::createOp<GPU::FloorOpHandler>(this, a2, a3);
     case 0x4F:
-      GPURegionRuntime::createOp<GPU::ForOpHandler>();
+      GPURegionRuntime::createOp<GPU::ForOpHandler>(this, a2, a3);
     case 0x50:
-      GPURegionRuntime::createOp<GPU::FPToIntClampedOpHandler>();
+      GPURegionRuntime::createOp<GPU::FPToIntClampedOpHandler>(this, a2, a3);
     case 0x51:
-      GPURegionRuntime::createOp<GPU::FusionOpHandler>();
+      GPURegionRuntime::createOp<GPU::FusionOpHandler>(this, a2, a3);
     case 0x52:
-      GPURegionRuntime::createOp<GPU::FusionReturnOpHandler>();
+      GPURegionRuntime::createOp<GPU::FusionReturnOpHandler>(this, a2, a3);
     case 0x53:
-      GPURegionRuntime::createOp<GPU::GatherOpHandler>();
+      GPURegionRuntime::createOp<GPU::GatherOpHandler>(this, a2, a3);
     case 0x54:
-      GPURegionRuntime::createOp<GPU::GatherAlongAxisOpHandler>();
+      GPURegionRuntime::createOp<GPU::GatherAlongAxisOpHandler>(this, a2, a3);
     case 0x55:
-      GPURegionRuntime::createOp<GPU::GatherNDOpHandler>();
+      GPURegionRuntime::createOp<GPU::GatherNDOpHandler>(this, a2, a3);
     case 0x56:
-      GPURegionRuntime::createOp<GPU::GetCoordOpHandler>();
+      GPURegionRuntime::createOp<GPU::GetCoordOpHandler>(this, a2, a3);
     case 0x57:
-      GPURegionRuntime::createOp<GPU::GreaterThanOpHandler>();
+      GPURegionRuntime::createOp<GPU::GreaterThanOpHandler>(this, a2, a3);
     case 0x58:
-      GPURegionRuntime::createOp<GPU::GreaterThanOrEqualToOpHandler>();
+      GPURegionRuntime::createOp<GPU::GreaterThanOrEqualToOpHandler>(this, a2, a3);
     case 0x59:
-      GPURegionRuntime::createOp<GPU::GRUOpHandler>();
+      GPURegionRuntime::createOp<GPU::GRUOpHandler>(this, a2, a3);
     case 0x5A:
-      GPURegionRuntime::createOp<GPU::GRUGradientOpHandler>();
+      GPURegionRuntime::createOp<GPU::GRUGradientOpHandler>(this, a2, a3);
     case 0x5B:
-      GPURegionRuntime::createOp<GPU::HammingDistanceOpHandler>();
+      GPURegionRuntime::createOp<GPU::HammingDistanceOpHandler>(this, a2, a3);
     case 0x5C:
-      GPURegionRuntime::createOp<GPU::IdentityOpHandler>();
+      GPURegionRuntime::createOp<GPU::IdentityOpHandler>(this, a2, a3);
     case 0x5D:
-      GPURegionRuntime::createOp<GPU::IfOpHandler>();
+      GPURegionRuntime::createOp<GPU::IfOpHandler>(this, a2, a3);
     case 0x5E:
-      GPURegionRuntime::createOp<GPU::ImToColOpHandler>();
+      GPURegionRuntime::createOp<GPU::ImToColOpHandler>(this, a2, a3);
     case 0x5F:
-      GPURegionRuntime::createOp<GPU::ImaginaryPartOpHandler>();
+      GPURegionRuntime::createOp<GPU::ImaginaryPartOpHandler>(this, a2, a3);
     case 0x60:
-      GPURegionRuntime::createOp<GPU::IsFiniteOpHandler>();
+      GPURegionRuntime::createOp<GPU::IsFiniteOpHandler>(this, a2, a3);
     case 0x61:
-      GPURegionRuntime::createOp<GPU::IsInfiniteOpHandler>();
+      GPURegionRuntime::createOp<GPU::IsInfiniteOpHandler>(this, a2, a3);
     case 0x62:
-      GPURegionRuntime::createOp<GPU::IsNaNOpHandler>();
+      GPURegionRuntime::createOp<GPU::IsNaNOpHandler>(this, a2, a3);
     case 0x64:
-      GPURegionRuntime::createOp<GPU::LessThanOpHandler>();
+      GPURegionRuntime::createOp<GPU::LessThanOpHandler>(this, a2, a3);
     case 0x65:
-      GPURegionRuntime::createOp<GPU::LessThanOrEqualToOpHandler>();
+      GPURegionRuntime::createOp<GPU::LessThanOrEqualToOpHandler>(this, a2, a3);
     case 0x66:
-      GPURegionRuntime::createOp<GPU::LocalConvolutionOpHandler>();
+      GPURegionRuntime::createOp<GPU::LocalConvolutionOpHandler>(this, a2, a3);
     case 0x67:
-      GPURegionRuntime::createOp<GPU::LocalConvolutionDataGradientOpHandler>();
+      GPURegionRuntime::createOp<GPU::LocalConvolutionDataGradientOpHandler>(this, a2, a3);
     case 0x68:
-      GPURegionRuntime::createOp<GPU::LocalConvolutionWeightGradientOpHandler>();
+      GPURegionRuntime::createOp<GPU::LocalConvolutionWeightGradientOpHandler>(this, a2, a3);
     case 0x69:
-      GPURegionRuntime::createOp<GPU::LogarithmOpHandler>();
+      GPURegionRuntime::createOp<GPU::LogarithmOpHandler>(this, a2, a3);
     case 0x6A:
-      GPURegionRuntime::createOp<GPU::LogarithmBase2OpHandler>();
+      GPURegionRuntime::createOp<GPU::LogarithmBase2OpHandler>(this, a2, a3);
     case 0x6B:
-      GPURegionRuntime::createOp<GPU::LogarithmBase10OpHandler>();
+      GPURegionRuntime::createOp<GPU::LogarithmBase10OpHandler>(this, a2, a3);
     case 0x6C:
-      GPURegionRuntime::createOp<GPU::LSTMOpHandler>();
+      GPURegionRuntime::createOp<GPU::LSTMOpHandler>(this, a2, a3);
     case 0x6D:
-      GPURegionRuntime::createOp<GPU::LSTMGradientOpHandler>();
+      GPURegionRuntime::createOp<GPU::LSTMGradientOpHandler>(this, a2, a3);
     case 0x6E:
-      GPURegionRuntime::createOp<GPU::MakeListOpHandler>();
+      GPURegionRuntime::createOp<GPU::MakeListOpHandler>(this, a2, a3);
     case 0x6F:
-      GPURegionRuntime::createOp<GPU::MaterializeSparseTensorOpHandler>();
+      GPURegionRuntime::createOp<GPU::MaterializeSparseTensorOpHandler>(this, a2, a3);
     case 0x70:
-      GPURegionRuntime::createOp<GPU::MatMulOpHandler>();
+      GPURegionRuntime::createOp<GPU::MatMulOpHandler>(this, a2, a3);
     case 0x71:
-      GPURegionRuntime::createOp<GPU::MatrixDecompositionLUOpHandler>();
+      GPURegionRuntime::createOp<GPU::MatrixDecompositionLUOpHandler>(this, a2, a3);
     case 0x72:
-      GPURegionRuntime::createOp<GPU::MatrixInverseOpHandler>();
+      GPURegionRuntime::createOp<GPU::MatrixInverseOpHandler>(this, a2, a3);
     case 0x73:
-      GPURegionRuntime::createOp<GPU::MatrixSolverLUOpHandler>();
+      GPURegionRuntime::createOp<GPU::MatrixSolverLUOpHandler>(this, a2, a3);
     case 0x74:
-      GPURegionRuntime::createOp<GPU::MaximumOpHandler>();
+      GPURegionRuntime::createOp<GPU::MaximumOpHandler>(this, a2, a3);
     case 0x75:
-      GPURegionRuntime::createOp<GPU::MemrefBackedOpHandler>();
+      GPURegionRuntime::createOp<GPU::MemrefBackedOpHandler>(this, a2, a3);
     case 0x76:
-      GPURegionRuntime::createOp<GPU::MemrefToTensorOpHandler>();
+      GPURegionRuntime::createOp<GPU::MemrefToTensorOpHandler>(this, a2, a3);
     case 0x77:
-      GPURegionRuntime::createOp<GPU::MinimumOpHandler>();
+      GPURegionRuntime::createOp<GPU::MinimumOpHandler>(this, a2, a3);
     case 0x78:
-      GPURegionRuntime::createOp<GPU::ModuloOpHandler>();
+      GPURegionRuntime::createOp<GPU::ModuloOpHandler>(this, a2, a3);
     case 0x79:
-      GPURegionRuntime::createOp<GPU::MultiplyOpHandler>();
+      GPURegionRuntime::createOp<GPU::MultiplyOpHandler>(this, a2, a3);
     case 0x7A:
-      GPURegionRuntime::createOp<GPU::NandOpHandler>();
+      GPURegionRuntime::createOp<GPU::NandOpHandler>(this, a2, a3);
     case 0x7B:
-      GPURegionRuntime::createOp<GPU::NegativeOpHandler>();
+      GPURegionRuntime::createOp<GPU::NegativeOpHandler>(this, a2, a3);
     case 0x7C:
-      GPURegionRuntime::createOp<GPU::NorOpHandler>();
+      GPURegionRuntime::createOp<GPU::NorOpHandler>(this, a2, a3);
     case 0x7E:
-      GPURegionRuntime::createOp<GPU::NotOpHandler>();
+      GPURegionRuntime::createOp<GPU::NotOpHandler>(this, a2, a3);
     case 0x7F:
-      GPURegionRuntime::createOp<GPU::NotEqualToOpHandler>();
+      GPURegionRuntime::createOp<GPU::NotEqualToOpHandler>(this, a2, a3);
     case 0x80:
-      GPURegionRuntime::createOp<GPU::OneHotOpHandler>();
+      GPURegionRuntime::createOp<GPU::OneHotOpHandler>(this, a2, a3);
     case 0x81:
-      GPURegionRuntime::createOp<GPU::OrOpHandler>();
+      GPURegionRuntime::createOp<GPU::OrOpHandler>(this, a2, a3);
     case 0x82:
-      GPURegionRuntime::createOp<GPU::PadOpHandler>();
+      GPURegionRuntime::createOp<GPU::PadOpHandler>(this, a2, a3);
     case 0x83:
-      GPURegionRuntime::createOp<GPU::PadGradientOpHandler>();
+      GPURegionRuntime::createOp<GPU::PadGradientOpHandler>(this, a2, a3);
     case 0x84:
-      GPURegionRuntime::createOp<GPU::PermuteOpHandler>();
+      GPURegionRuntime::createOp<GPU::PermuteOpHandler>(this, a2, a3);
     case 0x85:
-      GPURegionRuntime::createOp<GPU::PoolAvgOpHandler>();
+      GPURegionRuntime::createOp<GPU::PoolAvgOpHandler>(this, a2, a3);
     case 0x86:
-      GPURegionRuntime::createOp<GPU::PoolAvgGradientOpHandler>();
+      GPURegionRuntime::createOp<GPU::PoolAvgGradientOpHandler>(this, a2, a3);
     case 0x87:
-      GPURegionRuntime::createOp<GPU::PoolL2NormOpHandler>();
+      GPURegionRuntime::createOp<GPU::PoolL2NormOpHandler>(this, a2, a3);
     case 0x88:
-      GPURegionRuntime::createOp<GPU::PoolL2NormGradientOpHandler>();
+      GPURegionRuntime::createOp<GPU::PoolL2NormGradientOpHandler>(this, a2, a3);
     case 0x89:
-      GPURegionRuntime::createOp<GPU::PoolMaxOpHandler>();
+      GPURegionRuntime::createOp<GPU::PoolMaxOpHandler>(this, a2, a3);
     case 0x8B:
-      GPURegionRuntime::createOp<GPU::PoolMaxGradientOpHandler>();
+      GPURegionRuntime::createOp<GPU::PoolMaxGradientOpHandler>(this, a2, a3);
     case 0x8C:
-      GPURegionRuntime::createOp<GPU::PowerOpHandler>();
+      GPURegionRuntime::createOp<GPU::PowerOpHandler>(this, a2, a3);
     case 0x8D:
-      GPURegionRuntime::createOp<GPU::PruneOpHandler>();
+      GPURegionRuntime::createOp<GPU::PruneOpHandler>(this, a2, a3);
     case 0x8E:
-      GPURegionRuntime::createOp<GPU::PruneGradientOpHandler>();
+      GPURegionRuntime::createOp<GPU::PruneGradientOpHandler>(this, a2, a3);
     case 0x90:
-      GPURegionRuntime::createOp<GPU::QuantizedGatherOpHandler>();
+      GPURegionRuntime::createOp<GPU::QuantizedGatherOpHandler>(this, a2, a3);
     case 0x91:
-      GPURegionRuntime::createOp<GPU::RandomUniformOpHandler>();
+      GPURegionRuntime::createOp<GPU::RandomUniformOpHandler>(this, a2, a3);
     case 0x92:
-      GPURegionRuntime::createOp<GPU::RandomTruncatedNormalOpHandler>();
+      GPURegionRuntime::createOp<GPU::RandomTruncatedNormalOpHandler>(this, a2, a3);
     case 0x93:
-      GPURegionRuntime::createOp<GPU::RandomNormalOpHandler>();
+      GPURegionRuntime::createOp<GPU::RandomNormalOpHandler>(this, a2, a3);
     case 0x94:
-      GPURegionRuntime::createOp<GPU::RankOpHandler>();
+      GPURegionRuntime::createOp<GPU::RankOpHandler>(this, a2, a3);
     case 0x95:
-      GPURegionRuntime::createOp<GPU::ReadDataFromFileOpHandler>();
+      GPURegionRuntime::createOp<GPU::ReadDataFromFileOpHandler>(this, a2, a3);
     case 0x96:
-      GPURegionRuntime::createOp<GPU::ReadVariableOpHandler>();
+      GPURegionRuntime::createOp<GPU::ReadVariableOpHandler>(this, a2, a3);
     case 0x97:
-      GPURegionRuntime::createOp<GPU::RealPartOpHandler>();
+      GPURegionRuntime::createOp<GPU::RealPartOpHandler>(this, a2, a3);
     case 0x98:
-      GPURegionRuntime::createOp<GPU::ReciprocalOpHandler>();
+      GPURegionRuntime::createOp<GPU::ReciprocalOpHandler>(this, a2, a3);
     case 0x99:
-      GPURegionRuntime::createOp<GPU::ReductionAndOpHandler>();
+      GPURegionRuntime::createOp<GPU::ReductionAndOpHandler>(this, a2, a3);
     case 0x9A:
-      GPURegionRuntime::createOp<GPU::ReductionArgMaxOpHandler>();
+      GPURegionRuntime::createOp<GPU::ReductionArgMaxOpHandler>(this, a2, a3);
     case 0x9B:
-      GPURegionRuntime::createOp<GPU::ReductionArgMinOpHandler>();
+      GPURegionRuntime::createOp<GPU::ReductionArgMinOpHandler>(this, a2, a3);
     case 0x9C:
-      GPURegionRuntime::createOp<GPU::ReductionMaxOpHandler>();
+      GPURegionRuntime::createOp<GPU::ReductionMaxOpHandler>(this, a2, a3);
     case 0x9E:
-      GPURegionRuntime::createOp<GPU::ReductionMinOpHandler>();
+      GPURegionRuntime::createOp<GPU::ReductionMinOpHandler>(this, a2, a3);
     case 0x9F:
-      GPURegionRuntime::createOp<GPU::ReductionOrOpHandler>();
+      GPURegionRuntime::createOp<GPU::ReductionOrOpHandler>(this, a2, a3);
     case 0xA0:
-      GPURegionRuntime::createOp<GPU::ReductionProdOpHandler>();
+      GPURegionRuntime::createOp<GPU::ReductionProdOpHandler>(this, a2, a3);
     case 0xA1:
-      GPURegionRuntime::createOp<GPU::ReductionSumOpHandler>();
+      GPURegionRuntime::createOp<GPU::ReductionSumOpHandler>(this, a2, a3);
     case 0xA3:
-      GPURegionRuntime::createOp<GPU::RegionCallOpHandler>();
+      GPURegionRuntime::createOp<GPU::RegionCallOpHandler>(this, a2, a3);
     case 0xA4:
-      GPURegionRuntime::createOp<GPU::RegionReturnOpHandler>();
+      GPURegionRuntime::createOp<GPU::RegionReturnOpHandler>(this, a2, a3);
     case 0xA5:
-      GPURegionRuntime::createOp<GPU::ReinterpretCastOpHandler>();
+      GPURegionRuntime::createOp<GPU::ReinterpretCastOpHandler>(this, a2, a3);
     case 0xA8:
-      GPURegionRuntime::createOp<GPU::ReshapeOpHandler>();
+      GPURegionRuntime::createOp<GPU::ReshapeOpHandler>(this, a2, a3);
     case 0xA9:
-      GPURegionRuntime::createOp<GPU::ResizeOpHandler>();
+      GPURegionRuntime::createOp<GPU::ResizeOpHandler>(this, a2, a3);
     case 0xAA:
-      GPURegionRuntime::createOp<GPU::ResizeGradientOpHandler>();
+      GPURegionRuntime::createOp<GPU::ResizeGradientOpHandler>(this, a2, a3);
     case 0xAB:
-      GPURegionRuntime::createOp<GPU::ReturnOpHandler>();
+      GPURegionRuntime::createOp<GPU::ReturnOpHandler>(this, a2, a3);
     case 0xAC:
-      GPURegionRuntime::createOp<GPU::ReturnStitchedOpHandler>();
+      GPURegionRuntime::createOp<GPU::ReturnStitchedOpHandler>(this, a2, a3);
     case 0xAD:
-      GPURegionRuntime::createOp<GPU::ReverseOpHandler>();
+      GPURegionRuntime::createOp<GPU::ReverseOpHandler>(this, a2, a3);
     case 0xAE:
-      GPURegionRuntime::createOp<GPU::ReciprocalSquareRootOpHandler>();
+      GPURegionRuntime::createOp<GPU::ReciprocalSquareRootOpHandler>(this, a2, a3);
     case 0xAF:
-      GPURegionRuntime::createOp<GPU::RintOpHandler>();
+      GPURegionRuntime::createOp<GPU::RintOpHandler>(this, a2, a3);
     case 0xB0:
-      GPURegionRuntime::createOp<GPU::RMSNormOpHandler>();
+      GPURegionRuntime::createOp<GPU::RMSNormOpHandler>(this, a2, a3);
     case 0xB1:
-      GPURegionRuntime::createOp<GPU::RoundOpHandler>();
+      GPURegionRuntime::createOp<GPU::RoundOpHandler>(this, a2, a3);
     case 0xB2:
-      GPURegionRuntime::createOp<GPU::SampleGridOpHandler>();
+      GPURegionRuntime::createOp<GPU::SampleGridOpHandler>(this, a2, a3);
     case 0xB3:
-      GPURegionRuntime::createOp<GPU::SampleGridDataGradientOpHandler>();
+      GPURegionRuntime::createOp<GPU::SampleGridDataGradientOpHandler>(this, a2, a3);
     case 0xB4:
-      GPURegionRuntime::createOp<GPU::ScatterOpHandler>();
+      GPURegionRuntime::createOp<GPU::ScatterOpHandler>(this, a2, a3);
     case 0xB5:
-      GPURegionRuntime::createOp<GPU::ScatterAlongAxisOpHandler>();
+      GPURegionRuntime::createOp<GPU::ScatterAlongAxisOpHandler>(this, a2, a3);
     case 0xB6:
-      GPURegionRuntime::createOp<GPU::ScatterNDOpHandler>();
+      GPURegionRuntime::createOp<GPU::ScatterNDOpHandler>(this, a2, a3);
     case 0xB7:
-      GPURegionRuntime::createOp<GPU::SelectOpHandler>();
+      GPURegionRuntime::createOp<GPU::SelectOpHandler>(this, a2, a3);
     case 0xB8:
-      GPURegionRuntime::createOp<GPU::ShapeOpHandler>();
+      GPURegionRuntime::createOp<GPU::ShapeOpHandler>(this, a2, a3);
     case 0xBA:
-      GPURegionRuntime::createOp<GPU::SignOpHandler>();
+      GPURegionRuntime::createOp<GPU::SignOpHandler>(this, a2, a3);
     case 0xBB:
-      GPURegionRuntime::createOp<GPU::SignbitOpHandler>();
+      GPURegionRuntime::createOp<GPU::SignbitOpHandler>(this, a2, a3);
     case 0xBC:
-      GPURegionRuntime::createOp<GPU::SinOpHandler>();
+      GPURegionRuntime::createOp<GPU::SinOpHandler>(this, a2, a3);
     case 0xBD:
-      GPURegionRuntime::createOp<GPU::SingleGateRNNOpHandler>();
+      GPURegionRuntime::createOp<GPU::SingleGateRNNOpHandler>(this, a2, a3);
     case 0xBE:
-      GPURegionRuntime::createOp<GPU::SingleGateRNNGradientOpHandler>();
+      GPURegionRuntime::createOp<GPU::SingleGateRNNGradientOpHandler>(this, a2, a3);
     case 0xBF:
-      GPURegionRuntime::createOp<GPU::SinhOpHandler>();
+      GPURegionRuntime::createOp<GPU::SinhOpHandler>(this, a2, a3);
     case 0xC0:
-      GPURegionRuntime::createOp<GPU::SizeOpHandler>();
+      GPURegionRuntime::createOp<GPU::SizeOpHandler>(this, a2, a3);
     case 0xC1:
-      GPURegionRuntime::createOp<GPU::SliceOpHandler>();
+      GPURegionRuntime::createOp<GPU::SliceOpHandler>(this, a2, a3);
     case 0xC2:
-      GPURegionRuntime::createOp<GPU::SoftmaxOpHandler>();
+      GPURegionRuntime::createOp<GPU::SoftmaxOpHandler>(this, a2, a3);
     case 0xC3:
-      GPURegionRuntime::createOp<GPU::SortOpHandler>();
+      GPURegionRuntime::createOp<GPU::SortOpHandler>(this, a2, a3);
     case 0xC5:
-      GPURegionRuntime::createOp<GPU::SpaceToBatchOpHandler>();
+      GPURegionRuntime::createOp<GPU::SpaceToBatchOpHandler>(this, a2, a3);
     case 0xC6:
-      GPURegionRuntime::createOp<GPU::SpaceToDepth2DOpHandler>();
+      GPURegionRuntime::createOp<GPU::SpaceToDepth2DOpHandler>(this, a2, a3);
     case 0xC7:
-      GPURegionRuntime::createOp<GPU::SparseDenseMatMulOpHandler>();
+      GPURegionRuntime::createOp<GPU::SparseDenseMatMulOpHandler>(this, a2, a3);
     case 0xC8:
-      GPURegionRuntime::createOp<GPU::SplitOpHandler>();
+      GPURegionRuntime::createOp<GPU::SplitOpHandler>(this, a2, a3);
     case 0xC9:
-      GPURegionRuntime::createOp<GPU::SquareOpHandler>();
+      GPURegionRuntime::createOp<GPU::SquareOpHandler>(this, a2, a3);
     case 0xCA:
-      GPURegionRuntime::createOp<GPU::SquareRootOpHandler>();
+      GPURegionRuntime::createOp<GPU::SquareRootOpHandler>(this, a2, a3);
     case 0xCB:
-      GPURegionRuntime::createOp<GPU::SqueezeOpHandler>();
+      GPURegionRuntime::createOp<GPU::SqueezeOpHandler>(this, a2, a3);
     case 0xCC:
-      GPURegionRuntime::createOp<GPU::StencilOpHandler>();
+      GPURegionRuntime::createOp<GPU::StencilOpHandler>(this, a2, a3);
     case 0xCD:
-      GPURegionRuntime::createOp<GPU::StitchedOpHandler>();
+      GPURegionRuntime::createOp<GPU::StitchedOpHandler>(this, a2, a3);
     case 0xCE:
-      GPURegionRuntime::createOp<GPU::StridedSliceOpHandler>();
+      GPURegionRuntime::createOp<GPU::StridedSliceOpHandler>(this, a2, a3);
     case 0xCF:
-      GPURegionRuntime::createOp<GPU::StridedSliceGradientOpHandler>();
+      GPURegionRuntime::createOp<GPU::StridedSliceGradientOpHandler>(this, a2, a3);
     case 0xD0:
-      GPURegionRuntime::createOp<GPU::StridedSliceUpdateOpHandler>();
+      GPURegionRuntime::createOp<GPU::StridedSliceUpdateOpHandler>(this, a2, a3);
     case 0xD1:
-      GPURegionRuntime::createOp<GPU::StridedArrayViewOpHandler>();
+      GPURegionRuntime::createOp<GPU::StridedArrayViewOpHandler>(this, a2, a3);
     case 0xD2:
-      GPURegionRuntime::createOp<GPU::SubtractOpHandler>();
+      GPURegionRuntime::createOp<GPU::SubtractOpHandler>(this, a2, a3);
     case 0xD4:
-      GPURegionRuntime::createOp<GPU::TanOpHandler>();
+      GPURegionRuntime::createOp<GPU::TanOpHandler>(this, a2, a3);
     case 0xD5:
-      GPURegionRuntime::createOp<GPU::TanhOpHandler>();
+      GPURegionRuntime::createOp<GPU::TanhOpHandler>(this, a2, a3);
     case 0xD6:
-      GPURegionRuntime::createOp<GPU::FromElementsOpHandler>();
+      GPURegionRuntime::createOp<GPU::FromElementsOpHandler>(this, a2, a3);
     case 0xD7:
-      GPURegionRuntime::createOp<GPU::ListPopBackOpHandler>();
+      GPURegionRuntime::createOp<GPU::ListPopBackOpHandler>(this, a2, a3);
     case 0xD8:
-      GPURegionRuntime::createOp<GPU::ListPushBackOpHandler>();
+      GPURegionRuntime::createOp<GPU::ListPushBackOpHandler>(this, a2, a3);
     case 0xD9:
-      GPURegionRuntime::createOp<GPU::ScaledDotProductAttentionOpHandler>();
+      GPURegionRuntime::createOp<GPU::ScaledDotProductAttentionOpHandler>(this, a2, a3);
     case 0xDA:
-      GPURegionRuntime::createOp<GPU::TensorToMemrefOpHandler>();
+      GPURegionRuntime::createOp<GPU::TensorToMemrefOpHandler>(this, a2, a3);
     case 0xDB:
-      GPURegionRuntime::createOp<GPU::TileOpHandler>();
+      GPURegionRuntime::createOp<GPU::TileOpHandler>(this, a2, a3);
     case 0xDC:
-      GPURegionRuntime::createOp<GPU::TileGradientOpHandler>();
+      GPURegionRuntime::createOp<GPU::TileGradientOpHandler>(this, a2, a3);
     case 0xDD:
-      GPURegionRuntime::createOp<GPU::TopKOpHandler>();
+      GPURegionRuntime::createOp<GPU::TopKOpHandler>(this, a2, a3);
     case 0xDE:
-      GPURegionRuntime::createOp<GPU::TopKGradientOpHandler>();
+      GPURegionRuntime::createOp<GPU::TopKGradientOpHandler>(this, a2, a3);
     case 0xDF:
-      GPURegionRuntime::createOp<GPU::TransposeOpHandler>();
+      GPURegionRuntime::createOp<GPU::TransposeOpHandler>(this, a2, a3);
     case 0xE0:
-      GPURegionRuntime::createOp<GPU::TypeConstraintOpHandler>();
+      GPURegionRuntime::createOp<GPU::TypeConstraintOpHandler>(this, a2, a3);
     case 0xE1:
-      GPURegionRuntime::createOp<GPU::UpdateRandomStateOpHandler>();
+      GPURegionRuntime::createOp<GPU::UpdateRandomStateOpHandler>(this, a2, a3);
     case 0xE2:
-      GPURegionRuntime::createOp<GPU::UseMemrefOpHandler>();
+      GPURegionRuntime::createOp<GPU::UseMemrefOpHandler>(this, a2, a3);
     case 0xE3:
-      GPURegionRuntime::createOp<GPU::VarHandleOpHandler>();
+      GPURegionRuntime::createOp<GPU::VarHandleOpHandler>(this, a2, a3);
     case 0xE4:
-      GPURegionRuntime::createOp<GPU::VariableFromTensorOpHandler>();
+      GPURegionRuntime::createOp<GPU::VariableFromTensorOpHandler>(this, a2, a3);
     case 0xE5:
-      GPURegionRuntime::createOp<GPU::ViewMemrefOpHandler>();
+      GPURegionRuntime::createOp<GPU::ViewMemrefOpHandler>(this, a2, a3);
     case 0xE6:
-      GPURegionRuntime::createOp<GPU::WhileOpHandler>();
+      GPURegionRuntime::createOp<GPU::WhileOpHandler>(this, a2, a3);
     case 0xE7:
-      GPURegionRuntime::createOp<GPU::XorOpHandler>();
+      GPURegionRuntime::createOp<GPU::XorOpHandler>(this, a2, a3);
     case 0xE8:
-      GPURegionRuntime::createOp<GPU::XnorOpHandler>();
+      GPURegionRuntime::createOp<GPU::XnorOpHandler>(this, a2, a3);
     case 0xE9:
-      GPURegionRuntime::createOp<GPU::YieldOpHandler>();
+      GPURegionRuntime::createOp<GPU::YieldOpHandler>(this, a2, a3);
     case 0xEA:
-      GPURegionRuntime::createOp<GPU::QuantizedMatMulOpHandler>();
+      GPURegionRuntime::createOp<GPU::QuantizedMatMulOpHandler>(this, a2, a3);
     default:
       if (MTLReportFailureTypeEnabled())
       {
@@ -3295,19 +3998,18 @@ uint64_t GPURegionRuntime::initOp(GPURegionRuntime *this, mlir::Operation *a2, G
         {
           if (*(*(DefiningOp + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::mps::MatMulOp,void>::id && *v17 && !**v17)
           {
-            v11 = a2 - 16;
-            v16[0] = v17;
-            v16[1] = v11;
-            v14 = v11;
-            v15 = v17;
-            std::__hash_table<std::__hash_value_type<void *,void *>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,void *>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,void *>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,void *>>>::__emplace_unique_key_args<void *,std::pair<void *,void *> &>(this + 76, v17);
-            std::__hash_table<std::__hash_value_type<void *,void *>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,void *>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,void *>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,void *>>>::__emplace_unique_key_args<void *,std::pair<void *,void *> &>(this + 76, v11);
+            v12 = a2 - 16;
+            *&v16 = v17;
+            *(&v16 + 1) = v12;
+            v15 = __PAIR128__(v17, v12);
+            std::__hash_table<std::__hash_value_type<void *,void *>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,void *>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,void *>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,void *>>>::__emplace_unique_key_args<void *,std::pair<void *,void *> &>(this + 76, v17, &v16);
+            std::__hash_table<std::__hash_value_type<void *,void *>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,void *>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,void *>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,void *>>>::__emplace_unique_key_args<void *,std::pair<void *,void *> &>(this + 76, v12, &v15);
           }
         }
       }
 
       (*MEMORY[0])(0);
-      if (v13 < 0)
+      if (v14 < 0)
       {
         operator delete(__dst);
       }
@@ -3326,2438 +4028,2438 @@ void sub_1E05C3134(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_1E05C3480(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05C3480(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05C3868(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05C3868(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05C3C50(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05C3C50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05C4038(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05C4038(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05C4420(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05C4420(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05C47EC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05C47EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05C4BD4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05C4BD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05C4FBC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05C4FBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05C53A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05C53A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05C578C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05C578C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05C5B74(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05C5B74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05C5F5C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05C5F5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05C6328(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05C6328(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05C6710(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05C6710(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05C6AF8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05C6AF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05C6EE0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05C6EE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05C72C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05C72C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05C76B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05C76B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05C7A98(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05C7A98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05C7E80(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05C7E80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05C8268(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05C8268(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05C8650(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05C8650(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05C8A38(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05C8A38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05C8E04(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05C8E04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05C91D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05C91D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05C95B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05C95B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05C99A0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05C99A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05C9D88(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05C9D88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05CA170(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05CA170(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05CA53C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05CA53C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05CA908(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05CA908(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05CACF0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05CACF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05CB0F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05CB0F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05CB52C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05CB52C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05CB938(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05CB938(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05CBD60(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05CBD60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05CC16C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05CC16C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05CC578(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05CC578(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05CC974(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05CC974(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05CCD5C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05CCD5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05CD144(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05CD144(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05CD52C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05CD52C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05CD944(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05CD944(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05CDD3C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05CDD3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05CE108(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05CE108(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05CE4F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05CE4F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05CE8BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05CE8BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05CECA4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05CECA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05CF08C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05CF08C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05CF474(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05CF474(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05CF85C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05CF85C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05CFC44(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05CFC44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05D002C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05D002C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05D0414(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05D0414(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05D07FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05D07FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05D0BE4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05D0BE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05D0FE4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05D0FE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05D140C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05D140C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05D17F4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05D17F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05D1BC0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05D1BC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05D1F8C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05D1F8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05D2374(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05D2374(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05D275C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05D275C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05D2B28(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05D2B28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05D2F10(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05D2F10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05D32F8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05D32F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05D36E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05D36E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05D3AC8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05D3AC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05D3EB0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05D3EB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05D4298(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05D4298(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05D4664(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05D4664(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05D4A30(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05D4A30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05D4DFC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05D4DFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05D51C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05D51C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05D55B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05D55B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05D5998(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05D5998(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05D5D64(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05D5D64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05D614C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05D614C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05D651C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05D651C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05D6914(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05D6914(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05D6D3C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05D6D3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05D7164(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05D7164(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05D758C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05D758C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05D7988(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05D7988(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05D7D70(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05D7D70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05D8158(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05D8158(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05D8524(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05D8524(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05D88F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05D88F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05D8D08(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05D8D08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05D90E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05D90E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05D94B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05D94B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05D9898(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05D9898(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05D9C80(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05D9C80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05DA068(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05DA068(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05DA450(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05DA450(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05DA838(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05DA838(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05DAC20(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05DAC20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05DB008(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05DB008(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05DB420(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05DB420(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05DB7FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05DB7FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05DBBC8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05DBBC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05DBFB0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05DBFB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05DC398(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05DC398(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05DC780(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05DC780(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05DCB4C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05DCB4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05DCF18(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05DCF18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05DD304(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05DD304(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05DD6EC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05DD6EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05DDAB8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05DDAB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05DDE84(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05DDE84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05DE250(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05DE250(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05DE61C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05DE61C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05DEA04(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05DEA04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05DEDD0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05DEDD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05DF19C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05DF19C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05DF584(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05DF584(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05DF96C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05DF96C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05DFD54(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05DFD54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05E013C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05E013C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05E0524(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05E0524(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05E090C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05E090C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05E0CF4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05E0CF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05E10DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05E10DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05E14A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05E14A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05E1890(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05E1890(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05E1C5C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05E1C5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05E2060(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05E2060(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05E2444(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05E2444(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05E285C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05E285C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05E2C84(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05E2C84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05E30AC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05E30AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05E34D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05E34D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05E38B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05E38B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05E3CC8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05E3CC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05E40C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05E40C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05E448C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05E448C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05E4858(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05E4858(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05E4C24(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05E4C24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05E503C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05E503C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05E5464(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05E5464(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05E588C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05E588C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05E5C84(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05E5C84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05E606C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05E606C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05E6438(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05E6438(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05E6804(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05E6804(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05E6BEC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05E6BEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05E6FD4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05E6FD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05E73BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05E73BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05E77A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05E77A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05E7B8C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05E7B8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05E7F74(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05E7F74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05E835C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05E835C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05E8744(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05E8744(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05E8B2C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05E8B2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05E8EF8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05E8EF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05E92E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05E92E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05E96AC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05E96AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05E9A94(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05E9A94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05E9EAC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05E9EAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05EA2D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05EA2D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05EA6CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05EA6CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05EAA98(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05EAA98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05EAE64(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05EAE64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05EB24C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05EB24C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05EB634(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05EB634(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05EBA00(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05EBA00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05EBDE8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05EBDE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05EC200(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05EC200(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05EC5DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05EC5DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05EC9A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05EC9A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05ECD90(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05ECD90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05ED178(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05ED178(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05ED560(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05ED560(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05ED948(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05ED948(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05EDD30(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05EDD30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05EE118(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05EE118(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05EE500(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05EE500(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05EE8E8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05EE8E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05EECB4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05EECB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05EF080(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05EF080(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05EF468(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05EF468(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05EF850(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05EF850(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05EFC38(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05EFC38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05F0004(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05F0004(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05F03D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05F03D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05F07B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05F07B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05F0BA0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05F0BA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05F0F88(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05F0F88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05F1370(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05F1370(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05F1758(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05F1758(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05F1B40(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05F1B40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05F1F28(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05F1F28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05F2340(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05F2340(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05F271C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05F271C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05F2AE8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05F2AE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05F2EB4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05F2EB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05F3280(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05F3280(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05F364C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05F364C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05F3A34(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05F3A34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05F3E1C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05F3E1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05F4204(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05F4204(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05F45D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05F45D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05F49C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05F49C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05F4DAC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05F4DAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05F5178(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05F5178(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05F557C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05F557C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05F599C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05F599C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05F5D78(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05F5D78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05F6144(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05F6144(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05F6510(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05F6510(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05F68DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05F68DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05F6CC4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05F6CC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05F70DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05F70DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05F74B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05F74B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05F7884(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05F7884(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05F7C50(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05F7C50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05F801C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05F801C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05F8404(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05F8404(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05F87EC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05F87EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05F8BB8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05F8BB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E05F8F84(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_1E05F8F84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  (*(*v27 + 40))(v27);
+  (*(*v27 + 40))(v27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void GPURegionRuntime::setupFeedsAndTargets(void *a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, void *a4@<X3>, id **a5@<X8>)
+void GPURegionRuntime::setupFeedsAndTargets(void *a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, void *a4@<X3>, unint64_t *a5@<X8>)
 {
   v57 = a3;
   v59 = a4;
@@ -5921,7 +6623,7 @@ LABEL_53:
 
             v9 = (v34 + 16);
             *v58 = 0;
-            v58[1] = (v34 + 16);
+            v58[1] = v34 + 16;
             v58[2] = 0;
             if (v24)
             {
@@ -5988,7 +6690,7 @@ LABEL_4:
   _Block_object_dispose(v66, 8);
 }
 
-void sub_1E05F9528(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void **a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, id a31)
+void sub_1E05F9528(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id **a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, id a31)
 {
   _Block_object_dispose(&a26, 8);
 
@@ -5996,15 +6698,15 @@ void sub_1E05F9528(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void BaseRuntime::setTensorDataToDataMap(uint64_t a1, uint64_t a2, void *a3)
+void BaseRuntime::setTensorDataToDataMap(uint64_t a1, uint64_t *a2, void *a3)
 {
   v7 = a2;
   v6 = a3;
   v5 = *(mlir::Value::getParentRegion(&v7) + 2);
   v8 = &v5;
-  v4 = std::__hash_table<std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>,std::__unordered_map_hasher<mlir::Operation *,std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>,std::hash<mlir::Operation *>,std::equal_to<mlir::Operation *>,true>,std::__unordered_map_equal<mlir::Operation *,std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>,std::equal_to<mlir::Operation *>,std::hash<mlir::Operation *>,true>,std::allocator<std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>>>::__emplace_unique_key_args<mlir::Operation *,std::piecewise_construct_t const&,std::tuple<mlir::Operation * const&>,std::tuple<>>((a1 + 88), &v5);
+  v4 = std::__hash_table<std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>,std::__unordered_map_hasher<mlir::Operation *,std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>,std::hash<mlir::Operation *>,std::equal_to<mlir::Operation *>,true>,std::__unordered_map_equal<mlir::Operation *,std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>,std::equal_to<mlir::Operation *>,std::hash<mlir::Operation *>,true>,std::allocator<std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>>>::__emplace_unique_key_args<mlir::Operation *,std::piecewise_construct_t const&,std::tuple<mlir::Operation * const&>,std::tuple<>>((a1 + 88), &v5, &std::piecewise_construct, &v8);
   v8 = v7;
-  std::__hash_table<std::__hash_value_type<void *,MPSGraphTensorData * {__strong}>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,MPSGraphTensorData * {__strong}>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,MPSGraphTensorData * {__strong}>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,MPSGraphTensorData * {__strong}>>>::__emplace_unique_key_args<void *,void *,MPSGraphTensorData * {__strong}&>(v4 + 3, &v8);
+  std::__hash_table<std::__hash_value_type<void *,MPSGraphTensorData * {__strong}>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,MPSGraphTensorData * {__strong}>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,MPSGraphTensorData * {__strong}>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,MPSGraphTensorData * {__strong}>>>::__emplace_unique_key_args<void *,void *,MPSGraphTensorData * {__strong}&>(v4 + 3, &v8, &v8, &v6);
 }
 
 uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
@@ -6169,7 +6871,7 @@ id GPU::EncodeDescriptor::getcomputeEncoder(GPU::EncodeDescriptor *this)
   return v2;
 }
 
-void **std::vector<std::pair<MPSGraphTensorData * {__strong},MPSGraphTensorData * {__strong}>>::~vector[abi:ne200100](void **a1)
+id **std::vector<std::pair<MPSGraphTensorData * {__strong},MPSGraphTensorData * {__strong}>>::~vector[abi:ne200100](id **a1)
 {
   v2 = *a1;
   if (*a1)
@@ -6196,7 +6898,7 @@ void **std::vector<std::pair<MPSGraphTensorData * {__strong},MPSGraphTensorData 
   return a1;
 }
 
-id MPSRuntime::evaluateOps(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, void *a5, void *a6, void *a7, char a8, char a9, unsigned __int8 a10, BOOL *a11)
+id MPSRuntime::evaluateOps(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, void *a5, void *a6, void *a7, char a8, char a9, unsigned __int8 arg1, BOOL *a10)
 {
   v167 = a4;
   v166 = a5;
@@ -6297,9 +6999,9 @@ LABEL_17:
   if (v130)
   {
 LABEL_18:
-    if (a11)
+    if (a10)
     {
-      *a11 = 1;
+      *a10 = 1;
     }
 
     v29 = *(a1 + 208);
@@ -6668,7 +7370,7 @@ LABEL_112:
             v105 = llvm::dbgs(v94);
             v106 = mlir::OpPrintingFlags::OpPrintingFlags(v192);
             v107 = mlir::OpPrintingFlags::useLocalScope(v106);
-            v94 = mlir::Operation::print(v104, v105, v107);
+            mlir::Operation::print(v104, v105, v107);
             v108 = *(v105 + 4);
             if (*(v105 + 3) == v108)
             {
@@ -6750,7 +7452,7 @@ LABEL_118:
             v118 = llvm::dbgs(v94);
             v119 = mlir::OpPrintingFlags::OpPrintingFlags(v192);
             v120 = mlir::OpPrintingFlags::useLocalScope(v119);
-            v94 = mlir::Operation::print(v117, v118, v120);
+            mlir::Operation::print(v117, v118, v120);
             v121 = *(v118 + 4);
             if (*(v118 + 3) == v121)
             {
@@ -6921,7 +7623,7 @@ LABEL_80:
       v88 = llvm::dbgs(v82);
       v89 = mlir::OpPrintingFlags::OpPrintingFlags(v192);
       v90 = mlir::OpPrintingFlags::useLocalScope(v89);
-      v82 = mlir::Operation::print(v87, v88, v90);
+      mlir::Operation::print(v87, v88, v90);
       v91 = *(v88 + 4);
       if (*(v88 + 3) == v91)
       {
@@ -7058,7 +7760,7 @@ LABEL_96:
     {
       v150 = 2;
       v36 = v162;
-      v151 = a10;
+      v151 = arg1;
       v152 = v157;
     }
 
@@ -7087,13 +7789,13 @@ LABEL_96:
         }
       }
 
-      v151 = a10;
+      v151 = arg1;
     }
 
     GPU::ANERegionCallOpHandler::encodeOpWithInputsAndOutputs(v149, &v181, CurrentProcedureInfo, v160, v143, v150, v151);
-    if (a11)
+    if (a10)
     {
-      *a11 = v150 != 0;
+      *a10 = v150 != 0;
     }
 
     if (v188)
@@ -7114,36 +7816,38 @@ LABEL_144:
   return v36;
 }
 
-void sub_1E05FAD90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, void *a10, uint64_t a11, void *a12, void *a13, void *a14, uint64_t a15, void *a16, void *a17, void *a18, void *a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39)
+void sub_1E05FAD90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, void *a10, uint64_t a11, void *a12, void *a13, void *a14, uint64_t a15, void *a16, void *a17, void *a18, void *a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, ...)
 {
-  GPU::EncodeDescriptor::~EncodeDescriptor(&a39);
+  va_start(va, a38);
 
-  std::mutex::unlock((v39 + 144));
+  GPU::EncodeDescriptor::~EncodeDescriptor(va);
+  std::mutex::unlock((v38 + 144));
+
   _Unwind_Resume(a1);
 }
 
 id GPURegionRuntime::evaluateOps(uint64_t a1, GPU::EncodeDescriptor *a2, void *a3, void *a4)
 {
   v5 = a2;
-  v189[6] = *MEMORY[0x1E69E9840];
-  v176 = a2;
-  v164 = a3;
-  v161 = a4;
-  v167 = a1;
+  v186[6] = *MEMORY[0x1E69E9840];
+  v173 = a2;
+  v161 = a3;
+  v158 = a4;
+  v164 = a1;
   if (*(a1 + 240) != 1 || (*(a1 + 220) & 8) == 0)
   {
     goto LABEL_79;
   }
 
   v7 = *(*(a1 + 592) + 32);
-  v163 = v164;
-  v165 = v161;
+  v160 = v161;
+  v162 = v158;
   v8 = v7;
-  v177 = *v7[2];
-  mlir::FunctionOpInterface::getArgumentTypes(&v177);
+  v174 = **(v7 + 16);
+  mlir::FunctionOpInterface::getArgumentTypes(&v174);
   v10 = v9;
-  v183[0] = v184;
-  v183[1] = 0x600000000;
+  v180[0] = v181;
+  v180[1] = 0x600000000;
   v11 = v9;
   if (v9)
   {
@@ -7155,24 +7859,24 @@ id GPURegionRuntime::evaluateOps(uint64_t a1, GPU::EncodeDescriptor *a2, void *a
 
     else
     {
-      llvm::SmallVectorBase<unsigned int>::grow_pod(v183, v184, v9, 8);
-      v12 = LODWORD(v183[1]);
-      v13 = v11 - LODWORD(v183[1]);
-      if (v11 == LODWORD(v183[1]))
+      llvm::SmallVectorBase<unsigned int>::grow_pod(v180, v181, v9, 8);
+      v12 = LODWORD(v180[1]);
+      v13 = v11 - LODWORD(v180[1]);
+      if (v11 == LODWORD(v180[1]))
       {
         goto LABEL_9;
       }
     }
 
-    bzero(v183[0] + 8 * v12, 8 * v13);
+    bzero(v180[0] + 8 * v12, 8 * v13);
 LABEL_9:
-    LODWORD(v183[1]) = v10;
+    LODWORD(v180[1]) = v10;
   }
 
-  mlir::FunctionOpInterface::getArgumentTypes(&v177);
+  mlir::FunctionOpInterface::getArgumentTypes(&v174);
   v15 = v14;
-  v187 = v189;
-  v188 = 0x300000000;
+  v184 = v186;
+  v185 = 0x300000000;
   v16 = v14;
   if (!v14)
   {
@@ -7187,23 +7891,23 @@ LABEL_9:
 
   else
   {
-    llvm::SmallVectorBase<unsigned int>::grow_pod(&v187, v189, v14, 16);
-    v17 = v188;
-    v18 = v16 - v188;
-    if (v16 == v188)
+    llvm::SmallVectorBase<unsigned int>::grow_pod(&v184, v186, v14, 16);
+    v17 = v185;
+    v18 = v16 - v185;
+    if (v16 == v185)
     {
       goto LABEL_16;
     }
   }
 
-  bzero(&v187[2 * v17], 16 * v18);
+  bzero(&v184[16 * v17], 16 * v18);
 LABEL_16:
-  LODWORD(v188) = v15;
+  LODWORD(v185) = v15;
 LABEL_17:
-  mlir::FunctionOpInterface::getResultTypes(&v177);
+  mlir::FunctionOpInterface::getResultTypes(&v174);
   v20 = v19;
-  *&v185 = v186;
-  *(&v185 + 1) = 0x600000000;
+  *&v182 = v183;
+  *(&v182 + 1) = 0x600000000;
   v21 = v19;
   if (!v19)
   {
@@ -7218,29 +7922,29 @@ LABEL_17:
 
   else
   {
-    llvm::SmallVectorBase<unsigned int>::grow_pod(&v185, v186, v19, 8);
-    v22 = DWORD2(v185);
-    v23 = v21 - DWORD2(v185);
-    if (v21 == DWORD2(v185))
+    llvm::SmallVectorBase<unsigned int>::grow_pod(&v182, v183, v19, 8);
+    v22 = DWORD2(v182);
+    v23 = v21 - DWORD2(v182);
+    if (v21 == DWORD2(v182))
     {
       goto LABEL_23;
     }
   }
 
-  bzero((v185 + 8 * v22), 8 * v23);
+  bzero((v182 + 8 * v22), 8 * v23);
 LABEL_23:
-  DWORD2(v185) = v20;
+  DWORD2(v182) = v20;
 LABEL_24:
-  v162 = v5;
+  v159 = v5;
   for (i = 0; ; ++i)
   {
-    mlir::FunctionOpInterface::getArgumentTypes(&v177);
+    mlir::FunctionOpInterface::getArgumentTypes(&v174);
     if (i >= v25)
     {
       break;
     }
 
-    v26 = *(((v177 + 16 * ((*(v177 + 44) >> 23) & 1) + ((*(v177 + 44) >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(v177 + 40) + 8);
+    v26 = *(((v174 + 16 * ((*(v174 + 44) >> 23) & 1) + ((*(v174 + 44) >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(v174 + 40) + 8);
     if (v26)
     {
       v27 = v26 - 8;
@@ -7265,19 +7969,19 @@ LABEL_24:
     if (mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v28 + 8))
     {
       v30 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v28 + 8);
-      v179 = v28;
-      v180 = v30;
+      v176 = v28;
+      v177 = v30;
       if (!v28)
       {
         goto LABEL_44;
       }
 
-      if (!mlir::CallOpInterface::getArgOperands(&v179))
+      if (!mlir::CallOpInterface::getArgOperands(&v176))
       {
         goto LABEL_43;
       }
 
-      ArgAttrsAttr = mlir::CallableOpInterface::getArgAttrsAttr(&v179);
+      ArgAttrsAttr = mlir::CallableOpInterface::getArgAttrsAttr(&v176);
       if (v32)
       {
         v33 = 8 * v32;
@@ -7293,36 +7997,36 @@ LABEL_24:
 
 LABEL_43:
         Context = mlir::Attribute::getContext((*(v8[1] + 64) + 24));
-        v35 = [v163 objectAtIndexedSubscript:i];
+        v35 = [v160 objectAtIndexedSubscript:i];
         v36 = [v35 shape];
-        v37 = [v163 objectAtIndexedSubscript:i];
+        v37 = [v160 objectAtIndexedSubscript:i];
         v38 = [v37 dataType];
         v39 = v36;
         MLIRElementType = getMLIRElementType(Context, v38);
         MLIRType = getMLIRType(v39, MLIRElementType);
 
-        *(v183[0] + i) = MLIRType;
+        *(v180[0] + i) = MLIRType;
       }
     }
 
     else
     {
-      v179 = 0;
-      v180 = 0;
+      v176 = 0;
+      v177 = 0;
     }
 
 LABEL_44:
     v42 = v8[1];
     if ((*(v42 + 220) & 0x10) != 0 && GPURegionRuntime::isSmallIntType(v42, v28, 0))
     {
-      v43 = [v163 objectAtIndexedSubscript:i];
+      v43 = [v160 objectAtIndexedSubscript:i];
       v44 = [v43 mpsndarray];
-      v179 = v28;
-      v180 = v29;
+      v176 = v28;
+      v177 = v29;
       v45 = v44;
-      v46 = mlir::CallableOpInterface::getArgAttrsAttr(&v179);
+      v46 = mlir::CallableOpInterface::getArgAttrsAttr(&v176);
       NumElements = mlir::ShapedType::getNumElements(v46, v47);
-      isSplat = mlir::ElementsAttr::isSplat(&v179);
+      isSplat = mlir::ElementsAttr::isSplat(&v176);
       IntOrFloatBitWidth = mlir::Type::getIntOrFloatBitWidth(&isSplat);
       v50 = NumElements * IntOrFloatBitWidth;
       if (v50 >= 0)
@@ -7339,241 +8043,241 @@ LABEL_44:
       v53 = v51 >> 3;
       v54 = [v52 newBufferWithLength:v53 options:0];
 
-      v55 = *(v162 + 9);
+      v55 = *(v159 + 9);
       if (v55)
       {
         [v55 endEncoding];
-        v56 = *(v162 + 9);
-        *(v162 + 9) = 0;
+        v56 = *(v159 + 9);
+        *(v159 + 9) = 0;
       }
 
-      v57 = *(v162 + 1);
-      v58 = mlir::ElementsAttr::isSplat(&v179);
+      v57 = *(v159 + 1);
+      v58 = mlir::ElementsAttr::isSplat(&v176);
       [v45 exportDataWithCommandBuffer:v57 toBuffer:v54 destinationDataType:getMPSDataType(v58) offset:0 rowStrides:0];
-      v59 = [*(v162 + 1) rootCommandBuffer];
-      (**v162)(v162);
+      v59 = [*(v159 + 1) rootCommandBuffer];
+      (**v159)(v159);
       [v59 waitUntilCompleted];
       v60 = v54;
       v61 = [v54 contents];
-      v65 = mlir::DenseElementsAttr::getFromRawBuffer(v179, v180, v61, v53, v62, v63, v64);
-      v66 = v65;
-      if (v65)
+      v62 = mlir::DenseElementsAttr::getFromRawBuffer(v176, v177, v61, v53);
+      v63 = v62;
+      if (v62)
       {
-        v67 = mlir::detail::InterfaceMap::lookup<mlir::ElementsAttr>(*v65 + 8);
+        v64 = mlir::detail::InterfaceMap::lookup<mlir::ElementsAttr>(*v62 + 8);
       }
 
       else
       {
-        v67 = 0;
+        v64 = 0;
       }
 
-      v68 = &v187[2 * i];
-      *v68 = v66;
-      v68[1] = v67;
+      v65 = &v184[16 * i];
+      *v65 = v63;
+      *(v65 + 1) = v64;
     }
   }
 
   for (j = 0; ; ++j)
   {
-    mlir::FunctionOpInterface::getResultTypes(&v177);
-    if (j == v70)
+    mlir::FunctionOpInterface::getResultTypes(&v174);
+    if (j == v67)
     {
       break;
     }
 
-    v71 = [v165 objectAtIndexedSubscript:j];
-    v72 = [MEMORY[0x1E695DFB0] null];
-    v73 = v71 == v72;
+    v68 = [v162 objectAtIndexedSubscript:j];
+    v69 = [MEMORY[0x1E695DFB0] null];
+    v70 = v68 == v69;
 
-    if (v73)
+    if (v70)
     {
       continue;
     }
 
-    v74 = (*(*(*(*(v8[2] + 16) + 72) + 32 * j + 24) + 8) & 0xFFFFFFFFFFFFFFF8);
-    if (v74)
+    v71 = (*(*(*(*(v8[2] + 16) + 72) + 32 * j + 24) + 8) & 0xFFFFFFFFFFFFFFF8);
+    if (v71)
     {
-      mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v74 + 8);
+      mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v71 + 8);
     }
 
-    if (!mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v74 + 8))
+    if (!mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v71 + 8))
     {
-      v179 = 0;
-      v180 = 0;
+      v176 = 0;
+      v177 = 0;
       continue;
     }
 
-    v75 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v74 + 8);
-    v179 = v74;
-    v180 = v75;
-    if (v74)
+    v72 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v71 + 8);
+    v176 = v71;
+    v177 = v72;
+    if (v71)
     {
-      if (mlir::CallOpInterface::getArgOperands(&v179))
+      if (mlir::CallOpInterface::getArgOperands(&v176))
       {
-        v76 = mlir::CallableOpInterface::getArgAttrsAttr(&v179);
-        if (!v77)
+        v73 = mlir::CallableOpInterface::getArgAttrsAttr(&v176);
+        if (!v74)
         {
           continue;
         }
 
-        v78 = 8 * v77;
-        while (*v76 != 0x8000000000000000)
+        v75 = 8 * v74;
+        while (*v73 != 0x8000000000000000)
         {
-          ++v76;
-          v78 -= 8;
-          if (!v78)
+          ++v73;
+          v75 -= 8;
+          if (!v75)
           {
             goto LABEL_56;
           }
         }
       }
 
-      v79 = mlir::Attribute::getContext((*(v8[1] + 64) + 24));
-      v80 = [v165 objectAtIndexedSubscript:j];
-      v81 = [v80 shape];
-      v82 = [v165 objectAtIndexedSubscript:j];
-      v83 = [v82 dataType];
-      v84 = v81;
-      v85 = getMLIRElementType(v79, v83);
-      v86 = getMLIRType(v84, v85);
+      v76 = mlir::Attribute::getContext((*(v8[1] + 64) + 24));
+      v77 = [v162 objectAtIndexedSubscript:j];
+      v78 = [v77 shape];
+      v79 = [v162 objectAtIndexedSubscript:j];
+      v80 = [v79 dataType];
+      v81 = v78;
+      v82 = getMLIRElementType(v76, v80);
+      v83 = getMLIRType(v81, v82);
 
-      *(v185 + 8 * j) = v86;
+      *(v182 + 8 * j) = v83;
     }
 
 LABEL_56:
     ;
   }
 
-  (*(*v8 + 16))(v8, v183[0], LODWORD(v183[1]), v187, v188, v185, DWORD2(v185));
-  if (v185 != v186)
+  (*(*v8 + 16))(v8, v180[0], LODWORD(v180[1]), v184, v185, v182, DWORD2(v182));
+  if (v182 != v183)
   {
-    free(v185);
+    free(v182);
   }
 
-  if (v187 != v189)
+  if (v184 != v186)
   {
-    free(v187);
+    free(v184);
   }
 
-  if (v183[0] != v184)
+  if (v180[0] != v181)
   {
-    free(v183[0]);
+    free(v180[0]);
   }
 
-  v5 = v176;
+  v5 = v173;
 LABEL_79:
-  GPURegionRuntime::setupFeedsAndTargets(v167, v5, v164, v161, &v187);
-  v175[9] = 0;
-  v175[10] = 0;
-  if (*(*(v167 + 592) + 40) == 1)
+  GPURegionRuntime::setupFeedsAndTargets(v164, v5, v161, v158, &v184);
+  v172[9] = 0;
+  v172[10] = 0;
+  if (*(*(v164 + 592) + 40) == 1)
   {
-    v179 = 0;
+    v176 = 0;
     LODWORD(isSplat) = 536870920;
-    v185 = 0uLL;
-    v186[0] = 0;
+    v182 = 0uLL;
+    v183[0] = 0;
     operator new();
   }
 
-  v175[0] = 13;
-  v174 = 45;
-  v173 = 8;
-  v172 = 300000;
-  v171 = 200000;
-  v169 = 0;
-  v170 = 30000000;
-  WeakRetained = objc_loadWeakRetained((v167 + 72));
+  v172[0] = 13;
+  v171 = 45;
+  v170 = 8;
+  v169 = 300000;
+  v168 = 200000;
+  v166 = 0;
+  v167 = 30000000;
+  WeakRetained = objc_loadWeakRetained((v164 + 72));
   os_unfair_lock_lock(WeakRetained + 204);
 
-  v88 = objc_loadWeakRetained((v167 + 72));
-  v169 = v88[103];
+  v85 = objc_loadWeakRetained((v164 + 72));
+  v166 = v85[103];
 
-  v89 = objc_loadWeakRetained((v167 + 72));
-  os_unfair_lock_unlock(v89 + 204);
+  v86 = objc_loadWeakRetained((v164 + 72));
+  os_unfair_lock_unlock(v86 + 204);
 
-  v166 = [MEMORY[0x1E695E0F0] mutableCopy];
-  v90 = *(v176 + 1);
-  if (v90)
+  v163 = [MEMORY[0x1E695E0F0] mutableCopy];
+  v87 = *(v173 + 1);
+  if (v87)
   {
-    [v90 mpsCommandBufferDescriptor];
+    objc_msgSend_mpsCommandBufferDescriptor(v87);
   }
 
   else
   {
-    v183[0] = 0;
-    v183[1] = 0;
-    v184[0] = 0;
+    v180[0] = 0;
+    v180[1] = 0;
+    v181[0] = 0;
   }
 
-  *(v167 + 656) = *v183;
-  *(v167 + 672) = v184[0];
-  if (!*(v167 + 656))
+  *(v164 + 656) = *v180;
+  *(v164 + 672) = v181[0];
+  if (!*(v164 + 656))
   {
-    v91 = v169 == 0;
-    v92 = v175;
-    if (!v169)
+    v88 = v166 == 0;
+    v89 = v172;
+    if (!v166)
     {
-      v92 = &v173;
+      v89 = &v170;
     }
 
-    *(v167 + 656) = *v92 >> 1;
-    v93 = &v172;
-    if (v91)
+    *(v164 + 656) = *v89 >> 1;
+    v90 = &v169;
+    if (v88)
     {
-      v93 = &v171;
+      v90 = &v168;
     }
 
-    *(v167 + 664) = *v93 >> 1;
+    *(v164 + 664) = *v90 >> 1;
   }
 
-  (*(*v176 + 8))(v176);
-  v94 = 0;
-  v185 = **(v167 + 592);
+  (*(*v173 + 8))(v173);
+  v91 = 0;
+  v182 = **(v164 + 592);
   while (2)
   {
-    mlir::FunctionOpInterface::getArgumentTypes(&v185);
-    v96 = v185;
-    v97 = ((v96 + 16 * ((*(v96 + 44) >> 23) & 1) + ((*(v96 + 44) >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(v96 + 40);
-    if (v94 < v95)
+    mlir::FunctionOpInterface::getArgumentTypes(&v182);
+    v92 = v182;
+    v93 = ((v92 + 16 * ((*(v92 + 44) >> 23) & 1) + ((*(v92 + 44) >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(v92 + 40);
+    if (v91 < v94)
     {
-      v98 = *(v97 + 8);
-      if (v98)
+      v95 = *(v93 + 8);
+      if (v95)
       {
-        v99 = v98 - 8;
+        v96 = v95 - 8;
       }
 
       else
       {
-        v99 = 0;
+        v96 = 0;
       }
 
-      v100 = *(*(v99 + 48) + 8 * v94);
-      if ((*(**(*(v167 + 592) + 32) + 24))(*(*(v167 + 592) + 32), v100))
+      v97 = *(*(v96 + 48) + 8 * v91);
+      if ((*(**(*(v164 + 592) + 32) + 24))(*(*(v164 + 592) + 32), v97))
       {
         goto LABEL_91;
       }
 
-      v101 = (v100[1] & 0xFFFFFFFFFFFFFFF8);
-      if (mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v101 + 8))
+      v98 = (v97[1] & 0xFFFFFFFFFFFFFFF8);
+      if (mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v98 + 8))
       {
-        v102 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v101 + 8);
-        v183[0] = v101;
-        v183[1] = v102;
-        if (!v101)
+        v99 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v98 + 8);
+        v180[0] = v98;
+        v180[1] = v99;
+        if (!v98)
         {
           goto LABEL_91;
         }
 
-        if (mlir::CallOpInterface::getArgOperands(v183))
+        if (mlir::CallOpInterface::getArgOperands(v180))
         {
-          v103 = mlir::CallableOpInterface::getArgAttrsAttr(v183);
-          if (v104)
+          v100 = mlir::CallableOpInterface::getArgAttrsAttr(v180);
+          if (v101)
           {
-            v105 = 8 * v104;
-            while (*v103 != 0x8000000000000000)
+            v102 = 8 * v101;
+            while (*v100 != 0x8000000000000000)
             {
-              ++v103;
-              v105 -= 8;
-              if (!v105)
+              ++v100;
+              v102 -= 8;
+              if (!v102)
               {
                 goto LABEL_91;
               }
@@ -7586,241 +8290,241 @@ LABEL_79:
         else
         {
 LABEL_107:
-          v106 = mlir::Attribute::getContext((*(v167 + 64) + 24));
-          v107 = [v164 objectAtIndexedSubscript:v94];
-          v108 = [v107 shape];
-          v109 = [v164 objectAtIndexedSubscript:v94];
-          v110 = [v109 dataType];
-          v111 = v108;
-          v112 = getMLIRElementType(v106, v110);
-          v113 = getMLIRType(v111, v112);
+          v103 = mlir::Attribute::getContext((*(v164 + 64) + 24));
+          v104 = [v161 objectAtIndexedSubscript:v91];
+          v105 = [v104 shape];
+          v106 = [v161 objectAtIndexedSubscript:v91];
+          v107 = [v106 dataType];
+          v108 = v105;
+          v109 = getMLIRElementType(v103, v107);
+          v110 = getMLIRType(v108, v109);
 
-          v179 = v100;
-          *&v177 = v113;
-          isSplat = *(mlir::Value::getParentRegion(&v179) + 2);
-          v183[0] = &isSplat;
-          v114 = std::__hash_table<std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,mlir::Type>>,std::__unordered_map_hasher<mlir::Operation *,std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,mlir::Type>>,std::hash<mlir::Operation *>,std::equal_to<mlir::Operation *>,true>,std::__unordered_map_equal<mlir::Operation *,std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,mlir::Type>>,std::equal_to<mlir::Operation *>,std::hash<mlir::Operation *>,true>,std::allocator<std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,mlir::Type>>>>::__emplace_unique_key_args<mlir::Operation *,std::piecewise_construct_t const&,std::tuple<mlir::Operation * const&>,std::tuple<>>((v167 + 288), &isSplat);
-          v183[0] = v179;
-          std::__hash_table<std::__hash_value_type<void *,mlir::Type>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,mlir::Type>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,mlir::Type>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,mlir::Type>>>::__emplace_unique_key_args<void *,void *,mlir::Type&>(v114 + 3, v183);
+          v176 = v97;
+          *&v174 = v110;
+          isSplat = *(mlir::Value::getParentRegion(&v176) + 2);
+          v180[0] = &isSplat;
+          v111 = std::__hash_table<std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,mlir::Type>>,std::__unordered_map_hasher<mlir::Operation *,std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,mlir::Type>>,std::hash<mlir::Operation *>,std::equal_to<mlir::Operation *>,true>,std::__unordered_map_equal<mlir::Operation *,std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,mlir::Type>>,std::equal_to<mlir::Operation *>,std::hash<mlir::Operation *>,true>,std::allocator<std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,mlir::Type>>>>::__emplace_unique_key_args<mlir::Operation *,std::piecewise_construct_t const&,std::tuple<mlir::Operation * const&>,std::tuple<>>((v164 + 288), &isSplat, &std::piecewise_construct, v180);
+          v180[0] = v176;
+          std::__hash_table<std::__hash_value_type<void *,mlir::Type>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,mlir::Type>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,mlir::Type>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,mlir::Type>>>::__emplace_unique_key_args<void *,void *,mlir::Type&>(v111 + 3, v180, v180, &v174);
         }
       }
 
       else
       {
-        v183[0] = 0;
-        v183[1] = 0;
+        v180[0] = 0;
+        v180[1] = 0;
       }
 
 LABEL_91:
-      ++v94;
+      ++v91;
       continue;
     }
 
     break;
   }
 
-  v183[0] = &v185;
-  v183[1] = v175;
-  v184[0] = &v172;
-  v184[1] = &v169;
-  v184[2] = &v173;
-  v184[3] = &v171;
-  v184[4] = v167;
-  v184[5] = &v176;
-  v184[6] = &v174;
-  v184[7] = &v170;
-  v115 = *(v97 + 8);
-  if (v115 != v97)
+  v180[0] = &v182;
+  v180[1] = v172;
+  v181[0] = &v169;
+  v181[1] = &v166;
+  v181[2] = &v170;
+  v181[3] = &v168;
+  v181[4] = v164;
+  v181[5] = &v173;
+  v181[6] = &v171;
+  v181[7] = &v167;
+  v112 = *(v93 + 8);
+  if (v112 != v93)
   {
     do
     {
-      v116 = v115 - 8;
-      if (!v115)
+      v113 = v112 - 8;
+      if (!v112)
       {
-        v116 = 0;
+        v113 = 0;
       }
 
-      v117 = *(v116 + 40);
-      v118 = v116 + 32;
-      if (v117 != v116 + 32)
+      v114 = *(v113 + 40);
+      v115 = v113 + 32;
+      if (v114 != v113 + 32)
       {
         do
         {
-          v119 = *(v117 + 8);
-          v120 = MPSGraphDelegateCompiler.precompilationDescriptor.modify(v117, v95);
-          mlir::detail::walk<mlir::ForwardIterator>(v120, llvm::function_ref<void ()(mlir::Operation *)>::callback_fn<GPURegionRuntime::evaluateOps(GPU::EncodeDescriptor *,NSArray<MPSGraphTensorData *> *,NSArray<MPSGraphTensorData *> *)::$_1::operator() const(mlir::FunctionOpInterface)::{lambda(mlir::Operation *)#1}>, v183, 1);
-          v117 = v119;
+          v116 = *(v114 + 8);
+          MPSGraphDelegateCompiler.precompilationDescriptor.modify();
+          mlir::detail::walk<mlir::ForwardIterator>(v117, llvm::function_ref<void ()(mlir::Operation *)>::callback_fn<GPURegionRuntime::evaluateOps(GPU::EncodeDescriptor *,NSArray<MPSGraphTensorData *> *,NSArray<MPSGraphTensorData *> *)::$_1::operator() const(mlir::FunctionOpInterface)::{lambda(mlir::Operation *)#1}>, v180, 1);
+          v114 = v116;
         }
 
-        while (v119 != v118);
+        while (v116 != v115);
       }
 
-      v115 = *(v115 + 8);
+      v112 = *(v112 + 8);
     }
 
-    while (v115 != v97);
-    v96 = v185;
+    while (v112 != v93);
+    v92 = v182;
   }
 
-  v121 = *(((v96 + 16 * ((*(v96 + 44) >> 23) & 1) + ((*(v96 + 44) >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(v96 + 40) + 8);
-  if (v121)
+  v118 = *(((v92 + 16 * ((*(v92 + 44) >> 23) & 1) + ((*(v92 + 44) >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(v92 + 40) + 8);
+  if (v118)
   {
-    v122 = (v121 - 8);
+    v119 = (v118 - 8);
   }
 
   else
   {
-    v122 = 0;
+    v119 = 0;
   }
 
-  Terminator = mlir::Block::getTerminator(v122, v95);
-  if ((*(Terminator + 46) & 0x80) != 0)
+  mlir::Block::getTerminator(v119);
+  if ((*(v120 + 46) & 0x80) != 0)
   {
-    v124 = *(Terminator + 68);
-    if (v124)
+    v121 = *(v120 + 68);
+    if (v121)
     {
-      v125 = (*(Terminator + 72) + 24);
+      v122 = (*(v120 + 72) + 24);
       do
       {
-        v126 = (*(*v167 + 48))(v167, *v125, 0);
-        [v166 addObject:v126];
+        v123 = (*(*v164 + 48))(v164, *v122, 0);
+        [v163 addObject:v123];
 
-        v125 += 4;
-        --v124;
+        v122 += 4;
+        --v121;
       }
 
-      while (v124);
+      while (v121);
     }
   }
 
-  v127 = *(v176 + 1);
-  *v183 = *(v167 + 656);
-  v184[0] = *(v167 + 672);
-  [v127 setMpsCommandBufferDescriptor:v183];
-  v128 = [*(v167 + 128) allKeys];
-  if (![v128 count] && v188 == v187)
+  v124 = *(v173 + 1);
+  *v180 = *(v164 + 656);
+  v181[0] = *(v164 + 672);
+  [v124 setMpsCommandBufferDescriptor:v180];
+  v125 = [*(v164 + 128) allKeys];
+  if (![v125 count] && v185 == v184)
   {
-    v131 = 0;
+    v128 = 0;
   }
 
   else
   {
-    v129 = objc_alloc(MEMORY[0x1E6974740]);
-    v130 = [*(v176 + 1) device];
-    v131 = [v129 initWithDevice:v130];
+    v126 = objc_alloc(MEMORY[0x1E6974740]);
+    v127 = [*(v173 + 1) device];
+    v128 = [v126 initWithDevice:v127];
   }
 
-  if ([v128 count])
+  if ([v125 count])
   {
-    for (k = 0; k < [v128 count]; ++k)
+    for (k = 0; k < [v125 count]; ++k)
     {
-      v133 = [v128 objectAtIndexedSubscript:k];
-      v134 = [*(v167 + 128) objectForKeyedSubscript:v133];
-      v135 = [v134 mpsndarray];
+      v130 = [v125 objectAtIndexedSubscript:k];
+      v131 = [*(v164 + 128) objectForKeyedSubscript:v130];
+      v132 = [v131 mpsndarray];
 
-      v136 = [v133 variable];
-      v137 = [*(v176 + 1) device];
-      v138 = [v136 mpsNDArrayWithDevice:v137];
+      v133 = [v130 variable];
+      v134 = [*(v173 + 1) device];
+      v135 = [v133 mpsNDArrayWithDevice:v134];
 
-      v139 = GPU::EncodeDescriptor::getcomputeEncoder(v176);
-      v140 = *(v176 + 1);
-      v182 = v135;
-      v141 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v182 count:1];
-      [v131 encodeToMPSCommandEncoder:v139 commandBuffer:v140 sourceArrays:v141 resultState:0 destinationArray:v138 kernelDAGObject:0];
+      v136 = GPU::EncodeDescriptor::getcomputeEncoder(v173);
+      v137 = *(v173 + 1);
+      v179 = v132;
+      v138 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v179 count:1];
+      [v128 encodeToMPSCommandEncoder:v136 commandBuffer:v137 sourceArrays:v138 resultState:0 destinationArray:v135 kernelDAGObject:0];
     }
   }
 
-  if (v188 != v187)
+  if (v185 != v184)
   {
-    v142 = 0;
-    v143 = 0;
+    v139 = 0;
+    v140 = 0;
     do
     {
-      v144 = GPU::EncodeDescriptor::getcomputeEncoder(v176);
-      if (v143 >= (v188 - v187) >> 4)
+      v141 = GPU::EncodeDescriptor::getcomputeEncoder(v173);
+      if (v140 >= (v185 - v184) >> 4)
       {
         std::vector<std::pair<MPSGraphTensorData * {__strong},MPSGraphTensorData * {__strong}>>::__throw_out_of_range[abi:ne200100]();
       }
 
-      v145 = *(v176 + 1);
-      v146 = [v187[v142] mpsndarray];
-      v181 = v146;
-      v147 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v181 count:1];
-      if (v143 >= (v188 - v187) >> 4)
+      v142 = *(v173 + 1);
+      v143 = [*&v184[v139] mpsndarray];
+      v178 = v143;
+      v144 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v178 count:1];
+      if (v140 >= (v185 - v184) >> 4)
       {
         std::vector<std::pair<MPSGraphTensorData * {__strong},MPSGraphTensorData * {__strong}>>::__throw_out_of_range[abi:ne200100]();
       }
 
-      v148 = [v187[v142 + 1] mpsndarray];
-      [v131 encodeToMPSCommandEncoder:v144 commandBuffer:v145 sourceArrays:v147 destinationArray:v148];
+      v145 = [*&v184[v139 + 8] mpsndarray];
+      [v128 encodeToMPSCommandEncoder:v141 commandBuffer:v142 sourceArrays:v144 destinationArray:v145];
 
-      ++v143;
-      v142 += 2;
+      ++v140;
+      v139 += 16;
     }
 
-    while (v143 < (v188 - v187) >> 4);
+    while (v140 < (v185 - v184) >> 4);
   }
 
-  v149 = v176;
-  v150 = *(v176 + 9);
-  if (v150)
+  v146 = v173;
+  v147 = *(v173 + 9);
+  if (v147)
   {
-    [v150 endEncoding];
-    v151 = *(v149 + 9);
-    *(v149 + 9) = 0;
+    [v147 endEncoding];
+    v148 = *(v146 + 9);
+    *(v146 + 9) = 0;
 
-    v149 = v176;
+    v146 = v173;
   }
 
-  v152 = *(v167 + 136);
-  v168[0] = MEMORY[0x1E69E9820];
-  v168[1] = 3221225472;
-  v168[2] = ___ZN16GPURegionRuntime11evaluateOpsEPN3GPU16EncodeDescriptorEP7NSArrayIP18MPSGraphTensorDataES7__block_invoke;
-  v168[3] = &__block_descriptor_40_e35_v32__0__MPSGraphTensorData_8Q16_B24l;
-  v168[4] = v149;
-  [v152 enumerateObjectsUsingBlock:v168];
-  (*(*v167 + 88))(v167);
-  v153 = v176;
-  v154 = *(v176 + 9);
-  if (v154)
+  v149 = *(v164 + 136);
+  v165[0] = MEMORY[0x1E69E9820];
+  v165[1] = 3221225472;
+  v165[2] = ___ZN16GPURegionRuntime11evaluateOpsEPN3GPU16EncodeDescriptorEP7NSArrayIP18MPSGraphTensorDataES7__block_invoke;
+  v165[3] = &__block_descriptor_40_e35_v32__0__MPSGraphTensorData_8Q16_B24l;
+  v165[4] = v146;
+  [v149 enumerateObjectsUsingBlock:v165];
+  (*(*v164 + 88))(v164);
+  v150 = v173;
+  v151 = *(v173 + 9);
+  if (v151)
   {
-    [v154 endEncoding];
-    v155 = *(v153 + 9);
-    *(v153 + 9) = 0;
+    [v151 endEncoding];
+    v152 = *(v150 + 9);
+    *(v150 + 9) = 0;
   }
 
-  v156 = v187;
-  if (v187)
+  v153 = v184;
+  if (v184)
   {
-    v157 = v188;
-    v158 = v187;
-    if (v188 != v187)
+    v154 = v185;
+    v155 = v184;
+    if (v185 != v184)
     {
       do
       {
 
-        v159 = *(v157 - 2);
-        v157 -= 2;
+        v156 = *(v154 - 2);
+        v154 -= 2;
       }
 
-      while (v157 != v156);
-      v158 = v187;
+      while (v154 != v153);
+      v155 = v184;
     }
 
-    v188 = v156;
-    operator delete(v158);
+    v185 = v153;
+    operator delete(v155);
   }
 
-  return v166;
+  return v163;
 }
 
-void sub_1E05FC2F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, void *a15, void *a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_1E05FC2F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, void *a11, void *a12, void *a13, uint64_t a14, void *a15, void *a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  v69 = *(v67 - 240);
-  if (v69 == a10)
+  v67 = *(v65 - 240);
+  if (v67 == a10)
   {
-    v70 = *(v67 - 176);
-    if (v70 == a11)
+    v68 = *(v65 - 176);
+    if (v68 == a11)
     {
       goto LABEL_3;
     }
@@ -7828,13 +8532,13 @@ void sub_1E05FC2F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
   else
   {
-    free(v69);
-    v70 = *(v67 - 176);
-    if (v70 == a11)
+    free(v67);
+    v68 = *(v65 - 176);
+    if (v68 == a11)
     {
 LABEL_3:
-      v71 = a67;
-      if (a67 == a12)
+      v69 = a65;
+      if (a65 == a12)
       {
         goto LABEL_5;
       }
@@ -7843,9 +8547,9 @@ LABEL_3:
     }
   }
 
-  free(v70);
-  v71 = a67;
-  if (a67 == a12)
+  free(v68);
+  v69 = a65;
+  if (a65 == a12)
   {
 LABEL_5:
 
@@ -7853,15 +8557,15 @@ LABEL_5:
   }
 
 LABEL_4:
-  free(v71);
+  free(v69);
   goto LABEL_5;
 }
 
-uint64_t ___ZN10MPSRuntime11evaluateOpsEN4mlir4func6FuncOpEP21RuntimeSpecializationP7NSArrayIP18MPSGraphTensorDataES9_P37MPSGraphExecutableExecutionDescriptorP16MPSCommandBufferbbbPb_block_invoke_2(uint64_t result, void *a2)
+id *___ZN10MPSRuntime11evaluateOpsEN4mlir4func6FuncOpEP21RuntimeSpecializationP7NSArrayIP18MPSGraphTensorDataES9_P37MPSGraphExecutableExecutionDescriptorP16MPSCommandBufferbbbPb_block_invoke_2(id *result, void *a2)
 {
   if (!a2[2])
   {
-    return [*(result + 32) encodeSignalEvent:a2[1] value:a2[3]];
+    return [result[4] encodeSignalEvent:a2[1] value:a2[3]];
   }
 
   return result;
@@ -7869,8 +8573,8 @@ uint64_t ___ZN10MPSRuntime11evaluateOpsEN4mlir4func6FuncOpEP21RuntimeSpecializat
 
 void GPURegionRuntime::encodeOp(GPURegionRuntime *this, mlir::Block **a2, id *a3)
 {
-  v48 = *MEMORY[0x1E69E9840];
-  v43 = a2;
+  v49 = *MEMORY[0x1E69E9840];
+  v44 = a2;
   v5 = *(a2[6] + 2);
   v6 = v5 == &mlir::detail::TypeIDResolver<mlir::placement::RegionCall,void>::id || v5 == &mlir::detail::TypeIDResolver<mlir::mpsx::MemrefBackedOp,void>::id;
   v7 = v6;
@@ -7880,45 +8584,46 @@ void GPURegionRuntime::encodeOp(GPURegionRuntime *this, mlir::Block **a2, id *a3
   }
 
   v8 = a2;
-  if (mlir::Block::getTerminator(a2[2], a2) == a2)
+  mlir::Block::getTerminator(a2[2]);
+  if (v9 == v8)
   {
     goto LABEL_27;
   }
 
   if (mlir::OpInterface<mlir::MemoryEffectOpInterface,mlir::detail::MemoryEffectOpInterfaceInterfaceTraits>::getInterfaceFor(v8))
   {
-    v44.n128_u64[0] = v8;
-    v44.n128_u64[1] = mlir::OpInterface<mlir::MemoryEffectOpInterface,mlir::detail::MemoryEffectOpInterfaceInterfaceTraits>::getInterfaceFor(v8);
+    v45.n128_u64[0] = v8;
+    v45.n128_u64[1] = mlir::OpInterface<mlir::MemoryEffectOpInterface,mlir::detail::MemoryEffectOpInterfaceInterfaceTraits>::getInterfaceFor(v8);
     if (!v8)
     {
       goto LABEL_36;
     }
 
-    __dst[0] = &v46;
+    __dst[0] = &v47;
     __dst[1] = 0x400000000;
-    mlir::RegionBranchOpInterface::getEntrySuccessorOperands(&v44, __dst);
-    v9 = __dst[0];
+    mlir::RegionBranchOpInterface::getEntrySuccessorOperands(&v45, __dst);
+    v10 = __dst[0];
     if (LODWORD(__dst[1]))
     {
-      v10 = 40 * LODWORD(__dst[1]) - 40;
+      v11 = 40 * LODWORD(__dst[1]) - 40;
       do
       {
-        v11 = **v9;
+        v12 = **v10;
         {
-          v14 = llvm::getTypeName<mlir::MemoryEffects::Read>();
-          mlir::detail::TypeIDResolver<mlir::MemoryEffects::Read,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v14, v15);
+          v15 = llvm::getTypeName<mlir::MemoryEffects::Read>();
+          mlir::detail::TypeIDResolver<mlir::MemoryEffects::Read,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v15, v16);
         }
 
-        v6 = v11 == mlir::detail::TypeIDResolver<mlir::MemoryEffects::Read,void>::resolveTypeID(void)::id;
-        v12 = v11 != mlir::detail::TypeIDResolver<mlir::MemoryEffects::Read,void>::resolveTypeID(void)::id;
-        v13 = !v6 || v10 == 0;
-        v10 -= 40;
-        v9 += 5;
+        v6 = v12 == mlir::detail::TypeIDResolver<mlir::MemoryEffects::Read,void>::resolveTypeID(void)::id;
+        v13 = v12 != mlir::detail::TypeIDResolver<mlir::MemoryEffects::Read,void>::resolveTypeID(void)::id;
+        v14 = !v6 || v11 == 0;
+        v11 -= 40;
+        v10 += 5;
       }
 
-      while (!v13);
-      v9 = __dst[0];
-      if (__dst[0] == &v46)
+      while (!v14);
+      v10 = __dst[0];
+      if (__dst[0] == &v47)
       {
         goto LABEL_26;
       }
@@ -7926,151 +8631,151 @@ void GPURegionRuntime::encodeOp(GPURegionRuntime *this, mlir::Block **a2, id *a3
 
     else
     {
-      v12 = 0;
-      if (__dst[0] == &v46)
+      v13 = 0;
+      if (__dst[0] == &v47)
       {
         goto LABEL_26;
       }
     }
 
-    free(v9);
+    free(v10);
 LABEL_26:
-    if (v12)
+    if (v13)
     {
       goto LABEL_27;
     }
 
-    v8 = v43;
+    v8 = v44;
     goto LABEL_36;
   }
 
-  v44 = 0uLL;
+  v45 = 0uLL;
 LABEL_36:
-  v25 = *(v8 + 9);
-  v24 = (v8 + 36);
-  v23 = v25;
-  if (v25)
+  v26 = *(v8 + 9);
+  v25 = v8 + 9;
+  v24 = v26;
+  if (v26)
   {
-    v26 = (v24 - 13);
+    v27 = (v25 - 13);
   }
 
   else
   {
-    v26 = 0;
+    v27 = 0;
   }
 
-  v44.n128_u64[0] = v26;
-  v44.n128_u64[1] = v23;
-  mlir::ResultRange::use_begin(&v44, __dst);
-  v27 = *v24;
-  if (v27)
+  v45.n128_u64[0] = v27;
+  v45.n128_u64[1] = v24;
+  mlir::ResultRange::use_begin(&v45, __dst);
+  v28 = *v25;
+  if (v28)
   {
-    v28 = (v24 - 13);
+    v29 = (v25 - 13);
   }
 
   else
   {
-    v28 = 0;
+    v29 = 0;
   }
 
-  v44.n128_u64[0] = v28;
-  v44.n128_u64[1] = v27;
-  mlir::ResultRange::use_end(&v44, v41);
-  v39[0] = *__dst;
-  v39[1] = v46;
-  v29 = v47;
-  v40 = v47;
-  v30 = v42;
-  if (v47 == v42)
+  v45.n128_u64[0] = v29;
+  v45.n128_u64[1] = v28;
+  mlir::ResultRange::use_end(&v45, v42);
+  v40[0] = *__dst;
+  v40[1] = v47;
+  v30 = v48;
+  v41 = v48;
+  v31 = v43;
+  if (v48 == v43)
   {
     return;
   }
 
   while (1)
   {
-    v31 = *(v29 + 16);
-    if (*(v31 + 36) != 1)
+    v32 = *(v30 + 16);
+    if (*(v32 + 36) != 1)
     {
       break;
     }
 
-    v32 = *(*(mlir::Block::getParentOp(*(v31 + 16)) + 48) + 16);
-    v33 = v32 == &mlir::detail::TypeIDResolver<mlir::mpsx::StitchedOp,void>::id || v32 == &mlir::detail::TypeIDResolver<mlir::mpsx::MemrefBackedOp,void>::id;
-    if (v33 || !(*(**(*(this + 74) + 32) + 48))(*(*(this + 74) + 32), v31 - 16))
+    v33 = *(*(mlir::Block::getParentOp(*(v32 + 16)) + 48) + 16);
+    v34 = v33 == &mlir::detail::TypeIDResolver<mlir::mpsx::StitchedOp,void>::id || v33 == &mlir::detail::TypeIDResolver<mlir::mpsx::MemrefBackedOp,void>::id;
+    if (v34 || !(*(**(*(this + 74) + 32) + 48))(*(*(this + 74) + 32), v32 - 16))
     {
       break;
     }
 
     mlir::ResultRange::UseIterator::operator++(__dst);
-    v29 = v47;
-    if (v47 == v30)
+    v30 = v48;
+    if (v48 == v31)
     {
       return;
     }
   }
 
 LABEL_27:
-  v16 = v43;
-  if ((v7 & 1) == 0 && *(v43 + 9) == 1 && *(*(v43 + 6) + 16) != &mlir::detail::TypeIDResolver<mlir::mps::ConstantOp,void>::id)
+  v17 = v44;
+  if ((v7 & 1) == 0 && *(v44 + 9) == 1 && *(v44[6] + 2) != &mlir::detail::TypeIDResolver<mlir::mps::ConstantOp,void>::id)
   {
-    v18 = (*(**(*(this + 74) + 32) + 64))(*(*(this + 74) + 32), v43 - 16);
-    if (v18)
+    v19 = (*(**(*(this + 74) + 32) + 64))(*(*(this + 74) + 32), v44 - 2);
+    if (v19)
     {
-      v19 = v17;
-      v20 = std::__hash_table<std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>,std::__unordered_map_hasher<mlir::Operation *,std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>,std::hash<mlir::Operation *>,std::equal_to<mlir::Operation *>,true>,std::__unordered_map_equal<mlir::Operation *,std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>,std::equal_to<mlir::Operation *>,std::hash<mlir::Operation *>,true>,std::allocator<std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>>>::find<mlir::Operation *>(this + 31, &v43);
-      if (!v20)
+      v20 = v18;
+      v21 = std::__hash_table<std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>,std::__unordered_map_hasher<mlir::Operation *,std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>,std::hash<mlir::Operation *>,std::equal_to<mlir::Operation *>,true>,std::__unordered_map_equal<mlir::Operation *,std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>,std::equal_to<mlir::Operation *>,std::hash<mlir::Operation *>,true>,std::allocator<std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>>>::find<mlir::Operation *>(this + 31, &v44);
+      if (!v21)
       {
         std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
       }
 
-      v21 = v20[3];
-      mlir::mps::CPUNDArray::CPUNDArray(__dst, v18, v19);
-      GPU::BaseOpHandler::encodeConstantOp(v21, a3, __dst, 0);
+      v22 = v21[3];
+      mlir::mps::CPUNDArray::CPUNDArray(__dst, v19, v20);
+      GPU::BaseOpHandler::encodeConstantOp(v22, a3, __dst, 0);
       mlir::mps::CPUNDArray::~CPUNDArray(__dst);
-      v22 = *(this + 108);
-      if (v22 >= *(this + 109))
+      v23 = *(this + 108);
+      if (v23 >= *(this + 109))
       {
-        llvm::SmallVectorBase<unsigned int>::grow_pod(this + 424, this + 440, v22 + 1, 8);
-        LODWORD(v22) = *(this + 108);
+        llvm::SmallVectorBase<unsigned int>::grow_pod(this + 424, this + 440, v23 + 1, 8);
+        LODWORD(v23) = *(this + 108);
       }
 
-      *(*(this + 53) + 8 * v22) = v21;
+      *(*(this + 53) + 8 * v23) = v22;
       ++*(this + 108);
       return;
     }
 
-    v16 = v43;
+    v17 = v44;
   }
 
-  *&v39[0] = *(*(v16 + 6) + 8);
-  AttrData = mlir::OpaqueAttr::getAttrData(v39);
-  v35 = strlen(AttrData);
-  if (v35 >= 0x7FFFFFFFFFFFFFF8)
+  *&v40[0] = *(v17[6] + 1);
+  AttrData = mlir::OpaqueAttr::getAttrData(v40);
+  v36 = strlen(AttrData);
+  if (v36 >= 0x7FFFFFFFFFFFFFF8)
   {
     std::string::__throw_length_error[abi:ne200100]();
   }
 
-  v36 = v35;
-  if (v35 >= 0x17)
+  v37 = v36;
+  if (v36 >= 0x17)
   {
     operator new();
   }
 
-  BYTE7(v46) = v35;
-  if (v35)
+  BYTE7(v47) = v36;
+  if (v36)
   {
-    memmove(__dst, AttrData, v35);
+    memmove(__dst, AttrData, v36);
   }
 
-  *(__dst + v36) = 0;
-  v37 = std::__hash_table<std::__hash_value_type<std::string,MPSMLIROps>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MPSMLIROps>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MPSMLIROps>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MPSMLIROps>>>::find<std::string>(this + 1, __dst);
-  if (!v37)
+  *(__dst + v37) = 0;
+  v38 = std::__hash_table<std::__hash_value_type<std::string,MPSMLIROps>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MPSMLIROps>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MPSMLIROps>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MPSMLIROps>>>::find<std::string>(this + 1, __dst);
+  if (!v38)
   {
     std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
   }
 
-  v38 = *(v37 + 10);
-  switch(v38)
+  v39 = *(v38 + 10);
+  switch(v39)
   {
     case 1:
     case 2:
@@ -8291,16 +8996,16 @@ LABEL_27:
     case 232:
     case 233:
     case 234:
-      GPURegionRuntime::runOp<GPU::AbsoluteOpHandler>(this, v43, a3);
+      GPURegionRuntime::runOp<GPU::AbsoluteOpHandler>(this, v44, a3);
       break;
     case 41:
-      GPURegionRuntime::runOp<GPU::ConstantArithOpHandler>(this, v43, a3);
+      GPURegionRuntime::runOp<GPU::ConstantArithOpHandler>(this, v44, a3);
       break;
     case 229:
-      GPURegionRuntime::runOp<GPU::ViewMemrefOpHandler>(this, v43, a3);
+      GPURegionRuntime::runOp<GPU::ViewMemrefOpHandler>(this, v44, a3);
       break;
     default:
-      if (!v38 && MTLReportFailureTypeEnabled())
+      if (!v39 && MTLReportFailureTypeEnabled())
       {
         MTLReportFailure();
       }
@@ -8308,7 +9013,7 @@ LABEL_27:
       break;
   }
 
-  if (SBYTE7(v46) < 0)
+  if (SBYTE7(v47) < 0)
   {
     operator delete(__dst[0]);
   }
@@ -8605,7 +9310,7 @@ LABEL_73:
   return result;
 }
 
-uint64_t GPURegionRuntime::runOp<GPU::AbsoluteOpHandler>(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t GPURegionRuntime::runOp<GPU::AbsoluteOpHandler>(uint64_t a1, unint64_t a2, uint64_t a3)
 {
   v8 = a2;
   v5 = std::__hash_table<std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>,std::__unordered_map_hasher<mlir::Operation *,std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>,std::hash<mlir::Operation *>,std::equal_to<mlir::Operation *>,true>,std::__unordered_map_equal<mlir::Operation *,std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>,std::equal_to<mlir::Operation *>,std::hash<mlir::Operation *>,true>,std::allocator<std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>>>::find<mlir::Operation *>((a1 + 248), &v8);
@@ -8623,7 +9328,7 @@ uint64_t GPURegionRuntime::runOp<GPU::AbsoluteOpHandler>(uint64_t a1, uint64_t a
   return (*(*v6 + 1))(v6, a3);
 }
 
-void GPURegionRuntime::runOp<GPU::ConstantArithOpHandler>(uint64_t a1, uint64_t a2, uint64_t a3)
+void GPURegionRuntime::runOp<GPU::ConstantArithOpHandler>(uint64_t a1, unint64_t a2, uint64_t a3)
 {
   v6 = a2;
   v5 = std::__hash_table<std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>,std::__unordered_map_hasher<mlir::Operation *,std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>,std::hash<mlir::Operation *>,std::equal_to<mlir::Operation *>,true>,std::__unordered_map_equal<mlir::Operation *,std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>,std::equal_to<mlir::Operation *>,std::hash<mlir::Operation *>,true>,std::allocator<std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>>>::find<mlir::Operation *>((a1 + 248), &v6);
@@ -8638,7 +9343,7 @@ void GPURegionRuntime::runOp<GPU::ConstantArithOpHandler>(uint64_t a1, uint64_t 
   }
 }
 
-void GPURegionRuntime::runOp<GPU::ViewMemrefOpHandler>(uint64_t a1, uint64_t a2, id *a3)
+void GPURegionRuntime::runOp<GPU::ViewMemrefOpHandler>(uint64_t a1, unint64_t a2, id *a3)
 {
   v7 = a2;
   v5 = std::__hash_table<std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>,std::__unordered_map_hasher<mlir::Operation *,std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>,std::hash<mlir::Operation *>,std::equal_to<mlir::Operation *>,true>,std::__unordered_map_equal<mlir::Operation *,std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>,std::equal_to<mlir::Operation *>,std::hash<mlir::Operation *>,true>,std::allocator<std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>>>::find<mlir::Operation *>((a1 + 248), &v7);
@@ -8762,7 +9467,7 @@ uint64_t getNumberOfUniqueUses(void *a1)
             }
 
 LABEL_25:
-            std::__hash_table<mlir::Operation *,std::hash<mlir::Operation *>,std::equal_to<mlir::Operation *>,std::allocator<mlir::Operation *>>::__emplace_unique_key_args<mlir::Operation *,mlir::Operation * const&>(v19, &v18);
+            std::__hash_table<mlir::Operation *,std::hash<mlir::Operation *>,std::equal_to<mlir::Operation *>,std::allocator<mlir::Operation *>>::__emplace_unique_key_args<mlir::Operation *,mlir::Operation * const&>(v19, &v18, &v18);
           }
         }
       }
@@ -8797,9 +9502,9 @@ LABEL_27:
   return v2;
 }
 
-void sub_1E05FE5B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1E05FE5B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::unordered_set<mlir::Operation *>::~unordered_set[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -8872,7 +9577,7 @@ LABEL_11:
   return v7;
 }
 
-MPSGraphTensorData *GPURegionRuntime::allocateTensorDataForValue(uint64_t a1, void *a2, void *a3, char a4, uint64_t a5, unint64_t a6)
+MPSGraphTensorData *GPURegionRuntime::allocateTensorDataForValue(int8x8_t *a1, uint64_t *a2, void *a3, char a4, uint64_t a5, unint64_t a6)
 {
   v8 = a2;
   v156 = *MEMORY[0x1E69E9840];
@@ -8973,9 +9678,9 @@ LABEL_20:
 
 LABEL_44:
     v35 = [MPSGraphTensorData alloc];
-    v36 = *(a1 + 48);
+    v36 = a1[6];
     v37 = getMPSShapeFromMLIR(v16);
-    v11 = [(MPSGraphTensorData *)v35 initWithDevice:v36 rowBytesAlignment:a6 shape:v37 dataType:MPSDataType];
+    v11 = [(MPSGraphTensorData *)v35 initWithDevice:*&v36 rowBytesAlignment:a6 shape:v37 dataType:MPSDataType];
 
     BaseRuntime::setTensorDataToDataMap(a1, v150, v11);
     goto LABEL_160;
@@ -9044,16 +9749,7 @@ LABEL_25:
   }
 
 LABEL_42:
-  if (a4)
-  {
-    v34 = 1;
-  }
-
-  else
-  {
-    v34 = valueCanBeTemporary(v150) ^ 1;
-  }
-
+  v34 = (a4 & 1) != 0 || !valueCanBeTemporary(v150);
   v136 = v34;
   v155[0] = xmmword_1E099FED8;
   v155[1] = unk_1E099FEE8;
@@ -9164,14 +9860,14 @@ LABEL_58:
 LABEL_67:
   [v137 setRowBytes:(a6 + *&v155[0] * (MPSDataType >> 3) - 1) / a6 * a6];
 LABEL_68:
-  v52 = *(a1 + 616);
+  v52 = a1[77];
   if (!*&v52)
   {
     goto LABEL_88;
   }
 
-  v53 = 0x9DDFEA08EB382D69 * ((8 * (v150 & 0x1FFFFFFF) + 8) ^ HIDWORD(v150));
-  v54 = 0x9DDFEA08EB382D69 * (HIDWORD(v150) ^ (v53 >> 47) ^ v53);
+  v53 = 0x9DDFEA08EB382D69 * ((8 * (v150 & 0x1FFFFFFF) + 8) ^ (v150 >> 32));
+  v54 = 0x9DDFEA08EB382D69 * ((v150 >> 32) ^ (v53 >> 47) ^ v53);
   v55 = 0x9DDFEA08EB382D69 * (v54 ^ (v54 >> 47));
   v56 = vcnt_s8(v52);
   v56.i16[0] = vaddlv_u8(v56);
@@ -9189,7 +9885,7 @@ LABEL_68:
     v57 = v55 & (*&v52 - 1);
   }
 
-  v58 = *(*(a1 + 608) + 8 * v57);
+  v58 = *(*&a1[76] + 8 * v57);
   if (!v58 || (v59 = *v58) == 0)
   {
 LABEL_88:
@@ -9590,7 +10286,7 @@ LABEL_156:
   {
     if (v65)
     {
-      if ((v136 & 1) != 0 || *(a1 + 224) != 1)
+      if (v136 || a1[28].i8[0] != 1)
       {
         v110 = objc_alloc(MEMORY[0x1E6974488]);
         v111 = [v65 device];
@@ -9612,14 +10308,14 @@ LABEL_156:
     else
     {
       v112 = objc_alloc(MEMORY[0x1E6974488]);
-      v113 = [*(a1 + 48) metalDevice];
+      v113 = [*&a1[6] metalDevice];
       v63 = [v112 initWithDevice:v113 descriptor:v66];
     }
   }
 
-  v11 = [[MPSGraphTensorData alloc] initWithMPSNDArray:v63 device:*(a1 + 48)];
+  v11 = [[MPSGraphTensorData alloc] initWithMPSNDArray:v63 device:*&a1[6]];
   BaseRuntime::setTensorDataToDataMap(a1, v150, v11);
-  WeakRetained = objc_loadWeakRetained((a1 + 72));
+  WeakRetained = objc_loadWeakRetained(&a1[9]);
   v106 = ([WeakRetained options] & 2) == 0;
 
   if (!v106)
@@ -9634,221 +10330,4 @@ LABEL_159:
 LABEL_160:
 
   return v11;
-}
-
-void BaseRuntime::unsetTensorDataFromDataMap(uint64_t a1, uint64_t a2)
-{
-  v8 = a2;
-  v7 = *(mlir::Value::getParentRegion(&v8) + 2);
-  __p = &v7;
-  v3 = std::__hash_table<std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>,std::__unordered_map_hasher<mlir::Operation *,std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>,std::hash<mlir::Operation *>,std::equal_to<mlir::Operation *>,true>,std::__unordered_map_equal<mlir::Operation *,std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>,std::equal_to<mlir::Operation *>,std::hash<mlir::Operation *>,true>,std::allocator<std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>>>::__emplace_unique_key_args<mlir::Operation *,std::piecewise_construct_t const&,std::tuple<mlir::Operation * const&>,std::tuple<>>((a1 + 88), &v7);
-  v6 = v8;
-  v4 = std::__hash_table<std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>,std::__unordered_map_hasher<mlir::Operation *,std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>,std::hash<mlir::Operation *>,std::equal_to<mlir::Operation *>,true>,std::__unordered_map_equal<mlir::Operation *,std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>,std::equal_to<mlir::Operation *>,std::hash<mlir::Operation *>,true>,std::allocator<std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>>>::find<mlir::Operation *>(v3 + 3, &v6);
-  if (v4)
-  {
-    std::__hash_table<std::__hash_value_type<void *,MPSGraphTensorData * {__strong}>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,MPSGraphTensorData * {__strong}>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,MPSGraphTensorData * {__strong}>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,MPSGraphTensorData * {__strong}>>>::remove(v3 + 3, v4, &__p);
-    v5 = __p;
-    __p = 0;
-    if (v5)
-    {
-      if (v10 == 1)
-      {
-      }
-
-      operator delete(v5);
-    }
-  }
-}
-
-uint64_t GPURegionRuntime::getStaticType(uint64_t a1, uint64_t a2)
-{
-  v13 = a2;
-  result = (*(**(*(a1 + 592) + 32) + 40))(*(*(a1 + 592) + 32));
-  if (result)
-  {
-    return result;
-  }
-
-  v5 = (*(a2 + 8) & 0xFFFFFFFFFFFFFFF8);
-  if (!mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v5 + 8))
-  {
-    v15 = 0;
-    v16 = 0;
-    return *(a2 + 8) & 0xFFFFFFFFFFFFFFF8;
-  }
-
-  v6 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v5 + 8);
-  v15 = v5;
-  v16 = v6;
-  if (!v5)
-  {
-    return *(a2 + 8) & 0xFFFFFFFFFFFFFFF8;
-  }
-
-  if (!mlir::CallOpInterface::getArgOperands(&v15))
-  {
-    goto LABEL_12;
-  }
-
-  ArgAttrsAttr = mlir::CallableOpInterface::getArgAttrsAttr(&v15);
-  if (!v8)
-  {
-    return *(a2 + 8) & 0xFFFFFFFFFFFFFFF8;
-  }
-
-  v9 = 8 * v8;
-  while (*ArgAttrsAttr != 0x8000000000000000)
-  {
-    ++ArgAttrsAttr;
-    v9 -= 8;
-    if (!v9)
-    {
-      return *(a2 + 8) & 0xFFFFFFFFFFFFFFF8;
-    }
-  }
-
-LABEL_12:
-  v15 = 0;
-  v16 = 0;
-  v12 = &v15;
-  v14 = a2;
-  DefiningOp = mlir::Value::getDefiningOp(&v14);
-  if (DefiningOp && mlir::detail::constant_op_binder<mlir::ElementsAttr>::match(&v12, DefiningOp))
-  {
-    return mlir::ElementsAttr::getType(&v15);
-  }
-
-  v14 = *(mlir::Value::getParentRegion(&v13) + 2);
-  v11 = std::__hash_table<std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>,std::__unordered_map_hasher<mlir::Operation *,std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>,std::hash<mlir::Operation *>,std::equal_to<mlir::Operation *>,true>,std::__unordered_map_equal<mlir::Operation *,std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>,std::equal_to<mlir::Operation *>,std::hash<mlir::Operation *>,true>,std::allocator<std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>>>::find<mlir::Operation *>((a1 + 288), &v14);
-  v12 = v13;
-  return std::__hash_table<std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>,std::__unordered_map_hasher<mlir::Operation *,std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>,std::hash<mlir::Operation *>,std::equal_to<mlir::Operation *>,true>,std::__unordered_map_equal<mlir::Operation *,std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>,std::equal_to<mlir::Operation *>,std::hash<mlir::Operation *>,true>,std::allocator<std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>>>::find<mlir::Operation *>(v11 + 3, &v12)[3];
-}
-
-uint64_t valueCanBeTemporary(void *a1)
-{
-  v23 = a1;
-  ParentBlock = mlir::Value::getParentBlock(&v23);
-  v3 = *v23;
-  if (*v23)
-  {
-    v4 = ParentBlock;
-    do
-    {
-      v5 = v3[2];
-      v6 = *(v5 + 16);
-      v7 = *(*(mlir::Block::getParentOp(v6) + 48) + 16);
-      v8 = v6;
-      if (v7 == &mlir::detail::TypeIDResolver<mlir::mpsx::StitchedOp,void>::id)
-      {
-        v8 = *(mlir::Block::getParentOp(v6) + 16);
-      }
-
-      if (*(*(v5 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::mpsx::ListPushBackOp,void>::id)
-      {
-        return 0;
-      }
-
-      for (; v8 != v4; v8 = *(ParentOp + 16))
-      {
-        ParentOp = mlir::Block::getParentOp(v8);
-        v10 = *(*(ParentOp + 48) + 16);
-        if (v10 == &mlir::detail::TypeIDResolver<mlir::scf::WhileOp,void>::id || v10 == &mlir::detail::TypeIDResolver<mlir::scf::ForOp,void>::id)
-        {
-          return 0;
-        }
-      }
-
-      v3 = *v3;
-    }
-
-    while (v3);
-  }
-
-  v22 = a1;
-  DefiningOp = mlir::Value::getDefiningOp(&v22);
-  if (DefiningOp && *(*(DefiningOp + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::mps::CallOp,void>::id)
-  {
-    return 0;
-  }
-
-  v13 = *v22;
-  if (*v22)
-  {
-    while (*(*(v13[2] + 48) + 16) != &mlir::detail::TypeIDResolver<mlir::mps::CallOp,void>::id)
-    {
-      v13 = *v13;
-      if (!v13)
-      {
-        goto LABEL_18;
-      }
-    }
-
-    return 0;
-  }
-
-LABEL_18:
-  v14 = (v22[1] & 0xFFFFFFFFFFFFFFF8);
-  if (!mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v14 + 8))
-  {
-    v23 = 0;
-    v24 = 0;
-    return 1;
-  }
-
-  v15 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v14 + 8);
-  v23 = v14;
-  v24 = v15;
-  if (!v14)
-  {
-    return 1;
-  }
-
-  if (mlir::CallOpInterface::getArgOperands(&v23))
-  {
-    ArgAttrsAttr = mlir::CallableOpInterface::getArgAttrsAttr(&v23);
-    if (v18)
-    {
-      v19 = 8 * v18;
-      while (*ArgAttrsAttr != 0x8000000000000000)
-      {
-        ++ArgAttrsAttr;
-        v19 -= 8;
-        if (!v19)
-        {
-          return 1;
-        }
-      }
-
-      goto LABEL_29;
-    }
-
-    return 1;
-  }
-
-LABEL_29:
-  v20 = *v22;
-  if (!*v22)
-  {
-    return 1;
-  }
-
-  LOBYTE(v21) = 0;
-  do
-  {
-    while (!v21)
-    {
-      v21 = *(*(v20[2] + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::func::ReturnOp,void>::id;
-      v20 = *v20;
-      if (!v20)
-      {
-        return !v21;
-      }
-    }
-
-    v21 = 1;
-    v20 = *v20;
-  }
-
-  while (v20);
-  return !v21;
 }

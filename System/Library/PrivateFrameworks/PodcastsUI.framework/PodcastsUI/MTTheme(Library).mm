@@ -1,13 +1,13 @@
 @interface MTTheme(Library)
 + (id)insertNewTheme:()Library forUuid:inMOC:;
 + (uint64_t)createOrUpdateTheme:()Library forUuid:inMOC:;
-- (id)convertToColorTheme;
+- (MTColorTheme)convertToColorTheme;
 - (uint64_t)populateWithColorTheme:()Library;
 @end
 
 @implementation MTTheme(Library)
 
-- (id)convertToColorTheme
+- (MTColorTheme)convertToColorTheme
 {
   v2 = objc_opt_new();
   backgroundColor = [self backgroundColor];

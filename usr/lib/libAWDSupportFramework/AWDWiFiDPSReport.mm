@@ -86,7 +86,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v52 = *MEMORY[0x29EDCA608];
+  v51 = *MEMORY[0x29EDCA608];
   dictionary = [MEMORY[0x29EDB8E00] dictionary];
   if (*&self->_has)
   {
@@ -96,29 +96,29 @@
   if ([(NSMutableArray *)self->_stallNotifications count])
   {
     v4 = [objc_alloc(MEMORY[0x29EDB8DE8]) initWithCapacity:{-[NSMutableArray count](self->_stallNotifications, "count")}];
+    v43 = 0u;
     v44 = 0u;
     v45 = 0u;
     v46 = 0u;
-    v47 = 0u;
     stallNotifications = self->_stallNotifications;
-    v6 = [(NSMutableArray *)stallNotifications countByEnumeratingWithState:&v44 objects:v51 count:16];
+    v6 = [(NSMutableArray *)stallNotifications countByEnumeratingWithState:&v43 objects:v50 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v45;
+      v8 = *v44;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v45 != v8)
+          if (*v44 != v8)
           {
             objc_enumerationMutation(stallNotifications);
           }
 
-          [v4 addObject:{objc_msgSend(*(*(&v44 + 1) + 8 * i), "dictionaryRepresentation")}];
+          [v4 addObject:{objc_msgSend(*(*(&v43 + 1) + 8 * i), "dictionaryRepresentation")}];
         }
 
-        v7 = [(NSMutableArray *)stallNotifications countByEnumeratingWithState:&v44 objects:v51 count:16];
+        v7 = [(NSMutableArray *)stallNotifications countByEnumeratingWithState:&v43 objects:v50 count:16];
       }
 
       while (v7);
@@ -130,29 +130,29 @@
   if ([(NSMutableArray *)self->_probeResults count])
   {
     v10 = [objc_alloc(MEMORY[0x29EDB8DE8]) initWithCapacity:{-[NSMutableArray count](self->_probeResults, "count")}];
+    v39 = 0u;
     v40 = 0u;
     v41 = 0u;
     v42 = 0u;
-    v43 = 0u;
     probeResults = self->_probeResults;
-    v12 = [(NSMutableArray *)probeResults countByEnumeratingWithState:&v40 objects:v50 count:16];
+    v12 = [(NSMutableArray *)probeResults countByEnumeratingWithState:&v39 objects:v49 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v41;
+      v14 = *v40;
       do
       {
         for (j = 0; j != v13; ++j)
         {
-          if (*v41 != v14)
+          if (*v40 != v14)
           {
             objc_enumerationMutation(probeResults);
           }
 
-          [v10 addObject:{objc_msgSend(*(*(&v40 + 1) + 8 * j), "dictionaryRepresentation")}];
+          [v10 addObject:{objc_msgSend(*(*(&v39 + 1) + 8 * j), "dictionaryRepresentation")}];
         }
 
-        v13 = [(NSMutableArray *)probeResults countByEnumeratingWithState:&v40 objects:v50 count:16];
+        v13 = [(NSMutableArray *)probeResults countByEnumeratingWithState:&v39 objects:v49 count:16];
       }
 
       while (v13);
@@ -164,29 +164,29 @@
   if ([(NSMutableArray *)self->_dpsCounterSamples count])
   {
     v16 = [objc_alloc(MEMORY[0x29EDB8DE8]) initWithCapacity:{-[NSMutableArray count](self->_dpsCounterSamples, "count")}];
+    v35 = 0u;
     v36 = 0u;
     v37 = 0u;
     v38 = 0u;
-    v39 = 0u;
     dpsCounterSamples = self->_dpsCounterSamples;
-    v18 = [(NSMutableArray *)dpsCounterSamples countByEnumeratingWithState:&v36 objects:v49 count:16];
+    v18 = [(NSMutableArray *)dpsCounterSamples countByEnumeratingWithState:&v35 objects:v48 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v37;
+      v20 = *v36;
       do
       {
         for (k = 0; k != v19; ++k)
         {
-          if (*v37 != v20)
+          if (*v36 != v20)
           {
             objc_enumerationMutation(dpsCounterSamples);
           }
 
-          [v16 addObject:{objc_msgSend(*(*(&v36 + 1) + 8 * k), "dictionaryRepresentation")}];
+          [v16 addObject:{objc_msgSend(*(*(&v35 + 1) + 8 * k), "dictionaryRepresentation")}];
         }
 
-        v19 = [(NSMutableArray *)dpsCounterSamples countByEnumeratingWithState:&v36 objects:v49 count:16];
+        v19 = [(NSMutableArray *)dpsCounterSamples countByEnumeratingWithState:&v35 objects:v48 count:16];
       }
 
       while (v19);
@@ -210,29 +210,29 @@
   if ([(NSMutableArray *)self->_usbEvents count])
   {
     v24 = [objc_alloc(MEMORY[0x29EDB8DE8]) initWithCapacity:{-[NSMutableArray count](self->_usbEvents, "count")}];
+    v31 = 0u;
     v32 = 0u;
     v33 = 0u;
     v34 = 0u;
-    v35 = 0u;
     usbEvents = self->_usbEvents;
-    v26 = [(NSMutableArray *)usbEvents countByEnumeratingWithState:&v32 objects:v48 count:16];
+    v26 = [(NSMutableArray *)usbEvents countByEnumeratingWithState:&v31 objects:v47 count:16];
     if (v26)
     {
       v27 = v26;
-      v28 = *v33;
+      v28 = *v32;
       do
       {
         for (m = 0; m != v27; ++m)
         {
-          if (*v33 != v28)
+          if (*v32 != v28)
           {
             objc_enumerationMutation(usbEvents);
           }
 
-          [v24 addObject:{objc_msgSend(*(*(&v32 + 1) + 8 * m), "dictionaryRepresentation")}];
+          [v24 addObject:{objc_msgSend(*(*(&v31 + 1) + 8 * m), "dictionaryRepresentation")}];
         }
 
-        v27 = [(NSMutableArray *)usbEvents countByEnumeratingWithState:&v32 objects:v48 count:16];
+        v27 = [(NSMutableArray *)usbEvents countByEnumeratingWithState:&v31 objects:v47 count:16];
       }
 
       while (v27);
@@ -241,104 +241,99 @@
     [dictionary setObject:v24 forKey:@"usbEvent"];
   }
 
-  v30 = *MEMORY[0x29EDCA608];
   return dictionary;
 }
 
 - (void)writeTo:(id)to
 {
-  v50 = *MEMORY[0x29EDCA608];
+  v44 = *MEMORY[0x29EDCA608];
   if (*&self->_has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
-  v43 = 0u;
+  v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   stallNotifications = self->_stallNotifications;
-  v6 = [(NSMutableArray *)stallNotifications countByEnumeratingWithState:&v42 objects:v49 count:16];
-  if (v6)
+  v5 = [(NSMutableArray *)stallNotifications countByEnumeratingWithState:&v36 objects:v43 count:16];
+  if (v5)
   {
-    v7 = v6;
-    v8 = *v43;
+    v6 = v5;
+    v7 = *v37;
     do
     {
-      for (i = 0; i != v7; ++i)
+      for (i = 0; i != v6; ++i)
       {
-        if (*v43 != v8)
+        if (*v37 != v7)
         {
           objc_enumerationMutation(stallNotifications);
         }
 
-        v10 = *(*(&v42 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v7 = [(NSMutableArray *)stallNotifications countByEnumeratingWithState:&v42 objects:v49 count:16];
+      v6 = [(NSMutableArray *)stallNotifications countByEnumeratingWithState:&v36 objects:v43 count:16];
     }
 
-    while (v7);
+    while (v6);
   }
 
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
-  v39 = 0u;
+  v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   probeResults = self->_probeResults;
-  v12 = [(NSMutableArray *)probeResults countByEnumeratingWithState:&v38 objects:v48 count:16];
-  if (v12)
+  v10 = [(NSMutableArray *)probeResults countByEnumeratingWithState:&v32 objects:v42 count:16];
+  if (v10)
   {
-    v13 = v12;
-    v14 = *v39;
+    v11 = v10;
+    v12 = *v33;
     do
     {
-      for (j = 0; j != v13; ++j)
+      for (j = 0; j != v11; ++j)
       {
-        if (*v39 != v14)
+        if (*v33 != v12)
         {
           objc_enumerationMutation(probeResults);
         }
 
-        v16 = *(*(&v38 + 1) + 8 * j);
         PBDataWriterWriteSubmessage();
       }
 
-      v13 = [(NSMutableArray *)probeResults countByEnumeratingWithState:&v38 objects:v48 count:16];
+      v11 = [(NSMutableArray *)probeResults countByEnumeratingWithState:&v32 objects:v42 count:16];
     }
 
-    while (v13);
+    while (v11);
   }
 
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
-  v35 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   dpsCounterSamples = self->_dpsCounterSamples;
-  v18 = [(NSMutableArray *)dpsCounterSamples countByEnumeratingWithState:&v34 objects:v47 count:16];
-  if (v18)
+  v15 = [(NSMutableArray *)dpsCounterSamples countByEnumeratingWithState:&v28 objects:v41 count:16];
+  if (v15)
   {
-    v19 = v18;
-    v20 = *v35;
+    v16 = v15;
+    v17 = *v29;
     do
     {
-      for (k = 0; k != v19; ++k)
+      for (k = 0; k != v16; ++k)
       {
-        if (*v35 != v20)
+        if (*v29 != v17)
         {
           objc_enumerationMutation(dpsCounterSamples);
         }
 
-        v22 = *(*(&v34 + 1) + 8 * k);
         PBDataWriterWriteSubmessage();
       }
 
-      v19 = [(NSMutableArray *)dpsCounterSamples countByEnumeratingWithState:&v34 objects:v47 count:16];
+      v16 = [(NSMutableArray *)dpsCounterSamples countByEnumeratingWithState:&v28 objects:v41 count:16];
     }
 
-    while (v19);
+    while (v16);
   }
 
   if (self->_dpsEpiloge)
@@ -351,36 +346,33 @@
     PBDataWriterWriteSubmessage();
   }
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
-  v31 = 0u;
+  v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   usbEvents = self->_usbEvents;
-  v24 = [(NSMutableArray *)usbEvents countByEnumeratingWithState:&v30 objects:v46 count:16];
-  if (v24)
+  v20 = [(NSMutableArray *)usbEvents countByEnumeratingWithState:&v24 objects:v40 count:16];
+  if (v20)
   {
-    v25 = v24;
-    v26 = *v31;
+    v21 = v20;
+    v22 = *v25;
     do
     {
-      for (m = 0; m != v25; ++m)
+      for (m = 0; m != v21; ++m)
       {
-        if (*v31 != v26)
+        if (*v25 != v22)
         {
           objc_enumerationMutation(usbEvents);
         }
 
-        v28 = *(*(&v30 + 1) + 8 * m);
         PBDataWriterWriteSubmessage();
       }
 
-      v25 = [(NSMutableArray *)usbEvents countByEnumeratingWithState:&v30 objects:v46 count:16];
+      v21 = [(NSMutableArray *)usbEvents countByEnumeratingWithState:&v24 objects:v40 count:16];
     }
 
-    while (v25);
+    while (v21);
   }
-
-  v29 = *MEMORY[0x29EDCA608];
 }
 
 - (void)copyTo:(id)to
@@ -460,7 +452,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v53 = *MEMORY[0x29EDCA608];
+  v52 = *MEMORY[0x29EDCA608];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = v5;
   if (*&self->_has)
@@ -469,88 +461,88 @@
     *(v5 + 64) |= 1u;
   }
 
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
   v46 = 0u;
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
   stallNotifications = self->_stallNotifications;
-  v8 = [(NSMutableArray *)stallNotifications countByEnumeratingWithState:&v45 objects:v52 count:16];
+  v8 = [(NSMutableArray *)stallNotifications countByEnumeratingWithState:&v44 objects:v51 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v46;
+    v10 = *v45;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v46 != v10)
+        if (*v45 != v10)
         {
           objc_enumerationMutation(stallNotifications);
         }
 
-        v12 = [*(*(&v45 + 1) + 8 * i) copyWithZone:zone];
+        v12 = [*(*(&v44 + 1) + 8 * i) copyWithZone:zone];
         [v6 addStallNotification:v12];
       }
 
-      v9 = [(NSMutableArray *)stallNotifications countByEnumeratingWithState:&v45 objects:v52 count:16];
+      v9 = [(NSMutableArray *)stallNotifications countByEnumeratingWithState:&v44 objects:v51 count:16];
     }
 
     while (v9);
   }
 
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
   v42 = 0u;
+  v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
   probeResults = self->_probeResults;
-  v14 = [(NSMutableArray *)probeResults countByEnumeratingWithState:&v41 objects:v51 count:16];
+  v14 = [(NSMutableArray *)probeResults countByEnumeratingWithState:&v40 objects:v50 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v42;
+    v16 = *v41;
     do
     {
       for (j = 0; j != v15; ++j)
       {
-        if (*v42 != v16)
+        if (*v41 != v16)
         {
           objc_enumerationMutation(probeResults);
         }
 
-        v18 = [*(*(&v41 + 1) + 8 * j) copyWithZone:zone];
+        v18 = [*(*(&v40 + 1) + 8 * j) copyWithZone:zone];
         [v6 addProbeResult:v18];
       }
 
-      v15 = [(NSMutableArray *)probeResults countByEnumeratingWithState:&v41 objects:v51 count:16];
+      v15 = [(NSMutableArray *)probeResults countByEnumeratingWithState:&v40 objects:v50 count:16];
     }
 
     while (v15);
   }
 
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
   v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   dpsCounterSamples = self->_dpsCounterSamples;
-  v20 = [(NSMutableArray *)dpsCounterSamples countByEnumeratingWithState:&v37 objects:v50 count:16];
+  v20 = [(NSMutableArray *)dpsCounterSamples countByEnumeratingWithState:&v36 objects:v49 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v38;
+    v22 = *v37;
     do
     {
       for (k = 0; k != v21; ++k)
       {
-        if (*v38 != v22)
+        if (*v37 != v22)
         {
           objc_enumerationMutation(dpsCounterSamples);
         }
 
-        v24 = [*(*(&v37 + 1) + 8 * k) copyWithZone:zone];
+        v24 = [*(*(&v36 + 1) + 8 * k) copyWithZone:zone];
         [v6 addDpsCounterSample:v24];
       }
 
-      v21 = [(NSMutableArray *)dpsCounterSamples countByEnumeratingWithState:&v37 objects:v50 count:16];
+      v21 = [(NSMutableArray *)dpsCounterSamples countByEnumeratingWithState:&v36 objects:v49 count:16];
     }
 
     while (v21);
@@ -558,36 +550,35 @@
 
   v6[3] = [(AWDWiFiDPSEpilogue *)self->_dpsEpiloge copyWithZone:zone];
   v6[5] = [(AWDWiFiDPSSnapshot *)self->_snapshot copyWithZone:zone];
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   usbEvents = self->_usbEvents;
-  v26 = [(NSMutableArray *)usbEvents countByEnumeratingWithState:&v33 objects:v49 count:16];
+  v26 = [(NSMutableArray *)usbEvents countByEnumeratingWithState:&v32 objects:v48 count:16];
   if (v26)
   {
     v27 = v26;
-    v28 = *v34;
+    v28 = *v33;
     do
     {
       for (m = 0; m != v27; ++m)
       {
-        if (*v34 != v28)
+        if (*v33 != v28)
         {
           objc_enumerationMutation(usbEvents);
         }
 
-        v30 = [*(*(&v33 + 1) + 8 * m) copyWithZone:zone];
+        v30 = [*(*(&v32 + 1) + 8 * m) copyWithZone:zone];
         [v6 addUsbEvent:v30];
       }
 
-      v27 = [(NSMutableArray *)usbEvents countByEnumeratingWithState:&v33 objects:v49 count:16];
+      v27 = [(NSMutableArray *)usbEvents countByEnumeratingWithState:&v32 objects:v48 count:16];
     }
 
     while (v27);
   }
 
-  v31 = *MEMORY[0x29EDCA608];
   return v6;
 }
 
@@ -596,7 +587,6 @@
   v5 = [equal isMemberOfClass:objc_opt_class()];
   if (v5)
   {
-    v6 = *(equal + 64);
     if (*&self->_has)
     {
       if ((*(equal + 64) & 1) == 0 || self->_timestamp != *(equal + 1))
@@ -670,92 +660,92 @@ LABEL_19:
 
 - (void)mergeFrom:(id)from
 {
-  v50 = *MEMORY[0x29EDCA608];
+  v49 = *MEMORY[0x29EDCA608];
   if (*(from + 64))
   {
     self->_timestamp = *(from + 1);
     *&self->_has |= 1u;
   }
 
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
   v43 = 0u;
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
   v5 = *(from + 6);
-  v6 = [v5 countByEnumeratingWithState:&v42 objects:v49 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v41 objects:v48 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v43;
+    v8 = *v42;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v43 != v8)
+        if (*v42 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [(AWDWiFiDPSReport *)self addStallNotification:*(*(&v42 + 1) + 8 * i)];
+        [(AWDWiFiDPSReport *)self addStallNotification:*(*(&v41 + 1) + 8 * i)];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v42 objects:v49 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v41 objects:v48 count:16];
     }
 
     while (v7);
   }
 
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   v10 = *(from + 4);
-  v11 = [v10 countByEnumeratingWithState:&v38 objects:v48 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v37 objects:v47 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v39;
+    v13 = *v38;
     do
     {
       for (j = 0; j != v12; ++j)
       {
-        if (*v39 != v13)
+        if (*v38 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        [(AWDWiFiDPSReport *)self addProbeResult:*(*(&v38 + 1) + 8 * j)];
+        [(AWDWiFiDPSReport *)self addProbeResult:*(*(&v37 + 1) + 8 * j)];
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v38 objects:v48 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v37 objects:v47 count:16];
     }
 
     while (v12);
   }
 
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   v15 = *(from + 2);
-  v16 = [v15 countByEnumeratingWithState:&v34 objects:v47 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v33 objects:v46 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v35;
+    v18 = *v34;
     do
     {
       for (k = 0; k != v17; ++k)
       {
-        if (*v35 != v18)
+        if (*v34 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        [(AWDWiFiDPSReport *)self addDpsCounterSample:*(*(&v34 + 1) + 8 * k)];
+        [(AWDWiFiDPSReport *)self addDpsCounterSample:*(*(&v33 + 1) + 8 * k)];
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v34 objects:v47 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v33 objects:v46 count:16];
     }
 
     while (v17);
@@ -791,35 +781,33 @@ LABEL_19:
     [(AWDWiFiDPSReport *)self setSnapshot:?];
   }
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v24 = *(from + 7);
-  v25 = [v24 countByEnumeratingWithState:&v30 objects:v46 count:16];
+  v25 = [v24 countByEnumeratingWithState:&v29 objects:v45 count:16];
   if (v25)
   {
     v26 = v25;
-    v27 = *v31;
+    v27 = *v30;
     do
     {
       for (m = 0; m != v26; ++m)
       {
-        if (*v31 != v27)
+        if (*v30 != v27)
         {
           objc_enumerationMutation(v24);
         }
 
-        [(AWDWiFiDPSReport *)self addUsbEvent:*(*(&v30 + 1) + 8 * m)];
+        [(AWDWiFiDPSReport *)self addUsbEvent:*(*(&v29 + 1) + 8 * m)];
       }
 
-      v26 = [v24 countByEnumeratingWithState:&v30 objects:v46 count:16];
+      v26 = [v24 countByEnumeratingWithState:&v29 objects:v45 count:16];
     }
 
     while (v26);
   }
-
-  v29 = *MEMORY[0x29EDCA608];
 }
 
 @end

@@ -1,7 +1,6 @@
 @interface OrgApacheLuceneUtilSparseFixedBitSet
 + (void)initialize;
 - (BOOL)getWithInt:(int)int;
-- (NSString)description;
 - (OrgApacheLuceneUtilSparseFixedBitSet)setWithInt:(int)int;
 - (int)approximateCardinality;
 - (int)cardinality;
@@ -42,7 +41,7 @@
       while (v8 < v9)
       {
         v10 = *v8++;
-        v5 += JavaLangLong_bitCountWithLong_(v10);
+        v5 += JavaLangLong_bitCountWithLong_(v10, a2);
       }
     }
   }
@@ -103,7 +102,7 @@ LABEL_11:
     JreThrowNullPointerException();
   }
 
-  v13 = JavaLangLong_bitCountWithLong_(v8 & (v9 - 1));
+  v13 = JavaLangLong_bitCountWithLong_(v8 & (v9 - 1), a2);
   isa_low = LODWORD(v12[1].super.isa);
   if (v13 < 0 || v13 >= isa_low)
   {
@@ -145,7 +144,7 @@ LABEL_11:
       v12 = (&bits->elementType_)[v6];
       if (v12)
       {
-        v13 = JavaLangLong_bitCountWithLong_(v8 & ((1 << v9) - 1));
+        v13 = JavaLangLong_bitCountWithLong_(v8 & ((1 << v9) - 1), a2);
         result = LODWORD(v12[1].super.isa);
         if (v13 < 0 || v13 >= result)
         {
@@ -192,8 +191,8 @@ LABEL_17:
     {
       v10 = v6 >> 12;
       sub_10009A7DC(self, v5, int & 0xFFF, 0xFFFu);
-      v11 = (v5 + 1);
-      if (v11 < v10)
+      v12 = (v5 + 1);
+      if (v12 < v10)
       {
         do
         {
@@ -204,20 +203,20 @@ LABEL_17:
           }
 
           size = indices->super.size_;
-          if (v11 >= size)
+          if (v12 >= size)
           {
-            IOSArray_throwOutOfBoundsWithMsg(size, v11);
+            IOSArray_throwOutOfBoundsWithMsg(size, v12);
           }
 
-          selfCopy->nonZeroLongCount_ -= JavaLangLong_bitCountWithLong_(indices->buffer_[v11]);
-          v14 = selfCopy->indices_;
-          v15 = v14->super.size_;
-          if (v11 >= v15)
+          selfCopy->nonZeroLongCount_ -= JavaLangLong_bitCountWithLong_(indices->buffer_[v12], v11);
+          v15 = selfCopy->indices_;
+          v16 = v15->super.size_;
+          if (v12 >= v16)
           {
-            IOSArray_throwOutOfBoundsWithMsg(v15, v11);
+            IOSArray_throwOutOfBoundsWithMsg(v16, v12);
           }
 
-          v14->buffer_[v11] = 0;
+          v15->buffer_[v12] = 0;
           bits = selfCopy->bits_;
           if (!bits)
           {
@@ -225,10 +224,10 @@ LABEL_18:
             JreThrowNullPointerException();
           }
 
-          IOSObjectArray_Set(bits, v11++, 0);
+          IOSObjectArray_Set(bits, v12++, 0);
         }
 
-        while (v10 != v11);
+        while (v10 != v12);
       }
 
       v8 = v6 & 0xFFF;
@@ -272,7 +271,7 @@ LABEL_18:
   v11 = (&bits->elementType_)[v6];
   v12 = int >> 6;
   v13 = 1 << (int >> 6);
-  v14 = JavaLangLong_bitCountWithLong_(v9 & (v13 - 1));
+  v15 = JavaLangLong_bitCountWithLong_(v9 & (v13 - 1), a2);
   if ((v9 & v13) != 0)
   {
     if (!v11)
@@ -281,42 +280,42 @@ LABEL_18:
     }
 
     isa_low = LODWORD(v11[1].super.isa);
-    if ((v14 & 0x80000000) != 0 || v14 >= isa_low)
+    if ((v15 & 0x80000000) != 0 || v15 >= isa_low)
     {
-      IOSArray_throwOutOfBoundsWithMsg(isa_low, v14);
+      IOSArray_throwOutOfBoundsWithMsg(isa_low, v15);
     }
 
-    v16 = v11[v14 + 2].super.isa >> int;
-    if (v16)
+    v17 = v11[v15 + 2].super.isa >> int;
+    if (v17)
     {
-      return JavaLangLong_numberOfTrailingZerosWithLong_(v16) + int;
+      return JavaLangLong_numberOfTrailingZerosWithLong_(v17, v14) + int;
     }
 
-    v14 = (v14 + 1);
+    v15 = (v15 + 1);
   }
 
-  v18 = v9 >> ((int >> 6) & 0x3F);
-  if (v18 <= 1)
+  v19 = v9 >> ((int >> 6) & 0x3F);
+  if (v19 <= 1)
   {
 
     return sub_10009A8F0(self, v6 + 1);
   }
 
-  v19 = JavaLangLong_numberOfTrailingZerosWithLong_(v18 >> 1);
+  v20 = JavaLangLong_numberOfTrailingZerosWithLong_(v19 >> 1, v14);
   if (!v11)
   {
 LABEL_21:
     JreThrowNullPointerException();
   }
 
-  v20 = v12 + v19 + 1;
-  v21 = LODWORD(v11[1].super.isa);
-  if ((v14 & 0x80000000) != 0 || v14 >= v21)
+  v22 = v12 + v20 + 1;
+  v23 = LODWORD(v11[1].super.isa);
+  if ((v15 & 0x80000000) != 0 || v15 >= v23)
   {
-    IOSArray_throwOutOfBoundsWithMsg(v21, v14);
+    IOSArray_throwOutOfBoundsWithMsg(v23, v15);
   }
 
-  return JavaLangLong_numberOfTrailingZerosWithLong_(v11[v14 + 2].super.isa) | (v20 << 6);
+  return JavaLangLong_numberOfTrailingZerosWithLong_(v11[v15 + 2].super.isa, v21) | (v22 << 6);
 }
 
 - (int)prevSetBitWithInt:(int)int
@@ -349,7 +348,7 @@ LABEL_21:
 
   v11 = (&bits->elementType_)[v6];
   v12 = 1 << (int >> 6);
-  v13 = JavaLangLong_bitCountWithLong_(v9 & (v12 - 1));
+  v14 = JavaLangLong_bitCountWithLong_(v9 & (v12 - 1), a2);
   if ((v9 & v12) != 0)
   {
     if (!v11)
@@ -358,32 +357,32 @@ LABEL_21:
     }
 
     isa_low = LODWORD(v11[1].super.isa);
-    if ((v13 & 0x80000000) != 0 || v13 >= isa_low)
+    if ((v14 & 0x80000000) != 0 || v14 >= isa_low)
     {
-      IOSArray_throwOutOfBoundsWithMsg(isa_low, v13);
+      IOSArray_throwOutOfBoundsWithMsg(isa_low, v14);
     }
 
-    v15 = v11[v13 + 2].super.isa & ((2 << int) - 1);
-    if (v15)
+    v16 = v11[v14 + 2].super.isa & ((2 << int) - 1);
+    if (v16)
     {
-      return (63 - JavaLangLong_numberOfLeadingZerosWithLong_(v15)) | int & 0xFFFFFFC0;
+      return (63 - JavaLangLong_numberOfLeadingZerosWithLong_(v16, v13)) | int & 0xFFFFFFC0;
     }
   }
 
   if ((v9 & (v12 - 1)) != 0)
   {
-    v17 = JavaLangLong_numberOfLeadingZerosWithLong_(v9 & (v12 - 1));
+    v18 = JavaLangLong_numberOfLeadingZerosWithLong_(v9 & (v12 - 1), v13);
     if (v11)
     {
-      v18 = v17;
-      v19 = LODWORD(v11[1].super.isa);
-      v20 = v13 - 1;
-      if (v13 - 1 < 0 || v20 >= v19)
+      v20 = v18;
+      v21 = LODWORD(v11[1].super.isa);
+      v22 = v14 - 1;
+      if (v14 - 1 < 0 || v22 >= v21)
       {
-        IOSArray_throwOutOfBoundsWithMsg(v19, v20);
+        IOSArray_throwOutOfBoundsWithMsg(v21, v22);
       }
 
-      return (4032 - (v18 << 6)) | int & 0xFFFFF000 | (63 - JavaLangLong_numberOfLeadingZerosWithLong_(v11[v20 + 2].super.isa));
+      return (4032 - (v20 << 6)) | int & 0xFFFFF000 | (63 - JavaLangLong_numberOfLeadingZerosWithLong_(v11[v22 + 2].super.isa, v19));
     }
 
 LABEL_19:
@@ -395,7 +394,7 @@ LABEL_19:
 
 - (void)or__WithOrgApacheLuceneSearchDocIdSetIterator:(id)iterator
 {
-  SparseFixedBitSetOrNullWithOrgApacheLuceneSearchDocIdSetIterator = OrgApacheLuceneUtilBitSetIterator_getSparseFixedBitSetOrNullWithOrgApacheLuceneSearchDocIdSetIterator_(iterator);
+  SparseFixedBitSetOrNullWithOrgApacheLuceneSearchDocIdSetIterator = OrgApacheLuceneUtilBitSetIterator_getSparseFixedBitSetOrNullWithOrgApacheLuceneSearchDocIdSetIterator_(iterator, a2);
   if (SparseFixedBitSetOrNullWithOrgApacheLuceneSearchDocIdSetIterator)
   {
     v6 = SparseFixedBitSetOrNullWithOrgApacheLuceneSearchDocIdSetIterator;
@@ -428,7 +427,7 @@ LABEL_19:
 
 - (void)and__WithOrgApacheLuceneSearchDocIdSetIterator:(id)iterator
 {
-  SparseFixedBitSetOrNullWithOrgApacheLuceneSearchDocIdSetIterator = OrgApacheLuceneUtilBitSetIterator_getSparseFixedBitSetOrNullWithOrgApacheLuceneSearchDocIdSetIterator_(iterator);
+  SparseFixedBitSetOrNullWithOrgApacheLuceneSearchDocIdSetIterator = OrgApacheLuceneUtilBitSetIterator_getSparseFixedBitSetOrNullWithOrgApacheLuceneSearchDocIdSetIterator_(iterator, a2);
   if (SparseFixedBitSetOrNullWithOrgApacheLuceneSearchDocIdSetIterator)
   {
     indices = self->indices_;
@@ -442,69 +441,62 @@ LABEL_19:
     v7 = JavaLangMath_minWithInt_withInt_(indices->super.size_, *(SparseFixedBitSetOrNullWithOrgApacheLuceneSearchDocIdSetIterator[1] + 8));
     if (v7 >= 1)
     {
-      v8 = 0;
-      v9 = v7;
+      v9 = 0;
+      v10 = v7;
       do
       {
-        v10 = self->indices_;
-        size = v10->super.size_;
-        if (v8 >= size)
+        v11 = self->indices_;
+        size = v11->super.size_;
+        if (v9 >= size)
         {
-          IOSArray_throwOutOfBoundsWithMsg(size, v8);
+          IOSArray_throwOutOfBoundsWithMsg(size, v9);
         }
 
-        v12 = v10->buffer_[v8];
-        v13 = v6[1];
-        v14 = *(v13 + 8);
-        if (v8 >= v14)
+        v13 = v11->buffer_[v9];
+        v14 = v6[1];
+        v15 = *(v14 + 8);
+        if (v9 >= v15)
         {
-          IOSArray_throwOutOfBoundsWithMsg(v14, v8);
+          IOSArray_throwOutOfBoundsWithMsg(v15, v9);
         }
 
-        if ((*(v13 + 16 + 8 * v8) & v12) == 0)
+        if ((*(v14 + 16 + 8 * v9) & v13) == 0)
         {
-          v15 = self->indices_;
-          v16 = v15->super.size_;
-          if (v8 >= v16)
+          v16 = self->indices_;
+          v17 = v16->super.size_;
+          if (v9 >= v17)
           {
-            IOSArray_throwOutOfBoundsWithMsg(v16, v8);
+            IOSArray_throwOutOfBoundsWithMsg(v17, v9);
           }
 
-          self->nonZeroLongCount_ -= JavaLangLong_bitCountWithLong_(v15->buffer_[v8]);
-          v17 = self->indices_;
-          v18 = v17->super.size_;
-          if (v8 >= v18)
+          self->nonZeroLongCount_ -= JavaLangLong_bitCountWithLong_(v16->buffer_[v9], v8);
+          v18 = self->indices_;
+          v19 = v18->super.size_;
+          if (v9 >= v19)
           {
-            IOSArray_throwOutOfBoundsWithMsg(v18, v8);
+            IOSArray_throwOutOfBoundsWithMsg(v19, v9);
           }
 
-          v17->buffer_[v8] = 0;
+          v18->buffer_[v9] = 0;
           bits = self->bits_;
           if (!bits)
           {
             goto LABEL_19;
           }
 
-          IOSObjectArray_Set(bits, v8, 0);
+          IOSObjectArray_Set(bits, v9, 0);
         }
 
-        ++v8;
+        ++v9;
       }
 
-      while (v9 != v8);
+      while (v10 != v9);
     }
   }
 
-  v21.receiver = self;
-  v21.super_class = OrgApacheLuceneUtilSparseFixedBitSet;
-  [(OrgApacheLuceneUtilBitSet *)&v21 and__WithOrgApacheLuceneSearchDocIdSetIterator:iterator];
-}
-
-- (NSString)description
-{
-  length = self->length_;
-  [(OrgApacheLuceneUtilSparseFixedBitSet *)self approximateCardinality];
-  return JreStrcat("$I$I", v3, v4, v5, v6, v7, v8, v9, @"SparseFixedBitSet(size=");
+  v22.receiver = self;
+  v22.super_class = OrgApacheLuceneUtilSparseFixedBitSet;
+  [(OrgApacheLuceneUtilBitSet *)&v22 and__WithOrgApacheLuceneSearchDocIdSetIterator:iterator];
 }
 
 - (void)dealloc

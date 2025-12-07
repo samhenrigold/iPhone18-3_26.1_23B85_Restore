@@ -10,19 +10,19 @@
 
 - (PKAccountUserDetailHeaderView)initWithFrame:(CGRect)frame
 {
-  v10.receiver = self;
-  v10.super_class = PKAccountUserDetailHeaderView;
-  v3 = [(PKAccountUserDetailHeaderView *)&v10 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v11.receiver = self;
+  v11.super_class = PKAccountUserDetailHeaderView;
+  v3 = [(PKAccountUserDetailHeaderView *)&v11 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
   if (v3)
   {
     v4 = [[PKAvatarHeaderView alloc] initWithContact:0 counterpartHandle:0];
     avatarHeaderView = v3->_avatarHeaderView;
     v3->_avatarHeaderView = v4;
 
-    [(PKAccountUserDetailHeaderView *)v3 addSubview:v3->_avatarHeaderView];
-    v6 = objc_alloc_init(getCNContactInlineActionsViewControllerClass());
+    v6 = [(PKAccountUserDetailHeaderView *)v3 addSubview:v3->_avatarHeaderView];
+    v7 = objc_alloc_init(getCNContactInlineActionsViewControllerClass(v6));
     actionsViewController = v3->_actionsViewController;
-    v3->_actionsViewController = v6;
+    v3->_actionsViewController = v7;
 
     [(CNContactInlineActionsViewController *)v3->_actionsViewController setDisplaysTitles:1];
     [(CNContactInlineActionsViewController *)v3->_actionsViewController setDisplaysUnavailableActionTypes:1];

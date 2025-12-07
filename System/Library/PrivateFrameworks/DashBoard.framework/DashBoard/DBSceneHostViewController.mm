@@ -719,8 +719,9 @@ void __96__DBSceneHostViewController_performSceneUpdateWithBlock_waitsForSceneCo
   [*(a1 + 32) _updateSceneSettings:v9 transitionContext:v13 updateBlock:*(a1 + 40)];
 }
 
-void __96__DBSceneHostViewController_performSceneUpdateWithBlock_waitsForSceneCommit_timeout_completion___block_invoke_2(uint64_t a1, char a2, void *a3)
+void __96__DBSceneHostViewController_performSceneUpdateWithBlock_waitsForSceneCommit_timeout_completion___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
+  v3 = a2;
   v21 = *MEMORY[0x277D85DE8];
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -743,7 +744,7 @@ void __96__DBSceneHostViewController_performSceneUpdateWithBlock_waitsForSceneCo
   [v11 invalidate];
 
   [WeakRetained setUpdateTimer:0];
-  if ((a2 & 1) == 0)
+  if ((v3 & 1) == 0)
   {
     v12 = [WeakRetained pendingUpdateCompletion];
 

@@ -7,12 +7,11 @@
 
 - (id)getPropertyOverrides
 {
-  v2 = *(&self->super.isa + OBJC_IVAR____TtC20AudioDSPManagerSwift44InteropLayerSystemConfigurationDatabaseEntry_properties);
   type metadata accessor for InteropLayerPropertyValue();
 
-  v3 = sub_223BF444C();
+  v2 = sub_223BF444C();
 
-  return v3;
+  return v2;
 }
 
 - (_TtC20AudioDSPManagerSwift44InteropLayerSystemConfigurationDatabaseEntry)init

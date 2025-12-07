@@ -122,7 +122,6 @@ uint64_t sub_2B78(uint64_t result)
 {
   if (*(result + 40))
   {
-    v1 = *(result + 32);
     return (*(*(result + 40) + 16))();
   }
 

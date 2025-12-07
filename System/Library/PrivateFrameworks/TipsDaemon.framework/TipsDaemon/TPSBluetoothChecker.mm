@@ -1,7 +1,9 @@
 @interface TPSBluetoothChecker
++ (BOOL)bluetoothPairedForProductID:(unsigned int)d minimumVersion:(id)version withPairedDevices:(id)devices;
 + (BOOL)bluetoothPairedWithTag:(id)tag withPairedPeers:(id)peers;
 + (id)bluetoothPairedForProductIDs:(id)ds minimumVersion:(id)version withPairedDevices:(id)devices;
 + (id)sharedInstance;
+- (BOOL)bluetoothPairedForProductID:(unsigned int)d minimumVersion:(id)version;
 - (BOOL)bluetoothPairedWithTag:(id)tag;
 - (NSArray)pairedDevices;
 - (NSArray)pairedPeers;
@@ -168,6 +170,16 @@ void __36__TPSBluetoothChecker_pairedDevices__block_invoke(uint64_t a1)
   return self;
 }
 
+- (BOOL)bluetoothPairedForProductID:(unsigned int)d minimumVersion:(id)version
+{
+  v4 = *&d;
+  versionCopy = version;
+  pairedDevices = [(TPSBluetoothChecker *)self pairedDevices];
+  LOBYTE(v4) = [objc_opt_class() bluetoothPairedForProductID:v4 minimumVersion:versionCopy withPairedDevices:pairedDevices];
+
+  return v4;
+}
+
 + (BOOL)bluetoothPairedWithTag:(id)tag withPairedPeers:(id)peers
 {
   tagCopy = tag;
@@ -199,6 +211,21 @@ void __62__TPSBluetoothChecker_bluetoothPairedWithTag_withPairedPeers___block_in
     *(*(*(a1 + 40) + 8) + 24) = [v6 hasTag:*(a1 + 32)];
     *a4 = *(*(*(a1 + 40) + 8) + 24);
   }
+}
+
++ (BOOL)bluetoothPairedForProductID:(unsigned int)d minimumVersion:(id)version withPairedDevices:(id)devices
+{
+  v6 = *&d;
+  v15[1] = *MEMORY[0x277D85DE8];
+  v8 = MEMORY[0x277CCABB0];
+  devicesCopy = devices;
+  versionCopy = version;
+  v11 = [v8 numberWithUnsignedInt:v6];
+  v15[0] = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+  v13 = [self bluetoothPairedForProductIDs:v12 minimumVersion:versionCopy withPairedDevices:devicesCopy];
+
+  return v13 != 0;
 }
 
 + (id)bluetoothPairedForProductIDs:(id)ds minimumVersion:(id)version withPairedDevices:(id)devices
@@ -268,7 +295,7 @@ uint64_t __85__TPSBluetoothChecker_bluetoothPairedForProductIDs_minimumVersion_w
 
 void __85__TPSBluetoothChecker_bluetoothPairedForProductIDs_minimumVersion_withPairedDevices___block_invoke_2(void *a1, void *a2, uint64_t a3, BOOL *a4)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = [v6 vendorId];
   v8 = [v6 productId];
@@ -304,14 +331,14 @@ void __85__TPSBluetoothChecker_bluetoothPairedForProductIDs_minimumVersion_withP
             v18 = [MEMORY[0x277D71778] default];
             if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
             {
-              v23 = a1[5];
-              v24[0] = 67109634;
-              v24[1] = v9;
-              v25 = 2112;
-              v26 = v14;
-              v27 = 2112;
-              v28 = v23;
-              _os_log_debug_impl(&dword_232D6F000, v18, OS_LOG_TYPE_DEBUG, "ProductID: %d, Found version: %@. Required Version: %@", v24, 0x1Cu);
+              v22 = a1[5];
+              v23[0] = 67109634;
+              v23[1] = v9;
+              v24 = 2112;
+              v25 = v14;
+              v26 = 2112;
+              v27 = v22;
+              _os_log_debug_impl(&dword_232D6F000, v18, OS_LOG_TYPE_DEBUG, "ProductID: %d, Found version: %@. Required Version: %@", v23, 0x1Cu);
             }
           }
         }
@@ -328,8 +355,6 @@ void __85__TPSBluetoothChecker_bluetoothPairedForProductIDs_minimumVersion_withP
       *a4 = *(*(a1[6] + 8) + 40) != 0;
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 @end

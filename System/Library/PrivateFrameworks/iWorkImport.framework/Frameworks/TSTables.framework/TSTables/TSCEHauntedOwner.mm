@@ -58,15 +58,15 @@
 {
   dCopy = d;
   self->_baseTableUID = d;
-  self->_ownerUID._lower = sub_2212C4930(&dCopy, 0x23, d._lower, d._upper, v3);
-  self->_ownerUID._upper = v5;
+  self->_ownerUID._lower = sub_2212C4930(&dCopy, 0x23, d._lower, d._upper);
+  self->_ownerUID._upper = v4;
 }
 
 - (TSCEHauntedOwner)initWithBaseTableUID:(const TSKUIDStruct *)d
 {
-  v10[0] = sub_2212C4930(d, 0x23, d, v3, v4);
-  v10[1] = v7;
-  return objc_msgSend_initWithBaseTableUID_ownerUID_(self, v7, d, v10, v8);
+  v8[0] = sub_2212C4930(d, 0x23, d, v3);
+  v8[1] = v6;
+  return objc_msgSend_initWithBaseTableUID_ownerUID_(self, v6, d, v8);
 }
 
 - (void)setCalcEngine:(id)engine
@@ -75,7 +75,7 @@
   if (!self->_calcEngine)
   {
     objc_storeStrong(&self->_calcEngine, engine);
-    objc_msgSend_registerWithCalcEngine_(self, v5, self->_calcEngine, v6, v7);
+    objc_msgSend_registerWithCalcEngine_(self, v5, self->_calcEngine, v6);
   }
 }
 
@@ -90,229 +90,229 @@
 
 + (TSCECellRef)nowPrecedentForTableUID:(SEL)d
 {
-  result = sub_2212C4930(a4, 0x23, a4, v4, v5);
+  result = sub_2212C4930(a4, 0x23, a4, v4);
   retstr->coordinate = 0x100000000;
   retstr->_tableUID._lower = result;
-  retstr->_tableUID._upper = v8;
+  retstr->_tableUID._upper = v7;
   return result;
 }
 
 + (TSCECellRef)todayPrecedentForTableUID:(SEL)d
 {
-  result = sub_2212C4930(a4, 0x23, a4, v4, v5);
+  result = sub_2212C4930(a4, 0x23, a4, v4);
   retstr->coordinate = 0x200000000;
   retstr->_tableUID._lower = result;
-  retstr->_tableUID._upper = v8;
+  retstr->_tableUID._upper = v7;
   return result;
 }
 
 + (TSCECellRef)randomPrecedentForTableUID:(SEL)d
 {
-  result = sub_2212C4930(a4, 0x23, a4, v4, v5);
+  result = sub_2212C4930(a4, 0x23, a4, v4);
   retstr->coordinate = 0x300000000;
   retstr->_tableUID._lower = result;
-  retstr->_tableUID._upper = v8;
+  retstr->_tableUID._upper = v7;
   return result;
 }
 
 + (TSCECellRef)subtotalPrecedentForTableUID:(SEL)d
 {
-  result = sub_2212C4930(a4, 0x23, a4, v4, v5);
+  result = sub_2212C4930(a4, 0x23, a4, v4);
   retstr->coordinate = 0xA00000000;
   retstr->_tableUID._lower = result;
-  retstr->_tableUID._upper = v8;
+  retstr->_tableUID._upper = v7;
   return result;
 }
 
 + (TSCECellRef)filteringChangedPrecedentForTableUID:(SEL)d
 {
-  result = sub_2212C4930(a4, 0x23, a4, v4, v5);
+  result = sub_2212C4930(a4, 0x23, a4, v4);
   retstr->coordinate = 0xB00000000;
   retstr->_tableUID._lower = result;
-  retstr->_tableUID._upper = v8;
+  retstr->_tableUID._upper = v7;
   return result;
 }
 
 + (TSCECellRef)userHiddenChangedPrecedentForTableUID:(SEL)d
 {
-  result = sub_2212C4930(a4, 0x23, a4, v4, v5);
+  result = sub_2212C4930(a4, 0x23, a4, v4);
   retstr->coordinate = 0xC00000000;
   retstr->_tableUID._lower = result;
-  retstr->_tableUID._upper = v8;
+  retstr->_tableUID._upper = v7;
   return result;
 }
 
 + (TSCECellRef)formulaDefinitionPrecedentForTableUID:(SEL)d
 {
-  result = sub_2212C4930(a4, 0x23, a4, v4, v5);
+  result = sub_2212C4930(a4, 0x23, a4, v4);
   retstr->coordinate = 0xE00000000;
   retstr->_tableUID._lower = result;
-  retstr->_tableUID._upper = v8;
+  retstr->_tableUID._upper = v7;
   return result;
 }
 
 + (TSCECellRef)groupByChangedPrecedentForTableUID:(SEL)d
 {
-  result = sub_2212C4930(a4, 0x23, a4, v4, v5);
+  result = sub_2212C4930(a4, 0x23, a4, v4);
   retstr->coordinate = 0xF00000000;
   retstr->_tableUID._lower = result;
-  retstr->_tableUID._upper = v8;
+  retstr->_tableUID._upper = v7;
   return result;
 }
 
 + (TSCECellRef)geometryPrecedentForTableUID:(SEL)d
 {
-  result = sub_2212C4930(a4, 0x23, a4, v4, v5);
+  result = sub_2212C4930(a4, 0x23, a4, v4);
   retstr->coordinate = 0x400000000;
   retstr->_tableUID._lower = result;
-  retstr->_tableUID._upper = v8;
+  retstr->_tableUID._upper = v7;
   return result;
 }
 
 + (TSCECellRef)localePrecedentForTableUID:(SEL)d
 {
-  result = sub_2212C4930(a4, 0x23, a4, v4, v5);
+  result = sub_2212C4930(a4, 0x23, a4, v4);
   retstr->coordinate = 0x500000000;
   retstr->_tableUID._lower = result;
-  retstr->_tableUID._upper = v8;
+  retstr->_tableUID._upper = v7;
   return result;
 }
 
 + (TSCECellRef)sheetTableNamePrecedentForTableUID:(SEL)d
 {
-  result = sub_2212C4930(a4, 0x23, a4, v4, v5);
+  result = sub_2212C4930(a4, 0x23, a4, v4);
   retstr->coordinate = 0x600000000;
   retstr->_tableUID._lower = result;
-  retstr->_tableUID._upper = v8;
+  retstr->_tableUID._upper = v7;
   return result;
 }
 
 + (TSCECellRef)anyHeaderNameChangedPrecedentForTableUID:(SEL)d
 {
-  result = sub_2212C4930(a4, 0x23, a4, v4, v5);
+  result = sub_2212C4930(a4, 0x23, a4, v4);
   retstr->coordinate = 0xD00000000;
   retstr->_tableUID._lower = result;
-  retstr->_tableUID._upper = v8;
+  retstr->_tableUID._upper = v7;
   return result;
 }
 
 + (TSCECellRef)summaryModelIsCleanPrecedentForTableUID:(SEL)d
 {
-  result = sub_2212C4930(a4, 0x23, a4, v4, v5);
+  result = sub_2212C4930(a4, 0x23, a4, v4);
   retstr->coordinate = 0x1100000000;
   retstr->_tableUID._lower = result;
-  retstr->_tableUID._upper = v8;
+  retstr->_tableUID._upper = v7;
   return result;
 }
 
 + (TSCECellRef)summaryModelIsCleanForSortPrecedentForTableUID:(SEL)d
 {
-  result = sub_2212C4930(a4, 0x23, a4, v4, v5);
+  result = sub_2212C4930(a4, 0x23, a4, v4);
   retstr->coordinate = 0x1000000000;
   retstr->_tableUID._lower = result;
-  retstr->_tableUID._upper = v8;
+  retstr->_tableUID._upper = v7;
   return result;
 }
 
 + (TSCECellRef)pivotRulesChangedPrecedentForTableUID:(SEL)d
 {
-  result = sub_2212C4930(a4, 0x23, a4, v4, v5);
+  result = sub_2212C4930(a4, 0x23, a4, v4);
   retstr->coordinate = 0x1200000000;
   retstr->_tableUID._lower = result;
-  retstr->_tableUID._upper = v8;
+  retstr->_tableUID._upper = v7;
   return result;
 }
 
 + (TSCECellRef)uniqueDistinctPrecedentForTableUID:(SEL)d
 {
-  result = sub_2212C4930(a4, 0x23, a4, v4, v5);
+  result = sub_2212C4930(a4, 0x23, a4, v4);
   retstr->coordinate = 0x1300000000;
   retstr->_tableUID._lower = result;
-  retstr->_tableUID._upper = v8;
+  retstr->_tableUID._upper = v7;
   return result;
 }
 
 + (TSCECellRef)pivotSortChangedPrecedentForTableUID:(SEL)d
 {
-  result = sub_2212C4930(a4, 0x23, a4, v4, v5);
+  result = sub_2212C4930(a4, 0x23, a4, v4);
   retstr->coordinate = 0x1400000000;
   retstr->_tableUID._lower = result;
-  retstr->_tableUID._upper = v8;
+  retstr->_tableUID._upper = v7;
   return result;
 }
 
 + (TSCECellRef)spillPrecedentForTableUID:(SEL)d
 {
-  result = sub_2212C4930(a4, 0x23, a4, v4, v5);
+  result = sub_2212C4930(a4, 0x23, a4, v4);
   retstr->coordinate = 0x1600000000;
   retstr->_tableUID._lower = result;
-  retstr->_tableUID._upper = v8;
+  retstr->_tableUID._upper = v7;
   return result;
 }
 
 + (TSCECellRef)spillBlockedByContentPrecedentForTableUID:(SEL)d
 {
-  result = sub_2212C4930(a4, 0x23, a4, v4, v5);
+  result = sub_2212C4930(a4, 0x23, a4, v4);
   retstr->coordinate = 0x100000001;
   retstr->_tableUID._lower = result;
-  retstr->_tableUID._upper = v8;
+  retstr->_tableUID._upper = v7;
   return result;
 }
 
 + (TSCECellRef)spillBlockedByMergePrecedentForTableUID:(SEL)d
 {
-  result = sub_2212C4930(a4, 0x23, a4, v4, v5);
+  result = sub_2212C4930(a4, 0x23, a4, v4);
   retstr->coordinate = 0x100000002;
   retstr->_tableUID._lower = result;
-  retstr->_tableUID._upper = v8;
+  retstr->_tableUID._upper = v7;
   return result;
 }
 
 + (TSCECellRef)spillBlockedByBeingVerticalPrecedentForTableUID:(SEL)d
 {
-  result = sub_2212C4930(a4, 0x23, a4, v4, v5);
+  result = sub_2212C4930(a4, 0x23, a4, v4);
   retstr->coordinate = 0x100000003;
   retstr->_tableUID._lower = result;
-  retstr->_tableUID._upper = v8;
+  retstr->_tableUID._upper = v7;
   return result;
 }
 
 - (void)dirtyNowVolatileCells
 {
   calcEngine = self->_calcEngine;
-  objc_msgSend_nowPrecedentForTableUID_(TSCEHauntedOwner, a2, &self->_baseTableUID, v2, v3);
-  objc_msgSend_markCellRefAsDirty_(calcEngine, v5, v8, v6, v7);
+  objc_msgSend_nowPrecedentForTableUID_(TSCEHauntedOwner, a2, &self->_baseTableUID, v2);
+  objc_msgSend_markCellRefAsDirty_(calcEngine, v4, v6, v5);
 }
 
 - (void)dirtyNowAndTodayVolatileCells
 {
   calcEngine = self->_calcEngine;
-  objc_msgSend_todayPrecedentForTableUID_(TSCEHauntedOwner, a2, &self->_baseTableUID, v2, v3);
-  objc_msgSend_markCellRefAsDirty_(calcEngine, v6, v16, v7, v8);
-  v9 = self->_calcEngine;
-  objc_msgSend_nowPrecedentForTableUID_(TSCEHauntedOwner, v10, &self->_baseTableUID, v11, v12);
-  objc_msgSend_markCellRefAsDirty_(v9, v13, v16, v14, v15);
+  objc_msgSend_todayPrecedentForTableUID_(TSCEHauntedOwner, a2, &self->_baseTableUID, v2);
+  objc_msgSend_markCellRefAsDirty_(calcEngine, v5, v12, v6);
+  v7 = self->_calcEngine;
+  objc_msgSend_nowPrecedentForTableUID_(TSCEHauntedOwner, v8, &self->_baseTableUID, v9);
+  objc_msgSend_markCellRefAsDirty_(v7, v10, v12, v11);
 }
 
 - (void)dirtyRandomVolatileCells
 {
   calcEngine = self->_calcEngine;
-  objc_msgSend_randomPrecedentForTableUID_(TSCEHauntedOwner, a2, &self->_baseTableUID, v2, v3);
-  objc_msgSend_markCellRefAsDirty_(calcEngine, v5, v8, v6, v7);
+  objc_msgSend_randomPrecedentForTableUID_(TSCEHauntedOwner, a2, &self->_baseTableUID, v2);
+  objc_msgSend_markCellRefAsDirty_(calcEngine, v4, v6, v5);
 }
 
 - (void)dirtyGeometryVolatileCells
 {
   calcEngine = self->_calcEngine;
-  objc_msgSend_geometryPrecedentForTableUID_(TSCEHauntedOwner, a2, &self->_baseTableUID, v2, v3);
-  objc_msgSend_markCellRefAsDirty_(calcEngine, v5, v8, v6, v7);
+  objc_msgSend_geometryPrecedentForTableUID_(TSCEHauntedOwner, a2, &self->_baseTableUID, v2);
+  objc_msgSend_markCellRefAsDirty_(calcEngine, v4, v6, v5);
 }
 
 - (void)dirtySheetTableNameVolatileCells
 {
   calcEngine = self->_calcEngine;
-  objc_msgSend_sheetTableNamePrecedentForTableUID_(TSCEHauntedOwner, a2, &self->_baseTableUID, v2, v3);
-  objc_msgSend_markCellRefAsDirty_(calcEngine, v5, v8, v6, v7);
+  objc_msgSend_sheetTableNamePrecedentForTableUID_(TSCEHauntedOwner, a2, &self->_baseTableUID, v2);
+  objc_msgSend_markCellRefAsDirty_(calcEngine, v4, v6, v5);
 }
 
 - (TSCEHauntedOwner)initWithArchive:(const void *)archive unarchiver:(id)unarchiver forBaseTableUID:(const TSKUIDStruct *)d
@@ -327,9 +327,9 @@
     v7 = MEMORY[0x277D809E0];
   }
 
-  v11[0] = TSKUIDStruct::loadFromMessage(v7, a2);
-  v11[1] = v8;
-  return objc_msgSend_initWithBaseTableUID_ownerUID_(self, v8, d, v11, v9);
+  v10[0] = TSKUIDStruct::loadFromMessage(v7, a2);
+  v10[1] = v8;
+  return objc_msgSend_initWithBaseTableUID_ownerUID_(self, v8, d, v10);
 }
 
 - (void)saveToArchive:(void *)archive archiver:(id)archiver
@@ -365,7 +365,7 @@
 
 - (void)unregisterFromCalcEngine
 {
-  objc_msgSend_unregisterOwner_(self->_calcEngine, a2, self->_ownerUID._lower, self->_ownerUID._upper, v2);
+  objc_msgSend_unregisterOwner_(self->_calcEngine, a2, self->_ownerUID._lower, self->_ownerUID._upper);
   calcEngine = self->_calcEngine;
   self->_calcEngine = 0;
 }

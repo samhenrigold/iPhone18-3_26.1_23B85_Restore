@@ -1,73 +1,63 @@
 uint64_t _citrus_mapper_std_mapper_init(uint64_t a1, uint64_t a2, const char *a3, const char *a4, int a5, uint64_t a6, unint64_t a7)
 {
-  v19 = *MEMORY[0x29EDCA608];
-  if (a7 >= 0x18)
+  v17 = *MEMORY[0x29EDCA608];
+  if (a7 < 0x18)
   {
-    *(a6 + 16) = 1;
-    *a6 = xmmword_296036E20;
-    v12 = malloc_type_malloc(0x70uLL, 0x10A0040EA5F9EB0uLL);
-    if (v12)
+    return 22;
+  }
+
+  *(a6 + 16) = 1;
+  *a6 = xmmword_296036E20;
+  v12 = malloc_type_malloc(0x70uLL, 0x10A0040EA5F9EB0uLL);
+  if (!v12)
+  {
+    return *__error();
+  }
+
+  v13 = v12;
+  snprintf(__str, 0x400uLL, "%s/%.*s", a3, a5, a4);
+  v7 = _citrus_map_file();
+  if (!v7)
+  {
+    v7 = _citrus_db_open();
+    if (!v7)
     {
-      v13 = v12;
-      snprintf(__str, 0x400uLL, "%s/%.*s", a3, a5, a4);
-      v7 = _citrus_map_file();
-      if (!v7)
+      v14 = _citrus_db_lookup_string_by_string();
+      if (v14)
       {
-        v7 = _citrus_db_open();
-        if (!v7)
+        if (v14 == 2)
         {
-          v14 = v13[2];
-          v15 = _citrus_db_lookup_string_by_string();
-          if (v15)
-          {
-            if (v15 == 2)
-            {
-              v7 = 79;
-            }
-
-            else
-            {
-              v7 = v15;
-            }
-          }
-
-          else if (_citrus_bcs_strcasecmp())
-          {
-            v7 = 0;
-          }
-
-          else
-          {
-            v7 = rowcol_init(v13);
-            if (!v7)
-            {
-              *(a2 + 8) = v13;
-              goto LABEL_17;
-            }
-          }
-
-          MEMORY[0x29C257110](v13[2]);
+          v7 = 79;
         }
 
-        _citrus_unmap_file();
+        else
+        {
+          v7 = v14;
+        }
       }
 
-      free(v13);
+      else if (_citrus_bcs_strcasecmp())
+      {
+        v7 = 0;
+      }
+
+      else
+      {
+        v7 = rowcol_init(v13);
+        if (!v7)
+        {
+          *(a2 + 8) = v13;
+          return v7;
+        }
+      }
+
+      MEMORY[0x29C257110](v13[2]);
     }
 
-    else
-    {
-      v7 = *__error();
-    }
+    _citrus_unmap_file();
   }
 
-  else
-  {
-    v7 = 22;
-  }
-
-LABEL_17:
-  v16 = *MEMORY[0x29EDCA608];
+  free(v13);
   return v7;
 }
 
@@ -156,18 +146,15 @@ uint64_t rowcol_init(void *a1)
 {
   a1[3] = rowcol_convert;
   a1[4] = rowcol_uninit;
-  v2 = a1[2];
   LODWORD(result) = _citrus_db_lookup_by_string();
   if (!result)
   {
-    v4 = a1[2];
     if (_citrus_db_lookup_by_string() == 2)
     {
       a1[7] = 0;
       a1[8] = 0;
     }
 
-    v5 = a1[2];
     LODWORD(result) = _citrus_db_lookup_by_string();
     if (!result)
     {

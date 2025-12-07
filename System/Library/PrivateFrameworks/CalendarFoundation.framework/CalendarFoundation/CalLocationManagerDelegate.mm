@@ -46,13 +46,13 @@
     v16 = +[CalFoundationLogSubsystem locations];
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
-      [CalLocationManagerDelegate initWithCurrentBundleID:? completionBlock:?];
+      [CalLocationManagerDelegate initWithCurrentBundleID:completionBlock:];
     }
 
     v17 = +[CalFoundationLogSubsystem locations];
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
-      [CalLocationManagerDelegate initWithCurrentBundleID:? completionBlock:?];
+      [CalLocationManagerDelegate initWithCurrentBundleID:completionBlock:];
     }
 
     [(CLLocationManager *)v10->_manager startUpdatingLocation];
@@ -173,7 +173,7 @@ LABEL_12:
     v11 = +[CalFoundationLogSubsystem locations];
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      [CalLocationManagerDelegate didFinishLocationLookupWithLocation:selfCopy error:?];
+      [CalLocationManagerDelegate didFinishLocationLookupWithLocation:error:];
     }
 
     [(CLLocationManager *)selfCopy->_manager stopUpdatingLocation];
@@ -183,24 +183,18 @@ LABEL_12:
   objc_sync_exit(selfCopy);
 }
 
-- (void)initWithCurrentBundleID:(uint64_t *)a1 completionBlock:.cold.1(uint64_t *a1)
+- (void)initWithCurrentBundleID:completionBlock:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *a1;
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-- (void)initWithCurrentBundleID:(uint64_t *)a1 completionBlock:.cold.2(uint64_t *a1)
+- (void)initWithCurrentBundleID:completionBlock:.cold.2()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *a1;
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 - (void)locationManager:didUpdateLocations:.cold.1()
@@ -219,28 +213,24 @@ LABEL_12:
 
 - (void)locationManager:didFailWithError:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(&dword_1B990D000, v0, OS_LOG_TYPE_ERROR, "Our location manager failed with the error [%@]", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1B990D000, v0, OS_LOG_TYPE_ERROR, "Our location manager failed with the error [%@]", v1, 0xCu);
 }
 
 - (void)locationManager:didFailWithError:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-- (void)didFinishLocationLookupWithLocation:(uint64_t)a1 error:.cold.1(uint64_t a1)
+- (void)didFinishLocationLookupWithLocation:error:.cold.1()
 {
-  OUTLINED_FUNCTION_6(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_6(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 - (void)didFinishLocationLookupWithLocation:error:.cold.2()

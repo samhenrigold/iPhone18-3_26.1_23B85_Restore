@@ -12,7 +12,7 @@
   selfCopy = self;
   [v3 removeHeartRhythmAvailabilityObserver_];
   v5.receiver = selfCopy;
-  v5.super_class = type metadata accessor for TachycardiaAdvertisableFeatureSource();
+  v5.super_class = type metadata accessor for TachycardiaAdvertisableFeatureSource(0);
   [(TachycardiaAdvertisableFeatureSource *)&v5 dealloc];
 }
 

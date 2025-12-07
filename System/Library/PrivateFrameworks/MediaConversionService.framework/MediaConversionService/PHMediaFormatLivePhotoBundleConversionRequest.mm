@@ -9,20 +9,20 @@
 
 - (void)postProcessSuccessfulCompositeRequest
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   [v3 setMediaType:3];
   [v3 generateTemporaryOutputFileURLForRequest:self];
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = __86__PHMediaFormatLivePhotoBundleConversionRequest_postProcessSuccessfulCompositeRequest__block_invoke;
-  v32[3] = &unk_27989B6F0;
-  v32[4] = self;
-  v33 = 0;
-  v4 = MEMORY[0x259C84340](v32);
-  v31 = 0;
-  v5 = [v3 createTemporaryOutputDirectoryWithError:&v31];
-  v6 = v31;
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __86__PHMediaFormatLivePhotoBundleConversionRequest_postProcessSuccessfulCompositeRequest__block_invoke;
+  v31[3] = &unk_27989B6F0;
+  v31[4] = self;
+  v32 = 0;
+  v4 = MEMORY[0x259C84340](v31);
+  v30 = 0;
+  v5 = [v3 createTemporaryOutputDirectoryWithError:&v30];
+  v6 = v30;
   if (v5)
   {
     v7 = objc_alloc(MEMORY[0x277D3B520]);
@@ -53,17 +53,17 @@
       }
       v19 = ;
       v20 = objc_alloc(MEMORY[0x277D3B520]);
-      v29 = fileURL2;
+      v28 = fileURL2;
       path = [fileURL2 path];
-      v28 = fileURL3;
+      v27 = fileURL3;
       path2 = [fileURL3 path];
-      [v10 imageDisplayTime];
+      objc_msgSend_imageDisplayTime(v10);
       v23 = [v20 initWithPathToVideo:path pathToImage:path2 imageDisplayTime:buf pairingIdentifier:v19];
 
       temporaryOutputFileURL = [v3 temporaryOutputFileURL];
-      v30 = v6;
-      v25 = [v23 writeToBundleAtURL:temporaryOutputFileURL error:&v30];
-      v26 = v30;
+      v29 = v6;
+      v25 = [v23 writeToBundleAtURL:temporaryOutputFileURL error:&v29];
+      v26 = v29;
 
       if (v25)
       {
@@ -75,7 +75,7 @@
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v35 = v26;
+          v34 = v26;
           _os_log_error_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to create live photo output bundle: %@", buf, 0xCu);
         }
 
@@ -102,26 +102,24 @@
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v35 = v6;
+      v34 = v6;
       _os_log_error_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to create temporary output parent directory for live photo bundle: %@", buf, 0xCu);
     }
 
     v4[2](v4);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __86__PHMediaFormatLivePhotoBundleConversionRequest_postProcessSuccessfulCompositeRequest__block_invoke(uint64_t a1)
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CCA9B8];
   v3 = *(a1 + 40);
   if (v3)
   {
-    v8 = *MEMORY[0x277CCA7E8];
-    v9[0] = v3;
-    v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+    v7 = *MEMORY[0x277CCA7E8];
+    v8[0] = v3;
+    v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   }
 
   else
@@ -136,9 +134,7 @@ uint64_t __86__PHMediaFormatLivePhotoBundleConversionRequest_postProcessSuccessf
   {
   }
 
-  result = [*(a1 + 32) setStatus:5];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) setStatus:5];
 }
 
 - (void)enumerateSubrequests:(id)subrequests
@@ -163,21 +159,19 @@ uint64_t __86__PHMediaFormatLivePhotoBundleConversionRequest_postProcessSuccessf
 
 void __87__PHMediaFormatLivePhotoBundleConversionRequest_enqueueSubrequestsOnConversionManager___block_invoke(uint64_t a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     v2 = [*(a1 + 32) livePhotoConversionRequest];
-    v4 = 138412290;
-    v5 = v2;
-    _os_log_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Live photo bundle request subrequest finished: %@", &v4, 0xCu);
+    v3 = 138412290;
+    v4 = v2;
+    _os_log_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Live photo bundle request subrequest finished: %@", &v3, 0xCu);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)prepareWithError:(id *)error
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   source = [(PHMediaFormatConversionRequest *)self source];
   fileURL = [source fileURL];
 
@@ -203,7 +197,7 @@ void __87__PHMediaFormatLivePhotoBundleConversionRequest_enqueueSubrequestsOnCon
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v34 = fileURL;
+        v33 = fileURL;
         _os_log_error_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to get image and video path from pvt bundle at path %@", buf, 0xCu);
       }
 
@@ -212,24 +206,24 @@ void __87__PHMediaFormatLivePhotoBundleConversionRequest_enqueueSubrequestsOnCon
 
     else
     {
-      v31 = imagePath;
-      v32 = videoPath;
+      v30 = imagePath;
+      v31 = videoPath;
       v14 = [MEMORY[0x277CBEBC0] fileURLWithPath:imagePath];
       v15 = [PHMediaFormatConversionSource imageSourceForFileURL:v14];
 
       destinationCapabilities = [(PHMediaFormatConversionRequest *)self destinationCapabilities];
-      v29 = v15;
+      v28 = v15;
       v17 = [PHMediaFormatConversionRequest requestForSource:v15 destinationCapabilities:destinationCapabilities error:error];
 
-      v30 = v17;
+      v29 = v17;
       if (v17)
       {
-        v11 = v32;
-        v18 = [MEMORY[0x277CBEBC0] fileURLWithPath:v32];
+        v11 = v31;
+        v18 = [MEMORY[0x277CBEBC0] fileURLWithPath:v31];
         v19 = [PHMediaFormatConversionSource videoSourceForFileURL:v18];
 
         destinationCapabilities2 = [(PHMediaFormatConversionRequest *)self destinationCapabilities];
-        v28 = v19;
+        v27 = v19;
         v21 = [PHMediaFormatConversionRequest requestForSource:v19 destinationCapabilities:destinationCapabilities2 error:error];
 
         if (v21)
@@ -250,7 +244,7 @@ void __87__PHMediaFormatLivePhotoBundleConversionRequest_enqueueSubrequestsOnCon
           else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v34 = fileURL;
+            v33 = fileURL;
             _os_log_error_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to create live photo bundle request for %@", buf, 0xCu);
           }
         }
@@ -260,31 +254,31 @@ void __87__PHMediaFormatLivePhotoBundleConversionRequest_enqueueSubrequestsOnCon
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v34 = v32;
+            v33 = v31;
             _os_log_error_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to create live photo bundle video subrequest for %@", buf, 0xCu);
           }
 
           v13 = 0;
         }
 
-        imagePath = v31;
+        imagePath = v30;
       }
 
       else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        imagePath = v31;
-        v34 = v31;
+        imagePath = v30;
+        v33 = v30;
         _os_log_error_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to create live photo bundle image subrequest for %@", buf, 0xCu);
         v13 = 0;
-        v11 = v32;
+        v11 = v31;
       }
 
       else
       {
         v13 = 0;
-        imagePath = v31;
-        v11 = v32;
+        imagePath = v30;
+        v11 = v31;
       }
     }
   }
@@ -300,14 +294,13 @@ void __87__PHMediaFormatLivePhotoBundleConversionRequest_enqueueSubrequestsOnCon
     {
       path = [fileURL path];
       *buf = 138412290;
-      v34 = path;
+      v33 = path;
       _os_log_error_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to create live photo bundle with path %@", buf, 0xCu);
     }
 
     v13 = 0;
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v13;
 }
 

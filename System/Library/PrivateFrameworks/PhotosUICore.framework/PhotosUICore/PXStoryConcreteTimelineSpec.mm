@@ -42,8 +42,8 @@
 {
   [(PXStoryConcreteTimelineSpec *)self viewportSize];
   v5 = v3 ^ (2 * v4);
-  [(PXStoryConcreteTimelineSpec *)self fixedSegmentDuration];
-  v6 = v5 ^ (4 * v11);
+  objc_msgSend_fixedSegmentDuration(self);
+  v6 = v5 ^ (4 * v11[0]);
   allowedTransitionKinds = [(PXStoryConcreteTimelineSpec *)self allowedTransitionKinds];
   v8 = v6 ^ (8 * [allowedTransitionKinds hash]);
 

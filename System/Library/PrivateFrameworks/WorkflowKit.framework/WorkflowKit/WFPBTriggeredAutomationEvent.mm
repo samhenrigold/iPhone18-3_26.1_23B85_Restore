@@ -170,7 +170,6 @@ LABEL_5:
       goto LABEL_26;
     }
 
-    v7 = *(equalCopy + 32);
     if (self->_requiredRuntimeConfirmation)
     {
       if ((*(equalCopy + 32) & 1) == 0)
@@ -216,7 +215,7 @@ LABEL_5:
     goto LABEL_26;
   }
 
-  v8 = (*(equalCopy + 36) & 8) == 0;
+  v7 = (*(equalCopy + 36) & 8) == 0;
   if ((*&self->_has & 8) != 0)
   {
     if ((*(equalCopy + 36) & 8) != 0)
@@ -234,17 +233,17 @@ LABEL_5:
         goto LABEL_26;
       }
 
-      v8 = 1;
+      v7 = 1;
       goto LABEL_27;
     }
 
 LABEL_26:
-    v8 = 0;
+    v7 = 0;
   }
 
 LABEL_27:
 
-  return v8;
+  return v7;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -377,25 +376,24 @@ LABEL_10:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v10 = toCopy;
+  v6 = toCopy;
   if (self->_key)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_triggerType)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 4) != 0)
   {
-    requiredRuntimeConfirmation = self->_requiredRuntimeConfirmation;
     PBDataWriterWriteBOOLField();
-    toCopy = v10;
+    toCopy = v6;
     has = self->_has;
     if ((has & 1) == 0)
     {
@@ -414,9 +412,8 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  batchCount = self->_batchCount;
   PBDataWriterWriteUint32Field();
-  toCopy = v10;
+  toCopy = v6;
   has = self->_has;
   if ((has & 2) == 0)
   {
@@ -430,15 +427,13 @@ LABEL_8:
   }
 
 LABEL_15:
-  batchDroppedCount = self->_batchDroppedCount;
   PBDataWriterWriteUint32Field();
-  toCopy = v10;
+  toCopy = v6;
   if ((*&self->_has & 8) != 0)
   {
 LABEL_9:
-    showsNotification = self->_showsNotification;
     PBDataWriterWriteBOOLField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
 LABEL_10:

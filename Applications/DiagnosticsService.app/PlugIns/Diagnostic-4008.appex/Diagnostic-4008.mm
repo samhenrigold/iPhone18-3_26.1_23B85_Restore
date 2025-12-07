@@ -1,6 +1,6 @@
-void sub_100001108(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100001108(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -50,14 +50,16 @@ void sub_100001140(uint64_t a1, void *a2, void *a3)
   dispatch_semaphore_signal(*(a1 + 40));
 }
 
-void sub_1000014DC(uint64_t a1, int a2, int a3, uint64_t a4)
+void sub_1000014DC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (qword_10000C820)
   {
+    v6 = a3;
+    v7 = a2;
     [qword_10000C820 setSession:0];
-    if (a2 == 1)
+    if (v7 == 1)
     {
-      if (a3)
+      if (v6)
       {
         v8 = DiagnosticLogHandleForCategory();
         if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
@@ -96,9 +98,9 @@ LABEL_27:
       goto LABEL_28;
     }
 
-    if (!a2)
+    if (!v7)
     {
-      if (a3)
+      if (v6)
       {
         v8 = DiagnosticLogHandleForCategory();
         if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
@@ -158,14 +160,15 @@ LABEL_21:
 LABEL_29:
 }
 
-void sub_1000016D4(uint64_t a1, int a2)
+void sub_1000016D4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v3 = qword_10000C820;
-  v4 = DiagnosticLogHandleForCategory();
-  v5 = v4;
-  if (!v3)
+  v4 = a2;
+  v5 = qword_10000C820;
+  v6 = DiagnosticLogHandleForCategory();
+  v7 = v6;
+  if (!v5)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_100003D24();
     }
@@ -173,23 +176,23 @@ void sub_1000016D4(uint64_t a1, int a2)
     goto LABEL_14;
   }
 
-  if (a2 == 1)
+  if (v4 == 1)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Received discovery status update: BT_DISCOVERY_SCAN_STOPPED.", v6, 2u);
+      *v8 = 0;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Received discovery status update: BT_DISCOVERY_SCAN_STOPPED.", v8, 2u);
     }
 
     [qword_10000C820 setStopped:1];
-    v5 = [qword_10000C820 statusSema];
-    dispatch_semaphore_signal(v5);
+    v7 = [qword_10000C820 statusSema];
+    dispatch_semaphore_signal(v7);
     goto LABEL_14;
   }
 
-  if (a2)
+  if (v4)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_100003D60();
     }
@@ -199,25 +202,26 @@ LABEL_14:
     return;
   }
 
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Received discovery status update: BT_DISCOVERY_SCAN_STARTED.", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Received discovery status update: BT_DISCOVERY_SCAN_STARTED.", buf, 2u);
   }
 
   [qword_10000C820 setStarted:1];
 }
 
-void sub_100001818(uint64_t a1, int a2)
+void sub_100001818(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (qword_10000C820)
   {
-    v3 = [qword_10000C820 devices];
-    memset(v11, 0, sizeof(v11));
-    if (a2)
+    v4 = a2;
+    v5 = [qword_10000C820 devices];
+    memset(v13, 0, sizeof(v13));
+    if (v4)
     {
-      v4 = DiagnosticLogHandleForCategory();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+      v6 = DiagnosticLogHandleForCategory();
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         sub_100003DC8();
       }
@@ -226,35 +230,35 @@ void sub_100001818(uint64_t a1, int a2)
     else
     {
       BTDeviceGetAddressString();
-      v4 = [NSString stringWithUTF8String:v11];
+      v6 = [NSString stringWithUTF8String:v13];
       BTDeviceGetName();
-      v5 = [NSString stringWithUTF8String:v11];
+      v7 = [NSString stringWithUTF8String:v13];
       BTDeviceGetDefaultName();
-      v6 = [NSString stringWithUTF8String:v11];
+      v8 = [NSString stringWithUTF8String:v13];
       BTDeviceGetDeviceType();
       BTDeviceGetDeviceClass();
-      if (v4 && v5 && v6)
+      if (v6 && v7 && v8)
       {
-        v7 = objc_alloc_init(OSDBluetoothDevice);
-        [(OSDBluetoothDevice *)v7 setAddress:v4];
-        [(OSDBluetoothDevice *)v7 setName:v5];
-        [(OSDBluetoothDevice *)v7 setDefaultName:v6];
-        [(OSDBluetoothDevice *)v7 setDeviceType:0];
-        [(OSDBluetoothDevice *)v7 setDeviceClass:0];
-        [v3 addObject:v7];
-        v8 = DiagnosticLogHandleForCategory();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+        v9 = objc_alloc_init(OSDBluetoothDevice);
+        [(OSDBluetoothDevice *)v9 setAddress:v6];
+        [(OSDBluetoothDevice *)v9 setName:v7];
+        [(OSDBluetoothDevice *)v9 setDefaultName:v8];
+        [(OSDBluetoothDevice *)v9 setDeviceType:0];
+        [(OSDBluetoothDevice *)v9 setDeviceClass:0];
+        [v5 addObject:v9];
+        v10 = DiagnosticLogHandleForCategory();
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v10 = v7;
-          _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Discovered a BT device: %@", buf, 0xCu);
+          v12 = v9;
+          _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Discovered a BT device: %@", buf, 0xCu);
         }
       }
 
       else
       {
-        v7 = DiagnosticLogHandleForCategory();
-        if (os_log_type_enabled(&v7->super, OS_LOG_TYPE_ERROR))
+        v9 = DiagnosticLogHandleForCategory();
+        if (os_log_type_enabled(&v9->super, OS_LOG_TYPE_ERROR))
         {
           sub_100003E30();
         }
@@ -264,16 +268,17 @@ void sub_100001818(uint64_t a1, int a2)
 
   else
   {
-    v3 = DiagnosticLogHandleForCategory();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = DiagnosticLogHandleForCategory();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_100003D24();
     }
   }
 }
 
-void sub_100001AAC(uint64_t a1, int a2)
+void sub_100001AAC(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v3 = qword_10000C820;
   v4 = DiagnosticLogHandleForCategory();
   v5 = v4;
@@ -287,11 +292,11 @@ void sub_100001AAC(uint64_t a1, int a2)
     goto LABEL_34;
   }
 
-  if (a2 > 3)
+  if (v2 > 3)
   {
-    if (a2 <= 5)
+    if (v2 <= 5)
     {
-      if (a2 == 4)
+      if (v2 == 4)
       {
         if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
         {
@@ -313,7 +318,7 @@ void sub_100001AAC(uint64_t a1, int a2)
       goto LABEL_34;
     }
 
-    switch(a2)
+    switch(v2)
     {
       case 6:
         if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -358,9 +363,9 @@ LABEL_35:
     goto LABEL_34;
   }
 
-  if (a2 > 1)
+  if (v2 > 1)
   {
-    if (a2 == 2)
+    if (v2 == 2)
     {
       if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
@@ -382,7 +387,7 @@ LABEL_35:
     goto LABEL_34;
   }
 
-  if (!a2)
+  if (!v2)
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
@@ -396,7 +401,7 @@ LABEL_35:
     goto LABEL_34;
   }
 
-  if (a2 != 1)
+  if (v2 != 1)
   {
     goto LABEL_35;
   }
@@ -417,93 +422,89 @@ void sub_100001F44(uint64_t a1)
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
   {
-    v3 = *(a1 + 56);
-    v4 = *(*(a1 + 40) + 8);
     *(*(*(a1 + 32) + 8) + 24) = BTLocalDeviceGetModulePower();
     if (*(*(*(a1 + 32) + 8) + 24))
     {
-      v5 = DiagnosticLogHandleForCategory();
-      if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v3 = DiagnosticLogHandleForCategory();
+      if (!os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
       {
 LABEL_6:
 
         goto LABEL_17;
       }
 
-      LOWORD(v16) = 0;
-      v6 = "Error while trying to get the BT module power.";
+      LOWORD(v14) = 0;
+      v4 = "Error while trying to get the BT module power.";
 LABEL_5:
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, v6, &v16, 2u);
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, v4, &v14, 2u);
       goto LABEL_6;
     }
 
-    v7 = *(*(*(a1 + 40) + 8) + 24);
-    v8 = DiagnosticLogHandleForCategory();
-    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
-    if (v7 != -889275714)
+    v5 = *(*(*(a1 + 40) + 8) + 24);
+    v6 = DiagnosticLogHandleForCategory();
+    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+    if (v5 != -889275714)
     {
-      if (v9)
+      if (v7)
       {
-        v13 = @"OFF";
-        v14 = *(*(*(a1 + 40) + 8) + 24);
-        if (v14 == -1)
+        v11 = @"OFF";
+        v12 = *(*(*(a1 + 40) + 8) + 24);
+        if (v12 == -1)
         {
-          v13 = @"ON";
+          v11 = @"ON";
         }
 
-        v16 = 138412546;
-        v17 = v13;
-        v18 = 1024;
-        v19 = v14;
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Read BT module power: %@. Powerstate: %x", &v16, 0x12u);
+        v14 = 138412546;
+        v15 = v11;
+        v16 = 1024;
+        v17 = v12;
+        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Read BT module power: %@. Powerstate: %x", &v14, 0x12u);
       }
 
-      v15 = *(a1 + 64);
-      if (v15)
+      v13 = *(a1 + 64);
+      if (v13)
       {
-        *v15 = *(*(*(a1 + 40) + 8) + 24) == -1;
+        *v13 = *(*(*(a1 + 40) + 8) + 24) == -1;
         goto LABEL_17;
       }
 
       *(*(*(a1 + 32) + 8) + 24) = 0;
-      v5 = DiagnosticLogHandleForCategory();
-      if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v3 = DiagnosticLogHandleForCategory();
+      if (!os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_6;
       }
 
-      LOWORD(v16) = 0;
-      v6 = "Callback pointer passed to isEnabled was NULL";
+      LOWORD(v14) = 0;
+      v4 = "Callback pointer passed to isEnabled was NULL";
       goto LABEL_5;
     }
 
-    if (v9)
+    if (v7)
     {
-      v10 = *(*(*(a1 + 40) + 8) + 24);
-      v16 = 67109120;
-      LODWORD(v17) = v10;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Read BT module powerstate: %x. Starting runloop", &v16, 8u);
+      v8 = *(*(*(a1 + 40) + 8) + 24);
+      v14 = 67109120;
+      LODWORD(v15) = v8;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Read BT module powerstate: %x. Starting runloop", &v14, 8u);
     }
 
-    v11 = WeakRetained[12];
-    v12 = dispatch_time(0, 5000000000);
-    dispatch_semaphore_wait(v11, v12);
+    v9 = WeakRetained[12];
+    v10 = dispatch_time(0, 5000000000);
+    dispatch_semaphore_wait(v9, v10);
   }
 
 LABEL_17:
 }
 
-void sub_1000023FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000023FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t sub_10000242C(uint64_t a1)
 {
-  v2 = *(a1 + 40);
-  v3 = *(a1 + 48);
   result = BTLocalDeviceSetModulePower();
   *(*(*(a1 + 32) + 8) + 24) = result;
   return result;
@@ -525,23 +526,20 @@ void sub_10000283C(uint64_t a1)
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
-    v6 = WeakRetained;
+    v5 = WeakRetained;
     v3 = +[NSProcessInfo processInfo];
     v4 = [v3 processName];
     [v4 UTF8String];
-    v5 = v6[1];
     *(*(*(a1 + 32) + 8) + 24) = BTSessionAttachWithQueue();
 
-    WeakRetained = v6;
+    WeakRetained = v5;
   }
 }
 
 uint64_t sub_1000028E4(uint64_t a1)
 {
-  WeakRetained = objc_loadWeakRetained((a1 + 40));
-  if (WeakRetained)
+  if (objc_loadWeakRetained((a1 + 40)))
   {
-    v3 = WeakRetained[8];
     *(*(*(a1 + 32) + 8) + 24) = BTLocalDeviceGetDefault();
   }
 
@@ -550,10 +548,8 @@ uint64_t sub_1000028E4(uint64_t a1)
 
 uint64_t sub_10000294C(uint64_t a1)
 {
-  WeakRetained = objc_loadWeakRetained((a1 + 40));
-  if (WeakRetained)
+  if (objc_loadWeakRetained((a1 + 40)))
   {
-    v3 = WeakRetained[9];
     *(*(*(a1 + 32) + 8) + 24) = BTLocalDeviceAddCallbacks();
   }
 
@@ -562,10 +558,8 @@ uint64_t sub_10000294C(uint64_t a1)
 
 uint64_t sub_1000029B4(uint64_t a1)
 {
-  WeakRetained = objc_loadWeakRetained((a1 + 40));
-  if (WeakRetained)
+  if (objc_loadWeakRetained((a1 + 40)))
   {
-    v3 = WeakRetained[8];
     *(*(*(a1 + 32) + 8) + 24) = BTDiscoveryAgentCreate();
   }
 
@@ -604,9 +598,9 @@ uint64_t sub_100002AC4(uint64_t a1)
   return _objc_release_x1();
 }
 
-void sub_100002CE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100002CE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -912,11 +906,12 @@ void sub_100003060(uint64_t a1)
   _Block_object_dispose(&v40, 8);
 }
 
-void sub_10000378C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26)
+void sub_10000378C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
 {
-  objc_destroyWeak((v27 + 32));
-  objc_destroyWeak((v26 + 40));
-  _Block_object_dispose(&a26, 8);
+  va_start(va, a25);
+  objc_destroyWeak((v26 + 32));
+  objc_destroyWeak((v25 + 40));
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -925,10 +920,9 @@ void sub_1000037FC(uint64_t a1)
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
-    v4 = WeakRetained;
-    v3 = WeakRetained[10];
+    v3 = WeakRetained;
     *(*(*(a1 + 32) + 8) + 24) = BTDiscoveryAgentStartScan();
-    WeakRetained = v4;
+    WeakRetained = v3;
   }
 }
 
@@ -937,10 +931,9 @@ void sub_100003864(uint64_t a1)
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
-    v3 = WeakRetained;
-    v2 = WeakRetained[10];
+    v2 = WeakRetained;
     BTDiscoveryAgentStopScan();
-    WeakRetained = v3;
+    WeakRetained = v2;
   }
 }
 

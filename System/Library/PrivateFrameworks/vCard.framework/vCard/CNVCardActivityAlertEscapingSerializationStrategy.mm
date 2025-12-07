@@ -30,7 +30,7 @@
 
 uint64_t __80__CNVCardActivityAlertEscapingSerializationStrategy_charactersToTriggerStrategy__block_invoke()
 {
-  charactersToTriggerStrategy_sCharSet = [MEMORY[0x277CCA900] characterSetWithCharactersInString:{@"=, \\""}];
+  charactersToTriggerStrategy_sCharSet = [MEMORY[0x277CCA900] characterSetWithCharactersInString:{@"=, \"}];
 
   return MEMORY[0x2821F96F8]();
 }

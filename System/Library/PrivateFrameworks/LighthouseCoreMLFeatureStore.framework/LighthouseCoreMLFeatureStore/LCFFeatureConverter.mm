@@ -78,32 +78,32 @@ LABEL_11:
 
 + (id)fromLabeledDataBiomeFeatureStore:(id)store timestamp:(id)timestamp
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   storeCopy = store;
   timestampCopy = timestamp;
   itemIdentifier = [storeCopy itemIdentifier];
-  v36 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(storeCopy, "featureVersion")}];
+  v35 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(storeCopy, "featureVersion")}];
   v6 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
   featureVector = [storeCopy featureVector];
-  v8 = [featureVector countByEnumeratingWithState:&v39 objects:v43 count:16];
+  v8 = [featureVector countByEnumeratingWithState:&v38 objects:v42 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v40;
+    v10 = *v39;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v40 != v10)
+        if (*v39 != v10)
         {
           objc_enumerationMutation(featureVector);
         }
 
-        v12 = *(*(&v39 + 1) + 8 * i);
+        v12 = *(*(&v38 + 1) + 8 * i);
         [v12 featureName];
         v13 = BMMLSEVirtualFeatureStoreFeaturefeatureNameAsString();
         featureValue = [v12 featureValue];
@@ -112,7 +112,7 @@ LABEL_11:
         [v6 setValue:v15 forKey:v13];
       }
 
-      v9 = [featureVector countByEnumeratingWithState:&v39 objects:v43 count:16];
+      v9 = [featureVector countByEnumeratingWithState:&v38 objects:v42 count:16];
     }
 
     while (v9);
@@ -163,9 +163,7 @@ LABEL_11:
     [v6 setValue:v32 forKey:@"_configurationInfo"];
   }
 
-  v33 = [[LCFFeatureSet alloc] initWithIdentifier:itemIdentifier featureVersion:v36 timestamp:timestampCopy featureValues:v6];
-
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = [[LCFFeatureSet alloc] initWithIdentifier:itemIdentifier featureVersion:v35 timestamp:timestampCopy featureValues:v6];
 
   return v33;
 }
@@ -262,48 +260,48 @@ LABEL_8:
 
 + (id)fromFeatureSetToLabeledData:(id)data
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   itemIdentifier = [dataCopy itemIdentifier];
   featureVersion = [dataCopy featureVersion];
-  v44 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v43 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v44 = 0u;
   v45 = 0u;
   v46 = 0u;
   v47 = 0u;
-  v48 = 0u;
   featureValues = [dataCopy featureValues];
   allKeys = [featureValues allKeys];
 
   obj = allKeys;
-  v6 = [allKeys countByEnumeratingWithState:&v45 objects:v49 count:16];
+  v6 = [allKeys countByEnumeratingWithState:&v44 objects:v48 count:16];
   if (!v6)
   {
-    v41 = 0;
-    v42 = 0;
-    v39 = 0;
     v40 = 0;
+    v41 = 0;
+    v38 = 0;
+    v39 = 0;
     v27IntValue = 0;
     goto LABEL_23;
   }
 
   v7 = v6;
-  v41 = 0;
-  v42 = 0;
-  v39 = 0;
   v40 = 0;
+  v41 = 0;
+  v38 = 0;
+  v39 = 0;
   v27IntValue = 0;
-  v8 = *v46;
+  v8 = *v45;
   v9 = @"_isPositiveLabeled";
   do
   {
     for (i = 0; i != v7; ++i)
     {
-      if (*v46 != v8)
+      if (*v45 != v8)
       {
         objc_enumerationMutation(obj);
       }
 
-      v11 = *(*(&v45 + 1) + 8 * i);
+      v11 = *(*(&v44 + 1) + 8 * i);
       v12 = BMMLSEVirtualFeatureStoreFeaturefeatureNameFromString();
       if (v12)
       {
@@ -315,7 +313,7 @@ LABEL_8:
 
         v9 = v14;
         v18 = [objc_alloc(MEMORY[0x277CF12E8]) initWithFeatureName:v13 featureValue:featureValues6 featureItselfVersion:0 featureFreshnessInHours:0 eventVolumeToComputeFeature:0 timeSpentToComputeFeature:0];
-        [v44 addObject:v18];
+        [v43 addObject:v18];
 LABEL_18:
 
         continue;
@@ -327,7 +325,7 @@ LABEL_18:
         v20 = [featureValues2 objectForKeyedSubscript:v9];
         bOOLValue = [v20 BOOLValue];
 
-        v41 = bOOLValue;
+        v40 = bOOLValue;
       }
 
       if ([v11 isEqualToString:@"_labelingPolicyVersion"])
@@ -336,7 +334,7 @@ LABEL_18:
         v23 = [featureValues3 objectForKeyedSubscript:@"_labelingPolicyVersion"];
         intValue = [v23 intValue];
 
-        v39 = intValue;
+        v38 = intValue;
       }
 
       if ([v11 isEqualToString:@"_labelingEvidence"])
@@ -353,7 +351,7 @@ LABEL_18:
         v29 = [featureValues5 objectForKeyedSubscript:@"_sharingEventUID"];
         stringValue = [v29 stringValue];
 
-        v40 = stringValue;
+        v39 = stringValue;
       }
 
       if ([v11 isEqualToString:@"_configurationInfo"])
@@ -362,21 +360,19 @@ LABEL_18:
         v18 = [featureValues6 objectForKeyedSubscript:@"_configurationInfo"];
         stringValue2 = [v18 stringValue];
 
-        v42 = stringValue2;
+        v41 = stringValue2;
         goto LABEL_18;
       }
     }
 
-    v7 = [obj countByEnumeratingWithState:&v45 objects:v49 count:16];
+    v7 = [obj countByEnumeratingWithState:&v44 objects:v48 count:16];
   }
 
   while (v7);
 LABEL_23:
 
-  LODWORD(v35) = v27IntValue;
-  v32 = [objc_alloc(MEMORY[0x277CF12E0]) initWithItemIdentifier:itemIdentifier featureVersion:featureVersion featureVector:v44 deviceIdentifier:0 isPositiveLabeled:v41 labelingPolicyVersion:v39 labelingEvidence:v35 sharingEventUID:v40 configurationInfo:v42];
-
-  v33 = *MEMORY[0x277D85DE8];
+  LODWORD(v34) = v27IntValue;
+  v32 = [objc_alloc(MEMORY[0x277CF12E0]) initWithItemIdentifier:itemIdentifier featureVersion:featureVersion featureVector:v43 deviceIdentifier:0 isPositiveLabeled:v40 labelingPolicyVersion:v38 labelingEvidence:v34 sharingEventUID:v39 configurationInfo:v41];
 
   return v32;
 }

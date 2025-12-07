@@ -162,9 +162,9 @@
 
         v10 = *(*(&v13 + 1) + 8 * i);
         label = [v10 label];
-        v12 = [itemCopy isEqualToString:label];
+        isEqualToString = objc_msgSend_isEqualToString_(itemCopy);
 
-        if (v12)
+        if (isEqualToString)
         {
           [v10 actionForMenu:self];
           goto LABEL_11;

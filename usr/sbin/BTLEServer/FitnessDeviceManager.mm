@@ -24,6 +24,7 @@
 - (void)centralManager:(id)manager didDiscoverPeripheral:(id)peripheral advertisementData:(id)data RSSI:(id)i;
 - (void)centralManager:(id)manager didUpdatePeripheralConnectionState:(id)state;
 - (void)centralManagerDidUpdateState:(id)state;
+- (void)collectDataForQuantityTypeIdentifiers:(id)identifiers isWorkout:(BOOL)workout;
 - (void)collectDataForQuantityTypes:(id)types isWorkout:(BOOL)workout;
 - (void)connectPeripheral:(id)peripheral;
 - (void)connectTaggedDevices;
@@ -707,6 +708,59 @@ LABEL_12:
   v6 = [requestedQuantityTypes containsObject:requestedCopy];
 
   return v6;
+}
+
+- (void)collectDataForQuantityTypeIdentifiers:(id)identifiers isWorkout:(BOOL)workout
+{
+  workoutCopy = workout;
+  identifiersCopy = identifiers;
+  v7 = objc_opt_new();
+  if (!workoutCopy)
+  {
+    requestedQuantityTypes = [(FitnessDeviceManager *)self requestedQuantityTypes];
+    [v7 addObjectsFromArray:requestedQuantityTypes];
+  }
+
+  v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v9 = identifiersCopy;
+  v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  if (v10)
+  {
+    v11 = v10;
+    v12 = *v18;
+    do
+    {
+      v13 = 0;
+      do
+      {
+        if (*v18 != v12)
+        {
+          objc_enumerationMutation(v9);
+        }
+
+        v14 = *(*(&v17 + 1) + 8 * v13);
+        v15 = objc_autoreleasePoolPush();
+        v16 = [FitnessService hkQuantityTypeForIdentifier:v14, v17];
+        if (v16 && ![(FitnessDeviceManager *)self isHKQuantityRequested:v16])
+        {
+          [v7 addObject:v16];
+        }
+
+        objc_autoreleasePoolPop(v15);
+        v13 = v13 + 1;
+      }
+
+      while (v11 != v13);
+      v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    }
+
+    while (v11);
+  }
+
+  [(FitnessDeviceManager *)self collectDataForQuantityTypes:v7 isWorkout:workoutCopy];
 }
 
 - (void)collectDataForQuantityTypes:(id)types isWorkout:(BOOL)workout

@@ -36,14 +36,14 @@
   if ((objc_opt_isKindOfClass() & 1) == 0 && MTLReportFailureTypeEnabled())
   {
     v8 = objc_opt_class();
-    v9 = NSStringFromClass(v8);
+    v13 = NSStringFromClass(v8);
     filterCopy = filter;
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Graph/MPSCNNPoolingNodes.mm", 0x20E, @"[%@ initWithGradientImages:forwardFilter:] Error: the filter <%p> is not a MPSCNNDilatedPoolingMaxNode", v9, v10, v11, v12);
   }
 
-  v11.receiver = self;
-  v11.super_class = MPSCNNDilatedPoolingMaxGradientNode;
-  result = [(MPSCNNPoolingGradientNode *)&v11 initWithGradientImages:images forwardFilter:filter, v9, filterCopy];
+  v15.receiver = self;
+  v15.super_class = MPSCNNDilatedPoolingMaxGradientNode;
+  result = [(MPSCNNPoolingGradientNode *)&v15 initWithGradientImages:images forwardFilter:filter, v13, filterCopy];
   if (result)
   {
     result->_dilationRateX = *(filter + 11);

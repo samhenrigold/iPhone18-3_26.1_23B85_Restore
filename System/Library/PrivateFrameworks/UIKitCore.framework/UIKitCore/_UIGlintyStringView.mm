@@ -103,7 +103,7 @@
 - (void)setText:(id)text
 {
   textCopy = text;
-  if (![(NSString *)self->_text isEqualToString:?])
+  if ((objc_msgSend_isEqualToString_(self->_text) & 1) == 0)
   {
     v4 = [textCopy copy];
     text = self->_text;
@@ -116,7 +116,7 @@
 - (void)setFont:(id)font
 {
   fontCopy = font;
-  if (([(UIFont *)self->_font isEqual:?]& 1) == 0)
+  if ((objc_msgSend_isEqual_(self->_font) & 1) == 0)
   {
     objc_storeStrong(&self->_font, font);
     [(_UIGlintyStringView *)self setNeedsTextUpdate:1];
@@ -126,7 +126,7 @@
 - (void)setTextLanguage:(id)language
 {
   languageCopy = language;
-  if (![(NSString *)self->_textLanguage isEqualToString:?])
+  if ((objc_msgSend_isEqualToString_(self->_textLanguage) & 1) == 0)
   {
     v4 = [languageCopy copy];
     textLanguage = self->_textLanguage;
@@ -148,7 +148,7 @@
 - (void)setLegibilitySettings:(id)settings
 {
   settingsCopy = settings;
-  if (([settingsCopy isEqual:self->_legibilitySettings] & 1) == 0)
+  if ((objc_msgSend_isEqual_(settingsCopy) & 1) == 0)
   {
     objc_storeStrong(&self->_legibilitySettings, settings);
     [(_UIGlintyStringView *)self setNeedsTextUpdate:1];
@@ -158,7 +158,7 @@
 - (void)setVibrantSettings:(id)settings
 {
   settingsCopy = settings;
-  if (([settingsCopy isEqual:self->_vibrantSettings] & 1) == 0)
+  if ((objc_msgSend_isEqual_(settingsCopy) & 1) == 0)
   {
     objc_storeStrong(&self->_vibrantSettings, settings);
     [(_UIGlintyStringView *)self setNeedsTextUpdate:1];
@@ -755,7 +755,7 @@ LABEL_5:
         v89 = [(_UIGlintyStringView *)self shapeViewForCharactersInString:text withFont:v64 centeredInFrame:?];
         memset(&v198, 0, sizeof(v198));
         CGAffineTransformMakeScale(&v198, 1.0, -1.0);
-        v90 = +[UIColor blackColor];
+        v90 = objc_msgSend_blackColor(UIColor);
         [v89 setBackgroundColor:v90];
 
         v197 = v198;

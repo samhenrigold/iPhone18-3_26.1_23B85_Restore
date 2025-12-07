@@ -58,28 +58,32 @@ void __77__BYAuthenticationContext_createContextWithSecret_policy_options_comple
 {
   v7 = [params objectForKeyedSubscript:&unk_1F30A7610];
   v8 = v7;
-  if (event == 2 && [v7 BOOLValue])
+  if (event == 2)
   {
-    v9 = _BYLoggingFacility();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    bOOLValue = [v7 BOOLValue];
+    if (bOOLValue)
     {
-      [BYAuthenticationContext event:v9 params:? reply:?];
+      v10 = _BYLoggingFacility(bOOLValue);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      {
+        [BYAuthenticationContext event:v10 params:? reply:?];
+      }
+
+      secret = [(BYAuthenticationContext *)self secret];
+      v12 = [secret dataUsingEncoding:4];
+
+      [(BYAuthenticationContext *)self setSecret:0];
+      underlyingContext = [(BYAuthenticationContext *)self underlyingContext];
+      [underlyingContext setCredential:v12 forProcessedEvent:2 credentialType:-1 reply:&__block_literal_global_2];
     }
-
-    secret = [(BYAuthenticationContext *)self secret];
-    v11 = [secret dataUsingEncoding:4];
-
-    [(BYAuthenticationContext *)self setSecret:0];
-    underlyingContext = [(BYAuthenticationContext *)self underlyingContext];
-    [underlyingContext setCredential:v11 forProcessedEvent:2 credentialType:-1 reply:&__block_literal_global_2];
   }
 }
 
 void __46__BYAuthenticationContext_event_params_reply___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v4 = a3;
-  v5 = _BYLoggingFacility();
+  v5 = _BYLoggingFacility(v4);
   v6 = v5;
   if (a2)
   {
@@ -89,37 +93,39 @@ void __46__BYAuthenticationContext_event_params_reply___block_invoke(uint64_t a1
     }
   }
 
-  else if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  else
   {
-    if (_BYIsInternalInstall())
+    v7 = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
+    if (v7)
     {
-      v8 = 0;
-      v9 = v4;
-    }
+      if (_BYIsInternalInstall(v7, v8))
+      {
+        v9 = 0;
+        v10 = v4;
+      }
 
-    else if (v4)
-    {
-      v10 = MEMORY[0x1E696AEC0];
-      a2 = [v4 domain];
-      v9 = [v10 stringWithFormat:@"<Error domain: %@, code %ld>", a2, objc_msgSend(v4, "code")];
-      v8 = 1;
-    }
+      else if (v4)
+      {
+        v11 = MEMORY[0x1E696AEC0];
+        a2 = [v4 domain];
+        v10 = [v11 stringWithFormat:@"<Error domain: %@, code %ld>", a2, objc_msgSend(v4, "code")];
+        v9 = 1;
+      }
 
-    else
-    {
-      v8 = 0;
-      v9 = 0;
-    }
+      else
+      {
+        v9 = 0;
+        v10 = 0;
+      }
 
-    *buf = 138543362;
-    v12 = v9;
-    _os_log_error_impl(&dword_1B862F000, v6, OS_LOG_TYPE_ERROR, "Failed to set credentials for context: %{public}@", buf, 0xCu);
-    if (v8)
-    {
+      *buf = 138543362;
+      v13 = v10;
+      _os_log_error_impl(&dword_1B862F000, v6, OS_LOG_TYPE_ERROR, "Failed to set credentials for context: %{public}@", buf, 0xCu);
+      if (v9)
+      {
+      }
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 @end

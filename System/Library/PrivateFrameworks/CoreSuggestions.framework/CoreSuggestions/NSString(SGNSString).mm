@@ -10,22 +10,21 @@
 
 - (id)sg_md5Hash
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   uTF8String = [self UTF8String];
   *md = 0;
-  v8 = 0;
+  v7 = 0;
   v2 = strlen(uTF8String);
   CC_MD5(uTF8String, v2, md);
   v3 = objc_alloc(MEMORY[0x1E696AEC0]);
-  v4 = [v3 initWithFormat:@"%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X", md[0], md[1], md[2], md[3], md[4], md[5], md[6], md[7], v8, BYTE1(v8), BYTE2(v8), BYTE3(v8), BYTE4(v8), BYTE5(v8), BYTE6(v8), HIBYTE(v8)];
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = [v3 initWithFormat:@"%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X", md[0], md[1], md[2], md[3], md[4], md[5], md[6], md[7], v7, BYTE1(v7), BYTE2(v7), BYTE3(v7), BYTE4(v7), BYTE5(v7), BYTE6(v7), HIBYTE(v7)];
 
   return v4;
 }
 
 - (_SGNSStringEncodingEnumerator)sg_dataEnumeratorUsingEncoding:()SGNSString nullTerminated:
 {
-  v56[1] = *MEMORY[0x1E69E9840];
+  v55[1] = *MEMORY[0x1E69E9840];
   if (a4 && (nullTerminationSupportedForEncoding(a3) & 1) == 0)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
@@ -43,8 +42,8 @@
     }
 
     v21 = nullByteData();
-    v56[0] = v21;
-    v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v56 count:1];
+    v55[0] = v21;
+    v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v55 count:1];
     objectEnumerator = [v22 objectEnumerator];
     goto LABEL_21;
   }
@@ -64,14 +63,14 @@
       v25 = CStringPtr;
       v26 = objc_autoreleasePoolPush();
       v27 = objc_alloc(MEMORY[0x1E695DEF0]);
-      v50[0] = MEMORY[0x1E69E9820];
-      v50[1] = 3221225472;
-      v50[2] = __70__NSString_SGNSString__sg_dataEnumeratorUsingEncoding_nullTerminated___block_invoke_2;
-      v50[3] = &unk_1E7EFCC08;
-      v50[4] = self;
-      v28 = [v27 initWithBytesNoCopy:v25 length:v9 + a4 deallocator:v50];
-      v53 = v28;
-      v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v53 count:1];
+      v49[0] = MEMORY[0x1E69E9820];
+      v49[1] = 3221225472;
+      v49[2] = __70__NSString_SGNSString__sg_dataEnumeratorUsingEncoding_nullTerminated___block_invoke_2;
+      v49[3] = &unk_1E7EFCC08;
+      v49[4] = self;
+      v28 = [v27 initWithBytesNoCopy:v25 length:v9 + a4 deallocator:v49];
+      v52 = v28;
+      v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v52 count:1];
       objectEnumerator = [v29 objectEnumerator];
 
       objc_autoreleasePoolPop(v26);
@@ -111,17 +110,17 @@
       }
 
       v37 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:1];
-      v44[0] = MEMORY[0x1E69E9820];
-      v44[1] = 3221225472;
-      v44[2] = __70__NSString_SGNSString__sg_dataEnumeratorUsingEncoding_nullTerminated___block_invoke_3;
-      v44[3] = &unk_1E7EFCC30;
-      v47 = 0;
-      v48 = v34;
-      v49 = v32;
+      v43[0] = MEMORY[0x1E69E9820];
+      v43[1] = 3221225472;
+      v43[2] = __70__NSString_SGNSString__sg_dataEnumeratorUsingEncoding_nullTerminated___block_invoke_3;
+      v43[3] = &unk_1E7EFCC30;
+      v46 = 0;
+      v47 = v34;
+      v48 = v32;
       v38 = v37;
-      v45 = v38;
-      v46 = v21;
-      [v46 enumerateByteRangesUsingBlock:v44];
+      v44 = v38;
+      v45 = v21;
+      [v45 enumerateByteRangesUsingBlock:v43];
       if (a4 && v35 == 0x7FFFFFFFFFFFFFFFLL)
       {
         v39 = nullByteData();
@@ -140,9 +139,9 @@
     }
 
     v22 = nullByteData();
-    v52 = v22;
-    v42 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v52 count:1];
-    objectEnumerator = [v42 objectEnumerator];
+    v51 = v22;
+    v41 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v51 count:1];
+    objectEnumerator = [v41 objectEnumerator];
 
 LABEL_21:
 LABEL_22:
@@ -162,25 +161,25 @@ LABEL_30:
       v14 = CharactersPtr;
       v15 = objc_autoreleasePoolPush();
       v16 = objc_alloc(MEMORY[0x1E695DEF0]);
-      v51[0] = MEMORY[0x1E69E9820];
-      v51[1] = 3221225472;
-      v51[2] = __70__NSString_SGNSString__sg_dataEnumeratorUsingEncoding_nullTerminated___block_invoke;
-      v51[3] = &unk_1E7EFCC08;
-      v51[4] = self;
-      v17 = [v16 initWithBytesNoCopy:v14 length:2 * v9 deallocator:v51];
+      v50[0] = MEMORY[0x1E69E9820];
+      v50[1] = 3221225472;
+      v50[2] = __70__NSString_SGNSString__sg_dataEnumeratorUsingEncoding_nullTerminated___block_invoke;
+      v50[3] = &unk_1E7EFCC08;
+      v50[4] = self;
+      v17 = [v16 initWithBytesNoCopy:v14 length:2 * v9 deallocator:v50];
       v18 = v17;
       if (a3 == 10)
       {
         v19 = bomData();
-        v55[0] = v19;
-        v55[1] = v18;
-        v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v55 count:2];
+        v54[0] = v19;
+        v54[1] = v18;
+        v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v54 count:2];
       }
 
       else
       {
-        v54 = v17;
-        v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v54 count:1];
+        v53 = v17;
+        v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v53 count:1];
       }
 
       objectEnumerator = [v20 objectEnumerator];
@@ -192,7 +191,6 @@ LABEL_30:
 LABEL_44:
   objectEnumerator = [[_SGNSStringEncodingEnumerator alloc] initWithString:self encoding:a3 nullTerminated:a4];
 LABEL_45:
-  v40 = *MEMORY[0x1E69E9840];
 
   return objectEnumerator;
 }

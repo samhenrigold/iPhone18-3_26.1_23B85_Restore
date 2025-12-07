@@ -1,8 +1,62 @@
 @interface BiomeKeyboardClient
 + (id)processEvents:(id)events withCount:(int)count;
++ (id)readDataWithCount:(int)count;
++ (id)readDataWithCount:(int)count startDate:(id)date endDate:(id)endDate;
 @end
 
 @implementation BiomeKeyboardClient
+
++ (id)readDataWithCount:(int)count
+{
+  v3 = *&count;
+  v5 = +[NSUserDefaults standardUserDefaults];
+  [v5 doubleForKey:@"Fedstats.kBiomeUserDefaultsLastReadTime"];
+  v7 = v6;
+
+  v8 = CFAbsoluteTimeGetCurrent() + *"";
+  if (v7 >= v8)
+  {
+    v8 = v7;
+  }
+
+  v9 = [NSDate dateWithTimeIntervalSinceReferenceDate:v8];
+  v10 = +[NSUserDefaults standardUserDefaults];
+  [v10 setDouble:@"Fedstats.kBiomeUserDefaultsLastReadTime" forKey:CFAbsoluteTimeGetCurrent()];
+
+  v11 = [self readDataWithCount:v3 startDate:v9 endDate:0];
+
+  return v11;
+}
+
++ (id)readDataWithCount:(int)count startDate:(id)date endDate:(id)endDate
+{
+  v6 = *&count;
+  dateCopy = date;
+  endDateCopy = endDate;
+  v10 = [[BMPublisherOptions alloc] initWithStartDate:dateCopy endDate:endDateCopy maxEvents:1000 lastN:1000 reversed:0];
+  v11 = BiomeLibrary();
+  keyboard = [v11 Keyboard];
+  tokenFrequency = [keyboard TokenFrequency];
+
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = sub_10000FFA8;
+  v23 = sub_10000FFB8;
+  v24 = +[NSMutableArray array];
+  v14 = [tokenFrequency publisherWithOptions:v10];
+  v18[0] = _NSConcreteStackBlock;
+  v18[1] = 3221225472;
+  v18[2] = sub_1000100CC;
+  v18[3] = &unk_10002C7E8;
+  v18[4] = &v19;
+  v15 = [v14 sinkWithCompletion:&stru_10002C7C0 receiveInput:v18];
+
+  v16 = [self processEvents:v20[5] withCount:v6];
+  _Block_object_dispose(&v19, 8);
+
+  return v16;
+}
 
 + (id)processEvents:(id)events withCount:(int)count
 {

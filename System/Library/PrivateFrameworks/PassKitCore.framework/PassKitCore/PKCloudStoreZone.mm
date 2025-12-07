@@ -96,9 +96,9 @@
     goto LABEL_9;
   }
 
-  v10 = [(__CFString *)nameCopy isEqualToString:@"transactions"];
+  isEqualToString = objc_msgSend_isEqualToString_(nameCopy);
 
-  if (v10)
+  if (isEqualToString)
   {
 LABEL_7:
     v11 = 0;
@@ -150,7 +150,7 @@ LABEL_9:
 
     if (v28 && @"apple-account")
     {
-      v23 = [(__CFString *)v22 isEqualToString:@"apple-account"];
+      v23 = objc_msgSend_isEqualToString_(v22);
 
       if (v23)
       {
@@ -176,7 +176,7 @@ LABEL_52:
         goto LABEL_55;
       }
 
-      v24 = [(__CFString *)v22 isEqualToString:@"apple-account-transactions"];
+      v24 = objc_msgSend_isEqualToString_(v22);
 
       if ((v24 & 1) == 0)
       {
@@ -199,7 +199,7 @@ LABEL_63:
             goto LABEL_32;
           }
 
-          v27 = [(__CFString *)v25 isEqualToString:@"messages"];
+          v27 = objc_msgSend_isEqualToString_(v25);
 
           if (!v27)
           {
@@ -327,9 +327,9 @@ LABEL_16:
 
         if (handleCopy && v12)
         {
-          v14 = [v11 isEqualToString:v12];
+          isEqualToString = objc_msgSend_isEqualToString_(v11);
 
-          if (v14)
+          if (isEqualToString)
           {
             goto LABEL_16;
           }

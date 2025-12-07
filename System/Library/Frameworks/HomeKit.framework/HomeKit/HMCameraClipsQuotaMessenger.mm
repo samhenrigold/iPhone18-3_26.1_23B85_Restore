@@ -3,13 +3,73 @@
 + (id)logCategory;
 - (HMCameraClipsQuotaMessenger)initWithContext:(id)context;
 - (void)fetchNamesForZonesWithCloudStorageEnabledWithCompletion:(id)completion;
+- (void)setCloudStorageEnabled:(BOOL)enabled forZoneWithName:(id)name completion:(id)completion;
 @end
 
 @implementation HMCameraClipsQuotaMessenger
 
+- (void)setCloudStorageEnabled:(BOOL)enabled forZoneWithName:(id)name completion:(id)completion
+{
+  enabledCopy = enabled;
+  v42 = *MEMORY[0x1E69E9840];
+  nameCopy = name;
+  completionCopy = completion;
+  v10 = [objc_alloc(MEMORY[0x1E69A29C0]) initWithName:@"Updating cloud storage"];
+  v11 = objc_autoreleasePoolPush();
+  selfCopy = self;
+  v13 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+  {
+    v14 = HMFGetLogIdentifier();
+    [v10 identifier];
+    v29 = completionCopy;
+    v16 = v15 = nameCopy;
+    shortDescription = [v16 shortDescription];
+    v18 = HMFEnabledStatusToString();
+    *buf = 138543874;
+    v37 = v14;
+    v38 = 2114;
+    v39 = shortDescription;
+    v40 = 2112;
+    v41 = v18;
+    _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] Setting cloud storage to %@", buf, 0x20u);
+
+    nameCopy = v15;
+    completionCopy = v29;
+  }
+
+  objc_autoreleasePoolPop(v11);
+  v19 = objc_alloc(MEMORY[0x1E69A2A00]);
+  uUID = [objc_opt_class() UUID];
+  v21 = [v19 initWithTarget:uUID];
+
+  v34[0] = @"HMCCQMR.mk.isEnabled";
+  v22 = [MEMORY[0x1E696AD98] numberWithBool:enabledCopy];
+  v34[1] = @"HMCCQMR.mk.zoneName";
+  v35[0] = v22;
+  v35[1] = nameCopy;
+  v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:v34 count:2];
+
+  v24 = [MEMORY[0x1E69A2A10] messageWithName:@"HMCCQMR.m.updateCloudStorage" destination:v21 payload:v23];
+  v30[0] = MEMORY[0x1E69E9820];
+  v30[1] = 3221225472;
+  v30[2] = __81__HMCameraClipsQuotaMessenger_setCloudStorageEnabled_forZoneWithName_completion___block_invoke;
+  v30[3] = &unk_1E754C620;
+  v30[4] = selfCopy;
+  v31 = v10;
+  v33 = enabledCopy;
+  v32 = completionCopy;
+  v25 = completionCopy;
+  v26 = v10;
+  [v24 setResponseHandler:v30];
+  context = [(HMCameraClipsQuotaMessenger *)selfCopy context];
+  messageDispatcher = [context messageDispatcher];
+  [messageDispatcher sendMessage:v24 completionHandler:0];
+}
+
 void __81__HMCameraClipsQuotaMessenger_setCloudStorageEnabled_forZoneWithName_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -23,13 +83,13 @@ void __81__HMCameraClipsQuotaMessenger_setCloudStorageEnabled_forZoneWithName_co
       v11 = HMFGetLogIdentifier();
       v12 = [*(a1 + 40) identifier];
       v13 = [v12 shortDescription];
-      v21 = 138543874;
-      v22 = v11;
-      v23 = 2114;
-      v24 = v13;
-      v25 = 2112;
-      v26 = v5;
-      _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@[%{public}@] Failed to update cloud storage: %@", &v21, 0x20u);
+      v19 = 138543874;
+      v20 = v11;
+      v21 = 2114;
+      v22 = v13;
+      v23 = 2112;
+      v24 = v5;
+      _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@[%{public}@] Failed to update cloud storage: %@", &v19, 0x20u);
 
 LABEL_6:
     }
@@ -40,30 +100,27 @@ LABEL_6:
     v11 = HMFGetLogIdentifier();
     v14 = [*(a1 + 40) identifier];
     v15 = [v14 shortDescription];
-    v16 = *(a1 + 56);
-    v17 = HMFEnabledStatusToString();
-    v21 = 138543874;
-    v22 = v11;
-    v23 = 2114;
-    v24 = v15;
-    v25 = 2112;
-    v26 = v17;
-    _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] Successfully set cloud storage to %@", &v21, 0x20u);
+    v16 = HMFEnabledStatusToString();
+    v19 = 138543874;
+    v20 = v11;
+    v21 = 2114;
+    v22 = v15;
+    v23 = 2112;
+    v24 = v16;
+    _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] Successfully set cloud storage to %@", &v19, 0x20u);
 
     goto LABEL_6;
   }
 
   objc_autoreleasePoolPop(v7);
-  v18 = [*(a1 + 32) context];
-  v19 = [v18 delegateCaller];
-  [v19 callCompletion:*(a1 + 48) error:v5];
-
-  v20 = *MEMORY[0x1E69E9840];
+  v17 = [*(a1 + 32) context];
+  v18 = [v17 delegateCaller];
+  [v18 callCompletion:*(a1 + 48) error:v5];
 }
 
 - (void)fetchNamesForZonesWithCloudStorageEnabledWithCompletion:(id)completion
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   v5 = [objc_alloc(MEMORY[0x1E69A29C0]) initWithName:@"Fetching names for zones with cloud storage enabled"];
   v6 = objc_autoreleasePoolPush();
@@ -75,9 +132,9 @@ LABEL_6:
     identifier = [v5 identifier];
     shortDescription = [identifier shortDescription];
     *buf = 138543618;
-    v25 = v9;
-    v26 = 2114;
-    v27 = shortDescription;
+    v24 = v9;
+    v25 = 2114;
+    v26 = shortDescription;
     _os_log_impl(&dword_19BB39000, v8, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] Fetching names for zones with cloud storage enabled", buf, 0x16u);
   }
 
@@ -87,26 +144,24 @@ LABEL_6:
   v14 = [v12 initWithTarget:uUID];
 
   v15 = [MEMORY[0x1E69A2A10] messageWithName:@"HMCCQMR.m.fetchNamesForZonesWithEnabledCloudStorage" destination:v14 payload:0];
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __87__HMCameraClipsQuotaMessenger_fetchNamesForZonesWithCloudStorageEnabledWithCompletion___block_invoke;
-  v21[3] = &unk_1E754E480;
-  v21[4] = selfCopy;
-  v22 = v5;
-  v23 = completionCopy;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __87__HMCameraClipsQuotaMessenger_fetchNamesForZonesWithCloudStorageEnabledWithCompletion___block_invoke;
+  v20[3] = &unk_1E754E480;
+  v20[4] = selfCopy;
+  v21 = v5;
+  v22 = completionCopy;
   v16 = completionCopy;
   v17 = v5;
-  [v15 setResponseHandler:v21];
+  [v15 setResponseHandler:v20];
   context = [(HMCameraClipsQuotaMessenger *)selfCopy context];
   messageDispatcher = [context messageDispatcher];
   [messageDispatcher sendMessage:v15];
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __87__HMCameraClipsQuotaMessenger_fetchNamesForZonesWithCloudStorageEnabledWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = [v6 hmf_setForKey:@"HMCCQMR.mk.zoneNames"];
@@ -121,13 +176,13 @@ void __87__HMCameraClipsQuotaMessenger_fetchNamesForZonesWithCloudStorageEnabled
       v12 = HMFGetLogIdentifier();
       v13 = [*(a1 + 40) identifier];
       v14 = [v13 shortDescription];
-      v25 = 138543874;
-      v26 = v12;
-      v27 = 2114;
-      v28 = v14;
-      v29 = 2112;
-      v30 = v7;
-      _os_log_impl(&dword_19BB39000, v11, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] Successfully fetched names for zones with cloud storage enabled: %@", &v25, 0x20u);
+      v24 = 138543874;
+      v25 = v12;
+      v26 = 2114;
+      v27 = v14;
+      v28 = 2112;
+      v29 = v7;
+      _os_log_impl(&dword_19BB39000, v11, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] Successfully fetched names for zones with cloud storage enabled: %@", &v24, 0x20u);
     }
 
     objc_autoreleasePoolPop(v8);
@@ -146,13 +201,13 @@ void __87__HMCameraClipsQuotaMessenger_fetchNamesForZonesWithCloudStorageEnabled
       v21 = HMFGetLogIdentifier();
       v22 = [*(a1 + 40) identifier];
       v23 = [v22 shortDescription];
-      v25 = 138543874;
-      v26 = v21;
-      v27 = 2114;
-      v28 = v23;
-      v29 = 2112;
-      v30 = v5;
-      _os_log_impl(&dword_19BB39000, v11, OS_LOG_TYPE_ERROR, "%{public}@[%{public}@] Failed to fetch names for zones with cloud storage enabled: %@", &v25, 0x20u);
+      v24 = 138543874;
+      v25 = v21;
+      v26 = 2114;
+      v27 = v23;
+      v28 = 2112;
+      v29 = v5;
+      _os_log_impl(&dword_19BB39000, v11, OS_LOG_TYPE_ERROR, "%{public}@[%{public}@] Failed to fetch names for zones with cloud storage enabled: %@", &v24, 0x20u);
     }
 
     objc_autoreleasePoolPop(v8);
@@ -165,8 +220,6 @@ void __87__HMCameraClipsQuotaMessenger_fetchNamesForZonesWithCloudStorageEnabled
   }
 
   [v16 callCompletion:v18 obj:v19 error:v20];
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (HMCameraClipsQuotaMessenger)initWithContext:(id)context
@@ -208,12 +261,11 @@ void __87__HMCameraClipsQuotaMessenger_fetchNamesForZonesWithCloudStorageEnabled
 
 uint64_t __42__HMCameraClipsQuotaMessenger_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x1E69A2980];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v7_49735;
-  logCategory__hmf_once_v7_49735 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v7_49735;
+  logCategory__hmf_once_v7_49735 = v0;
 
-  return MEMORY[0x1EEE66BB8](v1, v2);
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (NSUUID)UUID

@@ -3,6 +3,7 @@
 - (BOOL)removeHistoryForBundleId:(id)id;
 - (NSString)description;
 - (_ATXAppLaunchHistogram)initWithCoder:(id)coder;
+- (_ATXAppLaunchHistogram)initWithHistogram:(id)histogram bucketCount:(unsigned __int16)count filter:(BOOL)filter timeBase:(int)base;
 - (_ATXAppLaunchHistogram)initWithType:(int64_t)type;
 - (double)averageLaunchesPerBundleId:(id)id;
 - (double)entropy;
@@ -26,6 +27,7 @@
 - (unsigned)_localTimeWithDate:(id)date timeZone:(id)zone;
 - (unsigned)bucketCount;
 - (void)_addLaunchWithBundleId:(id)id date:(id)date timeZone:(id)zone arbitraryWeight:(float)weight;
+- (void)addLaunchWithBundleId:(id)id date:(id)date timeZone:(id)zone weight:(float)weight;
 - (void)addLaunchWithBundleId:(id)id elapsedTime:(double)time weight:(float)weight;
 - (void)dealloc;
 - (void)decayByFactor:(double)factor;
@@ -35,6 +37,54 @@
 @end
 
 @implementation _ATXAppLaunchHistogram
+
+- (_ATXAppLaunchHistogram)initWithHistogram:(id)histogram bucketCount:(unsigned __int16)count filter:(BOOL)filter timeBase:(int)base
+{
+  filterCopy = filter;
+  countCopy = count;
+  histogramCopy = histogram;
+  v26.receiver = self;
+  v26.super_class = _ATXAppLaunchHistogram;
+  v12 = [(_ATXAppLaunchHistogram *)&v26 init];
+  if (v12)
+  {
+    v13 = [[ATXGuardedHistData alloc] initWithHistogramData:histogramCopy bucketCount:countCopy filter:filterCopy];
+    v14 = [objc_alloc(MEMORY[0x277D425F8]) initWithGuardedData:v13];
+    lock = v12->_lock;
+    v12->_lock = v14;
+
+    v12->_timeBase = base;
+    v12->_secondsPerLocaltimeInterval = base / countCopy;
+    pthread_mutex_init(&v12->_prevLocaltimeLock, 0);
+    objc_initWeak(&location, v12);
+    v16 = objc_opt_new();
+    uninstallNotificationListener = v12->_uninstallNotificationListener;
+    v12->_uninstallNotificationListener = v16;
+
+    v18 = v12->_uninstallNotificationListener;
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __72___ATXAppLaunchHistogram_initWithHistogram_bucketCount_filter_timeBase___block_invoke;
+    v23[3] = &unk_278596DA0;
+    objc_copyWeak(&v24, &location);
+    [(_ATXInternalUninstallNotification *)v18 registerForNotificationsWithUninstallBlock:v23];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __72___ATXAppLaunchHistogram_initWithHistogram_bucketCount_filter_timeBase___block_invoke_2;
+    v20[3] = &unk_278598278;
+    v22 = a2;
+    v21 = v12;
+    if (initWithHistogram_bucketCount_filter_timeBase__onceToken != -1)
+    {
+      dispatch_once(&initWithHistogram_bucketCount_filter_timeBase__onceToken, v20);
+    }
+
+    objc_destroyWeak(&v24);
+    objc_destroyWeak(&location);
+  }
+
+  return v12;
+}
 
 - (void)dealloc
 {
@@ -66,7 +116,7 @@
       v5 = 7;
       goto LABEL_7;
     case 4:
-      v342 = __atxlog_handle_default();
+      v342 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v342, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v342 initWithType:v343, v344, v345, v346, v347, v348, v349];
@@ -77,7 +127,7 @@
       v18 = @"_ATXHistogramTypeWifiAppLaunch";
       goto LABEL_258;
     case 6:
-      v358 = __atxlog_handle_default();
+      v358 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v358, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v358 initWithType:v359, v360, v361, v362, v363, v364, v365];
@@ -88,7 +138,7 @@
       v18 = @"_APRHistogramTypeAppIntentExplicitConfirms";
       goto LABEL_258;
     case 7:
-      v230 = __atxlog_handle_default();
+      v230 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v230, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v230 initWithType:v231, v232, v233, v234, v235, v236, v237];
@@ -99,7 +149,7 @@
       v18 = @"_APRHistogramTypeAppIntentExplicitRejects";
       goto LABEL_258;
     case 8:
-      v406 = __atxlog_handle_default();
+      v406 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v406, OS_LOG_TYPE_ERROR))
       {
         [_ATXAppLaunchHistogram initWithType:];
@@ -110,7 +160,7 @@
       v407 = @"_APRHistogramTypeAppIntentDonation is deprecated.";
       goto LABEL_259;
     case 9:
-      v326 = __atxlog_handle_default();
+      v326 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v326, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v326 initWithType:v327, v328, v329, v330, v331, v332, v333];
@@ -121,7 +171,7 @@
       v18 = @"_APRHistogramTypeAppIntentImplicitConfirms";
       goto LABEL_258;
     case 10:
-      v398 = __atxlog_handle_default();
+      v398 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v398, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v398 initWithType:v399, v400, v401, v402, v403, v404, v405];
@@ -139,7 +189,7 @@
       v5 = 240;
       goto LABEL_6;
     case 12:
-      v254 = __atxlog_handle_default();
+      v254 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v254, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v254 initWithType:v255, v256, v257, v258, v259, v260, v261];
@@ -150,7 +200,7 @@
       v18 = @"_APRHistogramTypeAppIntentSiriKitDonation";
       goto LABEL_258;
     case 13:
-      v424 = __atxlog_handle_default();
+      v424 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v424, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v424 initWithType:v425, v426, v427, v428, v429, v430, v431];
@@ -169,7 +219,7 @@ LABEL_6:
       v4 = 1;
       goto LABEL_7;
     case 15:
-      v214 = __atxlog_handle_default();
+      v214 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v214, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v214 initWithType:v215, v216, v217, v218, v219, v220, v221];
@@ -180,7 +230,7 @@ LABEL_6:
       v165 = @"_ATXHistogramTypeIntentForAllAppsLaunch";
       goto LABEL_164;
     case 18:
-      v310 = __atxlog_handle_default();
+      v310 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v310, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v310 initWithType:v311, v312, v313, v314, v315, v316, v317];
@@ -191,7 +241,7 @@ LABEL_6:
       v165 = @"_ATXHistogramTypeIntentForAllAppsDayOfWeek";
       goto LABEL_164;
     case 21:
-      v238 = __atxlog_handle_default();
+      v238 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v238, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v238 initWithType:v239, v240, v241, v242, v243, v244, v245];
@@ -202,7 +252,7 @@ LABEL_6:
       v165 = @"_ATXHistogramTypeIntentForAllAppsTrendingLaunch";
       goto LABEL_164;
     case 24:
-      v174 = __atxlog_handle_default();
+      v174 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v174, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v174 initWithType:v175, v176, v177, v178, v179, v180, v181];
@@ -213,7 +263,7 @@ LABEL_6:
       v165 = @"_ATXHistogramTypeIntentForAllAppsUnlockTime";
       goto LABEL_164;
     case 27:
-      v155 = __atxlog_handle_default();
+      v155 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v155, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v155 initWithType:v156, v157, v158, v159, v160, v161, v162];
@@ -224,7 +274,7 @@ LABEL_6:
       v165 = @"_ATXHistogramTypeIntentForAllAppsAirplaneModeLaunch";
       goto LABEL_164;
     case 29:
-      v374 = __atxlog_handle_default();
+      v374 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v374, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v374 initWithType:v375, v376, v377, v378, v379, v380, v381];
@@ -235,7 +285,7 @@ LABEL_6:
       v18 = @"_ATXHistogramTypeAppIntentWifiLaunch";
       goto LABEL_258;
     case 30:
-      v416 = __atxlog_handle_default();
+      v416 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v416, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v416 initWithType:v417, v418, v419, v420, v421, v422, v423];
@@ -248,7 +298,7 @@ LABEL_164:
       [v163 raise:v164 format:{@"%@ is deprecated.", v165}];
       goto LABEL_260;
     case 31:
-      v496 = __atxlog_handle_default();
+      v496 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v496, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v496 initWithType:v497, v498, v499, v500, v501, v502, v503];
@@ -259,7 +309,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypeAppForAllIntentsWifiLaunch";
       goto LABEL_258;
     case 32:
-      v480 = __atxlog_handle_default();
+      v480 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v480, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v480 initWithType:v481, v482, v483, v484, v485, v486, v487];
@@ -270,7 +320,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypeNotifications";
       goto LABEL_258;
     case 33:
-      v262 = __atxlog_handle_default();
+      v262 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v262, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v262 initWithType:v263, v264, v265, v266, v267, v268, v269];
@@ -281,7 +331,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypeActionsConfirms";
       goto LABEL_258;
     case 34:
-      v472 = __atxlog_handle_default();
+      v472 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v472, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v472 initWithType:v473, v474, v475, v476, v477, v478, v479];
@@ -292,7 +342,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypeActionsRejects";
       goto LABEL_258;
     case 37:
-      v123 = __atxlog_handle_default();
+      v123 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v123, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v123 initWithType:v124, v125, v126, v127, v128, v129, v130];
@@ -303,7 +353,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypeCoreMotionLaunch";
       goto LABEL_258;
     case 38:
-      v278 = __atxlog_handle_default();
+      v278 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v278, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v278 initWithType:v279, v280, v281, v282, v283, v284, v285];
@@ -314,7 +364,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypeAppIntentCoreMotionLaunch";
       goto LABEL_258;
     case 39:
-      v408 = __atxlog_handle_default();
+      v408 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v408, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v408 initWithType:v409, v410, v411, v412, v413, v414, v415];
@@ -325,7 +375,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypeAppForAllIntentsCoreMotionLaunch";
       goto LABEL_258;
     case 40:
-      v115 = __atxlog_handle_default();
+      v115 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v115, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v115 initWithType:v116, v117, v118, v119, v120, v121, v122];
@@ -336,7 +386,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypePartOfWeek";
       goto LABEL_258;
     case 41:
-      v440 = __atxlog_handle_default();
+      v440 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v440, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v440 initWithType:v441, v442, v443, v444, v445, v446, v447];
@@ -347,7 +397,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypeAmbientLight";
       goto LABEL_258;
     case 42:
-      v448 = __atxlog_handle_default();
+      v448 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v448, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v448 initWithType:v449, v450, v451, v452, v453, v454, v455];
@@ -358,7 +408,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypeTimeOfDayAndDayOfWeek";
       goto LABEL_258;
     case 43:
-      v83 = __atxlog_handle_default();
+      v83 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v83, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v83 initWithType:v84, v85, v86, v87, v88, v89, v90];
@@ -369,7 +419,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypeAppCoarseTimePOWLocationLaunches";
       goto LABEL_258;
     case 44:
-      v107 = __atxlog_handle_default();
+      v107 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v107, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v107 initWithType:v108, v109, v110, v111, v112, v113, v114];
@@ -380,7 +430,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypeAppSpecificTimeDOWLocationLaunches";
       goto LABEL_258;
     case 45:
-      v198 = __atxlog_handle_default();
+      v198 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v198, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v198 initWithType:v199, v200, v201, v202, v203, v204, v205];
@@ -391,7 +441,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypeAppCoarseTimePOWLocationConfirms";
       goto LABEL_258;
     case 46:
-      v432 = __atxlog_handle_default();
+      v432 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v432, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v432 initWithType:v433, v434, v435, v436, v437, v438, v439];
@@ -402,7 +452,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypeAppSpecificTimeDOWLocationConfirms";
       goto LABEL_258;
     case 47:
-      v560 = __atxlog_handle_default();
+      v560 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v560, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v560 initWithType:v561, v562, v563, v564, v565, v566, v567];
@@ -413,7 +463,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypeAppCoarseTimePOWLocationRejects";
       goto LABEL_258;
     case 48:
-      v131 = __atxlog_handle_default();
+      v131 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v131, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v131 initWithType:v132, v133, v134, v135, v136, v137, v138];
@@ -424,7 +474,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypeAppSpecificTimeDOWLocationRejects";
       goto LABEL_258;
     case 49:
-      v147 = __atxlog_handle_default();
+      v147 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v147, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v147 initWithType:v148, v149, v150, v151, v152, v153, v154];
@@ -435,7 +485,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypeAppClipsAndHeroApp";
       goto LABEL_258;
     case 50:
-      v382 = __atxlog_handle_default();
+      v382 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v382, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v382 initWithType:v383, v384, v385, v386, v387, v388, v389];
@@ -446,7 +496,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypeAppSpecificLocation";
       goto LABEL_258;
     case 51:
-      v139 = __atxlog_handle_default();
+      v139 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v139, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v139 initWithType:v140, v141, v142, v143, v144, v145, v146];
@@ -457,7 +507,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypeAppCoarseLocation";
       goto LABEL_258;
     case 52:
-      v552 = __atxlog_handle_default();
+      v552 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v552, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v552 initWithType:v553, v554, v555, v556, v557, v558, v559];
@@ -468,7 +518,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypeAppLaunchesTwoHourTimeInterval";
       goto LABEL_258;
     case 53:
-      v536 = __atxlog_handle_default();
+      v536 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v536, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v536 initWithType:v537, v538, v539, v540, v541, v542, v543];
@@ -479,7 +529,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypeAppConfirmsTwoHourTimeInterval";
       goto LABEL_258;
     case 54:
-      v488 = __atxlog_handle_default();
+      v488 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v488, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v488 initWithType:v489, v490, v491, v492, v493, v494, v495];
@@ -490,7 +540,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypeAppRejectsTwoHourTimeInterval";
       goto LABEL_258;
     case 55:
-      v366 = __atxlog_handle_default();
+      v366 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v366, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v366 initWithType:v367, v368, v369, v370, v371, v372, v373];
@@ -501,7 +551,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypeAppConfirmsDayOfWeek";
       goto LABEL_258;
     case 56:
-      v576 = __atxlog_handle_default();
+      v576 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v576, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v576 initWithType:v577, v578, v579, v580, v581, v582, v583];
@@ -512,7 +562,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypeAppRejectsDayOfWeek";
       goto LABEL_258;
     case 57:
-      v206 = __atxlog_handle_default();
+      v206 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v206, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v206 initWithType:v207, v208, v209, v210, v211, v212, v213];
@@ -523,7 +573,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypeAppConfirmsCoarseGeoHash";
       goto LABEL_258;
     case 58:
-      v246 = __atxlog_handle_default();
+      v246 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v246, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v246 initWithType:v247, v248, v249, v250, v251, v252, v253];
@@ -534,7 +584,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypeAppRejectsCoarseGeoHash";
       goto LABEL_258;
     case 59:
-      v600 = __atxlog_handle_default();
+      v600 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v600, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v600 initWithType:v601, v602, v603, v604, v605, v606, v607];
@@ -545,7 +595,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypeAppConfirmsSpecificGeoHash";
       goto LABEL_258;
     case 60:
-      v318 = __atxlog_handle_default();
+      v318 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v318, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v318 initWithType:v319, v320, v321, v322, v323, v324, v325];
@@ -556,7 +606,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypeAppRejectsSpecificGeoHash";
       goto LABEL_258;
     case 61:
-      v286 = __atxlog_handle_default();
+      v286 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v286, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v286 initWithType:v287, v288, v289, v290, v291, v292, v293];
@@ -567,7 +617,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypeAppZoom7GeoHash";
       goto LABEL_258;
     case 62:
-      v544 = __atxlog_handle_default();
+      v544 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v544, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v544 initWithType:v545, v546, v547, v548, v549, v550, v551];
@@ -578,7 +628,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypeHomeScreenWidgetInteractions";
       goto LABEL_258;
     case 63:
-      v456 = __atxlog_handle_default();
+      v456 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v456, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v456 initWithType:v457, v458, v459, v460, v461, v462, v463];
@@ -589,7 +639,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypeHomeScreenAppConfirmsCoarseTimePOWLocation";
       goto LABEL_258;
     case 64:
-      v512 = __atxlog_handle_default();
+      v512 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v512, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v512 initWithType:v513, v514, v515, v516, v517, v518, v519];
@@ -600,7 +650,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypeHomeScreenAppConfirmsSpecificTimeDOWLocation";
       goto LABEL_258;
     case 65:
-      v294 = __atxlog_handle_default();
+      v294 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v294, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v294 initWithType:v295, v296, v297, v298, v299, v300, v301];
@@ -611,7 +661,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypeHomeScreenAppConfirmsTwoHourTimeInterval";
       goto LABEL_258;
     case 66:
-      v302 = __atxlog_handle_default();
+      v302 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v302, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v302 initWithType:v303, v304, v305, v306, v307, v308, v309];
@@ -622,7 +672,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypeHomeScreenAppConfirmsDayOfWeek";
       goto LABEL_258;
     case 67:
-      v99 = __atxlog_handle_default();
+      v99 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v99, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v99 initWithType:v100, v101, v102, v103, v104, v105, v106];
@@ -633,7 +683,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypeHomeScreenAppConfirmsCoarseGeohash";
       goto LABEL_258;
     case 68:
-      v390 = __atxlog_handle_default();
+      v390 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v390, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v390 initWithType:v391, v392, v393, v394, v395, v396, v397];
@@ -644,7 +694,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypeHomeScreenAppConfirmsSpecificGeohash";
       goto LABEL_258;
     case 69:
-      v592 = __atxlog_handle_default();
+      v592 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v592, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v592 initWithType:v593, v594, v595, v596, v597, v598, v599];
@@ -655,7 +705,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypeHomeScreenAppRejectsCoarseTimePOWLocation";
       goto LABEL_258;
     case 70:
-      v464 = __atxlog_handle_default();
+      v464 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v464, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v464 initWithType:v465, v466, v467, v468, v469, v470, v471];
@@ -666,7 +716,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypeHomeScreenAppRejectsSpecificTimeDOWLocation";
       goto LABEL_258;
     case 71:
-      v504 = __atxlog_handle_default();
+      v504 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v504, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v504 initWithType:v505, v506, v507, v508, v509, v510, v511];
@@ -677,7 +727,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypeHomeScreenAppRejectsTwoHourTimeInterval";
       goto LABEL_258;
     case 72:
-      v182 = __atxlog_handle_default();
+      v182 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v182, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v182 initWithType:v183, v184, v185, v186, v187, v188, v189];
@@ -688,7 +738,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypeHomeScreenAppRejectsDayOfWeek";
       goto LABEL_258;
     case 73:
-      v520 = __atxlog_handle_default();
+      v520 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v520, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v520 initWithType:v521, v522, v523, v524, v525, v526, v527];
@@ -699,7 +749,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypeHomeScreenAppRejectsCoarseGeohash";
       goto LABEL_258;
     case 74:
-      v334 = __atxlog_handle_default();
+      v334 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v334, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v334 initWithType:v335, v336, v337, v338, v339, v340, v341];
@@ -710,7 +760,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypeHomeScreenAppRejectsSpecificGeohash";
       goto LABEL_258;
     case 75:
-      v624 = __atxlog_handle_default();
+      v624 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v624, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v624 initWithType:v625, v626, v627, v628, v629, v630, v631];
@@ -721,7 +771,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypeAppDirectoryConfirmsCoarseTimePOWLocation";
       goto LABEL_258;
     case 76:
-      v91 = __atxlog_handle_default();
+      v91 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v91, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v91 initWithType:v92, v93, v94, v95, v96, v97, v98];
@@ -732,7 +782,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypeAppDirectoryConfirmsSpecificTimeDOWLocation";
       goto LABEL_258;
     case 77:
-      v222 = __atxlog_handle_default();
+      v222 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v222, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v222 initWithType:v223, v224, v225, v226, v227, v228, v229];
@@ -743,7 +793,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypeAppDirectoryConfirmsTwoHourTimeInterval";
       goto LABEL_258;
     case 78:
-      v51 = __atxlog_handle_default();
+      v51 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v51 initWithType:v52, v53, v54, v55, v56, v57, v58];
@@ -754,7 +804,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypeAppDirectoryConfirmsDayOfWeek";
       goto LABEL_258;
     case 79:
-      v584 = __atxlog_handle_default();
+      v584 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v584, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v584 initWithType:v585, v586, v587, v588, v589, v590, v591];
@@ -765,7 +815,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypeAppDirectoryConfirmsCoarseGeohash";
       goto LABEL_258;
     case 80:
-      v640 = __atxlog_handle_default();
+      v640 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v640, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v640 initWithType:v641, v642, v643, v644, v645, v646, v647];
@@ -776,7 +826,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypeAppDirectoryConfirmsSpecificGeohash";
       goto LABEL_258;
     case 81:
-      v166 = __atxlog_handle_default();
+      v166 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v166, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v166 initWithType:v167, v168, v169, v170, v171, v172, v173];
@@ -787,7 +837,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypeAppDirectoryRejectsCoarseTimePOWLocation";
       goto LABEL_258;
     case 82:
-      v616 = __atxlog_handle_default();
+      v616 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v616, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v616 initWithType:v617, v618, v619, v620, v621, v622, v623];
@@ -798,7 +848,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypeAppDirectoryRejectsSpecificTimeDOWLocation";
       goto LABEL_258;
     case 83:
-      v19 = __atxlog_handle_default();
+      v19 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v19 initWithType:v20, v21, v22, v23, v24, v25, v26];
@@ -809,7 +859,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypeAppDirectoryRejectsTwoHourTimeInterval";
       goto LABEL_258;
     case 84:
-      v75 = __atxlog_handle_default();
+      v75 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v75 initWithType:v76, v77, v78, v79, v80, v81, v82];
@@ -820,7 +870,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypeAppDirectoryRejectsDayOfWeek";
       goto LABEL_258;
     case 85:
-      v270 = __atxlog_handle_default();
+      v270 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v270, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v270 initWithType:v271, v272, v273, v274, v275, v276, v277];
@@ -831,7 +881,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypeAppDirectoryRejectsCoarseGeohash";
       goto LABEL_258;
     case 86:
-      v35 = __atxlog_handle_default();
+      v35 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v35 initWithType:v36, v37, v38, v39, v40, v41, v42];
@@ -842,7 +892,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypeAppDirectoryRejectsSpecificGeohash";
       goto LABEL_258;
     case 87:
-      v67 = __atxlog_handle_default();
+      v67 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v67 initWithType:v68, v69, v70, v71, v72, v73, v74];
@@ -853,7 +903,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypeAppExplicitRejectsCoarseTimePOWLocation";
       goto LABEL_258;
     case 88:
-      v648 = __atxlog_handle_default();
+      v648 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v648, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v648 initWithType:v649, v650, v651, v652, v653, v654, v655];
@@ -864,7 +914,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypeHomeScreenAppExplicitRejectsCoarseTimePOWLocation";
       goto LABEL_258;
     case 89:
-      v528 = __atxlog_handle_default();
+      v528 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v528, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v528 initWithType:v529, v530, v531, v532, v533, v534, v535];
@@ -875,7 +925,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypeAppDirectoryExplicitRejectsCoarseTimePOWLocation";
       goto LABEL_258;
     case 94:
-      v190 = __atxlog_handle_default();
+      v190 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v190, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v190 initWithType:v191, v192, v193, v194, v195, v196, v197];
@@ -886,7 +936,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypeAppClipsAndHeroAppNoDecay";
       goto LABEL_258;
     case 95:
-      v43 = __atxlog_handle_default();
+      v43 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v43 initWithType:v44, v45, v46, v47, v48, v49, v50];
@@ -897,7 +947,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypePOICategory";
       goto LABEL_258;
     case 96:
-      v350 = __atxlog_handle_default();
+      v350 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v350, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v350 initWithType:v351, v352, v353, v354, v355, v356, v357];
@@ -908,7 +958,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypeActivitySuggestionsFeedback";
       goto LABEL_258;
     case 97:
-      v8 = __atxlog_handle_default();
+      v8 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v8 initWithType:v9, v10, v11, v12, v13, v14, v15];
@@ -919,7 +969,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypeNotificationDigestAppEngagement";
       goto LABEL_258;
     case 98:
-      v608 = __atxlog_handle_default();
+      v608 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v608, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v608 initWithType:v609, v610, v611, v612, v613, v614, v615];
@@ -930,7 +980,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypeNotificationDigestAlltimeMarqueeAppearances";
       goto LABEL_258;
     case 104:
-      v656 = __atxlog_handle_default();
+      v656 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v656, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v656 initWithType:v657, v658, v659, v660, v661, v662, v663];
@@ -941,7 +991,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypeDocumentWifiOpen";
       goto LABEL_258;
     case 105:
-      v27 = __atxlog_handle_default();
+      v27 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v27 initWithType:v28, v29, v30, v31, v32, v33, v34];
@@ -952,7 +1002,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypeDocumentCoreMotionOpen";
       goto LABEL_258;
     case 106:
-      v59 = __atxlog_handle_default();
+      v59 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v59 initWithType:v60, v61, v62, v63, v64, v65, v66];
@@ -963,7 +1013,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypeDocumentPartOfWeek";
       goto LABEL_258;
     case 107:
-      v664 = __atxlog_handle_default();
+      v664 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v664, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v664 initWithType:v665, v666, v667, v668, v669, v670, v671];
@@ -974,7 +1024,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypeDocumentAmbientLight";
       goto LABEL_258;
     case 111:
-      v568 = __atxlog_handle_default();
+      v568 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v568, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v568 initWithType:v569, v570, v571, v572, v573, v574, v575];
@@ -985,7 +1035,7 @@ LABEL_164:
       v18 = @"_ATXHistogramTypeDocumentCategoryPartOfWeek";
       goto LABEL_258;
     case 114:
-      v632 = __atxlog_handle_default();
+      v632 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v632, OS_LOG_TYPE_ERROR))
       {
         [(_ATXAppLaunchHistogram *)v632 initWithType:v633, v634, v635, v636, v637, v638, v639];
@@ -1063,27 +1113,46 @@ LABEL_7:
 {
   dateCopy = date;
   zoneCopy = zone;
+  v13 = zoneCopy;
   if (id)
   {
-    v13 = [(_ATXAppLaunchHistogram *)self _eventIdforBundleId:id];
-    v14 = [(_ATXAppLaunchHistogram *)self _localTimeWithDate:dateCopy timeZone:zoneCopy];
+    v14 = [(_ATXAppLaunchHistogram *)self _eventIdforBundleId:id];
+    v15 = [(_ATXAppLaunchHistogram *)self _localTimeWithDate:dateCopy timeZone:v13];
     lock = self->_lock;
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __79___ATXAppLaunchHistogram__addLaunchWithBundleId_date_timeZone_arbitraryWeight___block_invoke;
-    v17[3] = &__block_descriptor_40_e28_v16__0__ATXGuardedHistData_8l;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __79___ATXAppLaunchHistogram__addLaunchWithBundleId_date_timeZone_arbitraryWeight___block_invoke;
+    v18[3] = &__block_descriptor_40_e28_v16__0__ATXGuardedHistData_8l;
     weightCopy = weight;
-    v19 = v13;
     v20 = v14;
-    [(_PASLock *)lock runWithLockAcquired:v17];
+    v21 = v15;
+    [(_PASLock *)lock runWithLockAcquired:v18];
   }
 
   else
   {
-    v16 = __atxlog_handle_default();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+    v17 = __atxlog_handle_default(zoneCopy);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
       [_ATXAppLaunchHistogram _addLaunchWithBundleId:a2 date:? timeZone:? arbitraryWeight:?];
+    }
+  }
+}
+
+- (void)addLaunchWithBundleId:(id)id date:(id)date timeZone:(id)zone weight:(float)weight
+{
+  if (weight >= 0.0 && weight <= 1.0)
+  {
+
+    [(_ATXAppLaunchHistogram *)self _addLaunchWithBundleId:id date:date timeZone:zone arbitraryWeight:*&weight];
+  }
+
+  else
+  {
+    v7 = __atxlog_handle_default(self);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    {
+      [_ATXAppLaunchHistogram addLaunchWithBundleId:date:timeZone:weight:];
     }
   }
 }
@@ -1091,27 +1160,28 @@ LABEL_7:
 - (void)addLaunchWithBundleId:(id)id elapsedTime:(double)time weight:(float)weight
 {
   idCopy = id;
+  v10 = idCopy;
   if (idCopy)
   {
     if (weight >= 0.0 && weight <= 1.0)
     {
-      v12 = [(_ATXAppLaunchHistogram *)self _eventIdforBundleId:idCopy];
-      v13 = time % self->_timeBase;
+      v13 = [(_ATXAppLaunchHistogram *)self _eventIdforBundleId:idCopy];
+      v14 = time % self->_timeBase;
       secondsPerLocaltimeInterval = self->_secondsPerLocaltimeInterval;
       lock = self->_lock;
-      v16[0] = MEMORY[0x277D85DD0];
-      v16[1] = 3221225472;
-      v16[2] = __67___ATXAppLaunchHistogram_addLaunchWithBundleId_elapsedTime_weight___block_invoke;
-      v16[3] = &__block_descriptor_40_e28_v16__0__ATXGuardedHistData_8l;
+      v17[0] = MEMORY[0x277D85DD0];
+      v17[1] = 3221225472;
+      v17[2] = __67___ATXAppLaunchHistogram_addLaunchWithBundleId_elapsedTime_weight___block_invoke;
+      v17[3] = &__block_descriptor_40_e28_v16__0__ATXGuardedHistData_8l;
       weightCopy = weight;
-      v18 = v12;
-      v19 = v13 / secondsPerLocaltimeInterval;
-      [(_PASLock *)lock runWithLockAcquired:v16];
+      v19 = v13;
+      v20 = v14 / secondsPerLocaltimeInterval;
+      [(_PASLock *)lock runWithLockAcquired:v17];
       goto LABEL_12;
     }
 
-    v11 = __atxlog_handle_default();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v12 = __atxlog_handle_default(idCopy);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
       [_ATXAppLaunchHistogram addLaunchWithBundleId:date:timeZone:weight:];
     }
@@ -1119,8 +1189,8 @@ LABEL_7:
 
   else
   {
-    v11 = __atxlog_handle_default();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v12 = __atxlog_handle_default(0);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
       [_ATXAppLaunchHistogram _addLaunchWithBundleId:a2 date:? timeZone:? arbitraryWeight:?];
     }
@@ -1167,7 +1237,7 @@ LABEL_12:
 
   else
   {
-    v9 = __atxlog_handle_default();
+    v9 = __atxlog_handle_default(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       [_ATXAppLaunchHistogram _addLaunchWithBundleId:a2 date:? timeZone:? arbitraryWeight:?];
@@ -1205,40 +1275,41 @@ LABEL_12:
 {
   idCopy = id;
   dateCopy = date;
+  v8 = dateCopy;
   if (idCopy)
   {
-    v8 = [(_ATXAppLaunchHistogram *)self _localTimeWithDate:dateCopy];
-    v9 = [(_ATXAppLaunchHistogram *)self _eventIdforBundleId:idCopy];
-    v17 = 0;
-    v18 = &v17;
-    v19 = 0x2020000000;
-    v20 = 0;
+    v9 = [(_ATXAppLaunchHistogram *)self _localTimeWithDate:dateCopy];
+    v10 = [(_ATXAppLaunchHistogram *)self _eventIdforBundleId:idCopy];
+    v18 = 0;
+    v19 = &v18;
+    v20 = 0x2020000000;
+    v21 = 0;
     lock = self->_lock;
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __60___ATXAppLaunchHistogram_launchPopularityWithBundleId_date___block_invoke;
-    v14[3] = &unk_27859B660;
-    v14[4] = self;
-    v14[5] = &v17;
-    v15 = v9;
-    v16 = v8;
-    [(_PASLock *)lock runWithLockAcquired:v14];
-    v11 = v18[3];
-    _Block_object_dispose(&v17, 8);
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __60___ATXAppLaunchHistogram_launchPopularityWithBundleId_date___block_invoke;
+    v15[3] = &unk_27859B660;
+    v15[4] = self;
+    v15[5] = &v18;
+    v16 = v10;
+    v17 = v9;
+    [(_PASLock *)lock runWithLockAcquired:v15];
+    v12 = v19[3];
+    _Block_object_dispose(&v18, 8);
   }
 
   else
   {
-    v12 = __atxlog_handle_default();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v13 = __atxlog_handle_default(dateCopy);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       [_ATXAppLaunchHistogram launchPopularityWithBundleId:date:];
     }
 
-    v11 = 0.0;
+    v12 = 0.0;
   }
 
-  return v11;
+  return v12;
 }
 
 - (double)relativeLaunchPopularityWithBundleId:(id)id date:(id)date
@@ -1252,41 +1323,42 @@ LABEL_12:
 {
   idCopy = id;
   dateCopy = date;
+  v10 = dateCopy;
   if (idCopy)
   {
-    v10 = [(_ATXAppLaunchHistogram *)self _localTimeWithDate:dateCopy];
-    v11 = [(_ATXAppLaunchHistogram *)self _eventIdforBundleId:idCopy];
-    v20 = 0;
-    v21 = &v20;
-    v22 = 0x2020000000;
-    v23 = 0;
+    v11 = [(_ATXAppLaunchHistogram *)self _localTimeWithDate:dateCopy];
+    v12 = [(_ATXAppLaunchHistogram *)self _eventIdforBundleId:idCopy];
+    v21 = 0;
+    v22 = &v21;
+    v23 = 0x2020000000;
+    v24 = 0;
     lock = self->_lock;
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __82___ATXAppLaunchHistogram_relativeLaunchPopularityWithBundleId_date_distanceScale___block_invoke;
-    v16[3] = &unk_27859B688;
-    v16[4] = self;
-    v16[5] = &v20;
-    v18 = v11;
-    v19 = v10;
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __82___ATXAppLaunchHistogram_relativeLaunchPopularityWithBundleId_date_distanceScale___block_invoke;
+    v17[3] = &unk_27859B688;
+    v17[4] = self;
+    v17[5] = &v21;
+    v19 = v12;
+    v20 = v11;
     scaleCopy = scale;
-    [(_PASLock *)lock runWithLockAcquired:v16];
-    v13 = v21[3];
-    _Block_object_dispose(&v20, 8);
+    [(_PASLock *)lock runWithLockAcquired:v17];
+    v14 = v22[3];
+    _Block_object_dispose(&v21, 8);
   }
 
   else
   {
-    v14 = __atxlog_handle_default();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    v15 = __atxlog_handle_default(dateCopy);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
       [_ATXAppLaunchHistogram relativeLaunchPopularityWithBundleId:date:distanceScale:];
     }
 
-    v13 = 0.0;
+    v14 = 0.0;
   }
 
-  return v13;
+  return v14;
 }
 
 - (double)relativeLaunchPopularityWithBundleId:(id)id elapsedTime:(double)time distanceScale:(float)scale
@@ -1317,7 +1389,7 @@ LABEL_12:
 
   else
   {
-    v13 = __atxlog_handle_default();
+    v13 = __atxlog_handle_default(0);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       [_ATXAppLaunchHistogram relativeLaunchPopularityWithBundleId:elapsedTime:distanceScale:];
@@ -1413,7 +1485,7 @@ LABEL_12:
 
   else
   {
-    v8 = __atxlog_handle_default();
+    v8 = __atxlog_handle_default(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       [_ATXAppLaunchHistogram overallLaunchPopularityForBundleId:];
@@ -1558,7 +1630,7 @@ LABEL_12:
 
   else
   {
-    v9 = __atxlog_handle_default();
+    v9 = __atxlog_handle_default(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       [_ATXAppLaunchHistogram _addLaunchWithBundleId:a2 date:? timeZone:? arbitraryWeight:?];
@@ -1602,7 +1674,7 @@ LABEL_12:
     v7 = v6;
     if (v6 <= 0)
     {
-      v8 = __atxlog_handle_default();
+      v8 = __atxlog_handle_default(v6);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
       {
         [(_ATXAppLaunchHistogram *)v7 initWithCoder:v8];
@@ -1619,32 +1691,32 @@ LABEL_12:
 
   if (!error)
   {
-    v10 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"histogram"];
-    if (v10)
+    v11 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"histogram"];
+    if (v11)
     {
-      v12 = [[ATXHistogramData alloc] initWithTimeHistogram:v10];
-      v13 = objc_autoreleasePoolPush();
-      v14 = objc_alloc(MEMORY[0x277CBEB98]);
-      v15 = objc_opt_class();
+      v13 = [[ATXHistogramData alloc] initWithTimeHistogram:v11];
+      v14 = objc_autoreleasePoolPush();
+      v15 = objc_alloc(MEMORY[0x277CBEB98]);
       v16 = objc_opt_class();
-      v17 = [v14 initWithObjects:{v15, v16, objc_opt_class(), 0}];
-      objc_autoreleasePoolPop(v13);
-      v18 = [coderCopy decodeObjectOfClasses:v17 forKey:@"bundleIdToEventId"];
+      v17 = objc_opt_class();
+      v18 = [v15 initWithObjects:{v16, v17, objc_opt_class(), 0}];
+      objc_autoreleasePoolPop(v14);
+      v19 = [coderCopy decodeObjectOfClasses:v18 forKey:@"bundleIdToEventId"];
 
-      if (v18)
+      if (v19)
       {
-        v19 = +[ATXHistogramBundleIdTable sharedInstance];
-        v20 = [v19 permutationFrom:v18];
-        [(ATXHistogramData *)v12 applyPermutationToA:v20];
+        v21 = +[ATXHistogramBundleIdTable sharedInstance];
+        v22 = [v21 permutationFrom:v19];
+        [(ATXHistogramData *)v13 applyPermutationToA:v22];
 
-        self = [(_ATXAppLaunchHistogram *)self initWithHistogram:v12 bucketCount:[v10 pointsPerTimeInterval] filter:[v10 applyFilter] timeBase:v4];
+        self = [(_ATXAppLaunchHistogram *)self initWithHistogram:v13 bucketCount:[v11 pointsPerTimeInterval] filter:[v11 applyFilter] timeBase:v4];
         selfCopy2 = self;
       }
 
       else
       {
-        v25 = __atxlog_handle_default();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
+        v29 = __atxlog_handle_default(v20);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_FAULT))
         {
           [_ATXAppLaunchHistogram initWithCoder:coderCopy];
         }
@@ -1655,13 +1727,13 @@ LABEL_12:
       goto LABEL_26;
     }
 
-    v12 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"histogramData"];
+    v13 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"histogramData"];
     error2 = [coderCopy error];
 
-    if (error2 || !v12)
+    if (error2 || !v13)
     {
-      v24 = __atxlog_handle_default();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
+      v28 = __atxlog_handle_default(v24);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
       {
         [_ATXAppLaunchHistogram initWithCoder:coderCopy];
       }
@@ -1669,13 +1741,13 @@ LABEL_12:
 
     else
     {
-      v22 = [coderCopy decodeInt32ForKey:@"bucketCount"];
+      v25 = [coderCopy decodeInt32ForKey:@"bucketCount"];
       error3 = [coderCopy error];
 
       if (error3)
       {
-        v24 = __atxlog_handle_default();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
+        v28 = __atxlog_handle_default(v27);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
         {
           [_ATXAppLaunchHistogram initWithCoder:coderCopy];
         }
@@ -1683,18 +1755,18 @@ LABEL_12:
 
       else
       {
-        v27 = [coderCopy decodeBoolForKey:@"filter"];
+        v31 = [coderCopy decodeBoolForKey:@"filter"];
         error4 = [coderCopy error];
 
         if (!error4)
         {
-          self = [(_ATXAppLaunchHistogram *)self initWithHistogram:v12 bucketCount:v22 filter:v27 timeBase:v4];
+          self = [(_ATXAppLaunchHistogram *)self initWithHistogram:v13 bucketCount:v25 filter:v31 timeBase:v4];
           selfCopy2 = self;
           goto LABEL_26;
         }
 
-        v24 = __atxlog_handle_default();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
+        v28 = __atxlog_handle_default(v33);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
         {
           [_ATXAppLaunchHistogram initWithCoder:coderCopy];
         }
@@ -1707,8 +1779,8 @@ LABEL_26:
     goto LABEL_27;
   }
 
-  v10 = __atxlog_handle_default();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+  v11 = __atxlog_handle_default(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
   {
     [_ATXAppLaunchHistogram initWithCoder:coderCopy];
   }
@@ -1836,593 +1908,583 @@ LABEL_27:
 
 - (void)initWithType:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeAppDirectoryRejectsCoarseTimePOWLocation";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeAppDirectoryConfirmsSpecificGeohash";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeAppDirectoryConfirmsCoarseGeohash";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeAppDirectoryConfirmsDayOfWeek";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.5(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeAppDirectoryConfirmsTwoHourTimeInterval";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.6(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeAppDirectoryConfirmsSpecificTimeDOWLocation";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.7(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeAppDirectoryConfirmsCoarseTimePOWLocation";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.8(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeHomeScreenAppExplicitRejectsCoarseTimePOWLocation";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.9(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeHomeScreenAppRejectsSpecificGeohash";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.10(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeHomeScreenAppRejectsCoarseGeohash";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.11(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeHomeScreenAppRejectsDayOfWeek";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.12(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeHomeScreenAppRejectsTwoHourTimeInterval";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.13(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeHomeScreenAppRejectsSpecificTimeDOWLocation";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.14(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeHomeScreenAppRejectsCoarseTimePOWLocation";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.15(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeHomeScreenAppConfirmsSpecificGeohash";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.16(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeHomeScreenAppConfirmsCoarseGeohash";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.17(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeHomeScreenAppConfirmsDayOfWeek";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.18(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeHomeScreenAppConfirmsTwoHourTimeInterval";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.19(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeHomeScreenAppConfirmsSpecificTimeDOWLocation";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.20(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeHomeScreenAppConfirmsCoarseTimePOWLocation";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.21(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeHomeScreenWidgetInteractions";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.22(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeAppExplicitRejectsCoarseTimePOWLocation";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.23(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeAppRejectsSpecificGeoHash";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.24(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeAppConfirmsSpecificGeoHash";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.25(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeAppRejectsCoarseGeoHash";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.26(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeAppConfirmsCoarseGeoHash";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.27(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeAppRejectsDayOfWeek";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.28(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeAppConfirmsDayOfWeek";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.29(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeAppRejectsTwoHourTimeInterval";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.30(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeAppConfirmsTwoHourTimeInterval";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.31(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeAppLaunchesTwoHourTimeInterval";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.32(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeAppZoom7GeoHash";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.33(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeAppCoarseLocation";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.34(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeAppSpecificLocation";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.35(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeAppClipsAndHeroAppNoDecay";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.36(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeAppClipsAndHeroApp";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.37(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeAppSpecificTimeDOWLocationRejects";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.38(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeAppCoarseTimePOWLocationRejects";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.39(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeAppSpecificTimeDOWLocationConfirms";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.40(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeAppCoarseTimePOWLocationConfirms";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.41(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeAppSpecificTimeDOWLocationLaunches";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.42(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeAppCoarseTimePOWLocationLaunches";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.43(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeTimeOfDayAndDayOfWeek";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.44(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeDocumentAmbientLight";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.45(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeAmbientLight";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.46(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeDocumentCategoryPartOfWeek";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.47(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeDocumentPartOfWeek";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.48(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypePartOfWeek";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.49(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeActionsRejects";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.50(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeActionsConfirms";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.51(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_APRHistogramTypeAppIntentNonSiriKitDonation";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.52(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_APRHistogramTypeAppIntentSiriKitDonation";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.54(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_APRHistogramTypeAppIntentImplicitRejects";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.55(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_APRHistogramTypeAppIntentImplicitConfirms";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.56(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_APRHistogramTypeAppIntentExplicitRejects";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.57(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_APRHistogramTypeAppIntentExplicitConfirms";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.58(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeDocumentCoreMotionOpen";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.59(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeAppForAllIntentsCoreMotionLaunch";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.60(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeAppIntentCoreMotionLaunch";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.61(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeCoreMotionLaunch";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.62(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeDocumentWifiOpen";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.63(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeAppForAllIntentsWifiLaunch";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.64(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeAppIntentWifiLaunch";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.65(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeWifiAppLaunch";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.66(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeNotifications";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.67(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeAppDirectoryRejectsSpecificTimeDOWLocation";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.68(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeAppDirectoryRejectsTwoHourTimeInterval";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.69(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeAppDirectoryRejectsDayOfWeek";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.70(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeAppDirectoryRejectsCoarseGeohash";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.71(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeAppDirectoryRejectsSpecificGeohash";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.72(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeAppDirectoryExplicitRejectsCoarseTimePOWLocation";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.73(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypePOICategory";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.74(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeActivitySuggestionsFeedback";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.75(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeNotificationDigestAppEngagement";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.76(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeNotificationDigestAlltimeMarqueeAppearances";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.77(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeMax";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is not a valid type for _ATXAppLaunchHistogram.  Use _ATXCategoricalAppLaunchHistogram.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.78(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is deprecated.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeIntentForAllAppsLaunch";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is deprecated.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.79(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is deprecated.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeIntentForAllAppsDayOfWeek";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is deprecated.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.80(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is deprecated.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeIntentForAllAppsTrendingLaunch";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is deprecated.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.81(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is deprecated.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeIntentForAllAppsUnlockTime";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is deprecated.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.82(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is deprecated.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeIntentForAllAppsAirplaneModeLaunch";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is deprecated.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithType:(uint64_t)a3 .cold.83(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is deprecated.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"_ATXHistogramTypeIntentForAllAppsWifiLaunch";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%@ is deprecated.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_addLaunchWithBundleId:(const char *)a1 date:timeZone:arbitraryWeight:.cold.1(const char *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   sel_getName(a1);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3_4(&dword_2263AA000, v1, v2, "Bundle id can not be nil in %s", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-- (void)addLaunchWithBundleId:date:timeZone:weight:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_2();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_4(&dword_2263AA000, v1, v2, "Bundle id can not be nil in %s", v3, v4, v5, v6);
 }
 
 - (void)launchPopularityWithBundleId:date:.cold.1()
@@ -2455,63 +2517,47 @@ LABEL_27:
 
 - (void)initWithCoder:(int)a1 .cold.1(int a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109376;
-  v3[1] = a1;
-  v4 = 1024;
-  v5 = 86400;
-  _os_log_fault_impl(&dword_2263AA000, a2, OS_LOG_TYPE_FAULT, "timeBase is an invalid value: %d. Falling back to the default histogram time base of %d.", v3, 0xEu);
-  v2 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109376;
+  v2[1] = a1;
+  v3 = 1024;
+  v4 = 86400;
+  _os_log_fault_impl(&dword_2263AA000, a2, OS_LOG_TYPE_FAULT, "timeBase is an invalid value: %d. Falling back to the default histogram time base of %d.", v2, 0xEu);
 }
 
 - (void)initWithCoder:(void *)a1 .cold.2(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 error];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_10(&dword_2263AA000, v2, v3, "Could not decode timeBase from NSCoder, error: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_10(&dword_2263AA000, v2, v3, "Could not decode timeBase from NSCoder, error: %@", v4, v5, v6, v7);
 }
 
 - (void)initWithCoder:(void *)a1 .cold.3(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 error];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_10(&dword_2263AA000, v2, v3, "Could not decode bundleIdToEventId from NSCoder, error: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_10(&dword_2263AA000, v2, v3, "Could not decode bundleIdToEventId from NSCoder, error: %@", v4, v5, v6, v7);
 }
 
 - (void)initWithCoder:(void *)a1 .cold.4(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 error];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_10(&dword_2263AA000, v2, v3, "Could not decode bucketCount from NSCoder, error: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_10(&dword_2263AA000, v2, v3, "Could not decode bucketCount from NSCoder, error: %@", v4, v5, v6, v7);
 }
 
 - (void)initWithCoder:(void *)a1 .cold.5(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 error];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_10(&dword_2263AA000, v2, v3, "Could not decode filter from NSCoder, error: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_10(&dword_2263AA000, v2, v3, "Could not decode filter from NSCoder, error: %@", v4, v5, v6, v7);
 }
 
 - (void)initWithCoder:(void *)a1 .cold.6(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 error];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_10(&dword_2263AA000, v2, v3, "Could not decode histogram from NSCoder, error: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_10(&dword_2263AA000, v2, v3, "Could not decode histogram from NSCoder, error: %@", v4, v5, v6, v7);
 }
 
 @end

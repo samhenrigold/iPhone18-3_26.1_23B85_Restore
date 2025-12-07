@@ -6,6 +6,7 @@
 - (int64_t)_synchronouslyLoadArtistUpdatePollingFrequencyFromBag;
 - (void)_artistHeroImageUpdateFinished;
 - (void)_importHeroImageForArtistType:(int64_t)type withPersistentID:(int64_t)d clientIdentity:(id)identity completionHandler:(id)handler;
+- (void)cancelArtistHeroImageUpdateAndWaitForOperationToFinish:(BOOL)finish;
 - (void)deprioritizeAlbumArtistHeroImageForPersistentID:(int64_t)d;
 - (void)deprioritizeArtistHeroImageForPersistentID:(int64_t)d;
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context;
@@ -164,6 +165,25 @@ LABEL_10:
 {
   artworkImporter = [(CloudArtistHeroImageImporter *)self artworkImporter];
   [artworkImporter deprioritizeImportArtworkForCloudID:d artworkType:4];
+}
+
+- (void)cancelArtistHeroImageUpdateAndWaitForOperationToFinish:(BOOL)finish
+{
+  finishCopy = finish;
+  operationQueue = [(CloudArtistHeroImageImporter *)self operationQueue];
+  [operationQueue cancelAllOperations];
+
+  artworkImporter = [(CloudArtistHeroImageImporter *)self artworkImporter];
+  [artworkImporter cancelAllImportsAndWaitForOperationsToFinish:finishCopy];
+
+  accessQueue = [(CloudArtistHeroImageImporter *)self accessQueue];
+  v8[0] = _NSConcreteStackBlock;
+  v8[1] = 3221225472;
+  v8[2] = sub_1000701F0;
+  v8[3] = &unk_1001DE650;
+  v8[4] = self;
+  v9 = finishCopy;
+  dispatch_sync(accessQueue, v8);
 }
 
 - (void)updateArtistHeroImagesForArtistsAddedSinceLastUpdateUsingClientIdentity:(id)identity

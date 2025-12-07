@@ -283,7 +283,7 @@ LABEL_19:
 
     _os_log_impl(&dword_1DB56E000, v20, OS_LOG_TYPE_DEFAULT, v19, v63, v21);
 LABEL_23:
-    [process setIsLost:{1, *v63, *&v63[16], v64, selfCopy3, v66, *v67, *&v67[8], *&v67[24], v68}];
+    [process setIsLost:{1, *v63, *&v63[8], v64, selfCopy3, v66, *v67, *&v67[8], *&v67[16], v68}];
   }
 
   networkQueueMaxSizeBytes = self->_networkQueueMaxSizeBytes;

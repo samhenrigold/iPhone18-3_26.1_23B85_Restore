@@ -239,15 +239,15 @@ LABEL_31:
 - (void)_processProximityDetection:(BOOL)detection withReplyContext:(id)context forPushPayload:(id)payload
 {
   selfCopy = self;
-  v69 = a2;
+  v67 = a2;
   detectionCopy = detection;
   location = 0;
   objc_storeStrong(&location, context);
-  v66 = 0;
-  objc_storeStrong(&v66, payload);
-  v65 = _AKLogSystem();
+  v64 = 0;
+  objc_storeStrong(&v64, payload);
+  v63 = _AKLogSystem();
   type = OS_LOG_TYPE_DEBUG;
-  if (os_log_type_enabled(v65, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(v63, OS_LOG_TYPE_DEBUG))
   {
     if (detectionCopy)
     {
@@ -259,31 +259,31 @@ LABEL_31:
       v5 = @"NO";
     }
 
-    sub_100034214(v81, selfCopy, v5, location, v66);
-    _os_log_debug_impl(&_mh_execute_header, v65, type, "%@: Processing physical proximity detection (%@) with replyContext (%@) for pushPayload (%@)", v81, 0x2Au);
+    sub_100034214(v79, selfCopy, v5, location, v64);
+    _os_log_debug_impl(&_mh_execute_header, v63, type, "%@: Processing physical proximity detection (%@) with replyContext (%@) for pushPayload (%@)", v79, 0x2Au);
   }
 
-  objc_storeStrong(&v65, 0);
-  presenceFallbackApproved = [v66 presenceFallbackApproved];
+  objc_storeStrong(&v63, 0);
+  presenceFallbackApproved = [v64 presenceFallbackApproved];
   [(AKConfiguration *)selfCopy->_configuration piggybackingIDMSPresenceOverride];
-  v62 = AKConfigApplyOverride();
+  v60 = AKConfigApplyOverride();
   [(AKConfiguration *)selfCopy->_configuration piggybackingLocalPresenceOverride];
-  v61 = AKConfigApplyOverride();
+  v59 = AKConfigApplyOverride();
   v21 = 1;
-  if ((v62 & 1) == 0)
+  if ((v60 & 1) == 0)
   {
-    v21 = v61;
+    v21 = v59;
   }
 
-  v60 = v21 & 1;
-  presenceMode = [v66 presenceMode];
+  v58 = v21 & 1;
+  presenceMode = [v64 presenceMode];
   v20 = 1;
   if (presenceMode)
   {
     v20 = presenceMode == 1;
   }
 
-  v58 = v20;
+  v56 = v20;
   v6 = @"YES";
   if (presenceFallbackApproved)
   {
@@ -302,8 +302,8 @@ LABEL_31:
 
   v8 = [NSString stringWithFormat:v7, v6];
   v9 = @"YES";
-  v57 = v8;
-  if (v62)
+  v55 = v8;
+  if (v60)
   {
     v10 = @"YES";
   }
@@ -313,94 +313,94 @@ LABEL_31:
     v10 = @"NO";
   }
 
-  if ((v61 & 1) == 0)
+  if ((v59 & 1) == 0)
   {
     v9 = @"NO";
   }
 
-  v56 = [NSString stringWithFormat:@"idmsPresence=%@, foundDevice=%@", v10, v9];
-  v55 = 0uLL;
+  v54 = [NSString stringWithFormat:@"idmsPresence=%@, foundDevice=%@", v10, v9];
+  v53 = 0uLL;
   v19 = _AKSignpostLogSystem();
-  *&v54 = _AKSignpostCreate();
-  *(&v54 + 1) = v11;
+  *&v52 = _AKSignpostCreate();
+  *(&v52 + 1) = v11;
   _objc_release(v19);
-  v53 = _AKSignpostLogSystem();
-  v52 = OS_SIGNPOST_INTERVAL_BEGIN;
-  v51 = v54;
-  if (v54 && v51 != -1 && os_signpost_enabled(v53))
+  v51 = _AKSignpostLogSystem();
+  v50 = OS_SIGNPOST_INTERVAL_BEGIN;
+  v49 = v52;
+  if (v52 && v49 != -1 && os_signpost_enabled(v51))
   {
-    sub_100034290(v80, presenceMode);
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v53, v52, v51, "PiggybackingProcessPressenceForAcceptController", " PresenceMode=%{public,signpost.telemetry:number1,name=PresenceMode}d  enableTelemetry=YES ", v80, 8u);
+    sub_100034290(v78, presenceMode);
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v51, v50, v49, "PiggybackingProcessPressenceForAcceptController", " PresenceMode=%{public,signpost.telemetry:number1,name=PresenceMode}d  enableTelemetry=YES ", v78, 8u);
   }
 
-  objc_storeStrong(&v53, 0);
-  v50 = _AKSignpostLogSystem();
-  v49 = OS_LOG_TYPE_DEFAULT;
-  if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
+  objc_storeStrong(&v51, 0);
+  v48 = _AKSignpostLogSystem();
+  v47 = OS_LOG_TYPE_DEFAULT;
+  if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
   {
-    sub_1000342CC(v79, v54, presenceMode);
-    _os_log_impl(&_mh_execute_header, v50, v49, "BEGIN [%lld]: PiggybackingProcessPressenceForAcceptController  PresenceMode=%{public,signpost.telemetry:number1,name=PresenceMode}d  enableTelemetry=YES ", v79, 0x12u);
+    sub_1000342CC(v77, v52, presenceMode);
+    _os_log_impl(&_mh_execute_header, v48, v47, "BEGIN [%lld]: PiggybackingProcessPressenceForAcceptController  PresenceMode=%{public,signpost.telemetry:number1,name=PresenceMode}d  enableTelemetry=YES ", v77, 0x12u);
   }
 
-  objc_storeStrong(&v50, 0);
-  v55 = v54;
-  v48 = _AKSignpostGetNanoseconds() / 1000000000.0;
-  v47 = _AKSignpostLogSystem();
-  v46 = OS_SIGNPOST_EVENT;
-  v45 = v55;
-  if (v55 && v45 != -1 && os_signpost_enabled(v47))
+  objc_storeStrong(&v48, 0);
+  v53 = v52;
+  *&v46[1] = _AKSignpostGetNanoseconds() / 1000000000.0;
+  v46[0] = _AKSignpostLogSystem();
+  v45 = OS_SIGNPOST_EVENT;
+  v44 = v53;
+  if (v53 && v44 != -1 && os_signpost_enabled(v46[0]))
   {
-    sub_1000333DC(v78, v57);
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v47, v46, v45, "PiggybackingProcessPressenceForAcceptControllerResults", " Results=%{public,signpost.telemetry:string1,name=Results}@ ", v78, 0xCu);
+    sub_1000333DC(v76, v55);
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v46[0], v45, v44, "PiggybackingProcessPressenceForAcceptControllerResults", " Results=%{public,signpost.telemetry:string1,name=Results}@ ", v76, 0xCu);
   }
 
-  objc_storeStrong(&v47, 0);
-  v44 = _AKSignpostLogSystem();
-  v43 = OS_LOG_TYPE_DEFAULT;
-  if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+  objc_storeStrong(v46, 0);
+  v43 = _AKSignpostLogSystem();
+  v42 = OS_LOG_TYPE_DEFAULT;
+  if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
   {
-    sub_10003431C(v77, v55, *&v48, v57);
-    _os_log_impl(&_mh_execute_header, v44, v43, "EVENT [%lld] %fs:PiggybackingProcessPressenceForAcceptControllerResults  Results=%{public,signpost.telemetry:string1,name=Results}@ ", v77, 0x20u);
+    sub_10003431C(v75, v53, v46[1], v55);
+    _os_log_impl(&_mh_execute_header, v43, v42, "EVENT [%lld] %fs:PiggybackingProcessPressenceForAcceptControllerResults  Results=%{public,signpost.telemetry:string1,name=Results}@ ", v75, 0x20u);
   }
 
-  objc_storeStrong(&v44, 0);
-  v42 = _AKSignpostGetNanoseconds() / 1000000000.0;
-  v41 = _AKSignpostLogSystem();
+  objc_storeStrong(&v43, 0);
+  *&v41[1] = _AKSignpostGetNanoseconds() / 1000000000.0;
+  v41[0] = _AKSignpostLogSystem();
   v40 = OS_SIGNPOST_EVENT;
-  v39 = v55;
-  if (v55 && v39 != -1 && os_signpost_enabled(v41))
+  v39 = v53;
+  if (v53 && v39 != -1 && os_signpost_enabled(v41[0]))
   {
-    sub_1000333DC(v76, v56);
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v41, v40, v39, "PiggybackingProcessPressenceForAcceptControllerResultsOverrides", " Results=%{public,signpost.telemetry:string2,name=Results}@ ", v76, 0xCu);
+    sub_1000333DC(v74, v54);
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v41[0], v40, v39, "PiggybackingProcessPressenceForAcceptControllerResultsOverrides", " Results=%{public,signpost.telemetry:string2,name=Results}@ ", v74, 0xCu);
   }
 
-  objc_storeStrong(&v41, 0);
+  objc_storeStrong(v41, 0);
   oslog = _AKSignpostLogSystem();
   v37 = OS_LOG_TYPE_DEFAULT;
   if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
   {
-    sub_10003431C(v75, v55, *&v42, v56);
-    _os_log_impl(&_mh_execute_header, oslog, v37, "EVENT [%lld] %fs:PiggybackingProcessPressenceForAcceptControllerResultsOverrides  Results=%{public,signpost.telemetry:string2,name=Results}@ ", v75, 0x20u);
+    sub_10003431C(v73, v53, v41[1], v54);
+    _os_log_impl(&_mh_execute_header, oslog, v37, "EVENT [%lld] %fs:PiggybackingProcessPressenceForAcceptControllerResultsOverrides  Results=%{public,signpost.telemetry:string2,name=Results}@ ", v73, 0x20u);
   }
 
   objc_storeStrong(&oslog, 0);
-  v16 = [NSNumber numberWithBool:v60 & 1];
+  v16 = [NSNumber numberWithBool:v58 & 1];
   payload = [location payload];
   [payload setPresenceCheckPassed:v16];
   _objc_release(payload);
   _objc_release(v16);
-  v18 = [NSNumber numberWithBool:v61 & 1];
+  v18 = [NSNumber numberWithBool:v59 & 1];
   payload2 = [location payload];
   [payload2 setLocalPresenceFound:v18];
   _objc_release(payload2);
   _objc_release(v18);
-  if ((v60 & 1) == 0 && v58)
+  if ((v58 & 1) == 0 && v56)
   {
     v36 = _AKSignpostGetNanoseconds() / 1000000000.0;
     v35 = _AKSignpostLogSystem();
     v34 = OS_SIGNPOST_EVENT;
-    v33 = v55;
-    if (v55 && v33 != -1 && os_signpost_enabled(v35))
+    v33 = v53;
+    if (v53 && v33 != -1 && os_signpost_enabled(v35))
     {
       v12 = v35;
       v13 = v34;
@@ -414,8 +414,8 @@ LABEL_31:
     v30 = OS_LOG_TYPE_DEFAULT;
     if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
     {
-      sub_100034384(v74, v55, *&v36);
-      _os_log_impl(&_mh_execute_header, v31, v30, "EVENT [%lld] %fs:ReportedEnforceModeFailure ", v74, 0x16u);
+      sub_100034384(v72, v53, *&v36);
+      _os_log_impl(&_mh_execute_header, v31, v30, "EVENT [%lld] %fs:ReportedEnforceModeFailure ", v72, 0x16u);
     }
 
     objc_storeStrong(&v31, 0);
@@ -423,8 +423,8 @@ LABEL_31:
     v28 = OS_LOG_TYPE_ERROR;
     if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
-      sub_10001B098(v73, selfCopy, v66);
-      _os_log_error_impl(&_mh_execute_header, v29, v28, "%@: Proximity check failed while handling push (%@)", v73, 0x16u);
+      sub_10001B098(v71, selfCopy, v64);
+      _os_log_error_impl(&_mh_execute_header, v29, v28, "%@: Proximity check failed while handling push (%@)", v71, 0x16u);
     }
 
     objc_storeStrong(&v29, 0);
@@ -434,25 +434,25 @@ LABEL_31:
   v27 = _AKSignpostGetNanoseconds() / 1000000000.0;
   v26 = _AKSignpostLogSystem();
   v25 = OS_SIGNPOST_INTERVAL_END;
-  v24 = v55;
-  if (v55 && v24 != -1 && os_signpost_enabled(v26))
+  v24 = v53;
+  if (v53 && v24 != -1 && os_signpost_enabled(v26))
   {
-    sub_100034290(v72, v60 & 1);
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v26, v25, v24, "PiggybackingProcessPressenceForAcceptController", " CheckPassed=%{public,signpost.telemetry:number2,name=CheckPassed}d ", v72, 8u);
+    sub_100034290(v70, v58 & 1);
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v26, v25, v24, "PiggybackingProcessPressenceForAcceptController", " CheckPassed=%{public,signpost.telemetry:number2,name=CheckPassed}d ", v70, 8u);
   }
 
   objc_storeStrong(&v26, 0);
   v23 = _AKSignpostLogSystem();
   if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
-    sub_1000343D0(v71, v55, *&v27, v60 & 1);
-    _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs:PiggybackingProcessPressenceForAcceptController  CheckPassed=%{public,signpost.telemetry:number2,name=CheckPassed}d ", v71, 0x1Cu);
+    sub_1000343D0(v69, v53, *&v27, v58 & 1);
+    _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs:PiggybackingProcessPressenceForAcceptController  CheckPassed=%{public,signpost.telemetry:number2,name=CheckPassed}d ", v69, 0x1Cu);
   }
 
   objc_storeStrong(&v23, 0);
-  objc_storeStrong(&v56, 0);
-  objc_storeStrong(&v57, 0);
-  objc_storeStrong(&v66, 0);
+  objc_storeStrong(&v54, 0);
+  objc_storeStrong(&v55, 0);
+  objc_storeStrong(&v64, 0);
   objc_storeStrong(&location, 0);
 }
 

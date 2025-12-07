@@ -32,11 +32,11 @@
   }
 }
 
-uint64_t __65__CSRemoteAssetManagerDarwinExclave_removeObserver_forAssetType___block_invoke(uint64_t result)
+void *__65__CSRemoteAssetManagerDarwinExclave_removeObserver_forAssetType___block_invoke(void *result)
 {
-  if (*(*(result + 32) + 16))
+  if (*(result[4] + 16))
   {
-    return [*(*(result + 32) + 16) removeObject:*(result + 40)];
+    return [*(result[4] + 16) removeObject:result[5]];
   }
 
   return result;
@@ -217,12 +217,12 @@ uint64_t __49__CSRemoteAssetManagerDarwinExclave_languageCode__block_invoke(uint
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (void)setLanguageCode:(id)code resourcePath:(id)path configVersion:(id)version assetHash:(id)hash assetType:(unint64_t)type
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   codeCopy = code;
   pathCopy = path;
   versionCopy = version;
@@ -231,15 +231,15 @@ uint64_t __49__CSRemoteAssetManagerDarwinExclave_languageCode__block_invoke(uint
   if (os_log_type_enabled(CSLogCategoryAsset, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136316162;
-    v21 = "[CSRemoteAssetManagerDarwinExclave setLanguageCode:resourcePath:configVersion:assetHash:assetType:]";
-    v22 = 2114;
-    v23 = codeCopy;
-    v24 = 2114;
-    v25 = pathCopy;
-    v26 = 2114;
-    v27 = versionCopy;
-    v28 = 2114;
-    v29 = hashCopy;
+    v20 = "[CSRemoteAssetManagerDarwinExclave setLanguageCode:resourcePath:configVersion:assetHash:assetType:]";
+    v21 = 2114;
+    v22 = codeCopy;
+    v23 = 2114;
+    v24 = pathCopy;
+    v25 = 2114;
+    v26 = versionCopy;
+    v27 = 2114;
+    v28 = hashCopy;
     _os_log_impl(&dword_1DDA4B000, v16, OS_LOG_TYPE_DEFAULT, "%s LanguageCode : %{public}@, resourcePath : %{public}@, configVersion : %{public}@, assetHash : %{public}@", buf, 0x34u);
   }
 
@@ -253,54 +253,50 @@ uint64_t __49__CSRemoteAssetManagerDarwinExclave_languageCode__block_invoke(uint
     block[4] = self;
     dispatch_async(queue, block);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __100__CSRemoteAssetManagerDarwinExclave_setLanguageCode_resourcePath_configVersion_assetHash_assetType___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v1 = *(*(a1 + 32) + 16);
   if (v1)
   {
-    v12 = 0u;
-    v13 = 0u;
-    v10 = 0u;
     v11 = 0u;
+    v12 = 0u;
+    v9 = 0u;
+    v10 = 0u;
     v3 = v1;
-    v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v11;
+      v6 = *v10;
       do
       {
         v7 = 0;
         do
         {
-          if (*v11 != v6)
+          if (*v10 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          v8 = *(*(&v10 + 1) + 8 * v7);
+          v8 = *(*(&v9 + 1) + 8 * v7);
           if (objc_opt_respondsToSelector())
           {
-            [v8 CSRemoteAssetManagerDidDownloadNewAsset:{*(a1 + 32), v10}];
+            [v8 CSRemoteAssetManagerDidDownloadNewAsset:{*(a1 + 32), v9}];
           }
 
           ++v7;
         }
 
         while (v5 != v7);
-        v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
       }
 
       while (v5);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (id)assetForCurrentLanguageOfType:(unint64_t)type
@@ -338,7 +334,7 @@ void __100__CSRemoteAssetManagerDarwinExclave_setLanguageCode_resourcePath_confi
 
 void __67__CSRemoteAssetManagerDarwinExclave_assetForCurrentLanguageOfType___block_invoke(uint64_t a1)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = *(v2 + 24);
   if (!v3)
@@ -355,20 +351,20 @@ void __67__CSRemoteAssetManagerDarwinExclave_assetForCurrentLanguageOfType___blo
 LABEL_7:
     v14 = *(v2 + 32);
     v15 = *(a1 + 40);
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __67__CSRemoteAssetManagerDarwinExclave_assetForCurrentLanguageOfType___block_invoke_23;
-    v19[3] = &unk_1E865A848;
-    objc_copyWeak(v22, (a1 + 56));
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __67__CSRemoteAssetManagerDarwinExclave_assetForCurrentLanguageOfType___block_invoke_23;
+    v18[3] = &unk_1E865A848;
+    objc_copyWeak(v21, (a1 + 56));
     v16 = *(a1 + 40);
     v17 = *(a1 + 48);
-    v20 = v16;
-    v21 = v17;
-    v22[1] = *(a1 + 64);
-    [v14 setAssetForLocale:v15 isOTA:0 completion:v19];
+    v19 = v16;
+    v20 = v17;
+    v21[1] = *(a1 + 64);
+    [v14 setAssetForLocale:v15 isOTA:0 completion:v18];
 
-    objc_destroyWeak(v22);
-    goto LABEL_8;
+    objc_destroyWeak(v21);
+    return;
   }
 
   v6 = CSLogCategoryAsset;
@@ -379,11 +375,11 @@ LABEL_7:
     v9 = v6;
     v10 = [v8 languageCode];
     *buf = 136315650;
-    v24 = "[CSRemoteAssetManagerDarwinExclave assetForCurrentLanguageOfType:]_block_invoke";
-    v25 = 2112;
-    v26 = v7;
-    v27 = 2112;
-    v28 = v10;
+    v23 = "[CSRemoteAssetManagerDarwinExclave assetForCurrentLanguageOfType:]_block_invoke";
+    v24 = 2112;
+    v25 = v7;
+    v26 = 2112;
+    v27 = v10;
     _os_log_impl(&dword_1DDA4B000, v9, OS_LOG_TYPE_DEFAULT, "%s Language code requested: %@, Cached asset language code: %@. Returning cached asset", buf, 0x20u);
   }
 
@@ -391,14 +387,11 @@ LABEL_7:
   v12 = *(*(a1 + 48) + 8);
   v13 = *(v12 + 40);
   *(v12 + 40) = v11;
-
-LABEL_8:
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __67__CSRemoteAssetManagerDarwinExclave_assetForCurrentLanguageOfType___block_invoke_23(uint64_t a1, uint64_t a2)
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
   {
@@ -417,48 +410,48 @@ void __67__CSRemoteAssetManagerDarwinExclave_assetForCurrentLanguageOfType___blo
 
     else
     {
-      v34 = 0;
-      v35 = &v34;
-      v36 = 0x2050000000;
+      v33 = 0;
+      v34 = &v33;
+      v35 = 0x2050000000;
       v6 = getSecureAssetTypeUtilsClass_softClass;
-      v37 = getSecureAssetTypeUtilsClass_softClass;
+      v36 = getSecureAssetTypeUtilsClass_softClass;
       if (!getSecureAssetTypeUtilsClass_softClass)
       {
         *buf = MEMORY[0x1E69E9820];
         *&buf[8] = 3221225472;
         *&buf[16] = __getSecureAssetTypeUtilsClass_block_invoke;
-        v39 = &unk_1E865C120;
-        *v40 = &v34;
+        v38 = &unk_1E865C120;
+        *v39 = &v33;
         CoreSpeechUtilsLibraryCore();
         Class = objc_getClass("SecureAssetTypeUtils");
-        *(*(*v40 + 8) + 24) = Class;
-        getSecureAssetTypeUtilsClass_softClass = *(*(*v40 + 8) + 24);
-        v6 = v35[3];
+        *(*(*v39 + 8) + 24) = Class;
+        getSecureAssetTypeUtilsClass_softClass = *(*(*v39 + 8) + 24);
+        v6 = v34[3];
       }
 
       v8 = v6;
-      _Block_object_dispose(&v34, 8);
-      v34 = 0;
-      v35 = &v34;
-      v36 = 0x2050000000;
+      _Block_object_dispose(&v33, 8);
+      v33 = 0;
+      v34 = &v33;
+      v35 = 0x2050000000;
       v9 = getSecureAssetsPreinstalledBundleClass_softClass;
-      v37 = getSecureAssetsPreinstalledBundleClass_softClass;
+      v36 = getSecureAssetsPreinstalledBundleClass_softClass;
       if (!getSecureAssetsPreinstalledBundleClass_softClass)
       {
         *buf = MEMORY[0x1E69E9820];
         *&buf[8] = 3221225472;
         *&buf[16] = __getSecureAssetsPreinstalledBundleClass_block_invoke;
-        v39 = &unk_1E865C120;
-        *v40 = &v34;
+        v38 = &unk_1E865C120;
+        *v39 = &v33;
         CoreSpeechUtilsLibraryCore();
         v10 = objc_getClass("SecureAssetsPreinstalledBundle");
-        *(*(*v40 + 8) + 24) = v10;
-        getSecureAssetsPreinstalledBundleClass_softClass = *(*(*v40 + 8) + 24);
-        v9 = v35[3];
+        *(*(*v39 + 8) + 24) = v10;
+        getSecureAssetsPreinstalledBundleClass_softClass = *(*(*v39 + 8) + 24);
+        v9 = v34[3];
       }
 
       v11 = v9;
-      _Block_object_dispose(&v34, 8);
+      _Block_object_dispose(&v33, 8);
       v12 = [v9 alloc];
       v13 = [v6 getVoiceTriggerAssetBundle];
       v14 = [v12 init:v13];
@@ -492,22 +485,20 @@ void __67__CSRemoteAssetManagerDarwinExclave_assetForCurrentLanguageOfType___blo
         *&buf[12] = 2114;
         *&buf[14] = v27;
         *&buf[22] = 2114;
-        v39 = v30;
-        *v40 = 2114;
-        *&v40[2] = v31;
-        v41 = 2114;
-        v42 = v32;
+        v38 = v30;
+        *v39 = 2114;
+        *&v39[2] = v31;
+        v40 = 2114;
+        v41 = v32;
         _os_log_impl(&dword_1DDA4B000, v29, OS_LOG_TYPE_DEFAULT, "%s LanguageCode : %{public}@, resourcePath : %{public}@, configVersion : %{public}@, assetHash : %{public}@", buf, 0x34u);
       }
     }
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_languageCode
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (+[CSUtils isDarwinOS](CSUtils, "isDarwinOS") && (+[CSFPreferences sharedPreferences](CSFPreferences, "sharedPreferences"), v2 = objc_claimAutoreleasedReturnValue(), [v2 languageCodeDarwin], v3 = objc_claimAutoreleasedReturnValue(), v3, v2, v3))
   {
     v4 = +[CSFPreferences sharedPreferences];
@@ -519,15 +510,13 @@ void __67__CSRemoteAssetManagerDarwinExclave_assetForCurrentLanguageOfType___blo
     v6 = CSLogCategoryAsset;
     if (os_log_type_enabled(CSLogCategoryAsset, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 136315138;
-      v10 = "[CSRemoteAssetManagerDarwinExclave _languageCode]";
-      _os_log_impl(&dword_1DDA4B000, v6, OS_LOG_TYPE_DEFAULT, "%s LanguageCode setting not found. Falling back to en-US asset", &v9, 0xCu);
+      v8 = 136315138;
+      v9 = "[CSRemoteAssetManagerDarwinExclave _languageCode]";
+      _os_log_impl(&dword_1DDA4B000, v6, OS_LOG_TYPE_DEFAULT, "%s LanguageCode setting not found. Falling back to en-US asset", &v8, 0xCu);
     }
 
     languageCodeDarwin = @"en-US";
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return languageCodeDarwin;
 }
@@ -590,9 +579,11 @@ void __67__CSRemoteAssetManagerDarwinExclave_assetForCurrentLanguageOfType___blo
 
 uint64_t __50__CSRemoteAssetManagerDarwinExclave_sharedManager__block_invoke()
 {
-  sharedManager_sharedManager = objc_alloc_init(CSRemoteAssetManagerDarwinExclave);
+  v0 = objc_alloc_init(CSRemoteAssetManagerDarwinExclave);
+  v1 = sharedManager_sharedManager;
+  sharedManager_sharedManager = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

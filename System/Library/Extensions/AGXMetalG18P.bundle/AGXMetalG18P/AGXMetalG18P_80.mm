@@ -376,7 +376,7 @@ LABEL_48:
     v73 = *(a1 + 296);
     if (!v73)
     {
-      AGX::DataBufferAllocator<44ul>::initializeOnDemandDataBufferSlow(a1 + 24, 7u);
+      AGX::DataBufferAllocator<44ul>::initializeOnDemandDataBufferSlow(a1 + 24, 7);
       v73 = *(a1 + 296);
     }
 
@@ -710,7 +710,7 @@ LABEL_48:
   }
 
   *(v3 + 2104) = v125;
-  AGX::FramebufferGen3_2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::addGPUResources(*(a1 + 2392), v112, v126, *(a1 + 2008), 63);
+  AGX::FramebufferGen3_2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::addGPUResources(*(a1 + 2392), v126, *(a1 + 2008), 63, v112);
   if (!*(*(a1 + 1912) + 520))
   {
     v129 = *(a1 + 1968) - *(a1 + 1984);
@@ -863,20 +863,20 @@ LABEL_133:
   }
 }
 
-uint64_t AGX::RenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::bindVertexBufferResource(uint64_t result, unsigned int a2, int a3, int a4)
+uint64_t AGX::RenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::bindVertexBufferResource(uint64_t result, uint64_t a2, uint64_t a3, int a4)
 {
-  if (a2 - 59 > 6)
+  if ((a2 - 59) > 6)
   {
     v4 = 0;
   }
 
   else
   {
-    v4 = dword_29D2F74F0[a2 - 59];
+    v4 = dword_29D2F74F0[(a2 - 59)];
   }
 
   v5 = a2 - 47;
-  if (!(v4 | vmaxv_u16(vmovn_s32(vceqq_s32(vdupq_n_s32(a2), xmmword_29D2F24B0))) & 1 | (a2 == 62) | (a2 - 47 < 2)) || *(result + 8 * a2 + 49104))
+  if (!(v4 | vmaxv_u16(vmovn_s32(vceqq_s32(vdupq_n_s32(a2), xmmword_29D2F24B0))) & 1 | (a2 == 62) | ((a2 - 47) < 2)) || *(result + 8 * a2 + 49104))
   {
     if (v5 > 0x16 || ((1 << v5) & 0x6C77B3) == 0)
     {
@@ -884,20 +884,22 @@ uint64_t AGX::RenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL3
       if (v6)
       {
         v7 = result;
+        v8 = a2;
+        v9 = a3;
         AGX::ResourceGroupUsage<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::bindResource(*(result + 2008), v6, 0, a2, a3);
         result = IOGPUResourceListAddResource();
-        if (a2 > 0x22)
+        if (v8 > 0x22)
         {
           return result;
         }
 
-        v11 = *(v7 + 53856 + 8 * a2);
+        v11 = *(v7 + 53856 + 8 * v8);
         if (!v11)
         {
           return result;
         }
 
-        AGX::ResourceGroupUsage<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::setAndBindResource(*(v7 + 2008), v11, a3, v10);
+        AGX::ResourceGroupUsage<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::setAndBindResource(*(v7 + 2008), v11, v9, v10);
       }
 
       else
@@ -917,9 +919,9 @@ uint64_t AGX::RenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL3
   return result;
 }
 
-void AGX::HWGeometryPipelineContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::bindAllResources(void *a1, int a2)
+void AGX::HWGeometryPipelineContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::bindAllResources(void *result, int a2)
 {
-  v4 = a1[4];
+  v4 = result[4];
   if (!v4)
   {
     goto LABEL_30;
@@ -927,7 +929,7 @@ void AGX::HWGeometryPipelineContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,A
 
   v5 = *(v4 + 2400);
   v6 = *(v4 + 2408);
-  v7 = *(a1[1] + 30352);
+  v7 = *(result[1] + 30352);
   if (*(v7 + 789) == 1)
   {
     v8 = *(v7 + 1968);
@@ -982,17 +984,17 @@ void AGX::HWGeometryPipelineContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,A
       break;
     }
 
-    v15 = __clz(__rbit64(v51));
+    LODWORD(v15) = __clz(__rbit64(v51));
     v17 = v15 | 0x40;
     p_i = &v51;
 LABEL_17:
     *p_i = v14 & ~(1 << v15);
-    v50 = *(a1[4] + 1360);
-    AGX::HWGeometryPipelineContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::bindObjectBufferResource(a1, v17, (*(&v50 | (8 * (v17 > 0x3F))) >> v17) & 1, a2);
+    v50 = *(result[4] + 1360);
+    AGX::HWGeometryPipelineContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::bindObjectBufferResource(result, v17, (*(&v50 | (8 * (v17 > 0x3F))) >> v17) & 1, a2);
   }
 
-  v18 = a1[2374];
-  v19 = a1[4];
+  v18 = result[2374];
+  v19 = result[4];
   if (!v18)
   {
     goto LABEL_29;
@@ -1011,8 +1013,8 @@ LABEL_17:
       v24 = v22;
 LABEL_24:
       *v23 = v21 & ~(1 << v22);
-      v50 = *(a1[4] + 1376);
-      AGX::HWGeometryPipelineContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::bindObjectTextureResources(a1, v24, (*(&v50 | (8 * (v24 > 0x3F))) >> v24) & 1);
+      v50 = *(result[4] + 1376);
+      AGX::HWGeometryPipelineContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::bindObjectTextureResources(result, v24, (*(&v50 | (8 * (v24 > 0x3F))) >> v24) & 1);
       v21 = v49;
       continue;
     }
@@ -1023,19 +1025,19 @@ LABEL_24:
   v21 = v48;
   if (v48)
   {
-    v22 = __clz(__rbit64(v48));
+    LODWORD(v22) = __clz(__rbit64(v48));
     v24 = v22 | 0x40;
     v23 = &v48;
     goto LABEL_24;
   }
 
-  v19 = a1[4];
+  v19 = result[4];
 LABEL_29:
-  v25 = *(a1[1] + 30328);
+  v25 = *(result[1] + 30328);
   *(v25 + 575) |= *(v19 + 1349);
   *(v25 + 578) |= *(v19 + 1354);
 LABEL_30:
-  v26 = a1[5];
+  v26 = result[5];
   if (!v26)
   {
     return;
@@ -1043,7 +1045,7 @@ LABEL_30:
 
   v27 = *(v26 + 2400);
   v28 = *(v26 + 2408);
-  v29 = *(a1[1] + 30352);
+  v29 = *(result[1] + 30352);
   if (*(v29 + 789) == 1)
   {
     v30 = *(v29 + 2280);
@@ -1092,8 +1094,8 @@ LABEL_30:
       v39 = v37;
 LABEL_46:
       *v38 = v36 & ~(1 << v37);
-      v50 = *(a1[5] + 1360);
-      AGX::HWGeometryPipelineContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::bindMeshBufferResource(a1, v39, (*(&v50 | (8 * (v39 > 0x3F))) >> v39) & 1, a2);
+      v50 = *(result[5] + 1360);
+      AGX::HWGeometryPipelineContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::bindMeshBufferResource(result, v39, (*(&v50 | (8 * (v39 > 0x3F))) >> v39) & 1, a2);
       v36 = i;
       continue;
     }
@@ -1104,14 +1106,14 @@ LABEL_46:
   v36 = v51;
   if (v51)
   {
-    v37 = __clz(__rbit64(v51));
+    LODWORD(v37) = __clz(__rbit64(v51));
     v39 = v37 | 0x40;
     v38 = &v51;
     goto LABEL_46;
   }
 
-  v40 = a1[5337];
-  v41 = a1[5];
+  v40 = result[5337];
+  v41 = result[5];
   if (!v40)
   {
     goto LABEL_58;
@@ -1130,8 +1132,8 @@ LABEL_46:
       v46 = v44;
 LABEL_53:
       *v45 = v43 & ~(1 << v44);
-      v50 = *(a1[5] + 1376);
-      AGX::HWGeometryPipelineContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::bindMeshTextureResources(a1, v46, (*(&v50 | (8 * (v46 > 0x3F))) >> v46) & 1);
+      v50 = *(result[5] + 1376);
+      AGX::HWGeometryPipelineContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::bindMeshTextureResources(result, v46, (*(&v50 | (8 * (v46 > 0x3F))) >> v46) & 1);
       v43 = v49;
       continue;
     }
@@ -1142,15 +1144,15 @@ LABEL_53:
   v43 = v48;
   if (v48)
   {
-    v44 = __clz(__rbit64(v48));
+    LODWORD(v44) = __clz(__rbit64(v48));
     v46 = v44 | 0x40;
     v45 = &v48;
     goto LABEL_53;
   }
 
-  v41 = a1[5];
+  v41 = result[5];
 LABEL_58:
-  v47 = *(a1[1] + 30328);
+  v47 = *(result[1] + 30328);
   *(v47 + 575) |= *(v41 + 1349);
   *(v47 + 578) |= *(v41 + 1354);
 }
@@ -1178,7 +1180,7 @@ void *AGX::RenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300:
   {
     v11 = result[9];
     v12 = result;
-    v13 = AGX::DataBufferAllocator<44ul>::growNoInline(result + 3, 0, 0);
+    v13 = AGX::DataBufferAllocator<44ul>::growNoInline((result + 3), 0, 0);
     result = v12;
     if (v13)
     {
@@ -1213,7 +1215,7 @@ LABEL_4:
 
   v16 = result[21];
   v17 = result;
-  v18 = AGX::DataBufferAllocator<44ul>::growNoInline(result + 3, 3, 0);
+  v18 = AGX::DataBufferAllocator<44ul>::growNoInline((result + 3), 3, 0);
   result = v17;
   if (v18)
   {
@@ -1238,7 +1240,7 @@ LABEL_6:
 
   v19 = result[129];
   v20 = result;
-  v21 = AGX::DataBufferAllocator<44ul>::growNoInline(result + 3, 30, 0);
+  v21 = AGX::DataBufferAllocator<44ul>::growNoInline((result + 3), 30, 0);
   result = v20;
   if (v21)
   {
@@ -1264,7 +1266,7 @@ LABEL_8:
 
   v22 = result[29];
   v23 = result;
-  result = AGX::DataBufferAllocator<44ul>::growNoInline(result + 3, 5, 0);
+  result = AGX::DataBufferAllocator<44ul>::growNoInline((result + 3), 5, 0);
   if (result)
   {
     result = v23;
@@ -1463,7 +1465,7 @@ void AGX::RenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::
       goto LABEL_10;
     }
 
-    AGX::RenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::restartRenderPass(a1, a1 + 78480, 0, 1);
+    AGX::RenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::restartRenderPass(a1, (a1 + 78480), 0, 1);
     v7 = 0;
     v2 = *(a1 + 29912);
     if (v2 == 1)
@@ -1553,7 +1555,7 @@ void ProgramKey<(_AGCStreamToken)95,(AGX::DriverShaderCompilationMode)1>::serial
   *a3 = v5[1] - v6;
 }
 
-void AGX::HWGeometryPipelineContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::drawMeshThreads(void *a1, unint64_t a2, void *a3, unsigned int *a4)
+void AGX::HWGeometryPipelineContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::drawMeshThreads(void *a1, unint64_t *a2, void *a3, unsigned int *a4)
 {
   if (*(a1[4] + 3946) == 1)
   {
@@ -1594,13 +1596,13 @@ void AGX::HWGeometryPipelineContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,A
     if (*(v17 + 3946) == 1)
     {
       v18 = *a2 / v14;
-      v19 = *(a2 + 8) / v15;
+      v19 = a2[1] / v15;
       v20 = *(v17 + 3752);
       LODWORD(v21) = *(v17 + 3760);
       v49 = HIDWORD(v20);
       v22 = v20;
       v23 = v21;
-      a2 = *(a2 + 16) / v16;
+      a2 = (a2[2] / v16);
     }
 
     else
@@ -1608,8 +1610,8 @@ void AGX::HWGeometryPipelineContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,A
       v22 = *a3 | (a3[1] << 32);
       v23 = *(a3 + 4);
       v20 = *a2;
-      v19 = *(a2 + 8);
-      v21 = *(a2 + 16);
+      v19 = a2[1];
+      v21 = a2[2];
       v18 = *a2;
       LODWORD(v49) = v19;
       LODWORD(a2) = v21;
@@ -1622,8 +1624,8 @@ void AGX::HWGeometryPipelineContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,A
       v46 = v16;
       v47 = v14;
       v45 = v23;
-      v41 = AGX::DataBufferAllocator<44ul>::growNoInline(v24 + 3, 3, 0);
-      v16 = v46;
+      v41 = AGX::DataBufferAllocator<44ul>::growNoInline((v24 + 3), 3, 0);
+      LODWORD(v16) = v46;
       v14 = v47;
       v23 = v45;
       if (!v41)
@@ -1666,10 +1668,10 @@ LABEL_14:
     v42 = v16;
     v43 = v23;
     v48 = v14;
-    v44 = AGX::DataBufferAllocator<44ul>::growNoInline(v26 + 3, 3, 0);
+    v44 = AGX::DataBufferAllocator<44ul>::growNoInline((v26 + 3), 3, 0);
     v14 = v48;
     v23 = v43;
-    v16 = v42;
+    LODWORD(v16) = v42;
     if (!v44)
     {
       goto LABEL_16;
@@ -1682,10 +1684,10 @@ LABEL_15:
       v26[22] = v31;
 LABEL_16:
       v32 = a1[1];
-      v33 = v32[21];
+      v33 = *(v32 + 168);
       v34 = v14 | (v15 << 32);
-      v35 = v32[23] + v33;
-      v32[21] = v33 + 12;
+      v35 = *(v32 + 184) + v33;
+      *(v32 + 168) = v33 + 12;
       *v33 = 0x100000001;
       *(v33 + 8) = 1;
       a1[2901] = v35;
@@ -1693,12 +1695,12 @@ LABEL_16:
       v36 = a1[2375];
       *(v36 + 80) = v35;
       *(v36 + 392) = v33;
-      a1[2412] = *(v32[6] + 224) + *v30;
-      v32[9774] |= 0x1000000000uLL;
-      v32[9780] |= 0x1000000000uLL;
-      v32[9810] |= 0x30000uLL;
+      a1[2412] = *(*(v32 + 48) + 224) + *v30;
+      *(v32 + 78192) |= 0x1000000000uLL;
+      *(v32 + 78240) |= 0x1000000000uLL;
+      *(v32 + 78480) |= 0x30000uLL;
       v37 = v23;
-      AGX::HWGeometryPipelineContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::encodeAndEmitMeshRenderState(a1, a1[4], a1[5], v32[3793], a1[2374], a1[5337], v32[9129], v13, v34, v16, SHIDWORD(v16), v22, SHIDWORD(v22), v23, (v32 + 9762), 0);
+      AGX::HWGeometryPipelineContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::encodeAndEmitMeshRenderState(a1, a1[4], a1[5], *(v32 + 30344), a1[2374], a1[5337], *(v32 + 73032), v13, v34, v16, v22, v23, v32 + 78096, 0);
       v38 = a1[1];
       if (v12 == 1)
       {
@@ -1802,7 +1804,7 @@ void AGX::HWGeometryPipelineContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,A
     {
       v47 = v16;
       v46 = v23;
-      v42 = AGX::DataBufferAllocator<44ul>::growNoInline(v24 + 3, 3, 0);
+      v42 = AGX::DataBufferAllocator<44ul>::growNoInline((v24 + 3), 3, 0);
       v23 = v46;
       v16 = v47;
       if (!v42)
@@ -1847,7 +1849,7 @@ LABEL_14:
     v43 = v16;
     v44 = v23;
     v48 = v31;
-    v45 = AGX::DataBufferAllocator<44ul>::growNoInline(v26 + 3, 3, 0);
+    v45 = AGX::DataBufferAllocator<44ul>::growNoInline((v26 + 3), 3, 0);
     v31 = v48;
     v23 = v44;
     v16 = v43;
@@ -1863,9 +1865,9 @@ LABEL_15:
       v26[22] = v33;
 LABEL_16:
       v34 = a1[1];
-      v35 = v34[21];
-      v36 = v35 + v34[23];
-      v34[21] = v35 + 12;
+      v35 = *(v34 + 168);
+      v36 = v35 + *(v34 + 184);
+      *(v34 + 168) = v35 + 12;
       *v35 = vmovn_s64(v31);
       v35[1].i32[0] = v32;
       a1[2901] = v36;
@@ -1873,12 +1875,12 @@ LABEL_16:
       v37 = a1[2375];
       *(v37 + 80) = v36;
       *(v37 + 392) = v35;
-      a1[2412] = *(v34[6] + 224) + *v30;
-      v34[9774] |= 0x1000000000uLL;
-      v34[9780] |= 0x1000000000uLL;
-      v34[9810] |= 0x30000uLL;
+      a1[2412] = *(*(v34 + 48) + 224) + *v30;
+      *(v34 + 78192) |= 0x1000000000uLL;
+      *(v34 + 78240) |= 0x1000000000uLL;
+      *(v34 + 78480) |= 0x30000uLL;
       v38 = v16;
-      AGX::HWGeometryPipelineContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::encodeAndEmitMeshRenderState(a1, a1[4], a1[5], v34[3793], a1[2374], a1[5337], v34[9129], v13, v21 | (v22 << 32), v23, SHIDWORD(v23), v15, SHIDWORD(v15), v16, (v34 + 9762), 0);
+      AGX::HWGeometryPipelineContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::encodeAndEmitMeshRenderState(a1, a1[4], a1[5], *(v34 + 30344), a1[2374], a1[5337], *(v34 + 73032), v13, v21 | (v22 << 32), v23, v15, v16, v34 + 78096, 0);
       v39 = a1[1];
       if (v12 == 1)
       {
@@ -2903,23 +2905,23 @@ LABEL_26:
   return result;
 }
 
-uint64_t AGX::RenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::setFragmentProgramIntersectionFunctionTable(uint64_t result, uint64_t a2, unsigned int a3)
+void *AGX::RenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::setFragmentProgramIntersectionFunctionTable(void *result, uint64_t a2, unsigned int a3)
 {
   v4 = result;
-  v5 = (result + 73032);
+  v5 = result + 9129;
   if (!a2)
   {
-    v13 = result + 8 * a3;
-    *(v13 + 73048) = 0;
-    *(v13 + 77800) = 0;
+    v13 = &result[a3];
+    v13[9131] = 0;
+    v13[9725] = 0;
     if (a3 >= 0x1F)
     {
-      v35 = *(result + 73040) + 8 * (a3 - 31);
+      v35 = result[9130] + 8 * (a3 - 31);
       *(v35 + 48) = 0;
       *(v35 + 360) = 0;
-      v36 = result + 8 * a3;
-      *(v36 + 76680) = 0;
-      *(v36 + 77240) = 0;
+      v36 = &result[a3];
+      v36[9585] = 0;
+      v36[9655] = 0;
     }
 
     else
@@ -2927,10 +2929,10 @@ uint64_t AGX::RenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL3
       v14 = *v5;
       v15 = (v14 + 8 * a3);
       *v15 = 0;
-      v16 = result + 8 * a3;
-      *(v16 + 76680) = 0;
+      v16 = &result[a3];
+      v16[9585] = 0;
       v15[31] = 0;
-      *(v16 + 77240) = 0;
+      v16[9655] = 0;
       *(v14 + 4 * a3 + 17516) = 0;
       v15[2205] = 0;
     }
@@ -2942,26 +2944,26 @@ uint64_t AGX::RenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL3
   v7 = *(v6 + 112);
   if (a3 >= 0x1F)
   {
-    v17 = *(result + 73040) + 8 * (a3 - 31);
+    v17 = result[9130] + 8 * (a3 - 31);
     *(v17 + 48) = v7;
     *(v17 + 360) = 0;
     v11 = a3;
-    v18 = result + 8 * a3;
-    *(v18 + 76680) = 0;
-    *(v18 + 77240) = 0;
+    v18 = &result[a3];
+    v18[9585] = 0;
+    v18[9655] = 0;
   }
 
   else
   {
     v8 = *v5;
-    v9 = 8 * a3;
-    v10 = (v8 + v9);
+    v9 = a3;
+    v10 = (v8 + v9 * 8);
     *v10 = v7;
     v11 = a3;
-    v12 = result + v9;
-    *(v12 + 76680) = 0;
+    v12 = &result[v9];
+    v12[9585] = 0;
     v10[31] = 0;
-    *(v12 + 77240) = 0;
+    v12[9655] = 0;
     *(v8 + 4 * a3 + 17516) = 0;
     v10[2205] = 0;
   }
@@ -3073,23 +3075,23 @@ LABEL_25:
   return result;
 }
 
-uint64_t AGX::RenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::setVertexProgramIntersectionFunctionTable(uint64_t result, uint64_t a2, unsigned int a3)
+void *AGX::RenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::setVertexProgramIntersectionFunctionTable(void *result, uint64_t a2, unsigned int a3)
 {
   v4 = result;
-  v5 = (result + 49088);
+  v5 = result + 6136;
   if (!a2)
   {
-    v13 = result + 8 * a3;
-    *(v13 + 49104) = 0;
-    *(v13 + 53856) = 0;
+    v13 = &result[a3];
+    v13[6138] = 0;
+    v13[6732] = 0;
     if (a3 >= 0x1F)
     {
-      v35 = *(result + 49096) + 8 * (a3 - 31);
+      v35 = result[6137] + 8 * (a3 - 31);
       *(v35 + 40) = 0;
       *(v35 + 352) = 0;
-      v36 = result + 8 * a3;
-      *(v36 + 52736) = 0;
-      *(v36 + 53296) = 0;
+      v36 = &result[a3];
+      v36[6592] = 0;
+      v36[6662] = 0;
     }
 
     else
@@ -3097,10 +3099,10 @@ uint64_t AGX::RenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL3
       v14 = *v5;
       v15 = (v14 + 8 * a3);
       *v15 = 0;
-      v16 = result + 8 * a3;
-      *(v16 + 52736) = 0;
+      v16 = &result[a3];
+      v16[6592] = 0;
       v15[31] = 0;
-      *(v16 + 53296) = 0;
+      v16[6662] = 0;
       *(v14 + 4 * a3 + 17516) = 0;
       v15[2205] = 0;
     }
@@ -3112,26 +3114,26 @@ uint64_t AGX::RenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL3
   v7 = *(v6 + 112);
   if (a3 >= 0x1F)
   {
-    v17 = *(result + 49096) + 8 * (a3 - 31);
+    v17 = result[6137] + 8 * (a3 - 31);
     *(v17 + 40) = v7;
     *(v17 + 352) = 0;
     v11 = a3;
-    v18 = result + 8 * a3;
-    *(v18 + 52736) = 0;
-    *(v18 + 53296) = 0;
+    v18 = &result[a3];
+    v18[6592] = 0;
+    v18[6662] = 0;
   }
 
   else
   {
     v8 = *v5;
-    v9 = 8 * a3;
-    v10 = (v8 + v9);
+    v9 = a3;
+    v10 = (v8 + v9 * 8);
     *v10 = v7;
     v11 = a3;
-    v12 = result + v9;
-    *(v12 + 52736) = 0;
+    v12 = &result[v9];
+    v12[6592] = 0;
     v10[31] = 0;
-    *(v12 + 53296) = 0;
+    v12[6662] = 0;
     *(v8 + 4 * a3 + 17516) = 0;
     v10[2205] = 0;
   }
@@ -3923,63 +3925,63 @@ LABEL_25:
   return result;
 }
 
-void sub_29CEBE9D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_29CEBE9D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void AGX::RenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::dispatchWarpedThreads(void *a1, int64x2_t *a2, int64x2_t *a3, uint64_t a4, int a5)
+void AGX::RenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::dispatchWarpedThreads(void *a1, int64x2_t *a2, int64x2_t *a3, uint64_t a4, int a5, double a6, double a7, float a8, double a9, double a10, __n128 a11)
 {
-  v6 = a4;
-  v87[6] = *MEMORY[0x29EDCA608];
-  v7 = a1 + 9810;
-  v8 = a1[9818];
-  if (!v8 || ((v9 = *(a1[299] + 6328), v10 = *(v8 + 64), v9) ? (v11 = v10 == 0) : (v11 = 1), v11))
+  v12 = a4;
+  v93[6] = *MEMORY[0x29EDCA608];
+  v13 = a1 + 9810;
+  v14 = a1[9818];
+  if (!v14 || ((v15 = *(a1[299] + 6328), v16 = *(v14 + 64), v15) ? (v17 = v16 == 0) : (v17 = 1), v17))
   {
-    v83 = *a2;
-    v84 = a2[1].i64[0];
-    v12 = &v83;
-    v13 = 1;
+    v89 = *a2;
+    v90 = a2[1].i64[0];
+    v18 = &v89;
+    v19 = 1;
 LABEL_8:
-    AGX::RenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::dispatchThreadsImpl<false>(a1, v12->i8, a3, v13, v6, a5);
+    AGX::RenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::dispatchThreadsImpl<false>(a1, v18->i8, a3, v19, v12, a5);
     return;
   }
 
-  v14 = vcvt_f32_f64(vcvtq_f64_u64(*a3));
-  v15 = vcvt_f32_f64(vcvtq_f64_u64(vaddq_s64(*(a3 + 24), *a3)));
-  v16 = *(v10 + 16);
-  v17 = v16 >= 2 && (a4 & 0x100000000) == 0;
-  v18 = a1;
-  v72 = a3;
-  if (!v17)
+  v20 = vcvt_f32_f64(vcvtq_f64_u64(*a3));
+  v21 = vcvt_f32_f64(vcvtq_f64_u64(vaddq_s64(*(a3 + 24), *a3)));
+  v22 = *(v16 + 16);
+  v23 = v22 >= 2 && (a4 & 0x100000000) == 0;
+  v24 = a1;
+  v78 = a3;
+  if (!v23)
   {
-    v19 = *(v10 + 49320);
-    if ((v19 & 1) == 0)
+    v25 = *(v16 + 49320);
+    if ((v25 & 1) == 0)
     {
-      v20 = a2;
+      v26 = a2;
       AGX::WarpFunction<AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::getWarpedCoordinate();
-      v22.i32[1] = v21;
-      v73 = v22;
+      v28.i32[1] = v27;
+      v79 = v28;
       AGX::WarpFunction<AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::getWarpedCoordinate();
-      v14 = v73;
-      a2 = v20;
-      a1 = v18;
-      v15 = __PAIR64__(v24, v23);
+      v20 = v79;
+      a2 = v26;
+      a1 = v24;
+      v21 = __PAIR64__(v30, v29);
     }
 
-    v25 = vrndm_f32(v14);
-    v26 = vrndm_f32(v15);
-    v84 = 0;
-    v27 = vcvt_u32_f32(vrndm_f32(vbsl_s8(vceq_f32(vsub_f32(v14, v25), 0x3F0000003F000000), v25, v14)));
-    v28.i64[0] = v27.u32[0];
-    v28.i64[1] = v27.u32[1];
-    v83 = v28;
-    v85 = vsubl_u32(vcvt_u32_f32(vrndp_f32(vbsl_s8(vceq_f32(vsub_f32(v15, v26), 0x3F0000003F000000), v26, v15))), v27);
-    v86 = 0;
-    v9 = 1;
-    if (v19)
+    v31 = vrndm_f32(v20);
+    v32 = vrndm_f32(v21);
+    v90 = 0;
+    v33 = vcvt_u32_f32(vrndm_f32(vbsl_s8(vceq_f32(vsub_f32(v20, v31), 0x3F0000003F000000), v31, v20)));
+    v34.i64[0] = v33.u32[0];
+    v34.i64[1] = v33.u32[1];
+    v89 = v34;
+    v91 = vsubl_u32(vcvt_u32_f32(vrndp_f32(vbsl_s8(vceq_f32(vsub_f32(v21, v32), 0x3F0000003F000000), v32, v21))), v33);
+    v92 = 0;
+    v15 = 1;
+    if (v25)
     {
       goto LABEL_29;
     }
@@ -3987,35 +3989,35 @@ LABEL_8:
     goto LABEL_23;
   }
 
-  v29 = *(v10 + 49320);
-  if (v29)
+  v35 = *(v16 + 49320);
+  if (v35)
   {
-    v30 = vcvt_u32_f32(v14);
-    v31.i64[0] = v30.u32[0];
-    v31.i64[1] = v30.u32[1];
-    v32 = v31;
-    v33 = vsubl_u32(vcvt_u32_f32(v15), v30);
-    if (v9 >= 2)
+    v36 = vcvt_u32_f32(v20);
+    v37.i64[0] = v36.u32[0];
+    v37.i64[1] = v36.u32[1];
+    v38 = v37;
+    v39 = vsubl_u32(vcvt_u32_f32(v21), v36);
+    if (v15 >= 2)
     {
-      v34 = v9 & 0xFFFFFFFE;
-      v46 = v87;
-      v47 = v34;
+      v40 = v15 & 0xFFFFFFFE;
+      v52 = v93;
+      v53 = v40;
       do
       {
-        *(v46 - 3) = v32;
-        *v46 = v32;
-        *(v46 - 4) = 0;
-        v46[2] = 0;
-        *(v46 - 3) = v33;
-        *(v46 + 3) = v33;
-        *(v46 - 1) = 0;
-        v46[5] = 0;
-        v46 += 12;
-        v47 -= 2;
+        *(v52 - 3) = v38;
+        *v52 = v38;
+        *(v52 - 4) = 0;
+        v52[2] = 0;
+        *(v52 - 3) = v39;
+        *(v52 + 3) = v39;
+        *(v52 - 1) = 0;
+        v52[5] = 0;
+        v52 += 12;
+        v53 -= 2;
       }
 
-      while (v47);
-      if (v34 == v9)
+      while (v53);
+      if (v40 == v15)
       {
         goto LABEL_29;
       }
@@ -4023,182 +4025,182 @@ LABEL_8:
 
     else
     {
-      v34 = 0;
+      v40 = 0;
     }
 
-    v48 = v9 - v34;
-    v49 = &v85 + 3 * v34;
+    v54 = v15 - v40;
+    v55 = &v91 + 3 * v40;
     do
     {
-      *(v49 - 24) = v32;
-      v49[-1].i64[1] = 0;
-      *v49 = v33;
-      v49[1].i64[0] = 0;
-      v49 += 3;
-      --v48;
+      *(v55 - 24) = v38;
+      v55[-1].i64[1] = 0;
+      *v55 = v39;
+      v55[1].i64[0] = 0;
+      v55 += 3;
+      --v54;
     }
 
-    while (v48);
+    while (v54);
   }
 
   else
   {
-    v35 = a2;
-    v36 = 0;
-    v37 = &v85;
+    v41 = a2;
+    v42 = 0;
+    v43 = &v91;
     do
     {
       AGX::WarpFunction<AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::getWarpedCoordinate();
-      v39.i32[1] = v38;
-      v74 = v39;
+      v45.i32[1] = v44;
+      v80 = v45;
       AGX::WarpFunction<AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::getWarpedCoordinate();
-      v41.i32[1] = v40;
-      v42 = vrndm_f32(v74);
-      v43 = vrndm_f32(v41);
-      v37[-1].i64[1] = 0;
-      v44 = vcvt_u32_f32(vrndm_f32(vbsl_s8(vceq_f32(vsub_f32(v74, v42), 0x3F0000003F000000), v42, v74)));
-      v45.i64[0] = v44.u32[0];
-      v45.i64[1] = v44.u32[1];
-      *(v37 - 24) = v45;
-      *v37 = vsubl_u32(vcvt_u32_f32(vrndp_f32(vbsl_s8(vceq_f32(vsub_f32(v41, v43), 0x3F0000003F000000), v43, v41))), v44);
-      v37[1].i64[0] = 0;
-      ++v36;
-      v37 += 3;
+      v47.i32[1] = v46;
+      v48 = vrndm_f32(v80);
+      v49 = vrndm_f32(v47);
+      v43[-1].i64[1] = 0;
+      v50 = vcvt_u32_f32(vrndm_f32(vbsl_s8(vceq_f32(vsub_f32(v80, v48), 0x3F0000003F000000), v48, v80)));
+      v51.i64[0] = v50.u32[0];
+      v51.i64[1] = v50.u32[1];
+      *(v43 - 24) = v51;
+      *v43 = vsubl_u32(vcvt_u32_f32(vrndp_f32(vbsl_s8(vceq_f32(vsub_f32(v47, v49), 0x3F0000003F000000), v49, v47))), v50);
+      v43[1].i64[0] = 0;
+      ++v42;
+      v43 += 3;
     }
 
-    while (v9 != v36);
-    a1 = v18;
-    a2 = v35;
-    if (!v29)
+    while (v15 != v42);
+    a1 = v24;
+    a2 = v41;
+    if (!v35)
     {
 LABEL_23:
-      v80 = *a2;
-      v81 = a2[1].i64[0];
-      v12 = &v80;
-      a3 = &v83;
-      v13 = v9;
+      v86 = *a2;
+      v87 = a2[1].i64[0];
+      v18 = &v86;
+      a3 = &v89;
+      v19 = v15;
       goto LABEL_8;
     }
   }
 
 LABEL_29:
-  v50 = a1 + 3486;
-  v79 = 0;
-  v51 = a1[93] + 56;
-  if (v51 > a1[92])
+  v56 = a1 + 3486;
+  v85 = 0;
+  v57 = a1[93] + 56;
+  if (v57 > a1[92])
   {
-    v75 = a2;
-    v65 = AGX::DataBufferAllocator<44ul>::growNoInline(v18 + 24, 21, 0);
-    a2 = v75;
-    v66 = v65;
-    a1 = v18;
-    if (v66)
+    v81 = a2;
+    v71 = AGX::DataBufferAllocator<44ul>::growNoInline((v24 + 3), 21, 0);
+    a2 = v81;
+    v72 = v71;
+    a1 = v24;
+    if (v72)
     {
-      v67 = *(v18 + 744) + 56;
-      if (v67 > *(v18 + 736))
+      v73 = v24[93] + 56;
+      if (v73 > v24[92])
       {
         abort();
       }
 
-      *(v18 + 752) = v67;
-      if (!*(v50 + 526))
+      v24[94] = v73;
+      if (!*(v56 + 526))
       {
-        v68 = *(v18 + 29976);
-        if (v68)
+        v74 = v24[3747];
+        if (v74)
         {
-          v69 = *(v18 + 30000);
-          *v68 = BYTE4(v69) | 0x80000000;
-          v68[1] = v69;
-          *(v18 + 29976) = 0;
-          *(v18 + 30000) = 0;
-          ++*(v18 + 1952);
+          v75 = v24[3750];
+          *v74 = BYTE4(v75) | 0x80000000;
+          v74[1] = v75;
+          v24[3747] = 0;
+          v24[3750] = 0;
+          ++*(v24 + 488);
         }
       }
 
-      v70 = *(*(*(*(*(v18 + 1872) + 848) + 17136) + 8) + 2728);
+      v76 = *(*(*(*(v24[234] + 848) + 17136) + 8) + 2728);
       do
       {
-        v70 &= ~(1 << __clz(__rbit32(v70)));
+        v76 &= ~(1 << __clz(__rbit32(v76)));
         IOGPUResourceListAddResource();
       }
 
-      while (v70);
-      AGX::RenderUSCStateLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes>::reserveBatchingDrawDataBufferSpace((v18 + 24), *(*(*(*(v18 + 1872) + 848) + 17136) + 8));
-      *(v50 + 526) = 0;
-      *(v18 + 29976) = *(v18 + 72);
-      v71 = AGX::RenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::emitVRRPatchDraw(v18);
-      a1 = v18;
-      *(v18 + 29984) = v71;
-      *(v18 + 30000) = *(v18 + 88) + *(v18 + 72);
-      a2 = v75;
+      while (v76);
+      AGX::RenderUSCStateLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes>::reserveBatchingDrawDataBufferSpace(v24 + 3, *(*(*(v24[234] + 848) + 17136) + 8));
+      *(v56 + 526) = 0;
+      v24[3747] = v24[9];
+      v77 = AGX::RenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::emitVRRPatchDraw(v24);
+      a1 = v24;
+      v24[3748] = v77;
+      v24[3750] = v24[11] + v24[9];
+      a2 = v81;
     }
   }
 
   else
   {
-    a1[94] = v51;
+    a1[94] = v57;
   }
 
-  v76 = *a2;
-  v52 = a2;
-  v77 = a2[1].i64[0];
-  *(v50 + 177) = 1;
-  v82 = 0;
+  v82 = *a2;
+  v58 = a2;
+  v83 = a2[1].i64[0];
+  *(v56 + 177) = 1;
+  v88 = 0;
   *(a1 + 2060) |= 0x2000000020uLL;
-  v53 = a1[3327];
-  AGX::RenderTileDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::dispatchThreadsWithIndirectParameters(v18 + 2664, &v76, &v82, (v18 + 1940), a1[3791], &v83, v9, v6, &v79, &v78, a5);
-  v54 = v18;
-  if (v53 && *(*(v18 + 30352) + 1884))
+  v59 = a1[3327];
+  AGX::RenderTileDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::dispatchThreadsWithIndirectParameters((v24 + 333), &v82, &v88, v24 + 485, a1[3791], &v89, v15, v12, &v85, v84, a5);
+  v60 = v24;
+  if (v59 && *(v24[3794] + 1884))
   {
-    *(*(v18 + 30328) + 1612) |= *v50 ^ 1;
+    *(v24[3791] + 1612) |= *v56 ^ 1;
   }
 
-  v55 = v72;
-  if (v82 == 1)
+  v61 = v78;
+  if (v88 == 1)
   {
-    if (*(*(v18 + 2392) + 4957) & 1) != 0 || (*(v50 + 172) & 1) != 0 || (AGX::RenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::restartRenderPass(v18, (v18 + 78480), 0, 1), v82 = 0, v80 = v76, v81 = v77, AGX::RenderTileDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::dispatchThreadsWithIndirectParameters(v18 + 2664, &v80, &v82, (v18 + 1940), *(v18 + 30328), &v83, v9, v6, &v79, &v78, a5), v55 = v72, v54 = v18, (v82))
+    if (*(v24[299] + 4957) & 1) != 0 || (*(v56 + 172) & 1) != 0 || (AGX::RenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::restartRenderPass(v24, v24 + 9810, 0, 1), v88 = 0, v86 = v82, v87 = v83, AGX::RenderTileDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::dispatchThreadsWithIndirectParameters((v24 + 333), &v86, &v88, v24 + 485, v24[3791], &v89, v15, v12, &v85, v84, a5), v61 = v78, v60 = v24, (v88))
     {
-      v56 = *(v54 + 1968) - *(v54 + 1984);
-      *(v56 + 140) = 1;
-      if ((*(v56 + 136) & 4) != 0)
+      v62 = v60[246] - v60[248];
+      *(v62 + 140) = 1;
+      if ((*(v62 + 136) & 4) != 0)
       {
-        **(v54 + 8) = 1;
+        *v60[1] = 1;
       }
     }
   }
 
-  v7[124] |= 0x1000000uLL;
-  *v7 |= 0x5F700000000004uLL;
-  if ((v6 & 0x100000000) != 0)
+  v13[124] |= 0x1000000uLL;
+  *v13 |= 0x5F700000000004uLL;
+  if ((v12 & 0x100000000) != 0)
   {
-    v57 = 1;
+    v63 = 1;
   }
 
   else
   {
-    v57 = *(v10 + 16);
-    LODWORD(v6) = -1;
+    v63 = *(v16 + 16);
+    LODWORD(v12) = -1;
   }
 
-  v58 = *(v54 + 2392);
-  v59 = *v55;
-  v60 = *(&v55[1] + 8);
-  v61 = *(v54 + 744);
-  *(v54 + 744) = v61 + 56;
-  v61->i32[0] = 2;
-  v62 = *(v58 + 4932);
-  v63 = v79;
-  v61->i32[1] = v57;
-  v64 = vmovn_s64(*v52);
-  v61->i64[1] = v63;
-  *v61[1].i8 = v64;
-  v61[1].i64[1] = v62;
-  v61[2] = vuzp1q_s32(v59, v60);
-  v61[3].i32[0] = v6;
-  LODWORD(v61) = *(v50 + 526) + 1;
-  *(v50 + 526) = v61;
-  *(*(v54 + 29984) + 4) = v61;
-  ++*(v54 + 1956);
+  v64 = v60[299];
+  v65 = *v61;
+  v66 = *(v61 + 24);
+  v67 = v60[93];
+  v60[93] = v67 + 56;
+  v67->i32[0] = 2;
+  v68 = *(v64 + 4932);
+  v69 = v85;
+  v67->i32[1] = v63;
+  v70 = vmovn_s64(*v58);
+  v67->i64[1] = v69;
+  *v67[1].i8 = v70;
+  v67[1].i64[1] = v68;
+  v67[2] = vuzp1q_s32(v65, v66);
+  v67[3].i32[0] = v12;
+  LODWORD(v67) = *(v56 + 526) + 1;
+  *(v56 + 526) = v67;
+  *(v60[3748] + 4) = v67;
+  ++*(v60 + 489);
 }
 
 uint64_t AGX::RenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::dispatchThreadsImpl<false>(uint64_t a1, __int128 *a2, uint64_t a3, unint64_t a4, uint64_t a5, int a6)
@@ -4255,13 +4257,13 @@ void sub_29CEBF8EC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void AGX::RenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::encodeAndEmitRenderState(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, int a7)
+void AGX::RenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::encodeAndEmitRenderState(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64x2_t *a5, uint64_t a6, int a7)
 {
   v8 = a2;
-  v457 = *MEMORY[0x29EDCA608];
+  v467 = *MEMORY[0x29EDCA608];
   v10 = a1 + 78080;
-  v428 = a1 + 73032;
-  v432 = a1 + 49088;
+  v438 = a1 + 73032;
+  v442 = a1 + 49088;
   v11 = *(*(a1 + 1872) + 848);
   v12 = a1 + 27888;
   *(a1 + 28065) = 1;
@@ -4269,47 +4271,47 @@ void AGX::RenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::
   v14 = *(a1 + 29924);
   v15 = *(a1 + 29936) | a7;
   *(a1 + 2060) |= 8u;
-  v448[0] = 0;
-  v436 = a1 + 78080;
-  v437 = a1 + 27888;
-  v435 = v11;
+  v458[0] = 0;
+  v446 = a1 + 78080;
+  v447 = a1 + 27888;
+  v445 = v11;
   if (v14 != v13)
   {
     *(a1 + 29924) = v13;
     v16 = *(a1 + 49096);
-    *&v452 = v16 + 168;
-    *(&v452 + 1) = a1 + 49480;
-    v453 = (v16 + 176);
-    v454 = (a1 + 49488);
-    v455 = v16 + 200;
-    v456 = a1 + 49512;
-    v17 = AGX::Mempool<16u,0u,true,0u,268435456u,AGX::HAL300::TextureHeapElem,AGX::HAL300::TextureHeapElem,unsigned long long>::addToResourceList(v11 + 7240, &v452, *(a1 + 1904), v448);
-    v18 = v436;
+    *&v462 = v16 + 168;
+    *(&v462 + 1) = a1 + 49480;
+    v463 = (v16 + 176);
+    v464 = (a1 + 49488);
+    v465 = v16 + 200;
+    v466 = a1 + 49512;
+    v17 = AGX::Mempool<16u,0u,true,0u,268435456u,AGX::HAL300::TextureHeapElem,AGX::HAL300::TextureHeapElem,unsigned long long>::addToResourceList(v11 + 7240, &v462, *(a1 + 1904), v458);
+    v18 = v446;
     if (v17)
     {
-      if ((v15 & 1) != 0 && (v448[0] & 1) == 0)
+      if ((v15 & 1) != 0 && (v458[0] & 1) == 0)
       {
         IOGPUResourceListAddResource();
         IOGPUResourceListAddResource();
         IOGPUResourceListAddResource();
-        v18 = v436;
+        v18 = v446;
       }
 
-      v357 = *(v428 + 8);
-      v358 = *(v432 + 8);
-      v357[22] = v358[21];
+      v367 = *(v438 + 8);
+      v368 = *(v442 + 8);
+      v367[22] = v368[21];
       v18[2] |= 0x800000000000uLL;
       v18[8] |= 0x800000000000uLL;
       v18[38] |= 0x800000000000uLL;
       v18[44] |= 0x800000000000uLL;
-      v357[23] = v358[22];
-      *(v428 + 392) = *(v432 + 392);
+      v367[23] = v368[22];
+      *(v438 + 392) = *(v442 + 392);
       v18[2] |= 0x1000000000000uLL;
       v18[8] |= 0x1000000000000uLL;
       v18[38] |= 0x1000000000000uLL;
       v18[44] |= 0x1000000000000uLL;
-      v357[26] = v358[25];
-      *(v428 + 424) = *(v432 + 424);
+      v367[26] = v368[25];
+      *(v438 + 424) = *(v442 + 424);
       v18[2] |= 0x8000000000000uLL;
       v18[8] |= 0x8000000000000uLL;
       v18[38] |= 0x8000000000000uLL;
@@ -4317,157 +4319,157 @@ void AGX::RenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::
       *(a6 + 384) |= 0x30000000C0uLL;
     }
 
-    *&v452 = v18 + 169;
-    *(&v452 + 1) = v18 + 170;
-    if (AGX::Mempool<32u,0u,true,0u,0u,unsigned long long>::addToResourceList((v435 + 12584), &v452))
+    *&v462 = v18 + 169;
+    *(&v462 + 1) = v18 + 170;
+    if (AGX::Mempool<32u,0u,true,0u,0u,unsigned long long>::addToResourceList((v445 + 12584), &v462, *(a1 + 1904)))
     {
       IOGPUResourceListAddResource();
     }
 
-    **(v436 + 1344) = *(v436 + 1352);
-    *&v452 = v436 + 1368;
-    *(&v452 + 1) = v436 + 1376;
-    if (AGX::Mempool<32u,0u,true,0u,0u,unsigned long long>::addToResourceList((v435 + 11808), &v452))
+    **(v446 + 1344) = *(v446 + 1352);
+    *&v462 = v446 + 1368;
+    *(&v462 + 1) = v446 + 1376;
+    if (AGX::Mempool<32u,0u,true,0u,0u,unsigned long long>::addToResourceList((v445 + 11808), &v462, *(a1 + 1904)))
     {
       IOGPUResourceListAddResource();
     }
 
-    *(*(v436 + 1344) + 8) = *(v436 + 1368);
-    *&v452 = *(v432 + 8) + 336;
-    *(&v452 + 1) = v432 + 560;
-    if (AGX::Mempool<32u,0u,true,0u,0u,std::array<AGX::IntersectionFunctionTableEncoderGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::Entry,8ul>>::addToResourceList((v435 + 14136), &v452))
+    *(*(v446 + 1344) + 8) = *(v446 + 1368);
+    *&v462 = *(v442 + 8) + 336;
+    *(&v462 + 1) = v442 + 560;
+    if (AGX::Mempool<32u,0u,true,0u,0u,std::array<AGX::IntersectionFunctionTableEncoderGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::Entry,8ul>>::addToResourceList((v445 + 14136), &v462, *(a1 + 1904)))
     {
       if (v15)
       {
         IOGPUResourceListAddResource();
       }
 
-      v19 = v432;
-      v20 = *(v432 + 8);
-      *(*(v428 + 8) + 344) = *(v20 + 336);
-      *(v428 + 560) = *(v432 + 560);
-      v21 = v436;
-      *(v436 + 24) |= 0x10uLL;
-      *(v436 + 72) |= 0x10uLL;
-      *(v436 + 312) |= 0x10uLL;
-      *(v436 + 360) |= 0x10uLL;
+      v19 = v442;
+      v20 = *(v442 + 8);
+      *(*(v438 + 8) + 344) = *(v20 + 336);
+      *(v438 + 560) = *(v442 + 560);
+      v21 = v446;
+      *(v446 + 24) |= 0x10uLL;
+      *(v446 + 72) |= 0x10uLL;
+      *(v446 + 312) |= 0x10uLL;
+      *(v446 + 360) |= 0x10uLL;
       *(a6 + 384) |= 0x30000000C0uLL;
     }
 
     else
     {
-      v19 = v432;
-      v20 = *(v432 + 8);
-      v21 = v436;
+      v19 = v442;
+      v20 = *(v442 + 8);
+      v21 = v446;
     }
 
     v22 = *(v21 + 456);
-    *&v452 = v20 + 232;
-    *(&v452 + 1) = v19 + 456;
-    if (AGX::Mempool<32u,0u,true,0u,0u,unsigned long long>::addToResourceList(v22, &v452))
+    *&v462 = v20 + 232;
+    *(&v462 + 1) = v19 + 456;
+    if (AGX::Mempool<32u,0u,true,0u,0u,unsigned long long>::addToResourceList(v22, &v462, *(a1 + 1904)))
     {
       if (v15)
       {
         IOGPUResourceListAddResource();
       }
 
-      v23 = v432;
-      v24 = *(v432 + 8);
-      *(*(v428 + 8) + 240) = *(v24 + 232);
-      *(v428 + 456) = *(v432 + 456);
-      v25 = v436;
-      *(v436 + 16) |= 0x80000000000000uLL;
-      *(v436 + 64) |= 0x80000000000000uLL;
-      *(v436 + 304) |= 0x80000000000000uLL;
-      *(v436 + 352) |= 0x80000000000000uLL;
+      v23 = v442;
+      v24 = *(v442 + 8);
+      *(*(v438 + 8) + 240) = *(v24 + 232);
+      *(v438 + 456) = *(v442 + 456);
+      v25 = v446;
+      *(v446 + 16) |= 0x80000000000000uLL;
+      *(v446 + 64) |= 0x80000000000000uLL;
+      *(v446 + 304) |= 0x80000000000000uLL;
+      *(v446 + 352) |= 0x80000000000000uLL;
       *(a6 + 384) |= 0x30000000C0uLL;
     }
 
     else
     {
-      v23 = v432;
-      v24 = *(v432 + 8);
-      v25 = v436;
+      v23 = v442;
+      v24 = *(v442 + 8);
+      v25 = v446;
     }
 
     v26 = *(v25 + 448);
-    *&v452 = v24 + 248;
-    *(&v452 + 1) = v23 + 472;
-    if (AGX::Mempool<32u,0u,true,0u,0u,unsigned long long>::addToResourceList(v26, &v452))
+    *&v462 = v24 + 248;
+    *(&v462 + 1) = v23 + 472;
+    if (AGX::Mempool<32u,0u,true,0u,0u,unsigned long long>::addToResourceList(v26, &v462, *(a1 + 1904)))
     {
       if (v15)
       {
         IOGPUResourceListAddResource();
       }
 
-      v27 = v432;
-      v28 = *(v432 + 8);
-      *(*(v428 + 8) + 256) = *(v28 + 248);
-      *(v428 + 472) = *(v432 + 472);
-      *(v436 + 16) |= 0x200000000000000uLL;
-      *(v436 + 64) |= 0x200000000000000uLL;
-      *(v436 + 304) |= 0x200000000000000uLL;
-      *(v436 + 352) |= 0x200000000000000uLL;
+      v27 = v442;
+      v28 = *(v442 + 8);
+      *(*(v438 + 8) + 256) = *(v28 + 248);
+      *(v438 + 472) = *(v442 + 472);
+      *(v446 + 16) |= 0x200000000000000uLL;
+      *(v446 + 64) |= 0x200000000000000uLL;
+      *(v446 + 304) |= 0x200000000000000uLL;
+      *(v446 + 352) |= 0x200000000000000uLL;
       *(a6 + 384) |= 0x30000000C0uLL;
     }
 
     else
     {
-      v27 = v432;
-      v28 = *(v432 + 8);
+      v27 = v442;
+      v28 = *(v442 + 8);
     }
 
-    *&v452 = v28 + 224;
-    *(&v452 + 1) = v27 + 448;
-    if (AGX::Mempool<16u,0u,true,0u,0u,AGX::HAL300::BVHStateHeapElem>::addToResourceList((v435 + 9408), &v452))
+    *&v462 = v28 + 224;
+    *(&v462 + 1) = v27 + 448;
+    if (AGX::Mempool<16u,0u,true,0u,0u,AGX::HAL300::BVHStateHeapElem>::addToResourceList((v445 + 9408), &v462, *(a1 + 1904)))
     {
       if (v15)
       {
         IOGPUResourceListAddResource();
       }
 
-      v29 = v432;
-      v30 = *(v432 + 8);
-      *(*(v428 + 8) + 232) = *(v30 + 224);
-      *(v428 + 448) = *(v432 + 448);
-      *(v436 + 16) |= 0x40000000000000uLL;
-      *(v436 + 64) |= 0x40000000000000uLL;
-      *(v436 + 304) |= 0x40000000000000uLL;
-      *(v436 + 352) |= 0x40000000000000uLL;
+      v29 = v442;
+      v30 = *(v442 + 8);
+      *(*(v438 + 8) + 232) = *(v30 + 224);
+      *(v438 + 448) = *(v442 + 448);
+      *(v446 + 16) |= 0x40000000000000uLL;
+      *(v446 + 64) |= 0x40000000000000uLL;
+      *(v446 + 304) |= 0x40000000000000uLL;
+      *(v446 + 352) |= 0x40000000000000uLL;
       *(a6 + 384) |= 0x30000000C0uLL;
     }
 
     else
     {
-      v29 = v432;
-      v30 = *(v432 + 8);
+      v29 = v442;
+      v30 = *(v442 + 8);
     }
 
-    *&v452 = v30 + 320;
-    *(&v452 + 1) = v29 + 544;
-    v31 = AGX::Mempool<16u,0u,true,8u,0u,AGX::HAL300::TensorStateHeapElem>::addToResourceList((v435 + 11008), &v452);
-    v10 = v436;
-    v12 = v437;
-    v11 = v435;
+    *&v462 = v30 + 320;
+    *(&v462 + 1) = v29 + 544;
+    v31 = AGX::Mempool<16u,0u,true,8u,0u,AGX::HAL300::TensorStateHeapElem>::addToResourceList((v445 + 11008), &v462, *(a1 + 1904));
+    v10 = v446;
+    v12 = v447;
+    v11 = v445;
     v8 = a2;
     if (v31)
     {
       if (v15)
       {
         IOGPUResourceListAddResource();
-        v10 = v436;
-        v12 = v437;
+        v10 = v446;
+        v12 = v447;
         v8 = a2;
       }
 
-      *(*(v428 + 8) + 328) = *(*(v432 + 8) + 320);
-      *(v428 + 544) = *(v432 + 544);
+      *(*(v438 + 8) + 328) = *(*(v442 + 8) + 320);
+      *(v438 + 544) = *(v442 + 544);
       *(v10 + 24) |= 4uLL;
       *(v10 + 72) |= 4uLL;
       *(v10 + 312) |= 4uLL;
       *(v10 + 360) |= 4uLL;
       *(a6 + 384) |= 0x30000000C0uLL;
-      v11 = v435;
+      v11 = v445;
     }
   }
 
@@ -4482,18 +4484,18 @@ void AGX::RenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::
     v33 = 0;
   }
 
-  if (*(v12 + 2040) != v33 && ((v34 = *(v432 + 8), *(v12 + 2040) = v33, *&v452 = v34 + 208, *(&v452 + 1) = v432 + 432, v35 = AGX::Mempool<16u,0u,true,0u,0u,AGX::HAL300::SamplerHeapElem>::addToResourceList((v435 + 8608), &v452), *(*(a1 + 30328) + 2096) = *(*(v432 + 8) + 208), (v36 = atomic_load_explicit((*(*(a1 + 1872) + 848) + 9388), memory_order_acquire)) != 0) ? (v37 = v36 + 1) : (v37 = 0), *(*(a1 + 30328) + 2104) = v37, v10 = v436, v12 = v437, v8 = a2, v35))
+  if (*(v12 + 2040) != v33 && ((v34 = *(v442 + 8), *(v12 + 2040) = v33, *&v462 = v34 + 208, *(&v462 + 1) = v442 + 432, v35 = AGX::Mempool<16u,0u,true,0u,0u,AGX::HAL300::SamplerHeapElem>::addToResourceList((v445 + 8608), &v462, *(a1 + 1904)), *(*(a1 + 30328) + 2096) = *(*(v442 + 8) + 208), (v36 = atomic_load_explicit((*(*(a1 + 1872) + 848) + 9388), memory_order_acquire)) != 0) ? (v37 = v36 + 1) : (v37 = 0), *(*(a1 + 30328) + 2104) = v37, v10 = v446, v12 = v447, v8 = a2, v35))
   {
     if (v15)
     {
       IOGPUResourceListAddResource();
-      v10 = v436;
-      v12 = v437;
+      v10 = v446;
+      v12 = v447;
       v8 = a2;
     }
 
-    *(*(v428 + 8) + 216) = *(*(v432 + 8) + 208);
-    *(v428 + 432) = *(v432 + 432);
+    *(*(v438 + 8) + 216) = *(*(v442 + 8) + 208);
+    *(v438 + 432) = *(v442 + 432);
     *(v10 + 16) |= 0x10000000000000uLL;
     *(v10 + 64) |= 0x10000000000000uLL;
     *(v10 + 304) |= 0x10000000000000uLL;
@@ -4512,24 +4514,24 @@ void AGX::RenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::
 
   if (v8 && (*(v8 + 2407) & 0x40) != 0 && *(a1 + 54136) == 1)
   {
-    v38 = *(*(v432 + 8) + 328);
+    v38 = *(*(v442 + 8) + 328);
     v39 = *(a1 + 168);
     v40 = v39 + 31;
     if ((v39 + 31) > *(a1 + 160))
     {
-      v392 = AGX::DataBufferAllocator<44ul>::growNoInline(a1 + 24, 3, 0);
+      v402 = AGX::DataBufferAllocator<44ul>::growNoInline(a1 + 24, 3, 0);
       v39 = *(a1 + 168);
-      if (!v392)
+      if (!v402)
       {
-        v10 = v436;
-        v12 = v437;
+        v10 = v446;
+        v12 = v447;
         v8 = a2;
         goto LABEL_30;
       }
 
       v40 = v39 + 31;
-      v10 = v436;
-      v12 = v437;
+      v10 = v446;
+      v12 = v447;
       v8 = a2;
       if ((v39 + 31) > *(a1 + 160))
       {
@@ -4546,31 +4548,31 @@ LABEL_30:
     v43 = *(*(a1 + 48) + 224) + *MEMORY[0x29EDC5638];
     *(v10 + 16) |= 0x4000000000000000uLL;
     *(v10 + 400) |= 0x40uLL;
-    *(*(v432 + 8) + 288) = v42;
-    *(v432 + 512) = v43;
+    *(*(v442 + 8) + 288) = v42;
+    *(v442 + 512) = v43;
     *(a1 + 54136) = 0;
   }
 
   if (a3 && (*(a3 + 2407) & 0x40) != 0 && *v10 == 1)
   {
-    v44 = *(*(v428 + 8) + 336);
+    v44 = *(*(v438 + 8) + 336);
     v45 = *(a1 + 200);
     v46 = v45 + 31;
     if ((v45 + 31) > *(a1 + 192))
     {
-      v393 = AGX::DataBufferAllocator<44ul>::growNoInline(a1 + 24, 4, 0);
+      v403 = AGX::DataBufferAllocator<44ul>::growNoInline(a1 + 24, 4, 0);
       v45 = *(a1 + 200);
-      if (!v393)
+      if (!v403)
       {
-        v10 = v436;
-        v12 = v437;
+        v10 = v446;
+        v12 = v447;
         v8 = a2;
         goto LABEL_36;
       }
 
       v46 = v45 + 31;
-      v10 = v436;
-      v12 = v437;
+      v10 = v446;
+      v12 = v447;
       v8 = a2;
       if ((v45 + 31) > *(a1 + 192))
       {
@@ -4587,8 +4589,8 @@ LABEL_36:
     v49 = *(*(a1 + 48) + 288) + *MEMORY[0x29EDC5638];
     *(v10 + 304) |= 0x4000000000000000uLL;
     *(v10 + 400) |= 0x1000000000uLL;
-    *(*(v428 + 8) + 296) = v48;
-    *(v428 + 512) = v49;
+    *(*(v438 + 8) + 296) = v48;
+    *(v438 + 512) = v49;
     *v10 = 0;
   }
 
@@ -4602,19 +4604,19 @@ LABEL_37:
   v51 = v50 + 95;
   if ((v50 + 95) > *(a1 + 192))
   {
-    v359 = AGX::DataBufferAllocator<44ul>::growNoInline(a1 + 24, 4, 0);
+    v369 = AGX::DataBufferAllocator<44ul>::growNoInline(a1 + 24, 4, 0);
     v50 = *(a1 + 200);
-    if (!v359)
+    if (!v369)
     {
-      v10 = v436;
-      v12 = v437;
+      v10 = v446;
+      v12 = v447;
       v8 = a2;
       goto LABEL_40;
     }
 
     v51 = v50 + 95;
-    v10 = v436;
-    v12 = v437;
+    v10 = v446;
+    v12 = v447;
     v8 = a2;
     if ((v50 + 95) > *(a1 + 192))
     {
@@ -4638,8 +4640,8 @@ LABEL_40:
   v57 = *(*(a1 + 48) + 288) + *MEMORY[0x29EDC5638];
   *(v10 + 304) |= 0x8000000000000000;
   *(v10 + 400) |= 0x1000000000uLL;
-  *(*(v428 + 8) + 304) = v53;
-  *(v428 + 520) = v57;
+  *(*(v438 + 8) + 304) = v53;
+  *(v438 + 520) = v57;
   *(v10 + 8) = 256;
 LABEL_41:
   v58 = *(*(a1 + 1872) + 848);
@@ -4656,9 +4658,9 @@ LABEL_41:
       IOGPUResourceListAddResource();
     }
 
-    v10 = v436;
-    v12 = v437;
-    *(v437 + 2044) = v59;
+    v10 = v446;
+    v12 = v447;
+    *(v447 + 2044) = v59;
     v8 = a2;
   }
 
@@ -4722,46 +4724,46 @@ LABEL_52:
     v65 = *(a1 + 744) + 952;
     if (v65 > *(a1 + 736))
     {
-      v371 = AGX::DataBufferAllocator<44ul>::growNoInline(a1 + 24, 21, 0);
-      v12 = v437;
+      v381 = AGX::DataBufferAllocator<44ul>::growNoInline(a1 + 24, 21, 0);
+      v12 = v447;
       v8 = a2;
-      if (v371)
+      if (v381)
       {
-        v372 = *(a1 + 744) + 952;
-        if (v372 > *(a1 + 736))
+        v382 = *(a1 + 744) + 952;
+        if (v382 > *(a1 + 736))
         {
           goto LABEL_490;
         }
 
-        *(a1 + 752) = v372;
+        *(a1 + 752) = v382;
         AGX::RenderUSCStateLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes>::reserveBatchingDrawDataBufferSpace((a1 + 24), *(*(*(*(a1 + 1872) + 848) + 17136) + 8));
-        if (!*(v437 + 2104))
+        if (!*(v447 + 2104))
         {
-          v373 = *(a1 + 29976);
-          if (v373)
+          v383 = *(a1 + 29976);
+          if (v383)
           {
-            v374 = *(a1 + 30000);
-            *v373 = BYTE4(v374) | 0x80000000;
-            v373[1] = v374;
+            v384 = *(a1 + 30000);
+            *v383 = BYTE4(v384) | 0x80000000;
+            v383[1] = v384;
             *(a1 + 29976) = 0;
             *(a1 + 30000) = 0;
             ++*(a1 + 1952);
           }
         }
 
-        v375 = *(*(*(*(*(a1 + 1872) + 848) + 17136) + 8) + 2728);
+        v385 = *(*(*(*(*(a1 + 1872) + 848) + 17136) + 8) + 2728);
         do
         {
           IOGPUResourceListAddResource();
-          v375 &= ~(1 << __clz(__rbit32(v375)));
+          v385 &= ~(1 << __clz(__rbit32(v385)));
         }
 
-        while (v375);
-        *(v437 + 2104) = 0;
+        while (v385);
+        *(v447 + 2104) = 0;
         *(a1 + 29976) = *(a1 + 72);
         *(a1 + 29984) = AGX::RenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::emitVRRPatchDraw(a1);
         *(a1 + 30000) = *(a1 + 88) + *(a1 + 72);
-        v12 = v437;
+        v12 = v447;
         v8 = a2;
       }
     }
@@ -4795,7 +4797,7 @@ LABEL_64:
     {
 LABEL_71:
       v71 = a1 + 2120;
-      v431 = (a1 + 2120);
+      v441 = (a1 + 2120);
       v72 = v8;
       goto LABEL_74;
     }
@@ -4815,14 +4817,14 @@ LABEL_71:
   v69 &= 0xFFFFFFFFFFFFFE3ELL;
   *(a6 + 384) = v69;
   v71 = a1 + 2120;
-  v431 = (a1 + 2120);
+  v441 = (a1 + 2120);
   v72 = 0;
 LABEL_74:
   v73 = v69 | AGX::RenderUSCStateLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes>::extractProgramVariantArgumentDirtyBits(v71, v72, v70, a6);
-  v447 = v73;
+  v457 = v73;
   if (v70)
   {
-    v75 = *(v70 + 3916);
+    v79 = *(v70 + 3916);
     if (a7)
     {
       goto LABEL_79;
@@ -4831,7 +4833,7 @@ LABEL_74:
 
   else
   {
-    v75 = 0;
+    v79 = 0;
     if (a7)
     {
 LABEL_79:
@@ -4841,7 +4843,7 @@ LABEL_79:
     }
   }
 
-  if (v75)
+  if (v79)
   {
     goto LABEL_79;
   }
@@ -4849,246 +4851,245 @@ LABEL_79:
 LABEL_80:
   if ((v73 & 0x80) != 0 && (a7 & 1) == 0)
   {
-    v76 = *(a6 + 48) & *(v8 + 2400);
-    v449 = *(a6 + 56) & *(v8 + 2408);
-    v450 = v76;
-    v452 = *(v8 + 1360);
+    v80 = *(a6 + 48) & *(v8 + 2400);
+    v459 = *(a6 + 56) & *(v8 + 2408);
+    v460 = v80;
+    v462 = *(v8 + 1360);
     while (1)
     {
-      if (v76)
+      if (v80)
       {
-        v77 = __clz(__rbit64(v76));
-        v78 = &v450;
-        v79 = v77;
+        v81 = __clz(__rbit64(v80));
+        v82 = &v460;
+        v83 = v81;
       }
 
       else
       {
-        v76 = v449;
-        if (!v449)
+        v80 = v459;
+        if (!v459)
         {
           v8 = a2;
           break;
         }
 
-        v77 = __clz(__rbit64(v449));
-        v79 = v77 | 0x40;
-        v78 = &v449;
+        LODWORD(v81) = __clz(__rbit64(v459));
+        v83 = v81 | 0x40;
+        v82 = &v459;
       }
 
-      *v78 = v76 & ~(1 << v77);
-      if (*(a1 + 49104 + 8 * v79))
+      *v82 = v80 & ~(1 << v81);
+      if (*(a1 + 49104 + 8 * v83))
       {
-        if ((*(&v452 | (8 * (v79 > 0x3F))) >> v79))
+        if ((*(&v462 | (8 * (v83 > 0x3F))) >> v83))
         {
-          v80 = 3;
+          v84 = 3;
         }
 
         else
         {
-          v80 = 1;
+          v84 = 1;
         }
 
-        AGX::RenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::bindVertexBufferResource(a1, v79, v80, 1);
+        AGX::RenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::bindVertexBufferResource(a1, v83, v84, 1);
       }
 
-      v76 = v450;
+      v80 = v460;
     }
   }
 
   if ((v73 & 0x100) != 0)
   {
-    v81 = *v432;
-    if (*v432)
+    v85 = *v442;
+    if (*v442)
     {
-      v82 = *(v8 + 2416) & *(a6 + 64) & v81[2236];
-      v449 = *(v8 + 2424) & *(a6 + 72) & v81[2237];
-      v450 = v82;
-      v83 = *(v8 + 1384);
-      v424 = *(v8 + 1376);
-      *&v452 = v424;
-      *(&v452 + 1) = v83;
-      v417 = v81[2239];
-      v420 = v81[2238];
-      v84 = a1 + 49664;
+      v86 = *(v8 + 2416) & *(a6 + 64) & v85[2236];
+      v459 = *(v8 + 2424) & *(a6 + 72) & v85[2237];
+      v460 = v86;
+      v87 = *(v8 + 1384);
+      v434 = *(v8 + 1376);
+      *&v462 = v434;
+      *(&v462 + 1) = v87;
+      v427 = v85[2239];
+      v430 = v85[2238];
+      v88 = a1 + 49664;
       while (1)
       {
-        if (v82)
+        if (v86)
         {
-          v85 = __clz(__rbit64(v82));
-          v86 = &v450;
-          v87 = v85;
+          v89 = __clz(__rbit64(v86));
+          v90 = &v460;
+          v91 = v89;
         }
 
         else
         {
-          v82 = v449;
-          if (!v449)
+          v86 = v459;
+          if (!v459)
           {
-            *(*(a1 + 30328) + 580) |= (v420 & v424 | v417 & v83) != 0;
+            *(*(a1 + 30328) + 580) |= (v430 & v434 | v427 & v87) != 0;
             v8 = a2;
             break;
           }
 
-          v85 = __clz(__rbit64(v449));
-          v87 = v85 | 0x40;
-          v86 = &v449;
+          v89 = __clz(__rbit64(v459));
+          v91 = v89 | 0x40;
+          v90 = &v459;
         }
 
-        *v86 = v82 & ~(1 << v85);
-        if ((*(&v452 + (v87 > 0x3F)) >> v87))
+        *v90 = v86 & ~(1 << v89);
+        if ((*(&v462 + (v91 > 0x3F)) >> v91))
         {
-          v88 = 3;
+          v92 = 3;
         }
 
         else
         {
-          v88 = 1;
+          v92 = 1;
         }
 
-        v89 = 3 * v87;
-        AGX::ResourceGroupUsage<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::bindResource(*(a1 + 2008), *(v84 + 24 * v87), 3u, v87, v88);
-        if (*(v84 + 8 * v89))
+        v93 = 3 * v91;
+        AGX::ResourceGroupUsage<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::bindResource(*(a1 + 2008), *(v88 + 24 * v91), 3u, v91, v92);
+        if (*(v88 + 8 * v93))
         {
           IOGPUResourceListAddResource();
-          if (*(v84 + 8 * (v89 + 1)))
+          if (*(v88 + 8 * (v93 + 1)))
           {
             IOGPUResourceListAddResource();
           }
 
-          if (*(v84 + 8 * (v89 + 2)))
+          if (*(v88 + 8 * (v93 + 2)))
           {
             IOGPUResourceListAddResource();
           }
         }
 
-        v82 = v450;
+        v86 = v460;
       }
     }
   }
 
   if ((v73 & 0x2000000000) != 0 && (a7 & 1) == 0)
   {
-    v90 = *(a6 + 336) & *(a3 + 2400);
-    v449 = *(a6 + 344) & *(a3 + 2408);
-    v450 = v90;
-    v452 = *(a3 + 1360);
+    v94 = *(a6 + 336) & *(a3 + 2400);
+    v459 = *(a6 + 344) & *(a3 + 2408);
+    v460 = v94;
+    v462 = *(a3 + 1360);
     while (1)
     {
-      if (v90)
+      if (v94)
       {
-        v91 = __clz(__rbit64(v90));
-        v92 = &v450;
-        v93 = v91;
+        v95 = __clz(__rbit64(v94));
+        v96 = &v460;
+        v97 = v95;
       }
 
       else
       {
-        v90 = v449;
-        if (!v449)
+        v94 = v459;
+        if (!v459)
         {
           break;
         }
 
-        v91 = __clz(__rbit64(v449));
-        v93 = v91 | 0x40;
-        v92 = &v449;
+        LODWORD(v95) = __clz(__rbit64(v459));
+        v97 = v95 | 0x40;
+        v96 = &v459;
       }
 
-      *v92 = v90 & ~(1 << v91);
-      if (*(a1 + 73048 + 8 * v93))
+      *v96 = v94 & ~(1 << v95);
+      if (*(a1 + 73048 + 8 * v97))
       {
-        AGX::RenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::bindFragmentBufferResource(a1, v93, (*(&v452 | (8 * (v93 > 0x3F))) >> v93) & 1, 1);
+        AGX::RenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::bindFragmentBufferResource(a1, v97, (*(&v462 | (8 * (v97 > 0x3F))) >> v97) & 1, 1);
         v8 = a2;
       }
 
-      v90 = v450;
+      v94 = v460;
     }
   }
 
-  v94 = v437;
+  v98 = v447;
   if ((v73 & 0x4000000000) != 0)
   {
-    v95 = *v428;
-    if (*v428)
+    v99 = *v438;
+    if (*v438)
     {
-      v96 = *(a3 + 2416) & *(a6 + 352) & v95[2236];
-      v449 = *(a3 + 2424) & *(a6 + 360) & v95[2237];
-      v450 = v96;
-      v97 = *(a3 + 1384);
-      v429 = *(a3 + 1376);
-      *&v452 = v429;
-      *(&v452 + 1) = v97;
-      v425 = v97;
-      v421 = v95[2238];
-      v98 = a1 + 73608;
-      v418 = v95[2239];
+      v100 = *(a3 + 2416) & *(a6 + 352) & v99[2236];
+      v459 = *(a3 + 2424) & *(a6 + 360) & v99[2237];
+      v460 = v100;
+      v101 = *(a3 + 1384);
+      v439 = *(a3 + 1376);
+      *&v462 = v439;
+      *(&v462 + 1) = v101;
+      v435 = v101;
+      v431 = v99[2238];
+      v102 = a1 + 73608;
+      v428 = v99[2239];
       while (1)
       {
-        if (v96)
+        if (v100)
         {
-          v99 = __clz(__rbit64(v96));
-          v100 = &v450;
-          v101 = v99;
+          v103 = __clz(__rbit64(v100));
+          v104 = &v460;
+          v105 = v103;
         }
 
         else
         {
-          v96 = v449;
-          if (!v449)
+          v100 = v459;
+          if (!v459)
           {
-            *(*(a1 + 30328) + 1612) |= (v421 & v429 | v418 & v425) != 0;
-            v94 = v437;
+            *(*(a1 + 30328) + 1612) |= (v431 & v439 | v428 & v435) != 0;
+            v98 = v447;
             v8 = a2;
             break;
           }
 
-          v99 = __clz(__rbit64(v449));
-          v101 = v99 | 0x40;
-          v100 = &v449;
+          v103 = __clz(__rbit64(v459));
+          v105 = v103 | 0x40;
+          v104 = &v459;
         }
 
-        *v100 = v96 & ~(1 << v99);
-        if ((*(&v452 + (v101 > 0x3F)) >> v101))
+        *v104 = v100 & ~(1 << v103);
+        if ((*(&v462 + (v105 > 0x3F)) >> v105))
         {
-          v102 = 12;
+          v106 = 12;
         }
 
         else
         {
-          v102 = 4;
+          v106 = 4;
         }
 
-        v103 = 3 * v101;
-        AGX::ResourceGroupUsage<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::bindResource(*(a1 + 2008), *(v98 + 24 * v101), 4u, v101, v102);
-        if (*(v98 + 8 * v103))
+        v107 = 3 * v105;
+        AGX::ResourceGroupUsage<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::bindResource(*(a1 + 2008), *(v102 + 24 * v105), 4u, v105, v106);
+        if (*(v102 + 8 * v107))
         {
           IOGPUResourceListAddResource();
-          if (*(v98 + 8 * (v103 + 1)))
+          if (*(v102 + 8 * (v107 + 1)))
           {
             IOGPUResourceListAddResource();
           }
 
-          if (*(v98 + 8 * (v103 + 2)))
+          if (*(v102 + 8 * (v107 + 2)))
           {
             IOGPUResourceListAddResource();
           }
         }
 
-        v96 = v450;
+        v100 = v460;
       }
     }
   }
 
-  v104 = *(a6 + 392);
-  if ((v104 & 1) != 0 && *(v94 + 2176) == 1)
+  v108 = *(a6 + 392);
+  if ((v108 & 1) != 0 && *(v98 + 2176) == 1)
   {
-    *(a6 + 392) = v104 & 0xFFFFFFFE;
+    *(a6 + 392) = v108 & 0xFFFFFFFE;
   }
 
   *(a6 + 384) = 0;
-  v105.i32[1] = 0;
-  v105.i64[1] = 0;
+  v109 = 0uLL;
   *(a6 + 352) = 0u;
   *(a6 + 368) = 0u;
   *(a6 + 320) = 0u;
@@ -5113,60 +5114,60 @@ LABEL_80:
   *(a6 + 48) = 0u;
   *a6 = 0u;
   *(a6 + 16) = 0u;
-  v106 = a1 + 64;
-  v430 = a1 + 24;
-  v107 = *(a1 + 72);
-  v426 = a1 + 64;
-  if ((v107 + 23) > *(a1 + 64))
+  v110 = a1 + 64;
+  v440 = a1 + 24;
+  v111 = *(a1 + 72);
+  v436 = a1 + 64;
+  if ((v111 + 23) > *(a1 + 64))
   {
-    v343 = AGX::DataBufferAllocator<44ul>::growNoInline(v430, 0, 0);
+    v353 = AGX::DataBufferAllocator<44ul>::growNoInline(v440, 0, 0);
     v8 = a2;
-    v106 = a1 + 64;
-    if (v343)
+    v110 = a1 + 64;
+    if (v353)
     {
-      v344 = *(a1 + 72) + 184;
-      if (v344 > *(a1 + 64))
+      v354 = *(a1 + 72) + 184;
+      if (v354 > *(a1 + 64))
       {
         goto LABEL_490;
       }
 
-      *(a1 + 80) = v344;
-      *v107 = __ROR8__(AGX::DataBufferAllocator<44ul>::getGPUAddress(v430, 0), 32) & 0xFFFFFFFF000000FFLL | 0x80000000;
+      *(a1 + 80) = v354;
+      *v111 = __ROR8__(AGX::DataBufferAllocator<44ul>::getGPUAddress(v440, 0), 32) & 0xFFFFFFFF000000FFLL | 0x80000000;
       v8 = a2;
-      v106 = a1 + 64;
+      v110 = a1 + 64;
     }
   }
 
   else
   {
-    *(a1 + 80) = v107 + 23;
+    *(a1 + 80) = v111 + 23;
   }
 
   if (v8)
   {
-    v108 = *(v8 + 624) + 31;
+    v112 = *(v8 + 624) + 31;
   }
 
   else
   {
-    v108 = 31;
+    v112 = 31;
   }
 
-  v109 = *(a1 + 168) + v108;
-  if (v109 <= *(a1 + 160))
+  v113 = *(a1 + 168) + v112;
+  if (v113 <= *(a1 + 160))
   {
 LABEL_145:
-    *(a1 + 176) = v109;
+    *(a1 + 176) = v113;
     goto LABEL_146;
   }
 
-  v345 = AGX::DataBufferAllocator<44ul>::growNoInline(v430, 3, 0);
+  v355 = AGX::DataBufferAllocator<44ul>::growNoInline(v440, 3, 0);
   v8 = a2;
-  v106 = a1 + 64;
-  if (v345)
+  v110 = a1 + 64;
+  if (v355)
   {
-    v109 = *(a1 + 168) + v108;
-    if (v109 > *(a1 + 160))
+    v113 = *(a1 + 168) + v112;
+    if (v113 > *(a1 + 160))
     {
       goto LABEL_490;
     }
@@ -5175,21 +5176,21 @@ LABEL_145:
   }
 
 LABEL_146:
-  v110 = *(a1 + 1032) + 636;
-  if (v110 <= *(a1 + 1024))
+  v114 = *(a1 + 1032) + 636;
+  if (v114 <= *(a1 + 1024))
   {
 LABEL_147:
-    *(a1 + 1040) = v110;
+    *(a1 + 1040) = v114;
     goto LABEL_148;
   }
 
-  v346 = AGX::DataBufferAllocator<44ul>::growNoInline(v430, 30, 0);
+  v356 = AGX::DataBufferAllocator<44ul>::growNoInline(v440, 30, 0);
   v8 = a2;
-  v106 = a1 + 64;
-  if (v346)
+  v110 = a1 + 64;
+  if (v356)
   {
-    v110 = *(a1 + 1032) + 636;
-    if (v110 > *(a1 + 1024))
+    v114 = *(a1 + 1032) + 636;
+    if (v114 > *(a1 + 1024))
     {
       goto LABEL_490;
     }
@@ -5200,30 +5201,30 @@ LABEL_147:
 LABEL_148:
   if (*(a1 + 1864))
   {
-    v111 = 30;
+    v115 = 30;
   }
 
   else
   {
-    v111 = 31;
+    v115 = 31;
   }
 
-  v112 = (v106 + 32 * v111);
-  v113 = v112[1] + 520;
-  if (v113 <= *v112)
+  v116 = (v110 + 32 * v115);
+  v117 = v116[1] + 520;
+  if (v117 <= *v116)
   {
 LABEL_152:
-    v112[2] = v113;
+    v116[2] = v117;
     goto LABEL_153;
   }
 
-  v347 = AGX::DataBufferAllocator<44ul>::growNoInline(v430, v111, 0);
+  v357 = AGX::DataBufferAllocator<44ul>::growNoInline(v440, v115, 0);
   v8 = a2;
-  v106 = a1 + 64;
-  if (v347)
+  v110 = a1 + 64;
+  if (v357)
   {
-    v113 = v112[1] + 520;
-    if (v113 > *v112)
+    v117 = v116[1] + 520;
+    if (v117 > *v116)
     {
       goto LABEL_490;
     }
@@ -5237,25 +5238,25 @@ LABEL_153:
     goto LABEL_156;
   }
 
-  v114 = (*(*(v8 + 2392) + 8) - **(v8 + 2392)) + 63;
-  v115 = *(a1 + 232) + v114;
-  if (v115 <= *(a1 + 224))
+  v118 = (*(*(v8 + 2392) + 8) - **(v8 + 2392)) + 63;
+  v119 = *(a1 + 232) + v118;
+  if (v119 <= *(a1 + 224))
   {
     goto LABEL_155;
   }
 
-  v353 = AGX::DataBufferAllocator<44ul>::growNoInline(v430, 5, 0);
-  v106 = a1 + 64;
-  if (v353)
+  v363 = AGX::DataBufferAllocator<44ul>::growNoInline(v440, 5, 0);
+  v110 = a1 + 64;
+  if (v363)
   {
-    v115 = *(a1 + 232) + v114;
-    if (v115 > *(a1 + 224))
+    v119 = *(a1 + 232) + v118;
+    if (v119 > *(a1 + 224))
     {
       goto LABEL_490;
     }
 
 LABEL_155:
-    *(a1 + 240) = v115;
+    *(a1 + 240) = v119;
   }
 
 LABEL_156:
@@ -5264,77 +5265,77 @@ LABEL_156:
     goto LABEL_166;
   }
 
-  v116 = (*(*(a3 + 2392) + 8) - **(a3 + 2392)) + 63;
-  v117 = *(a1 + 264) + v116;
-  if (v117 <= *(a1 + 256))
+  v120 = (*(*(a3 + 2392) + 8) - **(a3 + 2392)) + 63;
+  v121 = *(a1 + 264) + v120;
+  if (v121 <= *(a1 + 256))
   {
     goto LABEL_158;
   }
 
-  v354 = AGX::DataBufferAllocator<44ul>::growNoInline(v430, 6, 0);
-  v106 = a1 + 64;
-  if (v354)
+  v364 = AGX::DataBufferAllocator<44ul>::growNoInline(v440, 6, 0);
+  v110 = a1 + 64;
+  if (v364)
   {
-    v117 = *(a1 + 264) + v116;
-    if (v117 > *(a1 + 256))
+    v121 = *(a1 + 264) + v120;
+    if (v121 > *(a1 + 256))
     {
       goto LABEL_490;
     }
 
 LABEL_158:
-    *(a1 + 272) = v117;
+    *(a1 + 272) = v121;
   }
 
-  v118 = *(a3 + 624);
+  v122 = *(a3 + 624);
   if (*(a1 + 1864))
   {
-    v119 = 4;
+    v123 = 4;
   }
 
   else
   {
-    v119 = 11;
+    v123 = 11;
   }
 
-  v120 = (v106 + 32 * v119);
-  if (((1 << v119) & 0x480) != 0 && !v120[1] && (AGX::DataBufferAllocator<44ul>::growNoInline(v430, v119, 0) & 1) == 0)
+  v124 = (v110 + 32 * v123);
+  if (((1 << v123) & 0x480) != 0 && !v124[1] && (AGX::DataBufferAllocator<44ul>::growNoInline(v440, v123, 0) & 1) == 0)
   {
 LABEL_490:
     abort();
   }
 
-  v121 = v118 + 31;
-  v122 = v120[1] + v121;
-  if (v122 <= *v120)
+  v125 = v122 + 31;
+  v126 = v124[1] + v125;
+  if (v126 <= *v124)
   {
     goto LABEL_165;
   }
 
-  if (AGX::DataBufferAllocator<44ul>::growNoInline(v430, v119, 0))
+  if (AGX::DataBufferAllocator<44ul>::growNoInline(v440, v123, 0))
   {
-    v122 = v120[1] + v121;
-    if (v122 > *v120)
+    v126 = v124[1] + v125;
+    if (v126 > *v124)
     {
       goto LABEL_490;
     }
 
 LABEL_165:
-    v120[2] = v122;
+    v124[2] = v126;
   }
 
 LABEL_166:
-  v123 = *(a1 + 360) + 20;
-  if (v123 <= *(a1 + 352))
+  v127 = *(a1 + 360) + 20;
+  if (v127 <= *(a1 + 352))
   {
 LABEL_167:
-    *(a1 + 368) = v123;
+    *(a1 + 368) = v127;
     goto LABEL_168;
   }
 
-  if (AGX::DataBufferAllocator<44ul>::growNoInline(v430, 9, 0))
+  if (AGX::DataBufferAllocator<44ul>::growNoInline(v440, 9, 0))
   {
-    v123 = *(a1 + 360) + 20;
-    if (v123 > *(a1 + 352))
+    v127 = *(a1 + 360) + 20;
+    if (v127 > *(a1 + 352))
     {
       goto LABEL_490;
     }
@@ -5345,57 +5346,57 @@ LABEL_167:
 LABEL_168:
   if ((*(*(*(a1 + 1872) + 848) + 6242) & 1) == 0)
   {
-    v124 = 16 * *(v437 + 1620);
-    v125 = *(a1 + 328) + v124;
-    if (v125 > *(a1 + 320))
+    v128 = 16 * *(v447 + 1620);
+    v129 = *(a1 + 328) + v128;
+    if (v129 > *(a1 + 320))
     {
-      if (AGX::DataBufferAllocator<44ul>::growNoInline(v430, 8, 1))
+      if (AGX::DataBufferAllocator<44ul>::growNoInline(v440, 8, 1))
       {
-        v365 = *(a1 + 328) + v124;
-        if (v365 > *(a1 + 320))
+        v375 = *(a1 + 328) + v128;
+        if (v375 > *(a1 + 320))
         {
           goto LABEL_490;
         }
 
-        *(a1 + 336) = v365;
+        *(a1 + 336) = v375;
         *(*(a1 + 30328) + 944) = *(*(a1 + 48) + 512) + *(*(a1 + 48) + 536) - *(*(a1 + 48) + 520);
       }
     }
 
     else
     {
-      *(a1 + 336) = v125;
+      *(a1 + 336) = v129;
     }
   }
 
   if ((*(*(*(a1 + 1872) + 848) + 6241) & 1) == 0)
   {
-    v126 = *(a1 + 296);
-    if (!v126)
+    v130 = *(a1 + 296);
+    if (!v130)
     {
-      if (!AGX::DataBufferAllocator<44ul>::growNoInline(v430, 7, 0))
+      if (!AGX::DataBufferAllocator<44ul>::growNoInline(v440, 7, 0))
       {
         goto LABEL_490;
       }
 
-      v126 = *(a1 + 296);
+      v130 = *(a1 + 296);
     }
 
-    v127 = v126 + 12;
-    if (v127 > *(a1 + 288))
+    v131 = v130 + 12;
+    if (v131 > *(a1 + 288))
     {
-      if (AGX::DataBufferAllocator<44ul>::growNoInline(v430, 7, 1))
+      if (AGX::DataBufferAllocator<44ul>::growNoInline(v440, 7, 1))
       {
-        v366 = *(a1 + 296);
-        if ((v366 + 12) > *(a1 + 288))
+        v376 = *(a1 + 296);
+        if ((v376 + 12) > *(a1 + 288))
         {
           goto LABEL_490;
         }
 
-        *(a1 + 304) = v366 + 12;
-        if (!v366)
+        *(a1 + 304) = v376 + 12;
+        if (!v376)
         {
-          AGX::DataBufferAllocator<44ul>::initializeOnDemandDataBufferSlow(v430, 7u);
+          AGX::DataBufferAllocator<44ul>::initializeOnDemandDataBufferSlow(v440, 7);
         }
 
         *(*(a1 + 30328) + 952) = *(*(a1 + 48) + 448) + *(*(a1 + 48) + 472) - *(*(a1 + 48) + 456);
@@ -5404,118 +5405,118 @@ LABEL_168:
 
     else
     {
-      *(a1 + 304) = v127;
+      *(a1 + 304) = v131;
     }
   }
 
   if (*(a1 + 27960))
   {
-    v128 = *(a1 + 80);
-    if ((v128 + 8) > *(a1 + 64))
+    v132 = *(a1 + 80);
+    if ((v132 + 8) > *(a1 + 64))
     {
-      v355 = *(a1 + 72);
-      if (AGX::DataBufferAllocator<44ul>::growNoInline(v430, 0, 0))
+      v365 = *(a1 + 72);
+      if (AGX::DataBufferAllocator<44ul>::growNoInline(v440, 0, 0))
       {
-        v356 = *(a1 + 72) + v128 - v355 + 8;
-        if (v356 > *(a1 + 64))
+        v366 = *(a1 + 72) + v132 - v365 + 8;
+        if (v366 > *(a1 + 64))
         {
           goto LABEL_490;
         }
 
-        *(a1 + 80) = v356;
-        *v355 = __ROR8__(AGX::DataBufferAllocator<44ul>::getGPUAddress(v430, 0), 32) & 0xFFFFFFFF000000FFLL | 0x80000000;
+        *(a1 + 80) = v366;
+        *v365 = __ROR8__(AGX::DataBufferAllocator<44ul>::getGPUAddress(v440, 0), 32) & 0xFFFFFFFF000000FFLL | 0x80000000;
       }
     }
 
     else
     {
-      *(a1 + 80) = v128 + 8;
+      *(a1 + 80) = v132 + 8;
     }
   }
 
-  v129 = 0xDE876B1A5;
-  v446 = 0;
-  v445 = 4123088130;
-  v130 = -1;
-  v444 = -1;
-  v443 = 0;
-  v442 = 0;
-  v131 = *(*(a1 + 1872) + 848);
-  if (*(v131 + 6241) == 1 && (v73 & 0x400000000000) != 0)
+  v133 = 0xDE876B1A5;
+  v456 = 0;
+  v455 = 4123088130;
+  v134 = -1;
+  v454 = -1;
+  v453 = 0;
+  v452 = 0;
+  v135 = *(*(a1 + 1872) + 848);
+  if (*(v135 + 6241) == 1 && (v73 & 0x400000000000) != 0)
   {
-    v105.i32[0] = *(v437 + 1960);
-    v360 = *(v437 + 1964);
-    v361 = *(v437 + 1968);
-    v74.i32[0] = 931135616;
-    v362.i64[0] = 0x8000000080000000;
-    v362.i64[1] = 0x8000000080000000;
-    LODWORD(v363) = vbslq_s8(v362, v74, v105).u32[0];
+    v109.i32[0] = *(v447 + 1960);
+    v370 = *(v447 + 1964);
+    v371 = *(v447 + 1968);
+    v76.i32[0] = 931135616;
+    v372.i64[0] = 0x8000000080000000;
+    v372.i64[1] = 0x8000000080000000;
+    LODWORD(v373) = vbslq_s8(v372, v76, v109).u32[0];
     if (*(*(a1 + 2392) + 4924))
     {
-      *v105.i32 = v363 + (*v105.i32 * 0.000015259);
+      *v109.i32 = v373 + (*v109.i32 * 0.000015259);
     }
 
-    *&v452 = 0;
-    LOBYTE(v450) = 0;
-    LOBYTE(v449) = 0;
-    v364 = AGX::Device<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::findOrCreateDepthBiasIndex(v131, *(*(a1 + 30328) + 952), &v452, &v450, &v449, *v105.i32, v360, v361);
-    if (v449)
+    *&v462 = 0;
+    LOBYTE(v460) = 0;
+    LOBYTE(v459) = 0;
+    v374 = AGX::Device<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::findOrCreateDepthBiasIndex(v135, *(*(a1 + 30328) + 952), &v462, &v460, &v459, *v109.i32, v370, v371);
+    if (v459)
     {
-      if (v450)
+      if (v460)
       {
-        v130 = v364;
-        v129 = v452;
+        v134 = v374;
+        v133 = v462;
       }
 
       else
       {
-        v446 = 1;
-        v442 = 4;
+        v456 = 1;
+        v452 = 4;
       }
     }
 
     else
     {
-      v446 = 1;
+      v456 = 1;
     }
   }
 
-  AGX::RenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::handleDeviceScissorBufferReserve(a1, &v447, &v444, &v445, &v443, &v446, &v442);
-  v132 = v446 | (*(*(a1 + 1912) + 520) == 0);
-  v446 = v132;
-  v133 = *(*(a1 + 1872) + 848) + 4096;
+  AGX::RenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::handleDeviceScissorBufferReserve(a1, &v457, &v454, &v455, &v453, &v456, &v452, *v109.i64, v74, v75, *v76.i32, v77, v78);
+  v142 = v456 | (*(*(a1 + 1912) + 520) == 0);
+  v456 = v142;
+  v143 = *(*(a1 + 1872) + 848) + 4096;
   if ((*(*(*(a1 + 1872) + 848) + 6242) & 1) == 0)
   {
-    v132 |= ((*(a1 + 328) - *(*(a1 + 48) + 536)) >> 4) > 0xFFFE;
-    v446 = v132;
+    v142 |= ((*(a1 + 328) - *(*(a1 + 48) + 536)) >> 4) > 0xFFFE;
+    v456 = v142;
   }
 
-  if (*(v133 + 2145))
+  if (*(v143 + 2145))
   {
-    if ((v132 & 1) == 0)
+    if ((v142 & 1) == 0)
     {
 LABEL_184:
-      v134 = 0;
+      v144 = 0;
       goto LABEL_185;
     }
   }
 
   else
   {
-    v149 = *(a1 + 296);
-    if (!v149)
+    v159 = *(a1 + 296);
+    if (!v159)
     {
-      AGX::DataBufferAllocator<44ul>::initializeOnDemandDataBufferSlow(v430, 7u);
-      v149 = *(a1 + 296);
-      if (!v149)
+      AGX::DataBufferAllocator<44ul>::initializeOnDemandDataBufferSlow(v440, 7);
+      v159 = *(a1 + 296);
+      if (!v159)
       {
-        AGX::DataBufferAllocator<44ul>::initializeOnDemandDataBufferSlow(v430, 7u);
-        v149 = 0;
+        AGX::DataBufferAllocator<44ul>::initializeOnDemandDataBufferSlow(v440, 7);
+        v159 = 0;
       }
     }
 
-    v446 = v132 | (-1431655765 * ((v149 - *(*(a1 + 48) + 472)) >> 2) > 0xFFFE);
-    if ((v446 & 1) == 0)
+    v456 = v142 | (-1431655765 * ((v159 - *(*(a1 + 48) + 472)) >> 2) > 0xFFFE);
+    if ((v456 & 1) == 0)
     {
       goto LABEL_184;
     }
@@ -5523,64 +5524,64 @@ LABEL_184:
 
   if (*(a1 + 27960))
   {
-    *(a1 + 28040) = v442;
-    *(v437 + 160) = 1;
+    *(a1 + 28040) = v452;
+    *(v447 + 160) = 1;
     return;
   }
 
-  AGX::RenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::restartRenderPass(a1, &v447, v442, 1);
-  v367 = v447;
-  v368 = *(a1 + 72);
-  if ((v368 + 23) <= *(a1 + 64))
+  AGX::RenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::restartRenderPass(a1, &v457, v452, 1);
+  v377 = v457;
+  v378 = *(a1 + 72);
+  if ((v378 + 23) <= *(a1 + 64))
   {
-    *(a1 + 80) = v368 + 23;
+    *(a1 + 80) = v378 + 23;
 LABEL_445:
-    v369 = a2;
+    v379 = a2;
     goto LABEL_446;
   }
 
-  v397 = AGX::DataBufferAllocator<44ul>::growNoInline(v430, 0, 0);
-  v369 = a2;
-  if (v397)
+  v407 = AGX::DataBufferAllocator<44ul>::growNoInline(v440, 0, 0);
+  v379 = a2;
+  if (v407)
   {
-    v398 = *(a1 + 72) + 184;
-    if (v398 > *(a1 + 64))
+    v408 = *(a1 + 72) + 184;
+    if (v408 > *(a1 + 64))
     {
       goto LABEL_490;
     }
 
-    *(a1 + 80) = v398;
-    *v368 = __ROR8__(AGX::DataBufferAllocator<44ul>::getGPUAddress(v430, 0), 32) & 0xFFFFFFFF000000FFLL | 0x80000000;
+    *(a1 + 80) = v408;
+    *v378 = __ROR8__(AGX::DataBufferAllocator<44ul>::getGPUAddress(v440, 0), 32) & 0xFFFFFFFF000000FFLL | 0x80000000;
     goto LABEL_445;
   }
 
 LABEL_446:
-  if (v369)
+  if (v379)
   {
-    v370 = *(v369 + 624) + 31;
+    v380 = *(v379 + 624) + 31;
   }
 
   else
   {
-    v370 = 31;
+    v380 = 31;
   }
 
-  v376 = v437;
-  v377 = *(a1 + 168) + v370;
-  if (v377 <= *(a1 + 160))
+  v386 = v447;
+  v387 = *(a1 + 168) + v380;
+  if (v387 <= *(a1 + 160))
   {
 LABEL_459:
-    *(a1 + 176) = v377;
+    *(a1 + 176) = v387;
     goto LABEL_460;
   }
 
-  v399 = AGX::DataBufferAllocator<44ul>::growNoInline(v430, 3, 0);
-  v376 = v437;
-  v369 = a2;
-  if (v399)
+  v409 = AGX::DataBufferAllocator<44ul>::growNoInline(v440, 3, 0);
+  v386 = v447;
+  v379 = a2;
+  if (v409)
   {
-    v377 = *(a1 + 168) + v370;
-    if (v377 > *(a1 + 160))
+    v387 = *(a1 + 168) + v380;
+    if (v387 > *(a1 + 160))
     {
       goto LABEL_490;
     }
@@ -5589,21 +5590,21 @@ LABEL_459:
   }
 
 LABEL_460:
-  v378 = *(a1 + 1032) + 636;
-  if (v378 <= *(a1 + 1024))
+  v388 = *(a1 + 1032) + 636;
+  if (v388 <= *(a1 + 1024))
   {
 LABEL_461:
-    *(a1 + 1040) = v378;
+    *(a1 + 1040) = v388;
     goto LABEL_462;
   }
 
-  v400 = AGX::DataBufferAllocator<44ul>::growNoInline(v430, 30, 0);
-  v376 = v437;
-  v369 = a2;
-  if (v400)
+  v410 = AGX::DataBufferAllocator<44ul>::growNoInline(v440, 30, 0);
+  v386 = v447;
+  v379 = a2;
+  if (v410)
   {
-    v378 = *(a1 + 1032) + 636;
-    if (v378 > *(a1 + 1024))
+    v388 = *(a1 + 1032) + 636;
+    if (v388 > *(a1 + 1024))
     {
       goto LABEL_490;
     }
@@ -5614,30 +5615,30 @@ LABEL_461:
 LABEL_462:
   if (*(a1 + 1864))
   {
-    v379 = 30;
+    v389 = 30;
   }
 
   else
   {
-    v379 = 31;
+    v389 = 31;
   }
 
-  v380 = (v426 + 32 * v379);
-  v381 = v380[1] + 520;
-  if (v381 <= *v380)
+  v390 = (v436 + 32 * v389);
+  v391 = v390[1] + 520;
+  if (v391 <= *v390)
   {
 LABEL_466:
-    v380[2] = v381;
+    v390[2] = v391;
     goto LABEL_467;
   }
 
-  v401 = AGX::DataBufferAllocator<44ul>::growNoInline(v430, v379, 0);
-  v376 = v437;
-  v369 = a2;
-  if (v401)
+  v411 = AGX::DataBufferAllocator<44ul>::growNoInline(v440, v389, 0);
+  v386 = v447;
+  v379 = a2;
+  if (v411)
   {
-    v381 = v380[1] + 520;
-    if (v381 > *v380)
+    v391 = v390[1] + 520;
+    if (v391 > *v390)
     {
       goto LABEL_490;
     }
@@ -5646,356 +5647,356 @@ LABEL_466:
   }
 
 LABEL_467:
-  if ((v367 & 0xFE01) == 0)
+  if ((v377 & 0xFE01) == 0)
   {
     goto LABEL_470;
   }
 
-  v382 = (*(*(v369 + 2392) + 8) - **(v369 + 2392)) + 63;
-  v383 = *(a1 + 232) + v382;
-  if (v383 <= *(a1 + 224))
+  v392 = (*(*(v379 + 2392) + 8) - **(v379 + 2392)) + 63;
+  v393 = *(a1 + 232) + v392;
+  if (v393 <= *(a1 + 224))
   {
     goto LABEL_469;
   }
 
-  v403 = AGX::DataBufferAllocator<44ul>::growNoInline(v430, 5, 0);
-  v376 = v437;
-  if (v403)
+  v413 = AGX::DataBufferAllocator<44ul>::growNoInline(v440, 5, 0);
+  v386 = v447;
+  if (v413)
   {
-    v383 = *(a1 + 232) + v382;
-    if (v383 > *(a1 + 224))
+    v393 = *(a1 + 232) + v392;
+    if (v393 > *(a1 + 224))
     {
       goto LABEL_490;
     }
 
 LABEL_469:
-    *(a1 + 240) = v383;
+    *(a1 + 240) = v393;
   }
 
 LABEL_470:
-  if ((v367 & 0xF8000000002) == 0)
+  if ((v377 & 0xF8000000002) == 0)
   {
     goto LABEL_480;
   }
 
-  v384 = (*(*(a3 + 2392) + 8) - **(a3 + 2392)) + 63;
-  v385 = *(a1 + 264) + v384;
-  if (v385 <= *(a1 + 256))
+  v394 = (*(*(a3 + 2392) + 8) - **(a3 + 2392)) + 63;
+  v395 = *(a1 + 264) + v394;
+  if (v395 <= *(a1 + 256))
   {
     goto LABEL_472;
   }
 
-  if (AGX::DataBufferAllocator<44ul>::growNoInline(v430, 6, 0))
+  if (AGX::DataBufferAllocator<44ul>::growNoInline(v440, 6, 0))
   {
-    v385 = *(a1 + 264) + v384;
-    if (v385 > *(a1 + 256))
+    v395 = *(a1 + 264) + v394;
+    if (v395 > *(a1 + 256))
     {
       goto LABEL_490;
     }
 
 LABEL_472:
-    *(a1 + 272) = v385;
+    *(a1 + 272) = v395;
   }
 
-  v386 = *(a3 + 624);
+  v396 = *(a3 + 624);
   if (*(a1 + 1864))
   {
-    v387 = 4;
+    v397 = 4;
   }
 
   else
   {
-    v387 = 11;
+    v397 = 11;
   }
 
-  v388 = (v426 + 32 * v387);
-  if (((1 << v387) & 0x480) != 0 && !v388[1] && (AGX::DataBufferAllocator<44ul>::growNoInline(v430, v387, 0) & 1) == 0)
+  v398 = (v436 + 32 * v397);
+  if (((1 << v397) & 0x480) != 0 && !v398[1] && (AGX::DataBufferAllocator<44ul>::growNoInline(v440, v397, 0) & 1) == 0)
   {
     goto LABEL_490;
   }
 
-  v389 = v386 + 31;
-  v390 = v388[1] + v389;
-  if (v390 <= *v388)
+  v399 = v396 + 31;
+  v400 = v398[1] + v399;
+  if (v400 <= *v398)
   {
     goto LABEL_479;
   }
 
-  v404 = AGX::DataBufferAllocator<44ul>::growNoInline(v430, v387, 0);
-  v376 = v437;
-  if (v404)
+  v414 = AGX::DataBufferAllocator<44ul>::growNoInline(v440, v397, 0);
+  v386 = v447;
+  if (v414)
   {
-    v390 = v388[1] + v389;
-    if (v390 > *v388)
+    v400 = v398[1] + v399;
+    if (v400 > *v398)
     {
       goto LABEL_490;
     }
 
 LABEL_479:
-    v388[2] = v390;
-    v376 = v437;
+    v398[2] = v400;
+    v386 = v447;
   }
 
 LABEL_480:
-  v391 = *(a1 + 360) + 20;
-  if (v391 > *(a1 + 352))
+  v401 = *(a1 + 360) + 20;
+  if (v401 > *(a1 + 352))
   {
-    v402 = AGX::DataBufferAllocator<44ul>::growNoInline(v430, 9, 0);
-    v376 = v437;
-    if (!v402)
+    v412 = AGX::DataBufferAllocator<44ul>::growNoInline(v440, 9, 0);
+    v386 = v447;
+    if (!v412)
     {
       goto LABEL_482;
     }
 
-    v391 = *(a1 + 360) + 20;
-    if (v391 > *(a1 + 352))
+    v401 = *(a1 + 360) + 20;
+    if (v401 > *(a1 + 352))
     {
       goto LABEL_490;
     }
   }
 
-  *(a1 + 368) = v391;
+  *(a1 + 368) = v401;
 LABEL_482:
-  AGX::RenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::reserveScissorSpace(a1, *(v376 + 1620));
+  AGX::RenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::reserveScissorSpace(a1, *(v386 + 1620));
   AGX::RenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::reserveDepthBiasSpace(a1);
-  v134 = 1;
-  if (a7 && (v448[0] & 1) == 0)
+  v144 = 1;
+  if (a7 && (v458[0] & 1) == 0)
   {
     IOGPUResourceListAddResource();
     IOGPUResourceListAddResource();
     IOGPUResourceListAddResource();
-    v134 = 1;
+    v144 = 1;
   }
 
 LABEL_185:
   if (!*(*(a1 + 1912) + 520))
   {
-    v135 = *(a1 + 1968) - *(a1 + 1984);
-    *(v135 + 140) = 1;
-    if ((*(v135 + 136) & 4) != 0)
+    v145 = *(a1 + 1968) - *(a1 + 1984);
+    *(v145 + 140) = 1;
+    if ((*(v145 + 136) & 4) != 0)
     {
       **(a1 + 8) = 1;
     }
   }
 
-  AGX::RenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::handleScissorUpdates(a1, &v447, v444, v445, v443, v134);
-  AGX::RenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::handleDepthBiasUpdates(a1, &v447, v130, v129, v136, v137, v138, v139);
-  v141 = v447;
-  v142 = v437;
-  v143 = a2;
-  if ((v447 & 0x800000000000) != 0)
+  AGX::RenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::handleScissorUpdates(a1, &v457, v454, v455, v453, v144, v136, v137, v138, v139, v140, v141);
+  AGX::RenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::handleDepthBiasUpdates(a1, &v457, v134, v133, v146, v147, v148, v149);
+  v151 = v457;
+  v152 = v447;
+  v153 = a2;
+  if ((v457 & 0x800000000000) != 0)
   {
-    v348 = *(a1 + 28608);
-    v349 = *(a1 + 200);
-    v350 = v349 + 11;
-    if ((v349 + 11) > *(a1 + 192))
+    v358 = *(a1 + 28608);
+    v359 = *(a1 + 200);
+    v360 = v359 + 11;
+    if ((v359 + 11) > *(a1 + 192))
     {
-      v396 = AGX::DataBufferAllocator<44ul>::growNoInline(v430, 4, 0);
-      v349 = *(a1 + 200);
-      if (!v396)
+      v406 = AGX::DataBufferAllocator<44ul>::growNoInline(v440, 4, 0);
+      v359 = *(a1 + 200);
+      if (!v406)
       {
-        v142 = v437;
-        v143 = a2;
+        v152 = v447;
+        v153 = a2;
 LABEL_384:
-        v351 = ((v349 + 3) & 0xFFFFFFFFFFFFFFFCLL);
-        v352 = v351 + *(a1 + 216);
-        *v351 = v348;
-        *(a1 + 200) = v351 + 1;
-        *(v142 + 736) = v352 & 0xFFFFFFFC;
-        *(v142 + 732) = (v352 >> 16) & 0xFFFF0000;
-        v141 |= 0x8000000000000uLL;
-        v447 = v141;
+        v361 = ((v359 + 3) & 0xFFFFFFFFFFFFFFFCLL);
+        v362 = v361 + *(a1 + 216);
+        *v361 = v358;
+        *(a1 + 200) = v361 + 1;
+        *(v152 + 736) = v362 & 0xFFFFFFFC;
+        *(v152 + 732) = (v362 >> 16) & 0xFFFF0000;
+        v151 |= 0x8000000000000uLL;
+        v457 = v151;
         if (AGX::Device<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::enableGIN1291SWWA())
         {
-          *(v436 + 400) |= 0x1000000000000uLL;
+          *(v446 + 400) |= 0x1000000000000uLL;
         }
 
         goto LABEL_189;
       }
 
-      v350 = v349 + 11;
-      v142 = v437;
-      v143 = a2;
-      if ((v349 + 11) > *(a1 + 192))
+      v360 = v359 + 11;
+      v152 = v447;
+      v153 = a2;
+      if ((v359 + 11) > *(a1 + 192))
       {
         goto LABEL_490;
       }
     }
 
-    *(a1 + 208) = v350;
+    *(a1 + 208) = v360;
     goto LABEL_384;
   }
 
 LABEL_189:
-  v144 = (v143 + 628);
-  if (v141 & 0xFE01) == 0 || (*(v142 + 2188))
+  v154 = (v153 + 628);
+  if (v151 & 0xFE01) == 0 || (*(v152 + 2188))
   {
     goto LABEL_298;
   }
 
-  v145 = a1 + 30384;
-  v146 = *(v143 + 624);
-  v433 = (v143 + 628);
-  if (v146)
+  v155 = a1 + 30384;
+  v156 = *(v153 + 624);
+  v443 = (v153 + 628);
+  if (v156)
   {
-    v147 = (*(a1 + 168) + 31) & 0xFFFFFFFFFFFFFFE0;
-    v148 = v147 + *(a1 + 184);
-    *(a1 + 168) = v147 + v146;
+    v157 = (*(a1 + 168) + 31) & 0xFFFFFFFFFFFFFFE0;
+    v158 = v157 + *(a1 + 184);
+    *(a1 + 168) = v157 + v156;
   }
 
   else
   {
-    v148 = 0;
-    v147 = 0;
-  }
-
-  v422 = *(v142 + 2176);
-  v419 = *(v142 + 2184);
-  v150 = ((*(a1 + 232) + 63) & 0xFFFFFFFFFFFFFFC0);
-  v151 = *(a1 + 248);
-  *(a1 + 232) = &v150[*(*(v143 + 2392) + 8) - **(v143 + 2392)];
-  v152 = *(v143 + 1128);
-  v153 = *(v143 + 1120);
-  v155 = v152 - v153;
-  v154 = v152 == v153;
-  v156 = *(v143 + 1016);
-  v157 = v156 & 1;
-  if (v154)
-  {
+    v158 = 0;
     v157 = 0;
   }
 
-  v415 = v148;
-  v416 = v141;
-  if (!v146)
+  v432 = *(v152 + 2176);
+  v429 = *(v152 + 2184);
+  v160 = ((*(a1 + 232) + 63) & 0xFFFFFFFFFFFFFFC0);
+  v161 = *(a1 + 248);
+  *(a1 + 232) = &v160[*(*(v153 + 2392) + 8) - **(v153 + 2392)];
+  v162 = *(v153 + 1128);
+  v163 = *(v153 + 1120);
+  v165 = v162 - v163;
+  v164 = v162 == v163;
+  v166 = *(v153 + 1016);
+  v167 = v166 & 1;
+  if (v164)
+  {
+    v167 = 0;
+  }
+
+  v425 = v158;
+  v426 = v151;
+  if (!v156)
   {
     goto LABEL_279;
   }
 
-  v413 = v151;
-  v158 = *(v143 + 1320);
-  v159 = *(v143 + 656);
-  v410 = *(v143 + 736);
-  v160 = *(v143 + 660);
-  v161 = *(v143 + 1024);
-  v162 = *(v143 + 1028);
-  v163 = v159 + ((*(v143 + 872) - *(v143 + 864)) >> 2);
-  v414 = *(v143 + 1353);
-  v409 = *(v143 + 1352);
-  if (*(v143 + 1352))
+  v423 = v161;
+  v168 = *(v153 + 1320);
+  v169 = *(v153 + 656);
+  v420 = *(v153 + 736);
+  v170 = *(v153 + 660);
+  v171 = *(v153 + 1024);
+  v172 = *(v153 + 1028);
+  v173 = v169 + ((*(v153 + 872) - *(v153 + 864)) >> 2);
+  v424 = *(v153 + 1353);
+  v419 = *(v153 + 1352);
+  if (*(v153 + 1352))
   {
-    *(v142 + 2680) = vaddw_u32(vdupq_n_s64(v148), *v433);
+    *(v152 + 2680) = vaddw_u32(vdupq_n_s64(v158), *v443);
   }
 
-  if (v414)
+  if (v424)
   {
-    *(a1 + 30600) = v148 + *(v143 + 648);
+    *(a1 + 30600) = v158 + *(v153 + 648);
   }
 
-  v412 = 8 * v163;
-  v164 = v157 + v156;
-  if (v162 + v161)
+  v422 = 8 * v173;
+  v174 = v167 + v166;
+  if (v172 + v171)
   {
-    *(a1 + 30664) = v412 + v148 + 4 * (v164 + ((v155 >> 1) & 0xFFFFFFFE));
+    *(a1 + 30664) = v422 + v158 + 4 * (v174 + ((v165 >> 1) & 0xFFFFFFFE));
   }
 
-  v411 = v164;
-  if (v159 != v158)
+  v421 = v174;
+  if (v169 != v168)
   {
     if (a4)
     {
-      v167 = *(v143 + 712);
-      v168 = *(v143 + 720);
-      if (v167 != v168)
+      v177 = *(v153 + 712);
+      v178 = *(v153 + 720);
+      if (v177 != v178)
       {
-        v169 = v147;
+        v179 = v157;
         do
         {
-          v170 = *v167++;
-          *v169++ = *(v145 + 8 * v170);
+          v180 = *v177++;
+          *v179++ = *(v155 + 8 * v180);
         }
 
-        while (v167 != v168);
+        while (v177 != v178);
       }
 
-      if (!*(v143 + 1160))
+      if (!*(v153 + 1160))
       {
 LABEL_232:
-        v183 = (v410 + 3) & 0xFFFFFFFC;
-        if (v409)
+        v193 = (v420 + 3) & 0xFFFFFFFC;
+        if (v419)
         {
-          v184 = *(v143 + 1312);
-          if (v184 >= 4)
+          v194 = *(v153 + 1312);
+          if (v194 >= 4)
           {
-            v185 = v184 >> 2;
-            v186 = *(v143 + 752);
-            v187 = (v147 + 8 * v183);
+            v195 = v194 >> 2;
+            v196 = *(v153 + 752);
+            v197 = (v157 + 8 * v193);
             do
             {
-              v188 = *v186;
-              v186 += 4;
-              v189 = (a4 + 496 + 8 * v188);
-              v190 = v189[1];
-              *v187 = *v189;
-              v187[1] = v190;
-              v187 += 2;
-              --v185;
+              v198 = *v196;
+              v196 += 4;
+              v199 = (a4 + 496 + 8 * v198);
+              v200 = v199[1];
+              *v197 = *v199;
+              v197[1] = v200;
+              v197 += 2;
+              --v195;
             }
 
-            while (v185);
+            while (v195);
           }
 
-          v183 += v184;
+          v193 += v194;
         }
 
         else
         {
-          v184 = 0;
+          v194 = 0;
         }
 
-        v193 = v159 - v158;
-        v151 = v413;
-        if (v414)
+        v203 = v169 - v168;
+        v161 = v423;
+        if (v424)
         {
-          v194 = *(v143 + 1316);
-          v195 = (v147 + 8 * v183);
-          v196 = a4 + 16880;
-          if (*(v143 + 2192) == 1)
+          v204 = *(v153 + 1316);
+          v205 = (v157 + 8 * v193);
+          v206 = a4 + 16880;
+          if (*(v153 + 2192) == 1)
           {
-            if (v194)
+            if (v204)
             {
-              v394 = (*(v143 + 752) + 4 * v184);
+              v404 = (*(v153 + 752) + 4 * v194);
               do
               {
-                v395 = *v394++;
-                *v195++ = *(v196 + 8 * v395);
-                --v194;
+                v405 = *v404++;
+                *v205++ = *(v206 + 8 * v405);
+                --v204;
               }
 
-              while (v194);
+              while (v204);
             }
           }
 
-          else if (v194 >= 4)
+          else if (v204 >= 4)
           {
-            v197 = v194 >> 2;
-            v198 = (*(v143 + 752) + 4 * v184);
+            v207 = v204 >> 2;
+            v208 = (*(v153 + 752) + 4 * v194);
             do
             {
-              v199 = *v198;
-              v198 += 4;
-              *v195 = *(v196 + 8 * v199);
-              v195 += 4;
-              --v197;
+              v209 = *v208;
+              v208 += 4;
+              *v205 = *(v206 + 8 * v209);
+              v205 += 4;
+              --v207;
             }
 
-            while (v197);
+            while (v207);
           }
         }
 
-        v165 = 8 * v193;
-        v166 = v155 >> 2;
-        if (!v158)
+        v175 = 8 * v203;
+        v176 = v165 >> 2;
+        if (!v168)
         {
           goto LABEL_255;
         }
@@ -6004,119 +6005,119 @@ LABEL_232:
       }
 
 LABEL_231:
-      v182 = *(v143 + 1144);
-      if (v182 != (v143 + 1152))
+      v192 = *(v153 + 1144);
+      if (v192 != (v153 + 1152))
       {
         do
         {
-          *(v147 + 4 * *(v182 + 7)) |= *(v182 + 8);
-          v191 = v182[1];
-          if (v191)
+          *(v157 + 4 * *(v192 + 7)) |= *(v192 + 8);
+          v201 = v192[1];
+          if (v201)
           {
             do
             {
-              v192 = v191;
-              v191 = *v191;
+              v202 = v201;
+              v201 = *v201;
             }
 
-            while (v191);
+            while (v201);
           }
 
           else
           {
             do
             {
-              v192 = v182[2];
-              v154 = *v192 == v182;
-              v182 = v192;
+              v202 = v192[2];
+              v164 = *v202 == v192;
+              v192 = v202;
             }
 
-            while (!v154);
+            while (!v164);
           }
 
-          v182 = v192;
+          v192 = v202;
         }
 
-        while (v192 != (v143 + 1152));
+        while (v202 != (v153 + 1152));
       }
 
       goto LABEL_232;
     }
 
-    v406 = v161;
-    v407 = v162;
-    v450 = a1 + 30384;
-    v171 = &unk_2A23F9C80;
-    *&v452 = &unk_2A23F9C80;
-    *(&v452 + 1) = &v450;
-    v454 = &v452;
-    v172 = v143;
-    v173 = *(v143 + 688);
-    v174 = *(v172 + 696);
-    v408 = v155;
-    v405 = v160;
-    if (v173 == v174)
+    v416 = v171;
+    v417 = v172;
+    v460 = a1 + 30384;
+    v181 = &unk_2A23F9C80;
+    *&v462 = &unk_2A23F9C80;
+    *(&v462 + 1) = &v460;
+    v464 = &v462;
+    v182 = v153;
+    v183 = *(v153 + 688);
+    v184 = *(v182 + 696);
+    v418 = v165;
+    v415 = v170;
+    if (v183 == v184)
     {
-      v181 = &v452;
-      v143 = a2;
-      LOBYTE(v141) = v416;
+      v191 = &v462;
+      v153 = a2;
+      LOBYTE(v151) = v426;
     }
 
     else
     {
-      v175 = 0;
+      v185 = 0;
       do
       {
-        LODWORD(v449) = *v173;
-        if (!v454)
+        LODWORD(v459) = *v183;
+        if (!v464)
         {
 LABEL_497:
           std::__throw_bad_function_call[abi:nn200100]();
         }
 
-        v177 = (*(*v454 + 48))(v454, &v449);
-        v178 = *(v173 + 8);
-        v179 = *(v173 + 16);
-        if (v178 == v179)
+        v187 = (*(*v464 + 48))(v464, &v459);
+        v188 = *(v183 + 8);
+        v189 = *(v183 + 16);
+        if (v188 == v189)
         {
-          v176 = v175;
+          v186 = v185;
         }
 
         else
         {
           do
           {
-            v180 = *v178++;
-            v176 = (v175 + 1);
-            *(v147 + 8 * v175) = *(v177 + 8 * v180);
-            LODWORD(v175) = v175 + 1;
+            v190 = *v188++;
+            v186 = (v185 + 1);
+            *(v157 + 8 * v185) = *(v187 + 8 * v190);
+            LODWORD(v185) = v185 + 1;
           }
 
-          while (v178 != v179);
+          while (v188 != v189);
         }
 
-        v173 += 32;
-        v175 = v176;
+        v183 += 32;
+        v185 = v186;
       }
 
-      while (v173 != v174);
-      v181 = v454;
-      if (v454 != &v452)
+      while (v183 != v184);
+      v191 = v464;
+      if (v464 != &v462)
       {
-        v143 = a2;
-        v148 = v415;
-        LOBYTE(v141) = v416;
-        if (v454)
+        v153 = a2;
+        v158 = v425;
+        LOBYTE(v151) = v426;
+        if (v464)
         {
-          (*(*v454 + 40))();
+          (*(*v464 + 40))();
         }
 
 LABEL_230:
-        v155 = v408;
-        v161 = v406;
-        v162 = v407;
-        v160 = v405;
-        if (!*(v143 + 1160))
+        v165 = v418;
+        v171 = v416;
+        v172 = v417;
+        v170 = v415;
+        if (!*(v153 + 1160))
         {
           goto LABEL_232;
         }
@@ -6124,313 +6125,313 @@ LABEL_230:
         goto LABEL_231;
       }
 
-      v171 = *v454;
-      v143 = a2;
-      v148 = v415;
-      LOBYTE(v141) = v416;
+      v181 = *v464;
+      v153 = a2;
+      v158 = v425;
+      LOBYTE(v151) = v426;
     }
 
-    v171[4](v181);
+    v181[4](v191);
     goto LABEL_230;
   }
 
-  v165 = 0;
-  v151 = v413;
-  v166 = v155 >> 2;
-  if (v158)
+  v175 = 0;
+  v161 = v423;
+  v176 = v165 >> 2;
+  if (v168)
   {
 LABEL_251:
-    if (v158 >= 4)
+    if (v168 >= 4)
     {
-      v200 = *(v143 + 2920);
-      v201 = v158 >> 2;
-      v202 = (v147 + v165);
+      v210 = *(v153 + 2920);
+      v211 = v168 >> 2;
+      v212 = (v157 + v175);
       do
       {
-        v203 = *v200;
-        v200 += 4;
-        *v202 = v203;
-        v202 += 4;
-        --v201;
+        v213 = *v210;
+        v210 += 4;
+        *v212 = v213;
+        v212 += 4;
+        --v211;
       }
 
-      while (v201);
+      while (v211);
     }
 
-    v165 += 8 * v158;
+    v175 += 8 * v168;
   }
 
 LABEL_255:
-  if (v160)
+  if (v170)
   {
-    *(a1 + 30400) = v148 + v165 + 8;
-    v204 = *(v143 + 824);
-    v205 = *(v143 + 832);
-    if (v204 != v205)
+    *(a1 + 30400) = v158 + v175 + 8;
+    v214 = *(v153 + 824);
+    v215 = *(v153 + 832);
+    if (v214 != v215)
     {
-      v206 = (v147 + v165);
+      v216 = (v157 + v175);
       do
       {
-        v207 = *v204++;
-        *v206++ = *(v145 + 4 * v207);
+        v217 = *v214++;
+        *v216++ = *(v155 + 4 * v217);
       }
 
-      while (v204 != v205);
+      while (v214 != v215);
     }
 
-    v165 += 4 * v160;
+    v175 += 4 * v170;
   }
 
-  if (v166)
+  if (v176)
   {
-    v208 = v412 + 4 * v411;
-    v209 = (v147 + (v208 & 0xFFFFFFFC));
-    v210 = *(v143 + 1120);
+    v218 = v422 + 4 * v421;
+    v219 = (v157 + (v218 & 0xFFFFFFFC));
+    v220 = *(v153 + 1120);
     do
     {
-      v211 = *v210++;
-      *v209++ = *(a4 + 16880 + 8 * v211);
-      LODWORD(v166) = v166 - 1;
+      v221 = *v220++;
+      *v219++ = *(a4 + 16880 + 8 * v221);
+      LODWORD(v176) = v176 - 1;
     }
 
-    while (v166);
-    v165 = v208 + 8 * (v155 >> 2);
+    while (v176);
+    v175 = v218 + 8 * (v165 >> 2);
   }
 
-  if (v162 == -v161)
+  if (v172 == -v171)
   {
     goto LABEL_279;
   }
 
-  v212 = (v147 + v165);
-  v213 = 4 * *(v143 + 1024);
-  memcpy(v212, (a4 + 4 * *(v143 + 1020)), v213);
-  v449 = a1 + 30384;
-  v450 = a4;
-  v214 = &unk_2A23F9DA0;
-  *&v452 = &unk_2A23F9DA0;
-  *(&v452 + 1) = &v449;
-  v453 = &v450;
-  v454 = &v452;
-  v215 = *(v143 + 1056);
-  v216 = *(v143 + 1064);
-  if (v215 == v216)
+  v222 = (v157 + v175);
+  v223 = 4 * *(v153 + 1024);
+  memcpy(v222, (a4 + 4 * *(v153 + 1020)), v223);
+  v459 = a1 + 30384;
+  v460 = a4;
+  v224 = &unk_2A23F9DA0;
+  *&v462 = &unk_2A23F9DA0;
+  *(&v462 + 1) = &v459;
+  v463 = &v460;
+  v464 = &v462;
+  v225 = *(v153 + 1056);
+  v226 = *(v153 + 1064);
+  if (v225 == v226)
   {
-    v224 = &v452;
-    v143 = a2;
+    v234 = &v462;
+    v153 = a2;
   }
 
   else
   {
-    v217 = 0;
-    v218 = &v212[v213];
+    v227 = 0;
+    v228 = &v222[v223];
     do
     {
-      v451 = *v215;
-      if (!v454)
+      v461 = *v225;
+      if (!v464)
       {
         goto LABEL_497;
       }
 
-      v220 = (*(*v454 + 48))(v454, &v451);
-      v221 = *(v215 + 1);
-      v222 = *(v215 + 2);
-      if (v221 == v222)
+      v230 = (*(*v464 + 48))(v464, &v461);
+      v231 = *(v225 + 1);
+      v232 = *(v225 + 2);
+      if (v231 == v232)
       {
-        v219 = v217;
+        v229 = v227;
       }
 
       else
       {
         do
         {
-          v223 = *v221++;
-          v219 = (v217 + 1);
-          *&v218[4 * v217] = *(v220 + 4 * v223);
-          LODWORD(v217) = v217 + 1;
+          v233 = *v231++;
+          v229 = (v227 + 1);
+          *&v228[4 * v227] = *(v230 + 4 * v233);
+          LODWORD(v227) = v227 + 1;
         }
 
-        while (v221 != v222);
+        while (v231 != v232);
       }
 
-      v215 += 8;
-      v217 = v219;
+      v225 += 8;
+      v227 = v229;
     }
 
-    while (v215 != v216);
-    v224 = v454;
-    if (v454 != &v452)
+    while (v225 != v226);
+    v234 = v464;
+    if (v464 != &v462)
     {
-      v143 = a2;
-      LOBYTE(v141) = v416;
-      v151 = v413;
-      if (v454)
+      v153 = a2;
+      LOBYTE(v151) = v426;
+      v161 = v423;
+      if (v464)
       {
-        (*(*v454 + 40))();
+        (*(*v464 + 40))();
       }
 
       goto LABEL_279;
     }
 
-    v214 = *v454;
-    v143 = a2;
-    LOBYTE(v141) = v416;
+    v224 = *v464;
+    v153 = a2;
+    LOBYTE(v151) = v426;
   }
 
-  v151 = v413;
-  v214[4](v224);
+  v161 = v423;
+  v224[4](v234);
 LABEL_279:
-  v225 = *(v143 + 2392);
-  memcpy(v150, *v225, *(v225 + 8) - *v225);
-  if (*(v225 + 272) == 1)
+  v235 = *(v153 + 2392);
+  memcpy(v160, *v235, *(v235 + 8) - *v235);
+  if (*(v235 + 272) == 1)
   {
-    v226 = *(v225 + 276);
-    v227.i64[0] = v415;
-    v227.i64[1] = v415 >> 5;
-    v140 = vbslq_s8(xmmword_29D2F17C0, *&v150[v226], vshlq_u8(vqtbl1q_s8(v227, xmmword_29D2F17A0), xmmword_29D2F17B0));
-    *&v150[v226] = v140;
+    v236 = *(v235 + 276);
+    v237.i64[0] = v425;
+    v237.i64[1] = v425 >> 5;
+    v150 = vbslq_s8(xmmword_29D2F17C0, *&v160[v236], vshlq_u8(vqtbl1q_s8(v237, xmmword_29D2F17A0), xmmword_29D2F17B0));
+    *&v160[v236] = v150;
   }
 
   if (a4)
   {
-    v228 = *(v225 + 224);
-    v229 = *(v225 + 232);
-    if (v228 != v229)
+    v238 = *(v235 + 224);
+    v239 = *(v235 + 232);
+    if (v238 != v239)
     {
-      v140.i64[0] = 0xA09080803000000;
+      v150.i64[0] = 0xA09080803000000;
       do
       {
-        v230.i64[0] = *(a4 + 8 * v228[1]) + *v228;
-        v230.i64[1] = v230.i64[0] >> 5;
-        *&v150[v228[2]] = vbslq_s8(xmmword_29D2F17C0, *&v150[v228[2]], vshlq_u8(vqtbl1q_s8(v230, xmmword_29D2F17A0), xmmword_29D2F17B0));
-        v228 += 3;
+        v240.i64[0] = *(a4 + 8 * v238[1]) + *v238;
+        v240.i64[1] = v240.i64[0] >> 5;
+        *&v160[v238[2]] = vbslq_s8(xmmword_29D2F17C0, *&v160[v238[2]], vshlq_u8(vqtbl1q_s8(v240, xmmword_29D2F17A0), xmmword_29D2F17B0));
+        v238 += 3;
       }
 
-      while (v228 != v229);
+      while (v238 != v239);
     }
   }
 
-  v231 = *(v225 + 248);
-  v232 = *(v225 + 256);
-  if (v231 != v232)
+  v241 = *(v235 + 248);
+  v242 = *(v235 + 256);
+  if (v241 != v242)
   {
-    v140.i64[0] = 0xA09080803000000;
+    v150.i64[0] = 0xA09080803000000;
     do
     {
-      v233.i64[0] = *(v145 + 8 * v231[1]) + *v231;
-      v233.i64[1] = v233.i64[0] >> 5;
-      *&v150[v231[2]] = vbslq_s8(xmmword_29D2F17C0, *&v150[v231[2]], vshlq_u8(vqtbl1q_s8(v233, xmmword_29D2F17A0), xmmword_29D2F17B0));
-      v231 += 3;
+      v243.i64[0] = *(v155 + 8 * v241[1]) + *v241;
+      v243.i64[1] = v243.i64[0] >> 5;
+      *&v160[v241[2]] = vbslq_s8(xmmword_29D2F17C0, *&v160[v241[2]], vshlq_u8(vqtbl1q_s8(v243, xmmword_29D2F17A0), xmmword_29D2F17B0));
+      v241 += 3;
     }
 
-    while (v231 != v232);
+    while (v241 != v242);
   }
 
-  v234 = &v150[v151];
-  v235 = *v431;
-  if (*v431)
+  v244 = &v160[v161];
+  v245 = *v441;
+  if (*v441)
   {
-    v237 = *v225;
-    v236 = *(v225 + 8);
-    v238 = *(a2 + 2800);
-    LODWORD(v239) = *(v235 + 2);
-    LODWORD(v141) = v239 + 1;
-    if (*(v235 + 3) >= (v239 + 1))
+    v247 = *v235;
+    v246 = *(v235 + 8);
+    v248 = *(a2 + 2800);
+    LODWORD(v249) = *(v245 + 2);
+    LODWORD(v151) = v249 + 1;
+    if (*(v245 + 3) >= (v249 + 1))
     {
-      v242 = *v235;
+      v252 = *v245;
     }
 
     else
     {
-      v240 = -__clz(v239);
-      v241 = malloc_type_malloc(40 << (v240 & 0x1F), 0x10800400D7C94D2uLL);
-      v242 = v241;
-      v243 = 1 << v240;
-      v239 = *(v235 + 2);
-      if (v239)
+      v250 = -__clz(v249);
+      v251 = malloc_type_malloc(40 << (v250 & 0x1F), 0x10800400D7C94D2uLL);
+      v252 = v251;
+      v253 = 1 << v250;
+      v249 = *(v245 + 2);
+      if (v249)
       {
-        memcpy(v241, *v235, 40 * v239);
-        free(*v235);
-        LODWORD(v239) = *(v235 + 2);
+        memcpy(v251, *v245, 40 * v249);
+        free(*v245);
+        LODWORD(v249) = *(v245 + 2);
       }
 
-      *(v235 + 3) = v243;
-      *v235 = v242;
-      v142 = v437;
+      *(v245 + 3) = v253;
+      *v245 = v252;
+      v152 = v447;
     }
 
-    v244 = &v242[40 * v239];
-    *v244 = 0;
-    *(v244 + 1) = v234;
-    *(v244 + 2) = v150;
-    *(v244 + 3) = (v236 - v237);
-    *(v244 + 8) = v238;
-    *(v235 + 2) = v141;
-    LOBYTE(v141) = v416;
+    v254 = &v252[40 * v249];
+    *v254 = 0;
+    *(v254 + 1) = v244;
+    *(v254 + 2) = v160;
+    *(v254 + 3) = (v246 - v247);
+    *(v254 + 8) = v248;
+    *(v245 + 2) = v151;
+    LOBYTE(v151) = v426;
   }
 
-  v245 = *(v142 + 3232);
-  v246 = a2 + 28 * (v422 | (2 * v419));
-  v247 = *(v246 + 3744);
-  v248 = *(v246 + 3752);
-  v249 = (v234 >> 16) & 0xFFC00000 | *(v246 + 3736) & 0x3FFFFF;
-  v250 = v245 - 1;
-  v154 = (v248 & 7) - 1 == v245;
-  v251 = *(a1 + 72);
-  v252 = *(v246 + 3728);
-  if (!v154)
+  v255 = *(v152 + 3232);
+  v256 = a2 + 28 * (v432 | (2 * v429));
+  v257 = *(v256 + 3744);
+  v258 = *(v256 + 3752);
+  v259 = (v244 >> 16) & 0xFFC00000 | *(v256 + 3736) & 0x3FFFFF;
+  v260 = v255 - 1;
+  v164 = (v258 & 7) - 1 == v255;
+  v261 = *(a1 + 72);
+  v262 = *(v256 + 3728);
+  if (!v164)
   {
-    v248 = v250 & 7;
+    v258 = v260 & 7;
   }
 
-  *v251 = v252;
-  *(v251 + 8) = v249;
-  *(v251 + 12) = v234 >> 6;
-  *(v251 + 16) = v247;
-  *(v251 + 24) = v248;
-  *(a1 + 72) = v251 + 28;
-  v144 = v433;
+  *v261 = v262;
+  *(v261 + 8) = v259;
+  *(v261 + 12) = v244 >> 6;
+  *(v261 + 16) = v257;
+  *(v261 + 24) = v258;
+  *(a1 + 72) = v261 + 28;
+  v154 = v443;
 LABEL_298:
-  if (v141)
+  if (v151)
   {
-    v253 = v144[439];
-    v254 = *(a1 + 72);
-    *v254 = v253;
-    *(a1 + 72) = v254 + 1;
+    v263 = v154[439];
+    v264 = *(a1 + 72);
+    *v264 = v263;
+    *(a1 + 72) = v264 + 1;
   }
 
-  v255 = v447;
-  AGX::RenderUSCStateLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes>::emitFragmentProgramVariantAndArguments<AGX::HAL300::FixedLayoutUserArgumentTable,AGX::CombinedUserDriverArgumentTable<AGX::HAL300::Classes,AGX::FragmentDriverArgumentTable<AGX::HAL300::Classes>>>(v431, v430, a3, *(a1 + 30352), a5, (a1 + 54160), v447, *(v142 + 2184), *v140.i8, *(v142 + 2188));
-  if ((v255 & 0x5F400000000000) != 0)
+  v265 = v457;
+  AGX::RenderUSCStateLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes>::emitFragmentProgramVariantAndArguments<AGX::HAL300::FixedLayoutUserArgumentTable,AGX::CombinedUserDriverArgumentTable<AGX::HAL300::Classes,AGX::FragmentDriverArgumentTable<AGX::HAL300::Classes>>>(v441, v440, a3, *(a1 + 30352), a5, (a1 + 54160), v457, *(v152 + 2184), *v150.i8, *(v152 + 2188));
+  if ((v265 & 0x5F400000000000) != 0)
   {
-    v256 = *(a1 + 1032);
-    v257 = *(a1 + 1048) + v256;
-    *(a1 + 1032) = v256 + 24;
-    *v256 = xmmword_29D2F1760;
-    *(v256 + 16) = 0x1FFFF00023020;
-    v258 = __ROR8__(v257, 32) & 0xFFFFFFFC000000FFLL | 0x600;
-    v259 = *(a1 + 72);
-    *v259 = v258;
-    *(a1 + 72) = v259 + 1;
+    v266 = *(a1 + 1032);
+    v267 = *(a1 + 1048) + v266;
+    *(a1 + 1032) = v266 + 24;
+    *v266 = xmmword_29D2F1760;
+    *(v266 + 16) = 0x1FFFF00023020;
+    v268 = __ROR8__(v267, 32) & 0xFFFFFFFC000000FFLL | 0x600;
+    v269 = *(a1 + 72);
+    *v269 = v268;
+    *(a1 + 72) = v269 + 1;
   }
 
-  if ((v255 & 4) != 0)
+  if ((v265 & 4) != 0)
   {
-    v262 = *(a1 + 1032);
-    v263 = *(a1 + 1048) + v262;
-    *(a1 + 1032) = v262 + 20;
-    v264 = *(a1 + 28684);
-    *(v262 + 16) = *(a1 + 28700);
-    *v262 = v264;
-    v265 = *(a1 + 72);
-    *v265 = __ROR8__(v263, 32) & 0xFFFFFFFC000000FFLL | 0x500;
-    *(a1 + 72) = v265 + 1;
-    v261 = v436;
-    v260 = v437;
-    if ((v255 & 0x100000000000) == 0)
+    v272 = *(a1 + 1032);
+    v273 = *(a1 + 1048) + v272;
+    *(a1 + 1032) = v272 + 20;
+    v274 = *(a1 + 28684);
+    *(v272 + 16) = *(a1 + 28700);
+    *v272 = v274;
+    v275 = *(a1 + 72);
+    *v275 = __ROR8__(v273, 32) & 0xFFFFFFFC000000FFLL | 0x500;
+    *(a1 + 72) = v275 + 1;
+    v271 = v446;
+    v270 = v447;
+    if ((v265 & 0x100000000000) == 0)
     {
 LABEL_304:
-      if ((v255 & 0x1000000000000) == 0)
+      if ((v265 & 0x1000000000000) == 0)
       {
         goto LABEL_354;
       }
@@ -6441,9 +6442,9 @@ LABEL_304:
 
   else
   {
-    v261 = v436;
-    v260 = v437;
-    if ((v255 & 0x100000000000) == 0)
+    v271 = v446;
+    v270 = v447;
+    if ((v265 & 0x100000000000) == 0)
     {
       goto LABEL_304;
     }
@@ -6451,9 +6452,9 @@ LABEL_304:
 
   if (a7)
   {
-    v266 = atomic_load((v435 + 17017));
-    v267 = v260 + 748;
-    if ((v266 & 1) == 0)
+    v276 = atomic_load((v445 + 17017));
+    v277 = v270 + 748;
+    if ((v276 & 1) == 0)
     {
       goto LABEL_315;
     }
@@ -6463,281 +6464,281 @@ LABEL_304:
   {
     if (!a3)
     {
-      v267 = v260 + 748;
+      v277 = v270 + 748;
       goto LABEL_315;
     }
 
-    v267 = v260 + 748;
+    v277 = v270 + 748;
     if (*(a3 + 1354) != 1)
     {
       goto LABEL_315;
     }
   }
 
-  if ((*(v260 + 759) & 7) == 0)
+  if ((*(v270 + 759) & 7) == 0)
   {
     *(*(a1 + 30328) + 1168) |= 0x10000uLL;
   }
 
 LABEL_315:
-  v268 = vand_s8(*(v260 + 756), vdup_n_s32(0xFFFC00FF));
-  v269 = 2160;
+  v278 = vand_s8(*(v270 + 756), vdup_n_s32(0xFFFC00FF));
+  v279 = 2160;
   if (*(a1 + 30040) == 2)
   {
-    v269 = 2164;
+    v279 = 2164;
   }
 
-  v270 = 256.0;
+  v280 = 256.0;
   if (*(a1 + 30040) == 2)
   {
-    v270 = 1023.5;
+    v280 = 1023.5;
   }
 
-  v271 = *(v260 + v269) * 16.0;
-  if (v271 <= v270)
+  v281 = *(v270 + v279) * 16.0;
+  if (v281 <= v280)
   {
-    v270 = *(v260 + v269) * 16.0;
+    v280 = *(v270 + v279) * 16.0;
   }
 
-  v272 = v270;
-  if (v271 < 0.0)
+  v282 = v280;
+  if (v281 < 0.0)
   {
-    v272 = 0;
+    v282 = 0;
   }
 
-  if (v272)
+  if (v282)
   {
-    v273 = ((v272 << 8) + 261888) & 0x3FF00;
+    v283 = ((v282 << 8) + 261888) & 0x3FF00;
   }
 
   else
   {
-    v273 = 0;
+    v283 = 0;
   }
 
-  *(v260 + 756) = vorr_s8(v268, vdup_n_s32(v273));
-  v274 = *(v260 + 748);
-  v275 = *(v267 + 4);
-  v441 = *(v267 + 24);
-  v440 = *(v267 + 8);
-  v276 = *(v260 + 776);
-  v277 = *(v260 + 780);
-  *&v452 = *(a1 + 28672);
-  DWORD2(v452) = *(a1 + 28680);
-  v278 = *(v260 + 2178);
+  *(v270 + 756) = vorr_s8(v278, vdup_n_s32(v283));
+  v284 = *(v270 + 748);
+  v285 = *(v277 + 4);
+  v451 = *(v277 + 24);
+  v450 = *(v277 + 8);
+  v286 = *(v270 + 776);
+  v287 = *(v270 + 780);
+  *&v462 = *(a1 + 28672);
+  DWORD2(v462) = *(a1 + 28680);
+  v288 = *(v270 + 2178);
   if (a7)
   {
-    v279 = 0x10000000;
+    v289 = 0x10000000;
   }
 
   else
   {
-    v279 = 0;
+    v289 = 0;
   }
 
-  v280 = v275 & 0xEBFFFFFF | v279;
-  if (v278 & 1 | ((v275 & 0x4000000) != 0))
+  v290 = v285 & 0xEBFFFFFF | v289;
+  if (v288 & 1 | ((v285 & 0x4000000) != 0))
   {
-    v281 = 0x4000000;
+    v291 = 0x4000000;
   }
 
   else
   {
-    v281 = 0;
+    v291 = 0;
   }
 
-  v282 = v281 | v280;
-  v283 = *(a1 + 1032);
-  v284 = *(a1 + 1048) + v283;
-  *(a1 + 1032) = v283 + 28;
-  *v283 = v274;
-  *(v283 + 4) = v282;
-  *(v283 + 24) = v441;
-  *(v283 + 8) = v440;
-  v285 = *(a1 + 72);
-  *v285 = __ROR8__(v284, 32) & 0xFFFFFFFC000000FFLL | 0x700;
-  *(a1 + 72) = v285 + 1;
-  if ((v278 | ((v277 & 0x4000000u) >> 26)))
+  v292 = v291 | v290;
+  v293 = *(a1 + 1032);
+  v294 = *(a1 + 1048) + v293;
+  *(a1 + 1032) = v293 + 28;
+  *v293 = v284;
+  *(v293 + 4) = v292;
+  *(v293 + 24) = v451;
+  *(v293 + 8) = v450;
+  v295 = *(a1 + 72);
+  *v295 = __ROR8__(v294, 32) & 0xFFFFFFFC000000FFLL | 0x700;
+  *(a1 + 72) = v295 + 1;
+  if ((v288 | ((v287 & 0x4000000u) >> 26)))
   {
-    v286 = 0x4000000;
+    v296 = 0x4000000;
   }
 
   else
   {
-    v286 = 0;
+    v296 = 0;
   }
 
-  v287 = v286 | v277 & 0xFBFFFFFF;
-  v288 = *(a1 + 1032);
-  v289 = *(a1 + 1048) + v288;
-  *(a1 + 1032) = v288 + 20;
-  *v288 = v276;
-  *(v288 + 4) = v287;
-  *(v288 + 16) = DWORD2(v452);
-  *(v288 + 8) = v452;
-  v290 = *(a1 + 72);
-  *v290 = __ROR8__(v289, 32) & 0xFFFFFFFC000000FFLL | 0x500;
-  *(a1 + 72) = v290 + 1;
-  v255 = v447;
-  if ((v447 & 0x1000000000000) != 0)
+  v297 = v296 | v287 & 0xFBFFFFFF;
+  v298 = *(a1 + 1032);
+  v299 = *(a1 + 1048) + v298;
+  *(a1 + 1032) = v298 + 20;
+  *v298 = v286;
+  *(v298 + 4) = v297;
+  *(v298 + 16) = DWORD2(v462);
+  *(v298 + 8) = v462;
+  v300 = *(a1 + 72);
+  *v300 = __ROR8__(v299, 32) & 0xFFFFFFFC000000FFLL | 0x500;
+  *(a1 + 72) = v300 + 1;
+  v265 = v457;
+  if ((v457 & 0x1000000000000) != 0)
   {
 LABEL_336:
-    v291 = 0;
-    v292 = *(v260 + 180);
-    v293 = (v292 >> 14) & 0xF;
-    v294 = ((v292 >> 11) & 0x78) + 10;
-    v295 = 960;
+    v301 = 0;
+    v302 = *(v270 + 180);
+    v303 = (v302 >> 14) & 0xF;
+    v304 = ((v302 >> 11) & 0x78) + 10;
+    v305 = 960;
     if (!*(a1 + 1864))
     {
-      v295 = 992;
+      v305 = 992;
     }
 
-    v296 = v426 + v295;
-    v297 = *(v426 + v295 + 8);
-    v298 = *(v296 + 24);
-    *(v296 + 8) = &v297[v294];
-    *v297 = v292;
-    v299 = v297 + 1;
-    v300 = v293 + 1;
-    if (v293 < 3 || v297 - v260 - 180 <= 0x1F)
+    v306 = v436 + v305;
+    v307 = *(v436 + v305 + 8);
+    v308 = *(v306 + 24);
+    *(v306 + 8) = &v307[v304];
+    *v307 = v302;
+    v309 = v307 + 1;
+    v310 = v303 + 1;
+    if (v303 < 3 || v307 - v270 - 180 <= 0x1F)
     {
       goto LABEL_345;
     }
 
-    v291 = v300 & 0x1C;
-    v301 = *(v260 + 200);
-    v299 += v291;
-    *(v297 + 1) = *(v260 + 184);
-    *(v297 + 5) = v301;
-    if (v291 != 4)
+    v301 = v310 & 0x1C;
+    v311 = *(v270 + 200);
+    v309 += v301;
+    *(v307 + 1) = *(v270 + 184);
+    *(v307 + 5) = v311;
+    if (v301 != 4)
     {
-      v302 = *(v260 + 232);
-      *(v297 + 9) = *(v260 + 216);
-      *(v297 + 13) = v302;
-      if (v291 != 8)
+      v312 = *(v270 + 232);
+      *(v307 + 9) = *(v270 + 216);
+      *(v307 + 13) = v312;
+      if (v301 != 8)
       {
-        v303 = *(v260 + 264);
-        *(v297 + 17) = *(v260 + 248);
-        *(v297 + 21) = v303;
-        if (v291 != 12)
+        v313 = *(v270 + 264);
+        *(v307 + 17) = *(v270 + 248);
+        *(v307 + 21) = v313;
+        if (v301 != 12)
         {
-          v304 = *(v260 + 296);
-          *(v297 + 25) = *(v260 + 280);
-          *(v297 + 29) = v304;
+          v314 = *(v270 + 296);
+          *(v307 + 25) = *(v270 + 280);
+          *(v307 + 29) = v314;
         }
       }
     }
 
-    if (v291 != v300)
+    if (v301 != v310)
     {
 LABEL_345:
-      v305 = ((v292 >> 14) & 0xF) - v291 + 1;
-      v306 = (a1 + 8 * v291 + 28072);
+      v315 = ((v302 >> 14) & 0xF) - v301 + 1;
+      v316 = (a1 + 8 * v301 + 28072);
       do
       {
-        v307 = *v306++;
-        *v299++ = v307;
-        --v305;
+        v317 = *v316++;
+        *v309++ = v317;
+        --v315;
       }
 
-      while (v305);
+      while (v315);
     }
 
-    v308 = v299 + 4;
-    *v299 = *(v260 + 312);
-    v309 = a1 + 28204;
+    v318 = v309 + 4;
+    *v309 = *(v270 + 312);
+    v319 = (a1 + 28204);
     do
     {
-      v310 = *v309;
-      *(v308 + 2) = *(v309 + 16);
-      *v308 = v310;
-      v308 += 24;
-      v309 += 24;
-      --v300;
+      v320 = *v319;
+      *(v318 + 2) = *(v319 + 2);
+      *v318 = v320;
+      v318 += 24;
+      v319 = (v319 + 24);
+      --v310;
     }
 
-    while (v300);
-    v311 = *(a1 + 72);
-    *v311 = ((v297 + v298) >> 32) | (v294 << 8) | (((v297 + v298) >> 2) << 34);
-    *(a1 + 72) = v311 + 1;
-    if (*(v260 + 1648) == 1)
+    while (v310);
+    v321 = *(a1 + 72);
+    *v321 = ((v307 + v308) >> 32) | (v304 << 8) | (((v307 + v308) >> 2) << 34);
+    *(a1 + 72) = v321 + 1;
+    if (*(v270 + 1648) == 1)
     {
-      v312 = (a1 + 28976);
-      v313 = v297 + v298 + 0x1000000004;
-      v314 = v297 + 2;
-      v315 = -1;
+      v322 = (a1 + 28976);
+      v323 = v307 + v308 + 0x1000000004;
+      v324 = v307 + 2;
+      v325 = -1;
       do
       {
-        if (*(v314 - 1))
+        if (*(v324 - 1))
         {
-          v316 = *(*(*(v261 + 464) + 64) + 16);
-          v317 = *(a1 + 744);
-          *(a1 + 744) = v317 + 7;
-          v318 = *v312;
-          v319 = v312[-16];
-          v320 = vmovn_s64(*v312);
-          v321 = vmovn_s64(v319);
-          *v319.i8 = vshrn_n_s64(v319, 0x20uLL);
-          v322 = vbsl_s8(vcgt_u32(v321, v320), v321, vmin_u32(v320, *v319.i8));
-          v317->i32[0] = 1;
-          v317->i32[1] = v316;
-          v317[1] = v313;
-          *v318.i8 = vshrn_n_s64(v318, 0x20uLL);
-          v317[2] = v322;
-          v317[3] = vbsl_s8(vcgt_u32(v322, *v318.i8), v322, vmin_u32(*v318.i8, *v319.i8));
-          v317[4].i32[0] = v315 + 1;
-          v323 = *(v260 + 2104) + 1;
-          *(v260 + 2104) = v323;
-          *(*(a1 + 29984) + 4) = v323;
+          v326 = *(*(*(v271 + 464) + 64) + 16);
+          v327 = *(a1 + 744);
+          *(a1 + 744) = v327 + 7;
+          v328 = *v322;
+          v329 = v322[-16];
+          v330 = vmovn_s64(*v322);
+          v331 = vmovn_s64(v329);
+          *v329.i8 = vshrn_n_s64(v329, 0x20uLL);
+          v332 = vbsl_s8(vcgt_u32(v331, v330), v331, vmin_u32(v330, *v329.i8));
+          v327->i32[0] = 1;
+          v327->i32[1] = v326;
+          v327[1] = v323;
+          *v328.i8 = vshrn_n_s64(v328, 0x20uLL);
+          v327[2] = v332;
+          v327[3] = vbsl_s8(vcgt_u32(v332, *v328.i8), v332, vmin_u32(*v328.i8, *v329.i8));
+          v327[4].i32[0] = v325 + 1;
+          v333 = *(v270 + 2104) + 1;
+          *(v270 + 2104) = v333;
+          *(*(a1 + 29984) + 4) = v333;
           ++*(a1 + 1956);
         }
 
-        ++v312;
-        ++v315;
-        v313 += 8;
-        v314 += 2;
+        ++v322;
+        ++v325;
+        v323 += 8;
+        v324 += 2;
       }
 
-      while (v315 < ((*v297 >> 14) & 0xF));
+      while (v325 < ((*v307 >> 14) & 0xF));
     }
   }
 
 LABEL_354:
-  if ((v255 & 0x2000000000000) != 0)
+  if ((v265 & 0x2000000000000) != 0)
   {
-    v329 = *(v260 + 740);
-    v330 = *(a1 + 30352);
-    if (v330)
+    v339 = *(v270 + 740);
+    v340 = *(a1 + 30352);
+    if (v340)
     {
-      v331 = *(v330 + 820);
-      v332 = *(v330 + 828);
+      v341 = *(v340 + 820);
+      v342 = *(v340 + 828);
     }
 
     else
     {
-      v331 = 8650754;
-      v332 = 128;
+      v341 = 8650754;
+      v342 = 128;
     }
 
-    v333 = *(a1 + 1032);
-    v334 = *(a1 + 1048) + v333;
-    *(a1 + 1032) = v333 + 12;
-    *v333 = v331;
-    *(v333 + 8) = v332;
-    v335 = *(a1 + 72);
-    *v335 = __ROR8__(v334, 32) & 0xFFFFFFFC000000FFLL | 0x300;
-    *(a1 + 72) = v335 + 1;
-    v336 = *(a1 + 1032);
-    v337 = v336 + *(a1 + 1048);
-    *(a1 + 1032) = v336 + 1;
-    *v336 = v329;
-    v338 = *(a1 + 72);
-    *v338 = __ROR8__(v337, 32) & 0xFFFFFFFC000000FFLL | 0x200;
-    *(a1 + 72) = v338 + 1;
-    if ((v255 & 0x4000000000000) == 0)
+    v343 = *(a1 + 1032);
+    v344 = *(a1 + 1048) + v343;
+    *(a1 + 1032) = v343 + 12;
+    *v343 = v341;
+    *(v343 + 8) = v342;
+    v345 = *(a1 + 72);
+    *v345 = __ROR8__(v344, 32) & 0xFFFFFFFC000000FFLL | 0x300;
+    *(a1 + 72) = v345 + 1;
+    v346 = *(a1 + 1032);
+    v347 = v346 + *(a1 + 1048);
+    *(a1 + 1032) = v346 + 1;
+    *v346 = v339;
+    v348 = *(a1 + 72);
+    *v348 = __ROR8__(v347, 32) & 0xFFFFFFFC000000FFLL | 0x200;
+    *(a1 + 72) = v348 + 1;
+    if ((v265 & 0x4000000000000) == 0)
     {
 LABEL_356:
-      if ((v255 & 0x8000000000000) == 0)
+      if ((v265 & 0x8000000000000) == 0)
       {
         return;
       }
@@ -6746,33 +6747,33 @@ LABEL_356:
     }
   }
 
-  else if ((v255 & 0x4000000000000) == 0)
+  else if ((v265 & 0x4000000000000) == 0)
   {
     goto LABEL_356;
   }
 
-  v339 = *(a1 + 360);
-  v340 = *(a1 + 376) + v339;
-  *(a1 + 360) = v339 + 20;
-  v341 = *(a1 + 28588);
-  *(v339 + 16) = *(a1 + 28604);
-  *v339 = v341;
-  v342 = *(a1 + 72);
-  *v342 = __ROR8__(v340, 32) & 0xFFFFFFFC000000FFLL | 0x500;
-  *(a1 + 72) = v342 + 1;
-  if ((v255 & 0x8000000000000) != 0)
+  v349 = *(a1 + 360);
+  v350 = *(a1 + 376) + v349;
+  *(a1 + 360) = v349 + 20;
+  v351 = *(a1 + 28588);
+  *(v349 + 16) = *(a1 + 28604);
+  *v349 = v351;
+  v352 = *(a1 + 72);
+  *v352 = __ROR8__(v350, 32) & 0xFFFFFFFC000000FFLL | 0x500;
+  *(a1 + 72) = v352 + 1;
+  if ((v265 & 0x8000000000000) != 0)
   {
 LABEL_357:
-    v324 = *(a1 + 28616);
-    v325 = *(v260 + 736);
-    v326 = *(a1 + 1032);
-    v327 = *(a1 + 1048) + v326;
-    *(a1 + 1032) = v326 + 12;
-    *v326 = v324;
-    *(v326 + 8) = v325;
-    v328 = *(a1 + 72);
-    *v328 = __ROR8__(v327, 32) & 0xFFFFFFFC000000FFLL | 0x300;
-    *(a1 + 72) = v328 + 1;
+    v334 = *(a1 + 28616);
+    v335 = *(v270 + 736);
+    v336 = *(a1 + 1032);
+    v337 = *(a1 + 1048) + v336;
+    *(a1 + 1032) = v336 + 12;
+    *v336 = v334;
+    *(v336 + 8) = v335;
+    v338 = *(a1 + 72);
+    *v338 = __ROR8__(v337, 32) & 0xFFFFFFFC000000FFLL | 0x300;
+    *(a1 + 72) = v338 + 1;
   }
 }
 
@@ -6785,7 +6786,7 @@ void *AGX::RenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300:
     if (v3 > result[40])
     {
       v5 = result;
-      result = AGX::DataBufferAllocator<44ul>::growNoInline(result + 3, 8, 1);
+      result = AGX::DataBufferAllocator<44ul>::growNoInline((result + 3), 8, 1);
       if (result)
       {
         v4 = v5[41] + v2;
@@ -6808,35 +6809,35 @@ void *AGX::RenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300:
   return result;
 }
 
-void AGX::RenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::reserveDepthBiasSpace(void *a1)
+void AGX::RenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::reserveDepthBiasSpace(void *result)
 {
-  if (*(*(a1[234] + 848) + 6241))
+  if (*(*(result[234] + 848) + 6241))
   {
     return;
   }
 
-  v1 = a1[37];
+  v1 = result[37];
   if (!v1)
   {
-    v3 = a1;
-    if (!AGX::DataBufferAllocator<44ul>::growNoInline(a1 + 3, 7, 0))
+    v3 = result;
+    if (!AGX::DataBufferAllocator<44ul>::growNoInline((result + 3), 7, 0))
     {
       goto LABEL_13;
     }
 
-    a1 = v3;
+    result = v3;
     v1 = v3[37];
   }
 
   v2 = v1 + 12;
-  if (v2 <= a1[36])
+  if (v2 <= result[36])
   {
-    a1[38] = v2;
+    result[38] = v2;
     return;
   }
 
-  v7 = a1;
-  v4 = AGX::DataBufferAllocator<44ul>::growNoInline(a1 + 3, 7, 1);
+  v7 = result;
+  v4 = AGX::DataBufferAllocator<44ul>::growNoInline((result + 3), 7, 1);
   v5 = v7;
   if (v4)
   {
@@ -6846,7 +6847,7 @@ void AGX::RenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::
       v7[38] = v6 + 12;
       if (!v6)
       {
-        AGX::DataBufferAllocator<44ul>::initializeOnDemandDataBufferSlow((v7 + 3), 7u);
+        AGX::DataBufferAllocator<44ul>::initializeOnDemandDataBufferSlow((v7 + 3), 7);
         v5 = v7;
       }
 
@@ -7248,7 +7249,7 @@ LABEL_5:
   }
 
   v25 = v6;
-  v26 = AGX::DataBufferAllocator<44ul>::growNoInline(v5 + 3, 3, 0);
+  v26 = AGX::DataBufferAllocator<44ul>::growNoInline((v5 + 3), 3, 0);
   v7 = 8 * a2;
   v6 = v25;
   if (v26)
@@ -7353,7 +7354,7 @@ uint64_t AGX::RenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL3
   AGX::RenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::encodeISPPrimitiveType(v6, 3);
   if (*(*(v5 + 424) + 396) == 1)
   {
-    AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::bindResources(*(v6 + 30352));
+    AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::bindResources(*(v6 + 30352), *(v6 + 1912));
     v14 = 1;
   }
 
@@ -7579,7 +7580,7 @@ LABEL_48:
   v40 = v38;
   if (!v39)
   {
-    AGX::DataBufferAllocator<44ul>::initializeOnDemandDataBufferSlow(*(v6 + 27624), 0x11u);
+    AGX::DataBufferAllocator<44ul>::initializeOnDemandDataBufferSlow(*(v6 + 27624), 17);
     v39 = v38[74];
     v40 = *(v6 + 27624);
   }
@@ -9095,7 +9096,7 @@ LABEL_304:
 
     v148[166] |= 0x30uLL;
     *(v387 + 64) = 0;
-    AGX::HWGeometryPipelineContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::encodeAndEmitMeshRenderState(v387, *(v387 + 32), *(v387 + 40), *(*(v387 + 8) + 30344), *(v387 + 18992), *(v387 + 42696), *(*(v387 + 8) + 73032), v386, 0, 0, 0, 0, 0, 0, (v148 + 118), 1);
+    AGX::HWGeometryPipelineContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::encodeAndEmitMeshRenderState(v387, *(v387 + 32), *(v387 + 40), *(*(v387 + 8) + 30344), *(v387 + 18992), *(v387 + 42696), *(*(v387 + 8) + 73032), v386, 0, 0, 0, 0, (v148 + 118), 1);
     *(v387 + 64) = 0;
   }
 
@@ -9442,30 +9443,30 @@ LABEL_344:
   if (v395)
   {
     v466 = *v395;
-    v467 = *(v395 + 16);
-    v468 = *(v395 + 48);
-    *(v465 + 32) = *(v395 + 32);
+    v467 = v395[1];
+    v468 = v395[3];
+    *(v465 + 32) = v395[2];
     *(v465 + 48) = v468;
     *v465 = v466;
     *(v465 + 16) = v467;
-    v469 = *(v395 + 64);
-    v470 = *(v395 + 80);
-    v471 = *(v395 + 112);
-    *(v465 + 96) = *(v395 + 96);
+    v469 = v395[4];
+    v470 = v395[5];
+    v471 = v395[7];
+    *(v465 + 96) = v395[6];
     *(v465 + 112) = v471;
     *(v465 + 64) = v469;
     *(v465 + 80) = v470;
-    v472 = *(v395 + 128);
-    v473 = *(v395 + 144);
-    v399 = *(v395 + 176);
-    *(v465 + 160) = *(v395 + 160);
+    v472 = v395[8];
+    v473 = v395[9];
+    v399 = v395[11];
+    *(v465 + 160) = v395[10];
     *(v465 + 176) = v399;
     *(v465 + 128) = v472;
     *(v465 + 144) = v473;
-    v474 = *(v395 + 192);
-    v475 = *(v395 + 208);
-    v398 = *(v395 + 224);
-    *(v465 + 240) = *(v395 + 240);
+    v474 = v395[12];
+    v475 = v395[13];
+    v398 = v395[14];
+    *(v465 + 240) = v395[15].i64[0];
     *(v465 + 208) = v475;
     *(v465 + 224) = v398;
     *(v465 + 192) = v474;
@@ -9569,7 +9570,7 @@ LABEL_357:
       v491 = 0xFFFFFFFFLL;
 LABEL_360:
       v684 = &v487[v488];
-      AGX::IndirectExecutionCommonGen4<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::emitABIStateLoadProgram(v707 ^ 1, v487, v443, 0, v490, v705 + v690, 0, v444, *&v396, *&v397, *&v398, v399, 0, v491);
+      AGX::IndirectExecutionCommonGen4<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::emitABIStateLoadProgram(v707 ^ 1, v487, v443, 0, v490, v705 + v690, 0, v444, *&v396, *&v397, *v398.i64, v399, 0, v491);
       v445 = v711;
       v409 = v709;
       v428 = v489;
@@ -9685,7 +9686,7 @@ LABEL_369:
   v505 = 0;
   v499 = 0xFFFFFFFFLL;
 LABEL_372:
-  AGX::IndirectExecutionCommonGen4<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::emitABIStateLoadProgram(v707 ^ 1, v497, v428, 0, v505, v682, 0, 0, *&v396, *&v397, *&v398, v399, 0, v499);
+  AGX::IndirectExecutionCommonGen4<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::emitABIStateLoadProgram(v707 ^ 1, v497, v428, 0, v505, v682, 0, 0, *&v396, *&v397, *v398.i64, v399, 0, v499);
   v512 = *(v6 + 27624);
   v513 = v512[26] + v494;
   if (v513 <= v512[25])
@@ -10078,7 +10079,7 @@ LABEL_443:
   v593[2] = *(v700 + 320);
 LABEL_444:
   v595 = &v573[v574];
-  AGX::IndirectExecutionCommonGen4<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::emitABIStateLoadProgram(v707 ^ 1, v573, v695, 0, v589, &__dst[v698], 0, 0, *&v575, *&v397, *&v398, v399, &v727, v588);
+  AGX::IndirectExecutionCommonGen4<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::emitABIStateLoadProgram(v707 ^ 1, v573, v695, 0, v589, &__dst[v698], 0, 0, *&v575, *&v397, *v398.i64, v399, &v727, v588);
   if (*(v388 + 396) != 1)
   {
     v608 = *(v6 + 27624);

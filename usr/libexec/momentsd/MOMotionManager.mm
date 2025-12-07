@@ -572,14 +572,13 @@ void __71__MOMotionManager__rehydrateMotionActivity_forLocationSetting_handler__
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = [*(*(*(a1 + 40) + 8) + 40) count];
-    v10 = 134218240;
-    v11 = v8;
-    v12 = 2048;
-    v13 = [v5 count];
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "motion activity location update, motion events, %lu, updated events, %lu", &v10, 0x16u);
+    v9 = 134218240;
+    v10 = v8;
+    v11 = 2048;
+    v12 = [v5 count];
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "motion activity location update, motion events, %lu, updated events, %lu", &v9, 0x16u);
   }
 
-  v9 = *(*(*(a1 + 40) + 8) + 40);
   (*(*(a1 + 32) + 16))();
 }
 
@@ -1225,15 +1224,15 @@ void __89__MOMotionManager__fetchMotionActivityBetweenStartDate_endDate_withStor
     v7 = *(a1 + 40);
     v8 = *(a1 + 48);
     *buf = 134219010;
-    v25 = v4;
-    v26 = 2048;
-    v27 = v5;
-    v28 = 2048;
-    v29 = v6;
-    v30 = 2112;
-    v31 = v7;
-    v32 = 2112;
-    v33 = v8;
+    v24 = v4;
+    v25 = 2048;
+    v26 = v5;
+    v27 = 2048;
+    v28 = v6;
+    v29 = 2112;
+    v30 = v7;
+    v31 = 2112;
+    v32 = v8;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "%lu stored walking events, %lu walking events rehydrated, %lu new walking events fetched for %@ to %@", buf, 0x34u);
   }
 
@@ -1248,8 +1247,8 @@ void __89__MOMotionManager__fetchMotionActivityBetweenStartDate_endDate_withStor
   {
     [v2 setObject:v10 forKey:@"rehydratedEvents"];
     v11 = -[MORehydrationMetrics initWithCategory:provider:spiSuccess:spiError:failCount:successAfterPreFailCount:totalCount:rehydrationTrigger:]([MORehydrationMetrics alloc], "initWithCategory:provider:spiSuccess:spiError:failCount:successAfterPreFailCount:totalCount:rehydrationTrigger:", 16, 7, 1, 0, [*(a1 + 32) count], 3, (objc_msgSend(*(a1 + 32), "count") - objc_msgSend(*(*(*(a1 + 64) + 8) + 40), "count")), 0.0);
-    v21 = 0;
-    [(MORehydrationMetrics *)v11 submitMetricsWithError:&v21];
+    v20 = 0;
+    [(MORehydrationMetrics *)v11 submitMetricsWithError:&v20];
   }
 
   v12 = *(*(*(a1 + 80) + 8) + 40);
@@ -1268,7 +1267,6 @@ void __89__MOMotionManager__fetchMotionActivityBetweenStartDate_endDate_withStor
       __89__MOMotionManager__fetchMotionActivityBetweenStartDate_endDate_withStoredEvents_handler___block_invoke_181_cold_1();
     }
 
-    v20 = *(*(*(a1 + 80) + 8) + 40);
     v18 = *(*(a1 + 56) + 16);
     goto LABEL_19;
   }
@@ -1289,9 +1287,9 @@ LABEL_19:
     __89__MOMotionManager__fetchMotionActivityBetweenStartDate_endDate_withStoredEvents_handler___block_invoke_181_cold_1();
   }
 
-  v22 = NSLocalizedDescriptionKey;
-  v23 = @"MM: Provider database is unavailable (motionActivity)";
-  v16 = [NSDictionary dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+  v21 = NSLocalizedDescriptionKey;
+  v22 = @"MM: Provider database is unavailable (motionActivity)";
+  v16 = [NSDictionary dictionaryWithObjects:&v22 forKeys:&v21 count:1];
   v17 = [NSError errorWithDomain:@"MOErrorDomain" code:1280 userInfo:v16];
 
   (*(*(a1 + 56) + 16))();
@@ -1370,19 +1368,8 @@ LABEL_20:
         }
 
         v18 = *(*(&v43 + 1) + 8 * v17);
-        if (![v13 count])
+        if (![v13 count] || (objc_msgSend(v18, "startDate"), v19 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v13, "lastObject"), v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v20, "endDate"), v21 = objc_claimAutoreleasedReturnValue(), v22 = objc_msgSend(v19, "isAfterDate:", v21), v21, v20, v19, v22))
         {
-          goto LABEL_10;
-        }
-
-        startDate = [v18 startDate];
-        lastObject = [v13 lastObject];
-        endDate = [lastObject endDate];
-        v22 = [startDate isAfterDate:endDate];
-
-        if (v22)
-        {
-LABEL_10:
           [v14 addObject:v18];
         }
 
@@ -1497,11 +1484,11 @@ void __81__MOMotionManager__rehydrateEvents_andCreateNewEventsfromMotionActivity
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = [*(*(a1[5] + 8) + 40) count];
-    v14 = 134218240;
-    v15 = v8;
-    v16 = 2048;
-    v17 = [v5 count];
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "motion activity location update, rehydrated events, %lu, updated events, %lu", &v14, 0x16u);
+    v12 = 134218240;
+    v13 = v8;
+    v14 = 2048;
+    v15 = [v5 count];
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "motion activity location update, rehydrated events, %lu, updated events, %lu", &v12, 0x16u);
   }
 
   if (v6)
@@ -1515,8 +1502,6 @@ void __81__MOMotionManager__rehydrateEvents_andCreateNewEventsfromMotionActivity
     }
   }
 
-  v12 = *(*(a1[7] + 8) + 40);
-  v13 = *(*(a1[6] + 8) + 40);
   (*(a1[4] + 16))();
 }
 

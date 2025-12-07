@@ -31,11 +31,11 @@
   miniFlowDelegate = [(NCBSTinkerRequestManagementViewController *)self miniFlowDelegate];
   familyMemberFirstName = [miniFlowDelegate familyMemberFirstName];
 
-  v4 = NanoContactsBridgeSetupBundle();
-  v5 = [v4 localizedStringForKey:@"TK_CONTACTS_REQUEST_TITLE" value:&stru_1C900 table:@"NanoContactsBridgeSetup"];
-  v6 = [NSString stringWithFormat:v5, familyMemberFirstName];
+  v5 = NanoContactsBridgeSetupBundle(v4);
+  v6 = [v5 localizedStringForKey:@"TK_CONTACTS_REQUEST_TITLE" value:&stru_1C900 table:@"NanoContactsBridgeSetup"];
+  v7 = [NSString stringWithFormat:v6, familyMemberFirstName];
 
-  return v6;
+  return v7;
 }
 
 - (id)detailString
@@ -43,16 +43,16 @@
   miniFlowDelegate = [(NCBSTinkerRequestManagementViewController *)self miniFlowDelegate];
   familyMemberFirstName = [miniFlowDelegate familyMemberFirstName];
 
-  v4 = NanoContactsBridgeSetupBundle();
-  v5 = [v4 localizedStringForKey:@"TK_CONTACTS_REQUEST_DETAIL" value:&stru_1C900 table:@"NanoContactsBridgeSetup"];
-  v6 = [NSString stringWithFormat:v5, familyMemberFirstName, familyMemberFirstName];
+  v5 = NanoContactsBridgeSetupBundle(v4);
+  v6 = [v5 localizedStringForKey:@"TK_CONTACTS_REQUEST_DETAIL" value:&stru_1C900 table:@"NanoContactsBridgeSetup"];
+  v7 = [NSString stringWithFormat:v6, familyMemberFirstName, familyMemberFirstName];
 
-  return v6;
+  return v7;
 }
 
 - (id)suggestedButtonTitle
 {
-  v2 = NanoContactsBridgeSetupBundle();
+  v2 = NanoContactsBridgeSetupBundle(self);
   v3 = [v2 localizedStringForKey:@"TK_CONTACTS_REQUEST_BUTTON_ASK" value:&stru_1C900 table:@"NanoContactsBridgeSetup"];
 
   return v3;
@@ -60,7 +60,7 @@
 
 - (id)alternateButtonTitle
 {
-  v2 = NanoContactsBridgeSetupBundle();
+  v2 = NanoContactsBridgeSetupBundle(self);
   v3 = [v2 localizedStringForKey:@"TK_CONTACTS_REQUEST_BUTTON_LATER" value:&stru_1C900 table:@"NanoContactsBridgeSetup"];
 
   return v3;
@@ -74,7 +74,7 @@
 
 - (void)_requestToManageContacts
 {
-  v3 = NCBS_Tinker_log();
+  v3 = NCBS_Tinker_log(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;
@@ -96,25 +96,25 @@
   miniFlowDelegate = [(NCBSTinkerRequestManagementViewController *)self miniFlowDelegate];
   familyMemberFirstName = [miniFlowDelegate familyMemberFirstName];
 
-  v5 = NanoContactsBridgeSetupBundle();
-  v6 = [v5 localizedStringForKey:@"TK_CONTACTS_REQUESTED_MESSAGE" value:&stru_1C900 table:@"NanoContactsBridgeSetup"];
-  v7 = [NSString stringWithFormat:v6, familyMemberFirstName];
+  v6 = NanoContactsBridgeSetupBundle(v5);
+  v7 = [v6 localizedStringForKey:@"TK_CONTACTS_REQUESTED_MESSAGE" value:&stru_1C900 table:@"NanoContactsBridgeSetup"];
+  v8 = [NSString stringWithFormat:v7, familyMemberFirstName];
 
-  v8 = NanoContactsBridgeSetupBundle();
-  v9 = [v8 localizedStringForKey:@"TK_CONTACTS_REQUESTED_TITLE" value:&stru_1C900 table:@"NanoContactsBridgeSetup"];
-  v10 = [UIAlertController alertControllerWithTitle:v9 message:v7 preferredStyle:1];
+  v10 = NanoContactsBridgeSetupBundle(v9);
+  v11 = [v10 localizedStringForKey:@"TK_CONTACTS_REQUESTED_TITLE" value:&stru_1C900 table:@"NanoContactsBridgeSetup"];
+  v12 = [UIAlertController alertControllerWithTitle:v11 message:v8 preferredStyle:1];
 
-  v11 = NanoContactsBridgeSetupBundle();
-  v12 = [v11 localizedStringForKey:@"TK_CONTACTS_REQUESTED_BUTTON_OK" value:&stru_1C900 table:@"NanoContactsBridgeSetup"];
-  v14[0] = _NSConcreteStackBlock;
-  v14[1] = 3221225472;
-  v14[2] = sub_C660;
-  v14[3] = &unk_1C8C0;
-  v14[4] = self;
-  v13 = [UIAlertAction actionWithTitle:v12 style:0 handler:v14];
-  [v10 addAction:v13];
+  v14 = NanoContactsBridgeSetupBundle(v13);
+  v15 = [v14 localizedStringForKey:@"TK_CONTACTS_REQUESTED_BUTTON_OK" value:&stru_1C900 table:@"NanoContactsBridgeSetup"];
+  v17[0] = _NSConcreteStackBlock;
+  v17[1] = 3221225472;
+  v17[2] = sub_C660;
+  v17[3] = &unk_1C8C0;
+  v17[4] = self;
+  v16 = [UIAlertAction actionWithTitle:v15 style:0 handler:v17];
+  [v12 addAction:v16];
 
-  [(NCBSTinkerRequestManagementViewController *)self presentViewController:v10 animated:1 completion:0];
+  [(NCBSTinkerRequestManagementViewController *)self presentViewController:v12 animated:1 completion:0];
 }
 
 - (NCBSBridgeSetupControllerDelegate)miniFlowDelegate

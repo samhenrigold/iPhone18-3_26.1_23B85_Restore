@@ -107,7 +107,7 @@
 
 - (void)addJITImage:()OSABinaryImageListExtension size:
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   memset(uu, 0, sizeof(uu));
   uuid_clear(uu);
   v7 = [[OSABinaryImageSegment alloc] initWithSource:a3 size:a4 for:uu source:106];
@@ -115,7 +115,6 @@
   [symbolInfo setName:@"JIT"];
 
   [self addObject:v7];
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 @end

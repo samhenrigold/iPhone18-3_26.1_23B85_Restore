@@ -2259,76 +2259,76 @@ LABEL_11:
 - (double)descriptionOriginForViewWidth:(CGFloat)width artworkFrame:(CGFloat)frame buttonViewFrame:(CGFloat)viewFrame titleFrame:(CGFloat)titleFrame metadataFrame:(uint64_t)metadataFrame iconViewFrame:(unint64_t)iconViewFrame style:(double)style
 {
   _currentTitleFont = [self _currentTitleFont];
-  v32 = +[MTEpisodeLockup metadataHeaderFont];
-  v58.origin.x = a20;
-  v58.origin.y = a21;
-  v58.size.width = a22;
-  v58.size.height = a23;
-  Height = CGRectGetHeight(v58);
-  v59.origin.x = a24;
-  v59.origin.y = a25;
-  v59.size.width = a26;
-  v59.size.height = a27;
-  v34 = CGRectGetHeight(v59);
-  if (Height >= v34)
+  v30 = +[MTEpisodeLockup metadataHeaderFont];
+  v56.origin.x = a20;
+  v56.origin.y = a21;
+  v56.size.width = a22;
+  v56.size.height = a23;
+  Height = CGRectGetHeight(v56);
+  v57.origin.x = a24;
+  v57.origin.y = a25;
+  v57.size.width = a26;
+  v57.size.height = a27;
+  v32 = CGRectGetHeight(v57);
+  if (Height >= v32)
   {
-    v34 = Height;
+    v32 = Height;
   }
 
-  if (v34 <= 0.0)
+  if (v32 <= 0.0)
   {
-    v35 = _currentTitleFont;
+    v33 = _currentTitleFont;
   }
 
   else
   {
-    v35 = v32;
+    v33 = v30;
   }
 
-  v36 = v35;
+  v34 = v33;
   if (iconViewFrame < 2)
   {
 LABEL_9:
     [_currentTitleFont lineHeight];
-    [v36 mt_offsetFromLastBaselineToBottom];
-    [v32 mt_offsetFromFirstBaselineToTop];
-    v60.origin.x = a16;
-    v60.origin.y = a17;
-    v60.size.width = a18;
-    v60.size.height = a19;
-    MaxY = CGRectGetMaxY(v60);
-    v61.origin.x = a20;
-    v61.origin.y = a21;
-    v61.size.width = a22;
-    v61.size.height = a23;
-    if (CGRectGetHeight(v61) > 0.0)
+    [v34 mt_offsetFromLastBaselineToBottom];
+    [v30 mt_offsetFromFirstBaselineToTop];
+    v58.origin.x = a16;
+    v58.origin.y = a17;
+    v58.size.width = a18;
+    v58.size.height = a19;
+    MaxY = CGRectGetMaxY(v58);
+    v59.origin.x = a20;
+    v59.origin.y = a21;
+    v59.size.width = a22;
+    v59.size.height = a23;
+    if (CGRectGetHeight(v59) > 0.0)
     {
-      v62.origin.x = a20;
-      v62.origin.y = a21;
-      v62.size.width = a22;
-      v62.size.height = a23;
-      MaxY = CGRectGetMaxY(v62);
+      v60.origin.x = a20;
+      v60.origin.y = a21;
+      v60.size.width = a22;
+      v60.size.height = a23;
+      MaxY = CGRectGetMaxY(v60);
     }
 
-    v63.origin.x = a24;
-    v63.origin.y = a25;
-    v63.size.width = a26;
-    v63.size.height = a27;
-    if (CGRectGetMaxY(v63) > MaxY)
+    v61.origin.x = a24;
+    v61.origin.y = a25;
+    v61.size.width = a26;
+    v61.size.height = a27;
+    if (CGRectGetMaxY(v61) > MaxY)
     {
       iconView = [self iconView];
       isNotEmpty = [iconView isNotEmpty];
 
       if (isNotEmpty)
       {
-        v40 = +[UIScreen mainScreen];
-        [v40 scale];
+        v38 = +[UIScreen mainScreen];
+        [v38 scale];
 
-        v64.origin.x = a24;
-        v64.origin.y = a25;
-        v64.size.width = a26;
-        v64.size.height = a27;
-        CGRectGetMaxY(v64);
+        v62.origin.x = a24;
+        v62.origin.y = a25;
+        v62.size.width = a26;
+        v62.size.height = a27;
+        CGRectGetMaxY(v62);
       }
     }
 
@@ -2336,21 +2336,21 @@ LABEL_9:
     if ([self _isRTL])
     {
       [self descriptionWidthForViewWidth:iconViewFrame titleFrame:a2 style:{a16, a17, a18, a19}];
-      v42 = v41;
-      v65.origin.x = a16;
-      v65.origin.y = a17;
-      v65.size.width = a18;
-      v65.size.height = a19;
-      MinX = CGRectGetMaxX(v65) - v42;
+      v40 = v39;
+      v63.origin.x = a16;
+      v63.origin.y = a17;
+      v63.size.width = a18;
+      v63.size.height = a19;
+      MinX = CGRectGetMaxX(v63) - v40;
     }
 
     else
     {
-      v66.origin.x = a16;
-      v66.origin.y = a17;
-      v66.size.width = a18;
-      v66.size.height = a19;
-      MinX = CGRectGetMinX(v66);
+      v64.origin.x = a16;
+      v64.origin.y = a17;
+      v64.size.width = a18;
+      v64.size.height = a19;
+      MinX = CGRectGetMinX(v64);
     }
 
     goto LABEL_29;
@@ -2386,47 +2386,47 @@ LABEL_9:
     a15 = titleFrame;
   }
 
-  v55 = CGRectGetMinX(*&widthCopy);
+  v53 = CGRectGetMinX(*&widthCopy);
   iconView2 = [self iconView];
   if ([iconView2 isNotEmpty])
   {
-    v67.origin.x = a24;
-    v67.origin.y = a25;
-    v67.size.width = a26;
-    v67.size.height = a27;
-    CGRectGetMaxY(v67);
+    v65.origin.x = a24;
+    v65.origin.y = a25;
+    v65.size.width = a26;
+    v65.size.height = a27;
+    CGRectGetMaxY(v65);
   }
 
-  v68.origin.x = a20;
-  v68.origin.y = a21;
-  v68.size.width = a22;
-  v68.size.height = a23;
-  if (CGRectGetHeight(v68) > 0.0)
+  v66.origin.x = a20;
+  v66.origin.y = a21;
+  v66.size.width = a22;
+  v66.size.height = a23;
+  if (CGRectGetHeight(v66) > 0.0)
   {
-    v69.origin.x = a20;
-    v69.origin.y = a21;
-    v69.size.width = a22;
-    v69.size.height = a23;
-    CGRectGetMaxY(v69);
-    [v32 mt_offsetFromLastBaselineToBottom];
+    v67.origin.x = a20;
+    v67.origin.y = a21;
+    v67.size.width = a22;
+    v67.size.height = a23;
+    CGRectGetMaxY(v67);
+    [v30 mt_offsetFromLastBaselineToBottom];
   }
 
-  v70.origin.x = a16;
-  v70.origin.y = a17;
-  v70.size.width = a18;
-  v70.size.height = a19;
-  CGRectGetMaxY(v70);
+  v68.origin.x = a16;
+  v68.origin.y = a17;
+  v68.size.width = a18;
+  v68.size.height = a19;
+  CGRectGetMaxY(v68);
   [_currentTitleFont mt_offsetFromLastBaselineToBottom];
-  v71.origin.x = width;
-  v71.origin.y = frame;
-  v71.size.width = viewFrame;
-  v71.size.height = titleFrame;
-  CGRectGetMaxY(v71);
-  v50 = +[MTEpisodeLockup metadataFooterFont];
-  [v50 mt_offsetFromCapHeightToAscent];
+  v69.origin.x = width;
+  v69.origin.y = frame;
+  v69.size.width = viewFrame;
+  v69.size.height = titleFrame;
+  CGRectGetMaxY(v69);
+  v48 = +[MTEpisodeLockup metadataFooterFont];
+  [v48 mt_offsetFromCapHeightToAscent];
   IMRoundToPixel();
 
-  MinX = v55;
+  MinX = v53;
 LABEL_29:
 
   return MinX;
@@ -2435,49 +2435,49 @@ LABEL_29:
 - (double)exactDescriptionSizeForOrigin:(double)origin viewWidth:(double)width titleFrame:(double)frame actionButtonFrame:(double)buttonFrame downloadButtonFrame:(double)downloadButtonFrame style:(double)style
 {
   _currentTitleFont = [self _currentTitleFont];
-  v32 = [self isLabelMultipleLinesWithFrame:_currentTitleFont font:{frame, buttonFrame, downloadButtonFrame, style}];
+  v28 = [self isLabelMultipleLinesWithFrame:_currentTitleFont font:{frame, buttonFrame, downloadButtonFrame, style}];
 
   if ([self isExpanded])
   {
-    v33 = 0;
+    v29 = 0;
   }
 
   else
   {
-    v33 = [objc_opt_class() descriptionNumberOfLinesForStyle:a10 isTitleMultipleLines:v32];
+    v29 = [objc_opt_class() descriptionNumberOfLinesForStyle:a10 isTitleMultipleLines:v28];
   }
 
-  [self _setNumberOfLinesForDescription:v33];
-  v34 = self + 3;
-  v35 = self[3];
-  if (v35 == CGSizeZero.width && self[4] == CGSizeZero.height)
+  [self _setNumberOfLinesForDescription:v29];
+  v30 = self + 3;
+  v31 = self[3];
+  if (v31 == CGSizeZero.width && self[4] == CGSizeZero.height)
   {
     [self buttonsFrameForActionButtonFrame:a12 downloadButtonFrame:{a13, a14, a15, a16, a17, a18, a19}];
-    v38 = v37;
-    v59 = v40;
-    v60 = v39;
-    v58 = v41;
+    v34 = v33;
+    v55 = v36;
+    v56 = v35;
+    v54 = v37;
     [self descriptionWidthForViewWidth:a10 titleFrame:width style:{frame, buttonFrame, downloadButtonFrame, style}];
-    v35 = v42;
-    v43 = [self descriptionExclusionPathsForOrigin:a2 descriptionWidth:origin buttonsFrame:v42 titleFrame:{v38, v60, v59, v58, *&frame, *&buttonFrame, *&downloadButtonFrame, *&style}];
+    v31 = v38;
+    v39 = [self descriptionExclusionPathsForOrigin:a2 descriptionWidth:origin buttonsFrame:v38 titleFrame:{v34, v56, v55, v54, *&frame, *&buttonFrame, *&downloadButtonFrame, *&style}];
     descriptionTextView = [self descriptionTextView];
     textContainer = [descriptionTextView textContainer];
-    [textContainer setExclusionPaths:v43];
+    [textContainer setExclusionPaths:v39];
 
     [objc_opt_class() descriptionMaxHeightForCurrentOrientation];
-    v47 = v46;
+    v43 = v42;
     descriptionTextView2 = [self descriptionTextView];
-    [descriptionTextView2 sizeThatFits:{v35, v47}];
-    v50 = v49;
+    [descriptionTextView2 sizeThatFits:{v31, v43}];
+    v46 = v45;
 
-    v51 = v50 > v47;
-    if (v50 <= v47)
+    v47 = v46 > v43;
+    if (v46 <= v43)
     {
-      v47 = v50;
+      v43 = v46;
     }
 
-    [self setShowsDescriptionButton:v51];
-    if (v47 > 0.0)
+    [self setShowsDescriptionButton:v47];
+    if (v43 > 0.0)
     {
       descriptionTextView3 = [self descriptionTextView];
       text = [descriptionTextView3 text];
@@ -2489,20 +2489,20 @@ LABEL_29:
       {
         descriptionTextView4 = [self descriptionTextView];
         attributedText = [descriptionTextView4 attributedText];
-        v56 = [attributedText length];
+        v52 = [attributedText length];
 
-        if (!v56)
+        if (!v52)
         {
-          v47 = 0.0;
+          v43 = 0.0;
         }
       }
     }
 
-    *v34 = v35;
-    v34[1] = v47;
+    *v30 = v31;
+    v30[1] = v43;
   }
 
-  return v35;
+  return v31;
 }
 
 - (double)descriptionWidthForViewWidth:(double)width titleFrame:(CGRect)frame style:(unint64_t)style

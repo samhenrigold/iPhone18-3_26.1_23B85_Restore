@@ -23,35 +23,45 @@
 
 - (id)description
 {
-  v12 = objc_opt_class();
-  NSAppendPrintF();
-  v3 = 0;
-  [(SFDeviceAssetRequestConfiguration *)self timeout:v12];
-  if (fabs(v4) >= 0.00000011920929)
+  v18 = 0;
+  v3 = objc_opt_class();
+  NSAppendPrintF(&v18, "<%@: %{ptr}", v3, self);
+  v4 = v18;
+  [(SFDeviceAssetRequestConfiguration *)self timeout];
+  if (fabs(v5) >= 0.00000011920929)
   {
+    v17 = v4;
     [(SFDeviceAssetRequestConfiguration *)self timeout];
-    v13 = v5;
-    NSAppendPrintF();
-    v6 = v3;
+    NSAppendPrintF(&v17, ", %f", v6);
+    v7 = v17;
 
-    v3 = v6;
+    v4 = v7;
   }
 
   downloadCompletionHandler = [(SFDeviceAssetRequestConfiguration *)self downloadCompletionHandler];
 
   if (downloadCompletionHandler)
   {
+    v16 = v4;
     downloadCompletionHandler2 = [(SFDeviceAssetRequestConfiguration *)self downloadCompletionHandler];
-    NSAppendPrintF();
-    v9 = v3;
+    v10 = "yes";
+    if (!downloadCompletionHandler2)
+    {
+      v10 = "no";
+    }
 
-    v3 = v9;
+    NSAppendPrintF(&v16, ", downloadCompletionHandler: %s", v10);
+    v11 = v16;
+
+    v4 = v11;
   }
 
-  NSAppendPrintF();
-  v10 = v3;
+  v15 = v4;
+  NSAppendPrintF(&v15, ">");
+  v12 = v15;
+  v13 = v15;
 
-  return v3;
+  return v12;
 }
 
 @end

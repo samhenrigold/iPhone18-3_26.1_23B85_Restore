@@ -148,7 +148,7 @@ LABEL_35:
       v15 = 27.0;
       break;
     default:
-      v21 = AMUILogInfograph();
+      v21 = AMUILogInfograph(configurationCopy);
       if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         [AMUIInfographListLayoutProvider configureRootFolderConfiguration:v21 screenType:?];
@@ -174,14 +174,11 @@ LABEL_22:
 
 - (void)configureRootFolderConfiguration:(uint64_t)a1 screenType:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v3 = *(a1 + 8);
-  v4 = SBHStringForScreenType();
-  v6 = 138543362;
-  v7 = v4;
-  _os_log_error_impl(&dword_23F38B000, a2, OS_LOG_TYPE_ERROR, "Requesting root folder visual configuration for unexpected screen type: %{public}@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v3 = SBHStringForScreenType();
+  v4 = 138543362;
+  v5 = v3;
+  _os_log_error_impl(&dword_23F38B000, a2, OS_LOG_TYPE_ERROR, "Requesting root folder visual configuration for unexpected screen type: %{public}@", &v4, 0xCu);
 }
 
 @end

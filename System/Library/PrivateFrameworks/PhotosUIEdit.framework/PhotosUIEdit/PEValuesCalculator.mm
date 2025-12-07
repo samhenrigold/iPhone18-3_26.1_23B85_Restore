@@ -167,7 +167,7 @@ void __62__PEValuesCalculator_computeAutoEnhanceWithCompletionHandler___block_in
   v13 = *(a1 + 40);
   if (v13)
   {
-    [v13 videoFrameTime];
+    objc_msgSend_videoFrameTime(v13);
   }
 
   else
@@ -495,7 +495,7 @@ void __47__PEValuesCalculator_precomputeGeometricValues__block_invoke_190(uint64
       v17 = *(a1 + 40);
       if (v17)
       {
-        [v17 videoFrameTime];
+        objc_msgSend_videoFrameTime(v17);
       }
 
       else
@@ -545,7 +545,7 @@ void __47__PEValuesCalculator_precomputeGeometricValues__block_invoke_190(uint64
       v22 = *(a1 + 40);
       if (v22)
       {
-        [v22 videoFrameTime];
+        objc_msgSend_videoFrameTime(v22);
       }
 
       else
@@ -1006,7 +1006,7 @@ void __66__PEValuesCalculator_precomputeImageValuesWithOptionalCompletion___bloc
       v26 = *(a1 + 40);
       if (v26)
       {
-        [v26 videoFrameTime];
+        objc_msgSend_videoFrameTime(v26);
       }
 
       else
@@ -1040,7 +1040,7 @@ void __66__PEValuesCalculator_precomputeImageValuesWithOptionalCompletion___bloc
       v28 = *(a1 + 40);
       if (v28)
       {
-        [v28 videoFrameTime];
+        objc_msgSend_videoFrameTime(v28);
       }
 
       else

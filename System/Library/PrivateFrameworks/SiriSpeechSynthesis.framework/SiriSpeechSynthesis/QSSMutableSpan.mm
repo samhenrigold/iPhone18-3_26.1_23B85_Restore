@@ -4,7 +4,10 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (int)end_index;
 - (int)start_index;
+- (void)setDo_not_translate:(BOOL)do_not_translate;
+- (void)setEnd_index:(int)end_index;
 - (void)setMeta_info:(id)meta_info;
+- (void)setStart_index:(int)start_index;
 @end
 
 @implementation QSSMutableSpan
@@ -12,6 +15,12 @@
 - (void)setMeta_info:(id)meta_info
 {
   v4 = [meta_info copy];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
+
+- (void)setDo_not_translate:(BOOL)do_not_translate
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithBool:do_not_translate];
   [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
@@ -23,12 +32,24 @@
   return bOOLValue;
 }
 
+- (void)setEnd_index:(int)end_index
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:*&end_index];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
+
 - (int)end_index
 {
   v2 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:@"end_index"];
   intValue = [v2 intValue];
 
   return intValue;
+}
+
+- (void)setStart_index:(int)start_index
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:*&start_index];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 - (int)start_index

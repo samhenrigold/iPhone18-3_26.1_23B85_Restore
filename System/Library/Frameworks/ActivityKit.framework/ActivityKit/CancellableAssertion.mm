@@ -7,7 +7,6 @@
 
 - (void)cancel
 {
-  v2 = *(&self->super.isa + OBJC_IVAR____TtC11ActivityKit20CancellableAssertion_token);
   selfCopy = self;
 
   sub_1A2D080D4();

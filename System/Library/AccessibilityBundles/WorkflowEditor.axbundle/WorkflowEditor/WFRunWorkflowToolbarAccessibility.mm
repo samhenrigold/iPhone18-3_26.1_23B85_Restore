@@ -26,36 +26,36 @@
 
 - (void)_accessibilityLoadAccessibilityInformation
 {
-  v24 = *MEMORY[0x29EDCA608];
-  v22.receiver = self;
-  v22.super_class = WFRunWorkflowToolbarAccessibility;
-  [(WFRunWorkflowToolbarAccessibility *)&v22 _accessibilityLoadAccessibilityInformation];
-  v21 = 0;
+  v23 = *MEMORY[0x29EDCA608];
+  v21.receiver = self;
+  v21.super_class = WFRunWorkflowToolbarAccessibility;
+  [(WFRunWorkflowToolbarAccessibility *)&v21 _accessibilityLoadAccessibilityInformation];
+  v20 = 0;
   objc_opt_class();
   v3 = [(WFRunWorkflowToolbarAccessibility *)self safeValueForKey:@"toolbar"];
   v4 = __UIAccessibilityCastAsClass();
 
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v16 = v4;
+  v15 = v4;
   items = [v4 items];
-  v6 = [items countByEnumeratingWithState:&v17 objects:v23 count:16];
+  v6 = [items countByEnumeratingWithState:&v16 objects:v22 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v18;
+    v8 = *v17;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(items);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * i);
+        v10 = *(*(&v16 + 1) + 8 * i);
         tintColor = [v10 tintColor];
         clearColor = [MEMORY[0x29EDC7A00] clearColor];
         v13 = [tintColor isEqual:clearColor];
@@ -67,13 +67,11 @@
         }
       }
 
-      v7 = [items countByEnumeratingWithState:&v17 objects:v23 count:16];
+      v7 = [items countByEnumeratingWithState:&v16 objects:v22 count:16];
     }
 
     while (v7);
   }
-
-  v15 = *MEMORY[0x29EDCA608];
 }
 
 - (void)updateShareButtonVisibility

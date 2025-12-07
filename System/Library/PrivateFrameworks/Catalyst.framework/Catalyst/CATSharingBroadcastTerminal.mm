@@ -40,7 +40,7 @@
   v4[3] = &unk_278DA7120;
   objc_copyWeak(&v5, &location);
   v2 = v4;
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(v2);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __CATPerformBlock_block_invoke_18;
@@ -67,7 +67,7 @@ void __39__CATSharingBroadcastTerminal_activate__block_invoke(uint64_t a1)
   v4[3] = &unk_278DA7120;
   objc_copyWeak(&v5, &location);
   v2 = v4;
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(v2);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __CATPerformBlock_block_invoke_18;
@@ -103,7 +103,7 @@ void __40__CATSharingBroadcastTerminal__activate__block_invoke(uint64_t a1, void
   v4 = v3;
   v8 = v4;
   v5 = v7;
-  v6 = CATGetCatalystQueue();
+  v6 = CATGetCatalystQueue(v5);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __CATPerformBlock_block_invoke_18;
@@ -150,7 +150,7 @@ void __40__CATSharingBroadcastTerminal__activate__block_invoke_3(uint64_t a1)
   primitivesCopy = primitives;
   handlersCopy = handlers;
   errorCopy = error;
-  v9 = CATGetCatalystQueue();
+  v9 = CATGetCatalystQueue(errorCopy);
   CATAssertIsQueue(v9);
 
   if (!self->mInvalidated)
@@ -212,13 +212,13 @@ void __97__CATSharingBroadcastTerminal__invalidateWithError_removePrimitiveHandl
 
 void __97__CATSharingBroadcastTerminal__invalidateWithError_removePrimitiveHandlers_deactivatePrimitives___block_invoke_2(uint64_t a1)
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2)
   {
-    v9 = *MEMORY[0x277CCA7E8];
-    v10[0] = v2;
-    v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+    v8 = *MEMORY[0x277CCA7E8];
+    v9[0] = v2;
+    v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
     v4 = CATErrorWithCodeAndUserInfo(700, v3);
   }
 
@@ -234,8 +234,6 @@ void __97__CATSharingBroadcastTerminal__invalidateWithError_removePrimitiveHandl
     v7 = objc_loadWeakRetained(WeakRetained + 2);
     [v7 broadcastTerminal:v6 stoppedWithError:v4];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addPrimitiveHandlers
@@ -283,7 +281,7 @@ void __51__CATSharingBroadcastTerminal_addPrimitiveHandlers__block_invoke(uint64
   v4 = v3;
   v8 = v4;
   v5 = v7;
-  v6 = CATGetCatalystQueue();
+  v6 = CATGetCatalystQueue(v5);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __CATPerformBlock_block_invoke_18;
@@ -311,7 +309,7 @@ void __51__CATSharingBroadcastTerminal_addPrimitiveHandlers__block_invoke_3(uint
   v4 = v3;
   v8 = v4;
   v5 = v7;
-  v6 = CATGetCatalystQueue();
+  v6 = CATGetCatalystQueue(v5);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __CATPerformBlock_block_invoke_18;
@@ -358,7 +356,7 @@ void __51__CATSharingBroadcastTerminal_addPrimitiveHandlers__block_invoke_7(uint
   v3[3] = &unk_278DA7120;
   objc_copyWeak(&v4, (a1 + 32));
   v1 = v3;
-  v2 = CATGetCatalystQueue();
+  v2 = CATGetCatalystQueue(v1);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __CATPerformBlock_block_invoke_18;
@@ -388,7 +386,7 @@ void __51__CATSharingBroadcastTerminal_addPrimitiveHandlers__block_invoke_8(uint
 - (void)sessionNeedsToDisplayPin:(id)pin
 {
   pinCopy = pin;
-  v5 = CATGetCatalystQueue();
+  v5 = CATGetCatalystQueue(pinCopy);
   CATAssertIsQueue(v5);
 
   if (!self->mInvalidated)
@@ -424,7 +422,7 @@ void __56__CATSharingBroadcastTerminal_sessionNeedsToDisplayPin___block_invoke(u
 
 - (void)sessionHasPaired
 {
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(self);
   CATAssertIsQueue(v3);
 
   if (!self->mInvalidated)

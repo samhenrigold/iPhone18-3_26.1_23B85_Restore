@@ -32,7 +32,7 @@ uint64_t __38__PCSMobileBackup_defaultMobileBackup__block_invoke()
   v2 = [(PCSMobileBackup *)&v11 init];
   if (v2)
   {
-    v3 = MobileBackupLibraryCore();
+    v3 = MobileBackupLibraryCore(0);
     v4 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT);
     if (v3)
     {

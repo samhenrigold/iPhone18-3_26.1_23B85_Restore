@@ -158,38 +158,27 @@
   dispatch_assert_queue_V2(self->_dispatchQueue);
   [(PCRemoteActivityClient *)self _xpcEnsureStarted];
   var0 = self->_ucat->var0;
-  if (var0 <= 30)
+  if (var0 <= 30 && (var0 != -1 || _LogCategory_Initialize()))
   {
-    if (var0 == -1)
-    {
-      if (!_LogCategory_Initialize())
-      {
-        goto LABEL_5;
-      }
-
-      ucat = self->_ucat;
-    }
-
     LogPrintF();
   }
 
-LABEL_5:
   xpcCnx = self->_xpcCnx;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __50__PCRemoteActivityClient__activateWithCompletion___block_invoke;
-  v13[3] = &unk_279AD1C20;
-  v13[4] = self;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __50__PCRemoteActivityClient__activateWithCompletion___block_invoke;
+  v12[3] = &unk_279AD1C20;
+  v12[4] = self;
   v7 = completionCopy;
-  v14 = v7;
-  v8 = [(NSXPCProxyCreating *)xpcCnx remoteObjectProxyWithErrorHandler:v13];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __50__PCRemoteActivityClient__activateWithCompletion___block_invoke_2;
-  v11[3] = &unk_279AD1AD8;
-  v12 = v7;
+  v13 = v7;
+  v8 = [(NSXPCProxyCreating *)xpcCnx remoteObjectProxyWithErrorHandler:v12];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __50__PCRemoteActivityClient__activateWithCompletion___block_invoke_2;
+  v10[3] = &unk_279AD1AD8;
+  v11 = v7;
   v9 = v7;
-  [v8 client:self activateWithCompletion:v11];
+  [v8 client:self activateWithCompletion:v10];
 }
 
 void __50__PCRemoteActivityClient__activateWithCompletion___block_invoke(uint64_t a1, void *a2)
@@ -197,13 +186,13 @@ void __50__PCRemoteActivityClient__activateWithCompletion___block_invoke(uint64_
   v3 = a2;
   v4 = *(a1 + 32);
   v5 = *v4[1];
-  v11 = v3;
+  v10 = v3;
   if (v5 <= 90)
   {
     if (v5 != -1)
     {
 LABEL_3:
-      v10 = v3;
+      v9 = v3;
       LogPrintF();
       v4 = *(a1 + 32);
       goto LABEL_5;
@@ -213,8 +202,7 @@ LABEL_3:
     v4 = *(a1 + 32);
     if (v6)
     {
-      v9 = v4[1];
-      v3 = v11;
+      v3 = v10;
       goto LABEL_3;
     }
   }
@@ -225,7 +213,7 @@ LABEL_5:
   v8 = v7;
   if (v7)
   {
-    (*(v7 + 16))(v7, v11);
+    (*(v7 + 16))(v7, v10);
   }
 }
 
@@ -291,33 +279,23 @@ void __58__PCRemoteActivityClient_startObservingHomeKitIdentifier___block_invoke
   v3 = *v2[1];
   if (v3 <= 50)
   {
-    if (v3 == -1)
+    if (v3 != -1 || (v4 = _LogCategory_Initialize(), v2 = *(a1 + 32), v4))
     {
-      v4 = _LogCategory_Initialize();
+      v8 = *(a1 + 40);
+      LogPrintF();
       v2 = *(a1 + 32);
-      if (!v4)
-      {
-        goto LABEL_5;
-      }
-
-      v8 = v2[1];
     }
-
-    v9 = *(a1 + 40);
-    LogPrintF();
-    v2 = *(a1 + 32);
   }
 
-LABEL_5:
   [v2 _xpcEnsureStarted];
   v5 = *(a1 + 32);
   v6 = *(v5 + 80);
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __58__PCRemoteActivityClient_startObservingHomeKitIdentifier___block_invoke_2;
-  v10[3] = &unk_279AD1A08;
-  v10[4] = v5;
-  v7 = [v6 remoteObjectProxyWithErrorHandler:v10];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __58__PCRemoteActivityClient_startObservingHomeKitIdentifier___block_invoke_2;
+  v9[3] = &unk_279AD1A08;
+  v9[4] = v5;
+  v7 = [v6 remoteObjectProxyWithErrorHandler:v9];
   [v7 startObservingHomeKitIdentifier:*(a1 + 40)];
 }
 
@@ -326,13 +304,13 @@ void __58__PCRemoteActivityClient_startObservingHomeKitIdentifier___block_invoke
   v3 = a2;
   v4 = *(a1 + 32);
   v5 = *v4[1];
-  v9 = v3;
+  v8 = v3;
   if (v5 <= 90)
   {
     if (v5 != -1)
     {
 LABEL_3:
-      v8 = v3;
+      v7 = v3;
       LogPrintF();
       v4 = *(a1 + 32);
       goto LABEL_5;
@@ -342,8 +320,7 @@ LABEL_3:
     v4 = *(a1 + 32);
     if (v6)
     {
-      v7 = v4[1];
-      v3 = v9;
+      v3 = v8;
       goto LABEL_3;
     }
   }
@@ -372,33 +349,23 @@ void __57__PCRemoteActivityClient_stopObservingHomeKitIdentifier___block_invoke(
   v3 = *v2[1];
   if (v3 <= 50)
   {
-    if (v3 == -1)
+    if (v3 != -1 || (v4 = _LogCategory_Initialize(), v2 = *(a1 + 32), v4))
     {
-      v4 = _LogCategory_Initialize();
+      v8 = *(a1 + 40);
+      LogPrintF();
       v2 = *(a1 + 32);
-      if (!v4)
-      {
-        goto LABEL_5;
-      }
-
-      v8 = v2[1];
     }
-
-    v9 = *(a1 + 40);
-    LogPrintF();
-    v2 = *(a1 + 32);
   }
 
-LABEL_5:
   [v2 _xpcEnsureStarted];
   v5 = *(a1 + 32);
   v6 = *(v5 + 80);
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __57__PCRemoteActivityClient_stopObservingHomeKitIdentifier___block_invoke_2;
-  v10[3] = &unk_279AD1A08;
-  v10[4] = v5;
-  v7 = [v6 remoteObjectProxyWithErrorHandler:v10];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __57__PCRemoteActivityClient_stopObservingHomeKitIdentifier___block_invoke_2;
+  v9[3] = &unk_279AD1A08;
+  v9[4] = v5;
+  v7 = [v6 remoteObjectProxyWithErrorHandler:v9];
   [v7 stopObservingHomeKitIdentifier:*(a1 + 40)];
 }
 
@@ -407,13 +374,13 @@ void __57__PCRemoteActivityClient_stopObservingHomeKitIdentifier___block_invoke_
   v3 = a2;
   v4 = *(a1 + 32);
   v5 = *v4[1];
-  v9 = v3;
+  v8 = v3;
   if (v5 <= 90)
   {
     if (v5 != -1)
     {
 LABEL_3:
-      v8 = v3;
+      v7 = v3;
       LogPrintF();
       v4 = *(a1 + 32);
       goto LABEL_5;
@@ -423,8 +390,7 @@ LABEL_3:
     v4 = *(a1 + 32);
     if (v6)
     {
-      v7 = v4[1];
-      v3 = v9;
+      v3 = v8;
       goto LABEL_3;
     }
   }
@@ -453,33 +419,23 @@ void __62__PCRemoteActivityClient_startObservingMediaRemoteIdentifier___block_in
   v3 = *v2[1];
   if (v3 <= 50)
   {
-    if (v3 == -1)
+    if (v3 != -1 || (v4 = _LogCategory_Initialize(), v2 = *(a1 + 32), v4))
     {
-      v4 = _LogCategory_Initialize();
+      v8 = *(a1 + 40);
+      LogPrintF();
       v2 = *(a1 + 32);
-      if (!v4)
-      {
-        goto LABEL_5;
-      }
-
-      v8 = v2[1];
     }
-
-    v9 = *(a1 + 40);
-    LogPrintF();
-    v2 = *(a1 + 32);
   }
 
-LABEL_5:
   [v2 _xpcEnsureStarted];
   v5 = *(a1 + 32);
   v6 = *(v5 + 80);
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __62__PCRemoteActivityClient_startObservingMediaRemoteIdentifier___block_invoke_2;
-  v10[3] = &unk_279AD1A08;
-  v10[4] = v5;
-  v7 = [v6 remoteObjectProxyWithErrorHandler:v10];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __62__PCRemoteActivityClient_startObservingMediaRemoteIdentifier___block_invoke_2;
+  v9[3] = &unk_279AD1A08;
+  v9[4] = v5;
+  v7 = [v6 remoteObjectProxyWithErrorHandler:v9];
   [v7 startObservingMediaRemoteIdentifier:*(a1 + 40)];
 }
 
@@ -488,13 +444,13 @@ void __62__PCRemoteActivityClient_startObservingMediaRemoteIdentifier___block_in
   v3 = a2;
   v4 = *(a1 + 32);
   v5 = *v4[1];
-  v9 = v3;
+  v8 = v3;
   if (v5 <= 90)
   {
     if (v5 != -1)
     {
 LABEL_3:
-      v8 = v3;
+      v7 = v3;
       LogPrintF();
       v4 = *(a1 + 32);
       goto LABEL_5;
@@ -504,8 +460,7 @@ LABEL_3:
     v4 = *(a1 + 32);
     if (v6)
     {
-      v7 = v4[1];
-      v3 = v9;
+      v3 = v8;
       goto LABEL_3;
     }
   }
@@ -534,33 +489,23 @@ void __61__PCRemoteActivityClient_stopObservingMediaRemoteIdentifier___block_inv
   v3 = *v2[1];
   if (v3 <= 50)
   {
-    if (v3 == -1)
+    if (v3 != -1 || (v4 = _LogCategory_Initialize(), v2 = *(a1 + 32), v4))
     {
-      v4 = _LogCategory_Initialize();
+      v8 = *(a1 + 40);
+      LogPrintF();
       v2 = *(a1 + 32);
-      if (!v4)
-      {
-        goto LABEL_5;
-      }
-
-      v8 = v2[1];
     }
-
-    v9 = *(a1 + 40);
-    LogPrintF();
-    v2 = *(a1 + 32);
   }
 
-LABEL_5:
   [v2 _xpcEnsureStarted];
   v5 = *(a1 + 32);
   v6 = *(v5 + 80);
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __61__PCRemoteActivityClient_stopObservingMediaRemoteIdentifier___block_invoke_2;
-  v10[3] = &unk_279AD1A08;
-  v10[4] = v5;
-  v7 = [v6 remoteObjectProxyWithErrorHandler:v10];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __61__PCRemoteActivityClient_stopObservingMediaRemoteIdentifier___block_invoke_2;
+  v9[3] = &unk_279AD1A08;
+  v9[4] = v5;
+  v7 = [v6 remoteObjectProxyWithErrorHandler:v9];
   [v7 stopObservingMediaRemoteIdentifier:*(a1 + 40)];
 }
 
@@ -569,13 +514,13 @@ void __61__PCRemoteActivityClient_stopObservingMediaRemoteIdentifier___block_inv
   v3 = a2;
   v4 = *(a1 + 32);
   v5 = *v4[1];
-  v9 = v3;
+  v8 = v3;
   if (v5 <= 90)
   {
     if (v5 != -1)
     {
 LABEL_3:
-      v8 = v3;
+      v7 = v3;
       LogPrintF();
       v4 = *(a1 + 32);
       goto LABEL_5;
@@ -585,8 +530,7 @@ LABEL_3:
     v4 = *(a1 + 32);
     if (v6)
     {
-      v7 = v4[1];
-      v3 = v9;
+      v3 = v8;
       goto LABEL_3;
     }
   }
@@ -612,32 +556,22 @@ void __49__PCRemoteActivityClient_stopObservingAllDevices__block_invoke(uint64_t
   v3 = *v2[1];
   if (v3 <= 50)
   {
-    if (v3 == -1)
+    if (v3 != -1 || (v4 = _LogCategory_Initialize(), v2 = *(a1 + 32), v4))
     {
-      v4 = _LogCategory_Initialize();
+      LogPrintF();
       v2 = *(a1 + 32);
-      if (!v4)
-      {
-        goto LABEL_5;
-      }
-
-      v8 = v2[1];
     }
-
-    LogPrintF();
-    v2 = *(a1 + 32);
   }
 
-LABEL_5:
   [v2 _xpcEnsureStarted];
   v5 = *(a1 + 32);
   v6 = *(v5 + 80);
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __49__PCRemoteActivityClient_stopObservingAllDevices__block_invoke_2;
-  v9[3] = &unk_279AD1A08;
-  v9[4] = v5;
-  v7 = [v6 remoteObjectProxyWithErrorHandler:v9];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __49__PCRemoteActivityClient_stopObservingAllDevices__block_invoke_2;
+  v8[3] = &unk_279AD1A08;
+  v8[4] = v5;
+  v7 = [v6 remoteObjectProxyWithErrorHandler:v8];
   [v7 stopObservingAllDevices];
 }
 
@@ -646,13 +580,13 @@ void __49__PCRemoteActivityClient_stopObservingAllDevices__block_invoke_2(uint64
   v3 = a2;
   v4 = *(a1 + 32);
   v5 = *v4[1];
-  v9 = v3;
+  v8 = v3;
   if (v5 <= 90)
   {
     if (v5 != -1)
     {
 LABEL_3:
-      v8 = v3;
+      v7 = v3;
       LogPrintF();
       v4 = *(a1 + 32);
       goto LABEL_5;
@@ -662,8 +596,7 @@ LABEL_3:
     v4 = *(a1 + 32);
     if (v6)
     {
-      v7 = v4[1];
-      v3 = v9;
+      v3 = v8;
       goto LABEL_3;
     }
   }
@@ -689,32 +622,22 @@ void __47__PCRemoteActivityClient_userTappedCloseButton__block_invoke(uint64_t a
   v3 = *v2[1];
   if (v3 <= 50)
   {
-    if (v3 == -1)
+    if (v3 != -1 || (v4 = _LogCategory_Initialize(), v2 = *(a1 + 32), v4))
     {
-      v4 = _LogCategory_Initialize();
+      LogPrintF();
       v2 = *(a1 + 32);
-      if (!v4)
-      {
-        goto LABEL_5;
-      }
-
-      v8 = v2[1];
     }
-
-    LogPrintF();
-    v2 = *(a1 + 32);
   }
 
-LABEL_5:
   [v2 _xpcEnsureStarted];
   v5 = *(a1 + 32);
   v6 = *(v5 + 80);
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __47__PCRemoteActivityClient_userTappedCloseButton__block_invoke_2;
-  v9[3] = &unk_279AD1A08;
-  v9[4] = v5;
-  v7 = [v6 remoteObjectProxyWithErrorHandler:v9];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __47__PCRemoteActivityClient_userTappedCloseButton__block_invoke_2;
+  v8[3] = &unk_279AD1A08;
+  v8[4] = v5;
+  v7 = [v6 remoteObjectProxyWithErrorHandler:v8];
   [v7 userTappedCloseButton];
 }
 
@@ -723,13 +646,13 @@ void __47__PCRemoteActivityClient_userTappedCloseButton__block_invoke_2(uint64_t
   v3 = a2;
   v4 = *(a1 + 32);
   v5 = *v4[1];
-  v9 = v3;
+  v8 = v3;
   if (v5 <= 90)
   {
     if (v5 != -1)
     {
 LABEL_3:
-      v8 = v3;
+      v7 = v3;
       LogPrintF();
       v4 = *(a1 + 32);
       goto LABEL_5;
@@ -739,8 +662,7 @@ LABEL_3:
     v4 = *(a1 + 32);
     if (v6)
     {
-      v7 = v4[1];
-      v3 = v9;
+      v3 = v8;
       goto LABEL_3;
     }
   }
@@ -769,32 +691,22 @@ void __57__PCRemoteActivityClient_userTappedDisambiguationButton___block_invoke(
   v3 = *v2[1];
   if (v3 <= 50)
   {
-    if (v3 == -1)
+    if (v3 != -1 || (v4 = _LogCategory_Initialize(), v2 = *(a1 + 32), v4))
     {
-      v4 = _LogCategory_Initialize();
+      LogPrintF();
       v2 = *(a1 + 32);
-      if (!v4)
-      {
-        goto LABEL_5;
-      }
-
-      v8 = v2[1];
     }
-
-    LogPrintF();
-    v2 = *(a1 + 32);
   }
 
-LABEL_5:
   [v2 _xpcEnsureStarted];
   v5 = *(a1 + 32);
   v6 = *(v5 + 80);
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __57__PCRemoteActivityClient_userTappedDisambiguationButton___block_invoke_2;
-  v9[3] = &unk_279AD1A08;
-  v9[4] = v5;
-  v7 = [v6 remoteObjectProxyWithErrorHandler:v9];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __57__PCRemoteActivityClient_userTappedDisambiguationButton___block_invoke_2;
+  v8[3] = &unk_279AD1A08;
+  v8[4] = v5;
+  v7 = [v6 remoteObjectProxyWithErrorHandler:v8];
   [v7 userTappedDisambiguationButton:*(a1 + 40)];
 }
 
@@ -803,13 +715,13 @@ void __57__PCRemoteActivityClient_userTappedDisambiguationButton___block_invoke_
   v3 = a2;
   v4 = *(a1 + 32);
   v5 = *v4[1];
-  v9 = v3;
+  v8 = v3;
   if (v5 <= 90)
   {
     if (v5 != -1)
     {
 LABEL_3:
-      v8 = v3;
+      v7 = v3;
       LogPrintF();
       v4 = *(a1 + 32);
       goto LABEL_5;
@@ -819,8 +731,7 @@ LABEL_3:
     v4 = *(a1 + 32);
     if (v6)
     {
-      v7 = v4[1];
-      v3 = v9;
+      v3 = v8;
       goto LABEL_3;
     }
   }
@@ -838,73 +749,38 @@ LABEL_5:
   if (dCopy)
   {
     var0 = self->_ucat->var0;
-    if (var0 > 30)
+    if (var0 <= 30 && (var0 != -1 || _LogCategory_Initialize()))
     {
-      goto LABEL_10;
+      LogPrintF();
     }
 
-    if (var0 == -1)
+    [(PCRemoteActivityClient *)self updateHomeKitID:dCopy withActivities:activitiesCopy disambiguationContext:contextCopy];
+    if (iDCopy)
     {
-      if (!_LogCategory_Initialize())
-      {
-LABEL_10:
-        [(PCRemoteActivityClient *)self updateHomeKitID:dCopy withActivities:activitiesCopy disambiguationContext:contextCopy];
-        if (!iDCopy)
-        {
-          goto LABEL_16;
-        }
+      goto LABEL_11;
+    }
+  }
 
+  else
+  {
+    if (iDCopy)
+    {
 LABEL_11:
-        v15 = self->_ucat->var0;
-        if (v15 <= 30)
-        {
-          if (v15 == -1)
-          {
-            if (!_LogCategory_Initialize())
-            {
-              goto LABEL_15;
-            }
-
-            ucat = self->_ucat;
-          }
-
-          LogPrintF();
-        }
-
-LABEL_15:
-        [(PCRemoteActivityClient *)self updateMediaRemoteID:iDCopy withActivities:activitiesCopy disambiguationContext:contextCopy];
-        goto LABEL_16;
+      v15 = self->_ucat->var0;
+      if (v15 <= 30 && (v15 != -1 || _LogCategory_Initialize()))
+      {
+        LogPrintF();
       }
 
-      v17 = self->_ucat;
+      [(PCRemoteActivityClient *)self updateMediaRemoteID:iDCopy withActivities:activitiesCopy disambiguationContext:contextCopy];
+      goto LABEL_16;
     }
 
-    LogPrintF();
-    goto LABEL_10;
-  }
-
-  if (iDCopy)
-  {
-    goto LABEL_11;
-  }
-
-  v14 = self->_ucat->var0;
-  if (v14 > 90)
-  {
-    goto LABEL_16;
-  }
-
-  if (v14 != -1)
-  {
-LABEL_8:
-    LogPrintF();
-    goto LABEL_16;
-  }
-
-  if (_LogCategory_Initialize())
-  {
-    v16 = self->_ucat;
-    goto LABEL_8;
+    v14 = self->_ucat->var0;
+    if (v14 <= 90 && (v14 != -1 || _LogCategory_Initialize()))
+    {
+      LogPrintF();
+    }
   }
 
 LABEL_16:
@@ -920,37 +796,27 @@ LABEL_16:
   if (v10)
   {
     (*(v10 + 16))(v10, dCopy, v9, contextCopy);
-    goto LABEL_10;
   }
 
-  v12 = MEMORY[0x2666FB170](self->_updateHandler);
-  if (v12)
+  else
   {
-    var0 = self->_ucat->var0;
-    v14 = dCopy;
-    if (var0 <= 60)
+    v12 = MEMORY[0x2666FB170](self->_updateHandler);
+    if (v12)
     {
-      if (var0 == -1)
+      var0 = self->_ucat->var0;
+      v14 = dCopy;
+      if (var0 <= 60)
       {
-        v15 = _LogCategory_Initialize();
-        v14 = dCopy;
-        if (!v15)
+        if (var0 != -1 || (v15 = _LogCategory_Initialize(), v14 = dCopy, v15))
         {
-          goto LABEL_8;
+          LogPrintF();
+          v14 = dCopy;
         }
-
-        ucat = self->_ucat;
       }
 
-      LogPrintF();
-      v14 = dCopy;
+      (v12)[2](v12, v14, v9, contextCopy);
     }
-
-LABEL_8:
-    (v12)[2](v12, v14, v9, contextCopy);
   }
-
-LABEL_10:
 }
 
 - (void)updateMediaRemoteID:(id)d withActivities:(id)activities disambiguationContext:(id)context
@@ -963,57 +829,45 @@ LABEL_10:
   {
     v11 = [(PCRemoteActivityClient *)self userActivitySetFromData:activitiesCopy];
     (v10)[2](v10, dCopy, v11, contextCopy);
-
-    goto LABEL_7;
   }
 
-  var0 = self->_ucat->var0;
-  if (var0 <= 60)
+  else
   {
-    if (var0 != -1)
+    var0 = self->_ucat->var0;
+    if (var0 <= 60 && (var0 != -1 || _LogCategory_Initialize()))
     {
-LABEL_5:
       LogPrintF();
-      goto LABEL_7;
-    }
-
-    if (_LogCategory_Initialize())
-    {
-      ucat = self->_ucat;
-      goto LABEL_5;
     }
   }
-
-LABEL_7:
 }
 
 - (id)userActivitySetFromData:(id)data
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v4 = objc_opt_new();
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v5 = dataCopy;
-  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         v11 = objc_alloc(MEMORY[0x277CCAE58]);
-        v12 = [v11 _initWithUserActivityData:{v10, v16}];
+        v12 = [v11 _initWithUserActivityData:{v10, v15}];
         if (v12)
         {
           v13 = [PCActivityUtility activityFrom:v12];
@@ -1024,13 +878,11 @@ LABEL_7:
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

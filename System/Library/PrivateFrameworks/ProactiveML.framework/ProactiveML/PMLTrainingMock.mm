@@ -1,6 +1,7 @@
 @interface PMLTrainingMock
 - (PMLTrainingMock)init;
 - (id)lastTrainingFeaturizationForModelName:(id)name andLocale:(id)locale;
+- (void)addSessionWithCovariates:(id)covariates label:(int64_t)label sessionDescriptor:(id)descriptor spotlightReference:(id)reference isInternal:(BOOL)internal;
 - (void)updateLastTrainingFeaturizationForModel:(id)model andData:(id)data;
 @end
 
@@ -27,6 +28,31 @@
   v6 = [(NSMutableDictionary *)lastTrainingFeaturizations objectForKeyedSubscript:v5];
 
   return v6;
+}
+
+- (void)addSessionWithCovariates:(id)covariates label:(int64_t)label sessionDescriptor:(id)descriptor spotlightReference:(id)reference isInternal:(BOOL)internal
+{
+  internalCopy = internal;
+  v20[5] = *MEMORY[0x277D85DE8];
+  internalCollectedSessions = self->_internalCollectedSessions;
+  v20[0] = covariates;
+  v19[0] = @"covariates";
+  v19[1] = @"label";
+  v12 = MEMORY[0x277CCABB0];
+  referenceCopy = reference;
+  descriptorCopy = descriptor;
+  covariatesCopy = covariates;
+  v16 = [v12 numberWithInteger:label];
+  v20[1] = v16;
+  v20[2] = descriptorCopy;
+  v19[2] = @"model";
+  v19[3] = @"spotlightReference";
+  v20[3] = referenceCopy;
+  v19[4] = @"isInternal";
+  v17 = [MEMORY[0x277CCABB0] numberWithBool:internalCopy];
+  v20[4] = v17;
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:5];
+  [(NSMutableArray *)internalCollectedSessions addObject:v18];
 }
 
 - (PMLTrainingMock)init

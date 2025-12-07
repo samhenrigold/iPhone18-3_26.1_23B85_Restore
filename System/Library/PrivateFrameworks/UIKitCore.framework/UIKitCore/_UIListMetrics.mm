@@ -151,14 +151,14 @@
   collectionCopy = collection;
   swift_unknownObjectRetain();
   selfCopy = self;
-  v13 = sub_188FE20E4(type, style, listStyle, collectionCopy);
-  v15 = v14;
+  v14 = sub_188FE20E4(type, style, listStyle, collectionCopy, state);
+  v16 = v15;
 
   swift_unknownObjectRelease();
-  v16 = v13;
-  v17 = v15;
-  result.var1 = v17;
-  result.var0 = v16;
+  v17 = v14;
+  v18 = v16;
+  result.var1 = v18;
+  result.var0 = v17;
   return result;
 }
 

@@ -34,16 +34,16 @@
 - (id)_defaultBrowserRecord
 {
   defaultWorkspace = [MEMORY[0x1E6963608] defaultWorkspace];
-  v7 = 0;
-  v3 = [defaultWorkspace defaultApplicationForCategory:1 error:&v7];
-  v4 = v7;
+  v9 = 0;
+  v3 = [defaultWorkspace defaultApplicationForCategory:1 error:&v9];
+  v4 = v9;
 
   if (v4)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXBrowserChoiceScreen();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = WBS_LOG_CHANNEL_PREFIXBrowserChoiceScreen(v5, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [(SFDefaultBrowserPromptServiceViewController *)v5 _defaultBrowserRecord];
+      [(SFDefaultBrowserPromptServiceViewController *)v7 _defaultBrowserRecord];
     }
   }
 

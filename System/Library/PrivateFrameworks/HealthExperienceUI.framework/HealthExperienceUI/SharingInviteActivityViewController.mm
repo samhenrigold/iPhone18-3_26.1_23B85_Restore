@@ -17,7 +17,7 @@
   activitiesCopy = activities;
   if (activities)
   {
-    sub_1B9F0ADF8(0, &qword_1EBBF0030);
+    sub_1B9F0ADF8(0, &qword_1EBBF0030, 0x1E69CD9E8);
     sub_1BA4A6B08();
     itemsCopy = items;
     activitiesCopy = sub_1BA4A6AE8();

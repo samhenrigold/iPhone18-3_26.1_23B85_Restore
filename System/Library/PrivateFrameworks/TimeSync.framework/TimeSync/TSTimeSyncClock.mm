@@ -28,18 +28,18 @@
 
 - (unint64_t)convertFromMachAbsoluteToDomainTime:(unint64_t)time
 {
-  v4 = [(TSClock *)self->_translationClock convertFromMachAbsoluteToDomainTime:time];
+  [(TSClock *)self->_translationClock convertFromMachAbsoluteToDomainTime:?];
   translationClock = self->_translationClock;
 
-  return [(TSClock *)translationClock convertFromDomainToTimeSyncTime:v4];
+  return [(TSClock *)translationClock convertFromDomainToTimeSyncTime:?];
 }
 
 - (unint64_t)convertFromDomainToMachAbsoluteTime:(unint64_t)time
 {
-  v4 = [(TSClock *)self->_translationClock convertFromTimeSyncToDomainTime:time];
+  [(TSClock *)self->_translationClock convertFromTimeSyncToDomainTime:?];
   translationClock = self->_translationClock;
 
-  return [(TSClock *)translationClock convertFromDomainToMachAbsoluteTime:v4];
+  return [(TSClock *)translationClock convertFromDomainToMachAbsoluteTime:?];
 }
 
 - (BOOL)convertFromMachAbsoluteTime:(unint64_t *)time toDomainTime:(unint64_t *)domainTime withCount:(unsigned int)count
@@ -49,8 +49,9 @@
     countCopy = count;
     do
     {
-      v9 = *time++;
-      *domainTime++ = [(TSClock *)self->_translationClock convertFromDomainToTimeSyncTime:[(TSClock *)self->_translationClock convertFromMachAbsoluteToDomainTime:v9]];
+      ++time;
+      [(TSClock *)self->_translationClock convertFromMachAbsoluteToDomainTime:?];
+      *domainTime++ = [(TSClock *)self->_translationClock convertFromDomainToTimeSyncTime:?];
       --countCopy;
     }
 
@@ -67,8 +68,9 @@
     countCopy = count;
     do
     {
-      v9 = *time++;
-      *absoluteTime++ = [(TSClock *)self->_translationClock convertFromDomainToMachAbsoluteTime:[(TSClock *)self->_translationClock convertFromTimeSyncToDomainTime:v9]];
+      ++time;
+      [(TSClock *)self->_translationClock convertFromTimeSyncToDomainTime:?];
+      *absoluteTime++ = [(TSClock *)self->_translationClock convertFromDomainToMachAbsoluteTime:?];
       --countCopy;
     }
 
@@ -80,18 +82,18 @@
 
 - (unint64_t)convertFromMachAbsoluteIntervalToDomainInterval:(unint64_t)interval
 {
-  v4 = [(TSClock *)self->_translationClock convertFromMachAbsoluteIntervalToDomainInterval:interval];
+  [(TSClock *)self->_translationClock convertFromMachAbsoluteIntervalToDomainInterval:?];
   translationClock = self->_translationClock;
 
-  return [(TSClock *)translationClock convertFromDomainIntervalToTimeSyncTimeInterval:v4];
+  return [(TSClock *)translationClock convertFromDomainIntervalToTimeSyncTimeInterval:?];
 }
 
 - (unint64_t)convertFromDomainIntervalToMachAbsoluteInterval:(unint64_t)interval
 {
-  v4 = [(TSClock *)self->_translationClock convertFromTimeSyncTimeIntervalToDomainInterval:interval];
+  [(TSClock *)self->_translationClock convertFromTimeSyncTimeIntervalToDomainInterval:?];
   translationClock = self->_translationClock;
 
-  return [(TSClock *)translationClock convertFromDomainIntervalToMachAbsoluteInterval:v4];
+  return [(TSClock *)translationClock convertFromDomainIntervalToMachAbsoluteInterval:?];
 }
 
 - (BOOL)getTimeSyncTimeRateRatioNumerator:(unint64_t *)numerator denominator:(unint64_t *)denominator timeSyncAnchor:(unint64_t *)anchor andDomainAnchor:(unint64_t *)domainAnchor withError:(id *)error

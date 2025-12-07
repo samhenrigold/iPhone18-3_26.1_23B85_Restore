@@ -3,7 +3,7 @@
 
 @implementation ImageIOSIMD
 
-void __ImageIOSIMD_GetVectorLevel_block_invoke()
+void __ImageIOSIMD_GetVectorLevel_block_invoke(uint64_t result, uint64_t a2)
 {
   if (ImageIOSIMD_GetHardwareVectorLevel::hardwarePredicate != -1)
   {

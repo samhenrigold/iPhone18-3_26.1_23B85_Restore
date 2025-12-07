@@ -1055,7 +1055,7 @@ LABEL_44:
   v41.receiver = self;
   v41.super_class = SBPeekSplitViewRoutingSwitcherModifier;
   v37 = [(SBChainableModifier *)&v41 handleEvent:eventCopy];
-  v38 = SBAppendSwitcherModifierResponse(v12, v37);
+  v38 = SBAppendSwitcherModifierResponse();
 
   return v38;
 }
@@ -1110,16 +1110,16 @@ LABEL_44:
   if ([(SBChainableModifier *)self state]== 1)
   {
     v14 = objc_alloc_init(SBInvalidateAdjustedAppLayoutsSwitcherEventResponse);
-    v15 = SBAppendSwitcherModifierResponse(v14, v5);
+    v15 = SBAppendSwitcherModifierResponse();
 
     v16 = [[SBInvalidateSnapshotCacheSwitcherEventResponse alloc] initWithDisplayItems:0];
-    v5 = SBAppendSwitcherModifierResponse(v16, v15);
+    v5 = SBAppendSwitcherModifierResponse();
   }
 
   return v5;
 }
 
-uint64_t __55__SBPeekSplitViewRoutingSwitcherModifier__handleEvent___block_invoke(void *a1)
+void *__55__SBPeekSplitViewRoutingSwitcherModifier__handleEvent___block_invoke(void *a1)
 {
   v2 = [*(a1[4] + 192) handleEvent:a1[5]];
   result = [*(a1[4] + 192) state];
@@ -1139,7 +1139,7 @@ uint64_t __55__SBPeekSplitViewRoutingSwitcherModifier__handleEvent___block_invok
   if (isEnteringSplitViewPeekEvent && (phase == 1 || ([eventCopy isAnimated] & 1) == 0))
   {
     v9 = objc_alloc_init(SBInvalidateAdjustedAppLayoutsSwitcherEventResponse);
-    v10 = SBAppendSwitcherModifierResponse(v9, v5);
+    v10 = SBAppendSwitcherModifierResponse();
 
     v5 = v10;
   }
@@ -1147,7 +1147,7 @@ uint64_t __55__SBPeekSplitViewRoutingSwitcherModifier__handleEvent___block_invok
   if (isExitingSplitViewPeekEvent && self->_peekState == 3 && [eventCopy phase] == 3 && objc_msgSend(eventCopy, "isAnimated"))
   {
     v11 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:16 updateMode:3];
-    v12 = SBAppendSwitcherModifierResponse(v11, v5);
+    v12 = SBAppendSwitcherModifierResponse();
 
     v5 = v12;
   }
@@ -1174,7 +1174,7 @@ uint64_t __55__SBPeekSplitViewRoutingSwitcherModifier__handleEvent___block_invok
   v7.super_class = SBPeekSplitViewRoutingSwitcherModifier;
   v3 = [(SBSwitcherModifier *)&v7 handleSceneReadyEvent:event];
   v4 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:64 updateMode:3];
-  v5 = SBAppendSwitcherModifierResponse(v4, v3);
+  v5 = SBAppendSwitcherModifierResponse();
 
   return v5;
 }
@@ -1194,7 +1194,7 @@ uint64_t __55__SBPeekSplitViewRoutingSwitcherModifier__handleEvent___block_invok
     [v8 setPeekConfiguration:1];
     [v8 setRetainsSiri:{-[SBPeekSplitViewRoutingSwitcherModifier isSystemAssistantExperiencePersistentSiriEnabled](self, "isSystemAssistantExperiencePersistentSiriEnabled")}];
     v9 = [[SBPerformTransitionSwitcherEventResponse alloc] initWithTransitionRequest:v8 gestureInitiated:0];
-    v10 = SBAppendSwitcherModifierResponse(v9, v5);
+    v10 = SBAppendSwitcherModifierResponse();
 
     v5 = v10;
   }
@@ -1229,7 +1229,7 @@ uint64_t __55__SBPeekSplitViewRoutingSwitcherModifier__handleEvent___block_invok
     [(SBSwitcherTransitionRequest *)v18 setActivatingDisplayItem:v17];
     [(SBSwitcherTransitionRequest *)v18 setRetainsSiri:[(SBPeekSplitViewRoutingSwitcherModifier *)self isSystemAssistantExperiencePersistentSiriEnabled]];
     v20 = [[SBPerformTransitionSwitcherEventResponse alloc] initWithTransitionRequest:v18 gestureInitiated:0];
-    v11 = SBAppendSwitcherModifierResponse(v20, v15);
+    v11 = SBAppendSwitcherModifierResponse();
   }
 
   v21 = objc_opt_class();
@@ -1245,10 +1245,10 @@ uint64_t __55__SBPeekSplitViewRoutingSwitcherModifier__handleEvent___block_invok
     [(SBSwitcherTransitionRequest *)v23 setAppLayout:v24];
 
     v25 = [[SBPerformTransitionSwitcherEventResponse alloc] initWithTransitionRequest:v23 gestureInitiated:0];
-    v26 = SBAppendSwitcherModifierResponse(v25, v22);
+    v26 = SBAppendSwitcherModifierResponse();
 
     v27 = objc_alloc_init(SBInvalidateAdjustedAppLayoutsSwitcherEventResponse);
-    v11 = SBAppendSwitcherModifierResponse(v27, v26);
+    v11 = SBAppendSwitcherModifierResponse();
   }
 
   v45 = 0;
@@ -1271,10 +1271,10 @@ uint64_t __55__SBPeekSplitViewRoutingSwitcherModifier__handleEvent___block_invok
     [(SBSwitcherTransitionRequest *)v29 setAppLayout:v30];
 
     v31 = [[SBPerformTransitionSwitcherEventResponse alloc] initWithTransitionRequest:v29 gestureInitiated:1];
-    v32 = SBAppendSwitcherModifierResponse(v31, v11);
+    v32 = SBAppendSwitcherModifierResponse();
 
     v33 = objc_alloc_init(SBInvalidateAdjustedAppLayoutsSwitcherEventResponse);
-    v11 = SBAppendSwitcherModifierResponse(v33, v32);
+    v11 = SBAppendSwitcherModifierResponse();
   }
 
   v34 = objc_opt_class();

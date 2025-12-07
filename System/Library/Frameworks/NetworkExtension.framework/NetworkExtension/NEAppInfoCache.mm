@@ -1,8 +1,8 @@
 @interface NEAppInfoCache
 + (id)sharedAppInfoCache;
+- (BOOL)appInfo:(void *)info mismatchedWithUUID:(void *)d andBundleID:;
 - (NEAppInfoCache)init;
 - (id)bundleIDWithoutTeamID:(void *)d;
-- (uint64_t)appInfo:(void *)info mismatchedWithUUID:(void *)d andBundleID:;
 - (void)addAppInfoToCache:(void *)cache;
 - (void)appInfoForPid:(void *)pid UUID:(void *)d bundleID:(void *)iD completionHandler:;
 - (void)performCustomLookupIfNecessaryForPid:(void *)pid UUID:(void *)d bundleID:(void *)iD completionHandler:;
@@ -38,21 +38,23 @@
     dispatch_once(&sharedAppInfoCache_onceToken, &__block_literal_global);
   }
 
-  v0 = sharedAppInfoCache_sharedAppInfoCache;
+  v1 = sharedAppInfoCache_sharedAppInfoCache;
 
-  return v0;
+  return v1;
 }
 
 uint64_t __36__NEAppInfoCache_sharedAppInfoCache__block_invoke()
 {
-  sharedAppInfoCache_sharedAppInfoCache = objc_alloc_init(NEAppInfoCache);
+  v0 = objc_alloc_init(NEAppInfoCache);
+  v1 = sharedAppInfoCache_sharedAppInfoCache;
+  sharedAppInfoCache_sharedAppInfoCache = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (void)appInfoForPid:(void *)pid UUID:(void *)d bundleID:(void *)iD completionHandler:
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   pidCopy = pid;
   dCopy = d;
   iDCopy = iD;
@@ -64,9 +66,9 @@ uint64_t __36__NEAppInfoCache_sharedAppInfoCache__block_invoke()
       if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315394;
-        v23 = "[NEAppInfoCache appInfoForPid:UUID:bundleID:completionHandler:]";
-        v24 = 1024;
-        v25 = a2;
+        v22 = "[NEAppInfoCache appInfoForPid:UUID:bundleID:completionHandler:]";
+        v23 = 1024;
+        v24 = a2;
         _os_log_fault_impl(&dword_1BA83C000, v14, OS_LOG_TYPE_FAULT, "%s got invalid pid: %d", buf, 0x12u);
       }
 
@@ -80,39 +82,37 @@ uint64_t __36__NEAppInfoCache_sharedAppInfoCache__block_invoke()
       block[1] = 3221225472;
       block[2] = __64__NEAppInfoCache_appInfoForPid_UUID_bundleID_completionHandler___block_invoke;
       block[3] = &unk_1E7F08BD0;
-      v21 = a2;
-      v17 = pidCopy;
-      v18 = dCopy;
+      v20 = a2;
+      v16 = pidCopy;
+      v17 = dCopy;
       selfCopy = self;
-      v20 = iDCopy;
+      v19 = iDCopy;
       dispatch_async(Property, block);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __64__NEAppInfoCache_appInfoForPid_UUID_bundleID_completionHandler___block_invoke(uint64_t a1)
 {
-  v56 = *MEMORY[0x1E69E9840];
-  v44 = 0;
-  v45 = &v44;
-  v46 = 0x3032000000;
-  v47 = __Block_byref_object_copy_;
-  v48 = __Block_byref_object_dispose_;
-  v49 = 0;
+  v55 = *MEMORY[0x1E69E9840];
+  v43 = 0;
+  v44 = &v43;
+  v45 = 0x3032000000;
+  v46 = __Block_byref_object_copy_;
+  v47 = __Block_byref_object_dispose_;
+  v48 = 0;
   v2 = ne_log_obj();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v30 = *(a1 + 64);
-    v31 = *(a1 + 32);
-    v32 = *(a1 + 40);
+    v29 = *(a1 + 64);
+    v30 = *(a1 + 32);
+    v31 = *(a1 + 40);
     *buf = 67109634;
-    v51 = v30;
-    v52 = 2112;
-    v53 = v31;
-    v54 = 2112;
-    v55 = v32;
+    v50 = v29;
+    v51 = 2112;
+    v52 = v30;
+    v53 = 2112;
+    v54 = v31;
     _os_log_debug_impl(&dword_1BA83C000, v2, OS_LOG_TYPE_DEBUG, "Fetching appInfo from cache for pid: %d uuid: %@ bundle id: %@", buf, 0x1Cu);
   }
 
@@ -127,21 +127,21 @@ void __64__NEAppInfoCache_appInfoForPid_UUID_bundleID_completionHandler___block_
 
     v6 = Property;
     v7 = [v6 objectForKeyedSubscript:v4];
-    v8 = v45[5];
-    v45[5] = v7;
+    v8 = v44[5];
+    v44[5] = v7;
   }
 
-  v9 = v45[5];
+  v9 = v44[5];
   if (!v9)
   {
     v10 = *(a1 + 64);
     v11 = *(a1 + 40);
     v12 = *(a1 + 48);
-    v34[0] = MEMORY[0x1E69E9820];
-    v34[1] = 3221225472;
-    v34[2] = __64__NEAppInfoCache_appInfoForPid_UUID_bundleID_completionHandler___block_invoke_2;
-    v34[3] = &unk_1E7F069C0;
-    v37 = &v44;
+    v33[0] = MEMORY[0x1E69E9820];
+    v33[1] = 3221225472;
+    v33[2] = __64__NEAppInfoCache_appInfoForPid_UUID_bundleID_completionHandler___block_invoke_2;
+    v33[3] = &unk_1E7F069C0;
+    v36 = &v43;
     v13 = *(a1 + 32);
     v14 = *(a1 + 40);
     v15 = *(a1 + 56);
@@ -149,13 +149,13 @@ void __64__NEAppInfoCache_appInfoForPid_UUID_bundleID_completionHandler___block_
     *(&v16 + 1) = v15;
     *&v17 = v12;
     *(&v17 + 1) = v13;
-    v35 = v17;
-    v36 = v16;
-    v38 = *(a1 + 64);
-    [(NEAppInfoCache *)v12 performCustomLookupIfNecessaryForPid:v10 UUID:v13 bundleID:v11 completionHandler:v34];
-    v18 = &v35 + 1;
-    v19 = &v36;
-    v20 = &v36 + 1;
+    v34 = v17;
+    v35 = v16;
+    v37 = *(a1 + 64);
+    [(NEAppInfoCache *)v12 performCustomLookupIfNecessaryForPid:v10 UUID:v13 bundleID:v11 completionHandler:v33];
+    v18 = &v34 + 1;
+    v19 = &v35;
+    v20 = &v35 + 1;
 LABEL_13:
 
     goto LABEL_14;
@@ -168,26 +168,26 @@ LABEL_13:
     {
       v22 = *(a1 + 32);
       v23 = *(a1 + 40);
-      v39[0] = MEMORY[0x1E69E9820];
-      v39[1] = 3221225472;
-      v39[2] = __64__NEAppInfoCache_appInfoForPid_UUID_bundleID_completionHandler___block_invoke_52;
-      v39[3] = &unk_1E7F069C0;
-      v42 = &v44;
-      v33 = *(a1 + 48);
-      v24 = v33.i64[1];
+      v38[0] = MEMORY[0x1E69E9820];
+      v38[1] = 3221225472;
+      v38[2] = __64__NEAppInfoCache_appInfoForPid_UUID_bundleID_completionHandler___block_invoke_52;
+      v38[3] = &unk_1E7F069C0;
+      v41 = &v43;
+      v32 = *(a1 + 48);
+      v24 = v32.i64[1];
       v25 = *(a1 + 32);
       v26 = *(a1 + 40);
       v27.i64[0] = v25;
       v27.i64[1] = v26;
-      *&v28 = v33.i64[0];
+      *&v28 = v32.i64[0];
       *(&v28 + 1) = v25;
-      v40 = v28;
-      v41 = vzip2q_s64(v27, v33);
-      v43 = *(a1 + 64);
-      [(NEAppInfoCache *)v33.i64[0] performCustomLookupIfNecessaryForPid:v21 UUID:v22 bundleID:v23 completionHandler:v39];
-      v18 = &v41.i64[1];
-      v19 = &v40 + 1;
-      v20 = &v41;
+      v39 = v28;
+      v40 = vzip2q_s64(v27, v32);
+      v42 = *(a1 + 64);
+      [(NEAppInfoCache *)v32.i64[0] performCustomLookupIfNecessaryForPid:v21 UUID:v22 bundleID:v23 completionHandler:v38];
+      v18 = &v40.i64[1];
+      v19 = &v39 + 1;
+      v20 = &v40;
       goto LABEL_13;
     }
   }
@@ -195,11 +195,10 @@ LABEL_13:
   (*(*(a1 + 56) + 16))();
 LABEL_14:
 
-  _Block_object_dispose(&v44, 8);
-  v29 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v43, 8);
 }
 
-void __64__NEAppInfoCache_appInfoForPid_UUID_bundleID_completionHandler___block_invoke_52(uint64_t a1, void *a2)
+void __64__NEAppInfoCache_appInfoForPid_UUID_bundleID_completionHandler___block_invoke_52(void *a1, void *a2)
 {
   v4 = a2;
   v8 = v4;
@@ -208,27 +207,27 @@ void __64__NEAppInfoCache_appInfoForPid_UUID_bundleID_completionHandler___block_
     goto LABEL_4;
   }
 
-  if ([(NEAppInfoCache *)*(a1 + 32) appInfo:v4 mismatchedWithUUID:*(a1 + 40) andBundleID:*(a1 + 48)])
+  if ([(NEAppInfoCache *)a1[4] appInfo:v4 mismatchedWithUUID:a1[5] andBundleID:a1[6]])
   {
-    [(NEAppInfoCache *)*(a1 + 32) addAppInfoToCache:v8];
+    [(NEAppInfoCache *)a1[4] addAppInfoToCache:v8];
 LABEL_4:
-    v5 = *(a1 + 56);
-    v6 = a1 + 64;
+    v5 = a1[7];
+    v6 = a1 + 8;
     goto LABEL_6;
   }
 
-  v7 = *(a1 + 64);
-  v6 = a1 + 64;
+  v7 = a1[8];
+  v6 = a1 + 8;
   objc_storeStrong((*(v7 + 8) + 40), a2);
-  [(NEAppInfoCache *)*(v6 - 32) addAppInfoToCache:?];
-  v5 = *(v6 - 8);
+  [(NEAppInfoCache *)*(v6 - 4) addAppInfoToCache:?];
+  v5 = *(v6 - 1);
 LABEL_6:
   (*(v5 + 16))(v5, *(*(*v6 + 8) + 40));
 }
 
 - (void)performCustomLookupIfNecessaryForPid:(void *)pid UUID:(void *)d bundleID:(void *)iD completionHandler:
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   pidCopy = pid;
   dCopy = d;
   iDCopy = iD;
@@ -244,18 +243,18 @@ LABEL_6:
         *&length[4] = a2;
         *&length[8] = 2112;
         *&length[10] = pidCopy;
-        v43 = 2112;
-        v44 = dCopy;
+        v42 = 2112;
+        v43 = dCopy;
         _os_log_debug_impl(&dword_1BA83C000, v13, OS_LOG_TYPE_DEBUG, "Calling delegate lookup handler with pid: %d, uuid: %@, bundleID: %@", length, 0x1Cu);
       }
 
-      v40[0] = MEMORY[0x1E69E9820];
-      v40[1] = 3221225472;
-      v40[2] = __87__NEAppInfoCache_performCustomLookupIfNecessaryForPid_UUID_bundleID_completionHandler___block_invoke;
-      v40[3] = &unk_1E7F069E8;
-      v40[4] = self;
-      v41 = iDCopy;
-      [WeakRetained fetchAppInfoForPID:a2 UUID:pidCopy bundleID:dCopy completionHandler:v40];
+      v39[0] = MEMORY[0x1E69E9820];
+      v39[1] = 3221225472;
+      v39[2] = __87__NEAppInfoCache_performCustomLookupIfNecessaryForPid_UUID_bundleID_completionHandler___block_invoke;
+      v39[3] = &unk_1E7F069E8;
+      v39[4] = self;
+      v40 = iDCopy;
+      [WeakRetained fetchAppInfoForPID:a2 UUID:pidCopy bundleID:dCopy completionHandler:v39];
 
 LABEL_38:
       goto LABEL_39;
@@ -286,12 +285,12 @@ LABEL_38:
       v16 = 0;
     }
 
-    v38 = v16;
-    [v38 UTF8String];
+    v37 = v16;
+    [v37 UTF8String];
     v17 = NEHelperCopyAppInfo();
     v18 = v17;
-    v39 = v14;
-    v37 = pidCopy;
+    v38 = v14;
+    v36 = pidCopy;
     if (v17)
     {
       uuid = xpc_dictionary_get_uuid(v17, "app-euuid");
@@ -359,7 +358,7 @@ LABEL_35:
       }
 
       (*(iDCopy + 2))(iDCopy, v29);
-      pidCopy = v37;
+      pidCopy = v36;
       goto LABEL_38;
     }
 
@@ -391,13 +390,11 @@ LABEL_35:
   }
 
 LABEL_39:
-
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 void __64__NEAppInfoCache_appInfoForPid_UUID_bundleID_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v4 = a2;
   objc_storeStrong((*(*(a1 + 64) + 8) + 40), a2);
   v5 = *(*(*(a1 + 64) + 8) + 40);
@@ -406,15 +403,15 @@ void __64__NEAppInfoCache_appInfoForPid_UUID_bundleID_completionHandler___block_
     v11 = ne_log_obj();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      v15 = *(a1 + 72);
-      v17 = *(a1 + 40);
-      v16 = *(a1 + 48);
+      v13 = *(a1 + 72);
+      v15 = *(a1 + 40);
+      v14 = *(a1 + 48);
       *buf = 67109634;
-      v22 = v15;
+      v20 = v13;
+      v21 = 2112;
+      v22 = v14;
       v23 = 2112;
-      v24 = v16;
-      v25 = 2112;
-      v26 = v17;
+      v24 = v15;
       _os_log_debug_impl(&dword_1BA83C000, v11, OS_LOG_TYPE_DEBUG, "Could not look up appInfo for pid: %d bundle id: %@ uuid: %@", buf, 0x1Cu);
     }
 
@@ -426,7 +423,6 @@ void __64__NEAppInfoCache_appInfoForPid_UUID_bundleID_completionHandler___block_
   [(NEAppInfoCache *)*(a1 + 32) addAppInfoToCache:?];
   if (!v6)
   {
-    v13 = *(*(*(a1 + 64) + 8) + 40);
     v12 = *(*(a1 + 56) + 16);
 LABEL_8:
     v12();
@@ -436,53 +432,33 @@ LABEL_8:
   v7 = *(a1 + 32);
   v8 = *(a1 + 40);
   v9 = *(a1 + 48);
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __64__NEAppInfoCache_appInfoForPid_UUID_bundleID_completionHandler___block_invoke_3;
-  v19[3] = &unk_1E7F06998;
-  v19[4] = v7;
-  v18 = *(a1 + 56);
-  v10 = v18;
-  v20 = v18;
-  [(NEAppInfoCache *)v7 performCustomLookupIfNecessaryForPid:v8 UUID:v9 bundleID:v19 completionHandler:?];
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __64__NEAppInfoCache_appInfoForPid_UUID_bundleID_completionHandler___block_invoke_3;
+  v17[3] = &unk_1E7F06998;
+  v17[4] = v7;
+  v16 = *(a1 + 56);
+  v10 = v16;
+  v18 = v16;
+  [(NEAppInfoCache *)v7 performCustomLookupIfNecessaryForPid:v8 UUID:v9 bundleID:v17 completionHandler:?];
 
 LABEL_9:
-  v14 = *MEMORY[0x1E69E9840];
 }
 
-- (uint64_t)appInfo:(void *)info mismatchedWithUUID:(void *)d andBundleID:
+- (BOOL)appInfo:(void *)info mismatchedWithUUID:(void *)d andBundleID:
 {
   v7 = a2;
   infoCopy = info;
   dCopy = d;
   if (self)
   {
-    if (infoCopy && ![v7[2] isEqual:infoCopy])
+    self = 1;
+    if (!infoCopy || [v7[2] isEqual:infoCopy])
     {
-      goto LABEL_7;
-    }
-
-    if (!dCopy)
-    {
-      goto LABEL_6;
-    }
-
-    v10 = v7[3];
-    v11 = dCopy;
-    v12 = [NEAppInfoCache bundleIDWithoutTeamID:v10];
-    v13 = [NEAppInfoCache bundleIDWithoutTeamID:v11];
-    v14 = [v12 isEqual:v13];
-
-    if (!v14)
-    {
-LABEL_7:
-      self = 1;
-    }
-
-    else
-    {
-LABEL_6:
-      self = 0;
+      if (!dCopy || (v10 = v7[3], v11 = dCopy, -[NEAppInfoCache bundleIDWithoutTeamID:](v10), v12 = objc_claimAutoreleasedReturnValue(), -[NEAppInfoCache bundleIDWithoutTeamID:](v11), v13 = objc_claimAutoreleasedReturnValue(), v14 = [v12 isEqual:v13], v13, v12, v11, v10, v14))
+      {
+        self = 0;
+      }
     }
   }
 
@@ -491,7 +467,7 @@ LABEL_6:
 
 - (void)addAppInfoToCache:(void *)cache
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (cache)
@@ -525,9 +501,9 @@ LABEL_6:
 
             if (!v16)
             {
-              v18 = [v14 isEqual:?];
+              v17 = [v14 isEqual:?];
 
-              if (v18)
+              if (v17)
               {
                 goto LABEL_15;
               }
@@ -545,28 +521,25 @@ LABEL_15:
 
     else
     {
-      v19 = ne_log_obj();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
+      v18 = ne_log_obj();
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
       {
-        v20 = 136315138;
-        v21 = "[NEAppInfoCache addAppInfoToCache:]";
-        _os_log_fault_impl(&dword_1BA83C000, v19, OS_LOG_TYPE_FAULT, "%s called with null appInfo", &v20, 0xCu);
+        v19 = 136315138;
+        v20 = "[NEAppInfoCache addAppInfoToCache:]";
+        _os_log_fault_impl(&dword_1BA83C000, v18, OS_LOG_TYPE_FAULT, "%s called with null appInfo", &v19, 0xCu);
       }
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __64__NEAppInfoCache_appInfoForPid_UUID_bundleID_completionHandler___block_invoke_3(uint64_t a1, void *a2)
 {
-  v6 = a2;
+  v5 = a2;
   objc_storeStrong((*(*(a1 + 48) + 8) + 40), a2);
   v4 = *(*(*(a1 + 48) + 8) + 40);
   if (v4)
   {
     [(NEAppInfoCache *)*(a1 + 32) addAppInfoToCache:v4];
-    v5 = *(*(*(a1 + 48) + 8) + 40);
   }
 
   (*(*(a1 + 40) + 16))();
@@ -574,7 +547,7 @@ void __64__NEAppInfoCache_appInfoForPid_UUID_bundleID_completionHandler___block_
 
 - (id)bundleIDWithoutTeamID:(void *)d
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   dCopy = d;
   v2 = dCopy;
   if (dCopy)
@@ -601,9 +574,9 @@ LABEL_4:
     v8 = ne_log_obj();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v11 = 138412290;
-      v12 = v2;
-      _os_log_error_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_ERROR, "found invalid . in bundle id: %@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v2;
+      _os_log_error_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_ERROR, "found invalid . in bundle id: %@", &v10, 0xCu);
     }
   }
 
@@ -612,16 +585,14 @@ LABEL_4:
     v8 = ne_log_obj();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
-      v11 = 136315138;
-      v12 = "[NEAppInfoCache bundleIDWithoutTeamID:]";
-      _os_log_fault_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_FAULT, "%s called with null bundleID", &v11, 0xCu);
+      v10 = 136315138;
+      v11 = "[NEAppInfoCache bundleIDWithoutTeamID:]";
+      _os_log_fault_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_FAULT, "%s called with null bundleID", &v10, 0xCu);
     }
   }
 
   v6 = 0;
 LABEL_11:
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

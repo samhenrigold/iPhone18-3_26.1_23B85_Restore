@@ -1,14 +1,14 @@
 id _VEError(uint64_t a1, void *a2)
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCA9B8];
   if (a2)
   {
-    v10 = *MEMORY[0x277CCA7E8];
-    v11[0] = a2;
+    v9 = *MEMORY[0x277CCA7E8];
+    v10[0] = a2;
     v4 = MEMORY[0x277CBEAC0];
     v5 = a2;
-    v6 = [v4 dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    v6 = [v4 dictionaryWithObjects:v10 forKeys:&v9 count:1];
     v7 = [v3 errorWithDomain:@"VEVideoEffectErrorDomain" code:a1 userInfo:v6];
   }
 
@@ -17,8 +17,6 @@ id _VEError(uint64_t a1, void *a2)
     v6 = 0;
     v7 = [v3 errorWithDomain:@"VEVideoEffectErrorDomain" code:a1 userInfo:0];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -46,33 +44,34 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_270C6C6BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_270C6C6BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_270C6D168(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_270C6D168(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_270C6D61C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_270C6D61C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 uint64_t DebugAssertPrint(uint64_t a1, uint64_t a2, uint64_t a3, const char *a4, const char *a5, uint64_t a6, uint64_t a7)
@@ -214,7 +213,7 @@ id dvpFrameFromVE(void *a1)
     v3 = a1;
     v4 = [v2 alloc];
     v5 = [v3 buffer];
-    [v3 presentationTimeStamp];
+    objc_msgSend_presentationTimeStamp(v3);
 
     a1 = [v4 initWithBuffer:v5 presentationTimeStamp:v7];
     v1 = vars8;
@@ -457,22 +456,19 @@ unint64_t queryMemoryFootprint()
 
 unint64_t getPhysicalMemorySize()
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v2 = 8;
-  v3 = 0;
-  *v4 = 0x1800000006;
-  if (sysctl(v4, 2u, &v3, &v2, 0, 0))
+  v4 = *MEMORY[0x277D85DE8];
+  v1 = 8;
+  v2 = 0;
+  *v3 = 0x1800000006;
+  if (sysctl(v3, 2u, &v2, &v1, 0, 0))
   {
-    result = v3;
+    return v2;
   }
 
   else
   {
-    result = v3 >> 20;
+    return v2 >> 20;
   }
-
-  v1 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 vm_size_t OUTLINED_FUNCTION_0_0()
@@ -572,7 +568,7 @@ CVPixelBufferRef createPixelBuffer(size_t a1, size_t a2, OSType a3, int a4)
   return v14;
 }
 
-uint64_t loadTexture(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, unint64_t a5)
+void *loadTexture(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, unint64_t a5)
 {
   if (a5)
   {
@@ -689,28 +685,7 @@ CFMutableDictionaryRef createPixelBufferPoolWithExtendedPixels(uint64_t a1, uint
   {
     v8 = result;
     v9 = CFNumberCreate(v6, kCFNumberIntType, &valuePtr);
-    if (!v9)
-    {
-      goto LABEL_6;
-    }
-
-    v10 = v9;
-    CFDictionarySetValue(v8, *MEMORY[0x277CC4E30], v9);
-    CFRelease(v10);
-    Mutable = CFDictionaryCreateMutable(v6, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-    CFDictionaryAddValue(v8, *MEMORY[0x277CC4DE8], Mutable);
-    CFRelease(Mutable);
-    v12 = CFNumberCreate(v6, kCFNumberLongType, &v25);
-    if (!v12)
-    {
-      goto LABEL_6;
-    }
-
-    v13 = v12;
-    CFDictionarySetValue(v8, *MEMORY[0x277CC4EC8], v12);
-    CFRelease(v13);
-    v14 = CFNumberCreate(v6, kCFNumberLongType, &v24);
-    if (v14)
+    if (v9 && (v10 = v9, CFDictionarySetValue(v8, *MEMORY[0x277CC4E30], v9), CFRelease(v10), Mutable = CFDictionaryCreateMutable(v6, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]), CFDictionaryAddValue(v8, *MEMORY[0x277CC4DE8], Mutable), CFRelease(Mutable), (v12 = CFNumberCreate(v6, kCFNumberLongType, &v25)) != 0) && (v13 = v12, CFDictionarySetValue(v8, *MEMORY[0x277CC4EC8], v12), CFRelease(v13), (v14 = CFNumberCreate(v6, kCFNumberLongType, &v24)) != 0))
     {
       v15 = v14;
       CFDictionarySetValue(v8, *MEMORY[0x277CC4DD8], v14);
@@ -731,7 +706,6 @@ CFMutableDictionaryRef createPixelBufferPoolWithExtendedPixels(uint64_t a1, uint
 
     else
     {
-LABEL_6:
       CFRelease(v8);
       return 0;
     }
@@ -1739,7 +1713,7 @@ float compareCVPixelBuffers(__CVBuffer *a1, __CVBuffer *a2, unint64_t a3, int a4
 
 float compareBGRAPixelBuffers(__CVBuffer *a1, __CVBuffer *a2)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   CVPixelBufferLockBaseAddress(a1, 1uLL);
   CVPixelBufferLockBaseAddress(a2, 1uLL);
   Width = CVPixelBufferGetWidth(a1);
@@ -1747,16 +1721,16 @@ float compareBGRAPixelBuffers(__CVBuffer *a1, __CVBuffer *a2)
   BytesPerRow = CVPixelBufferGetBytesPerRow(a1);
   BaseAddress = CVPixelBufferGetBaseAddress(a1);
   v8 = CVPixelBufferGetBaseAddress(a2);
-  v31 = 0;
   v30 = 0;
   v29 = 0;
   v28 = 0;
   v27 = 0;
-  v26 = 2139095039;
-  v25 = 0;
+  v26 = 0;
+  v25 = 2139095039;
   v24 = 0;
   v23 = 0;
-  v22 = 2139095039;
+  v22 = 0;
+  v21 = 2139095039;
   if (Height)
   {
     LODWORD(v11) = 0;
@@ -1778,14 +1752,14 @@ float compareBGRAPixelBuffers(__CVBuffer *a1, __CVBuffer *a2)
             *&v9 = v9;
             v10 = *&v10 / 255.0;
             *&v10 = v10;
-            *(&v30 + i) = *(&v30 + i) + ((*&v9 - *&v10) * (*&v9 - *&v10));
+            *(&v29 + i) = *(&v29 + i) + ((*&v9 - *&v10) * (*&v9 - *&v10));
             *&v10 = vabds_f32(*&v9, *&v10);
-            *(&v26 + i) = fminf(*&v10, *(&v26 + i));
-            *(&v28 + i) = fmaxf(*&v10, *(&v28 + i));
-            *(&v22 + i) = fminf(*&v9, *(&v22 + i));
-            LODWORD(v10) = *(&v24 + i);
+            *(&v25 + i) = fminf(*&v10, *(&v25 + i));
+            *(&v27 + i) = fmaxf(*&v10, *(&v27 + i));
+            *(&v21 + i) = fminf(*&v9, *(&v21 + i));
+            LODWORD(v10) = *(&v23 + i);
             *&v9 = fmaxf(*&v9, *&v10);
-            *(&v24 + i) = LODWORD(v9);
+            *(&v23 + i) = LODWORD(v9);
           }
 
           ++v13;
@@ -1808,29 +1782,26 @@ float compareBGRAPixelBuffers(__CVBuffer *a1, __CVBuffer *a2)
   CVPixelBufferUnlockBaseAddress(a2, 1uLL);
   for (j = 0; j != 3; ++j)
   {
-    v18 = *(&v30 + j) / (Height * Width);
-    v21[j] = v18;
-    printf("[%d]\tDynamic Range [%6.3f, %6.3f]", j, *(&v22 + j), *(&v24 + j));
-    printf("\tMax Diff = %6.6f, Min Diff = %6.6f, MSE = %6.6f\n", *(&v28 + j), *(&v26 + j), v18);
+    v18 = *(&v29 + j) / (Height * Width);
+    v20[j] = v18;
+    printf("[%d]\tDynamic Range [%6.3f, %6.3f]", j, *(&v21 + j), *(&v23 + j));
+    printf("\tMax Diff = %6.6f, Min Diff = %6.6f, MSE = %6.6f\n", *(&v27 + j), *(&v25 + j), v18);
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-  return ((v21[0] + v21[1]) + v21[2]) / 3.0;
+  return ((v20[0] + v20[1]) + v20[2]) / 3.0;
 }
 
 uint64_t checkMemoryLeaks()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   v0 = getpid();
   snprintf(__str, 0x1F3uLL, "/usr/bin/leaks %d", v0);
-  result = system(__str);
-  v2 = *MEMORY[0x277D85DE8];
-  return result;
+  return system(__str);
 }
 
 void checkMemoryFootPrint()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   v0 = NSUserName();
   if ([v0 isEqualToString:@"root"])
   {
@@ -1838,8 +1809,6 @@ void checkMemoryFootPrint()
     snprintf(__str, 0x1F3uLL, "/usr/local/bin/jetsam_priority -p %d", v1);
     system(__str);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t readBuffer(FILE *a1, CVPixelBufferRef pixelBuffer)
@@ -2030,16 +1999,16 @@ uint64_t writeBGRA(FILE *a1, CVPixelBufferRef pixelBuffer)
 
 CVPixelBufferRef readPNG(uint64_t a1)
 {
-  v62[1] = *MEMORY[0x277D85DE8];
+  v61[1] = *MEMORY[0x277D85DE8];
   if (a1)
   {
     v2 = MEMORY[0x277CBEBC0];
     v3 = [MEMORY[0x277CCACA8] stringWithUTF8String:a1];
     v4 = [v2 fileURLWithPath:v3];
 
-    v61 = *MEMORY[0x277CBFA30];
-    v62[0] = MEMORY[0x277CBEC28];
-    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v62 forKeys:&v61 count:1];
+    v60 = *MEMORY[0x277CBFA30];
+    v61[0] = MEMORY[0x277CBEC28];
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v61 forKeys:&v60 count:1];
     v6 = [MEMORY[0x277CBF758] imageWithContentsOfURL:v4 options:v5];
     v7 = v6;
     if (!v6)
@@ -2048,7 +2017,7 @@ CVPixelBufferRef readPNG(uint64_t a1)
       PixelBufferExtended = 0;
 LABEL_23:
 
-      goto LABEL_24;
+      return PixelBufferExtended;
     }
 
     v8 = [v6 properties];
@@ -2080,42 +2049,42 @@ LABEL_22:
       goto LABEL_23;
     }
 
-    v45 = v8;
-    v46 = v5;
-    v47 = v4;
+    v44 = v8;
+    v45 = v5;
+    v46 = v4;
     v18 = *MEMORY[0x277CC4C00];
     v19 = *MEMORY[0x277CC4C20];
     v20 = *MEMORY[0x277CC4CC0];
-    v59[0] = *MEMORY[0x277CC4C00];
-    v59[1] = v20;
+    v58[0] = *MEMORY[0x277CC4C00];
+    v58[1] = v20;
     v21 = *MEMORY[0x277CC4CD8];
-    v41 = v19;
-    v60[0] = v19;
-    v60[1] = v21;
-    v39 = v21;
+    v40 = v19;
+    v59[0] = v19;
+    v59[1] = v21;
+    v38 = v21;
     v22 = *MEMORY[0x277CC4D10];
-    v59[2] = *MEMORY[0x277CC4D10];
-    v40 = *MEMORY[0x277CC4D28];
-    v60[2] = *MEMORY[0x277CC4D28];
-    v44 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v60 forKeys:v59 count:3];
-    ColorSpaceFromAttachments = CVImageBufferCreateColorSpaceFromAttachments(v44);
+    v58[2] = *MEMORY[0x277CC4D10];
+    v39 = *MEMORY[0x277CC4D28];
+    v59[2] = *MEMORY[0x277CC4D28];
+    v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v59 forKeys:v58 count:3];
+    ColorSpaceFromAttachments = CVImageBufferCreateColorSpaceFromAttachments(v43);
     cf = CGColorSpaceCreateWithName(*MEMORY[0x277CBF3E0]);
     v23 = *MEMORY[0x277CBF478];
-    v42 = CGColorSpaceCreateWithName(*MEMORY[0x277CBF478]);
-    v49 = CGColorSpaceCreateWithName(*MEMORY[0x277CBF470]);
-    v48 = CGColorSpaceCreateWithName(*MEMORY[0x277CBF488]);
+    v41 = CGColorSpaceCreateWithName(*MEMORY[0x277CBF478]);
+    v48 = CGColorSpaceCreateWithName(*MEMORY[0x277CBF470]);
+    v47 = CGColorSpaceCreateWithName(*MEMORY[0x277CBF488]);
     Name = CGColorSpaceGetName(v9);
     v25 = v9;
     if (Name && CFEqual(Name, *MEMORY[0x277CBF4B8]))
     {
-      v57[0] = v18;
-      v57[1] = v20;
+      v56[0] = v18;
+      v56[1] = v20;
       v26 = *MEMORY[0x277CC4D08];
-      v58[0] = v41;
-      v58[1] = v26;
-      v57[2] = v22;
-      v58[2] = v40;
-      v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v58 forKeys:v57 count:3];
+      v57[0] = v40;
+      v57[1] = v26;
+      v56[2] = v22;
+      v57[2] = v39;
+      v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v57 forKeys:v56 count:3];
     }
 
     else
@@ -2133,14 +2102,14 @@ LABEL_22:
           if (CGColorSpaceGetName(v9) == v23 || CGColorSpaceEqualToColorSpace())
           {
             v32 = *MEMORY[0x277CC4C18];
-            v53[0] = v18;
-            v53[1] = v20;
+            v52[0] = v18;
+            v52[1] = v20;
             v33 = *MEMORY[0x277CC4CD0];
-            v54[0] = v32;
-            v54[1] = v33;
-            v53[2] = v22;
-            v54[2] = *MEMORY[0x277CC4D18];
-            v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v54 forKeys:v53 count:3];
+            v53[0] = v32;
+            v53[1] = v33;
+            v52[2] = v22;
+            v53[2] = *MEMORY[0x277CC4D18];
+            v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v53 forKeys:v52 count:3];
           }
 
           else
@@ -2150,13 +2119,13 @@ LABEL_22:
               goto LABEL_21;
             }
 
-            v51[0] = v18;
-            v51[1] = v20;
-            v52[0] = v41;
-            v52[1] = v39;
-            v51[2] = v22;
-            v52[2] = v40;
-            v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v52 forKeys:v51 count:3];
+            v50[0] = v18;
+            v50[1] = v20;
+            v51[0] = v40;
+            v51[1] = v38;
+            v50[2] = v22;
+            v51[2] = v39;
+            v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v51 forKeys:v50 count:3];
             v25 = ColorSpaceFromAttachments;
           }
 
@@ -2168,14 +2137,14 @@ LABEL_21:
           [v7 extent];
           [v36 render:v7 toCVPixelBuffer:PixelBufferExtended bounds:v25 colorSpace:?];
           CFRelease(cf);
-          CFRelease(v42);
-          CFRelease(v49);
+          CFRelease(v41);
           CFRelease(v48);
+          CFRelease(v47);
           CFRelease(v31);
 
-          v5 = v46;
-          v4 = v47;
-          v8 = v45;
+          v5 = v45;
+          v4 = v46;
+          v8 = v44;
           goto LABEL_22;
         }
       }
@@ -2185,14 +2154,14 @@ LABEL_21:
       }
 
       v34 = *MEMORY[0x277CC4C30];
-      v55[0] = v18;
-      v55[1] = v20;
+      v54[0] = v18;
+      v54[1] = v20;
       v35 = *MEMORY[0x277CC4D08];
-      v56[0] = v34;
-      v56[1] = v35;
-      v55[2] = v22;
-      v56[2] = *MEMORY[0x277CC4D20];
-      v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v56 forKeys:v55 count:3];
+      v55[0] = v34;
+      v55[1] = v35;
+      v54[2] = v22;
+      v55[2] = *MEMORY[0x277CC4D20];
+      v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v55 forKeys:v54 count:3];
       v25 = v9;
     }
 
@@ -2201,10 +2170,7 @@ LABEL_21:
   }
 
   NSLog(&cfstr_ReadpngErrorFi.isa);
-  PixelBufferExtended = 0;
-LABEL_24:
-  v37 = *MEMORY[0x277D85DE8];
-  return PixelBufferExtended;
+  return 0;
 }
 
 void writePNG(FILE *a1, CVPixelBufferRef pixelBuffer)
@@ -2293,20 +2259,18 @@ BOOL isSameFormat(__CVBuffer *a1, __CVBuffer *a2)
 
 void writeGrayscaledTiff(FILE *a1, uint64_t a2)
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   DeviceGray = CGColorSpaceCreateDeviceGray();
   v5 = *MEMORY[0x277CBF988];
-  v12 = *MEMORY[0x277CBFA40];
-  v13[0] = DeviceGray;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v11 = *MEMORY[0x277CBFA40];
+  v12[0] = DeviceGray;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
   v7 = [MEMORY[0x277CBF758] imageWithCVPixelBuffer:a2 options:v6];
   v8 = [MEMORY[0x277CBF740] context];
   v9 = objc_alloc_init(MEMORY[0x277CBEAC0]);
   v10 = [v8 TIFFRepresentationOfImage:v7 format:v5 colorSpace:DeviceGray options:v9];
   CFRelease(DeviceGray);
   fwrite([v10 bytes], 1uLL, objc_msgSend(v10, "length"), a1);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 size_t OUTLINED_FUNCTION_3(void *a1)
@@ -2315,18 +2279,18 @@ size_t OUTLINED_FUNCTION_3(void *a1)
   return fread(a1, 4uLL, 1uLL, v1);
 }
 
-void VEFrameRateConversionParameters.init(sourceFrame:nextFrame:opticalFlow:interpolationPhase:submissionMode:destinationFrames:)(void *a1, void *a2, void *a3, uint64_t a4, uint64_t a5)
+void VEFrameRateConversionParameters.init(sourceFrame:nextFrame:opticalFlow:interpolationPhase:submissionMode:destinationFrames:)(void *a1, void *a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v10 = objc_allocWithZone(swift_getObjCClassFromMetadata());
+  v11 = objc_allocWithZone(swift_getObjCClassFromMetadata());
   sub_270C7304C(a4);
   sub_270C730F4(0, &qword_2808549F8, 0x277CCABB0);
-  v11 = sub_270C7506C();
+  v12 = sub_270C7506C();
 
   sub_270C730F4(0, &qword_280854A00, off_279E16E08);
-  v12 = sub_270C7506C();
-  v13 = [v10 initWithSourceFrame:a1 nextFrame:a2 opticalFlow:a3 interpolationPhase:v11 submissionMode:a5 destinationFrames:v12];
+  v13 = sub_270C7506C();
+  v14 = [v11 initWithSourceFrame:a1 nextFrame:a2 opticalFlow:a3 interpolationPhase:v12 submissionMode:a5 destinationFrames:v13];
 
-  if (v13)
+  if (v14)
   {
   }
 
@@ -2342,15 +2306,14 @@ uint64_t sub_270C7304C(uint64_t a1)
   result = MEMORY[0x277D84F90];
   if (v2)
   {
-    v7 = MEMORY[0x277D84F90];
+    v5 = MEMORY[0x277D84F90];
     sub_270C750CC();
-    v4 = (a1 + 32);
+    v4 = a1 + 32;
     do
     {
-      v5 = *v4++;
+      v4 += 4;
       sub_270C7508C();
       sub_270C750AC();
-      v6 = *(v7 + 16);
       sub_270C750DC();
       sub_270C750EC();
       sub_270C750BC();
@@ -2358,18 +2321,17 @@ uint64_t sub_270C7304C(uint64_t a1)
     }
 
     while (v2);
-    return v7;
+    return v5;
   }
 
   return result;
 }
 
-uint64_t sub_270C730F4(uint64_t a1, unint64_t *a2, uint64_t *a3)
+uint64_t sub_270C730F4(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
   {
-    v5 = *a3;
     objc_opt_self();
     result = swift_getObjCClassMetadata();
     atomic_store(result, a2);
@@ -2447,7 +2409,7 @@ LABEL_3:
   return result;
 }
 
-char *sub_270C732D0(char *a1, int64_t a2, char a3)
+char *sub_270C732D0(char *a1, uint64_t a2, uint64_t a3)
 {
   result = sub_270C732F0(a1, a2, a3, *v3);
   *v3 = result;
@@ -2538,7 +2500,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -2548,11 +2509,10 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
 
 void errorMessage_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_270C6A000, a2, OS_LOG_TYPE_ERROR, "%@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_270C6A000, a2, OS_LOG_TYPE_ERROR, "%@", &v2, 0xCu);
 }
 
 vm_size_t getUsedMemorySize()
@@ -2594,9 +2554,8 @@ BOOL isMemoryAvailableForVSA(uint64_t a1, uint64_t a2, unsigned int a3, int a4)
     return 0;
   }
 
-  v5 = memoryUsageTabVSA[3 * a3 - 1 + a4];
-  v6 = OUTLINED_FUNCTION_0_0();
-  return OUTLINED_FUNCTION_1_0(v6);
+  v5 = OUTLINED_FUNCTION_0_0();
+  return OUTLINED_FUNCTION_1_0(v5);
 }
 
 BOOL isMemoryAvailableForFRC(uint64_t a1, uint64_t a2, unsigned int a3, int a4)
@@ -2606,12 +2565,11 @@ BOOL isMemoryAvailableForFRC(uint64_t a1, uint64_t a2, unsigned int a3, int a4)
     return 0;
   }
 
-  v5 = memoryUsageTabFRC[3 * a3 - 1 + a4];
-  v6 = OUTLINED_FUNCTION_0_0();
-  return OUTLINED_FUNCTION_1_0(v6);
+  v5 = OUTLINED_FUNCTION_0_0();
+  return OUTLINED_FUNCTION_1_0(v5);
 }
 
-BOOL isMemoryAvailableForOpticalFlow(uint64_t a1, uint64_t a2, int a3, unsigned int a4)
+BOOL isMemoryAvailableForOpticalFlow(uint64_t a1, uint64_t a2, int a3, int a4)
 {
   v4 = a4 - 4;
   if (a3 != -1)
@@ -2621,17 +2579,14 @@ BOOL isMemoryAvailableForOpticalFlow(uint64_t a1, uint64_t a2, int a3, unsigned 
       return 0;
     }
 
-    v6 = &memoryUsageTabOpticalFlow + 8 * a4 + 16;
-LABEL_10:
-    v7 = *v6;
-    v8 = OUTLINED_FUNCTION_0_0();
-    return OUTLINED_FUNCTION_1_0(v8);
+LABEL_9:
+    v6 = OUTLINED_FUNCTION_0_0();
+    return OUTLINED_FUNCTION_1_0(v6);
   }
 
   if (v4 >= 0xFFFFFFFD)
   {
-    v6 = &memoryUsageTabOpticalFlow + 8 * a4 - 8;
-    goto LABEL_10;
+    goto LABEL_9;
   }
 
   return 0;
@@ -2646,25 +2601,18 @@ BOOL isMemoryAvailableForVSR(unsigned int a1, unsigned int a2, unsigned int a3, 
 
   v5 = &dword_270C76264;
   v6 = 11;
-  while (1)
+  do
   {
-    v7 = *(v5 - 1);
-    if (v7 >= a1 && *v5 >= a2)
+    if (*(v5 - 1) >= a1 && *v5 >= a2)
     {
       break;
     }
 
     v5 += 2;
-    if (!--v6)
-    {
-      v8 = 57600.0;
-      goto LABEL_12;
-    }
+    --v6;
   }
 
-  v8 = (*v5 * v7);
-LABEL_12:
-  v9 = (((v8 / 1440.0) / 1080.0) * memoryUsageTabVSR[3 * a3 - 1 + a4]) * 1.1;
+  while (v6);
   UsableMemorySize = getUsableMemorySize();
   return OUTLINED_FUNCTION_1_0(UsableMemorySize);
 }
@@ -2764,7 +2712,7 @@ void saveTextureArray(uint64_t a1, void *a2)
 
 CVPixelBufferRef create420vBufferFromFile(void *a1, FILE *a2, size_t a3)
 {
-  v16[3] = *MEMORY[0x277D85DE8];
+  v15[3] = *MEMORY[0x277D85DE8];
   v5 = a1;
   if (v5)
   {
@@ -2776,14 +2724,14 @@ CVPixelBufferRef create420vBufferFromFile(void *a1, FILE *a2, size_t a3)
       fclose(a2);
       v9 = *MEMORY[0x277CC4C20];
       v10 = *MEMORY[0x277CC4CC0];
-      v15[0] = *MEMORY[0x277CC4C00];
-      v15[1] = v10;
+      v14[0] = *MEMORY[0x277CC4C00];
+      v14[1] = v10;
       v11 = *MEMORY[0x277CC4CD8];
-      v16[0] = v9;
-      v16[1] = v11;
-      v15[2] = *MEMORY[0x277CC4D10];
-      v16[2] = *MEMORY[0x277CC4D28];
-      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:3];
+      v15[0] = v9;
+      v15[1] = v11;
+      v14[2] = *MEMORY[0x277CC4D10];
+      v15[2] = *MEMORY[0x277CC4D28];
+      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
       CMSetAttachments(PixelBufferExtended, v12, 1u);
     }
   }
@@ -2793,7 +2741,6 @@ CVPixelBufferRef create420vBufferFromFile(void *a1, FILE *a2, size_t a3)
     PixelBufferExtended = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return PixelBufferExtended;
 }
 
@@ -3167,7 +3114,7 @@ LABEL_25:
   return v27;
 }
 
-BOOL writeYUVPlanar(FILE *a1, CVPixelBufferRef pixelBuffer)
+uint64_t writeYUVPlanar(FILE *a1, CVPixelBufferRef pixelBuffer)
 {
   Width = CVPixelBufferGetWidth(pixelBuffer);
   Height = CVPixelBufferGetHeight(pixelBuffer);

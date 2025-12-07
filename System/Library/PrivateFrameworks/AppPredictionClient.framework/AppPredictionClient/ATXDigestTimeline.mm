@@ -210,68 +210,69 @@
 - (ATXDigestTimeline)initWithProto:(id)proto
 {
   protoCopy = proto;
-  v18.receiver = self;
-  v18.super_class = ATXDigestTimeline;
-  v5 = [(ATXDigestTimeline *)&v18 init];
+  v19.receiver = self;
+  v19.super_class = ATXDigestTimeline;
+  v5 = [(ATXDigestTimeline *)&v19 init];
   if (v5)
   {
     if (protoCopy)
     {
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      isKindOfClass = objc_opt_isKindOfClass();
+      if (isKindOfClass)
       {
-        v6 = protoCopy;
-        if ([v6 hasFirstUpcomingViewTimestamp])
+        v7 = protoCopy;
+        if ([v7 hasFirstUpcomingViewTimestamp])
         {
-          v7 = MEMORY[0x1E695DF00];
-          [v6 firstUpcomingViewTimestamp];
-          v8 = [v7 dateWithTimeIntervalSinceReferenceDate:?];
-          [(ATXDigestTimeline *)v5 setFirstUpcomingViewTimestamp:v8];
+          v8 = MEMORY[0x1E695DF00];
+          [v7 firstUpcomingViewTimestamp];
+          v9 = [v8 dateWithTimeIntervalSinceReferenceDate:?];
+          [(ATXDigestTimeline *)v5 setFirstUpcomingViewTimestamp:v9];
         }
 
-        if ([v6 hasFirstCollapsedViewTimestamp])
+        if ([v7 hasFirstCollapsedViewTimestamp])
         {
-          v9 = MEMORY[0x1E695DF00];
-          [v6 firstCollapsedViewTimestamp];
-          v10 = [v9 dateWithTimeIntervalSinceReferenceDate:?];
-          [(ATXDigestTimeline *)v5 setFirstCollapsedViewTimestamp:v10];
+          v10 = MEMORY[0x1E695DF00];
+          [v7 firstCollapsedViewTimestamp];
+          v11 = [v10 dateWithTimeIntervalSinceReferenceDate:?];
+          [(ATXDigestTimeline *)v5 setFirstCollapsedViewTimestamp:v11];
         }
 
-        if ([v6 hasFirstScheduledViewTimestamp])
+        if ([v7 hasFirstScheduledViewTimestamp])
         {
-          v11 = MEMORY[0x1E695DF00];
-          [v6 firstScheduledViewTimestamp];
-          v12 = [v11 dateWithTimeIntervalSinceReferenceDate:?];
-          [(ATXDigestTimeline *)v5 setFirstScheduledViewTimestamp:v12];
+          v12 = MEMORY[0x1E695DF00];
+          [v7 firstScheduledViewTimestamp];
+          v13 = [v12 dateWithTimeIntervalSinceReferenceDate:?];
+          [(ATXDigestTimeline *)v5 setFirstScheduledViewTimestamp:v13];
         }
 
-        if ([v6 hasDigestRemovedTimestamp])
+        if ([v7 hasDigestRemovedTimestamp])
         {
-          v13 = MEMORY[0x1E695DF00];
-          [v6 digestRemovedTimestamp];
-          v14 = [v13 dateWithTimeIntervalSinceReferenceDate:?];
-          [(ATXDigestTimeline *)v5 setDigestRemovedTimestamp:v14];
+          v14 = MEMORY[0x1E695DF00];
+          [v7 digestRemovedTimestamp];
+          v15 = [v14 dateWithTimeIntervalSinceReferenceDate:?];
+          [(ATXDigestTimeline *)v5 setDigestRemovedTimestamp:v15];
         }
 
         goto LABEL_13;
       }
 
-      v16 = __atxlog_handle_notification_management();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+      v17 = __atxlog_handle_notification_management(isKindOfClass);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
       {
-        [(ATXDigestTimeline *)v5 initWithProto:v16];
+        [(ATXDigestTimeline *)v5 initWithProto:v17];
       }
     }
 
-    v15 = 0;
+    v16 = 0;
     goto LABEL_18;
   }
 
 LABEL_13:
-  v15 = v5;
+  v16 = v5;
 LABEL_18:
 
-  return v15;
+  return v16;
 }
 
 - (ATXDigestTimeline)initWithProtoData:(id)data

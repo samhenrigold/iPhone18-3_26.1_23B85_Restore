@@ -7,7 +7,7 @@
 
 - (id)secureDescriptionWithIndent:()HMFDeprecated newLine:blacklistedKeys:
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v8 = a3;
   v9 = a5;
   string = [MEMORY[0x277CCAB68] string];
@@ -18,7 +18,7 @@
   }
 
   v12 = v11;
-  v26 = v12;
+  v25 = v12;
   if (v8)
   {
     objc_msgSend(string, "appendFormat:", @"%@%@(\n"), v12, v8, v12;
@@ -31,27 +31,27 @@
     +[HMFStringIndentation indentation];
   }
   v13 = ;
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   selfCopy = self;
-  v15 = [selfCopy countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v15 = [selfCopy countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v28;
+    v17 = *v27;
     do
     {
       v18 = 0;
       do
       {
-        if (*v28 != v17)
+        if (*v27 != v17)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        v19 = *(*(&v27 + 1) + 8 * v18);
+        v19 = *(*(&v26 + 1) + 8 * v18);
         objc_opt_class();
         if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
         {
@@ -77,7 +77,7 @@ LABEL_15:
       }
 
       while (v16 != v18);
-      v22 = [selfCopy countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v22 = [selfCopy countByEnumeratingWithState:&v26 objects:v30 count:16];
       v16 = v22;
     }
 
@@ -92,48 +92,44 @@ LABEL_15:
 
   [string appendFormat:@"%@"], v23);
 
-  v24 = *MEMORY[0x277D85DE8];
-
   return string;
 }
 
 - (id)describeElements:()HMFDeprecated
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v4 = a3;
   string = [MEMORY[0x277CCAB68] string];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   selfCopy = self;
-  v7 = [selfCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [selfCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * i);
-        [string appendString:{@"\r", v15}];
+        v11 = *(*(&v14 + 1) + 8 * i);
+        [string appendString:{@"\r", v14}];
         v12 = v4[2](v4, v11);
         [string appendString:v12];
       }
 
-      v8 = [selfCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [selfCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return string;
 }

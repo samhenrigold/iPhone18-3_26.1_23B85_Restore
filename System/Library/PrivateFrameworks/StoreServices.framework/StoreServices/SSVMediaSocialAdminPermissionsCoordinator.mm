@@ -275,9 +275,9 @@ void __83__SSVMediaSocialAdminPermissionsCoordinator_getAdminStatusWithOptions_r
       if (objc_opt_isKindOfClass())
       {
         v14 = [v12 objectForKeyedSubscript:dCopy];
-LABEL_19:
+LABEL_20:
 
-        goto LABEL_21;
+        goto LABEL_22;
       }
     }
 
@@ -290,16 +290,21 @@ LABEL_19:
     shouldLog = [v15 shouldLog];
     if ([v15 shouldLogToDisk])
     {
-      v17 = shouldLog | 2;
+      LODWORD(v17) = shouldLog | 2;
     }
 
     else
     {
-      v17 = shouldLog;
+      LODWORD(v17) = shouldLog;
     }
 
     oSLogObject = [v15 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    {
+      v17 = v17;
+    }
+
+    else
     {
       v17 &= 2u;
     }
@@ -313,33 +318,33 @@ LABEL_19:
       v34 = v13;
       v20 = v19;
       LODWORD(v29) = 22;
-      v21 = _os_log_send_and_compose_impl();
+      v21 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "%{public}@: Failed to unarchive dictionary. Error = %{public}@", &v31, v29);
 
       if (!v21)
       {
-LABEL_18:
+LABEL_19:
 
         v14 = 0;
-        goto LABEL_19;
+        goto LABEL_20;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v21 encoding:{4, &v31, v29}];
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v21 encoding:4];
       free(v21);
       SSFileLog(v15, @"%@", v22, v23, v24, v25, v26, v27, oSLogObject);
     }
 
-    goto LABEL_18;
+    goto LABEL_19;
   }
 
   v14 = 0;
-LABEL_21:
+LABEL_22:
 
   return v14;
 }
 
 - (void)_setAdminStatus:(id)status forAccountID:(id)d
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   statusCopy = status;
   dCopy = d;
   if (dCopy)
@@ -372,9 +377,9 @@ LABEL_3:
   v11 = MEMORY[0x1E695DFD8];
   v12 = objc_opt_class();
   v13 = [v11 setWithObjects:{v12, objc_opt_class(), 0}];
-  v49 = 0;
-  v14 = [v10 unarchivedObjectOfClasses:v13 fromData:v8 error:&v49];
-  v15 = v49;
+  v48 = 0;
+  v14 = [v10 unarchivedObjectOfClasses:v13 fromData:v8 error:&v48];
+  v15 = v48;
 
   if (!v14 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
   {
@@ -409,21 +414,20 @@ LABEL_3:
     if (v20)
     {
       v21 = objc_opt_class();
-      v50 = 138543618;
-      v51 = v21;
-      v52 = 2114;
-      v53 = v15;
+      v49 = 138543618;
+      v50 = v21;
+      v51 = 2114;
+      v52 = v15;
       v22 = v21;
-      LODWORD(v46) = 22;
-      v45 = &v50;
-      v23 = _os_log_send_and_compose_impl();
+      LODWORD(v45) = 22;
+      v23 = _os_log_send_and_compose_impl(v20, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "%{public}@: Failed to unarchive dictionary. Error = %{public}@", &v49, v45);
 
       if (!v23)
       {
         goto LABEL_19;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v23 encoding:{4, &v50, v46}];
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v23 encoding:4];
       free(v23);
       SSFileLog(v16, @"%@", v24, v25, v26, v27, v28, v29, oSLogObject);
     }
@@ -436,10 +440,10 @@ LABEL_3:
 LABEL_19:
 
 LABEL_20:
-  [dictionary setObject:statusCopy forKeyedSubscript:{dCopy, v45}];
-  v48 = 0;
-  v30 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:dictionary requiringSecureCoding:1 error:&v48];
-  v31 = v48;
+  [dictionary setObject:statusCopy forKeyedSubscript:dCopy];
+  v47 = 0;
+  v30 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:dictionary requiringSecureCoding:1 error:&v47];
+  v31 = v47;
   if (v31)
   {
     v32 = +[SSLogConfig sharedStoreServicesConfig];
@@ -468,13 +472,13 @@ LABEL_20:
     if (v35)
     {
       v36 = objc_opt_class();
-      v50 = 138543618;
-      v51 = v36;
-      v52 = 2114;
-      v53 = v31;
+      v49 = 138543618;
+      v50 = v36;
+      v51 = 2114;
+      v52 = v31;
       v37 = v36;
-      LODWORD(v46) = 22;
-      v38 = _os_log_send_and_compose_impl();
+      LODWORD(v45) = 22;
+      v38 = _os_log_send_and_compose_impl(v35, 0, 0, 0, &dword_1D48BA000, oSLogObject2, 16, "%{public}@: Failed to archive status dictionary. Error = %{public}@", &v49, v45);
 
       if (!v38)
       {
@@ -483,7 +487,7 @@ LABEL_32:
         goto LABEL_33;
       }
 
-      oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v38 encoding:{4, &v50, v46}];
+      oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v38 encoding:4];
       free(v38);
       SSFileLog(v32, @"%@", v39, v40, v41, v42, v43, v44, oSLogObject2);
     }

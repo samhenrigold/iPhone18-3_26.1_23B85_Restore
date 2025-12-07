@@ -12,7 +12,7 @@
 
 - (id)titleGeneratorForTriggeredMemory:(id)memory withKeyAsset:(id)asset curatedAssets:(id)assets extendedCuratedAssets:(id)curatedAssets titleGenerationContext:(id)context inGraph:(id)graph
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   memoryFeatureNodes = [memory memoryFeatureNodes];
   v12 = [(PGGraphNodeCollection *)PGGraphYearNodeCollection subsetInCollection:memoryFeatureNodes];
@@ -31,15 +31,13 @@
     loggingConnection = [(PGMemoryGenerator *)self loggingConnection];
     if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
     {
-      v20[0] = 67109120;
-      v20[1] = [v12 count];
-      _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "[PGYearInReviewMemoryGenerator] One year node expected, found %d", v20, 8u);
+      v19[0] = 67109120;
+      v19[1] = [v12 count];
+      _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "[PGYearInReviewMemoryGenerator] One year node expected, found %d", v19, 8u);
     }
 
     v16 = 0;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -83,7 +81,7 @@
 
 void __111__PGYearInReviewMemoryGenerator__enumeratePotentialMemoriesForProcessingWindow_graph_progressBlock_usingBlock___block_invoke(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 calendarUnitValue];
   v5 = *(*(a1 + 32) + 168);
@@ -98,11 +96,11 @@ void __111__PGYearInReviewMemoryGenerator__enumeratePotentialMemoriesForProcessi
         v13 = [*(a1 + 32) loggingConnection];
         if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
         {
-          v23 = *(a1 + 40);
+          v22 = *(a1 + 40);
           *buf = 134218242;
           *&buf[4] = v7;
           *&buf[12] = 2112;
-          *&buf[14] = v23;
+          *&buf[14] = v22;
           _os_log_debug_impl(&dword_22F0FC000, v13, OS_LOG_TYPE_DEBUG, "[PGYearInReviewMemoryGenerator] Skipping year %ld outside of processing window: %@", buf, 0x16u);
         }
 
@@ -118,17 +116,17 @@ void __111__PGYearInReviewMemoryGenerator__enumeratePotentialMemoriesForProcessi
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    v29 = 0;
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __111__PGYearInReviewMemoryGenerator__enumeratePotentialMemoriesForProcessingWindow_graph_progressBlock_usingBlock___block_invoke_228;
-    v24[3] = &unk_278885090;
+    v28 = 0;
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __111__PGYearInReviewMemoryGenerator__enumeratePotentialMemoriesForProcessingWindow_graph_progressBlock_usingBlock___block_invoke_228;
+    v23[3] = &unk_278885090;
     v13 = v12;
-    v25 = v13;
-    v27 = buf;
+    v24 = v13;
+    v26 = buf;
     v8 = v9;
-    v26 = v8;
-    [v3 enumerateNeighborNodesThroughEdgesWithLabel:@"YEAR" domain:400 usingBlock:v24];
+    v25 = v8;
+    [v3 enumerateNeighborNodesThroughEdgesWithLabel:@"YEAR" domain:400 usingBlock:v23];
     if (*(*&buf[8] + 24))
     {
       v14 = [*(a1 + 32) memoryGenerationContext];
@@ -156,8 +154,6 @@ void __111__PGYearInReviewMemoryGenerator__enumeratePotentialMemoriesForProcessi
     _Block_object_dispose(buf, 8);
 LABEL_15:
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __111__PGYearInReviewMemoryGenerator__enumeratePotentialMemoriesForProcessingWindow_graph_progressBlock_usingBlock___block_invoke_228(uint64_t a1, void *a2)
@@ -198,32 +194,26 @@ void __111__PGYearInReviewMemoryGenerator__enumeratePotentialMemoriesForProcessi
 
 - (unint64_t)memoryCategorySubcategoryForOverTimeType:(unint64_t)type
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (type == 1)
   {
-    result = 5001;
+    return 5001;
   }
 
-  else
+  typeCopy = type;
+  loggingConnection = [(PGMemoryGenerator *)self loggingConnection];
+  if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
   {
-    typeCopy = type;
-    loggingConnection = [(PGMemoryGenerator *)self loggingConnection];
-    if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
-    {
-      v7 = objc_opt_class();
-      v8 = NSStringFromClass(v7);
-      v9 = 138412546;
-      v10 = v8;
-      v11 = 1024;
-      v12 = typeCopy;
-      _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "[%@] Returning PHMemoryCategorySubcategoryNone for PGOverTimeMemoryType %d, this should never happen", &v9, 0x12u);
-    }
-
-    result = 0;
+    v6 = objc_opt_class();
+    v7 = NSStringFromClass(v6);
+    v8 = 138412546;
+    v9 = v7;
+    v10 = 1024;
+    v11 = typeCopy;
+    _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "[%@] Returning PHMemoryCategorySubcategoryNone for PGOverTimeMemoryType %d, this should never happen", &v8, 0x12u);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 - (PGYearInReviewMemoryGenerator)initWithMemoryGenerationContext:(id)context

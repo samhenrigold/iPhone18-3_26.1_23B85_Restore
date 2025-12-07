@@ -24,11 +24,10 @@
 - (void)sendPushUpdate:(id)update completion:(id)completion
 {
   v6 = _Block_copy(completion);
-  v7 = *(&self->super.isa + OBJC_IVAR____TtC10ChronoCoreP33_EA538E35880E8FB207AEB42F397305AE14ControlsClient__queue);
   updateCopy = update;
   selfCopy = self;
   BSDispatchQueueAssert();
-  v9 = *__swift_project_boxed_opaque_existential_1(*(&selfCopy->super.isa + OBJC_IVAR____TtC10ChronoCoreP33_EA538E35880E8FB207AEB42F397305AE14ControlsClient__services) + 37, (*(&selfCopy->super.isa + OBJC_IVAR____TtC10ChronoCoreP33_EA538E35880E8FB207AEB42F397305AE14ControlsClient__services))[40]);
+  __swift_project_boxed_opaque_existential_1(*(&selfCopy->super.isa + OBJC_IVAR____TtC10ChronoCoreP33_EA538E35880E8FB207AEB42F397305AE14ControlsClient__services) + 37, (*(&selfCopy->super.isa + OBJC_IVAR____TtC10ChronoCoreP33_EA538E35880E8FB207AEB42F397305AE14ControlsClient__services))[40]);
   sub_224AB9A2C(updateCopy);
   v6[2](v6, 0);
 
@@ -77,9 +76,10 @@
 
 - (void)invalidateControlHost:(id)host
 {
-  sub_224DAEE18();
+  v4 = sub_224DAEE18();
+  v6 = v5;
   selfCopy = self;
-  sub_224D0703C();
+  sub_224D0703C(v4, v6);
 }
 
 - (void)unsubscribeFromSession:(id)session
@@ -89,7 +89,7 @@
   v5 = sub_224DA96D8();
   v7 = v6;
 
-  sub_224D07718();
+  sub_224D07718(v5, v7);
   sub_224A78024(v5, v7);
 }
 
@@ -104,7 +104,7 @@
   v11 = sub_224DA96D8();
   v13 = v12;
 
-  sub_224D08670(v8, v10);
+  sub_224D08670(v8, v10, v11, v13);
   sub_224A78024(v11, v13);
   sub_224A78024(v8, v10);
 }

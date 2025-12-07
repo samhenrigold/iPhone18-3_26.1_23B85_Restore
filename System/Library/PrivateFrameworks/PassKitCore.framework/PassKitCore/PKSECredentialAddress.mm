@@ -50,7 +50,7 @@
   {
     selfCopy = self;
     v2 = selfCopy;
-    v3 = *(selfCopy + 1);
+    v3 = selfCopy[1];
     if (v3)
     {
       do
@@ -212,9 +212,9 @@ LABEL_5:
           goto LABEL_15;
         }
 
-        v10 = [(NSString *)v7 isEqualToString:v8];
+        isEqualToString = objc_msgSend_isEqualToString_(v7);
 
-        if (!v10)
+        if (!isEqualToString)
         {
           goto LABEL_15;
         }

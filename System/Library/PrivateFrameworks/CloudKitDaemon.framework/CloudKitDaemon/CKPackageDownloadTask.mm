@@ -47,7 +47,7 @@
 
 - (void)setManifestAsset:(id)asset
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   assetCopy = asset;
   v6 = assetCopy;
   manifestAsset = self->_manifestAsset;
@@ -64,23 +64,21 @@
   if (!v8)
   {
     progressTracker = self->_progressTracker;
-    v18[0] = self->_manifestAsset;
-    v10 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v5, v18, 1);
+    v17[0] = self->_manifestAsset;
+    v10 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v5, v17, 1);
     objc_msgSend_stopTrackingItems_(progressTracker, v11, v10);
   }
 
   if (v6)
   {
     v12 = self->_progressTracker;
-    v17 = v6;
-    v13 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v5, &v17, 1);
+    v16 = v6;
+    v13 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v5, &v16, 1);
     objc_msgSend_startTrackingItems_(v12, v14, v13);
   }
 
   v15 = self->_manifestAsset;
   self->_manifestAsset = v6;
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setSectionAssets:(id)assets

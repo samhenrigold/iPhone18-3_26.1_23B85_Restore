@@ -144,9 +144,9 @@
     goto LABEL_22;
   }
 
-  v20 = [(__CFString *)v18 isEqualToString:@"radio"];
+  isEqualToString = objc_msgSend_isEqualToString_(v18);
 
-  if (v20)
+  if (isEqualToString)
   {
 LABEL_15:
     v21 = 1;
@@ -154,14 +154,14 @@ LABEL_15:
   }
 
   v22 = v19;
-  if (v22 == @"multilevelList" || (v23 = v22, v24 = [(__CFString *)v22 isEqualToString:@"multilevelList"], v23, (v24 & 1) != 0))
+  if (v22 == @"multilevelList" || (v23 = v22, v24 = objc_msgSend_isEqualToString_(v22), v23, (v24 & 1) != 0))
   {
     v21 = 2;
     goto LABEL_23;
   }
 
   v25 = v23;
-  if (v25 == @"menu" || (v26 = v25, v27 = [(__CFString *)v25 isEqualToString:@"menu"], v26, v27))
+  if (v25 == @"menu" || (v26 = v25, v27 = objc_msgSend_isEqualToString_(v25), v26, v27))
   {
     v21 = 3;
   }

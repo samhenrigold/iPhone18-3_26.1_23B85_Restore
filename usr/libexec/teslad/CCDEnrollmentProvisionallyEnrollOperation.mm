@@ -139,7 +139,7 @@ LABEL_19:
     }
 
 LABEL_20:
-    v19 = +[CCDError badFormatError];
+    v19 = [CCDError badFormatError:*v24];
     goto LABEL_21;
   }
 

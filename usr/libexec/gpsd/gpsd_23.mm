@@ -1,610 +1,3 @@
-void sub_10011B6A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
-{
-  std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v10 - 72);
-  v12 = a10;
-  a10 = 0;
-  if (v12)
-  {
-    std::default_delete<cproto::gpsd::InjectRavenOrbitFile>::operator()[abi:ne200100](&a10, v12);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-uint64_t GpsdGnssDeviceHelper::deleteGnssData(uint64_t **a1, uint64_t a2, uint64_t a3)
-{
-  if ((*(a2 + 398) & 4) != 0)
-  {
-    v13 = 0;
-    v11 = 0u;
-    v12 = 0u;
-    v9 = 0u;
-    v10 = 0u;
-    v7 = 0u;
-    v8 = 0u;
-    v6 = 0u;
-    HIDWORD(v6) = 5;
-    v4 = *(a2 + 144);
-    if (!v4)
-    {
-      v4 = *(proto::gpsd::Request::default_instance_ + 144);
-    }
-
-    if (*(v4 + 20))
-    {
-      *&v7 = *(v4 + 8);
-    }
-
-    v5 = **a1;
-    std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v14, a3);
-    GnssDeviceManager::pushRequest(v5, &v6, v14);
-    return std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v14);
-  }
-
-  else
-  {
-
-    return std::function<void ()(gnss::Result)>::operator()(a3, 4);
-  }
-}
-
-uint64_t GpsdGnssDeviceHelper::setPvtmReport(uint64_t **a1, uint64_t a2, uint64_t a3)
-{
-  if ((*(a2 + 398) & 8) != 0)
-  {
-    v10 = 0;
-    memset(v9, 0, sizeof(v9));
-    v8 = 0u;
-    HIDWORD(v8) = 6;
-    v6 = *(a2 + 152);
-    if (!v6)
-    {
-      v6 = *(proto::gpsd::Request::default_instance_ + 152);
-    }
-
-    ProtobufUtil::convert::cpbSetPvtmReport(v6, v9);
-    v7 = **a1;
-    std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v11, a3);
-    GnssDeviceManager::pushRequest(v7, &v8, v11);
-    return std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v11);
-  }
-
-  else
-  {
-
-    return std::function<void ()(gnss::Result)>::operator()(a3, 4);
-  }
-}
-
-uint64_t GpsdGnssDeviceHelper::setNmeaHandler(uint64_t **a1, uint64_t a2, uint64_t a3)
-{
-  if ((*(a2 + 398) & 0x10) != 0)
-  {
-    v13 = 0;
-    v11 = 0u;
-    v12 = 0u;
-    v9 = 0u;
-    v10 = 0u;
-    v7 = 0u;
-    v8 = 0u;
-    v6 = 0u;
-    HIDWORD(v6) = 7;
-    v4 = *(a2 + 160);
-    if (!v4)
-    {
-      v4 = *(proto::gpsd::Request::default_instance_ + 160);
-    }
-
-    if (*(v4 + 20))
-    {
-      *&v7 = *(v4 + 8);
-    }
-
-    v5 = **a1;
-    std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v14, a3);
-    GnssDeviceManager::pushRequest(v5, &v6, v14);
-    return std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v14);
-  }
-
-  else
-  {
-
-    return std::function<void ()(gnss::Result)>::operator()(a3, 4);
-  }
-}
-
-uint64_t GpsdGnssDeviceHelper::setConfigSimulatorMode(uint64_t **a1, uint64_t a2, uint64_t a3)
-{
-  if ((*(a2 + 398) & 0x20) != 0)
-  {
-    v14 = 0;
-    v12 = 0u;
-    v13 = 0u;
-    v10 = 0u;
-    v11 = 0u;
-    v8 = 0u;
-    v9 = 0u;
-    v7 = 0u;
-    HIDWORD(v7) = 24;
-    v4 = *(a2 + 168);
-    if (!v4)
-    {
-      v4 = *(proto::gpsd::Request::default_instance_ + 168);
-    }
-
-    v5 = *(v4 + 20);
-    if (v5)
-    {
-      LOBYTE(v8) = *(v4 + 8);
-    }
-
-    if ((v5 & 2) != 0)
-    {
-      DWORD1(v8) = *(v4 + 12);
-    }
-
-    v6 = **a1;
-    std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v15, a3);
-    GnssDeviceManager::pushRequest(v6, &v7, v15);
-    return std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v15);
-  }
-
-  else
-  {
-
-    return std::function<void ()(gnss::Result)>::operator()(a3, 4);
-  }
-}
-
-uint64_t GpsdGnssDeviceHelper::setConfigEnableGnssConstellations(uint64_t **a1, uint64_t a2, uint64_t a3)
-{
-  if ((*(a2 + 398) & 0x40) != 0)
-  {
-    v14 = 0;
-    v12 = 0u;
-    v13 = 0u;
-    v10 = 0u;
-    v11 = 0u;
-    v8 = 0u;
-    v9 = 0u;
-    v7 = 0u;
-    HIDWORD(v7) = 25;
-    v4 = *(a2 + 176);
-    if (!v4)
-    {
-      v4 = *(proto::gpsd::Request::default_instance_ + 176);
-    }
-
-    v5 = v4[5];
-    if (v5)
-    {
-      LODWORD(v8) = v4[2];
-    }
-
-    if ((v5 & 2) != 0)
-    {
-      DWORD1(v8) = v4[3];
-    }
-
-    v6 = **a1;
-    std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v15, a3);
-    GnssDeviceManager::pushRequest(v6, &v7, v15);
-    return std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v15);
-  }
-
-  else
-  {
-
-    return std::function<void ()(gnss::Result)>::operator()(a3, 4);
-  }
-}
-
-uint64_t GpsdGnssDeviceHelper::setConfigDutyCycling(uint64_t **a1, uint64_t a2, uint64_t a3)
-{
-  if ((*(a2 + 398) & 0x80) != 0)
-  {
-    v13 = 0;
-    v11 = 0u;
-    v12 = 0u;
-    v9 = 0u;
-    v10 = 0u;
-    v7 = 0u;
-    v8 = 0u;
-    v6 = 0u;
-    HIDWORD(v6) = 26;
-    v4 = *(a2 + 184);
-    if (!v4)
-    {
-      v4 = *(proto::gpsd::Request::default_instance_ + 184);
-    }
-
-    if (*(v4 + 16))
-    {
-      LOBYTE(v7) = *(v4 + 8);
-    }
-
-    v5 = **a1;
-    std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v14, a3);
-    GnssDeviceManager::pushRequest(v5, &v6, v14);
-    return std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v14);
-  }
-
-  else
-  {
-
-    return std::function<void ()(gnss::Result)>::operator()(a3, 4);
-  }
-}
-
-uint64_t GpsdGnssDeviceHelper::setThermalRiskState(uint64_t **a1, uint64_t a2, uint64_t a3)
-{
-  if ((*(a2 + 399) & 0x10) != 0)
-  {
-    v14 = 0;
-    v12 = 0u;
-    v13 = 0u;
-    v10 = 0u;
-    v11 = 0u;
-    v8 = 0u;
-    v9 = 0u;
-    v7 = 0u;
-    HIDWORD(v7) = 31;
-    v4 = *(a2 + 224);
-    if (!v4)
-    {
-      v4 = *(proto::gpsd::Request::default_instance_ + 224);
-    }
-
-    v5 = *(v4 + 24);
-    if (v5)
-    {
-      *&v8 = *(v4 + 8);
-    }
-
-    if ((v5 & 2) != 0)
-    {
-      DWORD2(v8) = *(v4 + 16);
-    }
-
-    v6 = **a1;
-    std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v15, a3);
-    GnssDeviceManager::pushRequest(v6, &v7, v15);
-    return std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v15);
-  }
-
-  else
-  {
-
-    return std::function<void ()(gnss::Result)>::operator()(a3, 4);
-  }
-}
-
-uint64_t GpsdGnssDeviceHelper::setConfigRfBandEnable(uint64_t **a1, uint64_t a2, uint64_t a3)
-{
-  if ((*(a2 + 399) & 0x20) != 0)
-  {
-    v14 = 0;
-    v12 = 0u;
-    v13 = 0u;
-    v10 = 0u;
-    v11 = 0u;
-    v8 = 0u;
-    v9 = 0u;
-    v7 = 0u;
-    HIDWORD(v7) = 38;
-    v4 = *(a2 + 232);
-    if (!v4)
-    {
-      v4 = *(proto::gpsd::Request::default_instance_ + 232);
-    }
-
-    v5 = *(v4 + 16);
-    if (v5)
-    {
-      LOBYTE(v8) = *(v4 + 8);
-    }
-
-    if ((v5 & 2) != 0)
-    {
-      BYTE1(v8) = *(v4 + 9);
-    }
-
-    v6 = **a1;
-    std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v15, a3);
-    GnssDeviceManager::pushRequest(v6, &v7, v15);
-    return std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v15);
-  }
-
-  else
-  {
-
-    return std::function<void ()(gnss::Result)>::operator()(a3, 4);
-  }
-}
-
-uint64_t GpsdGnssDeviceHelper::injectRavenOrbitFile(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  if ((*(a2 + 399) & 0x40) != 0)
-  {
-    operator new();
-  }
-
-  return std::function<void ()(gnss::Result)>::operator()(a3, 4);
-}
-
-void sub_10011C1C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
-{
-  std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v10 - 72);
-  v12 = a10;
-  a10 = 0;
-  if (v12)
-  {
-    std::default_delete<cproto::gpsd::InjectRavenOrbitFile>::operator()[abi:ne200100](&a10, v12);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-GpsdAbmUtil *GpsdAbmUtil::GpsdAbmUtil(GpsdAbmUtil *a1, uint64_t a2)
-{
-  *a1 = 0;
-  *(a1 + 1) = 0;
-  std::__function::__value_func<void ()(std::string const&)>::__value_func[abi:ne200100](a1 + 24, a2);
-  v3 = GpsdLogObjectGeneral;
-  if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 0;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "#gpsdAbm,ctor begin", buf, 2u);
-  }
-
-  std::string::basic_string[abi:ne200100]<0>(v31, "com.apple.gpsd.AbmQueue");
-  v4 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_DEFAULT, 0);
-  if (!v4)
-  {
-    v5 = GpsdLogObjectWarning;
-    if (os_log_type_enabled(GpsdLogObjectWarning, OS_LOG_TYPE_DEFAULT))
-    {
-      v6 = v31;
-      if (v32 < 0)
-      {
-        v6 = v31[0];
-      }
-
-      *buf = 136446210;
-      *&buf[4] = v6;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "#gpsdAbm,nullattr,%{public}s", buf, 0xCu);
-    }
-  }
-
-  if (v32 >= 0)
-  {
-    v7 = v31;
-  }
-
-  else
-  {
-    v7 = v31[0];
-  }
-
-  v8 = dispatch_queue_create(v7, v4);
-  *(a1 + 2) = v8;
-  if (!v8)
-  {
-    v14 = GpsdLogObjectGeneral;
-    if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
-    {
-      v15 = v31;
-      if (v32 < 0)
-      {
-        v15 = v31[0];
-      }
-
-      *buf = 136446210;
-      *&buf[4] = v15;
-      _os_log_error_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "#gpsdAbm,queue,null,%{public}s", buf, 0xCu);
-      v14 = GpsdLogObjectGeneral;
-    }
-
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136446722;
-      *&buf[4] = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/Daemon/GpsdAbmUtil.cpp";
-      v34 = 1026;
-      v35 = 29;
-      v36 = 2082;
-      v37 = "GpsdAbmUtil";
-      _os_log_error_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
-    }
-
-    std::string::basic_string[abi:ne200100]<0>(v30, "assert");
-    std::string::basic_string[abi:ne200100]<0>(v28, "GpsdAbmUtil");
-    std::string::basic_string[abi:ne200100]<0>(__p, "#gpsdAbm,queue,null,%{public}s");
-    gpsd::util::triggerDiagnosticReport(v30, v28, __p);
-    if (v27 < 0)
-    {
-      operator delete(__p[0]);
-    }
-
-    if (v29 < 0)
-    {
-      operator delete(v28[0]);
-    }
-
-    v16 = "false && #gpsdAbm,queue,null,%{public}s";
-    v17 = 29;
-    if ((v30[23] & 0x80000000) != 0)
-    {
-      v18 = v30;
-LABEL_45:
-      operator delete(*v18);
-    }
-
-LABEL_46:
-    __assert_rtn("GpsdAbmUtil", "GpsdAbmUtil.cpp", v17, v16);
-  }
-
-  std::string::basic_string[abi:ne200100]<0>(buf, "com.apple.gpsd.Abm");
-  v9 = *(a1 + 2);
-  abm::client::CreateManager();
-  v10 = v25;
-  v25 = 0uLL;
-  v11 = *(a1 + 1);
-  *a1 = v10;
-  if (v11)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v11);
-    if (*(&v25 + 1))
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v25 + 1));
-    }
-  }
-
-  if (SBYTE3(v37) < 0)
-  {
-    operator delete(*buf);
-  }
-
-  if (!*a1)
-  {
-    v19 = GpsdLogObjectGeneral;
-    if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 0;
-      _os_log_error_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "#gpsdAbm,abmManager,null,com.apple.gpsd.Abm", buf, 2u);
-      v19 = GpsdLogObjectGeneral;
-    }
-
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136446722;
-      *&buf[4] = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/Daemon/GpsdAbmUtil.cpp";
-      v34 = 1026;
-      v35 = 33;
-      v36 = 2082;
-      v37 = "GpsdAbmUtil";
-      _os_log_error_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
-    }
-
-    std::string::basic_string[abi:ne200100]<0>(v24, "assert");
-    std::string::basic_string[abi:ne200100]<0>(v22, "GpsdAbmUtil");
-    std::string::basic_string[abi:ne200100]<0>(v20, "#gpsdAbm,abmManager,null,com.apple.gpsd.Abm");
-    gpsd::util::triggerDiagnosticReport(v24, v22, v20);
-    if (v21 < 0)
-    {
-      operator delete(v20[0]);
-    }
-
-    if (v23 < 0)
-    {
-      operator delete(v22[0]);
-    }
-
-    v16 = "false && #gpsdAbm,abmManager,null,com.apple.gpsd.Abm";
-    v17 = 33;
-    if ((v24[23] & 0x80000000) != 0)
-    {
-      v18 = v24;
-      goto LABEL_45;
-    }
-
-    goto LABEL_46;
-  }
-
-  GpsdAbmUtil::registerForAbmNotifications(a1);
-  v12 = GpsdLogObjectGeneral;
-  if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 0;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "#gpsdAbm, Abm Manager Created, Notifications registered", buf, 2u);
-  }
-
-  if (v32 < 0)
-  {
-    operator delete(v31[0]);
-  }
-
-  return a1;
-}
-
-void sub_10011C6A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, uint64_t a28, uint64_t a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, void *a36, uint64_t a37, int a38, __int16 a39, char a40, char a41, uint64_t a42, uint64_t a43, int a44, __int16 a45, char a46, char a47)
-{
-  if (*(v48 - 73) < 0)
-  {
-    operator delete(*(v48 - 96));
-  }
-
-  if (*(v48 - 97) < 0)
-  {
-    operator delete(*(v48 - 120));
-  }
-
-  std::__function::__value_func<void ()(std::string const&)>::~__value_func[abi:ne200100](v47 + 24);
-  v50 = *(v47 + 8);
-  if (v50)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v50);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void GpsdAbmUtil::registerForAbmNotifications(GpsdAbmUtil *this)
-{
-  v2 = *(this + 1);
-  v11 = *this;
-  v12 = v2;
-  if (v2)
-  {
-    atomic_fetch_add_explicit(&v2->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  std::string::basic_string[abi:ne200100]<0>(v9, abm::kEventTraceDumpStateBegin);
-  abm::client::RegisterEventHandler();
-  if (v10 < 0)
-  {
-    operator delete(v9[0]);
-  }
-
-  if (v12)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v12);
-  }
-
-  v3 = *(this + 1);
-  v7 = *this;
-  v8 = v3;
-  if (v3)
-  {
-    atomic_fetch_add_explicit(&v3->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  std::string::basic_string[abi:ne200100]<0>(v9, abm::kEventBasebandBootStateChange);
-  abm::client::RegisterEventHandler();
-  if (v10 < 0)
-  {
-    operator delete(v9[0]);
-  }
-
-  if (v8)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v8);
-  }
-
-  v4 = *(this + 1);
-  v5 = *this;
-  v6 = v4;
-  if (v4)
-  {
-    atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  abm::client::EventsOn();
-  if (v6)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
-  }
-}
-
 void sub_10011C8DC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, uint64_t a12)
 {
   if (a10)
@@ -894,28 +287,28 @@ uint64_t LegacyEmergencyHandler::LegacyEmergencyHandler(uint64_t a1, uint64_t a2
   std::__function::__value_func<void ()(proto::gpsd::Request_Type,gnss::Result)>::__value_func[abi:ne200100](buf, a4);
   if (buf != v8)
   {
-    v9 = *&v32[4];
+    v9 = *&v34[4];
     v10 = *(a1 + 64);
-    if (*&v32[4] == buf)
+    if (*&v34[4] == buf)
     {
       if (v10 == v8)
       {
-        (*(**&v32[4] + 24))(*&v32[4], v33);
-        (*(**&v32[4] + 32))(*&v32[4]);
-        *&v32[4] = 0;
+        (*(**&v34[4] + 24))(*&v34[4], v35);
+        (*(**&v34[4] + 32))(*&v34[4]);
+        *&v34[4] = 0;
         (*(**(a1 + 64) + 24))(*(a1 + 64), buf);
         (*(**(a1 + 64) + 32))(*(a1 + 64));
         *(a1 + 64) = 0;
-        *&v32[4] = buf;
-        (*(v33[0] + 24))(v33, v8);
-        (*(v33[0] + 32))(v33);
+        *&v34[4] = buf;
+        (*(v35[0] + 24))(v35, v8);
+        (*(v35[0] + 32))(v35);
       }
 
       else
       {
-        (*(**&v32[4] + 24))(*&v32[4], v8);
-        (*(**&v32[4] + 32))(*&v32[4]);
-        *&v32[4] = *(a1 + 64);
+        (*(**&v34[4] + 24))(*&v34[4], v8);
+        (*(**&v34[4] + 32))(*&v34[4]);
+        *&v34[4] = *(a1 + 64);
       }
 
       *(a1 + 64) = v8;
@@ -925,13 +318,13 @@ uint64_t LegacyEmergencyHandler::LegacyEmergencyHandler(uint64_t a1, uint64_t a2
     {
       (*(*v10 + 24))(*(a1 + 64), buf);
       (*(**(a1 + 64) + 32))(*(a1 + 64));
-      *(a1 + 64) = *&v32[4];
-      *&v32[4] = buf;
+      *(a1 + 64) = *&v34[4];
+      *&v34[4] = buf;
     }
 
     else
     {
-      *&v32[4] = *(a1 + 64);
+      *&v34[4] = *(a1 + 64);
       *(a1 + 64) = v9;
     }
   }
@@ -950,33 +343,33 @@ uint64_t LegacyEmergencyHandler::LegacyEmergencyHandler(uint64_t a1, uint64_t a2
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
-      v28 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/Daemon/LegacyEmergencyHandler.mm";
-      v29 = 1026;
-      v30 = 24;
-      v31 = 2082;
-      *v32 = "LegacyEmergencyHandler";
+      v30 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/Daemon/LegacyEmergencyHandler.mm";
+      v31 = 1026;
+      v32 = 24;
+      v33 = 2082;
+      *v34 = "LegacyEmergencyHandler";
       _os_log_error_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
     }
 
-    std::string::basic_string[abi:ne200100]<0>(v26, "assert");
-    std::string::basic_string[abi:ne200100]<0>(v24, "LegacyEmergencyHandler");
+    std::string::basic_string[abi:ne200100]<0>(v27, "assert");
+    std::string::basic_string[abi:ne200100]<0>(v25, "LegacyEmergencyHandler");
     std::string::basic_string[abi:ne200100]<0>(__p, "cannot have null send indication");
-    gpsd::util::triggerDiagnosticReport(v26, v24, __p);
-    if (v23 < 0)
+    gpsd::util::triggerDiagnosticReport(v27, v25, __p);
+    if (v24 < 0)
     {
       operator delete(__p[0]);
     }
 
-    if (v25 < 0)
+    if (v26 < 0)
     {
-      operator delete(v24[0]);
+      operator delete(v25[0]);
     }
 
     v13 = "false && cannot have null send indication";
     v14 = 24;
-    if (v26[23] < 0)
+    if (v28 < 0)
     {
-      v15 = v26;
+      v15 = v27;
 LABEL_33:
       operator delete(*v15);
     }
@@ -998,11 +391,11 @@ LABEL_34:
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
-      v28 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/Daemon/LegacyEmergencyHandler.mm";
-      v29 = 1026;
-      v30 = 25;
-      v31 = 2082;
-      *v32 = "LegacyEmergencyHandler";
+      v30 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/Daemon/LegacyEmergencyHandler.mm";
+      v31 = 1026;
+      v32 = 25;
+      v33 = 2082;
+      *v34 = "LegacyEmergencyHandler";
       _os_log_error_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
     }
 
@@ -1022,7 +415,7 @@ LABEL_34:
 
     v13 = "false && cannot have null send response";
     v14 = 25;
-    if ((v21[23] & 0x80000000) != 0)
+    if (v22 < 0)
     {
       v15 = v21;
       goto LABEL_33;
@@ -1044,40 +437,41 @@ void sub_10011D59C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void LegacyEmergencyHandler::createSuplConnectionManager(uint64_t a1)
+void LegacyEmergencyHandler::createSuplConnectionManager(uint64_t a1, uint64_t *a2)
 {
-  v4[0] = off_10017C228;
+  v5[0] = off_10017C228;
+  v5[1] = a1;
+  v5[3] = v5;
+  v4[0] = off_10017C2B8;
   v4[1] = a1;
   v4[3] = v4;
-  v3[0] = off_10017C2B8;
+  v3[0] = off_10017C348;
   v3[1] = a1;
   v3[3] = v3;
-  v2[0] = off_10017C348;
+  v2[0] = off_10017C3D8;
   v2[1] = a1;
   v2[3] = v2;
-  v1[0] = off_10017C3D8;
-  v1[1] = a1;
-  v1[3] = v1;
   operator new();
 }
 
-void sub_10011D848(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26)
+void sub_10011D848(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
 {
-  std::__function::__value_func<void ()(std::string &)>::~__value_func[abi:ne200100](&a26);
-  std::__function::__value_func<void ()(gnss::Emergency::Supl::Status)>::~__value_func[abi:ne200100](v26 - 136);
-  std::__function::__value_func<void ()(std::vector<unsigned char> &)>::~__value_func[abi:ne200100](v26 - 104);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v26 - 72);
+  va_start(va, a25);
+  std::__function::__value_func<void ()(std::string &)>::~__value_func[abi:ne200100](va);
+  std::__function::__value_func<void ()(gnss::Emergency::Supl::Status)>::~__value_func[abi:ne200100](v25 - 136);
+  std::__function::__value_func<void ()(std::vector<unsigned char> &)>::~__value_func[abi:ne200100](v25 - 104);
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v25 - 72);
   operator delete();
 }
 
-void sub_10011E3EC(_Unwind_Exception *a1, uint64_t a2, atomic_ullong *a3, ...)
+void sub_10011E3EC(_Unwind_Exception *a1, uint64_t a2, atomic_ullong *a3, uint64_t a4, atomic_ullong *a5, ...)
 {
-  va_start(va, a3);
-  if (a3)
+  va_start(va, a5);
+  if (a5)
   {
-    if (!atomic_fetch_add(a3 + 1, 0xFFFFFFFFFFFFFFFFLL))
+    if (!atomic_fetch_add(a5 + 1, 0xFFFFFFFFFFFFFFFFLL))
     {
-      (*(*a3 + 16))(a3);
+      (*(*a5 + 16))(a5, a2, a3);
     }
   }
 
@@ -1085,15 +479,15 @@ void sub_10011E3EC(_Unwind_Exception *a1, uint64_t a2, atomic_ullong *a3, ...)
   _Unwind_Resume(a1);
 }
 
-uint64_t std::future<gnss::Result>::get(atomic_ullong **a1)
+uint64_t std::future<gnss::Result>::get(std::__assoc_sub_state **a1)
 {
   v1 = *a1;
   *a1 = 0;
   std::__assoc_state<gnss::Result>::move(v1);
   v3 = v2;
-  if (v1 && !atomic_fetch_add(v1 + 1, 0xFFFFFFFFFFFFFFFFLL))
+  if (v1 && !atomic_fetch_add(&v1->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (*(*v1 + 16))(v1);
+    (v1->__on_zero_shared)(v1);
   }
 
   return v3;
@@ -1112,14 +506,14 @@ void sub_10011E5AC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_10011EBD0(_Unwind_Exception *a1, uint64_t a2, atomic_ullong *a3, ...)
+void sub_10011EBD0(_Unwind_Exception *a1, uint64_t a2, atomic_ullong *a3, uint64_t a4, atomic_ullong *a5, ...)
 {
-  va_start(va, a3);
-  if (a3)
+  va_start(va, a5);
+  if (a5)
   {
-    if (!atomic_fetch_add(a3 + 1, 0xFFFFFFFFFFFFFFFFLL))
+    if (!atomic_fetch_add(a5 + 1, 0xFFFFFFFFFFFFFFFFLL))
     {
-      (*(*a3 + 16))(a3);
+      (*(*a5 + 16))(a5, a2, a3);
     }
   }
 
@@ -1631,7 +1025,7 @@ LABEL_54:
   return 1;
 }
 
-void sub_10011FA40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9)
+void sub_10011FA40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v9 - 144);
   gnss::Emergency::Config::~Config(&a9);
@@ -1775,9 +1169,9 @@ uint64_t LegacyEmergencyHandler::startEmergencyPosition(uint64_t a1, uint64_t a2
   }
 }
 
-void sub_10011FF90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_10011FF90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -1816,9 +1210,9 @@ uint64_t LegacyEmergencyHandler::stopEmergencyPosition(uint64_t a1, uint64_t a2,
   }
 }
 
-void sub_10012010C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_10012010C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -1979,7 +1373,7 @@ LABEL_34:
   }
 }
 
-void sub_1001205A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, void *__p, uint64_t a41)
+void sub_1001205A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, void *__p, uint64_t a41)
 {
   proto::gpsd::Indication::~Indication(&a11);
   if (__p)
@@ -2235,48 +1629,49 @@ LABEL_52:
   }
 }
 
-void sub_100120CC4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39)
+void sub_100120CC4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35, uint64_t a36, uint64_t a37, uint64_t a38, ...)
 {
-  std::mutex::unlock((v39 + 112));
+  va_start(va, a38);
+  std::mutex::unlock((v38 + 112));
   if (__p)
   {
     operator delete(__p);
   }
 
-  gnss::Emergency::Supl::Init::~Init(&a39);
+  gnss::Emergency::Supl::Init::~Init(va);
   gnss::Emergency::Supl::Context::~Context(&a13);
   _Unwind_Resume(a1);
 }
 
-void LegacyEmergencyHandler::handleEmergencySummaryReport()
+void LegacyEmergencyHandler::handleEmergencySummaryReport(uint64_t a1, uint64_t a2)
 {
-  v0 = GpsdLogObjectGeneral;
+  v2 = GpsdLogObjectGeneral;
   if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v1) = 0;
-    _os_log_impl(&_mh_execute_header, v0, OS_LOG_TYPE_DEFAULT, "#gdm,#nilr,handleEmergencySummaryReport", &v1, 2u);
+    LOWORD(v3) = 0;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "#gdm,#nilr,handleEmergencySummaryReport", &v3, 2u);
   }
 
-  v1 = off_100179D00;
-  v2 = 0u;
-  v3 = 0u;
+  v3 = off_100179D00;
   v4 = 0u;
   v5 = 0u;
   v6 = 0u;
   v7 = 0u;
   v8 = 0u;
-  v9 = 0;
-  v10 = &wireless_diagnostics::google::protobuf::internal::kEmptyString;
-  v11 = 0u;
-  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
+  v11 = 0;
+  v12 = &wireless_diagnostics::google::protobuf::internal::kEmptyString;
   v13 = 0u;
-  memset(v14, 0, sizeof(v14));
-  LODWORD(v2) = 10;
-  v15 = 0x1000100000000;
+  v14 = 0u;
+  v15 = 0u;
+  memset(v16, 0, sizeof(v16));
+  LODWORD(v4) = 10;
+  v17 = 0x1000100000000;
   operator new();
 }
 
-void std::vector<unsigned char>::push_back[abi:ne200100](uint64_t a1, _BYTE *a2)
+void std::vector<unsigned char>::push_back[abi:ne200100](uint64_t a1, char *a2)
 {
   v4 = *(a1 + 8);
   v3 = *(a1 + 16);
@@ -2360,59 +1755,59 @@ void gnss::Emergency::Supl::Init::~Init(gnss::Emergency::Supl::Init *this)
   }
 }
 
-void LegacyEmergencyHandler::handleEmergencyPositionReport()
+void LegacyEmergencyHandler::handleEmergencyPositionReport(uint64_t a1, _DWORD *a2)
 {
-  v0 = GpsdLogObjectGeneral;
+  v2 = GpsdLogObjectGeneral;
   if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v1) = 0;
-    _os_log_impl(&_mh_execute_header, v0, OS_LOG_TYPE_DEFAULT, "#gdm,#nilr,#cp,handleEmergencyPositionReport", &v1, 2u);
+    LOWORD(v3) = 0;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "#gdm,#nilr,#cp,handleEmergencyPositionReport", &v3, 2u);
   }
 
-  v1 = off_100179D00;
-  v2 = 0u;
-  v3 = 0u;
+  v3 = off_100179D00;
   v4 = 0u;
   v5 = 0u;
   v6 = 0u;
   v7 = 0u;
   v8 = 0u;
-  v9 = 0;
-  v10 = &wireless_diagnostics::google::protobuf::internal::kEmptyString;
-  v11 = 0u;
-  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
+  v11 = 0;
+  v12 = &wireless_diagnostics::google::protobuf::internal::kEmptyString;
   v13 = 0u;
-  memset(v14, 0, sizeof(v14));
-  LODWORD(v2) = 11;
-  v15 = 0x4000100000000;
+  v14 = 0u;
+  v15 = 0u;
+  memset(v16, 0, sizeof(v16));
+  LODWORD(v4) = 11;
+  v17 = 0x4000100000000;
   operator new();
 }
 
-void LegacyEmergencyHandler::handleEmergencyMeasurementReport()
+void LegacyEmergencyHandler::handleEmergencyMeasurementReport(uint64_t a1, uint64_t a2)
 {
-  v0 = GpsdLogObjectGeneral;
+  v2 = GpsdLogObjectGeneral;
   if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v1) = 0;
-    _os_log_impl(&_mh_execute_header, v0, OS_LOG_TYPE_DEFAULT, "#gdm,#nilr,#cp,handleEmergencyMeasurementReport", &v1, 2u);
+    LOWORD(v3) = 0;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "#gdm,#nilr,#cp,handleEmergencyMeasurementReport", &v3, 2u);
   }
 
-  v1 = off_100179D00;
-  v2 = 0u;
-  v3 = 0u;
+  v3 = off_100179D00;
   v4 = 0u;
   v5 = 0u;
   v6 = 0u;
   v7 = 0u;
   v8 = 0u;
-  v9 = 0;
-  v10 = &wireless_diagnostics::google::protobuf::internal::kEmptyString;
-  v11 = 0u;
-  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
+  v11 = 0;
+  v12 = &wireless_diagnostics::google::protobuf::internal::kEmptyString;
   v13 = 0u;
-  memset(v14, 0, sizeof(v14));
-  LODWORD(v2) = 12;
-  v15 = 0x8000100000000;
+  v14 = 0u;
+  v15 = 0u;
+  memset(v16, 0, sizeof(v16));
+  LODWORD(v4) = 12;
+  v17 = 0x8000100000000;
   operator new();
 }
 
@@ -2475,35 +1870,35 @@ void LegacyEmergencyHandler::handleEmergencyMeasurementReportWithEstimate(uint64
   operator new();
 }
 
-void LegacyEmergencyHandler::handleEmergencyAssistanceNeededReport()
+void LegacyEmergencyHandler::handleEmergencyAssistanceNeededReport(uint64_t a1, uint64_t a2)
 {
-  v0 = GpsdLogObjectGeneral;
+  v2 = GpsdLogObjectGeneral;
   if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v1) = 0;
-    _os_log_impl(&_mh_execute_header, v0, OS_LOG_TYPE_DEFAULT, "#gdm,#nilr,#cp,handleEmergencyAssistanceNeededReport", &v1, 2u);
+    LOWORD(v3) = 0;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "#gdm,#nilr,#cp,handleEmergencyAssistanceNeededReport", &v3, 2u);
   }
 
-  v1 = off_100179D00;
-  v2 = 0u;
-  v3 = 0u;
+  v3 = off_100179D00;
   v4 = 0u;
   v5 = 0u;
   v6 = 0u;
   v7 = 0u;
   v8 = 0u;
-  v9 = 0;
-  v10 = &wireless_diagnostics::google::protobuf::internal::kEmptyString;
-  v11 = 0u;
-  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
+  v11 = 0;
+  v12 = &wireless_diagnostics::google::protobuf::internal::kEmptyString;
   v13 = 0u;
-  memset(v14, 0, sizeof(v14));
-  LODWORD(v2) = 13;
-  v15 = 0x10000100000000;
+  v14 = 0u;
+  v15 = 0u;
+  memset(v16, 0, sizeof(v16));
+  LODWORD(v4) = 13;
+  v17 = 0x10000100000000;
   operator new();
 }
 
-void LegacyEmergencyHandler::handleEmergencySuplSessionStatusReport(void *a1, uint64_t a2)
+void LegacyEmergencyHandler::handleEmergencySuplSessionStatusReport(void *a1, int *a2)
 {
   v4 = GpsdLogObjectGeneral;
   if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEFAULT))
@@ -2512,7 +1907,7 @@ void LegacyEmergencyHandler::handleEmergencySuplSessionStatusReport(void *a1, ui
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "#gdm,#nilr,handleEmergencySuplSessionStatusReport", &v10, 2u);
   }
 
-  v5 = *(a2 + 8);
+  v5 = a2[2];
   v6 = v5 > 0x1E;
   v7 = (1 << v5) & 0x607C1FF8;
   if (!v6 && v7 != 0)
@@ -2586,59 +1981,59 @@ void LegacyEmergencyHandler::handleEmergencySuplLocationdIdNeededReport(LegacyEm
   wireless_diagnostics::google::protobuf::MessageLite::~MessageLite(&v4);
 }
 
-void LegacyEmergencyHandler::handleEmergencySuplWlanMeasNeededReport()
+void LegacyEmergencyHandler::handleEmergencySuplWlanMeasNeededReport(uint64_t a1, unsigned __int16 *a2)
 {
-  v0 = GpsdLogObjectGeneral;
+  v2 = GpsdLogObjectGeneral;
   if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v1) = 0;
-    _os_log_impl(&_mh_execute_header, v0, OS_LOG_TYPE_DEFAULT, "#gdm,#nilr,#supl,handleEmergencySuplWlanMeasNeededReport", &v1, 2u);
+    LOWORD(v3) = 0;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "#gdm,#nilr,#supl,handleEmergencySuplWlanMeasNeededReport", &v3, 2u);
   }
 
-  v1 = off_100179D00;
-  v2 = 0u;
-  v3 = 0u;
+  v3 = off_100179D00;
   v4 = 0u;
   v5 = 0u;
   v6 = 0u;
   v7 = 0u;
   v8 = 0u;
-  v9 = 0;
-  v10 = &wireless_diagnostics::google::protobuf::internal::kEmptyString;
-  v11 = 0u;
-  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
+  v11 = 0;
+  v12 = &wireless_diagnostics::google::protobuf::internal::kEmptyString;
   v13 = 0u;
-  memset(v14, 0, 28);
-  LODWORD(v2) = 24;
-  *(&v14[3] + 4) = 0x1000000100000000;
+  v14 = 0u;
+  v15 = 0u;
+  memset(v16, 0, 28);
+  LODWORD(v4) = 24;
+  *(&v16[3] + 4) = 0x1000000100000000;
   operator new();
 }
 
-void LegacyEmergencyHandler::handleEmergencyFtAssistanceNeededReport()
+void LegacyEmergencyHandler::handleEmergencyFtAssistanceNeededReport(uint64_t a1, unsigned int *a2)
 {
-  v0 = GpsdLogObjectGeneral;
+  v2 = GpsdLogObjectGeneral;
   if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v1) = 0;
-    _os_log_impl(&_mh_execute_header, v0, OS_LOG_TYPE_DEFAULT, "#gdm,#nilr,#cp,handleEmergencyFtAssistanceNeededReport", &v1, 2u);
+    LOWORD(v3) = 0;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "#gdm,#nilr,#cp,handleEmergencyFtAssistanceNeededReport", &v3, 2u);
   }
 
-  v1 = off_100179D00;
-  v2 = 0u;
-  v3 = 0u;
+  v3 = off_100179D00;
   v4 = 0u;
   v5 = 0u;
   v6 = 0u;
   v7 = 0u;
   v8 = 0u;
-  v9 = 0;
-  v10 = &wireless_diagnostics::google::protobuf::internal::kEmptyString;
-  v11 = 0u;
-  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
+  v11 = 0;
+  v12 = &wireless_diagnostics::google::protobuf::internal::kEmptyString;
   v13 = 0u;
-  memset(v14, 0, sizeof(v14));
-  LODWORD(v2) = 17;
-  v15 = 0x20000100000000;
+  v14 = 0u;
+  v15 = 0u;
+  memset(v16, 0, sizeof(v16));
+  LODWORD(v4) = 17;
+  v17 = 0x20000100000000;
   operator new();
 }
 
@@ -2795,7 +2190,7 @@ uint64_t std::__function::__func<LegacyEmergencyHandler::createSuplConnectionMan
   return result;
 }
 
-void std::__function::__func<LegacyEmergencyHandler::createSuplConnectionManager(std::unique_ptr<gnss::Emergency::Supl::ConnectionManager> &)::$_1,std::allocator<LegacyEmergencyHandler::createSuplConnectionManager(std::unique_ptr<gnss::Emergency::Supl::ConnectionManager> &)::$_1>,void ()(std::vector<unsigned char> &)>::operator()(uint64_t a1, uint64_t a2)
+void std::__function::__func<LegacyEmergencyHandler::createSuplConnectionManager(std::unique_ptr<gnss::Emergency::Supl::ConnectionManager> &)::$_1,std::allocator<LegacyEmergencyHandler::createSuplConnectionManager(std::unique_ptr<gnss::Emergency::Supl::ConnectionManager> &)::$_1>,void ()(std::vector<unsigned char> &)>::operator()(uint64_t a1, uint64_t *a2)
 {
   v3 = *(a1 + 8);
   std::mutex::lock((v3 + 112));
@@ -2806,23 +2201,23 @@ void std::__function::__func<LegacyEmergencyHandler::createSuplConnectionManager
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "#gdm,#nilr,#supl,suplCertCb", v16, 2u);
   }
 
-  if (v3 + 88 != a2)
+  if ((v3 + 88) != a2)
   {
     v5 = *(v3 + 88);
     v6 = *(v3 + 96);
     v7 = v6 - v5;
-    v8 = *(a2 + 16);
+    v8 = a2[2];
     v9 = *a2;
     if (v8 - *a2 < v6 - v5)
     {
       if (v9)
       {
-        *(a2 + 8) = v9;
+        a2[1] = v9;
         operator delete(v9);
         v8 = 0;
         *a2 = 0;
-        *(a2 + 8) = 0;
-        *(a2 + 16) = 0;
+        a2[1] = 0;
+        a2[2] = 0;
       }
 
       if ((v7 & 0x8000000000000000) == 0)
@@ -2849,7 +2244,7 @@ void std::__function::__func<LegacyEmergencyHandler::createSuplConnectionManager
       std::vector<gnss::SensorSample3Axis>::__throw_length_error[abi:ne200100]();
     }
 
-    v12 = *(a2 + 8);
+    v12 = a2[1];
     v13 = v12 - v9;
     if (v12 - v9 >= v7)
     {
@@ -2867,7 +2262,7 @@ void std::__function::__func<LegacyEmergencyHandler::createSuplConnectionManager
       if (v12 != v9)
       {
         memmove(*a2, *(v3 + 88), v13);
-        v12 = *(a2 + 8);
+        v12 = a2[1];
       }
 
       if (v6 != v14)
@@ -2878,7 +2273,7 @@ void std::__function::__func<LegacyEmergencyHandler::createSuplConnectionManager
       v15 = &v12[v6 - v14];
     }
 
-    *(a2 + 8) = v15;
+    a2[1] = v15;
   }
 
   std::mutex::unlock((v3 + 112));
@@ -2920,34 +2315,33 @@ uint64_t std::__function::__func<LegacyEmergencyHandler::createSuplConnectionMan
   return result;
 }
 
-void std::__function::__func<LegacyEmergencyHandler::createSuplConnectionManager(std::unique_ptr<gnss::Emergency::Supl::ConnectionManager> &)::$_2,std::allocator<LegacyEmergencyHandler::createSuplConnectionManager(std::unique_ptr<gnss::Emergency::Supl::ConnectionManager> &)::$_2>,void ()(gnss::Emergency::Supl::Status)>::operator()(uint64_t a1, int *a2)
+void std::__function::__func<LegacyEmergencyHandler::createSuplConnectionManager(std::unique_ptr<gnss::Emergency::Supl::ConnectionManager> &)::$_2,std::allocator<LegacyEmergencyHandler::createSuplConnectionManager(std::unique_ptr<gnss::Emergency::Supl::ConnectionManager> &)::$_2>,void ()(gnss::Emergency::Supl::Status)>::operator()(uint64_t a1, unsigned int *a2)
 {
   v2 = *a2;
-  v3 = *(a1 + 8);
-  v4 = GpsdLogObjectGeneral;
+  v3 = GpsdLogObjectGeneral;
   if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEFAULT))
   {
-    LODWORD(v5) = 67240192;
-    HIDWORD(v5) = v2;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "#gdm,#nilr,#supl,suplConnStatusCb,connStatus,%{public}d", &v5, 8u);
+    LODWORD(v4) = 67240192;
+    HIDWORD(v4) = v2;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "#gdm,#nilr,#supl,suplConnStatusCb,connStatus,%{public}d", &v4, 8u);
   }
 
-  v5 = off_100179D00;
+  v4 = off_100179D00;
+  v5 = 0u;
   v6 = 0u;
   v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  v13 = 0;
-  v14 = &wireless_diagnostics::google::protobuf::internal::kEmptyString;
+  v12 = 0;
+  v13 = &wireless_diagnostics::google::protobuf::internal::kEmptyString;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  memset(v18, 0, sizeof(v18));
-  LODWORD(v6) = 14;
-  v19 = 0x80000100000000;
+  memset(v17, 0, sizeof(v17));
+  LODWORD(v5) = 14;
+  v18 = 0x80000100000000;
   operator new();
 }
 
@@ -3260,30 +2654,26 @@ void std::__assoc_state<gnss::Result>::set_value<gnss::Result const&>(uint64_t a
   std::mutex::unlock((a1 + 24));
 }
 
-void std::__assoc_state<gnss::Result>::move(uint64_t a1)
+void std::__assoc_state<gnss::Result>::move(std::__assoc_sub_state *a1)
 {
-  __lk.__m_ = (a1 + 24);
+  __lk.__m_ = &a1->__mut_;
   __lk.__owns_ = 1;
-  std::mutex::lock((a1 + 24));
+  std::mutex::lock(&a1->__mut_);
   std::__assoc_sub_state::__sub_wait(a1, &__lk);
-  v2 = *(a1 + 16);
-  v6.__ptr_ = 0;
-  std::exception_ptr::~exception_ptr(&v6);
-  if (v2)
+  ptr = a1->__exception_.__ptr_;
+  v5.__ptr_ = 0;
+  std::exception_ptr::~exception_ptr(&v5);
+  if (ptr)
   {
-    std::exception_ptr::exception_ptr(&v5, (a1 + 16));
-    v4.__ptr_ = &v5;
-    std::rethrow_exception(v4);
+    std::exception_ptr::exception_ptr(&v4, &a1->__exception_);
+    v3.__ptr_ = &v4;
+    std::rethrow_exception(v3);
     __break(1u);
   }
 
-  else
+  else if (__lk.__owns_)
   {
-    v3 = *(a1 + 140);
-    if (__lk.__owns_)
-    {
-      std::mutex::unlock(__lk.__m_);
-    }
+    std::mutex::unlock(__lk.__m_);
   }
 }
 
@@ -3754,7 +3144,7 @@ uint64_t std::__function::__func<LegacyEmergencyHandler::startEmergencyPosition(
   return result;
 }
 
-uint64_t std::__function::__func<LegacyEmergencyHandler::startEmergencyPosition(proto::gpsd::Request const&,std::function<void ()(gnss::Result)>,std::unique_ptr<gnss::Device> const&)::$_0,std::allocator<LegacyEmergencyHandler::startEmergencyPosition(proto::gpsd::Request const&,std::function<void ()(gnss::Result)>,std::unique_ptr<gnss::Device> const&)::$_0>,void ()(gnss::Result)>::operator()(uint64_t a1, int *a2)
+uint64_t std::__function::__func<LegacyEmergencyHandler::startEmergencyPosition(proto::gpsd::Request const&,std::function<void ()(gnss::Result)>,std::unique_ptr<gnss::Device> const&)::$_0,std::allocator<LegacyEmergencyHandler::startEmergencyPosition(proto::gpsd::Request const&,std::function<void ()(gnss::Result)>,std::unique_ptr<gnss::Device> const&)::$_0>,void ()(gnss::Result)>::operator()(uint64_t a1, unsigned int *a2)
 {
   v2 = *a2;
   v3 = *(a1 + 8);
@@ -3907,7 +3297,7 @@ void GpsdInterfaceTelemeter::GpsdInterfaceTelemeter(GpsdInterfaceTelemeter *this
   *(this + 10) = 0u;
   *(this + 11) = 0u;
   *(this + 185) = 0u;
-  v3 = *(GpsdRuntime::instance(this) + 16);
+  GpsdRuntime::instance(this);
   operator new();
 }
 
@@ -3942,7 +3332,7 @@ uint64_t GpsdClientManager::GpsdClientManager(uint64_t a1, uint64_t a2, GpsdRunt
 
   if (v6 != a3)
   {
-    v6 = (*(*v6 + 16))(v6);
+    v6 = (*(*v6 + 2))(v6);
 LABEL_4:
     *(a1 + 56) = v6;
     goto LABEL_6;
@@ -3973,33 +3363,33 @@ LABEL_6:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
-      v26 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/Daemon/GpsdClientManager.mm";
-      v27 = 1026;
-      v28 = 28;
-      v29 = 2082;
-      v30 = "GpsdClientManager";
+      v28 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/Daemon/GpsdClientManager.mm";
+      v29 = 1026;
+      v30 = 28;
+      v31 = 2082;
+      v32 = "GpsdClientManager";
       _os_log_error_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
     }
 
-    std::string::basic_string[abi:ne200100]<0>(v24, "assert");
-    std::string::basic_string[abi:ne200100]<0>(v22, "GpsdClientManager");
+    std::string::basic_string[abi:ne200100]<0>(v25, "assert");
+    std::string::basic_string[abi:ne200100]<0>(v23, "GpsdClientManager");
     std::string::basic_string[abi:ne200100]<0>(__p, "gpsdClientManager,fRequestCallback,nullptr");
-    gpsd::util::triggerDiagnosticReport(v24, v22, __p);
-    if (v21 < 0)
+    gpsd::util::triggerDiagnosticReport(v25, v23, __p);
+    if (v22 < 0)
     {
       operator delete(__p[0]);
     }
 
-    if (v23 < 0)
+    if (v24 < 0)
     {
-      operator delete(v22[0]);
+      operator delete(v23[0]);
     }
 
     v10 = "false && gpsdClientManager,fRequestCallback,nullptr";
     v11 = 28;
-    if (v24[23] < 0)
+    if (v26 < 0)
     {
-      v12 = v24;
+      v12 = v25;
 LABEL_29:
       operator delete(*v12);
     }
@@ -4021,11 +3411,11 @@ LABEL_30:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
-      v26 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/Daemon/GpsdClientManager.mm";
-      v27 = 1026;
-      v28 = 29;
-      v29 = 2082;
-      v30 = "GpsdClientManager";
+      v28 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/Daemon/GpsdClientManager.mm";
+      v29 = 1026;
+      v30 = 29;
+      v31 = 2082;
+      v32 = "GpsdClientManager";
       _os_log_error_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
     }
 
@@ -4045,7 +3435,7 @@ LABEL_30:
 
     v10 = "false && gpsdClientManager,fGpsdReceiveQ,nullptr";
     v11 = 29;
-    if ((v19[23] & 0x80000000) != 0)
+    if (v20 < 0)
     {
       v12 = v19;
       goto LABEL_29;
@@ -4434,7 +3824,7 @@ void GpsdClientManager::handleXPCMessage(uint64_t a1, void *a2)
     {
       v15[0] = 0;
       __p = 0uLL;
-      std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(&__p, data, data + length, length);
+      std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(&__p, data, &data[length], length);
       v5 = *(a1 + 24);
       if (!v5)
       {
@@ -4527,11 +3917,11 @@ uint64_t GpsdGnssDeviceManager::GpsdGnssDeviceManager(uint64_t a1, uint64_t a2, 
   v8 = a1 + 288;
   *(a1 + 288) = off_10017D138;
   GnssDeviceCommon::GnssDeviceCommon(a1 + 8, a1 + 296);
-  std::__function::__value_func<void ()(proto::gpsd::Response &&)>::__value_func[abi:ne200100](v15, a2);
-  std::__function::__value_func<void ()(proto::gpsd::Indication &&)>::__value_func[abi:ne200100](v14, a3);
-  GpsdProtobufHandler::GpsdProtobufHandler(v8, v15, v14, a4);
-  std::__function::__value_func<void ()(proto::gpsd::Indication &&)>::~__value_func[abi:ne200100](v14);
-  std::__function::__value_func<void ()(proto::gpsd::Response &&)>::~__value_func[abi:ne200100](v15);
+  std::__function::__value_func<void ()(proto::gpsd::Response &&)>::__value_func[abi:ne200100](v14, a2);
+  std::__function::__value_func<void ()(proto::gpsd::Indication &&)>::__value_func[abi:ne200100](v13, a3);
+  GpsdProtobufHandler::GpsdProtobufHandler(v8, v14, v13, a4);
+  std::__function::__value_func<void ()(proto::gpsd::Indication &&)>::~__value_func[abi:ne200100](v13);
+  std::__function::__value_func<void ()(proto::gpsd::Response &&)>::~__value_func[abi:ne200100](v14);
   *a1 = &off_10017D0A0;
   *(a1 + 8) = off_10017D118;
   *(a1 + 288) = off_10017D138;
@@ -4547,23 +3937,23 @@ uint64_t GpsdGnssDeviceManager::GpsdGnssDeviceManager(uint64_t a1, uint64_t a2, 
   v9 = GpsdPreferences::instance(0);
   if ((GpsdPreferences::useInternalEmergencyStack(v9) & 1) == 0)
   {
-    v13[0] = off_10017D208;
-    v13[1] = a1;
-    v13[3] = v13;
-    v12[0] = off_10017D288;
+    v12[0] = off_10017D208;
     v12[1] = a1;
     v12[3] = v12;
-    v10 = *(a1 + 352);
+    v11[0] = off_10017D288;
+    v11[1] = a1;
+    v11[3] = v11;
     operator new();
   }
 
   return a1;
 }
 
-void sub_100126968(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26)
+void sub_100126968(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
 {
-  std::__function::__value_func<void ()(proto::gpsd::Request_Type,gnss::Result)>::~__value_func[abi:ne200100](&a26);
-  std::__function::__value_func<void ()(proto::gpsd::Indication &&)>::~__value_func[abi:ne200100](v26 - 120);
+  va_start(va, a25);
+  std::__function::__value_func<void ()(proto::gpsd::Request_Type,gnss::Result)>::~__value_func[abi:ne200100](va);
+  std::__function::__value_func<void ()(proto::gpsd::Indication &&)>::~__value_func[abi:ne200100](v25 - 120);
   operator delete();
 }
 
@@ -4765,7 +4155,7 @@ void GpsdGnssDeviceManager::configureDevice(GpsdGnssDeviceManager *this)
   __assert_rtn("configureDevice", "GpsdGnssDeviceManager.cpp", 61, "false && null fDevice");
 }
 
-void sub_1001278DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, void *a24, uint64_t a25, int a26, __int16 a27, char a28, char a29, char a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, char a40, uint64_t a41, uint64_t a42, uint64_t a43, char a44)
+void sub_1001278DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, void *a24, uint64_t a25, int a26, __int16 a27, char a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, char a40, uint64_t a41, uint64_t a42, uint64_t a43, char a44)
 {
   std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](&a30);
   if (!atomic_fetch_add(v44 + 1, 0xFFFFFFFFFFFFFFFFLL))
@@ -4789,38 +4179,38 @@ uint64_t GpsdGnssDeviceManager::setPowerReport(uint64_t a1, uint64_t a2)
   return std::__function::__value_func<void ()(std::unique_ptr<gnss::PwrMeasurement>)>::~__value_func[abi:ne200100](v5);
 }
 
-void sub_100127B30(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_100127B30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   v6 = va_arg(va1, void);
   v7 = va_arg(va1, void);
+  v8 = va_arg(va1, void);
   std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](va);
   std::__function::__value_func<void ()(std::unique_ptr<gnss::PwrMeasurement>)>::~__value_func[abi:ne200100](va1);
   _Unwind_Resume(a1);
 }
 
-void sub_100127D94(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_100127D94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v4 = va_arg(va1, void);
-  v6 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v5 = va_arg(va1, void);
   v7 = va_arg(va1, void);
   v8 = va_arg(va1, void);
+  v9 = va_arg(va1, void);
   std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](va1);
-  if (!atomic_fetch_add(v2 + 1, 0xFFFFFFFFFFFFFFFFLL))
+  if (!atomic_fetch_add(v3 + 1, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (*(*v2 + 16))(v2);
+    (*(*v3 + 16))(v3);
   }
 
   std::promise<gnss::Result>::~promise(va);
   _Unwind_Resume(a1);
 }
 
-void sub_100128324(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, void *a28, uint64_t a29, int a30, __int16 a31, char a32, char a33, void *a34, uint64_t a35, int a36, __int16 a37, char a38, char a39, uint64_t a40, uint64_t a41, int a42, __int16 a43, char a44, char a45, uint64_t a46, atomic_ullong *a47, uint64_t a48, uint64_t a49)
+void sub_100128324(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, void *a28, uint64_t a29, int a30, __int16 a31, char a32, char a33, void *a34, uint64_t a35, int a36, __int16 a37, char a38, char a39, uint64_t a40, uint64_t a41, int a42, __int16 a43, char a44, char a45, uint64_t a46, atomic_ullong *a47, uint64_t a48, uint64_t a49)
 {
   if (a15 < 0)
   {
@@ -4841,7 +4231,7 @@ void sub_100128324(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   {
     if (!atomic_fetch_add(a47 + 1, 0xFFFFFFFFFFFFFFFFLL))
     {
-      (*(*a47 + 16))(a47);
+      (*(*a47 + 16))(a47, a2, a3, a4, a5, a6, a7, a8);
     }
   }
 
@@ -4923,14 +4313,14 @@ void GpsdGnssDeviceManager::deviceStopBlocking(GpsdGnssDeviceManager *this)
   }
 }
 
-void sub_1001289D0(_Unwind_Exception *a1, uint64_t a2, atomic_ullong *a3, ...)
+void sub_1001289D0(_Unwind_Exception *a1, uint64_t a2, atomic_ullong *a3, uint64_t a4, atomic_ullong *a5, ...)
 {
-  va_start(va, a3);
-  if (a3)
+  va_start(va, a5);
+  if (a5)
   {
-    if (!atomic_fetch_add(a3 + 1, 0xFFFFFFFFFFFFFFFFLL))
+    if (!atomic_fetch_add(a5 + 1, 0xFFFFFFFFFFFFFFFFLL))
     {
-      (*(*a3 + 16))(a3);
+      (*(*a5 + 16))(a5, a2, a3);
     }
   }
 
@@ -5028,7 +4418,7 @@ void GpsdGnssDeviceManager::sendStopCompletedIndication(uint64_t a1, unsigned in
   __assert_rtn("set_stop_status", "GpsdProtocol.pb.h", 8215, "::proto::gnss::Result_IsValid(value)");
 }
 
-void GpsdGnssDeviceManager::ltlRequestCallback(uint64_t a1, uint64_t a2, uint64_t a3)
+void GpsdGnssDeviceManager::ltlRequestCallback(uint64_t a1, _DWORD *a2, uint64_t a3)
 {
   if (*(a1 + 1392))
   {
@@ -5245,11 +4635,11 @@ void GpsdGnssDeviceManager::handleRegularStopRequest(GpsdGnssDeviceManager *this
   }
 }
 
-void sub_1001299F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1001299F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](va);
-  std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v8 - 72);
+  std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v15 - 72);
   _Unwind_Resume(a1);
 }
 
@@ -5287,20 +4677,20 @@ uint64_t GpsdGnssDeviceManager::setPvtmReport(uint64_t a1, unsigned __int8 *a2, 
   return std::__function::__value_func<void ()(std::unique_ptr<gnss::Fix>,std::unique_ptr<gnss::MeasurementReport>,std::vector<gnss::SvInfo> &&,std::vector<gnss::ReceiverBandCorrections,std::allocator<std::vector<gnss::SvInfo> &&>> &&,std::unique_ptr<gnss::TimeConversionInfo,std::default_delete<std::vector<gnss::ReceiverBandCorrections,std::allocator<std::vector<gnss::SvInfo> &&>> &>>,std::unique_ptr<gnss::KlobucharModelParameters>)>::~__value_func[abi:ne200100](v14);
 }
 
-void sub_100129B98(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_100129B98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   v6 = va_arg(va1, void);
   v7 = va_arg(va1, void);
+  v8 = va_arg(va1, void);
   va_copy(va2, va1);
-  v8 = va_arg(va2, void);
-  v10 = va_arg(va2, void);
+  v9 = va_arg(va2, void);
   v11 = va_arg(va2, void);
   v12 = va_arg(va2, void);
+  v13 = va_arg(va2, void);
   std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](va);
   std::__function::__value_func<void ()(std::unique_ptr<gnss::Fix>,std::unique_ptr<gnss::MeasurementReport>,std::vector<gnss::SvInfo> &&,std::vector<gnss::ReceiverBandCorrections,std::allocator<std::vector<gnss::SvInfo> &&>> &&,std::unique_ptr<gnss::TimeConversionInfo,std::default_delete<std::vector<gnss::ReceiverBandCorrections,std::allocator<std::vector<gnss::SvInfo> &&>> &>>,std::unique_ptr<gnss::KlobucharModelParameters>)>::~__value_func[abi:ne200100](va1);
   std::__function::__value_func<void ()(std::unique_ptr<gnss::Fix>,std::unique_ptr<gnss::MeasurementReport>,std::vector<gnss::SvInfo> &&,std::vector<gnss::ReceiverBandCorrections,std::allocator<std::vector<gnss::SvInfo> &&>> &&,std::unique_ptr<gnss::TimeConversionInfo,std::default_delete<std::vector<gnss::ReceiverBandCorrections,std::allocator<std::vector<gnss::SvInfo> &&>> &>>,std::unique_ptr<gnss::KlobucharModelParameters>)>::~__value_func[abi:ne200100](va2);
@@ -5329,14 +4719,14 @@ uint64_t GpsdGnssDeviceManager::setNmeaHandler(uint64_t a1, uint64_t a2, uint64_
   }
 }
 
-void sub_100129CE0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_100129CE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   v6 = va_arg(va1, void);
   v7 = va_arg(va1, void);
+  v8 = va_arg(va1, void);
   std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](va);
   std::__function::__value_func<void ()(std::vector<std::string> &&)>::~__value_func[abi:ne200100](va1);
   _Unwind_Resume(a1);
@@ -5521,7 +4911,7 @@ LABEL_37:
   }
 }
 
-void sub_10012A168(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, char *a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
+void sub_10012A168(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char *a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
 {
   std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](&a24);
   a28 = &a11;
@@ -5555,32 +4945,31 @@ uint64_t GpsdGnssDeviceManager::setAssistanceMapVector(uint64_t a1, uint64_t a2,
     v5 = *(a2 + 64);
     if ((v4 & 0x10) != 0 || !*(a2 + 64))
     {
-      v8 = *(a2 + 32);
-      v9 = *(a2 + 40);
+      v8 = *(a2 + 40);
       if ((v4 & 0x10) != 0)
       {
-        v10 = *(a2 + 32);
+        v9 = *(a2 + 32);
       }
 
       else
       {
-        v10 = 0.0;
+        v9 = 0.0;
       }
 
-      v11 = *(a1 + 16);
-      v12 = *(a2 + 8);
-      v13 = *(a2 + 16);
-      v14 = *(a2 + 24);
-      v15 = *(a2 + 48);
-      v16 = *(a2 + 56);
-      v17 = *(a2 + 65);
-      v18 = *(a2 + 66);
-      v19 = *(a2 + 67);
-      v20 = *(a2 + 68);
-      v21 = *(a2 + 69);
-      std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v23, a3);
-      (*(*v11 + 160))(v11, v12, v5, v17 & 1, v18 & 1, v19 & 1, v20 & 1, *&v21 & ((v4 & 0x1000) >> 12), v13, v14, v10, v9, v15, v16, v23);
-      return std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v23);
+      v10 = *(a1 + 16);
+      v11 = *(a2 + 8);
+      v12 = *(a2 + 16);
+      v13 = *(a2 + 24);
+      v14 = *(a2 + 48);
+      v15 = *(a2 + 56);
+      v16 = *(a2 + 65);
+      v17 = *(a2 + 66);
+      v18 = *(a2 + 67);
+      v19 = *(a2 + 68);
+      v20 = *(a2 + 69);
+      std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v22, a3);
+      (*(*v10 + 160))(v10, v11, v5, v16 & 1, v17 & 1, v18 & 1, v19 & 1, *&v20 & ((v4 & 0x1000) >> 12), v12, v13, v9, v8, v14, v15, v22);
+      return std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v22);
     }
 
     else
@@ -5597,9 +4986,9 @@ uint64_t GpsdGnssDeviceManager::setAssistanceMapVector(uint64_t a1, uint64_t a2,
   }
 }
 
-void sub_10012A3E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_10012A3E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -5625,9 +5014,9 @@ uint64_t GpsdGnssDeviceManager::setAssistanceSpeedConstraint(uint64_t a1, uint64
   }
 }
 
-void sub_10012A514(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_10012A514(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -5652,9 +5041,9 @@ uint64_t GpsdGnssDeviceManager::setAssistanceAlongTrackVelocity(uint64_t a1, uin
   }
 }
 
-void sub_10012A634(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_10012A634(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -5713,9 +5102,9 @@ LABEL_11:
   return std::function<void ()(gnss::Result)>::operator()(a3, 4);
 }
 
-void sub_10012A918(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_10012A918(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -5796,11 +5185,11 @@ void GpsdGnssDeviceManager::handleEmergencyPreemptiveStartRequest(GpsdGnssDevice
   }
 }
 
-void sub_10012ABE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_10012ABE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](va);
-  std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v8 - 72);
+  std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v15 - 72);
   _Unwind_Resume(a1);
 }
 
@@ -5864,11 +5253,11 @@ void GpsdGnssDeviceManager::handleEmergencyPreemptiveStopRequest(GpsdGnssDeviceM
   }
 }
 
-void sub_10012AE38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_10012AE38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](va);
-  std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v8 - 72);
+  std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v15 - 72);
   _Unwind_Resume(a1);
 }
 
@@ -5911,9 +5300,9 @@ uint64_t GpsdGnssDeviceManager::handleRequestWithLegacyEmergencyHandler(uint64_t
   return std::function<void ()(gnss::Result)>::operator()(a3, 7);
 }
 
-void sub_10012AFC4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_10012AFC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -5926,7 +5315,7 @@ void GpsdGnssDeviceManager::handleStopCompletedTimer(GpsdGnssDeviceManager *this
     v3 = GpsdLogObjectGeneral;
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEFAULT))
     {
-      *buf = 0;
+      buf[0] = 0;
       _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "#gdm,cancel,stopCompletedTimer", buf, 2u);
       v2 = *(this + 167);
       *(this + 167) = 0;
@@ -5953,7 +5342,7 @@ LABEL_7:
       return;
     }
 
-    *buf = 0;
+    buf[0] = 0;
     v5 = "#gdm,stopTimer,detected overlap with regular session";
   }
 
@@ -5973,7 +5362,7 @@ LABEL_7:
         return;
       }
 
-      *buf = 0;
+      buf[0] = 0;
       v5 = "#gdm,stopTimer,detected overlap with emergency session";
       goto LABEL_17;
     }
@@ -6000,7 +5389,7 @@ LABEL_18:
       return;
     }
 
-    *buf = 0;
+    buf[0] = 0;
     v5 = "#gdm,stopTimer,detected overlap with emergency pos report";
   }
 
@@ -6030,7 +5419,7 @@ uint64_t GpsdGnssDeviceManager::destroyPvtmWatchdogTimer(GpsdGnssDeviceManager *
   return result;
 }
 
-void GpsdGnssDeviceManager::handleHardwareUnresponsive(void *a1, int a2)
+void GpsdGnssDeviceManager::handleHardwareUnresponsive(GpsdGnssDeviceManager *a1, uint64_t a2)
 {
   if (*(a1 + 1344) == 1)
   {
@@ -6045,7 +5434,7 @@ void GpsdGnssDeviceManager::handleHardwareUnresponsive(void *a1, int a2)
 
   else
   {
-    v4 = a1[164];
+    v4 = *(a1 + 164);
     if (!v4 || *(v4 + 72) != 1)
     {
       *(a1 + 1344) = 1;
@@ -6056,12 +5445,12 @@ void GpsdGnssDeviceManager::handleHardwareUnresponsive(void *a1, int a2)
         if (a1)
         {
           v7 = gnss::Exception::instance(a1);
-          gnss::Exception::set(v7, a2);
+          gnss::Exception::set(v7, a2, 6);
         }
       }
 
       v8 = gnss::Exception::instance(a1);
-      gnss::Exception::set(v8, a2);
+      gnss::Exception::set(v8, a2, 6);
     }
 
     v5 = GpsdLogObjectGeneral;
@@ -6529,7 +5918,7 @@ uint64_t std::__function::__func<GpsdGnssDeviceManager::setPvtmReport(proto::gps
   return result;
 }
 
-void std::__function::__func<GpsdGnssDeviceManager::setPvtmReport(proto::gpsd::SetPvtmReport const&,std::function<void ()(gnss::Result)>)::$_0,std::allocator<GpsdGnssDeviceManager::setPvtmReport(proto::gpsd::SetPvtmReport const&,std::function<void ()(gnss::Result)>)::$_0>,void ()(std::unique_ptr<gnss::Fix>,std::unique_ptr<gnss::MeasurementReport>,std::vector<gnss::SvInfo> &&,std::vector<gnss::ReceiverBandCorrections,std::allocator<std::vector<gnss::SvInfo> &&>> &&,std::unique_ptr<gnss::TimeConversionInfo,std::default_delete<std::vector<gnss::ReceiverBandCorrections,std::allocator<std::vector<gnss::SvInfo> &&>> &>>,std::unique_ptr<gnss::KlobucharModelParameters>)>::operator()(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t a4, uint64_t a5, uint64_t *a6, uint64_t *a7)
+void std::__function::__func<GpsdGnssDeviceManager::setPvtmReport(proto::gpsd::SetPvtmReport const&,std::function<void ()(gnss::Result)>)::$_0,std::allocator<GpsdGnssDeviceManager::setPvtmReport(proto::gpsd::SetPvtmReport const&,std::function<void ()(gnss::Result)>)::$_0>,void ()(std::unique_ptr<gnss::Fix>,std::unique_ptr<gnss::MeasurementReport>,std::vector<gnss::SvInfo> &&,std::vector<gnss::ReceiverBandCorrections,std::allocator<std::vector<gnss::SvInfo> &&>> &&,std::unique_ptr<gnss::TimeConversionInfo,std::default_delete<std::vector<gnss::ReceiverBandCorrections,std::allocator<std::vector<gnss::SvInfo> &&>> &>>,std::unique_ptr<gnss::KlobucharModelParameters>)>::operator()(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t a4, uint64_t a5, uint64_t **a6, uint64_t *a7)
 {
   v7 = *a2;
   *a2 = 0;
@@ -6537,49 +5926,47 @@ void std::__function::__func<GpsdGnssDeviceManager::setPvtmReport(proto::gpsd::S
   *a3 = 0;
   v9 = *a6;
   *a6 = 0;
-  v12 = v9;
-  v10 = *a7;
+  v10 = v9;
   *a7 = 0;
-  v11 = *(a1 + 8);
-  v16[0] = 0;
-  v16[1] = v16;
-  v16[2] = 0x3002000000;
-  v16[3] = __Block_byref_object_copy__4;
-  v16[4] = __Block_byref_object_dispose__4;
-  v16[5] = v7;
-  v15[0] = 0;
-  v15[1] = v15;
-  v15[2] = 0x3002000000;
-  v15[3] = __Block_byref_object_copy__82;
-  v13 = 0;
-  v15[4] = __Block_byref_object_dispose__83;
-  v15[5] = v8;
   v14[0] = 0;
   v14[1] = v14;
   v14[2] = 0x3002000000;
-  v14[3] = __Block_byref_object_copy__84;
-  v14[4] = __Block_byref_object_dispose__85;
+  v14[3] = __Block_byref_object_copy__4;
+  v14[4] = __Block_byref_object_dispose__4;
+  v14[5] = v7;
+  v13[0] = 0;
+  v13[1] = v13;
+  v13[2] = 0x3002000000;
+  v13[3] = __Block_byref_object_copy__82;
+  v11 = 0;
+  v13[4] = __Block_byref_object_dispose__83;
+  v13[5] = v8;
+  v12[0] = 0;
+  v12[1] = v12;
+  v12[2] = 0x3002000000;
+  v12[3] = __Block_byref_object_copy__84;
+  v12[4] = __Block_byref_object_dispose__85;
   operator new();
 }
 
-void sub_10012CF38(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_10012CF38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v8 = va_arg(va1, uint64_t *);
-  _Block_object_dispose((v5 - 224), 8);
-  std::unique_ptr<std::vector<gnss::SvInfo>>::~unique_ptr[abi:ne200100]((v4 + 40));
-  _Block_object_dispose((v5 - 176), 8);
-  std::unique_ptr<gnss::MeasurementReport>::~unique_ptr[abi:ne200100]((v3 + 40));
-  _Block_object_dispose((v5 - 128), 8);
-  v7 = *(v5 - 88);
-  *(v5 - 88) = 0;
-  if (v7)
+  va_start(va1, a3);
+  va_start(va, a3);
+  v9 = va_arg(va1, uint64_t *);
+  _Block_object_dispose((v6 - 224), 8);
+  std::unique_ptr<std::vector<gnss::SvInfo>>::~unique_ptr[abi:ne200100]((v5 + 40));
+  _Block_object_dispose((v6 - 176), 8);
+  std::unique_ptr<gnss::MeasurementReport>::~unique_ptr[abi:ne200100]((v4 + 40));
+  _Block_object_dispose((v6 - 128), 8);
+  v8 = *(v6 - 88);
+  *(v6 - 88) = 0;
+  if (v8)
   {
     operator delete();
   }
 
-  if (v2)
+  if (v3)
   {
     operator delete();
   }
@@ -6601,7 +5988,7 @@ uint64_t std::__function::__func<GpsdGnssDeviceManager::setPvtmReport(proto::gps
   }
 }
 
-uint64_t ___ZZN21GpsdGnssDeviceManager13setPvtmReportERKN5proto4gpsd13SetPvtmReportENSt3__18functionIFvN4gnss6ResultEEEEENK3__0clENS5_10unique_ptrINS7_3FixENS5_14default_deleteISD_EEEENSC_INS7_17MeasurementReportENSE_ISH_EEEEONS5_6vectorINS7_6SvInfoENS5_9allocatorISL_EEEEONSK_INS7_23ReceiverBandCorrectionsENSM_ISQ_EEEENSC_INS7_18TimeConversionInfoENSE_ISU_EEEENSC_INS7_24KlobucharModelParametersENSE_ISX_EEEE_block_invoke(void *a1)
+gnss::Fix *___ZZN21GpsdGnssDeviceManager13setPvtmReportERKN5proto4gpsd13SetPvtmReportENSt3__18functionIFvN4gnss6ResultEEEEENK3__0clENS5_10unique_ptrINS7_3FixENS5_14default_deleteISD_EEEENSC_INS7_17MeasurementReportENSE_ISH_EEEEONS5_6vectorINS7_6SvInfoENS5_9allocatorISL_EEEEONSK_INS7_23ReceiverBandCorrectionsENSM_ISQ_EEEENSC_INS7_18TimeConversionInfoENSE_ISU_EEEENSC_INS7_24KlobucharModelParametersENSE_ISX_EEEE_block_invoke(void *a1)
 {
   v1 = a1[10];
   v2 = *(a1[4] + 8);
@@ -6663,35 +6050,35 @@ uint64_t ___ZZN21GpsdGnssDeviceManager13setPvtmReportERKN5proto4gpsd13SetPvtmRep
   return result;
 }
 
-void sub_10012D154(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_10012D154(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va3, a2);
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v6 = va_arg(va1, uint64_t *);
+  va_start(va3, a3);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v7 = va_arg(va1, uint64_t *);
   va_copy(va2, va1);
-  v8 = va_arg(va2, void);
+  v9 = va_arg(va2, void);
   va_copy(va3, va2);
-  v10 = va_arg(va3, void **);
-  if (a2)
+  v11 = va_arg(va3, void **);
+  if (a3)
   {
     operator delete();
   }
 
   std::unique_ptr<gnss::TimeConversionInfo>::~unique_ptr[abi:ne200100](va);
-  v4 = v8;
-  v8 = 0;
-  if (v4)
+  v5 = v9;
+  v9 = 0;
+  if (v5)
   {
-    std::default_delete<cproto::gpsd::SetAssistanceGyro>::operator()[abi:ne200100](va1, v4);
+    std::default_delete<cproto::gpsd::SetAssistanceGyro>::operator()[abi:ne200100](va1, v5);
   }
 
   std::unique_ptr<std::vector<gnss::SvInfo>>::~unique_ptr[abi:ne200100](va2);
   std::unique_ptr<gnss::MeasurementReport>::~unique_ptr[abi:ne200100](va3);
-  v5 = *(v2 - 24);
-  *(v2 - 24) = 0;
-  if (v5)
+  v6 = *(v3 - 24);
+  *(v3 - 24) = 0;
+  if (v6)
   {
     operator delete();
   }
@@ -6779,47 +6166,48 @@ uint64_t std::__function::__func<GpsdGnssDeviceManager::handleRegularStartReques
   }
 }
 
-void std::__function::__func<GpsdGnssDeviceManager::handleRegularStartRequest(proto::gpsd::Request const&)::$_1,std::allocator<GpsdGnssDeviceManager::handleRegularStartRequest(proto::gpsd::Request const&)::$_1>,void ()(gnss::Result)>::operator()(gnss::Exception *a1, _DWORD *a2)
+void std::__function::__func<GpsdGnssDeviceManager::handleRegularStartRequest(proto::gpsd::Request const&)::$_1,std::allocator<GpsdGnssDeviceManager::handleRegularStartRequest(proto::gpsd::Request const&)::$_1>,void ()(gnss::Result)>::operator()(gnss::Exception *a1, unsigned int *a2)
 {
-  v2 = *(a1 + 1);
+  v2 = *a2;
+  v3 = *(a1 + 1);
   if (*a2 == 1)
   {
-    v3 = GpsdLogObjectGeneral;
+    v4 = GpsdLogObjectGeneral;
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "#gdm,start,onCompleted success", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "#gdm,start,onCompleted success", buf, 2u);
     }
 
     *buf = off_100179D00;
-    v7 = 0u;
     v8 = 0u;
     v9 = 0u;
     v10 = 0u;
     v11 = 0u;
     v12 = 0u;
     v13 = 0u;
-    v14 = 0;
-    v15 = &wireless_diagnostics::google::protobuf::internal::kEmptyString;
-    v16 = 0u;
+    v14 = 0u;
+    v15 = 0;
+    v16 = &wireless_diagnostics::google::protobuf::internal::kEmptyString;
     v17 = 0u;
     v18 = 0u;
-    memset(v19, 0, sizeof(v19));
-    v20 = &_mh_execute_header;
-    LODWORD(v7) = 22;
-    v5 = gnss::Convert::toProtobuf(1u);
-    if (v5 < 0xA)
+    v19 = 0u;
+    memset(v20, 0, sizeof(v20));
+    v21 = &_mh_execute_header;
+    LODWORD(v8) = 22;
+    v6 = gnss::Convert::toProtobuf(1u);
+    if (v6 < 0xA)
     {
-      HIDWORD(v20) |= 0x1000u;
-      DWORD2(v12) = v5;
-      GpsdIndicationHandler::sendIndication(v2 + 296, buf);
+      HIDWORD(v21) |= 0x1000u;
+      DWORD2(v13) = v6;
+      GpsdIndicationHandler::sendIndication(v3 + 296, buf);
     }
 
     __assert_rtn("set_start_status", "GpsdProtocol.pb.h", 0x2000, "::proto::gnss::Result_IsValid(value)");
   }
 
-  v4 = gnss::Exception::instance(a1);
-  gnss::Exception::set(v4, 1);
+  v5 = gnss::Exception::instance(a1);
+  gnss::Exception::set(v5, 1, v2);
 }
 
 void sub_10012D7D8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, char a28)
@@ -7315,57 +6703,56 @@ void SuplPduLog::traceSuplPdu(SuplPduLog *this, const unsigned __int8 *a2, int a
     do
     {
       std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](buf);
-      v7 = *&v29[2];
-      *(&v30 + *(*&v29[2] - 24)) = *(&v30 + *(*&v29[2] - 24)) & 0xFFFFFFB5 | 8;
-      *(v32 + *(v7 - 24) + 6) = 2;
-      v8 = &v29[*(v7 - 24) + 2];
+      v7 = *&v28[2];
+      *(&v29 + *(*&v28[2] - 24)) = *(&v29 + *(*&v28[2] - 24)) & 0xFFFFFFB5 | 8;
+      *(v31 + *(v7 - 24) + 6) = 2;
+      v8 = &v28[*(v7 - 24) + 2];
       if (*(v8 + 36) == -1)
       {
-        std::ios_base::getloc(&v29[*(v7 - 24) + 2]);
-        v9 = std::locale::use_facet(&v25, &std::ctype<char>::id);
+        std::ios_base::getloc(&v28[*(v7 - 24) + 2]);
+        v9 = std::locale::use_facet(&v24, &std::ctype<char>::id);
         (v9->__vftable[2].~facet_0)(v9, 32);
-        std::locale::~locale(&v25);
+        std::locale::~locale(&v24);
       }
 
       *(v8 + 36) = 48;
-      v10 = *v4;
       std::ostream::operator<<();
       std::stringbuf::str();
-      if ((v25.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      if ((v24.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v11 = &v25;
+        v10 = &v24;
       }
 
       else
       {
-        v11 = v25.__r_.__value_.__r.__words[0];
+        v10 = v24.__r_.__value_.__r.__words[0];
       }
 
-      if ((v25.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      if ((v24.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        size = HIBYTE(v25.__r_.__value_.__r.__words[2]);
+        size = HIBYTE(v24.__r_.__value_.__r.__words[2]);
       }
 
       else
       {
-        size = v25.__r_.__value_.__l.__size_;
+        size = v24.__r_.__value_.__l.__size_;
       }
 
-      std::string::append(&__str, v11, size);
-      if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
+      std::string::append(&__str, v10, size);
+      if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v25.__r_.__value_.__l.__data_);
+        operator delete(v24.__r_.__value_.__l.__data_);
       }
 
-      *buf = v24;
-      *&buf[*(v24 - 24)] = v5;
-      *&v29[2] = v6;
-      if (v33 < 0)
+      *buf = v23;
+      *&buf[*(v23 - 24)] = v5;
+      *&v28[2] = v6;
+      if (v32 < 0)
       {
-        operator delete(*(&v32[6] + 6));
+        operator delete(*(&v31[6] + 6));
       }
 
-      std::locale::~locale(&v31);
+      std::locale::~locale(&v30);
       std::iostream::~basic_iostream();
       std::ios::~ios();
       v4 = (v4 + 1);
@@ -7373,86 +6760,86 @@ void SuplPduLog::traceSuplPdu(SuplPduLog *this, const unsigned __int8 *a2, int a
     }
 
     while (v3);
-    v13 = HIBYTE(__str.__r_.__value_.__r.__words[2]);
+    v12 = HIBYTE(__str.__r_.__value_.__r.__words[2]);
     if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
     {
-      v14 = __str.__r_.__value_.__l.__size_ / 0x1F4;
-      v15 = __str.__r_.__value_.__l.__size_ % 0x1F4;
+      v13 = __str.__r_.__value_.__l.__size_ / 0x1F4;
+      v14 = __str.__r_.__value_.__l.__size_ % 0x1F4;
     }
 
     else
     {
-      v14 = 0;
-      v15 = HIBYTE(__str.__r_.__value_.__r.__words[2]);
+      v13 = 0;
+      v14 = HIBYTE(__str.__r_.__value_.__r.__words[2]);
     }
 
-    v17 = 0;
-    if (v15)
+    v16 = 0;
+    if (v14)
     {
-      v18 = v14 + 1;
+      v17 = v13 + 1;
     }
 
     else
     {
-      v18 = v14;
+      v17 = v13;
     }
 
     if (a3)
     {
-      v19 = "In";
+      v18 = "In";
     }
 
     else
     {
-      v19 = "Out";
+      v18 = "Out";
     }
 
-    v20 = 1;
+    v19 = 1;
     if ((*(&__str.__r_.__value_.__s + 23) & 0x80) != 0)
     {
       goto LABEL_31;
     }
 
-    while (v17 < v13)
+    while (v16 < v12)
     {
       while (1)
       {
-        std::string::basic_string(&v25, &__str, v17, 0x1F4uLL, buf);
-        v21 = GpsdLogObjectGeneral;
+        std::string::basic_string(&v24, &__str, v16, 0x1F4uLL, buf);
+        v20 = GpsdLogObjectGeneral;
         if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEFAULT))
         {
-          v22 = &v25;
-          if ((v25.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+          v21 = &v24;
+          if ((v24.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
           {
-            v22 = v25.__r_.__value_.__r.__words[0];
+            v21 = v24.__r_.__value_.__r.__words[0];
           }
 
           *buf = 134284291;
-          *&buf[4] = v20;
-          v28 = 2049;
-          *v29 = v18;
-          *&v29[8] = 2081;
-          v30 = v22;
-          v31 = 2081;
-          v32[0] = v19;
-          _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "#supl,#pdu,%{private}zu,of,%{private}zu,%{private}s,%{private}s", buf, 0x2Au);
+          *&buf[4] = v19;
+          v27 = 2049;
+          *v28 = v17;
+          *&v28[8] = 2081;
+          v29 = v21;
+          v30 = 2081;
+          v31[0] = v18;
+          _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "#supl,#pdu,%{private}zu,of,%{private}zu,%{private}s,%{private}s", buf, 0x2Au);
         }
 
-        if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v25.__r_.__value_.__l.__data_);
+          operator delete(v24.__r_.__value_.__l.__data_);
         }
 
-        v13 = HIBYTE(__str.__r_.__value_.__r.__words[2]);
-        v17 += 500;
-        ++v20;
+        v12 = HIBYTE(__str.__r_.__value_.__r.__words[2]);
+        v16 += 500;
+        ++v19;
         if ((*(&__str.__r_.__value_.__s + 23) & 0x80) == 0)
         {
           break;
         }
 
 LABEL_31:
-        if (v17 >= __str.__r_.__value_.__l.__size_)
+        if (v16 >= __str.__r_.__value_.__l.__size_)
         {
           operator delete(__str.__r_.__value_.__l.__data_);
           return;
@@ -7463,11 +6850,11 @@ LABEL_31:
 
   else
   {
-    v16 = GpsdLogObjectGeneral;
+    v15 = GpsdLogObjectGeneral;
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_error_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "#supl,PDU is empty", buf, 2u);
+      _os_log_error_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "#supl,PDU is empty", buf, 2u);
     }
   }
 }
@@ -8629,9 +8016,9 @@ std::string *GpsdConnectionManager::logStreamErrorAndCleanup(GpsdConnectionManag
   }
 }
 
-void sub_100131A00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_100131A00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
 
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va);
   _Unwind_Resume(a1);
@@ -8884,31 +8271,30 @@ uint64_t GpsdConnectionManager::close(GpsdConnectionManager *this)
   }
 }
 
-void sub_1001321FC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1001321FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(unsigned long long)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void *std::__split_buffer<std::vector<unsigned char> *,std::allocator<std::vector<unsigned char> *>>::emplace_back<std::vector<unsigned char> *&>(void *result, void *a2)
+void std::__split_buffer<std::vector<unsigned char> *,std::allocator<std::vector<unsigned char> *>>::emplace_back<std::vector<unsigned char> *&>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
       std::__allocate_at_least[abi:ne200100]<std::allocator<std::vector<unsigned char> *>>(v11);
@@ -8920,27 +8306,24 @@ void *std::__split_buffer<std::vector<unsigned char> *,std::allocator<std::vecto
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
 void std::__function::__func<GpsdGnssDeviceRequestQueue::setupWatchdog(void)::$_0,std::allocator<GpsdGnssDeviceRequestQueue::setupWatchdog(void)::$_0>,void ()(unsigned long long)>::operator()(gnss::Exception *a1, uint64_t *a2)
 {
-  v2 = *a2;
-  v3 = *(a1 + 1);
-  v4 = gnss::Exception::instance(a1);
-  v5 = *(v3 + 16);
-  gnss::Exception::set(v4, 10);
+  v2 = *(a1 + 1);
+  v3 = gnss::Exception::instance(a1);
+  gnss::Exception::set(v3, 10, *(v2 + 16));
 }
 
 void sub_10013256C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, uint64_t a28, uint64_t a29, int a30, __int16 a31, char a32, char a33)
@@ -9041,7 +8424,7 @@ void GpsdProtobufRouter::handleHelperRequest(uint64_t a1, proto::gpsd *a2)
 {
   v4 = (a2 < 0x25) & (0x1500000004uLL >> a2);
   v5 = GpsdLogObjectGeneral;
-  if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEFAULT) && ((ProtobufUtil::stringify(a2, &__p), v10 >= 0) ? (p_p = &__p) : (p_p = __p), *buf = 136446466, *&buf[4] = p_p, *&buf[12] = 1026, *&buf[14] = v4, _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "#router,handleHelperRequest,type,%{public}s,allowed,%{public}d", buf, 0x12u), SHIBYTE(v10) < 0))
+  if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEFAULT) && ((ProtobufUtil::stringify(&__p, a2), v10 >= 0) ? (p_p = &__p) : (p_p = __p), *buf = 136446466, *&buf[4] = p_p, *&buf[12] = 1026, *&buf[14] = v4, _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "#router,handleHelperRequest,type,%{public}s,allowed,%{public}d", buf, 0x12u), SHIBYTE(v10) < 0))
   {
     operator delete(__p);
     if (!v4)
@@ -9109,9 +8492,9 @@ void GpsdProtobufRouter::handleHelperRequest(uint64_t a1, proto::gpsd *a2)
   proto::gpsd::Request::~Request(&__p);
 }
 
-void sub_100133E64(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_100133E64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   proto::gpsd::Request::~Request(va);
   _Unwind_Resume(a1);
 }
@@ -9140,7 +8523,7 @@ void GpsdProtobufRouter::handleRequestEmergency(uint64_t a1, __n128 *a2, int a3)
       return;
     }
 
-    ProtobufUtil::stringify(a3, __p);
+    ProtobufUtil::stringify(__p, a3);
     if (v11 >= 0)
     {
       v7 = __p;
@@ -9165,7 +8548,7 @@ LABEL_12:
       return;
     }
 
-    ProtobufUtil::stringify(a3, __p);
+    ProtobufUtil::stringify(__p, a3);
     if (v11 >= 0)
     {
       v9 = __p;
@@ -9371,9 +8754,9 @@ uint64_t std::__function::__func<GpsdProtobufRouter::GpsdProtobufRouter(std::fun
   return v5;
 }
 
-void sub_1001344E8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1001344E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   proto::gpsd::Request::~Request(va);
   _Unwind_Resume(a1);
 }
@@ -9526,7 +8909,7 @@ uint64_t std::__function::__func<GpsdProtobufRouter::GpsdProtobufRouter(std::fun
   return result;
 }
 
-uint64_t std::__function::__func<GpsdProtobufRouter::GpsdProtobufRouter(std::function<void ()(std::vector<unsigned char> &&)>,void ()(std::vector<unsigned char> &&),dispatch_queue_s *)::$_6,std::allocator<dispatch_queue_s *>,std::vector<unsigned char> &&>::operator()(uint64_t a1, char **a2)
+uint64_t std::__function::__func<GpsdProtobufRouter::GpsdProtobufRouter(std::function<void ()(std::vector<unsigned char> &&)>,void ()(std::vector<unsigned char> &&),dispatch_queue_s *)::$_6,std::allocator<dispatch_queue_s *>,std::vector<unsigned char> &&>::operator()(uint64_t a1, unsigned __int8 **a2)
 {
   v3 = *(a1 + 8);
   std::__function::__value_func<void ()(std::vector<unsigned char> &&,proto::gpsd::Request_Type)>::__value_func[abi:ne200100](v5, v3 + 32);
@@ -9534,9 +8917,9 @@ uint64_t std::__function::__func<GpsdProtobufRouter::GpsdProtobufRouter(std::fun
   return std::__function::__value_func<void ()(std::vector<unsigned char> &&,proto::gpsd::Request_Type)>::~__value_func[abi:ne200100](v5);
 }
 
-void sub_100134BD4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_100134BD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(std::vector<unsigned char> &&,proto::gpsd::Request_Type)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -9642,9 +9025,10 @@ void std::__function::__func<GpsdProtobufRouter::GpsdProtobufRouter(std::functio
   }
 }
 
-void sub_10013509C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, uint64_t a11, char a12)
+void sub_10013509C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, uint64_t a11, ...)
 {
-  std::__function::__value_func<void ()(std::vector<unsigned char> &&,proto::gpsd::Request_Type)>::~__value_func[abi:ne200100](&a12);
+  va_start(va, a11);
+  std::__function::__value_func<void ()(std::vector<unsigned char> &&,proto::gpsd::Request_Type)>::~__value_func[abi:ne200100](va);
   if (__p)
   {
     operator delete(__p);
@@ -9676,7 +9060,7 @@ void GpsdGnssDeviceHandler::GpsdGnssDeviceHandler(void *a1, uint64_t a2, uint64_
   operator new();
 }
 
-void sub_10013524C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14)
+void sub_10013524C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14)
 {
   v17 = *(v14 + 129);
   *(v14 + 129) = 0;
@@ -9689,7 +9073,7 @@ void sub_10013524C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   *v15 = 0;
   if (v18)
   {
-    (*(*v18 + 88))(v18);
+    (*(*v18 + 88))(v18, a2, a3, a4, a5, a6, a7, a8);
   }
 
   GpsdProtobufHandler::~GpsdProtobufHandler(v14);
@@ -9703,7 +9087,7 @@ void GpsdGnssDeviceHandler::handleResponseHelper(uint64_t a1, proto::gpsd *this,
     v6 = GpsdLogObjectGeneral;
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEBUG))
     {
-      ProtobufUtil::stringify(this, &v18);
+      ProtobufUtil::stringify(&v18, this);
       v11 = SHIBYTE(v20);
       v12 = v18;
       gnss::stringify(a3, __p);
@@ -9792,11 +9176,11 @@ void sub_100135548(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_100135658(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_100135658(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](va);
-  std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v2 - 56);
+  std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v3 - 56);
   _Unwind_Resume(a1);
 }
 
@@ -9850,7 +9234,7 @@ LABEL_14:
 
   if ((v8 & 0xFFFFFFFE) != 0xE && (v9 = GpsdLogObjectGeneral, os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEBUG)))
   {
-    ProtobufUtil::stringify(v8, &block);
+    ProtobufUtil::stringify(&block, v8);
     if (SHIBYTE(v44) >= 0)
     {
       p_block = &block;
@@ -10057,11 +9441,11 @@ LABEL_21:
   }
 }
 
-void sub_100135C50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_100135C50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](va);
-  std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v17 - 128);
+  std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v24 - 128);
   _Unwind_Resume(a1);
 }
 
@@ -10123,9 +9507,9 @@ uint64_t GpsdGnssDeviceHandler::setNwAssistanceGpsEphemeris(uint64_t a1, uint64_
   return std::function<void ()(gnss::Result)>::operator()(a3, 4);
 }
 
-void sub_100136034(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_100136034(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -10396,17 +9780,17 @@ uint64_t GnssEmergencyManager::GnssEmergencyManager(uint64_t a1, uint64_t a2, ui
   v6 = std::__function::__value_func<void ()(std::vector<unsigned char> &&)>::__value_func[abi:ne200100](v5 + 32, a3);
   *(a1 + 64) = *GpsdRuntime::instance(v6);
   *(a1 + 72) = 0;
-  v31[4] = a1;
-  v32[0] = _NSConcreteStackBlock;
-  v32[1] = 3221225472;
-  v32[2] = ___ZN20GnssEmergencyManagerC2ENSt3__18functionIFvONS0_6vectorIhNS0_9allocatorIhEEEEEEES8__block_invoke;
-  v32[3] = &__block_descriptor_40_e16_v16__0__NSData_8l;
-  v32[4] = a1;
-  v31[0] = _NSConcreteStackBlock;
-  v31[1] = 3221225472;
-  v31[2] = ___ZN20GnssEmergencyManagerC2ENSt3__18functionIFvONS0_6vectorIhNS0_9allocatorIhEEEEEEES8__block_invoke_3;
-  v31[3] = &__block_descriptor_40_e16_v16__0__NSData_8l;
-  v7 = [[CoreGnssEmergencyManager alloc] initForComm:v32 sendIndicationToRemoteCallback:v31 dispatch_queue_t:*(a1 + 64)];
+  v34[4] = a1;
+  v35[0] = _NSConcreteStackBlock;
+  v35[1] = 3221225472;
+  v35[2] = ___ZN20GnssEmergencyManagerC2ENSt3__18functionIFvONS0_6vectorIhNS0_9allocatorIhEEEEEEES8__block_invoke;
+  v35[3] = &__block_descriptor_40_e16_v16__0__NSData_8l;
+  v35[4] = a1;
+  v34[0] = _NSConcreteStackBlock;
+  v34[1] = 3221225472;
+  v34[2] = ___ZN20GnssEmergencyManagerC2ENSt3__18functionIFvONS0_6vectorIhNS0_9allocatorIhEEEEEEES8__block_invoke_3;
+  v34[3] = &__block_descriptor_40_e16_v16__0__NSData_8l;
+  v7 = [[CoreGnssEmergencyManager alloc] initForComm:v35 sendIndicationToRemoteCallback:v34 dispatch_queue_t:*(a1 + 64)];
   v8 = fExternGem;
   fExternGem = v7;
 
@@ -10423,36 +9807,36 @@ uint64_t GnssEmergencyManager::GnssEmergencyManager(uint64_t a1, uint64_t a2, ui
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
-      v34 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/Daemon/GnssEmergencyManager.mm";
-      v35 = 1026;
-      v36 = 44;
-      v37 = 2082;
-      v38 = "GnssEmergencyManager";
+      v37 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/Daemon/GnssEmergencyManager.mm";
+      v38 = 1026;
+      v39 = 44;
+      v40 = 2082;
+      v41 = "GnssEmergencyManager";
       _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
     }
 
-    std::string::basic_string[abi:ne200100]<0>(v30, "assert");
-    std::string::basic_string[abi:ne200100]<0>(v28, "GnssEmergencyManager");
+    std::string::basic_string[abi:ne200100]<0>(v32, "assert");
+    std::string::basic_string[abi:ne200100]<0>(v30, "GnssEmergencyManager");
     std::string::basic_string[abi:ne200100]<0>(__p, "#gem,fSendRequestToDevice,nullptr");
-    gpsd::util::triggerDiagnosticReport(v30, v28, __p);
-    if (v27 < 0)
+    gpsd::util::triggerDiagnosticReport(v32, v30, __p);
+    if (v29 < 0)
     {
       operator delete(__p[0]);
     }
 
-    if (v29 < 0)
+    if (v31 < 0)
     {
-      operator delete(v28[0]);
+      operator delete(v30[0]);
     }
 
     v11 = "false && #gem,fSendRequestToDevice,nullptr";
     v12 = 44;
-    if ((v30[23] & 0x80000000) == 0)
+    if ((v33 & 0x80000000) == 0)
     {
       goto LABEL_36;
     }
 
-    v13 = v30;
+    v13 = v32;
 LABEL_35:
     operator delete(*v13);
     goto LABEL_36;
@@ -10471,36 +9855,36 @@ LABEL_35:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
-      v34 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/Daemon/GnssEmergencyManager.mm";
-      v35 = 1026;
-      v36 = 45;
-      v37 = 2082;
-      v38 = "GnssEmergencyManager";
+      v37 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/Daemon/GnssEmergencyManager.mm";
+      v38 = 1026;
+      v39 = 45;
+      v40 = 2082;
+      v41 = "GnssEmergencyManager";
       _os_log_error_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
     }
 
-    std::string::basic_string[abi:ne200100]<0>(v25, "assert");
-    std::string::basic_string[abi:ne200100]<0>(v23, "GnssEmergencyManager");
-    std::string::basic_string[abi:ne200100]<0>(v21, "#gem,fSendIndicationToRemote,nullptr");
-    gpsd::util::triggerDiagnosticReport(v25, v23, v21);
-    if (v22 < 0)
+    std::string::basic_string[abi:ne200100]<0>(v26, "assert");
+    std::string::basic_string[abi:ne200100]<0>(v24, "GnssEmergencyManager");
+    std::string::basic_string[abi:ne200100]<0>(v22, "#gem,fSendIndicationToRemote,nullptr");
+    gpsd::util::triggerDiagnosticReport(v26, v24, v22);
+    if (v23 < 0)
     {
-      operator delete(v21[0]);
+      operator delete(v22[0]);
     }
 
-    if (v24 < 0)
+    if (v25 < 0)
     {
-      operator delete(v23[0]);
+      operator delete(v24[0]);
     }
 
     v11 = "false && #gem,fSendIndicationToRemote,nullptr";
     v12 = 45;
-    if ((v25[23] & 0x80000000) == 0)
+    if ((v27 & 0x80000000) == 0)
     {
       goto LABEL_36;
     }
 
-    v13 = v25;
+    v13 = v26;
     goto LABEL_35;
   }
 
@@ -10517,11 +9901,11 @@ LABEL_35:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
-      v34 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/Daemon/GnssEmergencyManager.mm";
-      v35 = 1026;
-      v36 = 46;
-      v37 = 2082;
-      v38 = "GnssEmergencyManager";
+      v37 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/Daemon/GnssEmergencyManager.mm";
+      v38 = 1026;
+      v39 = 46;
+      v40 = 2082;
+      v41 = "GnssEmergencyManager";
       _os_log_error_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
     }
 
@@ -10541,7 +9925,7 @@ LABEL_35:
 
     v11 = "false && #gem,fExternGem,nullptr";
     v12 = 46;
-    if ((v20[23] & 0x80000000) != 0)
+    if (v21 < 0)
     {
       v13 = v20;
       goto LABEL_35;
@@ -10577,9 +9961,9 @@ uint64_t ___ZN20GnssEmergencyManagerC2ENSt3__18functionIFvONS0_6vectorIhNS0_9all
   return std::__function::__value_func<void ()(std::vector<unsigned char> &&)>::~__value_func[abi:ne200100](v3);
 }
 
-void sub_10013744C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_10013744C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(std::vector<unsigned char> &&)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -10607,9 +9991,9 @@ uint64_t ___ZN20GnssEmergencyManagerC2ENSt3__18functionIFvONS0_6vectorIhNS0_9all
   return std::__function::__value_func<void ()(std::vector<unsigned char> &&)>::~__value_func[abi:ne200100](v3);
 }
 
-void sub_100137578(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_100137578(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(std::vector<unsigned char> &&)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -10654,33 +10038,33 @@ LABEL_21:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
-      v24 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/Daemon/GpsdAssistanceSeeding.cpp";
-      v25 = 1026;
-      v26 = 23;
-      v27 = 2082;
-      v28 = "GpsdAssistanceSeeding";
+      v26 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/Daemon/GpsdAssistanceSeeding.cpp";
+      v27 = 1026;
+      v28 = 23;
+      v29 = 2082;
+      v30 = "GpsdAssistanceSeeding";
       _os_log_error_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
     }
 
-    std::string::basic_string[abi:ne200100]<0>(v22, "assert");
-    std::string::basic_string[abi:ne200100]<0>(v20, "GpsdAssistanceSeeding");
-    std::string::basic_string[abi:ne200100]<0>(v18, "#gnssseeding,fRequestHandlerRemote,null");
-    gpsd::util::triggerDiagnosticReport(v22, v20, v18);
-    if (v19 < 0)
+    std::string::basic_string[abi:ne200100]<0>(v23, "assert");
+    std::string::basic_string[abi:ne200100]<0>(v21, "GpsdAssistanceSeeding");
+    std::string::basic_string[abi:ne200100]<0>(v19, "#gnssseeding,fRequestHandlerRemote,null");
+    gpsd::util::triggerDiagnosticReport(v23, v21, v19);
+    if (v20 < 0)
     {
-      operator delete(v18[0]);
+      operator delete(v19[0]);
     }
 
-    if (v21 < 0)
+    if (v22 < 0)
     {
-      operator delete(v20[0]);
+      operator delete(v21[0]);
     }
 
     v9 = "false && #gnssseeding,fRequestHandlerRemote,null";
     v10 = 23;
-    if (v22[23] < 0)
+    if (v24 < 0)
     {
-      v11 = v22;
+      v11 = v23;
       goto LABEL_18;
     }
 
@@ -10701,11 +10085,11 @@ LABEL_19:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
-      v24 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/Daemon/GpsdAssistanceSeeding.cpp";
-      v25 = 1026;
-      v26 = 24;
-      v27 = 2082;
-      v28 = "GpsdAssistanceSeeding";
+      v26 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/Daemon/GpsdAssistanceSeeding.cpp";
+      v27 = 1026;
+      v28 = 24;
+      v29 = 2082;
+      v30 = "GpsdAssistanceSeeding";
       _os_log_error_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
     }
 
@@ -10725,7 +10109,7 @@ LABEL_19:
 
     v9 = "false && #gnssseeding,fGnssDeviceQ,null";
     v10 = 24;
-    if ((v17[23] & 0x80000000) != 0)
+    if (v18 < 0)
     {
       v11 = v17;
 LABEL_18:
@@ -11171,7 +10555,7 @@ BOOL GpsdAssistanceSeeding::saveRtiFile(GpsdAssistanceSeeding *this, const proto
   if (*(v3 + 20))
   {
     v7 = *(v3 + 8);
-    v8 = *(v7 + 23);
+    v8 = v7[23];
     if (v8 < 0)
     {
       v7 = *v7;
@@ -11181,7 +10565,7 @@ BOOL GpsdAssistanceSeeding::saveRtiFile(GpsdAssistanceSeeding *this, const proto
     __p = 0;
     v15 = 0;
     v16 = 0;
-    std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(&__p, v7, v7 + v8, v8);
+    std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(&__p, v7, &v7[v8], v8);
     v9 = GpsdLogObjectGeneral;
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_INFO))
     {
@@ -11204,7 +10588,7 @@ BOOL GpsdAssistanceSeeding::saveRtiFile(GpsdAssistanceSeeding *this, const proto
 
     else
     {
-      GpsdAssistanceSeeding::getRTIFilePath(this, &buf);
+      GpsdAssistanceSeeding::getRTIFilePath(&buf, this);
       v5 = gpsd::util::writeVectorToClassDFile(&__p, &buf);
       v10 = GpsdLogObjectGeneral;
       if (v5)
@@ -11322,7 +10706,7 @@ BOOL GpsdAssistanceSeeding::saveRavenOrbitFile(GpsdAssistanceSeeding *this, cons
 
     else
     {
-      GpsdAssistanceSeeding::getRavenOrbitFilePath(this, &__p);
+      GpsdAssistanceSeeding::getRavenOrbitFilePath(&__p, this);
       v5 = gpsd::util::writeVectorToClassDFile(v15, &__p);
       v10 = GpsdLogObjectGeneral;
       if (v5)
@@ -11398,7 +10782,7 @@ void sub_1001388CC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<unsigned char>::__assign_with_size[abi:ne200100]<std::__wrap_iter<char const*>,std::__wrap_iter<char const*>>(void *result, char *__src, char *a3, unint64_t a4)
+void **std::vector<unsigned char>::__assign_with_size[abi:ne200100]<std::__wrap_iter<char const*>,std::__wrap_iter<char const*>>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];

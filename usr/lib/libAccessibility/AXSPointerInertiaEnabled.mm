@@ -3,7 +3,7 @@
 
 @implementation AXSPointerInertiaEnabled
 
-uint64_t ___AXSPointerInertiaEnabled_block_invoke()
+void *___AXSPointerInertiaEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

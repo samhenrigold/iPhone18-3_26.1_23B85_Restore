@@ -72,7 +72,7 @@
 
 - (void)_handleBannerEvent:(id)event withCandidate:(id)candidate WithMiLoPrediction:(id)prediction systemState:(id)state
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   candidateCopy = candidate;
   predictionCopy = prediction;
@@ -93,17 +93,17 @@
     v17 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(predictionCopy, "canUse")}];
     v18 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(stateCopy, "isHeadphonesRoutedOrPredicted")}];
     *buf = 136316418;
-    v34 = "#session-analytics, ";
-    v35 = 2112;
-    v36 = v12;
-    v37 = 2112;
-    v38 = v15;
-    v39 = 2112;
-    v40 = candidateIdentifier;
-    v41 = 2112;
-    v42 = v17;
-    v43 = 2112;
-    v44 = v18;
+    v33 = "#session-analytics, ";
+    v34 = 2112;
+    v35 = v12;
+    v36 = 2112;
+    v37 = v15;
+    v38 = 2112;
+    v39 = candidateIdentifier;
+    v40 = 2112;
+    v41 = v17;
+    v42 = 2112;
+    v43 = v18;
     _os_log_impl(&dword_25543D000, v14, OS_LOG_TYPE_INFO, "%s[%@], Starting with eventType: %@, candidateIdentifier: %@, miloCanUse: %@, isHeadphonesRoutedOrPredicted: %@", buf, 0x3Eu);
   }
 
@@ -124,19 +124,17 @@
     [coreAnalyticsSessionPeriodInSeconds doubleValue];
     v25 = v24;
     queue = [(IRSessionAnalytics *)self queue];
-    v31[0] = MEMORY[0x277D85DD0];
-    v31[1] = 3221225472;
-    v31[2] = __86__IRSessionAnalytics__handleBannerEvent_withCandidate_WithMiLoPrediction_systemState___block_invoke;
-    v31[3] = &unk_2797E0C18;
-    objc_copyWeak(&v32, buf);
-    v27 = [(IRTimer *)v21 initWithInterval:0 repeats:queue queue:v31 block:v25];
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v30[2] = __86__IRSessionAnalytics__handleBannerEvent_withCandidate_WithMiLoPrediction_systemState___block_invoke;
+    v30[3] = &unk_2797E0C18;
+    objc_copyWeak(&v31, buf);
+    v27 = [(IRTimer *)v21 initWithInterval:0 repeats:queue queue:v30 block:v25];
     [(IRSessionAnalytics *)self setTimer:v27];
 
-    objc_destroyWeak(&v32);
+    objc_destroyWeak(&v31);
     objc_destroyWeak(buf);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __86__IRSessionAnalytics__handleBannerEvent_withCandidate_WithMiLoPrediction_systemState___block_invoke(uint64_t a1)
@@ -230,7 +228,7 @@ LABEL_16:
 
 - (void)_stopSessionAndSendCA:(unint64_t)a
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   v5 = dispatch_get_specific(*MEMORY[0x277D21308]);
   v6 = *MEMORY[0x277D21260];
   v7 = 0x277CCA000;
@@ -240,53 +238,53 @@ LABEL_16:
     bannerEvent = [(IRSessionAnalytics *)self bannerEvent];
     [bannerEvent eventType];
     IRMediaEventTypeToString();
-    v44 = v50 = a;
+    v43 = v49 = a;
     bannerCandidate = [(IRSessionAnalytics *)self bannerCandidate];
     candidateIdentifier = [bannerCandidate candidateIdentifier];
     chosenCandidate = [(IRSessionAnalytics *)self chosenCandidate];
     candidateIdentifier2 = [chosenCandidate candidateIdentifier];
-    v12 = IRSessionAnalyticsMetricPostBannerInteractionToString(v50);
+    v12 = IRSessionAnalyticsMetricPostBannerInteractionToString(v49);
     v13 = MEMORY[0x277CCABB0];
     bannerEvent2 = [(IRSessionAnalytics *)self bannerEvent];
     v15 = [v13 numberWithBool:{objc_msgSend(bannerEvent2, "isOutsideApp")}];
     *buf = 136316674;
-    v53 = "#session-analytics, ";
-    v54 = 2112;
-    v55 = v5;
-    v56 = 2112;
-    v57 = v44;
-    v58 = 2112;
-    v59 = candidateIdentifier;
-    v60 = 2112;
-    v61 = candidateIdentifier2;
-    v62 = 2112;
-    v63 = v12;
-    v64 = 2112;
-    v65 = v15;
+    v52 = "#session-analytics, ";
+    v53 = 2112;
+    v54 = v5;
+    v55 = 2112;
+    v56 = v43;
+    v57 = 2112;
+    v58 = candidateIdentifier;
+    v59 = 2112;
+    v60 = candidateIdentifier2;
+    v61 = 2112;
+    v62 = v12;
+    v63 = 2112;
+    v64 = v15;
     _os_log_impl(&dword_25543D000, log, OS_LOG_TYPE_INFO, "%s[%@], Stopping with eventType: %@, bannerCandidateIdentifier: %@, chosenCandidateIdentifier: %@, postBannerInteraction: %@, isOutsideApp: %@", buf, 0x48u);
 
     v7 = 0x277CCA000uLL;
-    a = v50;
+    a = v49;
   }
 
   v16 = [IRSessionAnalyticsMetric alloc];
   loga = [(IRSessionAnalytics *)self service];
-  clientIdentifier = [loga clientIdentifier];
+  v50 = objc_msgSend_clientIdentifier(loga);
   v17 = *(v7 + 2992);
   v18 = v7;
   bannerEvent3 = [(IRSessionAnalytics *)self bannerEvent];
   bundleID = [bannerEvent3 bundleID];
-  v49 = [v17 numberWithInteger:{+[IRAnalyticsUtilities getRedactedBundleID:](IRAnalyticsUtilities, "getRedactedBundleID:", bundleID)}];
+  v48 = [v17 numberWithInteger:{+[IRAnalyticsUtilities getRedactedBundleID:](IRAnalyticsUtilities, "getRedactedBundleID:", bundleID)}];
   v19 = *(v7 + 2992);
   bannerEvent4 = [(IRSessionAnalytics *)self bannerEvent];
-  v38 = [v19 numberWithUnsignedInteger:{IRSessionAnalyticsMetricEventTypeFromEvent(objc_msgSend(bannerEvent4, "eventType"))}];
+  v37 = [v19 numberWithUnsignedInteger:{IRSessionAnalyticsMetricEventTypeFromEvent(objc_msgSend(bannerEvent4, "eventType"))}];
   v20 = *(v7 + 2992);
   bannerMiLoPrediction = [(IRSessionAnalytics *)self bannerMiLoPrediction];
   v21 = [v20 numberWithBool:{objc_msgSend(bannerMiLoPrediction, "canUse")}];
   bannerCandidate2 = [(IRSessionAnalytics *)self bannerCandidate];
-  v35 = [IRAnalyticsUtilities candidateTypeForCandidate:bannerCandidate2];
+  v34 = [IRAnalyticsUtilities candidateTypeForCandidate:bannerCandidate2];
   bannerCandidate3 = [(IRSessionAnalytics *)self bannerCandidate];
-  v34 = [IRAnalyticsUtilities candidateModelTypeForCandidate:bannerCandidate3];
+  v33 = [IRAnalyticsUtilities candidateModelTypeForCandidate:bannerCandidate3];
   chosenCandidate2 = [(IRSessionAnalytics *)self chosenCandidate];
   v22 = [IRAnalyticsUtilities candidateTypeForCandidate:chosenCandidate2];
   chosenCandidate3 = [(IRSessionAnalytics *)self chosenCandidate];
@@ -295,16 +293,15 @@ LABEL_16:
   v26 = *(v18 + 2992);
   bannerEvent5 = [(IRSessionAnalytics *)self bannerEvent];
   v28 = [v26 numberWithBool:{objc_msgSend(bannerEvent5, "isOutsideApp")}];
-  v37 = [(IRSessionAnalyticsMetric *)v16 initWithClientIdentifier:clientIdentifier internalAppName:v49 eventType:v38 miloAvailable:v21 bannerCandidateType:v35 bannerCandidateModelType:v34 chosenCandidateType:v22 chosenCandidateModelType:v24 postBannerInteraction:v25 isOutsideApp:v28];
+  v36 = [(IRSessionAnalyticsMetric *)v16 initWithClientIdentifier:v50 internalAppName:v48 eventType:v37 miloAvailable:v21 bannerCandidateType:v34 bannerCandidateModelType:v33 chosenCandidateType:v22 chosenCandidateModelType:v24 postBannerInteraction:v25 isOutsideApp:v28];
 
-  name = [(IRSessionAnalyticsMetric *)v37 name];
+  name = [(IRSessionAnalyticsMetric *)v36 name];
   service = [(IRSessionAnalytics *)self service];
-  clientIdentifier2 = [service clientIdentifier];
-  dictionaryRepresentation = [(IRSessionAnalyticsMetric *)v37 dictionaryRepresentation];
-  [IRAnalyticsManager sendEventLazyForEventIdentifier:name clientIdentifier:clientIdentifier2 analytics:dictionaryRepresentation];
+  v31 = objc_msgSend_clientIdentifier(service);
+  dictionaryRepresentation = [(IRSessionAnalyticsMetric *)v36 dictionaryRepresentation];
+  [IRAnalyticsManager sendEventLazyForEventIdentifier:name clientIdentifier:v31 analytics:dictionaryRepresentation];
 
   [(IRSessionAnalytics *)self _invalidate];
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_invalidate

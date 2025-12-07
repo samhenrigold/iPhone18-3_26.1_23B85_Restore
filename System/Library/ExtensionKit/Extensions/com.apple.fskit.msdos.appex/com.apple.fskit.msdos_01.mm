@@ -5,20 +5,20 @@ __n128 getstdfmt(char *__s1, uint64_t a2)
   {
     if (!--v4)
     {
-      v14 = newfs_ctx;
-      v15 = qword_100059E78;
-      newfs_print(&v14, 3, "%s: unknown standard format", v6, v7, v8, v9, v10, __s1);
+      v9 = newfs_ctx;
+      v10 = qword_100059E78;
+      newfs_print(&v9, 3, "%s: unknown standard format", __s1);
       return result;
     }
   }
 
   *a2 = *i;
   result = i[1];
-  v12 = i[2];
-  v13 = i[3];
+  v7 = i[2];
+  v8 = i[3];
   *(a2 + 64) = *(i + 16);
-  *(a2 + 32) = v12;
-  *(a2 + 48) = v13;
+  *(a2 + 32) = v7;
+  *(a2 + 48) = v8;
   *(a2 + 16) = result;
   return result;
 }
@@ -33,9 +33,9 @@ uint64_t getdiskinfo(uint64_t a1, int a2, unsigned int *a3)
     v9 = __error();
     v10 = strerror(*v9);
     v11 = *(a1 + 8);
-    v46 = newfs_ctx;
-    v47 = qword_100059E78;
-    newfs_print(&v46, 6, "%s: %s: Partition offset wasn't initialized, setting to default value (%llu)", v12, v13, v14, v15, v16, v10);
+    v26 = newfs_ctx;
+    v27 = qword_100059E78;
+    newfs_print(&v26, 6, "%s: %s: Partition offset wasn't initialized, setting to default value (%llu)", v10, v11, 0);
     v7 = 0;
   }
 
@@ -47,52 +47,52 @@ uint64_t getdiskinfo(uint64_t a1, int a2, unsigned int *a3)
     }
 
 LABEL_9:
-    v18 = __error();
-    v19 = strerror(*v18);
-    v20 = *(a1 + 8);
-    v46 = newfs_ctx;
-    v47 = qword_100059E78;
+    v13 = __error();
+    v14 = strerror(*v13);
+    v15 = *(a1 + 8);
+    v26 = newfs_ctx;
+    v27 = qword_100059E78;
     v6 = 0x2000;
-    newfs_print(&v46, 6, "%s: %s: Block count wasn't initialized, setting to default value (%llu)", v21, v22, v23, v24, v25, v19);
+    newfs_print(&v26, 6, "%s: %s: Block count wasn't initialized, setting to default value (%llu)", v14, v15, 0x2000);
     goto LABEL_10;
   }
 
   if (a3[9])
   {
-    v17 = 0;
+    v12 = 0;
   }
 
   else
   {
-    v17 = v6 == -1;
+    v12 = v6 == -1;
   }
 
-  if (v17)
+  if (v12)
   {
     goto LABEL_9;
   }
 
 LABEL_10:
-  v26 = *a3;
+  v16 = *a3;
   if (!*a3)
   {
     if (v8 != -1)
     {
-      v26 = 0;
-      LODWORD(v27) = a3[11];
+      v16 = 0;
+      LODWORD(v17) = a3[11];
       goto LABEL_22;
     }
 
 LABEL_18:
-    v28 = __error();
-    v29 = strerror(*v28);
-    v30 = *(a1 + 8);
-    v46 = newfs_ctx;
-    v47 = qword_100059E78;
+    v18 = __error();
+    v19 = strerror(*v18);
+    v20 = *(a1 + 8);
+    v26 = newfs_ctx;
+    v27 = qword_100059E78;
     v8 = 512;
-    newfs_print(&v46, 6, "%s: %s: Block size wasn't initialized, setting to default value (%u)", v31, v32, v33, v34, v35, v29);
-    v26 = *a3;
-    LODWORD(v27) = a3[11];
+    newfs_print(&v26, 6, "%s: %s: Block size wasn't initialized, setting to default value (%u)", v19, v20, 512);
+    v16 = *a3;
+    LODWORD(v17) = a3[11];
     if (!*a3)
     {
       goto LABEL_22;
@@ -101,36 +101,36 @@ LABEL_18:
     goto LABEL_19;
   }
 
-  LODWORD(v27) = a3[11];
-  if (!v27 && v8 == -1)
+  LODWORD(v17) = a3[11];
+  if (!v17 && v8 == -1)
   {
     goto LABEL_18;
   }
 
 LABEL_19:
-  if (v27)
+  if (v17)
   {
     goto LABEL_24;
   }
 
-  v27 = v6 * v8 / v26;
-  if (HIDWORD(v27))
+  v17 = v6 * v8 / v16;
+  if (HIDWORD(v17))
   {
     goto LABEL_33;
   }
 
-  a3[11] = v27;
+  a3[11] = v17;
 LABEL_22:
-  if (v27)
+  if (v17)
   {
-    if (v26)
+    if (v16)
     {
       goto LABEL_24;
     }
 
 LABEL_37:
     *a3 = v8;
-    v26 = v8;
+    v16 = v8;
     if (a2)
     {
       goto LABEL_26;
@@ -142,17 +142,17 @@ LABEL_37:
   if (HIDWORD(v6))
   {
 LABEL_33:
-    v38 = __error();
-    v39 = strerror(*v38);
-    v40 = *(a1 + 8);
-    v46 = newfs_ctx;
-    v47 = qword_100059E78;
-    newfs_print(&v46, 3, "%s: %s: Drive is too large, the number of blocks is larger than any FAT FS can support", v41, v42, v43, v44, v45, v39);
+    v23 = __error();
+    v24 = strerror(*v23);
+    v25 = *(a1 + 8);
+    v26 = newfs_ctx;
+    v27 = qword_100059E78;
+    newfs_print(&v26, 3, "%s: %s: Drive is too large, the number of blocks is larger than any FAT FS can support", v24, v25);
     return 1;
   }
 
   a3[11] = v6;
-  if (!v26)
+  if (!v16)
   {
     goto LABEL_37;
   }
@@ -161,7 +161,7 @@ LABEL_24:
   if (!a2)
   {
 LABEL_25:
-    a3[10] = v7 / v26;
+    a3[10] = v7 / v16;
   }
 
 LABEL_26:
@@ -185,42 +185,42 @@ LABEL_26:
       {
         if (v6 >> 21)
         {
-          v37 = 255;
+          v22 = 255;
         }
 
         else
         {
-          v37 = 128;
+          v22 = 128;
         }
       }
 
       else
       {
-        v37 = 54;
+        v22 = 54;
       }
     }
 
     else
     {
-      v37 = 32;
+      v22 = 32;
     }
   }
 
   else
   {
-    v37 = 16;
+    v22 = 16;
   }
 
-  a3[9] = v37;
+  a3[9] = v22;
   return result;
 }
 
-uint64_t sd_card_set_defaults(uint64_t result, _DWORD *a2, _DWORD *a3)
+const char *sd_card_set_defaults(const char *result, _DWORD *a2, _DWORD *a3)
 {
   if (!*a2)
   {
-    v17 = v3;
-    v18 = v4;
+    v12 = v3;
+    v13 = v4;
     if (!a3[1] && *a3 == 512)
     {
       v7 = result;
@@ -229,9 +229,9 @@ uint64_t sd_card_set_defaults(uint64_t result, _DWORD *a2, _DWORD *a3)
       {
         if (result != 2)
         {
-          v15 = newfs_ctx;
-          v16 = qword_100059E78;
-          return newfs_print(&v15, 6, "%s: newfs_exfat should be used for SDXC media", v8, v9, v10, v11, v12, v7);
+          v10 = newfs_ctx;
+          v11 = qword_100059E78;
+          return newfs_print(&v10, 6, "%s: newfs_exfat should be used for SDXC media", v7);
         }
 
         *a2 = 32;
@@ -244,32 +244,32 @@ uint64_t sd_card_set_defaults(uint64_t result, _DWORD *a2, _DWORD *a3)
           return result;
         }
 
-        v13 = a3[11];
-        if (!(v13 >> 14))
+        v8 = a3[11];
+        if (!(v8 >> 14))
         {
           *a2 = 12;
-          v14 = 16;
+          v9 = 16;
 LABEL_16:
-          a3[1] = v14;
+          a3[1] = v9;
           return result;
         }
 
-        if (!(v13 >> 17))
+        if (!(v8 >> 17))
         {
           *a2 = 12;
 LABEL_15:
-          v14 = 32;
+          v9 = 32;
           goto LABEL_16;
         }
 
         *a2 = 16;
-        if (!(v13 >> 21))
+        if (!(v8 >> 21))
         {
           goto LABEL_15;
         }
       }
 
-      v14 = 64;
+      v9 = 64;
       goto LABEL_16;
     }
   }
@@ -277,104 +277,104 @@ LABEL_15:
   return result;
 }
 
-uint64_t print_bpb(unsigned int *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t print_bpb(int *a1)
 {
-  v9 = *a1;
-  v10 = a1[1];
-  v11 = a1[2];
-  v12 = a1[3];
-  v67 = newfs_ctx;
-  v68 = qword_100059E78;
-  newfs_print(&v67, 6, "bps=%u spc=%u res=%u nft=%u", a4, a5, a6, a7, a8, v9);
-  v18 = a1[4];
-  if (v18)
+  v2 = *a1;
+  v3 = a1[1];
+  v4 = a1[2];
+  v5 = a1[3];
+  v22 = newfs_ctx;
+  v23 = qword_100059E78;
+  newfs_print(&v22, 6, "bps=%u spc=%u res=%u nft=%u", v2, v3, v4, v5);
+  v6 = a1[4];
+  if (v6)
   {
-    v67 = newfs_ctx;
-    v68 = qword_100059E78;
-    newfs_print(&v67, 6, " rde=%u", v13, v14, v15, v16, v17, v18);
+    v22 = newfs_ctx;
+    v23 = qword_100059E78;
+    newfs_print(&v22, 6, " rde=%u", v6);
   }
 
-  v19 = a1[5];
-  if (v19)
+  v7 = a1[5];
+  if (v7)
   {
-    v67 = newfs_ctx;
-    v68 = qword_100059E78;
-    newfs_print(&v67, 6, " sec=%u", v13, v14, v15, v16, v17, v19);
+    v22 = newfs_ctx;
+    v23 = qword_100059E78;
+    newfs_print(&v22, 6, " sec=%u", v7);
   }
 
-  v20 = a1[6];
-  v67 = newfs_ctx;
-  v68 = qword_100059E78;
-  newfs_print(&v67, 6, " mid=%#x", v13, v14, v15, v16, v17, v20);
-  v26 = a1[7];
-  if (v26)
+  v8 = a1[6];
+  v22 = newfs_ctx;
+  v23 = qword_100059E78;
+  newfs_print(&v22, 6, " mid=%#x", v8);
+  v9 = a1[7];
+  if (v9)
   {
-    v67 = newfs_ctx;
-    v68 = qword_100059E78;
-    newfs_print(&v67, 6, " spf=%u", v21, v22, v23, v24, v25, v26);
+    v22 = newfs_ctx;
+    v23 = qword_100059E78;
+    newfs_print(&v22, 6, " spf=%u", v9);
   }
 
-  v27 = a1[8];
-  v28 = a1[9];
-  v29 = a1[10];
-  v30 = a1[16];
-  v67 = newfs_ctx;
-  v68 = qword_100059E78;
-  newfs_print(&v67, 6, " spt=%u hds=%u hid=%u drv=0x%02X", v21, v22, v23, v24, v25, v27);
-  v36 = a1[11];
-  if (v36)
+  v10 = a1[8];
+  v11 = a1[9];
+  v12 = a1[10];
+  v13 = a1[16];
+  v22 = newfs_ctx;
+  v23 = qword_100059E78;
+  newfs_print(&v22, 6, " spt=%u hds=%u hid=%u drv=0x%02X", v10, v11, v12, v13);
+  v14 = a1[11];
+  if (v14)
   {
-    v67 = newfs_ctx;
-    v68 = qword_100059E78;
-    newfs_print(&v67, 6, " bsec=%u", v31, v32, v33, v34, v35, v36);
+    v22 = newfs_ctx;
+    v23 = qword_100059E78;
+    newfs_print(&v22, 6, " bsec=%u", v14);
   }
 
   if (!a1[7])
   {
-    v37 = a1[12];
-    v38 = a1[13];
-    v67 = newfs_ctx;
-    v68 = qword_100059E78;
-    newfs_print(&v67, 6, " bspf=%u rdcl=%u", v31, v32, v33, v34, v35, v37);
-    v67 = newfs_ctx;
-    v68 = qword_100059E78;
-    newfs_print(&v67, 6, " infs=", v39, v40, v41, v42, v43, v65);
-    v49 = a1[14];
-    if (v49 == 0xFFFF)
+    v15 = a1[12];
+    v16 = a1[13];
+    v22 = newfs_ctx;
+    v23 = qword_100059E78;
+    newfs_print(&v22, 6, " bspf=%u rdcl=%u", v15, v16);
+    v22 = newfs_ctx;
+    v23 = qword_100059E78;
+    newfs_print(&v22, 6, " infs=");
+    v17 = a1[14];
+    if (v17 == 0xFFFF)
     {
-      v50 = "%#x";
+      v18 = "%#x";
     }
 
     else
     {
-      v50 = "%u";
+      v18 = "%u";
     }
 
-    v67 = newfs_ctx;
-    v68 = qword_100059E78;
-    newfs_print(&v67, 6, v50, v44, v45, v46, v47, v48, v49);
-    v67 = newfs_ctx;
-    v68 = qword_100059E78;
-    newfs_print(&v67, 6, " bkbs=", v51, v52, v53, v54, v55, v66);
-    v61 = a1[15];
-    if (v61 == 0xFFFF)
+    v22 = newfs_ctx;
+    v23 = qword_100059E78;
+    newfs_print(&v22, 6, v18, v17);
+    v22 = newfs_ctx;
+    v23 = qword_100059E78;
+    newfs_print(&v22, 6, " bkbs=");
+    v19 = a1[15];
+    if (v19 == 0xFFFF)
     {
-      v62 = "%#x";
+      v20 = "%#x";
     }
 
     else
     {
-      v62 = "%u";
+      v20 = "%u";
     }
 
-    v67 = newfs_ctx;
-    v68 = qword_100059E78;
-    newfs_print(&v67, 6, v62, v56, v57, v58, v59, v60, v61);
+    v22 = newfs_ctx;
+    v23 = qword_100059E78;
+    newfs_print(&v22, 6, v20, v19);
   }
 
-  v67 = newfs_ctx;
-  v68 = qword_100059E78;
-  return newfs_print(&v67, 6, "\n", v31, v32, v33, v34, v35, v64);
+  v22 = newfs_ctx;
+  v23 = qword_100059E78;
+  return newfs_print(&v22, 6, "\n");
 }
 
 uint64_t mklabel(uint64_t a1, _BYTE *a2)
@@ -506,20 +506,20 @@ LABEL_16:
   return 0;
 }
 
-uint64_t argtou(const char *a1, unsigned int a2, unsigned int a3)
+unint64_t argtou(const char *a1, unsigned int a2, unsigned int a3, const char *a4)
 {
   __endptr = 0;
   *__error() = 0;
-  v6 = strtoul(a1, &__endptr, 0);
-  if (*__error() || !*a1 || (!*__endptr ? (v13 = v6 >= a2) : (v13 = 0), v13 ? (v14 = v6 > a3) : (v14 = 1), v14))
+  v8 = strtoul(a1, &__endptr, 0);
+  if (*__error() || !*a1 || (!*__endptr ? (v10 = v8 >= a2) : (v10 = 0), v10 ? (v11 = v8 > a3) : (v11 = 1), v11))
   {
-    v15 = newfs_ctx;
-    v16 = qword_100059E78;
-    newfs_print(&v15, 3, "%s: bad %s", v7, v8, v9, v10, v11, a1);
+    v12 = newfs_ctx;
+    v13 = qword_100059E78;
+    newfs_print(&v12, 3, "%s: bad %s", a1, a4);
     return 0xFFFFFFFFLL;
   }
 
-  return v6;
+  return v8;
 }
 
 BOOL oklabel(uint64_t a1)
@@ -558,7 +558,7 @@ void errexit(char *a1, ...)
   exit(8);
 }
 
-uint64_t sub_100020FD0(char a1)
+uint64_t sub_100020FD0(uint64_t a1)
 {
   v2 = __error();
   strerror(*v2);
@@ -585,8 +585,9 @@ uint64_t vperr(uint64_t a1, const char *a2, va_list a3)
   return result;
 }
 
-uint64_t sub_1000210DC(int a1, const char *a2, va_list a3)
+uint64_t sub_1000210DC(uint64_t a1, const char *a2, va_list a3)
 {
+  v5 = a1;
   if (!a1 && fsck_preen())
   {
     v6 = fsck_dev();
@@ -599,7 +600,7 @@ uint64_t sub_1000210DC(int a1, const char *a2, va_list a3)
     result = vprintf(a2, a3);
   }
 
-  if (a1)
+  if (v5)
   {
     if (fsck_preen())
     {
@@ -633,11 +634,12 @@ uint64_t vprint(uint64_t result, int a2, char *a3, va_list a4)
   return result;
 }
 
-uint64_t fsck_print(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+uint64_t fsck_print(uint64_t result, uint64_t a2, const char *a3, ...)
 {
+  va_start(va, a3);
   if (*result)
   {
-    return (*result)(*(result + 16), a2, a3, &a9);
+    return (*result)(*(result + 16), a2, a3, va);
   }
 
   return result;
@@ -647,7 +649,7 @@ uint64_t fsck_ask(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a
 {
   if (*(a1 + 8))
   {
-    return (*(a1 + 8))(*(a1 + 16), a2, a3, &a9);
+    return (*(a1 + 8))(*(a1 + 16), a2, a3, &a9, a5, a6, a7, a8);
   }
 
   else
@@ -711,11 +713,12 @@ uint64_t newfs_set_context_properties(uint64_t result, uint64_t a2, uint64_t a3)
   return result;
 }
 
-uint64_t newfs_print(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+uint64_t newfs_print(uint64_t result, uint64_t a2, const char *a3, ...)
 {
+  va_start(va, a3);
   if (*result)
   {
-    return (*result)(*(result + 16), a2, a3, &a9);
+    return (*result)(*(result + 16), a2, a3, va);
   }
 
   return result;
@@ -852,7 +855,7 @@ uint64_t msdosfs_dos2unixtime(uint64_t result, unsigned int a2, unsigned int a3,
   return result;
 }
 
-uint64_t msdosfs_unicode2dos(int a1)
+uint64_t msdosfs_unicode2dos(unsigned int a1)
 {
   if (a1 <= 0xFF)
   {
@@ -864,12 +867,12 @@ uint64_t msdosfs_unicode2dos(int a1)
     return 1;
   }
 
-  if ((a1 - 8208) <= 0x2F)
+  if (a1 - 8208 <= 0x2F)
   {
     return byte_100040958[a1 - 8208];
   }
 
-  if ((a1 - 338) <= 0x18A)
+  if (a1 - 338 <= 0x18A)
   {
     if (a1 > 380)
     {
@@ -890,11 +893,11 @@ uint64_t msdosfs_unicode2dos(int a1)
       {
         switch(a1)
         {
-          case 402:
+          case 0x192u:
             return -125;
-          case 710:
+          case 0x2C6u:
             return -120;
-          case 732:
+          case 0x2DCu:
             return -104;
         }
       }
@@ -917,11 +920,11 @@ uint64_t msdosfs_unicode2dos(int a1)
     {
       switch(a1)
       {
-        case 352:
+        case 0x160u:
           return -118;
-        case 353:
+        case 0x161u:
           return -102;
-        case 376:
+        case 0x178u:
           return -97;
       }
     }
@@ -1060,7 +1063,7 @@ uint64_t msdosfs_unicode_to_dos_name(unsigned __int16 *a1, uint64_t a2, _WORD *a
   {
     v43 = a4;
 LABEL_47:
-    v30 = (a1 + 1);
+    v30 = a1 + 1;
     v31 = 1;
 LABEL_64:
     v33 = 0;
@@ -1314,7 +1317,7 @@ LABEL_50:
 
   else
   {
-    v30 = a1 + ((2 * a2 + 0x1FFFFFFFCLL) & 0x1FFFFFFFELL) + 4;
+    v30 = (a1 + ((2 * a2 + 0x1FFFFFFFCLL) & 0x1FFFFFFFELL) + 4);
     v31 = 1;
   }
 
@@ -1811,9 +1814,9 @@ uint64_t msdosfs_winSlotCnt(uint64_t a1, int a2)
   }
 }
 
-void sub_100023960(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100023960(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1847,14 +1850,15 @@ void sub_1000239FC(uint64_t a1, void *a2)
   }
 }
 
-void sub_100024208(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35)
+void sub_100024208(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
 {
+  va_start(va, a34);
   _Block_object_dispose(&a31, 8);
-  _Block_object_dispose(&a35, 8);
-  _Block_object_dispose((v35 - 256), 8);
-  _Block_object_dispose((v35 - 208), 8);
-  _Block_object_dispose((v35 - 160), 8);
-  _Block_object_dispose((v35 - 128), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v34 - 256), 8);
+  _Block_object_dispose((v34 - 208), 8);
+  _Block_object_dispose((v34 - 160), 8);
+  _Block_object_dispose((v34 - 128), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1892,7 +1896,7 @@ LABEL_61:
   if ([*(a1 + 32) isFat1216RootDir])
   {
     v17 = 0;
-    v48 = 0;
+    v44 = 0;
   }
 
   else
@@ -1900,21 +1904,21 @@ LABEL_61:
     v18 = *(a1 + 120);
     v19 = *(a1 + 128);
     v17 = *(*(*(a1 + 72) + 8) + 24) % v18 / v19 + v18 / v19 * a3;
-    v48 = v18 / v19 * (a3 + a4) - 1;
-    if (v17 > v48)
+    v44 = v18 / v19 * (a3 + a4) - 1;
+    if (v17 > v44)
     {
       goto LABEL_13;
     }
   }
 
   *&v16 = 136315394;
-  v47 = v16;
+  v43 = v16;
   while (2)
   {
-    v20 = [*(a1 + 40) readDirBlockNum:{v17, v47}];
+    v20 = [*(a1 + 40) readDirBlockNum:{v17, v43}];
     if (v20)
     {
-      v45 = v20;
+      v41 = v20;
       (*(*(a1 + 48) + 16))(*(a1 + 48), v20, 4, 0, 0, 0);
 LABEL_60:
 
@@ -1932,9 +1936,9 @@ LABEL_60:
           sub_100032E30();
         }
 
-        v44 = *(a1 + 48);
-        v45 = fs_errorForPOSIXError();
-        (*(v44 + 16))(v44, v45, 4, 0, 0, 0);
+        v40 = *(a1 + 48);
+        v41 = fs_errorForPOSIXError();
+        (*(v40 + 16))(v40, v41, 4, 0, 0, 0);
         goto LABEL_60;
       }
 
@@ -1943,18 +1947,18 @@ LABEL_60:
       {
         if ((v22[11] & 0x3F) == 0xF)
         {
-          v27 = [*(*(*(a1 + 80) + 8) + 40) isValid];
-          if ((v27 & 1) == 0)
+          v25 = [*(*(*(a1 + 80) + 8) + 40) isValid];
+          if ((v25 & 1) == 0)
           {
             if ((*v23 & 0x40) == 0)
             {
               if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
               {
-                v28 = *(*(*(a1 + 72) + 8) + 24);
-                *buf = v47;
-                v50 = "[MsdosDirItem iterateFromOffset:options:replyHandler:]_block_invoke";
-                v51 = 2048;
-                v52 = v28;
+                v26 = *(*(*(a1 + 72) + 8) + 24);
+                *buf = v43;
+                v46 = "[MsdosDirItem iterateFromOffset:options:replyHandler:]_block_invoke";
+                v47 = 2048;
+                v48 = v26;
                 _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "%s: (offset = %llu) First long-name entry doesn't have the WIN_LAST mask. Skipping entry.", buf, 0x16u);
               }
 
@@ -1965,20 +1969,20 @@ LABEL_60:
             *(*(*(a1 + 104) + 8) + 32) = 13 * [*(*(*(a1 + 80) + 8) + 40) numLongNameEntries];
           }
 
-          v33 = v23[13];
-          if (v33 == [*(*(*(a1 + 80) + 8) + 40) checkSum])
+          v31 = v23[13];
+          if (v31 == [*(*(*(a1 + 80) + 8) + 40) checkSum])
           {
-            v34 = 0;
-            v35 = 13 * [*(*(*(a1 + 80) + 8) + 40) numLongNameEntriesLeft] - 13;
+            v32 = 0;
+            v33 = 13 * [*(*(*(a1 + 80) + 8) + 40) numLongNameEntriesLeft] - 13;
             do
             {
-              v36 = [Utilities parseCharacterOfLongNameEntry:v23 charIdxInEntry:v34 charIdxInName:v35 unistrName:*(*(a1 + 104) + 8) + 32 isFirstLongEntryInSet:v27 ^ 1];
-              v37 = v36 < 2 || v34 >= 0xC;
-              v34 = (v34 + 1);
+              v34 = [Utilities parseCharacterOfLongNameEntry:v23 charIdxInEntry:v32 charIdxInName:v33 unistrName:*(*(a1 + 104) + 8) + 32 isFirstLongEntryInSet:v25 ^ 1];
+              v35 = v34 < 2 || v32 >= 0xC;
+              v32 = (v32 + 1);
             }
 
-            while (!v37);
-            if (v36)
+            while (!v35);
+            if (v34)
             {
               [*(*(*(a1 + 80) + 8) + 40) setNumLongNameEntriesLeft:{objc_msgSend(*(*(*(a1 + 80) + 8) + 40), "numLongNameEntriesLeft") - 1}];
               goto LABEL_22;
@@ -1989,56 +1993,56 @@ LABEL_60:
               goto LABEL_53;
             }
 
-            v43 = *(*(*(a1 + 72) + 8) + 24);
-            *buf = v47;
-            v50 = "[MsdosDirItem iterateFromOffset:options:replyHandler:]_block_invoke";
-            v51 = 2048;
-            v52 = v43;
-            v32 = "%s: (offset = %llu) Failed to parse long-name entry's characters. Skipping entry.";
+            v39 = *(*(*(a1 + 72) + 8) + 24);
+            *buf = v43;
+            v46 = "[MsdosDirItem iterateFromOffset:options:replyHandler:]_block_invoke";
+            v47 = 2048;
+            v48 = v39;
+            v30 = "%s: (offset = %llu) Failed to parse long-name entry's characters. Skipping entry.";
             goto LABEL_52;
           }
 
           if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
           {
-            v38 = *(*(*(a1 + 72) + 8) + 24);
-            *buf = v47;
-            v50 = "[MsdosDirItem iterateFromOffset:options:replyHandler:]_block_invoke";
-            v51 = 2048;
-            v52 = v38;
-            v32 = "%s: (offset = %llu) long-name entry has an invalid checksum value. Skipping entry.";
+            v36 = *(*(*(a1 + 72) + 8) + 24);
+            *buf = v43;
+            v46 = "[MsdosDirItem iterateFromOffset:options:replyHandler:]_block_invoke";
+            v47 = 2048;
+            v48 = v36;
+            v30 = "%s: (offset = %llu) long-name entry has an invalid checksum value. Skipping entry.";
             goto LABEL_52;
           }
 
           goto LABEL_53;
         }
 
-        v29 = *(*(*(a1 + 72) + 8) + 24);
+        v27 = *(*(*(a1 + 72) + 8) + 24);
         if ([*(*(*(a1 + 80) + 8) + 40) isValid])
         {
           [*(*(*(a1 + 96) + 8) + 40) setNumberOfDirEntries:{(objc_msgSend(*(*(*(a1 + 80) + 8) + 40), "numLongNameEntries") + 1)}];
-          v30 = [*(*(*(a1 + 80) + 8) + 40) numLongNameEntries];
+          v28 = [*(*(*(a1 + 80) + 8) + 40) numLongNameEntries];
           if ([*(*(*(a1 + 80) + 8) + 40) numLongNameEntriesLeft])
           {
             if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
             {
-              v31 = *(*(*(a1 + 72) + 8) + 24);
-              *buf = v47;
-              v50 = "[MsdosDirItem iterateFromOffset:options:replyHandler:]_block_invoke";
-              v51 = 2048;
-              v52 = v31;
-              v32 = "%s: (offset = %llu) Reached a short-name entry while we still have long-name entries left. Skipping entry.";
+              v29 = *(*(*(a1 + 72) + 8) + 24);
+              *buf = v43;
+              v46 = "[MsdosDirItem iterateFromOffset:options:replyHandler:]_block_invoke";
+              v47 = 2048;
+              v48 = v29;
+              v30 = "%s: (offset = %llu) Reached a short-name entry while we still have long-name entries left. Skipping entry.";
 LABEL_52:
-              _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, v32, buf, 0x16u);
+              _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, v30, buf, 0x16u);
             }
 
 LABEL_53:
             [*(*(*(a1 + 80) + 8) + 40) invalidate];
 LABEL_54:
-            v26 = 1;
+            v24 = 1;
             goto LABEL_23;
           }
 
-          v29 -= 32 * v30;
+          v27 -= 32 * v28;
         }
 
         else
@@ -2047,35 +2051,29 @@ LABEL_54:
           [*(*(*(a1 + 96) + 8) + 40) setNumberOfDirEntries:1];
         }
 
-        v39 = *(*(*(a1 + 96) + 8) + 40);
-        v40 = [NSMutableData dataWithBytes:v23 length:32];
-        [v39 setData:v40];
+        v37 = *(*(*(a1 + 96) + 8) + 40);
+        v38 = [NSMutableData dataWithBytes:v23 length:32];
+        [v37 setData:v38];
 
         [*(*(*(a1 + 96) + 8) + 40) setDosDirEntryDirBlockNum:v17];
         [*(*(*(a1 + 96) + 8) + 40) setDosDirEntryOffsetInDirBlock:v21];
-        [*(*(*(a1 + 96) + 8) + 40) setFirstEntryOffsetInDir:v29];
+        [*(*(*(a1 + 96) + 8) + 40) setFirstEntryOffsetInDir:v27];
         [*(*(*(a1 + 80) + 8) + 40) invalidate];
-        v41 = *(*(*(a1 + 96) + 8) + 40);
-        v23[11];
-        v42 = *(*(a1 + 104) + 8) + 32;
-        v25 = (*(*(a1 + 48) + 16))();
         goto LABEL_21;
       }
 
       [*(*(*(a1 + 80) + 8) + 40) invalidate];
-      v24 = *(*(*(a1 + 72) + 8) + 24);
-      v25 = (*(*(a1 + 48) + 16))();
 LABEL_21:
-      *(*(*(a1 + 88) + 8) + 24) = v25;
+      *(*(*(a1 + 88) + 8) + 24) = (*(*(a1 + 48) + 16))();
 LABEL_22:
-      v26 = *(*(*(a1 + 88) + 8) + 24) != 1;
+      v24 = *(*(*(a1 + 88) + 8) + 24) != 1;
 LABEL_23:
       v21 += 32;
       *(*(*(a1 + 72) + 8) + 24) += 32;
     }
 
-    while (v21 < *(a1 + 128) && v26);
-    if (++v17 <= v48 && v26)
+    while (v21 < *(a1 + 128) && v24);
+    if (++v17 <= v44 && v24)
     {
       continue;
     }
@@ -2091,16 +2089,16 @@ LABEL_62:
   return v14;
 }
 
-void sub_100024C1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100024C1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
   v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -2172,9 +2170,9 @@ void sub_100025204(uint64_t a1, void *a2, _OWORD *a3)
   }
 }
 
-void sub_1000255A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000255A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2198,9 +2196,9 @@ void sub_1000255B8(uint64_t a1, void *a2, _BYTE *a3)
   }
 }
 
-void sub_100025740(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100025740(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2216,7 +2214,7 @@ void sub_100025758(uint64_t a1, void *a2, unsigned __int8 *a3)
     {
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        sub_100033300(a1);
+        sub_100033300();
       }
 
       v8 = fs_errorForPOSIXError();
@@ -2231,7 +2229,7 @@ void sub_100025758(uint64_t a1, void *a2, unsigned __int8 *a3)
     {
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        sub_100033388(a1);
+        sub_100033388();
       }
 
       v11 = fs_errorForPOSIXError();
@@ -2242,17 +2240,17 @@ void sub_100025758(uint64_t a1, void *a2, unsigned __int8 *a3)
   }
 }
 
-void sub_100025E80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100025E80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v13 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v20 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
-  _Block_object_dispose((v11 - 80), 8);
+  _Block_object_dispose((v18 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2393,9 +2391,9 @@ uint64_t wipeFSCallback(uint64_t a1)
   return v11;
 }
 
-void sub_1000262E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000262E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2427,10 +2425,11 @@ void sub_10002631C(uint64_t a1, void *a2)
   dispatch_group_leave(*(a1 + 32));
 }
 
-void sub_1000269A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_1000269A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
+  va_start(va, a32);
   _Block_object_dispose(&a15, 8);
-  _Block_object_dispose(&a33, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -2456,11 +2455,12 @@ void sub_1000269E4(uint64_t a1, void *a2, void *a3)
   *(v8 + 40) = v9;
 }
 
-void sub_10002769C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34, uint64_t a35, uint64_t a36, uint64_t a37, char a38)
+void sub_10002769C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, ...)
 {
+  va_start(va, a37);
   _Block_object_dispose(&a30, 8);
   _Block_object_dispose(&a34, 8);
-  _Block_object_dispose(&a38, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -2502,13 +2502,13 @@ BOOL sub_1000277F8(uint64_t a1, _BOOL8 a2, uint64_t a3, uint64_t a4)
   if (fsck_preen())
   {
     v10 = fsck_rdonly();
-    v16 = 0;
+    v11 = 0;
     if (a2 && !v10)
     {
-      v25 = fsck_ctx;
-      v26 = qword_100059E30;
-      fsck_print(&v25, 6, "FIXED\n", v11, v12, v13, v14, v15, v24);
-      v16 = a2;
+      v16 = fsck_ctx;
+      v17 = qword_100059E30;
+      fsck_print(&v16, 6, "FIXED\n");
+      v11 = a2;
     }
   }
 
@@ -2516,22 +2516,28 @@ BOOL sub_1000277F8(uint64_t a1, _BOOL8 a2, uint64_t a3, uint64_t a4)
   {
     if (!fsck_quiet())
     {
-      v17 = [v9 UTF8String];
-      fsck_rdonly();
-      v25 = fsck_ctx;
-      v26 = qword_100059E30;
-      fsck_print(&v25, 6, "%s? %s\n", v18, v19, v20, v21, v22, v17);
+      v12 = [v9 UTF8String];
+      v13 = fsck_rdonly();
+      v14 = "yes";
+      if (v13)
+      {
+        v14 = "no";
+      }
+
+      v16 = fsck_ctx;
+      v17 = qword_100059E30;
+      fsck_print(&v16, 6, "%s? %s\n", v12, v14);
     }
 
-    v16 = !fsck_rdonly();
+    v11 = !fsck_rdonly();
   }
 
   else
   {
-    v16 = 1;
+    v11 = 1;
   }
 
-  return v16;
+  return v11;
 }
 
 void startCallback(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
@@ -2691,61 +2697,61 @@ void sub_1000289C0(id *a1, uint64_t a2, uint64_t a3, uint64_t a4)
   }
 }
 
-void sub_100028AEC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void sub_100028AEC(uint64_t a1)
 {
-  v9 = *(*(a1 + 56) + 8);
-  v10 = *(a1 + 144);
-  v25[4] = *(a1 + 128);
-  v25[5] = v10;
-  v25[6] = *(a1 + 160);
-  v26 = *(a1 + 176);
-  v11 = *(a1 + 80);
-  v25[0] = *(a1 + 64);
-  v25[1] = v11;
-  v12 = *(a1 + 112);
-  v25[2] = *(a1 + 96);
-  v25[3] = v12;
-  v13 = *(a1 + 328);
-  v14 = *(a1 + 360);
-  v15 = *(a1 + 376);
-  v37 = *(a1 + 344);
-  v38 = v14;
-  v39 = v15;
-  v16 = *(a1 + 264);
-  v17 = *(a1 + 296);
-  v18 = *(a1 + 312);
-  v33 = *(a1 + 280);
-  v34 = v17;
-  v35 = v18;
-  v36 = v13;
-  v19 = *(a1 + 200);
-  v20 = *(a1 + 232);
-  v29 = *(a1 + 216);
-  v30 = v20;
-  v31 = *(a1 + 248);
-  v32 = v16;
+  v2 = *(*(a1 + 56) + 8);
+  v3 = *(a1 + 144);
+  v18[4] = *(a1 + 128);
+  v18[5] = v3;
+  v18[6] = *(a1 + 160);
+  v19 = *(a1 + 176);
+  v4 = *(a1 + 80);
+  v18[0] = *(a1 + 64);
+  v18[1] = v4;
+  v5 = *(a1 + 112);
+  v18[2] = *(a1 + 96);
+  v18[3] = v5;
+  v6 = *(a1 + 328);
+  v7 = *(a1 + 360);
+  v8 = *(a1 + 376);
+  v30 = *(a1 + 344);
+  v31 = v7;
+  v32 = v8;
+  v9 = *(a1 + 264);
+  v10 = *(a1 + 296);
+  v11 = *(a1 + 312);
+  v26 = *(a1 + 280);
+  v27 = v10;
+  v28 = v11;
+  v29 = v6;
+  v12 = *(a1 + 200);
+  v13 = *(a1 + 232);
+  v22 = *(a1 + 216);
+  v23 = v13;
+  v24 = *(a1 + 248);
+  v25 = v9;
   *buf = *(a1 + 184);
-  v28 = v19;
-  *(*(*(a1 + 48) + 8) + 24) = format(v25, buf, (v9 + 32), a4, a5, a6, a7, a8);
-  v21 = [*(a1 + 32) totalUnitCount];
-  if (v21 > [*(a1 + 32) completedUnitCount])
+  v21 = v12;
+  *(*(*(a1 + 48) + 8) + 24) = format(v18, buf, (v2 + 32));
+  v14 = [*(a1 + 32) totalUnitCount];
+  if (v14 > [*(a1 + 32) completedUnitCount])
   {
     [*(a1 + 32) setCompletedUnitCount:{objc_msgSend(*(a1 + 32), "totalUnitCount")}];
   }
 
   CFRelease(*(*(*(a1 + 56) + 8) + 32));
   *(*(*(a1 + 56) + 8) + 32) = 0;
-  v22 = *(a1 + 392);
-  if (v22)
+  v15 = *(a1 + 392);
+  if (v15)
   {
-    free(v22);
+    free(v15);
   }
 
-  v23 = *(a1 + 40);
+  v16 = *(a1 + 40);
   if (*(*(*(a1 + 48) + 8) + 24))
   {
-    v24 = fs_errorForPOSIXError();
-    [v23 didCompleteWithError:v24];
+    v17 = fs_errorForPOSIXError();
+    [v16 didCompleteWithError:v17];
   }
 
   else
@@ -2761,10 +2767,11 @@ void sub_100028AEC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   }
 }
 
-void sub_100028D54(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100028D54(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 uint64_t sub_10002A0C0(uint64_t a1, void *a2, int a3, uint64_t a4, uint64_t a5, void *a6)
@@ -2812,6 +2819,13 @@ void sub_10002A3B4(uint64_t a1)
   v8();
 }
 
+void sub_10002AF1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, ...)
+{
+  va_start(va, a33);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 uint64_t sub_10002AF48(uint64_t result, uint64_t a2)
 {
   *(result + 40) = *(a2 + 40);
@@ -2846,7 +2860,7 @@ void sub_10002AF60(uint64_t a1, void *a2, uint64_t a3)
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      sub_100034E40(a1);
+      sub_100034E40();
     }
 
     if ((*(a1 + 48) & 1) == 0)
@@ -2888,13 +2902,6 @@ void sub_10002B9F8(id a1, NSError *a2)
   {
     sub_100035078();
   }
-}
-
-unsigned __int8 *sub_10002C0D0@<X0>(unsigned __int8 *result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *result;
-  return result;
 }
 
 id sub_10002C190(uint64_t a1)
@@ -2940,6 +2947,20 @@ void sub_10002D44C(void *a1, uint64_t a2)
   _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "%s: unexpected offset in dir block (%llu), dir block size %zu", &v2, 0x20u);
 }
 
+void sub_10002D4F8()
+{
+  v5 = 136315394;
+  sub_100009714();
+  sub_100009738(&_mh_execute_header, &_os_log_default, v0, "%s: iterate dir failed with error = %@.", v1, v2, v3, v4, v5);
+}
+
+void sub_10002D574()
+{
+  v5 = 136315394;
+  sub_100009714();
+  sub_100009738(&_mh_execute_header, &_os_log_default, v0, "%s: iterate dir failed with error = %@.", v1, v2, v3, v4, v5);
+}
+
 void sub_10002D5F0(uint64_t **a1)
 {
   v1 = **a1;
@@ -2950,32 +2971,51 @@ void sub_10002D5F0(uint64_t **a1)
   _os_log_fault_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_FAULT, "%s: got a wrong offset from hint (%llu).", &v2, 0x16u);
 }
 
-void sub_10002D790(uint64_t a1)
+void sub_10002D68C()
 {
-  sub_100009728(a1, __stack_chk_guard);
-  sub_100009700();
-  sub_100009738(&_mh_execute_header, &_os_log_default, v1, "%s: Failed iterating the directory. Error = %@.", v2, v3, v4, v5, 2u);
+  v5 = 136315394;
+  sub_100009714();
+  sub_100009738(&_mh_execute_header, &_os_log_default, v0, "%s: iterate dir failed with error = %@.", v1, v2, v3, v4, v5);
 }
 
-void sub_10002D80C(uint64_t a1)
+void sub_10002D708(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  sub_100009728(a1, __stack_chk_guard);
-  sub_100009700();
-  sub_100009738(&_mh_execute_header, &_os_log_default, v1, "%s: Failed to allocate clusters. Error = %@.", v2, v3, v4, v5, 2u);
+  *v8 = 136315394;
+  *&v8[4] = "[DirItem fillNameCache:]_block_invoke";
+  *&v8[12] = 2112;
+  *&v8[14] = 0;
+  sub_100009738(&_mh_execute_header, &_os_log_default, a3, "%s: insert dir entry to name cache failed with error = %@.", a5, a6, a7, a8, *v8, *&v8[8], *&v8[16]);
 }
 
-void sub_10002D888(uint64_t a1)
+void sub_10002D790()
 {
-  sub_100009728(a1, __stack_chk_guard);
+  sub_100009728(__stack_chk_guard);
+  v5 = 136315394;
   sub_100009700();
-  sub_100009738(&_mh_execute_header, &_os_log_default, v1, "%s: Failed to zero-fill clusters. Error = %@.", v2, v3, v4, v5, 2u);
+  sub_100009738(&_mh_execute_header, &_os_log_default, v0, "%s: Failed iterating the directory. Error = %@.", v1, v2, v3, v4, v5);
 }
 
-void sub_10002D988(uint64_t a1)
+void sub_10002D80C()
 {
-  v1 = *(*(*(a1 + 32) + 8) + 40);
+  sub_100009728(__stack_chk_guard);
+  v5 = 136315394;
   sub_100009700();
-  sub_100009738(&_mh_execute_header, &_os_log_default, v2, "%s: iterate dir failed with error = %@.", v3, v4, v5, v6, 2u);
+  sub_100009738(&_mh_execute_header, &_os_log_default, v0, "%s: Failed to allocate clusters. Error = %@.", v1, v2, v3, v4, v5);
+}
+
+void sub_10002D888()
+{
+  sub_100009728(__stack_chk_guard);
+  v5 = 136315394;
+  sub_100009700();
+  sub_100009738(&_mh_execute_header, &_os_log_default, v0, "%s: Failed to zero-fill clusters. Error = %@.", v1, v2, v3, v4, v5);
+}
+
+void sub_10002D988()
+{
+  v5 = 136315394;
+  sub_100009700();
+  sub_100009738(&_mh_execute_header, &_os_log_default, v0, "%s: iterate dir failed with error = %@.", v1, v2, v3, v4, v5);
 }
 
 void sub_10002DA94()
@@ -2985,32 +3025,36 @@ void sub_10002DA94()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void sub_10002DB1C(uint64_t a1)
+void sub_10002DB1C()
 {
-  sub_100009728(a1, __stack_chk_guard);
+  sub_100009728(__stack_chk_guard);
+  v5 = 136315394;
   sub_100009700();
-  sub_100009738(&_mh_execute_header, &_os_log_default, v1, "%s: Couldn't convert name to unistr. Error = %@.", v2, v3, v4, v5, 2u);
+  sub_100009738(&_mh_execute_header, &_os_log_default, v0, "%s: Couldn't convert name to unistr. Error = %@.", v1, v2, v3, v4, v5);
 }
 
-void sub_10002DB98(uint64_t a1)
+void sub_10002DB98()
 {
-  sub_100009728(a1, __stack_chk_guard);
+  sub_100009728(__stack_chk_guard);
+  v5 = 136315394;
   sub_100009700();
-  sub_100009738(&_mh_execute_header, &_os_log_default, v1, "%s: Couldn't calculate number of dir entries. Error = %@.", v2, v3, v4, v5, 2u);
+  sub_100009738(&_mh_execute_header, &_os_log_default, v0, "%s: Couldn't calculate number of dir entries. Error = %@.", v1, v2, v3, v4, v5);
 }
 
-void sub_10002DC14(uint64_t a1)
+void sub_10002DC14()
 {
-  sub_100009728(a1, __stack_chk_guard);
+  sub_100009728(__stack_chk_guard);
+  v5 = 136315394;
   sub_100009700();
-  sub_100009738(&_mh_execute_header, &_os_log_default, v1, "%s: Couldn't create dir entry-set. Error = %@.", v2, v3, v4, v5, 2u);
+  sub_100009738(&_mh_execute_header, &_os_log_default, v0, "%s: Couldn't create dir entry-set. Error = %@.", v1, v2, v3, v4, v5);
 }
 
-void sub_10002DC90(uint64_t a1)
+void sub_10002DC90()
 {
-  sub_100009728(a1, __stack_chk_guard);
+  sub_100009728(__stack_chk_guard);
+  v5 = 136315394;
   sub_100009700();
-  sub_100009738(&_mh_execute_header, &_os_log_default, v1, "%s: Couldn't write new dir entries to disk. Error = %@.", v2, v3, v4, v5, 2u);
+  sub_100009738(&_mh_execute_header, &_os_log_default, v0, "%s: Couldn't write new dir entries to disk. Error = %@.", v1, v2, v3, v4, v5);
 }
 
 void sub_10002DD0C()
@@ -3021,6 +3065,13 @@ void sub_10002DD0C()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
+void sub_10002DD94()
+{
+  v5 = 136315394;
+  sub_100009714();
+  sub_100009738(&_mh_execute_header, &_os_log_default, v0, "%s: Failed to write the updated entries into the device. Error = %@.", v1, v2, v3, v4, v5);
+}
+
 void sub_10002DE10()
 {
   sub_100009760();
@@ -3029,12 +3080,49 @@ void sub_10002DE10()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
+void sub_10002DE98(void *a1)
+{
+  *v6 = 136315394;
+  *&v6[4] = "[DirItem iterateDirEntriesAtOffset:numEntries:shouldWriteToDisk:replyHandler:]";
+  *&v6[12] = 2048;
+  *&v6[14] = [a1 offsetInVolume];
+  sub_100009738(&_mh_execute_header, &_os_log_default, v1, "%s: Dir offset (%llu) is within the metadata zone.", v2, v3, v4, v5, *v6, *&v6[8], *&v6[16]);
+}
+
+void sub_10002DFA8()
+{
+  v5 = 136315394;
+  sub_100009714();
+  sub_100009738(&_mh_execute_header, &_os_log_default, v0, "%s: update parent dir modification time failed with error = %@.", v1, v2, v3, v4, v5);
+}
+
+void sub_10002E024()
+{
+  v5 = 136315394;
+  sub_100009714();
+  sub_100009738(&_mh_execute_header, &_os_log_default, v0, "%s: iterate dir failed with error = %@.", v1, v2, v3, v4, v5);
+}
+
 void sub_10002E0A0(void *a1)
 {
   [a1 code];
   sub_100009760();
   sub_100009754();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
+}
+
+void sub_10002E12C()
+{
+  v5 = 136315394;
+  sub_100009714();
+  sub_100009738(&_mh_execute_header, &_os_log_default, v0, "%s: Couldn't purge meta blocks. Error = %@.", v1, v2, v3, v4, v5);
+}
+
+void sub_10002E22C()
+{
+  v5 = 136315394;
+  sub_100009714();
+  sub_100009738(&_mh_execute_header, &_os_log_default, v0, "%s: Failed to get clusters chain. Error: %@", v1, v2, v3, v4, v5);
 }
 
 void sub_10002E2A8(int a1)
@@ -3128,20 +3216,20 @@ void sub_10002E7A4(uint8_t *buf, void *a2)
   _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "%s: Failed to read link content", buf, 0xCu);
 }
 
-void sub_10002E87C(uint64_t a1)
+void sub_10002E87C()
 {
-  sub_100009728(a1, __stack_chk_guard);
+  sub_100009728(__stack_chk_guard);
   sub_100009700();
   sub_100009754();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_10002E900(uint64_t a1)
+void sub_10002E900()
 {
-  sub_100009728(a1, __stack_chk_guard);
+  sub_100009728(__stack_chk_guard);
   sub_100009700();
   sub_100009754();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void sub_10002EA08()
@@ -3151,92 +3239,92 @@ void sub_10002EA08()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_10002EB10(uint64_t a1)
+void sub_10002EB10()
 {
-  sub_100009728(a1, __stack_chk_guard);
+  sub_100009728(__stack_chk_guard);
   sub_100009700();
   sub_100009754();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_10002EB94(uint64_t a1)
+void sub_10002EB94()
 {
-  sub_100009728(a1, __stack_chk_guard);
+  sub_100009728(__stack_chk_guard);
   sub_100009700();
   sub_100009754();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_10002EC18(uint64_t a1)
+void sub_10002EC18()
 {
-  sub_100009728(a1, __stack_chk_guard);
+  sub_100009728(__stack_chk_guard);
   sub_100009700();
   sub_100009754();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_10002EC9C(uint64_t a1)
+void sub_10002EC9C()
 {
-  sub_100009728(a1, __stack_chk_guard);
+  sub_100009728(__stack_chk_guard);
   sub_100009700();
   sub_100009754();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_10002ED20(uint64_t a1)
+void sub_10002ED20()
 {
-  sub_100009728(a1, __stack_chk_guard);
+  sub_100009728(__stack_chk_guard);
   sub_100009700();
   sub_100009754();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_10002EDA4(uint64_t a1)
+void sub_10002EDA4()
 {
-  sub_100009728(a1, __stack_chk_guard);
+  sub_100009728(__stack_chk_guard);
   sub_100009700();
   sub_100009754();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_10002EE28(uint64_t a1)
+void sub_10002EE28()
 {
-  sub_100009728(a1, __stack_chk_guard);
+  sub_100009728(__stack_chk_guard);
   sub_100009700();
   sub_100009754();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_10002EEAC(uint64_t a1)
+void sub_10002EEAC()
 {
-  sub_100009728(a1, __stack_chk_guard);
+  sub_100009728(__stack_chk_guard);
   sub_100009700();
   sub_100009754();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_10002EF30(uint64_t a1)
+void sub_10002EF30()
 {
-  sub_100009728(a1, __stack_chk_guard);
+  sub_100009728(__stack_chk_guard);
   sub_100009700();
   sub_100009754();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_10002EFB4(uint64_t a1)
+void sub_10002EFB4()
 {
-  sub_100009728(a1, __stack_chk_guard);
+  sub_100009728(__stack_chk_guard);
   sub_100009700();
   sub_100009754();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_10002F038(uint64_t a1)
+void sub_10002F038()
 {
-  sub_100009728(a1, __stack_chk_guard);
+  sub_100009728(__stack_chk_guard);
   sub_100009700();
   sub_100009754();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void sub_10002F0BC()
@@ -3297,12 +3385,11 @@ void sub_10002F668(void *a1)
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
 }
 
-void sub_10002F804(uint64_t a1)
+void sub_10002F804()
 {
-  v1 = *(*(*a1 + 8) + 40);
   sub_100009700();
   sub_100009754();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void sub_10002F918()
@@ -3312,12 +3399,11 @@ void sub_10002F918()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_10002F99C(uint64_t a1)
+void sub_10002F99C()
 {
-  v1 = *(a1 + 32);
   sub_100009700();
   sub_100009754();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
 void sub_10002FDC8()
@@ -3334,68 +3420,68 @@ void sub_10002FE4C()
   _os_log_fault_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_FAULT, "%s: Failed to purge dir's metadata blocks, error %@", v0, 0x16u);
 }
 
-void sub_100030060(uint64_t a1)
+void sub_100030060()
 {
-  sub_100009728(a1, __stack_chk_guard);
+  sub_100009728(__stack_chk_guard);
   sub_100009700();
   sub_100009754();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_1000301EC(uint64_t a1)
+void sub_1000301EC()
 {
-  sub_100009728(a1, __stack_chk_guard);
+  sub_100009728(__stack_chk_guard);
   sub_100009700();
   sub_100009754();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_100030270(uint64_t a1)
+void sub_100030270()
 {
-  sub_100009728(a1, __stack_chk_guard);
+  sub_100009728(__stack_chk_guard);
   sub_100009700();
   sub_100009754();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_1000302F4(uint64_t a1)
+void sub_1000302F4()
 {
-  sub_100009728(a1, __stack_chk_guard);
+  sub_100009728(__stack_chk_guard);
   sub_100009700();
   sub_100009754();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_1000303FC(uint64_t a1)
+void sub_1000303FC()
 {
-  sub_100009728(a1, __stack_chk_guard);
+  sub_100009728(__stack_chk_guard);
   sub_100009700();
   sub_100009754();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_100030480(uint64_t a1)
+void sub_100030480()
 {
-  sub_100009728(a1, __stack_chk_guard);
+  sub_100009728(__stack_chk_guard);
   sub_100009700();
   sub_100009754();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_100030504(uint64_t a1)
+void sub_100030504()
 {
-  sub_100009728(a1, __stack_chk_guard);
+  sub_100009728(__stack_chk_guard);
   sub_100009700();
   sub_100009754();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_100030588(uint64_t a1)
+void sub_100030588()
 {
-  sub_100009728(a1, __stack_chk_guard);
+  sub_100009728(__stack_chk_guard);
   sub_100009700();
   sub_100009754();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void sub_10003060C()
@@ -3412,20 +3498,19 @@ void sub_100030798()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_10003081C(void *a1, uint64_t *a2)
+void sub_10003081C(void *a1)
 {
   [a1 fs_posixCode];
-  v8 = *a2;
   sub_100009754();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x1Cu);
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
 }
 
-void sub_100030A58(uint64_t a1)
+void sub_100030A58()
 {
-  sub_100009728(a1, __stack_chk_guard);
+  sub_100009728(__stack_chk_guard);
   sub_100009700();
   sub_100014E4C();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void sub_100030ADC(id *a1)
@@ -3448,13 +3533,6 @@ void sub_100030CAC()
   sub_100009714();
   sub_100009754();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-}
-
-void sub_100030DB4(uint64_t a1)
-{
-  v6 = *(a1 + 40) + *(a1 + 32);
-  sub_100009754();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Au);
 }
 
 void sub_100030E60()
@@ -3492,12 +3570,11 @@ void sub_1000311FC()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void sub_100031288(uint64_t a1)
+void sub_100031288()
 {
-  v1 = *(*a1 + 40);
   sub_100009700();
   sub_100009754();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void sub_100031398(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -3560,12 +3637,11 @@ void sub_10003186C()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_1000318F0(uint64_t a1)
+void sub_1000318F0()
 {
-  v1 = *(*a1 + 40);
   sub_100009700();
   sub_100009754();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void sub_10003197C()
@@ -3573,13 +3649,6 @@ void sub_10003197C()
   sub_100014E58();
   sub_100009754();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-}
-
-void sub_100031A84(uint64_t a1)
-{
-  v6 = *(*a1 + 40);
-  sub_100009754();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
 }
 
 void sub_100031B1C()
@@ -3670,13 +3739,6 @@ void sub_100032318()
   _os_log_fault_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void sub_10003239C(uint64_t a1)
-{
-  v6 = *(*a1 + 24);
-  sub_100009754();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-}
-
 void sub_100032544()
 {
   sub_10001E97C();
@@ -3742,20 +3804,20 @@ void sub_1000329F4(uint64_t a1)
   _os_log_fault_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_FAULT, "%s: item for key %@ not found", &v1, 0x16u);
 }
 
-void sub_100032B18(uint64_t a1)
+void sub_100032B18()
 {
-  sub_100009728(a1, __stack_chk_guard);
+  sub_100009728(__stack_chk_guard);
   sub_100009700();
   sub_100009754();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_100032B9C(uint64_t a1)
+void sub_100032B9C()
 {
-  sub_100009728(a1, __stack_chk_guard);
+  sub_100009728(__stack_chk_guard);
   sub_100009700();
   sub_100009754();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void sub_100032C20()
@@ -3835,28 +3897,26 @@ void sub_10003327C()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_100033300(uint64_t a1)
+void sub_100033300()
 {
-  v1 = *(a1 + 40);
   sub_10002607C();
   sub_100009754();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void sub_100033388(uint64_t a1)
+void sub_100033388()
 {
-  v1 = *(a1 + 40);
   sub_10002607C();
   sub_100009754();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void sub_100033410(uint64_t a1)
+void sub_100033410()
 {
-  sub_100009728(a1, __stack_chk_guard);
+  sub_100009728(__stack_chk_guard);
   sub_100009700();
   sub_100009754();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void sub_100033494()
@@ -3873,6 +3933,27 @@ void sub_10003351C(uint64_t a1, uint8_t *buf, void *a3)
   *(buf + 6) = 2080;
   *(buf + 14) = a1;
   _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "%s: Wipe resource error: %s", buf, 0x16u);
+}
+
+void sub_10003358C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "wipeFSCallback";
+  sub_100028D54(&_mh_execute_header, &_os_log_default, a3, "%s: Given device is not a block device", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100033608(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "wipeFSCallback";
+  sub_100028D54(&_mh_execute_header, &_os_log_default, a3, "%s: Context isn't initialized, can't wipe resource", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100033684(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "wipeFSCallback";
+  sub_100028D54(&_mh_execute_header, &_os_log_default, a3, "%s: Context is null, can't wipe resource", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_100033700(uint64_t a1)
@@ -3917,11 +3998,54 @@ void sub_10003394C()
   _os_log_debug_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEBUG, "%s: Setting up probeResult (%@)", v0, 0x16u);
 }
 
+void sub_1000339D4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "fsckPrintFunction";
+  sub_100028D54(&_mh_execute_header, &_os_log_default, a3, "%s: Context is null, can't log message", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_100033A50(void *a1)
 {
   v1 = [a1 description];
-  [v1 UTF8String];
-  sub_100028D54(&_mh_execute_header, &_os_log_default, v2, "Failed to start phase, error %s", v3, v4, v5, v6, 2u);
+  LODWORD(v7) = 136315138;
+  *(&v7 + 4) = [v1 UTF8String];
+  sub_100028D54(&_mh_execute_header, &_os_log_default, v2, "Failed to start phase, error %s", v3, v4, v5, v6, v7, DWORD2(v7));
+}
+
+void sub_100033AE4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "startCallback";
+  sub_100028D54(&_mh_execute_header, &_os_log_default, a3, "%s: Invalid description (null)", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100033B60(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "endCallback";
+  sub_100028D54(&_mh_execute_header, &_os_log_default, a3, "%s: Invalid description (null)", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100033BDC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[msdosFileSystem startFormatWithTask:options:error:]";
+  sub_100028D54(&_mh_execute_header, &_os_log_default, a3, "%s: Can't allocate a wipe FS context object", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100033C58(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "newfsPrintFunction";
+  sub_100028D54(&_mh_execute_header, &_os_log_default, a3, "%s: No message connection object, can't log message", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100033CD4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "newfsPrintFunction";
+  sub_100028D54(&_mh_execute_header, &_os_log_default, a3, "%s: Context is null, can't log message", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_100033D50(uint64_t a1)
@@ -3934,12 +4058,11 @@ void sub_100033D50(uint64_t a1)
   _os_log_fault_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_FAULT, "%s missing endPhase call for %@", &v2, 0x16u);
 }
 
-void sub_100033E00(unsigned __int8 *a1)
+void sub_100033E00()
 {
-  sub_10002C0D0(a1, __stack_chk_guard);
-  v7 = *(v1 + 511);
+  sub_10002C0D0(__stack_chk_guard);
   sub_100009754();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x18u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
 }
 
 void sub_100033E9C(void *a1)
@@ -3950,12 +4073,12 @@ void sub_100033E9C(void *a1)
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x18u);
 }
 
-void sub_100033F54(unsigned __int8 *a1)
+void sub_100033F54()
 {
-  sub_10002C0D0(a1, __stack_chk_guard);
+  sub_10002C0D0(__stack_chk_guard);
   sub_10002607C();
   sub_100009754();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
 void sub_100033FD8(void *a1)
@@ -4049,12 +4172,12 @@ void sub_1000348F4(void *a1)
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
-void sub_100034BA8(unsigned __int8 *a1)
+void sub_100034BA8()
 {
-  sub_10002C0D0(a1, __stack_chk_guard);
+  sub_10002C0D0(__stack_chk_guard);
   sub_10002607C();
   sub_100009754();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
 void sub_100034C2C()
@@ -4078,13 +4201,6 @@ void sub_100034DBC()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_100034E40(uint64_t a1)
-{
-  *(a1 + 48);
-  sub_100009754();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-}
-
 void sub_100034F70()
 {
   sub_100009714();
@@ -4099,19 +4215,11 @@ void sub_100035078()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_1000350FC(unsigned __int8 *a1)
+void sub_1000350FC()
 {
-  sub_10002C0D0(a1, __stack_chk_guard);
-  v7 = *(v1 + 511);
+  sub_10002C0D0(__stack_chk_guard);
   sub_100009754();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xEu);
-}
-
-void sub_100035188(unsigned __int8 *a1)
-{
-  v6 = *a1;
-  sub_100009754();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xEu);
 }
 
 void sub_100035310()

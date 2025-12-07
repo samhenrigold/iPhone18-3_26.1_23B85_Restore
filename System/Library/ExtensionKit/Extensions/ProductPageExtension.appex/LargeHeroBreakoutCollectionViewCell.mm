@@ -32,13 +32,15 @@
 
 - (void)didTapActionButton
 {
-  v2 = *(*(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC20ProductPageExtension35LargeHeroBreakoutCollectionViewCell_detailsView) + OBJC_IVAR____TtC20ProductPageExtension19BreakoutDetailsView_callToActionButtonHandler);
-  if (v2)
+  v2 = *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC20ProductPageExtension35LargeHeroBreakoutCollectionViewCell_detailsView) + OBJC_IVAR____TtC20ProductPageExtension19BreakoutDetailsView_callToActionButtonHandler;
+  v3 = *v2;
+  if (*v2)
   {
+    v4 = *(v2 + 1);
     selfCopy = self;
-    v3 = sub_10001CE50(v2);
-    v2(v3);
-    sub_1000167E0(v2);
+    v5 = sub_10001CE50(v3, v4);
+    v3(v5);
+    sub_1000167E0(v3, v4);
   }
 }
 

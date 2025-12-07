@@ -5,6 +5,7 @@
 - (NEDNSSettings)initWithServers:(NSArray *)servers;
 - (id)copyLegacyDictionary;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (id)initFromLegacyDictionary:(id)dictionary;
 - (void)encodeWithCoder:(id)coder;
 @end
@@ -159,9 +160,37 @@
   return v3;
 }
 
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = [objc_alloc(MEMORY[0x1E696AD60]) initWithCapacity:0];
+  v8 = [(NEDNSSettings *)self dnsProtocol]- 1;
+  if (v8 <= 2)
+  {
+    [v7 appendPrettyObject:off_1E7F07380[v8] withName:@"protocol" andIndent:v5 options:options];
+  }
+
+  servers = [(NEDNSSettings *)self servers];
+  [v7 appendPrettyObject:servers withName:@"server" andIndent:v5 options:options | 1];
+
+  domainName = [(NEDNSSettings *)self domainName];
+  [v7 appendPrettyObject:domainName withName:@"domainName" andIndent:v5 options:options | 1];
+
+  searchDomains = [(NEDNSSettings *)self searchDomains];
+  [v7 appendPrettyObject:searchDomains withName:@"searchDomains" andIndent:v5 options:options | 1];
+
+  matchDomains = [(NEDNSSettings *)self matchDomains];
+  [v7 appendPrettyObject:matchDomains withName:@"matchDomains" andIndent:v5 options:options | 1];
+
+  [v7 appendPrettyBOOL:-[NEDNSSettings matchDomainsNoSearch](self withName:"matchDomainsNoSearch") andIndent:@"matchDomainsNoSearch" options:{v5, options}];
+  [v7 appendPrettyBOOL:-[NEDNSSettings allowFailover](self withName:"allowFailover") andIndent:@"allowFailover" options:{v5, options}];
+
+  return v7;
+}
+
 - (BOOL)checkValidityAndCollectErrors:(id)errors
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   errorsCopy = errors;
   if ([(NEDNSSettings *)self isMemberOfClass:objc_opt_class()])
   {
@@ -192,40 +221,40 @@ LABEL_6:
     goto LABEL_21;
   }
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   selfCopy = self;
   servers3 = [(NEDNSSettings *)self servers];
-  v10 = [servers3 countByEnumeratingWithState:&v31 objects:v36 count:16];
+  v10 = [servers3 countByEnumeratingWithState:&v30 objects:v35 count:16];
   if (!v10)
   {
     goto LABEL_20;
   }
 
   v11 = v10;
-  v12 = *v32;
+  v12 = *v31;
   do
   {
     for (i = 0; i != v11; ++i)
     {
-      if (*v32 != v12)
+      if (*v31 != v12)
       {
         objc_enumerationMutation(servers3);
       }
 
-      v14 = *(*(&v31 + 1) + 8 * i);
+      v14 = *(*(&v30 + 1) + 8 * i);
       if ((isa_nsstring(v14) & 1) == 0)
       {
         v15 = @"Non-string for DNS server";
         goto LABEL_17;
       }
 
-      v30 = 0;
-      v29[0] = 0;
-      v29[1] = 0;
-      if (!inet_pton(2, [v14 UTF8String], &v30) && !inet_pton(30, objc_msgSend(v14, "UTF8String"), v29))
+      v29 = 0;
+      v28[0] = 0;
+      v28[1] = 0;
+      if (!inet_pton(2, [v14 UTF8String], &v29) && !inet_pton(30, objc_msgSend(v14, "UTF8String"), v28))
       {
         v15 = @"Invalid DNS server";
 LABEL_17:
@@ -235,7 +264,7 @@ LABEL_17:
       }
     }
 
-    v11 = [servers3 countByEnumeratingWithState:&v31 objects:v36 count:16];
+    v11 = [servers3 countByEnumeratingWithState:&v30 objects:v35 count:16];
   }
 
   while (v11);
@@ -247,40 +276,39 @@ LABEL_21:
 
   if (searchDomains2)
   {
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     searchDomains3 = [(NEDNSSettings *)self searchDomains];
-    v18 = [searchDomains3 countByEnumeratingWithState:&v25 objects:v35 count:16];
+    v18 = [searchDomains3 countByEnumeratingWithState:&v24 objects:v34 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v26;
+      v20 = *v25;
       do
       {
         for (j = 0; j != v19; ++j)
         {
-          if (*v26 != v20)
+          if (*v25 != v20)
           {
             objc_enumerationMutation(searchDomains3);
           }
 
-          if ((isa_nsstring(*(*(&v25 + 1) + 8 * j)) & 1) == 0)
+          if ((isa_nsstring(*(*(&v24 + 1) + 8 * j)) & 1) == 0)
           {
             [NEConfiguration addError:errorsCopy toList:?];
             v7 = 0;
           }
         }
 
-        v19 = [searchDomains3 countByEnumeratingWithState:&v25 objects:v35 count:16];
+        v19 = [searchDomains3 countByEnumeratingWithState:&v24 objects:v34 count:16];
       }
 
       while (v19);
     }
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v7 & 1;
 }
 

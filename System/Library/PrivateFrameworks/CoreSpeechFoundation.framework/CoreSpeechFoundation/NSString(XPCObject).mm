@@ -18,7 +18,7 @@
 
 - (id)_cs_initWithXPCObject:()XPCObject
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = v4;
   if (!v4)
@@ -36,11 +36,11 @@ LABEL_4:
       goto LABEL_5;
     }
 
-    v12 = 136315138;
-    v13 = "[NSString(XPCObject) _cs_initWithXPCObject:]";
-    v11 = "%s xpc object should be XPC_TYPE_STRING";
+    v11 = 136315138;
+    v12 = "[NSString(XPCObject) _cs_initWithXPCObject:]";
+    v10 = "%s xpc object should be XPC_TYPE_STRING";
 LABEL_13:
-    _os_log_error_impl(&dword_1DDA4B000, v6, OS_LOG_TYPE_ERROR, v11, &v12, 0xCu);
+    _os_log_error_impl(&dword_1DDA4B000, v6, OS_LOG_TYPE_ERROR, v10, &v11, 0xCu);
     goto LABEL_4;
   }
 
@@ -53,16 +53,14 @@ LABEL_13:
       goto LABEL_4;
     }
 
-    v12 = 136315138;
-    v13 = "[NSString(XPCObject) _cs_initWithXPCObject:]";
-    v11 = "%s xpc object string return nil";
+    v11 = 136315138;
+    v12 = "[NSString(XPCObject) _cs_initWithXPCObject:]";
+    v10 = "%s xpc object string return nil";
     goto LABEL_13;
   }
 
   v7 = [self initWithUTF8String:string_ptr];
 LABEL_5:
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

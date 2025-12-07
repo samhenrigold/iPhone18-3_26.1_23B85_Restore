@@ -276,7 +276,7 @@
 {
   v24 = *MEMORY[0x1E69E9840];
   _scene = [(_UIHomeAffordanceSceneNotifier *)self _scene];
-  if (_scene && (v8 = _scene, v9 = [_scene _hasInvalidated], v8, (v9 & 1) == 0) && _UIHomeAffordanceValidateObserver(self, observer, window, (*&self->_flags & 2) != 0))
+  if (_scene && (v8 = _scene, v9 = [_scene _hasInvalidated], v8, (v9 & 1) == 0) && _UIHomeAffordanceValidateObserver(self, observer, window, (*&self->_flags >> 1) & 1))
   {
     v10 = [(NSMapTable *)self->_hostedWindowToLegacyViewServiceSessions objectForKey:window];
     v11 = [[_UIHomeAffordanceObservationRecord alloc] initWithObserver:observer window:window viewServiceSessionIdentifier:v10];
@@ -651,9 +651,9 @@ LABEL_23:
           return;
         }
 
-        v9 = [v6 isEqual:windowCopy];
+        isEqual = objc_msgSend_isEqual_(v6);
 
-        if (!v9)
+        if (!isEqual)
         {
           goto LABEL_23;
         }
@@ -940,9 +940,9 @@ LABEL_20:
 
             if (v9 && v17)
             {
-              v20 = [v17 isEqual:v18];
+              isEqual = objc_msgSend_isEqual_(v17);
 
-              if (v20)
+              if (isEqual)
               {
                 goto LABEL_20;
               }

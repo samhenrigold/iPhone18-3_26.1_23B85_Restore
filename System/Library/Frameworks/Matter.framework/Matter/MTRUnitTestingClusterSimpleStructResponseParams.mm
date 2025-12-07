@@ -61,11 +61,11 @@
     goto LABEL_10;
   }
 
-  [MTRBaseDevice _responseDataForCommand:v6 clusterID:4294048773 commandID:9 error:error];
+  objc_msgSend__responseDataForCommand_clusterID_commandID_error_(MTRBaseDevice);
   if (v21)
   {
     sub_2393C5AAC(v20);
-    sub_2393C5ADC(v20, *(v21 + 1), *(v21 + 3));
+    sub_2393C5ADC(v20, *(v21 + 8), *(v21 + 24));
     v8 = sub_2393C6FD0(v20, 256);
     if (!v8)
     {
@@ -167,11 +167,11 @@ LABEL_6:
     arg19 = [(MTRUnitTestingClusterSimpleStructResponseParams *)self arg1];
     [arg19 setH:v23];
 
-    v26 = *(struct + 56);
-    v25 = struct + 56;
-    if (v26 == 1)
+    v27 = *(struct + 56);
+    v26 = struct + 56;
+    if (v27 == 1)
     {
-      arg111 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:*sub_238DE36D8(v25)];
+      arg111 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:{LOBYTE(sub_238DE36D8(v26, v25)->super.isa)}];
       arg110 = [(MTRUnitTestingClusterSimpleStructResponseParams *)self arg1];
       [arg110 setI:arg111];
     }
@@ -182,19 +182,19 @@ LABEL_6:
       [arg111 setI:0];
     }
 
+    v31 = 0;
     v30 = 0;
-    v29 = 0;
   }
 
   else
   {
-    v29 = 0xB6190000002FLL;
-    v30 = "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/zap-generated/MTRCommandPayloadsObjc.mm";
+    v30 = 0xB6190000002FLL;
+    v31 = "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/zap-generated/MTRCommandPayloadsObjc.mm";
   }
 
-  result.mFile = v30;
-  result.mError = v29;
-  result.mLine = HIDWORD(v29);
+  result.mFile = v31;
+  result.mError = v30;
+  result.mLine = HIDWORD(v30);
   return result;
 }
 

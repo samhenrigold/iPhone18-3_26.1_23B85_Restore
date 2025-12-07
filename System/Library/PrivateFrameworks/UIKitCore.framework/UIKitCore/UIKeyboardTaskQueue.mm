@@ -219,12 +219,12 @@ LABEL_8:
           v9 = _UIKeyboardTaskQueueLog();
           if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
           {
-            activeOriginator = [(UIKeyboardTaskQueue *)self activeOriginator];
+            v12 = objc_msgSend_activeOriginator(self);
             v13 = @"No stack!";
-            if (activeOriginator)
+            if (v12)
             {
-              activeOriginator2 = [(UIKeyboardTaskQueue *)self activeOriginator];
-              v14 = [activeOriginator2 description];
+              v15 = objc_msgSend_activeOriginator(self);
+              v14 = [v15 description];
               v13 = v14;
             }
 
@@ -233,7 +233,7 @@ LABEL_8:
             v18 = 2112;
             v19 = v13;
             _os_log_fault_impl(&dword_188A29000, v9, OS_LOG_TYPE_FAULT, "%s Keyboard queue task timeout detected\n\nLast Exception Backtrace:\n%@", buf, 0x16u);
-            if (activeOriginator)
+            if (v12)
             {
             }
           }

@@ -55,7 +55,7 @@
 
 - (void)_didReceiveEvent:(void *)event topic:
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   v5 = a2;
   eventCopy = event;
   if (self)
@@ -69,11 +69,11 @@
     {
       v12 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v43 = v12;
-      v44 = 2112;
-      v45 = v5;
-      v46 = 2112;
-      v47 = eventCopy;
+      v42 = v12;
+      v43 = 2112;
+      v44 = v5;
+      v45 = 2112;
+      v46 = eventCopy;
       _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_DEBUG, "%{public}@Received event:%@ for topic:%@", buf, 0x20u);
     }
 
@@ -81,7 +81,7 @@
     v13 = HMImmutableSettingChangeEventComponentsFromTopic();
     v14 = 0;
     v15 = 0;
-    v40 = 0;
+    v39 = 0;
     if (!v13)
     {
       v24 = objc_autoreleasePoolPush();
@@ -91,13 +91,13 @@
       {
         v27 = HMFGetLogIdentifier();
         *buf = 138544130;
-        v43 = v27;
-        v44 = 2112;
-        v45 = v5;
-        v46 = 2112;
-        v47 = v14;
-        v48 = 2112;
-        v49 = v15;
+        v42 = v27;
+        v43 = 2112;
+        v44 = v5;
+        v45 = 2112;
+        v46 = v14;
+        v47 = 2112;
+        v48 = v15;
         _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_ERROR, "%{public}@Received unknown event: %@ home: %@ target: %@", buf, 0x2Au);
       }
 
@@ -106,12 +106,12 @@
     }
 
     v16 = v5;
-    v37 = v14;
-    v38 = v16;
-    v39 = v15;
-    v41 = 0;
-    v17 = [MEMORY[0x277CD1AD8] decodeSettingFromEvent:v16 error:&v41];
-    v19 = v41;
+    v36 = v14;
+    v37 = v16;
+    v38 = v15;
+    v40 = 0;
+    v17 = [MEMORY[0x277CD1AD8] decodeSettingFromEvent:v16 error:&v40];
+    v19 = v40;
     if (v19)
     {
       v20 = objc_autoreleasePoolPush();
@@ -121,11 +121,11 @@
       {
         v23 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v43 = v23;
-        v44 = 2112;
-        v45 = v38;
-        v46 = 2112;
-        v47 = v19;
+        v42 = v23;
+        v43 = 2112;
+        v44 = v37;
+        v45 = 2112;
+        v46 = v19;
         _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_ERROR, "%{public}@Decode setting failed. event:%@ error:%@", buf, 0x20u);
       }
     }
@@ -141,12 +141,12 @@
         os_unfair_lock_lock_with_options();
         v31 = *&selfCopy[4]._os_unfair_lock_opaque;
         keyPath2 = [v17 keyPath];
-        v33 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.%@", v39, keyPath2, v37];
+        v33 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.%@", v38, keyPath2, v36];
         [v31 setObject:v17 forKeyedSubscript:v33];
 
         os_unfair_lock_unlock(selfCopy + 2);
         delegate = [(os_unfair_lock_s *)selfCopy delegate];
-        [delegate didReceiveAccessorySetting:v17 accessoryUUID:v39];
+        [delegate didReceiveAccessorySetting:v17 accessoryUUID:v38];
 
 LABEL_17:
 LABEL_18:
@@ -161,9 +161,9 @@ LABEL_18:
       {
         v35 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v43 = v35;
-        v44 = 2112;
-        v45 = v17;
+        v42 = v35;
+        v43 = 2112;
+        v44 = v17;
         _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_ERROR, "%{public}@Unknown keyPath for setting:%@", buf, 0x16u);
       }
     }
@@ -173,8 +173,6 @@ LABEL_18:
   }
 
 LABEL_19:
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didReceiveEvent:(id)event topic:(id)topic
@@ -239,7 +237,7 @@ LABEL_19:
 
 void __68__HMDFetchedAccessorySettingsSubscriber_unsubscribeToAllAccessories__block_invoke(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -266,20 +264,20 @@ void __68__HMDFetchedAccessorySettingsSubscriber_unsubscribeToAllAccessories__bl
         Property = 0;
       }
 
-      v22 = 138544130;
-      v23 = v9;
-      v24 = 2112;
-      v25 = Property;
-      v26 = 2112;
-      v27 = v10;
-      v28 = 2112;
-      v29 = v3;
+      v21 = 138544130;
+      v22 = v9;
+      v23 = 2112;
+      v24 = Property;
+      v25 = 2112;
+      v26 = v10;
+      v27 = 2112;
+      v28 = v3;
       v13 = "%{public}@Failed to unsubscribe to keyPaths:%@ homeUUID:%@ for all accessories with error:%@";
       v14 = v7;
       v15 = OS_LOG_TYPE_ERROR;
       v16 = 42;
 LABEL_12:
-      _os_log_impl(&dword_229538000, v14, v15, v13, &v22, v16);
+      _os_log_impl(&dword_229538000, v14, v15, v13, &v21, v16);
     }
   }
 
@@ -302,12 +300,12 @@ LABEL_12:
       v20 = 0;
     }
 
-    v22 = 138543874;
-    v23 = v9;
-    v24 = 2112;
-    v25 = v20;
-    v26 = 2112;
-    v27 = v18;
+    v21 = 138543874;
+    v22 = v9;
+    v23 = 2112;
+    v24 = v20;
+    v25 = 2112;
+    v26 = v18;
     v13 = "%{public}@Unsubscribed to keyPaths:%@ homeUUID:%@ for all accessories";
     v14 = v7;
     v15 = OS_LOG_TYPE_INFO;
@@ -316,7 +314,6 @@ LABEL_12:
   }
 
   objc_autoreleasePoolPop(v4);
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unsubscribeForAccessory:(id)accessory
@@ -373,7 +370,7 @@ LABEL_12:
 
 void __65__HMDFetchedAccessorySettingsSubscriber_unsubscribeForAccessory___block_invoke(uint64_t a1, void *a2)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -402,22 +399,22 @@ void __65__HMDFetchedAccessorySettingsSubscriber_unsubscribeForAccessory___block
         v13 = *(a1 + 40);
       }
 
-      v24 = 138544386;
-      v25 = v9;
-      v26 = 2112;
-      v27 = Property;
-      v28 = 2112;
-      v29 = v13;
-      v30 = 2112;
-      v31 = v10;
-      v32 = 2112;
-      v33 = v3;
+      v23 = 138544386;
+      v24 = v9;
+      v25 = 2112;
+      v26 = Property;
+      v27 = 2112;
+      v28 = v13;
+      v29 = 2112;
+      v30 = v10;
+      v31 = 2112;
+      v32 = v3;
       v14 = "%{public}@Failed to unsubscribe to keyPaths:%@ accessories:%@ homeUUID:%@ with error:%@";
       v15 = v7;
       v16 = OS_LOG_TYPE_ERROR;
       v17 = 52;
 LABEL_12:
-      _os_log_impl(&dword_229538000, v15, v16, v14, &v24, v17);
+      _os_log_impl(&dword_229538000, v15, v16, v14, &v23, v17);
     }
   }
 
@@ -442,14 +439,14 @@ LABEL_12:
       v22 = *(a1 + 40);
     }
 
-    v24 = 138544130;
-    v25 = v9;
-    v26 = 2112;
-    v27 = v21;
-    v28 = 2112;
-    v29 = v22;
-    v30 = 2112;
-    v31 = v19;
+    v23 = 138544130;
+    v24 = v9;
+    v25 = 2112;
+    v26 = v21;
+    v27 = 2112;
+    v28 = v22;
+    v29 = 2112;
+    v30 = v19;
     v14 = "%{public}@Unsubscribed to keyPaths:%@ accessories:%@ homeUUID:%@";
     v15 = v7;
     v16 = OS_LOG_TYPE_INFO;
@@ -458,14 +455,6 @@ LABEL_12:
   }
 
   objc_autoreleasePoolPop(v4);
-  v23 = *MEMORY[0x277D85DE8];
-}
-
-void __82__HMDFetchedAccessorySettingsSubscriber_topicsForKeyPaths_accessoryUUID_homeUUID___block_invoke(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  v1 = *(a1 + 40);
-  JUMPOUT(0x22AAD2730);
 }
 
 - (void)subscribeToSettingsForAccessoryUUIDs:(id)ds
@@ -530,7 +519,7 @@ id __78__HMDFetchedAccessorySettingsSubscriber_subscribeToSettingsForAccessoryUU
 
 void __78__HMDFetchedAccessorySettingsSubscriber_subscribeToSettingsForAccessoryUUIDs___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -561,15 +550,15 @@ void __78__HMDFetchedAccessorySettingsSubscriber_subscribeToSettingsForAccessory
       }
 
       *buf = 138544386;
-      v29 = v12;
-      v30 = 2112;
-      v31 = Property;
-      v32 = 2112;
-      v33 = v16;
-      v34 = 2112;
-      v35 = v13;
-      v36 = 2112;
-      v37 = v6;
+      v28 = v12;
+      v29 = 2112;
+      v30 = Property;
+      v31 = 2112;
+      v32 = v16;
+      v33 = 2112;
+      v34 = v13;
+      v35 = 2112;
+      v36 = v6;
       v17 = "%{public}@Failed to subscribe to keyPaths:%@ accessories:%@ homeUUID:%@ with error:%@";
       v18 = v10;
       v19 = OS_LOG_TYPE_ERROR;
@@ -601,13 +590,13 @@ LABEL_12:
     }
 
     *buf = 138544130;
-    v29 = v12;
-    v30 = 2112;
-    v31 = v24;
-    v32 = 2112;
-    v33 = v25;
-    v34 = 2112;
-    v35 = v22;
+    v28 = v12;
+    v29 = 2112;
+    v30 = v24;
+    v31 = 2112;
+    v32 = v25;
+    v33 = 2112;
+    v34 = v22;
     v17 = "%{public}@Subscribed to keyPaths:%@ accessories:%@ homeUUID:%@";
     v18 = v10;
     v19 = OS_LOG_TYPE_INFO;
@@ -616,14 +605,12 @@ LABEL_12:
   }
 
   objc_autoreleasePoolPop(v7);
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __78__HMDFetchedAccessorySettingsSubscriber_subscribeToSettingsForAccessoryUUIDs___block_invoke_1;
-  v27[3] = &unk_278688EF8;
-  v27[4] = *(a1 + 32);
-  [v5 hmf_enumerateKeysAndObjectsWithAutoreleasePoolUsingBlock:v27];
-
-  v26 = *MEMORY[0x277D85DE8];
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __78__HMDFetchedAccessorySettingsSubscriber_subscribeToSettingsForAccessoryUUIDs___block_invoke_1;
+  v26[3] = &unk_278688EF8;
+  v26[4] = *(a1 + 32);
+  [v5 hmf_enumerateKeysAndObjectsWithAutoreleasePoolUsingBlock:v26];
 }
 
 - (void)setDelegate:(id)delegate
@@ -663,11 +650,11 @@ LABEL_12:
     cachedSettings = v16->_cachedSettings;
     v16->_cachedSettings = v17;
 
-    v19 = [pathsCopy copy];
+    v19 = objc_msgSend_copy(pathsCopy);
     keyPaths = v16->_keyPaths;
     v16->_keyPaths = v19;
 
-    v21 = [dCopy copy];
+    v21 = objc_msgSend_copy(dCopy);
     homeUUID = v16->_homeUUID;
     v16->_homeUUID = v21;
   }
@@ -689,10 +676,9 @@ LABEL_12:
 
 void __52__HMDFetchedAccessorySettingsSubscriber_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v15_186615;
-  logCategory__hmf_once_v15_186615 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v15_186615;
+  logCategory__hmf_once_v15_186615 = v0;
 }
 
 @end

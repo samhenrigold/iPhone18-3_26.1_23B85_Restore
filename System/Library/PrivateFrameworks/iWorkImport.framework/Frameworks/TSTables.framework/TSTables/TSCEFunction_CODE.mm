@@ -7,40 +7,40 @@
 + (id)evaluateForArgsWithContext:(id)context functionSpec:(id)spec arguments:(const void *)arguments
 {
   v7 = **arguments;
-  v45 = 0;
-  v9 = objc_msgSend_asString_functionSpec_argumentIndex_outError_(v7, v8, context, spec, 0, &v45);
-  v14 = v45;
-  if (v14)
+  v37 = 0;
+  v9 = objc_msgSend_asString_functionSpec_argumentIndex_outError_(v7, v8, context, spec, 0, &v37);
+  v13 = v37;
+  if (v13)
   {
-    v15 = objc_msgSend_raiseErrorOrConvert_(context, v10, v14, v12, v13);
+    v14 = objc_msgSend_raiseErrorOrConvert_(context, v10, v13, v12);
   }
 
   else
   {
-    if (v9 && objc_msgSend_length(v9, v10, v11, v12, v13))
+    if (v9 && objc_msgSend_length(v9, v10, v11, v12))
     {
-      v16 = sub_22157EFF8(v9, 1);
-      v19 = objc_msgSend_substringWithRange_(v9, v17, 0, v16, v18);
-      v23 = objc_msgSend_dataUsingEncoding_(v19, v20, 2617245952, v21, v22);
-      v24 = v23;
-      objc_msgSend_bytes(v24, v25, v26, v27, v28);
-      objc_msgSend_length(v23, v29, v30, v31, v32);
+      v15 = sub_22157EFF8(v9, 1);
+      v17 = objc_msgSend_substringWithRange_(v9, v16, 0, v15);
+      v20 = objc_msgSend_dataUsingEncoding_(v17, v18, 2617245952, v19);
+      v21 = v20;
+      objc_msgSend_bytes(v21, v22, v23, v24);
+      objc_msgSend_length(v20, v25, v26, v27);
       TSUDecimal::operator=();
-      TSCEFormat::TSCEFormat(v43, 256);
-      v41 = objc_msgSend_numberWithDecimal_format_(TSCENumberValue, v39, v44, v43, v40);
+      TSCEFormat::TSCEFormat(v35, 256);
+      v33 = objc_msgSend_numberWithDecimal_format_(TSCENumberValue, v32, v36, v35);
     }
 
     else
     {
-      v19 = objc_msgSend_functionName(spec, v10, v11, v12, v13);
-      v23 = objc_msgSend_nonEmptyStringRequiredErrorForFunctionName_(TSCEError, v33, v19, v34, v35);
-      v41 = objc_msgSend_raiseErrorOrConvert_(context, v36, v23, v37, v38);
+      v17 = objc_msgSend_functionName(spec, v10, v11, v12);
+      v20 = objc_msgSend_nonEmptyStringRequiredErrorForFunctionName_(TSCEError, v28, v17, v29);
+      v33 = objc_msgSend_raiseErrorOrConvert_(context, v30, v20, v31);
     }
 
-    v15 = v41;
+    v14 = v33;
   }
 
-  return v15;
+  return v14;
 }
 
 @end

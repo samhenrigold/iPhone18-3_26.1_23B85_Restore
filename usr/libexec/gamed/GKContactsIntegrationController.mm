@@ -561,7 +561,7 @@ LABEL_28:
     v24 = [NSNumber numberWithBool:timerCopy];
     v50 = [NSString stringWithFormat:@"remainingHandlesToUpdate: %@, isAlreadyWaitingOnLimitTimer: %@", v17, v24];
     v63 = v50;
-    v51 = [NSDictionary dictionaryWithObjects:&v63 forKeys:&v62 count:1];
+    v51 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
     *error = [NSError errorWithDomain:v49 code:4 userInfo:v51];
 
     v46 = 0;
@@ -2207,7 +2207,7 @@ LABEL_31:
     v46 = 0u;
     v38 = representationCopy;
     v10 = representationCopy;
-    v11 = [v10 countByEnumeratingWithState:&v43 objects:v50 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v43 objects:v54 count:16];
     if (v11)
     {
       v12 = v11;
@@ -2238,7 +2238,7 @@ LABEL_31:
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v43 objects:v50 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v43 objects:v54 count:16];
       }
 
       while (v12);
@@ -2261,15 +2261,15 @@ LABEL_31:
       v25 = [NSPredicate predicateWithFormat:@"contactAssociationID != nil && contactAssociationID in %@", v40];
       [v24 setPredicate:v25];
 
-      v48[0] = @"contactAssociationID";
+      v48 = @"contactAssociationID";
       v26 = [NSExpression expressionForConstantValue:0];
-      v49[0] = v26;
-      v49[1] = &off_1003827F0;
-      v48[1] = @"cohort";
-      v48[2] = @"timeStamp";
+      v51 = v26;
+      v52 = &off_1003827F0;
+      v49 = @"cohort";
+      v50 = @"timeStamp";
       v27 = +[NSDate date];
-      v49[2] = v27;
-      v28 = [NSDictionary dictionaryWithObjects:v49 forKeys:v48 count:3];
+      v53 = v27;
+      v28 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
       [v24 setPropertiesToUpdate:v28];
 
       v42 = 0;

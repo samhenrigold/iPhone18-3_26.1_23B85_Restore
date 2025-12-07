@@ -54,7 +54,7 @@
   }
 
   selfCopy = self;
-  sub_100018944();
+  sub_100018944(selfCopy, v3);
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator

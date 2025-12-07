@@ -48,7 +48,7 @@ uint64_t __83__PXTilingLayoutInvalidationContext_enumerateInvalidatedTileIdentif
   v15 = 0u;
   if (a2)
   {
-    [a2 PXTileIdentifierValue];
+    objc_msgSend_PXTileIdentifierValue(a2);
   }
 
   v10 = *(a1 + 32);

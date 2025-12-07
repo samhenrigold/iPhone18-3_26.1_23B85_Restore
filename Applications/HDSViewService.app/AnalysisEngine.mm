@@ -157,7 +157,7 @@
   recognizer = self->_recognizer;
   if (recognizer)
   {
-    [(Recognizer *)recognizer lastProcessedImageTime];
+    objc_msgSend_lastProcessedImageTime(recognizer);
   }
 
   else
@@ -179,11 +179,11 @@
   v7 = self->_recognizer;
   if (v7)
   {
-    [(Recognizer *)v7 recognitionTime];
+    objc_msgSend_recognitionTime(v7);
     v8 = self->_recognizer;
     if (v8)
     {
-      [(Recognizer *)v8 lastProcessedImageTime];
+      objc_msgSend_lastProcessedImageTime(v8);
       goto LABEL_13;
     }
   }
@@ -236,7 +236,7 @@ LABEL_15:
   recognizer = self->_recognizer;
   if (recognizer)
   {
-    [(Recognizer *)recognizer recognitionTime];
+    objc_msgSend_recognitionTime(recognizer);
   }
 
   else

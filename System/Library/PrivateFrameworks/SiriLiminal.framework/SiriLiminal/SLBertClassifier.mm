@@ -14,7 +14,7 @@
 
 - (id)_wordPieceTokenizer:(id)tokenizer
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   tokenizerCopy = tokenizer;
   array = [MEMORY[0x277CBEB18] array];
   [array addObject:@"[CLS]"];
@@ -25,35 +25,35 @@
   }
 
   whitespaceCharacterSet = [MEMORY[0x277CCA900] whitespaceCharacterSet];
-  v22 = tokenizerCopy;
+  v21 = tokenizerCopy;
   v7 = [tokenizerCopy componentsSeparatedByCharactersInSet:whitespaceCharacterSet];
 
   v8 = [(SLBertClassifier *)self _splitOnPunctuation:v7];
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   obj = v8;
-  v9 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v9 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v28;
-    v23 = *v28;
-    v24 = array;
+    v11 = *v27;
+    v22 = *v27;
+    v23 = array;
     do
     {
       v12 = 0;
-      v25 = v10;
+      v24 = v10;
       do
       {
-        if (*v28 != v11)
+        if (*v27 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v27 + 1) + 8 * v12);
+        v13 = *(*(&v26 + 1) + 8 * v12);
         if ([v13 length] <= self->_maxInputCharsPerWord)
         {
           array2 = [MEMORY[0x277CBEB18] array];
@@ -107,19 +107,19 @@
             }
 
 LABEL_22:
-            array = v24;
-            [v24 addObject:self->_unkToken];
+            array = v23;
+            [v23 addObject:self->_unkToken];
           }
 
           else
           {
 LABEL_21:
-            array = v24;
-            [v24 addObjectsFromArray:array2];
+            array = v23;
+            [v23 addObjectsFromArray:array2];
           }
 
-          v11 = v23;
-          v10 = v25;
+          v11 = v22;
+          v10 = v24;
         }
 
         else
@@ -131,43 +131,42 @@ LABEL_21:
       }
 
       while (v12 != v10);
-      v10 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v10 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
     while (v10);
   }
 
   [array addObject:@"[SEP]"];
-  v20 = *MEMORY[0x277D85DE8];
 
   return array;
 }
 
 - (id)_splitOnPunctuation:(id)punctuation
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   punctuationCopy = punctuation;
   array = [MEMORY[0x277CBEB18] array];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   obj = punctuationCopy;
-  v6 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v6 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v21;
+    v8 = *v20;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v21 != v8)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v20 + 1) + 8 * i);
+        v10 = *(*(&v19 + 1) + 8 * i);
         if ([v10 length])
         {
           v11 = 0;
@@ -213,13 +212,11 @@ LABEL_18:
         ;
       }
 
-      v7 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v7 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v7);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -237,40 +234,40 @@ LABEL_18:
 
 - (id)_createInputIdsAndRunModel:(id)model
 {
-  v61[2] = *MEMORY[0x277D85DE8];
+  v60[2] = *MEMORY[0x277D85DE8];
   modelCopy = model;
-  v61[0] = &unk_2878A77A0;
+  v60[0] = &unk_2878A77A0;
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_maxNumTokens];
-  v61[1] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v61 count:2];
+  v60[1] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v60 count:2];
 
-  v54 = 0;
-  v7 = [objc_alloc(MEMORY[0x277CBFF48]) initWithShape:v6 dataType:65568 error:&v54];
-  v8 = v54;
-  v53 = v8;
-  v9 = [objc_alloc(MEMORY[0x277CBFF48]) initWithShape:v6 dataType:65568 error:&v53];
-  v10 = v53;
+  v53 = 0;
+  v7 = [objc_alloc(MEMORY[0x277CBFF48]) initWithShape:v6 dataType:65568 error:&v53];
+  v8 = v53;
+  v52 = v8;
+  v9 = [objc_alloc(MEMORY[0x277CBFF48]) initWithShape:v6 dataType:65568 error:&v52];
+  v10 = v52;
 
-  v52 = v10;
-  v43 = v6;
-  v11 = [objc_alloc(MEMORY[0x277CBFF48]) initWithShape:v6 dataType:65568 error:&v52];
-  v12 = v52;
+  v51 = v10;
+  v42 = v6;
+  v11 = [objc_alloc(MEMORY[0x277CBFF48]) initWithShape:v6 dataType:65568 error:&v51];
+  v12 = v51;
 
-  v47[0] = MEMORY[0x277D85DD0];
-  v47[1] = 3221225472;
-  v47[2] = __47__SLBertClassifier__createInputIdsAndRunModel___block_invoke;
-  v47[3] = &unk_279C0E9E8;
-  v47[4] = self;
+  v46[0] = MEMORY[0x277D85DD0];
+  v46[1] = 3221225472;
+  v46[2] = __47__SLBertClassifier__createInputIdsAndRunModel___block_invoke;
+  v46[3] = &unk_279C0E9E8;
+  v46[4] = self;
   v13 = modelCopy;
-  v48 = v13;
+  v47 = v13;
   v14 = v7;
-  v49 = v14;
+  v48 = v14;
   v15 = v11;
-  v50 = v15;
+  v49 = v15;
   v16 = v9;
-  v51 = v16;
-  [v13 enumerateObjectsUsingBlock:v47];
-  v44 = v13;
+  v50 = v16;
+  [v13 enumerateObjectsUsingBlock:v46];
+  v43 = v13;
   v17 = [v13 count];
   if (v17 < self->_maxNumTokens)
   {
@@ -296,9 +293,9 @@ LABEL_18:
   if (os_log_type_enabled(SLLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v58 = "[SLBertClassifier _createInputIdsAndRunModel:]";
-    v59 = 2112;
-    v60 = v44;
+    v57 = "[SLBertClassifier _createInputIdsAndRunModel:]";
+    v58 = 2112;
+    v59 = v43;
     _os_log_impl(&dword_26754E000, v22, OS_LOG_TYPE_DEFAULT, "%s Tokens: %@", buf, 0x16u);
     v22 = SLLogContextFacilityCoreSpeech;
   }
@@ -306,9 +303,9 @@ LABEL_18:
   if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v58 = "[SLBertClassifier _createInputIdsAndRunModel:]";
-    v59 = 2112;
-    v60 = v14;
+    v57 = "[SLBertClassifier _createInputIdsAndRunModel:]";
+    v58 = 2112;
+    v59 = v14;
     _os_log_impl(&dword_26754E000, v22, OS_LOG_TYPE_DEFAULT, "%s inputIds: %@", buf, 0x16u);
     v22 = SLLogContextFacilityCoreSpeech;
   }
@@ -316,9 +313,9 @@ LABEL_18:
   if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v58 = "[SLBertClassifier _createInputIdsAndRunModel:]";
-    v59 = 2112;
-    v60 = v16;
+    v57 = "[SLBertClassifier _createInputIdsAndRunModel:]";
+    v58 = 2112;
+    v59 = v16;
     _os_log_impl(&dword_26754E000, v22, OS_LOG_TYPE_DEFAULT, "%s attnMask: %@", buf, 0x16u);
   }
 
@@ -326,27 +323,27 @@ LABEL_18:
   [dictionary setObject:v14 forKey:@"minibatch_input_ids"];
   [dictionary setObject:v16 forKey:@"minibatch_attention_mask"];
   [dictionary setObject:v15 forKey:@"minibatch_token_type_ids"];
-  v46 = v12;
-  v38 = dictionary;
-  v24 = [objc_alloc(MEMORY[0x277CBFED0]) initWithDictionary:dictionary error:&v46];
-  v25 = v46;
+  v45 = v12;
+  v37 = dictionary;
+  v24 = [objc_alloc(MEMORY[0x277CBFED0]) initWithDictionary:dictionary error:&v45];
+  v25 = v45;
 
   bertModel = self->_bertModel;
-  v45 = v25;
-  v41 = v24;
-  v27 = [(MLModel *)bertModel predictionFromFeatures:v24 error:&v45];
-  v42 = v45;
+  v44 = v25;
+  v40 = v24;
+  v27 = [(MLModel *)bertModel predictionFromFeatures:v24 error:&v44];
+  v41 = v44;
 
-  v40 = v27;
-  v39 = [v27 featureValueForName:self->_outputNodeName];
-  multiArrayValue = [v39 multiArrayValue];
+  v39 = v27;
+  v38 = [v27 featureValueForName:self->_outputNodeName];
+  multiArrayValue = [v38 multiArrayValue];
   v29 = SLLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(SLLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v58 = "[SLBertClassifier _createInputIdsAndRunModel:]";
-    v59 = 2112;
-    v60 = multiArrayValue;
+    v57 = "[SLBertClassifier _createInputIdsAndRunModel:]";
+    v58 = 2112;
+    v59 = multiArrayValue;
     _os_log_impl(&dword_26754E000, v29, OS_LOG_TYPE_DEFAULT, "%s output: %@", buf, 0x16u);
   }
 
@@ -354,34 +351,32 @@ LABEL_18:
   convert1dMLMultiArrayToNSArray2 = [v16 convert1dMLMultiArrayToNSArray];
   convert1dMLMultiArrayToNSArray3 = [v14 convert1dMLMultiArrayToNSArray];
   convert1dMLMultiArrayToNSArray4 = [v15 convert1dMLMultiArrayToNSArray];
-  v55[0] = @"outputTokens";
-  v55[1] = @"attnMask";
-  v56[0] = v44;
-  v56[1] = convert1dMLMultiArrayToNSArray2;
-  v55[2] = @"inputIds";
-  v55[3] = @"tokenTypeIds";
-  v56[2] = convert1dMLMultiArrayToNSArray3;
-  v56[3] = convert1dMLMultiArrayToNSArray4;
-  v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v56 forKeys:v55 count:4];
+  v54[0] = @"outputTokens";
+  v54[1] = @"attnMask";
+  v55[0] = v43;
+  v55[1] = convert1dMLMultiArrayToNSArray2;
+  v54[2] = @"inputIds";
+  v54[3] = @"tokenTypeIds";
+  v55[2] = convert1dMLMultiArrayToNSArray3;
+  v55[3] = convert1dMLMultiArrayToNSArray4;
+  v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v55 forKeys:v54 count:4];
   v35 = [[SLBertClassifierResult alloc] initWithScore:convert1dMLMultiArrayToNSArray assetVersion:self->_assetVersion extractedFeats:v34];
-
-  v36 = *MEMORY[0x277D85DE8];
 
   return v35;
 }
 
 void __47__SLBertClassifier__createInputIdsAndRunModel___block_invoke(void *a1, uint64_t a2, unint64_t a3, _BYTE *a4)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v7 = [*(a1[4] + 16) indexOfObject:a2];
   if (v7 == 0x7FFFFFFFFFFFFFFFLL)
   {
     v9 = SLLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(SLLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
-      v26 = 136315138;
-      v27 = "[SLBertClassifier _createInputIdsAndRunModel:]_block_invoke";
-      _os_log_impl(&dword_26754E000, v9, OS_LOG_TYPE_DEFAULT, "%s Token not found, using unk token", &v26, 0xCu);
+      v25 = 136315138;
+      v26 = "[SLBertClassifier _createInputIdsAndRunModel:]_block_invoke";
+      _os_log_impl(&dword_26754E000, v9, OS_LOG_TYPE_DEFAULT, "%s Token not found, using unk token", &v25, 0xCu);
     }
 
     v7 = [*(a1[4] + 16) indexOfObject:*(a1[4] + 24)];
@@ -412,13 +407,13 @@ void __47__SLBertClassifier__createInputIdsAndRunModel___block_invoke(void *a1, 
       v22 = v20;
       v23 = [v21 count];
       v24 = *(a1[4] + 40);
-      v26 = 136315650;
-      v27 = "[SLBertClassifier _createInputIdsAndRunModel:]_block_invoke";
-      v28 = 2048;
-      v29 = v23;
-      v30 = 2048;
-      v31 = v24;
-      _os_log_impl(&dword_26754E000, v22, OS_LOG_TYPE_DEFAULT, "%s Num Tokens - %lu  exceeded model input length - %lu", &v26, 0x20u);
+      v25 = 136315650;
+      v26 = "[SLBertClassifier _createInputIdsAndRunModel:]_block_invoke";
+      v27 = 2048;
+      v28 = v23;
+      v29 = 2048;
+      v30 = v24;
+      _os_log_impl(&dword_26754E000, v22, OS_LOG_TYPE_DEFAULT, "%s Num Tokens - %lu  exceeded model input length - %lu", &v25, 0x20u);
     }
   }
 
@@ -439,8 +434,6 @@ void __47__SLBertClassifier__createInputIdsAndRunModel___block_invoke(void *a1, 
     v19 = [MEMORY[0x277CCABB0] numberWithFloat:v18];
     [v17 setObject:v19 atIndexedSubscript:a3];
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_normalizeText:(id)text
@@ -521,12 +514,12 @@ void __35__SLBertClassifier__normalizeText___block_invoke(uint64_t a1, void *a2,
 
 - (SLBertClassifier)initWithConfig:(id)config error:(id *)error locale:(id)locale
 {
-  v74[1] = *MEMORY[0x277D85DE8];
+  v73[1] = *MEMORY[0x277D85DE8];
   configCopy = config;
   localeCopy = locale;
-  v62.receiver = self;
-  v62.super_class = SLBertClassifier;
-  v10 = [(SLBertClassifier *)&v62 init];
+  v61.receiver = self;
+  v61.super_class = SLBertClassifier;
+  v10 = [(SLBertClassifier *)&v61 init];
   if (!v10)
   {
     goto LABEL_42;
@@ -542,9 +535,9 @@ void __35__SLBertClassifier__normalizeText___block_invoke(uint64_t a1, void *a2,
   {
     v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"Missing config for Bert Classifier %@", 0];
     v24 = MEMORY[0x277CCA9B8];
-    v73 = @"reason";
-    v74[0] = v23;
-    v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v74 forKeys:&v73 count:1];
+    v72 = @"reason";
+    v73[0] = v23;
+    v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v73 forKeys:&v72 count:1];
     v14 = [v24 errorWithDomain:@"com.apple.sl" code:108 userInfo:v25];
 
     if (v14)
@@ -559,25 +552,13 @@ void __35__SLBertClassifier__normalizeText___block_invoke(uint64_t a1, void *a2,
     }
   }
 
-  if ([localeCopy containsString:@"en"])
+  if (([localeCopy containsString:@"en"] & 1) != 0 || (v12 = MEMORY[0x277CCA9B8], v70 = @"reason", v71 = @"Non en locales supported yet", objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", &v71, &v70, 1), v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "errorWithDomain:code:userInfo:", @"com.apple.sl", 110, v13), v14 = objc_claimAutoreleasedReturnValue(), v13, !v14))
   {
-    goto LABEL_9;
-  }
-
-  v12 = MEMORY[0x277CCA9B8];
-  v71 = @"reason";
-  v72 = @"Non en locales supported yet";
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v72 forKeys:&v71 count:1];
-  v14 = [v12 errorWithDomain:@"com.apple.sl" code:110 userInfo:v13];
-
-  if (!v14)
-  {
-LABEL_9:
     stringByDeletingLastPathComponent = [configCopy stringByDeletingLastPathComponent];
     v17 = [v11 objectForKeyedSubscript:@"vocabFile"];
     v18 = [stringByDeletingLastPathComponent stringByAppendingPathComponent:v17];
 
-    v60 = v18;
+    v59 = v18;
     [(SLBertClassifier *)v10 _readVocabFromFile:v18];
     v19 = [v11 objectForKeyedSubscript:@"unkToken"];
     unkToken = v10->_unkToken;
@@ -631,9 +612,9 @@ LABEL_9:
     {
       v36 = [MEMORY[0x277CCACA8] stringWithFormat:@"Missing output name for Bert Classifier %@", v11];
       v37 = MEMORY[0x277CCA9B8];
-      v69 = @"reason";
-      v70 = v36;
-      v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v70 forKeys:&v69 count:1];
+      v68 = @"reason";
+      v69 = v36;
+      v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v69 forKeys:&v68 count:1];
       v39 = [v37 errorWithDomain:@"com.apple.sl" code:108 userInfo:v38];
 
       if (v39)
@@ -664,15 +645,15 @@ LABEL_9:
     v10->_truncationTokenList = v35;
 
     v42 = [v11 objectForKeyedSubscript:@"modelFile"];
-    v59 = stringByDeletingLastPathComponent;
+    v58 = stringByDeletingLastPathComponent;
     v43 = [stringByDeletingLastPathComponent stringByAppendingPathComponent:v42];
 
     v44 = [MEMORY[0x277CBEBC0] fileURLWithPath:v43];
     v45 = objc_alloc_init(MEMORY[0x277CBFF38]);
     [v45 setComputeUnits:0];
-    v61 = 0;
-    v46 = [MEMORY[0x277CBFF20] modelWithContentsOfURL:v44 configuration:v45 error:&v61];
-    v47 = v61;
+    v60 = 0;
+    v46 = [MEMORY[0x277CBFF20] modelWithContentsOfURL:v44 configuration:v45 error:&v60];
+    v47 = v60;
     bertModel = v10->_bertModel;
     v10->_bertModel = v46;
 
@@ -695,11 +676,11 @@ LABEL_9:
         v53 = [(NSArray *)vocab count];
         v54 = v10->_unkToken;
         *buf = 136315650;
-        v64 = "[SLBertClassifier initWithConfig:error:locale:]";
-        v65 = 2048;
-        v66 = v53;
-        v67 = 2112;
-        v68 = v54;
+        v63 = "[SLBertClassifier initWithConfig:error:locale:]";
+        v64 = 2048;
+        v65 = v53;
+        v66 = 2112;
+        v67 = v54;
         _os_log_impl(&dword_26754E000, v52, OS_LOG_TYPE_DEFAULT, "%s VocabList size: %lu UnkToken %@", buf, 0x20u);
 
         v50 = SLLogContextFacilityCoreSpeech;
@@ -709,9 +690,9 @@ LABEL_9:
       {
         v55 = v10->_truncationTokenList;
         *buf = 136315394;
-        v64 = "[SLBertClassifier initWithConfig:error:locale:]";
-        v65 = 2112;
-        v66 = v55;
+        v63 = "[SLBertClassifier initWithConfig:error:locale:]";
+        v64 = 2112;
+        v65 = v55;
         _os_log_impl(&dword_26754E000, v50, OS_LOG_TYPE_DEFAULT, "%s Truncation list: %@", buf, 0x16u);
       }
     }
@@ -739,7 +720,6 @@ LABEL_41:
   v56 = 0;
 LABEL_43:
 
-  v57 = *MEMORY[0x277D85DE8];
   return v56;
 }
 

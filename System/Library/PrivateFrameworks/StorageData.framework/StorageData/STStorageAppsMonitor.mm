@@ -190,16 +190,16 @@ void __36__STStorageAppsMonitor_startMonitor__block_invoke(uint64_t a1)
 
 - (void)loadApps
 {
-  v114 = *MEMORY[0x277D85DE8];
+  v113 = *MEMORY[0x277D85DE8];
   STLog(1, @"%s", v2, v3, v4, v5, v6, v7, "[STStorageAppsMonitor loadApps]");
   v9 = clock_gettime_nsec_np(_CLOCK_UPTIME_RAW);
   prevApps = [(STStorageAppsMonitor *)self prevApps];
   usageBundles = [(STStorageAppsMonitor *)self usageBundles];
-  v95 = prevApps;
+  v94 = prevApps;
   v12 = [STStorageDataManager updateAppsWithPrevious:prevApps usageBundles:usageBundles skipAppRecordBlock:&__block_literal_global_31];
 
   [(STStorageAppsMonitor *)self setPrevApps:v12];
-  v97 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v12, "count")}];
+  v96 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v12, "count")}];
   v13 = clock_gettime_nsec_np(_CLOCK_UPTIME_RAW);
   [(STMSizer *)self->_appSizer addApps:v12];
   v14 = clock_gettime_nsec_np(_CLOCK_UPTIME_RAW);
@@ -210,29 +210,29 @@ void __36__STStorageAppsMonitor_startMonitor__block_invoke(uint64_t a1)
   selfCopy = self;
   [(STMSizer *)self->_appSizer flushCacheAsynchronously];
   v17 = clock_gettime_nsec_np(_CLOCK_UPTIME_RAW);
+  v105 = 0u;
   v106 = 0u;
   v107 = 0u;
   v108 = 0u;
-  v109 = 0u;
   v18 = v12;
-  v19 = [v18 countByEnumeratingWithState:&v106 objects:v113 count:16];
+  v19 = [v18 countByEnumeratingWithState:&v105 objects:v112 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v107;
+    v21 = *v106;
     do
     {
       for (i = 0; i != v20; ++i)
       {
-        if (*v107 != v21)
+        if (*v106 != v21)
         {
           objc_enumerationMutation(v18);
         }
 
-        [*(*(&v106 + 1) + 8 * i) refreshAppState];
+        [*(*(&v105 + 1) + 8 * i) refreshAppState];
       }
 
-      v20 = [v18 countByEnumeratingWithState:&v106 objects:v113 count:16];
+      v20 = [v18 countByEnumeratingWithState:&v105 objects:v112 count:16];
     }
 
     while (v20);
@@ -251,12 +251,12 @@ void __36__STStorageAppsMonitor_startMonitor__block_invoke(uint64_t a1)
   STLog(1, @"%0.3f secs: update app info", v51, v52, v53, v54, v55, v56, COERCE__INT64((v23 - v17) / 1000000000.0));
   STLog(1, @"%0.3f secs: compute categories", v57, v58, v59, v60, v61, v62, COERCE__INT64((v26 - v23) / 1000000000.0));
   STLog(1, @"%0.3f secs total load time", v63, v64, v65, v66, v67, v68, COERCE__INT64((v26 - v9) / 1000000000.0));
-  v104 = 0u;
-  v105 = 0u;
-  v102 = 0u;
   v103 = 0u;
+  v104 = 0u;
+  v101 = 0u;
+  v102 = 0u;
   v69 = v18;
-  v70 = [v69 countByEnumeratingWithState:&v102 objects:v112 count:16];
+  v70 = [v69 countByEnumeratingWithState:&v101 objects:v111 count:16];
   if (!v70)
   {
     v72 = 0;
@@ -265,17 +265,17 @@ void __36__STStorageAppsMonitor_startMonitor__block_invoke(uint64_t a1)
 
   v71 = v70;
   v72 = 0;
-  v73 = *v103;
+  v73 = *v102;
   do
   {
     for (j = 0; j != v71; ++j)
     {
-      if (*v103 != v73)
+      if (*v102 != v73)
       {
         objc_enumerationMutation(v69);
       }
 
-      v75 = *(*(&v102 + 1) + 8 * j);
+      v75 = *(*(&v101 + 1) + 8 * j);
       appRecord = [v75 appRecord];
       linkedParentApplication = [appRecord linkedParentApplication];
 
@@ -298,8 +298,8 @@ void __36__STStorageAppsMonitor_startMonitor__block_invoke(uint64_t a1)
 
           else
           {
-            v111 = v75;
-            v81 = [MEMORY[0x277CBEA60] arrayWithObjects:&v111 count:1];
+            v110 = v75;
+            v81 = [MEMORY[0x277CBEA60] arrayWithObjects:&v110 count:1];
           }
 
           [(NSDictionary *)v72 setObject:v81 forKey:bundleIdentifier];
@@ -314,38 +314,38 @@ void __36__STStorageAppsMonitor_startMonitor__block_invoke(uint64_t a1)
         }
 
         bundleIdentifier = [v75 appIdentifier];
-        [(NSDictionary *)v97 setObject:v75 forKey:bundleIdentifier];
+        [(NSDictionary *)v96 setObject:v75 forKey:bundleIdentifier];
       }
 
 LABEL_24:
     }
 
-    v71 = [v69 countByEnumeratingWithState:&v102 objects:v112 count:16];
+    v71 = [v69 countByEnumeratingWithState:&v101 objects:v111 count:16];
   }
 
   while (v71);
 LABEL_28:
 
-  v100 = 0u;
-  v101 = 0u;
-  v98 = 0u;
   v99 = 0u;
+  v100 = 0u;
+  v97 = 0u;
+  v98 = 0u;
   v82 = v69;
-  v83 = [v82 countByEnumeratingWithState:&v98 objects:v110 count:16];
+  v83 = [v82 countByEnumeratingWithState:&v97 objects:v109 count:16];
   if (v83)
   {
     v84 = v83;
-    v85 = *v99;
+    v85 = *v98;
     do
     {
       for (k = 0; k != v84; ++k)
       {
-        if (*v99 != v85)
+        if (*v98 != v85)
         {
           objc_enumerationMutation(v82);
         }
 
-        v87 = *(*(&v98 + 1) + 8 * k);
+        v87 = *(*(&v97 + 1) + 8 * k);
         bundleIdentifier2 = [v87 bundleIdentifier];
         if ([bundleIdentifier2 length])
         {
@@ -359,7 +359,7 @@ LABEL_28:
         }
       }
 
-      v84 = [v82 countByEnumeratingWithState:&v98 objects:v110 count:16];
+      v84 = [v82 countByEnumeratingWithState:&v97 objects:v109 count:16];
     }
 
     while (v84);
@@ -367,8 +367,8 @@ LABEL_28:
 
   [(NSLock *)selfCopy->_appsLock lock];
   appsByID = selfCopy->_appsByID;
-  selfCopy->_appsByID = v97;
-  v91 = v97;
+  selfCopy->_appsByID = v96;
+  v91 = v96;
 
   childAppsByParentID = selfCopy->_childAppsByParentID;
   selfCopy->_childAppsByParentID = v72;
@@ -378,8 +378,6 @@ LABEL_28:
   [(NSLock *)selfCopy->_appsLock unlock];
   [(STStorageAppsMonitor *)selfCopy logAppSizes];
   [(STStorageAppsMonitor *)selfCopy notifyAppsChanged];
-
-  v94 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __32__STStorageAppsMonitor_loadApps__block_invoke(uint64_t a1, void *a2)
@@ -446,7 +444,7 @@ void __34__STStorageAppsMonitor_updateApps__block_invoke(uint64_t a1)
 - (void)applicationInstallsDidChange:(id)change
 {
   changeCopy = change;
-  v5 = STSharedSerialQueue();
+  v5 = STSharedSerialQueue(changeCopy);
   v7[0] = MEMORY[0x277D85DD0];
   v7[1] = 3221225472;
   v7[2] = __53__STStorageAppsMonitor_applicationInstallsDidChange___block_invoke;
@@ -459,30 +457,30 @@ void __34__STStorageAppsMonitor_updateApps__block_invoke(uint64_t a1)
 
 void __53__STStorageAppsMonitor_applicationInstallsDidChange___block_invoke(uint64_t a1)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(*(a1 + 32), "count")}];
   [*(*(a1 + 40) + 16) lock];
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v3 = *(a1 + 32);
-  v4 = [v3 countByEnumeratingWithState:&v22 objects:v27 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v21 objects:v26 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v23;
+    v6 = *v22;
     do
     {
       v7 = 0;
       do
       {
-        if (*v23 != v6)
+        if (*v22 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [*(*(&v22 + 1) + 8 * v7) bundleIdentifier];
+        v8 = [*(*(&v21 + 1) + 8 * v7) bundleIdentifier];
         if ([v8 length])
         {
           v9 = [*(*(a1 + 40) + 32) objectForKeyedSubscript:v8];
@@ -496,38 +494,38 @@ void __53__STStorageAppsMonitor_applicationInstallsDidChange___block_invoke(uint
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v22 objects:v27 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v21 objects:v26 count:16];
     }
 
     while (v5);
   }
 
   [*(*(a1 + 40) + 16) unlock];
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v10 = v2;
-  v11 = [v10 countByEnumeratingWithState:&v18 objects:v26 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v17 objects:v25 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v19;
+    v13 = *v18;
     do
     {
       v14 = 0;
       do
       {
-        if (*v19 != v13)
+        if (*v18 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        [*(*(&v18 + 1) + 8 * v14++) refreshAppState];
+        [*(*(&v17 + 1) + 8 * v14++) refreshAppState];
       }
 
       while (v12 != v14);
-      v12 = [v10 countByEnumeratingWithState:&v18 objects:v26 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v17 objects:v25 count:16];
     }
 
     while (v12);
@@ -540,8 +538,6 @@ void __53__STStorageAppsMonitor_applicationInstallsDidChange___block_invoke(uint
   block[3] = &unk_279D1CE88;
   block[4] = *(a1 + 40);
   dispatch_after(v15, MEMORY[0x277D85CD0], block);
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notifyAppsChanged
@@ -552,7 +548,7 @@ void __53__STStorageAppsMonitor_applicationInstallsDidChange___block_invoke(uint
 
 - (id)filteredApps:(id)apps sortedUsingBlock:(id)block
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   appsCopy = apps;
   blockCopy = block;
   apps = [(STStorageAppsMonitor *)self apps];
@@ -563,32 +559,32 @@ void __53__STStorageAppsMonitor_applicationInstallsDidChange___block_invoke(uint
     if (appsCopy)
     {
       v10 = [MEMORY[0x277CBEA60] arrayWithArray:v9];
+      v19 = 0u;
       v20 = 0u;
       v21 = 0u;
       v22 = 0u;
-      v23 = 0u;
-      v11 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (v11)
       {
         v12 = v11;
-        v13 = *v21;
+        v13 = *v20;
         do
         {
           for (i = 0; i != v12; ++i)
           {
-            if (*v21 != v13)
+            if (*v20 != v13)
             {
               objc_enumerationMutation(v10);
             }
 
-            v15 = *(*(&v20 + 1) + 8 * i);
+            v15 = *(*(&v19 + 1) + 8 * i);
             if ((appsCopy[2](appsCopy, v15) & 1) == 0)
             {
               [v9 removeObject:v15];
             }
           }
 
-          v12 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+          v12 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
         }
 
         while (v12);
@@ -617,40 +613,37 @@ void __53__STStorageAppsMonitor_applicationInstallsDidChange___block_invoke(uint
 
 LABEL_18:
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (id)appsSortedBySize
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   [(NSLock *)self->_appsLock lock];
   allValues = [(NSDictionary *)self->_appsByID allValues];
-  selfCopy = self;
   [(NSLock *)self->_appsLock unlock];
-  v32 = [allValues count];
+  v30 = [allValues count];
   v4 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:?];
+  v35 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
-  v40 = 0u;
-  v41 = 0u;
   v5 = allValues;
-  v6 = [v5 countByEnumeratingWithState:&v38 objects:v43 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v35 objects:v40 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v39;
+    v8 = *v36;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v39 != v8)
+        if (*v36 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v38 + 1) + 8 * i);
+        v10 = *(*(&v35 + 1) + 8 * i);
         appSizeIfComputed = [v10 appSizeIfComputed];
         v12 = appSizeIfComputed;
         if (appSizeIfComputed)
@@ -662,13 +655,9 @@ LABEL_18:
           }
 
           v14 = userTotal;
-          if (userTotal <= 0xF423F)
+          if (userTotal <= 0xF423F && (objc_opt_isKindOfClass() & 1) != 0)
           {
-            sharedContainerClass = selfCopy->_sharedContainerClass;
-            if (objc_opt_isKindOfClass())
-            {
-              goto LABEL_16;
-            }
+            goto LABEL_16;
           }
         }
 
@@ -677,72 +666,70 @@ LABEL_18:
           v14 = 0;
         }
 
-        v16 = [MEMORY[0x277CCABB0] numberWithLongLong:v14];
-        v17 = [v4 objectForKey:v16];
-        v18 = v17;
-        if (v17)
+        v15 = [MEMORY[0x277CCABB0] numberWithLongLong:v14];
+        v16 = [v4 objectForKey:v15];
+        v17 = v16;
+        if (v16)
         {
-          [v17 addObject:v10];
+          [v16 addObject:v10];
         }
 
         else
         {
-          v19 = [MEMORY[0x277CBEB18] arrayWithObject:v10];
-          [v4 setObject:v19 forKey:v16];
+          v18 = [MEMORY[0x277CBEB18] arrayWithObject:v10];
+          [v4 setObject:v18 forKey:v15];
         }
 
 LABEL_16:
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v38 objects:v43 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v35 objects:v40 count:16];
     }
 
     while (v7);
   }
 
   allKeys = [v4 allKeys];
-  v21 = [allKeys sortedArrayUsingComparator:&__block_literal_global_66];
+  v20 = [allKeys sortedArrayUsingComparator:&__block_literal_global_66];
 
-  v22 = [MEMORY[0x277CBEB18] arrayWithCapacity:v32];
+  v21 = [MEMORY[0x277CBEB18] arrayWithCapacity:v30];
+  v31 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
-  v36 = 0u;
-  v37 = 0u;
-  v23 = v21;
-  v24 = [v23 countByEnumeratingWithState:&v34 objects:v42 count:16];
-  if (v24)
+  v22 = v20;
+  v23 = [v22 countByEnumeratingWithState:&v31 objects:v39 count:16];
+  if (v23)
   {
-    v25 = v24;
-    v26 = *v35;
+    v24 = v23;
+    v25 = *v32;
     do
     {
-      for (j = 0; j != v25; ++j)
+      for (j = 0; j != v24; ++j)
       {
-        if (*v35 != v26)
+        if (*v32 != v25)
         {
-          objc_enumerationMutation(v23);
+          objc_enumerationMutation(v22);
         }
 
-        v28 = [v4 objectForKey:*(*(&v34 + 1) + 8 * j)];
-        if ([v28 count] >= 2)
+        v27 = [v4 objectForKey:*(*(&v31 + 1) + 8 * j)];
+        if ([v27 count] >= 2)
         {
-          v29 = [v28 sortedArrayUsingComparator:STStorageAppSortByNameBlock];
+          v28 = [v27 sortedArrayUsingComparator:STStorageAppSortByNameBlock];
 
-          v28 = v29;
+          v27 = v28;
         }
 
-        [v22 addObjectsFromArray:v28];
+        [v21 addObjectsFromArray:v27];
       }
 
-      v25 = [v23 countByEnumeratingWithState:&v34 objects:v42 count:16];
+      v24 = [v22 countByEnumeratingWithState:&v31 objects:v39 count:16];
     }
 
-    while (v25);
+    while (v24);
   }
 
-  v30 = *MEMORY[0x277D85DE8];
-
-  return v22;
+  return v21;
 }
 
 uint64_t __40__STStorageAppsMonitor_appsSortedBySize__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -869,12 +856,12 @@ uint64_t __40__STStorageAppsMonitor_appsSortedBySize__block_invoke(uint64_t a1, 
 
 - (id)storageInfoDict
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:8];
   [(STStorageAppsMonitor *)self addTimestampToDict:v3];
-  v22 = v3;
+  v21 = v3;
   [(STStorageAppsMonitor *)self addDeviceInfoToDict:v3];
-  v23 = [MEMORY[0x277CBEB18] arrayWithCapacity:9];
+  v22 = [MEMORY[0x277CBEB18] arrayWithCapacity:9];
   dictionary = [(STSizeDict *)self->_categorySizes dictionary];
   for (i = 0; i != 9; ++i)
   {
@@ -894,74 +881,72 @@ uint64_t __40__STStorageAppsMonitor_appsSortedBySize__block_invoke(uint64_t a1, 
       -[STStorageAppsMonitor addNumber:toDict:forKey:](self, "addNumber:toDict:forKey:", [v8 dynamic], v11, @"dynamic");
       -[STStorageAppsMonitor addNumber:toDict:forKey:](self, "addNumber:toDict:forKey:", [v8 purgeable], v11, @"purgeable");
       [v9 setObject:v11 forKeyedSubscript:@"sizes"];
-      [v23 addObject:v9];
+      [v22 addObject:v9];
     }
   }
 
   apps = [(STStorageAppsMonitor *)self apps];
   v13 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(apps, "count")}];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v14 = apps;
-  v15 = [v14 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v25;
+    v17 = *v24;
     do
     {
       for (j = 0; j != v16; ++j)
       {
-        if (*v25 != v17)
+        if (*v24 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        infoDict = [*(*(&v24 + 1) + 8 * j) infoDict];
+        infoDict = [*(*(&v23 + 1) + 8 * j) infoDict];
         [v13 addObject:infoDict];
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v16);
   }
 
-  [v22 setObject:v23 forKeyedSubscript:@"categories"];
-  [v22 setObject:v13 forKeyedSubscript:@"apps"];
+  [v21 setObject:v22 forKeyedSubscript:@"categories"];
+  [v21 setObject:v13 forKeyedSubscript:@"apps"];
 
-  v20 = *MEMORY[0x277D85DE8];
-
-  return v22;
+  return v21;
 }
 
 - (id)appSizesDict
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   apps = [(STStorageAppsMonitor *)self apps];
   v3 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(apps, "count")}];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v4 = apps;
-  v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * i);
+        v9 = *(*(&v15 + 1) + 8 * i);
         appSize = [v9 appSize];
         userTotal = [appSize userTotal];
 
@@ -973,13 +958,11 @@ uint64_t __40__STStorageAppsMonitor_appsSortedBySize__block_invoke(uint64_t a1, 
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v6);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -1051,9 +1034,9 @@ uint64_t __40__STStorageAppsMonitor_appsSortedBySize__block_invoke(uint64_t a1, 
 
 void __37__STStorageAppsMonitor__logAppSizes___block_invoke(uint64_t a1)
 {
-  v181 = *MEMORY[0x277D85DE8];
-  v174 = [*(a1 + 32) sortedArrayUsingComparator:&__block_literal_global_82];
-  STLog(1, @"Categories", v2, v3, v4, v5, v6, v7, v162);
+  v182 = *MEMORY[0x277D85DE8];
+  v175 = [*(a1 + 32) sortedArrayUsingComparator:&__block_literal_global_82];
+  STLog(1, @"Categories", v2, v3, v4, v5, v6, v7, v163);
   v8 = 0;
   for (i = 0; i != 9; ++i)
   {
@@ -1077,33 +1060,33 @@ void __37__STStorageAppsMonitor__logAppSizes___block_invoke(uint64_t a1)
     }
   }
 
-  STLog(1, @"Application Sizes", v23, v24, v25, v26, v27, v28, v163);
-  v178 = 0u;
+  STLog(1, @"Application Sizes", v23, v24, v25, v26, v27, v28, v164);
   v179 = 0u;
-  v176 = 0u;
+  v180 = 0u;
   v177 = 0u;
-  obj = v174;
-  v171 = [obj countByEnumeratingWithState:&v176 objects:v180 count:16];
-  if (v171)
+  v178 = 0u;
+  obj = v175;
+  v172 = [obj countByEnumeratingWithState:&v177 objects:v181 count:16];
+  if (v172)
   {
-    v173 = 0;
-    v175 = 0;
+    v174 = 0;
+    v176 = 0;
     v29 = 0;
     v30 = 0;
     v31 = 0;
-    v169 = *v177;
+    v170 = *v178;
     do
     {
       v32 = 0;
       v33 = v8;
       do
       {
-        if (*v177 != v169)
+        if (*v178 != v170)
         {
           objc_enumerationMutation(obj);
         }
 
-        v34 = *(*(&v176 + 1) + 8 * v32);
+        v34 = *(*(&v177 + 1) + 8 * v32);
         v35 = [v34 appSize];
         v36 = [v35 userTotal];
 
@@ -1119,10 +1102,10 @@ void __37__STStorageAppsMonitor__logAppSizes___block_invoke(uint64_t a1)
         v31 += v42;
         AppendSizeInfo(v8, @"APP", v42);
         v43 = [v34 dataContainerSize];
-        v44 = v43 + v173;
+        v44 = v43 + v174;
         AppendSizeInfo(v8, @"DAT", v43);
         v45 = [v34 coreMLDataSize];
-        v173 = v44 + v45;
+        v174 = v44 + v45;
         AppendSizeInfo(v8, @"CML", v45);
         v46 = [v34 sharedContainerSize];
         v30 += v46;
@@ -1135,24 +1118,24 @@ void __37__STStorageAppsMonitor__logAppSizes___block_invoke(uint64_t a1)
         v50 = v49 + [v34 assetPurgeableSize];
         AppendSizeInfo(v8, @"PRG", v50);
         v51 = [v34 externalPurgeableSize];
-        v175 += v50 + v51;
+        v176 += v50 + v51;
         AppendSizeInfo(v8, @"EPRG", v51);
         STLog(4, @"%@", v52, v53, v54, v55, v56, v57, v8);
         ++v32;
         v33 = v8;
       }
 
-      while (v171 != v32);
-      v171 = [obj countByEnumeratingWithState:&v176 objects:v180 count:16];
+      while (v172 != v32);
+      v172 = [obj countByEnumeratingWithState:&v177 objects:v181 count:16];
     }
 
-    while (v171);
+    while (v172);
   }
 
   else
   {
-    v173 = 0;
-    v175 = 0;
+    v174 = 0;
+    v176 = 0;
     v29 = 0;
     v30 = 0;
     v31 = 0;
@@ -1162,13 +1145,13 @@ void __37__STStorageAppsMonitor__logAppSizes___block_invoke(uint64_t a1)
   v59 = [v58 dynamic];
   v60 = [v58 purgeable];
   v61 = MEMORY[0x277CCAB68];
-  v172 = v58;
+  v173 = v58;
   v62 = STFormattedSize([v58 userTotal]);
   v63 = [v61 stringWithFormat:@"%@: PluginKit", v62];
 
   AppendSizeInfo(v63, @"DAT", v59);
   AppendSizeInfo(v63, @"PRG", v60);
-  v170 = v63;
+  v171 = v63;
   STLog(4, @"%@", v64, v65, v66, v67, v68, v69, v63);
   v70 = STSizeOfPath(@"/var/mobile/Library/Logs");
   v71 = [v70 longLongValue];
@@ -1186,12 +1169,12 @@ void __37__STStorageAppsMonitor__logAppSizes___block_invoke(uint64_t a1)
   v79 = [v78 longLongValue];
   v80 = STSizeOfPath(@"/var/wireless/Library/Logs");
 
-  v167 = v80;
+  v168 = v80;
   v81 = v77 + v79 + [v80 longLongValue];
   v82 = +[STStorageCacheDelete sharedMonitor];
   v83 = [v82 cacheDeleteDict];
 
-  v166 = v83;
+  v167 = v83;
   v84 = [v83 objectForKey:@"CACHE_DELETE_ITEMIZED_NONPURGEABLE"];
   v85 = [v84 objectForKey:@"com.apple.logd.cachedelete"];
   v86 = v81 + [v85 longLongValue];
@@ -1202,8 +1185,8 @@ void __37__STStorageAppsMonitor__logAppSizes___block_invoke(uint64_t a1)
     STLog(1, @"Logs: %@", v94, v95, v96, v97, v98, v99, v93);
   }
 
-  v100 = v59 + v173;
-  STLog(1, &stru_287C88100, v87, v88, v89, v90, v91, v92, v164);
+  v100 = v59 + v174;
+  STLog(1, &stru_287C88100, v87, v88, v89, v90, v91, v92, v165);
   v101 = STFormattedSize(v31);
   STLog(1, @"Total static: %@", v102, v103, v104, v105, v106, v107, v101);
 
@@ -1216,24 +1199,22 @@ void __37__STStorageAppsMonitor__logAppSizes___block_invoke(uint64_t a1)
   v122 = STFormattedSize(v29);
   STLog(1, @"Total external: %@", v123, v124, v125, v126, v127, v128, v122);
 
-  v129 = STFormattedSize(v60 + v175);
+  v129 = STFormattedSize(v60 + v176);
   STLog(1, @"Total purgeable: %@", v130, v131, v132, v133, v134, v135, v129);
 
-  v136 = STFormattedSize(v30 + v29 + v31 + v100 - (v60 + v175));
+  v136 = STFormattedSize(v30 + v29 + v31 + v100 - (v60 + v176));
   STLog(1, @"User footprint: %@", v137, v138, v139, v140, v141, v142, v136);
 
-  v143 = STSizeOfSystemVolume();
-  v144 = STFormattedSize(v143);
-  STLog(1, @"System disk size: %@", v145, v146, v147, v148, v149, v150, v144);
+  v145 = STSizeOfSystemVolume(v143, v144);
+  v146 = STFormattedSize(v145);
+  STLog(1, @"System disk size: %@", v147, v148, v149, v150, v151, v152, v146);
 
-  v151 = +[STStorageDiskMonitor sharedMonitor];
-  v152 = [v151 storageSpace];
-  v153 = STFormattedSize([v152 usedBytes]);
-  v154 = STFormattedSize([v151 deviceSize]);
-  v165 = STFormattedSize([v152 purgeableBytes]);
-  STLog(1, @"%@ of %@ used on device (%@ total purgeable)", v155, v156, v157, v158, v159, v160, v153);
-
-  v161 = *MEMORY[0x277D85DE8];
+  v153 = +[STStorageDiskMonitor sharedMonitor];
+  v154 = [v153 storageSpace];
+  v155 = STFormattedSize([v154 usedBytes]);
+  v156 = STFormattedSize([v153 deviceSize]);
+  v166 = STFormattedSize([v154 purgeableBytes]);
+  STLog(1, @"%@ of %@ used on device (%@ total purgeable)", v157, v158, v159, v160, v161, v162, v155);
 }
 
 uint64_t __37__STStorageAppsMonitor__logAppSizes___block_invoke_2(uint64_t a1, void *a2, void *a3)

@@ -194,17 +194,7 @@ uint64_t __94__CacheDeleteServiceListener_setPurgeable_purge_cancel_periodic_not
   v11 = [v10 objectForKeyedSubscript:@"CACHE_DELETE_VOLUME"];
   v12 = [CacheDeleteVolume validateVolumeAtPath:v11];
 
-  if (!v12)
-  {
-    goto LABEL_8;
-  }
-
-  [v10 setObject:v12 forKeyedSubscript:@"CACHE_DELETE_VOLUME"];
-  v13 = [infoCopy objectForKeyedSubscript:@"CACHE_DELETE_NO_CACHE"];
-  v14 = evaluateBoolProperty(v13);
-
-  v15 = v14 ? QOS_CLASS_UTILITY : QOS_CLASS_BACKGROUND;
-  if (!-[CacheDeleteServiceListener legacyCallbacks](self, "legacyCallbacks") || (getRootVolume(), v16 = objc_claimAutoreleasedReturnValue(), v17 = [v12 isEqualToString:v16], v16, (v17 & 1) != 0))
+  if (v12 && (([v10 setObject:v12 forKeyedSubscript:@"CACHE_DELETE_VOLUME"], objc_msgSend(infoCopy, "objectForKeyedSubscript:", @"CACHE_DELETE_NO_CACHE"), v13 = objc_claimAutoreleasedReturnValue(), v14 = evaluateBoolProperty(v13), v13, !v14) ? (v15 = QOS_CLASS_BACKGROUND) : (v15 = QOS_CLASS_UTILITY), !-[CacheDeleteServiceListener legacyCallbacks](self, "legacyCallbacks") || (getRootVolume(), v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v12, "isEqualToString:", v16), v16, (v17 & 1) != 0)))
   {
     v20 = MEMORY[0x1E69E9820];
     v21 = 3221225472;
@@ -221,69 +211,64 @@ uint64_t __94__CacheDeleteServiceListener_setPurgeable_purge_cancel_periodic_not
 
   else
   {
-LABEL_8:
     (*(blockCopy + 2))(blockCopy, 0);
   }
 }
 
 void __63__CacheDeleteServiceListener_servicePurgeable_info_replyBlock___block_invoke(uint64_t a1)
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) purgeable];
 
   if (v2)
   {
     v3 = *(a1 + 48);
-    v16 = [*(a1 + 32) purgeable];
-    v4 = (*(v16 + 2))(v16, *(a1 + 56), *(a1 + 40));
+    v14 = [*(a1 + 32) purgeable];
+    v4 = (*(v14 + 2))(v14, *(a1 + 56), *(a1 + 40));
     (*(v3 + 16))(v3, v4);
-
-    v5 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v6 = [*(a1 + 32) callback];
+    v5 = [*(a1 + 32) callback];
 
-    if (v6)
+    if (v5)
     {
-      v7 = [MEMORY[0x1E696AD98] numberWithInt:*(a1 + 56)];
-      [*(a1 + 40) setObject:v7 forKeyedSubscript:@"CACHE_DELETE_URGENCY"];
+      v6 = [MEMORY[0x1E696AD98] numberWithInt:*(a1 + 56)];
+      [*(a1 + 40) setObject:v6 forKeyedSubscript:@"CACHE_DELETE_URGENCY"];
 
-      v18 = @"CACHE_DELETE_PURGEABLE_OPERATION";
-      v19 = *(a1 + 40);
-      v20 = @"CACHE_DELETE_OPERATIONS";
-      v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
-      v21[0] = v8;
-      v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+      v16 = @"CACHE_DELETE_PURGEABLE_OPERATION";
+      v17 = *(a1 + 40);
+      v18 = @"CACHE_DELETE_OPERATIONS";
+      v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
+      v19[0] = v7;
+      v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
 
-      v10 = [*(a1 + 32) callback];
-      v11 = (v10)[2](v10, v9);
+      v9 = [*(a1 + 32) callback];
+      v10 = (v9)[2](v9, v8);
 
-      v12 = *(a1 + 48);
-      v13 = [v11 objectForKeyedSubscript:@"CACHE_DELETE_PURGEABLE_OPERATION"];
-      (*(v12 + 16))(v12, v13);
+      v11 = *(a1 + 48);
+      v12 = [v10 objectForKeyedSubscript:@"CACHE_DELETE_PURGEABLE_OPERATION"];
+      (*(v11 + 16))(v11, v12);
     }
 
     else
     {
-      v14 = CDGetLogHandle("client");
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+      v13 = CDGetLogHandle("client");
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_1BA7F1000, v14, OS_LOG_TYPE_INFO, "purgeable callback is NULL", buf, 2u);
+        _os_log_impl(&dword_1BA7F1000, v13, OS_LOG_TYPE_INFO, "purgeable callback is NULL", buf, 2u);
       }
 
       (*(*(a1 + 48) + 16))();
     }
-
-    v15 = *MEMORY[0x1E69E9840];
   }
 }
 
 - (void)servicePurge:(int)purge info:(id)info replyBlock:(id)block
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   v9 = [info mutableCopy];
   v10 = [v9 objectForKeyedSubscript:@"CACHE_DELETE_VOLUME"];
@@ -308,20 +293,20 @@ void __63__CacheDeleteServiceListener_servicePurgeable_info_replyBlock___block_i
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v30 = unsignedIntValue;
+      v29 = unsignedIntValue;
       _os_log_impl(&dword_1BA7F1000, v17, OS_LOG_TYPE_DEFAULT, "servicePurge QOS: %u", buf, 8u);
     }
 
-    v21 = MEMORY[0x1E69E9820];
-    v22 = 3221225472;
-    v23 = __59__CacheDeleteServiceListener_servicePurge_info_replyBlock___block_invoke;
-    v24 = &unk_1E7F03080;
+    v20 = MEMORY[0x1E69E9820];
+    v21 = 3221225472;
+    v22 = __59__CacheDeleteServiceListener_servicePurge_info_replyBlock___block_invoke;
+    v23 = &unk_1E7F03080;
     selfCopy = self;
-    v26 = v9;
+    v25 = v9;
     purgeCopy = purge;
-    v27 = blockCopy;
-    v18 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, unsignedIntValue, 0, &v21);
-    v19 = [(CacheDeleteServiceListener *)self queue:v21];
+    v26 = blockCopy;
+    v18 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, unsignedIntValue, 0, &v20);
+    v19 = [(CacheDeleteServiceListener *)self queue:v20];
     dispatch_async(v19, v18);
   }
 
@@ -329,62 +314,56 @@ void __63__CacheDeleteServiceListener_servicePurgeable_info_replyBlock___block_i
   {
     (*(blockCopy + 2))(blockCopy, 0);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __59__CacheDeleteServiceListener_servicePurge_info_replyBlock___block_invoke(uint64_t a1)
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) purge];
 
   if (v2)
   {
     v3 = *(a1 + 48);
-    v16 = [*(a1 + 32) purge];
-    v4 = (*(v16 + 2))(v16, *(a1 + 56), *(a1 + 40));
+    v14 = [*(a1 + 32) purge];
+    v4 = (*(v14 + 2))(v14, *(a1 + 56), *(a1 + 40));
     (*(v3 + 16))(v3, v4);
-
-    v5 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v6 = [*(a1 + 32) callback];
+    v5 = [*(a1 + 32) callback];
 
-    if (v6)
+    if (v5)
     {
-      v7 = [MEMORY[0x1E696AD98] numberWithInt:*(a1 + 56)];
-      [*(a1 + 40) setObject:v7 forKeyedSubscript:@"CACHE_DELETE_URGENCY"];
+      v6 = [MEMORY[0x1E696AD98] numberWithInt:*(a1 + 56)];
+      [*(a1 + 40) setObject:v6 forKeyedSubscript:@"CACHE_DELETE_URGENCY"];
 
-      v18 = @"CACHE_DELETE_PURGE_OPERATION";
-      v19 = *(a1 + 40);
-      v20 = @"CACHE_DELETE_OPERATIONS";
-      v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
-      v21[0] = v8;
-      v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+      v16 = @"CACHE_DELETE_PURGE_OPERATION";
+      v17 = *(a1 + 40);
+      v18 = @"CACHE_DELETE_OPERATIONS";
+      v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
+      v19[0] = v7;
+      v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
 
-      v10 = [*(a1 + 32) callback];
-      v11 = (v10)[2](v10, v9);
+      v9 = [*(a1 + 32) callback];
+      v10 = (v9)[2](v9, v8);
 
-      v12 = *(a1 + 48);
-      v13 = [v11 objectForKeyedSubscript:@"CACHE_DELETE_PURGE_OPERATION"];
-      (*(v12 + 16))(v12, v13);
+      v11 = *(a1 + 48);
+      v12 = [v10 objectForKeyedSubscript:@"CACHE_DELETE_PURGE_OPERATION"];
+      (*(v11 + 16))(v11, v12);
     }
 
     else
     {
-      v14 = CDGetLogHandle("client");
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+      v13 = CDGetLogHandle("client");
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_1BA7F1000, v14, OS_LOG_TYPE_INFO, "purge callback is NULL", buf, 2u);
+        _os_log_impl(&dword_1BA7F1000, v13, OS_LOG_TYPE_INFO, "purge callback is NULL", buf, 2u);
       }
 
       (*(*(a1 + 48) + 16))();
     }
-
-    v15 = *MEMORY[0x1E69E9840];
   }
 }
 
@@ -454,7 +433,7 @@ void __59__CacheDeleteServiceListener_servicePurge_info_replyBlock___block_invok
 
 void __62__CacheDeleteServiceListener_servicePeriodic_info_replyBlock___block_invoke(uint64_t a1)
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v24[1] = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) periodic];
 
   v3 = *(a1 + 32);
@@ -469,59 +448,56 @@ void __62__CacheDeleteServiceListener_servicePeriodic_info_replyBlock___block_in
     }
 
     v6 = *(*(a1 + 48) + 16);
-    v7 = *MEMORY[0x1E69E9840];
 
     v6();
   }
 
   else
   {
-    v8 = [v3 callback];
+    v7 = [v3 callback];
 
-    if (v8)
+    if (v7)
     {
-      v9 = [*(a1 + 40) mutableCopy];
-      v10 = [MEMORY[0x1E696AD98] numberWithInt:*(a1 + 56)];
-      [v9 setObject:v10 forKeyedSubscript:@"CACHE_DELETE_URGENCY"];
+      v8 = [*(a1 + 40) mutableCopy];
+      v9 = [MEMORY[0x1E696AD98] numberWithInt:*(a1 + 56)];
+      [v8 setObject:v9 forKeyedSubscript:@"CACHE_DELETE_URGENCY"];
 
-      v24 = v9;
-      v25 = @"CACHE_DELETE_OPERATIONS";
-      v23 = @"CACHE_DELETE_PERIODIC_OPERATION";
-      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
-      v26[0] = v11;
-      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+      v22 = v8;
+      v23 = @"CACHE_DELETE_OPERATIONS";
+      v21 = @"CACHE_DELETE_PERIODIC_OPERATION";
+      v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+      v24[0] = v10;
+      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:&v23 count:1];
 
-      v13 = CDGetLogHandle("client");
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+      v12 = CDGetLogHandle("client");
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
-        v20[0] = 67109378;
-        v20[1] = 229;
-        v21 = 2112;
-        v22 = v12;
-        _os_log_debug_impl(&dword_1BA7F1000, v13, OS_LOG_TYPE_DEBUG, "[%d] FRAMEWORK operation: %@", v20, 0x12u);
+        v18[0] = 67109378;
+        v18[1] = 229;
+        v19 = 2112;
+        v20 = v11;
+        _os_log_debug_impl(&dword_1BA7F1000, v12, OS_LOG_TYPE_DEBUG, "[%d] FRAMEWORK operation: %@", v18, 0x12u);
       }
 
-      v14 = [*(a1 + 32) callback];
-      v15 = (v14)[2](v14, v12);
+      v13 = [*(a1 + 32) callback];
+      v14 = (v13)[2](v13, v11);
 
-      v16 = *(a1 + 48);
-      v17 = [v15 objectForKeyedSubscript:@"CACHE_DELETE_PERIODIC_OPERATION"];
-      (*(v16 + 16))(v16, v17);
+      v15 = *(a1 + 48);
+      v16 = [v14 objectForKeyedSubscript:@"CACHE_DELETE_PERIODIC_OPERATION"];
+      (*(v15 + 16))(v15, v16);
     }
 
     else
     {
-      v18 = CDGetLogHandle("client");
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+      v17 = CDGetLogHandle("client");
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v20[0]) = 0;
-        _os_log_impl(&dword_1BA7F1000, v18, OS_LOG_TYPE_INFO, "periodic callback is NULL", v20, 2u);
+        LOWORD(v18[0]) = 0;
+        _os_log_impl(&dword_1BA7F1000, v17, OS_LOG_TYPE_INFO, "periodic callback is NULL", v18, 2u);
       }
 
       (*(*(a1 + 48) + 16))();
     }
-
-    v19 = *MEMORY[0x1E69E9840];
   }
 }
 
@@ -564,7 +540,7 @@ void __62__CacheDeleteServiceListener_servicePeriodic_info_replyBlock___block_in
 
 uint64_t __55__CacheDeleteServiceListener_serviceNotify_replyBlock___block_invoke(uint64_t a1)
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) notify];
 
   v3 = *(a1 + 32);
@@ -580,21 +556,21 @@ uint64_t __55__CacheDeleteServiceListener_serviceNotify_replyBlock___block_invok
 
     if (v5)
     {
-      v14 = @"CACHE_DELETE_NOTIFICATION_OPERATION";
-      v15 = *(a1 + 40);
-      v16 = @"CACHE_DELETE_OPERATIONS";
-      v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
-      v17[0] = v6;
-      v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+      v13 = @"CACHE_DELETE_NOTIFICATION_OPERATION";
+      v14 = *(a1 + 40);
+      v15 = @"CACHE_DELETE_OPERATIONS";
+      v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
+      v16[0] = v6;
+      v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
 
       v7 = CDGetLogHandle("client");
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
-        v12 = 67109378;
-        LODWORD(v13[0]) = 263;
-        WORD2(v13[0]) = 2112;
-        *(v13 + 6) = v4;
-        _os_log_debug_impl(&dword_1BA7F1000, v7, OS_LOG_TYPE_DEBUG, "[%d] FRAMEWORK operation: %@", &v12, 0x12u);
+        v11 = 67109378;
+        LODWORD(v12[0]) = 263;
+        WORD2(v12[0]) = 2112;
+        *(v12 + 6) = v4;
+        _os_log_debug_impl(&dword_1BA7F1000, v7, OS_LOG_TYPE_DEBUG, "[%d] FRAMEWORK operation: %@", &v11, 0x12u);
       }
 
       v8 = [*(a1 + 32) callback];
@@ -606,17 +582,15 @@ uint64_t __55__CacheDeleteServiceListener_serviceNotify_replyBlock___block_invok
       v4 = CDGetLogHandle("client");
       if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
-        v11 = *(a1 + 40);
-        v12 = 138412290;
-        v13[0] = v11;
-        _os_log_error_impl(&dword_1BA7F1000, v4, OS_LOG_TYPE_ERROR, "notify callback is NULL for %@", &v12, 0xCu);
+        v10 = *(a1 + 40);
+        v11 = 138412290;
+        v12[0] = v10;
+        _os_log_error_impl(&dword_1BA7F1000, v4, OS_LOG_TYPE_ERROR, "notify callback is NULL for %@", &v11, 0xCu);
       }
     }
   }
 
-  result = (*(*(a1 + 48) + 16))();
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 48) + 16))();
 }
 
 - (void)setNotifyCallback:(id)callback

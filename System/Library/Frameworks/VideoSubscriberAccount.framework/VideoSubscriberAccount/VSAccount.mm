@@ -83,7 +83,7 @@ void __25__VSAccount_contentsHash__block_invoke(uint64_t a1, void *a2)
 
 void __25__VSAccount_contentsHash__block_invoke_2(uint64_t a1)
 {
-  v2 = VSErrorLogObject();
+  v2 = VSErrorLogObject(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
   {
     __25__VSAccount_contentsHash__block_invoke_2_cold_1(a1, v2);
@@ -112,8 +112,8 @@ void __25__VSAccount_contentsHash__block_invoke_2(uint64_t a1)
 
     else
     {
-      v9 = VSErrorLogObject();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+      v10 = VSErrorLogObject(v8);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
       {
         [(VSAccount *)self effectiveModificationDate];
       }

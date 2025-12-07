@@ -39,7 +39,7 @@
   [sharedMonitor unregisterObserver:selfCopy];
 
   v6.receiver = selfCopy;
-  v6.super_class = type metadata accessor for NowPlayingLyricsViewController();
+  v6.super_class = type metadata accessor for NowPlayingLyricsViewController(0);
   [(MusicNowPlayingLyricsViewController *)&v6 dealloc];
 }
 
@@ -52,20 +52,20 @@
 - (void)viewDidAppear:(BOOL)appear
 {
   appearCopy = appear;
-  v5 = sub_10010FC20(&qword_101188C20);
-  __chkstk_darwin(v5 - 8);
-  v7 = &v12 - v6;
-  v8 = type metadata accessor for NowPlayingLyricsViewController();
-  v13.receiver = self;
-  v13.super_class = v8;
+  sub_10010FC20(&qword_101188C20, &qword_100EC2030);
+  __chkstk_darwin();
+  v6 = &v11 - v5;
+  v7 = type metadata accessor for NowPlayingLyricsViewController(0);
+  v12.receiver = self;
+  v12.super_class = v7;
   selfCopy = self;
-  [(MusicNowPlayingLyricsViewController *)&v13 viewDidAppear:appearCopy];
+  [(MusicNowPlayingLyricsViewController *)&v12 viewDidAppear:appearCopy];
   Date.init()();
-  v10 = type metadata accessor for Date();
-  (*(*(v10 - 8) + 56))(v7, 0, 1, v10);
-  v11 = OBJC_IVAR___MusicNowPlayingLyricsViewController_lyricsVisibilityStart;
+  v9 = type metadata accessor for Date();
+  (*(*(v9 - 8) + 56))(v6, 0, 1, v9);
+  v10 = OBJC_IVAR___MusicNowPlayingLyricsViewController_lyricsVisibilityStart;
   swift_beginAccess();
-  sub_10006B010(v7, selfCopy + v11, &qword_101188C20);
+  sub_10006B010(v6, selfCopy + v10, &qword_101188C20, &qword_100EC2030);
   swift_endAccess();
 }
 
@@ -73,7 +73,7 @@
 {
   disappearCopy = disappear;
   v7.receiver = self;
-  v7.super_class = type metadata accessor for NowPlayingLyricsViewController();
+  v7.super_class = type metadata accessor for NowPlayingLyricsViewController(0);
   v4 = v7.receiver;
   [(MusicNowPlayingLyricsViewController *)&v7 viewDidDisappear:disappearCopy];
   sub_1002AAA18();
@@ -85,7 +85,7 @@
 - (void)viewDidLayoutSubviews
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for NowPlayingLyricsViewController();
+  v3.super_class = type metadata accessor for NowPlayingLyricsViewController(0);
   v2 = v3.receiver;
   [(MusicNowPlayingLyricsViewController *)&v3 viewDidLayoutSubviews];
   sub_10029F54C();

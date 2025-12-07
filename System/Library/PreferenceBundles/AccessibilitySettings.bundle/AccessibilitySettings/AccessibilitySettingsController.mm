@@ -141,8 +141,7 @@
       objc_copyWeak(&v63, &location);
       [v30 registerUpdateBlock:v62 forRetrieveSelector:"soundDetectionState" withListener:v2];
 
-      [v2 _monitorPencilSupport];
-      v31 = AXAssetAndDataClient();
+      v31 = AXAssetAndDataClient([v2 _monitorPencilSupport]);
       v32 = +[AXAccessQueue mainAccessQueue];
       [v31 sendAsynchronousMessage:&__NSDictionary0__struct withIdentifier:3 targetAccessQueue:v32 completion:0];
 

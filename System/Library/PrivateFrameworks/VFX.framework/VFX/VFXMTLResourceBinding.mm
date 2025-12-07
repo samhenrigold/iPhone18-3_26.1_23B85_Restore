@@ -26,12 +26,12 @@
 
 - (id)description
 {
-  v5 = objc_msgSend_string(MEMORY[0x1E696AD60], a2, v2, v3);
-  v6 = objc_opt_class();
-  v7 = NSStringFromClass(v6);
-  v11 = objc_msgSend_name(self->_binding, v8, v9, v10);
-  objc_msgSend_appendFormat_(v5, v12, @"<%@: %p> %@", v13, v7, self, v11);
-  return v5;
+  v4 = objc_msgSend_string(MEMORY[0x1E696AD60], a2, v2);
+  v5 = objc_opt_class();
+  v6 = NSStringFromClass(v5);
+  v9 = objc_msgSend_name(self->_binding, v7, v8);
+  objc_msgSend_appendFormat_(v4, v10, @"<%@: %p> %@", v6, self, v9);
+  return v4;
 }
 
 - (NSMutableArray)usedResources
@@ -40,7 +40,7 @@
   if (!result)
   {
     v4 = objc_alloc(MEMORY[0x1E695DF70]);
-    result = objc_msgSend_initWithCapacity_(v4, v5, 0, v6);
+    result = objc_msgSend_initWithCapacity_(v4, v5, 0);
     self->_usedResources = result;
   }
 

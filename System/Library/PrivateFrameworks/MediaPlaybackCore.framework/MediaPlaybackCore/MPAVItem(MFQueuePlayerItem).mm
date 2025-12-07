@@ -10,9 +10,9 @@
 - (id)gaplessParameters;
 - (id)userIdentity;
 - (uint64_t)isFullyDownloaded;
-- (uint64_t)reset;
 - (uint64_t)setCurrentItemTransition:()MFQueuePlayerItem;
 - (uint64_t)shouldPerformOverlappingTransitionWith:()MFQueuePlayerItem;
+- (void)reset;
 - (void)setPlaybackStartTimeOverride:()MFQueuePlayerItem;
 @end
 
@@ -227,7 +227,7 @@ LABEL_9:
   return gaplessInfo;
 }
 
-- (uint64_t)reset
+- (void)reset
 {
   result = [self isPreloadedAsset];
   if ((result & 1) == 0)
@@ -343,7 +343,7 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  [v3 currentTime];
+  objc_msgSend_currentTime(v3);
   if ((v13 & 0x100000000) == 0)
   {
 LABEL_10:
@@ -356,7 +356,7 @@ LABEL_11:
   v7 = *&self[v2];
   if (v7)
   {
-    [v7 currentTime];
+    objc_msgSend_currentTime(v7);
   }
 
   else

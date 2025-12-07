@@ -94,7 +94,7 @@
 - (WFActionParameterSummary)parameterSummary
 {
   selfCopy = self;
-  v3 = sub_23DE9EB28();
+  v3 = sub_23DE9EB28(selfCopy);
 
   return v3;
 }
@@ -152,7 +152,7 @@
   propertiesCopy = properties;
   errorCopy = error;
   selfCopy = self;
-  WFAskLLMAction.populateFailedRunEventProperties(_:withRunError:)(propertiesCopy);
+  WFAskLLMAction.populateFailedRunEventProperties(_:withRunError:)(propertiesCopy, errorCopy);
 }
 
 @end

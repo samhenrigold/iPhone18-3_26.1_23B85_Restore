@@ -41,11 +41,11 @@
 {
   eventCopy = event;
   selfCopy = self;
-  objc_sync_enter(selfCopy);
-  v10 = nplog_obj();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  v10 = objc_sync_enter(selfCopy);
+  v11 = nplog_obj(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    sub_ACCC(action, token, v10);
+    sub_ACCC(action, token, v11);
   }
 
   if (action == 1)

@@ -60,7 +60,7 @@
 
 - (NSIndexPath)scrollToIndexPath
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F1E6C80);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F1E6C80, qword_24E3715F0);
   MEMORY[0x28223BE20](v2 - 8);
   v4 = &v8 - v3;
   sub_24E263A58();
@@ -77,7 +77,7 @@
 
 - (void)setScrollToIndexPath:(id)path
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F1E6C80);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F1E6C80, qword_24E3715F0);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v11 - v6;
   if (path)
@@ -137,11 +137,12 @@
 
 - (void)presentLeaderboardsFrom:(id)from request:(id)request gameBundleID:(id)d
 {
-  sub_24E347CF8();
+  v8 = sub_24E347CF8();
+  v10 = v9;
   fromCopy = from;
   requestCopy = request;
   selfCopy = self;
-  sub_24E260928();
+  sub_24E260928(fromCopy, requestCopy, v8, v10);
 }
 
 - (void)presentAchievementsFrom:(id)from request:(id)request gameRecord:(id)record

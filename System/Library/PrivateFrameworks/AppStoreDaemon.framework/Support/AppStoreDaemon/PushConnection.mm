@@ -51,7 +51,7 @@ LABEL_11:
 
   WeakRetained = 0;
 LABEL_12:
-  [WeakRetained pushConnection:self didReceiveRawMessage:{v6, *v12, *&v12[16]}];
+  [WeakRetained pushConnection:self didReceiveRawMessage:{v6, *v12, *&v12[8]}];
 
   sub_1001D4048(PushConnection, v6, 2);
 }

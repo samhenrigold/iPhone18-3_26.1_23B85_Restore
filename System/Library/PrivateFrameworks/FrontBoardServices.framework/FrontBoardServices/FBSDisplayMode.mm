@@ -176,8 +176,8 @@ uint64_t __28__FBSDisplayMode__emptyMode__block_invoke()
   if (check != 3)
   {
     v22 = objc_opt_class();
-    v23 = objc_opt_class();
-    if (scale == -1 || height + 1 < 2 || width + 1 < 2 || v22 != v23)
+    IsValid = objc_opt_class();
+    if (scale == -1 || height + 1 < 2 || width + 1 < 2 || v22 != IsValid)
     {
       goto LABEL_16;
     }
@@ -187,12 +187,12 @@ uint64_t __28__FBSDisplayMode__emptyMode__block_invoke()
       BSFloatIsZero();
     }
 
-    if (override < 0.0 || rate <= 0.0 || !FBSDisplayGamutIsValid(gamut) || !FBSDisplayHDRModeIsValid(hdr) || !FBSDisplayRotationIsValid(rotation))
+    if (override < 0.0 || rate <= 0.0 || (IsValid = FBSDisplayGamutIsValid(gamut), !IsValid) || (IsValid = FBSDisplayHDRModeIsValid(hdr), !IsValid) || (IsValid = FBSDisplayRotationIsValid(rotation), (IsValid & 1) == 0))
     {
 LABEL_16:
       if (check == 2)
       {
-        v25 = FBLogCommon();
+        v25 = FBLogCommon(IsValid);
         if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
         {
           [FBSDisplayMode _initWithWidth:v25 height:? preferredScale:? scaleOverride:? refreshRate:? gamut:? hdr:? rotation:? virtual:? validityCheck:?];

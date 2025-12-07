@@ -473,20 +473,20 @@ LABEL_5:
 LABEL_10:
 }
 
-uint64_t __69__MediaControlsEndpointsManager_getOutputDeviceIsPlaying_completion___block_invoke_28(uint64_t a1)
+uint64_t __69__MediaControlsEndpointsManager_getOutputDeviceIsPlaying_completion___block_invoke_28(uint64_t a1, uint64_t a2)
 {
   MRMediaRemotePlaybackStateIsAdvancing();
-  v2 = *(*(a1 + 32) + 16);
+  v3 = *(*(a1 + 32) + 16);
 
-  return v2();
+  return v3();
 }
 
-uint64_t __69__MediaControlsEndpointsManager_getOutputDeviceIsPlaying_completion___block_invoke_30(uint64_t a1)
+uint64_t __69__MediaControlsEndpointsManager_getOutputDeviceIsPlaying_completion___block_invoke_30(uint64_t a1, uint64_t a2)
 {
   MRMediaRemotePlaybackStateIsAdvancing();
-  v2 = *(*(a1 + 32) + 16);
+  v3 = *(*(a1 + 32) + 16);
 
-  return v2();
+  return v3();
 }
 
 - (void)homeObserverDidUpdateKnownUIDs:(id)ds

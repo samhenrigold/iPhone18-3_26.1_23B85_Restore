@@ -7,7 +7,7 @@
 
 - (NSArray)players
 {
-  sub_24E331A14();
+  sub_24E331A14(self);
   sub_24DF95978();
   v2 = sub_24E347EE8();
 

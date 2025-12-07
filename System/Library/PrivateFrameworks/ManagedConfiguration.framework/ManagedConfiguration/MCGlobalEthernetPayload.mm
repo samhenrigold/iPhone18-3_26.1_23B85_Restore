@@ -15,17 +15,17 @@
 
 - (MCGlobalEthernetPayload)initWithDictionary:(id)dictionary profile:(id)profile outError:(id *)error
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v42.receiver = self;
-  v42.super_class = MCGlobalEthernetPayload;
-  v9 = [(MCPayload *)&v42 initWithDictionary:dictionaryCopy profile:profile outError:error];
+  v41.receiver = self;
+  v41.super_class = MCGlobalEthernetPayload;
+  v9 = [(MCPayload *)&v41 initWithDictionary:dictionaryCopy profile:profile outError:error];
   v10 = v9;
   if (v9)
   {
-    v41 = 0;
-    [(MCGlobalEthernetPayload *)v9 _payloadIsValid:dictionaryCopy error:&v41];
-    v11 = v41;
+    v40 = 0;
+    [(MCGlobalEthernetPayload *)v9 _payloadIsValid:dictionaryCopy error:&v40];
+    v11 = v40;
     if (v11)
     {
       v12 = v11;
@@ -34,16 +34,16 @@
 
     else
     {
-      v40 = 0;
-      v13 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"EAPClientConfiguration" isRequired:1 outError:&v40];
-      v12 = v40;
+      v39 = 0;
+      v13 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"EAPClientConfiguration" isRequired:1 outError:&v39];
+      v12 = v39;
       if (!v12)
       {
         if (v13)
         {
-          v39 = 0;
-          v14 = [(MCGlobalEthernetPayload *)v10 _eapConfigIsValid:v13 error:&v39];
-          v12 = v39;
+          v38 = 0;
+          v14 = [(MCGlobalEthernetPayload *)v10 _eapConfigIsValid:v13 error:&v38];
+          v12 = v38;
           if (v14)
           {
             v15 = [(MCGlobalEthernetPayload *)v10 _eapUsernameFromConfig:v13 isRequired:&v10->_usernameRequired];
@@ -59,9 +59,9 @@
             eapTypes = v10->_eapTypes;
             v10->_eapTypes = v20;
 
-            v38 = v12;
-            v22 = [v19 MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"PayloadCertificateAnchorUUID" isRequired:0 outError:&v38];
-            v23 = v38;
+            v37 = v12;
+            v22 = [v19 MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"PayloadCertificateAnchorUUID" isRequired:0 outError:&v37];
+            v23 = v37;
 
             payloadCertificateAnchorUUIDs = v10->_payloadCertificateAnchorUUIDs;
             v10->_payloadCertificateAnchorUUIDs = v22;
@@ -73,9 +73,9 @@
 
             else
             {
-              v37 = 0;
-              v25 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"PayloadCertificateUUID" isRequired:0 outError:&v37];
-              v12 = v37;
+              v36 = 0;
+              v25 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"PayloadCertificateUUID" isRequired:0 outError:&v36];
+              v12 = v36;
               certificateUUID = v10->_certificateUUID;
               v10->_certificateUUID = v25;
 
@@ -110,9 +110,9 @@
       v33 = v32;
       mCVerboseDescription = [v28 MCVerboseDescription];
       *buf = 138543618;
-      v44 = v32;
-      v45 = 2114;
-      v46 = mCVerboseDescription;
+      v43 = v32;
+      v44 = 2114;
+      v45 = mCVerboseDescription;
       _os_log_impl(&dword_1A795B000, v31, OS_LOG_TYPE_ERROR, "%{public}@ Can't parse payload: %{public}@", buf, 0x16u);
     }
 
@@ -121,7 +121,6 @@ LABEL_18:
     v10 = v10;
   }
 
-  v35 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -137,9 +136,9 @@ LABEL_18:
   {
     if (error)
     {
-      v16 = [MCPayload badFieldValueErrorWithField:@"Interface"];
+      v15 = [MCPayload badFieldValueErrorWithField:@"Interface"];
 LABEL_10:
-      v15 = v16;
+      v14 = v15;
       isSystemMode = 0;
       goto LABEL_11;
     }
@@ -153,13 +152,12 @@ LABEL_14:
   setupModes = self->_setupModes;
   self->_setupModes = v10;
 
-  v12 = self->_setupModes;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     if (error)
     {
-      v16 = [MCPayload badFieldTypeErrorWithField:@"SetupModes"];
+      v15 = [MCPayload badFieldTypeErrorWithField:@"SetupModes"];
       goto LABEL_10;
     }
 
@@ -167,19 +165,19 @@ LABEL_14:
   }
 
   self->_isSystemMode = 0;
-  v13 = self->_setupModes;
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __49__MCGlobalEthernetPayload__payloadIsValid_error___block_invoke;
-  v18[3] = &unk_1E77D25F8;
-  v18[4] = self;
-  [(NSArray *)v13 enumerateObjectsUsingBlock:v18];
+  v12 = self->_setupModes;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __49__MCGlobalEthernetPayload__payloadIsValid_error___block_invoke;
+  v17[3] = &unk_1E77D25F8;
+  v17[4] = self;
+  [(NSArray *)v12 enumerateObjectsUsingBlock:v17];
   isSystemMode = self->_isSystemMode;
   if (error && !isSystemMode)
   {
-    v15 = [MCPayload badFieldValueErrorWithField:@"SetupModes"];
+    v14 = [MCPayload badFieldValueErrorWithField:@"SetupModes"];
 LABEL_11:
-    *error = v15;
+    *error = v14;
   }
 
 LABEL_15:
@@ -264,12 +262,12 @@ void __49__MCGlobalEthernetPayload__payloadIsValid_error___block_invoke(uint64_t
 
 - (BOOL)_eapConfigIsValid:(id)valid error:(id *)error
 {
-  v72 = *MEMORY[0x1E69E9840];
+  v71 = *MEMORY[0x1E69E9840];
   v6 = [valid mutableCopy];
-  v64 = 0;
-  v7 = [v6 MCValidateAndRemoveNonZeroLengthStringWithKey:@"UserName" isRequired:0 outError:&v64];
-  v8 = v64;
-  if (v8 || (v63 = 0, v9 = [v6 MCValidateAndRemoveNonZeroLengthStringWithKey:@"UserPassword" isRequired:0 outError:&v63], (v8 = v63) != 0))
+  v63 = 0;
+  v7 = [v6 MCValidateAndRemoveNonZeroLengthStringWithKey:@"UserName" isRequired:0 outError:&v63];
+  v8 = v63;
+  if (v8 || (v62 = 0, v9 = [v6 MCValidateAndRemoveNonZeroLengthStringWithKey:@"UserPassword" isRequired:0 outError:&v62], (v8 = v62) != 0))
   {
     v10 = v8;
     v11 = 0;
@@ -283,35 +281,35 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  v62 = 0;
-  v12 = [v6 MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"AcceptEAPTypes" isRequired:1 outError:&v62];
-  v19 = v62;
-  if (v19)
+  v61 = 0;
+  v12 = [v6 MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"AcceptEAPTypes" isRequired:1 outError:&v61];
+  v18 = v61;
+  if (v18)
   {
     goto LABEL_11;
   }
 
-  v20 = [MEMORY[0x1E695DFD8] setWithArray:&unk_1F1AA5998];
+  v19 = [MEMORY[0x1E695DFD8] setWithArray:&unk_1F1AA5998];
+  v57 = 0u;
   v58 = 0u;
   v59 = 0u;
   v60 = 0u;
-  v61 = 0u;
   v12 = v12;
-  v21 = [v12 countByEnumeratingWithState:&v58 objects:v71 count:16];
-  if (v21)
+  v20 = [v12 countByEnumeratingWithState:&v57 objects:v70 count:16];
+  if (v20)
   {
-    v22 = v21;
-    v23 = *v59;
+    v21 = v20;
+    v22 = *v58;
     while (2)
     {
-      for (i = 0; i != v22; ++i)
+      for (i = 0; i != v21; ++i)
       {
-        if (*v59 != v23)
+        if (*v58 != v22)
         {
           objc_enumerationMutation(v12);
         }
 
-        if (![v20 containsObject:*(*(&v58 + 1) + 8 * i)])
+        if (![v19 containsObject:*(*(&v57 + 1) + 8 * i)])
         {
           v10 = [MCPayload badFieldValueErrorWithField:@"AcceptEAPTypes"];
 
@@ -322,8 +320,8 @@ LABEL_6:
         }
       }
 
-      v22 = [v12 countByEnumeratingWithState:&v58 objects:v71 count:16];
-      if (v22)
+      v21 = [v12 countByEnumeratingWithState:&v57 objects:v70 count:16];
+      if (v21)
       {
         continue;
       }
@@ -332,47 +330,39 @@ LABEL_6:
     }
   }
 
-  v57 = 0;
-  v25 = [v6 MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"PayloadCertificateUUID" isRequired:0 outError:&v57];
-  v19 = v57;
-  if (v19)
-  {
-    goto LABEL_11;
-  }
-
   v56 = 0;
-  v26 = [v6 MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"TLSTrustedCertificates" isRequired:0 outError:&v56];
-  v19 = v56;
-  if (v19 || (v55 = 0, v27 = [v6 MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"TLSTrustedServerNames" isRequired:0 outError:&v55], (v19 = v55) != 0) || (v54 = 0, v28 = objc_msgSend(v6, "MCValidateAndRemoveObjectOfClass:withKey:isRequired:outError:", objc_opt_class(), @"TLSCertificateIsRequired", 0, &v54), (v19 = v54) != 0))
+  v24 = [v6 MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"PayloadCertificateUUID" isRequired:0 outError:&v56];
+  v18 = v56;
+  if (v18 || (v55 = 0, v25 = [v6 MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"TLSTrustedCertificates" isRequired:0 outError:&v55], (v18 = v55) != 0) || (v54 = 0, v26 = objc_msgSend(v6, "MCValidateAndRemoveArrayOfClass:withKey:isRequired:outError:", objc_opt_class(), @"TLSTrustedServerNames", 0, &v54), (v18 = v54) != 0) || (v53 = 0, v27 = objc_msgSend(v6, "MCValidateAndRemoveObjectOfClass:withKey:isRequired:outError:", objc_opt_class(), @"TLSCertificateIsRequired", 0, &v53), (v18 = v53) != 0))
   {
 LABEL_11:
-    v10 = v19;
+    v10 = v18;
     v11 = 0;
     goto LABEL_4;
   }
 
-  v53 = 0;
-  v13 = [v6 MCValidateAndRemoveNonZeroLengthStringWithKey:@"TTLSInnerAuthentication" isRequired:0 outError:&v53];
-  v29 = v53;
-  if (v29)
+  v52 = 0;
+  v13 = [v6 MCValidateAndRemoveNonZeroLengthStringWithKey:@"TTLSInnerAuthentication" isRequired:0 outError:&v52];
+  v28 = v52;
+  if (v28)
   {
-    v10 = v29;
+    v10 = v28;
     v11 = 0;
     goto LABEL_5;
   }
 
   if (v13)
   {
-    v33 = MEMORY[0x1E695DFD8];
-    v70[0] = @"PAP";
-    v70[1] = @"CHAP";
-    v70[2] = @"MSCHAP";
-    v70[3] = @"MSCHAPv2";
-    v70[4] = @"EAP";
-    v34 = [MEMORY[0x1E695DEC8] arrayWithObjects:v70 count:5];
-    v35 = [v33 setWithArray:v34];
+    v32 = MEMORY[0x1E695DFD8];
+    v69[0] = @"PAP";
+    v69[1] = @"CHAP";
+    v69[2] = @"MSCHAP";
+    v69[3] = @"MSCHAPv2";
+    v69[4] = @"EAP";
+    v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:v69 count:5];
+    v34 = [v32 setWithArray:v33];
 
-    if (![v35 containsObject:v13])
+    if (![v34 containsObject:v13])
     {
       v10 = [MCPayload badFieldValueErrorWithField:@"TTLSInnerAuthentication"];
 
@@ -382,37 +372,37 @@ LABEL_11:
     }
   }
 
-  v52 = 0;
-  v14 = [v6 MCValidateAndRemoveNonZeroLengthStringWithKey:@"TLSMinimumVersion" isRequired:0 outError:&v52];
-  v36 = v52;
-  if (v36)
+  v51 = 0;
+  v14 = [v6 MCValidateAndRemoveNonZeroLengthStringWithKey:@"TLSMinimumVersion" isRequired:0 outError:&v51];
+  v35 = v51;
+  if (v35)
   {
-    v10 = v36;
+    v10 = v35;
     v11 = 0;
     goto LABEL_6;
   }
 
-  v51 = 0;
-  v15 = [v6 MCValidateAndRemoveNonZeroLengthStringWithKey:@"TLSMaximumVersion" isRequired:0 outError:&v51];
-  v37 = v51;
-  if (v37)
+  v50 = 0;
+  v15 = [v6 MCValidateAndRemoveNonZeroLengthStringWithKey:@"TLSMaximumVersion" isRequired:0 outError:&v50];
+  v36 = v50;
+  if (v36)
   {
 LABEL_52:
-    v10 = v37;
+    v10 = v36;
     goto LABEL_28;
   }
 
   if (v14 | v15)
   {
-    v69[0] = @"1.0";
-    v69[1] = @"1.1";
-    v69[2] = @"1.2";
-    v69[3] = @"1.3";
-    v38 = [MEMORY[0x1E695DEC8] arrayWithObjects:v69 count:4];
-    v46 = [MEMORY[0x1E695DFD8] setWithArray:?];
-    if (v14 && ([v46 containsObject:v14] & 1) == 0)
+    v68[0] = @"1.0";
+    v68[1] = @"1.1";
+    v68[2] = @"1.2";
+    v68[3] = @"1.3";
+    v37 = [MEMORY[0x1E695DEC8] arrayWithObjects:v68 count:4];
+    v45 = [MEMORY[0x1E695DFD8] setWithArray:?];
+    if (v14 && ([v45 containsObject:v14] & 1) == 0)
     {
-      v43 = @"TLSMinimumVersion";
+      v42 = @"TLSMinimumVersion";
     }
 
     else
@@ -424,16 +414,16 @@ LABEL_48:
         goto LABEL_49;
       }
 
-      if ([v46 containsObject:v15])
+      if ([v45 containsObject:v15])
       {
         if (v14)
         {
-          v45 = [v38 indexOfObject:v14];
-          if (v45 > [v38 indexOfObject:v15])
+          v44 = [v37 indexOfObject:v14];
+          if (v44 > [v37 indexOfObject:v15])
           {
-            v39 = [MCPayload conflictingFieldValueErrorWithUnderlyingError:0, @"TLSMinimumVersion", @"TLSMaximumVersion", v14, v15, 0];
+            v38 = [MCPayload conflictingFieldValueErrorWithUnderlyingError:0, @"TLSMinimumVersion", @"TLSMaximumVersion", v14, v15, 0];
 LABEL_56:
-            v10 = v39;
+            v10 = v38;
 
             goto LABEL_27;
           }
@@ -442,41 +432,41 @@ LABEL_56:
         goto LABEL_48;
       }
 
-      v43 = @"TLSMaximumVersion";
+      v42 = @"TLSMaximumVersion";
     }
 
-    v39 = [MCPayload badFieldValueErrorWithField:v43];
+    v38 = [MCPayload badFieldValueErrorWithField:v42];
     goto LABEL_56;
   }
 
 LABEL_49:
-  v50 = 0;
-  v40 = [v6 MCValidateAndRemoveNonZeroLengthStringWithKey:@"OuterIdentity" isRequired:0 outError:&v50];
-  v37 = v50;
-  if (v37)
-  {
-    goto LABEL_52;
-  }
-
   v49 = 0;
-  v41 = [v6 MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"EAPFASTUsePAC" isRequired:0 outError:&v49];
-  v37 = v49;
-  if (v37)
+  v39 = [v6 MCValidateAndRemoveNonZeroLengthStringWithKey:@"OuterIdentity" isRequired:0 outError:&v49];
+  v36 = v49;
+  if (v36)
   {
     goto LABEL_52;
   }
 
   v48 = 0;
-  v42 = [v6 MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"EAPFASTProvisionPAC" isRequired:0 outError:&v48];
-  v37 = v48;
-  if (v37)
+  v40 = [v6 MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"EAPFASTUsePAC" isRequired:0 outError:&v48];
+  v36 = v48;
+  if (v36)
   {
     goto LABEL_52;
   }
 
   v47 = 0;
-  v44 = [v6 MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"EAPFASTProvisionPACAnonymously" isRequired:0 outError:&v47];
-  v10 = v47;
+  v41 = [v6 MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"EAPFASTProvisionPAC" isRequired:0 outError:&v47];
+  v36 = v47;
+  if (v36)
+  {
+    goto LABEL_52;
+  }
+
+  v46 = 0;
+  v43 = [v6 MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"EAPFASTProvisionPACAnonymously" isRequired:0 outError:&v46];
+  v10 = v46;
 LABEL_27:
   if (v10)
   {
@@ -487,16 +477,16 @@ LABEL_28:
 
   if ([v6 count])
   {
-    v30 = _MCLogObjects;
+    v29 = _MCLogObjects;
     if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_DEFAULT))
     {
-      v31 = v30;
+      v30 = v29;
       friendlyName = [(MCPayload *)self friendlyName];
       *buf = 138543618;
-      v66 = friendlyName;
-      v67 = 2114;
-      v68 = v6;
-      _os_log_impl(&dword_1A795B000, v31, OS_LOG_TYPE_DEFAULT, "Payload “%{public}@” contains unexpected fields in EAP Configuration. They are: %{public}@", buf, 0x16u);
+      v65 = friendlyName;
+      v66 = 2114;
+      v67 = v6;
+      _os_log_impl(&dword_1A795B000, v30, OS_LOG_TYPE_DEFAULT, "Payload “%{public}@” contains unexpected fields in EAP Configuration. They are: %{public}@", buf, 0x16u);
     }
   }
 
@@ -509,7 +499,6 @@ LABEL_7:
     *error = v10;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -588,25 +577,23 @@ void __41__MCGlobalEthernetPayload_stubDictionary__block_invoke(uint64_t a1, voi
 
 void __44__MCGlobalEthernetPayload_nonPrivateEAPKeys__block_invoke()
 {
-  v5[11] = *MEMORY[0x1E69E9840];
+  v4[11] = *MEMORY[0x1E69E9840];
   v0 = MEMORY[0x1E695DFD8];
-  v5[0] = @"AcceptEAPTypes";
-  v5[1] = @"PayloadCertificateAnchorUUID";
-  v5[2] = @"TLSTrustedCertificates";
-  v5[3] = @"TLSTrustedServerNames";
-  v5[4] = @"TLSCertificateIsRequired";
-  v5[5] = @"TTLSInnerAuthentication";
-  v5[6] = @"TLSMinimumVersion";
-  v5[7] = @"TLSMaximumVersion";
-  v5[8] = @"EAPFASTUsePAC";
-  v5[9] = @"EAPFASTProvisionPAC";
-  v5[10] = @"EAPFASTProvisionPACAnonymously";
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:11];
+  v4[0] = @"AcceptEAPTypes";
+  v4[1] = @"PayloadCertificateAnchorUUID";
+  v4[2] = @"TLSTrustedCertificates";
+  v4[3] = @"TLSTrustedServerNames";
+  v4[4] = @"TLSCertificateIsRequired";
+  v4[5] = @"TTLSInnerAuthentication";
+  v4[6] = @"TLSMinimumVersion";
+  v4[7] = @"TLSMaximumVersion";
+  v4[8] = @"EAPFASTUsePAC";
+  v4[9] = @"EAPFASTProvisionPAC";
+  v4[10] = @"EAPFASTProvisionPACAnonymously";
+  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:11];
   v2 = [v0 setWithArray:v1];
   v3 = nonPrivateEAPKeys_keys;
   nonPrivateEAPKeys_keys = v2;
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (id)eapSettingsSection
@@ -698,7 +685,7 @@ void __44__MCGlobalEthernetPayload_nonPrivateEAPKeys__block_invoke()
 
 - (id)payloadDescriptionKeyValueSections
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   v4 = objc_opt_new();
   if ([(MCGlobalEthernetPayload *)self isSystemMode])
@@ -738,29 +725,29 @@ void __44__MCGlobalEthernetPayload_nonPrivateEAPKeys__block_invoke()
   if (v14)
   {
     array = [MEMORY[0x1E695DF70] array];
+    v26 = 0u;
     v27 = 0u;
     v28 = 0u;
     v29 = 0u;
-    v30 = 0u;
     eapTypes2 = [(MCGlobalEthernetPayload *)self eapTypes];
-    v17 = [eapTypes2 countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v17 = [eapTypes2 countByEnumeratingWithState:&v26 objects:v30 count:16];
     if (!v17)
     {
       goto LABEL_29;
     }
 
     v18 = v17;
-    v19 = *v28;
+    v19 = *v27;
     while (1)
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v28 != v19)
+        if (*v27 != v19)
         {
           objc_enumerationMutation(eapTypes2);
         }
 
-        intValue = [*(*(&v27 + 1) + 8 * i) intValue];
+        intValue = [*(*(&v26 + 1) + 8 * i) intValue];
         if (intValue <= 20)
         {
           v22 = @"EAP-TLS";
@@ -797,7 +784,7 @@ LABEL_27:
         [array addObject:v22];
       }
 
-      v18 = [eapTypes2 countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v18 = [eapTypes2 countByEnumeratingWithState:&v26 objects:v30 count:16];
       if (!v18)
       {
 LABEL_29:
@@ -816,8 +803,6 @@ LABEL_29:
 
     v3 = 0;
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 
   return v3;
 }

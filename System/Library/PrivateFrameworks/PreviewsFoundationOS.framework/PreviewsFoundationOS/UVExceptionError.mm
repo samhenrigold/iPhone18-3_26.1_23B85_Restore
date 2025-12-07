@@ -21,25 +21,24 @@
 
 - (UVExceptionError)initWithException:(id)exception
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   exceptionCopy = exception;
-  v13[0] = *MEMORY[0x277CCA450];
+  v12[0] = *MEMORY[0x277CCA450];
   name = [exceptionCopy name];
-  v14[0] = name;
-  v13[1] = *MEMORY[0x277CCA470];
+  v13[0] = name;
+  v12[1] = *MEMORY[0x277CCA470];
   reason = [exceptionCopy reason];
-  v14[1] = reason;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
-  v12.receiver = self;
-  v12.super_class = UVExceptionError;
-  v9 = [(UVExceptionError *)&v12 initWithDomain:@"com.apple.PreviewsFoundation.ExceptionError" code:0 userInfo:v8];
+  v13[1] = reason;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
+  v11.receiver = self;
+  v11.super_class = UVExceptionError;
+  v9 = [(UVExceptionError *)&v11 initWithDomain:@"com.apple.PreviewsFoundation.ExceptionError" code:0 userInfo:v8];
 
   if (v9)
   {
     objc_storeStrong(&v9->_exception, exception);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 

@@ -105,7 +105,7 @@ LABEL_8:
   v4 = identifierCopy;
   if (identifierCopy)
   {
-    [identifierCopy auditToken];
+    objc_msgSend_auditToken(identifierCopy);
     v5 = SecTaskCreateWithAuditToken(0, &v9);
   }
 

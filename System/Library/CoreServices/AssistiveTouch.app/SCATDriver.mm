@@ -864,7 +864,7 @@ LABEL_8:
     }
 
     focusContext3 = [(SCATDriver *)self focusContext];
-    _AXLogWithFacility();
+    _AXLogWithFacility(3, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"activate was called on a group, but the behavior was not drill in or drill out. That's not good... :%@");
 
 LABEL_10:
     v8 = 0;

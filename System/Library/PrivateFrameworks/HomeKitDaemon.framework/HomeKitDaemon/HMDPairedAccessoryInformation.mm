@@ -83,12 +83,12 @@
   v13 = [(HMDPairedAccessoryInformation *)&v19 init];
   if (v13)
   {
-    v14 = [identifierCopy copy];
+    v14 = objc_msgSend_copy(identifierCopy);
     identifier = v13->_identifier;
     v13->_identifier = v14;
 
     v13->_transports = transports;
-    v16 = [hashCopy copy];
+    v16 = objc_msgSend_copy(hashCopy);
     setupHash = v13->_setupHash;
     v13->_setupHash = v16;
 

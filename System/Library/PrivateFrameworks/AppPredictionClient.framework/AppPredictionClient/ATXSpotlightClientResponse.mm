@@ -23,7 +23,7 @@
 
 - (void)dealloc
 {
-  v3 = __atxlog_handle_metrics();
+  v3 = __atxlog_handle_metrics(self);
   v4 = v3;
   signpostId = self->_signpostId;
   if (signpostId - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v3))
@@ -39,49 +39,50 @@
 
 - (id)_createSectionsFromServerResults:(id)results limit:(unint64_t)limit
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   resultsCopy = results;
-  v7 = __atxlog_handle_metrics();
+  v7 = __atxlog_handle_metrics(resultsCopy);
   v8 = v7;
   signpostId = self->_signpostId;
   if (signpostId - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
-    LOWORD(v39) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1BF549000, v8, OS_SIGNPOST_INTERVAL_END, signpostId, "ATXSpotlightClientResponse", " enableTelemetry=YES ", &v39, 2u);
+    LOWORD(v41) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1BF549000, v8, OS_SIGNPOST_INTERVAL_END, signpostId, "ATXSpotlightClientResponse", " enableTelemetry=YES ", &v41, 2u);
   }
 
   self->_signpostId = 0;
-  v10 = __atxlog_handle_ui();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = __atxlog_handle_ui(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = [(NSArray *)self->_topics count];
-    v12 = [(NSArray *)self->_scores count];
-    v13 = [resultsCopy count];
-    v39 = 134218496;
-    v40 = v11;
-    v41 = 2048;
+    v12 = [(NSArray *)self->_topics count];
+    v13 = [(NSArray *)self->_scores count];
+    v14 = [resultsCopy count];
+    v41 = 134218496;
     v42 = v12;
     v43 = 2048;
     v44 = v13;
-    _os_log_impl(&dword_1BF549000, v10, OS_LOG_TYPE_DEFAULT, "ZKW Server Result: Create sections from server response - topics: %lu, scores: %lu, received: %lu", &v39, 0x20u);
+    v45 = 2048;
+    v46 = v14;
+    _os_log_impl(&dword_1BF549000, v11, OS_LOG_TYPE_DEFAULT, "ZKW Server Result: Create sections from server response - topics: %lu, scores: %lu, received: %lu", &v41, 0x20u);
   }
 
-  v14 = [(NSArray *)self->_topics count];
-  if (v14 != -[NSArray count](self->_scores, "count") || (v15 = -[NSArray count](self->_topics, "count"), v15 != [resultsCopy count]))
+  v15 = [(NSArray *)self->_topics count];
+  v16 = [(NSArray *)self->_scores count];
+  if (v15 != v16 || (v17 = -[NSArray count](self->_topics, "count"), v16 = [resultsCopy count], v17 != v16))
   {
-    v31 = __atxlog_handle_ui();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_FAULT))
+    v33 = __atxlog_handle_ui(v16);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_FAULT))
     {
-      v36 = [(NSArray *)self->_topics count];
-      v37 = [(NSArray *)self->_scores count];
-      v38 = [resultsCopy count];
-      v39 = 134218496;
-      v40 = v36;
-      v41 = 2048;
-      v42 = v37;
+      v38 = [(NSArray *)self->_topics count];
+      v39 = [(NSArray *)self->_scores count];
+      v40 = [resultsCopy count];
+      v41 = 134218496;
+      v42 = v38;
       v43 = 2048;
-      v44 = v38;
-      _os_log_fault_impl(&dword_1BF549000, v31, OS_LOG_TYPE_FAULT, "ZKW Server Result: Server did not send back same count. Sent topics: %lu, scores: %lu Received: %lu", &v39, 0x20u);
+      v44 = v39;
+      v45 = 2048;
+      v46 = v40;
+      _os_log_fault_impl(&dword_1BF549000, v33, OS_LOG_TYPE_FAULT, "ZKW Server Result: Server did not send back same count. Sent topics: %lu, scores: %lu Received: %lu", &v41, 0x20u);
     }
 
     goto LABEL_20;
@@ -89,78 +90,78 @@
 
   if (![(NSArray *)self->_topics count])
   {
-    v31 = __atxlog_handle_ui();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+    v33 = __atxlog_handle_ui(0);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
     {
-      v33 = [(NSArray *)self->_topics count];
-      v34 = [(NSArray *)self->_scores count];
-      v35 = [resultsCopy count];
-      v39 = 134218496;
-      v40 = v33;
-      v41 = 2048;
-      v42 = v34;
+      v35 = [(NSArray *)self->_topics count];
+      v36 = [(NSArray *)self->_scores count];
+      v37 = [resultsCopy count];
+      v41 = 134218496;
+      v42 = v35;
       v43 = 2048;
-      v44 = v35;
-      _os_log_impl(&dword_1BF549000, v31, OS_LOG_TYPE_DEFAULT, "ZKW Server Result: Requested no topics, returning. Sent topics: %lu, scores: %lu Received: %lu", &v39, 0x20u);
+      v44 = v36;
+      v45 = 2048;
+      v46 = v37;
+      _os_log_impl(&dword_1BF549000, v33, OS_LOG_TYPE_DEFAULT, "ZKW Server Result: Requested no topics, returning. Sent topics: %lu, scores: %lu Received: %lu", &v41, 0x20u);
     }
 
 LABEL_20:
 
-    v30 = MEMORY[0x1E695E0F0];
+    v32 = MEMORY[0x1E695E0F0];
     goto LABEL_21;
   }
 
   [objc_opt_class() _logWeatherResponsesWithTopics:self->_topics serverResults:resultsCopy];
-  v16 = [(ATXSpotlightClientResponse *)self _replaceMissingWithError:resultsCopy];
+  v18 = [(ATXSpotlightClientResponse *)self _replaceMissingWithError:resultsCopy];
 
-  v17 = [objc_opt_class() _removeDuplicates:v16];
+  v19 = [objc_opt_class() _removeDuplicates:v18];
 
-  [(ATXSpotlightClientResponse *)self _updateSectionBundleIdentifiersWithServerResults:v17];
-  v18 = [(ATXSpotlightClientResponse *)self _addIdentifiersFromTopics:self->_topics serverTopics:v17];
+  [(ATXSpotlightClientResponse *)self _updateSectionBundleIdentifiersWithServerResults:v19];
+  v20 = [(ATXSpotlightClientResponse *)self _addIdentifiersFromTopics:self->_topics serverTopics:v19];
 
   isZKWHideContextsEnabled = [MEMORY[0x1E698AFE8] isZKWHideContextsEnabled];
   self->_isZKWHideContextsEnabled = isZKWHideContextsEnabled;
   if (isZKWHideContextsEnabled)
   {
-    v20 = objc_opt_new();
+    v22 = objc_opt_new();
     controller = self->_controller;
-    self->_controller = v20;
+    self->_controller = v22;
 
-    v22 = [(ATXSpotlightClientResponse *)self _removeHidden:v18];
+    v24 = [(ATXSpotlightClientResponse *)self _removeHidden:v20];
 
-    v18 = v22;
+    v20 = v24;
   }
 
-  v23 = [(ATXSpotlightClientResponse *)self _removeDuplicateTopics:v18];
+  v25 = [(ATXSpotlightClientResponse *)self _removeDuplicateTopics:v20];
 
-  v24 = [objc_opt_class() _indexOfFirstSpotlightRecentInServerResults:v23 withSections:self->_sections];
-  v25 = __atxlog_handle_ui();
-  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+  v26 = [objc_opt_class() _indexOfFirstSpotlightRecentInServerResults:v25 withSections:self->_sections];
+  v27 = __atxlog_handle_ui(v26);
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
   {
-    v39 = 134217984;
-    v40 = v24;
-    _os_log_impl(&dword_1BF549000, v25, OS_LOG_TYPE_DEFAULT, "ZKW Server Result: Index of first spotlight recent: %lu", &v39, 0xCu);
+    v41 = 134217984;
+    v42 = v26;
+    _os_log_impl(&dword_1BF549000, v27, OS_LOG_TYPE_DEFAULT, "ZKW Server Result: Index of first spotlight recent: %lu", &v41, 0xCu);
   }
 
-  v26 = [v23 indexesOfObjectsPassingTest:&__block_literal_global_78];
-  v27 = [v26 count];
+  v28 = [v25 indexesOfObjectsPassingTest:&__block_literal_global_78];
+  v29 = [v28 count];
 
-  if (v27 >= 5)
+  if (v29 >= 5)
   {
-    v28 = +[ATXSpotlightZKWTrialClientWrapper sharedInstance];
-    if ([v28 matchesSuggestionsMaxCount])
+    v30 = +[ATXSpotlightZKWTrialClientWrapper sharedInstance];
+    if ([v30 matchesSuggestionsMaxCount])
     {
-      codePathIdForSuggestionsMaxCount = [v28 codePathIdForSuggestionsMaxCount];
+      codePathIdForSuggestionsMaxCount = [v30 codePathIdForSuggestionsMaxCount];
       [(ATXSpotlightClientResponse *)self addCodePathId:codePathIdForSuggestionsMaxCount];
     }
   }
 
-  resultsCopy = [objc_opt_class() _limitingResults:v23 scores:self->_scores spotlightRecentIndex:v24 limit:limit];
+  resultsCopy = [objc_opt_class() _limitingResults:v25 scores:self->_scores spotlightRecentIndex:v26 limit:limit];
 
-  v30 = [(ATXSpotlightClientResponse *)self _createSectionsFromServerResults:resultsCopy];
+  v32 = [(ATXSpotlightClientResponse *)self _createSectionsFromServerResults:resultsCopy];
 LABEL_21:
 
-  return v30;
+  return v32;
 }
 
 BOOL __69__ATXSpotlightClientResponse__createSectionsFromServerResults_limit___block_invoke(uint64_t a1, void *a2)
@@ -176,9 +177,9 @@ BOOL __69__ATXSpotlightClientResponse__createSectionsFromServerResults_limit___b
   topicsCopy = topics;
   scoresCopy = scores;
   sectionsCopy = sections;
-  v22.receiver = self;
-  v22.super_class = ATXSpotlightClientResponse;
-  v12 = [(ATXSpotlightClientResponse *)&v22 init];
+  v24.receiver = self;
+  v24.super_class = ATXSpotlightClientResponse;
+  v12 = [(ATXSpotlightClientResponse *)&v24 init];
   v13 = v12;
   if (v12)
   {
@@ -189,21 +190,22 @@ BOOL __69__ATXSpotlightClientResponse__createSectionsFromServerResults_limit___b
     codePathIdTriggers = v13->_codePathIdTriggers;
     v13->_codePathIdTriggers = v14;
 
-    v16 = __atxlog_handle_metrics();
-    v13->_signpostId = os_signpost_id_generate(v16);
+    v17 = __atxlog_handle_metrics(v16);
+    v13->_signpostId = os_signpost_id_generate(v17);
 
-    if (![(NSArray *)v13->_topics count])
+    v18 = [(NSArray *)v13->_topics count];
+    if (!v18)
     {
       v13->_signpostId = 0;
     }
 
-    v17 = __atxlog_handle_metrics();
-    v18 = v17;
+    v19 = __atxlog_handle_metrics(v18);
+    v20 = v19;
     signpostId = v13->_signpostId;
-    if (signpostId - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
+    if (signpostId - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
     {
-      *v21 = 0;
-      _os_signpost_emit_with_name_impl(&dword_1BF549000, v18, OS_SIGNPOST_INTERVAL_BEGIN, signpostId, "ATXSpotlightClientResponse", " enableTelemetry=YES ", v21, 2u);
+      *v23 = 0;
+      _os_signpost_emit_with_name_impl(&dword_1BF549000, v20, OS_SIGNPOST_INTERVAL_BEGIN, signpostId, "ATXSpotlightClientResponse", " enableTelemetry=YES ", v23, 2u);
     }
   }
 
@@ -378,7 +380,7 @@ id __69__ATXSpotlightClientResponse__addIdentifiersFromTopics_serverTopics___blo
 
 ATXSuggestionSearchResult *__69__ATXSpotlightClientResponse__addIdentifiersFromTopics_serverTopics___block_invoke_2(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = a2;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -391,13 +393,13 @@ ATXSuggestionSearchResult *__69__ATXSpotlightClientResponse__addIdentifiersFromT
 
   if (v5)
   {
-    v6 = __atxlog_handle_ui();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = __atxlog_handle_ui(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v16) = 0;
-      v7 = "ZKW Server Id: Skip recents";
+      LOWORD(v19) = 0;
+      v8 = "ZKW Server Id: Skip recents";
 LABEL_8:
-      _os_log_impl(&dword_1BF549000, v6, OS_LOG_TYPE_DEFAULT, v7, &v16, 2u);
+      _os_log_impl(&dword_1BF549000, v7, OS_LOG_TYPE_DEFAULT, v8, &v19, 2u);
       goto LABEL_9;
     }
 
@@ -405,68 +407,68 @@ LABEL_8:
   }
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v6 = __atxlog_handle_ui();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = __atxlog_handle_ui(isKindOfClass);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v16) = 0;
-      v7 = "ZKW Server Id: Skip contacts";
+      LOWORD(v19) = 0;
+      v8 = "ZKW Server Id: Skip contacts";
       goto LABEL_8;
     }
 
 LABEL_9:
 
 LABEL_10:
-    v8 = v3;
+    v10 = v3;
     goto LABEL_11;
   }
 
   if (!*(a1 + 32))
   {
-    v6 = __atxlog_handle_ui();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = __atxlog_handle_ui(isKindOfClass);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __69__ATXSpotlightClientResponse__addIdentifiersFromTopics_serverTopics___block_invoke_2_cold_2(v6);
+      __69__ATXSpotlightClientResponse__addIdentifiersFromTopics_serverTopics___block_invoke_2_cold_2(v7);
     }
 
     goto LABEL_9;
   }
 
-  v10 = objc_alloc(MEMORY[0x1E69C5B70]);
-  v11 = *(a1 + 32);
-  v12 = [v3 sectionBundleIdentifier];
-  v13 = [v10 initWithTopic:v11 sectionBundleIdentifier:v12];
+  v12 = objc_alloc(MEMORY[0x1E69C5B70]);
+  v13 = *(a1 + 32);
+  v14 = [v3 sectionBundleIdentifier];
+  v15 = [v12 initWithTopic:v13 sectionBundleIdentifier:v14];
 
-  if (!v13)
+  if (!v15)
   {
-    v14 = __atxlog_handle_ui();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v17 = __atxlog_handle_ui(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      __69__ATXSpotlightClientResponse__addIdentifiersFromTopics_serverTopics___block_invoke_2_cold_1(v14);
+      __69__ATXSpotlightClientResponse__addIdentifiersFromTopics_serverTopics___block_invoke_2_cold_1(v17);
     }
   }
 
-  v8 = [[ATXSuggestionSearchResult alloc] initWithSearchResult:v3];
-  [(ATXSuggestionSearchResult *)v8 setContextActionIdentifier:v13];
-  v15 = __atxlog_handle_ui();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v10 = [[ATXSuggestionSearchResult alloc] initWithSearchResult:v3];
+  v18 = __atxlog_handle_ui([(ATXSuggestionSearchResult *)v10 setContextActionIdentifier:v15]);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 138412290;
-    v17 = v13;
-    _os_log_impl(&dword_1BF549000, v15, OS_LOG_TYPE_DEFAULT, "ZKW Server Id: Converting %@", &v16, 0xCu);
+    v19 = 138412290;
+    v20 = v15;
+    _os_log_impl(&dword_1BF549000, v18, OS_LOG_TYPE_DEFAULT, "ZKW Server Id: Converting %@", &v19, 0xCu);
   }
 
 LABEL_11:
 
-  return v8;
+  return v10;
 }
 
 + (id)_removeDuplicates:(id)duplicates
 {
   v13 = *MEMORY[0x1E69E9840];
   duplicatesCopy = duplicates;
-  v4 = __atxlog_handle_ui();
+  v4 = __atxlog_handle_ui(duplicatesCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 134217984;
@@ -510,37 +512,38 @@ id __48__ATXSpotlightClientResponse__removeDuplicates___block_invoke(uint64_t a1
 uint64_t __48__ATXSpotlightClientResponse__removeDuplicates___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = [*(*(*(a1 + 32) + 8) + 40) containsObject:v3];
-  v5 = __atxlog_handle_ui();
-  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
-  if (v4)
+  v4 = objc_msgSend_containsObject_(*(*(*(a1 + 32) + 8) + 40));
+  v5 = v4;
+  v6 = __atxlog_handle_ui(v4);
+  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+  if (v5)
   {
-    if (v6)
+    if (v7)
     {
       *buf = 0;
-      _os_log_impl(&dword_1BF549000, v5, OS_LOG_TYPE_DEFAULT, "ZKW Server Result: - Removing duplicate", buf, 2u);
+      _os_log_impl(&dword_1BF549000, v6, OS_LOG_TYPE_DEFAULT, "ZKW Server Result: - Removing duplicate", buf, 2u);
     }
   }
 
   else
   {
-    if (v6)
+    if (v7)
     {
-      *v8 = 0;
-      _os_log_impl(&dword_1BF549000, v5, OS_LOG_TYPE_DEFAULT, "ZKW Server Result: - Keeping", v8, 2u);
+      *v9 = 0;
+      _os_log_impl(&dword_1BF549000, v6, OS_LOG_TYPE_DEFAULT, "ZKW Server Result: - Keeping", v9, 2u);
     }
 
     [*(*(*(a1 + 32) + 8) + 40) addObject:v3];
   }
 
-  return v4 ^ 1u;
+  return v5 ^ 1u;
 }
 
 - (id)_removeHidden:(id)hidden
 {
   v11 = *MEMORY[0x1E69E9840];
   hiddenCopy = hidden;
-  v5 = __atxlog_handle_ui();
+  v5 = __atxlog_handle_ui(hiddenCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
@@ -578,7 +581,7 @@ id __44__ATXSpotlightClientResponse__removeHidden___block_invoke(uint64_t a1, vo
 {
   v49 = *MEMORY[0x1E69E9840];
   topicsCopy = topics;
-  v4 = __atxlog_handle_ui();
+  v4 = __atxlog_handle_ui(topicsCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
@@ -846,92 +849,93 @@ LABEL_22:
 
 + (id)_limitingResults:(id)results scores:(id)scores spotlightRecentIndex:(unint64_t)index limit:(unint64_t)limit
 {
-  v49[1] = *MEMORY[0x1E69E9840];
+  v51[1] = *MEMORY[0x1E69E9840];
   resultsCopy = results;
   scoresCopy = scores;
   keyExistsAndHasValidFormat[0] = 0;
-  if (CFPreferencesGetAppBooleanValue(@"zkwShowAllContexts", *MEMORY[0x1E698B030], keyExistsAndHasValidFormat))
+  AppBooleanValue = CFPreferencesGetAppBooleanValue(@"zkwShowAllContexts", *MEMORY[0x1E698B030], keyExistsAndHasValidFormat);
+  if (AppBooleanValue)
   {
-    v12 = __atxlog_handle_ui();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = __atxlog_handle_ui(AppBooleanValue);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *keyExistsAndHasValidFormat = 0;
     }
 
-    v13 = resultsCopy;
+    v14 = resultsCopy;
   }
 
   else
   {
-    v14 = [self _trialSuggestionsMaxCountWithDefault:limit];
-    v39[0] = MEMORY[0x1E69E9820];
-    v39[1] = 3221225472;
-    v39[2] = __81__ATXSpotlightClientResponse__limitingResults_scores_spotlightRecentIndex_limit___block_invoke;
-    v39[3] = &unk_1E80C4B10;
-    v15 = resultsCopy;
-    v40 = v15;
-    v28 = [scoresCopy _pas_mappedArrayWithIndexedTransform:v39];
-    v16 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"self" ascending:0];
-    v49[0] = v16;
-    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v49 count:1];
-    v18 = [v28 sortedArrayUsingDescriptors:v17];
+    v15 = [self _trialSuggestionsMaxCountWithDefault:limit];
+    v41[0] = MEMORY[0x1E69E9820];
+    v41[1] = 3221225472;
+    v41[2] = __81__ATXSpotlightClientResponse__limitingResults_scores_spotlightRecentIndex_limit___block_invoke;
+    v41[3] = &unk_1E80C4B10;
+    v16 = resultsCopy;
+    v42 = v16;
+    v30 = [scoresCopy _pas_mappedArrayWithIndexedTransform:v41];
+    v17 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"self" ascending:0];
+    v51[0] = v17;
+    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v51 count:1];
+    v19 = [v30 sortedArrayUsingDescriptors:v18];
 
-    v19 = [v18 count];
-    if (v14 >= v19)
+    v20 = [v19 count];
+    if (v15 >= v20)
     {
-      v20 = v19;
+      v21 = v20;
     }
 
     else
     {
-      v20 = v14;
+      v21 = v15;
     }
 
-    v21 = v20 - (index != 0x7FFFFFFFFFFFFFFFLL);
-    v22 = MEMORY[0x1E695DFD8];
-    v23 = [v18 subarrayWithRange:{0, v21}];
-    v24 = [v22 setWithArray:v23];
+    v22 = v21 - (index != 0x7FFFFFFFFFFFFFFFLL);
+    v23 = MEMORY[0x1E695DFD8];
+    v24 = [v19 subarrayWithRange:{0, v22}];
+    v25 = [v23 setWithArray:v24];
 
+    v40[0] = 0;
+    v40[1] = v40;
+    v40[2] = 0x2020000000;
+    v40[3] = 0;
     v38[0] = 0;
     v38[1] = v38;
     v38[2] = 0x2020000000;
-    v38[3] = 0;
-    v36[0] = 0;
-    v36[1] = v36;
-    v36[2] = 0x2020000000;
-    v37 = index != 0x7FFFFFFFFFFFFFFFLL;
-    v25 = __atxlog_handle_ui();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    v39 = index != 0x7FFFFFFFFFFFFFFFLL;
+    v27 = __atxlog_handle_ui(v26);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
       *keyExistsAndHasValidFormat = 134218754;
-      v42 = v21;
-      v43 = 2112;
-      v44 = scoresCopy;
+      v44 = v22;
       v45 = 2112;
-      v46 = v28;
+      v46 = scoresCopy;
       v47 = 2112;
-      v48 = v24;
-      _os_log_impl(&dword_1BF549000, v25, OS_LOG_TYPE_DEFAULT, "ZKW Server Limit: Fill slots %lu, scores: %@, omit empty: %@, allowed: %@", keyExistsAndHasValidFormat, 0x2Au);
+      v48 = v30;
+      v49 = 2112;
+      v50 = v25;
+      _os_log_impl(&dword_1BF549000, v27, OS_LOG_TYPE_DEFAULT, "ZKW Server Limit: Fill slots %lu, scores: %@, omit empty: %@, allowed: %@", keyExistsAndHasValidFormat, 0x2Au);
     }
 
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 3221225472;
-    v29[2] = __81__ATXSpotlightClientResponse__limitingResults_scores_spotlightRecentIndex_limit___block_invoke_54;
-    v29[3] = &unk_1E80C4B38;
-    v30 = scoresCopy;
-    v32 = v38;
-    v34 = v14;
+    v31[0] = MEMORY[0x1E69E9820];
+    v31[1] = 3221225472;
+    v31[2] = __81__ATXSpotlightClientResponse__limitingResults_scores_spotlightRecentIndex_limit___block_invoke_54;
+    v31[3] = &unk_1E80C4B38;
+    v32 = scoresCopy;
+    v34 = v40;
+    v36 = v15;
     indexCopy = index;
-    v33 = v36;
-    v26 = v24;
-    v31 = v26;
-    v13 = [v15 _pas_mappedArrayWithIndexedTransform:v29];
+    v35 = v38;
+    v28 = v25;
+    v33 = v28;
+    v14 = [v16 _pas_mappedArrayWithIndexedTransform:v31];
 
-    _Block_object_dispose(v36, 8);
     _Block_object_dispose(v38, 8);
+    _Block_object_dispose(v40, 8);
   }
 
-  return v13;
+  return v14;
 }
 
 id __81__ATXSpotlightClientResponse__limitingResults_scores_spotlightRecentIndex_limit___block_invoke(uint64_t a1, void *a2, uint64_t a3)
@@ -956,17 +960,17 @@ id __81__ATXSpotlightClientResponse__limitingResults_scores_spotlightRecentIndex
 
 id __81__ATXSpotlightClientResponse__limitingResults_scores_spotlightRecentIndex_limit___block_invoke_54(uint64_t a1, void *a2, unint64_t a3)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = [*(a1 + 32) objectAtIndexedSubscript:a3];
-  v7 = __atxlog_handle_ui();
+  v7 = __atxlog_handle_ui(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v21 = 134218242;
-    v22 = a3;
-    v23 = 2112;
-    v24 = v6;
-    _os_log_impl(&dword_1BF549000, v7, OS_LOG_TYPE_DEFAULT, "ZKW Server Limit: Consider result %lu with score: %@", &v21, 0x16u);
+    v24 = 134218242;
+    v25 = a3;
+    v26 = 2112;
+    v27 = v6;
+    _os_log_impl(&dword_1BF549000, v7, OS_LOG_TYPE_DEFAULT, "ZKW Server Limit: Consider result %lu with score: %@", &v24, 0x16u);
   }
 
   v8 = [v5 results];
@@ -974,86 +978,83 @@ id __81__ATXSpotlightClientResponse__limitingResults_scores_spotlightRecentIndex
 
   if (!v9)
   {
-    [v5 setResults:MEMORY[0x1E695E0F0]];
-    v12 = __atxlog_handle_ui();
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = __atxlog_handle_ui([v5 setResults:MEMORY[0x1E695E0F0]]);
+    if (!os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_26;
     }
 
-    v21 = 134217984;
-    v22 = a3;
-    v13 = "ZKW Server Limit: Remove %lu, result is nil";
+    v24 = 134217984;
+    v25 = a3;
+    v15 = "ZKW Server Limit: Remove %lu, result is nil";
     goto LABEL_13;
   }
 
   if (*(*(*(a1 + 48) + 8) + 24) >= *(a1 + 64))
   {
-    [v5 setResults:MEMORY[0x1E695E0F0]];
-    v12 = __atxlog_handle_ui();
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = __atxlog_handle_ui([v5 setResults:MEMORY[0x1E695E0F0]]);
+    if (!os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_26;
     }
 
-    v16 = *(a1 + 64);
-    v21 = 134218240;
-    v22 = a3;
-    v23 = 2048;
-    v24 = v16;
-    v13 = "ZKW Server Limit: Remove %lu. Already included limit of %lu";
+    v18 = *(a1 + 64);
+    v24 = 134218240;
+    v25 = a3;
+    v26 = 2048;
+    v27 = v18;
+    v15 = "ZKW Server Limit: Remove %lu. Already included limit of %lu";
     goto LABEL_24;
   }
 
   if (*(a1 + 72) > a3)
   {
-    if (([*(a1 + 40) containsObject:v6] & 1) == 0)
+    v11 = objc_msgSend_containsObject_(*(a1 + 40));
+    if ((v11 & 1) == 0)
     {
-      [v5 setResults:MEMORY[0x1E695E0F0]];
-      v12 = __atxlog_handle_ui();
-      if (!os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v14 = __atxlog_handle_ui([v5 setResults:MEMORY[0x1E695E0F0]]);
+      if (!os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_26;
       }
 
-      v18 = *(a1 + 40);
-      v21 = 134218498;
-      v22 = a3;
-      v23 = 2112;
-      v24 = v6;
-      v25 = 2112;
-      v26 = v18;
-      v13 = "ZKW Server Limit: Remove %lu, score %@ isn't high enough, %@";
-      v14 = v12;
-      v15 = 32;
+      v21 = *(a1 + 40);
+      v24 = 134218498;
+      v25 = a3;
+      v26 = 2112;
+      v27 = v6;
+      v28 = 2112;
+      v29 = v21;
+      v15 = "ZKW Server Limit: Remove %lu, score %@ isn't high enough, %@";
+      v16 = v14;
+      v17 = 32;
       goto LABEL_25;
     }
 
-    v10 = *(*(a1 + 48) + 8);
-    v11 = *(v10 + 24) + 1;
-    if (v11 == *(a1 + 64) && *(*(*(a1 + 56) + 8) + 24) == 1)
+    v12 = *(*(a1 + 48) + 8);
+    v13 = *(v12 + 24) + 1;
+    if (v13 == *(a1 + 64) && *(*(*(a1 + 56) + 8) + 24) == 1)
     {
-      [v5 setResults:MEMORY[0x1E695E0F0]];
-      v12 = __atxlog_handle_ui();
-      if (!os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v14 = __atxlog_handle_ui([v5 setResults:MEMORY[0x1E695E0F0]]);
+      if (!os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_26;
       }
 
-      v21 = 134217984;
-      v22 = a3;
-      v13 = "ZKW Server Limit: Remove %lu. One slot left and need to add Spotlight Recent";
+      v24 = 134217984;
+      v25 = a3;
+      v15 = "ZKW Server Limit: Remove %lu. One slot left and need to add Spotlight Recent";
 LABEL_13:
-      v14 = v12;
-      v15 = 12;
+      v16 = v14;
+      v17 = 12;
 LABEL_25:
-      _os_log_impl(&dword_1BF549000, v14, OS_LOG_TYPE_DEFAULT, v13, &v21, v15);
+      _os_log_impl(&dword_1BF549000, v16, OS_LOG_TYPE_DEFAULT, v15, &v24, v17);
       goto LABEL_26;
     }
 
-    *(v10 + 24) = v11;
-    v12 = __atxlog_handle_ui();
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    *(v12 + 24) = v13;
+    v14 = __atxlog_handle_ui(v11);
+    if (!os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_26;
     }
@@ -1061,29 +1062,29 @@ LABEL_25:
     goto LABEL_23;
   }
 
-  v17 = __atxlog_handle_ui();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v19 = __atxlog_handle_ui(v10);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
-    v21 = 134217984;
-    v22 = a3;
-    _os_log_impl(&dword_1BF549000, v17, OS_LOG_TYPE_DEFAULT, "ZKW Server Limit: Found Spotlight Recent %lu", &v21, 0xCu);
+    v24 = 134217984;
+    v25 = a3;
+    _os_log_impl(&dword_1BF549000, v19, OS_LOG_TYPE_DEFAULT, "ZKW Server Limit: Found Spotlight Recent %lu", &v24, 0xCu);
   }
 
   *(*(*(a1 + 56) + 8) + 24) = 0;
   ++*(*(*(a1 + 48) + 8) + 24);
-  v12 = __atxlog_handle_ui();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v14 = __atxlog_handle_ui(v20);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
 LABEL_23:
-    v19 = *(*(*(a1 + 48) + 8) + 24);
-    v21 = 134218240;
-    v22 = a3;
-    v23 = 2048;
-    v24 = v19;
-    v13 = "ZKW Server Limit: Added %lu. Count is now %lu";
+    v22 = *(*(*(a1 + 48) + 8) + 24);
+    v24 = 134218240;
+    v25 = a3;
+    v26 = 2048;
+    v27 = v22;
+    v15 = "ZKW Server Limit: Added %lu. Count is now %lu";
 LABEL_24:
-    v14 = v12;
-    v15 = 22;
+    v16 = v14;
+    v17 = 22;
     goto LABEL_25;
   }
 
@@ -1094,140 +1095,145 @@ LABEL_26:
 
 - (id)_createSectionsFromServerResults:(id)results
 {
-  v67 = *MEMORY[0x1E69E9840];
+  v70 = *MEMORY[0x1E69E9840];
   resultsCopy = results;
-  v41 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v55 = 0u;
-  v56 = 0u;
-  v57 = 0u;
+  v44 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v58 = 0u;
+  v59 = 0u;
+  v60 = 0u;
+  v61 = 0u;
   obj = self->_sections;
-  v43 = [(NSArray *)obj countByEnumeratingWithState:&v55 objects:v66 count:16];
-  if (v43)
+  v5 = [(NSArray *)obj countByEnumeratingWithState:&v58 objects:v69 count:16];
+  v46 = v5;
+  if (v5)
   {
-    v6 = 0;
-    v42 = *v56;
-    *&v5 = 134217984;
-    v39 = v5;
+    v7 = 0;
+    v45 = *v59;
+    *&v6 = 134217984;
+    v42 = v6;
     selfCopy = self;
-    v46 = resultsCopy;
+    v49 = resultsCopy;
     do
     {
-      v7 = 0;
+      v8 = 0;
       do
       {
-        if (*v56 != v42)
+        if (*v59 != v45)
         {
           objc_enumerationMutation(obj);
         }
 
-        v44 = v7;
-        v8 = *(*(&v55 + 1) + 8 * v7);
-        v9 = __atxlog_handle_ui();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+        v47 = v8;
+        v9 = *(*(&v58 + 1) + 8 * v8);
+        v10 = __atxlog_handle_ui(v5);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
-          subtitle = [v8 subtitle];
-          v11 = [subtitle hash];
-          *buf = v39;
-          v60 = v11;
-          _os_log_impl(&dword_1BF549000, v9, OS_LOG_TYPE_DEFAULT, "ZKW Server Result: Section considered with title.hash %lu", buf, 0xCu);
+          subtitle = [v9 subtitle];
+          v12 = [subtitle hash];
+          *buf = v42;
+          v63 = v12;
+          _os_log_impl(&dword_1BF549000, v10, OS_LOG_TYPE_DEFAULT, "ZKW Server Result: Section considered with title.hash %lu", buf, 0xCu);
         }
 
-        v12 = objc_alloc_init(MEMORY[0x1E695DF70]);
-        results = [v8 results];
+        v13 = objc_alloc_init(MEMORY[0x1E695DF70]);
+        results = [v9 results];
         if ([results count])
         {
-          v14 = 0;
-          v47 = v8;
+          v15 = 0;
+          v50 = v9;
           while (1)
           {
-            v15 = [resultsCopy count];
+            v16 = [resultsCopy count];
 
-            if (v6 >= v15)
+            if (v7 >= v16)
             {
               break;
             }
 
-            v49 = v14;
-            v16 = [(NSArray *)self->_topics objectAtIndexedSubscript:v6];
-            v17 = [resultsCopy objectAtIndexedSubscript:v6];
-            v50 = v6 + 1;
-            v51 = 0u;
-            v52 = 0u;
-            v53 = 0u;
+            v52 = v15;
+            v17 = [(NSArray *)self->_topics objectAtIndexedSubscript:v7];
+            v18 = [resultsCopy objectAtIndexedSubscript:v7];
+            v53 = v7 + 1;
             v54 = 0u;
-            v48 = v17;
-            results2 = [v17 results];
-            v19 = [results2 countByEnumeratingWithState:&v51 objects:v65 count:16];
-            if (v19)
+            v55 = 0u;
+            v56 = 0u;
+            v57 = 0u;
+            v51 = v18;
+            results2 = [v18 results];
+            v20 = [results2 countByEnumeratingWithState:&v54 objects:v68 count:16];
+            if (v20)
             {
-              v20 = v19;
-              v21 = *v52;
+              v21 = v20;
+              v22 = *v55;
               do
               {
-                for (i = 0; i != v20; ++i)
+                v23 = 0;
+                do
                 {
-                  if (*v52 != v21)
+                  if (*v55 != v22)
                   {
                     objc_enumerationMutation(results2);
                   }
 
-                  v23 = *(*(&v51 + 1) + 8 * i);
-                  v24 = __atxlog_handle_ui();
-                  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+                  v24 = *(*(&v54 + 1) + 8 * v23);
+                  v25 = __atxlog_handle_ui(v20);
+                  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
                   {
-                    v25 = objc_opt_class();
-                    v26 = NSStringFromClass(v25);
-                    [v16 identifier];
-                    v28 = v27 = v12;
+                    v26 = objc_opt_class();
+                    v27 = NSStringFromClass(v26);
+                    [v17 identifier];
+                    v29 = v28 = v13;
                     *buf = 134218499;
-                    v60 = v50;
-                    v61 = 2112;
-                    v62 = v26;
-                    v63 = 2117;
-                    v64 = v28;
-                    _os_log_impl(&dword_1BF549000, v24, OS_LOG_TYPE_DEFAULT, "ZKW Server Result: Result %lu added: %@ %{sensitive}@", buf, 0x20u);
+                    v63 = v53;
+                    v64 = 2112;
+                    v65 = v27;
+                    v66 = 2117;
+                    v67 = v29;
+                    _os_log_impl(&dword_1BF549000, v25, OS_LOG_TYPE_DEFAULT, "ZKW Server Result: Result %lu added: %@ %{sensitive}@", buf, 0x20u);
 
-                    v12 = v27;
+                    v13 = v28;
                   }
 
-                  [v12 addObject:v23];
+                  v20 = [v13 addObject:v24];
+                  ++v23;
                 }
 
-                v20 = [results2 countByEnumeratingWithState:&v51 objects:v65 count:16];
+                while (v21 != v23);
+                v20 = [results2 countByEnumeratingWithState:&v54 objects:v68 count:16];
+                v21 = v20;
               }
 
               while (v20);
             }
 
-            results3 = [v48 results];
+            results3 = [v51 results];
             firstObject = [results3 firstObject];
 
-            v6 = v50;
-            v8 = v47;
+            v7 = v53;
+            v9 = v50;
             if (!firstObject)
             {
-              v31 = __atxlog_handle_ui();
-              if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+              v33 = __atxlog_handle_ui(v32);
+              if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
               {
-                v32 = objc_opt_class();
-                v33 = NSStringFromClass(v32);
-                identifier = [v16 identifier];
+                v34 = objc_opt_class();
+                v35 = NSStringFromClass(v34);
+                identifier = [v17 identifier];
                 *buf = 134218499;
-                v60 = v50;
-                v61 = 2112;
-                v62 = v33;
-                v63 = 2117;
-                v64 = identifier;
-                _os_log_impl(&dword_1BF549000, v31, OS_LOG_TYPE_DEFAULT, "ZKW Server Result: Result %lu empty: %@ %{sensitive}@", buf, 0x20u);
+                v63 = v53;
+                v64 = 2112;
+                v65 = v35;
+                v66 = 2117;
+                v67 = identifier;
+                _os_log_impl(&dword_1BF549000, v33, OS_LOG_TYPE_DEFAULT, "ZKW Server Result: Result %lu empty: %@ %{sensitive}@", buf, 0x20u);
               }
             }
 
-            v14 = v49 + 1;
-            results = [v47 results];
+            v15 = v52 + 1;
+            results = [v50 results];
             self = selfCopy;
-            resultsCopy = v46;
-            if (v49 + 1 >= [results count])
+            resultsCopy = v49;
+            if (v52 + 1 >= [results count])
             {
               goto LABEL_25;
             }
@@ -1239,50 +1245,51 @@ LABEL_26:
 LABEL_25:
         }
 
-        if ([v12 count])
+        if ([v13 count])
         {
-          v35 = [v8 copy];
-          v36 = [v12 copy];
-          [v35 setResults:v36];
+          v37 = [v9 copy];
+          v38 = [v13 copy];
+          [v37 setResults:v38];
 
-          [v41 addObject:v35];
+          [v44 addObject:v37];
         }
 
         else
         {
-          v35 = __atxlog_handle_ui();
-          if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+          v37 = __atxlog_handle_ui(0);
+          if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_1BF549000, v35, OS_LOG_TYPE_DEFAULT, "ZKW Server Result: Section not added", buf, 2u);
+            _os_log_impl(&dword_1BF549000, v37, OS_LOG_TYPE_DEFAULT, "ZKW Server Result: Section not added", buf, 2u);
           }
         }
 
-        v7 = v44 + 1;
+        v8 = v47 + 1;
       }
 
-      while (v44 + 1 != v43);
-      v43 = [(NSArray *)obj countByEnumeratingWithState:&v55 objects:v66 count:16];
+      while (v47 + 1 != v46);
+      v5 = [(NSArray *)obj countByEnumeratingWithState:&v58 objects:v69 count:16];
+      v46 = v5;
     }
 
-    while (v43);
+    while (v5);
   }
 
   if (self->_isZKWHideContextsEnabled)
   {
-    [(ATXSpotlightHidingUIController *)self->_controller addHidingPreviewButtonItemsToServerResultSections:v41];
+    [(ATXSpotlightHidingUIController *)self->_controller addHidingPreviewButtonItemsToServerResultSections:v44];
   }
 
   else
   {
-    v37 = __atxlog_handle_ui();
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+    v40 = __atxlog_handle_ui(v39);
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
     }
   }
 
-  return v41;
+  return v44;
 }
 
 + (void)_logWeatherResponsesWithTopics:(id)topics serverResults:(id)results
@@ -1299,7 +1306,7 @@ LABEL_25:
 
 void __75__ATXSpotlightClientResponse__logWeatherResponsesWithTopics_serverResults___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v97 = *MEMORY[0x1E69E9840];
+  v107 = *MEMORY[0x1E69E9840];
   v5 = a2;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -1311,264 +1318,265 @@ void __75__ATXSpotlightClientResponse__logWeatherResponsesWithTopics_serverResul
 
     if (!v9)
     {
-      v41 = __atxlog_handle_ui();
-      if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+      v45 = __atxlog_handle_ui(v10);
+      if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v83) = 0;
-        _os_log_impl(&dword_1BF549000, v41, OS_LOG_TYPE_DEFAULT, "ZKW Weather: Weather response empty", &v83, 2u);
+        LOWORD(v93) = 0;
+        _os_log_impl(&dword_1BF549000, v45, OS_LOG_TYPE_DEFAULT, "ZKW Weather: Weather response empty", &v93, 2u);
       }
 
-      v10 = __atxlog_handle_metrics();
-      v42 = __atxlog_handle_metrics();
-      v43 = os_signpost_id_generate(v42);
+      v11 = __atxlog_handle_metrics(v46);
+      v47 = __atxlog_handle_metrics(v11);
+      v48 = os_signpost_id_generate(v47);
 
-      if (v43 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+      if (v48 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
       {
-        v83 = 134349056;
-        v84 = 1;
-        _os_signpost_emit_with_name_impl(&dword_1BF549000, v10, OS_SIGNPOST_EVENT, v43, "ATXSpotlightWeatherResponse", "result=%{public, signpost.telemetry:number1}lu enableTelemetry=YES ", &v83, 0xCu);
+        v93 = 134349056;
+        v94 = 1;
+        _os_signpost_emit_with_name_impl(&dword_1BF549000, v11, OS_SIGNPOST_EVENT, v48, "ATXSpotlightWeatherResponse", "result=%{public, signpost.telemetry:number1}lu enableTelemetry=YES ", &v93, 0xCu);
       }
 
       goto LABEL_43;
     }
 
-    v10 = [v9 normalizedTopic];
+    v11 = [v9 normalizedTopic];
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    isKindOfClass = objc_opt_isKindOfClass();
+    if ((isKindOfClass & 1) == 0)
     {
-      v44 = __atxlog_handle_ui();
-      if (os_log_type_enabled(v44, OS_LOG_TYPE_FAULT))
+      v49 = __atxlog_handle_ui(isKindOfClass);
+      if (os_log_type_enabled(v49, OS_LOG_TYPE_FAULT))
       {
-        __75__ATXSpotlightClientResponse__logWeatherResponsesWithTopics_serverResults___block_invoke_cold_1(v10, v44);
+        __75__ATXSpotlightClientResponse__logWeatherResponsesWithTopics_serverResults___block_invoke_cold_1(v11, v49);
       }
 
-      v17 = __atxlog_handle_metrics();
-      v45 = __atxlog_handle_metrics();
-      v46 = os_signpost_id_generate(v45);
+      v19 = __atxlog_handle_metrics(v50);
+      v51 = __atxlog_handle_metrics(v19);
+      v52 = os_signpost_id_generate(v51);
 
-      if (v46 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
+      if (v52 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
       {
-        v83 = 134349056;
-        v84 = 2;
-        _os_signpost_emit_with_name_impl(&dword_1BF549000, v17, OS_SIGNPOST_EVENT, v46, "ATXSpotlightWeatherResponse", "result=%{public, signpost.telemetry:number1}lu enableTelemetry=YES ", &v83, 0xCu);
+        v93 = 134349056;
+        v94 = 2;
+        _os_signpost_emit_with_name_impl(&dword_1BF549000, v19, OS_SIGNPOST_EVENT, v52, "ATXSpotlightWeatherResponse", "result=%{public, signpost.telemetry:number1}lu enableTelemetry=YES ", &v93, 0xCu);
       }
 
       goto LABEL_42;
     }
 
-    v11 = objc_alloc(MEMORY[0x1E6985C40]);
-    v12 = [v6 location];
-    [v12 lat];
-    v14 = v13;
-    v15 = [v6 location];
-    [v15 lng];
-    v17 = [v11 initWithLatitude:v14 longitude:v16];
+    v13 = objc_alloc(MEMORY[0x1E6985C40]);
+    v14 = [v6 location];
+    [v14 lat];
+    v16 = v15;
+    v17 = [v6 location];
+    [v17 lng];
+    v19 = [v13 initWithLatitude:v16 longitude:v18];
 
-    v18 = v10;
-    v19 = objc_alloc(MEMORY[0x1E6985C40]);
-    v20 = [v18 location];
-    [v20 lat];
-    v22 = v21;
-    v23 = [v18 location];
-    [v23 lng];
-    v25 = [v19 initWithLatitude:v22 longitude:v24];
+    v20 = v11;
+    v21 = objc_alloc(MEMORY[0x1E6985C40]);
+    v22 = [v20 location];
+    [v22 lat];
+    v24 = v23;
+    v25 = [v20 location];
+    [v25 lng];
+    v27 = [v21 initWithLatitude:v24 longitude:v26];
 
-    [v25 distanceFromLocation:v17];
-    v27 = v26;
-    if (v26 >= 1000.0)
+    v28 = [v27 distanceFromLocation:v19];
+    v30 = v29;
+    if (v29 >= 1000.0)
     {
-      if (v26 >= 8000.0)
+      if (v29 >= 8000.0)
       {
-        v58 = __atxlog_handle_ui();
-        v59 = os_log_type_enabled(v58, OS_LOG_TYPE_FAULT);
-        if (v27 >= 24000.0)
+        v65 = __atxlog_handle_ui(v28);
+        v66 = os_log_type_enabled(v65, OS_LOG_TYPE_FAULT);
+        if (v30 >= 24000.0)
         {
-          if (v59)
+          if (v66)
           {
-            v74 = [v6 query];
-            v75 = [v18 query];
-            [v17 coordinate];
-            v77 = v76;
-            [v17 coordinate];
-            v79 = v78;
-            [v25 coordinate];
-            v81 = v80;
-            [v25 coordinate];
-            v83 = 134219523;
-            *&v84 = v27 / 1000.0;
-            v85 = 2112;
-            v86 = v74;
-            v87 = 2112;
-            v88 = v75;
-            v89 = 2049;
-            v90 = v77;
-            v91 = 2049;
-            v92 = v79;
-            v93 = 2049;
-            v94 = v81;
-            v95 = 2049;
-            v96 = v82;
-            _os_log_fault_impl(&dword_1BF549000, v58, OS_LOG_TYPE_FAULT, "ZKW Weather: Weather response fail.far: %.2f km (%@ -> %@) (%{private}f, %{private}f) -> (%{private}f, %{private}f)", &v83, 0x48u);
+            v84 = [v6 query];
+            v85 = [v20 query];
+            [v19 coordinate];
+            v87 = v86;
+            [v19 coordinate];
+            v89 = v88;
+            [v27 coordinate];
+            v91 = v90;
+            [v27 coordinate];
+            v93 = 134219523;
+            *&v94 = v30 / 1000.0;
+            v95 = 2112;
+            v96 = v84;
+            v97 = 2112;
+            v98 = v85;
+            v99 = 2049;
+            v100 = v87;
+            v101 = 2049;
+            v102 = v89;
+            v103 = 2049;
+            v104 = v91;
+            v105 = 2049;
+            v106 = v92;
+            _os_log_fault_impl(&dword_1BF549000, v65, OS_LOG_TYPE_FAULT, "ZKW Weather: Weather response fail.far: %.2f km (%@ -> %@) (%{private}f, %{private}f) -> (%{private}f, %{private}f)", &v93, 0x48u);
           }
 
-          v38 = __atxlog_handle_metrics();
-          v61 = __atxlog_handle_metrics();
-          v40 = os_signpost_id_generate(v61);
+          v42 = __atxlog_handle_metrics(v69);
+          v70 = __atxlog_handle_metrics(v42);
+          v44 = os_signpost_id_generate(v70);
 
-          if (v40 - 1 > 0xFFFFFFFFFFFFFFFDLL || !os_signpost_enabled(v38))
+          if (v44 - 1 > 0xFFFFFFFFFFFFFFFDLL || !os_signpost_enabled(v42))
           {
             goto LABEL_38;
           }
 
-          v83 = 134349056;
-          v84 = 6;
+          v93 = 134349056;
+          v94 = 6;
         }
 
         else
         {
-          if (v59)
+          if (v66)
           {
-            v65 = [v6 query];
-            v66 = [v18 query];
-            [v17 coordinate];
-            v68 = v67;
-            [v17 coordinate];
-            v70 = v69;
-            [v25 coordinate];
-            v72 = v71;
-            [v25 coordinate];
-            v83 = 134219523;
-            *&v84 = v27 / 1000.0;
-            v85 = 2112;
-            v86 = v65;
-            v87 = 2112;
-            v88 = v66;
-            v89 = 2049;
-            v90 = v68;
-            v91 = 2049;
-            v92 = v70;
-            v93 = 2049;
-            v94 = v72;
-            v95 = 2049;
-            v96 = v73;
-            _os_log_fault_impl(&dword_1BF549000, v58, OS_LOG_TYPE_FAULT, "ZKW Weather: Weather response fail.near: %.2f km (%@ -> %@) (%{private}f, %{private}f) -> (%{private}f, %{private}f)", &v83, 0x48u);
+            v75 = [v6 query];
+            v76 = [v20 query];
+            [v19 coordinate];
+            v78 = v77;
+            [v19 coordinate];
+            v80 = v79;
+            [v27 coordinate];
+            v82 = v81;
+            [v27 coordinate];
+            v93 = 134219523;
+            *&v94 = v30 / 1000.0;
+            v95 = 2112;
+            v96 = v75;
+            v97 = 2112;
+            v98 = v76;
+            v99 = 2049;
+            v100 = v78;
+            v101 = 2049;
+            v102 = v80;
+            v103 = 2049;
+            v104 = v82;
+            v105 = 2049;
+            v106 = v83;
+            _os_log_fault_impl(&dword_1BF549000, v65, OS_LOG_TYPE_FAULT, "ZKW Weather: Weather response fail.near: %.2f km (%@ -> %@) (%{private}f, %{private}f) -> (%{private}f, %{private}f)", &v93, 0x48u);
           }
 
-          v38 = __atxlog_handle_metrics();
-          v60 = __atxlog_handle_metrics();
-          v40 = os_signpost_id_generate(v60);
+          v42 = __atxlog_handle_metrics(v67);
+          v68 = __atxlog_handle_metrics(v42);
+          v44 = os_signpost_id_generate(v68);
 
-          if (v40 - 1 > 0xFFFFFFFFFFFFFFFDLL || !os_signpost_enabled(v38))
+          if (v44 - 1 > 0xFFFFFFFFFFFFFFFDLL || !os_signpost_enabled(v42))
           {
             goto LABEL_38;
           }
 
-          v83 = 134349056;
-          v84 = 5;
+          v93 = 134349056;
+          v94 = 5;
         }
       }
 
       else
       {
-        v47 = __atxlog_handle_ui();
-        if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+        v53 = __atxlog_handle_ui(v28);
+        if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
         {
-          v48 = [v6 query];
-          v49 = [v18 query];
-          [v17 coordinate];
-          v51 = v50;
-          [v17 coordinate];
-          v53 = v52;
-          [v25 coordinate];
-          v55 = v54;
-          [v25 coordinate];
-          v83 = 134219523;
-          *&v84 = v27 / 1000.0;
-          v85 = 2112;
-          v86 = v48;
-          v87 = 2112;
-          v88 = v49;
-          v89 = 2049;
-          v90 = v51;
-          v91 = 2049;
-          v92 = v53;
-          v93 = 2049;
-          v94 = v55;
-          v95 = 2049;
-          v96 = v56;
-          _os_log_impl(&dword_1BF549000, v47, OS_LOG_TYPE_DEFAULT, "ZKW Weather: Weather response pass.far: %.2f km (%@ -> %@) (%{private}f, %{private}f) -> (%{private}f, %{private}f)", &v83, 0x48u);
+          v54 = [v6 query];
+          v55 = [v20 query];
+          [v19 coordinate];
+          v57 = v56;
+          [v19 coordinate];
+          v59 = v58;
+          [v27 coordinate];
+          v61 = v60;
+          [v27 coordinate];
+          v93 = 134219523;
+          *&v94 = v30 / 1000.0;
+          v95 = 2112;
+          v96 = v54;
+          v97 = 2112;
+          v98 = v55;
+          v99 = 2049;
+          v100 = v57;
+          v101 = 2049;
+          v102 = v59;
+          v103 = 2049;
+          v104 = v61;
+          v105 = 2049;
+          v106 = v62;
+          _os_log_impl(&dword_1BF549000, v53, OS_LOG_TYPE_DEFAULT, "ZKW Weather: Weather response pass.far: %.2f km (%@ -> %@) (%{private}f, %{private}f) -> (%{private}f, %{private}f)", &v93, 0x48u);
         }
 
-        v38 = __atxlog_handle_metrics();
-        v57 = __atxlog_handle_metrics();
-        v40 = os_signpost_id_generate(v57);
+        v42 = __atxlog_handle_metrics(v63);
+        v64 = __atxlog_handle_metrics(v42);
+        v44 = os_signpost_id_generate(v64);
 
-        if (v40 - 1 > 0xFFFFFFFFFFFFFFFDLL || !os_signpost_enabled(v38))
+        if (v44 - 1 > 0xFFFFFFFFFFFFFFFDLL || !os_signpost_enabled(v42))
         {
           goto LABEL_38;
         }
 
-        v83 = 134349056;
-        v84 = 4;
+        v93 = 134349056;
+        v94 = 4;
       }
     }
 
     else
     {
-      v28 = __atxlog_handle_ui();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+      v31 = __atxlog_handle_ui(v28);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
       {
-        v29 = [v6 query];
-        v30 = [v18 query];
-        [v17 coordinate];
-        v32 = v31;
-        [v17 coordinate];
-        v34 = v33;
-        [v25 coordinate];
-        v36 = v35;
-        [v25 coordinate];
-        v83 = 134219523;
-        *&v84 = v27;
-        v85 = 2112;
-        v86 = v29;
-        v87 = 2112;
-        v88 = v30;
-        v89 = 2049;
-        v90 = v32;
-        v91 = 2049;
-        v92 = v34;
-        v93 = 2049;
-        v94 = v36;
-        v95 = 2049;
-        v96 = v37;
-        _os_log_impl(&dword_1BF549000, v28, OS_LOG_TYPE_DEFAULT, "ZKW Weather: Weather response pass.near: %.2f m (%@ -> %@) (%{private}f, %{private}f) -> (%{private}f, %{private}f)", &v83, 0x48u);
+        v32 = [v6 query];
+        v33 = [v20 query];
+        [v19 coordinate];
+        v35 = v34;
+        [v19 coordinate];
+        v37 = v36;
+        [v27 coordinate];
+        v39 = v38;
+        [v27 coordinate];
+        v93 = 134219523;
+        *&v94 = v30;
+        v95 = 2112;
+        v96 = v32;
+        v97 = 2112;
+        v98 = v33;
+        v99 = 2049;
+        v100 = v35;
+        v101 = 2049;
+        v102 = v37;
+        v103 = 2049;
+        v104 = v39;
+        v105 = 2049;
+        v106 = v40;
+        _os_log_impl(&dword_1BF549000, v31, OS_LOG_TYPE_DEFAULT, "ZKW Weather: Weather response pass.near: %.2f m (%@ -> %@) (%{private}f, %{private}f) -> (%{private}f, %{private}f)", &v93, 0x48u);
       }
 
-      v38 = __atxlog_handle_metrics();
-      v39 = __atxlog_handle_metrics();
-      v40 = os_signpost_id_generate(v39);
+      v42 = __atxlog_handle_metrics(v41);
+      v43 = __atxlog_handle_metrics(v42);
+      v44 = os_signpost_id_generate(v43);
 
-      if (v40 - 1 > 0xFFFFFFFFFFFFFFFDLL || !os_signpost_enabled(v38))
+      if (v44 - 1 > 0xFFFFFFFFFFFFFFFDLL || !os_signpost_enabled(v42))
       {
         goto LABEL_38;
       }
 
-      v83 = 134349056;
-      v84 = 3;
+      v93 = 134349056;
+      v94 = 3;
     }
 
-    _os_signpost_emit_with_name_impl(&dword_1BF549000, v38, OS_SIGNPOST_EVENT, v40, "ATXSpotlightWeatherResponse", "result=%{public, signpost.telemetry:number1}lu enableTelemetry=YES ", &v83, 0xCu);
+    _os_signpost_emit_with_name_impl(&dword_1BF549000, v42, OS_SIGNPOST_EVENT, v44, "ATXSpotlightWeatherResponse", "result=%{public, signpost.telemetry:number1}lu enableTelemetry=YES ", &v93, 0xCu);
 LABEL_38:
 
-    v62 = __atxlog_handle_metrics();
-    v63 = __atxlog_handle_metrics();
-    v64 = os_signpost_id_generate(v63);
+    v72 = __atxlog_handle_metrics(v71);
+    v73 = __atxlog_handle_metrics(v72);
+    v74 = os_signpost_id_generate(v73);
 
-    if (v64 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v62))
+    if (v74 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v72))
     {
-      v83 = 134349056;
-      *&v84 = v27;
-      _os_signpost_emit_with_name_impl(&dword_1BF549000, v62, OS_SIGNPOST_EVENT, v64, "ATXSpotlightWeatherResponse", "distance=%{public, signpost.telemetry:number2}.0f enableTelemetry=YES ", &v83, 0xCu);
+      v93 = 134349056;
+      *&v94 = v30;
+      _os_signpost_emit_with_name_impl(&dword_1BF549000, v72, OS_SIGNPOST_EVENT, v74, "ATXSpotlightWeatherResponse", "distance=%{public, signpost.telemetry:number2}.0f enableTelemetry=YES ", &v93, 0xCu);
     }
 
 LABEL_42:
@@ -1580,36 +1588,37 @@ LABEL_43:
 {
   errorCopy = error;
   keyExistsAndHasValidFormat[0] = 0;
-  if (CFPreferencesGetAppBooleanValue(@"zkwShowErrorTopicResponse", *MEMORY[0x1E698B030], keyExistsAndHasValidFormat))
+  AppBooleanValue = CFPreferencesGetAppBooleanValue(@"zkwShowErrorTopicResponse", *MEMORY[0x1E698B030], keyExistsAndHasValidFormat);
+  if (AppBooleanValue)
   {
-    v5 = __atxlog_handle_ui();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = __atxlog_handle_ui(AppBooleanValue);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *keyExistsAndHasValidFormat = 0;
-      _os_log_impl(&dword_1BF549000, v5, OS_LOG_TYPE_DEFAULT, "ZKW Server Result: Debug: Replacing empty response with debug ui", keyExistsAndHasValidFormat, 2u);
+      _os_log_impl(&dword_1BF549000, v6, OS_LOG_TYPE_DEFAULT, "ZKW Server Result: Debug: Replacing empty response with debug ui", keyExistsAndHasValidFormat, 2u);
     }
 
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __55__ATXSpotlightClientResponse__replaceMissingWithError___block_invoke;
-    v9[3] = &unk_1E80C4A48;
-    v9[4] = self;
-    v6 = [errorCopy _pas_mappedArrayWithIndexedTransform:v9];
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __55__ATXSpotlightClientResponse__replaceMissingWithError___block_invoke;
+    v10[3] = &unk_1E80C4A48;
+    v10[4] = self;
+    v7 = [errorCopy _pas_mappedArrayWithIndexedTransform:v10];
   }
 
   else
   {
-    v6 = errorCopy;
+    v7 = errorCopy;
   }
 
-  v7 = v6;
+  v8 = v7;
 
-  return v7;
+  return v8;
 }
 
 id __55__ATXSpotlightClientResponse__replaceMissingWithError___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = [v5 results];
   v7 = [v6 firstObject];
@@ -1624,7 +1633,7 @@ id __55__ATXSpotlightClientResponse__replaceMissingWithError___block_invoke(uint
     v12 = MEMORY[0x1E696AEC0];
     v13 = objc_opt_class();
     v14 = NSStringFromClass(v13);
-    v44 = [v12 stringWithFormat:@"Missing: %@", v14];
+    v45 = [v12 stringWithFormat:@"Missing: %@", v14];
 
     v15 = objc_alloc_init(MEMORY[0x1E695DF70]);
     v16 = [v8 identifier];
@@ -1706,46 +1715,47 @@ id __55__ATXSpotlightClientResponse__replaceMissingWithError___block_invoke(uint
     }
 
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v36 = v8;
-      if ([v36 queryType] == 2 || objc_msgSend(v36, "queryType") == 3)
+      v37 = v8;
+      if ([v37 queryType] == 2 || objc_msgSend(v37, "queryType") == 3)
       {
-        v37 = [v36 identifier];
+        v38 = [v37 identifier];
       }
 
-      else if ([v36 queryType] == 1)
+      else if ([v37 queryType] == 1)
       {
-        v42 = objc_alloc(MEMORY[0x1E696AEC0]);
-        v43 = [v36 identifier];
-        v37 = [v42 initWithFormat:@"%@ site:music.apple.com", v43];
+        v43 = objc_alloc(MEMORY[0x1E696AEC0]);
+        v44 = [v37 identifier];
+        v38 = [v43 initWithFormat:@"%@ site:music.apple.com", v44];
       }
 
       else
       {
-        v37 = 0;
+        v38 = 0;
       }
     }
 
     else
     {
-      v37 = 0;
+      v38 = 0;
     }
 
-    v38 = __atxlog_handle_ui();
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+    v39 = __atxlog_handle_ui(isKindOfClass);
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218242;
-      v47 = a3;
-      v48 = 2112;
-      v49 = v15;
-      _os_log_impl(&dword_1BF549000, v38, OS_LOG_TYPE_DEFAULT, "ZKW Server Result: Debug: [%lu] %@", buf, 0x16u);
+      v48 = a3;
+      v49 = 2112;
+      v50 = v15;
+      _os_log_impl(&dword_1BF549000, v39, OS_LOG_TYPE_DEFAULT, "ZKW Server Result: Debug: [%lu] %@", buf, 0x16u);
     }
 
-    v39 = [objc_opt_class() _resultForError:v44 subtitles:v15 searchString:v37];
-    v45 = v39;
-    v40 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v45 count:1];
-    [v5 setResults:v40];
+    v40 = [objc_opt_class() _resultForError:v45 subtitles:v15 searchString:v38];
+    v46 = v40;
+    v41 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v46 count:1];
+    [v5 setResults:v41];
   }
 
   return v5;
@@ -1824,19 +1834,19 @@ id __55__ATXSpotlightClientResponse__replaceMissingWithError___block_invoke(uint
 
 + (unint64_t)_trialSuggestionsMaxCountWithDefault:(unint64_t)default
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v4 = [MEMORY[0x1E69DB518] clientWithIdentifier:232];
   v5 = [v4 levelForFactor:@"ZKWSuggestionsMaxCount" withNamespaceName:@"SPOTLIGHT_UI"];
-  v6 = __atxlog_handle_ui();
+  v6 = __atxlog_handle_ui(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412802;
+    v10 = 138412802;
     defaultCopy = v5;
-    v11 = 2112;
-    v12 = @"ZKWSuggestionsMaxCount";
-    v13 = 2048;
+    v12 = 2112;
+    v13 = @"ZKWSuggestionsMaxCount";
+    v14 = 2048;
     longValue = [v5 longValue];
-    _os_log_impl(&dword_1BF549000, v6, OS_LOG_TYPE_DEFAULT, "+[ATXSpotlightClientResponse _trialSuggestionsMaxCount]: level(%@)=%@ level.longValue=%lld", &v9, 0x20u);
+    _os_log_impl(&dword_1BF549000, v6, OS_LOG_TYPE_DEFAULT, "+[ATXSpotlightClientResponse _trialSuggestionsMaxCount]: level(%@)=%@ level.longValue=%lld", &v10, 0x20u);
   }
 
   if (v5)
@@ -1846,12 +1856,12 @@ id __55__ATXSpotlightClientResponse__replaceMissingWithError___block_invoke(uint
 
   else
   {
-    v7 = __atxlog_handle_ui();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = __atxlog_handle_ui(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 134217984;
+      v10 = 134217984;
       defaultCopy = default;
-      _os_log_impl(&dword_1BF549000, v7, OS_LOG_TYPE_DEFAULT, "+[ATXSpotlightClientResponse _trialSuggestionsMaxCount]: level is null. returning default value of %lu", &v9, 0xCu);
+      _os_log_impl(&dword_1BF549000, v8, OS_LOG_TYPE_DEFAULT, "+[ATXSpotlightClientResponse _trialSuggestionsMaxCount]: level is null. returning default value of %lu", &v10, 0xCu);
     }
   }
 

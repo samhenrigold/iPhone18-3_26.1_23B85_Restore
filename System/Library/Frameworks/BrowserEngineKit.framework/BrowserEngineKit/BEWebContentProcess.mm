@@ -10,8 +10,8 @@
 
 + (void)webContentProcessWithBundleID:(id)d interruptionHandler:(id)handler completion:(id)completion
 {
-  v8 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0159C0, &qword_19D520AD0) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x1EEE9AC00]();
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0159C0, &qword_19D520AD0);
+  MEMORY[0x1EEE9AC00](v8 - 8);
   v10 = &v19 - v9;
   v11 = _Block_copy(handler);
   v12 = _Block_copy(completion);
@@ -60,42 +60,40 @@
 {
   v3 = sub_19D51E02C();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x1EEE9AC00](v3);
-  v7 = &v13 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v12 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   selfCopy = self;
   sub_19D51E05C();
   sub_19D51E03C();
-  v9 = sub_19D51DFFC();
-  (*(v4 + 8))(v7, v3);
-  v10 = sub_19D51E27C();
-  v11 = [objc_opt_self() interactionWithPID:v9 environmentIdentifier:v10];
+  v8 = sub_19D51DFFC();
+  (*(v4 + 8))(v6, v3);
+  v9 = sub_19D51E27C();
+  v10 = [objc_opt_self() interactionWithPID:v8 environmentIdentifier:v9];
 
-  return v11;
+  return v10;
 }
 
 + (void)webContentProcessWithInterruptionHandler:(id)handler completion:(id)completion
 {
   v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0159C0, &qword_19D520AD0);
-  v7 = *(*(v6 - 8) + 64);
   MEMORY[0x1EEE9AC00](v6 - 8);
-  v9 = &v16 - v8;
-  v10 = _Block_copy(handler);
-  v11 = _Block_copy(completion);
+  v8 = &v15 - v7;
+  v9 = _Block_copy(handler);
+  v10 = _Block_copy(completion);
+  v11 = swift_allocObject();
+  *(v11 + 16) = v9;
   v12 = swift_allocObject();
   *(v12 + 16) = v10;
-  v13 = swift_allocObject();
-  *(v13 + 16) = v11;
-  v14 = sub_19D51E37C();
-  (*(*(v14 - 8) + 56))(v9, 1, 1, v14);
-  v15 = swift_allocObject();
-  v15[2] = 0;
-  v15[3] = 0;
-  v15[4] = sub_19D5196A8;
-  v15[5] = v12;
-  v15[6] = sub_19D519684;
-  v15[7] = v13;
-  sub_19D516AB4(0, 0, v9, &unk_19D521098, v15);
+  v13 = sub_19D51E37C();
+  (*(*(v13 - 8) + 56))(v8, 1, 1, v13);
+  v14 = swift_allocObject();
+  v14[2] = 0;
+  v14[3] = 0;
+  v14[4] = sub_19D5196A8;
+  v14[5] = v11;
+  v14[6] = sub_19D519684;
+  v14[7] = v12;
+  sub_19D516AB4(0, 0, v8, &unk_19D521098, v14);
 }
 
 - (BEWebContentProcess)init

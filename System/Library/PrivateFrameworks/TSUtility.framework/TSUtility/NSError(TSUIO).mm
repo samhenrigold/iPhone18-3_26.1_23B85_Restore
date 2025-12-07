@@ -18,7 +18,7 @@
   {
     v5 = @"An error occurred while writing";
 LABEL_5:
-    v6 = SFUBundle();
+    v6 = SFUBundle(self, a2);
     v7 = [v6 localizedStringForKey:v5 value:&stru_287DDF830 table:@"TSUtility"];
 
     goto LABEL_7;
@@ -34,7 +34,7 @@ LABEL_7:
 + (id)tsu_IOReadErrorWithErrno:()TSUIO
 {
   v5 = MEMORY[0x277CCACA8];
-  v6 = SFUBundle();
+  v6 = SFUBundle(self, a2);
   v7 = [v6 localizedStringForKey:@"An error occurred while reading: %s" value:&stru_287DDF830 table:@"TSUtility"];
   v8 = [v5 stringWithFormat:v7, strerror(a3)];
 
@@ -46,7 +46,7 @@ LABEL_7:
 + (id)tsu_IOWriteErrorWithErrno:()TSUIO
 {
   v5 = MEMORY[0x277CCACA8];
-  v6 = SFUBundle();
+  v6 = SFUBundle(self, a2);
   v7 = [v6 localizedStringForKey:@"An error occurred while writing: %s" value:&stru_287DDF830 table:@"TSUtility"];
   v8 = [v5 stringWithFormat:v7, strerror(a3)];
 

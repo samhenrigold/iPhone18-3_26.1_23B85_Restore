@@ -497,187 +497,187 @@
   }
 
   v9 = v8->_internal;
-  objc_opt_class();
-  v10 = sub_10018E3FC(v5, "2");
-  v11 = v10;
-  if (v10)
+  v10 = objc_opt_class();
+  v11 = sub_10018E3FC(v5, "2", v10);
+  v12 = v11;
+  if (v11)
   {
-    v12 = sub_10018DAD8(v10);
-    v13 = *(v9 + 3);
-    *(v9 + 3) = v12;
+    v13 = sub_10018DAD8(v11);
+    v14 = *(v9 + 3);
+    *(v9 + 3) = v13;
   }
 
-  objc_opt_class();
-  v14 = sub_10018E3FC(v5, "6");
+  v15 = objc_opt_class();
+  v16 = sub_10018E3FC(v5, "6", v15);
 
-  if (v14)
+  if (v16)
   {
-    objc_storeStrong(v9 + 7, v14);
+    objc_storeStrong(v9 + 7, v16);
   }
 
-  v15 = sub_10018E3C4(v5, "11");
+  v17 = sub_10018E3C4(v5, "11");
 
   if (objc_opt_respondsToSelector())
   {
-    integerValue = [(__CFDictionary *)v15 integerValue];
+    integerValue = [(__CFDictionary *)v17 integerValue];
     *(v9 + 10) = integerValue;
     if (integerValue == 10000)
     {
-      v17 = _CFExecutableLinkedOnOrAfter();
-      v18 = 3;
-      if (v17)
+      v19 = _CFExecutableLinkedOnOrAfter();
+      v20 = 3;
+      if (v19)
       {
-        v18 = 1;
+        v20 = 1;
       }
 
-      *(v9 + 10) = v18;
+      *(v9 + 10) = v20;
     }
   }
 
-  objc_opt_class();
-  v19 = sub_10018E3FC(v5, "13");
+  v21 = objc_opt_class();
+  v22 = sub_10018E3FC(v5, "13", v21);
 
-  if (v19)
+  if (v22)
   {
-    v20 = 64;
+    v23 = 64;
 LABEL_19:
-    objc_storeStrong(&v9[v20], v19);
+    objc_storeStrong(&v9[v23], v22);
     goto LABEL_20;
   }
 
-  objc_opt_class();
-  v19 = sub_10018E3FC(v5, "12");
-  if (v19)
+  v24 = objc_opt_class();
+  v22 = sub_10018E3FC(v5, "12", v24);
+  if (v22)
   {
-    v20 = 48;
+    v23 = 48;
     goto LABEL_19;
   }
 
 LABEL_20:
-  objc_opt_class();
-  v21 = sub_10018E3FC(v5, "8");
+  v25 = objc_opt_class();
+  v26 = sub_10018E3FC(v5, "8", v25);
 
-  if (v21)
+  if (v26)
   {
-    objc_storeStrong(v9 + 9, v21);
+    objc_storeStrong(v9 + 9, v26);
   }
 
-  objc_opt_class();
-  v22 = sub_10018E3FC(v5, "4");
-  objc_opt_class();
-  v23 = sub_10018E3FC(v5, "5");
-  v24 = v23;
-  v25 = 0;
-  v49 = v22;
-  if (v22 && v23)
+  v27 = objc_opt_class();
+  v28 = sub_10018E3FC(v5, "4", v27);
+  v29 = objc_opt_class();
+  v30 = sub_10018E3FC(v5, "5", v29);
+  v31 = v30;
+  v32 = 0;
+  v62 = v28;
+  if (v28 && v30)
   {
-    v25 = objc_alloc_init(SKPaymentTransaction);
-    v26 = v24;
-    internal = v25->_internal;
-    v28 = v49;
-    v29 = internal[7];
-    internal[7] = v28;
-    v30 = internal;
+    v32 = objc_alloc_init(SKPaymentTransaction);
+    v33 = v31;
+    internal = v32->_internal;
+    v35 = v62;
+    v36 = internal[7];
+    internal[7] = v35;
+    v37 = internal;
 
-    v31 = [(__CFDictionary *)v26 copy];
-    v32 = v30[8];
-    v30[8] = v31;
+    v38 = [(__CFDictionary *)v33 copy];
+    v39 = v37[8];
+    v37[8] = v38;
 
-    v30[10] = 1;
-    v24 = v26;
+    v37[10] = 1;
+    v31 = v33;
   }
 
-  objc_opt_class();
-  v33 = sub_10018E3FC(v5, "3");
-  v34 = sub_10018E3C4(v5, "7");
+  v40 = objc_opt_class();
+  v41 = sub_10018E3FC(v5, "3", v40);
+  v42 = sub_10018E3C4(v5, "7");
   objc_opt_class();
   if (objc_opt_isKindOfClass() & 1) != 0 && (objc_opt_respondsToSelector())
   {
-    v48 = v24;
-    v35 = objc_alloc_init(SKMutablePayment);
-    [(SKMutablePayment *)v35 setProductIdentifier:v33];
-    [(SKMutablePayment *)v35 setQuantity:[(__CFDictionary *)v34 integerValue]];
-    objc_opt_class();
-    v36 = sub_10018E3FC(v5, "9");
+    v61 = v31;
+    v43 = objc_alloc_init(SKMutablePayment);
+    [(SKMutablePayment *)v43 setProductIdentifier:v41];
+    [(SKMutablePayment *)v43 setQuantity:[(__CFDictionary *)v42 integerValue]];
+    v44 = objc_opt_class();
+    v45 = sub_10018E3FC(v5, "9", v44);
 
-    if (v36)
+    if (v45)
     {
-      [(SKMutablePayment *)v35 setRequestData:v36];
+      [(SKMutablePayment *)v43 setRequestData:v45];
     }
 
-    objc_opt_class();
-    v37 = sub_10018E3FC(v5, "10");
+    v46 = objc_opt_class();
+    v47 = sub_10018E3FC(v5, "10", v46);
 
-    if (v37)
+    if (v47)
     {
-      [(SKMutablePayment *)v35 setRequestParameters:v37];
+      [(SKMutablePayment *)v43 setRequestParameters:v47];
     }
 
-    objc_opt_class();
-    v38 = sub_10018E3FC(v5, "0");
+    v48 = objc_opt_class();
+    v49 = sub_10018E3FC(v5, "0", v48);
 
-    if (v38)
+    if (v49)
     {
-      [(SKMutablePayment *)v35 setApplicationUsername:v38];
+      [(SKMutablePayment *)v43 setApplicationUsername:v49];
     }
 
-    objc_opt_class();
-    v39 = sub_10018E3FC(v5, "14");
+    v50 = objc_opt_class();
+    v51 = sub_10018E3FC(v5, "14", v50);
 
-    if (v39)
+    if (v51)
     {
-      [(SKMutablePayment *)v35 setPartnerIdentifier:v39];
+      [(SKMutablePayment *)v43 setPartnerIdentifier:v51];
     }
 
-    objc_opt_class();
-    v40 = sub_10018E3FC(v5, "15");
+    v52 = objc_opt_class();
+    v53 = sub_10018E3FC(v5, "15", v52);
 
-    if (v40)
+    if (v53)
     {
-      [(SKMutablePayment *)v35 setPartnerTransactionIdentifier:v40];
+      [(SKMutablePayment *)v43 setPartnerTransactionIdentifier:v53];
     }
 
-    v21 = sub_10018E3C4(v5, "16");
+    v26 = sub_10018E3C4(v5, "16");
 
     if (objc_opt_respondsToSelector())
     {
-      [(SKMutablePayment *)v35 setSimulatesAskToBuyInSandbox:[(__CFDictionary *)v21 BOOLValue]];
+      [(SKMutablePayment *)v43 setSimulatesAskToBuyInSandbox:[(__CFDictionary *)v26 BOOLValue]];
     }
 
-    [(SKMutablePayment *)v35 setIsStoreOriginated:xpc_dictionary_get_BOOL(v5, "17")];
-    v41 = [(SKPaymentTransaction *)v6 getPaymentDiscountFromTransactionXPCEncoding:v5];
-    [(SKMutablePayment *)v35 setPaymentDiscount:v41];
-    v42 = [(SKMutablePayment *)v35 copy];
-    objc_storeStrong(v9 + 5, v42);
-    if (v25)
+    [(SKMutablePayment *)v43 setIsStoreOriginated:xpc_dictionary_get_BOOL(v5, "17")];
+    v54 = [(SKPaymentTransaction *)v6 getPaymentDiscountFromTransactionXPCEncoding:v5];
+    [(SKMutablePayment *)v43 setPaymentDiscount:v54];
+    v55 = [(SKMutablePayment *)v43 copy];
+    objc_storeStrong(v9 + 5, v55);
+    if (v32)
     {
-      objc_storeStrong(v25->_internal + 5, v42);
+      objc_storeStrong(v32->_internal + 5, v55);
     }
 
-    v24 = v48;
+    v31 = v61;
   }
 
-  objc_storeStrong(v9 + 4, v25);
-  v43 = xpc_dictionary_get_value(v5, "1");
-  v44 = v43;
-  if (v43 && xpc_get_type(v43) == &_xpc_type_array)
+  objc_storeStrong(v9 + 4, v32);
+  v56 = xpc_dictionary_get_value(v5, "1");
+  v57 = v56;
+  if (v56 && xpc_get_type(v56) == &_xpc_type_array)
   {
-    v45 = v34;
-    v46 = v24;
+    v58 = v42;
+    v59 = v31;
     applier[0] = _NSConcreteStackBlock;
     applier[1] = 3221225472;
     applier[2] = sub_1000C84C4;
     applier[3] = &unk_100328088;
-    v47 = objc_alloc_init(NSMutableArray);
-    v51 = v47;
-    xpc_array_apply(v44, applier);
-    if ([v47 count])
+    v60 = objc_alloc_init(NSMutableArray);
+    v64 = v60;
+    xpc_array_apply(v57, applier);
+    if ([v60 count])
     {
-      [(SKPaymentTransaction *)v6 _setDownloads:v47];
+      [(SKPaymentTransaction *)v6 _setDownloads:v60];
     }
 
-    v24 = v46;
-    v34 = v45;
+    v31 = v59;
+    v42 = v58;
   }
 
 LABEL_4:
@@ -687,60 +687,60 @@ LABEL_4:
 - (id)getPaymentDiscountFromTransactionXPCEncoding:(id)encoding
 {
   encodingCopy = encoding;
-  objc_opt_class();
-  v4 = sub_10018E3FC(encodingCopy, "18");
-  if (v4)
+  v4 = objc_opt_class();
+  v5 = sub_10018E3FC(encodingCopy, "18", v4);
+  if (v5)
   {
-    objc_opt_class();
-    v5 = sub_10018E3FC(encodingCopy, "19");
-    if (v5)
+    v6 = objc_opt_class();
+    v7 = sub_10018E3FC(encodingCopy, "19", v6);
+    if (v7)
     {
-      objc_opt_class();
-      v6 = sub_10018E3FC(encodingCopy, "20");
-      v7 = [[NSUUID alloc] initWithUUIDString:v6];
-      if (v7)
+      v8 = objc_opt_class();
+      v9 = sub_10018E3FC(encodingCopy, "20", v8);
+      v10 = [[NSUUID alloc] initWithUUIDString:v9];
+      if (v10)
       {
-        objc_opt_class();
-        v8 = sub_10018E3FC(encodingCopy, "21");
-        if (v8)
+        v11 = objc_opt_class();
+        v12 = sub_10018E3FC(encodingCopy, "21", v11);
+        if (v12)
         {
-          objc_opt_class();
-          v9 = sub_10018E3FC(encodingCopy, "22");
-          if (v9)
+          v13 = objc_opt_class();
+          v14 = sub_10018E3FC(encodingCopy, "22", v13);
+          if (v14)
           {
-            v10 = [[SKPaymentDiscount alloc] initWithIdentifier:v4 keyIdentifier:v5 nonce:v7 signature:v8 timestamp:v9];
+            v15 = [[SKPaymentDiscount alloc] initWithIdentifier:v5 keyIdentifier:v7 nonce:v10 signature:v12 timestamp:v14];
           }
 
           else
           {
-            v10 = 0;
+            v15 = 0;
           }
         }
 
         else
         {
-          v10 = 0;
+          v15 = 0;
         }
       }
 
       else
       {
-        v10 = 0;
+        v15 = 0;
       }
     }
 
     else
     {
-      v10 = 0;
+      v15 = 0;
     }
   }
 
   else
   {
-    v10 = 0;
+    v15 = 0;
   }
 
-  return v10;
+  return v15;
 }
 
 - (id)copyXPCEncoding

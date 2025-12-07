@@ -50,7 +50,7 @@
 
     else
     {
-      v6 = __atxlog_handle_default();
+      v6 = __atxlog_handle_default(0);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
       {
         +[ATXFallbackActions fallbackActionsBundle];
@@ -62,7 +62,7 @@
 
   else
   {
-    v4 = __atxlog_handle_default();
+    v4 = __atxlog_handle_default(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       +[ATXFallbackActions fallbackActionsBundle];
@@ -167,8 +167,8 @@
   v7 = [MEMORY[0x1E696E880] atx_createEventIntentWithStartDate:v5 endDate:v6];
   if (!v7)
   {
-    v16 = __atxlog_handle_default();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = __atxlog_handle_default(0);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       [ATXFallbackActions createAnEventForCurrentDate:];
     }
@@ -177,40 +177,41 @@
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v17 = __atxlog_handle_default();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = __atxlog_handle_default(isKindOfClass);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       [ATXFallbackActions createAnEventForCurrentDate:];
     }
 
     [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D930] format:@"Generic intent created from EKUICreateEventIntent is not an INIntent object."];
 LABEL_12:
-    v15 = 0;
+    v16 = 0;
     goto LABEL_13;
   }
 
-  v8 = [(ATXFallbackActions *)self localizedStringForKey:@"CREATE_CALENDAR_EVENT_TITLE"];
-  v9 = v8;
-  v10 = @"Create a new calendar event";
-  if (v8)
+  v9 = [(ATXFallbackActions *)self localizedStringForKey:@"CREATE_CALENDAR_EVENT_TITLE"];
+  v10 = v9;
+  v11 = @"Create a new calendar event";
+  if (v9)
   {
-    v10 = v8;
+    v11 = v9;
   }
 
-  v11 = v10;
+  v12 = v11;
 
-  v12 = [ATXAction alloc];
-  v13 = objc_opt_new();
-  LOBYTE(v19) = 0;
-  v14 = [(ATXAction *)v12 initWithIntent:v7 actionUUID:v13 bundleId:@"com.apple.mobilecal" heuristic:0 heuristicMetadata:0 criteria:0 isFutureMedia:v19 title:v11 subtitle:@" "];
+  v13 = [ATXAction alloc];
+  v14 = objc_opt_new();
+  LOBYTE(v20) = 0;
+  v15 = [(ATXAction *)v13 initWithIntent:v7 actionUUID:v14 bundleId:@"com.apple.mobilecal" heuristic:0 heuristicMetadata:0 criteria:0 isFutureMedia:v20 title:v12 subtitle:@" "];
 
-  v15 = [(ATXFallbackActions *)self proactiveSuggestionForAction:v14];
+  v16 = [(ATXFallbackActions *)self proactiveSuggestionForAction:v15];
 
 LABEL_13:
 
-  return v15;
+  return v16;
 }
 
 + (id)dateWithoutMinutesAndSeconds:(id)seconds
@@ -309,7 +310,7 @@ LABEL_11:
     }
   }
 
-  v8 = __atxlog_handle_default();
+  v8 = __atxlog_handle_default(self);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
   {
     [ATXFallbackActions suggestionforSpecifiedFallbackActionType:];
@@ -379,8 +380,8 @@ LABEL_12:
 
     if (++v5 == 5)
     {
-      v8 = __atxlog_handle_default();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+      v9 = __atxlog_handle_default(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
       {
         +[ATXFallbackActions fallbackActionTypeForString:];
       }
@@ -400,7 +401,7 @@ LABEL_12:
     return off_1E80C4110[type];
   }
 
-  v5 = __atxlog_handle_default();
+  v5 = __atxlog_handle_default(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     [(ATXFallbackActions *)type stringForFallbackActionType:v5];

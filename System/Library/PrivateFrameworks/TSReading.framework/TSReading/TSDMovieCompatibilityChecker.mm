@@ -65,13 +65,13 @@
 
 void __78__TSDMovieCompatibilityChecker_checkCompatibilityUpToLevel_completionHandler___block_invoke(uint64_t a1)
 {
-  v36[1] = *MEMORY[0x277D85DE8];
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x2020000000;
-  v34 = 0;
-  v30 = 0;
-  v2 = [*(*(a1 + 32) + 8) statusOfValueForKey:@"hasProtectedContent" error:&v30];
+  v42[1] = *MEMORY[0x277D85DE8];
+  v37 = 0;
+  v38 = &v37;
+  v39 = 0x2020000000;
+  v40 = 0;
+  v36 = 0;
+  v2 = [*(*(a1 + 32) + 8) statusOfValueForKey:@"hasProtectedContent" error:&v36];
   if (v2 == 2)
   {
     if ([*(*(a1 + 32) + 8) hasProtectedContent])
@@ -87,67 +87,73 @@ void __78__TSDMovieCompatibilityChecker_checkCompatibilityUpToLevel_completionHa
       }
 
       v8 = [v5 URL];
-      v29 = 0;
-      [v8 getResourceValue:&v29 forKey:*MEMORY[0x277CBE8D0] error:0];
-      if (!v29)
+      v35 = 0;
+      [v8 getResourceValue:&v35 forKey:*MEMORY[0x277CBE8D0] error:0];
+      if (!v35)
       {
-        v29 = [objc_msgSend(v5 "URL")];
+        v35 = [objc_msgSend(v5 "URL")];
       }
 
-      if ([v4 isEqualToString:@"Keynote"])
+      v9 = [v4 isEqualToString:@"Keynote"];
+      if (v9)
       {
-        v9 = MEMORY[0x277CCACA8];
-        v10 = [TSDBundle() localizedStringForKey:@"The media file \\U201C%@\\U201D is copy protected. You don\\U2019t have permission to use it in Keynote." value:&stru_287D36338 table:@"TSDrawables"];
-      }
-
-      else if ([v4 isEqualToString:@"Numbers"])
-      {
-        v9 = MEMORY[0x277CCACA8];
-        v10 = [TSDBundle() localizedStringForKey:@"The media file \\U201C%@\\U201D is copy protected. You don\\U2019t have permission to use it in Numbers." value:&stru_287D36338 table:@"TSDrawables"];
+        v11 = MEMORY[0x277CCACA8];
+        v12 = [TSDBundle(v9 v10)];
       }
 
       else
       {
-        if (![v4 isEqualToString:@"Pages"])
+        v16 = [v4 isEqualToString:@"Numbers"];
+        if (v16)
         {
-          v25 = [MEMORY[0x277D6C290] currentHandler];
-          v26 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TSDMovieCompatibilityChecker checkCompatibilityUpToLevel:completionHandler:]_block_invoke"];
-          [v25 handleFailureInFunction:v26 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/drawables/TSDMovieCompatibilityChecker.m"), 130, @"Unknown application name!"}];
-          v20 = 0;
-          goto LABEL_25;
+          v11 = MEMORY[0x277CCACA8];
+          v12 = [TSDBundle(v16 v17)];
         }
 
-        v9 = MEMORY[0x277CCACA8];
-        v10 = [TSDBundle() localizedStringForKey:@"The media file \\U201C%@\\U201D is copy protected. You don\\U2019t have permission to use it in Pages." value:&stru_287D36338 table:@"TSDrawables"];
+        else
+        {
+          v24 = [v4 isEqualToString:@"Pages"];
+          if (!v24)
+          {
+            v31 = [MEMORY[0x277D6C290] currentHandler];
+            v32 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TSDMovieCompatibilityChecker checkCompatibilityUpToLevel:completionHandler:]_block_invoke"];
+            [v31 handleFailureInFunction:v32 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/drawables/TSDMovieCompatibilityChecker.m"), 130, @"Unknown application name!"}];
+            v26 = 0;
+            goto LABEL_25;
+          }
+
+          v11 = MEMORY[0x277CCACA8];
+          v12 = [TSDBundle(v24 v25)];
+        }
       }
 
-      v20 = [v9 stringWithFormat:v10, v29];
+      v26 = [v11 stringWithFormat:v12, v35];
 LABEL_25:
-      v35 = *MEMORY[0x277CCA450];
-      v36[0] = v20;
-      v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:&v35 count:1];
-      v22 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.iWork.TSDErrorDomainMovieCompatibility" code:99 userInfo:v21];
+      v41 = *MEMORY[0x277CCA450];
+      v42[0] = v26;
+      v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:&v41 count:1];
+      v28 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.iWork.TSDErrorDomainMovieCompatibility" code:99 userInfo:v27];
       v3 = 0;
-      v30 = v22;
+      v36 = v28;
       goto LABEL_3;
     }
 
-    v32[3] = 1;
-    v29 = 0;
-    v11 = [*(*(a1 + 32) + 8) statusOfValueForKey:@"playable" error:&v29];
-    if (v11 != 2)
+    v38[3] = 1;
+    v35 = 0;
+    v13 = [*(*(a1 + 32) + 8) statusOfValueForKey:@"playable" error:&v35];
+    if (v13 != 2)
     {
-      if (v11 == 4)
+      if (v13 == 4)
       {
-        v12 = v32[3];
-        v13 = 1;
+        v14 = v38[3];
+        v15 = 1;
       }
 
       else
       {
-        v12 = 0;
-        v13 = 0;
-        v32[3] = 0;
+        v14 = 0;
+        v15 = 0;
+        v38[3] = 0;
       }
 
       goto LABEL_29;
@@ -155,56 +161,56 @@ LABEL_25:
 
     if ([*(*(a1 + 32) + 8) isPlayable])
     {
-      v14 = v32;
-      v12 = 2;
-      v32[3] = 2;
-      if (*(a1 + 48) < 3 || (v12 = 3, v14[3] = 3, v15 = *(a1 + 48), v15 < 4))
+      v18 = v38;
+      v14 = 2;
+      v38[3] = 2;
+      if (*(a1 + 48) < 3 || (v14 = 3, v18[3] = 3, v19 = *(a1 + 48), v19 < 4))
       {
-        v13 = 0;
+        v15 = 0;
 LABEL_29:
-        [*(a1 + 32) p_didFinishCheckingCompatibilityUpToLevel:*(a1 + 48) actualLevel:v12 didCancel:v13 error:v29 completionHandler:*(a1 + 40)];
+        [*(a1 + 32) p_didFinishCheckingCompatibilityUpToLevel:*(a1 + 48) actualLevel:v14 didCancel:v15 error:v35 completionHandler:*(a1 + 40)];
         goto LABEL_4;
       }
 
-      v16 = *(a1 + 32);
-      v17 = *(v16 + 8);
-      v18 = v28;
-      v28[0] = MEMORY[0x277D85DD0];
-      v28[1] = 3221225472;
-      v28[2] = __78__TSDMovieCompatibilityChecker_checkCompatibilityUpToLevel_completionHandler___block_invoke_2;
-      v28[3] = &unk_279D49318;
-      v28[4] = v16;
-      v28[6] = &v31;
-      v28[7] = v15;
-      v19 = &unk_287DDCB70;
+      v20 = *(a1 + 32);
+      v21 = *(v20 + 8);
+      v22 = v34;
+      v34[0] = MEMORY[0x277D85DD0];
+      v34[1] = 3221225472;
+      v34[2] = __78__TSDMovieCompatibilityChecker_checkCompatibilityUpToLevel_completionHandler___block_invoke_2;
+      v34[3] = &unk_279D49318;
+      v34[4] = v20;
+      v34[6] = &v37;
+      v34[7] = v19;
+      v23 = &unk_287DDCB70;
     }
 
     else
     {
-      v23 = *(a1 + 32);
-      v17 = *(v23 + 8);
-      v18 = v27;
-      v27[0] = MEMORY[0x277D85DD0];
-      v27[1] = 3221225472;
-      v27[2] = __78__TSDMovieCompatibilityChecker_checkCompatibilityUpToLevel_completionHandler___block_invoke_3;
-      v27[3] = &unk_279D49318;
-      v27[4] = v23;
-      v24 = *(a1 + 48);
-      v27[6] = &v31;
-      v27[7] = v24;
-      v19 = &unk_287DDCB88;
+      v29 = *(a1 + 32);
+      v21 = *(v29 + 8);
+      v22 = v33;
+      v33[0] = MEMORY[0x277D85DD0];
+      v33[1] = 3221225472;
+      v33[2] = __78__TSDMovieCompatibilityChecker_checkCompatibilityUpToLevel_completionHandler___block_invoke_3;
+      v33[3] = &unk_279D49318;
+      v33[4] = v29;
+      v30 = *(a1 + 48);
+      v33[6] = &v37;
+      v33[7] = v30;
+      v23 = &unk_287DDCB88;
     }
 
-    v18[5] = *(a1 + 40);
-    [v17 loadValuesAsynchronouslyForKeys:v19 completionHandler:?];
+    v22[5] = *(a1 + 40);
+    [v21 loadValuesAsynchronouslyForKeys:v23 completionHandler:?];
     goto LABEL_4;
   }
 
   v3 = v2 == 4;
 LABEL_3:
-  [*(a1 + 32) p_didFinishCheckingCompatibilityUpToLevel:*(a1 + 48) actualLevel:v32[3] didCancel:v3 error:v30 completionHandler:*(a1 + 40)];
+  [*(a1 + 32) p_didFinishCheckingCompatibilityUpToLevel:*(a1 + 48) actualLevel:v38[3] didCancel:v3 error:v36 completionHandler:*(a1 + 40)];
 LABEL_4:
-  _Block_object_dispose(&v31, 8);
+  _Block_object_dispose(&v37, 8);
 }
 
 uint64_t __78__TSDMovieCompatibilityChecker_checkCompatibilityUpToLevel_completionHandler___block_invoke_2(uint64_t a1)
@@ -274,13 +280,14 @@ LABEL_5:
 
 - (void)p_didFinishCheckingCompatibilityUpToLevel:(int64_t)level actualLevel:(int64_t)actualLevel didCancel:(BOOL)cancel error:(id)error completionHandler:(id)handler
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   if (cancel)
   {
     goto LABEL_16;
   }
 
   errorCopy = error;
+  selfCopy = self;
   if (!actualLevel && error)
   {
     if ([error code] != -11828)
@@ -291,21 +298,21 @@ LABEL_11:
     }
 
     domain = [errorCopy domain];
-    v12 = [domain isEqualToString:*MEMORY[0x277CE5DC0]];
-    if (v12)
+    self = [domain isEqualToString:*MEMORY[0x277CE5DC0]];
+    if (self)
     {
       errorCopy = 0;
     }
 
-    actualLevel = v12;
+    actualLevel = self;
   }
 
   if (!errorCopy && !actualLevel)
   {
-    v15 = *MEMORY[0x277CCA450];
-    v16[0] = [TSDBundle() localizedStringForKey:@"This movie can\\U2019t be added." value:&stru_287D36338 table:@"TSDrawables"];
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
-    errorCopy = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.iWork.TSDErrorDomainMovieCompatibility" code:100 userInfo:v13];
+    v14 = *MEMORY[0x277CCA450];
+    v15[0] = [TSDBundle(self a2)];
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+    errorCopy = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.iWork.TSDErrorDomainMovieCompatibility" code:100 userInfo:v12];
     goto LABEL_11;
   }
 
@@ -320,8 +327,8 @@ LABEL_12:
     actualLevelCopy = actualLevel;
   }
 
-  self->mCompatibilityLevel = actualLevelCopy;
-  self->mError = [errorCopy copy];
+  selfCopy->mCompatibilityLevel = actualLevelCopy;
+  selfCopy->mError = [errorCopy copy];
 LABEL_16:
   if (handler)
   {
@@ -564,7 +571,7 @@ LABEL_32:
     v25 = 0u;
     if (devices)
     {
-      [devices preferredTransform];
+      objc_msgSend_preferredTransform(devices);
     }
 
     v22 = v25;

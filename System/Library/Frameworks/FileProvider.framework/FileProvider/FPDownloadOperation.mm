@@ -142,7 +142,7 @@ uint64_t __33__FPDownloadOperation_actionMain__block_invoke_2(void *a1)
 
 - (void)_completedWithResultsByRoot:(id)root errorsByRoot:(id)byRoot error:(id)error
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   rootCopy = root;
   byRootCopy = byRoot;
   errorCopy = error;
@@ -153,13 +153,13 @@ uint64_t __33__FPDownloadOperation_actionMain__block_invoke_2(void *a1)
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     fp_prettyDescription = [errorCopy fp_prettyDescription];
-    v21 = 138412802;
-    v22 = rootCopy;
-    v23 = 2112;
-    v24 = byRootCopy;
-    v25 = 2112;
-    v26 = fp_prettyDescription;
-    _os_log_debug_impl(&dword_1AAAE1000, v12, OS_LOG_TYPE_DEBUG, "[DEBUG] Remote download operation finished with results:%@; errors:%@; %@", &v21, 0x20u);
+    v20 = 138412802;
+    v21 = rootCopy;
+    v22 = 2112;
+    v23 = byRootCopy;
+    v24 = 2112;
+    v25 = fp_prettyDescription;
+    _os_log_debug_impl(&dword_1AAAE1000, v12, OS_LOG_TYPE_DEBUG, "[DEBUG] Remote download operation finished with results:%@; errors:%@; %@", &v20, 0x20u);
   }
 
   v13 = fp_current_or_default_log();
@@ -183,8 +183,6 @@ uint64_t __33__FPDownloadOperation_actionMain__block_invoke_2(void *a1)
   allValues2 = [rootCopy allValues];
   v18 = [allValues2 fp_map:&__block_literal_global_25_1];
   [(FPDownloadOperation *)self completedWithResult:v18 error:firstObject];
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 id __70__FPDownloadOperation__completedWithResultsByRoot_errorsByRoot_error___block_invoke(uint64_t a1, void *a2)
@@ -234,30 +232,30 @@ void __49__FPDownloadOperation_completedWithResult_error___block_invoke(uint64_t
 
 - (void)finishWithResult:(id)result error:(id)error
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   resultCopy = result;
   errorCopy = error;
   v8 = objc_opt_new();
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   v9 = self->_items;
-  v10 = [(NSArray *)v9 countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v10 = [(NSArray *)v9 countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v29;
+    v12 = *v28;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v29 != v12)
+        if (*v28 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v28 + 1) + 8 * i);
+        v14 = *(*(&v27 + 1) + 8 * i);
         itemID = [v14 itemID];
         [(FPDownloadOperation *)self _removeProgressWithItemID:itemID];
 
@@ -265,7 +263,7 @@ void __49__FPDownloadOperation_completedWithResult_error___block_invoke(uint64_t
         [v8 addObject:providerDomainID];
       }
 
-      v11 = [(NSArray *)v9 countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v11 = [(NSArray *)v9 countByEnumeratingWithState:&v27 objects:v31 count:16];
     }
 
     while (v11);
@@ -308,11 +306,9 @@ void __49__FPDownloadOperation_completedWithResult_error___block_invoke(uint64_t
     [(FPDownloadOperation *)self setDownloadCompletionBlock:0];
   }
 
-  v27.receiver = self;
-  v27.super_class = FPDownloadOperation;
-  [(FPActionOperation *)&v27 finishWithResult:resultCopy error:errorCopy];
-
-  v26 = *MEMORY[0x1E69E9840];
+  v26.receiver = self;
+  v26.super_class = FPDownloadOperation;
+  [(FPActionOperation *)&v26 finishWithResult:resultCopy error:errorCopy];
 }
 
 - (FPDownloadOperation)initWithRemoteOperation:(id)operation info:(id)info
@@ -555,55 +551,53 @@ void __47__FPDownloadOperation__runWithRemoteOperation___block_invoke_3(uint64_t
 
 void __43__FPDownloadOperation__setupParentProgress__block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) progress];
   [v2 setTotalUnitCount:-1];
 
   v3 = [*(a1 + 32) progress];
   [v3 fp_setFileOperationKind:*MEMORY[0x1E696A848]];
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   obj = *(*(a1 + 32) + 448);
-  v4 = [obj countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = [obj countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v15;
+    v6 = *v14;
     do
     {
       v7 = 0;
       do
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v14 + 1) + 8 * v7);
+        v8 = *(*(&v13 + 1) + 8 * v7);
         v9 = +[FPItemManager defaultManager];
-        v13[0] = MEMORY[0x1E69E9820];
-        v13[1] = 3221225472;
-        v13[2] = __43__FPDownloadOperation__setupParentProgress__block_invoke_2;
-        v13[3] = &unk_1E793B130;
+        v12[0] = MEMORY[0x1E69E9820];
+        v12[1] = 3221225472;
+        v12[2] = __43__FPDownloadOperation__setupParentProgress__block_invoke_2;
+        v12[3] = &unk_1E793B130;
         v10 = *(a1 + 32);
-        v13[4] = v8;
-        v13[5] = v10;
-        [v9 fetchURLForItem:v8 creatingPlaceholderIfMissing:1 completionHandler:v13];
+        v12[4] = v8;
+        v12[5] = v10;
+        [v9 fetchURLForItem:v8 creatingPlaceholderIfMissing:1 completionHandler:v12];
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [obj countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [obj countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v5);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __43__FPDownloadOperation__setupParentProgress__block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -749,7 +743,6 @@ void __66__FPDownloadOperation__updateParentProgressForItem_withUnitCount___bloc
 
 - (void)_completedWithResultsByRoot:(void *)a1 errorsByRoot:error:.cold.1(void *a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
   v2 = [a1 progress];
   v3 = [v2 localizedAdditionalDescription];
   v4 = [a1 progress];
@@ -758,14 +751,11 @@ void __66__FPDownloadOperation__updateParentProgressForItem_withUnitCount___bloc
   v7 = [v6 fileTotalCount];
   v8 = [a1 progress];
   OUTLINED_FUNCTION_0_12();
-  OUTLINED_FUNCTION_1_10(&dword_1AAAE1000, v9, v10, "[DEBUG] download-op progress: %@\n files: %@ / %@\n%@", v11, v12, v13, v14, v16);
-
-  v15 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_10(&dword_1AAAE1000, v9, v10, "[DEBUG] download-op progress: %@\n files: %@ / %@\n%@", v11, v12, v13, v14);
 }
 
 - (void)finishWithResult:(void *)a1 error:.cold.1(void *a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
   v2 = [a1 progress];
   v3 = [v2 localizedAdditionalDescription];
   v4 = [a1 progress];
@@ -774,36 +764,30 @@ void __66__FPDownloadOperation__updateParentProgressForItem_withUnitCount___bloc
   v7 = [v6 fileTotalCount];
   v8 = [a1 progress];
   OUTLINED_FUNCTION_0_12();
-  OUTLINED_FUNCTION_1_10(&dword_1AAAE1000, v9, v10, "[DEBUG] download-op final progress: %@\n files: %@ / %@\n%@", v11, v12, v13, v14, v16);
-
-  v15 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_10(&dword_1AAAE1000, v9, v10, "[DEBUG] download-op final progress: %@\n files: %@ / %@\n%@", v11, v12, v13, v14);
 }
 
 - (void)remoteOperationCompletedRoot:(NSObject *)a3 resultingItem:error:completion:.cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = [a2 fp_prettyDescription];
-  v7 = 138412546;
-  v8 = a1;
-  v9 = 2112;
-  v10 = v5;
-  _os_log_debug_impl(&dword_1AAAE1000, a3, OS_LOG_TYPE_DEBUG, "[DEBUG] Remote root download finished - root:%@; error:%@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 138412546;
+  v7 = a1;
+  v8 = 2112;
+  v9 = v5;
+  _os_log_debug_impl(&dword_1AAAE1000, a3, OS_LOG_TYPE_DEBUG, "[DEBUG] Remote root download finished - root:%@; error:%@", &v6, 0x16u);
 }
 
 - (void)remoteOperationCreatedRoot:(uint64_t)a1 resultingItem:(NSObject *)a2 completion:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] Remote download root created: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] Remote download root created: %@", &v2, 0xCu);
 }
 
 void __56__FPDownloadOperation_remoteOperationProgressesAreReady__block_invoke_36_cold_1(id *a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
   v2 = [*a1 progress];
   v3 = [v2 localizedAdditionalDescription];
   v4 = [*a1 progress];
@@ -812,51 +796,44 @@ void __56__FPDownloadOperation_remoteOperationProgressesAreReady__block_invoke_3
   v7 = [v6 fileTotalCount];
   v8 = [*a1 progress];
   OUTLINED_FUNCTION_0_12();
-  OUTLINED_FUNCTION_1_10(&dword_1AAAE1000, v9, v10, "[DEBUG] download-op progress: %@\n files: %@ / %@\n%@", v11, v12, v13, v14, v16);
-
-  v15 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_10(&dword_1AAAE1000, v9, v10, "[DEBUG] download-op progress: %@\n files: %@ / %@\n%@", v11, v12, v13, v14);
 }
 
 void __43__FPDownloadOperation__setupParentProgress__block_invoke_2_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_error_impl(&dword_1AAAE1000, log, OS_LOG_TYPE_ERROR, "[ERROR] Error retrieving url for item %@: %@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_error_impl(&dword_1AAAE1000, log, OS_LOG_TYPE_ERROR, "[ERROR] Error retrieving url for item %@: %@", &v4, 0x16u);
 }
 
 void __66__FPDownloadOperation__updateParentProgressForItem_withUnitCount___block_invoke_cold_1(id *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = [*a1 itemID];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_debug_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] download-op already tracking a childProxy for item %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_debug_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] download-op already tracking a childProxy for item %@", &v4, 0xCu);
 }
 
 void __66__FPDownloadOperation__updateParentProgressForItem_withUnitCount___block_invoke_2_cold_1(id *a1, NSObject *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v4 = [*a1 progress];
   v5 = [*a1 progress];
   v6 = [v5 fileCompletedCount];
   v7 = [*a1 progress];
   v8 = [v7 fileTotalCount];
-  v10 = 138412802;
-  v11 = v4;
-  v12 = 2112;
-  v13 = v6;
-  v14 = 2112;
-  v15 = v8;
-  _os_log_debug_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] download-op Added childProxy to parent: %@\n %@ / %@ files", &v10, 0x20u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  v9 = 138412802;
+  v10 = v4;
+  v11 = 2112;
+  v12 = v6;
+  v13 = 2112;
+  v14 = v8;
+  _os_log_debug_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] download-op Added childProxy to parent: %@\n %@ / %@ files", &v9, 0x20u);
 }
 
 @end

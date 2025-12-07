@@ -13,6 +13,7 @@
 - (id)addPushedBookmark:(id)bookmark;
 - (id)addRAPNotificationForFixedProblems:(id)problems;
 - (id)addRAPNotificationForProblemStatusChangeWithRapInfo:(id)info;
+- (id)addTrafficIncidentAlertNotificationWithAlertID:(id)d withReroute:(BOOL)reroute title:(id)title description:(id)description;
 - (id)addUGCClearedPhotoAttributionNotificationWithTitle:(id)title message:(id)message;
 - (id)addUGCPhotoNotificationWithTitle:(id)title message:(id)message actionURL:(id)l;
 - (id)addVenueNotificationWithTitle:(id)title message:(id)message actionURL:(id)l;
@@ -364,6 +365,20 @@
   v15 = [(MDNotificationCenter *)self _addRequest:v14];
 
   return v15;
+}
+
+- (id)addTrafficIncidentAlertNotificationWithAlertID:(id)d withReroute:(BOOL)reroute title:(id)title description:(id)description
+{
+  rerouteCopy = reroute;
+  descriptionCopy = description;
+  titleCopy = title;
+  dCopy = d;
+  [(MDNotificationCenter *)self clearNotificationsOfType:4];
+  v13 = [UNNotificationRequest requestForTrafficIncidentAlertWithID:dCopy withReroute:rerouteCopy title:titleCopy description:descriptionCopy];
+
+  v14 = [(MDNotificationCenter *)self _addRequest:v13];
+
+  return v14;
 }
 
 - (void)clearNotificationWithTrafficIncidentAlertID:(id)d

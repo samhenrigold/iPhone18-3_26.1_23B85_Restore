@@ -8,7 +8,7 @@
 
 - (id)interestingContactIdentifiersFromIntent:(id)intent
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   intentCopy = intent;
   v4 = objc_opt_new();
   [v4 setNumberStyle:1];
@@ -31,39 +31,37 @@ LABEL_4:
   v6 = 0;
 LABEL_5:
   v7 = objc_opt_new();
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v8 = v6;
-  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v17;
+    v11 = *v16;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v17 != v11)
+        if (*v16 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        contactIdentifier = [*(*(&v16 + 1) + 8 * i) contactIdentifier];
+        contactIdentifier = [*(*(&v15 + 1) + 8 * i) contactIdentifier];
         if (contactIdentifier)
         {
           [v7 addObject:contactIdentifier];
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v10);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -169,97 +167,96 @@ void __80__SPCoreSpotlightInteractionHandler_handleInteraction_bundleID_protecti
 
   v4 = SICopyRoundedDate();
   v5 = *MEMORY[0x277CC2E20];
-  if ([*(a1 + 40) isEqualToString:*MEMORY[0x277CC2E20]])
+  v6 = [*(a1 + 40) isEqualToString:*MEMORY[0x277CC2E20]];
+  if (v6)
   {
-    v6 = *MEMORY[0x277CC2E38];
+    v7 = *MEMORY[0x277CC2E38];
     v26[0] = v5;
-    v26[1] = v6;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
+    v26[1] = v7;
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
+    v8 = v6;
   }
 
   else
   {
-    v7 = MEMORY[0x277CBEBF8];
+    v8 = MEMORY[0x277CBEBF8];
   }
 
-  v8 = logForCSLogCategoryDefault();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v9 = logForCSLogCategoryDefault(v6);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    v9 = *(a1 + 32);
-    v10 = *(a1 + 48);
+    v10 = *(a1 + 32);
+    v11 = *(a1 + 48);
     *buf = 138412546;
-    v23 = v9;
+    v23 = v10;
     v24 = 2112;
-    v25 = v10;
-    _os_log_impl(&dword_231A35000, v8, OS_LOG_TYPE_INFO, "adding contacts interaction %@ identifiers %@", buf, 0x16u);
+    v25 = v11;
+    _os_log_impl(&dword_231A35000, v9, OS_LOG_TYPE_INFO, "adding contacts interaction %@ identifiers %@", buf, 0x16u);
   }
 
-  v11 = +[SPCoreSpotlightIndexer sharedInstance];
-  v12 = *MEMORY[0x277CCA1A0];
-  v13 = *(a1 + 48);
+  v12 = +[SPCoreSpotlightIndexer sharedInstance];
+  v13 = *MEMORY[0x277CCA1A0];
+  v14 = *(a1 + 48);
   v17[0] = MEMORY[0x277D85DD0];
   v17[1] = 3221225472;
   v17[2] = __80__SPCoreSpotlightInteractionHandler_handleInteraction_bundleID_protectionClass___block_invoke_9;
   v17[3] = &unk_278934108;
-  v18 = v13;
+  v18 = v14;
   v19 = *(a1 + 40);
   v20 = v3;
   v21 = v4;
-  v14 = v4;
-  v15 = v3;
-  [v11 fetchAttributesForProtectionClass:v12 attributes:v7 bundleID:@"com.apple.MobileAddressBook" identifiers:v18 completion:v17];
-
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = v4;
+  v16 = v3;
+  [v12 fetchAttributesForProtectionClass:v13 attributes:v8 bundleID:@"com.apple.MobileAddressBook" identifiers:v18 completion:v17];
 }
 
 void __80__SPCoreSpotlightInteractionHandler_handleInteraction_bundleID_protectionClass___block_invoke_9(uint64_t a1, void *a2)
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v38 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(*(a1 + 32), "count")}];
+  v37 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(*(a1 + 32), "count")}];
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
   obj = *(a1 + 32);
-  v4 = [obj countByEnumeratingWithState:&v40 objects:v51 count:16];
+  v4 = [obj countByEnumeratingWithState:&v39 objects:v50 count:16];
   if (v4)
   {
     v5 = v4;
-    v39 = *v41;
-    v37 = *MEMORY[0x277CC2E20];
-    v36 = *MEMORY[0x277CC2D10];
-    v6 = *MEMORY[0x277CC2E38];
-    v33 = *MEMORY[0x277CC2E38];
-    v34 = *MEMORY[0x277CBEEE8];
-    v32 = v3;
+    v38 = *v40;
+    v36 = *MEMORY[0x277CC2E20];
+    v35 = *MEMORY[0x277CC2D10];
+    v32 = *MEMORY[0x277CC2E38];
+    v33 = *MEMORY[0x277CBEEE8];
+    v31 = v3;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v41 != v39)
+        if (*v40 != v38)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v40 + 1) + 8 * i);
-        v9 = [v3 objectForKey:v8];
+        v7 = *(*(&v39 + 1) + 8 * i);
+        v8 = [v3 objectForKey:v7];
 
-        if (v9)
+        if (v8)
         {
           v10 = objc_opt_new();
           [v10 setBundleID:@"com.apple.MobileAddressBook"];
-          [v10 setUniqueIdentifier:v8];
+          [v10 setUniqueIdentifier:v7];
           [v10 setIsUpdate:1];
-          if ([*(a1 + 40) isEqualToString:v37])
+          if ([*(a1 + 40) isEqualToString:v36])
           {
-            v11 = [v3 objectForKey:v8];
+            v11 = [v3 objectForKey:v7];
             v12 = v11;
             if (v11)
             {
               v13 = [v11 firstObject];
               v14 = [v12 objectAtIndex:1];
-              if (v13 && v13 != v34)
+              if (v13 && v13 != v33)
               {
                 v15 = [v13 mutableCopy];
                 v16 = MEMORY[0x277CCABB0];
@@ -267,13 +264,13 @@ void __80__SPCoreSpotlightInteractionHandler_handleInteraction_bundleID_protecti
                 v18 = [v16 numberWithUnsignedLongLong:{objc_msgSend(v17, "unsignedLongLongValue") + 1}];
                 [v15 setObject:v18 atIndexedSubscript:0];
 
-                v3 = v32;
+                v3 = v31;
                 v19 = [v15 copy];
 
                 v13 = v15;
 LABEL_17:
 
-                if (!v14 || v14 == v34)
+                if (!v14 || v14 == v33)
                 {
                   v21 = &unk_2846C9140;
                 }
@@ -286,7 +283,7 @@ LABEL_17:
                   v26 = [v24 numberWithUnsignedLongLong:{objc_msgSend(v25, "unsignedLongLongValue") + 1}];
                   [v23 setObject:v26 atIndexedSubscript:0];
 
-                  v3 = v32;
+                  v3 = v31;
                   v21 = [v23 copy];
 
                   v14 = v23;
@@ -294,18 +291,18 @@ LABEL_17:
 
                 v27 = objc_alloc(MEMORY[0x277CC34B8]);
                 v28 = *(a1 + 48);
-                v47[0] = *(a1 + 40);
-                v47[1] = v33;
-                v48[0] = v19;
-                v48[1] = v21;
-                v47[2] = v36;
-                v48[2] = v28;
-                v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v48 forKeys:v47 count:3];
+                v46[0] = *(a1 + 40);
+                v46[1] = v32;
+                v47[0] = v19;
+                v47[1] = v21;
+                v46[2] = v35;
+                v47[2] = v28;
+                v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:v46 count:3];
                 v29 = [v27 initWithAttributes:v22];
                 [v10 setAttributeSet:v29];
 
 LABEL_22:
-                [v38 addObject:v10];
+                [v37 addObject:v10];
                 goto LABEL_23;
               }
             }
@@ -322,39 +319,37 @@ LABEL_22:
 
           v12 = [MEMORY[0x277CCACA8] stringWithFormat:@":A:%@", *(a1 + 40)];
           v20 = objc_alloc(MEMORY[0x277CC34B8]);
-          v44 = *(a1 + 56);
-          v45[0] = v12;
-          v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v44 count:1];
-          v45[1] = v36;
-          v46[0] = v19;
-          v46[1] = *(a1 + 48);
-          v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v46 forKeys:v45 count:2];
+          v43 = *(a1 + 56);
+          v44[0] = v12;
+          v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v43 count:1];
+          v44[1] = v35;
+          v45[0] = v19;
+          v45[1] = *(a1 + 48);
+          v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:v44 count:2];
           v22 = [v20 initWithAttributes:v21];
           [v10 setAttributeSet:v22];
           goto LABEL_22;
         }
 
-        v10 = logForCSLogCategoryDefault();
+        v10 = logForCSLogCategoryDefault(v9);
         if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v50 = v8;
+          v49 = v7;
           _os_log_impl(&dword_231A35000, v10, OS_LOG_TYPE_DEFAULT, "interaction-related identifier not indexed %@", buf, 0xCu);
         }
 
 LABEL_23:
       }
 
-      v5 = [obj countByEnumeratingWithState:&v40 objects:v51 count:16];
+      v5 = [obj countByEnumeratingWithState:&v39 objects:v50 count:16];
     }
 
     while (v5);
   }
 
   v30 = +[SPCoreSpotlightIndexer sharedInstance];
-  [v30 indexSearchableItems:v38 deleteSearchableItemsWithIdentifiers:0 clientState:0 clientStateName:0 protectionClass:*MEMORY[0x277CCA1A0] forBundleID:@"com.apple.MobileAddressBook" options:0 completionHandler:0];
-
-  v31 = *MEMORY[0x277D85DE8];
+  [v30 indexSearchableItems:v37 deleteSearchableItemsWithIdentifiers:0 clientState:0 clientStateName:0 protectionClass:*MEMORY[0x277CCA1A0] forBundleID:@"com.apple.MobileAddressBook" options:0 completionHandler:0];
 }
 
 @end

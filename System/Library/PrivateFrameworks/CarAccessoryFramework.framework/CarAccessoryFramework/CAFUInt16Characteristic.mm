@@ -4,6 +4,7 @@
 - (id)descriptionExtras;
 - (id)formattedValue;
 - (unsigned)uint16Value;
+- (void)setUint16Value:(unsigned __int16)value;
 @end
 
 @implementation CAFUInt16Characteristic
@@ -31,6 +32,36 @@
 
   unsignedShortValue = [v4 unsignedShortValue];
   return unsignedShortValue;
+}
+
+- (void)setUint16Value:(unsigned __int16)value
+{
+  valueCopy = value;
+  range = [(CAFUInt16Characteristic *)self range];
+  v6 = [range valueIsInRange:valueCopy];
+
+  if (v6)
+  {
+    v7 = MEMORY[0x277CCABB0];
+    range2 = [(CAFUInt16Characteristic *)self range];
+    v8 = [v7 numberWithUnsignedShort:{objc_msgSend(range2, "valueRoundedToNearestStepValue:", valueCopy)}];
+    [(CAFCharacteristic *)self setValue:v8];
+  }
+
+  else
+  {
+    v9 = MEMORY[0x277CCA9B8];
+    v10 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:valueCopy];
+    range3 = [(CAFUInt16Characteristic *)self range];
+    v12 = [v9 CAF_outOfRangeErrorForValue:v10 range:range3];
+    [(CAFCharacteristic *)self setError:v12];
+
+    v14 = CAFGeneralLogging(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    {
+      [(CAFUInt16Characteristic *)self setUint16Value:valueCopy, v14];
+    }
+  }
 }
 
 - (CAFUInt16Range)range
@@ -80,13 +111,12 @@
 
 - (void)setUint16Value:(os_log_t)log .cold.1(uint64_t a1, unsigned __int16 a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 1026;
-  v7 = a2;
-  _os_log_error_impl(&dword_231618000, log, OS_LOG_TYPE_ERROR, "%{public}@ uint16Value out of range %{public}hu", &v4, 0x12u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 1026;
+  v6 = a2;
+  _os_log_error_impl(&dword_231618000, log, OS_LOG_TYPE_ERROR, "%{public}@ uint16Value out of range %{public}hu", &v3, 0x12u);
 }
 
 @end

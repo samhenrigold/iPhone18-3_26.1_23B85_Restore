@@ -17,7 +17,7 @@
 {
   incidentCopy = incident;
   completionCopy = completion;
-  v8 = MAPSGetIncidentsReportingLog();
+  v8 = MAPSGetIncidentsReportingLog(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     incidentType = [incidentCopy incidentType];

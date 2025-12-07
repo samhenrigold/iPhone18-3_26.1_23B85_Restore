@@ -108,7 +108,7 @@
   v4 = v3;
   if ([(SBUIPasscodeLockViewBase *)self isTransitioning])
   {
-    [(SBUIPasscodeLockViewBase *)self transitionContext];
+    objc_msgSend_transitionContext(self);
     [(SBUIPasscodeLockViewBase *)self _biometricViewAlphaFromPasscodeLockViewState:0];
     v6 = v5;
     [(SBUIPasscodeLockViewBase *)self _biometricViewAlphaFromPasscodeLockViewState:0];
@@ -159,7 +159,7 @@
   v9 = 0;
   v10 = 0;
   v11 = 0;
-  [(SBUIPasscodeLockViewBase *)self transitionContext];
+  objc_msgSend_transitionContext(self, a2);
   isTransitioning = [(SBUIPasscodeLockViewBase *)self isTransitioning];
   if (self->_passcodeLockViewState == 1 && (v9 != v10 ? (v4 = isTransitioning) : (v4 = 0), !v4))
   {
@@ -913,7 +913,7 @@
   }
 }
 
-uint64_t __63__SBUIPasscodeLockViewBase__setPasscodeLockViewState_animated___block_invoke(uint64_t a1)
+void *__63__SBUIPasscodeLockViewBase__setPasscodeLockViewState_animated___block_invoke(uint64_t a1)
 {
   [*(*(a1 + 32) + 520) setAlpha:1.0];
   result = [*(a1 + 32) _updateBiometricAlpha];
@@ -1051,7 +1051,7 @@ uint64_t __51__SBUIPasscodeLockViewBase_beginTransitionToState___block_invoke(ui
 {
   v7 = 0uLL;
   progressCopy = 0.0;
-  [(SBUIPasscodeLockViewBase *)self transitionContext];
+  objc_msgSend_transitionContext(self, a2);
   progressCopy = progress;
   v5 = v7;
   progressCopy2 = progress;
@@ -1063,7 +1063,7 @@ uint64_t __51__SBUIPasscodeLockViewBase_beginTransitionToState___block_invoke(ui
 {
   v7 = 0uLL;
   v8 = 0;
-  [(SBUIPasscodeLockViewBase *)self transitionContext];
+  objc_msgSend_transitionContext(self, a2);
   *(&v7 + 1) = state;
   v5 = v7;
   v6 = v8;
@@ -1090,7 +1090,7 @@ uint64_t __51__SBUIPasscodeLockViewBase_beginTransitionToState___block_invoke(ui
 
   buf = 0uLL;
   v10 = 0;
-  [(SBUIPasscodeLockViewBase *)self transitionContext];
+  objc_msgSend_transitionContext(self);
   if (state == 1 && buf == 1)
   {
     v8[0] = MEMORY[0x1E69E9820];

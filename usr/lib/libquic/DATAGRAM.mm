@@ -22,7 +22,7 @@ uint64_t __quic_frame_process_DATAGRAM_block_invoke(void *a1, uint64_t a2)
   return 1;
 }
 
-uint64_t __quic_frame_process_DATAGRAM_block_invoke_2(uint64_t a1)
+uint64_t __quic_frame_process_DATAGRAM_block_invoke_2(uint64_t a1, uint64_t *a2)
 {
   nw_retain(**(a1 + 40));
   inbound_data = nw_protocol_create_inbound_data();
@@ -56,7 +56,7 @@ uint64_t __quic_frame_process_DATAGRAM_block_invoke_4(uint64_t a1, uint64_t a2)
       v8 = a1;
       v9 = a2;
       v10 = _os_log_pack_size();
-      v11 = v15 - ((MEMORY[0x1EEE9AC00](v10, v10) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v11 = v15 - ((MEMORY[0x1EEE9AC00](v10) + 15) & 0xFFFFFFFFFFFFFFF0);
       _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
       v12 = _os_log_pack_fill();
       v13 = *(v8 + 32);

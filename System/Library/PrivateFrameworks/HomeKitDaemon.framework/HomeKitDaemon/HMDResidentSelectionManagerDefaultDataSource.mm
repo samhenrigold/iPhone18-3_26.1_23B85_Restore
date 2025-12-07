@@ -25,7 +25,7 @@
 
 - (id)createCoordinationElectionModeWithContext:(id)context
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -33,13 +33,13 @@
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v12 = 138543874;
-    v13 = v8;
-    v14 = 1024;
+    v11 = 138543874;
+    v12 = v8;
+    v13 = 1024;
     residentCapable = [contextCopy residentCapable];
-    v16 = 1024;
+    v15 = 1024;
     isActingAsResident = [contextCopy isActingAsResident];
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Current Device resident capable: %d, acting as a resident: %d", &v12, 0x18u);
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Current Device resident capable: %d, acting as a resident: %d", &v11, 0x18u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -53,14 +53,12 @@
     v9 = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (id)createResidentSelectionModeWithType:(unint64_t)type context:(id)context
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v7 = 0;
   if (type > 1)
@@ -104,18 +102,16 @@ LABEL_13:
   {
     v13 = HMFGetLogIdentifier();
     v14 = @"unknown";
-    v17 = 138543618;
-    v18 = v13;
-    v19 = 2112;
-    v20 = @"unknown";
-    _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@%@ is not supported.", &v17, 0x16u);
+    v16 = 138543618;
+    v17 = v13;
+    v18 = 2112;
+    v19 = @"unknown";
+    _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@%@ is not supported.", &v16, 0x16u);
   }
 
   objc_autoreleasePoolPop(v10);
   v7 = 0;
 LABEL_14:
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

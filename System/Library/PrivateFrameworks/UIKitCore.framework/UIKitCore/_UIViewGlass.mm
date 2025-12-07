@@ -51,7 +51,7 @@
   swift_beginAccess();
   sub_188A53994(self + v8, &v12);
   selfCopy = self;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA933ED0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA933ED0, &qword_18A654D10);
   swift_dynamicCast();
   v7[*(v5 + 52)] = flexible;
   v13 = v5;
@@ -59,7 +59,7 @@
   boxed_opaque_existential_0 = __swift_allocate_boxed_opaque_existential_0(&v12);
   sub_188B0D6AC(v7, boxed_opaque_existential_0, type metadata accessor for _Glass);
   swift_beginAccess();
-  __swift_destroy_boxed_opaque_existential_0Tm(self + v8);
+  __swift_destroy_boxed_opaque_existential_0Tm((&self->super.isa + v8));
   sub_188A5EBAC(&v12, self + v8);
   swift_endAccess();
 }
@@ -143,7 +143,7 @@
   v6 = OBJC_IVAR____UIViewGlass__underlyingMaterial;
   swift_beginAccess();
   sub_188A53994(self + v6, v9);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA933ED0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA933ED0, &qword_18A654D10);
   swift_dynamicCast();
   sub_188B0CD70(v5, type metadata accessor for _Glass);
   return 0;
@@ -165,7 +165,7 @@
   v6 = OBJC_IVAR____UIViewGlass__underlyingMaterial;
   swift_beginAccess();
   sub_188A53994(self + v6, v10);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA933ED0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA933ED0, &qword_18A654D10);
   swift_dynamicCast();
   v7 = *&v5[*(v3 + 40)];
   sub_188B0CD70(v5, type metadata accessor for _Glass);
@@ -181,7 +181,7 @@
   swift_beginAccess();
   sub_188A53994(self + v8, &v12);
   selfCopy = self;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA933ED0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA933ED0, &qword_18A654D10);
   swift_dynamicCast();
   *&v7[*(v5 + 40)] = identifier;
   v13 = v5;
@@ -189,7 +189,7 @@
   boxed_opaque_existential_0 = __swift_allocate_boxed_opaque_existential_0(&v12);
   sub_188B0D6AC(v7, boxed_opaque_existential_0, type metadata accessor for _Glass);
   swift_beginAccess();
-  __swift_destroy_boxed_opaque_existential_0Tm(self + v8);
+  __swift_destroy_boxed_opaque_existential_0Tm((&self->super.isa + v8));
   sub_188A5EBAC(&v12, self + v8);
   swift_endAccess();
 }
@@ -202,7 +202,7 @@
   v6 = OBJC_IVAR____UIViewGlass__underlyingMaterial;
   swift_beginAccess();
   sub_188A53994(self + v6, v10);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA933ED0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA933ED0, &qword_18A654D10);
   swift_dynamicCast();
   v7 = *&v5[*(v3 + 48)];
   sub_188B0CD70(v5, type metadata accessor for _Glass);
@@ -218,7 +218,7 @@
   swift_beginAccess();
   sub_188A53994(self + v8, &v12);
   selfCopy = self;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA933ED0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA933ED0, &qword_18A654D10);
   swift_dynamicCast();
   *&v7[*(v5 + 48)] = smoothness;
   v13 = v5;
@@ -226,7 +226,7 @@
   boxed_opaque_existential_0 = __swift_allocate_boxed_opaque_existential_0(&v12);
   sub_188B0D6AC(v7, boxed_opaque_existential_0, type metadata accessor for _Glass);
   swift_beginAccess();
-  __swift_destroy_boxed_opaque_existential_0Tm(self + v8);
+  __swift_destroy_boxed_opaque_existential_0Tm((&self->super.isa + v8));
   sub_188A5EBAC(&v12, self + v8);
   swift_endAccess();
 }
@@ -239,7 +239,7 @@
   v6 = OBJC_IVAR____UIViewGlass__underlyingMaterial;
   swift_beginAccess();
   sub_188A53994(self + v6, v10);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA933ED0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA933ED0, &qword_18A654D10);
   swift_dynamicCast();
   v7 = *v5;
   sub_188B0CD70(v5, type metadata accessor for _Glass);
@@ -255,7 +255,7 @@
   v6 = OBJC_IVAR____UIViewGlass__underlyingMaterial;
   swift_beginAccess();
   sub_188A53994(self + v6, v10);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA933ED0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA933ED0, &qword_18A654D10);
   swift_dynamicCast();
   v7 = *&v5[*(v3 + 24) + *(type metadata accessor for _Glass._GlassVariant(0) + 28)];
   sub_188B0CD70(v5, type metadata accessor for _Glass);
@@ -352,7 +352,7 @@
   v6 = OBJC_IVAR____UIViewGlass__underlyingMaterial;
   swift_beginAccess();
   sub_188A53994(self + v6, v9);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA933ED0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA933ED0, &qword_18A654D10);
   swift_dynamicCast();
   LOBYTE(self) = v5[*(v3 + 52)];
   sub_188B0CD70(v5, type metadata accessor for _Glass);
@@ -367,7 +367,7 @@
   v6 = OBJC_IVAR____UIViewGlass__underlyingMaterial;
   swift_beginAccess();
   sub_188A53994(self + v6, v10);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA933ED0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA933ED0, &qword_18A654D10);
   swift_dynamicCast();
   v7 = *&v5[*(v3 + 60)];
   sub_188B0CD70(v5, type metadata accessor for _Glass);
@@ -383,7 +383,7 @@
   swift_beginAccess();
   sub_188A53994(self + v8, &v12);
   selfCopy = self;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA933ED0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA933ED0, &qword_18A654D10);
   swift_dynamicCast();
   *&v7[*(v5 + 60)] = variant;
   v13 = v5;
@@ -391,7 +391,7 @@
   boxed_opaque_existential_0 = __swift_allocate_boxed_opaque_existential_0(&v12);
   sub_188B0D6AC(v7, boxed_opaque_existential_0, type metadata accessor for _Glass);
   swift_beginAccess();
-  __swift_destroy_boxed_opaque_existential_0Tm(self + v8);
+  __swift_destroy_boxed_opaque_existential_0Tm((&self->super.isa + v8));
   sub_188A5EBAC(&v12, self + v8);
   swift_endAccess();
 }
@@ -419,7 +419,7 @@
   v6 = OBJC_IVAR____UIViewGlass__underlyingMaterial;
   swift_beginAccess();
   sub_188A53994(self + v6, v9);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA933ED0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA933ED0, &qword_18A654D10);
   swift_dynamicCast();
   LOBYTE(self) = v5[*(v3 + 28)];
   sub_188B0CD70(v5, type metadata accessor for _Glass);
@@ -435,7 +435,7 @@
   swift_beginAccess();
   sub_188A53994(self + v8, &v12);
   selfCopy = self;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA933ED0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA933ED0, &qword_18A654D10);
   swift_dynamicCast();
   v7[*(v5 + 28)] = grouping;
   v13 = v5;
@@ -443,7 +443,7 @@
   boxed_opaque_existential_0 = __swift_allocate_boxed_opaque_existential_0(&v12);
   sub_188B0D6AC(v7, boxed_opaque_existential_0, type metadata accessor for _Glass);
   swift_beginAccess();
-  __swift_destroy_boxed_opaque_existential_0Tm(self + v8);
+  __swift_destroy_boxed_opaque_existential_0Tm((&self->super.isa + v8));
   sub_188A5EBAC(&v12, self + v8);
   swift_endAccess();
 }
@@ -456,7 +456,7 @@
   v6 = OBJC_IVAR____UIViewGlass__underlyingMaterial;
   swift_beginAccess();
   sub_188A53994(self + v6, v11);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA933ED0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA933ED0, &qword_18A654D10);
   swift_dynamicCast();
   v7 = *(v5 + 2);
 
@@ -495,7 +495,7 @@
   swift_beginAccess();
   sub_188A53994(self + v11, &v15);
   selfCopy = self;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA933ED0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA933ED0, &qword_18A654D10);
   swift_dynamicCast();
   *(v7 + 1) = v8;
   *(v7 + 2) = v10;
@@ -505,7 +505,7 @@
   boxed_opaque_existential_0 = __swift_allocate_boxed_opaque_existential_0(&v15);
   sub_188B0D6AC(v7, boxed_opaque_existential_0, type metadata accessor for _Glass);
   swift_beginAccess();
-  __swift_destroy_boxed_opaque_existential_0Tm(self + v11);
+  __swift_destroy_boxed_opaque_existential_0Tm((&self->super.isa + v11));
   sub_188A5EBAC(&v15, self + v11);
   swift_endAccess();
 }

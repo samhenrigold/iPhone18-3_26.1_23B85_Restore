@@ -28,18 +28,17 @@ std::__split_buffer<std::string>::pointer std::vector<std::string>::push_back[ab
   return result;
 }
 
-void TLCompositeTransliterator::performOrthographyCheck(uint64_t a1, __int128 **a2)
+void TLCompositeTransliterator::performOrthographyCheck(uint64_t a1, uint64_t *a2)
 {
   if (*(a1 + 40))
   {
     v3 = *a2;
-    v4 = *a2;
-    while (v4 != a2[1])
+    while (v3 != a2[1])
     {
-      CFStringFromString = createCFStringFromString(v4 + 24);
+      CFStringFromString = createCFStringFromString(v3 + 24);
       if ((*(**(a1 + 40) + 16))(*(a1 + 40), CFStringFromString, 0, 0))
       {
-        v4 += 80;
+        v3 += 80;
         if (!CFStringFromString)
         {
           continue;
@@ -48,21 +47,21 @@ void TLCompositeTransliterator::performOrthographyCheck(uint64_t a1, __int128 **
 
       else
       {
-        std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<TLCompositeTransliteratorCandidate *,TLCompositeTransliteratorCandidate *,TLCompositeTransliteratorCandidate *>(&v10, (v4 + 80), a2[1], v4);
-        v8 = v7;
-        v9 = a2[1];
-        if (v9 != v7)
+        std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<TLCompositeTransliteratorCandidate *,TLCompositeTransliteratorCandidate *,TLCompositeTransliteratorCandidate *>(&v9, (v3 + 80), a2[1], v3);
+        v7 = v6;
+        v8 = a2[1];
+        if (v8 != v6)
         {
           do
           {
-            v9 -= 80;
-            std::__destroy_at[abi:ne200100]<TLCompositeTransliteratorCandidate,0>(v9);
+            v8 -= 80;
+            std::__destroy_at[abi:ne200100]<TLCompositeTransliteratorCandidate,0>(v8);
           }
 
-          while (v9 != v8);
+          while (v8 != v7);
         }
 
-        a2[1] = v8;
+        a2[1] = v7;
         if (!CFStringFromString)
         {
           continue;
@@ -74,30 +73,30 @@ void TLCompositeTransliterator::performOrthographyCheck(uint64_t a1, __int128 **
   }
 }
 
-void TLCompositeTransliterator::assignLanguageModelScoreToCandidates(uint64_t a1, uint64_t a2, uint64_t a3)
+void TLCompositeTransliterator::assignLanguageModelScoreToCandidates(uint64_t a1, TLCompositeTransliteratorCandidate **a2, uint64_t a3)
 {
   if (*(a1 + 24))
   {
-    if (*a2 != *(a2 + 8))
+    if (*a2 != a2[1])
     {
       Value = CFLocaleGetValue(*(a1 + 56), *MEMORY[0x277CBEED0]);
       if (!CFEqual(Value, @"ar"))
       {
         v8 = *a2;
-        v7 = *(a2 + 8);
+        v7 = a2[1];
         if (*a2 != v7)
         {
-          v9 = v8 + 3;
+          v9 = (v8 + 24);
           do
           {
-            *(v9 + 3) = (***(a1 + 24))(*(a1 + 24), v9, a3);
+            v9[3] = (***(a1 + 24))(*(a1 + 24), v9, a3);
             v10 = (v9 + 7);
             v9 += 10;
           }
 
           while (v10 != v7);
           v8 = *a2;
-          v7 = *(a2 + 8);
+          v7 = a2[1];
         }
 
         v17 = a1;
@@ -322,28 +321,28 @@ LABEL_11:
 
     [v15 setUsesGroupingSeparator:0];
     v21 = [v15 stringFromNumber:v20];
-    std::string::basic_string[abi:ne200100]<0>(__p, [v21 UTF8String]);
-    if (SHIBYTE(v50) < 0)
+    std::string::basic_string[abi:ne200100]<0>(&__p, [v21 UTF8String]);
+    if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
-      if (__p[1] != 2)
+      if (__p.__r_.__value_.__l.__size_ != 2)
       {
         goto LABEL_24;
       }
 
-      v22 = __p[0];
+      p_p = __p.__r_.__value_.__r.__words[0];
     }
 
     else
     {
-      if (SHIBYTE(v50) != 2)
+      if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) != 2)
       {
         goto LABEL_24;
       }
 
-      v22 = __p;
+      p_p = &__p;
     }
 
-    if (*v22 == 41177)
+    if (LOWORD(p_p->__r_.__value_.__l.__data_) == 41177)
     {
       v30 = a2[23];
       if ((v30 & 0x8000000000000000) != 0)
@@ -395,13 +394,12 @@ LABEL_11:
             }
 
             std::operator+<char>();
-            if (SHIBYTE(v50) < 0)
+            if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(__p[0]);
+              operator delete(__p.__r_.__value_.__l.__data_);
             }
 
-            *__p = *v43;
-            v50 = v44;
+            __p = v43;
             ++v34;
             v36 = a2[23];
             v33 = v36 >> 63;
@@ -418,7 +416,7 @@ LABEL_11:
 LABEL_63:
       [v15 setUsesGroupingSeparator:1];
       v37 = [v15 stringFromNumber:v20];
-      std::string::basic_string[abi:ne200100]<0>(v47, [v37 UTF8String]);
+      std::string::basic_string[abi:ne200100]<0>(v46, [v37 UTF8String]);
       v38 = a2[23];
       if ((v38 & 0x80u) != 0)
       {
@@ -430,30 +428,30 @@ LABEL_63:
         v42 = *a1;
         if (0xCCCCCCCCCCCCCCCDLL * ((a1[1] - *a1) >> 4) < 2)
         {
-          TLCompositeTransliteratorCandidate::TLCompositeTransliteratorCandidate(v43, a2, __p, 4, 0, 0.0, 0.0);
-          std::vector<TLCompositeTransliteratorCandidate>::insert(a1, v42, v43);
+          TLCompositeTransliteratorCandidate::TLCompositeTransliteratorCandidate(&v43, a2, &__p, 4uLL, 0, 0.0, 0.0);
+          std::vector<TLCompositeTransliteratorCandidate>::insert(a1, v42, &v43);
         }
 
         else
         {
-          TLCompositeTransliteratorCandidate::TLCompositeTransliteratorCandidate(v43, a2, __p, 4, 0, 0.0, 0.0);
-          std::vector<TLCompositeTransliteratorCandidate>::insert(a1, v42 + 80, v43);
+          TLCompositeTransliteratorCandidate::TLCompositeTransliteratorCandidate(&v43, a2, &__p, 4uLL, 0, 0.0, 0.0);
+          std::vector<TLCompositeTransliteratorCandidate>::insert(a1, v42 + 80, &v43);
         }
       }
 
       else
       {
         v39 = *a1;
-        TLCompositeTransliteratorCandidate::TLCompositeTransliteratorCandidate(v43, a2, __p, 4, 0, 0.0, 0.0);
-        std::vector<TLCompositeTransliteratorCandidate>::insert(a1, v39, v43);
-        if (v46 < 0)
+        TLCompositeTransliteratorCandidate::TLCompositeTransliteratorCandidate(&v43, a2, &__p, 4uLL, 0, 0.0, 0.0);
+        std::vector<TLCompositeTransliteratorCandidate>::insert(a1, v39, &v43);
+        if (v45 < 0)
         {
-          operator delete(v45);
+          operator delete(v44);
         }
 
-        if (SHIBYTE(v44) < 0)
+        if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v43[0]);
+          operator delete(v43.__r_.__value_.__l.__data_);
         }
 
         v40 = a2[23];
@@ -468,29 +466,29 @@ LABEL_63:
         }
 
         v41 = *a1;
-        TLCompositeTransliteratorCandidate::TLCompositeTransliteratorCandidate(v43, a2, v47, 4, 0, 0.0, 0.0);
-        std::vector<TLCompositeTransliteratorCandidate>::insert(a1, v41 + 80, v43);
+        TLCompositeTransliteratorCandidate::TLCompositeTransliteratorCandidate(&v43, a2, v46, 4uLL, 0, 0.0, 0.0);
+        std::vector<TLCompositeTransliteratorCandidate>::insert(a1, v41 + 80, &v43);
       }
 
-      if (v46 < 0)
+      if (v45 < 0)
       {
-        operator delete(v45);
+        operator delete(v44);
       }
 
-      if (SHIBYTE(v44) < 0)
+      if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v43[0]);
+        operator delete(v43.__r_.__value_.__l.__data_);
       }
 
 LABEL_81:
-      if (v48 < 0)
+      if (v47 < 0)
       {
-        operator delete(v47[0]);
+        operator delete(v46[0]);
       }
 
-      if (SHIBYTE(v50) < 0)
+      if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(__p[0]);
+        operator delete(__p.__r_.__value_.__l.__data_);
       }
 
       goto LABEL_86;
@@ -547,13 +545,12 @@ LABEL_24:
           }
 
           std::operator+<char>();
-          if (SHIBYTE(v50) < 0)
+          if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(__p[0]);
+            operator delete(__p.__r_.__value_.__l.__data_);
           }
 
-          *__p = *v43;
-          v50 = v44;
+          __p = v43;
           ++v26;
           v29 = a2[23];
           v27 = v29 >> 63;
@@ -578,7 +575,7 @@ LABEL_86:
   *a1 = 0;
 }
 
-void sub_26F4F04D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *__p, uint64_t a21, int a22, __int16 a23, char a24, char a25, void *a26, uint64_t a27, int a28, __int16 a29, char a30, char a31)
+void sub_26F4F04D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *__p, uint64_t a21, int a22, __int16 a23, char a24, char a25, void *a26, uint64_t a27, int a28, __int16 a29, char a30, char a31)
 {
   TLCompositeTransliteratorCandidate::~TLCompositeTransliteratorCandidate(&a10);
   if (a25 < 0)
@@ -594,7 +591,7 @@ void sub_26F4F04D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<TLCompositeTransliteratorCandidate>::insert(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t std::vector<TLCompositeTransliteratorCandidate>::insert(uint64_t *a1, uint64_t a2, __int128 *a3)
 {
   v4 = a2;
   v6 = a1[1];
@@ -644,18 +641,18 @@ uint64_t std::vector<TLCompositeTransliteratorCandidate>::insert(uint64_t *a1, u
   else if (a2 == v6)
   {
     v17 = *a3;
-    *(v6 + 16) = *(a3 + 16);
+    *(v6 + 16) = *(a3 + 2);
     *v6 = v17;
-    *(a3 + 8) = 0;
-    *(a3 + 16) = 0;
+    *(a3 + 1) = 0;
+    *(a3 + 2) = 0;
     *a3 = 0;
     v18 = *(a3 + 24);
-    *(v6 + 40) = *(a3 + 40);
+    *(v6 + 40) = *(a3 + 5);
     *(v6 + 24) = v18;
-    *(a3 + 32) = 0;
-    *(a3 + 40) = 0;
-    *(a3 + 24) = 0;
-    v19 = *(a3 + 48);
+    *(a3 + 4) = 0;
+    *(a3 + 5) = 0;
+    *(a3 + 3) = 0;
+    v19 = a3[3];
     *(v6 + 57) = *(a3 + 57);
     *(v6 + 48) = v19;
     a1[1] = v6 + 80;
@@ -670,7 +667,7 @@ uint64_t std::vector<TLCompositeTransliteratorCandidate>::insert(uint64_t *a1, u
     }
 
     v8 = *a3;
-    *(v4 + 16) = *(a3 + 16);
+    *(v4 + 16) = *(a3 + 2);
     *v4 = v8;
     *(a3 + 23) = 0;
     *a3 = 0;
@@ -680,11 +677,11 @@ uint64_t std::vector<TLCompositeTransliteratorCandidate>::insert(uint64_t *a1, u
     }
 
     v9 = *(a3 + 24);
-    *(v4 + 40) = *(a3 + 40);
+    *(v4 + 40) = *(a3 + 5);
     *(v4 + 24) = v9;
     *(a3 + 47) = 0;
     *(a3 + 24) = 0;
-    v10 = *(a3 + 48);
+    v10 = a3[3];
     *(v4 + 57) = *(a3 + 57);
     *(v4 + 48) = v10;
   }
@@ -692,9 +689,9 @@ uint64_t std::vector<TLCompositeTransliteratorCandidate>::insert(uint64_t *a1, u
   return v4;
 }
 
-void sub_26F4F0784(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26F4F0784(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<TLCompositeTransliteratorCandidate>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -770,8 +767,8 @@ uint64_t TLCompositeTransliterator::containsInvalidDigitsForArabic(uint64_t a1, 
 
 void TLCompositeTransliterator::getTransliterationCandidates(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
 {
-  v56 = *MEMORY[0x277D85DE8];
-  TLOSSignPostgetTransliterationCandidates::TLOSSignPostgetTransliterationCandidates(&v42);
+  v58 = *MEMORY[0x277D85DE8];
+  TLOSSignPostgetTransliterationCandidates::TLOSSignPostgetTransliterationCandidates(v44, a2);
   v9 = TLCompositeTransliterator::containsInvalidInputChars(a1, a3);
   *a5 = 0;
   *(a5 + 8) = 0;
@@ -783,87 +780,87 @@ void TLCompositeTransliterator::getTransliterationCandidates(uint64_t a1@<X0>, u
 
   if (*(a3 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external(&v41, *a3, *(a3 + 8));
+    std::string::__init_copy_ctor_external(&v43, *a3, *(a3 + 8));
   }
 
   else
   {
-    v41 = *a3;
+    v43 = *a3;
   }
 
-  if ((v41.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v43.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v10 = (&v41 + HIBYTE(v41.__r_.__value_.__r.__words[2]));
+    v11 = (&v43 + HIBYTE(v43.__r_.__value_.__r.__words[2]));
   }
 
   else
   {
-    v10 = (v41.__r_.__value_.__r.__words[0] + v41.__r_.__value_.__l.__size_);
+    v11 = (v43.__r_.__value_.__r.__words[0] + v43.__r_.__value_.__l.__size_);
   }
 
-  if ((v41.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v43.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v11 = &v41;
+    v12 = &v43;
   }
 
   else
   {
-    v11 = v41.__r_.__value_.__r.__words[0];
+    v12 = v43.__r_.__value_.__r.__words[0];
   }
 
-  while (v11 != v10)
+  while (v12 != v11)
   {
-    v11->__r_.__value_.__s.__data_[0] = __tolower(v11->__r_.__value_.__s.__data_[0]);
-    v11 = (v11 + 1);
+    v12->__r_.__value_.__s.__data_[0] = __tolower(v12->__r_.__value_.__s.__data_[0]);
+    v12 = (v12 + 1);
   }
 
-  v39 = 0uLL;
+  v41 = 0uLL;
   locale = 0;
   if (*a1 && (TLCompositeTransliterator::containsInvalidDigitsForArabic(a1, a3) & 1) == 0)
   {
-    TLCompositeTransliteratorSeq2Seq::seq2SeqCandidatesForInput(*a1, &v41, &v45);
-    std::vector<TLCompositeTransliteratorCandidate>::__vdeallocate(&v39);
-    v39 = v45;
-    locale = v46[0].__locale_;
-    v46[0].__locale_ = 0;
-    v45 = 0uLL;
-    __dst = &v45;
+    TLCompositeTransliteratorSeq2Seq::seq2SeqCandidatesForInput(*a1, &v43, &v47);
+    std::vector<TLCompositeTransliteratorCandidate>::__vdeallocate(&v41);
+    v41 = v47;
+    locale = v48[0].__locale_;
+    v48[0].__locale_ = 0;
+    v47 = 0uLL;
+    __dst = &v47;
     std::vector<TLCompositeTransliteratorCandidate>::__destroy_vector::operator()[abi:ne200100](&__dst);
   }
 
-  TLCompositeTransliteratorException::exceptionCandidatesForInput(*(a1 + 8), a3, &v37);
-  v12 = v37;
-  v13 = v38;
-  if (v37 == v38)
+  TLCompositeTransliteratorException::exceptionCandidatesForInput(*(a1 + 8), a3, &v39);
+  v13 = v39;
+  v14 = v40;
+  if (v39 == v40)
   {
-    TLCompositeTransliteratorException::exceptionCandidatesForInput(*(a1 + 8), &v41, &v45);
-    std::vector<TLCompositeTransliteratorCandidate>::__assign_with_size[abi:ne200100]<TLCompositeTransliteratorCandidate*,TLCompositeTransliteratorCandidate*>(&v37, v45, *(&v45 + 1), 0xCCCCCCCCCCCCCCCDLL * ((*(&v45 + 1) - v45) >> 4));
-    __dst = &v45;
+    TLCompositeTransliteratorException::exceptionCandidatesForInput(*(a1 + 8), &v43, &v47);
+    std::vector<TLCompositeTransliteratorCandidate>::__assign_with_size[abi:ne200100]<TLCompositeTransliteratorCandidate*,TLCompositeTransliteratorCandidate*>(&v39, v47, *(&v47 + 1), 0xCCCCCCCCCCCCCCCDLL * ((*(&v47 + 1) - v47) >> 4));
+    __dst = &v47;
     std::vector<TLCompositeTransliteratorCandidate>::__destroy_vector::operator()[abi:ne200100](&__dst);
-    v12 = v37;
-    v13 = v38;
+    v13 = v39;
+    v14 = v40;
   }
 
-  if (v12 == v13)
+  if (v13 == v14)
   {
-    TLCompositeTransliteratorLexicon::lexiconCandidatesForInput(*(a1 + 16), &v41, &v45);
-    if (*(&v45 + 1) == v45)
+    TLCompositeTransliteratorLexicon::lexiconCandidatesForInput(*(a1 + 16), &v43, &v47);
+    if (*(&v47 + 1) == v47)
     {
-      if (&v39 != a5)
+      if (&v41 != a5)
       {
-        std::vector<TLCompositeTransliteratorCandidate>::__assign_with_size[abi:ne200100]<TLCompositeTransliteratorCandidate*,TLCompositeTransliteratorCandidate*>(a5, v39, *(&v39 + 1), 0xCCCCCCCCCCCCCCCDLL * ((*(&v39 + 1) - v39) >> 4));
+        std::vector<TLCompositeTransliteratorCandidate>::__assign_with_size[abi:ne200100]<TLCompositeTransliteratorCandidate*,TLCompositeTransliteratorCandidate*>(a5, v41, *(&v41 + 1), 0xCCCCCCCCCCCCCCCDLL * ((*(&v41 + 1) - v41) >> 4));
       }
     }
 
     else
     {
-      if (&v45 != a5)
+      if (&v47 != a5)
       {
-        std::vector<TLCompositeTransliteratorCandidate>::__assign_with_size[abi:ne200100]<TLCompositeTransliteratorCandidate*,TLCompositeTransliteratorCandidate*>(a5, v45, *(&v45 + 1), 0xCCCCCCCCCCCCCCCDLL * ((*(&v45 + 1) - v45) >> 4));
+        std::vector<TLCompositeTransliteratorCandidate>::__assign_with_size[abi:ne200100]<TLCompositeTransliteratorCandidate*,TLCompositeTransliteratorCandidate*>(a5, v47, *(&v47 + 1), 0xCCCCCCCCCCCCCCCDLL * ((*(&v47 + 1) - v47) >> 4));
       }
 
-      v16 = *(&v39 + 1);
-      for (i = v39; i != v16; i += 5)
+      v17 = *(&v41 + 1);
+      for (i = v41; i != v17; i += 5)
       {
         if ((candidateSurfaceFormPresentInVector(i, a5) & 1) == 0)
         {
@@ -873,22 +870,22 @@ void TLCompositeTransliterator::getTransliterationCandidates(uint64_t a1@<X0>, u
     }
 
     TLCompositeTransliterator::assignLanguageModelScoreToCandidates(a1, a5, a2);
-    __dst = &v45;
+    __dst = &v47;
     std::vector<TLCompositeTransliteratorCandidate>::__destroy_vector::operator()[abi:ne200100](&__dst);
   }
 
   else
   {
-    if (&v37 != a5)
+    if (&v39 != a5)
     {
-      std::vector<TLCompositeTransliteratorCandidate>::__assign_with_size[abi:ne200100]<TLCompositeTransliteratorCandidate*,TLCompositeTransliteratorCandidate*>(a5, v12, v13, 0xCCCCCCCCCCCCCCCDLL * ((v13 - v12) >> 4));
+      std::vector<TLCompositeTransliteratorCandidate>::__assign_with_size[abi:ne200100]<TLCompositeTransliteratorCandidate*,TLCompositeTransliteratorCandidate*>(a5, v13, v14, 0xCCCCCCCCCCCCCCCDLL * ((v14 - v13) >> 4));
     }
 
-    if (v39 != *(&v39 + 1))
+    if (v41 != *(&v41 + 1))
     {
-      TLCompositeTransliterator::assignLanguageModelScoreToCandidates(a1, &v39, a2);
-      v14 = *(&v39 + 1);
-      for (j = v39; j != v14; j += 5)
+      TLCompositeTransliterator::assignLanguageModelScoreToCandidates(a1, &v41, a2);
+      v15 = *(&v41 + 1);
+      for (j = v41; j != v15; j += 5)
       {
         if ((candidateSurfaceFormPresentInVector(j, a5) & 1) == 0)
         {
@@ -899,64 +896,64 @@ void TLCompositeTransliterator::getTransliterationCandidates(uint64_t a1@<X0>, u
   }
 
   TLCompositeTransliterator::performOrthographyCheck(a1, a5);
-  std::ostringstream::basic_ostringstream[abi:ne200100](&v45);
-  v19 = *a5;
-  v18 = *(a5 + 8);
-  if (*a5 != v18)
+  v19 = std::ostringstream::basic_ostringstream[abi:ne200100](&v47);
+  v22 = *a5;
+  v21 = *(a5 + 8);
+  if (*a5 != v21)
   {
-    v20 = MEMORY[0x277D82680];
+    v23 = MEMORY[0x277D82680];
     do
     {
-      v21 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v45, "<", 1);
-      v22 = operator<<(v21, v19);
-      v23 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v22, ">", 1);
-      std::ios_base::getloc((v23 + *(*v23 - 24)));
-      v24 = std::locale::use_facet(v53, v20);
-      (v24->__vftable[2].~facet_0)(v24, 10);
-      std::locale::~locale(v53);
+      v24 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v47, "<", 1);
+      v25 = operator<<(v24, v22);
+      v26 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v25, ">", 1);
+      std::ios_base::getloc((v26 + *(*v26 - 24)));
+      v27 = std::locale::use_facet(v55, v23);
+      (v27->__vftable[2].~facet_0)(v27, 10);
+      std::locale::~locale(v55);
       std::ostream::put();
-      std::ostream::flush();
-      v19 += 80;
+      v19 = std::ostream::flush();
+      v22 += 10;
     }
 
-    while (v19 != v18);
+    while (v22 != v21);
   }
 
-  v25 = _nlpDefaultLog();
-  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+  v28 = _nlpDefaultLog(v19, v20);
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
   {
-    if ((v51 & 0x10) != 0)
+    if ((v53 & 0x10) != 0)
     {
-      v32 = v50;
-      if (v50 < v47)
+      v34 = v52;
+      if (v52 < v49)
       {
-        v50 = v47;
-        v32 = v47;
+        v52 = v49;
+        v34 = v49;
       }
 
-      v33 = v46[4].__locale_;
+      v35 = v48[4].__locale_;
     }
 
     else
     {
-      if ((v51 & 8) == 0)
+      if ((v53 & 8) == 0)
       {
-        v31 = 0;
-        v44 = 0;
+        v33 = 0;
+        v46 = 0;
 LABEL_72:
-        *(&__dst + v31) = 0;
+        *(&__dst + v33) = 0;
         p_dst = &__dst;
-        if (v44 < 0)
+        if (v46 < 0)
         {
           p_dst = __dst;
         }
 
-        *v53 = 136315394;
-        *&v53[4] = "Candidates";
-        v54 = 2080;
-        v55 = p_dst;
-        _os_log_debug_impl(&dword_26F4DB000, v25, OS_LOG_TYPE_DEBUG, "%s:\n %s", v53, 0x16u);
-        if (v44 < 0)
+        *v55 = 136315394;
+        *&v55[4] = "Candidates";
+        v56 = 2080;
+        v57 = p_dst;
+        _os_log_debug_impl(&dword_26F4DB000, v28, OS_LOG_TYPE_DEBUG, "%s:\n %s", v55, 0x16u);
+        if (v46 < 0)
         {
           operator delete(__dst);
         }
@@ -964,25 +961,25 @@ LABEL_72:
         goto LABEL_42;
       }
 
-      v33 = v46[1].__locale_;
-      v32 = v46[3].__locale_;
+      v35 = v48[1].__locale_;
+      v34 = v48[3].__locale_;
     }
 
-    v31 = v32 - v33;
-    if ((v32 - v33) >= 0x7FFFFFFFFFFFFFF8)
+    v33 = v34 - v35;
+    if ((v34 - v35) >= 0x7FFFFFFFFFFFFFF8)
     {
       std::string::__throw_length_error[abi:ne200100]();
     }
 
-    if (v31 >= 0x17)
+    if (v33 >= 0x17)
     {
       operator new();
     }
 
-    v44 = v32 - v33;
-    if (v31)
+    v46 = v34 - v35;
+    if (v33)
     {
-      memmove(&__dst, v33, v31);
+      memmove(&__dst, v35, v33);
     }
 
     goto LABEL_72;
@@ -990,25 +987,25 @@ LABEL_72:
 
 LABEL_42:
 
-  *&v45 = *MEMORY[0x277D82828];
-  *(&v46[-2].__locale_ + *(v45 - 24)) = *(MEMORY[0x277D82828] + 24);
-  *(&v45 + 1) = MEMORY[0x277D82878] + 16;
-  if (v49 < 0)
+  *&v47 = *MEMORY[0x277D82828];
+  *(&v48[-2].__locale_ + *(v47 - 24)) = *(MEMORY[0x277D82828] + 24);
+  *(&v47 + 1) = MEMORY[0x277D82878] + 16;
+  if (v51 < 0)
   {
     operator delete(__p);
   }
 
-  *(&v45 + 1) = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(v46);
+  *(&v47 + 1) = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(v48);
   std::ostream::~ostream();
-  MEMORY[0x274392AA0](&v52);
-  v26 = *(a3 + 23);
-  if ((v26 & 0x80u) != 0)
+  MEMORY[0x274392AA0](&v54);
+  v29 = *(a3 + 23);
+  if ((v29 & 0x80u) != 0)
   {
-    v26 = *(a3 + 8);
+    v29 = *(a3 + 8);
   }
 
-  if (v26 < 2)
+  if (v29 < 2)
   {
     updated = 0;
   }
@@ -1020,51 +1017,50 @@ LABEL_42:
 
   if (updated + 5 >= updated + a4)
   {
-    v28 = updated + a4;
+    v31 = updated + a4;
   }
 
   else
   {
-    v28 = updated + 5;
+    v31 = updated + 5;
   }
 
-  if (0xCCCCCCCCCCCCCCCDLL * ((*(a5 + 8) - *a5) >> 4) > v28)
+  if (0xCCCCCCCCCCCCCCCDLL * ((*(a5 + 8) - *a5) >> 4) > v31)
   {
-    std::vector<TLCompositeTransliteratorCandidate>::resize(a5, v28);
+    std::vector<TLCompositeTransliteratorCandidate>::resize(a5, v31);
   }
 
   Value = CFLocaleGetValue(*(a1 + 56), *MEMORY[0x277CBEED0]);
   if (CFEqual(Value, @"ar"))
   {
-    memset(v36, 0, sizeof(v36));
-    std::vector<TLCompositeTransliteratorCandidate>::__init_with_size[abi:ne200100]<TLCompositeTransliteratorCandidate*,TLCompositeTransliteratorCandidate*>(v36, *a5, *(a5 + 8), 0xCCCCCCCCCCCCCCCDLL * ((*(a5 + 8) - *a5) >> 4));
-    TLCompositeTransliterator::addEasternArabicNumberTransliterations(v36, a3, &v45);
+    memset(v38, 0, sizeof(v38));
+    std::vector<TLCompositeTransliteratorCandidate>::__init_with_size[abi:ne200100]<TLCompositeTransliteratorCandidate*,TLCompositeTransliteratorCandidate*>(v38, *a5, *(a5 + 8), 0xCCCCCCCCCCCCCCCDLL * ((*(a5 + 8) - *a5) >> 4));
+    TLCompositeTransliterator::addEasternArabicNumberTransliterations(v38, a3, &v47);
     std::vector<TLCompositeTransliteratorCandidate>::__vdeallocate(a5);
-    *a5 = v45;
-    *(a5 + 16) = v46[0];
-    v46[0].__locale_ = 0;
-    v45 = 0uLL;
-    __dst = &v45;
+    *a5 = v47;
+    *(a5 + 16) = v48[0];
+    v48[0].__locale_ = 0;
+    v47 = 0uLL;
+    __dst = &v47;
     std::vector<TLCompositeTransliteratorCandidate>::__destroy_vector::operator()[abi:ne200100](&__dst);
-    __dst = v36;
+    __dst = v38;
     std::vector<TLCompositeTransliteratorCandidate>::__destroy_vector::operator()[abi:ne200100](&__dst);
   }
 
-  *&v45 = &v37;
-  std::vector<TLCompositeTransliteratorCandidate>::__destroy_vector::operator()[abi:ne200100](&v45);
-  *&v45 = &v39;
-  std::vector<TLCompositeTransliteratorCandidate>::__destroy_vector::operator()[abi:ne200100](&v45);
-  if (SHIBYTE(v41.__r_.__value_.__r.__words[2]) < 0)
+  *&v47 = &v39;
+  std::vector<TLCompositeTransliteratorCandidate>::__destroy_vector::operator()[abi:ne200100](&v47);
+  *&v47 = &v41;
+  std::vector<TLCompositeTransliteratorCandidate>::__destroy_vector::operator()[abi:ne200100](&v47);
+  if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v41.__r_.__value_.__l.__data_);
+    operator delete(v43.__r_.__value_.__l.__data_);
   }
 
 LABEL_58:
-  TLOSSignPostgetTransliterationCandidates::~TLOSSignPostgetTransliterationCandidates(&v42);
-  v30 = *MEMORY[0x277D85DE8];
+  TLOSSignPostgetTransliterationCandidates::~TLOSSignPostgetTransliterationCandidates(v44, v10);
 }
 
-void sub_26F4F0FE0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, void *__p, uint64_t a22, int a23, __int16 a24, char a25, char a26, uint64_t a27, os_signpost_id_t a28, char *a29, uint64_t a30, uint64_t a31, char a32)
+void sub_26F4F0FE0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, void *__p, uint64_t a22, int a23, __int16 a24, char a25, char a26, uint64_t a27, uint64_t a28, char *a29, uint64_t a30, uint64_t a31, char a32)
 {
   a29 = &a17;
   std::vector<TLCompositeTransliteratorCandidate>::__destroy_vector::operator()[abi:ne200100](&a29);
@@ -1074,7 +1070,7 @@ void sub_26F4F0FE0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   }
 
   std::vector<TLCompositeTransliteratorCandidate>::__destroy_vector::operator()[abi:ne200100](&a29);
-  TLOSSignPostgetTransliterationCandidates::~TLOSSignPostgetTransliterationCandidates(&a28);
+  TLOSSignPostgetTransliterationCandidates::~TLOSSignPostgetTransliterationCandidates(&a28, v33);
   _Unwind_Resume(a1);
 }
 
@@ -1181,7 +1177,7 @@ void std::vector<TLCompositeTransliteratorCandidate>::resize(void *a1, unint64_t
   }
 }
 
-_BYTE *std::string::basic_string[abi:ne200100](_BYTE *__b, size_t __len, int __c)
+void *std::string::basic_string[abi:ne200100](void *__b, size_t __len, int __c)
 {
   if (__len >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -1193,13 +1189,13 @@ _BYTE *std::string::basic_string[abi:ne200100](_BYTE *__b, size_t __len, int __c
     operator new();
   }
 
-  __b[23] = __len;
+  *(__b + 23) = __len;
   if (__len)
   {
     memset(__b, __c, __len);
   }
 
-  __b[__len] = 0;
+  *(__b + __len) = 0;
   return __b;
 }
 
@@ -1232,9 +1228,9 @@ void ___ZL30loadLMSpecificModulatingFactorPK10__CFLocalePK7__CFURL_block_invoke(
   }
 }
 
-void sub_26F4F13F4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26F4F13F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   nlp::CFScopedPtr<__CFString const*>::reset(va, 0);
   _Unwind_Resume(a1);
 }
@@ -1326,7 +1322,7 @@ std::__split_buffer<std::string>::pointer std::vector<std::string>::__emplace_ba
   return v11;
 }
 
-uint64_t std::vector<TLCompositeTransliteratorCandidate>::__emplace_back_slow_path<std::string &,std::string &,double,double,TLTransliteratorCandidateType,BOOL &>(uint64_t *a1, uint64_t a2, uint64_t a3, double *a4, double *a5, void *a6, unsigned __int8 *a7)
+uint64_t std::vector<TLCompositeTransliteratorCandidate>::__emplace_back_slow_path<std::string &,std::string &,double,double,TLTransliteratorCandidateType,BOOL &>(uint64_t *a1, __int128 *a2, __int128 *a3, double *a4, double *a5, std::string::size_type *a6, std::string::value_type *a7)
 {
   v7 = 0xCCCCCCCCCCCCCCCDLL * ((a1[1] - *a1) >> 4);
   v8 = v7 + 1;
@@ -1360,7 +1356,7 @@ uint64_t std::vector<TLCompositeTransliteratorCandidate>::__emplace_back_slow_pa
   v14[1] = 80 * v7;
   v15 = 80 * v7;
   v16 = 0;
-  TLCompositeTransliteratorCandidate::TLCompositeTransliteratorCandidate(80 * v7, a2, a3, *a6, *a7, *a4, *a5);
+  TLCompositeTransliteratorCandidate::TLCompositeTransliteratorCandidate((80 * v7), a2, a3, *a6, *a7, *a4, *a5);
   v15 = 80 * v7 + 80;
   std::vector<TLCompositeTransliteratorCandidate>::__swap_out_circular_buffer(a1, v14);
   v12 = a1[1];
@@ -1368,14 +1364,14 @@ uint64_t std::vector<TLCompositeTransliteratorCandidate>::__emplace_back_slow_pa
   return v12;
 }
 
-void sub_26F4F16D4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26F4F16D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<TLCompositeTransliteratorCandidate>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-std::string *std::vector<TLCompositeTransliteratorCandidate>::__insert_with_size[abi:ne200100]<std::__wrap_iter<TLCompositeTransliteratorCandidate*>,std::__wrap_iter<TLCompositeTransliteratorCandidate*>>(uint64_t *a1, uint64_t a2, std::string *a3, uint64_t a4, uint64_t a5)
+std::string *std::vector<TLCompositeTransliteratorCandidate>::__insert_with_size[abi:ne200100]<std::__wrap_iter<TLCompositeTransliteratorCandidate*>,std::__wrap_iter<TLCompositeTransliteratorCandidate*>>(uint64_t *a1, std::string *a2, std::string *a3, uint64_t a4, uint64_t a5)
 {
   v5 = a2;
   if (a5 >= 1)
@@ -1816,7 +1812,7 @@ __int128 *std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<TLC
   return v5;
 }
 
-__n128 std::__split_buffer<TLCompositeTransliteratorCandidate>::emplace_back<TLCompositeTransliteratorCandidate>(void *a1, __int128 *a2)
+__n128 std::__split_buffer<TLCompositeTransliteratorCandidate>::emplace_back<TLCompositeTransliteratorCandidate>(unint64_t *a1, __int128 *a2)
 {
   v4 = a1[2];
   if (v4 == a1[3])
@@ -1866,23 +1862,23 @@ __n128 std::__split_buffer<TLCompositeTransliteratorCandidate>::emplace_back<TLC
   return result;
 }
 
-void TLOSSignPostgetTransliterationCandidates::TLOSSignPostgetTransliterationCandidates(TLOSSignPostgetTransliterationCandidates *this)
+void TLOSSignPostgetTransliterationCandidates::TLOSSignPostgetTransliterationCandidates(TLOSSignPostgetTransliterationCandidates *this, uint64_t a2)
 {
-  v2 = _nlpSignpostLog();
-  v3 = os_signpost_id_make_with_pointer(v2, this);
+  v3 = _nlpSignpostLog(this, a2);
+  v4 = os_signpost_id_make_with_pointer(v3, this);
 
-  *this = v3;
-  v4 = _nlpSignpostLog();
-  v5 = v4;
-  v6 = *this;
-  if ((*this - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
+  *this = v4;
+  v7 = _nlpSignpostLog(v5, v6);
+  v8 = v7;
+  v9 = *this;
+  if ((*this - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
-    *v7 = 0;
-    _os_signpost_emit_with_name_impl(&dword_26F4DB000, v5, OS_SIGNPOST_INTERVAL_BEGIN, v6, "getTransliterationCandidates", &unk_26F4F80C2, v7, 2u);
+    *v10 = 0;
+    _os_signpost_emit_with_name_impl(&dword_26F4DB000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v9, "getTransliterationCandidates", &unk_26F4F80C2, v10, 2u);
   }
 }
 
-void std::vector<TLCompositeTransliteratorCandidate>::__vdeallocate(void **a1)
+void std::vector<TLCompositeTransliteratorCandidate>::__vdeallocate(char **a1)
 {
   v1 = *a1;
   if (*a1)
@@ -1966,7 +1962,7 @@ void std::vector<TLCompositeTransliteratorCandidate>::__assign_with_size[abi:ne2
   }
 }
 
-void std::vector<TLCompositeTransliteratorCandidate>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<TLCompositeTransliteratorCandidate>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x333333333333334)
   {
@@ -2090,12 +2086,12 @@ uint64_t std::vector<TLCompositeTransliteratorCandidate>::__emplace_back_slow_pa
   return v11;
 }
 
-void sub_26F4F2590(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26F4F2590(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  if (*(v2 + 23) < 0)
+  va_start(va, a3);
+  if (*(v3 + 23) < 0)
   {
-    operator delete(*v2);
+    operator delete(*v3);
   }
 
   std::__split_buffer<TLCompositeTransliteratorCandidate>::~__split_buffer(va);
@@ -2299,14 +2295,14 @@ void std::vector<TLCompositeTransliteratorCandidate>::__append(uint64_t a1, unin
   }
 }
 
-void sub_26F4F2B58(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26F4F2B58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<TLCompositeTransliteratorCandidate>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<TLCompositeTransliteratorCandidate>::__init_with_size[abi:ne200100]<TLCompositeTransliteratorCandidate*,TLCompositeTransliteratorCandidate*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<TLCompositeTransliteratorCandidate>::__init_with_size[abi:ne200100]<TLCompositeTransliteratorCandidate*,TLCompositeTransliteratorCandidate*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -2323,15 +2319,15 @@ void sub_26F4F2BD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void TLOSSignPostgetTransliterationCandidates::~TLOSSignPostgetTransliterationCandidates(os_signpost_id_t *this)
+void TLOSSignPostgetTransliterationCandidates::~TLOSSignPostgetTransliterationCandidates(os_signpost_id_t *this, uint64_t a2)
 {
-  v2 = _nlpSignpostLog();
-  v3 = v2;
-  v4 = *this;
-  if (*this - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v2))
+  v3 = _nlpSignpostLog(this, a2);
+  v4 = v3;
+  v5 = *this;
+  if (*this - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v3))
   {
-    *v5 = 0;
-    _os_signpost_emit_with_name_impl(&dword_26F4DB000, v3, OS_SIGNPOST_INTERVAL_END, v4, "getTransliterationCandidates", &unk_26F4F80C2, v5, 2u);
+    *v6 = 0;
+    _os_signpost_emit_with_name_impl(&dword_26F4DB000, v4, OS_SIGNPOST_INTERVAL_END, v5, "getTransliterationCandidates", &unk_26F4F80C2, v6, 2u);
   }
 }
 
@@ -2346,7 +2342,7 @@ void nlp::CFScopedPtr<__CFArray const*>::reset(const void **a1, const void *a2)
   *a1 = a2;
 }
 
-void std::__stable_sort<std::_ClassicAlgPolicy,TLCompositeTransliterator::assignLanguageModelScoreToCandidates(std::vector<TLCompositeTransliteratorCandidate> &,std::vector<std::string> const&)::$_1 &,std::__wrap_iter<TLCompositeTransliteratorCandidate*>>(uint64_t *a1, __int128 *a2, uint64_t *a3, unint64_t a4, void *a5, uint64_t a6)
+void std::__stable_sort<std::_ClassicAlgPolicy,TLCompositeTransliterator::assignLanguageModelScoreToCandidates(std::vector<TLCompositeTransliteratorCandidate> &,std::vector<std::string> const&)::$_1 &,std::__wrap_iter<TLCompositeTransliteratorCandidate*>>(TLCompositeTransliteratorCandidate *a1, TLCompositeTransliteratorCandidate *a2, uint64_t *a3, unint64_t a4, char *a5, int64_t a6)
 {
   v62 = a2;
   v63 = a1;
@@ -2354,9 +2350,9 @@ void std::__stable_sort<std::_ClassicAlgPolicy,TLCompositeTransliterator::assign
   {
     if (a4 == 2)
     {
-      v62 = a2 - 5;
+      v62 = (a2 - 80);
       v9 = *a3;
-      TotalScore = TLCompositeTransliteratorCandidate::getTotalScore((a2 - 5), *(*a3 + 32));
+      TotalScore = TLCompositeTransliteratorCandidate::getTotalScore((a2 - 80), *(*a3 + 32));
       if (TotalScore > TLCompositeTransliteratorCandidate::getTotalScore(a1, *(v9 + 32)))
       {
         std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<std::__wrap_iter<TLCompositeTransliteratorCandidate *> &,std::__wrap_iter<TLCompositeTransliteratorCandidate *> &>(&v63, &v62);
@@ -2367,8 +2363,8 @@ void std::__stable_sort<std::_ClassicAlgPolicy,TLCompositeTransliterator::assign
     {
       if (a1 != a2)
       {
-        v17 = (a1 + 10);
-        if (a1 + 10 != a2)
+        v17 = (a1 + 80);
+        if ((a1 + 80) != a2)
         {
           v18 = 0;
           v19 = a1;
@@ -2385,11 +2381,11 @@ void std::__stable_sort<std::_ClassicAlgPolicy,TLCompositeTransliterator::assign
               *(v20 + 1) = 0;
               *(v20 + 2) = 0;
               *v20 = 0;
-              v66 = *(v19 + 13);
-              v67 = v19[15];
-              v19[14] = 0;
-              v19[15] = 0;
-              v19[13] = 0;
+              v66 = *(v19 + 104);
+              v67 = *(v19 + 15);
+              *(v19 + 14) = 0;
+              *(v19 + 15) = 0;
+              *(v19 + 13) = 0;
               v68[0] = *(v19 + 8);
               *(v68 + 9) = *(v19 + 137);
               v24 = v18;
@@ -2428,7 +2424,7 @@ void std::__stable_sort<std::_ClassicAlgPolicy,TLCompositeTransliterator::assign
                 v24 -= 80;
                 if (v29 <= TLCompositeTransliteratorCandidate::getTotalScore((v26 - 80), *(v28 + 32)))
                 {
-                  v30 = a1 + v24 + 80;
+                  v30 = (a1 + v24 + 80);
                   goto LABEL_24;
                 }
               }
@@ -2441,7 +2437,7 @@ LABEL_24:
               }
 
               v31 = *__p;
-              *(v30 + 16) = v65;
+              *(v30 + 2) = v65;
               *v30 = v31;
               HIBYTE(v65) = 0;
               LOBYTE(__p[0]) = 0;
@@ -2488,27 +2484,27 @@ LABEL_24:
     {
       v13 = a5;
       v14 = a4 >> 1;
-      v15 = &a1[10 * (a4 >> 1)];
+      v15 = (a1 + 80 * (a4 >> 1));
       if (a4 <= a6)
       {
         v61 = 0;
         __p[0] = a5;
         __p[1] = &v61;
-        std::__stable_sort_move<std::_ClassicAlgPolicy,TLCompositeTransliterator::assignLanguageModelScoreToCandidates(std::vector<TLCompositeTransliteratorCandidate> &,std::vector<std::string> const&)::$_1 &,std::__wrap_iter<TLCompositeTransliteratorCandidate*>>(a1, &a1[10 * (a4 >> 1)], a3, a4 >> 1, a5);
+        std::__stable_sort_move<std::_ClassicAlgPolicy,TLCompositeTransliterator::assignLanguageModelScoreToCandidates(std::vector<TLCompositeTransliteratorCandidate> &,std::vector<std::string> const&)::$_1 &,std::__wrap_iter<TLCompositeTransliteratorCandidate*>>(a1, (a1 + 80 * (a4 >> 1)), a3, a4 >> 1, a5);
         v61 = a4 >> 1;
         v37 = a4 - v14;
-        v38 = v13 + 80 * v14;
-        std::__stable_sort_move<std::_ClassicAlgPolicy,TLCompositeTransliterator::assignLanguageModelScoreToCandidates(std::vector<TLCompositeTransliteratorCandidate> &,std::vector<std::string> const&)::$_1 &,std::__wrap_iter<TLCompositeTransliteratorCandidate*>>(&a1[10 * (a4 >> 1)], a2, a3, v37, v38);
+        v38 = &v13[80 * v14];
+        std::__stable_sort_move<std::_ClassicAlgPolicy,TLCompositeTransliterator::assignLanguageModelScoreToCandidates(std::vector<TLCompositeTransliteratorCandidate> &,std::vector<std::string> const&)::$_1 &,std::__wrap_iter<TLCompositeTransliteratorCandidate*>>(a1 + 10 * (a4 >> 1), a2, a3, v37, v38);
         v61 = a4;
-        v39 = v13 + 80 * a4;
-        v40 = a1 + 3;
+        v39 = &v13[80 * a4];
+        v40 = a1 + 24;
         v41 = v38;
         while (v41 != v39)
         {
           v42 = *a3;
           v43 = TLCompositeTransliteratorCandidate::getTotalScore(v41, *(*a3 + 32));
           v44 = TLCompositeTransliteratorCandidate::getTotalScore(v13, *(v42 + 32));
-          v45 = (v40 - 3);
+          v45 = (v40 - 24);
           v46 = *(v40 - 1);
           if (v43 <= v44)
           {
@@ -2518,23 +2514,23 @@ LABEL_24:
             }
 
             v50 = *v13;
-            *(v40 - 1) = *(v13 + 16);
+            *(v40 - 1) = *(v13 + 2);
             *v45 = v50;
-            *(v13 + 23) = 0;
+            v13[23] = 0;
             *v13 = 0;
-            if (*(v40 + 23) < 0)
+            if (v40[23] < 0)
             {
               operator delete(*v40);
             }
 
             v51 = *(v13 + 24);
-            v40[2] = *(v13 + 40);
+            *(v40 + 2) = *(v13 + 5);
             *v40 = v51;
-            *(v13 + 47) = 0;
-            *(v13 + 24) = 0;
-            v52 = *(v13 + 48);
+            v13[47] = 0;
+            v13[24] = 0;
+            v52 = *(v13 + 3);
             *(v40 + 33) = *(v13 + 57);
-            *(v40 + 3) = v52;
+            *(v40 + 24) = v52;
             v13 += 80;
           }
 
@@ -2550,23 +2546,23 @@ LABEL_24:
             *v45 = v47;
             *(v41 + 23) = 0;
             *v41 = 0;
-            if (*(v40 + 23) < 0)
+            if (v40[23] < 0)
             {
               operator delete(*v40);
             }
 
             v48 = *(v41 + 24);
-            v40[2] = *(v41 + 40);
+            *(v40 + 2) = *(v41 + 40);
             *v40 = v48;
             *(v41 + 47) = 0;
             *(v41 + 24) = 0;
             v49 = *(v41 + 48);
             *(v40 + 33) = *(v41 + 57);
-            *(v40 + 3) = v49;
+            *(v40 + 24) = v49;
             v41 += 80;
           }
 
-          v40 += 10;
+          v40 += 80;
           if (v13 == v38)
           {
             while (v41 != v39)
@@ -2576,26 +2572,26 @@ LABEL_24:
                 operator delete(*(v40 - 3));
               }
 
-              v57 = v40 - 3;
+              v57 = v40 - 24;
               v58 = *v41;
-              v57[2] = *(v41 + 16);
+              *(v57 + 2) = *(v41 + 16);
               *v57 = v58;
               *(v41 + 23) = 0;
               *v41 = 0;
-              if (*(v40 + 23) < 0)
+              if (v40[23] < 0)
               {
                 operator delete(*v40);
               }
 
               v59 = *(v41 + 24);
-              v40[2] = *(v41 + 40);
+              *(v40 + 2) = *(v41 + 40);
               *v40 = v59;
               *(v41 + 47) = 0;
               *(v41 + 24) = 0;
               v60 = *(v41 + 48);
               *(v40 + 33) = *(v41 + 57);
-              *(v40 + 3) = v60;
-              v40 += 10;
+              *(v40 + 24) = v60;
+              v40 += 80;
               v41 += 80;
             }
 
@@ -2605,31 +2601,31 @@ LABEL_24:
 
         while (v13 != v38)
         {
-          v53 = (v40 - 3);
+          v53 = (v40 - 24);
           if (*(v40 - 1) < 0)
           {
             operator delete(*v53);
           }
 
           v54 = *v13;
-          *(v40 - 1) = *(v13 + 16);
+          *(v40 - 1) = *(v13 + 2);
           *v53 = v54;
-          *(v13 + 23) = 0;
+          v13[23] = 0;
           *v13 = 0;
-          if (*(v40 + 23) < 0)
+          if (v40[23] < 0)
           {
             operator delete(*v40);
           }
 
           v55 = *(v13 + 24);
-          v40[2] = *(v13 + 40);
+          *(v40 + 2) = *(v13 + 5);
           *v40 = v55;
-          *(v13 + 47) = 0;
-          *(v13 + 24) = 0;
-          v56 = *(v13 + 48);
+          v13[47] = 0;
+          v13[24] = 0;
+          v56 = *(v13 + 3);
           *(v40 + 33) = *(v13 + 57);
-          *(v40 + 3) = v56;
-          v40 += 10;
+          *(v40 + 24) = v56;
+          v40 += 80;
           v13 += 80;
         }
 
@@ -2639,7 +2635,7 @@ LABEL_60:
 
       else
       {
-        std::__stable_sort<std::_ClassicAlgPolicy,TLCompositeTransliterator::assignLanguageModelScoreToCandidates(std::vector<TLCompositeTransliteratorCandidate> &,std::vector<std::string> const&)::$_1 &,std::__wrap_iter<TLCompositeTransliteratorCandidate*>>(a1, &a1[10 * (a4 >> 1)], a3, a4 >> 1, a5, a6);
+        std::__stable_sort<std::_ClassicAlgPolicy,TLCompositeTransliterator::assignLanguageModelScoreToCandidates(std::vector<TLCompositeTransliteratorCandidate> &,std::vector<std::string> const&)::$_1 &,std::__wrap_iter<TLCompositeTransliteratorCandidate*>>(a1, (a1 + 80 * (a4 >> 1)), a3, a4 >> 1, a5, a6);
         v16 = a4 - v14;
         std::__stable_sort<std::_ClassicAlgPolicy,TLCompositeTransliterator::assignLanguageModelScoreToCandidates(std::vector<TLCompositeTransliteratorCandidate> &,std::vector<std::string> const&)::$_1 &,std::__wrap_iter<TLCompositeTransliteratorCandidate*>>(v15, a2, a3, v16, v13, a6);
 
@@ -2649,35 +2645,34 @@ LABEL_60:
   }
 }
 
-void sub_26F4F3264(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_26F4F3264(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   std::unique_ptr<TLCompositeTransliteratorCandidate,std::__destruct_n &>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
 __n128 std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<std::__wrap_iter<TLCompositeTransliteratorCandidate *> &,std::__wrap_iter<TLCompositeTransliteratorCandidate *> &>(uint64_t **a1, __int128 **a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
   v2 = *a1;
   v3 = *a2;
   v4 = **a1;
-  *v16 = (*a1)[1];
-  *&v16[7] = *(*a1 + 15);
+  *v15 = (*a1)[1];
+  *&v15[7] = *(*a1 + 15);
   v5 = *(*a1 + 23);
   v2[1] = 0;
   v2[2] = 0;
   *v2 = 0;
   v7 = (v2 + 3);
   v6 = v2[3];
-  *v15 = v2[4];
-  *&v15[7] = *(v2 + 39);
+  *v14 = v2[4];
+  *&v14[7] = *(v2 + 39);
   v8 = *(v2 + 47);
   v2[4] = 0;
   v2[5] = 0;
   v2[3] = 0;
-  *&v14[9] = *(v2 + 57);
-  *v14 = *(v2 + 3);
+  *&v13[9] = *(v2 + 57);
+  *v13 = *(v2 + 3);
   v9 = *v3;
   v2[2] = *(v3 + 2);
   *v2 = v9;
@@ -2702,8 +2697,8 @@ __n128 std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<std::__wra
   }
 
   *v3 = v4;
-  *(v3 + 1) = *v16;
-  *(v3 + 15) = *&v16[7];
+  *(v3 + 1) = *v15;
+  *(v3 + 15) = *&v15[7];
   *(v3 + 23) = v5;
   if (*(v3 + 47) < 0)
   {
@@ -2711,17 +2706,16 @@ __n128 std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<std::__wra
   }
 
   *(v3 + 3) = v6;
-  *(v3 + 4) = *v15;
-  *(v3 + 39) = *&v15[7];
+  *(v3 + 4) = *v14;
+  *(v3 + 39) = *&v14[7];
   *(v3 + 47) = v8;
-  v3[3] = *v14;
-  result = *&v14[9];
-  *(v3 + 57) = *&v14[9];
-  v13 = *MEMORY[0x277D85DE8];
+  v3[3] = *v13;
+  result = *&v13[9];
+  *(v3 + 57) = *&v13[9];
   return result;
 }
 
-uint64_t *std::__stable_sort_move<std::_ClassicAlgPolicy,TLCompositeTransliterator::assignLanguageModelScoreToCandidates(std::vector<TLCompositeTransliteratorCandidate> &,std::vector<std::string> const&)::$_1 &,std::__wrap_iter<TLCompositeTransliteratorCandidate*>>(uint64_t *result, uint64_t *a2, uint64_t *a3, unint64_t a4, uint64_t a5)
+uint64_t *std::__stable_sort_move<std::_ClassicAlgPolicy,TLCompositeTransliterator::assignLanguageModelScoreToCandidates(std::vector<TLCompositeTransliteratorCandidate> &,std::vector<std::string> const&)::$_1 &,std::__wrap_iter<TLCompositeTransliteratorCandidate*>>(uint64_t *result, TLCompositeTransliteratorCandidate *a2, uint64_t *a3, unint64_t a4, uint64_t a5)
 {
   if (a4)
   {
@@ -2733,9 +2727,9 @@ uint64_t *std::__stable_sort_move<std::_ClassicAlgPolicy,TLCompositeTransliterat
       v73 = a5;
       v74 = &v75;
       v75 = 0;
-      v13 = a2 - 10;
+      v13 = (a2 - 80);
       v14 = *a3;
-      TotalScore = TLCompositeTransliteratorCandidate::getTotalScore((a2 - 10), *(*a3 + 32));
+      TotalScore = TLCompositeTransliteratorCandidate::getTotalScore((a2 - 80), *(*a3 + 32));
       if (TotalScore <= TLCompositeTransliteratorCandidate::getTotalScore(v9, *(v14 + 32)))
       {
         v51 = *v9;
@@ -2760,13 +2754,13 @@ uint64_t *std::__stable_sort_move<std::_ClassicAlgPolicy,TLCompositeTransliterat
         *(v8 - 9) = 0;
         *(v8 - 8) = 0;
         *v13 = 0;
-        v55 = *(v8 - 7);
+        v55 = *(v8 - 56);
         *(v5 + 120) = *(v8 - 5);
         *(v5 + 104) = v55;
         *(v8 - 6) = 0;
         *(v8 - 5) = 0;
         *(v8 - 7) = 0;
-        v22 = v8 - 4;
+        v22 = (v8 - 32);
       }
 
       else
@@ -2777,7 +2771,7 @@ uint64_t *std::__stable_sort_move<std::_ClassicAlgPolicy,TLCompositeTransliterat
         *(v8 - 9) = 0;
         *(v8 - 8) = 0;
         *v13 = 0;
-        v17 = *(v8 - 7);
+        v17 = *(v8 - 56);
         *(v5 + 40) = *(v8 - 5);
         *(v5 + 24) = v17;
         *(v8 - 6) = 0;
@@ -2799,7 +2793,7 @@ uint64_t *std::__stable_sort_move<std::_ClassicAlgPolicy,TLCompositeTransliterat
         v9[4] = 0;
         v9[5] = 0;
         v9[3] = 0;
-        v22 = v9 + 6;
+        v22 = (v9 + 6);
       }
 
       v56 = *v22;
@@ -2865,45 +2859,45 @@ uint64_t *std::__stable_sort_move<std::_ClassicAlgPolicy,TLCompositeTransliterat
             v29 = v26;
             v30 = *a3;
             v31 = TLCompositeTransliteratorCandidate::getTotalScore(v26, *(*a3 + 32));
-            v32 = v28 + 5;
+            v32 = (v28 + 80);
             if (v31 <= TLCompositeTransliteratorCandidate::getTotalScore(v28, *(v30 + 32)))
             {
               v43 = *v29;
-              *(v28 + 12) = *(v29 + 2);
+              *(v28 + 96) = *(v29 + 2);
               *v32 = v43;
               *(v29 + 1) = 0;
               *(v29 + 2) = 0;
               *v29 = 0;
               v44 = *(v9 + 13);
-              *(v28 + 15) = v9[15];
+              *(v28 + 120) = v9[15];
               *(v28 + 104) = v44;
               v9[14] = 0;
               v9[15] = 0;
               v9[13] = 0;
               v45 = *(v9 + 8);
               *(v28 + 137) = *(v9 + 137);
-              v28[8] = v45;
+              *(v28 + 128) = v45;
               ++v75;
             }
 
             else
             {
               *v32 = *v28;
-              *(v28 + 12) = *(v28 + 2);
+              *(v28 + 96) = *(v28 + 16);
               *v28 = 0;
-              *(v28 + 1) = 0;
+              *(v28 + 8) = 0;
               v33 = *(v28 + 24);
-              *(v28 + 2) = 0;
-              *(v28 + 3) = 0;
+              *(v28 + 16) = 0;
+              *(v28 + 24) = 0;
               *(v28 + 104) = v33;
-              *(v28 + 15) = *(v28 + 5);
-              *(v28 + 4) = 0;
-              *(v28 + 5) = 0;
+              *(v28 + 120) = *(v28 + 40);
+              *(v28 + 32) = 0;
+              *(v28 + 40) = 0;
               *(v28 + 137) = *(v28 + 57);
-              v34 = v28[3];
+              v34 = *(v28 + 48);
               ++v75;
               v35 = v5;
-              v28[8] = v34;
+              *(v28 + 128) = v34;
               if (v28 != v5)
               {
                 v36 = v27;
@@ -2992,7 +2986,7 @@ LABEL_23:
 
       v49 = &result[10 * (a4 >> 1)];
       std::__stable_sort<std::_ClassicAlgPolicy,TLCompositeTransliterator::assignLanguageModelScoreToCandidates(std::vector<TLCompositeTransliteratorCandidate> &,std::vector<std::string> const&)::$_1 &,std::__wrap_iter<TLCompositeTransliteratorCandidate*>>(result, v49, a3, a4 >> 1, a5, a4 >> 1);
-      std::__stable_sort<std::_ClassicAlgPolicy,TLCompositeTransliterator::assignLanguageModelScoreToCandidates(std::vector<TLCompositeTransliteratorCandidate> &,std::vector<std::string> const&)::$_1 &,std::__wrap_iter<TLCompositeTransliteratorCandidate*>>(&v9[10 * (a4 >> 1)], v8, a3, a4 - (a4 >> 1), v5 + 80 * (a4 >> 1), a4 - (a4 >> 1));
+      std::__stable_sort<std::_ClassicAlgPolicy,TLCompositeTransliterator::assignLanguageModelScoreToCandidates(std::vector<TLCompositeTransliteratorCandidate> &,std::vector<std::string> const&)::$_1 &,std::__wrap_iter<TLCompositeTransliteratorCandidate*>>(&v9[10 * (a4 >> 1)], v8, a3, a4 - (a4 >> 1), (v5 + 80 * (a4 >> 1)), a4 - (a4 >> 1));
       v73 = v5;
       v74 = &v75;
       v75 = 0;
@@ -3130,14 +3124,14 @@ LABEL_36:
   return result;
 }
 
-void sub_26F4F3A70(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26F4F3A70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<TLCompositeTransliteratorCandidate,std::__destruct_n &>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void std::__inplace_merge<std::_ClassicAlgPolicy,TLCompositeTransliterator::assignLanguageModelScoreToCandidates(std::vector<TLCompositeTransliteratorCandidate> &,std::vector<std::string> const&)::$_1 &,std::__wrap_iter<TLCompositeTransliteratorCandidate*>>(uint64_t *a1, __int128 *a2, uint64_t a3, uint64_t *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void std::__inplace_merge<std::_ClassicAlgPolicy,TLCompositeTransliterator::assignLanguageModelScoreToCandidates(std::vector<TLCompositeTransliteratorCandidate> &,std::vector<std::string> const&)::$_1 &,std::__wrap_iter<TLCompositeTransliteratorCandidate*>>(uint64_t *a1, __int128 *a2, uint64_t *a3, uint64_t *a4, uint64_t a5, uint64_t a6, __int128 *a7, uint64_t a8)
 {
   v107 = a1;
   v111 = a2;
@@ -3210,7 +3204,7 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,TLCompositeTransliterator::assi
           v42 = v20;
           do
           {
-            v43 = &v42[5 * (v41 >> 1)];
+            v43 = &v42[10 * (v41 >> 1)];
             v44 = TLCompositeTransliteratorCandidate::getTotalScore(v43, *(v40 + 32));
             v45 = TLCompositeTransliteratorCandidate::getTotalScore(&v39[v15 / 8], *(v40 + 32));
             if (v44 <= v45)
@@ -3245,7 +3239,7 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,TLCompositeTransliterator::assi
       else
       {
         v25 = v14;
-        v108 = &v14[10 * (v106 / 2)];
+        v108 = &v14[5 * (v106 / 2)];
         v26 = a7;
         if (v14 - v107 != v15)
         {
@@ -3313,7 +3307,7 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,TLCompositeTransliterator::assi
 
       a5 = -(v35 + v16);
       v50 = v24 - v38;
-      if (v35 + v38 >= v24 - (v35 + v38) - v16)
+      if ((v35 + v38) >= (v24 - (v35 + v38) - v16))
       {
         v51 = v37;
         v52 = v35;
@@ -3369,31 +3363,31 @@ LABEL_42:
       v58 = a3;
       do
       {
-        v59 = a7 + v56;
+        v59 = &a7[v56 / 0x10];
         v60 = (v13 + v56);
         v61 = *(v13 + v56);
-        *(v59 + 16) = *(v13 + v56 + 16);
+        *(v59 + 2) = *(v13 + v56 + 16);
         *v59 = v61;
         v60[1] = 0;
         v60[2] = 0;
         *v60 = 0;
         v62 = *(v13 + v56 + 24);
-        *(v59 + 40) = *(v13 + v56 + 40);
+        *(v59 + 5) = *(v13 + v56 + 40);
         *(v59 + 24) = v62;
         v60[4] = 0;
         v60[5] = 0;
         v60[3] = 0;
         v63 = *(v13 + v56 + 48);
         *(v59 + 57) = *(v13 + v56 + 57);
-        *(v59 + 48) = v63;
+        v59[3] = v63;
         ++v57;
         v56 += 80;
       }
 
       while (v60 + 10 != a3);
-      v64 = (a7 + v56);
+      v64 = &a7[v56 / 0x10];
       v114 = v57;
-      v65 = a3 - 80;
+      v65 = a3 - 10;
       v66 = a3;
       v110 = v64;
       v67 = v64;
@@ -3425,11 +3419,11 @@ LABEL_42:
           }
 
           v79 = *v70;
-          *(v65 + 16) = *(v70 + 16);
+          v65[2] = *(v70 + 16);
           *v65 = v79;
           *(v76 - 57) = 0;
           *(v76 - 80) = 0;
-          v78 = v58 - 56;
+          v78 = v58 - 7;
           v67 = v70;
           if ((*(v65 + 47) & 0x80000000) == 0)
           {
@@ -3449,11 +3443,11 @@ LABEL_42:
           }
 
           v77 = *v73;
-          *(v65 + 16) = *(v68 - 8);
+          v65[2] = *(v68 - 8);
           *v65 = v77;
           *(v76 - 57) = 0;
           *(v76 - 80) = 0;
-          v78 = v65 + 24;
+          v78 = v65 + 3;
           v70 = v67;
           if ((*(v65 + 47) & 0x80000000) == 0)
           {
@@ -3464,17 +3458,17 @@ LABEL_42:
         operator delete(*v78);
         v67 = v70;
 LABEL_59:
-        v58 -= 80;
+        v58 -= 10;
         v80 = *(v76 - 56);
-        *(v78 + 16) = *(v76 - 40);
+        v78[2] = *(v76 - 40);
         *v78 = v80;
         *(v76 - 33) = 0;
         *(v76 - 56) = 0;
         v81 = *(v76 - 32);
         *(v65 + 57) = *(v76 - 23);
-        *(v65 + 48) = v81;
-        v66 -= 80;
-        v65 -= 80;
+        *(v65 + 3) = v81;
+        v66 -= 10;
+        v65 -= 10;
         v13 = v73;
         v55 = v107;
         if (v67 == v54)
@@ -3496,23 +3490,23 @@ LABEL_59:
     do
     {
       v86 = *v85;
-      *(v84 + 16) = v85[2];
+      *(v84 + 2) = v85[2];
       *v84 = v86;
       v85[1] = 0;
       v85[2] = 0;
       *v85 = 0;
       v87 = *(v85 + 3);
-      *(v84 + 40) = v85[5];
+      *(v84 + 5) = v85[5];
       *(v84 + 24) = v87;
       v85[4] = 0;
       v85[5] = 0;
       v85[3] = 0;
       v88 = *(v85 + 3);
       *(v84 + 57) = *(v85 + 57);
-      *(v84 + 48) = v88;
+      v84[3] = v88;
       ++v83;
       v85 += 10;
-      v84 += 80;
+      v84 += 5;
     }
 
     while (v85 != v13);
@@ -3532,7 +3526,7 @@ LABEL_59:
         }
 
         v98 = *v54;
-        *(v82 + 16) = *(v54 + 16);
+        *(v82 + 16) = *(v54 + 2);
         *v82 = v98;
         *(v54 + 23) = 0;
         *v54 = 0;
@@ -3544,14 +3538,14 @@ LABEL_59:
         }
 
         v99 = *(v54 + 24);
-        *(v82 + 40) = *(v54 + 40);
+        *(v82 + 40) = *(v54 + 5);
         *(v82 + 24) = v99;
         *(v54 + 47) = 0;
         *(v54 + 24) = 0;
-        v100 = *(v54 + 48);
+        v100 = v54[3];
         *(v82 + 57) = *(v54 + 57);
         *(v82 + 48) = v100;
-        v54 += 80;
+        v54 += 5;
       }
 
       else
@@ -3597,9 +3591,9 @@ LABEL_82:
   }
 }
 
-void sub_26F4F41C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_26F4F41C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   std::unique_ptr<TLCompositeTransliteratorCandidate,std::__destruct_n &>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -3744,13 +3738,12 @@ uint64_t *std::__rotate_forward[abi:ne200100]<std::_ClassicAlgPolicy,std::__wrap
 
 void TLCreateStringWithValidatedFormat(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_26F4DB000, log, OS_LOG_TYPE_ERROR, "Failed to create string with format %@:%@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_26F4DB000, log, OS_LOG_TYPE_ERROR, "Failed to create string with format %@:%@", &v3, 0x16u);
 }
 
 void nlp::SingletonResourceManager<std::string,TL::ReadOnlyFile<char>>::getQueue()
@@ -3777,7 +3770,7 @@ void nlp::SingletonResourceManager<std::string,TL::ReadOnlyFile<char>>::getCache
 
 void TLCompositeTransliteratorSeq2Seq::seq2SeqCandidatesForInput(char *a1, void *a2, os_log_t log)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   if (*a1 >= 0)
   {
     v3 = a2;
@@ -3788,10 +3781,9 @@ void TLCompositeTransliteratorSeq2Seq::seq2SeqCandidatesForInput(char *a1, void 
     v3 = *a2;
   }
 
-  v5 = 136315138;
-  v6 = v3;
-  _os_log_error_impl(&dword_26F4DB000, log, OS_LOG_TYPE_ERROR, "Failed to get seq2seq candidates for string: %s, translateString timedout", &v5, 0xCu);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 136315138;
+  v5 = v3;
+  _os_log_error_impl(&dword_26F4DB000, log, OS_LOG_TYPE_ERROR, "Failed to get seq2seq candidates for string: %s, translateString timedout", &v4, 0xCu);
 }
 
 CFRange CFStringFind(CFStringRef theString, CFStringRef stringToFind, CFStringCompareFlags compareOptions)

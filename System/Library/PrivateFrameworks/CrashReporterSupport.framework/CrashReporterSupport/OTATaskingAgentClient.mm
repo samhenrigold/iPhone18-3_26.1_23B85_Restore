@@ -54,15 +54,13 @@ uint64_t __37__OTATaskingAgentClient_sharedClient__block_invoke()
 
 void __29__OTATaskingAgentClient_init__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v4 = 138412290;
-    v5 = a2;
-    _os_log_impl(&dword_247DE9000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Connection error to OTATaskingAgent. Error: %@", &v4, 0xCu);
+    v3 = 138412290;
+    v4 = a2;
+    _os_log_impl(&dword_247DE9000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Connection error to OTATaskingAgent. Error: %@", &v3, 0xCu);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)setPreference:(id)preference forUser:(id)user inDomain:(id)domain toValue:(void *)value
@@ -213,15 +211,15 @@ void __31__OTATaskingAgentClient_awdKey__block_invoke_66()
 
 - (unsigned)uidForUser:(id)user
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   userCopy = user;
   v4 = getpwnam([userCopy UTF8String]);
   if (!v4)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138412290;
-      v12 = userCopy;
+      v10 = 138412290;
+      v11 = userCopy;
       v6 = MEMORY[0x277D86220];
       v7 = "Unknown user '%@', skipping request";
       v8 = 12;
@@ -238,12 +236,12 @@ LABEL_8:
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v11) = 0;
+      LOWORD(v10) = 0;
       v6 = MEMORY[0x277D86220];
       v7 = "Modifying defaults as root is not allowed, skipping request";
       v8 = 2;
 LABEL_7:
-      _os_log_impl(&dword_247DE9000, v6, OS_LOG_TYPE_DEFAULT, v7, &v11, v8);
+      _os_log_impl(&dword_247DE9000, v6, OS_LOG_TYPE_DEFAULT, v7, &v10, v8);
       goto LABEL_8;
     }
 
@@ -252,7 +250,6 @@ LABEL_7:
 
 LABEL_9:
 
-  v9 = *MEMORY[0x277D85DE8];
   return pw_uid;
 }
 

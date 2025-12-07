@@ -86,7 +86,7 @@ LABEL_9:
   v3 = objc_msgSendSuper2(&v10, sel_init);
   if (v3)
   {
-    *(v3 + 24) = v3[3] & 0xFE | CTFontIsSystemUIFont();
+    v3[24] = v3[24] & 0xFE | CTFontIsSystemUIFont();
     Ascent = CTFontGetAscent(a2);
     Descent = CTFontGetDescent(a2);
     v6 = 0.0;
@@ -105,8 +105,8 @@ LABEL_9:
       }
     }
 
-    v3[1] = Ascent + v6;
-    v3[2] = Descent + Ascent + v6;
+    *(v3 + 1) = Ascent + v6;
+    *(v3 + 2) = Descent + Ascent + v6;
   }
 
   return v3;

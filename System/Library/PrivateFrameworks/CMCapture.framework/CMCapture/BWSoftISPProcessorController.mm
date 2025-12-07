@@ -1,5 +1,4 @@
 @interface BWSoftISPProcessorController
-- (BOOL)_faceDetectionEnabledForFrame:(_BOOL8)result processingMode:(const void *)mode captureType:(int)type captureFlags:(int)flags;
 - (BOOL)_gnuEnabledForFrame:(unsigned int)frame processingMode:(uint64_t)mode captureFlags:(uint64_t)flags tuningType:;
 - (BOOL)_opcEnabledForFrame:(uint64_t)frame processingMode:(uint64_t)mode captureFlags:(uint64_t)flags tuningType:;
 - (BOOL)_rnfEnabledForFrame:(int)frame processingMode:(char)mode captureFlags:;
@@ -28,6 +27,7 @@
 - (unsigned)outputPixelFormatForInput:(id)input;
 - (void)_allowUnclampedOutputsForFrame:(int)frame processingMode:;
 - (void)_auxiliaryTypesForFrame:(int)frame captureType:(uint64_t)type captureFlags:(char)flags deliverDeferredPhotoProxyImage:;
+- (void)_faceDetectionEnabledForFrame:(void *)result processingMode:(const void *)mode captureType:(int)type captureFlags:(int)flags;
 - (void)_outputBufferRectWithinSensorCropRectForFrame:(void *)frame;
 - (void)dealloc;
 - (void)input:(id)input addFrame:(opaqueCMSampleBuffer *)frame resolutionFlavor:(int)flavor;
@@ -194,7 +194,7 @@
   if (self)
   {
     selfCopy = self;
-    v2 = &OBJC_IVAR___BWStreamingFilterNode__maxLossyCompressionLevel;
+    v3 = &OBJC_IVAR___BWStreamingFilterNode__maxLossyCompressionLevel;
     if (!self[8])
     {
       configuration = [self configuration];
@@ -206,100 +206,100 @@
       dictionary6 = [MEMORY[0x1E695DF90] dictionary];
       [dictionary6 setObject:-[FigCaptureCameraParameters commonNRFParameters](+[FigCaptureCameraParameters sharedInstance](FigCaptureCameraParameters forKeyedSubscript:{"sharedInstance"), "commonNRFParameters"), @"NRFParameters"}];
       [dictionary setObject:dictionary6 forKeyedSubscript:@"Common"];
-      v44 = dictionary;
+      v50 = dictionary;
       [dictionary setObject:dictionary3 forKeyedSubscript:@"DefaultSensorIDs"];
       nrfVersion = [+[FigCaptureCameraParameters sharedInstance](FigCaptureCameraParameters nrfVersion];
       if (nrfVersion)
       {
-        v37 = nrfVersion;
-        v38 = selfCopy;
-        v62 = 0u;
-        v63 = 0u;
-        v60 = 0u;
-        v61 = 0u;
-        obj = [configuration sensorConfigurationsByPortType];
-        v8 = [obj countByEnumeratingWithState:&v60 objects:v59 count:16];
-        if (v8)
+        v40 = nrfVersion;
+        v42 = selfCopy;
+        v68 = 0u;
+        v69 = 0u;
+        v66 = 0u;
+        v67 = 0u;
+        obja = [configuration sensorConfigurationsByPortType];
+        v9 = [obja countByEnumeratingWithState:&v66 objects:v65 count:16];
+        if (v9)
         {
-          v9 = v8;
-          v40 = *v61;
-          v10 = MEMORY[0x1E695E0F8];
+          v10 = v9;
+          v46 = *v67;
+          v11 = MEMORY[0x1E695E0F8];
           do
           {
-            for (i = 0; i != v9; ++i)
+            for (i = 0; i != v10; ++i)
             {
-              if (*v61 != v40)
+              if (*v67 != v46)
               {
-                objc_enumerationMutation(obj);
+                objc_enumerationMutation(obja);
               }
 
-              v12 = *(*(&v60 + 1) + 8 * i);
-              v13 = configuration;
-              v14 = [objc_msgSend(configuration "sensorConfigurationsByPortType")];
-              sensorIDString = [v14 sensorIDString];
-              [dictionary2 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithUnsignedInt:", +[FigCaptureCameraParameters sensorIDFromSensorIDString:](FigCaptureCameraParameters, "sensorIDFromSensorIDString:", sensorIDString)), v12}];
-              [dictionary3 setObject:sensorIDString forKeyedSubscript:v12];
-              v16 = [objc_msgSend(v14 "sensorIDDictionary")];
-              if (v16)
+              v13 = *(*(&v66 + 1) + 8 * i);
+              v14 = configuration;
+              v15 = [objc_msgSend(configuration "sensorConfigurationsByPortType")];
+              sensorIDString = [v15 sensorIDString];
+              [dictionary2 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithUnsignedInt:", +[FigCaptureCameraParameters sensorIDFromSensorIDString:](FigCaptureCameraParameters, "sensorIDFromSensorIDString:", sensorIDString)), v13}];
+              [dictionary3 setObject:sensorIDString forKeyedSubscript:v13];
+              v17 = [objc_msgSend(v15 "sensorIDDictionary")];
+              if (v17)
               {
-                v17 = v16;
-              }
-
-              else
-              {
-                v17 = v10;
-              }
-
-              v18 = [objc_msgSend(v14 "sensorIDDictionary")];
-              if (v18)
-              {
-                v19 = v18;
+                v18 = v17;
               }
 
               else
               {
-                v19 = v10;
+                v18 = v11;
               }
 
-              v56[1] = v19;
-              v57 = sensorIDString;
-              v55[0] = @"SoftISPTuning";
-              v55[1] = @"ModuleConfig";
-              v56[0] = v17;
-              v58 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v56 forKeys:v55 count:2];
-              [v44 setObject:objc_msgSend(MEMORY[0x1E695DF20] forKeyedSubscript:{"dictionaryWithObjects:forKeys:count:", &v58, &v57, 1), v12}];
-              [dictionary5 setObject:objc_msgSend(v14 forKeyedSubscript:{"cameraInfo"), v12}];
-              v20 = v14;
-              configuration = v13;
-              [dictionary4 setObject:objc_msgSend(v20 forKeyedSubscript:{"moduleCalibration"), v12}];
+              v19 = [objc_msgSend(v15 "sensorIDDictionary")];
+              if (v19)
+              {
+                v20 = v19;
+              }
+
+              else
+              {
+                v20 = v11;
+              }
+
+              v62[1] = v20;
+              v63 = sensorIDString;
+              v61[0] = @"SoftISPTuning";
+              v61[1] = @"ModuleConfig";
+              v62[0] = v18;
+              v64 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v62 forKeys:v61 count:2];
+              [v50 setObject:objc_msgSend(MEMORY[0x1E695DF20] forKeyedSubscript:{"dictionaryWithObjects:forKeys:count:", &v64, &v63, 1), v13}];
+              [dictionary5 setObject:objc_msgSend(v15 forKeyedSubscript:{"cameraInfo"), v13}];
+              v21 = v15;
+              configuration = v14;
+              [dictionary4 setObject:objc_msgSend(v21 forKeyedSubscript:{"moduleCalibration"), v13}];
             }
 
-            v9 = [obj countByEnumeratingWithState:&v60 objects:v59 count:16];
+            v10 = [obja countByEnumeratingWithState:&v66 objects:v65 count:16];
           }
 
-          while (v9);
+          while (v10);
         }
 
-        if (![v44 count])
+        if (![v50 count])
         {
-          v35 = 4294954516;
-          selfCopy = v38;
-          v2 = &OBJC_IVAR___BWStreamingFilterNode__maxLossyCompressionLevel;
+          v36 = 4294954516;
+          selfCopy = v42;
+          v3 = &OBJC_IVAR___BWStreamingFilterNode__maxLossyCompressionLevel;
           goto LABEL_44;
         }
 
-        v21 = BWLoadProcessorBundle(@"NRF", v37);
-        selfCopy = v38;
-        v2 = &OBJC_IVAR___BWStreamingFilterNode__maxLossyCompressionLevel;
-        if (v21)
+        v22 = BWLoadProcessorBundle(@"NRF", v40);
+        selfCopy = v42;
+        v3 = &OBJC_IVAR___BWStreamingFilterNode__maxLossyCompressionLevel;
+        if (v22)
         {
-          v22 = objc_alloc_init([v21 classNamed:@"SoftISPProcessor"]);
-          v38[8] = v22;
-          if (v22)
+          v23 = objc_alloc_init([v22 classNamed:@"SoftISPProcessor"]);
+          v42[8] = v23;
+          if (v23)
           {
-            v23 = BWAllStillImageResolutionFlavors();
-            v24 = [-[BWSoftISPProcessorController _prepareDescriptorByPipelineTypeForResolutionFlavors:perFrameProcessing:](v38 v23];
-            if ([v24 count])
+            v24 = BWAllStillImageResolutionFlavors();
+            v25 = [-[BWSoftISPProcessorController _prepareDescriptorByPipelineTypeForResolutionFlavors:perFrameProcessing:](v42 v24];
+            if ([v25 count])
             {
               OUTLINED_FUNCTION_5_34();
               if (objc_opt_respondsToSelector())
@@ -310,56 +310,56 @@
 
               [OUTLINED_FUNCTION_5_34() setCameraInfoByPortType:dictionary5];
               [OUTLINED_FUNCTION_5_34() setModuleCalibrationByPortType:dictionary4];
-              [OUTLINED_FUNCTION_5_34() setTuningParameters:v44];
+              [OUTLINED_FUNCTION_5_34() setTuningParameters:v50];
               [configuration metalCommandQueue];
               [OUTLINED_FUNCTION_5_34() setMetalCommandQueue:?];
-              [OUTLINED_FUNCTION_5_34() setSupportedPipelineTypes:v24];
-              [(BWSoftISPProcessorController *)v38 _lossyCompressionLevelByPipelineType];
+              [OUTLINED_FUNCTION_5_34() setSupportedPipelineTypes:v25];
+              [(BWSoftISPProcessorController *)v42 _lossyCompressionLevelByPipelineType];
               [OUTLINED_FUNCTION_5_34() setOutputCompressionLevelByPipeline:?];
               setup = [OUTLINED_FUNCTION_5_34() setup];
               if (!setup)
               {
-                v38[9] = [dictionary2 copy];
-                v51 = 0u;
-                v52 = 0u;
-                v53 = 0u;
-                v54 = 0u;
+                v42[9] = [dictionary2 copy];
+                v57 = 0u;
+                v58 = 0u;
+                v59 = 0u;
+                v60 = 0u;
                 inputDimensionsByResolutionFlavorByPortType = [configuration inputDimensionsByResolutionFlavorByPortType];
-                v27 = [inputDimensionsByResolutionFlavorByPortType countByEnumeratingWithState:&v51 objects:v50 count:16];
-                if (v27)
+                v28 = [inputDimensionsByResolutionFlavorByPortType countByEnumeratingWithState:&v57 objects:v56 count:16];
+                if (v28)
                 {
-                  v28 = v27;
-                  v29 = *v52;
+                  v29 = v28;
+                  v30 = *v58;
                   do
                   {
-                    for (j = 0; j != v28; ++j)
+                    for (j = 0; j != v29; ++j)
                     {
-                      if (*v52 != v29)
+                      if (*v58 != v30)
                       {
                         objc_enumerationMutation(inputDimensionsByResolutionFlavorByPortType);
                       }
 
-                      v31 = [objc_msgSend(configuration "inputDimensionsByResolutionFlavorByPortType")];
-                      v46 = 0u;
-                      v47 = 0u;
-                      v48 = 0u;
-                      v49 = 0u;
-                      v32 = [v31 countByEnumeratingWithState:&v46 objects:v45 count:16];
-                      if (v32)
+                      v32 = [objc_msgSend(configuration "inputDimensionsByResolutionFlavorByPortType")];
+                      v52 = 0u;
+                      v53 = 0u;
+                      v54 = 0u;
+                      v55 = 0u;
+                      v33 = [v32 countByEnumeratingWithState:&v52 objects:v51 count:16];
+                      if (v33)
                       {
-                        v33 = v32;
-                        v34 = *v47;
+                        v34 = v33;
+                        v35 = *v53;
                         while (1)
                         {
-                          if (*v47 != v34)
+                          if (*v53 != v35)
                           {
-                            objc_enumerationMutation(v31);
+                            objc_enumerationMutation(v32);
                           }
 
-                          if (!--v33)
+                          if (!--v34)
                           {
-                            v33 = [v31 countByEnumeratingWithState:&v46 objects:v45 count:16];
-                            if (!v33)
+                            v34 = [v32 countByEnumeratingWithState:&v52 objects:v51 count:16];
+                            if (!v34)
                             {
                               break;
                             }
@@ -368,37 +368,37 @@
                       }
                     }
 
-                    v28 = [inputDimensionsByResolutionFlavorByPortType countByEnumeratingWithState:&v51 objects:v50 count:16];
+                    v29 = [inputDimensionsByResolutionFlavorByPortType countByEnumeratingWithState:&v57 objects:v56 count:16];
                   }
 
-                  while (v28);
+                  while (v29);
                 }
 
                 return 0;
               }
 
-              v35 = setup;
+              v36 = setup;
             }
 
             else
             {
-              v35 = 4294954516;
+              v36 = 4294954516;
             }
 
 LABEL_44:
 
-            *(selfCopy + v2[345]) = 0;
-            return v35;
+            *(selfCopy + v3[345]) = 0;
+            return v36;
           }
         }
       }
 
       else
       {
-        FigDebugAssert3();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v1, v38, v39, v41, obj, v45, dictionary3);
       }
 
-      v35 = 4294954510;
+      v36 = 4294954510;
       goto LABEL_44;
     }
   }
@@ -1721,7 +1721,8 @@ LABEL_6:
   if (frame == 6 && (mode & 0x4000000000) != 0)
   {
     [objc_msgSend(objc_msgSend(self "currentRequest")];
-    if (([mode isEqualToString:{objc_msgSend(objc_msgSend(OUTLINED_FUNCTION_18_0(), "captureSettings"), "masterPortType")}] & 1) == 0)
+    [objc_msgSend(OUTLINED_FUNCTION_18_0() "captureSettings")];
+    if ((objc_msgSend_isEqualToString_(mode) & 1) == 0)
     {
       FigCFDictionaryGetCGRectIfPresent();
     }
@@ -1832,7 +1833,7 @@ LABEL_6:
   return result;
 }
 
-- (BOOL)_faceDetectionEnabledForFrame:(_BOOL8)result processingMode:(const void *)mode captureType:(int)type captureFlags:(int)flags
+- (void)_faceDetectionEnabledForFrame:(void *)result processingMode:(const void *)mode captureType:(int)type captureFlags:(int)flags
 {
   if (result)
   {
@@ -1845,7 +1846,7 @@ LABEL_6:
       {
         v8 = [objc_msgSend(v7 objectForKeyedSubscript:{*off_1E798A538), "intValue"}];
         v9 = [objc_msgSend(v7 objectForKeyedSubscript:{*off_1E798B1B8), "intValue"}];
-        return v8 == 1 && v9 < 7;
+        return (v8 == 1 && v9 < 7);
       }
 
       else
@@ -1947,8 +1948,8 @@ LABEL_6:
     v8 = 1;
   }
 
-  SensorReadoutRect = FigCaptureMetadataUtilitiesGetSensorReadoutRect();
-  FigCaptureMetadataUtilitiesGetValidBufferRect();
+  SensorReadoutRect = FigCaptureMetadataUtilitiesGetSensorReadoutRect(v6);
+  FigCaptureMetadataUtilitiesGetValidBufferRect(v6);
   v11 = *MEMORY[0x1E695F058];
   FigCFDictionaryGetCGRectIfPresent();
   return (SensorReadoutRect + *&v11) * v8;
@@ -1966,7 +1967,7 @@ LABEL_6:
   v6 = [objc_msgSend(currentRequest "input")];
   v7 = CMGetAttachment(a2, *off_1E798A3C8, 0);
   v8 = *off_1E798B588;
-  v107 = v7;
+  v108 = v7;
   if ([v7 objectForKeyedSubscript:*off_1E798B588])
   {
     v9 = [objc_msgSend(v7 objectForKeyedSubscript:{v8), "intValue"}];
@@ -2056,30 +2057,30 @@ LABEL_6:
 
   v23 = currentRequest;
 LABEL_22:
-  SensorReadoutRect = FigCaptureMetadataUtilitiesGetSensorReadoutRect();
-  v109 = v28;
-  ValidBufferRect = FigCaptureMetadataUtilitiesGetValidBufferRect();
+  SensorReadoutRect = FigCaptureMetadataUtilitiesGetSensorReadoutRect(v108);
+  v110 = v28;
+  ValidBufferRect = FigCaptureMetadataUtilitiesGetValidBufferRect(v108);
   v31 = v30;
   v33 = v32;
   v35 = v34;
-  FinalCropRect = FigCaptureMetadataUtilitiesGetFinalCropRect();
-  FigCaptureMetadataUtilitiesDenormalizeCropRect(FinalCropRect, v37, v38, v39);
+  FinalCropRect = FigCaptureMetadataUtilitiesGetFinalCropRect(v108);
+  FigCaptureMetadataUtilitiesDenormalizeCropRect(FinalCropRect, v37, v38, v39, v16, v15);
   FigCaptureMetadataUtilitiesRoundRectToEvenCoordinates();
   v41 = v40;
-  v102 = v43;
-  v103 = v42;
-  v101 = v44;
-  rect1 = FigCaptureMetadataUtilitiesGetMinimumValidBufferRectForGDC();
+  v103 = v43;
+  v104 = v42;
+  v102 = v44;
+  rect1 = FigCaptureMetadataUtilitiesGetMinimumValidBufferRectForGDC(v108);
   v46 = v45;
   v48 = v47;
   v50 = v49;
-  v111 = *MEMORY[0x1E695F058];
+  v112 = *MEMORY[0x1E695F058];
   FigCFDictionaryGetCGRectIfPresent();
-  v98 = ValidBufferRect;
-  v99 = v33;
-  v97 = v35;
+  v99 = ValidBufferRect;
+  v100 = v33;
+  v98 = v35;
   r2 = v31;
-  v100 = v41;
+  v101 = v41;
   if ([objc_msgSend(objc_msgSend(v23 "input")])
   {
     if ([objc_msgSend(v23 "input")])
@@ -2094,17 +2095,17 @@ LABEL_22:
     {
       CenteredRectWithDimensionsInsideDimensions = FigCaptureMakeCenteredRectWithDimensionsInsideDimensions(var0 | (v22 << 32), v21);
       v66 = v65;
-      v95 = v68;
-      v96 = v67;
-      v114.origin.x = rect1;
-      v114.origin.y = v46;
-      v114.size.width = v48;
-      v114.size.height = v50;
-      IsNull = CGRectIsNull(v114);
-      v94 = v48;
+      v96 = v68;
+      v97 = v67;
+      v115.origin.x = rect1;
+      v115.origin.y = v46;
+      v115.size.width = v48;
+      v115.size.height = v50;
+      IsNull = CGRectIsNull(v115);
+      v95 = v48;
       if (IsNull)
       {
-        v70 = v101;
+        v70 = v102;
       }
 
       else
@@ -2114,7 +2115,7 @@ LABEL_22:
 
       if (IsNull)
       {
-        v71 = v102;
+        v71 = v103;
       }
 
       else
@@ -2124,7 +2125,7 @@ LABEL_22:
 
       if (IsNull)
       {
-        v72 = v103;
+        v72 = v104;
       }
 
       else
@@ -2142,29 +2143,29 @@ LABEL_22:
         v73 = rect1;
       }
 
-      v93 = CenteredRectWithDimensionsInsideDimensions;
-      v122.origin.x = CenteredRectWithDimensionsInsideDimensions;
-      v122.origin.y = v66;
-      v122.size.height = v95;
-      v122.size.width = v96;
-      v115 = CGRectIntersection(*(&v70 - 3), v122);
-      LODWORD(v74) = llround(v115.size.width);
-      LODWORD(v75) = llround(v115.size.height);
+      v94 = CenteredRectWithDimensionsInsideDimensions;
+      v123.origin.x = CenteredRectWithDimensionsInsideDimensions;
+      v123.origin.y = v66;
+      v123.size.height = v96;
+      v123.size.width = v97;
+      v116 = CGRectIntersection(*(&v70 - 3), v123);
+      LODWORD(v74) = llround(v116.size.width);
+      LODWORD(v75) = llround(v116.size.height);
       v76 = v74 | (v75 << 32);
       if (v76 == (var0 | (v22 << 32)))
       {
         v51 = v35;
-        ValidBufferRect = v98;
-        v52 = v99;
+        ValidBufferRect = v99;
+        v52 = v100;
         v53 = r2;
       }
 
       else
       {
-        x = v115.origin.x;
-        y = v115.origin.y;
-        width = v115.size.width;
-        v80 = v115.size.height;
+        x = v116.origin.x;
+        y = v116.origin.y;
+        width = v116.size.width;
+        v80 = v116.size.height;
         v81 = FigCaptureAspectRatioForDimensions(var0 | (v22 << 32));
         v82 = FigCaptureAspectRatioForDimensions(v76);
         if (v81 <= v82)
@@ -2178,24 +2179,24 @@ LABEL_22:
         }
 
         v89 = FigCaptureMetadataUtilitiesScaleRect2D(x, y, width, v80, v83);
-        v48 = v94;
-        FigCaptureMetadataUtilitiesScaleRect(v89, v90, v91, v92, 1.01);
+        v48 = v95;
+        FigCaptureMetadataUtilitiesScaleRect(v89, v90, v91, v92, 1.01, v93);
         FigCaptureMetadataUtilitiesRoundRectToMultipleOf();
-        v124.size.height = v97;
-        v124.origin.x = v98;
-        v124.origin.y = r2;
-        v124.size.width = v99;
-        v119 = CGRectIntersection(v118, v124);
-        v125.origin.y = v66;
-        v125.origin.x = v93;
-        v125.size.height = v95;
-        v125.size.width = v96;
+        v125.size.height = v98;
+        v125.origin.x = v99;
+        v125.origin.y = r2;
+        v125.size.width = v100;
         v120 = CGRectIntersection(v119, v125);
-        ValidBufferRect = v120.origin.x;
-        v53 = v120.origin.y;
-        v52 = v120.size.width;
-        v51 = v120.size.height;
-        var0 = llround(v120.size.width);
+        v126.origin.y = v66;
+        v126.origin.x = v94;
+        v126.size.height = v96;
+        v126.size.width = v97;
+        v121 = CGRectIntersection(v120, v126);
+        ValidBufferRect = v121.origin.x;
+        v53 = v121.origin.y;
+        v52 = v121.size.width;
+        v51 = v121.size.height;
+        var0 = llround(v121.size.width);
       }
     }
   }
@@ -2211,20 +2212,20 @@ LABEL_22:
   v55 = v9;
   if ([objc_msgSend(objc_msgSend(v23 "input")])
   {
-    v112.origin.x = rect1;
-    v112.origin.y = v46;
-    v112.size.width = v48;
-    v112.size.height = v50;
-    v56 = CGRectIsNull(v112);
-    v57 = v100;
-    v58 = v101;
+    v113.origin.x = rect1;
+    v113.origin.y = v46;
+    v113.size.width = v48;
+    v113.size.height = v50;
+    v56 = CGRectIsNull(v113);
+    v57 = v101;
+    v58 = v102;
     if (!v56)
     {
       v57 = rect1;
     }
 
-    v60 = v102;
-    v59 = v103;
+    v60 = v103;
+    v59 = v104;
     if (!v56)
     {
       v59 = v46;
@@ -2232,19 +2233,19 @@ LABEL_22:
       v58 = v50;
     }
 
-    v113.origin.x = FigCaptureUpdateRectSizeAndMaintainCenter(v57, v59, v60, v58, var0);
-    ValidBufferRect = v113.origin.x;
-    v52 = v113.size.width;
-    v61 = v113.origin.y;
-    v104 = v113.size.height;
-    v121.origin.x = rect1;
-    v121.origin.y = v46;
-    v121.size.width = v48;
-    v121.size.height = v50;
-    if (CGRectContainsRect(v113, v121) || !dword_1EB58E320)
+    v114.origin.x = FigCaptureUpdateRectSizeAndMaintainCenter(v57, v59, v60, v58, var0);
+    ValidBufferRect = v114.origin.x;
+    v52 = v114.size.width;
+    v61 = v114.origin.y;
+    v105 = v114.size.height;
+    v122.origin.x = rect1;
+    v122.origin.y = v46;
+    v122.size.width = v48;
+    v122.size.height = v50;
+    if (CGRectContainsRect(v114, v122) || !dword_1EB58E320)
     {
       v53 = v61;
-      v51 = v104;
+      v51 = v105;
     }
 
     else
@@ -2257,15 +2258,15 @@ LABEL_22:
       {
         BWStringFromCGRect(rect1, v46, v48, v50);
         v63 = v61;
-        v51 = v104;
-        BWStringFromCGRect(ValidBufferRect, v63, v52, v104);
+        v51 = v105;
+        BWStringFromCGRect(ValidBufferRect, v63, v52, v105);
         OUTLINED_FUNCTION_10_16();
         _os_log_send_and_compose_impl();
       }
 
       else
       {
-        v51 = v104;
+        v51 = v105;
       }
 
       OUTLINED_FUNCTION_2_4();
@@ -2273,26 +2274,26 @@ LABEL_22:
     }
   }
 
-  FigCaptureRectMidPoint((ValidBufferRect + SensorReadoutRect + *&v111) * v55, (v53 + v109 + *(&v111 + 1)) * v55, v52 * v55, v51 * v55);
+  FigCaptureRectMidPoint((ValidBufferRect + SensorReadoutRect + *&v112) * v55, (v53 + v110 + *(&v112 + 1)) * v55, v52 * v55, v51 * v55);
   [objc_msgSend(frameCopy "configuration")];
   v86 = v85;
   v87 = v84;
   v88 = v85 == *MEMORY[0x1E695EFF8] && v84 == *(MEMORY[0x1E695EFF8] + 8);
   if (!v88 && ([objc_msgSend(objc_msgSend(v23 "input")] & 1) == 0)
   {
-    v116.origin.x = OUTLINED_FUNCTION_3_1();
-    CGRectOffset(v116, v86, v87);
-    FigCaptureMetadataUtilitiesRoundDenormalizedRectToRawSensorCFABoundary(v107);
+    v117.origin.x = OUTLINED_FUNCTION_3_1();
+    CGRectOffset(v117, v86, v87);
+    FigCaptureMetadataUtilitiesRoundDenormalizedRectToRawSensorCFABoundary(v108);
     OUTLINED_FUNCTION_26_2();
-    v117.origin.y = (r2 + v109 + *(&v111 + 1)) * v55;
-    v117.origin.x = (v98 + SensorReadoutRect + *&v111) * v55;
-    v117.size.width = v99 * v55;
-    v117.size.height = v97 * v55;
-    v123.origin.x = v87;
-    v123.origin.y = v86;
-    v123.size.width = v9;
-    v123.size.height = SensorReadoutRect;
-    CGRectContainsRect(v117, v123);
+    v118.origin.y = (r2 + v110 + *(&v112 + 1)) * v55;
+    v118.origin.x = (v99 + SensorReadoutRect + *&v112) * v55;
+    v118.size.width = v100 * v55;
+    v118.size.height = v98 * v55;
+    v124.origin.x = v87;
+    v124.origin.y = v86;
+    v124.size.width = v9;
+    v124.size.height = SensorReadoutRect;
+    CGRectContainsRect(v118, v124);
   }
 
 LABEL_60:

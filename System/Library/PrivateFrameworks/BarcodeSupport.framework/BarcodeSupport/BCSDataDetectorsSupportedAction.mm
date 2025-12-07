@@ -149,40 +149,38 @@ LABEL_7:
 
 - (id)actionPickerItems
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEB18] arrayWithCapacity:{-[NSArray count](self->_actions, "count")}];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v4 = self->_actions;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         v10 = [BCSDataDetectionActionPickerItem alloc];
-        v11 = [(BCSDataDetectionActionPickerItem *)v10 initWithAction:self ddAction:v9, v14];
+        v11 = [(BCSDataDetectionActionPickerItem *)v10 initWithAction:self ddAction:v9, v13];
         [v3 addObject:v11];
       }
 
-      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -192,30 +190,30 @@ LABEL_7:
   delegate = [(BCSAction *)self delegate];
   if (needed || !self->_defaultDDAction)
   {
-    v6 = [(NSArray *)self->_actions count];
-    if (v6)
+    v8 = [(NSArray *)self->_actions count];
+    if (v8)
     {
-      v7 = v6;
+      v9 = v8;
       if (objc_opt_respondsToSelector())
       {
-        v8 = [delegate presentingViewControllerForAction:self];
-        if (v8)
+        v10 = [delegate presentingViewControllerForAction:self];
+        if (v10)
         {
-          if (v7 == 1 || !needed)
+          if (v9 == 1 || !needed)
           {
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
             {
-              *v29 = 0;
-              _os_log_impl(&dword_241993000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "BCSDataDetectorsSupportedAction: performing default DDAction", v29, 2u);
+              *v31 = 0;
+              _os_log_impl(&dword_241993000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "BCSDataDetectorsSupportedAction: performing default DDAction", v31, 2u);
             }
 
             sharedController = [getDDDetectionControllerClass() sharedController];
             firstObject = [(NSArray *)self->_actions firstObject];
-            view = [v8 view];
+            view = [v10 view];
             [sharedController performAction:firstObject inView:view interactionDelegate:0];
 
-            v28 = +[BCSAWDLogger sharedLogger];
-            [v28 logBarcodeActivatedEventForAction:self];
+            v30 = +[BCSAWDLogger sharedLogger];
+            [v30 logBarcodeActivatedEventForAction:self];
           }
 
           else
@@ -226,20 +224,20 @@ LABEL_7:
 
         else
         {
-          v17 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-          if (v17)
+          v19 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
+          if (v19)
           {
-            [(BCSDataDetectorsSupportedAction *)v17 _performActionAndShowActionPickerIfNeeded:v18, v19, v20, v21, v22, v23, v24];
+            [(BCSDataDetectorsSupportedAction *)v19 _performActionAndShowActionPickerIfNeeded:v20, v21, v22, v23, v24, v25, v26];
           }
         }
       }
 
       else
       {
-        v9 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-        if (v9)
+        v11 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
+        if (v11)
         {
-          [(BCSDataDetectorsSupportedAction *)v9 _performActionAndShowActionPickerIfNeeded:v10, v11, v12, v13, v14, v15, v16];
+          [(BCSDataDetectorsSupportedAction *)v11 _performActionAndShowActionPickerIfNeeded:v12, v13, v14, v15, v16, v17, v18];
         }
       }
     }
@@ -247,13 +245,14 @@ LABEL_7:
 
   else
   {
-    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
+    v6 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO);
+    if (v6)
     {
       *buf = 0;
       _os_log_impl(&dword_241993000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "BCSDataDetectorsSupportedAction: perform the default DD action.", buf, 2u);
     }
 
-    if (_bcs_deviceIsPad() && (objc_opt_respondsToSelector() & 1) != 0)
+    if (_bcs_deviceIsPad(v6, v7) && (objc_opt_respondsToSelector() & 1) != 0)
     {
       [delegate sourceRectForPopoverActionPicker:self];
       [(DDUIAction *)self->_defaultDDAction dd_performActionWithRect:?];
@@ -301,7 +300,7 @@ LABEL_7:
 
 - (void)determineActionabilityWithCompletionHandler:(id)handler
 {
-  v31[1] = *MEMORY[0x277D85DE8];
+  v30[1] = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   data = [(BCSAction *)self data];
   objc_opt_class();
@@ -366,51 +365,47 @@ LABEL_10:
   if ((v22 & 1) == 0 && v26 >= 2)
   {
     firstObject = [(NSArray *)self->_actions firstObject];
-    v31[0] = firstObject;
-    v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:1];
+    v30[0] = firstObject;
+    v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:1];
     v29 = self->_actions;
     self->_actions = v28;
   }
 
   handlerCopy[2](handlerCopy, [(NSArray *)self->_actions count]!= 0);
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_actionStringsArray
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v4 = self->_actions;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        localizedName = [*(*(&v12 + 1) + 8 * i) localizedName];
+        localizedName = [*(*(&v11 + 1) + 8 * i) localizedName];
         [array addObject:localizedName];
       }
 
-      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -581,44 +576,35 @@ LABEL_6:
   __break(1u);
 }
 
-double __59__BCSDataDetectorsSupportedAction__setUpActionMenuIfNeeded__block_invoke(uint64_t a1)
-{
-  result = *(a1 + 32);
-  v2 = *(a1 + 40);
-  v3 = *(a1 + 48);
-  v4 = *(a1 + 56);
-  return result;
-}
-
 - (BOOL)preferItemsInSubmenu
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   detectedCode = [(BCSAction *)self detectedCode];
 
   if (detectedCode)
   {
     if (_bcs_isCurrentProcessSafari())
     {
-      v15 = 0u;
-      v16 = 0u;
-      v13 = 0u;
       v14 = 0u;
+      v15 = 0u;
+      v12 = 0u;
+      v13 = 0u;
       children = [self->_ddUIMenu children];
-      v5 = [children countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [children countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v5)
       {
         v6 = v5;
-        v7 = *v14;
+        v7 = *v13;
         while (2)
         {
           for (i = 0; i != v6; ++i)
           {
-            if (*v14 != v7)
+            if (*v13 != v7)
             {
               objc_enumerationMutation(children);
             }
 
-            identifier = [*(*(&v13 + 1) + 8 * i) identifier];
+            identifier = [*(*(&v12 + 1) + 8 * i) identifier];
             v10 = [identifier hasPrefix:@"com.apple.datadetectors.DDShareAction"];
 
             if (v10)
@@ -628,7 +614,7 @@ double __59__BCSDataDetectorsSupportedAction__setUpActionMenuIfNeeded__block_inv
             }
           }
 
-          v6 = [children countByEnumeratingWithState:&v13 objects:v17 count:16];
+          v6 = [children countByEnumeratingWithState:&v12 objects:v16 count:16];
           if (v6)
           {
             continue;
@@ -648,13 +634,12 @@ LABEL_14:
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return detectedCode;
 }
 
 - (id)menuElements
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   if (self->_ddUIMenu)
   {
     preferItemsInSubmenu = [(BCSDataDetectorsSupportedAction *)self preferItemsInSubmenu];
@@ -663,19 +648,17 @@ LABEL_14:
     {
       v5 = [(BCSAction *)self subMenuWithMenuItems:children];
 
-      v9[0] = v5;
-      children = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+      v8[0] = v5;
+      children = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
     }
   }
 
   else
   {
-    v8.receiver = self;
-    v8.super_class = BCSDataDetectorsSupportedAction;
-    children = [(BCSAction *)&v8 menuElements];
+    v7.receiver = self;
+    v7.super_class = BCSDataDetectorsSupportedAction;
+    children = [(BCSAction *)&v7 menuElements];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return children;
 }

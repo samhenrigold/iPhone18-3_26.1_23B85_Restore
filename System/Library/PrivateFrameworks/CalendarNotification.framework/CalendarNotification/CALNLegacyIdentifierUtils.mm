@@ -7,17 +7,16 @@
 
 + (void)setLegacyIdentifier:(id)identifier onNotificationContent:(id)content
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CCABB0];
   contentCopy = content;
   identifierCopy = identifier;
   v8 = [v5 numberWithUnsignedInt:393216];
-  v11 = v8;
-  v12[0] = identifierCopy;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v10 = v8;
+  v11[0] = identifierCopy;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
 
   [contentCopy setUserInfoValue:v9 forKey:@"BLTWatchLegacyMap"];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 + (void)setLegacyIdentifierForCalendarNotification:(id)notification onNotificationContent:(id)content

@@ -10,9 +10,9 @@
 - (int64_t)hash
 {
   selfCopy = self;
-  v3 = HeartRateTargetZone.hash.getter();
+  v4 = HeartRateTargetZone.hash.getter(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 - (WOCoreHeartRateTargetZone)init

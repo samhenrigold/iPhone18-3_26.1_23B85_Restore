@@ -87,15 +87,14 @@ void __58__VCIntentDefinitionSyncState_applicationsJSONTransformer__block_invoke
 
 + (id)JSONKeyPathsByPropertyKey
 {
-  v6[3] = *MEMORY[0x277D85DE8];
-  v5[0] = @"databaseUUID";
-  v5[1] = @"sequenceNumber";
-  v6[0] = @"LSDatabaseUUID";
-  v6[1] = @"LSDatabaseSequenceNumber";
+  v5[3] = *MEMORY[0x277D85DE8];
+  v4[0] = @"databaseUUID";
+  v4[1] = @"sequenceNumber";
+  v5[0] = @"LSDatabaseUUID";
+  v5[1] = @"LSDatabaseSequenceNumber";
+  v4[2] = @"applications";
   v5[2] = @"applications";
-  v6[2] = @"applications";
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:3];
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:3];
 
   return v2;
 }

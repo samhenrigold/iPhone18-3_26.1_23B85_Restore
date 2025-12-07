@@ -176,7 +176,8 @@
 
   else if (v16 == CFUUIDGetTypeID())
   {
-    v15 = 0;
+    *&v15.byte0 = 0;
+    *&v15.byte8 = 0;
     v15 = CFUUIDGetUUIDBytes(sCopy);
     return [[NSUUID alloc] initWithUUIDBytes:&v15];
   }

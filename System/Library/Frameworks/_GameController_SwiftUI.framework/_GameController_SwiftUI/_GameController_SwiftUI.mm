@@ -175,16 +175,14 @@ LABEL_20:
   return result;
 }
 
-uint64_t sub_23B6ECF80(uint64_t *a1)
+uint64_t sub_23B6ECF80(void *a1)
 {
-  v1 = *a1;
-  v2 = a1[1];
-  type metadata accessor for ModifiedContent();
-  lazy protocol witness table accessor for type GameControllerEventInteractionModifier and conformance GameControllerEventInteractionModifier();
+  v1 = type metadata accessor for ModifiedContent();
+  lazy protocol witness table accessor for type GameControllerEventInteractionModifier and conformance GameControllerEventInteractionModifier(v1, v2, v3);
   return swift_getWitnessTable();
 }
 
-unint64_t lazy protocol witness table accessor for type GameControllerEventInteractionModifier and conformance GameControllerEventInteractionModifier()
+unint64_t lazy protocol witness table accessor for type GameControllerEventInteractionModifier and conformance GameControllerEventInteractionModifier(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type GameControllerEventInteractionModifier and conformance GameControllerEventInteractionModifier;
   if (!lazy protocol witness table cache variable for type GameControllerEventInteractionModifier and conformance GameControllerEventInteractionModifier)
@@ -206,11 +204,9 @@ uint64_t __swift_memcpy9_8(uint64_t result, uint64_t *a2)
 
 uint64_t protocol witness for ViewModifier.body(content:) in conformance GameControllerEventInteractionModifier()
 {
-  v2 = *v0;
-  v3 = *(v0 + 8);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI21_ViewModifier_ContentVy016_GameController_aB00fg16EventInteractionD033_9E43609C5250F72CEA5D9749F3835FB5LLVGMd, &_s7SwiftUI21_ViewModifier_ContentVy016_GameController_aB00fg16EventInteractionD033_9E43609C5250F72CEA5D9749F3835FB5LLVGMR);
-  lazy protocol witness table accessor for type _ViewModifier_Content<GameControllerEventInteractionModifier> and conformance _ViewModifier_Content<A>();
-  lazy protocol witness table accessor for type GCEventInteractionRepresentable and conformance GCEventInteractionRepresentable();
+  v0 = lazy protocol witness table accessor for type _ViewModifier_Content<GameControllerEventInteractionModifier> and conformance _ViewModifier_Content<A>();
+  lazy protocol witness table accessor for type GCEventInteractionRepresentable and conformance GCEventInteractionRepresentable(v0, v1, v2);
   return View.interactionRepresentable<A>(_:)();
 }
 
@@ -219,7 +215,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -245,7 +240,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, 
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -253,7 +247,7 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, 
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type GCEventInteractionRepresentable and conformance GCEventInteractionRepresentable()
+unint64_t lazy protocol witness table accessor for type GCEventInteractionRepresentable and conformance GCEventInteractionRepresentable(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type GCEventInteractionRepresentable and conformance GCEventInteractionRepresentable;
   if (!lazy protocol witness table cache variable for type GCEventInteractionRepresentable and conformance GCEventInteractionRepresentable)
@@ -339,8 +333,8 @@ void type metadata accessor for GCUIEventTypes()
 uint64_t sub_23B6ED37C()
 {
   __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI21_ViewModifier_ContentVy016_GameController_aB00fg16EventInteractionD033_9E43609C5250F72CEA5D9749F3835FB5LLVGMd, &_s7SwiftUI21_ViewModifier_ContentVy016_GameController_aB00fg16EventInteractionD033_9E43609C5250F72CEA5D9749F3835FB5LLVGMR);
-  lazy protocol witness table accessor for type _ViewModifier_Content<GameControllerEventInteractionModifier> and conformance _ViewModifier_Content<A>();
-  lazy protocol witness table accessor for type GCEventInteractionRepresentable and conformance GCEventInteractionRepresentable();
+  v3 = lazy protocol witness table accessor for type _ViewModifier_Content<GameControllerEventInteractionModifier> and conformance _ViewModifier_Content<A>();
+  lazy protocol witness table accessor for type GCEventInteractionRepresentable and conformance GCEventInteractionRepresentable(v3, v0, v1);
   return swift_getOpaqueTypeConformance2();
 }
 
@@ -415,7 +409,7 @@ void *protocol witness for RawRepresentable.init(rawValue:) in conformance GCUIE
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type GCUIEventTypes and conformance GCUIEventTypes(unint64_t *a1)
+uint64_t lazy protocol witness table accessor for type GCUIEventTypes and conformance GCUIEventTypes(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)

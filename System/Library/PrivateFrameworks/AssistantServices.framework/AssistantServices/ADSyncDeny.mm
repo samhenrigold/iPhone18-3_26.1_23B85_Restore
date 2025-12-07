@@ -18,17 +18,19 @@
 - (void)_saveTimeouts:(id)timeouts
 {
   timeoutsCopy = timeouts;
-  if (([timeoutsCopy isEqual:self->_cachedTimeoutTable] & 1) == 0)
+  v4 = [timeoutsCopy isEqual:self->_cachedTimeoutTable];
+  v5 = timeoutsCopy;
+  if ((v4 & 1) == 0)
   {
-    v4 = [timeoutsCopy copy];
+    v6 = [timeoutsCopy copy];
     cachedTimeoutTable = self->_cachedTimeoutTable;
-    self->_cachedTimeoutTable = v4;
+    self->_cachedTimeoutTable = v6;
 
     if ([(NSDictionary *)self->_cachedTimeoutTable count])
     {
-      v6 = self->_cachedTimeoutTable;
+      v8 = self->_cachedTimeoutTable;
       _storePath = [(ADSyncDeny *)self _storePath];
-      [(NSDictionary *)v6 writeToFile:_storePath atomically:1];
+      [(NSDictionary *)v8 writeToFile:_storePath atomically:1];
     }
 
     else
@@ -37,9 +39,11 @@
       _storePath2 = [(ADSyncDeny *)self _storePath];
       [_storePath removeItemAtPath:_storePath2 error:0];
     }
+
+    v5 = timeoutsCopy;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(v4, v5);
 }
 
 - (void)saveTimeouts:(id)timeouts
@@ -191,7 +195,7 @@
 
         if (bundleId2)
         {
-          v27 = [v7 objectForKey:bundleId2];
+          v27 = objc_msgSend_objectForKey_(v7);
           if (v27)
           {
             [v24 setSyncSlots:v27];

@@ -170,27 +170,9 @@ LABEL_23:
 
 - (_MIORange)countRange
 {
-  sizerange = self->_sequenceFeatureTypeParams.sizerange_;
-  if (!sizerange)
-  {
-    sizerange = &CoreML::Specification::_SizeRange_default_instance_;
-  }
-
-  v3 = *(sizerange + 2);
-  v4 = *(sizerange + 3);
-  if (v4 <= 0)
-  {
-    v5 = -1;
-  }
-
-  else
-  {
-    v5 = v4;
-  }
-
-  v6 = MIOMakeRange(v3, v5);
-  result.upperBound = v7;
-  result.lowerBound = v6;
+  MIOMakeRange();
+  result.upperBound = v3;
+  result.lowerBound = v2;
   return result;
 }
 

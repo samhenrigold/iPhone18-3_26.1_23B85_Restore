@@ -10,11 +10,10 @@
 {
   v3 = sub_29FC4();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  v6 = __chkstk_darwin(v3);
-  v8 = &v15 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v6);
-  v10 = &v15 - v9;
+  v5 = __chkstk_darwin(v3);
+  v7 = &v14 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v5);
+  v9 = &v14 - v8;
   sub_2A124();
   sub_2A114();
   sub_2A104();
@@ -27,13 +26,13 @@
   traitCollection = [(PSListController *)selfCopy traitCollection];
   sub_2A144();
 
-  (*(v4 + 16))(v8, v10, v3);
+  (*(v4 + 16))(v7, v9, v3);
   sub_2A0D4();
 
-  (*(v4 + 8))(v10, v3);
-  v13 = sub_2A0B4();
+  (*(v4 + 8))(v9, v3);
+  v12 = sub_2A0B4();
 
-  return v13;
+  return v12;
 }
 
 - (void)settingsNavigationProxyPopWithAnimated:(BOOL)animated

@@ -13,13 +13,13 @@
 - (void)prepareForReuse
 {
   selfCopy = self;
-  sub_1000B08EC();
+  sub_1000B08EC(selfCopy, v2);
 }
 
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_1000B0BD8();
+  sub_1000B0BD8(selfCopy, v2);
 }
 
 - (void)linkLabelTapped:(id)tapped
@@ -33,7 +33,7 @@
 {
   changeCopy = change;
   selfCopy = self;
-  sub_1000B1E9C(change);
+  sub_1000B1E9C(change, selfCopy);
 }
 
 - (NSArray)accessibilityDetailItems
@@ -49,9 +49,9 @@
 - (BOOL)accessibilityIsSummaryExpandable
 {
   selfCopy = self;
-  v3 = sub_1000AE724();
+  v4 = sub_1000AE724(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 - (void)accessibilityLinkLabelTapped

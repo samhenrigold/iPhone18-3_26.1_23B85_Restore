@@ -24,15 +24,15 @@
 void __52__BKSHIDEventHitTestLayerInformation_protobufSchema__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  [v2 addField:"_validMask"];
-  [v2 addField:"_cumulativeLayerTransform"];
-  [v2 addField:"_cumulativeContentsTransform"];
-  [v2 addField:"_cumulativeOpacity"];
-  [v2 addField:"_hasInsecureFilter"];
-  [v2 addField:"_detectedOcclusion"];
-  [v2 addField:"_backgroundAverage"];
-  [v2 addField:"_backgroundStandardDeviation"];
-  [v2 addField:"_backgroundAverageContrastThreshold"];
+  [v2 addField:?];
+  [v2 addField:?];
+  [v2 addField:?];
+  [v2 addField:?];
+  [v2 addField:?];
+  [v2 addField:?];
+  [v2 addField:?];
+  [v2 addField:?];
+  [v2 addField:?];
 }
 
 - (void)_updateCCHmacContext:(id *)context
@@ -183,7 +183,7 @@ void __52__BKSHIDEventHitTestLayerInformation_protobufSchema__block_invoke(uint6
 
 - (id)_init
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if (result)
   {
     v1 = result;
@@ -193,82 +193,77 @@ void __52__BKSHIDEventHitTestLayerInformation_protobufSchema__block_invoke(uint6
       v3 = objc_opt_class();
       if (v3 != objc_opt_class())
       {
-        v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"BKSHIDEventHitTestLayerInformation cannot be subclassed"];
+        v4 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
-          v6 = NSStringFromSelector(sel__init);
-          v7 = objc_opt_class();
-          v8 = NSStringFromClass(v7);
+          v5 = NSStringFromSelector(sel__init);
+          v6 = objc_opt_class();
+          v7 = NSStringFromClass(v6);
           *buf = 138544642;
-          v11 = v6;
-          v12 = 2114;
-          v13 = v8;
-          v14 = 2048;
-          v15 = v1;
-          v16 = 2114;
-          v17 = @"BKSHIDEventHitTestLayerInformation.m";
-          v18 = 1024;
-          v19 = 83;
-          v20 = 2114;
-          v21 = v5;
+          v10 = v5;
+          v11 = 2114;
+          v12 = v7;
+          v13 = 2048;
+          v14 = v1;
+          v15 = 2114;
+          v16 = @"BKSHIDEventHitTestLayerInformation.m";
+          v17 = 1024;
+          v18 = 83;
+          v19 = 2114;
+          v20 = v4;
           _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
         }
 
-        [v5 UTF8String];
+        [v4 UTF8String];
         _bs_set_crash_log_message();
         __break(0);
         JUMPOUT(0x1863A04F4);
       }
     }
 
-    v9.receiver = v1;
-    v9.super_class = BKSHIDEventHitTestLayerInformation;
-    result = objc_msgSendSuper2(&v9, sel_init);
+    v8.receiver = v1;
+    v8.super_class = BKSHIDEventHitTestLayerInformation;
+    return objc_msgSendSuper2(&v8, sel_init);
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (void)appendDescriptionToFormatter:(id)formatter
 {
   formatterCopy = formatter;
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __67__BKSHIDEventHitTestLayerInformation_appendDescriptionToFormatter___block_invoke;
-  v6[3] = &unk_1E6F47C78;
+  v6 = MEMORY[0x1E69E9820];
   v7 = formatterCopy;
   selfCopy = self;
   v5 = formatterCopy;
-  [v5 appendProem:0 block:v6];
+  [v5 appendProem:v6 block:{3221225472, __67__BKSHIDEventHitTestLayerInformation_appendDescriptionToFormatter___block_invoke, &unk_1E6F47C78}];
 }
 
 void __67__BKSHIDEventHitTestLayerInformation_appendDescriptionToFormatter___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = NSStringFromBKSHIDEventHitTestLayerInformationMask(*(*(a1 + 40) + 8));
-  [v2 appendString:v3 withName:@"validMask"];
+  [v2 appendString:? withName:?];
 
-  v4 = [*(a1 + 32) appendBool:*(*(a1 + 40) + 289) withName:@"detectedOcclusion"];
+  v4 = [*(a1 + 32) appendBool:? withName:?];
   v5 = *(a1 + 40);
   v6 = *(v5 + 8);
   if ((v6 & 0x10) != 0)
   {
     v10 = *(a1 + 32);
     v11 = *(v5 + 112);
-    v30 = *(v5 + 96);
-    v31 = v11;
+    v29 = *(v5 + 96);
+    v30 = v11;
     v12 = *(v5 + 144);
-    v32 = *(v5 + 128);
-    v33 = v12;
+    v31 = *(v5 + 128);
+    v32 = v12;
     v13 = *(v5 + 48);
     v26 = *(v5 + 32);
     v27 = v13;
     v14 = *(v5 + 80);
     v28 = *(v5 + 64);
-    v29 = v14;
-    v15 = [MEMORY[0x1E696B098] valueWithCATransform3D:&v26];
-    v16 = [v10 appendObject:v15 withName:@"cumulativeLayerTransform"];
+    v15 = [MEMORY[0x1E696B098] valueWithCATransform3D:{v26, v27, v28, v14, v29, v30, v31, v32}];
+    v16 = [v10 appendObject:? withName:?];
 
     v5 = *(a1 + 40);
     v6 = *(v5 + 8);
@@ -291,22 +286,20 @@ LABEL_3:
 
   v17 = *(a1 + 32);
   v18 = *(v5 + 240);
-  v30 = *(v5 + 224);
-  v31 = v18;
+  v29 = *(v5 + 224);
+  v30 = v18;
   v19 = *(v5 + 272);
-  v32 = *(v5 + 256);
-  v33 = v19;
+  v31 = *(v5 + 256);
+  v32 = v19;
   v20 = *(v5 + 176);
   v26 = *(v5 + 160);
   v27 = v20;
   v21 = *(v5 + 208);
   v28 = *(v5 + 192);
-  v29 = v21;
-  v22 = [MEMORY[0x1E696B098] valueWithCATransform3D:&v26];
-  v23 = [v17 appendObject:v22 withName:@"cumulativeContentsTransform"];
+  v22 = [MEMORY[0x1E696B098] valueWithCATransform3D:{v26, v27, v28, v21, v29, v30, v31, v32}];
+  v23 = [v17 appendObject:? withName:?];
 
-  v5 = *(a1 + 40);
-  v6 = *(v5 + 8);
+  v6 = *(*(a1 + 40) + 8);
   if ((v6 & 2) == 0)
   {
 LABEL_4:
@@ -319,9 +312,8 @@ LABEL_4:
   }
 
 LABEL_10:
-  v24 = [*(a1 + 32) appendFloat:@"cumulativeOpacity" withName:*(v5 + 16)];
-  v5 = *(a1 + 40);
-  v6 = *(v5 + 8);
+  v24 = [*(a1 + 32) appendFloat:? withName:?];
+  v6 = *(*(a1 + 40) + 8);
   if ((v6 & 4) == 0)
   {
 LABEL_5:
@@ -334,17 +326,16 @@ LABEL_5:
   }
 
 LABEL_11:
-  v25 = [*(a1 + 32) appendBool:*(v5 + 288) withName:@"hasInsecureFilter"];
-  v5 = *(a1 + 40);
-  if ((*(v5 + 8) & 8) == 0)
+  v25 = [*(a1 + 32) appendBool:? withName:?];
+  if ((*(*(a1 + 40) + 8) & 8) == 0)
   {
     return;
   }
 
 LABEL_6:
-  v7 = [*(a1 + 32) appendFloat:@"backgroundAverage" withName:*(v5 + 20)];
-  v8 = [*(a1 + 32) appendFloat:@"backgroundStandardDeviation" withName:*(*(a1 + 40) + 24)];
-  v9 = [*(a1 + 32) appendFloat:@"backgroundAverageContrastThreshold" withName:*(*(a1 + 40) + 28)];
+  v7 = [*(a1 + 32) appendFloat:? withName:?];
+  v8 = [*(a1 + 32) appendFloat:? withName:?];
+  v9 = [*(a1 + 32) appendFloat:? withName:?];
 }
 
 - (id)mutableCopyWithZone:(_NSZone *)zone
@@ -422,67 +413,62 @@ LABEL_6:
 
 - (unint64_t)hash
 {
-  v3 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_validMask];
+  v3 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
   v4 = [v3 hash];
 
   v5 = *&self->_cumulativeLayerTransform.m33;
-  v35[4] = *&self->_cumulativeLayerTransform.m31;
-  v35[5] = v5;
+  v41 = *&self->_cumulativeLayerTransform.m31;
+  v42 = v5;
   v6 = *&self->_cumulativeLayerTransform.m43;
-  v35[6] = *&self->_cumulativeLayerTransform.m41;
-  v35[7] = v6;
+  v43 = *&self->_cumulativeLayerTransform.m41;
+  v44 = v6;
   v7 = *&self->_cumulativeLayerTransform.m13;
-  v35[0] = *&self->_cumulativeLayerTransform.m11;
-  v35[1] = v7;
+  v37 = *&self->_cumulativeLayerTransform.m11;
+  v38 = v7;
   v8 = *&self->_cumulativeLayerTransform.m23;
-  v35[2] = *&self->_cumulativeLayerTransform.m21;
-  v35[3] = v8;
-  v9 = [MEMORY[0x1E696B098] valueWithBytes:v35 objCType:"{CATransform3D=dddddddddddddddd}"];
+  v39 = *&self->_cumulativeLayerTransform.m21;
+  v40 = v8;
+  v9 = [MEMORY[0x1E696B098] valueWithBytes:? objCType:?];
   v10 = [v9 hash] ^ v4;
 
   v11 = *&self->_cumulativeContentsTransform.m33;
-  v34[4] = *&self->_cumulativeContentsTransform.m31;
-  v34[5] = v11;
+  v33 = *&self->_cumulativeContentsTransform.m31;
+  v34 = v11;
   v12 = *&self->_cumulativeContentsTransform.m43;
-  v34[6] = *&self->_cumulativeContentsTransform.m41;
-  v34[7] = v12;
+  v35 = *&self->_cumulativeContentsTransform.m41;
+  v36 = v12;
   v13 = *&self->_cumulativeContentsTransform.m13;
-  v34[0] = *&self->_cumulativeContentsTransform.m11;
-  v34[1] = v13;
+  v30 = *&self->_cumulativeContentsTransform.m11;
+  v31 = v13;
   v14 = *&self->_cumulativeContentsTransform.m23;
-  v34[2] = *&self->_cumulativeContentsTransform.m21;
-  v34[3] = v14;
-  v15 = [MEMORY[0x1E696B098] valueWithBytes:v34 objCType:"{CATransform3D=dddddddddddddddd}"];
+  v32 = *&self->_cumulativeContentsTransform.m21;
+  v15 = [MEMORY[0x1E696B098] valueWithBytes:v30 objCType:{v31, v32, v14, v33, v34, v35, v36}];
   v16 = [v15 hash];
 
-  *&v17 = self->_cumulativeOpacity;
-  v18 = [MEMORY[0x1E696AD98] numberWithFloat:v17];
-  v19 = v10 ^ v16 ^ [v18 hash];
+  v17 = [MEMORY[0x1E696AD98] numberWithFloat:?];
+  v18 = v10 ^ v16 ^ [v17 hash];
 
-  v20 = [MEMORY[0x1E696AD98] numberWithBool:self->_hasInsecureFilter];
-  v21 = [v20 hash];
+  v19 = [MEMORY[0x1E696AD98] numberWithBool:?];
+  v20 = [v19 hash];
 
-  v22 = [MEMORY[0x1E696AD98] numberWithBool:self->_detectedOcclusion];
-  v23 = v21 ^ [v22 hash];
+  v21 = [MEMORY[0x1E696AD98] numberWithBool:?];
+  v22 = v20 ^ [v21 hash];
 
-  *&v24 = self->_backgroundAverage;
-  v25 = [MEMORY[0x1E696AD98] numberWithFloat:v24];
-  v26 = v19 ^ v23 ^ [v25 hash];
+  v23 = [MEMORY[0x1E696AD98] numberWithFloat:?];
+  v24 = v18 ^ v22 ^ [v23 hash];
 
-  *&v27 = self->_backgroundStandardDeviation;
-  v28 = [MEMORY[0x1E696AD98] numberWithFloat:v27];
-  v29 = [v28 hash];
+  v25 = [MEMORY[0x1E696AD98] numberWithFloat:?];
+  v26 = [v25 hash];
 
-  *&v30 = self->_backgroundAverageContrastThreshold;
-  v31 = [MEMORY[0x1E696AD98] numberWithFloat:v30];
-  v32 = v29 ^ [v31 hash];
+  v27 = [MEMORY[0x1E696AD98] numberWithFloat:?];
+  v28 = v26 ^ [v27 hash];
 
-  return v26 ^ v32;
+  return v24 ^ v28;
 }
 
 - (BKSHIDEventHitTestLayerInformation)init
 {
-  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot directly allocate BKSHIDEventHitTestLayerInformation"];
+  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v5 = NSStringFromSelector(a2);
@@ -511,7 +497,7 @@ LABEL_6:
 
 + (BKSHIDEventHitTestLayerInformation)new
 {
-  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot directly allocate BKSHIDEventHitTestLayerInformation"];
+  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v5 = NSStringFromSelector(a2);

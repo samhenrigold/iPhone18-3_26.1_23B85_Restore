@@ -1,162 +1,4 @@
-void sub_297A4765C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, dispatch_object_t object)
-{
-  _Block_object_dispose(&a21, 8);
-  if (object)
-  {
-    dispatch_release(object);
-    std::shared_ptr<std::vector<unsigned char> const>::~shared_ptr[abi:ne200100](&a11);
-    std::shared_ptr<std::vector<unsigned char> const>::~shared_ptr[abi:ne200100](&a13);
-    _Unwind_Resume(a1);
-  }
-
-  std::shared_ptr<std::vector<unsigned char> const>::~shared_ptr[abi:ne200100](&a11);
-  std::shared_ptr<std::vector<unsigned char> const>::~shared_ptr[abi:ne200100](&a13);
-  _Unwind_Resume(a1);
-}
-
-uint64_t Bsp::ARICommandDriver::SysGetInfoV2(uint64_t a1, uint64_t a2, AriSdk::ARI_CsiSysGetInfoRspCbV2_SDK **a3)
-{
-  AriSdk::MsgBase::getRawBytes();
-  *a3 = 0;
-  v11 = *(a1 + 16);
-  v12 = *(v11 + 8);
-  if (v12 || !*(v11 + 16))
-  {
-    v13 = MEMORY[0];
-    v14 = MEMORY[8] - MEMORY[0];
-    v15 = *(v11 + 20);
-    LODWORD(v72) = 0;
-    _KTLDebugPrint("KTLRawSendData", "Sending %u bytes to device timeout=%u\n", v5, v6, v7, v8, v9, v10, MEMORY[8] - MEMORY[0]);
-    if ((_KTLDebugFlags & 2) != 0)
-    {
-      off_2A18991C8("Tx:", 0, v13);
-    }
-
-    if (*v12 && ((v22 = (*v12)(v12, v13, v14, &v72, 1, v15, 0), v72 == v14) ? (v23 = v22) : (v23 = 0), (v23 & 1) != 0))
-    {
-      v72 = 0;
-      v24 = KTLUTACopyReceiveData(*(a1 + 16), &v72);
-      v31 = v72;
-      if (v72)
-      {
-        v32 = v24;
-      }
-
-      else
-      {
-        v32 = 0;
-      }
-
-      if (v32 == 1)
-      {
-        v33 = operator new(0x48uLL);
-        v34 = (*(*v31 + 16))(v31);
-        v35 = v31[2];
-        AriSdk::ARI_CsiSysGetInfoRspCbV2_SDK::ARI_CsiSysGetInfoRspCbV2_SDK(v33, v34);
-        *a3 = v33;
-        (*(*v31 + 8))(v31);
-        goto LABEL_31;
-      }
-    }
-
-    else
-    {
-      _KTLDebugPrint("KTLRawSendData", "Failed sending %d bytes - amount written %u\n", v16, v17, v18, v19, v20, v21, v14);
-    }
-
-    v36 = "error while trying to get response from device \n";
-LABEL_16:
-    _KTLErrorPrint("perform", v36, v25, v26, v27, v28, v29, v30, v71);
-    goto LABEL_17;
-  }
-
-  v72 = 0;
-  v73 = &v72;
-  v74 = 0x3002000000;
-  v75 = __Block_byref_object_copy__94;
-  v76 = __Block_byref_object_dispose__95;
-  object = 0xAAAAAAAAAAAAAAAALL;
-  object = dispatch_semaphore_create(0);
-  v45 = *(*(a1 + 16) + 16);
-  v46 = AriHost::Send();
-  if (v46)
-  {
-    _KTLErrorPrint("perform", "An error occured sending the message. (%d)\n", v47, v48, v49, v50, v51, v52, v46);
-    goto LABEL_28;
-  }
-
-  v53 = v73;
-  v54 = dispatch_time(0, 1000000 * *(*(a1 + 16) + 20));
-  if (dispatch_semaphore_wait(v53[5], v54))
-  {
-    _KTLErrorPrint("perform", "Timeout waiting for response.\n", v55, v56, v57, v58, v59, v60, v71);
-LABEL_28:
-    v61 = 0;
-    _Block_object_dispose(&v72, 8);
-    v62 = object;
-    if (!object)
-    {
-      goto LABEL_30;
-    }
-
-    goto LABEL_29;
-  }
-
-  v61 = 1;
-  _Block_object_dispose(&v72, 8);
-  v62 = object;
-  if (object)
-  {
-LABEL_29:
-    dispatch_release(v62);
-  }
-
-LABEL_30:
-  if ((v61 & 1) == 0)
-  {
-    goto LABEL_17;
-  }
-
-LABEL_31:
-  hasDeclaredGmid = AriSdk::ARI_CsiSysGetInfoRspCbV2_SDK::hasDeclaredGmid(*a3);
-  v64 = *a3;
-  if ((hasDeclaredGmid & 1) == 0)
-  {
-    if (AriSdk::MsgBase::getMergedGMID(v64) != 67600384)
-    {
-      AriSdk::MsgBase::getMergedGMID(*a3);
-      _KTLErrorPrint("perform", "expected gmid %d, doesn't match response gmid %d \n", v65, v66, v67, v68, v69, v70, 84410368);
-      goto LABEL_17;
-    }
-
-    v36 = "Received NACK\n";
-    goto LABEL_16;
-  }
-
-  if (!AriSdk::ARI_CsiSysGetInfoRspCbV2_SDK::unpack(v64))
-  {
-    v43 = 1;
-    goto LABEL_20;
-  }
-
-LABEL_17:
-  if (*a3)
-  {
-    (*(**a3 + 16))(*a3);
-  }
-
-  v43 = 0;
-  *a3 = 0;
-LABEL_20:
-  if ((v43 & 1) == 0)
-  {
-    _KTLErrorPrint("SysGetInfoV2", "Failed CsiSysGetInfoRspCbV2\n", v37, v38, v39, v40, v41, v42, v71);
-  }
-
-  return v43;
-}
-
-void sub_297A47B60(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, dispatch_object_t object)
+void sub_297A47B60(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, dispatch_object_t object)
 {
   _Block_object_dispose(&a21, 8);
   if (object)
@@ -176,145 +18,144 @@ uint64_t Bsp::ARICommandDriver::GetNvItemsSetting(uint64_t a1, uint64_t a2, AriS
 {
   AriSdk::MsgBase::getRawBytes();
   *a3 = 0;
-  v11 = *(a1 + 16);
-  v12 = *(v11 + 8);
-  if (v12 || !*(v11 + 16))
+  v5 = *(a1 + 16);
+  v6 = *(v5 + 8);
+  if (!v6 && *(v5 + 16))
   {
-    v13 = MEMORY[0];
-    v14 = MEMORY[8] - MEMORY[0];
-    v15 = *(v11 + 20);
-    LODWORD(v72) = 0;
-    _KTLDebugPrint("KTLRawSendData", "Sending %u bytes to device timeout=%u\n", v5, v6, v7, v8, v9, v10, MEMORY[8] - MEMORY[0]);
-    if ((_KTLDebugFlags & 2) != 0)
+    v28 = 0;
+    v29 = &v28;
+    v30 = 0x3002000000;
+    v31 = __Block_byref_object_copy__94;
+    v32 = __Block_byref_object_dispose__95;
+    object = 0xAAAAAAAAAAAAAAAALL;
+    object = dispatch_semaphore_create(0);
+    if (AriHost::Send())
     {
-      off_2A18991C8("Tx:", 0, v13);
-    }
-
-    if (*v12 && ((v22 = (*v12)(v12, v13, v14, &v72, 1, v15, 0), v72 == v14) ? (v23 = v22) : (v23 = 0), (v23 & 1) != 0))
-    {
-      v72 = 0;
-      v24 = KTLUTACopyReceiveData(*(a1 + 16), &v72);
-      v31 = v72;
-      if (v72)
-      {
-        v32 = v24;
-      }
-
-      else
-      {
-        v32 = 0;
-      }
-
-      if (v32 == 1)
-      {
-        v33 = operator new(0x58uLL);
-        v34 = (*(*v31 + 16))(v31);
-        v35 = v31[2];
-        AriSdk::ARI_FactoryGetNvItemsSettingRspCb_SDK::ARI_FactoryGetNvItemsSettingRspCb_SDK(v33, v34);
-        *a3 = v33;
-        (*(*v31 + 8))(v31);
-        goto LABEL_31;
-      }
+      _KTLErrorPrint("perform", "An error occured sending the message. (%d)\n");
     }
 
     else
     {
-      _KTLDebugPrint("KTLRawSendData", "Failed sending %d bytes - amount written %u\n", v16, v17, v18, v19, v20, v21, v14);
+      v20 = v29;
+      v21 = dispatch_time(0, 1000000 * *(*(a1 + 16) + 20));
+      if (!dispatch_semaphore_wait(v20[5], v21))
+      {
+        v22 = 1;
+        _Block_object_dispose(&v28, 8);
+        v23 = object;
+        if (!object)
+        {
+LABEL_29:
+          if ((v22 & 1) == 0)
+          {
+            goto LABEL_16;
+          }
+
+          goto LABEL_30;
+        }
+
+LABEL_28:
+        dispatch_release(v23);
+        goto LABEL_29;
+      }
+
+      _KTLErrorPrint("perform", "Timeout waiting for response.\n");
     }
 
-    v36 = "error while trying to get response from device \n";
-LABEL_16:
-    _KTLErrorPrint("perform", v36, v25, v26, v27, v28, v29, v30, v71);
-    goto LABEL_17;
-  }
+    v22 = 0;
+    _Block_object_dispose(&v28, 8);
+    v23 = object;
+    if (!object)
+    {
+      goto LABEL_29;
+    }
 
-  v72 = 0;
-  v73 = &v72;
-  v74 = 0x3002000000;
-  v75 = __Block_byref_object_copy__94;
-  v76 = __Block_byref_object_dispose__95;
-  object = 0xAAAAAAAAAAAAAAAALL;
-  object = dispatch_semaphore_create(0);
-  v45 = *(*(a1 + 16) + 16);
-  v46 = AriHost::Send();
-  if (v46)
-  {
-    _KTLErrorPrint("perform", "An error occured sending the message. (%d)\n", v47, v48, v49, v50, v51, v52, v46);
     goto LABEL_28;
   }
 
-  v53 = v73;
-  v54 = dispatch_time(0, 1000000 * *(*(a1 + 16) + 20));
-  if (dispatch_semaphore_wait(v53[5], v54))
+  v7 = MEMORY[0];
+  v8 = MEMORY[8] - MEMORY[0];
+  v9 = *(v5 + 20);
+  LODWORD(v28) = 0;
+  _KTLDebugPrint("KTLRawSendData", "Sending %u bytes to device timeout=%u\n", MEMORY[8] - MEMORY[0], v9);
+  if ((_KTLDebugFlags & 2) != 0)
   {
-    _KTLErrorPrint("perform", "Timeout waiting for response.\n", v55, v56, v57, v58, v59, v60, v71);
-LABEL_28:
-    v61 = 0;
-    _Block_object_dispose(&v72, 8);
-    v62 = object;
-    if (!object)
-    {
-      goto LABEL_30;
-    }
-
-    goto LABEL_29;
+    off_2A18991C8("Tx:", 0, v7, v8);
   }
 
-  v61 = 1;
-  _Block_object_dispose(&v72, 8);
-  v62 = object;
-  if (object)
+  v10 = *v6;
+  if (!*v6 || ((v11 = v10(v6, v7, v8, &v28, 1, v9, 0), LODWORD(v10) = v28, v28 == v8) ? (v12 = v11) : (v12 = 0), (v12 & 1) == 0))
   {
-LABEL_29:
-    dispatch_release(v62);
-  }
-
-LABEL_30:
-  if ((v61 & 1) == 0)
-  {
-    goto LABEL_17;
-  }
-
-LABEL_31:
-  hasDeclaredGmid = AriSdk::ARI_FactoryGetNvItemsSettingRspCb_SDK::hasDeclaredGmid(*a3);
-  v64 = *a3;
-  if ((hasDeclaredGmid & 1) == 0)
-  {
-    if (AriSdk::MsgBase::getMergedGMID(v64) != 67600384)
-    {
-      AriSdk::MsgBase::getMergedGMID(*a3);
-      _KTLErrorPrint("perform", "expected gmid %d, doesn't match response gmid %d \n", v65, v66, v67, v68, v69, v70, 4177625088);
-      goto LABEL_17;
-    }
-
-    v36 = "Received NACK\n";
+    _KTLDebugPrint("KTLRawSendData", "Failed sending %d bytes - amount written %u\n", v8, v10);
+LABEL_15:
+    _KTLErrorPrint("perform", "error while trying to get response from device \n");
     goto LABEL_16;
   }
 
-  if (!AriSdk::ARI_FactoryGetNvItemsSettingRspCb_SDK::unpack(v64))
+  v28 = 0;
+  v13 = KTLUTACopyReceiveData(*(a1 + 16), &v28);
+  v14 = v28;
+  if (v28)
   {
-    v43 = 1;
-    goto LABEL_20;
+    v15 = v13;
   }
 
-LABEL_17:
+  else
+  {
+    v15 = 0;
+  }
+
+  if (v15 != 1)
+  {
+    goto LABEL_15;
+  }
+
+  v16 = operator new(0x58uLL);
+  v17 = (*(*v14 + 16))(v14);
+  AriSdk::ARI_FactoryGetNvItemsSettingRspCb_SDK::ARI_FactoryGetNvItemsSettingRspCb_SDK(v16, v17);
+  *a3 = v16;
+  (*(*v14 + 8))(v14);
+LABEL_30:
+  hasDeclaredGmid = AriSdk::ARI_FactoryGetNvItemsSettingRspCb_SDK::hasDeclaredGmid(*a3);
+  v25 = *a3;
+  if (hasDeclaredGmid)
+  {
+    if (!AriSdk::ARI_FactoryGetNvItemsSettingRspCb_SDK::unpack(v25))
+    {
+      v18 = 1;
+      goto LABEL_19;
+    }
+  }
+
+  else if (AriSdk::MsgBase::getMergedGMID(v25) == 67600384)
+  {
+    _KTLErrorPrint("perform", "Received NACK\n", v26, v27, 0, 0);
+  }
+
+  else
+  {
+    AriSdk::MsgBase::getMergedGMID(*a3);
+    _KTLErrorPrint("perform", "expected gmid %d, doesn't match response gmid %d \n");
+  }
+
+LABEL_16:
   if (*a3)
   {
     (*(**a3 + 16))(*a3);
   }
 
-  v43 = 0;
+  v18 = 0;
   *a3 = 0;
-LABEL_20:
-  if ((v43 & 1) == 0)
+LABEL_19:
+  if ((v18 & 1) == 0)
   {
-    _KTLErrorPrint("GetNvItemsSetting", "Failed FactoryGetNvItemsSettingRspCb\n", v37, v38, v39, v40, v41, v42, v71);
+    _KTLErrorPrint("GetNvItemsSetting", "Failed FactoryGetNvItemsSettingRspCb\n");
   }
 
-  return v43;
+  return v18;
 }
 
-void sub_297A48068(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, dispatch_object_t object)
+void sub_297A48068(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, dispatch_object_t object)
 {
   _Block_object_dispose(&a21, 8);
   if (object)
@@ -415,29 +256,29 @@ void __Block_byref_object_dispose__95(uint64_t a1)
   }
 }
 
-uint64_t ___ZN3ktl13CommandDriver7performIN6AriSdk35ARI_CsiGetCurrentBootStateRspCb_SDKEEEbjNSt3__110shared_ptrIKNS4_6vectorIhNS4_9allocatorIhEEEEEEPPT__block_invoke(uint64_t a1, const unsigned __int8 *a2)
+uint64_t ___ZN3ktl13CommandDriver7performIN6AriSdk35ARI_CsiGetCurrentBootStateRspCb_SDKEEEbjNSt3__110shared_ptrIKNS4_6vectorIhNS4_9allocatorIhEEEEEEPPT__block_invoke(uint64_t a1, const unsigned __int8 *a2, unsigned int a3)
 {
-  v4 = operator new(0x48uLL);
-  AriSdk::ARI_CsiGetCurrentBootStateRspCb_SDK::ARI_CsiGetCurrentBootStateRspCb_SDK(v4, a2);
-  **(a1 + 40) = v4;
+  v5 = operator new(0x48uLL);
+  AriSdk::ARI_CsiGetCurrentBootStateRspCb_SDK::ARI_CsiGetCurrentBootStateRspCb_SDK(v5, a2);
+  **(a1 + 40) = v5;
   dispatch_semaphore_signal(*(*(*(a1 + 32) + 8) + 40));
   return 0;
 }
 
-uint64_t ___ZN3ktl13CommandDriver7performIN6AriSdk28ARI_CsiSysGetInfoRspCbV2_SDKEEEbjNSt3__110shared_ptrIKNS4_6vectorIhNS4_9allocatorIhEEEEEEPPT__block_invoke(uint64_t a1, const unsigned __int8 *a2)
+uint64_t ___ZN3ktl13CommandDriver7performIN6AriSdk28ARI_CsiSysGetInfoRspCbV2_SDKEEEbjNSt3__110shared_ptrIKNS4_6vectorIhNS4_9allocatorIhEEEEEEPPT__block_invoke(uint64_t a1, const unsigned __int8 *a2, unsigned int a3)
 {
-  v4 = operator new(0x48uLL);
-  AriSdk::ARI_CsiSysGetInfoRspCbV2_SDK::ARI_CsiSysGetInfoRspCbV2_SDK(v4, a2);
-  **(a1 + 40) = v4;
+  v5 = operator new(0x48uLL);
+  AriSdk::ARI_CsiSysGetInfoRspCbV2_SDK::ARI_CsiSysGetInfoRspCbV2_SDK(v5, a2);
+  **(a1 + 40) = v5;
   dispatch_semaphore_signal(*(*(*(a1 + 32) + 8) + 40));
   return 0;
 }
 
-uint64_t ___ZN3ktl13CommandDriver7performIN6AriSdk37ARI_FactoryGetNvItemsSettingRspCb_SDKEEEbjNSt3__110shared_ptrIKNS4_6vectorIhNS4_9allocatorIhEEEEEEPPT__block_invoke(uint64_t a1, const unsigned __int8 *a2)
+uint64_t ___ZN3ktl13CommandDriver7performIN6AriSdk37ARI_FactoryGetNvItemsSettingRspCb_SDKEEEbjNSt3__110shared_ptrIKNS4_6vectorIhNS4_9allocatorIhEEEEEEPPT__block_invoke(uint64_t a1, const unsigned __int8 *a2, unsigned int a3)
 {
-  v4 = operator new(0x58uLL);
-  AriSdk::ARI_FactoryGetNvItemsSettingRspCb_SDK::ARI_FactoryGetNvItemsSettingRspCb_SDK(v4, a2);
-  **(a1 + 40) = v4;
+  v5 = operator new(0x58uLL);
+  AriSdk::ARI_FactoryGetNvItemsSettingRspCb_SDK::ARI_FactoryGetNvItemsSettingRspCb_SDK(v5, a2);
+  **(a1 + 40) = v5;
   dispatch_semaphore_signal(*(*(*(a1 + 32) + 8) + 40));
   return 0;
 }
@@ -489,23 +330,23 @@ __int128 *KTLGetKDMProductName(void)
 
 unint64_t KTLGetKDMFilename@<X0>(const char *a1@<X0>, _BYTE *a2@<X8>)
 {
-  v27 = *MEMORY[0x29EDCA608];
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
+  v26 = *MEMORY[0x29EDCA608];
   v24 = 0u;
-  v21 = 0u;
+  v25 = 0u;
   v22 = 0u;
-  v19 = 0u;
+  v23 = 0u;
   v20 = 0u;
-  v17 = 0u;
+  v21 = 0u;
   v18 = 0u;
-  v15 = 0u;
+  v19 = 0u;
   v16 = 0u;
-  v13 = 0u;
+  v17 = 0u;
   v14 = 0u;
-  *__str = 0u;
+  v15 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  *__str = 0u;
+  v11 = 0u;
   HardwareModel = _MergedGlobals_1;
   if (_MergedGlobals_1)
   {
@@ -597,7 +438,6 @@ LABEL_20:
   a2[23] = 0;
 LABEL_21:
   *a2 = 0;
-  v10 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -921,7 +761,7 @@ LABEL_47:
   }
 }
 
-void sub_297A48A4C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *__p, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, void *a32)
+void sub_297A48A4C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *__p, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, void *a32)
 {
   std::tuple<std::string,std::string,std::string>::~tuple(&a13);
   if (a28 < 0)
@@ -996,23 +836,23 @@ LABEL_7:
 
 unint64_t KTLGetETBFilename@<X0>(const char *a1@<X0>, _BYTE *a2@<X8>)
 {
-  v27 = *MEMORY[0x29EDCA608];
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
+  v26 = *MEMORY[0x29EDCA608];
   v24 = 0u;
-  v21 = 0u;
+  v25 = 0u;
   v22 = 0u;
-  v19 = 0u;
+  v23 = 0u;
   v20 = 0u;
-  v17 = 0u;
+  v21 = 0u;
   v18 = 0u;
-  v15 = 0u;
+  v19 = 0u;
   v16 = 0u;
-  v13 = 0u;
+  v17 = 0u;
   v14 = 0u;
-  *__str = 0u;
+  v15 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  *__str = 0u;
+  v11 = 0u;
   HardwareModel = _MergedGlobals_1;
   if (_MergedGlobals_1)
   {
@@ -1104,7 +944,6 @@ LABEL_20:
   a2[23] = 0;
 LABEL_21:
   *a2 = 0;
-  v10 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -1137,23 +976,23 @@ uint64_t KTLGetMaskFileExtensionName@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>
 
 unint64_t KTLGetTraceConfigFilename@<X0>(const char *a1@<X0>, _BYTE *a2@<X8>)
 {
-  v27 = *MEMORY[0x29EDCA608];
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
+  v26 = *MEMORY[0x29EDCA608];
   v24 = 0u;
-  v21 = 0u;
+  v25 = 0u;
   v22 = 0u;
-  v19 = 0u;
+  v23 = 0u;
   v20 = 0u;
-  v17 = 0u;
+  v21 = 0u;
   v18 = 0u;
-  v15 = 0u;
+  v19 = 0u;
   v16 = 0u;
-  v13 = 0u;
+  v17 = 0u;
   v14 = 0u;
-  *__str = 0u;
+  v15 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  *__str = 0u;
+  v11 = 0u;
   HardwareModel = _MergedGlobals_1;
   if (_MergedGlobals_1)
   {
@@ -1245,7 +1084,6 @@ LABEL_20:
   a2[23] = 0;
 LABEL_21:
   *a2 = 0;
-  v10 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -1316,145 +1154,144 @@ uint64_t hsfiler::ARICommandDriver::StartReadSession(uint64_t a1, uint64_t a2, A
 {
   AriSdk::MsgBase::getRawBytes();
   *a3 = 0;
-  v11 = *(a1 + 16);
-  v12 = *(v11 + 8);
-  if (v12 || !*(v11 + 16))
+  v5 = *(a1 + 16);
+  v6 = *(v5 + 8);
+  if (!v6 && *(v5 + 16))
   {
-    v13 = MEMORY[0];
-    v14 = MEMORY[8] - MEMORY[0];
-    v15 = *(v11 + 20);
-    LODWORD(v72) = 0;
-    _KTLDebugPrint("KTLRawSendData", "Sending %u bytes to device timeout=%u\n", v5, v6, v7, v8, v9, v10, MEMORY[8] - MEMORY[0]);
-    if ((_KTLDebugFlags & 2) != 0)
+    v28 = 0;
+    v29 = &v28;
+    v30 = 0x3002000000;
+    v31 = __Block_byref_object_copy__7;
+    v32 = __Block_byref_object_dispose__7;
+    object = 0xAAAAAAAAAAAAAAAALL;
+    object = dispatch_semaphore_create(0);
+    if (AriHost::Send())
     {
-      off_2A18991C8("Tx:", 0, v13);
-    }
-
-    if (*v12 && ((v22 = (*v12)(v12, v13, v14, &v72, 1, v15, 0), v72 == v14) ? (v23 = v22) : (v23 = 0), (v23 & 1) != 0))
-    {
-      v72 = 0;
-      v24 = KTLUTACopyReceiveData(*(a1 + 16), &v72);
-      v31 = v72;
-      if (v72)
-      {
-        v32 = v24;
-      }
-
-      else
-      {
-        v32 = 0;
-      }
-
-      if (v32 == 1)
-      {
-        v33 = operator new(0x50uLL);
-        v34 = (*(*v31 + 16))(v31);
-        v35 = v31[2];
-        AriSdk::ARI_IBIFilerHSStartReadBBSessionRspCb_SDK::ARI_IBIFilerHSStartReadBBSessionRspCb_SDK(v33, v34);
-        *a3 = v33;
-        (*(*v31 + 8))(v31);
-        goto LABEL_31;
-      }
+      _KTLErrorPrint("perform", "An error occured sending the message. (%d)\n");
     }
 
     else
     {
-      _KTLDebugPrint("KTLRawSendData", "Failed sending %d bytes - amount written %u\n", v16, v17, v18, v19, v20, v21, v14);
+      v20 = v29;
+      v21 = dispatch_time(0, 1000000 * *(*(a1 + 16) + 20));
+      if (!dispatch_semaphore_wait(v20[5], v21))
+      {
+        v22 = 1;
+        _Block_object_dispose(&v28, 8);
+        v23 = object;
+        if (!object)
+        {
+LABEL_29:
+          if ((v22 & 1) == 0)
+          {
+            goto LABEL_16;
+          }
+
+          goto LABEL_30;
+        }
+
+LABEL_28:
+        dispatch_release(v23);
+        goto LABEL_29;
+      }
+
+      _KTLErrorPrint("perform", "Timeout waiting for response.\n");
     }
 
-    v36 = "error while trying to get response from device \n";
-LABEL_16:
-    _KTLErrorPrint("perform", v36, v25, v26, v27, v28, v29, v30, v71);
-    goto LABEL_17;
-  }
+    v22 = 0;
+    _Block_object_dispose(&v28, 8);
+    v23 = object;
+    if (!object)
+    {
+      goto LABEL_29;
+    }
 
-  v72 = 0;
-  v73 = &v72;
-  v74 = 0x3002000000;
-  v75 = __Block_byref_object_copy__7;
-  v76 = __Block_byref_object_dispose__7;
-  object = 0xAAAAAAAAAAAAAAAALL;
-  object = dispatch_semaphore_create(0);
-  v45 = *(*(a1 + 16) + 16);
-  v46 = AriHost::Send();
-  if (v46)
-  {
-    _KTLErrorPrint("perform", "An error occured sending the message. (%d)\n", v47, v48, v49, v50, v51, v52, v46);
     goto LABEL_28;
   }
 
-  v53 = v73;
-  v54 = dispatch_time(0, 1000000 * *(*(a1 + 16) + 20));
-  if (dispatch_semaphore_wait(v53[5], v54))
+  v7 = MEMORY[0];
+  v8 = MEMORY[8] - MEMORY[0];
+  v9 = *(v5 + 20);
+  LODWORD(v28) = 0;
+  _KTLDebugPrint("KTLRawSendData", "Sending %u bytes to device timeout=%u\n", MEMORY[8] - MEMORY[0], v9);
+  if ((_KTLDebugFlags & 2) != 0)
   {
-    _KTLErrorPrint("perform", "Timeout waiting for response.\n", v55, v56, v57, v58, v59, v60, v71);
-LABEL_28:
-    v61 = 0;
-    _Block_object_dispose(&v72, 8);
-    v62 = object;
-    if (!object)
-    {
-      goto LABEL_30;
-    }
-
-    goto LABEL_29;
+    off_2A18991C8("Tx:", 0, v7, v8);
   }
 
-  v61 = 1;
-  _Block_object_dispose(&v72, 8);
-  v62 = object;
-  if (object)
+  v10 = *v6;
+  if (!*v6 || ((v11 = v10(v6, v7, v8, &v28, 1, v9, 0), LODWORD(v10) = v28, v28 == v8) ? (v12 = v11) : (v12 = 0), (v12 & 1) == 0))
   {
-LABEL_29:
-    dispatch_release(v62);
-  }
-
-LABEL_30:
-  if ((v61 & 1) == 0)
-  {
-    goto LABEL_17;
-  }
-
-LABEL_31:
-  hasDeclaredGmid = AriSdk::ARI_IBIFilerHSStartReadBBSessionRspCb_SDK::hasDeclaredGmid(*a3);
-  v64 = *a3;
-  if ((hasDeclaredGmid & 1) == 0)
-  {
-    if (AriSdk::MsgBase::getMergedGMID(v64) != 67600384)
-    {
-      AriSdk::MsgBase::getMergedGMID(*a3);
-      _KTLErrorPrint("perform", "expected gmid %d, doesn't match response gmid %d \n", v65, v66, v67, v68, v69, v70, 4178509824);
-      goto LABEL_17;
-    }
-
-    v36 = "Received NACK\n";
+    _KTLDebugPrint("KTLRawSendData", "Failed sending %d bytes - amount written %u\n", v8, v10);
+LABEL_15:
+    _KTLErrorPrint("perform", "error while trying to get response from device \n");
     goto LABEL_16;
   }
 
-  if (!AriSdk::ARI_IBIFilerHSStartReadBBSessionRspCb_SDK::unpack(v64))
+  v28 = 0;
+  v13 = KTLUTACopyReceiveData(*(a1 + 16), &v28);
+  v14 = v28;
+  if (v28)
   {
-    v43 = 1;
-    goto LABEL_20;
+    v15 = v13;
   }
 
-LABEL_17:
+  else
+  {
+    v15 = 0;
+  }
+
+  if (v15 != 1)
+  {
+    goto LABEL_15;
+  }
+
+  v16 = operator new(0x50uLL);
+  v17 = (*(*v14 + 16))(v14);
+  AriSdk::ARI_IBIFilerHSStartReadBBSessionRspCb_SDK::ARI_IBIFilerHSStartReadBBSessionRspCb_SDK(v16, v17);
+  *a3 = v16;
+  (*(*v14 + 8))(v14);
+LABEL_30:
+  hasDeclaredGmid = AriSdk::ARI_IBIFilerHSStartReadBBSessionRspCb_SDK::hasDeclaredGmid(*a3);
+  v25 = *a3;
+  if (hasDeclaredGmid)
+  {
+    if (!AriSdk::ARI_IBIFilerHSStartReadBBSessionRspCb_SDK::unpack(v25))
+    {
+      v18 = 1;
+      goto LABEL_19;
+    }
+  }
+
+  else if (AriSdk::MsgBase::getMergedGMID(v25) == 67600384)
+  {
+    _KTLErrorPrint("perform", "Received NACK\n", v26, v27, 0, 0);
+  }
+
+  else
+  {
+    AriSdk::MsgBase::getMergedGMID(*a3);
+    _KTLErrorPrint("perform", "expected gmid %d, doesn't match response gmid %d \n");
+  }
+
+LABEL_16:
   if (*a3)
   {
     (*(**a3 + 16))(*a3);
   }
 
-  v43 = 0;
+  v18 = 0;
   *a3 = 0;
-LABEL_20:
-  if ((v43 & 1) == 0)
+LABEL_19:
+  if ((v18 & 1) == 0)
   {
-    _KTLErrorPrint("StartReadSession", "Failed IBIFilerHSStartReadBBSessionReq\n", v37, v38, v39, v40, v41, v42, v71);
+    _KTLErrorPrint("StartReadSession", "Failed IBIFilerHSStartReadBBSessionReq\n");
   }
 
-  return v43;
+  return v18;
 }
 
-void sub_297A49500(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, dispatch_object_t object)
+void sub_297A49500(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, dispatch_object_t object)
 {
   _Block_object_dispose(&a21, 8);
   if (object)
@@ -1474,145 +1311,144 @@ uint64_t hsfiler::ARICommandDriver::GetReadSize(uint64_t a1, uint64_t a2, AriSdk
 {
   AriSdk::MsgBase::getRawBytes();
   *a3 = 0;
-  v11 = *(a1 + 16);
-  v12 = *(v11 + 8);
-  if (v12 || !*(v11 + 16))
+  v5 = *(a1 + 16);
+  v6 = *(v5 + 8);
+  if (!v6 && *(v5 + 16))
   {
-    v13 = MEMORY[0];
-    v14 = MEMORY[8] - MEMORY[0];
-    v15 = *(v11 + 20);
-    LODWORD(v72) = 0;
-    _KTLDebugPrint("KTLRawSendData", "Sending %u bytes to device timeout=%u\n", v5, v6, v7, v8, v9, v10, MEMORY[8] - MEMORY[0]);
-    if ((_KTLDebugFlags & 2) != 0)
+    v28 = 0;
+    v29 = &v28;
+    v30 = 0x3002000000;
+    v31 = __Block_byref_object_copy__7;
+    v32 = __Block_byref_object_dispose__7;
+    object = 0xAAAAAAAAAAAAAAAALL;
+    object = dispatch_semaphore_create(0);
+    if (AriHost::Send())
     {
-      off_2A18991C8("Tx:", 0, v13);
-    }
-
-    if (*v12 && ((v22 = (*v12)(v12, v13, v14, &v72, 1, v15, 0), v72 == v14) ? (v23 = v22) : (v23 = 0), (v23 & 1) != 0))
-    {
-      v72 = 0;
-      v24 = KTLUTACopyReceiveData(*(a1 + 16), &v72);
-      v31 = v72;
-      if (v72)
-      {
-        v32 = v24;
-      }
-
-      else
-      {
-        v32 = 0;
-      }
-
-      if (v32 == 1)
-      {
-        v33 = operator new(0x58uLL);
-        v34 = (*(*v31 + 16))(v31);
-        v35 = v31[2];
-        AriSdk::ARI_IBIFilerHSReadBBGetSizeRspCb_SDK::ARI_IBIFilerHSReadBBGetSizeRspCb_SDK(v33, v34);
-        *a3 = v33;
-        (*(*v31 + 8))(v31);
-        goto LABEL_31;
-      }
+      _KTLErrorPrint("perform", "An error occured sending the message. (%d)\n");
     }
 
     else
     {
-      _KTLDebugPrint("KTLRawSendData", "Failed sending %d bytes - amount written %u\n", v16, v17, v18, v19, v20, v21, v14);
+      v20 = v29;
+      v21 = dispatch_time(0, 1000000 * *(*(a1 + 16) + 20));
+      if (!dispatch_semaphore_wait(v20[5], v21))
+      {
+        v22 = 1;
+        _Block_object_dispose(&v28, 8);
+        v23 = object;
+        if (!object)
+        {
+LABEL_29:
+          if ((v22 & 1) == 0)
+          {
+            goto LABEL_16;
+          }
+
+          goto LABEL_30;
+        }
+
+LABEL_28:
+        dispatch_release(v23);
+        goto LABEL_29;
+      }
+
+      _KTLErrorPrint("perform", "Timeout waiting for response.\n");
     }
 
-    v36 = "error while trying to get response from device \n";
-LABEL_16:
-    _KTLErrorPrint("perform", v36, v25, v26, v27, v28, v29, v30, v71);
-    goto LABEL_17;
-  }
+    v22 = 0;
+    _Block_object_dispose(&v28, 8);
+    v23 = object;
+    if (!object)
+    {
+      goto LABEL_29;
+    }
 
-  v72 = 0;
-  v73 = &v72;
-  v74 = 0x3002000000;
-  v75 = __Block_byref_object_copy__7;
-  v76 = __Block_byref_object_dispose__7;
-  object = 0xAAAAAAAAAAAAAAAALL;
-  object = dispatch_semaphore_create(0);
-  v45 = *(*(a1 + 16) + 16);
-  v46 = AriHost::Send();
-  if (v46)
-  {
-    _KTLErrorPrint("perform", "An error occured sending the message. (%d)\n", v47, v48, v49, v50, v51, v52, v46);
     goto LABEL_28;
   }
 
-  v53 = v73;
-  v54 = dispatch_time(0, 1000000 * *(*(a1 + 16) + 20));
-  if (dispatch_semaphore_wait(v53[5], v54))
+  v7 = MEMORY[0];
+  v8 = MEMORY[8] - MEMORY[0];
+  v9 = *(v5 + 20);
+  LODWORD(v28) = 0;
+  _KTLDebugPrint("KTLRawSendData", "Sending %u bytes to device timeout=%u\n", MEMORY[8] - MEMORY[0], v9);
+  if ((_KTLDebugFlags & 2) != 0)
   {
-    _KTLErrorPrint("perform", "Timeout waiting for response.\n", v55, v56, v57, v58, v59, v60, v71);
-LABEL_28:
-    v61 = 0;
-    _Block_object_dispose(&v72, 8);
-    v62 = object;
-    if (!object)
-    {
-      goto LABEL_30;
-    }
-
-    goto LABEL_29;
+    off_2A18991C8("Tx:", 0, v7, v8);
   }
 
-  v61 = 1;
-  _Block_object_dispose(&v72, 8);
-  v62 = object;
-  if (object)
+  v10 = *v6;
+  if (!*v6 || ((v11 = v10(v6, v7, v8, &v28, 1, v9, 0), LODWORD(v10) = v28, v28 == v8) ? (v12 = v11) : (v12 = 0), (v12 & 1) == 0))
   {
-LABEL_29:
-    dispatch_release(v62);
-  }
-
-LABEL_30:
-  if ((v61 & 1) == 0)
-  {
-    goto LABEL_17;
-  }
-
-LABEL_31:
-  hasDeclaredGmid = AriSdk::ARI_IBIFilerHSReadBBGetSizeRspCb_SDK::hasDeclaredGmid(*a3);
-  v64 = *a3;
-  if ((hasDeclaredGmid & 1) == 0)
-  {
-    if (AriSdk::MsgBase::getMergedGMID(v64) != 67600384)
-    {
-      AriSdk::MsgBase::getMergedGMID(*a3);
-      _KTLErrorPrint("perform", "expected gmid %d, doesn't match response gmid %d \n", v65, v66, v67, v68, v69, v70, 4178542592);
-      goto LABEL_17;
-    }
-
-    v36 = "Received NACK\n";
+    _KTLDebugPrint("KTLRawSendData", "Failed sending %d bytes - amount written %u\n", v8, v10);
+LABEL_15:
+    _KTLErrorPrint("perform", "error while trying to get response from device \n");
     goto LABEL_16;
   }
 
-  if (!AriSdk::ARI_IBIFilerHSReadBBGetSizeRspCb_SDK::unpack(v64))
+  v28 = 0;
+  v13 = KTLUTACopyReceiveData(*(a1 + 16), &v28);
+  v14 = v28;
+  if (v28)
   {
-    v43 = 1;
-    goto LABEL_20;
+    v15 = v13;
   }
 
-LABEL_17:
+  else
+  {
+    v15 = 0;
+  }
+
+  if (v15 != 1)
+  {
+    goto LABEL_15;
+  }
+
+  v16 = operator new(0x58uLL);
+  v17 = (*(*v14 + 16))(v14);
+  AriSdk::ARI_IBIFilerHSReadBBGetSizeRspCb_SDK::ARI_IBIFilerHSReadBBGetSizeRspCb_SDK(v16, v17);
+  *a3 = v16;
+  (*(*v14 + 8))(v14);
+LABEL_30:
+  hasDeclaredGmid = AriSdk::ARI_IBIFilerHSReadBBGetSizeRspCb_SDK::hasDeclaredGmid(*a3);
+  v25 = *a3;
+  if (hasDeclaredGmid)
+  {
+    if (!AriSdk::ARI_IBIFilerHSReadBBGetSizeRspCb_SDK::unpack(v25))
+    {
+      v18 = 1;
+      goto LABEL_19;
+    }
+  }
+
+  else if (AriSdk::MsgBase::getMergedGMID(v25) == 67600384)
+  {
+    _KTLErrorPrint("perform", "Received NACK\n", v26, v27, 0, 0);
+  }
+
+  else
+  {
+    AriSdk::MsgBase::getMergedGMID(*a3);
+    _KTLErrorPrint("perform", "expected gmid %d, doesn't match response gmid %d \n");
+  }
+
+LABEL_16:
   if (*a3)
   {
     (*(**a3 + 16))(*a3);
   }
 
-  v43 = 0;
+  v18 = 0;
   *a3 = 0;
-LABEL_20:
-  if ((v43 & 1) == 0)
+LABEL_19:
+  if ((v18 & 1) == 0)
   {
-    _KTLErrorPrint("GetReadSize", "Failed IBIFilerHSReadBBGetSizeReq\n", v37, v38, v39, v40, v41, v42, v71);
+    _KTLErrorPrint("GetReadSize", "Failed IBIFilerHSReadBBGetSizeReq\n");
   }
 
-  return v43;
+  return v18;
 }
 
-void sub_297A49A08(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, dispatch_object_t object)
+void sub_297A49A08(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, dispatch_object_t object)
 {
   _Block_object_dispose(&a21, 8);
   if (object)
@@ -1632,145 +1468,144 @@ uint64_t hsfiler::ARICommandDriver::ReadFileFromBB(uint64_t a1, uint64_t a2, Ari
 {
   AriSdk::MsgBase::getRawBytes();
   *a3 = 0;
-  v11 = *(a1 + 16);
-  v12 = *(v11 + 8);
-  if (v12 || !*(v11 + 16))
+  v5 = *(a1 + 16);
+  v6 = *(v5 + 8);
+  if (!v6 && *(v5 + 16))
   {
-    v13 = MEMORY[0];
-    v14 = MEMORY[8] - MEMORY[0];
-    v15 = *(v11 + 20);
-    LODWORD(v72) = 0;
-    _KTLDebugPrint("KTLRawSendData", "Sending %u bytes to device timeout=%u\n", v5, v6, v7, v8, v9, v10, MEMORY[8] - MEMORY[0]);
-    if ((_KTLDebugFlags & 2) != 0)
+    v28 = 0;
+    v29 = &v28;
+    v30 = 0x3002000000;
+    v31 = __Block_byref_object_copy__7;
+    v32 = __Block_byref_object_dispose__7;
+    object = 0xAAAAAAAAAAAAAAAALL;
+    object = dispatch_semaphore_create(0);
+    if (AriHost::Send())
     {
-      off_2A18991C8("Tx:", 0, v13);
-    }
-
-    if (*v12 && ((v22 = (*v12)(v12, v13, v14, &v72, 1, v15, 0), v72 == v14) ? (v23 = v22) : (v23 = 0), (v23 & 1) != 0))
-    {
-      v72 = 0;
-      v24 = KTLUTACopyReceiveData(*(a1 + 16), &v72);
-      v31 = v72;
-      if (v72)
-      {
-        v32 = v24;
-      }
-
-      else
-      {
-        v32 = 0;
-      }
-
-      if (v32 == 1)
-      {
-        v33 = operator new(0x70uLL);
-        v34 = (*(*v31 + 16))(v31);
-        v35 = v31[2];
-        AriSdk::ARI_IBIFilerHSReadBBRspCb_SDK::ARI_IBIFilerHSReadBBRspCb_SDK(v33, v34);
-        *a3 = v33;
-        (*(*v31 + 8))(v31);
-        goto LABEL_31;
-      }
+      _KTLErrorPrint("perform", "An error occured sending the message. (%d)\n");
     }
 
     else
     {
-      _KTLDebugPrint("KTLRawSendData", "Failed sending %d bytes - amount written %u\n", v16, v17, v18, v19, v20, v21, v14);
+      v20 = v29;
+      v21 = dispatch_time(0, 1000000 * *(*(a1 + 16) + 20));
+      if (!dispatch_semaphore_wait(v20[5], v21))
+      {
+        v22 = 1;
+        _Block_object_dispose(&v28, 8);
+        v23 = object;
+        if (!object)
+        {
+LABEL_29:
+          if ((v22 & 1) == 0)
+          {
+            goto LABEL_16;
+          }
+
+          goto LABEL_30;
+        }
+
+LABEL_28:
+        dispatch_release(v23);
+        goto LABEL_29;
+      }
+
+      _KTLErrorPrint("perform", "Timeout waiting for response.\n");
     }
 
-    v36 = "error while trying to get response from device \n";
-LABEL_16:
-    _KTLErrorPrint("perform", v36, v25, v26, v27, v28, v29, v30, v71);
-    goto LABEL_17;
-  }
+    v22 = 0;
+    _Block_object_dispose(&v28, 8);
+    v23 = object;
+    if (!object)
+    {
+      goto LABEL_29;
+    }
 
-  v72 = 0;
-  v73 = &v72;
-  v74 = 0x3002000000;
-  v75 = __Block_byref_object_copy__7;
-  v76 = __Block_byref_object_dispose__7;
-  object = 0xAAAAAAAAAAAAAAAALL;
-  object = dispatch_semaphore_create(0);
-  v45 = *(*(a1 + 16) + 16);
-  v46 = AriHost::Send();
-  if (v46)
-  {
-    _KTLErrorPrint("perform", "An error occured sending the message. (%d)\n", v47, v48, v49, v50, v51, v52, v46);
     goto LABEL_28;
   }
 
-  v53 = v73;
-  v54 = dispatch_time(0, 1000000 * *(*(a1 + 16) + 20));
-  if (dispatch_semaphore_wait(v53[5], v54))
+  v7 = MEMORY[0];
+  v8 = MEMORY[8] - MEMORY[0];
+  v9 = *(v5 + 20);
+  LODWORD(v28) = 0;
+  _KTLDebugPrint("KTLRawSendData", "Sending %u bytes to device timeout=%u\n", MEMORY[8] - MEMORY[0], v9);
+  if ((_KTLDebugFlags & 2) != 0)
   {
-    _KTLErrorPrint("perform", "Timeout waiting for response.\n", v55, v56, v57, v58, v59, v60, v71);
-LABEL_28:
-    v61 = 0;
-    _Block_object_dispose(&v72, 8);
-    v62 = object;
-    if (!object)
-    {
-      goto LABEL_30;
-    }
-
-    goto LABEL_29;
+    off_2A18991C8("Tx:", 0, v7, v8);
   }
 
-  v61 = 1;
-  _Block_object_dispose(&v72, 8);
-  v62 = object;
-  if (object)
+  v10 = *v6;
+  if (!*v6 || ((v11 = v10(v6, v7, v8, &v28, 1, v9, 0), LODWORD(v10) = v28, v28 == v8) ? (v12 = v11) : (v12 = 0), (v12 & 1) == 0))
   {
-LABEL_29:
-    dispatch_release(v62);
-  }
-
-LABEL_30:
-  if ((v61 & 1) == 0)
-  {
-    goto LABEL_17;
-  }
-
-LABEL_31:
-  hasDeclaredGmid = AriSdk::ARI_IBIFilerHSReadBBRspCb_SDK::hasDeclaredGmid(*a3);
-  v64 = *a3;
-  if ((hasDeclaredGmid & 1) == 0)
-  {
-    if (AriSdk::MsgBase::getMergedGMID(v64) != 67600384)
-    {
-      AriSdk::MsgBase::getMergedGMID(*a3);
-      _KTLErrorPrint("perform", "expected gmid %d, doesn't match response gmid %d \n", v65, v66, v67, v68, v69, v70, 4178575360);
-      goto LABEL_17;
-    }
-
-    v36 = "Received NACK\n";
+    _KTLDebugPrint("KTLRawSendData", "Failed sending %d bytes - amount written %u\n", v8, v10);
+LABEL_15:
+    _KTLErrorPrint("perform", "error while trying to get response from device \n");
     goto LABEL_16;
   }
 
-  if (!AriSdk::ARI_IBIFilerHSReadBBRspCb_SDK::unpack(v64))
+  v28 = 0;
+  v13 = KTLUTACopyReceiveData(*(a1 + 16), &v28);
+  v14 = v28;
+  if (v28)
   {
-    v43 = 1;
-    goto LABEL_20;
+    v15 = v13;
   }
 
-LABEL_17:
+  else
+  {
+    v15 = 0;
+  }
+
+  if (v15 != 1)
+  {
+    goto LABEL_15;
+  }
+
+  v16 = operator new(0x70uLL);
+  v17 = (*(*v14 + 16))(v14);
+  AriSdk::ARI_IBIFilerHSReadBBRspCb_SDK::ARI_IBIFilerHSReadBBRspCb_SDK(v16, v17);
+  *a3 = v16;
+  (*(*v14 + 8))(v14);
+LABEL_30:
+  hasDeclaredGmid = AriSdk::ARI_IBIFilerHSReadBBRspCb_SDK::hasDeclaredGmid(*a3);
+  v25 = *a3;
+  if (hasDeclaredGmid)
+  {
+    if (!AriSdk::ARI_IBIFilerHSReadBBRspCb_SDK::unpack(v25))
+    {
+      v18 = 1;
+      goto LABEL_19;
+    }
+  }
+
+  else if (AriSdk::MsgBase::getMergedGMID(v25) == 67600384)
+  {
+    _KTLErrorPrint("perform", "Received NACK\n", v26, v27, 0, 0);
+  }
+
+  else
+  {
+    AriSdk::MsgBase::getMergedGMID(*a3);
+    _KTLErrorPrint("perform", "expected gmid %d, doesn't match response gmid %d \n");
+  }
+
+LABEL_16:
   if (*a3)
   {
     (*(**a3 + 16))(*a3);
   }
 
-  v43 = 0;
+  v18 = 0;
   *a3 = 0;
-LABEL_20:
-  if ((v43 & 1) == 0)
+LABEL_19:
+  if ((v18 & 1) == 0)
   {
-    _KTLErrorPrint("ReadFileFromBB", "Failed IBIFilerHSReadBBReq\n", v37, v38, v39, v40, v41, v42, v71);
+    _KTLErrorPrint("ReadFileFromBB", "Failed IBIFilerHSReadBBReq\n");
   }
 
-  return v43;
+  return v18;
 }
 
-void sub_297A49F0C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, dispatch_object_t object)
+void sub_297A49F0C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, dispatch_object_t object)
 {
   _Block_object_dispose(&a21, 8);
   if (object)
@@ -1790,145 +1625,144 @@ uint64_t hsfiler::ARICommandDriver::StartWriteSession(uint64_t a1, uint64_t a2, 
 {
   AriSdk::MsgBase::getRawBytes();
   *a3 = 0;
-  v11 = *(a1 + 16);
-  v12 = *(v11 + 8);
-  if (v12 || !*(v11 + 16))
+  v5 = *(a1 + 16);
+  v6 = *(v5 + 8);
+  if (!v6 && *(v5 + 16))
   {
-    v13 = MEMORY[0];
-    v14 = MEMORY[8] - MEMORY[0];
-    v15 = *(v11 + 20);
-    LODWORD(v72) = 0;
-    _KTLDebugPrint("KTLRawSendData", "Sending %u bytes to device timeout=%u\n", v5, v6, v7, v8, v9, v10, MEMORY[8] - MEMORY[0]);
-    if ((_KTLDebugFlags & 2) != 0)
+    v28 = 0;
+    v29 = &v28;
+    v30 = 0x3002000000;
+    v31 = __Block_byref_object_copy__7;
+    v32 = __Block_byref_object_dispose__7;
+    object = 0xAAAAAAAAAAAAAAAALL;
+    object = dispatch_semaphore_create(0);
+    if (AriHost::Send())
     {
-      off_2A18991C8("Tx:", 0, v13);
-    }
-
-    if (*v12 && ((v22 = (*v12)(v12, v13, v14, &v72, 1, v15, 0), v72 == v14) ? (v23 = v22) : (v23 = 0), (v23 & 1) != 0))
-    {
-      v72 = 0;
-      v24 = KTLUTACopyReceiveData(*(a1 + 16), &v72);
-      v31 = v72;
-      if (v72)
-      {
-        v32 = v24;
-      }
-
-      else
-      {
-        v32 = 0;
-      }
-
-      if (v32 == 1)
-      {
-        v33 = operator new(0x50uLL);
-        v34 = (*(*v31 + 16))(v31);
-        v35 = v31[2];
-        AriSdk::ARI_IBIFilerHSStartWriteBBSessionRspCb_SDK::ARI_IBIFilerHSStartWriteBBSessionRspCb_SDK(v33, v34);
-        *a3 = v33;
-        (*(*v31 + 8))(v31);
-        goto LABEL_31;
-      }
+      _KTLErrorPrint("perform", "An error occured sending the message. (%d)\n");
     }
 
     else
     {
-      _KTLDebugPrint("KTLRawSendData", "Failed sending %d bytes - amount written %u\n", v16, v17, v18, v19, v20, v21, v14);
+      v20 = v29;
+      v21 = dispatch_time(0, 1000000 * *(*(a1 + 16) + 20));
+      if (!dispatch_semaphore_wait(v20[5], v21))
+      {
+        v22 = 1;
+        _Block_object_dispose(&v28, 8);
+        v23 = object;
+        if (!object)
+        {
+LABEL_29:
+          if ((v22 & 1) == 0)
+          {
+            goto LABEL_16;
+          }
+
+          goto LABEL_30;
+        }
+
+LABEL_28:
+        dispatch_release(v23);
+        goto LABEL_29;
+      }
+
+      _KTLErrorPrint("perform", "Timeout waiting for response.\n");
     }
 
-    v36 = "error while trying to get response from device \n";
-LABEL_16:
-    _KTLErrorPrint("perform", v36, v25, v26, v27, v28, v29, v30, v71);
-    goto LABEL_17;
-  }
+    v22 = 0;
+    _Block_object_dispose(&v28, 8);
+    v23 = object;
+    if (!object)
+    {
+      goto LABEL_29;
+    }
 
-  v72 = 0;
-  v73 = &v72;
-  v74 = 0x3002000000;
-  v75 = __Block_byref_object_copy__7;
-  v76 = __Block_byref_object_dispose__7;
-  object = 0xAAAAAAAAAAAAAAAALL;
-  object = dispatch_semaphore_create(0);
-  v45 = *(*(a1 + 16) + 16);
-  v46 = AriHost::Send();
-  if (v46)
-  {
-    _KTLErrorPrint("perform", "An error occured sending the message. (%d)\n", v47, v48, v49, v50, v51, v52, v46);
     goto LABEL_28;
   }
 
-  v53 = v73;
-  v54 = dispatch_time(0, 1000000 * *(*(a1 + 16) + 20));
-  if (dispatch_semaphore_wait(v53[5], v54))
+  v7 = MEMORY[0];
+  v8 = MEMORY[8] - MEMORY[0];
+  v9 = *(v5 + 20);
+  LODWORD(v28) = 0;
+  _KTLDebugPrint("KTLRawSendData", "Sending %u bytes to device timeout=%u\n", MEMORY[8] - MEMORY[0], v9);
+  if ((_KTLDebugFlags & 2) != 0)
   {
-    _KTLErrorPrint("perform", "Timeout waiting for response.\n", v55, v56, v57, v58, v59, v60, v71);
-LABEL_28:
-    v61 = 0;
-    _Block_object_dispose(&v72, 8);
-    v62 = object;
-    if (!object)
-    {
-      goto LABEL_30;
-    }
-
-    goto LABEL_29;
+    off_2A18991C8("Tx:", 0, v7, v8);
   }
 
-  v61 = 1;
-  _Block_object_dispose(&v72, 8);
-  v62 = object;
-  if (object)
+  v10 = *v6;
+  if (!*v6 || ((v11 = v10(v6, v7, v8, &v28, 1, v9, 0), LODWORD(v10) = v28, v28 == v8) ? (v12 = v11) : (v12 = 0), (v12 & 1) == 0))
   {
-LABEL_29:
-    dispatch_release(v62);
-  }
-
-LABEL_30:
-  if ((v61 & 1) == 0)
-  {
-    goto LABEL_17;
-  }
-
-LABEL_31:
-  hasDeclaredGmid = AriSdk::ARI_IBIFilerHSStartWriteBBSessionRspCb_SDK::hasDeclaredGmid(*a3);
-  v64 = *a3;
-  if ((hasDeclaredGmid & 1) == 0)
-  {
-    if (AriSdk::MsgBase::getMergedGMID(v64) != 67600384)
-    {
-      AriSdk::MsgBase::getMergedGMID(*a3);
-      _KTLErrorPrint("perform", "expected gmid %d, doesn't match response gmid %d \n", v65, v66, v67, v68, v69, v70, 4178608128);
-      goto LABEL_17;
-    }
-
-    v36 = "Received NACK\n";
+    _KTLDebugPrint("KTLRawSendData", "Failed sending %d bytes - amount written %u\n", v8, v10);
+LABEL_15:
+    _KTLErrorPrint("perform", "error while trying to get response from device \n");
     goto LABEL_16;
   }
 
-  if (!AriSdk::ARI_IBIFilerHSStartWriteBBSessionRspCb_SDK::unpack(v64))
+  v28 = 0;
+  v13 = KTLUTACopyReceiveData(*(a1 + 16), &v28);
+  v14 = v28;
+  if (v28)
   {
-    v43 = 1;
-    goto LABEL_20;
+    v15 = v13;
   }
 
-LABEL_17:
+  else
+  {
+    v15 = 0;
+  }
+
+  if (v15 != 1)
+  {
+    goto LABEL_15;
+  }
+
+  v16 = operator new(0x50uLL);
+  v17 = (*(*v14 + 16))(v14);
+  AriSdk::ARI_IBIFilerHSStartWriteBBSessionRspCb_SDK::ARI_IBIFilerHSStartWriteBBSessionRspCb_SDK(v16, v17);
+  *a3 = v16;
+  (*(*v14 + 8))(v14);
+LABEL_30:
+  hasDeclaredGmid = AriSdk::ARI_IBIFilerHSStartWriteBBSessionRspCb_SDK::hasDeclaredGmid(*a3);
+  v25 = *a3;
+  if (hasDeclaredGmid)
+  {
+    if (!AriSdk::ARI_IBIFilerHSStartWriteBBSessionRspCb_SDK::unpack(v25))
+    {
+      v18 = 1;
+      goto LABEL_19;
+    }
+  }
+
+  else if (AriSdk::MsgBase::getMergedGMID(v25) == 67600384)
+  {
+    _KTLErrorPrint("perform", "Received NACK\n", v26, v27, 0, 0);
+  }
+
+  else
+  {
+    AriSdk::MsgBase::getMergedGMID(*a3);
+    _KTLErrorPrint("perform", "expected gmid %d, doesn't match response gmid %d \n");
+  }
+
+LABEL_16:
   if (*a3)
   {
     (*(**a3 + 16))(*a3);
   }
 
-  v43 = 0;
+  v18 = 0;
   *a3 = 0;
-LABEL_20:
-  if ((v43 & 1) == 0)
+LABEL_19:
+  if ((v18 & 1) == 0)
   {
-    _KTLErrorPrint("StartWriteSession", "Failed IBIFilerHSStartWriteBBSessionReq\n", v37, v38, v39, v40, v41, v42, v71);
+    _KTLErrorPrint("StartWriteSession", "Failed IBIFilerHSStartWriteBBSessionReq\n");
   }
 
-  return v43;
+  return v18;
 }
 
-void sub_297A4A414(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, dispatch_object_t object)
+void sub_297A4A414(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, dispatch_object_t object)
 {
   _Block_object_dispose(&a21, 8);
   if (object)
@@ -1948,145 +1782,144 @@ uint64_t hsfiler::ARICommandDriver::WriteFileToBB(uint64_t a1, uint64_t a2, AriS
 {
   AriSdk::MsgBase::getRawBytes();
   *a3 = 0;
-  v11 = *(a1 + 16);
-  v12 = *(v11 + 8);
-  if (v12 || !*(v11 + 16))
+  v5 = *(a1 + 16);
+  v6 = *(v5 + 8);
+  if (!v6 && *(v5 + 16))
   {
-    v13 = MEMORY[0];
-    v14 = MEMORY[8] - MEMORY[0];
-    v15 = *(v11 + 20);
-    LODWORD(v72) = 0;
-    _KTLDebugPrint("KTLRawSendData", "Sending %u bytes to device timeout=%u\n", v5, v6, v7, v8, v9, v10, MEMORY[8] - MEMORY[0]);
-    if ((_KTLDebugFlags & 2) != 0)
+    v28 = 0;
+    v29 = &v28;
+    v30 = 0x3002000000;
+    v31 = __Block_byref_object_copy__7;
+    v32 = __Block_byref_object_dispose__7;
+    object = 0xAAAAAAAAAAAAAAAALL;
+    object = dispatch_semaphore_create(0);
+    if (AriHost::Send())
     {
-      off_2A18991C8("Tx:", 0, v13);
-    }
-
-    if (*v12 && ((v22 = (*v12)(v12, v13, v14, &v72, 1, v15, 0), v72 == v14) ? (v23 = v22) : (v23 = 0), (v23 & 1) != 0))
-    {
-      v72 = 0;
-      v24 = KTLUTACopyReceiveData(*(a1 + 16), &v72);
-      v31 = v72;
-      if (v72)
-      {
-        v32 = v24;
-      }
-
-      else
-      {
-        v32 = 0;
-      }
-
-      if (v32 == 1)
-      {
-        v33 = operator new(0x50uLL);
-        v34 = (*(*v31 + 16))(v31);
-        v35 = v31[2];
-        AriSdk::ARI_IBIFilerHSWriteBBRspCb_SDK::ARI_IBIFilerHSWriteBBRspCb_SDK(v33, v34);
-        *a3 = v33;
-        (*(*v31 + 8))(v31);
-        goto LABEL_31;
-      }
+      _KTLErrorPrint("perform", "An error occured sending the message. (%d)\n");
     }
 
     else
     {
-      _KTLDebugPrint("KTLRawSendData", "Failed sending %d bytes - amount written %u\n", v16, v17, v18, v19, v20, v21, v14);
+      v20 = v29;
+      v21 = dispatch_time(0, 1000000 * *(*(a1 + 16) + 20));
+      if (!dispatch_semaphore_wait(v20[5], v21))
+      {
+        v22 = 1;
+        _Block_object_dispose(&v28, 8);
+        v23 = object;
+        if (!object)
+        {
+LABEL_29:
+          if ((v22 & 1) == 0)
+          {
+            goto LABEL_16;
+          }
+
+          goto LABEL_30;
+        }
+
+LABEL_28:
+        dispatch_release(v23);
+        goto LABEL_29;
+      }
+
+      _KTLErrorPrint("perform", "Timeout waiting for response.\n");
     }
 
-    v36 = "error while trying to get response from device \n";
-LABEL_16:
-    _KTLErrorPrint("perform", v36, v25, v26, v27, v28, v29, v30, v71);
-    goto LABEL_17;
-  }
+    v22 = 0;
+    _Block_object_dispose(&v28, 8);
+    v23 = object;
+    if (!object)
+    {
+      goto LABEL_29;
+    }
 
-  v72 = 0;
-  v73 = &v72;
-  v74 = 0x3002000000;
-  v75 = __Block_byref_object_copy__7;
-  v76 = __Block_byref_object_dispose__7;
-  object = 0xAAAAAAAAAAAAAAAALL;
-  object = dispatch_semaphore_create(0);
-  v45 = *(*(a1 + 16) + 16);
-  v46 = AriHost::Send();
-  if (v46)
-  {
-    _KTLErrorPrint("perform", "An error occured sending the message. (%d)\n", v47, v48, v49, v50, v51, v52, v46);
     goto LABEL_28;
   }
 
-  v53 = v73;
-  v54 = dispatch_time(0, 1000000 * *(*(a1 + 16) + 20));
-  if (dispatch_semaphore_wait(v53[5], v54))
+  v7 = MEMORY[0];
+  v8 = MEMORY[8] - MEMORY[0];
+  v9 = *(v5 + 20);
+  LODWORD(v28) = 0;
+  _KTLDebugPrint("KTLRawSendData", "Sending %u bytes to device timeout=%u\n", MEMORY[8] - MEMORY[0], v9);
+  if ((_KTLDebugFlags & 2) != 0)
   {
-    _KTLErrorPrint("perform", "Timeout waiting for response.\n", v55, v56, v57, v58, v59, v60, v71);
-LABEL_28:
-    v61 = 0;
-    _Block_object_dispose(&v72, 8);
-    v62 = object;
-    if (!object)
-    {
-      goto LABEL_30;
-    }
-
-    goto LABEL_29;
+    off_2A18991C8("Tx:", 0, v7, v8);
   }
 
-  v61 = 1;
-  _Block_object_dispose(&v72, 8);
-  v62 = object;
-  if (object)
+  v10 = *v6;
+  if (!*v6 || ((v11 = v10(v6, v7, v8, &v28, 1, v9, 0), LODWORD(v10) = v28, v28 == v8) ? (v12 = v11) : (v12 = 0), (v12 & 1) == 0))
   {
-LABEL_29:
-    dispatch_release(v62);
-  }
-
-LABEL_30:
-  if ((v61 & 1) == 0)
-  {
-    goto LABEL_17;
-  }
-
-LABEL_31:
-  hasDeclaredGmid = AriSdk::ARI_IBIFilerHSWriteBBRspCb_SDK::hasDeclaredGmid(*a3);
-  v64 = *a3;
-  if ((hasDeclaredGmid & 1) == 0)
-  {
-    if (AriSdk::MsgBase::getMergedGMID(v64) != 67600384)
-    {
-      AriSdk::MsgBase::getMergedGMID(*a3);
-      _KTLErrorPrint("perform", "expected gmid %d, doesn't match response gmid %d \n", v65, v66, v67, v68, v69, v70, 4178640896);
-      goto LABEL_17;
-    }
-
-    v36 = "Received NACK\n";
+    _KTLDebugPrint("KTLRawSendData", "Failed sending %d bytes - amount written %u\n", v8, v10);
+LABEL_15:
+    _KTLErrorPrint("perform", "error while trying to get response from device \n");
     goto LABEL_16;
   }
 
-  if (!AriSdk::ARI_IBIFilerHSWriteBBRspCb_SDK::unpack(v64))
+  v28 = 0;
+  v13 = KTLUTACopyReceiveData(*(a1 + 16), &v28);
+  v14 = v28;
+  if (v28)
   {
-    v43 = 1;
-    goto LABEL_20;
+    v15 = v13;
   }
 
-LABEL_17:
+  else
+  {
+    v15 = 0;
+  }
+
+  if (v15 != 1)
+  {
+    goto LABEL_15;
+  }
+
+  v16 = operator new(0x50uLL);
+  v17 = (*(*v14 + 16))(v14);
+  AriSdk::ARI_IBIFilerHSWriteBBRspCb_SDK::ARI_IBIFilerHSWriteBBRspCb_SDK(v16, v17);
+  *a3 = v16;
+  (*(*v14 + 8))(v14);
+LABEL_30:
+  hasDeclaredGmid = AriSdk::ARI_IBIFilerHSWriteBBRspCb_SDK::hasDeclaredGmid(*a3);
+  v25 = *a3;
+  if (hasDeclaredGmid)
+  {
+    if (!AriSdk::ARI_IBIFilerHSWriteBBRspCb_SDK::unpack(v25))
+    {
+      v18 = 1;
+      goto LABEL_19;
+    }
+  }
+
+  else if (AriSdk::MsgBase::getMergedGMID(v25) == 67600384)
+  {
+    _KTLErrorPrint("perform", "Received NACK\n", v26, v27, 0, 0);
+  }
+
+  else
+  {
+    AriSdk::MsgBase::getMergedGMID(*a3);
+    _KTLErrorPrint("perform", "expected gmid %d, doesn't match response gmid %d \n");
+  }
+
+LABEL_16:
   if (*a3)
   {
     (*(**a3 + 16))(*a3);
   }
 
-  v43 = 0;
+  v18 = 0;
   *a3 = 0;
-LABEL_20:
-  if ((v43 & 1) == 0)
+LABEL_19:
+  if ((v18 & 1) == 0)
   {
-    _KTLErrorPrint("WriteFileToBB", "Failed IBIFilerHSWriteBBReq\n", v37, v38, v39, v40, v41, v42, v71);
+    _KTLErrorPrint("WriteFileToBB", "Failed IBIFilerHSWriteBBReq\n");
   }
 
-  return v43;
+  return v18;
 }
 
-void sub_297A4A918(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, dispatch_object_t object)
+void sub_297A4A918(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, dispatch_object_t object)
 {
   _Block_object_dispose(&a21, 8);
   if (object)
@@ -2106,145 +1939,144 @@ uint64_t hsfiler::ARICommandDriver::EndSession(uint64_t a1, uint64_t a2, AriSdk:
 {
   AriSdk::MsgBase::getRawBytes();
   *a3 = 0;
-  v11 = *(a1 + 16);
-  v12 = *(v11 + 8);
-  if (v12 || !*(v11 + 16))
+  v5 = *(a1 + 16);
+  v6 = *(v5 + 8);
+  if (!v6 && *(v5 + 16))
   {
-    v13 = MEMORY[0];
-    v14 = MEMORY[8] - MEMORY[0];
-    v15 = *(v11 + 20);
-    LODWORD(v72) = 0;
-    _KTLDebugPrint("KTLRawSendData", "Sending %u bytes to device timeout=%u\n", v5, v6, v7, v8, v9, v10, MEMORY[8] - MEMORY[0]);
-    if ((_KTLDebugFlags & 2) != 0)
+    v28 = 0;
+    v29 = &v28;
+    v30 = 0x3002000000;
+    v31 = __Block_byref_object_copy__7;
+    v32 = __Block_byref_object_dispose__7;
+    object = 0xAAAAAAAAAAAAAAAALL;
+    object = dispatch_semaphore_create(0);
+    if (AriHost::Send())
     {
-      off_2A18991C8("Tx:", 0, v13);
-    }
-
-    if (*v12 && ((v22 = (*v12)(v12, v13, v14, &v72, 1, v15, 0), v72 == v14) ? (v23 = v22) : (v23 = 0), (v23 & 1) != 0))
-    {
-      v72 = 0;
-      v24 = KTLUTACopyReceiveData(*(a1 + 16), &v72);
-      v31 = v72;
-      if (v72)
-      {
-        v32 = v24;
-      }
-
-      else
-      {
-        v32 = 0;
-      }
-
-      if (v32 == 1)
-      {
-        v33 = operator new(0x50uLL);
-        v34 = (*(*v31 + 16))(v31);
-        v35 = v31[2];
-        AriSdk::ARI_IBIFilerHSEndBBSessionRspCb_SDK::ARI_IBIFilerHSEndBBSessionRspCb_SDK(v33, v34);
-        *a3 = v33;
-        (*(*v31 + 8))(v31);
-        goto LABEL_31;
-      }
+      _KTLErrorPrint("perform", "An error occured sending the message. (%d)\n");
     }
 
     else
     {
-      _KTLDebugPrint("KTLRawSendData", "Failed sending %d bytes - amount written %u\n", v16, v17, v18, v19, v20, v21, v14);
+      v20 = v29;
+      v21 = dispatch_time(0, 1000000 * *(*(a1 + 16) + 20));
+      if (!dispatch_semaphore_wait(v20[5], v21))
+      {
+        v22 = 1;
+        _Block_object_dispose(&v28, 8);
+        v23 = object;
+        if (!object)
+        {
+LABEL_29:
+          if ((v22 & 1) == 0)
+          {
+            goto LABEL_16;
+          }
+
+          goto LABEL_30;
+        }
+
+LABEL_28:
+        dispatch_release(v23);
+        goto LABEL_29;
+      }
+
+      _KTLErrorPrint("perform", "Timeout waiting for response.\n");
     }
 
-    v36 = "error while trying to get response from device \n";
-LABEL_16:
-    _KTLErrorPrint("perform", v36, v25, v26, v27, v28, v29, v30, v71);
-    goto LABEL_17;
-  }
+    v22 = 0;
+    _Block_object_dispose(&v28, 8);
+    v23 = object;
+    if (!object)
+    {
+      goto LABEL_29;
+    }
 
-  v72 = 0;
-  v73 = &v72;
-  v74 = 0x3002000000;
-  v75 = __Block_byref_object_copy__7;
-  v76 = __Block_byref_object_dispose__7;
-  object = 0xAAAAAAAAAAAAAAAALL;
-  object = dispatch_semaphore_create(0);
-  v45 = *(*(a1 + 16) + 16);
-  v46 = AriHost::Send();
-  if (v46)
-  {
-    _KTLErrorPrint("perform", "An error occured sending the message. (%d)\n", v47, v48, v49, v50, v51, v52, v46);
     goto LABEL_28;
   }
 
-  v53 = v73;
-  v54 = dispatch_time(0, 1000000 * *(*(a1 + 16) + 20));
-  if (dispatch_semaphore_wait(v53[5], v54))
+  v7 = MEMORY[0];
+  v8 = MEMORY[8] - MEMORY[0];
+  v9 = *(v5 + 20);
+  LODWORD(v28) = 0;
+  _KTLDebugPrint("KTLRawSendData", "Sending %u bytes to device timeout=%u\n", MEMORY[8] - MEMORY[0], v9);
+  if ((_KTLDebugFlags & 2) != 0)
   {
-    _KTLErrorPrint("perform", "Timeout waiting for response.\n", v55, v56, v57, v58, v59, v60, v71);
-LABEL_28:
-    v61 = 0;
-    _Block_object_dispose(&v72, 8);
-    v62 = object;
-    if (!object)
-    {
-      goto LABEL_30;
-    }
-
-    goto LABEL_29;
+    off_2A18991C8("Tx:", 0, v7, v8);
   }
 
-  v61 = 1;
-  _Block_object_dispose(&v72, 8);
-  v62 = object;
-  if (object)
+  v10 = *v6;
+  if (!*v6 || ((v11 = v10(v6, v7, v8, &v28, 1, v9, 0), LODWORD(v10) = v28, v28 == v8) ? (v12 = v11) : (v12 = 0), (v12 & 1) == 0))
   {
-LABEL_29:
-    dispatch_release(v62);
-  }
-
-LABEL_30:
-  if ((v61 & 1) == 0)
-  {
-    goto LABEL_17;
-  }
-
-LABEL_31:
-  hasDeclaredGmid = AriSdk::ARI_IBIFilerHSEndBBSessionRspCb_SDK::hasDeclaredGmid(*a3);
-  v64 = *a3;
-  if ((hasDeclaredGmid & 1) == 0)
-  {
-    if (AriSdk::MsgBase::getMergedGMID(v64) != 67600384)
-    {
-      AriSdk::MsgBase::getMergedGMID(*a3);
-      _KTLErrorPrint("perform", "expected gmid %d, doesn't match response gmid %d \n", v65, v66, v67, v68, v69, v70, 4178673664);
-      goto LABEL_17;
-    }
-
-    v36 = "Received NACK\n";
+    _KTLDebugPrint("KTLRawSendData", "Failed sending %d bytes - amount written %u\n", v8, v10);
+LABEL_15:
+    _KTLErrorPrint("perform", "error while trying to get response from device \n");
     goto LABEL_16;
   }
 
-  if (!AriSdk::ARI_IBIFilerHSEndBBSessionRspCb_SDK::unpack(v64))
+  v28 = 0;
+  v13 = KTLUTACopyReceiveData(*(a1 + 16), &v28);
+  v14 = v28;
+  if (v28)
   {
-    v43 = 1;
-    goto LABEL_20;
+    v15 = v13;
   }
 
-LABEL_17:
+  else
+  {
+    v15 = 0;
+  }
+
+  if (v15 != 1)
+  {
+    goto LABEL_15;
+  }
+
+  v16 = operator new(0x50uLL);
+  v17 = (*(*v14 + 16))(v14);
+  AriSdk::ARI_IBIFilerHSEndBBSessionRspCb_SDK::ARI_IBIFilerHSEndBBSessionRspCb_SDK(v16, v17);
+  *a3 = v16;
+  (*(*v14 + 8))(v14);
+LABEL_30:
+  hasDeclaredGmid = AriSdk::ARI_IBIFilerHSEndBBSessionRspCb_SDK::hasDeclaredGmid(*a3);
+  v25 = *a3;
+  if (hasDeclaredGmid)
+  {
+    if (!AriSdk::ARI_IBIFilerHSEndBBSessionRspCb_SDK::unpack(v25))
+    {
+      v18 = 1;
+      goto LABEL_19;
+    }
+  }
+
+  else if (AriSdk::MsgBase::getMergedGMID(v25) == 67600384)
+  {
+    _KTLErrorPrint("perform", "Received NACK\n", v26, v27, 0, 0);
+  }
+
+  else
+  {
+    AriSdk::MsgBase::getMergedGMID(*a3);
+    _KTLErrorPrint("perform", "expected gmid %d, doesn't match response gmid %d \n");
+  }
+
+LABEL_16:
   if (*a3)
   {
     (*(**a3 + 16))(*a3);
   }
 
-  v43 = 0;
+  v18 = 0;
   *a3 = 0;
-LABEL_20:
-  if ((v43 & 1) == 0)
+LABEL_19:
+  if ((v18 & 1) == 0)
   {
-    _KTLErrorPrint("EndSession", "Failed IBIFilerHSEndBBSessionReq\n", v37, v38, v39, v40, v41, v42, v71);
+    _KTLErrorPrint("EndSession", "Failed IBIFilerHSEndBBSessionReq\n");
   }
 
-  return v43;
+  return v18;
 }
 
-void sub_297A4AE20(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, dispatch_object_t object)
+void sub_297A4AE20(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, dispatch_object_t object)
 {
   _Block_object_dispose(&a21, 8);
   if (object)
@@ -2345,84 +2177,79 @@ void __Block_byref_object_dispose__7(uint64_t a1)
   }
 }
 
-uint64_t ___ZN3ktl13CommandDriver7performIN6AriSdk41ARI_IBIFilerHSStartReadBBSessionRspCb_SDKEEEbjNSt3__110shared_ptrIKNS4_6vectorIhNS4_9allocatorIhEEEEEEPPT__block_invoke(uint64_t a1, const unsigned __int8 *a2)
+uint64_t ___ZN3ktl13CommandDriver7performIN6AriSdk41ARI_IBIFilerHSStartReadBBSessionRspCb_SDKEEEbjNSt3__110shared_ptrIKNS4_6vectorIhNS4_9allocatorIhEEEEEEPPT__block_invoke(uint64_t a1, const unsigned __int8 *a2, unsigned int a3)
 {
-  v4 = operator new(0x50uLL);
-  AriSdk::ARI_IBIFilerHSStartReadBBSessionRspCb_SDK::ARI_IBIFilerHSStartReadBBSessionRspCb_SDK(v4, a2);
-  **(a1 + 40) = v4;
+  v5 = operator new(0x50uLL);
+  AriSdk::ARI_IBIFilerHSStartReadBBSessionRspCb_SDK::ARI_IBIFilerHSStartReadBBSessionRspCb_SDK(v5, a2);
+  **(a1 + 40) = v5;
   dispatch_semaphore_signal(*(*(*(a1 + 32) + 8) + 40));
   return 0;
 }
 
-uint64_t ___ZN3ktl13CommandDriver7performIN6AriSdk36ARI_IBIFilerHSReadBBGetSizeRspCb_SDKEEEbjNSt3__110shared_ptrIKNS4_6vectorIhNS4_9allocatorIhEEEEEEPPT__block_invoke(uint64_t a1, const unsigned __int8 *a2)
+uint64_t ___ZN3ktl13CommandDriver7performIN6AriSdk36ARI_IBIFilerHSReadBBGetSizeRspCb_SDKEEEbjNSt3__110shared_ptrIKNS4_6vectorIhNS4_9allocatorIhEEEEEEPPT__block_invoke(uint64_t a1, const unsigned __int8 *a2, unsigned int a3)
 {
-  v4 = operator new(0x58uLL);
-  AriSdk::ARI_IBIFilerHSReadBBGetSizeRspCb_SDK::ARI_IBIFilerHSReadBBGetSizeRspCb_SDK(v4, a2);
-  **(a1 + 40) = v4;
+  v5 = operator new(0x58uLL);
+  AriSdk::ARI_IBIFilerHSReadBBGetSizeRspCb_SDK::ARI_IBIFilerHSReadBBGetSizeRspCb_SDK(v5, a2);
+  **(a1 + 40) = v5;
   dispatch_semaphore_signal(*(*(*(a1 + 32) + 8) + 40));
   return 0;
 }
 
-uint64_t ___ZN3ktl13CommandDriver7performIN6AriSdk29ARI_IBIFilerHSReadBBRspCb_SDKEEEbjNSt3__110shared_ptrIKNS4_6vectorIhNS4_9allocatorIhEEEEEEPPT__block_invoke(uint64_t a1, const unsigned __int8 *a2)
+uint64_t ___ZN3ktl13CommandDriver7performIN6AriSdk29ARI_IBIFilerHSReadBBRspCb_SDKEEEbjNSt3__110shared_ptrIKNS4_6vectorIhNS4_9allocatorIhEEEEEEPPT__block_invoke(uint64_t a1, const unsigned __int8 *a2, unsigned int a3)
 {
-  v4 = operator new(0x70uLL);
-  AriSdk::ARI_IBIFilerHSReadBBRspCb_SDK::ARI_IBIFilerHSReadBBRspCb_SDK(v4, a2);
-  **(a1 + 40) = v4;
+  v5 = operator new(0x70uLL);
+  AriSdk::ARI_IBIFilerHSReadBBRspCb_SDK::ARI_IBIFilerHSReadBBRspCb_SDK(v5, a2);
+  **(a1 + 40) = v5;
   dispatch_semaphore_signal(*(*(*(a1 + 32) + 8) + 40));
   return 0;
 }
 
-uint64_t ___ZN3ktl13CommandDriver7performIN6AriSdk42ARI_IBIFilerHSStartWriteBBSessionRspCb_SDKEEEbjNSt3__110shared_ptrIKNS4_6vectorIhNS4_9allocatorIhEEEEEEPPT__block_invoke(uint64_t a1, const unsigned __int8 *a2)
+uint64_t ___ZN3ktl13CommandDriver7performIN6AriSdk42ARI_IBIFilerHSStartWriteBBSessionRspCb_SDKEEEbjNSt3__110shared_ptrIKNS4_6vectorIhNS4_9allocatorIhEEEEEEPPT__block_invoke(uint64_t a1, const unsigned __int8 *a2, unsigned int a3)
 {
-  v4 = operator new(0x50uLL);
-  AriSdk::ARI_IBIFilerHSStartWriteBBSessionRspCb_SDK::ARI_IBIFilerHSStartWriteBBSessionRspCb_SDK(v4, a2);
-  **(a1 + 40) = v4;
+  v5 = operator new(0x50uLL);
+  AriSdk::ARI_IBIFilerHSStartWriteBBSessionRspCb_SDK::ARI_IBIFilerHSStartWriteBBSessionRspCb_SDK(v5, a2);
+  **(a1 + 40) = v5;
   dispatch_semaphore_signal(*(*(*(a1 + 32) + 8) + 40));
   return 0;
 }
 
-uint64_t ___ZN3ktl13CommandDriver7performIN6AriSdk30ARI_IBIFilerHSWriteBBRspCb_SDKEEEbjNSt3__110shared_ptrIKNS4_6vectorIhNS4_9allocatorIhEEEEEEPPT__block_invoke(uint64_t a1, const unsigned __int8 *a2)
+uint64_t ___ZN3ktl13CommandDriver7performIN6AriSdk30ARI_IBIFilerHSWriteBBRspCb_SDKEEEbjNSt3__110shared_ptrIKNS4_6vectorIhNS4_9allocatorIhEEEEEEPPT__block_invoke(uint64_t a1, const unsigned __int8 *a2, unsigned int a3)
 {
-  v4 = operator new(0x50uLL);
-  AriSdk::ARI_IBIFilerHSWriteBBRspCb_SDK::ARI_IBIFilerHSWriteBBRspCb_SDK(v4, a2);
-  **(a1 + 40) = v4;
+  v5 = operator new(0x50uLL);
+  AriSdk::ARI_IBIFilerHSWriteBBRspCb_SDK::ARI_IBIFilerHSWriteBBRspCb_SDK(v5, a2);
+  **(a1 + 40) = v5;
   dispatch_semaphore_signal(*(*(*(a1 + 32) + 8) + 40));
   return 0;
 }
 
-uint64_t ___ZN3ktl13CommandDriver7performIN6AriSdk35ARI_IBIFilerHSEndBBSessionRspCb_SDKEEEbjNSt3__110shared_ptrIKNS4_6vectorIhNS4_9allocatorIhEEEEEEPPT__block_invoke(uint64_t a1, const unsigned __int8 *a2)
+uint64_t ___ZN3ktl13CommandDriver7performIN6AriSdk35ARI_IBIFilerHSEndBBSessionRspCb_SDKEEEbjNSt3__110shared_ptrIKNS4_6vectorIhNS4_9allocatorIhEEEEEEPPT__block_invoke(uint64_t a1, const unsigned __int8 *a2, unsigned int a3)
 {
-  v4 = operator new(0x50uLL);
-  AriSdk::ARI_IBIFilerHSEndBBSessionRspCb_SDK::ARI_IBIFilerHSEndBBSessionRspCb_SDK(v4, a2);
-  **(a1 + 40) = v4;
+  v5 = operator new(0x50uLL);
+  AriSdk::ARI_IBIFilerHSEndBBSessionRspCb_SDK::ARI_IBIFilerHSEndBBSessionRspCb_SDK(v5, a2);
+  **(a1 + 40) = v5;
   dispatch_semaphore_signal(*(*(*(a1 + 32) + 8) + 40));
   return 0;
 }
 
-uint64_t KTLCpsGetSvn(uint64_t a1, _BYTE *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t KTLCpsGetSvn(uint64_t a1, _BYTE *a2)
 {
-  v11[3] = *MEMORY[0x29EDCA608];
-  if (a2)
+  v4[3] = *MEMORY[0x29EDCA608];
+  if (!a2)
   {
-    memset(v11, 170, 24);
-    result = KTLGetIMEIInfo(a1, 0, v11, a4, a5, a6, a7, a8);
-    *a2 = (BYTE4(v11[2]) & 0xF) + 10 * (BYTE3(v11[2]) >> 4);
+    return 0;
   }
 
-  else
-  {
-    result = 0;
-  }
-
-  v10 = *MEMORY[0x29EDCA608];
+  memset(v4, 170, 24);
+  result = KTLGetIMEIInfo(a1, 0, v4);
+  *a2 = (BYTE4(v4[2]) & 0xF) + 10 * (BYTE3(v4[2]) >> 4);
   return result;
 }
 
 BOOL KTLCpsSetSvn(uint64_t a1, uint64_t a2)
 {
   v2 = *(a1 + 16);
-  v34 = v2;
-  v35 = 1;
+  v26 = v2;
+  v27 = 1;
   if (!a2)
   {
     return 0;
@@ -2440,27 +2267,27 @@ BOOL KTLCpsSetSvn(uint64_t a1, uint64_t a2)
 
   if (!v4)
   {
-    v30 = 0;
-    v31 = &v30;
-    v32 = 0x2000000000;
-    v33 = 1;
-    v26 = 0;
-    v27 = &v26;
-    v28 = 0x2000000000;
-    v29 = -1;
-    v13 = dispatch_semaphore_create(0);
-    v14 = v13;
-    object = v13;
-    if (v13)
+    v22 = 0;
+    v23 = &v22;
+    v24 = 0x2000000000;
+    v25 = 1;
+    v18 = 0;
+    v19 = &v18;
+    v20 = 0x2000000000;
+    v21 = -1;
+    v12 = dispatch_semaphore_create(0);
+    v13 = v12;
+    object = v12;
+    if (v12)
     {
-      dispatch_retain(v13);
+      dispatch_retain(v12);
     }
 
     if (ARI_UtaMsCpsSetSvnReq_BLK())
     {
-      v10 = 0;
-      v11 = *(v31 + 6);
-      v15 = object;
+      v9 = 0;
+      v10 = *(v23 + 6);
+      v14 = object;
       if (!object)
       {
         goto LABEL_25;
@@ -2469,41 +2296,41 @@ BOOL KTLCpsSetSvn(uint64_t a1, uint64_t a2)
 
     else
     {
-      v16 = dispatch_time(0, 1000000 * *(a1 + 20));
-      v23 = dispatch_semaphore_wait(v14, v16);
-      if (v23)
+      v15 = dispatch_time(0, 1000000 * *(a1 + 20));
+      v16 = dispatch_semaphore_wait(v13, v15);
+      if (v16)
       {
-        _KTLErrorPrint("KTLCpsSetSvn", "Timeout waiting for response.\n", v17, v18, v19, v20, v21, v22, v24);
+        _KTLErrorPrint("KTLCpsSetSvn", "Timeout waiting for response.\n");
       }
 
-      if (v34)
+      if (v26)
       {
-        AriHost::ExitTrx(v34);
+        AriHost::ExitTrx(v26);
       }
 
-      v11 = *(v31 + 6);
-      if (v23)
+      v10 = *(v23 + 6);
+      if (v16)
       {
-        v10 = 0;
-        v15 = object;
+        v9 = 0;
+        v14 = object;
         if (!object)
         {
 LABEL_25:
-          if (v14)
+          if (v13)
           {
-            dispatch_release(v14);
+            dispatch_release(v13);
           }
 
-          _Block_object_dispose(&v26, 8);
-          _Block_object_dispose(&v30, 8);
-          return !v11 && v10;
+          _Block_object_dispose(&v18, 8);
+          _Block_object_dispose(&v22, 8);
+          return !v10 && v9;
         }
       }
 
       else
       {
-        v10 = *(v27 + 6) == 0;
-        v15 = object;
+        v9 = *(v19 + 6) == 0;
+        v14 = object;
         if (!object)
         {
           goto LABEL_25;
@@ -2511,106 +2338,103 @@ LABEL_25:
       }
     }
 
-    dispatch_release(v15);
+    dispatch_release(v14);
     goto LABEL_25;
   }
 
-  v26 = 0;
-  v36 = 0;
-  v37 = v2;
-  v30 = 0;
-  if (!ARI_UtaMsCpsSetSvnReq_ENC() && (v5 = operator new(0x18uLL), v6 = v30, v5[2] = v36, *(v5 + 2) = v6, *v5 = &unk_2A1E625B0, KTLUTASendAndReleaseData(a1, v5)) && KTLUTACopyReceiveData(a1, &v26))
+  v18 = 0;
+  v28 = 0;
+  v29 = v2;
+  v22 = 0;
+  if (!ARI_UtaMsCpsSetSvnReq_ENC() && (v5 = operator new(0x18uLL), v6 = v22, v5[2] = v28, *(v5 + 2) = v6, *v5 = &unk_2A1E625B0, KTLUTASendAndReleaseData(a1, v5)) && KTLUTACopyReceiveData(a1, &v18))
   {
-    v7 = v26;
-    (*(*v26 + 16))(v26);
-    v8 = v7[2];
-    v9 = ARI_AriUtaMsCpsSetSvnRspCb_Extract();
+    v7 = v18;
+    (*(*v18 + 16))(v18);
+    v8 = ARI_AriUtaMsCpsSetSvnRspCb_Extract();
     (*(*v7 + 8))(v7);
-    v10 = v9 == 0;
-    v11 = v35;
+    v9 = v8 == 0;
+    v10 = v27;
   }
 
   else
   {
-    v10 = 0;
-    v11 = 1;
+    v9 = 0;
+    v10 = 1;
   }
 
-  return !v11 && v10;
+  return !v10 && v9;
 }
 
-void sub_297A4B618(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, dispatch_object_t object, char a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21)
+void sub_297A4B618(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, dispatch_object_t object, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
+  va_start(va, a20);
   if (object)
   {
     dispatch_release(object);
   }
 
-  if (v21)
+  if (v20)
   {
-    dispatch_release(v21);
+    dispatch_release(v20);
   }
 
   _Block_object_dispose(&a17, 8);
-  _Block_object_dispose(&a21, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t __KTLCpsSetSvn_block_invoke(uint64_t a1)
+uint64_t __KTLCpsSetSvn_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = *(*(a1 + 40) + 8) + 24;
   *(*(*(a1 + 32) + 8) + 24) = ARI_AriUtaMsCpsSetSvnRspCb_Extract();
   dispatch_semaphore_signal(*(a1 + 48));
   return *(*(*(a1 + 32) + 8) + 24);
 }
 
-uint64_t KTLCpsPriWrite(uint64_t a1, uint64_t a2, uint64_t a3, _DWORD *a4, char *a5, uint64_t a6, char *a7, uint64_t a8, unsigned __int8 a9)
+uint64_t KTLCpsPriWrite(uint64_t a1, int a2, uint64_t a3, _DWORD *a4, char *a5, unsigned int a6, char *a7, unsigned int a8, unsigned __int8 a9)
 {
   if (!a1 || !a4)
   {
-    _KTLErrorPrint("KTLCpsPriWrite", "opt(%p) or filerId(%p) is NULL\n", a3, a4, a5, a6, a7, a8, a1);
+    _KTLErrorPrint("KTLCpsPriWrite", "opt(%p) or filerId(%p) is NULL\n", a3);
     return 0;
   }
 
-  v10 = a6;
   if (a6 >= 0x401)
   {
-    _KTLErrorPrint("KTLCpsPriWrite", "PRI signature size (%u) larger than max allowed (%d)", a3, a4, a5, a6, a7, a8, a6);
+    _KTLErrorPrint("KTLCpsPriWrite", "PRI signature size (%u) larger than max allowed (%d)", a3);
     return 0;
   }
 
-  v12 = a8;
   if (a8 >= 0x65)
   {
-    _KTLErrorPrint("KTLCpsPriWrite", "Carrier bundle name length (%u) larger than max allowed (%d)", a3, a4, a5, a6, a7, a8, a8);
+    _KTLErrorPrint("KTLCpsPriWrite", "Carrier bundle name length (%u) larger than max allowed (%d)", a3);
     return 0;
   }
 
   v15 = a3;
-  v114 = 0;
-  v115 = &v114;
-  v116 = 0x2000000000;
-  v117 = 0xFFFF;
-  v110 = 0;
-  v111 = &v110;
-  v112 = 0x2000000000;
-  v113 = 0x7FFFFFFF;
-  v106 = 0;
-  v107 = &v106;
-  v108 = 0x2000000000;
-  v109 = -1;
+  v86 = 0;
+  v87 = &v86;
+  v88 = 0x2000000000;
+  v89 = 0xFFFF;
+  v82 = 0;
+  v83 = &v82;
+  v84 = 0x2000000000;
+  v85 = 0x7FFFFFFF;
+  v78 = 0;
+  v79 = &v78;
+  v80 = 0x2000000000;
+  v81 = -1;
   *&v17 = 0xAAAAAAAAAAAAAAAALL;
   *(&v17 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  *v104 = v17;
-  *v105 = v17;
+  *v76 = v17;
+  *v77 = v17;
   *__dst = v17;
-  *v103 = v17;
-  v100[3] = v17;
+  *v75 = v17;
+  v72[3] = v17;
   *__p = v17;
-  v100[1] = v17;
-  v100[2] = v17;
-  v100[0] = v17;
-  AriSdk::ARI_IBIPriWriteReq_V2_SDK::ARI_IBIPriWriteReq_V2_SDK(v100);
+  v72[1] = v17;
+  v72[2] = v17;
+  v72[0] = v17;
+  AriSdk::ARI_IBIPriWriteReq_V2_SDK::ARI_IBIPriWriteReq_V2_SDK(v72);
   v18 = operator new(4uLL);
   *v18 = a2;
   v19 = __p[0];
@@ -2630,7 +2454,7 @@ uint64_t KTLCpsPriWrite(uint64_t a1, uint64_t a2, uint64_t a3, _DWORD *a4, char 
   }
 
   v22 = operator new(2uLL);
-  *v22 = v10;
+  *v22 = a6;
   v23 = __dst[0];
   __dst[0] = v22;
   if (v23)
@@ -2640,17 +2464,17 @@ uint64_t KTLCpsPriWrite(uint64_t a1, uint64_t a2, uint64_t a3, _DWORD *a4, char 
 
   if (a5)
   {
-    v24 = v10;
-    v25 = v103[1];
+    v24 = a6;
+    v25 = v75[1];
     v26 = __dst[1];
-    if ((v103[1] - __dst[1]) >= v10)
+    if ((v75[1] - __dst[1]) >= a6)
     {
-      v31 = v103[0];
-      v32 = v103[0] - __dst[1];
-      v33 = v10 - (v103[0] - __dst[1]);
-      if (v10 <= (v103[0] - __dst[1]))
+      v31 = v75[0];
+      v32 = v75[0] - __dst[1];
+      v33 = a6 - (v75[0] - __dst[1]);
+      if (a6 <= (v75[0] - __dst[1]))
       {
-        if (v10)
+        if (a6)
         {
           v34 = __dst[1];
           memmove(__dst[1], a5, v24);
@@ -2662,10 +2486,10 @@ uint64_t KTLCpsPriWrite(uint64_t a1, uint64_t a2, uint64_t a3, _DWORD *a4, char 
 
       else
       {
-        if (v103[0] != __dst[1])
+        if (v75[0] != __dst[1])
         {
-          memmove(__dst[1], a5, v103[0] - __dst[1]);
-          v31 = v103[0];
+          memmove(__dst[1], a5, v75[0] - __dst[1]);
+          v31 = v75[0];
         }
 
         memmove(v31, &a5[v32], v33);
@@ -2677,18 +2501,18 @@ uint64_t KTLCpsPriWrite(uint64_t a1, uint64_t a2, uint64_t a3, _DWORD *a4, char 
     {
       if (__dst[1])
       {
-        v103[0] = __dst[1];
+        v75[0] = __dst[1];
         operator delete(__dst[1]);
         v25 = 0;
         __dst[1] = 0;
-        v103[0] = 0;
-        v103[1] = 0;
+        v75[0] = 0;
+        v75[1] = 0;
       }
 
       v27 = 2 * v25;
-      if (2 * v25 <= v10)
+      if (2 * v25 <= a6)
       {
-        v27 = v10;
+        v27 = a6;
       }
 
       if (v25 >= 0x3FFFFFFFFFFFFFFFLL)
@@ -2703,30 +2527,30 @@ uint64_t KTLCpsPriWrite(uint64_t a1, uint64_t a2, uint64_t a3, _DWORD *a4, char 
 
       v29 = operator new(v28);
       __dst[1] = v29;
-      v103[1] = &v29[v28];
+      v75[1] = &v29[v28];
       memcpy(v29, a5, v24);
       v30 = &v29[v24];
     }
 
-    v103[0] = v30;
+    v75[0] = v30;
   }
 
   if (a7)
   {
-    v35 = v12;
-    v36 = v105[0];
-    v37 = v104[0];
-    if ((v105[0] - v104[0]) >= v12)
+    v35 = a8;
+    v36 = v77[0];
+    v37 = v76[0];
+    if ((v77[0] - v76[0]) >= a8)
     {
-      v42 = v104[1];
-      v43 = v104[1] - v104[0];
-      v44 = v12 - (v104[1] - v104[0]);
-      if (v12 <= (v104[1] - v104[0]))
+      v42 = v76[1];
+      v43 = v76[1] - v76[0];
+      v44 = a8 - (v76[1] - v76[0]);
+      if (a8 <= (v76[1] - v76[0]))
       {
-        if (v12)
+        if (a8)
         {
-          v45 = v104[0];
-          memmove(v104[0], a7, v35);
+          v45 = v76[0];
+          memmove(v76[0], a7, v35);
           v37 = v45;
         }
 
@@ -2735,10 +2559,10 @@ uint64_t KTLCpsPriWrite(uint64_t a1, uint64_t a2, uint64_t a3, _DWORD *a4, char 
 
       else
       {
-        if (v104[1] != v104[0])
+        if (v76[1] != v76[0])
         {
-          memmove(v104[0], a7, v104[1] - v104[0]);
-          v42 = v104[1];
+          memmove(v76[0], a7, v76[1] - v76[0]);
+          v42 = v76[1];
         }
 
         memmove(v42, &a7[v43], v44);
@@ -2748,20 +2572,20 @@ uint64_t KTLCpsPriWrite(uint64_t a1, uint64_t a2, uint64_t a3, _DWORD *a4, char 
 
     else
     {
-      if (v104[0])
+      if (v76[0])
       {
-        v104[1] = v104[0];
-        operator delete(v104[0]);
+        v76[1] = v76[0];
+        operator delete(v76[0]);
         v36 = 0;
-        v104[0] = 0;
-        v104[1] = 0;
-        v105[0] = 0;
+        v76[0] = 0;
+        v76[1] = 0;
+        v77[0] = 0;
       }
 
       v38 = 2 * v36;
-      if (2 * v36 <= v12)
+      if (2 * v36 <= a8)
       {
-        v38 = v12;
+        v38 = a8;
       }
 
       if (v36 >= 0x3FFFFFFFFFFFFFFFLL)
@@ -2775,82 +2599,79 @@ uint64_t KTLCpsPriWrite(uint64_t a1, uint64_t a2, uint64_t a3, _DWORD *a4, char 
       }
 
       v40 = operator new(v39);
-      v104[0] = v40;
-      v105[0] = &v40[v39];
+      v76[0] = v40;
+      v77[0] = &v40[v39];
       memcpy(v40, a7, v35);
       v41 = &v40[v35];
     }
 
-    v104[1] = v41;
+    v76[1] = v41;
   }
 
   v46 = operator new(4uLL);
   *v46 = a9;
-  v47 = v105[1];
-  v105[1] = v46;
+  v47 = v77[1];
+  v77[1] = v46;
   if (v47)
   {
     operator delete(v47);
   }
 
-  v98 = 0;
-  v99 = 0;
+  v70 = 0;
+  v71 = 0;
   AriSdk::MsgBase::getRawBytes();
-  v54 = *(a1 + 8);
-  if (!v54 && *(a1 + 16))
+  v48 = *(a1 + 8);
+  if (!v48 && *(a1 + 16))
   {
-    v69 = dispatch_semaphore_create(0);
-    v70 = v69;
-    v94 = 0;
-    v95 = &v94;
-    v96 = 0x2000000000;
-    v97 = 0;
-    v71 = *(v98 + 2) - *v98;
-    v72 = *(a1 + 16);
-    object = v69;
-    if (v69)
+    v58 = dispatch_semaphore_create(0);
+    v59 = v58;
+    v66 = 0;
+    v67 = &v66;
+    v68 = 0x2000000000;
+    v69 = 0;
+    object = v58;
+    if (v58)
     {
-      dispatch_retain(v69);
+      dispatch_retain(v58);
     }
 
-    v73 = *(a1 + 20);
     if (AriHost::Send())
     {
-      v80 = "Failed to send the message of IBIPriWriteReq_V2.\n";
+      _KTLErrorPrint("KTLCpsPriWrite", "Failed to send the message of IBIPriWriteReq_V2.\n");
     }
 
     else
     {
-      v81 = dispatch_time(0, 1000000 * *(a1 + 20));
-      if (!dispatch_semaphore_wait(v70, v81))
+      v60 = dispatch_time(0, 1000000 * *(a1 + 20));
+      if (!dispatch_semaphore_wait(v59, v60))
       {
-        v84 = *(v115 + 6);
-        if (*(v95 + 24) == 1 && v84 == a2 && (v84 = a2, !*(v111 + 6)))
+        v63 = *(v87 + 6);
+        if (*(v67 + 24) == 1 && v63 == a2 && (v63 = a2, !*(v83 + 6)))
         {
-          v82 = 1;
+          v61 = 1;
         }
 
         else
         {
-          _KTLErrorPrint("KTLCpsPriWrite", "Returned Instance is %d while expecting instance is %d\n", v74, v75, v76, v77, v78, v79, v84);
-          _KTLErrorPrint("KTLCpsPriWrite", "PRI/GRI Command Result: %d\n", v85, v86, v87, v88, v89, v90, *(v111 + 6));
-          v82 = 0;
+          _KTLErrorPrint("KTLCpsPriWrite", "Returned Instance is %d while expecting instance is %d\n", v63, a2);
+          _KTLErrorPrint("KTLCpsPriWrite", "PRI/GRI Command Result: %d\n", *(v83 + 6));
+          v61 = 0;
         }
 
-        *a4 = *(v107 + 6);
-        v83 = object;
+        *a4 = *(v79 + 6);
+        v62 = object;
         if (!object)
         {
 LABEL_75:
-          _Block_object_dispose(&v94, 8);
-          if (v70)
+          _Block_object_dispose(&v66, 8);
+          if (v59)
           {
-            dispatch_release(v70);
+            dispatch_release(v59);
           }
 
-          v67 = v82;
-          v68 = v99;
-          if (!v99)
+          v56 = v61;
+          v57 = v71;
+          if (!v71)
           {
             goto LABEL_80;
           }
@@ -2859,16 +2680,15 @@ LABEL_75:
         }
 
 LABEL_74:
-        dispatch_release(v83);
+        dispatch_release(v62);
         goto LABEL_75;
       }
 
-      v80 = "Timeout waiting for response.\n";
+      _KTLErrorPrint("KTLCpsPriWrite", "Timeout waiting for response.\n");
     }
 
-    _KTLErrorPrint("KTLCpsPriWrite", v80, v74, v75, v76, v77, v78, v79, v91);
-    v82 = 0;
-    v83 = object;
+    v61 = 0;
+    v62 = object;
     if (!object)
     {
       goto LABEL_75;
@@ -2877,73 +2697,75 @@ LABEL_74:
     goto LABEL_74;
   }
 
-  v55 = *v98;
-  v56 = v98[1] - *v98;
-  v57 = *(a1 + 20);
-  LODWORD(v94) = 0;
-  _KTLDebugPrint("KTLRawSendData", "Sending %u bytes to device timeout=%u\n", v48, v49, v50, v51, v52, v53, v56);
+  v49 = *v70;
+  v50 = v70[1] - *v70;
+  v51 = *(a1 + 20);
+  LODWORD(v66) = 0;
+  _KTLDebugPrint("KTLRawSendData", "Sending %u bytes to device timeout=%u\n", v50, v51);
   if ((_KTLDebugFlags & 2) != 0)
   {
-    off_2A18991C8("Tx:", 0, v55);
+    off_2A18991C8("Tx:", 0, v49, v50);
   }
 
-  if (*v54 && ((v64 = (*v54)(v54, v55, v56, &v94, 1, v57, 0), v94 == v56) ? (v65 = v64) : (v65 = 0), (v65 & 1) != 0))
+  v52 = *v48;
+  if (*v48 && ((v53 = v52(v48, v49, v50, &v66, 1, v51, 0), LODWORD(v52) = v66, v66 == v50) ? (v54 = v53) : (v54 = 0), (v54 & 1) != 0))
   {
-    v94 = 0;
-    v66 = KTLUTACopyReceiveData(a1, &v94);
-    if (v66)
+    v66 = 0;
+    v55 = KTLUTACopyReceiveData(a1, &v66);
+    if (v55)
     {
-      v66 = KTLCpsPriWriteParseAndRelease(v94, v115 + 6, v111 + 6, v107 + 6);
+      v55 = KTLCpsPriWriteParseAndRelease(v66, v87 + 6, v83 + 6, v79 + 6);
     }
   }
 
   else
   {
-    _KTLDebugPrint("KTLRawSendData", "Failed sending %d bytes - amount written %u\n", v58, v59, v60, v61, v62, v63, v56);
-    v66 = 0;
+    _KTLDebugPrint("KTLRawSendData", "Failed sending %d bytes - amount written %u\n", v50, v52);
+    v55 = 0;
   }
 
   *a4 = 0;
-  v67 = v66;
-  v68 = v99;
-  if (!v99)
+  v56 = v55;
+  v57 = v71;
+  if (!v71)
   {
     goto LABEL_80;
   }
 
 LABEL_78:
-  if (!atomic_fetch_add(&v68->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  if (!atomic_fetch_add(&v57->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v68->__on_zero_shared)(v68);
-    std::__shared_weak_count::__release_weak(v68);
+    (v57->__on_zero_shared)(v57);
+    std::__shared_weak_count::__release_weak(v57);
   }
 
 LABEL_80:
-  MEMORY[0x29C279BD0](v100);
-  _Block_object_dispose(&v106, 8);
-  _Block_object_dispose(&v110, 8);
-  _Block_object_dispose(&v114, 8);
-  return v67;
+  MEMORY[0x29C279BD0](v72);
+  _Block_object_dispose(&v78, 8);
+  _Block_object_dispose(&v82, 8);
+  _Block_object_dispose(&v86, 8);
+  return v56;
 }
 
-void sub_297A4BD8C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, dispatch_object_t object, char a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, char a29)
+void sub_297A4BD8C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, dispatch_object_t object, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
+  va_start(va, a28);
   if (object)
   {
     dispatch_release(object);
   }
 
   _Block_object_dispose(&a23, 8);
-  if (v29)
+  if (v28)
   {
-    dispatch_release(v29);
+    dispatch_release(v28);
   }
 
   std::shared_ptr<std::vector<unsigned char> const>::~shared_ptr[abi:ne200100](&a27);
-  MEMORY[0x29C279BD0](&a29);
-  _Block_object_dispose((v30 - 200), 8);
-  _Block_object_dispose((v30 - 168), 8);
-  _Block_object_dispose((v30 - 136), 8);
+  MEMORY[0x29C279BD0](va);
+  _Block_object_dispose((v29 - 200), 8);
+  _Block_object_dispose((v29 - 168), 8);
+  _Block_object_dispose((v29 - 136), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2967,123 +2789,120 @@ uint64_t KTLCpsPriWriteParseAndRelease(unsigned int *a1, _DWORD *a2, _DWORD *a3,
 {
   *&v8 = 0xAAAAAAAAAAAAAAAALL;
   *(&v8 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v33 = v8;
-  v34 = v8;
-  v31 = v8;
-  v32 = v8;
-  v30 = v8;
+  v20 = v8;
+  v21 = v8;
+  v18 = v8;
+  v19 = v8;
+  v17 = v8;
   v9 = (*(*a1 + 16))(a1);
-  v10 = a1[2];
-  AriSdk::ARI_IBIPriWriteRspCb_V2_SDK::ARI_IBIPriWriteRspCb_V2_SDK(&v30, v9);
-  if (AriSdk::MsgBase::getMergedGMID(&v30) == 67600384)
+  AriSdk::ARI_IBIPriWriteRspCb_V2_SDK::ARI_IBIPriWriteRspCb_V2_SDK(&v17, v9);
+  if (AriSdk::MsgBase::getMergedGMID(&v17) == 67600384)
   {
-    _KTLErrorPrint("KTLCpsPriWriteParseAndRelease", "NACK Received\n", v11, v12, v13, v14, v15, v16, v30);
+    _KTLErrorPrint("KTLCpsPriWriteParseAndRelease", "NACK Received\n");
   }
 
-  v17 = AriSdk::ARI_IBIPriWriteRspCb_V2_SDK::unpack(&v30);
+  v10 = AriSdk::ARI_IBIPriWriteRspCb_V2_SDK::unpack(&v17);
   if (a2)
   {
-    v24 = a3 == 0;
+    v11 = a3 == 0;
   }
 
   else
   {
-    v24 = 1;
+    v11 = 1;
   }
 
-  v26 = v24 || v17 != 0 || a4 == 0;
-  v27 = !v26;
-  if (v26)
+  v13 = v11 || v10 != 0 || a4 == 0;
+  v14 = !v13;
+  if (v13)
   {
-    _KTLErrorPrint("KTLCpsPriWriteParseAndRelease", "Failed to unpack response.\n", v18, v19, v20, v21, v22, v23, v30);
+    _KTLErrorPrint("KTLCpsPriWriteParseAndRelease", "Failed to unpack response.\n");
   }
 
   else
   {
-    v28 = *(&v34 + 1);
-    *a2 = *v34;
-    *a3 = *v28;
-    *a4 = DWORD2(v31);
+    v15 = *(&v21 + 1);
+    *a2 = *v21;
+    *a3 = *v15;
+    *a4 = DWORD2(v18);
   }
 
   (*(*a1 + 8))(a1);
-  MEMORY[0x29C279CC0](&v30);
-  return v27;
+  MEMORY[0x29C279CC0](&v17);
+  return v14;
 }
 
-uint64_t KTLGetSimCardPresence(uint64_t result, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t KTLGetSimCardPresence(uint64_t result, unsigned int a2, void *a3)
 {
   if (!result)
   {
     return result;
   }
 
-  v8 = a2;
   if (a2 >= 2)
   {
-    _KTLErrorPrint("KTLGetSimSlotInstance", "simSlot parameter: %d is >= KTL max number of supported SIMs: %d\n", a3, a4, a5, a6, a7, a8, a2);
+    _KTLErrorPrint("KTLGetSimSlotInstance", "simSlot parameter: %d is >= KTL max number of supported SIMs: %d\n", a2, 2);
     return 0;
   }
 
-  v10 = result;
-  v35 = 0xAAAAAAAAAAAAAAAALL;
-  if ((KTLGetSimSlotMapping(result, &v35) & 1) == 0)
+  v4 = result;
+  v20 = 0xAAAAAAAAAAAAAAAALL;
+  if ((KTLGetSimSlotMapping(result, &v20) & 1) == 0)
   {
     return 0;
   }
 
-  v11 = *(&v35 + v8);
-  v12 = *(v10 + 16);
-  v41 = v12;
-  if (!*(v10 + 8) && v12)
+  v5 = *(v4 + 16);
+  v26 = v5;
+  if (!*(v4 + 8) && v5)
   {
-    v35 = 0;
-    v36 = &v35;
-    v37 = 0x3002000000;
-    v38 = __Block_byref_object_copy__8;
-    v39 = __Block_byref_object_dispose__8;
-    v40 = 0xAAAAAAAAAAAAAAAALL;
-    v31 = 0;
-    v32 = &v31;
-    v33 = 0x2000000000;
-    v34 = -1;
-    v13 = dispatch_semaphore_create(0);
-    v14 = v13;
-    object = v13;
-    if (v13)
+    v20 = 0;
+    v21 = &v20;
+    v22 = 0x3002000000;
+    v23 = __Block_byref_object_copy__8;
+    v24 = __Block_byref_object_dispose__8;
+    v25 = 0xAAAAAAAAAAAAAAAALL;
+    v16 = 0;
+    v17 = &v16;
+    v18 = 0x2000000000;
+    v19 = -1;
+    v6 = dispatch_semaphore_create(0);
+    v7 = v6;
+    object = v6;
+    if (v6)
     {
-      dispatch_retain(v13);
+      dispatch_retain(v6);
     }
 
     if (ARI_CsiMsSimCardPresenceReq_BLK())
     {
-      v15 = 0;
-      *a3 = v36[5];
+      v8 = 0;
+      *a3 = v21[5];
     }
 
     else
     {
-      v21 = dispatch_time(0, 1000000 * *(v10 + 20));
-      v28 = dispatch_semaphore_wait(v14, v21);
-      if (v28)
+      v13 = dispatch_time(0, 1000000 * *(v4 + 20));
+      v14 = dispatch_semaphore_wait(v7, v13);
+      if (v14)
       {
-        _KTLErrorPrint("KTLGetSimCardPresence", "Timeout waiting for response.\n", v22, v23, v24, v25, v26, v27, v29);
+        _KTLErrorPrint("KTLGetSimCardPresence", "Timeout waiting for response.\n");
       }
 
-      if (v41)
+      if (v26)
       {
-        AriHost::ExitTrx(v41);
+        AriHost::ExitTrx(v26);
       }
 
-      *a3 = v36[5];
-      if (v28)
+      *a3 = v21[5];
+      if (v14)
       {
-        v15 = 0;
+        v8 = 0;
       }
 
       else
       {
-        v15 = *(v32 + 6) == 0;
+        v8 = *(v17 + 6) == 0;
       }
     }
 
@@ -3092,68 +2911,67 @@ uint64_t KTLGetSimCardPresence(uint64_t result, uint64_t a2, void *a3, uint64_t 
       dispatch_release(object);
     }
 
-    if (v14)
+    if (v7)
     {
-      dispatch_release(v14);
+      dispatch_release(v7);
     }
 
-    _Block_object_dispose(&v31, 8);
-    _Block_object_dispose(&v35, 8);
-    return v15;
+    _Block_object_dispose(&v16, 8);
+    _Block_object_dispose(&v20, 8);
+    return v8;
   }
 
-  v31 = 0;
-  v42 = 0;
-  v43 = v12;
-  v35 = 0;
+  v16 = 0;
+  v27 = 0;
+  v28 = v5;
+  v20 = 0;
   if (ARI_CsiMsSimCardPresenceReq_ENC())
   {
     return 0;
   }
 
-  v16 = operator new(0x18uLL);
-  v17 = v35;
-  v16[2] = v42;
-  *(v16 + 2) = v17;
-  *v16 = &unk_2A1E625B0;
-  result = KTLUTASendAndReleaseData(v10, v16);
+  v9 = operator new(0x18uLL);
+  v10 = v20;
+  v9[2] = v27;
+  *(v9 + 2) = v10;
+  *v9 = &unk_2A1E625B0;
+  result = KTLUTASendAndReleaseData(v4, v9);
   if (result)
   {
-    result = KTLUTACopyReceiveData(v10, &v31);
+    result = KTLUTACopyReceiveData(v4, &v16);
     if (result)
     {
-      v18 = v31;
-      (*(*v31 + 16))(v31);
-      v19 = v18[2];
-      v20 = ARI_CsiMsSimCardPresenceRspCb_Extract();
-      (*(*v18 + 8))(v18);
-      return v20 == 0;
+      v11 = v16;
+      (*(*v16 + 16))(v16);
+      v12 = ARI_CsiMsSimCardPresenceRspCb_Extract();
+      (*(*v11 + 8))(v11);
+      return v12 == 0;
     }
   }
 
   return result;
 }
 
-void sub_297A4C3AC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, dispatch_object_t object, char a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23)
+void sub_297A4C3AC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, dispatch_object_t object, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
+  va_start(va, a22);
   if (object)
   {
     dispatch_release(object);
   }
 
-  if (v23)
+  if (v22)
   {
-    dispatch_release(v23);
+    dispatch_release(v22);
   }
 
   _Block_object_dispose(&a19, 8);
-  _Block_object_dispose(&a23, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t __KTLGetSimCardPresence_block_invoke(uint64_t a1)
+uint64_t __KTLGetSimCardPresence_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = *(*(a1 + 40) + 8);
   *(*(*(a1 + 32) + 8) + 24) = ARI_CsiMsSimCardPresenceRspCb_Extract();
   dispatch_semaphore_signal(*(a1 + 48));
   return *(*(*(a1 + 32) + 8) + 24);
@@ -3188,145 +3006,144 @@ uint64_t cps::ARICommandDriver::PriRefresh(uint64_t a1, uint64_t a2, AriSdk::ARI
 {
   AriSdk::MsgBase::getRawBytes();
   *a3 = 0;
-  v11 = *(a1 + 16);
-  v12 = *(v11 + 8);
-  if (v12 || !*(v11 + 16))
+  v5 = *(a1 + 16);
+  v6 = *(v5 + 8);
+  if (!v6 && *(v5 + 16))
   {
-    v13 = MEMORY[0];
-    v14 = MEMORY[8] - MEMORY[0];
-    v15 = *(v11 + 20);
-    LODWORD(v72) = 0;
-    _KTLDebugPrint("KTLRawSendData", "Sending %u bytes to device timeout=%u\n", v5, v6, v7, v8, v9, v10, MEMORY[8] - MEMORY[0]);
-    if ((_KTLDebugFlags & 2) != 0)
+    v28 = 0;
+    v29 = &v28;
+    v30 = 0x3002000000;
+    v31 = __Block_byref_object_copy__19;
+    v32 = __Block_byref_object_dispose__20;
+    object = 0xAAAAAAAAAAAAAAAALL;
+    object = dispatch_semaphore_create(0);
+    if (AriHost::Send())
     {
-      off_2A18991C8("Tx:", 0, v13);
-    }
-
-    if (*v12 && ((v22 = (*v12)(v12, v13, v14, &v72, 1, v15, 0), v72 == v14) ? (v23 = v22) : (v23 = 0), (v23 & 1) != 0))
-    {
-      v72 = 0;
-      v24 = KTLUTACopyReceiveData(*(a1 + 16), &v72);
-      v31 = v72;
-      if (v72)
-      {
-        v32 = v24;
-      }
-
-      else
-      {
-        v32 = 0;
-      }
-
-      if (v32 == 1)
-      {
-        v33 = operator new(0x50uLL);
-        v34 = (*(*v31 + 16))(v31);
-        v35 = v31[2];
-        AriSdk::ARI_IBIPriRefreshRspCb_SDK::ARI_IBIPriRefreshRspCb_SDK(v33, v34);
-        *a3 = v33;
-        (*(*v31 + 8))(v31);
-        goto LABEL_31;
-      }
+      _KTLErrorPrint("perform", "An error occured sending the message. (%d)\n");
     }
 
     else
     {
-      _KTLDebugPrint("KTLRawSendData", "Failed sending %d bytes - amount written %u\n", v16, v17, v18, v19, v20, v21, v14);
+      v20 = v29;
+      v21 = dispatch_time(0, 1000000 * *(*(a1 + 16) + 20));
+      if (!dispatch_semaphore_wait(v20[5], v21))
+      {
+        v22 = 1;
+        _Block_object_dispose(&v28, 8);
+        v23 = object;
+        if (!object)
+        {
+LABEL_29:
+          if ((v22 & 1) == 0)
+          {
+            goto LABEL_16;
+          }
+
+          goto LABEL_30;
+        }
+
+LABEL_28:
+        dispatch_release(v23);
+        goto LABEL_29;
+      }
+
+      _KTLErrorPrint("perform", "Timeout waiting for response.\n");
     }
 
-    v36 = "error while trying to get response from device \n";
-LABEL_16:
-    _KTLErrorPrint("perform", v36, v25, v26, v27, v28, v29, v30, v71);
-    goto LABEL_17;
-  }
+    v22 = 0;
+    _Block_object_dispose(&v28, 8);
+    v23 = object;
+    if (!object)
+    {
+      goto LABEL_29;
+    }
 
-  v72 = 0;
-  v73 = &v72;
-  v74 = 0x3002000000;
-  v75 = __Block_byref_object_copy__19;
-  v76 = __Block_byref_object_dispose__20;
-  object = 0xAAAAAAAAAAAAAAAALL;
-  object = dispatch_semaphore_create(0);
-  v45 = *(*(a1 + 16) + 16);
-  v46 = AriHost::Send();
-  if (v46)
-  {
-    _KTLErrorPrint("perform", "An error occured sending the message. (%d)\n", v47, v48, v49, v50, v51, v52, v46);
     goto LABEL_28;
   }
 
-  v53 = v73;
-  v54 = dispatch_time(0, 1000000 * *(*(a1 + 16) + 20));
-  if (dispatch_semaphore_wait(v53[5], v54))
+  v7 = MEMORY[0];
+  v8 = MEMORY[8] - MEMORY[0];
+  v9 = *(v5 + 20);
+  LODWORD(v28) = 0;
+  _KTLDebugPrint("KTLRawSendData", "Sending %u bytes to device timeout=%u\n", MEMORY[8] - MEMORY[0], v9);
+  if ((_KTLDebugFlags & 2) != 0)
   {
-    _KTLErrorPrint("perform", "Timeout waiting for response.\n", v55, v56, v57, v58, v59, v60, v71);
-LABEL_28:
-    v61 = 0;
-    _Block_object_dispose(&v72, 8);
-    v62 = object;
-    if (!object)
-    {
-      goto LABEL_30;
-    }
-
-    goto LABEL_29;
+    off_2A18991C8("Tx:", 0, v7, v8);
   }
 
-  v61 = 1;
-  _Block_object_dispose(&v72, 8);
-  v62 = object;
-  if (object)
+  v10 = *v6;
+  if (!*v6 || ((v11 = v10(v6, v7, v8, &v28, 1, v9, 0), LODWORD(v10) = v28, v28 == v8) ? (v12 = v11) : (v12 = 0), (v12 & 1) == 0))
   {
-LABEL_29:
-    dispatch_release(v62);
-  }
-
-LABEL_30:
-  if ((v61 & 1) == 0)
-  {
-    goto LABEL_17;
-  }
-
-LABEL_31:
-  hasDeclaredGmid = AriSdk::ARI_IBIPriRefreshRspCb_SDK::hasDeclaredGmid(*a3);
-  v64 = *a3;
-  if ((hasDeclaredGmid & 1) == 0)
-  {
-    if (AriSdk::MsgBase::getMergedGMID(v64) != 67600384)
-    {
-      AriSdk::MsgBase::getMergedGMID(*a3);
-      _KTLErrorPrint("perform", "expected gmid %d, doesn't match response gmid %d \n", v65, v66, v67, v68, v69, v70, 2231468032);
-      goto LABEL_17;
-    }
-
-    v36 = "Received NACK\n";
+    _KTLDebugPrint("KTLRawSendData", "Failed sending %d bytes - amount written %u\n", v8, v10);
+LABEL_15:
+    _KTLErrorPrint("perform", "error while trying to get response from device \n");
     goto LABEL_16;
   }
 
-  if (!AriSdk::ARI_IBIPriRefreshRspCb_SDK::unpack(v64))
+  v28 = 0;
+  v13 = KTLUTACopyReceiveData(*(a1 + 16), &v28);
+  v14 = v28;
+  if (v28)
   {
-    v43 = 1;
-    goto LABEL_20;
+    v15 = v13;
   }
 
-LABEL_17:
+  else
+  {
+    v15 = 0;
+  }
+
+  if (v15 != 1)
+  {
+    goto LABEL_15;
+  }
+
+  v16 = operator new(0x50uLL);
+  v17 = (*(*v14 + 16))(v14);
+  AriSdk::ARI_IBIPriRefreshRspCb_SDK::ARI_IBIPriRefreshRspCb_SDK(v16, v17);
+  *a3 = v16;
+  (*(*v14 + 8))(v14);
+LABEL_30:
+  hasDeclaredGmid = AriSdk::ARI_IBIPriRefreshRspCb_SDK::hasDeclaredGmid(*a3);
+  v25 = *a3;
+  if (hasDeclaredGmid)
+  {
+    if (!AriSdk::ARI_IBIPriRefreshRspCb_SDK::unpack(v25))
+    {
+      v18 = 1;
+      goto LABEL_19;
+    }
+  }
+
+  else if (AriSdk::MsgBase::getMergedGMID(v25) == 67600384)
+  {
+    _KTLErrorPrint("perform", "Received NACK\n", v26, v27, 0, 0);
+  }
+
+  else
+  {
+    AriSdk::MsgBase::getMergedGMID(*a3);
+    _KTLErrorPrint("perform", "expected gmid %d, doesn't match response gmid %d \n");
+  }
+
+LABEL_16:
   if (*a3)
   {
     (*(**a3 + 16))(*a3);
   }
 
-  v43 = 0;
+  v18 = 0;
   *a3 = 0;
-LABEL_20:
-  if ((v43 & 1) == 0)
+LABEL_19:
+  if ((v18 & 1) == 0)
   {
-    _KTLErrorPrint("PriRefresh", "Failed IBIPriRefreshReq\n", v37, v38, v39, v40, v41, v42, v71);
+    _KTLErrorPrint("PriRefresh", "Failed IBIPriRefreshReq\n");
   }
 
-  return v43;
+  return v18;
 }
 
-void sub_297A4C934(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, dispatch_object_t object)
+void sub_297A4C934(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, dispatch_object_t object)
 {
   _Block_object_dispose(&a21, 8);
   if (object)
@@ -3346,145 +3163,144 @@ uint64_t cps::ARICommandDriver::PriWrite(uint64_t a1, uint64_t a2, AriSdk::ARI_I
 {
   AriSdk::MsgBase::getRawBytes();
   *a3 = 0;
-  v11 = *(a1 + 16);
-  v12 = *(v11 + 8);
-  if (v12 || !*(v11 + 16))
+  v5 = *(a1 + 16);
+  v6 = *(v5 + 8);
+  if (!v6 && *(v5 + 16))
   {
-    v13 = MEMORY[0];
-    v14 = MEMORY[8] - MEMORY[0];
-    v15 = *(v11 + 20);
-    LODWORD(v72) = 0;
-    _KTLDebugPrint("KTLRawSendData", "Sending %u bytes to device timeout=%u\n", v5, v6, v7, v8, v9, v10, MEMORY[8] - MEMORY[0]);
-    if ((_KTLDebugFlags & 2) != 0)
+    v28 = 0;
+    v29 = &v28;
+    v30 = 0x3002000000;
+    v31 = __Block_byref_object_copy__19;
+    v32 = __Block_byref_object_dispose__20;
+    object = 0xAAAAAAAAAAAAAAAALL;
+    object = dispatch_semaphore_create(0);
+    if (AriHost::Send())
     {
-      off_2A18991C8("Tx:", 0, v13);
-    }
-
-    if (*v12 && ((v22 = (*v12)(v12, v13, v14, &v72, 1, v15, 0), v72 == v14) ? (v23 = v22) : (v23 = 0), (v23 & 1) != 0))
-    {
-      v72 = 0;
-      v24 = KTLUTACopyReceiveData(*(a1 + 16), &v72);
-      v31 = v72;
-      if (v72)
-      {
-        v32 = v24;
-      }
-
-      else
-      {
-        v32 = 0;
-      }
-
-      if (v32 == 1)
-      {
-        v33 = operator new(0x50uLL);
-        v34 = (*(*v31 + 16))(v31);
-        v35 = v31[2];
-        AriSdk::ARI_IBIPriWriteRspCb_V3_SDK::ARI_IBIPriWriteRspCb_V3_SDK(v33, v34);
-        *a3 = v33;
-        (*(*v31 + 8))(v31);
-        goto LABEL_31;
-      }
+      _KTLErrorPrint("perform", "An error occured sending the message. (%d)\n");
     }
 
     else
     {
-      _KTLDebugPrint("KTLRawSendData", "Failed sending %d bytes - amount written %u\n", v16, v17, v18, v19, v20, v21, v14);
+      v20 = v29;
+      v21 = dispatch_time(0, 1000000 * *(*(a1 + 16) + 20));
+      if (!dispatch_semaphore_wait(v20[5], v21))
+      {
+        v22 = 1;
+        _Block_object_dispose(&v28, 8);
+        v23 = object;
+        if (!object)
+        {
+LABEL_29:
+          if ((v22 & 1) == 0)
+          {
+            goto LABEL_16;
+          }
+
+          goto LABEL_30;
+        }
+
+LABEL_28:
+        dispatch_release(v23);
+        goto LABEL_29;
+      }
+
+      _KTLErrorPrint("perform", "Timeout waiting for response.\n");
     }
 
-    v36 = "error while trying to get response from device \n";
-LABEL_16:
-    _KTLErrorPrint("perform", v36, v25, v26, v27, v28, v29, v30, v71);
-    goto LABEL_17;
-  }
+    v22 = 0;
+    _Block_object_dispose(&v28, 8);
+    v23 = object;
+    if (!object)
+    {
+      goto LABEL_29;
+    }
 
-  v72 = 0;
-  v73 = &v72;
-  v74 = 0x3002000000;
-  v75 = __Block_byref_object_copy__19;
-  v76 = __Block_byref_object_dispose__20;
-  object = 0xAAAAAAAAAAAAAAAALL;
-  object = dispatch_semaphore_create(0);
-  v45 = *(*(a1 + 16) + 16);
-  v46 = AriHost::Send();
-  if (v46)
-  {
-    _KTLErrorPrint("perform", "An error occured sending the message. (%d)\n", v47, v48, v49, v50, v51, v52, v46);
     goto LABEL_28;
   }
 
-  v53 = v73;
-  v54 = dispatch_time(0, 1000000 * *(*(a1 + 16) + 20));
-  if (dispatch_semaphore_wait(v53[5], v54))
+  v7 = MEMORY[0];
+  v8 = MEMORY[8] - MEMORY[0];
+  v9 = *(v5 + 20);
+  LODWORD(v28) = 0;
+  _KTLDebugPrint("KTLRawSendData", "Sending %u bytes to device timeout=%u\n", MEMORY[8] - MEMORY[0], v9);
+  if ((_KTLDebugFlags & 2) != 0)
   {
-    _KTLErrorPrint("perform", "Timeout waiting for response.\n", v55, v56, v57, v58, v59, v60, v71);
-LABEL_28:
-    v61 = 0;
-    _Block_object_dispose(&v72, 8);
-    v62 = object;
-    if (!object)
-    {
-      goto LABEL_30;
-    }
-
-    goto LABEL_29;
+    off_2A18991C8("Tx:", 0, v7, v8);
   }
 
-  v61 = 1;
-  _Block_object_dispose(&v72, 8);
-  v62 = object;
-  if (object)
+  v10 = *v6;
+  if (!*v6 || ((v11 = v10(v6, v7, v8, &v28, 1, v9, 0), LODWORD(v10) = v28, v28 == v8) ? (v12 = v11) : (v12 = 0), (v12 & 1) == 0))
   {
-LABEL_29:
-    dispatch_release(v62);
-  }
-
-LABEL_30:
-  if ((v61 & 1) == 0)
-  {
-    goto LABEL_17;
-  }
-
-LABEL_31:
-  hasDeclaredGmid = AriSdk::ARI_IBIPriWriteRspCb_V3_SDK::hasDeclaredGmid(*a3);
-  v64 = *a3;
-  if ((hasDeclaredGmid & 1) == 0)
-  {
-    if (AriSdk::MsgBase::getMergedGMID(v64) != 67600384)
-    {
-      AriSdk::MsgBase::getMergedGMID(*a3);
-      _KTLErrorPrint("perform", "expected gmid %d, doesn't match response gmid %d \n", v65, v66, v67, v68, v69, v70, 2223112192);
-      goto LABEL_17;
-    }
-
-    v36 = "Received NACK\n";
+    _KTLDebugPrint("KTLRawSendData", "Failed sending %d bytes - amount written %u\n", v8, v10);
+LABEL_15:
+    _KTLErrorPrint("perform", "error while trying to get response from device \n");
     goto LABEL_16;
   }
 
-  if (!AriSdk::ARI_IBIPriWriteRspCb_V3_SDK::unpack(v64))
+  v28 = 0;
+  v13 = KTLUTACopyReceiveData(*(a1 + 16), &v28);
+  v14 = v28;
+  if (v28)
   {
-    v43 = 1;
-    goto LABEL_20;
+    v15 = v13;
   }
 
-LABEL_17:
+  else
+  {
+    v15 = 0;
+  }
+
+  if (v15 != 1)
+  {
+    goto LABEL_15;
+  }
+
+  v16 = operator new(0x50uLL);
+  v17 = (*(*v14 + 16))(v14);
+  AriSdk::ARI_IBIPriWriteRspCb_V3_SDK::ARI_IBIPriWriteRspCb_V3_SDK(v16, v17);
+  *a3 = v16;
+  (*(*v14 + 8))(v14);
+LABEL_30:
+  hasDeclaredGmid = AriSdk::ARI_IBIPriWriteRspCb_V3_SDK::hasDeclaredGmid(*a3);
+  v25 = *a3;
+  if (hasDeclaredGmid)
+  {
+    if (!AriSdk::ARI_IBIPriWriteRspCb_V3_SDK::unpack(v25))
+    {
+      v18 = 1;
+      goto LABEL_19;
+    }
+  }
+
+  else if (AriSdk::MsgBase::getMergedGMID(v25) == 67600384)
+  {
+    _KTLErrorPrint("perform", "Received NACK\n", v26, v27, 0, 0);
+  }
+
+  else
+  {
+    AriSdk::MsgBase::getMergedGMID(*a3);
+    _KTLErrorPrint("perform", "expected gmid %d, doesn't match response gmid %d \n");
+  }
+
+LABEL_16:
   if (*a3)
   {
     (*(**a3 + 16))(*a3);
   }
 
-  v43 = 0;
+  v18 = 0;
   *a3 = 0;
-LABEL_20:
-  if ((v43 & 1) == 0)
+LABEL_19:
+  if ((v18 & 1) == 0)
   {
-    _KTLErrorPrint("PriWrite", "Failed IBIPriWriteReq_V3\n", v37, v38, v39, v40, v41, v42, v71);
+    _KTLErrorPrint("PriWrite", "Failed IBIPriWriteReq_V3\n");
   }
 
-  return v43;
+  return v18;
 }
 
-void sub_297A4CE38(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, dispatch_object_t object)
+void sub_297A4CE38(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, dispatch_object_t object)
 {
   _Block_object_dispose(&a21, 8);
   if (object)
@@ -3585,20 +3401,20 @@ void __Block_byref_object_dispose__20(uint64_t a1)
   }
 }
 
-uint64_t ___ZN3ktl13CommandDriver7performIN6AriSdk26ARI_IBIPriRefreshRspCb_SDKEEEbjNSt3__110shared_ptrIKNS4_6vectorIhNS4_9allocatorIhEEEEEEPPT__block_invoke(uint64_t a1, const unsigned __int8 *a2)
+uint64_t ___ZN3ktl13CommandDriver7performIN6AriSdk26ARI_IBIPriRefreshRspCb_SDKEEEbjNSt3__110shared_ptrIKNS4_6vectorIhNS4_9allocatorIhEEEEEEPPT__block_invoke(uint64_t a1, const unsigned __int8 *a2, unsigned int a3)
 {
-  v4 = operator new(0x50uLL);
-  AriSdk::ARI_IBIPriRefreshRspCb_SDK::ARI_IBIPriRefreshRspCb_SDK(v4, a2);
-  **(a1 + 40) = v4;
+  v5 = operator new(0x50uLL);
+  AriSdk::ARI_IBIPriRefreshRspCb_SDK::ARI_IBIPriRefreshRspCb_SDK(v5, a2);
+  **(a1 + 40) = v5;
   dispatch_semaphore_signal(*(*(*(a1 + 32) + 8) + 40));
   return 0;
 }
 
-uint64_t ___ZN3ktl13CommandDriver7performIN6AriSdk27ARI_IBIPriWriteRspCb_V3_SDKEEEbjNSt3__110shared_ptrIKNS4_6vectorIhNS4_9allocatorIhEEEEEEPPT__block_invoke(uint64_t a1, const unsigned __int8 *a2)
+uint64_t ___ZN3ktl13CommandDriver7performIN6AriSdk27ARI_IBIPriWriteRspCb_V3_SDKEEEbjNSt3__110shared_ptrIKNS4_6vectorIhNS4_9allocatorIhEEEEEEPPT__block_invoke(uint64_t a1, const unsigned __int8 *a2, unsigned int a3)
 {
-  v4 = operator new(0x50uLL);
-  AriSdk::ARI_IBIPriWriteRspCb_V3_SDK::ARI_IBIPriWriteRspCb_V3_SDK(v4, a2);
-  **(a1 + 40) = v4;
+  v5 = operator new(0x50uLL);
+  AriSdk::ARI_IBIPriWriteRspCb_V3_SDK::ARI_IBIPriWriteRspCb_V3_SDK(v5, a2);
+  **(a1 + 40) = v5;
   dispatch_semaphore_signal(*(*(*(a1 + 32) + 8) + 40));
   return 0;
 }

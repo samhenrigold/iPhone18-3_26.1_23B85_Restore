@@ -1,10 +1,35 @@
 @interface SPIPowerLogger
 + (id)_staticWrappedInitWithCurrentProcess;
++ (id)_staticWrappedInitWithProcessIdentifier:(int)identifier;
 - (SPIPowerLogger)initWithCurrentProcess;
+- (SPIPowerLogger)initWithProcessIdentifier:(int)identifier;
 - (id)captureSnapshot;
 @end
 
 @implementation SPIPowerLogger
+
+- (SPIPowerLogger)initWithProcessIdentifier:(int)identifier
+{
+  v3 = *&identifier;
+  v7.receiver = self;
+  v7.super_class = SPIPowerLogger;
+  v4 = [(SPIPowerLogger *)&v7 init];
+  v5 = v4;
+  if (v4)
+  {
+    v4->pid = v3;
+    v4->process = [SPIProcessUtils getProcessForPid:v3];
+  }
+
+  return v5;
+}
+
++ (id)_staticWrappedInitWithProcessIdentifier:(int)identifier
+{
+  v3 = [[SPIPowerLogger alloc] initWithProcessIdentifier:*&identifier];
+
+  return v3;
+}
 
 - (SPIPowerLogger)initWithCurrentProcess
 {

@@ -46,7 +46,7 @@
 
 + (void)prewarmWithConfiguration:(id)configuration
 {
-  v187 = *MEMORY[0x277D85DE8];
+  v188 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   dataSourceLoader = [configurationCopy dataSourceLoader];
   [dataSourceLoader prewarm];
@@ -55,97 +55,97 @@
   [relevanceProviderManagerLoader prewarm];
 
   REApplicationCachePrewarm();
-  v110 = configurationCopy;
-  sectionDescriptors = [v110 sectionDescriptors];
+  v111 = configurationCopy;
+  sectionDescriptors = [v111 sectionDescriptors];
   v7 = [sectionDescriptors copy];
 
-  v118 = [MEMORY[0x277CBEB58] set];
-  v167 = 0u;
+  v119 = [MEMORY[0x277CBEB58] set];
   v168 = 0u;
-  v165 = 0u;
+  v169 = 0u;
   v166 = 0u;
+  v167 = 0u;
   v8 = v7;
-  v9 = [v8 countByEnumeratingWithState:&v165 objects:&v181 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v166 objects:&v182 count:16];
   if (v9)
   {
-    v10 = *v166;
+    v10 = *v167;
     v11 = *MEMORY[0x277CBE660];
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v166 != v10)
+        if (*v167 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        name = [*(*(&v165 + 1) + 8 * i) name];
-        if ([v118 containsObject:name])
+        name = [*(*(&v166 + 1) + 8 * i) name];
+        if ([v119 containsObject:name])
         {
           [MEMORY[0x277CBEAD8] raise:v11 format:{@"Section with name %@ already exists. Please choose a unique name", name}];
         }
 
         else
         {
-          [v118 addObject:name];
+          [v119 addObject:name];
         }
       }
 
-      v9 = [v8 countByEnumeratingWithState:&v165 objects:&v181 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v166 objects:&v182 count:16];
     }
 
     while (v9);
   }
 
   v14 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v8, "count")}];
-  v163 = 0u;
   v164 = 0u;
-  v161 = 0u;
+  v165 = 0u;
   v162 = 0u;
+  v163 = 0u;
   v15 = v8;
-  v16 = [v15 countByEnumeratingWithState:&v161 objects:v180 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v162 objects:v181 count:16];
   if (v16)
   {
-    v17 = *v162;
+    v17 = *v163;
     do
     {
       for (j = 0; j != v16; ++j)
       {
-        if (*v162 != v17)
+        if (*v163 != v17)
         {
           objc_enumerationMutation(v15);
         }
 
-        v19 = [[_RESectionDescriptor alloc] initWithSectionDescriptor:*(*(&v161 + 1) + 8 * j)];
+        v19 = [[_RESectionDescriptor alloc] initWithSectionDescriptor:*(*(&v162 + 1) + 8 * j)];
         [v14 addObject:v19];
       }
 
-      v16 = [v15 countByEnumeratingWithState:&v161 objects:v180 count:16];
+      v16 = [v15 countByEnumeratingWithState:&v162 objects:v181 count:16];
     }
 
     while (v16);
   }
 
   v20 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v14, "count")}];
-  v159 = 0u;
   v160 = 0u;
-  v157 = 0u;
+  v161 = 0u;
   v158 = 0u;
+  v159 = 0u;
   obj = v15;
-  v21 = [obj countByEnumeratingWithState:&v157 objects:v179 count:16];
+  v21 = [obj countByEnumeratingWithState:&v158 objects:v180 count:16];
   if (v21)
   {
-    v22 = *v158;
+    v22 = *v159;
     do
     {
       for (k = 0; k != v21; ++k)
       {
-        if (*v158 != v22)
+        if (*v159 != v22)
         {
           objc_enumerationMutation(obj);
         }
 
-        historicSectionDescriptor = [*(*(&v157 + 1) + 8 * k) historicSectionDescriptor];
+        historicSectionDescriptor = [*(*(&v158 + 1) + 8 * k) historicSectionDescriptor];
         if (historicSectionDescriptor)
         {
           v25 = [[_RESectionDescriptor alloc] initWithHistoricSectionDescriptor:historicSectionDescriptor];
@@ -153,218 +153,218 @@
         }
       }
 
-      v21 = [obj countByEnumeratingWithState:&v157 objects:v179 count:16];
+      v21 = [obj countByEnumeratingWithState:&v158 objects:v180 count:16];
     }
 
     while (v21);
   }
 
-  v111 = +[(REFeatureSet *)REMutableFeatureSet];
-  v155 = 0u;
+  v112 = +[(REFeatureSet *)REMutableFeatureSet];
   v156 = 0u;
-  v153 = 0u;
+  v157 = 0u;
   v154 = 0u;
-  primaryFeatures = [v110 primaryFeatures];
-  n = [primaryFeatures countByEnumeratingWithState:&v153 objects:v178 count:16];
+  v155 = 0u;
+  primaryFeatures = [v111 primaryFeatures];
+  n = [primaryFeatures countByEnumeratingWithState:&v154 objects:v179 count:16];
   if (n)
   {
-    v28 = *v154;
+    v28 = *v155;
     do
     {
       for (m = 0; m != n; ++m)
       {
-        if (*v154 != v28)
+        if (*v155 != v28)
         {
           objc_enumerationMutation(primaryFeatures);
         }
 
-        v30 = *(*(&v153 + 1) + 8 * m);
+        v30 = *(*(&v154 + 1) + 8 * m);
         if ([v30 featureType] == 2)
         {
           v31 = RELogForDomain(0);
           if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v177 = v30;
+            v178 = v30;
             _os_log_impl(&dword_22859F000, v31, OS_LOG_TYPE_DEFAULT, "Skipping loading primary feature %@ from configuration since it isn't a categorcial feature", buf, 0xCu);
           }
         }
 
         else
         {
-          [v111 addFeature:v30];
+          [v112 addFeature:v30];
         }
       }
 
-      n = [primaryFeatures countByEnumeratingWithState:&v153 objects:v178 count:16];
+      n = [primaryFeatures countByEnumeratingWithState:&v154 objects:v179 count:16];
     }
 
     while (n);
   }
 
-  primaryFeatures2 = [v110 primaryFeatures];
-  v119 = [primaryFeatures2 mutableCopy];
+  primaryFeatures2 = [v111 primaryFeatures];
+  v120 = [primaryFeatures2 mutableCopy];
 
   array = [MEMORY[0x277CBEB18] array];
   array2 = [MEMORY[0x277CBEB18] array];
-  v151 = 0u;
   v152 = 0u;
-  v149 = 0u;
+  v153 = 0u;
   v150 = 0u;
-  v116 = v14;
-  v35 = [v116 countByEnumeratingWithState:&v149 objects:buf count:16];
+  v151 = 0u;
+  v117 = v14;
+  v35 = [v117 countByEnumeratingWithState:&v150 objects:buf count:16];
   if (v35)
   {
-    v36 = *v150;
+    v36 = *v151;
     do
     {
       for (n = 0; n != v35; ++n)
       {
-        if (*v150 != v36)
+        if (*v151 != v36)
         {
-          objc_enumerationMutation(v116);
+          objc_enumerationMutation(v117);
         }
 
-        rules = [*(*(&v149 + 1) + 8 * n) rules];
+        rules = [*(*(&v150 + 1) + 8 * n) rules];
         REExtractRules(rules, array, array2);
       }
 
-      v35 = [v116 countByEnumeratingWithState:&v149 objects:buf count:16];
+      v35 = [v117 countByEnumeratingWithState:&v150 objects:buf count:16];
     }
 
     while (v35);
   }
 
-  v147 = 0u;
   v148 = 0u;
-  v145 = 0u;
+  v149 = 0u;
   v146 = 0u;
-  v115 = v20;
-  v38 = [v115 countByEnumeratingWithState:&v145 objects:v175 count:16];
+  v147 = 0u;
+  v116 = v20;
+  v38 = [v116 countByEnumeratingWithState:&v146 objects:v176 count:16];
   if (v38)
   {
-    v39 = *v146;
+    v39 = *v147;
     do
     {
       for (n = 0; n != v38; ++n)
       {
-        if (*v146 != v39)
+        if (*v147 != v39)
         {
-          objc_enumerationMutation(v115);
+          objc_enumerationMutation(v116);
         }
 
-        rules2 = [*(*(&v145 + 1) + 8 * n) rules];
+        rules2 = [*(*(&v146 + 1) + 8 * n) rules];
         REExtractRules(rules2, array, array2);
       }
 
-      v38 = [v115 countByEnumeratingWithState:&v145 objects:v175 count:16];
+      v38 = [v116 countByEnumeratingWithState:&v146 objects:v176 count:16];
     }
 
     while (v38);
   }
 
-  v143 = 0u;
   v144 = 0u;
-  v141 = 0u;
+  v145 = 0u;
   v142 = 0u;
+  v143 = 0u;
   v41 = array;
-  v42 = [v41 countByEnumeratingWithState:&v141 objects:v174 count:16];
+  v42 = [v41 countByEnumeratingWithState:&v142 objects:v175 count:16];
   if (v42)
   {
-    v43 = *v142;
+    v43 = *v143;
     do
     {
       for (ii = 0; ii != v42; ++ii)
       {
-        if (*v142 != v43)
+        if (*v143 != v43)
         {
           objc_enumerationMutation(v41);
         }
 
-        v45 = *(*(&v141 + 1) + 8 * ii);
+        v45 = *(*(&v142 + 1) + 8 * ii);
         condition = [v45 condition];
         n = [condition _dependentFeatures];
-        [v119 unionFeatureSet:n];
+        [v120 unionFeatureSet:n];
 
         conditionEvaluator = [v45 conditionEvaluator];
       }
 
-      v42 = [v41 countByEnumeratingWithState:&v141 objects:v174 count:16];
+      v42 = [v41 countByEnumeratingWithState:&v142 objects:v175 count:16];
     }
 
     while (v42);
   }
 
-  v139 = 0u;
   v140 = 0u;
-  v137 = 0u;
+  v141 = 0u;
   v138 = 0u;
+  v139 = 0u;
   v48 = array2;
-  v49 = [v48 countByEnumeratingWithState:&v137 objects:v173 count:16];
+  v49 = [v48 countByEnumeratingWithState:&v138 objects:v174 count:16];
   if (v49)
   {
-    v50 = *v138;
+    v50 = *v139;
     do
     {
       for (jj = 0; jj != v49; ++jj)
       {
-        if (*v138 != v50)
+        if (*v139 != v50)
         {
           objc_enumerationMutation(v48);
         }
 
-        v52 = *(*(&v137 + 1) + 8 * jj);
+        v52 = *(*(&v138 + 1) + 8 * jj);
         leftCondition = [v52 leftCondition];
         _dependentFeatures = [leftCondition _dependentFeatures];
-        [v119 unionFeatureSet:_dependentFeatures];
+        [v120 unionFeatureSet:_dependentFeatures];
 
         rightCondition = [v52 rightCondition];
         _dependentFeatures2 = [rightCondition _dependentFeatures];
-        [v119 unionFeatureSet:_dependentFeatures2];
+        [v120 unionFeatureSet:_dependentFeatures2];
 
         comparison = [v52 comparison];
         n = [comparison _dependentFeatures];
-        [v119 unionFeatureSet:n];
+        [v120 unionFeatureSet:n];
 
         leftConditionEvaluator = [v52 leftConditionEvaluator];
         rightConditionEvaluator = [v52 rightConditionEvaluator];
         comparisonConditionEvaluator = [v52 comparisonConditionEvaluator];
       }
 
-      v49 = [v48 countByEnumeratingWithState:&v137 objects:v173 count:16];
+      v49 = [v48 countByEnumeratingWithState:&v138 objects:v174 count:16];
     }
 
     while (v49);
   }
 
-  v61 = REIntrinsicFeatureSet();
-  [v119 unionFeatureSet:v61];
+  v62 = REIntrinsicFeatureSet(v61);
+  [v120 unionFeatureSet:v62];
 
-  v135 = 0u;
   v136 = 0u;
-  v133 = 0u;
+  v137 = 0u;
   v134 = 0u;
-  interactionDescriptors = [v110 interactionDescriptors];
-  v63 = [interactionDescriptors countByEnumeratingWithState:&v133 objects:v172 count:16];
-  if (v63)
+  v135 = 0u;
+  interactionDescriptors = [v111 interactionDescriptors];
+  v64 = [interactionDescriptors countByEnumeratingWithState:&v134 objects:v173 count:16];
+  if (v64)
   {
-    v64 = *v134;
+    v65 = *v135;
     do
     {
-      for (kk = 0; kk != v63; ++kk)
+      for (kk = 0; kk != v64; ++kk)
       {
-        if (*v134 != v64)
+        if (*v135 != v65)
         {
           objc_enumerationMutation(interactionDescriptors);
         }
 
-        n = *(*(&v133 + 1) + 8 * kk);
+        n = *(*(&v134 + 1) + 8 * kk);
         selectionFeature = [n selectionFeature];
 
         if (selectionFeature)
         {
           selectionFeature2 = [n selectionFeature];
-          [v119 addFeature:selectionFeature2];
+          [v120 addFeature:selectionFeature2];
         }
 
         identificationFeature = [n identificationFeature];
@@ -372,7 +372,7 @@
         if (identificationFeature)
         {
           identificationFeature2 = [n identificationFeature];
-          [v119 addFeature:identificationFeature2];
+          [v120 addFeature:identificationFeature2];
         }
 
         biasFeature = [n biasFeature];
@@ -380,178 +380,177 @@
         if (biasFeature)
         {
           biasFeature2 = [n biasFeature];
-          [v119 addFeature:biasFeature2];
+          [v120 addFeature:biasFeature2];
         }
       }
 
-      v63 = [interactionDescriptors countByEnumeratingWithState:&v133 objects:v172 count:16];
+      v64 = [interactionDescriptors countByEnumeratingWithState:&v134 objects:v173 count:16];
     }
 
-    while (v63);
+    while (v64);
   }
 
-  v72 = RERootFeatureSetForFeatures(v119);
-  v109 = [v72 mutableCopy];
+  v73 = RERootFeatureSetForFeatures(v120);
+  v110 = [v73 mutableCopy];
 
-  v73 = REIntrinsicFeatureSet();
-  [v109 unionFeatureSet:v73];
+  v75 = REIntrinsicFeatureSet(v74);
+  [v110 unionFeatureSet:v75];
 
-  v108 = [v109 copy];
-  v74 = [MEMORY[0x277CBEB58] set];
-  v131 = 0u;
+  v109 = [v110 copy];
+  v76 = [MEMORY[0x277CBEB58] set];
   v132 = 0u;
-  v129 = 0u;
+  v133 = 0u;
   v130 = 0u;
-  v114 = v41;
-  v75 = [v114 countByEnumeratingWithState:&v129 objects:v171 count:16];
-  if (v75)
+  v131 = 0u;
+  v115 = v41;
+  v77 = [v115 countByEnumeratingWithState:&v130 objects:v172 count:16];
+  if (v77)
   {
-    n = *v130;
+    n = *v131;
     do
     {
-      for (mm = 0; mm != v75; ++mm)
+      for (mm = 0; mm != v77; ++mm)
       {
-        if (*v130 != n)
+        if (*v131 != n)
+        {
+          objc_enumerationMutation(v115);
+        }
+
+        condition2 = [*(*(&v130 + 1) + 8 * mm) condition];
+        _inflectionFeatureValuePairs = [condition2 _inflectionFeatureValuePairs];
+        [v76 unionSet:_inflectionFeatureValuePairs];
+      }
+
+      v77 = [v115 countByEnumeratingWithState:&v130 objects:v172 count:16];
+    }
+
+    while (v77);
+  }
+
+  v128 = 0u;
+  v129 = 0u;
+  v126 = 0u;
+  v127 = 0u;
+  v114 = v48;
+  v81 = [v114 countByEnumeratingWithState:&v126 objects:v171 count:16];
+  if (v81)
+  {
+    v82 = *v127;
+    do
+    {
+      for (nn = 0; nn != v81; ++nn)
+      {
+        if (*v127 != v82)
         {
           objc_enumerationMutation(v114);
         }
 
-        condition2 = [*(*(&v129 + 1) + 8 * mm) condition];
-        _inflectionFeatureValuePairs = [condition2 _inflectionFeatureValuePairs];
-        [v74 unionSet:_inflectionFeatureValuePairs];
+        v84 = *(*(&v126 + 1) + 8 * nn);
+        leftCondition2 = [v84 leftCondition];
+        _inflectionFeatureValuePairs2 = [leftCondition2 _inflectionFeatureValuePairs];
+        [v76 unionSet:_inflectionFeatureValuePairs2];
+
+        rightCondition2 = [v84 rightCondition];
+        n = [rightCondition2 _inflectionFeatureValuePairs];
+        [v76 unionSet:n];
+
+        comparison2 = [v84 comparison];
+        _inflectionFeatureValuePairs3 = [comparison2 _inflectionFeatureValuePairs];
+        [v76 unionSet:_inflectionFeatureValuePairs3];
       }
 
-      v75 = [v114 countByEnumeratingWithState:&v129 objects:v171 count:16];
+      v81 = [v114 countByEnumeratingWithState:&v126 objects:v171 count:16];
     }
 
-    while (v75);
+    while (v81);
   }
 
-  v127 = 0u;
-  v128 = 0u;
+  dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v124 = 0u;
   v125 = 0u;
-  v126 = 0u;
-  v113 = v48;
-  v79 = [v113 countByEnumeratingWithState:&v125 objects:v170 count:16];
-  if (v79)
+  v122 = 0u;
+  v123 = 0u;
+  v113 = v76;
+  v91 = [v113 countByEnumeratingWithState:&v122 objects:v170 count:16];
+  if (v91)
   {
-    v80 = *v126;
+    v92 = *v123;
     do
     {
-      for (nn = 0; nn != v79; ++nn)
+      for (i1 = 0; i1 != v91; ++i1)
       {
-        if (*v126 != v80)
+        if (*v123 != v92)
         {
           objc_enumerationMutation(v113);
         }
 
-        v82 = *(*(&v125 + 1) + 8 * nn);
-        leftCondition2 = [v82 leftCondition];
-        _inflectionFeatureValuePairs2 = [leftCondition2 _inflectionFeatureValuePairs];
-        [v74 unionSet:_inflectionFeatureValuePairs2];
+        v94 = *(*(&v122 + 1) + 8 * i1);
+        feature = [v94 feature];
+        v96 = [dictionary objectForKeyedSubscript:feature];
 
-        rightCondition2 = [v82 rightCondition];
-        n = [rightCondition2 _inflectionFeatureValuePairs];
-        [v74 unionSet:n];
-
-        comparison2 = [v82 comparison];
-        _inflectionFeatureValuePairs3 = [comparison2 _inflectionFeatureValuePairs];
-        [v74 unionSet:_inflectionFeatureValuePairs3];
-      }
-
-      v79 = [v113 countByEnumeratingWithState:&v125 objects:v170 count:16];
-    }
-
-    while (v79);
-  }
-
-  dictionary = [MEMORY[0x277CBEB38] dictionary];
-  v123 = 0u;
-  v124 = 0u;
-  v121 = 0u;
-  v122 = 0u;
-  v112 = v74;
-  v89 = [v112 countByEnumeratingWithState:&v121 objects:v169 count:16];
-  if (v89)
-  {
-    v90 = *v122;
-    do
-    {
-      for (i1 = 0; i1 != v89; ++i1)
-      {
-        if (*v122 != v90)
+        if (!v96)
         {
-          objc_enumerationMutation(v112);
+          v96 = [MEMORY[0x277CBEB98] set];
         }
 
-        v92 = *(*(&v121 + 1) + 8 * i1);
-        feature = [v92 feature];
-        v94 = [dictionary objectForKeyedSubscript:feature];
-
-        if (!v94)
-        {
-          v94 = [MEMORY[0x277CBEB98] set];
-        }
-
-        v95 = REFeatureValueForTaggedPointer([v92 value]);
-        v96 = v95;
-        if (!v95)
+        v97 = REFeatureValueForTaggedPointer([v94 value]);
+        v98 = v97;
+        if (!v97)
         {
           n = [MEMORY[0x277CBEB68] null];
-          v96 = n;
+          v98 = n;
         }
 
-        v97 = [v94 setByAddingObject:v96];
+        v99 = [v96 setByAddingObject:v98];
 
-        if (!v95)
+        if (!v97)
         {
         }
 
-        feature2 = [v92 feature];
-        [dictionary setObject:v97 forKeyedSubscript:feature2];
+        feature2 = [v94 feature];
+        [dictionary setObject:v99 forKeyedSubscript:feature2];
       }
 
-      v89 = [v112 countByEnumeratingWithState:&v121 objects:v169 count:16];
+      v91 = [v113 countByEnumeratingWithState:&v122 objects:v170 count:16];
     }
 
-    while (v89);
+    while (v91);
   }
 
-  v99 = +[REContentRelevanceProviderManager _features];
-  v100 = [REFeatureSet featureSetWithFeatures:v99];
-  v101 = [v108 intersectsFeatureSet:v100];
+  v101 = +[REContentRelevanceProviderManager _features];
+  v102 = [REFeatureSet featureSetWithFeatures:v101];
+  v103 = [v109 intersectsFeatureSet:v102];
 
-  if (v101)
+  if (v103)
   {
     RETokenizeStringPrewarm();
   }
 
-  v102 = +[RERelevanceProviderManager providerManagerClasses];
+  v104 = +[RERelevanceProviderManager providerManagerClasses];
   +[RESingleton _incrementSingletonCache];
-  v181 = 0;
-  v182 = &v181;
-  v183 = 0x3032000000;
-  v184 = __Block_byref_object_copy__7;
-  v185 = __Block_byref_object_dispose__7;
-  predictorManager = [v110 predictorManager];
-  if (!v182[5])
+  v182 = 0;
+  v183 = &v182;
+  v184 = 0x3032000000;
+  v185 = __Block_byref_object_copy__7;
+  v186 = __Block_byref_object_dispose__7;
+  predictorManager = [v111 predictorManager];
+  if (!v183[5])
   {
-    v103 = [REPredictor systemPredictorsSupportingFeatureSet:v108 relevanceEngine:0];
-    v104 = v182[5];
-    v182[5] = v103;
+    v105 = [REPredictor systemPredictorsSupportingFeatureSet:v109 relevanceEngine:0];
+    v106 = v183[5];
+    v183[5] = v105;
   }
 
-  v105 = dispatch_time(0, 500000000);
-  observerQueue = [v110 observerQueue];
+  v107 = dispatch_time(0, 500000000);
+  observerQueue = [v111 observerQueue];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __46__RERelevanceEngine_prewarmWithConfiguration___block_invoke;
   block[3] = &unk_2785F9BC0;
-  block[4] = &v181;
-  dispatch_after(v105, observerQueue, block);
+  block[4] = &v182;
+  dispatch_after(v107, observerQueue, block);
 
-  _Block_object_dispose(&v181, 8);
-  v107 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v182, 8);
 }
 
 uint64_t __46__RERelevanceEngine_prewarmWithConfiguration___block_invoke(uint64_t a1)
@@ -579,35 +578,35 @@ uint64_t __46__RERelevanceEngine_prewarmWithConfiguration___block_invoke(uint64_
   location[16] = *MEMORY[0x277D85DE8];
   nameCopy = name;
   configurationCopy = configuration;
-  v221 = nameCopy;
+  v222 = nameCopy;
   if (!nameCopy)
   {
-    RERaiseInternalException(*MEMORY[0x277CBE660], @"Relevance engine name must be non-nil", v8, v9, v10, v11, v12, v13, v203);
+    RERaiseInternalException(*MEMORY[0x277CBE660], @"Relevance engine name must be non-nil", v8, v9, v10, v11, v12, v13, v204);
   }
 
-  v228 = 0u;
   v229 = 0u;
-  v226 = 0u;
+  v230 = 0u;
   v227 = 0u;
+  v228 = 0u;
   v14 = +[(RESingleton *)RERelevanceEngineDebugger];
   availableEngines = [v14 availableEngines];
 
-  v16 = [availableEngines countByEnumeratingWithState:&v226 objects:v278 count:16];
+  v16 = [availableEngines countByEnumeratingWithState:&v227 objects:v279 count:16];
   if (v16)
   {
-    v17 = *v227;
+    v17 = *v228;
     v18 = *MEMORY[0x277CBE660];
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v227 != v17)
+        if (*v228 != v17)
         {
           objc_enumerationMutation(availableEngines);
         }
 
-        name = [*(*(&v226 + 1) + 8 * i) name];
-        v21 = v221;
+        name = [*(*(&v227 + 1) + 8 * i) name];
+        v21 = v222;
         v22 = name;
         k = v22;
         if (v22 == v21)
@@ -626,19 +625,19 @@ LABEL_12:
         }
       }
 
-      v16 = [availableEngines countByEnumeratingWithState:&v226 objects:v278 count:16];
+      v16 = [availableEngines countByEnumeratingWithState:&v227 objects:v279 count:16];
     }
 
     while (v16);
   }
 
-  v225.receiver = self;
-  v225.super_class = RERelevanceEngine;
-  val = [(RERelevanceEngine *)&v225 init];
+  v226.receiver = self;
+  v226.super_class = RERelevanceEngine;
+  val = [(RERelevanceEngine *)&v226 init];
 
   if (val)
   {
-    v30 = [(__CFString *)v221 copy];
+    v30 = [(__CFString *)v222 copy];
     name = val->_name;
     val->_name = v30;
 
@@ -678,16 +677,16 @@ LABEL_12:
     val->_activityTracker = v43;
 
     v45 = @"engine";
-    if (v221)
+    if (v222)
     {
-      v45 = v221;
+      v45 = v222;
     }
 
-    v209 = [MEMORY[0x277CCACA8] stringWithFormat:@"com.apple.relevanceengine.%@", v45];
+    v210 = [MEMORY[0x277CCACA8] stringWithFormat:@"com.apple.relevanceengine.%@", v45];
     attr = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
     engineQueue = [(RERelevanceEngineConfiguration *)val->_configuration engineQueue];
-    v46 = v209;
-    uTF8String = [v209 UTF8String];
+    v46 = v210;
+    uTF8String = [v210 UTF8String];
     if (engineQueue)
     {
       v48 = dispatch_queue_create_with_target_V2(uTF8String, attr, engineQueue);
@@ -720,43 +719,43 @@ LABEL_12:
     preferenceController = val->_preferenceController;
     val->_preferenceController = v55;
 
-    v210 = val->_configuration;
-    sectionDescriptors = [(RERelevanceEngineConfiguration *)v210 sectionDescriptors];
+    v211 = val->_configuration;
+    sectionDescriptors = [(RERelevanceEngineConfiguration *)v211 sectionDescriptors];
     v58 = [sectionDescriptors copy];
 
-    v220 = [MEMORY[0x277CBEB58] set];
-    v276 = 0u;
+    v221 = [MEMORY[0x277CBEB58] set];
     v277 = 0u;
-    v274 = 0u;
+    v278 = 0u;
     v275 = 0u;
+    v276 = 0u;
     v59 = v58;
-    v60 = [v59 countByEnumeratingWithState:&v274 objects:location count:16];
+    v60 = [v59 countByEnumeratingWithState:&v275 objects:location count:16];
     if (v60)
     {
-      k = *v275;
+      k = *v276;
       v61 = *MEMORY[0x277CBE660];
       do
       {
         for (j = 0; j != v60; ++j)
         {
-          if (*v275 != k)
+          if (*v276 != k)
           {
             objc_enumerationMutation(v59);
           }
 
-          name2 = [*(*(&v274 + 1) + 8 * j) name];
-          if ([v220 containsObject:name2])
+          name2 = [*(*(&v275 + 1) + 8 * j) name];
+          if ([v221 containsObject:name2])
           {
             [MEMORY[0x277CBEAD8] raise:v61 format:{@"Section with name %@ already exists. Please choose a unique name", name2}];
           }
 
           else
           {
-            [v220 addObject:name2];
+            [v221 addObject:name2];
           }
         }
 
-        v60 = [v59 countByEnumeratingWithState:&v274 objects:location count:16];
+        v60 = [v59 countByEnumeratingWithState:&v275 objects:location count:16];
       }
 
       while (v60);
@@ -764,29 +763,29 @@ LABEL_12:
 
     objc_storeStrong(&val->_configurationSectionDescriptors, v58);
     v64 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v59, "count")}];
-    v272 = 0u;
     v273 = 0u;
-    v270 = 0u;
+    v274 = 0u;
     v271 = 0u;
+    v272 = 0u;
     v65 = v59;
-    v66 = [v65 countByEnumeratingWithState:&v270 objects:v290 count:16];
+    v66 = [v65 countByEnumeratingWithState:&v271 objects:v291 count:16];
     if (v66)
     {
-      v67 = *v271;
+      v67 = *v272;
       do
       {
         for (k = 0; k != v66; ++k)
         {
-          if (*v271 != v67)
+          if (*v272 != v67)
           {
             objc_enumerationMutation(v65);
           }
 
-          v68 = [[_RESectionDescriptor alloc] initWithSectionDescriptor:*(*(&v270 + 1) + 8 * k)];
+          v68 = [[_RESectionDescriptor alloc] initWithSectionDescriptor:*(*(&v271 + 1) + 8 * k)];
           [v64 addObject:v68];
         }
 
-        v66 = [v65 countByEnumeratingWithState:&v270 objects:v290 count:16];
+        v66 = [v65 countByEnumeratingWithState:&v271 objects:v291 count:16];
       }
 
       while (v66);
@@ -797,25 +796,25 @@ LABEL_12:
     val->_sectionDescriptors = v69;
 
     v71 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v64, "count")}];
-    v268 = 0u;
     v269 = 0u;
-    v266 = 0u;
+    v270 = 0u;
     v267 = 0u;
+    v268 = 0u;
     obj = v65;
-    v72 = [obj countByEnumeratingWithState:&v266 objects:v289 count:16];
+    v72 = [obj countByEnumeratingWithState:&v267 objects:v290 count:16];
     if (v72)
     {
-      k = *v267;
+      k = *v268;
       do
       {
         for (m = 0; m != v72; ++m)
         {
-          if (*v267 != k)
+          if (*v268 != k)
           {
             objc_enumerationMutation(obj);
           }
 
-          historicSectionDescriptor = [*(*(&v266 + 1) + 8 * m) historicSectionDescriptor];
+          historicSectionDescriptor = [*(*(&v267 + 1) + 8 * m) historicSectionDescriptor];
           if (historicSectionDescriptor)
           {
             v75 = [[_RESectionDescriptor alloc] initWithHistoricSectionDescriptor:historicSectionDescriptor];
@@ -823,7 +822,7 @@ LABEL_12:
           }
         }
 
-        v72 = [obj countByEnumeratingWithState:&v266 objects:v289 count:16];
+        v72 = [obj countByEnumeratingWithState:&v267 objects:v290 count:16];
       }
 
       while (v72);
@@ -833,441 +832,441 @@ LABEL_12:
     historicSectionDescriptors = val->_historicSectionDescriptors;
     val->_historicSectionDescriptors = v76;
 
-    v213 = +[(REFeatureSet *)REMutableFeatureSet];
-    v264 = 0u;
+    v214 = +[(REFeatureSet *)REMutableFeatureSet];
     v265 = 0u;
-    v262 = 0u;
+    v266 = 0u;
     v263 = 0u;
-    primaryFeatures = [(RERelevanceEngineConfiguration *)v210 primaryFeatures];
-    v79 = [primaryFeatures countByEnumeratingWithState:&v262 objects:v288 count:16];
+    v264 = 0u;
+    primaryFeatures = [(RERelevanceEngineConfiguration *)v211 primaryFeatures];
+    v79 = [primaryFeatures countByEnumeratingWithState:&v263 objects:v289 count:16];
     if (v79)
     {
-      v80 = *v263;
+      v80 = *v264;
       k = "Skipping loading primary feature %@ from configuration since it isn't a categorcial feature";
       do
       {
         for (n = 0; n != v79; ++n)
         {
-          if (*v263 != v80)
+          if (*v264 != v80)
           {
             objc_enumerationMutation(primaryFeatures);
           }
 
-          v82 = *(*(&v262 + 1) + 8 * n);
+          v82 = *(*(&v263 + 1) + 8 * n);
           if ([v82 featureType] == 2)
           {
             v83 = RELogForDomain(0);
             if (os_log_type_enabled(v83, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v287 = v82;
+              v288 = v82;
               _os_log_impl(&dword_22859F000, v83, OS_LOG_TYPE_DEFAULT, "Skipping loading primary feature %@ from configuration since it isn't a categorcial feature", buf, 0xCu);
             }
           }
 
           else
           {
-            [v213 addFeature:v82];
+            [v214 addFeature:v82];
           }
         }
 
-        v79 = [primaryFeatures countByEnumeratingWithState:&v262 objects:v288 count:16];
+        v79 = [primaryFeatures countByEnumeratingWithState:&v263 objects:v289 count:16];
       }
 
       while (v79);
     }
 
-    v84 = [v213 copy];
+    v84 = [v214 copy];
     mlFeatures = val->_mlFeatures;
     val->_mlFeatures = v84;
 
-    primaryFeatures2 = [(RERelevanceEngineConfiguration *)v210 primaryFeatures];
-    v222 = [primaryFeatures2 mutableCopy];
+    primaryFeatures2 = [(RERelevanceEngineConfiguration *)v211 primaryFeatures];
+    v223 = [primaryFeatures2 mutableCopy];
 
     array2 = [MEMORY[0x277CBEB18] array];
     array3 = [MEMORY[0x277CBEB18] array];
-    v260 = 0u;
     v261 = 0u;
-    v258 = 0u;
+    v262 = 0u;
     v259 = 0u;
-    v218 = v64;
-    v89 = [v218 countByEnumeratingWithState:&v258 objects:buf count:16];
+    v260 = 0u;
+    v219 = v64;
+    v89 = [v219 countByEnumeratingWithState:&v259 objects:buf count:16];
     if (v89)
     {
-      v90 = *v259;
+      v90 = *v260;
       do
       {
         for (k = 0; k != v89; ++k)
         {
-          if (*v259 != v90)
+          if (*v260 != v90)
           {
-            objc_enumerationMutation(v218);
+            objc_enumerationMutation(v219);
           }
 
-          rules = [*(*(&v258 + 1) + 8 * k) rules];
+          rules = [*(*(&v259 + 1) + 8 * k) rules];
           REExtractRules(rules, array2, array3);
         }
 
-        v89 = [v218 countByEnumeratingWithState:&v258 objects:buf count:16];
+        v89 = [v219 countByEnumeratingWithState:&v259 objects:buf count:16];
       }
 
       while (v89);
     }
 
-    v256 = 0u;
     v257 = 0u;
-    v254 = 0u;
+    v258 = 0u;
     v255 = 0u;
-    v217 = v71;
-    v92 = [v217 countByEnumeratingWithState:&v254 objects:v285 count:16];
+    v256 = 0u;
+    v218 = v71;
+    v92 = [v218 countByEnumeratingWithState:&v255 objects:v286 count:16];
     if (v92)
     {
-      v93 = *v255;
+      v93 = *v256;
       do
       {
         for (ii = 0; ii != v92; ++ii)
         {
-          if (*v255 != v93)
+          if (*v256 != v93)
           {
-            objc_enumerationMutation(v217);
+            objc_enumerationMutation(v218);
           }
 
-          rules2 = [*(*(&v254 + 1) + 8 * ii) rules];
+          rules2 = [*(*(&v255 + 1) + 8 * ii) rules];
           REExtractRules(rules2, array2, array3);
         }
 
-        v92 = [v217 countByEnumeratingWithState:&v254 objects:v285 count:16];
+        v92 = [v218 countByEnumeratingWithState:&v255 objects:v286 count:16];
       }
 
       while (v92);
     }
 
-    v252 = 0u;
     v253 = 0u;
-    v250 = 0u;
+    v254 = 0u;
     v251 = 0u;
+    v252 = 0u;
     v96 = array2;
-    v97 = [v96 countByEnumeratingWithState:&v250 objects:v284 count:16];
+    v97 = [v96 countByEnumeratingWithState:&v251 objects:v285 count:16];
     if (v97)
     {
-      k = *v251;
+      k = *v252;
       do
       {
         for (jj = 0; jj != v97; ++jj)
         {
-          if (*v251 != k)
+          if (*v252 != k)
           {
             objc_enumerationMutation(v96);
           }
 
-          v99 = *(*(&v250 + 1) + 8 * jj);
+          v99 = *(*(&v251 + 1) + 8 * jj);
           condition = [v99 condition];
           _dependentFeatures = [condition _dependentFeatures];
-          [v222 unionFeatureSet:_dependentFeatures];
+          [v223 unionFeatureSet:_dependentFeatures];
 
           conditionEvaluator = [v99 conditionEvaluator];
         }
 
-        v97 = [v96 countByEnumeratingWithState:&v250 objects:v284 count:16];
+        v97 = [v96 countByEnumeratingWithState:&v251 objects:v285 count:16];
       }
 
       while (v97);
     }
 
-    v248 = 0u;
     v249 = 0u;
-    v246 = 0u;
+    v250 = 0u;
     v247 = 0u;
+    v248 = 0u;
     v103 = array3;
-    v104 = [v103 countByEnumeratingWithState:&v246 objects:v283 count:16];
+    v104 = [v103 countByEnumeratingWithState:&v247 objects:v284 count:16];
     if (v104)
     {
-      k = *v247;
+      k = *v248;
       do
       {
         for (kk = 0; kk != v104; ++kk)
         {
-          if (*v247 != k)
+          if (*v248 != k)
           {
             objc_enumerationMutation(v103);
           }
 
-          v106 = *(*(&v246 + 1) + 8 * kk);
+          v106 = *(*(&v247 + 1) + 8 * kk);
           leftCondition = [v106 leftCondition];
           _dependentFeatures2 = [leftCondition _dependentFeatures];
-          [v222 unionFeatureSet:_dependentFeatures2];
+          [v223 unionFeatureSet:_dependentFeatures2];
 
           rightCondition = [v106 rightCondition];
           _dependentFeatures3 = [rightCondition _dependentFeatures];
-          [v222 unionFeatureSet:_dependentFeatures3];
+          [v223 unionFeatureSet:_dependentFeatures3];
 
           comparison = [v106 comparison];
           _dependentFeatures4 = [comparison _dependentFeatures];
-          [v222 unionFeatureSet:_dependentFeatures4];
+          [v223 unionFeatureSet:_dependentFeatures4];
 
           leftConditionEvaluator = [v106 leftConditionEvaluator];
           rightConditionEvaluator = [v106 rightConditionEvaluator];
           comparisonConditionEvaluator = [v106 comparisonConditionEvaluator];
         }
 
-        v104 = [v103 countByEnumeratingWithState:&v246 objects:v283 count:16];
+        v104 = [v103 countByEnumeratingWithState:&v247 objects:v284 count:16];
       }
 
       while (v104);
     }
 
-    v116 = REIntrinsicFeatureSet();
-    [v222 unionFeatureSet:v116];
+    v117 = REIntrinsicFeatureSet(v116);
+    [v223 unionFeatureSet:v117];
 
-    v244 = 0u;
     v245 = 0u;
-    v242 = 0u;
+    v246 = 0u;
     v243 = 0u;
-    interactionDescriptors = [(RERelevanceEngineConfiguration *)v210 interactionDescriptors];
-    v118 = [interactionDescriptors countByEnumeratingWithState:&v242 objects:v282 count:16];
-    if (v118)
+    v244 = 0u;
+    interactionDescriptors = [(RERelevanceEngineConfiguration *)v211 interactionDescriptors];
+    v119 = [interactionDescriptors countByEnumeratingWithState:&v243 objects:v283 count:16];
+    if (v119)
     {
-      k = *v243;
+      k = *v244;
       do
       {
-        for (mm = 0; mm != v118; ++mm)
+        for (mm = 0; mm != v119; ++mm)
         {
-          if (*v243 != k)
+          if (*v244 != k)
           {
             objc_enumerationMutation(interactionDescriptors);
           }
 
-          v120 = *(*(&v242 + 1) + 8 * mm);
-          selectionFeature = [v120 selectionFeature];
+          v121 = *(*(&v243 + 1) + 8 * mm);
+          selectionFeature = [v121 selectionFeature];
 
           if (selectionFeature)
           {
-            selectionFeature2 = [v120 selectionFeature];
-            [v222 addFeature:selectionFeature2];
+            selectionFeature2 = [v121 selectionFeature];
+            [v223 addFeature:selectionFeature2];
           }
 
-          identificationFeature = [v120 identificationFeature];
+          identificationFeature = [v121 identificationFeature];
 
           if (identificationFeature)
           {
-            identificationFeature2 = [v120 identificationFeature];
-            [v222 addFeature:identificationFeature2];
+            identificationFeature2 = [v121 identificationFeature];
+            [v223 addFeature:identificationFeature2];
           }
 
-          biasFeature = [v120 biasFeature];
+          biasFeature = [v121 biasFeature];
 
           if (biasFeature)
           {
-            biasFeature2 = [v120 biasFeature];
-            [v222 addFeature:biasFeature2];
+            biasFeature2 = [v121 biasFeature];
+            [v223 addFeature:biasFeature2];
           }
         }
 
-        v118 = [interactionDescriptors countByEnumeratingWithState:&v242 objects:v282 count:16];
+        v119 = [interactionDescriptors countByEnumeratingWithState:&v243 objects:v283 count:16];
       }
 
-      while (v118);
+      while (v119);
     }
 
-    v127 = RERootFeatureSetForFeatures(v222);
-    v208 = [v127 mutableCopy];
+    v128 = RERootFeatureSetForFeatures(v223);
+    v209 = [v128 mutableCopy];
 
-    v128 = REIntrinsicFeatureSet();
-    [v208 unionFeatureSet:v128];
+    v130 = REIntrinsicFeatureSet(v129);
+    [v209 unionFeatureSet:v130];
 
-    v129 = [v208 copy];
+    v131 = [v209 copy];
     rootFeatures = val->_rootFeatures;
-    val->_rootFeatures = v129;
+    val->_rootFeatures = v131;
 
-    v204 = [v222 copy];
-    v131 = [MEMORY[0x277CBEB58] set];
-    v240 = 0u;
+    v205 = [v223 copy];
+    v133 = [MEMORY[0x277CBEB58] set];
     v241 = 0u;
-    v238 = 0u;
+    v242 = 0u;
     v239 = 0u;
-    v216 = v96;
-    v132 = [v216 countByEnumeratingWithState:&v238 objects:v281 count:16];
-    if (v132)
+    v240 = 0u;
+    v217 = v96;
+    v134 = [v217 countByEnumeratingWithState:&v239 objects:v282 count:16];
+    if (v134)
     {
-      v133 = *v239;
+      v135 = *v240;
       do
       {
-        for (k = 0; k != v132; ++k)
+        for (k = 0; k != v134; ++k)
         {
-          if (*v239 != v133)
+          if (*v240 != v135)
+          {
+            objc_enumerationMutation(v217);
+          }
+
+          condition2 = [*(*(&v239 + 1) + 8 * k) condition];
+          _inflectionFeatureValuePairs = [condition2 _inflectionFeatureValuePairs];
+          [v133 unionSet:_inflectionFeatureValuePairs];
+        }
+
+        v134 = [v217 countByEnumeratingWithState:&v239 objects:v282 count:16];
+      }
+
+      while (v134);
+    }
+
+    v237 = 0u;
+    v238 = 0u;
+    v235 = 0u;
+    v236 = 0u;
+    v216 = v103;
+    v138 = [v216 countByEnumeratingWithState:&v235 objects:v281 count:16];
+    if (v138)
+    {
+      k = *v236;
+      do
+      {
+        for (nn = 0; nn != v138; ++nn)
+        {
+          if (*v236 != k)
           {
             objc_enumerationMutation(v216);
           }
 
-          condition2 = [*(*(&v238 + 1) + 8 * k) condition];
-          _inflectionFeatureValuePairs = [condition2 _inflectionFeatureValuePairs];
-          [v131 unionSet:_inflectionFeatureValuePairs];
+          v140 = *(*(&v235 + 1) + 8 * nn);
+          leftCondition2 = [v140 leftCondition];
+          _inflectionFeatureValuePairs2 = [leftCondition2 _inflectionFeatureValuePairs];
+          [v133 unionSet:_inflectionFeatureValuePairs2];
+
+          rightCondition2 = [v140 rightCondition];
+          _inflectionFeatureValuePairs3 = [rightCondition2 _inflectionFeatureValuePairs];
+          [v133 unionSet:_inflectionFeatureValuePairs3];
+
+          comparison2 = [v140 comparison];
+          _inflectionFeatureValuePairs4 = [comparison2 _inflectionFeatureValuePairs];
+          [v133 unionSet:_inflectionFeatureValuePairs4];
         }
 
-        v132 = [v216 countByEnumeratingWithState:&v238 objects:v281 count:16];
+        v138 = [v216 countByEnumeratingWithState:&v235 objects:v281 count:16];
       }
 
-      while (v132);
+      while (v138);
     }
 
-    v236 = 0u;
-    v237 = 0u;
+    dictionary2 = [MEMORY[0x277CBEB38] dictionary];
+    v233 = 0u;
     v234 = 0u;
-    v235 = 0u;
-    v215 = v103;
-    v136 = [v215 countByEnumeratingWithState:&v234 objects:v280 count:16];
-    if (v136)
+    v232 = 0u;
+    v231 = 0u;
+    v215 = v133;
+    v148 = [v215 countByEnumeratingWithState:&v231 objects:v280 count:16];
+    if (v148)
     {
-      k = *v235;
+      v149 = *v232;
       do
       {
-        for (nn = 0; nn != v136; ++nn)
+        for (i1 = 0; i1 != v148; ++i1)
         {
-          if (*v235 != k)
+          if (*v232 != v149)
           {
             objc_enumerationMutation(v215);
           }
 
-          v138 = *(*(&v234 + 1) + 8 * nn);
-          leftCondition2 = [v138 leftCondition];
-          _inflectionFeatureValuePairs2 = [leftCondition2 _inflectionFeatureValuePairs];
-          [v131 unionSet:_inflectionFeatureValuePairs2];
+          v151 = *(*(&v231 + 1) + 8 * i1);
+          feature = [v151 feature];
+          v153 = [dictionary2 objectForKeyedSubscript:feature];
 
-          rightCondition2 = [v138 rightCondition];
-          _inflectionFeatureValuePairs3 = [rightCondition2 _inflectionFeatureValuePairs];
-          [v131 unionSet:_inflectionFeatureValuePairs3];
-
-          comparison2 = [v138 comparison];
-          _inflectionFeatureValuePairs4 = [comparison2 _inflectionFeatureValuePairs];
-          [v131 unionSet:_inflectionFeatureValuePairs4];
-        }
-
-        v136 = [v215 countByEnumeratingWithState:&v234 objects:v280 count:16];
-      }
-
-      while (v136);
-    }
-
-    dictionary2 = [MEMORY[0x277CBEB38] dictionary];
-    v232 = 0u;
-    v233 = 0u;
-    v231 = 0u;
-    v230 = 0u;
-    v214 = v131;
-    v146 = [v214 countByEnumeratingWithState:&v230 objects:v279 count:16];
-    if (v146)
-    {
-      v147 = *v231;
-      do
-      {
-        for (i1 = 0; i1 != v146; ++i1)
-        {
-          if (*v231 != v147)
+          if (!v153)
           {
-            objc_enumerationMutation(v214);
+            v153 = [MEMORY[0x277CBEB98] set];
           }
 
-          v149 = *(*(&v230 + 1) + 8 * i1);
-          feature = [v149 feature];
-          v151 = [dictionary2 objectForKeyedSubscript:feature];
-
-          if (!v151)
-          {
-            v151 = [MEMORY[0x277CBEB98] set];
-          }
-
-          v152 = REFeatureValueForTaggedPointer([v149 value]);
-          v153 = v152;
-          if (!v152)
+          v154 = REFeatureValueForTaggedPointer([v151 value]);
+          v155 = v154;
+          if (!v154)
           {
             k = [MEMORY[0x277CBEB68] null];
-            v153 = k;
+            v155 = k;
           }
 
-          v154 = [v151 setByAddingObject:v153];
+          v156 = [v153 setByAddingObject:v155];
 
-          if (!v152)
+          if (!v154)
           {
           }
 
-          feature2 = [v149 feature];
-          [dictionary2 setObject:v154 forKeyedSubscript:feature2];
+          feature2 = [v151 feature];
+          [dictionary2 setObject:v156 forKeyedSubscript:feature2];
         }
 
-        v146 = [v214 countByEnumeratingWithState:&v230 objects:v279 count:16];
+        v148 = [v215 countByEnumeratingWithState:&v231 objects:v280 count:16];
       }
 
-      while (v146);
+      while (v148);
     }
 
-    v156 = [dictionary2 copy];
+    v158 = [dictionary2 copy];
     inflectionFeatureValues = val->_inflectionFeatureValues;
-    val->_inflectionFeatureValues = v156;
+    val->_inflectionFeatureValues = v158;
 
-    v158 = [v204 mutableCopy];
-    v159 = [[REMLModelManager alloc] initWithRelevanceEngine:val];
+    v160 = [v205 mutableCopy];
+    v161 = [[REMLModelManager alloc] initWithRelevanceEngine:val];
     modelManager = val->_modelManager;
-    val->_modelManager = v159;
+    val->_modelManager = v161;
 
     _orderedModelFeatures = [(REMLModelManager *)val->_modelManager _orderedModelFeatures];
-    v162 = [_orderedModelFeatures mutableCopy];
+    v164 = [_orderedModelFeatures mutableCopy];
 
-    v163 = [REFeatureSet featureSetWithFeatures:v162];
-    [v158 minusFeatureSet:v163];
+    v165 = [REFeatureSet featureSetWithFeatures:v164];
+    [v160 minusFeatureSet:v165];
 
-    allFeatures = [v158 allFeatures];
-    [v162 addObjectsFromArray:allFeatures];
+    allFeatures = [v160 allFeatures];
+    [v164 addObjectsFromArray:allFeatures];
 
-    v165 = [REFeatureSet featureSetWithFeatures:v162];
-    [v158 unionFeatureSet:v165];
+    v167 = [REFeatureSet featureSetWithFeatures:v164];
+    [v160 unionFeatureSet:v167];
 
-    v166 = [REFeatureMapGenerator alloc];
+    v168 = [REFeatureMapGenerator alloc];
     allFeatures2 = [(REFeatureSet *)val->_rootFeatures allFeatures];
-    v168 = [(REFeatureMapGenerator *)v166 initWithFeatureList:allFeatures2];
+    v170 = [(REFeatureMapGenerator *)v168 initWithFeatureList:allFeatures2];
     inputFeatureMapGenerator = val->_inputFeatureMapGenerator;
-    val->_inputFeatureMapGenerator = v168;
+    val->_inputFeatureMapGenerator = v170;
 
-    v170 = [[REFeatureMapGenerator alloc] initWithFeatureList:v162];
+    v172 = [[REFeatureMapGenerator alloc] initWithFeatureList:v164];
     outputFeatureMapGenerator = val->_outputFeatureMapGenerator;
-    val->_outputFeatureMapGenerator = v170;
+    val->_outputFeatureMapGenerator = v172;
 
-    v172 = [[REFeatureTransmuter alloc] initWithInputFeatures:val->_rootFeatures outputFeatures:v158 outputFeatureMapGenerator:val->_outputFeatureMapGenerator];
+    v174 = [[REFeatureTransmuter alloc] initWithInputFeatures:val->_rootFeatures outputFeatures:v160 outputFeatureMapGenerator:val->_outputFeatureMapGenerator];
     featureTransmuter = val->_featureTransmuter;
-    val->_featureTransmuter = v172;
+    val->_featureTransmuter = v174;
 
     [(RERelevanceEngineLogger *)val->_logger addLoggable:val->_featureTransmuter];
-    v174 = [[RELiveElementCoordinator alloc] initWithRelevanceEngine:val];
+    v176 = [[RELiveElementCoordinator alloc] initWithRelevanceEngine:val];
     coordinator = val->_coordinator;
-    val->_coordinator = v174;
+    val->_coordinator = v176;
 
-    v176 = [REDataSourceManager alloc];
+    v178 = [REDataSourceManager alloc];
     dataSourceLoader = [configurationCopy dataSourceLoader];
-    v178 = [(REDataSourceManager *)v176 initWithRelevanceEngine:val dataSourceLoader:dataSourceLoader withDelegate:val->_coordinator];
+    v180 = [(REDataSourceManager *)v178 initWithRelevanceEngine:val dataSourceLoader:dataSourceLoader withDelegate:val->_coordinator];
     dataSourceManager = val->_dataSourceManager;
-    val->_dataSourceManager = v178;
+    val->_dataSourceManager = v180;
 
-    v180 = [[RETrainingManager alloc] initWithRelevanceEngine:val];
+    v182 = [[RETrainingManager alloc] initWithRelevanceEngine:val];
     trainingManager = val->_trainingManager;
-    val->_trainingManager = v180;
+    val->_trainingManager = v182;
 
-    v182 = [REEngineLocationManager alloc];
+    v184 = [REEngineLocationManager alloc];
     locationManager = [configurationCopy locationManager];
-    v184 = [(REEngineLocationManager *)v182 initWithRelevanceEngine:val locationManager:locationManager];
+    v186 = [(REEngineLocationManager *)v184 initWithRelevanceEngine:val locationManager:locationManager];
     locationManager = val->_locationManager;
-    val->_locationManager = v184;
+    val->_locationManager = v186;
 
-    v186 = [REEngineVisitManager alloc];
+    v188 = [REEngineVisitManager alloc];
     locationManager2 = [configurationCopy locationManager];
-    v188 = [(REEngineVisitManager *)v186 initWithRelevanceEngine:val locationManager:locationManager2];
+    v190 = [(REEngineVisitManager *)v188 initWithRelevanceEngine:val locationManager:locationManager2];
     visitManager = val->_visitManager;
-    val->_visitManager = v188;
+    val->_visitManager = v190;
 
-    v190 = [[REDataSourceCatalog alloc] initWithDataSourceManager:val->_dataSourceManager];
+    v192 = [[REDataSourceCatalog alloc] initWithDataSourceManager:val->_dataSourceManager];
     dataSourceCatalog = val->_dataSourceCatalog;
-    val->_dataSourceCatalog = v190;
+    val->_dataSourceCatalog = v192;
 
-    v192 = +[(RESingleton *)RERelevanceEngineDebugger];
-    [v192 _registerEngine:val];
+    v194 = +[(RESingleton *)RERelevanceEngineDebugger];
+    [v194 _registerEngine:val];
 
     if (_fetchedInternalBuildOnceToken_0 != -1)
     {
@@ -1285,44 +1284,43 @@ LABEL_12:
 
     if (allowsDiagnosticExtension)
     {
-      v195 = +[(RESingleton *)RERelevanceEngineDiagnosticRegistration];
-      [v195 checkinEngine:val];
+      v197 = +[(RESingleton *)RERelevanceEngineDiagnosticRegistration];
+      [v197 checkinEngine:val];
     }
 
     objc_initWeak(location, val);
     callbackQueue = val->_callbackQueue;
     if ([configurationCopy wantsImmutableContent])
     {
-      v197 = 0.0;
+      v199 = 0.0;
     }
 
     else
     {
-      v197 = 0.05;
+      v199 = 0.05;
     }
 
-    v223[0] = MEMORY[0x277D85DD0];
-    v223[1] = 3221225472;
-    v223[2] = __48__RERelevanceEngine_initWithName_configuration___block_invoke_2;
-    v223[3] = &unk_2785F9A90;
-    objc_copyWeak(&v224, location);
-    v198 = [REUpNextScheduler schedulerWithQueue:callbackQueue delay:v223 updateBlock:v197];
+    v224[0] = MEMORY[0x277D85DD0];
+    v224[1] = 3221225472;
+    v224[2] = __48__RERelevanceEngine_initWithName_configuration___block_invoke_2;
+    v224[3] = &unk_2785F9A90;
+    objc_copyWeak(&v225, location);
+    v200 = [REUpNextScheduler schedulerWithQueue:callbackQueue delay:v224 updateBlock:v199];
     loadingScheduler = val->_loadingScheduler;
-    val->_loadingScheduler = v198;
+    val->_loadingScheduler = v200;
 
-    objc_destroyWeak(&v224);
+    objc_destroyWeak(&v225);
     objc_destroyWeak(location);
   }
 
-  v200 = val;
+  v202 = val;
 
-  v201 = *MEMORY[0x277D85DE8];
-  return v200;
+  return v202;
 }
 
-uint64_t __48__RERelevanceEngine_initWithName_configuration___block_invoke()
+uint64_t __48__RERelevanceEngine_initWithName_configuration___block_invoke(uint64_t a1, uint64_t a2)
 {
-  result = _REGetIsInternalBuild();
+  result = _REGetIsInternalBuild(a1, a2);
   _isInternalDevice_0 = result;
   return result;
 }
@@ -1466,37 +1464,37 @@ void __44__RERelevanceEngine_enumerateRankedContent___block_invoke_2(uint64_t a1
 
 void __40__RERelevanceEngine_addElement_section___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) identifier];
   if (v2)
   {
-    v12 = 0u;
-    v13 = 0u;
-    v10 = 0u;
     v11 = 0u;
+    v12 = 0u;
+    v9 = 0u;
+    v10 = 0u;
     v3 = *(*(a1 + 40) + 176);
-    v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v11;
+      v6 = *v10;
       while (2)
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v11 != v6)
+          if (*v10 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          if ([*(*(&v10 + 1) + 8 * i) isEqualToString:{v2, v10}])
+          if ([*(*(&v9 + 1) + 8 * i) isEqualToString:{v2, v9}])
           {
 
             goto LABEL_15;
           }
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
         if (v5)
         {
           continue;
@@ -1517,13 +1515,11 @@ void __40__RERelevanceEngine_addElement_section___block_invoke(uint64_t a1)
       v8 = @"defaultSectionIdentifier";
     }
 
-    [*(*(a1 + 40) + 56) addElement:*(a1 + 32) toSection:{v8, v10}];
+    [*(*(a1 + 40) + 56) addElement:*(a1 + 32) toSection:{v8, v9}];
   }
 
 LABEL_15:
   [*(*(a1 + 40) + 56) endActivity:@"RERelevanceEngineSubsystemLoadingActivity" forObject:?];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeElement:(id)element
@@ -1543,30 +1539,30 @@ LABEL_15:
 
 void __35__RERelevanceEngine_removeElement___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) identifier];
   if (v2)
   {
-    v12 = 0u;
-    v13 = 0u;
-    v10 = 0u;
     v11 = 0u;
+    v12 = 0u;
+    v9 = 0u;
+    v10 = 0u;
     v3 = *(*(a1 + 40) + 176);
-    v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v11;
+      v6 = *v10;
       while (2)
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v11 != v6)
+          if (*v10 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          if ([*(*(&v10 + 1) + 8 * i) isEqualToString:{v2, v10}])
+          if ([*(*(&v9 + 1) + 8 * i) isEqualToString:{v2, v9}])
           {
             v8 = *(a1 + 32);
 
@@ -1576,7 +1572,7 @@ void __35__RERelevanceEngine_removeElement___block_invoke(uint64_t a1)
           }
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
         if (v5)
         {
           continue;
@@ -1588,15 +1584,13 @@ void __35__RERelevanceEngine_removeElement___block_invoke(uint64_t a1)
 
     v8 = 0;
 LABEL_12:
-    [*(*(a1 + 40) + 56) endActivity:@"RERelevanceEngineSubsystemLoadingActivity" forObject:v10];
+    [*(*(a1 + 40) + 56) endActivity:@"RERelevanceEngineSubsystemLoadingActivity" forObject:v9];
   }
 
   else
   {
     [*(*(a1 + 40) + 56) endActivity:@"RERelevanceEngineSubsystemLoadingActivity" forObject:?];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isRunning
@@ -1622,7 +1616,7 @@ LABEL_12:
 
 - (void)_queue_resumeWithTimeout:(double)timeout completion:(id)completion
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v7 = completionCopy;
   if (self->_running)
@@ -1673,36 +1667,36 @@ LABEL_12:
     {
       v16 = [(NSMutableArray *)v14 componentsJoinedByString:@", "];
       *buf = 138543362;
-      v30 = v16;
+      v29 = v16;
       _os_log_impl(&dword_22859F000, v15, OS_LOG_TYPE_DEFAULT, "Resuming engine and subsystems: %{public}@", buf, 0xCu);
     }
 
     self->_running = 1;
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
     v17 = v14;
-    v18 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v23 objects:v28 count:16];
+    v18 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v22 objects:v27 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v24;
+      v20 = *v23;
       do
       {
         v21 = 0;
         do
         {
-          if (*v24 != v20)
+          if (*v23 != v20)
           {
             objc_enumerationMutation(v17);
           }
 
-          [(RERelevanceEngine *)self _queue_resumeSubsystem:*(*(&v23 + 1) + 8 * v21++), v23];
+          [(RERelevanceEngine *)self _queue_resumeSubsystem:*(*(&v22 + 1) + 8 * v21++), v22];
         }
 
         while (v19 != v21);
-        v19 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v23 objects:v28 count:16];
+        v19 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v22 objects:v27 count:16];
       }
 
       while (v19);
@@ -1710,8 +1704,6 @@ LABEL_12:
 
     [(RERelevanceEngineSubsystem *)self->_coordinator endActivity:@"RERelevanceEngineSubsystemLoadingActivity" forObject:self];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resumeWithTimeout:(double)timeout completion:(id)completion
@@ -1833,7 +1825,7 @@ void __62__RERelevanceEngine_updateSectionsWithIdentifiers_completion___block_in
 
 void __26__RERelevanceEngine_pause__block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   if (*(v1 + 216) == 1)
   {
@@ -1843,43 +1835,41 @@ void __26__RERelevanceEngine_pause__block_invoke(uint64_t a1)
     {
       v5 = [v3 componentsJoinedByString:{@", "}];
       *buf = 138543362;
-      v18 = v5;
+      v17 = v5;
       _os_log_impl(&dword_22859F000, v4, OS_LOG_TYPE_DEFAULT, "Pausing engine and subsystems: %{public}@", buf, 0xCu);
     }
 
     *(*(a1 + 32) + 216) = 0;
+    v11 = 0u;
     v12 = 0u;
     v13 = 0u;
     v14 = 0u;
-    v15 = 0u;
     v6 = v3;
-    v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v13;
+      v9 = *v12;
       do
       {
         v10 = 0;
         do
         {
-          if (*v13 != v9)
+          if (*v12 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          [*(a1 + 32) _queue_pauseSubsystem:{*(*(&v12 + 1) + 8 * v10++), v12}];
+          [*(a1 + 32) _queue_pauseSubsystem:{*(*(&v11 + 1) + 8 * v10++), v11}];
         }
 
         while (v8 != v10);
-        v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v8);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_resumeSubsystem:(id)subsystem
@@ -1906,13 +1896,13 @@ void __26__RERelevanceEngine_pause__block_invoke(uint64_t a1)
 
 - (void)activityTracker:(id)tracker didBeginActivity:(id)activity
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   activityCopy = activity;
   v6 = RELogForDomain(0);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v11 = activityCopy;
+    v10 = activityCopy;
     _os_log_impl(&dword_22859F000, v6, OS_LOG_TYPE_DEFAULT, "Engine started tracking %{public}@.", buf, 0xCu);
   }
 
@@ -1923,19 +1913,17 @@ void __26__RERelevanceEngine_pause__block_invoke(uint64_t a1)
   block[3] = &unk_2785F9AB8;
   block[4] = self;
   dispatch_async(callbackQueue, block);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)activityTracker:(id)tracker didEndActivity:(id)activity
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   activityCopy = activity;
   v6 = RELogForDomain(0);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v11 = activityCopy;
+    v10 = activityCopy;
     _os_log_impl(&dword_22859F000, v6, OS_LOG_TYPE_DEFAULT, "Engine finished tracking %{public}@.", buf, 0xCu);
   }
 
@@ -1946,8 +1934,6 @@ void __26__RERelevanceEngine_pause__block_invoke(uint64_t a1)
   block[3] = &unk_2785F9AB8;
   block[4] = self;
   dispatch_async(callbackQueue, block);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_callbackQueue_notifyLoadingState
@@ -2083,27 +2069,27 @@ void __26__RERelevanceEngine_pause__block_invoke(uint64_t a1)
 
 - (BOOL)isSectionWithNameHistoric:(id)historic
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   historicCopy = historic;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = self->_historicSectionDescriptors;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
-    v7 = *v14;
+    v7 = *v13;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        name = [*(*(&v13 + 1) + 8 * i) name];
+        name = [*(*(&v12 + 1) + 8 * i) name];
         v10 = [name isEqualToString:historicCopy];
 
         if (v10)
@@ -2113,7 +2099,7 @@ void __26__RERelevanceEngine_pause__block_invoke(uint64_t a1)
         }
       }
 
-      v6 = [(NSArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [(NSArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v6)
       {
         continue;
@@ -2125,33 +2111,32 @@ void __26__RERelevanceEngine_pause__block_invoke(uint64_t a1)
 
 LABEL_11:
 
-  v11 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (id)historicSectionForSection:(id)section
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   sectionCopy = section;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = self->_configurationSectionDescriptors;
-  name2 = [(NSArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  name2 = [(NSArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (name2)
   {
-    v7 = *v16;
+    v7 = *v15;
     while (2)
     {
       for (i = 0; i != name2; i = i + 1)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
+        v9 = *(*(&v14 + 1) + 8 * i);
         name = [v9 name];
         v11 = [name isEqualToString:sectionCopy];
 
@@ -2164,7 +2149,7 @@ LABEL_11:
         }
       }
 
-      name2 = [(NSArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      name2 = [(NSArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (name2)
       {
         continue;
@@ -2176,34 +2161,32 @@ LABEL_11:
 
 LABEL_11:
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return name2;
 }
 
 - (id)sectionForHistoricSection:(id)section
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   sectionCopy = section;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = self->_configurationSectionDescriptors;
-  name2 = [(NSArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  name2 = [(NSArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (name2)
   {
-    v7 = *v16;
+    v7 = *v15;
     while (2)
     {
       for (i = 0; i != name2; i = i + 1)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
+        v9 = *(*(&v14 + 1) + 8 * i);
         historicSectionDescriptor = [v9 historicSectionDescriptor];
         name = [historicSectionDescriptor name];
         v12 = [name isEqualToString:sectionCopy];
@@ -2215,7 +2198,7 @@ LABEL_11:
         }
       }
 
-      name2 = [(NSArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      name2 = [(NSArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (name2)
       {
         continue;
@@ -2226,8 +2209,6 @@ LABEL_11:
   }
 
 LABEL_11:
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return name2;
 }
@@ -2453,29 +2434,29 @@ void __53__RERelevanceEngine_RESimulation__pauseForSimulation__block_invoke_2(ui
 
 void __53__RERelevanceEngine_RESimulation__pauseForSimulation__block_invoke_3(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEB18] array];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v3 = [*(a1 + 32) allElements];
-  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       v7 = 0;
       do
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [*(*(&v11 + 1) + 8 * v7) identifier];
+        v8 = [*(*(&v10 + 1) + 8 * v7) identifier];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -2490,14 +2471,13 @@ void __53__RERelevanceEngine_RESimulation__pauseForSimulation__block_invoke_3(ui
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
   }
 
   [*(a1 + 32) removeElementsWithIds:v2];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resumeFromSimulation

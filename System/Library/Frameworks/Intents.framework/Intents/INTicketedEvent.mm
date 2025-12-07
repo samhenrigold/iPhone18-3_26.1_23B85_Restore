@@ -14,11 +14,11 @@
 
 - (id)_dictionaryRepresentation
 {
-  v14[4] = *MEMORY[0x1E69E9840];
-  v13[0] = @"category";
+  v13[4] = *MEMORY[0x1E69E9840];
+  v12[0] = @"category";
   v3 = [MEMORY[0x1E696AD98] numberWithInteger:self->_category];
-  v14[0] = v3;
-  v13[1] = @"name";
+  v13[0] = v3;
+  v12[1] = @"name";
   name = self->_name;
   null = name;
   if (!name)
@@ -26,8 +26,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v14[1] = null;
-  v13[2] = @"eventDuration";
+  v13[1] = null;
+  v12[2] = @"eventDuration";
   eventDuration = self->_eventDuration;
   null2 = eventDuration;
   if (!eventDuration)
@@ -35,8 +35,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v14[2] = null2;
-  v13[3] = @"location";
+  v13[2] = null2;
+  v12[3] = @"location";
   location = self->_location;
   null3 = location;
   if (!location)
@@ -44,8 +44,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v14[3] = null3;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:4];
+  v13[3] = null3;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:4];
   if (location)
   {
     if (eventDuration)
@@ -77,7 +77,6 @@ LABEL_9:
 LABEL_15:
 
 LABEL_10:
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

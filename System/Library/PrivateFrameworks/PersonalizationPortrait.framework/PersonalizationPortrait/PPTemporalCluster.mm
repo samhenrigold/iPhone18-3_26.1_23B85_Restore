@@ -212,7 +212,7 @@ LABEL_14:
 
 - (id)longDescription
 {
-  v112 = *MEMORY[0x1E69E9840];
+  v111 = *MEMORY[0x1E69E9840];
   descriptionDateFormatter = [(PPTemporalCluster *)self descriptionDateFormatter];
   v4 = objc_opt_new();
   [v4 appendFormat:@"=> PPTemporalCluster (%p) <=", self];
@@ -221,7 +221,7 @@ LABEL_14:
   [v4 appendFormat:@"\nStart date: %@", v6];
 
   endDate = [(PPTemporalCluster *)self endDate];
-  v78 = descriptionDateFormatter;
+  v77 = descriptionDateFormatter;
   v8 = [descriptionDateFormatter stringFromDate:endDate];
   [v4 appendFormat:@"\nEnd date: %@", v8];
 
@@ -249,34 +249,34 @@ LABEL_5:
   topics = [(PPTemporalCluster *)self topics];
   [v4 appendFormat:@"\n %tu Topics:", objc_msgSend(topics, "count")];
 
-  v104 = 0u;
-  v105 = 0u;
-  v102 = 0u;
   v103 = 0u;
+  v104 = 0u;
+  v101 = 0u;
+  v102 = 0u;
   selfCopy = self;
   topics2 = [(PPTemporalCluster *)self topics];
-  v17 = [topics2 countByEnumeratingWithState:&v102 objects:v111 count:16];
+  v17 = [topics2 countByEnumeratingWithState:&v101 objects:v110 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v103;
+    v19 = *v102;
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v103 != v19)
+        if (*v102 != v19)
         {
           objc_enumerationMutation(topics2);
         }
 
-        v21 = *(*(&v102 + 1) + 8 * i);
+        v21 = *(*(&v101 + 1) + 8 * i);
         item = [v21 item];
         topicIdentifier = [item topicIdentifier];
         [v21 score];
         [v4 appendFormat:@"\n\t: %@ (score: %f)", topicIdentifier, v24];
       }
 
-      v18 = [topics2 countByEnumeratingWithState:&v102 objects:v111 count:16];
+      v18 = [topics2 countByEnumeratingWithState:&v101 objects:v110 count:16];
     }
 
     while (v18);
@@ -285,33 +285,33 @@ LABEL_5:
   entities = [(PPTemporalCluster *)self entities];
   [v4 appendFormat:@"\n %tu Entities:", objc_msgSend(entities, "count")];
 
-  v100 = 0u;
-  v101 = 0u;
-  v98 = 0u;
   v99 = 0u;
+  v100 = 0u;
+  v97 = 0u;
+  v98 = 0u;
   entities2 = [(PPTemporalCluster *)self entities];
-  v27 = [entities2 countByEnumeratingWithState:&v98 objects:v110 count:16];
+  v27 = [entities2 countByEnumeratingWithState:&v97 objects:v109 count:16];
   if (v27)
   {
     v28 = v27;
-    v29 = *v99;
+    v29 = *v98;
     do
     {
       for (j = 0; j != v28; ++j)
       {
-        if (*v99 != v29)
+        if (*v98 != v29)
         {
           objc_enumerationMutation(entities2);
         }
 
-        v31 = *(*(&v98 + 1) + 8 * j);
+        v31 = *(*(&v97 + 1) + 8 * j);
         item2 = [v31 item];
         name = [item2 name];
         [v31 score];
         [v4 appendFormat:@"\n\t: %@ (score: %f)", name, v34];
       }
 
-      v28 = [entities2 countByEnumeratingWithState:&v98 objects:v110 count:16];
+      v28 = [entities2 countByEnumeratingWithState:&v97 objects:v109 count:16];
     }
 
     while (v28);
@@ -320,27 +320,27 @@ LABEL_5:
   locations = [(PPTemporalCluster *)self locations];
   [v4 appendFormat:@"\n %tu Locations:", objc_msgSend(locations, "count")];
 
-  v96 = 0u;
-  v97 = 0u;
-  v94 = 0u;
   v95 = 0u;
+  v96 = 0u;
+  v93 = 0u;
+  v94 = 0u;
   locations2 = [(PPTemporalCluster *)self locations];
-  v37 = [locations2 countByEnumeratingWithState:&v94 objects:v109 count:16];
+  v37 = [locations2 countByEnumeratingWithState:&v93 objects:v108 count:16];
   if (v37)
   {
     v38 = v37;
-    v39 = *v95;
-    obj = *v95;
+    v39 = *v94;
+    obj = *v94;
     do
     {
       for (k = 0; k != v38; ++k)
       {
-        if (*v95 != v39)
+        if (*v94 != v39)
         {
           objc_enumerationMutation(locations2);
         }
 
-        v41 = *(*(&v94 + 1) + 8 * k);
+        v41 = *(*(&v93 + 1) + 8 * k);
         location = [v41 location];
         placemark = [location placemark];
 
@@ -381,7 +381,7 @@ LABEL_5:
         [v4 appendFormat:@"\n\t: %@ (score: %f)", name3, v49];
       }
 
-      v38 = [locations2 countByEnumeratingWithState:&v94 objects:v109 count:16];
+      v38 = [locations2 countByEnumeratingWithState:&v93 objects:v108 count:16];
     }
 
     while (v38);
@@ -390,26 +390,26 @@ LABEL_5:
   contacts = [(PPTemporalCluster *)selfCopy contacts];
   [v4 appendFormat:@"\n %tu Contacts:", objc_msgSend(contacts, "count")];
 
-  v92 = 0u;
-  v93 = 0u;
-  v90 = 0u;
   v91 = 0u;
+  v92 = 0u;
+  v89 = 0u;
+  v90 = 0u;
   obja = [(PPTemporalCluster *)selfCopy contacts];
-  v51 = [obja countByEnumeratingWithState:&v90 objects:v108 count:16];
+  v51 = [obja countByEnumeratingWithState:&v89 objects:v107 count:16];
   if (v51)
   {
     v52 = v51;
-    v53 = *v91;
+    v53 = *v90;
     do
     {
       for (m = 0; m != v52; ++m)
       {
-        if (*v91 != v53)
+        if (*v90 != v53)
         {
           objc_enumerationMutation(obja);
         }
 
-        v55 = *(*(&v90 + 1) + 8 * m);
+        v55 = *(*(&v89 + 1) + 8 * m);
         contact = [v55 contact];
         givenName = [contact givenName];
         contact2 = [v55 contact];
@@ -418,7 +418,7 @@ LABEL_5:
         [v4 appendFormat:@"\n\t: %@ %@ (score: %f)", givenName, familyName, v60];
       }
 
-      v52 = [obja countByEnumeratingWithState:&v90 objects:v108 count:16];
+      v52 = [obja countByEnumeratingWithState:&v89 objects:v107 count:16];
     }
 
     while (v52);
@@ -427,32 +427,32 @@ LABEL_5:
   contactHandles = [(PPTemporalCluster *)selfCopy contactHandles];
   [v4 appendFormat:@"\n %tu ContactHandles:", objc_msgSend(contactHandles, "count")];
 
-  v88 = 0u;
-  v89 = 0u;
-  v86 = 0u;
   v87 = 0u;
+  v88 = 0u;
+  v85 = 0u;
+  v86 = 0u;
   contactHandles2 = [(PPTemporalCluster *)selfCopy contactHandles];
-  v63 = [contactHandles2 countByEnumeratingWithState:&v86 objects:v107 count:16];
+  v63 = [contactHandles2 countByEnumeratingWithState:&v85 objects:v106 count:16];
   if (v63)
   {
     v64 = v63;
-    v65 = *v87;
+    v65 = *v86;
     do
     {
       for (n = 0; n != v64; ++n)
       {
-        if (*v87 != v65)
+        if (*v86 != v65)
         {
           objc_enumerationMutation(contactHandles2);
         }
 
-        v67 = *(*(&v86 + 1) + 8 * n);
+        v67 = *(*(&v85 + 1) + 8 * n);
         contactHandle = [v67 contactHandle];
         [v67 score];
         [v4 appendFormat:@"\n\t: %@ (score: %f)", contactHandle, v69];
       }
 
-      v64 = [contactHandles2 countByEnumeratingWithState:&v86 objects:v107 count:16];
+      v64 = [contactHandles2 countByEnumeratingWithState:&v85 objects:v106 count:16];
     }
 
     while (v64);
@@ -461,36 +461,35 @@ LABEL_5:
   mediaItems = [(PPTemporalCluster *)selfCopy mediaItems];
   [v4 appendFormat:@"\n %tu Related Media Items:", objc_msgSend(mediaItems, "count")];
 
-  v84 = 0u;
-  v85 = 0u;
-  v82 = 0u;
   v83 = 0u;
+  v84 = 0u;
+  v81 = 0u;
+  v82 = 0u;
   mediaItems2 = [(PPTemporalCluster *)selfCopy mediaItems];
-  v72 = [mediaItems2 countByEnumeratingWithState:&v82 objects:v106 count:16];
+  v72 = [mediaItems2 countByEnumeratingWithState:&v81 objects:v105 count:16];
   if (v72)
   {
     v73 = v72;
-    v74 = *v83;
+    v74 = *v82;
     do
     {
       for (ii = 0; ii != v73; ++ii)
       {
-        if (*v83 != v74)
+        if (*v82 != v74)
         {
           objc_enumerationMutation(mediaItems2);
         }
 
-        [v4 appendFormat:@"\n\t: %@", *(*(&v82 + 1) + 8 * ii)];
+        [v4 appendFormat:@"\n\t: %@", *(*(&v81 + 1) + 8 * ii)];
       }
 
-      v73 = [mediaItems2 countByEnumeratingWithState:&v82 objects:v106 count:16];
+      v73 = [mediaItems2 countByEnumeratingWithState:&v81 objects:v105 count:16];
     }
 
     while (v73);
   }
 
   [v4 appendString:@"\n\n"];
-  v76 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

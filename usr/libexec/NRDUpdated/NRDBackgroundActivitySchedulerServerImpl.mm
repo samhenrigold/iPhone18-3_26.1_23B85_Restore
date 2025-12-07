@@ -82,7 +82,7 @@
 - (void)scheduleWithRemoteableBlock:(id)block
 {
   blockCopy = block;
-  v5 = nrdSharedLogger();
+  v5 = nrdSharedLogger(blockCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     identifier = [(NSBackgroundActivityScheduler *)self->_scheduler identifier];
@@ -141,7 +141,7 @@
 void __72__NRDBackgroundActivitySchedulerServerImpl_scheduleWithRemoteableBlock___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = nrdSharedLogger();
+  v4 = nrdSharedLogger(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
@@ -167,7 +167,7 @@ void __72__NRDBackgroundActivitySchedulerServerImpl_scheduleWithRemoteableBlock_
 
 uint64_t __72__NRDBackgroundActivitySchedulerServerImpl_scheduleWithRemoteableBlock___block_invoke_2(uint64_t a1, int a2)
 {
-  v4 = nrdSharedLogger();
+  v4 = nrdSharedLogger(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
@@ -262,7 +262,7 @@ uint64_t __72__NRDBackgroundActivitySchedulerServerImpl_scheduleWithRemoteableBl
 
 void __62__NRDBackgroundActivitySchedulerServerImpl_setCheckInHandler___block_invoke(void *a1)
 {
-  v2 = nrdSharedLogger();
+  v2 = nrdSharedLogger(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = a1[4];
@@ -274,19 +274,19 @@ void __62__NRDBackgroundActivitySchedulerServerImpl_setCheckInHandler___block_in
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Activity %{public}@ %{public}@ check-in.", buf, 0x16u);
   }
 
-  v25[0] = _NSConcreteStackBlock;
-  v25[1] = 3221225472;
-  v25[2] = __62__NRDBackgroundActivitySchedulerServerImpl_setCheckInHandler___block_invoke_5;
-  v25[3] = &unk_1000187E0;
+  v26[0] = _NSConcreteStackBlock;
+  v26[1] = 3221225472;
+  v26[2] = __62__NRDBackgroundActivitySchedulerServerImpl_setCheckInHandler___block_invoke_5;
+  v26[3] = &unk_1000187E0;
   v5 = a1[6];
-  v25[4] = a1[7];
-  [v5 execute:v25];
-  v21[0] = _NSConcreteStackBlock;
-  v21[1] = 3221225472;
-  v22 = __62__NRDBackgroundActivitySchedulerServerImpl_setCheckInHandler___block_invoke_2;
-  v23 = &unk_100018610;
-  v24 = a1[7];
-  v6 = v21;
+  v26[4] = a1[7];
+  [v5 execute:v26];
+  v22[0] = _NSConcreteStackBlock;
+  v22[1] = 3221225472;
+  v23 = __62__NRDBackgroundActivitySchedulerServerImpl_setCheckInHandler___block_invoke_2;
+  v24 = &unk_100018610;
+  v25 = a1[7];
+  v6 = v22;
   v7 = objc_autoreleasePoolPush();
   v8 = +[NSDate date];
   do
@@ -307,7 +307,7 @@ void __62__NRDBackgroundActivitySchedulerServerImpl_setCheckInHandler___block_in
       nanosleep(buf, 0);
     }
 
-    if (v22(v6))
+    if (v23(v6))
     {
       break;
     }
@@ -320,16 +320,16 @@ void __62__NRDBackgroundActivitySchedulerServerImpl_setCheckInHandler___block_in
   while (v17);
 
   objc_autoreleasePoolPop(v7);
-  v18 = nrdSharedLogger();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v19 = nrdSharedLogger(v18);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = a1[4];
-    v20 = a1[5];
+    v20 = a1[4];
+    v21 = a1[5];
     *buf = 138543618;
-    *&buf[4] = v19;
+    *&buf[4] = v20;
     *&buf[12] = 2114;
-    *&buf[14] = v20;
-    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Activity %{public}@ %{public}@ check-in complete.", buf, 0x16u);
+    *&buf[14] = v21;
+    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Activity %{public}@ %{public}@ check-in complete.", buf, 0x16u);
   }
 }
 

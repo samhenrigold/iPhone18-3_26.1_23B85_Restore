@@ -56,7 +56,7 @@
   v10 = v5;
   v11 = v4;
   swift_unknownObjectRetain();
-  return DBAppDockButton.init(iconProvider:iconImageInfo:)(v11, v10, v9, v8);
+  return DBAppDockButton.init(iconProvider:iconImageInfo:)(provider, v11, v10, v9, v8);
 }
 
 - (_TtC9DashBoard15DBAppDockButton)initWithCoder:(id)coder
@@ -120,7 +120,7 @@
 
 - (void)iconImageDidUpdate:(id)update
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE90480);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE90480, &qword_24839D5D0);
   MEMORY[0x28223BE20](v4 - 8);
   v6 = &v12 - v5;
   v7 = sub_248383BE0();

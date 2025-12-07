@@ -47,7 +47,6 @@
 - (id)scenesForBacklightSession;
 - (id)succinctDescription;
 - (int64_t)activeStyleForVariant:(int64_t)variant;
-- (uint64_t)updateMotionWithRotation:(_OWORD *)rotation;
 - (unint64_t)deviceMotionMode;
 - (unint64_t)posterSignificantEventsCounter;
 - (unint64_t)significantEventsCounterForPosterWithIdentifier:(id)identifier;
@@ -97,6 +96,7 @@
 - (void)setWallpaperObscured:(BOOL)obscured;
 - (void)updateActiveVariantTransitionProgress:(double)progress;
 - (void)updateLegacyPoster;
+- (void)updateMotionWithRotation:(_OWORD *)rotation;
 - (void)updatePoster:(id)poster;
 - (void)viewDidLoad;
 - (void)viewWillLayoutSubviews;
@@ -338,7 +338,7 @@ LABEL_6:
 
 - (PBUIHomeVariantStyleState)currentHomeVariantStyleState
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (self->_homeViewController)
   {
     currentHomeVariantStyleState = [(PBUIPosterHomeViewController *)self->_homeViewController currentHomeVariantStyleState];
@@ -349,17 +349,18 @@ LABEL_6:
     configuration = self->_configuration;
     if (configuration)
     {
-      v8 = 0;
-      v4 = [(PRSPosterConfiguration *)configuration pr_loadHomeScreenConfigurationWithError:&v8];
-      v5 = v8;
+      v9 = 0;
+      v4 = [(PRSPosterConfiguration *)configuration pr_loadHomeScreenConfigurationWithError:&v9];
+      v5 = v9;
+      v6 = v5;
       if (v5)
       {
-        v6 = PBUILogCommon();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+        v7 = PBUILogCommon(v5);
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          v10 = v5;
-          _os_log_impl(&dword_21E67D000, v6, OS_LOG_TYPE_DEFAULT, "Error loading home screen configuration: %{public}@", buf, 0xCu);
+          v11 = v6;
+          _os_log_impl(&dword_21E67D000, v7, OS_LOG_TYPE_DEFAULT, "Error loading home screen configuration: %{public}@", buf, 0xCu);
         }
 
         currentHomeVariantStyleState = 0;
@@ -443,29 +444,30 @@ LABEL_6:
 
 void __32__PBUIPosterViewController_init__block_invoke_8(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
     v5 = [v3 isActive];
-    v6 = PBUILogRuntime();
-    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
-    if (v5)
+    v6 = v5;
+    v7 = PBUILogRuntime(v5);
+    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+    if (v6)
     {
-      if (v7)
+      if (v8)
       {
-        v8 = [WeakRetained[140] reasons];
-        v9 = 138412290;
-        v10 = v8;
-        _os_log_impl(&dword_21E67D000, v6, OS_LOG_TYPE_DEFAULT, "Active Poster assertion noted that poster should be running for reasons: %@", &v9, 0xCu);
+        v9 = [WeakRetained[140] reasons];
+        v10 = 138412290;
+        v11 = v9;
+        _os_log_impl(&dword_21E67D000, v7, OS_LOG_TYPE_DEFAULT, "Active Poster assertion noted that poster should be running for reasons: %@", &v10, 0xCu);
       }
     }
 
-    else if (v7)
+    else if (v8)
     {
-      LOWORD(v9) = 0;
-      _os_log_impl(&dword_21E67D000, v6, OS_LOG_TYPE_DEFAULT, "Active Poster assertions are gone; poster should not be active.", &v9, 2u);
+      LOWORD(v10) = 0;
+      _os_log_impl(&dword_21E67D000, v7, OS_LOG_TYPE_DEFAULT, "Active Poster assertions are gone; poster should not be active.", &v10, 2u);
     }
 
     [WeakRetained _updateActivePosterSceneMode];
@@ -526,10 +528,10 @@ void __32__PBUIPosterViewController_init__block_invoke_8(uint64_t a1, void *a2)
 
 - (PBUIPosterViewController)init
 {
-  v31[1] = *MEMORY[0x277D85DE8];
-  v30.receiver = self;
-  v30.super_class = PBUIPosterViewController;
-  v2 = [(PBUIPosterViewController *)&v30 init];
+  v32[1] = *MEMORY[0x277D85DE8];
+  v31.receiver = self;
+  v31.super_class = PBUIPosterViewController;
+  v2 = [(PBUIPosterViewController *)&v31 init];
   v3 = v2;
   if (v2)
   {
@@ -571,25 +573,25 @@ void __32__PBUIPosterViewController_init__block_invoke_8(uint64_t a1, void *a2)
 
     objc_initWeak(&location, v3);
     v15 = MEMORY[0x277CF0BD0];
-    v24 = MEMORY[0x277D85DD0];
-    v25 = 3221225472;
-    v26 = __32__PBUIPosterViewController_init__block_invoke_8;
-    v27 = &unk_278361E80;
-    objc_copyWeak(&v28, &location);
-    v16 = [v15 assertionWithIdentifier:@"_activePosterSceneDefaultModeAssertion" stateDidChangeHandler:&v24];
+    v25 = MEMORY[0x277D85DD0];
+    v26 = 3221225472;
+    v27 = __32__PBUIPosterViewController_init__block_invoke_8;
+    v28 = &unk_278361E80;
+    objc_copyWeak(&v29, &location);
+    v16 = [v15 assertionWithIdentifier:@"_activePosterSceneDefaultModeAssertion" stateDidChangeHandler:&v25];
     activePosterSceneDefaultModeAssertion = v3->_activePosterSceneDefaultModeAssertion;
     v3->_activePosterSceneDefaultModeAssertion = v16;
 
     v18 = v3->_activePosterSceneDefaultModeAssertion;
-    v19 = PBUILogRuntime();
-    [(BSCompoundAssertion *)v18 setLog:v19, v24, v25, v26, v27];
+    v20 = PBUILogRuntime(v19);
+    [(BSCompoundAssertion *)v18 setLog:v20, v25, v26, v27, v28];
 
-    v20 = objc_opt_self();
-    v31[0] = v20;
-    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:1];
-    v22 = [(PBUIPosterViewController *)v3 registerForTraitChanges:v21 withAction:sel__userInterfaceStyleTraitDidChange_previousTraitCollection_];
+    v21 = objc_opt_self();
+    v32[0] = v21;
+    v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:1];
+    v23 = [(PBUIPosterViewController *)v3 registerForTraitChanges:v22 withAction:sel__userInterfaceStyleTraitDidChange_previousTraitCollection_];
 
-    objc_destroyWeak(&v28);
+    objc_destroyWeak(&v29);
     objc_destroyWeak(&location);
   }
 
@@ -655,7 +657,7 @@ void __32__PBUIPosterViewController_init__block_invoke_8(uint64_t a1, void *a2)
   return v3.f64[0];
 }
 
-- (uint64_t)updateMotionWithRotation:(_OWORD *)rotation
+- (void)updateMotionWithRotation:(_OWORD *)rotation
 {
   v3 = *(self + 1152);
   v4 = rotation[1];
@@ -670,7 +672,7 @@ void __32__PBUIPosterViewController_init__block_invoke_8(uint64_t a1, void *a2)
   if (self->_activelyRequired != required)
   {
     requiredCopy = required;
-    v5 = PBUILogRuntime();
+    v5 = PBUILogRuntime(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6[0] = 67109120;
@@ -686,21 +688,22 @@ void __32__PBUIPosterViewController_init__block_invoke_8(uint64_t a1, void *a2)
 
 - (void)setActivelyRequiredReasons:(id)reasons
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   reasonsCopy = reasons;
-  if (![(NSArray *)self->_activelyRequiredReasons isEqualToArray:reasonsCopy])
+  v5 = [(NSArray *)self->_activelyRequiredReasons isEqualToArray:reasonsCopy];
+  if ((v5 & 1) == 0)
   {
-    v5 = PBUILogRuntime();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = PBUILogRuntime(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138412290;
-      v9 = reasonsCopy;
-      _os_log_impl(&dword_21E67D000, v5, OS_LOG_TYPE_DEFAULT, "Actively required reasons were updated: %@", &v8, 0xCu);
+      v9 = 138412290;
+      v10 = reasonsCopy;
+      _os_log_impl(&dword_21E67D000, v6, OS_LOG_TYPE_DEFAULT, "Actively required reasons were updated: %@", &v9, 0xCu);
     }
 
-    v6 = [reasonsCopy copy];
+    v7 = [reasonsCopy copy];
     activelyRequiredReasons = self->_activelyRequiredReasons;
-    self->_activelyRequiredReasons = v6;
+    self->_activelyRequiredReasons = v7;
 
     [(PBUIPosterViewController *)self _updatePowerlogStatus];
     [(PBUIPosterViewController *)self _updateDebugHUD];
@@ -718,7 +721,7 @@ void __32__PBUIPosterViewController_init__block_invoke_8(uint64_t a1, void *a2)
 
 - (BOOL)updateConfiguration:(id)configuration
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   configuration = self->_configuration;
   if (!configuration)
@@ -727,44 +730,44 @@ void __32__PBUIPosterViewController_init__block_invoke_8(uint64_t a1, void *a2)
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    LOBYTE(version2) = 0;
+    LOBYTE(version3) = 0;
     objc_initWeak(&location, self);
-    v34[0] = MEMORY[0x277D85DD0];
-    v34[1] = 3221225472;
-    v34[2] = __48__PBUIPosterViewController_updateConfiguration___block_invoke;
-    v34[3] = &unk_2783640C8;
-    objc_copyWeak(&v38, &location);
-    v35 = 0;
-    v36 = configurationCopy;
-    v37 = buf;
-    v18 = MEMORY[0x223D62EE0](v34);
-    v18[2]();
+    v37[0] = MEMORY[0x277D85DD0];
+    v37[1] = 3221225472;
+    v37[2] = __48__PBUIPosterViewController_updateConfiguration___block_invoke;
+    v37[3] = &unk_2783640C8;
+    objc_copyWeak(&v41, &location);
+    v38 = 0;
+    v39 = configurationCopy;
+    v40 = buf;
+    v20 = MEMORY[0x223D62EE0](v37);
+    v21 = v20[2]();
     if (self->_scene)
     {
       goto LABEL_12;
     }
 
-    v19 = PBUILogCommon();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v22 = PBUILogCommon(v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
-      *v33 = 0;
-      _os_log_impl(&dword_21E67D000, v19, OS_LOG_TYPE_DEFAULT, "Failed to create new poster scene. Trying again.", v33, 2u);
+      *v36 = 0;
+      _os_log_impl(&dword_21E67D000, v22, OS_LOG_TYPE_DEFAULT, "Failed to create new poster scene. Trying again.", v36, 2u);
     }
 
     *(*&buf[8] + 24) = 1;
-    (v18[2])(v18);
+    (v20[2])(v20);
     if (self->_scene)
     {
 LABEL_12:
       [(PRRenderingServiceSceneComponent *)self->_renderingServiceSceneComponent invalidate];
-      v20 = [objc_alloc(getPRRenderingServiceSceneComponentClass()) initWithScene:self->_scene];
+      v23 = [objc_alloc(getPRRenderingServiceSceneComponentClass()) initWithScene:self->_scene];
       renderingServiceSceneComponent = self->_renderingServiceSceneComponent;
-      self->_renderingServiceSceneComponent = v20;
+      self->_renderingServiceSceneComponent = v23;
     }
 
-    v22 = [(PBUIPosterVariantViewController *)[PBUIPosterLockViewController alloc] initWithScene:self->_scene counterpart:0];
+    v25 = [(PBUIPosterVariantViewController *)[PBUIPosterLockViewController alloc] initWithScene:self->_scene counterpart:0];
     lockViewController = self->_lockViewController;
-    self->_lockViewController = v22;
+    self->_lockViewController = v25;
 
     [(PBUIPosterVariantViewController *)self->_lockViewController setDelegate:self];
     [(PBUIPosterVariantViewController *)self->_lockViewController setActiveStyle:self->_lockWallpaperStyle];
@@ -774,7 +777,7 @@ LABEL_12:
     [(PBUIDynamicProviderWrapper *)self->_lockReplicaProvider setRootObject:self->_lockViewController];
     [(PBUIDynamicProviderWrapper *)self->_lockFloatingLayerReplicaProvider setRootObject:self->_lockViewController];
 
-    objc_destroyWeak(&v38);
+    objc_destroyWeak(&v41);
     objc_destroyWeak(&location);
     _Block_object_dispose(buf, 8);
     goto LABEL_20;
@@ -798,21 +801,22 @@ LABEL_12:
     objc_storeStrong(&self->_configuration, configuration);
     [getPRUISPosterWorkspaceClass() noteWorkspaceUpdateForScene:self->_scene poster:configurationCopy userInfo:&unk_282FD5AB8];
     version = [serverIdentity2 version];
-    v14 = version == [serverIdentity version];
-    v15 = PBUILogCommon();
-    v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
-    if (v14)
+    version2 = [serverIdentity version];
+    v16 = version == version2;
+    v17 = PBUILogCommon(version2);
+    v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
+    if (v16)
     {
-      if (v16)
+      if (v18)
       {
         pui_shortDescription = [(FBScene *)self->_scene pui_shortDescription];
         *buf = 138543362;
         *&buf[4] = pui_shortDescription;
-        _os_log_impl(&dword_21E67D000, v15, OS_LOG_TYPE_DEFAULT, "Refreshing lock poster %{public}@.", buf, 0xCu);
+        _os_log_impl(&dword_21E67D000, v17, OS_LOG_TYPE_DEFAULT, "Refreshing lock poster %{public}@.", buf, 0xCu);
       }
     }
 
-    else if (v16)
+    else if (v18)
     {
       pui_shortDescription2 = [(FBScene *)self->_scene pui_shortDescription];
       *buf = 138543874;
@@ -820,42 +824,42 @@ LABEL_12:
       *&buf[12] = 2048;
       *&buf[14] = [serverIdentity version];
       *&buf[22] = 2048;
-      version2 = [serverIdentity2 version];
-      _os_log_impl(&dword_21E67D000, v15, OS_LOG_TYPE_DEFAULT, "Updating lock poster %{public}@ from version %llu to %llu.", buf, 0x20u);
+      version3 = [serverIdentity2 version];
+      _os_log_impl(&dword_21E67D000, v17, OS_LOG_TYPE_DEFAULT, "Updating lock poster %{public}@ from version %llu to %llu.", buf, 0x20u);
     }
 
     scene = self->_scene;
-    v31[0] = MEMORY[0x277D85DD0];
-    v31[1] = 3221225472;
-    v31[2] = __48__PBUIPosterViewController_updateConfiguration___block_invoke_51;
-    v31[3] = &unk_2783640F0;
-    v31[4] = self;
-    v32 = _path2;
-    v28 = _path2;
-    [(FBScene *)scene pb_update:v31];
+    v34[0] = MEMORY[0x277D85DD0];
+    v34[1] = 3221225472;
+    v34[2] = __48__PBUIPosterViewController_updateConfiguration___block_invoke_51;
+    v34[3] = &unk_2783640F0;
+    v34[4] = self;
+    v35 = _path2;
+    v31 = _path2;
+    [(FBScene *)scene pb_update:v34];
 
 LABEL_20:
     [(PBUIPosterViewController *)self _updateForActiveVariant:1];
-    v25 = 1;
+    v28 = 1;
     goto LABEL_21;
   }
 
-  v24 = PBUILogCommon();
-  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+  v27 = PBUILogCommon(v13);
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_21E67D000, v24, OS_LOG_TYPE_DEFAULT, "Cannot update to proposed poster configuration.", buf, 2u);
+    _os_log_impl(&dword_21E67D000, v27, OS_LOG_TYPE_DEFAULT, "Cannot update to proposed poster configuration.", buf, 2u);
   }
 
-  v25 = 0;
+  v28 = 0;
 LABEL_21:
 
-  return v25;
+  return v28;
 }
 
 void __48__PBUIPosterViewController_updateConfiguration___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   if (WeakRetained)
   {
@@ -865,36 +869,36 @@ void __48__PBUIPosterViewController_updateConfiguration___block_invoke(uint64_t 
     v6 = [v3 pr_createPosterSceneWithRole:v4 path:v5];
 
     [v6 setDelegate:WeakRetained];
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __48__PBUIPosterViewController_updateConfiguration___block_invoke_2;
-    v15[3] = &unk_278362C38;
-    v15[4] = WeakRetained;
-    [v6 pb_update:v15];
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __48__PBUIPosterViewController_updateConfiguration___block_invoke_2;
+    v16[3] = &unk_278362C38;
+    v16[4] = WeakRetained;
+    [v6 pb_update:v16];
     v7 = WeakRetained[129];
     if (v7)
     {
       v8 = v7;
       [getPRUISPosterWorkspaceClass() noteWorkspaceInstanceTeardownForScene:v8 poster:*(a1 + 32) userInfo:&unk_282FD5A68];
-      v13[0] = MEMORY[0x277D85DD0];
-      v13[1] = 3221225472;
-      v13[2] = __48__PBUIPosterViewController_updateConfiguration___block_invoke_3;
-      v13[3] = &unk_278361E18;
-      v14 = v8;
+      v14[0] = MEMORY[0x277D85DD0];
+      v14[1] = 3221225472;
+      v14[2] = __48__PBUIPosterViewController_updateConfiguration___block_invoke_3;
+      v14[3] = &unk_278361E18;
+      v15 = v8;
       v9 = v8;
-      [v9 pui_invalidateWithCompletion:v13];
+      [v9 pui_invalidateWithCompletion:v14];
     }
 
     objc_storeStrong(WeakRetained + 129, v6);
     if (v6)
     {
-      v10 = PBUILogCommon();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = PBUILogCommon(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = [v6 pui_shortDescription];
+        v12 = [v6 pui_shortDescription];
         *buf = 138412290;
-        v17 = v11;
-        _os_log_impl(&dword_21E67D000, v10, OS_LOG_TYPE_DEFAULT, "Created new lock poster scene: %@", buf, 0xCu);
+        v18 = v12;
+        _os_log_impl(&dword_21E67D000, v11, OS_LOG_TYPE_DEFAULT, "Created new lock poster scene: %@", buf, 0xCu);
       }
 
       [getPRUISPosterWorkspaceClass() noteWorkspaceInstanceSetupForScene:v6 poster:*(a1 + 40) userInfo:&unk_282FD5A90];
@@ -902,11 +906,11 @@ void __48__PBUIPosterViewController_updateConfiguration___block_invoke(uint64_t 
 
     else if (*(*(*(a1 + 48) + 8) + 24) == 1)
     {
-      v12 = PBUILogCommon();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v13 = PBUILogCommon(v10);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_21E67D000, v12, OS_LOG_TYPE_DEFAULT, "Failed to create new poster scene again.", buf, 2u);
+        _os_log_impl(&dword_21E67D000, v13, OS_LOG_TYPE_DEFAULT, "Failed to create new poster scene again.", buf, 2u);
       }
     }
   }
@@ -947,7 +951,7 @@ void __48__PBUIPosterViewController_updateConfiguration___block_invoke_2(uint64_
 void __48__PBUIPosterViewController_updateConfiguration___block_invoke_3(uint64_t a1)
 {
   v6 = *MEMORY[0x277D85DE8];
-  v2 = PBUILogCommon();
+  v2 = PBUILogCommon(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) pui_shortDescription];
@@ -959,7 +963,7 @@ void __48__PBUIPosterViewController_updateConfiguration___block_invoke_3(uint64_
 
 void __48__PBUIPosterViewController_updateConfiguration___block_invoke_51(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = a2;
   v7 = [v6 pr_posterConfiguredProperties];
@@ -972,13 +976,13 @@ void __48__PBUIPosterViewController_updateConfiguration___block_invoke_51(uint64
 
   if ((v11 & 1) == 0)
   {
-    v12 = PBUILogCommon();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = PBUILogCommon(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = [*(*(a1 + 32) + 1032) pui_shortDescription];
-      v14 = 138543362;
-      v15 = v13;
-      _os_log_impl(&dword_21E67D000, v12, OS_LOG_TYPE_DEFAULT, "Home appearance changed for %{public}@.", &v14, 0xCu);
+      v14 = [*(*(a1 + 32) + 1032) pui_shortDescription];
+      v15 = 138543362;
+      v16 = v14;
+      _os_log_impl(&dword_21E67D000, v13, OS_LOG_TYPE_DEFAULT, "Home appearance changed for %{public}@.", &v15, 0xCu);
     }
 
     [v5 pb_setHomeAppearanceChanged:1];
@@ -1004,12 +1008,12 @@ void __48__PBUIPosterViewController_updateConfiguration___block_invoke_51(uint64
 
 - (BOOL)updateHomeScene
 {
-  v89 = *MEMORY[0x277D85DE8];
+  v90 = *MEMORY[0x277D85DE8];
   settings = [(FBScene *)self->_homeScene settings];
   pui_posterContents = [settings pui_posterContents];
 
-  v77 = [(PRSPosterConfiguration *)self->_configuration pr_loadHomeScreenConfigurationWithError:0];
-  if ([v77 selectedAppearanceType] == 3)
+  v78 = [(PRSPosterConfiguration *)self->_configuration pr_loadHomeScreenConfigurationWithError:0];
+  if ([v78 selectedAppearanceType] == 3)
   {
     _path = [(PRSPosterConfiguration *)self->_associatedConfiguration _path];
     if (_path)
@@ -1050,19 +1054,19 @@ LABEL_11:
     v12 = _path2;
     serverIdentity2 = [_path2 serverIdentity];
     v14 = v8;
-    v76 = serverIdentity;
+    v77 = serverIdentity;
     if (!v8 || ([serverIdentity posterUUID], v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(serverIdentity2, "posterUUID"), v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v15, "isEqual:", v16), v16, v15, !v17))
     {
       pui_posterContents = v10;
       if (self->_homeScene)
       {
         PRUISPosterWorkspaceClass = getPRUISPosterWorkspaceClass();
-        v37 = PRUISPosterWorkspaceClass;
+        v38 = PRUISPosterWorkspaceClass;
         homeScene = self->_homeScene;
         if (v7)
         {
-          v39 = [objc_alloc(getPRSPosterConfigurationClass()) _initWithPath:v10];
-          [v37 noteWorkspaceInstanceTeardownForScene:homeScene poster:v39 userInfo:&unk_282FD5B08];
+          v40 = [objc_alloc(getPRSPosterConfigurationClass()) _initWithPath:v10];
+          [v38 noteWorkspaceInstanceTeardownForScene:homeScene poster:v40 userInfo:&unk_282FD5B08];
         }
 
         else
@@ -1074,7 +1078,7 @@ LABEL_11:
       goto LABEL_34;
     }
 
-    v75 = serverIdentity2;
+    v76 = serverIdentity2;
     version = [serverIdentity2 version];
     version2 = [serverIdentity version];
     pui_posterContents = v10;
@@ -1084,83 +1088,83 @@ LABEL_11:
 
     if (version == version2)
     {
-      serverIdentity2 = v75;
+      serverIdentity2 = v76;
       if ((v22 & 1) == 0)
       {
-        v23 = PBUILogCommon();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+        v24 = PBUILogCommon(v23);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
         {
-          [(PBUIPosterViewController *)v23 updateHomeScene:v24];
+          [(PBUIPosterViewController *)v24 updateHomeScene:v25];
         }
       }
 
-      v31 = PBUILogCommon();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+      v32 = PBUILogCommon(v23);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
       {
         pui_shortDescription = [(FBScene *)self->_scene pui_shortDescription];
         *buf = 138543362;
-        v84 = pui_shortDescription;
-        v33 = "Refreshing home poster %{public}@.";
-        v34 = v31;
-        v35 = 12;
+        v85 = pui_shortDescription;
+        v34 = "Refreshing home poster %{public}@.";
+        v35 = v32;
+        v36 = 12;
 LABEL_31:
-        _os_log_impl(&dword_21E67D000, v34, OS_LOG_TYPE_DEFAULT, v33, buf, v35);
+        _os_log_impl(&dword_21E67D000, v35, OS_LOG_TYPE_DEFAULT, v34, buf, v36);
       }
     }
 
     else
     {
-      serverIdentity2 = v75;
+      serverIdentity2 = v76;
       if (v22)
       {
-        v41 = PBUILogCommon();
-        if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+        v42 = PBUILogCommon(v23);
+        if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
         {
-          [(PBUIPosterViewController *)v41 updateHomeScene:v42];
+          [(PBUIPosterViewController *)v42 updateHomeScene:v43];
         }
       }
 
-      v31 = PBUILogCommon();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+      v32 = PBUILogCommon(v23);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
       {
         pui_shortDescription = [(FBScene *)self->_scene pui_shortDescription];
         *buf = 138543874;
-        v84 = pui_shortDescription;
-        v85 = 2048;
-        version3 = [v76 version];
-        v87 = 2048;
-        version4 = [v75 version];
-        v33 = "Updating home poster %{public}@ from version %llu to %llu.";
-        v34 = v31;
-        v35 = 32;
+        v85 = pui_shortDescription;
+        v86 = 2048;
+        version3 = [v77 version];
+        v88 = 2048;
+        version4 = [v76 version];
+        v34 = "Updating home poster %{public}@ from version %llu to %llu.";
+        v35 = v32;
+        v36 = 32;
         goto LABEL_31;
       }
     }
 
     if (self->_homeScene)
     {
-      v49 = getPRUISPosterWorkspaceClass();
-      v50 = self->_homeScene;
-      v51 = [objc_alloc(getPRSPosterConfigurationClass()) _initWithPath:v12];
-      [v49 noteWorkspaceUpdateForScene:v50 poster:v51 userInfo:&unk_282FD5AE0];
+      v50 = getPRUISPosterWorkspaceClass();
+      v51 = self->_homeScene;
+      v52 = [objc_alloc(getPRSPosterConfigurationClass()) _initWithPath:v12];
+      [v50 noteWorkspaceUpdateForScene:v51 poster:v52 userInfo:&unk_282FD5AE0];
 
-      v52 = self->_homeScene;
-      v81[0] = MEMORY[0x277D85DD0];
-      v81[1] = 3221225472;
-      v81[2] = __43__PBUIPosterViewController_updateHomeScene__block_invoke;
-      v81[3] = &unk_2783640F0;
-      v81[4] = self;
-      v82 = v12;
-      [(FBScene *)v52 pb_update:v81];
+      v53 = self->_homeScene;
+      v82[0] = MEMORY[0x277D85DD0];
+      v82[1] = 3221225472;
+      v82[2] = __43__PBUIPosterViewController_updateHomeScene__block_invoke;
+      v82[3] = &unk_2783640F0;
+      v82[4] = self;
+      v83 = v12;
+      [(FBScene *)v53 pb_update:v82];
 
 LABEL_42:
-      v40 = 1;
+      v41 = 1;
       goto LABEL_43;
     }
 
 LABEL_34:
     [(FBScene *)self->_homeScene pui_invalidateWithCompletion:0];
-    v53 = self->_homeScene;
+    v54 = self->_homeScene;
     self->_homeScene = 0;
 
     [(PBUIPosterVariantViewController *)self->_homeViewController invalidate];
@@ -1171,60 +1175,59 @@ LABEL_34:
     [(PBUIPosterVariantViewController *)self->_lockViewController setCounterpart:0];
     if (v14)
     {
-      v55 = MEMORY[0x277D0AAC8];
-      v56 = getPUISceneRoleRendering();
-      v57 = [v55 pr_createPosterSceneWithRole:v56 path:v12];
-      v58 = self->_homeScene;
-      self->_homeScene = v57;
+      v56 = MEMORY[0x277D0AAC8];
+      v57 = getPUISceneRoleRendering();
+      v58 = [v56 pr_createPosterSceneWithRole:v57 path:v12];
+      v59 = self->_homeScene;
+      self->_homeScene = v58;
 
-      [(FBScene *)self->_homeScene setDelegate:self];
-      v59 = PBUILogCommon();
-      if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
+      v60 = PBUILogCommon([(FBScene *)self->_homeScene setDelegate:self]);
+      if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
       {
         pui_shortDescription2 = [(FBScene *)self->_homeScene pui_shortDescription];
         *buf = 138412290;
-        v84 = pui_shortDescription2;
-        _os_log_impl(&dword_21E67D000, v59, OS_LOG_TYPE_DEFAULT, "Created new home poster scene: %@", buf, 0xCu);
+        v85 = pui_shortDescription2;
+        _os_log_impl(&dword_21E67D000, v60, OS_LOG_TYPE_DEFAULT, "Created new home poster scene: %@", buf, 0xCu);
       }
 
-      v61 = getPRUISPosterWorkspaceClass();
-      v62 = self->_homeScene;
-      v63 = [objc_alloc(getPRSPosterConfigurationClass()) _initWithPath:v12];
-      [v61 noteWorkspaceInstanceSetupForScene:v62 poster:v63 userInfo:&unk_282FD5B30];
+      v62 = getPRUISPosterWorkspaceClass();
+      v63 = self->_homeScene;
+      v64 = [objc_alloc(getPRSPosterConfigurationClass()) _initWithPath:v12];
+      [v62 noteWorkspaceInstanceSetupForScene:v63 poster:v64 userInfo:&unk_282FD5B30];
 
-      v64 = [PBUIPosterVariantPathProvider alloc];
+      v65 = [PBUIPosterVariantPathProvider alloc];
       instanceURL = [v12 instanceURL];
-      v66 = [(PBUIPosterVariantPathProvider *)v64 initWithInstanceURL:instanceURL variant:1];
+      v67 = [(PBUIPosterVariantPathProvider *)v65 initWithInstanceURL:instanceURL variant:1];
 
-      v67 = [PBUIURLBackedSnapshotSource alloc];
-      v68 = +[(PBUIPosterVariantViewController *)PBUIPosterHomeViewController];
-      v69 = [(PBUIURLBackedSnapshotSource *)v67 initWithPathProvider:v66 format:v68];
+      v68 = [PBUIURLBackedSnapshotSource alloc];
+      v69 = +[(PBUIPosterVariantViewController *)PBUIPosterHomeViewController];
+      v70 = [(PBUIURLBackedSnapshotSource *)v68 initWithPathProvider:v67 format:v69];
 
-      posterPreferredProminentColor = [(PBUIURLBackedSnapshotSource *)v69 posterPreferredProminentColor];
+      posterPreferredProminentColor = [(PBUIURLBackedSnapshotSource *)v70 posterPreferredProminentColor];
       if (posterPreferredProminentColor || ([(PRSPosterConfiguration *)self->_configuration pr_suggestedTintColor], (posterPreferredProminentColor = objc_claimAutoreleasedReturnValue()) != 0))
       {
-        v71 = self->_homeScene;
-        v79[0] = MEMORY[0x277D85DD0];
-        v79[1] = 3221225472;
-        v79[2] = __43__PBUIPosterViewController_updateHomeScene__block_invoke_70;
-        v79[3] = &unk_278362CC8;
-        v72 = posterPreferredProminentColor;
-        v80 = v72;
-        [(FBScene *)v71 configureParameters:v79];
+        v72 = self->_homeScene;
+        v80[0] = MEMORY[0x277D85DD0];
+        v80[1] = 3221225472;
+        v80[2] = __43__PBUIPosterViewController_updateHomeScene__block_invoke_70;
+        v80[3] = &unk_278362CC8;
+        v73 = posterPreferredProminentColor;
+        v81 = v73;
+        [(FBScene *)v72 configureParameters:v80];
       }
 
       else
       {
-        v72 = 0;
+        v73 = 0;
       }
 
-      v73 = self->_homeScene;
-      v78[0] = MEMORY[0x277D85DD0];
-      v78[1] = 3221225472;
-      v78[2] = __43__PBUIPosterViewController_updateHomeScene__block_invoke_3;
-      v78[3] = &unk_278362C38;
-      v78[4] = self;
-      [(FBScene *)v73 pb_update:v78];
+      v74 = self->_homeScene;
+      v79[0] = MEMORY[0x277D85DD0];
+      v79[1] = 3221225472;
+      v79[2] = __43__PBUIPosterViewController_updateHomeScene__block_invoke_3;
+      v79[3] = &unk_278362C38;
+      v79[4] = self;
+      [(FBScene *)v74 pb_update:v79];
     }
 
     [(PBUIPosterViewController *)self _updateLockViewControllerVisibility];
@@ -1232,10 +1235,10 @@ LABEL_34:
     goto LABEL_42;
   }
 
-  v40 = 0;
+  v41 = 0;
 LABEL_43:
 
-  return v40;
+  return v41;
 }
 
 void __43__PBUIPosterViewController_updateHomeScene__block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -1537,31 +1540,32 @@ uint64_t __64__PBUIPosterViewController_finishUnlockWithAnimationParameters___bl
 
   if ((v5 & 1) == 0)
   {
-    v9 = PBUILogCommon();
-    if (os_log_type_enabled(&v9->super.super, OS_LOG_TYPE_ERROR))
+    v11 = PBUILogCommon(v6);
+    if (os_log_type_enabled(&v11->super.super, OS_LOG_TYPE_ERROR))
     {
-      [(PBUIPosterViewController *)&v9->super.super updateLegacyPoster:v10];
+      [(PBUIPosterViewController *)&v11->super.super updateLegacyPoster:v12];
     }
 
     goto LABEL_6;
   }
 
   [(FBScene *)self->_scene pui_postSignificantEvent:4];
-  if ([(FBScene *)self->_scene isActive])
+  isActive = [(FBScene *)self->_scene isActive];
+  if (isActive)
   {
-    v6 = [[PBUIWallpaperUpdateLocationsAction alloc] initWithLocations:3 wallpaperMode:0 responder:0];
+    v8 = [[PBUIWallpaperUpdateLocationsAction alloc] initWithLocations:3 wallpaperMode:0 responder:0];
     scene = self->_scene;
-    v8 = [MEMORY[0x277CBEB98] setWithObject:v6];
-    [(FBScene *)scene sendActions:v8];
+    v10 = [MEMORY[0x277CBEB98] setWithObject:v8];
+    [(FBScene *)scene sendActions:v10];
   }
 
   else
   {
-    v6 = PBUILogCommon();
-    if (os_log_type_enabled(&v6->super.super, OS_LOG_TYPE_DEFAULT))
+    v8 = PBUILogCommon(isActive);
+    if (os_log_type_enabled(&v8->super.super, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_21E67D000, &v6->super.super, OS_LOG_TYPE_DEFAULT, "Didn't update lock Legacy Poster because scene is inactive.", buf, 2u);
+      _os_log_impl(&dword_21E67D000, &v8->super.super, OS_LOG_TYPE_DEFAULT, "Didn't update lock Legacy Poster because scene is inactive.", buf, 2u);
     }
   }
 
@@ -1570,26 +1574,27 @@ uint64_t __64__PBUIPosterViewController_finishUnlockWithAnimationParameters___bl
   {
     settings2 = [(FBScene *)homeScene settings];
     pui_provider2 = [settings2 pui_provider];
-    v20 = [pui_provider2 isEqual:@"com.apple.PaperBoard.LegacyPoster"];
+    v22 = [pui_provider2 isEqual:@"com.apple.PaperBoard.LegacyPoster"];
 
-    if (v20)
+    if (v22)
     {
       [(FBScene *)self->_homeScene pui_postSignificantEvent:4];
-      if ([(FBScene *)self->_homeScene isActive])
+      isActive2 = [(FBScene *)self->_homeScene isActive];
+      if (isActive2)
       {
-        v9 = [[PBUIWallpaperUpdateLocationsAction alloc] initWithLocations:3 wallpaperMode:0 responder:0];
-        v21 = self->_homeScene;
-        v22 = [MEMORY[0x277CBEB98] setWithObject:v9];
-        [(FBScene *)v21 sendActions:v22];
+        v11 = [[PBUIWallpaperUpdateLocationsAction alloc] initWithLocations:3 wallpaperMode:0 responder:0];
+        v24 = self->_homeScene;
+        v25 = [MEMORY[0x277CBEB98] setWithObject:v11];
+        [(FBScene *)v24 sendActions:v25];
       }
 
       else
       {
-        v9 = PBUILogCommon();
-        if (os_log_type_enabled(&v9->super.super, OS_LOG_TYPE_DEFAULT))
+        v11 = PBUILogCommon(isActive2);
+        if (os_log_type_enabled(&v11->super.super, OS_LOG_TYPE_DEFAULT))
         {
-          *v23 = 0;
-          _os_log_impl(&dword_21E67D000, &v9->super.super, OS_LOG_TYPE_DEFAULT, "Didn't update home Legacy Poster because scene is inactive.", v23, 2u);
+          *v26 = 0;
+          _os_log_impl(&dword_21E67D000, &v11->super.super, OS_LOG_TYPE_DEFAULT, "Didn't update home Legacy Poster because scene is inactive.", v26, 2u);
         }
       }
 
@@ -2024,7 +2029,7 @@ LABEL_15:
 
 void __77__PBUIPosterViewController__updatePosterScenesForReasons_updater_completion___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -2065,31 +2070,32 @@ void __77__PBUIPosterViewController__updatePosterScenesForReasons_updater_comple
   [v8 pr_setUnlockProgress:*(a1 + 64)];
   v15 = [v8 activityMode];
   v16 = *(a1 + 122);
-  if (PBUIWallpaperStyleIsHidden(*(a1 + 72)) || (v16 & 1) == 0)
+  IsHidden = PBUIWallpaperStyleIsHidden(*(a1 + 72));
+  if (IsHidden || (v16 & 1) == 0)
   {
-    v17 = 4294967246;
+    v18 = 4294967246;
   }
 
   else
   {
-    v17 = 4294967286;
+    v18 = 4294967286;
   }
 
-  if (v15 != v17)
+  if (v15 != v18)
   {
-    v18 = PBUILogRuntime();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+    v19 = PBUILogRuntime(IsHidden);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
     {
-      v19 = NSStringFromFBSSceneActivityMode();
-      v39 = 138412546;
-      v40 = v7;
-      v41 = 2114;
-      v42 = v19;
-      _os_log_impl(&dword_21E67D000, v18, OS_LOG_TYPE_INFO, "Updating activity mode for scene %@ to %{public}@", &v39, 0x16u);
+      v20 = NSStringFromFBSSceneActivityMode();
+      v41 = 138412546;
+      v42 = v7;
+      v43 = 2114;
+      v44 = v20;
+      _os_log_impl(&dword_21E67D000, v19, OS_LOG_TYPE_INFO, "Updating activity mode for scene %@ to %{public}@", &v41, 0x16u);
     }
 
     v13 = v8;
-    v14 = v17;
+    v14 = v18;
 LABEL_18:
     [v13 setActivityMode:v14];
   }
@@ -2097,99 +2103,100 @@ LABEL_18:
 LABEL_19:
   [v8 pui_setSalientContentRectangle:{*(a1 + 80), *(a1 + 88), *(a1 + 96), *(a1 + 104)}];
   [v8 pr_setDeviceMotionUpdateInterval:*(a1 + 112)];
-  v20 = [v8 pr_posterConfiguredProperties];
-  v21 = [v20 renderingConfiguration];
-  v22 = [v21 isDepthEffectDisabled];
+  v21 = [v8 pr_posterConfiguredProperties];
+  v22 = [v21 renderingConfiguration];
+  v23 = [v22 isDepthEffectDisabled];
 
-  if (v22)
+  if (v23)
   {
-    v23 = 1;
+    v24 = 1;
   }
 
   else
   {
-    v23 = *(a1 + 123);
+    v24 = *(a1 + 123);
   }
 
-  [v8 pr_setDepthEffectDisallowed:v23 & 1];
+  [v8 pr_setDepthEffectDisallowed:v24 & 1];
   [v8 pr_setWakeSourceIsSwipeToUnlock:*(a1 + 124)];
   if (soft_PF_IS_PAD_DEVICE() && (soft_PUIDynamicRotationIsActive() & 1) != 0)
   {
-    v24 = *(*(a1 + 32) + 1184);
-    v25 = [v8 pui_deviceOrientation];
-    if (!v25)
+    v25 = *(*(a1 + 32) + 1184);
+    v26 = [v8 pui_deviceOrientation];
+    if (!v26)
     {
-      v25 = [v8 interfaceOrientation];
+      v26 = [v8 interfaceOrientation];
     }
 
-    if (v25 != v24)
+    if (v26 != v25)
     {
-      [v8 pui_setDeviceOrientation:v24];
+      v26 = [v8 pui_setDeviceOrientation:v25];
       v10 |= 0x40uLL;
     }
   }
 
   else
   {
-    v26 = *(*(a1 + 32) + 1176);
-    if ([v8 interfaceOrientation] != v26)
+    v27 = *(*(a1 + 32) + 1176);
+    v26 = [v8 interfaceOrientation];
+    if (v26 != v27)
     {
-      [v8 setInterfaceOrientation:v26];
+      v26 = [v8 setInterfaceOrientation:v27];
       v10 |= 0x20uLL;
     }
   }
 
   if ((v10 & 0x61) == 0 || v9 == 0)
   {
-    v28 = 1;
+    v29 = 1;
   }
 
   else
   {
-    v28 = v11;
+    v29 = v11;
   }
 
-  if ((v28 & 1) != 0 || ![v7 isActive])
+  if ((v29 & 1) != 0 || (v26 = [v7 isActive], !v26))
   {
-    v31 = PBUIRenderingLogFenceReason();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+    v32 = PBUIRenderingLogFenceReason(v26);
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
     {
-      v37 = NSStringFrom_PBUIPosterViewControllerUpdateReasons(v10);
-      v39 = 138543362;
-      v40 = v37;
-      _os_log_impl(&dword_21E67D000, v31, OS_LOG_TYPE_DEFAULT, "Poster scenes un-fenced update for reasons: %{public}@", &v39, 0xCu);
+      v39 = NSStringFrom_PBUIPosterViewControllerUpdateReasons(v10);
+      v41 = 138543362;
+      v42 = v39;
+      _os_log_impl(&dword_21E67D000, v32, OS_LOG_TYPE_DEFAULT, "Poster scenes un-fenced update for reasons: %{public}@", &v41, 0xCu);
     }
   }
 
   else
   {
-    v29 = [*(a1 + 32) view];
-    v30 = [v29 window];
-    v31 = [v30 windowScene];
+    v30 = [*(a1 + 32) view];
+    v31 = [v30 window];
+    v32 = [v31 windowScene];
 
-    [v31 _synchronizeDrawing];
-    v32 = [v31 _synchronizedDrawingFence];
-    [v9 setAnimationFence:v32];
+    [v32 _synchronizeDrawing];
+    v33 = [v32 _synchronizedDrawingFence];
+    [v9 setAnimationFence:v33];
 
-    v33 = MEMORY[0x277CF0B70];
+    v34 = MEMORY[0x277CF0B70];
     [MEMORY[0x277D75D18] inheritedAnimationDuration];
-    v34 = [v33 settingsWithDuration:?];
-    [v9 setAnimationSettings:v34];
+    v35 = [v34 settingsWithDuration:?];
+    [v9 setAnimationSettings:v35];
 
-    v35 = PBUIRenderingLogFenceReason();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+    v37 = PBUIRenderingLogFenceReason(v36);
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
     {
-      v36 = NSStringFrom_PBUIPosterViewControllerUpdateReasons(v10);
-      v39 = 138543362;
-      v40 = v36;
-      _os_log_impl(&dword_21E67D000, v35, OS_LOG_TYPE_DEFAULT, "Poster scenes FENCED update for reasons: %{public}@", &v39, 0xCu);
+      v38 = NSStringFrom_PBUIPosterViewControllerUpdateReasons(v10);
+      v41 = 138543362;
+      v42 = v38;
+      _os_log_impl(&dword_21E67D000, v37, OS_LOG_TYPE_DEFAULT, "Poster scenes FENCED update for reasons: %{public}@", &v41, 0xCu);
     }
   }
 
-  v38 = *(a1 + 40);
-  if (v38)
+  v40 = *(a1 + 40);
+  if (v40)
   {
-    (*(v38 + 16))(v38, v7, v8, v9);
+    (*(v40 + 16))(v40, v7, v8, v9);
   }
 }
 
@@ -2209,7 +2216,7 @@ uint64_t __77__PBUIPosterViewController__updatePosterScenesForReasons_updater_co
 
 - (void)_updatePowerlogStatus
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   providerBundleIdentifier = [(PRSPosterConfiguration *)self->_configuration providerBundleIdentifier];
   if ([providerBundleIdentifier isEqualToString:@"com.apple.PhotosUIPrivate.PhotosPosterProvider"])
   {
@@ -2231,34 +2238,34 @@ uint64_t __77__PBUIPosterViewController__updatePosterScenesForReasons_updater_co
       clientSettings = [(FBScene *)self->_scene clientSettings];
       pui_powerlogIdentifier = [clientSettings pui_powerlogIdentifier];
 
-      v9 = PBUILogRuntime();
-      v10 = os_log_type_enabled(v9, OS_LOG_TYPE_INFO);
+      v10 = PBUILogRuntime(v9);
+      v11 = os_log_type_enabled(v10, OS_LOG_TYPE_INFO);
       if (v5)
       {
-        if (v10)
+        if (v11)
         {
           activelyRequiredReasons2 = [(PBUIPosterViewController *)self activelyRequiredReasons];
-          v12 = [activelyRequiredReasons2 count];
+          v13 = [activelyRequiredReasons2 count];
           reasons2 = [(BSCompoundAssertion *)self->_activePosterSceneDefaultModeAssertion reasons];
-          v14 = 138544130;
-          v15 = providerBundleIdentifier;
-          v16 = 2048;
-          v17 = pui_powerlogIdentifier;
-          v18 = 2048;
-          v19 = v12;
-          v20 = 2048;
-          v21 = [reasons2 count];
-          _os_log_impl(&dword_21E67D000, v9, OS_LOG_TYPE_INFO, "Updating powerlog for %{public}@ (%lu): going foreground with %lu activelyRequiredReasons, %lu defaultModeAssertion reasons", &v14, 0x2Au);
+          v15 = 138544130;
+          v16 = providerBundleIdentifier;
+          v17 = 2048;
+          v18 = pui_powerlogIdentifier;
+          v19 = 2048;
+          v20 = v13;
+          v21 = 2048;
+          v22 = [reasons2 count];
+          _os_log_impl(&dword_21E67D000, v10, OS_LOG_TYPE_INFO, "Updating powerlog for %{public}@ (%lu): going foreground with %lu activelyRequiredReasons, %lu defaultModeAssertion reasons", &v15, 0x2Au);
         }
       }
 
-      else if (v10)
+      else if (v11)
       {
-        v14 = 138543618;
-        v15 = providerBundleIdentifier;
-        v16 = 2048;
-        v17 = pui_powerlogIdentifier;
-        _os_log_impl(&dword_21E67D000, v9, OS_LOG_TYPE_INFO, "Updating powerlog for %{public}@ (%lu): going background", &v14, 0x16u);
+        v15 = 138543618;
+        v16 = providerBundleIdentifier;
+        v17 = 2048;
+        v18 = pui_powerlogIdentifier;
+        _os_log_impl(&dword_21E67D000, v10, OS_LOG_TYPE_INFO, "Updating powerlog for %{public}@ (%lu): going background", &v15, 0x16u);
       }
 
       [PBUIPowerLogger sendTelemetryForPosterForegroundChange:v5 posterProviderID:providerBundleIdentifier posterPowerlogIdentifier:pui_powerlogIdentifier];
@@ -2289,8 +2296,7 @@ uint64_t __77__PBUIPosterViewController__updatePosterScenesForReasons_updater_co
     [(PBUIPosterVariantViewController *)self->_lockViewController setCounterpart:self->_homeViewController];
     [(PBUIPosterViewController *)self bs_addChildViewController:self->_homeViewController];
     [(PBUIPosterVariantViewController *)self->_homeViewController setDelegate:self];
-    [(PBUIDynamicProviderWrapper *)self->_homeReplicaProvider setRootObject:self->_homeViewController];
-    v5 = PBUILogCommon();
+    v5 = PBUILogCommon([(PBUIDynamicProviderWrapper *)self->_homeReplicaProvider setRootObject:self->_homeViewController]);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       pui_shortDescription = [(FBScene *)self->_homeScene pui_shortDescription];
@@ -2521,7 +2527,7 @@ void __58__PBUIPosterViewController_scene_didUpdateClientSettings___block_invoke
   v14 = *MEMORY[0x277D85DE8];
   sceneCopy = scene;
   processHandle = [connect processHandle];
-  v7 = PBUILogCommon();
+  v7 = PBUILogCommon(processHandle);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     pui_shortDescription = [sceneCopy pui_shortDescription];
@@ -2538,7 +2544,7 @@ void __58__PBUIPosterViewController_scene_didUpdateClientSettings___block_invoke
 {
   v8 = *MEMORY[0x277D85DE8];
   actionsCopy = actions;
-  v5 = PBUILogCommon();
+  v5 = PBUILogCommon(actionsCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
@@ -2549,53 +2555,54 @@ void __58__PBUIPosterViewController_scene_didUpdateClientSettings___block_invoke
 
 - (void)sceneDidDeactivate:(id)deactivate withError:(id)error
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   deactivateCopy = deactivate;
   errorCopy = error;
-  v8 = PBUILogCommon();
+  v8 = PBUILogCommon(errorCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     pui_shortDescription = [deactivateCopy pui_shortDescription];
     v10 = [errorCopy descriptionWithMultilinePrefix:0];
     *buf = 138543618;
-    v19 = *&pui_shortDescription;
-    v20 = 2114;
-    v21 = v10;
+    v21 = *&pui_shortDescription;
+    v22 = 2114;
+    v23 = v10;
     _os_log_impl(&dword_21E67D000, v8, OS_LOG_TYPE_DEFAULT, "Poster %{public}@ deactivated with error: %{public}@", buf, 0x16u);
   }
 
   [(PBUISessionReconnectPolicy *)self->_reconnectPolicy sessionDidDisconnect];
-  if ([(PBUIPosterViewController *)self _appearState])
+  _appearState = [(PBUIPosterViewController *)self _appearState];
+  if (_appearState)
   {
-    [(PBUISessionReconnectPolicy *)self->_reconnectPolicy sessionReconnectDelay];
-    v12 = v11;
-    v13 = PBUILogCommon();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    sessionReconnectDelay = [(PBUISessionReconnectPolicy *)self->_reconnectPolicy sessionReconnectDelay];
+    v14 = v13;
+    v15 = PBUILogCommon(sessionReconnectDelay);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v19 = v12;
-      _os_log_impl(&dword_21E67D000, v13, OS_LOG_TYPE_DEFAULT, "Will attempt reactivation of wallpaper scene in %0.3f seconds.", buf, 0xCu);
+      v21 = v14;
+      _os_log_impl(&dword_21E67D000, v15, OS_LOG_TYPE_DEFAULT, "Will attempt reactivation of wallpaper scene in %0.3f seconds.", buf, 0xCu);
     }
 
     objc_initWeak(buf, self);
-    v14 = dispatch_time(0, (v12 * 1000000000.0));
+    v16 = dispatch_time(0, (v14 * 1000000000.0));
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __57__PBUIPosterViewController_sceneDidDeactivate_withError___block_invoke;
     block[3] = &unk_278363040;
-    objc_copyWeak(&v17, buf);
-    dispatch_after(v14, MEMORY[0x277D85CD0], block);
-    objc_destroyWeak(&v17);
+    objc_copyWeak(&v19, buf);
+    dispatch_after(v16, MEMORY[0x277D85CD0], block);
+    objc_destroyWeak(&v19);
     objc_destroyWeak(buf);
   }
 
   else
   {
-    v15 = PBUILogCommon();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v17 = PBUILogCommon(_appearState);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_21E67D000, v15, OS_LOG_TYPE_DEFAULT, "Not attempting reactivation of wallpaper scene at this time.", buf, 2u);
+      _os_log_impl(&dword_21E67D000, v17, OS_LOG_TYPE_DEFAULT, "Not attempting reactivation of wallpaper scene at this time.", buf, 2u);
     }
   }
 }

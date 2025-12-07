@@ -143,7 +143,7 @@
 
   else
   {
-    v12 = _AELog();
+    v12 = _AELog(self);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;

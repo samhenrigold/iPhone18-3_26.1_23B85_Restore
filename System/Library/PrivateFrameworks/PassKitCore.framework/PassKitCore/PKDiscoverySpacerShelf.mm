@@ -20,22 +20,22 @@
   {
     [(PKDiscoveryShelf *)v5 setType:3];
     v7 = [dictionaryCopy PKStringForKey:@"type"];
-    if ([@"cardSpacerA" isEqualToString:v7])
+    if (objc_msgSend_isEqualToString_(@"cardSpacerA"))
     {
       v8 = 1;
     }
 
-    else if ([@"cardSpacerB" isEqualToString:v7])
+    else if (objc_msgSend_isEqualToString_(@"cardSpacerB"))
     {
       v8 = 2;
     }
 
-    else if ([@"cardSpacerC" isEqualToString:v7])
+    else if (objc_msgSend_isEqualToString_(@"cardSpacerC"))
     {
       v8 = 3;
     }
 
-    else if ([@"cardSpacerD" isEqualToString:v7])
+    else if (objc_msgSend_isEqualToString_(@"cardSpacerD"))
     {
       v8 = 4;
     }

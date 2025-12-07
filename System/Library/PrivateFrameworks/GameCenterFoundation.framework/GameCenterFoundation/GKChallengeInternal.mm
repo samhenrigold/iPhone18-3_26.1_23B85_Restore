@@ -24,33 +24,31 @@
   return v3;
 }
 
-void __46__GKChallengeInternal_secureCodedPropertyKeys__block_invoke()
+void __46__GKChallengeInternal_secureCodedPropertyKeys__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v8[10] = *MEMORY[0x277D85DE8];
-  v8[0] = objc_opt_class();
-  v8[1] = objc_opt_class();
-  v8[2] = objc_opt_class();
-  v8[3] = objc_opt_class();
-  v8[4] = objc_opt_class();
-  v0 = MEMORY[0x277CBEB98];
-  v1 = objc_opt_class();
-  v2 = objc_opt_class();
-  v3 = [v0 setWithObjects:{v1, v2, objc_opt_class(), 0, @"challengeID", @"bundleID", @"issueDate", @"completionDate", @"state", @"compatibleBundleIDs"}];
-  v8[5] = v3;
-  v7[6] = @"message";
-  v8[6] = objc_opt_class();
-  v7[7] = @"game";
-  v8[7] = objc_opt_class();
-  v7[8] = @"issuingPlayer";
-  v8[8] = objc_opt_class();
-  v7[9] = @"receivingPlayer";
-  v8[9] = objc_opt_class();
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:10];
+  v9[10] = *MEMORY[0x277D85DE8];
+  v9[0] = objc_opt_class();
+  v9[1] = objc_opt_class();
+  v9[2] = objc_opt_class();
+  v9[3] = objc_opt_class();
+  v9[4] = objc_opt_class();
+  v2 = MEMORY[0x277CBEB98];
+  v3 = objc_opt_class();
+  v4 = objc_opt_class();
+  v5 = [v2 setWithObjects:{v3, v4, objc_opt_class(), 0, @"challengeID", @"bundleID", @"issueDate", @"completionDate", @"state", @"compatibleBundleIDs"}];
+  v9[5] = v5;
+  v8[6] = @"message";
+  v9[6] = objc_opt_class();
+  v8[7] = @"game";
+  v9[7] = objc_opt_class();
+  v8[8] = @"issuingPlayer";
+  v9[8] = objc_opt_class();
+  v8[9] = @"receivingPlayer";
+  v9[9] = objc_opt_class();
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:10];
 
-  v5 = secureCodedPropertyKeys_sSecureCodedKeys_27;
-  secureCodedPropertyKeys_sSecureCodedKeys_27 = v4;
-
-  v6 = *MEMORY[0x277D85DE8];
+  v7 = secureCodedPropertyKeys_sSecureCodedKeys_27;
+  secureCodedPropertyKeys_sSecureCodedKeys_27 = v6;
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -130,28 +128,28 @@ void __46__GKChallengeInternal_secureCodedPropertyKeys__block_invoke()
 
 - (id)findLocalGameBundleID
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = +[GKApplicationWorkspace defaultWorkspace];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v4 = self->_compatibleBundleIDs;
-  v5 = [(NSOrderedSet *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [(NSOrderedSet *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
-    v6 = *v13;
+    v6 = *v12;
     while (2)
     {
       for (i = 0; i != v5; i = i + 1)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
-        v9 = [v3 applicationProxyForBundleID:{v8, v12}];
+        v8 = *(*(&v11 + 1) + 8 * i);
+        v9 = [v3 applicationProxyForBundleID:{v8, v11}];
         if ([v9 isInstalled] && (objc_msgSend(v9, "isRestricted") & 1) == 0)
         {
           v5 = v8;
@@ -160,7 +158,7 @@ void __46__GKChallengeInternal_secureCodedPropertyKeys__block_invoke()
         }
       }
 
-      v5 = [(NSOrderedSet *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [(NSOrderedSet *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v5)
       {
         continue;
@@ -172,8 +170,6 @@ void __46__GKChallengeInternal_secureCodedPropertyKeys__block_invoke()
 
 LABEL_12:
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
@@ -181,13 +177,13 @@ LABEL_12:
 {
   if (!os_log_GKGeneral)
   {
-    v2 = GKOSLoggers();
+    v3 = GKOSLoggers();
   }
 
-  v3 = os_log_GKError;
+  v4 = os_log_GKError;
   if (os_log_type_enabled(os_log_GKError, OS_LOG_TYPE_ERROR))
   {
-    [(GKChallengeInternal *)v3 titleText];
+    [(GKChallengeInternal *)v4 titleText];
   }
 
   return 0;
@@ -208,13 +204,11 @@ LABEL_12:
 {
   v7 = *MEMORY[0x277D85DE8];
   selfCopy = self;
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
   v5 = 138412290;
-  v6 = v3;
+  v6 = v4;
   _os_log_error_impl(&dword_227904000, selfCopy, OS_LOG_TYPE_ERROR, "%@ needs to implement me!", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 @end

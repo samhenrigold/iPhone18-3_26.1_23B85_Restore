@@ -15,14 +15,14 @@
 {
   dCopy = d;
   lCopy = l;
-  v29.receiver = self;
-  v29.super_class = MSDArtworkManager;
-  v9 = [(MSDArtworkManager *)&v29 init];
+  v30.receiver = self;
+  v30.super_class = MSDArtworkManager;
+  v9 = [(MSDArtworkManager *)&v30 init];
   v10 = v9;
   if (!v9)
   {
 LABEL_8:
-    v22 = v10;
+    v23 = v10;
     goto LABEL_12;
   }
 
@@ -41,9 +41,9 @@ LABEL_8:
     *&v10->_iconImageScale = xmmword_1000420F0;
     v10->_iconImageSize.height = 256.0;
     v15 = +[NSFileManager defaultManager];
-    v28 = 0;
-    v16 = [v15 URLForDirectory:13 inDomain:1 appropriateForURL:0 create:0 error:&v28];
-    v17 = v28;
+    v29 = 0;
+    v16 = [v15 URLForDirectory:13 inDomain:1 appropriateForURL:0 create:0 error:&v29];
+    v17 = v29;
     localCacheDirURL = v10->_localCacheDirURL;
     v10->_localCacheDirURL = v16;
 
@@ -53,8 +53,8 @@ LABEL_8:
 
     if (v17)
     {
-      v21 = sub_100030FE4();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v22 = sub_100030FE4(v21);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
         sub_1000045B4();
       }
@@ -65,24 +65,24 @@ LABEL_8:
     block[1] = 3221225472;
     block[2] = sub_100003890;
     block[3] = &unk_1000509C0;
-    objc_copyWeak(&v26, &location);
+    objc_copyWeak(&v27, &location);
     dispatch_async(&_dispatch_main_q, block);
-    objc_destroyWeak(&v26);
+    objc_destroyWeak(&v27);
     objc_destroyWeak(&location);
 
     goto LABEL_8;
   }
 
-  v23 = sub_100030FE4();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+  v24 = sub_100030FE4(v9);
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
   {
     sub_100004624();
   }
 
-  v22 = 0;
+  v23 = 0;
 LABEL_12:
 
-  return v22;
+  return v23;
 }
 
 - (id)getLocalCachedImageURL
@@ -142,8 +142,8 @@ LABEL_10:
   v8 = nameCopy;
   if (!dirCopy)
   {
-    v20 = sub_100030FE4();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v22 = sub_100030FE4(nameCopy);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       sub_100004754();
     }
@@ -153,8 +153,8 @@ LABEL_10:
 
   if (!nameCopy)
   {
-    v20 = sub_100030FE4();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v22 = sub_100030FE4(0);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       sub_100004714();
     }
@@ -162,7 +162,7 @@ LABEL_10:
 LABEL_17:
 
 LABEL_18:
-    v21 = 0;
+    v23 = 0;
     goto LABEL_19;
   }
 
@@ -174,49 +174,49 @@ LABEL_18:
 
   if ((v13 & 1) == 0)
   {
-    v14 = sub_100030FE4();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = sub_100030FE4(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       path2 = [(NSURL *)*p_localCacheDirURL path];
       *buf = 138477827;
-      v27 = path2;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Directory for icon file path (%{private}@) does not exist, will try to create now", buf, 0xCu);
+      v29 = path2;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Directory for icon file path (%{private}@) does not exist, will try to create now", buf, 0xCu);
     }
 
-    v16 = +[NSFileManager defaultManager];
-    v17 = *p_localCacheDirURL;
-    v25 = 0;
-    [v16 createDirectoryAtURL:v17 withIntermediateDirectories:1 attributes:0 error:&v25];
-    v18 = v25;
+    v17 = +[NSFileManager defaultManager];
+    v18 = *p_localCacheDirURL;
+    v27 = 0;
+    [v17 createDirectoryAtURL:v18 withIntermediateDirectories:1 attributes:0 error:&v27];
+    v19 = v27;
 
-    if (v18)
+    if (v19)
     {
-      v19 = sub_100030FE4();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v21 = sub_100030FE4(v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        sub_100004664(p_localCacheDirURL, v18, v19);
+        sub_100004664(p_localCacheDirURL, v19, v21);
       }
 
       goto LABEL_18;
     }
   }
 
-  v21 = [(NSURL *)*p_localCacheDirURL URLByAppendingPathComponent:v8];
-  v22 = sub_100030FE4();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+  v23 = [(NSURL *)*p_localCacheDirURL URLByAppendingPathComponent:v8];
+  v24 = sub_100030FE4(v23);
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
   {
-    path3 = [v21 path];
+    path3 = [v23 path];
     *buf = 138478083;
-    v27 = dirCopy;
-    v28 = 2113;
-    v29 = path3;
-    _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Saving image %{private}@ to path %{private}@", buf, 0x16u);
+    v29 = dirCopy;
+    v30 = 2113;
+    v31 = path3;
+    _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Saving image %{private}@ to path %{private}@", buf, 0x16u);
   }
 
-  [dirCopy writeToURL:v21 atomically:1];
+  [dirCopy writeToURL:v23 atomically:1];
 LABEL_19:
 
-  return v21;
+  return v23;
 }
 
 - (id)_saveISIconInLocalCacheDir:(id)dir withName:(id)name
@@ -264,7 +264,7 @@ LABEL_19:
 
   else
   {
-    v5 = sub_100030FE4();
+    v5 = sub_100030FE4(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_100004794();
@@ -284,25 +284,25 @@ LABEL_19:
   v8 = [NSURLSession sessionWithConfiguration:v7];
 
   v9 = [[NSURLRequest alloc] initWithURL:lCopy];
-  v10 = sub_100030FE4();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = sub_100030FE4(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = [v9 URL];
+    v12 = [v9 URL];
     *buf = 138412546;
-    v17 = v11;
-    v18 = 2112;
-    v19 = v8;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Executing fetch %@ withSession %@", buf, 0x16u);
+    v18 = v12;
+    v19 = 2112;
+    v20 = v8;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Executing fetch %@ withSession %@", buf, 0x16u);
   }
 
-  v14[0] = _NSConcreteStackBlock;
-  v14[1] = 3221225472;
-  v14[2] = sub_10000425C;
-  v14[3] = &unk_100050A10;
-  v15 = handlerCopy;
-  v12 = handlerCopy;
-  v13 = [v8 dataTaskWithRequest:v9 completionHandler:v14];
-  [v13 resume];
+  v15[0] = _NSConcreteStackBlock;
+  v15[1] = 3221225472;
+  v15[2] = sub_10000425C;
+  v15[3] = &unk_100050A10;
+  v16 = handlerCopy;
+  v13 = handlerCopy;
+  v14 = [v8 dataTaskWithRequest:v9 completionHandler:v15];
+  [v14 resume];
   [v8 finishTasksAndInvalidate];
 }
 
@@ -313,45 +313,45 @@ LABEL_19:
   path = [v2 path];
   v5 = [v3 fileExistsAtPath:path];
 
-  v6 = sub_100030FE4();
-  v7 = v6;
+  v7 = sub_100030FE4(v6);
+  v8 = v7;
   if (v5)
   {
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       path2 = [v2 path];
       *buf = 138477827;
-      v15 = path2;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Going to remove item at URL %{private}@", buf, 0xCu);
+      v17 = path2;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Going to remove item at URL %{private}@", buf, 0xCu);
     }
 
-    v9 = +[NSFileManager defaultManager];
-    v13 = 0;
-    [v9 removeItemAtURL:v2 error:&v13];
-    v7 = v13;
+    v10 = +[NSFileManager defaultManager];
+    v15 = 0;
+    [v10 removeItemAtURL:v2 error:&v15];
+    v8 = v15;
 
-    if (!v7)
+    if (!v8)
     {
-      v11 = 1;
+      v13 = 1;
       goto LABEL_11;
     }
 
-    v10 = sub_100030FE4();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = sub_100030FE4(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       sub_100004978();
     }
   }
 
-  else if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     sub_100004908();
   }
 
-  v11 = 0;
+  v13 = 0;
 LABEL_11:
 
-  return v11;
+  return v13;
 }
 
 @end

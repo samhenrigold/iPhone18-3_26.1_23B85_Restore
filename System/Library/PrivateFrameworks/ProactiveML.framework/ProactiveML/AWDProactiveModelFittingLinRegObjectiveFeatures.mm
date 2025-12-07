@@ -244,7 +244,6 @@ LABEL_27:
     goto LABEL_24;
   }
 
-  v5 = *(equalCopy + 56);
   if (*&self->_has)
   {
     if ((*(equalCopy + 56) & 1) == 0 || self->_timestamp != *(equalCopy + 1))
@@ -256,7 +255,7 @@ LABEL_27:
   else if (*(equalCopy + 56))
   {
 LABEL_24:
-    v10 = 0;
+    v9 = 0;
     goto LABEL_25;
   }
 
@@ -306,7 +305,7 @@ LABEL_24:
     goto LABEL_24;
   }
 
-  v10 = (*(equalCopy + 56) & 2) == 0;
+  v9 = (*(equalCopy + 56) & 2) == 0;
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 56) & 2) == 0 || self->_featuresL2norm != *(equalCopy + 4))
@@ -314,12 +313,12 @@ LABEL_24:
       goto LABEL_24;
     }
 
-    v10 = 1;
+    v9 = 1;
   }
 
 LABEL_25:
 
-  return v10;
+  return v9;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -419,7 +418,6 @@ LABEL_25:
   toCopy = to;
   if (*&self->_has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -446,14 +444,12 @@ LABEL_25:
   has = self->_has;
   if ((has & 4) != 0)
   {
-    featuresScaleFactor = self->_featuresScaleFactor;
     PBDataWriterWriteFloatField();
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    featuresL2norm = self->_featuresL2norm;
     PBDataWriterWriteFloatField();
   }
 }

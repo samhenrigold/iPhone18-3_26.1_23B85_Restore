@@ -139,14 +139,15 @@
   object = [connectedCopy object];
 
   isScreening = [object isScreening];
-  v8 = sub_100004778();
-  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
-  if (!isScreening)
+  v8 = isScreening;
+  v9 = sub_100004778(isScreening);
+  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+  if (!v8)
   {
-    if (v9)
+    if (v10)
     {
-      *v13 = 0;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Call connected. Marking all calls as read.", v13, 2u);
+      *v14 = 0;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Call connected. Marking all calls as read.", v14, 2u);
     }
 
     handle = [object handle];
@@ -154,9 +155,9 @@
     {
       value = [handle value];
       isoCountryCode = [object isoCountryCode];
-      v8 = [CHHandle normalizedPhoneNumberHandleForValue:value isoCountryCode:isoCountryCode];
+      v9 = [CHHandle normalizedPhoneNumberHandleForValue:value isoCountryCode:isoCountryCode];
 
-      if (!v8)
+      if (!v9)
       {
         goto LABEL_11;
       }
@@ -164,8 +165,8 @@
 
     else
     {
-      v8 = [CHHandle handleWithTUHandle:handle];
-      if (!v8)
+      v9 = [CHHandle handleWithTUHandle:handle];
+      if (!v9)
       {
 LABEL_11:
 
@@ -173,14 +174,14 @@ LABEL_11:
       }
     }
 
-    [(CSDRecentsController *)self _markReadRecentCallsMatchingHandle:v8];
+    [(CSDRecentsController *)self _markReadRecentCallsMatchingHandle:v9];
     goto LABEL_11;
   }
 
-  if (v9)
+  if (v10)
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Call is being screened, ignoring to mark all calls as read", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Call is being screened, ignoring to mark all calls as read", buf, 2u);
   }
 
 LABEL_12:
@@ -213,49 +214,49 @@ LABEL_12:
   queue = [(CSDRecentsController *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v11 = sub_100004778();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = sub_100004778(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = 134218498;
+    v21 = 134218498;
     usedCopy = used;
-    v21 = 2112;
-    v22 = identifierCopy;
     v23 = 2112;
-    v24 = historyIdentifierCopy;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "bytesOfDataUsed: %ld uniqueProxyIdentifier: %@ callHistoryIdentifier: %@", &v19, 0x20u);
+    v24 = identifierCopy;
+    v25 = 2112;
+    v26 = historyIdentifierCopy;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "bytesOfDataUsed: %ld uniqueProxyIdentifier: %@ callHistoryIdentifier: %@", &v21, 0x20u);
   }
 
   cachedCalls = [(CSDRecentsController *)self cachedCalls];
-  v13 = [cachedCalls objectForKeyedSubscript:identifierCopy];
+  v14 = [cachedCalls objectForKeyedSubscript:identifierCopy];
 
-  v14 = sub_100004778();
-  v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
-  if (v13)
+  v16 = sub_100004778(v15);
+  v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
+  if (v14)
   {
-    if (v15)
+    if (v17)
     {
-      v19 = 138412290;
-      usedCopy = v13;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Call still exists so updating its bytes of data used: %@", &v19, 0xCu);
+      v21 = 138412290;
+      usedCopy = v14;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Call still exists so updating its bytes of data used: %@", &v21, 0xCu);
     }
 
-    [v13 setBytesOfDataUsed:used];
+    [v14 setBytesOfDataUsed:used];
   }
 
   else
   {
-    if (v15)
+    if (v17)
     {
-      LOWORD(v19) = 0;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "No call still exists so updating bytes of data used via CHManager", &v19, 2u);
+      LOWORD(v21) = 0;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "No call still exists so updating bytes of data used via CHManager", &v21, 2u);
     }
 
     recentsManager = [(CSDRecentsController *)self recentsManager];
-    v17 = [NSNumber numberWithInteger:used];
-    [recentsManager updateBytesOfDataUsedFor:historyIdentifierCopy with:v17];
+    v19 = [NSNumber numberWithInteger:used];
+    [recentsManager updateBytesOfDataUsedFor:historyIdentifierCopy with:v19];
 
-    v18 = [(CSDRecentsController *)self _callHistoryTransactionObjectWithIdentifier:historyIdentifierCopy];
-    [(CSDRecentsController *)self _endTransactionForObjectAfterCallHistoryDatabaseChanges:v18];
+    v20 = [(CSDRecentsController *)self _callHistoryTransactionObjectWithIdentifier:historyIdentifierCopy];
+    [(CSDRecentsController *)self _endTransactionForObjectAfterCallHistoryDatabaseChanges:v20];
   }
 }
 
@@ -297,29 +298,31 @@ LABEL_12:
     }
   }
 
-  if ([v6 mediaType])
+  mediaType = [v6 mediaType];
+  if (mediaType)
   {
-    if ([historyCopy isOneToOneFaceTimeMyself])
+    mediaType = [historyCopy isOneToOneFaceTimeMyself];
+    if (mediaType)
     {
       remoteParticipantHandles = [v6 remoteParticipantHandles];
-      v12 = [remoteParticipantHandles count];
+      v13 = [remoteParticipantHandles count];
 
-      if (!v12)
+      if (!v13)
       {
-        v13 = [NSSet alloc];
+        v14 = [NSSet alloc];
         initiator = [v6 initiator];
-        v15 = [v13 initWithObjects:{initiator, 0}];
-        [v6 setRemoteParticipantHandles:v15];
+        v16 = [v14 initWithObjects:{initiator, 0}];
+        [v6 setRemoteParticipantHandles:v16];
       }
     }
   }
 
-  v16 = sub_100004778();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v17 = sub_100004778(mediaType);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v18 = v6;
-    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Writing recent call to history: %@", buf, 0xCu);
+    v19 = v6;
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Writing recent call to history: %@", buf, 0xCu);
   }
 
   [(CSDRecentsController *)self _addRecentCallToCallHistory:v6];
@@ -330,7 +333,7 @@ LABEL_12:
   userInfo = [history userInfo];
   v5 = [userInfo objectForKeyedSubscript:@"CSDIDSPendingCallKey"];
   v6 = [[CHRecentCall alloc] initWithCall:v5];
-  v7 = sub_100004778();
+  v7 = sub_100004778(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 138412290;
@@ -437,27 +440,27 @@ LABEL_12:
   queue = [(CSDRecentsController *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v6 = sub_100004778();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100004778(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v14 = changesCopy;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Adding transaction object to transactionObjectsAwaitingCallHistory: %@", buf, 0xCu);
+    v15 = changesCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Adding transaction object to transactionObjectsAwaitingCallHistory: %@", buf, 0xCu);
   }
 
   transactionObjectsAwaitingCallHistory = [(CSDRecentsController *)self transactionObjectsAwaitingCallHistory];
   [transactionObjectsAwaitingCallHistory addObject:changesCopy];
 
-  v8 = dispatch_time(0, 10000000000);
+  v9 = dispatch_time(0, 10000000000);
   queue2 = [(CSDRecentsController *)self queue];
-  v11[0] = _NSConcreteStackBlock;
-  v11[1] = 3221225472;
-  v11[2] = sub_1001B16E0;
-  v11[3] = &unk_100619D88;
-  v11[4] = self;
-  v12 = changesCopy;
-  v10 = changesCopy;
-  dispatch_after(v8, queue2, v11);
+  v12[0] = _NSConcreteStackBlock;
+  v12[1] = 3221225472;
+  v12[2] = sub_1001B16E0;
+  v12[3] = &unk_100619D88;
+  v12[4] = self;
+  v13 = changesCopy;
+  v11 = changesCopy;
+  dispatch_after(v9, queue2, v12);
 }
 
 - (void)_markReadRecentCallsMatchingHandle:(id)handle
@@ -489,7 +492,7 @@ LABEL_12:
 - (void)providersChangedForProviderManager:(id)manager withValidKeychain:(BOOL)keychain
 {
   managerCopy = manager;
-  v7 = sub_100004778();
+  v7 = sub_100004778(managerCopy);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
   if (keychain)
   {
@@ -591,16 +594,16 @@ LABEL_12:
   queue = [(CSDRecentsController *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v7 = sub_100004778();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = sub_100004778(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v24 = 138412290;
-    v25 = changedCopy;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "call: %@", &v24, 0xCu);
+    v25 = 138412290;
+    v26 = changedCopy;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "call: %@", &v25, 0xCu);
   }
 
   uniqueProxyIdentifier = [changedCopy uniqueProxyIdentifier];
-  v9 = [(CSDRecentsController *)self _callHistoryTransactionObjectWithIdentifier:uniqueProxyIdentifier];
+  v10 = [(CSDRecentsController *)self _callHistoryTransactionObjectWithIdentifier:uniqueProxyIdentifier];
 
   status = [changedCopy status];
   cachedCalls = [(CSDRecentsController *)self cachedCalls];
@@ -621,19 +624,19 @@ LABEL_11:
 
       cachedCallUUIDsToConversationAVMode = [(CSDRecentsController *)self cachedCallUUIDsToConversationAVMode];
       uniqueProxyIdentifier3 = [changedCopy uniqueProxyIdentifier];
-      v16 = [cachedCallUUIDsToConversationAVMode objectForKeyedSubscript:uniqueProxyIdentifier3];
+      v17 = [cachedCallUUIDsToConversationAVMode objectForKeyedSubscript:uniqueProxyIdentifier3];
 
-      if (!v16)
+      if (!v17)
       {
-        v17 = +[TUCallCenter sharedInstance];
-        remoteParticipantHandles = [v17 activeConversationForCall:changedCopy];
+        v18 = +[TUCallCenter sharedInstance];
+        remoteParticipantHandles = [v18 activeConversationForCall:changedCopy];
 
         if (remoteParticipantHandles)
         {
-          v18 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [remoteParticipantHandles resolvedAudioVideoMode]);
+          v19 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [remoteParticipantHandles resolvedAudioVideoMode]);
           cachedCallUUIDsToConversationAVMode2 = [(CSDRecentsController *)self cachedCallUUIDsToConversationAVMode];
           uniqueProxyIdentifier4 = [changedCopy uniqueProxyIdentifier];
-          [cachedCallUUIDsToConversationAVMode2 setObject:v18 forKeyedSubscript:uniqueProxyIdentifier4];
+          [cachedCallUUIDsToConversationAVMode2 setObject:v19 forKeyedSubscript:uniqueProxyIdentifier4];
         }
 
         goto LABEL_11;
@@ -643,7 +646,7 @@ LABEL_11:
 LABEL_12:
     transactionManager = [(CSDRecentsController *)self transactionManager];
     uniqueProxyIdentifier5 = [changedCopy uniqueProxyIdentifier];
-    [transactionManager beginTransactionIfNecessaryForObject:v9 withReason:uniqueProxyIdentifier5];
+    [transactionManager beginTransactionIfNecessaryForObject:v10 withReason:uniqueProxyIdentifier5];
     goto LABEL_15;
   }
 
@@ -652,13 +655,13 @@ LABEL_12:
   if ([(CSDRecentsController *)self _canAddCallToCallHistory:changedCopy])
   {
     [(CSDRecentsController *)self _addCallToCallHistory:changedCopy];
-    [(CSDRecentsController *)self _endTransactionForObjectAfterCallHistoryDatabaseChanges:v9];
+    [(CSDRecentsController *)self _endTransactionForObjectAfterCallHistoryDatabaseChanges:v10];
   }
 
   else
   {
     transactionManager2 = [(CSDRecentsController *)self transactionManager];
-    [transactionManager2 endTransactionIfNecessaryForObject:v9];
+    [transactionManager2 endTransactionIfNecessaryForObject:v10];
   }
 
   transactionManager = [(CSDRecentsController *)self cachedCallUUIDsToConversationAVMode];

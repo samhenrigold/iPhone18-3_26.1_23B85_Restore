@@ -1,6 +1,8 @@
 @interface _INPBGetSettingResponseData
 - (BOOL)isEqual:(id)equal;
 - (_INPBGetSettingResponseData)initWithCoder:(id)coder;
+- (id)binaryValueAsString:(int)string;
+- (id)boundedValueAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
 - (int)StringAsBinaryValue:(id)value;
@@ -280,13 +282,11 @@ LABEL_26:
   toCopy = to;
   if ([(_INPBGetSettingResponseData *)self hasBinaryValue])
   {
-    binaryValue = self->_binaryValue;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBGetSettingResponseData *)self hasBoundedValue])
   {
-    boundedValue = self->_boundedValue;
     PBDataWriterWriteInt32Field();
   }
 
@@ -294,7 +294,6 @@ LABEL_26:
 
   if (labeledValue)
   {
-    labeledValue = self->_labeledValue;
     PBDataWriterWriteStringField();
   }
 
@@ -308,13 +307,13 @@ LABEL_26:
 
   settingMetadata = [(_INPBGetSettingResponseData *)self settingMetadata];
 
-  v11 = toCopy;
+  v8 = toCopy;
   if (settingMetadata)
   {
     settingMetadata2 = [(_INPBGetSettingResponseData *)self settingMetadata];
     PBDataWriterWriteSubmessage();
 
-    v11 = toCopy;
+    v8 = toCopy;
   }
 }
 
@@ -348,6 +347,21 @@ LABEL_26:
   else
   {
     v4 = 1;
+  }
+
+  return v4;
+}
+
+- (id)boundedValueAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1E7287C70 + (string - 1));
   }
 
   return v4;
@@ -404,6 +418,21 @@ LABEL_26:
   else
   {
     v4 = 1;
+  }
+
+  return v4;
+}
+
+- (id)binaryValueAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1E7287C58 + (string - 1));
   }
 
   return v4;

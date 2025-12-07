@@ -25,46 +25,46 @@
 
 - (BOOL)applyToObject:(id)object
 {
-  v85 = *MEMORY[0x277D85DE8];
+  v82 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && (-[HDCodableWorkout sample](self, "sample"), v5 = objc_claimAutoreleasedReturnValue(), v6 = [v5 applyToObject:objectCopy], v5, v6) && (type = self->_type, _HKWorkoutActivityTypeIsValid()))
+  if ((objc_opt_isKindOfClass() & 1) != 0 && (-[HDCodableWorkout sample](self, "sample"), v5 = objc_claimAutoreleasedReturnValue(), v6 = [v5 applyToObject:objectCopy], v5, v6) && _HKWorkoutActivityTypeIsValid())
   {
     [objectCopy _setWorkoutActivityType:self->_type];
     [objectCopy _setDuration:self->_duration];
     if ([(NSMutableArray *)self->_events count])
     {
       array = [MEMORY[0x277CBEB18] array];
+      v76 = 0u;
+      v77 = 0u;
+      v78 = 0u;
       v79 = 0u;
-      v80 = 0u;
-      v81 = 0u;
-      v82 = 0u;
-      v9 = self->_events;
-      v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v79 objects:v84 count:16];
-      if (v10)
+      v8 = self->_events;
+      v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v76 objects:v81 count:16];
+      if (v9)
       {
-        v11 = v10;
-        v12 = *v80;
+        v10 = v9;
+        v11 = *v77;
         do
         {
-          for (i = 0; i != v11; ++i)
+          for (i = 0; i != v10; ++i)
           {
-            if (*v80 != v12)
+            if (*v77 != v11)
             {
-              objc_enumerationMutation(v9);
+              objc_enumerationMutation(v8);
             }
 
-            v14 = [MEMORY[0x277CCDC68] createWithCodable:*(*(&v79 + 1) + 8 * i)];
-            if (v14)
+            v13 = [MEMORY[0x277CCDC68] createWithCodable:*(*(&v76 + 1) + 8 * i)];
+            if (v13)
             {
-              [array addObject:v14];
+              [array addObject:v13];
             }
           }
 
-          v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v79 objects:v84 count:16];
+          v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v76 objects:v81 count:16];
         }
 
-        while (v11);
+        while (v10);
       }
     }
 
@@ -77,49 +77,49 @@
 
     if ([(NSMutableArray *)self->_zones count])
     {
-      v18 = objc_alloc_init(MEMORY[0x277CBEB38]);
+      v16 = objc_alloc_init(MEMORY[0x277CBEB38]);
+      v76 = 0u;
+      v77 = 0u;
+      v78 = 0u;
       v79 = 0u;
-      v80 = 0u;
-      v81 = 0u;
-      v82 = 0u;
       selfCopy = self;
-      v19 = self->_zones;
-      v20 = [(NSMutableArray *)v19 countByEnumeratingWithState:&v79 objects:v84 count:16];
-      if (v20)
+      v17 = self->_zones;
+      v18 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v76 objects:v81 count:16];
+      if (v18)
       {
-        v21 = v20;
-        v22 = *v80;
+        v19 = v18;
+        v20 = *v77;
         do
         {
-          for (j = 0; j != v21; ++j)
+          for (j = 0; j != v19; ++j)
           {
-            if (*v80 != v22)
+            if (*v77 != v20)
             {
-              objc_enumerationMutation(v19);
+              objc_enumerationMutation(v17);
             }
 
-            v24 = [MEMORY[0x277CCDCE0] createWithCodable:*(*(&v79 + 1) + 8 * j)];
-            v25 = v24;
-            if (v24)
+            v22 = [MEMORY[0x277CCDCE0] createWithCodable:*(*(&v76 + 1) + 8 * j)];
+            v23 = v22;
+            if (v22)
             {
-              type = [v24 type];
-              v27 = [v18 objectForKeyedSubscript:type];
+              type = [v22 type];
+              v25 = [v16 objectForKeyedSubscript:type];
 
-              if (!v27)
+              if (!v25)
               {
-                v28 = objc_alloc_init(MEMORY[0x277CBEB18]);
-                [v18 setObject:v28 forKeyedSubscript:type];
+                v26 = objc_alloc_init(MEMORY[0x277CBEB18]);
+                [v16 setObject:v26 forKeyedSubscript:type];
               }
 
-              v29 = [v18 objectForKeyedSubscript:type];
-              [v29 addObject:v25];
+              v27 = [v16 objectForKeyedSubscript:type];
+              [v27 addObject:v23];
             }
           }
 
-          v21 = [(NSMutableArray *)v19 countByEnumeratingWithState:&v79 objects:v84 count:16];
+          v19 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v76 objects:v81 count:16];
         }
 
-        while (v21);
+        while (v19);
       }
 
       self = selfCopy;
@@ -127,104 +127,104 @@
 
     else
     {
-      v18 = 0;
+      v16 = 0;
     }
 
-    [objectCopy _setWorkoutZonesByType:v18];
+    [objectCopy _setWorkoutZonesByType:v16];
 
-    v30 = [MEMORY[0x277CCDBF0] createWithCodable:self->_primaryActivity];
-    if (!v30)
+    v28 = [MEMORY[0x277CCDBF0] createWithCodable:self->_primaryActivity];
+    if (!v28)
     {
       [objectCopy workoutActivityType];
       metadata = [objectCopy metadata];
-      v32 = _HKWorkoutConfigurationWithActivityTypeAndMetadata();
+      v30 = _HKWorkoutConfigurationWithActivityTypeAndMetadata();
 
-      v33 = objc_alloc(MEMORY[0x277CCDBF0]);
+      v31 = objc_alloc(MEMORY[0x277CCDBF0]);
       uUID = [objectCopy UUID];
       startDate = [objectCopy startDate];
       endDate = [objectCopy endDate];
       workoutEvents = [objectCopy workoutEvents];
       [objectCopy duration];
-      v30 = [v33 _initWithUUID:uUID workoutConfiguration:v32 startDate:startDate endDate:endDate workoutEvents:workoutEvents startsPaused:0 duration:0 metadata:0 statisticsPerType:?];
+      v28 = [v31 _initWithUUID:uUID workoutConfiguration:v30 startDate:startDate endDate:endDate workoutEvents:workoutEvents startsPaused:0 duration:0 metadata:0 statisticsPerType:?];
     }
 
-    [objectCopy _setPrimaryActivity:v30];
+    [objectCopy _setPrimaryActivity:v28];
     if ([(NSMutableArray *)self->_subActivities count])
     {
-      v38 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v36 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v76 = 0u;
+      v77 = 0u;
+      v78 = 0u;
       v79 = 0u;
-      v80 = 0u;
-      v81 = 0u;
-      v82 = 0u;
-      v39 = self->_subActivities;
-      v40 = [(NSMutableArray *)v39 countByEnumeratingWithState:&v79 objects:v84 count:16];
-      if (v40)
+      v37 = self->_subActivities;
+      v38 = [(NSMutableArray *)v37 countByEnumeratingWithState:&v76 objects:v81 count:16];
+      if (v38)
       {
-        v41 = v40;
-        v42 = *v80;
+        v39 = v38;
+        v40 = *v77;
         do
         {
-          for (k = 0; k != v41; ++k)
+          for (k = 0; k != v39; ++k)
           {
-            if (*v80 != v42)
+            if (*v77 != v40)
             {
-              objc_enumerationMutation(v39);
+              objc_enumerationMutation(v37);
             }
 
-            v44 = [MEMORY[0x277CCDBF0] createWithCodable:*(*(&v79 + 1) + 8 * k)];
-            if (v44)
+            v42 = [MEMORY[0x277CCDBF0] createWithCodable:*(*(&v76 + 1) + 8 * k)];
+            if (v42)
             {
-              [v38 addObject:v44];
+              [v36 addObject:v42];
             }
           }
 
-          v41 = [(NSMutableArray *)v39 countByEnumeratingWithState:&v79 objects:v84 count:16];
+          v39 = [(NSMutableArray *)v37 countByEnumeratingWithState:&v76 objects:v81 count:16];
         }
 
-        while (v41);
+        while (v39);
       }
     }
 
     else
     {
-      v38 = 0;
+      v36 = 0;
     }
 
-    [objectCopy _setSubActivities:v38];
+    [objectCopy _setSubActivities:v36];
 
     workoutEvents2 = [objectCopy workoutEvents];
-    v46 = [workoutEvents2 count];
+    v44 = [workoutEvents2 count];
 
-    if (v46)
+    if (v44)
     {
-      v77 = 0u;
-      v78 = 0u;
+      v74 = 0u;
       v75 = 0u;
-      v76 = 0u;
+      v72 = 0u;
+      v73 = 0u;
       _subActivities = [objectCopy _subActivities];
-      v48 = [_subActivities countByEnumeratingWithState:&v75 objects:v83 count:16];
-      if (v48)
+      v46 = [_subActivities countByEnumeratingWithState:&v72 objects:v80 count:16];
+      if (v46)
       {
-        v49 = v48;
-        v50 = *v76;
+        v47 = v46;
+        v48 = *v73;
         do
         {
-          for (m = 0; m != v49; ++m)
+          for (m = 0; m != v47; ++m)
           {
-            if (*v76 != v50)
+            if (*v73 != v48)
             {
               objc_enumerationMutation(_subActivities);
             }
 
-            v52 = *(*(&v75 + 1) + 8 * m);
+            v50 = *(*(&v72 + 1) + 8 * m);
             workoutEvents3 = [objectCopy workoutEvents];
-            [v52 _filterAndSetWorkoutEvents:workoutEvents3];
+            [v50 _filterAndSetWorkoutEvents:workoutEvents3];
           }
 
-          v49 = [_subActivities countByEnumeratingWithState:&v75 objects:v83 count:16];
+          v47 = [_subActivities countByEnumeratingWithState:&v72 objects:v80 count:16];
         }
 
-        while (v49);
+        while (v47);
       }
     }
 
@@ -232,85 +232,85 @@
     {
       if ((*&self->_has & 0x20) != 0)
       {
-        v55 = MEMORY[0x277CCD7E8];
-        v56 = _HKWorkoutCanonicalEnergyBurnedUnit();
-        v54 = [v55 quantityWithUnit:v56 doubleValue:self->_totalEnergyBurnedInCanonicalUnit];
+        v53 = MEMORY[0x277CCD7E8];
+        v54 = _HKWorkoutCanonicalEnergyBurnedUnit();
+        v52 = [v53 quantityWithUnit:v54 doubleValue:self->_totalEnergyBurnedInCanonicalUnit];
       }
 
       else
       {
-        v54 = 0;
+        v52 = 0;
       }
 
-      [objectCopy _setTotalEnergyBurned:v54];
+      [objectCopy _setTotalEnergyBurned:v52];
     }
 
     if ([(HDCodableWorkout *)self hasTotalBasalEnergyBurnedInCanonicalUnit])
     {
       if ((*&self->_has & 8) != 0)
       {
-        v58 = MEMORY[0x277CCD7E8];
-        v59 = _HKWorkoutCanonicalEnergyBurnedUnit();
-        v57 = [v58 quantityWithUnit:v59 doubleValue:self->_totalBasalEnergyBurnedInCanonicalUnit];
+        v56 = MEMORY[0x277CCD7E8];
+        v57 = _HKWorkoutCanonicalEnergyBurnedUnit();
+        v55 = [v56 quantityWithUnit:v57 doubleValue:self->_totalBasalEnergyBurnedInCanonicalUnit];
       }
 
       else
       {
-        v57 = 0;
+        v55 = 0;
       }
 
-      [objectCopy _setTotalBasalEnergyBurned:v57];
+      [objectCopy _setTotalBasalEnergyBurned:v55];
     }
 
     if ([(HDCodableWorkout *)self hasTotalDistanceInCanonicalUnit])
     {
       if ((*&self->_has & 0x10) != 0)
       {
-        v61 = MEMORY[0x277CCD7E8];
-        v62 = _HKWorkoutCanonicalDistanceUnit();
-        v60 = [v61 quantityWithUnit:v62 doubleValue:self->_totalDistanceInCanonicalUnit];
+        v59 = MEMORY[0x277CCD7E8];
+        v60 = _HKWorkoutCanonicalDistanceUnit();
+        v58 = [v59 quantityWithUnit:v60 doubleValue:self->_totalDistanceInCanonicalUnit];
       }
 
       else
       {
-        v60 = 0;
+        v58 = 0;
       }
 
-      [objectCopy _setTotalDistance:v60];
+      [objectCopy _setTotalDistance:v58];
     }
 
     if ([(HDCodableWorkout *)self hasTotalSwimmingStrokeCountInCanonicalUnit])
     {
       if ((*&self->_has & 0x80) != 0)
       {
-        v64 = MEMORY[0x277CCD7E8];
-        v65 = _HKWorkoutCanonicalSwimmingStrokeCountUnit();
-        v63 = [v64 quantityWithUnit:v65 doubleValue:self->_totalSwimmingStrokeCountInCanonicalUnit];
+        v62 = MEMORY[0x277CCD7E8];
+        v63 = _HKWorkoutCanonicalSwimmingStrokeCountUnit();
+        v61 = [v62 quantityWithUnit:v63 doubleValue:self->_totalSwimmingStrokeCountInCanonicalUnit];
       }
 
       else
       {
-        v63 = 0;
+        v61 = 0;
       }
 
-      [objectCopy _setTotalSwimmingStrokeCount:v63];
+      [objectCopy _setTotalSwimmingStrokeCount:v61];
     }
 
     if ([(HDCodableWorkout *)self hasTotalFlightsClimbedInCanonicalUnit])
     {
       if ((*&self->_has & 0x40) != 0)
       {
-        v67 = MEMORY[0x277CCD7E8];
-        v68 = _HKWorkoutCanonicalFlightsClimbedUnit();
-        v66 = [v67 quantityWithUnit:v68 doubleValue:self->_totalFlightsClimbedInCanonicalUnit];
+        v65 = MEMORY[0x277CCD7E8];
+        v66 = _HKWorkoutCanonicalFlightsClimbedUnit();
+        v64 = [v65 quantityWithUnit:v66 doubleValue:self->_totalFlightsClimbedInCanonicalUnit];
       }
 
       else
       {
-        v66 = 0;
+        v64 = 0;
       }
 
-      [objectCopy _setTotalFlightsClimbed:v66];
+      [objectCopy _setTotalFlightsClimbed:v64];
     }
 
     if ([(HDCodableWorkout *)self hasGoalType])
@@ -332,30 +332,28 @@
     {
       if ((~*&self->_has & 6) != 0)
       {
-        v73 = 0;
+        v70 = 0;
       }
 
       else
       {
-        v70 = MEMORY[0x277CCD7E8];
-        v71 = self->_goalType;
-        v72 = _HKWorkoutCanonicalUnitForGoalType();
-        v73 = [v70 quantityWithUnit:v72 doubleValue:self->_goal];
+        v68 = MEMORY[0x277CCD7E8];
+        v69 = _HKWorkoutCanonicalUnitForGoalType();
+        v70 = [v68 quantityWithUnit:v69 doubleValue:self->_goal];
       }
 
-      [objectCopy _setGoal:v73];
+      [objectCopy _setGoal:v70];
     }
 
-    v15 = 1;
+    v14 = 1;
   }
 
   else
   {
-    v15 = 0;
+    v14 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-  return v15;
+  return v14;
 }
 
 - (void)setHasType:(BOOL)type
@@ -546,7 +544,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   sample = self->_sample;
   if (sample)
@@ -564,30 +562,30 @@
   if ([(NSMutableArray *)self->_events count])
   {
     v7 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableArray count](self->_events, "count")}];
+    v48 = 0u;
     v49 = 0u;
     v50 = 0u;
     v51 = 0u;
-    v52 = 0u;
     v8 = self->_events;
-    v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v49 objects:v55 count:16];
+    v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v48 objects:v54 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v50;
+      v11 = *v49;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v50 != v11)
+          if (*v49 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          dictionaryRepresentation2 = [*(*(&v49 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation2 = [*(*(&v48 + 1) + 8 * i) dictionaryRepresentation];
           [v7 addObject:dictionaryRepresentation2];
         }
 
-        v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v49 objects:v55 count:16];
+        v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v48 objects:v54 count:16];
       }
 
       while (v10);
@@ -599,8 +597,8 @@
   has = self->_has;
   if (has)
   {
-    v34 = [MEMORY[0x277CCABB0] numberWithDouble:self->_duration];
-    [dictionary setObject:v34 forKey:@"duration"];
+    v33 = [MEMORY[0x277CCABB0] numberWithDouble:self->_duration];
+    [dictionary setObject:v33 forKey:@"duration"];
 
     has = self->_has;
     if ((has & 0x20) == 0)
@@ -620,8 +618,8 @@ LABEL_16:
     goto LABEL_16;
   }
 
-  v35 = [MEMORY[0x277CCABB0] numberWithDouble:self->_totalEnergyBurnedInCanonicalUnit];
-  [dictionary setObject:v35 forKey:@"totalEnergyBurnedInCanonicalUnit"];
+  v34 = [MEMORY[0x277CCABB0] numberWithDouble:self->_totalEnergyBurnedInCanonicalUnit];
+  [dictionary setObject:v34 forKey:@"totalEnergyBurnedInCanonicalUnit"];
 
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -636,8 +634,8 @@ LABEL_17:
   }
 
 LABEL_48:
-  v36 = [MEMORY[0x277CCABB0] numberWithDouble:self->_totalDistanceInCanonicalUnit];
-  [dictionary setObject:v36 forKey:@"totalDistanceInCanonicalUnit"];
+  v35 = [MEMORY[0x277CCABB0] numberWithDouble:self->_totalDistanceInCanonicalUnit];
+  [dictionary setObject:v35 forKey:@"totalDistanceInCanonicalUnit"];
 
   has = self->_has;
   if ((has & 4) == 0)
@@ -652,8 +650,8 @@ LABEL_18:
   }
 
 LABEL_49:
-  v37 = [MEMORY[0x277CCABB0] numberWithLongLong:self->_goalType];
-  [dictionary setObject:v37 forKey:@"goalType"];
+  v36 = [MEMORY[0x277CCABB0] numberWithLongLong:self->_goalType];
+  [dictionary setObject:v36 forKey:@"goalType"];
 
   has = self->_has;
   if ((has & 2) == 0)
@@ -668,8 +666,8 @@ LABEL_19:
   }
 
 LABEL_50:
-  v38 = [MEMORY[0x277CCABB0] numberWithDouble:self->_goal];
-  [dictionary setObject:v38 forKey:@"goal"];
+  v37 = [MEMORY[0x277CCABB0] numberWithDouble:self->_goal];
+  [dictionary setObject:v37 forKey:@"goal"];
 
   has = self->_has;
   if ((has & 8) == 0)
@@ -684,8 +682,8 @@ LABEL_20:
   }
 
 LABEL_51:
-  v39 = [MEMORY[0x277CCABB0] numberWithDouble:self->_totalBasalEnergyBurnedInCanonicalUnit];
-  [dictionary setObject:v39 forKey:@"totalBasalEnergyBurnedInCanonicalUnit"];
+  v38 = [MEMORY[0x277CCABB0] numberWithDouble:self->_totalBasalEnergyBurnedInCanonicalUnit];
+  [dictionary setObject:v38 forKey:@"totalBasalEnergyBurnedInCanonicalUnit"];
 
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -700,8 +698,8 @@ LABEL_21:
   }
 
 LABEL_52:
-  v40 = [MEMORY[0x277CCABB0] numberWithDouble:self->_totalSwimmingStrokeCountInCanonicalUnit];
-  [dictionary setObject:v40 forKey:@"totalSwimmingStrokeCountInCanonicalUnit"];
+  v39 = [MEMORY[0x277CCABB0] numberWithDouble:self->_totalSwimmingStrokeCountInCanonicalUnit];
+  [dictionary setObject:v39 forKey:@"totalSwimmingStrokeCountInCanonicalUnit"];
 
   if ((*&self->_has & 0x40) != 0)
   {
@@ -721,30 +719,30 @@ LABEL_23:
   if ([(NSMutableArray *)self->_subActivities count])
   {
     v18 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableArray count](self->_subActivities, "count")}];
+    v44 = 0u;
     v45 = 0u;
     v46 = 0u;
     v47 = 0u;
-    v48 = 0u;
     v19 = self->_subActivities;
-    v20 = [(NSMutableArray *)v19 countByEnumeratingWithState:&v45 objects:v54 count:16];
+    v20 = [(NSMutableArray *)v19 countByEnumeratingWithState:&v44 objects:v53 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v46;
+      v22 = *v45;
       do
       {
         for (j = 0; j != v21; ++j)
         {
-          if (*v46 != v22)
+          if (*v45 != v22)
           {
             objc_enumerationMutation(v19);
           }
 
-          dictionaryRepresentation4 = [*(*(&v45 + 1) + 8 * j) dictionaryRepresentation];
+          dictionaryRepresentation4 = [*(*(&v44 + 1) + 8 * j) dictionaryRepresentation];
           [v18 addObject:dictionaryRepresentation4];
         }
 
-        v21 = [(NSMutableArray *)v19 countByEnumeratingWithState:&v45 objects:v54 count:16];
+        v21 = [(NSMutableArray *)v19 countByEnumeratingWithState:&v44 objects:v53 count:16];
       }
 
       while (v21);
@@ -756,30 +754,30 @@ LABEL_23:
   if ([(NSMutableArray *)self->_zones count])
   {
     v25 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableArray count](self->_zones, "count")}];
+    v40 = 0u;
     v41 = 0u;
     v42 = 0u;
     v43 = 0u;
-    v44 = 0u;
     v26 = self->_zones;
-    v27 = [(NSMutableArray *)v26 countByEnumeratingWithState:&v41 objects:v53 count:16];
+    v27 = [(NSMutableArray *)v26 countByEnumeratingWithState:&v40 objects:v52 count:16];
     if (v27)
     {
       v28 = v27;
-      v29 = *v42;
+      v29 = *v41;
       do
       {
         for (k = 0; k != v28; ++k)
         {
-          if (*v42 != v29)
+          if (*v41 != v29)
           {
             objc_enumerationMutation(v26);
           }
 
-          dictionaryRepresentation5 = [*(*(&v41 + 1) + 8 * k) dictionaryRepresentation];
+          dictionaryRepresentation5 = [*(*(&v40 + 1) + 8 * k) dictionaryRepresentation];
           [v25 addObject:dictionaryRepresentation5];
         }
 
-        v28 = [(NSMutableArray *)v26 countByEnumeratingWithState:&v41 objects:v53 count:16];
+        v28 = [(NSMutableArray *)v26 countByEnumeratingWithState:&v40 objects:v52 count:16];
       }
 
       while (v28);
@@ -788,14 +786,12 @@ LABEL_23:
     [dictionary setObject:v25 forKey:@"zones"];
   }
 
-  v32 = *MEMORY[0x277D85DE8];
-
   return dictionary;
 }
 
 - (void)writeTo:(id)to
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   toCopy = to;
   if (self->_sample)
   {
@@ -804,46 +800,43 @@ LABEL_23:
 
   if ((*&self->_has & 0x100) != 0)
   {
-    type = self->_type;
     PBDataWriterWriteInt64Field();
   }
 
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
-  v43 = 0u;
-  v6 = self->_events;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v42 objects:v48 count:16];
-  if (v7)
+  v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  v5 = self->_events;
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v29 objects:v35 count:16];
+  if (v6)
   {
-    v8 = v7;
-    v9 = *v43;
+    v7 = v6;
+    v8 = *v30;
     do
     {
-      v10 = 0;
+      v9 = 0;
       do
       {
-        if (*v43 != v9)
+        if (*v30 != v8)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v42 + 1) + 8 * v10);
         PBDataWriterWriteSubmessage();
-        ++v10;
+        ++v9;
       }
 
-      while (v8 != v10);
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v42 objects:v48 count:16];
+      while (v7 != v9);
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v29 objects:v35 count:16];
     }
 
-    while (v8);
+    while (v7);
   }
 
   has = self->_has;
   if (has)
   {
-    duration = self->_duration;
     PBDataWriterWriteDoubleField();
     has = self->_has;
     if ((has & 0x20) == 0)
@@ -863,7 +856,6 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  totalEnergyBurnedInCanonicalUnit = self->_totalEnergyBurnedInCanonicalUnit;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -878,7 +870,6 @@ LABEL_15:
   }
 
 LABEL_40:
-  totalDistanceInCanonicalUnit = self->_totalDistanceInCanonicalUnit;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((has & 4) == 0)
@@ -893,7 +884,6 @@ LABEL_16:
   }
 
 LABEL_41:
-  goalType = self->_goalType;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -908,7 +898,6 @@ LABEL_17:
   }
 
 LABEL_42:
-  goal = self->_goal;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((has & 8) == 0)
@@ -923,7 +912,6 @@ LABEL_18:
   }
 
 LABEL_43:
-  totalBasalEnergyBurnedInCanonicalUnit = self->_totalBasalEnergyBurnedInCanonicalUnit;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -938,12 +926,10 @@ LABEL_19:
   }
 
 LABEL_44:
-  totalSwimmingStrokeCountInCanonicalUnit = self->_totalSwimmingStrokeCountInCanonicalUnit;
   PBDataWriterWriteDoubleField();
   if ((*&self->_has & 0x40) != 0)
   {
 LABEL_20:
-    totalFlightsClimbedInCanonicalUnit = self->_totalFlightsClimbedInCanonicalUnit;
     PBDataWriterWriteDoubleField();
   }
 
@@ -953,71 +939,67 @@ LABEL_21:
     PBDataWriterWriteSubmessage();
   }
 
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
-  v39 = 0u;
-  v14 = self->_subActivities;
-  v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v38 objects:v47 count:16];
-  if (v15)
+  v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  v11 = self->_subActivities;
+  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v25 objects:v34 count:16];
+  if (v12)
   {
-    v16 = v15;
-    v17 = *v39;
+    v13 = v12;
+    v14 = *v26;
     do
     {
-      v18 = 0;
+      v15 = 0;
       do
       {
-        if (*v39 != v17)
+        if (*v26 != v14)
         {
-          objc_enumerationMutation(v14);
+          objc_enumerationMutation(v11);
         }
 
-        v19 = *(*(&v38 + 1) + 8 * v18);
         PBDataWriterWriteSubmessage();
-        ++v18;
+        ++v15;
       }
 
-      while (v16 != v18);
-      v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v38 objects:v47 count:16];
+      while (v13 != v15);
+      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v25 objects:v34 count:16];
     }
 
-    while (v16);
+    while (v13);
   }
 
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
-  v35 = 0u;
-  v20 = self->_zones;
-  v21 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v34 objects:v46 count:16];
-  if (v21)
+  v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v16 = self->_zones;
+  v17 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v21 objects:v33 count:16];
+  if (v17)
   {
-    v22 = v21;
-    v23 = *v35;
+    v18 = v17;
+    v19 = *v22;
     do
     {
-      v24 = 0;
+      v20 = 0;
       do
       {
-        if (*v35 != v23)
+        if (*v22 != v19)
         {
-          objc_enumerationMutation(v20);
+          objc_enumerationMutation(v16);
         }
 
-        v25 = *(*(&v34 + 1) + 8 * v24);
         PBDataWriterWriteSubmessage();
-        ++v24;
+        ++v20;
       }
 
-      while (v22 != v24);
-      v22 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v34 objects:v46 count:16];
+      while (v18 != v20);
+      v18 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v21 objects:v33 count:16];
     }
 
-    while (v22);
+    while (v18);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
@@ -1197,7 +1179,7 @@ LABEL_18:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(HDCodableSample *)self->_sample copyWithZone:zone];
   v7 = *(v5 + 96);
@@ -1209,34 +1191,34 @@ LABEL_18:
     *(v5 + 120) |= 0x100u;
   }
 
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
   v40 = 0u;
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
   v8 = self->_events;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v39 objects:v45 count:16];
+  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v38 objects:v44 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v40;
+    v11 = *v39;
     do
     {
       v12 = 0;
       do
       {
-        if (*v40 != v11)
+        if (*v39 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = [*(*(&v39 + 1) + 8 * v12) copyWithZone:zone];
+        v13 = [*(*(&v38 + 1) + 8 * v12) copyWithZone:zone];
         [v5 addEvents:v13];
 
         ++v12;
       }
 
       while (v10 != v12);
-      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v39 objects:v45 count:16];
+      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v38 objects:v44 count:16];
     }
 
     while (v10);
@@ -1354,73 +1336,72 @@ LABEL_19:
   v16 = *(v5 + 88);
   *(v5 + 88) = v15;
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   v17 = self->_subActivities;
-  v18 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v35 objects:v44 count:16];
+  v18 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v34 objects:v43 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v36;
+    v20 = *v35;
     do
     {
       v21 = 0;
       do
       {
-        if (*v36 != v20)
+        if (*v35 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        v22 = [*(*(&v35 + 1) + 8 * v21) copyWithZone:zone];
+        v22 = [*(*(&v34 + 1) + 8 * v21) copyWithZone:zone];
         [v5 addSubActivities:v22];
 
         ++v21;
       }
 
       while (v19 != v21);
-      v19 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v35 objects:v44 count:16];
+      v19 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v34 objects:v43 count:16];
     }
 
     while (v19);
   }
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   v23 = self->_zones;
-  v24 = [(NSMutableArray *)v23 countByEnumeratingWithState:&v31 objects:v43 count:16];
+  v24 = [(NSMutableArray *)v23 countByEnumeratingWithState:&v30 objects:v42 count:16];
   if (v24)
   {
     v25 = v24;
-    v26 = *v32;
+    v26 = *v31;
     do
     {
       v27 = 0;
       do
       {
-        if (*v32 != v26)
+        if (*v31 != v26)
         {
           objc_enumerationMutation(v23);
         }
 
-        v28 = [*(*(&v31 + 1) + 8 * v27) copyWithZone:{zone, v31}];
+        v28 = [*(*(&v30 + 1) + 8 * v27) copyWithZone:{zone, v30}];
         [v5 addZones:v28];
 
         ++v27;
       }
 
       while (v25 != v27);
-      v25 = [(NSMutableArray *)v23 countByEnumeratingWithState:&v31 objects:v43 count:16];
+      v25 = [(NSMutableArray *)v23 countByEnumeratingWithState:&v30 objects:v42 count:16];
     }
 
     while (v25);
   }
 
-  v29 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -1878,7 +1859,7 @@ LABEL_36:
 
 - (void)mergeFrom:(id)from
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   sample = self->_sample;
   v6 = *(fromCopy + 12);
@@ -1901,29 +1882,29 @@ LABEL_36:
     *&self->_has |= 0x100u;
   }
 
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   v7 = *(fromCopy + 10);
-  v8 = [v7 countByEnumeratingWithState:&v34 objects:v40 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v33 objects:v39 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v35;
+    v10 = *v34;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v35 != v10)
+        if (*v34 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [(HDCodableWorkout *)self addEvents:*(*(&v34 + 1) + 8 * i)];
+        [(HDCodableWorkout *)self addEvents:*(*(&v33 + 1) + 8 * i)];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v34 objects:v40 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v33 objects:v39 count:16];
     }
 
     while (v9);
@@ -2052,63 +2033,61 @@ LABEL_24:
     [(HDCodableWorkout *)self setPrimaryActivity:?];
   }
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v15 = *(fromCopy + 13);
-  v16 = [v15 countByEnumeratingWithState:&v30 objects:v39 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v29 objects:v38 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v31;
+    v18 = *v30;
     do
     {
       for (j = 0; j != v17; ++j)
       {
-        if (*v31 != v18)
+        if (*v30 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        [(HDCodableWorkout *)self addSubActivities:*(*(&v30 + 1) + 8 * j)];
+        [(HDCodableWorkout *)self addSubActivities:*(*(&v29 + 1) + 8 * j)];
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v30 objects:v39 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v29 objects:v38 count:16];
     }
 
     while (v17);
   }
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v20 = *(fromCopy + 14);
-  v21 = [v20 countByEnumeratingWithState:&v26 objects:v38 count:16];
+  v21 = [v20 countByEnumeratingWithState:&v25 objects:v37 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v27;
+    v23 = *v26;
     do
     {
       for (k = 0; k != v22; ++k)
       {
-        if (*v27 != v23)
+        if (*v26 != v23)
         {
           objc_enumerationMutation(v20);
         }
 
-        [(HDCodableWorkout *)self addZones:*(*(&v26 + 1) + 8 * k), v26];
+        [(HDCodableWorkout *)self addZones:*(*(&v25 + 1) + 8 * k), v25];
       }
 
-      v22 = [v20 countByEnumeratingWithState:&v26 objects:v38 count:16];
+      v22 = [v20 countByEnumeratingWithState:&v25 objects:v37 count:16];
     }
 
     while (v22);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 @end

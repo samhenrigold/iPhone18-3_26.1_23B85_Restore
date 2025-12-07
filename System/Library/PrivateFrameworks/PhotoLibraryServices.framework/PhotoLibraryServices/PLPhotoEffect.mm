@@ -116,11 +116,11 @@
 
 uint64_t __40__PLPhotoEffect_effectWithCIFilterName___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v6 = [a2 CIFilterName];
-  v7 = [v6 isEqualToString:*(a1 + 32)];
-  *a4 = v7;
+  v5 = [a2 CIFilterName];
+  isEqualToString = objc_msgSend_isEqualToString_(v5);
+  *a4 = isEqualToString;
 
-  return v7;
+  return isEqualToString;
 }
 
 + (id)effectWithIdentifier:(id)identifier
@@ -168,11 +168,11 @@ uint64_t __40__PLPhotoEffect_effectWithCIFilterName___block_invoke(uint64_t a1, 
 
 uint64_t __46__PLPhotoEffect__indexOfEffectWithIdentifier___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v6 = [a2 filterIdentifier];
-  v7 = [v6 isEqualToString:*(a1 + 32)];
-  *a4 = v7;
+  v5 = [a2 filterIdentifier];
+  isEqualToString = objc_msgSend_isEqualToString_(v5);
+  *a4 = isEqualToString;
 
-  return v7;
+  return isEqualToString;
 }
 
 + (BOOL)isEffectWithIdentifier:(id)identifier equalToEffectWithIdentifier:(id)withIdentifier
@@ -183,20 +183,20 @@ uint64_t __46__PLPhotoEffect__indexOfEffectWithIdentifier___block_invoke(uint64_
   v9 = [self isEffectNoneForIdentifier:withIdentifierCopy];
   if (identifierCopy)
   {
-    v10 = [identifierCopy isEqualToString:withIdentifierCopy];
+    isEqualToString = objc_msgSend_isEqualToString_(identifierCopy);
   }
 
   else
   {
-    v10 = 0;
+    isEqualToString = 0;
   }
 
-  return v10 | v8 & v9;
+  return isEqualToString | v8 & v9;
 }
 
 + (BOOL)isEffectNoneForIdentifier:(id)identifier
 {
-  result = [identifier isEqualToString:@"PUPhotoEffectNone"];
+  result = objc_msgSend_isEqualToString_(identifier, a2, @"PUPhotoEffectNone");
   if (!identifier)
   {
     return 1;

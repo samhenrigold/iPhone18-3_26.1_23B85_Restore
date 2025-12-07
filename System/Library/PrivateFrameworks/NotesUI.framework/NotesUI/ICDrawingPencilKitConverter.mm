@@ -41,9 +41,10 @@
 
 uint64_t __46__ICDrawingPencilKitConverter_sharedConverter__block_invoke()
 {
-  sharedConverter = objc_alloc_init(ICDrawingPencilKitConverter);
+  v0 = objc_alloc_init(ICDrawingPencilKitConverter);
+  sharedConverter = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0);
 }
 
 - (ICDrawingPencilKitConverter)init

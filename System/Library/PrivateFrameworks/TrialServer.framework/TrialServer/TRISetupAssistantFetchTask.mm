@@ -19,7 +19,7 @@
 
 - (id)runUsingContext:(id)context withTaskQueue:(id)queue
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   queueCopy = queue;
   v7 = objc_opt_new();
@@ -33,40 +33,40 @@
   v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
   if (v12)
   {
-    v43 = contextCopy;
+    v42 = contextCopy;
     if (v14)
     {
       *buf = 134217984;
-      v50 = [v11 count];
+      v49 = [v11 count];
       _os_log_impl(&dword_26F567000, v13, OS_LOG_TYPE_DEFAULT, "TRISetupAssistantFetchTask: found %lu descriptors with enableFetchDuringSetupAssistant enabled", buf, 0xCu);
     }
 
-    v44 = v7;
-    v42 = queueCopy;
+    v43 = v7;
+    v41 = queueCopy;
 
     v15 = objc_opt_new();
     v16 = objc_opt_new();
+    v44 = 0u;
     v45 = 0u;
     v46 = 0u;
     v47 = 0u;
-    v48 = 0u;
     v17 = v11;
-    v18 = [v17 countByEnumeratingWithState:&v45 objects:v53 count:16];
+    v18 = [v17 countByEnumeratingWithState:&v44 objects:v52 count:16];
     if (v18)
     {
       v19 = v18;
       v20 = 0;
-      v21 = *v46;
+      v21 = *v45;
       do
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v46 != v21)
+          if (*v45 != v21)
           {
             objc_enumerationMutation(v17);
           }
 
-          v23 = *(*(&v45 + 1) + 8 * i);
+          v23 = *(*(&v44 + 1) + 8 * i);
           if (![(__CFString *)v20 length])
           {
             resourceAttributionIdentifier = [v23 resourceAttributionIdentifier];
@@ -81,7 +81,7 @@
           [v15 addObject:namespaceName2];
         }
 
-        v19 = [v17 countByEnumeratingWithState:&v45 objects:v53 count:16];
+        v19 = [v17 countByEnumeratingWithState:&v44 objects:v52 count:16];
       }
 
       while (v19);
@@ -98,9 +98,9 @@
       v20 = @"com.apple.triald";
     }
 
-    contextCopy = v43;
-    v7 = v44;
-    if ([TRISetupAssistantFetchUtils removeNamespaceNamesWithRolloutForServerContext:v43 namespaceNames:v16])
+    contextCopy = v42;
+    v7 = v43;
+    if ([TRISetupAssistantFetchUtils removeNamespaceNamesWithRolloutForServerContext:v42 namespaceNames:v16])
     {
       if ([v16 count])
       {
@@ -113,9 +113,9 @@
             allObjects = [v15 allObjects];
             allObjects2 = [v16 allObjects];
             *buf = 138412546;
-            v50 = allObjects;
-            v51 = 2114;
-            v52 = allObjects2;
+            v49 = allObjects;
+            v50 = 2114;
+            v51 = allObjects2;
             _os_log_impl(&dword_26F567000, v28, OS_LOG_TYPE_DEFAULT, "TRISetupAssistantFetchTask: ncv-compatible rollout v2 are present for namespace names: %@ and are NOT present for  namespace names: %{public}@", buf, 0x16u);
           }
         }
@@ -126,19 +126,19 @@
         if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543618;
-          v50 = v16;
-          v51 = 2112;
-          v52 = v32;
+          v49 = v16;
+          v50 = 2112;
+          v51 = v32;
           _os_log_impl(&dword_26F567000, v33, OS_LOG_TYPE_DEFAULT, "TRISetupAssistantFetchTask: submitting TRISelectRolloutNotificationListTask with the following namespace names: %{public}@ and task attributing: %@", buf, 0x16u);
         }
 
         v34 = [TRISelectRolloutNotificationListTask taskWithNamespaceNames:v16 taskAttribution:v32];
-        [v44 addObject:v34];
+        [v43 addObject:v34];
 
-        v35 = [v44 copy];
+        v35 = [v43 copy];
         v27 = [TRITaskRunResult resultWithRunStatus:2 reportResultToServer:1 nextTasks:v35 earliestRetryDate:0];
 
-        v7 = v44;
+        v7 = v43;
         goto LABEL_36;
       }
 
@@ -169,7 +169,7 @@
     v27 = [TRITaskRunResult resultWithRunStatus:v38 reportResultToServer:1 nextTasks:v37 earliestRetryDate:0];
 LABEL_36:
 
-    queueCopy = v42;
+    queueCopy = v41;
     goto LABEL_37;
   }
 
@@ -181,8 +181,6 @@ LABEL_36:
 
   v27 = [TRITaskRunResult resultWithRunStatus:2 reportResultToServer:1 nextTasks:MEMORY[0x277CBEBF8] earliestRetryDate:0];
 LABEL_37:
-
-  v40 = *MEMORY[0x277D85DE8];
 
   return v27;
 }
@@ -212,10 +210,10 @@ LABEL_37:
 
 + (id)parseFromData:(id)data
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v9 = 0;
-  v3 = [(TRIPBMessage *)TRISetupAssistantFetchPersistedTask parseFromData:data error:&v9];
-  v4 = v9;
+  v11 = *MEMORY[0x277D85DE8];
+  v8 = 0;
+  v3 = [(TRIPBMessage *)TRISetupAssistantFetchPersistedTask parseFromData:data error:&v8];
+  v4 = v8;
   if (v3)
   {
     v5 = objc_opt_new();
@@ -227,14 +225,12 @@ LABEL_37:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v11 = v4;
+      v10 = v4;
       _os_log_error_impl(&dword_26F567000, v6, OS_LOG_TYPE_ERROR, "Unable to parse buffer as TRISetupAssistantFetchTask: %{public}@", buf, 0xCu);
     }
 
     v5 = 0;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

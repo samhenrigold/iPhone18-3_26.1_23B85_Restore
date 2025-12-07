@@ -9,6 +9,7 @@
 - (id)_requestConfigurator;
 - (id)remoteUIController:(id)controller createPageWithName:(id)name attributes:(id)attributes;
 - (void)_fetchFamilyPaymentInfoWithCompletion:(id)completion;
+- (void)_handleObjectModelChangeForController:(id)controller objectModel:(id)model isModal:(BOOL)modal;
 - (void)_setFresnoRemoteUIDelgate:(id)delgate;
 - (void)dealloc;
 - (void)loadMemberDetailsForFamilyMember:(id)member completion:(id)completion;
@@ -16,6 +17,7 @@
 - (void)remoteUIController:(id)controller didReceiveObjectModel:(id)model actionSignal:(unint64_t *)signal;
 - (void)remoteUIController:(id)controller didRemoveObjectModel:(id)model;
 - (void)remoteUIController:(id)controller willLoadRequest:(id)request;
+- (void)remoteUIController:(id)controller willPresentObjectModel:(id)model modally:(BOOL)modally;
 @end
 
 @implementation FAFamilySettingsViewControllerHelper
@@ -222,25 +224,23 @@ void __84__FAFamilySettingsViewControllerHelper_loadRemoteUIWithRequest_url_type
   v3 = WeakRetained[24];
   WeakRetained[24] = 0;
 
-  v4 = _FALogSystem();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = _FALogSystem(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = *(a1 + 56);
-    v6 = *(a1 + 32);
+    v6 = *(a1 + 56);
+    v7 = *(a1 + 32);
     v9[0] = 67109378;
-    v9[1] = v5;
+    v9[1] = v6;
     v10 = 2112;
-    v11 = v6;
-    _os_log_impl(&dword_21BB35000, v4, OS_LOG_TYPE_DEFAULT, "Loading remote UI for family member details result: %d. Error: %@", v9, 0x12u);
+    v11 = v7;
+    _os_log_impl(&dword_21BB35000, v5, OS_LOG_TYPE_DEFAULT, "Loading remote UI for family member details result: %d. Error: %@", v9, 0x12u);
   }
 
-  v7 = *(a1 + 40);
-  if (v7)
+  v8 = *(a1 + 40);
+  if (v8)
   {
-    (*(v7 + 16))();
+    (*(v8 + 16))();
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)loadMemberDetailsForFamilyMember:(id)member completion:(id)completion
@@ -323,7 +323,7 @@ void __78__FAFamilySettingsViewControllerHelper__fetchFamilyPaymentInfoWithCompl
   v3 = a2;
   if ([v3 statusCode] == 401)
   {
-    v4 = _FALogSystem();
+    v4 = _FALogSystem(401);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -347,19 +347,17 @@ void __78__FAFamilySettingsViewControllerHelper__fetchFamilyPaymentInfoWithCompl
 
 void __78__FAFamilySettingsViewControllerHelper__fetchFamilyPaymentInfoWithCompletion___block_invoke_73(uint64_t a1, uint64_t a2, void *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = a3;
-  v5 = _FALogSystem();
+  v5 = _FALogSystem(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 134218242;
-    v8 = a2;
-    v9 = 2112;
-    v10 = v4;
-    _os_log_impl(&dword_21BB35000, v5, OS_LOG_TYPE_DEFAULT, "Result of renewing credentials for family payment info request: %ld. Error: %@", &v7, 0x16u);
+    v6 = 134218242;
+    v7 = a2;
+    v8 = 2112;
+    v9 = v4;
+    _os_log_impl(&dword_21BB35000, v5, OS_LOG_TYPE_DEFAULT, "Result of renewing credentials for family payment info request: %ld. Error: %@", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __78__FAFamilySettingsViewControllerHelper__fetchFamilyPaymentInfoWithCompletion___block_invoke_75(uint64_t a1)
@@ -382,9 +380,26 @@ uint64_t __78__FAFamilySettingsViewControllerHelper__fetchFamilyPaymentInfoWithC
   return result;
 }
 
+- (void)_handleObjectModelChangeForController:(id)controller objectModel:(id)model isModal:(BOOL)modal
+{
+  modalCopy = modal;
+  v12 = *MEMORY[0x277D85DE8];
+  modelCopy = model;
+  v8 = _FALogSystem(modelCopy);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  {
+    identifier = [modelCopy identifier];
+    v10 = 138412290;
+    v11 = identifier;
+    _os_log_impl(&dword_21BB35000, v8, OS_LOG_TYPE_DEFAULT, "handleObjectModelChangeForController - %@", &v10, 0xCu);
+  }
+
+  [(AAUIServerUIHookHandler *)self->_serverUIHookHandler processObjectModel:modelCopy isModal:modalCopy];
+}
+
 - (void)remoteUIController:(id)controller willLoadRequest:(id)request
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   requestCopy = request;
   objc_storeStrong(&self->_currentRemoteUIRequest, request);
@@ -443,13 +458,13 @@ uint64_t __78__FAFamilySettingsViewControllerHelper__fetchFamilyPaymentInfoWithC
 
       else
       {
-        v23 = _FALogSystem();
+        v23 = _FALogSystem(0);
         if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
         {
           itunesAccount = self->_itunesAccount;
-          v27 = 138412290;
-          v28 = itunesAccount;
-          _os_log_impl(&dword_21BB35000, v23, OS_LOG_TYPE_DEFAULT, "No DSID for iTunes account ivar: %@", &v27, 0xCu);
+          v26 = 138412290;
+          v27 = itunesAccount;
+          _os_log_impl(&dword_21BB35000, v23, OS_LOG_TYPE_DEFAULT, "No DSID for iTunes account ivar: %@", &v26, 0xCu);
         }
       }
 
@@ -463,8 +478,6 @@ uint64_t __78__FAFamilySettingsViewControllerHelper__fetchFamilyPaymentInfoWithC
       }
     }
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __75__FAFamilySettingsViewControllerHelper_remoteUIController_willLoadRequest___block_invoke()
@@ -477,12 +490,12 @@ void __75__FAFamilySettingsViewControllerHelper_remoteUIController_willLoadReque
 
 - (void)remoteUIController:(id)controller didReceiveHTTPResponse:(id)response
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   responseCopy = response;
   if ([responseCopy statusCode] == 401)
   {
-    v8 = _FALogSystem();
+    v8 = _FALogSystem(401);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -501,12 +514,12 @@ void __75__FAFamilySettingsViewControllerHelper_remoteUIController_willLoadReque
 
       if (delegate)
       {
-        v11 = _FALogSystem();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        v12 = _FALogSystem(v11);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v31 = delegate;
-          _os_log_impl(&dword_21BB35000, v11, OS_LOG_TYPE_DEFAULT, "Family properties changed while we're in BML: %@", buf, 0xCu);
+          v34 = delegate;
+          _os_log_impl(&dword_21BB35000, v12, OS_LOG_TYPE_DEFAULT, "Family properties changed while we're in BML: %@", buf, 0xCu);
         }
 
         block[0] = MEMORY[0x277D85DD0];
@@ -514,67 +527,69 @@ void __75__FAFamilySettingsViewControllerHelper_remoteUIController_willLoadReque
         block[2] = __82__FAFamilySettingsViewControllerHelper_remoteUIController_didReceiveHTTPResponse___block_invoke_95;
         block[3] = &unk_2782F3190;
         block[4] = self;
-        v28 = delegate;
-        v29 = responseCopy;
+        v31 = delegate;
+        v32 = responseCopy;
         dispatch_async(MEMORY[0x277D85CD0], block);
       }
 
       allHeaderFields2 = [responseCopy allHeaderFields];
-      v13 = [allHeaderFields2 valueForKey:@"X-Apple-Family-Subscription-Changed"];
+      v14 = [allHeaderFields2 valueForKey:@"X-Apple-Family-Subscription-Changed"];
 
-      if ([v13 BOOLValue])
+      bOOLValue = [v14 BOOLValue];
+      if (bOOLValue)
       {
-        v14 = _FALogSystem();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        v16 = _FALogSystem(bOOLValue);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v31 = v13;
-          _os_log_impl(&dword_21BB35000, v14, OS_LOG_TYPE_DEFAULT, "Family subscription properties changed: %@", buf, 0xCu);
+          v34 = v14;
+          _os_log_impl(&dword_21BB35000, v16, OS_LOG_TYPE_DEFAULT, "Family subscription properties changed: %@", buf, 0xCu);
         }
 
         dispatch_async(MEMORY[0x277D85CD0], &__block_literal_global_99);
       }
 
       allHeaderFields3 = [responseCopy allHeaderFields];
-      v16 = [allHeaderFields3 valueForKey:@"X-MMe-Setup-Family-Linked-ITunes-AppleID"];
+      v18 = [allHeaderFields3 valueForKey:@"X-MMe-Setup-Family-Linked-ITunes-AppleID"];
 
-      if (v16)
+      if (v18)
       {
-        v17 = _FALogSystem();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        v20 = _FALogSystem(v19);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v31 = v16;
-          _os_log_impl(&dword_21BB35000, v17, OS_LOG_TYPE_DEFAULT, "Found updated linked Apple Account account header: %@", buf, 0xCu);
+          v34 = v18;
+          _os_log_impl(&dword_21BB35000, v20, OS_LOG_TYPE_DEFAULT, "Found updated linked Apple Account account header: %@", buf, 0xCu);
         }
 
-        v25[0] = MEMORY[0x277D85DD0];
-        v25[1] = 3221225472;
-        v25[2] = __82__FAFamilySettingsViewControllerHelper_remoteUIController_didReceiveHTTPResponse___block_invoke_101;
-        v25[3] = &unk_2782F2AF8;
-        v25[4] = self;
-        v26 = v16;
-        dispatch_async(MEMORY[0x277D85CD0], v25);
+        v28[0] = MEMORY[0x277D85DD0];
+        v28[1] = 3221225472;
+        v28[2] = __82__FAFamilySettingsViewControllerHelper_remoteUIController_didReceiveHTTPResponse___block_invoke_101;
+        v28[3] = &unk_2782F2AF8;
+        v28[4] = self;
+        v29 = v18;
+        dispatch_async(MEMORY[0x277D85CD0], v28);
       }
 
-      if ([(NSMutableURLRequest *)self->_currentRemoteUIRequest aa_addDeviceProvisioningInfoHeadersWithDSIDFromReponse:responseCopy])
+      v21 = [(NSMutableURLRequest *)self->_currentRemoteUIRequest aa_addDeviceProvisioningInfoHeadersWithDSIDFromReponse:responseCopy];
+      if (v21)
       {
-        v18 = _FALogSystem();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+        v22 = _FALogSystem(v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_21BB35000, v18, OS_LOG_TYPE_DEFAULT, "Device is provisioned... Reissuing request...", buf, 2u);
+          _os_log_impl(&dword_21BB35000, v22, OS_LOG_TYPE_DEFAULT, "Device is provisioned... Reissuing request...", buf, 2u);
         }
 
         loadCompletion = [controllerCopy loadCompletion];
         currentRemoteUIRequest = self->_currentRemoteUIRequest;
-        v23[0] = MEMORY[0x277D85DD0];
-        v23[1] = 3221225472;
-        v23[2] = __82__FAFamilySettingsViewControllerHelper_remoteUIController_didReceiveHTTPResponse___block_invoke_102;
-        v23[3] = &unk_2782F2FC0;
-        v24 = loadCompletion;
-        v21 = loadCompletion;
-        [controllerCopy loadRequest:currentRemoteUIRequest completion:v23];
+        v26[0] = MEMORY[0x277D85DD0];
+        v26[1] = 3221225472;
+        v26[2] = __82__FAFamilySettingsViewControllerHelper_remoteUIController_didReceiveHTTPResponse___block_invoke_102;
+        v26[3] = &unk_2782F2FC0;
+        v27 = loadCompletion;
+        v25 = loadCompletion;
+        [controllerCopy loadRequest:currentRemoteUIRequest completion:v26];
       }
     }
 
@@ -584,25 +599,21 @@ void __75__FAFamilySettingsViewControllerHelper_remoteUIController_willLoadReque
       [delegate familySettingsHelperShowConnectivityAlert:self];
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __82__FAFamilySettingsViewControllerHelper_remoteUIController_didReceiveHTTPResponse___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = a3;
-  v5 = _FALogSystem();
+  v5 = _FALogSystem(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 134218242;
-    v8 = a2;
-    v9 = 2112;
-    v10 = v4;
-    _os_log_impl(&dword_21BB35000, v5, OS_LOG_TYPE_DEFAULT, "Result of renewing credentials to continue BML flow: %ld. Error: %@", &v7, 0x16u);
+    v6 = 134218242;
+    v7 = a2;
+    v8 = 2112;
+    v9 = v4;
+    _os_log_impl(&dword_21BB35000, v5, OS_LOG_TYPE_DEFAULT, "Result of renewing credentials to continue BML flow: %ld. Error: %@", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __82__FAFamilySettingsViewControllerHelper_remoteUIController_didReceiveHTTPResponse___block_invoke_95(uint64_t a1)
@@ -631,24 +642,23 @@ void __82__FAFamilySettingsViewControllerHelper_remoteUIController_didReceiveHTT
 {
   v11 = *MEMORY[0x277D85DE8];
   v5 = a3;
+  v6 = v5;
   if ((a2 & 1) == 0)
   {
-    v6 = _FALogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = _FALogSystem(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v9 = 138412290;
-      v10 = v5;
-      _os_log_impl(&dword_21BB35000, v6, OS_LOG_TYPE_DEFAULT, "Failed to load Family Settings remote UI: %@", &v9, 0xCu);
+      v10 = v6;
+      _os_log_impl(&dword_21BB35000, v7, OS_LOG_TYPE_DEFAULT, "Failed to load Family Settings remote UI: %@", &v9, 0xCu);
     }
   }
 
-  v7 = *(a1 + 32);
-  if (v7)
+  v8 = *(a1 + 32);
+  if (v8)
   {
-    (*(v7 + 16))(v7, a2, v5);
+    (*(v8 + 16))(v8, a2, v6);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remoteUIController:(id)controller didReceiveObjectModel:(id)model actionSignal:(unint64_t *)signal
@@ -696,6 +706,78 @@ void __94__FAFamilySettingsViewControllerHelper_remoteUIController_didReceiveObj
 {
   v2 = [*(a1 + 32) delegate];
   [v2 familySettingsHelperDidUpdatePaymentInfo:*(a1 + 32)];
+}
+
+- (void)remoteUIController:(id)controller willPresentObjectModel:(id)model modally:(BOOL)modally
+{
+  modallyCopy = modally;
+  v35 = *MEMORY[0x277D85DE8];
+  modelCopy = model;
+  [(FAFamilySettingsViewControllerHelper *)self _handleObjectModelChangeForController:controller objectModel:modelCopy isModal:modallyCopy];
+  v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  allPages = [modelCopy allPages];
+  v10 = [allPages countByEnumeratingWithState:&v30 objects:v34 count:16];
+  if (v10)
+  {
+    v11 = v10;
+    v12 = *v31;
+    do
+    {
+      v13 = 0;
+      do
+      {
+        if (*v31 != v12)
+        {
+          objc_enumerationMutation(allPages);
+        }
+
+        [*(*(&v30 + 1) + 8 * v13++) setHidesBottomBarWhenPushed:1];
+      }
+
+      while (v11 != v13);
+      v11 = [allPages countByEnumeratingWithState:&v30 objects:v34 count:16];
+    }
+
+    while (v11);
+  }
+
+  defaultPages = [modelCopy defaultPages];
+  firstObject = [defaultPages firstObject];
+
+  if (self->_memberBeingViewed)
+  {
+    if ([firstObject hasTableView])
+    {
+      sourceURL = [modelCopy sourceURL];
+
+      if (sourceURL)
+      {
+        v18 = _FALogSystem(v17);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+        {
+          *v29 = 0;
+          _os_log_impl(&dword_21BB35000, v18, OS_LOG_TYPE_DEFAULT, "Decorating RUI page...", v29, 2u);
+        }
+
+        v19 = [FAProfileViewTableViewDecorator alloc];
+        tableViewOM = [firstObject tableViewOM];
+        tableView = [tableViewOM tableView];
+        tableViewOM2 = [firstObject tableViewOM];
+        v23 = [(FAProfileViewTableViewDecorator *)v19 initWithTableView:tableView ruiTableView:tableViewOM2 forPerson:self->_memberBeingViewed pictureStore:self->_familyPictureStore];
+
+        v24 = [FAProfilePictureTableViewDecorator alloc];
+        tableViewOM3 = [firstObject tableViewOM];
+        v26 = [(FAProfilePictureTableViewDecorator *)v24 initWithTableView:v23 ruiTableView:tableViewOM3 pictureStore:self->_familyPictureStore];
+
+        objectModelDecorators = self->_objectModelDecorators;
+        sourceURL2 = [modelCopy sourceURL];
+        [(NSMutableDictionary *)objectModelDecorators setObject:v26 forKey:sourceURL2];
+      }
+    }
+  }
 }
 
 - (id)remoteUIController:(id)controller createPageWithName:(id)name attributes:(id)attributes

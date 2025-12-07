@@ -4,50 +4,50 @@
 - (int)prepareToProcess:(int)process sliceWidth:(unint64_t)width sliceHeight:(unint64_t)height;
 - (uint64_t)_centralStitchAddSlice:(uint64_t)slice sliceHomography:(uint64_t)homography sliceType:(int)type;
 - (uint64_t)_seamStitchAddSlice:(__n128)slice sliceHomography:(__n128)homography sliceType:(uint64_t)type;
-- (uint64_t)addSlice:(uint64_t)slice sliceHomography:(uint64_t)homography sliceType:;
+- (uint64_t)addSlice:(uint64_t)slice sliceHomography:sliceType:;
 @end
 
 @implementation PanoramaStitchingStage
 
 - (uint64_t)_centralStitchAddSlice:(uint64_t)slice sliceHomography:(uint64_t)homography sliceType:(int)type
 {
-  v65 = *(self + 80);
+  v29 = *(self + 80);
   typeCopy = type;
-  v63 = 0u;
-  v64 = 0u;
-  v62 = 0u;
-  v67 = __invert_f3(a2);
-  DWORD2(v62) = v67.columns[0].i32[2];
-  DWORD2(v63) = v67.columns[1].i32[2];
-  *&v62 = v67.columns[0].i64[0];
-  *&v63 = v67.columns[1].i64[0];
-  DWORD2(v64) = v67.columns[2].i32[2];
-  *&v64 = v67.columns[2].i64[0];
-  v10 = objc_msgSend_commandQueue(*(self + 8), v7, v8, v9);
-  v14 = objc_msgSend_commandBuffer(v10, v11, v12, v13);
+  v27 = 0u;
+  v28 = 0u;
+  v26 = 0u;
+  v31 = __invert_f3(a2);
+  DWORD2(v26) = v31.columns[0].i32[2];
+  DWORD2(v27) = v31.columns[1].i32[2];
+  *&v26 = v31.columns[0].i64[0];
+  *&v27 = v31.columns[1].i64[0];
+  DWORD2(v28) = v31.columns[2].i32[2];
+  *&v28 = v31.columns[2].i64[0];
+  commandQueue = [*(self + 8) commandQueue];
+  commandBuffer = [commandQueue commandBuffer];
 
-  objc_msgSend_setLabel_(v14, v15, @"Panorama:StitchingStage:_centralStitchAddSlice", v16);
-  v20 = objc_msgSend_computeCommandEncoder(v14, v17, v18, v19);
-  v24 = objc_msgSend_computeCentralStitchingMask(*(self + 16), v21, v22, v23);
-  getThreadgroupSizeForShader(v24, &v60);
+  [commandBuffer setLabel:@"Panorama:StitchingStage:_centralStitchAddSlice"];
+  computeCommandEncoder = [commandBuffer computeCommandEncoder];
+  computeCentralStitchingMask = [*(self + 16) computeCentralStitchingMask];
+  getThreadgroupSizeForShader(computeCentralStitchingMask, &v24);
 
-  v28 = objc_msgSend_computeCentralStitchingMask(*(self + 16), v25, v26, v27);
-  objc_msgSend_setComputePipelineState_(v20, v29, v28, v30);
+  computeCentralStitchingMask2 = [*(self + 16) computeCentralStitchingMask];
+  [computeCommandEncoder setComputePipelineState:computeCentralStitchingMask2];
 
-  objc_msgSend_setTexture_atIndex_(v20, v31, *(self + 120), 0);
-  objc_msgSend_setBytes_length_atIndex_(v20, v32, &typeCopy, 4, 0);
-  objc_msgSend_setBytes_length_atIndex_(v20, v33, &v65, 4, 1);
-  objc_msgSend_setBytes_length_atIndex_(v20, v34, &v62, 48, 2);
-  v38 = objc_msgSend_width(*(self + 120), v35, v36, v37);
-  v42 = objc_msgSend_height(*(self + 120), v39, v40, v41);
-  v59[0] = v38;
-  v59[1] = v42;
-  v59[2] = 1;
-  v57 = v60;
-  v58 = v61;
-  objc_msgSend_dispatchThreads_threadsPerThreadgroup_(v20, v43, v59, &v57);
-  objc_msgSend_endEncoding(v20, v44, v45, v46);
-  objc_msgSend_commit(v14, v47, v48, v49);
+  [computeCommandEncoder setTexture:*(self + 120) atIndex:0];
+  [computeCommandEncoder setBytes:&typeCopy length:4 atIndex:0];
+  [computeCommandEncoder setBytes:&v29 length:4 atIndex:1];
+  [computeCommandEncoder setBytes:&v26 length:48 atIndex:2];
+  width = [*(self + 120) width];
+  height = [*(self + 120) height];
+  v23[0] = width;
+  v23[1] = height;
+  v23[2] = 1;
+  v21 = v24;
+  v22 = v25;
+  [computeCommandEncoder dispatchThreads:v23 threadsPerThreadgroup:&v21];
+  [computeCommandEncoder endEncoding];
+  [commandBuffer commit];
   if (type > 1)
   {
     if (type != 2)
@@ -67,7 +67,7 @@
     }
 
 LABEL_11:
-    v50 = 0x3FE0000000000000;
+    v14 = 0x3FE0000000000000;
     goto LABEL_12;
   }
 
@@ -83,9 +83,9 @@ LABEL_11:
 
   if (type == 1)
   {
-    v50 = 0x3FDF5C28F5C28F5CLL;
+    v14 = 0x3FDF5C28F5C28F5CLL;
 LABEL_12:
-    *(self + 136) = v50;
+    *(self + 136) = v14;
   }
 
 LABEL_13:
@@ -114,216 +114,207 @@ LABEL_13:
 - (PanoramaStitchingStage)initWithContext:(id)context bitDepth:(int)depth
 {
   contextCopy = context;
-  v17.receiver = self;
-  v17.super_class = PanoramaStitchingStage;
-  v8 = [(PanoramaStitchingStage *)&v17 init];
+  v14.receiver = self;
+  v14.super_class = PanoramaStitchingStage;
+  v8 = [(PanoramaStitchingStage *)&v14 init];
   v9 = v8;
-  if (v8 && (objc_storeStrong(&v8->_metal, context), v10 = [PanoramaStitchingShaders alloc], v13 = objc_msgSend_initWithContext_(v10, v11, contextCopy, v12), shaders = v9->_shaders, v9->_shaders = v13, shaders, v9->_shaders))
+  if (v8 && (objc_storeStrong(&v8->_metal, context), v10 = [[PanoramaStitchingShaders alloc] initWithContext:contextCopy], shaders = v9->_shaders, v9->_shaders = v10, shaders, v9->_shaders))
   {
     v9->_direction = 1;
     v9->_isReadyToProcess = 0;
     v9->_bitDepth = depth;
-    v15 = v9;
+    v12 = v9;
   }
 
   else
   {
-    v15 = 0;
+    v12 = 0;
   }
 
-  return v15;
+  return v12;
 }
 
 - (uint64_t)_seamStitchAddSlice:(__n128)slice sliceHomography:(__n128)homography sliceType:(uint64_t)type
 {
-  *&v231[16] = slice;
-  *&v231[32] = homography;
-  *v231 = a2;
-  v246 = *(self + 80);
-  v244 = 0uLL;
-  v245 = 0;
+  *&v62[16] = slice;
+  *&v62[32] = homography;
+  *v62 = a2;
+  v77 = *(self + 80);
+  v75 = 0uLL;
+  v76 = 0;
   LumaMTLPixelFormat = getLumaMTLPixelFormat(*(self + 88));
   ChromaMTLPixelFormat = getChromaMTLPixelFormat(*(self + 88));
   v12 = 3;
-  v15 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(*(self + 8), v13, a6, LumaMTLPixelFormat, 3, 0);
-  if (v15)
+  v13 = [*(self + 8) bindPixelBufferToMTL2DTexture:a6 pixelFormat:LumaMTLPixelFormat usage:3 plane:0];
+  if (v13)
   {
     v12 = 3;
-    v19 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(*(self + 8), v14, a6, ChromaMTLPixelFormat, 3, 1);
-    if (v19)
+    v14 = [*(self + 8) bindPixelBufferToMTL2DTexture:a6 pixelFormat:ChromaMTLPixelFormat usage:3 plane:1];
+    if (v14)
     {
-      v20 = objc_msgSend_commandQueue(*(self + 8), v16, v17, v18);
-      v24 = objc_msgSend_commandBuffer(v20, v21, v22, v23);
+      commandQueue = [*(self + 8) commandQueue];
+      commandBuffer = [commandQueue commandBuffer];
 
-      objc_msgSend_setLabel_(v24, v25, @"Panorama:StitchingStage:_seamStitchAddSlice", v26);
-      v33 = objc_msgSend_computeCommandEncoder(v24, v27, v28, v29);
+      [commandBuffer setLabel:@"Panorama:StitchingStage:_seamStitchAddSlice"];
+      computeCommandEncoder = [commandBuffer computeCommandEncoder];
       if (a7 == 1)
       {
-        v241 = 0u;
-        v242 = 0u;
-        v240 = 0u;
-        v247 = __invert_f3(*v231);
-        DWORD2(v240) = v247.columns[0].i32[2];
-        DWORD2(v241) = v247.columns[1].i32[2];
-        *&v240 = v247.columns[0].i64[0];
-        *&v241 = v247.columns[1].i64[0];
-        DWORD2(v242) = v247.columns[2].i32[2];
-        *&v242 = v247.columns[2].i64[0];
-        v62 = objc_msgSend_computeSeamCost(*(self + 16), v59, v60, v61);
-        getThreadgroupSizeForShader(v62, &v244);
+        v72 = 0u;
+        v73 = 0u;
+        v71 = 0u;
+        v78 = __invert_f3(*v62);
+        DWORD2(v71) = v78.columns[0].i32[2];
+        DWORD2(v72) = v78.columns[1].i32[2];
+        *&v71 = v78.columns[0].i64[0];
+        *&v72 = v78.columns[1].i64[0];
+        DWORD2(v73) = v78.columns[2].i32[2];
+        *&v73 = v78.columns[2].i64[0];
+        computeSeamCost = [*(self + 16) computeSeamCost];
+        getThreadgroupSizeForShader(computeSeamCost, &v75);
 
-        v66 = objc_msgSend_computeSeamCost(*(self + 16), v63, v64, v65);
-        objc_msgSend_setComputePipelineState_(v33, v67, v66, v68);
+        computeSeamCost2 = [*(self + 16) computeSeamCost];
+        [computeCommandEncoder setComputePipelineState:computeSeamCost2];
 
-        objc_msgSend_setTexture_atIndex_(v33, v69, *(self + 24), 0);
-        objc_msgSend_setTexture_atIndex_(v33, v70, *(self + 32), 1);
-        objc_msgSend_setTexture_atIndex_(v33, v71, v15, 2);
-        objc_msgSend_setTexture_atIndex_(v33, v72, v19, 3);
-        objc_msgSend_setTexture_atIndex_(v33, v73, *(self + 72), 4);
-        objc_msgSend_setTexture_atIndex_(v33, v74, *(self + 128), 5);
-        v75 = sub_23C471888();
-        objc_msgSend_setBytes_length_atIndex_(v75, v76, v77, v78, 0);
-        v79 = sub_23C471824();
-        objc_msgSend_setBytes_length_atIndex_(v79, v80, v81, v82, 1);
-        v86 = objc_msgSend_width(v19, v83, v84, v85);
-        v90 = objc_msgSend_height(v19, v87, v88, v89);
-        sub_23C471834(v90, v91, v92, v93, v94, v95, v96, v97, *v231, *&v231[8], *&v231[16], *&v231[24], *&v231[32], *&v231[40], *v238, *&v238[16], v239, v240, *(&v240 + 1), v241, *(&v241 + 1), v242, *(&v242 + 1), *v243, *&v243[8], *&v243[16]);
-        v101 = objc_msgSend_seamCutDescend(*(self + 16), v98, v99, v100);
-        sub_23C4718A8(v101, v102, v103, v104);
+        [computeCommandEncoder setTexture:*(self + 24) atIndex:0];
+        [computeCommandEncoder setTexture:*(self + 32) atIndex:1];
+        [computeCommandEncoder setTexture:v13 atIndex:2];
+        [computeCommandEncoder setTexture:v14 atIndex:3];
+        [computeCommandEncoder setTexture:*(self + 72) atIndex:4];
+        [computeCommandEncoder setTexture:*(self + 128) atIndex:5];
+        [sub_23C471888() setBytes:? length:? atIndex:?];
+        [sub_23C471824() setBytes:? length:? atIndex:?];
+        width = [v14 width];
+        height = [v14 height];
+        sub_23C471834(height, v25, v26, v27, v28, v29, v30, v31, *v62, *&v62[8], *&v62[16], *&v62[24], *&v62[32], *&v62[40], *v69, *&v69[16], v70, v71, *(&v71 + 1), v72, *(&v72 + 1), v73, *(&v73 + 1), *v74, *&v74[8], *&v74[16]);
+        seamCutDescend = [*(self + 16) seamCutDescend];
+        sub_23C4718A8(seamCutDescend);
 
-        objc_msgSend_setTexture_atIndex_(v33, v105, *(self + 72), 0);
-        v106 = sub_23C471824();
-        objc_msgSend_setBytes_length_atIndex_(v106, v107, v108, v109, 0);
-        *v243 = 1;
-        *&v243[8] = xmmword_23C47B2B0;
-        *v238 = 1;
-        *&v238[8] = xmmword_23C47B2B0;
-        objc_msgSend_dispatchThreads_threadsPerThreadgroup_(v33, v110, v243, v238);
-        v114 = objc_msgSend_seamCutAscend(*(self + 16), v111, v112, v113);
-        sub_23C4718A8(v114, v115, v116, v117);
+        [computeCommandEncoder setTexture:*(self + 72) atIndex:0];
+        [sub_23C471824() setBytes:? length:? atIndex:?];
+        *v74 = 1;
+        *&v74[8] = xmmword_23C47B2B0;
+        *v69 = 1;
+        *&v69[8] = xmmword_23C47B2B0;
+        [computeCommandEncoder dispatchThreads:v74 threadsPerThreadgroup:v69];
+        seamCutAscend = [*(self + 16) seamCutAscend];
+        sub_23C4718A8(seamCutAscend);
 
-        objc_msgSend_setTexture_atIndex_(v33, v118, *(self + 72), 0);
-        objc_msgSend_setTexture_atIndex_(v33, v119, *(self + 120), 1);
-        v120 = sub_23C471824();
-        objc_msgSend_setBytes_length_atIndex_(v120, v121, v122, v123, 0);
-        v124 = sub_23C471888();
-        objc_msgSend_setBytes_length_atIndex_(v124, v125, v126, v127, 1);
-        *v243 = xmmword_23C47B2C0;
-        *&v243[16] = 1;
-        *v238 = xmmword_23C47B2C0;
-        *&v238[16] = 1;
-        objc_msgSend_dispatchThreads_threadsPerThreadgroup_(v33, v128, v243, v238);
-        v132 = objc_msgSend_initializeSeamPreviousSliceWithMask(*(self + 16), v129, v130, v131);
-        getThreadgroupSizeForShader(v132, v243);
-        v244 = *v243;
-        v245 = *&v243[16];
+        [computeCommandEncoder setTexture:*(self + 72) atIndex:0];
+        [computeCommandEncoder setTexture:*(self + 120) atIndex:1];
+        [sub_23C471824() setBytes:? length:? atIndex:?];
+        [sub_23C471888() setBytes:? length:? atIndex:?];
+        *v74 = xmmword_23C47B2C0;
+        *&v74[16] = 1;
+        *v69 = xmmword_23C47B2C0;
+        *&v69[16] = 1;
+        [computeCommandEncoder dispatchThreads:v74 threadsPerThreadgroup:v69];
+        initializeSeamPreviousSliceWithMask = [*(self + 16) initializeSeamPreviousSliceWithMask];
+        getThreadgroupSizeForShader(initializeSeamPreviousSliceWithMask, v74);
+        v75 = *v74;
+        v76 = *&v74[16];
 
-        v136 = objc_msgSend_initializeSeamPreviousSliceWithMask(*(self + 16), v133, v134, v135);
-        sub_23C4718A8(v136, v137, v138, v139);
+        initializeSeamPreviousSliceWithMask2 = [*(self + 16) initializeSeamPreviousSliceWithMask];
+        sub_23C4718A8(initializeSeamPreviousSliceWithMask2);
 
-        objc_msgSend_setTexture_atIndex_(v33, v140, v15, 0);
-        objc_msgSend_setTexture_atIndex_(v33, v141, v19, 1);
-        objc_msgSend_setTexture_atIndex_(v33, v142, *(self + 120), 2);
-        objc_msgSend_setTexture_atIndex_(v33, v143, *(self + 24), 3);
-        objc_msgSend_setTexture_atIndex_(v33, v144, *(self + 32), 4);
-        objc_msgSend_setTexture_atIndex_(v33, v145, *(self + 40), 5);
-        objc_msgSend_setTexture_atIndex_(v33, v146, *(self + 48), 6);
-        objc_msgSend_setTexture_atIndex_(v33, v147, *(self + 56), 7);
-        objc_msgSend_setTexture_atIndex_(v33, v148, *(self + 64), 8);
-        v149 = sub_23C471888();
-        objc_msgSend_setBytes_length_atIndex_(v149, v150, v151, v152, 0);
-        v153 = sub_23C471824();
-        objc_msgSend_setBytes_length_atIndex_(v153, v154, v155, v156, 1);
-        objc_msgSend_width(v19, v157, v158, v159);
-        v163 = objc_msgSend_height(v19, v160, v161, v162);
-        sub_23C471834(v163, v164, v165, v166, v167, v168, v169, v170, v232, v233, v234, v235, v236, v237, *v238, *&v238[16], v239, v240, *(&v240 + 1), v241, *(&v241 + 1), v242, *(&v242 + 1), *v243, *&v243[8], *&v243[16]);
-        v171 = *(self + 24);
+        [computeCommandEncoder setTexture:v13 atIndex:0];
+        [computeCommandEncoder setTexture:v14 atIndex:1];
+        [computeCommandEncoder setTexture:*(self + 120) atIndex:2];
+        [computeCommandEncoder setTexture:*(self + 24) atIndex:3];
+        [computeCommandEncoder setTexture:*(self + 32) atIndex:4];
+        [computeCommandEncoder setTexture:*(self + 40) atIndex:5];
+        [computeCommandEncoder setTexture:*(self + 48) atIndex:6];
+        [computeCommandEncoder setTexture:*(self + 56) atIndex:7];
+        [computeCommandEncoder setTexture:*(self + 64) atIndex:8];
+        [sub_23C471888() setBytes:? length:? atIndex:?];
+        [sub_23C471824() setBytes:? length:? atIndex:?];
+        [v14 width];
+        height2 = [v14 height];
+        sub_23C471834(height2, v37, v38, v39, v40, v41, v42, v43, v63, v64, v65, v66, v67, v68, *v69, *&v69[16], v70, v71, *(&v71 + 1), v72, *(&v72 + 1), v73, *(&v73 + 1), *v74, *&v74[8], *&v74[16]);
+        v44 = *(self + 24);
         objc_storeStrong((self + 24), *(self + 40));
-        v172 = *(self + 40);
-        *(self + 40) = v171;
-        v173 = v171;
+        v45 = *(self + 40);
+        *(self + 40) = v44;
+        v46 = v44;
 
-        v174 = *(self + 32);
+        v47 = *(self + 32);
         objc_storeStrong((self + 32), *(self + 48));
-        v175 = *(self + 48);
-        *(self + 48) = v174;
+        v48 = *(self + 48);
+        *(self + 48) = v47;
       }
 
       else if (!a7)
       {
-        v34 = objc_msgSend__centralStitchAddSlice_sliceHomography_sliceType_(self, v30, a6, 3, *v231, *&v231[16], *&v231[32]);
-        if (v34)
+        v18 = [self _centralStitchAddSlice:a6 sliceHomography:3 sliceType:{*v62, *&v62[16], *&v62[32]}];
+        if (v18)
         {
-          v12 = v34;
+          v12 = v18;
           goto LABEL_9;
         }
 
-        v38 = objc_msgSend_initializeSeamPreviousSlice(*(self + 16), v35, v36, v37);
-        getThreadgroupSizeForShader(v38, &v244);
+        initializeSeamPreviousSlice = [*(self + 16) initializeSeamPreviousSlice];
+        getThreadgroupSizeForShader(initializeSeamPreviousSlice, &v75);
 
-        v42 = objc_msgSend_initializeSeamPreviousSlice(*(self + 16), v39, v40, v41);
-        objc_msgSend_setComputePipelineState_(v33, v43, v42, v44);
+        initializeSeamPreviousSlice2 = [*(self + 16) initializeSeamPreviousSlice];
+        [computeCommandEncoder setComputePipelineState:initializeSeamPreviousSlice2];
 
-        objc_msgSend_setTexture_atIndex_(v33, v45, v15, 0);
-        objc_msgSend_setTexture_atIndex_(v33, v46, v19, 1);
-        objc_msgSend_setTexture_atIndex_(v33, v47, *(self + 24), 2);
-        objc_msgSend_setTexture_atIndex_(v33, v48, *(self + 32), 3);
-        *&v240 = objc_msgSend_width(v19, v49, v50, v51);
-        *(&v240 + 1) = objc_msgSend_height(v19, v52, v53, v54);
-        *&v55 = sub_23C471868().n128_u64[0];
-        objc_msgSend_dispatchThreads_threadsPerThreadgroup_(v33, v56, v57, v58, v55);
+        [computeCommandEncoder setTexture:v13 atIndex:0];
+        [computeCommandEncoder setTexture:v14 atIndex:1];
+        [computeCommandEncoder setTexture:*(self + 24) atIndex:2];
+        [computeCommandEncoder setTexture:*(self + 32) atIndex:3];
+        *&v71 = [v14 width];
+        *(&v71 + 1) = [v14 height];
+        [computeCommandEncoder dispatchThreads:sub_23C471868().n128_f64[0] threadsPerThreadgroup:?];
       }
 
-      objc_msgSend_endEncoding(v33, v30, v31, v32, *v231, *&v231[16], *&v231[32]);
-      objc_msgSend_commit(v24, v176, v177, v178);
-      v182 = objc_msgSend_commandQueue(*(self + 8), v179, v180, v181);
-      v186 = objc_msgSend_commandBuffer(v182, v183, v184, v185);
+      [computeCommandEncoder endEncoding];
+      [commandBuffer commit];
+      commandQueue2 = [*(self + 8) commandQueue];
+      commandBuffer2 = [commandQueue2 commandBuffer];
 
-      objc_msgSend_setLabel_(v186, v187, @"Panorama:StitchingStage:initializeSeamPreviousSlice", v188);
-      v192 = objc_msgSend_computeCommandEncoder(v186, v189, v190, v191);
+      [commandBuffer2 setLabel:@"Panorama:StitchingStage:initializeSeamPreviousSlice"];
+      computeCommandEncoder2 = [commandBuffer2 computeCommandEncoder];
 
-      v196 = objc_msgSend_initializeSeamPreviousSlice(*(self + 16), v193, v194, v195);
-      getThreadgroupSizeForShader(v196, &v240);
-      v244 = v240;
-      v245 = v241;
+      initializeSeamPreviousSlice3 = [*(self + 16) initializeSeamPreviousSlice];
+      getThreadgroupSizeForShader(initializeSeamPreviousSlice3, &v71);
+      v75 = v71;
+      v76 = v72;
 
-      v200 = objc_msgSend_initializeSeamPreviousSlice(*(self + 16), v197, v198, v199);
-      objc_msgSend_setComputePipelineState_(v192, v201, v200, v202);
+      initializeSeamPreviousSlice4 = [*(self + 16) initializeSeamPreviousSlice];
+      [computeCommandEncoder2 setComputePipelineState:initializeSeamPreviousSlice4];
 
-      objc_msgSend_setTexture_atIndex_(v192, v203, v15, 0);
-      objc_msgSend_setTexture_atIndex_(v192, v204, v19, 1);
-      objc_msgSend_setTexture_atIndex_(v192, v205, *(self + 56), 2);
-      objc_msgSend_setTexture_atIndex_(v192, v206, *(self + 64), 3);
-      v210 = objc_msgSend_width(v19, v207, v208, v209);
-      v214 = objc_msgSend_height(v19, v211, v212, v213);
-      *&v240 = v210;
-      *(&v240 + 1) = v214;
-      *&v215 = sub_23C471868().n128_u64[0];
-      objc_msgSend_dispatchThreads_threadsPerThreadgroup_(v192, v216, v217, v218, v215);
-      objc_msgSend_endEncoding(v192, v219, v220, v221);
-      objc_msgSend_commit(v186, v222, v223, v224);
+      [computeCommandEncoder2 setTexture:v13 atIndex:0];
+      [computeCommandEncoder2 setTexture:v14 atIndex:1];
+      [computeCommandEncoder2 setTexture:*(self + 56) atIndex:2];
+      [computeCommandEncoder2 setTexture:*(self + 64) atIndex:3];
+      width2 = [v14 width];
+      height3 = [v14 height];
+      *&v71 = width2;
+      *(&v71 + 1) = height3;
+      [computeCommandEncoder2 dispatchThreads:sub_23C471868().n128_f64[0] threadsPerThreadgroup:?];
+      [computeCommandEncoder2 endEncoding];
+      [commandBuffer2 commit];
       v12 = 0;
       *(self + 136) = 0;
       *(self + 144) = 0;
       __asm { FMOV            V0.2D, #1.0 }
 
       *(self + 152) = _Q0;
-      v33 = v192;
-      v24 = v186;
+      computeCommandEncoder = computeCommandEncoder2;
+      commandBuffer = commandBuffer2;
     }
 
     else
     {
-      v33 = 0;
-      v24 = 0;
+      computeCommandEncoder = 0;
+      commandBuffer = 0;
     }
   }
 
   else
   {
-    v19 = 0;
-    v33 = 0;
-    v24 = 0;
+    v14 = 0;
+    computeCommandEncoder = 0;
+    commandBuffer = 0;
   }
 
 LABEL_9:
@@ -331,101 +322,101 @@ LABEL_9:
   return v12;
 }
 
-- (uint64_t)addSlice:(uint64_t)slice sliceHomography:(uint64_t)homography sliceType:
+- (uint64_t)addSlice:(uint64_t)slice sliceHomography:sliceType:
 {
-  if (*(self + 92) != 1)
+  if (*(slice + 92) != 1)
   {
     return 2;
   }
 
-  v4 = *(self + 84);
-  if (v4 != 1)
+  v1 = *(slice + 84);
+  if (v1 != 1)
   {
-    if (!v4)
+    if (!v1)
     {
-      return objc_msgSend__centralStitchAddSlice_sliceHomography_sliceType_(self, a2, slice, homography);
+      return [slice _centralStitchAddSlice:? sliceHomography:? sliceType:?];
     }
 
     return 2;
   }
 
-  return MEMORY[0x2821F9670](self, sel__seamStitchAddSlice_sliceHomography_sliceType_, slice, homography);
+  return MEMORY[0x2821F9670](slice, sel__seamStitchAddSlice_sliceHomography_sliceType_);
 }
 
 - (int)prepareToProcess:(int)process sliceWidth:(unint64_t)width sliceHeight:(unint64_t)height
 {
   sub_23C471898();
-  v13 = objc_msgSend_texture2DDescriptorWithPixelFormat_width_height_mipmapped_(v9, v10, v11, v12);
-  objc_msgSend_setUsage_(v13, v14, 3, v15);
-  v19 = objc_msgSend_device(self->_metal, v16, v17, v18);
-  v22 = objc_msgSend_newTextureWithDescriptor_(v19, v20, v13, v21);
+  v10 = [v9 texture2DDescriptorWithPixelFormat:? width:? height:? mipmapped:?];
+  [v10 setUsage:3];
+  device = [(FigMetalContext *)self->_metal device];
+  v12 = [device newTextureWithDescriptor:v10];
   stitchingMask = self->_stitchingMask;
-  self->_stitchingMask = v22;
+  self->_stitchingMask = v12;
 
   if (!self->_stitchingMask)
   {
     goto LABEL_12;
   }
 
-  v25 = objc_msgSend_texture2DDescriptorWithPixelFormat_width_height_mipmapped_(MEMORY[0x277CD7058], v24, 25, width, height, 0);
+  v14 = [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:25 width:width height:height mipmapped:0];
 
-  objc_msgSend_setUsage_(v25, v26, 3, v27);
-  v31 = objc_msgSend_device(self->_metal, v28, v29, v30);
-  v34 = objc_msgSend_newTextureWithDescriptor_(v31, v32, v25, v33);
+  [v14 setUsage:3];
+  device2 = [(FigMetalContext *)self->_metal device];
+  v16 = [device2 newTextureWithDescriptor:v14];
   seamStagingLuma = self->_seamStagingLuma;
-  self->_seamStagingLuma = v34;
+  self->_seamStagingLuma = v16;
 
-  if (!self->_seamStagingLuma || (objc_msgSend_device(self->_metal, v36, v37, v38), v39 = objc_claimAutoreleasedReturnValue(), v42 = objc_msgSend_newTextureWithDescriptor_(v39, v40, v25, v41), seamStagingLumaDst = self->_seamStagingLumaDst, self->_seamStagingLumaDst = v42, seamStagingLumaDst, v39, !self->_seamStagingLumaDst) || (objc_msgSend_device(self->_metal, v44, v45, v46), v47 = objc_claimAutoreleasedReturnValue(), v50 = objc_msgSend_newTextureWithDescriptor_(v47, v48, v25, v49), prevLuma = self->_prevLuma, self->_prevLuma = v50, prevLuma, v47, !self->_prevLuma))
+  if (!self->_seamStagingLuma || (-[FigMetalContext device](self->_metal, "device"), v18 = objc_claimAutoreleasedReturnValue(), v19 = [v18 newTextureWithDescriptor:v14], seamStagingLumaDst = self->_seamStagingLumaDst, self->_seamStagingLumaDst = v19, seamStagingLumaDst, v18, !self->_seamStagingLumaDst) || (-[FigMetalContext device](self->_metal, "device"), v21 = objc_claimAutoreleasedReturnValue(), v22 = objc_msgSend(v21, "newTextureWithDescriptor:", v14), prevLuma = self->_prevLuma, self->_prevLuma = v22, prevLuma, v21, !self->_prevLuma))
   {
-    v97 = 2;
-    v13 = v25;
+    v39 = 2;
+    v10 = v14;
     goto LABEL_11;
   }
 
   sub_23C471898();
-  v13 = objc_msgSend_texture2DDescriptorWithPixelFormat_width_height_mipmapped_(v52, v53, v54, v55);
+  v10 = [v24 texture2DDescriptorWithPixelFormat:? width:? height:? mipmapped:?];
 
-  objc_msgSend_setUsage_(v13, v56, 3, v57);
-  v61 = objc_msgSend_device(self->_metal, v58, v59, v60);
-  v64 = objc_msgSend_newTextureWithDescriptor_(v61, v62, v13, v63);
+  [v10 setUsage:3];
+  device3 = [(FigMetalContext *)self->_metal device];
+  v26 = [device3 newTextureWithDescriptor:v10];
   seamStagingChroma = self->_seamStagingChroma;
-  self->_seamStagingChroma = v64;
+  self->_seamStagingChroma = v26;
 
-  if (self->_seamStagingChroma && (objc_msgSend_device(self->_metal, v66, v67, v68), v69 = objc_claimAutoreleasedReturnValue(), v72 = objc_msgSend_newTextureWithDescriptor_(v69, v70, v13, v71), seamStagingChromaDst = self->_seamStagingChromaDst, self->_seamStagingChromaDst = v72, seamStagingChromaDst, v69, self->_seamStagingChromaDst) && (objc_msgSend_device(self->_metal, v74, v75, v76), v77 = objc_claimAutoreleasedReturnValue(), v80 = objc_msgSend_newTextureWithDescriptor_(v77, v78, v13, v79), prevChroma = self->_prevChroma, self->_prevChroma = v80, prevChroma, v77, self->_prevChroma))
+  if (self->_seamStagingChroma && (-[FigMetalContext device](self->_metal, "device"), v28 = objc_claimAutoreleasedReturnValue(), v29 = [v28 newTextureWithDescriptor:v10], seamStagingChromaDst = self->_seamStagingChromaDst, self->_seamStagingChromaDst = v29, seamStagingChromaDst, v28, self->_seamStagingChromaDst) && (-[FigMetalContext device](self->_metal, "device"), v31 = objc_claimAutoreleasedReturnValue(), v32 = objc_msgSend(v31, "newTextureWithDescriptor:", v10), prevChroma = self->_prevChroma, self->_prevChroma = v32, prevChroma, v31, self->_prevChroma))
   {
     sub_23C471898();
-    v86 = objc_msgSend_texture2DDescriptorWithPixelFormat_width_height_mipmapped_(v82, v83, v84, v85);
+    v35 = [v34 texture2DDescriptorWithPixelFormat:? width:? height:? mipmapped:?];
 
-    objc_msgSend_setUsage_(v86, v87, 3, v88);
-    v92 = objc_msgSend_device(self->_metal, v89, v90, v91);
-    v95 = objc_msgSend_newTextureWithDescriptor_(v92, v93, v86, v94);
+    [v35 setUsage:3];
+    device4 = [(FigMetalContext *)self->_metal device];
+    v37 = [device4 newTextureWithDescriptor:v35];
     seamCost = self->_seamCost;
-    self->_seamCost = v95;
+    self->_seamCost = v37;
 
     if (self->_seamCost)
     {
-      v97 = 0;
+      v39 = 0;
       self->_isReadyToProcess = 1;
       self->_stitchingMode = process;
     }
 
     else
     {
-      v97 = 2;
+      v39 = 2;
     }
 
-    v13 = v86;
+    v10 = v35;
   }
 
   else
   {
 LABEL_12:
-    v97 = 2;
+    v39 = 2;
   }
 
 LABEL_11:
 
-  return v97;
+  return v39;
 }
 
 @end

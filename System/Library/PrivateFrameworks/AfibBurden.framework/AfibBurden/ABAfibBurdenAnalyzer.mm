@@ -69,7 +69,7 @@
       goto LABEL_18;
     }
 
-    v15 = ab_get_framework_log();
+    v15 = ab_get_framework_log(v7);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [ABAfibBurdenAnalyzer processResults:v15 withAlgsAnalytics:?];
@@ -185,70 +185,67 @@ LABEL_18:
   v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v39 forKeys:v38 count:8];
   [v8 setMetricsForCoreAnalytics:v23];
 
-  v24 = ab_get_framework_log();
-  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+  v25 = ab_get_framework_log(v24);
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
   {
     metricsForCoreAnalytics = [v8 metricsForCoreAnalytics];
-    [(ABAfibBurdenAnalyzer *)metricsForCoreAnalytics processResults:buf withAlgsAnalytics:v24];
+    [(ABAfibBurdenAnalyzer *)metricsForCoreAnalytics processResults:buf withAlgsAnalytics:v25];
   }
 
   v16 = v8;
 LABEL_36:
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
 
 - (id)determineBurdenForTachogramClassificationBuckets:(id)buckets
 {
-  v76[8] = *MEMORY[0x277D85DE8];
+  v78[8] = *MEMORY[0x277D85DE8];
   bucketsCopy = buckets;
   if ([bucketsCopy count])
   {
-    v73 = 0u;
-    v74 = 0u;
-    *v72 = 0u;
+    v75 = 0u;
+    v76 = 0u;
+    *v74 = 0u;
     -[ABAfibBurdenAnalyzer setSegmentsCount:](self, "setSegmentsCount:", [bucketsCopy count]);
-    [(ABAfibBurdenAnalyzer *)self setSegmentsWith5TachCount:0];
-    v3 = ab_get_framework_log();
+    v3 = ab_get_framework_log([(ABAfibBurdenAnalyzer *)self setSegmentsWith5TachCount:0]);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
       _os_log_impl(&dword_23E83E000, v3, OS_LOG_TYPE_DEFAULT, "bucketIndex, timestamp, UUID :", buf, 2u);
     }
 
+    v65 = 0u;
+    v66 = 0u;
     v63 = 0u;
     v64 = 0u;
-    v61 = 0u;
-    v62 = 0u;
     obj = bucketsCopy;
-    v4 = [obj countByEnumeratingWithState:&v61 objects:v71 count:16];
+    v4 = [obj countByEnumeratingWithState:&v63 objects:v73 count:16];
     if (v4)
     {
-      v50 = 0;
-      v47 = *v62;
+      v52 = 0;
+      v49 = *v64;
       while (2)
       {
-        v51 = 0;
-        v46 = v4;
+        v53 = 0;
+        v48 = v4;
         do
         {
-          if (*v62 != v47)
+          if (*v64 != v49)
           {
             objc_enumerationMutation(obj);
           }
 
-          v5 = *(*(&v61 + 1) + 8 * v51);
+          v5 = *(*(&v63 + 1) + 8 * v53);
           if (![v5 count])
           {
-            v41 = ab_get_framework_log();
-            if (os_log_type_enabled(v41, OS_LOG_TYPE_FAULT))
+            v44 = ab_get_framework_log(0);
+            if (os_log_type_enabled(v44, OS_LOG_TYPE_FAULT))
             {
-              [ABAfibBurdenAnalyzer determineBurdenForTachogramClassificationBuckets:v41];
+              [ABAfibBurdenAnalyzer determineBurdenForTachogramClassificationBuckets:v44];
             }
 
-            v32 = 0;
+            v34 = 0;
             goto LABEL_56;
           }
 
@@ -257,130 +254,137 @@ LABEL_36:
             [(ABAfibBurdenAnalyzer *)self setSegmentsWith5TachCount:([(ABAfibBurdenAnalyzer *)self segmentsWith5TachCount]+ 1)];
           }
 
-          v49 = [v5 sortedArrayUsingComparator:&__block_literal_global_0];
-          if (([v49 isEqualToArray:v5] & 1) == 0)
+          v51 = [v5 sortedArrayUsingComparator:&__block_literal_global_0];
+          v6 = [v51 isEqualToArray:v5];
+          if ((v6 & 1) == 0)
           {
-            v6 = ab_get_framework_log();
-            if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+            v7 = ab_get_framework_log(v6);
+            if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
             {
-              [(ABAfibBurdenAnalyzer *)&v59 determineBurdenForTachogramClassificationBuckets:v60, v6];
+              [(ABAfibBurdenAnalyzer *)&v61 determineBurdenForTachogramClassificationBuckets:v62, v7];
             }
           }
 
           *__p = 0u;
-          v58 = 0u;
-          v55 = 0u;
+          v60 = 0u;
+          v57 = 0u;
           *buf = 0u;
-          v52 = 0u;
-          v53 = 0u;
           v54 = 0u;
-          v7 = v49;
-          v8 = [v7 countByEnumeratingWithState:&v52 objects:v70 count:16];
-          if (v8)
+          v55 = 0u;
+          v56 = 0u;
+          v8 = v51;
+          v9 = [v8 countByEnumeratingWithState:&v54 objects:v72 count:16];
+          v10 = v9;
+          if (v9)
           {
-            v9 = *v53;
+            v11 = *v55;
             do
             {
-              for (i = 0; i != v8; ++i)
+              v12 = 0;
+              do
               {
-                if (*v53 != v9)
+                if (*v55 != v11)
                 {
-                  objc_enumerationMutation(v7);
+                  objc_enumerationMutation(v8);
                 }
 
-                v11 = *(*(&v52 + 1) + 8 * i);
-                v12 = ab_get_framework_log();
-                if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+                v13 = *(*(&v54 + 1) + 8 * v12);
+                v14 = ab_get_framework_log(v9);
+                if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
                 {
-                  date = [v11 date];
+                  date = [v13 date];
                   [date timeIntervalSince1970];
-                  v15 = v14;
-                  uuid = [v11 uuid];
-                  *v65 = 67109634;
-                  *&v65[4] = v50;
-                  v66 = 2048;
-                  v67 = v15;
-                  v68 = 2112;
-                  v69 = uuid;
-                  _os_log_impl(&dword_23E83E000, v12, OS_LOG_TYPE_DEFAULT, "%d, %f, %@", v65, 0x1Cu);
+                  v17 = v16;
+                  uuid = [v13 uuid];
+                  *v67 = 67109634;
+                  *&v67[4] = v52;
+                  v68 = 2048;
+                  v69 = v17;
+                  v70 = 2112;
+                  v71 = uuid;
+                  _os_log_impl(&dword_23E83E000, v14, OS_LOG_TYPE_DEFAULT, "%d, %f, %@", v67, 0x1Cu);
                 }
 
-                v65[0] = [v11 aFibDetected];
-                std::vector<BOOL>::push_back(&__p[1], v65);
-                date2 = [v11 date];
+                v67[0] = [v13 aFibDetected];
+                std::vector<BOOL>::push_back(&__p[1], v67);
+                date2 = [v13 date];
                 [date2 timeIntervalSince1970];
-                v19 = *&buf[8];
+                v21 = *&buf[8];
                 if (*&buf[8] >= __p[0])
                 {
-                  v21 = *buf;
-                  v22 = *&buf[8] - *buf;
-                  v23 = (*&buf[8] - *buf) >> 3;
-                  v24 = v23 + 1;
-                  if ((v23 + 1) >> 61)
+                  v23 = *buf;
+                  v24 = *&buf[8] - *buf;
+                  v25 = (*&buf[8] - *buf) >> 3;
+                  v26 = v25 + 1;
+                  if ((v25 + 1) >> 61)
                   {
                     std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__throw_length_error[abi:ne200100]();
                   }
 
-                  v25 = __p[0] - *buf;
-                  if ((__p[0] - *buf) >> 2 > v24)
+                  v27 = __p[0] - *buf;
+                  if ((__p[0] - *buf) >> 2 > v26)
                   {
-                    v24 = v25 >> 2;
+                    v26 = v27 >> 2;
                   }
 
-                  v26 = v25 >= 0x7FFFFFFFFFFFFFF8;
-                  v27 = 0x1FFFFFFFFFFFFFFFLL;
-                  if (!v26)
+                  v28 = v27 >= 0x7FFFFFFFFFFFFFF8;
+                  v29 = 0x1FFFFFFFFFFFFFFFLL;
+                  if (!v28)
                   {
-                    v27 = v24;
+                    v29 = v26;
                   }
 
-                  if (v27)
+                  if (v29)
                   {
-                    std::__allocate_at_least[abi:ne200100]<std::allocator<double>>(buf, v27);
+                    std::__allocate_at_least[abi:ne200100]<std::allocator<double>>(buf, v29);
                   }
 
-                  *(8 * v23) = v18;
-                  v20 = 8 * v23 + 8;
-                  memcpy(0, v21, v22);
-                  v28 = *buf;
+                  *(8 * v25) = v20;
+                  v22 = 8 * v25 + 8;
+                  memcpy(0, v23, v24);
+                  v30 = *buf;
                   *buf = 0;
-                  *&buf[8] = v20;
+                  *&buf[8] = v22;
                   __p[0] = 0;
-                  if (v28)
+                  if (v30)
                   {
-                    operator delete(v28);
+                    operator delete(v30);
                   }
                 }
 
                 else
                 {
-                  **&buf[8] = v18;
-                  v20 = v19 + 8;
+                  **&buf[8] = v20;
+                  v22 = v21 + 8;
                 }
 
-                *&buf[8] = v20;
+                *&buf[8] = v22;
+
+                ++v12;
               }
 
-              v8 = [v7 countByEnumeratingWithState:&v52 objects:v70 count:16];
+              while (v10 != v12);
+              v9 = [v8 countByEnumeratingWithState:&v54 objects:v72 count:16];
+              v10 = v9;
             }
 
-            while (v8);
+            while (v9);
           }
 
-          v29 = v74;
-          if (v74 >= *(&v74 + 1))
+          v31 = v76;
+          if (v76 >= *(&v76 + 1))
           {
-            v30 = std::vector<std::vector<BOOL>>::__emplace_back_slow_path<std::vector<BOOL> const&>(&v73 + 8, &__p[1]);
+            v32 = std::vector<std::vector<BOOL>>::__emplace_back_slow_path<std::vector<BOOL> const&>(&v75 + 1, &__p[1]);
           }
 
           else
           {
-            std::vector<BOOL>::vector(v74, &__p[1]);
-            v30 = v29 + 24;
+            std::vector<BOOL>::vector(v76, &__p[1]);
+            v32 = v31 + 24;
           }
 
-          *&v74 = v30;
-          std::vector<std::vector<double>>::push_back[abi:ne200100](v72, buf);
+          *&v76 = v32;
+          std::vector<std::vector<double>>::push_back[abi:ne200100](v74, buf);
           if (__p[1])
           {
             operator delete(__p[1]);
@@ -392,12 +396,12 @@ LABEL_36:
             operator delete(*buf);
           }
 
-          ++v50;
-          ++v51;
+          ++v52;
+          ++v53;
         }
 
-        while (v51 != v46);
-        v4 = [obj countByEnumeratingWithState:&v61 objects:v71 count:16];
+        while (v53 != v48);
+        v4 = [obj countByEnumeratingWithState:&v63 objects:v73 count:16];
         if (v4)
         {
           continue;
@@ -409,68 +413,66 @@ LABEL_36:
 
     memset(buf, 0, sizeof(buf));
     __p[0] = 0;
-    *v65 = beryllium::process(v72, buf, v31);
-    v32 = [(ABAfibBurdenAnalyzer *)self processResults:v65 withAlgsAnalytics:buf];
-    [(ABAfibBurdenAnalyzer *)self logToFileForTachoList:obj withBurdenResults:v32];
+    *v67 = beryllium::process(v74, buf, v33);
+    v34 = [(ABAfibBurdenAnalyzer *)self processResults:v67 withAlgsAnalytics:buf];
+    [(ABAfibBurdenAnalyzer *)self logToFileForTachoList:obj withBurdenResults:v34];
 LABEL_56:
-    *buf = &v73 + 8;
+    *buf = &v75 + 8;
     std::vector<std::vector<BOOL>>::__destroy_vector::operator()[abi:ne200100](buf);
-    *buf = v72;
+    *buf = v74;
     std::vector<std::vector<double>>::__destroy_vector::operator()[abi:ne200100](buf);
   }
 
   else
   {
-    v33 = ab_get_framework_log();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+    v35 = ab_get_framework_log(0);
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
     {
-      *v72 = 0;
-      _os_log_impl(&dword_23E83E000, v33, OS_LOG_TYPE_DEFAULT, "Empty list of classification buckets received", v72, 2u);
+      *v74 = 0;
+      _os_log_impl(&dword_23E83E000, v35, OS_LOG_TYPE_DEFAULT, "Empty list of classification buckets received", v74, 2u);
     }
 
-    v32 = objc_opt_new();
-    [v32 setBurdenPercentage:0];
-    [v32 setUnavailabilityReason:1];
+    v34 = objc_opt_new();
+    [v34 setBurdenPercentage:0];
+    [v34 setUnavailabilityReason:1];
     if (self->_rawBurdenValue.__engaged_)
     {
       self->_rawBurdenValue.__engaged_ = 0;
     }
 
-    [(ABAfibBurdenAnalyzer *)self logToFileForTachoList:bucketsCopy withBurdenResults:v32];
-    v75[0] = @"reasonNoReport";
-    v34 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v32, "unavailabilityReason")}];
-    v76[0] = v34;
-    v75[1] = @"segmentsCount";
-    v35 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:{-[ABAfibBurdenAnalyzer segmentsCount](self, "segmentsCount")}];
-    v76[1] = v35;
-    v75[2] = @"segmentsWith5TachCount";
-    v36 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:{-[ABAfibBurdenAnalyzer segmentsWith5TachCount](self, "segmentsWith5TachCount")}];
-    v76[2] = v36;
-    v75[3] = @"AFBurden";
+    [(ABAfibBurdenAnalyzer *)self logToFileForTachoList:bucketsCopy withBurdenResults:v34];
+    v77[0] = @"reasonNoReport";
+    v36 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v34, "unavailabilityReason")}];
+    v78[0] = v36;
+    v77[1] = @"segmentsCount";
+    v37 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:{-[ABAfibBurdenAnalyzer segmentsCount](self, "segmentsCount")}];
+    v78[1] = v37;
+    v77[2] = @"segmentsWith5TachCount";
+    v38 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:{-[ABAfibBurdenAnalyzer segmentsWith5TachCount](self, "segmentsWith5TachCount")}];
+    v78[2] = v38;
+    v77[3] = @"AFBurden";
     null = [MEMORY[0x277CBEB68] null];
-    v76[3] = null;
-    v76[4] = &unk_285119790;
-    v75[4] = @"AFDensity";
-    v75[5] = @"timeBetweenTachs";
-    v76[5] = &unk_285119790;
-    v76[6] = &unk_285119790;
-    v75[6] = @"countTimezoneShifts";
-    v75[7] = @"highestTimezoneShift";
-    v76[7] = &unk_285119790;
-    v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v76 forKeys:v75 count:8];
-    [v32 setMetricsForCoreAnalytics:v38];
+    v78[3] = null;
+    v78[4] = &unk_285119790;
+    v77[4] = @"AFDensity";
+    v77[5] = @"timeBetweenTachs";
+    v78[5] = &unk_285119790;
+    v78[6] = &unk_285119790;
+    v77[6] = @"countTimezoneShifts";
+    v77[7] = @"highestTimezoneShift";
+    v78[7] = &unk_285119790;
+    v40 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v78 forKeys:v77 count:8];
+    [v34 setMetricsForCoreAnalytics:v40];
 
-    v39 = ab_get_framework_log();
-    if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
+    v42 = ab_get_framework_log(v41);
+    if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
     {
-      metricsForCoreAnalytics = [v32 metricsForCoreAnalytics];
-      [(ABAfibBurdenAnalyzer *)metricsForCoreAnalytics processResults:v72 withAlgsAnalytics:v39];
+      metricsForCoreAnalytics = [v34 metricsForCoreAnalytics];
+      [(ABAfibBurdenAnalyzer *)metricsForCoreAnalytics processResults:v74 withAlgsAnalytics:v42];
     }
   }
 
-  v42 = *MEMORY[0x277D85DE8];
-
-  return v32;
+  return v34;
 }
 
 uint64_t __73__ABAfibBurdenAnalyzer_determineBurdenForTachogramClassificationBuckets___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -485,68 +487,68 @@ uint64_t __73__ABAfibBurdenAnalyzer_determineBurdenForTachogramClassificationBuc
 
 - (void)logToFileForTachoList:(id)list withBurdenResults:(id)results
 {
-  v29[1] = *MEMORY[0x277D85DE8];
+  v30[1] = *MEMORY[0x277D85DE8];
   listCopy = list;
   resultsCopy = results;
   out_token = -1;
   state64 = 0;
   notify_register_check("com.apple.AfibBurden.ForceAnalysis.WriteToJson", &out_token);
-  notify_get_state(out_token, &state64);
+  state = notify_get_state(out_token, &state64);
   if (state64)
   {
-    v5 = ab_get_framework_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = ab_get_framework_log(state);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       LODWORD(buf[0].__r_.__value_.__l.__data_) = 134217984;
       *(buf[0].__r_.__value_.__r.__words + 4) = state64;
-      _os_log_impl(&dword_23E83E000, v5, OS_LOG_TYPE_DEFAULT, "ABAfibBurdenAnalyzer : logging to file. notifyState is set to %llu", buf, 0xCu);
+      _os_log_impl(&dword_23E83E000, v6, OS_LOG_TYPE_DEFAULT, "ABAfibBurdenAnalyzer : logging to file. notifyState is set to %llu", buf, 0xCu);
     }
 
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-    v28 = *MEMORY[0x277CCA1B0];
-    v29[0] = *MEMORY[0x277CCA198];
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:&v28 count:1];
-    v24 = 0;
-    v8 = [defaultManager createDirectoryAtPath:@"/var/mobile/Library/Logs/AfBHIDDiagnostics/" withIntermediateDirectories:1 attributes:v7 error:&v24];
-    v16 = v24;
+    v29 = *MEMORY[0x277CCA1B0];
+    v30[0] = *MEMORY[0x277CCA198];
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:&v29 count:1];
+    v25 = 0;
+    v9 = [defaultManager createDirectoryAtPath:@"/var/mobile/Library/Logs/AfBHIDDiagnostics/" withIntermediateDirectories:1 attributes:v8 error:&v25];
+    v17 = v25;
 
-    if (v8)
+    if (v9)
     {
-      std::to_string(&v19, state64);
-      v9 = std::string::insert(&v19, 0, "process_burden_");
-      v10 = *&v9->__r_.__value_.__l.__data_;
-      buf[0].__r_.__value_.__r.__words[2] = v9->__r_.__value_.__r.__words[2];
-      *&buf[0].__r_.__value_.__l.__data_ = v10;
-      v9->__r_.__value_.__l.__size_ = 0;
-      v9->__r_.__value_.__r.__words[2] = 0;
-      v9->__r_.__value_.__r.__words[0] = 0;
-      v11 = std::string::append(buf, ".json");
+      std::to_string(&v20, state64);
+      v11 = std::string::insert(&v20, 0, "process_burden_");
       v12 = *&v11->__r_.__value_.__l.__data_;
-      v23 = v11->__r_.__value_.__r.__words[2];
-      v22 = v12;
+      buf[0].__r_.__value_.__r.__words[2] = v11->__r_.__value_.__r.__words[2];
+      *&buf[0].__r_.__value_.__l.__data_ = v12;
       v11->__r_.__value_.__l.__size_ = 0;
       v11->__r_.__value_.__r.__words[2] = 0;
       v11->__r_.__value_.__r.__words[0] = 0;
+      v13 = std::string::append(buf, ".json");
+      v14 = *&v13->__r_.__value_.__l.__data_;
+      v24 = v13->__r_.__value_.__r.__words[2];
+      v23 = v14;
+      v13->__r_.__value_.__l.__size_ = 0;
+      v13->__r_.__value_.__r.__words[2] = 0;
+      v13->__r_.__value_.__r.__words[0] = 0;
       if (SHIBYTE(buf[0].__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(buf[0].__r_.__value_.__l.__data_);
       }
 
-      if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v19.__r_.__value_.__l.__data_);
+        operator delete(v20.__r_.__value_.__l.__data_);
       }
 
       [@"/var/mobile/Library/Logs/AfBHIDDiagnostics/" UTF8String];
       std::operator+<char>();
-      std::ofstream::basic_ofstream(buf, &__p);
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json(v20, 0, 0, 0, 1);
+      std::ofstream::basic_ofstream(buf, &__p, 1);
+      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json(v21, 0, 0, 0, 1);
     }
 
-    v13 = ab_get_framework_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = ab_get_framework_log(v10);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      [ABTachogramClassifier logToFileForTacho:v16 withClassification:v13];
+      [ABTachogramClassifier logToFileForTacho:v17 withClassification:v15];
     }
 
     notify_cancel(out_token);
@@ -556,19 +558,16 @@ uint64_t __73__ABAfibBurdenAnalyzer_determineBurdenForTachogramClassificationBuc
   {
     notify_cancel(out_token);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 + (void)removeDiagnosticLogFiles
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 138412546;
-  v4 = @"/var/mobile/Library/Logs/AfBHIDDiagnostics/";
-  v5 = 2112;
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 138412546;
+  v3 = @"/var/mobile/Library/Logs/AfBHIDDiagnostics/";
+  v4 = 2112;
   selfCopy = self;
-  _os_log_error_impl(&dword_23E83E000, a2, OS_LOG_TYPE_ERROR, "Failed to retrieve files at path : %@ with error : %@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_23E83E000, a2, OS_LOG_TYPE_ERROR, "Failed to retrieve files at path : %@ with error : %@", &v2, 0x16u);
 }
 
 - (id).cxx_construct

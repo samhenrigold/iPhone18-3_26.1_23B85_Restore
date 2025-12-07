@@ -214,7 +214,7 @@
   {
     if (v7)
     {
-      sub_1000CAF88(v6);
+      sub_1000CAF88(v6, reason);
     }
 
     self->_autoDismissalReason = reason;

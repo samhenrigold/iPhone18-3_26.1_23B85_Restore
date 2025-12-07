@@ -8,11 +8,11 @@
 
 - (_BlastDoorLPBusinessChatMetadata)initWithCoder:(id)coder
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v11.receiver = self;
-  v11.super_class = _BlastDoorLPBusinessChatMetadata;
-  v5 = [(_BlastDoorLPBusinessChatMetadata *)&v11 init];
+  v10.receiver = self;
+  v10.super_class = _BlastDoorLPBusinessChatMetadata;
+  v5 = [(_BlastDoorLPBusinessChatMetadata *)&v10 init];
   if (v5)
   {
     v6 = decodeStringForKey(coderCopy, @"subtitle");
@@ -22,7 +22,6 @@
     v8 = v5;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -42,11 +41,11 @@
 
 - (BOOL)isEqual:(id)equal
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   equalCopy = equal;
-  v9.receiver = self;
-  v9.super_class = _BlastDoorLPBusinessChatMetadata;
-  if ([(_BlastDoorLPBusinessChatMetadata *)&v9 isEqual:equalCopy])
+  v8.receiver = self;
+  v8.super_class = _BlastDoorLPBusinessChatMetadata;
+  if ([(_BlastDoorLPBusinessChatMetadata *)&v8 isEqual:equalCopy])
   {
     goto LABEL_2;
   }
@@ -72,7 +71,6 @@ LABEL_2:
 
 LABEL_7:
 
-  v7 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

@@ -104,27 +104,27 @@ uint64_t __44__DNDSSyncEngineLastChanceDataStore_records__block_invoke(uint64_t 
 
 void __55__DNDSSyncEngineLastChanceDataStore_recordsWithZoneID___block_invoke(void *a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v2 = *(a1[4] + 8);
-  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v13;
+    v5 = *v12;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v13 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v12 + 1) + 8 * i);
+        v7 = *(*(&v11 + 1) + 8 * i);
         v8 = [v7 zoneID];
         v9 = [v8 isEqual:a1[5]];
 
@@ -135,13 +135,11 @@ void __55__DNDSSyncEngineLastChanceDataStore_recordsWithZoneID___block_invoke(vo
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v4);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)recordWithID:(id)d
@@ -249,28 +247,28 @@ void __56__DNDSSyncEngineLastChanceDataStore_removeRecordWithID___block_invoke(u
 
 void __61__DNDSSyncEngineLastChanceDataStore_removeRecordsWithZoneID___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEB18] array];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v3 = *(*(a1 + 32) + 8);
-  v4 = [v3 countByEnumeratingWithState:&v21 objects:v26 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v20 objects:v25 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v22;
+    v6 = *v21;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v22 != v6)
+        if (*v21 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v21 + 1) + 8 * i);
+        v8 = *(*(&v20 + 1) + 8 * i);
         v9 = [v8 zoneID];
         v10 = [v9 isEqual:*(a1 + 40)];
 
@@ -280,7 +278,7 @@ void __61__DNDSSyncEngineLastChanceDataStore_removeRecordsWithZoneID___block_inv
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
     while (v5);
@@ -288,29 +286,29 @@ void __61__DNDSSyncEngineLastChanceDataStore_removeRecordsWithZoneID___block_inv
 
   if ([v2 count])
   {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v11 = v2;
-    v12 = [v11 countByEnumeratingWithState:&v17 objects:v25 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v16 objects:v24 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v18;
+      v14 = *v17;
       do
       {
         for (j = 0; j != v13; ++j)
         {
-          if (*v18 != v14)
+          if (*v17 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          [*(*(a1 + 32) + 8) setObject:0 forKeyedSubscript:{*(*(&v17 + 1) + 8 * j), v17}];
+          [*(*(a1 + 32) + 8) setObject:0 forKeyedSubscript:{*(*(&v16 + 1) + 8 * j), v16}];
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v17 objects:v25 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v16 objects:v24 count:16];
       }
 
       while (v13);
@@ -318,20 +316,18 @@ void __61__DNDSSyncEngineLastChanceDataStore_removeRecordsWithZoneID___block_inv
 
     [*(a1 + 32) _queue_write];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)purge
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_24912E000, a2, a3, "Failed to delete last chance store: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_0(&dword_24912E000, a2, a3, "Failed to delete last chance store: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_queue_read
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   queue_recordsByID = self->_queue_recordsByID;
   self->_queue_recordsByID = dictionary;
@@ -352,46 +348,44 @@ void __61__DNDSSyncEngineLastChanceDataStore_removeRecordsWithZoneID___block_inv
 
     v8 = array;
 
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v9 = v8;
-    v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v19;
+      v12 = *v18;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v19 != v12)
+          if (*v18 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = [(DNDSSyncEngineLastChanceDataStore *)self _decodeRecordFromData:*(*(&v18 + 1) + 8 * i), v18];
+          v14 = [(DNDSSyncEngineLastChanceDataStore *)self _decodeRecordFromData:*(*(&v17 + 1) + 8 * i), v17];
           v15 = self->_queue_recordsByID;
           recordID = [v14 recordID];
           [(NSMutableDictionary *)v15 setObject:v14 forKeyedSubscript:recordID];
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v11);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_write
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_24912E000, a2, a3, "Failed to write last chance store: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_0(&dword_24912E000, a2, a3, "Failed to write last chance store: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (id)_encodedDataFromRecord:(id)record

@@ -164,65 +164,65 @@
 
   selfCopy = self;
   LODWORD(v3) = self->_isFocusFilterEnabled;
-  v5 = CKFrameworkBundle();
-  v6 = v5;
+  v6 = CKFrameworkBundle(v5);
+  v7 = v6;
   if (v3 == 1)
   {
-    v7 = [v5 localizedStringForKey:@"FILTERED_BY_FOCUS" value:&stru_1F04268F8 table:@"ChatKit"];
+    v8 = [v6 localizedStringForKey:@"FILTERED_BY_FOCUS" value:&stru_1F04268F8 table:@"ChatKit"];
 
-    v8 = +[CKUIBehavior sharedBehaviors];
-    theme = [v8 theme];
+    v9 = +[CKUIBehavior sharedBehaviors];
+    theme = [v9 theme];
     transcriptAvailabilityColor = [theme transcriptAvailabilityColor];
 
-    v10 = CKFrameworkBundle();
-    v30 = [v10 localizedStringForKey:@"TURN_OFF" value:&stru_1F04268F8 table:@"ChatKit"];
-
-    v11 = +[CKUIBehavior sharedBehaviors];
-    theme2 = [v11 theme];
-    conversationListFocusFilterBannerTextColor = [theme2 conversationListFocusFilterBannerTextColor];
+    v12 = CKFrameworkBundle(v11);
+    v33 = [v12 localizedStringForKey:@"TURN_OFF" value:&stru_1F04268F8 table:@"ChatKit"];
 
     v13 = +[CKUIBehavior sharedBehaviors];
-    [v13 conversationListFocusFilterBannerEnabledIcon];
+    theme2 = [v13 theme];
+    conversationListFocusFilterBannerTextColor = [theme2 conversationListFocusFilterBannerTextColor];
+
+    v15 = +[CKUIBehavior sharedBehaviors];
+    [v15 conversationListFocusFilterBannerEnabledIcon];
   }
 
   else
   {
-    v7 = [v5 localizedStringForKey:@"FOCUS_FILTER_OFF" value:&stru_1F04268F8 table:@"ChatKit"];
+    v8 = [v6 localizedStringForKey:@"FOCUS_FILTER_OFF" value:&stru_1F04268F8 table:@"ChatKit"];
 
-    v14 = +[CKUIBehavior sharedBehaviors];
-    theme3 = [v14 theme];
+    v16 = +[CKUIBehavior sharedBehaviors];
+    theme3 = [v16 theme];
     transcriptAvailabilityColor = [theme3 conversationListSummaryColor];
 
-    v16 = CKFrameworkBundle();
-    v30 = [v16 localizedStringForKey:@"TURN_ON" value:&stru_1F04268F8 table:@"ChatKit"];
+    v19 = CKFrameworkBundle(v18);
+    v33 = [v19 localizedStringForKey:@"TURN_ON" value:&stru_1F04268F8 table:@"ChatKit"];
 
-    v17 = +[CKUIBehavior sharedBehaviors];
-    theme4 = [v17 theme];
+    v20 = +[CKUIBehavior sharedBehaviors];
+    theme4 = [v20 theme];
     conversationListFocusFilterBannerTextColor = [theme4 conversationListFocusFilterBannerTextColor];
 
-    v13 = +[CKUIBehavior sharedBehaviors];
-    [v13 conversationListFocusFilterBannerDisabledIcon];
+    v15 = +[CKUIBehavior sharedBehaviors];
+    [v15 conversationListFocusFilterBannerDisabledIcon];
   }
-  v19 = ;
-  v28 = v7;
+  v22 = ;
+  v31 = v8;
 
-  v20 = [objc_alloc(MEMORY[0x1E696AD40]) initWithString:v7];
-  [v20 replaceCharactersInRange:0 withString:{0, @" "}];
-  v21 = objc_alloc_init(MEMORY[0x1E69DB7F0]);
-  [v21 setImage:v19];
-  v22 = [MEMORY[0x1E696AAB0] attributedStringWithAttachment:v21];
-  [v20 insertAttributedString:v22 atIndex:0];
-  v23 = [v20 length];
-  v24 = *MEMORY[0x1E69DB648];
-  [v20 addAttribute:*MEMORY[0x1E69DB648] value:conversationListFocusFilterBannerTitleFont range:{0, v23}];
-  v25 = *MEMORY[0x1E69DB650];
-  [v20 addAttribute:*MEMORY[0x1E69DB650] value:transcriptAvailabilityColor range:{0, v23}];
-  v26 = [objc_alloc(MEMORY[0x1E696AD40]) initWithString:v30];
-  v27 = [v26 length];
-  [v26 addAttribute:v24 value:conversationListFocusFilterBannerTitleValueFont range:{0, v27}];
-  [v26 addAttribute:v25 value:conversationListFocusFilterBannerTextColor range:{0, v27}];
-  [(UILabel *)selfCopy->_focusFilterStateDescriptionLabel setAttributedText:v20];
-  [(UIButton *)selfCopy->_focusFilterToggleButton setAttributedTitle:v26 forState:0];
+  v23 = [objc_alloc(MEMORY[0x1E696AD40]) initWithString:v8];
+  [v23 replaceCharactersInRange:0 withString:{0, @" "}];
+  v24 = objc_alloc_init(MEMORY[0x1E69DB7F0]);
+  [v24 setImage:v22];
+  v25 = [MEMORY[0x1E696AAB0] attributedStringWithAttachment:v24];
+  [v23 insertAttributedString:v25 atIndex:0];
+  v26 = [v23 length];
+  v27 = *MEMORY[0x1E69DB648];
+  [v23 addAttribute:*MEMORY[0x1E69DB648] value:conversationListFocusFilterBannerTitleFont range:{0, v26}];
+  v28 = *MEMORY[0x1E69DB650];
+  [v23 addAttribute:*MEMORY[0x1E69DB650] value:transcriptAvailabilityColor range:{0, v26}];
+  v29 = [objc_alloc(MEMORY[0x1E696AD40]) initWithString:v33];
+  v30 = [v29 length];
+  [v29 addAttribute:v27 value:conversationListFocusFilterBannerTitleValueFont range:{0, v30}];
+  [v29 addAttribute:v28 value:conversationListFocusFilterBannerTextColor range:{0, v30}];
+  [(UILabel *)selfCopy->_focusFilterStateDescriptionLabel setAttributedText:v23];
+  [(UIButton *)selfCopy->_focusFilterToggleButton setAttributedTitle:v29 forState:0];
 }
 
 - (void)_updateKeylineHeightConstraints

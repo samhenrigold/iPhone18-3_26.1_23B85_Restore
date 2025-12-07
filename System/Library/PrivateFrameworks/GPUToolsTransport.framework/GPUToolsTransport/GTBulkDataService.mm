@@ -122,7 +122,7 @@ void __47__GTBulkDataService_takeDownloadDataForHandle___block_invoke(void *a1)
 
 void __68__GTBulkDataService_downloadData_usingTransferOptions_chunkHandler___block_invoke(uint64_t a1)
 {
-  v56[1] = *MEMORY[0x277D85DE8];
+  v55[1] = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = (a1 + 32);
   v4 = *(a1 + 32);
@@ -155,12 +155,12 @@ LABEL_14:
     }
 
     v26 = MEMORY[0x277CCA9B8];
-    v55 = *MEMORY[0x277CCA450];
+    v54 = *MEMORY[0x277CCA450];
     v27 = MEMORY[0x277CCACA8];
     v28 = [*(a1 + 32) debugDescription];
     v29 = [v27 stringWithFormat:@"Invalid options sent to downloadData: %@", v28];
-    v56[0] = v29;
-    v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v56 forKeys:&v55 count:1];
+    v55[0] = v29;
+    v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v55 forKeys:&v54 count:1];
     v10 = [v26 errorWithDomain:@"com.apple.gputools.bulkdataservice" code:0 userInfo:v30];
 
     goto LABEL_20;
@@ -171,26 +171,26 @@ LABEL_14:
   {
     if (GTCoreLogUseOsLog())
     {
-      v32 = gt_tagged_log(0x10u);
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+      v31 = gt_tagged_log(0x10u);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
-        __68__GTBulkDataService_downloadData_usingTransferOptions_chunkHandler___block_invoke_cold_2((a1 + 56), v32, v33, v34, v35, v36, v37, v38);
+        __68__GTBulkDataService_downloadData_usingTransferOptions_chunkHandler___block_invoke_cold_2((a1 + 56), v31, v32, v33, v34, v35, v36, v37);
       }
     }
 
     else
     {
-      v46 = *MEMORY[0x277D85DF8];
-      v47 = [MEMORY[0x277CCACA8] stringWithFormat:@"downloadData Invalid Handle:%llu", *(a1 + 56)];
-      fprintf(v46, "%s\n", [v47 UTF8String]);
+      v45 = *MEMORY[0x277D85DF8];
+      v46 = [MEMORY[0x277CCACA8] stringWithFormat:@"downloadData Invalid Handle:%llu", *(a1 + 56)];
+      fprintf(v45, "%s\n", [v46 UTF8String]);
     }
 
-    v48 = MEMORY[0x277CCA9B8];
-    v53 = *MEMORY[0x277CCA450];
-    v49 = [MEMORY[0x277CCACA8] stringWithFormat:@"Handle (%lld) has no data associated to it", *(a1 + 56)];
-    v54 = v49;
-    v50 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v54 forKeys:&v53 count:1];
-    v10 = [v48 errorWithDomain:@"com.apple.gputools.bulkdataservice" code:2 userInfo:v50];
+    v47 = MEMORY[0x277CCA9B8];
+    v52 = *MEMORY[0x277CCA450];
+    v48 = [MEMORY[0x277CCACA8] stringWithFormat:@"Handle (%lld) has no data associated to it", *(a1 + 56)];
+    v53 = v48;
+    v49 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
+    v10 = [v47 errorWithDomain:@"com.apple.gputools.bulkdataservice" code:2 userInfo:v49];
 
 LABEL_20:
     (*(*(a1 + 48) + 16))();
@@ -200,9 +200,9 @@ LABEL_20:
   v8 = v7;
   [*v3 compressionAlgorithm];
   v9 = [*v3 compressionAlgorithm];
-  v52 = 0;
-  v10 = GTBulkDataCompress(v8, v9, &v52);
-  v11 = v52;
+  v51 = 0;
+  v10 = GTBulkDataCompress(v8, v9, &v51);
+  v11 = v51;
 
   if (v10)
   {
@@ -240,18 +240,18 @@ LABEL_20:
   {
     if (GTCoreLogUseOsLog())
     {
-      v39 = gt_tagged_log(0x10u);
-      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+      v38 = gt_tagged_log(0x10u);
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
       {
-        __68__GTBulkDataService_downloadData_usingTransferOptions_chunkHandler___block_invoke_cold_1(v11, v39, v40, v41, v42, v43, v44, v45);
+        __68__GTBulkDataService_downloadData_usingTransferOptions_chunkHandler___block_invoke_cold_1(v11, v38, v39, v40, v41, v42, v43, v44);
       }
     }
 
     else
     {
-      v51 = *MEMORY[0x277D85DF8];
-      v39 = [MEMORY[0x277CCACA8] stringWithFormat:@"downloadData Compression error:%@", v11];
-      fprintf(v51, "%s\n", [v39 UTF8String]);
+      v50 = *MEMORY[0x277D85DF8];
+      v38 = [MEMORY[0x277CCACA8] stringWithFormat:@"downloadData Compression error:%@", v11];
+      fprintf(v50, "%s\n", [v38 UTF8String]);
     }
 
     (*(*(a1 + 48) + 16))();
@@ -259,7 +259,6 @@ LABEL_20:
 
 LABEL_21:
   objc_autoreleasePoolPop(v2);
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)handoverDataForDownload:(id)download
@@ -309,44 +308,43 @@ void __45__GTBulkDataService_handoverDataForDownload___block_invoke(void *a1)
 
 - (unint64_t)newUploadWithDescriptor:(id)descriptor error:(id *)error
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   descriptorCopy = descriptor;
   v7 = descriptorCopy;
   if (descriptorCopy && [descriptorCopy compressionAlgorithm] < 5)
   {
-    v19 = 0;
-    v20 = &v19;
-    v21 = 0x2020000000;
-    v22 = 0;
+    v18 = 0;
+    v19 = &v18;
+    v20 = 0x2020000000;
+    v21 = 0;
     dataAccessQueue = self->_dataAccessQueue;
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __51__GTBulkDataService_newUploadWithDescriptor_error___block_invoke;
     block[3] = &unk_279661288;
-    v18 = &v19;
+    v17 = &v18;
     block[4] = self;
-    v17 = v7;
+    v16 = v7;
     dispatch_sync(dataAccessQueue, block);
-    error = v20[3];
+    error = v19[3];
 
-    _Block_object_dispose(&v19, 8);
+    _Block_object_dispose(&v18, 8);
   }
 
   else if (error)
   {
     v9 = MEMORY[0x277CCA9B8];
-    v23 = *MEMORY[0x277CCA450];
+    v22 = *MEMORY[0x277CCA450];
     v10 = MEMORY[0x277CCACA8];
     v11 = [v7 debugDescription];
     v12 = [v10 stringWithFormat:@"Invalid upload descriptor: %@", v11];
-    v24[0] = v12;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+    v23[0] = v12;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
     *error = [v9 errorWithDomain:@"com.apple.gputools.bulkdataservice" code:1 userInfo:v13];
 
     error = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return error;
 }
 
@@ -405,7 +403,7 @@ void __51__GTBulkDataService_newUploadWithDescriptor_error___block_invoke(uint64
 
 void __62__GTBulkDataService_uploadChunk_forHandle_isFinalChunk_error___block_invoke(uint64_t a1)
 {
-  v33[1] = *MEMORY[0x277D85DE8];
+  v31[1] = *MEMORY[0x277D85DE8];
   v2 = (a1 + 56);
   v3 = *(*(a1 + 32) + 64);
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*(a1 + 56)];
@@ -467,17 +465,14 @@ LABEL_5:
     if (*(a1 + 64))
     {
       v27 = MEMORY[0x277CCA9B8];
-      v28 = *(a1 + 56);
-      v29 = [MEMORY[0x277CCACA8] stringWithFormat:@"Handle (%lld) has no data associated to it", v28, *MEMORY[0x277CCA450]];
-      v33[0] = v29;
-      v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:&v32 count:1];
-      **(a1 + 64) = [v27 errorWithDomain:@"com.apple.gputools.bulkdataservice" code:2 userInfo:v30];
+      v28 = [MEMORY[0x277CCACA8] stringWithFormat:@"Handle (%lld) has no data associated to it", *(a1 + 56), *MEMORY[0x277CCA450]];
+      v31[0] = v28;
+      v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:&v30 count:1];
+      **(a1 + 64) = [v27 errorWithDomain:@"com.apple.gputools.bulkdataservice" code:2 userInfo:v29];
     }
   }
 
 LABEL_13:
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (id)takeUploadedDataForHandle:(unint64_t)handle
@@ -538,40 +533,37 @@ void __47__GTBulkDataService_takeUploadedDataForHandle___block_invoke(void *a1)
 
 void __68__GTBulkDataService_downloadData_usingTransferOptions_chunkHandler___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_24DBC9000, a2, a3, "downloadData Compression error:%@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_24DBC9000, a2, a3, "downloadData Compression error:%@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __68__GTBulkDataService_downloadData_usingTransferOptions_chunkHandler___block_invoke_cold_2(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_0_0(&dword_24DBC9000, a2, a3, "downloadData Invalid Handle:%llu", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0_0(&dword_24DBC9000, a2, a3, "downloadData Invalid Handle:%llu", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __68__GTBulkDataService_downloadData_usingTransferOptions_chunkHandler___block_invoke_cold_3(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_0_0(&dword_24DBC9000, a2, a3, "downloadData Invalid Options:%@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0_0(&dword_24DBC9000, a2, a3, "downloadData Invalid Options:%@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __62__GTBulkDataService_uploadChunk_forHandle_isFinalChunk_error___block_invoke_cold_1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_0_0(&dword_24DBC9000, a2, a3, "uploadChunk Invalid Handle: %llu", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0_0(&dword_24DBC9000, a2, a3, "uploadChunk Invalid Handle: %llu", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)takeUploadedDataForHandle:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_24DBC9000, a2, a3, "takeUploadedDataForHandle Invalid Handle: %llu", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_24DBC9000, a2, a3, "takeUploadedDataForHandle Invalid Handle: %llu", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

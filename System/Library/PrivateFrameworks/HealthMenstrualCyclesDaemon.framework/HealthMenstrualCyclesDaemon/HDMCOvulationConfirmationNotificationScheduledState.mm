@@ -122,7 +122,7 @@ LABEL_10:
   v24 = *MEMORY[0x277CCC2E8];
   if (os_log_type_enabled(*MEMORY[0x277CCC2E8], OS_LOG_TYPE_ERROR))
   {
-    [HDMCOvulationConfirmationNotificationScheduledState notificationStateFromDictionaryRepresentation:v24];
+    [(HDMCOvulationConfirmationNotificationScheduledState *)v24 notificationStateFromDictionaryRepresentation:self, representationCopy];
   }
 
   v23 = 0;
@@ -213,16 +213,13 @@ LABEL_13:
   return v10;
 }
 
-+ (void)notificationStateFromDictionaryRepresentation:(void *)a1 .cold.1(void *a1)
++ (void)notificationStateFromDictionaryRepresentation:(uint64_t)a3 .cold.1(void *a1, uint64_t a2, uint64_t a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v1 = a1;
-  v2 = objc_opt_class();
-  v3 = HKSensitiveLogItem();
+  v3 = a1;
+  v4 = objc_opt_class();
+  v5 = HKSensitiveLogItem();
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1(&dword_2293D1000, v4, v5, "[%{public}@] Cannot retrieve full state from dictionary: %@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2293D1000, v6, v7, "[%{public}@] Cannot retrieve full state from dictionary: %@", v8, v9, v10, v11);
 }
 
 @end

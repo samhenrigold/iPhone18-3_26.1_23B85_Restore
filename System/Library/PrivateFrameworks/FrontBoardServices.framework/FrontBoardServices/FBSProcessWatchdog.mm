@@ -134,15 +134,14 @@
 
 - (void)dealloc
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_invalidated == YES"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(self);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(self);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_invalidated == YES", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -246,7 +245,7 @@
 
 - (void)provision:(id)provision wasViolatedWithError:(id)error
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   provisionCopy = provision;
   errorCopy = error;
   selfCopy = self;
@@ -267,19 +266,19 @@
 
   objc_sync_exit(selfCopy);
 
-  v14 = FBLogWatchdog();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+  v15 = FBLogWatchdog(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
-    v25 = FBSProcessPrettyDescription(WeakRetained);
+    v28 = FBSProcessPrettyDescription(WeakRetained);
     succinctDescription = [(FBSProcessWatchdog *)selfCopy succinctDescription];
     succinctDescription2 = [provisionCopy succinctDescription];
     *buf = 138543874;
-    v31 = v25;
-    v32 = 2114;
-    v33 = succinctDescription;
-    v34 = 2114;
-    v35 = succinctDescription2;
-    _os_log_error_impl(&dword_1A2DBB000, v14, OS_LOG_TYPE_ERROR, "[%{public}@] Watchdog %{public}@ provision violated: %{public}@", buf, 0x20u);
+    v34 = v28;
+    v35 = 2114;
+    v36 = succinctDescription;
+    v37 = 2114;
+    v38 = succinctDescription2;
+    _os_log_error_impl(&dword_1A2DBB000, v15, OS_LOG_TYPE_ERROR, "[%{public}@] Watchdog %{public}@ provision violated: %{public}@", buf, 0x20u);
   }
 
   if (v13)
@@ -291,15 +290,16 @@
     localizedFailureReason = [errorCopy localizedFailureReason];
     [dictionary bs_setSafeObject:localizedFailureReason forKey:*MEMORY[0x1E696A588]];
 
-    v29 = 0;
-    v17 = [WeakRetained _watchdog:selfCopy shouldTerminateWithDeclineReason:&v29];
-    v28 = v29;
-    if (v17)
+    v32 = 0;
+    v18 = [WeakRetained _watchdog:selfCopy shouldTerminateWithDeclineReason:&v32];
+    v19 = v32;
+    v31 = v19;
+    if (v18)
     {
-      v18 = [MEMORY[0x1E696ABC0] errorWithDomain:@"FBSProcessWatchdogErrorDomain" code:1 userInfo:dictionary];
-      v19 = [WeakRetained _watchdog:selfCopy terminationRequestForError:v18];
-      v20 = FBLogWatchdog();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v20 = [MEMORY[0x1E696ABC0] errorWithDomain:@"FBSProcessWatchdogErrorDomain" code:1 userInfo:dictionary];
+      v21 = [WeakRetained _watchdog:selfCopy terminationRequestForError:v20];
+      v22 = FBLogWatchdog(v21);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
         [FBSProcessWatchdog provision:? wasViolatedWithError:?];
       }
@@ -307,31 +307,31 @@
 
     else
     {
-      v18 = FBLogWatchdog();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v20 = FBLogWatchdog(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
-        v21 = FBSProcessPrettyDescription(WeakRetained);
+        v23 = FBSProcessPrettyDescription(WeakRetained);
         *buf = 138543618;
-        v31 = v21;
-        v32 = 2114;
-        v33 = v28;
-        _os_log_impl(&dword_1A2DBB000, v18, OS_LOG_TYPE_DEFAULT, "[%{public}@] Process declined watchdog termination with reason: %{public}@", buf, 0x16u);
+        v34 = v23;
+        v35 = 2114;
+        v36 = v31;
+        _os_log_impl(&dword_1A2DBB000, v20, OS_LOG_TYPE_DEFAULT, "[%{public}@] Process declined watchdog termination with reason: %{public}@", buf, 0x16u);
       }
 
-      v19 = 0;
+      v21 = 0;
     }
 
-    if (!completion || ([dictionary bs_setSafeObject:v19 forKey:@"FBSProcessTerminationRequest"], objc_msgSend(MEMORY[0x1E696ABC0], "errorWithDomain:code:userInfo:", @"FBSProcessWatchdogErrorDomain", 1, dictionary), v22 = objc_claimAutoreleasedReturnValue(), v23 = (completion)[2](completion, 1, v22), v22, (v23 & 1) == 0))
+    if (!completion || ([dictionary bs_setSafeObject:v21 forKey:@"FBSProcessTerminationRequest"], objc_msgSend(MEMORY[0x1E696ABC0], "errorWithDomain:code:userInfo:", @"FBSProcessWatchdogErrorDomain", 1, dictionary), v25 = objc_claimAutoreleasedReturnValue(), v26 = (completion)[2](completion, 1, v25), v25, (v26 & 1) == 0))
     {
-      if (v19)
+      if (v21)
       {
-        [WeakRetained _terminateWithRequest:v19 forWatchdog:selfCopy];
+        [WeakRetained _terminateWithRequest:v21 forWatchdog:selfCopy];
       }
 
       else
       {
-        v24 = FBLogCommon();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+        v27 = FBLogCommon(v24);
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
         {
           [FBSProcessWatchdog provision:? wasViolatedWithError:?];
         }
@@ -379,7 +379,7 @@
         memset(v18, 0, sizeof(v18));
         if (v11)
         {
-          [v11 allowance];
+          objc_msgSend_allowance(v11);
         }
 
         Value = FBSProcessResourceAllowanceGetValue(v18);
@@ -446,15 +446,14 @@
 
 - (void)initWithName:(char *)a1 process:policy:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object conformsToProtocol:@protocol(FBSProcessInternal)]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object conformsToProtocol:@protocol(FBSProcessInternal)]", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -463,15 +462,14 @@
 
 - (void)initWithName:(char *)a1 process:policy:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSStringClass]", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -480,15 +478,14 @@
 
 - (void)initWithName:(char *)a1 process:policy:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:FBSProcessWatchdogPolicyClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:FBSProcessWatchdogPolicyClass]", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -497,15 +494,14 @@
 
 - (void)initWithName:(char *)a1 process:policy:.cold.4(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -514,15 +510,14 @@
 
 - (void)initWithName:(char *)a1 process:policy:.cold.5(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -531,15 +526,14 @@
 
 - (void)initWithName:(char *)a1 process:policy:.cold.6(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -550,14 +544,14 @@
 {
   v1 = FBSProcessPrettyDescription(a1);
   OUTLINED_FUNCTION_3_2();
-  OUTLINED_FUNCTION_5_0(&dword_1A2DBB000, v2, v3, "[%{public}@] Watchdog termination request provided: %{public}@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_5_0(&dword_1A2DBB000, v2, v3, "[%{public}@] Watchdog termination request provided: %{public}@", v4, v5, v6, v7);
 }
 
 - (void)provision:(void *)a1 wasViolatedWithError:.cold.2(void *a1)
 {
   v1 = FBSProcessPrettyDescription(a1);
   OUTLINED_FUNCTION_3_2();
-  OUTLINED_FUNCTION_5_0(&dword_1A2DBB000, v2, v3, "Not terminating %{public}@ for violated provision because: %{public}@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_5_0(&dword_1A2DBB000, v2, v3, "Not terminating %{public}@ for violated provision because: %{public}@", v4, v5, v6, v7);
 }
 
 @end

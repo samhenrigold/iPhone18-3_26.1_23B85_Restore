@@ -8,7 +8,7 @@
 + (id)activityContextWithDescriptionIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v4 = specialized static CPGroupActivityDescription.activityContext(with:)();
+  v4 = specialized static CPGroupActivityDescription.activityContext(with:)(identifierCopy);
 
   return v4;
 }

@@ -27,7 +27,7 @@
 - (id)initForDataProvider:(id)provider forRemoteDataProvider:(BOOL)dataProvider
 {
   dataProviderCopy = dataProvider;
-  v97[1] = *MEMORY[0x277D85DE8];
+  v96[1] = *MEMORY[0x277D85DE8];
   providerCopy = provider;
   v7 = [(BBDataProviderIdentity *)self init];
   if (!v7)
@@ -306,15 +306,15 @@
 
   if (!v7->_sectionIdentifier && dataProviderCopy)
   {
-    v84 = MEMORY[0x277CBEAD8];
-    v85 = *MEMORY[0x277CBE660];
-    v96 = @"dataProvider";
-    v97[0] = providerCopy;
-    v86 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v97 forKeys:&v96 count:1];
-    v87 = [v84 exceptionWithName:v85 reason:@"data providers must provide a valid sectionIdentifier" userInfo:v86];
-    v88 = v87;
+    v83 = MEMORY[0x277CBEAD8];
+    v84 = *MEMORY[0x277CBE660];
+    v95 = @"dataProvider";
+    v96[0] = providerCopy;
+    v85 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v96 forKeys:&v95 count:1];
+    v86 = [v83 exceptionWithName:v84 reason:@"data providers must provide a valid sectionIdentifier" userInfo:v85];
+    v87 = v86;
 
-    objc_exception_throw(v87);
+    objc_exception_throw(v86);
   }
 
   traits = v7->_traits;
@@ -434,9 +434,9 @@ LABEL_94:
   }
 
   defaultSubsectionInfos = [providerCopy defaultSubsectionInfos];
-  v72 = [defaultSubsectionInfos copy];
+  v71 = [defaultSubsectionInfos copy];
   defaultSubsectionInfos = v7->_defaultSubsectionInfos;
-  v7->_defaultSubsectionInfos = v72;
+  v7->_defaultSubsectionInfos = v71;
 
   traits = v7->_traits;
   if ((*&traits & 0x800) == 0)
@@ -459,47 +459,47 @@ LABEL_129:
 
 LABEL_115:
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v88 = 0u;
   v89 = 0u;
   v90 = 0u;
   v91 = 0u;
-  v92 = 0u;
-  v75 = v7->_defaultSubsectionInfos;
-  v76 = [(NSArray *)v75 countByEnumeratingWithState:&v89 objects:v95 count:16];
-  if (v76)
+  v74 = v7->_defaultSubsectionInfos;
+  v75 = [(NSArray *)v74 countByEnumeratingWithState:&v88 objects:v94 count:16];
+  if (v75)
   {
-    v77 = v76;
-    v78 = *v90;
+    v76 = v75;
+    v77 = *v89;
     do
     {
-      for (i = 0; i != v77; ++i)
+      for (i = 0; i != v76; ++i)
       {
-        if (*v90 != v78)
+        if (*v89 != v77)
         {
-          objc_enumerationMutation(v75);
+          objc_enumerationMutation(v74);
         }
 
-        subsectionID = [*(*(&v89 + 1) + 8 * i) subsectionID];
+        subsectionID = [*(*(&v88 + 1) + 8 * i) subsectionID];
         if (subsectionID)
         {
-          v81 = [providerCopy displayNameForSubsectionID:subsectionID];
-          if (v81)
+          v80 = [providerCopy displayNameForSubsectionID:subsectionID];
+          if (v80)
           {
-            [dictionary setObject:v81 forKey:subsectionID];
+            [dictionary setObject:v80 forKey:subsectionID];
           }
         }
       }
 
-      v77 = [(NSArray *)v75 countByEnumeratingWithState:&v89 objects:v95 count:16];
+      v76 = [(NSArray *)v74 countByEnumeratingWithState:&v88 objects:v94 count:16];
     }
 
-    while (v77);
+    while (v76);
   }
 
   if ([dictionary count])
   {
-    v82 = [dictionary copy];
+    v81 = [dictionary copy];
     subsectionDisplayNames = v7->_subsectionDisplayNames;
-    v7->_subsectionDisplayNames = v82;
+    v7->_subsectionDisplayNames = v81;
   }
 
   traits = v7->_traits;
@@ -533,7 +533,7 @@ LABEL_98:
     {
       v58 = v7->_sectionIdentifier;
       *buf = 138543362;
-      v94 = v58;
+      v93 = v58;
       _os_log_impl(&dword_241EFF000, v57, OS_LOG_TYPE_DEFAULT, "BBDataProvider: Data provider <%{public}@> provided no section parameters. Using default parameters.", buf, 0xCu);
     }
 
@@ -549,11 +549,11 @@ LABEL_98:
     {
       v62 = v7->_sectionIdentifier;
       *buf = 138543362;
-      v94 = v62;
+      v93 = v62;
       _os_log_impl(&dword_241EFF000, v61, OS_LOG_TYPE_DEFAULT, "BBDataProvider: Data provider <%{public}@> provided no default section info. Using defaults.", buf, 0xCu);
     }
 
-    v63 = [BBSectionInfo defaultSectionInfoForType:0, v89];
+    v63 = [BBSectionInfo defaultSectionInfoForType:0, v88];
     v64 = v7->_defaultSectionInfo;
     v7->_defaultSectionInfo = v63;
   }
@@ -565,19 +565,18 @@ LABEL_98:
     {
       v66 = v7->_sectionIdentifier;
       *buf = 138543362;
-      v94 = v66;
+      v93 = v66;
       _os_log_impl(&dword_241EFF000, v65, OS_LOG_TYPE_DEFAULT, "BBDataProvider: Data provider <%{public}@> is missing sort descriptors -- section will not be sorted!", buf, 0xCu);
     }
   }
 
-  [(BBSectionInfo *)v7->_defaultSectionInfo setSectionID:v7->_sectionIdentifier, v89];
+  [(BBSectionInfo *)v7->_defaultSectionInfo setSectionID:v7->_sectionIdentifier, v88];
   [(BBSectionInfo *)v7->_defaultSectionInfo setDisplayName:v7->_sectionDisplayName];
   [(BBSectionInfo *)v7->_defaultSectionInfo setIcon:v7->_sectionIcon];
   [(BBSectionParameters *)v7->_sectionParameters setDisplayName:v7->_sectionDisplayName];
   [(BBSectionParameters *)v7->_sectionParameters setIcon:v7->_sectionIcon];
 LABEL_112:
 
-  v67 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -604,7 +603,7 @@ LABEL_112:
 
 - (BBDataProviderIdentity)initWithCoder:(id)coder
 {
-  v46[2] = *MEMORY[0x277D85DE8];
+  v45[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [(BBDataProviderIdentity *)self init];
   if (v5)
@@ -641,9 +640,9 @@ LABEL_112:
     v5->_sectionIcon = v18;
 
     v20 = MEMORY[0x277CBEB98];
-    v46[0] = objc_opt_class();
-    v46[1] = objc_opt_class();
-    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v46 count:2];
+    v45[0] = objc_opt_class();
+    v45[1] = objc_opt_class();
+    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:2];
     v22 = [v20 setWithArray:v21];
     v23 = [coderCopy decodeObjectOfClasses:v22 forKey:@"_sortDescriptors"];
 
@@ -656,18 +655,18 @@ LABEL_112:
     v5->_sectionParameters = v26;
 
     v28 = MEMORY[0x277CBEB98];
-    v45[0] = objc_opt_class();
-    v45[1] = objc_opt_class();
-    v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:2];
+    v44[0] = objc_opt_class();
+    v44[1] = objc_opt_class();
+    v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:2];
     v30 = [v28 setWithArray:v29];
     v31 = [coderCopy decodeObjectOfClasses:v30 forKey:@"_defaultSubsectionInfos"];
     defaultSubsectionInfos = v5->_defaultSubsectionInfos;
     v5->_defaultSubsectionInfos = v31;
 
     v33 = MEMORY[0x277CBEB98];
-    v44[0] = objc_opt_class();
-    v44[1] = objc_opt_class();
-    v34 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:2];
+    v43[0] = objc_opt_class();
+    v43[1] = objc_opt_class();
+    v34 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:2];
     v35 = [v33 setWithArray:v34];
     v36 = [coderCopy decodeObjectOfClasses:v35 forKey:@"_subsectionDisplayNames"];
     subsectionDisplayNames = v5->_subsectionDisplayNames;
@@ -683,7 +682,6 @@ LABEL_112:
     v5->_sectionBundlePath = v40;
   }
 
-  v42 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

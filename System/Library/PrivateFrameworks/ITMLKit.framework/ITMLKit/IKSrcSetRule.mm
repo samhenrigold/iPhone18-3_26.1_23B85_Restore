@@ -81,7 +81,7 @@
 
 - (void)_parseResolutionDescriptor:(id)descriptor
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   descriptorCopy = descriptor;
   v5 = @"1x";
   v6 = @"2x";
@@ -92,13 +92,11 @@
     v5 = v7;
   }
 
-  v11 = @"min-pixel-ratio";
-  v12[0] = v5;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v10 = @"min-pixel-ratio";
+  v11[0] = v5;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
   v9 = [[IKStyleMediaQuery alloc] initWithMediaType:@"all" featureValues:v8 isNegated:0];
   [(IKSrcSetRule *)self setMediaQuery:v9];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

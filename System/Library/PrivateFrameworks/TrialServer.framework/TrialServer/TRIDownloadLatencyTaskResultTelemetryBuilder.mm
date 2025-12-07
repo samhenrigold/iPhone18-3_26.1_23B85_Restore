@@ -3,6 +3,7 @@
 - (id)builtTelemetry;
 - (void)_handleActivationTask:(id)task runResult:(id)result;
 - (void)_handleFetchTask:(id)task runResult:(id)result;
+- (void)_updateBuiltTelemetryWithDeployment:(id)deployment rolloutFields:(id)fields downloadStatus:(int)status;
 - (void)updateWithTask:(id)task runResult:(id)result;
 @end
 
@@ -48,7 +49,7 @@
 
 - (void)_handleActivationTask:(id)task runResult:(id)result
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   resultCopy = result;
   deployment = [taskCopy deployment];
@@ -77,18 +78,16 @@
     v14 = TRILogCategory_Server();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
-      v16 = 138543362;
-      v17 = taskCopy;
-      _os_log_impl(&dword_26F567000, v14, OS_LOG_TYPE_INFO, "Skipping immediate download telemetry for task %{public}@ (likely because the namespace descriptor has not opted in)", &v16, 0xCu);
+      v15 = 138543362;
+      v16 = taskCopy;
+      _os_log_impl(&dword_26F567000, v14, OS_LOG_TYPE_INFO, "Skipping immediate download telemetry for task %{public}@ (likely because the namespace descriptor has not opted in)", &v15, 0xCu);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleFetchTask:(id)task runResult:(id)result
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   resultCopy = result;
   rolloutDeployment = [taskCopy rolloutDeployment];
@@ -119,14 +118,39 @@
       v14 = TRILogCategory_Server();
       if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
-        v16 = 138543362;
-        v17 = taskCopy;
-        _os_log_impl(&dword_26F567000, v14, OS_LOG_TYPE_INFO, "Skipping immediate download telemetry for task %{public}@ (likely because the namespace descriptor has not opted in)", &v16, 0xCu);
+        v15 = 138543362;
+        v16 = taskCopy;
+        _os_log_impl(&dword_26F567000, v14, OS_LOG_TYPE_INFO, "Skipping immediate download telemetry for task %{public}@ (likely because the namespace descriptor has not opted in)", &v15, 0xCu);
       }
     }
   }
+}
 
-  v15 = *MEMORY[0x277D85DE8];
+- (void)_updateBuiltTelemetryWithDeployment:(id)deployment rolloutFields:(id)fields downloadStatus:(int)status
+{
+  v5 = *&status;
+  deploymentCopy = deployment;
+  fieldsCopy = fields;
+  telemetryForDeployment = [(TRIDownloadLatencyTaskResultTelemetryBuilder *)self telemetryForDeployment];
+  v10 = [telemetryForDeployment objectForKeyedSubscript:deploymentCopy];
+
+  if (!v10)
+  {
+    v11 = objc_opt_new();
+    telemetryForDeployment2 = [(TRIDownloadLatencyTaskResultTelemetryBuilder *)self telemetryForDeployment];
+    [telemetryForDeployment2 setObject:v11 forKeyedSubscript:deploymentCopy];
+  }
+
+  telemetryForDeployment3 = [(TRIDownloadLatencyTaskResultTelemetryBuilder *)self telemetryForDeployment];
+  v14 = [telemetryForDeployment3 objectForKeyedSubscript:deploymentCopy];
+
+  v15 = objc_opt_new();
+  [v14 setDownloadStatusFields:v15];
+
+  downloadStatusFields = [v14 downloadStatusFields];
+  [downloadStatusFields setStatus:v5];
+
+  [v14 setRolloutFields:fieldsCopy];
 }
 
 - (id)builtTelemetry

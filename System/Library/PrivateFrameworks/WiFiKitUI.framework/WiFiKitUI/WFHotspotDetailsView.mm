@@ -53,35 +53,35 @@
 
 - (CGSize)intrinsicContentSize
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   arrangedSubviews = [(WFHotspotDetailsView *)self arrangedSubviews];
-  v4 = [arrangedSubviews countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v4 = [arrangedSubviews countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v20;
+    v6 = *v19;
     v7 = 0.0;
     v8 = 0.0;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v20 != v6)
+        if (*v19 != v6)
         {
           objc_enumerationMutation(arrangedSubviews);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * i);
+        v10 = *(*(&v18 + 1) + 8 * i);
         [v10 intrinsicContentSize];
         v13 = v12;
         if (Width == 0.0)
         {
           [v10 frame];
-          Width = CGRectGetWidth(v26);
+          Width = CGRectGetWidth(v25);
         }
 
         v14 = v8 + Width;
@@ -93,7 +93,7 @@
         }
       }
 
-      v5 = [arrangedSubviews countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v5 = [arrangedSubviews countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v5);
@@ -105,11 +105,10 @@
     v8 = 0.0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-  v17 = v8;
-  v18 = v7;
-  result.height = v18;
-  result.width = v17;
+  v16 = v8;
+  v17 = v7;
+  result.height = v17;
+  result.width = v16;
   return result;
 }
 

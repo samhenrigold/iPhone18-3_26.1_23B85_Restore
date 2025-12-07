@@ -38,7 +38,7 @@
   sessionCopy = session;
   optionsCopy = options;
   selfCopy = self;
-  sub_100088A7C();
+  sub_100088A7C(sceneCopy);
 }
 
 - (BOOL)handleEvent:(id)event
@@ -48,7 +48,7 @@
   type = [(CLBAdminSceneDelegate *)eventCopy type];
   if (type == 6)
   {
-    sub_10002B6CC(&qword_10032D0B8);
+    sub_10002B6CC(&qword_10032D0B8, &qword_100299050);
     sub_1000812EC();
     Subject<>.send()();
     v7 = selfCopy;
@@ -69,7 +69,7 @@
   *(&self->super.isa + OBJC_IVAR___CLBAdminSceneDelegate_isShowingModalView) = 0;
   *(&self->super.isa + OBJC_IVAR___CLBAdminSceneDelegate_isShowingAdminSettings) = 0;
   v3 = OBJC_IVAR___CLBAdminSceneDelegate_showAdminViewPublisher;
-  sub_10002B6CC(&qword_10032D0B8);
+  sub_10002B6CC(&qword_10032D0B8, &qword_100299050);
   swift_allocObject();
   *(&self->super.isa + v3) = PassthroughSubject.init()();
   v5.receiver = self;

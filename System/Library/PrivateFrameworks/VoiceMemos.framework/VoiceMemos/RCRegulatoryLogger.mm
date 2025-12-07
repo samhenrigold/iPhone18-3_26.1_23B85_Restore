@@ -22,11 +22,10 @@
 
 - (void)dealloc
 {
-  logger = self->_logger;
   ct_green_tea_logger_destroy();
-  v4.receiver = self;
-  v4.super_class = RCRegulatoryLogger;
-  [(RCRegulatoryLogger *)&v4 dealloc];
+  v3.receiver = self;
+  v3.super_class = RCRegulatoryLogger;
+  [(RCRegulatoryLogger *)&v3 dealloc];
 }
 
 - (void)readingAudioData

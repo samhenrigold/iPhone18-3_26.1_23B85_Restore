@@ -2,6 +2,7 @@
 + (id)getDetailsWithTransferOption:(BOOL)option showQRCodeOption:(BOOL)codeOption showCrossTransferOption:(BOOL)transferOption transferIneligiblePlans:(id)plans;
 - (BOOL)_isStandaloneQRCodeView;
 - (BOOL)_shouldShowTravelEducation;
+- (TSCellularPlanIntroViewController)initWithShowTransferOption:(BOOL)option requireDelayBluetoothConnection:(BOOL)connection showQrCodeOption:(BOOL)codeOption transferIneligiblePlans:(id)plans;
 - (TSCellularPlanIntroViewController)initWithTransferBackPlan:(id)plan;
 - (TSSIMSetupFlowDelegate)delegate;
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path;
@@ -15,6 +16,7 @@
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation TSCellularPlanIntroViewController
@@ -22,7 +24,7 @@
 + (id)getDetailsWithTransferOption:(BOOL)option showQRCodeOption:(BOOL)codeOption showCrossTransferOption:(BOOL)transferOption transferIneligiblePlans:(id)plans
 {
   transferOptionCopy = transferOption;
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   plansCopy = plans;
   if (!codeOption)
   {
@@ -68,26 +70,26 @@ LABEL_11:
   else
   {
     v12 = [MEMORY[0x277CBEB58] set];
+    v29 = 0u;
     v30 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v33 = 0u;
     v14 = plansCopy;
-    v15 = [v14 countByEnumeratingWithState:&v30 objects:v34 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v29 objects:v33 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v31;
+      v17 = *v30;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v31 != v17)
+          if (*v30 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          v19 = *(*(&v30 + 1) + 8 * i);
+          v19 = *(*(&v29 + 1) + 8 * i);
           carrierName = [v19 carrierName];
           v21 = [carrierName length];
 
@@ -98,7 +100,7 @@ LABEL_11:
           }
         }
 
-        v16 = [v14 countByEnumeratingWithState:&v30 objects:v34 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v29 objects:v33 count:16];
       }
 
       while (v16);
@@ -131,9 +133,102 @@ LABEL_11:
   }
 
 LABEL_29:
-  v28 = *MEMORY[0x277D85DE8];
 
   return v13;
+}
+
+- (TSCellularPlanIntroViewController)initWithShowTransferOption:(BOOL)option requireDelayBluetoothConnection:(BOOL)connection showQrCodeOption:(BOOL)codeOption transferIneligiblePlans:(id)plans
+{
+  optionCopy = option;
+  plansCopy = plans;
+  mEMORY[0x277CF96D8] = [MEMORY[0x277CF96D8] sharedManager];
+  getSupportedFlowTypes = [mEMORY[0x277CF96D8] getSupportedFlowTypes];
+
+  if (getSupportedFlowTypes)
+  {
+    v14 = objc_alloc(MEMORY[0x277CC37B0]);
+    v15 = [v14 initWithQueue:MEMORY[0x277D85CD0]];
+    client = self->_client;
+    self->_client = v15;
+
+    self->_showQRCodeOption = codeOption;
+    if (+[TSUtilities isPad](TSUtilities, "isPad") || +[TSUtilities isGreenTeaCapable]|| !_os_feature_enabled_impl())
+    {
+      LOBYTE(v17) = 0;
+    }
+
+    else
+    {
+      v17 = !+[TSUtilities inBuddy];
+    }
+
+    self->_showCrossTransferOption = v17;
+    _shouldShowTravelEducation = [(TSCellularPlanIntroViewController *)self _shouldShowTravelEducation];
+    self->_showTravelEduOption = _shouldShowTravelEducation;
+    showQRCodeOption = self->_showQRCodeOption;
+    if (optionCopy)
+    {
+      LOBYTE(showCrossTransferOption) = self->_showCrossTransferOption;
+    }
+
+    else
+    {
+      showCrossTransferOption = self->_showCrossTransferOption;
+      if (self->_showQRCodeOption)
+      {
+        showQRCodeOption = 1;
+      }
+
+      else
+      {
+        if (!showCrossTransferOption && !_shouldShowTravelEducation)
+        {
+          v22 = _TSLogDomain(_shouldShowTravelEducation);
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
+          {
+            [TSCellularPlanIntroViewController initWithShowTransferOption:v22 requireDelayBluetoothConnection:? showQrCodeOption:? transferIneligiblePlans:?];
+          }
+
+          selfCopy = 0;
+          goto LABEL_20;
+        }
+
+        showQRCodeOption = 0;
+      }
+    }
+
+    v22 = [TSCellularPlanIntroViewController getDetailsWithTransferOption:optionCopy showQRCodeOption:showQRCodeOption showCrossTransferOption:showCrossTransferOption transferIneligiblePlans:plansCopy];
+    v23 = 1;
+    if (self->_showQRCodeOption && !optionCopy)
+    {
+      v23 = self->_showCrossTransferOption;
+    }
+
+    v24 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v25 = [v24 localizedStringForKey:@"SET_UP_ESIM" value:&stru_28753DF48 table:@"Localizable"];
+    v28.receiver = self;
+    v28.super_class = TSCellularPlanIntroViewController;
+    v26 = [(OBTableWelcomeController *)&v28 initWithTitle:v25 detailText:v22 symbolName:@"antenna.radiowaves.left.and.right" adoptTableViewScrollView:v23];
+
+    if (v26)
+    {
+      v26->_showTransferOption = optionCopy;
+      v26->_requireDelayBluetoothConnection = connection;
+      objc_storeStrong(&v26->_transferIneligiblePlans, plans);
+      [(TSCellularPlanIntroViewController *)v26 _loadIcons];
+    }
+
+    self = v26;
+    selfCopy = self;
+LABEL_20:
+
+    goto LABEL_21;
+  }
+
+  selfCopy = 0;
+LABEL_21:
+
+  return selfCopy;
 }
 
 - (TSCellularPlanIntroViewController)initWithTransferBackPlan:(id)plan
@@ -313,6 +408,14 @@ LABEL_16:
     tableView9 = [(OBTableWelcomeController *)self tableView];
     [tableView9 layoutIfNeeded];
   }
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = TSCellularPlanIntroViewController;
+  [(OBTableWelcomeController *)&v4 viewWillAppear:appear];
+  [(TSCellularPlanIntroViewController *)self _viewWillAppear];
 }
 
 - (void)viewDidLayoutSubviews
@@ -549,7 +652,6 @@ void __71__TSCellularPlanIntroViewController_tableView_didSelectRowAtIndexPath__
 {
   if (a2)
   {
-    v4 = *(a1 + 32);
     [TSFlowHelper showBluetoothOffAlertForCrossPlatformTransfer:"showBluetoothOffAlertForCrossPlatformTransfer:withCloseHandler:" withCloseHandler:?];
   }
 
@@ -681,57 +783,53 @@ void __55__TSCellularPlanIntroViewController__laterButtonTapped__block_invoke(ui
 
 - (BOOL)_isStandaloneQRCodeView
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   if (!self->_showQRCodeOption || self->_showTransferOption || self->_showCrossTransferOption || self->_showTravelEduOption)
   {
-    result = 0;
+    return 0;
   }
 
-  else
+  v3 = _TSLogDomain(self);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = _TSLogDomain();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
-    {
-      v5 = 136315138;
-      v6 = "[TSCellularPlanIntroViewController _isStandaloneQRCodeView]";
-      _os_log_impl(&dword_262AA8000, v4, OS_LOG_TYPE_DEFAULT, "StandaloneQRCodeView: YES @%s", &v5, 0xCu);
-    }
-
-    result = 1;
+    v4 = 136315138;
+    v5 = "[TSCellularPlanIntroViewController _isStandaloneQRCodeView]";
+    _os_log_impl(&dword_262AA8000, v3, OS_LOG_TYPE_DEFAULT, "StandaloneQRCodeView: YES @%s", &v4, 0xCu);
   }
 
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 - (BOOL)_shouldShowTravelEducation
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (self->_client && (objc_opt_respondsToSelector() & 1) != 0)
   {
     client = self->_client;
-    v13 = 0;
-    v4 = [(CoreTelephonyClient *)client shouldShowTravelEducation:&v13];
-    v5 = v13;
+    v14 = 0;
+    v4 = [(CoreTelephonyClient *)client shouldShowTravelEducation:&v14];
+    v5 = v14;
+    v6 = v5;
     if (v4)
     {
-      if (!+[TSUtilities inBuddy])
+      v7 = +[TSUtilities inBuddy];
+      if ((v7 & 1) == 0)
       {
-        v6 = _TSLogDomain();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+        v8 = _TSLogDomain(v7);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
         {
           bOOLValue = [v4 BOOLValue];
-          v8 = @"Not Show";
+          v10 = @"Not Show";
           if (bOOLValue)
           {
-            v8 = @"Show";
+            v10 = @"Show";
           }
 
           *buf = 138412546;
-          v15 = v8;
-          v16 = 2080;
-          v17 = "[TSCellularPlanIntroViewController _shouldShowTravelEducation]";
-          _os_log_impl(&dword_262AA8000, v6, OS_LOG_TYPE_DEFAULT, "Show travel education result: %@ @%s", buf, 0x16u);
+          v16 = v10;
+          v17 = 2080;
+          v18 = "[TSCellularPlanIntroViewController _shouldShowTravelEducation]";
+          _os_log_impl(&dword_262AA8000, v8, OS_LOG_TYPE_DEFAULT, "Show travel education result: %@ @%s", buf, 0x16u);
         }
 
         bOOLValue2 = [v4 BOOLValue];
@@ -741,23 +839,20 @@ void __55__TSCellularPlanIntroViewController__laterButtonTapped__block_invoke(ui
 
     else
     {
-      v10 = _TSLogDomain();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v12 = _TSLogDomain(v5);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        [(TSCellularPlanIntroViewController *)v5 _shouldShowTravelEducation];
+        [(TSCellularPlanIntroViewController *)v6 _shouldShowTravelEducation];
       }
     }
 
     bOOLValue2 = 0;
 LABEL_15:
 
-    goto LABEL_16;
+    return bOOLValue2;
   }
 
-  bOOLValue2 = 0;
-LABEL_16:
-  v11 = *MEMORY[0x277D85DE8];
-  return bOOLValue2;
+  return 0;
 }
 
 - (void)prepare:(id)prepare
@@ -793,22 +888,20 @@ LABEL_16:
 
 - (void)initWithShowTransferOption:(os_log_t)log requireDelayBluetoothConnection:showQrCodeOption:transferIneligiblePlans:.cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[TSCellularPlanIntroViewController initWithShowTransferOption:requireDelayBluetoothConnection:showQrCodeOption:transferIneligiblePlans:]";
-  _os_log_fault_impl(&dword_262AA8000, log, OS_LOG_TYPE_FAULT, "[F]no option need to show @%s", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[TSCellularPlanIntroViewController initWithShowTransferOption:requireDelayBluetoothConnection:showQrCodeOption:transferIneligiblePlans:]";
+  _os_log_fault_impl(&dword_262AA8000, log, OS_LOG_TYPE_FAULT, "[F]no option need to show @%s", &v1, 0xCu);
 }
 
 - (void)_shouldShowTravelEducation
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 138412546;
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 138412546;
   selfCopy = self;
-  v5 = 2080;
-  v6 = "[TSCellularPlanIntroViewController _shouldShowTravelEducation]";
-  _os_log_error_impl(&dword_262AA8000, a2, OS_LOG_TYPE_ERROR, "[E]Error checking: %@ @%s", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = 2080;
+  v5 = "[TSCellularPlanIntroViewController _shouldShowTravelEducation]";
+  _os_log_error_impl(&dword_262AA8000, a2, OS_LOG_TYPE_ERROR, "[E]Error checking: %@ @%s", &v2, 0x16u);
 }
 
 @end

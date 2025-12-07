@@ -384,7 +384,6 @@ LABEL_24:
 - (void)initWithCoder:.cold.1()
 {
   OUTLINED_FUNCTION_4();
-  v16 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
   NSStringFromClass(v3);
@@ -395,15 +394,12 @@ LABEL_24:
   OUTLINED_FUNCTION_3_1();
   v5 = [v2 stringWithFormat:@"%@.%@"];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v13, v14, v15);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v12, v13);
 }
 
 - (void)initWithCoder:.cold.2()
 {
   OUTLINED_FUNCTION_4();
-  v16 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
   NSStringFromClass(v3);
@@ -414,15 +410,12 @@ LABEL_24:
   OUTLINED_FUNCTION_3_1();
   v5 = [v2 stringWithFormat:@"%@.%@"];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v13, v14, v15);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v12, v13);
 }
 
 - (void)initWithCoder:.cold.3()
 {
   OUTLINED_FUNCTION_4();
-  v16 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
   NSStringFromClass(v3);
@@ -433,15 +426,12 @@ LABEL_24:
   OUTLINED_FUNCTION_3_1();
   v5 = [v2 stringWithFormat:@"%@.%@"];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v13, v14, v15);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v12, v13);
 }
 
 - (void)initWithCoder:.cold.4()
 {
   OUTLINED_FUNCTION_4();
-  v16 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
   NSStringFromClass(v3);
@@ -452,15 +442,12 @@ LABEL_24:
   OUTLINED_FUNCTION_3_1();
   v5 = [v2 stringWithFormat:@"%@.%@"];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v13, v14, v15);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v12, v13);
 }
 
 - (void)initWithCoder:.cold.5()
 {
   OUTLINED_FUNCTION_4();
-  v16 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
   NSStringFromClass(v3);
@@ -471,9 +458,7 @@ LABEL_24:
   OUTLINED_FUNCTION_3_1();
   v5 = [v2 stringWithFormat:@"%@.%@"];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v13, v14, v15);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v12, v13);
 }
 
 @end

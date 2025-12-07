@@ -239,41 +239,38 @@ LABEL_17:
 
 + (void)newObjectID
 {
-  v9 = *MEMORY[0x1E69E9840];
   v0 = +[REMLogStore read];
   if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
   {
     callStackSymbols = [MEMORY[0x1E696AF00] callStackSymbols];
-    OUTLINED_FUNCTION_0_8(&dword_19A0DB000, v3, v4, "rem_log_fault_if (![NSStringFromClass([REMBaseSection class]) isEqualToString:NSStringFromClass(self)]) -- A subclass of REMBaseSectionStorage called '- [REMBaseSectionStorage newObjectID]'. The subclass should override this method. {callstack: %@}", v5, v6, v7, v8, 2u);
+    LODWORD(v8) = 138412290;
+    *(&v8 + 4) = callStackSymbols;
+    OUTLINED_FUNCTION_0_8(&dword_19A0DB000, v2, v3, "rem_log_fault_if (![NSStringFromClass([REMBaseSection class]) isEqualToString:NSStringFromClass(self)]) -- A subclass of REMBaseSectionStorage called '- [REMBaseSectionStorage newObjectID]'. The subclass should override this method. {callstack: %@}", v4, v5, v6, v7, v8, DWORD2(v8));
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 + (void)objectIDWithUUID:.cold.1()
 {
-  v9 = *MEMORY[0x1E69E9840];
   v0 = +[REMLogStore read];
   if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
   {
-    v2 = [MEMORY[0x1E696AF00] callStackSymbols];
-    OUTLINED_FUNCTION_0_8(&dword_19A0DB000, v3, v4, "rem_log_fault_if (![NSStringFromClass([REMBaseSection class]) isEqualToString:NSStringFromClass(self)]) -- A subclass of REMBaseSectionStorage called '- [REMBaseSectionStorage objectIDWithUUID:]'. The subclass should override this method. {callstack: %@}", v5, v6, v7, v8, 2u);
+    v1 = [MEMORY[0x1E696AF00] callStackSymbols];
+    LODWORD(v8) = 138412290;
+    *(&v8 + 4) = v1;
+    OUTLINED_FUNCTION_0_8(&dword_19A0DB000, v2, v3, "rem_log_fault_if (![NSStringFromClass([REMBaseSection class]) isEqualToString:NSStringFromClass(self)]) -- A subclass of REMBaseSectionStorage called '- [REMBaseSectionStorage objectIDWithUUID:]'. The subclass should override this method. {callstack: %@}", v4, v5, v6, v7, v8, DWORD2(v8));
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 + (void)cdEntityName
 {
-  v9 = *MEMORY[0x1E69E9840];
   v0 = +[REMLogStore read];
   if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
   {
     callStackSymbols = [MEMORY[0x1E696AF00] callStackSymbols];
-    OUTLINED_FUNCTION_0_8(&dword_19A0DB000, v3, v4, "rem_log_fault_if (![NSStringFromClass([REMBaseSection class]) isEqualToString:NSStringFromClass(self)]) -- A subclass of REMBaseSectionStorage called '- [REMBaseSectionStorage cdEntityName]'. The subclass should override this method. {callstack: %@}", v5, v6, v7, v8, 2u);
+    LODWORD(v8) = 138412290;
+    *(&v8 + 4) = callStackSymbols;
+    OUTLINED_FUNCTION_0_8(&dword_19A0DB000, v2, v3, "rem_log_fault_if (![NSStringFromClass([REMBaseSection class]) isEqualToString:NSStringFromClass(self)]) -- A subclass of REMBaseSectionStorage called '- [REMBaseSectionStorage cdEntityName]'. The subclass should override this method. {callstack: %@}", v4, v5, v6, v7, v8, DWORD2(v8));
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 @end

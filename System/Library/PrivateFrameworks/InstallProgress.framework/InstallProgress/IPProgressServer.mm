@@ -182,19 +182,16 @@ uint64_t __44__IPProgressServer_defaultAccessAdjudicator__block_invoke()
 
 uint64_t __57__IPProgressServer__progressForIdentity_createIfMissing___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _queue_progressForIdentity:*(a1 + 40) createIfMissing:*(a1 + 56)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) _queue_progressForIdentity:*(a1 + 40) createIfMissing:*(a1 + 56)];
 
   return MEMORY[0x2821F96F8]();
 }
 
 - (id)initiateProgressForIdentity:(id)identity
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   identityCopy = identity;
-  v5 = _IPServerLog();
+  v5 = _IPServerLog(identityCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 138412290;
@@ -204,16 +201,16 @@ uint64_t __57__IPProgressServer__progressForIdentity_createIfMissing___block_inv
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v15 = 0x3032000000;
-  v16 = __Block_byref_object_copy__3;
-  v17 = __Block_byref_object_dispose__3;
-  v18 = 0;
+  v14 = 0x3032000000;
+  v15 = __Block_byref_object_copy__3;
+  v16 = __Block_byref_object_dispose__3;
+  v17 = 0;
   queue = self->_queue;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __48__IPProgressServer_initiateProgressForIdentity___block_invoke;
   block[3] = &unk_2797B2120;
-  v12 = identityCopy;
+  v11 = identityCopy;
   p_buf = &buf;
   block[4] = self;
   v7 = identityCopy;
@@ -221,7 +218,6 @@ uint64_t __57__IPProgressServer__progressForIdentity_createIfMissing___block_inv
   v8 = *(*(&buf + 1) + 40);
 
   _Block_object_dispose(&buf, 8);
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -229,23 +225,23 @@ uint64_t __57__IPProgressServer__progressForIdentity_createIfMissing___block_inv
 void __48__IPProgressServer_initiateProgressForIdentity___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) _queue_progressForIdentity:*(a1 + 40) createIfMissing:1];
-  v3 = (a1 + 48);
-  v4 = *(*(a1 + 48) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v2;
+  v3 = *(*(a1 + 48) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  v6 = [*(*(*(a1 + 48) + 8) + 40) lsIdentity];
+  v5 = [*(*(*(a1 + 48) + 8) + 40) lsIdentity];
+  v6 = v5;
   if (*(a1 + 40))
   {
-    [*(*(a1 + 32) + 24) progressForIdentityInitiated:v6];
+    [*(*(a1 + 32) + 24) progressForIdentityInitiated:v5];
   }
 
   else
   {
-    v7 = _IPServerLog();
+    v7 = _IPServerLog(v5);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __48__IPProgressServer_initiateProgressForIdentity___block_invoke_cold_1(v3);
+      __48__IPProgressServer_initiateProgressForIdentity___block_invoke_cold_1();
     }
   }
 }
@@ -266,35 +262,35 @@ void __48__IPProgressServer_initiateProgressForIdentity___block_invoke(uint64_t 
 
 void __43__IPProgressServer_identityWasUninstalled___block_invoke(uint64_t a1)
 {
-  v3 = (a1 + 32);
   v2 = *(a1 + 32);
   v7 = 0;
-  v4 = IPLSIdentityFromMIIdentity(v2, &v7);
-  v5 = v7;
-  if (v4)
+  v3 = IPLSIdentityFromMIIdentity(v2, &v7);
+  v4 = v7;
+  v5 = v4;
+  if (v3)
   {
-    [*(*(a1 + 40) + 24) identityWasUninstalled:v4];
+    [*(*(a1 + 40) + 24) identityWasUninstalled:v3];
   }
 
   else
   {
-    v6 = _IPDefaultLog();
+    v6 = _IPDefaultLog(v4);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
-      __43__IPProgressServer_identityWasUninstalled___block_invoke_cold_1(v3);
+      __43__IPProgressServer_identityWasUninstalled___block_invoke_cold_1();
     }
   }
 }
 
 - (void)resume
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v3 = _IPServerLog();
+  v9 = *MEMORY[0x277D85DE8];
+  v3 = _IPServerLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     behavior = self->_behavior;
     *buf = 138412290;
-    v9 = behavior;
+    v8 = behavior;
     _os_log_impl(&dword_254C69000, v3, OS_LOG_TYPE_DEFAULT, "Starting progress server with behavior %@", buf, 0xCu);
   }
 
@@ -305,22 +301,19 @@ void __43__IPProgressServer_identityWasUninstalled___block_invoke(uint64_t a1)
   block[3] = &unk_2797B2030;
   block[4] = self;
   dispatch_sync(queue, block);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)serverBehavior:(id)behavior acceptedClient:(id)client
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   clientCopy = client;
-  v5 = _IPServerLog();
+  v5 = _IPServerLog(clientCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = clientCopy;
-    _os_log_impl(&dword_254C69000, v5, OS_LOG_TYPE_DEFAULT, "new client %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = clientCopy;
+    _os_log_impl(&dword_254C69000, v5, OS_LOG_TYPE_DEFAULT, "new client %@", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)activeInstallationsForBehavior:(id)behavior
@@ -352,16 +345,17 @@ void __43__IPProgressServer_identityWasUninstalled___block_invoke(uint64_t a1)
         v19 = 0;
         v11 = IPLSIdentityFromMIIdentity(v10, &v19);
         v12 = v19;
+        v13 = v12;
         if (v10)
         {
-          v13 = [[IPInstallableStateData alloc] initWithIdentity:v11 isInstalling:1];
-          [v4 addObject:v13];
+          v14 = [[IPInstallableStateData alloc] initWithIdentity:v11 isInstalling:1];
+          [v4 addObject:v14];
         }
 
         else
         {
-          v13 = _IPDefaultLog();
-          if (os_log_type_enabled(&v13->super, OS_LOG_TYPE_ERROR))
+          v14 = _IPDefaultLog(v12);
+          if (os_log_type_enabled(&v14->super, OS_LOG_TYPE_ERROR))
           {
             bundleID = [0 bundleID];
             personaUniqueString = [0 personaUniqueString];
@@ -369,10 +363,10 @@ void __43__IPProgressServer_identityWasUninstalled___block_invoke(uint64_t a1)
             v25 = bundleID;
             v26 = 2112;
             v27 = personaUniqueString;
-            v15 = personaUniqueString;
+            v16 = personaUniqueString;
             v28 = 2112;
-            v29 = v12;
-            _os_log_error_impl(&dword_254C69000, &v13->super, OS_LOG_TYPE_ERROR, "could not find identity for %@/%@: %@", buf, 0x20u);
+            v29 = v13;
+            _os_log_error_impl(&dword_254C69000, &v14->super, OS_LOG_TYPE_ERROR, "could not find identity for %@/%@: %@", buf, 0x20u);
           }
         }
 
@@ -385,8 +379,6 @@ void __43__IPProgressServer_identityWasUninstalled___block_invoke(uint64_t a1)
 
     while (v7);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -462,8 +454,8 @@ LABEL_12:
       v36[1] = &unk_2867185B8;
       v37[0] = &unk_2867185A0;
       v37[1] = &unk_2867185A0;
-      v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:2];
-      [(IPInstallableProgressData *)currentProgress setTotalUnitCountsForPhases:v23];
+      v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:2];
+      [(IPInstallableProgressData *)currentProgress setTotalUnitCountsForPhases:v24];
 
       [(IPInstallableProgressData *)currentProgress setCompletedUnitCount:10 forPhase:2];
       [(IPInstallableProgressData *)currentProgress setCompletedUnitCount:10 forPhase:3];
@@ -472,15 +464,16 @@ LABEL_12:
     else
     {
       isPlaceholder = [v18 isPlaceholder];
-      v20 = _IPServerLog();
-      v21 = v20;
-      if (isPlaceholder)
+      v20 = isPlaceholder;
+      v21 = _IPServerLog(isPlaceholder);
+      v22 = v21;
+      if (v20)
       {
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
           v35 = identityCopy;
-          _os_log_impl(&dword_254C69000, v21, OS_LOG_TYPE_DEFAULT, "asked for progress for identity %@ for which we do not have active progress but a placeholder exists. Returning a resonable ersatz progress.", buf, 0xCu);
+          _os_log_impl(&dword_254C69000, v22, OS_LOG_TYPE_DEFAULT, "asked for progress for identity %@ for which we do not have active progress but a placeholder exists. Returning a resonable ersatz progress.", buf, 0xCu);
         }
 
         currentProgress = objc_alloc_init(IPInstallableProgressData);
@@ -490,15 +483,15 @@ LABEL_12:
         v32[1] = &unk_2867185B8;
         v33[0] = &unk_2867185A0;
         v33[1] = &unk_2867185A0;
-        v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:2];
-        [(IPInstallableProgressData *)currentProgress setTotalUnitCountsForPhases:v22];
+        v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:2];
+        [(IPInstallableProgressData *)currentProgress setTotalUnitCountsForPhases:v23];
       }
 
       else
       {
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
         {
-          [IPProgressServer serverBehavior:identityCopy progressForIdentity:v17 error:v21];
+          [IPProgressServer serverBehavior:identityCopy progressForIdentity:v17 error:v22];
         }
 
         currentProgress = 0;
@@ -507,12 +500,10 @@ LABEL_12:
 
     if (error && !currentProgress)
     {
-      v24 = v17;
+      v25 = v17;
       *error = v17;
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return currentProgress;
 }
@@ -535,21 +526,20 @@ LABEL_12:
   dispatch_sync(queue, block);
 }
 
-void __59__IPProgressServer_identityProgress_didChangeProgressData___block_invoke(uint64_t *a1)
+void __59__IPProgressServer_identityProgress_didChangeProgressData___block_invoke(uint64_t a1)
 {
-  v2 = a1 + 4;
-  v3 = [a1[4] lsIdentity];
-  if (v3)
+  v2 = [*(a1 + 32) lsIdentity];
+  if (v2)
   {
-    [*(a1[5] + 24) progressForIdentity:v3 changed:a1[6]];
+    [*(*(a1 + 40) + 24) progressForIdentity:v2 changed:*(a1 + 48)];
   }
 
   else
   {
-    v4 = _IPServerLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v3 = _IPServerLog(0);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      __59__IPProgressServer_identityProgress_didChangeProgressData___block_invoke_cold_1(v2);
+      __59__IPProgressServer_identityProgress_didChangeProgressData___block_invoke_cold_1();
     }
   }
 }
@@ -582,10 +572,10 @@ void __56__IPProgressServer_identityProgress_didFinishWithState___block_invoke(u
 
   else
   {
-    v4 = _IPServerLog();
+    v4 = _IPServerLog(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __56__IPProgressServer_identityProgress_didFinishWithState___block_invoke_cold_1(v2);
+      __56__IPProgressServer_identityProgress_didFinishWithState___block_invoke_cold_1();
     }
   }
 }
@@ -597,51 +587,45 @@ void __56__IPProgressServer_identityProgress_didFinishWithState___block_invoke(u
   return WeakRetained;
 }
 
-void __48__IPProgressServer_initiateProgressForIdentity___block_invoke_cold_1(uint64_t *a1)
+void __48__IPProgressServer_initiateProgressForIdentity___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x277D85DE8]);
-  v2 = *(*(v1 + 8) + 40);
+  OUTLINED_FUNCTION_2(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_2(&dword_254C69000, v3, v4, "published progress %@ had no identity in %s", v5, v6, v7, v8, v10);
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_2(&dword_254C69000, v0, v1, "published progress %@ had no identity in %s", v2, v3, v4, v5);
 }
 
-void __43__IPProgressServer_identityWasUninstalled___block_invoke_cold_1(uint64_t *a1)
+void __43__IPProgressServer_identityWasUninstalled___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x277D85DE8]);
-  v5 = 138412546;
+  OUTLINED_FUNCTION_2(*MEMORY[0x277D85DE8]);
+  v3 = 138412546;
+  v4 = v0;
+  v5 = 2112;
   v6 = v1;
-  v7 = 2112;
-  v8 = v2;
-  _os_log_fault_impl(&dword_254C69000, v3, OS_LOG_TYPE_FAULT, "could not make LS identity from MI identity %@: %@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_254C69000, v2, OS_LOG_TYPE_FAULT, "could not make LS identity from MI identity %@: %@", &v3, 0x16u);
 }
 
 - (void)serverBehavior:(uint64_t)a1 progressForIdentity:(uint64_t)a2 error:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_254C69000, log, OS_LOG_TYPE_ERROR, "asked for progress for totally unknown identity %@: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_254C69000, log, OS_LOG_TYPE_ERROR, "asked for progress for totally unknown identity %@: %@", &v3, 0x16u);
 }
 
-void __59__IPProgressServer_identityProgress_didChangeProgressData___block_invoke_cold_1(uint64_t *a1)
+void __59__IPProgressServer_identityProgress_didChangeProgressData___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_2(&dword_254C69000, v1, v2, "published progress %@ had no identity in %s", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_2(&dword_254C69000, v0, v1, "published progress %@ had no identity in %s", v2, v3, v4, v5);
 }
 
-void __56__IPProgressServer_identityProgress_didFinishWithState___block_invoke_cold_1(uint64_t *a1)
+void __56__IPProgressServer_identityProgress_didFinishWithState___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_2(&dword_254C69000, v1, v2, "published progress %@ had no identity in %s", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_2(&dword_254C69000, v0, v1, "published progress %@ had no identity in %s", v2, v3, v4, v5);
 }
 
 @end

@@ -897,115 +897,115 @@ void __82__GKLeaderboardScoreDataSource_collectionView_willDisplayCell_forItemAt
   }
 }
 
-void __82__GKLeaderboardScoreDataSource_collectionView_willDisplayCell_forItemAtIndexPath___block_invoke_2(uint64_t a1)
+void __82__GKLeaderboardScoreDataSource_collectionView_willDisplayCell_forItemAtIndexPath___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v30 = *MEMORY[0x277D85DE8];
-  v2 = MEMORY[0x277D0C2A0];
-  v3 = *MEMORY[0x277D0C2A0];
+  v31 = *MEMORY[0x277D85DE8];
+  v3 = MEMORY[0x277D0C2A0];
+  v4 = *MEMORY[0x277D0C2A0];
   if (!*MEMORY[0x277D0C2A0])
   {
-    v4 = GKOSLoggers();
-    v3 = *v2;
+    v5 = GKOSLoggers();
+    v4 = *v3;
   }
 
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v5 = *(a1 + 32);
-    v6 = v3;
-    v7 = [v5 entries];
-    v28 = 134217984;
-    v29 = [v7 count];
-    _os_log_impl(&dword_24DE53000, v6, OS_LOG_TYPE_INFO, "GKLeaderboardScoreDataSource: performing batch update after fetching more data, previous entry count: %ld", &v28, 0xCu);
+    v6 = *(a1 + 32);
+    v7 = v4;
+    v8 = [v6 entries];
+    v29 = 134217984;
+    v30 = [v8 count];
+    _os_log_impl(&dword_24DE53000, v7, OS_LOG_TYPE_INFO, "GKLeaderboardScoreDataSource: performing batch update after fetching more data, previous entry count: %ld", &v29, 0xCu);
   }
 
-  v8 = [*(a1 + 32) entries];
-  v9 = [v8 count];
+  v9 = [*(a1 + 32) entries];
+  v10 = [v9 count];
 
-  v10 = [*(a1 + 32) entries];
-  v11 = [v10 arrayByAddingObjectsFromArray:*(a1 + 40)];
-  [*(a1 + 32) setEntries:v11];
+  v11 = [*(a1 + 32) entries];
+  v12 = [v11 arrayByAddingObjectsFromArray:*(a1 + 40)];
+  [*(a1 + 32) setEntries:v12];
 
-  v12 = *v2;
-  if (!*v2)
+  v13 = *v3;
+  if (!*v3)
   {
-    v13 = GKOSLoggers();
-    v12 = *v2;
+    v14 = GKOSLoggers();
+    v13 = *v3;
   }
 
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
-    v14 = *(a1 + 32);
-    v15 = v12;
-    v16 = [v14 entries];
-    v17 = [v16 count];
-    v28 = 134217984;
-    v29 = v17;
-    _os_log_impl(&dword_24DE53000, v15, OS_LOG_TYPE_INFO, "GKLeaderboardScoreDataSource: performing batch update after fetching more data, updated entry count: %ld", &v28, 0xCu);
+    v15 = *(a1 + 32);
+    v16 = v13;
+    v17 = [v15 entries];
+    v18 = [v17 count];
+    v29 = 134217984;
+    v30 = v18;
+    _os_log_impl(&dword_24DE53000, v16, OS_LOG_TYPE_INFO, "GKLeaderboardScoreDataSource: performing batch update after fetching more data, updated entry count: %ld", &v29, 0xCu);
   }
 
-  v18 = [*(a1 + 32) entries];
-  v19 = [v18 count] - v9;
+  v19 = [*(a1 + 32) entries];
+  v20 = [v19 count] - v10;
 
-  v20 = [MEMORY[0x277CBEB18] arrayWithCapacity:v19];
-  v21 = [*(a1 + 32) startingRank];
-  v22 = [*(a1 + 32) entries];
-  v23 = v21 + [v22 count] - 1;
-  if (v23 == [*(a1 + 32) maxRange])
+  v21 = [MEMORY[0x277CBEB18] arrayWithCapacity:v20];
+  v22 = [*(a1 + 32) startingRank];
+  v23 = [*(a1 + 32) entries];
+  v24 = v22 + [v23 count] - 1;
+  if (v24 == [*(a1 + 32) maxRange])
   {
-    v24 = [*(a1 + 32) bottomLoadingCellItem] != -1;
+    v25 = [*(a1 + 32) bottomLoadingCellItem] != -1;
 
-    v19 -= v24;
+    v20 -= v25;
   }
 
   else
   {
   }
 
-  if (v19 >= 1)
+  if (v20 >= 1)
   {
     do
     {
       if ([*(a1 + 32) startingRank] <= 1)
       {
-        v25 = v9;
+        v26 = v10;
       }
 
       else
       {
-        v25 = v9 + 1;
+        v26 = v10 + 1;
       }
 
-      v26 = [MEMORY[0x277CCAA70] indexPathForItem:v25 inSection:{objc_msgSend(*(a1 + 48), "section")}];
-      [v20 addObject:v26];
+      v27 = [MEMORY[0x277CCAA70] indexPathForItem:v26 inSection:{objc_msgSend(*(a1 + 48), "section")}];
+      [v21 addObject:v27];
 
-      ++v9;
-      --v19;
+      ++v10;
+      --v20;
     }
 
-    while (v19);
+    while (v20);
   }
 
-  v27 = [*(a1 + 56) collectionViewLayout];
-  [v27 setIsInsertingItemsAbove:0];
+  v28 = [*(a1 + 56) collectionViewLayout];
+  [v28 setIsInsertingItemsAbove:0];
 
-  [*(a1 + 56) insertItemsAtIndexPaths:v20];
+  [*(a1 + 56) insertItemsAtIndexPaths:v21];
   [*(a1 + 32) setIsLoadingNextData:0];
 }
 
-uint64_t __82__GKLeaderboardScoreDataSource_collectionView_willDisplayCell_forItemAtIndexPath___block_invoke_139(uint64_t a1)
+uint64_t __82__GKLeaderboardScoreDataSource_collectionView_willDisplayCell_forItemAtIndexPath___block_invoke_139(uint64_t a1, uint64_t a2)
 {
-  v2 = MEMORY[0x277D0C2A0];
-  v3 = *MEMORY[0x277D0C2A0];
+  v3 = MEMORY[0x277D0C2A0];
+  v4 = *MEMORY[0x277D0C2A0];
   if (!*MEMORY[0x277D0C2A0])
   {
-    v4 = GKOSLoggers();
-    v3 = *v2;
+    v5 = GKOSLoggers();
+    v4 = *v3;
   }
 
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    *v6 = 0;
-    _os_log_impl(&dword_24DE53000, v3, OS_LOG_TYPE_INFO, "GKLeaderboardScoreDataSource: performing batch update completed for load more action.", v6, 2u);
+    *v7 = 0;
+    _os_log_impl(&dword_24DE53000, v4, OS_LOG_TYPE_INFO, "GKLeaderboardScoreDataSource: performing batch update completed for load more action.", v7, 2u);
   }
 
   return [*(a1 + 32) setFirstLoad:0];
@@ -1054,95 +1054,95 @@ void __82__GKLeaderboardScoreDataSource_collectionView_willDisplayCell_forItemAt
   }
 }
 
-void __82__GKLeaderboardScoreDataSource_collectionView_willDisplayCell_forItemAtIndexPath___block_invoke_2_143(uint64_t a1)
+void __82__GKLeaderboardScoreDataSource_collectionView_willDisplayCell_forItemAtIndexPath___block_invoke_2_143(uint64_t a1, uint64_t a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
-  v2 = MEMORY[0x277D0C2A0];
-  v3 = *MEMORY[0x277D0C2A0];
+  v25 = *MEMORY[0x277D85DE8];
+  v3 = MEMORY[0x277D0C2A0];
+  v4 = *MEMORY[0x277D0C2A0];
   if (!*MEMORY[0x277D0C2A0])
   {
-    v4 = GKOSLoggers();
-    v3 = *v2;
+    v5 = GKOSLoggers();
+    v4 = *v3;
   }
 
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v5 = *(a1 + 32);
-    v6 = v3;
-    v7 = [v5 entries];
-    v22 = 134217984;
-    v23 = [v7 count];
-    _os_log_impl(&dword_24DE53000, v6, OS_LOG_TYPE_INFO, "GKLeaderboardScoreDataSource: performing batch update after fetching previous data, previous entry count: %ld", &v22, 0xCu);
+    v6 = *(a1 + 32);
+    v7 = v4;
+    v8 = [v6 entries];
+    v23 = 134217984;
+    v24 = [v8 count];
+    _os_log_impl(&dword_24DE53000, v7, OS_LOG_TYPE_INFO, "GKLeaderboardScoreDataSource: performing batch update after fetching previous data, previous entry count: %ld", &v23, 0xCu);
   }
 
-  v8 = *(a1 + 40);
-  v9 = [*(a1 + 32) entries];
-  v10 = [v8 arrayByAddingObjectsFromArray:v9];
-  [*(a1 + 32) setEntries:v10];
+  v9 = *(a1 + 40);
+  v10 = [*(a1 + 32) entries];
+  v11 = [v9 arrayByAddingObjectsFromArray:v10];
+  [*(a1 + 32) setEntries:v11];
 
-  v11 = *v2;
-  if (!*v2)
+  v12 = *v3;
+  if (!*v3)
   {
-    v12 = GKOSLoggers();
-    v11 = *v2;
+    v13 = GKOSLoggers();
+    v12 = *v3;
   }
 
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
-    v13 = *(a1 + 32);
-    v14 = v11;
-    v15 = [v13 entries];
-    v16 = [v15 count];
-    v22 = 134217984;
-    v23 = v16;
-    _os_log_impl(&dword_24DE53000, v14, OS_LOG_TYPE_INFO, "GKLeaderboardScoreDataSource: performing batch update after fetching previous data, updated entry count: %ld", &v22, 0xCu);
+    v14 = *(a1 + 32);
+    v15 = v12;
+    v16 = [v14 entries];
+    v17 = [v16 count];
+    v23 = 134217984;
+    v24 = v17;
+    _os_log_impl(&dword_24DE53000, v15, OS_LOG_TYPE_INFO, "GKLeaderboardScoreDataSource: performing batch update after fetching previous data, updated entry count: %ld", &v23, 0xCu);
   }
 
-  v17 = [*(a1 + 32) entries];
-  v18 = [v17 count] - *(a1 + 72);
+  v18 = [*(a1 + 32) entries];
+  v19 = [v18 count] - *(a1 + 72);
 
-  v19 = [MEMORY[0x277CBEB18] arrayWithCapacity:v18];
+  v20 = [MEMORY[0x277CBEB18] arrayWithCapacity:v19];
   if ([*(a1 + 32) startingRank] == 1)
   {
-    v18 -= [*(a1 + 32) topLoadingCellItem] != -1;
+    v19 -= [*(a1 + 32) topLoadingCellItem] != -1;
   }
 
-  if (v18 >= 1)
+  if (v19 >= 1)
   {
-    v20 = 1;
+    v21 = 1;
     do
     {
-      v21 = [MEMORY[0x277CCAA70] indexPathForItem:v20 inSection:{objc_msgSend(*(a1 + 48), "section")}];
-      [v19 addObject:v21];
+      v22 = [MEMORY[0x277CCAA70] indexPathForItem:v21 inSection:{objc_msgSend(*(a1 + 48), "section")}];
+      [v20 addObject:v22];
 
-      ++v20;
-      --v18;
+      ++v21;
+      --v19;
     }
 
-    while (v18);
+    while (v19);
   }
 
   [*(a1 + 56) setIsInsertingItemsAbove:1];
   [*(a1 + 56) collectionViewContentSize];
   [*(a1 + 56) setContentSizeBeforeInsertingItemsAbove:?];
-  [*(a1 + 64) insertItemsAtIndexPaths:v19];
+  [*(a1 + 64) insertItemsAtIndexPaths:v20];
 }
 
-void __82__GKLeaderboardScoreDataSource_collectionView_willDisplayCell_forItemAtIndexPath___block_invoke_144(uint64_t a1)
+void __82__GKLeaderboardScoreDataSource_collectionView_willDisplayCell_forItemAtIndexPath___block_invoke_144(uint64_t a1, uint64_t a2)
 {
-  v10[1] = *MEMORY[0x277D85DE8];
-  v2 = MEMORY[0x277D0C2A0];
-  v3 = *MEMORY[0x277D0C2A0];
+  v11[1] = *MEMORY[0x277D85DE8];
+  v3 = MEMORY[0x277D0C2A0];
+  v4 = *MEMORY[0x277D0C2A0];
   if (!*MEMORY[0x277D0C2A0])
   {
-    v4 = GKOSLoggers();
-    v3 = *v2;
+    v5 = GKOSLoggers();
+    v4 = *v3;
   }
 
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    *v9 = 0;
-    _os_log_impl(&dword_24DE53000, v3, OS_LOG_TYPE_INFO, "GKLeaderboardScoreDataSource: performing batch update completed for load previous data.", v9, 2u);
+    *v10 = 0;
+    _os_log_impl(&dword_24DE53000, v4, OS_LOG_TYPE_INFO, "GKLeaderboardScoreDataSource: performing batch update completed for load previous data.", v10, 2u);
   }
 
   [*(a1 + 32) setIsLoadingPreviousData:0];
@@ -1151,15 +1151,15 @@ void __82__GKLeaderboardScoreDataSource_collectionView_willDisplayCell_forItemAt
   [MEMORY[0x277CD9FF0] commit];
   if ([*(a1 + 32) firstLoad])
   {
-    v5 = [*(a1 + 32) localPlayerEntryIndexPath];
+    v6 = [*(a1 + 32) localPlayerEntryIndexPath];
 
-    if (v5)
+    if (v6)
     {
-      v6 = *(a1 + 48);
-      v7 = [*(a1 + 32) localPlayerEntryIndexPath];
-      v10[0] = v7;
-      v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
-      [v6 reloadItemsAtIndexPaths:v8];
+      v7 = *(a1 + 48);
+      v8 = [*(a1 + 32) localPlayerEntryIndexPath];
+      v11[0] = v8;
+      v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+      [v7 reloadItemsAtIndexPaths:v9];
     }
   }
 }

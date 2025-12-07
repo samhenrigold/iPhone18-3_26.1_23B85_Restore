@@ -693,7 +693,7 @@ LABEL_82:
               *(value + 24) = v33;
               *(value + 32) = v34;
               *value = [v26 intValue];
-              Descriptor = Vector<ma::Object *>::PushBack(Next + 41);
+              Descriptor = Vector<ma::Object *>::PushBack(Next + 41, &v103);
               if (Descriptor)
               {
                 if (v103.value)
@@ -813,7 +813,7 @@ LABEL_82:
 
       if ((BYTE1(self->_frameBuffer.buffer_[34].motion_result_.fine_action_score_) & 1) == 0)
       {
-        Descriptor = ma::DescriptorAnalysis::GenerateDescriptor((self->_sceneAnalysis + 760), frame, Next);
+        Descriptor = ma::DescriptorAnalysis::GenerateDescriptor(self->_sceneAnalysis + 95, frame, Next);
         if (Descriptor)
         {
           goto LABEL_39;

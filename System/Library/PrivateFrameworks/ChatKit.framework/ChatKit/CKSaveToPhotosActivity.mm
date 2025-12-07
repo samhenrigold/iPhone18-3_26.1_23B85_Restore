@@ -29,27 +29,27 @@
   mediaObject = [(CKSaveToPhotosActivity *)self mediaObject];
   mediaType = [mediaObject mediaType];
 
-  v4 = CKFrameworkBundle();
-  v5 = v4;
-  v6 = @"PREVIEW_SAVE_ITEM";
+  v5 = CKFrameworkBundle(v4);
+  v6 = v5;
+  v7 = @"PREVIEW_SAVE_ITEM";
   if (mediaType == 2)
   {
-    v6 = @"PREVIEW_SAVE_VIDEO";
+    v7 = @"PREVIEW_SAVE_VIDEO";
   }
 
   if (mediaType == 3)
   {
-    v7 = @"PREVIEW_SAVE_PHOTO";
+    v8 = @"PREVIEW_SAVE_PHOTO";
   }
 
   else
   {
-    v7 = v6;
+    v8 = v7;
   }
 
-  v8 = [v4 localizedStringForKey:v7 value:&stru_1F04268F8 table:@"ChatKit"];
+  v9 = [v5 localizedStringForKey:v8 value:&stru_1F04268F8 table:@"ChatKit"];
 
-  return v8;
+  return v9;
 }
 
 - (void)performActivity

@@ -1,12 +1,23 @@
 @interface CNAutocompleteUsageMonitor
 + (void)userIgnoredResultsForRequest:(id)request afterDelay:(double)delay;
++ (void)userSelectedResult:(id)result atSortedIndex:(unint64_t)index forRequest:(id)request gotResultsFromDuet:(BOOL)duet;
 - (CNAutocompleteUsageMonitor)init;
 - (CNAutocompleteUsageMonitor)initWithProbeProvider:(id)provider;
 - (void)userIgnoredResultsOfBatch:(unint64_t)batch forRequest:(id)request afterDelay:(double)delay;
 - (void)userSawNumberOfResults:(unint64_t)results forBatch:(unint64_t)batch includingNumberOfSuggestions:(unint64_t)suggestions forRequest:(id)request;
+- (void)userSelectedResult:(id)result atSortedIndex:(unint64_t)index forRequest:(id)request gotResultsFromDuet:(BOOL)duet;
 @end
 
 @implementation CNAutocompleteUsageMonitor
+
++ (void)userSelectedResult:(id)result atSortedIndex:(unint64_t)index forRequest:(id)request gotResultsFromDuet:(BOOL)duet
+{
+  duetCopy = duet;
+  requestCopy = request;
+  resultCopy = result;
+  v12 = objc_alloc_init(self);
+  [v12 userSelectedResult:resultCopy atSortedIndex:index forRequest:requestCopy gotResultsFromDuet:duetCopy];
+}
 
 + (void)userIgnoredResultsForRequest:(id)request afterDelay:(double)delay
 {
@@ -36,6 +47,47 @@
   }
 
   return v7;
+}
+
+- (void)userSelectedResult:(id)result atSortedIndex:(unint64_t)index forRequest:(id)request gotResultsFromDuet:(BOOL)duet
+{
+  duetCopy = duet;
+  resultCopy = result;
+  requestCopy = request;
+  if (requestCopy)
+  {
+    probeProvider = [(CNAutocompleteUsageMonitor *)self probeProvider];
+    usageMonitorProbe = [probeProvider usageMonitorProbe];
+
+    [usageMonitorProbe recordDuetReturnedResults:duetCopy];
+    v13 = *MEMORY[0x277CFBD30];
+    searchString = [requestCopy searchString];
+    LODWORD(v13) = (*(v13 + 16))(v13, searchString);
+
+    if (v13)
+    {
+      [usageMonitorProbe recordUserSelectedPredictionAtIndex:index];
+    }
+
+    else
+    {
+      [usageMonitorProbe recordUserSelectedIndex:index];
+      searchString2 = [requestCopy searchString];
+      [usageMonitorProbe recordUserTypedInNumberOfCharacters:{objc_msgSend(searchString2, "length")}];
+
+      [usageMonitorProbe recordUserSelectedResultWithSourceType:{objc_msgSend(resultCopy, "sourceType")}];
+      if (resultCopy)
+      {
+        probeProvider2 = [(CNAutocompleteUsageMonitor *)self probeProvider];
+        suggestionsProbe = [probeProvider2 suggestionsProbe];
+
+        [suggestionsProbe recordUserSelectedAutocompleteResult:resultCopy];
+        [suggestionsProbe sendData];
+      }
+    }
+
+    [usageMonitorProbe sendData];
+  }
 }
 
 - (void)userIgnoredResultsOfBatch:(unint64_t)batch forRequest:(id)request afterDelay:(double)delay

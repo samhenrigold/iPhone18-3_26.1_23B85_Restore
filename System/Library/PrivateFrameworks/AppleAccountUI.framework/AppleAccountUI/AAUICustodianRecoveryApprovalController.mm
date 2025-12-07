@@ -16,7 +16,7 @@
   presenterCopy = presenter;
   dCopy = d;
   iDCopy = iD;
-  v10 = _AAUILogSystem();
+  v10 = _AAUILogSystem(iDCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v18 = 138412290;
@@ -41,7 +41,7 @@
 
 - (void)dealloc
 {
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -56,7 +56,7 @@
 - (void)validateRecoveryCodeWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = _AAUILogSystem();
+  v5 = _AAUILogSystem(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -74,36 +74,36 @@
 
 void __78__AAUICustodianRecoveryApprovalController_validateRecoveryCodeWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = [v5 custodianUUID];
 
-  v8 = _AAUILogSystem();
-  v9 = v8;
+  v9 = _AAUILogSystem(v8);
+  v10 = v9;
   if (v6 || !v7)
   {
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       __78__AAUICustodianRecoveryApprovalController_validateRecoveryCodeWithCompletion___block_invoke_cold_1();
     }
 
-    v10 = *(*(a1 + 32) + 16);
+    v11 = *(*(a1 + 32) + 16);
   }
 
   else
   {
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138412290;
-      v12 = v5;
-      _os_log_impl(&dword_1C5355000, v9, OS_LOG_TYPE_DEFAULT, "Successfully validated custodian recovery code with context: %@", &v11, 0xCu);
+      v12 = 138412290;
+      v13 = v5;
+      _os_log_impl(&dword_1C5355000, v10, OS_LOG_TYPE_DEFAULT, "Successfully validated custodian recovery code with context: %@", &v12, 0xCu);
     }
 
-    v10 = *(*(a1 + 32) + 16);
+    v11 = *(*(a1 + 32) + 16);
   }
 
-  v10();
+  v11();
 }
 
 - (void)_validateRecoveryCode:(id)code withCompletion:(id)completion
@@ -189,39 +189,39 @@ void __78__AAUICustodianRecoveryApprovalController_validateRecoveryCodeWithCompl
 
 void __80__AAUICustodianRecoveryApprovalController__promptForRecoveryCodeWithCompletion___block_invoke(uint64_t a1)
 {
-  objc_initWeak(&location, *(a1 + 32));
-  v2 = _AAUILogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  inited = objc_initWeak(&location, *(a1 + 32));
+  v3 = _AAUILogSystem(inited);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v6 = 0;
-    _os_log_impl(&dword_1C5355000, v2, OS_LOG_TYPE_DEFAULT, "Custodian Recovery Code Attempt: User elected for escape action!", v6, 2u);
+    *v7 = 0;
+    _os_log_impl(&dword_1C5355000, v3, OS_LOG_TYPE_DEFAULT, "Custodian Recovery Code Attempt: User elected for escape action!", v7, 2u);
   }
 
-  v3 = objc_loadWeakRetained(&location);
-  [v3 _sendAnalyticsEventWithSelectedOffer:*MEMORY[0x1E6997848]];
+  v4 = objc_loadWeakRetained(&location);
+  [v4 _sendAnalyticsEventWithSelectedOffer:*MEMORY[0x1E6997848]];
 
-  v4 = *(a1 + 40);
-  v5 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E698B770] code:-9007 userInfo:0];
-  (*(v4 + 16))(v4, 0, v5);
+  v5 = *(a1 + 40);
+  v6 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E698B770] code:-9007 userInfo:0];
+  (*(v5 + 16))(v5, 0, v6);
 
   objc_destroyWeak(&location);
 }
 
 void __80__AAUICustodianRecoveryApprovalController__promptForRecoveryCodeWithCompletion___block_invoke_55(uint64_t a1)
 {
-  objc_initWeak(&location, *(a1 + 32));
-  v2 = _AAUILogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  inited = objc_initWeak(&location, *(a1 + 32));
+  v3 = _AAUILogSystem(inited);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __80__AAUICustodianRecoveryApprovalController__promptForRecoveryCodeWithCompletion___block_invoke_55_cold_1();
   }
 
-  v3 = objc_loadWeakRetained(&location);
-  [v3 _sendAnalyticsEventWithSelectedOffer:*MEMORY[0x1E698BB28]];
+  v4 = objc_loadWeakRetained(&location);
+  [v4 _sendAnalyticsEventWithSelectedOffer:*MEMORY[0x1E698BB28]];
 
-  v4 = *(a1 + 40);
-  v5 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E698B770] code:-9003 userInfo:0];
-  (*(v4 + 16))(v4, 0, v5);
+  v5 = *(a1 + 40);
+  v6 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E698B770] code:-9003 userInfo:0];
+  (*(v5 + 16))(v5, 0, v6);
 
   objc_destroyWeak(&location);
 }
@@ -231,8 +231,7 @@ void __80__AAUICustodianRecoveryApprovalController__promptForRecoveryCodeWithCom
   v15 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  [*(a1 + 32) _sendAnalyticsEventWithSelectedOffer:*MEMORY[0x1E6997840]];
-  v7 = _AAUILogSystem();
+  v7 = _AAUILogSystem([*(a1 + 32) _sendAnalyticsEventWithSelectedOffer:*MEMORY[0x1E6997840]]);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -255,32 +254,33 @@ void __80__AAUICustodianRecoveryApprovalController__promptForRecoveryCodeWithCom
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = _AAUILogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _AAUILogSystem(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __80__AAUICustodianRecoveryApprovalController__promptForRecoveryCodeWithCompletion___block_invoke_57_cold_1();
     }
 
-    v8 = [v6 aa_isAACustodianRecoveryErrorWithCode:-9002];
-    v9 = *(*(a1 + 32) + 16);
-    if (v8)
+    v9 = [v7 aa_isAACustodianRecoveryErrorWithCode:-9002];
+    v10 = *(*(a1 + 32) + 16);
+    if (v9)
     {
-      v9();
+      v10();
       goto LABEL_13;
     }
 
-    v9();
+    v10();
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __80__AAUICustodianRecoveryApprovalController__promptForRecoveryCodeWithCompletion___block_invoke_58;
     block[3] = &unk_1E820B7A8;
-    v17 = *(a1 + 40);
-    v16 = v6;
+    v18 = *(a1 + 40);
+    v17 = v7;
     dispatch_async(MEMORY[0x1E69E96A0], block);
 
-    v10 = v17;
+    v11 = v18;
 LABEL_9:
 
     goto LABEL_13;
@@ -289,20 +289,20 @@ LABEL_9:
   if (v5)
   {
     (*(*(a1 + 32) + 16))();
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __80__AAUICustodianRecoveryApprovalController__promptForRecoveryCodeWithCompletion___block_invoke_59;
-    v12[3] = &unk_1E820B780;
-    v13 = v5;
-    v14 = *(a1 + 40);
-    dispatch_async(MEMORY[0x1E69E96A0], v12);
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __80__AAUICustodianRecoveryApprovalController__promptForRecoveryCodeWithCompletion___block_invoke_59;
+    v13[3] = &unk_1E820B780;
+    v14 = v5;
+    v15 = *(a1 + 40);
+    dispatch_async(MEMORY[0x1E69E96A0], v13);
 
-    v10 = v13;
+    v11 = v14;
     goto LABEL_9;
   }
 
-  v11 = _AAUILogSystem();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+  v12 = _AAUILogSystem(0);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
     __80__AAUICustodianRecoveryApprovalController__promptForRecoveryCodeWithCompletion___block_invoke_57_cold_2();
   }
@@ -311,10 +311,10 @@ LABEL_9:
 LABEL_13:
 }
 
-uint64_t __80__AAUICustodianRecoveryApprovalController__promptForRecoveryCodeWithCompletion___block_invoke_58(uint64_t a1)
+uint64_t __80__AAUICustodianRecoveryApprovalController__promptForRecoveryCodeWithCompletion___block_invoke_58(uint64_t a1, uint64_t a2)
 {
-  v2 = _AAUILogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = _AAUILogSystem(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __80__AAUICustodianRecoveryApprovalController__promptForRecoveryCodeWithCompletion___block_invoke_58_cold_1();
   }
@@ -322,16 +322,16 @@ uint64_t __80__AAUICustodianRecoveryApprovalController__promptForRecoveryCodeWit
   return (*(*(a1 + 40) + 16))();
 }
 
-uint64_t __80__AAUICustodianRecoveryApprovalController__promptForRecoveryCodeWithCompletion___block_invoke_59(uint64_t a1)
+uint64_t __80__AAUICustodianRecoveryApprovalController__promptForRecoveryCodeWithCompletion___block_invoke_59(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v2 = _AAUILogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v8 = *MEMORY[0x1E69E9840];
+  v3 = _AAUILogSystem(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v5 = 138412290;
-    v6 = v3;
-    _os_log_impl(&dword_1C5355000, v2, OS_LOG_TYPE_DEFAULT, "Custodian Recovery Code Attempt: Code validation success! Custodian with context: %@", &v5, 0xCu);
+    v4 = *(a1 + 32);
+    v6 = 138412290;
+    v7 = v4;
+    _os_log_impl(&dword_1C5355000, v3, OS_LOG_TYPE_DEFAULT, "Custodian Recovery Code Attempt: Code validation success! Custodian with context: %@", &v6, 0xCu);
   }
 
   return (*(*(a1 + 40) + 16))();
@@ -365,24 +365,24 @@ uint64_t __80__AAUICustodianRecoveryApprovalController__promptForRecoveryCodeWit
   return v7;
 }
 
-void __83__AAUICustodianRecoveryApprovalController__actionsForRecoveryCodeAlert_completion___block_invoke(uint64_t a1)
+void __83__AAUICustodianRecoveryApprovalController__actionsForRecoveryCodeAlert_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = _AAUILogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = _AAUILogSystem(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __83__AAUICustodianRecoveryApprovalController__actionsForRecoveryCodeAlert_completion___block_invoke_cold_1();
   }
 
-  v3 = *(a1 + 32);
-  v4 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E698B770] code:-9003 userInfo:0];
-  (*(v3 + 16))(v3, 0, v4);
+  v4 = *(a1 + 32);
+  v5 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E698B770] code:-9003 userInfo:0];
+  (*(v4 + 16))(v4, 0, v5);
 }
 
 void __83__AAUICustodianRecoveryApprovalController__actionsForRecoveryCodeAlert_completion___block_invoke_63(uint64_t a1, void *a2)
 {
   v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = _AAUILogSystem();
+  v4 = _AAUILogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 138412290;

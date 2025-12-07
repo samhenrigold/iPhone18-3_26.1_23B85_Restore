@@ -730,7 +730,7 @@ uint64_t std::vector<clsp::telemetry::Item>::__emplace_back_slow_path<clsp::tele
   return v7;
 }
 
-void SpeakerDefaultName(uint64_t a1, int a2, int a3)
+void SpeakerDefaultName(void *a1, int a2, int a3)
 {
   if (a2 >= a3)
   {
@@ -764,7 +764,7 @@ LABEL_12:
   std::to_string(&v7, a2 + 1);
   v5 = std::string::insert(&v7, 0, "Speaker ", 8uLL);
   v6 = *&v5->__r_.__value_.__l.__data_;
-  *(a1 + 16) = *(&v5->__r_.__value_.__l + 2);
+  a1[2] = *(&v5->__r_.__value_.__l + 2);
   *a1 = v6;
   v5->__r_.__value_.__l.__size_ = 0;
   v5->__r_.__value_.__r.__words[2] = 0;

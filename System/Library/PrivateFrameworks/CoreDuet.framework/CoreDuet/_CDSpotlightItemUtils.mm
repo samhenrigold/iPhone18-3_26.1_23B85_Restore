@@ -401,18 +401,18 @@ LABEL_32:
     +[_CDSpotlightItemUtils policies];
   }
 
-  v0 = policies_policies;
+  v1 = policies_policies;
 
-  return v0;
+  return v1;
 }
 
 + (id)interactionForSearchableItem:(id)item nsUserName:(id)name
 {
-  v194[3] = *MEMORY[0x1E69E9840];
+  v193[3] = *MEMORY[0x1E69E9840];
   itemCopy = item;
   obj = self;
   nameCopy = name;
-  v158 = itemCopy;
+  v157 = itemCopy;
   if (([(_CDSpotlightItemUtils *)self isAllowedSearchableItem:itemCopy]& 1) != 0)
   {
     v7 = objc_alloc_init(_CDInteraction);
@@ -420,7 +420,7 @@ LABEL_32:
     contentType = [attributeSet contentType];
     contentTypeTree = [attributeSet contentTypeTree];
     v9 = +[_CDLogging interactionChannel];
-    v159 = attributeSet;
+    v158 = attributeSet;
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       +[_CDSpotlightItemUtils interactionForSearchableItem:nsUserName:];
@@ -439,40 +439,40 @@ LABEL_132:
     if ([(_CDInteraction *)v7 mechanism]== 1)
     {
       v12 = getCSMailboxInbox();
-      v194[0] = v12;
+      v193[0] = v12;
       v13 = getCSMailboxSent();
-      v194[1] = v13;
+      v193[1] = v13;
       v14 = getCSMailboxArchive();
-      v194[2] = v14;
-      standardUserDefaults = [MEMORY[0x1E695DEC8] arrayWithObjects:v194 count:3];
+      v193[2] = v14;
+      standardUserDefaults = [MEMORY[0x1E695DEC8] arrayWithObjects:v193 count:3];
 
-      v186 = 0u;
-      v187 = 0u;
-      v184 = 0u;
       v185 = 0u;
-      mailboxIdentifiers = [v159 mailboxIdentifiers];
-      v16 = [mailboxIdentifiers countByEnumeratingWithState:&v184 objects:v193 count:16];
+      v186 = 0u;
+      v183 = 0u;
+      v184 = 0u;
+      mailboxIdentifiers = [v158 mailboxIdentifiers];
+      v16 = [mailboxIdentifiers countByEnumeratingWithState:&v183 objects:v192 count:16];
       if (v16)
       {
-        v17 = *v185;
+        v17 = *v184;
         while (2)
         {
           for (i = 0; i != v16; ++i)
           {
-            if (*v185 != v17)
+            if (*v184 != v17)
             {
               objc_enumerationMutation(mailboxIdentifiers);
             }
 
-            if ([standardUserDefaults containsObject:*(*(&v184 + 1) + 8 * i)])
+            if ([standardUserDefaults containsObject:*(*(&v183 + 1) + 8 * i)])
             {
 
-              v10 = v159;
+              v10 = v158;
               goto LABEL_17;
             }
           }
 
-          v16 = [mailboxIdentifiers countByEnumeratingWithState:&v184 objects:v193 count:16];
+          v16 = [mailboxIdentifiers countByEnumeratingWithState:&v183 objects:v192 count:16];
           if (v16)
           {
             continue;
@@ -492,7 +492,7 @@ LABEL_17:
     date = [MEMORY[0x1E695DF00] date];
     [(_CDInteraction *)v7 setUpdateDate:date];
 
-    endDate = [v159 endDate];
+    endDate = [v158 endDate];
     [(_CDInteraction *)v7 setEndDate:endDate];
 
     startDate2 = [(_CDInteraction *)v7 startDate];
@@ -500,35 +500,24 @@ LABEL_17:
 
     if (endDate)
     {
-      contentCreationDate = [v159 contentCreationDate];
+      contentCreationDate = [v158 contentCreationDate];
       [(_CDInteraction *)v7 setStartDate:contentCreationDate];
     }
 
     endDate2 = [(_CDInteraction *)v7 endDate];
-    if (!endDate2)
+    if (!endDate2 || (-[_CDInteraction endDate](v7, "endDate"), v25 = objc_claimAutoreleasedReturnValue(), -[_CDInteraction startDate](v7, "startDate"), v26 = objc_claimAutoreleasedReturnValue(), [v25 timeIntervalSinceDate:v26], v28 = v27 < 0.0, v26, v25, endDate2, v28))
     {
-      goto LABEL_21;
-    }
-
-    endDate3 = [(_CDInteraction *)v7 endDate];
-    startDate3 = [(_CDInteraction *)v7 startDate];
-    [endDate3 timeIntervalSinceDate:startDate3];
-    v28 = v27 < 0.0;
-
-    if (v28)
-    {
-LABEL_21:
-      startDate4 = [(_CDInteraction *)v7 startDate];
-      [(_CDInteraction *)v7 setEndDate:startDate4];
+      startDate3 = [(_CDInteraction *)v7 startDate];
+      [(_CDInteraction *)v7 setEndDate:startDate3];
     }
 
     standardUserDefaults = [MEMORY[0x1E695E000] standardUserDefaults];
     if (([standardUserDefaults BOOLForKey:@"com.apple.coreduetd.recordpastevents"] & 1) == 0)
     {
-      v30 = +[_CDSpotlightItemUtils policies];
+      v30 = +[(_CDSpotlightItemUtils *)obj];
       v31 = [v30 dateOfOldestAllowedInteractionForMechanism:{-[_CDInteraction mechanism](v7, "mechanism")}];
-      startDate5 = [(_CDInteraction *)v7 startDate];
-      [startDate5 timeIntervalSinceReferenceDate];
+      startDate4 = [(_CDInteraction *)v7 startDate];
+      [startDate4 timeIntervalSinceReferenceDate];
       v34 = v33;
       [v31 timeIntervalSinceReferenceDate];
       v36 = v34 >= v35;
@@ -543,17 +532,17 @@ LABEL_131:
       }
     }
 
-    accountIdentifier = [v159 accountIdentifier];
+    accountIdentifier = [v158 accountIdentifier];
     [(_CDInteraction *)v7 setAccount:accountIdentifier];
 
-    bundleID = [v158 bundleID];
+    bundleID = [v157 bundleID];
     [(_CDInteraction *)v7 setBundleId:bundleID];
 
-    domainIdentifier = [v158 domainIdentifier];
+    domainIdentifier = [v157 domainIdentifier];
     [(_CDInteraction *)v7 setDomainIdentifier:domainIdentifier];
 
-    uniqueIdentifier = [v158 uniqueIdentifier];
-    bundleID2 = [v158 bundleID];
+    uniqueIdentifier = [v157 uniqueIdentifier];
+    bundleID2 = [v157 bundleID];
     v42 = [obj interactionUUIDForSearchableItemWithUID:uniqueIdentifier bundleID:bundleID2];
     [(_CDInteraction *)v7 setUuid:v42];
 
@@ -568,10 +557,10 @@ LABEL_131:
       v47 = [domainIdentifier2 stringByAddingPercentEncodingWithAllowedCharacters:alphanumericCharacterSet];
       [(_CDInteraction *)v7 setDerivedIntentIdentifier:v47];
 
-      customAttributeDictionary = [v159 customAttributeDictionary];
+      customAttributeDictionary = [v158 customAttributeDictionary];
       v49 = [customAttributeDictionary objectForKeyedSubscript:@"com_apple_mobilesms_groupPhotoPath"];
 
-      v50 = v159;
+      v50 = v158;
       if (v49)
       {
         objc_opt_class();
@@ -580,7 +569,7 @@ LABEL_131:
           v51 = [MEMORY[0x1E695DFF8] fileURLWithPath:v49];
           [(_CDInteraction *)v7 setContentURL:v51];
 
-          v50 = v159;
+          v50 = v158;
         }
       }
 
@@ -599,31 +588,31 @@ LABEL_131:
 
     [(_CDInteraction *)v7 setNsUserName:nameCopy];
     context = objc_autoreleasePoolPush();
-    accountHandles = [v159 accountHandles];
+    accountHandles = [v158 accountHandles];
     v55 = objc_opt_new();
-    v182 = 0u;
-    v183 = 0u;
-    v180 = 0u;
     v181 = 0u;
+    v182 = 0u;
+    v179 = 0u;
+    v180 = 0u;
     v56 = accountHandles;
-    v57 = [v56 countByEnumeratingWithState:&v180 objects:v192 count:16];
+    v57 = [v56 countByEnumeratingWithState:&v179 objects:v191 count:16];
     if (v57)
     {
-      v58 = *v181;
+      v58 = *v180;
       do
       {
         for (j = 0; j != v57; ++j)
         {
-          if (*v181 != v58)
+          if (*v180 != v58)
           {
             objc_enumerationMutation(v56);
           }
 
-          v60 = [_CDContactResolver normalizedStringFromContactString:*(*(&v180 + 1) + 8 * j)];
+          v60 = [_CDContactResolver normalizedStringFromContactString:*(*(&v179 + 1) + 8 * j)];
           [v55 addObject:v60];
         }
 
-        v57 = [v56 countByEnumeratingWithState:&v180 objects:v192 count:16];
+        v57 = [v56 countByEnumeratingWithState:&v179 objects:v191 count:16];
       }
 
       while (v57);
@@ -631,7 +620,7 @@ LABEL_131:
 
     if ([(_CDInteraction *)v7 mechanism]== 5)
     {
-      v61 = [v159 attributeForKey:@"com_apple_mobilecal_recipientParticipationStatuses"];
+      v61 = [v158 attributeForKey:@"com_apple_mobilecal_recipientParticipationStatuses"];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -660,38 +649,38 @@ LABEL_131:
 
     v64 = v63;
 
-    authors = [v159 authors];
+    authors = [v158 authors];
     v66 = [authors count] == 0;
 
     if (v66)
     {
-      authorAddresses = [v159 authorAddresses];
-      authorEmailAddresses = [v159 authorEmailAddresses];
-      authorNames = [v159 authorNames];
-      v150 = [(_CDSpotlightItemUtils *)obj _contactsForHandles:authorAddresses emailAddresses:authorEmailAddresses names:authorNames];
+      authorAddresses = [v158 authorAddresses];
+      authorEmailAddresses = [v158 authorEmailAddresses];
+      authorNames = [v158 authorNames];
+      v149 = [(_CDSpotlightItemUtils *)obj _contactsForHandles:authorAddresses emailAddresses:authorEmailAddresses names:authorNames];
     }
 
     else
     {
-      authorAddresses = [v159 authors];
-      v150 = [(_CDSpotlightItemUtils *)obj _contactsForPersons:authorAddresses];
+      authorAddresses = [v158 authors];
+      v149 = [(_CDSpotlightItemUtils *)obj _contactsForPersons:authorAddresses];
     }
 
-    primaryRecipients = [v159 primaryRecipients];
-    v178[0] = MEMORY[0x1E69E9820];
-    v178[1] = 3221225472;
-    v178[2] = __65___CDSpotlightItemUtils_interactionForSearchableItem_nsUserName___block_invoke_2;
-    v178[3] = &unk_1E7368658;
-    v145 = v64;
-    v179 = v145;
-    v71 = [primaryRecipients _pas_mappedArrayWithIndexedTransform:v178];
+    primaryRecipients = [v158 primaryRecipients];
+    v177[0] = MEMORY[0x1E69E9820];
+    v177[1] = 3221225472;
+    v177[2] = __65___CDSpotlightItemUtils_interactionForSearchableItem_nsUserName___block_invoke_2;
+    v177[3] = &unk_1E7368658;
+    v144 = v64;
+    v178 = v144;
+    v71 = [primaryRecipients _pas_mappedArrayWithIndexedTransform:v177];
     v72 = [v71 mutableCopy];
 
-    v176 = 0u;
-    v177 = 0u;
-    v174 = 0u;
     v175 = 0u;
-    additionalRecipients = [v159 additionalRecipients];
+    v176 = 0u;
+    v173 = 0u;
+    v174 = 0u;
+    additionalRecipients = [v158 additionalRecipients];
     v74 = additionalRecipients;
     v75 = MEMORY[0x1E695E0F0];
     if (additionalRecipients)
@@ -704,8 +693,8 @@ LABEL_131:
       v76 = MEMORY[0x1E695E0F0];
     }
 
-    v190[0] = v76;
-    hiddenAdditionalRecipients = [v159 hiddenAdditionalRecipients];
+    v189[0] = v76;
+    hiddenAdditionalRecipients = [v158 hiddenAdditionalRecipients];
     v78 = hiddenAdditionalRecipients;
     if (hiddenAdditionalRecipients)
     {
@@ -717,27 +706,27 @@ LABEL_131:
       v79 = v75;
     }
 
-    v190[1] = v79;
-    v80 = [MEMORY[0x1E695DEC8] arrayWithObjects:v190 count:2];
+    v189[1] = v79;
+    v80 = [MEMORY[0x1E695DEC8] arrayWithObjects:v189 count:2];
 
-    v81 = [v80 countByEnumeratingWithState:&v174 objects:v191 count:16];
+    v81 = [v80 countByEnumeratingWithState:&v173 objects:v190 count:16];
     if (v81)
     {
-      v82 = *v175;
+      v82 = *v174;
       do
       {
         for (k = 0; k != v81; ++k)
         {
-          if (*v175 != v82)
+          if (*v174 != v82)
           {
             objc_enumerationMutation(v80);
           }
 
-          v84 = [*(*(&v174 + 1) + 8 * k) _pas_mappedArrayWithTransform:&__block_literal_global_572];
+          v84 = [*(*(&v173 + 1) + 8 * k) _pas_mappedArrayWithTransform:&__block_literal_global_572];
           [v72 addObjectsFromArray:v84];
         }
 
-        v81 = [v80 countByEnumeratingWithState:&v174 objects:v191 count:16];
+        v81 = [v80 countByEnumeratingWithState:&v173 objects:v190 count:16];
       }
 
       while (v81);
@@ -745,55 +734,55 @@ LABEL_131:
 
     if ([v72 count])
     {
-      v171[0] = MEMORY[0x1E69E9820];
-      v171[1] = 3221225472;
-      v171[2] = __65___CDSpotlightItemUtils_interactionForSearchableItem_nsUserName___block_invoke_4;
-      v171[3] = &unk_1E73686A0;
-      v173 = obj;
-      v172 = v150;
-      v149 = [v72 _pas_mappedArrayWithTransform:v171];
-      recipientAddresses = v172;
+      v170[0] = MEMORY[0x1E69E9820];
+      v170[1] = 3221225472;
+      v170[2] = __65___CDSpotlightItemUtils_interactionForSearchableItem_nsUserName___block_invoke_4;
+      v170[3] = &unk_1E73686A0;
+      v172 = obj;
+      v171 = v149;
+      v148 = [v72 _pas_mappedArrayWithTransform:v170];
+      recipientAddresses = v171;
     }
 
     else
     {
-      recipientAddresses = [v159 recipientAddresses];
-      recipientEmailAddresses = [v159 recipientEmailAddresses];
-      recipientNames = [v159 recipientNames];
-      v149 = [(_CDSpotlightItemUtils *)obj _contactsForHandles:recipientAddresses emailAddresses:recipientEmailAddresses names:recipientNames];
+      recipientAddresses = [v158 recipientAddresses];
+      recipientEmailAddresses = [v158 recipientEmailAddresses];
+      recipientNames = [v158 recipientNames];
+      v148 = [(_CDSpotlightItemUtils *)obj _contactsForHandles:recipientAddresses emailAddresses:recipientEmailAddresses names:recipientNames];
     }
 
-    v169 = 0u;
-    v170 = 0u;
-    v167 = 0u;
     v168 = 0u;
-    obja = v150;
-    v88 = [obja countByEnumeratingWithState:&v167 objects:v189 count:16];
+    v169 = 0u;
+    v166 = 0u;
+    v167 = 0u;
+    obja = v149;
+    v88 = [obja countByEnumeratingWithState:&v166 objects:v188 count:16];
     if (v88)
     {
-      v89 = *v168;
+      v89 = *v167;
       while (2)
       {
         for (m = 0; m != v88; ++m)
         {
-          if (*v168 != v89)
+          if (*v167 != v89)
           {
             objc_enumerationMutation(obja);
           }
 
-          v91 = *(*(&v167 + 1) + 8 * m);
+          v91 = *(*(&v166 + 1) + 8 * m);
           identifier = [v91 identifier];
           v93 = [v55 containsObject:identifier];
 
           if (v93)
           {
             v94 = v91;
-            v148 = 1;
+            v147 = 1;
             goto LABEL_77;
           }
         }
 
-        v88 = [obja countByEnumeratingWithState:&v167 objects:v189 count:16];
+        v88 = [obja countByEnumeratingWithState:&v166 objects:v188 count:16];
         if (v88)
         {
           continue;
@@ -804,35 +793,35 @@ LABEL_131:
     }
 
     v94 = 0;
-    v148 = 0;
+    v147 = 0;
 LABEL_77:
 
-    v165[0] = MEMORY[0x1E69E9820];
-    v165[1] = 3221225472;
-    v165[2] = __65___CDSpotlightItemUtils_interactionForSearchableItem_nsUserName___block_invoke_5;
-    v165[3] = &unk_1E73686C8;
-    v144 = v55;
-    v166 = v144;
-    v95 = v149;
-    v96 = [v149 indexOfObjectPassingTest:v165];
+    v164[0] = MEMORY[0x1E69E9820];
+    v164[1] = 3221225472;
+    v164[2] = __65___CDSpotlightItemUtils_interactionForSearchableItem_nsUserName___block_invoke_5;
+    v164[3] = &unk_1E73686C8;
+    v143 = v55;
+    v165 = v143;
+    v95 = v148;
+    v96 = [v148 indexOfObjectPassingTest:v164];
     if (v96 == 0x7FFFFFFFFFFFFFFFLL)
     {
-      v147 = 0;
+      v146 = 0;
     }
 
     else
     {
-      v147 = [v149 objectAtIndexedSubscript:v96];
+      v146 = [v148 objectAtIndexedSubscript:v96];
 
-      v95 = v149;
+      v95 = v148;
     }
 
-    v164[0] = MEMORY[0x1E69E9820];
-    v164[1] = 3221225472;
-    v164[2] = __65___CDSpotlightItemUtils_interactionForSearchableItem_nsUserName___block_invoke_6;
-    v164[3] = &__block_descriptor_40_e23_B24__0___CDContact_8Q16l;
-    v164[4] = v96;
-    v151 = [v95 _pas_filteredArrayWithIndexedTest:v164];
+    v163[0] = MEMORY[0x1E69E9820];
+    v163[1] = 3221225472;
+    v163[2] = __65___CDSpotlightItemUtils_interactionForSearchableItem_nsUserName___block_invoke_6;
+    v163[3] = &__block_descriptor_40_e23_B24__0___CDContact_8Q16l;
+    v163[4] = v96;
+    v150 = [v95 _pas_filteredArrayWithIndexedTest:v163];
 
     if (v94)
     {
@@ -845,8 +834,8 @@ LABEL_77:
       [(_CDInteraction *)v7 setSender:firstObject];
     }
 
-    [(_CDInteraction *)v7 setRecipients:v151];
-    displayName = [v159 displayName];
+    [(_CDInteraction *)v7 setRecipients:v150];
+    displayName = [v158 displayName];
     [(_CDInteraction *)v7 setGroupName:displayName];
 
     bundleId2 = [(_CDInteraction *)v7 bundleId];
@@ -902,7 +891,7 @@ LABEL_86:
             {
               [(_CDInteraction *)v7 groupName];
               objc_claimAutoreleasedReturnValue();
-              [v158 uniqueIdentifier];
+              [v157 uniqueIdentifier];
               objc_claimAutoreleasedReturnValue();
               +[_CDSpotlightItemUtils interactionForSearchableItem:nsUserName:];
             }
@@ -914,12 +903,12 @@ LABEL_86:
     }
 
 LABEL_87:
-    [(_CDInteraction *)v7 setDirection:v148];
-    isExistingThread = [v159 isExistingThread];
+    [(_CDInteraction *)v7 setDirection:v147];
+    isExistingThread = [v158 isExistingThread];
 
     if (isExistingThread)
     {
-      isExistingThread2 = [v159 isExistingThread];
+      isExistingThread2 = [v158 isExistingThread];
       -[_CDInteraction setIsResponse:](v7, "setIsResponse:", [isExistingThread2 BOOLValue]);
     }
 
@@ -930,7 +919,7 @@ LABEL_87:
         goto LABEL_99;
       }
 
-      emailHeaders = [v159 emailHeaders];
+      emailHeaders = [v158 emailHeaders];
       isExistingThread2 = emailHeaders;
       if (emailHeaders)
       {
@@ -940,7 +929,7 @@ LABEL_87:
 
       else
       {
-        displayName3 = [v159 displayName];
+        displayName3 = [v158 displayName];
         -[_CDInteraction setIsResponse:](v7, "setIsResponse:", [displayName3 hasPrefix:@"Re:"]);
       }
     }
@@ -949,7 +938,7 @@ LABEL_99:
     if ([(_CDInteraction *)v7 mechanism]== 5)
     {
       v114 = objc_autoreleasePoolPush();
-      title = [v159 title];
+      title = [v158 title];
       v116 = [_CDStringTokenizer extractNormalizedKeywords:title];
       allObjects = [v116 allObjects];
       [(_CDInteraction *)v7 setKeywords:allObjects];
@@ -967,18 +956,18 @@ LABEL_99:
         }
       }
 
-      if (v148)
+      if (v147)
       {
         sender4 = [(_CDInteraction *)v7 sender];
         -[_CDInteraction setSelfParticipantStatus:](v7, "setSelfParticipantStatus:", [sender4 participantStatus]);
       }
 
-      else if (v147)
+      else if (v146)
       {
-        -[_CDInteraction setSelfParticipantStatus:](v7, "setSelfParticipantStatus:", [v147 participantStatus]);
+        -[_CDInteraction setSelfParticipantStatus:](v7, "setSelfParticipantStatus:", [v146 participantStatus]);
       }
 
-      [(_CDInteraction *)v7 setDirection:v148];
+      [(_CDInteraction *)v7 setDirection:v147];
 
       objc_autoreleasePoolPop(v114);
     }
@@ -997,27 +986,27 @@ LABEL_99:
       recipients2 = [(_CDInteraction *)v7 recipients];
       v127 = [v125 arrayWithCapacity:{objc_msgSend(recipients2, "count")}];
 
-      v162 = 0u;
-      v163 = 0u;
-      v160 = 0u;
       v161 = 0u;
+      v162 = 0u;
+      v159 = 0u;
+      v160 = 0u;
       recipients3 = [(_CDInteraction *)v7 recipients];
-      v129 = [recipients3 countByEnumeratingWithState:&v160 objects:v188 count:16];
+      v129 = [recipients3 countByEnumeratingWithState:&v159 objects:v187 count:16];
       v130 = v129;
       if (v129)
       {
-        v131 = *v161;
+        v131 = *v160;
         do
         {
           v132 = 0;
           do
           {
-            if (*v161 != v131)
+            if (*v160 != v131)
             {
               objc_enumerationMutation(recipients3);
             }
 
-            v133 = *(*(&v160 + 1) + 8 * v132);
+            v133 = *(*(&v159 + 1) + 8 * v132);
             v129 = __65___CDSpotlightItemUtils_interactionForSearchableItem_nsUserName___block_invoke_581(v129, v133);
             if ((v129 & 1) == 0)
             {
@@ -1028,7 +1017,7 @@ LABEL_99:
           }
 
           while (v130 != v132);
-          v129 = [recipients3 countByEnumeratingWithState:&v160 objects:v188 count:16];
+          v129 = [recipients3 countByEnumeratingWithState:&v159 objects:v187 count:16];
           v130 = v129;
         }
 
@@ -1082,8 +1071,6 @@ LABEL_126:
   v11 = 0;
 LABEL_141:
 
-  v142 = *MEMORY[0x1E69E9840];
-
   return v11;
 }
 
@@ -1114,7 +1101,7 @@ LABEL_141:
 
 + (id)_metadataForSearchableItem:(void *)item userAction:
 {
-  v75 = *MEMORY[0x1E69E9840];
+  v74 = *MEMORY[0x1E69E9840];
   v4 = a2;
   itemCopy = item;
   objc_opt_self();
@@ -1166,7 +1153,7 @@ LABEL_141:
     [v6 setObject:v26 forKeyedSubscript:v27];
   }
 
-  v69 = v26;
+  v68 = v26;
   attributeSet7 = [v4 attributeSet];
   shortcutAvailability = [attributeSet7 shortcutAvailability];
 
@@ -1204,12 +1191,12 @@ LABEL_141:
 
     if (v46)
     {
-      v68 = v22;
+      v67 = v22;
       v47 = [v46 copy];
       v48 = +[_DKApplicationActivityMetadataKey userActivityRequiredString];
       [v6 setObject:v47 forKeyedSubscript:v48];
 
-      v67 = v46;
+      v66 = v46;
       v49 = [objc_alloc(MEMORY[0x1E69636A8]) _initWithUserActivityStrings:v46 secondaryString:0 optionalData:0];
       v50 = v49;
       if (v49)
@@ -1218,25 +1205,25 @@ LABEL_141:
 
         if (userInfo)
         {
-          v72 = 0u;
-          v73 = 0u;
-          v70 = 0u;
           v71 = 0u;
-          v52 = [&unk_1F05EF248 countByEnumeratingWithState:&v70 objects:v74 count:16];
+          v72 = 0u;
+          v69 = 0u;
+          v70 = 0u;
+          v52 = [&unk_1F05EF248 countByEnumeratingWithState:&v69 objects:v73 count:16];
           if (v52)
           {
             v53 = v52;
-            v54 = *v71;
+            v54 = *v70;
             do
             {
               for (i = 0; i != v53; ++i)
               {
-                if (*v71 != v54)
+                if (*v70 != v54)
                 {
                   objc_enumerationMutation(&unk_1F05EF248);
                 }
 
-                v56 = *(*(&v70 + 1) + 8 * i);
+                v56 = *(*(&v69 + 1) + 8 * i);
                 userInfo2 = [v50 userInfo];
                 v58 = [userInfo2 objectForKeyedSubscript:v56];
 
@@ -1246,7 +1233,7 @@ LABEL_141:
                 }
               }
 
-              v53 = [&unk_1F05EF248 countByEnumeratingWithState:&v70 objects:v74 count:16];
+              v53 = [&unk_1F05EF248 countByEnumeratingWithState:&v69 objects:v73 count:16];
             }
 
             while (v53);
@@ -1254,8 +1241,8 @@ LABEL_141:
         }
       }
 
-      v22 = v68;
-      v46 = v67;
+      v22 = v67;
+      v46 = v66;
     }
   }
 
@@ -1276,8 +1263,6 @@ LABEL_141:
     v64 = +[_DKApplicationActivityMetadataKey itemIdentifier];
     [v6 setObject:itemIdentifier2 forKey:v64];
   }
-
-  v65 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -1550,49 +1535,49 @@ LABEL_141:
 
 + (id)knowledgeEventsForSearchableItem:(id)item userAction:(id)action
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   itemCopy = item;
   actionCopy = action;
-  v41 = objc_opt_new();
+  v40 = objc_opt_new();
   madeCurrentDates = [actionCopy madeCurrentDates];
-  v38 = [madeCurrentDates sortedArrayUsingSelector:sel_compare_];
+  v37 = [madeCurrentDates sortedArrayUsingSelector:sel_compare_];
 
-  v42 = actionCopy;
+  v41 = actionCopy;
   sentToIndexerDates = [actionCopy sentToIndexerDates];
   v8 = [sentToIndexerDates sortedArrayUsingSelector:sel_compare_];
 
-  v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
   v47 = 0u;
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
   obj = v8;
-  v39 = [obj countByEnumeratingWithState:&v46 objects:v50 count:16];
-  if (v39)
+  v38 = [obj countByEnumeratingWithState:&v45 objects:v49 count:16];
+  if (v38)
   {
-    v37 = *v47;
+    v36 = *v46;
     do
     {
       v9 = 0;
       do
       {
-        if (*v47 != v37)
+        if (*v46 != v36)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v46 + 1) + 8 * v9);
-        v44 = v9;
-        v45[0] = MEMORY[0x1E69E9820];
-        v45[1] = 3221225472;
-        v45[2] = __69___CDSpotlightItemUtils_knowledgeEventsForSearchableItem_userAction___block_invoke;
-        v45[3] = &unk_1E7368710;
-        v45[4] = v10;
-        v45[5] = 0x4000000000000000;
-        v11 = [v38 indexOfObjectPassingTest:v45];
+        v10 = *(*(&v45 + 1) + 8 * v9);
+        v43 = v9;
+        v44[0] = MEMORY[0x1E69E9820];
+        v44[1] = 3221225472;
+        v44[2] = __69___CDSpotlightItemUtils_knowledgeEventsForSearchableItem_userAction___block_invoke;
+        v44[3] = &unk_1E7368710;
+        v44[4] = v10;
+        v44[5] = 0x4000000000000000;
+        v11 = [v37 indexOfObjectPassingTest:v44];
         bundleID = [itemCopy bundleID];
         v13 = [_DKSource sourceForSearchableItem:itemCopy bundleID:bundleID];
 
-        v14 = [(_CDSpotlightItemUtils *)self _metadataForSearchableItem:itemCopy userAction:v42];
+        v14 = [(_CDSpotlightItemUtils *)self _metadataForSearchableItem:itemCopy userAction:v41];
         v15 = [v14 mutableCopy];
 
         v16 = v11 != 0x7FFFFFFFFFFFFFFFLL;
@@ -1605,11 +1590,11 @@ LABEL_141:
         v21 = [_DKBundleIdentifier withBundle:bundleID2];
         v22 = [v15 copy];
         v23 = [_DKEvent eventWithStream:v19 source:v13 startDate:v10 endDate:v10 value:v21 confidence:v22 metadata:1.0];
-        [v41 addObject:v23];
+        [v40 addObject:v23];
 
         if ([_CDSpotlightItemUtils isLocationBasedItem:itemCopy])
         {
-          v24 = [self _locationMetadataForSearchableItem:itemCopy userAction:v42];
+          v24 = [self _locationMetadataForSearchableItem:itemCopy userAction:v41];
           v25 = [v24 mutableCopy];
 
           v26 = [MEMORY[0x1E696AD98] numberWithInt:v16];
@@ -1621,21 +1606,20 @@ LABEL_141:
           v30 = [_DKBundleIdentifier withBundle:bundleID3];
           v31 = [v25 copy];
           v32 = [_DKEvent eventWithStream:v28 source:v13 startDate:v10 endDate:v10 value:v30 confidence:v31 metadata:1.0];
-          [v41 addObject:v32];
+          [v40 addObject:v32];
         }
 
         ++v9;
       }
 
-      while (v39 != v44 + 1);
-      v39 = [obj countByEnumeratingWithState:&v46 objects:v50 count:16];
+      while (v38 != v43 + 1);
+      v38 = [obj countByEnumeratingWithState:&v45 objects:v49 count:16];
     }
 
-    while (v39);
+    while (v38);
   }
 
-  v33 = [v41 copy];
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = [v40 copy];
 
   return v33;
 }
@@ -1703,7 +1687,7 @@ LABEL_141:
 
 + (id)messageContextDictionaryForSendMessageIntent:(id)intent
 {
-  v42[1] = *MEMORY[0x1E69E9840];
+  v41[1] = *MEMORY[0x1E69E9840];
   intentCopy = intent;
   v4 = objc_alloc_init(MEMORY[0x1E695DF90]);
   incomingKey = [get_CDContextQueriesClass() incomingKey];
@@ -1721,8 +1705,8 @@ LABEL_141:
 
   if (handle)
   {
-    v42[0] = handle;
-    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v42 count:1];
+    v41[0] = handle;
+    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v41 count:1];
   }
 
   else
@@ -1730,7 +1714,7 @@ LABEL_141:
     v10 = MEMORY[0x1E695E0F0];
   }
 
-  v36 = conversationIdentifier;
+  v35 = conversationIdentifier;
   senderHandlesKey = [get_CDContextQueriesClass() senderHandlesKey];
   [v4 setObject:v10 forKeyedSubscript:senderHandlesKey];
 
@@ -1738,7 +1722,7 @@ LABEL_141:
   {
   }
 
-  v35 = handle;
+  v34 = handle;
   sender2 = [intentCopy sender];
   contactIdentifier = [sender2 contactIdentifier];
 
@@ -1748,29 +1732,29 @@ LABEL_141:
     [v4 setObject:contactIdentifier forKeyedSubscript:senderContactIDKey];
   }
 
-  v34 = contactIdentifier;
+  v33 = contactIdentifier;
   v15 = objc_alloc_init(MEMORY[0x1E695DFA8]);
   v16 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
   recipients = [intentCopy recipients];
-  v18 = [recipients countByEnumeratingWithState:&v37 objects:v41 count:16];
+  v18 = [recipients countByEnumeratingWithState:&v36 objects:v40 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v38;
+    v20 = *v37;
     do
     {
       for (i = 0; i != v19; ++i)
       {
-        if (*v38 != v20)
+        if (*v37 != v20)
         {
           objc_enumerationMutation(recipients);
         }
 
-        v22 = *(*(&v37 + 1) + 8 * i);
+        v22 = *(*(&v36 + 1) + 8 * i);
         handle2 = [v22 handle];
         if (handle2)
         {
@@ -1784,7 +1768,7 @@ LABEL_141:
         }
       }
 
-      v19 = [recipients countByEnumeratingWithState:&v37 objects:v41 count:16];
+      v19 = [recipients countByEnumeratingWithState:&v36 objects:v40 count:16];
     }
 
     while (v19);
@@ -1807,8 +1791,6 @@ LABEL_141:
 
   v31 = [v4 copy];
 
-  v32 = *MEMORY[0x1E69E9840];
-
   return v31;
 }
 
@@ -1816,16 +1798,16 @@ LABEL_141:
 {
   messagesCopy = messages;
   mailCopy = mail;
-  v19[2] = *MEMORY[0x1E69E9840];
+  v18[2] = *MEMORY[0x1E69E9840];
   dateCopy = date;
   endDateCopy = endDate;
   if (mailCopy && messagesCopy)
   {
     v11 = +[_CDSpotlightQuerier queryStringForMail];
-    v19[0] = v11;
+    v18[0] = v11;
     v12 = +[_CDSpotlightQuerier queryStringForMessages];
-    v19[1] = v12;
-    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:2];
+    v18[1] = v12;
+    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
     v14 = [_CDSpotlightQuerier orQueryStrings:v13];
 
     if (!v14)
@@ -1864,8 +1846,6 @@ LABEL_11:
   v16 = MEMORY[0x1E695E0F0];
 LABEL_12:
 
-  v17 = *MEMORY[0x1E69E9840];
-
   return v16;
 }
 
@@ -1894,14 +1874,14 @@ LABEL_12:
     +[_CDSpotlightItemUtils mechanismUtiMap];
   }
 
-  v0 = mechanismUtiMap_mechanismUtiMap;
+  v1 = mechanismUtiMap_mechanismUtiMap;
 
-  return v0;
+  return v1;
 }
 
 + (id)expectedUTIsForMechanism:(int64_t)mechanism
 {
-  v4 = +[_CDSpotlightItemUtils mechanismUtiMap];
+  v4 = +[(_CDSpotlightItemUtils *)self];
   v5 = [MEMORY[0x1E696AD98] numberWithInteger:mechanism];
   v6 = [v4 objectForKeyedSubscript:v5];
 
@@ -1940,24 +1920,24 @@ LABEL_12:
 
 + (BOOL)contentTypeTree:(id)tree conformsToUTIType:(id)type
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   treeCopy = tree;
   typeCopy = type;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v8 = treeCopy;
-  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v17;
+    v11 = *v16;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v17 != v11)
+        if (*v16 != v11)
         {
           objc_enumerationMutation(v8);
         }
@@ -1969,7 +1949,7 @@ LABEL_12:
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v10)
       {
         continue;
@@ -1982,23 +1962,22 @@ LABEL_12:
   v13 = 0;
 LABEL_11:
 
-  v14 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
 + (uint64_t)utType:(void *)type conformsTo:
 {
-  v17[2] = *MEMORY[0x1E69E9840];
+  v16[2] = *MEMORY[0x1E69E9840];
   v4 = a2;
   typeCopy = type;
   v6 = objc_opt_self();
   if (typeCopy)
   {
     v7 = v6;
-    v8 = +[_CDSpotlightItemUtils utiConformCache];
-    v17[0] = v4;
-    v17[1] = typeCopy;
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:2];
+    v8 = +[(_CDSpotlightItemUtils *)v6];
+    v16[0] = v4;
+    v16[1] = typeCopy;
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
     v10 = v8;
     objc_sync_enter(v10);
     v11 = [v10 objectForKeyedSubscript:v9];
@@ -2023,37 +2002,36 @@ LABEL_11:
     bOOLValue = 0;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return bOOLValue;
 }
 
 + (uint64_t)contentTypeTree:(void *)tree conformsToUTITypes:
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v4 = a2;
   treeCopy = tree;
   v6 = objc_opt_self();
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v7 = treeCopy;
-  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v15;
     while (2)
     {
       v11 = 0;
       do
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        if ([v6 contentTypeTree:v4 conformsToUTIType:{*(*(&v15 + 1) + 8 * v11), v15}])
+        if ([v6 contentTypeTree:v4 conformsToUTIType:{*(*(&v14 + 1) + 8 * v11), v14}])
         {
           v12 = 1;
           goto LABEL_11;
@@ -2063,7 +2041,7 @@ LABEL_11:
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v9)
       {
         continue;
@@ -2076,7 +2054,6 @@ LABEL_11:
   v12 = 0;
 LABEL_11:
 
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -2088,14 +2065,14 @@ LABEL_11:
     +[_CDSpotlightItemUtils utiConformCache];
   }
 
-  v0 = utiConformCache_utiConformCache;
+  v1 = utiConformCache_utiConformCache;
 
-  return v0;
+  return v1;
 }
 
 + (int64_t)getInteractionMechanismForContentUTI:(id)i typeTree:(id)tree
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   iCopy = i;
   treeCopy = tree;
   v8 = [MEMORY[0x1E695E0F0] mutableCopy];
@@ -2108,31 +2085,31 @@ LABEL_11:
       [v9 addObjectsFromArray:treeCopy];
     }
 
-    v23 = treeCopy;
-    v10 = +[_CDSpotlightItemUtils mechanismUtiMap];
+    v22 = treeCopy;
+    v10 = +[(_CDSpotlightItemUtils *)self];
     allKeys = [v10 allKeys];
 
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     v12 = allKeys;
-    v13 = [v12 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v25;
+      v15 = *v24;
       while (2)
       {
         v16 = 0;
         do
         {
-          if (*v25 != v15)
+          if (*v24 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          integerValue = [*(*(&v24 + 1) + 8 * v16) integerValue];
+          integerValue = [*(*(&v23 + 1) + 8 * v16) integerValue];
           v18 = [self expectedUTIsForMechanism:integerValue];
           v19 = [(_CDSpotlightItemUtils *)self contentTypeTree:v9 conformsToUTITypes:v18];
 
@@ -2146,7 +2123,7 @@ LABEL_11:
         }
 
         while (v14 != v16);
-        v14 = [v12 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
         if (v14)
         {
           continue;
@@ -2164,7 +2141,7 @@ LABEL_11:
 
     integerValue = 7;
 LABEL_16:
-    treeCopy = v23;
+    treeCopy = v22;
   }
 
   else
@@ -2178,94 +2155,74 @@ LABEL_16:
     integerValue = 7;
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return integerValue;
 }
 
 + (void)_contactForPerson:.cold.1()
 {
   OUTLINED_FUNCTION_6();
-  v7 = *MEMORY[0x1E69E9840];
   v0 = objc_opt_class();
   v1 = NSStringFromClass(v0);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_15();
   _os_log_fault_impl(v2, v3, OS_LOG_TYPE_FAULT, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 + (void)_contactForPerson:.cold.2()
 {
   OUTLINED_FUNCTION_6();
-  v9 = *MEMORY[0x1E69E9840];
   v1 = [v0 contactIdentifier];
   v2 = objc_opt_class();
   v3 = NSStringFromClass(v2);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_15();
   _os_log_fault_impl(v4, v5, OS_LOG_TYPE_FAULT, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 + (void)isSearchableItemInSubscribedCalendar:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_class();
-  v9 = [a2 uniqueIdentifier];
+  v8 = [a2 uniqueIdentifier];
   OUTLINED_FUNCTION_15();
   _os_log_fault_impl(v4, v5, OS_LOG_TYPE_FAULT, v6, v7, 0x20u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 + (void)isAllowedSearchableItem:.cold.1()
 {
   OUTLINED_FUNCTION_6();
-  v10 = *MEMORY[0x1E69E9840];
   v2 = [v1 uniqueIdentifier];
   v3 = [v0 attributeSet];
   v4 = [v3 calendarDelegateIdentifier];
   OUTLINED_FUNCTION_3_7();
   OUTLINED_FUNCTION_15();
   _os_log_debug_impl(v5, v6, OS_LOG_TYPE_DEBUG, v7, v8, 0x20u);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 + (void)isAllowedSearchableItem:.cold.2()
 {
   OUTLINED_FUNCTION_6();
-  v7 = *MEMORY[0x1E69E9840];
   v1 = [v0 uniqueIdentifier];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_15();
   _os_log_debug_impl(v2, v3, OS_LOG_TYPE_DEBUG, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 + (void)isAllowedSearchableItem:.cold.3()
 {
   OUTLINED_FUNCTION_6();
-  v10 = *MEMORY[0x1E69E9840];
   v2 = [v1 uniqueIdentifier];
   v3 = [v0 attributeSet];
   v4 = [v3 containerDisplayName];
   OUTLINED_FUNCTION_3_7();
   OUTLINED_FUNCTION_15();
   _os_log_debug_impl(v5, v6, OS_LOG_TYPE_DEBUG, v7, v8, 0x20u);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 + (void)interactionForSearchableItem:nsUserName:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(&dword_191750000, v0, OS_LOG_TYPE_DEBUG, "Converting searchable item: %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_191750000, v0, OS_LOG_TYPE_DEBUG, "Converting searchable item: %@", v1, 0xCu);
 }
 
 + (void)interactionForSearchableItem:nsUserName:.cold.3()
@@ -2280,18 +2237,16 @@ LABEL_16:
 
 + (void)interactionForSearchableItem:nsUserName:.cold.4()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  _os_log_fault_impl(&dword_191750000, v0, OS_LOG_TYPE_FAULT, "While converting CSSearchableItem into _CDInteraction: %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_191750000, v0, OS_LOG_TYPE_FAULT, "While converting CSSearchableItem into _CDInteraction: %@", v1, 0xCu);
 }
 
 + (void)interactionForSearchableItem:nsUserName:.cold.5()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(&dword_191750000, v0, OS_LOG_TYPE_DEBUG, "Recording interaction: %{sensitive}@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_191750000, v0, OS_LOG_TYPE_DEBUG, "Recording interaction: %{sensitive}@", v1, 0xCu);
 }
 
 @end

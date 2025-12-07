@@ -13,38 +13,34 @@ void __remoteXPCRoutingContext_DeadConnectionCallback_block_invoke(uint64_t a1)
 
 void __routingSessionManagerRemote_DeadConnectionCallback_block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v4 = *(DerivedStorage + 16);
   FigSimpleMutexLock();
-  v5 = *(DerivedStorage + 24);
-  v6 = FigCFDictionaryCopyArrayOfValues();
+  v3 = FigCFDictionaryCopyArrayOfValues();
   CFDictionaryRemoveAllValues(*(DerivedStorage + 24));
-  v7 = *(DerivedStorage + 16);
   FigSimpleMutexUnlock();
-  if (v6)
+  if (v3)
   {
-    if (CFArrayGetCount(v6) >= 1)
+    if (CFArrayGetCount(v3) >= 1)
     {
-      v8 = 0;
+      v4 = 0;
       do
       {
-        ValueAtIndex = CFArrayGetValueAtIndex(v6, v8);
+        ValueAtIndex = CFArrayGetValueAtIndex(v3, v4);
         routingSessionManagerRemote_runOneCallback(ValueAtIndex, 4294951902);
-        ++v8;
+        ++v4;
       }
 
-      while (v8 < CFArrayGetCount(v6));
+      while (v4 < CFArrayGetCount(v3));
     }
 
-    CFRelease(v6);
+    CFRelease(v3);
   }
 
-  v10 = *(a1 + 32);
-  if (v10)
+  v6 = *(a1 + 32);
+  if (v6)
   {
 
-    CFRelease(v10);
+    CFRelease(v6);
   }
 }
 

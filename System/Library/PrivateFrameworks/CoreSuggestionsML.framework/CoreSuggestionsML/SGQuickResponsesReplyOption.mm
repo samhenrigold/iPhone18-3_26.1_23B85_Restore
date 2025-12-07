@@ -77,7 +77,7 @@
 
 + (id)imputedDisplayedForRecords:(id)records config:(id)config
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   recordsCopy = records;
   [recordsCopy totalDisplayed];
   v6 = v5;
@@ -86,27 +86,27 @@
   [recordsCopy totalUnmatched];
   v10 = v9;
   v11 = objc_opt_new();
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   replyRecords = [recordsCopy replyRecords];
-  v13 = [replyRecords countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v13 = [replyRecords countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v13)
   {
     v14 = v13;
     v15 = fmax(v6 - v8, 0.0);
-    v16 = *v28;
+    v16 = *v27;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v28 != v16)
+        if (*v27 != v16)
         {
           objc_enumerationMutation(replyRecords);
         }
 
-        v18 = *(*(&v27 + 1) + 8 * i);
+        v18 = *(*(&v26 + 1) + 8 * i);
         [v18 displayed];
         v20 = v19;
         [v18 selected];
@@ -116,45 +116,43 @@
         [v11 addObject:v24];
       }
 
-      v14 = [replyRecords countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v14 = [replyRecords countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
     while (v14);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 + (double)totalDisplayedCountForRecords:(id)records
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   replyRecords = [records replyRecords];
-  v4 = [replyRecords countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [replyRecords countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     v7 = 0.0;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(replyRecords);
         }
 
-        [*(*(&v12 + 1) + 8 * i) displayed];
+        [*(*(&v11 + 1) + 8 * i) displayed];
         v7 = v7 + v9;
       }
 
-      v5 = [replyRecords countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [replyRecords countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
@@ -165,7 +163,6 @@
     v7 = 0.0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v7;
 }
 

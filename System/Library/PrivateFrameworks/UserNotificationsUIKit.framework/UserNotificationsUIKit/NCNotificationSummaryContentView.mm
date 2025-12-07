@@ -256,7 +256,7 @@
   }
 }
 
-void __56__NCNotificationSummaryContentView_setSummaryIconViews___block_invoke(uint64_t a1, void *a2, unint64_t a3)
+void __56__NCNotificationSummaryContentView_setSummaryIconViews___block_invoke(uint64_t a1, void *a2, char *a3)
 {
   v5 = a2;
   if ([*(*(a1 + 32) + 432) count] >= 2 && objc_msgSend(*(*(a1 + 32) + 432), "count") - 1 > a3)

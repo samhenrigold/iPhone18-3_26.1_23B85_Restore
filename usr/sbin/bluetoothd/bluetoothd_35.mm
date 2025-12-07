@@ -1,4 +1,193 @@
-uint64_t sub_1002633E8(_WORD *a1, char a2, int a3, int a4, int a5, int a6, int a7, int a8, char a9, uint64_t (*a10)())
+uint64_t sub_100262ED0(_BYTE *a1, char a2, __int16 a3, __int16 a4, __int16 a5, __int16 a6, void (*a7)())
+{
+  v33 = 0;
+  v34 = 0;
+  result = sub_10001FFD8(&v33);
+  if (!result)
+  {
+    if (HIBYTE(v34))
+    {
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4391, "OI_STATUS _BCM_WriteLinkQualityMode(OI_HCI_CONNECTION_HANDLE, _Bool, uint16_t, uint16_t, uint16_t, uint16_t, BT_VSC_COMPLETE_CB)");
+    }
+
+    else if (WORD1(v34) - WORD2(v34) > 3)
+    {
+      if (BYTE6(v34) == 2)
+      {
+        *(v33 + WORD2(v34)) = 8;
+        *(v33 + WORD2(v34) + 1) = 0;
+        *(v33 + WORD2(v34) + 3) = 0;
+        v18 = WORD2(v34) + 4;
+        WORD2(v34) += 4;
+        if (HIBYTE(v34))
+        {
+          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4392, "OI_STATUS _BCM_WriteLinkQualityMode(OI_HCI_CONNECTION_HANDLE, _Bool, uint16_t, uint16_t, uint16_t, uint16_t, BT_VSC_COMPLETE_CB)");
+        }
+
+        else if (WORD1(v34) - v18 > 1)
+        {
+          if (BYTE6(v34) == 2)
+          {
+            *(v33 + v18) = *a1;
+            *(v33 + WORD2(v34) + 1) = a1[1];
+            v19 = WORD2(v34);
+            v20 = WORD2(v34) + 2;
+            WORD2(v34) += 2;
+            if (HIBYTE(v34))
+            {
+              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4393, "OI_STATUS _BCM_WriteLinkQualityMode(OI_HCI_CONNECTION_HANDLE, _Bool, uint16_t, uint16_t, uint16_t, uint16_t, BT_VSC_COMPLETE_CB)");
+            }
+
+            else if (WORD1(v34) > v20)
+            {
+              if (BYTE6(v34) == 2)
+              {
+                WORD2(v34) = v19 + 3;
+                *(v33 + v20) = a2;
+                if (HIBYTE(v34))
+                {
+                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4394, "OI_STATUS _BCM_WriteLinkQualityMode(OI_HCI_CONNECTION_HANDLE, _Bool, uint16_t, uint16_t, uint16_t, uint16_t, BT_VSC_COMPLETE_CB)");
+                }
+
+                else
+                {
+                  v21 = WORD2(v34);
+                  if (WORD1(v34) > WORD2(v34))
+                  {
+                    if (BYTE6(v34) == 2)
+                    {
+                      ++WORD2(v34);
+                      *(v33 + v21) = 0;
+                      if (HIBYTE(v34))
+                      {
+                        sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4395, "OI_STATUS _BCM_WriteLinkQualityMode(OI_HCI_CONNECTION_HANDLE, _Bool, uint16_t, uint16_t, uint16_t, uint16_t, BT_VSC_COMPLETE_CB)");
+                      }
+
+                      else if (WORD1(v34) - WORD2(v34) > 1)
+                      {
+                        if (BYTE6(v34) == 2)
+                        {
+                          *(v33 + WORD2(v34)) = a3;
+                          v22 = WORD2(v34) + 2;
+                          WORD2(v34) += 2;
+                          if (HIBYTE(v34))
+                          {
+                            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4396, "OI_STATUS _BCM_WriteLinkQualityMode(OI_HCI_CONNECTION_HANDLE, _Bool, uint16_t, uint16_t, uint16_t, uint16_t, BT_VSC_COMPLETE_CB)");
+                          }
+
+                          else if (WORD1(v34) - v22 > 1)
+                          {
+                            if (BYTE6(v34) == 2)
+                            {
+                              *(v33 + v22) = a4;
+                              *(v33 + WORD2(v34) + 1) = HIBYTE(a4);
+                              v23 = WORD2(v34) + 2;
+                              WORD2(v34) += 2;
+                              if (HIBYTE(v34))
+                              {
+                                sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4397, "OI_STATUS _BCM_WriteLinkQualityMode(OI_HCI_CONNECTION_HANDLE, _Bool, uint16_t, uint16_t, uint16_t, uint16_t, BT_VSC_COMPLETE_CB)");
+                              }
+
+                              else if (WORD1(v34) - v23 > 1)
+                              {
+                                if (BYTE6(v34) == 2)
+                                {
+                                  *(v33 + v23) = a5;
+                                  *(v33 + WORD2(v34) + 1) = HIBYTE(a5);
+                                  v24 = WORD2(v34) + 2;
+                                  WORD2(v34) += 2;
+                                  if (HIBYTE(v34))
+                                  {
+                                    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4398, "OI_STATUS _BCM_WriteLinkQualityMode(OI_HCI_CONNECTION_HANDLE, _Bool, uint16_t, uint16_t, uint16_t, uint16_t, BT_VSC_COMPLETE_CB)");
+                                  }
+
+                                  else if (WORD1(v34) - v24 > 1)
+                                  {
+                                    if (BYTE6(v34) == 2)
+                                    {
+                                      *(v33 + v24) = a6;
+                                      *(v33 + WORD2(v34) + 1) = HIBYTE(a6);
+                                      WORD2(v34) += 2;
+                                      return sub_100020078(226, v33, BYTE4(v34), a7, sub_100022AD0, v15, v16, v17);
+                                    }
+
+                                    v32 = "(bs).__RWFlag == BYTESTREAM_WRITE";
+LABEL_59:
+                                    sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4398, v32);
+                                  }
+
+                                  v32 = "ByteStream_NumReadBytesAvail(bs) >= 2";
+                                  goto LABEL_59;
+                                }
+
+                                v31 = "(bs).__RWFlag == BYTESTREAM_WRITE";
+LABEL_55:
+                                sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4397, v31);
+                              }
+
+                              v31 = "ByteStream_NumReadBytesAvail(bs) >= 2";
+                              goto LABEL_55;
+                            }
+
+                            v30 = "(bs).__RWFlag == BYTESTREAM_WRITE";
+LABEL_51:
+                            sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4396, v30);
+                          }
+
+                          v30 = "ByteStream_NumReadBytesAvail(bs) >= 2";
+                          goto LABEL_51;
+                        }
+
+                        v29 = "(bs).__RWFlag == BYTESTREAM_WRITE";
+LABEL_47:
+                        sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4395, v29);
+                      }
+
+                      v29 = "ByteStream_NumReadBytesAvail(bs) >= 2";
+                      goto LABEL_47;
+                    }
+
+                    v28 = "(bs).__RWFlag == BYTESTREAM_WRITE";
+LABEL_43:
+                    sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4394, v28);
+                  }
+                }
+
+                v28 = "ByteStream_NumReadBytesAvail(bs) >= 1";
+                goto LABEL_43;
+              }
+
+              v27 = "(bs).__RWFlag == BYTESTREAM_WRITE";
+LABEL_39:
+              sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4393, v27);
+            }
+
+            v27 = "ByteStream_NumReadBytesAvail(bs) >= 1";
+            goto LABEL_39;
+          }
+
+          v26 = "(bs).__RWFlag == BYTESTREAM_WRITE";
+LABEL_35:
+          sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4392, v26);
+        }
+
+        v26 = "ByteStream_NumReadBytesAvail(bs) >= 2";
+        goto LABEL_35;
+      }
+
+      v25 = "(bs).__RWFlag == BYTESTREAM_WRITE";
+LABEL_31:
+      sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4391, v25);
+    }
+
+    v25 = "ByteStream_NumReadBytesAvail(bs) >= 4";
+    goto LABEL_31;
+  }
+
+  return result;
+}
+
+uint64_t sub_1002633E8(_WORD *a1, char a2, int a3, int a4, int a5, int a6, int a7, int a8, char a9, void (*a10)())
 {
   v34 = 0;
   v35 = 0;
@@ -67,7 +256,7 @@ uint64_t sub_1002633E8(_WORD *a1, char a2, int a3, int a4, int a5, int a6, int a
   {
     if (HIBYTE(v35))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4417, "OI_STATUS _BCM_WriteEnhancedLinkQualityMode(OI_HCI_CONNECTION_HANDLE, _Bool, _Bool, _Bool, _Bool, _Bool, _Bool, _Bool, uint8_t, BT_VSC_COMPLETE_CB)");
     }
 
     else if (WORD1(v35) - WORD2(v35) > 1)
@@ -80,7 +269,7 @@ uint64_t sub_1002633E8(_WORD *a1, char a2, int a3, int a4, int a5, int a6, int a
         WORD2(v35) += 2;
         if (HIBYTE(v35))
         {
-          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4418, "OI_STATUS _BCM_WriteEnhancedLinkQualityMode(OI_HCI_CONNECTION_HANDLE, _Bool, _Bool, _Bool, _Bool, _Bool, _Bool, _Bool, uint8_t, BT_VSC_COMPLETE_CB)");
         }
 
         else if (WORD1(v35) > v29)
@@ -91,7 +280,7 @@ uint64_t sub_1002633E8(_WORD *a1, char a2, int a3, int a4, int a5, int a6, int a
             *(v34 + v29) = v22 | a2 | v23 | v24 | v25 | v26 | v27;
             if (HIBYTE(v35))
             {
-              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4419, "OI_STATUS _BCM_WriteEnhancedLinkQualityMode(OI_HCI_CONNECTION_HANDLE, _Bool, _Bool, _Bool, _Bool, _Bool, _Bool, _Bool, uint8_t, BT_VSC_COMPLETE_CB)");
             }
 
             else
@@ -137,7 +326,7 @@ LABEL_34:
   return result;
 }
 
-uint64_t sub_100263664(int a1, uint64_t (*a2)())
+uint64_t sub_100263664(int a1, void (*a2)())
 {
   v13 = 0;
   v14 = 0;
@@ -150,7 +339,7 @@ uint64_t sub_100263664(int a1, uint64_t (*a2)())
     {
       if (HIBYTE(v14))
       {
-        sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+        sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4436, "OI_STATUS _BCM_WriteSleepMode(uint8_t, BT_VSC_COMPLETE_CB)");
       }
 
       else if (WORD1(v14) - WORD2(v14) > 11)
@@ -178,7 +367,7 @@ LABEL_16:
 
     if (HIBYTE(v14))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4438, "OI_STATUS _BCM_WriteSleepMode(uint8_t, BT_VSC_COMPLETE_CB)");
     }
 
     else if (WORD1(v14) - WORD2(v14) > 11)
@@ -201,7 +390,7 @@ LABEL_20:
   return result;
 }
 
-uint64_t sub_100263800(int a1, uint64_t (*a2)())
+uint64_t sub_100263800(int a1, void (*a2)())
 {
   v10 = 0;
   v11 = 0;
@@ -210,7 +399,7 @@ uint64_t sub_100263800(int a1, uint64_t (*a2)())
   {
     if (HIBYTE(v11))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4453, "OI_STATUS _BCM_PowerLDODuringSleep(uint8_t, BT_VSC_COMPLETE_CB)");
     }
 
     else
@@ -238,7 +427,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t sub_1002638E0(char *a1, uint64_t (*a2)())
+uint64_t sub_1002638E0(char *a1, void (*a2)())
 {
   v40 = 0;
   v41 = 0;
@@ -247,7 +436,7 @@ uint64_t sub_1002638E0(char *a1, uint64_t (*a2)())
   {
     if (HIBYTE(v41))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4468, "OI_STATUS _BCM_AntennaDiversity(BT_VSCDiversityParams_t *, BT_VSC_BYTESTREAM_CB)");
     }
 
     else
@@ -262,7 +451,7 @@ uint64_t sub_1002638E0(char *a1, uint64_t (*a2)())
           *(v40 + v8) = v9;
           if (HIBYTE(v41))
           {
-            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4469, "OI_STATUS _BCM_AntennaDiversity(BT_VSCDiversityParams_t *, BT_VSC_BYTESTREAM_CB)");
           }
 
           else if (WORD1(v41) - WORD2(v41) > 1)
@@ -280,7 +469,7 @@ uint64_t sub_1002638E0(char *a1, uint64_t (*a2)())
 
               if (HIBYTE(v41))
               {
-                sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4472, "OI_STATUS _BCM_AntennaDiversity(BT_VSCDiversityParams_t *, BT_VSC_BYTESTREAM_CB)");
               }
 
               else if (WORD1(v41) > v11)
@@ -292,7 +481,7 @@ uint64_t sub_1002638E0(char *a1, uint64_t (*a2)())
                   *(v40 + v11) = v12;
                   if (HIBYTE(v41))
                   {
-                    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4473, "OI_STATUS _BCM_AntennaDiversity(BT_VSCDiversityParams_t *, BT_VSC_BYTESTREAM_CB)");
                   }
 
                   else
@@ -307,7 +496,7 @@ uint64_t sub_1002638E0(char *a1, uint64_t (*a2)())
                         *(v40 + v13) = v14;
                         if (HIBYTE(v41))
                         {
-                          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4474, "OI_STATUS _BCM_AntennaDiversity(BT_VSCDiversityParams_t *, BT_VSC_BYTESTREAM_CB)");
                         }
 
                         else
@@ -322,7 +511,7 @@ uint64_t sub_1002638E0(char *a1, uint64_t (*a2)())
                               *(v40 + v15) = v16;
                               if (HIBYTE(v41))
                               {
-                                sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4475, "OI_STATUS _BCM_AntennaDiversity(BT_VSCDiversityParams_t *, BT_VSC_BYTESTREAM_CB)");
                               }
 
                               else if (WORD1(v41) - WORD2(v41) > 1)
@@ -334,7 +523,7 @@ uint64_t sub_1002638E0(char *a1, uint64_t (*a2)())
                                   WORD2(v41) += 2;
                                   if (HIBYTE(v41))
                                   {
-                                    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4476, "OI_STATUS _BCM_AntennaDiversity(BT_VSCDiversityParams_t *, BT_VSC_BYTESTREAM_CB)");
                                   }
 
                                   else if (WORD1(v41) - v17 > 1)
@@ -348,7 +537,7 @@ uint64_t sub_1002638E0(char *a1, uint64_t (*a2)())
                                       WORD2(v41) += 2;
                                       if (HIBYTE(v41))
                                       {
-                                        sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                        sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4477, "OI_STATUS _BCM_AntennaDiversity(BT_VSCDiversityParams_t *, BT_VSC_BYTESTREAM_CB)");
                                       }
 
                                       else if (WORD1(v41) > v19)
@@ -360,7 +549,7 @@ uint64_t sub_1002638E0(char *a1, uint64_t (*a2)())
                                           *(v40 + v19) = v20;
                                           if (HIBYTE(v41))
                                           {
-                                            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4478, "OI_STATUS _BCM_AntennaDiversity(BT_VSCDiversityParams_t *, BT_VSC_BYTESTREAM_CB)");
                                           }
 
                                           else
@@ -375,7 +564,7 @@ uint64_t sub_1002638E0(char *a1, uint64_t (*a2)())
                                                 *(v40 + v21) = v22;
                                                 if (HIBYTE(v41))
                                                 {
-                                                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4479, "OI_STATUS _BCM_AntennaDiversity(BT_VSCDiversityParams_t *, BT_VSC_BYTESTREAM_CB)");
                                                 }
 
                                                 else
@@ -390,7 +579,7 @@ uint64_t sub_1002638E0(char *a1, uint64_t (*a2)())
                                                       *(v40 + v23) = v24;
                                                       if (HIBYTE(v41))
                                                       {
-                                                        sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                                        sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4480, "OI_STATUS _BCM_AntennaDiversity(BT_VSCDiversityParams_t *, BT_VSC_BYTESTREAM_CB)");
                                                       }
 
                                                       else
@@ -405,7 +594,7 @@ uint64_t sub_1002638E0(char *a1, uint64_t (*a2)())
                                                             *(v40 + v25) = v26;
                                                             if (HIBYTE(v41))
                                                             {
-                                                              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                                              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4481, "OI_STATUS _BCM_AntennaDiversity(BT_VSCDiversityParams_t *, BT_VSC_BYTESTREAM_CB)");
                                                             }
 
                                                             else
@@ -544,7 +733,7 @@ uint64_t *sub_100263F70(uint64_t *result, char *a2)
 {
   if (*(result + 15))
   {
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4493, "void _BCM_WriteDiversityAFHMap(OI_BYTE_STREAM *, BT_VSCDiversityAFHMap_t *)");
     goto LABEL_18;
   }
 
@@ -569,7 +758,7 @@ LABEL_20:
   *(v4 + v2) = v3;
   if (*(result + 15))
   {
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4494, "void _BCM_WriteDiversityAFHMap(OI_BYTE_STREAM *, BT_VSCDiversityAFHMap_t *)");
     goto LABEL_22;
   }
 
@@ -596,7 +785,7 @@ LABEL_24:
   {
     if (*(result + 15))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4496, "void _BCM_WriteDiversityAFHMap(OI_BYTE_STREAM *, BT_VSCDiversityAFHMap_t *)");
 LABEL_15:
       v12 = "ByteStream_NumReadBytesAvail(*bs) >= 1";
 LABEL_16:
@@ -624,7 +813,7 @@ LABEL_16:
   return result;
 }
 
-uint64_t sub_100264108(char *a1, uint64_t (*a2)())
+uint64_t sub_100264108(char *a1, void (*a2)())
 {
   v11 = 0;
   v12 = 0;
@@ -633,7 +822,7 @@ uint64_t sub_100264108(char *a1, uint64_t (*a2)())
   {
     if (HIBYTE(v12))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4506, "OI_STATUS _BCM_DiversityAFHMaps(BT_VSCDiversityAFHMapsParams_t *, BT_VSC_COMPLETE_CB)");
     }
 
     else
@@ -666,7 +855,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t sub_100264220(char *a1, uint64_t (*a2)())
+uint64_t sub_100264220(char *a1, void (*a2)())
 {
   v30 = 0;
   v31 = 0;
@@ -678,7 +867,7 @@ uint64_t sub_100264220(char *a1, uint64_t (*a2)())
 
   if (HIBYTE(v31))
   {
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4525, "OI_STATUS _BCM_DiversityCellCoex(BT_VSCDiversityCellCoexParams_t *, BT_VSC_COMPLETE_CB)");
     goto LABEL_32;
   }
 
@@ -702,7 +891,7 @@ LABEL_34:
   *(v30 + v8) = v9;
   if (HIBYTE(v31))
   {
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4526, "OI_STATUS _BCM_DiversityCellCoex(BT_VSCDiversityCellCoexParams_t *, BT_VSC_COMPLETE_CB)");
     goto LABEL_36;
   }
 
@@ -726,7 +915,7 @@ LABEL_38:
   *(v30 + v10) = v11;
   if (HIBYTE(v31))
   {
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4527, "OI_STATUS _BCM_DiversityCellCoex(BT_VSCDiversityCellCoexParams_t *, BT_VSC_COMPLETE_CB)");
     goto LABEL_40;
   }
 
@@ -750,7 +939,7 @@ LABEL_42:
   *(v30 + v12) = v13;
   if (HIBYTE(v31))
   {
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4528, "OI_STATUS _BCM_DiversityCellCoex(BT_VSCDiversityCellCoexParams_t *, BT_VSC_COMPLETE_CB)");
     goto LABEL_44;
   }
 
@@ -774,7 +963,7 @@ LABEL_46:
   *(v30 + v14) = v15;
   if (HIBYTE(v31))
   {
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4529, "OI_STATUS _BCM_DiversityCellCoex(BT_VSCDiversityCellCoexParams_t *, BT_VSC_COMPLETE_CB)");
     goto LABEL_48;
   }
 
@@ -798,7 +987,7 @@ LABEL_50:
   *(v30 + v16) = v17;
   if (HIBYTE(v31))
   {
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4530, "OI_STATUS _BCM_DiversityCellCoex(BT_VSCDiversityCellCoexParams_t *, BT_VSC_COMPLETE_CB)");
     goto LABEL_52;
   }
 
@@ -824,7 +1013,7 @@ LABEL_54:
   {
     if (HIBYTE(v31))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4532, "OI_STATUS _BCM_DiversityCellCoex(BT_VSCDiversityCellCoexParams_t *, BT_VSC_COMPLETE_CB)");
 LABEL_29:
       v23 = "ByteStream_NumReadBytesAvail(bs) >= 1";
 LABEL_30:
@@ -851,7 +1040,7 @@ LABEL_30:
   return sub_100020078(478, v30, BYTE4(v31), a2, sub_100022AD0, v5, v6, v7);
 }
 
-uint64_t sub_1002645F4(_WORD *a1, __int16 a2, uint64_t (*a3)())
+uint64_t sub_1002645F4(_WORD *a1, __int16 a2, void (*a3)())
 {
   v13 = 0;
   v14 = 0;
@@ -860,7 +1049,7 @@ uint64_t sub_1002645F4(_WORD *a1, __int16 a2, uint64_t (*a3)())
   {
     if (HIBYTE(v14))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4548, "OI_STATUS _BCM_EnableBTSync(OI_HCI_CONNECTION_HANDLE, uint16_t, BT_VSC_COMPLETE_CB)");
     }
 
     else if (WORD1(v14) - WORD2(v14) > 1)
@@ -872,7 +1061,7 @@ uint64_t sub_1002645F4(_WORD *a1, __int16 a2, uint64_t (*a3)())
         WORD2(v14) += 2;
         if (HIBYTE(v14))
         {
-          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4549, "OI_STATUS _BCM_EnableBTSync(OI_HCI_CONNECTION_HANDLE, uint16_t, BT_VSC_COMPLETE_CB)");
         }
 
         else if (WORD1(v14) - v10 > 1)
@@ -906,7 +1095,7 @@ LABEL_13:
   return result;
 }
 
-uint64_t sub_10026478C(__int16 a1, uint64_t (*a2)())
+uint64_t sub_10026478C(__int16 a1, void (*a2)())
 {
   v9 = 0;
   v10 = 0;
@@ -915,7 +1104,7 @@ uint64_t sub_10026478C(__int16 a1, uint64_t (*a2)())
   {
     if (HIBYTE(v10))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4564, "OI_STATUS _BCM_DelayedHostWake(uint16_t, BT_VSC_COMPLETE_CB)");
     }
 
     else if (WORD1(v10) - WORD2(v10) > 1)
@@ -939,7 +1128,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t sub_100264880(_WORD *a1, char a2, uint64_t (*a3)())
+uint64_t sub_100264880(_WORD *a1, char a2, void (*a3)())
 {
   v14 = 0;
   v15 = 0;
@@ -948,7 +1137,7 @@ uint64_t sub_100264880(_WORD *a1, char a2, uint64_t (*a3)())
   {
     if (HIBYTE(v15))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4579, "OI_STATUS _BCM_SetCountryBasedPower(OI_HCI_CONNECTION_HANDLE, uint8_t, BT_VSC_COMPLETE_CB)");
     }
 
     else if (WORD1(v15) - WORD2(v15) > 1)
@@ -961,7 +1150,7 @@ uint64_t sub_100264880(_WORD *a1, char a2, uint64_t (*a3)())
         WORD2(v15) += 2;
         if (HIBYTE(v15))
         {
-          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4580, "OI_STATUS _BCM_SetCountryBasedPower(OI_HCI_CONNECTION_HANDLE, uint8_t, BT_VSC_COMPLETE_CB)");
         }
 
         else if (WORD1(v15) > v11)
@@ -994,7 +1183,7 @@ LABEL_13:
   return result;
 }
 
-uint64_t sub_1002649FC(char a1, uint64_t (*a2)())
+uint64_t sub_1002649FC(char a1, void (*a2)())
 {
   v10 = 0;
   v11 = 0;
@@ -1003,7 +1192,7 @@ uint64_t sub_1002649FC(char a1, uint64_t (*a2)())
   {
     if (HIBYTE(v11))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4595, "OI_STATUS _BCM_ReadFactoryCalTable(uint8_t, BT_VSC_BYTESTREAM_CB)");
     }
 
     else
@@ -1031,7 +1220,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t sub_100264AD4(char a1, uint64_t (*a2)())
+uint64_t sub_100264AD4(char a1, void (*a2)())
 {
   v11 = 0;
   v12 = 0;
@@ -1040,7 +1229,7 @@ uint64_t sub_100264AD4(char a1, uint64_t (*a2)())
   {
     if (HIBYTE(v12))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4610, "OI_STATUS _BCM_OlympicSetTxPowerCap(uint8_t, BT_VSC_COMPLETE_CB)");
     }
 
     else if (WORD1(v12) - WORD2(v12) > 3)
@@ -1054,7 +1243,7 @@ uint64_t sub_100264AD4(char a1, uint64_t (*a2)())
         WORD2(v12) += 4;
         if (HIBYTE(v12))
         {
-          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4611, "OI_STATUS _BCM_OlympicSetTxPowerCap(uint8_t, BT_VSC_COMPLETE_CB)");
         }
 
         else if (WORD1(v12) - v8 > 3)
@@ -1089,7 +1278,7 @@ LABEL_13:
   return result;
 }
 
-uint64_t sub_100264C98(int a1, char a2, char a3, uint64_t (*a4)())
+uint64_t sub_100264C98(int a1, char a2, char a3, void (*a4)())
 {
   v20 = 0;
   v21 = 0;
@@ -1098,7 +1287,7 @@ uint64_t sub_100264C98(int a1, char a2, char a3, uint64_t (*a4)())
   {
     if (HIBYTE(v21))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4626, "OI_STATUS _BCM_OlympicCountryCodeSel(uint8_t, uint8_t, uint8_t, BT_VSC_BYTESTREAM_CB)");
     }
 
     else if (WORD1(v21) - WORD2(v21) > 3)
@@ -1113,7 +1302,7 @@ uint64_t sub_100264C98(int a1, char a2, char a3, uint64_t (*a4)())
         WORD2(v21) += 4;
         if (HIBYTE(v21))
         {
-          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4627, "OI_STATUS _BCM_OlympicCountryCodeSel(uint8_t, uint8_t, uint8_t, BT_VSC_BYTESTREAM_CB)");
         }
 
         else if (WORD1(v21) > v13)
@@ -1129,7 +1318,7 @@ uint64_t sub_100264C98(int a1, char a2, char a3, uint64_t (*a4)())
 
             if (HIBYTE(v21))
             {
-              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4630, "OI_STATUS _BCM_OlympicCountryCodeSel(uint8_t, uint8_t, uint8_t, BT_VSC_BYTESTREAM_CB)");
             }
 
             else
@@ -1143,7 +1332,7 @@ uint64_t sub_100264C98(int a1, char a2, char a3, uint64_t (*a4)())
                   *(v20 + v14) = a2;
                   if (HIBYTE(v21))
                   {
-                    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4631, "OI_STATUS _BCM_OlympicCountryCodeSel(uint8_t, uint8_t, uint8_t, BT_VSC_BYTESTREAM_CB)");
                   }
 
                   else
@@ -1199,7 +1388,7 @@ LABEL_21:
   return result;
 }
 
-uint64_t sub_100264F28(int a1, char a2, char a3, uint64_t (*a4)())
+uint64_t sub_100264F28(int a1, char a2, char a3, void (*a4)())
 {
   v20 = 0;
   v21 = 0;
@@ -1208,7 +1397,7 @@ uint64_t sub_100264F28(int a1, char a2, char a3, uint64_t (*a4)())
   {
     if (HIBYTE(v21))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4647, "OI_STATUS _BCM_OlympicCountryCodeSelNonStream(uint8_t, uint8_t, uint8_t, BT_VSC_COMPLETE_CB)");
     }
 
     else if (WORD1(v21) - WORD2(v21) > 3)
@@ -1223,7 +1412,7 @@ uint64_t sub_100264F28(int a1, char a2, char a3, uint64_t (*a4)())
         WORD2(v21) += 4;
         if (HIBYTE(v21))
         {
-          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4648, "OI_STATUS _BCM_OlympicCountryCodeSelNonStream(uint8_t, uint8_t, uint8_t, BT_VSC_COMPLETE_CB)");
         }
 
         else if (WORD1(v21) > v13)
@@ -1239,7 +1428,7 @@ uint64_t sub_100264F28(int a1, char a2, char a3, uint64_t (*a4)())
 
             if (HIBYTE(v21))
             {
-              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4651, "OI_STATUS _BCM_OlympicCountryCodeSelNonStream(uint8_t, uint8_t, uint8_t, BT_VSC_COMPLETE_CB)");
             }
 
             else
@@ -1253,7 +1442,7 @@ uint64_t sub_100264F28(int a1, char a2, char a3, uint64_t (*a4)())
                   *(v20 + v14) = a2;
                   if (HIBYTE(v21))
                   {
-                    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4652, "OI_STATUS _BCM_OlympicCountryCodeSelNonStream(uint8_t, uint8_t, uint8_t, BT_VSC_COMPLETE_CB)");
                   }
 
                   else
@@ -1309,7 +1498,7 @@ LABEL_21:
   return result;
 }
 
-uint64_t sub_1002651B8(int a1, char a2, char a3, char a4, char a5, char a6, uint64_t (*a7)())
+uint64_t sub_1002651B8(int a1, char a2, char a3, char a4, char a5, char a6, void (*a7)())
 {
   v38 = 0;
   v39 = 0;
@@ -1318,7 +1507,7 @@ uint64_t sub_1002651B8(int a1, char a2, char a3, char a4, char a5, char a6, uint
   {
     if (HIBYTE(v39))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4668, "OI_STATUS _BCM_OlympicCountryCodeSelMultiBand(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, BT_VSC_BYTESTREAM_CB)");
     }
 
     else if (WORD1(v39) - WORD2(v39) > 3)
@@ -1333,7 +1522,7 @@ uint64_t sub_1002651B8(int a1, char a2, char a3, char a4, char a5, char a6, uint
         WORD2(v39) += 4;
         if (HIBYTE(v39))
         {
-          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4669, "OI_STATUS _BCM_OlympicCountryCodeSelMultiBand(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, BT_VSC_BYTESTREAM_CB)");
         }
 
         else if (WORD1(v39) > v19)
@@ -1350,7 +1539,7 @@ uint64_t sub_1002651B8(int a1, char a2, char a3, char a4, char a5, char a6, uint
 
             if (HIBYTE(v39))
             {
-              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4672, "OI_STATUS _BCM_OlympicCountryCodeSelMultiBand(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, BT_VSC_BYTESTREAM_CB)");
             }
 
             else
@@ -1364,7 +1553,7 @@ uint64_t sub_1002651B8(int a1, char a2, char a3, char a4, char a5, char a6, uint
                   *(v38 + v20) = a2;
                   if (HIBYTE(v39))
                   {
-                    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4673, "OI_STATUS _BCM_OlympicCountryCodeSelMultiBand(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, BT_VSC_BYTESTREAM_CB)");
                   }
 
                   else
@@ -1378,7 +1567,7 @@ uint64_t sub_1002651B8(int a1, char a2, char a3, char a4, char a5, char a6, uint
                         *(v38 + v21) = a3;
                         if (HIBYTE(v39))
                         {
-                          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4674, "OI_STATUS _BCM_OlympicCountryCodeSelMultiBand(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, BT_VSC_BYTESTREAM_CB)");
                         }
 
                         else
@@ -1392,7 +1581,7 @@ uint64_t sub_1002651B8(int a1, char a2, char a3, char a4, char a5, char a6, uint
                               *(v38 + v22) = a4;
                               if (HIBYTE(v39))
                               {
-                                sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4675, "OI_STATUS _BCM_OlympicCountryCodeSelMultiBand(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, BT_VSC_BYTESTREAM_CB)");
                               }
 
                               else if (WORD1(v39) > WORD2(v39))
@@ -1404,7 +1593,7 @@ uint64_t sub_1002651B8(int a1, char a2, char a3, char a4, char a5, char a6, uint
                                   v24 = ++WORD2(v39);
                                   if (HIBYTE(v39))
                                   {
-                                    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4676, "OI_STATUS _BCM_OlympicCountryCodeSelMultiBand(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, BT_VSC_BYTESTREAM_CB)");
                                   }
 
                                   else if (WORD1(v39) > v24)
@@ -1415,7 +1604,7 @@ uint64_t sub_1002651B8(int a1, char a2, char a3, char a4, char a5, char a6, uint
                                       *(v38 + v24) = a5;
                                       if (HIBYTE(v39))
                                       {
-                                        sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                        sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4677, "OI_STATUS _BCM_OlympicCountryCodeSelMultiBand(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, BT_VSC_BYTESTREAM_CB)");
                                       }
 
                                       else if (WORD1(v39) > WORD2(v39))
@@ -1427,7 +1616,7 @@ uint64_t sub_1002651B8(int a1, char a2, char a3, char a4, char a5, char a6, uint
                                           v26 = ++WORD2(v39);
                                           if (HIBYTE(v39))
                                           {
-                                            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4678, "OI_STATUS _BCM_OlympicCountryCodeSelMultiBand(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, BT_VSC_BYTESTREAM_CB)");
                                           }
 
                                           else if (WORD1(v39) > v26)
@@ -1438,7 +1627,7 @@ uint64_t sub_1002651B8(int a1, char a2, char a3, char a4, char a5, char a6, uint
                                               *(v38 + v26) = a6;
                                               if (HIBYTE(v39))
                                               {
-                                                sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                                sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4679, "OI_STATUS _BCM_OlympicCountryCodeSelMultiBand(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, BT_VSC_BYTESTREAM_CB)");
                                               }
 
                                               else if (WORD1(v39) - WORD2(v39) > 1)
@@ -1547,7 +1736,7 @@ LABEL_40:
   return result;
 }
 
-uint64_t sub_10026574C(uint64_t (*a1)())
+uint64_t sub_10026574C(void (*a1)())
 {
   v8 = 0;
   v9 = 0;
@@ -1556,7 +1745,7 @@ uint64_t sub_10026574C(uint64_t (*a1)())
   {
     if (HIBYTE(v9))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4695, "OI_STATUS _BCM_CoreDump(BT_VSC_COMPLETE_CB)");
     }
 
     else
@@ -1584,7 +1773,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t sub_100265824(uint64_t (*a1)())
+uint64_t sub_100265824(void (*a1)())
 {
   v11 = 0;
   v12 = 0;
@@ -1593,7 +1782,7 @@ uint64_t sub_100265824(uint64_t (*a1)())
   {
     if (HIBYTE(v12))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4710, "OI_STATUS _BCM_ReadFWMemoryStatistics(BT_VSC_COMPLETE_CB)");
     }
 
     else
@@ -1607,7 +1796,7 @@ uint64_t sub_100265824(uint64_t (*a1)())
           *(v11 + v6) = 80;
           if (HIBYTE(v12))
           {
-            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4711, "OI_STATUS _BCM_ReadFWMemoryStatistics(BT_VSC_COMPLETE_CB)");
           }
 
           else if (WORD1(v12) - WORD2(v12) > 3)
@@ -1621,7 +1810,7 @@ uint64_t sub_100265824(uint64_t (*a1)())
               WORD2(v12) += 4;
               if (HIBYTE(v12))
               {
-                sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4712, "OI_STATUS _BCM_ReadFWMemoryStatistics(BT_VSC_COMPLETE_CB)");
               }
 
               else if (WORD1(v12) - v7 > 1)
@@ -1665,7 +1854,7 @@ LABEL_16:
   return result;
 }
 
-uint64_t sub_100265A40(int a1, int a2, uint64_t (*a3)())
+uint64_t sub_100265A40(int a1, int a2, void (*a3)())
 {
   v25 = 0;
   v26 = 0;
@@ -1676,7 +1865,7 @@ uint64_t sub_100265A40(int a1, int a2, uint64_t (*a3)())
     {
       if (HIBYTE(v26))
       {
-        sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+        sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4727, "OI_STATUS _BCM_EnableDisableFwLogStreaming(_Bool, uint16_t, BT_VSC_COMPLETE_CB)");
       }
 
       else
@@ -1690,7 +1879,7 @@ uint64_t sub_100265A40(int a1, int a2, uint64_t (*a3)())
             *(v25 + v10) = 81;
             if (HIBYTE(v26))
             {
-              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4728, "OI_STATUS _BCM_EnableDisableFwLogStreaming(_Bool, uint16_t, BT_VSC_COMPLETE_CB)");
             }
 
             else
@@ -1704,7 +1893,7 @@ uint64_t sub_100265A40(int a1, int a2, uint64_t (*a3)())
                   *(v25 + v11) = 1;
                   if (HIBYTE(v26))
                   {
-                    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4729, "OI_STATUS _BCM_EnableDisableFwLogStreaming(_Bool, uint16_t, BT_VSC_COMPLETE_CB)");
                   }
 
                   else if (WORD1(v26) - WORD2(v26) > 1)
@@ -1716,7 +1905,7 @@ uint64_t sub_100265A40(int a1, int a2, uint64_t (*a3)())
                       WORD2(v26) += 2;
                       if (HIBYTE(v26))
                       {
-                        sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                        sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4730, "OI_STATUS _BCM_EnableDisableFwLogStreaming(_Bool, uint16_t, BT_VSC_COMPLETE_CB)");
                       }
 
                       else if (WORD1(v26) - v12 > 3)
@@ -1731,7 +1920,7 @@ uint64_t sub_100265A40(int a1, int a2, uint64_t (*a3)())
                           {
                             if (HIBYTE(v26))
                             {
-                              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4733, "OI_STATUS _BCM_EnableDisableFwLogStreaming(_Bool, uint16_t, BT_VSC_COMPLETE_CB)");
                             }
 
                             else if (WORD1(v26) - WORD2(v26) > 3)
@@ -1760,7 +1949,7 @@ LABEL_67:
 
                           if (HIBYTE(v26))
                           {
-                            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4735, "OI_STATUS _BCM_EnableDisableFwLogStreaming(_Bool, uint16_t, BT_VSC_COMPLETE_CB)");
                           }
 
                           else if (WORD1(v26) - WORD2(v26) > 3)
@@ -1821,7 +2010,7 @@ LABEL_41:
 
     if (HIBYTE(v26))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4741, "OI_STATUS _BCM_EnableDisableFwLogStreaming(_Bool, uint16_t, BT_VSC_COMPLETE_CB)");
     }
 
     else
@@ -1835,7 +2024,7 @@ LABEL_41:
           *(v25 + v14) = 81;
           if (HIBYTE(v26))
           {
-            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4742, "OI_STATUS _BCM_EnableDisableFwLogStreaming(_Bool, uint16_t, BT_VSC_COMPLETE_CB)");
           }
 
           else
@@ -1874,7 +2063,7 @@ LABEL_43:
   return result;
 }
 
-uint64_t sub_100265F4C(int a1, uint64_t (*a2)())
+uint64_t sub_100265F4C(int a1, void (*a2)())
 {
   v13 = 0;
   v14 = 0;
@@ -1883,7 +2072,7 @@ uint64_t sub_100265F4C(int a1, uint64_t (*a2)())
   {
     if (HIBYTE(v14))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4756, "OI_STATUS _BCM_SetFwLogMask(uint32_t, BT_VSC_COMPLETE_CB)");
     }
 
     else
@@ -1897,7 +2086,7 @@ uint64_t sub_100265F4C(int a1, uint64_t (*a2)())
           *(v13 + v8) = -7;
           if (HIBYTE(v14))
           {
-            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4757, "OI_STATUS _BCM_SetFwLogMask(uint32_t, BT_VSC_COMPLETE_CB)");
           }
 
           else if (WORD1(v14) - WORD2(v14) > 3)
@@ -1911,7 +2100,7 @@ uint64_t sub_100265F4C(int a1, uint64_t (*a2)())
               WORD2(v14) += 4;
               if (HIBYTE(v14))
               {
-                sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4758, "OI_STATUS _BCM_SetFwLogMask(uint32_t, BT_VSC_COMPLETE_CB)");
               }
 
               else if (WORD1(v14) - v9 > 3)
@@ -1956,7 +2145,7 @@ LABEL_16:
   return result;
 }
 
-uint64_t sub_100266194(char a1, __int16 a2, __int16 a3, char a4, char a5, int a6, char a7, char a8, char a9, uint64_t (*a10)())
+uint64_t sub_100266194(char a1, __int16 a2, __int16 a3, char a4, char a5, int a6, char a7, char a8, char a9, void (*a10)())
 {
   v38 = 0;
   v39 = 0;
@@ -1965,7 +2154,7 @@ uint64_t sub_100266194(char a1, __int16 a2, __int16 a3, char a4, char a5, int a6
   {
     if (HIBYTE(v39))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4771, "OI_STATUS _BCM_SetBTSCPageScan(_Bool, uint16_t, uint16_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint8_t, BT_VSC_COMPLETE_CB)");
     }
 
     else
@@ -1979,7 +2168,7 @@ uint64_t sub_100266194(char a1, __int16 a2, __int16 a3, char a4, char a5, int a6
           *(v38 + v22) = a1;
           if (HIBYTE(v39))
           {
-            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4772, "OI_STATUS _BCM_SetBTSCPageScan(_Bool, uint16_t, uint16_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint8_t, BT_VSC_COMPLETE_CB)");
           }
 
           else if (WORD1(v39) - WORD2(v39) > 1)
@@ -1991,7 +2180,7 @@ uint64_t sub_100266194(char a1, __int16 a2, __int16 a3, char a4, char a5, int a6
               WORD2(v39) += 2;
               if (HIBYTE(v39))
               {
-                sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4773, "OI_STATUS _BCM_SetBTSCPageScan(_Bool, uint16_t, uint16_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint8_t, BT_VSC_COMPLETE_CB)");
               }
 
               else if (WORD1(v39) - v23 > 1)
@@ -2005,7 +2194,7 @@ uint64_t sub_100266194(char a1, __int16 a2, __int16 a3, char a4, char a5, int a6
                   WORD2(v39) += 2;
                   if (HIBYTE(v39))
                   {
-                    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4774, "OI_STATUS _BCM_SetBTSCPageScan(_Bool, uint16_t, uint16_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint8_t, BT_VSC_COMPLETE_CB)");
                   }
 
                   else if (WORD1(v39) > v25)
@@ -2016,7 +2205,7 @@ uint64_t sub_100266194(char a1, __int16 a2, __int16 a3, char a4, char a5, int a6
                       *(v38 + v25) = a4;
                       if (HIBYTE(v39))
                       {
-                        sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                        sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4775, "OI_STATUS _BCM_SetBTSCPageScan(_Bool, uint16_t, uint16_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint8_t, BT_VSC_COMPLETE_CB)");
                       }
 
                       else
@@ -2035,7 +2224,7 @@ uint64_t sub_100266194(char a1, __int16 a2, __int16 a3, char a4, char a5, int a6
 
                             if (HIBYTE(v39))
                             {
-                              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4777, "OI_STATUS _BCM_SetBTSCPageScan(_Bool, uint16_t, uint16_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint8_t, BT_VSC_COMPLETE_CB)");
                             }
 
                             else
@@ -2049,7 +2238,7 @@ uint64_t sub_100266194(char a1, __int16 a2, __int16 a3, char a4, char a5, int a6
                                   *(v38 + v27) = a7;
                                   if (HIBYTE(v39))
                                   {
-                                    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4778, "OI_STATUS _BCM_SetBTSCPageScan(_Bool, uint16_t, uint16_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint8_t, BT_VSC_COMPLETE_CB)");
                                   }
 
                                   else
@@ -2063,7 +2252,7 @@ uint64_t sub_100266194(char a1, __int16 a2, __int16 a3, char a4, char a5, int a6
                                         *(v38 + v28) = a8;
                                         if (HIBYTE(v39))
                                         {
-                                          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4779, "OI_STATUS _BCM_SetBTSCPageScan(_Bool, uint16_t, uint16_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint8_t, BT_VSC_COMPLETE_CB)");
                                         }
 
                                         else
@@ -2158,7 +2347,7 @@ LABEL_33:
   return result;
 }
 
-uint64_t sub_100266624(char a1, char a2, char a3, char a4, char a5, char a6, char a7, char a8, char a9, char a10, char a11, char a12, char a13, char a14, char a15, char a16, int a17, int a18, int a19, int a20, int a21, int a22, int a23, int a24, int a25, int a26, int a27, int a28, int a29, int a30, int a31, int a32, int a33, int a34, int a35, int a36, int a37, int a38, int a39, int a40, int a41, int a42, char a43, char a44, __int16 a45, char a46, uint64_t (*a47)())
+uint64_t sub_100266624(char a1, char a2, char a3, char a4, char a5, char a6, char a7, char a8, char a9, char a10, char a11, char a12, char a13, char a14, char a15, char a16, int a17, int a18, int a19, int a20, int a21, int a22, int a23, int a24, int a25, int a26, int a27, int a28, int a29, int a30, int a31, int a32, int a33, int a34, int a35, int a36, int a37, int a38, int a39, int a40, int a41, int a42, char a43, char a44, __int16 a45, char a46, void (*a47)())
 {
   v147 = 0;
   v148 = 0;
@@ -2167,7 +2356,7 @@ uint64_t sub_100266624(char a1, char a2, char a3, char a4, char a5, char a6, cha
   {
     if (HIBYTE(v148))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4798, "OI_STATUS _BCM_SetQoSConfig(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint8_t, BT_VSC_COMPLETE_CB)");
     }
 
     else
@@ -2181,7 +2370,7 @@ uint64_t sub_100266624(char a1, char a2, char a3, char a4, char a5, char a6, cha
           *(v147 + v59) = a1;
           if (HIBYTE(v148))
           {
-            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4799, "OI_STATUS _BCM_SetQoSConfig(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint8_t, BT_VSC_COMPLETE_CB)");
           }
 
           else
@@ -2195,7 +2384,7 @@ uint64_t sub_100266624(char a1, char a2, char a3, char a4, char a5, char a6, cha
                 *(v147 + v60) = a2;
                 if (HIBYTE(v148))
                 {
-                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4800, "OI_STATUS _BCM_SetQoSConfig(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint8_t, BT_VSC_COMPLETE_CB)");
                 }
 
                 else
@@ -2209,7 +2398,7 @@ uint64_t sub_100266624(char a1, char a2, char a3, char a4, char a5, char a6, cha
                       *(v147 + v61) = a3;
                       if (HIBYTE(v148))
                       {
-                        sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                        sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4801, "OI_STATUS _BCM_SetQoSConfig(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint8_t, BT_VSC_COMPLETE_CB)");
                       }
 
                       else
@@ -2223,7 +2412,7 @@ uint64_t sub_100266624(char a1, char a2, char a3, char a4, char a5, char a6, cha
                             *(v147 + v62) = a4;
                             if (HIBYTE(v148))
                             {
-                              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4802, "OI_STATUS _BCM_SetQoSConfig(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint8_t, BT_VSC_COMPLETE_CB)");
                             }
 
                             else
@@ -2237,7 +2426,7 @@ uint64_t sub_100266624(char a1, char a2, char a3, char a4, char a5, char a6, cha
                                   *(v147 + v63) = a5;
                                   if (HIBYTE(v148))
                                   {
-                                    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4803, "OI_STATUS _BCM_SetQoSConfig(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint8_t, BT_VSC_COMPLETE_CB)");
                                   }
 
                                   else
@@ -2251,7 +2440,7 @@ uint64_t sub_100266624(char a1, char a2, char a3, char a4, char a5, char a6, cha
                                         *(v147 + v64) = a6;
                                         if (HIBYTE(v148))
                                         {
-                                          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4804, "OI_STATUS _BCM_SetQoSConfig(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint8_t, BT_VSC_COMPLETE_CB)");
                                         }
 
                                         else
@@ -2265,7 +2454,7 @@ uint64_t sub_100266624(char a1, char a2, char a3, char a4, char a5, char a6, cha
                                               *(v147 + v65) = a7;
                                               if (HIBYTE(v148))
                                               {
-                                                sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                                sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4805, "OI_STATUS _BCM_SetQoSConfig(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint8_t, BT_VSC_COMPLETE_CB)");
                                               }
 
                                               else
@@ -2279,7 +2468,7 @@ uint64_t sub_100266624(char a1, char a2, char a3, char a4, char a5, char a6, cha
                                                     *(v147 + v66) = a8;
                                                     if (HIBYTE(v148))
                                                     {
-                                                      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                                      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4806, "OI_STATUS _BCM_SetQoSConfig(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint8_t, BT_VSC_COMPLETE_CB)");
                                                     }
 
                                                     else
@@ -2293,7 +2482,7 @@ uint64_t sub_100266624(char a1, char a2, char a3, char a4, char a5, char a6, cha
                                                           *(v147 + v67) = a9;
                                                           if (HIBYTE(v148))
                                                           {
-                                                            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                                            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4807, "OI_STATUS _BCM_SetQoSConfig(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint8_t, BT_VSC_COMPLETE_CB)");
                                                           }
 
                                                           else
@@ -2307,7 +2496,7 @@ uint64_t sub_100266624(char a1, char a2, char a3, char a4, char a5, char a6, cha
                                                                 *(v147 + v68) = a10;
                                                                 if (HIBYTE(v148))
                                                                 {
-                                                                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                                                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4808, "OI_STATUS _BCM_SetQoSConfig(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint8_t, BT_VSC_COMPLETE_CB)");
                                                                 }
 
                                                                 else
@@ -2321,7 +2510,7 @@ uint64_t sub_100266624(char a1, char a2, char a3, char a4, char a5, char a6, cha
                                                                       *(v147 + v69) = a11;
                                                                       if (HIBYTE(v148))
                                                                       {
-                                                                        sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                                                        sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4809, "OI_STATUS _BCM_SetQoSConfig(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint8_t, BT_VSC_COMPLETE_CB)");
                                                                       }
 
                                                                       else
@@ -2335,7 +2524,7 @@ uint64_t sub_100266624(char a1, char a2, char a3, char a4, char a5, char a6, cha
                                                                             *(v147 + v70) = a12;
                                                                             if (HIBYTE(v148))
                                                                             {
-                                                                              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                                                              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4810, "OI_STATUS _BCM_SetQoSConfig(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint8_t, BT_VSC_COMPLETE_CB)");
                                                                             }
 
                                                                             else
@@ -2349,7 +2538,7 @@ uint64_t sub_100266624(char a1, char a2, char a3, char a4, char a5, char a6, cha
                                                                                   *(v147 + v71) = a13;
                                                                                   if (HIBYTE(v148))
                                                                                   {
-                                                                                    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                                                                    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4811, "OI_STATUS _BCM_SetQoSConfig(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint8_t, BT_VSC_COMPLETE_CB)");
                                                                                   }
 
                                                                                   else
@@ -2363,7 +2552,7 @@ uint64_t sub_100266624(char a1, char a2, char a3, char a4, char a5, char a6, cha
                                                                                         *(v147 + v72) = a14;
                                                                                         if (HIBYTE(v148))
                                                                                         {
-                                                                                          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                                                                          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4812, "OI_STATUS _BCM_SetQoSConfig(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint8_t, BT_VSC_COMPLETE_CB)");
                                                                                         }
 
                                                                                         else
@@ -2377,7 +2566,7 @@ uint64_t sub_100266624(char a1, char a2, char a3, char a4, char a5, char a6, cha
                                                                                               *(v147 + v73) = a15;
                                                                                               if (HIBYTE(v148))
                                                                                               {
-                                                                                                sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                                                                                sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4813, "OI_STATUS _BCM_SetQoSConfig(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint8_t, BT_VSC_COMPLETE_CB)");
                                                                                               }
 
                                                                                               else
@@ -2391,7 +2580,7 @@ uint64_t sub_100266624(char a1, char a2, char a3, char a4, char a5, char a6, cha
                                                                                                     *(v147 + v74) = a16;
                                                                                                     if (HIBYTE(v148))
                                                                                                     {
-                                                                                                      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                                                                                      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4814, "OI_STATUS _BCM_SetQoSConfig(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint8_t, BT_VSC_COMPLETE_CB)");
                                                                                                     }
 
                                                                                                     else if (WORD1(v148) - WORD2(v148) > 3)
@@ -2405,7 +2594,7 @@ uint64_t sub_100266624(char a1, char a2, char a3, char a4, char a5, char a6, cha
                                                                                                         WORD2(v148) += 4;
                                                                                                         if (HIBYTE(v148))
                                                                                                         {
-                                                                                                          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                                                                                          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4815, "OI_STATUS _BCM_SetQoSConfig(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint8_t, BT_VSC_COMPLETE_CB)");
                                                                                                         }
 
                                                                                                         else if (WORD1(v148) - v75 > 3)
@@ -2419,7 +2608,7 @@ uint64_t sub_100266624(char a1, char a2, char a3, char a4, char a5, char a6, cha
                                                                                                             WORD2(v148) += 4;
                                                                                                             if (HIBYTE(v148))
                                                                                                             {
-                                                                                                              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                                                                                              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4816, "OI_STATUS _BCM_SetQoSConfig(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint8_t, BT_VSC_COMPLETE_CB)");
                                                                                                             }
 
                                                                                                             else if (WORD1(v148) - v76 > 3)
@@ -2433,7 +2622,7 @@ uint64_t sub_100266624(char a1, char a2, char a3, char a4, char a5, char a6, cha
                                                                                                                 WORD2(v148) += 4;
                                                                                                                 if (HIBYTE(v148))
                                                                                                                 {
-                                                                                                                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                                                                                                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4817, "OI_STATUS _BCM_SetQoSConfig(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint8_t, BT_VSC_COMPLETE_CB)");
                                                                                                                 }
 
                                                                                                                 else if (WORD1(v148) - v77 > 3)
@@ -2447,7 +2636,7 @@ uint64_t sub_100266624(char a1, char a2, char a3, char a4, char a5, char a6, cha
                                                                                                                     WORD2(v148) += 4;
                                                                                                                     if (HIBYTE(v148))
                                                                                                                     {
-                                                                                                                      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                                                                                                      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4819, "OI_STATUS _BCM_SetQoSConfig(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint8_t, BT_VSC_COMPLETE_CB)");
                                                                                                                     }
 
                                                                                                                     else if (WORD1(v148) - v78 > 3)
@@ -2461,7 +2650,7 @@ uint64_t sub_100266624(char a1, char a2, char a3, char a4, char a5, char a6, cha
                                                                                                                         WORD2(v148) += 4;
                                                                                                                         if (HIBYTE(v148))
                                                                                                                         {
-                                                                                                                          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                                                                                                          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4820, "OI_STATUS _BCM_SetQoSConfig(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint8_t, BT_VSC_COMPLETE_CB)");
                                                                                                                         }
 
                                                                                                                         else if (WORD1(v148) - v79 > 3)
@@ -2475,7 +2664,7 @@ uint64_t sub_100266624(char a1, char a2, char a3, char a4, char a5, char a6, cha
                                                                                                                             WORD2(v148) += 4;
                                                                                                                             if (HIBYTE(v148))
                                                                                                                             {
-                                                                                                                              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                                                                                                              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4821, "OI_STATUS _BCM_SetQoSConfig(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint8_t, BT_VSC_COMPLETE_CB)");
                                                                                                                             }
 
                                                                                                                             else if (WORD1(v148) - v80 > 3)
@@ -2489,7 +2678,7 @@ uint64_t sub_100266624(char a1, char a2, char a3, char a4, char a5, char a6, cha
                                                                                                                                 WORD2(v148) += 4;
                                                                                                                                 if (HIBYTE(v148))
                                                                                                                                 {
-                                                                                                                                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                                                                                                                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4822, "OI_STATUS _BCM_SetQoSConfig(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint8_t, BT_VSC_COMPLETE_CB)");
                                                                                                                                 }
 
                                                                                                                                 else if (WORD1(v148) - v81 > 3)
@@ -2503,7 +2692,7 @@ uint64_t sub_100266624(char a1, char a2, char a3, char a4, char a5, char a6, cha
                                                                                                                                     WORD2(v148) += 4;
                                                                                                                                     if (HIBYTE(v148))
                                                                                                                                     {
-                                                                                                                                      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                                                                                                                      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4824, "OI_STATUS _BCM_SetQoSConfig(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint8_t, BT_VSC_COMPLETE_CB)");
                                                                                                                                     }
 
                                                                                                                                     else if (WORD1(v148) - v82 > 3)
@@ -2517,7 +2706,7 @@ uint64_t sub_100266624(char a1, char a2, char a3, char a4, char a5, char a6, cha
                                                                                                                                         WORD2(v148) += 4;
                                                                                                                                         if (HIBYTE(v148))
                                                                                                                                         {
-                                                                                                                                          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                                                                                                                          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4826, "OI_STATUS _BCM_SetQoSConfig(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint8_t, BT_VSC_COMPLETE_CB)");
                                                                                                                                         }
 
                                                                                                                                         else if (WORD1(v148) - v83 > 3)
@@ -2531,7 +2720,7 @@ uint64_t sub_100266624(char a1, char a2, char a3, char a4, char a5, char a6, cha
                                                                                                                                             WORD2(v148) += 4;
                                                                                                                                             if (HIBYTE(v148))
                                                                                                                                             {
-                                                                                                                                              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                                                                                                                              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4827, "OI_STATUS _BCM_SetQoSConfig(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint8_t, BT_VSC_COMPLETE_CB)");
                                                                                                                                             }
 
                                                                                                                                             else if (WORD1(v148) - v84 > 3)
@@ -2545,7 +2734,7 @@ uint64_t sub_100266624(char a1, char a2, char a3, char a4, char a5, char a6, cha
                                                                                                                                                 WORD2(v148) += 4;
                                                                                                                                                 if (HIBYTE(v148))
                                                                                                                                                 {
-                                                                                                                                                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                                                                                                                                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4828, "OI_STATUS _BCM_SetQoSConfig(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint8_t, BT_VSC_COMPLETE_CB)");
                                                                                                                                                 }
 
                                                                                                                                                 else if (WORD1(v148) - v85 > 3)
@@ -2559,7 +2748,7 @@ uint64_t sub_100266624(char a1, char a2, char a3, char a4, char a5, char a6, cha
                                                                                                                                                     WORD2(v148) += 4;
                                                                                                                                                     if (HIBYTE(v148))
                                                                                                                                                     {
-                                                                                                                                                      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                                                                                                                                      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4829, "OI_STATUS _BCM_SetQoSConfig(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint8_t, BT_VSC_COMPLETE_CB)");
                                                                                                                                                     }
 
                                                                                                                                                     else if (WORD1(v148) - v86 > 3)
@@ -2573,7 +2762,7 @@ uint64_t sub_100266624(char a1, char a2, char a3, char a4, char a5, char a6, cha
                                                                                                                                                         WORD2(v148) += 4;
                                                                                                                                                         if (HIBYTE(v148))
                                                                                                                                                         {
-                                                                                                                                                          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                                                                                                                                          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4831, "OI_STATUS _BCM_SetQoSConfig(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint8_t, BT_VSC_COMPLETE_CB)");
                                                                                                                                                         }
 
                                                                                                                                                         else if (WORD1(v148) - v87 > 3)
@@ -2587,7 +2776,7 @@ uint64_t sub_100266624(char a1, char a2, char a3, char a4, char a5, char a6, cha
                                                                                                                                                             WORD2(v148) += 4;
                                                                                                                                                             if (HIBYTE(v148))
                                                                                                                                                             {
-                                                                                                                                                              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                                                                                                                                              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4832, "OI_STATUS _BCM_SetQoSConfig(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint8_t, BT_VSC_COMPLETE_CB)");
                                                                                                                                                             }
 
                                                                                                                                                             else if (WORD1(v148) - v88 > 3)
@@ -2601,7 +2790,7 @@ uint64_t sub_100266624(char a1, char a2, char a3, char a4, char a5, char a6, cha
                                                                                                                                                                 WORD2(v148) += 4;
                                                                                                                                                                 if (HIBYTE(v148))
                                                                                                                                                                 {
-                                                                                                                                                                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                                                                                                                                                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4833, "OI_STATUS _BCM_SetQoSConfig(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint8_t, BT_VSC_COMPLETE_CB)");
                                                                                                                                                                 }
 
                                                                                                                                                                 else if (WORD1(v148) - v89 > 3)
@@ -2615,7 +2804,7 @@ uint64_t sub_100266624(char a1, char a2, char a3, char a4, char a5, char a6, cha
                                                                                                                                                                     WORD2(v148) += 4;
                                                                                                                                                                     if (HIBYTE(v148))
                                                                                                                                                                     {
-                                                                                                                                                                      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                                                                                                                                                      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4834, "OI_STATUS _BCM_SetQoSConfig(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint8_t, BT_VSC_COMPLETE_CB)");
                                                                                                                                                                     }
 
                                                                                                                                                                     else if (WORD1(v148) - v90 > 3)
@@ -2629,7 +2818,7 @@ uint64_t sub_100266624(char a1, char a2, char a3, char a4, char a5, char a6, cha
                                                                                                                                                                         WORD2(v148) += 4;
                                                                                                                                                                         if (HIBYTE(v148))
                                                                                                                                                                         {
-                                                                                                                                                                          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                                                                                                                                                          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4836, "OI_STATUS _BCM_SetQoSConfig(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint8_t, BT_VSC_COMPLETE_CB)");
                                                                                                                                                                         }
 
                                                                                                                                                                         else if (WORD1(v148) - v91 > 3)
@@ -2643,7 +2832,7 @@ uint64_t sub_100266624(char a1, char a2, char a3, char a4, char a5, char a6, cha
                                                                                                                                                                             WORD2(v148) += 4;
                                                                                                                                                                             if (HIBYTE(v148))
                                                                                                                                                                             {
-                                                                                                                                                                              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                                                                                                                                                              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4837, "OI_STATUS _BCM_SetQoSConfig(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint8_t, BT_VSC_COMPLETE_CB)");
                                                                                                                                                                             }
 
                                                                                                                                                                             else if (WORD1(v148) - v92 > 3)
@@ -2657,7 +2846,7 @@ uint64_t sub_100266624(char a1, char a2, char a3, char a4, char a5, char a6, cha
                                                                                                                                                                                 WORD2(v148) += 4;
                                                                                                                                                                                 if (HIBYTE(v148))
                                                                                                                                                                                 {
-                                                                                                                                                                                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                                                                                                                                                                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4838, "OI_STATUS _BCM_SetQoSConfig(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint8_t, BT_VSC_COMPLETE_CB)");
                                                                                                                                                                                 }
 
                                                                                                                                                                                 else if (WORD1(v148) - v93 > 3)
@@ -2671,7 +2860,7 @@ uint64_t sub_100266624(char a1, char a2, char a3, char a4, char a5, char a6, cha
                                                                                                                                                                                     WORD2(v148) += 4;
                                                                                                                                                                                     if (HIBYTE(v148))
                                                                                                                                                                                     {
-                                                                                                                                                                                      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                                                                                                                                                                      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4839, "OI_STATUS _BCM_SetQoSConfig(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint8_t, BT_VSC_COMPLETE_CB)");
                                                                                                                                                                                     }
 
                                                                                                                                                                                     else if (WORD1(v148) - v94 > 3)
@@ -2685,7 +2874,7 @@ uint64_t sub_100266624(char a1, char a2, char a3, char a4, char a5, char a6, cha
                                                                                                                                                                                         WORD2(v148) += 4;
                                                                                                                                                                                         if (HIBYTE(v148))
                                                                                                                                                                                         {
-                                                                                                                                                                                          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                                                                                                                                                                          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4841, "OI_STATUS _BCM_SetQoSConfig(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint8_t, BT_VSC_COMPLETE_CB)");
                                                                                                                                                                                         }
 
                                                                                                                                                                                         else if (WORD1(v148) - v95 > 3)
@@ -2699,7 +2888,7 @@ uint64_t sub_100266624(char a1, char a2, char a3, char a4, char a5, char a6, cha
                                                                                                                                                                                             WORD2(v148) += 4;
                                                                                                                                                                                             if (HIBYTE(v148))
                                                                                                                                                                                             {
-                                                                                                                                                                                              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                                                                                                                                                                              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4843, "OI_STATUS _BCM_SetQoSConfig(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint8_t, BT_VSC_COMPLETE_CB)");
                                                                                                                                                                                             }
 
                                                                                                                                                                                             else if (WORD1(v148) - v96 > 3)
@@ -2713,7 +2902,7 @@ uint64_t sub_100266624(char a1, char a2, char a3, char a4, char a5, char a6, cha
                                                                                                                                                                                                 WORD2(v148) += 4;
                                                                                                                                                                                                 if (HIBYTE(v148))
                                                                                                                                                                                                 {
-                                                                                                                                                                                                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                                                                                                                                                                                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4844, "OI_STATUS _BCM_SetQoSConfig(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint8_t, BT_VSC_COMPLETE_CB)");
                                                                                                                                                                                                 }
 
                                                                                                                                                                                                 else if (WORD1(v148) - v97 > 3)
@@ -2727,7 +2916,7 @@ uint64_t sub_100266624(char a1, char a2, char a3, char a4, char a5, char a6, cha
                                                                                                                                                                                                     WORD2(v148) += 4;
                                                                                                                                                                                                     if (HIBYTE(v148))
                                                                                                                                                                                                     {
-                                                                                                                                                                                                      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                                                                                                                                                                                      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4845, "OI_STATUS _BCM_SetQoSConfig(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint8_t, BT_VSC_COMPLETE_CB)");
                                                                                                                                                                                                     }
 
                                                                                                                                                                                                     else if (WORD1(v148) - v98 > 3)
@@ -2741,7 +2930,7 @@ uint64_t sub_100266624(char a1, char a2, char a3, char a4, char a5, char a6, cha
                                                                                                                                                                                                         WORD2(v148) += 4;
                                                                                                                                                                                                         if (HIBYTE(v148))
                                                                                                                                                                                                         {
-                                                                                                                                                                                                          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                                                                                                                                                                                          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4846, "OI_STATUS _BCM_SetQoSConfig(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint8_t, BT_VSC_COMPLETE_CB)");
                                                                                                                                                                                                         }
 
                                                                                                                                                                                                         else if (WORD1(v148) - v99 > 3)
@@ -2755,7 +2944,7 @@ uint64_t sub_100266624(char a1, char a2, char a3, char a4, char a5, char a6, cha
                                                                                                                                                                                                             WORD2(v148) += 4;
                                                                                                                                                                                                             if (HIBYTE(v148))
                                                                                                                                                                                                             {
-                                                                                                                                                                                                              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                                                                                                                                                                                              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4848, "OI_STATUS _BCM_SetQoSConfig(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint8_t, BT_VSC_COMPLETE_CB)");
                                                                                                                                                                                                             }
 
                                                                                                                                                                                                             else if (WORD1(v148) - v100 > 3)
@@ -2770,7 +2959,7 @@ uint64_t sub_100266624(char a1, char a2, char a3, char a4, char a5, char a6, cha
                                                                                                                                                                                                                 WORD2(v148) += 4;
                                                                                                                                                                                                                 if (HIBYTE(v148))
                                                                                                                                                                                                                 {
-                                                                                                                                                                                                                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                                                                                                                                                                                                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4850, "OI_STATUS _BCM_SetQoSConfig(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint8_t, _Bool, _Bool, _Bool, _Bool, _Bool, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint8_t, BT_VSC_COMPLETE_CB)");
                                                                                                                                                                                                                 }
 
                                                                                                                                                                                                                 else if (WORD1(v148) > v102)
@@ -3197,7 +3386,7 @@ LABEL_139:
   return result;
 }
 
-uint64_t sub_100268310(char a1, uint64_t (*a2)())
+uint64_t sub_100268310(char a1, void (*a2)())
 {
   v10 = 0;
   v11 = 0;
@@ -3206,7 +3395,7 @@ uint64_t sub_100268310(char a1, uint64_t (*a2)())
   {
     if (HIBYTE(v11))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4868, "OI_STATUS _BCM_GetQoSConfig(uint8_t, BT_VSC_COMPLETE_CB)");
     }
 
     else
@@ -3234,7 +3423,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t sub_1002683E8(char a1, char a2, int a3, int a4, int a5, int a6, int a7, int a8, char a9, char a10, __int16 a11, char a12, uint64_t (*a13)())
+uint64_t sub_1002683E8(char a1, char a2, int a3, int a4, int a5, int a6, int a7, int a8, char a9, char a10, __int16 a11, char a12, void (*a13)())
 {
   v47 = 0;
   v48 = 0;
@@ -3243,7 +3432,7 @@ uint64_t sub_1002683E8(char a1, char a2, int a3, int a4, int a5, int a6, int a7,
   {
     if (HIBYTE(v48))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4886, "OI_STATUS _BCM_GetScanStatsWithThreshold(uint8_t, uint8_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint8_t, BT_VSC_COMPLETE_CB)");
     }
 
     else
@@ -3257,7 +3446,7 @@ uint64_t sub_1002683E8(char a1, char a2, int a3, int a4, int a5, int a6, int a7,
           *(v47 + v25) = 0;
           if (HIBYTE(v48))
           {
-            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4887, "OI_STATUS _BCM_GetScanStatsWithThreshold(uint8_t, uint8_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint8_t, BT_VSC_COMPLETE_CB)");
           }
 
           else
@@ -3271,7 +3460,7 @@ uint64_t sub_1002683E8(char a1, char a2, int a3, int a4, int a5, int a6, int a7,
                 *(v47 + v26) = a1;
                 if (HIBYTE(v48))
                 {
-                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4888, "OI_STATUS _BCM_GetScanStatsWithThreshold(uint8_t, uint8_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint8_t, BT_VSC_COMPLETE_CB)");
                 }
 
                 else
@@ -3285,7 +3474,7 @@ uint64_t sub_1002683E8(char a1, char a2, int a3, int a4, int a5, int a6, int a7,
                       *(v47 + v27) = a2;
                       if (HIBYTE(v48))
                       {
-                        sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                        sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4889, "OI_STATUS _BCM_GetScanStatsWithThreshold(uint8_t, uint8_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint8_t, BT_VSC_COMPLETE_CB)");
                       }
 
                       else if (WORD1(v48) - WORD2(v48) > 3)
@@ -3299,7 +3488,7 @@ uint64_t sub_1002683E8(char a1, char a2, int a3, int a4, int a5, int a6, int a7,
                           WORD2(v48) += 4;
                           if (HIBYTE(v48))
                           {
-                            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4890, "OI_STATUS _BCM_GetScanStatsWithThreshold(uint8_t, uint8_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint8_t, BT_VSC_COMPLETE_CB)");
                           }
 
                           else if (WORD1(v48) - v28 > 3)
@@ -3314,7 +3503,7 @@ uint64_t sub_1002683E8(char a1, char a2, int a3, int a4, int a5, int a6, int a7,
                               WORD2(v48) += 4;
                               if (HIBYTE(v48))
                               {
-                                sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4891, "OI_STATUS _BCM_GetScanStatsWithThreshold(uint8_t, uint8_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint8_t, BT_VSC_COMPLETE_CB)");
                               }
 
                               else if (WORD1(v48) - v29 > 3)
@@ -3329,7 +3518,7 @@ uint64_t sub_1002683E8(char a1, char a2, int a3, int a4, int a5, int a6, int a7,
                                   WORD2(v48) += 4;
                                   if (HIBYTE(v48))
                                   {
-                                    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4892, "OI_STATUS _BCM_GetScanStatsWithThreshold(uint8_t, uint8_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint8_t, BT_VSC_COMPLETE_CB)");
                                   }
 
                                   else if (WORD1(v48) - v30 > 3)
@@ -3344,7 +3533,7 @@ uint64_t sub_1002683E8(char a1, char a2, int a3, int a4, int a5, int a6, int a7,
                                       WORD2(v48) += 4;
                                       if (HIBYTE(v48))
                                       {
-                                        sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                        sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4893, "OI_STATUS _BCM_GetScanStatsWithThreshold(uint8_t, uint8_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint8_t, BT_VSC_COMPLETE_CB)");
                                       }
 
                                       else if (WORD1(v48) - v31 > 3)
@@ -3359,7 +3548,7 @@ uint64_t sub_1002683E8(char a1, char a2, int a3, int a4, int a5, int a6, int a7,
                                           WORD2(v48) += 4;
                                           if (HIBYTE(v48))
                                           {
-                                            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4894, "OI_STATUS _BCM_GetScanStatsWithThreshold(uint8_t, uint8_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint8_t, BT_VSC_COMPLETE_CB)");
                                           }
 
                                           else if (WORD1(v48) - v32 > 3)
@@ -3374,7 +3563,7 @@ uint64_t sub_1002683E8(char a1, char a2, int a3, int a4, int a5, int a6, int a7,
                                               WORD2(v48) += 4;
                                               if (HIBYTE(v48))
                                               {
-                                                sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                                sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4895, "OI_STATUS _BCM_GetScanStatsWithThreshold(uint8_t, uint8_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint8_t, BT_VSC_COMPLETE_CB)");
                                               }
 
                                               else if (WORD1(v48) - v33 > 3)
@@ -3389,7 +3578,7 @@ uint64_t sub_1002683E8(char a1, char a2, int a3, int a4, int a5, int a6, int a7,
                                                   WORD2(v48) += 4;
                                                   if (HIBYTE(v48))
                                                   {
-                                                    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                                    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4896, "OI_STATUS _BCM_GetScanStatsWithThreshold(uint8_t, uint8_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint8_t, BT_VSC_COMPLETE_CB)");
                                                   }
 
                                                   else if (WORD1(v48) > v35)
@@ -3506,7 +3695,7 @@ LABEL_40:
   return result;
 }
 
-uint64_t sub_100268B84(char a1, char a2, uint64_t (*a3)())
+uint64_t sub_100268B84(char a1, char a2, void (*a3)())
 {
   v16 = 0;
   v17 = 0;
@@ -3515,7 +3704,7 @@ uint64_t sub_100268B84(char a1, char a2, uint64_t (*a3)())
   {
     if (HIBYTE(v17))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4910, "OI_STATUS _BCM_ReadScanStatsWithThreshold(uint8_t, uint8_t, BT_VSC_COMPLETE_CB)");
     }
 
     else
@@ -3529,7 +3718,7 @@ uint64_t sub_100268B84(char a1, char a2, uint64_t (*a3)())
           *(v16 + v10) = 1;
           if (HIBYTE(v17))
           {
-            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4911, "OI_STATUS _BCM_ReadScanStatsWithThreshold(uint8_t, uint8_t, BT_VSC_COMPLETE_CB)");
           }
 
           else
@@ -3543,7 +3732,7 @@ uint64_t sub_100268B84(char a1, char a2, uint64_t (*a3)())
                 *(v16 + v11) = a1;
                 if (HIBYTE(v17))
                 {
-                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4912, "OI_STATUS _BCM_ReadScanStatsWithThreshold(uint8_t, uint8_t, BT_VSC_COMPLETE_CB)");
                 }
 
                 else
@@ -3591,7 +3780,7 @@ LABEL_16:
   return result;
 }
 
-uint64_t sub_100268D5C(int a1, uint64_t (*a2)())
+uint64_t sub_100268D5C(int a1, void (*a2)())
 {
   v11 = 0;
   v12 = 0;
@@ -3600,7 +3789,7 @@ uint64_t sub_100268D5C(int a1, uint64_t (*a2)())
   {
     if (HIBYTE(v12))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4926, "OI_STATUS _BCM_ConfigAppleExtAdvReport(uint32_t, BT_VSC_COMPLETE_CB)");
     }
 
     else
@@ -3614,7 +3803,7 @@ uint64_t sub_100268D5C(int a1, uint64_t (*a2)())
           *(v11 + v8) = 16;
           if (HIBYTE(v12))
           {
-            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4927, "OI_STATUS _BCM_ConfigAppleExtAdvReport(uint32_t, BT_VSC_COMPLETE_CB)");
           }
 
           else if (WORD1(v12) - WORD2(v12) > 3)
@@ -3650,7 +3839,7 @@ LABEL_13:
   return result;
 }
 
-uint64_t sub_100268EF4(char *a1, uint64_t (*a2)())
+uint64_t sub_100268EF4(char *a1, void (*a2)())
 {
   v12 = 0;
   v13 = 0;
@@ -3659,7 +3848,7 @@ uint64_t sub_100268EF4(char *a1, uint64_t (*a2)())
   {
     if (HIBYTE(v13))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4940, "OI_STATUS _BCM_CreateMultipleAdvInstance(const LE_Address *, BT_VSC_CREATE_MULTI_ADV_INST_CB)");
     }
 
     else
@@ -3674,7 +3863,7 @@ uint64_t sub_100268EF4(char *a1, uint64_t (*a2)())
           *(v12 + v5) = v6;
           if (HIBYTE(v13))
           {
-            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4941, "OI_STATUS _BCM_CreateMultipleAdvInstance(const LE_Address *, BT_VSC_CREATE_MULTI_ADV_INST_CB)");
           }
 
           else if (WORD1(v13) - WORD2(v13) > 5)
@@ -3708,7 +3897,7 @@ LABEL_13:
   return result;
 }
 
-uint64_t sub_10026905C(char a1, uint64_t (*a2)())
+uint64_t sub_10026905C(char a1, void (*a2)())
 {
   v10 = 0;
   v11 = 0;
@@ -3717,7 +3906,7 @@ uint64_t sub_10026905C(char a1, uint64_t (*a2)())
   {
     if (HIBYTE(v11))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4956, "OI_STATUS _BCM_RemoveMultipleAdvInstance(uint8_t, BT_VSC_COMPLETE_CB)");
     }
 
     else
@@ -3745,7 +3934,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t sub_100269134(char a1, __int16 a2, __int16 a3, char a4, char a5, char a6, uint64_t (*a7)())
+uint64_t sub_100269134(char a1, __int16 a2, __int16 a3, char a4, char a5, char a6, void (*a7)())
 {
   v30 = 0;
   v31 = 0;
@@ -3754,7 +3943,7 @@ uint64_t sub_100269134(char a1, __int16 a2, __int16 a3, char a4, char a5, char a
   {
     if (HIBYTE(v31))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4971, "OI_STATUS _BCM_SetMultipleAdvInstanceParams(uint8_t, uint16_t, uint16_t, uint8_t, uint8_t, uint8_t, BT_VSC_COMPLETE_CB)");
     }
 
     else
@@ -3768,7 +3957,7 @@ uint64_t sub_100269134(char a1, __int16 a2, __int16 a3, char a4, char a5, char a
           *(v30 + v18) = a1;
           if (HIBYTE(v31))
           {
-            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4972, "OI_STATUS _BCM_SetMultipleAdvInstanceParams(uint8_t, uint16_t, uint16_t, uint8_t, uint8_t, uint8_t, BT_VSC_COMPLETE_CB)");
           }
 
           else if (WORD1(v31) - WORD2(v31) > 1)
@@ -3780,7 +3969,7 @@ uint64_t sub_100269134(char a1, __int16 a2, __int16 a3, char a4, char a5, char a
               WORD2(v31) += 2;
               if (HIBYTE(v31))
               {
-                sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4973, "OI_STATUS _BCM_SetMultipleAdvInstanceParams(uint8_t, uint16_t, uint16_t, uint8_t, uint8_t, uint8_t, BT_VSC_COMPLETE_CB)");
               }
 
               else if (WORD1(v31) - v19 > 1)
@@ -3794,7 +3983,7 @@ uint64_t sub_100269134(char a1, __int16 a2, __int16 a3, char a4, char a5, char a
                   WORD2(v31) += 2;
                   if (HIBYTE(v31))
                   {
-                    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4974, "OI_STATUS _BCM_SetMultipleAdvInstanceParams(uint8_t, uint16_t, uint16_t, uint8_t, uint8_t, uint8_t, BT_VSC_COMPLETE_CB)");
                   }
 
                   else if (WORD1(v31) > v21)
@@ -3805,7 +3994,7 @@ uint64_t sub_100269134(char a1, __int16 a2, __int16 a3, char a4, char a5, char a
                       *(v30 + v21) = a4;
                       if (HIBYTE(v31))
                       {
-                        sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                        sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4975, "OI_STATUS _BCM_SetMultipleAdvInstanceParams(uint8_t, uint16_t, uint16_t, uint8_t, uint8_t, uint8_t, BT_VSC_COMPLETE_CB)");
                       }
 
                       else
@@ -3819,7 +4008,7 @@ uint64_t sub_100269134(char a1, __int16 a2, __int16 a3, char a4, char a5, char a
                             *(v30 + v22) = a5;
                             if (HIBYTE(v31))
                             {
-                              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4976, "OI_STATUS _BCM_SetMultipleAdvInstanceParams(uint8_t, uint16_t, uint16_t, uint8_t, uint8_t, uint8_t, BT_VSC_COMPLETE_CB)");
                             }
 
                             else
@@ -3894,7 +4083,7 @@ LABEL_25:
   return result;
 }
 
-uint64_t sub_1002694C8(char a1, unsigned int a2, const void *a3, uint64_t (*a4)())
+uint64_t sub_1002694C8(char a1, unsigned int a2, const void *a3, void (*a4)())
 {
   v18 = 0;
   v19 = 0;
@@ -3903,7 +4092,7 @@ uint64_t sub_1002694C8(char a1, unsigned int a2, const void *a3, uint64_t (*a4)(
   {
     if (HIBYTE(v19))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4991, "OI_STATUS _BCM_SetMultipleAdvInstanceData(uint8_t, uint8_t, const uint8_t *, BT_VSC_COMPLETE_CB)");
     }
 
     else
@@ -3917,7 +4106,7 @@ uint64_t sub_1002694C8(char a1, unsigned int a2, const void *a3, uint64_t (*a4)(
           *(v18 + v9) = a1;
           if (HIBYTE(v19))
           {
-            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4992, "OI_STATUS _BCM_SetMultipleAdvInstanceData(uint8_t, uint8_t, const uint8_t *, BT_VSC_COMPLETE_CB)");
           }
 
           else
@@ -3941,7 +4130,7 @@ uint64_t sub_1002694C8(char a1, unsigned int a2, const void *a3, uint64_t (*a4)(
                 *(v18 + v10) = v11;
                 if (HIBYTE(v19))
                 {
-                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 4993, "OI_STATUS _BCM_SetMultipleAdvInstanceData(uint8_t, uint8_t, const uint8_t *, BT_VSC_COMPLETE_CB)");
                 }
 
                 else if (WORD1(v19) - WORD2(v19) > 30)
@@ -3985,7 +4174,7 @@ LABEL_19:
   return result;
 }
 
-uint64_t sub_1002696C0(char a1, unsigned int a2, const void *a3, uint64_t (*a4)())
+uint64_t sub_1002696C0(char a1, unsigned int a2, const void *a3, void (*a4)())
 {
   v18 = 0;
   v19 = 0;
@@ -3994,7 +4183,7 @@ uint64_t sub_1002696C0(char a1, unsigned int a2, const void *a3, uint64_t (*a4)(
   {
     if (HIBYTE(v19))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 5008, "OI_STATUS _BCM_SetMultipleScanRspInstanceData(uint8_t, uint8_t, const uint8_t *, BT_VSC_COMPLETE_CB)");
     }
 
     else
@@ -4008,7 +4197,7 @@ uint64_t sub_1002696C0(char a1, unsigned int a2, const void *a3, uint64_t (*a4)(
           *(v18 + v9) = a1;
           if (HIBYTE(v19))
           {
-            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 5009, "OI_STATUS _BCM_SetMultipleScanRspInstanceData(uint8_t, uint8_t, const uint8_t *, BT_VSC_COMPLETE_CB)");
           }
 
           else
@@ -4032,7 +4221,7 @@ uint64_t sub_1002696C0(char a1, unsigned int a2, const void *a3, uint64_t (*a4)(
                 *(v18 + v10) = v11;
                 if (HIBYTE(v19))
                 {
-                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 5010, "OI_STATUS _BCM_SetMultipleScanRspInstanceData(uint8_t, uint8_t, const uint8_t *, BT_VSC_COMPLETE_CB)");
                 }
 
                 else if (WORD1(v19) - WORD2(v19) > 30)
@@ -4076,7 +4265,7 @@ LABEL_19:
   return result;
 }
 
-uint64_t sub_1002698B8(char a1, char a2, int a3, char a4, uint64_t (*a5)())
+uint64_t sub_1002698B8(char a1, char a2, int a3, char a4, void (*a5)())
 {
   v22 = 0;
   v23 = 0;
@@ -4085,7 +4274,7 @@ uint64_t sub_1002698B8(char a1, char a2, int a3, char a4, uint64_t (*a5)())
   {
     if (HIBYTE(v23))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 5025, "OI_STATUS _BCM_SetMultipleAdvInstanceEnable(uint8_t, _Bool, uint32_t, _Bool, BT_VSC_COMPLETE_CB)");
     }
 
     else
@@ -4099,7 +4288,7 @@ uint64_t sub_1002698B8(char a1, char a2, int a3, char a4, uint64_t (*a5)())
           *(v22 + v14) = a1;
           if (HIBYTE(v23))
           {
-            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 5026, "OI_STATUS _BCM_SetMultipleAdvInstanceEnable(uint8_t, _Bool, uint32_t, _Bool, BT_VSC_COMPLETE_CB)");
           }
 
           else
@@ -4113,7 +4302,7 @@ uint64_t sub_1002698B8(char a1, char a2, int a3, char a4, uint64_t (*a5)())
                 *(v22 + v15) = a2;
                 if (HIBYTE(v23))
                 {
-                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 5027, "OI_STATUS _BCM_SetMultipleAdvInstanceEnable(uint8_t, _Bool, uint32_t, _Bool, BT_VSC_COMPLETE_CB)");
                 }
 
                 else if (WORD1(v23) - WORD2(v23) > 3)
@@ -4128,7 +4317,7 @@ uint64_t sub_1002698B8(char a1, char a2, int a3, char a4, uint64_t (*a5)())
                     WORD2(v23) += 4;
                     if (HIBYTE(v23))
                     {
-                      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 5028, "OI_STATUS _BCM_SetMultipleAdvInstanceEnable(uint8_t, _Bool, uint32_t, _Bool, BT_VSC_COMPLETE_CB)");
                     }
 
                     else if (WORD1(v23) > v17)
@@ -4181,7 +4370,7 @@ LABEL_19:
   return result;
 }
 
-uint64_t sub_100269B58(char a1, char *a2, uint64_t (*a3)())
+uint64_t sub_100269B58(char a1, char *a2, void (*a3)())
 {
   v16 = 0;
   v17 = 0;
@@ -4190,7 +4379,7 @@ uint64_t sub_100269B58(char a1, char *a2, uint64_t (*a3)())
   {
     if (HIBYTE(v17))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 5044, "OI_STATUS _BCM_UpdateMultipleAdvInstanceAddress(uint8_t, const LE_Address *, BT_VSC_COMPLETE_CB)");
     }
 
     else
@@ -4204,7 +4393,7 @@ uint64_t sub_100269B58(char a1, char *a2, uint64_t (*a3)())
           *(v16 + v7) = a1;
           if (HIBYTE(v17))
           {
-            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 5045, "OI_STATUS _BCM_UpdateMultipleAdvInstanceAddress(uint8_t, const LE_Address *, BT_VSC_COMPLETE_CB)");
           }
 
           else
@@ -4219,7 +4408,7 @@ uint64_t sub_100269B58(char a1, char *a2, uint64_t (*a3)())
                 *(v16 + v8) = v9;
                 if (HIBYTE(v17))
                 {
-                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 5046, "OI_STATUS _BCM_UpdateMultipleAdvInstanceAddress(uint8_t, const LE_Address *, BT_VSC_COMPLETE_CB)");
                 }
 
                 else if (WORD1(v17) - WORD2(v17) > 5)
@@ -4263,7 +4452,7 @@ LABEL_16:
   return result;
 }
 
-uint64_t sub_100269D44(void *a1, uint64_t (*a2)())
+uint64_t sub_100269D44(void *a1, void (*a2)())
 {
   v9 = 0;
   v10 = 0;
@@ -4272,7 +4461,7 @@ uint64_t sub_100269D44(void *a1, uint64_t (*a2)())
   {
     if (HIBYTE(v10))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 5062, "OI_STATUS _BCM_WriteLELocalSupportedFeatures(uint8_t *, BT_VSC_COMPLETE_CB)");
     }
 
     else if (WORD1(v10) - WORD2(v10) > 7)
@@ -4296,7 +4485,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t sub_100269E28(char a1, __int16 a2, uint64_t (*a3)())
+uint64_t sub_100269E28(char a1, __int16 a2, void (*a3)())
 {
   v14 = 0;
   v15 = 0;
@@ -4305,7 +4494,7 @@ uint64_t sub_100269E28(char a1, __int16 a2, uint64_t (*a3)())
   {
     if (HIBYTE(v15))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 5077, "OI_STATUS _BCM_EnableExtendedDuplicateFilter(_Bool, uint16_t, BT_VSC_COMPLETE_CB)");
     }
 
     else if (WORD1(v15) - WORD2(v15) > 1)
@@ -4319,7 +4508,7 @@ uint64_t sub_100269E28(char a1, __int16 a2, uint64_t (*a3)())
         WORD2(v15) += 2;
         if (HIBYTE(v15))
         {
-          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 5078, "OI_STATUS _BCM_EnableExtendedDuplicateFilter(_Bool, uint16_t, BT_VSC_COMPLETE_CB)");
         }
 
         else if (WORD1(v15) > v11)
@@ -4352,7 +4541,7 @@ LABEL_13:
   return result;
 }
 
-uint64_t sub_100269FA0(__int16 a1, char a2, uint64_t a3, uint64_t (*a4)())
+uint64_t sub_100269FA0(__int16 a1, char a2, uint64_t a3, void (*a4)())
 {
   v15 = 0;
   v16 = 0;
@@ -4361,7 +4550,7 @@ uint64_t sub_100269FA0(__int16 a1, char a2, uint64_t a3, uint64_t (*a4)())
   {
     if (HIBYTE(v16))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 5093, "OI_STATUS _BCM_SetPriorityLe(uint16_t, uint8_t, _Bool, BT_VSC_COMPLETE_CB)");
     }
 
     else if (WORD1(v16) - WORD2(v16) > 1)
@@ -4374,7 +4563,7 @@ uint64_t sub_100269FA0(__int16 a1, char a2, uint64_t a3, uint64_t (*a4)())
         WORD2(v16) += 2;
         if (HIBYTE(v16))
         {
-          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 5094, "OI_STATUS _BCM_SetPriorityLe(uint16_t, uint8_t, _Bool, BT_VSC_COMPLETE_CB)");
         }
 
         else if (WORD1(v16) > v12)
@@ -4407,7 +4596,7 @@ LABEL_13:
   return result;
 }
 
-uint64_t sub_10026A118(char a1, uint64_t (*a2)())
+uint64_t sub_10026A118(char a1, void (*a2)())
 {
   v12 = 0;
   v13 = 0;
@@ -4416,7 +4605,7 @@ uint64_t sub_10026A118(char a1, uint64_t (*a2)())
   {
     if (HIBYTE(v13))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 5212, "OI_STATUS _BCM_OlympicSetMinAFHLeChannels(uint8_t, BT_VSC_COMPLETE_CB)");
     }
 
     else if (WORD1(v13) - WORD2(v13) > 3)
@@ -4431,7 +4620,7 @@ uint64_t sub_10026A118(char a1, uint64_t (*a2)())
         WORD2(v13) += 4;
         if (HIBYTE(v13))
         {
-          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 5213, "OI_STATUS _BCM_OlympicSetMinAFHLeChannels(uint8_t, BT_VSC_COMPLETE_CB)");
         }
 
         else if (WORD1(v13) > v9)
@@ -4464,7 +4653,7 @@ LABEL_13:
   return result;
 }
 
-uint64_t sub_10026A2A4(char a1, uint64_t (*a2)())
+uint64_t sub_10026A2A4(char a1, void (*a2)())
 {
   v10 = 0;
   v11 = 0;
@@ -4473,7 +4662,7 @@ uint64_t sub_10026A2A4(char a1, uint64_t (*a2)())
   {
     if (HIBYTE(v11))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 5227, "OI_STATUS _BCM_EnableCoExDebugCounters(uint8_t, BT_VSC_COMPLETE_CB)");
     }
 
     else
@@ -4501,7 +4690,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t sub_10026A37C(__int16 a1, char a2, char a3, char *a4, unsigned int a5, uint64_t (*a6)())
+uint64_t sub_10026A37C(__int16 a1, char a2, char a3, char *a4, unsigned int a5, void (*a6)())
 {
   v26 = 0;
   v27 = 0;
@@ -4513,7 +4702,7 @@ uint64_t sub_10026A37C(__int16 a1, char a2, char a3, char *a4, unsigned int a5, 
 
   if (HIBYTE(v27))
   {
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 5241, "OI_STATUS _BCM_ConfigureControllerBTClockCapture(const uint16_t, const uint, const uint, const uint8_t *, const uint16_t, BT_VSC_COMPLETE_CB)");
     goto LABEL_24;
   }
 
@@ -4537,7 +4726,7 @@ LABEL_26:
   WORD2(v27) += 2;
   if (HIBYTE(v27))
   {
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 5242, "OI_STATUS _BCM_ConfigureControllerBTClockCapture(const uint16_t, const uint, const uint, const uint8_t *, const uint16_t, BT_VSC_COMPLETE_CB)");
     goto LABEL_28;
   }
 
@@ -4559,7 +4748,7 @@ LABEL_30:
   *(v26 + v17) = a2;
   if (HIBYTE(v27))
   {
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 5243, "OI_STATUS _BCM_ConfigureControllerBTClockCapture(const uint16_t, const uint, const uint, const uint8_t *, const uint16_t, BT_VSC_COMPLETE_CB)");
     goto LABEL_32;
   }
 
@@ -4606,7 +4795,7 @@ LABEL_34:
       }
     }
 
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 5245, "OI_STATUS _BCM_ConfigureControllerBTClockCapture(const uint16_t, const uint, const uint, const uint8_t *, const uint16_t, BT_VSC_COMPLETE_CB)");
 LABEL_21:
     v22 = "ByteStream_NumReadBytesAvail(bs) >= 1";
 LABEL_22:
@@ -4616,7 +4805,7 @@ LABEL_22:
   return sub_100020078(586, v26, BYTE4(v27), a6, sub_100022AD0, v13, v14, v15);
 }
 
-uint64_t sub_10026A60C(char a1, __int16 a2, char a3, char a4, char a5, char a6, char a7, char a8, char a9, __int16 a10, char a11, char a12, char a13, char a14, char a15, int a16, int a17, char a18, char a19, __int16 a20, char a21, int a22, uint64_t (*a23)())
+uint64_t sub_10026A60C(char a1, __int16 a2, char a3, char a4, char a5, char a6, char a7, char a8, char a9, __int16 a10, char a11, char a12, char a13, char a14, char a15, int a16, int a17, char a18, char a19, __int16 a20, char a21, int a22, void (*a23)())
 {
   v70 = 0;
   v71 = 0;
@@ -4625,7 +4814,7 @@ uint64_t sub_10026A60C(char a1, __int16 a2, char a3, char a4, char a5, char a6, 
   {
     if (HIBYTE(v71))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 5259, "OI_STATUS _BCM_ConfigureRSSIStatisticsDetection(_Bool, uint16_t, uint8_t, int8_t, int8_t, int8_t, int8_t, int8_t, int8_t, uint16_t, uint16_t, uint16_t, uint8_t, uint32_t, uint32_t, uint32_t, uint8_t, uint32_t, BT_VSC_COMPLETE_CB)");
     }
 
     else
@@ -4639,7 +4828,7 @@ uint64_t sub_10026A60C(char a1, __int16 a2, char a3, char a4, char a5, char a6, 
           *(v70 + v35) = a1;
           if (HIBYTE(v71))
           {
-            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 5260, "OI_STATUS _BCM_ConfigureRSSIStatisticsDetection(_Bool, uint16_t, uint8_t, int8_t, int8_t, int8_t, int8_t, int8_t, int8_t, uint16_t, uint16_t, uint16_t, uint8_t, uint32_t, uint32_t, uint32_t, uint8_t, uint32_t, BT_VSC_COMPLETE_CB)");
           }
 
           else if (WORD1(v71) - WORD2(v71) > 1)
@@ -4652,7 +4841,7 @@ uint64_t sub_10026A60C(char a1, __int16 a2, char a3, char a4, char a5, char a6, 
               WORD2(v71) += 2;
               if (HIBYTE(v71))
               {
-                sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 5261, "OI_STATUS _BCM_ConfigureRSSIStatisticsDetection(_Bool, uint16_t, uint8_t, int8_t, int8_t, int8_t, int8_t, int8_t, int8_t, uint16_t, uint16_t, uint16_t, uint8_t, uint32_t, uint32_t, uint32_t, uint8_t, uint32_t, BT_VSC_COMPLETE_CB)");
               }
 
               else if (WORD1(v71) > v37)
@@ -4663,7 +4852,7 @@ uint64_t sub_10026A60C(char a1, __int16 a2, char a3, char a4, char a5, char a6, 
                   *(v70 + v37) = a3;
                   if (HIBYTE(v71))
                   {
-                    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 5262, "OI_STATUS _BCM_ConfigureRSSIStatisticsDetection(_Bool, uint16_t, uint8_t, int8_t, int8_t, int8_t, int8_t, int8_t, int8_t, uint16_t, uint16_t, uint16_t, uint8_t, uint32_t, uint32_t, uint32_t, uint8_t, uint32_t, BT_VSC_COMPLETE_CB)");
                   }
 
                   else
@@ -4677,7 +4866,7 @@ uint64_t sub_10026A60C(char a1, __int16 a2, char a3, char a4, char a5, char a6, 
                         *(v70 + v38) = a4;
                         if (HIBYTE(v71))
                         {
-                          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 5263, "OI_STATUS _BCM_ConfigureRSSIStatisticsDetection(_Bool, uint16_t, uint8_t, int8_t, int8_t, int8_t, int8_t, int8_t, int8_t, uint16_t, uint16_t, uint16_t, uint8_t, uint32_t, uint32_t, uint32_t, uint8_t, uint32_t, BT_VSC_COMPLETE_CB)");
                         }
 
                         else
@@ -4691,7 +4880,7 @@ uint64_t sub_10026A60C(char a1, __int16 a2, char a3, char a4, char a5, char a6, 
                               *(v70 + v39) = a5;
                               if (HIBYTE(v71))
                               {
-                                sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 5264, "OI_STATUS _BCM_ConfigureRSSIStatisticsDetection(_Bool, uint16_t, uint8_t, int8_t, int8_t, int8_t, int8_t, int8_t, int8_t, uint16_t, uint16_t, uint16_t, uint8_t, uint32_t, uint32_t, uint32_t, uint8_t, uint32_t, BT_VSC_COMPLETE_CB)");
                               }
 
                               else
@@ -4705,7 +4894,7 @@ uint64_t sub_10026A60C(char a1, __int16 a2, char a3, char a4, char a5, char a6, 
                                     *(v70 + v40) = a6;
                                     if (HIBYTE(v71))
                                     {
-                                      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 5265, "OI_STATUS _BCM_ConfigureRSSIStatisticsDetection(_Bool, uint16_t, uint8_t, int8_t, int8_t, int8_t, int8_t, int8_t, int8_t, uint16_t, uint16_t, uint16_t, uint8_t, uint32_t, uint32_t, uint32_t, uint8_t, uint32_t, BT_VSC_COMPLETE_CB)");
                                     }
 
                                     else
@@ -4719,7 +4908,7 @@ uint64_t sub_10026A60C(char a1, __int16 a2, char a3, char a4, char a5, char a6, 
                                           *(v70 + v41) = a7;
                                           if (HIBYTE(v71))
                                           {
-                                            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 5266, "OI_STATUS _BCM_ConfigureRSSIStatisticsDetection(_Bool, uint16_t, uint8_t, int8_t, int8_t, int8_t, int8_t, int8_t, int8_t, uint16_t, uint16_t, uint16_t, uint8_t, uint32_t, uint32_t, uint32_t, uint8_t, uint32_t, BT_VSC_COMPLETE_CB)");
                                           }
 
                                           else
@@ -4733,7 +4922,7 @@ uint64_t sub_10026A60C(char a1, __int16 a2, char a3, char a4, char a5, char a6, 
                                                 *(v70 + v42) = a8;
                                                 if (HIBYTE(v71))
                                                 {
-                                                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 5267, "OI_STATUS _BCM_ConfigureRSSIStatisticsDetection(_Bool, uint16_t, uint8_t, int8_t, int8_t, int8_t, int8_t, int8_t, int8_t, uint16_t, uint16_t, uint16_t, uint8_t, uint32_t, uint32_t, uint32_t, uint8_t, uint32_t, BT_VSC_COMPLETE_CB)");
                                                 }
 
                                                 else
@@ -4747,7 +4936,7 @@ uint64_t sub_10026A60C(char a1, __int16 a2, char a3, char a4, char a5, char a6, 
                                                       *(v70 + v43) = a9;
                                                       if (HIBYTE(v71))
                                                       {
-                                                        sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                                        sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 5268, "OI_STATUS _BCM_ConfigureRSSIStatisticsDetection(_Bool, uint16_t, uint8_t, int8_t, int8_t, int8_t, int8_t, int8_t, int8_t, uint16_t, uint16_t, uint16_t, uint8_t, uint32_t, uint32_t, uint32_t, uint8_t, uint32_t, BT_VSC_COMPLETE_CB)");
                                                       }
 
                                                       else if (WORD1(v71) - WORD2(v71) > 1)
@@ -4759,7 +4948,7 @@ uint64_t sub_10026A60C(char a1, __int16 a2, char a3, char a4, char a5, char a6, 
                                                           WORD2(v71) += 2;
                                                           if (HIBYTE(v71))
                                                           {
-                                                            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                                            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 5269, "OI_STATUS _BCM_ConfigureRSSIStatisticsDetection(_Bool, uint16_t, uint8_t, int8_t, int8_t, int8_t, int8_t, int8_t, int8_t, uint16_t, uint16_t, uint16_t, uint8_t, uint32_t, uint32_t, uint32_t, uint8_t, uint32_t, BT_VSC_COMPLETE_CB)");
                                                           }
 
                                                           else if (WORD1(v71) - v44 > 1)
@@ -4772,7 +4961,7 @@ uint64_t sub_10026A60C(char a1, __int16 a2, char a3, char a4, char a5, char a6, 
                                                               WORD2(v71) += 2;
                                                               if (HIBYTE(v71))
                                                               {
-                                                                sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                                                sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 5270, "OI_STATUS _BCM_ConfigureRSSIStatisticsDetection(_Bool, uint16_t, uint8_t, int8_t, int8_t, int8_t, int8_t, int8_t, int8_t, uint16_t, uint16_t, uint16_t, uint8_t, uint32_t, uint32_t, uint32_t, uint8_t, uint32_t, BT_VSC_COMPLETE_CB)");
                                                               }
 
                                                               else if (WORD1(v71) - v45 > 1)
@@ -4786,7 +4975,7 @@ uint64_t sub_10026A60C(char a1, __int16 a2, char a3, char a4, char a5, char a6, 
                                                                   WORD2(v71) += 2;
                                                                   if (HIBYTE(v71))
                                                                   {
-                                                                    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                                                    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 5271, "OI_STATUS _BCM_ConfigureRSSIStatisticsDetection(_Bool, uint16_t, uint8_t, int8_t, int8_t, int8_t, int8_t, int8_t, int8_t, uint16_t, uint16_t, uint16_t, uint8_t, uint32_t, uint32_t, uint32_t, uint8_t, uint32_t, BT_VSC_COMPLETE_CB)");
                                                                   }
 
                                                                   else if (WORD1(v71) > v47)
@@ -4797,7 +4986,7 @@ uint64_t sub_10026A60C(char a1, __int16 a2, char a3, char a4, char a5, char a6, 
                                                                       *(v70 + v47) = a15;
                                                                       if (HIBYTE(v71))
                                                                       {
-                                                                        sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                                                        sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 5272, "OI_STATUS _BCM_ConfigureRSSIStatisticsDetection(_Bool, uint16_t, uint8_t, int8_t, int8_t, int8_t, int8_t, int8_t, int8_t, uint16_t, uint16_t, uint16_t, uint8_t, uint32_t, uint32_t, uint32_t, uint8_t, uint32_t, BT_VSC_COMPLETE_CB)");
                                                                       }
 
                                                                       else if (WORD1(v71) - WORD2(v71) > 3)
@@ -4811,7 +5000,7 @@ uint64_t sub_10026A60C(char a1, __int16 a2, char a3, char a4, char a5, char a6, 
                                                                           WORD2(v71) += 4;
                                                                           if (HIBYTE(v71))
                                                                           {
-                                                                            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                                                            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 5273, "OI_STATUS _BCM_ConfigureRSSIStatisticsDetection(_Bool, uint16_t, uint8_t, int8_t, int8_t, int8_t, int8_t, int8_t, int8_t, uint16_t, uint16_t, uint16_t, uint8_t, uint32_t, uint32_t, uint32_t, uint8_t, uint32_t, BT_VSC_COMPLETE_CB)");
                                                                           }
 
                                                                           else if (WORD1(v71) - v48 > 3)
@@ -4825,7 +5014,7 @@ uint64_t sub_10026A60C(char a1, __int16 a2, char a3, char a4, char a5, char a6, 
                                                                               WORD2(v71) += 4;
                                                                               if (HIBYTE(v71))
                                                                               {
-                                                                                sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                                                                sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 5274, "OI_STATUS _BCM_ConfigureRSSIStatisticsDetection(_Bool, uint16_t, uint8_t, int8_t, int8_t, int8_t, int8_t, int8_t, int8_t, uint16_t, uint16_t, uint16_t, uint8_t, uint32_t, uint32_t, uint32_t, uint8_t, uint32_t, BT_VSC_COMPLETE_CB)");
                                                                               }
 
                                                                               else if (WORD1(v71) - v49 > 3)
@@ -4840,7 +5029,7 @@ uint64_t sub_10026A60C(char a1, __int16 a2, char a3, char a4, char a5, char a6, 
                                                                                   WORD2(v71) += 4;
                                                                                   if (HIBYTE(v71))
                                                                                   {
-                                                                                    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                                                                    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 5275, "OI_STATUS _BCM_ConfigureRSSIStatisticsDetection(_Bool, uint16_t, uint8_t, int8_t, int8_t, int8_t, int8_t, int8_t, int8_t, uint16_t, uint16_t, uint16_t, uint8_t, uint32_t, uint32_t, uint32_t, uint8_t, uint32_t, BT_VSC_COMPLETE_CB)");
                                                                                   }
 
                                                                                   else if (WORD1(v71) > v51)
@@ -4851,7 +5040,7 @@ uint64_t sub_10026A60C(char a1, __int16 a2, char a3, char a4, char a5, char a6, 
                                                                                       *(v70 + v51) = a21;
                                                                                       if (HIBYTE(v71))
                                                                                       {
-                                                                                        sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                                                                        sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 5276, "OI_STATUS _BCM_ConfigureRSSIStatisticsDetection(_Bool, uint16_t, uint8_t, int8_t, int8_t, int8_t, int8_t, int8_t, int8_t, uint16_t, uint16_t, uint16_t, uint8_t, uint32_t, uint32_t, uint32_t, uint8_t, uint32_t, BT_VSC_COMPLETE_CB)");
                                                                                       }
 
                                                                                       else if (WORD1(v71) - WORD2(v71) > 3)
@@ -5037,7 +5226,7 @@ LABEL_61:
   return result;
 }
 
-uint64_t sub_10026B0B4(__int16 a1, __int16 a2, uint64_t (*a3)())
+uint64_t sub_10026B0B4(__int16 a1, __int16 a2, void (*a3)())
 {
   v15 = 0;
   v16 = 0;
@@ -5046,7 +5235,7 @@ uint64_t sub_10026B0B4(__int16 a1, __int16 a2, uint64_t (*a3)())
   {
     if (HIBYTE(v16))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 6103, "OI_STATUS _BCM_AdjustLEInstantFactor(uint16_t, uint16_t, BT_VSC_COMPLETE_CB)");
     }
 
     else if (WORD1(v16) - WORD2(v16) > 3)
@@ -5060,7 +5249,7 @@ uint64_t sub_10026B0B4(__int16 a1, __int16 a2, uint64_t (*a3)())
         WORD2(v16) += 4;
         if (HIBYTE(v16))
         {
-          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 6104, "OI_STATUS _BCM_AdjustLEInstantFactor(uint16_t, uint16_t, BT_VSC_COMPLETE_CB)");
         }
 
         else if (WORD1(v16) - v10 > 1)
@@ -5073,7 +5262,7 @@ uint64_t sub_10026B0B4(__int16 a1, __int16 a2, uint64_t (*a3)())
             WORD2(v16) += 2;
             if (HIBYTE(v16))
             {
-              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 6105, "OI_STATUS _BCM_AdjustLEInstantFactor(uint16_t, uint16_t, BT_VSC_COMPLETE_CB)");
             }
 
             else if (WORD1(v16) - v11 > 1)
@@ -5116,7 +5305,7 @@ LABEL_16:
   return result;
 }
 
-uint64_t sub_10026B2FC(__int16 a1, int a2, __int16 a3, uint64_t (*a4)())
+uint64_t sub_10026B2FC(__int16 a1, int a2, __int16 a3, void (*a4)())
 {
   v19 = 0;
   v20 = 0;
@@ -5125,7 +5314,7 @@ uint64_t sub_10026B2FC(__int16 a1, int a2, __int16 a3, uint64_t (*a4)())
   {
     if (HIBYTE(v20))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 6343, "OI_STATUS _BCM_OlympicConfigureSynchronizationEvent(const uint16_t, const uint, const uint16_t, BT_VSC_COMPLETE_CB)");
     }
 
     else if (WORD1(v20) - WORD2(v20) > 3)
@@ -5139,7 +5328,7 @@ uint64_t sub_10026B2FC(__int16 a1, int a2, __int16 a3, uint64_t (*a4)())
         WORD2(v20) += 4;
         if (HIBYTE(v20))
         {
-          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 6344, "OI_STATUS _BCM_OlympicConfigureSynchronizationEvent(const uint16_t, const uint, const uint16_t, BT_VSC_COMPLETE_CB)");
         }
 
         else if (WORD1(v20) - v12 > 1)
@@ -5153,7 +5342,7 @@ uint64_t sub_10026B2FC(__int16 a1, int a2, __int16 a3, uint64_t (*a4)())
             WORD2(v20) += 2;
             if (HIBYTE(v20))
             {
-              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 6345, "OI_STATUS _BCM_OlympicConfigureSynchronizationEvent(const uint16_t, const uint, const uint16_t, BT_VSC_COMPLETE_CB)");
             }
 
             else if (WORD1(v20) > v14)
@@ -5164,7 +5353,7 @@ uint64_t sub_10026B2FC(__int16 a1, int a2, __int16 a3, uint64_t (*a4)())
                 *(v19 + v14) = a2 != 0;
                 if (HIBYTE(v20))
                 {
-                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 6346, "OI_STATUS _BCM_OlympicConfigureSynchronizationEvent(const uint16_t, const uint, const uint16_t, BT_VSC_COMPLETE_CB)");
                 }
 
                 else if (WORD1(v20) - WORD2(v20) > 1)
@@ -5215,7 +5404,7 @@ LABEL_19:
   return result;
 }
 
-uint64_t sub_10026B5C8(__int16 a1, uint64_t (*a2)())
+uint64_t sub_10026B5C8(__int16 a1, void (*a2)())
 {
   v11 = 0;
   v12 = 0;
@@ -5224,7 +5413,7 @@ uint64_t sub_10026B5C8(__int16 a1, uint64_t (*a2)())
   {
     if (HIBYTE(v12))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 6375, "OI_STATUS _BCM_DelayedHostWakePCIe(uint16_t, BT_VSC_COMPLETE_CB)");
     }
 
     else
@@ -5238,7 +5427,7 @@ uint64_t sub_10026B5C8(__int16 a1, uint64_t (*a2)())
           *(v11 + v8) = 9;
           if (HIBYTE(v12))
           {
-            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 6376, "OI_STATUS _BCM_DelayedHostWakePCIe(uint16_t, BT_VSC_COMPLETE_CB)");
           }
 
           else if (WORD1(v12) - WORD2(v12) > 1)
@@ -5272,7 +5461,7 @@ LABEL_13:
   return result;
 }
 
-uint64_t sub_10026B738(char a1, char a2, uint64_t (*a3)())
+uint64_t sub_10026B738(char a1, char a2, void (*a3)())
 {
   v14 = 0;
   v15 = 0;
@@ -5281,7 +5470,7 @@ uint64_t sub_10026B738(char a1, char a2, uint64_t (*a3)())
   {
     if (HIBYTE(v15))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 6421, "OI_STATUS _BCM_SetWiFi5GTxState(_Bool, uint8_t, BT_VSC_COMPLETE_CB)");
     }
 
     else
@@ -5295,7 +5484,7 @@ uint64_t sub_10026B738(char a1, char a2, uint64_t (*a3)())
           *(v14 + v10) = a1;
           if (HIBYTE(v15))
           {
-            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 6422, "OI_STATUS _BCM_SetWiFi5GTxState(_Bool, uint8_t, BT_VSC_COMPLETE_CB)");
           }
 
           else
@@ -5333,7 +5522,7 @@ LABEL_13:
   return result;
 }
 
-uint64_t sub_10026B894(char a1, __int16 a2, const void *a3, unsigned int a4, uint64_t (*a5)())
+uint64_t sub_10026B894(char a1, __int16 a2, const void *a3, signed int a4, void (*a5)())
 {
   v26 = 0;
   v27 = 0;
@@ -5342,7 +5531,7 @@ uint64_t sub_10026B894(char a1, __int16 a2, const void *a3, unsigned int a4, uin
   {
     if (HIBYTE(v27))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 7033, "OI_STATUS _BCM_Load_MSFFile(uint8_t, uint16_t, uint8_t *, uint16_t, BT_VSC_LOAD_MSFFILE_CB)");
     }
 
     else
@@ -5356,7 +5545,7 @@ uint64_t sub_10026B894(char a1, __int16 a2, const void *a3, unsigned int a4, uin
           *(v26 + v11) = a1;
           if (HIBYTE(v27))
           {
-            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 7034, "OI_STATUS _BCM_Load_MSFFile(uint8_t, uint16_t, uint8_t *, uint16_t, BT_VSC_LOAD_MSFFILE_CB)");
           }
 
           else if (WORD1(v27) - WORD2(v27) > 1)
@@ -5369,7 +5558,7 @@ uint64_t sub_10026B894(char a1, __int16 a2, const void *a3, unsigned int a4, uin
               v13 = v26;
               if (HIBYTE(v27))
               {
-                sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 7035, "OI_STATUS _BCM_Load_MSFFile(uint8_t, uint16_t, uint8_t *, uint16_t, BT_VSC_LOAD_MSFFILE_CB)");
                 v14 = 0;
               }
 
@@ -5395,7 +5584,7 @@ uint64_t sub_10026B894(char a1, __int16 a2, const void *a3, unsigned int a4, uin
                     v19 = v26;
                     if (HIBYTE(v27))
                     {
-                      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 7037, "OI_STATUS _BCM_Load_MSFFile(uint8_t, uint16_t, uint8_t *, uint16_t, BT_VSC_LOAD_MSFFILE_CB)");
                       v20 = 0;
                     }
 
@@ -5404,7 +5593,7 @@ uint64_t sub_10026B894(char a1, __int16 a2, const void *a3, unsigned int a4, uin
                       v20 = WORD1(v27) - v18;
                     }
 
-                    v21 = 230 - a4;
+                    v21 = (230 - a4);
                     if (v20 < v21)
                     {
                       v25 = "ByteStream_NumReadBytesAvail(bs) >= (230 - dataLen)";
@@ -5457,7 +5646,7 @@ LABEL_25:
   return result;
 }
 
-uint64_t sub_10026BB48(const void *a1, int a2, uint64_t (*a3)())
+uint64_t sub_10026BB48(const void *a1, unsigned int a2, void (*a3)())
 {
   v14 = 0;
   v15 = 0;
@@ -5468,7 +5657,7 @@ uint64_t sub_10026BB48(const void *a1, int a2, uint64_t (*a3)())
     v8 = WORD2(v15);
     if (HIBYTE(v15))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 7051, "OI_STATUS _BCM_Load_Pwr_RegulatoryFile(uint8_t *, uint16_t, BT_VSC_COMPLETE_CB)");
       v9 = 0;
     }
 
@@ -5500,7 +5689,7 @@ uint64_t sub_10026BB48(const void *a1, int a2, uint64_t (*a3)())
   return result;
 }
 
-uint64_t sub_10026BC50(__int16 a1, const void *a2, int a3, uint64_t (*a4)())
+uint64_t sub_10026BC50(__int16 a1, const void *a2, unsigned int a3, void (*a4)())
 {
   v17 = 0;
   v18 = 0;
@@ -5509,7 +5698,7 @@ uint64_t sub_10026BC50(__int16 a1, const void *a2, int a3, uint64_t (*a4)())
   {
     if (HIBYTE(v18))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 7065, "OI_STATUS _BCM_Load_Pwr_RegulatoryFile_A3(uint16_t, uint8_t *, uint16_t, BT_VSC_COMPLETE_CB)");
     }
 
     else if (WORD1(v18) - WORD2(v18) > 1)
@@ -5522,7 +5711,7 @@ uint64_t sub_10026BC50(__int16 a1, const void *a2, int a3, uint64_t (*a4)())
         v10 = v17;
         if (HIBYTE(v18))
         {
-          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 7066, "OI_STATUS _BCM_Load_Pwr_RegulatoryFile_A3(uint16_t, uint8_t *, uint16_t, BT_VSC_COMPLETE_CB)");
           v11 = 0;
         }
 
@@ -5563,7 +5752,7 @@ LABEL_15:
   return result;
 }
 
-uint64_t sub_10026BDEC(uint64_t a1, uint64_t (*a2)())
+uint64_t sub_10026BDEC(uint64_t a1, void (*a2)())
 {
   v9 = 0;
   v10 = 0;
@@ -5572,7 +5761,7 @@ uint64_t sub_10026BDEC(uint64_t a1, uint64_t (*a2)())
   {
     if (HIBYTE(v10))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 7080, "OI_STATUS _BCM_Write_Bd_Addr(OI_BD_ADDR *, BT_VSC_COMPLETE_CB)");
     }
 
     else if (WORD1(v10) - WORD2(v10) > 5)
@@ -5596,7 +5785,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t sub_10026BED8(__int16 a1, unsigned int a2, char *a3, uint64_t (*a4)())
+uint64_t sub_10026BED8(__int16 a1, unsigned int a2, char *a3, void (*a4)())
 {
   v22 = 0;
   v23 = 0;
@@ -5608,7 +5797,7 @@ uint64_t sub_10026BED8(__int16 a1, unsigned int a2, char *a3, uint64_t (*a4)())
 
   if (HIBYTE(v23))
   {
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 7093, "OI_STATUS _BCM_Enable_Connection_Adv_Indications(uint16_t, uint8_t, uint8_t *, BT_VSC_COMPLETE_CB)");
     goto LABEL_24;
   }
 
@@ -5631,7 +5820,7 @@ LABEL_26:
   *(v22 + v12) = 14;
   if (HIBYTE(v23))
   {
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 7094, "OI_STATUS _BCM_Enable_Connection_Adv_Indications(uint16_t, uint8_t, uint8_t *, BT_VSC_COMPLETE_CB)");
     goto LABEL_28;
   }
 
@@ -5655,7 +5844,7 @@ LABEL_30:
   WORD2(v23) += 2;
   if (HIBYTE(v23))
   {
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 7095, "OI_STATUS _BCM_Enable_Connection_Adv_Indications(uint16_t, uint8_t, uint8_t *, BT_VSC_COMPLETE_CB)");
     goto LABEL_32;
   }
 
@@ -5701,7 +5890,7 @@ LABEL_34:
       }
     }
 
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 7097, "OI_STATUS _BCM_Enable_Connection_Adv_Indications(uint16_t, uint8_t, uint8_t *, BT_VSC_COMPLETE_CB)");
 LABEL_21:
     v18 = "ByteStream_NumReadBytesAvail(bs) >= 1";
 LABEL_22:
@@ -5711,7 +5900,7 @@ LABEL_22:
   return sub_100020078(291, v22, BYTE4(v23), a4, sub_100022AD0, v9, v10, v11);
 }
 
-uint64_t sub_10026C15C(__int16 a1, char a2, uint64_t (*a3)())
+uint64_t sub_10026C15C(__int16 a1, char a2, void (*a3)())
 {
   v16 = 0;
   v17 = 0;
@@ -5720,7 +5909,7 @@ uint64_t sub_10026C15C(__int16 a1, char a2, uint64_t (*a3)())
   {
     if (HIBYTE(v17))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 7111, "OI_STATUS _BCM_Configure_Connection_Adv_Indications(uint16_t, uint8_t, BT_VSC_COMPLETE_CB)");
     }
 
     else
@@ -5734,7 +5923,7 @@ uint64_t sub_10026C15C(__int16 a1, char a2, uint64_t (*a3)())
           *(v16 + v10) = 15;
           if (HIBYTE(v17))
           {
-            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 7112, "OI_STATUS _BCM_Configure_Connection_Adv_Indications(uint16_t, uint8_t, BT_VSC_COMPLETE_CB)");
           }
 
           else if (WORD1(v17) - WORD2(v17) > 1)
@@ -5747,7 +5936,7 @@ uint64_t sub_10026C15C(__int16 a1, char a2, uint64_t (*a3)())
               WORD2(v17) += 2;
               if (HIBYTE(v17))
               {
-                sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 7113, "OI_STATUS _BCM_Configure_Connection_Adv_Indications(uint16_t, uint8_t, BT_VSC_COMPLETE_CB)");
               }
 
               else if (WORD1(v17) > v12)
@@ -5790,7 +5979,7 @@ LABEL_16:
   return result;
 }
 
-uint64_t sub_10026C350(int a1, uint64_t (*a2)())
+uint64_t sub_10026C350(int a1, void (*a2)())
 {
   v11 = 0;
   v12 = 0;
@@ -5802,7 +5991,7 @@ uint64_t sub_10026C350(int a1, uint64_t (*a2)())
 
   if (HIBYTE(v12))
   {
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 7126, "OI_STATUS _BCM_IncomingLEConnectionDenyListEnable(_Bool, BT_VSC_COMPLETE_CB)");
     goto LABEL_11;
   }
 
@@ -5836,7 +6025,7 @@ LABEL_13:
   return sub_100020078(569, v11, BYTE4(v12), a2, sub_100022AD0, v5, v6, v7);
 }
 
-uint64_t sub_10026C434(unint64_t a1, uint64_t (*a2)())
+uint64_t sub_10026C434(unint64_t a1, void (*a2)())
 {
   v18 = 0;
   v19 = 0;
@@ -5845,7 +6034,7 @@ uint64_t sub_10026C434(unint64_t a1, uint64_t (*a2)())
   {
     if (HIBYTE(v19))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 7139, "OI_STATUS _BCM_IncomingLEConnectionDenyListAdd(BTAddress, BT_VSC_COMPLETE_CB)");
     }
 
     else
@@ -5863,7 +6052,7 @@ uint64_t sub_10026C434(unint64_t a1, uint64_t (*a2)())
           v16 = WORD2(v6);
           if (HIBYTE(v19))
           {
-            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 7141, "OI_STATUS _BCM_IncomingLEConnectionDenyListAdd(BTAddress, BT_VSC_COMPLETE_CB)");
           }
 
           else if (WORD1(v19) - WORD2(v19) > 5)
@@ -5876,7 +6065,7 @@ uint64_t sub_10026C434(unint64_t a1, uint64_t (*a2)())
               WORD2(v19) += 6;
               if (HIBYTE(v19))
               {
-                sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 7142, "OI_STATUS _BCM_IncomingLEConnectionDenyListAdd(BTAddress, BT_VSC_COMPLETE_CB)");
               }
 
               else if (WORD1(v19) > v11)
@@ -5919,7 +6108,7 @@ LABEL_16:
   return result;
 }
 
-uint64_t sub_10026C638(unint64_t a1, uint64_t (*a2)())
+uint64_t sub_10026C638(unint64_t a1, void (*a2)())
 {
   v18 = 0;
   v19 = 0;
@@ -5928,7 +6117,7 @@ uint64_t sub_10026C638(unint64_t a1, uint64_t (*a2)())
   {
     if (HIBYTE(v19))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 7155, "OI_STATUS _BCM_IncomingLEConnectionDenyListRemove(BTAddress, BT_VSC_COMPLETE_CB)");
     }
 
     else
@@ -5946,7 +6135,7 @@ uint64_t sub_10026C638(unint64_t a1, uint64_t (*a2)())
           v16 = WORD2(v6);
           if (HIBYTE(v19))
           {
-            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 7157, "OI_STATUS _BCM_IncomingLEConnectionDenyListRemove(BTAddress, BT_VSC_COMPLETE_CB)");
           }
 
           else if (WORD1(v19) - WORD2(v19) > 5)
@@ -5959,7 +6148,7 @@ uint64_t sub_10026C638(unint64_t a1, uint64_t (*a2)())
               WORD2(v19) += 6;
               if (HIBYTE(v19))
               {
-                sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 7158, "OI_STATUS _BCM_IncomingLEConnectionDenyListRemove(BTAddress, BT_VSC_COMPLETE_CB)");
               }
 
               else if (WORD1(v19) > v11)
@@ -6002,7 +6191,7 @@ LABEL_16:
   return result;
 }
 
-uint64_t sub_10026C83C(uint64_t (*a1)())
+uint64_t sub_10026C83C(void (*a1)())
 {
   v8 = 0;
   v9 = 0;
@@ -6011,7 +6200,7 @@ uint64_t sub_10026C83C(uint64_t (*a1)())
   {
     if (HIBYTE(v9))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 7171, "OI_STATUS _BCM_IncomingLEConnectionDenyListClear(BT_VSC_COMPLETE_CB)");
     }
 
     else
@@ -6039,7 +6228,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t sub_10026C914(_WORD *a1, char a2, uint64_t (*a3)())
+uint64_t sub_10026C914(_WORD *a1, char a2, void (*a3)())
 {
   v16 = 0;
   v17 = 0;
@@ -6048,7 +6237,7 @@ uint64_t sub_10026C914(_WORD *a1, char a2, uint64_t (*a3)())
   {
     if (HIBYTE(v17))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 7468, "OI_STATUS _BCM_EnableSetSpecialSniffTransition(OI_HCI_CONNECTION_HANDLE, uint8_t, BT_VSC_COMPLETE_CB)");
     }
 
     else if (WORD1(v17) - WORD2(v17) > 1)
@@ -6061,7 +6250,7 @@ uint64_t sub_10026C914(_WORD *a1, char a2, uint64_t (*a3)())
         WORD2(v17) += 2;
         if (HIBYTE(v17))
         {
-          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 7469, "OI_STATUS _BCM_EnableSetSpecialSniffTransition(OI_HCI_CONNECTION_HANDLE, uint8_t, BT_VSC_COMPLETE_CB)");
         }
 
         else if (WORD1(v17) > v11)
@@ -6072,7 +6261,7 @@ uint64_t sub_10026C914(_WORD *a1, char a2, uint64_t (*a3)())
             *(v16 + v11) = a2;
             if (HIBYTE(v17))
             {
-              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 7470, "OI_STATUS _BCM_EnableSetSpecialSniffTransition(OI_HCI_CONNECTION_HANDLE, uint8_t, BT_VSC_COMPLETE_CB)");
             }
 
             else
@@ -6118,7 +6307,7 @@ LABEL_16:
   return result;
 }
 
-uint64_t sub_10026CB0C(unint64_t a1, int a2, unsigned int a3, const void *a4, uint64_t (*a5)())
+uint64_t sub_10026CB0C(unint64_t a1, int a2, signed int a3, const void *a4, void (*a5)())
 {
   if (a3 < 0x10)
   {
@@ -6132,7 +6321,7 @@ uint64_t sub_10026CB0C(unint64_t a1, int a2, unsigned int a3, const void *a4, ui
   {
     if (HIBYTE(v30))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 7517, "OI_STATUS _BCM_WriteStoredLELTK(BTAddress, _Bool, uint8_t, uint8_t *, BT_VSC_COMPLETE_CB)");
     }
 
     else
@@ -6175,7 +6364,7 @@ uint64_t sub_10026CB0C(unint64_t a1, int a2, unsigned int a3, const void *a4, ui
 
           if (HIBYTE(v30))
           {
-            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 7525, "OI_STATUS _BCM_WriteStoredLELTK(BTAddress, _Bool, uint8_t, uint8_t *, BT_VSC_COMPLETE_CB)");
           }
 
           else
@@ -6189,7 +6378,7 @@ uint64_t sub_10026CB0C(unint64_t a1, int a2, unsigned int a3, const void *a4, ui
                 *(v29 + v15) = v13;
                 if (HIBYTE(v30))
                 {
-                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 7526, "OI_STATUS _BCM_WriteStoredLELTK(BTAddress, _Bool, uint8_t, uint8_t *, BT_VSC_COMPLETE_CB)");
                 }
 
                 else if (WORD1(v30) - WORD2(v30) > 5)
@@ -6202,7 +6391,7 @@ uint64_t sub_10026CB0C(unint64_t a1, int a2, unsigned int a3, const void *a4, ui
                     v17 = v29;
                     if (HIBYTE(v30))
                     {
-                      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 7527, "OI_STATUS _BCM_WriteStoredLELTK(BTAddress, _Bool, uint8_t, uint8_t *, BT_VSC_COMPLETE_CB)");
                       v18 = 0;
                     }
 
@@ -6263,7 +6452,7 @@ LABEL_31:
   return result;
 }
 
-uint64_t sub_10026CDE8(unint64_t a1, int a2, uint64_t (*a3)())
+uint64_t sub_10026CDE8(unint64_t a1, int a2, void (*a3)())
 {
   v21 = 0;
   v22 = 0;
@@ -6272,7 +6461,7 @@ uint64_t sub_10026CDE8(unint64_t a1, int a2, uint64_t (*a3)())
   {
     if (HIBYTE(v22))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 7542, "OI_STATUS _BCM_RemoveStoredLELTK(BTAddress, _Bool, BT_VSC_COMPLETE_CB)");
     }
 
     else
@@ -6315,7 +6504,7 @@ uint64_t sub_10026CDE8(unint64_t a1, int a2, uint64_t (*a3)())
 
           if (HIBYTE(v22))
           {
-            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 7550, "OI_STATUS _BCM_RemoveStoredLELTK(BTAddress, _Bool, BT_VSC_COMPLETE_CB)");
           }
 
           else
@@ -6329,7 +6518,7 @@ uint64_t sub_10026CDE8(unint64_t a1, int a2, uint64_t (*a3)())
                 *(v21 + v11) = v9;
                 if (HIBYTE(v22))
                 {
-                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 7551, "OI_STATUS _BCM_RemoveStoredLELTK(BTAddress, _Bool, BT_VSC_COMPLETE_CB)");
                 }
 
                 else if (WORD1(v22) - WORD2(v22) > 5)
@@ -6373,7 +6562,7 @@ LABEL_24:
   return result;
 }
 
-uint64_t sub_10026D014(uint64_t (*a1)())
+uint64_t sub_10026D014(void (*a1)())
 {
   v8 = 0;
   v9 = 0;
@@ -6382,7 +6571,7 @@ uint64_t sub_10026D014(uint64_t (*a1)())
   {
     if (HIBYTE(v9))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 7566, "OI_STATUS _BCM_ReadLocalControllerCachedInfo(BT_VSC_READ_LOCAL_CACHED_INFO_CB)");
     }
 
     else
@@ -6410,7 +6599,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t sub_10026D0EC(unint64_t a1, int a2, char a3, int a4, const void *a5, uint64_t (*a6)())
+uint64_t sub_10026D0EC(unint64_t a1, int a2, char a3, unsigned int a4, const void *a5, void (*a6)())
 {
   v36 = 0;
   v37 = 0;
@@ -6419,7 +6608,7 @@ uint64_t sub_10026D0EC(unint64_t a1, int a2, char a3, int a4, const void *a5, ui
   {
     if (HIBYTE(v37))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 7581, "OI_STATUS _BCM_WritePeerCachedInfo(BTAddress, _Bool, uint8_t, uint16_t, uint8_t *, BT_VSC_COMPLETE_CB)");
     }
 
     else
@@ -6462,7 +6651,7 @@ uint64_t sub_10026D0EC(unint64_t a1, int a2, char a3, int a4, const void *a5, ui
 
           if (HIBYTE(v37))
           {
-            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 7591, "OI_STATUS _BCM_WritePeerCachedInfo(BTAddress, _Bool, uint8_t, uint16_t, uint8_t *, BT_VSC_COMPLETE_CB)");
           }
 
           else
@@ -6476,7 +6665,7 @@ uint64_t sub_10026D0EC(unint64_t a1, int a2, char a3, int a4, const void *a5, ui
                 *(v36 + v17) = v15;
                 if (HIBYTE(v37))
                 {
-                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 7592, "OI_STATUS _BCM_WritePeerCachedInfo(BTAddress, _Bool, uint8_t, uint16_t, uint8_t *, BT_VSC_COMPLETE_CB)");
                 }
 
                 else if (WORD1(v37) - WORD2(v37) > 5)
@@ -6489,7 +6678,7 @@ uint64_t sub_10026D0EC(unint64_t a1, int a2, char a3, int a4, const void *a5, ui
                     WORD2(v37) += 6;
                     if (HIBYTE(v37))
                     {
-                      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 7593, "OI_STATUS _BCM_WritePeerCachedInfo(BTAddress, _Bool, uint8_t, uint16_t, uint8_t *, BT_VSC_COMPLETE_CB)");
                     }
 
                     else if (WORD1(v37) > v22)
@@ -6510,7 +6699,7 @@ uint64_t sub_10026D0EC(unint64_t a1, int a2, char a3, int a4, const void *a5, ui
                         *(v36 + v22) = v23;
                         if (HIBYTE(v37))
                         {
-                          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 7594, "OI_STATUS _BCM_WritePeerCachedInfo(BTAddress, _Bool, uint8_t, uint16_t, uint8_t *, BT_VSC_COMPLETE_CB)");
                         }
 
                         else if (WORD1(v37) - WORD2(v37) > 1)
@@ -6525,7 +6714,7 @@ uint64_t sub_10026D0EC(unint64_t a1, int a2, char a3, int a4, const void *a5, ui
                               v25 = v36;
                               if (HIBYTE(v37))
                               {
-                                sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                                sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 7596, "OI_STATUS _BCM_WritePeerCachedInfo(BTAddress, _Bool, uint8_t, uint16_t, uint8_t *, BT_VSC_COMPLETE_CB)");
                                 v26 = 0;
                               }
 
@@ -6608,7 +6797,7 @@ LABEL_40:
   return result;
 }
 
-uint64_t sub_10026D4D4(__int16 a1, uint64_t (*a2)())
+uint64_t sub_10026D4D4(__int16 a1, void (*a2)())
 {
   v11 = 0;
   v12 = 0;
@@ -6617,7 +6806,7 @@ uint64_t sub_10026D4D4(__int16 a1, uint64_t (*a2)())
   {
     if (HIBYTE(v12))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 7611, "OI_STATUS _BCM_SetMaxInstantUpdateInfo(uint16_t, BT_VSC_COMPLETE_CB)");
     }
 
     else
@@ -6631,7 +6820,7 @@ uint64_t sub_10026D4D4(__int16 a1, uint64_t (*a2)())
           *(v11 + v8) = 12;
           if (HIBYTE(v12))
           {
-            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 7612, "OI_STATUS _BCM_SetMaxInstantUpdateInfo(uint16_t, BT_VSC_COMPLETE_CB)");
           }
 
           else if (WORD1(v12) - WORD2(v12) > 1)
@@ -6665,7 +6854,7 @@ LABEL_13:
   return result;
 }
 
-uint64_t sub_10026D644(char a1, char a2, char a3, char a4, char a5, uint64_t (*a6)())
+uint64_t sub_10026D644(char a1, char a2, char a3, char a4, char a5, void (*a6)())
 {
   v26 = 0;
   v27 = 0;
@@ -6674,7 +6863,7 @@ uint64_t sub_10026D644(char a1, char a2, char a3, char a4, char a5, uint64_t (*a
   {
     if (HIBYTE(v27))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 7626, "OI_STATUS _BCM_LEAdvTxPowerIncrease(uint8_t, uint8_t, int8_t, uint8_t, uint8_t, BT_VSC_COMPLETE_CB)");
     }
 
     else
@@ -6688,7 +6877,7 @@ uint64_t sub_10026D644(char a1, char a2, char a3, char a4, char a5, uint64_t (*a
           *(v26 + v16) = a1;
           if (HIBYTE(v27))
           {
-            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 7627, "OI_STATUS _BCM_LEAdvTxPowerIncrease(uint8_t, uint8_t, int8_t, uint8_t, uint8_t, BT_VSC_COMPLETE_CB)");
           }
 
           else
@@ -6702,7 +6891,7 @@ uint64_t sub_10026D644(char a1, char a2, char a3, char a4, char a5, uint64_t (*a
                 *(v26 + v17) = a2;
                 if (HIBYTE(v27))
                 {
-                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 7628, "OI_STATUS _BCM_LEAdvTxPowerIncrease(uint8_t, uint8_t, int8_t, uint8_t, uint8_t, BT_VSC_COMPLETE_CB)");
                 }
 
                 else
@@ -6716,7 +6905,7 @@ uint64_t sub_10026D644(char a1, char a2, char a3, char a4, char a5, uint64_t (*a
                       *(v26 + v18) = a3;
                       if (HIBYTE(v27))
                       {
-                        sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                        sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 7629, "OI_STATUS _BCM_LEAdvTxPowerIncrease(uint8_t, uint8_t, int8_t, uint8_t, uint8_t, BT_VSC_COMPLETE_CB)");
                       }
 
                       else
@@ -6730,7 +6919,7 @@ uint64_t sub_10026D644(char a1, char a2, char a3, char a4, char a5, uint64_t (*a
                             *(v26 + v19) = a4;
                             if (HIBYTE(v27))
                             {
-                              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 7630, "OI_STATUS _BCM_LEAdvTxPowerIncrease(uint8_t, uint8_t, int8_t, uint8_t, uint8_t, BT_VSC_COMPLETE_CB)");
                             }
 
                             else
@@ -6798,7 +6987,7 @@ LABEL_22:
   return result;
 }
 
-uint64_t sub_10026D91C(unsigned int a1, uint64_t a2, uint64_t (*a3)())
+uint64_t sub_10026D91C(unsigned int a1, uint64_t a2, void (*a3)())
 {
   v24 = 0;
   v25 = 0;
@@ -6810,7 +6999,7 @@ uint64_t sub_10026D91C(unsigned int a1, uint64_t a2, uint64_t (*a3)())
 
   if (HIBYTE(v25))
   {
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 7644, "OI_STATUS _BCM_AppleLeFeatureVendorList(uint8_t, BT_VSCValidVendorInfo_t *, BT_VSC_COMPLETE_CB)");
     goto LABEL_44;
   }
 
@@ -6833,7 +7022,7 @@ LABEL_46:
   *(v24 + v10) = 17;
   if (HIBYTE(v25))
   {
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 7645, "OI_STATUS _BCM_AppleLeFeatureVendorList(uint8_t, BT_VSCValidVendorInfo_t *, BT_VSC_COMPLETE_CB)");
     goto LABEL_48;
   }
 
@@ -6876,7 +7065,7 @@ LABEL_50:
       WORD2(v25) += 2;
       if (HIBYTE(v25))
       {
-        sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+        sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 7649, "OI_STATUS _BCM_AppleLeFeatureVendorList(uint8_t, BT_VSCValidVendorInfo_t *, BT_VSC_COMPLETE_CB)");
 LABEL_37:
         v20 = "ByteStream_NumReadBytesAvail(bs) >= 2";
 LABEL_38:
@@ -6900,7 +7089,7 @@ LABEL_38:
       WORD2(v25) += 2;
       if (HIBYTE(v25))
       {
-        sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+        sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 7650, "OI_STATUS _BCM_AppleLeFeatureVendorList(uint8_t, BT_VSCValidVendorInfo_t *, BT_VSC_COMPLETE_CB)");
 LABEL_33:
         v19 = "ByteStream_NumReadBytesAvail(bs) >= 2";
 LABEL_34:
@@ -6924,7 +7113,7 @@ LABEL_34:
       WORD2(v25) += 2;
       if (HIBYTE(v25))
       {
-        sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+        sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 7651, "OI_STATUS _BCM_AppleLeFeatureVendorList(uint8_t, BT_VSCValidVendorInfo_t *, BT_VSC_COMPLETE_CB)");
 LABEL_29:
         v18 = "ByteStream_NumReadBytesAvail(bs) >= 2";
 LABEL_30:
@@ -6953,7 +7142,7 @@ LABEL_30:
       }
     }
 
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 7648, "OI_STATUS _BCM_AppleLeFeatureVendorList(uint8_t, BT_VSCValidVendorInfo_t *, BT_VSC_COMPLETE_CB)");
 LABEL_41:
     v21 = "ByteStream_NumReadBytesAvail(bs) >= 2";
 LABEL_42:
@@ -6964,7 +7153,7 @@ LABEL_42:
   return sub_100020078(291, v24, v17, a3, sub_100022AD0, v7, v8, v9);
 }
 
-uint64_t sub_10026DCFC(uint64_t (*a1)())
+uint64_t sub_10026DCFC(void (*a1)())
 {
   v8 = 0;
   v9 = 0;
@@ -6973,7 +7162,7 @@ uint64_t sub_10026DCFC(uint64_t (*a1)())
   {
     if (HIBYTE(v9))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 7767, "OI_STATUS _BCM_SetLpmEnable(BT_VSC_COMPLETE_CB)");
     }
 
     else
@@ -7001,7 +7190,7 @@ LABEL_10:
   return result;
 }
 
-void (**sub_10026DDD4(void (**result)(uint64_t a1, uint64_t a2), const void *a2))(uint64_t a1, uint64_t a2)
+void (**sub_10026DDD4(void (**result)(uint64_t *a1, uint64_t a2), const void *a2))(uint64_t *a1, uint64_t a2)
 {
   *result = sub_1000A64E0;
   if (a2)
@@ -7012,7 +7201,7 @@ void (**sub_10026DDD4(void (**result)(uint64_t a1, uint64_t a2), const void *a2)
   return result;
 }
 
-void *sub_10026DDFC(void *a1)
+uint64_t (*sub_10026DDFC(void *a1))(void)
 {
   memcpy(a1, off_100AE8940, 0xA50uLL);
   sub_10025793C(sub_10025ED40);
@@ -7025,49 +7214,49 @@ BOOL sub_10026DE68(int a1)
 {
   if (a1 == 3075)
   {
-    v1 = 1;
+    v2 = 1;
   }
 
   else
   {
-    v2 = 0;
-    v3 = &word_1008A45BC;
+    v3 = 0;
+    v4 = &word_1008A45BC;
     do
     {
-      v4 = v2;
-      if (v2 == 5)
+      v5 = v3;
+      if (v3 == 5)
       {
         break;
       }
 
-      v5 = *v3;
-      v3 += 2;
-      ++v2;
+      v6 = *v4;
+      v4 += 2;
+      ++v3;
     }
 
-    while (v5 != a1);
-    v1 = v4 < 5;
+    while (v6 != a1);
+    v2 = v5 < 5;
   }
 
   if (sub_10000C240())
   {
-    v13 = "disallowing";
-    if (v1)
+    v7 = "disallowing";
+    if (v2)
     {
-      v13 = "allowing";
+      v7 = "allowing";
     }
 
-    sub_10000AF54("Stack halted, %s cmd opcode 0x%4x", v6, v7, v8, v9, v10, v11, v12, v13);
-    v14 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    sub_10000AF54("Stack halted, %s cmd opcode 0x%4x", v7, a1);
+    v8 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446210;
-      v17 = sub_10000C0FC();
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, " %{public}s", buf, 0xCu);
+      v11 = sub_10000C0FC();
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, " %{public}s", buf, 0xCu);
     }
   }
 
-  return v1;
+  return v2;
 }
 
 void *sub_10026DF88(void *__src)
@@ -7080,7 +7269,7 @@ void *sub_10026DF88(void *__src)
   return __src;
 }
 
-uint64_t sub_10026DFA4(uint64_t (*a1)())
+uint64_t sub_10026DFA4(void (*a1)())
 {
   v7 = 0;
   v8 = 0;
@@ -7089,7 +7278,7 @@ uint64_t sub_10026DFA4(uint64_t (*a1)())
   {
     if (HIBYTE(v8))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 2629, "OI_STATUS _BCM_OlympicReadWBSSupport(BT_VSC_READ_WBS_SUPPORTED_CB)");
     }
 
     else if (WORD1(v8) - WORD2(v8) > 3)
@@ -7115,7 +7304,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t sub_10026E0B4(char a1, uint64_t (*a2)())
+uint64_t sub_10026E0B4(char a1, void (*a2)())
 {
   v12 = 0;
   v13 = 0;
@@ -7124,7 +7313,7 @@ uint64_t sub_10026E0B4(char a1, uint64_t (*a2)())
   {
     if (HIBYTE(v13))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 2596, "OI_STATUS _BCM_OlympicWriteLESettings(uint8_t, BT_VSC_COMPLETE_CB)");
     }
 
     else if (WORD1(v13) - WORD2(v13) > 3)
@@ -7139,7 +7328,7 @@ uint64_t sub_10026E0B4(char a1, uint64_t (*a2)())
         WORD2(v13) += 4;
         if (HIBYTE(v13))
         {
-          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 2597, "OI_STATUS _BCM_OlympicWriteLESettings(uint8_t, BT_VSC_COMPLETE_CB)");
         }
 
         else if (WORD1(v13) > v9)
@@ -7172,7 +7361,7 @@ LABEL_13:
   return result;
 }
 
-uint64_t sub_10026E240(uint64_t (*a1)())
+uint64_t sub_10026E240(void (*a1)())
 {
   v7 = 0;
   v8 = 0;
@@ -7181,7 +7370,7 @@ uint64_t sub_10026E240(uint64_t (*a1)())
   {
     if (HIBYTE(v8))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 2615, "OI_STATUS _BCM_OlympicReadLESettings(BT_VSC_READ_LE_SETTINGS_CB)");
     }
 
     else if (WORD1(v8) - WORD2(v8) > 3)
@@ -7207,7 +7396,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t sub_10026E350(_WORD *a1, char a2, char a3, uint64_t (*a4)())
+uint64_t sub_10026E350(_WORD *a1, char a2, char a3, void (*a4)())
 {
   v22 = 0;
   v23 = 0;
@@ -7215,7 +7404,7 @@ uint64_t sub_10026E350(_WORD *a1, char a2, char a3, uint64_t (*a4)())
   {
     if (HIBYTE(v23))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 2642, "OI_STATUS _BCM_OlympicEnableLEA(OI_HCI_CONNECTION_HANDLE, uint8_t, _Bool, BT_VSC_COMPLETE_CB)");
     }
 
     else if (WORD1(v23) - WORD2(v23) > 3)
@@ -7229,7 +7418,7 @@ uint64_t sub_10026E350(_WORD *a1, char a2, char a3, uint64_t (*a4)())
         WORD2(v23) += 4;
         if (HIBYTE(v23))
         {
-          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 2643, "OI_STATUS _BCM_OlympicEnableLEA(OI_HCI_CONNECTION_HANDLE, uint8_t, _Bool, BT_VSC_COMPLETE_CB)");
         }
 
         else if (WORD1(v23) - v12 > 3)
@@ -7241,7 +7430,7 @@ uint64_t sub_10026E350(_WORD *a1, char a2, char a3, uint64_t (*a4)())
             WORD2(v23) += 4;
             if (HIBYTE(v23))
             {
-              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 2644, "OI_STATUS _BCM_OlympicEnableLEA(OI_HCI_CONNECTION_HANDLE, uint8_t, _Bool, BT_VSC_COMPLETE_CB)");
             }
 
             else if (WORD1(v23) > v13)
@@ -7253,7 +7442,7 @@ uint64_t sub_10026E350(_WORD *a1, char a2, char a3, uint64_t (*a4)())
                 v15 = ++WORD2(v23);
                 if (HIBYTE(v23))
                 {
-                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 2645, "OI_STATUS _BCM_OlympicEnableLEA(OI_HCI_CONNECTION_HANDLE, uint8_t, _Bool, BT_VSC_COMPLETE_CB)");
                 }
 
                 else if (WORD1(v23) > v15)
@@ -7264,7 +7453,7 @@ uint64_t sub_10026E350(_WORD *a1, char a2, char a3, uint64_t (*a4)())
                     *(v22 + v15) = a3 | (16 * a2);
                     if (HIBYTE(v23))
                     {
-                      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 2646, "OI_STATUS _BCM_OlympicEnableLEA(OI_HCI_CONNECTION_HANDLE, uint8_t, _Bool, BT_VSC_COMPLETE_CB)");
                     }
 
                     else if (WORD1(v23) - WORD2(v23) > 1)
@@ -7326,7 +7515,7 @@ LABEL_23:
   return sub_100020078(226, v22, v11, a4, sub_100022AD0, v8, v9, v10);
 }
 
-uint64_t sub_10026E68C(_BYTE *a1, char a2, uint64_t (*a3)())
+uint64_t sub_10026E68C(_BYTE *a1, char a2, void (*a3)())
 {
   v16 = 0;
   v17 = 0;
@@ -7334,7 +7523,7 @@ uint64_t sub_10026E68C(_BYTE *a1, char a2, uint64_t (*a3)())
   {
     if (HIBYTE(v17))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 2660, "OI_STATUS _BCM_OlympicEnableLEAStats(OI_HCI_CONNECTION_HANDLE, _Bool, BT_VSC_COMPLETE_CB)");
     }
 
     else if (WORD1(v17) - WORD2(v17) > 3)
@@ -7348,7 +7537,7 @@ uint64_t sub_10026E68C(_BYTE *a1, char a2, uint64_t (*a3)())
         WORD2(v17) += 4;
         if (HIBYTE(v17))
         {
-          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 2661, "OI_STATUS _BCM_OlympicEnableLEAStats(OI_HCI_CONNECTION_HANDLE, _Bool, BT_VSC_COMPLETE_CB)");
         }
 
         else if (WORD1(v17) - v9 > 1)
@@ -7362,7 +7551,7 @@ uint64_t sub_10026E68C(_BYTE *a1, char a2, uint64_t (*a3)())
             WORD2(v17) += 2;
             if (HIBYTE(v17))
             {
-              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 2662, "OI_STATUS _BCM_OlympicEnableLEAStats(OI_HCI_CONNECTION_HANDLE, _Bool, BT_VSC_COMPLETE_CB)");
             }
 
             else if (WORD1(v17) > v11)
@@ -7404,7 +7593,7 @@ LABEL_16:
   return sub_100020078(226, v16, BYTE4(v17), a3, sub_100022AD0, v6, v7, v8);
 }
 
-uint64_t sub_10026E8BC(char a1, uint64_t (*a2)())
+uint64_t sub_10026E8BC(char a1, void (*a2)())
 {
   v12 = 0;
   v13 = 0;
@@ -7413,7 +7602,7 @@ uint64_t sub_10026E8BC(char a1, uint64_t (*a2)())
   {
     if (HIBYTE(v13))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 2676, "OI_STATUS _BCM_OlympicWriteLeNumOfCompletedPackets(uint8_t, BT_VSC_COMPLETE_CB)");
     }
 
     else if (WORD1(v13) - WORD2(v13) > 3)
@@ -7428,7 +7617,7 @@ uint64_t sub_10026E8BC(char a1, uint64_t (*a2)())
         WORD2(v13) += 4;
         if (HIBYTE(v13))
         {
-          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 2677, "OI_STATUS _BCM_OlympicWriteLeNumOfCompletedPackets(uint8_t, BT_VSC_COMPLETE_CB)");
         }
 
         else if (WORD1(v13) > v9)
@@ -7461,7 +7650,7 @@ LABEL_13:
   return result;
 }
 
-uint64_t sub_10026EA48(char a1, uint64_t (*a2)())
+uint64_t sub_10026EA48(char a1, void (*a2)())
 {
   v12 = 0;
   v13 = 0;
@@ -7470,7 +7659,7 @@ uint64_t sub_10026EA48(char a1, uint64_t (*a2)())
   {
     if (HIBYTE(v13))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 2691, "OI_STATUS _BCM_OlympicWriteTxRxPairsMax(uint8_t, BT_VSC_COMPLETE_CB)");
     }
 
     else if (WORD1(v13) - WORD2(v13) > 3)
@@ -7485,7 +7674,7 @@ uint64_t sub_10026EA48(char a1, uint64_t (*a2)())
         WORD2(v13) += 4;
         if (HIBYTE(v13))
         {
-          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 2692, "OI_STATUS _BCM_OlympicWriteTxRxPairsMax(uint8_t, BT_VSC_COMPLETE_CB)");
         }
 
         else if (WORD1(v13) > v9)
@@ -7518,7 +7707,7 @@ LABEL_13:
   return result;
 }
 
-uint64_t sub_10026EBD4(char a1, uint64_t (*a2)())
+uint64_t sub_10026EBD4(char a1, void (*a2)())
 {
   v14 = 0;
   v15 = 0;
@@ -7527,7 +7716,7 @@ uint64_t sub_10026EBD4(char a1, uint64_t (*a2)())
   {
     if (HIBYTE(v15))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 2706, "OI_STATUS _BCM_OlympicEnaSimultaneousA2DPACL(_Bool, BT_VSC_COMPLETE_CB)");
     }
 
     else if (WORD1(v15) - WORD2(v15) > 3)
@@ -7542,7 +7731,7 @@ uint64_t sub_10026EBD4(char a1, uint64_t (*a2)())
         WORD2(v15) += 4;
         if (HIBYTE(v15))
         {
-          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 2707, "OI_STATUS _BCM_OlympicEnaSimultaneousA2DPACL(_Bool, BT_VSC_COMPLETE_CB)");
         }
 
         else if (WORD1(v15) > v9)
@@ -7553,7 +7742,7 @@ uint64_t sub_10026EBD4(char a1, uint64_t (*a2)())
             *(v14 + v9) = a1;
             if (HIBYTE(v15))
             {
-              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 2708, "OI_STATUS _BCM_OlympicEnaSimultaneousA2DPACL(_Bool, BT_VSC_COMPLETE_CB)");
             }
 
             else if (WORD1(v15) - WORD2(v15) > 2)
@@ -7597,7 +7786,7 @@ LABEL_16:
   return result;
 }
 
-uint64_t sub_10026EDE8(_BYTE *a1, char a2, uint64_t (*a3)())
+uint64_t sub_10026EDE8(_BYTE *a1, char a2, void (*a3)())
 {
   v18 = 0;
   v19 = 0;
@@ -7606,7 +7795,7 @@ uint64_t sub_10026EDE8(_BYTE *a1, char a2, uint64_t (*a3)())
   {
     if (HIBYTE(v19))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 2724, "OI_STATUS _BCM_Olympic300KhzFreqMode(OI_HCI_CONNECTION_HANDLE, uint8_t, BT_VSC_COMPLETE_CB)");
     }
 
     else
@@ -7620,7 +7809,7 @@ uint64_t sub_10026EDE8(_BYTE *a1, char a2, uint64_t (*a3)())
           *(v18 + v10) = 20;
           if (HIBYTE(v19))
           {
-            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 2725, "OI_STATUS _BCM_Olympic300KhzFreqMode(OI_HCI_CONNECTION_HANDLE, uint8_t, BT_VSC_COMPLETE_CB)");
           }
 
           else if (WORD1(v19) - WORD2(v19) > 1)
@@ -7632,7 +7821,7 @@ uint64_t sub_10026EDE8(_BYTE *a1, char a2, uint64_t (*a3)())
               WORD2(v19) += 2;
               if (HIBYTE(v19))
               {
-                sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 2727, "OI_STATUS _BCM_Olympic300KhzFreqMode(OI_HCI_CONNECTION_HANDLE, uint8_t, BT_VSC_COMPLETE_CB)");
               }
 
               else if (WORD1(v19) - v11 > 1)
@@ -7646,7 +7835,7 @@ uint64_t sub_10026EDE8(_BYTE *a1, char a2, uint64_t (*a3)())
                   WORD2(v19) += 2;
                   if (HIBYTE(v19))
                   {
-                    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 2728, "OI_STATUS _BCM_Olympic300KhzFreqMode(OI_HCI_CONNECTION_HANDLE, uint8_t, BT_VSC_COMPLETE_CB)");
                   }
 
                   else if (WORD1(v19) > v13)
@@ -7698,7 +7887,7 @@ LABEL_19:
   return result;
 }
 
-uint64_t sub_10026F05C(unsigned int a1, uint64_t (*a2)())
+uint64_t sub_10026F05C(unsigned int a1, void (*a2)())
 {
   v14 = 0;
   v15 = 0;
@@ -7712,7 +7901,7 @@ uint64_t sub_10026F05C(unsigned int a1, uint64_t (*a2)())
   {
     if (HIBYTE(v15))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 2746, "OI_STATUS _BCM_OlympicWriteNumOfCompletedPackets(uint8_t, BT_VSC_COMPLETE_CB)");
     }
 
     else if (WORD1(v15) - WORD2(v15) > 3)
@@ -7727,7 +7916,7 @@ uint64_t sub_10026F05C(unsigned int a1, uint64_t (*a2)())
         WORD2(v15) += 4;
         if (HIBYTE(v15))
         {
-          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 2747, "OI_STATUS _BCM_OlympicWriteNumOfCompletedPackets(uint8_t, BT_VSC_COMPLETE_CB)");
         }
 
         else if (WORD1(v15) > v9)
@@ -7738,7 +7927,7 @@ uint64_t sub_10026F05C(unsigned int a1, uint64_t (*a2)())
             *(v14 + v9) = a1;
             if (HIBYTE(v15))
             {
-              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 2748, "OI_STATUS _BCM_OlympicWriteNumOfCompletedPackets(uint8_t, BT_VSC_COMPLETE_CB)");
             }
 
             else if (WORD1(v15) - WORD2(v15) > 2)
@@ -7782,7 +7971,7 @@ LABEL_18:
   return result;
 }
 
-uint64_t sub_10026F27C(char a1, uint64_t (*a2)())
+uint64_t sub_10026F27C(char a1, void (*a2)())
 {
   v12 = 0;
   v13 = 0;
@@ -7791,7 +7980,7 @@ uint64_t sub_10026F27C(char a1, uint64_t (*a2)())
   {
     if (HIBYTE(v13))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 2897, "OI_STATUS _BCM_OlympicSetZoneRSSI(uint8_t, BT_VSC_COMPLETE_CB)");
     }
 
     else if (WORD1(v13) - WORD2(v13) > 3)
@@ -7806,7 +7995,7 @@ uint64_t sub_10026F27C(char a1, uint64_t (*a2)())
         WORD2(v13) += 4;
         if (HIBYTE(v13))
         {
-          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 2898, "OI_STATUS _BCM_OlympicSetZoneRSSI(uint8_t, BT_VSC_COMPLETE_CB)");
         }
 
         else if (WORD1(v13) > v9)
@@ -7839,7 +8028,7 @@ LABEL_13:
   return result;
 }
 
-uint64_t sub_10026F408(int a1, uint64_t (*a2)())
+uint64_t sub_10026F408(int a1, void (*a2)())
 {
   v11 = 0;
   v12 = 0;
@@ -7848,7 +8037,7 @@ uint64_t sub_10026F408(int a1, uint64_t (*a2)())
   {
     if (HIBYTE(v12))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 2911, "OI_STATUS _BCM_OlympicAdvDuplicateFilterBypassConfig(const uint32_t, BT_VSC_COMPLETE_CB)");
     }
 
     else if (WORD1(v12) - WORD2(v12) > 3)
@@ -7862,7 +8051,7 @@ uint64_t sub_10026F408(int a1, uint64_t (*a2)())
         WORD2(v12) += 4;
         if (HIBYTE(v12))
         {
-          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 2912, "OI_STATUS _BCM_OlympicAdvDuplicateFilterBypassConfig(const uint32_t, BT_VSC_COMPLETE_CB)");
         }
 
         else if (WORD1(v12) - v8 > 3)
@@ -7898,7 +8087,7 @@ LABEL_13:
   return result;
 }
 
-uint64_t sub_10026F5D8(int a1, uint64_t (*a2)())
+uint64_t sub_10026F5D8(int a1, void (*a2)())
 {
   v11 = 0;
   v12 = 0;
@@ -7907,7 +8096,7 @@ uint64_t sub_10026F5D8(int a1, uint64_t (*a2)())
   {
     if (HIBYTE(v12))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 2926, "OI_STATUS _BCM_OlympicSetHiPrioRSSI(uint32_t, BT_VSC_COMPLETE_CB)");
     }
 
     else if (WORD1(v12) - WORD2(v12) > 3)
@@ -7921,7 +8110,7 @@ uint64_t sub_10026F5D8(int a1, uint64_t (*a2)())
         WORD2(v12) += 4;
         if (HIBYTE(v12))
         {
-          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 2927, "OI_STATUS _BCM_OlympicSetHiPrioRSSI(uint32_t, BT_VSC_COMPLETE_CB)");
         }
 
         else if (WORD1(v12) - v8 > 3)
@@ -7957,7 +8146,7 @@ LABEL_13:
   return result;
 }
 
-uint64_t sub_10026F7A8(int a1, int a2, uint64_t (*a3)())
+uint64_t sub_10026F7A8(int a1, int a2, void (*a3)())
 {
   v15 = 0;
   v16 = 0;
@@ -7966,7 +8155,7 @@ uint64_t sub_10026F7A8(int a1, int a2, uint64_t (*a3)())
   {
     if (HIBYTE(v16))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 2940, "OI_STATUS _BCM_OlympicCoexMultiHIDLEConfig(uint32_t, uint32_t, BT_VSC_COMPLETE_CB)");
     }
 
     else if (WORD1(v16) - WORD2(v16) > 3)
@@ -7980,7 +8169,7 @@ uint64_t sub_10026F7A8(int a1, int a2, uint64_t (*a3)())
         WORD2(v16) += 4;
         if (HIBYTE(v16))
         {
-          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 2941, "OI_STATUS _BCM_OlympicCoexMultiHIDLEConfig(uint32_t, uint32_t, BT_VSC_COMPLETE_CB)");
         }
 
         else if (WORD1(v16) - v10 > 3)
@@ -7995,7 +8184,7 @@ uint64_t sub_10026F7A8(int a1, int a2, uint64_t (*a3)())
             WORD2(v16) += 4;
             if (HIBYTE(v16))
             {
-              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 2942, "OI_STATUS _BCM_OlympicCoexMultiHIDLEConfig(uint32_t, uint32_t, BT_VSC_COMPLETE_CB)");
             }
 
             else if (WORD1(v16) - v11 > 3)
@@ -8040,7 +8229,7 @@ LABEL_16:
   return result;
 }
 
-uint64_t sub_10026FA40(_BYTE *a1, __int16 a2, __int16 a3, __int16 a4, __int16 a5, uint64_t (*a6)())
+uint64_t sub_10026FA40(_BYTE *a1, __int16 a2, __int16 a3, __int16 a4, __int16 a5, void (*a6)())
 {
   v27 = 0;
   v28 = 0;
@@ -8049,7 +8238,7 @@ uint64_t sub_10026FA40(_BYTE *a1, __int16 a2, __int16 a3, __int16 a4, __int16 a5
   {
     if (HIBYTE(v28))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 2956, "OI_STATUS _BCM_OlympicLESetDataLengthExtended(OI_HCI_CONNECTION_HANDLE, uint16_t, uint16_t, uint16_t, uint16_t, BT_VSC_COMPLETE_CB)");
     }
 
     else if (WORD1(v28) - WORD2(v28) > 3)
@@ -8063,7 +8252,7 @@ uint64_t sub_10026FA40(_BYTE *a1, __int16 a2, __int16 a3, __int16 a4, __int16 a5
         WORD2(v28) += 4;
         if (HIBYTE(v28))
         {
-          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 2957, "OI_STATUS _BCM_OlympicLESetDataLengthExtended(OI_HCI_CONNECTION_HANDLE, uint16_t, uint16_t, uint16_t, uint16_t, BT_VSC_COMPLETE_CB)");
         }
 
         else if (WORD1(v28) - v16 > 1)
@@ -8076,7 +8265,7 @@ uint64_t sub_10026FA40(_BYTE *a1, __int16 a2, __int16 a3, __int16 a4, __int16 a5
             WORD2(v28) += 2;
             if (HIBYTE(v28))
             {
-              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 2958, "OI_STATUS _BCM_OlympicLESetDataLengthExtended(OI_HCI_CONNECTION_HANDLE, uint16_t, uint16_t, uint16_t, uint16_t, BT_VSC_COMPLETE_CB)");
             }
 
             else if (WORD1(v28) - v17 > 1)
@@ -8089,7 +8278,7 @@ uint64_t sub_10026FA40(_BYTE *a1, __int16 a2, __int16 a3, __int16 a4, __int16 a5
                 WORD2(v28) += 2;
                 if (HIBYTE(v28))
                 {
-                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 2959, "OI_STATUS _BCM_OlympicLESetDataLengthExtended(OI_HCI_CONNECTION_HANDLE, uint16_t, uint16_t, uint16_t, uint16_t, BT_VSC_COMPLETE_CB)");
                 }
 
                 else if (WORD1(v28) - v18 > 1)
@@ -8102,7 +8291,7 @@ uint64_t sub_10026FA40(_BYTE *a1, __int16 a2, __int16 a3, __int16 a4, __int16 a5
                     WORD2(v28) += 2;
                     if (HIBYTE(v28))
                     {
-                      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 2960, "OI_STATUS _BCM_OlympicLESetDataLengthExtended(OI_HCI_CONNECTION_HANDLE, uint16_t, uint16_t, uint16_t, uint16_t, BT_VSC_COMPLETE_CB)");
                     }
 
                     else if (WORD1(v28) - v19 > 1)
@@ -8115,7 +8304,7 @@ uint64_t sub_10026FA40(_BYTE *a1, __int16 a2, __int16 a3, __int16 a4, __int16 a5
                         WORD2(v28) += 2;
                         if (HIBYTE(v28))
                         {
-                          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 2961, "OI_STATUS _BCM_OlympicLESetDataLengthExtended(OI_HCI_CONNECTION_HANDLE, uint16_t, uint16_t, uint16_t, uint16_t, BT_VSC_COMPLETE_CB)");
                         }
 
                         else if (WORD1(v28) - v20 > 1)
@@ -8185,7 +8374,7 @@ LABEL_25:
   return result;
 }
 
-uint64_t sub_10026FE5C(__int16 a1, __int16 a2, __int16 a3, __int16 a4, uint64_t (*a5)())
+uint64_t sub_10026FE5C(__int16 a1, __int16 a2, __int16 a3, __int16 a4, void (*a5)())
 {
   v23 = 0;
   v24 = 0;
@@ -8194,7 +8383,7 @@ uint64_t sub_10026FE5C(__int16 a1, __int16 a2, __int16 a3, __int16 a4, uint64_t 
   {
     if (HIBYTE(v24))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 2975, "OI_STATUS _BCM_OlympicLEWriteSuggestedDefaultExtended(uint16_t, uint16_t, uint16_t, uint16_t, BT_VSC_COMPLETE_CB)");
     }
 
     else if (WORD1(v24) - WORD2(v24) > 3)
@@ -8208,7 +8397,7 @@ uint64_t sub_10026FE5C(__int16 a1, __int16 a2, __int16 a3, __int16 a4, uint64_t 
         WORD2(v24) += 4;
         if (HIBYTE(v24))
         {
-          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 2976, "OI_STATUS _BCM_OlympicLEWriteSuggestedDefaultExtended(uint16_t, uint16_t, uint16_t, uint16_t, BT_VSC_COMPLETE_CB)");
         }
 
         else if (WORD1(v24) - v14 > 1)
@@ -8221,7 +8410,7 @@ uint64_t sub_10026FE5C(__int16 a1, __int16 a2, __int16 a3, __int16 a4, uint64_t 
             WORD2(v24) += 2;
             if (HIBYTE(v24))
             {
-              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 2977, "OI_STATUS _BCM_OlympicLEWriteSuggestedDefaultExtended(uint16_t, uint16_t, uint16_t, uint16_t, BT_VSC_COMPLETE_CB)");
             }
 
             else if (WORD1(v24) - v15 > 1)
@@ -8234,7 +8423,7 @@ uint64_t sub_10026FE5C(__int16 a1, __int16 a2, __int16 a3, __int16 a4, uint64_t 
                 WORD2(v24) += 2;
                 if (HIBYTE(v24))
                 {
-                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 2978, "OI_STATUS _BCM_OlympicLEWriteSuggestedDefaultExtended(uint16_t, uint16_t, uint16_t, uint16_t, BT_VSC_COMPLETE_CB)");
                 }
 
                 else if (WORD1(v24) - v16 > 1)
@@ -8247,7 +8436,7 @@ uint64_t sub_10026FE5C(__int16 a1, __int16 a2, __int16 a3, __int16 a4, uint64_t 
                     WORD2(v24) += 2;
                     if (HIBYTE(v24))
                     {
-                      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 2979, "OI_STATUS _BCM_OlympicLEWriteSuggestedDefaultExtended(uint16_t, uint16_t, uint16_t, uint16_t, BT_VSC_COMPLETE_CB)");
                     }
 
                     else if (WORD1(v24) - v17 > 1)
@@ -8308,7 +8497,7 @@ LABEL_22:
   return result;
 }
 
-uint64_t sub_1002701DC(uint64_t (*a1)())
+uint64_t sub_1002701DC(void (*a1)())
 {
   v7 = 0;
   v8 = 0;
@@ -8317,7 +8506,7 @@ uint64_t sub_1002701DC(uint64_t (*a1)())
   {
     if (HIBYTE(v8))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 2993, "OI_STATUS _BCM_OlympicLEReadSuggestedDefaultExtended(BT_VSC_COMPLETE_CB)");
     }
 
     else if (WORD1(v8) - WORD2(v8) > 3)
@@ -8343,7 +8532,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t sub_1002702EC(char a1, uint64_t (*a2)())
+uint64_t sub_1002702EC(char a1, void (*a2)())
 {
   v12 = 0;
   v13 = 0;
@@ -8352,7 +8541,7 @@ uint64_t sub_1002702EC(char a1, uint64_t (*a2)())
   {
     if (HIBYTE(v13))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 3006, "OI_STATUS _BCM_OlympicLEMagnetSuspendEnable(_Bool, BT_VSC_COMPLETE_CB)");
     }
 
     else if (WORD1(v13) - WORD2(v13) > 3)
@@ -8367,7 +8556,7 @@ uint64_t sub_1002702EC(char a1, uint64_t (*a2)())
         WORD2(v13) += 4;
         if (HIBYTE(v13))
         {
-          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 3007, "OI_STATUS _BCM_OlympicLEMagnetSuspendEnable(_Bool, BT_VSC_COMPLETE_CB)");
         }
 
         else if (WORD1(v13) > v9)
@@ -8400,7 +8589,7 @@ LABEL_13:
   return result;
 }
 
-uint64_t sub_100270478(char a1, char a2, uint64_t (*a3)())
+uint64_t sub_100270478(char a1, char a2, void (*a3)())
 {
   v16 = 0;
   v17 = 0;
@@ -8409,7 +8598,7 @@ uint64_t sub_100270478(char a1, char a2, uint64_t (*a3)())
   {
     if (HIBYTE(v17))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 3021, "OI_STATUS _BCM_OlympicSetSARLocation(_Bool, _Bool, BT_VSC_COMPLETE_CB)");
     }
 
     else if (WORD1(v17) - WORD2(v17) > 3)
@@ -8424,7 +8613,7 @@ uint64_t sub_100270478(char a1, char a2, uint64_t (*a3)())
         WORD2(v17) += 4;
         if (HIBYTE(v17))
         {
-          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 3022, "OI_STATUS _BCM_OlympicSetSARLocation(_Bool, _Bool, BT_VSC_COMPLETE_CB)");
         }
 
         else if (WORD1(v17) > v11)
@@ -8435,7 +8624,7 @@ uint64_t sub_100270478(char a1, char a2, uint64_t (*a3)())
             *(v16 + v11) = a1;
             if (HIBYTE(v17))
             {
-              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 3023, "OI_STATUS _BCM_OlympicSetSARLocation(_Bool, _Bool, BT_VSC_COMPLETE_CB)");
             }
 
             else
@@ -8481,7 +8670,7 @@ LABEL_16:
   return result;
 }
 
-uint64_t sub_100270688(char a1, char a2, __int16 a3, __int16 a4, __int16 a5, uint64_t (*a6)())
+uint64_t sub_100270688(char a1, char a2, __int16 a3, __int16 a4, __int16 a5, void (*a6)())
 {
   v25 = 0;
   v26 = 0;
@@ -8490,7 +8679,7 @@ uint64_t sub_100270688(char a1, char a2, __int16 a3, __int16 a4, __int16 a5, uin
   {
     if (HIBYTE(v26))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 3036, "OI_STATUS _BCM_OlympicConfigureGpioAudioSync(uint8_t, uint8_t, uint16_t, uint16_t, uint16_t, BT_VSC_COMPLETE_CB)");
     }
 
     else
@@ -8504,7 +8693,7 @@ uint64_t sub_100270688(char a1, char a2, __int16 a3, __int16 a4, __int16 a5, uin
           *(v25 + v16) = a1;
           if (HIBYTE(v26))
           {
-            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 3037, "OI_STATUS _BCM_OlympicConfigureGpioAudioSync(uint8_t, uint8_t, uint16_t, uint16_t, uint16_t, BT_VSC_COMPLETE_CB)");
           }
 
           else
@@ -8518,7 +8707,7 @@ uint64_t sub_100270688(char a1, char a2, __int16 a3, __int16 a4, __int16 a5, uin
                 *(v25 + v17) = a2;
                 if (HIBYTE(v26))
                 {
-                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 3038, "OI_STATUS _BCM_OlympicConfigureGpioAudioSync(uint8_t, uint8_t, uint16_t, uint16_t, uint16_t, BT_VSC_COMPLETE_CB)");
                 }
 
                 else if (WORD1(v26) - WORD2(v26) > 1)
@@ -8530,7 +8719,7 @@ uint64_t sub_100270688(char a1, char a2, __int16 a3, __int16 a4, __int16 a5, uin
                     WORD2(v26) += 2;
                     if (HIBYTE(v26))
                     {
-                      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 3039, "OI_STATUS _BCM_OlympicConfigureGpioAudioSync(uint8_t, uint8_t, uint16_t, uint16_t, uint16_t, BT_VSC_COMPLETE_CB)");
                     }
 
                     else if (WORD1(v26) - v18 > 1)
@@ -8543,7 +8732,7 @@ uint64_t sub_100270688(char a1, char a2, __int16 a3, __int16 a4, __int16 a5, uin
                         WORD2(v26) += 2;
                         if (HIBYTE(v26))
                         {
-                          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 3040, "OI_STATUS _BCM_OlympicConfigureGpioAudioSync(uint8_t, uint8_t, uint16_t, uint16_t, uint16_t, BT_VSC_COMPLETE_CB)");
                         }
 
                         else if (WORD1(v26) - v19 > 1)
@@ -8606,7 +8795,7 @@ LABEL_22:
   return result;
 }
 
-uint64_t sub_1002709B4(char a1, __int16 a2, char a3, __int16 a4, char a5, uint64_t (*a6)())
+uint64_t sub_1002709B4(char a1, __int16 a2, char a3, __int16 a4, char a5, void (*a6)())
 {
   v28 = 0;
   v29 = 0;
@@ -8615,7 +8804,7 @@ uint64_t sub_1002709B4(char a1, __int16 a2, char a3, __int16 a4, char a5, uint64
   {
     if (HIBYTE(v29))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 6195, "OI_STATUS _BCM_OlympicSetExtendedScanLimits(_Bool, uint16_t, uint8_t, uint16_t, uint8_t, BT_VSC_COMPLETE_CB)");
     }
 
     else if (WORD1(v29) - WORD2(v29) > 3)
@@ -8630,7 +8819,7 @@ uint64_t sub_1002709B4(char a1, __int16 a2, char a3, __int16 a4, char a5, uint64
         WORD2(v29) += 4;
         if (HIBYTE(v29))
         {
-          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 6196, "OI_STATUS _BCM_OlympicSetExtendedScanLimits(_Bool, uint16_t, uint8_t, uint16_t, uint8_t, BT_VSC_COMPLETE_CB)");
         }
 
         else if (WORD1(v29) > v17)
@@ -8641,7 +8830,7 @@ uint64_t sub_1002709B4(char a1, __int16 a2, char a3, __int16 a4, char a5, uint64
             *(v28 + v17) = a1;
             if (HIBYTE(v29))
             {
-              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 6197, "OI_STATUS _BCM_OlympicSetExtendedScanLimits(_Bool, uint16_t, uint8_t, uint16_t, uint8_t, BT_VSC_COMPLETE_CB)");
             }
 
             else if (WORD1(v29) - WORD2(v29) > 1)
@@ -8654,7 +8843,7 @@ uint64_t sub_1002709B4(char a1, __int16 a2, char a3, __int16 a4, char a5, uint64
                 WORD2(v29) += 2;
                 if (HIBYTE(v29))
                 {
-                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 6198, "OI_STATUS _BCM_OlympicSetExtendedScanLimits(_Bool, uint16_t, uint8_t, uint16_t, uint8_t, BT_VSC_COMPLETE_CB)");
                 }
 
                 else if (WORD1(v29) > v19)
@@ -8665,7 +8854,7 @@ uint64_t sub_1002709B4(char a1, __int16 a2, char a3, __int16 a4, char a5, uint64
                     *(v28 + v19) = a3;
                     if (HIBYTE(v29))
                     {
-                      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 6199, "OI_STATUS _BCM_OlympicSetExtendedScanLimits(_Bool, uint16_t, uint8_t, uint16_t, uint8_t, BT_VSC_COMPLETE_CB)");
                     }
 
                     else if (WORD1(v29) - WORD2(v29) > 1)
@@ -8678,7 +8867,7 @@ uint64_t sub_1002709B4(char a1, __int16 a2, char a3, __int16 a4, char a5, uint64
                         WORD2(v29) += 2;
                         if (HIBYTE(v29))
                         {
-                          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 6200, "OI_STATUS _BCM_OlympicSetExtendedScanLimits(_Bool, uint16_t, uint8_t, uint16_t, uint8_t, BT_VSC_COMPLETE_CB)");
                         }
 
                         else if (WORD1(v29) > v21)
@@ -8747,7 +8936,7 @@ LABEL_25:
   return result;
 }
 
-uint64_t sub_100270D78(char a1, __int16 a2, uint64_t (*a3)())
+uint64_t sub_100270D78(char a1, __int16 a2, void (*a3)())
 {
   v15 = 0;
   v16 = 0;
@@ -8756,7 +8945,7 @@ uint64_t sub_100270D78(char a1, __int16 a2, uint64_t (*a3)())
   {
     if (HIBYTE(v16))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 6230, "OI_STATUS _BCM_OlympicSetExtendedAdvLimits(_Bool, uint16_t, BT_VSC_COMPLETE_CB)");
     }
 
     else if (WORD1(v16) - WORD2(v16) > 3)
@@ -8771,7 +8960,7 @@ uint64_t sub_100270D78(char a1, __int16 a2, uint64_t (*a3)())
         WORD2(v16) += 4;
         if (HIBYTE(v16))
         {
-          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 6231, "OI_STATUS _BCM_OlympicSetExtendedAdvLimits(_Bool, uint16_t, BT_VSC_COMPLETE_CB)");
         }
 
         else if (WORD1(v16) > v11)
@@ -8782,7 +8971,7 @@ uint64_t sub_100270D78(char a1, __int16 a2, uint64_t (*a3)())
             *(v15 + v11) = a1;
             if (HIBYTE(v16))
             {
-              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 6232, "OI_STATUS _BCM_OlympicSetExtendedAdvLimits(_Bool, uint16_t, BT_VSC_COMPLETE_CB)");
             }
 
             else if (WORD1(v16) - WORD2(v16) > 1)
@@ -8824,7 +9013,7 @@ LABEL_16:
   return result;
 }
 
-uint64_t sub_100270FA4(char a1, __int16 a2, char a3, uint64_t (*a4)())
+uint64_t sub_100270FA4(char a1, __int16 a2, char a3, void (*a4)())
 {
   v20 = 0;
   v21 = 0;
@@ -8833,7 +9022,7 @@ uint64_t sub_100270FA4(char a1, __int16 a2, char a3, uint64_t (*a4)())
   {
     if (HIBYTE(v21))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 6265, "OI_STATUS _BCM_OlympicSetExtendedScanBuffers(_Bool, uint16_t, uint8_t, BT_VSC_COMPLETE_CB)");
     }
 
     else if (WORD1(v21) - WORD2(v21) > 3)
@@ -8848,7 +9037,7 @@ uint64_t sub_100270FA4(char a1, __int16 a2, char a3, uint64_t (*a4)())
         WORD2(v21) += 4;
         if (HIBYTE(v21))
         {
-          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 6266, "OI_STATUS _BCM_OlympicSetExtendedScanBuffers(_Bool, uint16_t, uint8_t, BT_VSC_COMPLETE_CB)");
         }
 
         else if (WORD1(v21) > v13)
@@ -8859,7 +9048,7 @@ uint64_t sub_100270FA4(char a1, __int16 a2, char a3, uint64_t (*a4)())
             *(v20 + v13) = a1;
             if (HIBYTE(v21))
             {
-              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 6267, "OI_STATUS _BCM_OlympicSetExtendedScanBuffers(_Bool, uint16_t, uint8_t, BT_VSC_COMPLETE_CB)");
             }
 
             else if (WORD1(v21) - WORD2(v21) > 1)
@@ -8872,7 +9061,7 @@ uint64_t sub_100270FA4(char a1, __int16 a2, char a3, uint64_t (*a4)())
                 WORD2(v21) += 2;
                 if (HIBYTE(v21))
                 {
-                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 6268, "OI_STATUS _BCM_OlympicSetExtendedScanBuffers(_Bool, uint16_t, uint8_t, BT_VSC_COMPLETE_CB)");
                 }
 
                 else if (WORD1(v21) > v15)
@@ -8923,7 +9112,7 @@ LABEL_19:
   return result;
 }
 
-uint64_t sub_10027124C(char a1, _BYTE *a2, uint64_t (*a3)())
+uint64_t sub_10027124C(char a1, _BYTE *a2, void (*a3)())
 {
   v17 = 0;
   v18 = 0;
@@ -8932,7 +9121,7 @@ uint64_t sub_10027124C(char a1, _BYTE *a2, uint64_t (*a3)())
   {
     if (HIBYTE(v18))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 2484, "OI_STATUS _BCM_OlympicWriteSingleShotRoleSwitchSettings(_Bool, OI_HCI_CONNECTION_HANDLE, BT_VSC_COMPLETE_CB)");
     }
 
     else if (WORD1(v18) - WORD2(v18) > 3)
@@ -8947,7 +9136,7 @@ uint64_t sub_10027124C(char a1, _BYTE *a2, uint64_t (*a3)())
         WORD2(v18) += 4;
         if (HIBYTE(v18))
         {
-          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 2486, "OI_STATUS _BCM_OlympicWriteSingleShotRoleSwitchSettings(_Bool, OI_HCI_CONNECTION_HANDLE, BT_VSC_COMPLETE_CB)");
         }
 
         else if (WORD1(v18) > v11)
@@ -8958,7 +9147,7 @@ uint64_t sub_10027124C(char a1, _BYTE *a2, uint64_t (*a3)())
             *(v17 + v11) = a1;
             if (HIBYTE(v18))
             {
-              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 2487, "OI_STATUS _BCM_OlympicWriteSingleShotRoleSwitchSettings(_Bool, OI_HCI_CONNECTION_HANDLE, BT_VSC_COMPLETE_CB)");
             }
 
             else if (WORD1(v18) > WORD2(v18))
@@ -8969,7 +9158,7 @@ uint64_t sub_10027124C(char a1, _BYTE *a2, uint64_t (*a3)())
                 v12 = ++WORD2(v18);
                 if (HIBYTE(v18))
                 {
-                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 2488, "OI_STATUS _BCM_OlympicWriteSingleShotRoleSwitchSettings(_Bool, OI_HCI_CONNECTION_HANDLE, BT_VSC_COMPLETE_CB)");
                 }
 
                 else if (WORD1(v18) - v12 > 1)
@@ -9021,7 +9210,7 @@ LABEL_19:
   return result;
 }
 
-uint64_t sub_1002714F8(__int16 a1, char a2, char a3, uint64_t (*a4)())
+uint64_t sub_1002714F8(__int16 a1, char a2, char a3, void (*a4)())
 {
   v20 = 0;
   v21 = 0;
@@ -9030,7 +9219,7 @@ uint64_t sub_1002714F8(__int16 a1, char a2, char a3, uint64_t (*a4)())
   {
     if (HIBYTE(v21))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 6247, "OI_STATUS _BCM_OlympicSetExtendedAdvPhyOptions(uint16_t, uint8_t, uint8_t, BT_VSC_COMPLETE_CB)");
     }
 
     else if (WORD1(v21) - WORD2(v21) > 3)
@@ -9044,7 +9233,7 @@ uint64_t sub_1002714F8(__int16 a1, char a2, char a3, uint64_t (*a4)())
         WORD2(v21) += 4;
         if (HIBYTE(v21))
         {
-          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 6248, "OI_STATUS _BCM_OlympicSetExtendedAdvPhyOptions(uint16_t, uint8_t, uint8_t, BT_VSC_COMPLETE_CB)");
         }
 
         else if (WORD1(v21) - v12 > 1)
@@ -9058,7 +9247,7 @@ uint64_t sub_1002714F8(__int16 a1, char a2, char a3, uint64_t (*a4)())
             WORD2(v21) += 2;
             if (HIBYTE(v21))
             {
-              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 6249, "OI_STATUS _BCM_OlympicSetExtendedAdvPhyOptions(uint16_t, uint8_t, uint8_t, BT_VSC_COMPLETE_CB)");
             }
 
             else if (WORD1(v21) > v14)
@@ -9069,7 +9258,7 @@ uint64_t sub_1002714F8(__int16 a1, char a2, char a3, uint64_t (*a4)())
                 *(v20 + v14) = a2;
                 if (HIBYTE(v21))
                 {
-                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 6250, "OI_STATUS _BCM_OlympicSetExtendedAdvPhyOptions(uint16_t, uint8_t, uint8_t, BT_VSC_COMPLETE_CB)");
                 }
 
                 else
@@ -9124,7 +9313,7 @@ LABEL_19:
   return result;
 }
 
-uint64_t sub_1002717A0(unsigned int a1, unsigned int a2, uint64_t (*a3)())
+uint64_t sub_1002717A0(unsigned int a1, unsigned int a2, void (*a3)())
 {
   v17 = 0;
   v18 = 0;
@@ -9133,7 +9322,7 @@ uint64_t sub_1002717A0(unsigned int a1, unsigned int a2, uint64_t (*a3)())
   {
     if (HIBYTE(v18))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 2508, "OI_STATUS _BCM_OlympicSetRC2BTSuppression(uint32_t, uint32_t, BT_VSC_COMPLETE_CB)");
     }
 
     else if (WORD1(v18) - WORD2(v18) > 3)
@@ -9147,7 +9336,7 @@ uint64_t sub_1002717A0(unsigned int a1, unsigned int a2, uint64_t (*a3)())
         WORD2(v18) += 4;
         if (HIBYTE(v18))
         {
-          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 2510, "OI_STATUS _BCM_OlympicSetRC2BTSuppression(uint32_t, uint32_t, BT_VSC_COMPLETE_CB)");
         }
 
         else if (WORD1(v18) - v10 > 3)
@@ -9163,7 +9352,7 @@ uint64_t sub_1002717A0(unsigned int a1, unsigned int a2, uint64_t (*a3)())
             WORD2(v18) += 4;
             if (HIBYTE(v18))
             {
-              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 2511, "OI_STATUS _BCM_OlympicSetRC2BTSuppression(uint32_t, uint32_t, BT_VSC_COMPLETE_CB)");
             }
 
             else if (WORD1(v18) - v12 > 3)
@@ -9209,7 +9398,7 @@ LABEL_16:
   return result;
 }
 
-uint64_t sub_100271A54(char a1, uint64_t (*a2)())
+uint64_t sub_100271A54(char a1, void (*a2)())
 {
   v11 = 0;
   v12 = 0;
@@ -9218,7 +9407,7 @@ uint64_t sub_100271A54(char a1, uint64_t (*a2)())
   {
     if (HIBYTE(v12))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 2529, "OI_STATUS _BCM_OlympicEnableBTGrantRC2Coex(_Bool, BT_VSC_COMPLETE_CB)");
     }
 
     else if (WORD1(v12) - WORD2(v12) > 3)
@@ -9232,7 +9421,7 @@ uint64_t sub_100271A54(char a1, uint64_t (*a2)())
         WORD2(v12) += 4;
         if (HIBYTE(v12))
         {
-          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 2530, "OI_STATUS _BCM_OlympicEnableBTGrantRC2Coex(_Bool, BT_VSC_COMPLETE_CB)");
         }
 
         else if (WORD1(v12) - v8 > 3)
@@ -9267,7 +9456,7 @@ LABEL_13:
   return result;
 }
 
-uint64_t sub_100271C18(int a1, _WORD *a2, uint64_t (*a3)())
+uint64_t sub_100271C18(int a1, _WORD *a2, void (*a3)())
 {
   v18 = 0;
   v19 = 0;
@@ -9276,7 +9465,7 @@ uint64_t sub_100271C18(int a1, _WORD *a2, uint64_t (*a3)())
   {
     if (HIBYTE(v19))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 2547, "OI_STATUS _BCM_OlympicSetSniffAttemptOptimization(_Bool, OI_HCI_CONNECTION_HANDLE, BT_VSC_COMPLETE_CB)");
     }
 
     else if (WORD1(v19) - WORD2(v19) > 3)
@@ -9291,7 +9480,7 @@ uint64_t sub_100271C18(int a1, _WORD *a2, uint64_t (*a3)())
         WORD2(v19) += 4;
         if (HIBYTE(v19))
         {
-          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 2548, "OI_STATUS _BCM_OlympicSetSniffAttemptOptimization(_Bool, OI_HCI_CONNECTION_HANDLE, BT_VSC_COMPLETE_CB)");
         }
 
         else if (WORD1(v19) > v11)
@@ -9302,7 +9491,7 @@ uint64_t sub_100271C18(int a1, _WORD *a2, uint64_t (*a3)())
             *(v18 + v11) = 1;
             if (HIBYTE(v19))
             {
-              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 2549, "OI_STATUS _BCM_OlympicSetSniffAttemptOptimization(_Bool, OI_HCI_CONNECTION_HANDLE, BT_VSC_COMPLETE_CB)");
             }
 
             else if (WORD1(v19) - WORD2(v19) > 1)
@@ -9316,7 +9505,7 @@ uint64_t sub_100271C18(int a1, _WORD *a2, uint64_t (*a3)())
                 {
                   if (HIBYTE(v19))
                   {
-                    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 2552, "OI_STATUS _BCM_OlympicSetSniffAttemptOptimization(_Bool, OI_HCI_CONNECTION_HANDLE, BT_VSC_COMPLETE_CB)");
                   }
 
                   else if (WORD1(v19) - v12 > 3)
@@ -9340,7 +9529,7 @@ LABEL_39:
 
                 if (HIBYTE(v19))
                 {
-                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 2554, "OI_STATUS _BCM_OlympicSetSniffAttemptOptimization(_Bool, OI_HCI_CONNECTION_HANDLE, BT_VSC_COMPLETE_CB)");
                 }
 
                 else if (WORD1(v19) - v12 > 3)
@@ -9392,7 +9581,7 @@ LABEL_25:
   return result;
 }
 
-uint64_t sub_100271F7C(uint64_t a1, uint64_t (*a2)())
+uint64_t sub_100271F7C(uint64_t a1, void (*a2)())
 {
   v15 = 0;
   v16 = 0;
@@ -9401,7 +9590,7 @@ uint64_t sub_100271F7C(uint64_t a1, uint64_t (*a2)())
   {
     if (HIBYTE(v16))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 2573, "OI_STATUS _BCM_OlympicUpdateLEPhyDenylist(BTAddress, BT_VSC_COMPLETE_CB)");
     }
 
     else if (WORD1(v16) - WORD2(v16) > 3)
@@ -9421,7 +9610,7 @@ uint64_t sub_100271F7C(uint64_t a1, uint64_t (*a2)())
         v14[5] = a1;
         if (HIBYTE(v16))
         {
-          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 2576, "OI_STATUS _BCM_OlympicUpdateLEPhyDenylist(BTAddress, BT_VSC_COMPLETE_CB)");
         }
 
         else if (WORD1(v16) - v5 > 5)
@@ -9434,7 +9623,7 @@ uint64_t sub_100271F7C(uint64_t a1, uint64_t (*a2)())
             WORD2(v16) += 6;
             if (HIBYTE(v16))
             {
-              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 2577, "OI_STATUS _BCM_OlympicUpdateLEPhyDenylist(BTAddress, BT_VSC_COMPLETE_CB)");
             }
 
             else if (WORD1(v16) > v10)
@@ -9476,7 +9665,7 @@ LABEL_16:
   return result;
 }
 
-uint64_t sub_1002721C0(__int16 a1, char a2, char a3, uint64_t (*a4)())
+uint64_t sub_1002721C0(__int16 a1, char a2, char a3, void (*a4)())
 {
   v20 = 0;
   v21 = 0;
@@ -9485,7 +9674,7 @@ uint64_t sub_1002721C0(__int16 a1, char a2, char a3, uint64_t (*a4)())
   {
     if (HIBYTE(v21))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 6297, "OI_STATUS _BCM_OlympicSetHIDLatencyStats(OI_HCI_LM_HANDLE, uint8_t, uint8_t, BT_VSC_COMPLETE_CB)");
     }
 
     else if (WORD1(v21) - WORD2(v21) > 3)
@@ -9499,7 +9688,7 @@ uint64_t sub_1002721C0(__int16 a1, char a2, char a3, uint64_t (*a4)())
         WORD2(v21) += 4;
         if (HIBYTE(v21))
         {
-          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 6298, "OI_STATUS _BCM_OlympicSetHIDLatencyStats(OI_HCI_LM_HANDLE, uint8_t, uint8_t, BT_VSC_COMPLETE_CB)");
         }
 
         else if (WORD1(v21) - v12 > 1)
@@ -9513,7 +9702,7 @@ uint64_t sub_1002721C0(__int16 a1, char a2, char a3, uint64_t (*a4)())
             WORD2(v21) += 2;
             if (HIBYTE(v21))
             {
-              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 6299, "OI_STATUS _BCM_OlympicSetHIDLatencyStats(OI_HCI_LM_HANDLE, uint8_t, uint8_t, BT_VSC_COMPLETE_CB)");
             }
 
             else if (WORD1(v21) > v14)
@@ -9524,7 +9713,7 @@ uint64_t sub_1002721C0(__int16 a1, char a2, char a3, uint64_t (*a4)())
                 *(v20 + v14) = a2;
                 if (HIBYTE(v21))
                 {
-                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 6300, "OI_STATUS _BCM_OlympicSetHIDLatencyStats(OI_HCI_LM_HANDLE, uint8_t, uint8_t, BT_VSC_COMPLETE_CB)");
                 }
 
                 else
@@ -9579,7 +9768,7 @@ LABEL_19:
   return result;
 }
 
-uint64_t sub_100272468(__int16 a1, char a2, uint64_t (*a3)())
+uint64_t sub_100272468(__int16 a1, char a2, void (*a3)())
 {
   v16 = 0;
   v17 = 0;
@@ -9588,7 +9777,7 @@ uint64_t sub_100272468(__int16 a1, char a2, uint64_t (*a3)())
   {
     if (HIBYTE(v17))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 6314, "OI_STATUS _BCM_OlympicSetLMPHalt(OI_HCI_LM_HANDLE, uint8_t, BT_VSC_COMPLETE_CB)");
     }
 
     else if (WORD1(v17) - WORD2(v17) > 3)
@@ -9602,7 +9791,7 @@ uint64_t sub_100272468(__int16 a1, char a2, uint64_t (*a3)())
         WORD2(v17) += 4;
         if (HIBYTE(v17))
         {
-          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 6315, "OI_STATUS _BCM_OlympicSetLMPHalt(OI_HCI_LM_HANDLE, uint8_t, BT_VSC_COMPLETE_CB)");
         }
 
         else if (WORD1(v17) - v10 > 1)
@@ -9616,7 +9805,7 @@ uint64_t sub_100272468(__int16 a1, char a2, uint64_t (*a3)())
             WORD2(v17) += 2;
             if (HIBYTE(v17))
             {
-              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 6316, "OI_STATUS _BCM_OlympicSetLMPHalt(OI_HCI_LM_HANDLE, uint8_t, BT_VSC_COMPLETE_CB)");
             }
 
             else if (WORD1(v17) > v12)
@@ -9658,7 +9847,7 @@ LABEL_16:
   return result;
 }
 
-uint64_t sub_100272694(char a1, uint64_t (*a2)())
+uint64_t sub_100272694(char a1, void (*a2)())
 {
   v12 = 0;
   v13 = 0;
@@ -9667,7 +9856,7 @@ uint64_t sub_100272694(char a1, uint64_t (*a2)())
   {
     if (HIBYTE(v13))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 6329, "OI_STATUS _BCM_OlympicDisableDiagDebugEventWakeUpAP(_Bool, BT_VSC_COMPLETE_CB)");
     }
 
     else if (WORD1(v13) - WORD2(v13) > 3)
@@ -9682,7 +9871,7 @@ uint64_t sub_100272694(char a1, uint64_t (*a2)())
         WORD2(v13) += 4;
         if (HIBYTE(v13))
         {
-          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
+          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 6330, "OI_STATUS _BCM_OlympicDisableDiagDebugEventWakeUpAP(_Bool, BT_VSC_COMPLETE_CB)");
         }
 
         else if (WORD1(v13) > v9)
@@ -9710,258 +9899,6 @@ LABEL_13:
 
     v10 = "ByteStream_NumReadBytesAvail(bs) >= 4";
     goto LABEL_13;
-  }
-
-  return result;
-}
-
-uint64_t sub_100272820(char a1, _BYTE *a2, _WORD *a3, char a4, char a5, uint64_t (*a6)())
-{
-  v28 = 0;
-  v29 = 0;
-  if (!sub_10001FFD8(&v28))
-  {
-    if (HIBYTE(v29))
-    {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
-    }
-
-    else if (WORD1(v29) - WORD2(v29) > 3)
-    {
-      if (BYTE6(v29) == 2)
-      {
-        *(v28 + WORD2(v29)) = 60;
-        *(v28 + WORD2(v29) + 1) = 0;
-        *(v28 + WORD2(v29) + 3) = 0;
-        v15 = WORD2(v29);
-        v16 = WORD2(v29) + 4;
-        WORD2(v29) += 4;
-        if (HIBYTE(v29))
-        {
-          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
-        }
-
-        else if (WORD1(v29) > v16)
-        {
-          if (BYTE6(v29) == 2)
-          {
-            WORD2(v29) = v15 + 5;
-            *(v28 + v16) = a1;
-            if (HIBYTE(v29))
-            {
-              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
-            }
-
-            else if (WORD1(v29) - WORD2(v29) > 1)
-            {
-              if (BYTE6(v29) == 2)
-              {
-                *(v28 + WORD2(v29)) = *a3;
-                v17 = WORD2(v29) + 2;
-                WORD2(v29) += 2;
-                if (HIBYTE(v29))
-                {
-                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
-                }
-
-                else if (WORD1(v29) - v17 > 1)
-                {
-                  if (BYTE6(v29) == 2)
-                  {
-                    *(v28 + v17) = *a2;
-                    *(v28 + WORD2(v29) + 1) = a2[1];
-                    v18 = WORD2(v29);
-                    v19 = WORD2(v29) + 2;
-                    WORD2(v29) += 2;
-                    if (HIBYTE(v29))
-                    {
-                      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
-                    }
-
-                    else if (WORD1(v29) > v19)
-                    {
-                      if (BYTE6(v29) == 2)
-                      {
-                        WORD2(v29) = v18 + 3;
-                        *(v28 + v19) = a4;
-                        if (HIBYTE(v29))
-                        {
-                          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
-                        }
-
-                        else
-                        {
-                          v20 = WORD2(v29);
-                          if (WORD1(v29) > WORD2(v29))
-                          {
-                            if (BYTE6(v29) == 2)
-                            {
-                              ++WORD2(v29);
-                              *(v28 + v20) = a5;
-                              return sub_100020078(226, v28, BYTE4(v29), a6, sub_100022AD0, v12, v13, v14);
-                            }
-
-                            v27 = "(bs).__RWFlag == BYTESTREAM_WRITE";
-LABEL_45:
-                            sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 7671, v27);
-                          }
-                        }
-
-                        v27 = "ByteStream_NumReadBytesAvail(bs) >= 1";
-                        goto LABEL_45;
-                      }
-
-                      v26 = "(bs).__RWFlag == BYTESTREAM_WRITE";
-LABEL_41:
-                      sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 7670, v26);
-                    }
-
-                    v26 = "ByteStream_NumReadBytesAvail(bs) >= 1";
-                    goto LABEL_41;
-                  }
-
-                  v25 = "(bs).__RWFlag == BYTESTREAM_WRITE";
-LABEL_37:
-                  sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 7669, v25);
-                }
-
-                v25 = "ByteStream_NumReadBytesAvail(bs) >= 2";
-                goto LABEL_37;
-              }
-
-              v24 = "(bs).__RWFlag == BYTESTREAM_WRITE";
-LABEL_33:
-              sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 7668, v24);
-            }
-
-            v24 = "ByteStream_NumReadBytesAvail(bs) >= 2";
-            goto LABEL_33;
-          }
-
-          v23 = "(bs).__RWFlag == BYTESTREAM_WRITE";
-LABEL_29:
-          sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 7667, v23);
-        }
-
-        v23 = "ByteStream_NumReadBytesAvail(bs) >= 1";
-        goto LABEL_29;
-      }
-
-      v22 = "(bs).__RWFlag == BYTESTREAM_WRITE";
-LABEL_25:
-      sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 7666, v22);
-    }
-
-    v22 = "ByteStream_NumReadBytesAvail(bs) >= 4";
-    goto LABEL_25;
-  }
-
-  return sub_100020078(226, v28, BYTE4(v29), a6, sub_100022AD0, v12, v13, v14);
-}
-
-uint64_t sub_100272BEC(char a1, uint64_t a2, const void *a3, int a4, uint64_t (*a5)())
-{
-  v23 = 0;
-  v24 = 0;
-  result = sub_10001FFD8(&v23);
-  if (!result)
-  {
-    if (HIBYTE(v24))
-    {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
-    }
-
-    else
-    {
-      v11 = WORD2(v24);
-      if (WORD1(v24) > WORD2(v24))
-      {
-        if (BYTE6(v24) == 2)
-        {
-          ++WORD2(v24);
-          *(v23 + v11) = 2;
-          v12 = v23;
-          v13 = WORD2(v24);
-          if (HIBYTE(v24))
-          {
-            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
-            v14 = 0;
-          }
-
-          else
-          {
-            v14 = WORD1(v24) - WORD2(v24);
-          }
-
-          if (v14 < a4)
-          {
-            v20 = "ByteStream_NumReadBytesAvail(bs) >= (IrkLength)";
-          }
-
-          else
-          {
-            if (BYTE6(v24) == 2)
-            {
-              memmove((v12 + v13), a3, a4);
-              v15 = WORD2(v24) + a4;
-              WORD2(v24) += a4;
-              if (HIBYTE(v24))
-              {
-                sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
-              }
-
-              else if (WORD1(v24) > v15)
-              {
-                if (BYTE6(v24) == 2)
-                {
-                  WORD2(v24) = v15 + 1;
-                  *(v23 + v15) = a1;
-                  if (HIBYTE(v24))
-                  {
-                    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c");
-                  }
-
-                  else if (WORD1(v24) - WORD2(v24) > 5)
-                  {
-                    if (BYTE6(v24) == 2)
-                    {
-                      sub_1000075EC((v23 + WORD2(v24)), a2, 6uLL);
-                      WORD2(v24) += 6;
-                      return sub_100020078(233, v23, BYTE4(v24), a5, sub_100022AD0, v16, v17, v18);
-                    }
-
-                    v22 = "(bs).__RWFlag == BYTESTREAM_WRITE";
-LABEL_32:
-                    sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 3154, v22);
-                  }
-
-                  v22 = "ByteStream_NumReadBytesAvail(bs) >= OI_BD_ADDR_BYTE_SIZE";
-                  goto LABEL_32;
-                }
-
-                v21 = "(bs).__RWFlag == BYTESTREAM_WRITE";
-LABEL_28:
-                sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 3153, v21);
-              }
-
-              v21 = "ByteStream_NumReadBytesAvail(bs) >= 1";
-              goto LABEL_28;
-            }
-
-            v20 = "(bs).__RWFlag == BYTESTREAM_WRITE";
-          }
-
-          sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 3152, v20);
-        }
-
-        v19 = "(bs).__RWFlag == BYTESTREAM_WRITE";
-LABEL_21:
-        sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/vsc/bcm/bcm_vsc.c", 3151, v19);
-      }
-    }
-
-    v19 = "ByteStream_NumReadBytesAvail(bs) >= 1";
-    goto LABEL_21;
   }
 
   return result;

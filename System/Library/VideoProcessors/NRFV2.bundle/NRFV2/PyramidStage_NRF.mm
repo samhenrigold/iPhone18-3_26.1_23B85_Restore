@@ -1,6 +1,7 @@
 @interface PyramidStage_NRF
 + (int)prewarmShaders:(id)shaders;
 - (PyramidStage_NRF)initWithOptions:(id)options context:(id)context;
+- (int)runGPUWithFilters:(PyramidFilterParams *)filters doShift:(BOOL)shift;
 - (int)runM2MWithFilters:(PyramidFilterParams *)filters;
 - (int)runWithFilters:(PyramidFilterParams *)filters;
 - (int)setResourcesWithPyramid:(id)pyramid;
@@ -388,6 +389,397 @@ LABEL_13:
 
   sub_295899200(&v19);
   return v19;
+}
+
+- (int)runGPUWithFilters:(PyramidFilterParams *)filters doShift:(BOOL)shift
+{
+  selfCopy = self;
+  pyr = self->_pyr;
+  if (pyr->levels >= 2)
+  {
+    v7 = 0;
+    v8 = 0;
+    if (shift)
+    {
+      *v8.i32 = 1.0;
+    }
+
+    v9 = vdup_lane_s32(v8, 0);
+    uniforms_UV = self->_uniforms_UV;
+    p_chroma_param = &filters->chroma_param;
+    while (*(p_chroma_param - 2) == 1)
+    {
+      v12 = *(uniforms_UV - 20);
+      v16 = objc_msgSend_contents(v12, v13, v14, v15);
+      *v16 = *(p_chroma_param - 1);
+      *(v16 + 8) = v9;
+      v17 = *uniforms_UV++;
+      v18 = v17;
+      v22 = objc_msgSend_contents(v18, v19, v20, v21);
+      *&v17 = *p_chroma_param;
+      p_chroma_param += 3;
+      *v22 = *&v17;
+      *(v22 + 8) = v9;
+      ++v7;
+      pyr = selfCopy->_pyr;
+      if (v7 >= pyr->levels - 1)
+      {
+        goto LABEL_7;
+      }
+    }
+
+    sub_2958994B0(&v217);
+    return v217;
+  }
+
+LABEL_7:
+  v23 = objc_msgSend_pixelFormat(pyr->textureY[0], a2, filters, shift);
+  v28 = v23 == 576 || v23 == 588 || selfCopy->_band0ColorSpace == 2;
+  v29 = v28;
+  v211 = v29;
+  v212 = selfCopy;
+  if (v28)
+  {
+    v30 = objc_msgSend_commandQueue(selfCopy->_metal, v24, v25, v26);
+    v34 = objc_msgSend_commandBuffer(v30, v31, v32, v33);
+
+    if (!v34)
+    {
+      sub_295899A10(&v217);
+      return v217;
+    }
+
+    v35 = selfCopy->_pyr;
+    if (BYTE3(selfCopy[1]._uniforms_Y[11]) == 1 && (textureYCbCrBand0 = v35->textureYCbCrBand0) != 0)
+    {
+      v37 = textureYCbCrBand0;
+      v38 = 0;
+      v39 = 2;
+      v40 = 8;
+    }
+
+    else
+    {
+      v37 = v35->textureY[0];
+      v38 = selfCopy->_pyr->textureUV[0];
+      v39 = -1;
+      v40 = 5;
+    }
+
+    v202 = v40;
+    v42 = v38;
+    v43 = selfCopy->_pyr->textureY[1];
+    v44 = selfCopy->_pyr->textureUV[1];
+    luma_param = filters->luma_param;
+    chroma_param = filters->chroma_param;
+    v205 = v34;
+    v53 = objc_msgSend_computeCommandEncoder(v34, v47, v48, v49);
+    v207 = v43;
+    if (v53)
+    {
+      v54 = luma_param;
+      if (chroma_param == 5)
+      {
+        v55 = 2;
+      }
+
+      else
+      {
+        v55 = 1;
+      }
+
+      v230 = 0;
+      v231 = 0;
+      if (chroma_param == 7)
+      {
+        v56 = 3;
+      }
+
+      else
+      {
+        v56 = v55;
+      }
+
+      if (v54 == 5)
+      {
+        v57 = 2;
+      }
+
+      else
+      {
+        v57 = 1;
+      }
+
+      v58 = *&selfCopy[1]._uniforms_Y[9];
+      if (v54 == 7)
+      {
+        v59 = 3;
+      }
+
+      else
+      {
+        v59 = v57;
+      }
+
+      v227 = *&selfCopy[1]._uniforms_Y[7];
+      v228 = v58;
+      v229 = *&selfCopy[1]._uniforms_Y[11];
+      v60 = *&selfCopy[1]._uniforms_Y[1];
+      v223 = *&selfCopy[1]._uniformsHeap;
+      v224 = v60;
+      v61 = *&selfCopy[1]._uniforms_Y[5];
+      v225 = *&selfCopy[1]._uniforms_Y[3];
+      v226 = v61;
+      v62 = *&selfCopy->_colorSpaceConversionParameters.outputToLinearYCbCr;
+      v219 = *&selfCopy->_colorSpaceConversionParameters.transferFunctionInv.nonLinearBias;
+      v220 = v62;
+      v63 = *&selfCopy[1]._m2mController;
+      v221 = *&selfCopy[1]._conf.use_m2m;
+      v222 = v63;
+      v64 = *&selfCopy->_colorSpaceConversionParameters.transferFunctionFwd.nonLinearPower;
+      v217 = *&selfCopy->_colorSpaceConversionParameters.transferFunctionFwd.linearScale;
+      v218 = v64;
+      LOBYTE(v230) = selfCopy->_conf.compensate_gpu_shift;
+      objc_msgSend_sharedInstance(PyramidStageShared_NRF, v50, v51, v52);
+      v66 = v65 = selfCopy;
+      v68 = objc_msgSend_getRec709DownsamplePipelineState_kernelType_(v66, v67, v65->_metal, (v39 + v59));
+
+      objc_msgSend_setTexture_atIndex_(v53, v69, v37, 0);
+      objc_msgSend_setTexture_atIndex_(v53, v70, v42, 1);
+      objc_msgSend_setTexture_atIndex_(v53, v71, v43, 2);
+      objc_msgSend_setBytes_length_atIndex_(v53, v72, &v217, 224, 0);
+      v200 = v68;
+      objc_msgSend_setComputePipelineState_(v53, v73, v68, v74);
+      objc_msgSend_setImageblockWidth_height_(v53, v75, 32, 32);
+      v209 = v42;
+      v76 = v37;
+      v77 = v59 + (v59 & 1);
+      LODWORD(v66) = 16 - v77;
+      v77 ^= 0xFu;
+      *&v215 = (v77 + objc_msgSend_width(v43, v78, v79, v80)) / v66;
+      *(&v215 + 1) = (v77 + objc_msgSend_height(v43, v81, v82, v83)) / v66;
+      v216 = 1;
+      v198 = vdupq_n_s64(0x10uLL);
+      v213 = v198;
+      v214 = 1;
+      objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v53, v84, &v215, &v213);
+      v88 = objc_msgSend_sharedInstance(PyramidStageShared_NRF, v85, v86, v87);
+      v90 = objc_msgSend_getRec709DownsamplePipelineState_kernelType_(v88, v89, v65->_metal, (v202 + v56));
+
+      v203 = v76;
+      v91 = v76;
+      v42 = v209;
+      objc_msgSend_setTexture_atIndex_(v53, v92, v91, 0);
+      objc_msgSend_setTexture_atIndex_(v53, v93, v209, 1);
+      objc_msgSend_setTexture_atIndex_(v53, v94, v44, 2);
+      objc_msgSend_setBytes_length_atIndex_(v53, v95, &v217, 224, 0);
+      objc_msgSend_setComputePipelineState_(v53, v96, v90, v97);
+      objc_msgSend_setImageblockWidth_height_(v53, v98, 32, 32);
+      v99 = 16 - v56;
+      v103 = v56 ^ 0xF;
+      v104 = ((v56 ^ 0xF) + objc_msgSend_width(v44, v100, v101, v102)) / (16 - v56);
+      v108 = objc_msgSend_height(v44, v105, v106, v107);
+      *&v215 = v104;
+      *(&v215 + 1) = (v103 + v108) / v99;
+      v216 = 1;
+      v213 = v198;
+      v214 = 1;
+      objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v53, v109, &v215, &v213);
+      objc_msgSend_endEncoding(v53, v110, v111, v112);
+      if (*MEMORY[0x29EDB9270])
+      {
+        v116 = objc_msgSend_commandQueue(v205, v113, v114, v115);
+        v120 = objc_msgSend_commandBuffer(v116, v117, v118, v119);
+
+        objc_msgSend_setLabel_(v120, v121, @"KTRACE_MTLCMDBUF", v122);
+        objc_msgSend_addCompletedHandler_(v120, v123, &unk_2A1CA9440, v124);
+        objc_msgSend_commit(v120, v125, v126, v127);
+        objc_msgSend_addCompletedHandler_(v205, v128, &unk_2A1CA9460, v129);
+
+        v42 = v209;
+      }
+
+      objc_msgSend_commit(v205, v113, v114, v115);
+
+      v130 = v205;
+      v41 = 0;
+      v29 = v211;
+      selfCopy = v212;
+      v37 = v203;
+    }
+
+    else
+    {
+      sub_29589955C(&v217);
+      v41 = v217;
+      v130 = v205;
+    }
+
+    if (!v53)
+    {
+      return v41;
+    }
+  }
+
+  else
+  {
+    v41 = 0;
+  }
+
+  v131 = objc_msgSend_commandQueue(selfCopy->_metal, v24, v25, v26);
+  v135 = objc_msgSend_commandBuffer(v131, v132, v133, v134);
+
+  v210 = v135;
+  if (!v135)
+  {
+    sub_295899964(&v217);
+    v197 = v217;
+    goto LABEL_73;
+  }
+
+  v197 = v41;
+  v139 = 0;
+  v201 = &selfCopy->_uniforms_Y[v29];
+  v204 = 8 * (v29 - 1);
+  v206 = 8 * v29;
+  v208 = v29 - 1;
+  v199 = &selfCopy->_uniforms_UV[v204 / 8];
+  while (1)
+  {
+    v140 = v208 + v139;
+    v141 = selfCopy->_pyr;
+    v142 = v141->levels - 1;
+    if (v208 + v139 >= v142)
+    {
+      break;
+    }
+
+    v143 = v29 + v139;
+    if (v29 + v139 >= v142)
+    {
+      v144 = 0;
+    }
+
+    else
+    {
+      v144 = *(&v141->textureY[v139 + 1] + v206);
+    }
+
+    v145 = v144;
+    if (v140 < v29)
+    {
+      v146 = 0;
+    }
+
+    else
+    {
+      v146 = *(&selfCopy->_pyr->textureUV[v139 + 1] + v204);
+    }
+
+    v147 = v146;
+    v151 = objc_msgSend_sharedInstance(PyramidStageShared_NRF, v148, v149, v150);
+    v153 = objc_msgSend_getPipeline_lumaWrite_chromaWrite_(v151, v152, selfCopy->_metal, v143 < v142, v140 >= v29);
+
+    if (v143 >= v142)
+    {
+      v160 = (objc_msgSend_width(v147, v154, v155, v156) + 1) >> 1;
+      v161 = v147;
+    }
+
+    else
+    {
+      v160 = objc_msgSend_width(v145, v154, v155, v156);
+      v161 = v145;
+    }
+
+    v162 = objc_msgSend_height(v161, v157, v158, v159);
+    v166 = objc_msgSend_computeCommandEncoder(v210, v163, v164, v165);
+    v169 = v166;
+    if (!v166)
+    {
+      sub_2958998B8(&v217);
+LABEL_69:
+      v176 = 0;
+      v197 = v217;
+      goto LABEL_62;
+    }
+
+    objc_msgSend_setComputePipelineState_(v166, v167, v153, v168);
+    objc_msgSend_setImageblockWidth_height_(v169, v170, 32, 32);
+    if (v143 < v142)
+    {
+      v172 = *(&v212->_pyr->textureY[v139] + v206);
+      if (!v172)
+      {
+        sub_29589980C(&v217);
+        goto LABEL_69;
+      }
+
+      objc_msgSend_setTexture_atIndex_(v169, v171, v172, 0);
+      if (!v145)
+      {
+        sub_295899760(&v217);
+        goto LABEL_69;
+      }
+
+      objc_msgSend_setTexture_atIndex_(v169, v173, v145, 2);
+    }
+
+    if (v140 >= v211)
+    {
+      v174 = v212->_pyr + 8 * v139 + v204;
+      if (!*(v174 + 504))
+      {
+        sub_2958996B4(&v217);
+        goto LABEL_69;
+      }
+
+      objc_msgSend_setTexture_atIndex_(v169, v171, *(v174 + 496), 1);
+      if (!v147)
+      {
+        sub_295899608(&v217);
+        goto LABEL_69;
+      }
+
+      objc_msgSend_setTexture_atIndex_(v169, v175, v147, 3);
+    }
+
+    objc_msgSend_setBuffer_offset_atIndex_(v169, v171, *(v201 + 8 * v139), 0, 0);
+    v176 = 1;
+    objc_msgSend_setBuffer_offset_atIndex_(v169, v177, *(v199 + 8 * v139), 0, 1);
+    *&v217 = v160;
+    *(&v217 + 1) = v162;
+    *&v218 = 1;
+    v215 = xmmword_2959D5EB0;
+    v216 = 1;
+    objc_msgSend_dispatchThreads_threadsPerThreadgroup_(v169, v178, &v217, &v215);
+    objc_msgSend_endEncoding(v169, v179, v180, v181);
+LABEL_62:
+
+    ++v139;
+    v29 = v211;
+    selfCopy = v212;
+    if ((v176 & 1) == 0)
+    {
+      goto LABEL_73;
+    }
+  }
+
+  if (*MEMORY[0x29EDB9270])
+  {
+    v182 = objc_msgSend_commandQueue(v210, v136, v137, v138);
+    v186 = objc_msgSend_commandBuffer(v182, v183, v184, v185);
+
+    objc_msgSend_setLabel_(v186, v187, @"KTRACE_MTLCMDBUF", v188);
+    objc_msgSend_addCompletedHandler_(v186, v189, &unk_2A1CA9480, v190);
+    objc_msgSend_commit(v186, v191, v192, v193);
+    objc_msgSend_addCompletedHandler_(v210, v194, &unk_2A1CA94A0, v195);
+  }
+
+  objc_msgSend_commit(v210, v136, v137, v138);
+LABEL_73:
+
+  return v197;
 }
 
 - (int)runWithFilters:(PyramidFilterParams *)filters

@@ -11,10 +11,10 @@
 {
   contactsCopy = contacts;
   objc_storeStrong(&self->_localContacts, contacts);
-  v6 = _AAUILogSystem();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v7 = _AAUILogSystem(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    [(AAUICustodianRepairHelper *)contactsCopy setLocalContacts:v6];
+    [(AAUICustodianRepairHelper *)contactsCopy setLocalContacts:v7];
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_dataDelegate);

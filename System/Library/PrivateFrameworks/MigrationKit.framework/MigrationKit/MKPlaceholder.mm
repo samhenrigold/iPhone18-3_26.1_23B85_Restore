@@ -202,7 +202,7 @@ LABEL_9:
 
 - (void)install
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   if (self->_enabled)
   {
     v3 = +[MKLog log];
@@ -220,9 +220,9 @@ LABEL_9:
     if ([(NSString *)self->_bundleIdentifier length]&& [(NSString *)self->_appStoreIdentifier length]&& [(NSString *)self->_name length]&& [(NSString *)self->_developer length])
     {
       v5 = [objc_alloc(MEMORY[0x277D1C160]) initWithBundleIdentifier:self->_bundleIdentifier];
-      v35 = 0;
-      v6 = [MEMORY[0x277D1C1C8] coordinatorForAppWithIdentity:v5 withClientID:24 createIfNotExisting:1 created:0 error:&v35];
-      v7 = v35;
+      v34 = 0;
+      v6 = [MEMORY[0x277D1C1C8] coordinatorForAppWithIdentity:v5 withClientID:24 createIfNotExisting:1 created:0 error:&v34];
+      v7 = v34;
       if (v7)
       {
         v3 = v7;
@@ -233,55 +233,55 @@ LABEL_9:
       else
       {
         v8 = [objc_alloc(MEMORY[0x277D1C1A0]) initWithName:@"User data" client:24 diskSpaceNeeded:0];
-        v34 = 0;
-        v9 = [v6 setUserDataPromise:v8 error:&v34];
-        v14 = v34;
-        v3 = v14;
-        if (v9 && !v14)
+        v33 = 0;
+        v9 = [v6 setUserDataPromise:v8 error:&v33];
+        v13 = v33;
+        v3 = v13;
+        if (v9 && !v13)
         {
-          v15 = objc_alloc_init(MEMORY[0x277D1C200]);
+          v14 = objc_alloc_init(MEMORY[0x277D1C200]);
           v9 = 1;
-          v16 = [objc_alloc(MEMORY[0x277D1C190]) initWithLocalizedBundleName:self->_name bundleID:self->_bundleIdentifier type:1 client:24 location:v15];
-          [v16 setInstallType:8];
-          v33 = 0;
-          v17 = [objc_alloc(MEMORY[0x277D1C180]) initWithSpecification:v16 error:&v33];
-          v18 = v33;
-          if (v18)
+          v15 = [objc_alloc(MEMORY[0x277D1C190]) initWithLocalizedBundleName:self->_name bundleID:self->_bundleIdentifier type:1 client:24 location:v14];
+          [v15 setInstallType:8];
+          v32 = 0;
+          v16 = [objc_alloc(MEMORY[0x277D1C180]) initWithSpecification:v15 error:&v32];
+          v17 = v32;
+          if (v17)
           {
-            v3 = v18;
+            v3 = v17;
           }
 
           else
           {
-            v32 = 0;
-            v9 = [v6 setPlaceholderPromise:v17 error:&v32];
-            v21 = v32;
-            v3 = v21;
+            v31 = 0;
+            v9 = [v6 setPlaceholderPromise:v16 error:&v31];
+            v20 = v31;
+            v3 = v20;
             if (v9)
             {
-              if (!v21)
+              if (!v20)
               {
-                if (!-[NSData length](self->_icon, "length") || (v22 = [objc_alloc(MEMORY[0x277D1C198]) initWithName:@"Placeholder Icon" client:24 data:self->_icon], v31 = 0, v9 = objc_msgSend(v17, "setIconPromise:error:", v22, &v31), v3 = v31, v22, v9) && !v3)
+                if (!-[NSData length](self->_icon, "length") || (v21 = [objc_alloc(MEMORY[0x277D1C198]) initWithName:@"Placeholder Icon" client:24 data:self->_icon], v30 = 0, v9 = objc_msgSend(v16, "setIconPromise:error:", v21, &v30), v3 = v30, v21, v9) && !v3)
                 {
-                  v23 = objc_alloc_init(MEMORY[0x277CCABB8]);
-                  [v23 setNumberStyle:1];
-                  v28 = v23;
-                  v24 = [v23 numberFromString:self->_appStoreIdentifier];
-                  v25 = objc_alloc_init(MEMORY[0x277D1C208]);
-                  v27 = v24;
-                  [v25 setItemID:v24];
-                  [v25 setItemName:self->_name];
-                  [v25 setArtistName:self->_developer];
-                  [v25 setSoftwareVersionBundleID:self->_bundleIdentifier];
-                  v30 = 0;
-                  v9 = [v17 setMetadata:v25 error:&v30];
-                  v26 = v30;
-                  v3 = v26;
-                  if (v9 && !v26)
+                  v22 = objc_alloc_init(MEMORY[0x277CCABB8]);
+                  [v22 setNumberStyle:1];
+                  v27 = v22;
+                  v23 = [v22 numberFromString:self->_appStoreIdentifier];
+                  v24 = objc_alloc_init(MEMORY[0x277D1C208]);
+                  v26 = v23;
+                  [v24 setItemID:v23];
+                  [v24 setItemName:self->_name];
+                  [v24 setArtistName:self->_developer];
+                  [v24 setSoftwareVersionBundleID:self->_bundleIdentifier];
+                  v29 = 0;
+                  v9 = [v16 setMetadata:v24 error:&v29];
+                  v25 = v29;
+                  v3 = v25;
+                  if (v9 && !v25)
                   {
-                    v29 = 0;
-                    v9 = [v17 setConfigurationCompleteWithError:&v29];
-                    v3 = v29;
+                    v28 = 0;
+                    v9 = [v16 setConfigurationCompleteWithError:&v28];
+                    v3 = v28;
                   }
                 }
               }
@@ -305,16 +305,16 @@ LABEL_9:
     {
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        v19 = self->_bundleIdentifier;
-        v20 = [v3 description];
+        v18 = self->_bundleIdentifier;
+        v19 = [v3 description];
         *buf = 138413058;
         selfCopy = self;
-        v38 = 2112;
-        v39 = v19;
-        v40 = 1024;
-        v41 = v9;
-        v42 = 2112;
-        v43 = v20;
+        v37 = 2112;
+        v38 = v18;
+        v39 = 1024;
+        v40 = v9;
+        v41 = 2112;
+        v42 = v19;
         _os_log_error_impl(&dword_2592D2000, v11, OS_LOG_TYPE_ERROR, "%@ could not install a placeholder. id=%@, success=%d, error=%@", buf, 0x26u);
       }
     }
@@ -327,13 +327,11 @@ LABEL_9:
       _os_log_impl(&dword_2592D2000, v11, OS_LOG_TYPE_INFO, "will install a placeholder. id=%@", buf, 0xCu);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)uninstall
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (self->_enabled)
   {
     v3 = objc_alloc_init(MEMORY[0x277D1C1D0]);
@@ -346,9 +344,9 @@ LABEL_9:
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       bundleIdentifier = self->_bundleIdentifier;
-      v9 = 138412290;
-      v10 = bundleIdentifier;
-      _os_log_impl(&dword_2592D2000, v4, OS_LOG_TYPE_INFO, "will uninstall an app. id=%@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = bundleIdentifier;
+      _os_log_impl(&dword_2592D2000, v4, OS_LOG_TYPE_INFO, "will uninstall an app. id=%@", &v8, 0xCu);
     }
 
     v6 = [objc_alloc(MEMORY[0x277D1C160]) initWithBundleIdentifier:self->_bundleIdentifier];
@@ -361,30 +359,26 @@ LABEL_9:
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       v7 = self->_bundleIdentifier;
-      v9 = 138412290;
-      v10 = v7;
-      _os_log_impl(&dword_2592D2000, v3, OS_LOG_TYPE_INFO, "the placeholder was already uninstalled. id=%@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v7;
+      _os_log_impl(&dword_2592D2000, v3, OS_LOG_TYPE_INFO, "the placeholder was already uninstalled. id=%@", &v8, 0xCu);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __26__MKPlaceholder_uninstall__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = +[MKLog log];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v7 = 134218242;
-    v8 = a2;
-    v9 = 2112;
-    v10 = v4;
-    _os_log_impl(&dword_2592D2000, v5, OS_LOG_TYPE_INFO, "did uninstall an app. disposition=%ld, error=%@", &v7, 0x16u);
+    v6 = 134218242;
+    v7 = a2;
+    v8 = 2112;
+    v9 = v4;
+    _os_log_impl(&dword_2592D2000, v5, OS_LOG_TYPE_INFO, "did uninstall an app. disposition=%ld, error=%@", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

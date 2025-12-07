@@ -15,7 +15,7 @@
   v5 = [(HDCloudSyncStateStore *)&v9 init];
   if (v5)
   {
-    v6 = [dataCopy copy];
+    v6 = objc_msgSend_copy(dataCopy);
     stateData = v5->_stateData;
     v5->_stateData = v6;
   }
@@ -25,14 +25,14 @@
 
 - (BOOL)data:(id *)data forKey:(id)key error:(id *)error
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v7 = [(NSDictionary *)self->_stateData objectForKey:key];
   v8 = v7;
   if (v7)
   {
-    v15 = 0;
-    v9 = [v7 decompressedDataUsingAlgorithm:0 error:&v15];
-    v10 = v15;
+    v14 = 0;
+    v9 = [v7 decompressedDataUsingAlgorithm:0 error:&v14];
+    v10 = v14;
     if (v9)
     {
       v11 = v9;
@@ -47,14 +47,14 @@ LABEL_5:
     else
     {
       _HKInitializeLogging();
-      v14 = *MEMORY[0x277CCC328];
+      v13 = *MEMORY[0x277CCC328];
       if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
       {
         *buf = 138543618;
         selfCopy = self;
-        v18 = 2114;
-        v19 = v10;
-        _os_log_error_impl(&dword_228986000, v14, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to decompress data: %{public}@", buf, 0x16u);
+        v17 = 2114;
+        v18 = v10;
+        _os_log_error_impl(&dword_228986000, v13, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to decompress data: %{public}@", buf, 0x16u);
       }
 
       v11 = v8;
@@ -70,13 +70,12 @@ LABEL_5:
 
 LABEL_6:
 
-  v12 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 - (BOOL)setData:(id)data forKey:(id)key error:(id *)error
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   keyCopy = key;
   mergedData = [(HDCloudSyncStateStore *)self mergedData];
@@ -135,10 +134,10 @@ LABEL_19:
     {
       *buf = 138543874;
       selfCopy4 = self;
-      v39 = 2050;
-      v40 = v15;
-      v41 = 2050;
-      v42 = 51200;
+      v38 = 2050;
+      v39 = v15;
+      v40 = 2050;
+      v41 = 51200;
       _os_log_error_impl(&dword_228986000, v16, OS_LOG_TYPE_ERROR, "[%{public}@] Record size: %{public}lu exceeds soft size limit: %{public}lu", buf, 0x20u);
     }
 
@@ -165,9 +164,9 @@ LABEL_16:
     goto LABEL_19;
   }
 
-  v36 = 0;
-  v17 = [dataCopy compressedDataUsingAlgorithm:0 error:&v36];
-  v18 = v36;
+  v35 = 0;
+  v17 = [dataCopy compressedDataUsingAlgorithm:0 error:&v35];
+  v18 = v35;
   v19 = v17 != 0;
   _HKInitializeLogging();
   v20 = *MEMORY[0x277CCC328];
@@ -181,12 +180,12 @@ LABEL_16:
       v24 = [dataCopy length];
       *buf = 138544130;
       selfCopy4 = self;
-      v39 = 2114;
-      v40 = keyCopy;
-      v41 = 2048;
-      v42 = v23;
-      v43 = 2048;
-      v44 = v24;
+      v38 = 2114;
+      v39 = keyCopy;
+      v40 = 2048;
+      v41 = v23;
+      v42 = 2048;
+      v43 = v24;
       _os_log_impl(&dword_228986000, v22, OS_LOG_TYPE_DEFAULT, "[%{public}@] Compressed data for key: %{public}@ from %lu to %lu", buf, 0x2Au);
     }
 
@@ -202,8 +201,8 @@ LABEL_16:
     {
       *buf = 138543618;
       selfCopy4 = self;
-      v39 = 2114;
-      v40 = v18;
+      v38 = 2114;
+      v39 = v18;
       _os_log_error_impl(&dword_228986000, v20, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to compress data: %{public}@", buf, 0x16u);
     }
 
@@ -226,7 +225,6 @@ LABEL_16:
   selfCopy = 0;
 LABEL_33:
 
-  v34 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -236,7 +234,7 @@ LABEL_33:
   mergedData = self->_mergedData;
   self->_mergedData = v4;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v4, mergedData);
 }
 
 @end

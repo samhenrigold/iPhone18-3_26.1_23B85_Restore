@@ -14,9 +14,9 @@
   handleCopy = handle;
   dateCopy = date;
   delegateCopy = delegate;
-  v34.receiver = self;
-  v34.super_class = IMTypingTimer;
-  v14 = [(IMTypingTimer *)&v34 init];
+  v24.receiver = self;
+  v24.super_class = IMTypingTimer;
+  v14 = [(IMTypingTimer *)&v24 init];
   v15 = v14;
   if (v14)
   {
@@ -24,31 +24,31 @@
     objc_storeStrong(&v15->_beginDate, date);
     v15->_timeoutInterval = interval;
     objc_storeWeak(&v15->_delegate, delegateCopy);
-    if (objc_msgSend_shouldAdjustTimeoutIntervalForBeginDate(IMTypingTimer, v16, v17) && v15->_beginDate)
+    if (+[IMTypingTimer shouldAdjustTimeoutIntervalForBeginDate]&& v15->_beginDate)
     {
-      v20 = objc_msgSend_date(MEMORY[0x1E695DF00], v18, v19);
-      v23 = v20;
-      if (v20)
+      date = [MEMORY[0x1E695DF00] date];
+      v17 = date;
+      if (date)
       {
-        objc_msgSend_timeIntervalSinceReferenceDate(v20, v21, v22);
-        v25 = v24;
-        objc_msgSend_timeIntervalSinceReferenceDate(v15->_beginDate, v26, v27);
-        interval = interval - (v25 - v28);
+        [date timeIntervalSinceReferenceDate];
+        v19 = v18;
+        [(NSDate *)v15->_beginDate timeIntervalSinceReferenceDate];
+        interval = interval - (v19 - v20);
       }
     }
 
     if (interval <= 0.0)
     {
-      objc_msgSend_triggerTimeout(v15, v18, v19);
+      [(IMTypingTimer *)v15 triggerTimeout];
     }
 
     else
     {
-      v29 = objc_msgSend_scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(MEMORY[0x1E695DFF0], v18, v15, sel_timerCallback, 0, 0, interval);
+      v21 = [MEMORY[0x1E695DFF0] scheduledTimerWithTimeInterval:v15 target:sel_timerCallback selector:0 userInfo:0 repeats:interval];
       timer = v15->_timer;
-      v15->_timer = v29;
+      v15->_timer = v21;
 
-      objc_msgSend_setTolerance_(v15->_timer, v31, v32, 5.0);
+      [(NSTimer *)v15->_timer setTolerance:5.0];
     }
   }
 
@@ -57,61 +57,57 @@
 
 - (void)timerCallback
 {
-  v15 = *MEMORY[0x1E69E9840];
-  if (objc_msgSend_isValid(self, a2, v2))
+  v7 = *MEMORY[0x1E69E9840];
+  if ([(IMTypingTimer *)self isValid])
   {
     if (IMOSLoggingEnabled())
     {
-      v6 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+      v3 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
       {
-        v9 = objc_msgSend_handle(self, v7, v8);
-        v13 = 138412290;
-        v14 = v9;
-        _os_log_impl(&dword_1A823F000, v6, OS_LOG_TYPE_INFO, "Timer callback was called for valid typing timeout with handle %@", &v13, 0xCu);
+        handle = [(IMTypingTimer *)self handle];
+        v5 = 138412290;
+        v6 = handle;
+        _os_log_impl(&dword_1A823F000, v3, OS_LOG_TYPE_INFO, "Timer callback was called for valid typing timeout with handle %@", &v5, 0xCu);
       }
     }
 
-    objc_msgSend_invalidate(self, v4, v5);
-    objc_msgSend_triggerTimeout(self, v10, v11);
+    [(IMTypingTimer *)self invalidate];
+    [(IMTypingTimer *)self triggerTimeout];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)triggerTimeout
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (IMOSLoggingEnabled())
   {
-    v5 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v8 = objc_msgSend_handle(self, v6, v7);
-      v12 = 138412290;
-      v13 = v8;
-      _os_log_impl(&dword_1A823F000, v5, OS_LOG_TYPE_INFO, "Triggering typing timeout for handle %@", &v12, 0xCu);
+      handle = [(IMTypingTimer *)self handle];
+      v6 = 138412290;
+      v7 = handle;
+      _os_log_impl(&dword_1A823F000, v3, OS_LOG_TYPE_INFO, "Triggering typing timeout for handle %@", &v6, 0xCu);
     }
   }
 
-  v9 = objc_msgSend_delegate(self, v3, v4);
-  objc_msgSend_typingTimeoutDidTriggerWithTimer_(v9, v10, self);
-
-  v11 = *MEMORY[0x1E69E9840];
+  delegate = [(IMTypingTimer *)self delegate];
+  [delegate typingTimeoutDidTriggerWithTimer:self];
 }
 
 - (void)invalidate
 {
-  v4 = objc_msgSend_timer(self, a2, v2);
-  objc_msgSend_invalidate(v4, v5, v6);
+  timer = [(IMTypingTimer *)self timer];
+  [timer invalidate];
 
-  MEMORY[0x1EEE66B58](self, sel_setTimer_, 0);
+  MEMORY[0x1EEE66B58](self, sel_setTimer_);
 }
 
 - (BOOL)isValid
 {
-  v3 = objc_msgSend_timer(self, a2, v2);
-  isValid = objc_msgSend_isValid(v3, v4, v5);
+  timer = [(IMTypingTimer *)self timer];
+  isValid = [timer isValid];
 
   return isValid;
 }

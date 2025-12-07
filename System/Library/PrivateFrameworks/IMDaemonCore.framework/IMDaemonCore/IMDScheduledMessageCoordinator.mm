@@ -45,6 +45,8 @@
   errorCopy = error;
   selfCopy = self;
   sub_22B77A808(v10, v12, success, type);
+
+  v12, v14, v15, v16, v17, v18, v19, v20, v21, errorCopy;
 }
 
 - (void)removeFailedEditsFrom:(id)from
@@ -64,10 +66,12 @@
 {
   selfCopy = self;
   sub_22B777350();
+  v4 = v3;
 
-  v3 = sub_22B7DB678();
+  v5 = sub_22B7DB678();
+  v4, v6, v7, v8, v9, v10, v11, v12, v14, v15;
 
-  return v3;
+  return v5;
 }
 
 - (IMDScheduledMessageCoordinator)init
@@ -88,37 +92,40 @@
 + (void)notifyPeersWithScheduledMessageUpdate:(id)update scheduleState:(unint64_t)state
 {
   v5 = sub_22B7DB6A8();
+  v7 = v6;
   sub_22B77BDB8(v5, v6, state);
+
+  v7, v8, v9, v10, v11, v12, v13, v14, v16, v17;
 }
 
 - (void)didSendMessage:(id)message forChat:(id)chat style:(unsigned __int8)style account:(id)account forceDate:(id)date itemIsComingFromStorage:(BOOL)storage
 {
   styleCopy = style;
   v13 = sub_22B6F0AD4(&unk_27D8CF790, &qword_22B7F9578);
-  v14 = *(*(v13 - 8) + 64);
   MEMORY[0x28223BE20](v13 - 8);
-  v16 = &v25 - v15;
-  v17 = sub_22B7DB6A8();
-  v19 = v18;
+  v15 = v31 - v14;
+  v16 = sub_22B7DB6A8();
+  v18 = v17;
   if (date)
   {
     sub_22B7DA928();
-    v20 = sub_22B7DA968();
-    (*(*(v20 - 8) + 56))(v16, 0, 1, v20);
+    v19 = sub_22B7DA968();
+    (*(*(v19 - 8) + 56))(v15, 0, 1, v19);
   }
 
   else
   {
-    v21 = sub_22B7DA968();
-    (*(*(v21 - 8) + 56))(v16, 1, 1, v21);
+    v20 = sub_22B7DA968();
+    (*(*(v20 - 8) + 56))(v15, 1, 1, v20);
   }
 
   messageCopy = message;
   accountCopy = account;
   selfCopy = self;
-  sub_22B77C7AC(messageCopy, v17, v19, styleCopy);
+  sub_22B77C7AC(messageCopy, v16, v18, styleCopy);
 
-  sub_22B4D0D64(v16, &unk_27D8CF790, &qword_22B7F9578);
+  v18, v24, v25, v26, v27, v28, v29, v30, v31[0], v31[1];
+  sub_22B4D0D64(v15, &unk_27D8CF790, &qword_22B7F9578);
 }
 
 - (void)didUpdateChatStatus:(int)status chat:(id)chat style:(unsigned __int8)style displayName:(id)name groupID:(id)d lastAddressedHandle:(id)handle lastAddressedSIMID:(id)iD handleInfo:(id)self0 account:(id)self1 category:(int64_t)self2 spamExtensionName:(id)self3 isBlackholed:(BOOL)self4
@@ -128,6 +135,8 @@
   accountCopy = account;
   selfCopy = self;
   sub_22B77CCA4(status, v17, v19, style);
+
+  v19, v22, v23, v24, v25, v26, v27, v28, iD, info;
 }
 
 - (id)processMessageForSending:(id)sending toChat:(id)chat style:(unsigned __int8)style allowWatchdog:(BOOL)watchdog account:(id)account
@@ -138,8 +147,10 @@
   sendingCopy = sending;
   accountCopy = account;
   selfCopy = self;
-  sub_22B77CF84(sendingCopy, v11, v13, styleCopy);
+  sub_22B77CF84(sendingCopy, v11, &v13->super, styleCopy);
   v18 = v17;
+
+  v13, v19, v20, v21, v22, v23, v24, v25, v27, v28;
 
   return v18;
 }

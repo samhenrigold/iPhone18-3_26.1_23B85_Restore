@@ -67,7 +67,7 @@ void *PBDataWriterRecallMark(uint64_t a1, uint64_t *a2)
 
 void PBDataWriterWriteStringField(uint64_t a1, void *a2, int a3)
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   v5 = a2;
   if ([v5 length] <= 0xA5 && (__n = 0, objc_msgSend(v5, "getBytes:maxLength:usedLength:encoding:options:range:remainingRange:", __src, 1000, &__n, 4, 4, 0, objc_msgSend(v5, "length"), 0)))
   {
@@ -276,8 +276,6 @@ void PBDataWriterWriteStringField(uint64_t a1, void *a2, int a3)
 
     objc_autoreleasePoolPop(v14);
   }
-
-  v41 = *MEMORY[0x1E69E9840];
 }
 
 id PBReaderReadString(void *a1)
@@ -491,11 +489,12 @@ LABEL_18:
   return v12;
 }
 
-void *PBDataWriterWriteSubmessage(uint64_t a1, void *a2, int a3)
+void *PBDataWriterWriteSubmessage(uint64_t a1, void *a2, uint64_t a3)
 {
+  v3 = a3;
   v7 = 0;
   v5 = a2;
-  PBDataWriterPlaceMark(a1, &v7, a3);
+  PBDataWriterPlaceMark(a1, &v7, v3);
   [v5 writeTo:a1];
 
   return PBDataWriterRecallMark(a1, &v7);
@@ -886,7 +885,7 @@ LABEL_23:
   return result;
 }
 
-uint64_t _PBReaderSkipValueWithTag(void *a1, int a2, int a3, uint64_t a4)
+uint64_t _PBReaderSkipValueWithTag(void *a1, int a2, unsigned int a3, uint64_t a4)
 {
   v7 = a1;
   v8 = v7;
@@ -897,12 +896,12 @@ uint64_t _PBReaderSkipValueWithTag(void *a1, int a2, int a3, uint64_t a4)
     {
       while (1)
       {
-        v42 = 0;
+        v44 = 0;
         v23 = [v8 position] + 1;
         if (v23 >= [v8 position] && (v24 = objc_msgSend(v8, "position") + 1, v24 <= objc_msgSend(v8, "length")))
         {
           v25 = [v8 data];
-          [v25 getBytes:&v42 range:{objc_msgSend(v8, "position"), 1}];
+          [v25 getBytes:&v44 range:{objc_msgSend(v8, "position"), 1}];
 
           [v8 setPosition:{objc_msgSend(v8, "position") + 1}];
         }
@@ -912,7 +911,7 @@ uint64_t _PBReaderSkipValueWithTag(void *a1, int a2, int a3, uint64_t a4)
           [v8 _setError];
         }
 
-        if ((v42 & 0x80000000) == 0)
+        if ((v44 & 0x80000000) == 0)
         {
           break;
         }
@@ -920,41 +919,41 @@ uint64_t _PBReaderSkipValueWithTag(void *a1, int a2, int a3, uint64_t a4)
         v22 = a3++ > 8;
         if (v22)
         {
-          goto LABEL_58;
+          goto LABEL_59;
         }
       }
 
       [v8 hasError];
-      goto LABEL_58;
+      goto LABEL_59;
     }
 
     if (a3 != 1)
     {
-      goto LABEL_59;
+      goto LABEL_60;
     }
 
-    v45 = 0;
+    v47 = 0;
     v18 = [v7 position] + 8;
     if (v18 < [v8 position] || (v19 = objc_msgSend(v8, "position") + 8, v19 > objc_msgSend(v8, "length")))
     {
 LABEL_28:
       [v8 _setError];
-      goto LABEL_58;
+      goto LABEL_59;
     }
 
     v20 = [v8 data];
-    [v20 getBytes:&v45 range:{objc_msgSend(v8, "position"), 8}];
+    [v20 getBytes:&v47 range:{objc_msgSend(v8, "position"), 8}];
 
     v21 = [v8 position] + 8;
-LABEL_56:
+LABEL_57:
     [v8 setPosition:v21];
-    goto LABEL_58;
+    goto LABEL_59;
   }
 
   switch(a3)
   {
-    case 5:
-      v44 = 0;
+    case 5u:
+      v46 = 0;
       v26 = [v7 position] + 4;
       if (v26 < [v8 position])
       {
@@ -967,15 +966,15 @@ LABEL_56:
         goto LABEL_28;
       }
 
-      v39 = [v8 data];
-      [v39 getBytes:&v44 range:{objc_msgSend(v8, "position"), 4}];
+      v41 = [v8 data];
+      [v41 getBytes:&v46 range:{objc_msgSend(v8, "position"), 4}];
 
       v21 = [v8 position] + 4;
-      goto LABEL_56;
-    case 3:
+      goto LABEL_57;
+    case 3u:
       if (v7[16])
       {
-        goto LABEL_58;
+        goto LABEL_59;
       }
 
       v28 = 0;
@@ -983,12 +982,12 @@ LABEL_56:
       v30 = 0;
       while (1)
       {
-        v41 = 0;
+        v43 = 0;
         v31 = [v8 position] + 1;
         if (v31 >= [v8 position] && (v32 = objc_msgSend(v8, "position") + 1, v32 <= objc_msgSend(v8, "length")))
         {
           v33 = [v8 data];
-          [v33 getBytes:&v41 range:{objc_msgSend(v8, "position"), 1}];
+          [v33 getBytes:&v43 range:{objc_msgSend(v8, "position"), 1}];
 
           [v8 setPosition:{objc_msgSend(v8, "position") + 1}];
         }
@@ -998,8 +997,8 @@ LABEL_56:
           [v8 _setError];
         }
 
-        v30 |= (v41 & 0x7F) << v28;
-        if ((v41 & 0x80) == 0)
+        v30 |= (v43 & 0x7F) << v28;
+        if ((v43 & 0x80) == 0)
         {
           break;
         }
@@ -1008,19 +1007,21 @@ LABEL_56:
         v22 = v29++ > 8;
         if (v22)
         {
-LABEL_47:
+          LODWORD(v36) = 0;
+          v35 = 0;
+LABEL_48:
           if ((a4 + 1) >= 0x41)
           {
-            goto LABEL_54;
+            goto LABEL_55;
           }
 
-          _PBReaderSkipValueWithTag(v8);
+          _PBReaderSkipValueWithTag(v8, v36, v35, a4 + 1);
           v28 = 0;
           v29 = 0;
           v30 = 0;
           if (v8[16])
           {
-            goto LABEL_58;
+            goto LABEL_59;
           }
         }
       }
@@ -1035,24 +1036,26 @@ LABEL_47:
         v34 = v30;
       }
 
-      if ((v34 & 7) == 4 && (v34 >> 3) == a2)
+      v35 = v34 & 7;
+      v36 = v34 >> 3;
+      if (v35 == 4 && v36 == a2)
       {
-        goto LABEL_58;
+        goto LABEL_59;
       }
 
-      goto LABEL_47;
-    case 2:
+      goto LABEL_48;
+    case 2u:
       v10 = 0;
       v11 = 0;
       v12 = 0;
       while (1)
       {
-        v43 = 0;
+        v45 = 0;
         v13 = [v8 position] + 1;
         if (v13 >= [v8 position] && (v14 = objc_msgSend(v8, "position") + 1, v14 <= objc_msgSend(v8, "length")))
         {
           v15 = [v8 data];
-          [v15 getBytes:&v43 range:{objc_msgSend(v8, "position"), 1}];
+          [v15 getBytes:&v45 range:{objc_msgSend(v8, "position"), 1}];
 
           [v8 setPosition:{objc_msgSend(v8, "position") + 1}];
         }
@@ -1062,8 +1065,8 @@ LABEL_47:
           [v8 _setError];
         }
 
-        v12 |= (v43 & 0x7F) << v10;
-        if ((v43 & 0x80) == 0)
+        v12 |= (v45 & 0x7F) << v10;
+        if ((v45 & 0x80) == 0)
         {
           break;
         }
@@ -1073,36 +1076,36 @@ LABEL_47:
         if (v16)
         {
           v17 = 0;
-          goto LABEL_52;
+          goto LABEL_53;
         }
       }
 
-      v36 = [v8 hasError];
+      v38 = [v8 hasError];
       v17 = v12;
-      if (v36)
+      if (v38)
       {
         v17 = 0;
       }
 
-LABEL_52:
-      v37 = *(v8 + 1);
-      v16 = __CFADD__(v37, v17);
-      v38 = v37 + v17;
-      if (v16 || v38 > *(v8 + 3))
+LABEL_53:
+      v39 = *(v8 + 1);
+      v16 = __CFADD__(v39, v17);
+      v40 = v39 + v17;
+      if (v16 || v40 > *(v8 + 3))
       {
-LABEL_54:
+LABEL_55:
         v9 = 1;
         v8[16] = 1;
         break;
       }
 
-      *(v8 + 1) = v38;
-LABEL_58:
+      *(v8 + 1) = v40;
+LABEL_59:
       v9 = 1;
       break;
   }
 
-LABEL_59:
+LABEL_60:
 
   return v9;
 }
@@ -1230,7 +1233,7 @@ void *PBDataWriterWriteInt64Field(uint64_t a1, unint64_t a2, int a3)
   return result;
 }
 
-void *PBDataWriterWriteInt32Field(uint64_t a1, unsigned int a2, int a3)
+void *PBDataWriterWriteInt32Field(uint64_t a1, int a2, int a3)
 {
   result = *(a1 + 8);
   v7 = result[3];
@@ -1511,7 +1514,7 @@ void PBRepeatedUInt32Clear(uint64_t a1)
 
 uint64_t PBUnknownFieldAdd(void *a1, int a2, int a3, void *a4)
 {
-  v72 = *MEMORY[0x1E69E9840];
+  v71 = *MEMORY[0x1E69E9840];
   v7 = a1;
   v8 = a4;
   v9 = 0;
@@ -1569,8 +1572,8 @@ uint64_t PBUnknownFieldAdd(void *a1, int a2, int a3, void *a4)
         v28 = [v8 position] + 8;
         if (v28 >= [v8 position] && (v29 = objc_msgSend(v8, "position") + 8, v29 <= objc_msgSend(v8, "length")))
         {
-          v64 = [v8 data];
-          [v64 getBytes:v26 + v27 range:{objc_msgSend(v8, "position"), 8}];
+          v63 = [v8 data];
+          [v63 getBytes:v26 + v27 range:{objc_msgSend(v8, "position"), 8}];
 
           [v8 setPosition:{objc_msgSend(v8, "position") + 8}];
         }
@@ -1580,7 +1583,7 @@ uint64_t PBUnknownFieldAdd(void *a1, int a2, int a3, void *a4)
           [v8 _setError];
         }
 
-        v63 = v7[3] + 8;
+        v62 = v7[3] + 8;
         goto LABEL_87;
       }
     }
@@ -1590,12 +1593,12 @@ uint64_t PBUnknownFieldAdd(void *a1, int a2, int a3, void *a4)
       v45 = 0;
       while (v45 != 10)
       {
-        v70 = 0;
+        v69 = 0;
         v46 = [v8 position] + 1;
         if (v46 >= [v8 position] && (v47 = objc_msgSend(v8, "position") + 1, v47 <= objc_msgSend(v8, "length")))
         {
           v48 = [v8 data];
-          [v48 getBytes:&v70 range:{objc_msgSend(v8, "position"), 1}];
+          [v48 getBytes:&v69 range:{objc_msgSend(v8, "position"), 1}];
 
           [v8 setPosition:{objc_msgSend(v8, "position") + 1}];
         }
@@ -1605,8 +1608,8 @@ uint64_t PBUnknownFieldAdd(void *a1, int a2, int a3, void *a4)
           [v8 _setError];
         }
 
-        v49 = v70;
-        __src[v45++] = v70;
+        v49 = v69;
+        __src[v45++] = v69;
         if ((v49 & 0x80000000) == 0)
         {
           v25 = v45;
@@ -1636,8 +1639,8 @@ LABEL_72:
         v32 = [v8 position] + 4;
         if (v32 >= [v8 position] && (v33 = objc_msgSend(v8, "position") + 4, v33 <= objc_msgSend(v8, "length")))
         {
-          v62 = [v8 data];
-          [v62 getBytes:v30 + v31 range:{objc_msgSend(v8, "position"), 4}];
+          v61 = [v8 data];
+          [v61 getBytes:v30 + v31 range:{objc_msgSend(v8, "position"), 4}];
 
           [v8 setPosition:{objc_msgSend(v8, "position") + 4}];
         }
@@ -1647,9 +1650,9 @@ LABEL_72:
           [v8 _setError];
         }
 
-        v63 = v7[3] + 4;
+        v62 = v7[3] + 4;
 LABEL_87:
-        v7[3] = v63;
+        v7[3] = v62;
 LABEL_88:
         v17 = [v8 hasError] ^ 1;
         break;
@@ -1671,10 +1674,10 @@ LABEL_73:
         if ([v8 hasError])
         {
 LABEL_75:
-          v61 = v7[4];
-          if (v61)
+          v60 = v7[4];
+          if (v60)
           {
-            v7[4] = v61 - 1;
+            v7[4] = v60 - 1;
           }
 
           goto LABEL_88;
@@ -1710,7 +1713,7 @@ LABEL_75:
           v12 = v36++ > 8;
           if (v12)
           {
-            v41 = 0;
+            LODWORD(v41) = 0;
             v42 = 0;
             goto LABEL_49;
           }
@@ -1829,14 +1832,14 @@ LABEL_63:
           }
 
           *v56 = v57;
-          v65 = &v56[v7[3] - v54 + 1];
-          v7[3] = v65;
-          v66 = v7[1];
-          v67 = [v8 position] + v25;
-          if (v67 >= [v8 position] && (v68 = objc_msgSend(v8, "position") + v25, v68 <= objc_msgSend(v8, "length")))
+          v64 = &v56[v7[3] - v54 + 1];
+          v7[3] = v64;
+          v65 = v7[1];
+          v66 = [v8 position] + v25;
+          if (v66 >= [v8 position] && (v67 = objc_msgSend(v8, "position") + v25, v67 <= objc_msgSend(v8, "length")))
           {
-            v69 = [v8 data];
-            [v69 getBytes:v66 + v65 range:{objc_msgSend(v8, "position"), v25}];
+            v68 = [v8 data];
+            [v68 getBytes:v65 + v64 range:{objc_msgSend(v8, "position"), v25}];
 
             [v8 setPosition:{objc_msgSend(v8, "position") + v25}];
           }
@@ -1847,7 +1850,7 @@ LABEL_63:
           }
 
 LABEL_86:
-          v63 = v7[3] + v25;
+          v62 = v7[3] + v25;
           goto LABEL_87;
         }
       }
@@ -1857,7 +1860,6 @@ LABEL_86:
 
 LABEL_74:
 
-  v59 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
@@ -2052,7 +2054,7 @@ void *PBDataWriterWriteUint64Field(uint64_t a1, unint64_t a2, int a3)
   return result;
 }
 
-uint64_t ___textFormatData_block_invoke(uint64_t result, unsigned __int8 *a2, uint64_t a3, uint64_t a4)
+void *___textFormatData_block_invoke(void *result, unsigned __int8 *a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -2068,7 +2070,7 @@ uint64_t ___textFormatData_block_invoke(uint64_t result, unsigned __int8 *a2, ui
         {
           if (v7 == 12)
           {
-            v9 = *(*(v6 + 32) + 8);
+            v9 = *(v6[4] + 8);
             v10 = @"\\f";
           }
 
@@ -2077,7 +2079,7 @@ uint64_t ___textFormatData_block_invoke(uint64_t result, unsigned __int8 *a2, ui
             if (v7 != 13)
             {
 LABEL_29:
-              v11 = *(*(v6 + 32) + 8);
+              v11 = *(v6[4] + 8);
               if ((v7 - 32) < 0x3C || (v7 - 93) <= 0x20)
               {
                 result = [v11 appendFormat:@"%c", v7];
@@ -2091,7 +2093,7 @@ LABEL_29:
               goto LABEL_27;
             }
 
-            v9 = *(*(v6 + 32) + 8);
+            v9 = *(v6[4] + 8);
             v10 = @"\\r";
           }
         }
@@ -2101,16 +2103,16 @@ LABEL_29:
           switch(v7)
           {
             case '""':
-              v9 = *(*(v6 + 32) + 8);
-              v10 = @"\\"";
+              v9 = *(v6[4] + 8);
+              v10 = @"\";
               break;
             case '\'':
-              v9 = *(*(v6 + 32) + 8);
+              v9 = *(v6[4] + 8);
               v10 = @"\\'";
               break;
             case '\\':
-              v9 = *(*(v6 + 32) + 8);
-              v10 = @"\\\";
+              v9 = *(v6[4] + 8);
+              v10 = @"\\\"";
               break;
             default:
               goto LABEL_29;
@@ -2127,13 +2129,13 @@ LABEL_29:
             goto LABEL_29;
           }
 
-          v9 = *(*(v6 + 32) + 8);
+          v9 = *(v6[4] + 8);
           v10 = @"\\a";
         }
 
         else
         {
-          v9 = *(*(v6 + 32) + 8);
+          v9 = *(v6[4] + 8);
           v10 = @"\\0";
         }
       }
@@ -2143,15 +2145,15 @@ LABEL_29:
         switch(v7)
         {
           case 8:
-            v9 = *(*(v6 + 32) + 8);
+            v9 = *(v6[4] + 8);
             v10 = @"\\b";
             break;
           case 9:
-            v9 = *(*(v6 + 32) + 8);
+            v9 = *(v6[4] + 8);
             v10 = @"\\t";
             break;
           case 0xA:
-            v9 = *(*(v6 + 32) + 8);
+            v9 = *(v6[4] + 8);
             v10 = @"\\n";
             break;
           default:
@@ -2172,7 +2174,7 @@ LABEL_27:
 
 void _textFormatDictionary(void *a1, void *a2, uint64_t a3)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v5 = a1;
   v6 = a2;
   if (v6)
@@ -2197,31 +2199,31 @@ void _textFormatDictionary(void *a1, void *a2, uint64_t a3)
   v8 = [v5 allKeys];
   v9 = [v8 sortedArrayUsingSelector:sel_compare_];
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v10 = v9;
-  v11 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v21;
+    v13 = *v20;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v21 != v13)
+        if (*v20 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v20 + 1) + 8 * i);
-        v16 = [v5 objectForKey:{v15, v20}];
+        v15 = *(*(&v19 + 1) + 8 * i);
+        v16 = [v5 objectForKey:{v15, v19}];
         _textFormat(v16, v15, a3);
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v12);
@@ -2235,22 +2237,20 @@ void _textFormatDictionary(void *a1, void *a2, uint64_t a3)
       v18 = 0;
       do
       {
-        [*(a3 + 8) appendString:{@"  ", v20}];
+        [*(a3 + 8) appendString:{@"  ", v19}];
         ++v18;
       }
 
       while (v18 < *a3);
     }
 
-    [*(a3 + 8) appendString:{@"}\n", v20}];
+    [*(a3 + 8) appendString:{@"}\n", v19}];
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void _textFormat(void *a1, void *a2, uint64_t a3)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v5 = a1;
   v6 = a2;
   objc_opt_class();
@@ -2266,30 +2266,30 @@ void _textFormat(void *a1, void *a2, uint64_t a3)
   {
     v8 = v5;
     v9 = v6;
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
-    v10 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v10 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v22;
+      v12 = *v21;
       do
       {
         v13 = 0;
         do
         {
-          if (*v22 != v12)
+          if (*v21 != v12)
           {
             objc_enumerationMutation(v8);
           }
 
-          _textFormat(*(*(&v21 + 1) + 8 * v13++), v9, a3);
+          _textFormat(*(*(&v20 + 1) + 8 * v13++), v9, a3);
         }
 
         while (v11 != v13);
-        v11 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v11 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v11);
@@ -2324,21 +2324,21 @@ LABEL_11:
     v9 = v6;
     if (*a3 >= 1)
     {
-      v17 = 0;
+      v16 = 0;
       do
       {
         [*(a3 + 8) appendString:@"  "];
-        ++v17;
+        ++v16;
       }
 
-      while (v17 < *a3);
+      while (v16 < *a3);
     }
 
     [*(a3 + 8) appendString:v9];
     [*(a3 + 8) appendString:@": "];
-    v18 = *(a3 + 8);
-    v19 = [v8 description];
-    [v18 appendString:v19];
+    v17 = *(a3 + 8);
+    v18 = [v8 description];
+    [v17 appendString:v18];
 
     [*(a3 + 8) appendString:@"\n"];
     goto LABEL_11;
@@ -2352,13 +2352,11 @@ LABEL_11:
 
   else
   {
-    v20 = objc_opt_class();
-    NSLog(&cfstr_UnhandledValue.isa, v20);
+    v19 = objc_opt_class();
+    NSLog(&cfstr_UnhandledValue.isa, v19);
   }
 
 LABEL_16:
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void _textFormatData(void *a1, void *a2, uint64_t a3)
@@ -2839,7 +2837,7 @@ uint64_t *PB::Writer::placeMark(uint64_t *result, void *a2, int a3)
   return result;
 }
 
-void *PB::Writer::write(uint64_t *a1, const void **a2, int a3)
+void *PB::Writer::write(uint64_t *a1, const void ***a2, int a3)
 {
   v6 = *(a2 + 23);
   v7 = *a2;
@@ -3711,7 +3709,7 @@ PB::Data *PB::Data::Data(PB::Data *this, const unsigned __int8 *a2, uint64_t a3)
 
 void PB::Data::assign(void **this, const unsigned __int8 *__src, const unsigned __int8 *a3)
 {
-  v3 = a3 - __src;
+  v3 = (a3 - __src);
   if (a3 >= __src)
   {
     v6 = *this;
@@ -3767,21 +3765,21 @@ void PB::Data::clear(void **this)
   this[1] = 0;
 }
 
-void *PBRepeatedDoubleAdd(void *result, double a2)
+void **PBRepeatedDoubleAdd(void **result, double a2)
 {
   v3 = result;
   v4 = result[2];
   if (v4)
   {
     v5 = result[1];
-    if (v5 + 1 >= v4)
+    if ((v5 + 1) >= v4)
     {
       if (v4 >= 1)
       {
         result = malloc_type_realloc(*result, 16 * v4, 0x100004000313F17uLL);
         if (result)
         {
-          v3[2] = 2 * v4;
+          v3[2] = (2 * v4);
           v7 = v3[1];
           *&result[v7] = a2;
           *v3 = result;
@@ -3792,7 +3790,7 @@ void *PBRepeatedDoubleAdd(void *result, double a2)
 
     else
     {
-      *(*result + 8 * v5) = a2;
+      *(*result + v5) = a2;
       result[1] = v5 + 1;
     }
   }
@@ -3838,13 +3836,13 @@ id PBRepeatedDoubleNSArray(void *a1)
   return v2;
 }
 
-void *PBRepeatedFloatAdd(void *result, float a2)
+float *PBRepeatedFloatAdd(float *result, float a2)
 {
   v3 = result;
-  v4 = result[2];
+  v4 = *(result + 2);
   if (v4)
   {
-    v5 = result[1];
+    v5 = *(result + 1);
     if (v5 + 1 >= v4)
     {
       if (v4 >= 1)
@@ -3852,11 +3850,11 @@ void *PBRepeatedFloatAdd(void *result, float a2)
         result = malloc_type_realloc(*result, 8 * v4, 0x100004052888210uLL);
         if (result)
         {
-          v3[2] = 2 * v4;
-          v7 = v3[1];
-          *(result + v7) = a2;
+          *(v3 + 2) = 2 * v4;
+          v7 = *(v3 + 1);
+          result[v7] = a2;
           *v3 = result;
-          v3[1] = v7 + 1;
+          *(v3 + 1) = v7 + 1;
         }
       }
     }
@@ -3864,25 +3862,25 @@ void *PBRepeatedFloatAdd(void *result, float a2)
     else
     {
       *(*result + 4 * v5) = a2;
-      result[1] = v5 + 1;
+      *(result + 1) = v5 + 1;
     }
   }
 
   else
   {
-    result[2] = 8;
+    *(result + 2) = 8;
     result = malloc_type_malloc(0x20uLL, 0x100004052888210uLL);
     *v3 = result;
     if (result)
     {
-      v6 = v3[1];
-      *(result + v6) = a2;
-      v3[1] = v6 + 1;
+      v6 = *(v3 + 1);
+      result[v6] = a2;
+      *(v3 + 1) = v6 + 1;
     }
 
     else
     {
-      v3[2] = 0;
+      *(v3 + 2) = 0;
     }
   }
 
@@ -3981,21 +3979,21 @@ id PBRepeatedInt32NSArray(void *a1)
   return v2;
 }
 
-void *PBRepeatedInt64Add(void *result, uint64_t a2)
+void **PBRepeatedInt64Add(void **result, void *a2)
 {
   v3 = result;
   v4 = result[2];
   if (v4)
   {
     v5 = result[1];
-    if (v5 + 1 >= v4)
+    if ((v5 + 1) >= v4)
     {
       if (v4 >= 1)
       {
         result = malloc_type_realloc(*result, 16 * v4, 0x100004000313F17uLL);
         if (result)
         {
-          v3[2] = 2 * v4;
+          v3[2] = (2 * v4);
           v7 = v3[1];
           result[v7] = a2;
           *v3 = result;
@@ -4006,7 +4004,7 @@ void *PBRepeatedInt64Add(void *result, uint64_t a2)
 
     else
     {
-      *(*result + 8 * v5) = a2;
+      *(*result + v5) = a2;
       result[1] = v5 + 1;
     }
   }
@@ -4064,21 +4062,21 @@ id PBRepeatedInt64NSArray(void *a1)
   return v2;
 }
 
-void *PBRepeatedUInt64Add(void *result, uint64_t a2)
+void **PBRepeatedUInt64Add(void **result, void *a2)
 {
   v3 = result;
   v4 = result[2];
   if (v4)
   {
     v5 = result[1];
-    if (v5 + 1 >= v4)
+    if ((v5 + 1) >= v4)
     {
       if (v4 >= 1)
       {
         result = malloc_type_realloc(*result, 16 * v4, 0x100004000313F17uLL);
         if (result)
         {
-          v3[2] = 2 * v4;
+          v3[2] = (2 * v4);
           v7 = v3[1];
           result[v7] = a2;
           *v3 = result;
@@ -4089,7 +4087,7 @@ void *PBRepeatedUInt64Add(void *result, uint64_t a2)
 
     else
     {
-      *(*result + 8 * v5) = a2;
+      *(*result + v5) = a2;
       result[1] = v5 + 1;
     }
   }
@@ -4878,7 +4876,7 @@ LABEL_70:
 
             v13 = v17 & 7;
             v11 = v17 >> 3;
-            if ((v17 & 7) == 4 && v11 == a2)
+            if (v13 == 4 && v11 == a2)
             {
               return 1;
             }
@@ -4973,7 +4971,7 @@ std::string *PB::TextFormatter::beginObject(std::string *this, const char *a2)
     v5 = this[12].__r_.__value_.__s.__data_[15];
     if (v5 >= 0)
     {
-      v6 = &this[11].__r_.__value_.__r.__words[2];
+      v6 = &this[11].__r_.__value_.__s.__data_[16];
     }
 
     else
@@ -4993,8 +4991,8 @@ std::string *PB::TextFormatter::beginObject(std::string *this, const char *a2)
 
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&this->__r_.__value_.__r.__words[2], v6, data);
     v8 = strlen(a2);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>((v3 + 16), a2, v8);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>((v3 + 16), " {\n", 3);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v3->__r_.__value_.__r.__words[2], a2, v8);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v3->__r_.__value_.__r.__words[2], " {\n", 3);
 
     return std::string::append(v4, "  ");
   }
@@ -5098,14 +5096,14 @@ LABEL_27:
   return a1;
 }
 
-void sub_1C94229C0(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
+void sub_1C94229C0(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
 {
   if (a17 < 0)
   {
     operator delete(__p);
   }
 
-  MEMORY[0x1CCA886D0](&a10);
+  MEMORY[0x1CCA886D0](&a10, a2, a3, a4, a5, a6, a7, a8);
   __cxa_begin_catch(a1);
   std::ios_base::__set_badbit_and_consider_rethrow((v17 + *(*v17 - 24)));
   __cxa_end_catch();
@@ -5561,13 +5559,13 @@ LABEL_28:
         switch(v5)
         {
           case '""':
-            v7 = "\\"";
+            v7 = "\";
             break;
           case '\'':
             v7 = "\\'";
             break;
           case '\\':
-            v7 = "\\\";
+            v7 = "\\\"";
             break;
           default:
             goto LABEL_28;
@@ -5737,7 +5735,7 @@ void sub_1C9423794(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void _dictionaryRepresentation(void *a1, unint64_t a2, int a3, void *a4)
+void _dictionaryRepresentation(void *a1, unint64_t a2, unsigned int a3, void *a4)
 {
   v7 = a1;
   v8 = a4;
@@ -5886,10 +5884,10 @@ LABEL_67:
       {
         switch(a3)
         {
-          case 2:
+          case 2u:
             v24 = PBReaderReadData(v7);
             goto LABEL_67;
-          case 3:
+          case 3u:
             v25 = objc_alloc_init(*(v10 + 3984));
             if (([v7 hasError] & 1) == 0)
             {
@@ -5971,7 +5969,7 @@ LABEL_68:
             }
 
             break;
-          case 5:
+          case 5u:
             v45 = 0;
             v20 = [v7 position] + 4;
             if (v20 >= [v7 position] && (v21 = objc_msgSend(v7, "position") + 4, v21 <= objc_msgSend(v7, "length")))
@@ -6000,65 +5998,7 @@ LABEL_68:
   }
 }
 
-uint64_t *PB::Writer::writeVarInt(uint64_t *this, unsigned int a2, int a3)
-{
-  v5 = this;
-  if (this[2] < (*this + 16))
-  {
-    this = PB::_grow(this, 0x10uLL);
-  }
-
-  v6 = a2;
-  if (a3 != -1)
-  {
-    v7 = (8 * a3);
-    if (v7 < 0x80)
-    {
-      LOBYTE(v9) = 8 * a3;
-    }
-
-    else
-    {
-      do
-      {
-        v8 = (*v5)++;
-        *v8 = v7 | 0x80;
-        v9 = v7 >> 7;
-        v10 = v7 >> 14;
-        v7 >>= 7;
-      }
-
-      while (v10);
-    }
-
-    v11 = (*v5)++;
-    *v11 = v9;
-  }
-
-  if (a2 < 0x80)
-  {
-    LOBYTE(v13) = a2;
-  }
-
-  else
-  {
-    do
-    {
-      v12 = (*v5)++;
-      *v12 = v6 | 0x80;
-      v13 = v6 >> 7;
-      v14 = v6 >> 14;
-      v6 >>= 7;
-    }
-
-    while (v14);
-  }
-
-  v15 = (*v5)++;
-  *v15 = v13;
-  return this;
-}
-
+uint64_t *PB::Writer::writeVarInt(uint64_t *this, int a2, int a3)
 {
   v5 = this;
   if (this[2] < (*this + 16))
@@ -6229,6 +6169,65 @@ uint64_t *PB::Writer::writeVarInt(uint64_t *this, unint64_t a2, int a3)
 
   v14 = (*v5)++;
   *v14 = v12;
+  return this;
+}
+
+uint64_t *PB::Writer::writeVarInt(uint64_t *this, unsigned int a2, int a3)
+{
+  v5 = this;
+  if (this[2] < (*this + 16))
+  {
+    this = PB::_grow(this, 0x10uLL);
+  }
+
+  v6 = a2;
+  if (a3 != -1)
+  {
+    v7 = (8 * a3);
+    if (v7 < 0x80)
+    {
+      LOBYTE(v9) = 8 * a3;
+    }
+
+    else
+    {
+      do
+      {
+        v8 = (*v5)++;
+        *v8 = v7 | 0x80;
+        v9 = v7 >> 7;
+        v10 = v7 >> 14;
+        v7 >>= 7;
+      }
+
+      while (v10);
+    }
+
+    v11 = (*v5)++;
+    *v11 = v9;
+  }
+
+  if (a2 < 0x80)
+  {
+    LOBYTE(v13) = a2;
+  }
+
+  else
+  {
+    do
+    {
+      v12 = (*v5)++;
+      *v12 = v6 | 0x80;
+      v13 = v6 >> 7;
+      v14 = v6 >> 14;
+      v6 >>= 7;
+    }
+
+    while (v14);
+  }
+
+  v15 = (*v5)++;
+  *v15 = v13;
   return this;
 }
 
@@ -6807,9 +6806,9 @@ char *PB::Writer::writeSubgroup(PB::Writer *this, const PB::Base *a2, int a3)
   return result;
 }
 
-void sub_1C942611C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1C942611C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }

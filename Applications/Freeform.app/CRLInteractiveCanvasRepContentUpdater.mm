@@ -1381,7 +1381,7 @@ LABEL_250:
   memset(&v37[1], 0, sizeof(CGAffineTransform));
   if (repCopy)
   {
-    [repCopy i_layerTransform];
+    objc_msgSend_i_layerTransform(repCopy);
   }
 
   v37[0] = v37[1];
@@ -1408,7 +1408,7 @@ LABEL_250:
   {
     if (repCopy)
     {
-      [repCopy transformToConvertNaturalToLayerRelative];
+      objc_msgSend_transformToConvertNaturalToLayerRelative(repCopy);
     }
 
     else

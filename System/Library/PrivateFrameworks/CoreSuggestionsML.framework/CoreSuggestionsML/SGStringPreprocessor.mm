@@ -57,7 +57,7 @@
 
 - (void)replaceContactNamesWithString:(id)string withValue:(id)value
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   valueCopy = value;
   v7 = [valueCopy componentsSeparatedByString:@""];;
@@ -65,42 +65,42 @@
   {
     v8 = [v7 objectAtIndexedSubscript:0];
     v9 = [v7 objectAtIndexedSubscript:1];
-    v22 = 0;
-    v23 = &v22;
-    v24 = 0x2050000000;
+    v21 = 0;
+    v22 = &v21;
+    v23 = 0x2050000000;
     v10 = getSGNameDetectorClass_softClass;
-    v25 = getSGNameDetectorClass_softClass;
+    v24 = getSGNameDetectorClass_softClass;
     if (!getSGNameDetectorClass_softClass)
     {
       *&buf = MEMORY[0x277D85DD0];
       *(&buf + 1) = 3221225472;
-      v27 = __getSGNameDetectorClass_block_invoke;
-      v28 = &unk_278EB8500;
-      v29 = &v22;
+      v26 = __getSGNameDetectorClass_block_invoke;
+      v27 = &unk_278EB8500;
+      v28 = &v21;
       __getSGNameDetectorClass_block_invoke(&buf);
-      v10 = v23[3];
+      v10 = v22[3];
     }
 
     v11 = v10;
-    _Block_object_dispose(&v22, 8);
+    _Block_object_dispose(&v21, 8);
     v12 = [[v10 alloc] initWithLanguage:v8];
     v13 = [v12 detectNames:stringCopy algorithm:0];
 
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v27 = 0x2020000000;
-    v28 = 0;
+    v26 = 0x2020000000;
+    v27 = 0;
     v14 = [v9 length];
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __64__SGStringPreprocessor_replaceContactNamesWithString_withValue___block_invoke;
-    v17[3] = &unk_278EB7750;
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __64__SGStringPreprocessor_replaceContactNamesWithString_withValue___block_invoke;
+    v16[3] = &unk_278EB7750;
     p_buf = &buf;
-    v18 = stringCopy;
+    v17 = stringCopy;
     v15 = v9;
-    v19 = v15;
-    v21 = v14;
-    [v13 enumerateObjectsUsingBlock:v17];
+    v18 = v15;
+    v20 = v14;
+    [v13 enumerateObjectsUsingBlock:v16];
 
     _Block_object_dispose(&buf, 8);
   }
@@ -111,8 +111,6 @@
     *(&buf + 4) = valueCopy;
     _os_log_error_impl(&dword_24799E000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "[SGStringPreprocessingTransformer replaceContactNamesWithString:withValue:] - Incorrect format for value: %@", &buf, 0xCu);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __64__SGStringPreprocessor_replaceContactNamesWithString_withValue___block_invoke(uint64_t a1, void *a2)
@@ -816,9 +814,10 @@ LABEL_14:
   _Block_object_dispose(&v17, 8);
 }
 
-const __CFCharacterSet *__70__SGStringPreprocessor_removeNonEmojiSymbolsWithExceptions_withValue___block_invoke(uint64_t a1, UTF32Char a2, const void *a3, uint64_t a4, uint64_t a5)
+const __CFCharacterSet *__70__SGStringPreprocessor_removeNonEmojiSymbolsWithExceptions_withValue___block_invoke(uint64_t a1, uint64_t a2, const void *a3, uint64_t a4, uint64_t a5)
 {
-  if (!CFCharacterSetIsLongCharacterMember(*(a1 + 32), a2) || (SGIsEmoji(a2) & 1) != 0 || (result = *(a1 + 40)) != 0 && (result = CFCharacterSetIsLongCharacterMember(result, a2), result))
+  v7 = a2;
+  if (!CFCharacterSetIsLongCharacterMember(*(a1 + 32), a2) || SGIsEmoji(v7) || (result = *(a1 + 40)) != 0 && (result = CFCharacterSetIsLongCharacterMember(result, v7), result))
   {
     result = memcpy((*(a1 + 56) + 2 * *(*(*(a1 + 48) + 8) + 24)), a3, 2 * a5);
     *(*(*(a1 + 48) + 8) + 24) += a5;
@@ -1717,7 +1716,7 @@ LABEL_33:
   _PASIterateLongChars();
 }
 
-uint64_t __62__SGStringPreprocessor_replaceCharactersWithSpaces_withValue___block_invoke(uint64_t a1, UTF32Char a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void *__62__SGStringPreprocessor_replaceCharactersWithSpaces_withValue___block_invoke(uint64_t a1, UTF32Char a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   result = CFCharacterSetIsLongCharacterMember(*(a1 + 32), a2);
   if (result)
@@ -1739,80 +1738,80 @@ uint64_t __62__SGStringPreprocessor_replaceCharactersWithSpaces_withValue___bloc
 
 - (void)separateFrenchElisions:(id)elisions
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   elisionsCopy = elisions;
   v5 = [elisionsCopy length];
   if (v5)
   {
     v6 = v5;
-    v43[4] = xmmword_278EB75F8;
-    v43[5] = *&off_278EB7608;
-    v43[6] = xmmword_278EB7618;
-    v44 = 0;
-    v43[0] = xmmword_278EB75B8;
-    v43[1] = *&off_278EB75C8;
-    v43[2] = xmmword_278EB75D8;
-    v43[3] = *&off_278EB75E8;
+    v42[4] = xmmword_278EB75F8;
+    v42[5] = *&off_278EB7608;
+    v42[6] = xmmword_278EB7618;
+    v43 = 0;
+    v42[0] = xmmword_278EB75B8;
+    v42[1] = *&off_278EB75C8;
+    v42[2] = xmmword_278EB75D8;
+    v42[3] = *&off_278EB75E8;
     v7 = [(SGStringPreprocessor *)self bufferPtrWithMinimumLength:v5];
     v8 = elisionsCopy;
     v9 = objc_opt_self();
 
     if (v9)
     {
-      v34 = 0u;
-      v35 = 0u;
-      v32 = 0u;
       v33 = 0u;
-      v30 = 0u;
+      v34 = 0u;
       v31 = 0u;
-      *buffer = 0u;
+      v32 = 0u;
       v29 = 0u;
+      v30 = 0u;
+      *buffer = 0u;
+      v28 = 0u;
       Length = CFStringGetLength(v8);
       theString = v8;
-      v39 = 0;
-      v40 = Length;
+      v38 = 0;
+      v39 = Length;
       CharactersPtr = CFStringGetCharactersPtr(v8);
       CStringPtr = 0;
-      v37 = CharactersPtr;
+      v36 = CharactersPtr;
       if (!CharactersPtr)
       {
         CStringPtr = CFStringGetCStringPtr(v8, 0x600u);
       }
 
-      v26 = elisionsCopy;
+      v25 = elisionsCopy;
       selfCopy = self;
+      v40 = 0;
       v41 = 0;
-      v42 = 0;
-      v38 = CStringPtr;
-      v25 = v6;
+      v37 = CStringPtr;
+      v24 = v6;
       if (Length >= 1)
       {
         v13 = 0;
         v14 = 0;
         while (1)
         {
-          v15 = v40;
-          if (v40 <= v14)
+          v15 = v39;
+          if (v39 <= v14)
           {
             v16 = 0;
           }
 
           else
           {
-            if (v37)
+            if (v36)
             {
-              v16 = v37[v39 + v14];
+              v16 = v36[v38 + v14];
             }
 
-            else if (v38)
+            else if (v37)
             {
-              v16 = v38[v39 + v14];
+              v16 = v37[v38 + v14];
             }
 
             else
             {
-              v17 = v41;
-              if (v42 <= v14 || v41 > v14)
+              v17 = v40;
+              if (v41 <= v14 || v40 > v14)
               {
                 v19 = v14 - 4;
                 if (v14 < 4)
@@ -1820,17 +1819,17 @@ uint64_t __62__SGStringPreprocessor_replaceCharactersWithSpaces_withValue___bloc
                   v19 = 0;
                 }
 
-                if (v19 + 64 < v40)
+                if (v19 + 64 < v39)
                 {
                   v15 = v19 + 64;
                 }
 
-                v41 = v19;
-                v42 = v15;
-                v46.length = v15 - v19;
-                v46.location = v39 + v19;
-                CFStringGetCharacters(theString, v46, buffer);
-                v17 = v41;
+                v40 = v19;
+                v41 = v15;
+                v45.length = v15 - v19;
+                v45.location = v38 + v19;
+                CFStringGetCharacters(theString, v45, buffer);
+                v17 = v40;
               }
 
               v16 = buffer[v14 - v17];
@@ -1849,9 +1848,9 @@ uint64_t __62__SGStringPreprocessor_replaceCharactersWithSpaces_withValue___bloc
               goto LABEL_33;
             }
 
-            if (*&v43[0])
+            if (*&v42[0])
             {
-              v20 = v43 + 1;
+              v20 = v42 + 1;
               while ([__CFString rangeOfString:v8 options:"rangeOfString:options:range:" range:?]== 0x7FFFFFFFFFFFFFFFLL)
               {
                 if (!*v20++)
@@ -1882,9 +1881,9 @@ LABEL_34:
 
       v22 = 0;
 LABEL_39:
-      elisionsCopy = v26;
+      elisionsCopy = v25;
       self = selfCopy;
-      v6 = v25;
+      v6 = v24;
     }
 
     else
@@ -1901,8 +1900,6 @@ LABEL_39:
     {
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)separateCharacter:(id)character withValue:(id)value

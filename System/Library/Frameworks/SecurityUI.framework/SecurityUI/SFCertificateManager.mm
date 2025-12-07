@@ -20,18 +20,18 @@
 
 - (SFCertificateManager)initWithTrust:(__SecTrust *)trust
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v5 = SFLogSFCertificateManager();
+  v12 = *MEMORY[0x277D85DE8];
+  v5 = SFLogSFCertificateManager(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v12 = "[SFCertificateManager initWithTrust:]";
+    v11 = "[SFCertificateManager initWithTrust:]";
     _os_log_impl(&dword_23AA9F000, v5, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
-  v10.receiver = self;
-  v10.super_class = SFCertificateManager;
-  v6 = [(SFCertificateManager *)&v10 init];
+  v9.receiver = self;
+  v9.super_class = SFCertificateManager;
+  v6 = [(SFCertificateManager *)&v9 init];
   v7 = v6;
   if (trust && v6)
   {
@@ -39,18 +39,17 @@
     [(SFCertificateManager *)v7 isValid];
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (void)dealloc
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v3 = SFLogSFCertificateManager();
+  v8 = *MEMORY[0x277D85DE8];
+  v3 = SFLogSFCertificateManager(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v8 = "[SFCertificateManager dealloc]";
+    v7 = "[SFCertificateManager dealloc]";
     _os_log_impl(&dword_23AA9F000, v3, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
@@ -60,10 +59,9 @@
     CFRelease(trust);
   }
 
-  v6.receiver = self;
-  v6.super_class = SFCertificateManager;
-  [(SFCertificateManager *)&v6 dealloc];
-  v5 = *MEMORY[0x277D85DE8];
+  v5.receiver = self;
+  v5.super_class = SFCertificateManager;
+  [(SFCertificateManager *)&v5 dealloc];
 }
 
 + (BOOL)isQwacStatementEnabled
@@ -257,47 +255,46 @@ LABEL_10:
 {
   error = 0;
   v2 = SecTrustEvaluateWithError(self->_trust, &error);
+  v3 = v2;
   if (v2)
   {
-    v3 = SFLogSFCertificateManager();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = SFLogSFCertificateManager(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_23AA9F000, v3, OS_LOG_TYPE_DEFAULT, "Certificate is valid.", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_23AA9F000, v4, OS_LOG_TYPE_DEFAULT, "Certificate is valid.", v7, 2u);
     }
   }
 
   else if (error)
   {
-    v3 = error;
-    v4 = SFLogSFCertificateManager();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v4 = error;
+    v5 = SFLogSFCertificateManager(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      [(SFCertificateManager *)v3 isValid];
+      [(SFCertificateManager *)v4 isValid];
     }
   }
 
   else
   {
-    v3 = SFLogSFCertificateManager();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = SFLogSFCertificateManager(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      [(SFCertificateManager *)v3 isValid];
+      [(SFCertificateManager *)v4 isValid];
     }
   }
 
-  return v2;
+  return v3;
 }
 
 - (void)isValid
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   localizedDescription = [self localizedDescription];
-  v5 = 138412290;
-  v6 = localizedDescription;
-  _os_log_error_impl(&dword_23AA9F000, a2, OS_LOG_TYPE_ERROR, "Certificate is not valid: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = localizedDescription;
+  _os_log_error_impl(&dword_23AA9F000, a2, OS_LOG_TYPE_ERROR, "Certificate is not valid: %@", &v4, 0xCu);
 }
 
 @end

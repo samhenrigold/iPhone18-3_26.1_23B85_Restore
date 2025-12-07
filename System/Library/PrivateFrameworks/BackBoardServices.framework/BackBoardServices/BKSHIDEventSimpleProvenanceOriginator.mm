@@ -7,25 +7,18 @@
 - (id)buildProvenance:(id)provenance
 {
   provenanceCopy = provenance;
-  key = self->_key;
-  if (!key)
+  if (!self->_key)
   {
-    v6 = +[_BKSHIDEventAuthenticationKey eventAuthenticationKey];
-    v7 = self->_key;
-    self->_key = v6;
-
+    v5 = +[_BKSHIDEventAuthenticationKey eventAuthenticationKey];
     key = self->_key;
+    self->_key = v5;
   }
 
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __57__BKSHIDEventSimpleProvenanceOriginator_buildProvenance___block_invoke;
-  v11[3] = &unk_1E6F47728;
-  v12 = provenanceCopy;
-  v8 = provenanceCopy;
-  v9 = [BKSHIDEventSimpleProvenance _withInternalKey:key buildMessage:v11];
+  v10 = provenanceCopy;
+  v7 = provenanceCopy;
+  v8 = [BKSHIDEventSimpleProvenance _withInternalKey:"_withInternalKey:buildMessage:" buildMessage:?];
 
-  return v9;
+  return v8;
 }
 
 @end

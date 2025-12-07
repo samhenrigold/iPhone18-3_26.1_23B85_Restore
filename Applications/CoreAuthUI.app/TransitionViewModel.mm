@@ -78,7 +78,7 @@
 
   selfCopy = self;
   sub_10003DA0C(event, v6, v7);
-  sub_10002AA04(v6);
+  sub_10002AA04(v6, v7);
 }
 
 - (void)mechanismEvent:(int64_t)event value:(id)value reply:(id)reply
@@ -119,7 +119,7 @@ LABEL_6:
   v14 = OBJC_IVAR____TtC10CoreAuthUI19TransitionViewModel_delegates;
   swift_beginAccess();
   v15 = *(&self->super.isa + v14);
-  sub_1000299DC(v11);
+  sub_1000299DC(v11, v10);
   allObjects = [v15 allObjects];
   sub_1000282B4(&unk_1000AF060, &unk_100078080);
   v17 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
@@ -130,7 +130,7 @@ LABEL_6:
   v19[4] = v13;
   sub_10003CC8C(sub_10003FE0C, v19, v17);
 
-  sub_10002AA04(v11);
+  sub_10002AA04(v11, v10);
 
   sub_10002B444(v20, &qword_1000AF430, &unk_1000777F0);
 }
@@ -163,7 +163,7 @@ LABEL_6:
 
   selfCopy = self;
   sub_10003E180(controller, v8, v7, v9);
-  sub_10002AA04(v7);
+  sub_10002AA04(v7, v9);
 }
 
 @end

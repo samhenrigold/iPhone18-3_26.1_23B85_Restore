@@ -15,37 +15,37 @@ uint64_t __35___UITabElementGroup__setChildren___block_invoke_2(uint64_t a1, voi
     v8 = v7;
     if (v6 == v7)
     {
-      v9 = 1;
+      isEqual = 1;
     }
 
     else
     {
-      v9 = 0;
+      isEqual = 0;
       if (v6 && v7)
       {
-        v9 = [v6 isEqual:v7];
+        isEqual = objc_msgSend_isEqual_(v6);
       }
     }
   }
 
   else
   {
-    v9 = 0;
+    isEqual = 0;
   }
 
-  return v9;
+  return isEqual;
 }
 
 uint64_t __54___UITabElementGroup__orderedChildrenForDisplayOrder___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v6 = a2;
-  v7 = [v6 _identifier];
-  LODWORD(a1) = [v7 isEqualToString:*(a1 + 32)];
+  v5 = a2;
+  v6 = [v5 _identifier];
+  isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-  *a4 = a1;
-  if (a1)
+  *a4 = isEqualToString;
+  if (isEqualToString)
   {
-    v8 = [v6 _isAction] ^ 1;
+    v8 = [v5 _isAction] ^ 1;
   }
 
   else
@@ -60,9 +60,9 @@ void __42___UITabElementGroup__defaultChildElement__block_invoke(void *a1, void 
 {
   v10 = a2;
   v7 = [v10 _identifier];
-  v8 = [v7 isEqualToString:a1[4]];
+  isEqualToString = objc_msgSend_isEqualToString_(v7);
 
-  if (v8)
+  if (isEqualToString)
   {
     if ([v10 _isElement] && objc_msgSend(v10, "_isVisible"))
     {
@@ -98,7 +98,7 @@ void __42___UITabElementGroup__defaultChildElement__block_invoke(void *a1, void 
   *a4 = v9;
 }
 
-uint64_t __37___UITabElementGroup__isCustomizable__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__37___UITabElementGroup__isCustomizable__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 _isCustomizable];
   *(*(*(a1 + 32) + 8) + 24) |= result;
@@ -108,10 +108,10 @@ uint64_t __37___UITabElementGroup__isCustomizable__block_invoke(uint64_t a1, voi
 
 uint64_t __54___UITabElementGroup__filteredDisplayOrderIdentifiers__block_invoke(uint64_t a1, void *a2)
 {
-  v3 = [a2 _identifier];
-  v4 = [v3 isEqualToString:*(a1 + 32)];
+  v2 = [a2 _identifier];
+  isEqualToString = objc_msgSend_isEqualToString_(v2);
 
-  return v4;
+  return isEqualToString;
 }
 
 @end

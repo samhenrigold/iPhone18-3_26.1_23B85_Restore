@@ -172,7 +172,7 @@ uint64_t __64__MDMServerAppInstallBlocking_unblockAppInstallsWithCompletion___bl
 
 void __52__MDMServerAppInstallBlocking_didUnblockAppInstalls__block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = *(DMCLogObjects() + 8);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
@@ -180,26 +180,24 @@ void __52__MDMServerAppInstallBlocking_didUnblockAppInstalls__block_invoke(uint6
   {
     if (v4)
     {
-      v9 = 138543362;
-      v10 = v2;
+      v8 = 138543362;
+      v9 = v2;
       v5 = "block app installs, server unblock, retryNotNow failed: %{public}@";
       v6 = v3;
       v7 = 12;
 LABEL_6:
-      _os_log_impl(&dword_2561F5000, v6, OS_LOG_TYPE_DEFAULT, v5, &v9, v7);
+      _os_log_impl(&dword_2561F5000, v6, OS_LOG_TYPE_DEFAULT, v5, &v8, v7);
     }
   }
 
   else if (v4)
   {
-    LOWORD(v9) = 0;
+    LOWORD(v8) = 0;
     v5 = "block app installs, server unblock, retryNotNow complete";
     v6 = v3;
     v7 = 2;
     goto LABEL_6;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (MDMServerCore)server

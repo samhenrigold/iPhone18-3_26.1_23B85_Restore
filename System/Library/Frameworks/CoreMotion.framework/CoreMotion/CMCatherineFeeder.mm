@@ -65,15 +65,16 @@
     catherineCopy2 = catherine;
     v17 = 2049;
     confidenceCopy2 = confidence;
-    v11 = _os_log_send_and_compose_impl();
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE29F0, 2, "feedCatherine called with HR %{private}f, confidence %{private}f", &v15, 22);
+    v12 = v11;
     sub_19B6BB7CC("Generic", 1, 0, 2, "[CMCatherineFeeder feedCatherine:confidence:]", "CoreLocation: %s\n", v11);
-    if (v11 != buf)
+    if (v12 != buf)
     {
-      free(v11);
+      free(v12);
     }
   }
 
-  v12 = *(objc_msgSend_internal(self, v9, v10) + 8);
+  v13 = *(objc_msgSend_internal(self, v9, v10) + 8);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = sub_19B734FD0;
@@ -81,8 +82,7 @@
   block[4] = self;
   *&block[5] = catherine;
   *&block[6] = confidence;
-  dispatch_async(v12, block);
-  v13 = *MEMORY[0x1E69E9840];
+  dispatch_async(v13, block);
 }
 
 @end

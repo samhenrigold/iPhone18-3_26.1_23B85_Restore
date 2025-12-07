@@ -53,7 +53,7 @@
   v50 = 0u;
   v47 = 0u;
   v48 = 0u;
-  [(TransitArtworkListView *)self _metrics];
+  objc_msgSend__metrics(self);
   v5 = +[NSMutableArray array];
   v43 = 0u;
   v44 = 0u;
@@ -201,7 +201,7 @@ LABEL_18:
   {
     [neededCopy setShowBackground:1];
     subviews = [neededCopy heightAnchor];
-    [(TransitArtworkListView *)self _metrics];
+    objc_msgSend__metrics(self);
     v12 = [subviews constraintEqualToConstant:v13];
     [constraintsCopy addObject:v12];
 
@@ -355,7 +355,7 @@ LABEL_5:
 - (void)_createNewMultilineShieldView
 {
   [(MultilineWrappingListView *)self->_multilineWrappingStackView removeFromSuperview];
-  [(TransitArtworkListView *)self _metrics];
+  objc_msgSend__metrics(self);
   v3 = [[MultilineWrappingListView alloc] initWithFrame:CGRectZero.origin.x, CGRectZero.origin.y, CGRectZero.size.width, CGRectZero.size.height];
   multilineWrappingStackView = self->_multilineWrappingStackView;
   self->_multilineWrappingStackView = v3;
@@ -414,7 +414,7 @@ LABEL_5:
   v77 = 0u;
   v75 = 0u;
   memset(v76, 0, sizeof(v76));
-  [(TransitArtworkListView *)self _metrics];
+  objc_msgSend__metrics(self);
   [(TransitArtworkListView *)self _createNewMultilineShieldView];
   v73 = 0u;
   v74 = 0u;
@@ -928,10 +928,10 @@ LABEL_59:
 {
   v5 = objc_opt_class();
   traitCollection = [(TransitArtworkListView *)self traitCollection];
-  userInterfaceIdiom = [traitCollection userInterfaceIdiom];
+  [traitCollection userInterfaceIdiom];
   if (v5)
   {
-    [v5 _metricsForIdiom:userInterfaceIdiom];
+    objc_msgSend__metricsForIdiom_(v5);
   }
 
   else
@@ -987,7 +987,8 @@ LABEL_59:
 + (double)transitArtworkListHeight
 {
   v3 = +[UIDevice currentDevice];
-  [self _metricsForIdiom:{objc_msgSend(v3, "userInterfaceIdiom")}];
+  [v3 userInterfaceIdiom];
+  objc_msgSend__metricsForIdiom_(self);
 
   return v5;
 }

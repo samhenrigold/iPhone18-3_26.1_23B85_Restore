@@ -20,6 +20,7 @@
 - (CDPDSecureBackupDelegate)delegate;
 - (id)_clientMetadataWithSecretType:(unint64_t)type length:(unint64_t)length;
 - (id)_currentAnisetteData;
+- (id)_makeRecoveryKeyVerifyEventWithError:(id)error result:(BOOL)result;
 - (id)_performEscrowRecoveryWithRecoveryContext:(id)context fallbackState:(unint64_t)state error:(id *)error;
 - (id)_recoverBackupDictionaryWithContext:(id)context fallbackState:(unint64_t)state error:(id *)error;
 - (id)_recoveryInfoDictionaryFromContext:(id)context usePreviouslyCachedSecret:(BOOL)secret;
@@ -35,6 +36,7 @@
 - (void)_disableRecoveryKeyFromSOS:(id *)s;
 - (void)_enableSecureBackupWithContext:(id)context completion:(id)completion;
 - (void)_getBackupRecordDevicesIncludingUnrecoverableRecords:(id)records;
+- (void)_getOctagonEscrowBackupRecordDevicesWithOptionForceFetch:(BOOL)fetch completion:(id)completion;
 - (void)_handleSecureBackupEnablementError:(id)error fallbackState:(unint64_t)state context:(id)context delegate:(id)delegate completion:(id)completion;
 - (void)_postICSCCreationFailedEventWithError:(id)error;
 - (void)_retryRepairWithContext:(id)context retryCount:(int64_t)count completion:(id)completion;
@@ -48,6 +50,7 @@
 - (void)checkAndRemoveExistingThenEnableSecureBackupRecordWithContext:(id)context completion:(id)completion;
 - (void)checkForAnyOctagonRecord:(id)record;
 - (void)checkForExistingRecord:(id)record;
+- (void)checkForExistingRecordMatchingPredicate:(id)predicate forceFetch:(BOOL)fetch completion:(id)completion;
 - (void)checkForExistingRecordWithPeerId:(id)id completion:(id)completion;
 - (void)clearAccountInfoCache;
 - (void)deleteAllBackupRecordsWithCompletion:(id)completion;
@@ -57,6 +60,9 @@
 - (void)disableSecureBackupWithCompletion:(id)completion;
 - (void)enableSecureBackupWithContext:(id)context completion:(id)completion;
 - (void)enableSecureBackupWithRecoveryKey:(id)key completion:(id)completion;
+- (void)fetchAllEscrowRecordsWithOptionForceFetch:(BOOL)fetch completion:(id)completion;
+- (void)fetchEscrowRecordsWithOptionForceFetch:(BOOL)fetch completion:(id)completion;
+- (void)getBackupRecordDevicesWithOptionForceFetch:(BOOL)fetch completion:(id)completion;
 - (void)isEligibleForCDPWithCompletion:(id)completion;
 - (void)performEscrowRecoveryWithRecoveryContext:(id)context completion:(id)completion;
 - (void)recoverSecureBackupWithContext:(id)context completion:(id)completion;
@@ -208,6 +214,27 @@ uint64_t __69__CDPDSecureBackupController_synchronizeKeyValueStoreWithCompletion
   return result;
 }
 
+- (void)fetchEscrowRecordsWithOptionForceFetch:(BOOL)fetch completion:(id)completion
+{
+  fetchCopy = fetch;
+  completionCopy = completion;
+  accountInfoFetchSetupDictionary = [(CDPDSecureBackupConfiguration *)self->_configuration accountInfoFetchSetupDictionary];
+  v8 = _CDPLogSystem();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  {
+    [CDPDSecureBackupController fetchEscrowRecordsWithOptionForceFetch:completion:];
+  }
+
+  octagonTrustProxy = self->_octagonTrustProxy;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __80__CDPDSecureBackupController_fetchEscrowRecordsWithOptionForceFetch_completion___block_invoke;
+  v11[3] = &unk_278E256E0;
+  v12 = completionCopy;
+  v10 = completionCopy;
+  [(CDPDOctagonTrustProxy *)octagonTrustProxy fetchEscrowRecords:accountInfoFetchSetupDictionary forceFetch:fetchCopy completion:v11];
+}
+
 void __80__CDPDSecureBackupController_fetchEscrowRecordsWithOptionForceFetch_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
@@ -244,6 +271,27 @@ LABEL_11:
       v9();
     }
   }
+}
+
+- (void)fetchAllEscrowRecordsWithOptionForceFetch:(BOOL)fetch completion:(id)completion
+{
+  fetchCopy = fetch;
+  completionCopy = completion;
+  accountInfoFetchSetupDictionary = [(CDPDSecureBackupConfiguration *)self->_configuration accountInfoFetchSetupDictionary];
+  v8 = _CDPLogSystem();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  {
+    [CDPDSecureBackupController fetchAllEscrowRecordsWithOptionForceFetch:completion:];
+  }
+
+  octagonTrustProxy = self->_octagonTrustProxy;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __83__CDPDSecureBackupController_fetchAllEscrowRecordsWithOptionForceFetch_completion___block_invoke;
+  v11[3] = &unk_278E256E0;
+  v12 = completionCopy;
+  v10 = completionCopy;
+  [(CDPDOctagonTrustProxy *)octagonTrustProxy fetchAllEscrowRecords:accountInfoFetchSetupDictionary forceFetch:fetchCopy completion:v11];
 }
 
 void __83__CDPDSecureBackupController_fetchAllEscrowRecordsWithOptionForceFetch_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -549,6 +597,45 @@ LABEL_19:
   }
 }
 
+- (void)getBackupRecordDevicesWithOptionForceFetch:(BOOL)fetch completion:(id)completion
+{
+  fetchCopy = fetch;
+  v7 = self->_context;
+  completionCopy = completion;
+  backupActivity = [(CDPContext *)v7 backupActivity];
+  if (backupActivity)
+  {
+    v10 = backupActivity;
+  }
+
+  else
+  {
+    v10 = 707469235;
+  }
+
+  [(CDPContext *)v7 setBackupActivity:v10];
+  v11 = _Block_copy(completionCopy);
+
+  v16 = MEMORY[0x277D85DD0];
+  v17 = 3221225472;
+  v18 = __84__CDPDSecureBackupController_getBackupRecordDevicesWithOptionForceFetch_completion___block_invoke;
+  v19 = &unk_278E24F18;
+  v12 = v11;
+  v21 = v12;
+  v13 = v7;
+  v20 = v13;
+  v14 = _Block_copy(&v16);
+  if (([(CDPContext *)self->_context idmsRecovery:v16]& 1) != 0 || ([(CDPContext *)self->_context findMyiPhoneUUID], v15 = objc_claimAutoreleasedReturnValue(), v15, v15))
+  {
+    [(CDPDSecureBackupController *)self _getBackupRecordDevicesIncludingUnrecoverableRecords:v14];
+  }
+
+  else
+  {
+    [(CDPDSecureBackupController *)self _getOctagonEscrowBackupRecordDevicesWithOptionForceFetch:fetchCopy completion:v14];
+  }
+}
+
 uint64_t __84__CDPDSecureBackupController_getBackupRecordDevicesWithOptionForceFetch_completion___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 40);
@@ -564,39 +651,39 @@ uint64_t __84__CDPDSecureBackupController_getBackupRecordDevicesWithOptionForceF
 
 - (id)handleCDPDevices:(id)devices
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   devicesCopy = devices;
   array = [MEMORY[0x277CBEB18] array];
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   obj = devicesCopy;
-  v5 = [obj countByEnumeratingWithState:&v34 objects:v44 count:16];
+  v5 = [obj countByEnumeratingWithState:&v33 objects:v43 count:16];
   if (v5)
   {
     v7 = v5;
     v8 = 0;
-    v9 = *v35;
+    v9 = *v34;
     *&v6 = 138412290;
-    v31 = v6;
+    v30 = v6;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v35 != v9)
+        if (*v34 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v34 + 1) + 8 * i);
+        v11 = *(*(&v33 + 1) + 8 * i);
         if ([(CDPDSecureBackupController *)self fakeNearlyDepletedRecords])
         {
           v12 = _CDPLogSystem();
           if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
           {
-            *buf = v31;
-            v39 = v11;
+            *buf = v30;
+            v38 = v11;
             _os_log_debug_impl(&dword_24510B000, v12, OS_LOG_TYPE_DEBUG, "**** DEBUG **** Setting fake remaining attempts value of 1 for %@", buf, 0xCu);
           }
 
@@ -617,9 +704,9 @@ uint64_t __84__CDPDSecureBackupController_getBackupRecordDevicesWithOptionForceF
             {
               remainingAttempts = [v11 remainingAttempts];
               *buf = 138412546;
-              v39 = v11;
-              v40 = 2048;
-              v41 = remainingAttempts;
+              v38 = v11;
+              v39 = 2048;
+              v40 = remainingAttempts;
               _os_log_impl(&dword_24510B000, v13, OS_LOG_TYPE_DEFAULT, "Disqualified device %@ because the remaining attempts is %lu", buf, 0x16u);
             }
           }
@@ -632,52 +719,53 @@ uint64_t __84__CDPDSecureBackupController_getBackupRecordDevicesWithOptionForceF
           recordDate2 = [v11 recordDate];
           v18 = objc_opt_class();
           *buf = 138412802;
-          v39 = v11;
-          v40 = 2112;
-          v41 = recordDate;
-          v42 = 2112;
-          v43 = v18;
+          v38 = v11;
+          v39 = 2112;
+          v40 = recordDate;
+          v41 = 2112;
+          v42 = v18;
           v19 = v18;
           _os_log_impl(&dword_24510B000, v15, OS_LOG_TYPE_DEFAULT, "Backup record found for device %@ with date %@ (%@)", buf, 0x20u);
         }
 
-        if (!v8)
+        if (v8)
         {
-          goto LABEL_22;
-        }
+          recordDate3 = [v11 recordDate];
+          if (!recordDate3)
+          {
+            continue;
+          }
 
-        recordDate3 = [v11 recordDate];
-        if (recordDate3)
-        {
           v21 = recordDate3;
           recordDate4 = [v11 recordDate];
           v23 = [v8 laterDate:recordDate4];
           recordDate5 = [v11 recordDate];
 
-          if (v23 == recordDate5)
+          if (v23 != recordDate5)
           {
-LABEL_22:
-            v25 = _CDPLogSystem();
-            if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
-            {
-              recordDate6 = [v11 recordDate];
-              *buf = 138412802;
-              v39 = recordDate6;
-              v40 = 2112;
-              v41 = v8;
-              v42 = 2112;
-              v43 = v11;
-              _os_log_impl(&dword_24510B000, v25, OS_LOG_TYPE_DEFAULT, "Backup record date %@ is later than the previously known newest record (%@), promoting %@ as newest device record", buf, 0x20u);
-            }
-
-            recordDate7 = [v11 recordDate];
-
-            v8 = recordDate7;
+            continue;
           }
         }
+
+        v25 = _CDPLogSystem();
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+        {
+          recordDate6 = [v11 recordDate];
+          *buf = 138412802;
+          v38 = recordDate6;
+          v39 = 2112;
+          v40 = v8;
+          v41 = 2112;
+          v42 = v11;
+          _os_log_impl(&dword_24510B000, v25, OS_LOG_TYPE_DEFAULT, "Backup record date %@ is later than the previously known newest record (%@), promoting %@ as newest device record", buf, 0x20u);
+        }
+
+        recordDate7 = [v11 recordDate];
+
+        v8 = recordDate7;
       }
 
-      v7 = [obj countByEnumeratingWithState:&v34 objects:v44 count:16];
+      v7 = [obj countByEnumeratingWithState:&v33 objects:v43 count:16];
     }
 
     while (v7);
@@ -692,50 +780,73 @@ LABEL_22:
   if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v39 = v8;
+    v38 = v8;
     _os_log_impl(&dword_24510B000, v28, OS_LOG_TYPE_DEFAULT, "Finished parsing multiple-iCSC records and found the newest record to be %@", buf, 0xCu);
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return array;
 }
 
+- (void)_getOctagonEscrowBackupRecordDevicesWithOptionForceFetch:(BOOL)fetch completion:(id)completion
+{
+  fetchCopy = fetch;
+  completionCopy = completion;
+  v7 = self->_context;
+  v8 = _CDPLogSystem();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_24510B000, v8, OS_LOG_TYPE_DEFAULT, "_getOctagonEscrowBackupRecordDevicesWithOptionForceFetch: called, fetching escrow records", buf, 2u);
+  }
+
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __98__CDPDSecureBackupController__getOctagonEscrowBackupRecordDevicesWithOptionForceFetch_completion___block_invoke;
+  v11[3] = &unk_278E25758;
+  v12 = v7;
+  v13 = completionCopy;
+  v11[4] = self;
+  v14 = fetchCopy;
+  v9 = v7;
+  v10 = completionCopy;
+  [(CDPDSecureBackupController *)self fetchEscrowRecordsWithOptionForceFetch:fetchCopy completion:v11];
+}
+
 void __98__CDPDSecureBackupController__getOctagonEscrowBackupRecordDevicesWithOptionForceFetch_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (!v6)
   {
     v8 = [MEMORY[0x277CBEB18] array];
+    v28 = 0u;
     v29 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v32 = 0u;
     v9 = v5;
-    v10 = [v9 countByEnumeratingWithState:&v29 objects:v37 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v28 objects:v36 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v30;
+      v12 = *v29;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v30 != v12)
+          if (*v29 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = [objc_alloc(MEMORY[0x277CFD4C0]) initWithEscrowRecord:*(*(&v29 + 1) + 8 * i)];
+          v14 = [objc_alloc(MEMORY[0x277CFD4C0]) initWithEscrowRecord:*(*(&v28 + 1) + 8 * i)];
           if (v14)
           {
             [v8 addObject:v14];
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v29 objects:v37 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v28 objects:v36 count:16];
       }
 
       while (v11);
@@ -750,9 +861,9 @@ void __98__CDPDSecureBackupController__getOctagonEscrowBackupRecordDevicesWithOp
       {
         v17 = [v15 count];
         *buf = 134218240;
-        v34 = v17;
-        v35 = 1024;
-        v36 = 1;
+        v33 = v17;
+        v34 = 1024;
+        v35 = 1;
         _os_log_impl(&dword_24510B000, v16, OS_LOG_TYPE_DEFAULT, "Finished parsing backup records, returning %lu devices and isUsingMultipleICSC=%i", buf, 0x12u);
       }
 
@@ -770,19 +881,19 @@ void __98__CDPDSecureBackupController__getOctagonEscrowBackupRecordDevicesWithOp
     {
       v20 = *(a1 + 32);
       v21 = *(a1 + 56);
-      v26[0] = MEMORY[0x277D85DD0];
-      v26[1] = 3221225472;
-      v26[2] = __98__CDPDSecureBackupController__getOctagonEscrowBackupRecordDevicesWithOptionForceFetch_completion___block_invoke_42;
-      v26[3] = &unk_278E25730;
+      v25[0] = MEMORY[0x277D85DD0];
+      v25[1] = 3221225472;
+      v25[2] = __98__CDPDSecureBackupController__getOctagonEscrowBackupRecordDevicesWithOptionForceFetch_completion___block_invoke_42;
+      v25[3] = &unk_278E25730;
       v22 = *(a1 + 48);
       v23 = *(a1 + 32);
       v24 = *(a1 + 40);
-      v28 = v22;
-      v26[4] = v23;
-      v27 = v24;
-      [v20 fetchAllEscrowRecordsWithOptionForceFetch:v21 completion:v26];
+      v27 = v22;
+      v25[4] = v23;
+      v26 = v24;
+      [v20 fetchAllEscrowRecordsWithOptionForceFetch:v21 completion:v25];
 
-      v19 = v28;
+      v19 = v27;
     }
 
 LABEL_21:
@@ -797,8 +908,6 @@ LABEL_21:
 
   (*(*(a1 + 48) + 16))();
 LABEL_22:
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __98__CDPDSecureBackupController__getOctagonEscrowBackupRecordDevicesWithOptionForceFetch_completion___block_invoke_42(uint64_t a1, void *a2, void *a3)
@@ -867,33 +976,33 @@ void __98__CDPDSecureBackupController__getOctagonEscrowBackupRecordDevicesWithOp
 
 - (void)_updateContext:(id)context withDevices:(id)devices
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   contextCopy = context;
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   obj = devices;
-  v5 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
+  v5 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
     v8 = 0;
     v9 = 0;
-    v10 = *v33;
+    v10 = *v32;
     do
     {
       v11 = 0;
-      v29 = v6;
+      v28 = v6;
       do
       {
-        if (*v33 != v10)
+        if (*v32 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v32 + 1) + 8 * v11);
+        v12 = *(*(&v31 + 1) + 8 * v11);
         remainingAttempts = [v12 remainingAttempts];
         v14 = remainingAttempts;
         if (remainingAttempts > v9)
@@ -901,34 +1010,11 @@ void __98__CDPDSecureBackupController__getOctagonEscrowBackupRecordDevicesWithOp
           v9 = remainingAttempts;
         }
 
-        if (!v7)
+        if (!v7 || ([v12 recordDate], (v15 = objc_claimAutoreleasedReturnValue()) != 0) && (v16 = v15, objc_msgSend(v12, "recordDate"), v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "laterDate:", v17), v18 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "recordDate"), v30 = v9, v19 = v7, v20 = v10, v21 = objc_claimAutoreleasedReturnValue(), v21, v18, v17, v6 = v28, v16, v22 = v18 == v21, v10 = v20, v7 = v19, v9 = v30, v22))
         {
-          goto LABEL_12;
-        }
+          recordDate = [v12 recordDate];
 
-        recordDate = [v12 recordDate];
-        if (recordDate)
-        {
-          v16 = recordDate;
-          recordDate2 = [v12 recordDate];
-          v18 = [v7 laterDate:recordDate2];
-          [v12 recordDate];
-          v31 = v9;
-          v19 = v7;
-          v21 = v20 = v10;
-
-          v6 = v29;
-          v22 = v18 == v21;
-          v10 = v20;
-          v7 = v19;
-          v9 = v31;
-          if (v22)
-          {
-LABEL_12:
-            recordDate3 = [v12 recordDate];
-
-            v7 = recordDate3;
-          }
+          v7 = recordDate;
         }
 
         v8 += v14;
@@ -936,7 +1022,7 @@ LABEL_12:
       }
 
       while (v6 != v11);
-      v6 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
+      v6 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
     }
 
     while (v6);
@@ -950,13 +1036,11 @@ LABEL_12:
   }
 
   v24 = [obj count];
-  [v28 setValidEscrowDeviceCount:v24];
-  [v28 setTotalRecoveryAttempts:v8];
-  [v28 setMaxDeviceRecoveryAttempts:v9];
+  [v27 setValidEscrowDeviceCount:v24];
+  [v27 setTotalRecoveryAttempts:v8];
+  [v27 setMaxDeviceRecoveryAttempts:v9];
   [v7 timeIntervalSinceNow];
-  [v28 setNewestEscrowRecordAge:fabs(v25)];
-
-  v26 = *MEMORY[0x277D85DE8];
+  [v27 setNewestEscrowRecordAge:fabs(v25)];
 }
 
 - (void)_getBackupRecordDevicesIncludingUnrecoverableRecords:(id)records
@@ -981,7 +1065,7 @@ LABEL_12:
 
 void __83__CDPDSecureBackupController__getBackupRecordDevicesIncludingUnrecoverableRecords___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
   if (v5)
@@ -996,7 +1080,7 @@ void __83__CDPDSecureBackupController__getBackupRecordDevicesIncludingUnrecovera
     goto LABEL_57;
   }
 
-  v46 = [MEMORY[0x277CBEB18] array];
+  v45 = [MEMORY[0x277CBEB18] array];
   v7 = [*(*(a1 + 32) + 16) desiresAllRecords];
   v8 = MEMORY[0x277CFB2A0];
   if (!v7)
@@ -1004,13 +1088,13 @@ void __83__CDPDSecureBackupController__getBackupRecordDevicesIncludingUnrecovera
     v8 = MEMORY[0x277CFB3D0];
   }
 
-  v45 = v4;
+  v44 = v4;
   [v4 objectForKeyedSubscript:*v8];
+  v50 = 0u;
   v51 = 0u;
   v52 = 0u;
-  v53 = 0u;
-  obj = v54 = 0u;
-  v9 = [obj countByEnumeratingWithState:&v51 objects:v61 count:16];
+  obj = v53 = 0u;
+  v9 = [obj countByEnumeratingWithState:&v50 objects:v60 count:16];
   if (!v9)
   {
     v11 = 0;
@@ -1019,19 +1103,19 @@ void __83__CDPDSecureBackupController__getBackupRecordDevicesIncludingUnrecovera
 
   v10 = v9;
   v11 = 0;
-  v48 = *v52;
+  v47 = *v51;
   do
   {
     v12 = 0;
     do
     {
-      if (*v52 != v48)
+      if (*v51 != v47)
       {
         objc_enumerationMutation(obj);
       }
 
-      v50 = v12;
-      v13 = *(*(&v51 + 1) + 8 * v12);
+      v49 = v12;
+      v13 = *(*(&v50 + 1) + 8 * v12);
       v14 = [objc_alloc(MEMORY[0x277CFD4C0]) initWithSecureBackupRecordInfo:v13];
       v15 = v14;
       if ([*(a1 + 32) fakeNearlyDepletedRecords])
@@ -1040,7 +1124,7 @@ void __83__CDPDSecureBackupController__getBackupRecordDevicesIncludingUnrecovera
         if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v56 = v15;
+          v55 = v15;
           _os_log_debug_impl(&dword_24510B000, v16, OS_LOG_TYPE_DEBUG, "**** DEBUG **** Setting fake remaining attempts value of 1 for %@", buf, 0xCu);
         }
 
@@ -1052,7 +1136,7 @@ void __83__CDPDSecureBackupController__getBackupRecordDevicesIncludingUnrecovera
       {
         if ([v14 remainingAttempts])
         {
-          [v46 addObject:v14];
+          [v45 addObject:v14];
         }
 
         else if (![v14 remainingAttempts])
@@ -1062,9 +1146,9 @@ void __83__CDPDSecureBackupController__getBackupRecordDevicesIncludingUnrecovera
           {
             v18 = [v15 remainingAttempts];
             *buf = 138412546;
-            v56 = v15;
-            v57 = 2048;
-            v58 = v18;
+            v55 = v15;
+            v56 = 2048;
+            v57 = v18;
             _os_log_impl(&dword_24510B000, v17, OS_LOG_TYPE_DEFAULT, "Disqualified device %@ because the remaining attempts is %lu", buf, 0x16u);
           }
         }
@@ -1101,11 +1185,11 @@ LABEL_29:
       {
         v26 = objc_opt_class();
         *buf = 138412802;
-        v56 = v15;
-        v57 = 2112;
-        v58 = v24;
-        v59 = 2112;
-        v60 = v26;
+        v55 = v15;
+        v56 = 2112;
+        v57 = v24;
+        v58 = 2112;
+        v59 = v26;
         v27 = v26;
         _os_log_impl(&dword_24510B000, v25, OS_LOG_TYPE_DEFAULT, "Backup record found for device %@ with date %@ (%@)", buf, 0x20u);
       }
@@ -1116,11 +1200,11 @@ LABEL_29:
         if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412802;
-          v56 = v24;
-          v57 = 2112;
-          v58 = v11;
-          v59 = 2112;
-          v60 = v15;
+          v55 = v24;
+          v56 = 2112;
+          v57 = v11;
+          v58 = 2112;
+          v59 = v15;
           _os_log_impl(&dword_24510B000, v29, OS_LOG_TYPE_DEFAULT, "Backup record date %@ is later than the previously known newest record (%@), promoting %@ as newest device record", buf, 0x20u);
         }
 
@@ -1128,11 +1212,11 @@ LABEL_29:
         v11 = v30;
       }
 
-      v12 = v50 + 1;
+      v12 = v49 + 1;
     }
 
-    while (v10 != v50 + 1);
-    v10 = [obj countByEnumeratingWithState:&v51 objects:v61 count:16];
+    while (v10 != v49 + 1);
+    v10 = [obj countByEnumeratingWithState:&v50 objects:v60 count:16];
   }
 
   while (v10);
@@ -1142,13 +1226,13 @@ LABEL_41:
   if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v56 = v11;
+    v55 = v11;
     _os_log_impl(&dword_24510B000, v31, OS_LOG_TYPE_DEFAULT, "Finished parsing multiple-iCSC records and found the newest record to be %@", buf, 0xCu);
   }
 
-  v32 = v46;
-  v4 = v45;
-  if ([v46 count])
+  v32 = v45;
+  v4 = v44;
+  if ([v45 count])
   {
     v33 = 1;
   }
@@ -1156,28 +1240,28 @@ LABEL_41:
   else
   {
     v34 = *MEMORY[0x277CFB330];
-    v35 = [v45 objectForKeyedSubscript:*MEMORY[0x277CFB330]];
+    v35 = [v44 objectForKeyedSubscript:*MEMORY[0x277CFB330]];
     v33 = v35 == 0;
     if (v35)
     {
-      v36 = [v45 objectForKeyedSubscript:v34];
+      v36 = [v44 objectForKeyedSubscript:v34];
       v37 = _CDPLogSystem();
       if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v56 = v36;
+        v55 = v36;
         _os_log_impl(&dword_24510B000, v37, OS_LOG_TYPE_DEFAULT, "Found a single-iCSC metadata record. Returning that as a faux-device using %@", buf, 0xCu);
       }
 
       v38 = [objc_alloc(MEMORY[0x277CFD4C0]) initWithSecureBackupMetadataInfo:v36];
-      v39 = [v45 objectForKeyedSubscript:*MEMORY[0x277CFB3C0]];
+      v39 = [v44 objectForKeyedSubscript:*MEMORY[0x277CFB3C0]];
       [v38 setHasRandomSecret:{objc_msgSend(v39, "BOOLValue")}];
 
-      v4 = v45;
-      [v46 removeAllObjects];
-      [v46 addObject:v38];
+      v4 = v44;
+      [v45 removeAllObjects];
+      [v45 addObject:v38];
 
-      v32 = v46;
+      v32 = v45;
     }
 
     else
@@ -1196,9 +1280,9 @@ LABEL_41:
   {
     v41 = [v32 count];
     *buf = 134218240;
-    v56 = v41;
-    v57 = 1024;
-    LODWORD(v58) = v33;
+    v55 = v41;
+    v56 = 1024;
+    LODWORD(v57) = v33;
     _os_log_impl(&dword_24510B000, v40, OS_LOG_TYPE_DEFAULT, "Finished parsing backup records, returning %lu devices and isUsingMultipleICSC=%i", buf, 0x12u);
   }
 
@@ -1211,8 +1295,6 @@ LABEL_41:
 
   v5 = 0;
 LABEL_57:
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_dateWithSecureBackupDateString:(id)string
@@ -1575,7 +1657,7 @@ LABEL_6:
 
 void __55__CDPDSecureBackupController_checkForAnyOctagonRecord___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = a4;
   if (v7)
@@ -1599,9 +1681,9 @@ void __55__CDPDSecureBackupController_checkForAnyOctagonRecord___block_invoke(ui
     v11 = _CDPLogSystem();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 138412290;
-      v15 = v10;
-      _os_log_impl(&dword_24510B000, v11, OS_LOG_TYPE_DEFAULT, "Completed the check for OT only viable escrow records with result: %@", &v14, 0xCu);
+      v13 = 138412290;
+      v14 = v10;
+      _os_log_impl(&dword_24510B000, v11, OS_LOG_TYPE_DEFAULT, "Completed the check for OT only viable escrow records with result: %@", &v13, 0xCu);
     }
 
     v12 = *(a1 + 32);
@@ -1610,8 +1692,6 @@ void __55__CDPDSecureBackupController_checkForAnyOctagonRecord___block_invoke(ui
       (*(v12 + 16))(v12, v10 != 0, 0);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __55__CDPDSecureBackupController_checkForAnyOctagonRecord___block_invoke_72(uint64_t a1, void *a2)
@@ -1670,7 +1750,7 @@ uint64_t __53__CDPDSecureBackupController_checkForExistingRecord___block_invoke(
 
 - (void)checkForExistingRecordWithPeerId:(id)id completion:(id)completion
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   idCopy = id;
   v7 = self->_context;
   completionCopy = completion;
@@ -1692,30 +1772,28 @@ uint64_t __53__CDPDSecureBackupController_checkForExistingRecord___block_invoke(
   aBlock[1] = 3221225472;
   aBlock[2] = __74__CDPDSecureBackupController_checkForExistingRecordWithPeerId_completion___block_invoke;
   aBlock[3] = &unk_278E257F0;
-  v24 = v11;
+  v23 = v11;
   v12 = v7;
-  v23 = v12;
+  v22 = v12;
   v13 = v11;
   v14 = _Block_copy(aBlock);
   v15 = _CDPLogSystem();
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v26 = idCopy;
+    v25 = idCopy;
     _os_log_impl(&dword_24510B000, v15, OS_LOG_TYPE_DEFAULT, "Checking if the peer has a secure backup: %@", buf, 0xCu);
   }
 
   v16 = MEMORY[0x277CCAC30];
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __74__CDPDSecureBackupController_checkForExistingRecordWithPeerId_completion___block_invoke_75;
-  v20[3] = &unk_278E24668;
-  v21 = idCopy;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __74__CDPDSecureBackupController_checkForExistingRecordWithPeerId_completion___block_invoke_75;
+  v19[3] = &unk_278E24668;
+  v20 = idCopy;
   v17 = idCopy;
-  v18 = [v16 predicateWithBlock:v20];
+  v18 = [v16 predicateWithBlock:v19];
   [(CDPDSecureBackupController *)self checkForExistingRecordMatchingPredicate:v18 forceFetch:0 completion:v14];
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __74__CDPDSecureBackupController_checkForExistingRecordWithPeerId_completion___block_invoke(uint64_t a1)
@@ -1739,6 +1817,61 @@ uint64_t __74__CDPDSecureBackupController_checkForExistingRecordWithPeerId_compl
   return v4;
 }
 
+- (void)checkForExistingRecordMatchingPredicate:(id)predicate forceFetch:(BOOL)fetch completion:(id)completion
+{
+  fetchCopy = fetch;
+  predicateCopy = predicate;
+  v9 = self->_context;
+  completionCopy = completion;
+  backupActivity = [(CDPContext *)v9 backupActivity];
+  if (backupActivity)
+  {
+    v12 = backupActivity;
+  }
+
+  else
+  {
+    v12 = 1846835407;
+  }
+
+  [(CDPContext *)v9 setBackupActivity:v12];
+  v13 = _Block_copy(completionCopy);
+
+  aBlock[0] = MEMORY[0x277D85DD0];
+  aBlock[1] = 3221225472;
+  aBlock[2] = __92__CDPDSecureBackupController_checkForExistingRecordMatchingPredicate_forceFetch_completion___block_invoke;
+  aBlock[3] = &unk_278E257F0;
+  v14 = v13;
+  v23 = v14;
+  v15 = v9;
+  v22 = v15;
+  v16 = _Block_copy(aBlock);
+  v17 = _CDPLogSystem();
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+  {
+    [CDPDSOSSecureBackupController checkForExistingRecordMatchingPredicate:forceFetch:completion:];
+  }
+
+  if (v16)
+  {
+    if (predicateCopy)
+    {
+      v18[0] = MEMORY[0x277D85DD0];
+      v18[1] = 3221225472;
+      v18[2] = __92__CDPDSecureBackupController_checkForExistingRecordMatchingPredicate_forceFetch_completion___block_invoke_77;
+      v18[3] = &unk_278E24548;
+      v19 = predicateCopy;
+      v20 = v16;
+      [(CDPDSecureBackupController *)self getBackupRecordDevicesWithOptionForceFetch:fetchCopy completion:v18];
+    }
+
+    else
+    {
+      (*(v16 + 2))(v16, 0, 0);
+    }
+  }
+}
+
 uint64_t __92__CDPDSecureBackupController_checkForExistingRecordMatchingPredicate_forceFetch_completion___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 40);
@@ -1754,7 +1887,7 @@ uint64_t __92__CDPDSecureBackupController_checkForExistingRecordMatchingPredicat
 
 void __92__CDPDSecureBackupController_checkForExistingRecordMatchingPredicate_forceFetch_completion___block_invoke_77(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v6 = a4;
   if (v6)
   {
@@ -1772,9 +1905,9 @@ void __92__CDPDSecureBackupController_checkForExistingRecordMatchingPredicate_fo
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[NSObject count](v7, "count")}];
-      v12 = 138412290;
-      v13 = v10;
-      _os_log_impl(&dword_24510B000, v9, OS_LOG_TYPE_DEFAULT, "Found %@ matching devices", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = v10;
+      _os_log_impl(&dword_24510B000, v9, OS_LOG_TYPE_DEFAULT, "Found %@ matching devices", &v11, 0xCu);
     }
 
     if ([v7 count])
@@ -1788,7 +1921,6 @@ void __92__CDPDSecureBackupController_checkForExistingRecordMatchingPredicate_fo
 LABEL_9:
 
   (*(*(a1 + 40) + 16))();
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)supportsRecoveryKeyWithError:(id *)error
@@ -2080,8 +2212,9 @@ void __76__CDPDSecureBackupController__retryRepairWithContext_retryCount_complet
   [v4 reauthenticateUserWithCompletion:v7];
 }
 
-void __76__CDPDSecureBackupController__retryRepairWithContext_retryCount_completion___block_invoke_2(uint64_t a1, int a2, void *a3)
+void __76__CDPDSecureBackupController__retryRepairWithContext_retryCount_completion___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
+  v3 = a2;
   v5 = a3;
   v6 = _CDPLogSystem();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
@@ -2089,7 +2222,7 @@ void __76__CDPDSecureBackupController__retryRepairWithContext_retryCount_complet
     __76__CDPDSecureBackupController__retryRepairWithContext_retryCount_completion___block_invoke_2_cold_1();
   }
 
-  if (a2)
+  if (v3)
   {
     v7 = *(a1 + 32);
     v8 = *(a1 + 40);
@@ -2488,7 +2621,7 @@ LABEL_10:
 
 - (void)_authenticatedEnableSecureBackupWithContext:(id)context fallbackState:(unint64_t)state completion:(id)completion
 {
-  v98 = *MEMORY[0x277D85DE8];
+  v97 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   completionCopy = completion;
   v10 = _CDPLogSystem();
@@ -2511,7 +2644,7 @@ LABEL_10:
   }
 
   stateCopy = state;
-  v90 = completionCopy;
+  v89 = completionCopy;
   localSecretType = [contextCopy localSecretType];
   localSecret = [contextCopy localSecret];
   v15 = -[CDPDSecureBackupController _clientMetadataWithSecretType:length:](self, "_clientMetadataWithSecretType:length:", localSecretType, [localSecret length]);
@@ -2546,7 +2679,7 @@ LABEL_10:
   if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
   {
     *buf = 67109120;
-    v97 = unlockScreenType == 0;
+    v96 = unlockScreenType == 0;
     _os_log_debug_impl(&dword_24510B000, v30, OS_LOG_TYPE_DEBUG, "Using cached secret and managed config reports devicePasscodeIsSimple=%i", buf, 8u);
   }
 
@@ -2720,9 +2853,9 @@ LABEL_37:
       [v73 setObject:machineID forKeyedSubscript:@"device_mid"];
       v74 = [v73 copy];
 
-      v94 = @"prk";
-      v95 = primaryAccountStashedPRK;
-      v75 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v95 forKeys:&v94 count:1];
+      v93 = @"prk";
+      v94 = primaryAccountStashedPRK;
+      v75 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v94 forKeys:&v93 count:1];
       v76 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v75 requiringSecureCoding:1 error:0];
       [dictionary setObject:v76 forKey:*MEMORY[0x277CFB320]];
 
@@ -2738,7 +2871,7 @@ LABEL_37:
       }
     }
 
-    v78 = v90;
+    v78 = v89;
     v77 = delegate;
   }
 
@@ -2750,7 +2883,7 @@ LABEL_37:
       [CDPDSecureBackupController _authenticatedEnableSecureBackupWithContext:fallbackState:completion:];
     }
 
-    v78 = v90;
+    v78 = v89;
     v77 = delegate;
   }
 
@@ -2762,9 +2895,9 @@ LABEL_37:
   }
 
   secureBackupProxy = self->_secureBackupProxy;
-  v93 = 0;
-  [(CDPDSecureBackupProxy *)secureBackupProxy enableWithInfo:dictionary error:&v93];
-  v81 = v93;
+  v92 = 0;
+  [(CDPDSecureBackupProxy *)secureBackupProxy enableWithInfo:dictionary error:&v92];
+  v81 = v92;
   v82 = v81;
   if (v81)
   {
@@ -2787,10 +2920,10 @@ LABEL_37:
         _os_log_impl(&dword_24510B000, v85, OS_LOG_TYPE_DEFAULT, "Failed to enable due to existing record, disabling and trying again", buf, 2u);
       }
 
-      v92 = 0;
-      [(CDPDSecureBackupController *)self _disableThenEnableWithInfo:dictionary error:&v92];
+      v91 = 0;
+      [(CDPDSecureBackupController *)self _disableThenEnableWithInfo:dictionary error:&v91];
       domain = v82;
-      v82 = v92;
+      v82 = v91;
     }
   }
 
@@ -2802,11 +2935,11 @@ LABEL_74:
       goto LABEL_79;
     }
 
-    v88 = _CDPLogSystem();
-    if (os_log_type_enabled(v88, OS_LOG_TYPE_DEFAULT))
+    v87 = _CDPLogSystem();
+    if (os_log_type_enabled(v87, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_24510B000, v88, OS_LOG_TYPE_DEFAULT, "Failed to synchronize circle views", buf, 2u);
+      _os_log_impl(&dword_24510B000, v87, OS_LOG_TYPE_DEFAULT, "Failed to synchronize circle views", buf, 2u);
     }
 
     context = _CDPStateError();
@@ -2820,7 +2953,6 @@ LABEL_74:
   }
 
 LABEL_79:
-  v87 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleSecureBackupEnablementError:(id)error fallbackState:(unint64_t)state context:(id)context delegate:(id)delegate completion:(id)completion
@@ -3133,7 +3265,7 @@ void __50__CDPDSecureBackupController__currentAnisetteData__block_invoke(uint64_
 
 - (id)performEscrowRecoveryWithData:(id)data error:(id *)error
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v7 = _CDPLogSystem();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
@@ -3164,17 +3296,17 @@ void __50__CDPDSecureBackupController__currentAnisetteData__block_invoke(uint64_
     telemetryFlowID3 = [(CDPContext *)self->_context telemetryFlowID];
     telemetryDeviceSessionID3 = [(CDPContext *)self->_context telemetryDeviceSessionID];
     *buf = 138543618;
-    v28 = telemetryFlowID3;
-    v29 = 2114;
-    v30 = telemetryDeviceSessionID3;
+    v27 = telemetryFlowID3;
+    v28 = 2114;
+    v29 = telemetryDeviceSessionID3;
     _os_log_impl(&dword_24510B000, v13, OS_LOG_TYPE_DEFAULT, "Passing telemetry flow ID %{public}@ and session ID %{public}@ to OTClique performEscrowRecoveryWithContextData", buf, 0x16u);
   }
 
   v16 = MEMORY[0x277CDBD48];
   cliqueConfiguration = [(CDPContext *)self->_context cliqueConfiguration];
-  v26 = 0;
-  v18 = [v16 performEscrowRecoveryWithContextData:cliqueConfiguration escrowArguments:v8 error:&v26];
-  v19 = v26;
+  v25 = 0;
+  v18 = [v16 performEscrowRecoveryWithContextData:cliqueConfiguration escrowArguments:v8 error:&v25];
+  v19 = v25;
 
   v20 = _CDPLogSystem();
   v21 = v20;
@@ -3208,14 +3340,12 @@ void __50__CDPDSecureBackupController__currentAnisetteData__block_invoke(uint64_
     v23 = v18;
   }
 
-  v24 = *MEMORY[0x277D85DE8];
-
   return v23;
 }
 
 - (id)performSilentEscrowRecoveryWithCDPContext:(id)context error:(id *)error
 {
-  v80[1] = *MEMORY[0x277D85DE8];
+  v79[1] = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v7 = _CDPLogSystem();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
@@ -3223,55 +3353,55 @@ void __50__CDPDSecureBackupController__currentAnisetteData__block_invoke(uint64_
     [CDPDSecureBackupController performSilentEscrowRecoveryWithCDPContext:error:];
   }
 
-  v69 = 0;
-  v70[0] = &v69;
-  v70[1] = 0x3032000000;
-  v70[2] = __Block_byref_object_copy__5;
-  v70[3] = __Block_byref_object_dispose__5;
-  v71 = 0;
-  v63 = 0;
-  v64 = &v63;
-  v65 = 0x3032000000;
-  v66 = __Block_byref_object_copy__5;
-  v67 = __Block_byref_object_dispose__5;
+  v68 = 0;
+  v69[0] = &v68;
+  v69[1] = 0x3032000000;
+  v69[2] = __Block_byref_object_copy__5;
+  v69[3] = __Block_byref_object_dispose__5;
+  v70 = 0;
+  v62 = 0;
+  v63 = &v62;
+  v64 = 0x3032000000;
+  v65 = __Block_byref_object_copy__5;
+  v66 = __Block_byref_object_dispose__5;
   array = [MEMORY[0x277CBEB18] array];
-  v59 = 0;
-  v60 = &v59;
-  v61 = 0x2020000000;
-  v62 = 1;
+  v58 = 0;
+  v59 = &v58;
+  v60 = 0x2020000000;
+  v61 = 1;
   v8 = dispatch_semaphore_create(0);
-  v54[0] = MEMORY[0x277D85DD0];
-  v54[1] = 3221225472;
-  v54[2] = __78__CDPDSecureBackupController_performSilentEscrowRecoveryWithCDPContext_error___block_invoke;
-  v54[3] = &unk_278E258B8;
-  v56 = &v69;
-  v57 = &v59;
-  v58 = &v63;
+  v53[0] = MEMORY[0x277D85DD0];
+  v53[1] = 3221225472;
+  v53[2] = __78__CDPDSecureBackupController_performSilentEscrowRecoveryWithCDPContext_error___block_invoke;
+  v53[3] = &unk_278E258B8;
+  v55 = &v68;
+  v56 = &v58;
+  v57 = &v62;
   v9 = v8;
-  v55 = v9;
-  [(CDPDSecureBackupController *)self getBackupRecordDevicesWithOptionForceFetch:0 completion:v54];
+  v54 = v9;
+  [(CDPDSecureBackupController *)self getBackupRecordDevicesWithOptionForceFetch:0 completion:v53];
   dispatch_semaphore_wait(v9, 0xFFFFFFFFFFFFFFFFLL);
-  if (*(v70[0] + 40))
+  if (*(v69[0] + 40))
   {
     v10 = _CDPLogSystem();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [(CDPDSecureBackupController *)v70 performSilentEscrowRecoveryWithCDPContext:v10 error:v11, v12, v13, v14, v15, v16];
+      [(CDPDSecureBackupController *)v69 performSilentEscrowRecoveryWithCDPContext:v10 error:v11, v12, v13, v14, v15, v16];
     }
 
     if (error)
     {
       v17 = 0;
-      *error = *(v70[0] + 40);
+      *error = *(v69[0] + 40);
       goto LABEL_40;
     }
 
     goto LABEL_33;
   }
 
-  if (v60[3])
+  if (v59[3])
   {
-    if (![v64[5] count])
+    if (![v63[5] count])
     {
       v37 = _CDPLogSystem();
       if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
@@ -3282,9 +3412,9 @@ void __50__CDPDSecureBackupController__currentAnisetteData__block_invoke(uint64_
       if (error)
       {
         v38 = MEMORY[0x277CCA9B8];
-        v79 = *MEMORY[0x277CCA450];
-        v80[0] = @"no escrow records found";
-        v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v80 forKeys:&v79 count:1];
+        v78 = *MEMORY[0x277CCA450];
+        v79[0] = @"no escrow records found";
+        v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v79 forKeys:&v78 count:1];
         v40 = [v38 errorWithDomain:*MEMORY[0x277CFD418] code:-5305 userInfo:v39];
 
         v41 = v40;
@@ -3299,7 +3429,7 @@ LABEL_33:
     v18 = _CDPLogSystem();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
-      -[CDPDSecureBackupController performSilentEscrowRecoveryWithCDPContext:error:].cold.3(v78, [v64[5] count], v18);
+      -[CDPDSecureBackupController performSilentEscrowRecoveryWithCDPContext:error:].cold.3(v77, [v63[5] count], v18);
     }
 
     v19 = _CDPLogSystem();
@@ -3308,7 +3438,7 @@ LABEL_33:
       [CDPDSecureBackupController performSilentEscrowRecoveryWithCDPContext:error:];
     }
 
-    v52 = [MEMORY[0x277CE44D8] analyticsEventWithContext:self->_context eventName:*MEMORY[0x277CFD880] category:*MEMORY[0x277CFD930]];
+    v51 = [MEMORY[0x277CE44D8] analyticsEventWithContext:self->_context eventName:*MEMORY[0x277CFD880] category:*MEMORY[0x277CFD930]];
     v20 = _CDPSignpostLogSystem();
     v21 = _CDPSignpostCreate();
 
@@ -3324,15 +3454,15 @@ LABEL_33:
     if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v73 = v21;
+      v72 = v21;
       _os_log_impl(&dword_24510B000, v24, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: OTCPerformSilentEscrowRecovery  enableTelemetry=YES ", buf, 0xCu);
     }
 
     v25 = MEMORY[0x277CDBD48];
     cliqueConfiguration = [(CDPContext *)self->_context cliqueConfiguration];
-    v27 = v64[5];
-    v28 = (v70[0] + 40);
-    obj = *(v70[0] + 40);
+    v27 = v63[5];
+    v28 = (v69[0] + 40);
+    obj = *(v69[0] + 40);
     v17 = [v25 performSilentEscrowRecovery:cliqueConfiguration cdpContext:contextCopy allRecords:v27 error:&obj];
     objc_storeStrong(v28, obj);
 
@@ -3341,28 +3471,28 @@ LABEL_33:
     v31 = v30;
     if (v21 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v30))
     {
-      code = [*(v70[0] + 40) code];
+      code = [*(v69[0] + 40) code];
       *buf = 67240192;
-      LODWORD(v73) = code;
+      LODWORD(v72) = code;
       _os_signpost_emit_with_name_impl(&dword_24510B000, v31, OS_SIGNPOST_INTERVAL_END, v21, "OTCPerformSilentEscrowRecovery", " Error=%{public,signpost.telemetry:number1,name=Error}d ", buf, 8u);
     }
 
     v33 = _CDPSignpostLogSystem();
     if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
     {
-      code2 = [*(v70[0] + 40) code];
+      code2 = [*(v69[0] + 40) code];
       *buf = 134218496;
-      v73 = v21;
-      v74 = 2048;
-      v75 = Nanoseconds / 1000000000.0;
-      v76 = 1026;
-      v77 = code2;
+      v72 = v21;
+      v73 = 2048;
+      v74 = Nanoseconds / 1000000000.0;
+      v75 = 1026;
+      v76 = code2;
       _os_log_impl(&dword_24510B000, v33, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: OTCPerformSilentEscrowRecovery  Error=%{public,signpost.telemetry:number1,name=Error}d ", buf, 0x1Cu);
     }
 
     if (v17)
     {
-      [v52 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:*MEMORY[0x277CFD6C0]];
+      [v51 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:*MEMORY[0x277CFD6C0]];
     }
 
     else
@@ -3370,20 +3500,20 @@ LABEL_33:
       v42 = _CDPLogSystem();
       if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
       {
-        [(CDPDSecureBackupController *)v70 performSilentEscrowRecoveryWithCDPContext:v42 error:v43, v44, v45, v46, v47, v48];
+        [(CDPDSecureBackupController *)v69 performSilentEscrowRecoveryWithCDPContext:v42 error:v43, v44, v45, v46, v47, v48];
       }
 
       if (error)
       {
-        *error = *(v70[0] + 40);
+        *error = *(v69[0] + 40);
       }
 
-      [v52 setObject:MEMORY[0x277CBEC28] forKeyedSubscript:*MEMORY[0x277CFD6C0]];
-      [v52 populateUnderlyingErrorsStartingWithRootError:*(v70[0] + 40)];
+      [v51 setObject:MEMORY[0x277CBEC28] forKeyedSubscript:*MEMORY[0x277CFD6C0]];
+      [v51 populateUnderlyingErrorsStartingWithRootError:*(v69[0] + 40)];
     }
 
     rtcAnalyticsReporter = [MEMORY[0x277CFD490] rtcAnalyticsReporter];
-    [rtcAnalyticsReporter sendEvent:v52];
+    [rtcAnalyticsReporter sendEvent:v51];
   }
 
   else
@@ -3400,18 +3530,17 @@ LABEL_33:
 
 LABEL_40:
 
-  _Block_object_dispose(&v59, 8);
-  _Block_object_dispose(&v63, 8);
+  _Block_object_dispose(&v58, 8);
+  _Block_object_dispose(&v62, 8);
 
-  _Block_object_dispose(&v69, 8);
-  v50 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v68, 8);
 
   return v17;
 }
 
 void __78__CDPDSecureBackupController_performSilentEscrowRecoveryWithCDPContext_error___block_invoke(uint64_t a1, char a2, void *a3, void *a4)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a4;
   if (v8)
@@ -3441,36 +3570,36 @@ LABEL_4:
 
   if (a2)
   {
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
-    v11 = v7;
-    v12 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
-    if (v12)
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
+    v10 = v7;
+    v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    if (v11)
     {
-      v13 = v12;
-      v14 = *v21;
+      v12 = v11;
+      v13 = *v20;
       do
       {
-        for (i = 0; i != v13; ++i)
+        for (i = 0; i != v12; ++i)
         {
-          if (*v21 != v14)
+          if (*v20 != v13)
           {
-            objc_enumerationMutation(v11);
+            objc_enumerationMutation(v10);
           }
 
-          v16 = MEMORY[0x277D36DA0];
-          v17 = [*(*(&v20 + 1) + 8 * i) recordInfo];
-          v18 = [v16 dictionaryToEscrowRecord:v17];
+          v15 = MEMORY[0x277D36DA0];
+          v16 = [*(*(&v19 + 1) + 8 * i) recordInfo];
+          v17 = [v15 dictionaryToEscrowRecord:v16];
 
-          [*(*(*(a1 + 56) + 8) + 40) addObject:v18];
+          [*(*(*(a1 + 56) + 8) + 40) addObject:v17];
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
-      while (v13);
+      while (v12);
     }
 
     v9 = _CDPLogSystem();
@@ -3482,8 +3611,8 @@ LABEL_4:
     goto LABEL_4;
   }
 
-  v19 = _CDPLogSystem();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+  v18 = _CDPLogSystem();
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
   {
     __78__CDPDSecureBackupController_performSilentEscrowRecoveryWithCDPContext_error___block_invoke_cold_2();
   }
@@ -3491,8 +3620,6 @@ LABEL_4:
   *(*(*(a1 + 48) + 8) + 24) = 0;
 LABEL_5:
   dispatch_semaphore_signal(*(a1 + 32));
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)recordIsEmpty:(id)empty
@@ -3578,7 +3705,7 @@ LABEL_5:
 
 - (id)_performEscrowRecoveryWithRecoveryContext:(id)context fallbackState:(unint64_t)state error:(id *)error
 {
-  v94[1] = *MEMORY[0x277D85DE8];
+  v93[1] = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v9 = _CDPLogSystem();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
@@ -3631,9 +3758,9 @@ LABEL_12:
       [v22 setObject:telemetryDeviceSessionID2 forKeyedSubscript:*MEMORY[0x277CE4578]];
     }
 
-    v86 = 0;
-    v27 = [MEMORY[0x277CDBD48] recoverWithRecoveryKey:cliqueConfiguration recoveryKey:recoveryKey2 error:&v86];
-    v28 = v86;
+    v85 = 0;
+    v27 = [MEMORY[0x277CDBD48] recoverWithRecoveryKey:cliqueConfiguration recoveryKey:recoveryKey2 error:&v85];
+    v28 = v85;
     if ((v27 & 1) == 0)
     {
       [v22 setObject:MEMORY[0x277CBEC28] forKeyedSubscript:*MEMORY[0x277CFD6C0]];
@@ -3764,9 +3891,9 @@ LABEL_47:
     {
       v53 = MEMORY[0x277CCA9B8];
       v54 = *MEMORY[0x277CFD418];
-      v93 = *MEMORY[0x277CCA450];
-      v94[0] = @"chosen record is empty";
-      v55 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v94 forKeys:&v93 count:1];
+      v92 = *MEMORY[0x277CCA450];
+      v93[0] = @"chosen record is empty";
+      v55 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v93 forKeys:&v92 count:1];
       v56 = [v53 errorWithDomain:v54 code:-5305 userInfo:v55];
 
       v57 = v56;
@@ -3785,14 +3912,14 @@ LABEL_43:
     [CDPDSecureBackupController _performEscrowRecoveryWithRecoveryContext:fallbackState:error:];
   }
 
-  v61 = objc_alloc(MEMORY[0x277CE44D8]);
-  v62 = [v61 initWithEventName:*MEMORY[0x277CFD828] eventCategory:*MEMORY[0x277CFD930] initData:0];
+  v60 = objc_alloc(MEMORY[0x277CE44D8]);
+  v61 = [v60 initWithEventName:*MEMORY[0x277CFD828] eventCategory:*MEMORY[0x277CFD930] initData:0];
   telemetryFlowID3 = [(CDPContext *)self->_context telemetryFlowID];
 
   if (telemetryFlowID3)
   {
     telemetryFlowID4 = [(CDPContext *)self->_context telemetryFlowID];
-    [v62 setObject:telemetryFlowID4 forKeyedSubscript:*MEMORY[0x277CE45A8]];
+    [v61 setObject:telemetryFlowID4 forKeyedSubscript:*MEMORY[0x277CE45A8]];
   }
 
   telemetryDeviceSessionID3 = [(CDPContext *)self->_context telemetryDeviceSessionID];
@@ -3800,81 +3927,81 @@ LABEL_43:
   if (telemetryDeviceSessionID3)
   {
     telemetryDeviceSessionID4 = [(CDPContext *)self->_context telemetryDeviceSessionID];
-    [v62 setObject:telemetryDeviceSessionID4 forKeyedSubscript:*MEMORY[0x277CE4578]];
+    [v61 setObject:telemetryDeviceSessionID4 forKeyedSubscript:*MEMORY[0x277CE4578]];
   }
 
-  v67 = _CDPSignpostLogSystem();
-  v68 = _CDPSignpostCreate();
+  v66 = _CDPSignpostLogSystem();
+  v67 = _CDPSignpostCreate();
 
-  v69 = _CDPSignpostLogSystem();
-  v70 = v69;
-  if (v68 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v69))
+  v68 = _CDPSignpostLogSystem();
+  v69 = v68;
+  if (v67 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v68))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_24510B000, v70, OS_SIGNPOST_INTERVAL_BEGIN, v68, "OTCPerformEscrowRecovery", " enableTelemetry=YES ", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_24510B000, v69, OS_SIGNPOST_INTERVAL_BEGIN, v67, "OTCPerformEscrowRecovery", " enableTelemetry=YES ", buf, 2u);
   }
 
-  v71 = _CDPSignpostLogSystem();
-  if (os_log_type_enabled(v71, OS_LOG_TYPE_DEFAULT))
+  v70 = _CDPSignpostLogSystem();
+  if (os_log_type_enabled(v70, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v88 = v68;
-    _os_log_impl(&dword_24510B000, v71, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: OTCPerformEscrowRecovery  enableTelemetry=YES ", buf, 0xCu);
+    v87 = v67;
+    _os_log_impl(&dword_24510B000, v70, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: OTCPerformEscrowRecovery  enableTelemetry=YES ", buf, 0xCu);
   }
 
-  v72 = MEMORY[0x277CDBD48];
+  v71 = MEMORY[0x277CDBD48];
   cliqueConfiguration3 = [(CDPContext *)self->_context cliqueConfiguration];
-  v84 = v50;
-  v85 = 0;
-  v32 = [v72 performEscrowRecovery:cliqueConfiguration3 cdpContext:v11 escrowRecord:v50 error:&v85];
-  v35 = v85;
+  v83 = v50;
+  v84 = 0;
+  v32 = [v71 performEscrowRecovery:cliqueConfiguration3 cdpContext:v11 escrowRecord:v50 error:&v84];
+  v35 = v84;
 
   Nanoseconds = _CDPSignpostGetNanoseconds();
-  v75 = _CDPSignpostLogSystem();
-  v76 = v75;
-  if (v68 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v75))
+  v74 = _CDPSignpostLogSystem();
+  v75 = v74;
+  if (v67 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v74))
   {
     code = [v35 code];
     *buf = 67240192;
-    LODWORD(v88) = code;
-    _os_signpost_emit_with_name_impl(&dword_24510B000, v76, OS_SIGNPOST_INTERVAL_END, v68, "OTCPerformEscrowRecovery", " Error=%{public,signpost.telemetry:number1,name=Error}d ", buf, 8u);
+    LODWORD(v87) = code;
+    _os_signpost_emit_with_name_impl(&dword_24510B000, v75, OS_SIGNPOST_INTERVAL_END, v67, "OTCPerformEscrowRecovery", " Error=%{public,signpost.telemetry:number1,name=Error}d ", buf, 8u);
   }
 
-  v78 = _CDPSignpostLogSystem();
-  if (os_log_type_enabled(v78, OS_LOG_TYPE_DEFAULT))
+  v77 = _CDPSignpostLogSystem();
+  if (os_log_type_enabled(v77, OS_LOG_TYPE_DEFAULT))
   {
     code2 = [v35 code];
     *buf = 134218496;
-    v88 = v68;
-    v89 = 2048;
-    v90 = Nanoseconds / 1000000000.0;
-    v91 = 1026;
-    v92 = code2;
-    _os_log_impl(&dword_24510B000, v78, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: OTCPerformEscrowRecovery  Error=%{public,signpost.telemetry:number1,name=Error}d ", buf, 0x1Cu);
+    v87 = v67;
+    v88 = 2048;
+    v89 = Nanoseconds / 1000000000.0;
+    v90 = 1026;
+    v91 = code2;
+    _os_log_impl(&dword_24510B000, v77, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: OTCPerformEscrowRecovery  Error=%{public,signpost.telemetry:number1,name=Error}d ", buf, 0x1Cu);
   }
 
-  v80 = *MEMORY[0x277CFD6C0];
+  v79 = *MEMORY[0x277CFD6C0];
   if (v32)
   {
-    [v62 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:v80];
+    [v61 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:v79];
   }
 
   else
   {
-    [v62 setObject:MEMORY[0x277CBEC28] forKeyedSubscript:v80];
-    [v62 populateUnderlyingErrorsStartingWithRootError:v35];
+    [v61 setObject:MEMORY[0x277CBEC28] forKeyedSubscript:v79];
+    [v61 populateUnderlyingErrorsStartingWithRootError:v35];
   }
 
   rtcAnalyticsReporter3 = [MEMORY[0x277CFD490] rtcAnalyticsReporter];
-  [rtcAnalyticsReporter3 sendEvent:v62];
+  [rtcAnalyticsReporter3 sendEvent:v61];
 
   if (!v35)
   {
     goto LABEL_22;
   }
 
-  v82 = _CDPLogSystem();
-  if (os_log_type_enabled(v82, OS_LOG_TYPE_ERROR))
+  v81 = _CDPLogSystem();
+  if (os_log_type_enabled(v81, OS_LOG_TYPE_ERROR))
   {
     [CDPDSecureBackupController _performEscrowRecoveryWithRecoveryContext:fallbackState:error:];
   }
@@ -3884,12 +4011,10 @@ LABEL_43:
     goto LABEL_43;
   }
 
-  v83 = v35;
+  v82 = v35;
   v36 = 0;
   *error = v35;
 LABEL_48:
-
-  v59 = *MEMORY[0x277D85DE8];
 
   return v36;
 }
@@ -3915,56 +4040,56 @@ void __82__CDPDSecureBackupController_performEscrowRecoveryWithRecoveryContext_c
 {
   v5 = a3;
   [a1[4] setOctagonCapableRecordsExist:a2];
-  v44 = 0;
-  v45 = &v44;
-  v46 = 0x3032000000;
-  v47 = __Block_byref_object_copy__5;
-  v48 = __Block_byref_object_dispose__5;
-  v49 = 0;
-  v38 = 0;
-  v39 = &v38;
-  v40 = 0x3032000000;
-  v41 = __Block_byref_object_copy__5;
-  v42 = __Block_byref_object_dispose__5;
-  v43 = objc_alloc_init(CDPDRemoteSecretValidationResult);
+  v41 = 0;
+  v42 = &v41;
+  v43 = 0x3032000000;
+  v44 = __Block_byref_object_copy__5;
+  v45 = __Block_byref_object_dispose__5;
+  v46 = 0;
+  v35 = 0;
+  v36 = &v35;
+  v37 = 0x3032000000;
+  v38 = __Block_byref_object_copy__5;
+  v39 = __Block_byref_object_dispose__5;
+  v40 = objc_alloc_init(CDPDRemoteSecretValidationResult);
   v7 = a1[4];
   v6 = a1[5];
-  v8 = v45;
-  obj = v45[5];
+  v8 = v42;
+  obj = v42[5];
   v9 = [v6 performEscrowRecoveryWithRecoveryContext:v7 error:&obj];
   objc_storeStrong(v8 + 5, obj);
-  [v39[5] setRecoveredClique:v9];
+  [v36[5] setRecoveredClique:v9];
 
-  v10 = [v39[5] recoveredClique];
-  if (!v10 || (v11 = v45[5], v10, v11))
+  v10 = [v36[5] recoveredClique];
+  if (!v10 || (v11 = v42[5], v10, v11))
   {
-    if ([v45[5] isAuthenticationError])
+    if ([v42[5] isAuthenticationError])
     {
       v12 = a1[4];
       v13 = a1[5];
       v14 = v13[2];
-      v32[0] = MEMORY[0x277D85DD0];
-      v32[1] = 3221225472;
-      v32[2] = __82__CDPDSecureBackupController_performEscrowRecoveryWithRecoveryContext_completion___block_invoke_2;
-      v32[3] = &unk_278E258E0;
-      v35 = &v38;
-      v32[4] = v13;
-      v33 = v12;
-      v36 = &v44;
-      v34 = a1[6];
-      [v14 reauthenticateUserWithCompletion:v32];
+      v29[0] = MEMORY[0x277D85DD0];
+      v29[1] = 3221225472;
+      v29[2] = __82__CDPDSecureBackupController_performEscrowRecoveryWithRecoveryContext_completion___block_invoke_2;
+      v29[3] = &unk_278E258E0;
+      v32 = &v35;
+      v29[4] = v13;
+      v30 = v12;
+      v33 = &v41;
+      v31 = a1[6];
+      [v14 reauthenticateUserWithCompletion:v29];
 
       v15 = 0;
     }
 
     else
     {
-      if ([a1[4] silentRecovery] && objc_msgSend(v45[5], "isICSCInvalidError"))
+      if ([a1[4] silentRecovery] && objc_msgSend(v42[5], "isICSCInvalidError"))
       {
         v16 = a1[5];
-        v31 = 0;
-        v17 = [v16 supportsRecoveryKeyWithError:&v31];
-        v15 = v31;
+        v28 = 0;
+        v17 = [v16 supportsRecoveryKeyWithError:&v28];
+        v15 = v28;
         if (v17)
         {
           v18 = _CDPLogSystem();
@@ -3977,12 +4102,12 @@ void __82__CDPDSecureBackupController_performEscrowRecoveryWithRecoveryContext_c
           [a1[4] setUsePreviouslyCachedRecoveryKey:1];
           v19 = [a1[5] _recoveryInfoDictionaryFromContext:a1[4] usePreviouslyCachedSecret:{objc_msgSend(a1[4], "usePreviouslyCachedSecret")}];
           v20 = a1[5];
-          v29 = 0;
-          v21 = [v20 performEscrowRecoveryWithData:v19 error:&v29];
-          v22 = v29;
-          [v39[5] setRecoveredClique:v21];
+          v26 = 0;
+          v21 = [v20 performEscrowRecoveryWithData:v19 error:&v26];
+          v22 = v26;
+          [v36[5] setRecoveredClique:v21];
 
-          v23 = [v39[5] recoveredClique];
+          v23 = [v36[5] recoveredClique];
 
           if (!v23)
           {
@@ -3997,8 +4122,8 @@ void __82__CDPDSecureBackupController_performEscrowRecoveryWithRecoveryContext_c
 
             else if (v15)
             {
-              v27 = _CDPLogSystem();
-              if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+              v25 = _CDPLogSystem();
+              if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
               {
                 __82__CDPDSecureBackupController_performEscrowRecoveryWithRecoveryContext_completion___block_invoke_cold_2();
               }
@@ -4012,7 +4137,6 @@ void __82__CDPDSecureBackupController_performEscrowRecoveryWithRecoveryContext_c
             }
           }
 
-          v28 = v39[5];
           (*(a1[6] + 2))();
 
           goto LABEL_24;
@@ -4024,7 +4148,6 @@ void __82__CDPDSecureBackupController_performEscrowRecoveryWithRecoveryContext_c
         v15 = 0;
       }
 
-      v25 = v39[5];
       (*(a1[6] + 2))();
     }
 
@@ -4033,12 +4156,11 @@ LABEL_24:
     goto LABEL_25;
   }
 
-  v26 = v39[5];
   (*(a1[6] + 2))();
 LABEL_25:
-  _Block_object_dispose(&v38, 8);
+  _Block_object_dispose(&v35, 8);
 
-  _Block_object_dispose(&v44, 8);
+  _Block_object_dispose(&v41, 8);
 }
 
 uint64_t __82__CDPDSecureBackupController_performEscrowRecoveryWithRecoveryContext_completion___block_invoke_2(void *a1, int a2)
@@ -4053,17 +4175,14 @@ uint64_t __82__CDPDSecureBackupController_performEscrowRecoveryWithRecoveryConte
     objc_storeStrong((v5 + 40), obj);
     [*(*(a1[7] + 8) + 40) setRecoveredClique:v6];
 
-    v7 = *(*(a1[7] + 8) + 40);
-    v8 = *(*(a1[8] + 8) + 40);
     return (*(a1[6] + 16))();
   }
 
   else
   {
-    v10 = a1[6];
-    v11 = *(a1[6] + 16);
+    v8 = *(a1[6] + 16);
 
-    return v11();
+    return v8();
   }
 }
 
@@ -4228,31 +4347,45 @@ uint64_t __72__CDPDSecureBackupController_recoverSecureBackupWithContext_complet
       v9 = a1[4];
       v10 = a1[5];
       v11 = *(a1[8] + 8);
-      v20 = *(v11 + 40);
-      v12 = [v9 _recoverBackupDictionaryWithContext:v10 fallbackState:1 error:&v20];
-      objc_storeStrong((v11 + 40), v20);
+      v17 = *(v11 + 40);
+      v12 = [v9 _recoverBackupDictionaryWithContext:v10 fallbackState:1 error:&v17];
+      objc_storeStrong((v11 + 40), v17);
       v13 = *(a1[7] + 8);
       v14 = *(v13 + 40);
       *(v13 + 40) = v12;
     }
 
-    v15 = *(*(a1[7] + 8) + 40);
-    v16 = *(*(a1[8] + 8) + 40);
     return (*(a1[6] + 16))();
   }
 
   else
   {
-    v18 = a1[6];
-    v19 = *(a1[6] + 16);
+    v16 = *(a1[6] + 16);
 
-    return v19();
+    return v16();
   }
+}
+
+- (id)_makeRecoveryKeyVerifyEventWithError:(id)error result:(BOOL)result
+{
+  resultCopy = result;
+  v5 = MEMORY[0x277CE44D8];
+  context = self->_context;
+  v7 = *MEMORY[0x277CFD800];
+  v8 = *MEMORY[0x277CFD930];
+  errorCopy = error;
+  v10 = [v5 analyticsEventWithContext:context eventName:v7 category:v8];
+  v11 = [MEMORY[0x277CCABB0] numberWithBool:resultCopy];
+  [v10 setObject:v11 forKeyedSubscript:*MEMORY[0x277CE4590]];
+
+  [v10 populateUnderlyingErrorsStartingWithRootError:errorCopy];
+
+  return v10;
 }
 
 - (void)validateRecoveryKeyWithContext:(id)context completion:(id)completion
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   completionCopy = completion;
   v8 = _CDPLogSystem();
@@ -4269,9 +4402,9 @@ uint64_t __72__CDPDSecureBackupController_recoverSecureBackupWithContext_complet
     cliqueConfiguration = [(CDPContext *)self->_context cliqueConfiguration];
     v11 = MEMORY[0x277CDBD48];
     recoveryKey2 = [contextCopy recoveryKey];
-    v24 = 0;
-    [v11 preflightRecoverOctagonUsingRecoveryKey:cliqueConfiguration recoveryKey:recoveryKey2 error:&v24];
-    v13 = v24;
+    v23 = 0;
+    [v11 preflightRecoverOctagonUsingRecoveryKey:cliqueConfiguration recoveryKey:recoveryKey2 error:&v23];
+    v13 = v23;
 
     v14 = _CDPLogSystem();
     v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
@@ -4280,7 +4413,7 @@ uint64_t __72__CDPDSecureBackupController_recoverSecureBackupWithContext_complet
       if (v15)
       {
         *buf = 138412290;
-        v26 = v13;
+        v25 = v13;
         _os_log_impl(&dword_24510B000, v14, OS_LOG_TYPE_DEFAULT, "validateRecoveryKey Failed: %@", buf, 0xCu);
       }
 
@@ -4333,8 +4466,6 @@ uint64_t __72__CDPDSecureBackupController_recoverSecureBackupWithContext_complet
     completionCopy[2](completionCopy, 0, cliqueConfiguration);
 LABEL_19:
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)validateAndRepairRecoveryKeyMismatchWithContext:(id)context authProvider:(id)provider circleProxy:(id)proxy completion:(id)completion
@@ -4768,14 +4899,14 @@ LABEL_21:
 
 - (BOOL)_validateOctagonRecoveryKeyWithConfig:(id)config recoveryKey:(id)key
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   configCopy = config;
   keyCopy = key;
   if ([(CDPDSecureBackupController *)self _isRecoveryKeySetInOctagonWithConfig:configCopy])
   {
-    v17 = 0;
-    [MEMORY[0x277CDBD48] preflightRecoverOctagonUsingRecoveryKey:configCopy recoveryKey:keyCopy error:&v17];
-    v8 = v17;
+    v16 = 0;
+    [MEMORY[0x277CDBD48] preflightRecoverOctagonUsingRecoveryKey:configCopy recoveryKey:keyCopy error:&v16];
+    v8 = v16;
     v9 = v8 == 0;
     v10 = _CDPLogSystem();
     v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
@@ -4784,7 +4915,7 @@ LABEL_21:
       if (v11)
       {
         *buf = 138412290;
-        v19 = v8;
+        v18 = v8;
         v12 = "Octagon validateRecoveryKey Failed: %@";
         v13 = v10;
         v14 = 12;
@@ -4815,13 +4946,12 @@ LABEL_10:
   v9 = 0;
 LABEL_12:
 
-  v15 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (void)_setRecoveryKeyInOctagonIfRequiredWithConfig:(id)config recoveryKey:(id)key error:(id *)error
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   configCopy = config;
   keyCopy = key;
   if ([(CDPDSecureBackupController *)self _isRecoveryKeySetInOctagonWithConfig:configCopy])
@@ -4836,9 +4966,9 @@ LABEL_12:
 
   else
   {
-    v15 = 0;
-    [MEMORY[0x277CDBD48] setRecoveryKeyWithContext:configCopy recoveryKey:keyCopy error:&v15];
-    v10 = v15;
+    v14 = 0;
+    [MEMORY[0x277CDBD48] setRecoveryKeyWithContext:configCopy recoveryKey:keyCopy error:&v14];
+    v10 = v14;
     v11 = _CDPLogSystem();
     v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
     if (v10)
@@ -4846,7 +4976,7 @@ LABEL_12:
       if (v12)
       {
         *buf = 138412290;
-        v17 = v10;
+        v16 = v10;
         _os_log_impl(&dword_24510B000, v11, OS_LOG_TYPE_DEFAULT, "Set RK in Octagon Failed with error: %@", buf, 0xCu);
       }
 
@@ -4866,8 +4996,6 @@ LABEL_12:
       }
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_isRecoveryKeySetInSOSWithConfig:(id)config
@@ -4913,14 +5041,14 @@ LABEL_8:
 
 - (BOOL)_validateSOSRecoveryKey:(id)key config:(id)config
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   if ([(CDPDSecureBackupController *)self _isRecoveryKeySetInSOSWithConfig:config])
   {
     secureBackupProxy = [(CDPDSecureBackupController *)self secureBackupProxy];
-    v18 = 0;
-    v8 = [secureBackupProxy verifyRecoveryKey:keyCopy error:&v18];
-    v9 = v18;
+    v17 = 0;
+    v8 = [secureBackupProxy verifyRecoveryKey:keyCopy error:&v17];
+    v9 = v17;
 
     v10 = (v9 == 0) & v8;
     v11 = _CDPLogSystem();
@@ -4941,7 +5069,7 @@ LABEL_10:
     else if (v12)
     {
       *buf = 138412290;
-      v20 = v9;
+      v19 = v9;
       v13 = "SOS validateRecoveryKey Failed: %@";
       v14 = v11;
       v15 = 12;
@@ -4961,13 +5089,12 @@ LABEL_10:
   v10 = 0;
 LABEL_12:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (void)_setRecoveryKeyInSOSIfRequiredWithConfig:(id)config recoveryKey:(id)key error:(id *)error
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   if ([(CDPDSecureBackupController *)self _isRecoveryKeySetInSOSWithConfig:config]|| ![(CDPDSecureBackupController *)self _isInSOSCircle])
   {
@@ -4982,9 +5109,9 @@ LABEL_12:
   else
   {
     secureBackupProxy = [(CDPDSecureBackupController *)self secureBackupProxy];
-    v16 = 0;
-    v10 = [secureBackupProxy setRecoveryKeyInSOS:keyCopy error:&v16];
-    v11 = v16;
+    v15 = 0;
+    v10 = [secureBackupProxy setRecoveryKeyInSOS:keyCopy error:&v15];
+    v11 = v15;
 
     if (v11 || (v10 & 1) == 0)
     {
@@ -4992,7 +5119,7 @@ LABEL_12:
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v18 = v11;
+        v17 = v11;
         _os_log_impl(&dword_24510B000, v12, OS_LOG_TYPE_DEFAULT, "setRecoveryKeyInSOSWithCompletion Failed: %@", buf, 0xCu);
       }
 
@@ -5010,8 +5137,6 @@ LABEL_12:
       _os_log_impl(&dword_24510B000, v14, OS_LOG_TYPE_DEFAULT, "setRecoveryKeyInSOSWithCompletion suceeded", buf, 2u);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_validateRecoveryKeyInIDMSWithContext:(id)context authProvider:(id)provider completion:(id)completion
@@ -5061,7 +5186,7 @@ LABEL_12:
 
 void __99__CDPDSecureBackupController__setRecoveryKeyInIDMSWithContext_circleProxy_authProvider_completion___block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = _CDPLogSystem();
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
@@ -5069,9 +5194,9 @@ void __99__CDPDSecureBackupController__setRecoveryKeyInIDMSWithContext_circlePro
   {
     if (v7)
     {
-      v12 = 138412290;
-      v13 = v5;
-      _os_log_impl(&dword_24510B000, v6, OS_LOG_TYPE_DEFAULT, "Locally Harmonized RK failed to register in IDMS: %@", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = v5;
+      _os_log_impl(&dword_24510B000, v6, OS_LOG_TYPE_DEFAULT, "Locally Harmonized RK failed to register in IDMS: %@", &v11, 0xCu);
     }
 
     v10 = *(a1 + 32);
@@ -5086,9 +5211,9 @@ void __99__CDPDSecureBackupController__setRecoveryKeyInIDMSWithContext_circlePro
   {
     if (v7)
     {
-      v12 = 138412290;
-      v13 = 0;
-      _os_log_impl(&dword_24510B000, v6, OS_LOG_TYPE_DEFAULT, "Locally Harmonized RK registered in IDMS successfully: %@", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = 0;
+      _os_log_impl(&dword_24510B000, v6, OS_LOG_TYPE_DEFAULT, "Locally Harmonized RK registered in IDMS successfully: %@", &v11, 0xCu);
     }
 
     v8 = *(a1 + 32);
@@ -5099,8 +5224,6 @@ LABEL_11:
       v9();
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_recoverBackupDictionaryWithContext:(id)context fallbackState:(unint64_t)state error:(id *)error
@@ -5166,7 +5289,7 @@ LABEL_11:
 - (id)_recoveryInfoDictionaryFromContext:(id)context usePreviouslyCachedSecret:(BOOL)secret
 {
   secretCopy = secret;
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   device = [contextCopy device];
@@ -5266,19 +5389,17 @@ LABEL_11:
   {
     telemetryFlowID3 = [contextCopy telemetryFlowID];
     telemetryDeviceSessionID3 = [contextCopy telemetryDeviceSessionID];
-    v39 = 138543618;
-    v40 = telemetryFlowID3;
-    v41 = 2114;
-    v42 = telemetryDeviceSessionID3;
-    _os_log_impl(&dword_24510B000, v34, OS_LOG_TYPE_DEFAULT, "Adding telemetry flow ID %{public}@ and session ID %{public}@ to recoveryInfo", &v39, 0x16u);
+    v38 = 138543618;
+    v39 = telemetryFlowID3;
+    v40 = 2114;
+    v41 = telemetryDeviceSessionID3;
+    _os_log_impl(&dword_24510B000, v34, OS_LOG_TYPE_DEFAULT, "Adding telemetry flow ID %{public}@ and session ID %{public}@ to recoveryInfo", &v38, 0x16u);
   }
 
   if ([contextCopy nonViableRequiresRepair])
   {
     [dictionary setObject:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277CFB338]];
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
@@ -5806,7 +5927,7 @@ void __63__CDPDSecureBackupController_disableRecoveryKeyWithCompletion___block_i
 
 - (BOOL)disableRecoveryKey:(id *)key
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = _CDPLogSystem();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
@@ -5815,17 +5936,17 @@ void __63__CDPDSecureBackupController_disableRecoveryKeyWithCompletion___block_i
   }
 
   octagonTrustProxy = [(CDPDSecureBackupController *)self octagonTrustProxy];
-  v13 = 0;
-  v7 = [octagonTrustProxy disableRecoveryKey:&v13];
-  v8 = v13;
+  v12 = 0;
+  v7 = [octagonTrustProxy disableRecoveryKey:&v12];
+  v8 = v12;
 
   v9 = _CDPLogSystem();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109378;
-    v15 = v7;
-    v16 = 2112;
-    v17 = v8;
+    v14 = v7;
+    v15 = 2112;
+    v16 = v8;
     _os_log_impl(&dword_24510B000, v9, OS_LOG_TYPE_DEFAULT, "Removed recovery key result: %{BOOL}d, error: %@", buf, 0x12u);
   }
 
@@ -5835,7 +5956,6 @@ void __63__CDPDSecureBackupController_disableRecoveryKeyWithCompletion___block_i
     *key = v8;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -6011,28 +6131,28 @@ LABEL_11:
 
 + (id)_printableAccountInfo:(id)info
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = [info mutableCopy];
   allKeys = [v3 allKeys];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v5 = [allKeys countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v5 = [allKeys countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v20;
+    v7 = *v19;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v20 != v7)
+        if (*v19 != v7)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v9 = *(*(&v19 + 1) + 8 * i);
+        v9 = *(*(&v18 + 1) + 8 * i);
         v10 = [v3 objectForKeyedSubscript:v9];
         objc_opt_class();
         isKindOfClass = objc_opt_isKindOfClass();
@@ -6061,15 +6181,13 @@ LABEL_11:
         [v3 setObject:v15 forKeyedSubscript:v9];
       }
 
-      v6 = [allKeys countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v6 = [allKeys countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v6);
   }
 
   v16 = [v3 copy];
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -6084,282 +6202,118 @@ LABEL_11:
 - (void)fetchEscrowRecordsWithOptionForceFetch:completion:.cold.1()
 {
   OUTLINED_FUNCTION_7_0();
-  v7 = *MEMORY[0x277D85DE8];
   v0 = [CDPDSecureBackupController _sanitizedInfoDictionary:?];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_0_3();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __80__CDPDSecureBackupController_fetchEscrowRecordsWithOptionForceFetch_completion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __80__CDPDSecureBackupController_fetchEscrowRecordsWithOptionForceFetch_completion___block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "fetchEscrowRecordsWithCompletion: failed to fetch escrow records: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchAllEscrowRecordsWithOptionForceFetch:completion:.cold.1()
 {
   OUTLINED_FUNCTION_7_0();
-  v7 = *MEMORY[0x277D85DE8];
   v0 = [CDPDSecureBackupController _sanitizedInfoDictionary:?];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_0_3();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __83__CDPDSecureBackupController_fetchAllEscrowRecordsWithOptionForceFetch_completion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __83__CDPDSecureBackupController_fetchAllEscrowRecordsWithOptionForceFetch_completion___block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "fetchAllEscrowRecordsWithOptionForceFetch: failed to fetch escrow records: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)accountInfoWithCompletion:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v2 = [objc_opt_class() _printableAccountInfo:*a2];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_0_3();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __56__CDPDSecureBackupController_accountInfoWithCompletion___block_invoke_cold_1(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
-  v3 = [objc_opt_class() _printableAccountInfo:*(*(a1 + 32) + 48)];
+  v1 = [objc_opt_class() _printableAccountInfo:*(*(a1 + 32) + 48)];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_0_3();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 - (void)_accountInfoWithCompletion:.cold.1()
 {
   OUTLINED_FUNCTION_7_0();
-  v7 = *MEMORY[0x277D85DE8];
   v0 = [CDPDSecureBackupController _sanitizedInfoDictionary:?];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_0_3();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __68__CDPDSecureBackupController_backupRecordsArePresentWithCompletion___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "getBackupRecordDevicesWithOptionForceFetch: Failed to check for secure backup records: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __68__CDPDSecureBackupController_backupRecordsArePresentWithCompletion___block_invoke_2_cold_3(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 count];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_0_3();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __68__CDPDSecureBackupController_backupRecordsArePresentWithCompletion___block_invoke_2_cold_4()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_8_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xEu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __98__CDPDSecureBackupController__getOctagonEscrowBackupRecordDevicesWithOptionForceFetch_completion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "fetch escrow records returned error %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __98__CDPDSecureBackupController__getOctagonEscrowBackupRecordDevicesWithOptionForceFetch_completion___block_invoke_42_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "fetch all escrow records returned error %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __83__CDPDSecureBackupController__getBackupRecordDevicesIncludingUnrecoverableRecords___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "SecureBackup returned error %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __93__CDPDSecureBackupController_upgradeICSCRecordsThenEnableSecureBackupWithContext_completion___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "Failed to get backup record devices with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __93__CDPDSecureBackupController_upgradeICSCRecordsThenEnableSecureBackupWithContext_completion___block_invoke_2_68_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "Failed to delete single-ICSC backup while attempting to enable secure backup: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __55__CDPDSecureBackupController_checkForAnyOctagonRecord___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "Failed to fetch escrow records for OT only viability check: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __92__CDPDSecureBackupController_checkForExistingRecordMatchingPredicate_forceFetch_completion___block_invoke_77_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "Check for existing backup failed with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)supportsRecoveryKeyWithError:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "OT isRecoveryKeySet threw error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)supportsRecoveryKeyWithError:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "SOS isRecoveryKeySet threw error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)supportsWalrusRecoveryKeyWithError:(uint64_t)a3 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, a1, a3, "%s: Can't find account. Returning...", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-void __72__CDPDSecureBackupController__enableSecureBackupWithContext_completion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "_authenticatedEnableSecureBackupIncludingFallbackWithContext failed with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[CDPDSecureBackupController supportsWalrusRecoveryKeyWithError:]";
+  OUTLINED_FUNCTION_0_0(&dword_24510B000, a1, a3, "%s: Can't find account. Returning...", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_retryRepairWithContext:retryCount:completion:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_retryRepairWithContext:(uint64_t)a1 retryCount:completion:.cold.2(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 80)];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_0_3();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void __76__CDPDSecureBackupController__retryRepairWithContext_retryCount_completion___block_invoke_2_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_8_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __76__CDPDSecureBackupController__retryRepairWithContext_retryCount_completion___block_invoke_2_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __76__CDPDSecureBackupController__retryRepairWithContext_retryCount_completion___block_invoke_91_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __76__CDPDSecureBackupController__retryRepairWithContext_retryCount_completion___block_invoke_91_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "Within retry, _authenticatedEnableSecureBackupWithContext failed with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enableSecureBackupWithRecoveryKey:completion:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)authenticatedEnableSecureBackupWithRecoveryKey:error:.cold.1()
 {
   OUTLINED_FUNCTION_7_0();
-  v7 = *MEMORY[0x277D85DE8];
   v0 = [CDPDSecureBackupController _sanitizedInfoDictionary:?];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_0_3();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)authenticatedEnableSecureBackupWithRecoveryKey:error:.cold.2()
@@ -6369,75 +6323,49 @@ void __76__CDPDSecureBackupController__retryRepairWithContext_retryCount_complet
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __102__CDPDSecureBackupController__authenticatedEnableSecureBackupIncludingFallbackWithContext_completion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "_authenticatedEnableSecureBackupWithContext failed with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __102__CDPDSecureBackupController__authenticatedEnableSecureBackupIncludingFallbackWithContext_completion___block_invoke_99_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "Nested _authenticatedEnableSecureBackupWithContext failed with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)_authenticatedEnableSecureBackupWithContext:fallbackState:completion:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_8_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_authenticatedEnableSecureBackupWithContext:(uint64_t)a3 fallbackState:(uint64_t)a4 completion:(uint64_t)a5 .cold.3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_7(&dword_24510B000, a1, a3, "%s: Attempting to add local secret info for empty, non-nil string", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[CDPDSecureBackupController _authenticatedEnableSecureBackupWithContext:fallbackState:completion:]";
+  OUTLINED_FUNCTION_7(&dword_24510B000, a1, a3, "%s: Attempting to add local secret info for empty, non-nil string", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_authenticatedEnableSecureBackupWithContext:fallbackState:completion:.cold.4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_authenticatedEnableSecureBackupWithContext:fallbackState:completion:.cold.5()
 {
   OUTLINED_FUNCTION_7_0();
-  v7 = *MEMORY[0x277D85DE8];
   v0 = [CDPDSecureBackupController _sanitizedInfoDictionary:?];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_0_3();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_authenticatedEnableSecureBackupWithContext:(uint64_t)a3 fallbackState:(uint64_t)a4 completion:(uint64_t)a5 .cold.6(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_7(&dword_24510B000, a1, a3, "%s: Attempting to set passphrase key with empty, non-nil string", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[CDPDSecureBackupController _authenticatedEnableSecureBackupWithContext:fallbackState:completion:]";
+  OUTLINED_FUNCTION_7(&dword_24510B000, a1, a3, "%s: Attempting to set passphrase key with empty, non-nil string", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_authenticatedEnableSecureBackupWithContext:(void *)a1 fallbackState:completion:.cold.7(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v2 = [a1 telemetryFlowID];
-  v9 = [a1 telemetryDeviceSessionID];
+  v8 = [a1 telemetryDeviceSessionID];
   OUTLINED_FUNCTION_0_3();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_authenticatedEnableSecureBackupWithContext:fallbackState:completion:.cold.8()
@@ -6457,55 +6385,31 @@ void __102__CDPDSecureBackupController__authenticatedEnableSecureBackupIncluding
 - (void)_authenticatedEnableSecureBackupWithContext:fallbackState:completion:.cold.10()
 {
   OUTLINED_FUNCTION_7_0();
-  v7 = *MEMORY[0x277D85DE8];
   v0 = [CDPDSecureBackupController _sanitizedInfoDictionary:?];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_0_3();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_handleSecureBackupEnablementError:fallbackState:context:delegate:completion:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "Failed to enable SecureBackup with error %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleSecureBackupEnablementError:fallbackState:context:delegate:completion:.cold.4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __50__CDPDSecureBackupController__currentAnisetteData__block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)performEscrowRecoveryWithData:error:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "performEscrowRecoveryWithContextData: failed to recover: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performSilentEscrowRecoveryWithCDPContext:(uint64_t)a3 error:(uint64_t)a4 .cold.2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*(*a1 + 40));
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, a2, a3, "performSilentEscrowRecoveryWithCDPContext: failed to fetch escrow records: %@, exiting", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(*a1 + 40);
+  OUTLINED_FUNCTION_0_0(&dword_24510B000, a2, a3, "performSilentEscrowRecoveryWithCDPContext: failed to fetch escrow records: %@, exiting", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)performSilentEscrowRecoveryWithCDPContext:(os_log_t)log error:.cold.3(uint8_t *buf, uint64_t a2, os_log_t log)
@@ -6517,10 +6421,9 @@ void __50__CDPDSecureBackupController__currentAnisetteData__block_invoke_cold_1(
 
 - (void)performSilentEscrowRecoveryWithCDPContext:(uint64_t)a3 error:(uint64_t)a4 .cold.5(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*(*a1 + 40));
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, a2, a3, "performSilentEscrowRecoveryWithCDPContext: failed to perform silent burn and recover: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(*a1 + 40);
+  OUTLINED_FUNCTION_0_0(&dword_24510B000, a2, a3, "performSilentEscrowRecoveryWithCDPContext: failed to perform silent burn and recover: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)performSilentEscrowRecoveryWithCDPContext:error:.cold.6()
@@ -6530,47 +6433,19 @@ void __50__CDPDSecureBackupController__currentAnisetteData__block_invoke_cold_1(
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __78__CDPDSecureBackupController_performSilentEscrowRecoveryWithCDPContext_error___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "performSilentEscrowRecoveryWithCDPContext: failed to fetch escrow records: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 void __78__CDPDSecureBackupController_performSilentEscrowRecoveryWithCDPContext_error___block_invoke_cold_3(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [*(*(*(a1 + 56) + 8) + 40) count];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_0_3();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_performEscrowRecoveryWithRecoveryContext:fallbackState:error:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_performEscrowRecoveryWithRecoveryContext:fallbackState:error:.cold.5()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "performEscrowRecoveryWithRecoveryContext failed to join via recovery key: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_performEscrowRecoveryWithRecoveryContext:fallbackState:error:.cold.10()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "performEscrowRecoveryWithRecoveryContext: failed to perform escrow recovery: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_performEscrowRecoveryWithRecoveryContext:fallbackState:error:.cold.12()
@@ -6578,22 +6453,6 @@ void __78__CDPDSecureBackupController_performSilentEscrowRecoveryWithCDPContext_
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-void __82__CDPDSecureBackupController_performEscrowRecoveryWithRecoveryContext_completion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "performEscrowRecoveryWithData: failed to recover via cached recovery key. error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __82__CDPDSecureBackupController_performEscrowRecoveryWithRecoveryContext_completion___block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "performEscrowRecoveryWithData: failed to recover via cached recovery key, but an error was not reported. There was also an error checking recovery key support: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)validateAndRepairRecoveryKeyMismatchWithContext:authProvider:circleProxy:completion:.cold.1()
@@ -6610,177 +6469,58 @@ void __114__CDPDSecureBackupController_validateAndRepairRecoveryKeyMismatchWithC
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __114__CDPDSecureBackupController_validateAndRepairRecoveryKeyMismatchWithContext_authProvider_circleProxy_completion___block_invoke_cold_5()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "Failure setting IDMS Recovery Key in Octagon with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __114__CDPDSecureBackupController_validateAndRepairRecoveryKeyMismatchWithContext_authProvider_circleProxy_completion___block_invoke_cold_6()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "Failure setting IDMS Recovery Key in SOS with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __114__CDPDSecureBackupController_validateAndRepairRecoveryKeyMismatchWithContext_authProvider_circleProxy_completion___block_invoke_135_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "Failure setting Octagon Recovery Key in IDMS with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __114__CDPDSecureBackupController_validateAndRepairRecoveryKeyMismatchWithContext_authProvider_circleProxy_completion___block_invoke_135_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "Failure setting Octagon Recovery Key in SOS with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __114__CDPDSecureBackupController_validateAndRepairRecoveryKeyMismatchWithContext_authProvider_circleProxy_completion___block_invoke_136_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "Failure setting SOS Recovery Key in IDMS with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __114__CDPDSecureBackupController_validateAndRepairRecoveryKeyMismatchWithContext_authProvider_circleProxy_completion___block_invoke_136_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "Failure setting SOS Recovery Key in Octagon with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_isRecoveryKeySetInOctagonWithConfig:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "Setting Recovery Set in Octagon failed with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_isRecoveryKeySetInSOSWithConfig:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "Received error while checking if RK is set in SOS: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_setRecoveryKeyInIDMSWithContext:circleProxy:authProvider:completion:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "generateVerifierWithRecoveryKey failed with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)_recoverBackupDictionaryWithContext:(void *)a1 fallbackState:(uint64_t)a2 error:.cold.1(void *a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v3 = [a1 device];
-  v10 = [CDPDSecureBackupController _sanitizedInfoDictionary:a2];
+  v9 = [CDPDSecureBackupController _sanitizedInfoDictionary:a2];
   OUTLINED_FUNCTION_0_3();
   _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_recoverBackupDictionaryWithContext:fallbackState:error:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "Recovery error had additional info: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_recoverBackupDictionaryWithContext:fallbackState:error:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "Failed to recover SecureBackup with error %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_recoveryInfoDictionaryFromContext:(uint64_t)a3 usePreviouslyCachedSecret:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_7(&dword_24510B000, a1, a3, "%s: Attempting to set recovery secret key with empty, non-nil string", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[CDPDSecureBackupController _recoveryInfoDictionaryFromContext:usePreviouslyCachedSecret:]";
+  OUTLINED_FUNCTION_7(&dword_24510B000, a1, a3, "%s: Attempting to set recovery secret key with empty, non-nil string", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __67__CDPDSecureBackupController_deleteAllBackupRecordsWithCompletion___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_deleteAllBackupRecordsWithCompletion:.cold.1()
 {
   OUTLINED_FUNCTION_7_0();
-  v7 = *MEMORY[0x277D85DE8];
   v0 = [CDPDSecureBackupController _sanitizedInfoDictionary:?];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_0_3();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_deleteAllBackupRecordsWithCompletion:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "Error attempting to delete all backup records %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __67__CDPDSecureBackupController_deleteSingleICSCBackupWithCompletion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __68__CDPDSecureBackupController__deleteSingleICSCBackupWithCompletion___block_invoke_cold_4()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "Failed to get account info while deleting single-iCSC backup: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)disableSecureBackupWithCompletion:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_disableSecureBackupWithEnableInfo:error:.cold.2()
 {
   OUTLINED_FUNCTION_7_0();
-  v7 = *MEMORY[0x277D85DE8];
   v0 = [CDPDSecureBackupController _sanitizedInfoDictionary:?];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_0_3();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_disableSecureBackupWithEnableInfo:error:.cold.3()
@@ -6792,11 +6532,9 @@ void __68__CDPDSecureBackupController__deleteSingleICSCBackupWithCompletion___bl
 
 - (void)disableRecoveryKeyWithCompletion:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -76,7 +76,7 @@
   return v28;
 }
 
-uint64_t __67__CIMattingRGBDProcessor_processWithInputs_arguments_output_error___block_invoke(uint64_t a1)
+void *__67__CIMattingRGBDProcessor_processWithInputs_arguments_output_error___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 40) newDefaultLibraryWithBundle:objc_msgSend(MEMORY[0x1E696AAE8] error:{"bundleForClass:", objc_opt_class()), 0}];
   processWithInputs_arguments_output_error__library = result;

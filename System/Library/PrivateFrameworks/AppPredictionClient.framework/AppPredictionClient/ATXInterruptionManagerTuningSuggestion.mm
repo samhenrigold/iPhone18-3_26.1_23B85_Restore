@@ -27,7 +27,7 @@
     v4->_suggestionType = type;
     if (type == 5)
     {
-      v6 = __atxlog_handle_notification_management();
+      v6 = __atxlog_handle_notification_management(v4);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
       {
         [ATXInterruptionManagerTuningSuggestion initWithSuggestionType:v6];
@@ -38,7 +38,7 @@
 
     if (!type)
     {
-      v6 = __atxlog_handle_notification_management();
+      v6 = __atxlog_handle_notification_management(v4);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
       {
         [ATXInterruptionManagerTuningSuggestion initWithSuggestionType:v6];
@@ -145,31 +145,33 @@ LABEL_8:
   if (protoCopy)
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v5 = protoCopy;
-      if (([v5 hasType]& 1) != 0)
+      v6 = protoCopy;
+      hasType = [v6 hasType];
+      if (hasType)
       {
-        self = [(ATXInterruptionManagerTuningSuggestion *)self initWithSuggestionType:[v5 type]];
+        self = [(ATXInterruptionManagerTuningSuggestion *)self initWithSuggestionType:[v6 type]];
         selfCopy = self;
 LABEL_12:
 
         goto LABEL_13;
       }
 
-      v7 = __atxlog_handle_notification_management();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+      v9 = __atxlog_handle_notification_management(hasType);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
       {
-        [ATXInterruptionManagerTuningSuggestion initWithProto:];
+        [ATXInterruptionManagerTuningSuggestion initWithProto:?];
       }
     }
 
     else
     {
-      v5 = __atxlog_handle_notification_management();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+      v6 = __atxlog_handle_notification_management(isKindOfClass);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
       {
-        [ATXNotificationSmartPauseSuggestion initWithProto:];
+        [ATXNotificationSmartPauseSuggestion initWithProto:?];
       }
     }
 
@@ -228,11 +230,13 @@ LABEL_13:
   return v4;
 }
 
-- (void)initWithProto:.cold.2()
+- (void)initWithProto:(uint64_t)a1 .cold.2(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
-  OUTLINED_FUNCTION_0(&dword_1BF549000, v2, v3, "%@: missing 'type' field on protobuf message. Failed to decode.", v4, v5, v6, v7, 2u);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
+  LODWORD(v9) = 138412290;
+  *(&v9 + 4) = v2;
+  OUTLINED_FUNCTION_0(&dword_1BF549000, v3, v4, "%@: missing 'type' field on protobuf message. Failed to decode.", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
 @end

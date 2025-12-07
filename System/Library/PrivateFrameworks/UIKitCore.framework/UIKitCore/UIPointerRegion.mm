@@ -122,9 +122,9 @@ LABEL_16:
           goto LABEL_17;
         }
 
-        v14 = [v8 isEqual:v9];
+        isEqual = objc_msgSend_isEqual_(v8);
 
-        if (!v14)
+        if (!isEqual)
         {
           v11 = 0;
 LABEL_17:

@@ -159,7 +159,7 @@
 {
   v3 = [(NSArray *)self->_dayToDurationsList mutableCopy];
   v10 = +[NSMutableIndexSet indexSet];
-  if ([(NSArray *)v3 count])
+  if (objc_msgSend_count(v3))
   {
     v4 = 0;
     do
@@ -177,7 +177,7 @@
       ++v4;
     }
 
-    while (v4 < [(NSArray *)v3 count]);
+    while (v4 < objc_msgSend_count(v3));
   }
 
   [(NSArray *)v3 removeObjectsAtIndexes:v10];
@@ -279,10 +279,10 @@ LABEL_9:
   v7 = 0.0;
   if (dayToDurationsList)
   {
-    if ([(NSArray *)dayToDurationsList count])
+    if (objc_msgSend_count(dayToDurationsList))
     {
-      [(NSArray *)self->_dayToDurationsList count];
-      if ([(NSArray *)self->_dayToDurationsList count])
+      objc_msgSend_count(self->_dayToDurationsList);
+      if (objc_msgSend_count(self->_dayToDurationsList))
       {
         v8 = 0;
         do
@@ -306,7 +306,7 @@ LABEL_9:
           ++v8;
         }
 
-        while (v8 < [(NSArray *)self->_dayToDurationsList count]);
+        while (v8 < objc_msgSend_count(self->_dayToDurationsList));
       }
     }
   }

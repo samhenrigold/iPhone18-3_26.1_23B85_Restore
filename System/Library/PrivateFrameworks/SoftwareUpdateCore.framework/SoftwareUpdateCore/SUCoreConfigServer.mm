@@ -22,7 +22,9 @@
 - (int64_t)performAction:(id)action onEvent:(id)event inState:(id)state withInfo:(id)info nextState:(id)nextState error:(id *)error;
 - (void)_stateSafeInformDelegatesOfConfiguration:(id)configuration error:(id)error;
 - (void)_stateSafeResetState;
+- (void)_stateSafeSendInstalledEventWithSuccess:(BOOL)success error:(id)error;
 - (void)_stateSafeSendNewEvent:(id)event success:(BOOL)success error:(id)error;
+- (void)_stateSafeSendScheduledEventWithSuccess:(BOOL)success error:(id)error;
 - (void)_stateSafeUpdateState;
 - (void)dealloc;
 - (void)installServerSettings;
@@ -197,7 +199,7 @@ void __26__SUCoreConfigServer_init__block_invoke_2(uint64_t a1, void *a2, void *
 
 void __54__SUCoreConfigServer_listenForConfigChanges_withName___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277D64460] sharedLogger];
   v3 = [v2 oslog];
 
@@ -210,11 +212,11 @@ void __54__SUCoreConfigServer_listenForConfigChanges_withName___block_invoke(uin
       v4 = @"NO";
     }
 
-    v13 = 138543618;
-    v14 = v4;
-    v15 = 2114;
-    v16 = v5;
-    _os_log_impl(&dword_23193C000, v3, OS_LOG_TYPE_DEFAULT, "[SUCoreConfig] API: Adding listener delegate (present=%{public}@) with name: %{public}@", &v13, 0x16u);
+    v12 = 138543618;
+    v13 = v4;
+    v14 = 2114;
+    v15 = v5;
+    _os_log_impl(&dword_23193C000, v3, OS_LOG_TYPE_DEFAULT, "[SUCoreConfig] API: Adding listener delegate (present=%{public}@) with name: %{public}@", &v12, 0x16u);
   }
 
   v6 = [*(a1 + 48) listenerDelegates];
@@ -228,12 +230,10 @@ void __54__SUCoreConfigServer_listenForConfigChanges_withName___block_invoke(uin
     v9 = [*(a1 + 48) listenerDelegates];
     v10 = [v9 allKeys];
     v11 = [v10 componentsJoinedByString:{@", "}];
-    v13 = 138543362;
-    v14 = v11;
-    _os_log_impl(&dword_23193C000, v8, OS_LOG_TYPE_DEFAULT, "[SUCoreConfig] API: Known listeners still active: %{public}@", &v13, 0xCu);
+    v12 = 138543362;
+    v13 = v11;
+    _os_log_impl(&dword_23193C000, v8, OS_LOG_TYPE_DEFAULT, "[SUCoreConfig] API: Known listeners still active: %{public}@", &v12, 0xCu);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)scheduledActivityName
@@ -277,21 +277,19 @@ void __43__SUCoreConfigServer_scheduledActivityName__block_invoke()
 
 void __43__SUCoreConfigServer_allowedServerProjects__block_invoke()
 {
-  v6[6] = *MEMORY[0x277D85DE8];
+  v5[6] = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277D64550];
-  v6[0] = *MEMORY[0x277D64540];
-  v6[1] = v0;
+  v5[0] = *MEMORY[0x277D64540];
+  v5[1] = v0;
   v1 = *MEMORY[0x277D64548];
-  v6[2] = *MEMORY[0x277D64538];
-  v6[3] = v1;
+  v5[2] = *MEMORY[0x277D64538];
+  v5[3] = v1;
   v2 = *MEMORY[0x277D64530];
-  v6[4] = *MEMORY[0x277D64528];
-  v6[5] = v2;
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:6];
+  v5[4] = *MEMORY[0x277D64528];
+  v5[5] = v2;
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:6];
   v4 = allowedServerProjects___allowedProjects;
   allowedServerProjects___allowedProjects = v3;
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (id)allowedServerKeys
@@ -308,27 +306,25 @@ void __43__SUCoreConfigServer_allowedServerProjects__block_invoke()
 
 void __39__SUCoreConfigServer_allowedServerKeys__block_invoke()
 {
-  v8[10] = *MEMORY[0x277D85DE8];
+  v7[10] = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277D64510];
-  v8[0] = *MEMORY[0x277D64500];
-  v8[1] = v0;
+  v7[0] = *MEMORY[0x277D64500];
+  v7[1] = v0;
   v1 = *MEMORY[0x277D644E8];
-  v8[2] = *MEMORY[0x277D644C0];
-  v8[3] = v1;
+  v7[2] = *MEMORY[0x277D644C0];
+  v7[3] = v1;
   v2 = *MEMORY[0x277D644D0];
-  v8[4] = *MEMORY[0x277D644C8];
-  v8[5] = v2;
+  v7[4] = *MEMORY[0x277D644C8];
+  v7[5] = v2;
   v3 = *MEMORY[0x277D644E0];
-  v8[6] = *MEMORY[0x277D644D8];
-  v8[7] = v3;
+  v7[6] = *MEMORY[0x277D644D8];
+  v7[7] = v3;
   v4 = *MEMORY[0x277D644F8];
-  v8[8] = *MEMORY[0x277D64520];
-  v8[9] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:10];
+  v7[8] = *MEMORY[0x277D64520];
+  v7[9] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:10];
   v6 = allowedServerKeys___allowedKeys;
   allowedServerKeys___allowedKeys = v5;
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (id)persistedStateFilePath
@@ -359,139 +355,137 @@ void __39__SUCoreConfigServer_allowedServerKeys__block_invoke()
 
 + (id)_generateStateTable
 {
-  v81[7] = *MEMORY[0x277D85DE8];
-  v80[0] = @"ConfigIdle";
-  v78 = @"ConfigAPIInstall";
+  v80[7] = *MEMORY[0x277D85DE8];
+  v79[0] = @"ConfigIdle";
+  v77 = @"ConfigAPIInstall";
   v3 = *MEMORY[0x277D644B8];
-  v76[0] = *MEMORY[0x277D64800];
-  v2 = v76[0];
-  v76[1] = v3;
-  v77[0] = @"ConfigScheduled";
-  v77[1] = @"ConfigScheduleScan";
-  v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v77 forKeys:v76 count:2];
-  v79 = v31;
-  v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v79 forKeys:&v78 count:1];
-  v81[0] = v30;
-  v80[1] = @"ConfigDownloadingCatalog";
-  v74[0] = @"ConfigAPIInstall";
-  v72 = v3;
-  v73 = *MEMORY[0x277D647D0];
-  v4 = v73;
-  v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v73 forKeys:&v72 count:1];
-  v75[0] = v29;
-  v74[1] = @"ConfigPhaseComplete";
-  v70[0] = v2;
-  v70[1] = v3;
-  v71[0] = @"ConfigQueryingAsset";
-  v71[1] = @"ConfigQueryAsset";
-  v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v71 forKeys:v70 count:2];
-  v75[1] = v28;
-  v74[2] = @"ConfigPhaseFailed";
-  v68[0] = v2;
-  v68[1] = v3;
-  v69[0] = @"ConfigScheduled";
-  v69[1] = @"ConfigScheduleScan";
-  v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v69 forKeys:v68 count:2];
-  v75[2] = v27;
-  v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v75 forKeys:v74 count:3];
-  v81[1] = v26;
-  v80[2] = @"ConfigQueryingAsset";
-  v66[0] = @"ConfigAPIInstall";
-  v64 = v3;
-  v65 = v4;
-  v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v65 forKeys:&v64 count:1];
-  v67[0] = v25;
-  v66[1] = @"ConfigPhaseComplete";
-  v62[0] = v2;
-  v62[1] = v3;
-  v63[0] = @"ConfigDownloadingAsset";
-  v63[1] = @"ConfigDownloadAsset";
-  v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v63 forKeys:v62 count:2];
-  v67[1] = v24;
-  v66[2] = @"ConfigPhaseFailed";
-  v60[0] = v2;
-  v60[1] = v3;
-  v61[0] = @"ConfigScheduled";
-  v61[1] = @"ConfigScheduleScan";
-  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v61 forKeys:v60 count:2];
-  v67[2] = v23;
-  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v67 forKeys:v66 count:3];
-  v81[2] = v22;
-  v80[3] = @"ConfigDownloadingAsset";
-  v57 = v4;
-  v58[0] = @"ConfigAPIInstall";
-  v56 = v3;
-  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v57 forKeys:&v56 count:1];
-  v59[0] = v21;
-  v58[1] = @"ConfigPhaseComplete";
-  v54[0] = v2;
-  v54[1] = v3;
-  v55[0] = @"ConfigAdjusting";
-  v55[1] = @"ConfigAdjustSettings";
-  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v55 forKeys:v54 count:2];
-  v59[1] = v20;
-  v58[2] = @"ConfigPhaseFailed";
-  v52[0] = v2;
-  v52[1] = v3;
-  v53[0] = @"ConfigScheduled";
-  v53[1] = @"ConfigScheduleScan";
-  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v53 forKeys:v52 count:2];
-  v59[2] = v19;
-  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v59 forKeys:v58 count:3];
-  v81[3] = v18;
-  v80[4] = @"ConfigAdjusting";
-  v49 = v4;
-  v50[0] = @"ConfigAPIInstall";
-  v48 = v3;
-  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v49 forKeys:&v48 count:1];
-  v51[0] = v17;
-  v50[1] = @"ConfigPhaseComplete";
-  v46[0] = v2;
-  v46[1] = v3;
-  v47[0] = @"ConfigScheduled";
-  v47[1] = @"ConfigScheduleScan";
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:v46 count:2];
-  v51[1] = v5;
-  v50[2] = @"ConfigPhaseFailed";
-  v44[0] = v2;
-  v44[1] = v3;
-  v45[0] = @"ConfigScheduled";
-  v45[1] = @"ConfigScheduleScan";
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:v44 count:2];
-  v51[2] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v51 forKeys:v50 count:3];
-  v81[4] = v7;
-  v80[5] = @"ConfigScheduled";
-  v40[0] = v2;
-  v40[1] = v3;
-  v41[0] = @"ConfigDownloadingCatalog";
-  v41[1] = @"ConfigDownloadCatalog";
-  v42[0] = @"ConfigAPIInstall";
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:v40 count:2];
-  v43[0] = v8;
-  v42[1] = @"ConfigPhaseComplete";
-  v38 = v3;
-  v39 = @"ConfigScheduleScan";
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
-  v43[1] = v9;
-  v42[2] = @"ConfigPhaseFailed";
-  v36 = v3;
-  v37 = @"ConfigScheduleScan";
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
-  v43[2] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:v42 count:3];
-  v81[5] = v11;
-  v80[6] = *MEMORY[0x277D647E8];
-  v34 = *MEMORY[0x277D647E0];
-  v32 = v2;
-  v33 = *MEMORY[0x277D647F0];
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
-  v35 = v12;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
-  v81[6] = v13;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v81 forKeys:v80 count:7];
-
-  v15 = *MEMORY[0x277D85DE8];
+  v75[0] = *MEMORY[0x277D64800];
+  v2 = v75[0];
+  v75[1] = v3;
+  v76[0] = @"ConfigScheduled";
+  v76[1] = @"ConfigScheduleScan";
+  v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v76 forKeys:v75 count:2];
+  v78 = v30;
+  v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v78 forKeys:&v77 count:1];
+  v80[0] = v29;
+  v79[1] = @"ConfigDownloadingCatalog";
+  v73[0] = @"ConfigAPIInstall";
+  v71 = v3;
+  v72 = *MEMORY[0x277D647D0];
+  v4 = v72;
+  v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v72 forKeys:&v71 count:1];
+  v74[0] = v28;
+  v73[1] = @"ConfigPhaseComplete";
+  v69[0] = v2;
+  v69[1] = v3;
+  v70[0] = @"ConfigQueryingAsset";
+  v70[1] = @"ConfigQueryAsset";
+  v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v70 forKeys:v69 count:2];
+  v74[1] = v27;
+  v73[2] = @"ConfigPhaseFailed";
+  v67[0] = v2;
+  v67[1] = v3;
+  v68[0] = @"ConfigScheduled";
+  v68[1] = @"ConfigScheduleScan";
+  v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v68 forKeys:v67 count:2];
+  v74[2] = v26;
+  v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v74 forKeys:v73 count:3];
+  v80[1] = v25;
+  v79[2] = @"ConfigQueryingAsset";
+  v65[0] = @"ConfigAPIInstall";
+  v63 = v3;
+  v64 = v4;
+  v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v64 forKeys:&v63 count:1];
+  v66[0] = v24;
+  v65[1] = @"ConfigPhaseComplete";
+  v61[0] = v2;
+  v61[1] = v3;
+  v62[0] = @"ConfigDownloadingAsset";
+  v62[1] = @"ConfigDownloadAsset";
+  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v62 forKeys:v61 count:2];
+  v66[1] = v23;
+  v65[2] = @"ConfigPhaseFailed";
+  v59[0] = v2;
+  v59[1] = v3;
+  v60[0] = @"ConfigScheduled";
+  v60[1] = @"ConfigScheduleScan";
+  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v60 forKeys:v59 count:2];
+  v66[2] = v22;
+  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v66 forKeys:v65 count:3];
+  v80[2] = v21;
+  v79[3] = @"ConfigDownloadingAsset";
+  v56 = v4;
+  v57[0] = @"ConfigAPIInstall";
+  v55 = v3;
+  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v56 forKeys:&v55 count:1];
+  v58[0] = v20;
+  v57[1] = @"ConfigPhaseComplete";
+  v53[0] = v2;
+  v53[1] = v3;
+  v54[0] = @"ConfigAdjusting";
+  v54[1] = @"ConfigAdjustSettings";
+  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v54 forKeys:v53 count:2];
+  v58[1] = v19;
+  v57[2] = @"ConfigPhaseFailed";
+  v51[0] = v2;
+  v51[1] = v3;
+  v52[0] = @"ConfigScheduled";
+  v52[1] = @"ConfigScheduleScan";
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v52 forKeys:v51 count:2];
+  v58[2] = v18;
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v58 forKeys:v57 count:3];
+  v80[3] = v17;
+  v79[4] = @"ConfigAdjusting";
+  v48 = v4;
+  v49[0] = @"ConfigAPIInstall";
+  v47 = v3;
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v48 forKeys:&v47 count:1];
+  v50[0] = v16;
+  v49[1] = @"ConfigPhaseComplete";
+  v45[0] = v2;
+  v45[1] = v3;
+  v46[0] = @"ConfigScheduled";
+  v46[1] = @"ConfigScheduleScan";
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v46 forKeys:v45 count:2];
+  v50[1] = v5;
+  v49[2] = @"ConfigPhaseFailed";
+  v43[0] = v2;
+  v43[1] = v3;
+  v44[0] = @"ConfigScheduled";
+  v44[1] = @"ConfigScheduleScan";
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:v43 count:2];
+  v50[2] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v50 forKeys:v49 count:3];
+  v80[4] = v7;
+  v79[5] = @"ConfigScheduled";
+  v39[0] = v2;
+  v39[1] = v3;
+  v40[0] = @"ConfigDownloadingCatalog";
+  v40[1] = @"ConfigDownloadCatalog";
+  v41[0] = @"ConfigAPIInstall";
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:v39 count:2];
+  v42[0] = v8;
+  v41[1] = @"ConfigPhaseComplete";
+  v37 = v3;
+  v38 = @"ConfigScheduleScan";
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
+  v42[1] = v9;
+  v41[2] = @"ConfigPhaseFailed";
+  v35 = v3;
+  v36 = @"ConfigScheduleScan";
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
+  v42[2] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:v41 count:3];
+  v80[5] = v11;
+  v79[6] = *MEMORY[0x277D647E8];
+  v33 = *MEMORY[0x277D647E0];
+  v31 = v2;
+  v32 = *MEMORY[0x277D647F0];
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
+  v34 = v12;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
+  v80[6] = v13;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v80 forKeys:v79 count:7];
 
   return v14;
 }
@@ -570,7 +564,7 @@ void __39__SUCoreConfigServer_allowedServerKeys__block_invoke()
 
 - (int64_t)actionConfigDownloadCatalog:(id)catalog error:(id *)error
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   [(SUCoreConfigServer *)self _stateSafeResetState:catalog];
   _stateSafeDownloadOptions = [(SUCoreConfigServer *)self _stateSafeDownloadOptions];
   mEMORY[0x277D64460] = [MEMORY[0x277D64460] sharedLogger];
@@ -579,24 +573,23 @@ void __39__SUCoreConfigServer_allowedServerKeys__block_invoke()
   if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v12 = _stateSafeDownloadOptions;
+    v11 = _stateSafeDownloadOptions;
     _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "[SUCoreConfig] Catalog: Starting download of configuration asset catalog with options: %{public}@", buf, 0xCu);
   }
 
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __56__SUCoreConfigServer_actionConfigDownloadCatalog_error___block_invoke;
-  v10[3] = &unk_27892E5A8;
-  v10[4] = self;
-  [MEMORY[0x277D289C0] startCatalogDownload:@"com.apple.MobileAsset.SoftwareUpdateConfiguration" options:_stateSafeDownloadOptions completionWithError:v10];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __56__SUCoreConfigServer_actionConfigDownloadCatalog_error___block_invoke;
+  v9[3] = &unk_27892E5A8;
+  v9[4] = self;
+  [MEMORY[0x277D289C0] startCatalogDownload:@"com.apple.MobileAsset.SoftwareUpdateConfiguration" options:_stateSafeDownloadOptions completionWithError:v9];
 
-  v8 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 void __56__SUCoreConfigServer_actionConfigDownloadCatalog_error___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = [MEMORY[0x277D64460] sharedLogger];
   v7 = [v6 oslog];
@@ -604,11 +597,11 @@ void __56__SUCoreConfigServer_actionConfigDownloadCatalog_error___block_invoke(u
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = MEMORY[0x2383741D0](a2);
-    v16 = 138543618;
-    v17 = v8;
-    v18 = 2048;
-    v19 = a2;
-    _os_log_impl(&dword_23193C000, v7, OS_LOG_TYPE_DEFAULT, "[SUCoreConfig] Catalog: Catalog download completed with MADownloadResult: %{public}@ (%ld)", &v16, 0x16u);
+    v15 = 138543618;
+    v16 = v8;
+    v17 = 2048;
+    v18 = a2;
+    _os_log_impl(&dword_23193C000, v7, OS_LOG_TYPE_DEFAULT, "[SUCoreConfig] Catalog: Catalog download completed with MADownloadResult: %{public}@ (%ld)", &v15, 0x16u);
   }
 
   if (a2)
@@ -635,68 +628,66 @@ void __56__SUCoreConfigServer_actionConfigDownloadCatalog_error___block_invoke(u
     v13 = objc_alloc_init(SUCoreConfigParam);
     [v10 postEvent:@"ConfigPhaseComplete" withInfo:v13];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)actionConfigQueryAsset:(id)asset error:(id *)error
 {
-  v81[2] = *MEMORY[0x277D85DE8];
-  v71 = [objc_alloc(MEMORY[0x277CCAB68]) initWithString:@"|"];
+  v80[2] = *MEMORY[0x277D85DE8];
+  v70 = [objc_alloc(MEMORY[0x277CCAB68]) initWithString:@"|"];
   v4 = [objc_alloc(MEMORY[0x277D289D8]) initWithType:@"com.apple.MobileAsset.SoftwareUpdateConfiguration"];
   null = [MEMORY[0x277CBEB68] null];
-  v81[0] = null;
+  v80[0] = null;
   mEMORY[0x277D64418] = [MEMORY[0x277D64418] sharedDevice];
   buildVersion = [mEMORY[0x277D64418] buildVersion];
-  v81[1] = buildVersion;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v81 count:2];
+  v80[1] = buildVersion;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v80 count:2];
   v9 = [v8 mutableCopy];
   [v4 addKeyValueArray:@"PrerequisiteBuilds" with:v9];
 
   null2 = [MEMORY[0x277CBEB68] null];
-  v80[0] = null2;
+  v79[0] = null2;
   mEMORY[0x277D64418]2 = [MEMORY[0x277D64418] sharedDevice];
   productVersion = [mEMORY[0x277D64418]2 productVersion];
-  v80[1] = productVersion;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v80 count:2];
+  v79[1] = productVersion;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v79 count:2];
   v14 = [v13 mutableCopy];
   [v4 addKeyValueArray:@"PrerequisiteOSVersions" with:v14];
 
   null3 = [MEMORY[0x277CBEB68] null];
-  v79[0] = null3;
+  v78[0] = null3;
   mEMORY[0x277D64418]3 = [MEMORY[0x277D64418] sharedDevice];
   hwModelString = [mEMORY[0x277D64418]3 hwModelString];
-  v79[1] = hwModelString;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v79 count:2];
+  v78[1] = hwModelString;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v78 count:2];
   v19 = [v18 mutableCopy];
   [v4 addKeyValueArray:@"SupportedDeviceModels" with:v19];
 
   null4 = [MEMORY[0x277CBEB68] null];
-  v78[0] = null4;
+  v77[0] = null4;
   mEMORY[0x277D64418]4 = [MEMORY[0x277D64418] sharedDevice];
   buildVersion2 = [mEMORY[0x277D64418]4 buildVersion];
-  v78[1] = buildVersion2;
-  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v78 count:2];
+  v77[1] = buildVersion2;
+  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v77 count:2];
   v24 = [v23 componentsJoinedByString:{@", "}];
-  [v71 appendFormat:@"%@:%@|", @"PrerequisiteBuilds", v24];
+  [v70 appendFormat:@"%@:%@|", @"PrerequisiteBuilds", v24];
 
   null5 = [MEMORY[0x277CBEB68] null];
-  v77[0] = null5;
+  v76[0] = null5;
   mEMORY[0x277D64418]5 = [MEMORY[0x277D64418] sharedDevice];
   productVersion2 = [mEMORY[0x277D64418]5 productVersion];
-  v77[1] = productVersion2;
-  v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v77 count:2];
+  v76[1] = productVersion2;
+  v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v76 count:2];
   v29 = [v28 componentsJoinedByString:{@", "}];
-  [v71 appendFormat:@"%@:%@|", @"PrerequisiteOSVersions", v29];
+  [v70 appendFormat:@"%@:%@|", @"PrerequisiteOSVersions", v29];
 
   null6 = [MEMORY[0x277CBEB68] null];
-  v76[0] = null6;
+  v75[0] = null6;
   mEMORY[0x277D64418]6 = [MEMORY[0x277D64418] sharedDevice];
   hwModelString2 = [mEMORY[0x277D64418]6 hwModelString];
-  v76[1] = hwModelString2;
-  v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v76 count:2];
+  v75[1] = hwModelString2;
+  v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v75 count:2];
   v34 = [v33 componentsJoinedByString:{@", "}];
-  [v71 appendFormat:@"%@:%@|", @"SupportedDeviceModels", v34];
+  [v70 appendFormat:@"%@:%@|", @"SupportedDeviceModels", v34];
 
   v35 = [MEMORY[0x277CCACA8] stringWithFormat:@"%d", 1];
   [v4 addKeyValuePair:@"_CompatibilityVersion" with:v35];
@@ -706,11 +697,11 @@ void __56__SUCoreConfigServer_actionConfigDownloadCatalog_error___block_invoke(u
   [v4 addKeyValuePair:@"Device" with:deviceClass];
 
   v38 = [MEMORY[0x277CCACA8] stringWithFormat:@"%d", 1];
-  [v71 appendFormat:@"%@:%@|", @"_CompatibilityVersion", v38];
+  [v70 appendFormat:@"%@:%@|", @"_CompatibilityVersion", v38];
 
   mEMORY[0x277D64418]8 = [MEMORY[0x277D64418] sharedDevice];
   deviceClass2 = [mEMORY[0x277D64418]8 deviceClass];
-  [v71 appendFormat:@"%@:%@|", @"Device", deviceClass2];
+  [v70 appendFormat:@"%@:%@|", @"Device", deviceClass2];
 
   mEMORY[0x277D64418]9 = [MEMORY[0x277D64418] sharedDevice];
   releaseType = [mEMORY[0x277D64418]9 releaseType];
@@ -723,13 +714,13 @@ void __56__SUCoreConfigServer_actionConfigDownloadCatalog_error___block_invoke(u
 
     mEMORY[0x277D64418]11 = [MEMORY[0x277D64418] sharedDevice];
     releaseType3 = [mEMORY[0x277D64418]11 releaseType];
-    [v71 appendFormat:@"%@:%@|", @"ReleaseType", releaseType3];
+    [v70 appendFormat:@"%@:%@|", @"ReleaseType", releaseType3];
   }
 
   else
   {
     [v4 addKeyValueNull:@"ReleaseType"];
-    [v71 appendFormat:@"%@:Customer(null)|", @"ReleaseType"];
+    [v70 appendFormat:@"%@:Customer(null)|", @"ReleaseType"];
   }
 
   mEMORY[0x277D64460] = [MEMORY[0x277D64460] sharedLogger];
@@ -739,9 +730,9 @@ void __56__SUCoreConfigServer_actionConfigDownloadCatalog_error___block_invoke(u
   {
     mEMORY[0x277D64418]12 = [MEMORY[0x277D64418] sharedDevice];
     *buf = 67109378;
-    *v75 = 1;
-    *&v75[4] = 2114;
-    *&v75[6] = mEMORY[0x277D64418]12;
+    *v74 = 1;
+    *&v74[4] = 2114;
+    *&v74[6] = mEMORY[0x277D64418]12;
     _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "[SUCoreConfig] Query: Current device state (COMPATIBILITY_VERSION:%d): %{public}@", buf, 0x12u);
   }
 
@@ -751,7 +742,7 @@ void __56__SUCoreConfigServer_actionConfigDownloadCatalog_error___block_invoke(u
   if (os_log_type_enabled(oslog2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    *v75 = v71;
+    *v74 = v70;
     _os_log_impl(&dword_23193C000, oslog2, OS_LOG_TYPE_DEFAULT, "[SUCoreConfig] Query: Starting metadata query: %{public}@", buf, 0xCu);
   }
 
@@ -763,9 +754,9 @@ void __56__SUCoreConfigServer_actionConfigDownloadCatalog_error___block_invoke(u
   {
     v55 = MEMORY[0x2383741E0](queryMetaDataSync);
     *buf = 138543618;
-    *v75 = v55;
-    *&v75[8] = 2048;
-    *&v75[10] = queryMetaDataSync;
+    *v74 = v55;
+    *&v74[8] = 2048;
+    *&v74[10] = queryMetaDataSync;
     _os_log_impl(&dword_23193C000, oslog3, OS_LOG_TYPE_DEFAULT, "[SUCoreConfig] Query: Metadata query completed with result: %{public}@ %ld", buf, 0x16u);
   }
 
@@ -781,9 +772,9 @@ void __56__SUCoreConfigServer_actionConfigDownloadCatalog_error___block_invoke(u
   else
   {
     mEMORY[0x277D643F8] = [v4 results];
-    v73 = 0;
-    v59 = [(SUCoreConfigServer *)self _stateSafeSelectBestAssetFromArray:mEMORY[0x277D643F8] error:&v73];
-    v58 = v73;
+    v72 = 0;
+    v59 = [(SUCoreConfigServer *)self _stateSafeSelectBestAssetFromArray:mEMORY[0x277D643F8] error:&v72];
+    v58 = v72;
   }
 
   if (v58)
@@ -818,13 +809,12 @@ void __56__SUCoreConfigServer_actionConfigDownloadCatalog_error___block_invoke(u
     code = 0;
   }
 
-  v68 = *MEMORY[0x277D85DE8];
   return code;
 }
 
 - (id)_stateSafeSelectBestAssetFromArray:(id)array error:(id *)error
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
   stateMachine = [(SUCoreConfigServer *)self stateMachine];
   extendedStateQueue = [stateMachine extendedStateQueue];
@@ -871,11 +861,11 @@ LABEL_13:
     {
       attributes = [v9 attributes];
       *buf = 138543874;
-      v28 = v10;
-      v29 = 2114;
-      v30 = v9;
-      v31 = 2114;
-      v32 = attributes;
+      v27 = v10;
+      v28 = 2114;
+      v29 = v9;
+      v30 = 2114;
+      v31 = attributes;
       _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "[SUCoreConfig] SelectBestAsset: Located asset (reason: '%{public}@'): %{public}@; attributes: %{public}@", buf, 0x20u);
     }
 
@@ -883,11 +873,11 @@ LABEL_13:
     goto LABEL_16;
   }
 
+  v24 = 0;
   v25 = 0;
-  v26 = 0;
-  v15 = [(SUCoreConfigServer *)self _stateSafeSelectBestAssetFromMultipleAssetArray:arrayCopy bestAsset:&v26 selectionReason:&v25];
-  v9 = v26;
-  v10 = v25;
+  v15 = [(SUCoreConfigServer *)self _stateSafeSelectBestAssetFromMultipleAssetArray:arrayCopy bestAsset:&v25 selectionReason:&v24];
+  v9 = v25;
+  v10 = v24;
   if (!v15)
   {
     goto LABEL_13;
@@ -900,7 +890,7 @@ LABEL_8:
   if (os_log_type_enabled(oslog2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v28 = v15;
+    v27 = v15;
     _os_log_impl(&dword_23193C000, oslog2, OS_LOG_TYPE_DEFAULT, "[SUCoreConfig] SelectBestAsset: Failed to locate asset with error: %{public}@", buf, 0xCu);
   }
 
@@ -913,7 +903,6 @@ LABEL_8:
 LABEL_16:
   v22 = v9;
 
-  v23 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -1018,7 +1007,7 @@ LABEL_7:
 
 uint64_t __96__SUCoreConfigServer__stateSafeSelectBestAssetFromMultipleAssetArray_bestAsset_selectionReason___block_invoke(uint64_t a1, void *a2)
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = [v2 attributes];
   v4 = [v3 safeObjectForKey:@"SupportedDeviceModels" ofClass:objc_opt_class()];
@@ -1040,18 +1029,18 @@ uint64_t __96__SUCoreConfigServer__stateSafeSelectBestAssetFromMultipleAssetArra
     {
       v13 = [MEMORY[0x277D64418] sharedDevice];
       v14 = [v13 productVersion];
-      v33 = [v8 containsObject:v14];
+      v32 = [v8 containsObject:v14];
     }
 
     else
     {
-      v33 = 0;
+      v32 = 0;
     }
   }
 
   else
   {
-    v33 = 0;
+    v32 = 0;
   }
 
   v15 = [MEMORY[0x277D64460] sharedLogger];
@@ -1060,53 +1049,52 @@ uint64_t __96__SUCoreConfigServer__stateSafeSelectBestAssetFromMultipleAssetArra
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     [MEMORY[0x277D64418] sharedDevice];
-    v17 = v32 = v8;
+    v17 = v31 = v8;
     v18 = [v17 hwModelString];
     [v4 componentsJoinedByString:{@", "}];
-    v19 = v31 = v4;
+    v19 = v30 = v4;
     v20 = [MEMORY[0x277D64418] sharedDevice];
     v21 = [v20 buildVersion];
     [v6 componentsJoinedByString:{@", "}];
-    v22 = v30 = v6;
+    v22 = v29 = v6;
     v23 = [MEMORY[0x277D64418] sharedDevice];
     v24 = [v23 productVersion];
-    v25 = [v32 componentsJoinedByString:{@", "}];
+    v25 = [v31 componentsJoinedByString:{@", "}];
     v26 = v25;
     *buf = 138544898;
     v27 = @"NO";
-    v35 = v18;
-    if (v33)
+    v34 = v18;
+    if (v32)
     {
       v27 = @"YES";
     }
 
-    v36 = 2114;
-    v37 = v19;
-    v38 = 2114;
-    v39 = v21;
-    v40 = 2114;
-    v41 = v22;
-    v42 = 2114;
-    v43 = v24;
-    v44 = 2114;
-    v45 = v25;
-    v46 = 2114;
-    v47 = v27;
+    v35 = 2114;
+    v36 = v19;
+    v37 = 2114;
+    v38 = v21;
+    v39 = 2114;
+    v40 = v22;
+    v41 = 2114;
+    v42 = v24;
+    v43 = 2114;
+    v44 = v25;
+    v45 = 2114;
+    v46 = v27;
     _os_log_impl(&dword_23193C000, v16, OS_LOG_TYPE_DEFAULT, "[SUCoreConfig] SelectBestAsset: FullMatch Predicate (Device:Asset) - HWModelString %{public}@:%{public}@; BuildVersion %{public}@:%{public}@; ProductVersion %{public}@:%{public}@ | keep=%{public}@", buf, 0x48u);
 
-    v8 = v32;
-    v6 = v30;
+    v8 = v31;
+    v6 = v29;
 
-    v4 = v31;
+    v4 = v30;
   }
 
-  v28 = *MEMORY[0x277D85DE8];
-  return v33;
+  return v32;
 }
 
 uint64_t __96__SUCoreConfigServer__stateSafeSelectBestAssetFromMultipleAssetArray_bestAsset_selectionReason___block_invoke_465(uint64_t a1, void *a2)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = [v2 attributes];
   v4 = [v3 safeObjectForKey:@"SupportedDeviceModels" ofClass:objc_opt_class()];
@@ -1141,32 +1129,31 @@ uint64_t __96__SUCoreConfigServer__stateSafeSelectBestAssetFromMultipleAssetArra
     v18 = [v17 buildVersion];
     v19 = [v6 componentsJoinedByString:{@", "}];
     v20 = v19;
-    v24 = 138544386;
+    v23 = 138544386;
     v21 = @"NO";
-    v25 = v15;
+    v24 = v15;
     if (v11)
     {
       v21 = @"YES";
     }
 
-    v26 = 2114;
-    v27 = v16;
-    v28 = 2114;
-    v29 = v18;
-    v30 = 2114;
-    v31 = v19;
-    v32 = 2114;
-    v33 = v21;
-    _os_log_impl(&dword_23193C000, v13, OS_LOG_TYPE_DEFAULT, "[SUCoreConfig] SelectBestAsset: BuildVersion&HWModelStr Predicate (Device:Asset) - HWModelString %{public}@:%{public}@; BuildVersion %{public}@:%{public}@ | keep=%{public}@", &v24, 0x34u);
+    v25 = 2114;
+    v26 = v16;
+    v27 = 2114;
+    v28 = v18;
+    v29 = 2114;
+    v30 = v19;
+    v31 = 2114;
+    v32 = v21;
+    _os_log_impl(&dword_23193C000, v13, OS_LOG_TYPE_DEFAULT, "[SUCoreConfig] SelectBestAsset: BuildVersion&HWModelStr Predicate (Device:Asset) - HWModelString %{public}@:%{public}@; BuildVersion %{public}@:%{public}@ | keep=%{public}@", &v23, 0x34u);
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 uint64_t __96__SUCoreConfigServer__stateSafeSelectBestAssetFromMultipleAssetArray_bestAsset_selectionReason___block_invoke_471(uint64_t a1, void *a2)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = [v2 attributes];
   v4 = [v3 safeObjectForKey:@"PrerequisiteBuilds" ofClass:objc_opt_class()];
@@ -1201,32 +1188,31 @@ uint64_t __96__SUCoreConfigServer__stateSafeSelectBestAssetFromMultipleAssetArra
     v18 = [v17 productVersion];
     v19 = [v6 componentsJoinedByString:{@", "}];
     v20 = v19;
-    v24 = 138544386;
+    v23 = 138544386;
     v21 = @"NO";
-    v25 = v15;
+    v24 = v15;
     if (v11)
     {
       v21 = @"YES";
     }
 
-    v26 = 2114;
-    v27 = v16;
-    v28 = 2114;
-    v29 = v18;
-    v30 = 2114;
-    v31 = v19;
-    v32 = 2114;
-    v33 = v21;
-    _os_log_impl(&dword_23193C000, v13, OS_LOG_TYPE_DEFAULT, "[SUCoreConfig] SelectBestAsset: BuildVersion&ProductVersion Predicate (Device:Asset) - BuildVersion %{public}@:%{public}@; ProductVersion %{public}@:%{public}@ | keep=%{public}@", &v24, 0x34u);
+    v25 = 2114;
+    v26 = v16;
+    v27 = 2114;
+    v28 = v18;
+    v29 = 2114;
+    v30 = v19;
+    v31 = 2114;
+    v32 = v21;
+    _os_log_impl(&dword_23193C000, v13, OS_LOG_TYPE_DEFAULT, "[SUCoreConfig] SelectBestAsset: BuildVersion&ProductVersion Predicate (Device:Asset) - BuildVersion %{public}@:%{public}@; ProductVersion %{public}@:%{public}@ | keep=%{public}@", &v23, 0x34u);
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 uint64_t __96__SUCoreConfigServer__stateSafeSelectBestAssetFromMultipleAssetArray_bestAsset_selectionReason___block_invoke_477(uint64_t a1, void *a2)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = [v2 attributes];
   v4 = [v3 safeObjectForKey:@"SupportedDeviceModels" ofClass:objc_opt_class()];
@@ -1261,32 +1247,31 @@ uint64_t __96__SUCoreConfigServer__stateSafeSelectBestAssetFromMultipleAssetArra
     v18 = [v17 productVersion];
     v19 = [v6 componentsJoinedByString:{@", "}];
     v20 = v19;
-    v24 = 138544386;
+    v23 = 138544386;
     v21 = @"NO";
-    v25 = v15;
+    v24 = v15;
     if (v11)
     {
       v21 = @"YES";
     }
 
-    v26 = 2114;
-    v27 = v16;
-    v28 = 2114;
-    v29 = v18;
-    v30 = 2114;
-    v31 = v19;
-    v32 = 2114;
-    v33 = v21;
-    _os_log_impl(&dword_23193C000, v13, OS_LOG_TYPE_DEFAULT, "[SUCoreConfig] SelectBestAsset: HWModelStr&ProductVersion Predicate (Device:Asset) - HWModelString %{public}@:%{public}@; ProductVersion %{public}@:%{public}@ | keep=%{public}@", &v24, 0x34u);
+    v25 = 2114;
+    v26 = v16;
+    v27 = 2114;
+    v28 = v18;
+    v29 = 2114;
+    v30 = v19;
+    v31 = 2114;
+    v32 = v21;
+    _os_log_impl(&dword_23193C000, v13, OS_LOG_TYPE_DEFAULT, "[SUCoreConfig] SelectBestAsset: HWModelStr&ProductVersion Predicate (Device:Asset) - HWModelString %{public}@:%{public}@; ProductVersion %{public}@:%{public}@ | keep=%{public}@", &v23, 0x34u);
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 uint64_t __96__SUCoreConfigServer__stateSafeSelectBestAssetFromMultipleAssetArray_bestAsset_selectionReason___block_invoke_483(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = [a2 attributes];
   v3 = [v2 safeObjectForKey:@"PrerequisiteBuilds" ofClass:objc_opt_class()];
 
@@ -1304,27 +1289,26 @@ uint64_t __96__SUCoreConfigServer__stateSafeSelectBestAssetFromMultipleAssetArra
     v11 = [v3 componentsJoinedByString:{@", "}];
     v12 = v11;
     v13 = @"NO";
-    v16 = 138543874;
-    v17 = v10;
-    v18 = 2114;
+    v15 = 138543874;
+    v16 = v10;
+    v17 = 2114;
     if (v6)
     {
       v13 = @"YES";
     }
 
-    v19 = v11;
-    v20 = 2114;
-    v21 = v13;
-    _os_log_impl(&dword_23193C000, v8, OS_LOG_TYPE_DEFAULT, "[SUCoreConfig] SelectBestAsset: BuildVersionOnly Predicate (Device:Asset) - BuildVersion %{public}@:%{public}@ | keep=%{public}@", &v16, 0x20u);
+    v18 = v11;
+    v19 = 2114;
+    v20 = v13;
+    _os_log_impl(&dword_23193C000, v8, OS_LOG_TYPE_DEFAULT, "[SUCoreConfig] SelectBestAsset: BuildVersionOnly Predicate (Device:Asset) - BuildVersion %{public}@:%{public}@ | keep=%{public}@", &v15, 0x20u);
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 uint64_t __96__SUCoreConfigServer__stateSafeSelectBestAssetFromMultipleAssetArray_bestAsset_selectionReason___block_invoke_489(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = [a2 attributes];
   v3 = [v2 safeObjectForKey:@"SupportedDeviceModels" ofClass:objc_opt_class()];
 
@@ -1342,27 +1326,26 @@ uint64_t __96__SUCoreConfigServer__stateSafeSelectBestAssetFromMultipleAssetArra
     v11 = [v3 componentsJoinedByString:{@", "}];
     v12 = v11;
     v13 = @"NO";
-    v16 = 138543874;
-    v17 = v10;
-    v18 = 2114;
+    v15 = 138543874;
+    v16 = v10;
+    v17 = 2114;
     if (v6)
     {
       v13 = @"YES";
     }
 
-    v19 = v11;
-    v20 = 2114;
-    v21 = v13;
-    _os_log_impl(&dword_23193C000, v8, OS_LOG_TYPE_DEFAULT, "[SUCoreConfig] SelectBestAsset: HWModelStrOnly Predicate (Device:Asset) - HWModelString %{public}@:%{public}@ | keep=%{public}@", &v16, 0x20u);
+    v18 = v11;
+    v19 = 2114;
+    v20 = v13;
+    _os_log_impl(&dword_23193C000, v8, OS_LOG_TYPE_DEFAULT, "[SUCoreConfig] SelectBestAsset: HWModelStrOnly Predicate (Device:Asset) - HWModelString %{public}@:%{public}@ | keep=%{public}@", &v15, 0x20u);
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 uint64_t __96__SUCoreConfigServer__stateSafeSelectBestAssetFromMultipleAssetArray_bestAsset_selectionReason___block_invoke_495(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = [a2 attributes];
   v3 = [v2 safeObjectForKey:@"PrerequisiteOSVersions" ofClass:objc_opt_class()];
 
@@ -1380,27 +1363,26 @@ uint64_t __96__SUCoreConfigServer__stateSafeSelectBestAssetFromMultipleAssetArra
     v11 = [v3 componentsJoinedByString:{@", "}];
     v12 = v11;
     v13 = @"NO";
-    v16 = 138543874;
-    v17 = v10;
-    v18 = 2114;
+    v15 = 138543874;
+    v16 = v10;
+    v17 = 2114;
     if (v6)
     {
       v13 = @"YES";
     }
 
-    v19 = v11;
-    v20 = 2114;
-    v21 = v13;
-    _os_log_impl(&dword_23193C000, v8, OS_LOG_TYPE_DEFAULT, "[SUCoreConfig] SelectBestAsset: ProductVersionOnly Predicate (Device:Asset) - ProductVersion %{public}@:%{public}@ | keep=%{public}@", &v16, 0x20u);
+    v18 = v11;
+    v19 = 2114;
+    v20 = v13;
+    _os_log_impl(&dword_23193C000, v8, OS_LOG_TYPE_DEFAULT, "[SUCoreConfig] SelectBestAsset: ProductVersionOnly Predicate (Device:Asset) - ProductVersion %{public}@:%{public}@ | keep=%{public}@", &v15, 0x20u);
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (int64_t)actionConfigDownloadAsset:(id)asset error:(id *)error
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   assetCopy = asset;
   locatedAsset = [assetCopy locatedAsset];
 
@@ -1413,18 +1395,18 @@ uint64_t __96__SUCoreConfigServer__stateSafeSelectBestAssetFromMultipleAssetArra
     if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v22 = _stateSafeDownloadOptions;
+      v21 = _stateSafeDownloadOptions;
       _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "[SUCoreConfig] Download: Starting download of configuration asset with options: %{public}@", buf, 0xCu);
     }
 
     locatedAsset2 = [assetCopy locatedAsset];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __54__SUCoreConfigServer_actionConfigDownloadAsset_error___block_invoke;
-    v19[3] = &unk_27892D200;
-    v19[4] = self;
-    v20 = assetCopy;
-    [locatedAsset2 startDownload:_stateSafeDownloadOptions completionWithError:v19];
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __54__SUCoreConfigServer_actionConfigDownloadAsset_error___block_invoke;
+    v18[3] = &unk_27892D200;
+    v18[4] = self;
+    v19 = assetCopy;
+    [locatedAsset2 startDownload:_stateSafeDownloadOptions completionWithError:v18];
 
     v11 = 0;
   }
@@ -1449,13 +1431,12 @@ uint64_t __96__SUCoreConfigServer__stateSafeSelectBestAssetFromMultipleAssetArra
     v11 = 8116;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 void __54__SUCoreConfigServer_actionConfigDownloadAsset_error___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = [MEMORY[0x277D64460] sharedLogger];
   v7 = [v6 oslog];
@@ -1463,9 +1444,9 @@ void __54__SUCoreConfigServer_actionConfigDownloadAsset_error___block_invoke(uin
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = MEMORY[0x2383741D0](a2);
-    v16 = 138543362;
-    v17 = v8;
-    _os_log_impl(&dword_23193C000, v7, OS_LOG_TYPE_DEFAULT, "[SUCoreConfig] Download: Asset download completed with MADownloadResult: %{public}@", &v16, 0xCu);
+    v15 = 138543362;
+    v16 = v8;
+    _os_log_impl(&dword_23193C000, v7, OS_LOG_TYPE_DEFAULT, "[SUCoreConfig] Download: Asset download completed with MADownloadResult: %{public}@", &v15, 0xCu);
   }
 
   if (a2 != 10 && a2)
@@ -1491,13 +1472,11 @@ void __54__SUCoreConfigServer_actionConfigDownloadAsset_error___block_invoke(uin
     v9 = [*(a1 + 32) stateMachine];
     [v9 postEvent:@"ConfigPhaseComplete" withInfo:*(a1 + 40)];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)actionConfigAdjustSettings:(id)settings error:(id *)error
 {
-  v63[1] = *MEMORY[0x277D85DE8];
+  v62[1] = *MEMORY[0x277D85DE8];
   settingsCopy = settings;
   mEMORY[0x277D64460] = [MEMORY[0x277D64460] sharedLogger];
   oslog = [mEMORY[0x277D64460] oslog];
@@ -1605,20 +1584,20 @@ LABEL_15:
     if (os_log_type_enabled(oslog3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v58 = v37;
+      v57 = v37;
       _os_log_impl(&dword_23193C000, oslog3, OS_LOG_TYPE_DEFAULT, "[SUCoreConfig] Adjust: Updating configuration for projects: %{public}@", buf, 0xCu);
     }
 
     [v37 enumerateKeysAndObjectsUsingBlock:&__block_literal_global_532];
     [(SUCoreConfigServer *)self _stateSafeInformDelegatesOfConfiguration:v36 error:0];
     [(SUCoreConfigServer *)self _stateSafeSendInstalledEventWithSuccess:1 error:0];
-    v62 = @"com.apple.MobileAsset.SoftwareUpdateConfiguration";
+    v61 = @"com.apple.MobileAsset.SoftwareUpdateConfiguration";
     locatedAsset6 = [settingsCopy locatedAsset];
     assetId = [locatedAsset6 assetId];
-    v61 = assetId;
-    v42 = [MEMORY[0x277CBEA60] arrayWithObjects:&v61 count:1];
-    v63[0] = v42;
-    v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v63 forKeys:&v62 count:1];
+    v60 = assetId;
+    v42 = [MEMORY[0x277CBEA60] arrayWithObjects:&v60 count:1];
+    v62[0] = v42;
+    v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v62 forKeys:&v61 count:1];
 
     mEMORY[0x277D64460]4 = [MEMORY[0x277D64460] sharedLogger];
     oslog4 = [mEMORY[0x277D64460]4 oslog];
@@ -1627,9 +1606,9 @@ LABEL_15:
     {
       v46 = [&unk_2846B9D48 componentsJoinedByString:{@", "}];
       *buf = 138543618;
-      v58 = v46;
-      v59 = 2114;
-      v60 = v43;
+      v57 = v46;
+      v58 = 2114;
+      v59 = v43;
       _os_log_impl(&dword_23193C000, oslog4, OS_LOG_TYPE_DEFAULT, "[SUCoreConfig] Purge: Purging all assets (via MAPurgeAllExceptGivenIds) of type %{public}@ except: %{public}@", buf, 0x16u);
     }
 
@@ -1671,13 +1650,12 @@ LABEL_15:
   v18 = 0;
 LABEL_29:
 
-  v55 = *MEMORY[0x277D85DE8];
   return v24;
 }
 
 void __55__SUCoreConfigServer_actionConfigAdjustSettings_error___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
   if (v4 && (+[SUCoreConfigServer allowedServerProjects](SUCoreConfigServer, "allowedServerProjects"), v6 = objc_claimAutoreleasedReturnValue(), v7 = [v6 containsObject:v4], v6, v7))
@@ -1689,20 +1667,20 @@ void __55__SUCoreConfigServer_actionConfigAdjustSettings_error___block_invoke(ui
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      v18 = v4;
-      v19 = 2114;
-      v20 = v5;
+      v17 = v4;
+      v18 = 2114;
+      v19 = v5;
       _os_log_impl(&dword_23193C000, v10, OS_LOG_TYPE_DEFAULT, "[SUCoreConfig] Adjust: Updating configuration for project: %{public}@, with configuration: %{public}@", buf, 0x16u);
     }
 
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __55__SUCoreConfigServer_actionConfigAdjustSettings_error___block_invoke_533;
-    v14[3] = &unk_27892E760;
-    v15 = v8;
-    v16 = v4;
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __55__SUCoreConfigServer_actionConfigAdjustSettings_error___block_invoke_533;
+    v13[3] = &unk_27892E760;
+    v14 = v8;
+    v15 = v4;
     v11 = v8;
-    [v5 enumerateKeysAndObjectsUsingBlock:v14];
+    [v5 enumerateKeysAndObjectsUsingBlock:v13];
   }
 
   else
@@ -1715,8 +1693,6 @@ void __55__SUCoreConfigServer_actionConfigAdjustSettings_error___block_invoke(ui
       __55__SUCoreConfigServer_actionConfigAdjustSettings_error___block_invoke_cold_1();
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __55__SUCoreConfigServer_actionConfigAdjustSettings_error___block_invoke_533(uint64_t a1, void *a2, void *a3)
@@ -1735,7 +1711,7 @@ void __55__SUCoreConfigServer_actionConfigAdjustSettings_error___block_invoke_53
 
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      __55__SUCoreConfigServer_actionConfigAdjustSettings_error___block_invoke_533_cold_1(v5, a1);
+      __55__SUCoreConfigServer_actionConfigAdjustSettings_error___block_invoke_533_cold_1();
     }
   }
 }
@@ -1767,7 +1743,7 @@ void __55__SUCoreConfigServer_actionConfigAdjustSettings_error___block_invoke_53
 
 - (void)_stateSafeInformDelegatesOfConfiguration:(id)configuration error:(id)error
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   errorCopy = error;
   stateMachine = [(SUCoreConfigServer *)self stateMachine];
@@ -1781,28 +1757,26 @@ void __55__SUCoreConfigServer_actionConfigAdjustSettings_error___block_invoke_53
   {
     listenerDelegates = [(SUCoreConfigServer *)self listenerDelegates];
     *buf = 134217984;
-    v21 = [listenerDelegates count];
+    v20 = [listenerDelegates count];
     _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "[SUCoreConfig] Delegate: Informing %ld listener delegates of updated config", buf, 0xCu);
   }
 
   listenerDelegates2 = [(SUCoreConfigServer *)self listenerDelegates];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __69__SUCoreConfigServer__stateSafeInformDelegatesOfConfiguration_error___block_invoke;
-  v17[3] = &unk_27892E788;
-  v17[4] = self;
-  v18 = configurationCopy;
-  v19 = errorCopy;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __69__SUCoreConfigServer__stateSafeInformDelegatesOfConfiguration_error___block_invoke;
+  v16[3] = &unk_27892E788;
+  v16[4] = self;
+  v17 = configurationCopy;
+  v18 = errorCopy;
   v14 = errorCopy;
   v15 = configurationCopy;
-  [listenerDelegates2 enumerateKeysAndObjectsUsingBlock:v17];
-
-  v16 = *MEMORY[0x277D85DE8];
+  [listenerDelegates2 enumerateKeysAndObjectsUsingBlock:v16];
 }
 
 void __69__SUCoreConfigServer__stateSafeInformDelegatesOfConfiguration_error___block_invoke(id *a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6 && (objc_opt_respondsToSelector() & 1) != 0)
@@ -1813,7 +1787,7 @@ void __69__SUCoreConfigServer__stateSafeInformDelegatesOfConfiguration_error___b
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v18 = v5;
+      v17 = v5;
       _os_log_impl(&dword_23193C000, v8, OS_LOG_TYPE_DEFAULT, "[SUCoreConfig] Delegate: Sending updated config notification to delegate with name: %{public}@", buf, 0xCu);
     }
 
@@ -1822,12 +1796,12 @@ void __69__SUCoreConfigServer__stateSafeInformDelegatesOfConfiguration_error___b
     block[1] = 3221225472;
     block[2] = __69__SUCoreConfigServer__stateSafeInformDelegatesOfConfiguration_error___block_invoke_539;
     block[3] = &unk_27892D340;
-    v14 = v6;
-    v15 = a1[5];
-    v16 = a1[6];
+    v13 = v6;
+    v14 = a1[5];
+    v15 = a1[6];
     dispatch_async(v9, block);
 
-    v10 = v14;
+    v10 = v13;
   }
 
   else
@@ -1838,17 +1812,15 @@ void __69__SUCoreConfigServer__stateSafeInformDelegatesOfConfiguration_error___b
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v18 = v5;
+      v17 = v5;
       _os_log_impl(&dword_23193C000, v10, OS_LOG_TYPE_DEFAULT, "[SUCoreConfig] Delegate: Delegate does not respond to updated config callbacks (%{public}@)", buf, 0xCu);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)actionConfigScheduleScan:(id)scan error:(id *)error
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   scanCopy = scan;
   error = [scanCopy error];
 
@@ -1905,7 +1877,7 @@ void __69__SUCoreConfigServer__stateSafeInformDelegatesOfConfiguration_error___b
   if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v33 = scheduledActivityName;
+    v32 = scheduledActivityName;
     _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "[SUCoreConfig] Schedule: Unregistering all activities with name: %{public}@", buf, 0xCu);
   }
 
@@ -1931,9 +1903,9 @@ void __69__SUCoreConfigServer__stateSafeInformDelegatesOfConfiguration_error___b
     date = [MEMORY[0x277CBEAA8] date];
     v27 = [v25 stringFromDate:date];
     *buf = 138543618;
-    v33 = v24;
-    v34 = 2114;
-    v35 = v27;
+    v32 = v24;
+    v33 = 2114;
+    v34 = v27;
     _os_log_impl(&dword_23193C000, oslog2, OS_LOG_TYPE_DEFAULT, "[SUCoreConfig] Schedule: Scheduling activity with options: %{public}@; current date: %{public}@", buf, 0x16u);
   }
 
@@ -1952,7 +1924,6 @@ void __69__SUCoreConfigServer__stateSafeInformDelegatesOfConfiguration_error___b
   }
 
   [(SUCoreConfigServer *)self _stateSafeSendScheduledEventWithSuccess:1 error:0];
-  v30 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -2007,42 +1978,40 @@ LABEL_10:
   }
 }
 
-void __53__SUCoreConfigServer_actionConfigScheduleScan_error___block_invoke_560()
+void __53__SUCoreConfigServer_actionConfigScheduleScan_error___block_invoke_560(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = xpc_activity_copy_identifier();
-  v1 = [MEMORY[0x277D64460] sharedLogger];
-  v2 = [v1 oslog];
+  v9 = *MEMORY[0x277D85DE8];
+  v2 = xpc_activity_copy_identifier();
+  v3 = [MEMORY[0x277D64460] sharedLogger];
+  v4 = [v3 oslog];
 
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    if (v0)
+    if (v2)
     {
-      v3 = [MEMORY[0x277CCACA8] stringWithUTF8String:v0];
+      v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:v2];
     }
 
     else
     {
-      v3 = @"(Unknown activity)";
+      v5 = @"(Unknown activity)";
     }
 
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_23193C000, v2, OS_LOG_TYPE_DEFAULT, "[SUCoreConfig] Schedule: Scheduled activity %@ fired! Scanning for new confibutration updates", &v6, 0xCu);
-    if (v0)
+    v7 = 138412290;
+    v8 = v5;
+    _os_log_impl(&dword_23193C000, v4, OS_LOG_TYPE_DEFAULT, "[SUCoreConfig] Schedule: Scheduled activity %@ fired! Scanning for new confibutration updates", &v7, 0xCu);
+    if (v2)
     {
     }
   }
 
-  v4 = +[SUCoreConfigServer sharedServerSettings];
-  [v4 installServerSettings];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v6 = +[SUCoreConfigServer sharedServerSettings];
+  [v6 installServerSettings];
 }
 
 void __53__SUCoreConfigServer_actionConfigScheduleScan_error___block_invoke_568(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
   v6 = [MEMORY[0x277D64460] sharedLogger];
@@ -2053,19 +2022,17 @@ void __53__SUCoreConfigServer_actionConfigScheduleScan_error___block_invoke_568(
     v8 = MEMORY[0x277D643F8];
     v9 = [MEMORY[0x277CBEAA8] date];
     v10 = [v8 stringFromDate:v9];
-    v13 = 138543874;
-    v14 = v4;
-    v15 = 2114;
-    v16 = v5;
-    v17 = 2114;
-    v18 = v10;
-    _os_log_impl(&dword_23193C000, v7, OS_LOG_TYPE_DEFAULT, "[SUCoreConfig] Schedule: Scheduled activity fired! Scanning for new configuration updates (registrationID=%{public}@ info=%{public}@ currentDate=%{public}@)", &v13, 0x20u);
+    v12 = 138543874;
+    v13 = v4;
+    v14 = 2114;
+    v15 = v5;
+    v16 = 2114;
+    v17 = v10;
+    _os_log_impl(&dword_23193C000, v7, OS_LOG_TYPE_DEFAULT, "[SUCoreConfig] Schedule: Scheduled activity fired! Scanning for new configuration updates (registrationID=%{public}@ info=%{public}@ currentDate=%{public}@)", &v12, 0x20u);
   }
 
   v11 = +[SUCoreConfigServer sharedServerSettings];
   [v11 installServerSettings];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_stateSafeDownloadOptions
@@ -2086,7 +2053,7 @@ void __53__SUCoreConfigServer_actionConfigScheduleScan_error___block_invoke_568(
 
 - (void)_stateSafeResetState
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   date = [MEMORY[0x277CBEAA8] date];
   [(SUCoreConfigServer *)self setLastScanTime:date];
 
@@ -2098,9 +2065,9 @@ void __53__SUCoreConfigServer_actionConfigScheduleScan_error___block_invoke_568(
 
   if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138543362;
-    v10 = scheduledActivityName;
-    _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "[SUCoreConfig] ResetState: Unregistering all activities with name: %{public}@", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = scheduledActivityName;
+    _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "[SUCoreConfig] ResetState: Unregistering all activities with name: %{public}@", &v8, 0xCu);
   }
 
   if (_stateSafeResetState_schedulerDefaultOnce != -1)
@@ -2119,8 +2086,6 @@ void __53__SUCoreConfigServer_actionConfigScheduleScan_error___block_invoke_568(
     v7 = +[SUCoreActivityScheduler sharedInstance];
     [v7 unregisterActivitiesWithName:scheduledActivityName];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __42__SUCoreConfigServer__stateSafeResetState__block_invoke()
@@ -2197,7 +2162,7 @@ LABEL_10:
 
 - (id)_stateSafeDetermineNextScanTime
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   stateMachine = [(SUCoreConfigServer *)self stateMachine];
   extendedStateQueue = [stateMachine extendedStateQueue];
   dispatch_assert_queue_V2(extendedStateQueue);
@@ -2237,11 +2202,11 @@ LABEL_10:
     if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
     {
       v19 = [MEMORY[0x277D643F8] stringFromDate:v16];
-      v40 = 138543618;
-      v41 = v11;
-      v42 = 2114;
-      v43 = v19;
-      _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "[SUCoreConfig] NextScanTime: Using nextScanTime scan interval override (%{public}@) for proposed scan: %{public}@", &v40, 0x16u);
+      v39 = 138543618;
+      v40 = v11;
+      v41 = 2114;
+      v42 = v19;
+      _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "[SUCoreConfig] NextScanTime: Using nextScanTime scan interval override (%{public}@) for proposed scan: %{public}@", &v39, 0x16u);
     }
   }
 
@@ -2261,9 +2226,9 @@ LABEL_10:
     if (os_log_type_enabled(oslog2, OS_LOG_TYPE_DEFAULT))
     {
       v33 = [MEMORY[0x277D643F8] stringFromDate:v9];
-      v40 = 138543362;
-      v41 = v33;
-      _os_log_impl(&dword_23193C000, oslog2, OS_LOG_TYPE_DEFAULT, "[SUCoreConfig] NextScanTime: Previous nextScanTime (%{public}@) has already passed, removing now", &v40, 0xCu);
+      v39 = 138543362;
+      v40 = v33;
+      _os_log_impl(&dword_23193C000, oslog2, OS_LOG_TYPE_DEFAULT, "[SUCoreConfig] NextScanTime: Previous nextScanTime (%{public}@) has already passed, removing now", &v39, 0xCu);
     }
 
     v9 = 0;
@@ -2286,10 +2251,10 @@ LABEL_10:
     v27 = MEMORY[0x277D643F8];
     date2 = [MEMORY[0x277CBEAA8] date];
     v29 = [v27 stringFromDate:date2];
-    v40 = 138543618;
-    v41 = v26;
-    v42 = 2114;
-    v43 = v29;
+    v39 = 138543618;
+    v40 = v26;
+    v41 = 2114;
+    v42 = v29;
     v30 = "[SUCoreConfig] NextScanTime: Using nextScanTime (via previous): %{public}@, current time: %{public}@";
     goto LABEL_19;
   }
@@ -2309,19 +2274,17 @@ LABEL_10:
   v36 = MEMORY[0x277D643F8];
   date2 = [MEMORY[0x277CBEAA8] date];
   v29 = [v36 stringFromDate:date2];
-  v40 = 138543618;
-  v41 = v26;
-  v42 = 2114;
-  v43 = v29;
+  v39 = 138543618;
+  v40 = v26;
+  v41 = 2114;
+  v42 = v29;
   v30 = "[SUCoreConfig] NextScanTime: Using nextScanTime (via proposed): %{public}@, current time: %{public}@";
 LABEL_19:
-  _os_log_impl(&dword_23193C000, oslog3, OS_LOG_TYPE_DEFAULT, v30, &v40, 0x16u);
+  _os_log_impl(&dword_23193C000, oslog3, OS_LOG_TYPE_DEFAULT, v30, &v39, 0x16u);
 
 LABEL_20:
   [(SUCoreConfigServer *)self _stateSafeUpdateState];
   nextScanTime2 = [(SUCoreConfigServer *)self nextScanTime];
-
-  v38 = *MEMORY[0x277D85DE8];
 
   return nextScanTime2;
 }
@@ -2355,9 +2318,31 @@ LABEL_20:
   return v7;
 }
 
+- (void)_stateSafeSendScheduledEventWithSuccess:(BOOL)success error:(id)error
+{
+  successCopy = success;
+  errorCopy = error;
+  stateMachine = [(SUCoreConfigServer *)self stateMachine];
+  extendedStateQueue = [stateMachine extendedStateQueue];
+  dispatch_assert_queue_V2(extendedStateQueue);
+
+  [(SUCoreConfigServer *)self _stateSafeSendNewEvent:@"SUCoreConfigScheduled" success:successCopy error:errorCopy];
+}
+
+- (void)_stateSafeSendInstalledEventWithSuccess:(BOOL)success error:(id)error
+{
+  successCopy = success;
+  errorCopy = error;
+  stateMachine = [(SUCoreConfigServer *)self stateMachine];
+  extendedStateQueue = [stateMachine extendedStateQueue];
+  dispatch_assert_queue_V2(extendedStateQueue);
+
+  [(SUCoreConfigServer *)self _stateSafeSendNewEvent:@"SUCoreConfigInstalled" success:successCopy error:errorCopy];
+}
+
 - (void)_stateSafeSendNewEvent:(id)event success:(BOOL)success error:(id)error
 {
-  v74 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   errorCopy = error;
   stateMachine = [(SUCoreConfigServer *)self stateMachine];
@@ -2402,7 +2387,7 @@ LABEL_20:
 
   v25 = objc_alloc_init(MEMORY[0x277CBEB38]);
   [v25 setSafeObject:v12 forKey:*MEMORY[0x277D64748]];
-  v67 = errorCopy;
+  v66 = errorCopy;
   checkedSummary = [errorCopy checkedSummary];
   [v25 setSafeObject:checkedSummary forKey:*MEMORY[0x277D64720]];
 
@@ -2479,13 +2464,13 @@ LABEL_20:
   [v25 setSafeObject:v55 forKey:@"lastLocatedAssetUniqueID"];
 
   v56 = +[SUCoreConfigServer allowedServerProjects];
-  v68[0] = MEMORY[0x277D85DD0];
-  v68[1] = 3221225472;
-  v68[2] = __59__SUCoreConfigServer__stateSafeSendNewEvent_success_error___block_invoke;
-  v68[3] = &unk_27892E818;
+  v67[0] = MEMORY[0x277D85DD0];
+  v67[1] = 3221225472;
+  v67[2] = __59__SUCoreConfigServer__stateSafeSendNewEvent_success_error___block_invoke;
+  v67[3] = &unk_27892E818;
   v57 = v25;
-  v69 = v57;
-  [v56 enumerateObjectsUsingBlock:v68];
+  v68 = v57;
+  [v56 enumerateObjectsUsingBlock:v67];
 
   mEMORY[0x277D64460] = [MEMORY[0x277D64460] sharedLogger];
   oslog = [mEMORY[0x277D64460] oslog];
@@ -2493,9 +2478,9 @@ LABEL_20:
   if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v71 = v45;
-    v72 = 2114;
-    v73 = v12;
+    v70 = v45;
+    v71 = 2114;
+    v72 = v12;
     _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "[SUCoreConfig] Sending event '%{public}@' with result: %{public}@", buf, 0x16u);
   }
 
@@ -2507,8 +2492,6 @@ LABEL_20:
   mEMORY[0x277D64448] = [MEMORY[0x277D64448] sharedReporter];
   getAugmentedEvent = [v63 getAugmentedEvent];
   [mEMORY[0x277D64448] sendEvent:getAugmentedEvent];
-
-  v66 = *MEMORY[0x277D85DE8];
 }
 
 void __59__SUCoreConfigServer__stateSafeSendNewEvent_success_error___block_invoke(uint64_t a1, void *a2)
@@ -2601,80 +2584,21 @@ void __59__SUCoreConfigServer__stateSafeSendNewEvent_success_error___block_invok
 
 + (void)persistedStateFilePath
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 138543618;
-  v4 = @"/var/MobileSoftwareUpdate/Controller/SoftwareUpdateCore";
-  v5 = 2114;
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 138543618;
+  v3 = @"/var/MobileSoftwareUpdate/Controller/SoftwareUpdateCore";
+  v4 = 2114;
   selfCopy = self;
-  _os_log_error_impl(&dword_23193C000, a2, OS_LOG_TYPE_ERROR, "[SUCoreConfig] PersistedStateFilePath: Failed to create cache directory at path: %{public}@, error: %{public}@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_23193C000, a2, OS_LOG_TYPE_ERROR, "[SUCoreConfig] PersistedStateFilePath: Failed to create cache directory at path: %{public}@, error: %{public}@", &v2, 0x16u);
 }
 
-void __56__SUCoreConfigServer_actionConfigDownloadCatalog_error___block_invoke_cold_1()
+void __55__SUCoreConfigServer_actionConfigAdjustSettings_error___block_invoke_533_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_4();
-  OUTLINED_FUNCTION_0_8(&dword_23193C000, v0, v1, "[SUCoreConfig] Catalog: Failed to download software update configuration catalog: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)actionConfigQueryAsset:error:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_4();
-  OUTLINED_FUNCTION_0_8(&dword_23193C000, v0, v1, "[SUCoreConfig] Query: Failed to locate config: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)actionConfigDownloadAsset:error:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_4();
-  OUTLINED_FUNCTION_0_8(&dword_23193C000, v0, v1, "[SUCoreConfig] Download: Failed to download software update configuration asset: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)actionConfigAdjustSettings:error:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_4();
-  OUTLINED_FUNCTION_0_8(&dword_23193C000, v0, v1, "[SUCoreConfig] Adjust: Failed to adjust configuration: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)actionConfigAdjustSettings:error:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_4();
-  OUTLINED_FUNCTION_0_8(&dword_23193C000, v0, v1, "[SUCoreConfig] Adjust: Failed adjust configuration: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __55__SUCoreConfigServer_actionConfigAdjustSettings_error___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_4();
-  OUTLINED_FUNCTION_0_8(&dword_23193C000, v0, v1, "[SUCoreConfig] Adjust: Not processing non-allowed project '%{public}@'", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __55__SUCoreConfigServer_actionConfigAdjustSettings_error___block_invoke_533_cold_1(uint64_t a1, uint64_t a2)
-{
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = *(a2 + 40);
-  OUTLINED_FUNCTION_1_4();
-  v7 = 2114;
-  v8 = v3;
-  _os_log_error_impl(&dword_23193C000, v4, OS_LOG_TYPE_ERROR, "[SUCoreConfig] Adjust: Not processing non-allowed key '%{public}@' for project '%{public}@'", v6, 0x16u);
   v5 = *MEMORY[0x277D85DE8];
-}
-
-void __55__SUCoreConfigServer_actionConfigAdjustSettings_error___block_invoke_535_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_4();
-  OUTLINED_FUNCTION_0_8(&dword_23193C000, v0, v1, "[SUCoreConfig] Purge: Purge (MAPurgeAllExceptGivenIds) failed to complete successfully: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v3 = 2114;
+  v4 = v0;
+  _os_log_error_impl(&dword_23193C000, v1, OS_LOG_TYPE_ERROR, "[SUCoreConfig] Adjust: Not processing non-allowed key '%{public}@' for project '%{public}@'", v2, 0x16u);
 }
 
 @end

@@ -34,56 +34,56 @@
     intersectionStride = MPSIntersectionDataTypeStride(self->_intersectionDataType);
   }
 
-  v13 = objc_msgSend_bvh(structure, a2, type, rays, intersections, rays);
+  v13 = objc_msgSend_bvh(structure, a2, type, rays);
   if (count)
   {
-    v20 = v13;
-    v21 = 0;
-    v22 = 1;
+    v18 = v13;
+    v19 = 0;
+    v20 = 1;
     do
     {
-      v23 = 0;
+      v21 = 0;
       rayDataType = self->_rayDataType;
-      v25 = 0;
+      v23 = 0;
       if (rayDataType > 1)
       {
         if (rayDataType == 2)
         {
-          v34 = (v64 + v21 * rayStride);
-          LODWORD(v19) = *v34;
-          v30 = v34[1];
-          v29 = v34[2];
-          v23 = v34[3];
-          LODWORD(v18) = v34[4];
-          v28 = v34[5];
-          v27 = v34[6];
-          v26 = v34[7];
+          v32 = (v60 + v19 * rayStride);
+          LODWORD(v17) = *v32;
+          v28 = v32[1];
+          v27 = v32[2];
+          v21 = v32[3];
+          LODWORD(v16) = v32[4];
+          v26 = v32[5];
+          v25 = v32[6];
+          v24 = v32[7];
         }
 
         else
         {
           if (rayDataType == 3)
           {
-            v32 = (v64 + v21 * rayStride);
-            LODWORD(v19) = *v32;
-            v30 = v32[1];
-            v29 = v32[2];
-            LODWORD(v18) = v32[3];
-            v28 = v32[4];
-            v27 = v32[5];
+            v30 = (v60 + v19 * rayStride);
+            LODWORD(v17) = *v30;
+            v28 = v30[1];
+            v27 = v30[2];
+            LODWORD(v16) = v30[3];
+            v26 = v30[4];
+            v25 = v30[5];
 LABEL_15:
-            v23 = 0xFFFFFFFFLL;
-            v26 = 2139095040;
+            v21 = 0xFFFFFFFFLL;
+            v24 = 2139095040;
             goto LABEL_18;
           }
 
+          v24 = 0;
+          v25 = 0;
           v26 = 0;
+          *&v16 = 0;
           v27 = 0;
           v28 = 0;
-          *&v18 = 0;
-          v29 = 0;
-          v30 = 0;
-          *&v19 = 0;
+          *&v17 = 0;
         }
       }
 
@@ -91,101 +91,101 @@ LABEL_15:
       {
         if (!rayDataType)
         {
-          v33 = (v64 + v21 * rayStride);
-          v19 = *v33;
-          v18 = v33[1];
-          v30 = HIDWORD(*v33);
-          v29 = *(v33 + 1);
-          v28 = HIDWORD(*(v33 + 2));
-          v27 = *(v33 + 3);
+          v31 = (v60 + v19 * rayStride);
+          v17 = *v31;
+          v16 = v31[1];
+          v28 = HIDWORD(*v31);
+          v27 = *(v31 + 1);
+          v26 = HIDWORD(*(v31 + 2));
+          v25 = *(v31 + 3);
           goto LABEL_15;
         }
 
+        v24 = 0;
+        v25 = 0;
         v26 = 0;
+        *&v16 = 0;
         v27 = 0;
         v28 = 0;
-        *&v18 = 0;
-        v29 = 0;
-        v30 = 0;
-        *&v19 = 0;
+        *&v17 = 0;
         if (rayDataType == 1)
         {
-          v31 = (v64 + v21 * rayStride);
-          LODWORD(v19) = *v31;
-          v30 = v31[1];
-          v29 = v31[2];
-          v25 = v31[3];
-          LODWORD(v18) = v31[4];
-          v28 = v31[5];
-          v27 = v31[6];
-          v26 = v31[7];
-          v23 = 0xFFFFFFFFLL;
+          v29 = (v60 + v19 * rayStride);
+          LODWORD(v17) = *v29;
+          v28 = v29[1];
+          v27 = v29[2];
+          v23 = v29[3];
+          LODWORD(v16) = v29[4];
+          v26 = v29[5];
+          v25 = v29[6];
+          v24 = v29[7];
+          v21 = 0xFFFFFFFFLL;
         }
       }
 
 LABEL_18:
-      v66 = *&v19;
-      v67 = *&v18;
-      v69 = 0;
-      v70 = 0;
-      v68 = 0;
-      if (objc_msgSend_instancing(structure, v14, v15, v16, v17))
+      v62 = *&v17;
+      v63 = *&v16;
+      v65 = 0;
+      v66 = 0;
+      v64 = 0;
+      if (objc_msgSend_instancing(structure, v14, v15))
       {
-        if (objc_msgSend_identityTransforms(structure, v35, v36, v37, v38))
+        if (objc_msgSend_identityTransforms(structure, v33, v34))
         {
-          v45.i32[0] = v30;
-          v46.i32[0] = v29;
-          LODWORD(v47) = v28;
-          LODWORD(v48) = v27;
-          v49.i32[0] = v25;
-          v50.i32[0] = v26;
+          v41.i32[0] = v28;
+          v42.i32[0] = v27;
+          LODWORD(v43) = v26;
+          LODWORD(v44) = v25;
+          v45.i32[0] = v23;
+          v46.i32[0] = v24;
           if (type)
           {
-            sub_239DE9BC4(*&v66, v45, v46, v67, v47, v48, v49, *v50.i64, v23, v20, &v70 + 1, &v70, &v69 + 1, &v69, &v68 + 1, &v68);
+            sub_239DE9BC4(*&v62, v41, v42, v63, v43, v44, v45, *v46.i64, v21, v18, &v66 + 1, &v66, &v65 + 1, &v65, &v64 + 1, &v64);
           }
 
           else
           {
-            sub_239DE9618(*&v66, v45, v46, v67, v47, v48, v49, v50, v23, v20, &v70 + 1, &v70, &v69 + 1, &v69, &v68 + 1, &v68);
+            sub_239DE9618(*&v62, v41, v42, v63, v43, v44, v45, v46, v21, v18, &v66 + 1, &v66, &v65 + 1, &v65, &v64 + 1, &v64);
           }
         }
 
         else
         {
-          v45.i32[0] = v30;
-          v46.i32[0] = v29;
-          LODWORD(v47) = v28;
-          LODWORD(v48) = v27;
-          v49.i32[0] = v25;
-          v50.i32[0] = v26;
+          v41.i32[0] = v28;
+          v42.i32[0] = v27;
+          LODWORD(v43) = v26;
+          LODWORD(v44) = v25;
+          v45.i32[0] = v23;
+          v46.i32[0] = v24;
           if (type)
           {
-            sub_239DE9090(*&v66, v45, v46, v67, v47, v48, v49, *v50.i64, v23, v20, &v70 + 1, &v70, &v69 + 1, &v69, &v68 + 1, &v68);
+            sub_239DE9090(*&v62, v41, v42, v63, v43, v44, v45, *v46.i64, v21, v18, &v66 + 1, &v66, &v65 + 1, &v65, &v64 + 1, &v64);
           }
 
           else
           {
-            sub_239DE88C4(v66, v45, v46, v67, v47, v48, v49, *v50.i64, v23, v20, &v70 + 1, &v70, &v69 + 1, &v69, &v68 + 1, &v68);
+            sub_239DE88C4(v62, v41, v42, v63, v43, v44, v45, *v46.i64, v21, v18, &v66 + 1, &v66, &v65 + 1, &v65, &v64 + 1, &v64);
           }
         }
       }
 
       else
       {
-        v39.i32[0] = v30;
-        v40.i32[0] = v29;
-        LODWORD(v41) = v28;
-        LODWORD(v42) = v27;
-        v43.i32[0] = v25;
-        v44.i32[0] = v26;
+        v35.i32[0] = v28;
+        v36.i32[0] = v27;
+        LODWORD(v37) = v26;
+        LODWORD(v38) = v25;
+        v39.i32[0] = v23;
+        v40.i32[0] = v24;
         if (type)
         {
-          sub_239DE8554(*&v66, v39, v40, v67, v41, v42, v43, *v44.i64, v23, v20, &v70 + 1, &v70, &v69 + 1, &v69, &v68 + 1, &v68);
+          sub_239DE8554(*&v62, v35, v36, v63, v37, v38, v39, *v40.i64, v21, v18, &v66 + 1, &v66, &v65 + 1, &v65, &v64 + 1, &v64);
         }
 
         else
         {
-          sub_239DE7FD0(*&v66, v39, v40, v67, v41, v42, v43, v44, v23, v20, &v70 + 1, &v70, &v69 + 1, &v69, &v68 + 1, &v68);
+          sub_239DE7FD0(*&v62, v35, v36, v63, v37, v38, v39, v40, v21, v18, &v66 + 1, &v66, &v65 + 1, &v65, &v64 + 1, &v64);
         }
       }
 
@@ -198,18 +198,18 @@ LABEL_18:
           {
             if (intersectionDataType == 1)
             {
-              v54 = intersections + v21 * intersectionStride;
-              *v54 = HIDWORD(v70);
+              v50 = intersections + v19 * intersectionStride;
+              *v50 = HIDWORD(v66);
               if (!type)
               {
-                v54[1] = v70;
+                v50[1] = v66;
               }
             }
           }
 
           else
           {
-            *(intersections + v21 * intersectionStride) = HIDWORD(v70);
+            *(intersections + v19 * intersectionStride) = HIDWORD(v66);
           }
 
           goto LABEL_59;
@@ -217,27 +217,27 @@ LABEL_18:
 
         if (intersectionDataType == 2)
         {
-          v58 = intersections + v21 * intersectionStride;
-          *v58 = HIDWORD(v70);
+          v54 = intersections + v19 * intersectionStride;
+          *v54 = HIDWORD(v66);
           if (!type)
           {
-            *(v58 + 1) = v70;
-            *&v18 = __PAIR64__(HIDWORD(v68), v69);
-            *(v58 + 1) = __PAIR64__(HIDWORD(v68), v69);
+            *(v54 + 1) = v66;
+            *&v16 = __PAIR64__(HIDWORD(v64), v65);
+            *(v54 + 1) = __PAIR64__(HIDWORD(v64), v65);
           }
 
           goto LABEL_59;
         }
 
-        v55 = intersections + v21 * intersectionStride;
-        *v55 = HIDWORD(v70);
+        v51 = intersections + v19 * intersectionStride;
+        *v51 = HIDWORD(v66);
         if (!type)
         {
-          v56 = v70;
-          v57 = v68;
+          v52 = v66;
+          v53 = v64;
 LABEL_47:
-          v55[1] = v56;
-          v55[2] = v57;
+          v51[1] = v52;
+          v51[2] = v53;
         }
       }
 
@@ -245,24 +245,24 @@ LABEL_47:
       {
         if (intersectionDataType == 4)
         {
-          v52 = intersections + v21 * intersectionStride;
-          *v52 = HIDWORD(v70);
+          v48 = intersections + v19 * intersectionStride;
+          *v48 = HIDWORD(v66);
           if (!type)
           {
-            v59 = v70;
-            v60 = v68;
+            v55 = v66;
+            v56 = v64;
             goto LABEL_55;
           }
         }
 
         else
         {
-          v55 = intersections + v21 * intersectionStride;
-          *v55 = HIDWORD(v70);
+          v51 = intersections + v19 * intersectionStride;
+          *v51 = HIDWORD(v66);
           if (!type)
           {
-            v57 = HIDWORD(v69);
-            v56 = v70;
+            v53 = HIDWORD(v65);
+            v52 = v66;
             goto LABEL_47;
           }
         }
@@ -273,43 +273,43 @@ LABEL_47:
         switch(intersectionDataType)
         {
           case 6:
-            v52 = intersections + v21 * intersectionStride;
-            *v52 = HIDWORD(v70);
+            v48 = intersections + v19 * intersectionStride;
+            *v48 = HIDWORD(v66);
             if (!type)
             {
-              v60 = HIDWORD(v69);
-              v59 = v70;
+              v56 = HIDWORD(v65);
+              v55 = v66;
 LABEL_55:
-              *(v52 + 1) = v59;
-              *(v52 + 2) = v60;
+              *(v48 + 1) = v55;
+              *(v48 + 2) = v56;
               goto LABEL_56;
             }
 
             break;
           case 7:
-            v61 = intersections + v21 * intersectionStride;
-            *v61 = HIDWORD(v70);
+            v57 = intersections + v19 * intersectionStride;
+            *v57 = HIDWORD(v66);
             if (!type)
             {
-              v62 = HIDWORD(v69);
-              v61[1] = v70;
-              v61[2] = v62;
-              v61[3] = v68;
+              v58 = HIDWORD(v65);
+              v57[1] = v66;
+              v57[2] = v58;
+              v57[3] = v64;
             }
 
             break;
           case 8:
-            v52 = intersections + v21 * intersectionStride;
-            *v52 = HIDWORD(v70);
+            v48 = intersections + v19 * intersectionStride;
+            *v48 = HIDWORD(v66);
             if (!type)
             {
-              v53 = HIDWORD(v69);
-              *(v52 + 1) = v70;
-              *(v52 + 2) = v53;
-              *(v52 + 3) = v68;
+              v49 = HIDWORD(v65);
+              *(v48 + 1) = v66;
+              *(v48 + 2) = v49;
+              *(v48 + 3) = v64;
 LABEL_56:
-              *&v18 = __PAIR64__(HIDWORD(v68), v69);
-              *(v52 + 2) = __PAIR64__(HIDWORD(v68), v69);
+              *&v16 = __PAIR64__(HIDWORD(v64), v65);
+              *(v48 + 2) = __PAIR64__(HIDWORD(v64), v65);
             }
 
             break;
@@ -317,10 +317,10 @@ LABEL_56:
       }
 
 LABEL_59:
-      v21 = v22++;
+      v19 = v20++;
     }
 
-    while (v21 < count);
+    while (v19 < count);
   }
 }
 

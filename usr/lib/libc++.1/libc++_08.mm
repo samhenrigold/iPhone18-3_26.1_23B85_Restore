@@ -1,452 +1,3 @@
-void std::moneypunct_byname<wchar_t,true>::init(uint64_t a1, char *a2)
-{
-  v19 = *MEMORY[0x1E69E9840];
-  v4 = newlocale(63, a2, 0);
-  v16 = v4;
-  if (!v4)
-  {
-    std::string::basic_string[abi:ne200100]<0>(&v17, a2);
-    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("moneypunct_byname failed to construct for ", &v17, v18);
-    if ((v18[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      v13 = v18;
-    }
-
-    else
-    {
-      v13 = v18[0].__r_.__value_.__r.__words[0];
-    }
-
-    std::__throw_runtime_error(v13);
-  }
-
-  v5 = localeconv_l(v4);
-  if (!std::checked_string_to_wchar_convert((a1 + 16), v5->mon_decimal_point, v16))
-  {
-    *(a1 + 16) = 0x7FFFFFFF;
-  }
-
-  if (!std::checked_string_to_wchar_convert((a1 + 20), v5->mon_thousands_sep, v16))
-  {
-    *(a1 + 20) = 0x7FFFFFFF;
-  }
-
-  std::string::__assign_external((a1 + 24), v5->mon_grouping);
-  memset(&v17, 0, sizeof(v17));
-  int_curr_symbol = v5->int_curr_symbol;
-  v6 = mbsrtowcs_l(v18, &int_curr_symbol, 0x64uLL, &v17, v16);
-  if (v6 == -1)
-  {
-    std::__throw_runtime_error("locale not supported");
-  }
-
-  std::wstring::__assign_trivial[abi:ne200100]<wchar_t *,wchar_t *>((a1 + 48), v18, v18 + v6, v6);
-  int_frac_digits = v5->int_frac_digits;
-  if (int_frac_digits == 127)
-  {
-    LOBYTE(int_frac_digits) = 0;
-  }
-
-  *(a1 + 120) = int_frac_digits;
-  if (v5->int_p_sign_posn)
-  {
-    memset(&v17, 0, sizeof(v17));
-    int_curr_symbol = v5->positive_sign;
-    v8 = mbsrtowcs_l(v18, &int_curr_symbol, 0x64uLL, &v17, v16);
-    if (v8 == -1)
-    {
-      goto LABEL_29;
-    }
-
-    std::wstring::__assign_trivial[abi:ne200100]<wchar_t *,wchar_t *>((a1 + 72), v18, v18 + v8, v8);
-  }
-
-  else
-  {
-    if (*(a1 + 95) < 0)
-    {
-      *(a1 + 80) = 2;
-      v9 = *(a1 + 72);
-    }
-
-    else
-    {
-      v9 = a1 + 72;
-      *(a1 + 95) = 2;
-    }
-
-    *v9 = 0x2900000028;
-    *(v9 + 8) = 0;
-  }
-
-  if (v5->int_n_sign_posn)
-  {
-    memset(&v17, 0, sizeof(v17));
-    int_curr_symbol = v5->negative_sign;
-    v10 = mbsrtowcs_l(v18, &int_curr_symbol, 0x64uLL, &v17, v16);
-    if (v10 != -1)
-    {
-      std::wstring::__assign_trivial[abi:ne200100]<wchar_t *,wchar_t *>((a1 + 96), v18, v18 + v10, v10);
-      goto LABEL_23;
-    }
-
-LABEL_29:
-    std::__throw_runtime_error("locale not supported");
-  }
-
-  if (*(a1 + 119) < 0)
-  {
-    *(a1 + 104) = 2;
-    v11 = *(a1 + 96);
-  }
-
-  else
-  {
-    v11 = a1 + 96;
-    *(a1 + 119) = 2;
-  }
-
-  *v11 = 0x2900000028;
-  *(v11 + 8) = 0;
-LABEL_23:
-  if (*(a1 + 71) < 0)
-  {
-    std::wstring::__init_copy_ctor_external(&v14, *(a1 + 48), *(a1 + 56));
-  }
-
-  else
-  {
-    v14 = *(a1 + 48);
-  }
-
-  std::__init_pat<wchar_t>(a1 + 124, &v14, 1, v5->int_p_cs_precedes, v5->int_p_sep_by_space, v5->int_p_sign_posn);
-  std::__init_pat<wchar_t>(a1 + 128, (a1 + 48), 1, v5->int_n_cs_precedes, v5->int_n_sep_by_space, v5->int_n_sign_posn);
-  if (SHIBYTE(v14.__r_.__value_.__r.__words[2]) < 0)
-  {
-    MEMORY[0x193B0CA40](v14.__r_.__value_.__r.__words[0], 4 * v14.__r_.__value_.__r.__words[2]);
-  }
-
-  std::__libcpp_unique_locale::~__libcpp_unique_locale(&v16);
-  v12 = *MEMORY[0x1E69E9840];
-}
-
-void sub_1922EF220(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, _xlocale *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, int a34, __int16 a35, char a36, char a37)
-{
-  if (a37 < 0)
-  {
-    std::stoi(&a32);
-  }
-
-  if (SHIBYTE(a17) < 0)
-  {
-    MEMORY[0x193B0CA40](a15, a17 & 0x7FFFFFFFFFFFFFFFLL);
-  }
-
-  std::__libcpp_unique_locale::~__libcpp_unique_locale(&a14);
-  _Unwind_Resume(a1);
-}
-
-void std::__codecvt_utf8<wchar_t>::~__codecvt_utf8(std::codecvt<wchar_t, char, mbstate_t> *a1)
-{
-  std::codecvt<wchar_t,char,__mbstate_t>::~codecvt(a1);
-
-  JUMPOUT(0x193B0CA40);
-}
-
-void std::__codecvt_utf8<char16_t>::~__codecvt_utf8(std::__shared_count *a1)
-{
-  std::__shared_count::~__shared_count(a1);
-
-  JUMPOUT(0x193B0CA40);
-}
-
-void std::__codecvt_utf8<char32_t>::~__codecvt_utf8(std::__shared_count *a1)
-{
-  std::__shared_count::~__shared_count(a1);
-
-  JUMPOUT(0x193B0CA40);
-}
-
-void std::__codecvt_utf16<wchar_t,false>::~__codecvt_utf16(std::codecvt<wchar_t, char, mbstate_t> *a1)
-{
-  std::codecvt<wchar_t,char,__mbstate_t>::~codecvt(a1);
-
-  JUMPOUT(0x193B0CA40);
-}
-
-void std::__codecvt_utf16<wchar_t,true>::~__codecvt_utf16(std::codecvt<wchar_t, char, mbstate_t> *a1)
-{
-  std::codecvt<wchar_t,char,__mbstate_t>::~codecvt(a1);
-
-  JUMPOUT(0x193B0CA40);
-}
-
-void std::__codecvt_utf16<char16_t,false>::~__codecvt_utf16(std::__shared_count *a1)
-{
-  std::__shared_count::~__shared_count(a1);
-
-  JUMPOUT(0x193B0CA40);
-}
-
-void std::__codecvt_utf16<char16_t,true>::~__codecvt_utf16(std::__shared_count *a1)
-{
-  std::__shared_count::~__shared_count(a1);
-
-  JUMPOUT(0x193B0CA40);
-}
-
-void std::__codecvt_utf16<char32_t,false>::~__codecvt_utf16(std::__shared_count *a1)
-{
-  std::__shared_count::~__shared_count(a1);
-
-  JUMPOUT(0x193B0CA40);
-}
-
-void std::__codecvt_utf16<char32_t,true>::~__codecvt_utf16(std::__shared_count *a1)
-{
-  std::__shared_count::~__shared_count(a1);
-
-  JUMPOUT(0x193B0CA40);
-}
-
-void std::__codecvt_utf8_utf16<wchar_t>::~__codecvt_utf8_utf16(std::codecvt<wchar_t, char, mbstate_t> *a1)
-{
-  std::codecvt<wchar_t,char,__mbstate_t>::~codecvt(a1);
-
-  JUMPOUT(0x193B0CA40);
-}
-
-void std::__codecvt_utf8_utf16<char32_t>::~__codecvt_utf8_utf16(std::__shared_count *a1)
-{
-  std::__shared_count::~__shared_count(a1);
-
-  JUMPOUT(0x193B0CA40);
-}
-
-void std::__codecvt_utf8_utf16<char16_t>::~__codecvt_utf8_utf16(std::__shared_count *a1)
-{
-  std::__shared_count::~__shared_count(a1);
-
-  JUMPOUT(0x193B0CA40);
-}
-
-void std::num_get<char,std::istreambuf_iterator<char>>::~num_get(std::__shared_count *a1)
-{
-  std::__shared_count::~__shared_count(a1);
-
-  JUMPOUT(0x193B0CA40);
-}
-
-void std::num_get<wchar_t,std::istreambuf_iterator<wchar_t>>::~num_get(std::__shared_count *a1)
-{
-  std::__shared_count::~__shared_count(a1);
-
-  JUMPOUT(0x193B0CA40);
-}
-
-void std::num_put<char,std::ostreambuf_iterator<char>>::~num_put(std::__shared_count *a1)
-{
-  std::__shared_count::~__shared_count(a1);
-
-  JUMPOUT(0x193B0CA40);
-}
-
-void std::num_put<wchar_t,std::ostreambuf_iterator<wchar_t>>::~num_put(std::__shared_count *a1)
-{
-  std::__shared_count::~__shared_count(a1);
-
-  JUMPOUT(0x193B0CA40);
-}
-
-void std::time_get<char,std::istreambuf_iterator<char>>::~time_get(std::__shared_count *a1)
-{
-  std::__shared_count::~__shared_count(a1);
-
-  JUMPOUT(0x193B0CA40);
-}
-
-void std::time_get<wchar_t,std::istreambuf_iterator<wchar_t>>::~time_get(std::__shared_count *a1)
-{
-  std::__shared_count::~__shared_count(a1);
-
-  JUMPOUT(0x193B0CA40);
-}
-
-void std::time_get_byname<char,std::istreambuf_iterator<char>>::~time_get_byname(std::__shared_count *a1)
-{
-  std::__time_get_storage<char>::~__time_get_storage[abi:ne200100](&a1[1].__shared_owners_);
-
-  std::__shared_count::~__shared_count(a1);
-}
-
-{
-  std::__time_get_storage<char>::~__time_get_storage[abi:ne200100](&a1[1].__shared_owners_);
-  std::__shared_count::~__shared_count(a1);
-
-  JUMPOUT(0x193B0CA40);
-}
-
-void std::time_get_byname<wchar_t,std::istreambuf_iterator<wchar_t>>::~time_get_byname(std::__shared_count *a1)
-{
-  std::__time_get_storage<wchar_t>::~__time_get_storage[abi:ne200100](&a1[1].__shared_owners_);
-
-  std::__shared_count::~__shared_count(a1);
-}
-
-{
-  std::__time_get_storage<wchar_t>::~__time_get_storage[abi:ne200100](&a1[1].__shared_owners_);
-  std::__shared_count::~__shared_count(a1);
-
-  JUMPOUT(0x193B0CA40);
-}
-
-void std::time_put<char,std::ostreambuf_iterator<char>>::~time_put(uint64_t a1)
-{
-  std::__time_put::~__time_put((a1 + 16));
-
-  std::__shared_count::~__shared_count(a1);
-}
-
-{
-  std::__time_put::~__time_put((a1 + 16));
-  std::__shared_count::~__shared_count(a1);
-
-  JUMPOUT(0x193B0CA40);
-}
-
-void std::time_put<wchar_t,std::ostreambuf_iterator<wchar_t>>::~time_put(uint64_t a1)
-{
-  std::__time_put::~__time_put((a1 + 16));
-
-  std::__shared_count::~__shared_count(a1);
-}
-
-{
-  std::__time_put::~__time_put((a1 + 16));
-  std::__shared_count::~__shared_count(a1);
-
-  JUMPOUT(0x193B0CA40);
-}
-
-void std::time_put_byname<char,std::ostreambuf_iterator<char>>::~time_put_byname(uint64_t a1)
-{
-  std::__time_put::~__time_put((a1 + 16));
-
-  std::__shared_count::~__shared_count(a1);
-}
-
-{
-  std::__time_put::~__time_put((a1 + 16));
-  std::__shared_count::~__shared_count(a1);
-
-  JUMPOUT(0x193B0CA40);
-}
-
-void std::time_put_byname<wchar_t,std::ostreambuf_iterator<wchar_t>>::~time_put_byname(uint64_t a1)
-{
-  std::__time_put::~__time_put((a1 + 16));
-
-  std::__shared_count::~__shared_count(a1);
-}
-
-{
-  std::__time_put::~__time_put((a1 + 16));
-  std::__shared_count::~__shared_count(a1);
-
-  JUMPOUT(0x193B0CA40);
-}
-
-void std::moneypunct<char,false>::~moneypunct(std::__shared_count *a1)
-{
-  std::__shared_count::~__shared_count(a1);
-
-  JUMPOUT(0x193B0CA40);
-}
-
-void std::moneypunct<char,true>::~moneypunct(std::__shared_count *a1)
-{
-  std::__shared_count::~__shared_count(a1);
-
-  JUMPOUT(0x193B0CA40);
-}
-
-void std::moneypunct<wchar_t,false>::~moneypunct(std::__shared_count *a1)
-{
-  std::__shared_count::~__shared_count(a1);
-
-  JUMPOUT(0x193B0CA40);
-}
-
-void std::moneypunct<wchar_t,true>::~moneypunct(std::__shared_count *a1)
-{
-  std::__shared_count::~__shared_count(a1);
-
-  JUMPOUT(0x193B0CA40);
-}
-
-void std::moneypunct_byname<char,false>::~moneypunct_byname(std::__shared_count *a1)
-{
-  std::moneypunct_byname<char,false>::~moneypunct_byname(a1);
-
-  JUMPOUT(0x193B0CA40);
-}
-
-void std::moneypunct_byname<char,true>::~moneypunct_byname(std::__shared_count *a1)
-{
-  std::moneypunct_byname<char,true>::~moneypunct_byname(a1);
-
-  JUMPOUT(0x193B0CA40);
-}
-
-void std::moneypunct_byname<wchar_t,false>::~moneypunct_byname(std::__shared_count *a1)
-{
-  std::moneypunct_byname<wchar_t,false>::~moneypunct_byname(a1);
-
-  JUMPOUT(0x193B0CA40);
-}
-
-void std::moneypunct_byname<wchar_t,true>::~moneypunct_byname(std::__shared_count *a1)
-{
-  std::moneypunct_byname<wchar_t,true>::~moneypunct_byname(a1);
-
-  JUMPOUT(0x193B0CA40);
-}
-
-void std::money_get<char,std::istreambuf_iterator<char>>::~money_get(std::__shared_count *a1)
-{
-  std::__shared_count::~__shared_count(a1);
-
-  JUMPOUT(0x193B0CA40);
-}
-
-void std::money_get<wchar_t,std::istreambuf_iterator<wchar_t>>::~money_get(std::__shared_count *a1)
-{
-  std::__shared_count::~__shared_count(a1);
-
-  JUMPOUT(0x193B0CA40);
-}
-
-void std::money_put<char,std::ostreambuf_iterator<char>>::~money_put(std::__shared_count *a1)
-{
-  std::__shared_count::~__shared_count(a1);
-
-  JUMPOUT(0x193B0CA40);
-}
-
-void std::money_put<wchar_t,std::ostreambuf_iterator<wchar_t>>::~money_put(std::__shared_count *a1)
-{
-  std::__shared_count::~__shared_count(a1);
-
-  JUMPOUT(0x193B0CA40);
-}
-
-void std::messages<char>::~messages(std::__shared_count *a1)
-{
-  std::__shared_count::~__shared_count(a1);
-
-  JUMPOUT(0x193B0CA40);
-}
-
 void std::messages<wchar_t>::~messages(std::__shared_count *a1)
 {
   std::__shared_count::~__shared_count(a1);
@@ -558,7 +109,6 @@ void *std::vector<std::locale::facet *,std::__sso_allocator<std::locale::facet *
     v1[1] = result;
     if (result != v1 + 3)
     {
-      v3 = v1[2] - result;
       JUMPOUT(0x193B0CA40);
     }
 
@@ -568,7 +118,7 @@ void *std::vector<std::locale::facet *,std::__sso_allocator<std::locale::facet *
   return result;
 }
 
-uint64_t *std::vector<std::locale::facet *,std::__sso_allocator<std::locale::facet *,30ul>>::__assign_with_size[abi:ne200100]<std::locale::facet **,std::locale::facet **>(uint64_t *result, char *__src, uint64_t a3, unint64_t a4)
+void **std::vector<std::locale::facet *,std::__sso_allocator<std::locale::facet *,30ul>>::__assign_with_size[abi:ne200100]<std::locale::facet **,std::locale::facet **>(void **result, char *__src, uint64_t a3, unint64_t a4)
 {
   v7 = result;
   v8 = *result;
@@ -849,7 +399,7 @@ void sub_1922F033C(_Unwind_Exception *a1)
     MEMORY[0x193B0CA40](*(v1 + 96), *(v1 + 112) & 0x7FFFFFFFFFFFFFFFLL);
   }
 
-  std::moneypunct_byname<char,false>::moneypunct_byname[abi:ne200100](v1);
+  std::moneypunct_byname<char,false>::moneypunct_byname[abi:ne200100]();
   std::__shared_count::~__shared_count(v1);
   _Unwind_Resume(a1);
 }
@@ -879,7 +429,7 @@ void sub_1922F0400(_Unwind_Exception *a1)
     MEMORY[0x193B0CA40](*(v1 + 96), *(v1 + 112) & 0x7FFFFFFFFFFFFFFFLL);
   }
 
-  std::moneypunct_byname<char,false>::moneypunct_byname[abi:ne200100](v1);
+  std::moneypunct_byname<char,false>::moneypunct_byname[abi:ne200100]();
   std::__shared_count::~__shared_count(v1);
   _Unwind_Resume(a1);
 }
@@ -909,7 +459,7 @@ void sub_1922F04C4(_Unwind_Exception *a1)
     MEMORY[0x193B0CA40](*(v1 + 96), 4 * *(v1 + 112));
   }
 
-  std::moneypunct_byname<wchar_t,false>::moneypunct_byname[abi:ne200100](v1);
+  std::moneypunct_byname<wchar_t,false>::moneypunct_byname[abi:ne200100]();
   std::__shared_count::~__shared_count(v1);
   _Unwind_Resume(a1);
 }
@@ -939,7 +489,7 @@ void sub_1922F0588(_Unwind_Exception *a1)
     MEMORY[0x193B0CA40](*(v1 + 96), 4 * *(v1 + 112));
   }
 
-  std::moneypunct_byname<wchar_t,false>::moneypunct_byname[abi:ne200100](v1);
+  std::moneypunct_byname<wchar_t,false>::moneypunct_byname[abi:ne200100]();
   std::__shared_count::~__shared_count(v1);
   _Unwind_Resume(a1);
 }
@@ -1083,10 +633,10 @@ _BYTE *std::__rotate_gcd[abi:ne200100]<std::_ClassicAlgPolicy,std::__wrap_iter<c
       {
         v16 = v14;
         *v15 = *v14;
-        v17 = a3 - v14;
+        v17 = (a3 - v14);
         if (v3 >= v17)
         {
-          v14 = &a2[-v17];
+          v14 = (a2 - v17);
         }
 
         else
@@ -1406,7 +956,7 @@ LABEL_14:
   }
 }
 
-uint64_t std::__num_get_unsigned_integral[abi:ne200100]<unsigned long>(char *a1, char *a2, _DWORD *a3, int a4)
+unint64_t std::__num_get_unsigned_integral[abi:ne200100]<unsigned long>(char *a1, char *a2, _DWORD *a3, int a4)
 {
   if (a1 == a2)
   {
@@ -1808,39 +1358,16 @@ uint64_t OUTLINED_FUNCTION_0_2(uint64_t a1, void *a2, void *a3)
   return __cxa_atexit(std::string::~string, a2, a3);
 }
 
-void OUTLINED_FUNCTION_2(uint64_t *a1)
+void OUTLINED_FUNCTION_2()
 {
-  v2 = *a1;
-  v3 = 4 * a1[2];
 
   JUMPOUT(0x193B0CA40);
-}
-
-uint64_t OUTLINED_FUNCTION_6()
-{
-  result = *v0;
-  v3 = *(v1 + 40) & 0x7FFFFFFFFFFFFFFFLL;
-  return result;
 }
 
 uint64_t OUTLINED_FUNCTION_7(uint64_t a1, uint64_t a2, void *a3)
 {
 
   return __cxa_atexit(v3, 0, a3);
-}
-
-uint64_t OUTLINED_FUNCTION_8()
-{
-  result = *v1;
-  v3 = *(v0 + 64);
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_9(uint64_t a1, uint64_t *a2)
-{
-  result = *a2;
-  v4 = *(v2 + 88);
-  return result;
 }
 
 uint64_t __cxx_global_array_dtor()
@@ -1965,25 +1492,22 @@ char *std::__get_ostream_file(void *a1)
     return 0;
   }
 
-  v2 = *v1;
-  v3 = **v1;
-  if (v4)
+  if (v2)
   {
-    v5 = v4 + 120;
+    v3 = v2 + 120;
   }
 
   else
   {
-    v7 = *v2;
     if (!result)
     {
       return result;
     }
 
-    v5 = result + 64;
+    v3 = result + 64;
   }
 
-  return *v5;
+  return *v3;
 }
 
 std::regex_error *__cdecl std::regex_error::regex_error(std::regex_error *this, std::regex_constants::error_type __ecode)
@@ -2897,13 +2421,12 @@ LABEL_12:
 
 void std::istrstream::~istrstream(std::istrstream *this)
 {
-  v2 = v1;
-  v4 = *v1;
+  v2 = *v1;
   this->__vftable = *v1;
-  *(&this->__vftable + v4[-2].~istrstream_0) = *(v1 + 24);
+  *(&this->__vftable + v2[-2].~istrstream_0) = *(v1 + 24);
   std::strstreambuf::~strstreambuf(&this->__sb_);
 
-  std::istream::~istream(this, v2 + 8);
+  std::istream::~istream();
 }
 
 {
@@ -2932,13 +2455,12 @@ void virtual thunk tostd::istrstream::~istrstream(std::istrstream *this)
 
 void std::ostrstream::~ostrstream(std::ostrstream *this)
 {
-  v2 = v1;
-  v4 = *v1;
+  v2 = *v1;
   this->__vftable = *v1;
-  *(&this->__vftable + v4[-2].~ostrstream_0) = *(v1 + 24);
+  *(&this->__vftable + v2[-2].~ostrstream_0) = *(v1 + 24);
   std::strstreambuf::~strstreambuf(&this->__sb_);
 
-  std::ostream::~ostream(this, v2 + 8);
+  std::ostream::~ostream();
 }
 
 {
@@ -2967,14 +2489,13 @@ void virtual thunk tostd::ostrstream::~ostrstream(std::ostrstream *this)
 
 void std::strstream::~strstream(std::strstream *this)
 {
-  v2 = v1;
-  v4 = *v1;
+  v2 = *v1;
   this->__sb_.__vftable = *v1;
-  *(&this->__sb_.__vftable + v4[-1].pbackfail) = *(v1 + 64);
+  *(&this->__sb_.__vftable + v2[-1].pbackfail) = *(v1 + 64);
   this->__sb_.__binp_ = *(v1 + 72);
   std::strstreambuf::~strstreambuf(&this->__sb_.__ninp_);
 
-  std::iostream::~basic_iostream(this, v2 + 8);
+  std::iostream::~basic_iostream();
 }
 
 {
@@ -3023,8 +2544,8 @@ std::error_code std::__fs::filesystem::directory_entry::__do_refresh(std::__fs::
   LODWORD(v20) = 0;
   v3 = std::system_category();
   v21 = v3;
-  LODWORD(v22) = 0;
-  v23 = v3;
+  var40[0].__val_ = 0;
+  var40[0].__cat_ = v3;
   if ((this->__p_.__pn_.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     v4 = this;
@@ -3039,11 +2560,11 @@ std::error_code std::__fs::filesystem::directory_entry::__do_refresh(std::__fs::
   {
     v5 = *__error();
     v6 = std::generic_category();
-    v22 = v5;
-    v23 = v6;
+    *&var40[0].__val_ = v5;
+    var40[0].__cat_ = v6;
   }
 
-  std::__fs::filesystem::detail::create_file_status(&v22, this, &v19.st_rdev, &v20, &v19.st_uid);
+  std::__fs::filesystem::detail::create_file_status(&v19.st_uid, var40, this, &v19.st_rdev, &v20);
   LOBYTE(v7) = v19.st_uid;
   v8 = HIDWORD(*&v19.st_uid);
   if (LOBYTE(v19.st_uid) != 3)
@@ -3097,8 +2618,8 @@ LABEL_17:
   this->__data_.__sym_perms_ = v19.st_gid;
   v19.st_dev = 0;
   v19.st_ino = v3;
-  LODWORD(v22) = 0;
-  v23 = v3;
+  var40[0].__val_ = 0;
+  var40[0].__cat_ = v3;
   if ((this->__p_.__pn_.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     v9 = this;
@@ -3113,11 +2634,11 @@ LABEL_17:
   {
     v10 = *__error();
     v11 = std::generic_category();
-    v22 = v10;
-    v23 = v11;
+    *&var40[0].__val_ = v10;
+    var40[0].__cat_ = v11;
   }
 
-  std::__fs::filesystem::detail::create_file_status(&v22, this, &v19.st_rdev, &v19, &v18);
+  std::__fs::filesystem::detail::create_file_status(&v18, var40, this, &v19.st_rdev, &v19);
   v7 = v18;
   this->__data_.__type_ = v18;
   this->__data_.__non_sym_perms_ = HIDWORD(v7);
@@ -3138,71 +2659,71 @@ LABEL_28:
   return result;
 }
 
-void std::__fs::filesystem::detail::create_file_status(std::__fs::filesystem::detail *this@<X0>, std::error_code *a2@<X1>, const std::__fs::filesystem::path *a3@<X2>, const stat *a4@<X3>, uint64_t a5@<X8>)
+void std::__fs::filesystem::detail::create_file_status(uint64_t *__return_ptr a1@<X8>, std::error_code *this@<X0>, std::error_code *a3@<X1>, const std::__fs::filesystem::path *a4@<X2>, const stat *a5@<X3>)
 {
-  if (a4)
+  if (a5)
   {
-    *&a4->st_dev = *this;
+    *&a5->st_dev = *this;
   }
 
-  v11 = *this;
-  if (v11)
+  val = this->__val_;
+  if (val)
   {
-    v12 = std::generic_category();
-    v21 = 2;
-    v22 = v12;
-    if ((*(**(this + 1) + 32))(*(this + 1), v11, &v21) & 1) != 0 || ((*(*&v22->st_dev + 40))(v22, this, v21) & 1) != 0 || (v25 = 20, v26 = v12, (*(**(this + 1) + 32))(*(this + 1), *this, &v25)) || ((v26->equivalent_0)(v26, this, v25))
+    v11 = std::generic_category();
+    v20 = 2;
+    v21 = v11;
+    if ((this->__cat_->equivalent)(this->__cat_, val, &v20) & 1) != 0 || ((*(*&v21->st_dev + 40))(v21, this, v20) & 1) != 0 || (v24 = 20, v25 = v11, (this->__cat_->equivalent)(this->__cat_, this->__val_, &v24)) || ((v25->equivalent_0)(v25, this, v24))
     {
-      *a5 = -1;
+      *a1 = -1;
 LABEL_9:
-      v18 = 0xFFFF;
+      v17 = 0xFFFF;
       goto LABEL_18;
     }
 
-    if (*this)
+    if (this->__val_)
     {
-      v21 = "posix_stat";
-      v22 = a4;
-      v23 = a2;
-      v24 = 0;
-      if (a4)
+      v20 = "posix_stat";
+      v21 = a5;
+      v22 = a3;
+      v23 = 0;
+      if (a5)
       {
-        a4->st_dev = 0;
-        a4->st_ino = std::system_category();
+        a5->st_dev = 0;
+        a5->st_ino = std::system_category();
       }
 
-      std::__fs::filesystem::detail::ErrorHandler<void>::report(&v21, this, "failed to determine attributes for the specified path", v13, v14, v15, v16, v17, v21);
-      *a5 = 0;
+      std::__fs::filesystem::detail::ErrorHandler<void>::report(&v20, this, "failed to determine attributes for the specified path", v12, v13, v14, v15, v16, v20);
+      *a1 = 0;
       goto LABEL_9;
     }
   }
 
-  v19 = WORD2(a3->__pn_.__r_.__value_.__r.__words[0]);
-  if ((v19 >> 12) == 7)
+  v18 = WORD2(a4->__pn_.__r_.__value_.__r.__words[0]);
+  if ((v18 >> 12) == 7)
   {
-    v20 = 8;
+    v19 = 8;
   }
 
   else
   {
-    v20 = byte_19231D6E4[(v19 >> 12) ^ 8];
+    v19 = byte_19231D6E4[(v18 >> 12) ^ 8];
   }
 
-  *a5 = v20;
-  v18 = v19 & 0xFFF;
+  *a1 = v19;
+  v17 = v18 & 0xFFF;
 LABEL_18:
-  *(a5 + 4) = v18;
+  *(a1 + 1) = v17;
 }
 
-__n128 std::__fs::filesystem::detail::ErrorHandler<void>::report_impl(uint64_t a1, __n128 *a2, std::__fs::filesystem::detail *a3, va_list a4)
+__n128 std::__fs::filesystem::detail::ErrorHandler<void>::report_impl(uint64_t a1, std::error_code *a2, std::__fs::filesystem::detail *a3, va_list a4)
 {
   v4 = *(a1 + 8);
   if (!v4)
   {
     std::string::basic_string[abi:ne200100]<0>(&v18, "in ");
-    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(*a1, &v18, &v19);
-    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(": ", &v19, &v20);
-    std::__fs::filesystem::detail::vformat_string(a3, a4, &v17);
+    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v19, *a1, &v18);
+    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v20, ": ", &v19);
+    std::__fs::filesystem::detail::vformat_string(&v17, a3, a4);
     if ((v17.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
       v8 = &v17;
@@ -3225,8 +2746,8 @@ __n128 std::__fs::filesystem::detail::ErrorHandler<void>::report_impl(uint64_t a
 
     v10 = std::string::append(&v20, v8, size);
     v11 = *&v10->__r_.__value_.__l.__data_;
-    v22 = v10->__r_.__value_.__r.__words[2];
-    v21 = v11;
+    v21.__r_.__value_.__r.__words[2] = v10->__r_.__value_.__r.__words[2];
+    *&v21.__r_.__value_.__l.__data_ = v11;
     v10->__r_.__value_.__l.__size_ = 0;
     v10->__r_.__value_.__r.__words[2] = 0;
     v10->__r_.__value_.__r.__words[0] = 0;
@@ -3280,40 +2801,43 @@ void sub_1922F347C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 {
   if (*(v30 - 25) < 0)
   {
-    std::__fs::filesystem::path::replace_extension((v30 - 48));
+    std::__fs::filesystem::path::replace_extension(v30 - 48);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-__n128 std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>@<Q0>(char *__s@<X1>, std::string *a2@<X0>, std::string *a3@<X8>)
+__n128 std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>@<Q0>(std::string *__return_ptr a1@<X8>, char *__s@<X1>, std::string *a3@<X0>)
 {
   v6 = strlen(__s);
-  v7 = std::string::append(a2, __s, v6);
+  v7 = std::string::append(a3, __s, v6);
   result = *v7;
-  *a3 = *v7->n128_u8;
+  *a1 = *v7->n128_u8;
   v7->n128_u64[0] = 0;
   v7->n128_u64[1] = 0;
   v7[1].n128_u64[0] = 0;
   return result;
 }
 
-void std::__fs::filesystem::__throw_filesystem_error[abi:ne200100]<std::string &,std::error_code const&>(uint64_t a1, void *a2)
+void std::__fs::filesystem::__throw_filesystem_error[abi:ne200100]<std::string &,std::error_code const&>(std::string *a1, std::error_code *a2)
 {
   exception = __cxa_allocate_exception(0x30uLL);
-  std::__fs::filesystem::filesystem_error::filesystem_error[abi:ne200100](exception, a1, *a2, a2[1]);
+  std::__fs::filesystem::filesystem_error::filesystem_error[abi:ne200100](exception, a1, *a2);
 }
 
-void std::__fs::filesystem::__throw_filesystem_error[abi:ne200100]<std::string &,std::__fs::filesystem::path const&,std::error_code const&>(uint64_t a1, uint64_t a2, void *a3)
+void std::__fs::filesystem::__throw_filesystem_error[abi:ne200100]<std::string &,std::__fs::filesystem::path const&,std::error_code const&>(std::string *a1, uint64_t a2, std::error_code *a3)
 {
+  v4 = a2;
   exception = __cxa_allocate_exception(0x30uLL);
-  std::__fs::filesystem::filesystem_error::filesystem_error[abi:ne200100](exception, a1, a2, *a3, a3[1]);
+  std::__fs::filesystem::filesystem_error::filesystem_error[abi:ne200100](exception, a1, v4, *a3);
 }
 
-void std::__fs::filesystem::__throw_filesystem_error[abi:ne200100]<std::string &,std::__fs::filesystem::path const&,std::__fs::filesystem::path const&,std::error_code const&>(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+void std::__fs::filesystem::__throw_filesystem_error[abi:ne200100]<std::string &,std::__fs::filesystem::path const&,std::__fs::filesystem::path const&,std::error_code const&>(std::string *a1, uint64_t a2, uint64_t a3, std::error_code *a4)
 {
+  v5 = a3;
+  v6 = a2;
   exception = __cxa_allocate_exception(0x30uLL);
-  std::__fs::filesystem::filesystem_error::filesystem_error[abi:ne200100](exception, a1, a2, a3, *a4, a4[1]);
+  std::__fs::filesystem::filesystem_error::filesystem_error[abi:ne200100](exception, a1, v6, v5, *a4);
 }
 
 void sub_1922F3784(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, char a16)
@@ -3330,8 +2854,7 @@ void sub_1922F3784(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 std::string *std::__shared_ptr_emplace<std::__fs::filesystem::filesystem_error::_Storage>::__shared_ptr_emplace[abi:ne200100]<std::__fs::filesystem::path,std::__fs::filesystem::path,std::allocator<std::__fs::filesystem::filesystem_error::_Storage>,0>(std::string *a1, __int128 *a2, __int128 *a3)
 {
-  a1->__r_.__value_.__l.__size_ = 0;
-  a1->__r_.__value_.__r.__words[2] = 0;
+  *&a1->__r_.__value_.__r.__words[1] = 0uLL;
   a1->__r_.__value_.__r.__words[0] = &unk_1F06C40A8;
   std::__fs::filesystem::filesystem_error::_Storage::_Storage[abi:ne200100](a1 + 1, a2, a3);
   return a1;
@@ -3360,8 +2883,6 @@ uint64_t std::__shared_ptr_emplace<std::__fs::filesystem::filesystem_error::_Sto
 
   if (*(v1 + 47) < 0)
   {
-    v2 = *(v1 + 24);
-    v3 = *(v1 + 40) & 0x7FFFFFFFFFFFFFFFLL;
 
     JUMPOUT(0x193B0CA40);
   }
@@ -3425,8 +2946,7 @@ void sub_1922F3AD0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 std::string *std::__shared_ptr_emplace<std::__fs::filesystem::filesystem_error::_Storage>::__shared_ptr_emplace[abi:ne200100]<std::__fs::filesystem::path const&,std::__fs::filesystem::path,std::allocator<std::__fs::filesystem::filesystem_error::_Storage>,0>(std::string *a1, __int128 *a2, __int128 *a3)
 {
-  a1->__r_.__value_.__l.__size_ = 0;
-  a1->__r_.__value_.__r.__words[2] = 0;
+  *&a1->__r_.__value_.__r.__words[1] = 0uLL;
   a1->__r_.__value_.__r.__words[0] = &unk_1F06C40A8;
   std::__fs::filesystem::filesystem_error::_Storage::_Storage[abi:ne200100](a1 + 1, a2, a3);
   return a1;
@@ -3446,8 +2966,7 @@ void sub_1922F3C68(_Unwind_Exception *a1)
 
 std::string *std::__shared_ptr_emplace<std::__fs::filesystem::filesystem_error::_Storage>::__shared_ptr_emplace[abi:ne200100]<std::__fs::filesystem::path const&,std::__fs::filesystem::path const&,std::allocator<std::__fs::filesystem::filesystem_error::_Storage>,0>(std::string *a1, __int128 *a2, __int128 *a3)
 {
-  a1->__r_.__value_.__l.__size_ = 0;
-  a1->__r_.__value_.__r.__words[2] = 0;
+  *&a1->__r_.__value_.__r.__words[1] = 0uLL;
   a1->__r_.__value_.__r.__words[0] = &unk_1F06C40A8;
   std::__fs::filesystem::filesystem_error::_Storage::_Storage[abi:ne200100](a1 + 1, a2, a3);
   return a1;
@@ -3490,13 +3009,13 @@ void sub_1922F3E50(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-__n128 std::__fs::filesystem::detail::ErrorHandler<void>::report(uint64_t a1, __n128 *a2)
+__n128 std::__fs::filesystem::detail::ErrorHandler<void>::report(uint64_t a1, std::error_code *a2)
 {
   v2 = *(a1 + 8);
   if (!v2)
   {
     std::string::basic_string[abi:ne200100]<0>(&v10, "in ");
-    v5 = std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(*a1, &v10, &v11);
+    v5 = std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v11, *a1, &v10);
     if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
     {
       MEMORY[0x193B0CA40](v10.__r_.__value_.__r.__words[0], v10.__r_.__value_.__r.__words[2] & 0x7FFFFFFFFFFFFFFFLL, v5);
@@ -3580,7 +3099,7 @@ std::__fs::filesystem::directory_iterator *__cdecl std::__fs::filesystem::direct
       v13 = &v15;
       if (v16 < 0)
       {
-        LOBYTE(v13) = v15.n128_u8[0];
+        v13 = v15.n128_u64[0];
       }
 
       v11.n128_f64[0] = std::__fs::filesystem::detail::ErrorHandler<void>::report(v18, &v17, "at root %s", v5, v6, v7, v8, v9, v13);
@@ -3605,7 +3124,7 @@ void sub_1922F4054(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::__fs::filesystem::__dir_stream::advance(std::__fs::filesystem::__dir_stream *this, std::error_code *a2)
+uint64_t std::__fs::filesystem::__dir_stream::advance(DIR **this, std::error_code *a2)
 {
   v4 = *this;
   *__error() = 0;
@@ -3678,7 +3197,7 @@ LABEL_13:
   }
 
   std::__fs::filesystem::path::path[abi:ne200100]<std::string_view,void>(&v17.__pn_, v19);
-  std::__fs::filesystem::operator/[abi:ne200100](&v17, this + 8, &v18);
+  std::__fs::filesystem::operator/[abi:ne200100](&v18, &v17, (this + 1));
   v14 = v20;
   if (v20 == 3)
   {
@@ -3702,17 +3221,17 @@ LABEL_13:
 
   if (*(this + 55) < 0)
   {
-    MEMORY[0x193B0CA40](*(this + 4), *(this + 6) & 0x7FFFFFFFFFFFFFFFLL);
+    MEMORY[0x193B0CA40](this[4], this[6] & 0x7FFFFFFFFFFFFFFFLL);
   }
 
-  *(this + 32) = v18;
+  *(this + 4) = v18;
   *(&v18.__pn_.__r_.__value_.__s + 23) = 0;
   v18.__pn_.__r_.__value_.__s.__data_[0] = 0;
-  *(this + 8) = -1;
-  *(this + 9) = -1;
-  *(this + 10) = 0;
-  *(this + 11) = 0x8000000000000000;
-  *(this + 12) = 0xFFFF0000FFFFLL;
+  this[8] = -1;
+  this[9] = -1;
+  this[10] = 0;
+  this[11] = 0x8000000000000000;
+  this[12] = 0xFFFF0000FFFFLL;
   *(this + 104) = v14;
   *(this + 105) = v16;
   if (SHIBYTE(v17.__pn_.__r_.__value_.__r.__words[2]) < 0)
@@ -3735,14 +3254,14 @@ void sub_1922F4228(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 std::__fs::filesystem::recursive_directory_iterator *__cdecl std::__fs::filesystem::recursive_directory_iterator::recursive_directory_iterator(std::__fs::filesystem::recursive_directory_iterator *this, const std::__fs::filesystem::path *__p, std::__fs::filesystem::directory_options __opt, std::error_code *__ec)
 {
-  v13[15] = *MEMORY[0x1E69E9840];
+  v12[15] = *MEMORY[0x1E69E9840];
   this->__imp_.__ptr_ = 0;
   this->__imp_.__cntrl_ = 0;
   this->__rec_ = 1;
-  v12[0] = "recursive_directory_iterator";
-  v12[1] = __ec;
-  v12[2] = __p;
-  v12[3] = 0;
+  v11[0] = "recursive_directory_iterator";
+  v11[1] = __ec;
+  v11[2] = __p;
+  v11[3] = 0;
   if (__ec)
   {
     __ec->__val_ = 0;
@@ -3755,30 +3274,29 @@ std::__fs::filesystem::recursive_directory_iterator *__cdecl std::__fs::filesyst
     v8 = std::system_category();
   }
 
-  v11.__val_ = 0;
-  v11.__cat_ = v8;
-  std::__fs::filesystem::__dir_stream::__dir_stream(v13, __p, __opt, &v11);
-  if (!v11.__val_ || (std::__fs::filesystem::detail::ErrorHandler<void>::report(v12, &v11), !v11.__val_))
+  v10.__val_ = 0;
+  v10.__cat_ = v8;
+  std::__fs::filesystem::__dir_stream::__dir_stream(v12, __p, __opt, &v10);
+  if (!v10.__val_ || (std::__fs::filesystem::detail::ErrorHandler<void>::report(v11, &v10), !v10.__val_))
   {
-    if (v13[0])
+    if (v12[0])
     {
       operator new();
     }
   }
 
-  std::__fs::filesystem::__dir_stream::~__dir_stream(v13);
-  v9 = *MEMORY[0x1E69E9840];
+  std::__fs::filesystem::__dir_stream::~__dir_stream(v12);
   return this;
 }
 
-void sub_1922F43AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1922F43AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   std::__fs::filesystem::__dir_stream::~__dir_stream(va);
-  v9 = *(v7 + 8);
-  if (v9)
+  v15 = *(v13 + 8);
+  if (v15)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v9);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v15);
   }
 
   _Unwind_Resume(a1);
@@ -3882,7 +3400,7 @@ LABEL_13:
     v17 = &v19;
     if (v20 < 0)
     {
-      LOBYTE(v17) = v19;
+      v17 = v19;
     }
 
     v18 = std::__fs::filesystem::detail::ErrorHandler<void>::report(v22, &v21, "at root %s", v7, v8, v9, v10, v11, v17);
@@ -3933,11 +3451,11 @@ std::__fs::filesystem::recursive_directory_iterator *__cdecl std::__fs::filesyst
 
 BOOL std::__fs::filesystem::recursive_directory_iterator::__try_recursion(std::__fs::filesystem::recursive_directory_iterator *this, std::error_code *__ec)
 {
-  v29 = *MEMORY[0x1E69E9840];
-  v26[0] = "recursive_directory_iterator::operator++()";
-  v26[1] = __ec;
-  v26[2] = 0;
-  v26[3] = 0;
+  v28 = *MEMORY[0x1E69E9840];
+  v25[0] = "recursive_directory_iterator::operator++()";
+  v25[1] = __ec;
+  v25[2] = 0;
+  v25[3] = 0;
   if (__ec)
   {
     __ec->__val_ = 0;
@@ -3980,64 +3498,40 @@ BOOL std::__fs::filesystem::recursive_directory_iterator::__try_recursion(std::_
 
   if (v9 != 2)
   {
-    goto LABEL_29;
+    return 0;
   }
 
-  std::__fs::filesystem::__dir_stream::__dir_stream(&v27, (v8 + 32), *(this->__imp_.__ptr_ + 48), &__eca);
-  if (!v27)
+  std::__fs::filesystem::__dir_stream::__dir_stream(&v26, (v8 + 32), *(this->__imp_.__ptr_ + 48), &__eca);
+  if (v26)
   {
-    std::__fs::filesystem::__dir_stream::~__dir_stream(&v27);
-    val = __eca.__val_;
-    if (!__eca.__val_)
-    {
-      goto LABEL_29;
-    }
+    std::deque<std::__fs::filesystem::__dir_stream>::push_back(this->__imp_.__ptr_, &v26);
+    std::__fs::filesystem::__dir_stream::~__dir_stream(&v26);
+    return 1;
+  }
+
+  std::__fs::filesystem::__dir_stream::~__dir_stream(&v26);
+  val = __eca.__val_;
+  if (!__eca.__val_)
+  {
+    return 0;
+  }
 
 LABEL_14:
-    v12 = *(this->__imp_.__ptr_ + 48);
-    v13 = std::generic_category();
-    *&v27 = 13;
-    *(&v27 + 1) = v13;
-    if ((__eca.__cat_->equivalent)(__eca.__cat_, val, &v27))
+  v12 = *(this->__imp_.__ptr_ + 48);
+  v13 = std::generic_category();
+  *&v26 = 13;
+  *(&v26 + 1) = v13;
+  if ((__eca.__cat_->equivalent)(__eca.__cat_, val, &v26))
+  {
+    if ((v12 & 2) != 0)
     {
-      if ((v12 & 2) != 0)
-      {
-        goto LABEL_16;
-      }
+      goto LABEL_16;
     }
 
-    else
-    {
-      if ((*(**(&v27 + 1) + 40))(*(&v27 + 1), &__eca, v27))
-      {
-        v19 = (v12 & 2) == 0;
-      }
-
-      else
-      {
-        v19 = 1;
-      }
-
-      if (!v19)
-      {
-LABEL_16:
-        if (__ec)
-        {
-          result = 0;
-          __ec->__val_ = 0;
-          __ec->__cat_ = v4;
-          goto LABEL_30;
-        }
-
-LABEL_29:
-        result = 0;
-        goto LABEL_30;
-      }
-    }
-
+LABEL_23:
     v20 = *(v8 + 32);
-    v28 = *(v8 + 48);
-    v27 = v20;
+    v27 = *(v8 + 48);
+    v26 = v20;
     *(v8 + 40) = 0;
     *(v8 + 48) = 0;
     *(v8 + 32) = 0;
@@ -4049,27 +3543,46 @@ LABEL_29:
       std::__shared_weak_count::__release_shared[abi:ne200100](cntrl);
     }
 
-    v22 = &v27;
-    if (v28 < 0)
+    v22 = &v26;
+    if (v27 < 0)
     {
-      LOBYTE(v22) = v27;
+      v22 = v26;
     }
 
-    v23 = std::__fs::filesystem::detail::ErrorHandler<void>::report(v26, &__eca, "attempting recursion into %s", v14, v15, v16, v17, v18, v22);
-    if (SHIBYTE(v28) < 0)
+    v23 = std::__fs::filesystem::detail::ErrorHandler<void>::report(v25, &__eca, "attempting recursion into %s", v14, v15, v16, v17, v18, v22);
+    if (SHIBYTE(v27) < 0)
     {
-      MEMORY[0x193B0CA40](v27, v28 & 0x7FFFFFFFFFFFFFFFLL, v23);
+      MEMORY[0x193B0CA40](v26, v27 & 0x7FFFFFFFFFFFFFFFLL, v23);
     }
 
-    goto LABEL_29;
+    return 0;
   }
 
-  std::deque<std::__fs::filesystem::__dir_stream>::push_back(this->__imp_.__ptr_, &v27);
-  std::__fs::filesystem::__dir_stream::~__dir_stream(&v27);
-  result = 1;
-LABEL_30:
-  v24 = *MEMORY[0x1E69E9840];
-  return result;
+  if ((*(**(&v26 + 1) + 40))(*(&v26 + 1), &__eca, v26))
+  {
+    v19 = (v12 & 2) == 0;
+  }
+
+  else
+  {
+    v19 = 1;
+  }
+
+  if (v19)
+  {
+    goto LABEL_23;
+  }
+
+LABEL_16:
+  if (__ec)
+  {
+    result = 0;
+    __ec->__val_ = 0;
+    __ec->__cat_ = v4;
+    return result;
+  }
+
+  return 0;
 }
 
 void sub_1922F4980(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, int a19, __int16 a20, char a21, char a22)
@@ -4177,20 +3690,19 @@ uint64_t std::__fs::filesystem::__dir_stream::close(DIR **this)
   return v3;
 }
 
-std::__fs::filesystem::path *std::__fs::filesystem::operator/[abi:ne200100]@<X0>(std::__fs::filesystem::path *this@<X1>, uint64_t a2@<X0>, std::__fs::filesystem::path *a3@<X8>)
+std::__fs::filesystem::path *std::__fs::filesystem::operator/[abi:ne200100]@<X0>(std::__fs::filesystem::path *__return_ptr a1@<X8>, std::__fs::filesystem::path *this@<X1>, uint64_t a3@<X0>)
 {
-  if (*(a2 + 23) < 0)
+  if (*(a3 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external(&a3->__pn_, *a2, *(a2 + 8));
+    std::string::__init_copy_ctor_external(&a1->__pn_, *a3, *(a3 + 8));
   }
 
   else
   {
-    *&a3->__pn_.__r_.__value_.__l.__data_ = *a2;
-    a3->__pn_.__r_.__value_.__r.__words[2] = *(a2 + 16);
+    a1->__pn_ = *a3;
   }
 
-  return std::__fs::filesystem::path::operator/=[abi:ne200100](a3, this);
+  return std::__fs::filesystem::path::operator/=[abi:ne200100](a1, this);
 }
 
 void sub_1922F4BC8(_Unwind_Exception *exception_object)
@@ -4259,8 +3771,7 @@ std::__fs::filesystem::path *std::__fs::filesystem::path::operator/=[abi:ne20010
 
 std::string *std::__fs::filesystem::path::path[abi:ne200100]<std::string_view,void>(std::string *a1, uint64_t a2)
 {
-  a1->__r_.__value_.__r.__words[0] = 0;
-  a1->__r_.__value_.__l.__size_ = 0;
+  *&a1->__r_.__value_.__l.__data_ = 0uLL;
   a1->__r_.__value_.__r.__words[2] = 0;
   std::string::append[abi:ne200100]<char const*,0>(a1, *a2, (*a2 + *(a2 + 8)));
   return a1;
@@ -4494,50 +4005,49 @@ uint64_t *std::__split_buffer<std::__fs::filesystem::__dir_stream *>::~__split_b
   return a1;
 }
 
-__n128 std::deque<std::__fs::filesystem::__dir_stream>::push_back(uint64_t a1, uint64_t a2)
+__n128 std::deque<std::__fs::filesystem::__dir_stream>::push_back(unint64_t *a1, uint64_t a2)
 {
-  v4 = *(a1 + 8);
-  v5 = *(a1 + 16);
-  v6 = *(a1 + 8);
-  v7 = 36 * ((v5 - v6) >> 3) - 1;
-  if (v5 == v6)
+  v4 = a1[2];
+  v5 = a1[1];
+  v6 = 36 * ((v4 - v5) >> 3) - 1;
+  if (v4 == v5)
   {
-    v7 = 0;
+    v6 = 0;
   }
 
-  v8 = *(a1 + 40) + *(a1 + 32);
-  if (v7 == v8)
+  v7 = a1[5] + a1[4];
+  if (v6 == v7)
   {
     std::deque<std::__fs::filesystem::__dir_stream>::__add_back_capacity(a1);
-    v6 = *(a1 + 8);
-    v8 = *(a1 + 40) + *(a1 + 32);
+    v5 = a1[1];
+    v7 = a1[5] + a1[4];
   }
 
-  v9 = *(v6 + 8 * (v8 / 0x24)) + 112 * (v8 % 0x24);
-  *v9 = *a2;
-  v10 = *(a2 + 8);
-  *(v9 + 24) = *(a2 + 24);
-  *(v9 + 8) = v10;
+  v8 = *(v5 + 8 * (v7 / 0x24)) + 112 * (v7 % 0x24);
+  *v8 = *a2;
+  v9 = *(a2 + 8);
+  *(v8 + 24) = *(a2 + 24);
+  *(v8 + 8) = v9;
   *(a2 + 16) = 0;
   *(a2 + 24) = 0;
   *(a2 + 8) = 0;
-  v11 = *(a2 + 32);
-  *(v9 + 48) = *(a2 + 48);
-  *(v9 + 32) = v11;
+  v10 = *(a2 + 32);
+  *(v8 + 48) = *(a2 + 48);
+  *(v8 + 32) = v10;
   *(a2 + 40) = 0;
   *(a2 + 48) = 0;
   *(a2 + 32) = 0;
   result = *(a2 + 64);
-  v13 = *(a2 + 96);
-  *(v9 + 80) = *(a2 + 80);
-  *(v9 + 96) = v13;
-  *(v9 + 64) = result;
+  v12 = *(a2 + 96);
+  *(v8 + 80) = *(a2 + 80);
+  *(v8 + 96) = v12;
+  *(v8 + 64) = result;
   *a2 = 0;
-  ++*(a1 + 40);
+  ++a1[5];
   return result;
 }
 
-void *std::deque<std::__fs::filesystem::__dir_stream>::__add_back_capacity(void *a1)
+unint64_t *std::deque<std::__fs::filesystem::__dir_stream>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x24;
@@ -4574,19 +4084,19 @@ void *std::deque<std::__fs::filesystem::__dir_stream>::__add_back_capacity(void 
   a1[4] = v3;
   v4 = a1[1];
   *&v10 = *v4;
-  a1[1] = v4 + 1;
+  a1[1] = (v4 + 1);
   return std::__split_buffer<std::__fs::filesystem::__dir_stream *>::emplace_back<std::__fs::filesystem::__dir_stream *&>(a1, &v10);
 }
 
-void sub_1922F54CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1922F54CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
-  MEMORY[0x193B0CA40](v3, 4032);
+  va_start(va, a5);
+  MEMORY[0x193B0CA40](v5, 4032, a3);
   std::__split_buffer<std::__fs::filesystem::__dir_stream *>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void *std::__split_buffer<std::__fs::filesystem::__dir_stream *>::emplace_back<std::__fs::filesystem::__dir_stream *&>(void *result, void *a2)
+unint64_t *std::__split_buffer<std::__fs::filesystem::__dir_stream *>::emplace_back<std::__fs::filesystem::__dir_stream *&>(unint64_t *result, void *a2)
 {
   v3 = result;
   v4 = result[2];
@@ -4629,7 +4139,7 @@ void *std::__split_buffer<std::__fs::filesystem::__dir_stream *>::emplace_back<s
   return result;
 }
 
-const void **std::__split_buffer<std::__fs::filesystem::__dir_stream *>::emplace_front<std::__fs::filesystem::__dir_stream *>(const void **result, void *a2)
+uint64_t *std::__split_buffer<std::__fs::filesystem::__dir_stream *>::emplace_front<std::__fs::filesystem::__dir_stream *>(uint64_t *result, void *a2)
 {
   v3 = result;
   v4 = result[1];
@@ -4661,7 +4171,7 @@ const void **std::__split_buffer<std::__fs::filesystem::__dir_stream *>::emplace
     }
 
     v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    v3[2] = v6 + 8 * v8;
   }
 
   else
@@ -4669,12 +4179,12 @@ const void **std::__split_buffer<std::__fs::filesystem::__dir_stream *>::emplace
     v5 = result[1];
   }
 
-  *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
+  *(v5 - 8) = *a2;
+  v3[1] -= 8;
   return result;
 }
 
-void *std::__split_buffer<std::__fs::filesystem::__dir_stream *>::emplace_back<std::__fs::filesystem::__dir_stream *>(void *result, void *a2)
+unint64_t *std::__split_buffer<std::__fs::filesystem::__dir_stream *>::emplace_back<std::__fs::filesystem::__dir_stream *>(unint64_t *result, void *a2)
 {
   v3 = result;
   v4 = result[2];
@@ -4717,7 +4227,7 @@ void *std::__split_buffer<std::__fs::filesystem::__dir_stream *>::emplace_back<s
   return result;
 }
 
-const void **std::__split_buffer<std::__fs::filesystem::__dir_stream *>::emplace_front<std::__fs::filesystem::__dir_stream *&>(const void **result, void *a2)
+uint64_t *std::__split_buffer<std::__fs::filesystem::__dir_stream *>::emplace_front<std::__fs::filesystem::__dir_stream *&>(uint64_t *result, void *a2)
 {
   v3 = result;
   v4 = result[1];
@@ -4749,7 +4259,7 @@ const void **std::__split_buffer<std::__fs::filesystem::__dir_stream *>::emplace
     }
 
     v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    v3[2] = v6 + 8 * v8;
   }
 
   else
@@ -4757,8 +4267,8 @@ const void **std::__split_buffer<std::__fs::filesystem::__dir_stream *>::emplace
     v5 = result[1];
   }
 
-  *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
+  *(v5 - 8) = *a2;
+  v3[1] -= 8;
   return result;
 }
 
@@ -4823,7 +4333,7 @@ uint64_t std::deque<std::__fs::filesystem::__dir_stream>::__maybe_remove_back_sp
 std::__fs::filesystem::path *__cdecl std::__fs::filesystem::__absolute(std::__fs::filesystem::path *__return_ptr retstr, const std::__fs::filesystem::path *a2, std::error_code *__ec)
 {
   memset(&v4, 0, sizeof(v4));
-  std::__fs::filesystem::__do_absolute(a2, &v4, __ec, retstr);
+  std::__fs::filesystem::__do_absolute(retstr, a2, &v4, __ec);
   if (SHIBYTE(v4.__pn_.__r_.__value_.__r.__words[2]) < 0)
   {
     return MEMORY[0x193B0CA40](v4.__pn_.__r_.__value_.__r.__words[0], v4.__pn_.__r_.__value_.__r.__words[2] & 0x7FFFFFFFFFFFFFFFLL);
@@ -4842,50 +4352,50 @@ void sub_1922F5AD8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::__fs::filesystem::__do_absolute(std::__fs::filesystem::path *this@<X0>, std::__fs::filesystem::path *a2@<X1>, std::error_code *a3@<X2>, std::__fs::filesystem::path *a4@<X8>)
+void std::__fs::filesystem::__do_absolute(std::__fs::filesystem::path *__return_ptr a1@<X8>, std::__fs::filesystem::path *this@<X0>, std::__fs::filesystem::path *a3@<X1>, std::error_code *a4@<X2>)
 {
-  if (a3)
+  if (a4)
   {
-    a3->__val_ = 0;
-    a3->__cat_ = std::system_category();
+    a4->__val_ = 0;
+    a4->__cat_ = std::system_category();
   }
 
   if (std::__fs::filesystem::path::__root_directory(this).__size_)
   {
     if (SHIBYTE(this->__pn_.__r_.__value_.__r.__words[2]) < 0)
     {
-      v9 = this->__pn_.__r_.__value_.__r.__words[0];
+      v8 = this->__pn_.__r_.__value_.__r.__words[0];
       size = this->__pn_.__r_.__value_.__l.__size_;
 
-      std::string::__init_copy_ctor_external(&a4->__pn_, v9, size);
+      std::string::__init_copy_ctor_external(&a1->__pn_, v8, size);
     }
 
     else
     {
-      *&a4->__pn_.__r_.__value_.__l.__data_ = *&this->__pn_.__r_.__value_.__l.__data_;
-      a4->__pn_.__r_.__value_.__r.__words[2] = this->__pn_.__r_.__value_.__r.__words[2];
+      *&a1->__pn_.__r_.__value_.__l.__data_ = *&this->__pn_.__r_.__value_.__l.__data_;
+      a1->__pn_.__r_.__value_.__r.__words[2] = this->__pn_.__r_.__value_.__r.__words[2];
     }
   }
 
   else
   {
-    std::__fs::filesystem::__current_path(&v11, a3);
-    if (SHIBYTE(a2->__pn_.__r_.__value_.__r.__words[2]) < 0)
+    std::__fs::filesystem::__current_path(&v10, a4);
+    if (SHIBYTE(a3->__pn_.__r_.__value_.__r.__words[2]) < 0)
     {
-      MEMORY[0x193B0CA40](a2->__pn_.__r_.__value_.__r.__words[0], a2->__pn_.__r_.__value_.__r.__words[2] & 0x7FFFFFFFFFFFFFFFLL);
+      MEMORY[0x193B0CA40](a3->__pn_.__r_.__value_.__r.__words[0], a3->__pn_.__r_.__value_.__r.__words[2] & 0x7FFFFFFFFFFFFFFFLL);
     }
 
-    *a2 = v11;
-    if (a3 && a3->__val_)
+    *a3 = v10;
+    if (a4 && a4->__val_)
     {
-      a4->__pn_.__r_.__value_.__r.__words[0] = 0;
-      a4->__pn_.__r_.__value_.__l.__size_ = 0;
-      a4->__pn_.__r_.__value_.__r.__words[2] = 0;
+      a1->__pn_.__r_.__value_.__r.__words[0] = 0;
+      a1->__pn_.__r_.__value_.__l.__size_ = 0;
+      a1->__pn_.__r_.__value_.__r.__words[2] = 0;
     }
 
     else
     {
-      std::__fs::filesystem::operator/[abi:ne200100](this, a2, a4);
+      std::__fs::filesystem::operator/[abi:ne200100](a1, this, a3);
     }
   }
 }
@@ -4903,7 +4413,7 @@ std::__fs::filesystem::path *__cdecl std::__fs::filesystem::__canonical(std::__f
     __ec->__cat_ = std::system_category();
   }
 
-  std::__fs::filesystem::__do_absolute(a2, &v14, __ec, &v12);
+  std::__fs::filesystem::__do_absolute(&v12, a2, &v14, __ec);
   if ((v12.__pn_.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     v6 = &v12;
@@ -4918,15 +4428,15 @@ std::__fs::filesystem::path *__cdecl std::__fs::filesystem::__canonical(std::__f
   v8 = v7;
   if (v7)
   {
-    v11.n128_u64[0] = v7;
+    *&v11.__val_ = v7;
     std::__fs::filesystem::path::path[abi:ne200100]<char *,void>(&retstr->__pn_, &v11);
     free(v8);
   }
 
   else
   {
-    v11.n128_u64[0] = *__error();
-    v11.n128_u64[1] = std::generic_category();
+    *&v11.__val_ = *__error();
+    v11.__cat_ = std::generic_category();
     v10 = std::__fs::filesystem::detail::ErrorHandler<std::__fs::filesystem::path>::report(v13, &v11, retstr);
   }
 
@@ -4959,13 +4469,13 @@ void sub_1922F5CFC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-__n128 std::__fs::filesystem::detail::ErrorHandler<std::__fs::filesystem::path>::report@<Q0>(uint64_t a1@<X0>, __n128 *a2@<X1>, void *a3@<X8>)
+__n128 std::__fs::filesystem::detail::ErrorHandler<std::__fs::filesystem::path>::report@<Q0>(uint64_t a1@<X0>, std::error_code *a2@<X1>, void *a3@<X8>)
 {
   v3 = *(a1 + 8);
   if (!v3)
   {
     std::string::basic_string[abi:ne200100]<0>(&v11, "in ");
-    v6 = std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(*a1, &v11, &v12);
+    v6 = std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v12, *a1, &v11);
     if (SHIBYTE(v11.__r_.__value_.__r.__words[2]) < 0)
     {
       MEMORY[0x193B0CA40](v11.__r_.__value_.__r.__words[0], v11.__r_.__value_.__r.__words[2] & 0x7FFFFFFFFFFFFFFFLL, v6);
@@ -5071,7 +4581,7 @@ void std::__fs::filesystem::__copy(const std::__fs::filesystem::path *__from, co
     v25.st_ino = std::generic_category();
   }
 
-  std::__fs::filesystem::detail::create_file_status(&v25, __from, &v27, &v28, v26);
+  std::__fs::filesystem::detail::create_file_status(&v26, &v25, __from, &v27, &v28);
   if (v28)
   {
     goto LABEL_16;
@@ -5117,8 +4627,8 @@ void std::__fs::filesystem::__copy(const std::__fs::filesystem::path *__from, co
     __toa.__pn_.__r_.__value_.__l.__size_ = std::generic_category();
   }
 
-  std::__fs::filesystem::detail::create_file_status(&__toa, __to, &v25, &v28, v24);
-  if (!v24[0])
+  std::__fs::filesystem::detail::create_file_status(&v24, &__toa, __to, &v25, &v28);
+  if (!v24)
   {
 LABEL_16:
     p_toa = &v28;
@@ -5127,7 +4637,7 @@ LABEL_33:
     return;
   }
 
-  if (!v26[0] || v26[0] == 255 || v26[0] - 4 < 0xFFFFFFFD || v24[0] != 255 && (v24[0] - 4 < 0xFFFFFFFD || v24[0] == 1 && v26[0] == 2 || v27.st_dev == v25.st_dev && v27.st_ino == v25.st_ino))
+  if (!v26 || v26 == 255 || v26 - 4 < 0xFFFFFFFD || v24 != 255 && (v24 - 4 < 0xFFFFFFFD || v24 == 1 && v26 == 2 || v27.st_dev == v25.st_dev && v27.st_ino == v25.st_ino))
   {
     v16 = std::generic_category();
     __toa.__pn_.__r_.__value_.__r.__words[0] = 78;
@@ -5136,7 +4646,7 @@ LABEL_33:
     goto LABEL_33;
   }
 
-  if (v26[0] == 1)
+  if (v26 == 1)
   {
     if ((v5 & 0x40) == 0)
     {
@@ -5150,10 +4660,10 @@ LABEL_33:
         std::__fs::filesystem::__create_hard_link(__from, __to, __ec);
       }
 
-      else if (v24[0] == 2)
+      else if (v24 == 2)
       {
         std::__fs::filesystem::path::filename[abi:ne200100](__from, &v22);
-        std::__fs::filesystem::operator/[abi:ne200100](&v22, __to, &__toa);
+        std::__fs::filesystem::operator/[abi:ne200100](&__toa, &v22, __to);
         std::__fs::filesystem::__copy_file(__from, &__toa, v5, __ec);
         if (SHIBYTE(__toa.__pn_.__r_.__value_.__r.__words[2]) < 0)
         {
@@ -5175,14 +4685,14 @@ LABEL_33:
     return;
   }
 
-  if (v26[0] != 2)
+  if (v26 != 2)
   {
     if ((v5 & 0x20) != 0)
     {
       return;
     }
 
-    if (v24[0] == 255)
+    if (v24 == 255)
     {
       std::__fs::filesystem::__copy_symlink(__from, __to, __ec);
       return;
@@ -5203,7 +4713,7 @@ LABEL_65:
 
   if (!v5 || (v5 & 8) != 0)
   {
-    if (v24[0] == 255)
+    if (v24 == 255)
     {
       std::__fs::filesystem::__create_directory(__to, __from, __ec);
       if (__ec)
@@ -5236,7 +4746,7 @@ LABEL_71:
             v18 = std::__fs::filesystem::directory_iterator::__dereference(&v21);
             v19 = std::__fs::filesystem::directory_iterator::__dereference(&v21);
             std::__fs::filesystem::path::filename[abi:ne200100](&v19->__p_, &v22);
-            std::__fs::filesystem::operator/[abi:ne200100](&v22, __to, &__toa);
+            std::__fs::filesystem::operator/[abi:ne200100](&__toa, &v22, __to);
             std::__fs::filesystem::__copy(&v18->__p_, &__toa, (v5 | 0x200), __ec);
             if (SHIBYTE(__toa.__pn_.__r_.__value_.__r.__words[2]) < 0)
             {
@@ -5292,8 +4802,8 @@ void sub_1922F62B8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 double std::__fs::filesystem::detail::ErrorHandler<void>::report(uint64_t a1, unsigned int *a2)
 {
-  v4.n128_u64[0] = *a2;
-  v4.n128_u64[1] = std::generic_category();
+  *&v4.__val_ = *a2;
+  v4.__cat_ = std::generic_category();
   *&result = std::__fs::filesystem::detail::ErrorHandler<void>::report(a1, &v4).n128_u64[0];
   return result;
 }
@@ -5356,8 +4866,8 @@ void std::__fs::filesystem::__create_symlink(const std::__fs::filesystem::path *
 
   if (symlink(v5, v6) == -1)
   {
-    v7.n128_u64[0] = *__error();
-    v7.n128_u64[1] = std::generic_category();
+    *&v7.__val_ = *__error();
+    v7.__cat_ = std::generic_category();
     std::__fs::filesystem::detail::ErrorHandler<void>::report(v8, &v7);
   }
 }
@@ -5396,8 +4906,8 @@ void std::__fs::filesystem::__create_hard_link(const std::__fs::filesystem::path
 
   if (link(v5, v6) == -1)
   {
-    v7.n128_u64[0] = *__error();
-    v7.n128_u64[1] = std::generic_category();
+    *&v7.__val_ = *__error();
+    v7.__cat_ = std::generic_category();
     std::__fs::filesystem::detail::ErrorHandler<void>::report(v8, &v7);
   }
 }
@@ -5421,28 +4931,28 @@ BOOL std::__fs::filesystem::__copy_file(const std::__fs::filesystem::path *__fro
     v8 = std::system_category();
   }
 
-  LODWORD(v34) = 0;
-  v35 = v8;
-  std::__fs::filesystem::detail::FileDescriptor::create_with_status<int>(__from, &v34, 4, v27);
-  if (v34)
+  v33.__val_ = 0;
+  v33.__cat_ = v8;
+  std::__fs::filesystem::detail::FileDescriptor::create_with_status<int>(&v33, v26, __from, 4);
+  if (v33.__val_)
   {
-    v9 = std::__fs::filesystem::detail::ErrorHandler<BOOL>::report(_200, &v34);
+    v9 = std::__fs::filesystem::detail::ErrorHandler<BOOL>::report(_200, &v33);
 LABEL_28:
     v15 = v9;
     goto LABEL_29;
   }
 
-  if (v33 != 1)
+  if (v32 != 1)
   {
     v16 = std::generic_category();
-    v34 = 45;
-    v35 = v16;
-    v9 = std::__fs::filesystem::detail::ErrorHandler<BOOL>::report(_200, &v34);
+    *&v33.__val_ = 45;
+    v33.__cat_ = v16;
+    v9 = std::__fs::filesystem::detail::ErrorHandler<BOOL>::report(_200, &v33);
     goto LABEL_28;
   }
 
-  LODWORD(v21) = 0;
-  v22 = v8;
+  v21.__val_ = 0;
+  v21.__cat_ = v8;
   if ((__to->__pn_.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     v10 = __to;
@@ -5453,28 +4963,28 @@ LABEL_28:
     v10 = __to->__pn_.__r_.__value_.__r.__words[0];
   }
 
-  if (stat(v10, &v26) == -1)
+  if (stat(v10, &v25) == -1)
   {
-    v21 = *__error();
-    v22 = std::generic_category();
+    *&v21.__val_ = *__error();
+    v21.__cat_ = std::generic_category();
   }
 
-  std::__fs::filesystem::detail::create_file_status(&v21, __to, &v26, &v34, &v25);
-  if (!v25)
+  std::__fs::filesystem::detail::create_file_status(&v24, &v21, __to, &v25, &v33);
+  if (!v24)
   {
-    v9 = std::__fs::filesystem::detail::ErrorHandler<BOOL>::report(_200, &v34);
+    v9 = std::__fs::filesystem::detail::ErrorHandler<BOOL>::report(_200, &v33);
     goto LABEL_28;
   }
 
-  v11 = v25;
-  v12 = v25 != 255;
-  if (v25 != 1)
+  v11 = v24;
+  v12 = v24 != 255;
+  if (v24 != 1)
   {
-    if (v25 != 255)
+    if (v24 != 255)
     {
       v17 = std::generic_category();
-      v21 = 45;
-      v22 = v17;
+      *&v21.__val_ = 45;
+      v21.__cat_ = v17;
       v9 = std::__fs::filesystem::detail::ErrorHandler<BOOL>::report(_200, &v21);
       goto LABEL_28;
     }
@@ -5482,9 +4992,9 @@ LABEL_28:
     goto LABEL_15;
   }
 
-  if (v28 == v26.st_dev && v30 == v26.st_ino)
+  if (v27 == v25.st_dev && v29 == v25.st_ino)
   {
-    LODWORD(v21) = 17;
+    v21.__val_ = 17;
     v9 = std::__fs::filesystem::detail::ErrorHandler<BOOL>::report(_200, &v21);
     goto LABEL_28;
   }
@@ -5498,7 +5008,7 @@ LABEL_46:
 
   if ((v4 & 4) != 0)
   {
-    if (v31 < v26.st_mtimespec.tv_sec || v31 == v26.st_mtimespec.tv_sec && v32 <= v26.st_mtimespec.tv_nsec)
+    if (v30 < v25.st_mtimespec.tv_sec || v30 == v25.st_mtimespec.tv_sec && v31 <= v25.st_mtimespec.tv_nsec)
     {
       goto LABEL_46;
     }
@@ -5507,8 +5017,8 @@ LABEL_46:
   else if ((v4 & 2) == 0)
   {
     v19 = std::generic_category();
-    v21 = 17;
-    v22 = v19;
+    *&v21.__val_ = 17;
+    v21.__cat_ = v19;
     if ((std::__fs::filesystem::detail::ErrorHandler<BOOL>::report(_200, &v21) & 1) == 0)
     {
       goto LABEL_46;
@@ -5526,22 +5036,22 @@ LABEL_15:
     v13 = 513;
   }
 
-  std::__fs::filesystem::detail::FileDescriptor::create_with_status<int,unsigned short>(__to, &v34, v13, v29, &v21);
-  if (!v34)
+  std::__fs::filesystem::detail::FileDescriptor::create_with_status<int,unsigned short>(&v33, &v21, __to, v13, v28);
+  if (!v33.__val_)
   {
     if (v11 == 255)
     {
       goto LABEL_36;
     }
 
-    if (v26.st_dev != v23 || v26.st_ino != v24)
+    if (v25.st_dev != v22 || v25.st_ino != v23)
     {
       v20 = 9;
       v14 = std::__fs::filesystem::detail::ErrorHandler<BOOL>::report(_200, &v20);
       goto LABEL_20;
     }
 
-    if (!std::__fs::filesystem::detail::posix_fchmod(&v21, &v28, &v34) && !std::__fs::filesystem::detail::posix_ftruncate(&v21, 0, &v34))
+    if (!std::__fs::filesystem::detail::posix_fchmod(&v21, &v27, &v33) && !std::__fs::filesystem::detail::posix_ftruncate(&v21, 0, &v33))
     {
 LABEL_36:
       {
@@ -5551,14 +5061,21 @@ LABEL_36:
     }
   }
 
-  v14 = std::__fs::filesystem::detail::ErrorHandler<BOOL>::report(_200, &v34);
+  v14 = std::__fs::filesystem::detail::ErrorHandler<BOOL>::report(_200, &v33);
 LABEL_20:
   v15 = v14;
 LABEL_21:
   std::__fs::filesystem::detail::FileDescriptor::close(&v21);
 LABEL_29:
-  std::__fs::filesystem::detail::FileDescriptor::close(v27);
+  std::__fs::filesystem::detail::FileDescriptor::close(v26);
   return v15;
+}
+
+void sub_1922F6860(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, ...)
+{
+  va_start(va, a49);
+  std::__fs::filesystem::detail::FileDescriptor::close(va);
+  _Unwind_Resume(a1);
 }
 
 double std::__fs::filesystem::path::filename[abi:ne200100]@<D0>(const std::__fs::filesystem::path *a1@<X0>, uint64_t a2@<X8>)
@@ -5627,7 +5144,7 @@ BOOL std::__fs::filesystem::__create_directory(const std::__fs::filesystem::path
     __ec.__cat_ = v9;
   }
 
-  std::__fs::filesystem::detail::create_file_status(&__ec, __attributes, &v21.st_uid, &v21, &v20);
+  std::__fs::filesystem::detail::create_file_status(&v20, &__ec, __attributes, &v21.st_uid, &v21);
   if (v20 == 2)
   {
     if ((a1->__pn_.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
@@ -5683,41 +5200,41 @@ BOOL std::__fs::filesystem::__create_directory(const std::__fs::filesystem::path
   }
 }
 
-void std::__fs::filesystem::detail::FileDescriptor::create_with_status<int>(uint64_t a1@<X0>, const stat *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
+void std::__fs::filesystem::detail::FileDescriptor::create_with_status<int>(const stat *a1@<X1>, uint64_t a2@<X8>, uint64_t a3@<X0>, int a4@<W2>)
 {
-  std::__fs::filesystem::detail::FileDescriptor::create<int>(a1, a2, a3, a4);
-  if (!a2->st_dev)
+  std::__fs::filesystem::detail::FileDescriptor::create<int>(a3, a1, a4, a2);
+  if (!a1->st_dev)
   {
-    *(a4 + 16) = 0u;
-    *(a4 + 160) = 0xFFFF00000000;
-    *(a4 + 32) = 0u;
-    *(a4 + 48) = 0u;
-    *(a4 + 64) = 0u;
-    *(a4 + 80) = 0u;
-    *(a4 + 96) = 0u;
-    *(a4 + 112) = 0u;
-    *(a4 + 128) = 0u;
-    *(a4 + 144) = 0u;
-    LODWORD(v7) = 0;
-    v8 = std::system_category();
-    if (fstat(*(a4 + 8), (a4 + 16)) == -1)
+    *(a2 + 16) = 0u;
+    *(a2 + 160) = 0xFFFF00000000;
+    *(a2 + 32) = 0u;
+    *(a2 + 48) = 0u;
+    *(a2 + 64) = 0u;
+    *(a2 + 80) = 0u;
+    *(a2 + 96) = 0u;
+    *(a2 + 112) = 0u;
+    *(a2 + 128) = 0u;
+    *(a2 + 144) = 0u;
+    v7.__val_ = 0;
+    v7.__cat_ = std::system_category();
+    if (fstat(*(a2 + 8), (a2 + 16)) == -1)
     {
-      v7 = *__error();
-      v8 = std::generic_category();
+      *&v7.__val_ = *__error();
+      v7.__cat_ = std::generic_category();
     }
 
-    std::__fs::filesystem::detail::create_file_status(&v7, *a4, (a4 + 16), a2, &v6);
-    *(a4 + 160) = v6;
+    std::__fs::filesystem::detail::create_file_status(&v6, &v7, *a2, (a2 + 16), a1);
+    *(a2 + 160) = v6;
   }
 }
 
-uint64_t std::__fs::filesystem::detail::ErrorHandler<BOOL>::report(uint64_t a1, void *a2)
+uint64_t std::__fs::filesystem::detail::ErrorHandler<BOOL>::report(uint64_t a1, std::error_code *a2)
 {
   v2 = *(a1 + 8);
   if (!v2)
   {
     std::string::basic_string[abi:ne200100]<0>(&v10, "in ");
-    v5 = std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(*a1, &v10, &v11);
+    v5 = std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v11, *a1, &v10);
     if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
     {
       MEMORY[0x193B0CA40](v10.__r_.__value_.__r.__words[0], v10.__r_.__value_.__r.__words[2] & 0x7FFFFFFFFFFFFFFFLL, v5);
@@ -5760,36 +5277,36 @@ void sub_1922F6CDC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t std::__fs::filesystem::detail::ErrorHandler<BOOL>::report(uint64_t a1, unsigned int *a2)
 {
-  v4[0] = *a2;
-  v4[1] = std::generic_category();
-  return std::__fs::filesystem::detail::ErrorHandler<BOOL>::report(a1, v4);
+  *&v4.__val_ = *a2;
+  v4.__cat_ = std::generic_category();
+  return std::__fs::filesystem::detail::ErrorHandler<BOOL>::report(a1, &v4);
 }
 
-void std::__fs::filesystem::detail::FileDescriptor::create_with_status<int,unsigned short>(uint64_t a1@<X0>, const stat *a2@<X1>, int a3@<W2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
+void std::__fs::filesystem::detail::FileDescriptor::create_with_status<int,unsigned short>(const stat *a1@<X1>, uint64_t a2@<X8>, uint64_t a3@<X0>, int a4@<W2>, uint64_t a5@<X3>)
 {
-  std::__fs::filesystem::detail::FileDescriptor::create<int,unsigned short>(a1, a2, a3, a4, a5);
-  if (!a2->st_dev)
+  std::__fs::filesystem::detail::FileDescriptor::create<int,unsigned short>(a3, a1, a4, a5, a2);
+  if (!a1->st_dev)
   {
-    *(a5 + 16) = 0u;
-    *(a5 + 160) = 0xFFFF00000000;
-    *(a5 + 32) = 0u;
-    *(a5 + 48) = 0u;
-    *(a5 + 64) = 0u;
-    *(a5 + 80) = 0u;
-    *(a5 + 96) = 0u;
-    *(a5 + 112) = 0u;
-    *(a5 + 128) = 0u;
-    *(a5 + 144) = 0u;
-    LODWORD(v8) = 0;
-    v9 = std::system_category();
-    if (fstat(*(a5 + 8), (a5 + 16)) == -1)
+    *(a2 + 16) = 0u;
+    *(a2 + 160) = 0xFFFF00000000;
+    *(a2 + 32) = 0u;
+    *(a2 + 48) = 0u;
+    *(a2 + 64) = 0u;
+    *(a2 + 80) = 0u;
+    *(a2 + 96) = 0u;
+    *(a2 + 112) = 0u;
+    *(a2 + 128) = 0u;
+    *(a2 + 144) = 0u;
+    v8.__val_ = 0;
+    v8.__cat_ = std::system_category();
+    if (fstat(*(a2 + 8), (a2 + 16)) == -1)
     {
-      v8 = *__error();
-      v9 = std::generic_category();
+      *&v8.__val_ = *__error();
+      v8.__cat_ = std::generic_category();
     }
 
-    std::__fs::filesystem::detail::create_file_status(&v8, *a5, (a5 + 16), a2, &v7);
-    *(a5 + 160) = v7;
+    std::__fs::filesystem::detail::create_file_status(&v7, &v8, *a2, (a2 + 16), a1);
+    *(a2 + 160) = v7;
   }
 }
 
@@ -5857,11 +5374,11 @@ BOOL std::__fs::filesystem::detail::anonymous namespace::copy_file_impl(uint64_t
 
 std::__fs::filesystem::path *__cdecl std::__fs::filesystem::__read_symlink(std::__fs::filesystem::path *__return_ptr retstr, const std::__fs::filesystem::path *a2, std::error_code *__ec)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v9[0] = "read_symlink";
-  v9[1] = __ec;
-  v9[2] = a2;
-  v9[3] = 0;
+  v11 = *MEMORY[0x1E69E9840];
+  v8[0] = "read_symlink";
+  v8[1] = __ec;
+  v8[2] = a2;
+  v8[3] = 0;
   if (__ec)
   {
     __ec->__val_ = 0;
@@ -5878,29 +5395,28 @@ std::__fs::filesystem::path *__cdecl std::__fs::filesystem::__read_symlink(std::
     v5 = a2->__pn_.__r_.__value_.__r.__words[0];
   }
 
-  v6 = readlink(v5, v11, 0x401uLL);
+  v6 = readlink(v5, v10, 0x401uLL);
   if (v6 == -1)
   {
-    v10.n128_u64[0] = *__error();
-    v10.n128_u64[1] = std::generic_category();
-    std::__fs::filesystem::detail::ErrorHandler<std::__fs::filesystem::path>::report(v9, &v10, retstr);
+    *&v9.__val_ = *__error();
+    v9.__cat_ = std::generic_category();
+    std::__fs::filesystem::detail::ErrorHandler<std::__fs::filesystem::path>::report(v8, &v9, retstr);
   }
 
   else if (v6 < 0x401)
   {
-    v11[v6] = 0;
-    v10.n128_u64[0] = v11;
-    result = std::__fs::filesystem::path::path[abi:ne200100]<char *,void>(&retstr->__pn_, &v10);
+    v10[v6] = 0;
+    *&v9.__val_ = v10;
+    return std::__fs::filesystem::path::path[abi:ne200100]<char *,void>(&retstr->__pn_, &v9);
   }
 
   else
   {
-    v10.n128_u64[0] = 84;
-    v10.n128_u64[1] = std::generic_category();
-    std::__fs::filesystem::detail::ErrorHandler<std::__fs::filesystem::path>::report(v9, &v10, retstr);
+    *&v9.__val_ = 84;
+    v9.__cat_ = std::generic_category();
+    std::__fs::filesystem::detail::ErrorHandler<std::__fs::filesystem::path>::report(v8, &v9, retstr);
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -5924,8 +5440,8 @@ BOOL std::__fs::filesystem::__create_directories(const std::__fs::filesystem::pa
 
   __ec.__val_ = 0;
   __ec.__cat_ = v4;
-  LODWORD(v20) = 0;
-  v21 = v4;
+  v20.__val_ = 0;
+  v20.__cat_ = v4;
   if ((a1->__pn_.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     v5 = a1;
@@ -5940,19 +5456,19 @@ BOOL std::__fs::filesystem::__create_directories(const std::__fs::filesystem::pa
   {
     v6 = *__error();
     v7 = std::generic_category();
-    v20 = v6;
-    v21 = v7;
+    *&v20.__val_ = v6;
+    v20.__cat_ = v7;
   }
 
-  std::__fs::filesystem::detail::create_file_status(&v20, a1, &v19, &__ec, v16);
-  if (v16[0] != 255)
+  std::__fs::filesystem::detail::create_file_status(&v16, &v20, a1, &v19, &__ec);
+  if (v16 != 255)
   {
-    if (v16[0] == 2)
+    if (v16 == 2)
     {
       return 0;
     }
 
-    if (v16[0])
+    if (v16)
     {
       v12 = std::generic_category();
       *&v19.st_dev = 17;
@@ -5978,7 +5494,7 @@ BOOL std::__fs::filesystem::__create_directories(const std::__fs::filesystem::pa
   if (st_gid_high)
   {
     std::__fs::filesystem::__status(&v19, &__ec);
-    if (v20 == 255)
+    if (LOBYTE(v20.__val_) == 255)
     {
       v11.__data_ = a1;
       if (std::__fs::filesystem::operator==[abi:ne200100](&v19, v11))
@@ -5996,9 +5512,9 @@ BOOL std::__fs::filesystem::__create_directories(const std::__fs::filesystem::pa
       }
     }
 
-    else if (v20 != 2)
+    else if (LOBYTE(v20.__val_) != 2)
     {
-      if (!v20)
+      if (!LOBYTE(v20.__val_))
       {
         goto LABEL_30;
       }
@@ -6027,11 +5543,11 @@ LABEL_32:
   return v9;
 }
 
-void sub_1922F72AC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19)
+void sub_1922F72AC(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19)
 {
   if (SHIBYTE(a19) < 0)
   {
-    MEMORY[0x193B0CA40](a17, a19 & 0x7FFFFFFFFFFFFFFFLL);
+    MEMORY[0x193B0CA40](a17, a19 & 0x7FFFFFFFFFFFFFFFLL, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -6082,10 +5598,10 @@ BOOL std::__fs::filesystem::operator==[abi:ne200100](const std::__fs::filesystem
 
 BOOL std::__fs::filesystem::__create_directory(const std::__fs::filesystem::path *a1, std::error_code *a2)
 {
-  v9[0] = "create_directory";
-  v9[1] = a2;
-  v9[2] = a1;
-  v9[3] = 0;
+  v8[0] = "create_directory";
+  v8[1] = a2;
+  v8[2] = a1;
+  v8[3] = 0;
   if (a2)
   {
     a2->__val_ = 0;
@@ -6107,26 +5623,26 @@ BOOL std::__fs::filesystem::__create_directory(const std::__fs::filesystem::path
     return 1;
   }
 
-  v7 = *__error();
-  v8 = std::generic_category();
+  *&v7.__val_ = *__error();
+  v7.__cat_ = std::generic_category();
   *&__ec.__val_ = 17;
-  __ec.__cat_ = v8;
-  if ((v8->equivalent)(v8, v7, &__ec) || ((__ec.__cat_->equivalent_0)(__ec.__cat_, &v7, __ec.__val_)) && (__ec.__val_ = 0, __ec.__cat_ = std::system_category(), std::__fs::filesystem::__status(a1, &__ec), v5 == 2))
+  __ec.__cat_ = v7.__cat_;
+  if ((v7.__cat_->equivalent)(v7.__cat_, *&v7.__val_, &__ec) || ((__ec.__cat_->equivalent_0)(__ec.__cat_, &v7, __ec.__val_)) && (__ec.__val_ = 0, __ec.__cat_ = std::system_category(), std::__fs::filesystem::__status(a1, &__ec), v5 == 2))
   {
     return 0;
   }
 
   else
   {
-    return std::__fs::filesystem::detail::ErrorHandler<BOOL>::report(v9, &v7);
+    return std::__fs::filesystem::detail::ErrorHandler<BOOL>::report(v8, &v7);
   }
 }
 
-uint64_t std::__fs::filesystem::detail::ErrorHandler<BOOL>::report(uint64_t a1, unsigned int *a2, std::__fs::filesystem::detail *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t std::__fs::filesystem::detail::ErrorHandler<BOOL>::report(uint64_t a1, unsigned int *a2, std::__fs::filesystem::detail *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   v13 = &a9;
-  v12.n128_u64[0] = *a2;
-  v12.n128_u64[1] = std::generic_category();
+  *&v12.__val_ = *a2;
+  v12.__cat_ = std::generic_category();
   std::__fs::filesystem::detail::ErrorHandler<BOOL>::report_impl(a1, &v12, a3, &a9);
   return 0;
 }
@@ -6165,8 +5681,8 @@ void std::__fs::filesystem::__create_directory_symlink(const std::__fs::filesyst
 
   if (symlink(v5, v6) == -1)
   {
-    v7.n128_u64[0] = *__error();
-    v7.n128_u64[1] = std::generic_category();
+    *&v7.__val_ = *__error();
+    v7.__cat_ = std::generic_category();
     std::__fs::filesystem::detail::ErrorHandler<void>::report(v8, &v7);
   }
 }
@@ -6187,7 +5703,7 @@ std::__fs::filesystem::path *__cdecl std::__fs::filesystem::__current_path(std::
   if (v3)
   {
     v4 = v3;
-    v7.n128_u64[0] = v3;
+    *&v7.__val_ = v3;
     std::__fs::filesystem::path::path[abi:ne200100]<char *,void>(&retstr->__pn_, &v7);
     free(v4);
   }
@@ -6195,14 +5711,14 @@ std::__fs::filesystem::path *__cdecl std::__fs::filesystem::__current_path(std::
   else
   {
     v6 = *__error();
-    v7.n128_u64[1] = std::generic_category();
+    v7.__cat_ = std::generic_category();
     std::__fs::filesystem::detail::ErrorHandler<std::__fs::filesystem::path>::report(v8, &v7, "call to getcwd failed", retstr, v6);
   }
 
   return result;
 }
 
-void std::__fs::filesystem::detail::ErrorHandler<std::__fs::filesystem::path>::report(uint64_t a1@<X0>, __n128 *a2@<X1>, std::__fs::filesystem::detail *a3@<X2>, void *a4@<X8>, char a5)
+void std::__fs::filesystem::detail::ErrorHandler<std::__fs::filesystem::path>::report(uint64_t a1@<X0>, std::error_code *a2@<X1>, std::__fs::filesystem::detail *a3@<X2>, void *a4@<X8>, uint64_t a5)
 {
   std::__fs::filesystem::detail::ErrorHandler<std::__fs::filesystem::path>::report_impl(a1, a2, a3, &a5);
   *a4 = 0;
@@ -6234,8 +5750,8 @@ void std::__fs::filesystem::__current_path(const std::__fs::filesystem::path *a1
 
   if (chdir(v3) == -1)
   {
-    v4.n128_u64[0] = *__error();
-    v4.n128_u64[1] = std::generic_category();
+    *&v4.__val_ = *__error();
+    v4.__cat_ = std::generic_category();
     std::__fs::filesystem::detail::ErrorHandler<void>::report(v5, &v4);
   }
 }
@@ -6285,13 +5801,13 @@ BOOL std::__fs::filesystem::__equivalent(const std::__fs::filesystem::path *a1, 
     var80.st_ctimespec.tv_nsec = v9;
   }
 
-  std::__fs::filesystem::detail::create_file_status(&var80.st_ctimespec, &v18, &v21, &var80.st_uid, v19);
+  std::__fs::filesystem::detail::create_file_status(&v19, &var80.st_ctimespec, &v18, &v21, &var80.st_uid);
   if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
   {
     MEMORY[0x193B0CA40](v18.__r_.__value_.__r.__words[0], v18.__r_.__value_.__r.__words[2] & 0x7FFFFFFFFFFFFFFFLL);
   }
 
-  if (v19[0] != 255 && v19[0])
+  if (v19 != 255 && v19)
   {
     std::__fs::filesystem::path::path[abi:ne200100]<std::string,void>(&v18, &a2->__pn_);
     LODWORD(var80.st_ctimespec.tv_sec) = 0;
@@ -6314,13 +5830,13 @@ BOOL std::__fs::filesystem::__equivalent(const std::__fs::filesystem::path *a1, 
       var80.st_ctimespec.tv_nsec = v14;
     }
 
-    std::__fs::filesystem::detail::create_file_status(&var80.st_ctimespec, &v18, &v20, &var80, v17);
+    std::__fs::filesystem::detail::create_file_status(&v17, &var80.st_ctimespec, &v18, &v20, &var80);
     if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
     {
       MEMORY[0x193B0CA40](v18.__r_.__value_.__r.__words[0], v18.__r_.__value_.__r.__words[2] & 0x7FFFFFFFFFFFFFFFLL);
     }
 
-    if (v17[0] != 255 && v17[0])
+    if (v17 != 255 && v17)
     {
       return v21.st_dev == v20.st_dev && v21.st_ino == v20.st_ino;
     }
@@ -6345,10 +5861,10 @@ BOOL std::__fs::filesystem::__equivalent(const std::__fs::filesystem::path *a1, 
 
 uintmax_t std::__fs::filesystem::__file_size(const std::__fs::filesystem::path *a1, std::error_code *__ec)
 {
-  v16[0] = "file_size";
-  v16[1] = __ec;
-  v16[2] = a1;
-  v16[3] = 0;
+  v15[0] = "file_size";
+  v15[1] = __ec;
+  v15[2] = a1;
+  v15[3] = 0;
   if (__ec)
   {
     __ec->__val_ = 0;
@@ -6361,10 +5877,10 @@ uintmax_t std::__fs::filesystem::__file_size(const std::__fs::filesystem::path *
     v4 = std::system_category();
   }
 
-  LODWORD(v14) = 0;
-  v15 = v4;
-  LODWORD(v17) = 0;
-  v18 = v4;
+  v14.__val_ = 0;
+  v14.__cat_ = v4;
+  v16.__val_ = 0;
+  v16.__cat_ = v4;
   if ((a1->__pn_.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     v5 = a1;
@@ -6379,18 +5895,18 @@ uintmax_t std::__fs::filesystem::__file_size(const std::__fs::filesystem::path *
   {
     v6 = *__error();
     v7 = std::generic_category();
-    v17 = v6;
-    v18 = v7;
+    *&v16.__val_ = v6;
+    v16.__cat_ = v7;
   }
 
-  std::__fs::filesystem::detail::create_file_status(&v17, a1, &v13, &v14, &v12);
+  std::__fs::filesystem::detail::create_file_status(&v12, &v16, a1, &v13, &v14);
   v8 = v12;
   if (v12 && v12 != 255 && v12 == 1)
   {
     return v13.st_size;
   }
 
-  if (!v14)
+  if (!v14.__val_)
   {
     v10 = std::generic_category();
     v11 = 45;
@@ -6399,20 +5915,20 @@ uintmax_t std::__fs::filesystem::__file_size(const std::__fs::filesystem::path *
       v11 = 21;
     }
 
-    v14 = v11;
-    v15 = v10;
+    *&v14.__val_ = v11;
+    v14.__cat_ = v10;
   }
 
-  return std::__fs::filesystem::detail::ErrorHandler<unsigned long>::report(v16, &v14);
+  return std::__fs::filesystem::detail::ErrorHandler<unsigned long>::report(v15, &v14);
 }
 
-uint64_t std::__fs::filesystem::detail::ErrorHandler<unsigned long>::report(uint64_t a1, void *a2)
+uint64_t std::__fs::filesystem::detail::ErrorHandler<unsigned long>::report(uint64_t a1, std::error_code *a2)
 {
   v2 = *(a1 + 8);
   if (!v2)
   {
     std::string::basic_string[abi:ne200100]<0>(&v10, "in ");
-    v5 = std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(*a1, &v10, &v11);
+    v5 = std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v11, *a1, &v10);
     if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
     {
       MEMORY[0x193B0CA40](v10.__r_.__value_.__r.__words[0], v10.__r_.__value_.__r.__words[2] & 0x7FFFFFFFFFFFFFFFLL, v5);
@@ -6471,10 +5987,10 @@ uintmax_t std::__fs::filesystem::__hard_link_count(const std::__fs::filesystem::
     v4 = std::system_category();
   }
 
-  LODWORD(v11[0]) = 0;
-  v11[1] = v4;
-  LODWORD(v13) = 0;
-  v14 = v4;
+  v11.__val_ = 0;
+  v11.__cat_ = v4;
+  v13.__val_ = 0;
+  v13.__cat_ = v4;
   if ((a1->__pn_.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     v5 = a1;
@@ -6489,14 +6005,14 @@ uintmax_t std::__fs::filesystem::__hard_link_count(const std::__fs::filesystem::
   {
     v6 = *__error();
     v7 = std::generic_category();
-    v13 = v6;
-    v14 = v7;
+    *&v13.__val_ = v6;
+    v13.__cat_ = v7;
   }
 
-  std::__fs::filesystem::detail::create_file_status(&v13, a1, &v10, v11, v9);
-  if (LODWORD(v11[0]))
+  std::__fs::filesystem::detail::create_file_status(&v9, &v13, a1, &v10, &v11);
+  if (v11.__val_)
   {
-    return std::__fs::filesystem::detail::ErrorHandler<unsigned long>::report(v12, v11);
+    return std::__fs::filesystem::detail::ErrorHandler<unsigned long>::report(v12, &v11);
   }
 
   else
@@ -6525,8 +6041,8 @@ BOOL std::__fs::filesystem::__fs_is_empty(const std::__fs::filesystem::path *__p
 
   v14 = 0;
   v15 = v4;
-  LODWORD(_D0[0].__imp_.__ptr_) = 0;
-  _D0[0].__imp_.__cntrl_ = v4;
+  _D0[0].__val_ = 0;
+  _D0[0].__cat_ = v4;
   if ((__p->__pn_.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     v5 = __p;
@@ -6541,27 +6057,27 @@ BOOL std::__fs::filesystem::__fs_is_empty(const std::__fs::filesystem::path *__p
   {
     v6 = *__error();
     v7 = std::generic_category();
-    _D0[0].__imp_.__ptr_ = v6;
-    _D0[0].__imp_.__cntrl_ = v7;
+    *&_D0[0].__val_ = v6;
+    _D0[0].__cat_ = v7;
   }
 
-  std::__fs::filesystem::detail::create_file_status(_D0, __p, &v13, &v14, v12);
+  std::__fs::filesystem::detail::create_file_status(&v12, _D0, __p, &v13, &v14);
   if (v14)
   {
     v8 = &v14;
     return std::__fs::filesystem::detail::ErrorHandler<BOOL>::report(v16, v8);
   }
 
-  if (v12[0] == 1)
+  if (v12 == 1)
   {
     return v13.st_size == 0;
   }
 
-  if (v12[0] != 2)
+  if (v12 != 2)
   {
     v11 = std::generic_category();
-    _D0[0].__imp_.__ptr_ = 45;
-    _D0[0].__imp_.__cntrl_ = v11;
+    *&_D0[0].__val_ = 45;
+    _D0[0].__cat_ = v11;
     v8 = _D0;
     return std::__fs::filesystem::detail::ErrorHandler<BOOL>::report(v16, v8);
   }
@@ -6581,11 +6097,11 @@ BOOL std::__fs::filesystem::__fs_is_empty(const std::__fs::filesystem::path *__p
     std::__fs::filesystem::directory_iterator::directory_iterator(_D0, __p, 0, none);
   }
 
-  v9 = _D0[0].__imp_.__ptr_ == 0;
+  v9 = *&_D0[0].__val_ == 0;
 LABEL_22:
-  if (_D0[0].__imp_.__cntrl_)
+  if (_D0[0].__cat_)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](_D0[0].__imp_.__cntrl_);
+    std::__shared_weak_count::__release_shared[abi:ne200100](_D0[0].__cat_);
   }
 
   return v9;
@@ -6609,10 +6125,10 @@ std::__fs::filesystem::file_time_type std::__fs::filesystem::__last_write_time(c
     v4 = std::system_category();
   }
 
-  LODWORD(v12[0]) = 0;
-  v12[1] = v4;
-  LODWORD(v14) = 0;
-  v15 = v4;
+  v12.__val_ = 0;
+  v12.__cat_ = v4;
+  v14.__val_ = 0;
+  v14.__cat_ = v4;
   if ((a1->__pn_.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     v5 = a1;
@@ -6627,14 +6143,14 @@ std::__fs::filesystem::file_time_type std::__fs::filesystem::__last_write_time(c
   {
     v6 = *__error();
     v7 = std::generic_category();
-    v14 = v6;
-    v15 = v7;
+    *&v14.__val_ = v6;
+    v14.__cat_ = v7;
   }
 
-  std::__fs::filesystem::detail::create_file_status(&v14, a1, &v11, v12, v10);
-  if (LODWORD(v12[0]))
+  std::__fs::filesystem::detail::create_file_status(&v10, &v14, a1, &v11, &v12);
+  if (v12.__val_)
   {
-    v8 = std::__fs::filesystem::detail::ErrorHandler<std::chrono::time_point<std::__fs::filesystem::_FilesystemClock,std::chrono::duration<__int128,std::ratio<1l,1000000000l>>>>::report(v13, v12);
+    v8 = std::__fs::filesystem::detail::ErrorHandler<std::chrono::time_point<std::__fs::filesystem::_FilesystemClock,std::chrono::duration<__int128,std::ratio<1l,1000000000l>>>>::report(v13, &v12);
   }
 
   else
@@ -6663,13 +6179,13 @@ std::__fs::filesystem::file_time_type std::__fs::filesystem::__last_write_time(c
   return result;
 }
 
-uint64_t std::__fs::filesystem::detail::ErrorHandler<std::chrono::time_point<std::__fs::filesystem::_FilesystemClock,std::chrono::duration<__int128,std::ratio<1l,1000000000l>>>>::report(uint64_t a1, void *a2)
+uint64_t std::__fs::filesystem::detail::ErrorHandler<std::chrono::time_point<std::__fs::filesystem::_FilesystemClock,std::chrono::duration<__int128,std::ratio<1l,1000000000l>>>>::report(uint64_t a1, std::error_code *a2)
 {
   v2 = *(a1 + 8);
   if (!v2)
   {
     std::string::basic_string[abi:ne200100]<0>(&v10, "in ");
-    v5 = std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(*a1, &v10, &v11);
+    v5 = std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v11, *a1, &v10);
     if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
     {
       MEMORY[0x193B0CA40](v10.__r_.__value_.__r.__words[0], v10.__r_.__value_.__r.__words[2] & 0x7FFFFFFFFFFFFFFFLL, v5);
@@ -6728,8 +6244,8 @@ void std::__fs::filesystem::__last_write_time(const std::__fs::filesystem::path 
   if ((std::__fs::filesystem::detail::time_util<std::chrono::time_point<std::__fs::filesystem::_FilesystemClock,std::chrono::duration<__int128,std::ratio<1l,1000000000l>>>,long,timespec>::convert_to_timespec(&v11, v4, v3) & 1) == 0)
   {
     v9 = std::generic_category();
-    v13.n128_u64[0] = 84;
-    v13.n128_u64[1] = v9;
+    *&v13.__val_ = 84;
+    v13.__cat_ = v9;
 LABEL_11:
     std::__fs::filesystem::detail::ErrorHandler<void>::report(v12, &v13);
     return;
@@ -6749,8 +6265,8 @@ LABEL_11:
   {
     v7 = *__error();
     v8 = std::generic_category();
-    v13.n128_u64[0] = v7;
-    v13.n128_u64[1] = v8;
+    *&v13.__val_ = v7;
+    v13.__cat_ = v8;
     if (v7)
     {
       goto LABEL_11;
@@ -6834,10 +6350,10 @@ uint64_t std::__fs::filesystem::detail::time_util<std::chrono::time_point<std::_
 void std::__fs::filesystem::__permissions(const std::__fs::filesystem::path *a1, std::__fs::filesystem::perms a2, std::__fs::filesystem::perm_options a3, std::error_code *a4)
 {
   v5 = a2;
-  *&v23.st_uid = "permissions";
-  *&v23.st_rdev = a4;
-  v23.st_atimespec.tv_sec = a1;
-  v23.st_atimespec.tv_nsec = 0;
+  *&v22.st_uid = "permissions";
+  *&v22.st_rdev = a4;
+  v22.st_atimespec.tv_sec = a1;
+  v22.st_atimespec.tv_nsec = 0;
   if (a4)
   {
     a4->__val_ = 0;
@@ -6847,13 +6363,13 @@ void std::__fs::filesystem::__permissions(const std::__fs::filesystem::path *a1,
   v7 = v5 & 0xFFF;
   if ((a3 & 0xE) != 0)
   {
-    v23.st_dev = 0;
+    v22.st_dev = 0;
     v8 = std::system_category();
-    v23.st_ino = v8;
+    v22.st_ino = v8;
     if ((a3 & 8) != 0)
     {
-      LODWORD(v24) = 0;
-      v25 = v8;
+      v23.__val_ = 0;
+      v23.__cat_ = v8;
       if ((a1->__pn_.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
         v12 = a1;
@@ -6864,13 +6380,13 @@ void std::__fs::filesystem::__permissions(const std::__fs::filesystem::path *a1,
         v12 = a1->__pn_.__r_.__value_.__r.__words[0];
       }
 
-      v10 = lstat(v12, &v23.st_mtimespec);
+      v10 = lstat(v12, &v22.st_mtimespec);
     }
 
     else
     {
-      LODWORD(v24) = 0;
-      v25 = v8;
+      v23.__val_ = 0;
+      v23.__cat_ = v8;
       if ((a1->__pn_.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
         v9 = a1;
@@ -6881,33 +6397,33 @@ void std::__fs::filesystem::__permissions(const std::__fs::filesystem::path *a1,
         v9 = a1->__pn_.__r_.__value_.__r.__words[0];
       }
 
-      v10 = stat(v9, &v23.st_mtimespec);
+      v10 = stat(v9, &v22.st_mtimespec);
     }
 
     if (v10 == -1)
     {
       v13 = *__error();
       v14 = std::generic_category();
-      v24 = v13;
-      v25 = v14;
+      *&v23.__val_ = v13;
+      v23.__cat_ = v14;
     }
 
-    std::__fs::filesystem::detail::create_file_status(&v24, a1, &v23.st_mtimespec, &v23, &v21);
-    if (v23.st_dev)
+    std::__fs::filesystem::detail::create_file_status(&v21, &v23, a1, &v22.st_mtimespec, &v22);
+    if (v22.st_dev)
     {
-      p_st_mtimespec = &v23;
+      p_st_mtimespec = &v22;
 LABEL_28:
-      std::__fs::filesystem::detail::ErrorHandler<void>::report(&v23.st_uid, p_st_mtimespec);
+      std::__fs::filesystem::detail::ErrorHandler<void>::report(&v22.st_uid, p_st_mtimespec);
       return;
     }
 
-    v16 = v22 & ~v7;
+    v16 = WORD2(v21) & ~v7;
     if ((a3 & 4) == 0)
     {
       v16 = v7;
     }
 
-    v17 = v7 | v22;
+    v17 = v7 | WORD2(v21);
     if ((a3 & 2) == 0)
     {
       v17 = v16;
@@ -6936,19 +6452,19 @@ LABEL_28:
   {
     v19 = *__error();
     v20 = std::generic_category();
-    v23.st_mtimespec.tv_sec = v19;
-    v23.st_mtimespec.tv_nsec = v20;
-    p_st_mtimespec = &v23.st_mtimespec;
+    v22.st_mtimespec.tv_sec = v19;
+    v22.st_mtimespec.tv_nsec = v20;
+    p_st_mtimespec = &v22.st_mtimespec;
     goto LABEL_28;
   }
 }
 
 BOOL std::__fs::filesystem::__remove(const std::__fs::filesystem::path *a1, std::error_code *__ec)
 {
-  v10[0] = "remove";
-  v10[1] = __ec;
-  v10[2] = a1;
-  v10[3] = 0;
+  v9[0] = "remove";
+  v9[1] = __ec;
+  v9[2] = a1;
+  v9[3] = 0;
   if (__ec)
   {
     __ec->__val_ = 0;
@@ -6968,13 +6484,13 @@ BOOL std::__fs::filesystem::__remove(const std::__fs::filesystem::path *a1, std:
   v4 = remove(v3, __ec);
   if (v4 == -1)
   {
-    v8 = *__error();
-    v9 = std::generic_category();
+    *&v8.__val_ = *__error();
+    v8.__cat_ = std::generic_category();
     v6 = 2;
-    v7 = v9;
-    if (!(v9->equivalent)(v9, v8, &v6) && ((v7->equivalent_0)(v7, &v8, v6) & 1) == 0)
+    cat = v8.__cat_;
+    if (!(v8.__cat_->equivalent)(v8.__cat_, *&v8.__val_, &v6) && ((cat->equivalent_0)(cat, &v8, v6) & 1) == 0)
     {
-      std::__fs::filesystem::detail::ErrorHandler<BOOL>::report(v10, &v8);
+      std::__fs::filesystem::detail::ErrorHandler<BOOL>::report(v9, &v8);
     }
   }
 
@@ -7213,8 +6729,8 @@ void std::__fs::filesystem::__rename(const std::__fs::filesystem::path *__from, 
   rename(v5, v6, __ec);
   if (v7 == -1)
   {
-    v8.n128_u64[0] = *__error();
-    v8.n128_u64[1] = std::generic_category();
+    *&v8.__val_ = *__error();
+    v8.__cat_ = std::generic_category();
     std::__fs::filesystem::detail::ErrorHandler<void>::report(v9, &v8);
   }
 }
@@ -7243,8 +6759,8 @@ void std::__fs::filesystem::__resize_file(const std::__fs::filesystem::path *a1,
 
   if (truncate(v5, __size) == -1)
   {
-    v6.n128_u64[0] = *__error();
-    v6.n128_u64[1] = std::generic_category();
+    *&v6.__val_ = *__error();
+    v6.__cat_ = std::generic_category();
     std::__fs::filesystem::detail::ErrorHandler<void>::report(v7, &v6);
   }
 }
@@ -7275,8 +6791,8 @@ std::__fs::filesystem::space_info *__cdecl std::__fs::filesystem::__space(std::_
   result = statvfs(v5, &v15);
   if (result == -1)
   {
-    v14.n128_u64[0] = *__error();
-    v14.n128_u64[1] = std::generic_category();
+    *&v14.__val_ = *__error();
+    v14.__cat_ = std::generic_category();
     std::__fs::filesystem::detail::ErrorHandler<void>::report(v16, &v14);
     retstr->free = -1;
     retstr->available = -1;
@@ -7317,8 +6833,8 @@ std::__fs::filesystem::space_info *__cdecl std::__fs::filesystem::__space(std::_
 std::__fs::filesystem::file_status std::__fs::filesystem::__status(const std::__fs::filesystem::path *a1, std::error_code *__ec)
 {
   v5 = v2;
-  LODWORD(v11) = 0;
-  v12 = std::system_category();
+  v11.__val_ = 0;
+  v11.__cat_ = std::system_category();
   if ((a1->__pn_.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     v6 = a1;
@@ -7333,19 +6849,19 @@ std::__fs::filesystem::file_status std::__fs::filesystem::__status(const std::__
   {
     v7 = *__error();
     v8 = std::generic_category();
-    v11 = v7;
-    v12 = v8;
+    *&v11.__val_ = v7;
+    v11.__cat_ = v8;
   }
 
-  std::__fs::filesystem::detail::create_file_status(&v11, a1, &v10, __ec, v5);
+  std::__fs::filesystem::detail::create_file_status(v5, &v11, a1, &v10, __ec);
   return v9;
 }
 
 std::__fs::filesystem::file_status std::__fs::filesystem::__symlink_status(const std::__fs::filesystem::path *a1, std::error_code *__ec)
 {
   v5 = v2;
-  LODWORD(v11) = 0;
-  v12 = std::system_category();
+  v11.__val_ = 0;
+  v11.__cat_ = std::system_category();
   if ((a1->__pn_.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     v6 = a1;
@@ -7360,11 +6876,11 @@ std::__fs::filesystem::file_status std::__fs::filesystem::__symlink_status(const
   {
     v7 = *__error();
     v8 = std::generic_category();
-    v11 = v7;
-    v12 = v8;
+    *&v11.__val_ = v7;
+    v11.__cat_ = v8;
   }
 
-  std::__fs::filesystem::detail::create_file_status(&v11, a1, &v10, __ec, v5);
+  std::__fs::filesystem::detail::create_file_status(v5, &v11, a1, &v10, __ec);
   return v9;
 }
 
@@ -7402,8 +6918,8 @@ LABEL_8:
   std::__fs::filesystem::path::path[abi:ne200100]<char const*,void>(&v13.st_uid, &v13.st_atimespec.tv_nsec);
   v13.st_dev = 0;
   v13.st_ino = std::system_category();
-  LODWORD(v14) = 0;
-  st_ino = v13.st_ino;
+  v14.__val_ = 0;
+  v14.__cat_ = v13.st_ino;
   if (v13.st_atimespec.tv_sec >= 0)
   {
     p_st_uid = &v13.st_uid;
@@ -7418,28 +6934,28 @@ LABEL_8:
   {
     v7 = *__error();
     v8 = std::generic_category();
-    v14 = v7;
-    st_ino = v8;
+    *&v14.__val_ = v7;
+    v14.__cat_ = v8;
   }
 
-  std::__fs::filesystem::detail::create_file_status(&v14, &v13.st_uid, &v13.st_birthtimespec, &v13, v12);
-  if (v12[0] == 2)
+  std::__fs::filesystem::detail::create_file_status(&v12, &v14, &v13.st_uid, &v13.st_birthtimespec, &v13);
+  if (v12 == 2)
   {
     *&retstr->__pn_.__r_.__value_.__l.__data_ = *&v13.st_uid;
     retstr->__pn_.__r_.__value_.__r.__words[2] = v13.st_atimespec.tv_sec;
     memset(&v13.st_uid, 0, 24);
   }
 
-  else if (v12[0])
+  else if (v12)
   {
     LODWORD(v13.st_birthtimespec.tv_sec) = 20;
     v11 = &v13.st_uid;
     if (v13.st_atimespec.tv_sec < 0)
     {
-      LOBYTE(v11) = v13.st_uid;
+      v11 = *&v13.st_uid;
     }
 
-    std::__fs::filesystem::detail::ErrorHandler<std::__fs::filesystem::path>::report(&v13.st_mtimespec, &v13.st_birthtimespec, "path %s is not a directory", retstr, v11);
+    std::__fs::filesystem::detail::ErrorHandler<std::__fs::filesystem::path>::report("path %s is not a directory", &v13.st_mtimespec, &v13.st_birthtimespec, retstr, v11);
   }
 
   else
@@ -7447,7 +6963,7 @@ LABEL_8:
     v10 = &v13.st_uid;
     if (v13.st_atimespec.tv_sec < 0)
     {
-      LOBYTE(v10) = v13.st_uid;
+      v10 = *&v13.st_uid;
     }
 
     std::__fs::filesystem::detail::ErrorHandler<std::__fs::filesystem::path>::report(&v13.st_mtimespec, &v13, "cannot access path %s", retstr, v10);
@@ -7461,22 +6977,23 @@ LABEL_8:
   return result;
 }
 
-void sub_1922F8F10(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15)
+void sub_1922F8F10(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15)
 {
   if (SHIBYTE(a15) < 0)
   {
-    MEMORY[0x193B0CA40](a13, a15 & 0x7FFFFFFFFFFFFFFFLL);
+    MEMORY[0x193B0CA40](a13, a15 & 0x7FFFFFFFFFFFFFFFLL, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void std::__fs::filesystem::detail::ErrorHandler<std::__fs::filesystem::path>::report(uint64_t a1@<X0>, unsigned int *a2@<X1>, std::__fs::filesystem::detail *a3@<X2>, void *a4@<X8>, char a5)
+void std::__fs::filesystem::detail::ErrorHandler<std::__fs::filesystem::path>::report(std::__fs::filesystem::detail *a1@<X2>, uint64_t a2@<X0>, unsigned int *a3@<X1>, void *a4@<X8>, ...)
 {
-  v9 = &a5;
-  v8.n128_u64[0] = *a2;
-  v8.n128_u64[1] = std::generic_category();
-  std::__fs::filesystem::detail::ErrorHandler<std::__fs::filesystem::path>::report_impl(a1, &v8, a3, &a5);
+  va_start(va, a4);
+  va_copy(v8, va);
+  *&v7.__val_ = *a3;
+  v7.__cat_ = std::generic_category();
+  std::__fs::filesystem::detail::ErrorHandler<std::__fs::filesystem::path>::report_impl(a2, &v7, a1, va);
   *a4 = 0;
   a4[1] = 0;
   a4[2] = 0;
@@ -7609,7 +7126,7 @@ LABEL_5:
       {
         if (*v36.__pn_.__r_.__value_.__r.__words[2] == 92)
         {
-          v13 = "\";
+          v13 = "\"";
         }
 
         else
@@ -7765,21 +7282,21 @@ LABEL_58:
   return result;
 }
 
-void sub_1922F941C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, int a26, __int16 a27, char a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37)
+void sub_1922F941C(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, int a26, __int16 a27, char a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37)
 {
   if (a21)
   {
-    MEMORY[0x193B0CA40](a21, a23 - a21);
+    MEMORY[0x193B0CA40](a21, a23 - a21, a3, a4, a5, a6, a7, a8);
   }
 
   if (SHIBYTE(a34) < 0)
   {
-    MEMORY[0x193B0CA40](a32, a34 & 0x7FFFFFFFFFFFFFFFLL);
+    MEMORY[0x193B0CA40](a32, a34 & 0x7FFFFFFFFFFFFFFFLL, a3, a4, a5, a6, a7, a8);
   }
 
   if (SHIBYTE(a37) < 0)
   {
-    MEMORY[0x193B0CA40](a35, a37 & 0x7FFFFFFFFFFFFFFFLL);
+    MEMORY[0x193B0CA40](a35, a37 & 0x7FFFFFFFFFFFFFFFLL, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -7828,7 +7345,7 @@ void sub_1922F9590(_Unwind_Exception *exception_object)
 {
   if (*(v1 + 23) < 0)
   {
-    std::__fs::filesystem::operator/[abi:ne200100](v1);
+    std::__fs::filesystem::operator/[abi:ne200100]();
   }
 
   _Unwind_Resume(exception_object);
@@ -7888,15 +7405,15 @@ const std::error_category *std::__fs::filesystem::detail::FileDescriptor::create
   return result;
 }
 
-__n128 std::__fs::filesystem::detail::ErrorHandler<BOOL>::report_impl(uint64_t a1, __n128 *a2, std::__fs::filesystem::detail *a3, va_list a4)
+__n128 std::__fs::filesystem::detail::ErrorHandler<BOOL>::report_impl(uint64_t a1, std::error_code *a2, std::__fs::filesystem::detail *a3, va_list a4)
 {
   v4 = *(a1 + 8);
   if (!v4)
   {
     std::string::basic_string[abi:ne200100]<0>(&v18, "in ");
-    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(*a1, &v18, &v19);
-    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(": ", &v19, &v20);
-    std::__fs::filesystem::detail::vformat_string(a3, a4, &v17);
+    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v19, *a1, &v18);
+    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v20, ": ", &v19);
+    std::__fs::filesystem::detail::vformat_string(&v17, a3, a4);
     if ((v17.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
       v8 = &v17;
@@ -7919,8 +7436,8 @@ __n128 std::__fs::filesystem::detail::ErrorHandler<BOOL>::report_impl(uint64_t a
 
     v10 = std::string::append(&v20, v8, size);
     v11 = *&v10->__r_.__value_.__l.__data_;
-    v22 = v10->__r_.__value_.__r.__words[2];
-    v21 = v11;
+    v21.__r_.__value_.__r.__words[2] = v10->__r_.__value_.__r.__words[2];
+    *&v21.__r_.__value_.__l.__data_ = v11;
     v10->__r_.__value_.__l.__size_ = 0;
     v10->__r_.__value_.__r.__words[2] = 0;
     v10->__r_.__value_.__r.__words[0] = 0;
@@ -7974,21 +7491,21 @@ void sub_1922F9854(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 {
   if (*(v30 - 25) < 0)
   {
-    std::__fs::filesystem::path::replace_extension((v30 - 48));
+    std::__fs::filesystem::path::replace_extension(v30 - 48);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-__n128 std::__fs::filesystem::detail::ErrorHandler<std::__fs::filesystem::path>::report_impl(uint64_t a1, __n128 *a2, std::__fs::filesystem::detail *a3, va_list a4)
+__n128 std::__fs::filesystem::detail::ErrorHandler<std::__fs::filesystem::path>::report_impl(uint64_t a1, std::error_code *a2, std::__fs::filesystem::detail *a3, va_list a4)
 {
   v4 = *(a1 + 8);
   if (!v4)
   {
     std::string::basic_string[abi:ne200100]<0>(&v18, "in ");
-    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(*a1, &v18, &v19);
-    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(": ", &v19, &v20);
-    std::__fs::filesystem::detail::vformat_string(a3, a4, &v17);
+    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v19, *a1, &v18);
+    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v20, ": ", &v19);
+    std::__fs::filesystem::detail::vformat_string(&v17, a3, a4);
     if ((v17.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
       v8 = &v17;
@@ -8011,8 +7528,8 @@ __n128 std::__fs::filesystem::detail::ErrorHandler<std::__fs::filesystem::path>:
 
     v10 = std::string::append(&v20, v8, size);
     v11 = *&v10->__r_.__value_.__l.__data_;
-    v22 = v10->__r_.__value_.__r.__words[2];
-    v21 = v11;
+    v21.__r_.__value_.__r.__words[2] = v10->__r_.__value_.__r.__words[2];
+    *&v21.__r_.__value_.__l.__data_ = v11;
     v10->__r_.__value_.__l.__size_ = 0;
     v10->__r_.__value_.__r.__words[2] = 0;
     v10->__r_.__value_.__r.__words[0] = 0;
@@ -8066,7 +7583,7 @@ void sub_1922F9A60(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 {
   if (*(v30 - 25) < 0)
   {
-    std::__fs::filesystem::path::replace_extension((v30 - 48));
+    std::__fs::filesystem::path::replace_extension(v30 - 48);
   }
 
   _Unwind_Resume(exception_object);
@@ -8074,8 +7591,7 @@ void sub_1922F9A60(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 std::string *std::__fs::filesystem::path::path[abi:ne200100]<std::string,void>(std::string *a1, std::string *a2)
 {
-  a1->__r_.__value_.__r.__words[0] = 0;
-  a1->__r_.__value_.__l.__size_ = 0;
+  *&a1->__r_.__value_.__l.__data_ = 0uLL;
   a1->__r_.__value_.__r.__words[2] = 0;
   v3 = SHIBYTE(a2->__r_.__value_.__r.__words[2]);
   size = a2->__r_.__value_.__l.__size_;
@@ -8097,7 +7613,7 @@ void sub_1922F9B40(_Unwind_Exception *exception_object)
 {
   if (*(v1 + 23) < 0)
   {
-    std::__fs::filesystem::operator/[abi:ne200100](v1);
+    std::__fs::filesystem::operator/[abi:ne200100]();
   }
 
   _Unwind_Resume(exception_object);
@@ -8124,7 +7640,7 @@ void sub_1922F9BA0(_Unwind_Exception *exception_object)
 {
   if (*(v1 + 23) < 0)
   {
-    std::__fs::filesystem::operator/[abi:ne200100](v1);
+    std::__fs::filesystem::operator/[abi:ne200100]();
   }
 
   _Unwind_Resume(exception_object);
@@ -8150,17 +7666,10 @@ void sub_1922F9BFC(_Unwind_Exception *exception_object)
 {
   if (*(v1 + 23) < 0)
   {
-    std::__fs::filesystem::operator/[abi:ne200100](v1);
+    std::__fs::filesystem::operator/[abi:ne200100]();
   }
 
   _Unwind_Resume(exception_object);
-}
-
-void OUTLINED_FUNCTION_0_3(uint64_t *a1)
-{
-  v1 = *a1;
-  v2 = a1[2] & 0x7FFFFFFFFFFFFFFFLL;
-  JUMPOUT(0x193B0CA40);
 }
 
 uint64_t std::__fs::filesystem::detail::format_string(uint64_t a1, uint64_t a2)
@@ -8175,7 +7684,7 @@ uint64_t std::__fs::filesystem::detail::format_string(uint64_t a1, uint64_t a2)
 
 void std::__rs_default::operator()()
 {
-  if (__cxa_guard_acquire(&_MergedGlobals))
+  if (__cxa_guard_acquire(_MergedGlobals))
   {
     v0 = 5489;
     dword_1EAE00B48 = 5489;
@@ -8184,19 +7693,19 @@ void std::__rs_default::operator()()
     {
       v3 = 1812433253 * (v0 ^ (v0 >> 30));
       v0 = v3 + v1;
-      *(&_MergedGlobals + i) = i + v3 - 2;
+      *&_MergedGlobals[4 * i] = i + v3 - 2;
       ++v1;
     }
 
     qword_1EAE01508 = 0;
 
-    __cxa_guard_release(&_MergedGlobals);
+    __cxa_guard_release(_MergedGlobals);
   }
 }
 
 void std::logic_error::logic_error()
 {
-  v0 = __cxa_guard_acquire(qword_1EAE01518);
+  v0 = __cxa_guard_acquire(byte_1EAE01518);
   if (v0)
   {
     v2 = OUTLINED_FUNCTION_0_0(v1, &_MergedGlobals_0);
@@ -8243,12 +7752,12 @@ void std::iostream_category()
   }
 }
 
-uint64_t *std::num_get<char,std::istreambuf_iterator<char>>::do_get(uint64_t *result)
+uint64_t std::num_get<char,std::istreambuf_iterator<char>>::do_get(uint64_t result)
 {
-  if (!atomic_fetch_add(result + 1, 0xFFFFFFFFFFFFFFFFLL))
+  if (!atomic_fetch_add((result + 8), 0xFFFFFFFFFFFFFFFFLL))
   {
-    v1 = OUTLINED_FUNCTION_3(result);
-    return (*(v2 + 16))(v1);
+    OUTLINED_FUNCTION_3();
+    return (*(v1 + 16))(v2, v3);
   }
 
   return result;
@@ -8297,10 +7806,10 @@ uint64_t std::locale::__imp::__imp(uint64_t result, void *a2, uint64_t *a3)
     v7 = *(result + 8 * v5);
     if (v7)
     {
-      if (!atomic_fetch_add(v7 + 1, 0xFFFFFFFFFFFFFFFFLL))
+      if (!atomic_fetch_add((v7 + 8), 0xFFFFFFFFFFFFFFFFLL))
       {
-        v8 = OUTLINED_FUNCTION_3(v7);
-        (*(v9 + 16))(v8);
+        OUTLINED_FUNCTION_3();
+        (*(v8 + 16))();
       }
     }
 
@@ -8325,13 +7834,13 @@ atomic_ullong *std::locale::__imp::__imp(atomic_ullong *result, uint64_t a2)
 
 void std::__time_get_c_storage<char>::__weeks()
 {
-  v0 = __cxa_guard_acquire(&qword_1EAE05CF8);
+  v0 = __cxa_guard_acquire(byte_1EAE05CF8);
   if (v0)
   {
     std::init_weeks(v0);
     _MergedGlobals_1 = &qword_1EAE05D90;
 
-    __cxa_guard_release(&qword_1EAE05CF8);
+    __cxa_guard_release(byte_1EAE05CF8);
   }
 }
 
@@ -8353,13 +7862,13 @@ void std::init_wweeks()
 
 void std::__time_get_c_storage<char>::__months()
 {
-  v0 = __cxa_guard_acquire(&qword_1EAE05D08);
+  v0 = __cxa_guard_acquire(byte_1EAE05D08);
   if (v0)
   {
     std::init_months(v0);
     qword_1EAE05D00 = &qword_1EAE05EE0;
 
-    __cxa_guard_release(&qword_1EAE05D08);
+    __cxa_guard_release(byte_1EAE05D08);
   }
 }
 
@@ -8381,13 +7890,13 @@ void std::init_wmonths()
 
 void std::__time_get_c_storage<char>::__am_pm()
 {
-  v0 = __cxa_guard_acquire(&qword_1EAE05D18);
+  v0 = __cxa_guard_acquire(byte_1EAE05D18);
   if (v0)
   {
     std::init_am_pm(v0);
     qword_1EAE05D10 = &qword_1EAE05D30;
 
-    __cxa_guard_release(&qword_1EAE05D18);
+    __cxa_guard_release(byte_1EAE05D18);
   }
 }
 
@@ -8401,13 +7910,13 @@ void std::init_am_pm()
 
 void std::__time_get_c_storage<wchar_t>::__am_pm()
 {
-  v0 = __cxa_guard_acquire(&qword_1EAE05D28);
+  v0 = __cxa_guard_acquire(byte_1EAE05D28);
   if (v0)
   {
     std::init_wam_pm(v0);
     qword_1EAE05D20 = &qword_1EAE05D60;
 
-    __cxa_guard_release(&qword_1EAE05D28);
+    __cxa_guard_release(byte_1EAE05D28);
   }
 }
 
@@ -8451,54 +7960,50 @@ void std::__time_get_c_storage<char>::__r()
   }
 }
 
-uint64_t std::moneypunct_byname<char,false>::moneypunct_byname[abi:ne200100](uint64_t a1)
+void std::moneypunct_byname<char,false>::moneypunct_byname[abi:ne200100]()
 {
-  result = OUTLINED_FUNCTION_4(a1);
-  if (v4 < 0)
+  OUTLINED_FUNCTION_4();
+  if (v3 < 0)
   {
-    v5 = OUTLINED_FUNCTION_9(result, v3);
-    result = MEMORY[0x193B0CA40](v5, v6 & 0x7FFFFFFFFFFFFFFFLL);
+    v4 = OUTLINED_FUNCTION_9(v1, v2);
+    MEMORY[0x193B0CA40](v4, v5 & 0x7FFFFFFFFFFFFFFFLL);
   }
 
-  if (*(v1 + 71) < 0)
+  if (*(v0 + 71) < 0)
   {
-    v7 = OUTLINED_FUNCTION_8();
-    result = MEMORY[0x193B0CA40](v7, v8 & 0x7FFFFFFFFFFFFFFFLL);
+    v6 = OUTLINED_FUNCTION_8();
+    MEMORY[0x193B0CA40](v6, v7 & 0x7FFFFFFFFFFFFFFFLL);
   }
 
-  if (*(v1 + 47) < 0)
+  if (*(v0 + 47) < 0)
   {
     OUTLINED_FUNCTION_6();
 
     JUMPOUT(0x193B0CA40);
   }
-
-  return result;
 }
 
-uint64_t std::moneypunct_byname<wchar_t,false>::moneypunct_byname[abi:ne200100](uint64_t a1)
+void std::moneypunct_byname<wchar_t,false>::moneypunct_byname[abi:ne200100]()
 {
-  result = OUTLINED_FUNCTION_4(a1);
-  if (v4 < 0)
+  OUTLINED_FUNCTION_4();
+  if (v3 < 0)
   {
-    v5 = OUTLINED_FUNCTION_9(result, v3);
-    result = MEMORY[0x193B0CA40](v5, 4 * v6);
+    v4 = OUTLINED_FUNCTION_9(v1, v2);
+    MEMORY[0x193B0CA40](v4, 4 * v5);
   }
 
-  if (*(v1 + 71) < 0)
+  if (*(v0 + 71) < 0)
   {
-    v7 = OUTLINED_FUNCTION_8();
-    result = MEMORY[0x193B0CA40](v7, 4 * v8);
+    v6 = OUTLINED_FUNCTION_8();
+    MEMORY[0x193B0CA40](v6, 4 * v7);
   }
 
-  if (*(v1 + 47) < 0)
+  if (*(v0 + 47) < 0)
   {
     OUTLINED_FUNCTION_6();
 
     JUMPOUT(0x193B0CA40);
   }
-
-  return result;
 }
 
 void operator delete[](void *__p, std::align_val_t a2)

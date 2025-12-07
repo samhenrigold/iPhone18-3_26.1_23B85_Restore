@@ -12,7 +12,7 @@
   v7[1] = length;
   infoCopy = info;
   v6 = infoCopy;
-  sub_247FABA7C(&self->_symbolInfos, v7);
+  sub_247FABA7C(&self->_symbolInfos, v7, v7);
 }
 
 - (id)getSymbolInfoForAddress:(unint64_t)address

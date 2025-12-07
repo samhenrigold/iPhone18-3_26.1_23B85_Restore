@@ -384,9 +384,9 @@
   configurationCopy = configuration;
   _internalState = [(UIPanelController *)self _internalState];
   configuration = [_internalState configuration];
-  v6 = [configurationCopy isEqual:configuration];
+  isEqual = objc_msgSend_isEqual_(configurationCopy);
 
-  if ((v6 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     _internalState2 = [(UIPanelController *)self _internalState];
     [_internalState2 setConfiguration:configurationCopy];
@@ -415,7 +415,7 @@
     _internalState2 = [(UIPanelController *)self _internalState];
     [_internalState2 setStateRequest:requestCopy];
 
-    if (!requestCopy || !stateRequest || ([stateRequest isEqual:requestCopy] & 1) == 0)
+    if (!requestCopy || !stateRequest || (objc_msgSend_isEqual_(stateRequest) & 1) == 0)
     {
       [(UIPanelController *)self _setNeedsDeferredUpdate];
     }
@@ -1764,7 +1764,7 @@ uint64_t __54__UIPanelController__expandWithTransitionCoordinator___block_invoke
   {
     if (coordinatorCopy)
     {
-      [coordinatorCopy targetTransform];
+      objc_msgSend_targetTransform(coordinatorCopy);
     }
 
     else
@@ -1855,7 +1855,7 @@ LABEL_12:
   _contentView = [(UIPanelController *)self _contentView];
   if (coordinatorCopy)
   {
-    [coordinatorCopy targetTransform];
+    objc_msgSend_targetTransform(coordinatorCopy);
   }
 
   else
@@ -2120,9 +2120,9 @@ void __83__UIPanelController_viewWillTransitionToSize_withTransitionCoordinator_
       v49 = *(a1 + 128);
       v36 = +[UIDevice currentDevice];
       v37 = [v36 _deviceInfoForKey:@"ProductType"];
-      v38 = [v37 isEqualToString:{@"iPhone7, 1"}];
+      isEqualToString = objc_msgSend_isEqualToString_(v37);
 
-      if (v38)
+      if (isEqualToString)
       {
         v39 = 0;
       }
@@ -2145,7 +2145,7 @@ void __83__UIPanelController_viewWillTransitionToSize_withTransitionCoordinator_
       [v41 setTransform:&v64];
       v43 = +[UIDevice currentDevice];
       v44 = [v43 _deviceInfoForKey:@"ProductType"];
-      v45 = [v44 isEqualToString:{@"iPhone7, 1"}];
+      v45 = objc_msgSend_isEqualToString_(v44);
 
       if (v45)
       {
@@ -2184,9 +2184,9 @@ void __83__UIPanelController_viewWillTransitionToSize_withTransitionCoordinator_
   v11 = *(a1 + 120);
   v12 = +[UIDevice currentDevice];
   v13 = [v12 _deviceInfoForKey:@"ProductType"];
-  v14 = [v13 isEqualToString:{@"iPhone7, 1"}];
+  isEqualToString = objc_msgSend_isEqualToString_(v13);
 
-  if (v14)
+  if (isEqualToString)
   {
     v15 = 0;
   }
@@ -2230,7 +2230,7 @@ void __83__UIPanelController_viewWillTransitionToSize_withTransitionCoordinator_
   v27 = *(a1 + 120);
   v28 = +[UIDevice currentDevice];
   v29 = [v28 _deviceInfoForKey:@"ProductType"];
-  v30 = [v29 isEqualToString:{@"iPhone7, 1"}];
+  v30 = objc_msgSend_isEqualToString_(v29);
 
   if (v30)
   {
@@ -3110,7 +3110,7 @@ void __53__UIPanelController__performSingleDeferredUpdatePass__block_invoke(uint
     v8 = WeakRetained;
     v4 = [WeakRetained _internalState];
     v5 = [v4 externallyAnimatingStateRequest];
-    LODWORD(v3) = [v3 isEqual:v5];
+    LODWORD(v3) = objc_msgSend_isEqual_(v3);
 
     WeakRetained = v8;
     if (v3)
@@ -7391,13 +7391,13 @@ void __54__UIPanelController__updateToNewPublicState_withSize___block_invoke_431
   [v1 _setNeedsStaticNavBarButtonUpdate];
 }
 
-uint64_t __54__UIPanelController__updateToNewPublicState_withSize___block_invoke_2_433(uint64_t result, int a2)
+id *__54__UIPanelController__updateToNewPublicState_withSize___block_invoke_2_433(id *result, int a2)
 {
   if (a2)
   {
     v2 = result;
-    [*(result + 32) removeFromSuperview];
-    v3 = *(v2 + 40);
+    [result[4] removeFromSuperview];
+    v3 = v2[5];
 
     return [v3 removeFromSuperview];
   }
@@ -7615,7 +7615,7 @@ LABEL_19:
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
 {
-  if (self->_view == object && [path isEqualToString:@"backgroundColor"])
+  if (self->_view == object && objc_msgSend_isEqualToString_(path, a2, @"backgroundColor"))
   {
     backgroundColor = [(UIView *)self->_view backgroundColor];
     [(UIPanelController *)self _updateBorderViewsBackgroundColor:backgroundColor];
@@ -7769,7 +7769,7 @@ LABEL_19:
       [v12 setSupplementaryWidth:v44];
     }
 
-    if (![v12 isEqual:stateRequest] || (objc_msgSend(v12, "leadingWidth"), v46 != 0.0) || (objc_msgSend(v12, "supplementaryWidth"), v47 != 0.0) || (objc_msgSend(v12, "trailingWidth"), v48 != 0.0))
+    if (!objc_msgSend_isEqual_(v12) || ([v12 leadingWidth], v46 != 0.0) || (objc_msgSend(v12, "supplementaryWidth"), v47 != 0.0) || (objc_msgSend(v12, "trailingWidth"), v48 != 0.0))
     {
       [(UIPanelController *)self setInteractiveStateRequest:v12];
     }
@@ -7976,9 +7976,9 @@ LABEL_19:
       _internalState2 = [(UIPanelController *)self _internalState];
       animationState2 = [_internalState2 animationState];
       toRequest = [animationState2 toRequest];
-      v20 = [toRequest isEqual:v14];
+      isEqual = objc_msgSend_isEqual_(toRequest);
 
-      if (v20)
+      if (isEqual)
       {
         goto LABEL_25;
       }
@@ -7991,7 +7991,7 @@ LABEL_19:
 
     currentState = [(UIPanelController *)self currentState];
     _interactiveStateRequest = [currentState _interactiveStateRequest];
-    v26 = [v14 isEqual:_interactiveStateRequest];
+    v26 = objc_msgSend_isEqual_(v14);
 
     if (v26)
     {
@@ -8573,7 +8573,7 @@ uint64_t __145__UIPanelController__animateCustomTransitionIfNeededWithAnimationS
   {
     currentState = [(UIPanelController *)self currentState];
     stateRequest = [currentState stateRequest];
-    if ([requestCopy isEqual:stateRequest])
+    if (objc_msgSend_isEqual_(requestCopy))
     {
       delegate = [(UIPanelController *)self delegate];
       primaryEdge = [delegate primaryEdge];
@@ -8772,7 +8772,7 @@ LABEL_8:
     if ((leadingOverlapsMain2 & 1) == 0)
     {
       name = [infoCopy name];
-      if ([name isEqualToString:@"UIKeyboardPrivateWillShowNotification"])
+      if (objc_msgSend_isEqualToString_(name))
       {
 
 LABEL_14:
@@ -8784,15 +8784,15 @@ LABEL_14:
       }
 
       name2 = [infoCopy name];
-      v24 = [name2 isEqualToString:@"UIKeyboardPrivateDidChangeFrameNotification"];
+      isEqualToString = objc_msgSend_isEqualToString_(name2);
 
-      if (v24)
+      if (isEqualToString)
       {
         goto LABEL_14;
       }
 
       name3 = [infoCopy name];
-      v27 = [name3 isEqualToString:@"UIKeyboardPrivateWillHideNotification"];
+      v27 = objc_msgSend_isEqualToString_(name3);
 
       if (v27)
       {

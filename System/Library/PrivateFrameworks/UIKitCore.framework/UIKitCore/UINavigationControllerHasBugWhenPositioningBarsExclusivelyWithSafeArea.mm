@@ -10,7 +10,7 @@ void ___UINavigationControllerHasBugWhenPositioningBarsExclusivelyWithSafeArea_b
   if (((v0 ^ 1) & 1) == 0)
   {
     v1 = _UIMainBundleIdentifier();
-    if ([v1 isEqualToString:@"com.apple.springboard"])
+    if (objc_msgSend_isEqualToString_(v1))
     {
       byte_1ED497909 = 1;
     }

@@ -18,14 +18,14 @@
   v14 = [v13 serviceByName:v12];
   notificationActionURL = [v14 notificationActionURL];
 
-  v16 = tcc_access_log();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+  v17 = tcc_access_log(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
   {
-    v18 = 138543618;
-    v19 = v12;
-    v20 = 2114;
-    v21 = responseCopy;
-    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "user responded to notification for %{public}@ with %{public}@", &v18, 0x16u);
+    v19 = 138543618;
+    v20 = v12;
+    v21 = 2114;
+    v22 = responseCopy;
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "user responded to notification for %{public}@ with %{public}@", &v19, 0x16u);
   }
 
   actionIdentifier = [responseCopy actionIdentifier];

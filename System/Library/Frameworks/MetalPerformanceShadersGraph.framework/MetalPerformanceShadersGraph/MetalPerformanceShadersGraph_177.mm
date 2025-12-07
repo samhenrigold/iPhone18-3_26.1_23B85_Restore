@@ -1711,7 +1711,7 @@ void mlir::RewritePatternSet::add<mlir::mps::AssignVariableOp>(llvm::LogicalResu
   operator delete(__p);
 }
 
-uint64_t llvm::SmallVectorTemplateBase<mlir::SideEffects::EffectInstance<mlir::MemoryEffects::Effect>,true>::growAndEmplaceBack<mlir::MemoryEffects::Write *,int,BOOL,mlir::SideEffects::DefaultResource *>(uint64_t a1, void *a2, int *a3, char *a4, uint64_t *a5)
+unint64_t llvm::SmallVectorTemplateBase<mlir::SideEffects::EffectInstance<mlir::MemoryEffects::Effect>,true>::growAndEmplaceBack<mlir::MemoryEffects::Write *,int,BOOL,mlir::SideEffects::DefaultResource *>(unint64_t *a1, void *a2, int *a3, char *a4, uint64_t *a5)
 {
   v21 = *MEMORY[0x1E69E9840];
   v5 = *a3;
@@ -1723,16 +1723,16 @@ uint64_t llvm::SmallVectorTemplateBase<mlir::SideEffects::EffectInstance<mlir::M
   v18[3] = 0;
   v19 = v5;
   v20 = v6;
-  v8 = *(a1 + 8);
+  v8 = *(a1 + 2);
   v9 = *a1;
   v10 = v18;
-  if (v8 >= *(a1 + 12))
+  if (v8 >= *(a1 + 3))
   {
     if (v9 <= v18 && v9 + 40 * v8 > v18)
     {
       v16 = v18 - v9;
       v17 = a1;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(a1, a1 + 16, v8 + 1, 40);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(a1, a1 + 2, v8 + 1, 40);
       a1 = v17;
       v9 = *v17;
       v10 = &v16[*v17];
@@ -1741,21 +1741,21 @@ uint64_t llvm::SmallVectorTemplateBase<mlir::SideEffects::EffectInstance<mlir::M
     else
     {
       v15 = a1;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(a1, a1 + 16, v8 + 1, 40);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(a1, a1 + 2, v8 + 1, 40);
       a1 = v15;
       v9 = *v15;
       v10 = v18;
     }
   }
 
-  v11 = v9 + 40 * *(a1 + 8);
+  v11 = v9 + 40 * *(a1 + 2);
   v12 = *v10;
   v13 = *(v10 + 1);
   *(v11 + 32) = *(v10 + 4);
   *v11 = v12;
   *(v11 + 16) = v13;
-  LODWORD(v11) = *(a1 + 8) + 1;
-  *(a1 + 8) = v11;
+  LODWORD(v11) = *(a1 + 2) + 1;
+  *(a1 + 2) = v11;
   return *a1 + 40 * v11 - 40;
 }
 

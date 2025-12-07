@@ -1,4 +1,5 @@
 @interface TIKeyboardInputManagerFavonius_ko
+- (BOOL)acceptsCharacter:(unsigned int)character;
 - (BOOL)canHandleKeyHitTest;
 - (Hangul2SetAutomata)batchConverter;
 - (TIKeyboardInputManagerFavonius_ko)initWithConfig:(id)config keyboardState:(id)state;
@@ -10,7 +11,9 @@
 - (void)dealloc;
 - (void)initImplementation;
 - (void)setInput:(id)input;
+- (void)setInputIndex:(unsigned int)index;
 - (void)syncToLayoutState:(id)state;
+- (void)textAccepted:(id)accepted fromPredictiveInputBar:(BOOL)bar withInput:(id)input;
 @end
 
 @implementation TIKeyboardInputManagerFavonius_ko
@@ -123,9 +126,38 @@
   [(TIKeyboardInputManagerFavonius_ko *)&v5 setInput:inputCopy];
 }
 
+- (void)setInputIndex:(unsigned int)index
+{
+  self->_deleteSyllable = 1;
+  v3.receiver = self;
+  v3.super_class = TIKeyboardInputManagerFavonius_ko;
+  [(TIKeyboardInputManagerFavonius_ko *)&v3 setInputIndex:*&index];
+}
+
+- (BOOL)acceptsCharacter:(unsigned int)character
+{
+  v3 = *&character;
+  if ([TIKeyboardInputManagerFavonius_ko acceptsCharacter:]::onceToken != -1)
+  {
+    [TIKeyboardInputManagerFavonius_ko acceptsCharacter:];
+  }
+
+  v6.receiver = self;
+  v6.super_class = TIKeyboardInputManagerFavonius_ko;
+  return [(TIKeyboardInputManagerFavonius_ko *)&v6 acceptsCharacter:v3]|| MEMORY[0x29EDA4220]([TIKeyboardInputManagerFavonius_ko acceptsCharacter:]::hangul_set, v3) != 0;
+}
+
+- (void)textAccepted:(id)accepted fromPredictiveInputBar:(BOOL)bar withInput:(id)input
+{
+  v6.receiver = self;
+  v6.super_class = TIKeyboardInputManagerFavonius_ko;
+  [(TIKeyboardInputManagerBase *)&v6 textAccepted:accepted fromPredictiveInputBar:bar withInput:input];
+  [(TIKeyboardInputManagerFavonius_ko *)self clearInput];
+}
+
 - (void)addInput:(id)input withContext:(id)context
 {
-  v17[4] = *MEMORY[0x29EDCA608];
+  v16[4] = *MEMORY[0x29EDCA608];
   inputCopy = input;
   contextCopy = context;
   string = [inputCopy string];
@@ -144,9 +176,9 @@
     goto LABEL_9;
   }
 
-  TIInputManager::input_string(v17, *(&self->super.super.super.isa + *MEMORY[0x29EDC7290]));
-  v11 = KB::ns_string(v17, v10);
-  KB::String::~String(v17);
+  TIInputManager::input_string(v16, *(&self->super.super.super.isa + *MEMORY[0x29EDC7290]));
+  v11 = KB::ns_string(v16, v10);
+  KB::String::~String(v16);
   v12 = [v11 hasSuffix:@"ㆍㆍ"];
 
   v13 = v12 | isMultitap;
@@ -173,16 +205,14 @@ LABEL_9:
   }
 
 LABEL_10:
-  v16.receiver = self;
-  v16.super_class = TIKeyboardInputManagerFavonius_ko;
-  [(TIKeyboardInputManagerFavonius_ko *)&v16 addInput:inputCopy withContext:contextCopy];
-
-  v15 = *MEMORY[0x29EDCA608];
+  v15.receiver = self;
+  v15.super_class = TIKeyboardInputManagerFavonius_ko;
+  [(TIKeyboardInputManagerFavonius_ko *)&v15 addInput:inputCopy withContext:contextCopy];
 }
 
 - (id)deleteFromInput:(unint64_t *)input
 {
-  v17[4] = *MEMORY[0x29EDCA608];
+  v16[4] = *MEMORY[0x29EDCA608];
   if (!input)
   {
     if (!self->_deleteSyllable)
@@ -191,9 +221,9 @@ LABEL_10:
     }
 
 LABEL_5:
-    v16.receiver = self;
-    v16.super_class = TIKeyboardInputManagerFavonius_ko;
-    v5 = [(TIKeyboardInputManagerFavonius_ko *)&v16 deleteFromInput:input];
+    v15.receiver = self;
+    v15.super_class = TIKeyboardInputManagerFavonius_ko;
+    v5 = [(TIKeyboardInputManagerFavonius_ko *)&v15 deleteFromInput:input];
     goto LABEL_12;
   }
 
@@ -208,9 +238,9 @@ LABEL_6:
   v6 = *MEMORY[0x29EDC7290];
   if (*(&self->super.super.super.isa + v6) && (v7 = [(TIKeyboardInputManagerFavonius_ko *)self inputIndex], TIInputManager::delete_from_input(*(&self->super.super.super.isa + v6)), v8 = *MEMORY[0x29EDC7288], *(&self->super.super.super.isa + v8)))
   {
-    TIInputManager::input_string(v17, *(&self->super.super.super.isa + v6));
-    v10 = KB::ns_string(v17, v9);
-    KB::String::~String(v17);
+    TIInputManager::input_string(v16, *(&self->super.super.super.isa + v6));
+    v10 = KB::ns_string(v16, v9);
+    KB::String::~String(v16);
     v11 = [(TIKeyboardInputManagerFavonius_ko *)self internalStringToExternal:v10];
     v12 = [v10 substringToIndex:{objc_msgSend(v10, "_indexFromStartingIndex:byIncrementingComposedCharacterSequenceCount:", 0, (*(&self->super.super.super.isa + v6))[24])}];
     v13 = [(TIKeyboardInputManagerFavonius_ko *)self internalStringToExternal:v12];
@@ -230,7 +260,6 @@ LABEL_6:
   }
 
 LABEL_12:
-  v14 = *MEMORY[0x29EDCA608];
 
   return v5;
 }

@@ -27,7 +27,7 @@
 
 - (void)_teardownXPCClientIfNeeded
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   xpcClient = self->_xpcClient;
   if (xpcClient)
@@ -35,9 +35,9 @@
     v4 = *MEMORY[0x277D015D8];
     if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 136315138;
-      v8 = "[CSVoiceTriggerXPCService _teardownXPCClientIfNeeded]";
-      _os_log_impl(&dword_222E4D000, v4, OS_LOG_TYPE_DEFAULT, "%s ", &v7, 0xCu);
+      v6 = 136315138;
+      v7 = "[CSVoiceTriggerXPCService _teardownXPCClientIfNeeded]";
+      _os_log_impl(&dword_222E4D000, v4, OS_LOG_TYPE_DEFAULT, "%s ", &v6, 0xCu);
       xpcClient = self->_xpcClient;
     }
 
@@ -45,8 +45,6 @@
     v5 = self->_xpcClient;
     self->_xpcClient = 0;
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)voiceTriggerXPCClient:(id)client didDisconnect:(BOOL)disconnect
@@ -62,23 +60,21 @@
 
 uint64_t __64__CSVoiceTriggerXPCService_voiceTriggerXPCClient_didDisconnect___block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277D015D8];
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "[CSVoiceTriggerXPCService voiceTriggerXPCClient:didDisconnect:]_block_invoke";
-    _os_log_impl(&dword_222E4D000, v2, OS_LOG_TYPE_DEFAULT, "%s reset xpcClient since it disconnected", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[CSVoiceTriggerXPCService voiceTriggerXPCClient:didDisconnect:]_block_invoke";
+    _os_log_impl(&dword_222E4D000, v2, OS_LOG_TYPE_DEFAULT, "%s reset xpcClient since it disconnected", &v4, 0xCu);
   }
 
-  result = [*(a1 + 32) _teardownXPCClientIfNeeded];
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _teardownXPCClientIfNeeded];
 }
 
 - (id)_createXPCClientConnectionIfNeeded:(id)needed
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   neededCopy = needed;
   dispatch_assert_queue_V2(self->_queue);
   if (neededCopy)
@@ -118,14 +114,13 @@ LABEL_3:
     v10 = *MEMORY[0x277D015D8];
     if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_ERROR))
     {
-      v13 = 136315138;
-      v14 = "[CSVoiceTriggerXPCService _createXPCClientConnectionIfNeeded:]";
-      _os_log_error_impl(&dword_222E4D000, v10, OS_LOG_TYPE_ERROR, "%s voiceTriggerXPC client not exist", &v13, 0xCu);
+      v12 = 136315138;
+      v13 = "[CSVoiceTriggerXPCService _createXPCClientConnectionIfNeeded:]";
+      _os_log_error_impl(&dword_222E4D000, v10, OS_LOG_TYPE_ERROR, "%s voiceTriggerXPC client not exist", &v12, 0xCu);
     }
   }
 
 LABEL_14:
-  v11 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -154,13 +149,13 @@ LABEL_14:
 
 void __55__CSVoiceTriggerXPCService_fetchVoiceTriggerDailyStats__block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277D015D8];
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315138;
-    v9 = "[CSVoiceTriggerXPCService fetchVoiceTriggerDailyStats]_block_invoke";
-    _os_log_impl(&dword_222E4D000, v2, OS_LOG_TYPE_DEFAULT, "%s ", &v8, 0xCu);
+    v7 = 136315138;
+    v8 = "[CSVoiceTriggerXPCService fetchVoiceTriggerDailyStats]_block_invoke";
+    _os_log_impl(&dword_222E4D000, v2, OS_LOG_TYPE_DEFAULT, "%s ", &v7, 0xCu);
   }
 
   v3 = [*(a1 + 32) _createXPCClientConnectionIfNeeded:0];
@@ -168,8 +163,6 @@ void __55__CSVoiceTriggerXPCService_fetchVoiceTriggerDailyStats__block_invoke(ui
   v5 = *(*(a1 + 40) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = v4;
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notifyVoiceTriggeredSiriSessionCancelledWithXpcClient:(id)client
@@ -188,19 +181,17 @@ void __55__CSVoiceTriggerXPCService_fetchVoiceTriggerDailyStats__block_invoke(ui
 
 void __82__CSVoiceTriggerXPCService_notifyVoiceTriggeredSiriSessionCancelledWithXpcClient___block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277D015D8];
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "[CSVoiceTriggerXPCService notifyVoiceTriggeredSiriSessionCancelledWithXpcClient:]_block_invoke";
-    _os_log_impl(&dword_222E4D000, v2, OS_LOG_TYPE_DEFAULT, "%s ", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[CSVoiceTriggerXPCService notifyVoiceTriggeredSiriSessionCancelledWithXpcClient:]_block_invoke";
+    _os_log_impl(&dword_222E4D000, v2, OS_LOG_TYPE_DEFAULT, "%s ", &v4, 0xCu);
   }
 
   v3 = [*(a1 + 32) _createXPCClientConnectionIfNeeded:*(a1 + 40)];
   [v3 notifyVoiceTriggeredSiriSessionCancelled];
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setRaiseToSpeakBypassing:(BOOL)bypassing timeout:(double)timeout xpcClient:(id)client
@@ -221,7 +212,7 @@ void __82__CSVoiceTriggerXPCService_notifyVoiceTriggeredSiriSessionCancelledWith
 
 void __71__CSVoiceTriggerXPCService_setRaiseToSpeakBypassing_timeout_xpcClient___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277D015D8];
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
   {
@@ -232,19 +223,17 @@ void __71__CSVoiceTriggerXPCService_setRaiseToSpeakBypassing_timeout_xpcClient__
       v3 = &stru_28363DA48;
     }
 
-    v7 = 136315650;
-    v8 = "[CSVoiceTriggerXPCService setRaiseToSpeakBypassing:timeout:xpcClient:]_block_invoke";
-    v9 = 2114;
-    v10 = v3;
-    v11 = 2050;
-    v12 = v4;
-    _os_log_impl(&dword_222E4D000, v2, OS_LOG_TYPE_DEFAULT, "%s Requesting RTS %{public}@ bypass for %{public}lf seconds", &v7, 0x20u);
+    v6 = 136315650;
+    v7 = "[CSVoiceTriggerXPCService setRaiseToSpeakBypassing:timeout:xpcClient:]_block_invoke";
+    v8 = 2114;
+    v9 = v3;
+    v10 = 2050;
+    v11 = v4;
+    _os_log_impl(&dword_222E4D000, v2, OS_LOG_TYPE_DEFAULT, "%s Requesting RTS %{public}@ bypass for %{public}lf seconds", &v6, 0x20u);
   }
 
   v5 = [*(a1 + 32) _createXPCClientConnectionIfNeeded:*(a1 + 40)];
   [v5 setRaiseToSpeakBypassing:*(a1 + 56) timeout:*(a1 + 48)];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setPhraseSpotterBypassing:(BOOL)bypassing timeout:(double)timeout xpcClient:(id)client
@@ -265,19 +254,17 @@ void __71__CSVoiceTriggerXPCService_setRaiseToSpeakBypassing_timeout_xpcClient__
 
 void __72__CSVoiceTriggerXPCService_setPhraseSpotterBypassing_timeout_xpcClient___block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277D015D8];
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "[CSVoiceTriggerXPCService setPhraseSpotterBypassing:timeout:xpcClient:]_block_invoke";
-    _os_log_impl(&dword_222E4D000, v2, OS_LOG_TYPE_DEFAULT, "%s ", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[CSVoiceTriggerXPCService setPhraseSpotterBypassing:timeout:xpcClient:]_block_invoke";
+    _os_log_impl(&dword_222E4D000, v2, OS_LOG_TYPE_DEFAULT, "%s ", &v4, 0xCu);
   }
 
   v3 = [*(a1 + 32) _createXPCClientConnectionIfNeeded:*(a1 + 40)];
   [v3 setPhraseSpotterBypassing:*(a1 + 56) timeout:*(a1 + 48)];
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enableVoiceTrigger:(BOOL)trigger withAssertion:(id)assertion xpcClient:(id)client
@@ -300,13 +287,13 @@ void __72__CSVoiceTriggerXPCService_setPhraseSpotterBypassing_timeout_xpcClient_
 
 void __71__CSVoiceTriggerXPCService_enableVoiceTrigger_withAssertion_xpcClient___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277D015D8];
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315138;
-    v9 = "[CSVoiceTriggerXPCService enableVoiceTrigger:withAssertion:xpcClient:]_block_invoke";
-    _os_log_impl(&dword_222E4D000, v2, OS_LOG_TYPE_DEFAULT, "%s ", &v8, 0xCu);
+    v7 = 136315138;
+    v8 = "[CSVoiceTriggerXPCService enableVoiceTrigger:withAssertion:xpcClient:]_block_invoke";
+    _os_log_impl(&dword_222E4D000, v2, OS_LOG_TYPE_DEFAULT, "%s ", &v7, 0xCu);
   }
 
   v3 = [*(a1 + 32) _createXPCClientConnectionIfNeeded:*(a1 + 40)];
@@ -315,8 +302,6 @@ void __71__CSVoiceTriggerXPCService_enableVoiceTrigger_withAssertion_xpcClient__
   v6 = [MEMORY[0x277CCAC38] processInfo];
   [v6 systemUptime];
   [v3 enableVoiceTrigger:v4 withAssertion:v5 timestamp:?];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (CSVoiceTriggerXPCService)init

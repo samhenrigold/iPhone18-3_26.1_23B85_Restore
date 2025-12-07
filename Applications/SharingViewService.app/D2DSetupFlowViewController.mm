@@ -31,14 +31,20 @@
   v6 = _Block_copy(completion);
   if (v6)
   {
-    *(swift_allocObject() + 16) = v6;
+    v7 = swift_allocObject();
+    *(v7 + 16) = v6;
     v6 = sub_10006709C;
+  }
+
+  else
+  {
+    v7 = 0;
   }
 
   contextCopy = context;
   selfCopy = self;
   sub_10009B5F8(context, v6);
-  sub_100012050(v6);
+  sub_100012050(v6, v7);
 }
 
 - (void)viewDidAppear:(BOOL)appear
@@ -57,7 +63,7 @@
 {
   if (actions)
   {
-    sub_1000122EC(0, &qword_1001BC220);
+    sub_1000122EC(0, &qword_1001BC220, SBUIRemoteAlertButtonAction_ptr);
     sub_1000670A4();
     v4 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   }

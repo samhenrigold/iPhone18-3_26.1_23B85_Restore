@@ -32,10 +32,10 @@
 
   if (!v5)
   {
-    v8 = _CDPLogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _CDPLogSystem(v6);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [(CDPRecoveryKeyStatusProvider *)v8 idmsHasRK:v9];
+      [(CDPRecoveryKeyStatusProvider *)v9 idmsHasRK:v10];
     }
 
     goto LABEL_7;
@@ -48,8 +48,8 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  v6 = [mEMORY[0x1E698DC80] hasModernRecoveryKeyForAccount:v5];
-  bOOLValue = [v6 BOOLValue];
+  v7 = [mEMORY[0x1E698DC80] hasModernRecoveryKeyForAccount:v5];
+  bOOLValue = [v7 BOOLValue];
 
 LABEL_8:
   return bOOLValue;
@@ -60,22 +60,23 @@ LABEL_8:
   cliqueConfiguration = [(CDPContext *)self->_context cliqueConfiguration];
   if (cliqueConfiguration)
   {
-    v17 = 0;
-    v5 = [MEMORY[0x1E697AA80] isRecoveryKeySetInOctagon:cliqueConfiguration error:&v17];
-    v6 = v17;
+    v18 = 0;
+    v5 = [MEMORY[0x1E697AA80] isRecoveryKeySetInOctagon:cliqueConfiguration error:&v18];
+    v6 = v18;
+    v7 = v6;
     if (v6)
     {
-      v7 = _CDPLogSystem();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = _CDPLogSystem(v6);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        [(CDPRecoveryKeyStatusProvider *)v6 isRecoveryKeySetInOctagonWithError:v7, v8, v9, v10, v11, v12, v13];
+        [(CDPRecoveryKeyStatusProvider *)v7 isRecoveryKeySetInOctagonWithError:v8, v9, v10, v11, v12, v13, v14];
       }
 
       if (error)
       {
-        v14 = v6;
+        v15 = v7;
         v5 = 0;
-        *error = v6;
+        *error = v7;
       }
 
       else
@@ -87,10 +88,10 @@ LABEL_8:
 
   else
   {
-    v15 = _CDPLogSystem();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = _CDPLogSystem(0);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      [CDPRecoveryKeyStatusProvider isRecoveryKeySetInOctagonWithError:v15];
+      [CDPRecoveryKeyStatusProvider isRecoveryKeySetInOctagonWithError:v16];
     }
 
     if (error)
@@ -111,22 +112,23 @@ LABEL_8:
 - (BOOL)isRecoveryKeySetInSOSWithError:(id *)error
 {
   cliqueConfiguration = [(CDPContext *)self->_context cliqueConfiguration];
-  v16 = 0;
-  v5 = [MEMORY[0x1E697AA80] isRecoveryKeySetInSOS:cliqueConfiguration error:&v16];
-  v6 = v16;
+  v17 = 0;
+  v5 = [MEMORY[0x1E697AA80] isRecoveryKeySetInSOS:cliqueConfiguration error:&v17];
+  v6 = v17;
+  v7 = v6;
   if (v6)
   {
-    v7 = _CDPLogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _CDPLogSystem(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [(CDPRecoveryKeyStatusProvider *)v6 isRecoveryKeySetInSOSWithError:v7, v8, v9, v10, v11, v12, v13];
+      [(CDPRecoveryKeyStatusProvider *)v7 isRecoveryKeySetInSOSWithError:v8, v9, v10, v11, v12, v13, v14];
     }
 
     if (error)
     {
-      v14 = v6;
+      v15 = v7;
       v5 = 0;
-      *error = v6;
+      *error = v7;
     }
 
     else
@@ -140,23 +142,23 @@ LABEL_8:
 
 - (void)idmsHasRK
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_3(&dword_1DED99000, self, a3, "%s: Can't find account. Returning...", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[CDPRecoveryKeyStatusProvider idmsHasRK]";
+  OUTLINED_FUNCTION_0_3(&dword_1DED99000, self, a3, "%s: Can't find account. Returning...", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)isRecoveryKeySetInOctagonWithError:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_3(&dword_1DED99000, a2, a3, "Received error while checking if RK is set in Octagon: %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_3(&dword_1DED99000, a2, a3, "Received error while checking if RK is set in Octagon: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)isRecoveryKeySetInSOSWithError:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_3(&dword_1DED99000, a2, a3, "Received error while checking if RK is set in SOS: %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_3(&dword_1DED99000, a2, a3, "Received error while checking if RK is set in SOS: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

@@ -33,7 +33,7 @@
   sub_C3374(v13, v12);
   errorCopy = error;
   v4(v13, error);
-  sub_12E1C(v13, &unk_E05300);
+  sub_12E1C(v13, &unk_E05300, &unk_AFA030);
   if (error)
   {
     error = sub_AB3040();

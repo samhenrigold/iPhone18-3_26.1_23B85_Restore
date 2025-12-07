@@ -9,7 +9,7 @@
 
 - (id)originalWords
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   originalWords = self->_originalWords;
   if (!originalWords)
   {
@@ -18,9 +18,9 @@
     if (![originalDocumentText length])
     {
 LABEL_15:
-      v11 = [array copy];
-      v12 = self->_originalWords;
-      self->_originalWords = v11;
+      v10 = [array copy];
+      v11 = self->_originalWords;
+      self->_originalWords = v10;
 
       originalWords = self->_originalWords;
       goto LABEL_16;
@@ -28,28 +28,27 @@ LABEL_15:
 
     v6 = 4 * [originalDocumentText length];
     v7 = malloc_type_malloc(v6, 0x100004077774924uLL);
-    v19 = 0;
-    v18 = xmmword_22CC889D0;
-    if ([originalDocumentText getBytes:v7 maxLength:v6 usedLength:&v19 encoding:4 options:0 range:0 remainingRange:{objc_msgSend(originalDocumentText, "length"), &v18}])
+    v17 = 0;
+    v16 = xmmword_22CC889D0;
+    if ([originalDocumentText getBytes:v7 maxLength:v6 usedLength:&v17 encoding:4 options:0 range:0 remainingRange:{objc_msgSend(originalDocumentText, "length"), &v16}])
     {
-      if (v18 != 0x7FFFFFFFFFFFFFFFLL && IXACanLogMessageAtLevel())
+      if (v16 != 0x7FFFFFFFFFFFFFFFLL && IXACanLogMessageAtLevel())
       {
         v8 = IXASessionDetailsLogFacility();
         if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
         {
-          v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s The range (%lu, %lu) was left over when getting the bytes from the original document text '%@'", "-[TIGainFocusEvent originalWords]", v18, originalDocumentText];
+          v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s The range (%lu, %lu) was left over when getting the bytes from the original document text '%@'", "-[TIGainFocusEvent originalWords]", v16, originalDocumentText];
           *buf = 138412290;
-          v21 = v16;
+          v19 = v14;
           _os_log_debug_impl(&dword_22CA55000, v8, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
 
-      locale = self->_locale;
       LMStreamTokenizerCreate();
-      v17 = array;
+      v15 = array;
       LMStreamTokenizerPushBytes();
       LMStreamTokenizerRelease();
-      v10 = v17;
+      v9 = v15;
     }
 
     else
@@ -61,13 +60,13 @@ LABEL_14:
         goto LABEL_15;
       }
 
-      v10 = IXASessionDetailsLogFacility();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v9 = IXASessionDetailsLogFacility();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
-        v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Unable to get the bytes from the original document text '%@'", "-[TIGainFocusEvent originalWords]", originalDocumentText];
+        v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Unable to get the bytes from the original document text '%@'", "-[TIGainFocusEvent originalWords]", originalDocumentText];
         *buf = 138412290;
-        v21 = v15;
-        _os_log_debug_impl(&dword_22CA55000, v10, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+        v19 = v13;
+        _os_log_debug_impl(&dword_22CA55000, v9, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
 
@@ -75,7 +74,6 @@ LABEL_14:
   }
 
 LABEL_16:
-  v13 = *MEMORY[0x277D85DE8];
 
   return originalWords;
 }
@@ -155,34 +153,34 @@ void __33__TIGainFocusEvent_originalWords__block_invoke(uint64_t a1, uint64_t a2
 
 - (NSArray)originalWordEntries
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   originalWordEntries = self->_originalWordEntries;
   if (!originalWordEntries)
   {
     array = [MEMORY[0x277CBEB18] array];
     originalDocumentText = [(TIGainFocusEvent *)self originalDocumentText];
     v5 = [originalDocumentText length];
+    v31 = 0u;
     v32 = 0u;
     v33 = 0u;
     v34 = 0u;
-    v35 = 0u;
     selfCopy = self;
     obj = [(TIGainFocusEvent *)self originalWords];
-    v29 = [obj countByEnumeratingWithState:&v32 objects:v38 count:16];
-    if (v29)
+    v28 = [obj countByEnumeratingWithState:&v31 objects:v37 count:16];
+    if (v28)
     {
       v6 = 0;
-      v28 = *v33;
+      v27 = *v32;
       while (2)
       {
-        for (i = 0; i != v29; ++i)
+        for (i = 0; i != v28; ++i)
         {
-          if (*v33 != v28)
+          if (*v32 != v27)
           {
             objc_enumerationMutation(obj);
           }
 
-          v8 = *(*(&v32 + 1) + 8 * i);
+          v8 = *(*(&v31 + 1) + 8 * i);
           v9 = [originalDocumentText rangeOfString:v8 options:2 range:{v6, v5}];
           if (v9 == 0x7FFFFFFFFFFFFFFFLL)
           {
@@ -191,9 +189,9 @@ void __33__TIGainFocusEvent_originalWords__block_invoke(uint64_t a1, uint64_t a2
               v22 = IXASessionDetailsLogFacility();
               if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
               {
-                v26 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s An error occurred when trying to locate '%@' within the original document text '%@'", "-[TIGainFocusEvent originalWordEntries]", v8, originalDocumentText];
+                v25 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s An error occurred when trying to locate '%@' within the original document text '%@'", "-[TIGainFocusEvent originalWordEntries]", v8, originalDocumentText];
                 *buf = 138412290;
-                v37 = v26;
+                v36 = v25;
                 _os_log_debug_impl(&dword_22CA55000, v22, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
               }
             }
@@ -226,8 +224,8 @@ void __33__TIGainFocusEvent_originalWords__block_invoke(uint64_t a1, uint64_t a2
           v5 = [originalDocumentText length] - v6;
         }
 
-        v29 = [obj countByEnumeratingWithState:&v32 objects:v38 count:16];
-        if (v29)
+        v28 = [obj countByEnumeratingWithState:&v31 objects:v37 count:16];
+        if (v28)
         {
           continue;
         }
@@ -243,8 +241,6 @@ LABEL_15:
 
     originalWordEntries = selfCopy->_originalWordEntries;
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return originalWordEntries;
 }

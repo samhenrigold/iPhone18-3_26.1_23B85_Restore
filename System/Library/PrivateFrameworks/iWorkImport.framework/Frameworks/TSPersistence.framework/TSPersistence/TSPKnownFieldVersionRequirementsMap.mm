@@ -92,9 +92,9 @@
   ptr = self->_map.__ptr_;
   if (!ptr)
   {
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Map should have been initialized.", "[TSPKnownFieldVersionRequirementsMap addRulesFromKnownFieldRuleProvider:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPKnownFieldVersionRequirementsMap.mm", 147);
     v7 = MEMORY[0x277D81150];
-    v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "[TSPKnownFieldVersionRequirementsMap addRulesFromKnownFieldRuleProvider:]", "[TSPKnownFieldVersionRequirementsMap addRulesFromKnownFieldRuleProvider:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPKnownFieldVersionRequirementsMap.mm", 147);
+    v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "[TSPKnownFieldVersionRequirementsMap addRulesFromKnownFieldRuleProvider:]");
     v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPKnownFieldVersionRequirementsMap.mm");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v12, v9, v11, 147, 1, "Map should have been initialized.");
 
@@ -105,9 +105,9 @@
   v5 = objc_opt_class();
   if (objc_msgSend_updateMap_message_byAddingRulesFromKnownFieldRuleProvider_(v5, v6, ptr, 0, providerCopy) != ptr)
   {
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Map address should have not changed.", "[TSPKnownFieldVersionRequirementsMap addRulesFromKnownFieldRuleProvider:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPKnownFieldVersionRequirementsMap.mm", 150);
     v13 = MEMORY[0x277D81150];
-    v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, "[TSPKnownFieldVersionRequirementsMap addRulesFromKnownFieldRuleProvider:]", "[TSPKnownFieldVersionRequirementsMap addRulesFromKnownFieldRuleProvider:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPKnownFieldVersionRequirementsMap.mm", 150);
+    v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, "[TSPKnownFieldVersionRequirementsMap addRulesFromKnownFieldRuleProvider:]");
     v17 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v16, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPKnownFieldVersionRequirementsMap.mm");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v13, v18, v15, v17, 150, 1, "Map address should have not changed.");
 
@@ -123,9 +123,9 @@ LABEL_8:
   ptr = self->_map.__ptr_;
   if (!ptr)
   {
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Map should have been initialized.", "[TSPKnownFieldVersionRequirementsMap saveToArchiver:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPKnownFieldVersionRequirementsMap.mm", 155);
     v7 = MEMORY[0x277D81150];
-    v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "[TSPKnownFieldVersionRequirementsMap saveToArchiver:]", "[TSPKnownFieldVersionRequirementsMap saveToArchiver:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPKnownFieldVersionRequirementsMap.mm", 155);
+    v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "[TSPKnownFieldVersionRequirementsMap saveToArchiver:]");
     v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPKnownFieldVersionRequirementsMap.mm");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v12, v9, v11, 155, 1, "Map should have been initialized.");
 

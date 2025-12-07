@@ -185,7 +185,7 @@
 
 - (SlowNetworkCondition)initWithProfile:(id)profile
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   profileCopy = profile;
   objc_storeStrong(&self->_profile, profile);
   v6 = objc_alloc_init(SlowNetworkUtil);
@@ -201,9 +201,9 @@
   {
     profileName = [(SlowNetworkUtil *)self->_util profileName];
     *buf = 136315394;
-    v24 = "name";
-    v25 = 2112;
-    v26 = profileName;
+    v23 = "name";
+    v24 = 2112;
+    v25 = profileName;
     _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Configured %s = %@", buf, 0x16u);
   }
 
@@ -211,9 +211,9 @@
   {
     downlinkDelay = [(SlowNetworkUtil *)self->_util downlinkDelay];
     *buf = 136315394;
-    v24 = "DownlinkDelay";
-    v25 = 2112;
-    v26 = downlinkDelay;
+    v23 = "DownlinkDelay";
+    v24 = 2112;
+    v25 = downlinkDelay;
     _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s = %@", buf, 0x16u);
   }
 
@@ -221,9 +221,9 @@
   {
     downlinkPacketLossRatio = [(SlowNetworkUtil *)self->_util downlinkPacketLossRatio];
     *buf = 136315394;
-    v24 = "DownlinkPacketLossRatio";
-    v25 = 2112;
-    v26 = downlinkPacketLossRatio;
+    v23 = "DownlinkPacketLossRatio";
+    v24 = 2112;
+    v25 = downlinkPacketLossRatio;
     _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s = %@", buf, 0x16u);
   }
 
@@ -231,9 +231,9 @@
   {
     downlinkBandwidth = [(SlowNetworkUtil *)self->_util downlinkBandwidth];
     *buf = 136315394;
-    v24 = "DownlinkBandwidth";
-    v25 = 2112;
-    v26 = downlinkBandwidth;
+    v23 = "DownlinkBandwidth";
+    v24 = 2112;
+    v25 = downlinkBandwidth;
     _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s = %@", buf, 0x16u);
   }
 
@@ -241,9 +241,9 @@
   {
     uplinkDelay = [(SlowNetworkUtil *)self->_util uplinkDelay];
     *buf = 136315394;
-    v24 = "UplinkDelay";
-    v25 = 2112;
-    v26 = uplinkDelay;
+    v23 = "UplinkDelay";
+    v24 = 2112;
+    v25 = uplinkDelay;
     _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s = %@", buf, 0x16u);
   }
 
@@ -251,9 +251,9 @@
   {
     uplinkPacketLossRatio = [(SlowNetworkUtil *)self->_util uplinkPacketLossRatio];
     *buf = 136315394;
-    v24 = "UplinkPacketLossRatio";
-    v25 = 2112;
-    v26 = uplinkPacketLossRatio;
+    v23 = "UplinkPacketLossRatio";
+    v24 = 2112;
+    v25 = uplinkPacketLossRatio;
     _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s = %@", buf, 0x16u);
   }
 
@@ -261,9 +261,9 @@
   {
     uplinkBandwidth = [(SlowNetworkUtil *)self->_util uplinkBandwidth];
     *buf = 136315394;
-    v24 = "UplinkBandwidth";
-    v25 = 2112;
-    v26 = uplinkBandwidth;
+    v23 = "UplinkBandwidth";
+    v24 = 2112;
+    v25 = uplinkBandwidth;
     _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s = %@", buf, 0x16u);
   }
 
@@ -271,9 +271,9 @@
   {
     dnsDelayValue = [(SlowNetworkUtil *)self->_util dnsDelayValue];
     *buf = 136315394;
-    v24 = "DNSDelayValue";
-    v25 = 2112;
-    v26 = dnsDelayValue;
+    v23 = "DNSDelayValue";
+    v24 = 2112;
+    v25 = dnsDelayValue;
     _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s = %@", buf, 0x16u);
   }
 
@@ -281,9 +281,9 @@
   {
     excludeLoopback = [(SlowNetworkUtil *)self->_util excludeLoopback];
     *buf = 136315394;
-    v24 = "ExcludeLoopback";
-    v25 = 2112;
-    v26 = excludeLoopback;
+    v23 = "ExcludeLoopback";
+    v24 = 2112;
+    v25 = excludeLoopback;
     _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s = %@", buf, 0x16u);
   }
 
@@ -293,22 +293,21 @@
     _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Set profile", buf, 2u);
   }
 
-  v22.receiver = self;
-  v22.super_class = SlowNetworkCondition;
-  v19 = [(COCondition *)&v22 init];
+  v21.receiver = self;
+  v21.super_class = SlowNetworkCondition;
+  v19 = [(COCondition *)&v21 init];
   if (v19 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 0;
     _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "SlowNetworkCondition Init passed", buf, 2u);
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
 - (BOOL)isNLCPrefPaneActive
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   v3 = [defaultManager fileExistsAtPath:@"/var/mobile/Library/Preferences/com.apple.network.prefPaneSimulate.plist"];
 
@@ -325,9 +324,9 @@
         [(__CFString *)v5 removeObjectForKey:@"Profiles"];
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
         {
-          v12 = 138412290;
-          v13 = v5;
-          _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "NLC prefpane plist: %@", &v12, 0xCu);
+          v11 = 138412290;
+          v12 = v5;
+          _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "NLC prefpane plist: %@", &v11, 0xCu);
         }
 
         bOOLValue = [v7 BOOLValue];
@@ -338,51 +337,48 @@
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         allKeys = [(__CFString *)v5 allKeys];
-        v12 = 138412546;
-        v13 = @"SimulatorIsRunning";
-        v14 = 2112;
-        v15 = allKeys;
-        _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Unable to find value for key %@ in plist: %@", &v12, 0x16u);
+        v11 = 138412546;
+        v12 = @"SimulatorIsRunning";
+        v13 = 2112;
+        v14 = allKeys;
+        _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Unable to find value for key %@ in plist: %@", &v11, 0x16u);
       }
     }
 
     else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
-      v12 = 138412290;
-      v13 = @"/var/mobile/Library/Preferences/com.apple.network.prefPaneSimulate.plist";
-      _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Read plist from %@, but it was nil?", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = @"/var/mobile/Library/Preferences/com.apple.network.prefPaneSimulate.plist";
+      _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Read plist from %@, but it was nil?", &v11, 0xCu);
     }
 
     bOOLValue = 0;
 LABEL_15:
 
-    goto LABEL_16;
+    return bOOLValue;
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
-    v12 = 138412290;
-    v13 = @"/var/mobile/Library/Preferences/com.apple.network.prefPaneSimulate.plist";
-    _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Unable to access the pref pane plist at %@, so we'll take the safe assumption and assume that NLC is not running.", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = @"/var/mobile/Library/Preferences/com.apple.network.prefPaneSimulate.plist";
+    _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Unable to access the pref pane plist at %@, so we'll take the safe assumption and assume that NLC is not running.", &v11, 0xCu);
   }
 
-  bOOLValue = 0;
-LABEL_16:
-  v10 = *MEMORY[0x277D85DE8];
-  return bOOLValue;
+  return 0;
 }
 
 - (BOOL)setUp
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     profile = [(SlowNetworkCondition *)self profile];
-    v27 = 138412546;
+    v26 = 138412546;
     selfCopy2 = self;
-    v29 = 2112;
-    v30 = profile;
-    _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Starting Setup: %@ Condition -- profile = %@", &v27, 0x16u);
+    v28 = 2112;
+    v29 = profile;
+    _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Starting Setup: %@ Condition -- profile = %@", &v26, 0x16u);
   }
 
   isNLCPrefPaneActive = [(SlowNetworkCondition *)self isNLCPrefPaneActive];
@@ -400,99 +396,99 @@ LABEL_16:
     {
       util = [(SlowNetworkCondition *)self util];
       profileName = [util profileName];
-      v27 = 136315394;
+      v26 = 136315394;
       selfCopy2 = "name";
-      v29 = 2112;
-      v30 = profileName;
-      _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Configuring %s = %@", &v27, 0x16u);
+      v28 = 2112;
+      v29 = profileName;
+      _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Configuring %s = %@", &v26, 0x16u);
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       util2 = [(SlowNetworkCondition *)self util];
       downlinkDelay = [util2 downlinkDelay];
-      v27 = 136315394;
+      v26 = 136315394;
       selfCopy2 = "DownlinkDelay";
-      v29 = 2112;
-      v30 = downlinkDelay;
-      _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s = %@", &v27, 0x16u);
+      v28 = 2112;
+      v29 = downlinkDelay;
+      _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s = %@", &v26, 0x16u);
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       util3 = [(SlowNetworkCondition *)self util];
       downlinkPacketLossRatio = [util3 downlinkPacketLossRatio];
-      v27 = 136315394;
+      v26 = 136315394;
       selfCopy2 = "DownlinkPacketLossRatio";
-      v29 = 2112;
-      v30 = downlinkPacketLossRatio;
-      _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s = %@", &v27, 0x16u);
+      v28 = 2112;
+      v29 = downlinkPacketLossRatio;
+      _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s = %@", &v26, 0x16u);
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       util4 = [(SlowNetworkCondition *)self util];
       downlinkBandwidth = [util4 downlinkBandwidth];
-      v27 = 136315394;
+      v26 = 136315394;
       selfCopy2 = "DownlinkBandwidth";
-      v29 = 2112;
-      v30 = downlinkBandwidth;
-      _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s = %@", &v27, 0x16u);
+      v28 = 2112;
+      v29 = downlinkBandwidth;
+      _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s = %@", &v26, 0x16u);
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       util5 = [(SlowNetworkCondition *)self util];
       uplinkDelay = [util5 uplinkDelay];
-      v27 = 136315394;
+      v26 = 136315394;
       selfCopy2 = "UplinkDelay";
-      v29 = 2112;
-      v30 = uplinkDelay;
-      _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s = %@", &v27, 0x16u);
+      v28 = 2112;
+      v29 = uplinkDelay;
+      _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s = %@", &v26, 0x16u);
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       util6 = [(SlowNetworkCondition *)self util];
       uplinkPacketLossRatio = [util6 uplinkPacketLossRatio];
-      v27 = 136315394;
+      v26 = 136315394;
       selfCopy2 = "UplinkPacketLossRatio";
-      v29 = 2112;
-      v30 = uplinkPacketLossRatio;
-      _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s = %@", &v27, 0x16u);
+      v28 = 2112;
+      v29 = uplinkPacketLossRatio;
+      _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s = %@", &v26, 0x16u);
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       util7 = [(SlowNetworkCondition *)self util];
       uplinkBandwidth = [util7 uplinkBandwidth];
-      v27 = 136315394;
+      v26 = 136315394;
       selfCopy2 = "UplinkBandwidth";
-      v29 = 2112;
-      v30 = uplinkBandwidth;
-      _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s = %@", &v27, 0x16u);
+      v28 = 2112;
+      v29 = uplinkBandwidth;
+      _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s = %@", &v26, 0x16u);
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       util8 = [(SlowNetworkCondition *)self util];
       dnsDelayValue = [util8 dnsDelayValue];
-      v27 = 136315394;
+      v26 = 136315394;
       selfCopy2 = "DNSDelayValue";
-      v29 = 2112;
-      v30 = dnsDelayValue;
-      _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s = %@", &v27, 0x16u);
+      v28 = 2112;
+      v29 = dnsDelayValue;
+      _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s = %@", &v26, 0x16u);
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       util9 = [(SlowNetworkCondition *)self util];
       excludeLoopback = [util9 excludeLoopback];
-      v27 = 136315394;
+      v26 = 136315394;
       selfCopy2 = "ExcludeLoopback";
-      v29 = 2112;
-      v30 = excludeLoopback;
-      _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s = %@", &v27, 0x16u);
+      v28 = 2112;
+      v29 = excludeLoopback;
+      _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s = %@", &v26, 0x16u);
     }
 
     util10 = [(SlowNetworkCondition *)self util];
@@ -508,30 +504,29 @@ LABEL_16:
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
-      LOWORD(v27) = 0;
-      _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Stopped NLC", &v27, 2u);
+      LOWORD(v26) = 0;
+      _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Stopped NLC", &v26, 2u);
     }
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
-    v27 = 138412290;
+    v26 = 138412290;
     selfCopy2 = self;
-    _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Finished Setup: %@ Condition", &v27, 0xCu);
+    _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Finished Setup: %@ Condition", &v26, 0xCu);
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return !isNLCPrefPaneActive;
 }
 
 - (void)tearDown
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
-    v5 = 138412290;
+    v4 = 138412290;
     selfCopy2 = self;
-    _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Starting Teardown: %@ Condition", &v5, 0xCu);
+    _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Starting Teardown: %@ Condition", &v4, 0xCu);
   }
 
   util = [(SlowNetworkCondition *)self util];
@@ -539,18 +534,16 @@ LABEL_16:
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
-    LOWORD(v5) = 0;
-    _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Stopped NLC", &v5, 2u);
+    LOWORD(v4) = 0;
+    _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Stopped NLC", &v4, 2u);
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
-    v5 = 138412290;
+    v4 = 138412290;
     selfCopy2 = self;
-    _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Finished Teardown: %@ Condition", &v5, 0xCu);
+    _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Finished Teardown: %@ Condition", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 @end

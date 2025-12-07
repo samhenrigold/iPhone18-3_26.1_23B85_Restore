@@ -98,7 +98,7 @@ LABEL_20:
     v35 = 0u;
     v32 = 0u;
     v33 = 0u;
-    sub_276D38FF4(FontForStyle, v13, v14, &v32);
+    sub_276D38FF4(FontForStyle, &v32, v13, v14);
     v38 = *MEMORY[0x277D740A8];
     v39[0] = v15;
     v17 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v16, v39, &v38, 1);

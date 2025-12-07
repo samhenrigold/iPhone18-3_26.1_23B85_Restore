@@ -36,11 +36,11 @@
     self->_isLegacyAPICaller = xpc_dictionary_get_BOOL(v10, "LegacyAPI");
     memset(buf, 0, sizeof(buf));
     xpc_dictionary_get_audit_token();
-    v93 = 0;
-    *v98 = *buf;
-    *&v98[16] = *&buf[16];
-    v12 = [LSBundleRecord bundleRecordForAuditToken:v98 error:&v93];
-    v13 = v93;
+    v91 = 0;
+    *v96 = *buf;
+    *&v96[16] = *&buf[16];
+    v12 = [LSBundleRecord bundleRecordForAuditToken:v96 error:&v91];
+    v13 = v91;
     if (v12)
     {
       sDKVersion = [v12 SDKVersion];
@@ -51,11 +51,11 @@
       v15 = ne_log_obj();
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        *v98 = 138412546;
-        *&v98[4] = self;
-        *&v98[12] = 2112;
-        *&v98[14] = v13;
-        _os_log_error_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "%@ failed to get bundle record, error: %@", v98, 0x16u);
+        *v96 = 138412546;
+        *&v96[4] = self;
+        *&v96[12] = 2112;
+        *&v96[14] = v13;
+        _os_log_error_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "%@ failed to get bundle record, error: %@", v96, 0x16u);
       }
 
       sDKVersion = 0;
@@ -76,9 +76,9 @@
         v18 = ne_log_obj();
         if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
         {
-          *v98 = 136315138;
-          *&v98[4] = buf;
-          _os_log_debug_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEBUG, "Process [%s] is requesting current Wi-Fi network information", v98, 0xCu);
+          *v96 = 136315138;
+          *&v96[4] = buf;
+          _os_log_debug_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEBUG, "Process [%s] is requesting current Wi-Fi network information", v96, 0xCu);
         }
       }
 
@@ -135,32 +135,32 @@ LABEL_84:
     v27 = ne_log_obj();
     if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
     {
-      v80 = objc_opt_class();
-      v81 = self->_bundleID;
+      v78 = objc_opt_class();
+      v79 = self->_bundleID;
       *buf = 138412802;
-      *&buf[4] = v80;
+      *&buf[4] = v78;
       *&buf[12] = 2112;
-      *&buf[14] = v81;
+      *&buf[14] = v79;
       *&buf[22] = 2112;
       *&buf[24] = sDKVersion;
-      v82 = v80;
+      v80 = v78;
       _os_log_debug_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEBUG, "%@ [%@] is built with SDK version [%@]", buf, 0x20u);
     }
 
     if (!sDKVersion)
     {
 LABEL_40:
-      v38 = ne_log_obj();
-      if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
+      v37 = ne_log_obj();
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
       {
-        v39 = objc_opt_class();
-        v40 = self->_bundleID;
+        v38 = objc_opt_class();
+        v39 = self->_bundleID;
         *buf = 138412546;
-        *&buf[4] = v39;
+        *&buf[4] = v38;
         *&buf[12] = 2112;
-        *&buf[14] = v40;
-        v41 = v39;
-        _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_INFO, "%@ [%@] is not entitled", buf, 0x16u);
+        *&buf[14] = v39;
+        v40 = v38;
+        _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_INFO, "%@ [%@] is not entitled", buf, 0x16u);
       }
 
       sub_10000A098(self, v11, 1);
@@ -173,25 +173,24 @@ LABEL_40:
 
     if (v30)
     {
-      connection = self->_connection;
-      v32 = xpc_connection_copy_entitlement_value();
-      v33 = v32;
-      if (!v32 || xpc_get_type(v32) != &_xpc_type_BOOL || !xpc_BOOL_get_value(v33))
+      v31 = xpc_connection_copy_entitlement_value();
+      v32 = v31;
+      if (!v31 || xpc_get_type(v31) != &_xpc_type_BOOL || !xpc_BOOL_get_value(v32))
       {
 
-        v34 = ne_log_obj();
-        if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
+        v33 = ne_log_obj();
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
         {
-          v35 = objc_opt_class();
-          v36 = self->_bundleID;
+          v34 = objc_opt_class();
+          v35 = self->_bundleID;
           *buf = 138412802;
-          *&buf[4] = v35;
+          *&buf[4] = v34;
           *&buf[12] = 2112;
-          *&buf[14] = v36;
+          *&buf[14] = v35;
           *&buf[22] = 2080;
           *&buf[24] = "com.apple.developer.networking.wifi-info";
-          v37 = v35;
-          _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_INFO, "%@ [%@] missing %s entitlement", buf, 0x20u);
+          v36 = v34;
+          _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_INFO, "%@ [%@] missing %s entitlement", buf, 0x20u);
         }
 
         goto LABEL_40;
@@ -200,161 +199,160 @@ LABEL_40:
 
     else
     {
-      v33 = ne_log_obj();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
+      v32 = ne_log_obj();
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
       {
-        v42 = objc_opt_class();
-        v43 = self->_bundleID;
+        v41 = objc_opt_class();
+        v42 = self->_bundleID;
         *buf = 138412546;
-        *&buf[4] = v42;
+        *&buf[4] = v41;
         *&buf[12] = 2112;
-        *&buf[14] = v43;
-        v44 = v42;
-        _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_INFO, "%@ [%@] linked before iOS 12.0", buf, 0x16u);
+        *&buf[14] = v42;
+        v43 = v41;
+        _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_INFO, "%@ [%@] linked before iOS 12.0", buf, 0x16u);
       }
     }
 
-    v45 = ne_log_obj();
-    if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
+    v44 = ne_log_obj();
+    if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
     {
-      v46 = objc_opt_class();
-      v47 = self->_bundleID;
+      v45 = objc_opt_class();
+      v46 = self->_bundleID;
       *buf = 138412546;
-      *&buf[4] = v46;
+      *&buf[4] = v45;
       *&buf[12] = 2112;
-      *&buf[14] = v47;
-      v48 = v46;
-      _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_INFO, "%@ [%@] is entitled", buf, 0x16u);
+      *&buf[14] = v46;
+      v47 = v45;
+      _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_INFO, "%@ [%@] is entitled", buf, 0x16u);
     }
 
     if (objc_opt_class())
     {
-      v49 = self->_bundleID;
-      *v98 = 0;
-      v50 = [CLLocationManager _checkAndExerciseAuthorizationForBundleID:v49 error:v98];
-      v51 = *v98;
-      if (v51)
+      v48 = self->_bundleID;
+      *v96 = 0;
+      v49 = [CLLocationManager _checkAndExerciseAuthorizationForBundleID:v48 error:v96];
+      v50 = *v96;
+      if (v50)
       {
-        v52 = ne_log_obj();
-        if (os_log_type_enabled(v52, OS_LOG_TYPE_INFO))
+        v51 = ne_log_obj();
+        if (os_log_type_enabled(v51, OS_LOG_TYPE_INFO))
         {
-          v53 = objc_opt_class();
-          v54 = self->_bundleID;
+          v52 = objc_opt_class();
+          v53 = self->_bundleID;
           *buf = 138412802;
-          *&buf[4] = v53;
+          *&buf[4] = v52;
           *&buf[12] = 2112;
-          *&buf[14] = v54;
+          *&buf[14] = v53;
           *&buf[22] = 2112;
-          *&buf[24] = v51;
-          v55 = v53;
-          _os_log_impl(&_mh_execute_header, v52, OS_LOG_TYPE_INFO, "%@ failed to find location authorization for [%@] [%@]", buf, 0x20u);
+          *&buf[24] = v50;
+          v54 = v52;
+          _os_log_impl(&_mh_execute_header, v51, OS_LOG_TYPE_INFO, "%@ failed to find location authorization for [%@] [%@]", buf, 0x20u);
         }
 
-        v50 = 0;
+        v49 = 0;
       }
     }
 
     else
     {
-      v50 = 0;
+      v49 = 0;
     }
 
-    v56 = ne_log_obj();
-    v57 = os_log_type_enabled(v56, OS_LOG_TYPE_INFO);
-    if (v50)
+    v55 = ne_log_obj();
+    v56 = os_log_type_enabled(v55, OS_LOG_TYPE_INFO);
+    if (v49)
     {
-      if (v57)
+      if (v56)
       {
-        v58 = objc_opt_class();
-        v59 = self->_bundleID;
+        v57 = objc_opt_class();
+        v58 = self->_bundleID;
         *buf = 138412546;
-        *&buf[4] = v58;
+        *&buf[4] = v57;
         *&buf[12] = 2112;
-        *&buf[14] = v59;
-        v60 = v58;
-        v61 = "%@ [%@] is authorized to access the location";
+        *&buf[14] = v58;
+        v59 = v57;
+        v60 = "%@ [%@] is authorized to access the location";
 LABEL_81:
-        _os_log_impl(&_mh_execute_header, v56, OS_LOG_TYPE_INFO, v61, buf, 0x16u);
+        _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_INFO, v60, buf, 0x16u);
       }
     }
 
     else
     {
-      if (v57)
+      if (v56)
       {
-        v62 = objc_opt_class();
-        v63 = self->_bundleID;
+        v61 = objc_opt_class();
+        v62 = self->_bundleID;
         *buf = 138412546;
-        *&buf[4] = v62;
+        *&buf[4] = v61;
         *&buf[12] = 2112;
-        *&buf[14] = v63;
-        v64 = v62;
-        _os_log_impl(&_mh_execute_header, v56, OS_LOG_TYPE_INFO, "%@ [%@] is not authorized to access the location", buf, 0x16u);
+        *&buf[14] = v62;
+        v63 = v61;
+        _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_INFO, "%@ [%@] is not authorized to access the location", buf, 0x16u);
       }
 
       if (self->_network && (BundleIdentifier = WiFiNetworkGetBundleIdentifier()) != 0)
       {
-        v66 = [(NSString *)self->_bundleID isEqual:BundleIdentifier];
+        v65 = [(NSString *)self->_bundleID isEqual:BundleIdentifier];
       }
 
       else
       {
-        v66 = 0;
+        v65 = 0;
       }
 
-      v56 = ne_log_obj();
-      v67 = os_log_type_enabled(v56, OS_LOG_TYPE_INFO);
-      if (!v66)
+      v55 = ne_log_obj();
+      v66 = os_log_type_enabled(v55, OS_LOG_TYPE_INFO);
+      if (!v65)
       {
-        if (v67)
+        if (v66)
         {
-          v70 = objc_opt_class();
-          v71 = self->_bundleID;
+          v69 = objc_opt_class();
+          v70 = self->_bundleID;
           *buf = 138412546;
-          *&buf[4] = v70;
+          *&buf[4] = v69;
           *&buf[12] = 2112;
-          *&buf[14] = v71;
-          v72 = v70;
-          _os_log_impl(&_mh_execute_header, v56, OS_LOG_TYPE_INFO, "%@ [%@] has not configured the current network", buf, 0x16u);
+          *&buf[14] = v70;
+          v71 = v69;
+          _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_INFO, "%@ [%@] has not configured the current network", buf, 0x16u);
         }
 
-        v73 = self->_connection;
-        v74 = xpc_connection_copy_entitlement_value();
+        v72 = xpc_connection_copy_entitlement_value();
         if ((NEGetEntitlement() & 3) != 0)
         {
-          v76 = [LSPlugInKitProxy pluginKitProxyForIdentifier:objc_getProperty(self, v75, 32, 1)];
-          v77 = v76;
-          if (v76)
+          v74 = [LSPlugInKitProxy pluginKitProxyForIdentifier:objc_getProperty(self, v73, 32, 1)];
+          v75 = v74;
+          if (v74)
           {
-            protocol = [v76 protocol];
-            v79 = ([protocol isEqualToString:@"com.apple.networkextension.app-proxy"] & 1) != 0 || objc_msgSend(protocol, "isEqualToString:", @"com.apple.networkextension.packet-tunnel");
+            protocol = [v74 protocol];
+            v77 = ([protocol isEqualToString:@"com.apple.networkextension.app-proxy"] & 1) != 0 || objc_msgSend(protocol, "isEqualToString:", @"com.apple.networkextension.packet-tunnel");
           }
 
           else
           {
-            v79 = 0;
+            v77 = 0;
           }
         }
 
         else
         {
-          v79 = 0;
+          v77 = 0;
         }
 
-        v56 = ne_log_obj();
-        v83 = os_log_type_enabled(v56, OS_LOG_TYPE_INFO);
-        if (!v79)
+        v55 = ne_log_obj();
+        v81 = os_log_type_enabled(v55, OS_LOG_TYPE_INFO);
+        if (!v77)
         {
-          if (v83)
+          if (v81)
           {
-            v86 = objc_opt_class();
-            v87 = self->_bundleID;
+            v84 = objc_opt_class();
+            v85 = self->_bundleID;
             *buf = 138412546;
-            *&buf[4] = v86;
+            *&buf[4] = v84;
             *&buf[12] = 2112;
-            *&buf[14] = v87;
-            v88 = v86;
-            _os_log_impl(&_mh_execute_header, v56, OS_LOG_TYPE_INFO, "%@ [%@] is not a VPN provider", buf, 0x16u);
+            *&buf[14] = v85;
+            v86 = v84;
+            _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_INFO, "%@ [%@] is not a VPN provider", buf, 0x16u);
           }
 
           *buf = _NSConcreteStackBlock;
@@ -362,49 +360,49 @@ LABEL_81:
           *&buf[16] = sub_100009BB4;
           *&buf[24] = &unk_10003D360;
           selfCopy = self;
-          v96 = v11;
-          v97 = v28;
-          v89 = buf;
-          v90 = +[NEConfigurationManager sharedManagerForAllUsers];
+          v94 = v11;
+          v95 = v28;
+          v87 = buf;
+          v88 = +[NEConfigurationManager sharedManagerForAllUsers];
           queue = self->_queue;
-          *v98 = _NSConcreteStackBlock;
-          *&v98[8] = 3221225472;
-          *&v98[16] = sub_10000A1C0;
-          *&v98[24] = &unk_10003CE10;
+          *v96 = _NSConcreteStackBlock;
+          *&v96[8] = 3221225472;
+          *&v96[16] = sub_10000A1C0;
+          *&v96[24] = &unk_10003CE10;
           selfCopy2 = self;
-          v92 = v89;
-          v100 = v92;
-          [v90 loadConfigurations:0 withFilter:0 completionQueue:queue completionHandler:v98];
+          v90 = v87;
+          v98 = v90;
+          [v88 loadConfigurations:0 withFilter:0 completionQueue:queue completionHandler:v96];
 
           goto LABEL_84;
         }
 
-        if (!v83)
+        if (!v81)
         {
           goto LABEL_82;
         }
 
-        v84 = objc_opt_class();
-        v85 = self->_bundleID;
+        v82 = objc_opt_class();
+        v83 = self->_bundleID;
         *buf = 138412546;
-        *&buf[4] = v84;
+        *&buf[4] = v82;
         *&buf[12] = 2112;
-        *&buf[14] = v85;
-        v60 = v84;
-        v61 = "%@ [%@] is a VPN provider";
+        *&buf[14] = v83;
+        v59 = v82;
+        v60 = "%@ [%@] is a VPN provider";
         goto LABEL_81;
       }
 
-      if (v67)
+      if (v66)
       {
-        v68 = objc_opt_class();
-        v69 = self->_bundleID;
+        v67 = objc_opt_class();
+        v68 = self->_bundleID;
         *buf = 138412546;
-        *&buf[4] = v68;
+        *&buf[4] = v67;
         *&buf[12] = 2112;
-        *&buf[14] = v69;
-        v60 = v68;
-        v61 = "%@ [%@] has configured the current network";
+        *&buf[14] = v68;
+        v59 = v67;
+        v60 = "%@ [%@] has configured the current network";
         goto LABEL_81;
       }
     }

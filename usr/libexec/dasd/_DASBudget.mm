@@ -1,4 +1,6 @@
 @interface _DASBudget
++ (id)budgetWithName:(id)name capacity:(double)capacity allocationType:(unsigned __int8)type lastModulatedDate:(id)date;
++ (id)budgetWithName:(id)name capacity:(double)capacity balance:(double)balance allocationType:(unsigned __int8)type lastModulatedDate:(id)date;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)unlockedDecrementBy:(double)by whileModulatingBudget:(BOOL)budget;
 - (_DASBudget)initWithCoder:(id)coder;
@@ -101,6 +103,26 @@ LABEL_11:
 LABEL_13:
 
   return selfCopy;
+}
+
++ (id)budgetWithName:(id)name capacity:(double)capacity allocationType:(unsigned __int8)type lastModulatedDate:(id)date
+{
+  typeCopy = type;
+  dateCopy = date;
+  nameCopy = name;
+  v11 = [objc_alloc(objc_opt_class()) initWithName:nameCopy capacity:typeCopy balance:dateCopy allocationType:capacity lastModulatedDate:capacity];
+
+  return v11;
+}
+
++ (id)budgetWithName:(id)name capacity:(double)capacity balance:(double)balance allocationType:(unsigned __int8)type lastModulatedDate:(id)date
+{
+  typeCopy = type;
+  dateCopy = date;
+  nameCopy = name;
+  v13 = [objc_alloc(objc_opt_class()) initWithName:nameCopy capacity:typeCopy balance:dateCopy allocationType:capacity lastModulatedDate:balance];
+
+  return v13;
 }
 
 - (id)dictionaryRepresentation

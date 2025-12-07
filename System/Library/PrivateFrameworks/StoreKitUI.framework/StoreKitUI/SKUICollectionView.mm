@@ -204,7 +204,7 @@
   [(SKUICollectionView *)self bounds];
   v4 = v3;
   rect_24 = v5;
-  v37 = v3;
+  v39 = v3;
   v6 = v5;
   v8 = v7;
   rect_8 = v9;
@@ -219,45 +219,45 @@
   v20 = v19;
   rect = v19;
   v22 = v21;
-  v39.origin.x = v12;
-  v39.origin.y = v14;
-  v39.size.width = v16;
-  v39.size.height = v18;
-  v23 = CGRectGetWidth(v39) * 0.25;
-  v40.origin.x = v12;
-  v40.origin.y = v14;
-  v40.size.width = v16;
-  v40.size.height = v18;
-  Height = CGRectGetHeight(v40);
+  v41.origin.x = v12;
+  v41.origin.y = v14;
+  v41.size.width = v16;
+  v41.size.height = v18;
+  v23 = CGRectGetWidth(v41) * 0.25;
+  v42.origin.x = v12;
+  v42.origin.y = v14;
+  v42.size.width = v16;
+  v42.size.height = v18;
+  Height = CGRectGetHeight(v42);
   [(SKUIIndexBarControl *)self->_indexBarControl sizeThatFits:v23, Height];
   v26 = v25;
-  v41.size.height = v27;
-  v41.origin.x = v20;
-  v41.origin.y = v22;
-  v41.size.width = v26;
-  v28 = CGRectGetHeight(v41);
+  v43.size.height = v27;
+  v43.origin.x = v20;
+  v43.origin.y = v22;
+  v43.size.width = v26;
+  v28 = CGRectGetHeight(v43);
   if (v28 >= Height)
   {
     Height = v28;
   }
 
-  v42.origin.x = v12;
-  v42.origin.y = v14;
-  v42.size.width = v16;
-  v42.size.height = v18;
-  MaxX = CGRectGetMaxX(v42);
-  v43.origin.x = rect;
-  v43.origin.y = v22;
-  v43.size.width = v26;
-  v43.size.height = Height;
-  v30 = MaxX - CGRectGetWidth(v43);
   v44.origin.x = v12;
   v44.origin.y = v14;
   v44.size.width = v16;
   v44.size.height = v18;
-  MinY = CGRectGetMinY(v44);
+  MaxX = CGRectGetMaxX(v44);
+  v45.origin.x = rect;
+  v45.origin.y = v22;
+  v45.size.width = v26;
+  v45.size.height = Height;
+  v30 = MaxX - CGRectGetWidth(v45);
+  v46.origin.x = v12;
+  v46.origin.y = v14;
+  v46.size.width = v16;
+  v46.size.height = v18;
+  MinY = CGRectGetMinY(v46);
   indexBarControl = self->_indexBarControl;
-  SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v30, MinY, v26, Height, v37, rect_24, rect_16, rect_8);
+  SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v30, MinY, v26, Height, v39, rect_24, rect_16, rect_8, v33, v34);
 
   [(SKUIIndexBarControl *)indexBarControl setFrame:?];
 }

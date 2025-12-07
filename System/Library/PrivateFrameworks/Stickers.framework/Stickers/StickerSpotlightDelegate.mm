@@ -29,7 +29,7 @@
   sub_1B8A23BB4();
   *(&self->super.super.isa + OBJC_IVAR____TtC8Stickers24StickerSpotlightDelegate____lazy_storage___failedIndexingManager) = 0;
   v10.receiver = self;
-  v10.super_class = type metadata accessor for StickerSpotlightDelegate();
+  v10.super_class = type metadata accessor for StickerSpotlightDelegate(0);
   v8 = [(NSCoreDataCoreSpotlightDelegate *)&v10 initForStoreWithDescription:descriptionCopy coordinator:coordinatorCopy];
 
   return v8;

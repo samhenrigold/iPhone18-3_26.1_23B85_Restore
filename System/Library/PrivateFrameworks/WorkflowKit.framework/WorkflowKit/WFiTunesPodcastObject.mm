@@ -25,20 +25,18 @@
 
 + (id)JSONKeyPathsByPropertyKey
 {
-  v9[2] = *MEMORY[0x1E69E9840];
-  v7.receiver = self;
-  v7.super_class = &OBJC_METACLASS___WFiTunesPodcastObject;
-  v2 = objc_msgSendSuper2(&v7, sel_JSONKeyPathsByPropertyKey);
+  v8[2] = *MEMORY[0x1E69E9840];
+  v6.receiver = self;
+  v6.super_class = &OBJC_METACLASS___WFiTunesPodcastObject;
+  v2 = objc_msgSendSuper2(&v6, sel_JSONKeyPathsByPropertyKey);
   v3 = [v2 mutableCopy];
 
+  v7[0] = @"podcastUUID";
+  v7[1] = @"feedURL";
   v8[0] = @"podcastUUID";
-  v8[1] = @"feedURL";
-  v9[0] = @"podcastUUID";
-  v9[1] = @"feedUrl";
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:2];
+  v8[1] = @"feedUrl";
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:2];
   [v3 addEntriesFromDictionary:v4];
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v3;
 }

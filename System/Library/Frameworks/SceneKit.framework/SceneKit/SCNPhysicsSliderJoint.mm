@@ -623,7 +623,7 @@ float __47__SCNPhysicsSliderJoint_setMotorMaximumTorque___block_invoke(uint64_t 
 
   if (!v8)
   {
-    v9 = scn_default_log();
+    v9 = scn_default_log(self, a2);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [SCNPhysicsHingeJoint _addToPhysicsWorld:v9 definition:?];
@@ -643,7 +643,7 @@ float __47__SCNPhysicsSliderJoint_setMotorMaximumTorque___block_invoke(uint64_t 
   v13 = *&definition->var0[48];
   v15[2] = *&definition->var0[32];
   v15[3] = v13;
-  self->_constraint = _createConstraintFromDefinition(v15);
+  self->_constraint = _createConstraintFromDefinition(v15, a2);
   _handle = [world _handle];
   (*(*_handle + 112))(_handle, self->_constraint, 0);
 }

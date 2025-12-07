@@ -655,16 +655,16 @@ LABEL_7:
   dispatch_async(MEMORY[0x277D85CD0], block);
 }
 
-uint64_t __61__CABTMIDILocalPeripheralViewController_advertiseTimerFired___block_invoke(uint64_t a1)
+void *__61__CABTMIDILocalPeripheralViewController_advertiseTimerFired___block_invoke(uint64_t a1)
 {
   v2 = [*(*(a1 + 32) + 992) isAdvertising];
   result = *(a1 + 32);
   if (*(result + 1016) == v2)
   {
-    v4 = *(result + 1040);
+    v4 = result[130];
     if (v4 >= 1)
     {
-      *(result + 1040) = v4 - 1;
+      result[130] = v4 - 1;
       goto LABEL_13;
     }
 

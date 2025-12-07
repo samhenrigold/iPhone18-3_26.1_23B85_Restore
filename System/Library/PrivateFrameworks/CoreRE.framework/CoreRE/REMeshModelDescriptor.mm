@@ -13,10 +13,10 @@
 
 - (REMeshModelDescriptor)initWithMeshAssetModel:(const void *)model inverseBindPoseAttributes:(id)attributes deformerBuilders:(void *)builders payloadBuilder:(void *)builder deformationModelData:(void *)data
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v68 = *MEMORY[0x1E69E9840];
   attributesCopy = attributes;
-  v48 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v49 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v52 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v53 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v9 = *(model + 26);
   if (v9)
   {
@@ -29,33 +29,44 @@
       v14 = *(model + 26);
       if (v14 <= v11)
       {
-        v61 = 0u;
-        v62 = 0u;
-        v59 = 0u;
-        v60 = 0u;
-        v58 = 0u;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+        v54 = 0;
+        v66 = 0u;
+        v67 = 0u;
+        v64 = 0u;
+        v65 = 0u;
+        v63 = 0u;
+        v44 = MEMORY[0x1E69E9C10];
         *buf = 136315906;
-        v51 = "operator[]";
-        v52 = 1024;
-        v53 = 797;
-        v54 = 2048;
-        v55 = v11;
-        v56 = 2048;
-        v57 = v14;
-        _os_log_send_and_compose_impl();
+        v56 = "operator[]";
+        v57 = 1024;
+        if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+        {
+          v45 = 3;
+        }
+
+        else
+        {
+          v45 = 2;
+        }
+
+        v58 = 797;
+        v59 = 2048;
+        v60 = v11;
+        v61 = 2048;
+        v62 = v14;
+        _os_log_send_and_compose_impl(v45, &v54, &v63, 80, &dword_1E1C61000, v44, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", buf, 38, v46, data);
         _os_crash_msg();
         __break(1u);
       }
 
-      if (v11 >= *(model + 21) || (v15 = *(model + 23), v16 = *(v15 + v10), v60 = 0u, v61 = 0u, v58 = 0u, v59 = 0u, v16 == -1))
+      if (v11 >= *(model + 21) || (v15 = *(model + 23), v16 = *(v15 + v10), v65 = 0u, v66 = 0u, v63 = 0u, v64 = 0u, v16 == -1))
       {
         v21 = v13[1];
-        v58 = *v13;
-        v59 = v21;
+        v63 = *v13;
+        v64 = v21;
         v22 = v13[3];
-        v60 = v13[2];
-        v61 = v22;
+        v65 = v13[2];
+        v66 = v22;
       }
 
       else
@@ -64,14 +75,14 @@
         v18 = v17[6];
         v19 = v17[7];
         v20 = v17[8];
-        v58 = v17[5];
-        v59 = v18;
-        v60 = v19;
-        v61 = v20;
+        v63 = v17[5];
+        v64 = v18;
+        v65 = v19;
+        v66 = v20;
       }
 
       v23 = *(model + 28);
-      v24 = [[REMeshPartDescriptor alloc] initWithMeshAssetPart:v23 + v12 - 80 partTransform:&v58 payloadBuilder:builder];
+      v24 = [[REMeshPartDescriptor alloc] initWithMeshAssetPart:v23 + v12 - 80 partTransform:&v63 payloadBuilder:builder];
       if (!v24)
       {
         break;
@@ -79,7 +90,7 @@
 
       v25 = [*builder count];
       v26 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v25];
-      [v48 addObject:v26];
+      [v52 addObject:v26];
 
       [*builder addObject:v24];
       ++v11;
@@ -126,7 +137,7 @@ LABEL_10:
     {
 LABEL_26:
       v40 = [MEMORY[0x1E696AEC0] stringWithUTF8String:*(model + 1)];
-      self = -[REMeshModelDescriptor initWithName:modelPartIndexToResourcePartIndexMap:skeletonCount:skinningModel:blendShapeModel:lods:boundingBoxMin:boundingBoxMax:](self, "initWithName:modelPartIndexToResourcePartIndexMap:skeletonCount:skinningModel:blendShapeModel:lods:boundingBoxMin:boundingBoxMax:", v40, v48, [attributesCopy count], builder, v27, v49, *(model + 2), *(model + 4));
+      self = -[REMeshModelDescriptor initWithName:modelPartIndexToResourcePartIndexMap:skeletonCount:skinningModel:blendShapeModel:lods:boundingBoxMin:boundingBoxMax:](self, "initWithName:modelPartIndexToResourcePartIndexMap:skeletonCount:skinningModel:blendShapeModel:lods:boundingBoxMin:boundingBoxMax:", v40, v52, [attributesCopy count], builder, v27, v53, *(model + 2), *(model + 4));
 
       selfCopy = self;
       goto LABEL_27;
@@ -148,7 +159,7 @@ LABEL_25:
       LODWORD(v37) = *v31;
       LODWORD(v38) = *(v31 + 4);
       v39 = [(REMeshLevelOfDetailDescriptor *)v36 initWithPartIndicesOnModel:v34 minScreenArea:v37 maxViewDepth:v38];
-      [v49 addObject:v39];
+      [v53 addObject:v39];
 
       v31 += 48;
       if (v31 == v32)
@@ -175,29 +186,39 @@ LABEL_25:
       }
     }
 
-    v61 = 0u;
-    v62 = 0u;
-    v59 = 0u;
-    v60 = 0u;
-    v58 = 0u;
+    v54 = 0;
+    v66 = 0u;
+    v67 = 0u;
+    v64 = 0u;
+    v65 = 0u;
+    v63 = 0u;
     v28 = MEMORY[0x1E69E9C10];
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
     *buf = 136315906;
-    v51 = "operator[]";
-    v52 = 1024;
-    v53 = 797;
-    v54 = 2048;
-    v55 = v12;
-    v56 = 2048;
-    v57 = v23;
-    _os_log_send_and_compose_impl();
+    v56 = "operator[]";
+    v57 = 1024;
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v42 = 3;
+    }
+
+    else
+    {
+      v42 = 2;
+    }
+
+    v58 = 797;
+    v59 = 2048;
+    v60 = v12;
+    v61 = 2048;
+    v62 = v23;
+    _os_log_send_and_compose_impl(v42, &v54, &v63, 80, &dword_1E1C61000, v28, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", buf, 38, v46, data);
     _os_crash_msg();
     __break(1u);
   }
 
-  v42 = *(v23 + v12);
+  v43 = *(v23 + v12);
   *buf = 136315138;
-  v51 = v42;
+  v56 = v43;
   _os_log_error_impl(&dword_1E1C61000, v28, OS_LOG_TYPE_ERROR, "Failed to create REMeshPartDescriptor for part %s", buf, 0xCu);
 LABEL_17:
 
@@ -209,128 +230,187 @@ LABEL_27:
 
 - (REMeshModelDescriptor)initWithResourceDefinitionModel:(const void *)model inverseBindPoseAttributes:(id)attributes deformerBuilders:(void *)builders payloadBuilder:(void *)builder levels:(DynamicArray<re:(void *)levels :MeshResourceDefinition::Level> *)a7 deformationModelData:
 {
+  buildersCopy = builders;
+  v62 = *MEMORY[0x1E69E9840];
   attributesCopy = attributes;
-  v12 = *(model + 16);
-  v13 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v13 = *(model + 16);
+  var2 = objc_alloc_init(MEMORY[0x1E695DF70]);
   levelsCopy = levels;
-  v41 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v12];
-  if (v12)
+  v47 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v13];
+  if (v13)
   {
-    v14 = 0;
-    while (*(model + 16) > v14)
+    v15 = 0;
+    while (1)
     {
-      v15 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:*(*(model + 18) + 8 * v14)];
-      [v41 addObject:v15];
+      v16 = *(model + 16);
+      if (v16 <= v15)
+      {
+        break;
+      }
 
-      if (v12 == ++v14)
+      v17 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:*(*(model + 18) + 8 * v15)];
+      [v47 addObject:v17];
+
+      if (v13 == ++v15)
       {
         goto LABEL_5;
       }
     }
 
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
+    v48 = 0;
+    v60 = 0u;
+    v61 = 0u;
+    v58 = 0u;
+    v59 = 0u;
+    v57 = 0u;
+    v36 = MEMORY[0x1E69E9C10];
+    v49 = 136315906;
+    v50 = "operator[]";
+    v51 = 1024;
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v37 = 3;
+    }
+
+    else
+    {
+      v37 = 2;
+    }
+
+    v52 = 797;
+    v53 = 2048;
+    v54 = v15;
+    v55 = 2048;
+    v56 = v16;
+    _os_log_send_and_compose_impl(v37, &v48, &v57, 80, &dword_1E1C61000, v36, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v49, 38, buildersCopy, levelsCopy);
     _os_crash_msg();
     __break(1u);
-LABEL_23:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
+LABEL_26:
+    v48 = 0;
+    v60 = 0u;
+    v61 = 0u;
+    v58 = 0u;
+    v59 = 0u;
+    v57 = 0u;
+    v38 = MEMORY[0x1E69E9C10];
+    v39 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    v49 = 136315906;
+    v50 = "operator[]";
+    v51 = 1024;
+    if (v39)
+    {
+      v40 = 3;
+    }
+
+    else
+    {
+      v40 = 2;
+    }
+
+    v52 = 789;
+    v53 = 2048;
+    v54 = v8;
+    v55 = 2048;
+    v56 = var2;
+    _os_log_send_and_compose_impl(v40, &v48, &v57, 80, &dword_1E1C61000, v38, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v49, 38, buildersCopy, levelsCopy);
     _os_crash_msg();
     __break(1u);
   }
 
 LABEL_5:
   builderCopy = builder;
-  v40 = v13;
+  v46 = var2;
   if (*(model + 2))
   {
-    v16 = 0;
+    v8 = 0;
     do
     {
-      v17 = *(model + 4) + 40 * v16;
-      v18 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:*(v17 + 16)];
-      v19 = *(v17 + 16);
-      if (v19)
+      v18 = *(model + 4) + 40 * v8;
+      v19 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:*(v18 + 16)];
+      v20 = *(v18 + 16);
+      if (v20)
       {
-        v20 = *(v17 + 32);
-        v21 = 8 * v19;
+        v21 = *(v18 + 32);
+        v22 = 8 * v20;
         do
         {
-          v22 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*v20];
-          [v18 addObject:v22];
+          v23 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*v21];
+          [v19 addObject:v23];
 
-          ++v20;
-          v21 -= 8;
+          ++v21;
+          v22 -= 8;
         }
 
-        while (v21);
+        while (v22);
       }
 
-      v23 = [REMeshLevelOfDetailDescriptor alloc];
-      if (a7->var2 <= v16)
+      v24 = [REMeshLevelOfDetailDescriptor alloc];
+      var2 = a7->var2;
+      if (var2 <= v8)
       {
-        goto LABEL_23;
+        goto LABEL_26;
       }
 
-      v26 = (a7->var4 + 8 * v16);
-      LODWORD(v24) = *v26;
-      LODWORD(v25) = v26[1];
-      v27 = [(REMeshLevelOfDetailDescriptor *)v23 initWithPartIndicesOnModel:v18 minScreenArea:v24 maxViewDepth:v25];
-      v13 = v40;
-      [v40 addObject:v27];
+      v27 = (a7->var4 + 8 * v8);
+      LODWORD(v25) = *v27;
+      LODWORD(v26) = v27[1];
+      v28 = [(REMeshLevelOfDetailDescriptor *)v24 initWithPartIndicesOnModel:v19 minScreenArea:v25 maxViewDepth:v26];
+      var2 = v46;
+      [v46 addObject:v28];
     }
 
-    while (++v16 < *(model + 2));
+    while (++v8 < *(model + 2));
   }
 
-  v28 = *(model + 21);
-  v29 = 0;
-  if ([attributesCopy count] && v28)
+  v29 = *(model + 21);
+  v30 = 0;
+  if ([attributesCopy count] && v29)
   {
-    v29 = [[REMeshSkinningModelDescriptor alloc] initWithSkinningData:model + 152 inverseBindPoseAttributes:attributesCopy deformerBuilders:builders payloadBuilder:builderCopy];
+    v30 = [[REMeshSkinningModelDescriptor alloc] initWithSkinningData:model + 152 inverseBindPoseAttributes:attributesCopy deformerBuilders:buildersCopy payloadBuilder:builderCopy];
   }
 
   if (*(model + 26))
   {
-    v30 = -[REMeshBlendShapeModelDescriptor initWithBlendShapeData:meshPartCount:payloadBuilder:deformationModelData:]([REMeshBlendShapeModelDescriptor alloc], "initWithBlendShapeData:meshPartCount:payloadBuilder:deformationModelData:", model + 192, [v41 count], builderCopy, levelsCopy);
+    v31 = -[REMeshBlendShapeModelDescriptor initWithBlendShapeData:meshPartCount:payloadBuilder:deformationModelData:]([REMeshBlendShapeModelDescriptor alloc], "initWithBlendShapeData:meshPartCount:payloadBuilder:deformationModelData:", model + 192, [v47 count], builderCopy, levelsCopy);
   }
 
   else
   {
-    v30 = 0;
+    v31 = 0;
   }
 
   if (*(model + 6))
   {
-    v31 = *(model + 7);
+    v32 = *(model + 7);
   }
 
   else
   {
-    v31 = model + 49;
+    v32 = model + 49;
   }
 
-  v32 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v31];
-  v33 = -[REMeshModelDescriptor initWithName:modelPartIndexToResourcePartIndexMap:skeletonCount:skinningModel:blendShapeModel:lods:boundingBoxMin:boundingBoxMax:](self, "initWithName:modelPartIndexToResourcePartIndexMap:skeletonCount:skinningModel:blendShapeModel:lods:boundingBoxMin:boundingBoxMax:", v32, v41, [attributesCopy count], v29, v30, v13, *(model + 10), *(model + 12));
+  v33 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v32];
+  v34 = -[REMeshModelDescriptor initWithName:modelPartIndexToResourcePartIndexMap:skeletonCount:skinningModel:blendShapeModel:lods:boundingBoxMin:boundingBoxMax:](self, "initWithName:modelPartIndexToResourcePartIndexMap:skeletonCount:skinningModel:blendShapeModel:lods:boundingBoxMin:boundingBoxMax:", v33, v47, [attributesCopy count], v30, v31, var2, *(model + 10), *(model + 12));
 
-  return v33;
+  return v34;
 }
 
 - (MeshModel)meshModelWithMeshModelContext:(SEL)context inverseBindPoseBuffers:(MeshModelContext *)buffers allocator:(const void *)allocator
 {
-  v123 = *MEMORY[0x1E69E9840];
+  allocatorCopy = allocator;
+  v135 = *MEMORY[0x1E69E9840];
   modelPartIndexToResourcePartIndexMap = [(REMeshModelDescriptor *)self modelPartIndexToResourcePartIndexMap];
   v8 = [modelPartIndexToResourcePartIndexMap count];
 
-  v102 = 0uLL;
-  v103 = 0;
-  re::FixedArray<re::MeshPart>::init<>(&v102, a6, v8);
+  v114 = 0uLL;
+  v115 = 0;
+  re::FixedArray<re::MeshPart>::init<>(&v114, a6, v8);
   selfCopy2 = self;
   if (v8)
   {
     v10 = 0;
     v11 = 0;
-    perMeshPartBlendShapeBufferIndex2 = &v116;
+    perMeshPartBlendShapeBufferIndex2 = &v128;
     do
     {
       modelPartIndexToResourcePartIndexMap2 = [(REMeshModelDescriptor *)selfCopy2 modelPartIndexToResourcePartIndexMap];
@@ -340,32 +420,32 @@ LABEL_5:
       v16 = v15;
       if (v15)
       {
-        [v15 meshPartWithPayloadBuffer:buffers->var1 partIndexInModel:v11];
+        objc_msgSend_meshPartWithPayloadBuffer_partIndexInModel_(v15);
       }
 
       else
       {
-        bzero(&v116, 0x220uLL);
+        bzero(&v128, 0x220uLL);
       }
 
-      v17 = *(&v102 + 1);
-      if (*(&v102 + 1) <= v11)
+      v17 = *(&v114 + 1);
+      if (*(&v114 + 1) <= v11)
       {
-        goto LABEL_62;
+        goto LABEL_68;
       }
 
-      v18 = re::MeshPart::operator=(v103 + v10, &v116);
-      if (v116.var0[12].var1.var0.var0.var0[0])
+      v18 = re::MeshPart::operator=(v115 + v10, &v128);
+      if (v128.var0[12].var1.var0.var0.var0[0])
       {
-        if (v116.var0[12].var1.var0.var0.var0[0])
+        if (v128.var0[12].var1.var0.var0.var0[0])
         {
         }
       }
 
-      *&v116.var0[12].var1.var0.var0.var0[8] = &str_67;
-      *v116.var0[12].var1.var0.var0.var0 = 0;
-      re::FixedArray<re::StringID>::deinit(v116.var0[8].var1.var0.var0.var0);
-      re::AttributeTable::~AttributeTable(&v116);
+      *&v128.var0[12].var1.var0.var0.var0[8] = &str_67;
+      *v128.var0[12].var1.var0.var0.var0 = 0;
+      re::FixedArray<re::StringID>::deinit(v128.var0[8].var1.var0.var0.var0);
+      re::AttributeTable::~AttributeTable(&v128);
 
       ++v11;
       v10 += 544;
@@ -378,122 +458,165 @@ LABEL_5:
   lods = [(REMeshModelDescriptor *)selfCopy2 lods];
   v20 = [lods count];
 
-  v100 = 0uLL;
-  v101 = 0;
-  re::FixedArray<re::BindPoint>::init<>(&v100, a6, v20);
-  v80 = v20;
+  v112 = 0uLL;
+  v113 = 0;
+  re::FixedArray<re::BindPoint>::init<>(&v112, a6, v20);
+  v92 = v20;
   if (v20)
   {
     v11 = 0;
     v21 = 48;
     do
     {
-      perMeshPartBlendShapeBufferIndex2 = *(&v100 + 1);
-      if (*(&v100 + 1) <= v11)
+      perMeshPartBlendShapeBufferIndex2 = *(&v112 + 1);
+      if (*(&v112 + 1) <= v11)
       {
-        goto LABEL_63;
+        goto LABEL_72;
       }
 
-      perMeshPartBlendShapeBufferIndex2 = v101;
+      perMeshPartBlendShapeBufferIndex2 = v113;
       lods2 = [(REMeshModelDescriptor *)self lods];
       v23 = [lods2 objectAtIndexedSubscript:v11];
 
-      v98 = 0u;
-      v99 = 0u;
-      v96 = 0u;
-      v97 = 0u;
+      v110 = 0u;
+      v111 = 0u;
+      v108 = 0u;
+      v109 = 0u;
       modelPartIndices = [v23 modelPartIndices];
-      v25 = [modelPartIndices countByEnumeratingWithState:&v96 objects:v117 count:16];
+      v25 = [modelPartIndices countByEnumeratingWithState:&v108 objects:v129 count:16];
       if (!v25)
       {
         goto LABEL_22;
       }
 
-      v26 = *v97;
+      v26 = *v109;
       do
       {
         for (i = 0; i != v25; ++i)
         {
-          if (*v97 != v26)
+          if (*v109 != v26)
           {
             objc_enumerationMutation(modelPartIndices);
           }
 
-          v28 = *(&v100 + 1);
-          if (*(&v100 + 1) <= v11)
+          v28 = *(&v112 + 1);
+          if (*(&v112 + 1) <= v11)
           {
-            *v118 = 0;
-            memset(&v116, 0, 80);
-            os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-            LODWORD(v107[0]) = 136315906;
-            *(v107 + 4) = "operator[]";
-            WORD6(v107[0]) = 1024;
-            *(v107 + 14) = 468;
-            WORD1(v107[1]) = 2048;
-            *(&v107[1] + 4) = v11;
-            WORD6(v107[1]) = 2048;
-            *(&v107[1] + 14) = v28;
-            _os_log_send_and_compose_impl();
+            *v130 = 0;
+            memset(&v128, 0, 80);
+            v78 = MEMORY[0x1E69E9C10];
+            v79 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+            LODWORD(v119[0]) = 136315906;
+            *(v119 + 4) = "operator[]";
+            WORD6(v119[0]) = 1024;
+            if (v79)
+            {
+              v80 = 3;
+            }
+
+            else
+            {
+              v80 = 2;
+            }
+
+            *(v119 + 14) = 468;
+            WORD1(v119[1]) = 2048;
+            *(&v119[1] + 4) = v11;
+            WORD6(v119[1]) = 2048;
+            *(&v119[1] + 14) = v28;
+            _os_log_send_and_compose_impl(v80, v130, &v128, 80, &dword_1E1C61000, v78, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v119, 38, v89, allocatorCopy);
             _os_crash_msg();
             __break(1u);
-LABEL_61:
-            v104 = 0;
-            v108 = 0u;
-            v109 = 0u;
-            memset(v107, 0, sizeof(v107));
+LABEL_64:
+            v116 = 0;
+            v120 = 0u;
+            v121 = 0u;
+            memset(v119, 0, sizeof(v119));
             v17 = MEMORY[0x1E69E9C10];
-            os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-            *v118 = 136315906;
-            *&v118[4] = "operator[]";
-            *&v118[12] = 1024;
-            *&v118[14] = 468;
-            v119 = 2048;
-            v120 = v21;
-            v121 = 2048;
-            v122 = v28;
-            _os_log_send_and_compose_impl();
+            v81 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+            *v130 = 136315906;
+            *&v130[4] = "operator[]";
+            *&v130[12] = 1024;
+            if (v81)
+            {
+              v82 = 3;
+            }
+
+            else
+            {
+              v82 = 2;
+            }
+
+            *&v130[14] = 468;
+            v131 = 2048;
+            v132 = v21;
+            v133 = 2048;
+            v134 = v28;
+            _os_log_send_and_compose_impl(v82, &v116, v119, 80, &dword_1E1C61000, v17, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v130, 38, v89, allocatorCopy);
             _os_crash_msg();
             __break(1u);
-LABEL_62:
-            *&v100 = 0;
-            v108 = 0u;
-            v109 = 0u;
-            memset(v107, 0, sizeof(v107));
-            os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-            *v118 = 136315906;
-            *&v118[4] = "operator[]";
-            *&v118[12] = 1024;
-            *&v118[14] = 468;
-            v119 = 2048;
-            v120 = v11;
-            v121 = 2048;
-            v122 = v17;
-            _os_log_send_and_compose_impl();
+LABEL_68:
+            *&v112 = 0;
+            v120 = 0u;
+            v121 = 0u;
+            memset(v119, 0, sizeof(v119));
+            v83 = MEMORY[0x1E69E9C10];
+            v84 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+            *v130 = 136315906;
+            *&v130[4] = "operator[]";
+            *&v130[12] = 1024;
+            if (v84)
+            {
+              v85 = 3;
+            }
+
+            else
+            {
+              v85 = 2;
+            }
+
+            *&v130[14] = 468;
+            v131 = 2048;
+            v132 = v11;
+            v133 = 2048;
+            v134 = v17;
+            _os_log_send_and_compose_impl(v85, &v112, v119, 80, &dword_1E1C61000, v83, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v130, 38, v89, allocatorCopy);
             _os_crash_msg();
             __break(1u);
-LABEL_63:
-            *v118 = 0;
-            memset(&v116, 0, 80);
-            os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-            LODWORD(v107[0]) = 136315906;
-            *(v107 + 4) = "operator[]";
-            WORD6(v107[0]) = 1024;
-            *(v107 + 14) = 468;
-            WORD1(v107[1]) = 2048;
-            *(&v107[1] + 4) = v11;
-            WORD6(v107[1]) = 2048;
-            *(&v107[1] + 14) = perMeshPartBlendShapeBufferIndex2;
-            _os_log_send_and_compose_impl();
+LABEL_72:
+            *v130 = 0;
+            memset(&v128, 0, 80);
+            v86 = MEMORY[0x1E69E9C10];
+            v87 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+            LODWORD(v119[0]) = 136315906;
+            *(v119 + 4) = "operator[]";
+            WORD6(v119[0]) = 1024;
+            if (v87)
+            {
+              v88 = 3;
+            }
+
+            else
+            {
+              v88 = 2;
+            }
+
+            *(v119 + 14) = 468;
+            WORD1(v119[1]) = 2048;
+            *(&v119[1] + 4) = v11;
+            WORD6(v119[1]) = 2048;
+            *(&v119[1] + 14) = perMeshPartBlendShapeBufferIndex2;
+            _os_log_send_and_compose_impl(v88, v130, &v128, 80, &dword_1E1C61000, v86, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v119, 38, v89, allocatorCopy);
             _os_crash_msg();
             __break(1u);
           }
 
-          v29 = v101;
-          v116.var0[0].var0 = [*(*(&v96 + 1) + 8 * i) unsignedIntValue];
-          re::DynamicArray<re::TransitionCondition *>::add(&v29[48 * v11 + 8], &v116);
+          v29 = v113;
+          v128.var0[0].var0 = [*(*(&v108 + 1) + 8 * i) unsignedIntValue];
+          re::DynamicArray<re::TransitionCondition *>::add(&v29[48 * v11 + 8], &v128);
         }
 
-        v25 = [modelPartIndices countByEnumeratingWithState:&v96 objects:v117 count:16];
+        v25 = [modelPartIndices countByEnumeratingWithState:&v108 objects:v129 count:16];
       }
 
       while (v25);
@@ -508,12 +631,12 @@ LABEL_22:
       ++v11;
     }
 
-    while (v11 != v80);
+    while (v11 != v92);
   }
 
   for (j = 0; j != 720; j += 40)
   {
-    v34 = (&v116 + j);
+    v34 = (&v128 + j);
     v34->var0[0].var0 = 0;
     v34->var0[0].var1.var0.var1 = 0;
   }
@@ -523,57 +646,57 @@ LABEL_22:
 
   if (!v36)
   {
-    DWORD2(v107[2]) = 1;
-    *&v109 = 0;
-    v108 = 0uLL;
-    DWORD2(v109) = 0;
-    v110[1] = 0;
-    v110[0] = 0;
-    v111 = 1;
-    v114 = 0;
-    v112 = 0;
-    v113 = 0;
-    v115 = 0;
-    *&v107[2] = 0;
-    *&v107[0] = a6;
-    *(&v107[1] + 1) = 0;
-    *(v107 + 8) = *allocator;
-    re::BucketArray<re::SkinningModelBuilder::RawSkinnedMeshPartData,4ul>::init(&v107[1] + 8, a6, 1uLL);
-    re::BucketArray<re::SkinningModelBuilder::PreparedSkinnedMeshPartData,4ul>::init(v110, a6, 1uLL);
-    v94 = 0u;
-    v95 = 0u;
-    v92 = 0u;
-    v93 = 0u;
+    DWORD2(v119[2]) = 1;
+    *&v121 = 0;
+    v120 = 0uLL;
+    DWORD2(v121) = 0;
+    v122[1] = 0;
+    v122[0] = 0;
+    v123 = 1;
+    v126 = 0;
+    v124 = 0;
+    v125 = 0;
+    v127 = 0;
+    *&v119[2] = 0;
+    *&v119[0] = a6;
+    *(&v119[1] + 1) = 0;
+    *(v119 + 8) = *allocatorCopy;
+    re::BucketArray<re::SkinningModelBuilder::RawSkinnedMeshPartData,4ul>::init(&v119[1] + 8, a6, 1uLL);
+    re::BucketArray<re::SkinningModelBuilder::PreparedSkinnedMeshPartData,4ul>::init(v122, a6, 1uLL);
+    v106 = 0u;
+    v107 = 0u;
+    v104 = 0u;
+    v105 = 0u;
     skinningModel2 = [(REMeshModelDescriptor *)self skinningModel];
     skinningParts = [skinningModel2 skinningParts];
 
-    v39 = [skinningParts countByEnumeratingWithState:&v92 objects:v106 count:16];
+    v39 = [skinningParts countByEnumeratingWithState:&v104 objects:v118 count:16];
     if (v39)
     {
-      v40 = *v93;
+      v40 = *v105;
       do
       {
         for (k = 0; k != v39; ++k)
         {
-          if (*v93 != v40)
+          if (*v105 != v40)
           {
             objc_enumerationMutation(skinningParts);
           }
 
-          [*(*(&v92 + 1) + 8 * k) addToSkinningModelBuilder:v107 payloadBuffers:buffers->var1];
+          [*(*(&v104 + 1) + 8 * k) addToSkinningModelBuilder:v119 payloadBuffers:buffers->var1];
         }
 
-        v39 = [skinningParts countByEnumeratingWithState:&v92 objects:v106 count:16];
+        v39 = [skinningParts countByEnumeratingWithState:&v104 objects:v118 count:16];
       }
 
       while (v39);
     }
 
-    *v118 = 0;
-    re::SkinningModelBuilder::buildDeformationModel(v107, v118, &v116);
+    *v130 = 0;
+    re::SkinningModelBuilder::buildDeformationModel(v119, v130, &v128);
 
-    re::BucketArray<re::SkinningModelBuilder::PreparedSkinnedMeshPartData,4ul>::~BucketArray(v110);
-    re::BucketArray<re::SkinningModelBuilder::RawSkinnedMeshPartData,4ul>::~BucketArray(&v107[1] + 8);
+    re::BucketArray<re::SkinningModelBuilder::PreparedSkinnedMeshPartData,4ul>::~BucketArray(v122);
+    re::BucketArray<re::SkinningModelBuilder::RawSkinnedMeshPartData,4ul>::~BucketArray(&v119[1] + 8);
   }
 
   blendShapeModel = [(REMeshModelDescriptor *)self blendShapeModel];
@@ -581,45 +704,45 @@ LABEL_22:
 
   if (!v43)
   {
-    v89 = 0;
-    v90 = 0;
-    v91 = 0;
+    v101 = 0;
+    v102 = 0;
+    v103 = 0;
     blendShapeModel2 = [(REMeshModelDescriptor *)self blendShapeModel];
     perMeshPartBlendShapeBufferIndex = [blendShapeModel2 perMeshPartBlendShapeBufferIndex];
-    re::FixedArray<int>::init<>(&v89, a6, [perMeshPartBlendShapeBufferIndex count]);
+    re::FixedArray<int>::init<>(&v101, a6, [perMeshPartBlendShapeBufferIndex count]);
 
-    v87 = 0u;
-    v88 = 0u;
-    v85 = 0u;
-    v86 = 0u;
+    v99 = 0u;
+    v100 = 0u;
+    v97 = 0u;
+    v98 = 0u;
     blendShapeModel3 = [(REMeshModelDescriptor *)self blendShapeModel];
     perMeshPartBlendShapeBufferIndex2 = [blendShapeModel3 perMeshPartBlendShapeBufferIndex];
 
-    v47 = [perMeshPartBlendShapeBufferIndex2 countByEnumeratingWithState:&v85 objects:v105 count:16];
+    v47 = [perMeshPartBlendShapeBufferIndex2 countByEnumeratingWithState:&v97 objects:v117 count:16];
     if (v47)
     {
       v21 = 0;
-      v11 = *v86;
+      v11 = *v98;
       do
       {
         for (m = 0; m != v47; ++m)
         {
-          if (*v86 != v11)
+          if (*v98 != v11)
           {
             objc_enumerationMutation(perMeshPartBlendShapeBufferIndex2);
           }
 
-          unsignedIntValue = [*(*(&v85 + 1) + 8 * m) unsignedIntValue];
-          v28 = v90;
-          if (v90 <= v21)
+          unsignedIntValue = [*(*(&v97 + 1) + 8 * m) unsignedIntValue];
+          v28 = v102;
+          if (v102 <= v21)
           {
-            goto LABEL_61;
+            goto LABEL_64;
           }
 
-          *(v91 + 4 * v21++) = unsignedIntValue;
+          *(v103 + 4 * v21++) = unsignedIntValue;
         }
 
-        v47 = [perMeshPartBlendShapeBufferIndex2 countByEnumeratingWithState:&v85 objects:v105 count:16];
+        v47 = [perMeshPartBlendShapeBufferIndex2 countByEnumeratingWithState:&v97 objects:v117 count:16];
       }
 
       while (v47);
@@ -628,10 +751,10 @@ LABEL_22:
     blendShapeModel4 = [(REMeshModelDescriptor *)self blendShapeModel];
     v51 = [blendShapeModel4 blendShapeIndexType] != 0;
 
-    *v118 = 0;
+    *v130 = 0;
     blendShapeModel5 = [(REMeshModelDescriptor *)self blendShapeModel];
     blendShapeBuffers = [blendShapeModel5 blendShapeBuffers];
-    re::BlendShapeModelBuilder::BlendShapeModelBuilder(v107, a6, v118, [blendShapeBuffers count], v51, &v89, &v116);
+    re::BlendShapeModelBuilder::BlendShapeModelBuilder(v119, a6, v130, [blendShapeBuffers count], v51, &v101, &v128);
 
     blendShapeModel6 = [(REMeshModelDescriptor *)self blendShapeModel];
     blendShapeBuffers2 = [blendShapeModel6 blendShapeBuffers];
@@ -653,28 +776,28 @@ LABEL_22:
         {
           v64 = v63;
           uTF8String = [v63 UTF8String];
-          *v118 = 0;
-          *&v118[8] = &str_67;
+          *v130 = 0;
+          *&v130[8] = &str_67;
         }
 
         else
         {
-          re::StringID::invalid(v118);
+          re::StringID::invalid(v130);
         }
 
-        v66 = [v60 addToBlendShapeModelBuilder:v107 blendShapeIndex:n blendShapeGroupName:v118 payloadBuffers:buffers->var1];
-        if (v118[0])
+        v66 = [v60 addToBlendShapeModelBuilder:v119 blendShapeIndex:n blendShapeGroupName:v130 payloadBuffers:buffers->var1];
+        if (v130[0])
         {
-          if (v118[0])
+          if (v130[0])
           {
           }
         }
       }
     }
 
-    if (v89 && v90)
+    if (v101 && v102)
     {
-      (*(*v89 + 40))();
+      (*(*v101 + 40))();
     }
   }
 
@@ -684,30 +807,30 @@ LABEL_22:
   *&retstr->var0.var0 = 0;
   retstr->var0.var1 = &str_67;
   [(REMeshModelDescriptor *)self boundingBoxMin];
-  v82 = v70;
+  v94 = v70;
   [(REMeshModelDescriptor *)self boundingBoxMax];
-  *&retstr->var2.var1 = v102;
-  *&retstr->var1.var0.var0.var0.var0 = v82;
+  *&retstr->var2.var1 = v114;
+  *&retstr->var1.var0.var0.var0.var0 = v94;
   *&retstr->var1.var1.var0.var1[1] = v71;
-  v102 = 0uLL;
-  *&retstr->var3.var0.var0.var0.var0.var0 = v103;
-  v103 = 0;
+  v114 = 0uLL;
+  *&retstr->var3.var0.var0.var0.var0.var0 = v115;
+  v115 = 0;
   [(REMeshModelDescriptor *)self boundingBoxMin];
-  v83 = v72;
+  v95 = v72;
   [(REMeshModelDescriptor *)self boundingBoxMax];
   v73 = 0;
-  *&retstr->var3.var0.var1.var0.var1[1] = v83;
+  *&retstr->var3.var0.var1.var0.var1[1] = v95;
   *&retstr->var3.var1.var1 = v74;
-  *&retstr->var4.var0[0].var0 = v100;
-  v100 = 0uLL;
-  *&retstr->var4.var0[0].var1.var0.var0.var0[8] = v101;
-  v101 = 0;
+  *&retstr->var4.var0[0].var0 = v112;
+  v112 = 0uLL;
+  *&retstr->var4.var0[0].var1.var0.var0.var0[8] = v113;
+  v113 = 0;
   do
   {
-    var0 = v116.var0[v73].var0;
-    v116.var0[v73].var0 = 0;
+    var0 = v128.var0[v73].var0;
+    v128.var0[v73].var0 = 0;
     retstr->var4.var0[v73].var1.var0.var1 = var0;
-    std::__function::__value_func<void ()(void *)>::__value_func[abi:nn200100](&retstr->var4.var0[v73 + 1], &v116.var0[v73].var1);
+    std::__function::__value_func<void ()(void *)>::__value_func[abi:nn200100](&retstr->var4.var0[v73 + 1], &v128.var0[v73].var1);
     ++v73;
   }
 
@@ -715,11 +838,11 @@ LABEL_22:
 
   for (ii = 680; ii != -40; ii -= 40)
   {
-    std::unique_ptr<void,std::function<void ()(void *)>>::~unique_ptr[abi:nn200100]((&v116 + ii));
+    std::unique_ptr<void,std::function<void ()(void *)>>::~unique_ptr[abi:nn200100]((&v128 + ii));
   }
 
-  re::FixedArray<re::MeshLodLevelInfo>::deinit(&v100);
-  return re::FixedArray<re::MeshPart>::deinit(&v102);
+  re::FixedArray<re::MeshLodLevelInfo>::deinit(&v112);
+  return re::FixedArray<re::MeshPart>::deinit(&v114);
 }
 
 - (REMeshModelDescriptor)initWithName:(REMeshModelDescriptor *)self modelPartIndexToResourcePartIndexMap:(SEL)map skeletonCount:(id)count skinningModel:(id)model blendShapeModel:(unsigned int)shapeModel lods:(id)lods boundingBoxMin:(id)min boundingBoxMax:(id)max
@@ -882,16 +1005,16 @@ LABEL_14:
 
 - (BOOL)validateWithParts:(id)parts payloadSize:(FixedInlineArray<unsigned)long error:(8UL> *)error
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   partsCopy = parts;
   v9 = [(_anonymous_namespace_ *)partsCopy count];
   v10 = [(NSArray *)self->_modelPartIndexToResourcePartIndexMap count];
-  v39 = 1;
-  v40 = 0;
+  v42 = 1;
+  v43 = 0;
+  v44 = 0;
   v41 = 0;
-  v38 = 0;
-  re::DynamicOverflowArray<unsigned long long,3ul>::setCapacity(&v37, 0);
-  v39 += 2;
+  re::DynamicOverflowArray<unsigned long long,3ul>::setCapacity(&v40, 0);
+  v42 += 2;
   if ((v9 & 0x3F) != 0)
   {
     v11 = (v9 >> 6) + 1;
@@ -902,11 +1025,11 @@ LABEL_14:
     v11 = v9 >> 6;
   }
 
-  v42 = v9;
-  *&v53[0] = 0;
-  re::DynamicOverflowArray<unsigned long long,3ul>::resize(&v37, v11, v53);
+  v45 = v9;
+  *&v56[0] = 0;
+  re::DynamicOverflowArray<unsigned long long,3ul>::resize(&v40, v11, v56);
   errorCopy = error;
-  v32 = partsCopy;
+  v35 = partsCopy;
   if (v10)
   {
     v12 = 0;
@@ -927,28 +1050,39 @@ LABEL_14:
       }
 
       v16 = unsignedIntegerValue >> 6;
-      v17 = v38;
-      if (v38 <= unsignedIntegerValue >> 6)
+      v17 = v41;
+      if (v41 <= unsignedIntegerValue >> 6)
       {
-        v43 = 0;
-        memset(v53, 0, sizeof(v53));
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        v45 = 136315906;
-        v46 = "operator[]";
-        v47 = 1024;
-        v48 = 866;
-        v49 = 2048;
-        v50 = v16;
-        v51 = 2048;
-        v52 = v17;
-        _os_log_send_and_compose_impl();
+        v46 = 0;
+        memset(v56, 0, sizeof(v56));
+        v31 = MEMORY[0x1E69E9C10];
+        v32 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+        v48 = 136315906;
+        v49 = "operator[]";
+        v50 = 1024;
+        if (v32)
+        {
+          v33 = 3;
+        }
+
+        else
+        {
+          v33 = 2;
+        }
+
+        v51 = 866;
+        v52 = 2048;
+        v53 = v16;
+        v54 = 2048;
+        v55 = v17;
+        _os_log_send_and_compose_impl(v33, &v46, v56, 80, &dword_1E1C61000, v31, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v48, 38, errorCopy, v35);
         _os_crash_msg();
         __break(1u);
       }
 
-      if (v39)
+      if (v42)
       {
-        v19 = *(&v40 + v16);
+        v19 = *(&v43 + v16);
         v20 = 1 << unsignedIntegerValue;
         if ((v19 & (1 << unsignedIntegerValue)) != 0)
         {
@@ -956,13 +1090,13 @@ LABEL_33:
           goto LABEL_34;
         }
 
-        v18 = &v40;
+        v18 = &v43;
       }
 
       else
       {
-        v18 = v41;
-        v19 = v41[v16];
+        v18 = v44;
+        v19 = v44[v16];
         v20 = 1 << unsignedIntegerValue;
         if ((v19 & (1 << unsignedIntegerValue)) != 0)
         {
@@ -986,40 +1120,40 @@ LABEL_32:
 
 LABEL_15:
   skinningModel = self->_skinningModel;
-  v23 = v32;
-  if (skinningModel && ![(REMeshSkinningModelDescriptor *)skinningModel validateWithPayloadSize:errorCopy partsOnResource:v32 modelPartIndexToResourcePartIndex:self->_modelPartIndexToResourcePartIndexMap skeletonCount:self->_skeletonCount error:a5]|| (blendShapeModel = self->_blendShapeModel) != 0 && ![(REMeshBlendShapeModelDescriptor *)blendShapeModel validateWithPayloadSize:errorCopy partCountOnModel:v10 error:a5])
+  v23 = v35;
+  if (skinningModel && ![(REMeshSkinningModelDescriptor *)skinningModel validateWithPayloadSize:errorCopy partsOnResource:v35 modelPartIndexToResourcePartIndex:self->_modelPartIndexToResourcePartIndexMap skeletonCount:self->_skeletonCount error:a5]|| (blendShapeModel = self->_blendShapeModel) != 0 && ![(REMeshBlendShapeModelDescriptor *)blendShapeModel validateWithPayloadSize:errorCopy partCountOnModel:v10 error:a5])
   {
     v28 = 0;
   }
 
   else if ([(NSArray *)self->_lods count])
   {
-    v35 = 0u;
+    v38 = 0u;
+    v39 = 0u;
     v36 = 0u;
-    v33 = 0u;
-    v34 = 0u;
+    v37 = 0u;
     v14 = self->_lods;
-    v25 = [(NSArray *)v14 countByEnumeratingWithState:&v33 objects:v44 count:16];
+    v25 = [(NSArray *)v14 countByEnumeratingWithState:&v36 objects:v47 count:16];
     if (v25)
     {
-      v26 = *v34;
+      v26 = *v37;
 LABEL_22:
       v27 = 0;
       while (1)
       {
-        if (*v34 != v26)
+        if (*v37 != v26)
         {
           objc_enumerationMutation(v14);
         }
 
-        if (([*(*(&v33 + 1) + 8 * v27) validateWithModelPartCount:-[_anonymous_namespace_ count](v32 error:{"count"), a5}] & 1) == 0)
+        if (([*(*(&v36 + 1) + 8 * v27) validateWithModelPartCount:-[_anonymous_namespace_ count](v35 error:{"count"), a5}] & 1) == 0)
         {
           break;
         }
 
         if (v25 == ++v27)
         {
-          v25 = [(NSArray *)v14 countByEnumeratingWithState:&v33 objects:v44 count:16];
+          v25 = [(NSArray *)v14 countByEnumeratingWithState:&v36 objects:v47 count:16];
           v28 = 1;
           if (v25)
           {
@@ -1041,7 +1175,7 @@ LABEL_34:
 
 LABEL_35:
 
-    v23 = v32;
+    v23 = v35;
   }
 
   else
@@ -1049,9 +1183,9 @@ LABEL_35:
     v28 = 1;
   }
 
-  if (v37 && (v39 & 1) == 0)
+  if (v40 && (v42 & 1) == 0)
   {
-    (*(*v37 + 40))();
+    (*(*v40 + 40))();
   }
 
   return v28;

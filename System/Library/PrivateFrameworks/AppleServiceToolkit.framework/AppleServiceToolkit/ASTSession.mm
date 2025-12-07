@@ -8,6 +8,7 @@
 + (void)sessionExistsForIdentities:(id)identities ticketNumber:(id)number timeout:(double)timeout completion:(id)completion;
 + (void)sessionExistsForIdentities:(id)identities ticketNumber:(id)number timeout:(double)timeout completionHandler:(id)handler;
 + (void)sessionExistsForSerialNumbers:(id)numbers ticketNumber:(id)number timeout:(double)timeout completionHandler:(id)handler;
++ (void)sessionStatusForIdentities:(id)identities ticketNumber:(id)number timeout:(double)timeout requestQueuedSuiteInfo:(BOOL)info completionHandler:(id)handler;
 - (ASTSession)initWithContext:(id)context;
 - (ASTSession)initWithIdentity:(id)identity;
 - (ASTSession)initWithSerialNumber:(id)number;
@@ -180,46 +181,45 @@
 
 + (void)sessionExistsForSerialNumbers:(id)numbers ticketNumber:(id)number timeout:(double)timeout completionHandler:(id)handler
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   numbersCopy = numbers;
   numberCopy = number;
   handlerCopy = handler;
   v12 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(numbersCopy, "count")}];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v13 = numbersCopy;
-  v14 = [v13 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v21;
+    v16 = *v20;
     do
     {
       v17 = 0;
       do
       {
-        if (*v21 != v16)
+        if (*v20 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = [ASTIdentity identityWithSerialNumber:*(*(&v20 + 1) + 8 * v17), v20];
+        v18 = [ASTIdentity identityWithSerialNumber:*(*(&v19 + 1) + 8 * v17), v19];
         [v12 addObject:v18];
 
         ++v17;
       }
 
       while (v15 != v17);
-      v15 = [v13 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v15);
   }
 
   [objc_opt_class() sessionExistsForIdentities:v12 ticketNumber:numberCopy timeout:handlerCopy completionHandler:timeout];
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 + (void)sessionExistsForIdentities:(id)identities ticketNumber:(id)number completionHandler:(id)handler
@@ -265,6 +265,19 @@ void __73__ASTSession_sessionExistsForIdentities_ticketNumber_timeout_completion
   (*(*(a1 + 32) + 16))();
 }
 
++ (void)sessionStatusForIdentities:(id)identities ticketNumber:(id)number timeout:(double)timeout requestQueuedSuiteInfo:(BOOL)info completionHandler:(id)handler
+{
+  infoCopy = info;
+  handlerCopy = handler;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __103__ASTSession_sessionStatusForIdentities_ticketNumber_timeout_requestQueuedSuiteInfo_completionHandler___block_invoke;
+  v13[3] = &unk_278CBCF68;
+  v14 = handlerCopy;
+  v12 = handlerCopy;
+  [ASTRemoteServerSession sessionStatusForIdentities:identities ticketNumber:number timeout:infoCopy requestQueuedSuiteInfo:v13 completionHandler:timeout];
+}
+
 void __103__ASTSession_sessionStatusForIdentities_ticketNumber_timeout_requestQueuedSuiteInfo_completionHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
   v6 = a4;
@@ -275,7 +288,7 @@ void __103__ASTSession_sessionStatusForIdentities_ticketNumber_timeout_requestQu
 
 - (void)startWithMode:(int)mode
 {
-  v78 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   objc_initWeak(&location, self);
   v5 = ASTLogHandleForCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -288,11 +301,11 @@ void __103__ASTSession_sessionStatusForIdentities_ticketNumber_timeout_requestQu
   destinations = [(ASTSession *)self destinations];
   v7 = [ASTSelfServiceDestination alloc];
   v8 = [(ASTSelfServiceDestination *)v7 initWithEndpoint:1 suites:MEMORY[0x277CBEBF8]];
-  v75[0] = v8;
+  v74[0] = v8;
   v9 = [ASTSelfServiceDestination alloc];
   v10 = [(ASTSelfServiceDestination *)v9 initWithEndpoint:2 suites:MEMORY[0x277CBEBF8]];
-  v75[1] = v10;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v75 count:2];
+  v74[1] = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v74 count:2];
   v12 = [destinations isEqualToArray:v11];
 
   if (v12)
@@ -307,8 +320,8 @@ void __103__ASTSession_sessionStatusForIdentities_ticketNumber_timeout_requestQu
 
   else if (mode == 2 || (isASTGuidedSession & 1) == 0)
   {
-    v21 = dispatch_group_create();
-    [(ASTSession *)self setSessionStartDispatchGroup:v21];
+    v20 = dispatch_group_create();
+    [(ASTSession *)self setSessionStartDispatchGroup:v20];
 
     if (mode == 2)
     {
@@ -317,15 +330,15 @@ void __103__ASTSession_sessionStatusForIdentities_ticketNumber_timeout_requestQu
 
     startedSessions = [(ASTSession *)self startedSessions];
     serverSession = [(ASTSession *)self serverSession];
-    v24 = [startedSessions containsObject:serverSession];
+    v23 = [startedSessions containsObject:serverSession];
 
-    if (v24)
+    if (v23)
     {
-      v25 = ASTLogHandleForCategory(0);
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+      v24 = ASTLogHandleForCategory(0);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_240F3C000, v25, OS_LOG_TYPE_DEFAULT, "Skipping starting a server session as it has already been started", buf, 2u);
+        _os_log_impl(&dword_240F3C000, v24, OS_LOG_TYPE_DEFAULT, "Skipping starting a server session as it has already been started", buf, 2u);
       }
     }
 
@@ -334,13 +347,13 @@ void __103__ASTSession_sessionStatusForIdentities_ticketNumber_timeout_requestQu
       sessionStartDispatchGroup = [(ASTSession *)self sessionStartDispatchGroup];
       dispatch_group_enter(sessionStartDispatchGroup);
 
-      v27 = dispatch_get_global_queue(0, 0);
+      v26 = dispatch_get_global_queue(0, 0);
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __28__ASTSession_startWithMode___block_invoke_23;
       block[3] = &unk_278CBCFB0;
       block[4] = self;
-      dispatch_async(v27, block);
+      dispatch_async(v26, block);
     }
 
     if (mode != 1)
@@ -348,15 +361,15 @@ void __103__ASTSession_sessionStatusForIdentities_ticketNumber_timeout_requestQu
 LABEL_21:
       startedSessions2 = [(ASTSession *)self startedSessions];
       repairSession = [(ASTSession *)self repairSession];
-      v30 = [startedSessions2 containsObject:repairSession];
+      v29 = [startedSessions2 containsObject:repairSession];
 
-      if (v30)
+      if (v29)
       {
-        v31 = ASTLogHandleForCategory(0);
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+        v30 = ASTLogHandleForCategory(0);
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_240F3C000, v31, OS_LOG_TYPE_DEFAULT, "Skipping starting a repair session as it has already been started", buf, 2u);
+          _os_log_impl(&dword_240F3C000, v30, OS_LOG_TYPE_DEFAULT, "Skipping starting a repair session as it has already been started", buf, 2u);
         }
       }
 
@@ -365,60 +378,60 @@ LABEL_21:
         sessionStartDispatchGroup2 = [(ASTSession *)self sessionStartDispatchGroup];
         dispatch_group_enter(sessionStartDispatchGroup2);
 
-        v33 = dispatch_get_global_queue(0, 0);
-        v72[0] = MEMORY[0x277D85DD0];
-        v72[1] = 3221225472;
-        v72[2] = __28__ASTSession_startWithMode___block_invoke_25;
-        v72[3] = &unk_278CBCFB0;
-        v72[4] = self;
-        dispatch_async(v33, v72);
+        v32 = dispatch_get_global_queue(0, 0);
+        v71[0] = MEMORY[0x277D85DD0];
+        v71[1] = 3221225472;
+        v71[2] = __28__ASTSession_startWithMode___block_invoke_25;
+        v71[3] = &unk_278CBCFB0;
+        v71[4] = self;
+        dispatch_async(v32, v71);
       }
     }
 
     sessionStartDispatchGroup3 = [(ASTSession *)self sessionStartDispatchGroup];
-    v35 = dispatch_time(0, 300000000000);
-    dispatch_group_wait(sessionStartDispatchGroup3, v35);
+    v34 = dispatch_time(0, 300000000000);
+    dispatch_group_wait(sessionStartDispatchGroup3, v34);
 
     [(ASTSession *)self setSessionStartDispatchGroup:0];
-    v36 = dispatch_group_create();
+    v35 = dispatch_group_create();
     repairSession2 = [(ASTSession *)self repairSession];
     if (repairSession2)
     {
       startedSessions3 = [(ASTSession *)self startedSessions];
       repairSession3 = [(ASTSession *)self repairSession];
-      v40 = [startedSessions3 containsObject:repairSession3];
+      v39 = [startedSessions3 containsObject:repairSession3];
 
-      if (v40)
+      if (v39)
       {
         destinations2 = [(ASTSession *)self destinations];
-        v42 = [ASTSelfServiceDestination alloc];
-        v43 = [(ASTSelfServiceDestination *)v42 initWithEndpoint:2 suites:MEMORY[0x277CBEBF8]];
-        v44 = [destinations2 containsObject:v43];
+        v41 = [ASTSelfServiceDestination alloc];
+        v42 = [(ASTSelfServiceDestination *)v41 initWithEndpoint:2 suites:MEMORY[0x277CBEBF8]];
+        v43 = [destinations2 containsObject:v42];
 
-        if (v44)
+        if (v43)
         {
-          v45 = ASTLogHandleForCategory(0);
-          if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+          v44 = ASTLogHandleForCategory(0);
+          if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_240F3C000, v45, OS_LOG_TYPE_DEFAULT, "Skipping getting suites for repair destination as they have already been obtained", buf, 2u);
+            _os_log_impl(&dword_240F3C000, v44, OS_LOG_TYPE_DEFAULT, "Skipping getting suites for repair destination as they have already been obtained", buf, 2u);
           }
         }
 
         else
         {
-          dispatch_group_enter(v36);
+          dispatch_group_enter(v35);
           repairSession4 = [(ASTSession *)self repairSession];
-          v69[0] = MEMORY[0x277D85DD0];
-          v69[1] = 3221225472;
-          v69[2] = __28__ASTSession_startWithMode___block_invoke_26;
-          v69[3] = &unk_278CBCFD8;
-          objc_copyWeak(&v71, &location);
-          v69[4] = self;
-          v70 = v36;
-          [repairSession4 requestSuitesAvailableWithCompletionHandler:v69];
+          v68[0] = MEMORY[0x277D85DD0];
+          v68[1] = 3221225472;
+          v68[2] = __28__ASTSession_startWithMode___block_invoke_26;
+          v68[3] = &unk_278CBCFD8;
+          objc_copyWeak(&v70, &location);
+          v68[4] = self;
+          v69 = v35;
+          [repairSession4 requestSuitesAvailableWithCompletionHandler:v68];
 
-          objc_destroyWeak(&v71);
+          objc_destroyWeak(&v70);
         }
       }
     }
@@ -428,61 +441,61 @@ LABEL_21:
     {
       startedSessions4 = [(ASTSession *)self startedSessions];
       serverSession3 = [(ASTSession *)self serverSession];
-      v50 = [startedSessions4 containsObject:serverSession3];
+      v49 = [startedSessions4 containsObject:serverSession3];
 
-      if (v50)
+      if (v49)
       {
         destinations3 = [(ASTSession *)self destinations];
-        v52 = [ASTSelfServiceDestination alloc];
-        v53 = [(ASTSelfServiceDestination *)v52 initWithEndpoint:1 suites:MEMORY[0x277CBEBF8]];
-        v54 = [destinations3 containsObject:v53];
+        v51 = [ASTSelfServiceDestination alloc];
+        v52 = [(ASTSelfServiceDestination *)v51 initWithEndpoint:1 suites:MEMORY[0x277CBEBF8]];
+        v53 = [destinations3 containsObject:v52];
 
-        if (v54)
+        if (v53)
         {
-          v55 = ASTLogHandleForCategory(0);
-          if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
+          v54 = ASTLogHandleForCategory(0);
+          if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_240F3C000, v55, OS_LOG_TYPE_DEFAULT, "Skipping getting suites for AST2 destination as they have already been obtained", buf, 2u);
+            _os_log_impl(&dword_240F3C000, v54, OS_LOG_TYPE_DEFAULT, "Skipping getting suites for AST2 destination as they have already been obtained", buf, 2u);
           }
         }
 
         else
         {
-          dispatch_group_enter(v36);
+          dispatch_group_enter(v35);
           serverSession4 = [(ASTSession *)self serverSession];
-          v66[0] = MEMORY[0x277D85DD0];
-          v66[1] = 3221225472;
-          v66[2] = __28__ASTSession_startWithMode___block_invoke_28;
-          v66[3] = &unk_278CBCFD8;
-          objc_copyWeak(&v68, &location);
-          v66[4] = self;
-          v67 = v36;
-          [serverSession4 requestSuitesAvailableWithCompletionHandler:v66];
+          v65[0] = MEMORY[0x277D85DD0];
+          v65[1] = 3221225472;
+          v65[2] = __28__ASTSession_startWithMode___block_invoke_28;
+          v65[3] = &unk_278CBCFD8;
+          objc_copyWeak(&v67, &location);
+          v65[4] = self;
+          v66 = v35;
+          [serverSession4 requestSuitesAvailableWithCompletionHandler:v65];
 
-          objc_destroyWeak(&v68);
+          objc_destroyWeak(&v67);
         }
       }
     }
 
-    v57 = dispatch_time(0, 5000000000);
-    dispatch_group_wait(v36, v57);
+    v56 = dispatch_time(0, 5000000000);
+    dispatch_group_wait(v35, v56);
 
     delegate = [(ASTSession *)self delegate];
-    v59 = objc_opt_respondsToSelector();
+    v58 = objc_opt_respondsToSelector();
 
-    if (v59)
+    if (v58)
     {
       delegate2 = [(ASTSession *)self delegate];
       destinations4 = [(ASTSession *)self destinations];
-      v64[0] = MEMORY[0x277D85DD0];
-      v64[1] = 3221225472;
-      v64[2] = __28__ASTSession_startWithMode___block_invoke_29;
-      v64[3] = &unk_278CBD000;
-      objc_copyWeak(&v65, &location);
-      [delegate2 session:self didRequestSuiteRunWithDestinations:destinations4 confirmation:v64];
+      v63[0] = MEMORY[0x277D85DD0];
+      v63[1] = 3221225472;
+      v63[2] = __28__ASTSession_startWithMode___block_invoke_29;
+      v63[3] = &unk_278CBD000;
+      objc_copyWeak(&v64, &location);
+      [delegate2 session:self didRequestSuiteRunWithDestinations:destinations4 confirmation:v63];
 
-      objc_destroyWeak(&v65);
+      objc_destroyWeak(&v64);
     }
 
     else
@@ -499,11 +512,11 @@ LABEL_21:
 
   else
   {
-    v15 = ASTLogHandleForCategory(0);
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v14 = ASTLogHandleForCategory(0);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_240F3C000, v15, OS_LOG_TYPE_DEFAULT, "Guided session was detected.", buf, 2u);
+      _os_log_impl(&dword_240F3C000, v14, OS_LOG_TYPE_DEFAULT, "Guided session was detected.", buf, 2u);
     }
 
     serverSession6 = [(ASTSession *)self serverSession];
@@ -514,9 +527,9 @@ LABEL_21:
 
     [(ASTSession *)self setRepairSession:0];
     delegate3 = [(ASTSession *)self delegate];
-    v19 = objc_opt_respondsToSelector();
+    v18 = objc_opt_respondsToSelector();
 
-    if (v19)
+    if (v18)
     {
       delegate4 = [(ASTSession *)self delegate];
       [delegate4 session:self didRequestSuiteRunWithDestinations:MEMORY[0x277CBEBF8] confirmation:&__block_literal_global_0];
@@ -524,7 +537,6 @@ LABEL_21:
   }
 
   objc_destroyWeak(&location);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __28__ASTSession_startWithMode___block_invoke_23(uint64_t a1)
@@ -549,7 +561,7 @@ void __28__ASTSession_startWithMode___block_invoke_25(uint64_t a1)
 
 void __28__ASTSession_startWithMode___block_invoke_26(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
@@ -558,9 +570,9 @@ void __28__ASTSession_startWithMode___block_invoke_26(uint64_t a1, void *a2, voi
     v8 = ASTLogHandleForCategory(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 138412290;
-      v18 = v5;
-      _os_log_impl(&dword_240F3C000, v8, OS_LOG_TYPE_DEFAULT, "Repaird returned suites to run: %@", &v17, 0xCu);
+      v16 = 138412290;
+      v17 = v5;
+      _os_log_impl(&dword_240F3C000, v8, OS_LOG_TYPE_DEFAULT, "Repaird returned suites to run: %@", &v16, 0xCu);
     }
 
     v9 = [[ASTSelfServiceDestination alloc] initWithEndpoint:2 suites:v5];
@@ -574,25 +586,25 @@ void __28__ASTSession_startWithMode___block_invoke_26(uint64_t a1, void *a2, voi
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       v13 = [WeakRetained destinations];
-      v17 = 138412290;
-      v18 = v13;
-      _os_log_impl(&dword_240F3C000, v12, OS_LOG_TYPE_DEFAULT, "Destinations available: %@", &v17, 0xCu);
+      v16 = 138412290;
+      v17 = v13;
+      _os_log_impl(&dword_240F3C000, v12, OS_LOG_TYPE_DEFAULT, "Destinations available: %@", &v16, 0xCu);
     }
   }
 
   else
   {
     v9 = ASTLogHandleForCategory(0);
-    v16 = os_log_type_enabled(&v9->super, OS_LOG_TYPE_ERROR);
+    v15 = os_log_type_enabled(&v9->super, OS_LOG_TYPE_ERROR);
     if (v6)
     {
-      if (v16)
+      if (v15)
       {
         __28__ASTSession_startWithMode___block_invoke_26_cold_1();
       }
     }
 
-    else if (v16)
+    else if (v15)
     {
       __28__ASTSession_startWithMode___block_invoke_26_cold_2();
     }
@@ -603,13 +615,11 @@ void __28__ASTSession_startWithMode___block_invoke_26(uint64_t a1, void *a2, voi
   {
     dispatch_group_leave(v14);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __28__ASTSession_startWithMode___block_invoke_28(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
@@ -618,9 +628,9 @@ void __28__ASTSession_startWithMode___block_invoke_28(uint64_t a1, void *a2, voi
     v8 = ASTLogHandleForCategory(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 138412290;
-      v18 = v5;
-      _os_log_impl(&dword_240F3C000, v8, OS_LOG_TYPE_DEFAULT, "AST returned suites to run: %@", &v17, 0xCu);
+      v16 = 138412290;
+      v17 = v5;
+      _os_log_impl(&dword_240F3C000, v8, OS_LOG_TYPE_DEFAULT, "AST returned suites to run: %@", &v16, 0xCu);
     }
 
     v9 = [[ASTSelfServiceDestination alloc] initWithEndpoint:1 suites:v5];
@@ -634,25 +644,25 @@ void __28__ASTSession_startWithMode___block_invoke_28(uint64_t a1, void *a2, voi
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       v13 = [WeakRetained destinations];
-      v17 = 138412290;
-      v18 = v13;
-      _os_log_impl(&dword_240F3C000, v12, OS_LOG_TYPE_DEFAULT, "Destinations available: %@", &v17, 0xCu);
+      v16 = 138412290;
+      v17 = v13;
+      _os_log_impl(&dword_240F3C000, v12, OS_LOG_TYPE_DEFAULT, "Destinations available: %@", &v16, 0xCu);
     }
   }
 
   else
   {
     v9 = ASTLogHandleForCategory(0);
-    v16 = os_log_type_enabled(&v9->super, OS_LOG_TYPE_ERROR);
+    v15 = os_log_type_enabled(&v9->super, OS_LOG_TYPE_ERROR);
     if (v6)
     {
-      if (v16)
+      if (v15)
       {
         __28__ASTSession_startWithMode___block_invoke_28_cold_1();
       }
     }
 
-    else if (v16)
+    else if (v15)
     {
       __28__ASTSession_startWithMode___block_invoke_28_cold_2();
     }
@@ -663,8 +673,6 @@ void __28__ASTSession_startWithMode___block_invoke_28(uint64_t a1, void *a2, voi
   {
     dispatch_group_leave(v14);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __28__ASTSession_startWithMode___block_invoke_29(uint64_t a1, uint64_t a2)
@@ -979,7 +987,7 @@ LABEL_19:
 
 - (void)sessionDidStart:(id)start
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   startCopy = start;
   serverSession = [(ASTSession *)self serverSession];
   v6 = serverSession;
@@ -1021,14 +1029,12 @@ LABEL_19:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     startedSessions2 = [(ASTSession *)selfCopy startedSessions];
-    v15 = 138412290;
-    v16 = startedSessions2;
-    _os_log_impl(&dword_240F3C000, v8, OS_LOG_TYPE_DEFAULT, "Started sessions: %@", &v15, 0xCu);
+    v14 = 138412290;
+    v15 = startedSessions2;
+    _os_log_impl(&dword_240F3C000, v8, OS_LOG_TYPE_DEFAULT, "Started sessions: %@", &v14, 0xCu);
   }
 
 LABEL_10:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)session:(id)session generateAuthInfoWithNonce:(id)nonce
@@ -1124,7 +1130,7 @@ LABEL_10:
 
 - (void)fetchAsset:(id)asset sessionClass:(Class)class serverURL:(id)l endpoint:(id)endpoint completionHandler:(id)handler
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   assetCopy = asset;
   lCopy = l;
   endpointCopy = endpoint;
@@ -1143,9 +1149,9 @@ LABEL_10:
     if (-[ASTSession shouldEvictCachedAssetForName:](selfCopy, "shouldEvictCachedAssetForName:", assetCopy) && ([MEMORY[0x277CCAA00] defaultManager], v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_msgSend(v18, "fileExistsAtPath:", path), v18, v19))
     {
       defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-      v42 = 0;
-      v21 = [defaultManager removeItemAtPath:path error:&v42];
-      v22 = v42;
+      v41 = 0;
+      v21 = [defaultManager removeItemAtPath:path error:&v41];
+      v22 = v41;
 
       if (v21)
       {
@@ -1153,7 +1159,7 @@ LABEL_10:
         if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v44 = assetCopy;
+          v43 = assetCopy;
           _os_log_impl(&dword_240F3C000, v23, OS_LOG_TYPE_DEFAULT, "Eviction of stale asset [%@] from disk was successful", buf, 0xCu);
         }
       }
@@ -1182,7 +1188,7 @@ LABEL_10:
       if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v44 = assetCopy;
+        v43 = assetCopy;
         _os_log_impl(&dword_240F3C000, v26, OS_LOG_TYPE_DEFAULT, "Using cached version of asset [%@] on disk", buf, 0xCu);
       }
 
@@ -1193,24 +1199,24 @@ LABEL_10:
 
     else
     {
-      v41 = v22;
-      v27 = [ASTFileManagement unprotectedFileHandleForFileURL:v15 error:&v41];
-      v28 = v41;
+      v40 = v22;
+      v27 = [ASTFileManagement unprotectedFileHandleForFileURL:v15 error:&v40];
+      v28 = v40;
 
       if (v27)
       {
-        v35[0] = MEMORY[0x277D85DD0];
-        v35[1] = 3221225472;
-        v35[2] = __75__ASTSession_fetchAsset_sessionClass_serverURL_endpoint_completionHandler___block_invoke;
-        v35[3] = &unk_278CBD028;
+        v34[0] = MEMORY[0x277D85DD0];
+        v34[1] = 3221225472;
+        v34[2] = __75__ASTSession_fetchAsset_sessionClass_serverURL_endpoint_completionHandler___block_invoke;
+        v34[3] = &unk_278CBD028;
         v29 = assetCopy;
-        v36 = v29;
-        v37 = selfCopy;
+        v35 = v29;
+        v36 = selfCopy;
         v27 = v27;
-        v38 = v27;
-        v39 = path;
-        v40 = handlerCopy;
-        v30 = MEMORY[0x245CD5130](v35);
+        v37 = v27;
+        v38 = path;
+        v39 = handlerCopy;
+        v30 = MEMORY[0x245CD5130](v34);
         if (class == objc_opt_class())
         {
           [ASTRemoteServerSession downloadAsset:v29 serverURL:lCopy endpoint:endpointCopy fileHandle:v27 completionHandler:v30];
@@ -1248,13 +1254,11 @@ LABEL_10:
     v15 = [MEMORY[0x277CCA9B8] errorWithDomain:@"ASTErrorDomain" code:-1002 userInfo:0];
     handlerCopy[2](handlerCopy, 0, v15);
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
-void __75__ASTSession_fetchAsset_sessionClass_serverURL_endpoint_completionHandler___block_invoke(uint64_t a1, int a2, void *a3)
+void __75__ASTSession_fetchAsset_sessionClass_serverURL_endpoint_completionHandler___block_invoke(void *a1, int a2, void *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = ASTLogHandleForCategory(1);
   v7 = v6;
@@ -1262,19 +1266,19 @@ void __75__ASTSession_fetchAsset_sessionClass_serverURL_endpoint_completionHandl
   {
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(a1 + 32);
+      v8 = a1[4];
       *buf = 138412290;
-      v23 = v8;
+      v22 = v8;
       _os_log_impl(&dword_240F3C000, v7, OS_LOG_TYPE_DEFAULT, "Download of asset [%@] was successful", buf, 0xCu);
     }
 
-    v9 = *(a1 + 40);
-    v10 = *(a1 + 48);
-    v21 = v5;
-    v11 = [v9 readContentsOfFileHandle:v10 error:&v21];
-    v12 = v21;
+    v9 = a1[5];
+    v10 = a1[6];
+    v20 = v5;
+    v11 = [v9 readContentsOfFileHandle:v10 error:&v20];
+    v12 = v20;
 
-    [*(a1 + 48) closeFile];
+    [a1[6] closeFile];
   }
 
   else
@@ -1285,7 +1289,7 @@ void __75__ASTSession_fetchAsset_sessionClass_serverURL_endpoint_completionHandl
     }
 
     v13 = [MEMORY[0x277CCAA00] defaultManager];
-    v14 = [v13 fileExistsAtPath:*(a1 + 56)];
+    v14 = [v13 fileExistsAtPath:a1[7]];
 
     if (!v14)
     {
@@ -1296,32 +1300,30 @@ void __75__ASTSession_fetchAsset_sessionClass_serverURL_endpoint_completionHandl
     v15 = ASTLogHandleForCategory(1);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = *(a1 + 32);
+      v16 = a1[4];
       *buf = 138412290;
-      v23 = v16;
+      v22 = v16;
       _os_log_impl(&dword_240F3C000, v15, OS_LOG_TYPE_DEFAULT, "Removing empty asset file [%@]", buf, 0xCu);
     }
 
-    [*(a1 + 48) closeFile];
+    [a1[6] closeFile];
     v17 = [MEMORY[0x277CCAA00] defaultManager];
-    v18 = *(a1 + 56);
-    v20 = v5;
-    [v17 removeItemAtPath:v18 error:&v20];
-    v12 = v20;
+    v18 = a1[7];
+    v19 = v5;
+    [v17 removeItemAtPath:v18 error:&v19];
+    v12 = v19;
 
     v11 = 0;
   }
 
   v5 = v12;
 LABEL_13:
-  (*(*(a1 + 64) + 16))();
-
-  v19 = *MEMORY[0x277D85DE8];
+  (*(a1[8] + 16))();
 }
 
 - (id)destinationURLForAsset:(id)asset
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   assetCopy = asset;
   destinationAssetDirectory = [(ASTSession *)self destinationAssetDirectory];
   v6 = [ASTEncodingUtilities SHA256HashForString:assetCopy];
@@ -1339,21 +1341,19 @@ LABEL_13:
   v9 = ASTLogHandleForCategory(1);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138412546;
-    v13 = v8;
-    v14 = 2112;
-    v15 = assetCopy;
-    _os_log_impl(&dword_240F3C000, v9, OS_LOG_TYPE_DEFAULT, "Using [%@] as path for asset [%@]", &v12, 0x16u);
+    v11 = 138412546;
+    v12 = v8;
+    v13 = 2112;
+    v14 = assetCopy;
+    _os_log_impl(&dword_240F3C000, v9, OS_LOG_TYPE_DEFAULT, "Using [%@] as path for asset [%@]", &v11, 0x16u);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 - (id)destinationAssetDirectory
 {
-  v8[3] = *MEMORY[0x277D85DE8];
+  v7[3] = *MEMORY[0x277D85DE8];
   string = NSTemporaryDirectory();
   if (!string)
   {
@@ -1361,25 +1361,20 @@ LABEL_13:
   }
 
   v3 = MEMORY[0x277CBEBC0];
-  v8[0] = string;
-  v8[1] = @"com.apple.AppleServiceToolkit";
-  v8[2] = @"assets";
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:3];
+  v7[0] = string;
+  v7[1] = @"com.apple.AppleServiceToolkit";
+  v7[2] = @"assets";
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:3];
   v5 = [v3 fileURLWithPathComponents:v4];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 - (id)readContentsOfFileHandle:(id)handle error:(id *)error
 {
-  v8 = *MEMORY[0x277D85DE8];
   handleCopy = handle;
   [handleCopy seekToFileOffset:0];
   readDataToEndOfFile = [handleCopy readDataToEndOfFile];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return readDataToEndOfFile;
 }
@@ -1451,11 +1446,9 @@ LABEL_13:
 
 void __28__ASTSession_startWithMode___block_invoke_26_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __28__ASTSession_startWithMode___block_invoke_26_cold_2()
@@ -1467,11 +1460,9 @@ void __28__ASTSession_startWithMode___block_invoke_26_cold_2()
 
 void __28__ASTSession_startWithMode___block_invoke_28_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __28__ASTSession_startWithMode___block_invoke_28_cold_2()
@@ -1490,48 +1481,38 @@ void __28__ASTSession_startWithMode___block_invoke_28_cold_2()
 
 - (void)fetchAsset:sessionClass:serverURL:endpoint:completionHandler:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchAsset:sessionClass:serverURL:endpoint:completionHandler:.cold.2()
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1(&dword_240F3C000, v0, v1, "Eviction of stale asset [%@] from disk was NOT successful: %@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchAsset:sessionClass:serverURL:endpoint:completionHandler:.cold.3()
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1(&dword_240F3C000, v0, v1, "Could not open file handle for [%@]: %@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void __75__ASTSession_fetchAsset_sessionClass_serverURL_endpoint_completionHandler___block_invoke_cold_1(uint64_t a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  LODWORD(v4) = 138412546;
-  *(&v4 + 4) = *(a1 + 32);
+  LODWORD(v3) = 138412546;
+  *(&v3 + 4) = *(a1 + 32);
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_1(&dword_240F3C000, v1, v2, "Download of asset [%@] was NOT successful: %@", v4, DWORD2(v4));
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_240F3C000, v1, v2, "Download of asset [%@] was NOT successful: %@", v3, DWORD2(v3));
 }
 
 - (void)readContentsOfFileHandle:error:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

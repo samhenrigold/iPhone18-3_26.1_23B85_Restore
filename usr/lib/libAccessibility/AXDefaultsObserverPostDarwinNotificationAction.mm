@@ -1,8 +1,26 @@
 @interface AXDefaultsObserverPostDarwinNotificationAction
+- (AXDefaultsObserverPostDarwinNotificationAction)initWithDarwinNotification:(id)notification postGlobally:(BOOL)globally;
 - (void)performForChangedDefault:(id)default;
 @end
 
 @implementation AXDefaultsObserverPostDarwinNotificationAction
+
+- (AXDefaultsObserverPostDarwinNotificationAction)initWithDarwinNotification:(id)notification postGlobally:(BOOL)globally
+{
+  globallyCopy = globally;
+  notificationCopy = notification;
+  v10.receiver = self;
+  v10.super_class = AXDefaultsObserverPostDarwinNotificationAction;
+  v7 = [(AXDefaultsObserverPostDarwinNotificationAction *)&v10 init];
+  v8 = v7;
+  if (v7)
+  {
+    [(AXDefaultsObserverPostDarwinNotificationAction *)v7 setNote:notificationCopy];
+    [(AXDefaultsObserverPostDarwinNotificationAction *)v8 setShouldPostGlobally:globallyCopy];
+  }
+
+  return v8;
+}
 
 - (void)performForChangedDefault:(id)default
 {
@@ -67,15 +85,11 @@ LABEL_12:
 LABEL_13:
 }
 
-- (void)performForChangedDefault:(unsigned __int8 *)a1 .cold.1(unsigned __int8 *a1)
+- (void)performForChangedDefault:(void *)a1 .cold.1(void *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v1 = a1[8];
-  v8 = [a1 note];
+  v6 = [a1 note];
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x1Cu);
-
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x1Cu);
 }
 
 - (void)performForChangedDefault:.cold.2()

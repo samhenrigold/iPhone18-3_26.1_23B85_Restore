@@ -120,7 +120,7 @@
 
   if (type == 1)
   {
-    return [MEMORY[0x1E696AEC0] stringWithFormat:@"%@: %@", @"SampleBuffer", BWStillImageSampleBufferToDisplayString(self->_payload)];
+    return [MEMORY[0x1E696AEC0] stringWithFormat:@"%@: %@", @"SampleBuffer", BWStillImageSampleBufferToDisplayString(self->_payload, a2)];
   }
 
   v4 = type - 2;

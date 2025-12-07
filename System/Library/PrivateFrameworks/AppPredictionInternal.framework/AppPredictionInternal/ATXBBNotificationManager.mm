@@ -45,13 +45,13 @@
   return v3;
 }
 
-uint64_t __42__ATXBBNotificationManager_sharedInstance__block_invoke()
+uint64_t __42__ATXBBNotificationManager_sharedInstance__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_new();
-  v1 = sharedInstance_instance_3;
-  sharedInstance_instance_3 = v0;
+  v2 = objc_opt_new();
+  v3 = sharedInstance_instance_3;
+  sharedInstance_instance_3 = v2;
 
-  return MEMORY[0x2821F96F8](v0, v1);
+  return MEMORY[0x2821F96F8](v2, v3);
 }
 
 - (void)addNotificationForBundleId:(id)id withPublicationDate:(id)date
@@ -78,25 +78,25 @@ void __75__ATXBBNotificationManager_addNotificationForBundleId_withPublicationDa
     return;
   }
 
-  v18 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:-600.0];
+  v17 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:-600.0];
   v2 = [*(a1 + 40) compare:?];
   v3 = *(a1 + 48);
   if (v2 == -1)
   {
     if (v3[16] == 1)
     {
-      v12 = MEMORY[0x277D85E08];
-      v13 = *MEMORY[0x277D85E08];
-      v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"Rejecting old notification for %@", *(a1 + 32)];
-      fprintf(v13, "%s\n", [v14 UTF8String]);
+      v11 = MEMORY[0x277D85E08];
+      v12 = *MEMORY[0x277D85E08];
+      v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"Rejecting old notification for %@", *(a1 + 32)];
+      fprintf(v12, "%s\n", [v13 UTF8String]);
 
-      fflush(*v12);
+      fflush(*v11);
     }
 
     goto LABEL_19;
   }
 
-  if (![v3 _purgeNotificationsWithMinDate:v18] || objc_msgSend(*(*(a1 + 48) + 24), "count") <= 0x3E8)
+  if (![v3 _purgeNotificationsWithMinDate:v17] || objc_msgSend(*(*(a1 + 48) + 24), "count") <= 0x3E8)
   {
     v4 = [*(*(a1 + 48) + 24) objectForKeyedSubscript:*(a1 + 32)];
     v5 = v4;
@@ -104,17 +104,16 @@ void __75__ATXBBNotificationManager_addNotificationForBundleId_withPublicationDa
     {
       v6 = [v4 compare:*(a1 + 40)];
       v7 = *(a1 + 48);
-      v8 = *(v7 + 16);
       if (v6 != -1)
       {
         if (*(v7 + 16))
         {
-          v9 = MEMORY[0x277D85E08];
-          v10 = *MEMORY[0x277D85E08];
-          v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"not updating notification for %@", *(a1 + 32)];
-          fprintf(v10, "%s\n", [v11 UTF8String]);
+          v8 = MEMORY[0x277D85E08];
+          v9 = *MEMORY[0x277D85E08];
+          v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"not updating notification for %@", *(a1 + 32)];
+          fprintf(v9, "%s\n", [v10 UTF8String]);
 
-          fflush(*v9);
+          fflush(*v8);
         }
 
         goto LABEL_18;
@@ -122,8 +121,8 @@ void __75__ATXBBNotificationManager_addNotificationForBundleId_withPublicationDa
 
       if (*(v7 + 16))
       {
-        v15 = MEMORY[0x277D85E08];
-        v16 = *MEMORY[0x277D85E08];
+        v14 = MEMORY[0x277D85E08];
+        v15 = *MEMORY[0x277D85E08];
         [MEMORY[0x277CCACA8] stringWithFormat:@"updating notification for %@", *(a1 + 32)];
         goto LABEL_16;
       }
@@ -134,13 +133,13 @@ void __75__ATXBBNotificationManager_addNotificationForBundleId_withPublicationDa
       v7 = *(a1 + 48);
       if (*(v7 + 16) == 1)
       {
-        v15 = MEMORY[0x277D85E08];
-        v16 = *MEMORY[0x277D85E08];
+        v14 = MEMORY[0x277D85E08];
+        v15 = *MEMORY[0x277D85E08];
         [MEMORY[0x277CCACA8] stringWithFormat:@"setting notification date for %@", *(a1 + 32)];
-        v17 = LABEL_16:;
-        fprintf(v16, "%s\n", [v17 UTF8String]);
+        v16 = LABEL_16:;
+        fprintf(v15, "%s\n", [v16 UTF8String]);
 
-        fflush(*v15);
+        fflush(*v14);
         v7 = *(a1 + 48);
       }
     }
@@ -199,12 +198,12 @@ LABEL_19:
 - (id)recentNotifications
 {
   v3 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:-600.0];
-  v12 = 0;
-  v13[0] = &v12;
-  v13[1] = 0x3032000000;
-  v13[2] = __Block_byref_object_copy__74;
-  v13[3] = __Block_byref_object_dispose__74;
-  v14 = 0;
+  v13 = 0;
+  v14[0] = &v13;
+  v14[1] = 0x3032000000;
+  v14[2] = __Block_byref_object_copy__74;
+  v14[3] = __Block_byref_object_dispose__74;
+  v15 = 0;
   queue = self->_queue;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
@@ -212,19 +211,19 @@ LABEL_19:
   block[3] = &unk_2785987E0;
   block[4] = self;
   v5 = v3;
-  v10 = v5;
-  v11 = &v12;
+  v11 = v5;
+  v12 = &v13;
   dispatch_sync(queue, block);
-  v6 = __atxlog_handle_default();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v7 = __atxlog_handle_default(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    [(ATXBBNotificationManager *)v13 recentNotifications];
+    [(ATXBBNotificationManager *)v14 recentNotifications];
   }
 
-  v7 = *(v13[0] + 40);
-  _Block_object_dispose(&v12, 8);
+  v8 = *(v14[0] + 40);
+  _Block_object_dispose(&v13, 8);
 
-  return v7;
+  return v8;
 }
 
 uint64_t __47__ATXBBNotificationManager_recentNotifications__block_invoke(uint64_t a1)
@@ -240,12 +239,11 @@ uint64_t __47__ATXBBNotificationManager_recentNotifications__block_invoke(uint64
 
 - (void)recentNotifications
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *(*self + 40);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_debug_impl(&dword_2263AA000, a2, OS_LOG_TYPE_DEBUG, "Recent notifications: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_debug_impl(&dword_2263AA000, a2, OS_LOG_TYPE_DEBUG, "Recent notifications: %@", &v3, 0xCu);
 }
 
 @end

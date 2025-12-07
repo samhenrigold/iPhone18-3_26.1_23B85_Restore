@@ -81,7 +81,7 @@ uint64_t __23__GKAccessPoint_shared__block_invoke()
   [accountService isAppDistributorThirdParty:v5];
 }
 
-void __32__GKAccessPoint_showAccessPoint__block_invoke(uint64_t a1, int a2)
+void __32__GKAccessPoint_showAccessPoint__block_invoke(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
@@ -173,7 +173,7 @@ void __32__GKAccessPoint_showAccessPoint__block_invoke_37()
   v4 = _gkTabStringForTabLevel();
   v5 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(a2, "hideCount")}];
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_24DE53000, v6, v7, "****** %@ - hideCount++  --> %@", v8, v9, v10, v11, v12);
+  OUTLINED_FUNCTION_1_0(&dword_24DE53000, v6, v7, "****** %@ - hideCount++  --> %@", v8, v9, v10, v11);
 }
 
 - (void)incrementHideCount
@@ -318,13 +318,19 @@ void __32__GKAccessPoint_showAccessPoint__block_invoke_37()
   v5 = _Block_copy(handler);
   if (v5)
   {
-    *(swift_allocObject() + 16) = v5;
+    v6 = swift_allocObject();
+    *(v6 + 16) = v5;
     v5 = sub_24E00CEE0;
+  }
+
+  else
+  {
+    v6 = 0;
   }
 
   selfCopy = self;
   GKAccessPoint.showDashboard(state:handler:)();
-  sub_24DE73FA0(v5);
+  sub_24DE73FA0(v5, v6);
 }
 
 - (void)showDashboardWithAchievementID:(id)d handler:(id)handler
@@ -346,7 +352,7 @@ void __32__GKAccessPoint_showAccessPoint__block_invoke_37()
 
   selfCopy = self;
   GKAccessPoint.showDashboard(achievementID:handler:)(v6, v8, v5, v9);
-  sub_24DE73FA0(v5);
+  sub_24DE73FA0(v5, v9);
 }
 
 - (void)showDashboardWithLeaderboardSetID:(id)d handler:(id)handler
@@ -368,7 +374,7 @@ void __32__GKAccessPoint_showAccessPoint__block_invoke_37()
 
   selfCopy = self;
   GKAccessPoint.showDashboard(leaderboardSetID:handler:)(v6, v8, v5, v9);
-  sub_24DE73FA0(v5);
+  sub_24DE73FA0(v5, v9);
 }
 
 - (void)showDashboardWithLeaderboardID:(id)d playerScope:(int64_t)scope timeScope:(int64_t)timeScope handler:(id)handler
@@ -390,7 +396,7 @@ void __32__GKAccessPoint_showAccessPoint__block_invoke_37()
 
   selfCopy = self;
   GKAccessPoint.showDashboard(leaderboardID:playerScope:timeScope:handler:)(v10, v12, scope, timeScope, v9, v13);
-  sub_24DE73FA0(v9);
+  sub_24DE73FA0(v9, v13);
 }
 
 - (void)showDashboardWithPlayer:(id)player handler:(id)handler
@@ -398,14 +404,20 @@ void __32__GKAccessPoint_showAccessPoint__block_invoke_37()
   v6 = _Block_copy(handler);
   if (v6)
   {
-    *(swift_allocObject() + 16) = v6;
+    v7 = swift_allocObject();
+    *(v7 + 16) = v6;
     v6 = sub_24E00CEE0;
+  }
+
+  else
+  {
+    v7 = 0;
   }
 
   playerCopy = player;
   selfCopy = self;
   GKAccessPoint.showDashboard(player:handler:)();
-  sub_24DE73FA0(v6);
+  sub_24DE73FA0(v6, v7);
 }
 
 - (void)showPlayTogetherWithHandler:(id)handler
@@ -448,7 +460,7 @@ LABEL_3:
 LABEL_6:
   selfCopy = self;
   GKAccessPoint.showPlayTogether(challengeDefinitionID:handler:)(v8, d, v7, v10, v12, v13);
-  sub_24DE73FA0(v7);
+  sub_24DE73FA0(v7, v10);
 }
 
 - (void)showPlayTogetherWithGameActivityDefinitionID:(id)d handler:(id)handler
@@ -482,7 +494,7 @@ LABEL_3:
 LABEL_6:
   selfCopy = self;
   GKAccessPoint.showPlayTogether(gameActivityDefinitionID:handler:)(v8, d, v7, v10, v12, v13);
-  sub_24DE73FA0(v7);
+  sub_24DE73FA0(v7, v10);
 }
 
 - (void)showPlayTogetherWithGameActivityDefinitionID:(id)d gameActivityInstanceID:(id)iD handler:(id)handler
@@ -530,7 +542,7 @@ LABEL_7:
 LABEL_8:
   selfCopy = self;
   GKAccessPoint.showPlayTogether(gameActivityDefinitionID:gameActivityInstanceID:handler:)(v9, d, v11, iD, v8, v13);
-  sub_24DE73FA0(v8);
+  sub_24DE73FA0(v8, v13);
 }
 
 - (void)showFriendInvitesWithHandler:(id)handler
@@ -550,7 +562,7 @@ LABEL_8:
 
   selfCopy = self;
   GKAccessPoint.showFriendInvites(handler:)(v4, v5);
-  sub_24DE73FA0(v4);
+  sub_24DE73FA0(v4, v5);
 }
 
 - (void)showChallengesHubWithHandler:(id)handler
@@ -570,7 +582,7 @@ LABEL_8:
 
   selfCopy = self;
   GKAccessPoint.showChallengesHub(handler:)(v4, v5);
-  sub_24DE73FA0(v4);
+  sub_24DE73FA0(v4, v5);
 }
 
 - (void)gameCenterViewControllerDidFinish:(id)finish
@@ -594,7 +606,7 @@ void __32__GKAccessPoint_showAccessPoint__block_invoke_cold_1(id *a1, void *a2)
   v5 = _gkTabStringForTabLevel();
   v6 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*a1, "hideCount")}];
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_24DE53000, v7, v8, "****** %@ - hideCount--  --> %@", v9, v10, v11, v12, v13);
+  OUTLINED_FUNCTION_1_0(&dword_24DE53000, v7, v8, "****** %@ - hideCount--  --> %@", v9, v10, v11, v12);
 }
 
 @end

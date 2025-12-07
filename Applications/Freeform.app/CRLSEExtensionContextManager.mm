@@ -24,7 +24,7 @@
 
 - (NSURL)presentedItemURL
 {
-  v3 = sub_1005B981C(&unk_1019F33C0);
+  v3 = sub_1005B981C(&unk_1019F33C0, &unk_101468A60);
   __chkstk_darwin(v3 - 8);
   v5 = &v14 - v4;
   v6 = OBJC_IVAR____TtC8Freeform28CRLSEExtensionContextManager_presentedItemURL;
@@ -47,7 +47,7 @@
 
 - (void)setPresentedItemURL:(id)l
 {
-  v5 = sub_1005B981C(&unk_1019F33C0);
+  v5 = sub_1005B981C(&unk_1019F33C0, &unk_101468A60);
   __chkstk_darwin(v5 - 8);
   v7 = &v12 - v6;
   if (l)
@@ -95,7 +95,7 @@
   v5(self + OBJC_IVAR____TtC8Freeform28CRLSEExtensionContextManager_presentedItemURL, 1, 1, v4);
   *(self + OBJC_IVAR____TtC8Freeform28CRLSEExtensionContextManager____lazy_storage___presentedItemOperationQueue) = 0;
   v7.receiver = self;
-  v7.super_class = type metadata accessor for CRLSEExtensionContextManager();
+  v7.super_class = type metadata accessor for CRLSEExtensionContextManager(0);
   return [(CRLSEExtensionContextManager *)&v7 init];
 }
 

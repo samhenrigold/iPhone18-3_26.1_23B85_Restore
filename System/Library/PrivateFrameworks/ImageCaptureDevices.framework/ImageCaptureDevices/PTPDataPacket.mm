@@ -177,15 +177,15 @@ LABEL_11:
     __buf = [v4 mutableBytes];
     if (HIDWORD(v3))
     {
-      v9 = -2;
+      v8 = -2;
     }
 
     else
     {
-      v9 = v3;
+      v8 = v3;
     }
 
-    WriteUInt32(&__buf, v9);
+    WriteUInt32(&__buf, v8);
     [v4 setLength:v3];
     goto LABEL_15;
   }
@@ -213,7 +213,6 @@ LABEL_11:
     goto LABEL_9;
   }
 
-  location = self->_range.location;
   v7 = [dataSource read:__buf length:? offset:?];
 LABEL_9:
   if (v7 != -1)
@@ -264,7 +263,7 @@ LABEL_15:
 
 LABEL_14:
     __buf = buffer;
-    v12 = 12;
+    v11 = 12;
     goto LABEL_15;
   }
 
@@ -275,7 +274,6 @@ LABEL_14:
   }
 
 LABEL_10:
-  location = self->_range.location;
   length = [dataSource read:__buf length:? offset:?];
 LABEL_11:
   if (length == -1)
@@ -287,20 +285,20 @@ LABEL_2:
   }
 
 LABEL_12:
-  v12 = length + 12;
+  v11 = length + 12;
   __buf = buffer;
   if (!((length + 12) >> 32))
   {
 LABEL_15:
-    v13 = v12;
+    v12 = v11;
     goto LABEL_16;
   }
 
-  v13 = -2;
+  v12 = -2;
 LABEL_16:
-  WriteUInt32(&__buf, v13);
+  WriteUInt32(&__buf, v12);
   v4 = [PTPWrappedBytes wrappedBytesWithBytes:buffer capacity:capacity];
-  [v4 setLength:v12];
+  [v4 setLength:v11];
 LABEL_17:
 
   return v4;

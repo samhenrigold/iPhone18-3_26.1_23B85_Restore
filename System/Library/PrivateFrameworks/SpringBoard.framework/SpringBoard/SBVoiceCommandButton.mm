@@ -44,7 +44,8 @@
 
 - (void)performActionsForButtonDown:(id)down
 {
-  if ([(SBVoiceCommandButton *)self _isPermittedToBegin])
+  _isPermittedToBegin = [(SBVoiceCommandButton *)self _isPermittedToBegin];
+  if (_isPermittedToBegin)
   {
     self->_isLongPressRecognized = 0;
     siriHardwareButtonInteraction = self->_siriHardwareButtonInteraction;
@@ -54,18 +55,19 @@
 
   else
   {
-    v5 = SBLogButtonsCombo();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = SBLogButtonsCombo(_isPermittedToBegin);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "Siri VoiceCommand down ignored because coordinateor says no", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "Siri VoiceCommand down ignored because coordinateor says no", v7, 2u);
     }
   }
 }
 
 - (void)performActionsForButtonLongPress:(id)press
 {
-  if ([(SBVoiceCommandButton *)self _isPermittedToBegin])
+  _isPermittedToBegin = [(SBVoiceCommandButton *)self _isPermittedToBegin];
+  if (_isPermittedToBegin)
   {
     self->_isLongPressRecognized = 1;
     siriHardwareButtonInteraction = self->_siriHardwareButtonInteraction;
@@ -75,29 +77,30 @@
 
   else
   {
-    v5 = SBLogButtonsCombo();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = SBLogButtonsCombo(_isPermittedToBegin);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "Siri VoiceCommand long press ignored because coordinateor says no", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "Siri VoiceCommand long press ignored because coordinateor says no", v7, 2u);
     }
   }
 }
 
 - (void)performActionsForButtonUp:(id)up
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   _isPermittedToBegin = [(SBVoiceCommandButton *)self _isPermittedToBegin];
-  v5 = SBLogButtonsCombo();
-  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
-  if (_isPermittedToBegin)
+  v5 = _isPermittedToBegin;
+  v6 = SBLogButtonsCombo(_isPermittedToBegin);
+  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+  if (v5)
   {
-    if (v6)
+    if (v7)
     {
       isLongPressRecognized = self->_isLongPressRecognized;
-      v8[0] = 67109120;
-      v8[1] = isLongPressRecognized;
-      _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "Siri VoiceCommand button up, (long press recognized:%{BOOL}u)", v8, 8u);
+      v9[0] = 67109120;
+      v9[1] = isLongPressRecognized;
+      _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "Siri VoiceCommand button up, (long press recognized:%{BOOL}u)", v9, 8u);
     }
 
     if (!self->_isLongPressRecognized)
@@ -110,10 +113,10 @@
 
   else
   {
-    if (v6)
+    if (v7)
     {
-      LOWORD(v8[0]) = 0;
-      _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "Siri VoiceCommand up ignored because coordinateor says no", v8, 2u);
+      LOWORD(v9[0]) = 0;
+      _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "Siri VoiceCommand up ignored because coordinateor says no", v9, 2u);
     }
   }
 }

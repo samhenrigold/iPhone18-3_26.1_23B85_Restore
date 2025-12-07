@@ -38,11 +38,11 @@
 - (id)succinctDescription;
 - (id)succinctDescriptionBuilder;
 - (int64_t)compare:(id)compare;
-- (uint64_t)initWithSize:(double)size cornerRadius:(double)radius scaleFactor:(double)factor fontStyle:(double)style safeAreaInsets:(double)insets layoutInsets:(double)layoutInsets contentMargins:(double)margins supportsDynamicText:(uint64_t)self0;
 - (unint64_t)hash;
 - (unint64_t)hashUsing32BitFloats:(BOOL)floats;
 - (void)encodeWithCoder:(id)coder;
 - (void)encodeWithXPCDictionary:(id)dictionary;
+- (void)initWithSize:(double)size cornerRadius:(double)radius scaleFactor:(double)factor fontStyle:(double)style safeAreaInsets:(double)insets layoutInsets:(double)layoutInsets contentMargins:(double)margins supportsDynamicText:(uint64_t)self0;
 @end
 
 @implementation CHSWidgetMetrics
@@ -152,7 +152,7 @@
 
 - (id)succinctDescriptionBuilder
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E698E680] builderWithObject:self];
   [(CHSWidgetMetrics *)self size];
   v4 = [v3 appendSize:@"size" withName:?];
@@ -184,29 +184,30 @@
   v11 = [v3 appendObject:self->_margins withName:@"margins"];
   v12 = [v3 appendObject:self->_groupMargins withName:@"groupMargins"];
   v13 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v14 = self->_nestedContentMetrics;
-  v15 = [(NSDictionary *)v14 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v15 = [(NSDictionary *)v14 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v15)
   {
-    v16 = *v23;
+    v16 = *v22;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v23 != v16)
+        if (*v22 != v16)
         {
           objc_enumerationMutation(v14);
         }
 
-        v18 = CHSWidgetFamilyDescription([*(*(&v22 + 1) + 8 * i) integerValue]);
+        [*(*(&v21 + 1) + 8 * i) integerValue];
+        v18 = CHSWidgetFamilyDescription();
         [v13 addObject:v18];
       }
 
-      v15 = [(NSDictionary *)v14 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v15 = [(NSDictionary *)v14 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v15);
@@ -214,8 +215,6 @@
 
   v19 = [v13 componentsJoinedByString:{@", "}];
   [v3 appendString:v19 withName:@"nestedContentMetrics" skipIfEmpty:1];
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -252,7 +251,7 @@
   return factor;
 }
 
-- (uint64_t)initWithSize:(double)size cornerRadius:(double)radius scaleFactor:(double)factor fontStyle:(double)style safeAreaInsets:(double)insets layoutInsets:(double)layoutInsets contentMargins:(double)margins supportsDynamicText:(uint64_t)self0
+- (void)initWithSize:(double)size cornerRadius:(double)radius scaleFactor:(double)factor fontStyle:(double)style safeAreaInsets:(double)insets layoutInsets:(double)layoutInsets contentMargins:(double)margins supportsDynamicText:(uint64_t)self0
 {
   v31 = [[CHSWidgetMargins alloc] initWithSafeAreaInsets:style layoutInsets:insets contentMargins:layoutInsets backgroundRemovedContentMargins:margins, a17, a18, a19, a20, a21, a22, a23, a24, a21, a22, a23, a24];
   v32 = [self initWithSize:a11 cornerRadius:v31 scaleFactor:a12 fontStyle:a2 margins:size supportsDynamicText:{radius, factor}];
@@ -507,14 +506,6 @@
   return v28;
 }
 
-double __47__CHSWidgetMetrics_isEqualTo_using32BitFloats___block_invoke_4(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  result = *(v1 + 64);
-  v3 = *(v1 + 72);
-  return result;
-}
-
 - (unint64_t)hashUsing32BitFloats:(BOOL)floats
 {
   floatsCopy = floats;
@@ -552,7 +543,7 @@ double __47__CHSWidgetMetrics_isEqualTo_using32BitFloats___block_invoke_4(uint64
 
 + (id)sha256DataFromData:(id)data
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   if (CC_SHA256([dataCopy bytes], objc_msgSend(dataCopy, "length"), md))
   {
@@ -564,8 +555,6 @@ double __47__CHSWidgetMetrics_isEqualTo_using32BitFloats___block_invoke_4(uint64
   {
     v5 = 0;
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -657,7 +646,7 @@ uint64_t __58__CHSWidgetMetrics_descriptionBuilderWithMultilinePrefix___block_in
 
 - (CHSWidgetMetrics)initWithCoder:(id)coder
 {
-  v27[1] = *MEMORY[0x1E69E9840];
+  v26[1] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   [coderCopy decodeSizeForKey:@"size"];
   v6 = v5;
@@ -669,9 +658,9 @@ uint64_t __58__CHSWidgetMetrics_descriptionBuilderWithMultilinePrefix___block_in
   if ([coderCopy containsValueForKey:@"scaleFactors"])
   {
     v13 = MEMORY[0x1E696ABC0];
-    v26 = *MEMORY[0x1E696A578];
-    v27[0] = @"No longer valid due to deprecated scale factor.";
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:1];
+    v25 = *MEMORY[0x1E696A578];
+    v26[0] = @"No longer valid due to deprecated scale factor.";
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
     v15 = [v13 errorWithDomain:@"com.apple.chronoservices.metrics" code:1 userInfo:v14];
     [coderCopy failWithError:v15];
 
@@ -715,7 +704,6 @@ uint64_t __58__CHSWidgetMetrics_descriptionBuilderWithMultilinePrefix___block_in
     selfCopy = self;
   }
 
-  v24 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -725,13 +713,10 @@ uint64_t __58__CHSWidgetMetrics_descriptionBuilderWithMultilinePrefix___block_in
   if (xdict)
   {
     [@"size" UTF8String];
-    width = self->_size.width;
-    height = self->_size.height;
     BSSerializeCGSizeToXPCDictionaryWithKey();
     MEMORY[0x19A8C4BC0](xdict, [@"cornerRadius" UTF8String], self->_cornerRadius);
     MEMORY[0x19A8C4BC0](xdict, [@"scaleFactor" UTF8String], self->_scaleFactor);
     xpc_dictionary_set_int64(xdict, [@"fontStyle" UTF8String], -[CHSWidgetMetrics fontStyle](self, "fontStyle"));
-    margins = self->_margins;
     [@"margins" UTF8String];
     BSSerializeBSXPCEncodableObjectToXPCDictionaryWithKey();
     xpc_dictionary_set_uint64(xdict, [@"dynamicText" UTF8String], -[CHSWidgetMetrics dynamicTextSupport](self, "dynamicTextSupport"));
@@ -744,7 +729,7 @@ uint64_t __58__CHSWidgetMetrics_descriptionBuilderWithMultilinePrefix___block_in
     nestedContentMetrics = self->_nestedContentMetrics;
     if (nestedContentMetrics)
     {
-      v8 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:nestedContentMetrics requiringSecureCoding:1 error:0];
+      v5 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:nestedContentMetrics requiringSecureCoding:1 error:0];
       [@"nestedContentMetrics" UTF8String];
       BSSerializeDataToXPCDictionaryWithKey();
     }
@@ -872,9 +857,9 @@ LABEL_12:
 
 - (BOOL)_hasZeroLayoutInsets
 {
-  [(CHSWidgetMargins *)self->_margins layoutInsets];
+  layoutInsets = [(CHSWidgetMargins *)self->_margins layoutInsets];
 
-  return CHSEdgeInsetsEqualToEdgeInsets();
+  return CHSEdgeInsetsEqualToEdgeInsets(layoutInsets);
 }
 
 - (CGSize)_effectiveSizePixelAlignedForDisplayScale:(double)scale
@@ -882,19 +867,18 @@ LABEL_12:
   [(CHSWidgetMetrics *)self _rawEffectiveSize];
   v6 = v5;
   v8 = v7;
-  scaleFactor = self->_scaleFactor;
   if ((BSFloatEqualToFloat() & 1) == 0)
   {
     [(CHSWidgetMetrics *)self _roundToNearestOrUp:v6 withScale:scale];
-    v6 = v10;
+    v6 = v9;
     [(CHSWidgetMetrics *)self _roundToNearestOrUp:v8 withScale:scale];
-    v8 = v11;
+    v8 = v10;
   }
 
-  v12 = v6;
-  v13 = v8;
-  result.height = v13;
-  result.width = v12;
+  v11 = v6;
+  v12 = v8;
+  result.height = v12;
+  result.width = v11;
   return result;
 }
 
@@ -932,7 +916,7 @@ LABEL_12:
     return 1.0 / scale * floor((1.0 / scale * 0.5 + up) / (1.0 / scale));
   }
 
-  v4 = CHSLogChronoServices();
+  v4 = CHSLogChronoServices(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     [CHSWidgetMetrics _roundToNearestOrUp:v4 withScale:?];
@@ -943,41 +927,41 @@ LABEL_12:
 
 - (id)filenameSafeSHAFrom:(id)from
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   if ([fromCopy count])
   {
     context = objc_autoreleasePoolPush();
     v3 = objc_alloc_init(MEMORY[0x1E695DF88]);
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v4 = fromCopy;
-    v5 = [v4 countByEnumeratingWithState:&v19 objects:v25 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v18 objects:v24 count:16];
     if (v5)
     {
-      v6 = *v20;
+      v6 = *v19;
       v7 = MEMORY[0x1E69E9C10];
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v20 != v6)
+          if (*v19 != v6)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = *(*(&v19 + 1) + 8 * i);
-          v18 = 0;
-          v10 = [MEMORY[0x1E69C7360] encodeObject:v9 error:{&v18, context}];
-          v11 = v18;
+          v9 = *(*(&v18 + 1) + 8 * i);
+          v17 = 0;
+          v10 = [MEMORY[0x1E69C7360] encodeObject:v9 error:{&v17, context}];
+          v11 = v17;
           if (v11)
           {
             if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138543362;
-              v24 = v11;
+              v23 = v11;
               _os_log_impl(&dword_195EB2000, v7, OS_LOG_TYPE_DEFAULT, "Failed to encode widget metrics %{public}@.", buf, 0xCu);
             }
           }
@@ -988,7 +972,7 @@ LABEL_12:
           }
         }
 
-        v5 = [v4 countByEnumeratingWithState:&v19 objects:v25 count:16];
+        v5 = [v4 countByEnumeratingWithState:&v18 objects:v24 count:16];
       }
 
       while (v5);
@@ -1004,8 +988,6 @@ LABEL_12:
   {
     v13 = 0;
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }

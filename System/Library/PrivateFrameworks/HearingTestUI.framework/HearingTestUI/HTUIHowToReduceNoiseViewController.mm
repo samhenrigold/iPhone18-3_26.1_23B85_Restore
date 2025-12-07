@@ -16,7 +16,7 @@
   }
 
   selfCopy = self;
-  sub_20CDAF330();
+  sub_20CDAF330(selfCopy, v3);
 }
 
 - (void)didTapDone

@@ -110,11 +110,11 @@
   v0 = objc_opt_self();
   _atomicIncrementAssertCount = [v0 _atomicIncrementAssertCount];
   v25 = [objc_allocWithZone(NSString) init];
-  sub_100604538(_swiftEmptyArrayStorage, &v25);
-  StaticString.description.getter();
+  sub_100604538(_swiftEmptyArrayStorage, &v25, "This should never be sent a real selection path", 47, 2u);
+  StaticString.description.getter("dispatchSelectionPath(_:withFlags:)", 35, 2);
   v2 = String._bridgeToObjectiveC()();
 
-  StaticString.description.getter();
+  StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLCollaboratorCursorCoordinator.swift", 102, 2);
   v3 = String._bridgeToObjectiveC()();
 
   lastPathComponent = [v3 lastPathComponent];
@@ -128,13 +128,13 @@
   }
 
   v8 = static OS_os_log.crlAssert;
-  sub_1005B981C(&qword_1019F54E0);
+  sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_10146CA70;
   *(inited + 56) = &type metadata for Int32;
   *(inited + 64) = &protocol witness table for Int32;
   *(inited + 32) = _atomicIncrementAssertCount;
-  v10 = sub_100006370(0, &qword_1019F4D30);
+  v10 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
   *(inited + 96) = v10;
   v11 = sub_1005CF04C();
   *(inited + 104) = v11;
@@ -167,13 +167,13 @@
   v18[4] = 0;
   v18[5] = 0;
   v19 = __VaListBuilder.va_list()();
-  StaticString.description.getter();
+  StaticString.description.getter("dispatchSelectionPath(_:withFlags:)", 35, 2);
   v20 = String._bridgeToObjectiveC()();
 
-  StaticString.description.getter();
+  StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLCollaboratorCursorCoordinator.swift", 102, 2);
   v21 = String._bridgeToObjectiveC()();
 
-  StaticString.description.getter();
+  StaticString.description.getter("This should never be sent a real selection path", 47, 2);
   v22 = String._bridgeToObjectiveC()();
 
   [v0 handleFailureInFunction:v20 file:v21 lineNumber:204 isFatal:1 format:v22 args:v19];

@@ -1,6 +1,7 @@
 @interface DDEventAddViewController
 - (void)doneWithAddingEvent;
 - (void)prepareForAction:(id)action;
+- (void)setCancellable:(BOOL)cancellable;
 - (void)willTransitionToTraitCollection:(id)collection withTransitionCoordinator:(id)coordinator;
 @end
 
@@ -18,6 +19,13 @@
   v4 = v8;
   v5 = actionCopy;
   [v4 requestFullAccessToEventsWithCompletion:v6];
+}
+
+- (void)setCancellable:(BOOL)cancellable
+{
+  cancellableCopy = cancellable;
+  _remoteViewControllerProxy = [(DDEventAddViewController *)self _remoteViewControllerProxy];
+  [_remoteViewControllerProxy actionCanBeCancelledExternally:cancellableCopy];
 }
 
 - (void)doneWithAddingEvent

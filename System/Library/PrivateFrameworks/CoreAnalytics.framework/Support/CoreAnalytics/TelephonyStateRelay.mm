@@ -57,6 +57,7 @@
 - (void)signalStrengthChanged:(id)changed info:(id)info;
 - (void)stateChanged:(id)changed;
 - (void)subscriptionInfoDidChange;
+- (void)updateSatelliteStatusAndCellularRAT:(unsigned __int8)t;
 @end
 
 @implementation TelephonyStateRelay
@@ -733,7 +734,7 @@ LABEL_29:
         v14 = [v12 objectForKey:kCTCellMonitorDeploymentType];
         if (v13)
         {
-          [(TelephonyStateRelay *)self formatCellularRat:v13 forDeploymentType:v14];
+          objc_msgSend_formatCellularRat_forDeploymentType_(self);
           [(TelephonyStateRelay *)self _updateCellularRAT:&__p];
           if (v16 < 0)
           {
@@ -1142,7 +1143,7 @@ LABEL_9:
 {
   self->_internetCellStatus = m;
   telephonyStateDelegate = self->_telephonyStateDelegate;
-  [(TelephonyStateRelay *)self formatInternetConnection:?];
+  objc_msgSend_formatInternetConnection_(self, a2);
   *__p = *v7;
   v11 = v8;
   v12 = 1;
@@ -1160,10 +1161,9 @@ LABEL_9:
 
 - (void)_updateCellularLQM:(optional<LQMThreshold>)m
 {
-  internetCellStatus = self->_internetCellStatus;
-  (*(self->_telephonyStateDelegate->var0 + 5))(&v5);
-  v4 = v5;
-  v5 = 0;
+  (*(self->_telephonyStateDelegate->var0 + 5))(&v4);
+  v3 = v4;
+  v4 = 0;
 }
 
 - (void)_updateSignalBars:(char)bars
@@ -1201,7 +1201,7 @@ LABEL_9:
     v8 = self->_cellularRAT.__rep_.__l.__size_;
   }
 
-  if (size != v8 || (v6 >= 0 ? (data = a3) : (data = a3->__rep_.__l.__data_), (v11 = p_cellularRAT->__r_.__value_.__r.__words[0], v9 >= 0) ? (v12 = p_cellularRAT) : (v12 = p_cellularRAT->__r_.__value_.__r.__words[0]), memcmp(data, v12, size)))
+  if (size != v8 || (v6 >= 0 ? (data = a3) : (data = a3->__rep_.__l.__data_), v9 >= 0 ? (v11 = p_cellularRAT) : (v11 = p_cellularRAT->__r_.__value_.__r.__words[0]), memcmp(data, v11, size)))
   {
     std::string::operator=(p_cellularRAT, a3);
     telephonyStateDelegate = self->_telephonyStateDelegate;
@@ -1213,15 +1213,15 @@ LABEL_9:
     else
     {
       *__p = *&p_cellularRAT->__r_.__value_.__l.__data_;
-      v17 = p_cellularRAT->__r_.__value_.__r.__words[2];
+      v16 = p_cellularRAT->__r_.__value_.__r.__words[2];
     }
 
-    v18 = 1;
-    (*(telephonyStateDelegate->var0 + 2))(&v15, telephonyStateDelegate, __p);
-    v14 = v15;
-    v15 = 0;
+    v17 = 1;
+    (*(telephonyStateDelegate->var0 + 2))(&v14, telephonyStateDelegate, __p);
+    v13 = v14;
+    v14 = 0;
 
-    if (v18 == 1 && SHIBYTE(v17) < 0)
+    if (v17 == 1 && SHIBYTE(v16) < 0)
     {
       operator delete(__p[0]);
     }
@@ -1251,15 +1251,15 @@ LABEL_9:
       v8 = name->var0.var1.__rep_.__l.__size_;
     }
 
-    if (size != v8 || (v6 >= 0 ? (v10 = &self->_subscriberCarrierName) : (v10 = p_subscriberCarrierName->__r_.__value_.__r.__words[0]), (v11 = name->var0.var1.__rep_.__l.__data_, v9 >= 0) ? (v12 = name) : (v12 = name->var0.var1.__rep_.__l.__data_), memcmp(v10, v12, size)))
+    if (size != v8 || (v6 >= 0 ? (v10 = &self->_subscriberCarrierName) : (v10 = p_subscriberCarrierName->__r_.__value_.__r.__words[0]), v9 >= 0 ? (v11 = name) : (v11 = name->var0.var1.__rep_.__l.__data_), memcmp(v10, v11, size)))
     {
-      v13 = qword_100192D98;
+      v12 = qword_100192D98;
       if (os_log_type_enabled(qword_100192D98, OS_LOG_TYPE_INFO))
       {
-        v14 = p_subscriberCarrierName;
+        v13 = p_subscriberCarrierName;
         if (*(&self->_subscriberCarrierName.__rep_.__l + 23) < 0)
         {
-          v14 = p_subscriberCarrierName->__r_.__value_.__r.__words[0];
+          v13 = p_subscriberCarrierName->__r_.__value_.__r.__words[0];
         }
 
         data = name;
@@ -1269,24 +1269,24 @@ LABEL_9:
         }
 
         *buf = 136315394;
-        v26 = v14;
-        v27 = 2080;
-        v28 = data;
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "[TelephonyStateRelay] Changing homeCarrierName from %s to %s", buf, 0x16u);
+        v25 = v13;
+        v26 = 2080;
+        v27 = data;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "[TelephonyStateRelay] Changing homeCarrierName from %s to %s", buf, 0x16u);
       }
 
       std::string::operator=(p_subscriberCarrierName, name);
       telephonyStateDelegate = self->_telephonyStateDelegate;
-      sub_10009B928(v24, &name->var0.var0);
-      (*(telephonyStateDelegate->var0 + 7))(&v22, telephonyStateDelegate, v24);
-      v17 = v22;
-      v22 = 0;
+      sub_10009B928(v23, &name->var0.var0);
+      (*(telephonyStateDelegate->var0 + 7))(&v21, telephonyStateDelegate, v23);
+      v16 = v21;
+      v21 = 0;
 
-      if (v24[24] == 1 && v24[23] < 0)
+      if (v23[24] == 1 && v23[23] < 0)
       {
-        v18 = v24;
+        v17 = v23;
 LABEL_27:
-        operator delete(*v18);
+        operator delete(*v17);
       }
     }
   }
@@ -1294,15 +1294,15 @@ LABEL_27:
   else
   {
     std::string::assign(&self->_subscriberCarrierName, "");
-    v19 = self->_telephonyStateDelegate;
-    sub_10009B928(v23, &name->var0.var0);
-    (*(v19->var0 + 7))(&v21, v19, v23);
-    v20 = v21;
-    v21 = 0;
+    v18 = self->_telephonyStateDelegate;
+    sub_10009B928(v22, &name->var0.var0);
+    (*(v18->var0 + 7))(&v20, v18, v22);
+    v19 = v20;
+    v20 = 0;
 
-    if (v23[24] == 1 && (v23[23] & 0x80000000) != 0)
+    if (v22[24] == 1 && (v22[23] & 0x80000000) != 0)
     {
-      v18 = v23;
+      v17 = v22;
       goto LABEL_27;
     }
   }
@@ -1331,15 +1331,15 @@ LABEL_27:
       v8 = country->var0.var1.__rep_.__l.__size_;
     }
 
-    if (size != v8 || (v6 >= 0 ? (v10 = &self->_subscriberCarrierCountry) : (v10 = p_subscriberCarrierCountry->__r_.__value_.__r.__words[0]), (v11 = country->var0.var1.__rep_.__l.__data_, v9 >= 0) ? (v12 = country) : (v12 = country->var0.var1.__rep_.__l.__data_), memcmp(v10, v12, size)))
+    if (size != v8 || (v6 >= 0 ? (v10 = &self->_subscriberCarrierCountry) : (v10 = p_subscriberCarrierCountry->__r_.__value_.__r.__words[0]), v9 >= 0 ? (v11 = country) : (v11 = country->var0.var1.__rep_.__l.__data_), memcmp(v10, v11, size)))
     {
-      v13 = qword_100192D98;
+      v12 = qword_100192D98;
       if (os_log_type_enabled(qword_100192D98, OS_LOG_TYPE_INFO))
       {
-        v14 = p_subscriberCarrierCountry;
+        v13 = p_subscriberCarrierCountry;
         if (*(&self->_subscriberCarrierCountry.__rep_.__l + 23) < 0)
         {
-          v14 = p_subscriberCarrierCountry->__r_.__value_.__r.__words[0];
+          v13 = p_subscriberCarrierCountry->__r_.__value_.__r.__words[0];
         }
 
         data = country;
@@ -1349,24 +1349,24 @@ LABEL_27:
         }
 
         *buf = 136315394;
-        v26 = v14;
-        v27 = 2080;
-        v28 = data;
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "[TelephonyStateRelay] Changing homeCarrierCountry from %s to %s", buf, 0x16u);
+        v25 = v13;
+        v26 = 2080;
+        v27 = data;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "[TelephonyStateRelay] Changing homeCarrierCountry from %s to %s", buf, 0x16u);
       }
 
       std::string::operator=(p_subscriberCarrierCountry, country);
       telephonyStateDelegate = self->_telephonyStateDelegate;
-      sub_10009B928(v24, &country->var0.var0);
-      (*(telephonyStateDelegate->var0 + 9))(&v22, telephonyStateDelegate, v24);
-      v17 = v22;
-      v22 = 0;
+      sub_10009B928(v23, &country->var0.var0);
+      (*(telephonyStateDelegate->var0 + 9))(&v21, telephonyStateDelegate, v23);
+      v16 = v21;
+      v21 = 0;
 
-      if (v24[24] == 1 && v24[23] < 0)
+      if (v23[24] == 1 && v23[23] < 0)
       {
-        v18 = v24;
+        v17 = v23;
 LABEL_27:
-        operator delete(*v18);
+        operator delete(*v17);
       }
     }
   }
@@ -1374,15 +1374,15 @@ LABEL_27:
   else
   {
     std::string::assign(&self->_subscriberCarrierCountry, "");
-    v19 = self->_telephonyStateDelegate;
-    sub_10009B928(v23, &country->var0.var0);
-    (*(v19->var0 + 9))(&v21, v19, v23);
-    v20 = v21;
-    v21 = 0;
+    v18 = self->_telephonyStateDelegate;
+    sub_10009B928(v22, &country->var0.var0);
+    (*(v18->var0 + 9))(&v20, v18, v22);
+    v19 = v20;
+    v20 = 0;
 
-    if (v23[24] == 1 && (v23[23] & 0x80000000) != 0)
+    if (v22[24] == 1 && (v22[23] & 0x80000000) != 0)
     {
-      v18 = v23;
+      v17 = v22;
       goto LABEL_27;
     }
   }
@@ -1411,15 +1411,15 @@ LABEL_27:
       v8 = version->var0.var1.__rep_.__l.__size_;
     }
 
-    if (size != v8 || (v6 >= 0 ? (v10 = &self->_subscriberCarrierBundleVersion) : (v10 = p_subscriberCarrierBundleVersion->__r_.__value_.__r.__words[0]), (v11 = version->var0.var1.__rep_.__l.__data_, v9 >= 0) ? (v12 = version) : (v12 = version->var0.var1.__rep_.__l.__data_), memcmp(v10, v12, size)))
+    if (size != v8 || (v6 >= 0 ? (v10 = &self->_subscriberCarrierBundleVersion) : (v10 = p_subscriberCarrierBundleVersion->__r_.__value_.__r.__words[0]), v9 >= 0 ? (v11 = version) : (v11 = version->var0.var1.__rep_.__l.__data_), memcmp(v10, v11, size)))
     {
-      v13 = qword_100192D98;
+      v12 = qword_100192D98;
       if (os_log_type_enabled(qword_100192D98, OS_LOG_TYPE_INFO))
       {
-        v14 = p_subscriberCarrierBundleVersion;
+        v13 = p_subscriberCarrierBundleVersion;
         if (*(&self->_subscriberCarrierBundleVersion.__rep_.__l + 23) < 0)
         {
-          v14 = p_subscriberCarrierBundleVersion->__r_.__value_.__r.__words[0];
+          v13 = p_subscriberCarrierBundleVersion->__r_.__value_.__r.__words[0];
         }
 
         data = version;
@@ -1429,24 +1429,24 @@ LABEL_27:
         }
 
         *buf = 136315394;
-        v26 = v14;
-        v27 = 2080;
-        v28 = data;
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "[TelephonyStateRelay] Changing homeCarrierBundleVersion from %s to %s", buf, 0x16u);
+        v25 = v13;
+        v26 = 2080;
+        v27 = data;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "[TelephonyStateRelay] Changing homeCarrierBundleVersion from %s to %s", buf, 0x16u);
       }
 
       std::string::operator=(p_subscriberCarrierBundleVersion, version);
       telephonyStateDelegate = self->_telephonyStateDelegate;
-      sub_10009B928(v24, &version->var0.var0);
-      (*(telephonyStateDelegate->var0 + 8))(&v22, telephonyStateDelegate, v24);
-      v17 = v22;
-      v22 = 0;
+      sub_10009B928(v23, &version->var0.var0);
+      (*(telephonyStateDelegate->var0 + 8))(&v21, telephonyStateDelegate, v23);
+      v16 = v21;
+      v21 = 0;
 
-      if (v24[24] == 1 && v24[23] < 0)
+      if (v23[24] == 1 && v23[23] < 0)
       {
-        v18 = v24;
+        v17 = v23;
 LABEL_27:
-        operator delete(*v18);
+        operator delete(*v17);
       }
     }
   }
@@ -1454,15 +1454,15 @@ LABEL_27:
   else
   {
     std::string::assign(&self->_subscriberCarrierBundleVersion, "");
-    v19 = self->_telephonyStateDelegate;
-    sub_10009B928(v23, &version->var0.var0);
-    (*(v19->var0 + 8))(&v21, v19, v23);
-    v20 = v21;
-    v21 = 0;
+    v18 = self->_telephonyStateDelegate;
+    sub_10009B928(v22, &version->var0.var0);
+    (*(v18->var0 + 8))(&v20, v18, v22);
+    v19 = v20;
+    v20 = 0;
 
-    if (v23[24] == 1 && (v23[23] & 0x80000000) != 0)
+    if (v22[24] == 1 && (v22[23] & 0x80000000) != 0)
     {
-      v18 = v23;
+      v17 = v22;
       goto LABEL_27;
     }
   }
@@ -1491,15 +1491,15 @@ LABEL_27:
       v8 = name->var0.var1.__rep_.__l.__size_;
     }
 
-    if (size != v8 || (v6 >= 0 ? (v10 = &self->_servingCarrierName) : (v10 = p_servingCarrierName->__r_.__value_.__r.__words[0]), (v11 = name->var0.var1.__rep_.__l.__data_, v9 >= 0) ? (v12 = name) : (v12 = name->var0.var1.__rep_.__l.__data_), memcmp(v10, v12, size)))
+    if (size != v8 || (v6 >= 0 ? (v10 = &self->_servingCarrierName) : (v10 = p_servingCarrierName->__r_.__value_.__r.__words[0]), v9 >= 0 ? (v11 = name) : (v11 = name->var0.var1.__rep_.__l.__data_), memcmp(v10, v11, size)))
     {
-      v13 = qword_100192D98;
+      v12 = qword_100192D98;
       if (os_log_type_enabled(qword_100192D98, OS_LOG_TYPE_INFO))
       {
-        v14 = p_servingCarrierName;
+        v13 = p_servingCarrierName;
         if (*(&self->_servingCarrierName.__rep_.__l + 23) < 0)
         {
-          v14 = p_servingCarrierName->__r_.__value_.__r.__words[0];
+          v13 = p_servingCarrierName->__r_.__value_.__r.__words[0];
         }
 
         data = name;
@@ -1509,24 +1509,24 @@ LABEL_27:
         }
 
         *buf = 136315394;
-        v26 = v14;
-        v27 = 2080;
-        v28 = data;
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "[TelephonyStateRelay] Changing servingCarrierName from %s to %s", buf, 0x16u);
+        v25 = v13;
+        v26 = 2080;
+        v27 = data;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "[TelephonyStateRelay] Changing servingCarrierName from %s to %s", buf, 0x16u);
       }
 
       std::string::operator=(p_servingCarrierName, name);
       telephonyStateDelegate = self->_telephonyStateDelegate;
-      sub_10009B928(v24, &name->var0.var0);
-      (*(telephonyStateDelegate->var0 + 10))(&v22, telephonyStateDelegate, v24);
-      v17 = v22;
-      v22 = 0;
+      sub_10009B928(v23, &name->var0.var0);
+      (*(telephonyStateDelegate->var0 + 10))(&v21, telephonyStateDelegate, v23);
+      v16 = v21;
+      v21 = 0;
 
-      if (v24[24] == 1 && v24[23] < 0)
+      if (v23[24] == 1 && v23[23] < 0)
       {
-        v18 = v24;
+        v17 = v23;
 LABEL_27:
-        operator delete(*v18);
+        operator delete(*v17);
       }
     }
   }
@@ -1534,15 +1534,15 @@ LABEL_27:
   else
   {
     std::string::assign(&self->_servingCarrierName, "");
-    v19 = self->_telephonyStateDelegate;
-    sub_10009B928(v23, &name->var0.var0);
-    (*(v19->var0 + 10))(&v21, v19, v23);
-    v20 = v21;
-    v21 = 0;
+    v18 = self->_telephonyStateDelegate;
+    sub_10009B928(v22, &name->var0.var0);
+    (*(v18->var0 + 10))(&v20, v18, v22);
+    v19 = v20;
+    v20 = 0;
 
-    if (v23[24] == 1 && (v23[23] & 0x80000000) != 0)
+    if (v22[24] == 1 && (v22[23] & 0x80000000) != 0)
     {
-      v18 = v23;
+      v17 = v22;
       goto LABEL_27;
     }
   }
@@ -1679,7 +1679,7 @@ LABEL_24:
     __p = v11;
   }
 
-  [v5 formatCellularRAT:&__p];
+  objc_msgSend_formatCellularRAT_(v5, *&__p.__r_.__value_.__l.__data_, __p.__r_.__value_.__r.__words[2]);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -1716,6 +1716,49 @@ LABEL_5:
   v3->__r_.__value_.__r.__words[2] = 0;
   v3->__r_.__value_.__r.__words[0] = 0;
   return result;
+}
+
+- (void)updateSatelliteStatusAndCellularRAT:(unsigned __int8)t
+{
+  p_satelliteStatus = &self->_satelliteStatus;
+  if (self->_satelliteStatus != t)
+  {
+    tCopy = t;
+    v6 = qword_100192D98;
+    if (os_log_type_enabled(qword_100192D98, OS_LOG_TYPE_DEBUG))
+    {
+      sub_10011EFBC(p_satelliteStatus, tCopy, v6);
+    }
+
+    if (tCopy == 1)
+    {
+      std::string::assign(&self->_cellularRAT, "RATUnknown");
+    }
+
+    self->_satelliteStatus = tCopy;
+    if (*(&self->_cellularRAT.__rep_.__l + 23) < 0)
+    {
+      sub_1000078D8(v7, self->_cellularRAT.__rep_.__l.__data_, self->_cellularRAT.__rep_.__l.__size_);
+    }
+
+    else
+    {
+      *v7 = *self->_cellularRAT.__rep_.__s.__data_;
+      v8 = *(&self->_cellularRAT.__rep_.__l + 2);
+    }
+
+    objc_msgSend_formatCellularRAT_(self, v7[0], v7[1], v8);
+    [(TelephonyStateRelay *)self _updateCellularRAT:&__p];
+    if (v10 < 0)
+    {
+      operator delete(__p);
+    }
+
+    if (SHIBYTE(v8) < 0)
+    {
+      operator delete(v7[0]);
+    }
+  }
 }
 
 - (BOOL)isStewieActive:(id)active

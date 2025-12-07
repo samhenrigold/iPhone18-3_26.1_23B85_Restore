@@ -72,18 +72,16 @@
 
 - (id)sr_dictionaryRepresentation
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   identifier = &stru_1F48BB5C0;
   if (self->_identifier)
   {
     identifier = self->_identifier;
   }
 
-  v5 = @"identifier";
-  v6[0] = identifier;
-  result = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  v4 = @"identifier";
+  v5[0] = identifier;
+  return [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 }
 
 @end

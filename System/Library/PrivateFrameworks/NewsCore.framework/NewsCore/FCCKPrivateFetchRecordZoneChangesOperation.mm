@@ -9,45 +9,34 @@
 
 - (BOOL)validateOperation
 {
-  v17 = *MEMORY[0x1E69E9840];
-  v8.receiver = self;
-  v8.super_class = FCCKPrivateFetchRecordZoneChangesOperation;
-  validateOperation = [(FCCKPrivateDatabaseOperation *)&v8 validateOperation];
+  v16 = *MEMORY[0x1E69E9840];
+  v7.receiver = self;
+  v7.super_class = FCCKPrivateFetchRecordZoneChangesOperation;
+  validateOperation = [(FCCKPrivateDatabaseOperation *)&v7 validateOperation];
   recordZoneID = [(FCCKPrivateFetchRecordZoneChangesOperation *)self recordZoneID];
 
   if (!recordZoneID && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"can't fetch zone changes without a zone ID"];
+    v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"can't fetch zone changes without a zone ID"];
     *buf = 136315906;
-    v10 = "[FCCKPrivateFetchRecordZoneChangesOperation validateOperation]";
-    v11 = 2080;
-    v12 = "FCCKPrivateFetchRecordZoneChangesOperation.m";
-    v13 = 1024;
-    v14 = 35;
-    v15 = 2114;
-    v16 = v7;
+    v9 = "[FCCKPrivateFetchRecordZoneChangesOperation validateOperation]";
+    v10 = 2080;
+    v11 = "FCCKPrivateFetchRecordZoneChangesOperation.m";
+    v12 = 1024;
+    v13 = 35;
+    v14 = 2114;
+    v15 = v6;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  if (recordZoneID)
-  {
-    result = validateOperation;
-  }
-
-  else
-  {
-    result = 0;
-  }
-
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return recordZoneID && validateOperation;
 }
 
 - (void)performOperation
 {
-  v37[1] = *MEMORY[0x1E69E9840];
-  v30 = 0;
-  v31 = &v30;
+  v36[1] = *MEMORY[0x1E69E9840];
+  v29 = 0;
+  v30 = &v29;
   if ([(FCCKPrivateDatabaseOperation *)self skipPreflight])
   {
     v3 = 3;
@@ -58,88 +47,87 @@
     v3 = 2;
   }
 
-  v32 = 0x2020000000;
-  v33 = 0;
+  v31 = 0x2020000000;
+  v32 = 0;
   database = [(FCCKPrivateDatabaseOperation *)self database];
   recordZoneID = [(FCCKPrivateFetchRecordZoneChangesOperation *)self recordZoneID];
-  v37[0] = recordZoneID;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v37 count:1];
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = __62__FCCKPrivateFetchRecordZoneChangesOperation_performOperation__block_invoke;
-  v29[3] = &unk_1E7C3B438;
-  v29[4] = &v30;
-  [(FCCKPrivateDatabase *)database enumeratePayloadsWithRecordIDs:0 records:v6 zoneIDs:0 zones:v3 options:v29 payloadHandler:?];
+  v36[0] = recordZoneID;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:1];
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = __62__FCCKPrivateFetchRecordZoneChangesOperation_performOperation__block_invoke;
+  v28[3] = &unk_1E7C3B438;
+  v28[4] = &v29;
+  [(FCCKPrivateDatabase *)database enumeratePayloadsWithRecordIDs:0 records:v6 zoneIDs:0 zones:v3 options:v28 payloadHandler:?];
 
   v7 = objc_alloc_init(MEMORY[0x1E695B918]);
   recordZoneID2 = [(FCCKPrivateFetchRecordZoneChangesOperation *)self recordZoneID];
-  v36 = recordZoneID2;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v36 count:1];
+  v35 = recordZoneID2;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v35 count:1];
   [v7 setRecordZoneIDs:v9];
 
   [v7 setFetchAllChanges:{-[FCCKPrivateFetchRecordZoneChangesOperation fetchAllChanges](self, "fetchAllChanges")}];
   recordZoneID3 = [(FCCKPrivateFetchRecordZoneChangesOperation *)self recordZoneID];
-  v34 = recordZoneID3;
-  v11 = [(FCCKPrivateFetchRecordZoneChangesOperation *)self _configurationForDestination:v31[3]];
-  v35 = v11;
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
+  v33 = recordZoneID3;
+  v11 = [(FCCKPrivateFetchRecordZoneChangesOperation *)self _configurationForDestination:v30[3]];
+  v34 = v11;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
   [v7 setConfigurationsByRecordZoneID:v12];
 
   v13 = objc_opt_new();
-  v27[0] = MEMORY[0x1E69E9820];
-  v27[1] = 3221225472;
-  v27[2] = __62__FCCKPrivateFetchRecordZoneChangesOperation_performOperation__block_invoke_10;
-  v27[3] = &unk_1E7C37FE0;
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __62__FCCKPrivateFetchRecordZoneChangesOperation_performOperation__block_invoke_10;
+  v26[3] = &unk_1E7C37FE0;
   v14 = v13;
-  v28 = v14;
-  [v7 setRecordChangedBlock:v27];
+  v27 = v14;
+  [v7 setRecordChangedBlock:v26];
   array = [MEMORY[0x1E695DF70] array];
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __62__FCCKPrivateFetchRecordZoneChangesOperation_performOperation__block_invoke_2;
-  v25[3] = &unk_1E7C3B460;
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __62__FCCKPrivateFetchRecordZoneChangesOperation_performOperation__block_invoke_2;
+  v24[3] = &unk_1E7C3B460;
   v16 = array;
-  v26 = v16;
-  [v7 setRecordWithIDWasDeletedBlock:v25];
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __62__FCCKPrivateFetchRecordZoneChangesOperation_performOperation__block_invoke_3;
-  v21[3] = &unk_1E7C3B488;
-  v24 = &v30;
-  v21[4] = self;
-  v17 = v14;
-  v22 = v17;
-  v18 = v16;
-  v23 = v18;
-  [v7 setRecordZoneFetchCompletionBlock:v21];
+  v25 = v16;
+  [v7 setRecordWithIDWasDeletedBlock:v24];
   v20[0] = MEMORY[0x1E69E9820];
   v20[1] = 3221225472;
-  v20[2] = __62__FCCKPrivateFetchRecordZoneChangesOperation_performOperation__block_invoke_4;
-  v20[3] = &unk_1E7C36E50;
+  v20[2] = __62__FCCKPrivateFetchRecordZoneChangesOperation_performOperation__block_invoke_3;
+  v20[3] = &unk_1E7C3B488;
+  v23 = &v29;
   v20[4] = self;
-  [v7 setFetchRecordZoneChangesCompletionBlock:v20];
-  [(FCCKPrivateDatabaseOperation *)self runChildCKOperation:v7 destination:v31[3]];
+  v17 = v14;
+  v21 = v17;
+  v18 = v16;
+  v22 = v18;
+  [v7 setRecordZoneFetchCompletionBlock:v20];
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __62__FCCKPrivateFetchRecordZoneChangesOperation_performOperation__block_invoke_4;
+  v19[3] = &unk_1E7C36E50;
+  v19[4] = self;
+  [v7 setFetchRecordZoneChangesCompletionBlock:v19];
+  [(FCCKPrivateDatabaseOperation *)self runChildCKOperation:v7 destination:v30[3]];
 
-  _Block_object_dispose(&v30, 8);
-  v19 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v29, 8);
 }
 
 void __62__FCCKPrivateFetchRecordZoneChangesOperation_performOperation__block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (*(*(*(a1 + 32) + 8) + 24) && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"zone should only map to a single destination"];
-    v7 = 136315906;
-    v8 = "[FCCKPrivateFetchRecordZoneChangesOperation performOperation]_block_invoke";
-    v9 = 2080;
-    v10 = "FCCKPrivateFetchRecordZoneChangesOperation.m";
-    v11 = 1024;
-    v12 = 58;
-    v13 = 2114;
-    v14 = v6;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v7, 0x26u);
+    v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"zone should only map to a single destination"];
+    v6 = 136315906;
+    v7 = "[FCCKPrivateFetchRecordZoneChangesOperation performOperation]_block_invoke";
+    v8 = 2080;
+    v9 = "FCCKPrivateFetchRecordZoneChangesOperation.m";
+    v10 = 1024;
+    v11 = 58;
+    v12 = 2114;
+    v13 = v5;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v6, 0x26u);
 
     if (v3)
     {
@@ -160,25 +148,23 @@ LABEL_4:
   v4 = v3[5];
 LABEL_5:
   *(*(*(a1 + 32) + 8) + 24) = v4;
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __62__FCCKPrivateFetchRecordZoneChangesOperation_performOperation__block_invoke_10(uint64_t result, uint64_t a2)
+id *__62__FCCKPrivateFetchRecordZoneChangesOperation_performOperation__block_invoke_10(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) addObject:a2];
+    return [result[4] addObject:a2];
   }
 
   return result;
 }
 
-uint64_t __62__FCCKPrivateFetchRecordZoneChangesOperation_performOperation__block_invoke_2(uint64_t result, uint64_t a2)
+id *__62__FCCKPrivateFetchRecordZoneChangesOperation_performOperation__block_invoke_2(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) addObject:a2];
+    return [result[4] addObject:a2];
   }
 
   return result;

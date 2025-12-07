@@ -3,6 +3,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)replaceIntentAsString:(int)string;
+- (id)typeAsString:(int)string;
 - (int)StringAsReplaceIntent:(id)intent;
 - (int)StringAsType:(id)type;
 - (int)replaceIntent;
@@ -15,25 +17,40 @@
 
 @implementation _MRSystemPlaybackQueueProtobuf
 
+- (id)typeAsString:(int)string
+{
+  if ((string - 1) >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E76A09C8[string - 1];
+  }
+
+  return v4;
+}
+
 - (int)StringAsType:(id)type
 {
   typeCopy = type;
-  if ([typeCopy isEqualToString:@"SystemPlaybackQueueTypeUnknown"])
+  if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 1;
   }
 
-  else if ([typeCopy isEqualToString:@"SystemPlaybackQueueTypeGeneric"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 2;
   }
 
-  else if ([typeCopy isEqualToString:@"SystemPlaybackQueueTypeCustom"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 3;
   }
 
-  else if ([typeCopy isEqualToString:@"SystemPlaybackQueueTypeEmpty"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 4;
   }
@@ -59,25 +76,40 @@
   }
 }
 
+- (id)replaceIntentAsString:(int)string
+{
+  if ((string - 1) >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E76A09E8[string - 1];
+  }
+
+  return v4;
+}
+
 - (int)StringAsReplaceIntent:(id)intent
 {
   intentCopy = intent;
-  if ([intentCopy isEqualToString:@"SystemPlaybackQueueReplaceIntentNonDestructive"])
+  if (objc_msgSend_isEqualToString_(intentCopy))
   {
     v4 = 1;
   }
 
-  else if ([intentCopy isEqualToString:@"SystemPlaybackQueueReplaceIntentClearUpNext"])
+  else if (objc_msgSend_isEqualToString_(intentCopy))
   {
     v4 = 2;
   }
 
-  else if ([intentCopy isEqualToString:@"SystemPlaybackQueueReplaceIntentKeepUpNext"])
+  else if (objc_msgSend_isEqualToString_(intentCopy))
   {
     v4 = 3;
   }
 
-  else if ([intentCopy isEqualToString:@"SystemPlaybackQueueReplaceIntentLeaveSharedSession"])
+  else if (objc_msgSend_isEqualToString_(intentCopy))
   {
     v4 = 4;
   }
@@ -196,52 +228,48 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  type = self->_type;
-  v10 = toCopy;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if (has)
   {
-    replaceIntent = self->_replaceIntent;
     PBDataWriterWriteInt32Field();
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    isRequestingImmediatePlayback = self->_isRequestingImmediatePlayback;
     PBDataWriterWriteBOOLField();
   }
 
-  v9 = v10;
+  v5 = toCopy;
   if (self->_featureName)
   {
     PBDataWriterWriteStringField();
-    v9 = v10;
+    v5 = toCopy;
   }
 
   if (self->_customData)
   {
     PBDataWriterWriteSubmessage();
-    v9 = v10;
+    v5 = toCopy;
   }
 
   if (self->_tracklist)
   {
     PBDataWriterWriteSubmessage();
-    v9 = v10;
+    v5 = toCopy;
   }
 
   if (self->_userInfo)
   {
     PBDataWriterWriteDataField();
-    v9 = v10;
+    v5 = toCopy;
   }
 
   if (self->_metrics)
   {
     PBDataWriterWriteDataField();
-    v9 = v10;
+    v5 = toCopy;
   }
 }
 
@@ -345,7 +373,6 @@
     goto LABEL_21;
   }
 
-  v5 = *(equalCopy + 68);
   if (*&self->_has)
   {
     if ((*(equalCopy + 68) & 1) == 0 || self->_replaceIntent != *(equalCopy + 8))
@@ -367,7 +394,7 @@
     }
 
 LABEL_21:
-    v11 = 0;
+    v10 = 0;
     goto LABEL_22;
   }
 
@@ -376,7 +403,6 @@ LABEL_21:
     goto LABEL_21;
   }
 
-  v13 = *(equalCopy + 64);
   if (self->_isRequestingImmediatePlayback)
   {
     if ((*(equalCopy + 64) & 1) == 0)
@@ -427,17 +453,17 @@ LABEL_10:
   metrics = self->_metrics;
   if (metrics | *(equalCopy + 3))
   {
-    v11 = [(NSData *)metrics isEqual:?];
+    v10 = [(NSData *)metrics isEqual:?];
   }
 
   else
   {
-    v11 = 1;
+    v10 = 1;
   }
 
 LABEL_22:
 
-  return v11;
+  return v10;
 }
 
 - (unint64_t)hash

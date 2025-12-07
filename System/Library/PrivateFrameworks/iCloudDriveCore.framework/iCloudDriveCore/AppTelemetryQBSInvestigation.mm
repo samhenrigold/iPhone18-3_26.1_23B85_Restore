@@ -167,7 +167,6 @@ LABEL_7:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    serverTruthDirCount = self->_serverTruthDirCount;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 4) == 0)
@@ -187,7 +186,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  serverTruthDirFaultCount = self->_serverTruthDirFaultCount;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -202,7 +200,6 @@ LABEL_4:
   }
 
 LABEL_12:
-  clientTruthDirFaultCount = self->_clientTruthDirFaultCount;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -217,12 +214,10 @@ LABEL_5:
   }
 
 LABEL_13:
-  timeSinceLogin = self->_timeSinceLogin;
   PBDataWriterWriteUint64Field();
   if ((*&self->_has & 8) != 0)
   {
 LABEL_6:
-    serverTruthTotalItemsCount = self->_serverTruthTotalItemsCount;
     PBDataWriterWriteUint64Field();
   }
 

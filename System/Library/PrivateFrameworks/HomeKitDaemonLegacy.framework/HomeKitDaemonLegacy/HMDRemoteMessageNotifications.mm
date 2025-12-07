@@ -112,16 +112,14 @@
 
 + (void)initialize
 {
-  v5[4] = *MEMORY[0x277D85DE8];
-  v5[0] = @"kCharacteristicWriteRequestKey";
-  v5[1] = @"kCharacteristicReadRequestKey";
-  v5[2] = @"kMultipleCharacteristicWriteRequestKey";
-  v5[3] = @"kMultipleCharacteristicReadRequestKey";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:4];
+  v4[4] = *MEMORY[0x277D85DE8];
+  v4[0] = @"kCharacteristicWriteRequestKey";
+  v4[1] = @"kCharacteristicReadRequestKey";
+  v4[2] = @"kMultipleCharacteristicWriteRequestKey";
+  v4[3] = @"kMultipleCharacteristicReadRequestKey";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:4];
   v3 = _messagesWithNotificationResponses;
   _messagesWithNotificationResponses = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 @end

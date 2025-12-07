@@ -106,7 +106,7 @@ BOOL __46__BLSHEnvironmentDatesModel_specifierForDate___block_invoke(uint64_t a1
 
 - (id)missingIntervalForDateInterval:(id)interval
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   intervalCopy = interval;
   os_unfair_lock_lock(&self->_lock);
   v5 = self->_dateInterval;
@@ -123,10 +123,10 @@ BOOL __46__BLSHEnvironmentDatesModel_specifierForDate___block_invoke(uint64_t a1
         bls_shortLoggingString = [intervalCopy bls_shortLoggingString];
         *buf = 134218498;
         selfCopy4 = self;
-        v41 = 2114;
-        v42 = identifier;
-        v43 = 2114;
-        v44 = bls_shortLoggingString;
+        v40 = 2114;
+        v41 = identifier;
+        v42 = 2114;
+        v43 = bls_shortLoggingString;
         _os_log_debug_impl(&dword_21FD11000, v7, OS_LOG_TYPE_DEBUG, "%p:%{public}@ already have all specifiers in interval:%{public}@, will skip", buf, 0x20u);
       }
 
@@ -155,8 +155,8 @@ BOOL __46__BLSHEnvironmentDatesModel_specifierForDate___block_invoke(uint64_t a1
       if ([endDate3 compare:endDate2] != 1)
       {
         v8 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:endDate3 endDate:endDate2];
-        v29 = bls_flipbook_log();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+        v28 = bls_flipbook_log();
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
         {
           identifier2 = [WeakRetained identifier];
           bls_shortLoggingString2 = [intervalCopy bls_shortLoggingString];
@@ -164,15 +164,15 @@ BOOL __46__BLSHEnvironmentDatesModel_specifierForDate___block_invoke(uint64_t a1
           [v8 bls_shortLoggingString];
           *buf = 134219010;
           selfCopy4 = self;
-          v41 = 2114;
-          v42 = identifier2;
-          v43 = 2114;
-          v44 = bls_shortLoggingString2;
-          v45 = 2114;
-          v46 = bls_shortLoggingString3;
-          v48 = v47 = 2114;
-          v36 = v48;
-          _os_log_debug_impl(&dword_21FD11000, v29, OS_LOG_TYPE_DEBUG, "%p:%{public}@ truncating interval:%{public}@ due to current interval:%{public}@ - to new interval:%{public}@", buf, 0x34u);
+          v40 = 2114;
+          v41 = identifier2;
+          v42 = 2114;
+          v43 = bls_shortLoggingString2;
+          v44 = 2114;
+          v45 = bls_shortLoggingString3;
+          v47 = v46 = 2114;
+          v35 = v47;
+          _os_log_debug_impl(&dword_21FD11000, v28, OS_LOG_TYPE_DEBUG, "%p:%{public}@ truncating interval:%{public}@ due to current interval:%{public}@ - to new interval:%{public}@", buf, 0x34u);
         }
 
 LABEL_8:
@@ -197,14 +197,14 @@ LABEL_8:
         bls_shortLoggingString5 = [(NSDateInterval *)v5 bls_shortLoggingString];
         *buf = 134219010;
         selfCopy4 = self;
-        v41 = 2114;
-        v42 = identifier3;
-        v43 = 2114;
-        v44 = bls_shortLoggingString4;
-        v45 = 2114;
-        v46 = bls_shortLoggingString5;
-        v47 = 1024;
-        LODWORD(v48) = [(BLSHEnvironmentDatesModel *)self count];
+        v40 = 2114;
+        v41 = identifier3;
+        v42 = 2114;
+        v43 = bls_shortLoggingString4;
+        v44 = 2114;
+        v45 = bls_shortLoggingString5;
+        v46 = 1024;
+        LODWORD(v47) = [(BLSHEnvironmentDatesModel *)self count];
         _os_log_fault_impl(&dword_21FD11000, v20, OS_LOG_TYPE_FAULT, "%p:%{public}@ interval:%{public}@ ends before or same as current interval:%{public}@ - will invalidate %d old dates", buf, 0x30u);
       }
 
@@ -221,14 +221,14 @@ LABEL_8:
         bls_shortLoggingString7 = [(NSDateInterval *)v5 bls_shortLoggingString];
         *buf = 134219010;
         selfCopy4 = self;
-        v41 = 2114;
-        v42 = identifier4;
-        v43 = 2114;
-        v44 = bls_shortLoggingString6;
-        v45 = 2114;
-        v46 = bls_shortLoggingString7;
-        v47 = 1024;
-        LODWORD(v48) = [(BLSHEnvironmentDatesModel *)self count];
+        v40 = 2114;
+        v41 = identifier4;
+        v42 = 2114;
+        v43 = bls_shortLoggingString6;
+        v44 = 2114;
+        v45 = bls_shortLoggingString7;
+        v46 = 1024;
+        LODWORD(v47) = [(BLSHEnvironmentDatesModel *)self count];
         _os_log_impl(&dword_21FD11000, v21, OS_LOG_TYPE_INFO, "%p:%{public}@ new interval:%{public}@ does not intersect current interval:%{public}@ - will invalidate %d old dates", buf, 0x30u);
       }
 
@@ -252,13 +252,12 @@ LABEL_20:
 LABEL_22:
   v26 = v25;
 
-  v27 = *MEMORY[0x277D85DE8];
   return v25;
 }
 
 - (void)registerSpecifiers:(id)specifiers forDateInterval:(id)interval
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   intervalCopy = interval;
   specifiersCopy = specifiers;
   os_unfair_lock_lock(&self->_lock);
@@ -282,18 +281,18 @@ LABEL_22:
       identifier = [WeakRetained identifier];
       bls_shortLoggingString = [intervalCopy bls_shortLoggingString];
       bls_shortLoggingString2 = [(NSDateInterval *)v10 bls_shortLoggingString];
-      v25 = [(NSMutableArray *)self->_specifiers count];
-      v26 = 134219010;
+      v24 = [(NSMutableArray *)self->_specifiers count];
+      v25 = 134219010;
       selfCopy = self;
-      v28 = 2114;
-      v29 = identifier;
-      v30 = 2114;
-      v31 = bls_shortLoggingString;
-      v32 = 2114;
-      v33 = bls_shortLoggingString2;
-      v34 = 1024;
-      v35 = v25;
-      _os_log_fault_impl(&dword_21FD11000, v18, OS_LOG_TYPE_FAULT, "%p:%{public}@ new interval:%{public}@ does not follow current interval:%{public}@ - will invalidate %d old specifiers", &v26, 0x30u);
+      v27 = 2114;
+      v28 = identifier;
+      v29 = 2114;
+      v30 = bls_shortLoggingString;
+      v31 = 2114;
+      v32 = bls_shortLoggingString2;
+      v33 = 1024;
+      v34 = v24;
+      _os_log_fault_impl(&dword_21FD11000, v18, OS_LOG_TYPE_FAULT, "%p:%{public}@ new interval:%{public}@ does not follow current interval:%{public}@ - will invalidate %d old specifiers", &v25, 0x30u);
     }
 
     [(NSMutableArray *)self->_specifiers removeAllObjects];
@@ -317,32 +316,28 @@ LABEL_8:
 
   [(NSMutableArray *)self->_specifiers addObjectsFromArray:specifiersCopy];
   os_unfair_lock_unlock(&self->_lock);
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clearAllSpecifiers
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   identifier = [a2 identifier];
   v6 = [*(self + 8) count];
   bls_shortLoggingString = [*(self + 16) bls_shortLoggingString];
-  v9 = 134218754;
+  v8 = 134218754;
   selfCopy = self;
-  v11 = 2114;
-  v12 = identifier;
-  v13 = 1024;
-  v14 = v6;
-  v15 = 2114;
-  v16 = bls_shortLoggingString;
-  _os_log_debug_impl(&dword_21FD11000, a3, OS_LOG_TYPE_DEBUG, "%p:%{public}@ will clear %d specifiers from interval:%{public}@", &v9, 0x26u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10 = 2114;
+  v11 = identifier;
+  v12 = 1024;
+  v13 = v6;
+  v14 = 2114;
+  v15 = bls_shortLoggingString;
+  _os_log_debug_impl(&dword_21FD11000, a3, OS_LOG_TYPE_DEBUG, "%p:%{public}@ will clear %d specifiers from interval:%{public}@", &v8, 0x26u);
 }
 
 - (void)purgeSpecifiersBefore:(id)before
 {
-  *&v27[13] = *MEMORY[0x277D85DE8];
+  *&v26[13] = *MEMORY[0x277D85DE8];
   beforeCopy = before;
   os_unfair_lock_lock(&self->_lock);
   WeakRetained = objc_loadWeakRetained(&self->_environment);
@@ -380,15 +375,15 @@ LABEL_6:
 
     identifier = [WeakRetained identifier];
     bls_shortLoggingString = [beforeCopy bls_shortLoggingString];
-    v20 = 134218754;
+    v19 = 134218754;
     selfCopy2 = self;
-    v22 = 2114;
-    v23 = identifier;
-    v24 = 1024;
-    v25 = v6;
-    v26 = 2114;
-    *v27 = bls_shortLoggingString;
-    _os_log_debug_impl(&dword_21FD11000, v13, OS_LOG_TYPE_DEBUG, "%p:%{public}@ no dates to purge (remaining:%d) before:%{public}@", &v20, 0x26u);
+    v21 = 2114;
+    v22 = identifier;
+    v23 = 1024;
+    v24 = v6;
+    v25 = 2114;
+    *v26 = bls_shortLoggingString;
+    _os_log_debug_impl(&dword_21FD11000, v13, OS_LOG_TYPE_DEBUG, "%p:%{public}@ no dates to purge (remaining:%d) before:%{public}@", &v19, 0x26u);
 
 LABEL_14:
     goto LABEL_12;
@@ -410,19 +405,19 @@ LABEL_8:
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     identifier = [WeakRetained identifier];
-    v18 = [(NSMutableArray *)self->_specifiers count];
+    v17 = [(NSMutableArray *)self->_specifiers count];
     bls_shortLoggingString2 = [beforeCopy bls_shortLoggingString];
-    v20 = 134219010;
+    v19 = 134219010;
     selfCopy2 = self;
-    v22 = 2114;
-    v23 = identifier;
-    v24 = 1024;
-    v25 = v16;
-    v26 = 1024;
-    *v27 = v18;
-    v27[2] = 2114;
-    *&v27[3] = bls_shortLoggingString2;
-    _os_log_debug_impl(&dword_21FD11000, v13, OS_LOG_TYPE_DEBUG, "%p:%{public}@ did purge:%d dates (remaining:%d) before:%{public}@", &v20, 0x2Cu);
+    v21 = 2114;
+    v22 = identifier;
+    v23 = 1024;
+    v24 = v16;
+    v25 = 1024;
+    *v26 = v17;
+    v26[2] = 2114;
+    *&v26[3] = bls_shortLoggingString2;
+    _os_log_debug_impl(&dword_21FD11000, v13, OS_LOG_TYPE_DEBUG, "%p:%{public}@ did purge:%d dates (remaining:%d) before:%{public}@", &v19, 0x2Cu);
 
     goto LABEL_14;
   }
@@ -430,7 +425,6 @@ LABEL_8:
 LABEL_12:
 
   os_unfair_lock_unlock(&self->_lock);
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __51__BLSHEnvironmentDatesModel_purgeSpecifiersBefore___block_invoke(uint64_t a1, void *a2, void *a3)

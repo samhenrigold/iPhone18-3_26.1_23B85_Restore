@@ -1063,7 +1063,7 @@ LABEL_81:
 
   if (gLogCategory_CUPowerSourceMonitor <= 60 && (gLogCategory_CUPowerSourceMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUPowerSourceMonitor, 0x3Cu)))
   {
-    LogPrintF(&gLogCategory_CUPowerSourceMonitor, "[CUPowerSource handleSubComponentsUpdatedWithBaseSource:]", 0x3Cu, "### Updating aggregate without subcomponents?", v64, v65, v66, v67, v68);
+    LogPrintF(&gLogCategory_CUPowerSourceMonitor, "[CUPowerSource handleSubComponentsUpdatedWithBaseSource:]", 60, "### Updating aggregate without subcomponents?", v64, v65, v66, v67, v68);
   }
 
   v70 = 0;

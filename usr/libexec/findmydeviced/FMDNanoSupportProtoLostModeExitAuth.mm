@@ -39,8 +39,6 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  errorOccurred = self->_errorOccurred;
-  v6 = toCopy;
   PBDataWriterWriteBOOLField();
   if (self->_lostModeExitAuthToken)
   {
@@ -77,13 +75,12 @@
     goto LABEL_4;
   }
 
-  v5 = *(equalCopy + 16);
   if (self->_errorOccurred)
   {
     if ((*(equalCopy + 16) & 1) == 0)
     {
 LABEL_4:
-      v6 = 0;
+      v5 = 0;
       goto LABEL_5;
     }
   }
@@ -96,17 +93,17 @@ LABEL_4:
   lostModeExitAuthToken = self->_lostModeExitAuthToken;
   if (lostModeExitAuthToken | *(equalCopy + 1))
   {
-    v6 = [(NSString *)lostModeExitAuthToken isEqual:?];
+    v5 = [(NSString *)lostModeExitAuthToken isEqual:?];
   }
 
   else
   {
-    v6 = 1;
+    v5 = 1;
   }
 
 LABEL_5:
 
-  return v6;
+  return v5;
 }
 
 - (void)mergeFrom:(id)from

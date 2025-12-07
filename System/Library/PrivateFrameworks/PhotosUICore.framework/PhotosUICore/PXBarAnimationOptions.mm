@@ -10,7 +10,7 @@
 {
   v4 = objc_alloc(objc_opt_class());
   type = [(PXBarAnimationOptions *)self type];
-  [(PXBarAnimationOptions *)self duration];
+  objc_msgSend_duration(self);
 
   return [v4 initWithType:type duration:?];
 }

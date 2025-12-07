@@ -16,6 +16,7 @@
 - (void)_updateEnhancedEndpointerDefaultThresholdPartial:(float)partial defaultThresholdRC:(float)c relaxedThresholdPartial:(float)thresholdPartial relaxedThresholdRC:(float)rC;
 - (void)endpointerAssetManagerDidUpdateAsset:(id)asset;
 - (void)logAnchorMachAbsTime:(unint64_t)time numSamplesProcessedBeforeAnchorTime:(unint64_t)anchorTime isAnchorTimeBuffered:(BOOL)buffered audioDeliveryHostTimeDelta:(unint64_t)delta;
+- (void)processASRFeatures:(id)features fromServer:(BOOL)server;
 - (void)processFirstAudioPacketTimestamp:(id)timestamp firstAudioSampleSensorTimestamp:(unint64_t)sensorTimestamp;
 - (void)processOSDFeatures:(id)features withFrameDurationMs:(double)ms withMHID:(id)d;
 - (void)processRCFeatures:(id)features;
@@ -895,6 +896,24 @@ LABEL_13:
   selfCopy = self;
   v6 = stringCopy;
   dispatch_async(hybridClassifierQueue, v7);
+}
+
+- (void)processASRFeatures:(id)features fromServer:(BOOL)server
+{
+  serverCopy = server;
+  featuresCopy = features;
+  v11.receiver = self;
+  v11.super_class = CSHybridEndpointAnalyzer;
+  [(CSEndpointAnalyzerBase *)&v11 processASRFeatures:featuresCopy fromServer:serverCopy];
+  asrFeaturesQueue = self->super._asrFeaturesQueue;
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 3221225472;
+  v9[2] = sub_1000E3DD0;
+  v9[3] = &unk_100253C48;
+  v9[4] = self;
+  v10 = featuresCopy;
+  v8 = featuresCopy;
+  dispatch_async(asrFeaturesQueue, v9);
 }
 
 - (int64_t)fetchCurrentEndpointerOperationMode

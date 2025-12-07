@@ -275,10 +275,10 @@ LABEL_11:
 
 - (BOOL)runTest
 {
-  options = [(MapsAppTest *)self options];
+  v3 = objc_msgSend_options(self, a2);
   if (![(MapsAppTest *)self isRunningOnCarPlay])
   {
-    -[MapsAppTest switchToMapType:](self, "switchToMapType:", [options _mapstest_mapType]);
+    -[MapsAppTest switchToMapType:](self, "switchToMapType:", [v3 _mapstest_mapType]);
   }
 
   [(MapsAppTest *)self setupForVKTest];

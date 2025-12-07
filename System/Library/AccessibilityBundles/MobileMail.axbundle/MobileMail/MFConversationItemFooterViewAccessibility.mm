@@ -90,7 +90,7 @@ void __79__MFConversationItemFooterViewAccessibility__accessibilityPerformLeadin
 
 - (void)_accessibilityUpdateLeadingActionTitle:(id)title
 {
-  v11[1] = *MEMORY[0x29EDCA608];
+  v10[1] = *MEMORY[0x29EDCA608];
   titleCopy = title;
   v5 = [(MFConversationItemFooterViewAccessibility *)self safeValueForKey:@"revealActionsButton"];
   if ([titleCopy length])
@@ -99,12 +99,10 @@ void __79__MFConversationItemFooterViewAccessibility__accessibilityPerformLeadin
     v7 = accessibilitySubstituteReadPhonemeInString(titleCopy);
     v8 = [v6 initWithName:v7 target:self selector:sel__accessibilityPerformLeadingAction];
 
-    v11[0] = v8;
-    v9 = [MEMORY[0x29EDB8D80] arrayWithObjects:v11 count:1];
+    v10[0] = v8;
+    v9 = [MEMORY[0x29EDB8D80] arrayWithObjects:v10 count:1];
     [v5 setAccessibilityCustomActions:v9];
   }
-
-  v10 = *MEMORY[0x29EDCA608];
 }
 
 - (id)_accessibilityConversationViewControllerForCell:(id)cell

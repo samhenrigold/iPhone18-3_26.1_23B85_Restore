@@ -76,7 +76,7 @@
   return v4;
 }
 
-uint64_t __78__SMDeviceConfigurationChecker_getDeviceConfigurationLowPowerModeWarningState__block_invoke(uint64_t a1)
+void *__78__SMDeviceConfigurationChecker_getDeviceConfigurationLowPowerModeWarningState__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _getDeviceConfigurationLowPowerModeWarningState];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -104,7 +104,7 @@ uint64_t __78__SMDeviceConfigurationChecker_getDeviceConfigurationLowPowerModeWa
   return v6;
 }
 
-uint64_t __101__SMDeviceConfigurationChecker_getDeviceConfigurationLowPowerModeWarningStateWithPairedDeviceNearby___block_invoke(uint64_t a1)
+void *__101__SMDeviceConfigurationChecker_getDeviceConfigurationLowPowerModeWarningStateWithPairedDeviceNearby___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _getDeviceConfigurationLowPowerModeWarningStateWithPairedDeviceNearby:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -127,28 +127,28 @@ uint64_t __101__SMDeviceConfigurationChecker_getDeviceConfigurationLowPowerModeW
 
 - (id)effectivePairedDevice
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   ownAccountIDSService = [(SMDeviceConfigurationChecker *)self ownAccountIDSService];
   devices = [ownAccountIDSService devices];
 
-  v4 = [devices countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [devices countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
-    v5 = *v11;
+    v5 = *v10;
     while (2)
     {
       for (i = 0; i != v4; i = i + 1)
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(devices);
         }
 
-        v7 = *(*(&v10 + 1) + 8 * i);
+        v7 = *(*(&v9 + 1) + 8 * i);
         if ([v7 isDefaultPairedDevice] && objc_msgSend(v7, "relationship") == 1)
         {
           v4 = v7;
@@ -156,7 +156,7 @@ uint64_t __101__SMDeviceConfigurationChecker_getDeviceConfigurationLowPowerModeW
         }
       }
 
-      v4 = [devices countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [devices countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (v4)
       {
         continue;
@@ -167,8 +167,6 @@ uint64_t __101__SMDeviceConfigurationChecker_getDeviceConfigurationLowPowerModeW
   }
 
 LABEL_12:
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

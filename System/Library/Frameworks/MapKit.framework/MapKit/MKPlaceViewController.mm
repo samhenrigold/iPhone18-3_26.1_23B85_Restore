@@ -64,11 +64,11 @@ LABEL_6:
   }
 }
 
-uint64_t __89___MKPlaceViewController_placeHeaderButtonsViewController_didSelectPrimaryType_withView___block_invoke_2(uint64_t result, int a2)
+id *__89___MKPlaceViewController_placeHeaderButtonsViewController_didSelectPrimaryType_withView___block_invoke_2(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _showShareSheet:*(result + 40)];
+    return [result[4] _showShareSheet:result[5]];
   }
 
   return result;

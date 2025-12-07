@@ -33,19 +33,19 @@ void __52___LTDAssetAnalytics_markEventsAsRetriedForLocales___block_invoke(uint6
           objc_enumerationMutation(v2);
         }
 
-        v7 = [*(*(&v13 + 1) + 8 * v6) _ltLocaleIdentifier];
-        if (v7)
+        v8 = [*(*(&v13 + 1) + 8 * v6) _ltLocaleIdentifier];
+        if (v8)
         {
-          v8 = [*(*(a1 + 40) + 8) objectForKeyedSubscript:v7];
-          [v8 setDidRetry:1];
+          v9 = [*(*(a1 + 40) + 8) objectForKeyedSubscript:v8];
+          [v9 setDidRetry:1];
         }
 
         else
         {
-          v9 = _LTOSLogAnalytics();
-          if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+          v10 = _LTOSLogAnalytics(0, v7);
+          if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
           {
-            __52___LTDAssetAnalytics_markEventsAsRetriedForLocales___block_invoke_cold_1(&v11, v12, v9);
+            __52___LTDAssetAnalytics_markEventsAsRetriedForLocales___block_invoke_cold_1(&v11, v12, v10);
           }
         }
 
@@ -58,16 +58,11 @@ void __52___LTDAssetAnalytics_markEventsAsRetriedForLocales___block_invoke(uint6
 
     while (v4);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __43___LTDAssetAnalytics_getEventWithNSLocale___block_invoke(void *a1)
 {
-  v2 = [*(a1[4] + 8) objectForKeyedSubscript:a1[5]];
-  v3 = *(a1[6] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[6] + 8) + 40) = [*(a1[4] + 8) objectForKeyedSubscript:a1[5]];
 
   return MEMORY[0x2821F96F8]();
 }

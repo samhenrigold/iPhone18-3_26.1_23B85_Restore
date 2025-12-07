@@ -52,14 +52,14 @@
 
 - (void)setSampleBufferDelegate:(id)sampleBufferDelegate queue:(dispatch_queue_t)sampleBufferCallbackQueue
 {
-  if (AVCaptureIsRunningInMediaserverd())
+  if (AVCaptureIsRunningInMediaserverd(self, a2))
   {
     sampleBufferCallbackQueue = 0;
   }
 
   [(AVCaptureAudioDataOutput *)self willChangeValueForKey:@"sampleBufferDelegate"];
-  v8 = 0;
-  if ([(AVCaptureDataOutputDelegateCallbackHelper *)self->_internal->delegateCallbackHelper setClientDelegate:sampleBufferDelegate clientCallbackQueue:sampleBufferCallbackQueue exceptionReason:&v8])
+  v9 = 0;
+  if ([(AVCaptureDataOutputDelegateCallbackHelper *)self->_internal->delegateCallbackHelper setClientDelegate:sampleBufferDelegate clientCallbackQueue:sampleBufferCallbackQueue exceptionReason:&v9])
   {
     [(AVCaptureAudioDataOutput *)self didChangeValueForKey:@"sampleBufferDelegate"];
   }
@@ -67,7 +67,7 @@
   else
   {
     v7 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v7, v8))
     {
       objc_exception_throw(v7);
     }
@@ -92,7 +92,7 @@
   else
   {
     v6 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v6, v7))
     {
       objc_exception_throw(v6);
     }
@@ -129,8 +129,8 @@
     v6 = [(AVCaptureOutput *)self connectionWithMediaType:*MEMORY[0x1E69875A0]];
     if ([(AVCaptureConnection *)v6 isLive])
     {
-      LODWORD(v11) = self->_internal->spatialAudioChannelLayoutTag;
-      return [(AVCaptureOutput *)self recommendedOutputSettingsForConnection:v6 sourceSettings:0 videoCodecType:0 fileType:outputFileType isIris:0 outputFileURL:0 spatialAudioChannelLayoutTag:v11];
+      LODWORD(v12) = self->_internal->spatialAudioChannelLayoutTag;
+      return [(AVCaptureOutput *)self recommendedOutputSettingsForConnection:v6 sourceSettings:0 videoCodecType:0 fileType:outputFileType isIris:0 outputFileURL:0 spatialAudioChannelLayoutTag:v12];
     }
   }
 
@@ -140,7 +140,7 @@
     v9 = *MEMORY[0x1E695D940];
     [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid file type UTI - available file types are: %@", supportedAssetWriterOutputFileTypes];
     v10 = [v8 exceptionWithName:v9 reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v10, v11))
     {
       objc_exception_throw(v10);
     }
@@ -196,18 +196,18 @@ LABEL_5:
 
 - (void)_handleNotification:(id)notification payload:(id)payload
 {
-  if ([objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FCD8]), "isEqual:", -[AVCaptureOutput sinkID](self, "sinkID")}])
+  if ([objc_msgSend_objectForKeyedSubscript_(payload a2])
   {
     if ([notification isEqualToString:*MEMORY[0x1E698FE48]])
     {
-      v7 = [payload objectForKeyedSubscript:*MEMORY[0x1E698FE38]];
+      v7 = objc_msgSend_objectForKeyedSubscript_(payload);
 
       [(AVCaptureAudioDataOutput *)self _updateRemoteQueue:v7];
     }
 
     else if ([notification isEqualToString:*MEMORY[0x1E698FE40]])
     {
-      v8 = [payload objectForKeyedSubscript:*MEMORY[0x1E698FBB8]];
+      v8 = objc_msgSend_objectForKeyedSubscript_(payload);
 
       [(AVCaptureAudioDataOutput *)self _updateLocalQueue:v8];
     }
@@ -306,7 +306,7 @@ void __46__AVCaptureAudioDataOutput__updateLocalQueue___block_invoke(uint64_t a1
 
 - (void)setDelegateOverride:(id)override delegateOverrideCallbackQueue:(id)queue
 {
-  if (AVCaptureIsRunningInMediaserverd())
+  if (AVCaptureIsRunningInMediaserverd(self, a2))
   {
     queueCopy = 0;
   }
@@ -316,11 +316,11 @@ void __46__AVCaptureAudioDataOutput__updateLocalQueue___block_invoke(uint64_t a1
     queueCopy = queue;
   }
 
-  v9 = 0;
-  if (![(AVCaptureDataOutputDelegateCallbackHelper *)self->_internal->delegateCallbackHelper setDelegateOverride:override delegateOverrideCallbackQueue:queueCopy exceptionReason:&v9])
+  v10 = 0;
+  if (![(AVCaptureDataOutputDelegateCallbackHelper *)self->_internal->delegateCallbackHelper setDelegateOverride:override delegateOverrideCallbackQueue:queueCopy exceptionReason:&v10])
   {
     v8 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v8, v9))
     {
       objc_exception_throw(v8);
     }

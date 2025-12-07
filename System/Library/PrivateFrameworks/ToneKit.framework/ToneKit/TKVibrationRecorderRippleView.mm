@@ -11,6 +11,7 @@
 - (void)_stopAnimation;
 - (void)_touchBeganAtLocation:(CGPoint)location;
 - (void)_updateRingEnlargementAnimation;
+- (void)animationDidStop:(id)stop finished:(BOOL)finished;
 - (void)dealloc;
 - (void)layoutSubviews;
 - (void)setFadeOutRadius:(double)radius;
@@ -225,7 +226,7 @@ LABEL_18:
 
 - (double)_currentSpeed
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v3 = 0x27CDE0000;
   if (self->_needsCurrentSpeedRefresh)
   {
@@ -234,18 +235,18 @@ LABEL_18:
     if (v4 >= 2)
     {
       v6 = v4;
-      v31 = 0u;
-      v32 = 0u;
-      v29 = 0u;
       v30 = 0u;
+      v31 = 0u;
+      v28 = 0u;
+      v29 = 0u;
       v7 = self->_recentTouchesContextQueue;
-      v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v28 objects:v32 count:16];
       if (v8)
       {
         v9 = v8;
         v10 = 0;
         v11 = 0;
-        v12 = *v30;
+        v12 = *v29;
         v13 = (((v6 - 1) * v6) >> 1);
         do
         {
@@ -254,12 +255,12 @@ LABEL_18:
           v16 = v11;
           do
           {
-            if (*v30 != v12)
+            if (*v29 != v12)
             {
               objc_enumerationMutation(v7);
             }
 
-            v17 = *(*(&v29 + 1) + 8 * v14);
+            v17 = *(*(&v28 + 1) + 8 * v14);
             if (v15)
             {
               [v15 location];
@@ -278,7 +279,7 @@ LABEL_18:
 
           while (v9 != v14);
           v11 += v9;
-          v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v29 objects:v33 count:16];
+          v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v28 objects:v32 count:16];
         }
 
         while (v9);
@@ -299,8 +300,7 @@ LABEL_18:
   [(TKVibrationRecorderRippleView *)self fingerStillSpeed];
   v25 = v24;
   [(TKVibrationRecorderRippleView *)self fingerMovingSpeed];
-  v26 = *MEMORY[0x277D85DE8];
-  return v25 + (v27 - v25) * *(&self->super.super.super.isa + *(v3 + 3676));
+  return v25 + (v26 - v25) * *(&self->super.super.super.isa + *(v3 + 3676));
 }
 
 - (id)_reusableTouchContextObject
@@ -416,7 +416,7 @@ LABEL_18:
 
 - (void)_updateRingEnlargementAnimation
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   [(TKVibrationRecorderRippleView *)self firstRippleInitialRadius];
   v4 = v3;
   [(TKVibrationRecorderRippleView *)self fadeOutRadius];
@@ -436,70 +436,93 @@ LABEL_18:
       [v10 setFromValue:&unk_282E385D0];
       [v10 setToValue:&unk_282E385E0];
       v11 = objc_alloc_init(MEMORY[0x277CD9E00]);
-      v15[0] = v9;
-      v15[1] = v10;
-      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+      v14[0] = v9;
+      v14[1] = v10;
+      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
       [(CAAnimation *)v11 setAnimations:v12];
 
       ringEnlargementAnimation = self->_ringEnlargementAnimation;
       self->_ringEnlargementAnimation = v11;
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)layoutSubviews
 {
-  v24 = *MEMORY[0x277D85DE8];
-  v22.receiver = self;
-  v22.super_class = TKVibrationRecorderRippleView;
-  [(TKVibrationRecorderRippleView *)&v22 layoutSubviews];
+  v23 = *MEMORY[0x277D85DE8];
+  v21.receiver = self;
+  v21.super_class = TKVibrationRecorderRippleView;
+  [(TKVibrationRecorderRippleView *)&v21 layoutSubviews];
   [(TKVibrationRecorderRippleView *)self bounds];
-  x = v25.origin.x;
-  y = v25.origin.y;
-  width = v25.size.width;
-  height = v25.size.height;
-  v7 = CGRectGetHeight(v25);
-  v26.origin.x = x;
-  v26.origin.y = y;
-  v26.size.width = width;
-  v26.size.height = height;
-  v8 = CGRectGetWidth(v26);
+  x = v24.origin.x;
+  y = v24.origin.y;
+  width = v24.size.width;
+  height = v24.size.height;
+  v7 = CGRectGetHeight(v24);
+  v25.origin.x = x;
+  v25.origin.y = y;
+  v25.size.width = width;
+  v25.size.height = height;
+  v8 = CGRectGetWidth(v25);
   [MEMORY[0x277CD9FF0] begin];
   [MEMORY[0x277CD9FF0] setValue:*MEMORY[0x277CBED28] forKey:*MEMORY[0x277CDA918]];
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v9 = self->_ringLayersQueue;
-  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v18 objects:v23 count:16];
+  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v17 objects:v22 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v19;
+    v12 = *v18;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v19 != v12)
+        if (*v18 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v18 + 1) + 8 * i);
+        v14 = *(*(&v17 + 1) + 8 * i);
         [v14 normalizedRingLocation];
         [v14 setPosition:{v8 * v15, v7 * v16}];
       }
 
-      v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v18 objects:v23 count:16];
+      v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v17 objects:v22 count:16];
     }
 
     while (v11);
   }
 
   [MEMORY[0x277CD9FF0] commit];
-  v17 = *MEMORY[0x277D85DE8];
+}
+
+- (void)animationDidStop:(id)stop finished:(BOOL)finished
+{
+  v5 = [stop valueForKey:{@"ring layer identifier", finished}];
+  v6 = v5;
+  if (v5)
+  {
+    v8 = v5;
+    v7 = [(NSMutableDictionary *)self->_ringLayersByIdentifiers objectForKey:v5];
+    if (v7)
+    {
+      [(NSMutableArray *)self->_ringLayersQueue removeObject:v7];
+      [(NSMutableDictionary *)self->_ringLayersByIdentifiers removeObjectForKey:v8];
+      [v7 removeFromSuperlayer];
+      [(TKVibrationRecorderRippleView *)self _enqueueReusableRingLayer:v7];
+      if (!self->_isTrackingTouch && ![(NSMutableArray *)self->_ringLayersQueue count])
+      {
+        [(TKVibrationRecorderRippleView *)self _stopAnimation];
+      }
+    }
+
+    v6 = v8;
+  }
+
+  MEMORY[0x2821F96F8](v5, v6);
 }
 
 - (void)_touchBeganAtLocation:(CGPoint)location

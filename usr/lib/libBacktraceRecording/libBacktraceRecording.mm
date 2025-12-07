@@ -363,9 +363,9 @@ atomic_uint *current_thread_info()
   return result;
 }
 
-void *dispatch_queue_label()
+void *dispatch_queue_label(uint64_t a1)
 {
-  result = dispatch_queue_get_label_ptr();
+  result = dispatch_queue_get_label_ptr(a1);
   if (!result)
   {
     return &unk_6572;
@@ -746,7 +746,7 @@ void thread_terminating(uint64_t a1)
   os_unfair_lock_unlock(&dword_C020);
 }
 
-unsigned int *gcd_queue_create_hook(unsigned int *result)
+uint64_t gcd_queue_create_hook(uint64_t result)
 {
   v1 = result;
   if (dispatch_introspection_hooks)
@@ -761,11 +761,11 @@ unsigned int *gcd_queue_create_hook(unsigned int *result)
       print_gcd_queue_create_dispose();
     }
 
-    v2 = *(v1 + 2);
-    if (!v2 || (result = strcmp(*(v1 + 2), "source"), result))
+    v2 = *(v1 + 16);
+    if (!v2 || (result = strcmp(*(v1 + 16), "source"), result))
     {
       v3 = *v1;
-      v4 = *(v1 + 3);
+      v4 = *(v1 + 24);
 
       return add_queue_info_to_list(v3, v4, v2, 1);
     }
@@ -869,11 +869,11 @@ void gcd_queue_item_enqueue_hook()
     if (is_interesting_event(v3, v2))
     {
       os_unfair_lock_lock_with_options();
-      v30[0] = _NSConcreteStackBlock;
-      v30[1] = 0x40000000;
-      v31 = __gcd_queue_item_enqueue_hook_block_invoke;
-      v32 = &__block_descriptor_tmp_39;
-      v33 = v2;
+      v29[0] = _NSConcreteStackBlock;
+      v29[1] = 0x40000000;
+      v30 = __gcd_queue_item_enqueue_hook_block_invoke;
+      v31 = &__block_descriptor_tmp_39;
+      v32 = v2;
       v4 = &off_C0F8;
       do
       {
@@ -881,7 +881,7 @@ void gcd_queue_item_enqueue_hook()
         v5 = v4 == 0;
       }
 
-      while (v4 && !(v31)(v30, v4));
+      while (v4 && !(v30)(v29, v4));
       v6 = v4 != 0;
       os_unfair_lock_unlock(&dword_C0F0);
     }
@@ -917,29 +917,59 @@ void gcd_queue_item_enqueue_hook()
 
       atomic_fetch_add(v11 + 5, 1u);
       os_unfair_lock_unlock(&dword_C088);
-      memset(&v25[16], 0, 64);
-      v28 = 0u;
-      v26 = 0u;
+      memset(&v24[16], 0, 64);
       v27 = 0u;
+      v25 = 0u;
+      v26 = 0u;
       __src = 0u;
-      *v25 = 0u;
+      *v24 = 0u;
       v12 = *(v2 + 16);
-      *&v25[8] = *v2;
-      *&v25[24] = v12;
+      *&v24[8] = *v2;
+      *&v24[24] = v12;
       v13 = *(v2 + 48);
-      *&v25[40] = *(v2 + 32);
-      v29 = 0;
-      *&v25[56] = v13;
+      *&v24[40] = *(v2 + 32);
+      v28 = 0;
+      *&v24[56] = v13;
       if (*(queue_info + 40) == 1 && ((v11[10] & 1) != 0 || (*(v11 + 41) & 1) != 0) || *(queue_info + 41) == 1 && *(v11 + 40) == 1)
       {
-        v25[74] = 1;
+        v24[74] = 1;
       }
 
-      memset(v36, 0, 496);
-      *v35 = 0u;
-      v14 = backtrace(v35, 512);
+      v65 = 0u;
+      v64 = 0u;
+      v63 = 0u;
+      v62 = 0u;
+      v61 = 0u;
+      v60 = 0u;
+      v59 = 0u;
+      v58 = 0u;
+      v57 = 0u;
+      v56 = 0u;
+      v55 = 0u;
+      v54 = 0u;
+      v53 = 0u;
+      v52 = 0u;
+      v51 = 0u;
+      v50 = 0u;
+      v49 = 0u;
+      v48 = 0u;
+      v47 = 0u;
+      v46 = 0u;
+      v45 = 0u;
+      v44 = 0u;
+      v43 = 0u;
+      v42 = 0u;
+      v41 = 0u;
+      v40 = 0u;
+      v39 = 0u;
+      v38 = 0u;
+      v37 = 0u;
+      v36 = 0u;
+      v35 = 0u;
+      *v34 = 0u;
+      v14 = backtrace(v34, 512);
       v15 = v14 - 1;
-      if (v35[v15] >= vm_page_size)
+      if (v34[v15] >= vm_page_size)
       {
         LODWORD(v15) = v14;
       }
@@ -950,16 +980,15 @@ void gcd_queue_item_enqueue_hook()
       }
 
       v16 = v15 - 2;
-      v23 = 0;
-      enter_ptrSized_stack_in_backtrace_uniquing_table(backtrace_uniquing_table, &v23, v36, (v15 - 2));
-      *&v25[76] = v16;
-      *&v26 = v23;
-      *(&v26 + 1) = current_thread_info();
-      *&v27 = queue_info;
-      atomic_fetch_add((*(&v26 + 1) + 20), 1u);
-      *(&v27 + 1) = v11;
-      v28 = 0uLL;
-      LODWORD(v29) = 0;
+      enter_ptrSized_stack_in_backtrace_uniquing_table();
+      *&v24[76] = v16;
+      *&v25 = 0;
+      *(&v25 + 1) = current_thread_info();
+      *&v26 = queue_info;
+      atomic_fetch_add((*(&v25 + 1) + 20), 1u);
+      *(&v26 + 1) = v11;
+      v27 = 0uLL;
+      LODWORD(v28) = 0;
       v17 = current_thread_info();
       v18 = *(v17 + 14);
       if (v18)
@@ -981,14 +1010,14 @@ void gcd_queue_item_enqueue_hook()
 
         if (v19 < 0x33 || debug_maxlevels == 1)
         {
-          *&v28 = v18;
+          *&v27 = v18;
           atomic_fetch_add((v18 + 20), 1u);
         }
 
         else
         {
           v22 = 0;
-          *&v28 = 0;
+          *&v27 = 0;
           do
           {
             v22 += *(v18 + 136) + *(v18 + 140) + 1;
@@ -996,7 +1025,7 @@ void gcd_queue_item_enqueue_hook()
           }
 
           while (v18);
-          HIDWORD(v28) = v22;
+          HIDWORD(v27) = v22;
           if (debug_printing == 1 && (gcd_queue_item_enqueue_hook_printed & 1) == 0)
           {
             gcd_queue_item_enqueue_hook_printed = 1;
@@ -1798,7 +1827,7 @@ uint64_t print_logical_backtrace(const char *a1)
   v40[0] = 0;
   v17 = pthread_self();
   pthread_getname_np(v17, v40, 0x40uLL);
-  v18 = dispatch_queue_label();
+  v18 = dispatch_queue_label(0);
   if (v18)
   {
     v19 = v18;
@@ -2440,42 +2469,40 @@ uint64_t print_item_backtrace()
   v0 = __chkstk_darwin();
   v3 = v2;
   v4 = v0;
-  memset(v9, 0, 512);
-  v5 = *(v1 + 92);
-  if (v5 >= 0x200)
+  memset(v8, 0, 512);
+  if (*(v1 + 92) >= 0x200u)
   {
-    v6 = 512;
+    v5 = 512;
   }
 
   else
   {
-    v6 = v5;
+    v5 = *(v1 + 92);
   }
 
-  v7 = ptrSized_stack_frames_for_uniqued_stack(backtrace_uniquing_table, *(v1 + 96), v9, v6);
-  return print_backtrace(v4, v3, v9, v7, 1);
+  v6 = ptrSized_stack_frames_for_uniqued_stack(backtrace_uniquing_table, *(v1 + 96), v8, v5);
+  return print_backtrace(v4, v3, v8, v6, 1);
 }
 
 uint64_t print_queue_item_and_current_backtrace(char *__str, size_t __size, uint64_t a3, const char *a4)
 {
   if (!a4)
   {
-    v7 = *(a3 + 16);
-    a4 = dispatch_queue_label();
+    a4 = dispatch_queue_label(*(a3 + 16));
   }
 
-  v8 = print_queue_item(__str, __size, a3, a4);
-  v9 = v8;
-  if ((v8 & 0x80000000) == 0 && __size > v8)
+  v7 = print_queue_item(__str, __size, a3, a4);
+  v8 = v7;
+  if ((v7 & 0x80000000) == 0 && __size > v7)
   {
-    return get_and_print_backtrace() + v8;
+    return get_and_print_backtrace() + v7;
   }
 
-  fprintf(__stderrp, "BUFSIZ CHECK FAILED bufsiz %zu printed_count %d\n\n\n", __size, v8);
-  return v9;
+  fprintf(__stderrp, "BUFSIZ CHECK FAILED bufsiz %zu printed_count %d\n\n\n", __size, v7);
+  return v8;
 }
 
-uint64_t print_gcd_queue_create_dispose()
+const char *print_gcd_queue_create_dispose()
 {
   result = __chkstk_darwin();
   if (showLogicalBacktraces == 1)
@@ -2606,7 +2633,7 @@ LABEL_19:
 
   v14 = "queue";
 LABEL_20:
-  v15 = dispatch_queue_label();
+  v15 = dispatch_queue_label(a2);
   v16 = pthread_self();
   v17 = snprintf(v10, 0x1FFFFuLL, "%s%s %s %p on queue %p %s  (on pthread %p)\n", v12, v9, v14, a3, a2, v15, v16);
   if (v17 >= 0x1FFFF)
@@ -2683,48 +2710,8 @@ uint64_t print_gcd_item_conflict()
     v7 = &__str[v6];
     v8 = 0x7FFFLL - v6;
     v9 = snprintf(v7, v8, "NEW WORK ITEM %p:\n", v3);
-    if ((v9 & 0x80000000) != 0)
+    if ((v9 & 0x80000000) != 0 || v8 <= v9 || (v7 += v9, v8 -= v9, v9 = print_queue_item(v7, v8, (v3 + 3), (v3[15] + 52)), (v9 & 0x80000000) != 0) || v8 <= v9 || (v7 += v9, v8 -= v9, v9 = print_item_backtrace(), (v9 & 0x80000000) != 0) || v8 <= v9 || (v7 += v9, v8 -= v9, v9 = snprintf(v7, v8, "PREVIOUS (CURRENTLY RUNNING) ITEM %p:\n", v2), (v9 & 0x80000000) != 0) || v8 <= v9 || (v7 += v9, v8 -= v9, v9 = print_queue_item(v7, v8, (v2 + 3), (v2[15] + 52)), (v9 & 0x80000000) != 0) || v8 <= v9 || (v7 += v9, v8 -= v9, v9 = print_item_backtrace(), (v9 & 0x80000000) != 0) || v8 <= v9)
     {
-      goto LABEL_16;
-    }
-
-    if (v8 <= v9)
-    {
-      goto LABEL_16;
-    }
-
-    v7 += v9;
-    v8 -= v9;
-    v9 = print_queue_item(v7, v8, (v3 + 3), (v3[15] + 52));
-    if ((v9 & 0x80000000) != 0)
-    {
-      goto LABEL_16;
-    }
-
-    if (v8 <= v9)
-    {
-      goto LABEL_16;
-    }
-
-    v7 += v9;
-    v8 -= v9;
-    v9 = print_item_backtrace();
-    if ((v9 & 0x80000000) != 0)
-    {
-      goto LABEL_16;
-    }
-
-    if (v8 <= v9)
-    {
-      goto LABEL_16;
-    }
-
-    v7 += v9;
-    v8 -= v9;
-    v9 = snprintf(v7, v8, "PREVIOUS (CURRENTLY RUNNING) ITEM %p:\n", v2);
-    if ((v9 & 0x80000000) != 0 || v8 <= v9 || (v7 += v9, v8 -= v9, v9 = print_queue_item(v7, v8, (v2 + 3), (v2[15] + 52)), (v9 & 0x80000000) != 0) || v8 <= v9 || (v7 += v9, v8 -= v9, v9 = print_item_backtrace(), (v9 & 0x80000000) != 0) || v8 <= v9)
-    {
-LABEL_16:
       fprintf(__stderrp, "BUFSIZ CHECK FAILED bufsiz %zu printed_count %d\n\n\n", v8, v9);
     }
 
@@ -2843,7 +2830,7 @@ LABEL_22:
   return pthread_setspecific(allow_malloc_logging_key, &dword_0 + 1);
 }
 
-uint64_t print_pthread_event()
+const void *print_pthread_event()
 {
   result = __chkstk_darwin();
   if (showLogicalBacktraces == 1)
@@ -2879,21 +2866,16 @@ uint64_t print_pthread_event()
       {
         v13 = &__str[v12];
         v14 = 0x3FFFLL - v12;
-        if (v8 <= 3)
+        v15 = get_and_print_backtrace();
+        if ((v15 & 0x80000000) != 0 || v14 <= v15)
         {
-          v15 = dword_6480[v8];
-        }
-
-        v16 = get_and_print_backtrace();
-        if ((v16 & 0x80000000) != 0 || v14 <= v16)
-        {
-          fprintf(__stderrp, "BUFSIZ CHECK FAILED bufsiz %zu printed_count %d\n\n\n", v14, v16);
+          fprintf(__stderrp, "BUFSIZ CHECK FAILED bufsiz %zu printed_count %d\n\n\n", v14, v15);
         }
 
         else
         {
-          v13 += v16;
-          v14 -= v16;
+          v13 += v15;
+          v14 -= v15;
         }
       }
 
@@ -3102,7 +3084,7 @@ LABEL_6:
   return result;
 }
 
-uint64_t print_backtrace(char *__str, size_t __size, void **a3, int a4, char a5)
+uint64_t print_backtrace(char *__str, size_t __size, void **a3, unsigned int a4, char a5)
 {
   v6 = __size;
   v7 = __str;

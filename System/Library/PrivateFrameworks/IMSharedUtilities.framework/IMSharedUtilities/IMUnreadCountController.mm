@@ -32,7 +32,7 @@
 
 - (void)replaceReports:(id)reports
 {
-  sub_1A85E9718(0, &qword_1ED8C9210);
+  sub_1A85E9718(0, &qword_1ED8C9210, off_1E7824C88);
   sub_1A88C85F8();
   selfCopy = self;
   sub_1A85F1144();
@@ -46,7 +46,7 @@
   sub_1A87FEAB0(&v2[4], &v6);
   os_unfair_lock_unlock(v2 + 20);
 
-  sub_1A85E9718(0, &qword_1ED8C9210);
+  sub_1A85E9718(0, &qword_1ED8C9210, off_1E7824C88);
   v4 = sub_1A88C85E8();
 
   return v4;
@@ -96,9 +96,9 @@
 {
   v2 = *(&self->super.isa + OBJC_IVAR___IMUnreadCountController_state);
   selfCopy = self;
-  os_unfair_lock_lock(v2 + 20);
-  sub_1A87FE930(&v2[4], &v6);
-  os_unfair_lock_unlock(v2 + 20);
+  os_unfair_lock_lock((v2 + 80));
+  sub_1A87FE930((v2 + 16), &v6);
+  os_unfair_lock_unlock((v2 + 80));
   v4 = v6;
 
   return v4;
@@ -108,9 +108,9 @@
 {
   v2 = *(&self->super.isa + OBJC_IVAR___IMUnreadCountController_state);
   selfCopy = self;
-  os_unfair_lock_lock(v2 + 20);
-  sub_1A87FEB7C(&v2[4]);
-  os_unfair_lock_unlock(v2 + 20);
+  os_unfair_lock_lock((v2 + 80));
+  sub_1A87FEB7C((v2 + 16));
+  os_unfair_lock_unlock((v2 + 80));
   sub_1A87FE1DC(MEMORY[0x1E69E7CC0], 1);
 }
 
@@ -130,27 +130,29 @@
   {
     v5 = v4;
     v4 = swift_allocObject();
+    v6 = v4;
     *(v4 + 16) = v5;
-    v6 = sub_1A8801D90;
+    v7 = sub_1A8801D90;
   }
 
   else
   {
+    v7 = 0;
     v6 = 0;
   }
 
-  v7 = *(&self->super.isa + OBJC_IVAR___IMUnreadCountController_state);
+  v8 = *(&self->super.isa + OBJC_IVAR___IMUnreadCountController_state);
   MEMORY[0x1EEE9AC00](v4);
   selfCopy = self;
-  os_unfair_lock_lock(v7 + 20);
-  sub_1A8801D64(&v7[4]);
-  os_unfair_lock_unlock(v7 + 20);
-  sub_1A8801D80(v6);
+  os_unfair_lock_lock(v8 + 20);
+  sub_1A8801D64(&v8[4]);
+  os_unfair_lock_unlock(v8 + 20);
+  sub_1A8801D80(v7, v6);
 }
 
 - (BOOL)updateReports:(id)reports
 {
-  sub_1A85E9718(0, &qword_1ED8C9210);
+  sub_1A85E9718(0, &qword_1ED8C9210, off_1E7824C88);
   sub_1A88C85F8();
   selfCopy = self;
   v5 = sub_1A87FF364();

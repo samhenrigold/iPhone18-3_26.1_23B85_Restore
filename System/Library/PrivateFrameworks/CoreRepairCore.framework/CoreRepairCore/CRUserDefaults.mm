@@ -11,11 +11,11 @@
 
 - (id)_initWithSuiteName:(id)name internalOnly:(BOOL)only
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   nameCopy = name;
-  v34.receiver = self;
-  v34.super_class = CRUserDefaults;
-  v8 = [(CRUserDefaults *)&v34 init];
+  v33.receiver = self;
+  v33.super_class = CRUserDefaults;
+  v8 = [(CRUserDefaults *)&v33 init];
   v9 = v8;
   if (!v8)
   {
@@ -55,16 +55,16 @@
       }
 
       *buf = 138412802;
-      v36 = v17;
-      v37 = 2112;
-      v38 = v18;
+      v35 = v17;
+      v36 = 2112;
+      v37 = v18;
       if (v13)
       {
         v16 = @"YES";
       }
 
-      v39 = 2112;
-      v40 = v16;
+      v38 = 2112;
+      v39 = v16;
       _os_log_impl(&dword_1CEDC5000, v15, OS_LOG_TYPE_DEFAULT, "isInternal: %@, isProduction: %@, hasAATC: %@", buf, 0x20u);
     }
 
@@ -80,9 +80,9 @@
     if (v22)
     {
       v25 = [MEMORY[0x1E695DEF0] dataWithContentsOfFile:v23];
-      v33 = 0;
-      v26 = [MEMORY[0x1E696AE40] propertyListWithData:v25 options:0 format:0 error:&v33];
-      v27 = v33;
+      v32 = 0;
+      v26 = [MEMORY[0x1E696AE40] propertyListWithData:v25 options:0 format:0 error:&v32];
+      v27 = v32;
       defaultValues = v9->_defaultValues;
       v9->_defaultValues = v26;
 
@@ -90,7 +90,7 @@
       if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v36 = v23;
+        v35 = v23;
         _os_log_impl(&dword_1CEDC5000, v29, OS_LOG_TYPE_DEFAULT, "Read defaults from: %@", buf, 0xCu);
       }
 
@@ -117,7 +117,6 @@ LABEL_26:
   v14 = 0;
 LABEL_27:
 
-  v31 = *MEMORY[0x1E69E9840];
   return v14;
 }
 

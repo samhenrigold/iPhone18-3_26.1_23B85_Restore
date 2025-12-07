@@ -1,9 +1,21 @@
 @interface ATXScoreInterpreterFromAssetBuilder
++ (id)assetFilenameForSubType:(unsigned __int8)type;
 + (id)interpreterFromAssetFilename:(id)filename;
++ (id)scoreInterpreterForConsumerSubType:(unsigned __int8)type;
 + (id)scoreInterpretersForAllSubTypes;
 @end
 
 @implementation ATXScoreInterpreterFromAssetBuilder
+
++ (id)assetFilenameForSubType:(unsigned __int8)type
+{
+  typeCopy = type;
+  mEMORY[0x277CEB3A0] = [MEMORY[0x277CEB3A0] sharedInstanceWithMobileAssets];
+  v5 = [mEMORY[0x277CEB3A0] getAssetFileAndSubscoreForConsumerSubType:typeCopy];
+  first = [v5 first];
+
+  return first;
+}
 
 + (id)interpreterFromAssetFilename:(id)filename
 {
@@ -27,6 +39,14 @@
   v11 = [[_ATXScoreInterpreter alloc] initWithParseRoot:v10];
 
   return v11;
+}
+
++ (id)scoreInterpreterForConsumerSubType:(unsigned __int8)type
+{
+  v4 = [self assetFilenameForSubType:type];
+  v5 = [self interpreterFromAssetFilename:v4];
+
+  return v5;
 }
 
 + (id)scoreInterpretersForAllSubTypes

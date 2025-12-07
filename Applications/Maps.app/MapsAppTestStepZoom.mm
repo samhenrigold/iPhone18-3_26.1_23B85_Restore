@@ -176,8 +176,8 @@ LABEL_11:
   [mainMKMapView _setLocationPulseEnabled:0];
 
   mainVKMapView = [(MapsAppTest *)self mainVKMapView];
-  options = [(MapsAppTest *)self options];
-  -[MapsAppTest switchToMapType:](self, "switchToMapType:", [options _mapstest_mapType]);
+  v5 = objc_msgSend_options(self);
+  -[MapsAppTest switchToMapType:](self, "switchToMapType:", [v5 _mapstest_mapType]);
   [(MapsAppTestStepZoom *)self _regionSizeForZoom:self->_zoomStart];
   VKLocationCoordinate3DMake();
   v6 = [GEOMapRegion _mapstest_mapRegionAtCenterLocation:?];

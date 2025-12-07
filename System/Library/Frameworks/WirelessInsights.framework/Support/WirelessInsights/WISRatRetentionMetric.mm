@@ -9,6 +9,7 @@
 - (id)getFrequencyRangeFromArfcn:(id)arfcn;
 - (id)getNSString:(const char *)string;
 - (id)getRadioStateString:(id)string;
+- (void)airplaneModeStatusChanged:(BOOL)changed;
 - (void)buildAndSubmitCAPayload:(id)payload currentTime:(unint64_t)time changedFields:(id)fields;
 - (void)cellMonitorUpdate:(id)update info:(id)info;
 - (void)currentDataSimChanged:(id)changed;
@@ -19,6 +20,7 @@
 - (void)radioStateChangedTo:(id)to;
 - (void)registrationStatusChanged:(id)changed status:(id)status;
 - (void)satelliteProvisioningStatusForContext:(id)context changedTo:(id)to;
+- (void)satelliteRegistrationStatusForContext:(id)context changedTo:(BOOL)to;
 - (void)setError:(id *)error code:(int64_t)code message:(id)message;
 - (void)setLastKnownGCI:(id)i forPayload:(id)payload;
 - (void)stewieStateChangedTo:(id)to;
@@ -683,6 +685,41 @@ LABEL_19:
   [(WISRatRetentionMetric *)self setRadioState:v7];
 }
 
+- (void)airplaneModeStatusChanged:(BOOL)changed
+{
+  changedCopy = changed;
+  airplaneModeActive = [(WISRatRetentionMetric *)self airplaneModeActive];
+  v6 = os_log_type_enabled(*(qword_1002DBE98 + 48), OS_LOG_TYPE_DEBUG);
+  if (airplaneModeActive == changedCopy)
+  {
+    if (v6)
+    {
+      sub_10020A78C();
+    }
+  }
+
+  else
+  {
+    if (v6)
+    {
+      sub_10020A7C8();
+    }
+
+    v7 = clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW);
+    contextUUIDToStateMap = [(WISRatRetentionMetric *)self contextUUIDToStateMap];
+    v9[0] = _NSConcreteStackBlock;
+    v9[1] = 3221225472;
+    v9[2] = sub_10013344C;
+    v9[3] = &unk_1002B37A0;
+    v10 = changedCopy;
+    v9[4] = self;
+    v9[5] = v7;
+    [contextUUIDToStateMap enumerateKeysAndObjectsUsingBlock:v9];
+
+    [(WISRatRetentionMetric *)self setAirplaneModeActive:changedCopy];
+  }
+}
+
 - (void)handleUpdate:(id)update forKey:(int)key withState:(id)state
 {
   updateCopy = update;
@@ -1307,6 +1344,70 @@ LABEL_56:
   }
 
   [(WISRatRetentionMetric *)self populateSubscriptionContextsInUse];
+}
+
+- (void)satelliteRegistrationStatusForContext:(id)context changedTo:(BOOL)to
+{
+  toCopy = to;
+  contextCopy = context;
+  if ([WISTelephonyUtils isValidContext:contextCopy])
+  {
+    if (os_log_type_enabled(*(qword_1002DBE98 + 48), OS_LOG_TYPE_DEBUG))
+    {
+      [contextCopy uuid];
+      objc_claimAutoreleasedReturnValue();
+      sub_10020AC8C();
+    }
+
+    contextUUIDToStateMap = [(WISRatRetentionMetric *)self contextUUIDToStateMap];
+    uuid = [contextCopy uuid];
+    v9 = [contextUUIDToStateMap objectForKey:uuid];
+
+    if (v9)
+    {
+      if ([v9 isSatelliteSystem] == toCopy)
+      {
+        if (os_log_type_enabled(*(qword_1002DBE98 + 48), OS_LOG_TYPE_DEBUG))
+        {
+          [contextCopy uuid];
+          objc_claimAutoreleasedReturnValue();
+          sub_10020ACEC();
+        }
+      }
+
+      else
+      {
+        if (![(WISRatRetentionMetric *)self airplaneModeActive])
+        {
+          v10 = clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW);
+          if ([v9 dataPreferred])
+          {
+            v17 = [(WISRatRetentionMetric *)self getNSString:"new_radio_access_technology"];
+            v18 = v17;
+            v11 = [v9 rat];
+            stewieState = [(WISRatRetentionMetric *)self stewieState];
+            airplaneModeActive = [(WISRatRetentionMetric *)self airplaneModeActive];
+            displayStatus = [v9 displayStatus];
+            v15 = [(WISRatRetentionMetric *)self deriveRAT:v11 stewieState:stewieState isSatelliteSystem:toCopy airplaneModeActive:airplaneModeActive displayStatus:displayStatus];
+            v19 = v15;
+            v16 = [NSDictionary dictionaryWithObjects:&v19 forKeys:&v18 count:1];
+            [(WISRatRetentionMetric *)self buildAndSubmitCAPayload:v9 currentTime:v10 changedFields:v16];
+          }
+
+          [v9 setStartTime:v10];
+        }
+
+        [v9 setIsSatelliteSystem:toCopy];
+      }
+    }
+
+    else if (os_log_type_enabled(*(qword_1002DBE98 + 48), OS_LOG_TYPE_DEBUG))
+    {
+      [contextCopy uuid];
+      objc_claimAutoreleasedReturnValue();
+      sub_10020AD30();
+    }
+  }
 }
 
 - (void)satelliteProvisioningStatusForContext:(id)context changedTo:(id)to

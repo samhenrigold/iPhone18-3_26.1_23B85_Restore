@@ -19,22 +19,21 @@
 
 - (GCGenericDeviceDriverPropertiesModel)initWithCoder:(id)coder
 {
-  v13[2] = *MEMORY[0x1E69E9840];
-  v12.receiver = self;
-  v12.super_class = GCGenericDeviceDriverPropertiesModel;
+  v12[2] = *MEMORY[0x1E69E9840];
+  v11.receiver = self;
+  v11.super_class = GCGenericDeviceDriverPropertiesModel;
   coderCopy = coder;
-  v4 = [(GCGenericDeviceDriverPropertiesModel *)&v12 init];
+  v4 = [(GCGenericDeviceDriverPropertiesModel *)&v11 init];
   v5 = MEMORY[0x1E695DFD8];
-  v13[0] = objc_opt_class();
-  v13[1] = objc_opt_class();
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:2];
+  v12[0] = objc_opt_class();
+  v12[1] = objc_opt_class();
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
   v7 = [v5 setWithArray:v6];
   v8 = [coderCopy decodeObjectOfClasses:v7 forKey:@"properties"];
 
   properties = v4->_properties;
   v4->_properties = v8;
 
-  v10 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -98,28 +97,28 @@ LABEL_8:
 
 + (GCGenericDeviceDriverPropertiesModel)modelWithDictionaryRepresentation:(id)representation error:(id *)error
 {
-  v53[2] = *MEMORY[0x1E69E9840];
-  v38 = objc_opt_new();
-  v49[0] = 0;
-  v5 = [representation gc_requiredObjectForKey:@"Properties" ofClass:objc_opt_class() error:v49];
-  v6 = v49[0];
+  v52[2] = *MEMORY[0x1E69E9840];
+  v37 = objc_opt_new();
+  v48[0] = 0;
+  v5 = [representation gc_requiredObjectForKey:@"Properties" ofClass:objc_opt_class() error:v48];
+  v6 = v48[0];
   if (!v5)
   {
     if (error)
     {
-      v26 = v6;
-      v27 = MEMORY[0x1E696ABC0];
-      v52[0] = *MEMORY[0x1E696A578];
-      v28 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid '%@' definition.", self];
-      v53[0] = v28;
-      v52[1] = *MEMORY[0x1E696A588];
-      localizedFailureReason = [v26 localizedFailureReason];
-      v53[1] = localizedFailureReason;
-      v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v53 forKeys:v52 count:2];
-      *error = [(NSError *)v27 gc_modelError:v30 userInfo:?];
+      v25 = v6;
+      v26 = MEMORY[0x1E696ABC0];
+      v51[0] = *MEMORY[0x1E696A578];
+      v27 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid '%@' definition.", self];
+      v52[0] = v27;
+      v51[1] = *MEMORY[0x1E696A588];
+      localizedFailureReason = [v25 localizedFailureReason];
+      v52[1] = localizedFailureReason;
+      v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v52 forKeys:v51 count:2];
+      *error = [(NSError *)v26 gc_modelError:v29 userInfo:?];
 
       build = 0;
-      v6 = v26;
+      v6 = v25;
     }
 
     else
@@ -130,50 +129,50 @@ LABEL_8:
     goto LABEL_20;
   }
 
-  v37 = v6;
-  v43 = 0;
-  v44 = &v43;
-  v45 = 0x3032000000;
-  v46 = __Block_byref_object_copy__14;
-  v47 = __Block_byref_object_dispose__14;
-  v48 = 0;
+  v36 = v6;
+  v42 = 0;
+  v43 = &v42;
+  v44 = 0x3032000000;
+  v45 = __Block_byref_object_copy__14;
+  v46 = __Block_byref_object_dispose__14;
+  v47 = 0;
   v7 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:{objc_msgSend(v5, "count")}];
   v8 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:{objc_msgSend(v5, "count")}];
-  v39[0] = MEMORY[0x1E69E9820];
-  v39[1] = 3221225472;
-  v39[2] = __95__GCGenericDeviceDriverPropertiesModel_Serialization__modelWithDictionaryRepresentation_error___block_invoke;
-  v39[3] = &unk_1E8413C58;
-  v42 = &v43;
+  v38[0] = MEMORY[0x1E69E9820];
+  v38[1] = 3221225472;
+  v38[2] = __95__GCGenericDeviceDriverPropertiesModel_Serialization__modelWithDictionaryRepresentation_error___block_invoke;
+  v38[3] = &unk_1E8413C58;
+  v41 = &v42;
   v9 = v7;
-  v40 = v9;
+  v39 = v9;
   v10 = v8;
-  v41 = v10;
-  [v5 gc_enumerateObjectsUsingBlock:v39];
+  v40 = v10;
+  [v5 gc_enumerateObjectsUsingBlock:v38];
   v11 = [v10 count];
   v12 = [v5 count];
   if (v11 == v12)
   {
-    [v38 setProperties:v10];
+    [v37 setProperties:v10];
   }
 
   else if (error)
   {
-    v32 = MEMORY[0x1E696ABC0];
-    v50[0] = *MEMORY[0x1E696A578];
-    localizedDescription = [v44[5] localizedDescription];
+    v31 = MEMORY[0x1E696ABC0];
+    v49[0] = *MEMORY[0x1E696A578];
+    localizedDescription = [v43[5] localizedDescription];
     if ([localizedDescription length])
     {
-      [v44[5] localizedDescription];
+      [v43[5] localizedDescription];
     }
 
     else
     {
       [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid '%@' definition.", self];
     }
-    v33 = ;
-    v51[0] = v33;
-    v50[1] = *MEMORY[0x1E696A588];
-    localizedFailureReason2 = [v44[5] localizedFailureReason];
+    v32 = ;
+    v50[0] = v32;
+    v49[1] = *MEMORY[0x1E696A588];
+    localizedFailureReason2 = [v43[5] localizedFailureReason];
     v14 = localizedFailureReason2;
     v15 = &stru_1F4E1BE30;
     if (localizedFailureReason2)
@@ -181,24 +180,24 @@ LABEL_8:
       v15 = localizedFailureReason2;
     }
 
-    v51[1] = v15;
-    v50[2] = *MEMORY[0x1E696AA08];
-    v16 = v44[5];
+    v50[1] = v15;
+    v49[2] = *MEMORY[0x1E696AA08];
+    v16 = v43[5];
     if (v16)
     {
-      v17 = v44[5];
+      v17 = v43[5];
       null = v17;
     }
 
     else
     {
       null = [MEMORY[0x1E695DFB0] null];
-      v17 = v44[5];
+      v17 = v43[5];
     }
 
-    v31 = null;
-    v51[2] = null;
-    v50[3] = @"GCFailingKeyPathErrorKey";
+    v30 = null;
+    v50[2] = null;
+    v49[3] = @"GCFailingKeyPathErrorKey";
     gc_failingKeyPath = [v17 gc_failingKeyPath];
     v20 = gc_failingKeyPath;
     if (!gc_failingKeyPath)
@@ -207,21 +206,21 @@ LABEL_8:
     }
 
     v21 = [gc_failingKeyPath arrayByAddingObject:@"Properties"];
-    v51[3] = v21;
-    v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v51 forKeys:v50 count:4];
-    *error = [(NSError *)v32 gc_modelError:v22 userInfo:?];
+    v50[3] = v21;
+    v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v50 forKeys:v49 count:4];
+    *error = [(NSError *)v31 gc_modelError:v22 userInfo:?];
 
     if (!v16)
     {
     }
   }
 
-  _Block_object_dispose(&v43, 8);
+  _Block_object_dispose(&v42, 8);
   if (v11 == v12)
   {
-    build = [v38 build];
-    v6 = v38;
-    v38 = 0;
+    build = [v37 build];
+    v6 = v37;
+    v37 = 0;
 LABEL_20:
 
     goto LABEL_22;
@@ -230,14 +229,12 @@ LABEL_20:
   build = 0;
 LABEL_22:
 
-  v24 = *MEMORY[0x1E69E9840];
-
   return build;
 }
 
-void __95__GCGenericDeviceDriverPropertiesModel_Serialization__modelWithDictionaryRepresentation_error___block_invoke(uint64_t a1, void (**a2)(void, void, void), uint64_t a3, _BYTE *a4)
+void __95__GCGenericDeviceDriverPropertiesModel_Serialization__modelWithDictionaryRepresentation_error___block_invoke(uint64_t a1, uint64_t (**a2)(void, void, void), uint64_t a3, _BYTE *a4)
 {
-  v62[2] = *MEMORY[0x1E69E9840];
+  v61[2] = *MEMORY[0x1E69E9840];
   v8 = a2;
   v9 = objc_opt_class();
   v10 = *(*(a1 + 48) + 8);
@@ -248,9 +245,9 @@ void __95__GCGenericDeviceDriverPropertiesModel_Serialization__modelWithDictiona
   if (v11)
   {
     v12 = *(*(a1 + 48) + 8);
-    v53 = 0;
-    v13 = [GCGenericDeviceDriverPropertyModel modelWithDictionaryRepresentation:v11 error:&v53];
-    objc_storeStrong((v12 + 40), v53);
+    v52 = 0;
+    v13 = [GCGenericDeviceDriverPropertyModel modelWithDictionaryRepresentation:v11 error:&v52];
+    objc_storeStrong((v12 + 40), v52);
     if (v13)
     {
       v14 = [v13 name];
@@ -259,15 +256,15 @@ void __95__GCGenericDeviceDriverPropertiesModel_Serialization__modelWithDictiona
       if (v15)
       {
         v16 = MEMORY[0x1E696ABC0];
-        v56[0] = *MEMORY[0x1E696A588];
+        v55[0] = *MEMORY[0x1E696A588];
         v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Duplicate definition of '%@' with name '%@'.", objc_opt_class(), v14];
-        v57[0] = v17;
-        v56[1] = @"GCFailingKeyPathErrorKey";
+        v56[0] = v17;
+        v55[1] = @"GCFailingKeyPathErrorKey";
         v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[%zd]", a3];
-        v55 = v18;
-        v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v55 count:1];
-        v57[1] = v19;
-        v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v57 forKeys:v56 count:2];
+        v54 = v18;
+        v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v54 count:1];
+        v56[1] = v19;
+        v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v56 forKeys:v55 count:2];
         v21 = [(NSError *)v16 gc_modelError:v20 userInfo:?];
         v22 = *(*(a1 + 48) + 8);
         v23 = *(v22 + 40);
@@ -285,66 +282,66 @@ void __95__GCGenericDeviceDriverPropertiesModel_Serialization__modelWithDictiona
 
     else
     {
-      v50 = MEMORY[0x1E696ABC0];
-      v58[0] = *MEMORY[0x1E696A578];
-      v33 = [*(*(*(a1 + 48) + 8) + 40) localizedDescription];
-      v34 = &stru_1F4E1BE30;
-      v52 = v33;
-      if (v33)
+      v49 = MEMORY[0x1E696ABC0];
+      v57[0] = *MEMORY[0x1E696A578];
+      v32 = [*(*(*(a1 + 48) + 8) + 40) localizedDescription];
+      v33 = &stru_1F4E1BE30;
+      v51 = v32;
+      if (v32)
       {
-        v34 = v33;
+        v33 = v32;
       }
 
-      v59[0] = v34;
-      v58[1] = *MEMORY[0x1E696A588];
-      v35 = [*(*(*(a1 + 48) + 8) + 40) localizedFailureReason];
-      v51 = v35;
+      v58[0] = v33;
+      v57[1] = *MEMORY[0x1E696A588];
+      v34 = [*(*(*(a1 + 48) + 8) + 40) localizedFailureReason];
+      v50 = v34;
+      if (!v34)
+      {
+        v34 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error instantiating '%@' model.", objc_opt_class()];
+      }
+
+      v48 = v34;
+      v58[1] = v34;
+      v57[2] = *MEMORY[0x1E696AA08];
+      v35 = *(*(*(a1 + 48) + 8) + 40);
+      v36 = v35;
+      v37 = v35;
       if (!v35)
       {
-        v35 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error instantiating '%@' model.", objc_opt_class()];
+        v37 = [MEMORY[0x1E695DFB0] null];
+        v36 = *(*(*(a1 + 48) + 8) + 40);
       }
 
-      v49 = v35;
-      v59[1] = v35;
-      v58[2] = *MEMORY[0x1E696AA08];
-      v36 = *(*(*(a1 + 48) + 8) + 40);
-      v37 = v36;
-      v38 = v36;
-      if (!v36)
+      v47 = v37;
+      v58[2] = v37;
+      v57[3] = @"GCFailingKeyPathErrorKey";
+      v38 = [v36 gc_failingKeyPath];
+      v39 = v38;
+      if (v38)
       {
-        v38 = [MEMORY[0x1E695DFB0] null];
-        v37 = *(*(*(a1 + 48) + 8) + 40);
-      }
-
-      v48 = v38;
-      v59[2] = v38;
-      v58[3] = @"GCFailingKeyPathErrorKey";
-      v39 = [v37 gc_failingKeyPath];
-      v40 = v39;
-      if (v39)
-      {
-        v41 = v39;
+        v40 = v38;
       }
 
       else
       {
-        v41 = MEMORY[0x1E695E0F0];
+        v40 = MEMORY[0x1E695E0F0];
       }
 
-      v42 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[%zd]", a3];
-      v43 = [v41 arrayByAddingObject:v42];
-      v59[3] = v43;
-      v44 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v59 forKeys:v58 count:4];
-      v45 = [(NSError *)v50 gc_modelError:v44 userInfo:?];
-      v46 = *(*(a1 + 48) + 8);
-      v47 = *(v46 + 40);
-      *(v46 + 40) = v45;
+      v41 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[%zd]", a3];
+      v42 = [v40 arrayByAddingObject:v41];
+      v58[3] = v42;
+      v43 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v58 forKeys:v57 count:4];
+      v44 = [(NSError *)v49 gc_modelError:v43 userInfo:?];
+      v45 = *(*(a1 + 48) + 8);
+      v46 = *(v45 + 40);
+      *(v45 + 40) = v44;
 
-      if (!v36)
+      if (!v35)
       {
       }
 
-      if (!v51)
+      if (!v50)
       {
       }
 
@@ -354,25 +351,23 @@ void __95__GCGenericDeviceDriverPropertiesModel_Serialization__modelWithDictiona
 
   else
   {
-    v25 = MEMORY[0x1E696ABC0];
-    v61[0] = *MEMORY[0x1E696A588];
-    v26 = [*(*(*(a1 + 48) + 8) + 40) localizedFailureReason];
-    v62[0] = v26;
-    v61[1] = @"GCFailingKeyPathErrorKey";
-    v27 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[%zd]", a3];
-    v60 = v27;
-    v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v60 count:1];
-    v62[1] = v28;
-    v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v62 forKeys:v61 count:2];
-    v30 = [(NSError *)v25 gc_modelError:v29 userInfo:?];
-    v31 = *(*(a1 + 48) + 8);
-    v32 = *(v31 + 40);
-    *(v31 + 40) = v30;
+    v24 = MEMORY[0x1E696ABC0];
+    v60[0] = *MEMORY[0x1E696A588];
+    v25 = [*(*(*(a1 + 48) + 8) + 40) localizedFailureReason];
+    v61[0] = v25;
+    v60[1] = @"GCFailingKeyPathErrorKey";
+    v26 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[%zd]", a3];
+    v59 = v26;
+    v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v59 count:1];
+    v61[1] = v27;
+    v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v61 forKeys:v60 count:2];
+    v29 = [(NSError *)v24 gc_modelError:v28 userInfo:?];
+    v30 = *(*(a1 + 48) + 8);
+    v31 = *(v30 + 40);
+    *(v30 + 40) = v29;
 
     *a4 = 1;
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 @end

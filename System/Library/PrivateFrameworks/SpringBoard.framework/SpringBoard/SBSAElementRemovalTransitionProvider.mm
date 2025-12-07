@@ -193,7 +193,7 @@
       v9 = &OBJC_IVAR___SBAssistantSceneController__windowScene;
       if ((v28 & 1) != 0 || !v29)
       {
-        v31 = SBLogSystemAperturePreferencesStackElements();
+        v31 = SBLogSystemAperturePreferencesStackElements(v29);
         if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
         {
           v68 = v30 == 0;
@@ -227,7 +227,7 @@
   {
     if (v34)
     {
-      v37 = SBLogSystemAperturePreferencesStackElements();
+      v37 = SBLogSystemAperturePreferencesStackElements(v35);
       if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
       {
         [(SBSAElementRemovalTransitionProvider *)v8 preferencesFromContext:v34, v37];
@@ -335,7 +335,7 @@
           v55 = [SBSAInterfaceElementPropertyIdentity alloc];
           interfaceElementIdentifier = [v53 interfaceElementIdentifier];
           v57 = [(SBSAInterfaceElementPropertyIdentity *)v55 initWithAssociatedInterfaceElementIdentifier:interfaceElementIdentifier andProperty:@"bounds"];
-          LOBYTE(registeredContainerDismissalInterfacePropertyIdentifiers) = [(NSMutableSet *)registeredContainerDismissalInterfacePropertyIdentifiers containsObject:v57];
+          LOBYTE(registeredContainerDismissalInterfacePropertyIdentifiers) = objc_msgSend_containsObject_(registeredContainerDismissalInterfacePropertyIdentifiers);
 
           if ((registeredContainerDismissalInterfacePropertyIdentifiers & 1) == 0)
           {

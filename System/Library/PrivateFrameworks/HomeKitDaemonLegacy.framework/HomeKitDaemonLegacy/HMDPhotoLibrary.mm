@@ -30,16 +30,16 @@
 
 void __41__HMDPhotoLibrary_photoLibraryDidChange___block_invoke(uint64_t a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     v5 = HMFGetLogIdentifier();
-    v26 = 138543362;
-    v27 = v5;
-    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_DEBUG, "%{public}@Photo Library did change", &v26, 0xCu);
+    v25 = 138543362;
+    v26 = v5;
+    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_DEBUG, "%{public}@Photo Library did change", &v25, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -68,13 +68,13 @@ void __41__HMDPhotoLibrary_photoLibraryDidChange___block_invoke(uint64_t a1)
   {
     v17 = HMFGetLogIdentifier();
     v18 = HMFBooleanToString();
-    v26 = 138543874;
-    v27 = v17;
-    v28 = 2112;
-    v29 = v18;
-    v30 = 2112;
-    v31 = v13;
-    _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_DEBUG, "%{public}@anyPersonWasAdded: %@, changeDetails: %@", &v26, 0x20u);
+    v25 = 138543874;
+    v26 = v17;
+    v27 = 2112;
+    v28 = v18;
+    v29 = 2112;
+    v30 = v13;
+    _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_DEBUG, "%{public}@anyPersonWasAdded: %@, changeDetails: %@", &v25, 0x20u);
   }
 
   objc_autoreleasePoolPop(v14);
@@ -96,17 +96,15 @@ void __41__HMDPhotoLibrary_photoLibraryDidChange___block_invoke(uint64_t a1)
     if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
     {
       v23 = HMFGetLogIdentifier();
-      v26 = 138543362;
-      v27 = v23;
-      _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_INFO, "%{public}@Found changes for photo library persons", &v26, 0xCu);
+      v25 = 138543362;
+      v26 = v23;
+      _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_INFO, "%{public}@Found changes for photo library persons", &v25, 0xCu);
     }
 
     objc_autoreleasePoolPop(v20);
     v24 = [*(a1 + 32) delegate];
     [v24 photoLibraryPersonsDidChange];
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (id)fetchOptions
@@ -142,7 +140,7 @@ void __41__HMDPhotoLibrary_photoLibraryDidChange___block_invoke(uint64_t a1)
 
 - (id)fetchFaceCropDataByUUIDForPersonUUID:(id)d
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   dCopy = d;
   workQueue = [(HMDPhotoLibrary *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -156,8 +154,8 @@ void __41__HMDPhotoLibrary_photoLibraryDidChange___block_invoke(uint64_t a1)
       fetchOptions = [(HMDPhotoLibrary *)self fetchOptions];
       [fetchOptions setFetchLimit:20];
       v9 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"uuid" ascending:0];
-      v23 = v9;
-      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v23 count:1];
+      v22 = v9;
+      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v22 count:1];
       [fetchOptions setSortDescriptors:v10];
 
       v11 = [MEMORY[0x277CD9870] fetchTransientTrainingFaceCropsForPerson:v7 options:fetchOptions];
@@ -173,9 +171,9 @@ void __41__HMDPhotoLibrary_photoLibraryDidChange___block_invoke(uint64_t a1)
       {
         v20 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v25 = v20;
-        v26 = 2112;
-        v27 = dCopy;
+        v24 = v20;
+        v25 = 2112;
+        v26 = dCopy;
         _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_INFO, "%{public}@Did not find person with UUID: %@, returning empty dictionary", buf, 0x16u);
       }
 
@@ -193,15 +191,13 @@ void __41__HMDPhotoLibrary_photoLibraryDidChange___block_invoke(uint64_t a1)
     {
       v16 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v25 = v16;
+      v24 = v16;
       _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_ERROR, "%{public}@suggestedPersonsFetchResult is nil, returning nil", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v13);
     faceCropDataByUUID = 0;
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return faceCropDataByUUID;
 }
@@ -249,7 +245,7 @@ void __41__HMDPhotoLibrary_photoLibraryDidChange___block_invoke(uint64_t a1)
 
 - (NSSet)persons
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDPhotoLibrary *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -272,16 +268,14 @@ void __41__HMDPhotoLibrary_photoLibraryDidChange___block_invoke(uint64_t a1)
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       v13 = HMFGetLogIdentifier();
-      v16 = 138543362;
-      v17 = v13;
-      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@suggestedPersonsFetchResult is nil, returning nil", &v16, 0xCu);
+      v15 = 138543362;
+      v16 = v13;
+      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@suggestedPersonsFetchResult is nil, returning nil", &v15, 0xCu);
     }
 
     objc_autoreleasePoolPop(v10);
     v9 = 0;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -315,12 +309,11 @@ void __41__HMDPhotoLibrary_photoLibraryDidChange___block_invoke(uint64_t a1)
 
 uint64_t __30__HMDPhotoLibrary_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v7_35493;
-  logCategory__hmf_once_v7_35493 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v7_35493;
+  logCategory__hmf_once_v7_35493 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (id)_phPersonWithUUID:(id)d fromSuggestedPersonsFetchResult:(id)result

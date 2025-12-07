@@ -1022,10 +1022,10 @@ LABEL_28:
   }
 }
 
-uint64_t sub_75240(uint64_t result)
+uint64_t sub_75240(uint64_t a1)
 {
-  v1 = *result;
-  v2 = *(result + 4);
+  v1 = *a1;
+  v2 = *(a1 + 4);
   v3 = v1 - v2;
   if (v1 - v2 >= 0x7FFF)
   {
@@ -1047,8 +1047,8 @@ uint64_t sub_75240(uint64_t result)
     v4 = ~v3;
   }
 
-  *(result + 2) = v3;
-  v5 = *(result + 10);
+  *(a1 + 2) = v3;
+  v5 = *(a1 + 10);
   if (v4 >= (35 * v5) >> 12)
   {
     if (v4 >= (72 * v5) >> 12)
@@ -1281,7 +1281,7 @@ uint64_t sub_75240(uint64_t result)
   }
 
   v8 = word_89D70[30 * (v1 >= v2) + v6];
-  *(result + 6) = v8;
+  *(a1 + 6) = v8;
   v9 = v8 >> 2;
   if ((word_89DE8[v9] * v5) >> 15 >= 0x7FFF)
   {
@@ -1293,15 +1293,15 @@ uint64_t sub_75240(uint64_t result)
     v10 = (word_89DE8[v9] * v5) >> 15;
   }
 
-  *(result + 12) = v10;
-  v11 = word_89D50[v9] + ((127 * *(result + 8)) >> 7);
+  *(a1 + 12) = v10;
+  v11 = word_89D50[v9] + ((127 * *(a1 + 8)) >> 7);
   v12 = v11 & ~(v11 >> 31);
   if (v12 >= 18432)
   {
     v12 = 18432;
   }
 
-  *(result + 8) = v12;
+  *(a1 + 8) = v12;
   v13 = (v12 >> 6) & 0x1F;
   v14 = v12 >> 11;
   v15 = word_89E08[v13];
@@ -1317,8 +1317,8 @@ uint64_t sub_75240(uint64_t result)
     v18 = v16;
   }
 
-  *(result + 10) = 4 * v18;
-  return sub_75AEC(result);
+  *(a1 + 10) = 4 * v18;
+  return sub_75AEC(a1);
 }
 
 double g722_encoder_init(uint64_t a1, __int16 a2)
@@ -1952,6 +1952,27 @@ uint64_t sub_75AEC(uint64_t result)
   return result;
 }
 
+void sub_75E14(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "(xpc_get_type(enableAudioPluginLogsProp) == XPC_TYPE_BOOL)";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_75E8C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(absoluteVolumeProp) == XPC_TYPE_BOOL";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_75F04(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "(xpc_get_type(enableAudioPluginCapturesProp) == XPC_TYPE_BOOL)";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_75F7C()
 {
   sub_98D8();
@@ -2086,6 +2107,13 @@ double sub_76460(__int32 *a1, NSObject *a2, uint8x8_t a3)
   return result;
 }
 
+void sub_764F4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "false";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_7656C(int *a1, uint64_t a2, os_log_t log)
 {
   v3 = *a1;
@@ -2118,6 +2146,55 @@ void sub_76A78(int a1, NSObject *a2)
   _os_log_error_impl(&dword_0, a2, OS_LOG_TYPE_ERROR, "LEA Packet length is not valid %u", v2, 8u);
 }
 
+void sub_76AF0(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(directionProp) == XPC_TYPE_INT64";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_76B68(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(inputAudioProp) == XPC_TYPE_BOOL";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_76BE0(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(isStereoProp) == XPC_TYPE_BOOL";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_76C58(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(supportsAudioMixingProp) == XPC_TYPE_BOOL";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_76CD0(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(supportedCodecsProp) == XPC_TYPE_ARRAY";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_76D48(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(maxPacketLengthProp) == XPC_TYPE_INT64";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_76DC0(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(ecnrProp) == XPC_TYPE_BOOL";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_77014(float a1)
 {
   sub_F618(a1);
@@ -2137,6 +2214,20 @@ void sub_77114()
   sub_98D8();
   sub_F650();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
+}
+
+void sub_77184(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "deviceUid";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_771FC(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "theNumberItemsToFetch == 1";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_77274(uint64_t a1, NSObject *a2)
@@ -2160,13 +2251,6 @@ void sub_7736C()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_773A8(int *a1)
-{
-  v6 = *a1;
-  sub_98CC();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-}
-
 void sub_77420()
 {
   sub_98D8();
@@ -2179,13 +2263,6 @@ void sub_7745C()
   sub_98D8();
   sub_98CC();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-void sub_77498(int *a1)
-{
-  v6 = *a1;
-  sub_98CC();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
 }
 
 void sub_77510(int a1, int a2, os_log_t log)
@@ -2209,13 +2286,6 @@ void sub_776BC()
   sub_98D8();
   sub_98CC();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-void sub_776F8(int *a1)
-{
-  v6 = *a1;
-  sub_98CC();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
 }
 
 void sub_77770()
@@ -2251,13 +2321,6 @@ void sub_77824(int a1, NSObject *a2)
   _os_log_debug_impl(&dword_0, a2, OS_LOG_TYPE_DEBUG, "device type %{public}s", buf, 0xCu);
 }
 
-void sub_778C0(int *a1)
-{
-  v6 = *a1;
-  sub_98CC();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-}
-
 void sub_77A20()
 {
   sub_14DC4();
@@ -2280,20 +2343,26 @@ void sub_77FAC()
   _os_log_debug_impl(&dword_0, v1, OS_LOG_TYPE_DEBUG, "XPC Send Sco Data Source: %u, %u!", v2, 0xEu);
 }
 
+void sub_78FA0(_DWORD *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = *a1;
+  sub_14DA8(&dword_0, a2, a3, "updateInEarDetectionStatus for audioObjectId %u", a5, a6, a7, a8, v8);
+}
+
+void sub_790AC(_DWORD *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = *a1;
+  sub_14DA8(&dword_0, a2, a3, "updateIsGenuineAirPods for audioObjectId %u", a5, a6, a7, a8, v8);
+}
+
 void sub_791EC(uint64_t *a1, NSObject *a2)
 {
   v2 = *a1;
   v3 = 134217984;
   v4 = v2;
   _os_log_error_impl(&dword_0, a2, OS_LOG_TYPE_ERROR, "AudioSkywalk read loop is configured to an invalid audio interval (%llu). Defaulting to 22000us", &v3, 0xCu);
-}
-
-void sub_79268(uint64_t a1)
-{
-  v1 = *(a1 + 2);
-  v2 = *(a1 + 4);
-  sub_16190();
-  _os_log_debug_impl(&dword_0, v3, OS_LOG_TYPE_DEBUG, "%d bytes available skywalk slot %d", v4, 0xEu);
 }
 
 void sub_79318(uint64_t a1, uint64_t a2, os_log_t log)
@@ -2305,15 +2374,12 @@ void sub_79318(uint64_t a1, uint64_t a2, os_log_t log)
   _os_log_error_impl(&dword_0, log, OS_LOG_TYPE_ERROR, "Unable to write %lu bytes into skywalk pipe, not enough free space (%lu bytes available)", &v3, 0x16u);
 }
 
-void sub_793D4(uint64_t a1, uint64_t a2)
+void sub_793D4()
 {
-  v2 = *(a1 + 4);
-  v3 = *(a1 + 2);
-  v4 = *(a2 + 184);
   sub_16190();
-  v8 = 2048;
-  v9 = v5;
-  _os_log_debug_impl(&dword_0, v6, OS_LOG_TYPE_DEBUG, "Syncing slot %d with length %hu, offset %lu", v7, 0x18u);
+  v3 = 2048;
+  v4 = v0;
+  _os_log_debug_impl(&dword_0, v1, OS_LOG_TYPE_DEBUG, "Syncing slot %d with length %hu, offset %lu", v2, 0x18u);
 }
 
 void sub_7958C(uint64_t a1, uint64_t a2, os_log_t log)
@@ -2332,6 +2398,20 @@ void sub_79614(uint64_t a1, uint8_t *buf, os_log_t log)
   _os_log_error_impl(&dword_0, log, OS_LOG_TYPE_ERROR, "Unknown arbitration message %{public}s receieved", buf, 0xCu);
 }
 
+void sub_7965C(void *a1)
+{
+  LODWORD(v7) = 136315138;
+  *(&v7 + 4) = [objc_msgSend(a1 "description")];
+  sub_1B880(&dword_0, v1, v2, "No value for command %s", v3, v4, v5, v6, v7, DWORD2(v7));
+}
+
+void sub_796E0(void *a1)
+{
+  LODWORD(v7) = 136315138;
+  *(&v7 + 4) = [objc_msgSend(a1 "description")];
+  sub_1B880(&dword_0, v1, v2, "Received IDS message %s with no BTAudioIdsMsgCommands", v3, v4, v5, v6, v7, DWORD2(v7));
+}
+
 void sub_79800(uint64_t a1, NSObject *a2)
 {
   v2 = 134217984;
@@ -2339,18 +2419,18 @@ void sub_79800(uint64_t a1, NSObject *a2)
   _os_log_error_impl(&dword_0, a2, OS_LOG_TYPE_ERROR, "BTAudioDetect input invalid decodedBytes %zu", &v2, 0xCu);
 }
 
+void sub_79924(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(maxChannelsProp) == XPC_TYPE_INT64";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_7999C(uint8_t *buf, _BYTE *a2, os_log_t log)
 {
   *buf = 0;
   *a2 = 0;
   _os_log_error_impl(&dword_0, log, OS_LOG_TYPE_ERROR, "Not a valid codec type!", buf, 2u);
-}
-
-void sub_79AE0(uint64_t *a1)
-{
-  v6 = *a1;
-  sub_F650();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
 void sub_79B8C(uint8_t *buf, void *a2, os_log_t log)
@@ -2397,58 +2477,250 @@ void sub_79E90(int a1, NSObject *a2)
   _os_log_error_impl(&dword_0, a2, OS_LOG_TYPE_ERROR, "No codec found for codecType %u", v2, 8u);
 }
 
-void sub_79F3C(uint64_t *a1, uint64_t a2)
+void sub_79F3C(uint64_t a1, uint64_t a2)
 {
-  v2 = *a1;
   if (*a2)
   {
-    v3 = atomic_load((*a2 + 24));
+    atomic_load((*a2 + 24));
   }
 
   sub_2588C();
-  HIWORD(v8) = v4;
-  sub_258A0(&dword_0, v5, v6, "AudioRingBuffer::readFrameInternal, frame length(%lu) bigger than available buffer length (%lu)", v7, v8);
+  HIWORD(v6) = v2;
+  sub_258A0(&dword_0, v3, v4, "AudioRingBuffer::readFrameInternal, frame length(%lu) bigger than available buffer length (%lu)", v5, v6);
 }
 
-void sub_79FF0(uint64_t **a1)
+void sub_79FF0(uint64_t a1)
 {
-  v1 = **a1;
-  atomic_load(*a1 + 3);
+  atomic_load((*a1 + 24));
   sub_2588C();
-  HIWORD(v5) = v2;
-  sub_258A0(&dword_0, v2, v3, "Shared memory size (%lu bytes available) has less than requested buffer length (%lu), deferring write", v4, v5);
+  HIWORD(v4) = v1;
+  sub_258A0(&dword_0, v1, v2, "Shared memory size (%lu bytes available) has less than requested buffer length (%lu), deferring write", v3, v4);
 }
 
-void sub_7A160(unsigned int *a1)
+void sub_7A238(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v1 = *a1;
-  sub_26450();
-  sub_14DA8(&dword_0, v2, v3, "mOutputFormat.mBytesPerPacket %u", v4, v5, v6, v7, v8);
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = a1;
+  sub_14DA8(&dword_0, a2, a3, "Target Bitrate trying to set to %u", a5, a6, a7, a8, v8);
 }
 
-void sub_7A1CC(unsigned int *a1)
+void sub_7A310()
 {
-  v1 = *a1;
-  sub_26450();
-  sub_14DA8(&dword_0, v2, v3, "kAudioCodecPropertyMaximumPacketByteSize returned max packet size of %u bytes", v4, v5, v6, v7, v8);
-}
-
-void sub_7A2A4(unsigned int *a1)
-{
-  v1 = *a1;
-  sub_26450();
-  sub_14DA8(&dword_0, v2, v3, "Actual target Bitrate is set to %u", v4, v5, v6, v7, v8);
-}
-
-void sub_7A310(uint64_t a1)
-{
-  v1 = *(a1 + 152);
-  v2 = *(a1 + 160);
   sub_26450();
   sub_26440();
-  v7 = v3;
-  v8 = v4;
-  _os_log_debug_impl(&dword_0, v5, OS_LOG_TYPE_DEBUG, "mOutputBufferSize %u, outputSizePerPacket %u, mNumOutputPackets %u", v6, 0x14u);
+  v4 = v0;
+  v5 = v1;
+  _os_log_debug_impl(&dword_0, v2, OS_LOG_TYPE_DEBUG, "mOutputBufferSize %u, outputSizePerPacket %u, mNumOutputPackets %u", v3, 0x14u);
+}
+
+void sub_7AC68(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "deviceAddress";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_7ACE0(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(xpcProductID) == XPC_TYPE_INT64";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_7AD58(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(xpcVersion) == XPC_TYPE_INT64";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_7ADD0(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(xpcVendorID) == XPC_TYPE_INT64";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_7AE48(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(xpcServiceMask) == XPC_TYPE_INT64";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_7AF28(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(localStreamStateProp) == XPC_TYPE_INT64";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_7AFA0(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(inEarProp) == XPC_TYPE_BOOL";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_7B018(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(inEarEnabledProp) == XPC_TYPE_BOOL";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_7B0C4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(inEarStatusProp) == XPC_TYPE_INT64";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_7B170(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(primaryBudSideProp) == XPC_TYPE_INT64";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_7B21C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(fixedMicModeProp) == XPC_TYPE_INT64";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_7B2C8(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(listenModeSupProp) == XPC_TYPE_INT64";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_7B340(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(listenModeProp) == XPC_TYPE_INT64";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_7B3B8(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(doapProp) == XPC_TYPE_BOOL";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_7B430(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(liveListenProp) == XPC_TYPE_BOOL";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_7B4A8(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(oneBudANCModeProp) == XPC_TYPE_INT64";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_7B520(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(remoteStreamStateProp) == XPC_TYPE_INT64";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_7B598(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(spatialPerAppModeProp) == XPC_TYPE_DICTIONARY";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_7B610(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(adaptiveVolumeProp) == XPC_TYPE_DICTIONARY";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_7B688(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(xpcDeviceUUID) == XPC_TYPE_UUID";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_7B700(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(dosimetrySensitivityProp) == XPC_TYPE_DOUBLE";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_7B778(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(dosimetryVolumeCurveProp) == XPC_TYPE_ARRAY";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_7B7F0(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(EURegionBitProp) == XPC_TYPE_INT64";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_7B868(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(allowScoForTBTProp) == XPC_TYPE_BOOL";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_7B8E0(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(allowAutoRouteProp) == XPC_TYPE_BOOL";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_7B958(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(audioRouteHiddenProp) == XPC_TYPE_BOOL";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_7B9D0(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(userSelectedDeviceType) == XPC_TYPE_INT64";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_7BA48(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(isGenuineAirPodsProp) == XPC_TYPE_BOOL";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_7BB5C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(value) == XPC_TYPE_DICTIONARY";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_7BC08(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(value) == XPC_TYPE_STRING";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_7BF24(void *a1)
@@ -2533,6 +2805,97 @@ void sub_7C4D0(int a1, NSObject *a2)
   _os_log_error_impl(&dword_0, a2, OS_LOG_TYPE_ERROR, "Encoder type (%d) is not valid", v2, 8u);
 }
 
+void sub_7C548(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(sampleRateProp) == XPC_TYPE_DOUBLE";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_7C5C0(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(categoryProp) == XPC_TYPE_INT64";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_7C638(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(latencyProp) == XPC_TYPE_INT64";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_7C6B0(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(codecProp) == XPC_TYPE_INT64";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_7C728(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(bitPoolProp) == XPC_TYPE_INT64";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_7C7A0(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(frameLenProp) == XPC_TYPE_INT64";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_7C818(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(frameCountProp) == XPC_TYPE_INT64";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_7C890(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(rtpIntervalProp) == XPC_TYPE_INT64";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_7C908(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(dynamicAudioClock) == XPC_TYPE_BOOL";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_7C980(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(modifierObj) == XPC_TYPE_DOUBLE";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_7C9F8(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(dynamicLatencyCtr) == XPC_TYPE_BOOL";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_7CA70(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(lowLatencyGameObj) == XPC_TYPE_BOOL";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_7CAE8(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(latency) == XPC_TYPE_INT64";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_7CB60(_BYTE *a1, uint64_t a2, os_log_t log)
 {
   v3 = "Immediate";
@@ -2552,22 +2915,18 @@ void sub_7CB60(_BYTE *a1, uint64_t a2, os_log_t log)
   _os_log_debug_impl(&dword_0, log, OS_LOG_TYPE_DEBUG, "Dynamic Latency : %{public}s Frame Count Update %u -> %u", &v6, 0x18u);
 }
 
-void sub_7CC14(uint64_t a1)
+void sub_7CC14()
 {
-  v1 = *(a1 + 9124);
-  v2 = *(a1 + 9168);
   sub_16190();
   sub_F650();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0xEu);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xEu);
 }
 
-void sub_7CD28(uint64_t a1)
+void sub_7CD28()
 {
-  v1 = *(a1 + 9124);
-  v2 = *(a1 + 9168);
   sub_16190();
   sub_F650();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0xEu);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xEu);
 }
 
 void sub_7CDA0(uint64_t a1, NSObject *a2)
@@ -2587,6 +2946,132 @@ void sub_7CDA0(uint64_t a1, NSObject *a2)
   v6 = 1024;
   v7 = sub_3DDC8(a1);
   _os_log_debug_impl(&dword_0, a2, OS_LOG_TYPE_DEBUG, "Dynamic Latency : Start Latency Targeted %{public}s initial in-ear-delay=%u", &v4, 0x12u);
+}
+
+void sub_7CE58(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(eqProp) == XPC_TYPE_INT64";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_7CED0(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(nbsProp) == XPC_TYPE_BOOL";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_7CF48(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(swPlcProp) == XPC_TYPE_BOOL";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_7CFC0(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(wbsProp) == XPC_TYPE_BOOL";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_7D038(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(uwbsSTTestProp) == XPC_TYPE_BOOL";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_7D0B0(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(incompatibleProp) == XPC_TYPE_BOOL";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_7D128(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(nrProp) == XPC_TYPE_INT64";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_7D1A0(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(volumeProp) == XPC_TYPE_DOUBLE";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_7D218(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(inputVolumeProp) == XPC_TYPE_DOUBLE";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_7D290(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(offloadProp) == XPC_TYPE_BOOL";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_7D308(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(advancedHandsfreeObj) == XPC_TYPE_BOOL";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_7D380(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(lowLatencyGameModeObj) == XPC_TYPE_BOOL";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_7D494(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(uwbsProp) == XPC_TYPE_BOOL";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_7D50C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(uwbsStereoProp) == XPC_TYPE_BOOL";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_7D584(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(swbProp) == XPC_TYPE_BOOL";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_7D5FC(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(swbStereoProp) == XPC_TYPE_BOOL";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_7D674(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(swbStereoFakeProp) == XPC_TYPE_BOOL";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_7D6EC(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "xpc_get_type(swbStereo48K10msProp) == XPC_TYPE_BOOL";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_7D764(int a1, NSObject *a2)
@@ -2683,36 +3168,6 @@ void sub_7E160(os_log_t log)
   _os_log_fault_impl(&dword_0, log, OS_LOG_TYPE_FAULT, "Assertion failed: %{public}s", &v1, 0xCu);
 }
 
-void sub_7E1E4(uint64_t a1, uint64_t *a2)
-{
-  v7 = *(a1 + 136);
-  v8 = *a2;
-  sub_58DA4();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-}
-
-void sub_7E2D4(char *a1, uint64_t *a2)
-{
-  if (*a1 < 0)
-  {
-    v2 = *a2;
-  }
-
-  sub_58DA4();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
-}
-
-void sub_7E354(char *a1, uint64_t *a2)
-{
-  if (*a1 < 0)
-  {
-    v2 = *a2;
-  }
-
-  sub_58DA4();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
-}
-
 void sub_7E774()
 {
   sub_14DC4();
@@ -2741,31 +3196,18 @@ void sub_7F07C()
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_7F390(unsigned __int8 *a1)
-{
-  v1 = *a1;
-  v2 = a1[1];
-  v3 = a1[2];
-  v4 = a1[3];
-  sub_59588();
-  _os_log_error_impl(&dword_0, v5, OS_LOG_TYPE_ERROR, "Packed %x %x %x %x", v6, 0x1Au);
-}
-
-void sub_7F40C(unsigned __int8 *a1)
-{
-  v1 = a1[228];
-  v2 = a1[229];
-  v3 = a1[230];
-  v4 = a1[231];
-  sub_59588();
-  _os_log_error_impl(&dword_0, v5, OS_LOG_TYPE_ERROR, "Unpacked %x %x %x %x", v6, 0x1Au);
-}
-
 void sub_7F58C(uint8_t *buf, _BYTE *a2, os_log_t log)
 {
   *buf = 0;
   *a2 = 0;
   _os_log_error_impl(&dword_0, log, OS_LOG_TYPE_ERROR, "Wireless Splitter device is not an aggregate", buf, 2u);
+}
+
+void sub_81138(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "mCurrentAudioDevice != NULL";
+  sub_98E4(&dword_0, a1, a3, "Assertion failed: %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_81258(uint64_t a1, uint64_t a2, os_log_t log)
@@ -2788,20 +3230,6 @@ void sub_81258(uint64_t a1, uint64_t a2, os_log_t log)
   v9 = 2112;
   v10 = v4;
   _os_log_error_impl(&dword_0, log, OS_LOG_TYPE_ERROR, "Dropping Volume update becuase there is one already in flight %{public}@: manualVolumeUpdate: %@ Adaptive Volume: %@", &v5, 0x20u);
-}
-
-void sub_8130C(uint64_t a1)
-{
-  v6 = *(a1 + 9080);
-  sub_98CC();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-}
-
-void sub_81420(uint64_t *a1)
-{
-  v6 = *a1;
-  sub_98CC();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
 void sub_81550(int *a1, NSObject *a2)

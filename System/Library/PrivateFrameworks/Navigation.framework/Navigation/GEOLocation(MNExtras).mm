@@ -1,13 +1,13 @@
 @interface GEOLocation(MNExtras)
 + (id)locationWithCLLocation:()MNExtras course:;
 - (id)initWithCLLocation:()MNExtras useMatchInfo:;
-- (uint64_t)clientLocation;
+- (void)clientLocation;
 - (void)initWithCLLocation:()MNExtras course:;
 @end
 
 @implementation GEOLocation(MNExtras)
 
-- (uint64_t)clientLocation
+- (void)clientLocation
 {
   *(a2 + 140) = 0u;
   *(a2 + 112) = 0u;
@@ -80,11 +80,11 @@
 
 - (id)initWithCLLocation:()MNExtras useMatchInfo:
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   v6 = a3;
-  v52.receiver = self;
-  v52.super_class = &off_1F4F09D58;
-  v7 = objc_msgSendSuper2(&v52, sel_init);
+  v51.receiver = self;
+  v51.super_class = &off_1F4F09D58;
+  v7 = objc_msgSendSuper2(&v51, sel_init);
   if (v7)
   {
     if (v6)
@@ -95,7 +95,7 @@
       if ([MEMORY[0x1E69A1E80] isLocationShiftRequiredForCoordinate:?])
       {
         [v6 _navigation_rawShiftedCoordinate];
-        if (CLLocationCoordinate2DIsValid(v56))
+        if (CLLocationCoordinate2DIsValid(v55))
         {
           [v6 _navigation_rawShiftedCoordinate];
           if (v12 != 0.0 || ([v6 _navigation_rawShiftedCoordinate], v13 != 0.0))
@@ -153,13 +153,13 @@
 
       else
       {
-        [v6 clientLocation];
-        v28 = v51[35];
+        objc_msgSend_clientLocation(v6);
+        v28 = v50[35];
       }
 
       [v7 setCourse:*&v28];
-      [v6 clientLocation];
-      [v7 setRawCourse:*(&v51[15] + 4)];
+      objc_msgSend_clientLocation(v6);
+      [v7 setRawCourse:*(&v50[15] + 4)];
       [v6 courseAccuracy];
       [v7 setCourseAccuracy:?];
       [v6 speed];
@@ -243,9 +243,9 @@
         v43 = MEMORY[0x1E696ACD0];
         v44 = objc_opt_class();
         coarseMetaData2 = [v6 coarseMetaData];
-        v51[0] = 0;
-        v46 = [v43 unarchivedObjectOfClass:v44 fromData:coarseMetaData2 error:v51];
-        v47 = v51[0];
+        v50[0] = 0;
+        v46 = [v43 unarchivedObjectOfClass:v44 fromData:coarseMetaData2 error:v50];
+        v47 = v50[0];
 
         if (v46)
         {
@@ -255,7 +255,7 @@
         else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v54 = v47;
+          v53 = v47;
           _os_log_impl(&dword_1D311E000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to decode coarse location metadata: %{public}@", buf, 0xCu);
         }
       }
@@ -264,7 +264,6 @@
     v48 = v7;
   }
 
-  v49 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

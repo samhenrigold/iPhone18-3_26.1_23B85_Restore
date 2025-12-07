@@ -82,21 +82,22 @@
 
   foregroundColor2 = [(NTKFaceViewComplicationFactory *)self foregroundColor];
   whiteColor = [MEMORY[0x277D75348] whiteColor];
-  if ([foregroundColor2 isEqual:whiteColor])
+  v10 = [foregroundColor2 isEqual:whiteColor];
+  if (v10)
   {
-    NTKSecondaryForegroundGrayColor();
+    NTKSecondaryForegroundGrayColor(v10);
   }
 
   else
   {
     [MEMORY[0x277D75348] whiteColor];
   }
-  v10 = ;
-  [viewCopy setSecondaryForegroundColor:v10];
+  v11 = ;
+  [viewCopy setSecondaryForegroundColor:v11];
 
   foregroundColor3 = [(NTKFaceViewComplicationFactory *)self foregroundColor];
-  v12 = NTKColorByPremultiplyingAlpha(foregroundColor3, 0.2);
-  [viewCopy setHighlightBackgroundColor:v12];
+  v13 = NTKColorByPremultiplyingAlpha(foregroundColor3, 0.2);
+  [viewCopy setHighlightBackgroundColor:v13];
 
   [viewCopy _enumerateForegroundColoringViewsWithBlock:&__block_literal_global_55];
 }

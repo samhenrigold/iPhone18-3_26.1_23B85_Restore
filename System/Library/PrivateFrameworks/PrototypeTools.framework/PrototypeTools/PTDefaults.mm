@@ -34,9 +34,11 @@
 
 uint64_t __28__PTDefaults_sharedInstance__block_invoke()
 {
-  sharedInstance___instance = [(BSAbstractDefaultDomain *)[PTDefaults alloc] _initWithDomain:@"com.apple.PrototypeTools"];
+  v0 = [(BSAbstractDefaultDomain *)[PTDefaults alloc] _initWithDomain:@"com.apple.PrototypeTools"];
+  v1 = sharedInstance___instance;
+  sharedInstance___instance = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (void)_bindAndRegisterDefaults
@@ -264,7 +266,7 @@ uint64_t __28__PTDefaults_sharedInstance__block_invoke()
   return v5;
 }
 
-uint64_t __46__PTDefaults_activeTestRecipeEventDescription__block_invoke(uint64_t a1, uint64_t a2)
+void *__46__PTDefaults_activeTestRecipeEventDescription__block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) activeTestRecipeEatsEvent:a2];
   if (result)

@@ -7,6 +7,7 @@
 - (void)provideNavigationDonations;
 - (void)setAccess:(id)access forSpecifier:(id)specifier;
 - (void)setCameraAccess:(id)access forSpecifier:(id)specifier;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation PUIFileAccessController
@@ -46,9 +47,17 @@
   return v3;
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = PUIFileAccessController;
+  [(PUIFileAccessController *)&v4 viewDidAppear:appear];
+  [(PUIFileAccessController *)self provideNavigationDonations];
+}
+
 - (void)provideNavigationDonations
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   bundleURL = [v3 bundleURL];
 
@@ -60,12 +69,10 @@
   currentLocale2 = [MEMORY[0x277CBEAF8] currentLocale];
   v10 = [v8 initWithKey:@"PRIVACY" table:@"Privacy" locale:currentLocale2 bundleURL:bundleURL];
 
-  v14[0] = v10;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+  v13[0] = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
   v12 = [MEMORY[0x277CBEBC0] URLWithString:@"settings-navigation://com.apple.Settings.PrivacyAndSecurity/FILEACCESS"];
   [(PUIFileAccessController *)self pe_emitNavigationEventForSystemSettingsWithGraphicIconIdentifier:@"com.apple.graphic-icon.privacy" title:v7 localizedNavigationComponents:v11 deepLink:v12];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)applicationProxiesDictionary
@@ -131,20 +138,20 @@ void __58__PUIFileAccessController_bundleIdentifiersAccessingFiles__block_invoke
 
 - (id)specifiers
 {
-  v83 = *MEMORY[0x277D85DE8];
+  v82 = *MEMORY[0x277D85DE8];
   v3 = *(&self->super.super.super.super.super.isa + *MEMORY[0x277D3FC48]);
   if (!v3)
   {
-    v54 = *MEMORY[0x277D3FC48];
+    v53 = *MEMORY[0x277D3FC48];
     applicationProxiesDictionary = [(PUIFileAccessController *)self applicationProxiesDictionary];
     v5 = MEMORY[0x277CBEB98];
     [(PUIFileAccessController *)self bundleIdentifiersAccessingFiles];
-    v6 = v61 = self;
+    v6 = v60 = self;
     v7 = [v5 setWithArray:v6];
 
     v8 = MEMORY[0x277CBEB98];
     bundleIdentifiersAccessingExternalMediaDevices = [MEMORY[0x277CD2C38] bundleIdentifiersAccessingExternalMediaDevices];
-    v52 = [v8 setWithArray:bundleIdentifiersAccessingExternalMediaDevices];
+    v51 = [v8 setWithArray:bundleIdentifiersAccessingExternalMediaDevices];
 
     v10 = objc_opt_new();
     v11 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:0 target:0 set:0 get:0 detail:0 cell:0 edit:0];
@@ -153,37 +160,37 @@ void __58__PUIFileAccessController_bundleIdentifiersAccessingFiles__block_invoke
     v13 = [v12 localizedStringForKey:@"FILEACCESS_FOOTER" value:&stru_28771E540 table:@"Privacy"];
     [v11 setProperty:v13 forKey:*MEMORY[0x277D3FF88]];
 
-    v14 = v61;
-    v72 = v10;
-    v53 = v11;
+    v14 = v60;
+    v71 = v10;
+    v52 = v11;
     [v10 addObject:v11];
-    v79 = 0u;
-    v80 = 0u;
-    v77 = 0u;
     v78 = 0u;
+    v79 = 0u;
+    v76 = 0u;
+    v77 = 0u;
     obj = v7;
-    v15 = [obj countByEnumeratingWithState:&v77 objects:v82 count:16];
-    v70 = applicationProxiesDictionary;
+    v15 = [obj countByEnumeratingWithState:&v76 objects:v81 count:16];
+    v69 = applicationProxiesDictionary;
     if (v15)
     {
       v16 = v15;
-      v17 = *v78;
-      v59 = *MEMORY[0x277CBEC40];
-      v57 = *MEMORY[0x277CBED50];
-      v66 = *MEMORY[0x277D40008];
-      v64 = *MEMORY[0x277CBED28];
-      v62 = *MEMORY[0x277D40020];
-      v68 = *v78;
+      v17 = *v77;
+      v58 = *MEMORY[0x277CBEC40];
+      v56 = *MEMORY[0x277CBED50];
+      v65 = *MEMORY[0x277D40008];
+      v63 = *MEMORY[0x277CBED28];
+      v61 = *MEMORY[0x277D40020];
+      v67 = *v77;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v78 != v17)
+          if (*v77 != v17)
           {
             objc_enumerationMutation(obj);
           }
 
-          v19 = *(*(&v77 + 1) + 8 * i);
+          v19 = *(*(&v76 + 1) + 8 * i);
           lowercaseString = [v19 lowercaseString];
           if (([lowercaseString isEqualToString:@"com.apple.documentsapp"] & 1) == 0)
           {
@@ -197,11 +204,11 @@ void __58__PUIFileAccessController_bundleIdentifiersAccessingFiles__block_invoke
               {
                 BundleWithIdentifier = CFBundleGetBundleWithIdentifier(bundleIdentifier);
                 v26 = CFBundleGetInfoDictionary(BundleWithIdentifier);
-                stringByDeletingPathExtension = [v26 objectForKeyedSubscript:v59];
+                stringByDeletingPathExtension = [v26 objectForKeyedSubscript:v58];
 
                 if (![stringByDeletingPathExtension length])
                 {
-                  v28 = [v26 objectForKeyedSubscript:v57];
+                  v28 = [v26 objectForKeyedSubscript:v56];
 
                   if ([v28 length])
                   {
@@ -210,60 +217,60 @@ void __58__PUIFileAccessController_bundleIdentifiersAccessingFiles__block_invoke
 
                   else
                   {
-                    v55 = CFBundleCopyBundleURL(BundleWithIdentifier);
-                    lastPathComponent = [(__CFURL *)v55 lastPathComponent];
+                    v54 = CFBundleCopyBundleURL(BundleWithIdentifier);
+                    lastPathComponent = [(__CFURL *)v54 lastPathComponent];
                     stringByDeletingPathExtension = [lastPathComponent stringByDeletingPathExtension];
                   }
                 }
 
                 v24 = stringByDeletingPathExtension;
-                v14 = v61;
-                applicationProxiesDictionary = v70;
+                v14 = v60;
+                applicationProxiesDictionary = v69;
               }
 
               v30 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v24 target:v14 set:sel_setAccess_forSpecifier_ get:sel_accesssForSpecifier_ detail:0 cell:6 edit:0];
               [v30 setIdentifier:v19];
-              [v30 setProperty:bundleIdentifier forKey:v66];
-              [v30 setProperty:v64 forKey:v62];
-              [v72 addObject:v30];
+              [v30 setProperty:bundleIdentifier forKey:v65];
+              [v30 setProperty:v63 forKey:v61];
+              [v71 addObject:v30];
 
-              v17 = v68;
+              v17 = v67;
             }
           }
         }
 
-        v16 = [obj countByEnumeratingWithState:&v77 objects:v82 count:16];
+        v16 = [obj countByEnumeratingWithState:&v76 objects:v81 count:16];
       }
 
       while (v16);
     }
 
-    v75 = 0u;
-    v76 = 0u;
-    v73 = 0u;
     v74 = 0u;
-    v31 = v52;
-    v32 = [v31 countByEnumeratingWithState:&v73 objects:v81 count:16];
+    v75 = 0u;
+    v72 = 0u;
+    v73 = 0u;
+    v31 = v51;
+    v32 = [v31 countByEnumeratingWithState:&v72 objects:v80 count:16];
     if (v32)
     {
       v33 = v32;
-      v34 = *v74;
-      v60 = *MEMORY[0x277CBEC40];
-      v58 = *MEMORY[0x277CBED50];
-      v69 = *MEMORY[0x277D40008];
-      v67 = *MEMORY[0x277CBED28];
-      v63 = v31;
-      v65 = *MEMORY[0x277D40020];
+      v34 = *v73;
+      v59 = *MEMORY[0x277CBEC40];
+      v57 = *MEMORY[0x277CBED50];
+      v68 = *MEMORY[0x277D40008];
+      v66 = *MEMORY[0x277CBED28];
+      v62 = v31;
+      v64 = *MEMORY[0x277D40020];
       do
       {
         for (j = 0; j != v33; ++j)
         {
-          if (*v74 != v34)
+          if (*v73 != v34)
           {
             objc_enumerationMutation(v31);
           }
 
-          v36 = *(*(&v73 + 1) + 8 * j);
+          v36 = *(*(&v72 + 1) + 8 * j);
           if (([v36 isEqualToString:@"com.apple.MobileSlideShow"] & 1) == 0)
           {
             lowercaseString2 = [v36 lowercaseString];
@@ -277,11 +284,11 @@ void __58__PUIFileAccessController_bundleIdentifiersAccessingFiles__block_invoke
               {
                 v42 = CFBundleGetBundleWithIdentifier(bundleIdentifier2);
                 v43 = CFBundleGetInfoDictionary(v42);
-                stringByDeletingPathExtension2 = [v43 objectForKeyedSubscript:v60];
+                stringByDeletingPathExtension2 = [v43 objectForKeyedSubscript:v59];
 
                 if (![stringByDeletingPathExtension2 length])
                 {
-                  v45 = [v43 objectForKeyedSubscript:v58];
+                  v45 = [v43 objectForKeyedSubscript:v57];
 
                   if ([v45 length])
                   {
@@ -290,44 +297,42 @@ void __58__PUIFileAccessController_bundleIdentifiersAccessingFiles__block_invoke
 
                   else
                   {
-                    v56 = CFBundleCopyBundleURL(v42);
-                    lastPathComponent2 = [(__CFURL *)v56 lastPathComponent];
+                    v55 = CFBundleCopyBundleURL(v42);
+                    lastPathComponent2 = [(__CFURL *)v55 lastPathComponent];
                     stringByDeletingPathExtension2 = [lastPathComponent2 stringByDeletingPathExtension];
                   }
                 }
 
-                v31 = v63;
+                v31 = v62;
 
                 v41 = stringByDeletingPathExtension2;
-                v14 = v61;
+                v14 = v60;
               }
 
               v47 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v41 target:v14 set:sel_setCameraAccess_forSpecifier_ get:sel_cameraAccessForSpecifier_ detail:0 cell:6 edit:0];
               [v47 setIdentifier:bundleIdentifier2];
-              [v47 setProperty:bundleIdentifier2 forKey:v69];
-              [v47 setProperty:v67 forKey:v65];
-              [v72 addObject:v47];
+              [v47 setProperty:bundleIdentifier2 forKey:v68];
+              [v47 setProperty:v66 forKey:v64];
+              [v71 addObject:v47];
 
-              applicationProxiesDictionary = v70;
+              applicationProxiesDictionary = v69;
             }
           }
         }
 
-        v33 = [v31 countByEnumeratingWithState:&v73 objects:v81 count:16];
+        v33 = [v31 countByEnumeratingWithState:&v72 objects:v80 count:16];
       }
 
       while (v33);
     }
 
-    [v72 sortUsingComparator:&__block_literal_global_8];
-    v48 = [v72 copy];
-    v49 = *(&v14->super.super.super.super.super.isa + v54);
-    *(&v14->super.super.super.super.super.isa + v54) = v48;
+    [v71 sortUsingComparator:&__block_literal_global_8];
+    v48 = [v71 copy];
+    v49 = *(&v14->super.super.super.super.super.isa + v53);
+    *(&v14->super.super.super.super.super.isa + v53) = v48;
 
-    v3 = *(&v14->super.super.super.super.super.isa + v54);
+    v3 = *(&v14->super.super.super.super.super.isa + v53);
   }
-
-  v50 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -382,29 +387,29 @@ void __50__PUIFileAccessController_setAccess_forSpecifier___block_invoke(uint64_
 
 - (id)cameraAccessForSpecifier:(id)specifier
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   specifierCopy = specifier;
   [MEMORY[0x277CD2C38] bundleIdentifiersAccessingExternalMediaDevicesWithStatus];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v4 = v19 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v4 = v18 = 0u;
+  v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * i);
-        v10 = [v9 objectForKeyedSubscript:{@"bundle_id", v16}];
+        v9 = *(*(&v15 + 1) + 8 * i);
+        v10 = [v9 objectForKeyedSubscript:{@"bundle_id", v15}];
         identifier = [specifierCopy identifier];
         v12 = [v10 isEqualToString:identifier];
 
@@ -416,7 +421,7 @@ void __50__PUIFileAccessController_setAccess_forSpecifier___block_invoke(uint64_
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v6)
       {
         continue;
@@ -428,8 +433,6 @@ void __50__PUIFileAccessController_setAccess_forSpecifier___block_invoke(uint64_
 
   v13 = [MEMORY[0x277CCABB0] numberWithBool:0];
 LABEL_11:
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

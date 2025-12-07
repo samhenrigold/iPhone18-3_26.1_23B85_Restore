@@ -10,7 +10,7 @@
 
 - (id)mergerForBatch:(id)batch error:(id *)error
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   batchCopy = batch;
   pullQueue = [(CPLEngineStore *)self->_store pullQueue];
   if ([pullQueue isEmpty])
@@ -26,45 +26,45 @@
   }
 
   selfCopy = self;
-  v40 = pullQueue;
+  v39 = pullQueue;
   v9 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-  v41 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v40 = objc_alloc_init(MEMORY[0x1E695DFA8]);
   v10 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-  v38 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v37 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v46 = 0u;
   v47 = 0u;
   v48 = 0u;
   v49 = 0u;
-  v50 = 0u;
-  v36 = batchCopy;
+  v35 = batchCopy;
   v11 = batchCopy;
-  v12 = [v11 countByEnumeratingWithState:&v47 objects:v53 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v46 objects:v52 count:16];
   if (!v12)
   {
     goto LABEL_23;
   }
 
   v13 = v12;
-  v14 = *v48;
+  v14 = *v47;
   do
   {
     for (i = 0; i != v13; ++i)
     {
-      if (*v48 != v14)
+      if (*v47 != v14)
       {
         objc_enumerationMutation(v11);
       }
 
-      v16 = *(*(&v47 + 1) + 8 * i);
+      v16 = *(*(&v46 + 1) + 8 * i);
       scopedIdentifier = [v16 scopedIdentifier];
       scopeIdentifier = [scopedIdentifier scopeIdentifier];
 
       if (([v9 containsObject:scopeIdentifier] & 1) == 0)
       {
-        if (([v41 containsObject:scopeIdentifier] & 1) == 0)
+        if (([v40 containsObject:scopeIdentifier] & 1) == 0)
         {
-          v52 = scopeIdentifier;
-          v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v52 count:1];
-          v20 = [v40 hasSomeChangeInScopesWithIdentifiers:v19];
+          v51 = scopeIdentifier;
+          v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v51 count:1];
+          v20 = [v39 hasSomeChangeInScopesWithIdentifiers:v19];
 
           if (!v20)
           {
@@ -72,7 +72,7 @@
             goto LABEL_17;
           }
 
-          [v41 addObject:scopeIdentifier];
+          [v40 addObject:scopeIdentifier];
         }
 
         if ([v10 containsObject:scopeIdentifier])
@@ -91,55 +91,55 @@ LABEL_17:
         allRelatedScopedIdentifiers = [v16 allRelatedScopedIdentifiers];
         if ([allRelatedScopedIdentifiers count])
         {
-          [v38 unionSet:allRelatedScopedIdentifiers];
+          [v37 unionSet:allRelatedScopedIdentifiers];
         }
       }
 
 LABEL_21:
     }
 
-    v13 = [v11 countByEnumeratingWithState:&v47 objects:v53 count:16];
+    v13 = [v11 countByEnumeratingWithState:&v46 objects:v52 count:16];
   }
 
   while (v13);
 LABEL_23:
 
-  pullQueue = v40;
-  if ([v38 count])
+  pullQueue = v39;
+  if ([v37 count])
   {
     v23 = v10;
     idMapping = [(CPLEngineStore *)selfCopy->_store idMapping];
+    v42 = 0u;
     v43 = 0u;
     v44 = 0u;
     v45 = 0u;
-    v46 = 0u;
-    v24 = v38;
-    v25 = [v24 countByEnumeratingWithState:&v43 objects:v51 count:16];
+    v24 = v37;
+    v25 = [v24 countByEnumeratingWithState:&v42 objects:v50 count:16];
     if (v25)
     {
       v26 = v25;
-      v27 = *v44;
+      v27 = *v43;
       while (2)
       {
         for (j = 0; j != v26; ++j)
         {
-          if (*v44 != v27)
+          if (*v43 != v27)
           {
             objc_enumerationMutation(v24);
           }
 
-          v29 = *(*(&v43 + 1) + 8 * j);
+          v29 = *(*(&v42 + 1) + 8 * j);
           scopeIdentifier2 = [v29 scopeIdentifier];
           if (([v23 containsObject:scopeIdentifier2] & 1) == 0)
           {
-            v42 = 0;
-            v31 = [idMapping cloudScopedIdentifierForLocalScopedIdentifier:v29 isFinal:&v42];
+            v41 = 0;
+            v31 = [idMapping cloudScopedIdentifierForLocalScopedIdentifier:v29 isFinal:&v41];
             if (!v31)
             {
               v31 = [v29 copy];
             }
 
-            if ([v40 hasSomeChangeWithScopedIdentifier:v31])
+            if ([v39 hasSomeChangeWithScopedIdentifier:v31])
             {
               [v23 addObject:scopeIdentifier2];
 
@@ -148,7 +148,7 @@ LABEL_23:
           }
         }
 
-        v26 = [v24 countByEnumeratingWithState:&v43 objects:v51 count:16];
+        v26 = [v24 countByEnumeratingWithState:&v42 objects:v50 count:16];
         if (v26)
         {
           continue;
@@ -175,10 +175,9 @@ LABEL_39:
     [CPLSimpleMergeHelper _mergerWithNoConflictsForStore:store];
   }
   v8 = ;
-  batchCopy = v36;
+  batchCopy = v35;
 
 LABEL_44:
-  v34 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -234,7 +233,7 @@ LABEL_44:
 
 uint64_t __81__CPLSimpleMergeHelper__mergerWithConflictsForStore_conflictingScopeIdentifiers___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v4 = [*(a1 + 32) scopes];
   v5 = [v4 filterForIncludedScopeIdentifiers:*(a1 + 40)];
 
@@ -253,11 +252,11 @@ uint64_t __81__CPLSimpleMergeHelper__mergerWithConflictsForStore_conflictingScop
       v9 = [v7 pullQueue];
       v10 = [v9 countOfQueuedBatches];
       v11 = [*(a1 + 40) count];
-      v20 = 134218240;
-      v21 = v10;
-      v22 = 2048;
-      v23 = v11;
-      _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_DEFAULT, "Cleaning pull queue (%lu batches) of %lu scopes, transient repository and reset mingled records in the cloud cache", &v20, 0x16u);
+      v19 = 134218240;
+      v20 = v10;
+      v21 = 2048;
+      v22 = v11;
+      _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_DEFAULT, "Cleaning pull queue (%lu batches) of %lu scopes, transient repository and reset mingled records in the cloud cache", &v19, 0x16u);
     }
   }
 
@@ -275,7 +274,6 @@ uint64_t __81__CPLSimpleMergeHelper__mergerWithConflictsForStore_conflictingScop
     v17 = 0;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v17;
 }
 

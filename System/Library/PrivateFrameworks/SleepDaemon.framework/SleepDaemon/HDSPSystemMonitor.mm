@@ -76,16 +76,16 @@
 
 - (HDSPSystemMonitor)initWithEnvironment:(id)environment watchOnWristMonitor:(id)monitor devicePowerMonitor:(id)powerMonitor deviceUnlockMonitor:(id)unlockMonitor systemReadyProvider:(id)provider applicationWorkspaceMonitor:(id)workspaceMonitor
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   environmentCopy = environment;
   monitorCopy = monitor;
   powerMonitorCopy = powerMonitor;
   unlockMonitorCopy = unlockMonitor;
   providerCopy = provider;
   workspaceMonitorCopy = workspaceMonitor;
-  v32.receiver = self;
-  v32.super_class = HDSPSystemMonitor;
-  v17 = [(HDSPSystemMonitor *)&v32 init];
+  v31.receiver = self;
+  v31.super_class = HDSPSystemMonitor;
+  v17 = [(HDSPSystemMonitor *)&v31 init];
   if (v17)
   {
     v18 = HKSPLogForCategory();
@@ -93,16 +93,16 @@
     {
       v19 = objc_opt_class();
       *buf = 138543618;
-      v34 = v19;
-      v35 = 2114;
-      v36 = providerCopy;
-      v28 = powerMonitorCopy;
+      v33 = v19;
+      v34 = 2114;
+      v35 = providerCopy;
+      v27 = powerMonitorCopy;
       v20 = monitorCopy;
       v21 = v19;
       _os_log_impl(&dword_269B11000, v18, OS_LOG_TYPE_DEFAULT, "[%{public}@] initializing with %{public}@", buf, 0x16u);
 
       monitorCopy = v20;
-      powerMonitorCopy = v28;
+      powerMonitorCopy = v27;
     }
 
     objc_storeWeak(&v17->_environment, environmentCopy);
@@ -120,7 +120,6 @@
     v25 = v17;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
@@ -140,26 +139,26 @@
 
 - (BOOL)isSystemReady
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v11 = 0;
-  v12 = &v11;
-  v13 = 0x2020000000;
-  v14 = 0;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __34__HDSPSystemMonitor_isSystemReady__block_invoke;
-  v10[3] = &unk_279C7B130;
-  v10[4] = self;
-  v10[5] = &v11;
-  [(HDSPSystemMonitor *)self _withLock:v10];
-  if (*(v12 + 24) == 1)
+  v16 = *MEMORY[0x277D85DE8];
+  v10 = 0;
+  v11 = &v10;
+  v12 = 0x2020000000;
+  v13 = 0;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __34__HDSPSystemMonitor_isSystemReady__block_invoke;
+  v9[3] = &unk_279C7B130;
+  v9[4] = self;
+  v9[5] = &v10;
+  [(HDSPSystemMonitor *)self _withLock:v9];
+  if (*(v11 + 24) == 1)
   {
     v2 = HKSPLogForCategory();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       v3 = objc_opt_class();
       *buf = 138543362;
-      v16 = v3;
+      v15 = v3;
       v4 = v3;
       _os_log_impl(&dword_269B11000, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@] system is ready", buf, 0xCu);
     }
@@ -172,31 +171,30 @@
     {
       v5 = objc_opt_class();
       *buf = 138543362;
-      v16 = v5;
+      v15 = v5;
       v6 = v5;
       _os_log_impl(&dword_269B11000, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@] system not ready", buf, 0xCu);
     }
   }
 
-  v7 = *(v12 + 24);
-  _Block_object_dispose(&v11, 8);
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *(v11 + 24);
+  _Block_object_dispose(&v10, 8);
   return v7;
 }
 
-uint64_t __34__HDSPSystemMonitor_isSystemReady__block_invoke(uint64_t result)
+void *__34__HDSPSystemMonitor_isSystemReady__block_invoke(void *result)
 {
   v1 = result;
-  v2 = *(result + 32);
+  v2 = result[4];
   v3 = *(v2 + 8);
   if ((v3 & 1) == 0)
   {
     result = [*(v2 + 64) isSystemReady];
-    *(*(v1 + 32) + 8) = result;
-    v3 = *(*(v1 + 32) + 8);
+    *(v1[4] + 8) = result;
+    v3 = *(v1[4] + 8);
   }
 
-  *(*(*(v1 + 40) + 8) + 24) = v3;
+  *(*(v1[5] + 8) + 24) = v3;
   return result;
 }
 

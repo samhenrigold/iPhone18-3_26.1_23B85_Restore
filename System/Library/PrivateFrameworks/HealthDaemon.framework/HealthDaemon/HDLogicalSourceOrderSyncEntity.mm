@@ -44,7 +44,7 @@ uint64_t __70__HDLogicalSourceOrderSyncEntity__sourceOrderSyncPredicateForSessio
 {
   end = range.end;
   start = range.start;
-  v72[5] = *MEMORY[0x277D85DE8];
+  v71[5] = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   profileCopy = profile;
   handlerCopy = handler;
@@ -53,8 +53,8 @@ uint64_t __70__HDLogicalSourceOrderSyncEntity__sourceOrderSyncPredicateForSessio
   selfCopy = self;
   v17 = [sessionCopy maxEncodedBytesPerCodableChangeForSyncEntityClass:self];
   v18 = v17;
-  v71[0] = 0;
-  v71[1] = v71;
+  v70[0] = 0;
+  v70[1] = v70;
   if (v17 >= 0)
   {
     v19 = v17;
@@ -65,92 +65,91 @@ uint64_t __70__HDLogicalSourceOrderSyncEntity__sourceOrderSyncPredicateForSessio
     v19 = v17 + 63;
   }
 
-  v71[2] = 0x2020000000;
-  v71[3] = -1;
-  v67 = 0;
-  v68 = &v67;
-  v69 = 0x2020000000;
-  v70 = 0;
-  v63 = 0;
-  v64 = &v63;
-  v65 = 0x2020000000;
+  v70[2] = 0x2020000000;
+  v70[3] = -1;
   v66 = 0;
+  v67 = &v66;
+  v68 = 0x2020000000;
+  v69 = 0;
+  v62 = 0;
+  v63 = &v62;
+  v64 = 0x2020000000;
+  v65 = 0;
   database = [profileCopy database];
-  v36 = v16;
+  v35 = v16;
   v20 = end;
-  v35 = handlerCopy;
-  v72[0] = @"data_type";
-  v72[1] = @"user_preferred";
-  v72[2] = @"sources.uuid";
-  v72[3] = @"modification_date";
-  v72[4] = @"sync_identity";
-  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v72 count:5];
-  v59 = 0;
-  v60 = &v59;
-  v61 = 0x2020000000;
-  v62 = -1;
+  v34 = handlerCopy;
+  v71[0] = @"data_type";
+  v71[1] = @"user_preferred";
+  v71[2] = @"sources.uuid";
+  v71[3] = @"modification_date";
+  v71[4] = @"sync_identity";
+  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v71 count:5];
+  v58 = 0;
+  v59 = &v58;
+  v60 = 0x2020000000;
+  v61 = -1;
   database2 = [profileCopy database];
   v23 = v19 >> 6;
-  v44[0] = MEMORY[0x277D85DD0];
-  v44[1] = 3221225472;
-  v44[2] = __109__HDLogicalSourceOrderSyncEntity_generateSyncObjectsForSession_syncAnchorRange_profile_messageHandler_error___block_invoke;
-  v44[3] = &unk_27862D8D0;
-  v34 = v21;
-  v45 = v34;
-  v55 = selfCopy;
-  v56 = start;
-  v57 = v20;
-  v39 = sessionCopy;
-  v46 = v39;
-  v51 = &v59;
+  v43[0] = MEMORY[0x277D85DD0];
+  v43[1] = 3221225472;
+  v43[2] = __109__HDLogicalSourceOrderSyncEntity_generateSyncObjectsForSession_syncAnchorRange_profile_messageHandler_error___block_invoke;
+  v43[3] = &unk_27862D8D0;
+  v33 = v21;
+  v44 = v33;
+  v54 = selfCopy;
+  v55 = start;
+  v56 = v20;
+  v38 = sessionCopy;
+  v45 = v38;
+  v50 = &v58;
   v24 = database;
-  v47 = v24;
-  v52 = v71;
-  v58 = v23;
-  v53 = &v67;
-  v54 = &v63;
+  v46 = v24;
+  v51 = v70;
+  v57 = v23;
+  v52 = &v66;
+  v53 = &v62;
   v25 = v15;
-  v48 = v25;
+  v47 = v25;
   v26 = profileCopy;
-  v49 = v26;
-  v27 = v36;
-  v50 = v27;
-  v28 = [(HDHealthEntity *)HDSourceEntity performReadTransactionWithHealthDatabase:database2 error:error block:v44];
+  v48 = v26;
+  v27 = v35;
+  v49 = v27;
+  v28 = [(HDHealthEntity *)HDSourceEntity performReadTransactionWithHealthDatabase:database2 error:error block:v43];
 
   if (v28)
   {
     v29 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v41[0] = MEMORY[0x277D85DD0];
-    v41[1] = 3221225472;
-    v41[2] = __109__HDLogicalSourceOrderSyncEntity_generateSyncObjectsForSession_syncAnchorRange_profile_messageHandler_error___block_invoke_3;
-    v41[3] = &unk_27862D8F8;
-    v42 = v27;
+    v40[0] = MEMORY[0x277D85DD0];
+    v40[1] = 3221225472;
+    v40[2] = __109__HDLogicalSourceOrderSyncEntity_generateSyncObjectsForSession_syncAnchorRange_profile_messageHandler_error___block_invoke_3;
+    v40[3] = &unk_27862D8F8;
+    v41 = v27;
     v30 = v29;
-    v43 = v30;
-    [v25 enumerateKeysAndObjectsUsingBlock:{v41, v34}];
+    v42 = v30;
+    [v25 enumerateKeysAndObjectsUsingBlock:{v40, v33}];
     if (v18 <= 63)
     {
-      v31 = v60;
+      v31 = v59;
     }
 
     else
     {
-      v31 = v60;
-      if (v68[3] >= v23)
+      v31 = v59;
+      if (v67[3] >= v23)
       {
-        v60[3] = v64[3];
+        v59[3] = v63[3];
       }
     }
 
-    LOBYTE(v28) = [v35 sendCodableChange:v30 resultAnchor:v31[3] sequence:0 done:1 error:error];
+    LOBYTE(v28) = [v34 sendCodableChange:v30 resultAnchor:v31[3] sequence:0 done:1 error:error];
   }
 
-  _Block_object_dispose(&v59, 8);
-  _Block_object_dispose(&v63, 8);
-  _Block_object_dispose(&v67, 8);
-  _Block_object_dispose(v71, 8);
+  _Block_object_dispose(&v58, 8);
+  _Block_object_dispose(&v62, 8);
+  _Block_object_dispose(&v66, 8);
+  _Block_object_dispose(v70, 8);
 
-  v32 = *MEMORY[0x277D85DE8];
   return v28;
 }
 

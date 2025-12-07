@@ -99,15 +99,21 @@
     shouldLog = [v5 shouldLog];
     if ([v5 shouldLogToDisk])
     {
-      v7 = shouldLog | 2;
+      LODWORD(v7) = shouldLog | 2;
     }
 
     else
     {
-      v7 = shouldLog;
+      LODWORD(v7) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v5 OSLogObject], OS_LOG_TYPE_INFO))
+    oSLogObject = [v5 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    {
+      v7 = v7;
+    }
+
+    else
     {
       v7 &= 2u;
     }
@@ -118,13 +124,12 @@
       v12 = objc_opt_class();
       v13 = 2112;
       v14 = v4;
-      LODWORD(v10) = 22;
-      v8 = _os_log_send_and_compose_impl();
-      if (v8)
+      v9 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Cancel operation: %@", &v11, 22);
+      if (v9)
       {
-        v9 = v8;
-        [NSString stringWithCString:v8 encoding:4, &v11, v10];
-        free(v9);
+        v10 = v9;
+        [NSString stringWithCString:v9 encoding:4];
+        free(v10);
         SSFileLog();
       }
     }
@@ -149,15 +154,21 @@
     shouldLog = [v5 shouldLog];
     if ([v5 shouldLogToDisk])
     {
-      v7 = shouldLog | 2;
+      LODWORD(v7) = shouldLog | 2;
     }
 
     else
     {
-      v7 = shouldLog;
+      LODWORD(v7) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v5 OSLogObject], OS_LOG_TYPE_INFO))
+    oSLogObject = [v5 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    {
+      v7 = v7;
+    }
+
+    else
     {
       v7 &= 2u;
     }
@@ -168,13 +179,12 @@
       v12 = objc_opt_class();
       v13 = 2112;
       v14 = v4;
-      LODWORD(v10) = 22;
-      v8 = _os_log_send_and_compose_impl();
-      if (v8)
+      v9 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Disconnect operation: %@", &v11, 22);
+      if (v9)
       {
-        v9 = v8;
-        [NSString stringWithCString:v8 encoding:4, &v11, v10];
-        free(v9);
+        v10 = v9;
+        [NSString stringWithCString:v9 encoding:4];
+        free(v10);
         SSFileLog();
       }
     }

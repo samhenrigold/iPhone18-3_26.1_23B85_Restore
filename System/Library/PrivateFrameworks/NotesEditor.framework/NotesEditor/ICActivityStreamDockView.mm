@@ -1,5 +1,6 @@
 @interface ICActivityStreamDockView
 - (ICActivityStreamCoordinating)coordinator;
+- (ICActivityStreamDockView)initWithCoordinator:(id)coordinator isDisplayedInCard:(BOOL)card;
 - (ICActivityStreamDockView)initWithFrame:(CGRect)frame;
 - (ICActivityStreamSelection)selection;
 - (ICCloudSyncingObject)object;
@@ -22,6 +23,13 @@
   v4 = *(self + OBJC_IVAR___ICActivityStreamDockView_horizontalStackLeadingConstraint);
   *(self + OBJC_IVAR___ICActivityStreamDockView_horizontalStackLeadingConstraint) = constraint;
   constraintCopy = constraint;
+}
+
+- (ICActivityStreamDockView)initWithCoordinator:(id)coordinator isDisplayedInCard:(BOOL)card
+{
+  cardCopy = card;
+  swift_unknownObjectRetain();
+  return ActivityStreamDockView.init(coordinator:isDisplayedInCard:)(coordinator, cardCopy);
 }
 
 - (void)update

@@ -68,32 +68,32 @@
 
 - (HKQuantity)committedAndAddedTotal
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = self->_committedTotal;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v4 = self->_uncommittedSamples;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     do
     {
       v8 = 0;
       v9 = v3;
       do
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * v8);
+        v10 = *(*(&v15 + 1) + 8 * v8);
         v11 = objc_alloc(MEMORY[0x277CCA970]);
-        v12 = [v11 initWithStartDate:self->_startDate endDate:{self->_endDate, v16}];
+        v12 = [v11 initWithStartDate:self->_startDate endDate:{self->_endDate, v15}];
         v13 = FISampleQuantityInsideDateInterval(v10, v12, 0);
 
         v3 = [(HKQuantity *)v9 _quantityByAddingQuantity:v13];
@@ -103,13 +103,11 @@
       }
 
       while (v6 != v8);
-      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v6);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -330,11 +328,9 @@ LABEL_6:
   quantityType = [(FIQuantityTimeSlice *)self quantityType];
   startDate = [(FIQuantityTimeSlice *)self startDate];
   endDate = [(FIQuantityTimeSlice *)self endDate];
-  v9 = [(NSArray *)self->_uncommittedSamples count];
-  lastCommitDate = self->_lastCommitDate;
-  v11 = [v3 stringWithFormat:@"<%@:%p, finalized:%@, quantityType:%@, startDate:%@, endDate:%@, numUncommitedSamples:%lu, lastCommitDate:%@, commitedTotal:%@>", v4, self, v5, quantityType, startDate, endDate, v9, lastCommitDate, self->_committedTotal];
+  v9 = [v3 stringWithFormat:@"<%@:%p, finalized:%@, quantityType:%@, startDate:%@, endDate:%@, numUncommitedSamples:%lu, lastCommitDate:%@, commitedTotal:%@>", v4, self, v5, quantityType, startDate, endDate, -[NSArray count](self->_uncommittedSamples, "count"), self->_lastCommitDate, self->_committedTotal];
 
-  return v11;
+  return v9;
 }
 
 @end

@@ -7,7 +7,7 @@
 
 - (void)sendUpdateValueMessage:(id)message value:(id)value completionHandler:(id)handler
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   valueCopy = value;
   handlerCopy = handler;
@@ -20,23 +20,23 @@
     }
 
 LABEL_10:
-    v40 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMSettingsMessageHandler sendUpdateValueMessage:value:completionHandler:]", @"completionHandler"];
-    v41 = objc_autoreleasePoolPush();
+    v39 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMSettingsMessageHandler sendUpdateValueMessage:value:completionHandler:]", @"completionHandler"];
+    v40 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v43 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+    v42 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
     {
-      v44 = HMFGetLogIdentifier();
+      v43 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v57 = v44;
-      v58 = 2112;
-      v59 = v40;
-      _os_log_impl(&dword_19BB39000, v43, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v56 = v43;
+      v57 = 2112;
+      v58 = v39;
+      _os_log_impl(&dword_19BB39000, v42, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v41);
-    v45 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v40 userInfo:0];
-    objc_exception_throw(v45);
+    objc_autoreleasePoolPop(v40);
+    v44 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v39 userInfo:0];
+    objc_exception_throw(v44);
   }
 
   v13 = objc_getProperty(self, v11, 8, 1);
@@ -48,18 +48,18 @@ LABEL_10:
   v15 = v13;
   if (v13)
   {
-    v52[0] = @"value";
-    v52[1] = @"keyPath";
-    v53[0] = valueCopy;
-    v53[1] = messageCopy;
-    v52[2] = @"SettingTargetType";
+    v51[0] = @"value";
+    v51[1] = @"keyPath";
+    v52[0] = valueCopy;
+    v52[1] = messageCopy;
+    v51[2] = @"SettingTargetType";
     Property = objc_getProperty(self, v14, 32, 1);
-    v52[3] = @"kUserUUIDKey";
+    v51[3] = @"kUserUUIDKey";
     v16 = Property;
-    v55 = objc_getProperty(self, v17, 24, 1);
+    v54 = objc_getProperty(self, v17, 24, 1);
     v18 = MEMORY[0x1E695DF20];
-    v19 = v55;
-    v20 = [v18 dictionaryWithObjects:v53 forKeys:v52 count:4];
+    v19 = v54;
+    v20 = [v18 dictionaryWithObjects:v52 forKeys:v51 count:4];
 
     v21 = MEMORY[0x1E69A2A10];
     v22 = objc_alloc(MEMORY[0x1E69A2A00]);
@@ -70,24 +70,24 @@ LABEL_10:
     aBlock[1] = 3221225472;
     aBlock[2] = __75__HMSettingsMessageHandler_sendUpdateValueMessage_value_completionHandler___block_invoke;
     aBlock[3] = &unk_1E75487B8;
-    v51 = v12;
+    v50 = v12;
     v26 = _Block_copy(aBlock);
     v28 = [objc_getProperty(self v27];
     identifier = [v25 identifier];
     v30 = _Block_copy(v26);
     [v28 addCompletionBlock:v30 forIdentifier:identifier];
 
-    v46[0] = MEMORY[0x1E69E9820];
-    v46[1] = 3221225472;
-    v46[2] = __75__HMSettingsMessageHandler_sendUpdateValueMessage_value_completionHandler___block_invoke_2;
-    v46[3] = &unk_1E754E480;
-    v47 = v28;
-    v48 = identifier;
-    v49 = v26;
+    v45[0] = MEMORY[0x1E69E9820];
+    v45[1] = 3221225472;
+    v45[2] = __75__HMSettingsMessageHandler_sendUpdateValueMessage_value_completionHandler___block_invoke_2;
+    v45[3] = &unk_1E754E480;
+    v46 = v28;
+    v47 = identifier;
+    v48 = v26;
     v31 = v26;
     v32 = identifier;
     v33 = v28;
-    [v25 setResponseHandler:v46];
+    [v25 setResponseHandler:v45];
     messageDispatcher = [v15 messageDispatcher];
     [messageDispatcher sendMessage:v25 completionHandler:0];
 
@@ -102,9 +102,9 @@ LABEL_6:
   {
     v38 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v57 = v38;
-    v58 = 2080;
-    v59 = "[HMSettingsMessageHandler sendUpdateValueMessage:value:completionHandler:]";
+    v56 = v38;
+    v57 = 2080;
+    v58 = "[HMSettingsMessageHandler sendUpdateValueMessage:value:completionHandler:]";
     _os_log_impl(&dword_19BB39000, v37, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", buf, 0x16u);
   }
 
@@ -112,8 +112,6 @@ LABEL_6:
   v15 = [MEMORY[0x1E696ABC0] hmErrorWithCode:12];
   (v12)[2](v12, v15);
 LABEL_9:
-
-  v39 = *MEMORY[0x1E69E9840];
 }
 
 void __75__HMSettingsMessageHandler_sendUpdateValueMessage_value_completionHandler___block_invoke_2(uint64_t a1, void *a2)

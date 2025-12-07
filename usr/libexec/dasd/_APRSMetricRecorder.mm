@@ -8,6 +8,7 @@
 - (id)log;
 - (void)checkFrozenApps:(id)apps;
 - (void)dealloc;
+- (void)endEventForApp:(id)app pid:(int)pid forEvent:(unint64_t)event;
 - (void)loadKernelTrialValues;
 - (void)processUpdateHandlerWithMonitor:(id)monitor withHandle:(id)handle withUpdate:(id)update;
 - (void)recordConfigState;
@@ -18,6 +19,7 @@
 - (void)reportEvent:(id)event forApp:(id)app forEvent:(unint64_t)forEvent;
 - (void)schedulePPSTimer;
 - (void)sendAnalyticsLazyWithCommonFeilds:(id)feilds forEvent:(id)event;
+- (void)startLoggingForApp:(id)app pid:(int)pid forEvent:(unint64_t)event;
 @end
 
 @implementation _APRSMetricRecorder
@@ -416,6 +418,80 @@
   }
 }
 
+- (void)startLoggingForApp:(id)app pid:(int)pid forEvent:(unint64_t)event
+{
+  v6 = *&pid;
+  appCopy = app;
+  if (event == 2)
+  {
+    v9 = self->_frozenApps;
+    if (!v9)
+    {
+      goto LABEL_8;
+    }
+
+    goto LABEL_7;
+  }
+
+  if (event == 1)
+  {
+    v9 = self->_dockedApps;
+    v10 = +[_APRSPLLogger sharedInstance];
+    [v10 logDock:appCopy pid:v6 state:1];
+  }
+
+  else
+  {
+    if (event)
+    {
+      goto LABEL_8;
+    }
+
+    v9 = self->_prewarmedApps;
+    v10 = +[_APRSPLLogger sharedInstance];
+    [v10 logPrewarm:appCopy pid:v6];
+  }
+
+  if (v9)
+  {
+LABEL_7:
+    handlerQueue = self->_handlerQueue;
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_100031B70;
+    block[3] = &unk_1001B5F08;
+    v14 = v9;
+    v15 = appCopy;
+    v16 = v6;
+    v12 = v9;
+    dispatch_sync(handlerQueue, block);
+  }
+
+LABEL_8:
+}
+
+- (void)endEventForApp:(id)app pid:(int)pid forEvent:(unint64_t)event
+{
+  v6 = *&pid;
+  appCopy = app;
+  if (event == 1)
+  {
+    v9 = +[_APRSPLLogger sharedInstance];
+    [v9 logDock:appCopy pid:v6 state:2];
+  }
+
+  handlerQueue = self->_handlerQueue;
+  block[0] = _NSConcreteStackBlock;
+  block[1] = 3221225472;
+  block[2] = sub_100031CEC;
+  block[3] = &unk_1001B5DC0;
+  block[4] = self;
+  v13 = appCopy;
+  eventCopy = event;
+  v11 = appCopy;
+  dispatch_async(handlerQueue, block);
+}
+
 - (void)checkFrozenApps:(id)apps
 {
   appsCopy = apps;
@@ -537,7 +613,7 @@
   v6 = [timesCopy sortedArrayUsingSelector:"compare:"];
   v7 = [v6 mutableCopy];
 
-  v8 = [v7 count];
+  v8 = objc_msgSend_count(v7);
   if (v8)
   {
     v9 = v8;

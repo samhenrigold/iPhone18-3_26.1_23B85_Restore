@@ -26,7 +26,7 @@
   v6 = *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC23ShelfKitCollectionViews31ProductRatingCollectionViewCell_ratingBreakdownStack);
   selfCopy = self;
   arrangedSubviews = [v6 arrangedSubviews];
-  sub_124C4(0, &qword_3FBD90);
+  sub_124C4(0, &qword_3FBD90, UIView_ptr);
   v8 = sub_30C368();
 
   if ((v8 & 0xC000000000000001) != 0)

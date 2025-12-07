@@ -79,14 +79,13 @@
 
 + (void)incrementSetUpEvent:(unint64_t)event
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"setUpType";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"setUpType";
   v3 = [PBBridgeAkashiReporter descriptionForSetUpType:event];
-  v7[0] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v6[0] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   AnalyticsSendEvent();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

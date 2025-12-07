@@ -8,7 +8,7 @@
 {
   v3 = type metadata accessor for CPUILimitedUserInterfaces();
   v4 = *(v3 - 8);
-  __chkstk_darwin(v3);
+  __chkstk_darwin();
   v6 = &v11 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   selfCopy = self;
   if (UITraitCollection.isLimitedUI.getter())

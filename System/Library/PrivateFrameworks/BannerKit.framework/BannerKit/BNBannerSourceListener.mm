@@ -39,10 +39,11 @@
 
 + (void)initialize
 {
-  if (objc_opt_class() == self)
+  v3 = objc_opt_class();
+  if (v3 == self)
   {
 
-    BNRegisterBannerKitLogging();
+    BNRegisterBannerKitLogging(v3, v4);
   }
 }
 
@@ -1562,7 +1563,7 @@ LABEL_14:
     v15 = BNLogHostingHost;
     if (os_log_type_enabled(BNLogHostingHost, OS_LOG_TYPE_ERROR))
     {
-      [BNBannerSourceListener _requestPostingBannerSourceListenerPresentable:v15 options:? userInfo:?];
+      [BNBannerSourceListener _requestPostingBannerSourceListenerPresentable:v15 options:self userInfo:v12];
     }
   }
 }
@@ -1938,8 +1939,12 @@ void __109__BNBannerSourceListener__createSceneWithIdentifier_forProcess_preferr
   v4 = a1;
   v5 = objc_opt_class();
   v6 = NSStringFromClass(v5);
-  v13 = [a3 localizedDescription];
-  OUTLINED_FUNCTION_1_0(&dword_1C42DC000, v7, v8, "%{public}@ (host-side) connection failed to authenticate: %{public}@", v9, v10, v11, v12, 2u);
+  v7 = [a3 localizedDescription];
+  *v14 = 138543618;
+  *&v14[4] = v6;
+  *&v14[12] = 2114;
+  *&v14[14] = v7;
+  OUTLINED_FUNCTION_1_0(&dword_1C42DC000, v8, v9, "%{public}@ (host-side) connection failed to authenticate: %{public}@", v10, v11, v12, v13, *v14, *&v14[8], *&v14[16]);
 }
 
 - (void)__layoutDescriptionWithReply:.cold.1()
@@ -1980,12 +1985,16 @@ void __109__BNBannerSourceListener__createSceneWithIdentifier_forProcess_preferr
   [v8 handleFailureInMethod:a1 object:a2 file:@"BNBannerSourceListener.m" lineNumber:466 description:{@"Found multiple presentables with the unique identification: identificatio: %@; matching presentable: %@", a3, a4}];
 }
 
-- (void)_requestPostingBannerSourceListenerPresentable:(void *)a1 options:userInfo:.cold.1(void *a1)
+- (void)_requestPostingBannerSourceListenerPresentable:(void *)a1 options:(uint64_t)a2 userInfo:(uint64_t)a3 .cold.1(void *a1, uint64_t a2, uint64_t a3)
 {
-  v1 = a1;
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
-  OUTLINED_FUNCTION_1_0(&dword_1C42DC000, v4, v5, "%{public}@ (host-side) encountered error interacting with delegate: %{public}@", v6, v7, v8, v9, 2u);
+  v4 = a1;
+  v5 = objc_opt_class();
+  v6 = NSStringFromClass(v5);
+  *v13 = 138543618;
+  *&v13[4] = v6;
+  *&v13[12] = 2114;
+  *&v13[14] = a3;
+  OUTLINED_FUNCTION_1_0(&dword_1C42DC000, v7, v8, "%{public}@ (host-side) encountered error interacting with delegate: %{public}@", v9, v10, v11, v12, *v13, *&v13[8], *&v13[16]);
 }
 
 - (void)_createSceneWithIdentifier:forProcess:preferredContentSize:contentOutsets:userInfo:.cold.1()

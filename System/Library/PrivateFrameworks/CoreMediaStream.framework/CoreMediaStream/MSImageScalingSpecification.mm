@@ -80,26 +80,26 @@ LABEL_12:
 {
   height = size.height;
   width = size.width;
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
+  v42 = 0u;
   v43 = 0u;
   v44 = 0u;
   v45 = 0u;
-  v46 = 0u;
   specificationsCopy = specifications;
-  v7 = [specificationsCopy countByEnumeratingWithState:&v43 objects:v49 count:16];
+  v7 = [specificationsCopy countByEnumeratingWithState:&v42 objects:v48 count:16];
   if (v7)
   {
-    v8 = *v44;
+    v8 = *v43;
     while (2)
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v44 != v8)
+        if (*v43 != v8)
         {
           objc_enumerationMutation(specificationsCopy);
         }
 
-        v10 = *(*(&v43 + 1) + 8 * i);
+        v10 = *(*(&v42 + 1) + 8 * i);
         if ([v10 assetTypeFlags])
         {
           v7 = v10;
@@ -107,7 +107,7 @@ LABEL_12:
         }
       }
 
-      v7 = [specificationsCopy countByEnumeratingWithState:&v43 objects:v49 count:16];
+      v7 = [specificationsCopy countByEnumeratingWithState:&v42 objects:v48 count:16];
       if (v7)
       {
         continue;
@@ -127,27 +127,27 @@ LABEL_11:
     *&v12 = v12;
     v14 = __96__MSImageScalingSpecification_assetsToGenerateFromImageWithInputSize_toConformToSpecifications___block_invoke(@"thumbnail", 1, *&v12);
     [v11 addObject:v14];
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
     v36 = 0u;
-    v34 = specificationsCopy;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
+    v33 = specificationsCopy;
     v15 = specificationsCopy;
-    v16 = [v15 countByEnumeratingWithState:&v35 objects:v47 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v34 objects:v46 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v36;
+      v18 = *v35;
       do
       {
         for (j = 0; j != v17; ++j)
         {
-          if (*v36 != v18)
+          if (*v35 != v18)
           {
             objc_enumerationMutation(v15);
           }
 
-          v20 = *(*(&v35 + 1) + 8 * j);
+          v20 = *(*(&v34 + 1) + 8 * j);
           if (v20 != v7)
           {
             [v20 scaleFactorForInputSize:{width, height}];
@@ -170,50 +170,48 @@ LABEL_11:
           }
         }
 
-        v17 = [v15 countByEnumeratingWithState:&v35 objects:v47 count:16];
+        v17 = [v15 countByEnumeratingWithState:&v34 objects:v46 count:16];
       }
 
       while (v17);
     }
 
-    specificationsCopy = v34;
+    specificationsCopy = v33;
   }
 
   else
   {
-    v41 = 0u;
-    v42 = 0u;
-    v39 = 0u;
     v40 = 0u;
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
     v14 = specificationsCopy;
-    v26 = [v14 countByEnumeratingWithState:&v39 objects:v48 count:16];
+    v26 = [v14 countByEnumeratingWithState:&v38 objects:v47 count:16];
     if (v26)
     {
       v27 = v26;
-      v28 = *v40;
+      v28 = *v39;
       do
       {
         for (k = 0; k != v27; ++k)
         {
-          if (*v40 != v28)
+          if (*v39 != v28)
           {
             objc_enumerationMutation(v14);
           }
 
-          [*(*(&v39 + 1) + 8 * k) scaleFactorForInputSize:{width, height}];
+          [*(*(&v38 + 1) + 8 * k) scaleFactorForInputSize:{width, height}];
           *&v30 = v30;
           v31 = __96__MSImageScalingSpecification_assetsToGenerateFromImageWithInputSize_toConformToSpecifications___block_invoke(@"derivative", 2, *&v30);
           [v11 addObject:v31];
         }
 
-        v27 = [v14 countByEnumeratingWithState:&v39 objects:v48 count:16];
+        v27 = [v14 countByEnumeratingWithState:&v38 objects:v47 count:16];
       }
 
       while (v27);
     }
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

@@ -169,51 +169,51 @@ void __52__SKUIAttributedStringLayout_initWithLayoutRequest___block_invoke()
   initWithLayoutRequest__sTallCharactersSet = v1;
 }
 
-uint64_t __52__SKUIAttributedStringLayout_initWithLayoutRequest___block_invoke_2(uint64_t a1)
+uint64_t __52__SKUIAttributedStringLayout_initWithLayoutRequest___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x277D768C8];
-  v12 = *(MEMORY[0x277D768C8] + 16);
+  v12 = *MEMORY[0x277D768C8];
+  v13 = *(MEMORY[0x277D768C8] + 16);
   result = CTFontGetLanguageAwareOutsets();
   if (result)
   {
-    v3 = *(*(a1 + 32) + 8);
-    v4 = *(v3 + 48);
-    if (v4 < *&v12)
+    v4 = *(*(a1 + 32) + 8);
+    v5 = *(v4 + 48);
+    if (v5 < *&v13)
     {
-      v4 = *&v12;
+      v5 = *&v13;
     }
 
-    *(v3 + 48) = v4;
-    v5 = *(*(a1 + 32) + 8);
-    v6 = *(v5 + 40);
-    if (v6 < *(&v11 + 1))
+    *(v4 + 48) = v5;
+    v6 = *(*(a1 + 32) + 8);
+    v7 = *(v6 + 40);
+    if (v7 < *(&v12 + 1))
     {
-      v6 = *(&v11 + 1);
+      v7 = *(&v12 + 1);
     }
 
-    *(v5 + 40) = v6;
-    v7 = *(*(a1 + 32) + 8);
-    v8 = *(v7 + 56);
-    if (v8 < *(&v12 + 1))
+    *(v6 + 40) = v7;
+    v8 = *(*(a1 + 32) + 8);
+    v9 = *(v8 + 56);
+    if (v9 < *(&v13 + 1))
     {
-      v8 = *(&v12 + 1);
+      v9 = *(&v13 + 1);
     }
 
-    *(v7 + 56) = v8;
-    v9 = *(*(a1 + 32) + 8);
-    v10 = *(v9 + 32);
-    if (v10 < *&v11)
+    *(v8 + 56) = v9;
+    v10 = *(*(a1 + 32) + 8);
+    v11 = *(v10 + 32);
+    if (v11 < *&v12)
     {
-      v10 = *&v11;
+      v11 = *&v12;
     }
 
-    *(v9 + 32) = v10;
+    *(v10 + 32) = v11;
   }
 
   return result;
 }
 
-uint64_t __52__SKUIAttributedStringLayout_initWithLayoutRequest___block_invoke_4(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, _BYTE *a5)
+void *__52__SKUIAttributedStringLayout_initWithLayoutRequest___block_invoke_4(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 {
   result = [a2 alignment];
   *(*(*(a1 + 32) + 8) + 24) = result;

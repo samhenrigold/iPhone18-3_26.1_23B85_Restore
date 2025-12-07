@@ -46,7 +46,7 @@
   (*(*(v4 - 8) + 16))(self + v3, v5, v4);
   *(&self->super.super.isa + OBJC_IVAR____TtC23NetworkEndpointPickerUI25DevicePickerSceneDelegate_window) = 0;
   v7.receiver = self;
-  v7.super_class = type metadata accessor for DevicePickerSceneDelegate();
+  v7.super_class = type metadata accessor for DevicePickerSceneDelegate(0);
   return [(DevicePickerSceneDelegate *)&v7 init];
 }
 
@@ -60,16 +60,15 @@
 {
   v4 = type metadata accessor for UUID();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  v7 = __chkstk_darwin(v4);
-  v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v7);
-  v11 = &v13 - v10;
+  v6 = __chkstk_darwin(v4);
+  v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v6);
+  v10 = &v12 - v9;
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-  v12 = *(v5 + 8);
-  v12(v9, v4);
-  v12(v11, v4);
+  v11 = *(v5 + 8);
+  v11(v8, v4);
+  v11(v10, v4);
 }
 
 - (void)sendClientDebugError:(int64_t)error

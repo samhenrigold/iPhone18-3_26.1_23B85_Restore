@@ -48,62 +48,62 @@ void __46__SBSystemNotesPresentationRequestServer_init__block_invoke(uint64_t a1
 
 - (void)listener:(id)listener didReceiveConnection:(id)connection withContext:(id)context
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   v7 = SBLogAppQuitMonitor();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
-    v28 = connectionCopy;
+    v29 = connectionCopy;
     _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_INFO, "Received Connection: %{public}@", buf, 0xCu);
   }
 
-  v26 = 0;
-  v8 = SBIsSystemNotesEnabled(&v26);
-  v9 = v26;
-  if (v8)
+  v27 = 0;
+  v9 = SBIsSystemNotesEnabled(&v27, v8);
+  v10 = v27;
+  if (v9)
   {
     clientAuthenticator = self->_clientAuthenticator;
     remoteProcess = [connectionCopy remoteProcess];
-    auditToken = [remoteProcess auditToken];
-    v25 = 0;
-    v13 = [(FBServiceClientAuthenticator *)clientAuthenticator authenticateAuditToken:auditToken error:&v25];
-    v14 = v25;
+    v13 = objc_msgSend_auditToken(remoteProcess);
+    v26 = 0;
+    v14 = [(FBServiceClientAuthenticator *)clientAuthenticator authenticateAuditToken:v13 error:&v26];
+    v15 = v26;
 
-    if (v13)
+    if (v14)
     {
       queue = self->_queue;
-      v19 = MEMORY[0x277D85DD0];
-      v20 = 3221225472;
-      v21 = __84__SBSystemNotesPresentationRequestServer_listener_didReceiveConnection_withContext___block_invoke;
-      v22 = &unk_2783A92D8;
+      v20 = MEMORY[0x277D85DD0];
+      v21 = 3221225472;
+      v22 = __84__SBSystemNotesPresentationRequestServer_listener_didReceiveConnection_withContext___block_invoke;
+      v23 = &unk_2783A92D8;
       selfCopy = self;
-      v16 = connectionCopy;
-      v24 = v16;
-      dispatch_sync(queue, &v19);
-      [v16 activate];
+      v17 = connectionCopy;
+      v25 = v17;
+      dispatch_sync(queue, &v20);
+      [v17 activate];
     }
 
     else
     {
-      v18 = SBLogSystemNotes();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v19 = SBLogSystemNotes();
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
-        [SBSystemNotesPresentationRequestServer listener:v14 didReceiveConnection:connectionCopy withContext:v18];
+        [SBSystemNotesPresentationRequestServer listener:v15 didReceiveConnection:connectionCopy withContext:v19];
       }
 
       [connectionCopy invalidate];
     }
 
-    v9 = v14;
+    v10 = v15;
   }
 
   else
   {
-    v17 = SBLogSystemNotes();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = SBLogSystemNotes();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      [SBSystemNotesPresentationRequestServer listener:v9 didReceiveConnection:v17 withContext:?];
+      [SBSystemNotesPresentationRequestServer listener:v10 didReceiveConnection:v18 withContext:?];
     }
 
     [connectionCopy invalidate];

@@ -41,7 +41,7 @@
 
 - (void)transactionObjectRemoved:(id)removed message:(id)message
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   removedCopy = removed;
   messageCopy = message;
   v8 = objc_autoreleasePoolPush();
@@ -50,23 +50,21 @@
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
     v11 = HMFGetLogIdentifier();
-    v14 = 138543618;
-    v15 = v11;
-    v16 = 2112;
-    v17 = removedCopy;
-    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to remove unknown child with model object: %@", &v14, 0x16u);
+    v13 = 138543618;
+    v14 = v11;
+    v15 = 2112;
+    v16 = removedCopy;
+    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to remove unknown child with model object: %@", &v13, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
   v12 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:14];
   [messageCopy respondWithError:v12];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)transactionObjectUpdatedSupportedOptions:(unint64_t)options message:(id)message
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   data = [(HMDMediaDestinationControllerBackingStoreHandler *)self data];
   supportedOptions = [data supportedOptions];
@@ -80,11 +78,11 @@
     {
       v12 = HMFGetLogIdentifier();
       v13 = HMMediaDestinationControllerSupportOptionsAsString();
-      v16 = 138543618;
-      v17 = v12;
-      v18 = 2112;
-      v19 = v13;
-      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Transaction updated supported options: %@", &v16, 0x16u);
+      v15 = 138543618;
+      v16 = v12;
+      v17 = 2112;
+      v18 = v13;
+      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Transaction updated supported options: %@", &v15, 0x16u);
     }
 
     objc_autoreleasePoolPop(v9);
@@ -92,13 +90,11 @@
     transactionResult = [messageCopy transactionResult];
     [transactionResult markChanged];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)transactionObjectUpdatedAvailableDestinationIdentifiers:(id)identifiers message:(id)message
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   messageCopy = message;
   data = [(HMDMediaDestinationControllerBackingStoreHandler *)self data];
@@ -117,13 +113,13 @@
     if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
       v16 = HMFGetLogIdentifier();
-      v20 = 138543874;
-      v21 = v16;
-      v22 = 2112;
-      v23 = availableDestinationIdentifiers;
-      v24 = 2112;
-      v25 = identifiersCopy;
-      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Transaction updated available destination identifiers: %@ to identifiers: %@", &v20, 0x20u);
+      v19 = 138543874;
+      v20 = v16;
+      v21 = 2112;
+      v22 = availableDestinationIdentifiers;
+      v23 = 2112;
+      v24 = identifiersCopy;
+      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Transaction updated available destination identifiers: %@ to identifiers: %@", &v19, 0x20u);
     }
 
     objc_autoreleasePoolPop(v13);
@@ -135,13 +131,11 @@
 
     [(HMDMediaDestinationControllerBackingStoreHandler *)selfCopy notifyDidUpdateAvailableDestinationIdentifiers:identifiersCopy];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)transactionObjectUpdatedDestinationIdentifier:(id)identifier message:(id)message
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   messageCopy = message;
   data = [(HMDMediaDestinationControllerBackingStoreHandler *)self data];
@@ -156,13 +150,13 @@
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       v13 = HMFGetLogIdentifier();
-      v18 = 138543874;
-      v19 = v13;
-      v20 = 2112;
-      v21 = destinationIdentifier;
-      v22 = 2112;
-      v23 = identifierCopy;
-      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Transaction updated destination identifier: %@ to destination identifier: %@", &v18, 0x20u);
+      v17 = 138543874;
+      v18 = v13;
+      v19 = 2112;
+      v20 = destinationIdentifier;
+      v21 = 2112;
+      v22 = identifierCopy;
+      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Transaction updated destination identifier: %@ to destination identifier: %@", &v17, 0x20u);
     }
 
     objc_autoreleasePoolPop(v10);
@@ -177,13 +171,11 @@
 
     [(HMDMediaDestinationControllerBackingStoreHandler *)selfCopy notifyDidUpdateDestinationIdentifier:identifierCopy];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)transactionObjectUpdated:(id)updated newValues:(id)values message:(id)message
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   updatedCopy = updated;
   valuesCopy = values;
   messageCopy = message;
@@ -193,11 +185,11 @@
   if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     v14 = HMFGetLogIdentifier();
-    v52 = 138543618;
-    v53 = v14;
-    v54 = 2112;
-    v55 = valuesCopy;
-    _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Updating media destination controller using transaction object: %@", &v52, 0x16u);
+    v51 = 138543618;
+    v52 = v14;
+    v53 = 2112;
+    v54 = valuesCopy;
+    _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Updating media destination controller using transaction object: %@", &v51, 0x16u);
   }
 
   objc_autoreleasePoolPop(v11);
@@ -234,9 +226,9 @@
           if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
           {
             v29 = HMFGetLogIdentifier();
-            v52 = 138543362;
-            v53 = v29;
-            _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_ERROR, "%{public}@Unexpectedly processing destination controller add after one already exists", &v52, 0xCu);
+            v51 = 138543362;
+            v52 = v29;
+            _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_ERROR, "%{public}@Unexpectedly processing destination controller add after one already exists", &v51, 0xCu);
           }
 
           objc_autoreleasePoolPop(v26);
@@ -270,13 +262,13 @@
           if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
           {
             v38 = HMFGetLogIdentifier();
-            v52 = 138543874;
-            v53 = v38;
-            v54 = 2112;
-            v55 = v21;
-            v56 = 2112;
-            v57 = delegate;
-            _os_log_impl(&dword_229538000, v37, OS_LOG_TYPE_INFO, "%{public}@Notifying of unexpected model add: %@ delegate: %@", &v52, 0x20u);
+            v51 = 138543874;
+            v52 = v38;
+            v53 = 2112;
+            v54 = v21;
+            v55 = 2112;
+            v56 = delegate;
+            _os_log_impl(&dword_229538000, v37, OS_LOG_TYPE_INFO, "%{public}@Notifying of unexpected model add: %@ delegate: %@", &v51, 0x20u);
           }
 
           objc_autoreleasePoolPop(v35);
@@ -294,11 +286,11 @@
       {
         v49 = HMFGetLogIdentifier();
         uuid2 = [v21 uuid];
-        v52 = 138543618;
-        v53 = v49;
-        v54 = 2112;
-        v55 = uuid2;
-        _os_log_impl(&dword_229538000, v48, OS_LOG_TYPE_ERROR, "%{public}@Received unknown media destination controller model with identifier: %@", &v52, 0x16u);
+        v51 = 138543618;
+        v52 = v49;
+        v53 = 2112;
+        v54 = uuid2;
+        _os_log_impl(&dword_229538000, v48, OS_LOG_TYPE_ERROR, "%{public}@Received unknown media destination controller model with identifier: %@", &v51, 0x16u);
       }
 
       objc_autoreleasePoolPop(v46);
@@ -317,11 +309,11 @@
       if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
       {
         v42 = HMFGetLogIdentifier();
-        v52 = 138543618;
-        v53 = v42;
-        v54 = 2112;
-        v55 = updatedCopy;
-        _os_log_impl(&dword_229538000, v41, OS_LOG_TYPE_ERROR, "%{public}@Failed to get media destination controller model from new model object: %@", &v52, 0x16u);
+        v51 = 138543618;
+        v52 = v42;
+        v53 = 2112;
+        v54 = updatedCopy;
+        _os_log_impl(&dword_229538000, v41, OS_LOG_TYPE_ERROR, "%{public}@Failed to get media destination controller model from new model object: %@", &v51, 0x16u);
       }
 
       objc_autoreleasePoolPop(v39);
@@ -344,20 +336,18 @@ LABEL_35:
   if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
   {
     v18 = HMFGetLogIdentifier();
-    v52 = 138543362;
-    v53 = v18;
-    _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Skipping due to Home Theater QFA enabled", &v52, 0xCu);
+    v51 = 138543362;
+    v52 = v18;
+    _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Skipping due to Home Theater QFA enabled", &v51, 0xCu);
   }
 
   objc_autoreleasePoolPop(v15);
 LABEL_36:
-
-  v51 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notifyDidUpdateAvailableDestinationIdentifiers:(id)identifiers
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   delegate = [(HMDMediaDestinationControllerBackingStoreHandler *)self delegate];
   v6 = objc_autoreleasePoolPush();
@@ -366,24 +356,22 @@ LABEL_36:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v11 = 138543874;
-    v12 = v9;
-    v13 = 2112;
-    v14 = identifiersCopy;
-    v15 = 2112;
-    v16 = delegate;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Notifying of updated available destination identifiers: %@ delegate: %@", &v11, 0x20u);
+    v10 = 138543874;
+    v11 = v9;
+    v12 = 2112;
+    v13 = identifiersCopy;
+    v14 = 2112;
+    v15 = delegate;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Notifying of updated available destination identifiers: %@ delegate: %@", &v10, 0x20u);
   }
 
   objc_autoreleasePoolPop(v6);
   [delegate mediaDestinationControllerBackingStoreHandler:selfCopy didUpdateAvailableDestinationIdentifiers:identifiersCopy];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notifyDidUpdateDestinationIdentifier:(id)identifier
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   delegate = [(HMDMediaDestinationControllerBackingStoreHandler *)self delegate];
   v6 = objc_autoreleasePoolPush();
@@ -392,19 +380,17 @@ LABEL_36:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v11 = 138543874;
-    v12 = v9;
-    v13 = 2112;
-    v14 = identifierCopy;
-    v15 = 2112;
-    v16 = delegate;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Notifying of updated destination identifier: %@ delegate: %@", &v11, 0x20u);
+    v10 = 138543874;
+    v11 = v9;
+    v12 = 2112;
+    v13 = identifierCopy;
+    v14 = 2112;
+    v15 = delegate;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Notifying of updated destination identifier: %@ delegate: %@", &v10, 0x20u);
   }
 
   objc_autoreleasePoolPop(v6);
   [delegate mediaDestinationControllerBackingStoreHandler:selfCopy didUpdateDestinationIdentifier:identifierCopy];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateSupportedOptions:(unint64_t)options
@@ -434,7 +420,7 @@ LABEL_36:
 - (HMMediaDestinationControllerData)data
 {
   os_unfair_lock_lock_with_options();
-  v3 = [(HMMutableMediaDestinationControllerData *)self->_data copy];
+  v3 = objc_msgSend_copy(self->_data);
   os_unfair_lock_unlock(&self->_lock);
 
   return v3;
@@ -442,7 +428,7 @@ LABEL_36:
 
 - (void)mergeData:(id)data
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   os_unfair_lock_lock_with_options();
   if (([(HMMutableMediaDestinationControllerData *)self->_data isEqual:dataCopy]& 1) != 0)
@@ -463,22 +449,20 @@ LABEL_36:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v10 = HMFGetLogIdentifier();
-      v12 = 138543618;
-      v13 = v10;
-      v14 = 2112;
-      v15 = dataCopy;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Merged data: %@", &v12, 0x16u);
+      v11 = 138543618;
+      v12 = v10;
+      v13 = 2112;
+      v14 = dataCopy;
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Merged data: %@", &v11, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeControllerWithCompletion:(id)completion
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -487,7 +471,7 @@ LABEL_36:
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v17 = v8;
+    v16 = v8;
     _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Removing destination controller", buf, 0xCu);
   }
 
@@ -496,21 +480,19 @@ LABEL_36:
   data = [(HMDMediaDestinationControllerBackingStoreHandler *)selfCopy data];
   v11 = [(HMDMediaDestinationControllerModel *)v9 initWithData:data changeType:3];
 
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __83__HMDMediaDestinationControllerBackingStoreHandler_removeControllerWithCompletion___block_invoke;
-  v14[3] = &unk_278689A68;
-  v14[4] = selfCopy;
-  v15 = completionCopy;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __83__HMDMediaDestinationControllerBackingStoreHandler_removeControllerWithCompletion___block_invoke;
+  v13[3] = &unk_278689A68;
+  v13[4] = selfCopy;
+  v14 = completionCopy;
   v12 = completionCopy;
-  [(HMDBackingStoreHandler *)selfCopy runTransactionWithModel:v11 reason:@"MediaDestinationControllerRemoveControllerWithCompletion" completion:v14];
-
-  v13 = *MEMORY[0x277D85DE8];
+  [(HMDBackingStoreHandler *)selfCopy runTransactionWithModel:v11 reason:@"MediaDestinationControllerRemoveControllerWithCompletion" completion:v13];
 }
 
 void __83__HMDMediaDestinationControllerBackingStoreHandler_removeControllerWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -521,31 +503,29 @@ void __83__HMDMediaDestinationControllerBackingStoreHandler_removeControllerWith
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v8 = HMFGetLogIdentifier();
-      v11 = 138543618;
-      v12 = v8;
-      v13 = 2112;
-      v14 = v3;
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Run remove destination controller transaction completed with error: %@", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = v8;
+      v12 = 2112;
+      v13 = v3;
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Run remove destination controller transaction completed with error: %@", &v10, 0x16u);
     }
   }
 
   else if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v11 = 138543362;
-    v12 = v9;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Run remove destination controller transaction completed", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = v9;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Run remove destination controller transaction completed", &v10, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
   (*(*(a1 + 40) + 16))();
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateAvailableDestinationIdentifiers:(id)identifiers completion:(id)completion
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   completionCopy = completion;
   v8 = objc_autoreleasePoolPush();
@@ -555,9 +535,9 @@ void __83__HMDMediaDestinationControllerBackingStoreHandler_removeControllerWith
   {
     v11 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v20 = v11;
-    v21 = 2112;
-    v22 = identifiersCopy;
+    v19 = v11;
+    v20 = 2112;
+    v21 = identifiersCopy;
     _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Updating to available destination identifiers: %@", buf, 0x16u);
   }
 
@@ -567,21 +547,19 @@ void __83__HMDMediaDestinationControllerBackingStoreHandler_removeControllerWith
   v14 = [(HMDMediaDestinationControllerModel *)v12 initWithData:data changeType:2];
 
   [(HMDMediaDestinationControllerModel *)v14 setAvailableDestinationModelIdentifiers:identifiersCopy];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __101__HMDMediaDestinationControllerBackingStoreHandler_updateAvailableDestinationIdentifiers_completion___block_invoke;
-  v17[3] = &unk_278689A68;
-  v17[4] = selfCopy;
-  v18 = completionCopy;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __101__HMDMediaDestinationControllerBackingStoreHandler_updateAvailableDestinationIdentifiers_completion___block_invoke;
+  v16[3] = &unk_278689A68;
+  v16[4] = selfCopy;
+  v17 = completionCopy;
   v15 = completionCopy;
-  [(HMDBackingStoreHandler *)selfCopy runTransactionWithModel:v14 reason:@"UpdateAvailableDestinationIdentifiers" completion:v17];
-
-  v16 = *MEMORY[0x277D85DE8];
+  [(HMDBackingStoreHandler *)selfCopy runTransactionWithModel:v14 reason:@"UpdateAvailableDestinationIdentifiers" completion:v16];
 }
 
 void __101__HMDMediaDestinationControllerBackingStoreHandler_updateAvailableDestinationIdentifiers_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -592,31 +570,29 @@ void __101__HMDMediaDestinationControllerBackingStoreHandler_updateAvailableDest
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v8 = HMFGetLogIdentifier();
-      v11 = 138543618;
-      v12 = v8;
-      v13 = 2112;
-      v14 = v3;
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Run update available destination identifiers transaction completed with error: %@", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = v8;
+      v12 = 2112;
+      v13 = v3;
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Run update available destination identifiers transaction completed with error: %@", &v10, 0x16u);
     }
   }
 
   else if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v11 = 138543362;
-    v12 = v9;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Run update available destination identifiers transaction completed", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = v9;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Run update available destination identifiers transaction completed", &v10, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
   (*(*(a1 + 40) + 16))();
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateSupportedOptions:(unint64_t)options completion:(id)completion
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v7 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -626,9 +602,9 @@ void __101__HMDMediaDestinationControllerBackingStoreHandler_updateAvailableDest
     v10 = HMFGetLogIdentifier();
     v11 = HMMediaDestinationControllerSupportOptionsAsString();
     *buf = 138543618;
-    v21 = v10;
-    v22 = 2112;
-    v23 = v11;
+    v20 = v10;
+    v21 = 2112;
+    v22 = v11;
     _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Updating to supported options: %@", buf, 0x16u);
   }
 
@@ -640,21 +616,19 @@ void __101__HMDMediaDestinationControllerBackingStoreHandler_updateAvailableDest
   v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:options];
   [(HMDMediaDestinationControllerModel *)v14 setSupportedOptions:v15];
 
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __86__HMDMediaDestinationControllerBackingStoreHandler_updateSupportedOptions_completion___block_invoke;
-  v18[3] = &unk_278689A68;
-  v18[4] = selfCopy;
-  v19 = completionCopy;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __86__HMDMediaDestinationControllerBackingStoreHandler_updateSupportedOptions_completion___block_invoke;
+  v17[3] = &unk_278689A68;
+  v17[4] = selfCopy;
+  v18 = completionCopy;
   v16 = completionCopy;
-  [(HMDBackingStoreHandler *)selfCopy runTransactionWithModel:v14 reason:@"UpdateSupportedOptions" completion:v18];
-
-  v17 = *MEMORY[0x277D85DE8];
+  [(HMDBackingStoreHandler *)selfCopy runTransactionWithModel:v14 reason:@"UpdateSupportedOptions" completion:v17];
 }
 
 void __86__HMDMediaDestinationControllerBackingStoreHandler_updateSupportedOptions_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -665,31 +639,29 @@ void __86__HMDMediaDestinationControllerBackingStoreHandler_updateSupportedOptio
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v8 = HMFGetLogIdentifier();
-      v11 = 138543618;
-      v12 = v8;
-      v13 = 2112;
-      v14 = v3;
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Run update supported options transaction completed with error: %@", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = v8;
+      v12 = 2112;
+      v13 = v3;
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Run update supported options transaction completed with error: %@", &v10, 0x16u);
     }
   }
 
   else if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v11 = 138543362;
-    v12 = v9;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Run update supported options transaction completed", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = v9;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Run update supported options transaction completed", &v10, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
   (*(*(a1 + 40) + 16))();
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateDestinationIdentifier:(id)identifier completion:(id)completion
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   completionCopy = completion;
   v8 = objc_autoreleasePoolPush();
@@ -699,9 +671,9 @@ void __86__HMDMediaDestinationControllerBackingStoreHandler_updateSupportedOptio
   {
     v11 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v20 = v11;
-    v21 = 2112;
-    v22 = identifierCopy;
+    v19 = v11;
+    v20 = 2112;
+    v21 = identifierCopy;
     _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Updating to destination identifier: %@", buf, 0x16u);
   }
 
@@ -711,21 +683,19 @@ void __86__HMDMediaDestinationControllerBackingStoreHandler_updateSupportedOptio
   v14 = [(HMDMediaDestinationControllerModel *)v12 initWithData:data changeType:2];
 
   [(HMDMediaDestinationControllerModel *)v14 setDestinationModelIdentifier:identifierCopy];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __91__HMDMediaDestinationControllerBackingStoreHandler_updateDestinationIdentifier_completion___block_invoke;
-  v17[3] = &unk_278689A68;
-  v17[4] = selfCopy;
-  v18 = completionCopy;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __91__HMDMediaDestinationControllerBackingStoreHandler_updateDestinationIdentifier_completion___block_invoke;
+  v16[3] = &unk_278689A68;
+  v16[4] = selfCopy;
+  v17 = completionCopy;
   v15 = completionCopy;
-  [(HMDBackingStoreHandler *)selfCopy runTransactionWithModel:v14 reason:@"UpdateDestinationIdentifier" completion:v17];
-
-  v16 = *MEMORY[0x277D85DE8];
+  [(HMDBackingStoreHandler *)selfCopy runTransactionWithModel:v14 reason:@"UpdateDestinationIdentifier" completion:v16];
 }
 
 void __91__HMDMediaDestinationControllerBackingStoreHandler_updateDestinationIdentifier_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -736,26 +706,24 @@ void __91__HMDMediaDestinationControllerBackingStoreHandler_updateDestinationIde
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v8 = HMFGetLogIdentifier();
-      v11 = 138543618;
-      v12 = v8;
-      v13 = 2112;
-      v14 = v3;
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Run update destination identifier transaction completed with error: %@", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = v8;
+      v12 = 2112;
+      v13 = v3;
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Run update destination identifier transaction completed with error: %@", &v10, 0x16u);
     }
   }
 
   else if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v11 = 138543362;
-    v12 = v9;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Run update destination identifier transaction completed", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = v9;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Run update destination identifier transaction completed", &v10, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
   (*(*(a1 + 40) + 16))();
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDMediaDestinationControllerBackingStoreHandler)initWithData:(id)data backingStore:(id)store metricsEventDispatcher:(id)dispatcher delegate:(id)delegate
@@ -817,10 +785,9 @@ LABEL_9:
 
 void __63__HMDMediaDestinationControllerBackingStoreHandler_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v32;
-  logCategory__hmf_once_v32 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v32;
+  logCategory__hmf_once_v32 = v0;
 }
 
 + (id)backingStoreObjectForData:(id)data

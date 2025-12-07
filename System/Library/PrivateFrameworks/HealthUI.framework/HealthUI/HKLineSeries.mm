@@ -204,16 +204,23 @@ void __111__HKLineSeries__enumerateCoordinateList_withTransform_presentationStyl
   _Block_object_dispose(v47, 8);
 }
 
-BOOL __136__HKLineSeries__enumerateCoordinateListByRemovingOffscreenPoints_withTransform_presentationStyle_zoomLevelConfiguration_axisRect_block___block_invoke(_BOOL8 result)
+uint64_t __136__HKLineSeries__enumerateCoordinateListByRemovingOffscreenPoints_withTransform_presentationStyle_zoomLevelConfiguration_axisRect_block___block_invoke(uint64_t result)
 {
   if ((*(*(*(result + 40) + 8) + 24) & 1) == 0)
   {
     v1 = result;
     v3 = HKCircularBufferIteratorMake();
-    for (result = HKCircularBufferIteratorHasNext(v1[6], v3); result; result = HKCircularBufferIteratorHasNext(v1[6], v3))
+    result = HKCircularBufferIteratorHasNext(v1[6], v3);
+    if (result)
     {
-      v2 = HKCircularBufferIteratorNext(v1[6], &v3);
-      (*(v1[4] + 16))(v1[4], 0, *(v2 + 32), *v2, *(v2 + 8), *(v2 + 16), *(v2 + 24));
+      do
+      {
+        v2 = HKCircularBufferIteratorNext(v1[6], &v3);
+        (*(v1[4] + 16))(v1[4], 0, *(v2 + 32), *v2, *(v2 + 8), *(v2 + 16), *(v2 + 24));
+        result = HKCircularBufferIteratorHasNext(v1[6], v3);
+      }
+
+      while ((result & 1) != 0);
     }
 
     *(*(v1[5] + 8) + 24) = 1;
@@ -831,7 +838,7 @@ LABEL_39:
   _Block_object_dispose(v56, 8);
 }
 
-uint64_t __124__HKLineSeries__enumerateSinePathsFromBlockCoordinates_transfrom_zoomLevelConfiguration_presentationStyle_axisRect_handler___block_invoke(uint64_t a1, double a2, double a3, double a4, double a5, double a6, double a7)
+void *__124__HKLineSeries__enumerateSinePathsFromBlockCoordinates_transfrom_zoomLevelConfiguration_presentationStyle_axisRect_handler___block_invoke(uint64_t a1, double a2, double a3, double a4, double a5, double a6, double a7)
 {
   if (!*(*(*(a1 + 40) + 8) + 24))
   {
@@ -1590,7 +1597,7 @@ LABEL_30:
     v56 = 0u;
     v53 = 0u;
     v54 = 0u;
-    [(HKGraphSeries *)self selectedPathRange];
+    objc_msgSend_selectedPathRange(self);
     v41[0] = MEMORY[0x1E69E9820];
     v41[1] = 3221225472;
     v41[2] = __144__HKLineSeries_renderPointMarkersInContext_blockCoordinates_pointTransform_pointMarkerStyle_selectedBoundsMarkerStyle_selectedPointMarkerStyle___block_invoke;
@@ -1745,7 +1752,7 @@ void __144__HKLineSeries_renderPointMarkersInContext_blockCoordinates_pointTrans
     v47 = 0u;
     if (v34)
     {
-      [(HKPointLabelEngine *)v34 renderingData];
+      objc_msgSend_renderingData(v34);
       v40 = *(&v49 + 1) | 2;
     }
 
@@ -1779,7 +1786,7 @@ double __150__HKLineSeries__renderPointLabelsInContext_blockCoordinates_axisRect
   return v6;
 }
 
-uint64_t __150__HKLineSeries__renderPointLabelsInContext_blockCoordinates_axisRect_pointTransform_presentationStyle_zoomLevelConfiguration_seriesRenderingDelegate___block_invoke_2(uint64_t a1)
+void *__150__HKLineSeries__renderPointLabelsInContext_blockCoordinates_axisRect_pointTransform_presentationStyle_zoomLevelConfiguration_seriesRenderingDelegate___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) processTransformedPoint:? untransformedPoint:?];
   if (result)
@@ -1790,7 +1797,7 @@ uint64_t __150__HKLineSeries__renderPointLabelsInContext_blockCoordinates_axisRe
     v3 = *(a1 + 32);
     if (v3)
     {
-      [v3 renderingData];
+      objc_msgSend_renderingData(v3);
       v4 = *(&v13 + 1) | 2;
     }
 

@@ -1,4 +1,5 @@
 @interface ASEProcessingT1
+- (ASEProcessingT1)initWithConfig:(id *)config aseProcessing:(id)processing productType:(unsigned int)type;
 - (id)populateOutputHcus:(aseConfigurationUnitsV3_t *)hcus;
 - (int64_t)processFrameWithInput:(__IOSurface *)input Measurement:(id *)measurement callback:(id)callback;
 - (int64_t)processFrameWithInput:(__IOSurface *)input Measurement:(id *)measurement outputData:(id *)data;
@@ -16,9 +17,66 @@
 
 @implementation ASEProcessingT1
 
+- (ASEProcessingT1)initWithConfig:(id *)config aseProcessing:(id)processing productType:(unsigned int)type
+{
+  v5 = *&type;
+  v17 = *MEMORY[0x277D85DE8];
+  processingCopy = processing;
+  v14.receiver = self;
+  v14.super_class = ASEProcessingT1;
+  v9 = [(ASEProcessingT0 *)&v14 initWithConfig:config aseProcessing:processingCopy productType:v5];
+  v10 = v9;
+  if (v9)
+  {
+    if (!isT1OrNewer(v9->super._productType))
+    {
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] Assertion: isT1OrNewer(_productType) warned in /Library/Caches/com.apple.xbs/Sources/ASEFramework/ASEProcessingT1.m at line 100\n", buf, 2u);
+      }
+
+      if (!isT1OrNewer(v10->super._productType))
+      {
+        [ASEProcessingT1 initWithConfig:aseProcessing:productType:];
+      }
+    }
+
+    v10->_msrBaseAddr = getMSRBaseAddr(v10->super._productType, v11);
+    v10->_aseControlUnitV3 = malloc_type_malloc(0x5710uLL, 0x10000404333414BuLL);
+    if (disableHcuCache)
+    {
+      if (logLevel >= 3 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 136315138;
+        v16 = "[ASEProcessingT1 initWithConfig:aseProcessing:productType:]";
+        _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] --  %s: HCU Cache disabled!\n", buf, 0xCu);
+      }
+
+      v10->_aseControlUnitV3Cache = 0;
+    }
+
+    else
+    {
+      if (logLevel >= 3 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 136315138;
+        v16 = "[ASEProcessingT1 initWithConfig:aseProcessing:productType:]";
+        _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] --  %s: HCU Cache enabled!\n", buf, 0xCu);
+      }
+
+      v12 = malloc_type_malloc(0x90uLL, 0x1020040206F8E95uLL);
+      v10->_aseControlUnitV3Cache = v12;
+      initCache(v12);
+    }
+  }
+
+  return v10;
+}
+
 - (void)dealloc
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   aseControlUnitV3 = self->_aseControlUnitV3;
   if (aseControlUnitV3)
   {
@@ -36,120 +94,113 @@
   if (logLevel >= 4 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v8 = "[ASEProcessingT1 dealloc]";
+    v7 = "[ASEProcessingT1 dealloc]";
     _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] --  %s \n", buf, 0xCu);
   }
 
-  v6.receiver = self;
-  v6.super_class = ASEProcessingT1;
-  [(ASEProcessingT0 *)&v6 dealloc];
-  v5 = *MEMORY[0x277D85DE8];
+  v5.receiver = self;
+  v5.super_class = ASEProcessingT1;
+  [(ASEProcessingT0 *)&v5 dealloc];
 }
 
 - (void)DumpArray:(const char *)array type:(int)type array:(void *)a5 count:(unsigned int)count numberPerRow:(unsigned int)row
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (!count)
   {
-    goto LABEL_25;
+    return;
   }
 
-  v11 = 0;
-  v12 = count - 1;
-  LODWORD(v13) = 512;
-  v14 = __str;
+  v10 = 0;
+  v11 = count - 1;
+  LODWORD(v12) = 512;
+  v13 = __str;
   do
   {
-    if (v14 == __str)
+    if (v13 == __str)
     {
-      v15 = "{";
-      if (v11)
+      v14 = "{";
+      if (v10)
       {
-        v15 = " ";
+        v14 = " ";
       }
 
-      v16 = __snprintf_chk(__str, v13, 0, 0x200uLL, "%s %s", array, v15);
-      v14 = &__str[v16];
-      LODWORD(v13) = v13 - v16;
+      v15 = __snprintf_chk(__str, v12, 0, 0x200uLL, "%s %s", array, v14);
+      v13 = &__str[v15];
+      LODWORD(v12) = v12 - v15;
     }
 
     if (type == 1)
     {
-      v23 = *(a5 + v11);
-      v18 = snprintf(v14, v13, "%s%d");
+      v16 = snprintf(v13, v12, "%s%d");
     }
 
     else if (type == 2)
     {
-      v17 = *(a5 + v11);
-      v18 = snprintf(v14, v13, "%s%f");
+      v16 = snprintf(v13, v12, "%s%f");
     }
 
     else
     {
-      v24 = *(a5 + v11);
-      v18 = snprintf(v14, v13, "%s%u");
+      v16 = snprintf(v13, v12, "%s%u");
     }
 
-    v14 += v18;
-    v13 = v13 - v18;
-    v19 = " }";
+    v13 += v16;
+    v12 = v12 - v16;
+    v17 = " }";
     countCopy = count;
-    if (v11 != v12)
+    if (v10 != v11)
     {
-      countCopy = v11 + 1;
-      if ((v11 + 1) % row)
+      countCopy = v10 + 1;
+      if ((v10 + 1) % row)
       {
         goto LABEL_20;
       }
 
-      v19 = ",";
+      v17 = ",";
     }
 
-    snprintf(v14, v13, v19);
+    snprintf(v13, v12, v17);
     if (logLevel < 3)
     {
-      v18 = 0;
-      LODWORD(v13) = 512;
-      v14 = __str;
+      v16 = 0;
+      LODWORD(v12) = 512;
+      v13 = __str;
     }
 
     else
     {
-      v21 = MEMORY[0x277D86220];
-      v18 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
-      v14 = __str;
-      if (v18)
+      v19 = MEMORY[0x277D86220];
+      v16 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
+      v13 = __str;
+      if (v16)
       {
         *buf = 136315138;
-        v27 = __str;
-        _os_log_impl(&dword_23D3F2000, v21, OS_LOG_TYPE_DEFAULT, " [1.50.3] %s\n\n", buf, 0xCu);
-        v18 = 0;
+        v22 = __str;
+        _os_log_impl(&dword_23D3F2000, v19, OS_LOG_TYPE_DEFAULT, " [1.50.3] %s\n\n", buf, 0xCu);
+        v16 = 0;
       }
 
-      LODWORD(v13) = 512;
+      LODWORD(v12) = 512;
     }
 
 LABEL_20:
-    v11 = countCopy;
+    v10 = countCopy;
   }
 
   while (countCopy < count);
-  if (v18 && logLevel > 2 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  if (v16 && logLevel > 2 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v27 = __str;
+    v22 = __str;
     _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] %s\n\n", buf, 0xCu);
   }
-
-LABEL_25:
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)DumpPiecewiseLinearCurveV3:(const char *)v3 curve:(id *)curve
 {
   v5 = 0;
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v6 = logLevel;
   p_var2 = &curve->var0[0].var2;
   v8 = MEMORY[0x277D86220];
@@ -164,14 +215,14 @@ LABEL_25:
         v11 = *p_var2;
         *buf = 136316162;
         v3Copy = v3;
-        v15 = 1024;
-        v16 = v5;
-        v17 = 2048;
-        v18 = v9;
-        v19 = 2048;
-        v20 = v10;
-        v21 = 2048;
-        v22 = v11;
+        v14 = 1024;
+        v15 = v5;
+        v16 = 2048;
+        v17 = v9;
+        v18 = 2048;
+        v19 = v10;
+        v20 = 2048;
+        v21 = v11;
         _os_log_impl(&dword_23D3F2000, v8, OS_LOG_TYPE_DEFAULT, " [1.50.3] %s #%d: { %f, %f, %f }\n", buf, 0x30u);
       }
 
@@ -183,12 +234,11 @@ LABEL_25:
   }
 
   while (v5 != 32);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)DumpOutputHcus:(id)hcus
 {
-  v459 = *MEMORY[0x277D85DE8];
+  v458 = *MEMORY[0x277D85DE8];
   hcusCopy = hcus;
   bytes = [hcusCopy bytes];
   if (dumpOutputHcu)
@@ -203,27 +253,27 @@ LABEL_25:
         v9 = *v6;
         v10 = v6[1];
         *buf = 136315650;
-        v444 = "[ASEProcessingT1 DumpOutputHcus:]";
-        v445 = 1024;
-        v446 = v9;
-        v447 = 1024;
-        v448 = v10;
+        v443 = "[ASEProcessingT1 DumpOutputHcus:]";
+        v444 = 1024;
+        v445 = v9;
+        v446 = 1024;
+        v447 = v10;
         _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: hcuHeader: hcuCount = %d, hcuSize = %d\n", buf, 0x18u);
       }
     }
 
-    v430 = hcusCopy;
+    v429 = hcusCopy;
     selfCopy = self;
     if (*v6)
     {
       v11 = 0;
       v12 = 0;
+      v432 = 0;
       v433 = 0;
       v434 = 0;
       v435 = 0;
       v436 = 0;
-      v437 = 0;
-      v432 = 0;
+      v431 = 0;
       v13 = v6 + 2;
       v14 = MEMORY[0x277D86220];
       while (1)
@@ -236,21 +286,21 @@ LABEL_25:
             v17 = *v13;
             v16 = v13[1];
             *buf = 136316930;
-            v444 = "[ASEProcessingT1 DumpOutputHcus:]";
-            v445 = 1024;
-            v446 = v11;
-            v447 = 1024;
-            v448 = v16;
-            v449 = 1024;
-            v450 = v17;
-            v451 = 1024;
-            v452 = HIBYTE(v17);
-            v453 = 1024;
-            v454 = BYTE2(v17);
-            v455 = 1024;
-            v456 = BYTE1(v17);
-            v457 = 1024;
-            v458 = v17;
+            v443 = "[ASEProcessingT1 DumpOutputHcus:]";
+            v444 = 1024;
+            v445 = v11;
+            v446 = 1024;
+            v447 = v16;
+            v448 = 1024;
+            v449 = v17;
+            v450 = 1024;
+            v451 = HIBYTE(v17);
+            v452 = 1024;
+            v453 = BYTE2(v17);
+            v454 = 1024;
+            v455 = BYTE1(v17);
+            v456 = 1024;
+            v457 = v17;
             _os_log_impl(&dword_23D3F2000, v14, OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: entryHeader[%d]: hcuSize = %d, hcuType = 0x%x ('%c%c%c%c')\n", buf, 0x36u);
           }
         }
@@ -262,15 +312,15 @@ LABEL_25:
           switch(v19)
           {
             case 1634952555:
-              v434 = (v13 + 2);
+              v433 = (v13 + 2);
               v18 = v13 + 323;
               break;
             case 1634952556:
-              v435 = (v13 + 2);
+              v434 = (v13 + 2);
               v18 = v13 + 529;
               break;
             case 1634952557:
-              v437 = (v13 + 2);
+              v436 = (v13 + 2);
               v18 = v13 + 390;
               break;
             default:
@@ -282,7 +332,7 @@ LABEL_25:
         {
           if (v19 == 1634952561)
           {
-            v433 = v13 + 2;
+            v432 = v13 + 2;
             v18 = v13 + 130;
           }
 
@@ -298,17 +348,17 @@ LABEL_25:
                 {
                   v21 = *v13;
                   *buf = 136316418;
-                  v444 = "[ASEProcessingT1 DumpOutputHcus:]";
-                  v445 = 1024;
-                  v446 = v21;
-                  v447 = 1024;
-                  v448 = HIBYTE(v21);
-                  v449 = 1024;
-                  v450 = BYTE2(v21);
-                  v451 = 1024;
-                  v452 = BYTE1(v21);
-                  v453 = 1024;
-                  v454 = v21;
+                  v443 = "[ASEProcessingT1 DumpOutputHcus:]";
+                  v444 = 1024;
+                  v445 = v21;
+                  v446 = 1024;
+                  v447 = HIBYTE(v21);
+                  v448 = 1024;
+                  v449 = BYTE2(v21);
+                  v450 = 1024;
+                  v451 = BYTE1(v21);
+                  v452 = 1024;
+                  v453 = v21;
                   _os_log_impl(&dword_23D3F2000, v14, OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: ERROR: Unsupported HCU!  hcuType = 0x%x ('%c%c%c%c')\n", buf, 0x2Au);
                 }
               }
@@ -323,7 +373,7 @@ LABEL_25:
 
         else if (v19 == 1634952558)
         {
-          v432 = (v13 + 2);
+          v431 = (v13 + 2);
           v18 = v13 + 7;
         }
 
@@ -334,7 +384,7 @@ LABEL_25:
             goto LABEL_25;
           }
 
-          v436 = (v13 + 2);
+          v435 = (v13 + 2);
           v18 = v13 + 4;
         }
 
@@ -348,460 +398,460 @@ LABEL_32:
       }
     }
 
+    v431 = 0;
     v432 = 0;
-    v433 = 0;
-    v436 = 0;
-    v437 = 0;
-    v434 = 0;
     v435 = 0;
+    v436 = 0;
+    v433 = 0;
+    v434 = 0;
     v12 = 0;
 LABEL_35:
-    hcusCopy = v430;
+    hcusCopy = v429;
     v22 = v12;
     if ((dumpOutputHcu & 2) != 0)
     {
-      v357 = logLevel;
+      v356 = logLevel;
       if (v12 && logLevel >= 3)
       {
+        v357 = MEMORY[0x277D86220];
         v358 = MEMORY[0x277D86220];
-        v359 = MEMORY[0x277D86220];
-        if (os_log_type_enabled(v358, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v357, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315138;
-          v444 = "[ASEProcessingT1 DumpOutputHcus:]";
+          v443 = "[ASEProcessingT1 DumpOutputHcus:]";
           _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: -----------------------------------------------\n", buf, 0xCu);
         }
 
-        v357 = logLevel;
+        v356 = logLevel;
         if (logLevel >= 3)
         {
-          v360 = v358;
-          if (os_log_type_enabled(v358, OS_LOG_TYPE_DEFAULT))
+          v359 = v357;
+          if (os_log_type_enabled(v357, OS_LOG_TYPE_DEFAULT))
           {
-            v361 = *v12;
-            v362 = v12[1];
-            v363 = v12[2];
-            v364 = v12[3];
-            v365 = v12[4];
-            v366 = v12[5];
+            v360 = *v12;
+            v361 = v12[1];
+            v362 = v12[2];
+            v363 = v12[3];
+            v364 = v12[4];
+            v365 = v12[5];
             *buf = 136316674;
-            v444 = "[ASEProcessingT1 DumpOutputHcus:]";
-            v445 = 1024;
-            v446 = v361;
-            v447 = 1024;
-            v448 = v362;
-            v449 = 1024;
-            v450 = v363;
-            v451 = 1024;
-            v452 = v364;
-            v453 = 1024;
-            v454 = v365;
-            v455 = 1024;
-            v456 = v366;
+            v443 = "[ASEProcessingT1 DumpOutputHcus:]";
+            v444 = 1024;
+            v445 = v360;
+            v446 = 1024;
+            v447 = v361;
+            v448 = 1024;
+            v449 = v362;
+            v450 = 1024;
+            v451 = v363;
+            v452 = 1024;
+            v453 = v364;
+            v454 = 1024;
+            v455 = v365;
             _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: scalingConfigV3Hcu: DDAInitX = %u, DDAInitY = %u, DDAStepX = 0x%x, DDAStepY = 0x%x, DDAInvStepX = 0x%x, DDAInvStepY = 0x%x\n", buf, 0x30u);
           }
 
-          v357 = logLevel;
+          v356 = logLevel;
         }
       }
 
-      if (v433)
+      if (v432)
       {
-        if (v357 >= 3)
+        if (v356 >= 3)
         {
+          v366 = MEMORY[0x277D86220];
           v367 = MEMORY[0x277D86220];
-          v368 = MEMORY[0x277D86220];
-          if (os_log_type_enabled(v367, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(v366, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315138;
-            v444 = "[ASEProcessingT1 DumpOutputHcus:]";
+            v443 = "[ASEProcessingT1 DumpOutputHcus:]";
             _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: -----------------------------------------------\n", buf, 0xCu);
           }
         }
 
         snprintf(buf, 0x100uLL, "    %s: scalingCoeffV3Hcu: coeff :", "[ASEProcessingT1 DumpOutputHcus:]");
-        [(ASEProcessingT1 *)selfCopy DumpFloatArray:buf array:v433 count:128 numberPerRow:8];
-        v357 = logLevel;
+        [(ASEProcessingT1 *)selfCopy DumpFloatArray:buf array:v432 count:128 numberPerRow:8];
+        v356 = logLevel;
       }
 
-      if (v436 && v357 >= 3)
+      if (v435 && v356 >= 3)
       {
+        v368 = MEMORY[0x277D86220];
         v369 = MEMORY[0x277D86220];
-        v370 = MEMORY[0x277D86220];
-        if (os_log_type_enabled(v369, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v368, OS_LOG_TYPE_DEFAULT))
         {
-          *v438 = 136315138;
-          v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-          _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: -----------------------------------------------\n", v438, 0xCu);
+          *v437 = 136315138;
+          v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+          _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: -----------------------------------------------\n", v437, 0xCu);
         }
 
         if (logLevel >= 3)
         {
-          v371 = v369;
-          if (os_log_type_enabled(v369, OS_LOG_TYPE_DEFAULT))
+          v370 = v368;
+          if (os_log_type_enabled(v368, OS_LOG_TYPE_DEFAULT))
           {
-            v372 = *v436;
-            v373 = v436[1];
-            *v438 = 136315650;
-            v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-            v440 = 1024;
-            *v441 = v372;
-            *&v441[4] = 1024;
-            *&v441[6] = v373;
-            _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: angleDetectV3Hcu: signChangeThreshold = %u, hfeqThresh2 = %u\n", v438, 0x18u);
+            v371 = *v435;
+            v372 = v435[1];
+            *v437 = 136315650;
+            v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+            v439 = 1024;
+            *v440 = v371;
+            *&v440[4] = 1024;
+            *&v440[6] = v372;
+            _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: angleDetectV3Hcu: signChangeThreshold = %u, hfeqThresh2 = %u\n", v437, 0x18u);
           }
         }
       }
 
-      if (v437)
+      if (v436)
       {
         snprintf(buf, 0x100uLL, "    %s: blendConfigV3Hcu:", "[ASEProcessingT1 DumpOutputHcus:]");
         if (logLevel >= 3)
         {
+          v373 = MEMORY[0x277D86220];
           v374 = MEMORY[0x277D86220];
-          v375 = MEMORY[0x277D86220];
-          if (os_log_type_enabled(v374, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(v373, OS_LOG_TYPE_DEFAULT))
           {
-            *v438 = 136315138;
-            v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-            _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: -----------------------------------------------\n", v438, 0xCu);
+            *v437 = 136315138;
+            v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+            _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: -----------------------------------------------\n", v437, 0xCu);
           }
 
           if (logLevel >= 3)
           {
-            v376 = v374;
-            if (os_log_type_enabled(v374, OS_LOG_TYPE_DEFAULT))
+            v375 = v373;
+            if (os_log_type_enabled(v373, OS_LOG_TYPE_DEFAULT))
             {
-              *v438 = 136315138;
-              v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-              _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: blendConfigV3Hcu: blendCurve[kASEBlendCurveEbeFactor]:\n", v438, 0xCu);
+              *v437 = 136315138;
+              v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+              _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: blendConfigV3Hcu: blendCurve[kASEBlendCurveEbeFactor]:\n", v437, 0xCu);
             }
           }
         }
 
-        [(ASEProcessingT1 *)selfCopy DumpPiecewiseLinearCurveV3:buf curve:v437];
+        [(ASEProcessingT1 *)selfCopy DumpPiecewiseLinearCurveV3:buf curve:v436];
         if (logLevel >= 3)
         {
+          v376 = MEMORY[0x277D86220];
           v377 = MEMORY[0x277D86220];
+          if (os_log_type_enabled(v376, OS_LOG_TYPE_DEFAULT))
+          {
+            *v437 = 136315138;
+            v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+            _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: blendConfigV3Hcu: blendCurve[kASEBlendCurveW_EBE]:\n", v437, 0xCu);
+          }
+        }
+
+        [(ASEProcessingT1 *)selfCopy DumpPiecewiseLinearCurveV3:buf curve:v436 + 96];
+        if (logLevel >= 3)
+        {
           v378 = MEMORY[0x277D86220];
-          if (os_log_type_enabled(v377, OS_LOG_TYPE_DEFAULT))
-          {
-            *v438 = 136315138;
-            v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-            _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: blendConfigV3Hcu: blendCurve[kASEBlendCurveW_EBE]:\n", v438, 0xCu);
-          }
-        }
-
-        [(ASEProcessingT1 *)selfCopy DumpPiecewiseLinearCurveV3:buf curve:v437 + 96];
-        if (logLevel >= 3)
-        {
           v379 = MEMORY[0x277D86220];
+          if (os_log_type_enabled(v378, OS_LOG_TYPE_DEFAULT))
+          {
+            *v437 = 136315138;
+            v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+            _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: blendConfigV3Hcu: blendCurve[kASEBlendCurveW_Peaking]:\n", v437, 0xCu);
+          }
+        }
+
+        [(ASEProcessingT1 *)selfCopy DumpPiecewiseLinearCurveV3:buf curve:v436 + 192];
+        if (logLevel >= 3)
+        {
           v380 = MEMORY[0x277D86220];
-          if (os_log_type_enabled(v379, OS_LOG_TYPE_DEFAULT))
-          {
-            *v438 = 136315138;
-            v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-            _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: blendConfigV3Hcu: blendCurve[kASEBlendCurveW_Peaking]:\n", v438, 0xCu);
-          }
-        }
-
-        [(ASEProcessingT1 *)selfCopy DumpPiecewiseLinearCurveV3:buf curve:v437 + 192];
-        if (logLevel >= 3)
-        {
           v381 = MEMORY[0x277D86220];
+          if (os_log_type_enabled(v380, OS_LOG_TYPE_DEFAULT))
+          {
+            *v437 = 136315138;
+            v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+            _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: blendConfigV3Hcu: blendCurve[kASEBlendCurveLuma]:\n", v437, 0xCu);
+          }
+        }
+
+        [(ASEProcessingT1 *)selfCopy DumpPiecewiseLinearCurveV3:buf curve:v436 + 288];
+        if (logLevel >= 3)
+        {
           v382 = MEMORY[0x277D86220];
-          if (os_log_type_enabled(v381, OS_LOG_TYPE_DEFAULT))
-          {
-            *v438 = 136315138;
-            v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-            _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: blendConfigV3Hcu: blendCurve[kASEBlendCurveLuma]:\n", v438, 0xCu);
-          }
-        }
-
-        [(ASEProcessingT1 *)selfCopy DumpPiecewiseLinearCurveV3:buf curve:v437 + 288];
-        if (logLevel >= 3)
-        {
           v383 = MEMORY[0x277D86220];
-          v384 = MEMORY[0x277D86220];
-          if (os_log_type_enabled(v383, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(v382, OS_LOG_TYPE_DEFAULT))
           {
-            v385 = *(v437 + 384);
-            v386 = *(v437 + 385);
-            v387 = *(v437 + 386);
-            v388 = *(v437 + 387);
-            *v438 = 136316162;
-            v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-            v440 = 1024;
-            *v441 = v385;
-            *&v441[4] = 1024;
-            *&v441[6] = v386;
-            *v442 = 1024;
-            *&v442[2] = v387;
-            *&v442[6] = 1024;
-            *&v442[8] = v388;
-            _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: blendConfigV3Hcu: BlendLogicSkinToneProtection: toneThresh = %u, toneEdgeThresh = %u, toneMaxThresh = %d, toneFactor = %d\n", v438, 0x24u);
+            v384 = *(v436 + 384);
+            v385 = *(v436 + 385);
+            v386 = *(v436 + 386);
+            v387 = *(v436 + 387);
+            *v437 = 136316162;
+            v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+            v439 = 1024;
+            *v440 = v384;
+            *&v440[4] = 1024;
+            *&v440[6] = v385;
+            *v441 = 1024;
+            *&v441[2] = v386;
+            *&v441[6] = 1024;
+            *&v441[8] = v387;
+            _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: blendConfigV3Hcu: BlendLogicSkinToneProtection: toneThresh = %u, toneEdgeThresh = %u, toneMaxThresh = %d, toneFactor = %d\n", v437, 0x24u);
           }
         }
-      }
-
-      if (v435)
-      {
-        snprintf(buf, 0x100uLL, "    %s: ebeConfigV3Hcu:", "[ASEProcessingT1 DumpOutputHcus:]");
-        if (logLevel >= 3)
-        {
-          v389 = MEMORY[0x277D86220];
-          v390 = MEMORY[0x277D86220];
-          if (os_log_type_enabled(v389, OS_LOG_TYPE_DEFAULT))
-          {
-            *v438 = 136315138;
-            v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-            _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: -----------------------------------------------\n", v438, 0xCu);
-          }
-
-          if (logLevel >= 3)
-          {
-            v391 = v389;
-            if (os_log_type_enabled(v389, OS_LOG_TYPE_DEFAULT))
-            {
-              *v438 = 136315138;
-              v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-              _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: ebeConfigV3Hcu: EBECurve[kASEEBECurveEbeV3]:\n", v438, 0xCu);
-            }
-          }
-        }
-
-        [(ASEProcessingT1 *)selfCopy DumpPiecewiseLinearCurveV3:buf curve:v435];
-        if (logLevel >= 3)
-        {
-          v392 = MEMORY[0x277D86220];
-          v393 = MEMORY[0x277D86220];
-          if (os_log_type_enabled(v392, OS_LOG_TYPE_DEFAULT))
-          {
-            *v438 = 136315138;
-            v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-            _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: ebeConfigV3Hcu: EBECurve[kASEEBECurveHf1PosV3]:\n", v438, 0xCu);
-          }
-        }
-
-        [(ASEProcessingT1 *)selfCopy DumpPiecewiseLinearCurveV3:buf curve:v435 + 96];
-        if (logLevel >= 3)
-        {
-          v394 = MEMORY[0x277D86220];
-          v395 = MEMORY[0x277D86220];
-          if (os_log_type_enabled(v394, OS_LOG_TYPE_DEFAULT))
-          {
-            *v438 = 136315138;
-            v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-            _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: ebeConfigV3Hcu: EBECurve[kASEEBECurveHf1NegV3]:\n", v438, 0xCu);
-          }
-        }
-
-        [(ASEProcessingT1 *)selfCopy DumpPiecewiseLinearCurveV3:buf curve:v435 + 192];
-        if (logLevel >= 3)
-        {
-          v396 = MEMORY[0x277D86220];
-          v397 = MEMORY[0x277D86220];
-          if (os_log_type_enabled(v396, OS_LOG_TYPE_DEFAULT))
-          {
-            *v438 = 136315138;
-            v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-            _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: ebeConfigV3Hcu: EBECurve[kASEEBECurveHf2V3]:\n", v438, 0xCu);
-          }
-        }
-
-        [(ASEProcessingT1 *)selfCopy DumpPiecewiseLinearCurveV3:buf curve:v435 + 288];
-        if (logLevel >= 3)
-        {
-          v398 = MEMORY[0x277D86220];
-          v399 = MEMORY[0x277D86220];
-          if (os_log_type_enabled(v398, OS_LOG_TYPE_DEFAULT))
-          {
-            *v438 = 136315138;
-            v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-            _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: ebeConfigV3Hcu: EBECurve[kASEEBECurveHf3V3]:\n", v438, 0xCu);
-          }
-        }
-
-        [(ASEProcessingT1 *)selfCopy DumpPiecewiseLinearCurveV3:buf curve:v435 + 384];
-        if (logLevel >= 3)
-        {
-          v400 = MEMORY[0x277D86220];
-          v401 = MEMORY[0x277D86220];
-          if (os_log_type_enabled(v400, OS_LOG_TYPE_DEFAULT))
-          {
-            v402 = *(v435 + 480);
-            v403 = *(v435 + 481);
-            v404 = *(v435 + 482);
-            *v438 = 136315906;
-            v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-            v440 = 1024;
-            *v441 = v402;
-            *&v441[4] = 1024;
-            *&v441[6] = v403;
-            *v442 = 1024;
-            *&v442[2] = v404;
-            _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: ebeConfigV3Hcu: ebeParams: { sdaPenalty1 = %d, sdaPenalty2 = %d, dFfactor = %d }\n", v438, 0x1Eu);
-          }
-        }
-
-        snprintf(buf, 0x100uLL, "    %s: ebeConfigV3Hcu: lowPass :", "[ASEProcessingT1 DumpOutputHcus:]");
-        [(ASEProcessingT1 *)selfCopy DumpUintArray:buf array:v435 + 483 count:26 numberPerRow:26];
-        snprintf(buf, 0x100uLL, "    %s: ebeConfigV3Hcu: weightLut :", "[ASEProcessingT1 DumpOutputHcus:]");
-        [(ASEProcessingT1 *)selfCopy DumpUintArray:buf array:v435 + 509 count:18 numberPerRow:18];
       }
 
       if (v434)
       {
-        snprintf(buf, 0x100uLL, "    %s: peakingConfigV3Hcu:", "[ASEProcessingT1 DumpOutputHcus:]");
+        snprintf(buf, 0x100uLL, "    %s: ebeConfigV3Hcu:", "[ASEProcessingT1 DumpOutputHcus:]");
         if (logLevel >= 3)
         {
-          v405 = MEMORY[0x277D86220];
-          v406 = MEMORY[0x277D86220];
-          if (os_log_type_enabled(v405, OS_LOG_TYPE_DEFAULT))
+          v388 = MEMORY[0x277D86220];
+          v389 = MEMORY[0x277D86220];
+          if (os_log_type_enabled(v388, OS_LOG_TYPE_DEFAULT))
           {
-            *v438 = 136315138;
-            v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-            _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: -----------------------------------------------\n", v438, 0xCu);
+            *v437 = 136315138;
+            v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+            _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: -----------------------------------------------\n", v437, 0xCu);
           }
 
           if (logLevel >= 3)
           {
-            v407 = v405;
-            if (os_log_type_enabled(v405, OS_LOG_TYPE_DEFAULT))
+            v390 = v388;
+            if (os_log_type_enabled(v388, OS_LOG_TYPE_DEFAULT))
             {
-              v408 = *v434;
-              *v438 = 136315394;
-              v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-              v440 = 1024;
-              *v441 = v408;
-              _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: peakingConfigV3Hcu: gainForce = %d\n", v438, 0x12u);
+              *v437 = 136315138;
+              v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+              _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: ebeConfigV3Hcu: EBECurve[kASEEBECurveEbeV3]:\n", v437, 0xCu);
+            }
+          }
+        }
+
+        [(ASEProcessingT1 *)selfCopy DumpPiecewiseLinearCurveV3:buf curve:v434];
+        if (logLevel >= 3)
+        {
+          v391 = MEMORY[0x277D86220];
+          v392 = MEMORY[0x277D86220];
+          if (os_log_type_enabled(v391, OS_LOG_TYPE_DEFAULT))
+          {
+            *v437 = 136315138;
+            v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+            _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: ebeConfigV3Hcu: EBECurve[kASEEBECurveHf1PosV3]:\n", v437, 0xCu);
+          }
+        }
+
+        [(ASEProcessingT1 *)selfCopy DumpPiecewiseLinearCurveV3:buf curve:v434 + 96];
+        if (logLevel >= 3)
+        {
+          v393 = MEMORY[0x277D86220];
+          v394 = MEMORY[0x277D86220];
+          if (os_log_type_enabled(v393, OS_LOG_TYPE_DEFAULT))
+          {
+            *v437 = 136315138;
+            v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+            _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: ebeConfigV3Hcu: EBECurve[kASEEBECurveHf1NegV3]:\n", v437, 0xCu);
+          }
+        }
+
+        [(ASEProcessingT1 *)selfCopy DumpPiecewiseLinearCurveV3:buf curve:v434 + 192];
+        if (logLevel >= 3)
+        {
+          v395 = MEMORY[0x277D86220];
+          v396 = MEMORY[0x277D86220];
+          if (os_log_type_enabled(v395, OS_LOG_TYPE_DEFAULT))
+          {
+            *v437 = 136315138;
+            v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+            _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: ebeConfigV3Hcu: EBECurve[kASEEBECurveHf2V3]:\n", v437, 0xCu);
+          }
+        }
+
+        [(ASEProcessingT1 *)selfCopy DumpPiecewiseLinearCurveV3:buf curve:v434 + 288];
+        if (logLevel >= 3)
+        {
+          v397 = MEMORY[0x277D86220];
+          v398 = MEMORY[0x277D86220];
+          if (os_log_type_enabled(v397, OS_LOG_TYPE_DEFAULT))
+          {
+            *v437 = 136315138;
+            v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+            _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: ebeConfigV3Hcu: EBECurve[kASEEBECurveHf3V3]:\n", v437, 0xCu);
+          }
+        }
+
+        [(ASEProcessingT1 *)selfCopy DumpPiecewiseLinearCurveV3:buf curve:v434 + 384];
+        if (logLevel >= 3)
+        {
+          v399 = MEMORY[0x277D86220];
+          v400 = MEMORY[0x277D86220];
+          if (os_log_type_enabled(v399, OS_LOG_TYPE_DEFAULT))
+          {
+            v401 = *(v434 + 480);
+            v402 = *(v434 + 481);
+            v403 = *(v434 + 482);
+            *v437 = 136315906;
+            v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+            v439 = 1024;
+            *v440 = v401;
+            *&v440[4] = 1024;
+            *&v440[6] = v402;
+            *v441 = 1024;
+            *&v441[2] = v403;
+            _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: ebeConfigV3Hcu: ebeParams: { sdaPenalty1 = %d, sdaPenalty2 = %d, dFfactor = %d }\n", v437, 0x1Eu);
+          }
+        }
+
+        snprintf(buf, 0x100uLL, "    %s: ebeConfigV3Hcu: lowPass :", "[ASEProcessingT1 DumpOutputHcus:]");
+        [(ASEProcessingT1 *)selfCopy DumpUintArray:buf array:v434 + 483 count:26 numberPerRow:26];
+        snprintf(buf, 0x100uLL, "    %s: ebeConfigV3Hcu: weightLut :", "[ASEProcessingT1 DumpOutputHcus:]");
+        [(ASEProcessingT1 *)selfCopy DumpUintArray:buf array:v434 + 509 count:18 numberPerRow:18];
+      }
+
+      if (v433)
+      {
+        snprintf(buf, 0x100uLL, "    %s: peakingConfigV3Hcu:", "[ASEProcessingT1 DumpOutputHcus:]");
+        if (logLevel >= 3)
+        {
+          v404 = MEMORY[0x277D86220];
+          v405 = MEMORY[0x277D86220];
+          if (os_log_type_enabled(v404, OS_LOG_TYPE_DEFAULT))
+          {
+            *v437 = 136315138;
+            v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+            _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: -----------------------------------------------\n", v437, 0xCu);
+          }
+
+          if (logLevel >= 3)
+          {
+            v406 = v404;
+            if (os_log_type_enabled(v404, OS_LOG_TYPE_DEFAULT))
+            {
+              v407 = *v433;
+              *v437 = 136315394;
+              v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+              v439 = 1024;
+              *v440 = v407;
+              _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: peakingConfigV3Hcu: gainForce = %d\n", v437, 0x12u);
             }
 
             if (logLevel >= 3)
             {
-              v409 = v405;
-              if (os_log_type_enabled(v405, OS_LOG_TYPE_DEFAULT))
+              v408 = v404;
+              if (os_log_type_enabled(v404, OS_LOG_TYPE_DEFAULT))
               {
-                *v438 = 136315138;
-                v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-                _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: peakingConfigV3Hcu: coreGainCurve:\n", v438, 0xCu);
+                *v437 = 136315138;
+                v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+                _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: peakingConfigV3Hcu: coreGainCurve:\n", v437, 0xCu);
               }
             }
           }
         }
 
-        [(ASEProcessingT1 *)selfCopy DumpPiecewiseLinearCurveV3:buf curve:v434 + 1];
+        [(ASEProcessingT1 *)selfCopy DumpPiecewiseLinearCurveV3:buf curve:v433 + 1];
         if (logLevel >= 3)
         {
+          v409 = MEMORY[0x277D86220];
           v410 = MEMORY[0x277D86220];
+          if (os_log_type_enabled(v409, OS_LOG_TYPE_DEFAULT))
+          {
+            *v437 = 136315138;
+            v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+            _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: peakingConfigV3Hcu: lowAdaptGainCurve:\n", v437, 0xCu);
+          }
+        }
+
+        [(ASEProcessingT1 *)selfCopy DumpPiecewiseLinearCurveV3:buf curve:v433 + 97];
+        if (logLevel >= 3)
+        {
           v411 = MEMORY[0x277D86220];
-          if (os_log_type_enabled(v410, OS_LOG_TYPE_DEFAULT))
-          {
-            *v438 = 136315138;
-            v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-            _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: peakingConfigV3Hcu: lowAdaptGainCurve:\n", v438, 0xCu);
-          }
-        }
-
-        [(ASEProcessingT1 *)selfCopy DumpPiecewiseLinearCurveV3:buf curve:v434 + 97];
-        if (logLevel >= 3)
-        {
           v412 = MEMORY[0x277D86220];
-          v413 = MEMORY[0x277D86220];
-          if (os_log_type_enabled(v412, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(v411, OS_LOG_TYPE_DEFAULT))
           {
-            *v438 = 136315138;
-            v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-            _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: peakingConfigV3Hcu: mediumAdaptGainCurve:\n", v438, 0xCu);
+            *v437 = 136315138;
+            v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+            _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: peakingConfigV3Hcu: mediumAdaptGainCurve:\n", v437, 0xCu);
           }
         }
 
-        [(ASEProcessingT1 *)selfCopy DumpPiecewiseLinearCurveV3:buf curve:v434 + 193];
+        [(ASEProcessingT1 *)selfCopy DumpPiecewiseLinearCurveV3:buf curve:v433 + 193];
         if (logLevel >= 3)
         {
+          v413 = MEMORY[0x277D86220];
           v414 = MEMORY[0x277D86220];
-          v415 = MEMORY[0x277D86220];
-          if (os_log_type_enabled(v414, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(v413, OS_LOG_TYPE_DEFAULT))
           {
-            v416 = *(v434 + 289);
-            v417 = *(v434 + 290);
-            v418 = *(v434 + 291);
-            v419 = *(v434 + 292);
-            v420 = *(v434 + 293);
-            *v438 = 136316418;
-            v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-            v440 = 1024;
-            *v441 = v416;
-            *&v441[4] = 1024;
-            *&v441[6] = v417;
-            *v442 = 1024;
-            *&v442[2] = v418;
-            *&v442[6] = 1024;
-            *&v442[8] = v419;
-            *&v442[12] = 1024;
-            *&v442[14] = v420;
-            _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: peakingConfigV3Hcu: peakingGain: adaptive = %u, gain5_3 = %u, gain7_5 = %u, gain11_9 = %u, gain13_11 = %u,\n", v438, 0x2Au);
+            v415 = *(v433 + 289);
+            v416 = *(v433 + 290);
+            v417 = *(v433 + 291);
+            v418 = *(v433 + 292);
+            v419 = *(v433 + 293);
+            *v437 = 136316418;
+            v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+            v439 = 1024;
+            *v440 = v415;
+            *&v440[4] = 1024;
+            *&v440[6] = v416;
+            *v441 = 1024;
+            *&v441[2] = v417;
+            *&v441[6] = 1024;
+            *&v441[8] = v418;
+            *&v441[12] = 1024;
+            *&v441[14] = v419;
+            _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: peakingConfigV3Hcu: peakingGain: adaptive = %u, gain5_3 = %u, gain7_5 = %u, gain11_9 = %u, gain13_11 = %u,\n", v437, 0x2Au);
           }
         }
 
         snprintf(buf, 0x100uLL, "    %s: peakingConfigV3Hcu: filt3 :", "[ASEProcessingT1 DumpOutputHcus:]");
-        [(ASEProcessingT1 *)selfCopy DumpIntArray:buf array:v434 + 294 count:2 numberPerRow:2];
+        [(ASEProcessingT1 *)selfCopy DumpIntArray:buf array:v433 + 294 count:2 numberPerRow:2];
         snprintf(buf, 0x100uLL, "    %s: peakingConfigV3Hcu: filt5 :", "[ASEProcessingT1 DumpOutputHcus:]");
-        [(ASEProcessingT1 *)selfCopy DumpIntArray:buf array:v434 + 296 count:3 numberPerRow:3];
+        [(ASEProcessingT1 *)selfCopy DumpIntArray:buf array:v433 + 296 count:3 numberPerRow:3];
         snprintf(buf, 0x100uLL, "    %s: peakingConfigV3Hcu: filt7 :", "[ASEProcessingT1 DumpOutputHcus:]");
-        [(ASEProcessingT1 *)selfCopy DumpIntArray:buf array:v434 + 299 count:4 numberPerRow:4];
+        [(ASEProcessingT1 *)selfCopy DumpIntArray:buf array:v433 + 299 count:4 numberPerRow:4];
         snprintf(buf, 0x100uLL, "    %s: peakingConfigV3Hcu: filt9 :", "[ASEProcessingT1 DumpOutputHcus:]");
-        [(ASEProcessingT1 *)selfCopy DumpIntArray:buf array:v434 + 303 count:5 numberPerRow:5];
+        [(ASEProcessingT1 *)selfCopy DumpIntArray:buf array:v433 + 303 count:5 numberPerRow:5];
         snprintf(buf, 0x100uLL, "    %s: peakingConfigV3Hcu: filt11 :", "[ASEProcessingT1 DumpOutputHcus:]");
-        [(ASEProcessingT1 *)selfCopy DumpIntArray:buf array:v434 + 308 count:6 numberPerRow:6];
+        [(ASEProcessingT1 *)selfCopy DumpIntArray:buf array:v433 + 308 count:6 numberPerRow:6];
         snprintf(buf, 0x100uLL, "    %s: peakingConfigV3Hcu: filt13 :", "[ASEProcessingT1 DumpOutputHcus:]");
-        [(ASEProcessingT1 *)selfCopy DumpIntArray:buf array:v434 + 314 count:7 numberPerRow:7];
+        [(ASEProcessingT1 *)selfCopy DumpIntArray:buf array:v433 + 314 count:7 numberPerRow:7];
       }
 
-      if (v432 && logLevel >= 3)
+      if (v431 && logLevel >= 3)
       {
+        v420 = MEMORY[0x277D86220];
         v421 = MEMORY[0x277D86220];
-        v422 = MEMORY[0x277D86220];
-        if (os_log_type_enabled(v421, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v420, OS_LOG_TYPE_DEFAULT))
         {
-          *v438 = 136315138;
-          v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-          _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: -----------------------------------------------\n", v438, 0xCu);
+          *v437 = 136315138;
+          v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+          _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: -----------------------------------------------\n", v437, 0xCu);
         }
 
         if (logLevel >= 3)
         {
-          v423 = v421;
-          if (os_log_type_enabled(v421, OS_LOG_TYPE_DEFAULT))
+          v422 = v420;
+          if (os_log_type_enabled(v420, OS_LOG_TYPE_DEFAULT))
           {
-            v424 = *v432;
-            v425 = v432[1];
-            *v438 = 136315650;
-            v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-            v440 = 1024;
-            *v441 = v424;
-            *&v441[4] = 1024;
-            *&v441[6] = v425;
-            _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: noiseMeterV3Hcu: NoiseMeter: NoiseMeterConfig: sizeX = %u, sizeY = %u\n", v438, 0x18u);
+            v423 = *v431;
+            v424 = v431[1];
+            *v437 = 136315650;
+            v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+            v439 = 1024;
+            *v440 = v423;
+            *&v440[4] = 1024;
+            *&v440[6] = v424;
+            _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: noiseMeterV3Hcu: NoiseMeter: NoiseMeterConfig: sizeX = %u, sizeY = %u\n", v437, 0x18u);
           }
 
           if (logLevel >= 3)
           {
-            v426 = v421;
-            if (os_log_type_enabled(v421, OS_LOG_TYPE_DEFAULT))
+            v425 = v420;
+            if (os_log_type_enabled(v420, OS_LOG_TYPE_DEFAULT))
             {
-              v427 = v432[2];
-              v428 = v432[3];
-              v429 = v432[4];
-              *v438 = 136315906;
-              v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-              v440 = 1024;
-              *v441 = v427;
-              *&v441[4] = 1024;
-              *&v441[6] = v428;
-              *v442 = 1024;
-              *&v442[2] = v429;
-              _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: noiseMeterV3Hcu: NoiseMeter: NoiseMeterGainControl: lut0Gain = %u, lut1Gain = %u, lut2Gain = %u\n", v438, 0x1Eu);
+              v426 = v431[2];
+              v427 = v431[3];
+              v428 = v431[4];
+              *v437 = 136315906;
+              v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+              v439 = 1024;
+              *v440 = v426;
+              *&v440[4] = 1024;
+              *&v440[6] = v427;
+              *v441 = 1024;
+              *&v441[2] = v428;
+              _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: noiseMeterV3Hcu: NoiseMeter: NoiseMeterGainControl: lut0Gain = %u, lut1Gain = %u, lut2Gain = %u\n", v437, 0x1Eu);
             }
           }
         }
@@ -810,16 +860,16 @@ LABEL_35:
 
     if (dumpOutputHcu)
     {
-      if (v436 && logLevel >= 3)
+      if (v435 && logLevel >= 3)
       {
         msrBaseAddr = selfCopy->_msrBaseAddr;
         v24 = MEMORY[0x277D86220];
         v25 = MEMORY[0x277D86220];
         if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
         {
-          *v438 = 136315138;
-          v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-          _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: -----------------------------------------------\n", v438, 0xCu);
+          *v437 = 136315138;
+          v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+          _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: -----------------------------------------------\n", v437, 0xCu);
         }
 
         if (logLevel >= 3)
@@ -827,20 +877,20 @@ LABEL_35:
           v26 = v24;
           if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
           {
-            v27 = v436[1];
-            *v438 = 136316418;
-            v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-            v440 = 2048;
-            *v441 = msrBaseAddr + 39824;
+            v27 = v435[1];
+            *v437 = 136316418;
+            v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+            v439 = 2048;
+            *v440 = msrBaseAddr + 39824;
+            *&v440[8] = 2080;
+            *v441 = "XXXXXXXX";
             *&v441[8] = 2080;
-            *v442 = "XXXXXXXX";
-            *&v442[8] = 2080;
-            *&v442[10] = "XXXXXXXX";
-            *&v442[18] = 2080;
-            *&v442[20] = "XXXXXXXX";
-            *&v442[28] = 1024;
-            *&v442[30] = v27;
-            _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %s %s %s %08x\n", v438, 0x3Au);
+            *&v441[10] = "XXXXXXXX";
+            *&v441[18] = 2080;
+            *&v441[20] = "XXXXXXXX";
+            *&v441[28] = 1024;
+            *&v441[30] = v27;
+            _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %s %s %s %08x\n", v437, 0x3Au);
           }
 
           if (logLevel >= 3)
@@ -849,20 +899,20 @@ LABEL_35:
             v29 = v24;
             if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
             {
-              v30 = *v436 & 7;
-              *v438 = 136316418;
-              v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-              v440 = 2048;
-              *v441 = v28 + 39856;
-              *&v441[8] = 2080;
-              *v442 = "XXXXXXXX";
-              *&v442[8] = 1024;
-              *&v442[10] = v30;
-              *&v442[14] = 2080;
-              *&v442[16] = "XXXXXXXX";
-              *&v442[24] = 2080;
-              *&v442[26] = "XXXXXXXX";
-              _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %s %08x %s %s\n", v438, 0x3Au);
+              v30 = *v435 & 7;
+              *v437 = 136316418;
+              v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+              v439 = 2048;
+              *v440 = v28 + 39856;
+              *&v440[8] = 2080;
+              *v441 = "XXXXXXXX";
+              *&v441[8] = 1024;
+              *&v441[10] = v30;
+              *&v441[14] = 2080;
+              *&v441[16] = "XXXXXXXX";
+              *&v441[24] = 2080;
+              *&v441[26] = "XXXXXXXX";
+              _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %s %08x %s %s\n", v437, 0x3Au);
             }
           }
         }
@@ -875,9 +925,9 @@ LABEL_35:
         v33 = MEMORY[0x277D86220];
         if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
         {
-          *v438 = 136315138;
-          v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-          _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: -----------------------------------------------\n", v438, 0xCu);
+          *v437 = 136315138;
+          v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+          _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: -----------------------------------------------\n", v437, 0xCu);
         }
 
         if (logLevel >= 3)
@@ -888,19 +938,19 @@ LABEL_35:
             v35 = v22[3];
             v37 = *v22;
             v36 = v22[1];
-            *v438 = 136316418;
-            v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-            v440 = 2048;
-            *v441 = v31 + 40448;
-            *&v441[8] = 2080;
-            *v442 = "XXXXXXXX";
-            *&v442[8] = 1024;
-            *&v442[10] = v36;
-            *&v442[14] = 1024;
-            *&v442[16] = v35;
-            *&v442[20] = 1024;
-            *&v442[22] = v37;
-            _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %s %08x %08x %08x\n", v438, 0x32u);
+            *v437 = 136316418;
+            v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+            v439 = 2048;
+            *v440 = v31 + 40448;
+            *&v440[8] = 2080;
+            *v441 = "XXXXXXXX";
+            *&v441[8] = 1024;
+            *&v441[10] = v36;
+            *&v441[14] = 1024;
+            *&v441[16] = v35;
+            *&v441[20] = 1024;
+            *&v441[22] = v37;
+            _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %s %08x %08x %08x\n", v437, 0x32u);
           }
 
           if (logLevel >= 3)
@@ -911,25 +961,25 @@ LABEL_35:
               v39 = v22[2];
               v41 = v22[4];
               v40 = v22[5];
-              *v438 = 136316418;
-              v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-              v440 = 2048;
-              *v441 = v31 + 40464;
-              *&v441[8] = 1024;
-              *v442 = v39;
-              *&v442[4] = 1024;
-              *&v442[6] = v40;
-              *&v442[10] = 1024;
-              *&v442[12] = v41;
-              *&v442[16] = 2080;
-              *&v442[18] = "XXXXXXXX";
-              _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %s\n", v438, 0x32u);
+              *v437 = 136316418;
+              v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+              v439 = 2048;
+              *v440 = v31 + 40464;
+              *&v440[8] = 1024;
+              *v441 = v39;
+              *&v441[4] = 1024;
+              *&v441[6] = v40;
+              *&v441[10] = 1024;
+              *&v441[12] = v41;
+              *&v441[16] = 2080;
+              *&v441[18] = "XXXXXXXX";
+              _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %s\n", v437, 0x32u);
             }
           }
         }
       }
 
-      if (v433)
+      if (v432)
       {
         v42 = selfCopy->_msrBaseAddr;
         v43 = logLevel;
@@ -939,16 +989,16 @@ LABEL_35:
           v45 = MEMORY[0x277D86220];
           if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
           {
-            *v438 = 136315138;
-            v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-            _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: -----------------------------------------------\n", v438, 0xCu);
+            *v437 = 136315138;
+            v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+            _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: -----------------------------------------------\n", v437, 0xCu);
           }
 
           v43 = logLevel;
         }
 
         v46 = v42 + 40576;
-        v47 = (v433 + 16);
+        v47 = (v432 + 16);
         v48 = 4;
         v49 = MEMORY[0x277D86220];
         do
@@ -966,19 +1016,19 @@ LABEL_35:
               v56 = v55 | (float_to_twos_complement(3, 12, *(v47 - 11)) << 16);
               v57 = float_to_twos_complement(3, 12, *(v47 - 10));
               v58 = float_to_twos_complement(3, 12, *(v47 - 9));
-              *v438 = 136316418;
-              v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-              v440 = 2048;
-              *v441 = v46;
-              *&v441[8] = 1024;
-              *v442 = v52;
-              *&v442[4] = 1024;
-              *&v442[6] = v54;
-              *&v442[10] = 1024;
-              *&v442[12] = v56;
-              *&v442[16] = 1024;
-              *&v442[18] = v57 | (v58 << 16);
-              _os_log_impl(&dword_23D3F2000, v49, OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v438, 0x2Eu);
+              *v437 = 136316418;
+              v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+              v439 = 2048;
+              *v440 = v46;
+              *&v440[8] = 1024;
+              *v441 = v52;
+              *&v441[4] = 1024;
+              *&v441[6] = v54;
+              *&v441[10] = 1024;
+              *&v441[12] = v56;
+              *&v441[16] = 1024;
+              *&v441[18] = v57 | (v58 << 16);
+              _os_log_impl(&dword_23D3F2000, v49, OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v437, 0x2Eu);
             }
 
             v43 = logLevel;
@@ -995,19 +1045,19 @@ LABEL_35:
                 v65 = v64 | (float_to_twos_complement(3, 12, *(v47 - 3)) << 16);
                 v66 = float_to_twos_complement(3, 12, *(v47 - 2));
                 v67 = float_to_twos_complement(3, 12, *(v47 - 1));
-                *v438 = 136316418;
-                v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-                v440 = 2048;
-                *v441 = v46 + 16;
-                *&v441[8] = 1024;
-                *v442 = v61;
-                *&v442[4] = 1024;
-                *&v442[6] = v63;
-                *&v442[10] = 1024;
-                *&v442[12] = v65;
-                *&v442[16] = 1024;
-                *&v442[18] = v66 | (v67 << 16);
-                _os_log_impl(&dword_23D3F2000, v49, OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v438, 0x2Eu);
+                *v437 = 136316418;
+                v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+                v439 = 2048;
+                *v440 = v46 + 16;
+                *&v440[8] = 1024;
+                *v441 = v61;
+                *&v441[4] = 1024;
+                *&v441[6] = v63;
+                *&v441[10] = 1024;
+                *&v441[12] = v65;
+                *&v441[16] = 1024;
+                *&v441[18] = v66 | (v67 << 16);
+                _os_log_impl(&dword_23D3F2000, v49, OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v437, 0x2Eu);
               }
 
               v43 = logLevel;
@@ -1024,19 +1074,19 @@ LABEL_35:
                   v74 = v73 | (float_to_twos_complement(3, 12, v47[5]) << 16);
                   v75 = float_to_twos_complement(3, 12, v47[6]);
                   v76 = float_to_twos_complement(3, 12, v47[7]);
-                  *v438 = 136316418;
-                  v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-                  v440 = 2048;
-                  *v441 = v46 + 32;
-                  *&v441[8] = 1024;
-                  *v442 = v70;
-                  *&v442[4] = 1024;
-                  *&v442[6] = v72;
-                  *&v442[10] = 1024;
-                  *&v442[12] = v74;
-                  *&v442[16] = 1024;
-                  *&v442[18] = v75 | (v76 << 16);
-                  _os_log_impl(&dword_23D3F2000, v49, OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v438, 0x2Eu);
+                  *v437 = 136316418;
+                  v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+                  v439 = 2048;
+                  *v440 = v46 + 32;
+                  *&v440[8] = 1024;
+                  *v441 = v70;
+                  *&v441[4] = 1024;
+                  *&v441[6] = v72;
+                  *&v441[10] = 1024;
+                  *&v441[12] = v74;
+                  *&v441[16] = 1024;
+                  *&v441[18] = v75 | (v76 << 16);
+                  _os_log_impl(&dword_23D3F2000, v49, OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v437, 0x2Eu);
                 }
 
                 v43 = logLevel;
@@ -1053,19 +1103,19 @@ LABEL_35:
                     v83 = v82 | (float_to_twos_complement(3, 12, v47[13]) << 16);
                     v84 = float_to_twos_complement(3, 12, v47[14]);
                     v85 = float_to_twos_complement(3, 12, v47[15]);
-                    *v438 = 136316418;
-                    v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-                    v440 = 2048;
-                    *v441 = v46 + 48;
-                    *&v441[8] = 1024;
-                    *v442 = v79;
-                    *&v442[4] = 1024;
-                    *&v442[6] = v81;
-                    *&v442[10] = 1024;
-                    *&v442[12] = v83;
-                    *&v442[16] = 1024;
-                    *&v442[18] = v84 | (v85 << 16);
-                    _os_log_impl(&dword_23D3F2000, v49, OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v438, 0x2Eu);
+                    *v437 = 136316418;
+                    v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+                    v439 = 2048;
+                    *v440 = v46 + 48;
+                    *&v440[8] = 1024;
+                    *v441 = v79;
+                    *&v441[4] = 1024;
+                    *&v441[6] = v81;
+                    *&v441[10] = 1024;
+                    *&v441[12] = v83;
+                    *&v441[16] = 1024;
+                    *&v441[18] = v84 | (v85 << 16);
+                    _os_log_impl(&dword_23D3F2000, v49, OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v437, 0x2Eu);
                   }
 
                   v43 = logLevel;
@@ -1082,18 +1132,18 @@ LABEL_35:
         while (v48);
       }
 
-      v86 = v437;
+      v86 = v436;
       v87 = selfCopy;
-      if (v437 && logLevel >= 3)
+      if (v436 && logLevel >= 3)
       {
         v88 = selfCopy->_msrBaseAddr;
         v89 = MEMORY[0x277D86220];
         v90 = MEMORY[0x277D86220];
         if (os_log_type_enabled(v89, OS_LOG_TYPE_DEFAULT))
         {
-          *v438 = 136315138;
-          v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-          _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: -----------------------------------------------\n", v438, 0xCu);
+          *v437 = 136315138;
+          v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+          _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: -----------------------------------------------\n", v437, 0xCu);
         }
 
         if (logLevel >= 3)
@@ -1102,23 +1152,23 @@ LABEL_35:
           v92 = v89;
           if (os_log_type_enabled(v89, OS_LOG_TYPE_DEFAULT))
           {
-            v93 = *v437 & 0x7FF | ((v437[3] & 0x7FF) << 16);
-            v94 = v437[6] & 0x7FF | ((v437[9] & 0x7FF) << 16);
-            v95 = v437[12] & 0x7FF | ((v437[15] & 0x7FF) << 16);
-            v96 = v437[18] & 0x7FF | ((v437[21] & 0x7FF) << 16);
-            *v438 = 136316418;
-            v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-            v440 = 2048;
-            *v441 = v88 + 41008;
-            *&v441[8] = 1024;
-            *v442 = v93;
-            *&v442[4] = 1024;
-            *&v442[6] = v94;
-            *&v442[10] = 1024;
-            *&v442[12] = v95;
-            *&v442[16] = 1024;
-            *&v442[18] = v96;
-            _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v438, 0x2Eu);
+            v93 = *v436 & 0x7FF | ((v436[3] & 0x7FF) << 16);
+            v94 = v436[6] & 0x7FF | ((v436[9] & 0x7FF) << 16);
+            v95 = v436[12] & 0x7FF | ((v436[15] & 0x7FF) << 16);
+            v96 = v436[18] & 0x7FF | ((v436[21] & 0x7FF) << 16);
+            *v437 = 136316418;
+            v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+            v439 = 2048;
+            *v440 = v88 + 41008;
+            *&v440[8] = 1024;
+            *v441 = v93;
+            *&v441[4] = 1024;
+            *&v441[6] = v94;
+            *&v441[10] = 1024;
+            *&v441[12] = v95;
+            *&v441[16] = 1024;
+            *&v441[18] = v96;
+            _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v437, 0x2Eu);
           }
 
           if (logLevel >= 3)
@@ -1126,26 +1176,26 @@ LABEL_35:
             v97 = v89;
             if (os_log_type_enabled(v89, OS_LOG_TYPE_DEFAULT))
             {
-              v98 = v437[8];
-              v99 = v437[11];
-              v100 = v437[2];
-              v101 = v437[5];
+              v98 = v436[8];
+              v99 = v436[11];
+              v100 = v436[2];
+              v101 = v436[5];
               v91 = v88 + 41024;
-              v102 = v437[1] | (v437[4] << 8) | (v437[7] << 16) | (v437[10] << 24);
-              v103 = v437[13] | (v437[16] << 8) | (v437[19] << 16) | (v437[22] << 24);
-              *v438 = 136316418;
-              v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-              v440 = 2048;
-              *v441 = v88 + 41024;
-              *&v441[8] = 1024;
-              *v442 = v102;
-              *&v442[4] = 1024;
-              *&v442[6] = v103;
-              *&v442[10] = 1024;
-              *&v442[12] = v100 & 0x1FF | ((v101 & 0x1FF) << 16);
-              *&v442[16] = 1024;
-              *&v442[18] = v98 & 0x1FF | ((v99 & 0x1FF) << 16);
-              _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v438, 0x2Eu);
+              v102 = v436[1] | (v436[4] << 8) | (v436[7] << 16) | (v436[10] << 24);
+              v103 = v436[13] | (v436[16] << 8) | (v436[19] << 16) | (v436[22] << 24);
+              *v437 = 136316418;
+              v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+              v439 = 2048;
+              *v440 = v88 + 41024;
+              *&v440[8] = 1024;
+              *v441 = v102;
+              *&v441[4] = 1024;
+              *&v441[6] = v103;
+              *&v441[10] = 1024;
+              *&v441[12] = v100 & 0x1FF | ((v101 & 0x1FF) << 16);
+              *&v441[16] = 1024;
+              *&v441[18] = v98 & 0x1FF | ((v99 & 0x1FF) << 16);
+              _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v437, 0x2Eu);
             }
 
             if (logLevel >= 3)
@@ -1153,37 +1203,37 @@ LABEL_35:
               v104 = v89;
               if (os_log_type_enabled(v89, OS_LOG_TYPE_DEFAULT))
               {
-                v105 = v437[14] & 0x1FF | ((v437[17] & 0x1FF) << 16);
-                v106 = v437[20] & 0x1FF | ((v437[23] & 0x1FF) << 16);
-                *v438 = 136316418;
-                v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-                v440 = 2048;
-                *v441 = v91 + 16;
-                *&v441[8] = 1024;
-                *v442 = v105;
-                *&v442[4] = 1024;
-                *&v442[6] = v106;
-                *&v442[10] = 2080;
-                *&v442[12] = "XXXXXXXX";
-                *&v442[20] = 2080;
-                *&v442[22] = "XXXXXXXX";
-                _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %s %s\n", v438, 0x36u);
+                v105 = v436[14] & 0x1FF | ((v436[17] & 0x1FF) << 16);
+                v106 = v436[20] & 0x1FF | ((v436[23] & 0x1FF) << 16);
+                *v437 = 136316418;
+                v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+                v439 = 2048;
+                *v440 = v91 + 16;
+                *&v440[8] = 1024;
+                *v441 = v105;
+                *&v441[4] = 1024;
+                *&v441[6] = v106;
+                *&v441[10] = 2080;
+                *&v441[12] = "XXXXXXXX";
+                *&v441[20] = 2080;
+                *&v441[22] = "XXXXXXXX";
+                _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %s %s\n", v437, 0x36u);
               }
             }
           }
         }
       }
 
-      if (v435 && logLevel >= 3)
+      if (v434 && logLevel >= 3)
       {
         v107 = selfCopy->_msrBaseAddr;
         v108 = MEMORY[0x277D86220];
         v109 = MEMORY[0x277D86220];
         if (os_log_type_enabled(v108, OS_LOG_TYPE_DEFAULT))
         {
-          *v438 = 136315138;
-          v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-          _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: -----------------------------------------------\n", v438, 0xCu);
+          *v437 = 136315138;
+          v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+          _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: -----------------------------------------------\n", v437, 0xCu);
         }
 
         if (logLevel >= 3)
@@ -1192,22 +1242,22 @@ LABEL_35:
           v111 = v108;
           if (os_log_type_enabled(v108, OS_LOG_TYPE_DEFAULT))
           {
-            v112 = v435[384] & 0xFFF | ((v435[387] & 0xFFF) << 16);
-            v113 = v435[390] & 0xFFF | ((v435[393] & 0xFFF) << 16);
-            v114 = v435[396] & 0xFFF | ((v435[399] & 0xFFF) << 16);
-            *v438 = 136316418;
-            v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-            v440 = 2048;
-            *v441 = v107 + 41216;
-            *&v441[8] = 2080;
-            *v442 = "XXXXXXXX";
-            *&v442[8] = 1024;
-            *&v442[10] = v112;
-            *&v442[14] = 1024;
-            *&v442[16] = v113;
-            *&v442[20] = 1024;
-            *&v442[22] = v114;
-            _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %s %08x %08x %08x\n", v438, 0x32u);
+            v112 = v434[384] & 0xFFF | ((v434[387] & 0xFFF) << 16);
+            v113 = v434[390] & 0xFFF | ((v434[393] & 0xFFF) << 16);
+            v114 = v434[396] & 0xFFF | ((v434[399] & 0xFFF) << 16);
+            *v437 = 136316418;
+            v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+            v439 = 2048;
+            *v440 = v107 + 41216;
+            *&v440[8] = 2080;
+            *v441 = "XXXXXXXX";
+            *&v441[8] = 1024;
+            *&v441[10] = v112;
+            *&v441[14] = 1024;
+            *&v441[16] = v113;
+            *&v441[20] = 1024;
+            *&v441[22] = v114;
+            _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %s %08x %08x %08x\n", v437, 0x32u);
           }
 
           if (logLevel >= 3)
@@ -1216,23 +1266,23 @@ LABEL_35:
             if (os_log_type_enabled(v108, OS_LOG_TYPE_DEFAULT))
             {
               v110 = v107 + 41232;
-              v116 = v435[402] & 0xFFF | ((v435[405] & 0xFFF) << 16);
-              v117 = *v435 | (v435[3] << 16);
-              v118 = v435[6] | (v435[9] << 16);
-              v119 = v435[12] | (v435[15] << 16);
-              *v438 = 136316418;
-              v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-              v440 = 2048;
-              *v441 = v107 + 41232;
-              *&v441[8] = 1024;
-              *v442 = v116;
-              *&v442[4] = 1024;
-              *&v442[6] = v117;
-              *&v442[10] = 1024;
-              *&v442[12] = v118;
-              *&v442[16] = 1024;
-              *&v442[18] = v119;
-              _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v438, 0x2Eu);
+              v116 = v434[402] & 0xFFF | ((v434[405] & 0xFFF) << 16);
+              v117 = *v434 | (v434[3] << 16);
+              v118 = v434[6] | (v434[9] << 16);
+              v119 = v434[12] | (v434[15] << 16);
+              *v437 = 136316418;
+              v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+              v439 = 2048;
+              *v440 = v107 + 41232;
+              *&v440[8] = 1024;
+              *v441 = v116;
+              *&v441[4] = 1024;
+              *&v441[6] = v117;
+              *&v441[10] = 1024;
+              *&v441[12] = v118;
+              *&v441[16] = 1024;
+              *&v441[18] = v119;
+              _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v437, 0x2Eu);
             }
 
             if (logLevel >= 3)
@@ -1241,23 +1291,23 @@ LABEL_35:
               if (os_log_type_enabled(v108, OS_LOG_TYPE_DEFAULT))
               {
                 v110 += 16;
-                v121 = v435[18] | (v435[21] << 16);
-                v122 = v435[24] | (v435[27] << 16);
-                v123 = v435[30] | (v435[33] << 16);
-                v124 = v435[36] | (v435[39] << 16);
-                *v438 = 136316418;
-                v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-                v440 = 2048;
-                *v441 = v110;
-                *&v441[8] = 1024;
-                *v442 = v121;
-                *&v442[4] = 1024;
-                *&v442[6] = v122;
-                *&v442[10] = 1024;
-                *&v442[12] = v123;
-                *&v442[16] = 1024;
-                *&v442[18] = v124;
-                _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v438, 0x2Eu);
+                v121 = v434[18] | (v434[21] << 16);
+                v122 = v434[24] | (v434[27] << 16);
+                v123 = v434[30] | (v434[33] << 16);
+                v124 = v434[36] | (v434[39] << 16);
+                *v437 = 136316418;
+                v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+                v439 = 2048;
+                *v440 = v110;
+                *&v440[8] = 1024;
+                *v441 = v121;
+                *&v441[4] = 1024;
+                *&v441[6] = v122;
+                *&v441[10] = 1024;
+                *&v441[12] = v123;
+                *&v441[16] = 1024;
+                *&v441[18] = v124;
+                _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v437, 0x2Eu);
               }
 
               if (logLevel >= 3)
@@ -1266,23 +1316,23 @@ LABEL_35:
                 if (os_log_type_enabled(v108, OS_LOG_TYPE_DEFAULT))
                 {
                   v110 += 16;
-                  v126 = v435[42] | (v435[45] << 16);
-                  v127 = v435[2] & 0x3FF | ((v435[5] & 0x3FF) << 16);
-                  v128 = v435[8] & 0x3FF | ((v435[11] & 0x3FF) << 16);
-                  v129 = v435[14] & 0x3FF | ((v435[17] & 0x3FF) << 16);
-                  *v438 = 136316418;
-                  v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-                  v440 = 2048;
-                  *v441 = v110;
-                  *&v441[8] = 1024;
-                  *v442 = v126;
-                  *&v442[4] = 1024;
-                  *&v442[6] = v127;
-                  *&v442[10] = 1024;
-                  *&v442[12] = v128;
-                  *&v442[16] = 1024;
-                  *&v442[18] = v129;
-                  _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v438, 0x2Eu);
+                  v126 = v434[42] | (v434[45] << 16);
+                  v127 = v434[2] & 0x3FF | ((v434[5] & 0x3FF) << 16);
+                  v128 = v434[8] & 0x3FF | ((v434[11] & 0x3FF) << 16);
+                  v129 = v434[14] & 0x3FF | ((v434[17] & 0x3FF) << 16);
+                  *v437 = 136316418;
+                  v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+                  v439 = 2048;
+                  *v440 = v110;
+                  *&v440[8] = 1024;
+                  *v441 = v126;
+                  *&v441[4] = 1024;
+                  *&v441[6] = v127;
+                  *&v441[10] = 1024;
+                  *&v441[12] = v128;
+                  *&v441[16] = 1024;
+                  *&v441[18] = v129;
+                  _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v437, 0x2Eu);
                 }
 
                 if (logLevel >= 3)
@@ -1291,23 +1341,23 @@ LABEL_35:
                   if (os_log_type_enabled(v108, OS_LOG_TYPE_DEFAULT))
                   {
                     v110 += 16;
-                    v131 = v435[20] & 0x3FF | ((v435[23] & 0x3FF) << 16);
-                    v132 = v435[26] & 0x3FF | ((v435[29] & 0x3FF) << 16);
-                    v133 = v435[32] & 0x3FF | ((v435[35] & 0x3FF) << 16);
-                    v134 = v435[38] & 0x3FF | ((v435[41] & 0x3FF) << 16);
-                    *v438 = 136316418;
-                    v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-                    v440 = 2048;
-                    *v441 = v110;
-                    *&v441[8] = 1024;
-                    *v442 = v131;
-                    *&v442[4] = 1024;
-                    *&v442[6] = v132;
-                    *&v442[10] = 1024;
-                    *&v442[12] = v133;
-                    *&v442[16] = 1024;
-                    *&v442[18] = v134;
-                    _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v438, 0x2Eu);
+                    v131 = v434[20] & 0x3FF | ((v434[23] & 0x3FF) << 16);
+                    v132 = v434[26] & 0x3FF | ((v434[29] & 0x3FF) << 16);
+                    v133 = v434[32] & 0x3FF | ((v434[35] & 0x3FF) << 16);
+                    v134 = v434[38] & 0x3FF | ((v434[41] & 0x3FF) << 16);
+                    *v437 = 136316418;
+                    v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+                    v439 = 2048;
+                    *v440 = v110;
+                    *&v440[8] = 1024;
+                    *v441 = v131;
+                    *&v441[4] = 1024;
+                    *&v441[6] = v132;
+                    *&v441[10] = 1024;
+                    *&v441[12] = v133;
+                    *&v441[16] = 1024;
+                    *&v441[18] = v134;
+                    _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v437, 0x2Eu);
                   }
 
                   if (logLevel >= 3)
@@ -1316,23 +1366,23 @@ LABEL_35:
                     if (os_log_type_enabled(v108, OS_LOG_TYPE_DEFAULT))
                     {
                       v110 += 16;
-                      v136 = v435[44] & 0x3FF | ((v435[47] & 0x3FF) << 16);
-                      v137 = v435[1] & 0x3FF | ((v435[4] & 0x3FF) << 16);
-                      v138 = v435[7] & 0x3FF | ((v435[10] & 0x3FF) << 16);
-                      v139 = v435[13] & 0x3FF | ((v435[16] & 0x3FF) << 16);
-                      *v438 = 136316418;
-                      v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-                      v440 = 2048;
-                      *v441 = v110;
-                      *&v441[8] = 1024;
-                      *v442 = v136;
-                      *&v442[4] = 1024;
-                      *&v442[6] = v137;
-                      *&v442[10] = 1024;
-                      *&v442[12] = v138;
-                      *&v442[16] = 1024;
-                      *&v442[18] = v139;
-                      _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v438, 0x2Eu);
+                      v136 = v434[44] & 0x3FF | ((v434[47] & 0x3FF) << 16);
+                      v137 = v434[1] & 0x3FF | ((v434[4] & 0x3FF) << 16);
+                      v138 = v434[7] & 0x3FF | ((v434[10] & 0x3FF) << 16);
+                      v139 = v434[13] & 0x3FF | ((v434[16] & 0x3FF) << 16);
+                      *v437 = 136316418;
+                      v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+                      v439 = 2048;
+                      *v440 = v110;
+                      *&v440[8] = 1024;
+                      *v441 = v136;
+                      *&v441[4] = 1024;
+                      *&v441[6] = v137;
+                      *&v441[10] = 1024;
+                      *&v441[12] = v138;
+                      *&v441[16] = 1024;
+                      *&v441[18] = v139;
+                      _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v437, 0x2Eu);
                     }
 
                     if (logLevel >= 3)
@@ -1341,23 +1391,23 @@ LABEL_35:
                       if (os_log_type_enabled(v108, OS_LOG_TYPE_DEFAULT))
                       {
                         v110 += 16;
-                        v141 = v435[19] & 0x3FF | ((v435[22] & 0x3FF) << 16);
-                        v142 = v435[25] & 0x3FF | ((v435[28] & 0x3FF) << 16);
-                        v143 = v435[31] & 0x3FF | ((v435[34] & 0x3FF) << 16);
-                        v144 = v435[37] & 0x3FF | ((v435[40] & 0x3FF) << 16);
-                        *v438 = 136316418;
-                        v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-                        v440 = 2048;
-                        *v441 = v110;
-                        *&v441[8] = 1024;
-                        *v442 = v141;
-                        *&v442[4] = 1024;
-                        *&v442[6] = v142;
-                        *&v442[10] = 1024;
-                        *&v442[12] = v143;
-                        *&v442[16] = 1024;
-                        *&v442[18] = v144;
-                        _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v438, 0x2Eu);
+                        v141 = v434[19] & 0x3FF | ((v434[22] & 0x3FF) << 16);
+                        v142 = v434[25] & 0x3FF | ((v434[28] & 0x3FF) << 16);
+                        v143 = v434[31] & 0x3FF | ((v434[34] & 0x3FF) << 16);
+                        v144 = v434[37] & 0x3FF | ((v434[40] & 0x3FF) << 16);
+                        *v437 = 136316418;
+                        v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+                        v439 = 2048;
+                        *v440 = v110;
+                        *&v440[8] = 1024;
+                        *v441 = v141;
+                        *&v441[4] = 1024;
+                        *&v441[6] = v142;
+                        *&v441[10] = 1024;
+                        *&v441[12] = v143;
+                        *&v441[16] = 1024;
+                        *&v441[18] = v144;
+                        _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v437, 0x2Eu);
                       }
 
                       if (logLevel >= 3)
@@ -1366,23 +1416,23 @@ LABEL_35:
                         if (os_log_type_enabled(v108, OS_LOG_TYPE_DEFAULT))
                         {
                           v110 += 16;
-                          v146 = v435[43] & 0x3FF | ((v435[46] & 0x3FF) << 16);
-                          v147 = v435[509] & 0x1FF | ((v435[510] & 0x1FF) << 9) & 0xF803FFFF | ((v435[511] & 0x1FF) << 18);
-                          v148 = v435[512] & 0x1FF | ((v435[513] & 0x1FF) << 9) & 0xF803FFFF | ((v435[514] & 0x1FF) << 18);
-                          v149 = v435[515] & 0x1FF | ((v435[516] & 0x1FF) << 9) & 0xF803FFFF | ((v435[517] & 0x1FF) << 18);
-                          *v438 = 136316418;
-                          v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-                          v440 = 2048;
-                          *v441 = v110;
-                          *&v441[8] = 1024;
-                          *v442 = v146;
-                          *&v442[4] = 1024;
-                          *&v442[6] = v147;
-                          *&v442[10] = 1024;
-                          *&v442[12] = v148;
-                          *&v442[16] = 1024;
-                          *&v442[18] = v149;
-                          _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v438, 0x2Eu);
+                          v146 = v434[43] & 0x3FF | ((v434[46] & 0x3FF) << 16);
+                          v147 = v434[509] & 0x1FF | ((v434[510] & 0x1FF) << 9) & 0xF803FFFF | ((v434[511] & 0x1FF) << 18);
+                          v148 = v434[512] & 0x1FF | ((v434[513] & 0x1FF) << 9) & 0xF803FFFF | ((v434[514] & 0x1FF) << 18);
+                          v149 = v434[515] & 0x1FF | ((v434[516] & 0x1FF) << 9) & 0xF803FFFF | ((v434[517] & 0x1FF) << 18);
+                          *v437 = 136316418;
+                          v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+                          v439 = 2048;
+                          *v440 = v110;
+                          *&v440[8] = 1024;
+                          *v441 = v146;
+                          *&v441[4] = 1024;
+                          *&v441[6] = v147;
+                          *&v441[10] = 1024;
+                          *&v441[12] = v148;
+                          *&v441[16] = 1024;
+                          *&v441[18] = v149;
+                          _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v437, 0x2Eu);
                         }
 
                         if (logLevel >= 3)
@@ -1391,23 +1441,23 @@ LABEL_35:
                           if (os_log_type_enabled(v108, OS_LOG_TYPE_DEFAULT))
                           {
                             v110 += 16;
-                            v151 = v435[518] & 0x1FF | ((v435[519] & 0x1FF) << 9) & 0xF803FFFF | ((v435[520] & 0x1FF) << 18);
-                            v152 = v435[521] & 0x1FF | ((v435[522] & 0x1FF) << 9) & 0xF803FFFF | ((v435[523] & 0x1FF) << 18);
-                            v153 = v435[524] & 0x1FF | ((v435[525] & 0x1FF) << 9) & 0xF803FFFF | ((v435[526] & 0x1FF) << 18);
-                            v154 = v435[288] & 0xFFF | ((v435[291] & 0xFFF) << 16);
-                            *v438 = 136316418;
-                            v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-                            v440 = 2048;
-                            *v441 = v110;
-                            *&v441[8] = 1024;
-                            *v442 = v151;
-                            *&v442[4] = 1024;
-                            *&v442[6] = v152;
-                            *&v442[10] = 1024;
-                            *&v442[12] = v153;
-                            *&v442[16] = 1024;
-                            *&v442[18] = v154;
-                            _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v438, 0x2Eu);
+                            v151 = v434[518] & 0x1FF | ((v434[519] & 0x1FF) << 9) & 0xF803FFFF | ((v434[520] & 0x1FF) << 18);
+                            v152 = v434[521] & 0x1FF | ((v434[522] & 0x1FF) << 9) & 0xF803FFFF | ((v434[523] & 0x1FF) << 18);
+                            v153 = v434[524] & 0x1FF | ((v434[525] & 0x1FF) << 9) & 0xF803FFFF | ((v434[526] & 0x1FF) << 18);
+                            v154 = v434[288] & 0xFFF | ((v434[291] & 0xFFF) << 16);
+                            *v437 = 136316418;
+                            v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+                            v439 = 2048;
+                            *v440 = v110;
+                            *&v440[8] = 1024;
+                            *v441 = v151;
+                            *&v441[4] = 1024;
+                            *&v441[6] = v152;
+                            *&v441[10] = 1024;
+                            *&v441[12] = v153;
+                            *&v441[16] = 1024;
+                            *&v441[18] = v154;
+                            _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v437, 0x2Eu);
                           }
 
                           if (logLevel >= 3)
@@ -1416,26 +1466,26 @@ LABEL_35:
                             if (os_log_type_enabled(v108, OS_LOG_TYPE_DEFAULT))
                             {
                               v110 += 16;
-                              v156 = v435[294] & 0xFFF | ((v435[297] & 0xFFF) << 16);
-                              v157 = v435[300] & 0xFFF | ((v435[303] & 0xFFF) << 16);
-                              v158 = v435[306] & 0xFFF | ((v435[309] & 0xFFF) << 16);
-                              v159 = v435[290] & 0x7FF | ((v435[293] & 0x7FF) << 16);
-                              *v438 = 136316418;
-                              v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-                              v440 = 2048;
-                              *v441 = v110;
-                              *&v441[8] = 1024;
-                              *v442 = v156;
-                              *&v442[4] = 1024;
-                              *&v442[6] = v157;
-                              *&v442[10] = 1024;
-                              *&v442[12] = v158;
-                              *&v442[16] = 1024;
-                              *&v442[18] = v159;
-                              _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v438, 0x2Eu);
+                              v156 = v434[294] & 0xFFF | ((v434[297] & 0xFFF) << 16);
+                              v157 = v434[300] & 0xFFF | ((v434[303] & 0xFFF) << 16);
+                              v158 = v434[306] & 0xFFF | ((v434[309] & 0xFFF) << 16);
+                              v159 = v434[290] & 0x7FF | ((v434[293] & 0x7FF) << 16);
+                              *v437 = 136316418;
+                              v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+                              v439 = 2048;
+                              *v440 = v110;
+                              *&v440[8] = 1024;
+                              *v441 = v156;
+                              *&v441[4] = 1024;
+                              *&v441[6] = v157;
+                              *&v441[10] = 1024;
+                              *&v441[12] = v158;
+                              *&v441[16] = 1024;
+                              *&v441[18] = v159;
+                              _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v437, 0x2Eu);
                             }
 
-                            v86 = v437;
+                            v86 = v436;
                             v87 = selfCopy;
                             if (logLevel >= 3)
                             {
@@ -1443,26 +1493,26 @@ LABEL_35:
                               if (os_log_type_enabled(v108, OS_LOG_TYPE_DEFAULT))
                               {
                                 v110 += 16;
-                                v161 = v435[296] & 0x7FF | ((v435[299] & 0x7FF) << 16);
-                                v162 = v435[302] & 0x7FF | ((v435[305] & 0x7FF) << 16);
-                                v163 = v435[308] & 0x7FF | ((v435[311] & 0x7FF) << 16);
-                                v164 = v435[289] & 0xFFF | ((v435[292] & 0xFFF) << 16);
-                                *v438 = 136316418;
-                                v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-                                v440 = 2048;
-                                *v441 = v110;
-                                *&v441[8] = 1024;
-                                *v442 = v161;
-                                *&v442[4] = 1024;
-                                *&v442[6] = v162;
-                                *&v442[10] = 1024;
-                                *&v442[12] = v163;
-                                *&v442[16] = 1024;
-                                *&v442[18] = v164;
-                                _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v438, 0x2Eu);
+                                v161 = v434[296] & 0x7FF | ((v434[299] & 0x7FF) << 16);
+                                v162 = v434[302] & 0x7FF | ((v434[305] & 0x7FF) << 16);
+                                v163 = v434[308] & 0x7FF | ((v434[311] & 0x7FF) << 16);
+                                v164 = v434[289] & 0xFFF | ((v434[292] & 0xFFF) << 16);
+                                *v437 = 136316418;
+                                v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+                                v439 = 2048;
+                                *v440 = v110;
+                                *&v440[8] = 1024;
+                                *v441 = v161;
+                                *&v441[4] = 1024;
+                                *&v441[6] = v162;
+                                *&v441[10] = 1024;
+                                *&v441[12] = v163;
+                                *&v441[16] = 1024;
+                                *&v441[18] = v164;
+                                _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v437, 0x2Eu);
                               }
 
-                              v86 = v437;
+                              v86 = v436;
                               v87 = selfCopy;
                               if (logLevel >= 3)
                               {
@@ -1470,26 +1520,26 @@ LABEL_35:
                                 if (os_log_type_enabled(v108, OS_LOG_TYPE_DEFAULT))
                                 {
                                   v110 += 16;
-                                  v166 = v435[295] & 0xFFF | ((v435[298] & 0xFFF) << 16);
-                                  v167 = v435[301] & 0xFFF | ((v435[304] & 0xFFF) << 16);
-                                  v168 = v435[307] & 0xFFF | ((v435[310] & 0xFFF) << 16);
-                                  v169 = v435[96] & 0xFFF | ((v435[99] & 0xFFF) << 16);
-                                  *v438 = 136316418;
-                                  v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-                                  v440 = 2048;
-                                  *v441 = v110;
-                                  *&v441[8] = 1024;
-                                  *v442 = v166;
-                                  *&v442[4] = 1024;
-                                  *&v442[6] = v167;
-                                  *&v442[10] = 1024;
-                                  *&v442[12] = v168;
-                                  *&v442[16] = 1024;
-                                  *&v442[18] = v169;
-                                  _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v438, 0x2Eu);
+                                  v166 = v434[295] & 0xFFF | ((v434[298] & 0xFFF) << 16);
+                                  v167 = v434[301] & 0xFFF | ((v434[304] & 0xFFF) << 16);
+                                  v168 = v434[307] & 0xFFF | ((v434[310] & 0xFFF) << 16);
+                                  v169 = v434[96] & 0xFFF | ((v434[99] & 0xFFF) << 16);
+                                  *v437 = 136316418;
+                                  v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+                                  v439 = 2048;
+                                  *v440 = v110;
+                                  *&v440[8] = 1024;
+                                  *v441 = v166;
+                                  *&v441[4] = 1024;
+                                  *&v441[6] = v167;
+                                  *&v441[10] = 1024;
+                                  *&v441[12] = v168;
+                                  *&v441[16] = 1024;
+                                  *&v441[18] = v169;
+                                  _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v437, 0x2Eu);
                                 }
 
-                                v86 = v437;
+                                v86 = v436;
                                 v87 = selfCopy;
                                 if (logLevel >= 3)
                                 {
@@ -1497,26 +1547,26 @@ LABEL_35:
                                   if (os_log_type_enabled(v108, OS_LOG_TYPE_DEFAULT))
                                   {
                                     v110 += 16;
-                                    v171 = v435[102] & 0xFFF | ((v435[105] & 0xFFF) << 16);
-                                    v172 = v435[108] & 0xFFF | ((v435[111] & 0xFFF) << 16);
-                                    v173 = v435[114] & 0xFFF | ((v435[117] & 0xFFF) << 16);
-                                    v174 = v435[98] & 0x7FF | ((v435[101] & 0x7FF) << 16);
-                                    *v438 = 136316418;
-                                    v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-                                    v440 = 2048;
-                                    *v441 = v110;
-                                    *&v441[8] = 1024;
-                                    *v442 = v171;
-                                    *&v442[4] = 1024;
-                                    *&v442[6] = v172;
-                                    *&v442[10] = 1024;
-                                    *&v442[12] = v173;
-                                    *&v442[16] = 1024;
-                                    *&v442[18] = v174;
-                                    _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v438, 0x2Eu);
+                                    v171 = v434[102] & 0xFFF | ((v434[105] & 0xFFF) << 16);
+                                    v172 = v434[108] & 0xFFF | ((v434[111] & 0xFFF) << 16);
+                                    v173 = v434[114] & 0xFFF | ((v434[117] & 0xFFF) << 16);
+                                    v174 = v434[98] & 0x7FF | ((v434[101] & 0x7FF) << 16);
+                                    *v437 = 136316418;
+                                    v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+                                    v439 = 2048;
+                                    *v440 = v110;
+                                    *&v440[8] = 1024;
+                                    *v441 = v171;
+                                    *&v441[4] = 1024;
+                                    *&v441[6] = v172;
+                                    *&v441[10] = 1024;
+                                    *&v441[12] = v173;
+                                    *&v441[16] = 1024;
+                                    *&v441[18] = v174;
+                                    _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v437, 0x2Eu);
                                   }
 
-                                  v86 = v437;
+                                  v86 = v436;
                                   v87 = selfCopy;
                                   if (logLevel >= 3)
                                   {
@@ -1524,26 +1574,26 @@ LABEL_35:
                                     if (os_log_type_enabled(v108, OS_LOG_TYPE_DEFAULT))
                                     {
                                       v110 += 16;
-                                      v176 = v435[104] & 0x7FF | ((v435[107] & 0x7FF) << 16);
-                                      v177 = v435[110] & 0x7FF | ((v435[113] & 0x7FF) << 16);
-                                      v178 = v435[116] & 0x7FF | ((v435[119] & 0x7FF) << 16);
-                                      v179 = v435[97] & 0xFFF | ((v435[100] & 0xFFF) << 16);
-                                      *v438 = 136316418;
-                                      v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-                                      v440 = 2048;
-                                      *v441 = v110;
-                                      *&v441[8] = 1024;
-                                      *v442 = v176;
-                                      *&v442[4] = 1024;
-                                      *&v442[6] = v177;
-                                      *&v442[10] = 1024;
-                                      *&v442[12] = v178;
-                                      *&v442[16] = 1024;
-                                      *&v442[18] = v179;
-                                      _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v438, 0x2Eu);
+                                      v176 = v434[104] & 0x7FF | ((v434[107] & 0x7FF) << 16);
+                                      v177 = v434[110] & 0x7FF | ((v434[113] & 0x7FF) << 16);
+                                      v178 = v434[116] & 0x7FF | ((v434[119] & 0x7FF) << 16);
+                                      v179 = v434[97] & 0xFFF | ((v434[100] & 0xFFF) << 16);
+                                      *v437 = 136316418;
+                                      v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+                                      v439 = 2048;
+                                      *v440 = v110;
+                                      *&v440[8] = 1024;
+                                      *v441 = v176;
+                                      *&v441[4] = 1024;
+                                      *&v441[6] = v177;
+                                      *&v441[10] = 1024;
+                                      *&v441[12] = v178;
+                                      *&v441[16] = 1024;
+                                      *&v441[18] = v179;
+                                      _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v437, 0x2Eu);
                                     }
 
-                                    v86 = v437;
+                                    v86 = v436;
                                     v87 = selfCopy;
                                     if (logLevel >= 3)
                                     {
@@ -1551,26 +1601,26 @@ LABEL_35:
                                       if (os_log_type_enabled(v108, OS_LOG_TYPE_DEFAULT))
                                       {
                                         v110 += 16;
-                                        v181 = v435[103] & 0xFFF | ((v435[106] & 0xFFF) << 16);
-                                        v182 = v435[109] & 0xFFF | ((v435[112] & 0xFFF) << 16);
-                                        v183 = v435[115] & 0xFFF | ((v435[118] & 0xFFF) << 16);
-                                        v184 = v435[192] & 0xFFF | ((v435[195] & 0xFFF) << 16);
-                                        *v438 = 136316418;
-                                        v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-                                        v440 = 2048;
-                                        *v441 = v110;
-                                        *&v441[8] = 1024;
-                                        *v442 = v181;
-                                        *&v442[4] = 1024;
-                                        *&v442[6] = v182;
-                                        *&v442[10] = 1024;
-                                        *&v442[12] = v183;
-                                        *&v442[16] = 1024;
-                                        *&v442[18] = v184;
-                                        _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v438, 0x2Eu);
+                                        v181 = v434[103] & 0xFFF | ((v434[106] & 0xFFF) << 16);
+                                        v182 = v434[109] & 0xFFF | ((v434[112] & 0xFFF) << 16);
+                                        v183 = v434[115] & 0xFFF | ((v434[118] & 0xFFF) << 16);
+                                        v184 = v434[192] & 0xFFF | ((v434[195] & 0xFFF) << 16);
+                                        *v437 = 136316418;
+                                        v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+                                        v439 = 2048;
+                                        *v440 = v110;
+                                        *&v440[8] = 1024;
+                                        *v441 = v181;
+                                        *&v441[4] = 1024;
+                                        *&v441[6] = v182;
+                                        *&v441[10] = 1024;
+                                        *&v441[12] = v183;
+                                        *&v441[16] = 1024;
+                                        *&v441[18] = v184;
+                                        _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v437, 0x2Eu);
                                       }
 
-                                      v86 = v437;
+                                      v86 = v436;
                                       v87 = selfCopy;
                                       if (logLevel >= 3)
                                       {
@@ -1578,26 +1628,26 @@ LABEL_35:
                                         if (os_log_type_enabled(v108, OS_LOG_TYPE_DEFAULT))
                                         {
                                           v110 += 16;
-                                          v186 = v435[198] & 0xFFF | ((v435[201] & 0xFFF) << 16);
-                                          v187 = v435[204] & 0xFFF | ((v435[207] & 0xFFF) << 16);
-                                          v188 = v435[210] & 0xFFF | ((v435[213] & 0xFFF) << 16);
-                                          v189 = v435[194] & 0x7FF | ((v435[197] & 0x7FF) << 16);
-                                          *v438 = 136316418;
-                                          v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-                                          v440 = 2048;
-                                          *v441 = v110;
-                                          *&v441[8] = 1024;
-                                          *v442 = v186;
-                                          *&v442[4] = 1024;
-                                          *&v442[6] = v187;
-                                          *&v442[10] = 1024;
-                                          *&v442[12] = v188;
-                                          *&v442[16] = 1024;
-                                          *&v442[18] = v189;
-                                          _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v438, 0x2Eu);
+                                          v186 = v434[198] & 0xFFF | ((v434[201] & 0xFFF) << 16);
+                                          v187 = v434[204] & 0xFFF | ((v434[207] & 0xFFF) << 16);
+                                          v188 = v434[210] & 0xFFF | ((v434[213] & 0xFFF) << 16);
+                                          v189 = v434[194] & 0x7FF | ((v434[197] & 0x7FF) << 16);
+                                          *v437 = 136316418;
+                                          v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+                                          v439 = 2048;
+                                          *v440 = v110;
+                                          *&v440[8] = 1024;
+                                          *v441 = v186;
+                                          *&v441[4] = 1024;
+                                          *&v441[6] = v187;
+                                          *&v441[10] = 1024;
+                                          *&v441[12] = v188;
+                                          *&v441[16] = 1024;
+                                          *&v441[18] = v189;
+                                          _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v437, 0x2Eu);
                                         }
 
-                                        v86 = v437;
+                                        v86 = v436;
                                         v87 = selfCopy;
                                         if (logLevel >= 3)
                                         {
@@ -1605,26 +1655,26 @@ LABEL_35:
                                           if (os_log_type_enabled(v108, OS_LOG_TYPE_DEFAULT))
                                           {
                                             v110 += 16;
-                                            v191 = v435[200] & 0x7FF | ((v435[203] & 0x7FF) << 16);
-                                            v192 = v435[206] & 0x7FF | ((v435[209] & 0x7FF) << 16);
-                                            v193 = v435[212] & 0x7FF | ((v435[215] & 0x7FF) << 16);
-                                            v194 = v435[193] & 0xFFF | ((v435[196] & 0xFFF) << 16);
-                                            *v438 = 136316418;
-                                            v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-                                            v440 = 2048;
-                                            *v441 = v110;
-                                            *&v441[8] = 1024;
-                                            *v442 = v191;
-                                            *&v442[4] = 1024;
-                                            *&v442[6] = v192;
-                                            *&v442[10] = 1024;
-                                            *&v442[12] = v193;
-                                            *&v442[16] = 1024;
-                                            *&v442[18] = v194;
-                                            _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v438, 0x2Eu);
+                                            v191 = v434[200] & 0x7FF | ((v434[203] & 0x7FF) << 16);
+                                            v192 = v434[206] & 0x7FF | ((v434[209] & 0x7FF) << 16);
+                                            v193 = v434[212] & 0x7FF | ((v434[215] & 0x7FF) << 16);
+                                            v194 = v434[193] & 0xFFF | ((v434[196] & 0xFFF) << 16);
+                                            *v437 = 136316418;
+                                            v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+                                            v439 = 2048;
+                                            *v440 = v110;
+                                            *&v440[8] = 1024;
+                                            *v441 = v191;
+                                            *&v441[4] = 1024;
+                                            *&v441[6] = v192;
+                                            *&v441[10] = 1024;
+                                            *&v441[12] = v193;
+                                            *&v441[16] = 1024;
+                                            *&v441[18] = v194;
+                                            _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v437, 0x2Eu);
                                           }
 
-                                          v86 = v437;
+                                          v86 = v436;
                                           v87 = selfCopy;
                                           if (logLevel >= 3)
                                           {
@@ -1632,26 +1682,26 @@ LABEL_35:
                                             if (os_log_type_enabled(v108, OS_LOG_TYPE_DEFAULT))
                                             {
                                               v110 += 16;
-                                              v196 = v435[199] & 0xFFF | ((v435[202] & 0xFFF) << 16);
-                                              v197 = v435[205] & 0xFFF | ((v435[208] & 0xFFF) << 16);
-                                              v198 = v435[211] & 0xFFF | ((v435[214] & 0xFFF) << 16);
-                                              v199 = v435[480] & 0x3F | ((v435[481] & 0x3F) << 6) & 0xFFF | ((v435[482] & 0x3F) << 12);
-                                              *v438 = 136316418;
-                                              v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-                                              v440 = 2048;
-                                              *v441 = v110;
-                                              *&v441[8] = 1024;
-                                              *v442 = v196;
-                                              *&v442[4] = 1024;
-                                              *&v442[6] = v197;
-                                              *&v442[10] = 1024;
-                                              *&v442[12] = v198;
-                                              *&v442[16] = 1024;
-                                              *&v442[18] = v199;
-                                              _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v438, 0x2Eu);
+                                              v196 = v434[199] & 0xFFF | ((v434[202] & 0xFFF) << 16);
+                                              v197 = v434[205] & 0xFFF | ((v434[208] & 0xFFF) << 16);
+                                              v198 = v434[211] & 0xFFF | ((v434[214] & 0xFFF) << 16);
+                                              v199 = v434[480] & 0x3F | ((v434[481] & 0x3F) << 6) & 0xFFF | ((v434[482] & 0x3F) << 12);
+                                              *v437 = 136316418;
+                                              v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+                                              v439 = 2048;
+                                              *v440 = v110;
+                                              *&v440[8] = 1024;
+                                              *v441 = v196;
+                                              *&v441[4] = 1024;
+                                              *&v441[6] = v197;
+                                              *&v441[10] = 1024;
+                                              *&v441[12] = v198;
+                                              *&v441[16] = 1024;
+                                              *&v441[18] = v199;
+                                              _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v437, 0x2Eu);
                                             }
 
-                                            v86 = v437;
+                                            v86 = v436;
                                             v87 = selfCopy;
                                             if (logLevel >= 3)
                                             {
@@ -1659,26 +1709,26 @@ LABEL_35:
                                               if (os_log_type_enabled(v108, OS_LOG_TYPE_DEFAULT))
                                               {
                                                 v110 += 16;
-                                                v201 = v435[483] & 0xFFF | ((v435[484] & 0xFFF) << 16);
-                                                v202 = v435[485] & 0xFFF | ((v435[486] & 0xFFF) << 16);
-                                                v203 = v435[487] & 0xFFF | ((v435[488] & 0xFFF) << 16);
-                                                v204 = v435[489] & 0xFFF | ((v435[490] & 0xFFF) << 16);
-                                                *v438 = 136316418;
-                                                v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-                                                v440 = 2048;
-                                                *v441 = v110;
-                                                *&v441[8] = 1024;
-                                                *v442 = v201;
-                                                *&v442[4] = 1024;
-                                                *&v442[6] = v202;
-                                                *&v442[10] = 1024;
-                                                *&v442[12] = v203;
-                                                *&v442[16] = 1024;
-                                                *&v442[18] = v204;
-                                                _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v438, 0x2Eu);
+                                                v201 = v434[483] & 0xFFF | ((v434[484] & 0xFFF) << 16);
+                                                v202 = v434[485] & 0xFFF | ((v434[486] & 0xFFF) << 16);
+                                                v203 = v434[487] & 0xFFF | ((v434[488] & 0xFFF) << 16);
+                                                v204 = v434[489] & 0xFFF | ((v434[490] & 0xFFF) << 16);
+                                                *v437 = 136316418;
+                                                v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+                                                v439 = 2048;
+                                                *v440 = v110;
+                                                *&v440[8] = 1024;
+                                                *v441 = v201;
+                                                *&v441[4] = 1024;
+                                                *&v441[6] = v202;
+                                                *&v441[10] = 1024;
+                                                *&v441[12] = v203;
+                                                *&v441[16] = 1024;
+                                                *&v441[18] = v204;
+                                                _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v437, 0x2Eu);
                                               }
 
-                                              v86 = v437;
+                                              v86 = v436;
                                               v87 = selfCopy;
                                               if (logLevel >= 3)
                                               {
@@ -1686,26 +1736,26 @@ LABEL_35:
                                                 if (os_log_type_enabled(v108, OS_LOG_TYPE_DEFAULT))
                                                 {
                                                   v110 += 16;
-                                                  v206 = v435[491] & 0xFFF | ((v435[492] & 0xFFF) << 16);
-                                                  v207 = v435[493] & 0xFFF | ((v435[494] & 0xFFF) << 16);
-                                                  v208 = v435[495] & 0xFFF | ((v435[496] & 0xFFF) << 16);
-                                                  v209 = v435[497] & 0xFFF | ((v435[498] & 0xFFF) << 16);
-                                                  *v438 = 136316418;
-                                                  v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-                                                  v440 = 2048;
-                                                  *v441 = v110;
-                                                  *&v441[8] = 1024;
-                                                  *v442 = v206;
-                                                  *&v442[4] = 1024;
-                                                  *&v442[6] = v207;
-                                                  *&v442[10] = 1024;
-                                                  *&v442[12] = v208;
-                                                  *&v442[16] = 1024;
-                                                  *&v442[18] = v209;
-                                                  _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v438, 0x2Eu);
+                                                  v206 = v434[491] & 0xFFF | ((v434[492] & 0xFFF) << 16);
+                                                  v207 = v434[493] & 0xFFF | ((v434[494] & 0xFFF) << 16);
+                                                  v208 = v434[495] & 0xFFF | ((v434[496] & 0xFFF) << 16);
+                                                  v209 = v434[497] & 0xFFF | ((v434[498] & 0xFFF) << 16);
+                                                  *v437 = 136316418;
+                                                  v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+                                                  v439 = 2048;
+                                                  *v440 = v110;
+                                                  *&v440[8] = 1024;
+                                                  *v441 = v206;
+                                                  *&v441[4] = 1024;
+                                                  *&v441[6] = v207;
+                                                  *&v441[10] = 1024;
+                                                  *&v441[12] = v208;
+                                                  *&v441[16] = 1024;
+                                                  *&v441[18] = v209;
+                                                  _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v437, 0x2Eu);
                                                 }
 
-                                                v86 = v437;
+                                                v86 = v436;
                                                 v87 = selfCopy;
                                                 if (logLevel >= 3)
                                                 {
@@ -1713,26 +1763,26 @@ LABEL_35:
                                                   if (os_log_type_enabled(v108, OS_LOG_TYPE_DEFAULT))
                                                   {
                                                     v110 += 16;
-                                                    v211 = v435[499] & 0xFFF | ((v435[500] & 0xFFF) << 16);
-                                                    v212 = v435[501] & 0xFFF | ((v435[502] & 0xFFF) << 16);
-                                                    v213 = v435[503] & 0xFFF | ((v435[504] & 0xFFF) << 16);
-                                                    v214 = v435[505] & 0xFFF | ((v435[506] & 0xFFF) << 16);
-                                                    *v438 = 136316418;
-                                                    v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-                                                    v440 = 2048;
-                                                    *v441 = v110;
-                                                    *&v441[8] = 1024;
-                                                    *v442 = v211;
-                                                    *&v442[4] = 1024;
-                                                    *&v442[6] = v212;
-                                                    *&v442[10] = 1024;
-                                                    *&v442[12] = v213;
-                                                    *&v442[16] = 1024;
-                                                    *&v442[18] = v214;
-                                                    _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v438, 0x2Eu);
+                                                    v211 = v434[499] & 0xFFF | ((v434[500] & 0xFFF) << 16);
+                                                    v212 = v434[501] & 0xFFF | ((v434[502] & 0xFFF) << 16);
+                                                    v213 = v434[503] & 0xFFF | ((v434[504] & 0xFFF) << 16);
+                                                    v214 = v434[505] & 0xFFF | ((v434[506] & 0xFFF) << 16);
+                                                    *v437 = 136316418;
+                                                    v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+                                                    v439 = 2048;
+                                                    *v440 = v110;
+                                                    *&v440[8] = 1024;
+                                                    *v441 = v211;
+                                                    *&v441[4] = 1024;
+                                                    *&v441[6] = v212;
+                                                    *&v441[10] = 1024;
+                                                    *&v441[12] = v213;
+                                                    *&v441[16] = 1024;
+                                                    *&v441[18] = v214;
+                                                    _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v437, 0x2Eu);
                                                   }
 
-                                                  v86 = v437;
+                                                  v86 = v436;
                                                   v87 = selfCopy;
                                                   if (logLevel >= 3)
                                                   {
@@ -1740,26 +1790,26 @@ LABEL_35:
                                                     if (os_log_type_enabled(v108, OS_LOG_TYPE_DEFAULT))
                                                     {
                                                       v110 += 16;
-                                                      v216 = v435[507] & 0xFFF | ((v435[508] & 0xFFF) << 16);
-                                                      v217 = v435[386] & 0x7FF | ((v435[389] & 0x7FF) << 16);
-                                                      v218 = v435[392] & 0x7FF | ((v435[395] & 0x7FF) << 16);
-                                                      v219 = v435[398] & 0x7FF | ((v435[401] & 0x7FF) << 16);
-                                                      *v438 = 136316418;
-                                                      v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-                                                      v440 = 2048;
-                                                      *v441 = v110;
-                                                      *&v441[8] = 1024;
-                                                      *v442 = v216;
-                                                      *&v442[4] = 1024;
-                                                      *&v442[6] = v217;
-                                                      *&v442[10] = 1024;
-                                                      *&v442[12] = v218;
-                                                      *&v442[16] = 1024;
-                                                      *&v442[18] = v219;
-                                                      _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v438, 0x2Eu);
+                                                      v216 = v434[507] & 0xFFF | ((v434[508] & 0xFFF) << 16);
+                                                      v217 = v434[386] & 0x7FF | ((v434[389] & 0x7FF) << 16);
+                                                      v218 = v434[392] & 0x7FF | ((v434[395] & 0x7FF) << 16);
+                                                      v219 = v434[398] & 0x7FF | ((v434[401] & 0x7FF) << 16);
+                                                      *v437 = 136316418;
+                                                      v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+                                                      v439 = 2048;
+                                                      *v440 = v110;
+                                                      *&v440[8] = 1024;
+                                                      *v441 = v216;
+                                                      *&v441[4] = 1024;
+                                                      *&v441[6] = v217;
+                                                      *&v441[10] = 1024;
+                                                      *&v441[12] = v218;
+                                                      *&v441[16] = 1024;
+                                                      *&v441[18] = v219;
+                                                      _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v437, 0x2Eu);
                                                     }
 
-                                                    v86 = v437;
+                                                    v86 = v436;
                                                     v87 = selfCopy;
                                                     if (logLevel >= 3)
                                                     {
@@ -1767,49 +1817,49 @@ LABEL_35:
                                                       if (os_log_type_enabled(v108, OS_LOG_TYPE_DEFAULT))
                                                       {
                                                         v110 += 16;
-                                                        v221 = v435[404] & 0x7FF | ((v435[407] & 0x7FF) << 16);
-                                                        v222 = v435[385] & 0xFFF | ((v435[388] & 0xFFF) << 16);
-                                                        v223 = v435[391] & 0xFFF | ((v435[394] & 0xFFF) << 16);
-                                                        v224 = v435[397] & 0xFFF | ((v435[400] & 0xFFF) << 16);
-                                                        *v438 = 136316418;
-                                                        v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-                                                        v440 = 2048;
-                                                        *v441 = v110;
-                                                        *&v441[8] = 1024;
-                                                        *v442 = v221;
-                                                        *&v442[4] = 1024;
-                                                        *&v442[6] = v222;
-                                                        *&v442[10] = 1024;
-                                                        *&v442[12] = v223;
-                                                        *&v442[16] = 1024;
-                                                        *&v442[18] = v224;
-                                                        _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v438, 0x2Eu);
+                                                        v221 = v434[404] & 0x7FF | ((v434[407] & 0x7FF) << 16);
+                                                        v222 = v434[385] & 0xFFF | ((v434[388] & 0xFFF) << 16);
+                                                        v223 = v434[391] & 0xFFF | ((v434[394] & 0xFFF) << 16);
+                                                        v224 = v434[397] & 0xFFF | ((v434[400] & 0xFFF) << 16);
+                                                        *v437 = 136316418;
+                                                        v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+                                                        v439 = 2048;
+                                                        *v440 = v110;
+                                                        *&v440[8] = 1024;
+                                                        *v441 = v221;
+                                                        *&v441[4] = 1024;
+                                                        *&v441[6] = v222;
+                                                        *&v441[10] = 1024;
+                                                        *&v441[12] = v223;
+                                                        *&v441[16] = 1024;
+                                                        *&v441[18] = v224;
+                                                        _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v437, 0x2Eu);
                                                       }
 
-                                                      v86 = v437;
+                                                      v86 = v436;
                                                       v87 = selfCopy;
                                                       if (logLevel >= 3)
                                                       {
                                                         v225 = v108;
                                                         if (os_log_type_enabled(v108, OS_LOG_TYPE_DEFAULT))
                                                         {
-                                                          v226 = v435[403] & 0xFFF | ((v435[406] & 0xFFF) << 16);
-                                                          *v438 = 136316418;
-                                                          v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-                                                          v440 = 2048;
-                                                          *v441 = v110 + 16;
-                                                          *&v441[8] = 1024;
-                                                          *v442 = v226;
-                                                          *&v442[4] = 2080;
-                                                          *&v442[6] = "XXXXXXXX";
-                                                          *&v442[14] = 2080;
-                                                          *&v442[16] = "XXXXXXXX";
-                                                          *&v442[24] = 2080;
-                                                          *&v442[26] = "XXXXXXXX";
-                                                          _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %s %s %s\n", v438, 0x3Au);
+                                                          v226 = v434[403] & 0xFFF | ((v434[406] & 0xFFF) << 16);
+                                                          *v437 = 136316418;
+                                                          v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+                                                          v439 = 2048;
+                                                          *v440 = v110 + 16;
+                                                          *&v440[8] = 1024;
+                                                          *v441 = v226;
+                                                          *&v441[4] = 2080;
+                                                          *&v441[6] = "XXXXXXXX";
+                                                          *&v441[14] = 2080;
+                                                          *&v441[16] = "XXXXXXXX";
+                                                          *&v441[24] = 2080;
+                                                          *&v441[26] = "XXXXXXXX";
+                                                          _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %s %s %s\n", v437, 0x3Au);
                                                         }
 
-                                                        v86 = v437;
+                                                        v86 = v436;
                                                         v87 = selfCopy;
                                                       }
                                                     }
@@ -1837,20 +1887,20 @@ LABEL_35:
         }
       }
 
-      hcusCopy = v430;
-      if (v434 && logLevel >= 3)
+      hcusCopy = v429;
+      if (v433 && logLevel >= 3)
       {
         v227 = v87->_msrBaseAddr;
         v228 = MEMORY[0x277D86220];
         v229 = MEMORY[0x277D86220];
         if (os_log_type_enabled(v228, OS_LOG_TYPE_DEFAULT))
         {
-          *v438 = 136315138;
-          v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-          _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: -----------------------------------------------\n", v438, 0xCu);
+          *v437 = 136315138;
+          v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+          _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: -----------------------------------------------\n", v437, 0xCu);
         }
 
-        v86 = v437;
+        v86 = v436;
         if (logLevel >= 3)
         {
           v230 = v227 + 41600;
@@ -1858,25 +1908,25 @@ LABEL_35:
           v232 = MEMORY[0x277D86220];
           if (os_log_type_enabled(v231, OS_LOG_TYPE_DEFAULT))
           {
-            v233 = v434[1] & 0xFFF | ((v434[4] & 0xFFF) << 16);
-            v234 = v434[7] & 0xFFF | ((v434[10] & 0xFFF) << 16);
-            v235 = v434[13] & 0xFFF | ((v434[16] & 0xFFF) << 16);
-            *v438 = 136316418;
-            v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-            v440 = 2048;
-            *v441 = v227 + 41600;
-            *&v441[8] = 2080;
-            *v442 = "XXXXXXXX";
-            *&v442[8] = 1024;
-            *&v442[10] = v233;
-            *&v442[14] = 1024;
-            *&v442[16] = v234;
-            *&v442[20] = 1024;
-            *&v442[22] = v235;
-            _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %s %08x %08x %08x\n", v438, 0x32u);
+            v233 = v433[1] & 0xFFF | ((v433[4] & 0xFFF) << 16);
+            v234 = v433[7] & 0xFFF | ((v433[10] & 0xFFF) << 16);
+            v235 = v433[13] & 0xFFF | ((v433[16] & 0xFFF) << 16);
+            *v437 = 136316418;
+            v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+            v439 = 2048;
+            *v440 = v227 + 41600;
+            *&v440[8] = 2080;
+            *v441 = "XXXXXXXX";
+            *&v441[8] = 1024;
+            *&v441[10] = v233;
+            *&v441[14] = 1024;
+            *&v441[16] = v234;
+            *&v441[20] = 1024;
+            *&v441[22] = v235;
+            _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %s %08x %08x %08x\n", v437, 0x32u);
           }
 
-          v86 = v437;
+          v86 = v436;
           if (logLevel >= 3)
           {
             v236 = MEMORY[0x277D86220];
@@ -1884,26 +1934,26 @@ LABEL_35:
             if (os_log_type_enabled(v236, OS_LOG_TYPE_DEFAULT))
             {
               v230 = v227 + 41616;
-              v238 = v434[19] & 0xFFF | ((v434[22] & 0xFFF) << 16);
-              v239 = v434[2] & 0xFFF | ((v434[5] & 0xFFF) << 16);
-              v240 = v434[8] & 0xFFF | ((v434[11] & 0xFFF) << 16);
-              v241 = v434[14] & 0xFFF | ((v434[17] & 0xFFF) << 16);
-              *v438 = 136316418;
-              v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-              v440 = 2048;
-              *v441 = v227 + 41616;
-              *&v441[8] = 1024;
-              *v442 = v238;
-              *&v442[4] = 1024;
-              *&v442[6] = v239;
-              *&v442[10] = 1024;
-              *&v442[12] = v240;
-              *&v442[16] = 1024;
-              *&v442[18] = v241;
-              _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v438, 0x2Eu);
+              v238 = v433[19] & 0xFFF | ((v433[22] & 0xFFF) << 16);
+              v239 = v433[2] & 0xFFF | ((v433[5] & 0xFFF) << 16);
+              v240 = v433[8] & 0xFFF | ((v433[11] & 0xFFF) << 16);
+              v241 = v433[14] & 0xFFF | ((v433[17] & 0xFFF) << 16);
+              *v437 = 136316418;
+              v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+              v439 = 2048;
+              *v440 = v227 + 41616;
+              *&v440[8] = 1024;
+              *v441 = v238;
+              *&v441[4] = 1024;
+              *&v441[6] = v239;
+              *&v441[10] = 1024;
+              *&v441[12] = v240;
+              *&v441[16] = 1024;
+              *&v441[18] = v241;
+              _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v437, 0x2Eu);
             }
 
-            v86 = v437;
+            v86 = v436;
             if (logLevel >= 3)
             {
               v242 = MEMORY[0x277D86220];
@@ -1911,26 +1961,26 @@ LABEL_35:
               if (os_log_type_enabled(v242, OS_LOG_TYPE_DEFAULT))
               {
                 v230 += 16;
-                v244 = v434[20] & 0xFFF | ((v434[23] & 0xFFF) << 16);
-                v245 = v434[3] & 0x3FF | ((v434[6] & 0x3FF) << 16);
-                v246 = v434[9] & 0x3FF | ((v434[12] & 0x3FF) << 16);
-                v247 = v434[15] & 0x3FF | ((v434[18] & 0x3FF) << 16);
-                *v438 = 136316418;
-                v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-                v440 = 2048;
-                *v441 = v230;
-                *&v441[8] = 1024;
-                *v442 = v244;
-                *&v442[4] = 1024;
-                *&v442[6] = v245;
-                *&v442[10] = 1024;
-                *&v442[12] = v246;
-                *&v442[16] = 1024;
-                *&v442[18] = v247;
-                _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v438, 0x2Eu);
+                v244 = v433[20] & 0xFFF | ((v433[23] & 0xFFF) << 16);
+                v245 = v433[3] & 0x3FF | ((v433[6] & 0x3FF) << 16);
+                v246 = v433[9] & 0x3FF | ((v433[12] & 0x3FF) << 16);
+                v247 = v433[15] & 0x3FF | ((v433[18] & 0x3FF) << 16);
+                *v437 = 136316418;
+                v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+                v439 = 2048;
+                *v440 = v230;
+                *&v440[8] = 1024;
+                *v441 = v244;
+                *&v441[4] = 1024;
+                *&v441[6] = v245;
+                *&v441[10] = 1024;
+                *&v441[12] = v246;
+                *&v441[16] = 1024;
+                *&v441[18] = v247;
+                _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v437, 0x2Eu);
               }
 
-              v86 = v437;
+              v86 = v436;
               if (logLevel >= 3)
               {
                 v248 = MEMORY[0x277D86220];
@@ -1938,26 +1988,26 @@ LABEL_35:
                 if (os_log_type_enabled(v248, OS_LOG_TYPE_DEFAULT))
                 {
                   v230 += 16;
-                  v250 = v434[21] & 0x3FF | ((v434[24] & 0x3FF) << 16);
-                  v251 = v434[97] & 0x7FF | ((v434[100] & 0x7FF) << 16);
-                  v252 = v434[103] & 0x7FF | ((v434[106] & 0x7FF) << 16);
-                  v253 = v434[109] & 0x7FF | ((v434[112] & 0x7FF) << 16);
-                  *v438 = 136316418;
-                  v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-                  v440 = 2048;
-                  *v441 = v230;
-                  *&v441[8] = 1024;
-                  *v442 = v250;
-                  *&v442[4] = 1024;
-                  *&v442[6] = v251;
-                  *&v442[10] = 1024;
-                  *&v442[12] = v252;
-                  *&v442[16] = 1024;
-                  *&v442[18] = v253;
-                  _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v438, 0x2Eu);
+                  v250 = v433[21] & 0x3FF | ((v433[24] & 0x3FF) << 16);
+                  v251 = v433[97] & 0x7FF | ((v433[100] & 0x7FF) << 16);
+                  v252 = v433[103] & 0x7FF | ((v433[106] & 0x7FF) << 16);
+                  v253 = v433[109] & 0x7FF | ((v433[112] & 0x7FF) << 16);
+                  *v437 = 136316418;
+                  v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+                  v439 = 2048;
+                  *v440 = v230;
+                  *&v440[8] = 1024;
+                  *v441 = v250;
+                  *&v441[4] = 1024;
+                  *&v441[6] = v251;
+                  *&v441[10] = 1024;
+                  *&v441[12] = v252;
+                  *&v441[16] = 1024;
+                  *&v441[18] = v253;
+                  _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v437, 0x2Eu);
                 }
 
-                v86 = v437;
+                v86 = v436;
                 if (logLevel >= 3)
                 {
                   v254 = MEMORY[0x277D86220];
@@ -1965,26 +2015,26 @@ LABEL_35:
                   if (os_log_type_enabled(v254, OS_LOG_TYPE_DEFAULT))
                   {
                     v230 += 16;
-                    v256 = v434[115] & 0x7FF | ((v434[118] & 0x7FF) << 16);
-                    v257 = v434[98] & 0x3F | ((v434[101] & 0x3F) << 8) & 0xC0C0FFFF | ((v434[104] & 0x3F) << 16) & 0xC0FFFFFF | ((v434[107] & 0x3F) << 24);
-                    v258 = v434[110] & 0x3F | ((v434[113] & 0x3F) << 8) & 0xC0C0FFFF | ((v434[116] & 0x3F) << 16) & 0xC0FFFFFF | ((v434[119] & 0x3F) << 24);
-                    v259 = v434[99] & 0x1FFF | ((v434[102] & 0x1FFF) << 16);
-                    *v438 = 136316418;
-                    v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-                    v440 = 2048;
-                    *v441 = v230;
-                    *&v441[8] = 1024;
-                    *v442 = v256;
-                    *&v442[4] = 1024;
-                    *&v442[6] = v257;
-                    *&v442[10] = 1024;
-                    *&v442[12] = v258;
-                    *&v442[16] = 1024;
-                    *&v442[18] = v259;
-                    _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v438, 0x2Eu);
+                    v256 = v433[115] & 0x7FF | ((v433[118] & 0x7FF) << 16);
+                    v257 = v433[98] & 0x3F | ((v433[101] & 0x3F) << 8) & 0xC0C0FFFF | ((v433[104] & 0x3F) << 16) & 0xC0FFFFFF | ((v433[107] & 0x3F) << 24);
+                    v258 = v433[110] & 0x3F | ((v433[113] & 0x3F) << 8) & 0xC0C0FFFF | ((v433[116] & 0x3F) << 16) & 0xC0FFFFFF | ((v433[119] & 0x3F) << 24);
+                    v259 = v433[99] & 0x1FFF | ((v433[102] & 0x1FFF) << 16);
+                    *v437 = 136316418;
+                    v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+                    v439 = 2048;
+                    *v440 = v230;
+                    *&v440[8] = 1024;
+                    *v441 = v256;
+                    *&v441[4] = 1024;
+                    *&v441[6] = v257;
+                    *&v441[10] = 1024;
+                    *&v441[12] = v258;
+                    *&v441[16] = 1024;
+                    *&v441[18] = v259;
+                    _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v437, 0x2Eu);
                   }
 
-                  v86 = v437;
+                  v86 = v436;
                   if (logLevel >= 3)
                   {
                     v260 = MEMORY[0x277D86220];
@@ -1992,53 +2042,53 @@ LABEL_35:
                     if (os_log_type_enabled(v260, OS_LOG_TYPE_DEFAULT))
                     {
                       v230 += 16;
-                      v262 = v434[105] & 0x1FFF | ((v434[108] & 0x1FFF) << 16);
-                      v263 = v434[111] & 0x1FFF | ((v434[114] & 0x1FFF) << 16);
-                      v264 = v434[117] & 0x1FFF | ((v434[120] & 0x1FFF) << 16);
-                      v265 = v434[193] & 0x7FF | ((v434[196] & 0x7FF) << 16);
-                      *v438 = 136316418;
-                      v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-                      v440 = 2048;
-                      *v441 = v230;
-                      *&v441[8] = 1024;
-                      *v442 = v262;
-                      *&v442[4] = 1024;
-                      *&v442[6] = v263;
-                      *&v442[10] = 1024;
-                      *&v442[12] = v264;
-                      *&v442[16] = 1024;
-                      *&v442[18] = v265;
-                      _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v438, 0x2Eu);
+                      v262 = v433[105] & 0x1FFF | ((v433[108] & 0x1FFF) << 16);
+                      v263 = v433[111] & 0x1FFF | ((v433[114] & 0x1FFF) << 16);
+                      v264 = v433[117] & 0x1FFF | ((v433[120] & 0x1FFF) << 16);
+                      v265 = v433[193] & 0x7FF | ((v433[196] & 0x7FF) << 16);
+                      *v437 = 136316418;
+                      v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+                      v439 = 2048;
+                      *v440 = v230;
+                      *&v440[8] = 1024;
+                      *v441 = v262;
+                      *&v441[4] = 1024;
+                      *&v441[6] = v263;
+                      *&v441[10] = 1024;
+                      *&v441[12] = v264;
+                      *&v441[16] = 1024;
+                      *&v441[18] = v265;
+                      _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v437, 0x2Eu);
                     }
 
-                    v86 = v437;
+                    v86 = v436;
                     if (logLevel >= 3)
                     {
                       v266 = MEMORY[0x277D86220];
                       v267 = MEMORY[0x277D86220];
                       if (os_log_type_enabled(v266, OS_LOG_TYPE_DEFAULT))
                       {
-                        v268 = v434[199] & 0x7FF | ((v434[202] & 0x7FF) << 16);
-                        v269 = v434[205] & 0x7FF | ((v434[208] & 0x7FF) << 16);
-                        v270 = v434[211] & 0x7FF | ((v434[214] & 0x7FF) << 16);
+                        v268 = v433[199] & 0x7FF | ((v433[202] & 0x7FF) << 16);
+                        v269 = v433[205] & 0x7FF | ((v433[208] & 0x7FF) << 16);
+                        v270 = v433[211] & 0x7FF | ((v433[214] & 0x7FF) << 16);
                         v230 += 16;
-                        v271 = v434[194] & 0x3F | ((v434[197] & 0x3F) << 8) & 0xC0C0FFFF | ((v434[200] & 0x3F) << 16) & 0xC0FFFFFF | ((v434[203] & 0x3F) << 24);
-                        *v438 = 136316418;
-                        v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-                        v440 = 2048;
-                        *v441 = v230;
-                        *&v441[8] = 1024;
-                        *v442 = v268;
-                        *&v442[4] = 1024;
-                        *&v442[6] = v269;
-                        *&v442[10] = 1024;
-                        *&v442[12] = v270;
-                        *&v442[16] = 1024;
-                        *&v442[18] = v271;
-                        _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v438, 0x2Eu);
+                        v271 = v433[194] & 0x3F | ((v433[197] & 0x3F) << 8) & 0xC0C0FFFF | ((v433[200] & 0x3F) << 16) & 0xC0FFFFFF | ((v433[203] & 0x3F) << 24);
+                        *v437 = 136316418;
+                        v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+                        v439 = 2048;
+                        *v440 = v230;
+                        *&v440[8] = 1024;
+                        *v441 = v268;
+                        *&v441[4] = 1024;
+                        *&v441[6] = v269;
+                        *&v441[10] = 1024;
+                        *&v441[12] = v270;
+                        *&v441[16] = 1024;
+                        *&v441[18] = v271;
+                        _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v437, 0x2Eu);
                       }
 
-                      v86 = v437;
+                      v86 = v436;
                       if (logLevel >= 3)
                       {
                         v272 = MEMORY[0x277D86220];
@@ -2046,26 +2096,26 @@ LABEL_35:
                         if (os_log_type_enabled(v272, OS_LOG_TYPE_DEFAULT))
                         {
                           v230 += 16;
-                          v274 = v434[206] & 0x3F | ((v434[209] & 0x3F) << 8) & 0xC0C0FFFF | ((v434[212] & 0x3F) << 16) & 0xC0FFFFFF | ((v434[215] & 0x3F) << 24);
-                          v275 = v434[195] & 0x1FFF | ((v434[198] & 0x1FFF) << 16);
-                          v276 = v434[201] & 0x1FFF | ((v434[204] & 0x1FFF) << 16);
-                          v277 = v434[207] & 0x1FFF | ((v434[210] & 0x1FFF) << 16);
-                          *v438 = 136316418;
-                          v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-                          v440 = 2048;
-                          *v441 = v230;
-                          *&v441[8] = 1024;
-                          *v442 = v274;
-                          *&v442[4] = 1024;
-                          *&v442[6] = v275;
-                          *&v442[10] = 1024;
-                          *&v442[12] = v276;
-                          *&v442[16] = 1024;
-                          *&v442[18] = v277;
-                          _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v438, 0x2Eu);
+                          v274 = v433[206] & 0x3F | ((v433[209] & 0x3F) << 8) & 0xC0C0FFFF | ((v433[212] & 0x3F) << 16) & 0xC0FFFFFF | ((v433[215] & 0x3F) << 24);
+                          v275 = v433[195] & 0x1FFF | ((v433[198] & 0x1FFF) << 16);
+                          v276 = v433[201] & 0x1FFF | ((v433[204] & 0x1FFF) << 16);
+                          v277 = v433[207] & 0x1FFF | ((v433[210] & 0x1FFF) << 16);
+                          *v437 = 136316418;
+                          v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+                          v439 = 2048;
+                          *v440 = v230;
+                          *&v440[8] = 1024;
+                          *v441 = v274;
+                          *&v441[4] = 1024;
+                          *&v441[6] = v275;
+                          *&v441[10] = 1024;
+                          *&v441[12] = v276;
+                          *&v441[16] = 1024;
+                          *&v441[18] = v277;
+                          _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v437, 0x2Eu);
                         }
 
-                        v86 = v437;
+                        v86 = v436;
                         if (logLevel >= 3)
                         {
                           v278 = MEMORY[0x277D86220];
@@ -2073,26 +2123,26 @@ LABEL_35:
                           if (os_log_type_enabled(v278, OS_LOG_TYPE_DEFAULT))
                           {
                             v230 += 16;
-                            v280 = v434[213] & 0x1FFF | ((v434[216] & 0x1FFF) << 16);
-                            v281 = v434[294] & 0x1FFF | ((v434[295] & 0x1FFF) << 16);
-                            v282 = v434[296] & 0x1FFF | ((v434[297] & 0x1FFF) << 16);
-                            v283 = v434[298] & 0x1FFF;
-                            *v438 = 136316418;
-                            v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-                            v440 = 2048;
-                            *v441 = v230;
-                            *&v441[8] = 1024;
-                            *v442 = v280;
-                            *&v442[4] = 1024;
-                            *&v442[6] = v281;
-                            *&v442[10] = 1024;
-                            *&v442[12] = v282;
-                            *&v442[16] = 1024;
-                            *&v442[18] = v283;
-                            _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v438, 0x2Eu);
+                            v280 = v433[213] & 0x1FFF | ((v433[216] & 0x1FFF) << 16);
+                            v281 = v433[294] & 0x1FFF | ((v433[295] & 0x1FFF) << 16);
+                            v282 = v433[296] & 0x1FFF | ((v433[297] & 0x1FFF) << 16);
+                            v283 = v433[298] & 0x1FFF;
+                            *v437 = 136316418;
+                            v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+                            v439 = 2048;
+                            *v440 = v230;
+                            *&v440[8] = 1024;
+                            *v441 = v280;
+                            *&v441[4] = 1024;
+                            *&v441[6] = v281;
+                            *&v441[10] = 1024;
+                            *&v441[12] = v282;
+                            *&v441[16] = 1024;
+                            *&v441[18] = v283;
+                            _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v437, 0x2Eu);
                           }
 
-                          v86 = v437;
+                          v86 = v436;
                           if (logLevel >= 3)
                           {
                             v284 = MEMORY[0x277D86220];
@@ -2100,28 +2150,28 @@ LABEL_35:
                             if (os_log_type_enabled(v284, OS_LOG_TYPE_DEFAULT))
                             {
                               v230 += 16;
-                              v286 = v434[299] & 0x1FFF | ((v434[300] & 0x1FFF) << 16);
-                              v287 = v434[301] & 0x1FFF | ((v434[302] & 0x1FFF) << 16);
-                              v288 = v434[303] & 0x1FFF | ((v434[304] & 0x1FFF) << 16);
-                              v289 = v434[305] & 0x1FFF | ((v434[306] & 0x1FFF) << 16);
-                              *v438 = 136316418;
-                              v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-                              v440 = 2048;
-                              *v441 = v230;
-                              *&v441[8] = 1024;
-                              *v442 = v286;
-                              *&v442[4] = 1024;
-                              *&v442[6] = v287;
-                              *&v442[10] = 1024;
-                              *&v442[12] = v288;
-                              *&v442[16] = 1024;
-                              *&v442[18] = v289;
-                              _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v438, 0x2Eu);
+                              v286 = v433[299] & 0x1FFF | ((v433[300] & 0x1FFF) << 16);
+                              v287 = v433[301] & 0x1FFF | ((v433[302] & 0x1FFF) << 16);
+                              v288 = v433[303] & 0x1FFF | ((v433[304] & 0x1FFF) << 16);
+                              v289 = v433[305] & 0x1FFF | ((v433[306] & 0x1FFF) << 16);
+                              *v437 = 136316418;
+                              v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+                              v439 = 2048;
+                              *v440 = v230;
+                              *&v440[8] = 1024;
+                              *v441 = v286;
+                              *&v441[4] = 1024;
+                              *&v441[6] = v287;
+                              *&v441[10] = 1024;
+                              *&v441[12] = v288;
+                              *&v441[16] = 1024;
+                              *&v441[18] = v289;
+                              _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v437, 0x2Eu);
                             }
 
-                            hcusCopy = v430;
+                            hcusCopy = v429;
                             v87 = selfCopy;
-                            v86 = v437;
+                            v86 = v436;
                             if (logLevel >= 3)
                             {
                               v290 = MEMORY[0x277D86220];
@@ -2129,28 +2179,28 @@ LABEL_35:
                               if (os_log_type_enabled(v290, OS_LOG_TYPE_DEFAULT))
                               {
                                 v230 += 16;
-                                v292 = v434[307] & 0x1FFF;
-                                v293 = v434[308] & 0x1FFF | ((v434[309] & 0x1FFF) << 16);
-                                v294 = v434[310] & 0x1FFF | ((v434[311] & 0x1FFF) << 16);
-                                v295 = v434[312] & 0x1FFF | ((v434[313] & 0x1FFF) << 16);
-                                *v438 = 136316418;
-                                v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-                                v440 = 2048;
-                                *v441 = v230;
-                                *&v441[8] = 1024;
-                                *v442 = v292;
-                                *&v442[4] = 1024;
-                                *&v442[6] = v293;
-                                *&v442[10] = 1024;
-                                *&v442[12] = v294;
-                                *&v442[16] = 1024;
-                                *&v442[18] = v295;
-                                _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v438, 0x2Eu);
+                                v292 = v433[307] & 0x1FFF;
+                                v293 = v433[308] & 0x1FFF | ((v433[309] & 0x1FFF) << 16);
+                                v294 = v433[310] & 0x1FFF | ((v433[311] & 0x1FFF) << 16);
+                                v295 = v433[312] & 0x1FFF | ((v433[313] & 0x1FFF) << 16);
+                                *v437 = 136316418;
+                                v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+                                v439 = 2048;
+                                *v440 = v230;
+                                *&v440[8] = 1024;
+                                *v441 = v292;
+                                *&v441[4] = 1024;
+                                *&v441[6] = v293;
+                                *&v441[10] = 1024;
+                                *&v441[12] = v294;
+                                *&v441[16] = 1024;
+                                *&v441[18] = v295;
+                                _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v437, 0x2Eu);
                               }
 
-                              hcusCopy = v430;
+                              hcusCopy = v429;
                               v87 = selfCopy;
-                              v86 = v437;
+                              v86 = v436;
                               if (logLevel >= 3)
                               {
                                 v296 = MEMORY[0x277D86220];
@@ -2158,53 +2208,53 @@ LABEL_35:
                                 if (os_log_type_enabled(v296, OS_LOG_TYPE_DEFAULT))
                                 {
                                   v230 += 16;
-                                  v298 = v434[314] & 0x1FFF | ((v434[315] & 0x1FFF) << 16);
-                                  v299 = v434[316] & 0x1FFF | ((v434[317] & 0x1FFF) << 16);
-                                  v300 = v434[318] & 0x1FFF | ((v434[319] & 0x1FFF) << 16);
-                                  v301 = v434[320] & 0x1FFF;
-                                  *v438 = 136316418;
-                                  v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-                                  v440 = 2048;
-                                  *v441 = v230;
-                                  *&v441[8] = 1024;
-                                  *v442 = v298;
-                                  *&v442[4] = 1024;
-                                  *&v442[6] = v299;
-                                  *&v442[10] = 1024;
-                                  *&v442[12] = v300;
-                                  *&v442[16] = 1024;
-                                  *&v442[18] = v301;
-                                  _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v438, 0x2Eu);
+                                  v298 = v433[314] & 0x1FFF | ((v433[315] & 0x1FFF) << 16);
+                                  v299 = v433[316] & 0x1FFF | ((v433[317] & 0x1FFF) << 16);
+                                  v300 = v433[318] & 0x1FFF | ((v433[319] & 0x1FFF) << 16);
+                                  v301 = v433[320] & 0x1FFF;
+                                  *v437 = 136316418;
+                                  v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+                                  v439 = 2048;
+                                  *v440 = v230;
+                                  *&v440[8] = 1024;
+                                  *v441 = v298;
+                                  *&v441[4] = 1024;
+                                  *&v441[6] = v299;
+                                  *&v441[10] = 1024;
+                                  *&v441[12] = v300;
+                                  *&v441[16] = 1024;
+                                  *&v441[18] = v301;
+                                  _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v437, 0x2Eu);
                                 }
 
-                                hcusCopy = v430;
+                                hcusCopy = v429;
                                 v87 = selfCopy;
-                                v86 = v437;
+                                v86 = v436;
                                 if (logLevel >= 3)
                                 {
                                   v302 = MEMORY[0x277D86220];
                                   v303 = MEMORY[0x277D86220];
                                   if (os_log_type_enabled(v302, OS_LOG_TYPE_DEFAULT))
                                   {
-                                    v304 = v434[290] & 0x3F | ((v434[291] & 0x3F) << 6) & 0xFFF | ((v434[292] & 0x3F) << 12) & 0xFC03FFFF | ((v434[293] & 0x3F) << 18) & 0xFCFFFFFF | ((v434[289] & 3) << 24) | (*v434 << 26);
-                                    *v438 = 136316418;
-                                    v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-                                    v440 = 2048;
-                                    *v441 = v230 + 16;
-                                    *&v441[8] = 1024;
-                                    *v442 = v304;
-                                    *&v442[4] = 2080;
-                                    *&v442[6] = "XXXXXXXX";
-                                    *&v442[14] = 2080;
-                                    *&v442[16] = "XXXXXXXX";
-                                    *&v442[24] = 2080;
-                                    *&v442[26] = "XXXXXXXX";
-                                    _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %s %s %s\n", v438, 0x3Au);
+                                    v304 = v433[290] & 0x3F | ((v433[291] & 0x3F) << 6) & 0xFFF | ((v433[292] & 0x3F) << 12) & 0xFC03FFFF | ((v433[293] & 0x3F) << 18) & 0xFCFFFFFF | ((v433[289] & 3) << 24) | (*v433 << 26);
+                                    *v437 = 136316418;
+                                    v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+                                    v439 = 2048;
+                                    *v440 = v230 + 16;
+                                    *&v440[8] = 1024;
+                                    *v441 = v304;
+                                    *&v441[4] = 2080;
+                                    *&v441[6] = "XXXXXXXX";
+                                    *&v441[14] = 2080;
+                                    *&v441[16] = "XXXXXXXX";
+                                    *&v441[24] = 2080;
+                                    *&v441[26] = "XXXXXXXX";
+                                    _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %s %s %s\n", v437, 0x3Au);
                                   }
 
-                                  hcusCopy = v430;
+                                  hcusCopy = v429;
                                   v87 = selfCopy;
-                                  v86 = v437;
+                                  v86 = v436;
                                 }
                               }
                             }
@@ -2227,9 +2277,9 @@ LABEL_35:
         v307 = MEMORY[0x277D86220];
         if (os_log_type_enabled(v306, OS_LOG_TYPE_DEFAULT))
         {
-          *v438 = 136315138;
-          v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-          _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: -----------------------------------------------\n", v438, 0xCu);
+          *v437 = 136315138;
+          v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+          _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: -----------------------------------------------\n", v437, 0xCu);
         }
 
         if (logLevel >= 3)
@@ -2242,19 +2292,19 @@ LABEL_35:
             v311 = v86[102] & 0x7FF | ((v86[105] & 0x7FF) << 16);
             v312 = v86[108] & 0x7FF | ((v86[111] & 0x7FF) << 16);
             v313 = v86[114] & 0x7FF | ((v86[117] & 0x7FF) << 16);
-            *v438 = 136316418;
-            v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-            v440 = 2048;
-            *v441 = v305 + 42160;
-            *&v441[8] = 1024;
-            *v442 = v310;
-            *&v442[4] = 1024;
-            *&v442[6] = v311;
-            *&v442[10] = 1024;
-            *&v442[12] = v312;
-            *&v442[16] = 1024;
-            *&v442[18] = v313;
-            _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v438, 0x2Eu);
+            *v437 = 136316418;
+            v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+            v439 = 2048;
+            *v440 = v305 + 42160;
+            *&v440[8] = 1024;
+            *v441 = v310;
+            *&v441[4] = 1024;
+            *&v441[6] = v311;
+            *&v441[10] = 1024;
+            *&v441[12] = v312;
+            *&v441[16] = 1024;
+            *&v441[18] = v313;
+            _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v437, 0x2Eu);
           }
 
           if (logLevel >= 3)
@@ -2267,19 +2317,19 @@ LABEL_35:
               v316 = v86[103] & 0x7FF | ((v86[106] & 0x7FF) << 16);
               v317 = v86[109] & 0x7FF | ((v86[112] & 0x7FF) << 16);
               v318 = v86[115] & 0x7FF | ((v86[118] & 0x7FF) << 16);
-              *v438 = 136316418;
-              v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-              v440 = 2048;
-              *v441 = v305 + 42176;
-              *&v441[8] = 1024;
-              *v442 = v315;
-              *&v442[4] = 1024;
-              *&v442[6] = v316;
-              *&v442[10] = 1024;
-              *&v442[12] = v317;
-              *&v442[16] = 1024;
-              *&v442[18] = v318;
-              _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v438, 0x2Eu);
+              *v437 = 136316418;
+              v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+              v439 = 2048;
+              *v440 = v305 + 42176;
+              *&v440[8] = 1024;
+              *v441 = v315;
+              *&v441[4] = 1024;
+              *&v441[6] = v316;
+              *&v441[10] = 1024;
+              *&v441[12] = v317;
+              *&v441[16] = 1024;
+              *&v441[18] = v318;
+              _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v437, 0x2Eu);
             }
 
             if (logLevel >= 3)
@@ -2292,19 +2342,19 @@ LABEL_35:
                 v321 = v86[104] & 0x7FFF | ((v86[107] & 0x7FFF) << 16);
                 v322 = v86[110] & 0x7FFF | ((v86[113] & 0x7FFF) << 16);
                 v323 = v86[116] & 0x7FFF | ((v86[119] & 0x7FFF) << 16);
-                *v438 = 136316418;
-                v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-                v440 = 2048;
-                *v441 = v308;
-                *&v441[8] = 1024;
-                *v442 = v320;
-                *&v442[4] = 1024;
-                *&v442[6] = v321;
-                *&v442[10] = 1024;
-                *&v442[12] = v322;
-                *&v442[16] = 1024;
-                *&v442[18] = v323;
-                _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v438, 0x2Eu);
+                *v437 = 136316418;
+                v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+                v439 = 2048;
+                *v440 = v308;
+                *&v440[8] = 1024;
+                *v441 = v320;
+                *&v441[4] = 1024;
+                *&v441[6] = v321;
+                *&v441[10] = 1024;
+                *&v441[12] = v322;
+                *&v441[16] = 1024;
+                *&v441[18] = v323;
+                _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v437, 0x2Eu);
               }
 
               if (logLevel >= 3)
@@ -2317,19 +2367,19 @@ LABEL_35:
                   v326 = v86[198] & 0x7FF | ((v86[201] & 0x7FF) << 16);
                   v327 = v86[204] & 0x7FF | ((v86[207] & 0x7FF) << 16);
                   v328 = v86[210] & 0x7FF | ((v86[213] & 0x7FF) << 16);
-                  *v438 = 136316418;
-                  v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-                  v440 = 2048;
-                  *v441 = v308;
-                  *&v441[8] = 1024;
-                  *v442 = v325;
-                  *&v442[4] = 1024;
-                  *&v442[6] = v326;
-                  *&v442[10] = 1024;
-                  *&v442[12] = v327;
-                  *&v442[16] = 1024;
-                  *&v442[18] = v328;
-                  _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v438, 0x2Eu);
+                  *v437 = 136316418;
+                  v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+                  v439 = 2048;
+                  *v440 = v308;
+                  *&v440[8] = 1024;
+                  *v441 = v325;
+                  *&v441[4] = 1024;
+                  *&v441[6] = v326;
+                  *&v441[10] = 1024;
+                  *&v441[12] = v327;
+                  *&v441[16] = 1024;
+                  *&v441[18] = v328;
+                  _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v437, 0x2Eu);
                 }
 
                 if (logLevel >= 3)
@@ -2342,19 +2392,19 @@ LABEL_35:
                     v331 = v86[199] & 0x7FF | ((v86[202] & 0x7FF) << 16);
                     v332 = v86[205] & 0x7FF | ((v86[208] & 0x7FF) << 16);
                     v333 = v86[211] & 0x7FF | ((v86[214] & 0x7FF) << 16);
-                    *v438 = 136316418;
-                    v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-                    v440 = 2048;
-                    *v441 = v308;
-                    *&v441[8] = 1024;
-                    *v442 = v330;
-                    *&v442[4] = 1024;
-                    *&v442[6] = v331;
-                    *&v442[10] = 1024;
-                    *&v442[12] = v332;
-                    *&v442[16] = 1024;
-                    *&v442[18] = v333;
-                    _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v438, 0x2Eu);
+                    *v437 = 136316418;
+                    v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+                    v439 = 2048;
+                    *v440 = v308;
+                    *&v440[8] = 1024;
+                    *v441 = v330;
+                    *&v441[4] = 1024;
+                    *&v441[6] = v331;
+                    *&v441[10] = 1024;
+                    *&v441[12] = v332;
+                    *&v441[16] = 1024;
+                    *&v441[18] = v333;
+                    _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v437, 0x2Eu);
                   }
 
                   if (logLevel >= 3)
@@ -2367,19 +2417,19 @@ LABEL_35:
                       v336 = v86[200] & 0x7FFF | ((v86[203] & 0x7FFF) << 16);
                       v337 = v86[206] & 0x7FFF | ((v86[209] & 0x7FFF) << 16);
                       v338 = v86[212] & 0x7FFF | ((v86[215] & 0x7FFF) << 16);
-                      *v438 = 136316418;
-                      v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-                      v440 = 2048;
-                      *v441 = v308;
-                      *&v441[8] = 1024;
-                      *v442 = v335;
-                      *&v442[4] = 1024;
-                      *&v442[6] = v336;
-                      *&v442[10] = 1024;
-                      *&v442[12] = v337;
-                      *&v442[16] = 1024;
-                      *&v442[18] = v338;
-                      _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v438, 0x2Eu);
+                      *v437 = 136316418;
+                      v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+                      v439 = 2048;
+                      *v440 = v308;
+                      *&v440[8] = 1024;
+                      *v441 = v335;
+                      *&v441[4] = 1024;
+                      *&v441[6] = v336;
+                      *&v441[10] = 1024;
+                      *&v441[12] = v337;
+                      *&v441[16] = 1024;
+                      *&v441[18] = v338;
+                      _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v437, 0x2Eu);
                     }
 
                     if (logLevel >= 3)
@@ -2392,19 +2442,19 @@ LABEL_35:
                         v341 = v86[295] & 0x7FF | ((v86[298] & 0x7FF) << 16);
                         v342 = v86[301] & 0x7FF | ((v86[304] & 0x7FF) << 16);
                         v343 = v86[307] & 0x7FF | ((v86[310] & 0x7FF) << 16);
-                        *v438 = 136316418;
-                        v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-                        v440 = 2048;
-                        *v441 = v308;
-                        *&v441[8] = 1024;
-                        *v442 = v340;
-                        *&v442[4] = 1024;
-                        *&v442[6] = v341;
-                        *&v442[10] = 1024;
-                        *&v442[12] = v342;
-                        *&v442[16] = 1024;
-                        *&v442[18] = v343;
-                        _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v438, 0x2Eu);
+                        *v437 = 136316418;
+                        v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+                        v439 = 2048;
+                        *v440 = v308;
+                        *&v440[8] = 1024;
+                        *v441 = v340;
+                        *&v441[4] = 1024;
+                        *&v441[6] = v341;
+                        *&v441[10] = 1024;
+                        *&v441[12] = v342;
+                        *&v441[16] = 1024;
+                        *&v441[18] = v343;
+                        _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v437, 0x2Eu);
                       }
 
                       if (logLevel >= 3)
@@ -2417,19 +2467,19 @@ LABEL_35:
                           v346 = v86[294] & 0xFFF | ((v86[297] & 0xFFF) << 16);
                           v347 = v86[300] & 0xFFF | ((v86[303] & 0xFFF) << 16);
                           v348 = v86[306] & 0xFFF | ((v86[309] & 0xFFF) << 16);
-                          *v438 = 136316418;
-                          v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-                          v440 = 2048;
-                          *v441 = v308;
-                          *&v441[8] = 1024;
-                          *v442 = v345;
-                          *&v442[4] = 1024;
-                          *&v442[6] = v346;
-                          *&v442[10] = 1024;
-                          *&v442[12] = v347;
-                          *&v442[16] = 1024;
-                          *&v442[18] = v348;
-                          _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v438, 0x2Eu);
+                          *v437 = 136316418;
+                          v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+                          v439 = 2048;
+                          *v440 = v308;
+                          *&v440[8] = 1024;
+                          *v441 = v345;
+                          *&v441[4] = 1024;
+                          *&v441[6] = v346;
+                          *&v441[10] = 1024;
+                          *&v441[12] = v347;
+                          *&v441[16] = 1024;
+                          *&v441[18] = v348;
+                          _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v437, 0x2Eu);
                         }
 
                         if (logLevel >= 3)
@@ -2442,19 +2492,19 @@ LABEL_35:
                             v351 = v86[296] & 0x7FF | ((v86[299] & 0x7FF) << 16);
                             v352 = v86[302] & 0x7FF | ((v86[305] & 0x7FF) << 16);
                             v353 = v86[308] & 0x7FF | ((v86[311] & 0x7FF) << 16);
-                            *v438 = 136316418;
-                            v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-                            v440 = 2048;
-                            *v441 = v308;
-                            *&v441[8] = 1024;
-                            *v442 = v350;
-                            *&v442[4] = 1024;
-                            *&v442[6] = v351;
-                            *&v442[10] = 1024;
-                            *&v442[12] = v352;
-                            *&v442[16] = 1024;
-                            *&v442[18] = v353;
-                            _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v438, 0x2Eu);
+                            *v437 = 136316418;
+                            v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+                            v439 = 2048;
+                            *v440 = v308;
+                            *&v440[8] = 1024;
+                            *v441 = v350;
+                            *&v441[4] = 1024;
+                            *&v441[6] = v351;
+                            *&v441[10] = 1024;
+                            *&v441[12] = v352;
+                            *&v441[16] = 1024;
+                            *&v441[18] = v353;
+                            _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %08x %08x %08x %08x\n", v437, 0x2Eu);
                           }
 
                           if (logLevel >= 3)
@@ -2463,19 +2513,19 @@ LABEL_35:
                             if (os_log_type_enabled(v306, OS_LOG_TYPE_DEFAULT))
                             {
                               v355 = v86[384] & 0x3F | ((v86[385] & 0x7FF) << 6) & 0x8001FFFF | ((v86[386] & 0x3F) << 17) & 0x807FFFFF | (*(v86 + 387) << 23);
-                              *v438 = 136316418;
-                              v439 = "[ASEProcessingT1 DumpOutputHcus:]";
-                              v440 = 2048;
-                              *v441 = v308 + 16;
-                              *&v441[8] = 2080;
-                              *v442 = "XXXXXXXX";
-                              *&v442[8] = 1024;
-                              *&v442[10] = v355;
-                              *&v442[14] = 2080;
-                              *&v442[16] = "XXXXXXXX";
-                              *&v442[24] = 2080;
-                              *&v442[26] = "XXXXXXXX";
-                              _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %s %08x %s %s\n", v438, 0x3Au);
+                              *v437 = 136316418;
+                              v438 = "[ASEProcessingT1 DumpOutputHcus:]";
+                              v439 = 2048;
+                              *v440 = v308 + 16;
+                              *&v440[8] = 2080;
+                              *v441 = "XXXXXXXX";
+                              *&v441[8] = 1024;
+                              *&v441[10] = v355;
+                              *&v441[14] = 2080;
+                              *&v441[16] = "XXXXXXXX";
+                              *&v441[24] = 2080;
+                              *&v441[26] = "XXXXXXXX";
+                              _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: %09llx:  %s %08x %s %s\n", v437, 0x3Au);
                             }
                           }
                         }
@@ -2490,8 +2540,6 @@ LABEL_35:
       }
     }
   }
-
-  v356 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configControlHeader_V3:(aseConfigurationUnitsV3_t *)v3
@@ -2507,68 +2555,68 @@ LABEL_35:
 
 - (void)processPixelWithInput:(__IOSurface *)input Measurement:(id *)measurement controlUnitV3:(aseConfigurationUnitsV3_t *)v3
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if (logLevel >= 4 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 136315906;
-    v17 = "[ASEProcessingT1 processPixelWithInput:Measurement:controlUnitV3:]";
-    v18 = 2048;
-    *v19 = input;
-    *&v19[8] = 2048;
+    v15 = 136315906;
+    v16 = "[ASEProcessingT1 processPixelWithInput:Measurement:controlUnitV3:]";
+    v17 = 2048;
+    *v18 = input;
+    *&v18[8] = 2048;
     measurementCopy = measurement;
-    v21 = 2048;
+    v20 = 2048;
     v3Copy = v3;
-    _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] ++  %s : input=%p, aseMeasurementOutput=%p, aseControlUnit=%p\n", &v16, 0x2Au);
+    _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] ++  %s : input=%p, aseMeasurementOutput=%p, aseControlUnit=%p\n", &v15, 0x2Au);
   }
 
-  if (isT1OrNewer(self->super._productType))
+  if (!isT1OrNewer(self->super._productType))
   {
-    [(ASEProcessingT1 *)self processPixelWithInput_V3:input Measurement:measurement Output:v3];
-    if (logLevel < 3)
+    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_14;
+      goto LABEL_11;
     }
 
-    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
-    {
-      var0 = v3->var0.var0;
-      var1 = v3->var0.var1;
-      v16 = 136315650;
-      v17 = "[ASEProcessingT1 processPixelWithInput:Measurement:controlUnitV3:]";
-      v18 = 1024;
-      *v19 = var0;
-      *&v19[4] = 1024;
-      *&v19[6] = var1;
-      v11 = MEMORY[0x277D86220];
-      v12 = " [1.50.3]     %s : aseControlUnit->hcuCount %d, aseControlUnit->hcuSize %d, \n";
-      v13 = 24;
-LABEL_10:
-      _os_log_impl(&dword_23D3F2000, v11, OS_LOG_TYPE_DEFAULT, v12, &v16, v13);
-    }
-  }
-
-  else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
-  {
     productType = self->super._productType;
-    v16 = 136315394;
-    v17 = "[ASEProcessingT1 processPixelWithInput:Measurement:controlUnitV3:]";
-    v18 = 1024;
-    *v19 = productType;
+    v15 = 136315394;
+    v16 = "[ASEProcessingT1 processPixelWithInput:Measurement:controlUnitV3:]";
+    v17 = 1024;
+    *v18 = productType;
     v11 = MEMORY[0x277D86220];
     v12 = " [1.50.3]     %s : ERROR: Not supported, _productType = %d\n";
     v13 = 18;
     goto LABEL_10;
   }
 
-  if (logLevel >= 4 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  [(ASEProcessingT1 *)self processPixelWithInput_V3:input Measurement:measurement Output:v3];
+  if (logLevel < 3)
   {
-    v16 = 136315138;
-    v17 = "[ASEProcessingT1 processPixelWithInput:Measurement:controlUnitV3:]";
-    _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] --  %s \n", &v16, 0xCu);
+    return;
   }
 
-LABEL_14:
-  v15 = *MEMORY[0x277D85DE8];
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  {
+    var0 = v3->var0.var0;
+    var1 = v3->var0.var1;
+    v15 = 136315650;
+    v16 = "[ASEProcessingT1 processPixelWithInput:Measurement:controlUnitV3:]";
+    v17 = 1024;
+    *v18 = var0;
+    *&v18[4] = 1024;
+    *&v18[6] = var1;
+    v11 = MEMORY[0x277D86220];
+    v12 = " [1.50.3]     %s : aseControlUnit->hcuCount %d, aseControlUnit->hcuSize %d, \n";
+    v13 = 24;
+LABEL_10:
+    _os_log_impl(&dword_23D3F2000, v11, OS_LOG_TYPE_DEFAULT, v12, &v15, v13);
+  }
+
+LABEL_11:
+  if (logLevel >= 4 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  {
+    v15 = 136315138;
+    v16 = "[ASEProcessingT1 processPixelWithInput:Measurement:controlUnitV3:]";
+    _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] --  %s \n", &v15, 0xCu);
+  }
 }
 
 - (void)processPixelWithInput_V3:(__IOSurface *)v3 Measurement:(id *)measurement Output:(aseConfigurationUnitsV3_t *)output
@@ -2636,7 +2684,7 @@ LABEL_14:
   v5 = 0;
   v6 = 0;
   v7 = 0;
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   enabledHcus = self->_enabledHcus;
   v9 = hideHcu;
   do
@@ -2727,31 +2775,30 @@ LABEL_24:
   {
     v16 = self->_enabledHcus;
     *buf = 136315906;
-    v20 = "[ASEProcessingT1 populateOutputHcus:]";
-    v21 = 1024;
-    v22 = v16;
-    v23 = 1024;
-    v24 = hideHcu;
-    v25 = 1024;
-    v26 = hideHcu;
+    v19 = "[ASEProcessingT1 populateOutputHcus:]";
+    v20 = 1024;
+    v21 = v16;
+    v22 = 1024;
+    v23 = hideHcu;
+    v24 = 1024;
+    v25 = hideHcu;
     _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3]     %s: _enabledHcus = 0x%x, hideHcu = 0x%x (%d)\n", buf, 0x1Eu);
   }
 
   [(ASEProcessingT1 *)self DumpOutputHcus:v12];
 LABEL_28:
-  v17 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
 
 - (void)processPixelWithPixelControl_V3:(__IOSurface *)v3 Output:(aseConfigurationUnitsV3_t *)output
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (logLevel >= 4 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v15 = "[ASEProcessingT1 processPixelWithPixelControl_V3:Output:]";
-    v16 = 2048;
+    v14 = "[ASEProcessingT1 processPixelWithPixelControl_V3:Output:]";
+    v15 = 2048;
     outputCopy = output;
     _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] ++  %s : aseControlUnit=%p\n", buf, 0x16u);
   }
@@ -2760,31 +2807,29 @@ LABEL_28:
   InputType = getInputType(self->super._inputType);
   TransferFunction = getTransferFunction(v3);
   *&v9 = self->super._enhancementStrength;
-  LODWORD(v13) = TransferFunction;
-  calculate_graphics_control_setting_V3(output, self->super._inputWidth, self->super._inputHeight, v9, v10, v11, LODWORD(self->super._numberOfProcessedFrames), self->super._productType, self->super._destinationWidth, self->super._destinationHeight, InputType, v13, self->_aseControlUnitV3Cache, &self->_enabledHcus);
+  LODWORD(v12) = TransferFunction;
+  calculate_graphics_control_setting_V3(output, self->super._inputWidth, self->super._inputHeight, v9, v10, v11, LODWORD(self->super._numberOfProcessedFrames), self->super._productType, self->super._destinationWidth, self->super._destinationHeight, InputType, v12, self->_aseControlUnitV3Cache, &self->_enabledHcus);
   if (logLevel >= 4 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v15 = "[ASEProcessingT1 processPixelWithPixelControl_V3:Output:]";
+    v14 = "[ASEProcessingT1 processPixelWithPixelControl_V3:Output:]";
     _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] --  %s \n", buf, 0xCu);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processPixelWithMeasurement_V3:(__IOSurface *)v3 Measurement:(id *)measurement Output:(aseConfigurationUnitsV3_t *)output
 {
-  *&v22[11] = *MEMORY[0x277D85DE8];
+  *&v20[11] = *MEMORY[0x277D85DE8];
   if (logLevel >= 4 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315906;
-    v18 = "[ASEProcessingT1 processPixelWithMeasurement_V3:Measurement:Output:]";
-    v19 = 2048;
-    *v20 = v3;
-    *&v20[8] = 2048;
-    *v21 = measurement;
-    *&v21[8] = 2048;
-    *v22 = output;
+    v16 = "[ASEProcessingT1 processPixelWithMeasurement_V3:Measurement:Output:]";
+    v17 = 2048;
+    *v18 = v3;
+    *&v18[8] = 2048;
+    *v19 = measurement;
+    *&v19[8] = 2048;
+    *v20 = output;
     _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] ++  %s : input=%p, aseMeasurementOutput=%p, aseControlUnit=%p\n", buf, 0x2Au);
   }
 
@@ -2792,7 +2837,6 @@ LABEL_28:
   [(ASEProcessingT1 *)self configControlHeader_V3:output];
   InputType = getInputType(self->super._inputType);
   TransferFunction = getTransferFunction(v3);
-  enhancementStrength = self->super._enhancementStrength;
   calculate_control_setting_V3(measurement, output, self->super._inputWidth, self->super._inputHeight, LODWORD(self->super._numberOfProcessedFrames), &self->super._noiseMeterStepSize, &self->super._FD_state, &self->super._FG_count, &self->super._NFG_count, &self->super._prev_H1_7, &self->super._prev_V1_7, &self->super._prev_ratio_2D_1D, self->super._productType, self->super._destinationWidth, self->super._destinationHeight, InputType, TransferFunction, self->_aseControlUnitV3Cache, &self->_enabledHcus);
   if (logLevel >= 4 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
@@ -2801,24 +2845,22 @@ LABEL_28:
     InputTypeString = getInputTypeString(InputType);
     TransferFunctionString = getTransferFunctionString(TransferFunction);
     *buf = 136316162;
-    v18 = "[ASEProcessingT1 processPixelWithMeasurement_V3:Measurement:Output:]";
-    v19 = 1024;
-    *v20 = destinationWidth;
-    *&v20[4] = 1024;
-    *&v20[6] = destinationHeight;
-    *v21 = 2080;
-    *&v21[2] = InputTypeString;
-    v22[0] = 2080;
-    *&v22[1] = TransferFunctionString;
+    v16 = "[ASEProcessingT1 processPixelWithMeasurement_V3:Measurement:Output:]";
+    v17 = 1024;
+    *v18 = destinationWidth;
+    *&v18[4] = 1024;
+    *&v18[6] = destinationHeight;
+    *v19 = 2080;
+    *&v19[2] = InputTypeString;
+    v20[0] = 2080;
+    *&v20[1] = TransferFunctionString;
     _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] --  %s : _destinationWidth=%d, _destinationHeight=%d, inputType=%s, inputTransferFunction=%s\n", buf, 0x2Cu);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)processFrameWithInput:(__IOSurface *)input Measurement:(id *)measurement outputData:(id *)data
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v9 = logLevel;
   if (logLevel >= 4)
   {
@@ -2918,10 +2960,10 @@ LABEL_28:
 
   if (data)
   {
-    v37 = 0u;
-    memset(v38, 0, sizeof(v38));
-    v35 = 0u;
     v36 = 0u;
+    memset(v37, 0, sizeof(v37));
+    v34 = 0u;
+    v35 = 0u;
     memset(&buf[4], 0, 384);
     *buf = 1;
     if (measurement)
@@ -2929,15 +2971,15 @@ LABEL_28:
       memcpy(buf, measurement, 0x17CuLL);
     }
 
-    if ((isT1OrNewer(self->super._productType) & 1) == 0)
+    if (!isT1OrNewer(self->super._productType))
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        *v33 = 0;
-        _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] Assertion: isT1OrNewer(_productType) warned in /Library/Caches/com.apple.xbs/Sources/ASEFramework/ASEProcessingT1.m at line 1788\n", v33, 2u);
+        *v32 = 0;
+        _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] Assertion: isT1OrNewer(_productType) warned in /Library/Caches/com.apple.xbs/Sources/ASEFramework/ASEProcessingT1.m at line 1788\n", v32, 2u);
       }
 
-      if ((isT1OrNewer(self->super._productType) & 1) == 0)
+      if (!isT1OrNewer(self->super._productType))
       {
         [ASEProcessingT1 processFrameWithInput:Measurement:outputData:];
       }
@@ -2956,8 +2998,7 @@ LABEL_28:
 
   if (logLevel < 3)
   {
-    v28 = -18002;
-    goto LABEL_32;
+    return -18002;
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -2992,31 +3033,28 @@ LABEL_25:
     _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] --  %s : frame=%ld, retVal=%ld\n", buf, 0x20u);
   }
 
-LABEL_32:
-  v31 = *MEMORY[0x277D85DE8];
   return v28;
 }
 
 - (int64_t)processFrameWithInput:(__IOSurface *)input Measurement:(id *)measurement callback:(id)callback
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315138;
-    v8 = "[ASEProcessingT1 processFrameWithInput:Measurement:callback:]";
-    _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] ++  %s : ERROR: Async API Not supported!\n", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "[ASEProcessingT1 processFrameWithInput:Measurement:callback:]";
+    _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] ++  %s : ERROR: Async API Not supported!\n", &v6, 0xCu);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return -18001;
 }
 
 - (void)printAseMeasurementOutput:(id *)output
 {
-  v43 = *MEMORY[0x277D85DE8];
-  v30.receiver = self;
-  v30.super_class = ASEProcessingT1;
-  [(ASEProcessingT0 *)&v30 printAseMeasurementOutput:?];
+  v42 = *MEMORY[0x277D85DE8];
+  v29.receiver = self;
+  v29.super_class = ASEProcessingT1;
+  [(ASEProcessingT0 *)&v29 printAseMeasurementOutput:?];
   if (logLevel >= 3)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -3028,17 +3066,17 @@ LABEL_32:
       v8 = output->var22[4];
       v9 = output->var23[0];
       *buf = 67110400;
-      v32 = v4;
-      v33 = 1024;
-      v34 = v5;
-      v35 = 1024;
-      v36 = v6;
-      v37 = 1024;
-      v38 = v7;
-      v39 = 1024;
-      v40 = v8;
-      v41 = 1024;
-      v42 = v9;
+      v31 = v4;
+      v32 = 1024;
+      v33 = v5;
+      v34 = 1024;
+      v35 = v6;
+      v36 = 1024;
+      v37 = v7;
+      v38 = 1024;
+      v39 = v8;
+      v40 = 1024;
+      v41 = v9;
       _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] blkDiffH[ 0 -  5] = %010d, %010d, %010d, %010d, %010d, %010d\n", buf, 0x26u);
     }
 
@@ -3053,17 +3091,17 @@ LABEL_32:
         v14 = output->var23[4];
         v15 = output->var24[0];
         *buf = 67110400;
-        v32 = v10;
-        v33 = 1024;
-        v34 = v11;
-        v35 = 1024;
-        v36 = v12;
-        v37 = 1024;
-        v38 = v13;
-        v39 = 1024;
-        v40 = v14;
-        v41 = 1024;
-        v42 = v15;
+        v31 = v10;
+        v32 = 1024;
+        v33 = v11;
+        v34 = 1024;
+        v35 = v12;
+        v36 = 1024;
+        v37 = v13;
+        v38 = 1024;
+        v39 = v14;
+        v40 = 1024;
+        v41 = v15;
         _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] blkDiffV[ 0 -  5] = %010d, %010d, %010d, %010d, %010d, %010d\n", buf, 0x26u);
       }
 
@@ -3078,17 +3116,17 @@ LABEL_32:
           v20 = output->var24[4];
           v21 = output->var25[0];
           *buf = 67110400;
-          v32 = v16;
-          v33 = 1024;
-          v34 = v17;
-          v35 = 1024;
-          v36 = v18;
-          v37 = 1024;
-          v38 = v19;
-          v39 = 1024;
-          v40 = v20;
-          v41 = 1024;
-          v42 = v21;
+          v31 = v16;
+          v32 = 1024;
+          v33 = v17;
+          v34 = 1024;
+          v35 = v18;
+          v36 = 1024;
+          v37 = v19;
+          v38 = 1024;
+          v39 = v20;
+          v40 = 1024;
+          v41 = v21;
           _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] blkCtrH[ 0 -  5] = %010d, %010d, %010d, %010d, %010d, %010d\n", buf, 0x26u);
         }
 
@@ -3103,17 +3141,17 @@ LABEL_32:
             v26 = output->var25[4];
             v27 = output->var26;
             *buf = 67110400;
-            v32 = v22;
-            v33 = 1024;
-            v34 = v23;
-            v35 = 1024;
-            v36 = v24;
-            v37 = 1024;
-            v38 = v25;
-            v39 = 1024;
-            v40 = v26;
-            v41 = 1024;
-            v42 = v27;
+            v31 = v22;
+            v32 = 1024;
+            v33 = v23;
+            v34 = 1024;
+            v35 = v24;
+            v36 = 1024;
+            v37 = v25;
+            v38 = 1024;
+            v39 = v26;
+            v40 = 1024;
+            v41 = v27;
             _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] blkCtrV[ 0 -  5] = %010d, %010d, %010d, %010d, %010d, %010d\n", buf, 0x26u);
           }
 
@@ -3121,22 +3159,21 @@ LABEL_32:
           {
             v28 = output->var26;
             *buf = 67109120;
-            v32 = v28;
+            v31 = v28;
             _os_log_impl(&dword_23D3F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.50.3] variance = %010d\n", buf, 8u);
           }
         }
       }
     }
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processPixelWithInput_V3:Measurement:Output:.cold.3()
 {
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    OUTLINED_FUNCTION_0(&dword_23D3F2000, MEMORY[0x277D86220], v0, " [1.50.3] Assertion: 0 warned in /Library/Caches/com.apple.xbs/Sources/ASEFramework/ASEProcessingT1.m at line 1594\n", v1, v2, v3, v4, 0);
+    v5 = 0;
+    OUTLINED_FUNCTION_0(&dword_23D3F2000, MEMORY[0x277D86220], v0, " [1.50.3] Assertion: 0 warned in /Library/Caches/com.apple.xbs/Sources/ASEFramework/ASEProcessingT1.m at line 1594\n", v1, v2, v3, v4, v5);
   }
 
   __assert_rtn("[ASEProcessingT1 processPixelWithInput_V3:Measurement:Output:]", "ASEProcessingT1.m", 1594, "0");
@@ -3146,7 +3183,8 @@ LABEL_32:
 {
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    OUTLINED_FUNCTION_0(&dword_23D3F2000, MEMORY[0x277D86220], v0, " [1.50.3] Assertion: 0 warned in /Library/Caches/com.apple.xbs/Sources/ASEFramework/ASEProcessingT1.m at line 1654\n", v1, v2, v3, v4, 0);
+    v5 = 0;
+    OUTLINED_FUNCTION_0(&dword_23D3F2000, MEMORY[0x277D86220], v0, " [1.50.3] Assertion: 0 warned in /Library/Caches/com.apple.xbs/Sources/ASEFramework/ASEProcessingT1.m at line 1654\n", v1, v2, v3, v4, v5);
   }
 
   __assert_rtn("[ASEProcessingT1 populateOutputHcus:]", "ASEProcessingT1.m", 1654, "0");

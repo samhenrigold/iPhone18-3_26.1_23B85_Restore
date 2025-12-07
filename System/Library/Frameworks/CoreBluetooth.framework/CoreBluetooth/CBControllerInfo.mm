@@ -13,24 +13,23 @@
 
 - (CBControllerInfo)initWithCoder:(id)coder
 {
-  v12[8] = *MEMORY[0x1E69E9840];
+  v11[8] = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E695DFD8];
   coderCopy = coder;
-  v12[0] = objc_opt_class();
-  v12[1] = objc_opt_class();
-  v12[2] = objc_opt_class();
-  v12[3] = objc_opt_class();
-  v12[4] = objc_opt_class();
-  v12[5] = objc_opt_class();
-  v12[6] = objc_opt_class();
-  v12[7] = objc_opt_class();
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:8];
+  v11[0] = objc_opt_class();
+  v11[1] = objc_opt_class();
+  v11[2] = objc_opt_class();
+  v11[3] = objc_opt_class();
+  v11[4] = objc_opt_class();
+  v11[5] = objc_opt_class();
+  v11[6] = objc_opt_class();
+  v11[7] = objc_opt_class();
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:8];
   v7 = [v4 setWithArray:v6];
 
   v8 = [coderCopy decodeObjectOfClasses:v7 forKey:@"ctrI"];
 
   v9 = [(CBControllerInfo *)self initWithDictionary:v8 error:0];
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -91,7 +90,6 @@
 - (void)encodeWithXPCObject:(id)object
 {
   objectCopy = object;
-  audioLinkQualityArray = self->_audioLinkQualityArray;
   CUXPCEncodeNSArrayOfObjects();
   bluetoothState = self->_bluetoothState;
   if (bluetoothState)
@@ -100,66 +98,66 @@
   }
 
   chipsetID = self->_chipsetID;
-  v8 = objectCopy;
+  v7 = objectCopy;
   uTF8String = [(NSString *)chipsetID UTF8String];
   if (uTF8String)
   {
-    xpc_dictionary_set_string(v8, "chip", uTF8String);
+    xpc_dictionary_set_string(v7, "chip", uTF8String);
   }
 
   if (self->_cloudSyncStatus)
   {
-    xpc_dictionary_set_uint64(v8, "clSy", self->_cloudSyncStatus);
+    xpc_dictionary_set_uint64(v7, "clSy", self->_cloudSyncStatus);
   }
 
   discoverableState = self->_discoverableState;
   if (discoverableState)
   {
-    xpc_dictionary_set_int64(v8, "dsSt", discoverableState);
+    xpc_dictionary_set_int64(v7, "dsSt", discoverableState);
   }
 
   if (self->_fastLEConnectionAllowed)
   {
-    xpc_dictionary_set_BOOL(v8, "fLEal", 1);
+    xpc_dictionary_set_BOOL(v7, "fLEal", 1);
   }
 
   if (self->_fastLEConnectionInfoVersion)
   {
-    xpc_dictionary_set_uint64(v8, "fLEVe", self->_fastLEConnectionInfoVersion);
+    xpc_dictionary_set_uint64(v7, "fLEVe", self->_fastLEConnectionInfoVersion);
   }
 
   fastLEConnectionInfoData = self->_fastLEConnectionInfoData;
   if (fastLEConnectionInfoData)
   {
-    v12 = fastLEConnectionInfoData;
-    v13 = v8;
-    v14 = fastLEConnectionInfoData;
-    bytes = [(NSData *)v14 bytes];
+    v11 = fastLEConnectionInfoData;
+    v12 = v7;
+    v13 = fastLEConnectionInfoData;
+    bytes = [(NSData *)v13 bytes];
     if (bytes)
     {
-      v16 = bytes;
+      v15 = bytes;
     }
 
     else
     {
-      v16 = "";
+      v15 = "";
     }
 
-    v17 = [(NSData *)v14 length];
+    v16 = [(NSData *)v13 length];
 
-    xpc_dictionary_set_data(v13, "fLEDt", v16, v17);
+    xpc_dictionary_set_data(v12, "fLEDt", v15, v16);
   }
 
   firmwareName = self->_firmwareName;
-  v19 = v8;
+  v18 = v7;
   uTF8String2 = [(NSString *)firmwareName UTF8String];
   if (uTF8String2)
   {
-    xpc_dictionary_set_string(v19, "frmN", uTF8String2);
+    xpc_dictionary_set_string(v18, "frmN", uTF8String2);
   }
 
   firmwareVersion = self->_firmwareVersion;
-  xdict = v19;
+  xdict = v18;
   uTF8String3 = [(NSString *)firmwareVersion UTF8String];
   if (uTF8String3)
   {
@@ -169,23 +167,23 @@
   hardwareAddressData = self->_hardwareAddressData;
   if (hardwareAddressData)
   {
-    v24 = hardwareAddressData;
-    v25 = xdict;
-    v26 = hardwareAddressData;
-    bytes2 = [(NSData *)v26 bytes];
+    v23 = hardwareAddressData;
+    v24 = xdict;
+    v25 = hardwareAddressData;
+    bytes2 = [(NSData *)v25 bytes];
     if (bytes2)
     {
-      v28 = bytes2;
+      v27 = bytes2;
     }
 
     else
     {
-      v28 = "";
+      v27 = "";
     }
 
-    v29 = [(NSData *)v26 length];
+    v28 = [(NSData *)v25 length];
 
-    xpc_dictionary_set_data(v25, "btAd", v28, v29);
+    xpc_dictionary_set_data(v24, "btAd", v27, v28);
   }
 
   if (self->_hciTransportType)
@@ -194,97 +192,97 @@
   }
 
   inquiryState = self->_inquiryState;
-  v31 = xdict;
+  v30 = xdict;
   if (inquiryState)
   {
     xpc_dictionary_set_int64(xdict, "inqS", inquiryState);
-    v31 = xdict;
+    v30 = xdict;
   }
 
   if (self->_leaVersion)
   {
     xpc_dictionary_set_uint64(xdict, "fLEAVe", self->_leaVersion);
-    v31 = xdict;
+    v30 = xdict;
   }
 
   if (self->_lmpVersion)
   {
     xpc_dictionary_set_uint64(xdict, "lmpV", self->_lmpVersion);
-    v31 = xdict;
+    v30 = xdict;
   }
 
   productID = self->_productID;
   if (productID)
   {
     xpc_dictionary_set_uint64(xdict, "pid", productID);
-    v31 = xdict;
+    v30 = xdict;
   }
 
   supportedServices = self->_supportedServices;
   if (supportedServices)
   {
     xpc_dictionary_set_uint64(xdict, "supS", supportedServices);
-    v31 = xdict;
+    v30 = xdict;
   }
 
   if (self->_vendorID)
   {
     xpc_dictionary_set_uint64(xdict, "vid", self->_vendorID);
-    v31 = xdict;
+    v30 = xdict;
   }
 
   if (self->_vendorIDSource)
   {
     xpc_dictionary_set_uint64(xdict, "vidS", self->_vendorIDSource);
-    v31 = xdict;
+    v30 = xdict;
   }
 }
 
 - (id)descriptionWithLevel:(int)level
 {
-  v145 = *MEMORY[0x1E69E9840];
+  v152 = *MEMORY[0x1E69E9840];
   if (level <= 0x14u)
   {
-    v141 = 0u;
-    v142 = 0u;
-    v139 = 0u;
-    v140 = 0u;
+    v148 = 0u;
+    v149 = 0u;
+    v146 = 0u;
+    v147 = 0u;
     v4 = self->_audioLinkQualityArray;
-    v5 = [(NSArray *)v4 countByEnumeratingWithState:&v139 objects:v144 count:16];
+    v5 = [(NSArray *)v4 countByEnumeratingWithState:&v146 objects:v151 count:16];
     if (v5)
     {
-      v108 = v5;
+      v6 = v5;
       v7 = 0;
-      v8 = *v140;
+      v8 = *v147;
       do
       {
         v9 = 0;
         v10 = v7;
         do
         {
-          if (*v140 != v8)
+          if (*v147 != v8)
           {
             objc_enumerationMutation(v4);
           }
 
-          v11 = *(*(&v139 + 1) + 8 * v9);
+          v11 = *(*(&v146 + 1) + 8 * v9);
           v12 = CUDescriptionWithLevel();
-          v138 = v10;
+          v145 = v10;
           deviceName = [v11 deviceName];
           [v12 UTF8String];
-          v108 = CUPrintText();
-          NSAppendPrintF();
-          v7 = v10;
+          v14 = CUPrintText();
+          NSAppendPrintF(&v145, "Audio Link Quality (%@):\n%@", deviceName, v14);
+          v7 = v145;
 
           ++v9;
           v10 = v7;
         }
 
-        while (v108 != v9);
-        v108 = [(NSArray *)v4 countByEnumeratingWithState:&v139 objects:v144 count:16, deviceName, v108];
+        while (v6 != v9);
+        v6 = [(NSArray *)v4 countByEnumeratingWithState:&v146 objects:v151 count:16];
       }
 
-      while (v108);
+      while (v6);
     }
 
     else
@@ -292,353 +290,379 @@
       v7 = 0;
     }
 
-    v137 = v7;
+    v144 = v7;
     bluetoothState = self->_bluetoothState;
-    if (bluetoothState <= 0xA)
+    if (bluetoothState > 0xA)
     {
-      v37 = off_1E811E578[bluetoothState];
+      v39 = "?";
     }
 
-    NSAppendPrintF_safe();
-    v38 = v137;
+    else
+    {
+      v39 = off_1E811E578[bluetoothState];
+    }
+
+    NSAppendPrintF_safe(&v144, "Bluetooth state:    %s\n", v39);
+    v40 = v144;
 
     chipsetID = self->_chipsetID;
     if (chipsetID)
     {
-      v136 = v38;
-      v102 = chipsetID;
-      NSAppendPrintF_safe();
-      v40 = v38;
+      v143 = v40;
+      v42 = chipsetID;
+      NSAppendPrintF_safe(&v143, "Chipset ID:         %@\n", v42);
+      v43 = v143;
 
-      v38 = v40;
+      v40 = v43;
     }
 
-    v135 = v38;
+    v142 = v40;
     discoverableState = self->_discoverableState;
     if (discoverableState >= 3)
     {
-      v42 = "?";
+      v45 = "?";
     }
 
     else
     {
-      v42 = off_1E811E680[discoverableState];
+      v45 = off_1E811E680[discoverableState];
     }
 
-    v103 = v42;
-    NSAppendPrintF_safe();
-    v43 = v135;
+    NSAppendPrintF_safe(&v142, "Discoverable:       %s\n", v45);
+    v46 = v142;
 
-    v44 = self->_firmwareName;
-    v45 = self->_firmwareVersion;
-    v15 = v44;
-    v46 = v45;
-    p_isa = &v46->super.isa;
-    if (v15 == v46)
+    v47 = self->_firmwareName;
+    v48 = self->_firmwareVersion;
+    v16 = v47;
+    v49 = v48;
+    p_isa = &v49->super.isa;
+    if (v16 == v49)
     {
     }
 
     else
     {
-      if ((v15 != 0) == (v46 == 0))
+      if ((v16 != 0) == (v49 == 0))
       {
 
-        if (!v15)
+        if (!v16)
         {
-          goto LABEL_46;
+          goto LABEL_48;
         }
 
-        goto LABEL_45;
+        goto LABEL_47;
       }
 
-      v103 = [(NSArray *)v15 isEqual:v46, v103];
+      v51 = [(NSArray *)v16 isEqual:v49];
 
-      if ((v103 & 1) == 0)
+      if ((v51 & 1) == 0)
       {
-        if (!v15)
+        if (!v16)
         {
-LABEL_46:
+LABEL_48:
           if (!p_isa)
           {
-LABEL_51:
-            v132 = v43;
-            NSAppendPrintF_safe();
-            v52 = v43;
+LABEL_53:
+            v138 = v46;
+            NSAppendPrintF_safe(&v138, "Host version:       %s\n", CBHostVersion);
+            v55 = v138;
 
             hardwareAddressData = self->_hardwareAddressData;
             if (hardwareAddressData)
             {
-              v131 = v52;
-              v54 = hardwareAddressData;
-              v104 = CUPrintNSDataAddress();
-              NSAppendPrintF_safe();
-              v55 = v52;
+              v137 = v55;
+              v57 = hardwareAddressData;
+              v58 = CUPrintNSDataAddress();
+              NSAppendPrintF_safe(&v137, "Hardware Address:   %@\n", v58);
+              v59 = v137;
 
-              v52 = v55;
+              v55 = v59;
             }
 
-            v130 = v52;
-            productID = self->_productID;
+            v136 = v55;
             vendorIDSource = self->_vendorIDSource;
-            if (vendorIDSource < 3)
+            if (vendorIDSource >= 3)
             {
-              v58 = off_1E811E560[vendorIDSource];
+              v61 = "?";
             }
 
-            vendorID = self->_vendorID;
-            NSAppendPrintF_safe();
-            v59 = v130;
+            else
+            {
+              v61 = off_1E811E560[vendorIDSource];
+            }
+
+            NSAppendPrintF_safe(&v136, "PID/VID/VIDSrc:     0x%04X / 0x%04X / %s\n", self->_productID, self->_vendorID, v61);
+            v62 = v136;
 
             hciTransportType = self->_hciTransportType;
             if (self->_hciTransportType)
             {
-              v129 = v59;
-              if (hciTransportType <= 4)
+              v135 = v62;
+              if (hciTransportType > 4)
               {
-                v61 = off_1E811E660[hciTransportType - 1];
+                v64 = "?";
               }
 
-              NSAppendPrintF_safe();
-              v71 = v129;
+              else
+              {
+                v64 = off_1E811E660[hciTransportType - 1];
+              }
 
-              v59 = v71;
+              NSAppendPrintF_safe(&v135, "HCI Transport:      %s\n", v64);
+              v75 = v135;
+
+              v62 = v75;
             }
 
-            v128 = v59;
+            v134 = v62;
             inquiryState = self->_inquiryState;
-            if (inquiryState <= 2)
+            if (inquiryState > 2)
             {
-              v73 = off_1E811E680[inquiryState];
+              v77 = "?";
             }
 
-            NSAppendPrintF_safe();
-            v74 = v128;
-
-            v127 = v74;
-            if (self->_lmpVersion <= 0xEu)
+            else
             {
-              v75 = off_1E811E5E8[self->_lmpVersion];
+              v77 = off_1E811E680[inquiryState];
             }
 
-            lmpVersion = self->_lmpVersion;
-            NSAppendPrintF_safe();
-            v76 = v127;
+            NSAppendPrintF_safe(&v134, "Inquiry state:      %s\n", v77);
+            v78 = v134;
 
-            v126 = v76;
-            supportedServices = self->_supportedServices;
-            v68 = CUPrintFlags32();
-            NSAppendPrintF_safe();
-            v78 = v76;
-            goto LABEL_100;
+            v133 = v78;
+            if (self->_lmpVersion > 0xEu)
+            {
+              v79 = "?";
+            }
+
+            else
+            {
+              v79 = off_1E811E5E8[self->_lmpVersion];
+            }
+
+            NSAppendPrintF_safe(&v133, "LMP version:        %d (%s)\n", self->_lmpVersion, v79);
+            v80 = v133;
+
+            v132 = v80;
+            v72 = CUPrintFlags32();
+            NSAppendPrintF_safe(&v132, "Supported services: %@\n", v72);
+            v81 = v132;
+            goto LABEL_117;
           }
 
-          v133[0] = v43;
-          v50 = v133;
-LABEL_50:
-          NSAppendPrintF_safe();
-          v51 = *v50;
+          v139 = v46;
+          v53 = &v139;
+          NSAppendPrintF_safe(&v139, "Firmware version:   %@\n", p_isa);
+LABEL_52:
+          v54 = *v53;
 
-          v43 = v51;
-          goto LABEL_51;
+          v46 = v54;
+          goto LABEL_53;
         }
 
-LABEL_45:
-        v133[1] = v43;
-        NSAppendPrintF_safe();
-        v49 = v43;
+LABEL_47:
+        v140 = v46;
+        NSAppendPrintF_safe(&v140, "Firmware name:      %@\n", v16);
+        v52 = v140;
 
-        v43 = v49;
-        goto LABEL_46;
+        v46 = v52;
+        goto LABEL_48;
       }
     }
 
-    v134 = v43;
-    v50 = &v134;
-    goto LABEL_50;
+    v141 = v46;
+    v53 = &v141;
+    NSAppendPrintF_safe(&v141, "Firmware version:   %@\n", p_isa);
+    goto LABEL_52;
   }
 
-  if ((level & 0x8000000) != 0)
+  if ((level & 0x8000000) == 0)
   {
-    v14 = 0;
-    v15 = self->_audioLinkQualityArray;
-    if (![(NSArray *)v15 count])
-    {
-LABEL_11:
-      v117 = v14;
-      v16 = self->_bluetoothState;
-      if (v16 > 0xA)
-      {
-        goto LABEL_26;
-      }
-
-      goto LABEL_12;
-    }
-  }
-
-  else
-  {
-    v125 = 0;
-    NSAppendPrintF_safe();
-    v14 = 0;
-    v15 = self->_audioLinkQualityArray;
-    if (![(NSArray *)v15 count])
+    v131 = 0;
+    NSAppendPrintF_safe(&v131, "CBControllerInfo");
+    v15 = v131;
+    v16 = self->_audioLinkQualityArray;
+    if (![(NSArray *)v16 count])
     {
       goto LABEL_11;
     }
-  }
 
-  v124 = v14;
-  NSAppendPrintF_safe();
-  v18 = v14;
+LABEL_14:
+    v130 = v15;
+    NSAppendPrintF_safe(&v130, ", AuLQ [");
+    v19 = v130;
 
-  v122 = 0u;
-  v123 = 0u;
-  v120 = 0u;
-  v121 = 0u;
-  v19 = v15;
-  v20 = [(NSArray *)v19 countByEnumeratingWithState:&v120 objects:v143 count:16];
-  if (v20)
-  {
-    v109 = v20;
-    v22 = *v121;
-    v23 = "";
-    do
+    v128 = 0u;
+    v129 = 0u;
+    v126 = 0u;
+    v127 = 0u;
+    v20 = v16;
+    v21 = [(NSArray *)v20 countByEnumeratingWithState:&v126 objects:v150 count:16];
+    if (v21)
     {
-      if (*v121 != v22)
+      v22 = v21;
+      v23 = *v127;
+      v24 = "";
+      do
       {
-        objc_enumerationMutation(v19);
-      }
-
-      v24 = **(&v120 + 1);
-      v119 = v18;
-      v100 = v23;
-      v109 = v24;
-      NSAppendPrintF_safe();
-      v25 = v18;
-
-      if (v109 < 2)
-      {
-        v18 = v25;
-      }
-
-      else
-      {
-        for (i = 1; i != v109; ++i)
+        if (*v127 != v23)
         {
-          if (*v121 != v22)
-          {
-            objc_enumerationMutation(v19);
-          }
-
-          v27 = *(*(&v120 + 1) + 8 * i);
-          v119 = v25;
-          v100 = ", ";
-          v109 = v27;
-          NSAppendPrintF_safe();
-          v18 = v25;
-
-          v25 = v18;
+          objc_enumerationMutation(v20);
         }
+
+        v25 = **(&v126 + 1);
+        v125 = v19;
+        NSAppendPrintF_safe(&v125, "%s{%@}", v24, v25);
+        v26 = v125;
+
+        if (v22 < 2)
+        {
+          v19 = v26;
+        }
+
+        else
+        {
+          for (i = 1; i != v22; ++i)
+          {
+            if (*v127 != v23)
+            {
+              objc_enumerationMutation(v20);
+            }
+
+            v28 = *(*(&v126 + 1) + 8 * i);
+            v125 = v26;
+            NSAppendPrintF_safe(&v125, "%s{%@}", ", ", v28);
+            v19 = v125;
+
+            v26 = v19;
+          }
+        }
+
+        v22 = [(NSArray *)v20 countByEnumeratingWithState:&v126 objects:v150 count:16];
+        v24 = ", ";
       }
 
-      v109 = [(NSArray *)v19 countByEnumeratingWithState:&v120 objects:v143 count:16, v100, v109];
-      v23 = ", ";
+      while (v22);
     }
 
-    while (v109);
+    v124 = v19;
+    NSAppendPrintF_safe(&v124, "]");
+    v15 = v124;
+
+    v123 = v15;
+    v17 = self->_bluetoothState;
+    if (v17 <= 0xA)
+    {
+      goto LABEL_12;
+    }
+
+    goto LABEL_26;
   }
 
-  v118 = v18;
-  NSAppendPrintF_safe();
-  v14 = v18;
+  v15 = 0;
+  v16 = self->_audioLinkQualityArray;
+  if ([(NSArray *)v16 count])
+  {
+    goto LABEL_14;
+  }
 
-  v117 = v14;
-  v16 = self->_bluetoothState;
-  if (v16 <= 0xA)
+LABEL_11:
+  v123 = v15;
+  v17 = self->_bluetoothState;
+  if (v17 <= 0xA)
   {
 LABEL_12:
-    v17 = off_1E811E578[v16];
+    v18 = off_1E811E578[v17];
+    goto LABEL_27;
   }
 
 LABEL_26:
-  NSAppendPrintF_safe();
-  v28 = v117;
+  v18 = "?";
+LABEL_27:
+  NSAppendPrintF_safe(&v123, ", BlSt %s", v18);
+  v29 = v123;
 
-  v116 = v28;
-  v29 = self->_discoverableState;
-  v30 = "?";
-  if (v29 <= 2)
+  v122 = v29;
+  v30 = self->_discoverableState;
+  v31 = "?";
+  if (v30 <= 2)
   {
-    v30 = off_1E811E680[v29];
+    v31 = off_1E811E680[v30];
   }
 
-  v101 = v30;
-  NSAppendPrintF_safe();
-  v31 = v116;
+  NSAppendPrintF_safe(&v122, ", DcsS %s", v31);
+  v32 = v122;
 
-  v32 = self->_chipsetID;
-  if (v32)
+  v33 = self->_chipsetID;
+  if (v33)
   {
-    v115 = v31;
-    v101 = v32;
-    NSAppendPrintF_safe();
-    v33 = v31;
+    v121 = v32;
+    v34 = v33;
+    NSAppendPrintF_safe(&v121, ", Chip %@", v34);
+    v35 = v121;
 
-    v31 = v33;
+    v32 = v35;
   }
 
   cloudSyncStatus = self->_cloudSyncStatus;
   if (self->_cloudSyncStatus)
   {
-    v114 = v31;
+    v120 = v32;
     if (cloudSyncStatus > 3)
     {
-      v35 = "?";
+      v37 = "?";
     }
 
     else
     {
-      v35 = off_1E811E5D0[cloudSyncStatus - 1];
+      v37 = off_1E811E5D0[cloudSyncStatus - 1];
     }
 
-    v101 = v35;
-    NSAppendPrintF_safe();
-    v62 = v114;
+    NSAppendPrintF_safe(&v120, ", Sync Status: %s", v37);
+    v65 = v120;
 
-    v31 = v62;
+    v32 = v65;
   }
 
   fastLEConnectionInfoVersion = self->_fastLEConnectionInfoVersion;
   if (self->_fastLEConnectionInfoVersion)
   {
-    v113[1] = v31;
-    self->_fastLEConnectionAllowed;
-    v101 = fastLEConnectionInfoVersion;
-    NSAppendPrintF_safe();
-    v64 = v31;
+    v119 = v32;
+    if (self->_fastLEConnectionAllowed)
+    {
+      v67 = "yes";
+    }
 
-    v31 = v64;
+    else
+    {
+      v67 = "no";
+    }
+
+    NSAppendPrintF_safe(&v119, ", FastLE v%d, Allowed: %s", fastLEConnectionInfoVersion, v67);
+    v68 = v119;
+
+    v32 = v68;
   }
 
-  v65 = self->_firmwareName;
-  v66 = self->_firmwareVersion;
-  p_isa = v65;
-  v67 = v66;
-  v68 = v67;
-  if (p_isa != v67)
+  v69 = self->_firmwareName;
+  v70 = self->_firmwareVersion;
+  p_isa = v69;
+  v71 = v70;
+  v72 = v71;
+  if (p_isa != v71)
   {
-    if ((p_isa != 0) != (v67 == 0))
+    if ((p_isa != 0) != (v71 == 0))
     {
-      v101 = [(NSString *)p_isa isEqual:v67, v101];
+      v73 = [(NSString *)p_isa isEqual:v71];
 
-      if (v101)
+      if (v73)
       {
-        if (!v68)
+        if (!v72)
         {
-          goto LABEL_83;
+          goto LABEL_92;
         }
 
-        goto LABEL_68;
+        goto LABEL_74;
       }
     }
 
@@ -648,124 +672,162 @@ LABEL_26:
 
     if (p_isa)
     {
-      v112[1] = v31;
-      NSAppendPrintF_safe();
-      v79 = v31;
+      v117 = v32;
+      NSAppendPrintF_safe(&v117, ", FrmN %@", p_isa);
+      v82 = v117;
 
-      v31 = v79;
+      v32 = v82;
     }
 
-    if (!v68)
+    if (!v72)
     {
-      goto LABEL_83;
+      goto LABEL_92;
     }
 
-    v112[0] = v31;
-    v70 = v112;
-    goto LABEL_82;
+    v116 = v32;
+    v74 = &v116;
+    goto LABEL_91;
   }
 
-  if (v68)
+  if (v72)
   {
-LABEL_68:
-    v113[0] = v31;
-    v70 = v113;
-LABEL_82:
-    NSAppendPrintF_safe();
-    v80 = *v70;
+LABEL_74:
+    v118 = v32;
+    v74 = &v118;
+LABEL_91:
+    NSAppendPrintF_safe(v74, ", FrmV %@", v72);
+    v83 = *v74;
 
-    v31 = v80;
+    v32 = v83;
   }
 
-LABEL_83:
-  v81 = self->_hardwareAddressData;
-  if (v81)
+LABEL_92:
+  v84 = self->_hardwareAddressData;
+  if (v84)
   {
-    v82 = v81;
-    v106 = CUPrintNSDataAddress();
-    NSAppendPrintF_safe();
-    v83 = v31;
+    v115 = v32;
+    v85 = v84;
+    v86 = CUPrintNSDataAddress();
+    NSAppendPrintF_safe(&v115, ", HWAd %@", v86);
+    v87 = v115;
 
-    v31 = v83;
+    v32 = v87;
   }
 
-  if (self->_productID)
+  productID = self->_productID;
+  if (productID)
   {
-    NSAppendPrintF_safe();
-    v84 = v31;
+    v114 = v32;
+    NSAppendPrintF_safe(&v114, ", PID: 0x%04X", productID);
+    v89 = v114;
 
-    v31 = v84;
+    v32 = v89;
   }
 
+  vendorID = self->_vendorID;
   if (self->_vendorID)
   {
-    NSAppendPrintF_safe();
-    v85 = v31;
+    v113 = v32;
+    NSAppendPrintF_safe(&v113, ", VID: 0x%04X", vendorID);
+    v91 = v113;
 
-    v31 = v85;
+    v32 = v91;
   }
 
+  v92 = self->_vendorIDSource;
   if (self->_vendorIDSource)
   {
-    self->_vendorIDSource;
-    NSAppendPrintF_safe();
-    v86 = v31;
-
-    v31 = v86;
-  }
-
-  v87 = self->_hciTransportType;
-  if (self->_hciTransportType)
-  {
-    if (v87 <= 4)
+    v93 = "Bluetooth";
+    if (v92 != 1)
     {
-      v88 = off_1E811E660[v87 - 1];
+      v93 = "?";
     }
 
-    NSAppendPrintF_safe();
-    v89 = v31;
+    if (v92 == 2)
+    {
+      v94 = "USB";
+    }
 
-    v31 = v89;
+    else
+    {
+      v94 = v93;
+    }
+
+    v112 = v32;
+    NSAppendPrintF_safe(&v112, ", VIDS: %s", v94);
+    v95 = v112;
+
+    v32 = v95;
   }
 
-  v90 = self->_inquiryState;
-  if (v90 <= 2)
+  v96 = self->_hciTransportType;
+  if (self->_hciTransportType)
   {
-    v91 = off_1E811E680[v90];
+    v111 = v32;
+    if (v96 > 4)
+    {
+      v97 = "?";
+    }
+
+    else
+    {
+      v97 = off_1E811E660[v96 - 1];
+    }
+
+    NSAppendPrintF_safe(&v111, ", HCIT %s", v97);
+    v98 = v111;
+
+    v32 = v98;
   }
 
-  NSAppendPrintF_safe();
-  v92 = v31;
-
-  if (self->_lmpVersion <= 0xEu)
+  v110 = v32;
+  v99 = self->_inquiryState;
+  if (v99 > 2)
   {
-    v93 = off_1E811E5E8[self->_lmpVersion];
-  }
-
-  v107 = self->_lmpVersion;
-  NSAppendPrintF_safe();
-  v94 = v92;
-
-  v95 = self->_supportedServices;
-  v76 = CUPrintFlags32();
-  NSAppendPrintF_safe();
-  v78 = v94;
-
-LABEL_100:
-  if (v78)
-  {
-    v96 = v78;
+    v100 = "?";
   }
 
   else
   {
-    v96 = &stru_1F40009C8;
+    v100 = off_1E811E680[v99];
   }
 
-  v97 = v96;
+  NSAppendPrintF_safe(&v110, ", InqS %s", v100);
+  v101 = v110;
 
-  v98 = *MEMORY[0x1E69E9840];
-  return v96;
+  v109 = v101;
+  if (self->_lmpVersion > 0xEu)
+  {
+    v102 = "?";
+  }
+
+  else
+  {
+    v102 = off_1E811E5E8[self->_lmpVersion];
+  }
+
+  NSAppendPrintF_safe(&v109, ", LMPv %d (%s)", self->_lmpVersion, v102);
+  v103 = v109;
+
+  v108 = v103;
+  v80 = CUPrintFlags32();
+  NSAppendPrintF_safe(&v108, ", SSrv: %@", v80);
+  v81 = v108;
+
+LABEL_117:
+  if (v81)
+  {
+    v104 = v81;
+  }
+
+  else
+  {
+    v104 = &stru_1F40009C8;
+  }
+
+  v105 = v104;
+
+  return v104;
 }
 
 - (CBControllerInfo)initWithXPCObject:(id)object error:(id *)error
@@ -779,10 +841,10 @@ LABEL_100:
       goto LABEL_53;
     }
 
-    v27 = "CBControllerInfo init failed";
+    v79 = "CBControllerInfo init failed";
 LABEL_52:
-    v28 = CBErrorF(-6756, v27, v7, v8, v9, v10, v11, v12, v29);
-    OUTLINED_FUNCTION_16(v28);
+    v80 = CBErrorF(-6756, v79, v7, v8, v9, v10, v11, v12, v81);
+    OUTLINED_FUNCTION_16(v80);
     goto LABEL_47;
   }
 
@@ -793,7 +855,7 @@ LABEL_52:
       goto LABEL_53;
     }
 
-    v27 = "XPC non-dict";
+    v79 = "XPC non-dict";
     goto LABEL_52;
   }
 
@@ -821,26 +883,26 @@ LABEL_52:
     goto LABEL_53;
   }
 
-  OUTLINED_FUNCTION_0();
-  v15 = OUTLINED_FUNCTION_3_1();
-  if (v15 == 6)
+  v15 = OUTLINED_FUNCTION_0();
+  v20 = OUTLINED_FUNCTION_3_1(v15, v16, v17, v18, v19);
+  if (v20 == 6)
   {
     *(v13 + 8) = 0;
   }
 
-  else if (v15 == 5)
+  else if (v20 == 5)
   {
     goto LABEL_53;
   }
 
-  OUTLINED_FUNCTION_4();
-  v16 = OUTLINED_FUNCTION_15();
-  if (v16 == 6)
+  v21 = OUTLINED_FUNCTION_4();
+  v26 = OUTLINED_FUNCTION_15(v21, v22, v23, v24, v25);
+  if (v26 == 6)
   {
     *(v13 + 20) = 0;
   }
 
-  else if (v16 == 5)
+  else if (v26 == 5)
   {
     goto LABEL_53;
   }
@@ -851,14 +913,14 @@ LABEL_52:
     goto LABEL_53;
   }
 
-  OUTLINED_FUNCTION_0();
-  v17 = OUTLINED_FUNCTION_3_1();
-  if (v17 == 6)
+  v27 = OUTLINED_FUNCTION_0();
+  v32 = OUTLINED_FUNCTION_3_1(v27, v28, v29, v30, v31);
+  if (v32 == 6)
   {
     *(v13 + 9) = 0;
   }
 
-  else if (v17 == 5)
+  else if (v32 == 5)
   {
     goto LABEL_53;
   }
@@ -876,99 +938,105 @@ LABEL_52:
   }
 
   OUTLINED_FUNCTION_1_0();
-  if (!CUXPCDecodeNSString() || !CUXPCDecodeNSDataOfLength())
+  if (!CUXPCDecodeNSString())
   {
     goto LABEL_53;
   }
 
-  v18 = OUTLINED_FUNCTION_1_3();
-  if (v18 == 6)
+  v33 = CUXPCDecodeNSDataOfLength();
+  if (!v33)
+  {
+    goto LABEL_53;
+  }
+
+  v35 = OUTLINED_FUNCTION_1_3(v33, "hciT", v34);
+  if (v35 == 6)
   {
     *(v13 + 10) = 0;
   }
 
-  else if (v18 == 5)
+  else if (v35 == 5)
   {
     goto LABEL_53;
   }
 
-  OUTLINED_FUNCTION_4();
-  v19 = OUTLINED_FUNCTION_15();
-  if (v19 == 6)
+  v36 = OUTLINED_FUNCTION_4();
+  v41 = OUTLINED_FUNCTION_15(v36, v37, v38, v39, v40);
+  if (v41 == 6)
   {
     *(v13 + 24) = 0;
   }
 
-  else if (v19 == 5)
+  else if (v41 == 5)
   {
     goto LABEL_53;
   }
 
-  OUTLINED_FUNCTION_0();
-  v20 = OUTLINED_FUNCTION_3_1();
-  if (v20 == 6)
+  v42 = OUTLINED_FUNCTION_0();
+  v47 = OUTLINED_FUNCTION_3_1(v42, v43, v44, v45, v46);
+  if (v47 == 6)
   {
     *(v13 + 11) = 0;
   }
 
-  else if (v20 == 5)
+  else if (v47 == 5)
   {
     goto LABEL_53;
   }
 
-  OUTLINED_FUNCTION_0();
-  v21 = OUTLINED_FUNCTION_3_1();
-  if (v21 == 6)
+  v48 = OUTLINED_FUNCTION_0();
+  v53 = OUTLINED_FUNCTION_3_1(v48, v49, v50, v51, v52);
+  if (v53 == 6)
   {
     *(v13 + 12) = 0;
   }
 
-  else if (v21 == 5)
+  else if (v53 == 5)
   {
     goto LABEL_53;
   }
 
-  OUTLINED_FUNCTION_0();
-  v22 = OUTLINED_FUNCTION_5();
-  if (v22 == 6)
+  v54 = OUTLINED_FUNCTION_0();
+  v59 = OUTLINED_FUNCTION_5(v54, v55, v56, v57, v58);
+  if (v59 == 6)
   {
     *(v13 + 28) = 0;
   }
 
-  else if (v22 == 5)
+  else if (v59 == 5)
   {
     goto LABEL_53;
   }
 
-  OUTLINED_FUNCTION_0();
-  v23 = OUTLINED_FUNCTION_5();
-  if (v23 == 6)
+  v60 = OUTLINED_FUNCTION_0();
+  v65 = OUTLINED_FUNCTION_5(v60, v61, v62, v63, v64);
+  if (v65 == 6)
   {
     *(v13 + 32) = 0;
   }
 
-  else if (v23 == 5)
+  else if (v65 == 5)
   {
     goto LABEL_53;
   }
 
-  OUTLINED_FUNCTION_0();
-  v24 = OUTLINED_FUNCTION_4_0();
-  if (v24 == 6)
+  v66 = OUTLINED_FUNCTION_0();
+  v71 = OUTLINED_FUNCTION_4_0(v66, v67, v68, v69, v70);
+  if (v71 == 6)
   {
     *(v13 + 16) = 0;
   }
 
-  else if (v24 == 5)
+  else if (v71 == 5)
   {
     goto LABEL_53;
   }
 
-  OUTLINED_FUNCTION_0();
-  v25 = OUTLINED_FUNCTION_3_1();
-  if (v25 != 6)
+  v72 = OUTLINED_FUNCTION_0();
+  v77 = OUTLINED_FUNCTION_3_1(v72, v73, v74, v75, v76);
+  if (v77 != 6)
   {
-    if (v25 != 5)
+    if (v77 != 5)
     {
       goto LABEL_46;
     }

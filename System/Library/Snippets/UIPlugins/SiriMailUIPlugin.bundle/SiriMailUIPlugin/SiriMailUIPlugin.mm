@@ -1,252 +1,237 @@
 uint64_t sub_1390(uint64_t a1, uint64_t a2)
 {
-  v129 = a2;
-  v139 = a1;
-  v134 = sub_2B68();
-  v2 = sub_2A00(v134);
-  v4 = *(v3 + 64);
+  v102 = a2;
+  v112 = a1;
+  v107 = sub_2B68();
+  sub_2A00();
   __chkstk_darwin(v2);
   sub_2A60();
-  sub_2A50(v6 - v5);
-  v127 = sub_2B88();
-  v7 = sub_2A00(v127);
-  v9 = *(v8 + 64);
+  sub_2A50(v4 - v3);
+  v100 = sub_2B88();
+  sub_2A00();
+  __chkstk_darwin(v5);
+  sub_2A70();
+  sub_2A40();
+  __chkstk_darwin(v6);
+  sub_2A40();
   __chkstk_darwin(v7);
+  v109 = &v96 - v8;
+  v101 = sub_2B08();
+  sub_2A00();
+  __chkstk_darwin(v9);
+  sub_2A60();
+  sub_2A50(v11 - v10);
+  v99 = sub_2B38();
+  sub_2A00();
+  __chkstk_darwin(v12);
+  sub_2A60();
+  sub_2A50(v14 - v13);
+  sub_2BC8();
+  sub_2AC4();
+  v110 = v16;
+  v111 = v15;
+  __chkstk_darwin(v15);
+  sub_2A70();
+  v108 = v17 - v18;
+  __chkstk_darwin(v19);
+  sub_2A40();
+  __chkstk_darwin(v20);
+  sub_2A40();
+  __chkstk_darwin(v21);
+  v97 = &v96 - v22;
+  v23 = sub_20C0(&qword_8130, &qword_2E38);
+  __chkstk_darwin(v23 - 8);
+  sub_2A50(&v96 - v24);
+  v25 = sub_2AE8();
+  sub_2A00();
+  __chkstk_darwin(v26);
   sub_2A70();
   sub_2A40();
-  __chkstk_darwin(v10);
-  sub_2A40();
-  __chkstk_darwin(v11);
-  v136 = &v123 - v12;
-  v128 = sub_2B08();
-  v13 = sub_2A00(v128);
-  v15 = *(v14 + 64);
-  __chkstk_darwin(v13);
+  __chkstk_darwin(v27);
+  sub_2A50(&v96 - v28);
+  sub_2B28();
+  sub_2A00();
+  __chkstk_darwin(v29);
   sub_2A60();
-  sub_2A50(v17 - v16);
-  v126 = sub_2B38();
-  v18 = sub_2A00(v126);
-  v20 = *(v19 + 64);
-  __chkstk_darwin(v18);
-  sub_2A60();
-  sub_2A50(v22 - v21);
-  v23 = sub_2BC8();
-  v24 = sub_2AC4(v23);
-  v137 = v25;
-  v138 = v24;
-  v27 = *(v26 + 64);
-  __chkstk_darwin(v24);
+  v32 = v31 - v30;
+  v33 = sub_2BA8();
+  sub_2AC4();
+  v35 = v34;
+  __chkstk_darwin(v36);
   sub_2A70();
-  v135 = v28 - v29;
-  __chkstk_darwin(v30);
-  sub_2A40();
-  __chkstk_darwin(v31);
-  sub_2A40();
-  __chkstk_darwin(v32);
-  v124 = &v123 - v33;
-  v34 = sub_20C0(&qword_8130, &qword_2E38);
-  v35 = (*(*(v34 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin(v34 - 8);
-  sub_2A50(&v123 - v36);
-  v37 = sub_2AE8();
-  v38 = sub_2A00(v37);
-  v40 = *(v39 + 64);
-  __chkstk_darwin(v38);
-  sub_2A70();
-  sub_2A40();
-  __chkstk_darwin(v41);
-  sub_2A50(&v123 - v42);
-  v43 = sub_2B28();
-  v44 = sub_2A00(v43);
-  v46 = *(v45 + 64);
-  __chkstk_darwin(v44);
+  v39 = v37 - v38;
+  __chkstk_darwin(v40);
+  v42 = &v96 - v41;
+  sub_2AD8();
+  sub_2A00();
+  __chkstk_darwin(v43);
   sub_2A60();
-  v49 = v48 - v47;
-  v50 = sub_2BA8();
-  v51 = sub_2AC4(v50);
-  v53 = v52;
-  v55 = *(v54 + 64);
-  __chkstk_darwin(v51);
-  sub_2A70();
-  v58 = v56 - v57;
-  __chkstk_darwin(v59);
-  v61 = &v123 - v60;
-  v62 = sub_2AD8();
-  v63 = sub_2A00(v62);
-  v65 = *(v64 + 64);
-  __chkstk_darwin(v63);
-  sub_2A60();
-  v68 = (v67 - v66);
-  sub_2878(v139, v67 - v66, &type metadata accessor for MailPluginModel);
+  v46 = v45 - v44;
+  sub_2878(v112, v45 - v44, &type metadata accessor for MailPluginModel);
   switch(swift_getEnumCaseMultiPayload())
   {
     case 1u:
-      v96 = *v68;
-      v97 = v68[1];
-      v98 = v68[2];
-      v99 = *(*v68 + 16) == 1;
-      v101 = v137;
-      v100 = v138;
-      v102 = v131;
-      if (!v99)
+      v71 = *v46;
+      v72 = *(*v46 + 16) == 1;
+      v74 = v110;
+      v73 = v111;
+      v75 = v104;
+      if (!v72)
       {
         goto LABEL_12;
       }
 
-      sub_2AB8(v146);
-      sub_1F3C(v96, v103);
-      if (sub_2798(v49, 1, v37) == 1)
+      sub_2AB8();
+      sub_1F3C(v71, v76);
+      if (sub_2798(v32, 1, v25) == 1)
       {
-        sub_27C0(v49, &qword_8130, &qword_2E38);
+        sub_27C0(v32, &qword_8130, &qword_2E38);
 LABEL_12:
-        v104 = sub_2B98();
-        (*(v101 + 16))(v102, v104, v100);
-        v105 = sub_2BB8();
-        v106 = sub_2C08();
-        if (os_log_type_enabled(v105, v106))
+        v77 = sub_2B98();
+        (*(v74 + 16))(v75, v77, v73);
+        v78 = sub_2BB8();
+        v79 = sub_2C08();
+        if (os_log_type_enabled(v78, v79))
         {
-          v107 = swift_slowAlloc();
-          *v107 = 0;
-          _os_log_impl(&dword_0, v105, v106, "Picking ReadMessagesView", v107, 2u);
-          sub_2A80(v107);
+          v80 = swift_slowAlloc();
+          *v80 = 0;
+          _os_log_impl(&dword_0, v78, v79, "Picking ReadMessagesView", v80, 2u);
+          sub_2A80(v80);
         }
 
-        (*(v101 + 8))(v102, v100);
-        sub_2AB8(&v147);
+        (*(v74 + 8))(v75, v73);
+        sub_2AB8();
         sub_2AF8();
-        sub_28D8(&qword_8150, &type metadata accessor for MessageListView);
-        v69 = sub_2BD8();
-        v108 = sub_2AAC();
+        sub_28D8(&qword_8150, &type metadata accessor for MessageListView, &protocol conformance descriptor for MessageListView);
+        v47 = sub_2BD8();
+        v81 = sub_2AAC();
         goto LABEL_17;
       }
 
-      v115 = v125;
-      sub_2818(v49, v125, &type metadata accessor for WidgetMessage);
-      v116 = sub_2B98();
-      v117 = v124;
-      (*(v101 + 16))(v124, v116, v100);
-      v118 = sub_2BB8();
-      v119 = sub_2C08();
-      if (os_log_type_enabled(v118, v119))
+      v88 = v98;
+      sub_2818(v32, v98, &type metadata accessor for WidgetMessage);
+      v89 = sub_2B98();
+      v90 = v97;
+      (*(v74 + 16))(v97, v89, v73);
+      v91 = sub_2BB8();
+      v92 = sub_2C08();
+      if (os_log_type_enabled(v91, v92))
       {
-        v120 = swift_slowAlloc();
-        *v120 = 0;
-        _os_log_impl(&dword_0, v118, v119, "Picking MessageDetailView", v120, 2u);
-        sub_2A80(v120);
+        v93 = swift_slowAlloc();
+        *v93 = 0;
+        _os_log_impl(&dword_0, v91, v92, "Picking MessageDetailView", v93, 2u);
+        sub_2A80(v93);
       }
 
-      (*(v101 + 8))(v117, v100);
-      sub_2878(v115, v123, &type metadata accessor for WidgetMessage);
-      sub_2AB8(&v145 + 8);
+      (*(v74 + 8))(v90, v73);
+      sub_2878(v88, v96, &type metadata accessor for WidgetMessage);
+      sub_2AB8();
       sub_2B48();
-      sub_28D8(&qword_8158, &type metadata accessor for MessageDetailView);
-      v69 = sub_2BD8();
-      v121 = sub_2AAC();
-      sub_2920(v121, v122);
-      v109 = &type metadata accessor for WidgetMessage;
-      v108 = v115;
+      sub_28D8(&qword_8158, &type metadata accessor for MessageDetailView, &protocol conformance descriptor for MessageDetailView);
+      v47 = sub_2BD8();
+      v94 = sub_2AAC();
+      sub_2920(v94, v95);
+      v82 = &type metadata accessor for WidgetMessage;
+      v81 = v88;
 LABEL_17:
-      sub_2920(v108, v109);
-      return v69;
+      sub_2920(v81, v82);
+      return v47;
     case 2u:
-      v72 = *v68;
-      v73 = v68[1];
-      v74 = v68[2];
       sub_2B98();
       sub_2A98();
-      v75 = v130;
-      v76(v130);
-      v77 = sub_2BB8();
-      v78 = sub_2C08();
-      if (os_log_type_enabled(v77, v78))
+      v50 = v103;
+      v51(v103);
+      v52 = sub_2BB8();
+      v53 = sub_2C08();
+      if (os_log_type_enabled(v52, v53))
       {
-        v79 = swift_slowAlloc();
-        *v79 = 0;
-        _os_log_impl(&dword_0, v77, v78, "Picking DisambiguationRecipientView", v79, 2u);
-        sub_2A80(v79);
+        v54 = swift_slowAlloc();
+        *v54 = 0;
+        _os_log_impl(&dword_0, v52, v53, "Picking DisambiguationRecipientView", v54, 2u);
+        sub_2A80(v54);
       }
 
-      (*(v53 + 8))(v75, v68);
+      (*(v35 + 8))(v50, v46);
       sub_2B78();
-      v144 = *&v143[8];
-      v145 = *&v143[24];
-      v147 = *v143;
-      v140 = *v143;
-      v141 = *&v143[16];
-      v142 = *&v143[32];
+      v117 = *&v116[8];
+      v118 = *&v116[24];
+      v119 = *v116;
+      v113 = *v116;
+      v114 = *&v116[16];
+      v115 = *&v116[32];
       sub_26C4();
-      v69 = sub_2BD8();
-      sub_2718(&v147);
-      sub_2744(&v144);
-      sub_27C0(&v145, &qword_8148, &qword_2E40);
-      return v69;
+      v47 = sub_2BD8();
+      sub_2718(&v119);
+      sub_2744(&v117);
+      sub_27C0(&v118, &qword_8148, &qword_2E40);
+      return v47;
     case 3u:
-      v80 = v136;
-      sub_2818(v68, v136, &type metadata accessor for DisambiguateHandlesDataModel);
+      v55 = v109;
+      sub_2818(v46, v109, &type metadata accessor for DisambiguateHandlesDataModel);
       sub_2B98();
       sub_2A98();
-      v81 = v135;
-      v82(v135);
+      v56 = v108;
+      v57(v108);
       sub_2A28();
-      v83 = v132;
-      sub_2878(v80, v132, v84);
-      v85 = sub_2BB8();
-      v86 = sub_2C08();
-      if (os_log_type_enabled(v85, v86))
+      v58 = v105;
+      sub_2878(v55, v105, v59);
+      v60 = sub_2BB8();
+      v61 = sub_2C08();
+      if (os_log_type_enabled(v60, v61))
       {
-        v87 = swift_slowAlloc();
-        v88 = swift_slowAlloc();
-        *v143 = v88;
-        *v87 = 136315138;
+        v62 = swift_slowAlloc();
+        v63 = swift_slowAlloc();
+        *v116 = v63;
+        *v62 = 136315138;
         sub_2A28();
-        v89 = v133;
-        sub_2878(v83, v133, v90);
-        v91 = sub_2BE8();
-        v93 = v92;
+        v64 = v106;
+        sub_2878(v58, v106, v65);
+        v66 = sub_2BE8();
+        v68 = v67;
         sub_2A10();
-        sub_2920(v83, v94);
-        v95 = sub_2108(v91, v93, v143);
-        v80 = v136;
+        sub_2920(v58, v69);
+        v70 = sub_2108(v66, v68, v116);
+        v55 = v109;
 
-        *(v87 + 4) = v95;
-        _os_log_impl(&dword_0, v85, v86, "Picking DisambiguationHandleView: %s", v87, 0xCu);
-        sub_2678(v88);
-        sub_2A80(v88);
-        sub_2A80(v87);
+        *(v62 + 4) = v70;
+        _os_log_impl(&dword_0, v60, v61, "Picking DisambiguationHandleView: %s", v62, 0xCu);
+        sub_2678(v63);
+        sub_2A80(v63);
+        sub_2A80(v62);
 
-        (*(v53 + 8))(v135, v138);
+        (*(v35 + 8))(v108, v111);
       }
 
       else
       {
 
         sub_2A10();
-        sub_2920(v83, v110);
-        (*(v53 + 8))(v81, v68);
-        v89 = v133;
+        sub_2920(v58, v83);
+        (*(v35 + 8))(v56, v46);
+        v64 = v106;
       }
 
       sub_2A28();
-      sub_2878(v80, v89, v111);
-      sub_2AB8(&v148);
+      sub_2878(v55, v64, v84);
+      sub_2AB8();
       sub_2B58();
-      sub_28D8(&qword_8138, &type metadata accessor for DisambiguateHandlesView);
-      v69 = sub_2BD8();
-      v112 = sub_2AAC();
-      sub_2920(v112, v113);
+      sub_28D8(&qword_8138, &type metadata accessor for DisambiguateHandlesView, &protocol conformance descriptor for DisambiguateHandlesView);
+      v47 = sub_2BD8();
+      v85 = sub_2AAC();
+      sub_2920(v85, v86);
       sub_2A10();
-      v108 = v80;
+      v81 = v55;
       goto LABEL_17;
     default:
-      (*(v53 + 32))(v61, v68, v50);
-      (*(v53 + 16))(v58, v61, v50);
+      (*(v35 + 32))(v42, v46, v33);
+      (*(v35 + 16))(v39, v42, v33);
       sub_2B18();
-      sub_28D8(&qword_8160, &type metadata accessor for SendMessageView);
-      v69 = sub_2BD8();
-      v70 = sub_2AAC();
-      sub_2920(v70, v71);
-      (*(v53 + 8))(v61, v50);
-      return v69;
+      sub_28D8(&qword_8160, &type metadata accessor for SendMessageView, &protocol conformance descriptor for SendMessageView);
+      v47 = sub_2BD8();
+      v48 = sub_2AAC();
+      sub_2920(v48, v49);
+      (*(v35 + 8))(v42, v33);
+      return v47;
   }
 }
 
@@ -281,7 +266,6 @@ uint64_t sub_20C0(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -382,16 +366,14 @@ LABEL_8:
 
 char *sub_22CC(uint64_t a1, unint64_t a2)
 {
-  v4 = sub_2318(a1, a2);
+  v3 = sub_2318(a1, a2);
   sub_2430(&off_4318);
-  result = v4;
-  v3 = *(v4 + 2) - 1;
-  return result;
+  return v3;
 }
 
 char *sub_2318(uint64_t a1, unint64_t a2)
 {
-  v4 = HIBYTE(a2) & 0xF;
+  v4 = (HIBYTE(a2) & 0xF);
   if ((a2 & 0x1000000000000000) != 0)
   {
     goto LABEL_19;
@@ -441,8 +423,8 @@ char *sub_2318(uint64_t a1, unint64_t a2)
       {
         if ((a1 & 0x1000000000000000) != 0)
         {
-          v8 = (a2 & 0xFFFFFFFFFFFFFFFLL) + 32;
-          v4 = a1 & 0xFFFFFFFFFFFFLL;
+          v8 = ((a2 & 0xFFFFFFFFFFFFFFFLL) + 32);
+          v4 = (a1 & 0xFFFFFFFFFFFFLL);
         }
 
         else
@@ -494,21 +476,20 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (!result || v5 > *(v3 + 24) >> 1)
   {
     if (v4 <= v5)
     {
-      v8 = v4 + v2;
+      v7 = v4 + v2;
     }
 
     else
     {
-      v8 = v4;
+      v7 = v4;
     }
 
-    result = sub_2584(result, v8, 1, v3);
+    result = sub_2584(result, v7, 1, v3);
     v3 = result;
   }
 
@@ -523,15 +504,15 @@ LABEL_16:
     goto LABEL_16;
   }
 
-  v9 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v9 < v2)
+  v8 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v8 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v9 + 32), (v6 + 32), v2);
+  memcpy((v3 + v8 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -540,12 +521,12 @@ LABEL_14:
     return result;
   }
 
-  v10 = *(v3 + 16);
-  v11 = __OFADD__(v10, v2);
-  v12 = v10 + v2;
-  if (!v11)
+  v9 = *(v3 + 16);
+  v10 = __OFADD__(v9, v2);
+  v11 = v9 + v2;
+  if (!v10)
   {
-    *(v3 + 16) = v12;
+    *(v3 + 16) = v11;
     goto LABEL_14;
   }
 
@@ -678,38 +659,31 @@ unint64_t sub_26C4()
   return result;
 }
 
-uint64_t *sub_2718(uint64_t *a1)
-{
-  v2 = *a1;
-
-  return a1;
-}
-
 uint64_t sub_27C0(uint64_t a1, uint64_t *a2, uint64_t *a3)
 {
-  v4 = sub_20C0(a2, a3);
-  sub_2A00(v4);
-  (*(v5 + 8))(a1);
+  sub_20C0(a2, a3);
+  sub_2A00();
+  (*(v4 + 8))(a1);
   return a1;
 }
 
 uint64_t sub_2818(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
 {
-  v5 = a3(0);
-  sub_2A00(v5);
-  (*(v6 + 32))(a2, a1);
+  a3(0);
+  sub_2A00();
+  (*(v5 + 32))(a2, a1);
   return a2;
 }
 
 uint64_t sub_2878(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
 {
-  v5 = a3(0);
-  sub_2A00(v5);
-  (*(v6 + 16))(a2, a1);
+  a3(0);
+  sub_2A00();
+  (*(v5 + 16))(a2, a1);
   return a2;
 }
 
-uint64_t sub_28D8(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_28D8(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -724,9 +698,9 @@ uint64_t sub_28D8(unint64_t *a1, void (*a2)(uint64_t))
 
 uint64_t sub_2920(uint64_t a1, uint64_t (*a2)(void))
 {
-  v3 = a2(0);
-  sub_2A00(v3);
-  (*(v4 + 8))(a1);
+  a2(0);
+  sub_2A00();
+  (*(v3 + 8))(a1);
   return a1;
 }
 

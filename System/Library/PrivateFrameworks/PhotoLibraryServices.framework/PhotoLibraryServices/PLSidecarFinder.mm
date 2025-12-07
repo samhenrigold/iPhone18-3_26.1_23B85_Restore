@@ -60,9 +60,9 @@
         v22 = *(*(&v31 + 1) + 8 * i);
         lastPathComponent = [v22 lastPathComponent];
         stringByDeletingPathExtension2 = [lastPathComponent stringByDeletingPathExtension];
-        if ([stringByDeletingPathExtension isEqualToString:stringByDeletingPathExtension2])
+        if (objc_msgSend_isEqualToString_(stringByDeletingPathExtension))
         {
-          if (([lastPathComponent isEqualToString:filenameCopy] & 1) == 0)
+          if ((objc_msgSend_isEqualToString_(lastPathComponent) & 1) == 0)
           {
             [array addObject:v22];
           }

@@ -66,7 +66,7 @@
   mAnimationContext = self->super.mAnimationContext;
   if (mAnimationContext)
   {
-    [(KNAnimationContext *)mAnimationContext slideProjectionMatrix];
+    objc_msgSend_slideProjectionMatrix(mAnimationContext);
   }
 
   else
@@ -266,19 +266,19 @@
   [contextCopy percent];
   v12 = v11;
   v13 = [textures objectAtIndexedSubscript:1];
-  v42 = textures;
+  v36 = textures;
   v14 = [textures objectAtIndexedSubscript:0];
   metalContext2 = [contextCopy metalContext];
   v16 = [v13 metalTextureWithContext:metalContext2];
 
   metalContext3 = [contextCopy metalContext];
-  v44 = [v14 metalTextureWithContext:metalContext3];
+  v38 = [v14 metalTextureWithContext:metalContext3];
 
-  v43 = v16;
-  if (v16 && v44)
+  v37 = v16;
+  if (v16 && v38)
   {
     v18 = vbic_s8(vbsl_s8(vcgtd_u64(2uLL, direction - 13), 0x3F80000000000000, 1065353216), vcgtd_f64(0.5, v12));
-    v19 = v12 >= 0.5 ? v16 : v44;
+    v19 = v12 >= 0.5 ? v16 : v38;
     [encoderCopy setFragmentTexture:v19 atIndex:0];
     *(&self[3].super.mAnimationContext + 20 * currentBuffer) = v18;
     colorCount = self->_colorCount;
@@ -292,26 +292,26 @@
       {
         colorCount = [TSUColor colorWithHue:v23 / colorCount saturation:1.0 brightness:1.0 alpha:1.0 / colorCount];
         [colorCount redComponent];
-        v48 = v26;
+        v42 = v26;
         [colorCount greenComponent];
-        v47 = v27;
+        v41 = v27;
         [colorCount blueComponent];
-        v46 = v28;
+        v40 = v28;
         [colorCount alphaComponent];
-        v29.f64[0] = v46;
+        v29.f64[0] = v40;
         v29.f64[1] = v30;
-        v31.f64[0] = v48;
-        v31.f64[1] = v47;
+        v31.f64[0] = v42;
+        v31.f64[1] = v41;
         v22[9] = vcvt_hight_f32_f64(vcvt_f32_f64(v31), v29);
-        v72 = 0u;
-        v73 = 0u;
-        v70 = 0u;
-        v71 = 0u;
-        v68 = 0u;
-        v69 = 0u;
+        v65 = 0u;
         v66 = 0u;
-        v67 = 0u;
-        [(KNTransitionColorPlanes *)self p_mvpMatrixWithTexture:v13 direction:direction percent:v21 colorIndex:v12];
+        v63 = 0u;
+        v64 = 0u;
+        v61 = 0u;
+        v62 = 0u;
+        v59 = 0u;
+        v60 = 0u;
+        objc_msgSend_p_mvpMatrixWithTexture_direction_percent_colorIndex_(self, v12);
         if ([contextCopy isMotionBlurred])
         {
           [(TSDMetalMotionBlurEffect *)self->_motionBlurMetalEffect velocityScale];
@@ -320,99 +320,77 @@
           motionBlurMetalEffect = self->_motionBlurMetalEffect;
           if (motionBlurMetalEffect)
           {
-            v54 = v70;
-            v55 = v71;
-            v56 = v72;
-            v57 = v73;
-            v50 = v66;
-            v51 = v67;
-            v52 = v68;
-            v53 = v69;
-            [(TSDMetalMotionBlurEffect *)motionBlurMetalEffect adjustTransformForMotionBlurBuffer:&v50];
+            v47 = 0u;
+            v48 = 0u;
+            v49 = 0u;
+            v50 = 0u;
+            v43 = 0u;
+            v44 = 0u;
+            v45 = 0u;
+            v46 = 0u;
+            objc_msgSend_adjustTransformForMotionBlurBuffer_(motionBlurMetalEffect);
           }
 
           else
           {
-            v64 = 0u;
-            v65 = 0u;
-            v62 = 0u;
-            v63 = 0u;
-            v60 = 0u;
-            v61 = 0u;
+            v57 = 0u;
             v58 = 0u;
-            v59 = 0u;
+            v55 = 0u;
+            v56 = 0u;
+            v53 = 0u;
+            v54 = 0u;
+            v51 = 0u;
+            v52 = 0u;
           }
 
-          v70 = v62;
-          v71 = v63;
-          v72 = v64;
-          v73 = v65;
+          v63 = v55;
+          v64 = v56;
+          v65 = v57;
           v66 = v58;
-          v67 = v59;
-          v68 = v60;
-          v69 = v61;
-          [contextCopy duration];
+          v59 = v51;
+          v60 = v52;
+          v61 = v53;
+          v62 = v54;
+          objc_msgSend_duration(contextCopy);
           TSUClamp();
-          v64 = 0u;
-          v65 = 0u;
-          v62 = 0u;
-          v63 = 0u;
-          v60 = 0u;
-          v61 = 0u;
-          v58 = 0u;
-          v59 = 0u;
-          [(KNTransitionColorPlanes *)self p_mvpMatrixWithTexture:v13 direction:direction percent:v21 colorIndex:?];
+          objc_msgSend_p_mvpMatrixWithTexture_direction_percent_colorIndex_(self);
           v35 = self->_motionBlurMetalEffect;
           if (v35)
           {
-            v49[4] = v62;
-            v49[5] = v63;
-            v49[6] = v64;
-            v49[7] = v65;
-            v49[0] = v58;
-            v49[1] = v59;
-            v49[2] = v60;
-            v49[3] = v61;
-            [(TSDMetalMotionBlurEffect *)v35 adjustTransformForMotionBlurBuffer:v49];
+            objc_msgSend_adjustTransformForMotionBlurBuffer_(v35);
           }
 
           else
           {
-            v56 = 0u;
-            v57 = 0u;
-            v54 = 0u;
-            v55 = 0u;
-            v52 = 0u;
-            v53 = 0u;
+            v49 = 0u;
             v50 = 0u;
-            v51 = 0u;
+            v47 = 0u;
+            v48 = 0u;
+            v45 = 0u;
+            v46 = 0u;
+            v43 = 0u;
+            v44 = 0u;
           }
 
+          v51 = v43;
+          v52 = v44;
+          v57 = v49;
           v58 = v50;
-          v59 = v51;
-          v64 = v56;
-          v65 = v57;
-          v62 = v54;
-          v63 = v55;
-          v60 = v52;
-          v61 = v53;
-          v36 = vcvt_hight_f32_f64(vcvt_f32_f64(v52), v53);
-          v37 = vcvt_hight_f32_f64(vcvt_f32_f64(v54), v55);
-          v38 = vcvt_hight_f32_f64(vcvt_f32_f64(v56), v57);
-          v22[4] = vcvt_hight_f32_f64(vcvt_f32_f64(v50), v51);
-          v22[5] = v36;
-          v22[6] = v37;
-          v22[7] = v38;
+          v55 = v47;
+          v56 = v48;
+          v53 = v45;
+          v54 = v46;
+          v22[4] = vcvt_hight_f32_f64(vcvt_f32_f64(v43), v44);
+          v22[5] = vcvt_hight_f32_f64(vcvt_f32_f64(v45), v46);
+          v22[6] = vcvt_hight_f32_f64(vcvt_f32_f64(v47), v48);
+          v22[7] = vcvt_hight_f32_f64(vcvt_f32_f64(v49), v50);
           v24 = &selRef_navigationBar_didPopItem_;
         }
 
-        v39 = vcvt_hight_f32_f64(vcvt_f32_f64(v68), v69);
-        v40 = vcvt_hight_f32_f64(vcvt_f32_f64(v70), v71);
-        v41 = vcvt_hight_f32_f64(vcvt_f32_f64(v72), v73);
-        *v22 = vcvt_hight_f32_f64(vcvt_f32_f64(v66), v67);
-        v22[1] = v39;
-        v22[2] = v40;
-        v22[3] = v41;
+        *v22 = vcvt_hight_f32_f64(vcvt_f32_f64(v59), v60);
+        v22[1] = vcvt_hight_f32_f64(vcvt_f32_f64(v61), v62);
+        v22[2] = vcvt_hight_f32_f64(vcvt_f32_f64(v63), v64);
+        v22[3] = vcvt_hight_f32_f64(vcvt_f32_f64(v65), v66);
         [encoderCopy setVertexBytes:v22 length:160 atIndex:1];
         [(TSDMetalShader *)self->_metalShader setPipelineStateWithEncoder:encoderCopy vertexBytes:v22];
         [*(&self->super.super.isa + *(v24 + 954)) drawWithEncoder:encoderCopy atIndex:0];

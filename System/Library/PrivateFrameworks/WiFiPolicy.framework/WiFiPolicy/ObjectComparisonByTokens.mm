@@ -100,13 +100,12 @@
     v6 = &stru_28487EF20;
   }
 
-  v7 = *&self->_obj1;
-  v8 = [v3 stringWithFormat:@"[%@ %@] %@ <> %@ overlap:%lu diff:%lu distance:%lu", reference, v6, self->_obj1, self->_obj2, self->_sameTokensCount, self->_diffTokensCount, self->_distance];
+  v7 = [v3 stringWithFormat:@"[%@ %@] %@ <> %@ overlap:%lu diff:%lu distance:%lu", reference, v6, self->_obj1, self->_obj2, self->_sameTokensCount, self->_diffTokensCount, self->_distance];
   if (isKindOfClass)
   {
   }
 
-  return v8;
+  return v7;
 }
 
 @end

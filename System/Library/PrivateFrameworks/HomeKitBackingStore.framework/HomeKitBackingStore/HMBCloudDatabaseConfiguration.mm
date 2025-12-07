@@ -28,35 +28,33 @@
 
 - (id)attributeDescriptions
 {
-  v24[6] = *MEMORY[0x277D85DE8];
+  v23[6] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   containerID = [(HMBCloudDatabaseConfiguration *)self containerID];
-  v22 = [v3 initWithName:@"Container ID" value:containerID];
-  v24[0] = v22;
+  v21 = [v3 initWithName:@"Container ID" value:containerID];
+  v23[0] = v21;
   v4 = objc_alloc(MEMORY[0x277D0F778]);
   sourceApplicationBundleIdentifier = [(HMBCloudDatabaseConfiguration *)self sourceApplicationBundleIdentifier];
   v5 = [v4 initWithName:@"Bundle ID" value:sourceApplicationBundleIdentifier];
-  v24[1] = v5;
+  v23[1] = v5;
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMBCloudDatabaseConfiguration *)self isManateeContainer];
   v7 = HMFBooleanToString();
   v8 = [v6 initWithName:@"Manatee Container" value:v7];
-  v24[2] = v8;
+  v23[2] = v8;
   v9 = objc_alloc(MEMORY[0x277D0F778]);
   defaultOperationConfiguration = [(HMBCloudDatabaseConfiguration *)self defaultOperationConfiguration];
   v11 = [v9 initWithName:@"Default Operation Configuration" value:defaultOperationConfiguration];
-  v24[3] = v11;
+  v23[3] = v11;
   v12 = objc_alloc(MEMORY[0x277D0F778]);
   v13 = [MEMORY[0x277CCABB0] numberWithInteger:{-[HMBCloudDatabaseConfiguration subscriptionPushRegistrationAction](self, "subscriptionPushRegistrationAction")}];
   v14 = [v12 initWithName:@"Subscription Push Registration Action" value:v13];
-  v24[4] = v14;
+  v23[4] = v14;
   v15 = objc_alloc(MEMORY[0x277D0F778]);
   operationQueue = [(HMBCloudDatabaseConfiguration *)self operationQueue];
   v17 = [v15 initWithName:@"Operations Queue" value:operationQueue];
-  v24[5] = v17;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:6];
-
-  v19 = *MEMORY[0x277D85DE8];
+  v23[5] = v17;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:6];
 
   return v18;
 }

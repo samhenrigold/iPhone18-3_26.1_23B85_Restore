@@ -25,11 +25,11 @@
     return 0;
   }
 
-  v6 = [context valueForKey:@"substitutionVariables"];
+  v6 = objc_msgSend_valueForKey_(context);
   if (v6)
   {
     v7 = v6;
-    v8 = [v6 valueForKey:@"FETCH_REQUEST_LIMIT_SUBSTITUTION"];
+    v8 = objc_msgSend_valueForKey_(v6);
     if (v8)
     {
       v9 = v8;
@@ -46,11 +46,11 @@
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v19 = [objc_msgSend(context valueForKey:{@"bindVars", "count"}];
+          v19 = [objc_msgSend_valueForKey_(context) count];
           v20 = [(NSSQLIntermediate *)self _generateSQLForConstantValue:constantValue inContext:context];
-          if ([objc_msgSend(context valueForKey:{@"bindVars", "count"}] - v19 < 2)
+          if ([objc_msgSend_valueForKey_(context) count] - v19 < 2)
           {
-            v21 = [context valueForKey:@"subOrder"];
+            v21 = objc_msgSend_valueForKey_(context);
             [v21 addObject:@"FETCH_REQUEST_LIMIT_SUBSTITUTION"];
             [v21 addObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithInteger:", v19)}];
             v22 = [objc_alloc(MEMORY[0x1E696AD60]) initWithFormat:@" LIMIT %@", v20];
@@ -58,9 +58,9 @@
             return v22;
           }
 
-          if (![context valueForKey:@"NSUnderlyingException"])
+          if (!objc_msgSend_valueForKey_(context))
           {
-            [context setObject:objc_msgSend(MEMORY[0x1E695DF30] forKey:{"exceptionWithName:reason:userInfo:", *MEMORY[0x1E695D940], objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"Invalid variable substitution - multiple values not supported for limit %@", constantValue), 0), @"NSUnderlyingException"}];
+            [context setObject:objc_msgSend(MEMORY[0x1E695DF30] forKey:{"exceptionWithName:reason:userInfo:", *MEMORY[0x1E695D940], objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], constantValue), 0), @"NSUnderlyingException"}];
           }
 
           return 0;

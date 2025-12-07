@@ -8,7 +8,7 @@
 
 - (void)viewfinderViewController:(CAMViewfinderViewController *)controller didRequestUnlockForCameraRollController:(CAMCameraRollController *)rollController withCameraRollActionType:(unint64_t)type completionHandler:(id)handler
 {
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0FC488);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0FC488, &qword_1A3A6C3A0);
   MEMORY[0x1EEE9AC00](v11 - 8);
   v13 = &v22 - v12;
   v14 = _Block_copy(handler);
@@ -38,7 +38,7 @@
 
 - (void)viewfinderViewControllerDidRequestUnlockForDocumentScanning:(CAMViewfinderViewController *)scanning completionHandler:(id)handler
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0FC488);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0FC488, &qword_1A3A6C3A0);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(handler);

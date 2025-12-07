@@ -10,9 +10,9 @@
 {
   symbolCopy = symbol;
   v6 = objc_alloc(objc_opt_class());
-  v9 = objc_msgSend_initWithSymbol_attribute_(v6, v7, symbolCopy, attribute, v8);
+  v8 = objc_msgSend_initWithSymbol_attribute_(v6, v7, symbolCopy, attribute);
 
-  return v9;
+  return v8;
 }
 
 - (TSTStockDetails)initWithSymbol:(id)symbol attribute:(int64_t)attribute
@@ -34,20 +34,20 @@
 - (BOOL)isEqualToStockDetails:(id)details
 {
   detailsCopy = details;
-  v9 = objc_msgSend_symbol(self, v5, v6, v7, v8);
-  v14 = objc_msgSend_symbol(detailsCopy, v10, v11, v12, v13);
-  if (objc_msgSend_isEqualToString_(v9, v15, v14, v16, v17))
+  v8 = objc_msgSend_symbol(self, v5, v6, v7);
+  v12 = objc_msgSend_symbol(detailsCopy, v9, v10, v11);
+  if (objc_msgSend_isEqualToString_(v8, v13, v12, v14))
   {
-    v22 = objc_msgSend_attribute(self, v18, v19, v20, v21);
-    v27 = v22 == objc_msgSend_attribute(detailsCopy, v23, v24, v25, v26);
+    v18 = objc_msgSend_attribute(self, v15, v16, v17);
+    v22 = v18 == objc_msgSend_attribute(detailsCopy, v19, v20, v21);
   }
 
   else
   {
-    v27 = 0;
+    v22 = 0;
   }
 
-  return v27;
+  return v22;
 }
 
 @end

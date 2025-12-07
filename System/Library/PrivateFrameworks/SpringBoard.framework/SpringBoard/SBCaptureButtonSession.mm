@@ -20,19 +20,19 @@
 
 - (SBCaptureButtonSession)initWithInteraction:(id)interaction delegate:(id)delegate appInteractionEventSource:(id)source displayLayoutPublisher:(id)publisher
 {
-  v33[1] = *MEMORY[0x277D85DE8];
+  v34[1] = *MEMORY[0x277D85DE8];
   interactionCopy = interaction;
   delegateCopy = delegate;
   sourceCopy = source;
   publisherCopy = publisher;
-  v32.receiver = self;
-  v32.super_class = SBCaptureButtonSession;
-  v14 = [(SBCaptureButtonSession *)&v32 init];
+  v33.receiver = self;
+  v33.super_class = SBCaptureButtonSession;
+  v14 = [(SBCaptureButtonSession *)&v33 init];
   if (v14)
   {
     v15 = objc_alloc(MEMORY[0x277CBEB18]);
-    v33[0] = interactionCopy;
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:1];
+    v34[0] = interactionCopy;
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:1];
     v17 = [v15 initWithArray:v16];
     interactions = v14->_interactions;
     v14->_interactions = v17;
@@ -66,11 +66,11 @@
     defaultCenter3 = [MEMORY[0x277CCAB98] defaultCenter];
     [defaultCenter3 addObserver:v14 selector:sel__handleNotification_ name:@"SBCaptureHardwareButtonPressNotification" object:0];
 
-    v29 = SBLogCameraCaptureSessionLogs();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+    v30 = SBLogCameraCaptureSessionLogs(v29);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
     {
-      *v31 = 0;
-      _os_log_impl(&dword_21ED4E000, v29, OS_LOG_TYPE_DEFAULT, "New capture button interaction session created.", v31, 2u);
+      *v32 = 0;
+      _os_log_impl(&dword_21ED4E000, v30, OS_LOG_TYPE_DEFAULT, "New capture button interaction session created.", v32, 2u);
     }
 
     [(SBCaptureButtonSession *)v14 _startCountdown];
@@ -110,16 +110,17 @@
 - (void)coalesceInteraction:(id)interaction
 {
   interactionCopy = interaction;
-  if (![(SBCaptureButtonSession *)self isActive])
+  isActive = [(SBCaptureButtonSession *)self isActive];
+  if ((isActive & 1) == 0)
   {
     [(SBCaptureButtonSession *)a2 coalesceInteraction:?];
   }
 
-  v6 = SBLogCameraCaptureSessionLogs();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = SBLogCameraCaptureSessionLogs(isActive);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    *v7 = 0;
-    _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "Coalescing interaction.", v7, 2u);
+    *v8 = 0;
+    _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "Coalescing interaction.", v8, 2u);
   }
 
   [(SBCaptureButtonSession *)self _startCountdown];
@@ -128,93 +129,98 @@
 
 - (void)logToCoreAnalytics
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v9 = 0u;
+  v15 = *MEMORY[0x277D85DE8];
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
   v2 = self->_interactions;
-  v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v11;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v9 + 1) + 8 * v6++) logToCoreAnalytics];
+        [*(*(&v10 + 1) + 8 * v6++) logToCoreAnalytics];
       }
 
       while (v4 != v6);
-      v4 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v4);
   }
 
-  v7 = SBLogCameraCaptureSessionLogs();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = SBLogCameraCaptureSessionLogs(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    *v8 = 0;
-    _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "Session logged to CoreAnalytics.", v8, 2u);
+    *v9 = 0;
+    _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "Session logged to CoreAnalytics.", v9, 2u);
   }
 }
 
 - (void)logInteractionIntentions
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v13 = 0u;
+  v23 = *MEMORY[0x277D85DE8];
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
   v2 = self->_interactions;
-  v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v13 objects:v21 count:16];
+  v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v14 objects:v22 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v14;
+    v5 = *v15;
     do
     {
-      for (i = 0; i != v4; ++i)
+      v6 = 0;
+      do
       {
-        if (*v14 != v5)
+        if (*v15 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v13 + 1) + 8 * i);
-        v8 = SBLogCameraCaptureStudyLogs();
+        v7 = *(*(&v14 + 1) + 8 * v6);
+        v8 = SBLogCameraCaptureStudyLogs(v3);
         if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
         {
           context = [v7 context];
           machAbsoluteTimestamp = [context machAbsoluteTimestamp];
           intention = [v7 intention];
           *buf = 134218240;
-          v18 = machAbsoluteTimestamp;
-          v19 = 2048;
-          v20 = intention;
+          v19 = machAbsoluteTimestamp;
+          v20 = 2048;
+          v21 = intention;
           _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "{machAbsoluteTimestamp: %llu, intention: %lu}", buf, 0x16u);
         }
+
+        ++v6;
       }
 
-      v4 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v13 objects:v21 count:16];
+      while (v4 != v6);
+      v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v14 objects:v22 count:16];
+      v4 = v3;
     }
 
-    while (v4);
+    while (v3);
   }
 
-  v12 = SBLogCameraCaptureSessionLogs();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = SBLogCameraCaptureSessionLogs(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_DEFAULT, "Logged interaction intentions to the serial output.", buf, 2u);
+    _os_log_impl(&dword_21ED4E000, v13, OS_LOG_TYPE_DEFAULT, "Logged interaction intentions to the serial output.", buf, 2u);
   }
 }
 
@@ -230,11 +236,11 @@
     if (!(v9 & 1 | !self->_inCaptureApp))
     {
       self->_inCaptureApp = 0;
-      v11 = SBLogCameraCaptureSessionLogs();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v12 = SBLogCameraCaptureSessionLogs(v10);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        *v12 = 0;
-        _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_DEFAULT, "Closed capture app.", v12, 2u);
+        *v13 = 0;
+        _os_log_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_DEFAULT, "Closed capture app.", v13, 2u);
       }
 
       [(SBCaptureButtonSession *)self _sealUnintentionalLaunch];
@@ -244,28 +250,34 @@
   else
   {
     self->_inCaptureApp = 1;
-    [(SBCaptureButtonSession *)self _startCaptureInteractionTimer];
-    v10 = SBLogCameraCaptureSessionLogs();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = SBLogCameraCaptureSessionLogs([(SBCaptureButtonSession *)self _startCaptureInteractionTimer]);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "Launched capture app.", buf, 2u);
+      _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_DEFAULT, "Launched capture app.", buf, 2u);
     }
   }
 }
 
 - (void)eventSource:(id)source userTouchedApplication:(id)application
 {
-  if ([application isEqualToString:self->_captureAppBundleID] && self->_inCaptureApp && !-[BSAbsoluteMachTimer isScheduled](self->_captureAppInteractionTimer, "isScheduled"))
+  if ([application isEqualToString:self->_captureAppBundleID])
   {
-    v5 = SBLogCameraCaptureSessionLogs();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    if (self->_inCaptureApp)
     {
-      *v6 = 0;
-      _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "Interacted with capture app.", v6, 2u);
-    }
+      isScheduled = [(BSAbsoluteMachTimer *)self->_captureAppInteractionTimer isScheduled];
+      if ((isScheduled & 1) == 0)
+      {
+        v6 = SBLogCameraCaptureSessionLogs(isScheduled);
+        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+        {
+          *v7 = 0;
+          _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "Interacted with capture app.", v7, 2u);
+        }
 
-    [(SBCaptureButtonSession *)self _sealIntentionalLaunch];
+        [(SBCaptureButtonSession *)self _sealIntentionalLaunch];
+      }
+    }
   }
 }
 
@@ -290,31 +302,35 @@ void __41__SBCaptureButtonSession__startCountdown__block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = WeakRetained;
-  if (WeakRetained && [WeakRetained isActive])
+  if (WeakRetained)
   {
-    v3 = v2[48];
-    v4 = SBLogCameraCaptureSessionLogs();
-    v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
-    if (v3 == 1)
+    v3 = [WeakRetained isActive];
+    if (v3)
     {
-      if (v5)
+      v4 = v2[48];
+      v5 = SBLogCameraCaptureSessionLogs(v3);
+      v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+      if (v4 == 1)
       {
-        *buf = 0;
-        _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_DEFAULT, "Countdown timer expired while in capture app.", buf, 2u);
+        if (v6)
+        {
+          *buf = 0;
+          _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "Countdown timer expired while in capture app.", buf, 2u);
+        }
+
+        [v2 _sealLowConfidenceIntentionalLaunch];
       }
 
-      [v2 _sealLowConfidenceIntentionalLaunch];
-    }
-
-    else
-    {
-      if (v5)
+      else
       {
-        *v6 = 0;
-        _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_DEFAULT, "Countdown timer expired while NOT in capture app.", v6, 2u);
-      }
+        if (v6)
+        {
+          *v7 = 0;
+          _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "Countdown timer expired while NOT in capture app.", v7, 2u);
+        }
 
-      [v2 _sealIntentionalMitigation];
+        [v2 _sealIntentionalMitigation];
+      }
     }
   }
 }
@@ -329,9 +345,9 @@ void __41__SBCaptureButtonSession__startCountdown__block_invoke(uint64_t a1)
     if (![name2 isEqualToString:@"SBVolumeHardwareButtonDecreaseNotification"])
     {
       name3 = [notificationCopy name];
-      v9 = [name3 isEqualToString:@"SBCaptureHardwareButtonPressNotification"];
+      v10 = [name3 isEqualToString:@"SBCaptureHardwareButtonPressNotification"];
 
-      if ((v9 & 1) == 0)
+      if ((v10 & 1) == 0)
       {
         goto LABEL_10;
       }
@@ -343,11 +359,11 @@ void __41__SBCaptureButtonSession__startCountdown__block_invoke(uint64_t a1)
 LABEL_5:
   if (self->_inCaptureApp)
   {
-    v7 = SBLogCameraCaptureSessionLogs();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = SBLogCameraCaptureSessionLogs(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      *v10 = 0;
-      _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "Interacted with app using hardware buttons.", v10, 2u);
+      *v11 = 0;
+      _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "Interacted with app using hardware buttons.", v11, 2u);
     }
 
     [(SBCaptureButtonSession *)self _sealIntentionalLaunch];
@@ -563,20 +579,20 @@ void __52__SBCaptureButtonSession__sealIntentionalMitigation__block_invoke(uint6
 
 - (void)_sealWithReason:(id)reason block:(id)block
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   blockCopy = block;
-  v8 = SBLogCameraCaptureSessionLogs();
+  v8 = SBLogCameraCaptureSessionLogs(blockCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138543362;
-    v12 = reasonCopy;
-    _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "Attempting to seal %{public}@.", &v11, 0xCu);
+    v13 = 138543362;
+    v14 = reasonCopy;
+    _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "Attempting to seal %{public}@.", &v13, 0xCu);
   }
 
   if (self->_sealed)
   {
-    WeakRetained = SBLogCameraCaptureSessionLogs();
+    WeakRetained = SBLogCameraCaptureSessionLogs(v9);
     if (os_log_type_enabled(WeakRetained, OS_LOG_TYPE_ERROR))
     {
       [SBCaptureButtonSession _sealWithReason:? block:?];
@@ -586,18 +602,18 @@ void __52__SBCaptureButtonSession__sealIntentionalMitigation__block_invoke(uint6
   else
   {
     self->_sealed = 1;
-    [(SBCaptureButtonSession *)self invalidate];
+    invalidate = [(SBCaptureButtonSession *)self invalidate];
     if (blockCopy)
     {
-      blockCopy[2](blockCopy);
+      invalidate = blockCopy[2](blockCopy);
     }
 
-    v10 = SBLogCameraCaptureSessionLogs();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v12 = SBLogCameraCaptureSessionLogs(invalidate);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138543362;
-      v12 = reasonCopy;
-      _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "Sealed %{public}@.", &v11, 0xCu);
+      v13 = 138543362;
+      v14 = reasonCopy;
+      _os_log_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_DEFAULT, "Sealed %{public}@.", &v13, 0xCu);
     }
 
     WeakRetained = objc_loadWeakRetained(&self->_delegate);

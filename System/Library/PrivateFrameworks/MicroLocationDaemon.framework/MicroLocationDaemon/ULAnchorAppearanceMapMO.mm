@@ -11,30 +11,30 @@
   v8 = [[ULAnchorAppearanceMapMO alloc] initWithContext:context];
   [(ULAnchorAppearanceMapMO *)v8 setLoi:mOCopy];
   [(ULAnchorAppearanceMapMO *)v8 setTimestamp:*o];
-  CLMicroLocationProto::AnchorAppearanceConfiguration::ByteSize((o + 24));
+  CLMicroLocationProto::AnchorAppearanceConfiguration::ByteSize((o + 24), v9);
   operator new[]();
 }
 
 - (optional<ULAnchorAppearanceMapDO>)convertToDO
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   [(ULAnchorAppearanceMapMO *)self timestamp];
-  v17 = v4;
+  v16 = v4;
   v5 = [(ULAnchorAppearanceMapMO *)self loi];
   loiId = [v5 loiId];
   v7 = loiId;
   if (loiId)
   {
-    [loiId boostUUID];
+    objc_msgSend_boostUUID(loiId);
   }
 
   else
   {
-    v20 = 0uLL;
-    v21 = 0;
+    v19 = 0uLL;
+    v20 = 0;
   }
 
-  if ((v21 & 1) == 0)
+  if ((v20 & 1) == 0)
   {
     if (onceToken_MicroLocation_Default != -1)
     {
@@ -48,10 +48,10 @@
       _os_log_impl(&dword_258FE9000, v8, OS_LOG_TYPE_ERROR, "convertToDO: anchorAppearanceMap's loiId has no value", buf, 2u);
     }
 
-    v20 = 0uLL;
-    if ((v21 & 1) == 0)
+    v19 = 0uLL;
+    if ((v20 & 1) == 0)
     {
-      v21 = 1;
+      v20 = 1;
     }
   }
 
@@ -60,19 +60,19 @@
   bytes = [anchorAppearance bytes];
   anchorAppearance2 = [(ULAnchorAppearanceMapMO *)self anchorAppearance];
   [anchorAppearance2 length];
-  LOBYTE(bytes) = wireless_diagnostics::google::protobuf::MessageLite::ParseFromArray(v16, bytes);
+  LOBYTE(bytes) = wireless_diagnostics::google::protobuf::MessageLite::ParseFromArray(v15, bytes);
 
   if (bytes)
   {
-    if ((v21 & 1) == 0)
+    if ((v20 & 1) == 0)
     {
       std::__throw_bad_optional_access[abi:ne200100]();
     }
 
-    ULAnchorAppearanceMapDO::ULAnchorAppearanceMapDO(buf, &v17, &v20, v16);
+    ULAnchorAppearanceMapDO::ULAnchorAppearanceMapDO(buf, &v16, &v19, v15);
     ULAnchorAppearanceMapDO::ULAnchorAppearanceMapDO(retstr, buf);
     LOBYTE(retstr[1].var0.var3.var4[0]) = 1;
-    CLMicroLocationProto::AnchorAppearanceConfiguration::~AnchorAppearanceConfiguration(&v19);
+    CLMicroLocationProto::AnchorAppearanceConfiguration::~AnchorAppearanceConfiguration(&v18);
   }
 
   else
@@ -93,8 +93,7 @@
     LOBYTE(retstr[1].var0.var3.var4[0]) = 0;
   }
 
-  CLMicroLocationProto::AnchorAppearanceConfiguration::~AnchorAppearanceConfiguration(v16);
-  v15 = *MEMORY[0x277D85DE8];
+  CLMicroLocationProto::AnchorAppearanceConfiguration::~AnchorAppearanceConfiguration(v15);
   return result;
 }
 

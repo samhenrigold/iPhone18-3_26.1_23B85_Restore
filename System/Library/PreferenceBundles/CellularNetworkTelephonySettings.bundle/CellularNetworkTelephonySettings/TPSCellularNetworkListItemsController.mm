@@ -144,9 +144,9 @@ LABEL_7:
 
 - (id)tableView:(id)view networkSelectionModeForRowAtIndexPath:(id)path
 {
-  v24.receiver = self;
-  v24.super_class = TPSCellularNetworkListItemsController;
-  v5 = [(TPSCellularNetworkListItemsController *)&v24 tableView:view cellForRowAtIndexPath:path];
+  v27.receiver = self;
+  v27.super_class = TPSCellularNetworkListItemsController;
+  v5 = [(TPSCellularNetworkListItemsController *)&v27 tableView:view cellForRowAtIndexPath:path];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -166,28 +166,28 @@ LABEL_22:
     {
       networkSpecifiers = [(TPSCellularNetworkListItemsController *)self networkSpecifiers];
 
-      v10 = TPSCellularNetworkLog();
-      v14 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+      v11 = TPSCellularNetworkLog(v15, v16);
+      v17 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
       if (!networkSpecifiers)
       {
-        if (!v14)
+        if (!v17)
         {
 LABEL_19:
-          v15 = 1;
+          v18 = 1;
           goto LABEL_20;
         }
 
-        *v23 = 0;
-        v11 = "Displaying the loading indicator; network selection mode is manual but network list is empty.";
+        *v26 = 0;
+        v12 = "Displaying the loading indicator; network selection mode is manual but network list is empty.";
 LABEL_18:
-        _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, v11, v23, 2u);
+        _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, v12, v26, 2u);
         goto LABEL_19;
       }
 
-      if (v14)
+      if (v17)
       {
-        *v23 = 0;
-        v12 = "Hiding the loading indicator; network selection mode is manual and network list is not empty.";
+        *v26 = 0;
+        v13 = "Hiding the loading indicator; network selection mode is manual and network list is not empty.";
         goto LABEL_13;
       }
     }
@@ -198,44 +198,44 @@ LABEL_18:
       {
         if (networkSelectionMode)
         {
-          v15 = 0;
+          v18 = 0;
 LABEL_21:
-          v16 = v6;
-          [v16 setLoading:v15];
+          v19 = v6;
+          [v19 setLoading:v18];
           cellularNetworkController = [(TPSCellularNetworkListItemsController *)self cellularNetworkController];
           isNetworkSelectionEnabled = [cellularNetworkController isNetworkSelectionEnabled];
-          control = [v16 control];
+          control = [v19 control];
 
           [control setEnabled:isNetworkSelectionEnabled];
-          v20 = [specifier propertyForKey:PSControlKey];
+          v23 = [specifier propertyForKey:PSControlKey];
           cellularNetworkController2 = [(TPSCellularNetworkListItemsController *)self cellularNetworkController];
-          [v20 setEnabled:{objc_msgSend(cellularNetworkController2, "isNetworkSelectionEnabled")}];
+          [v23 setEnabled:{objc_msgSend(cellularNetworkController2, "isNetworkSelectionEnabled")}];
 
           goto LABEL_22;
         }
 
-        v10 = TPSCellularNetworkLog();
-        if (!os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+        v11 = TPSCellularNetworkLog(0, v10);
+        if (!os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_19;
         }
 
-        *v23 = 0;
-        v11 = "Displaying the loading indicator; network selection mode is unknown.";
+        *v26 = 0;
+        v12 = "Displaying the loading indicator; network selection mode is unknown.";
         goto LABEL_18;
       }
 
-      v10 = TPSCellularNetworkLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = TPSCellularNetworkLog(1, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        *v23 = 0;
-        v12 = "Hiding the loading indicator; network selection mode is automatic.";
+        *v26 = 0;
+        v13 = "Hiding the loading indicator; network selection mode is automatic.";
 LABEL_13:
-        _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, v12, v23, 2u);
+        _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, v13, v26, 2u);
       }
     }
 
-    v15 = 0;
+    v18 = 0;
 LABEL_20:
 
     goto LABEL_21;
@@ -249,15 +249,15 @@ LABEL_23:
 - (void)listItemSelected:(id)selected
 {
   selectedCopy = selected;
-  v7.receiver = self;
-  v7.super_class = TPSCellularNetworkListItemsController;
-  [(TPSCellularNetworkListItemsController *)&v7 listItemSelected:selectedCopy];
-  v5 = TPSCellularNetworkLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v9.receiver = self;
+  v9.super_class = TPSCellularNetworkListItemsController;
+  v5 = [(TPSCellularNetworkListItemsController *)&v9 listItemSelected:selectedCopy];
+  v7 = TPSCellularNetworkLog(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v9 = selectedCopy;
-    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "List item selected at index path %@", buf, 0xCu);
+    v11 = selectedCopy;
+    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "List item selected at index path %@", buf, 0xCu);
   }
 
   if ([selectedCopy section] == &dword_0 + 1)
@@ -400,15 +400,15 @@ LABEL_23:
 - (void)handleTPSCellularNetworkControllerNetworkItemsDidChangeNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = TPSCellularNetworkLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = TPSCellularNetworkLog(notificationCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412546;
-    v8 = objc_opt_class();
-    v9 = 2112;
-    v10 = notificationCopy;
-    v6 = v8;
-    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "%@ is handling %@.", &v7, 0x16u);
+    v8 = 138412546;
+    v9 = objc_opt_class();
+    v10 = 2112;
+    v11 = notificationCopy;
+    v7 = v9;
+    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "%@ is handling %@.", &v8, 0x16u);
   }
 
   [(TPSCellularNetworkListItemsController *)self setNetworkSpecifiers:0];
@@ -418,15 +418,15 @@ LABEL_23:
 - (void)handleTPSCellularNetworkControllerNetworkSelectionModeDidChangeNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = TPSCellularNetworkLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = TPSCellularNetworkLog(notificationCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412546;
-    v10 = objc_opt_class();
-    v11 = 2112;
-    v12 = notificationCopy;
-    v6 = v10;
-    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "%@ is handling %@.", &v9, 0x16u);
+    v10 = 138412546;
+    v11 = objc_opt_class();
+    v12 = 2112;
+    v13 = notificationCopy;
+    v7 = v11;
+    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "%@ is handling %@.", &v10, 0x16u);
   }
 
   cellularNetworkController = [(TPSCellularNetworkListItemsController *)self cellularNetworkController];
@@ -442,15 +442,15 @@ LABEL_23:
 - (void)handleTPSCellularNetworkControllerSelectedNetworkItemDidChangeNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = TPSCellularNetworkLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = TPSCellularNetworkLog(notificationCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412546;
-    v8 = objc_opt_class();
-    v9 = 2112;
-    v10 = notificationCopy;
-    v6 = v8;
-    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "%@ is handling %@.", &v7, 0x16u);
+    v8 = 138412546;
+    v9 = objc_opt_class();
+    v10 = 2112;
+    v11 = notificationCopy;
+    v7 = v9;
+    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "%@ is handling %@.", &v8, 0x16u);
   }
 
   [(TPSCellularNetworkListItemsController *)self reloadSpecifiers];

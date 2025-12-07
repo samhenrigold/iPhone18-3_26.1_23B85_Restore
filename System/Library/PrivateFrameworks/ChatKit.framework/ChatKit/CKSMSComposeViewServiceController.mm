@@ -56,21 +56,22 @@
 
 - (CKSMSComposeViewServiceController)init
 {
-  v7.receiver = self;
-  v7.super_class = CKSMSComposeViewServiceController;
-  v2 = [(CKSMSComposeViewServiceController *)&v7 init];
+  v11.receiver = self;
+  v11.super_class = CKSMSComposeViewServiceController;
+  v2 = [(CKSMSComposeViewServiceController *)&v11 init];
+  v4 = v2;
   if (v2)
   {
-    CKResetCachedUserSettings();
+    CKResetCachedUserSettings(v2, v3);
     IMResetCachedUserSettings();
     IMResetCachedCarrierSettings();
-    [(CKSMSComposeViewServiceController *)v2 setCanEditRecipients:1];
+    v5 = [(CKSMSComposeViewServiceController *)v4 setCanEditRecipients:1];
     if (sDidFirstTimeBringup == 1)
     {
-      if (!CKIsRunningUnitTests())
+      if (!CKIsRunningUnitTests(v5, v6))
       {
-        v3 = dispatch_time(0, 0);
-        dispatch_after(v3, MEMORY[0x1E69E96A0], &__block_literal_global_43);
+        v7 = dispatch_time(0, 0);
+        dispatch_after(v7, MEMORY[0x1E69E96A0], &__block_literal_global_43);
       }
     }
 
@@ -79,14 +80,14 @@
       sDidFirstTimeBringup = 1;
     }
 
-    v4 = +[CKUIBehavior sharedBehaviors];
-    v5 = [objc_alloc(objc_msgSend(v4 "modalTranscriptControllerClass"))];
+    v8 = +[CKUIBehavior sharedBehaviors];
+    v9 = [objc_alloc(objc_msgSend(v8 "modalTranscriptControllerClass"))];
 
-    [(CKSMSComposeViewServiceController *)v2 setModalTranscriptController:v5];
-    [v5 setDelegate:v2];
+    [(CKSMSComposeViewServiceController *)v4 setModalTranscriptController:v9];
+    [v9 setDelegate:v4];
   }
 
-  return v2;
+  return v4;
 }
 
 void __41__CKSMSComposeViewServiceController_init__block_invoke()
@@ -295,7 +296,7 @@ LABEL_11:
   lCopy = l;
   v13 = 0u;
   v14 = 0u;
-  [(CKSMSComposeViewServiceController *)self _hostAuditToken];
+  objc_msgSend__hostAuditToken(self);
   propertyValueTypeRefPtr = 0;
   if (!CFURLCopyResourcePropertyForKey(lCopy, *MEMORY[0x1E695EB60], &propertyValueTypeRefPtr, 0))
   {
@@ -408,7 +409,7 @@ LABEL_15:
   }
 }
 
-void *__147__CKSMSComposeViewServiceController__insertAttachmentWithURL_andDescription_preview_isFullyRealized_appendedVideoURL_appendedBundleURL_completion___block_invoke()
+uint64_t (*__147__CKSMSComposeViewServiceController__insertAttachmentWithURL_andDescription_preview_isFullyRealized_appendedVideoURL_appendedBundleURL_completion___block_invoke())(void, void)
 {
   result = MEMORY[0x193AF5ED0]("PUTCreatePathForPersistentURL", @"PhotoLibraryServicesCore");
   _insertAttachmentWithURL_andDescription_preview_isFullyRealized_appendedVideoURL_appendedBundleURL_completion___PUTCreatePathForPersistentURL = result;
@@ -1093,7 +1094,7 @@ LABEL_36:
 - (void)configureForDeviceValidation
 {
   memset(v3, 0, sizeof(v3));
-  [(CKSMSComposeViewServiceController *)self _hostAuditToken];
+  objc_msgSend__hostAuditToken(self, a2);
   if (MEMORY[0x193AF6320](v3, @"com.apple.developer.upi-device-validation"))
   {
     self->_isDoingUPIDeviceValidation = 1;
@@ -1185,8 +1186,8 @@ LABEL_36:
     }
   }
 
-  modalTranscriptController = [(CKSMSComposeViewServiceController *)self modalTranscriptController];
-  [modalTranscriptController insertCKShareForCollaboration:collaborationCopy containerSetupInfo:infoCopy collaborationShareOptions:optionsCopy isCollaboration:isCollaborationCopy completionHandler:handlerCopy];
+  v18 = [(CKSMSComposeViewServiceController *)self modalTranscriptController:*v19];
+  [v18 insertCKShareForCollaboration:collaborationCopy containerSetupInfo:infoCopy collaborationShareOptions:optionsCopy isCollaboration:isCollaborationCopy completionHandler:handlerCopy];
 }
 
 - (void)insertGroupActivity:(id)activity
@@ -1312,39 +1313,39 @@ LABEL_36:
 
 - (void)composeChatController:(id)controller shouldSendComposition:(id)composition inConversation:(id)conversation completion:(id)completion
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   compositionCopy = composition;
   completionCopy = completion;
   recipientStrings = [conversation recipientStrings];
   v12 = recipientStrings;
   if (self->_gameCenterPickerBlock)
   {
-    v28 = compositionCopy;
+    v30 = compositionCopy;
     modalTranscriptController = [(CKSMSComposeViewServiceController *)self modalTranscriptController];
     composeRecipientSelectionController = [modalTranscriptController composeRecipientSelectionController];
 
     recipients = [composeRecipientSelectionController recipients];
     v16 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(recipients, "count")}];
-    v30 = 0u;
-    v31 = 0u;
     v32 = 0u;
     v33 = 0u;
+    v34 = 0u;
+    v35 = 0u;
     v17 = recipients;
-    v18 = [v17 countByEnumeratingWithState:&v30 objects:v34 count:16];
+    v18 = [v17 countByEnumeratingWithState:&v32 objects:v36 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v31;
+      v20 = *v33;
       do
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v31 != v20)
+          if (*v33 != v20)
           {
             objc_enumerationMutation(v17);
           }
 
-          v22 = *(*(&v30 + 1) + 8 * i);
+          v22 = *(*(&v32 + 1) + 8 * i);
           if ([composeRecipientSelectionController isGameCenterRecipient:v22])
           {
             normalizedAddress = [v22 normalizedAddress];
@@ -1352,7 +1353,7 @@ LABEL_36:
           }
         }
 
-        v19 = [v17 countByEnumeratingWithState:&v30 objects:v34 count:16];
+        v19 = [v17 countByEnumeratingWithState:&v32 objects:v36 count:16];
       }
 
       while (v19);
@@ -1363,7 +1364,7 @@ LABEL_36:
       [v16 addObjectsFromArray:v12];
     }
 
-    compositionCopy = v28;
+    compositionCopy = v30;
   }
 
   else
@@ -1374,7 +1375,7 @@ LABEL_36:
   text = [compositionCopy text];
   string = [text string];
 
-  if (CKIsRunningUnitTests() || (memset(v29, 0, sizeof(v29)), [(CKSMSComposeViewServiceController *)self _hostAuditToken], !MEMORY[0x193AF6320](v29, @"com.apple.private.mobilesms.messages-recipient-vetting")))
+  if (CKIsRunningUnitTests(v27, v28) || (memset(v31, 0, sizeof(v31)), objc_msgSend__hostAuditToken(self), !MEMORY[0x193AF6320](v31, @"com.apple.private.mobilesms.messages-recipient-vetting")))
   {
     completionCopy[2](completionCopy, 1);
   }
@@ -2091,28 +2092,28 @@ LABEL_9:
 
 void __71__CKSMSComposeViewServiceController_donateInteractionWithConversation___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v4 = a3;
-  if (CKIsRunningUnitTests())
+  if (CKIsRunningUnitTests(v4, v5))
   {
-    v5 = [*(a1 + 32) composeDelegate];
-    v6 = objc_opt_respondsToSelector();
+    v6 = [*(a1 + 32) composeDelegate];
+    v7 = objc_opt_respondsToSelector();
 
-    if (v6)
+    if (v7)
     {
-      v7 = [*(a1 + 32) composeDelegate];
-      [v7 composeViewServiceController:*(a1 + 32) willDonateToDuetWithUTIs:*(*(a1 + 32) + 1496)];
+      v8 = [*(a1 + 32) composeDelegate];
+      [v8 composeViewServiceController:*(a1 + 32) willDonateToDuetWithUTIs:*(*(a1 + 32) + 1496)];
     }
   }
 
   if (v4 && IMOSLoggingEnabled())
   {
-    v8 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v9 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v9 = 138412290;
-      v10 = v4;
-      _os_log_impl(&dword_19020E000, v8, OS_LOG_TYPE_INFO, "recordInteraction failed with error %@", &v9, 0xCu);
+      v10 = 138412290;
+      v11 = v4;
+      _os_log_impl(&dword_19020E000, v9, OS_LOG_TYPE_INFO, "recordInteraction failed with error %@", &v10, 0xCu);
     }
   }
 }

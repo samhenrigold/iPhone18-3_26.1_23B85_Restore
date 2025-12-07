@@ -87,9 +87,9 @@
 
 - (void)layoutSubviews
 {
-  v22.receiver = self;
-  v22.super_class = SKUIGroupedHeaderView;
-  [(SKUIGroupedHeaderView *)&v22 layoutSubviews];
+  v26.receiver = self;
+  v26.super_class = SKUIGroupedHeaderView;
+  [(SKUIGroupedHeaderView *)&v26 layoutSubviews];
   [(SKUIGroupedHeaderView *)self bounds];
   v4 = v3;
   v6 = v5;
@@ -98,39 +98,39 @@
   [(UILabel *)self->_titleLabel sizeToFit];
   [(UILabel *)self->_titleLabel frame];
   v12 = v11;
-  v23.origin.x = v4;
-  v23.origin.y = v6;
-  v23.size.width = v8;
-  v23.size.height = v10;
-  MaxY = CGRectGetMaxY(v23);
+  v27.origin.x = v4;
+  v27.origin.y = v6;
+  v27.size.width = v8;
+  v27.size.height = v10;
+  MaxY = CGRectGetMaxY(v27);
   titleLabel = self->_titleLabel;
-  SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v4 + 15.0, MaxY - v12 + -5.0, v8 + 30.0, v12, v4, v6, v8, v10);
-  [(UILabel *)titleLabel setFrame:?];
-  if (storeShouldReverseLayoutDirection())
+  SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v4 + 15.0, MaxY - v12 + -5.0, v8 + 30.0, v12, v4, v6, v8, v10, v15, v16);
+  v17 = [(UILabel *)titleLabel setFrame:?];
+  if (storeShouldReverseLayoutDirection(v17, v18))
   {
-    v15 = 2;
+    v19 = 2;
   }
 
   else
   {
-    v15 = 0;
+    v19 = 0;
   }
 
-  [(UILabel *)self->_titleLabel setTextAlignment:v15];
+  [(UILabel *)self->_titleLabel setTextAlignment:v19];
   mainScreen = [MEMORY[0x277D759A0] mainScreen];
   [mainScreen scale];
-  v18 = 1.0 / v17;
+  v22 = 1.0 / v21;
 
-  [(UIView *)self->_topBorder setFrame:v4, v6, v8, v18];
+  [(UIView *)self->_topBorder setFrame:v4, v6, v8, v22];
   mainScreen2 = [MEMORY[0x277D759A0] mainScreen];
   [mainScreen2 scale];
-  v21 = 1.0 / v20;
+  v25 = 1.0 / v24;
 
-  v24.origin.x = v4;
-  v24.origin.y = v6;
-  v24.size.width = v8;
-  v24.size.height = v10;
-  [(UIView *)self->_botBorder setFrame:v4, CGRectGetMaxY(v24) - v21, v8, v21];
+  v28.origin.x = v4;
+  v28.origin.y = v6;
+  v28.size.width = v8;
+  v28.size.height = v10;
+  [(UIView *)self->_botBorder setFrame:v4, CGRectGetMaxY(v28) - v25, v8, v25];
 }
 
 - (void)initWithFrame:.cold.1()

@@ -23,6 +23,7 @@
 - (id)humanReadableRegistrationStatus:(id)status;
 - (id)humanReadableSimStatusString;
 - (id)setupIOKitNotifications;
+- (id)translateCallStatus:(int)status;
 - (int64_t)getSubsIdFromCTContext:(id)context;
 - (void)accountVoicePower:(id)power state:(id)state;
 - (void)bootStateChange:(id)change;
@@ -34,6 +35,7 @@
 - (void)channelDidBecomeInvalid:(id)invalid;
 - (void)checkKICEChannelTimeout;
 - (void)commitBBCacheWithClientInfo:(int64_t)info;
+- (void)connectionStateChanged:(id)changed connection:(int)connection dataConnectionStatusInfo:(id)info;
 - (void)createOOSAccountingEvent:(id)event;
 - (void)dataStatus:(id)status dataStatusInfo:(id)info;
 - (void)dealloc;
@@ -48,6 +50,8 @@
 - (void)loadOOSModelValues;
 - (void)log;
 - (void)logBasebandConfig;
+- (void)logCommandInfo:(int)info result:(BOOL)result resultDescription:(id)description;
+- (void)logDSDSEventForwardSDMwithSubsId:(int64_t)id SDMEnable:(BOOL)enable;
 - (void)logDSDSEventForwardTelephonyRegistrationWithKVPairs:(id)pairs subsId:(int64_t)id andOperator:(id)operator;
 - (void)logDSDSEventPointTelephonyActivityWithSubsId:(int64_t)id context:(id)context callStatus:(id)status simStatus:(id)simStatus signalInfo:(id)info RATselection:(id)tselection andCurrCampedRAT:(id)t;
 - (void)logEntries:(id)entries withGroupID:(id)d;
@@ -94,6 +98,7 @@
 - (void)setupTimeUpdateChannel;
 - (void)signalStrengthChanged:(id)changed info:(id)info;
 - (void)simStatusDidChange:(id)change status:(id)status;
+- (void)smartDataModeChanged:(id)changed userEnabled:(BOOL)enabled;
 - (void)telephonyActivityNotificationCB_Agent:(id)agent withName:(__CFString *)name;
 - (void)triggerMessage:(id)message;
 - (void)wakeMessage:(id)message;
@@ -103,18 +108,18 @@
 
 - (void)checkKICEChannelTimeout
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v3 = objc_opt_class();
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __36__PLBBAgent_checkKICEChannelTimeout__block_invoke;
-    v13[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v13[4] = v3;
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __36__PLBBAgent_checkKICEChannelTimeout__block_invoke;
+    v12[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v12[4] = v3;
     if (qword_2811F5280 != -1)
     {
-      dispatch_once(&qword_2811F5280, v13);
+      dispatch_once(&qword_2811F5280, v12);
     }
 
     if (byte_2811F4F9B == 1)
@@ -130,7 +135,7 @@
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v15 = v4;
+        v14 = v4;
         _os_log_debug_impl(&dword_21A4C6000, v9, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -143,13 +148,11 @@
   block[3] = &unk_2782591D0;
   block[4] = self;
   dispatch_async(workQueue, block);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __36__PLBBAgent_checkKICEChannelTimeout__block_invoke_1024(uint64_t a1)
 {
-  v92 = *MEMORY[0x277D85DE8];
+  v87 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEAA8] monotonicDate];
   v3 = [*(a1 + 32) lastBBActivityTimestamp];
   [v2 timeIntervalSinceDate:v3];
@@ -160,35 +163,35 @@ void __36__PLBBAgent_checkKICEChannelTimeout__block_invoke_1024(uint64_t a1)
   {
     if (v6)
     {
-      v34 = objc_opt_class();
-      v78 = MEMORY[0x277D85DD0];
-      v79 = 3221225472;
-      v80 = __36__PLBBAgent_checkKICEChannelTimeout__block_invoke_1074;
-      v81 = &__block_descriptor_40_e5_v8__0lu32l8;
-      v82 = v34;
+      v33 = objc_opt_class();
+      v73 = MEMORY[0x277D85DD0];
+      v74 = 3221225472;
+      v75 = __36__PLBBAgent_checkKICEChannelTimeout__block_invoke_1074;
+      v76 = &__block_descriptor_40_e5_v8__0lu32l8;
+      v77 = v33;
       if (qword_2811F52B0 != -1)
       {
-        dispatch_once(&qword_2811F52B0, &v78);
+        dispatch_once(&qword_2811F52B0, &v73);
       }
 
       if (byte_2811F4FA1 == 1)
       {
-        v35 = MEMORY[0x277CCACA8];
-        v36 = [*(a1 + 32) lastBBActivityTimestamp];
-        v19 = [v35 stringWithFormat:@"no reset needed! lastEventTimestamp=%@ timeIntevalSinceLastEvent=%f triggerTimeInterval=%f", v36, *&v5, 0x40BC200000000000, v78, v79, v80, v81, v82];
+        v34 = MEMORY[0x277CCACA8];
+        v35 = [*(a1 + 32) lastBBActivityTimestamp];
+        v19 = [v34 stringWithFormat:@"no reset needed! lastEventTimestamp=%@ timeIntevalSinceLastEvent=%f triggerTimeInterval=%f", v35, *&v5, 0x40BC200000000000, v73, v74, v75, v76, v77];
 
-        v37 = MEMORY[0x277D3F178];
-        v38 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
-        v39 = [v38 lastPathComponent];
-        v40 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLBBAgent checkKICEChannelTimeout]_block_invoke_2"];
-        [v37 logMessage:v19 fromFile:v39 fromFunction:v40 fromLineNumber:586];
+        v36 = MEMORY[0x277D3F178];
+        v37 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
+        v38 = [v37 lastPathComponent];
+        v39 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLBBAgent checkKICEChannelTimeout]_block_invoke_2"];
+        [v36 logMessage:v19 fromFile:v38 fromFunction:v39 fromLineNumber:586];
 
-        v33 = PLLogCommon();
-        if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
+        v32 = PLLogCommon();
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v91 = v19;
-          _os_log_debug_impl(&dword_21A4C6000, v33, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+          v86 = v19;
+          _os_log_debug_impl(&dword_21A4C6000, v32, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
 
         goto LABEL_54;
@@ -205,8 +208,8 @@ void __36__PLBBAgent_checkKICEChannelTimeout__block_invoke_1024(uint64_t a1)
       block[1] = 3221225472;
       block[2] = __36__PLBBAgent_checkKICEChannelTimeout__block_invoke_2;
       block[3] = &unk_27825A310;
-      v88 = @"Critical";
-      v89 = v7;
+      v83 = @"Critical";
+      v84 = v7;
       if (qword_2811F5288 != -1)
       {
         dispatch_once(&qword_2811F5288, block);
@@ -232,7 +235,7 @@ void __36__PLBBAgent_checkKICEChannelTimeout__block_invoke_1024(uint64_t a1)
         if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v91 = v13;
+          v86 = v13;
           _os_log_debug_impl(&dword_21A4C6000, v18, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
@@ -248,132 +251,129 @@ void __36__PLBBAgent_checkKICEChannelTimeout__block_invoke_1024(uint64_t a1)
       {
         if (v21)
         {
-          v22 = *(a1 + 32);
-          v23 = objc_opt_class();
-          v85[0] = MEMORY[0x277D85DD0];
-          v85[1] = 3221225472;
-          v85[2] = __36__PLBBAgent_checkKICEChannelTimeout__block_invoke_1042;
-          v85[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-          v85[4] = v23;
+          v22 = objc_opt_class();
+          v80[0] = MEMORY[0x277D85DD0];
+          v80[1] = 3221225472;
+          v80[2] = __36__PLBBAgent_checkKICEChannelTimeout__block_invoke_1042;
+          v80[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+          v80[4] = v22;
           if (qword_2811F5298 != -1)
           {
-            dispatch_once(&qword_2811F5298, v85);
+            dispatch_once(&qword_2811F5298, v80);
           }
 
           if (byte_2811F4F9E == 1)
           {
-            v24 = [MEMORY[0x277CCACA8] stringWithFormat:@"PLABMClient exists"];
-            v25 = MEMORY[0x277D3F178];
-            v26 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
-            v27 = [v26 lastPathComponent];
-            v28 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLBBAgent checkKICEChannelTimeout]_block_invoke_2"];
-            [v25 logMessage:v24 fromFile:v27 fromFunction:v28 fromLineNumber:563];
+            v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"PLABMClient exists"];
+            v24 = MEMORY[0x277D3F178];
+            v25 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
+            v26 = [v25 lastPathComponent];
+            v27 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLBBAgent checkKICEChannelTimeout]_block_invoke_2"];
+            [v24 logMessage:v23 fromFile:v26 fromFunction:v27 fromLineNumber:563];
 
-            v29 = PLLogCommon();
-            if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+            v28 = PLLogCommon();
+            if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v91 = v24;
-              _os_log_debug_impl(&dword_21A4C6000, v29, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+              v86 = v23;
+              _os_log_debug_impl(&dword_21A4C6000, v28, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
             }
           }
         }
 
-        v30 = MEMORY[0x277CCACA8];
-        v31 = [*(a1 + 32) abmClient];
-        v32 = [v31 getBasebandBootState];
-        v33 = [v30 stringWithFormat:@"%@", v32];
+        v29 = MEMORY[0x277CCACA8];
+        v30 = [*(a1 + 32) abmClient];
+        v31 = [v30 getBasebandBootState];
+        v32 = [v29 stringWithFormat:@"%@", v31];
       }
 
       else
       {
         if (v21)
         {
-          v41 = *(a1 + 32);
-          v42 = objc_opt_class();
-          v86[0] = MEMORY[0x277D85DD0];
-          v86[1] = 3221225472;
-          v86[2] = __36__PLBBAgent_checkKICEChannelTimeout__block_invoke_1029;
-          v86[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-          v86[4] = v42;
+          v40 = objc_opt_class();
+          v81[0] = MEMORY[0x277D85DD0];
+          v81[1] = 3221225472;
+          v81[2] = __36__PLBBAgent_checkKICEChannelTimeout__block_invoke_1029;
+          v81[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+          v81[4] = v40;
           if (qword_2811F5290 != -1)
           {
-            dispatch_once(&qword_2811F5290, v86);
+            dispatch_once(&qword_2811F5290, v81);
           }
 
           if (byte_2811F4F9D == 1)
           {
-            v43 = [MEMORY[0x277CCACA8] stringWithFormat:@"PLABMClient lost, init again"];
-            v44 = MEMORY[0x277D3F178];
-            v45 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
-            v46 = [v45 lastPathComponent];
-            v47 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLBBAgent checkKICEChannelTimeout]_block_invoke_2"];
-            [v44 logMessage:v43 fromFile:v46 fromFunction:v47 fromLineNumber:559];
+            v41 = [MEMORY[0x277CCACA8] stringWithFormat:@"PLABMClient lost, init again"];
+            v42 = MEMORY[0x277D3F178];
+            v43 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
+            v44 = [v43 lastPathComponent];
+            v45 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLBBAgent checkKICEChannelTimeout]_block_invoke_2"];
+            [v42 logMessage:v41 fromFile:v44 fromFunction:v45 fromLineNumber:559];
 
-            v48 = PLLogCommon();
-            if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
+            v46 = PLLogCommon();
+            if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v91 = v43;
-              _os_log_debug_impl(&dword_21A4C6000, v48, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+              v86 = v41;
+              _os_log_debug_impl(&dword_21A4C6000, v46, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
             }
           }
         }
 
-        v33 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@", @"ICEChannelReset"];
+        v32 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@", @"ICEChannelReset"];
         [*(a1 + 32) setupKICEChannels];
       }
 
-      v49 = [*(a1 + 32) abmClient];
-      v50 = [v49 getBasebandTimeAndLatency];
+      v47 = [*(a1 + 32) abmClient];
+      v48 = [v47 getBasebandTimeAndLatency];
 
-      if (v50)
+      if (v48)
       {
-        v51 = [v50 time];
-        [v50 latency];
-        v53 = [v51 dateByAddingTimeInterval:-v52];
-        v54 = [v53 convertFromBasebandToMonotonic];
+        v49 = [v48 time];
+        [v48 latency];
+        v51 = [v49 dateByAddingTimeInterval:-v50];
+        v52 = [v51 convertFromBasebandToMonotonic];
 
         if ([MEMORY[0x277D3F180] debugEnabled])
         {
-          v55 = *(a1 + 32);
-          v56 = objc_opt_class();
-          v83[0] = MEMORY[0x277D85DD0];
-          v83[1] = 3221225472;
-          v83[2] = __36__PLBBAgent_checkKICEChannelTimeout__block_invoke_1054;
-          v83[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-          v83[4] = v56;
+          v53 = objc_opt_class();
+          v78[0] = MEMORY[0x277D85DD0];
+          v78[1] = 3221225472;
+          v78[2] = __36__PLBBAgent_checkKICEChannelTimeout__block_invoke_1054;
+          v78[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+          v78[4] = v53;
           if (qword_2811F52A8 != -1)
           {
-            dispatch_once(&qword_2811F52A8, v83);
+            dispatch_once(&qword_2811F52A8, v78);
           }
 
           if (byte_2811F4FA0 == 1)
           {
-            v57 = [MEMORY[0x277CCACA8] stringWithFormat:@"PLBBAgent iceChannelTimeout::currentTime=%@", v54];
-            v58 = MEMORY[0x277D3F178];
-            v59 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
-            v60 = [v59 lastPathComponent];
-            v61 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLBBAgent checkKICEChannelTimeout]_block_invoke_2"];
-            [v58 logMessage:v57 fromFile:v60 fromFunction:v61 fromLineNumber:572];
+            v54 = [MEMORY[0x277CCACA8] stringWithFormat:@"PLBBAgent iceChannelTimeout::currentTime=%@", v52];
+            v55 = MEMORY[0x277D3F178];
+            v56 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
+            v57 = [v56 lastPathComponent];
+            v58 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLBBAgent checkKICEChannelTimeout]_block_invoke_2"];
+            [v55 logMessage:v54 fromFile:v57 fromFunction:v58 fromLineNumber:572];
 
-            v62 = PLLogCommon();
-            if (os_log_type_enabled(v62, OS_LOG_TYPE_DEBUG))
+            v59 = PLLogCommon();
+            if (os_log_type_enabled(v59, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v91 = v57;
-              _os_log_debug_impl(&dword_21A4C6000, v62, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+              v86 = v54;
+              _os_log_debug_impl(&dword_21A4C6000, v59, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
             }
           }
         }
 
-        v63 = MEMORY[0x277CCACA8];
-        v64 = [*(a1 + 32) abmClient];
-        v65 = [v64 getBasebandBootState];
-        v66 = [v63 stringWithFormat:@"%@", v65];
+        v60 = MEMORY[0x277CCACA8];
+        v61 = [*(a1 + 32) abmClient];
+        v62 = [v61 getBasebandBootState];
+        v63 = [v60 stringWithFormat:@"%@", v62];
 
-        v67 = [MEMORY[0x277D3F268] formattedStringForDate:v54];
-        v33 = v66;
+        v64 = [MEMORY[0x277D3F268] formattedStringForDate:v52];
+        v32 = v63;
       }
 
       else
@@ -383,72 +383,69 @@ void __36__PLBBAgent_checkKICEChannelTimeout__block_invoke_1024(uint64_t a1)
           goto LABEL_52;
         }
 
-        v68 = *(a1 + 32);
-        v69 = objc_opt_class();
-        v84[0] = MEMORY[0x277D85DD0];
-        v84[1] = 3221225472;
-        v84[2] = __36__PLBBAgent_checkKICEChannelTimeout__block_invoke_1048;
-        v84[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-        v84[4] = v69;
+        v65 = objc_opt_class();
+        v79[0] = MEMORY[0x277D85DD0];
+        v79[1] = 3221225472;
+        v79[2] = __36__PLBBAgent_checkKICEChannelTimeout__block_invoke_1048;
+        v79[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+        v79[4] = v65;
         if (qword_2811F52A0 != -1)
         {
-          dispatch_once(&qword_2811F52A0, v84);
+          dispatch_once(&qword_2811F52A0, v79);
         }
 
         if (byte_2811F4F9F != 1)
         {
 LABEL_52:
-          v67 = 0;
+          v64 = 0;
           goto LABEL_53;
         }
 
-        v54 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to query baseband timestamp"];
-        v70 = MEMORY[0x277D3F178];
-        v71 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
-        v72 = [v71 lastPathComponent];
-        v73 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLBBAgent checkKICEChannelTimeout]_block_invoke_2"];
-        [v70 logMessage:v54 fromFile:v72 fromFunction:v73 fromLineNumber:569];
+        v52 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to query baseband timestamp"];
+        v66 = MEMORY[0x277D3F178];
+        v67 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
+        v68 = [v67 lastPathComponent];
+        v69 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLBBAgent checkKICEChannelTimeout]_block_invoke_2"];
+        [v66 logMessage:v52 fromFile:v68 fromFunction:v69 fromLineNumber:569];
 
-        v74 = PLLogCommon();
-        if (os_log_type_enabled(v74, OS_LOG_TYPE_DEBUG))
+        v70 = PLLogCommon();
+        if (os_log_type_enabled(v70, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v91 = v54;
-          _os_log_debug_impl(&dword_21A4C6000, v74, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+          v86 = v52;
+          _os_log_debug_impl(&dword_21A4C6000, v70, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
 
-        v67 = 0;
+        v64 = 0;
       }
 
 LABEL_53:
-      [v19 setObject:v33 forKeyedSubscript:@"BBState"];
-      [v19 setObject:v67 forKeyedSubscript:@"BBTime"];
-      v75 = objc_opt_new();
-      [v75 setAgent:*(a1 + 32)];
-      [v75 setMsgProcErr:0];
-      v76 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ %@", @"ChannelTimeout:", v19];
-      [v75 setPayload:v76];
+      [v19 setObject:v32 forKeyedSubscript:@"BBState"];
+      [v19 setObject:v64 forKeyedSubscript:@"BBTime"];
+      v71 = objc_opt_new();
+      [v71 setAgent:*(a1 + 32)];
+      [v71 setMsgProcErr:0];
+      v72 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ %@", @"ChannelTimeout:", v19];
+      [v71 setPayload:v72];
 
-      [v75 setMsgType:&unk_282C11CB8];
-      [v75 logEventNoneBBMsgAll];
+      [v71 setMsgType:&unk_282C11CB8];
+      [v71 logEventNoneBBMsgAll];
 
 LABEL_54:
     }
   }
-
-  v77 = *MEMORY[0x277D85DE8];
 }
 
 void __37__PLBBAgent_initOperatorDependancies__block_invoke_3_1579(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = PLLogCommon();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v15 = 138412290;
-    v16 = v3;
-    _os_log_debug_impl(&dword_21A4C6000, v4, OS_LOG_TYPE_DEBUG, "Notification from ThermalMonitor: %@", &v15, 0xCu);
+    v14 = 138412290;
+    v15 = v3;
+    _os_log_debug_impl(&dword_21A4C6000, v4, OS_LOG_TYPE_DEBUG, "Notification from ThermalMonitor: %@", &v14, 0xCu);
   }
 
   v5 = [v3 objectForKeyedSubscript:@"Source"];
@@ -465,9 +462,9 @@ void __37__PLBBAgent_initOperatorDependancies__block_invoke_3_1579(uint64_t a1, 
         v9 = PLLogCommon();
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
         {
-          v15 = 138412290;
-          v16 = v3;
-          _os_log_debug_impl(&dword_21A4C6000, v9, OS_LOG_TYPE_DEBUG, "Recieved trigger for sysdiagnose: %@", &v15, 0xCu);
+          v14 = 138412290;
+          v15 = v3;
+          _os_log_debug_impl(&dword_21A4C6000, v9, OS_LOG_TYPE_DEBUG, "Recieved trigger for sysdiagnose: %@", &v14, 0xCu);
         }
 
         if ([MEMORY[0x277D3F208] isBasebandMavToAllowSysdiagnoseTrigger])
@@ -494,13 +491,11 @@ LABEL_13:
   }
 
 LABEL_14:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __37__PLBBAgent_initOperatorDependancies__block_invoke_2_1571(uint64_t a1, void *a2)
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   v3 = [a2 objectForKeyedSubscript:@"entry"];
   v4 = [v3 objectForKeyedSubscript:@"callStatus"];
   v5 = [v3 objectForKeyedSubscript:@"campedRat"];
@@ -511,11 +506,11 @@ void __37__PLBBAgent_initOperatorDependancies__block_invoke_2_1571(uint64_t a1, 
     if ([v7 isBBDataStandard] && objc_msgSend(v4, "isEqualToString:", @"Active"))
     {
       v8 = [MEMORY[0x277D3F0C0] sharedInstance];
-      v23 = @"BB-PhoneCall";
-      v24[0] = &unk_282C1C688;
+      v22 = @"BB-PhoneCall";
+      v23[0] = &unk_282C1C688;
       v9 = MEMORY[0x277CBEAC0];
-      v10 = v24;
-      v11 = &v23;
+      v10 = v23;
+      v11 = &v22;
 LABEL_6:
       v12 = [v9 dictionaryWithObjects:v10 forKeys:v11 count:1];
       v13 = [v3 entryDate];
@@ -530,10 +525,10 @@ LABEL_10:
     if (([*v6 isBBDataStandard] & 1) == 0 && objc_msgSend(v4, "isEqualToString:", @"Inactive"))
     {
       v8 = [MEMORY[0x277D3F0C0] sharedInstance];
-      v21 = @"BB-Standard";
-      v22 = &unk_282C1C688;
+      v20 = @"BB-Standard";
+      v21 = &unk_282C1C688;
       v14 = 1;
-      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
       v13 = [v3 entryDate];
       [v8 createDistributionEventForwardWithDistributionID:6 withChildNodeNameToWeight:v12 withStartDate:v13];
       goto LABEL_10;
@@ -553,21 +548,21 @@ LABEL_10:
         if ([v15 isBBDataStandard] && objc_msgSend(v4, "isEqualToString:", @"Active") && objc_msgSend(v5, "isEqualToString:", @"LTE"))
         {
           v8 = [MEMORY[0x277D3F0C0] sharedInstance];
-          v19 = @"BB-PhoneCall";
-          v20 = &unk_282C1C688;
+          v18 = @"BB-PhoneCall";
+          v19 = &unk_282C1C688;
           v9 = MEMORY[0x277CBEAC0];
-          v10 = &v20;
-          v11 = &v19;
+          v10 = &v19;
+          v11 = &v18;
           goto LABEL_6;
         }
 
         if (([*v6 isBBDataStandard] & 1) == 0 && ((objc_msgSend(v4, "isEqualToString:", @"Inactive") & 1) != 0 || (objc_msgSend(v5, "isEqualToString:", @"LTE") & 1) == 0))
         {
           v8 = [MEMORY[0x277D3F0C0] sharedInstance];
-          v17 = @"BB-Standard";
-          v18 = &unk_282C1C688;
+          v16 = @"BB-Standard";
+          v17 = &unk_282C1C688;
           v14 = 1;
-          v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+          v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
           v13 = [v3 entryDate];
           [v8 createDistributionEventForwardWithDistributionID:6 withChildNodeNameToWeight:v12 withStartDate:v13];
           goto LABEL_10;
@@ -577,8 +572,6 @@ LABEL_10:
   }
 
 LABEL_18:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 + (void)load
@@ -590,18 +583,18 @@ LABEL_18:
 
 - (void)eventToFlushCacheOccurred
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v3 = objc_opt_class();
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __38__PLBBAgent_eventToFlushCacheOccurred__block_invoke;
-    v15[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v15[4] = v3;
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __38__PLBBAgent_eventToFlushCacheOccurred__block_invoke;
+    v14[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v14[4] = v3;
     if (qword_2811F5268 != -1)
     {
-      dispatch_once(&qword_2811F5268, v15);
+      dispatch_once(&qword_2811F5268, v14);
     }
 
     if (_MergedGlobals_1_41 == 1)
@@ -617,7 +610,7 @@ LABEL_18:
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v17 = v4;
+        v16 = v4;
         _os_log_debug_impl(&dword_21A4C6000, v9, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -632,17 +625,15 @@ LABEL_18:
   dispatch_async(workQueue, block);
 
   workQueue2 = [(PLOperator *)self workQueue];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __38__PLBBAgent_eventToFlushCacheOccurred__block_invoke_2;
-  v13[3] = &unk_2782591D0;
-  v13[4] = self;
-  dispatch_async(workQueue2, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __38__PLBBAgent_eventToFlushCacheOccurred__block_invoke_2;
+  v12[3] = &unk_2782591D0;
+  v12[4] = self;
+  dispatch_async(workQueue2, v12);
 }
 
-uint64_t __38__PLBBAgent_eventToFlushCacheOccurred__block_invoke(uint64_t a1)
+void *__38__PLBBAgent_eventToFlushCacheOccurred__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   _MergedGlobals_1_41 = result;
@@ -651,7 +642,7 @@ uint64_t __38__PLBBAgent_eventToFlushCacheOccurred__block_invoke(uint64_t a1)
 
 void __38__PLBBAgent_eventToFlushCacheOccurred__block_invoke_2(uint64_t a1)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEAA8] monotonicDate];
   v3 = [*(a1 + 32) lastBBActivityTimestamp];
   [v2 timeIntervalSinceDate:v3];
@@ -663,21 +654,21 @@ void __38__PLBBAgent_eventToFlushCacheOccurred__block_invoke_2(uint64_t a1)
     if (v6)
     {
       v21 = objc_opt_class();
-      v31 = MEMORY[0x277D85DD0];
-      v32 = 3221225472;
-      v33 = __38__PLBBAgent_eventToFlushCacheOccurred__block_invoke_1020;
-      v34 = &__block_descriptor_40_e5_v8__0lu32l8;
-      v35 = v21;
+      v30 = MEMORY[0x277D85DD0];
+      v31 = 3221225472;
+      v32 = __38__PLBBAgent_eventToFlushCacheOccurred__block_invoke_1020;
+      v33 = &__block_descriptor_40_e5_v8__0lu32l8;
+      v34 = v21;
       if (qword_2811F5278 != -1)
       {
-        dispatch_once(&qword_2811F5278, &v31);
+        dispatch_once(&qword_2811F5278, &v30);
       }
 
       if (byte_2811F4F9A == 1)
       {
         v22 = MEMORY[0x277CCACA8];
         v23 = [*(a1 + 32) lastBBActivityTimestamp];
-        v24 = [v22 stringWithFormat:@"no reset needed! lastEventTimestamp=%@ timeIntevalSinceLastEvent=%f triggerTimeInterval=%f", v23, *&v5, 0x40BC200000000000, v31, v32, v33, v34, v35];
+        v24 = [v22 stringWithFormat:@"no reset needed! lastEventTimestamp=%@ timeIntevalSinceLastEvent=%f triggerTimeInterval=%f", v23, *&v5, 0x40BC200000000000, v30, v31, v32, v33, v34];
 
         v25 = MEMORY[0x277D3F178];
         v26 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
@@ -689,7 +680,7 @@ void __38__PLBBAgent_eventToFlushCacheOccurred__block_invoke_2(uint64_t a1)
         if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v40 = v24;
+          v39 = v24;
           _os_log_debug_impl(&dword_21A4C6000, v29, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
@@ -705,8 +696,8 @@ void __38__PLBBAgent_eventToFlushCacheOccurred__block_invoke_2(uint64_t a1)
       block[1] = 3221225472;
       block[2] = __38__PLBBAgent_eventToFlushCacheOccurred__block_invoke_3;
       block[3] = &unk_27825A310;
-      v37 = @"Critical";
-      v38 = v7;
+      v36 = @"Critical";
+      v37 = v7;
       if (qword_2811F5270 != -1)
       {
         dispatch_once(&qword_2811F5270, block);
@@ -732,7 +723,7 @@ void __38__PLBBAgent_eventToFlushCacheOccurred__block_invoke_2(uint64_t a1)
         if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v40 = v13;
+          v39 = v13;
           _os_log_debug_impl(&dword_21A4C6000, v18, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
@@ -744,67 +735,65 @@ void __38__PLBBAgent_eventToFlushCacheOccurred__block_invoke_2(uint64_t a1)
 
     [*(a1 + 32) scheduleReconnect];
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __38__PLBBAgent_eventToFlushCacheOccurred__block_invoke_3(uint64_t a1)
+void *__38__PLBBAgent_eventToFlushCacheOccurred__block_invoke_3(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 40) forKey:*(a1 + 32)];
   byte_2811F4F99 = result;
   return result;
 }
 
-uint64_t __38__PLBBAgent_eventToFlushCacheOccurred__block_invoke_1020(uint64_t a1)
+void *__38__PLBBAgent_eventToFlushCacheOccurred__block_invoke_1020(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4F9A = result;
   return result;
 }
 
-uint64_t __36__PLBBAgent_checkKICEChannelTimeout__block_invoke(uint64_t a1)
+void *__36__PLBBAgent_checkKICEChannelTimeout__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4F9B = result;
   return result;
 }
 
-uint64_t __36__PLBBAgent_checkKICEChannelTimeout__block_invoke_2(uint64_t a1)
+void *__36__PLBBAgent_checkKICEChannelTimeout__block_invoke_2(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 40) forKey:*(a1 + 32)];
   byte_2811F4F9C = result;
   return result;
 }
 
-uint64_t __36__PLBBAgent_checkKICEChannelTimeout__block_invoke_1029(uint64_t a1)
+void *__36__PLBBAgent_checkKICEChannelTimeout__block_invoke_1029(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4F9D = result;
   return result;
 }
 
-uint64_t __36__PLBBAgent_checkKICEChannelTimeout__block_invoke_1042(uint64_t a1)
+void *__36__PLBBAgent_checkKICEChannelTimeout__block_invoke_1042(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4F9E = result;
   return result;
 }
 
-uint64_t __36__PLBBAgent_checkKICEChannelTimeout__block_invoke_1048(uint64_t a1)
+void *__36__PLBBAgent_checkKICEChannelTimeout__block_invoke_1048(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4F9F = result;
   return result;
 }
 
-uint64_t __36__PLBBAgent_checkKICEChannelTimeout__block_invoke_1054(uint64_t a1)
+void *__36__PLBBAgent_checkKICEChannelTimeout__block_invoke_1054(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FA0 = result;
   return result;
 }
 
-uint64_t __36__PLBBAgent_checkKICEChannelTimeout__block_invoke_1074(uint64_t a1)
+void *__36__PLBBAgent_checkKICEChannelTimeout__block_invoke_1074(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FA1 = result;
@@ -813,18 +802,18 @@ uint64_t __36__PLBBAgent_checkKICEChannelTimeout__block_invoke_1074(uint64_t a1)
 
 - (void)eventToCommitCacheOccurred
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v3 = objc_opt_class();
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __39__PLBBAgent_eventToCommitCacheOccurred__block_invoke;
-    v13[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v13[4] = v3;
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __39__PLBBAgent_eventToCommitCacheOccurred__block_invoke;
+    v12[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v12[4] = v3;
     if (qword_2811F52B8 != -1)
     {
-      dispatch_once(&qword_2811F52B8, v13);
+      dispatch_once(&qword_2811F52B8, v12);
     }
 
     if (byte_2811F4FA2 == 1)
@@ -840,7 +829,7 @@ uint64_t __36__PLBBAgent_checkKICEChannelTimeout__block_invoke_1074(uint64_t a1)
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v15 = v4;
+        v14 = v4;
         _os_log_debug_impl(&dword_21A4C6000, v9, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -853,11 +842,9 @@ uint64_t __36__PLBBAgent_checkKICEChannelTimeout__block_invoke_1074(uint64_t a1)
   block[3] = &unk_2782591D0;
   block[4] = self;
   dispatch_async(workQueue, block);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __39__PLBBAgent_eventToCommitCacheOccurred__block_invoke(uint64_t a1)
+void *__39__PLBBAgent_eventToCommitCacheOccurred__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FA2 = result;
@@ -903,7 +890,7 @@ uint64_t __39__PLBBAgent_eventToCommitCacheOccurred__block_invoke(uint64_t a1)
 
 - (void)channelDidBecomeInvalid:(id)invalid
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   invalidCopy = invalid;
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
@@ -931,7 +918,7 @@ uint64_t __39__PLBBAgent_eventToCommitCacheOccurred__block_invoke(uint64_t a1)
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v23 = v6;
+        v22 = v6;
         _os_log_debug_impl(&dword_21A4C6000, v11, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -942,14 +929,14 @@ uint64_t __39__PLBBAgent_eventToCommitCacheOccurred__block_invoke(uint64_t a1)
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
       v12 = objc_opt_class();
-      v20[0] = MEMORY[0x277D85DD0];
-      v20[1] = 3221225472;
-      v20[2] = __37__PLBBAgent_channelDidBecomeInvalid___block_invoke_1080;
-      v20[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v20[4] = v12;
+      v19[0] = MEMORY[0x277D85DD0];
+      v19[1] = 3221225472;
+      v19[2] = __37__PLBBAgent_channelDidBecomeInvalid___block_invoke_1080;
+      v19[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v19[4] = v12;
       if (qword_2811F52C8 != -1)
       {
-        dispatch_once(&qword_2811F52C8, v20);
+        dispatch_once(&qword_2811F52C8, v19);
       }
 
       if (byte_2811F4FA4 == 1)
@@ -965,7 +952,7 @@ uint64_t __39__PLBBAgent_eventToCommitCacheOccurred__block_invoke(uint64_t a1)
         if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v23 = v13;
+          v22 = v13;
           _os_log_debug_impl(&dword_21A4C6000, v18, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
@@ -981,18 +968,16 @@ uint64_t __39__PLBBAgent_eventToCommitCacheOccurred__block_invoke(uint64_t a1)
   {
     [(PLBBAgent *)self scheduleReconnect];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __37__PLBBAgent_channelDidBecomeInvalid___block_invoke(uint64_t a1)
+void *__37__PLBBAgent_channelDidBecomeInvalid___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FA3 = result;
   return result;
 }
 
-uint64_t __37__PLBBAgent_channelDidBecomeInvalid___block_invoke_1080(uint64_t a1)
+void *__37__PLBBAgent_channelDidBecomeInvalid___block_invoke_1080(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FA4 = result;
@@ -1001,7 +986,7 @@ uint64_t __37__PLBBAgent_channelDidBecomeInvalid___block_invoke_1080(uint64_t a1
 
 - (void)channel:(id)channel hasDataAvailable:(id)available
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   channelCopy = channel;
   availableCopy = available;
   v8 = objc_autoreleasePoolPush();
@@ -1009,10 +994,10 @@ uint64_t __37__PLBBAgent_channelDidBecomeInvalid___block_invoke_1080(uint64_t a1
   {
     v9 = objc_opt_class();
     block = MEMORY[0x277D85DD0];
-    v20 = 3221225472;
-    v21 = __38__PLBBAgent_channel_hasDataAvailable___block_invoke;
-    v22 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v23 = v9;
+    v19 = 3221225472;
+    v20 = __38__PLBBAgent_channel_hasDataAvailable___block_invoke;
+    v21 = &__block_descriptor_40_e5_v8__0lu32l8;
+    v22 = v9;
     if (qword_2811F52D0 != -1)
     {
       dispatch_once(&qword_2811F52D0, &block);
@@ -1020,7 +1005,7 @@ uint64_t __37__PLBBAgent_channelDidBecomeInvalid___block_invoke_1080(uint64_t a1
 
     if (byte_2811F4FA5 == 1)
     {
-      v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s \n CT channel has data available", "-[PLBBAgent channel:hasDataAvailable:]", block, v20, v21, v22, v23];
+      v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s \n CT channel has data available", "-[PLBBAgent channel:hasDataAvailable:]", block, v19, v20, v21, v22];
       v11 = MEMORY[0x277D3F178];
       v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
       lastPathComponent = [v12 lastPathComponent];
@@ -1031,7 +1016,7 @@ uint64_t __37__PLBBAgent_channelDidBecomeInvalid___block_invoke_1080(uint64_t a1
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v25 = v10;
+        v24 = v10;
         _os_log_debug_impl(&dword_21A4C6000, v15, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -1049,11 +1034,9 @@ uint64_t __37__PLBBAgent_channelDidBecomeInvalid___block_invoke_1080(uint64_t a1
   objc_autoreleasePoolPop(v8);
   monotonicDate = [MEMORY[0x277CBEAA8] monotonicDate];
   [(PLBBAgent *)self setLastBBActivityTimestamp:monotonicDate];
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __38__PLBBAgent_channel_hasDataAvailable___block_invoke(uint64_t a1)
+void *__38__PLBBAgent_channel_hasDataAvailable___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FA5 = result;
@@ -1135,19 +1118,19 @@ uint64_t __38__PLBBAgent_channel_hasDataAvailable___block_invoke(uint64_t a1)
 
 - (void)metricMessage:(id)message
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v5 = objc_opt_class();
-    v53[0] = MEMORY[0x277D85DD0];
-    v53[1] = 3221225472;
-    v53[2] = __27__PLBBAgent_metricMessage___block_invoke;
-    v53[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v53[4] = v5;
+    v52[0] = MEMORY[0x277D85DD0];
+    v52[1] = 3221225472;
+    v52[2] = __27__PLBBAgent_metricMessage___block_invoke;
+    v52[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v52[4] = v5;
     if (qword_2811F52D8 != -1)
     {
-      dispatch_once(&qword_2811F52D8, v53);
+      dispatch_once(&qword_2811F52D8, v52);
     }
 
     if (byte_2811F4FA6 == 1)
@@ -1163,7 +1146,7 @@ uint64_t __38__PLBBAgent_channel_hasDataAvailable___block_invoke(uint64_t a1)
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v55 = v6;
+        v54 = v6;
         _os_log_debug_impl(&dword_21A4C6000, v11, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -1236,7 +1219,7 @@ LABEL_37:
         }
 
         *buf = 138412290;
-        v55 = messageCopy;
+        v54 = messageCopy;
         goto LABEL_51;
       }
 
@@ -1259,7 +1242,7 @@ LABEL_37:
       }
 
       *buf = 138412290;
-      v55 = messageCopy2;
+      v54 = messageCopy2;
       goto LABEL_53;
     }
 
@@ -1309,7 +1292,7 @@ LABEL_39:
         }
 
         *buf = 138412290;
-        v55 = messageCopy;
+        v54 = messageCopy;
 LABEL_51:
         _os_log_debug_impl(&dword_21A4C6000, v34, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         goto LABEL_39;
@@ -1342,7 +1325,7 @@ LABEL_47:
       }
 
       *buf = 138412290;
-      v55 = messageCopy2;
+      v54 = messageCopy2;
 LABEL_53:
       _os_log_debug_impl(&dword_21A4C6000, v46, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       goto LABEL_47;
@@ -1360,7 +1343,7 @@ LABEL_48:
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v55 = "[PLBBAgent metricMessage:]";
+    v54 = "[PLBBAgent metricMessage:]";
     _os_log_debug_impl(&dword_21A4C6000, v18, OS_LOG_TYPE_DEBUG, "[BBAgent] : in @%s", buf, 0xCu);
   }
 
@@ -1393,18 +1376,16 @@ LABEL_48:
 
   [v14 queueAperiodicMetricId:v22 payload:v23 forTrigger:v24];
 LABEL_49:
-
-  v51 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __27__PLBBAgent_metricMessage___block_invoke(uint64_t a1)
+void *__27__PLBBAgent_metricMessage___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FA6 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_metricMessage___block_invoke_1102(uint64_t a1)
+void *__27__PLBBAgent_metricMessage___block_invoke_1102(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FA7 = result;
@@ -1413,19 +1394,19 @@ uint64_t __27__PLBBAgent_metricMessage___block_invoke_1102(uint64_t a1)
 
 - (void)triggerMessage:(id)message
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v5 = objc_opt_class();
-    v40[0] = MEMORY[0x277D85DD0];
-    v40[1] = 3221225472;
-    v40[2] = __28__PLBBAgent_triggerMessage___block_invoke;
-    v40[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v40[4] = v5;
+    v39[0] = MEMORY[0x277D85DD0];
+    v39[1] = 3221225472;
+    v39[2] = __28__PLBBAgent_triggerMessage___block_invoke;
+    v39[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v39[4] = v5;
     if (qword_2811F52E8 != -1)
     {
-      dispatch_once(&qword_2811F52E8, v40);
+      dispatch_once(&qword_2811F52E8, v39);
     }
 
     if (byte_2811F4FA8 == 1)
@@ -1441,7 +1422,7 @@ uint64_t __27__PLBBAgent_metricMessage___block_invoke_1102(uint64_t a1)
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v42 = v6;
+        v41 = v6;
         _os_log_debug_impl(&dword_21A4C6000, v11, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -1521,14 +1502,14 @@ uint64_t __27__PLBBAgent_metricMessage___block_invoke_1102(uint64_t a1)
     else if ([MEMORY[0x277D3F180] debugEnabled])
     {
       v30 = objc_opt_class();
-      v38[0] = MEMORY[0x277D85DD0];
-      v38[1] = 3221225472;
-      v38[2] = __28__PLBBAgent_triggerMessage___block_invoke_2;
-      v38[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v38[4] = v30;
+      v37[0] = MEMORY[0x277D85DD0];
+      v37[1] = 3221225472;
+      v37[2] = __28__PLBBAgent_triggerMessage___block_invoke_2;
+      v37[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v37[4] = v30;
       if (qword_2811F52F8 != -1)
       {
-        dispatch_once(&qword_2811F52F8, v38);
+        dispatch_once(&qword_2811F52F8, v37);
       }
 
       if (byte_2811F4FAA == 1)
@@ -1544,31 +1525,29 @@ uint64_t __27__PLBBAgent_metricMessage___block_invoke_1102(uint64_t a1)
         if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v42 = v31;
+          v41 = v31;
           _os_log_debug_impl(&dword_21A4C6000, v36, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
     }
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __28__PLBBAgent_triggerMessage___block_invoke(uint64_t a1)
+void *__28__PLBBAgent_triggerMessage___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FA8 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_triggerMessage___block_invoke_1120(uint64_t a1)
+void *__28__PLBBAgent_triggerMessage___block_invoke_1120(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FA9 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_triggerMessage___block_invoke_2(uint64_t a1)
+void *__28__PLBBAgent_triggerMessage___block_invoke_2(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FAA = result;
@@ -1577,7 +1556,7 @@ uint64_t __28__PLBBAgent_triggerMessage___block_invoke_2(uint64_t a1)
 
 - (void)wakeMessage:(id)message
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
@@ -1605,7 +1584,7 @@ uint64_t __28__PLBBAgent_triggerMessage___block_invoke_2(uint64_t a1)
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v28 = v6;
+        v27 = v6;
         _os_log_debug_impl(&dword_21A4C6000, v11, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -1660,11 +1639,9 @@ uint64_t __28__PLBBAgent_triggerMessage___block_invoke_2(uint64_t a1)
   }
 
   [v14 logEventPointSleepWakeABM];
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __25__PLBBAgent_wakeMessage___block_invoke(uint64_t a1)
+void *__25__PLBBAgent_wakeMessage___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FAB = result;
@@ -1673,19 +1650,19 @@ uint64_t __25__PLBBAgent_wakeMessage___block_invoke(uint64_t a1)
 
 - (void)bootStateChange:(id)change
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v5 = objc_opt_class();
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __29__PLBBAgent_bootStateChange___block_invoke;
-    v17[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v17[4] = v5;
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __29__PLBBAgent_bootStateChange___block_invoke;
+    v16[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v16[4] = v5;
     if (qword_2811F5308 != -1)
     {
-      dispatch_once(&qword_2811F5308, v17);
+      dispatch_once(&qword_2811F5308, v16);
     }
 
     if (byte_2811F4FAC == 1)
@@ -1701,7 +1678,7 @@ uint64_t __25__PLBBAgent_wakeMessage___block_invoke(uint64_t a1)
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v19 = v6;
+        v18 = v6;
         _os_log_debug_impl(&dword_21A4C6000, v11, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -1713,14 +1690,12 @@ uint64_t __25__PLBBAgent_wakeMessage___block_invoke(uint64_t a1)
   block[2] = __29__PLBBAgent_bootStateChange___block_invoke_1150;
   block[3] = &unk_278259658;
   block[4] = self;
-  v16 = changeCopy;
+  v15 = changeCopy;
   v13 = changeCopy;
   dispatch_async(workQueue, block);
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __29__PLBBAgent_bootStateChange___block_invoke(uint64_t a1)
+void *__29__PLBBAgent_bootStateChange___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FAC = result;
@@ -1840,7 +1815,7 @@ void __47__PLBBAgent_handlePLBasebandEventNotification___block_invoke_2(uint64_t
 - (void)postCDRXCapability:(BOOL)capability
 {
   capabilityCopy = capability;
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (qword_2811F5318)
   {
     [qword_2811F5318 invalidate];
@@ -1885,7 +1860,7 @@ void __47__PLBBAgent_handlePLBasebandEventNotification___block_invoke_2(uint64_t
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
         out_token = 138412290;
-        v20 = v11;
+        v19 = v11;
         _os_log_debug_impl(&dword_21A4C6000, v16, OS_LOG_TYPE_DEBUG, "%@", &out_token, 0xCu);
       }
     }
@@ -1901,11 +1876,9 @@ void __47__PLBBAgent_handlePLBasebandEventNotification___block_invoke_2(uint64_t
 
     notify_cancel(out_token);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __32__PLBBAgent_postCDRXCapability___block_invoke(uint64_t a1)
+void *__32__PLBBAgent_postCDRXCapability___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FAD = result;
@@ -1914,7 +1887,7 @@ uint64_t __32__PLBBAgent_postCDRXCapability___block_invoke(uint64_t a1)
 
 + (id)entryEventPointDefinitions
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F208] isBasebandMav])
   {
     if ([MEMORY[0x277D3F180] debugEnabled])
@@ -1943,24 +1916,24 @@ uint64_t __32__PLBBAgent_postCDRXCapability___block_invoke(uint64_t a1)
         if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v38 = v3;
+          v37 = v3;
           _os_log_debug_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
     }
 
-    v35[0] = @"SleepWakeActivityMavABM";
+    v34[0] = @"SleepWakeActivityMavABM";
     v9 = +[PLBBSleepWakeMsg entryEventPointDefinitionSleepWakeActivityMavABM];
-    v36[0] = v9;
-    v35[1] = @"TelephonyActivity";
+    v35[0] = v9;
+    v34[1] = @"TelephonyActivity";
     v10 = +[PLBBTelephonyActivityMsg entryEventPointDefinitionTelephonyActivity];
-    v36[1] = v10;
-    v35[2] = @"CommandInfo";
+    v35[1] = v10;
+    v34[2] = @"CommandInfo";
     v11 = +[PLBBAgent entryEventPointDefinitionCommandInfo];
-    v36[2] = v11;
+    v35[2] = v11;
     v12 = MEMORY[0x277CBEAC0];
-    v13 = v36;
-    v14 = v35;
+    v13 = v35;
+    v14 = v34;
     goto LABEL_10;
   }
 
@@ -1970,58 +1943,58 @@ uint64_t __32__PLBBAgent_postCDRXCapability___block_invoke(uint64_t a1)
     {
       if ([MEMORY[0x277D3F180] debugEnabled])
       {
-        v18 = objc_opt_class();
-        v25 = MEMORY[0x277D85DD0];
-        v26 = 3221225472;
-        v27 = __39__PLBBAgent_entryEventPointDefinitions__block_invoke_1174;
-        v28 = &__block_descriptor_40_e5_v8__0lu32l8;
-        v29 = v18;
+        v17 = objc_opt_class();
+        v24 = MEMORY[0x277D85DD0];
+        v25 = 3221225472;
+        v26 = __39__PLBBAgent_entryEventPointDefinitions__block_invoke_1174;
+        v27 = &__block_descriptor_40_e5_v8__0lu32l8;
+        v28 = v17;
         if (qword_2811F5330 != -1)
         {
-          dispatch_once(&qword_2811F5330, &v25);
+          dispatch_once(&qword_2811F5330, &v24);
         }
 
         if (byte_2811F4FAF == 1)
         {
-          v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"KICE point defs", v25, v26, v27, v28, v29];
-          v20 = MEMORY[0x277D3F178];
-          v21 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
-          lastPathComponent2 = [v21 lastPathComponent];
-          v23 = [MEMORY[0x277CCACA8] stringWithUTF8String:"+[PLBBAgent entryEventPointDefinitions]"];
-          [v20 logMessage:v19 fromFile:lastPathComponent2 fromFunction:v23 fromLineNumber:984];
+          v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"KICE point defs", v24, v25, v26, v27, v28];
+          v19 = MEMORY[0x277D3F178];
+          v20 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
+          lastPathComponent2 = [v20 lastPathComponent];
+          v22 = [MEMORY[0x277CCACA8] stringWithUTF8String:"+[PLBBAgent entryEventPointDefinitions]"];
+          [v19 logMessage:v18 fromFile:lastPathComponent2 fromFunction:v22 fromLineNumber:984];
 
-          v24 = PLLogCommon();
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+          v23 = PLLogCommon();
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v38 = v19;
-            _os_log_debug_impl(&dword_21A4C6000, v24, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+            v37 = v18;
+            _os_log_debug_impl(&dword_21A4C6000, v23, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
           }
         }
       }
 
-      v33[0] = @"SleepWakeActivityIceABM";
-      v9 = [PLBBSleepWakeMsg entryEventPointDefinitionSleepWakeActivityIceABM:v25];
-      v33[1] = @"TelephonyActivity";
-      v34[0] = v9;
+      v32[0] = @"SleepWakeActivityIceABM";
+      v9 = [PLBBSleepWakeMsg entryEventPointDefinitionSleepWakeActivityIceABM:v24];
+      v32[1] = @"TelephonyActivity";
+      v33[0] = v9;
       v10 = +[PLBBTelephonyActivityMsg entryEventPointDefinitionTelephonyActivity];
-      v34[1] = v10;
-      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:2];
+      v33[1] = v10;
+      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:2];
       goto LABEL_11;
     }
 
-    v31[0] = @"CMCDMAExitCode";
+    v30[0] = @"CMCDMAExitCode";
     v9 = +[PLBBEurekaEventMsg bbEuEvMsgNameCMCDMAExit];
-    v32[0] = v9;
-    v31[1] = @"SleepWakeActivityMavABM";
+    v31[0] = v9;
+    v30[1] = @"SleepWakeActivityMavABM";
     v10 = +[PLBBSleepWakeMsg entryEventPointDefinitionSleepWakeActivityMavABM];
-    v32[1] = v10;
-    v31[2] = @"TelephonyActivity";
+    v31[1] = v10;
+    v30[2] = @"TelephonyActivity";
     v11 = +[PLBBTelephonyActivityMsg entryEventPointDefinitionTelephonyActivity];
-    v32[2] = v11;
+    v31[2] = v11;
     v12 = MEMORY[0x277CBEAC0];
-    v13 = v32;
-    v14 = v31;
+    v13 = v31;
+    v14 = v30;
 LABEL_10:
     v15 = [v12 dictionaryWithObjects:v13 forKeys:v14 count:3];
 
@@ -2031,19 +2004,18 @@ LABEL_11:
 
   v15 = MEMORY[0x277CBEC10];
 LABEL_14:
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
 
-uint64_t __39__PLBBAgent_entryEventPointDefinitions__block_invoke(uint64_t a1)
+void *__39__PLBBAgent_entryEventPointDefinitions__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FAE = result;
   return result;
 }
 
-uint64_t __39__PLBBAgent_entryEventPointDefinitions__block_invoke_1174(uint64_t a1)
+void *__39__PLBBAgent_entryEventPointDefinitions__block_invoke_1174(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FAF = result;
@@ -2052,30 +2024,30 @@ uint64_t __39__PLBBAgent_entryEventPointDefinitions__block_invoke_1174(uint64_t 
 
 + (id)entryEventPointDefinitionCommandInfo
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F208] internalBuild])
   {
-    v17[0] = *MEMORY[0x277D3F4E8];
-    v15 = *MEMORY[0x277D3F568];
-    v16 = &unk_282C1C688;
-    v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
-    v18[0] = v2;
-    v17[1] = *MEMORY[0x277D3F540];
-    v13[0] = @"commandType";
+    v16[0] = *MEMORY[0x277D3F4E8];
+    v14 = *MEMORY[0x277D3F568];
+    v15 = &unk_282C1C688;
+    v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
+    v17[0] = v2;
+    v16[1] = *MEMORY[0x277D3F540];
+    v12[0] = @"commandType";
     mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-    v14[0] = commonTypeDict_IntegerFormat;
-    v13[1] = @"commandResult";
+    v13[0] = commonTypeDict_IntegerFormat;
+    v12[1] = @"commandResult";
     mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_BoolFormat = [mEMORY[0x277D3F198]2 commonTypeDict_BoolFormat];
-    v14[1] = commonTypeDict_BoolFormat;
-    v13[2] = @"commandResultDescription";
+    v13[1] = commonTypeDict_BoolFormat;
+    v12[2] = @"commandResultDescription";
     mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_StringFormat = [mEMORY[0x277D3F198]3 commonTypeDict_StringFormat];
-    v14[2] = commonTypeDict_StringFormat;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:3];
-    v18[1] = v9;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
+    v13[2] = commonTypeDict_StringFormat;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:3];
+    v17[1] = v9;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
   }
 
   else
@@ -2083,14 +2055,12 @@ uint64_t __39__PLBBAgent_entryEventPointDefinitions__block_invoke_1174(uint64_t 
     v10 = MEMORY[0x277CBEC10];
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 + (id)entryEventForwardDefinitions
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   if (([MEMORY[0x277D3F208] isBasebandMav] & 1) != 0 || objc_msgSend(MEMORY[0x277D3F208], "isBasebandIce"))
   {
     if ([MEMORY[0x277D3F180] debugEnabled])
@@ -2119,19 +2089,19 @@ uint64_t __39__PLBBAgent_entryEventPointDefinitions__block_invoke_1174(uint64_t 
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v31 = v4;
+          v30 = v4;
           _os_log_debug_impl(&dword_21A4C6000, v9, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
     }
 
-    v28[0] = @"TelephonyRegistration";
+    v27[0] = @"TelephonyRegistration";
     v10 = +[PLBBTelephonyRegMsg bbEuLogMsgNameTelephonyReg];
-    v28[1] = @"SDM";
-    v29[0] = v10;
+    v27[1] = @"SDM";
+    v28[0] = v10;
     entryEventForwardSDM = [self entryEventForwardSDM];
-    v29[1] = entryEventForwardSDM;
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:2];
+    v28[1] = entryEventForwardSDM;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:2];
     goto LABEL_11;
   }
 
@@ -2139,61 +2109,61 @@ uint64_t __39__PLBBAgent_entryEventPointDefinitions__block_invoke_1174(uint64_t 
   {
     if ([MEMORY[0x277D3F208] isBasebandClass:1003003] & 1) != 0 || (objc_msgSend(MEMORY[0x277D3F208], "isBasebandClass:", 1003002))
     {
-      v24[0] = @"TelephonyRegistration";
+      v23[0] = @"TelephonyRegistration";
       v10 = +[PLBBTelephonyRegMsg bbEuLogMsgNameTelephonyReg];
-      v25[0] = v10;
-      v24[1] = @"SDEventActionCode";
+      v24[0] = v10;
+      v23[1] = @"SDEventActionCode";
       entryEventForwardSDM = +[PLBBEurekaEventMsg bbEuEvMsgNameSDEventActionCode];
-      v25[1] = entryEventForwardSDM;
-      v24[2] = @"WCDMARRCState";
-      v15 = +[PLBBEurekaEventMsg bbEuEvMsgNameWCDMARRCState];
-      v25[2] = v15;
-      v24[3] = @"LTERRCState";
-      v16 = +[PLBBEurekaEventMsg bbEuEvMsgNameLTERRCState];
-      v25[3] = v16;
-      v24[4] = @"UTRANRRCState";
-      v17 = +[PLBBEurekaEventMsg bbEuEvMsgUTRANRRCState];
-      v25[4] = v17;
-      v24[5] = @"GSML1State";
-      v18 = +[PLBBEurekaEventMsg bbEuEvMsgNameGSML1State];
-      v25[5] = v18;
-      v24[6] = @"CMCallEventOrigCode";
-      v19 = +[PLBBEurekaEventMsg bbEuEvMsgNameCMCallEventOrigV2];
-      v25[6] = v19;
-      v20 = MEMORY[0x277CBEAC0];
-      v21 = v25;
-      v22 = v24;
+      v24[1] = entryEventForwardSDM;
+      v23[2] = @"WCDMARRCState";
+      v14 = +[PLBBEurekaEventMsg bbEuEvMsgNameWCDMARRCState];
+      v24[2] = v14;
+      v23[3] = @"LTERRCState";
+      v15 = +[PLBBEurekaEventMsg bbEuEvMsgNameLTERRCState];
+      v24[3] = v15;
+      v23[4] = @"UTRANRRCState";
+      v16 = +[PLBBEurekaEventMsg bbEuEvMsgUTRANRRCState];
+      v24[4] = v16;
+      v23[5] = @"GSML1State";
+      v17 = +[PLBBEurekaEventMsg bbEuEvMsgNameGSML1State];
+      v24[5] = v17;
+      v23[6] = @"CMCallEventOrigCode";
+      v18 = +[PLBBEurekaEventMsg bbEuEvMsgNameCMCallEventOrigV2];
+      v24[6] = v18;
+      v19 = MEMORY[0x277CBEAC0];
+      v20 = v24;
+      v21 = v23;
     }
 
     else
     {
-      v26[0] = @"TelephonyRegistration";
+      v25[0] = @"TelephonyRegistration";
       v10 = +[PLBBTelephonyRegMsg bbEuLogMsgNameTelephonyReg];
-      v27[0] = v10;
-      v26[1] = @"SDEventActionCode";
+      v26[0] = v10;
+      v25[1] = @"SDEventActionCode";
       entryEventForwardSDM = +[PLBBEurekaEventMsg bbEuEvMsgNameSDEventActionCode];
-      v27[1] = entryEventForwardSDM;
-      v26[2] = @"WCDMARRCState";
-      v15 = +[PLBBEurekaEventMsg bbEuEvMsgNameWCDMARRCState];
-      v27[2] = v15;
-      v26[3] = @"LTERRCState";
-      v16 = +[PLBBEurekaEventMsg bbEuEvMsgNameLTERRCState];
-      v27[3] = v16;
-      v26[4] = @"UTRANRRCState";
-      v17 = +[PLBBEurekaEventMsg bbEuEvMsgUTRANRRCState];
-      v27[4] = v17;
-      v26[5] = @"GSML1State";
-      v18 = +[PLBBEurekaEventMsg bbEuEvMsgNameGSML1State];
-      v27[5] = v18;
-      v26[6] = @"CMCallEventOrigCode";
-      v19 = +[PLBBEurekaEventMsg bbEuEvMsgNameCMCallEventOrig];
-      v27[6] = v19;
-      v20 = MEMORY[0x277CBEAC0];
-      v21 = v27;
-      v22 = v26;
+      v26[1] = entryEventForwardSDM;
+      v25[2] = @"WCDMARRCState";
+      v14 = +[PLBBEurekaEventMsg bbEuEvMsgNameWCDMARRCState];
+      v26[2] = v14;
+      v25[3] = @"LTERRCState";
+      v15 = +[PLBBEurekaEventMsg bbEuEvMsgNameLTERRCState];
+      v26[3] = v15;
+      v25[4] = @"UTRANRRCState";
+      v16 = +[PLBBEurekaEventMsg bbEuEvMsgUTRANRRCState];
+      v26[4] = v16;
+      v25[5] = @"GSML1State";
+      v17 = +[PLBBEurekaEventMsg bbEuEvMsgNameGSML1State];
+      v26[5] = v17;
+      v25[6] = @"CMCallEventOrigCode";
+      v18 = +[PLBBEurekaEventMsg bbEuEvMsgNameCMCallEventOrig];
+      v26[6] = v18;
+      v19 = MEMORY[0x277CBEAC0];
+      v20 = v26;
+      v21 = v25;
     }
 
-    v12 = [v20 dictionaryWithObjects:v21 forKeys:v22 count:7];
+    v12 = [v19 dictionaryWithObjects:v20 forKeys:v21 count:7];
 
 LABEL_11:
     goto LABEL_12;
@@ -2201,12 +2171,11 @@ LABEL_11:
 
   v12 = MEMORY[0x277CBEC10];
 LABEL_12:
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
 
-uint64_t __41__PLBBAgent_entryEventForwardDefinitions__block_invoke(uint64_t a1)
+void *__41__PLBBAgent_entryEventForwardDefinitions__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FB0 = result;
@@ -2215,47 +2184,47 @@ uint64_t __41__PLBBAgent_entryEventForwardDefinitions__block_invoke(uint64_t a1)
 
 + (id)entryEventBackwardDefinitions
 {
-  v65[11] = *MEMORY[0x277D85DE8];
+  v64[11] = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F208] isBasebandClass:1003007])
   {
-    v64[0] = @"LTESleepMgrStats";
-    v45 = +[PLBBEurekaLogMsg bbEuLogMsgNameLTESleepMgrStats];
-    v65[0] = v45;
-    v64[1] = @"MavBBHwOther";
-    v44 = +[PLBBMavLogMsg entryEventMavBBMav16BHwOther];
-    v65[1] = v44;
-    v64[2] = @"MavBBHwOtherPerRAT";
+    v63[0] = @"LTESleepMgrStats";
+    v44 = +[PLBBEurekaLogMsg bbEuLogMsgNameLTESleepMgrStats];
+    v64[0] = v44;
+    v63[1] = @"MavBBHwOther";
+    v43 = +[PLBBMavLogMsg entryEventMavBBMav16BHwOther];
+    v64[1] = v43;
+    v63[2] = @"MavBBHwOtherPerRAT";
     v2 = +[PLBBMavLogMsg entryEventBackwardMavBBHwOtherPerRAT];
-    v65[2] = v2;
-    v64[3] = @"BBMavHwRfLTE";
+    v64[2] = v2;
+    v63[3] = @"BBMavHwRfLTE";
     v3 = +[PLBBMav16BHwRfLTELogMsg entryEventBackwardDefinitionBBMav16BHwRfLTE];
-    v65[3] = v3;
-    v64[4] = @"BBMavHwRfWCDMA";
+    v64[3] = v3;
+    v63[4] = @"BBMavHwRfWCDMA";
     v4 = +[PLBBMavHwRfWCDMALogMsg entryEventBackwardDefinitionBBMav16BHwRfWCDMA];
-    v65[4] = v4;
-    v64[5] = @"BBMavHwRfGSM";
+    v64[4] = v4;
+    v63[5] = @"BBMavHwRfGSM";
     v5 = +[PLBBMavHwRfGSMLogMsg entryEventBackwardDefinitionBBMavHwRfGSM];
-    v65[5] = v5;
-    v64[6] = @"BBMavHwRfTDS";
+    v64[5] = v5;
+    v63[6] = @"BBMavHwRfTDS";
     v6 = +[PLBBMavHwRfTDSLogMsg entryEventBackwardDefinitionBBMavHwRfTDS];
-    v65[6] = v6;
-    v64[7] = @"BBMavHwRf1x";
+    v64[6] = v6;
+    v63[7] = @"BBMavHwRf1x";
     v7 = +[PLBBMavHwRf1xLogMsg entryEventBackwardDefinitionBBMavHwRf1x];
-    v65[7] = v7;
-    v64[8] = @"BBMavHwRfHDR";
+    v64[7] = v7;
+    v63[8] = @"BBMavHwRfHDR";
     v8 = +[PLBBMavHwRfHDRLogMsg entryEventBackwardDefinitionBBMavHwRfHDR];
-    v65[8] = v8;
-    v64[9] = @"BBMavHwRfOos";
+    v64[8] = v8;
+    v63[9] = @"BBMavHwRfOos";
     v9 = +[PLBBMavHwRfOOSLogMsg entryEventBackwardDefinitionOOSPerRat];
-    v65[9] = v9;
-    v64[10] = @"CMCallEventEndCode";
+    v64[9] = v9;
+    v63[10] = @"CMCallEventEndCode";
     v10 = +[PLBBEurekaEventMsg bbEuEvMsgNameCMCallEventEndV2];
-    v65[10] = v10;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v65 forKeys:v64 count:11];
+    v64[10] = v10;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v64 forKeys:v63 count:11];
 
 LABEL_10:
-    v18 = v44;
-    v19 = v45;
+    v18 = v43;
+    v19 = v44;
 LABEL_11:
 
     goto LABEL_12;
@@ -2263,42 +2232,42 @@ LABEL_11:
 
   if ([MEMORY[0x277D3F208] isBasebandClass:1003005])
   {
-    v62[0] = @"LTESleepMgrStats";
-    v45 = +[PLBBEurekaLogMsg bbEuLogMsgNameLTESleepMgrStats];
-    v63[0] = v45;
-    v62[1] = @"MavBBHwOther";
-    v44 = +[PLBBMavLogMsg entryEventMavBBMav16HwOther];
-    v63[1] = v44;
-    v62[2] = @"MavBBHwOtherPerRAT";
+    v61[0] = @"LTESleepMgrStats";
+    v44 = +[PLBBEurekaLogMsg bbEuLogMsgNameLTESleepMgrStats];
+    v62[0] = v44;
+    v61[1] = @"MavBBHwOther";
+    v43 = +[PLBBMavLogMsg entryEventMavBBMav16HwOther];
+    v62[1] = v43;
+    v61[2] = @"MavBBHwOtherPerRAT";
     v2 = +[PLBBMavLogMsg entryEventBackwardMavBBHwOtherPerRAT];
-    v63[2] = v2;
-    v62[3] = @"BBMavHwRfLTE";
+    v62[2] = v2;
+    v61[3] = @"BBMavHwRfLTE";
     v3 = +[PLBBMav16HwRfLTELogMsg entryEventBackwardDefinitionBBMav16HwRfLTE];
-    v63[3] = v3;
-    v62[4] = @"BBMavHwRfWCDMA";
+    v62[3] = v3;
+    v61[4] = @"BBMavHwRfWCDMA";
     v4 = +[PLBBMavHwRfWCDMALogMsg entryEventBackwardDefinitionBBMav16HwRfWCDMA];
-    v63[4] = v4;
-    v62[5] = @"BBMavHwRfGSM";
+    v62[4] = v4;
+    v61[5] = @"BBMavHwRfGSM";
     v5 = +[PLBBMavHwRfGSMLogMsg entryEventBackwardDefinitionBBMavHwRfGSM];
-    v63[5] = v5;
-    v62[6] = @"BBMavHwRfTDS";
+    v62[5] = v5;
+    v61[6] = @"BBMavHwRfTDS";
     v6 = +[PLBBMavHwRfTDSLogMsg entryEventBackwardDefinitionBBMavHwRfTDS];
-    v63[6] = v6;
-    v62[7] = @"BBMavHwRf1x";
+    v62[6] = v6;
+    v61[7] = @"BBMavHwRf1x";
     v7 = +[PLBBMavHwRf1xLogMsg entryEventBackwardDefinitionBBMavHwRf1x];
-    v63[7] = v7;
-    v62[8] = @"BBMavHwRfHDR";
+    v62[7] = v7;
+    v61[8] = @"BBMavHwRfHDR";
     v12 = +[PLBBMavHwRfHDRLogMsg entryEventBackwardDefinitionBBMavHwRfHDR];
-    v63[8] = v12;
-    v62[9] = @"BBMavHwRfOos";
+    v62[8] = v12;
+    v61[9] = @"BBMavHwRfOos";
     v13 = +[PLBBMavHwRfOOSLogMsg entryEventBackwardDefinitionOOSPerRat];
-    v63[9] = v13;
-    v62[10] = @"CMCallEventEndCode";
+    v62[9] = v13;
+    v61[10] = @"CMCallEventEndCode";
     v14 = +[PLBBEurekaEventMsg bbEuEvMsgNameCMCallEventEndV2];
-    v63[10] = v14;
+    v62[10] = v14;
     v15 = MEMORY[0x277CBEAC0];
-    v16 = v63;
-    v17 = v62;
+    v16 = v62;
+    v17 = v61;
 LABEL_9:
     v11 = [v15 dictionaryWithObjects:v16 forKeys:v17 count:11];
 
@@ -2307,126 +2276,126 @@ LABEL_9:
 
   if ([MEMORY[0x277D3F208] isBasebandClass:1003004])
   {
-    v60[0] = @"LTESleepMgrStats";
-    v45 = +[PLBBEurekaLogMsg bbEuLogMsgNameLTESleepMgrStats];
-    v61[0] = v45;
-    v60[1] = @"MavBBHwOther";
-    v44 = +[PLBBMavLogMsg entryEventMavBBMav13HwOther];
-    v61[1] = v44;
-    v60[2] = @"MavBBHwOtherPerRAT";
+    v59[0] = @"LTESleepMgrStats";
+    v44 = +[PLBBEurekaLogMsg bbEuLogMsgNameLTESleepMgrStats];
+    v60[0] = v44;
+    v59[1] = @"MavBBHwOther";
+    v43 = +[PLBBMavLogMsg entryEventMavBBMav13HwOther];
+    v60[1] = v43;
+    v59[2] = @"MavBBHwOtherPerRAT";
     v2 = +[PLBBMavLogMsg entryEventBackwardMavBBHwOtherPerRAT];
-    v61[2] = v2;
-    v60[3] = @"BBMavHwRfLTE";
+    v60[2] = v2;
+    v59[3] = @"BBMavHwRfLTE";
     v3 = +[PLBBMavHwRfLTELogMsg entryEventBackwardDefinitionBBMav13HwRfLTE];
-    v61[3] = v3;
-    v60[4] = @"BBMavHwRfWCDMA";
+    v60[3] = v3;
+    v59[4] = @"BBMavHwRfWCDMA";
     v4 = +[PLBBMavHwRfWCDMALogMsg entryEventBackwardDefinitionBBMavHwRfWCDMA];
-    v61[4] = v4;
-    v60[5] = @"BBMavHwRfGSM";
+    v60[4] = v4;
+    v59[5] = @"BBMavHwRfGSM";
     v5 = +[PLBBMavHwRfGSMLogMsg entryEventBackwardDefinitionBBMavHwRfGSM];
-    v61[5] = v5;
-    v60[6] = @"BBMavHwRfTDS";
+    v60[5] = v5;
+    v59[6] = @"BBMavHwRfTDS";
     v6 = +[PLBBMavHwRfTDSLogMsg entryEventBackwardDefinitionBBMavHwRfTDS];
-    v61[6] = v6;
-    v60[7] = @"BBMavHwRf1x";
+    v60[6] = v6;
+    v59[7] = @"BBMavHwRf1x";
     v7 = +[PLBBMavHwRf1xLogMsg entryEventBackwardDefinitionBBMavHwRf1x];
-    v61[7] = v7;
-    v60[8] = @"BBMavHwRfHDR";
+    v60[7] = v7;
+    v59[8] = @"BBMavHwRfHDR";
     v12 = +[PLBBMavHwRfHDRLogMsg entryEventBackwardDefinitionBBMavHwRfHDR];
-    v61[8] = v12;
-    v60[9] = @"BBMavHwRfOos";
+    v60[8] = v12;
+    v59[9] = @"BBMavHwRfOos";
     v13 = +[PLBBMavHwRfOOSLogMsg entryEventBackwardDefinitionOOSPerRat];
-    v61[9] = v13;
-    v60[10] = @"CMCallEventEndCode";
+    v60[9] = v13;
+    v59[10] = @"CMCallEventEndCode";
     v14 = +[PLBBEurekaEventMsg bbEuEvMsgNameCMCallEventEndV2];
-    v61[10] = v14;
+    v60[10] = v14;
     v15 = MEMORY[0x277CBEAC0];
-    v16 = v61;
-    v17 = v60;
+    v16 = v60;
+    v17 = v59;
     goto LABEL_9;
   }
 
   if ([MEMORY[0x277D3F208] isBasebandClass:1003003])
   {
-    v58[0] = @"LTESleepMgrStats";
-    v45 = +[PLBBEurekaLogMsg bbEuLogMsgNameLTESleepMgrStats];
-    v59[0] = v45;
-    v58[1] = @"MavBBHwOther";
-    v44 = +[PLBBMavLogMsg entryEventMavBBMav10HwOther];
-    v59[1] = v44;
-    v58[2] = @"MavBBHwOtherPerRAT";
+    v57[0] = @"LTESleepMgrStats";
+    v44 = +[PLBBEurekaLogMsg bbEuLogMsgNameLTESleepMgrStats];
+    v58[0] = v44;
+    v57[1] = @"MavBBHwOther";
+    v43 = +[PLBBMavLogMsg entryEventMavBBMav10HwOther];
+    v58[1] = v43;
+    v57[2] = @"MavBBHwOtherPerRAT";
     v2 = +[PLBBMavLogMsg entryEventBackwardMavBBHwOtherPerRAT];
-    v59[2] = v2;
-    v58[3] = @"BBMavHwRfLTE";
+    v58[2] = v2;
+    v57[3] = @"BBMavHwRfLTE";
     v3 = +[PLBBMavHwRfLTELogMsg entryEventBackwardDefinitionBBMav10HwRfLTE];
-    v59[3] = v3;
-    v58[4] = @"BBMavHwRfWCDMA";
+    v58[3] = v3;
+    v57[4] = @"BBMavHwRfWCDMA";
     v4 = +[PLBBMavHwRfWCDMALogMsg entryEventBackwardDefinitionBBMavHwRfWCDMA];
-    v59[4] = v4;
-    v58[5] = @"BBMavHwRfGSM";
+    v58[4] = v4;
+    v57[5] = @"BBMavHwRfGSM";
     v5 = +[PLBBMavHwRfGSMLogMsg entryEventBackwardDefinitionBBMavHwRfGSM];
-    v59[5] = v5;
-    v58[6] = @"BBMavHwRfTDS";
+    v58[5] = v5;
+    v57[6] = @"BBMavHwRfTDS";
     v6 = +[PLBBMavHwRfTDSLogMsg entryEventBackwardDefinitionBBMavHwRfTDS];
-    v59[6] = v6;
-    v58[7] = @"BBMavHwRf1x";
+    v58[6] = v6;
+    v57[7] = @"BBMavHwRf1x";
     v7 = +[PLBBMavHwRf1xLogMsg entryEventBackwardDefinitionBBMavHwRf1x];
-    v59[7] = v7;
-    v58[8] = @"BBMavHwRfHDR";
+    v58[7] = v7;
+    v57[8] = @"BBMavHwRfHDR";
     v12 = +[PLBBMavHwRfHDRLogMsg entryEventBackwardDefinitionBBMavHwRfHDR];
-    v59[8] = v12;
-    v58[9] = @"BBMavHwRfOos";
+    v58[8] = v12;
+    v57[9] = @"BBMavHwRfOos";
     v13 = +[PLBBMavHwRfOOSLogMsg entryEventBackwardDefinitionOOSPerRat];
-    v59[9] = v13;
-    v58[10] = @"CMCallEventEndCode";
+    v58[9] = v13;
+    v57[10] = @"CMCallEventEndCode";
     v14 = +[PLBBEurekaEventMsg bbEuEvMsgNameCMCallEventEndV2];
-    v59[10] = v14;
+    v58[10] = v14;
     v15 = MEMORY[0x277CBEAC0];
-    v16 = v59;
-    v17 = v58;
+    v16 = v58;
+    v17 = v57;
     goto LABEL_9;
   }
 
   if ([MEMORY[0x277D3F208] isBasebandClass:1003002])
   {
-    v56[0] = @"LTESleepMgrStats";
+    v55[0] = @"LTESleepMgrStats";
     v19 = +[PLBBEurekaLogMsg bbEuLogMsgNameLTESleepMgrStats];
-    v57[0] = v19;
-    v56[1] = @"MavBBHwOther";
+    v56[0] = v19;
+    v55[1] = @"MavBBHwOther";
     v18 = +[PLBBMavLogMsg entryEventBackwardMavBBHwOther];
-    v57[1] = v18;
-    v56[2] = @"MavBBHwOtherPerRAT";
-    v22 = +[PLBBMavLogMsg entryEventBackwardMavBBHwOtherPerRAT];
-    v57[2] = v22;
-    v56[3] = @"CMCallEventEndCode";
-    v23 = +[PLBBEurekaEventMsg bbEuEvMsgNameCMCallEventEndV2];
-    v57[3] = v23;
-    v24 = MEMORY[0x277CBEAC0];
-    v25 = v57;
-    v26 = v56;
+    v56[1] = v18;
+    v55[2] = @"MavBBHwOtherPerRAT";
+    v21 = +[PLBBMavLogMsg entryEventBackwardMavBBHwOtherPerRAT];
+    v56[2] = v21;
+    v55[3] = @"CMCallEventEndCode";
+    v22 = +[PLBBEurekaEventMsg bbEuEvMsgNameCMCallEventEndV2];
+    v56[3] = v22;
+    v23 = MEMORY[0x277CBEAC0];
+    v24 = v56;
+    v25 = v55;
 LABEL_19:
-    v11 = [v24 dictionaryWithObjects:v25 forKeys:v26 count:4];
+    v11 = [v23 dictionaryWithObjects:v24 forKeys:v25 count:4];
 
     goto LABEL_11;
   }
 
   if ([MEMORY[0x277D3F208] isBasebandClass:1003001])
   {
-    v54[0] = @"LTESleepMgrStats";
+    v53[0] = @"LTESleepMgrStats";
     v19 = +[PLBBEurekaLogMsg bbEuLogMsgNameLTESleepMgrStats];
-    v55[0] = v19;
-    v54[1] = @"MavBBHwOther";
+    v54[0] = v19;
+    v53[1] = @"MavBBHwOther";
     v18 = +[PLBBMavLogMsg entryEventBackwardMavBBHwOther];
-    v55[1] = v18;
-    v54[2] = @"MavBBHwOtherPerRAT";
-    v22 = +[PLBBMavLogMsg entryEventBackwardMavBBHwOtherPerRAT];
-    v55[2] = v22;
-    v54[3] = @"CMCallEventEndCode";
-    v23 = +[PLBBEurekaEventMsg bbEuEvMsgNameCMCallEventEnd];
-    v55[3] = v23;
-    v24 = MEMORY[0x277CBEAC0];
-    v25 = v55;
-    v26 = v54;
+    v54[1] = v18;
+    v53[2] = @"MavBBHwOtherPerRAT";
+    v21 = +[PLBBMavLogMsg entryEventBackwardMavBBHwOtherPerRAT];
+    v54[2] = v21;
+    v53[3] = @"CMCallEventEndCode";
+    v22 = +[PLBBEurekaEventMsg bbEuEvMsgNameCMCallEventEnd];
+    v54[3] = v22;
+    v23 = MEMORY[0x277CBEAC0];
+    v24 = v54;
+    v25 = v53;
     goto LABEL_19;
   }
 
@@ -2434,12 +2403,12 @@ LABEL_19:
   {
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
-      v27 = objc_opt_class();
+      v26 = objc_opt_class();
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __42__PLBBAgent_entryEventBackwardDefinitions__block_invoke;
       block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      block[4] = v27;
+      block[4] = v26;
       if (qword_2811F5340 != -1)
       {
         dispatch_once(&qword_2811F5340, block);
@@ -2447,34 +2416,34 @@ LABEL_19:
 
       if (byte_2811F4FB1 == 1)
       {
-        v28 = [MEMORY[0x277CCACA8] stringWithFormat:@"KMAV backward defs"];
-        v29 = MEMORY[0x277D3F178];
-        v30 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
-        lastPathComponent = [v30 lastPathComponent];
-        v32 = [MEMORY[0x277CCACA8] stringWithUTF8String:"+[PLBBAgent entryEventBackwardDefinitions]"];
-        [v29 logMessage:v28 fromFile:lastPathComponent fromFunction:v32 fromLineNumber:1277];
+        v27 = [MEMORY[0x277CCACA8] stringWithFormat:@"KMAV backward defs"];
+        v28 = MEMORY[0x277D3F178];
+        v29 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
+        lastPathComponent = [v29 lastPathComponent];
+        v31 = [MEMORY[0x277CCACA8] stringWithUTF8String:"+[PLBBAgent entryEventBackwardDefinitions]"];
+        [v28 logMessage:v27 fromFile:lastPathComponent fromFunction:v31 fromLineNumber:1277];
 
-        v33 = PLLogCommon();
-        if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
+        v32 = PLLogCommon();
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v53 = v28;
-          _os_log_debug_impl(&dword_21A4C6000, v33, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+          v52 = v27;
+          _os_log_debug_impl(&dword_21A4C6000, v32, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
     }
 
-    v50[0] = @"BBMavPeriodicMetrics";
+    v49[0] = @"BBMavPeriodicMetrics";
     v19 = +[PLMAVBBHardwareMessage entryEventBackwardDefinitionBBMavPeriodicMetrics];
-    v50[1] = @"BBMavEventMetrics";
-    v51[0] = v19;
+    v49[1] = @"BBMavEventMetrics";
+    v50[0] = v19;
     v18 = +[PLMAVBBHardwareMessage entryEventBackwardDefinitionBBMavEventMetrics];
-    v51[1] = v18;
-    v34 = MEMORY[0x277CBEAC0];
-    v35 = v51;
-    v36 = v50;
+    v50[1] = v18;
+    v33 = MEMORY[0x277CBEAC0];
+    v34 = v50;
+    v35 = v49;
 LABEL_38:
-    v11 = [v34 dictionaryWithObjects:v35 forKeys:v36 count:2];
+    v11 = [v33 dictionaryWithObjects:v34 forKeys:v35 count:2];
     goto LABEL_11;
   }
 
@@ -2482,63 +2451,62 @@ LABEL_38:
   {
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
-      v37 = objc_opt_class();
-      v46[0] = MEMORY[0x277D85DD0];
-      v46[1] = 3221225472;
-      v46[2] = __42__PLBBAgent_entryEventBackwardDefinitions__block_invoke_1210;
-      v46[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v46[4] = v37;
+      v36 = objc_opt_class();
+      v45[0] = MEMORY[0x277D85DD0];
+      v45[1] = 3221225472;
+      v45[2] = __42__PLBBAgent_entryEventBackwardDefinitions__block_invoke_1210;
+      v45[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v45[4] = v36;
       if (qword_2811F5348 != -1)
       {
-        dispatch_once(&qword_2811F5348, v46);
+        dispatch_once(&qword_2811F5348, v45);
       }
 
       if (byte_2811F4FB2 == 1)
       {
-        v38 = [MEMORY[0x277CCACA8] stringWithFormat:@"KICE backward defs"];
-        v39 = MEMORY[0x277D3F178];
-        v40 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
-        lastPathComponent2 = [v40 lastPathComponent];
-        v42 = [MEMORY[0x277CCACA8] stringWithUTF8String:"+[PLBBAgent entryEventBackwardDefinitions]"];
-        [v39 logMessage:v38 fromFile:lastPathComponent2 fromFunction:v42 fromLineNumber:1287];
+        v37 = [MEMORY[0x277CCACA8] stringWithFormat:@"KICE backward defs"];
+        v38 = MEMORY[0x277D3F178];
+        v39 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
+        lastPathComponent2 = [v39 lastPathComponent];
+        v41 = [MEMORY[0x277CCACA8] stringWithUTF8String:"+[PLBBAgent entryEventBackwardDefinitions]"];
+        [v38 logMessage:v37 fromFile:lastPathComponent2 fromFunction:v41 fromLineNumber:1287];
 
-        v43 = PLLogCommon();
-        if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
+        v42 = PLLogCommon();
+        if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v53 = v38;
-          _os_log_debug_impl(&dword_21A4C6000, v43, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+          v52 = v37;
+          _os_log_debug_impl(&dword_21A4C6000, v42, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
     }
 
-    v48[0] = @"BBIcePeriodicMetrics";
+    v47[0] = @"BBIcePeriodicMetrics";
     v19 = +[PLICEBBHardwareMessage entryEventBackwardDefinitionBBIcePeriodicMetrics];
-    v48[1] = @"BBIceEventMetrics";
-    v49[0] = v19;
+    v47[1] = @"BBIceEventMetrics";
+    v48[0] = v19;
     v18 = +[PLICEBBHardwareMessage entryEventBackwardDefinitionBBIceEventMetrics];
-    v49[1] = v18;
-    v34 = MEMORY[0x277CBEAC0];
-    v35 = v49;
-    v36 = v48;
+    v48[1] = v18;
+    v33 = MEMORY[0x277CBEAC0];
+    v34 = v48;
+    v35 = v47;
     goto LABEL_38;
   }
 
   v11 = MEMORY[0x277CBEC10];
 LABEL_12:
-  v20 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
-uint64_t __42__PLBBAgent_entryEventBackwardDefinitions__block_invoke(uint64_t a1)
+void *__42__PLBBAgent_entryEventBackwardDefinitions__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FB1 = result;
   return result;
 }
 
-uint64_t __42__PLBBAgent_entryEventBackwardDefinitions__block_invoke_1210(uint64_t a1)
+void *__42__PLBBAgent_entryEventBackwardDefinitions__block_invoke_1210(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FB2 = result;
@@ -2547,28 +2515,28 @@ uint64_t __42__PLBBAgent_entryEventBackwardDefinitions__block_invoke_1210(uint64
 
 + (id)entryEventNoneDefinitions
 {
-  v22[5] = *MEMORY[0x277D85DE8];
+  v21[5] = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F208] isBasebandMav])
   {
-    v21[0] = @"BBMAVMsgTriggerDump";
+    v20[0] = @"BBMAVMsgTriggerDump";
     v3 = +[PLBBICEMsg msgTriggerTableSchema];
-    v22[0] = v3;
-    v21[1] = @"BBMAVMsgMetricDump";
+    v21[0] = v3;
+    v20[1] = @"BBMAVMsgMetricDump";
     v4 = +[PLBBICEMsg msgMetricTableSchema];
-    v22[1] = v4;
+    v21[1] = v4;
     v5 = +[PLBBAgent getNameBBReport];
-    v21[2] = v5;
+    v20[2] = v5;
     entryEventNoneBBReport = [self entryEventNoneBBReport];
-    v22[2] = entryEventNoneBBReport;
-    v21[3] = @"BBMsgLite";
+    v21[2] = entryEventNoneBBReport;
+    v20[3] = @"BBMsgLite";
     entryIceMsgLite = [self entryIceMsgLite];
-    v22[3] = entryIceMsgLite;
-    v21[4] = @"BBMsgAll";
+    v21[3] = entryIceMsgLite;
+    v20[4] = @"BBMsgAll";
     entryEventNoneBBReport2 = +[PLBBMsgAll entryEventNoneBBMsgAll];
-    v22[4] = entryEventNoneBBReport2;
+    v21[4] = entryEventNoneBBReport2;
     v9 = MEMORY[0x277CBEAC0];
-    v10 = v22;
-    v11 = v21;
+    v10 = v21;
+    v11 = v20;
 LABEL_3:
     v12 = [v9 dictionaryWithObjects:v10 forKeys:v11 count:5];
 
@@ -2579,71 +2547,71 @@ LABEL_3:
   {
     if ([MEMORY[0x277D3F208] isBasebandIce])
     {
-      v19[0] = @"BBICEMsgTriggerDump";
+      v18[0] = @"BBICEMsgTriggerDump";
       v3 = +[PLBBICEMsg msgTriggerTableSchema];
-      v20[0] = v3;
-      v19[1] = @"BBICEMsgMetricDump";
+      v19[0] = v3;
+      v18[1] = @"BBICEMsgMetricDump";
       v4 = +[PLBBICEMsg msgMetricTableSchema];
-      v20[1] = v4;
+      v19[1] = v4;
       v5 = +[PLBBAgent getNameBBReport];
-      v19[2] = v5;
+      v18[2] = v5;
       entryEventNoneBBReport = [self entryEventNoneBBReport];
-      v20[2] = entryEventNoneBBReport;
-      v19[3] = @"BBMsgLite";
+      v19[2] = entryEventNoneBBReport;
+      v18[3] = @"BBMsgLite";
       entryIceMsgLite = [self entryIceMsgLite];
-      v20[3] = entryIceMsgLite;
-      v19[4] = @"BBMsgAll";
+      v19[3] = entryIceMsgLite;
+      v18[4] = @"BBMsgAll";
       entryEventNoneBBReport2 = +[PLBBMsgAll entryEventNoneBBMsgAll];
-      v20[4] = entryEventNoneBBReport2;
+      v19[4] = entryEventNoneBBReport2;
       v9 = MEMORY[0x277CBEAC0];
-      v10 = v20;
-      v11 = v19;
+      v10 = v19;
+      v11 = v18;
     }
 
     else if ([MEMORY[0x277D3F208] isBasebandClass:1003003] & 1) != 0 || (objc_msgSend(MEMORY[0x277D3F208], "isBasebandClass:", 1003002))
     {
-      v15[0] = @"CMCallEventConnCode";
+      v14[0] = @"CMCallEventConnCode";
       v3 = +[PLBBEurekaEventMsg bbEuEvMsgNameCMCallEventConnV2];
-      v16[0] = v3;
-      v15[1] = @"BBEurekaEventMsgLite";
+      v15[0] = v3;
+      v14[1] = @"BBEurekaEventMsgLite";
       v4 = +[PLBBEurekaEventMsg bbEuEvMsgNameBBEurekaMsgLite];
-      v16[1] = v4;
-      v15[2] = @"EventNotProcessed";
+      v15[1] = v4;
+      v14[2] = @"EventNotProcessed";
       v5 = +[PLBBEurekaEventMsg bbEuEvMsgEventNotProcessed];
-      v16[2] = v5;
-      v15[3] = @"BBMsgAll";
+      v15[2] = v5;
+      v14[3] = @"BBMsgAll";
       entryEventNoneBBReport = +[PLBBMsgAll entryEventNoneBBMsgAll];
-      v16[3] = entryEventNoneBBReport;
+      v15[3] = entryEventNoneBBReport;
       entryIceMsgLite = +[PLBBAgent getNameBBReport];
-      v15[4] = entryIceMsgLite;
+      v14[4] = entryIceMsgLite;
       entryEventNoneBBReport2 = [self entryEventNoneBBReport];
-      v16[4] = entryEventNoneBBReport2;
+      v15[4] = entryEventNoneBBReport2;
       v9 = MEMORY[0x277CBEAC0];
-      v10 = v16;
-      v11 = v15;
+      v10 = v15;
+      v11 = v14;
     }
 
     else
     {
-      v17[0] = @"CMCallEventConnCode";
+      v16[0] = @"CMCallEventConnCode";
       v3 = +[PLBBEurekaEventMsg bbEuEvMsgNameCMCallEventConn];
-      v18[0] = v3;
-      v17[1] = @"BBEurekaEventMsgLite";
+      v17[0] = v3;
+      v16[1] = @"BBEurekaEventMsgLite";
       v4 = +[PLBBEurekaEventMsg bbEuEvMsgNameBBEurekaMsgLite];
-      v18[1] = v4;
-      v17[2] = @"EventNotProcessed";
+      v17[1] = v4;
+      v16[2] = @"EventNotProcessed";
       v5 = +[PLBBEurekaEventMsg bbEuEvMsgEventNotProcessed];
-      v18[2] = v5;
-      v17[3] = @"BBMsgAll";
+      v17[2] = v5;
+      v16[3] = @"BBMsgAll";
       entryEventNoneBBReport = +[PLBBMsgAll entryEventNoneBBMsgAll];
-      v18[3] = entryEventNoneBBReport;
+      v17[3] = entryEventNoneBBReport;
       entryIceMsgLite = +[PLBBAgent getNameBBReport];
-      v17[4] = entryIceMsgLite;
+      v16[4] = entryIceMsgLite;
       entryEventNoneBBReport2 = [self entryEventNoneBBReport];
-      v18[4] = entryEventNoneBBReport2;
+      v17[4] = entryEventNoneBBReport2;
       v9 = MEMORY[0x277CBEAC0];
-      v10 = v18;
-      v11 = v17;
+      v10 = v17;
+      v11 = v16;
     }
 
     goto LABEL_3;
@@ -2651,14 +2619,13 @@ LABEL_3:
 
   v12 = MEMORY[0x277CBEC10];
 LABEL_6:
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
 
 - (PLBBAgent)init
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   if (![MEMORY[0x277D3F208] hasBaseband])
   {
 LABEL_29:
@@ -2666,9 +2633,9 @@ LABEL_29:
     goto LABEL_30;
   }
 
-  v35.receiver = self;
-  v35.super_class = PLBBAgent;
-  v3 = [(PLAgent *)&v35 init];
+  v34.receiver = self;
+  v34.super_class = PLBBAgent;
+  v3 = [(PLAgent *)&v34 init];
   self = v3;
   if (!v3)
   {
@@ -2698,7 +2665,7 @@ LABEL_29:
         if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v37 = v16;
+          v36 = v16;
           _os_log_debug_impl(&dword_21A4C6000, v21, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
@@ -2715,14 +2682,14 @@ LABEL_29:
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
       v5 = objc_opt_class();
-      v34[0] = MEMORY[0x277D85DD0];
-      v34[1] = 3221225472;
-      v34[2] = __17__PLBBAgent_init__block_invoke;
-      v34[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v34[4] = v5;
+      v33[0] = MEMORY[0x277D85DD0];
+      v33[1] = 3221225472;
+      v33[2] = __17__PLBBAgent_init__block_invoke;
+      v33[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v33[4] = v5;
       if (qword_2811F5350 != -1)
       {
-        dispatch_once(&qword_2811F5350, v34);
+        dispatch_once(&qword_2811F5350, v33);
       }
 
       if (byte_2811F4FB3 == 1)
@@ -2738,7 +2705,7 @@ LABEL_29:
         if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v37 = v6;
+          v36 = v6;
           _os_log_debug_impl(&dword_21A4C6000, v11, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
@@ -2755,14 +2722,14 @@ LABEL_29:
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
       v23 = objc_opt_class();
-      v33[0] = MEMORY[0x277D85DD0];
-      v33[1] = 3221225472;
-      v33[2] = __17__PLBBAgent_init__block_invoke_1224;
-      v33[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v33[4] = v23;
+      v32[0] = MEMORY[0x277D85DD0];
+      v32[1] = 3221225472;
+      v32[2] = __17__PLBBAgent_init__block_invoke_1224;
+      v32[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v32[4] = v23;
       if (qword_2811F5358 != -1)
       {
-        dispatch_once(&qword_2811F5358, v33);
+        dispatch_once(&qword_2811F5358, v32);
       }
 
       if (byte_2811F4FB4 == 1)
@@ -2778,7 +2745,7 @@ LABEL_29:
         if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v37 = v24;
+          v36 = v24;
           _os_log_debug_impl(&dword_21A4C6000, v29, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
@@ -2798,25 +2765,24 @@ LABEL_21:
   selfCopy = self;
 LABEL_30:
 
-  v30 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
-uint64_t __17__PLBBAgent_init__block_invoke(uint64_t a1)
+void *__17__PLBBAgent_init__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FB3 = result;
   return result;
 }
 
-uint64_t __17__PLBBAgent_init__block_invoke_1224(uint64_t a1)
+void *__17__PLBBAgent_init__block_invoke_1224(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FB4 = result;
   return result;
 }
 
-uint64_t __17__PLBBAgent_init__block_invoke_1230(uint64_t a1)
+void *__17__PLBBAgent_init__block_invoke_1230(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FB5 = result;
@@ -2841,7 +2807,109 @@ uint64_t __17__PLBBAgent_init__block_invoke_1230(uint64_t a1)
   [connection5 registerCallback:TelephonyNotificationCB forTelephonyNotification:*MEMORY[0x277CC4310]];
 }
 
-uint64_t __72__PLBBAgent_connectionStateChanged_connection_dataConnectionStatusInfo___block_invoke(uint64_t a1)
+- (void)connectionStateChanged:(id)changed connection:(int)connection dataConnectionStatusInfo:(id)info
+{
+  v6 = *&connection;
+  v46 = *MEMORY[0x277D85DE8];
+  changedCopy = changed;
+  infoCopy = info;
+  isBasebandDSDS = [MEMORY[0x277D3F208] isBasebandDSDS];
+  if (!infoCopy || !isBasebandDSDS)
+  {
+    goto LABEL_20;
+  }
+
+  v11 = [(PLBBAgent *)self getSubsIdFromCTContext:changedCopy];
+  if ([MEMORY[0x277D3F180] debugEnabled])
+  {
+    v12 = objc_opt_class();
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = __72__PLBBAgent_connectionStateChanged_connection_dataConnectionStatusInfo___block_invoke;
+    block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    block[4] = v12;
+    if (qword_2811F5368 != -1)
+    {
+      dispatch_once(&qword_2811F5368, block);
+    }
+
+    if (byte_2811F4FB6 == 1)
+    {
+      v40 = MEMORY[0x277CCACA8];
+      v39 = [infoCopy pdp];
+      interfaceName = [infoCopy interfaceName];
+      apnName = [infoCopy apnName];
+      wirelessTechnologyMask = [infoCopy wirelessTechnologyMask];
+      state = [infoCopy state];
+      ipFamily = [infoCopy ipFamily];
+      v16 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(infoCopy, "suspended")}];
+      v17 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(infoCopy, "publicNetAllowed")}];
+      v18 = [v40 stringWithFormat:@"connectionStateChanged:connection:dataConnectionStatusInfo: called with                               subsId: %d, CTDataConnectionType: %d                               pdp: %@                               interface name: %@                               apnName: %@                               wirelessTechnologyMask: %d                               state: %d                               ipFamily: %d                               suspended: %@                               publicNetAllowed: %@                               contextType: %d", v11, v6, v39, interfaceName, apnName, wirelessTechnologyMask, state, ipFamily, v16, v17, objc_msgSend(infoCopy, "contextType")];
+
+      v19 = MEMORY[0x277D3F178];
+      v20 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
+      lastPathComponent = [v20 lastPathComponent];
+      v22 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLBBAgent connectionStateChanged:connection:dataConnectionStatusInfo:]"];
+      [v19 logMessage:v18 fromFile:lastPathComponent fromFunction:v22 fromLineNumber:1457];
+
+      v23 = PLLogCommon();
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+      {
+        *buf = 138412290;
+        v45 = v18;
+        _os_log_debug_impl(&dword_21A4C6000, v23, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+      }
+    }
+  }
+
+  if (v11 == -1)
+  {
+    goto LABEL_16;
+  }
+
+  if ([MEMORY[0x277D3F258] isFullModeDaemon])
+  {
+    state2 = [infoCopy state];
+    dsdsRegMsgs = [(PLBBAgent *)self dsdsRegMsgs];
+    v26 = [dsdsRegMsgs objectAtIndexedSubscript:v11];
+    dataActive = [v26 dataActive];
+
+    if (state2 != dataActive)
+    {
+      if ([MEMORY[0x277D3F258] isFullModeDaemon])
+      {
+        state3 = [infoCopy state];
+        dsdsRegMsgs2 = [(PLBBAgent *)self dsdsRegMsgs];
+        v31 = [dsdsRegMsgs2 objectAtIndexedSubscript:v11];
+        [v31 setDataActive:state3];
+      }
+
+LABEL_16:
+      v28 = 1;
+      goto LABEL_17;
+    }
+  }
+
+  v28 = 0;
+LABEL_17:
+  dsdsRegMsgs3 = [(PLBBAgent *)self dsdsRegMsgs];
+  v33 = [dsdsRegMsgs3 objectAtIndexedSubscript:v11];
+  operatorName = [v33 operatorName];
+
+  if (v28)
+  {
+    v42 = @"dataActive";
+    v35 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(infoCopy, "state")}];
+    v43 = v35;
+    v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
+
+    [(PLBBAgent *)self logDSDSEventForwardTelephonyRegistrationWithKVPairs:v36 subsId:v11 andOperator:operatorName];
+  }
+
+LABEL_20:
+}
+
+void *__72__PLBBAgent_connectionStateChanged_connection_dataConnectionStatusInfo___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FB6 = result;
@@ -2850,7 +2918,7 @@ uint64_t __72__PLBBAgent_connectionStateChanged_connection_dataConnectionStatusI
 
 - (void)dataStatus:(id)status dataStatusInfo:(id)info
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   statusCopy = status;
   infoCopy = info;
   isBasebandDSDS = [MEMORY[0x277D3F208] isBasebandDSDS];
@@ -2861,7 +2929,7 @@ uint64_t __72__PLBBAgent_connectionStateChanged_connection_dataConnectionStatusI
 
   v9 = [(PLBBAgent *)self getSubsIdFromCTContext:statusCopy];
   v10 = v9;
-  v59 = v9;
+  v58 = v9;
   if (v9 == -1)
   {
     v21 = 1;
@@ -2948,12 +3016,12 @@ LABEL_15:
 
     if (byte_2811F4FB7 == 1)
     {
-      v53 = v10;
-      v57 = MEMORY[0x277CCACA8];
-      v56 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(infoCopy, "attached")}];
+      v52 = v10;
+      v56 = MEMORY[0x277CCACA8];
+      v55 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(infoCopy, "attached")}];
       indicator3 = [infoCopy indicator];
       indicatorOverride = [infoCopy indicatorOverride];
-      v52 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(infoCopy, "roamAllowed")}];
+      v51 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(infoCopy, "roamAllowed")}];
       radioTechnology = [infoCopy radioTechnology];
       dataBearerSoMask3 = [infoCopy dataBearerSoMask];
       v32 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(infoCopy, "dataPlanSignalingReductionOverride")}];
@@ -2961,23 +3029,23 @@ LABEL_15:
       v34 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(infoCopy, "activeContexts")}];
       v35 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(infoCopy, "totalActiveContexts")}];
       v36 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(infoCopy, "inHomeCountry")}];
-      v58 = [v57 stringWithFormat:@"dataStatus:dataStatusInfo: called with subsId: %d                               attached: %@                               indicator: %d                               indicatorOverride: %d                               roamAllowed: %@                               radioTechnology: %d                               dataBearerSoMask: %d                               dataPlanSignalingReductionOverride: %@                               cellularDataPossible: %@                               activeContexts: %@                               totalActiveContexts: %@                               inHomeCountry: %@", v59, v56, indicator3, indicatorOverride, v52, radioTechnology, dataBearerSoMask3, v32, v33, v34, v35, v36];
+      v57 = [v56 stringWithFormat:@"dataStatus:dataStatusInfo: called with subsId: %d                               attached: %@                               indicator: %d                               indicatorOverride: %d                               roamAllowed: %@                               radioTechnology: %d                               dataBearerSoMask: %d                               dataPlanSignalingReductionOverride: %@                               cellularDataPossible: %@                               activeContexts: %@                               totalActiveContexts: %@                               inHomeCountry: %@", v58, v55, indicator3, indicatorOverride, v51, radioTechnology, dataBearerSoMask3, v32, v33, v34, v35, v36];
 
       v37 = MEMORY[0x277D3F178];
       v38 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
       lastPathComponent = [v38 lastPathComponent];
       v40 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLBBAgent dataStatus:dataStatusInfo:]"];
-      [v37 logMessage:v58 fromFile:lastPathComponent fromFunction:v40 fromLineNumber:1539];
+      [v37 logMessage:v57 fromFile:lastPathComponent fromFunction:v40 fromLineNumber:1539];
 
       v41 = PLLogCommon();
       if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v64 = v58;
+        v63 = v57;
         _os_log_debug_impl(&dword_21A4C6000, v41, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
 
-      v10 = v53;
+      v10 = v52;
     }
   }
 
@@ -2987,25 +3055,24 @@ LABEL_15:
 
   if (v21)
   {
-    v61[0] = @"dataAttached";
+    v60[0] = @"dataAttached";
     v45 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(infoCopy, "attached")}];
-    v62[0] = v45;
-    v61[1] = @"dataInd";
+    v61[0] = v45;
+    v60[1] = @"dataInd";
     v46 = dataIndicatorToString([infoCopy indicator]);
-    v62[1] = v46;
-    v61[2] = @"serviceOpt";
+    v61[1] = v46;
+    v60[2] = @"serviceOpt";
     v47 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(infoCopy, "dataBearerSoMask")}];
-    v62[2] = v47;
-    v48 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v62 forKeys:v61 count:3];
+    v61[2] = v47;
+    v48 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v61 forKeys:v60 count:3];
 
-    [(PLBBAgent *)self logDSDSEventForwardTelephonyRegistrationWithKVPairs:v48 subsId:v59 andOperator:operatorName];
+    [(PLBBAgent *)self logDSDSEventForwardTelephonyRegistrationWithKVPairs:v48 subsId:v58 andOperator:operatorName];
   }
 
 LABEL_25:
-  v49 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __39__PLBBAgent_dataStatus_dataStatusInfo___block_invoke(uint64_t a1)
+void *__39__PLBBAgent_dataStatus_dataStatusInfo___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FB7 = result;
@@ -3014,7 +3081,7 @@ uint64_t __39__PLBBAgent_dataStatus_dataStatusInfo___block_invoke(uint64_t a1)
 
 - (void)operatorNameChanged:(id)changed name:(id)name
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
   nameCopy = name;
   isBasebandDSDS = [MEMORY[0x277D3F208] isBasebandDSDS];
@@ -3051,10 +3118,10 @@ LABEL_8:
   {
     v17 = objc_opt_class();
     block = MEMORY[0x277D85DD0];
-    v26 = 3221225472;
-    v27 = __38__PLBBAgent_operatorNameChanged_name___block_invoke;
-    v28 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v29 = v17;
+    v25 = 3221225472;
+    v26 = __38__PLBBAgent_operatorNameChanged_name___block_invoke;
+    v27 = &__block_descriptor_40_e5_v8__0lu32l8;
+    v28 = v17;
     if (qword_2811F5378 != -1)
     {
       dispatch_once(&qword_2811F5378, &block);
@@ -3062,7 +3129,7 @@ LABEL_8:
 
     if (byte_2811F4FB8 == 1)
     {
-      v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"operatorNameChanged:name: called with subsId: %d", v9, block, v26, v27, v28, v29];
+      v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"operatorNameChanged:name: called with subsId: %d", v9, block, v25, v26, v27, v28];
       v19 = MEMORY[0x277D3F178];
       v20 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
       lastPathComponent = [v20 lastPathComponent];
@@ -3073,7 +3140,7 @@ LABEL_8:
       if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v31 = v18;
+        v30 = v18;
         _os_log_debug_impl(&dword_21A4C6000, v23, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -3085,11 +3152,9 @@ LABEL_8:
   }
 
 LABEL_17:
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __38__PLBBAgent_operatorNameChanged_name___block_invoke(uint64_t a1)
+void *__38__PLBBAgent_operatorNameChanged_name___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FB8 = result;
@@ -3098,7 +3163,7 @@ uint64_t __38__PLBBAgent_operatorNameChanged_name___block_invoke(uint64_t a1)
 
 - (void)displayStatusChanged:(id)changed status:(id)status
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
   statusCopy = status;
   isBasebandDSDS = [MEMORY[0x277D3F208] isBasebandDSDS];
@@ -3111,7 +3176,7 @@ uint64_t __38__PLBBAgent_operatorNameChanged_name___block_invoke(uint64_t a1)
   registrationDisplayStatus = [statusCopy registrationDisplayStatus];
   v11 = removeCTPrefixFromString(@"kCTRegistrationStatus", registrationDisplayStatus);
 
-  v49 = v9;
+  v48 = v9;
   if (v9 == -1)
   {
     v23 = 1;
@@ -3143,7 +3208,7 @@ uint64_t __38__PLBBAgent_operatorNameChanged_name___block_invoke(uint64_t a1)
     {
       dsdsRegMsgs3 = [(PLBBAgent *)self dsdsRegMsgs];
       v21 = [dsdsRegMsgs3 objectAtIndexedSubscript:v9];
-      v47 = dsdsRegMsgs2;
+      v46 = dsdsRegMsgs2;
       isHome = [v21 isHome];
       LOBYTE(isHome) = (isHome == 0) ^ [statusCopy isInHomeCountry];
 
@@ -3194,13 +3259,13 @@ LABEL_14:
 
     if (byte_2811F4FB9 == 1)
     {
-      v48 = v11;
+      v47 = v11;
       v33 = MEMORY[0x277CCACA8];
       registrationDisplayStatus2 = [statusCopy registrationDisplayStatus];
       v35 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(statusCopy, "isInHomeCountry")}];
       v36 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(statusCopy, "changedDueToSimRemoval")}];
       v37 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(statusCopy, "isRegistrationForcedHome")}];
-      v38 = [v33 stringWithFormat:@"displayStatusChanged:status: called with subsId: %d                               registrationDisplayStatus: %@                               isInHomeCountry: %@                               changedDueToSimRemoval: %@                               isRegistrationForcedHome: %@", v49, registrationDisplayStatus2, v35, v36, v37];
+      v38 = [v33 stringWithFormat:@"displayStatusChanged:status: called with subsId: %d                               registrationDisplayStatus: %@                               isInHomeCountry: %@                               changedDueToSimRemoval: %@                               isRegistrationForcedHome: %@", v48, registrationDisplayStatus2, v35, v36, v37];
 
       v39 = MEMORY[0x277D3F178];
       v40 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
@@ -3212,31 +3277,30 @@ LABEL_14:
       if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v54 = v38;
+        v53 = v38;
         _os_log_debug_impl(&dword_21A4C6000, v43, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
 
-      v11 = v48;
+      v11 = v47;
     }
   }
 
   if (v23)
   {
-    v51[0] = @"home";
+    v50[0] = @"home";
     v44 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(statusCopy, "isInHomeCountry")}];
-    v51[1] = @"status";
-    v52[0] = v44;
-    v52[1] = v11;
-    v45 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v52 forKeys:v51 count:2];
+    v50[1] = @"status";
+    v51[0] = v44;
+    v51[1] = v11;
+    v45 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v51 forKeys:v50 count:2];
 
-    [(PLBBAgent *)self logDSDSEventForwardTelephonyRegistrationWithKVPairs:v45 subsId:v49 andOperator:operatorName];
+    [(PLBBAgent *)self logDSDSEventForwardTelephonyRegistrationWithKVPairs:v45 subsId:v48 andOperator:operatorName];
   }
 
 LABEL_24:
-  v46 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __41__PLBBAgent_displayStatusChanged_status___block_invoke(uint64_t a1)
+void *__41__PLBBAgent_displayStatusChanged_status___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FB9 = result;
@@ -3245,7 +3309,7 @@ uint64_t __41__PLBBAgent_displayStatusChanged_status___block_invoke(uint64_t a1)
 
 - (void)signalStrengthChanged:(id)changed info:(id)info
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
   infoCopy = info;
   isBasebandDSDS = [MEMORY[0x277D3F208] isBasebandDSDS];
@@ -3300,7 +3364,7 @@ LABEL_9:
 
     if (byte_2811F4FBA == 1)
     {
-      v31 = monotonicDate;
+      v30 = monotonicDate;
       v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"signalStrengthChanged:info: called with subsId: %d", v9];
       v24 = MEMORY[0x277D3F178];
       v25 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
@@ -3312,11 +3376,11 @@ LABEL_9:
       if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v34 = v23;
+        v33 = v23;
         _os_log_debug_impl(&dword_21A4C6000, v28, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
 
-      monotonicDate = v31;
+      monotonicDate = v30;
     }
   }
 
@@ -3327,10 +3391,9 @@ LABEL_9:
   }
 
 LABEL_19:
-  v30 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __40__PLBBAgent_signalStrengthChanged_info___block_invoke(uint64_t a1)
+void *__40__PLBBAgent_signalStrengthChanged_info___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FBA = result;
@@ -3339,7 +3402,7 @@ uint64_t __40__PLBBAgent_signalStrengthChanged_info___block_invoke(uint64_t a1)
 
 - (void)cellChanged:(id)changed cell:(id)cell
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
   cellCopy = cell;
   isBasebandDSDS = [MEMORY[0x277D3F208] isBasebandDSDS];
@@ -3355,7 +3418,7 @@ uint64_t __40__PLBBAgent_signalStrengthChanged_info___block_invoke(uint64_t a1)
 
       if (v12)
       {
-        v45 = v12;
+        v44 = v12;
         v13 = removeCTPrefixFromString(@"kCTRegistrationRadioAccessTechnology", v12);
         if (v9 == -1)
         {
@@ -3365,7 +3428,7 @@ uint64_t __40__PLBBAgent_signalStrengthChanged_info___block_invoke(uint64_t a1)
         else
         {
           dsdsActivityMsgs = [(PLBBAgent *)self dsdsActivityMsgs];
-          v43 = v9;
+          v42 = v9;
           v15 = v9;
           v16 = [dsdsActivityMsgs objectAtIndexedSubscript:v9];
           campedRAT = [v16 campedRAT];
@@ -3385,7 +3448,7 @@ uint64_t __40__PLBBAgent_signalStrengthChanged_info___block_invoke(uint64_t a1)
             v19 = 0;
           }
 
-          v9 = v43;
+          v9 = v42;
         }
 
         if ([MEMORY[0x277D3F180] debugEnabled])
@@ -3403,8 +3466,8 @@ uint64_t __40__PLBBAgent_signalStrengthChanged_info___block_invoke(uint64_t a1)
 
           if (byte_2811F4FBB == 1)
           {
-            v41 = v13;
-            v44 = v9;
+            v40 = v13;
+            v43 = v9;
             v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"cellChanged:cell: called with subsId: %d", v9];
             v24 = MEMORY[0x277D3F178];
             v25 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
@@ -3416,12 +3479,12 @@ uint64_t __40__PLBBAgent_signalStrengthChanged_info___block_invoke(uint64_t a1)
             if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v50 = v23;
+              v49 = v23;
               _os_log_debug_impl(&dword_21A4C6000, v28, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
             }
 
-            v13 = v41;
-            v9 = v44;
+            v13 = v40;
+            v9 = v43;
           }
         }
 
@@ -3460,19 +3523,19 @@ uint64_t __40__PLBBAgent_signalStrengthChanged_info___block_invoke(uint64_t a1)
 
           if (v31 | v34)
           {
-            v47[0] = @"cellId";
-            v47[1] = @"lac";
-            v48[0] = v31;
-            v48[1] = v34;
-            [MEMORY[0x277CBEAC0] dictionaryWithObjects:v48 forKeys:v47 count:2];
-            v35 = v42 = v13;
+            v46[0] = @"cellId";
+            v46[1] = @"lac";
+            v47[0] = v31;
+            v47[1] = v34;
+            [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:v46 count:2];
+            v35 = v41 = v13;
             dsdsRegMsgs = [(PLBBAgent *)self dsdsRegMsgs];
             [dsdsRegMsgs objectAtIndexedSubscript:v9];
             v38 = v37 = v9;
             operatorName = [v38 operatorName];
 
             [(PLBBAgent *)self logDSDSEventForwardTelephonyRegistrationWithKVPairs:v35 subsId:v37 andOperator:operatorName];
-            v13 = v42;
+            v13 = v41;
           }
         }
       }
@@ -3482,11 +3545,9 @@ uint64_t __40__PLBBAgent_signalStrengthChanged_info___block_invoke(uint64_t a1)
     {
     }
   }
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __30__PLBBAgent_cellChanged_cell___block_invoke(uint64_t a1)
+void *__30__PLBBAgent_cellChanged_cell___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FBB = result;
@@ -3495,7 +3556,7 @@ uint64_t __30__PLBBAgent_cellChanged_cell___block_invoke(uint64_t a1)
 
 - (void)simStatusDidChange:(id)change status:(id)status
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   statusCopy = status;
   if ([MEMORY[0x277D3F208] isBasebandDSDS])
@@ -3529,7 +3590,7 @@ uint64_t __30__PLBBAgent_cellChanged_cell___block_invoke(uint64_t a1)
           if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v22 = statusCopy;
+            v21 = statusCopy;
             _os_log_debug_impl(&dword_21A4C6000, v15, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
           }
         }
@@ -3557,11 +3618,9 @@ uint64_t __30__PLBBAgent_cellChanged_cell___block_invoke(uint64_t a1)
   {
     v16 = statusCopy;
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __39__PLBBAgent_simStatusDidChange_status___block_invoke(uint64_t a1)
+void *__39__PLBBAgent_simStatusDidChange_status___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FBC = result;
@@ -3570,7 +3629,7 @@ uint64_t __39__PLBBAgent_simStatusDidChange_status___block_invoke(uint64_t a1)
 
 - (void)ratSelectionChanged:(id)changed selection:(id)selection
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
   selectionCopy = selection;
   isBasebandDSDS = [MEMORY[0x277D3F208] isBasebandDSDS];
@@ -3603,30 +3662,30 @@ uint64_t __39__PLBBAgent_simStatusDidChange_status___block_invoke(uint64_t a1)
 LABEL_8:
   if (v10 != -1)
   {
-    v44 = v9;
-    v41 = changedCopy;
+    v43 = v9;
+    v40 = changedCopy;
     dsdsActivityMsgs = [(PLBBAgent *)self dsdsActivityMsgs];
     v15 = v10;
     v16 = [dsdsActivityMsgs objectAtIndexedSubscript:v10];
     currentRAT = [v16 currentRAT];
-    v42 = v10;
+    v41 = v10;
     if ([v12 isEqualToString:currentRAT])
     {
       preferred = [selectionCopy preferred];
       [(PLBBAgent *)self dsdsActivityMsgs];
-      v19 = v39 = self;
+      v19 = v38 = self;
       v20 = [v19 objectAtIndexedSubscript:v15];
       preferredRAT = [v20 preferredRAT];
-      v38 = [preferred isEqualToString:preferredRAT];
+      v37 = [preferred isEqualToString:preferredRAT];
 
-      self = v39;
-      if (v38)
+      self = v38;
+      if (v37)
       {
         v22 = 1;
 LABEL_15:
-        changedCopy = v41;
-        v10 = v42;
-        v9 = v44;
+        changedCopy = v40;
+        v10 = v41;
+        v9 = v43;
         goto LABEL_16;
       }
     }
@@ -3668,8 +3727,8 @@ LABEL_16:
 
     if (byte_2811F4FBD == 1)
     {
-      v43 = v10;
-      v45 = v9;
+      v42 = v10;
+      v44 = v9;
       selfCopy = self;
       selectionCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"ratSelectionChanged:selection: called with subsId: %d, selection: %@", v10, selectionCopy];
       v32 = MEMORY[0x277D3F178];
@@ -3682,13 +3741,13 @@ LABEL_16:
       if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v48 = selectionCopy;
+        v47 = selectionCopy;
         _os_log_debug_impl(&dword_21A4C6000, v36, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
 
       self = selfCopy;
-      v10 = v43;
-      v9 = v45;
+      v10 = v42;
+      v9 = v44;
     }
   }
 
@@ -3698,10 +3757,9 @@ LABEL_16:
   }
 
 LABEL_26:
-  v37 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __43__PLBBAgent_ratSelectionChanged_selection___block_invoke(uint64_t a1)
+void *__43__PLBBAgent_ratSelectionChanged_selection___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FBD = result;
@@ -3729,21 +3787,21 @@ uint64_t __43__PLBBAgent_ratSelectionChanged_selection___block_invoke(uint64_t a
 
 void __31__PLBBAgent_callStatusChanged___block_invoke(uint64_t a1)
 {
-  v58 = *MEMORY[0x277D85DE8];
-  v52 = 0;
-  v53 = &v52;
-  v54 = 0x2020000000;
-  v55 = -1;
+  v55 = *MEMORY[0x277D85DE8];
+  v49 = 0;
+  v50 = &v49;
+  v51 = 0x2020000000;
+  v52 = -1;
+  v45 = 0;
+  v46 = &v45;
+  v47 = 0x2020000000;
   v48 = 0;
-  v49 = &v48;
-  v50 = 0x2020000000;
-  v51 = 0;
-  v42 = 0;
-  v43 = &v42;
-  v44 = 0x3032000000;
-  v45 = __Block_byref_object_copy__12;
-  v46 = __Block_byref_object_dispose__12;
-  v47 = 0;
+  v39 = 0;
+  v40 = &v39;
+  v41 = 0x3032000000;
+  v42 = __Block_byref_object_copy__12;
+  v43 = __Block_byref_object_dispose__12;
+  v44 = 0;
   if ([*(a1 + 32) count])
   {
     v2 = [*(a1 + 32) objectAtIndex:0];
@@ -3758,28 +3816,28 @@ void __31__PLBBAgent_callStatusChanged___block_invoke(uint64_t a1)
     }
 
     v9 = [*(a1 + 40) telephonyClient];
-    v41 = 0;
-    v10 = [v9 getSubscriptionInfoWithError:&v41];
-    v11 = v41;
+    v38 = 0;
+    v10 = [v9 getSubscriptionInfoWithError:&v38];
+    v11 = v38;
 
     if (v10)
     {
       v12 = [v10 subscriptionsInUse];
-      v34[0] = MEMORY[0x277D85DD0];
-      v34[1] = 3221225472;
-      v34[2] = __31__PLBBAgent_callStatusChanged___block_invoke_2;
-      v34[3] = &unk_27825F6F8;
+      v31[0] = MEMORY[0x277D85DD0];
+      v31[1] = 3221225472;
+      v31[2] = __31__PLBBAgent_callStatusChanged___block_invoke_2;
+      v31[3] = &unk_27825F6F8;
       v13 = v2;
       v14 = *(a1 + 40);
-      v35 = v13;
-      v36 = v14;
-      v38 = &v52;
-      v39 = &v42;
-      v37 = v3;
-      v40 = &v48;
-      [v12 enumerateObjectsUsingBlock:v34];
+      v32 = v13;
+      v33 = v14;
+      v35 = &v49;
+      v36 = &v39;
+      v34 = v3;
+      v37 = &v45;
+      [v12 enumerateObjectsUsingBlock:v31];
 
-      v15 = v35;
+      v15 = v32;
     }
 
     else
@@ -3789,16 +3847,15 @@ void __31__PLBBAgent_callStatusChanged___block_invoke(uint64_t a1)
         goto LABEL_19;
       }
 
-      v16 = *(a1 + 40);
-      v17 = objc_opt_class();
-      v33[0] = MEMORY[0x277D85DD0];
-      v33[1] = 3221225472;
-      v33[2] = __31__PLBBAgent_callStatusChanged___block_invoke_3;
-      v33[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v33[4] = v17;
+      v16 = objc_opt_class();
+      v30[0] = MEMORY[0x277D85DD0];
+      v30[1] = 3221225472;
+      v30[2] = __31__PLBBAgent_callStatusChanged___block_invoke_3;
+      v30[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v30[4] = v16;
       if (qword_2811F53A8 != -1)
       {
-        dispatch_once(&qword_2811F53A8, v33);
+        dispatch_once(&qword_2811F53A8, v30);
       }
 
       if (byte_2811F4FBE != 1)
@@ -3807,18 +3864,18 @@ void __31__PLBBAgent_callStatusChanged___block_invoke(uint64_t a1)
       }
 
       v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"Could not determine CoreTelephony Subscription Info. Error: %@", v11];
-      v31 = MEMORY[0x277D3F178];
-      v18 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
-      v19 = [v18 lastPathComponent];
-      v20 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLBBAgent callStatusChanged:]_block_invoke"];
-      [v31 logMessage:v15 fromFile:v19 fromFunction:v20 fromLineNumber:1810];
+      v28 = MEMORY[0x277D3F178];
+      v17 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
+      v18 = [v17 lastPathComponent];
+      v19 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLBBAgent callStatusChanged:]_block_invoke"];
+      [v28 logMessage:v15 fromFile:v18 fromFunction:v19 fromLineNumber:1810];
 
-      v21 = PLLogCommon();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+      v20 = PLLogCommon();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v57 = v15;
-        _os_log_debug_impl(&dword_21A4C6000, v21, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+        v54 = v15;
+        _os_log_debug_impl(&dword_21A4C6000, v20, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
 
@@ -3827,7 +3884,7 @@ LABEL_19:
   }
 
   v4 = 0;
-  *(v49 + 24) = 1;
+  *(v46 + 24) = 1;
   v3 = @"Inactive";
   while (1)
   {
@@ -3847,7 +3904,7 @@ LABEL_19:
     }
   }
 
-  v53[3] = v4;
+  v50[3] = v4;
   v2 = [*(a1 + 40) dsdsActivityMsgs];
   v11 = [v2 objectAtIndexedSubscript:v4];
   v3 = @"Inactive";
@@ -3857,13 +3914,12 @@ LABEL_21:
 LABEL_22:
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
-    v22 = *(a1 + 40);
-    v23 = objc_opt_class();
+    v21 = objc_opt_class();
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __31__PLBBAgent_callStatusChanged___block_invoke_1321;
     block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    block[4] = v23;
+    block[4] = v21;
     if (qword_2811F53B0 != -1)
     {
       dispatch_once(&qword_2811F53B0, block);
@@ -3871,33 +3927,32 @@ LABEL_22:
 
     if (byte_2811F4FBF == 1)
     {
-      v24 = [MEMORY[0x277CCACA8] stringWithFormat:@"callStatusChanged:status: called with subsId: %d callStatus: %@", v53[3], v3];
-      v25 = MEMORY[0x277D3F178];
-      v26 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
-      v27 = [v26 lastPathComponent];
-      v28 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLBBAgent callStatusChanged:]_block_invoke_2"];
-      [v25 logMessage:v24 fromFile:v27 fromFunction:v28 fromLineNumber:1815];
+      v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"callStatusChanged:status: called with subsId: %d callStatus: %@", v50[3], v3];
+      v23 = MEMORY[0x277D3F178];
+      v24 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
+      v25 = [v24 lastPathComponent];
+      v26 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLBBAgent callStatusChanged:]_block_invoke_2"];
+      [v23 logMessage:v22 fromFile:v25 fromFunction:v26 fromLineNumber:1815];
 
-      v29 = PLLogCommon();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+      v27 = PLLogCommon();
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v57 = v24;
-        _os_log_debug_impl(&dword_21A4C6000, v29, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+        v54 = v22;
+        _os_log_debug_impl(&dword_21A4C6000, v27, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
 
-  if (*(v49 + 24) == 1)
+  if (*(v46 + 24) == 1)
   {
-    [*(a1 + 40) logDSDSEventPointTelephonyActivityWithSubsId:v53[3] context:v43[5] callStatus:v3 simStatus:0 signalInfo:0 RATselection:0 andCurrCampedRAT:0];
+    [*(a1 + 40) logDSDSEventPointTelephonyActivityWithSubsId:v50[3] context:v40[5] callStatus:v3 simStatus:0 signalInfo:0 RATselection:0 andCurrCampedRAT:0];
   }
 
-  _Block_object_dispose(&v42, 8);
+  _Block_object_dispose(&v39, 8);
 
-  _Block_object_dispose(&v48, 8);
-  _Block_object_dispose(&v52, 8);
-  v30 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v45, 8);
+  _Block_object_dispose(&v49, 8);
 }
 
 void __31__PLBBAgent_callStatusChanged___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
@@ -3927,30 +3982,104 @@ void __31__PLBBAgent_callStatusChanged___block_invoke_2(uint64_t a1, void *a2, u
   }
 }
 
-uint64_t __31__PLBBAgent_callStatusChanged___block_invoke_3(uint64_t a1)
+void *__31__PLBBAgent_callStatusChanged___block_invoke_3(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FBE = result;
   return result;
 }
 
-uint64_t __31__PLBBAgent_callStatusChanged___block_invoke_1321(uint64_t a1)
+void *__31__PLBBAgent_callStatusChanged___block_invoke_1321(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FBF = result;
   return result;
 }
 
-uint64_t __46__PLBBAgent_smartDataModeChanged_userEnabled___block_invoke(uint64_t a1)
+- (void)smartDataModeChanged:(id)changed userEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v19 = *MEMORY[0x277D85DE8];
+  changedCopy = changed;
+  if (([MEMORY[0x277D3F208] isBasebandMav] & 1) != 0 || objc_msgSend(MEMORY[0x277D3F208], "isBasebandProto"))
+  {
+    v7 = [(PLBBAgent *)self getSubsIdFromCTContext:changedCopy];
+    if (v7 != -1)
+    {
+      v8 = v7;
+      if ([MEMORY[0x277D3F180] debugEnabled])
+      {
+        v9 = objc_opt_class();
+        block[0] = MEMORY[0x277D85DD0];
+        block[1] = 3221225472;
+        block[2] = __46__PLBBAgent_smartDataModeChanged_userEnabled___block_invoke;
+        block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+        block[4] = v9;
+        if (qword_2811F53B8 != -1)
+        {
+          dispatch_once(&qword_2811F53B8, block);
+        }
+
+        if (byte_2811F4FC0 == 1)
+        {
+          enabledCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"smartDataModeChanged:userEnabled: called with subsId: %d SDMEnable: %d", v8, enabledCopy];
+          v11 = MEMORY[0x277D3F178];
+          v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
+          lastPathComponent = [v12 lastPathComponent];
+          v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLBBAgent smartDataModeChanged:userEnabled:]"];
+          [v11 logMessage:enabledCopy fromFile:lastPathComponent fromFunction:v14 fromLineNumber:1831];
+
+          v15 = PLLogCommon();
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+          {
+            *buf = 138412290;
+            v18 = enabledCopy;
+            _os_log_debug_impl(&dword_21A4C6000, v15, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+          }
+        }
+      }
+
+      [(PLBBAgent *)self logDSDSEventForwardSDMwithSubsId:v8 SDMEnable:enabledCopy];
+    }
+  }
+}
+
+void *__46__PLBBAgent_smartDataModeChanged_userEnabled___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FC0 = result;
   return result;
 }
 
+- (id)translateCallStatus:(int)status
+{
+  v12 = *MEMORY[0x277D85DE8];
+  if (status < 7)
+  {
+    return off_27825F898[status];
+  }
+
+  v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unknown call status: %d", *&status];
+  v5 = MEMORY[0x277D3F178];
+  v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
+  lastPathComponent = [v6 lastPathComponent];
+  v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLBBAgent translateCallStatus:]"];
+  [v5 logMessage:v4 fromFile:lastPathComponent fromFunction:v8 fromLineNumber:1846];
+
+  v9 = PLLogCommon();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 138412290;
+    v11 = v4;
+    _os_log_debug_impl(&dword_21A4C6000, v9, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+  }
+
+  return @"Unknown";
+}
+
 - (void)logTelephonyRegistrationDSDSAtInit
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v3 = objc_opt_class();
@@ -3977,39 +4106,39 @@ uint64_t __46__PLBBAgent_smartDataModeChanged_userEnabled___block_invoke(uint64_
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v27 = v4;
+        v26 = v4;
         _os_log_debug_impl(&dword_21A4C6000, v9, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
 
   telephonyClient = [(PLBBAgent *)self telephonyClient];
-  v24 = 0;
-  v11 = [telephonyClient getSubscriptionInfoWithError:&v24];
-  v12 = v24;
+  v23 = 0;
+  v11 = [telephonyClient getSubscriptionInfoWithError:&v23];
+  v12 = v23;
 
   if (v11)
   {
     subscriptions = [v11 subscriptions];
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __47__PLBBAgent_logTelephonyRegistrationDSDSAtInit__block_invoke_1353;
-    v23[3] = &unk_27825F720;
-    v23[4] = self;
-    [subscriptions enumerateObjectsUsingBlock:v23];
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __47__PLBBAgent_logTelephonyRegistrationDSDSAtInit__block_invoke_1353;
+    v22[3] = &unk_27825F720;
+    v22[4] = self;
+    [subscriptions enumerateObjectsUsingBlock:v22];
   }
 
   else if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v14 = objc_opt_class();
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __47__PLBBAgent_logTelephonyRegistrationDSDSAtInit__block_invoke_1359;
-    v22[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v22[4] = v14;
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __47__PLBBAgent_logTelephonyRegistrationDSDSAtInit__block_invoke_1359;
+    v21[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v21[4] = v14;
     if (qword_2811F53D0 != -1)
     {
-      dispatch_once(&qword_2811F53D0, v22);
+      dispatch_once(&qword_2811F53D0, v21);
     }
 
     if (byte_2811F4FC3 == 1)
@@ -4025,16 +4154,14 @@ uint64_t __46__PLBBAgent_smartDataModeChanged_userEnabled___block_invoke(uint64_
       if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v27 = v15;
+        v26 = v15;
         _os_log_debug_impl(&dword_21A4C6000, v20, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __47__PLBBAgent_logTelephonyRegistrationDSDSAtInit__block_invoke(uint64_t a1)
+void *__47__PLBBAgent_logTelephonyRegistrationDSDSAtInit__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FC1 = result;
@@ -4043,37 +4170,37 @@ uint64_t __47__PLBBAgent_logTelephonyRegistrationDSDSAtInit__block_invoke(uint64
 
 void __47__PLBBAgent_logTelephonyRegistrationDSDSAtInit__block_invoke_1353(uint64_t a1, void *a2)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   v4 = a2;
   v5 = [v3 getSubsIdFromCTContext:v4];
   v6 = [*(a1 + 32) telephonyClient];
-  v30 = 0;
-  v7 = [v6 getDataStatus:v4 error:&v30];
-  v8 = v30;
+  v28 = 0;
+  v7 = [v6 getDataStatus:v4 error:&v28];
+  v8 = v28;
 
   v9 = dataIndicatorToString([v7 indicator]);
   v10 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(v7, "dataBearerSoMask")}];
   v11 = [*(a1 + 32) telephonyClient];
-  v29 = v8;
-  v12 = [v11 getLocalizedOperatorName:v4 error:&v29];
-  v13 = v29;
+  v27 = v8;
+  v12 = [v11 getLocalizedOperatorName:v4 error:&v27];
+  v13 = v27;
 
   v14 = [*(a1 + 32) telephonyClient];
-  v28 = v13;
-  v15 = [v14 copyRegistrationStatus:v4 error:&v28];
+  v26 = v13;
+  v15 = [v14 copyRegistrationStatus:v4 error:&v26];
 
-  v16 = v28;
+  v16 = v26;
   if (!v16 && v5 != -1)
   {
-    v31[0] = @"dataInd";
-    v31[1] = @"serviceOpt";
-    v32[0] = v9;
-    v32[1] = v10;
-    v31[2] = @"status";
+    v29[0] = @"dataInd";
+    v29[1] = @"serviceOpt";
+    v30[0] = v9;
+    v30[1] = v10;
+    v29[2] = @"status";
     v17 = removeCTPrefixFromString(@"kCTRegistrationStatus", v15);
-    v32[2] = v17;
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:3];
+    v30[2] = v17;
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:3];
 
     [*(a1 + 32) logDSDSEventForwardTelephonyRegistrationWithKVPairs:v18 subsId:v5 andOperator:v12];
 LABEL_4:
@@ -4083,13 +4210,12 @@ LABEL_4:
 
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
-    v19 = *(a1 + 32);
-    v20 = objc_opt_class();
+    v19 = objc_opt_class();
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __47__PLBBAgent_logTelephonyRegistrationDSDSAtInit__block_invoke_2;
     block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    block[4] = v20;
+    block[4] = v19;
     if (qword_2811F53C8 != -1)
     {
       dispatch_once(&qword_2811F53C8, block);
@@ -4098,18 +4224,18 @@ LABEL_4:
     if (byte_2811F4FC2 == 1)
     {
       v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to query TelephonyRegistration Messages At Init. Error: %@ SubsId: %d", v16, v5];
-      v26 = MEMORY[0x277D3F178];
-      v21 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
-      v22 = [v21 lastPathComponent];
-      v23 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLBBAgent logTelephonyRegistrationDSDSAtInit]_block_invoke"];
-      [v26 logMessage:v18 fromFile:v22 fromFunction:v23 fromLineNumber:1869];
+      v24 = MEMORY[0x277D3F178];
+      v20 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
+      v21 = [v20 lastPathComponent];
+      v22 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLBBAgent logTelephonyRegistrationDSDSAtInit]_block_invoke"];
+      [v24 logMessage:v18 fromFile:v21 fromFunction:v22 fromLineNumber:1869];
 
-      v24 = PLLogCommon();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+      v23 = PLLogCommon();
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v34 = v18;
-        _os_log_debug_impl(&dword_21A4C6000, v24, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+        v32 = v18;
+        _os_log_debug_impl(&dword_21A4C6000, v23, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
 
       goto LABEL_4;
@@ -4117,18 +4243,16 @@ LABEL_4:
   }
 
 LABEL_12:
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __47__PLBBAgent_logTelephonyRegistrationDSDSAtInit__block_invoke_2(uint64_t a1)
+void *__47__PLBBAgent_logTelephonyRegistrationDSDSAtInit__block_invoke_2(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FC2 = result;
   return result;
 }
 
-uint64_t __47__PLBBAgent_logTelephonyRegistrationDSDSAtInit__block_invoke_1359(uint64_t a1)
+void *__47__PLBBAgent_logTelephonyRegistrationDSDSAtInit__block_invoke_1359(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FC3 = result;
@@ -4137,7 +4261,7 @@ uint64_t __47__PLBBAgent_logTelephonyRegistrationDSDSAtInit__block_invoke_1359(u
 
 - (void)logTelephonyActivityDSDSAtInit
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v3 = objc_opt_class();
@@ -4164,39 +4288,39 @@ uint64_t __47__PLBBAgent_logTelephonyRegistrationDSDSAtInit__block_invoke_1359(u
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v27 = v4;
+        v26 = v4;
         _os_log_debug_impl(&dword_21A4C6000, v9, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
 
   telephonyClient = [(PLBBAgent *)self telephonyClient];
-  v24 = 0;
-  v11 = [telephonyClient getSubscriptionInfoWithError:&v24];
-  v12 = v24;
+  v23 = 0;
+  v11 = [telephonyClient getSubscriptionInfoWithError:&v23];
+  v12 = v23;
 
   if (v11)
   {
     subscriptions = [v11 subscriptions];
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __43__PLBBAgent_logTelephonyActivityDSDSAtInit__block_invoke_1360;
-    v23[3] = &unk_27825F720;
-    v23[4] = self;
-    [subscriptions enumerateObjectsUsingBlock:v23];
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __43__PLBBAgent_logTelephonyActivityDSDSAtInit__block_invoke_1360;
+    v22[3] = &unk_27825F720;
+    v22[4] = self;
+    [subscriptions enumerateObjectsUsingBlock:v22];
   }
 
   else if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v14 = objc_opt_class();
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __43__PLBBAgent_logTelephonyActivityDSDSAtInit__block_invoke_1367;
-    v22[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v22[4] = v14;
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __43__PLBBAgent_logTelephonyActivityDSDSAtInit__block_invoke_1367;
+    v21[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v21[4] = v14;
     if (qword_2811F53E8 != -1)
     {
-      dispatch_once(&qword_2811F53E8, v22);
+      dispatch_once(&qword_2811F53E8, v21);
     }
 
     if (byte_2811F4FC6 == 1)
@@ -4212,16 +4336,14 @@ uint64_t __47__PLBBAgent_logTelephonyRegistrationDSDSAtInit__block_invoke_1359(u
       if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v27 = v15;
+        v26 = v15;
         _os_log_debug_impl(&dword_21A4C6000, v20, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __43__PLBBAgent_logTelephonyActivityDSDSAtInit__block_invoke(uint64_t a1)
+void *__43__PLBBAgent_logTelephonyActivityDSDSAtInit__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FC4 = result;
@@ -4230,36 +4352,36 @@ uint64_t __43__PLBBAgent_logTelephonyActivityDSDSAtInit__block_invoke(uint64_t a
 
 void __43__PLBBAgent_logTelephonyActivityDSDSAtInit__block_invoke_1360(uint64_t a1, void *a2)
 {
-  v70 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) getSubsIdFromCTContext:v3];
   v5 = [MEMORY[0x277CC3718] descriptorWithSubscriptionContext:v3];
   v6 = [*(a1 + 32) telephonyClient];
-  v67 = 0;
-  v7 = [v6 copyRadioAccessTechnology:v3 error:&v67];
-  v8 = v67;
+  v65 = 0;
+  v7 = [v6 copyRadioAccessTechnology:v3 error:&v65];
+  v8 = v65;
 
   v9 = [*(a1 + 32) dsdsActivityMsgs];
-  v60 = v4;
+  v58 = v4;
   v10 = [v9 objectAtIndexedSubscript:v4];
-  v58 = [v10 callStatus];
+  v56 = [v10 callStatus];
 
   v11 = [*(a1 + 32) telephonyClient];
-  v66 = v8;
-  v12 = [v11 getSIMStatus:v3 error:&v66];
-  v13 = v66;
+  v64 = v8;
+  v12 = [v11 getSIMStatus:v3 error:&v64];
+  v13 = v64;
 
   v14 = [*(a1 + 32) telephonyClient];
-  v65 = v13;
-  v56 = v3;
-  v15 = [v14 getSignalStrengthInfo:v3 error:&v65];
-  v16 = v65;
+  v63 = v13;
+  v54 = v3;
+  v15 = [v14 getSignalStrengthInfo:v3 error:&v63];
+  v16 = v63;
 
   v17 = [*(a1 + 32) telephonyClient];
-  v64 = v16;
-  v61 = v5;
-  v18 = [v17 getRatSelectionMask:v5 error:&v64];
-  v19 = v64;
+  v62 = v16;
+  v59 = v5;
+  v18 = [v17 getRatSelectionMask:v5 error:&v62];
+  v19 = v62;
 
   v20 = v15;
   v21 = [v15 bars];
@@ -4267,13 +4389,13 @@ void __43__PLBBAgent_logTelephonyActivityDSDSAtInit__block_invoke_1360(uint64_t 
   v23 = [v22 objectAtIndexedSubscript:v4];
   [v23 setSignalBars:v21];
 
-  v59 = v7;
+  v57 = v7;
   v24 = removeCTPrefixFromString(@"kCTRegistrationRadioAccessTechnology", v7);
   v25 = [*(a1 + 32) dsdsActivityMsgs];
   v26 = [v25 objectAtIndexedSubscript:v4];
   [v26 setCampedRAT:v24];
 
-  v57 = v12;
+  v55 = v12;
   v27 = removeCTPrefixFromString(@"kCTSIMSupportSIMStatus", v12);
   v28 = [*(a1 + 32) dsdsActivityMsgs];
   v29 = [v28 objectAtIndexedSubscript:v4];
@@ -4299,9 +4421,9 @@ LABEL_5:
 
 LABEL_6:
   v33 = [*(a1 + 32) telephonyClient];
-  v63 = v19;
-  v34 = [v33 smartDataMode:v61 error:&v63];
-  v35 = v63;
+  v61 = v19;
+  v34 = [v33 smartDataMode:v59 error:&v61];
+  v35 = v61;
 
   v36 = [*(a1 + 32) dsdsActivityMsgs];
   v37 = [v36 objectAtIndexedSubscript:v4];
@@ -4313,18 +4435,17 @@ LABEL_6:
   v41 = [v40 objectAtIndexedSubscript:v4];
   [v41 setPreferredRAT:v39];
 
-  if (v35 || v60 == -1)
+  if (v35 || v58 == -1)
   {
-    v46 = v61;
+    v46 = v59;
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
-      v47 = *(a1 + 32);
-      v48 = objc_opt_class();
+      v47 = objc_opt_class();
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __43__PLBBAgent_logTelephonyActivityDSDSAtInit__block_invoke_2;
       block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      block[4] = v48;
+      block[4] = v47;
       if (qword_2811F53E0 != -1)
       {
         dispatch_once(&qword_2811F53E0, block);
@@ -4332,22 +4453,22 @@ LABEL_6:
 
       if (byte_2811F4FC5 == 1)
       {
-        v49 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to query TelephonyActivity Messages At Init. Error: %@ SubsId: %d", v35, v60];
-        v50 = MEMORY[0x277D3F178];
-        v51 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
-        v52 = [v51 lastPathComponent];
-        v53 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLBBAgent logTelephonyActivityDSDSAtInit]_block_invoke"];
-        [v50 logMessage:v49 fromFile:v52 fromFunction:v53 fromLineNumber:1917];
+        v48 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to query TelephonyActivity Messages At Init. Error: %@ SubsId: %d", v35, v58];
+        v49 = MEMORY[0x277D3F178];
+        v50 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
+        v51 = [v50 lastPathComponent];
+        v52 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLBBAgent logTelephonyActivityDSDSAtInit]_block_invoke"];
+        [v49 logMessage:v48 fromFile:v51 fromFunction:v52 fromLineNumber:1917];
 
-        v54 = PLLogCommon();
-        if (os_log_type_enabled(v54, OS_LOG_TYPE_DEBUG))
+        v53 = PLLogCommon();
+        if (os_log_type_enabled(v53, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v69 = v49;
-          _os_log_debug_impl(&dword_21A4C6000, v54, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+          v67 = v48;
+          _os_log_debug_impl(&dword_21A4C6000, v53, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
 
-        v46 = v61;
+        v46 = v59;
       }
     }
   }
@@ -4355,29 +4476,27 @@ LABEL_6:
   else
   {
     v42 = *(a1 + 32);
-    v43 = removeCTPrefixFromString(@"kCTSIMSupportSIMStatus", v57);
+    v43 = removeCTPrefixFromString(@"kCTSIMSupportSIMStatus", v55);
     v44 = [v20 bars];
-    v45 = removeCTPrefixFromString(@"kCTRegistrationRadioAccessTechnology", v59);
-    [v42 logDSDSEventPointTelephonyActivityWithSubsId:v60 context:v56 callStatus:v58 simStatus:v43 signalInfo:v44 RATselection:v18 andCurrCampedRAT:v45];
+    v45 = removeCTPrefixFromString(@"kCTRegistrationRadioAccessTechnology", v57);
+    [v42 logDSDSEventPointTelephonyActivityWithSubsId:v58 context:v54 callStatus:v56 simStatus:v43 signalInfo:v44 RATselection:v18 andCurrCampedRAT:v45];
 
-    v46 = v61;
+    v46 = v59;
     if ([MEMORY[0x277D3F208] kPLBasebandClassOfDevice] >= 1003012)
     {
-      [*(a1 + 32) logDSDSEventForwardSDMwithSubsId:v60 SDMEnable:v34];
+      [*(a1 + 32) logDSDSEventForwardSDMwithSubsId:v58 SDMEnable:v34];
     }
   }
-
-  v55 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __43__PLBBAgent_logTelephonyActivityDSDSAtInit__block_invoke_2(uint64_t a1)
+void *__43__PLBBAgent_logTelephonyActivityDSDSAtInit__block_invoke_2(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FC5 = result;
   return result;
 }
 
-uint64_t __43__PLBBAgent_logTelephonyActivityDSDSAtInit__block_invoke_1367(uint64_t a1)
+void *__43__PLBBAgent_logTelephonyActivityDSDSAtInit__block_invoke_1367(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FC6 = result;
@@ -4386,7 +4505,7 @@ uint64_t __43__PLBBAgent_logTelephonyActivityDSDSAtInit__block_invoke_1367(uint6
 
 - (int64_t)getSubsIdFromCTContext:(id)context
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   if (!contextCopy)
   {
@@ -4397,10 +4516,10 @@ uint64_t __43__PLBBAgent_logTelephonyActivityDSDSAtInit__block_invoke_1367(uint6
   {
     v4 = objc_opt_class();
     block = MEMORY[0x277D85DD0];
-    v23 = 3221225472;
-    v24 = __36__PLBBAgent_getSubsIdFromCTContext___block_invoke;
-    v25 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v26 = v4;
+    v22 = 3221225472;
+    v23 = __36__PLBBAgent_getSubsIdFromCTContext___block_invoke;
+    v24 = &__block_descriptor_40_e5_v8__0lu32l8;
+    v25 = v4;
     if (qword_2811F53F0 != -1)
     {
       dispatch_once(&qword_2811F53F0, &block);
@@ -4412,7 +4531,7 @@ uint64_t __43__PLBBAgent_logTelephonyActivityDSDSAtInit__block_invoke_1367(uint6
       slotID = [contextCopy slotID];
       userDataPreferred = [contextCopy userDataPreferred];
       userDefaultVoice = [contextCopy userDefaultVoice];
-      v9 = [v5 stringWithFormat:@"Slot ID %d, data preferred: %@, default voice: %@", slotID, userDataPreferred, userDefaultVoice, block, v23, v24, v25, v26];
+      v9 = [v5 stringWithFormat:@"Slot ID %d, data preferred: %@, default voice: %@", slotID, userDataPreferred, userDefaultVoice, block, v22, v23, v24, v25];
 
       v10 = MEMORY[0x277D3F178];
       v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
@@ -4424,7 +4543,7 @@ uint64_t __43__PLBBAgent_logTelephonyActivityDSDSAtInit__block_invoke_1367(uint6
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v28 = v9;
+        v27 = v9;
         _os_log_debug_impl(&dword_21A4C6000, v14, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -4461,11 +4580,10 @@ LABEL_15:
 
 LABEL_16:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
-uint64_t __36__PLBBAgent_getSubsIdFromCTContext___block_invoke(uint64_t a1)
+void *__36__PLBBAgent_getSubsIdFromCTContext___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FC7 = result;
@@ -4658,7 +4776,66 @@ LABEL_23:
   }
 }
 
-uint64_t __56__PLBBAgent_logDSDSEventForwardSDMwithSubsId_SDMEnable___block_invoke(uint64_t a1)
+- (void)logDSDSEventForwardSDMwithSubsId:(int64_t)id SDMEnable:(BOOL)enable
+{
+  enableCopy = enable;
+  v26 = *MEMORY[0x277D85DE8];
+  monotonicDate = [MEMORY[0x277CBEAA8] monotonicDate];
+  v8 = [(PLOperator *)PLBBAgent entryKeyForType:*MEMORY[0x277D3F5D0] andName:@"SDM"];
+  v9 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v8];
+  v10 = [MEMORY[0x277CCABB0] numberWithInteger:id];
+  [v9 setObject:v10 forKeyedSubscript:@"subsId"];
+
+  [v9 setObject:monotonicDate forKeyedSubscript:@"timestamp"];
+  v11 = [MEMORY[0x277CCABB0] numberWithBool:enableCopy];
+  [v9 setObject:v11 forKeyedSubscript:@"SDMState"];
+
+  if ([MEMORY[0x277D3F180] debugEnabled])
+  {
+    v12 = objc_opt_class();
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = __56__PLBBAgent_logDSDSEventForwardSDMwithSubsId_SDMEnable___block_invoke;
+    block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    block[4] = v12;
+    if (qword_2811F53F8 != -1)
+    {
+      dispatch_once(&qword_2811F53F8, block);
+    }
+
+    if (byte_2811F4FC8 == 1)
+    {
+      v13 = MEMORY[0x277CCACA8];
+      v14 = [MEMORY[0x277CCABB0] numberWithBool:enableCopy];
+      v15 = [v13 stringWithFormat:@"logDSDSEventForwardSDMwithSubsId: %d SDMEnable: %@", id, v14];
+
+      v16 = MEMORY[0x277D3F178];
+      v17 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
+      lastPathComponent = [v17 lastPathComponent];
+      v19 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLBBAgent logDSDSEventForwardSDMwithSubsId:SDMEnable:]"];
+      [v16 logMessage:v15 fromFile:lastPathComponent fromFunction:v19 fromLineNumber:2054];
+
+      v20 = PLLogCommon();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+      {
+        *buf = 138412290;
+        v25 = v15;
+        _os_log_debug_impl(&dword_21A4C6000, v20, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+      }
+    }
+  }
+
+  if ([MEMORY[0x277D3F208] isBasebandProto])
+  {
+    dictionary = [v9 dictionary];
+    entryDate = [v9 entryDate];
+    [(PLOperator *)self logForSubsystem:@"BasebandMetrics" category:@"SmartDataMode" data:dictionary date:entryDate];
+  }
+
+  [(PLBBAgent *)self logEntry:v9];
+}
+
+void *__56__PLBBAgent_logDSDSEventForwardSDMwithSubsId_SDMEnable___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FC8 = result;
@@ -4667,7 +4844,7 @@ uint64_t __56__PLBBAgent_logDSDSEventForwardSDMwithSubsId_SDMEnable___block_invo
 
 - (void)setupKICEChannels
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   mEMORY[0x277D3F120] = [MEMORY[0x277D3F120] sharedABMClient];
   [(PLBBAgent *)self setAbmClient:mEMORY[0x277D3F120]];
 
@@ -4721,7 +4898,7 @@ uint64_t __56__PLBBAgent_logDSDSEventForwardSDMwithSubsId_SDMEnable___block_invo
           if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v59 = v10;
+            v58 = v10;
             _os_log_debug_impl(&dword_21A4C6000, v15, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
           }
         }
@@ -4766,14 +4943,14 @@ uint64_t __56__PLBBAgent_logDSDSEventForwardSDMwithSubsId_SDMEnable___block_invo
         if ([MEMORY[0x277D3F180] debugEnabled])
         {
           v29 = objc_opt_class();
-          v56[0] = MEMORY[0x277D85DD0];
-          v56[1] = 3221225472;
-          v56[2] = __30__PLBBAgent_setupKICEChannels__block_invoke_1423;
-          v56[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-          v56[4] = v29;
+          v55[0] = MEMORY[0x277D85DD0];
+          v55[1] = 3221225472;
+          v55[2] = __30__PLBBAgent_setupKICEChannels__block_invoke_1423;
+          v55[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+          v55[4] = v29;
           if (qword_2811F5408 != -1)
           {
-            dispatch_once(&qword_2811F5408, v56);
+            dispatch_once(&qword_2811F5408, v55);
           }
 
           if (byte_2811F4FCA == 1)
@@ -4789,7 +4966,7 @@ uint64_t __56__PLBBAgent_logDSDSEventForwardSDMwithSubsId_SDMEnable___block_invo
             if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v59 = v30;
+              v58 = v30;
               _os_log_debug_impl(&dword_21A4C6000, v35, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
             }
           }
@@ -4810,14 +4987,14 @@ uint64_t __56__PLBBAgent_logDSDSEventForwardSDMwithSubsId_SDMEnable___block_invo
         if ([MEMORY[0x277D3F180] debugEnabled])
         {
           v37 = objc_opt_class();
-          v55[0] = MEMORY[0x277D85DD0];
-          v55[1] = 3221225472;
-          v55[2] = __30__PLBBAgent_setupKICEChannels__block_invoke_1429;
-          v55[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-          v55[4] = v37;
+          v54[0] = MEMORY[0x277D85DD0];
+          v54[1] = 3221225472;
+          v54[2] = __30__PLBBAgent_setupKICEChannels__block_invoke_1429;
+          v54[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+          v54[4] = v37;
           if (qword_2811F5410 != -1)
           {
-            dispatch_once(&qword_2811F5410, v55);
+            dispatch_once(&qword_2811F5410, v54);
           }
 
           if (byte_2811F4FCB == 1)
@@ -4833,7 +5010,7 @@ uint64_t __56__PLBBAgent_logDSDSEventForwardSDMwithSubsId_SDMEnable___block_invo
             if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v59 = v38;
+              v58 = v38;
               _os_log_debug_impl(&dword_21A4C6000, v43, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
             }
           }
@@ -4899,7 +5076,7 @@ LABEL_54:
       }
     }
 
-    goto LABEL_56;
+    return;
   }
 
   v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to init PLABMClient"];
@@ -4913,30 +5090,28 @@ LABEL_54:
   if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v59 = v20;
+    v58 = v20;
     _os_log_debug_impl(&dword_21A4C6000, v25, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
   }
 
   [MEMORY[0x277D3F180] debugEnabled];
-LABEL_56:
-  v54 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __30__PLBBAgent_setupKICEChannels__block_invoke(uint64_t a1)
+void *__30__PLBBAgent_setupKICEChannels__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FC9 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_setupKICEChannels__block_invoke_1423(uint64_t a1)
+void *__30__PLBBAgent_setupKICEChannels__block_invoke_1423(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FCA = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_setupKICEChannels__block_invoke_1429(uint64_t a1)
+void *__30__PLBBAgent_setupKICEChannels__block_invoke_1429(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FCB = result;
@@ -4945,7 +5120,7 @@ uint64_t __30__PLBBAgent_setupKICEChannels__block_invoke_1429(uint64_t a1)
 
 - (void)setupKICEChannelsForDebug
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   mEMORY[0x277D3F120] = [MEMORY[0x277D3F120] sharedABMClient];
   v4 = mEMORY[0x277D3F120];
   if (mEMORY[0x277D3F120])
@@ -4992,7 +5167,7 @@ uint64_t __30__PLBBAgent_setupKICEChannels__block_invoke_1429(uint64_t a1)
           if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v53 = v8;
+            v52 = v8;
             _os_log_debug_impl(&dword_21A4C6000, v13, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
           }
         }
@@ -5037,14 +5212,14 @@ uint64_t __30__PLBBAgent_setupKICEChannels__block_invoke_1429(uint64_t a1)
         if ([MEMORY[0x277D3F180] debugEnabled])
         {
           v27 = objc_opt_class();
-          v50[0] = MEMORY[0x277D85DD0];
-          v50[1] = 3221225472;
-          v50[2] = __38__PLBBAgent_setupKICEChannelsForDebug__block_invoke_1460;
-          v50[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-          v50[4] = v27;
+          v49[0] = MEMORY[0x277D85DD0];
+          v49[1] = 3221225472;
+          v49[2] = __38__PLBBAgent_setupKICEChannelsForDebug__block_invoke_1460;
+          v49[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+          v49[4] = v27;
           if (qword_2811F5420 != -1)
           {
-            dispatch_once(&qword_2811F5420, v50);
+            dispatch_once(&qword_2811F5420, v49);
           }
 
           if (byte_2811F4FCD == 1)
@@ -5060,7 +5235,7 @@ uint64_t __30__PLBBAgent_setupKICEChannels__block_invoke_1429(uint64_t a1)
             if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v53 = v28;
+              v52 = v28;
               _os_log_debug_impl(&dword_21A4C6000, v33, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
             }
           }
@@ -5081,14 +5256,14 @@ uint64_t __30__PLBBAgent_setupKICEChannels__block_invoke_1429(uint64_t a1)
         if ([MEMORY[0x277D3F180] debugEnabled])
         {
           v35 = objc_opt_class();
-          v49[0] = MEMORY[0x277D85DD0];
-          v49[1] = 3221225472;
-          v49[2] = __38__PLBBAgent_setupKICEChannelsForDebug__block_invoke_1466;
-          v49[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-          v49[4] = v35;
+          v48[0] = MEMORY[0x277D85DD0];
+          v48[1] = 3221225472;
+          v48[2] = __38__PLBBAgent_setupKICEChannelsForDebug__block_invoke_1466;
+          v48[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+          v48[4] = v35;
           if (qword_2811F5428 != -1)
           {
-            dispatch_once(&qword_2811F5428, v49);
+            dispatch_once(&qword_2811F5428, v48);
           }
 
           if (byte_2811F4FCE == 1)
@@ -5104,7 +5279,7 @@ uint64_t __30__PLBBAgent_setupKICEChannels__block_invoke_1429(uint64_t a1)
             if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v53 = v36;
+              v52 = v36;
               _os_log_debug_impl(&dword_21A4C6000, v41, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
             }
           }
@@ -5176,31 +5351,29 @@ LABEL_54:
   if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v53 = v18;
+    v52 = v18;
     _os_log_debug_impl(&dword_21A4C6000, v23, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
   }
 
   [MEMORY[0x277D3F180] debugEnabled];
 LABEL_56:
-
-  v48 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __38__PLBBAgent_setupKICEChannelsForDebug__block_invoke(uint64_t a1)
+void *__38__PLBBAgent_setupKICEChannelsForDebug__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FCC = result;
   return result;
 }
 
-uint64_t __38__PLBBAgent_setupKICEChannelsForDebug__block_invoke_1460(uint64_t a1)
+void *__38__PLBBAgent_setupKICEChannelsForDebug__block_invoke_1460(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FCD = result;
   return result;
 }
 
-uint64_t __38__PLBBAgent_setupKICEChannelsForDebug__block_invoke_1466(uint64_t a1)
+void *__38__PLBBAgent_setupKICEChannelsForDebug__block_invoke_1466(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FCE = result;
@@ -5209,7 +5382,7 @@ uint64_t __38__PLBBAgent_setupKICEChannelsForDebug__block_invoke_1466(uint64_t a
 
 - (void)setupMavABMChannel
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   mEMORY[0x277D3F120] = [MEMORY[0x277D3F120] sharedABMClient];
   [(PLBBAgent *)self setAbmClient:mEMORY[0x277D3F120]];
 
@@ -5228,27 +5401,24 @@ uint64_t __38__PLBBAgent_setupKICEChannelsForDebug__block_invoke_1466(uint64_t a
 
     abmClient5 = [(PLBBAgent *)self abmClient];
     [abmClient5 startListening];
-    v8 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to init PLABMClient"];
-    v10 = MEMORY[0x277D3F178];
-    v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
-    lastPathComponent = [v11 lastPathComponent];
-    v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLBBAgent setupMavABMChannel]"];
-    [v10 logMessage:v9 fromFile:lastPathComponent fromFunction:v13 fromLineNumber:2282];
+    v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to init PLABMClient"];
+    v9 = MEMORY[0x277D3F178];
+    v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
+    lastPathComponent = [v10 lastPathComponent];
+    v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLBBAgent setupMavABMChannel]"];
+    [v9 logMessage:v8 fromFile:lastPathComponent fromFunction:v12 fromLineNumber:2282];
 
-    v14 = PLLogCommon();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    v13 = PLLogCommon();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v18 = v9;
-      _os_log_debug_impl(&dword_21A4C6000, v14, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+      v16 = v8;
+      _os_log_debug_impl(&dword_21A4C6000, v13, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
-
-    v15 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -5347,7 +5517,7 @@ uint64_t __38__PLBBAgent_setupKICEChannelsForDebug__block_invoke_1466(uint64_t a
 
 - (BOOL)setupChannel:(id)channel withLogCodes:(id)codes andEvents:(id)events andExtracode:(id)extracode
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   channelCopy = channel;
   codesCopy = codes;
   eventsCopy = events;
@@ -5365,35 +5535,35 @@ uint64_t __38__PLBBAgent_setupKICEChannelsForDebug__block_invoke_1466(uint64_t a
 
   else if ([MEMORY[0x277D3F180] debugEnabled])
   {
-    v17 = objc_opt_class();
-    v25 = MEMORY[0x277D85DD0];
-    v26 = 3221225472;
-    v27 = __62__PLBBAgent_setupChannel_withLogCodes_andEvents_andExtracode___block_invoke;
-    v28 = &unk_27825A310;
-    v29 = @"Critical";
-    v30 = v17;
+    v16 = objc_opt_class();
+    v24 = MEMORY[0x277D85DD0];
+    v25 = 3221225472;
+    v26 = __62__PLBBAgent_setupChannel_withLogCodes_andEvents_andExtracode___block_invoke;
+    v27 = &unk_27825A310;
+    v28 = @"Critical";
+    v29 = v16;
     if (qword_2811F5430 != -1)
     {
-      dispatch_once(&qword_2811F5430, &v25);
+      dispatch_once(&qword_2811F5430, &v24);
     }
 
-    v18 = byte_2811F4FCF;
+    v17 = byte_2811F4FCF;
 
-    if (v18 == 1)
+    if (v17 == 1)
     {
-      v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"Empty log and event codes - leaving channel disabled", v25, v26, v27, v28];
-      v20 = MEMORY[0x277D3F178];
-      v21 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
-      lastPathComponent = [v21 lastPathComponent];
-      v23 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLBBAgent setupChannel:withLogCodes:andEvents:andExtracode:]"];
-      [v20 logMessage:v19 fromFile:lastPathComponent fromFunction:v23 fromLineNumber:2364];
+      v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"Empty log and event codes - leaving channel disabled", v24, v25, v26, v27];
+      v19 = MEMORY[0x277D3F178];
+      v20 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
+      lastPathComponent = [v20 lastPathComponent];
+      v22 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLBBAgent setupChannel:withLogCodes:andEvents:andExtracode:]"];
+      [v19 logMessage:v18 fromFile:lastPathComponent fromFunction:v22 fromLineNumber:2364];
 
-      v24 = PLLogCommon();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+      v23 = PLLogCommon();
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v32 = v19;
-        _os_log_debug_impl(&dword_21A4C6000, v24, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+        v31 = v18;
+        _os_log_debug_impl(&dword_21A4C6000, v23, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
@@ -5401,11 +5571,10 @@ uint64_t __38__PLBBAgent_setupKICEChannelsForDebug__block_invoke_1466(uint64_t a
   v14 = 1;
 LABEL_7:
 
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
-uint64_t __62__PLBBAgent_setupChannel_withLogCodes_andEvents_andExtracode___block_invoke(uint64_t a1)
+void *__62__PLBBAgent_setupChannel_withLogCodes_andEvents_andExtracode___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 40) forKey:*(a1 + 32)];
   byte_2811F4FCF = result;
@@ -5414,13 +5583,13 @@ uint64_t __62__PLBBAgent_setupChannel_withLogCodes_andEvents_andExtracode___bloc
 
 - (void)setupBBChannelsWithAction:(int64_t)action
 {
-  v237 = *MEMORY[0x277D85DE8];
+  v236 = *MEMORY[0x277D85DE8];
   monotonicDate = [MEMORY[0x277CBEAA8] monotonicDate];
   [(PLBBAgent *)self setLastBBActivityTimestamp:monotonicDate];
 
-  v125 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v123 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v124 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v122 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v123 = objc_alloc_init(MEMORY[0x277CBEB18]);
   [(PLBBAgent *)self logEventNoneBBReportBy:0 withAction:action];
   v6 = objc_opt_new();
   cachedChannel = self->cachedChannel;
@@ -5431,125 +5600,125 @@ uint64_t __62__PLBBAgent_setupChannel_withLogCodes_andEvents_andExtracode___bloc
   [(PLBasebandLogChannel *)self->cachedChannel setCachingEnabled:1];
   v8 = MEMORY[0x277CBEA60];
   v9 = [MEMORY[0x277CCABB0] numberWithInt:45452];
-  v127 = [v8 arrayWithObjects:{v9, 0}];
+  v126 = [v8 arrayWithObjects:{v9, 0}];
 
   v10 = MEMORY[0x277CBEA60];
   v11 = [MEMORY[0x277CCABB0] numberWithInt:28978];
   v12 = [MEMORY[0x277CCABB0] numberWithInt:45309];
   v13 = [MEMORY[0x277CCABB0] numberWithInt:45310];
   v14 = [MEMORY[0x277CCABB0] numberWithInt:45311];
-  v139 = [v10 arrayWithObjects:{v11, v12, v13, v14, 0}];
+  v138 = [v10 arrayWithObjects:{v11, v12, v13, v14, 0}];
 
   v15 = MEMORY[0x277CBEA60];
   v16 = [MEMORY[0x277CCABB0] numberWithInt:311];
   v17 = [MEMORY[0x277CCABB0] numberWithInt:389];
   v18 = [MEMORY[0x277CCABB0] numberWithInt:424];
   v19 = [MEMORY[0x277CCABB0] numberWithInt:571];
-  v129 = [v15 arrayWithObjects:{v16, v17, v18, v19, 0}];
+  v128 = [v15 arrayWithObjects:{v16, v17, v18, v19, 0}];
 
   v20 = MEMORY[0x277CBEA60];
   v21 = [MEMORY[0x277CCABB0] numberWithInt:629];
   v22 = [MEMORY[0x277CCABB0] numberWithInt:630];
   v23 = [MEMORY[0x277CCABB0] numberWithInt:631];
-  v128 = [v20 arrayWithObjects:{v21, v22, v23, 0}];
+  v127 = [v20 arrayWithObjects:{v21, v22, v23, 0}];
 
   v24 = MEMORY[0x277CBEA60];
   v25 = [MEMORY[0x277CCABB0] numberWithInt:621];
   v26 = [MEMORY[0x277CCABB0] numberWithInt:622];
-  v138 = [v24 arrayWithObjects:{v25, v26, 0}];
+  v137 = [v24 arrayWithObjects:{v25, v26, 0}];
 
-  v149 = MEMORY[0x277CBEA60];
-  v229 = [MEMORY[0x277CCABB0] numberWithInt:275];
-  v226 = [MEMORY[0x277CCABB0] numberWithInt:301];
-  v223 = [MEMORY[0x277CCABB0] numberWithInt:302];
-  v220 = [MEMORY[0x277CCABB0] numberWithInt:303];
-  v217 = [MEMORY[0x277CCABB0] numberWithInt:312];
-  v214 = [MEMORY[0x277CCABB0] numberWithInt:320];
-  v211 = [MEMORY[0x277CCABB0] numberWithInt:324];
-  v208 = [MEMORY[0x277CCABB0] numberWithInt:325];
-  v205 = [MEMORY[0x277CCABB0] numberWithInt:336];
-  v202 = [MEMORY[0x277CCABB0] numberWithInt:338];
-  v196 = [MEMORY[0x277CCABB0] numberWithInt:349];
-  v199 = [MEMORY[0x277CCABB0] numberWithInt:350];
-  v184 = [MEMORY[0x277CCABB0] numberWithInt:351];
-  v193 = [MEMORY[0x277CCABB0] numberWithInt:360];
-  v178 = [MEMORY[0x277CCABB0] numberWithInt:362];
-  v190 = [MEMORY[0x277CCABB0] numberWithInt:370];
-  v187 = [MEMORY[0x277CCABB0] numberWithInt:375];
-  v181 = [MEMORY[0x277CCABB0] numberWithInt:393];
-  v166 = [MEMORY[0x277CCABB0] numberWithInt:414];
-  v175 = [MEMORY[0x277CCABB0] numberWithInt:425];
-  v146 = [MEMORY[0x277CCABB0] numberWithInt:427];
-  v172 = [MEMORY[0x277CCABB0] numberWithInt:433];
-  v143 = [MEMORY[0x277CCABB0] numberWithInt:434];
-  v169 = [MEMORY[0x277CCABB0] numberWithInt:445];
-  v163 = [MEMORY[0x277CCABB0] numberWithInt:446];
-  v160 = [MEMORY[0x277CCABB0] numberWithInt:530];
-  v140 = [MEMORY[0x277CCABB0] numberWithInt:531];
-  v157 = [MEMORY[0x277CCABB0] numberWithInt:532];
-  v154 = [MEMORY[0x277CCABB0] numberWithInt:533];
-  v151 = [MEMORY[0x277CCABB0] numberWithInt:635];
-  v136 = [MEMORY[0x277CCABB0] numberWithInt:897];
+  v148 = MEMORY[0x277CBEA60];
+  v228 = [MEMORY[0x277CCABB0] numberWithInt:275];
+  v225 = [MEMORY[0x277CCABB0] numberWithInt:301];
+  v222 = [MEMORY[0x277CCABB0] numberWithInt:302];
+  v219 = [MEMORY[0x277CCABB0] numberWithInt:303];
+  v216 = [MEMORY[0x277CCABB0] numberWithInt:312];
+  v213 = [MEMORY[0x277CCABB0] numberWithInt:320];
+  v210 = [MEMORY[0x277CCABB0] numberWithInt:324];
+  v207 = [MEMORY[0x277CCABB0] numberWithInt:325];
+  v204 = [MEMORY[0x277CCABB0] numberWithInt:336];
+  v201 = [MEMORY[0x277CCABB0] numberWithInt:338];
+  v195 = [MEMORY[0x277CCABB0] numberWithInt:349];
+  v198 = [MEMORY[0x277CCABB0] numberWithInt:350];
+  v183 = [MEMORY[0x277CCABB0] numberWithInt:351];
+  v192 = [MEMORY[0x277CCABB0] numberWithInt:360];
+  v177 = [MEMORY[0x277CCABB0] numberWithInt:362];
+  v189 = [MEMORY[0x277CCABB0] numberWithInt:370];
+  v186 = [MEMORY[0x277CCABB0] numberWithInt:375];
+  v180 = [MEMORY[0x277CCABB0] numberWithInt:393];
+  v165 = [MEMORY[0x277CCABB0] numberWithInt:414];
+  v174 = [MEMORY[0x277CCABB0] numberWithInt:425];
+  v145 = [MEMORY[0x277CCABB0] numberWithInt:427];
+  v171 = [MEMORY[0x277CCABB0] numberWithInt:433];
+  v142 = [MEMORY[0x277CCABB0] numberWithInt:434];
+  v168 = [MEMORY[0x277CCABB0] numberWithInt:445];
+  v162 = [MEMORY[0x277CCABB0] numberWithInt:446];
+  v159 = [MEMORY[0x277CCABB0] numberWithInt:530];
+  v139 = [MEMORY[0x277CCABB0] numberWithInt:531];
+  v156 = [MEMORY[0x277CCABB0] numberWithInt:532];
+  v153 = [MEMORY[0x277CCABB0] numberWithInt:533];
+  v150 = [MEMORY[0x277CCABB0] numberWithInt:635];
+  v135 = [MEMORY[0x277CCABB0] numberWithInt:897];
   v27 = [MEMORY[0x277CCABB0] numberWithInt:1049];
-  v132 = [MEMORY[0x277CCABB0] numberWithInt:1119];
-  v130 = [MEMORY[0x277CCABB0] numberWithInt:1121];
+  v131 = [MEMORY[0x277CCABB0] numberWithInt:1119];
+  v129 = [MEMORY[0x277CCABB0] numberWithInt:1121];
   v28 = [MEMORY[0x277CCABB0] numberWithInt:1299];
   v29 = [MEMORY[0x277CCABB0] numberWithInt:1300];
   v30 = [MEMORY[0x277CCABB0] numberWithInt:1301];
   v31 = [MEMORY[0x277CCABB0] numberWithInt:1549];
   v32 = [MEMORY[0x277CCABB0] numberWithInt:1550];
-  v135 = [v149 arrayWithObjects:{v229, v226, v223, v220, v217, v214, v211, v208, v205, v202, v196, v199, v184, v193, v178, v190, v187, v181, v166, v175, v146, v172, v143, v169, v163, v160, v140, v157, v154, v151, v136, v27, v132, v130, v28, v29, v30, v31, v32, 0}];
+  v134 = [v148 arrayWithObjects:{v228, v225, v222, v219, v216, v213, v210, v207, v204, v201, v195, v198, v183, v192, v177, v189, v186, v180, v165, v174, v145, v171, v142, v168, v162, v159, v139, v156, v153, v150, v135, v27, v131, v129, v28, v29, v30, v31, v32, 0}];
 
   v33 = MEMORY[0x277CBEA60];
   v34 = [MEMORY[0x277CCABB0] numberWithInt:1606];
   v35 = [MEMORY[0x277CCABB0] numberWithInt:1130];
   v36 = [MEMORY[0x277CCABB0] numberWithInt:1924];
-  v150 = [v33 arrayWithObjects:{v34, v35, v36, 0}];
+  v149 = [v33 arrayWithObjects:{v34, v35, v36, 0}];
 
-  v161 = MEMORY[0x277CBEA60];
-  v230 = [MEMORY[0x277CCABB0] numberWithInt:1889];
-  v227 = [MEMORY[0x277CCABB0] numberWithInt:1890];
-  v224 = [MEMORY[0x277CCABB0] numberWithInt:1607];
-  v221 = [MEMORY[0x277CCABB0] numberWithInt:1608];
-  v218 = [MEMORY[0x277CCABB0] numberWithInt:1930];
-  v215 = [MEMORY[0x277CCABB0] numberWithInt:1931];
-  v209 = [MEMORY[0x277CCABB0] numberWithInt:1970];
-  v212 = [MEMORY[0x277CCABB0] numberWithInt:1971];
-  v197 = [MEMORY[0x277CCABB0] numberWithInt:1989];
-  v206 = [MEMORY[0x277CCABB0] numberWithInt:1990];
-  v191 = [MEMORY[0x277CCABB0] numberWithInt:415];
-  v203 = [MEMORY[0x277CCABB0] numberWithInt:564];
-  v200 = [MEMORY[0x277CCABB0] numberWithInt:619];
-  v194 = [MEMORY[0x277CCABB0] numberWithInt:1010];
-  v179 = [MEMORY[0x277CCABB0] numberWithInt:1210];
-  v188 = [MEMORY[0x277CCABB0] numberWithInt:565];
-  v158 = [MEMORY[0x277CCABB0] numberWithInt:1496];
-  v185 = [MEMORY[0x277CCABB0] numberWithInt:1497];
-  v155 = [MEMORY[0x277CCABB0] numberWithInt:1223];
-  v182 = [MEMORY[0x277CCABB0] numberWithInt:1224];
-  v176 = [MEMORY[0x277CCABB0] numberWithInt:1226];
-  v173 = [MEMORY[0x277CCABB0] numberWithInt:1227];
-  v152 = [MEMORY[0x277CCABB0] numberWithInt:1604];
-  v170 = [MEMORY[0x277CCABB0] numberWithInt:538];
-  v167 = [MEMORY[0x277CCABB0] numberWithInt:1072];
-  v164 = [MEMORY[0x277CCABB0] numberWithInt:1036];
-  v147 = [MEMORY[0x277CCABB0] numberWithInt:300];
-  v144 = [MEMORY[0x277CCABB0] numberWithInt:1120];
+  v160 = MEMORY[0x277CBEA60];
+  v229 = [MEMORY[0x277CCABB0] numberWithInt:1889];
+  v226 = [MEMORY[0x277CCABB0] numberWithInt:1890];
+  v223 = [MEMORY[0x277CCABB0] numberWithInt:1607];
+  v220 = [MEMORY[0x277CCABB0] numberWithInt:1608];
+  v217 = [MEMORY[0x277CCABB0] numberWithInt:1930];
+  v214 = [MEMORY[0x277CCABB0] numberWithInt:1931];
+  v208 = [MEMORY[0x277CCABB0] numberWithInt:1970];
+  v211 = [MEMORY[0x277CCABB0] numberWithInt:1971];
+  v196 = [MEMORY[0x277CCABB0] numberWithInt:1989];
+  v205 = [MEMORY[0x277CCABB0] numberWithInt:1990];
+  v190 = [MEMORY[0x277CCABB0] numberWithInt:415];
+  v202 = [MEMORY[0x277CCABB0] numberWithInt:564];
+  v199 = [MEMORY[0x277CCABB0] numberWithInt:619];
+  v193 = [MEMORY[0x277CCABB0] numberWithInt:1010];
+  v178 = [MEMORY[0x277CCABB0] numberWithInt:1210];
+  v187 = [MEMORY[0x277CCABB0] numberWithInt:565];
+  v157 = [MEMORY[0x277CCABB0] numberWithInt:1496];
+  v184 = [MEMORY[0x277CCABB0] numberWithInt:1497];
+  v154 = [MEMORY[0x277CCABB0] numberWithInt:1223];
+  v181 = [MEMORY[0x277CCABB0] numberWithInt:1224];
+  v175 = [MEMORY[0x277CCABB0] numberWithInt:1226];
+  v172 = [MEMORY[0x277CCABB0] numberWithInt:1227];
+  v151 = [MEMORY[0x277CCABB0] numberWithInt:1604];
+  v169 = [MEMORY[0x277CCABB0] numberWithInt:538];
+  v166 = [MEMORY[0x277CCABB0] numberWithInt:1072];
+  v163 = [MEMORY[0x277CCABB0] numberWithInt:1036];
+  v146 = [MEMORY[0x277CCABB0] numberWithInt:300];
+  v143 = [MEMORY[0x277CCABB0] numberWithInt:1120];
   v37 = [MEMORY[0x277CCABB0] numberWithInt:1076];
-  v141 = [MEMORY[0x277CCABB0] numberWithInt:1465];
+  v140 = [MEMORY[0x277CCABB0] numberWithInt:1465];
   v38 = [MEMORY[0x277CCABB0] numberWithInt:1466];
   v39 = [MEMORY[0x277CCABB0] numberWithInt:2260];
   v40 = [MEMORY[0x277CCABB0] numberWithInt:2261];
   v41 = [MEMORY[0x277CCABB0] numberWithInt:2262];
   v42 = [MEMORY[0x277CCABB0] numberWithInt:2284];
-  v137 = [v161 arrayWithObjects:{v230, v227, v224, v221, v218, v215, v209, v212, v197, v206, v191, v203, v200, v194, v179, v188, v158, v185, v155, v182, v176, v173, v152, v170, v167, v164, v147, v144, v37, v141, v38, v39, v40, v41, v42, 0}];
+  v136 = [v160 arrayWithObjects:{v229, v226, v223, v220, v217, v214, v208, v211, v196, v205, v190, v202, v199, v193, v178, v187, v157, v184, v154, v181, v175, v172, v151, v169, v166, v163, v146, v143, v37, v140, v38, v39, v40, v41, v42, 0}];
 
   v43 = MEMORY[0x277CBEA60];
   v44 = [MEMORY[0x277CCABB0] numberWithInt:2275];
   v45 = [MEMORY[0x277CCABB0] numberWithInt:2274];
   v46 = [MEMORY[0x277CCABB0] numberWithInt:2276];
   v47 = [MEMORY[0x277CCABB0] numberWithInt:2265];
-  v148 = [v43 arrayWithObjects:{v44, v45, v46, v47, 0}];
+  v147 = [v43 arrayWithObjects:{v44, v45, v46, v47, 0}];
 
   v48 = MEMORY[0x277CBEA60];
   v49 = [MEMORY[0x277CCABB0] numberWithInt:6144];
@@ -5559,63 +5728,63 @@ uint64_t __62__PLBBAgent_setupChannel_withLogCodes_andEvents_andExtracode___bloc
   v53 = [MEMORY[0x277CCABB0] numberWithInt:35];
   v54 = [MEMORY[0x277CCABB0] numberWithInt:36];
   v55 = [MEMORY[0x277CCABB0] numberWithInt:37];
-  v131 = [v48 arrayWithObjects:{v49, v50, v51, v52, v53, v54, v55, 0}];
+  v130 = [v48 arrayWithObjects:{v49, v50, v51, v52, v53, v54, v55, 0}];
 
   v56 = MEMORY[0x277CBEA60];
   v57 = [MEMORY[0x277CCABB0] numberWithInt:1];
-  v231 = [v56 arrayWithObjects:{v57, 0}];
+  v230 = [v56 arrayWithObjects:{v57, 0}];
 
   v58 = MEMORY[0x277CBEA60];
   v59 = [MEMORY[0x277CCABB0] numberWithInt:2011];
   v60 = [MEMORY[0x277CCABB0] numberWithInt:2471];
   v61 = [MEMORY[0x277CCABB0] numberWithInt:2472];
   v62 = [MEMORY[0x277CCABB0] numberWithInt:2473];
-  v145 = [v58 arrayWithObjects:{v59, v60, v61, v62, 0}];
+  v144 = [v58 arrayWithObjects:{v59, v60, v61, v62, 0}];
 
   v63 = MEMORY[0x277CBEA60];
   v64 = [MEMORY[0x277CCABB0] numberWithInt:3];
-  v142 = [v63 arrayWithObjects:{v64, 0}];
+  v141 = [v63 arrayWithObjects:{v64, 0}];
 
-  v133 = MEMORY[0x277CBEA60];
-  v228 = [MEMORY[0x277CCABB0] numberWithInt:316];
-  v225 = [MEMORY[0x277CCABB0] numberWithInt:2258];
-  v222 = [MEMORY[0x277CCABB0] numberWithInt:2273];
-  v219 = [MEMORY[0x277CCABB0] numberWithInt:2270];
-  v216 = [MEMORY[0x277CCABB0] numberWithInt:2271];
-  v213 = [MEMORY[0x277CCABB0] numberWithInt:2279];
-  v210 = [MEMORY[0x277CCABB0] numberWithInt:1615];
-  v207 = [MEMORY[0x277CCABB0] numberWithInt:2287];
-  v204 = [MEMORY[0x277CCABB0] numberWithInt:625];
-  v198 = [MEMORY[0x277CCABB0] numberWithInt:1613];
-  v201 = [MEMORY[0x277CCABB0] numberWithInt:1614];
-  v186 = [MEMORY[0x277CCABB0] numberWithInt:2006];
-  v195 = [MEMORY[0x277CCABB0] numberWithInt:2007];
-  v180 = [MEMORY[0x277CCABB0] numberWithInt:2028];
-  v192 = [MEMORY[0x277CCABB0] numberWithInt:2029];
-  v189 = [MEMORY[0x277CCABB0] numberWithInt:2131];
-  v183 = [MEMORY[0x277CCABB0] numberWithInt:2176];
-  v168 = [MEMORY[0x277CCABB0] numberWithInt:2177];
-  v177 = [MEMORY[0x277CCABB0] numberWithInt:2244];
-  v122 = [MEMORY[0x277CCABB0] numberWithInt:2245];
-  v174 = [MEMORY[0x277CCABB0] numberWithInt:1807];
-  v121 = [MEMORY[0x277CCABB0] numberWithInt:1808];
-  v171 = [MEMORY[0x277CCABB0] numberWithInt:2476];
-  v165 = [MEMORY[0x277CCABB0] numberWithInt:2477];
-  v162 = [MEMORY[0x277CCABB0] numberWithInt:2478];
-  v120 = [MEMORY[0x277CCABB0] numberWithInt:567];
-  v159 = [MEMORY[0x277CCABB0] numberWithInt:568];
-  v156 = [MEMORY[0x277CCABB0] numberWithInt:1013];
-  v153 = [MEMORY[0x277CCABB0] numberWithInt:1131];
-  v119 = [MEMORY[0x277CCABB0] numberWithInt:1132];
-  v118 = [MEMORY[0x277CCABB0] numberWithInt:2288];
+  v132 = MEMORY[0x277CBEA60];
+  v227 = [MEMORY[0x277CCABB0] numberWithInt:316];
+  v224 = [MEMORY[0x277CCABB0] numberWithInt:2258];
+  v221 = [MEMORY[0x277CCABB0] numberWithInt:2273];
+  v218 = [MEMORY[0x277CCABB0] numberWithInt:2270];
+  v215 = [MEMORY[0x277CCABB0] numberWithInt:2271];
+  v212 = [MEMORY[0x277CCABB0] numberWithInt:2279];
+  v209 = [MEMORY[0x277CCABB0] numberWithInt:1615];
+  v206 = [MEMORY[0x277CCABB0] numberWithInt:2287];
+  v203 = [MEMORY[0x277CCABB0] numberWithInt:625];
+  v197 = [MEMORY[0x277CCABB0] numberWithInt:1613];
+  v200 = [MEMORY[0x277CCABB0] numberWithInt:1614];
+  v185 = [MEMORY[0x277CCABB0] numberWithInt:2006];
+  v194 = [MEMORY[0x277CCABB0] numberWithInt:2007];
+  v179 = [MEMORY[0x277CCABB0] numberWithInt:2028];
+  v191 = [MEMORY[0x277CCABB0] numberWithInt:2029];
+  v188 = [MEMORY[0x277CCABB0] numberWithInt:2131];
+  v182 = [MEMORY[0x277CCABB0] numberWithInt:2176];
+  v167 = [MEMORY[0x277CCABB0] numberWithInt:2177];
+  v176 = [MEMORY[0x277CCABB0] numberWithInt:2244];
+  v121 = [MEMORY[0x277CCABB0] numberWithInt:2245];
+  v173 = [MEMORY[0x277CCABB0] numberWithInt:1807];
+  v120 = [MEMORY[0x277CCABB0] numberWithInt:1808];
+  v170 = [MEMORY[0x277CCABB0] numberWithInt:2476];
+  v164 = [MEMORY[0x277CCABB0] numberWithInt:2477];
+  v161 = [MEMORY[0x277CCABB0] numberWithInt:2478];
+  v119 = [MEMORY[0x277CCABB0] numberWithInt:567];
+  v158 = [MEMORY[0x277CCABB0] numberWithInt:568];
+  v155 = [MEMORY[0x277CCABB0] numberWithInt:1013];
+  v152 = [MEMORY[0x277CCABB0] numberWithInt:1131];
+  v118 = [MEMORY[0x277CCABB0] numberWithInt:1132];
+  v117 = [MEMORY[0x277CCABB0] numberWithInt:2288];
   v65 = [MEMORY[0x277CCABB0] numberWithInt:2289];
-  v117 = [MEMORY[0x277CCABB0] numberWithInt:2290];
+  v116 = [MEMORY[0x277CCABB0] numberWithInt:2290];
   v66 = [MEMORY[0x277CCABB0] numberWithInt:2493];
   v67 = [MEMORY[0x277CCABB0] numberWithInt:2494];
   v68 = [MEMORY[0x277CCABB0] numberWithInt:2485];
   v69 = [MEMORY[0x277CCABB0] numberWithInt:2486];
   v70 = [MEMORY[0x277CCABB0] numberWithInt:2488];
-  v134 = [v133 arrayWithObjects:{v228, v225, v222, v219, v216, v213, v210, v207, v204, v198, v201, v186, v195, v180, v192, v189, v183, v168, v177, v122, v174, v121, v171, v165, v162, v120, v159, v156, v153, v119, v118, v65, v117, v66, v67, v68, v69, v70, 0}];
+  v133 = [v132 arrayWithObjects:{v227, v224, v221, v218, v215, v212, v209, v206, v203, v197, v200, v185, v194, v179, v191, v188, v182, v167, v176, v121, v173, v120, v170, v164, v161, v119, v158, v155, v152, v118, v117, v65, v116, v66, v67, v68, v69, v70, 0}];
 
   v71 = MEMORY[0x277CBEA60];
   v72 = [MEMORY[0x277CCABB0] numberWithInt:2521];
@@ -5628,22 +5797,22 @@ uint64_t __62__PLBBAgent_setupChannel_withLogCodes_andEvents_andExtracode___bloc
   v79 = [MEMORY[0x277CCABB0] numberWithInt:2560];
   v80 = [v71 arrayWithObjects:{v72, v73, v74, v75, v76, v77, v78, v79, 0}];
 
-  v81 = v127;
-  [v123 addObjectsFromArray:v231];
+  v81 = v126;
+  [v122 addObjectsFromArray:v230];
   kPLBasebandClassOfDevice = [MEMORY[0x277D3F208] kPLBasebandClassOfDevice];
   if ((kPLBasebandClassOfDevice - 1003001) < 5 || kPLBasebandClassOfDevice == 1003007)
   {
-    [v123 addObjectsFromArray:v127];
+    [v122 addObjectsFromArray:v126];
   }
 
-  v83 = v129;
+  v83 = v128;
   v84 = selfCopy;
   if ([MEMORY[0x277D3F180] fullMode])
   {
     kPLBasebandClassOfDevice2 = [MEMORY[0x277D3F208] kPLBasebandClassOfDevice];
     if ((kPLBasebandClassOfDevice2 - 1003002) >= 4)
     {
-      v86 = v139;
+      v86 = v138;
       if (kPLBasebandClassOfDevice2 == 1003001)
       {
         goto LABEL_6;
@@ -5655,22 +5824,22 @@ uint64_t __62__PLBBAgent_setupChannel_withLogCodes_andEvents_andExtracode___bloc
       }
     }
 
-    [v123 addObjectsFromArray:v139];
-    v86 = v131;
+    [v122 addObjectsFromArray:v138];
+    v86 = v130;
 LABEL_6:
-    [v123 addObjectsFromArray:v86];
+    [v122 addObjectsFromArray:v86];
   }
 
 LABEL_7:
-  [v125 addObjectsFromArray:v129];
+  [v124 addObjectsFromArray:v128];
   kPLBasebandClassOfDevice3 = [MEMORY[0x277D3F208] kPLBasebandClassOfDevice];
   if ((kPLBasebandClassOfDevice3 - 1003002) < 4 || kPLBasebandClassOfDevice3 == 1003007)
   {
-    [v125 addObjectsFromArray:v150];
-    [v125 addObjectsFromArray:v148];
-    [v125 addObjectsFromArray:v145];
-    v88 = v124;
-    v89 = v142;
+    [v124 addObjectsFromArray:v149];
+    [v124 addObjectsFromArray:v147];
+    [v124 addObjectsFromArray:v144];
+    v88 = v123;
+    v89 = v141;
 LABEL_9:
     [v88 addObjectsFromArray:v89];
     goto LABEL_10;
@@ -5678,10 +5847,10 @@ LABEL_9:
 
   if (kPLBasebandClassOfDevice3 == 1003001)
   {
-    [v125 addObjectsFromArray:v150];
-    [v125 addObjectsFromArray:v148];
-    v88 = v125;
-    v89 = v128;
+    [v124 addObjectsFromArray:v149];
+    [v124 addObjectsFromArray:v147];
+    v88 = v124;
+    v89 = v127;
     goto LABEL_9;
   }
 
@@ -5691,59 +5860,59 @@ LABEL_10:
     goto LABEL_17;
   }
 
-  [v125 addObjectsFromArray:v135];
+  [v124 addObjectsFromArray:v134];
   kPLBasebandClassOfDevice4 = [MEMORY[0x277D3F208] kPLBasebandClassOfDevice];
   if (kPLBasebandClassOfDevice4 <= 1003002)
   {
-    v92 = v137;
-    v93 = v138;
+    v92 = v136;
+    v93 = v137;
     if (kPLBasebandClassOfDevice4 == 1003001)
     {
       goto LABEL_16;
     }
 
-    v91 = v137;
-    v93 = v138;
-    v92 = v134;
+    v91 = v136;
+    v93 = v137;
+    v92 = v133;
     if (kPLBasebandClassOfDevice4 == 1003002)
     {
 LABEL_15:
-      [v125 addObjectsFromArray:v91];
+      [v124 addObjectsFromArray:v91];
 LABEL_16:
-      [v125 addObjectsFromArray:v92];
-      [v125 addObjectsFromArray:v93];
+      [v124 addObjectsFromArray:v92];
+      [v124 addObjectsFromArray:v93];
     }
   }
 
   else if ((kPLBasebandClassOfDevice4 - 1003003) < 3 || kPLBasebandClassOfDevice4 == 1003007)
   {
-    [v125 addObjectsFromArray:v137];
-    v91 = v134;
-    v92 = v138;
+    [v124 addObjectsFromArray:v136];
+    v91 = v133;
+    v92 = v137;
     v93 = v80;
     goto LABEL_15;
   }
 
 LABEL_17:
-  if ([(PLBBAgent *)selfCopy setupChannel:selfCopy->cachedChannel withLogCodes:v123 andEvents:v125 andExtracode:v124])
+  if ([(PLBBAgent *)selfCopy setupChannel:selfCopy->cachedChannel withLogCodes:v122 andEvents:v124 andExtracode:v123])
   {
     [(PLBasebandLogChannel *)selfCopy->cachedChannel setChannelTimeout:10.0];
     v94 = [MEMORY[0x277CCABB0] numberWithInt:1];
-    v95 = [v123 containsObject:v94];
+    v95 = [v122 containsObject:v94];
 
     if (v95)
     {
       if ([MEMORY[0x277D3F180] debugEnabled])
       {
         v96 = objc_opt_class();
-        v233[0] = MEMORY[0x277D85DD0];
-        v233[1] = 3221225472;
-        v233[2] = __39__PLBBAgent_setupBBChannelsWithAction___block_invoke_1483;
-        v233[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-        v233[4] = v96;
+        v232[0] = MEMORY[0x277D85DD0];
+        v232[1] = 3221225472;
+        v232[2] = __39__PLBBAgent_setupBBChannelsWithAction___block_invoke_1483;
+        v232[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+        v232[4] = v96;
         if (qword_2811F5440 != -1)
         {
-          dispatch_once(&qword_2811F5440, v233);
+          dispatch_once(&qword_2811F5440, v232);
         }
 
         if (byte_2811F4FD1 == 1)
@@ -5759,13 +5928,13 @@ LABEL_17:
           if (os_log_type_enabled(v102, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v236 = 420000;
+            v235 = 420000;
             _os_log_debug_impl(&dword_21A4C6000, v102, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
           }
 
           v84 = selfCopy;
-          v81 = v127;
-          v83 = v129;
+          v81 = v126;
+          v83 = v128;
         }
       }
 
@@ -5799,7 +5968,7 @@ LABEL_17:
         if (os_log_type_enabled(v110, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v236 = v105;
+          v235 = v105;
 LABEL_52:
           _os_log_debug_impl(&dword_21A4C6000, v110, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
           goto LABEL_38;
@@ -5816,19 +5985,19 @@ LABEL_52:
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
       v111 = objc_opt_class();
-      v234[0] = MEMORY[0x277D85DD0];
-      v234[1] = 3221225472;
-      v234[2] = __39__PLBBAgent_setupBBChannelsWithAction___block_invoke;
-      v234[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v234[4] = v111;
+      v233[0] = MEMORY[0x277D85DD0];
+      v233[1] = 3221225472;
+      v233[2] = __39__PLBBAgent_setupBBChannelsWithAction___block_invoke;
+      v233[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v233[4] = v111;
       if (qword_2811F5438 != -1)
       {
-        dispatch_once(&qword_2811F5438, v234);
+        dispatch_once(&qword_2811F5438, v233);
       }
 
       if (byte_2811F4FD0 == 1)
       {
-        v104 = v127;
+        v104 = v126;
         v105 = [MEMORY[0x277CCACA8] stringWithFormat:@"ERROR: need to schedule reconnect"];
         v112 = MEMORY[0x277D3F178];
         v113 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
@@ -5840,35 +6009,33 @@ LABEL_52:
         if (os_log_type_enabled(v110, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v236 = v105;
+          v235 = v105;
           goto LABEL_52;
         }
 
 LABEL_38:
         v81 = v104;
-        v83 = v129;
+        v83 = v128;
       }
     }
   }
-
-  v116 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __39__PLBBAgent_setupBBChannelsWithAction___block_invoke(uint64_t a1)
+void *__39__PLBBAgent_setupBBChannelsWithAction___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FD0 = result;
   return result;
 }
 
-uint64_t __39__PLBBAgent_setupBBChannelsWithAction___block_invoke_1483(uint64_t a1)
+void *__39__PLBBAgent_setupBBChannelsWithAction___block_invoke_1483(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FD1 = result;
   return result;
 }
 
-uint64_t __39__PLBBAgent_setupBBChannelsWithAction___block_invoke_1489(uint64_t a1)
+void *__39__PLBBAgent_setupBBChannelsWithAction___block_invoke_1489(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FD2 = result;
@@ -5877,7 +6044,7 @@ uint64_t __39__PLBBAgent_setupBBChannelsWithAction___block_invoke_1489(uint64_t 
 
 - (id)setupIOKitNotifications
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   if (self)
   {
     v3 = *MEMORY[0x277CD28A0];
@@ -5898,14 +6065,14 @@ uint64_t __39__PLBBAgent_setupBBChannelsWithAction___block_invoke_1489(uint64_t 
       }
 
       v25 = objc_opt_class();
-      v43[0] = MEMORY[0x277D85DD0];
-      v43[1] = 3221225472;
-      v43[2] = __36__PLBBAgent_setupIOKitNotifications__block_invoke;
-      v43[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v43[4] = v25;
+      v42[0] = MEMORY[0x277D85DD0];
+      v42[1] = 3221225472;
+      v42[2] = __36__PLBBAgent_setupIOKitNotifications__block_invoke;
+      v42[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v42[4] = v25;
       if (qword_2811F5450 != -1)
       {
-        dispatch_once(&qword_2811F5450, v43);
+        dispatch_once(&qword_2811F5450, v42);
       }
 
       if (byte_2811F4FD3 != 1)
@@ -5927,7 +6094,7 @@ uint64_t __39__PLBBAgent_setupBBChannelsWithAction___block_invoke_1489(uint64_t 
       }
 
       *buf = 138412290;
-      v45 = v19;
+      v44 = v19;
       goto LABEL_36;
     }
 
@@ -5957,7 +6124,7 @@ uint64_t __39__PLBBAgent_setupBBChannelsWithAction___block_invoke_1489(uint64_t 
         if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v45 = v10;
+          v44 = v10;
           _os_log_debug_impl(&dword_21A4C6000, v15, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
@@ -5973,14 +6140,14 @@ uint64_t __39__PLBBAgent_setupBBChannelsWithAction___block_invoke_1489(uint64_t 
       }
 
       v18 = objc_opt_class();
-      v41[0] = MEMORY[0x277D85DD0];
-      v41[1] = 3221225472;
-      v41[2] = __36__PLBBAgent_setupIOKitNotifications__block_invoke_1506;
-      v41[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v41[4] = v18;
+      v40[0] = MEMORY[0x277D85DD0];
+      v40[1] = 3221225472;
+      v40[2] = __36__PLBBAgent_setupIOKitNotifications__block_invoke_1506;
+      v40[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v40[4] = v18;
       if (qword_2811F5460 != -1)
       {
-        dispatch_once(&qword_2811F5460, v41);
+        dispatch_once(&qword_2811F5460, v40);
       }
 
       if (byte_2811F4FD5 != 1)
@@ -6006,7 +6173,7 @@ LABEL_23:
       }
 
       *buf = 138412290;
-      v45 = v19;
+      v44 = v19;
 LABEL_36:
       _os_log_debug_impl(&dword_21A4C6000, v24, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       goto LABEL_22;
@@ -6015,14 +6182,14 @@ LABEL_36:
     if (debugEnabled2)
     {
       v31 = objc_opt_class();
-      v40[0] = MEMORY[0x277D85DD0];
-      v40[1] = 3221225472;
-      v40[2] = __36__PLBBAgent_setupIOKitNotifications__block_invoke_1512;
-      v40[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v40[4] = v31;
+      v39[0] = MEMORY[0x277D85DD0];
+      v39[1] = 3221225472;
+      v39[2] = __36__PLBBAgent_setupIOKitNotifications__block_invoke_1512;
+      v39[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v39[4] = v31;
       if (qword_2811F5468 != -1)
       {
-        dispatch_once(&qword_2811F5468, v40);
+        dispatch_once(&qword_2811F5468, v39);
       }
 
       if (byte_2811F4FD6 == 1)
@@ -6038,7 +6205,7 @@ LABEL_36:
         if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v45 = v32;
+          v44 = v32;
           _os_log_debug_impl(&dword_21A4C6000, v37, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
@@ -6047,33 +6214,32 @@ LABEL_36:
 
   selfCopy = self;
 LABEL_32:
-  v38 = *MEMORY[0x277D85DE8];
 
   return selfCopy;
 }
 
-uint64_t __36__PLBBAgent_setupIOKitNotifications__block_invoke(uint64_t a1)
+void *__36__PLBBAgent_setupIOKitNotifications__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FD3 = result;
   return result;
 }
 
-uint64_t __36__PLBBAgent_setupIOKitNotifications__block_invoke_1499(uint64_t a1)
+void *__36__PLBBAgent_setupIOKitNotifications__block_invoke_1499(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FD4 = result;
   return result;
 }
 
-uint64_t __36__PLBBAgent_setupIOKitNotifications__block_invoke_1506(uint64_t a1)
+void *__36__PLBBAgent_setupIOKitNotifications__block_invoke_1506(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FD5 = result;
   return result;
 }
 
-uint64_t __36__PLBBAgent_setupIOKitNotifications__block_invoke_1512(uint64_t a1)
+void *__36__PLBBAgent_setupIOKitNotifications__block_invoke_1512(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FD6 = result;
@@ -6125,7 +6291,7 @@ uint64_t __36__PLBBAgent_setupIOKitNotifications__block_invoke_1512(uint64_t a1)
   return 1;
 }
 
-uint64_t __34__PLBBAgent_isTimeToRequestReport__block_invoke(uint64_t a1)
+void *__34__PLBBAgent_isTimeToRequestReport__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FD7 = result;
@@ -6134,15 +6300,15 @@ uint64_t __34__PLBBAgent_isTimeToRequestReport__block_invoke(uint64_t a1)
 
 - (void)cacheCommitTimerFired
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v3 = objc_opt_class();
     block = MEMORY[0x277D85DD0];
-    v12 = 3221225472;
-    v13 = __34__PLBBAgent_cacheCommitTimerFired__block_invoke;
-    v14 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v15 = v3;
+    v11 = 3221225472;
+    v12 = __34__PLBBAgent_cacheCommitTimerFired__block_invoke;
+    v13 = &__block_descriptor_40_e5_v8__0lu32l8;
+    v14 = v3;
     if (qword_2811F5478 != -1)
     {
       dispatch_once(&qword_2811F5478, &block);
@@ -6150,7 +6316,7 @@ uint64_t __34__PLBBAgent_isTimeToRequestReport__block_invoke(uint64_t a1)
 
     if (byte_2811F4FD8 == 1)
     {
-      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", "-[PLBBAgent cacheCommitTimerFired]", block, v12, v13, v14, v15];
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", "-[PLBBAgent cacheCommitTimerFired]", block, v11, v12, v13, v14];
       v5 = MEMORY[0x277D3F178];
       v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
       lastPathComponent = [v6 lastPathComponent];
@@ -6161,17 +6327,16 @@ uint64_t __34__PLBBAgent_isTimeToRequestReport__block_invoke(uint64_t a1)
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v17 = v4;
+        v16 = v4;
         _os_log_debug_impl(&dword_21A4C6000, v9, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
 
   [(PLBBAgent *)self logEventNoneBBReportBy:1 withAction:3];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __34__PLBBAgent_cacheCommitTimerFired__block_invoke(uint64_t a1)
+void *__34__PLBBAgent_cacheCommitTimerFired__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FD8 = result;
@@ -6180,18 +6345,18 @@ uint64_t __34__PLBBAgent_cacheCommitTimerFired__block_invoke(uint64_t a1)
 
 - (void)scheduleFlushPostCacheCommit
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v3 = objc_opt_class();
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __41__PLBBAgent_scheduleFlushPostCacheCommit__block_invoke;
-    v14[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v14[4] = v3;
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __41__PLBBAgent_scheduleFlushPostCacheCommit__block_invoke;
+    v13[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v13[4] = v3;
     if (qword_2811F5480 != -1)
     {
-      dispatch_once(&qword_2811F5480, v14);
+      dispatch_once(&qword_2811F5480, v13);
     }
 
     if (byte_2811F4FD9 == 1)
@@ -6207,7 +6372,7 @@ uint64_t __34__PLBBAgent_cacheCommitTimerFired__block_invoke(uint64_t a1)
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v16 = v4;
+        v15 = v4;
         _os_log_debug_impl(&dword_21A4C6000, v9, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -6221,11 +6386,9 @@ uint64_t __34__PLBBAgent_cacheCommitTimerFired__block_invoke(uint64_t a1)
   block[3] = &unk_2782591D0;
   block[4] = self;
   dispatch_after(v10, workQueue, block);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __41__PLBBAgent_scheduleFlushPostCacheCommit__block_invoke(uint64_t a1)
+void *__41__PLBBAgent_scheduleFlushPostCacheCommit__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FD9 = result;
@@ -6234,7 +6397,7 @@ uint64_t __41__PLBBAgent_scheduleFlushPostCacheCommit__block_invoke(uint64_t a1)
 
 - (void)initCacheCommitTimer
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v3 = objc_opt_class();
@@ -6261,7 +6424,7 @@ uint64_t __41__PLBBAgent_scheduleFlushPostCacheCommit__block_invoke(uint64_t a1)
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v18 = v4;
+        v17 = v4;
         _os_log_debug_impl(&dword_21A4C6000, v9, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -6270,18 +6433,16 @@ uint64_t __41__PLBBAgent_scheduleFlushPostCacheCommit__block_invoke(uint64_t a1)
   v10 = objc_alloc(MEMORY[0x277D3F250]);
   v11 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:300.0];
   workQueue = [(PLOperator *)self workQueue];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __33__PLBBAgent_initCacheCommitTimer__block_invoke_1517;
-  v15[3] = &unk_278259C40;
-  v15[4] = self;
-  v13 = [v10 initWithFireDate:v11 withInterval:1 withTolerance:0 repeats:workQueue withUserInfo:v15 withQueue:300.0 withBlock:0.0];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __33__PLBBAgent_initCacheCommitTimer__block_invoke_1517;
+  v14[3] = &unk_278259C40;
+  v14[4] = self;
+  v13 = [v10 initWithFireDate:v11 withInterval:1 withTolerance:0 repeats:workQueue withUserInfo:v14 withQueue:300.0 withBlock:0.0];
   [(PLBBAgent *)self setCacheCommitTimer:v13];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __33__PLBBAgent_initCacheCommitTimer__block_invoke(uint64_t a1)
+void *__33__PLBBAgent_initCacheCommitTimer__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FDA = result;
@@ -6311,7 +6472,7 @@ uint64_t __33__PLBBAgent_initCacheCommitTimer__block_invoke_1517(uint64_t a1)
 
 - (void)initOperatorDependancies
 {
-  v104 = *MEMORY[0x277D85DE8];
+  v103 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v3 = objc_opt_class();
@@ -6338,7 +6499,7 @@ uint64_t __33__PLBBAgent_initCacheCommitTimer__block_invoke_1517(uint64_t a1)
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v103 = v4;
+        v102 = v4;
         _os_log_debug_impl(&dword_21A4C6000, v9, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -6397,12 +6558,12 @@ uint64_t __33__PLBBAgent_initCacheCommitTimer__block_invoke_1517(uint64_t a1)
   [(PLBBAgent *)self setupTimeUpdateChannel];
   if (([MEMORY[0x277D3F208] isBasebandProto] & 1) != 0 || (objc_msgSend(MEMORY[0x277D3F208], "isBasebandMav") & 1) != 0 || objc_msgSend(MEMORY[0x277D3F208], "isBasebandIce"))
   {
-    v92[0] = MEMORY[0x277D85DD0];
-    v92[1] = 3221225472;
-    v92[2] = __37__PLBBAgent_initOperatorDependancies__block_invoke_1527;
-    v92[3] = &unk_2782597E8;
-    v92[4] = self;
-    v28 = [MEMORY[0x277D3F1A8] significantBatteryChangeNotificationWithOperator:self withBlock:v92];
+    v91[0] = MEMORY[0x277D85DD0];
+    v91[1] = 3221225472;
+    v91[2] = __37__PLBBAgent_initOperatorDependancies__block_invoke_1527;
+    v91[3] = &unk_2782597E8;
+    v91[4] = self;
+    v28 = [MEMORY[0x277D3F1A8] significantBatteryChangeNotificationWithOperator:self withBlock:v91];
     batteryLevelChanged = self->_batteryLevelChanged;
     self->_batteryLevelChanged = v28;
 
@@ -6412,14 +6573,14 @@ LABEL_16:
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
       v30 = objc_opt_class();
-      v90[0] = MEMORY[0x277D85DD0];
-      v90[1] = 3221225472;
-      v90[2] = __37__PLBBAgent_initOperatorDependancies__block_invoke_1535;
-      v90[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v90[4] = v30;
+      v89[0] = MEMORY[0x277D85DD0];
+      v89[1] = 3221225472;
+      v89[2] = __37__PLBBAgent_initOperatorDependancies__block_invoke_1535;
+      v89[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v89[4] = v30;
       if (qword_2811F54A0 != -1)
       {
-        dispatch_once(&qword_2811F54A0, v90);
+        dispatch_once(&qword_2811F54A0, v89);
       }
 
       if (byte_2811F4FDD == 1)
@@ -6435,7 +6596,7 @@ LABEL_16:
         if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v103 = v31;
+          v102 = v31;
           _os_log_debug_impl(&dword_21A4C6000, v36, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
@@ -6450,14 +6611,14 @@ LABEL_16:
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
       v39 = objc_opt_class();
-      v89[0] = MEMORY[0x277D85DD0];
-      v89[1] = 3221225472;
-      v89[2] = __37__PLBBAgent_initOperatorDependancies__block_invoke_1541;
-      v89[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v89[4] = v39;
+      v88[0] = MEMORY[0x277D85DD0];
+      v88[1] = 3221225472;
+      v88[2] = __37__PLBBAgent_initOperatorDependancies__block_invoke_1541;
+      v88[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v88[4] = v39;
       if (qword_2811F54A8 != -1)
       {
-        dispatch_once(&qword_2811F54A8, v89);
+        dispatch_once(&qword_2811F54A8, v88);
       }
 
       if (byte_2811F4FDE == 1)
@@ -6473,7 +6634,7 @@ LABEL_16:
         if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v103 = v40;
+          v102 = v40;
           _os_log_debug_impl(&dword_21A4C6000, v45, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
@@ -6489,87 +6650,87 @@ LABEL_16:
     [(PLBBAgent *)self logTelephonyActivityAtInit];
     v48 = objc_alloc(MEMORY[0x277D3F160]);
     v49 = [MEMORY[0x277D3F258] workQueueForClass:objc_opt_class()];
-    v88[0] = MEMORY[0x277D85DD0];
-    v88[1] = 3221225472;
-    v88[2] = __37__PLBBAgent_initOperatorDependancies__block_invoke_1549;
-    v88[3] = &unk_2782597E8;
-    v88[4] = self;
-    v50 = [v48 initWithWorkQueue:v49 forNotification:@"com.apple.powerlogd.bbreport" requireState:0 withBlock:v88];
+    v87[0] = MEMORY[0x277D85DD0];
+    v87[1] = 3221225472;
+    v87[2] = __37__PLBBAgent_initOperatorDependancies__block_invoke_1549;
+    v87[3] = &unk_2782597E8;
+    v87[4] = self;
+    v50 = [v48 initWithWorkQueue:v49 forNotification:@"com.apple.powerlogd.bbreport" requireState:0 withBlock:v87];
     [(PLBBAgent *)self setCfNotifyBBReport:v50];
 
     v51 = objc_alloc(MEMORY[0x277D3F160]);
     v52 = [MEMORY[0x277D3F258] workQueueForClass:objc_opt_class()];
-    v87[0] = MEMORY[0x277D85DD0];
-    v87[1] = 3221225472;
-    v87[2] = __37__PLBBAgent_initOperatorDependancies__block_invoke_2_1553;
-    v87[3] = &unk_2782597E8;
-    v87[4] = self;
-    v53 = [v51 initWithWorkQueue:v52 forNotification:@"com.apple.powerlogd.bbreport30s" requireState:0 withBlock:v87];
-    [(PLBBAgent *)self setCfNotifyBBReport30s:v53];
-
     v86[0] = MEMORY[0x277D85DD0];
     v86[1] = 3221225472;
-    v86[2] = __37__PLBBAgent_initOperatorDependancies__block_invoke_3;
+    v86[2] = __37__PLBBAgent_initOperatorDependancies__block_invoke_2_1553;
     v86[3] = &unk_2782597E8;
     v86[4] = self;
-    v54 = [MEMORY[0x277D3F1A8] canSleepEntryNotificationWithOperator:self withBlock:v86];
+    v53 = [v51 initWithWorkQueue:v52 forNotification:@"com.apple.powerlogd.bbreport30s" requireState:0 withBlock:v86];
+    [(PLBBAgent *)self setCfNotifyBBReport30s:v53];
+
+    v85[0] = MEMORY[0x277D85DD0];
+    v85[1] = 3221225472;
+    v85[2] = __37__PLBBAgent_initOperatorDependancies__block_invoke_3;
+    v85[3] = &unk_2782597E8;
+    v85[4] = self;
+    v54 = [MEMORY[0x277D3F1A8] canSleepEntryNotificationWithOperator:self withBlock:v85];
     [(PLBBAgent *)self setCanSleepNotification:v54];
 
     v55 = objc_alloc(MEMORY[0x277D3F1A8]);
-    v98 = &unk_282C11D18;
-    v99 = &unk_282C11D30;
-    v100[0] = @"State";
-    v56 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v99 forKeys:&v98 count:1];
-    v100[1] = @"Event";
-    v101[0] = v56;
-    v96 = &unk_282C11D18;
-    v97 = &unk_282C11D48;
-    v57 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v97 forKeys:&v96 count:1];
-    v101[1] = v57;
-    v58 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v101 forKeys:v100 count:2];
-    v85[0] = MEMORY[0x277D85DD0];
-    v85[1] = 3221225472;
-    v85[2] = __37__PLBBAgent_initOperatorDependancies__block_invoke_1570;
-    v85[3] = &unk_2782597E8;
-    v85[4] = self;
-    v59 = [v55 initWithOperator:self forEntryKey:@"PLSleepWakeAgent_EventForward_PowerState" withFilter:v58 withBlock:v85];
+    v97 = &unk_282C11D18;
+    v98 = &unk_282C11D30;
+    v99[0] = @"State";
+    v56 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v98 forKeys:&v97 count:1];
+    v99[1] = @"Event";
+    v100[0] = v56;
+    v95 = &unk_282C11D18;
+    v96 = &unk_282C11D48;
+    v57 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v96 forKeys:&v95 count:1];
+    v100[1] = v57;
+    v58 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v100 forKeys:v99 count:2];
+    v84[0] = MEMORY[0x277D85DD0];
+    v84[1] = 3221225472;
+    v84[2] = __37__PLBBAgent_initOperatorDependancies__block_invoke_1570;
+    v84[3] = &unk_2782597E8;
+    v84[4] = self;
+    v59 = [v55 initWithOperator:self forEntryKey:@"PLSleepWakeAgent_EventForward_PowerState" withFilter:v58 withBlock:v84];
     [(PLBBAgent *)self setDidNotSleepNotification:v59];
 
     v60 = objc_alloc(MEMORY[0x277D3F1A8]);
     v61 = [(PLOperator *)PLBBAgent entryKeyForType:*MEMORY[0x277D3F5E8] andName:@"TelephonyActivity"];
-    v84[0] = MEMORY[0x277D85DD0];
-    v84[1] = 3221225472;
-    v84[2] = __37__PLBBAgent_initOperatorDependancies__block_invoke_2_1571;
-    v84[3] = &unk_2782597E8;
-    v84[4] = self;
-    v62 = [v60 initWithOperator:self forEntryKey:v61 withBlock:v84];
+    v83[0] = MEMORY[0x277D85DD0];
+    v83[1] = 3221225472;
+    v83[2] = __37__PLBBAgent_initOperatorDependancies__block_invoke_2_1571;
+    v83[3] = &unk_2782597E8;
+    v83[4] = self;
+    v62 = [v60 initWithOperator:self forEntryKey:v61 withBlock:v83];
     [(PLBBAgent *)self setTelephonyActivityNotification:v62];
 
     mEMORY[0x277D3F0C0] = [MEMORY[0x277D3F0C0] sharedInstance];
-    v94 = @"BB-Standard";
-    v95 = &unk_282C1C688;
-    v64 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v95 forKeys:&v94 count:1];
+    v93 = @"BB-Standard";
+    v94 = &unk_282C1C688;
+    v64 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v94 forKeys:&v93 count:1];
     monotonicDate = [MEMORY[0x277CBEAA8] monotonicDate];
     [mEMORY[0x277D3F0C0] createDistributionEventForwardWithDistributionID:6 withChildNodeNameToWeight:v64 withStartDate:monotonicDate];
 
     v66 = objc_alloc(MEMORY[0x277D3F1F0]);
-    v83[0] = MEMORY[0x277D85DD0];
-    v83[1] = 3221225472;
-    v83[2] = __37__PLBBAgent_initOperatorDependancies__block_invoke_3_1579;
-    v83[3] = &unk_2782597E8;
-    v83[4] = self;
-    v67 = [v66 initWithOperator:self forNotification:@"PLThermalMonitorNotification" withBlock:v83];
+    v82[0] = MEMORY[0x277D85DD0];
+    v82[1] = 3221225472;
+    v82[2] = __37__PLBBAgent_initOperatorDependancies__block_invoke_3_1579;
+    v82[3] = &unk_2782597E8;
+    v82[4] = self;
+    v67 = [v66 initWithOperator:self forNotification:@"PLThermalMonitorNotification" withBlock:v82];
     thermalMonitorListener = self->_thermalMonitorListener;
     self->_thermalMonitorListener = v67;
 
     v69 = objc_alloc(MEMORY[0x277D3F278]);
     workQueue = [(PLOperator *)self workQueue];
-    v82[0] = MEMORY[0x277D85DD0];
-    v82[1] = 3221225472;
-    v82[2] = __37__PLBBAgent_initOperatorDependancies__block_invoke_3_1598;
-    v82[3] = &unk_278259810;
-    v82[4] = self;
-    v71 = [v69 initWithWorkQueue:workQueue withRegistration:&unk_282C18AA8 withBlock:v82];
+    v81[0] = MEMORY[0x277D85DD0];
+    v81[1] = 3221225472;
+    v81[2] = __37__PLBBAgent_initOperatorDependancies__block_invoke_3_1598;
+    v81[3] = &unk_278259810;
+    v81[4] = self;
+    v71 = [v69 initWithWorkQueue:workQueue withRegistration:&unk_282C18AA8 withBlock:v81];
 
     [(PLBBAgent *)self setBBLogsSysdiagnoseResponder:v71];
     objc_storeStrong(&qword_2811F5260, self);
@@ -6580,7 +6741,7 @@ LABEL_16:
       _os_log_debug_impl(&dword_21A4C6000, v72, OS_LOG_TYPE_DEBUG, "BBAgent: End of initOperatorDependencies", buf, 2u);
     }
 
-    goto LABEL_33;
+    return;
   }
 
   setupIOKitNotifications = [(PLBBAgent *)self setupIOKitNotifications];
@@ -6596,62 +6757,59 @@ LABEL_16:
 
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
-    v75 = objc_opt_class();
-    v91[0] = MEMORY[0x277D85DD0];
-    v91[1] = 3221225472;
-    v91[2] = __37__PLBBAgent_initOperatorDependancies__block_invoke_2;
-    v91[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v91[4] = v75;
+    v74 = objc_opt_class();
+    v90[0] = MEMORY[0x277D85DD0];
+    v90[1] = 3221225472;
+    v90[2] = __37__PLBBAgent_initOperatorDependancies__block_invoke_2;
+    v90[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v90[4] = v74;
     if (qword_2811F5498 != -1)
     {
-      dispatch_once(&qword_2811F5498, v91);
+      dispatch_once(&qword_2811F5498, v90);
     }
 
     if (byte_2811F4FDC == 1)
     {
-      v76 = [MEMORY[0x277CCACA8] stringWithFormat:@"Error: BBAgent no ioKitNotifications"];
-      v77 = MEMORY[0x277D3F178];
-      v78 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
-      lastPathComponent4 = [v78 lastPathComponent];
-      v80 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLBBAgent initOperatorDependancies]"];
-      [v77 logMessage:v76 fromFile:lastPathComponent4 fromFunction:v80 fromLineNumber:2855];
+      v75 = [MEMORY[0x277CCACA8] stringWithFormat:@"Error: BBAgent no ioKitNotifications"];
+      v76 = MEMORY[0x277D3F178];
+      v77 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
+      lastPathComponent4 = [v77 lastPathComponent];
+      v79 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLBBAgent initOperatorDependancies]"];
+      [v76 logMessage:v75 fromFile:lastPathComponent4 fromFunction:v79 fromLineNumber:2855];
 
-      v81 = PLLogCommon();
-      if (os_log_type_enabled(v81, OS_LOG_TYPE_DEBUG))
+      v80 = PLLogCommon();
+      if (os_log_type_enabled(v80, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v103 = v76;
-        _os_log_debug_impl(&dword_21A4C6000, v81, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+        v102 = v75;
+        _os_log_debug_impl(&dword_21A4C6000, v80, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
-
-LABEL_33:
-  v73 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __37__PLBBAgent_initOperatorDependancies__block_invoke(uint64_t a1)
+void *__37__PLBBAgent_initOperatorDependancies__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FDB = result;
   return result;
 }
 
-uint64_t __37__PLBBAgent_initOperatorDependancies__block_invoke_2(uint64_t a1)
+void *__37__PLBBAgent_initOperatorDependancies__block_invoke_2(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FDC = result;
   return result;
 }
 
-uint64_t __37__PLBBAgent_initOperatorDependancies__block_invoke_1535(uint64_t a1)
+void *__37__PLBBAgent_initOperatorDependancies__block_invoke_1535(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FDD = result;
   return result;
 }
 
-uint64_t __37__PLBBAgent_initOperatorDependancies__block_invoke_1541(uint64_t a1)
+void *__37__PLBBAgent_initOperatorDependancies__block_invoke_1541(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FDE = result;
@@ -6738,22 +6896,22 @@ void *__37__PLBBAgent_initOperatorDependancies__block_invoke_3_1598(uint64_t a1)
 
 - (void)logEntry:(id)entry
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   entryCopy = entry;
-  v50.receiver = self;
-  v50.super_class = PLBBAgent;
-  [(PLOperator *)&v50 logEntry:entryCopy];
+  v49.receiver = self;
+  v49.super_class = PLBBAgent;
+  [(PLOperator *)&v49 logEntry:entryCopy];
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v5 = objc_opt_class();
-    v49[0] = MEMORY[0x277D85DD0];
-    v49[1] = 3221225472;
-    v49[2] = __22__PLBBAgent_logEntry___block_invoke;
-    v49[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v49[4] = v5;
+    v48[0] = MEMORY[0x277D85DD0];
+    v48[1] = 3221225472;
+    v48[2] = __22__PLBBAgent_logEntry___block_invoke;
+    v48[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v48[4] = v5;
     if (qword_2811F54B0 != -1)
     {
-      dispatch_once(&qword_2811F54B0, v49);
+      dispatch_once(&qword_2811F54B0, v48);
     }
 
     if (byte_2811F4FDF == 1)
@@ -6769,7 +6927,7 @@ void *__37__PLBBAgent_initOperatorDependancies__block_invoke_3_1598(uint64_t a1)
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v52 = v6;
+        v51 = v6;
         _os_log_debug_impl(&dword_21A4C6000, v11, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -6799,7 +6957,7 @@ void *__37__PLBBAgent_initOperatorDependancies__block_invoke_3_1598(uint64_t a1)
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v52 = v13;
+      v51 = v13;
       _os_log_debug_impl(&dword_21A4C6000, v18, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
 
@@ -6814,7 +6972,7 @@ void *__37__PLBBAgent_initOperatorDependancies__block_invoke_3_1598(uint64_t a1)
     if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v52 = v19;
+      v51 = v19;
       _os_log_debug_impl(&dword_21A4C6000, v24, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
 
@@ -6832,7 +6990,7 @@ void *__37__PLBBAgent_initOperatorDependancies__block_invoke_3_1598(uint64_t a1)
     if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v52 = v27;
+      v51 = v27;
       _os_log_debug_impl(&dword_21A4C6000, v32, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
 
@@ -6850,7 +7008,7 @@ void *__37__PLBBAgent_initOperatorDependancies__block_invoke_3_1598(uint64_t a1)
     if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v52 = v35;
+      v51 = v35;
       _os_log_debug_impl(&dword_21A4C6000, v40, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
 
@@ -6865,22 +7023,20 @@ void *__37__PLBBAgent_initOperatorDependancies__block_invoke_3_1598(uint64_t a1)
     if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v52 = v41;
+      v51 = v41;
       _os_log_debug_impl(&dword_21A4C6000, v46, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
   }
-
-  v47 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __22__PLBBAgent_logEntry___block_invoke(uint64_t a1)
+void *__22__PLBBAgent_logEntry___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FDF = result;
   return result;
 }
 
-uint64_t __22__PLBBAgent_logEntry___block_invoke_1621(uint64_t a1)
+void *__22__PLBBAgent_logEntry___block_invoke_1621(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FE0 = result;
@@ -6889,19 +7045,19 @@ uint64_t __22__PLBBAgent_logEntry___block_invoke_1621(uint64_t a1)
 
 - (void)logEntries:(id)entries withGroupID:(id)d
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   entriesCopy = entries;
-  v23.receiver = self;
-  v23.super_class = PLBBAgent;
-  [(PLOperator *)&v23 logEntries:entriesCopy withGroupID:d];
+  v22.receiver = self;
+  v22.super_class = PLBBAgent;
+  [(PLOperator *)&v22 logEntries:entriesCopy withGroupID:d];
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v7 = objc_opt_class();
     block = MEMORY[0x277D85DD0];
-    v19 = 3221225472;
-    v20 = __36__PLBBAgent_logEntries_withGroupID___block_invoke;
-    v21 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v22 = v7;
+    v18 = 3221225472;
+    v19 = __36__PLBBAgent_logEntries_withGroupID___block_invoke;
+    v20 = &__block_descriptor_40_e5_v8__0lu32l8;
+    v21 = v7;
     if (qword_2811F54C0 != -1)
     {
       dispatch_once(&qword_2811F54C0, &block);
@@ -6909,7 +7065,7 @@ uint64_t __22__PLBBAgent_logEntry___block_invoke_1621(uint64_t a1)
 
     if (byte_2811F4FE1 == 1)
     {
-      v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", "-[PLBBAgent logEntries:withGroupID:]", block, v19, v20, v21, v22];
+      v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", "-[PLBBAgent logEntries:withGroupID:]", block, v18, v19, v20, v21];
       v9 = MEMORY[0x277D3F178];
       v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
       lastPathComponent = [v10 lastPathComponent];
@@ -6920,7 +7076,7 @@ uint64_t __22__PLBBAgent_logEntry___block_invoke_1621(uint64_t a1)
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v25 = v8;
+        v24 = v8;
         _os_log_debug_impl(&dword_21A4C6000, v13, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -6950,11 +7106,9 @@ uint64_t __22__PLBBAgent_logEntry___block_invoke_1621(uint64_t a1)
   {
     [(PLBBAgent *)self modelScanPower:entriesCopy];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __36__PLBBAgent_logEntries_withGroupID___block_invoke(uint64_t a1)
+void *__36__PLBBAgent_logEntries_withGroupID___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FE1 = result;
@@ -6963,7 +7117,7 @@ uint64_t __36__PLBBAgent_logEntries_withGroupID___block_invoke(uint64_t a1)
 
 - (void)log
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v3 = objc_opt_class();
@@ -6990,7 +7144,7 @@ uint64_t __36__PLBBAgent_logEntries_withGroupID___block_invoke(uint64_t a1)
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v30 = v4;
+        v29 = v4;
         _os_log_debug_impl(&dword_21A4C6000, v9, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -7001,14 +7155,14 @@ uint64_t __36__PLBBAgent_logEntries_withGroupID___block_invoke(uint64_t a1)
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
       v10 = objc_opt_class();
-      v27[0] = MEMORY[0x277D85DD0];
-      v27[1] = 3221225472;
-      v27[2] = __16__PLBBAgent_log__block_invoke_1641;
-      v27[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v27[4] = v10;
+      v26[0] = MEMORY[0x277D85DD0];
+      v26[1] = 3221225472;
+      v26[2] = __16__PLBBAgent_log__block_invoke_1641;
+      v26[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v26[4] = v10;
       if (qword_2811F54D0 != -1)
       {
-        dispatch_once(&qword_2811F54D0, v27);
+        dispatch_once(&qword_2811F54D0, v26);
       }
 
       if (byte_2811F4FE3 == 1)
@@ -7024,7 +7178,7 @@ uint64_t __36__PLBBAgent_logEntries_withGroupID___block_invoke(uint64_t a1)
         if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v30 = v11;
+          v29 = v11;
           _os_log_debug_impl(&dword_21A4C6000, v16, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
@@ -7037,32 +7191,32 @@ uint64_t __36__PLBBAgent_logEntries_withGroupID___block_invoke(uint64_t a1)
   {
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
-      v19 = objc_opt_class();
-      v26[0] = MEMORY[0x277D85DD0];
-      v26[1] = 3221225472;
-      v26[2] = __16__PLBBAgent_log__block_invoke_1647;
-      v26[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v26[4] = v19;
+      v18 = objc_opt_class();
+      v25[0] = MEMORY[0x277D85DD0];
+      v25[1] = 3221225472;
+      v25[2] = __16__PLBBAgent_log__block_invoke_1647;
+      v25[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v25[4] = v18;
       if (qword_2811F54D8 != -1)
       {
-        dispatch_once(&qword_2811F54D8, v26);
+        dispatch_once(&qword_2811F54D8, v25);
       }
 
       if (byte_2811F4FE4 == 1)
       {
-        v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"PLBBAgent:log for Mav"];
-        v21 = MEMORY[0x277D3F178];
-        v22 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
-        lastPathComponent3 = [v22 lastPathComponent];
-        v24 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLBBAgent log]"];
-        [v21 logMessage:v20 fromFile:lastPathComponent3 fromFunction:v24 fromLineNumber:3075];
+        v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"PLBBAgent:log for Mav"];
+        v20 = MEMORY[0x277D3F178];
+        v21 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
+        lastPathComponent3 = [v21 lastPathComponent];
+        v23 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLBBAgent log]"];
+        [v20 logMessage:v19 fromFile:lastPathComponent3 fromFunction:v23 fromLineNumber:3075];
 
-        v25 = PLLogCommon();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+        v24 = PLLogCommon();
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v30 = v20;
-          _os_log_debug_impl(&dword_21A4C6000, v25, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+          v29 = v19;
+          _os_log_debug_impl(&dword_21A4C6000, v24, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
     }
@@ -7072,24 +7226,23 @@ uint64_t __36__PLBBAgent_logEntries_withGroupID___block_invoke(uint64_t a1)
   }
 
   [(PLBBAgent *)self logEventNoneBBReportBy:4 withAction:v17];
-  v18 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __16__PLBBAgent_log__block_invoke(uint64_t a1)
+void *__16__PLBBAgent_log__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FE2 = result;
   return result;
 }
 
-uint64_t __16__PLBBAgent_log__block_invoke_1641(uint64_t a1)
+void *__16__PLBBAgent_log__block_invoke_1641(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FE3 = result;
   return result;
 }
 
-uint64_t __16__PLBBAgent_log__block_invoke_1647(uint64_t a1)
+void *__16__PLBBAgent_log__block_invoke_1647(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FE4 = result;
@@ -7098,7 +7251,7 @@ uint64_t __16__PLBBAgent_log__block_invoke_1647(uint64_t a1)
 
 - (void)flushBBCacheWithClientInfo:(int64_t)info
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v5 = objc_opt_class();
@@ -7125,7 +7278,7 @@ uint64_t __16__PLBBAgent_log__block_invoke_1647(uint64_t a1)
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v35 = v6;
+        v34 = v6;
         _os_log_debug_impl(&dword_21A4C6000, v11, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -7134,14 +7287,14 @@ uint64_t __16__PLBBAgent_log__block_invoke_1647(uint64_t a1)
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v12 = objc_opt_class();
-    v32[0] = MEMORY[0x277D85DD0];
-    v32[1] = 3221225472;
-    v32[2] = __40__PLBBAgent_flushBBCacheWithClientInfo___block_invoke_1653;
-    v32[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v32[4] = v12;
+    v31[0] = MEMORY[0x277D85DD0];
+    v31[1] = 3221225472;
+    v31[2] = __40__PLBBAgent_flushBBCacheWithClientInfo___block_invoke_1653;
+    v31[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v31[4] = v12;
     if (qword_2811F54E8 != -1)
     {
-      dispatch_once(&qword_2811F54E8, v32);
+      dispatch_once(&qword_2811F54E8, v31);
     }
 
     if (byte_2811F4FE6 == 1)
@@ -7157,7 +7310,7 @@ uint64_t __16__PLBBAgent_log__block_invoke_1647(uint64_t a1)
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v35 = info;
+        v34 = info;
         _os_log_debug_impl(&dword_21A4C6000, v18, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -7171,19 +7324,19 @@ uint64_t __16__PLBBAgent_log__block_invoke_1647(uint64_t a1)
   else if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v19 = objc_opt_class();
-    v27 = MEMORY[0x277D85DD0];
-    v28 = 3221225472;
-    v29 = __40__PLBBAgent_flushBBCacheWithClientInfo___block_invoke_1659;
-    v30 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v31 = v19;
+    v26 = MEMORY[0x277D85DD0];
+    v27 = 3221225472;
+    v28 = __40__PLBBAgent_flushBBCacheWithClientInfo___block_invoke_1659;
+    v29 = &__block_descriptor_40_e5_v8__0lu32l8;
+    v30 = v19;
     if (qword_2811F54F0 != -1)
     {
-      dispatch_once(&qword_2811F54F0, &v27);
+      dispatch_once(&qword_2811F54F0, &v26);
     }
 
     if (byte_2811F4FE7 == 1)
     {
-      v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"Error: PLBBAgent log method called by %ld before init", info, v27, v28, v29, v30, v31];
+      v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"Error: PLBBAgent log method called by %ld before init", info, v26, v27, v28, v29, v30];
       v21 = MEMORY[0x277D3F178];
       v22 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
       lastPathComponent3 = [v22 lastPathComponent];
@@ -7194,30 +7347,28 @@ uint64_t __16__PLBBAgent_log__block_invoke_1647(uint64_t a1)
       if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v35 = v20;
+        v34 = v20;
         _os_log_debug_impl(&dword_21A4C6000, v25, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __40__PLBBAgent_flushBBCacheWithClientInfo___block_invoke(uint64_t a1)
+void *__40__PLBBAgent_flushBBCacheWithClientInfo___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FE5 = result;
   return result;
 }
 
-uint64_t __40__PLBBAgent_flushBBCacheWithClientInfo___block_invoke_1653(uint64_t a1)
+void *__40__PLBBAgent_flushBBCacheWithClientInfo___block_invoke_1653(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FE6 = result;
   return result;
 }
 
-uint64_t __40__PLBBAgent_flushBBCacheWithClientInfo___block_invoke_1659(uint64_t a1)
+void *__40__PLBBAgent_flushBBCacheWithClientInfo___block_invoke_1659(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FE7 = result;
@@ -7226,7 +7377,7 @@ uint64_t __40__PLBBAgent_flushBBCacheWithClientInfo___block_invoke_1659(uint64_t
 
 - (void)commitBBCacheWithClientInfo:(int64_t)info
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v5 = objc_opt_class();
@@ -7253,7 +7404,7 @@ uint64_t __40__PLBBAgent_flushBBCacheWithClientInfo___block_invoke_1659(uint64_t
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v23 = info;
+        v22 = info;
         _os_log_debug_impl(&dword_21A4C6000, v11, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -7267,14 +7418,14 @@ uint64_t __40__PLBBAgent_flushBBCacheWithClientInfo___block_invoke_1659(uint64_t
   else if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v12 = objc_opt_class();
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __41__PLBBAgent_commitBBCacheWithClientInfo___block_invoke_1668;
-    v20[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v20[4] = v12;
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __41__PLBBAgent_commitBBCacheWithClientInfo___block_invoke_1668;
+    v19[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v19[4] = v12;
     if (qword_2811F5500 != -1)
     {
-      dispatch_once(&qword_2811F5500, v20);
+      dispatch_once(&qword_2811F5500, v19);
     }
 
     if (byte_2811F4FE9 == 1)
@@ -7290,32 +7441,50 @@ uint64_t __40__PLBBAgent_flushBBCacheWithClientInfo___block_invoke_1659(uint64_t
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v23 = info2;
+        v22 = info2;
         _os_log_debug_impl(&dword_21A4C6000, v18, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __41__PLBBAgent_commitBBCacheWithClientInfo___block_invoke(uint64_t a1)
+void *__41__PLBBAgent_commitBBCacheWithClientInfo___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FE8 = result;
   return result;
 }
 
-uint64_t __41__PLBBAgent_commitBBCacheWithClientInfo___block_invoke_1668(uint64_t a1)
+void *__41__PLBBAgent_commitBBCacheWithClientInfo___block_invoke_1668(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FE9 = result;
   return result;
 }
 
+- (void)logCommandInfo:(int)info result:(BOOL)result resultDescription:(id)description
+{
+  resultCopy = result;
+  v6 = *&info;
+  descriptionCopy = description;
+  if ([MEMORY[0x277D3F208] internalBuild])
+  {
+    v8 = [(PLOperator *)PLBBAgent entryKeyForType:*MEMORY[0x277D3F5E8] andName:@"CommandInfo"];
+    v9 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v8];
+    v10 = [MEMORY[0x277CCABB0] numberWithInt:v6];
+    [v9 setObject:v10 forKeyedSubscript:@"commandType"];
+
+    v11 = [MEMORY[0x277CCABB0] numberWithBool:resultCopy];
+    [v9 setObject:v11 forKeyedSubscript:@"commandResult"];
+
+    [v9 setObject:descriptionCopy forKeyedSubscript:@"commandResultDescription"];
+    [(PLBBAgent *)self logEntry:v9];
+  }
+}
+
 - (void)logTelephonyRegMsgWith:(id)with
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277D3F180];
   withCopy = with;
   if ([v4 debugEnabled])
@@ -7344,7 +7513,7 @@ uint64_t __41__PLBBAgent_commitBBCacheWithClientInfo___block_invoke_1668(uint64_
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v25 = v7;
+        v24 = v7;
         _os_log_debug_impl(&dword_21A4C6000, v12, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -7356,14 +7525,14 @@ uint64_t __41__PLBBAgent_commitBBCacheWithClientInfo___block_invoke_1668(uint64_
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v14 = objc_opt_class();
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __36__PLBBAgent_logTelephonyRegMsgWith___block_invoke_1674;
-    v22[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v22[4] = v14;
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __36__PLBBAgent_logTelephonyRegMsgWith___block_invoke_1674;
+    v21[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v21[4] = v14;
     if (qword_2811F5510 != -1)
     {
-      dispatch_once(&qword_2811F5510, v22);
+      dispatch_once(&qword_2811F5510, v21);
     }
 
     if (byte_2811F4FEB == 1)
@@ -7379,25 +7548,23 @@ uint64_t __41__PLBBAgent_commitBBCacheWithClientInfo___block_invoke_1668(uint64_
       if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v25 = v15;
+        v24 = v15;
         _os_log_debug_impl(&dword_21A4C6000, v20, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
 
   [telRegMsgHelper logEventPointTelephonyRegistration];
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __36__PLBBAgent_logTelephonyRegMsgWith___block_invoke(uint64_t a1)
+void *__36__PLBBAgent_logTelephonyRegMsgWith___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FEA = result;
   return result;
 }
 
-uint64_t __36__PLBBAgent_logTelephonyRegMsgWith___block_invoke_1674(uint64_t a1)
+void *__36__PLBBAgent_logTelephonyRegMsgWith___block_invoke_1674(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FEB = result;
@@ -7456,12 +7623,12 @@ uint64_t __36__PLBBAgent_logTelephonyRegMsgWith___block_invoke_1674(uint64_t a1)
 
 - (void)logTelephonyRegistrationAtInit
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = PLLogCommon();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v19 = "[PLBBAgent logTelephonyRegistrationAtInit]";
+    v18 = "[PLBBAgent logTelephonyRegistrationAtInit]";
     _os_log_debug_impl(&dword_21A4C6000, v3, OS_LOG_TYPE_DEBUG, "%s", buf, 0xCu);
   }
 
@@ -7469,10 +7636,10 @@ uint64_t __36__PLBBAgent_logTelephonyRegMsgWith___block_invoke_1674(uint64_t a1)
   {
     v4 = objc_opt_class();
     block = MEMORY[0x277D85DD0];
-    v14 = 3221225472;
-    v15 = __43__PLBBAgent_logTelephonyRegistrationAtInit__block_invoke;
-    v16 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v17 = v4;
+    v13 = 3221225472;
+    v14 = __43__PLBBAgent_logTelephonyRegistrationAtInit__block_invoke;
+    v15 = &__block_descriptor_40_e5_v8__0lu32l8;
+    v16 = v4;
     if (qword_2811F5518 != -1)
     {
       dispatch_once(&qword_2811F5518, &block);
@@ -7480,7 +7647,7 @@ uint64_t __36__PLBBAgent_logTelephonyRegMsgWith___block_invoke_1674(uint64_t a1)
 
     if (byte_2811F4FEC == 1)
     {
-      v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", "-[PLBBAgent logTelephonyRegistrationAtInit]", block, v14, v15, v16, v17];
+      v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", "-[PLBBAgent logTelephonyRegistrationAtInit]", block, v13, v14, v15, v16];
       v6 = MEMORY[0x277D3F178];
       v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
       lastPathComponent = [v7 lastPathComponent];
@@ -7491,7 +7658,7 @@ uint64_t __36__PLBBAgent_logTelephonyRegMsgWith___block_invoke_1674(uint64_t a1)
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v19 = v5;
+        v18 = v5;
         _os_log_debug_impl(&dword_21A4C6000, v10, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -7500,11 +7667,9 @@ uint64_t __36__PLBBAgent_logTelephonyRegMsgWith___block_invoke_1674(uint64_t a1)
   telRegMsgHelper = [(PLBBAgent *)self telRegMsgHelper];
   [telRegMsgHelper logEventPointTelephonyRegistrationAtInit];
   [(PLBBAgent *)self logTelephonyRegistrationDSDSAtInit];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __43__PLBBAgent_logTelephonyRegistrationAtInit__block_invoke(uint64_t a1)
+void *__43__PLBBAgent_logTelephonyRegistrationAtInit__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FEC = result;
@@ -7513,12 +7678,12 @@ uint64_t __43__PLBBAgent_logTelephonyRegistrationAtInit__block_invoke(uint64_t a
 
 - (void)logTelephonyActivityAtInit
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = PLLogCommon();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v19 = "[PLBBAgent logTelephonyActivityAtInit]";
+    v18 = "[PLBBAgent logTelephonyActivityAtInit]";
     _os_log_debug_impl(&dword_21A4C6000, v3, OS_LOG_TYPE_DEBUG, "%s", buf, 0xCu);
   }
 
@@ -7526,10 +7691,10 @@ uint64_t __43__PLBBAgent_logTelephonyRegistrationAtInit__block_invoke(uint64_t a
   {
     v4 = objc_opt_class();
     block = MEMORY[0x277D85DD0];
-    v14 = 3221225472;
-    v15 = __39__PLBBAgent_logTelephonyActivityAtInit__block_invoke;
-    v16 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v17 = v4;
+    v13 = 3221225472;
+    v14 = __39__PLBBAgent_logTelephonyActivityAtInit__block_invoke;
+    v15 = &__block_descriptor_40_e5_v8__0lu32l8;
+    v16 = v4;
     if (qword_2811F5520 != -1)
     {
       dispatch_once(&qword_2811F5520, &block);
@@ -7537,7 +7702,7 @@ uint64_t __43__PLBBAgent_logTelephonyRegistrationAtInit__block_invoke(uint64_t a
 
     if (byte_2811F4FED == 1)
     {
-      v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", "-[PLBBAgent logTelephonyActivityAtInit]", block, v14, v15, v16, v17];
+      v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", "-[PLBBAgent logTelephonyActivityAtInit]", block, v13, v14, v15, v16];
       v6 = MEMORY[0x277D3F178];
       v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
       lastPathComponent = [v7 lastPathComponent];
@@ -7548,7 +7713,7 @@ uint64_t __43__PLBBAgent_logTelephonyRegistrationAtInit__block_invoke(uint64_t a
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v19 = v5;
+        v18 = v5;
         _os_log_debug_impl(&dword_21A4C6000, v10, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -7563,11 +7728,9 @@ uint64_t __43__PLBBAgent_logTelephonyRegistrationAtInit__block_invoke(uint64_t a
   }
 
   [(PLBBAgent *)self logTelephonyActivityDSDSAtInit];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __39__PLBBAgent_logTelephonyActivityAtInit__block_invoke(uint64_t a1)
+void *__39__PLBBAgent_logTelephonyActivityAtInit__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FED = result;
@@ -7576,71 +7739,67 @@ uint64_t __39__PLBBAgent_logTelephonyActivityAtInit__block_invoke(uint64_t a1)
 
 + (id)entryIceMsgLite
 {
-  v19[2] = *MEMORY[0x277D85DE8];
-  v18[0] = *MEMORY[0x277D3F4E8];
+  v18[2] = *MEMORY[0x277D85DE8];
+  v17[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F548];
-  v16[0] = *MEMORY[0x277D3F568];
-  v16[1] = v2;
-  v17[0] = &unk_282C1C688;
-  v17[1] = @"refreshRequestHandler";
-  v16[2] = *MEMORY[0x277D3F558];
-  v17[2] = MEMORY[0x277CBEC38];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:3];
-  v19[0] = v3;
-  v18[1] = *MEMORY[0x277D3F540];
-  v14[0] = @"value_enabled";
+  v15[0] = *MEMORY[0x277D3F568];
+  v15[1] = v2;
+  v16[0] = &unk_282C1C688;
+  v16[1] = @"refreshRequestHandler";
+  v15[2] = *MEMORY[0x277D3F558];
+  v16[2] = MEMORY[0x277CBEC38];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:3];
+  v18[0] = v3;
+  v17[1] = *MEMORY[0x277D3F540];
+  v13[0] = @"value_enabled";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat = [mEMORY[0x277D3F198] commonTypeDict_StringFormat];
-  v15[0] = commonTypeDict_StringFormat;
-  v14[1] = @"value_history";
+  v14[0] = commonTypeDict_StringFormat;
+  v13[1] = @"value_history";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat2 = [mEMORY[0x277D3F198]2 commonTypeDict_StringFormat];
-  v15[1] = commonTypeDict_StringFormat2;
-  v14[2] = @"unit";
+  v14[1] = commonTypeDict_StringFormat2;
+  v13[2] = @"unit";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat3 = [mEMORY[0x277D3F198]3 commonTypeDict_StringFormat];
-  v15[2] = commonTypeDict_StringFormat3;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
-  v19[1] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v14[2] = commonTypeDict_StringFormat3;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:3];
+  v18[1] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
 
   return v11;
 }
 
 + (id)entryEventNoneBBReport
 {
-  v17[2] = *MEMORY[0x277D85DE8];
-  v16[0] = *MEMORY[0x277D3F4E8];
+  v16[2] = *MEMORY[0x277D85DE8];
+  v15[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F548];
-  v14[0] = *MEMORY[0x277D3F568];
-  v14[1] = v2;
-  v15[0] = &unk_282C1C698;
-  v15[1] = @"refreshBBReport";
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
-  v17[0] = v3;
-  v16[1] = *MEMORY[0x277D3F540];
-  v12[0] = @"ClientName";
+  v13[0] = *MEMORY[0x277D3F568];
+  v13[1] = v2;
+  v14[0] = &unk_282C1C698;
+  v14[1] = @"refreshBBReport";
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
+  v16[0] = v3;
+  v15[1] = *MEMORY[0x277D3F540];
+  v11[0] = @"ClientName";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v12[1] = @"ClientAction";
-  v13[0] = commonTypeDict_IntegerFormat;
+  v11[1] = @"ClientAction";
+  v12[0] = commonTypeDict_IntegerFormat;
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat];
-  v13[1] = commonTypeDict_IntegerFormat2;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
-  v17[1] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12[1] = commonTypeDict_IntegerFormat2;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v16[1] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
 
   return v9;
 }
 
 + (id)entryEventForwardSDM
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F208] kPLBasebandClassOfDevice] < 1003012)
   {
     v8 = MEMORY[0x277CBEC10];
@@ -7648,39 +7807,37 @@ uint64_t __39__PLBBAgent_logTelephonyActivityAtInit__block_invoke(uint64_t a1)
 
   else
   {
-    v15[0] = *MEMORY[0x277D3F4E8];
-    v13 = *MEMORY[0x277D3F568];
-    v14 = &unk_282C1C688;
-    v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
-    v16[0] = v2;
-    v15[1] = *MEMORY[0x277D3F540];
-    v11[0] = @"SDMState";
+    v14[0] = *MEMORY[0x277D3F4E8];
+    v12 = *MEMORY[0x277D3F568];
+    v13 = &unk_282C1C688;
+    v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
+    v15[0] = v2;
+    v14[1] = *MEMORY[0x277D3F540];
+    v10[0] = @"SDMState";
     mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-    v11[1] = @"subsId";
-    v12[0] = commonTypeDict_IntegerFormat;
+    v10[1] = @"subsId";
+    v11[0] = commonTypeDict_IntegerFormat;
     mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat];
-    v12[1] = commonTypeDict_IntegerFormat2;
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
-    v16[1] = v7;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
+    v11[1] = commonTypeDict_IntegerFormat2;
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+    v15[1] = v7;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 - (void)refreshBBReport
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   v4 = PLLogCommon();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v20 = "[PLBBAgent refreshBBReport]";
+    v19 = "[PLBBAgent refreshBBReport]";
     _os_log_debug_impl(&dword_21A4C6000, v4, OS_LOG_TYPE_DEBUG, "%s", buf, 0xCu);
   }
 
@@ -7688,10 +7845,10 @@ uint64_t __39__PLBBAgent_logTelephonyActivityAtInit__block_invoke(uint64_t a1)
   {
     v5 = objc_opt_class();
     block = MEMORY[0x277D85DD0];
-    v15 = 3221225472;
-    v16 = __28__PLBBAgent_refreshBBReport__block_invoke;
-    v17 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v18 = v5;
+    v14 = 3221225472;
+    v15 = __28__PLBBAgent_refreshBBReport__block_invoke;
+    v16 = &__block_descriptor_40_e5_v8__0lu32l8;
+    v17 = v5;
     if (qword_2811F5528 != -1)
     {
       dispatch_once(&qword_2811F5528, &block);
@@ -7699,7 +7856,7 @@ uint64_t __39__PLBBAgent_logTelephonyActivityAtInit__block_invoke(uint64_t a1)
 
     if (byte_2811F4FEE == 1)
     {
-      v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", "-[PLBBAgent refreshBBReport]", block, v15, v16, v17, v18];
+      v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", "-[PLBBAgent refreshBBReport]", block, v14, v15, v16, v17];
       v7 = MEMORY[0x277D3F178];
       v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
       lastPathComponent = [v8 lastPathComponent];
@@ -7710,7 +7867,7 @@ uint64_t __39__PLBBAgent_logTelephonyActivityAtInit__block_invoke(uint64_t a1)
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v20 = v6;
+        v19 = v6;
         _os_log_debug_impl(&dword_21A4C6000, v11, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -7741,10 +7898,9 @@ uint64_t __39__PLBBAgent_logTelephonyActivityAtInit__block_invoke(uint64_t a1)
   }
 
   objc_autoreleasePoolPop(v3);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __28__PLBBAgent_refreshBBReport__block_invoke(uint64_t a1)
+void *__28__PLBBAgent_refreshBBReport__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FEE = result;
@@ -7753,7 +7909,7 @@ uint64_t __28__PLBBAgent_refreshBBReport__block_invoke(uint64_t a1)
 
 - (void)logEventNoneBBReportBy:(int64_t)by withAction:(int64_t)action
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v7 = objc_opt_class();
@@ -7817,7 +7973,7 @@ uint64_t __28__PLBBAgent_refreshBBReport__block_invoke(uint64_t a1)
   {
     *buf = 134218240;
     byCopy = by;
-    v46 = 2048;
+    v45 = 2048;
     actionCopy = action;
     _os_log_debug_impl(&dword_21A4C6000, v22, OS_LOG_TYPE_DEBUG, "logEventNoneBBReportBy Client %ld, Action %ld", buf, 0x16u);
   }
@@ -7825,14 +7981,14 @@ uint64_t __28__PLBBAgent_refreshBBReport__block_invoke(uint64_t a1)
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v23 = objc_opt_class();
-    v42[0] = MEMORY[0x277D85DD0];
-    v42[1] = 3221225472;
-    v42[2] = __47__PLBBAgent_logEventNoneBBReportBy_withAction___block_invoke_1718;
-    v42[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v42[4] = v23;
+    v41[0] = MEMORY[0x277D85DD0];
+    v41[1] = 3221225472;
+    v41[2] = __47__PLBBAgent_logEventNoneBBReportBy_withAction___block_invoke_1718;
+    v41[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v41[4] = v23;
     if (qword_2811F5538 != -1)
     {
-      dispatch_once(&qword_2811F5538, v42);
+      dispatch_once(&qword_2811F5538, v41);
     }
 
     if (byte_2811F4FF0 == 1)
@@ -7869,7 +8025,7 @@ uint64_t __28__PLBBAgent_refreshBBReport__block_invoke(uint64_t a1)
 
       if (![MEMORY[0x277D3F208] isBasebandMav])
       {
-        goto LABEL_46;
+        return;
       }
 
       mEMORY[0x277D3F120] = [MEMORY[0x277D3F120] sharedABMClient];
@@ -7894,33 +8050,33 @@ LABEL_44:
     [mEMORY[0x277D3F120] triggerPeriodicMetrics:v32 andprofileId:v33];
 LABEL_45:
 
-    goto LABEL_46;
+    return;
   }
 
   if (action == 3)
   {
     [(PLBBAgent *)self commitBBCacheWithClientInfo:by];
-    goto LABEL_46;
+    return;
   }
 
   if (action == 4)
   {
     [(PLBBAgent *)self flushBBCacheWithClientInfo:by];
-    goto LABEL_46;
+    return;
   }
 
 LABEL_34:
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v34 = objc_opt_class();
-    v41[0] = MEMORY[0x277D85DD0];
-    v41[1] = 3221225472;
-    v41[2] = __47__PLBBAgent_logEventNoneBBReportBy_withAction___block_invoke_1724;
-    v41[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v41[4] = v34;
+    v40[0] = MEMORY[0x277D85DD0];
+    v40[1] = 3221225472;
+    v40[2] = __47__PLBBAgent_logEventNoneBBReportBy_withAction___block_invoke_1724;
+    v40[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v40[4] = v34;
     if (qword_2811F5540 != -1)
     {
-      dispatch_once(&qword_2811F5540, v41);
+      dispatch_once(&qword_2811F5540, v40);
     }
 
     if (byte_2811F4FF1 == 1)
@@ -7943,26 +8099,23 @@ LABEL_34:
       goto LABEL_45;
     }
   }
-
-LABEL_46:
-  v40 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __47__PLBBAgent_logEventNoneBBReportBy_withAction___block_invoke(uint64_t a1)
+void *__47__PLBBAgent_logEventNoneBBReportBy_withAction___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FEF = result;
   return result;
 }
 
-uint64_t __47__PLBBAgent_logEventNoneBBReportBy_withAction___block_invoke_1718(uint64_t a1)
+void *__47__PLBBAgent_logEventNoneBBReportBy_withAction___block_invoke_1718(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FF0 = result;
   return result;
 }
 
-uint64_t __47__PLBBAgent_logEventNoneBBReportBy_withAction___block_invoke_1724(uint64_t a1)
+void *__47__PLBBAgent_logEventNoneBBReportBy_withAction___block_invoke_1724(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FF1 = result;
@@ -7971,7 +8124,7 @@ uint64_t __47__PLBBAgent_logEventNoneBBReportBy_withAction___block_invoke_1724(u
 
 - (void)modelLTESLEEPMGRPower:(id)power
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   powerCopy = power;
   mavRevStringQuery = [MEMORY[0x277D3F258] MavRevStringQuery];
   if (([MEMORY[0x277D3F208] isBasebandClass:1003001] & 1) != 0 || objc_msgSend(MEMORY[0x277D3F208], "isBasebandClass:", 1003002))
@@ -8078,7 +8231,7 @@ uint64_t __47__PLBBAgent_logEventNoneBBReportBy_withAction___block_invoke_1724(u
         if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v53 = v43;
+          v52 = v43;
           _os_log_debug_impl(&dword_21A4C6000, v48, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
@@ -8087,11 +8240,9 @@ uint64_t __47__PLBBAgent_logEventNoneBBReportBy_withAction___block_invoke_1724(u
     mEMORY[0x277D3F0C0] = [MEMORY[0x277D3F0C0] sharedInstance];
     [mEMORY[0x277D3F0C0] createPowerEventBackwardWithRootNodeID:21 withPower:entryDate withEndDate:v37];
   }
-
-  v50 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __35__PLBBAgent_modelLTESLEEPMGRPower___block_invoke(uint64_t a1)
+void *__35__PLBBAgent_modelLTESLEEPMGRPower___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FF2 = result;
@@ -8100,7 +8251,7 @@ uint64_t __35__PLBBAgent_modelLTESLEEPMGRPower___block_invoke(uint64_t a1)
 
 - (void)modelStateTransitionPower:(id)power rat:(id)rat state:(id)state
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   powerCopy = power;
   ratCopy = rat;
   stateCopy = state;
@@ -8164,19 +8315,19 @@ uint64_t __35__PLBBAgent_modelLTESLEEPMGRPower___block_invoke(uint64_t a1)
           v25 = [v14 objectForKeyedSubscript:mavRevStringQuery];
           v26 = [v25 objectForKeyedSubscript:ratCopy];
           v27 = [v26 objectForKeyedSubscript:stateCopy];
-          v36 = [v24 stringWithFormat:@"Model RRC state transistion: mavVersion=%@, rat=%@, state=%@, basebandModel=%@", mavRevStringQuery, ratCopy, stateCopy, v27];
+          v35 = [v24 stringWithFormat:@"Model RRC state transistion: mavVersion=%@, rat=%@, state=%@, basebandModel=%@", mavRevStringQuery, ratCopy, stateCopy, v27];
 
           v28 = MEMORY[0x277D3F178];
           v29 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
           lastPathComponent = [v29 lastPathComponent];
           v31 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLBBAgent modelStateTransitionPower:rat:state:]"];
-          [v28 logMessage:v36 fromFile:lastPathComponent fromFunction:v31 fromLineNumber:3447];
+          [v28 logMessage:v35 fromFile:lastPathComponent fromFunction:v31 fromLineNumber:3447];
 
           v32 = PLLogCommon();
           if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v39 = v36;
+            v38 = v35;
             _os_log_debug_impl(&dword_21A4C6000, v32, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
           }
         }
@@ -8190,11 +8341,9 @@ uint64_t __35__PLBBAgent_modelLTESLEEPMGRPower___block_invoke(uint64_t a1)
       [(PLBBAgent *)self setLastBBProtoPower:v22];
     }
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __49__PLBBAgent_modelStateTransitionPower_rat_state___block_invoke(uint64_t a1)
+void *__49__PLBBAgent_modelStateTransitionPower_rat_state___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FF3 = result;
@@ -8203,57 +8352,57 @@ uint64_t __49__PLBBAgent_modelStateTransitionPower_rat_state___block_invoke(uint
 
 - (void)modelMav10BBHWPower:(id)power
 {
-  v1175 = *MEMORY[0x277D85DE8];
+  v1174 = *MEMORY[0x277D85DE8];
   powerCopy = power;
   v4 = [powerCopy objectForKeyedSubscript:@"PLBBAgent_EventBackward_MavBBHwOtherPerRAT"];
 
-  v1134 = powerCopy;
+  v1133 = powerCopy;
   if (!v4)
   {
-    v1156 = 0;
     v1155 = 0;
-    v1159 = 0;
-    v8 = 0;
-    v1157 = 0;
+    v1154 = 0;
     v1158 = 0;
+    v8 = 0;
+    v1156 = 0;
+    v1157 = 0;
     goto LABEL_28;
   }
 
-  v1171 = 0u;
-  v1169 = 0u;
   v1170 = 0u;
   v1168 = 0u;
+  v1169 = 0u;
+  v1167 = 0u;
   v5 = [powerCopy objectForKeyedSubscript:@"PLBBAgent_EventBackward_MavBBHwOtherPerRAT"];
-  v6 = [v5 countByEnumeratingWithState:&v1168 objects:v1174 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v1167 objects:v1173 count:16];
   if (!v6)
   {
-    v1156 = 0;
     v1155 = 0;
-    v1159 = 0;
-    v8 = 0;
-    v1157 = 0;
+    v1154 = 0;
     v1158 = 0;
+    v8 = 0;
+    v1156 = 0;
+    v1157 = 0;
     goto LABEL_27;
   }
 
   v7 = v6;
-  v1156 = 0;
   v1155 = 0;
-  v1159 = 0;
-  v8 = 0;
-  v1157 = 0;
+  v1154 = 0;
   v1158 = 0;
-  v9 = *v1169;
+  v8 = 0;
+  v1156 = 0;
+  v1157 = 0;
+  v9 = *v1168;
   do
   {
     for (i = 0; i != v7; ++i)
     {
-      if (*v1169 != v9)
+      if (*v1168 != v9)
       {
         objc_enumerationMutation(v5);
       }
 
-      v11 = *(*(&v1168 + 1) + 8 * i);
+      v11 = *(*(&v1167 + 1) + 8 * i);
       v12 = [v11 objectForKeyedSubscript:@"RadioTech"];
       intValue = [v12 intValue];
 
@@ -8262,16 +8411,16 @@ uint64_t __49__PLBBAgent_modelStateTransitionPower_rat_state___block_invoke(uint
         switch(intValue)
         {
           case 3:
-            v14 = v1159;
-            v1159 = v11;
+            v14 = v1158;
+            v1158 = v11;
             break;
           case 4:
-            v14 = v1155;
-            v1155 = v11;
+            v14 = v1154;
+            v1154 = v11;
             break;
           case 5:
-            v14 = v1156;
-            v1156 = v11;
+            v14 = v1155;
+            v1155 = v11;
             break;
           default:
             continue;
@@ -8283,9 +8432,9 @@ uint64_t __49__PLBBAgent_modelStateTransitionPower_rat_state___block_invoke(uint
 
       if (!intValue)
       {
-        v14 = v1158;
+        v14 = v1157;
         v15 = v8;
-        v1158 = v11;
+        v1157 = v11;
 LABEL_21:
         v16 = v11;
 
@@ -8295,9 +8444,9 @@ LABEL_21:
 
       if (intValue == 1)
       {
-        v14 = v1157;
+        v14 = v1156;
         v15 = v8;
-        v1157 = v11;
+        v1156 = v11;
         goto LABEL_21;
       }
 
@@ -8309,31 +8458,19 @@ LABEL_21:
       }
     }
 
-    v7 = [v5 countByEnumeratingWithState:&v1168 objects:v1174 count:16];
+    v7 = [v5 countByEnumeratingWithState:&v1167 objects:v1173 count:16];
   }
 
   while (v7);
 LABEL_27:
 
-  powerCopy = v1134;
+  powerCopy = v1133;
 LABEL_28:
   v17 = [powerCopy objectForKeyedSubscript:@"PLBBAgent_EventBackward_BBMavHwRf1x"];
   if (v17)
   {
     v18 = [powerCopy objectForKeyedSubscript:@"PLBBAgent_EventBackward_BBMavHwRf1x"];
-    v1130 = [v18 objectAtIndexedSubscript:0];
-  }
-
-  else
-  {
-    v1130 = 0;
-  }
-
-  v19 = [powerCopy objectForKeyedSubscript:@"PLBBAgent_EventBackward_BBMavHwRfHDR"];
-  if (v19)
-  {
-    v20 = [powerCopy objectForKeyedSubscript:@"PLBBAgent_EventBackward_BBMavHwRfHDR"];
-    v1129 = [v20 objectAtIndexedSubscript:0];
+    v1129 = [v18 objectAtIndexedSubscript:0];
   }
 
   else
@@ -8341,16 +8478,28 @@ LABEL_28:
     v1129 = 0;
   }
 
-  v21 = [powerCopy objectForKeyedSubscript:@"PLBBAgent_EventBackward_BBMavHwRfGSM"];
-  if (v21)
+  v19 = [powerCopy objectForKeyedSubscript:@"PLBBAgent_EventBackward_BBMavHwRfHDR"];
+  if (v19)
   {
-    v22 = [powerCopy objectForKeyedSubscript:@"PLBBAgent_EventBackward_BBMavHwRfGSM"];
-    v1122 = [v22 objectAtIndexedSubscript:0];
+    v20 = [powerCopy objectForKeyedSubscript:@"PLBBAgent_EventBackward_BBMavHwRfHDR"];
+    v1128 = [v20 objectAtIndexedSubscript:0];
   }
 
   else
   {
-    v1122 = 0;
+    v1128 = 0;
+  }
+
+  v21 = [powerCopy objectForKeyedSubscript:@"PLBBAgent_EventBackward_BBMavHwRfGSM"];
+  if (v21)
+  {
+    v22 = [powerCopy objectForKeyedSubscript:@"PLBBAgent_EventBackward_BBMavHwRfGSM"];
+    v1121 = [v22 objectAtIndexedSubscript:0];
+  }
+
+  else
+  {
+    v1121 = 0;
   }
 
   v23 = [powerCopy objectForKeyedSubscript:@"PLBBAgent_EventBackward_BBMavHwRfWCDMA"];
@@ -8369,7 +8518,19 @@ LABEL_28:
   if (v26)
   {
     v27 = [powerCopy objectForKeyedSubscript:@"PLBBAgent_EventBackward_BBMavHwRfLTE"];
-    v1131 = [v27 objectAtIndexedSubscript:0];
+    v1130 = [v27 objectAtIndexedSubscript:0];
+  }
+
+  else
+  {
+    v1130 = 0;
+  }
+
+  v28 = [powerCopy objectForKeyedSubscript:@"PLBBAgent_EventBackward_BBMavHwRfTDS"];
+  if (v28)
+  {
+    v29 = [powerCopy objectForKeyedSubscript:@"PLBBAgent_EventBackward_BBMavHwRfTDS"];
+    v1131 = [v29 objectAtIndexedSubscript:0];
   }
 
   else
@@ -8377,23 +8538,11 @@ LABEL_28:
     v1131 = 0;
   }
 
-  v28 = [powerCopy objectForKeyedSubscript:@"PLBBAgent_EventBackward_BBMavHwRfTDS"];
-  if (v28)
-  {
-    v29 = [powerCopy objectForKeyedSubscript:@"PLBBAgent_EventBackward_BBMavHwRfTDS"];
-    v1132 = [v29 objectAtIndexedSubscript:0];
-  }
-
-  else
-  {
-    v1132 = 0;
-  }
-
   v30 = [powerCopy objectForKeyedSubscript:@"PLBBAgent_EventBackward_MavBBHwOther"];
   v31 = [v30 objectAtIndexedSubscript:0];
 
   entryDate = [v31 entryDate];
-  v1118 = v31;
+  v1117 = v31;
   v33 = [v31 objectForKeyedSubscript:@"LogDuration"];
   [v33 doubleValue];
   v35 = v34;
@@ -8405,16 +8554,16 @@ LABEL_28:
   }
 
   v36 = [MEMORY[0x277D3F258] powerModelForOperatorName:@"baseband"];
-  v1104 = 0.0;
+  v1103 = 0.0;
+  v1108 = 0.0;
   v1109 = 0.0;
-  v1110 = 0.0;
   v37 = 0.0;
-  v1127 = v25;
-  v1128 = entryDate;
-  v1154 = v36;
-  if (v1130)
+  v1126 = v25;
+  v1127 = entryDate;
+  v1153 = v36;
+  if (v1129)
   {
-    v38 = [v1130 objectForKeyedSubscript:@"DTxOn"];
+    v38 = [v1129 objectForKeyedSubscript:@"DTxOn"];
     [v38 doubleValue];
     v40 = v39;
     v41 = [v36 objectForKeyedSubscript:mavRevStringQuery];
@@ -8423,7 +8572,7 @@ LABEL_28:
     [v43 doubleValue];
     v45 = v40 * v44;
 
-    v46 = [v1130 objectForKeyedSubscript:@"DurationInCallType"];
+    v46 = [v1129 objectForKeyedSubscript:@"DurationInCallType"];
     v47 = [v46 objectAtIndexedSubscript:1];
     [v47 doubleValue];
     v49 = v48;
@@ -8433,8 +8582,8 @@ LABEL_28:
     [v52 doubleValue];
     v54 = v49 * v53;
 
-    v1142 = [v46 objectAtIndexedSubscript:2];
-    [v1142 doubleValue];
+    v1141 = [v46 objectAtIndexedSubscript:2];
+    [v1141 doubleValue];
     v56 = v55;
     [v46 objectAtIndexedSubscript:3];
     v58 = v57 = v36;
@@ -8443,7 +8592,7 @@ LABEL_28:
     v61 = [v46 objectAtIndexedSubscript:4];
     [v61 doubleValue];
     v63 = v60 + v62;
-    v1147 = v46;
+    v1146 = v46;
     v64 = [v46 objectAtIndexedSubscript:5];
     [v64 doubleValue];
     v66 = v63 + v65;
@@ -8455,15 +8604,15 @@ LABEL_28:
 
     v72 = 0.0;
     v73 = 0.0;
-    if (v1158)
+    if (v1157)
     {
-      v74 = [v1158 objectForKeyedSubscript:@"TxPowerHist"];
+      v74 = [v1157 objectForKeyedSubscript:@"TxPowerHist"];
       for (j = 0; j != 12; ++j)
       {
         v76 = [v74 objectAtIndexedSubscript:j];
         [v76 doubleValue];
         v78 = v77;
-        v79 = [v1154 objectForKeyedSubscript:mavRevStringQuery];
+        v79 = [v1153 objectForKeyedSubscript:mavRevStringQuery];
         v80 = [v79 objectForKeyedSubscript:@"CDMA2K"];
         v81 = [v80 objectForKeyedSubscript:@"txPower"];
         v82 = [v81 objectAtIndexedSubscript:j];
@@ -8479,25 +8628,25 @@ LABEL_28:
         v37 = v37 + v86;
       }
 
-      entryDate = v1128;
+      entryDate = v1127;
     }
 
     v87 = v45 / v35 + v73 / v35;
     if (v87 <= 0.0)
     {
       v89 = 0.0;
-      powerCopy = v1134;
-      v25 = v1127;
-      v36 = v1154;
+      powerCopy = v1133;
+      v25 = v1126;
+      v36 = v1153;
     }
 
     else
     {
       v88 = v54 + v71;
       v89 = 0.0;
-      powerCopy = v1134;
-      v25 = v1127;
-      v36 = v1154;
+      powerCopy = v1133;
+      v25 = v1126;
+      v36 = v1153;
       if (v54 + v71 > 0.0)
       {
         v89 = v54 * v87 / v88;
@@ -8505,15 +8654,15 @@ LABEL_28:
       }
     }
 
-    v1109 = v71 / v35 + v72;
-    v1110 = v54 / v35 + v89;
+    v1108 = v71 / v35 + v72;
+    v1109 = v54 / v35 + v89;
   }
 
-  v1133 = v35;
-  if (v1129 && v1157)
+  v1132 = v35;
+  if (v1128 && v1156)
   {
-    v1148 = [v1157 objectForKeyedSubscript:@"ProtocolStateHist"];
-    v90 = [v1148 objectAtIndexedSubscript:8];
+    v1147 = [v1156 objectForKeyedSubscript:@"ProtocolStateHist"];
+    v90 = [v1147 objectAtIndexedSubscript:8];
     [v90 doubleValue];
     v92 = v91;
 
@@ -8521,41 +8670,41 @@ LABEL_28:
     v94 = [v93 objectForKeyedSubscript:@"1xEVDO"];
     v95 = [v94 objectForKeyedSubscript:@"Connected"];
     [v95 doubleValue];
-    v1143 = v96;
+    v1142 = v96;
 
-    v97 = [v1129 objectForKeyedSubscript:@"SDTXOnFrames"];
+    v97 = [v1128 objectForKeyedSubscript:@"SDTXOnFrames"];
     [v97 doubleValue];
     v99 = v98;
 
-    v100 = [v1129 objectForKeyedSubscript:@"SDTXOffFrames"];
+    v100 = [v1128 objectForKeyedSubscript:@"SDTXOffFrames"];
     [v100 doubleValue];
     v102 = v101;
 
-    v103 = [v1129 objectForKeyedSubscript:@"LTXOnFrames"];
+    v103 = [v1128 objectForKeyedSubscript:@"LTXOnFrames"];
     [v103 doubleValue];
     v105 = v104;
 
-    v106 = [v1129 objectForKeyedSubscript:@"LTXOffFrames"];
+    v106 = [v1128 objectForKeyedSubscript:@"LTXOffFrames"];
     [v106 doubleValue];
     v108 = v107;
 
-    v109 = [v1129 objectForKeyedSubscript:@"TTXOnFrames"];
+    v109 = [v1128 objectForKeyedSubscript:@"TTXOnFrames"];
     [v109 doubleValue];
     v111 = v110;
 
-    v112 = [v1129 objectForKeyedSubscript:@"TTXOffFrames"];
+    v112 = [v1128 objectForKeyedSubscript:@"TTXOffFrames"];
     [v112 doubleValue];
     v114 = v113;
 
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
       v115 = objc_opt_class();
-      v1167[0] = MEMORY[0x277D85DD0];
-      v1167[1] = 3221225472;
-      v1167[2] = __33__PLBBAgent_modelMav10BBHWPower___block_invoke;
-      v1167[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v1167[4] = v115;
-      v116 = v1167;
+      v1166[0] = MEMORY[0x277D85DD0];
+      v1166[1] = 3221225472;
+      v1166[2] = __33__PLBBAgent_modelMav10BBHWPower___block_invoke;
+      v1166[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v1166[4] = v115;
+      v116 = v1166;
       if (qword_2811F5558 != -1)
       {
         dispatch_once(&qword_2811F5558, v116);
@@ -8574,13 +8723,13 @@ LABEL_28:
         if (os_log_type_enabled(v122, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v1173 = v114;
+          v1172 = v114;
           _os_log_debug_impl(&dword_21A4C6000, v122, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
     }
 
-    v123 = v92 * v1143;
+    v123 = v92 * v1142;
     if (v99 + v105 <= v92)
     {
       v124 = [v36 objectForKeyedSubscript:mavRevStringQuery];
@@ -8592,8 +8741,8 @@ LABEL_28:
       v123 = v123 - v128;
     }
 
-    v35 = v1133;
-    v129 = [v1157 objectForKeyedSubscript:@"TxPowerHist"];
+    v35 = v1132;
+    v129 = [v1156 objectForKeyedSubscript:@"TxPowerHist"];
     v130 = 0;
     v131 = 0.0;
     do
@@ -8601,7 +8750,7 @@ LABEL_28:
       v132 = [v129 objectAtIndexedSubscript:v130];
       [v132 doubleValue];
       v134 = v133;
-      v135 = [v1154 objectForKeyedSubscript:mavRevStringQuery];
+      v135 = [v1153 objectForKeyedSubscript:mavRevStringQuery];
       v136 = [v135 objectForKeyedSubscript:@"1xEVDO"];
       v137 = [v136 objectForKeyedSubscript:@"txPower"];
       v138 = [v137 objectAtIndexedSubscript:v130];
@@ -8619,18 +8768,18 @@ LABEL_28:
       v37 = v37 + v142;
     }
 
-    v1104 = v123 / v1133 + v131 / v1133;
+    v1103 = v123 / v1132 + v131 / v1132;
 
-    powerCopy = v1134;
-    v25 = v1127;
-    entryDate = v1128;
-    v36 = v1154;
+    powerCopy = v1133;
+    v25 = v1126;
+    entryDate = v1127;
+    v36 = v1153;
   }
 
-  v1113 = 0.0;
-  if (v1122)
+  v1112 = 0.0;
+  if (v1121)
   {
-    v143 = [v1122 objectForKeyedSubscript:@"ConnStates"];
+    v143 = [v1121 objectForKeyedSubscript:@"ConnStates"];
     v144 = [v143 objectAtIndexedSubscript:1];
     [v144 doubleValue];
     v146 = v145;
@@ -8641,7 +8790,7 @@ LABEL_28:
     [v150 doubleValue];
     v152 = v146 * v151;
 
-    v1149 = v143;
+    v1148 = v143;
     v153 = [v143 objectAtIndexedSubscript:2];
     [v153 doubleValue];
     v155 = v154;
@@ -8662,7 +8811,7 @@ LABEL_28:
         v165 = [v162 objectAtIndexedSubscript:v163];
         [v165 doubleValue];
         v167 = v166;
-        v168 = [v1154 objectForKeyedSubscript:mavRevStringQuery];
+        v168 = [v1153 objectForKeyedSubscript:mavRevStringQuery];
         v169 = [v168 objectForKeyedSubscript:@"GSM"];
         v170 = [v169 objectForKeyedSubscript:@"txPower"];
         v171 = [v170 objectAtIndexedSubscript:v163];
@@ -8690,7 +8839,7 @@ LABEL_28:
       v183 = [v176 objectAtIndexedSubscript:3];
       [v183 doubleValue];
       v185 = v182 + v184;
-      v186 = [v1154 objectForKeyedSubscript:mavRevStringQuery];
+      v186 = [v1153 objectForKeyedSubscript:mavRevStringQuery];
       v187 = [v186 objectForKeyedSubscript:@"GSM"];
       v188 = [v187 objectForKeyedSubscript:@"RX"];
       [v188 doubleValue];
@@ -8718,29 +8867,29 @@ LABEL_28:
         }
       }
 
-      powerCopy = v1134;
-      v25 = v1127;
-      entryDate = v1128;
-      v36 = v1154;
+      powerCopy = v1133;
+      v25 = v1126;
+      entryDate = v1127;
+      v36 = v1153;
     }
 
     else
     {
       v192 = 0.0;
       v193 = 0.0;
-      entryDate = v1128;
-      v36 = v1154;
-      v25 = v1127;
+      entryDate = v1127;
+      v36 = v1153;
+      v25 = v1126;
     }
 
-    v1097 = v161 / v35 + v193;
-    v1098 = v152 / v35 + v192;
+    v1096 = v161 / v35 + v193;
+    v1097 = v152 / v35 + v192;
   }
 
   else
   {
+    v1096 = 0.0;
     v1097 = 0.0;
-    v1098 = 0.0;
   }
 
   v194 = 0x277D3F000;
@@ -8748,22 +8897,22 @@ LABEL_28:
   {
     v195 = 0.0;
     v196 = 0.0;
-    if (v1159)
+    if (v1158)
     {
-      v197 = [v1159 objectForKeyedSubscript:@"ProtocolStateHist"];
+      v197 = [v1158 objectForKeyedSubscript:@"ProtocolStateHist"];
       v198 = [v197 objectAtIndexedSubscript:6];
       [v198 doubleValue];
       v196 = v199;
     }
 
-    v1119 = [v25 objectForKeyedSubscript:@"TxPwrBktArr"];
+    v1118 = [v25 objectForKeyedSubscript:@"TxPwrBktArr"];
     v200 = [v25 objectForKeyedSubscript:@"DurationInPsRabType"];
     v201 = [v25 objectForKeyedSubscript:@"DurationInRabMode"];
-    v1150 = [v25 objectForKeyedSubscript:@"SCEqTypeDuration"];
-    v1138 = [v25 objectForKeyedSubscript:@"DCEqTypeDuration"];
-    v1135 = [v25 objectForKeyedSubscript:@"SCQSetNumCell"];
-    v1124 = [v25 objectForKeyedSubscript:@"DCQSetNumCell"];
-    v1144 = [v25 objectForKeyedSubscript:@"TimeInCarrierMode"];
+    v1149 = [v25 objectForKeyedSubscript:@"SCEqTypeDuration"];
+    v1137 = [v25 objectForKeyedSubscript:@"DCEqTypeDuration"];
+    v1134 = [v25 objectForKeyedSubscript:@"SCQSetNumCell"];
+    v1123 = [v25 objectForKeyedSubscript:@"DCQSetNumCell"];
+    v1143 = [v25 objectForKeyedSubscript:@"TimeInCarrierMode"];
     v202 = [v25 objectForKeyedSubscript:@"FetCnt"];
 
     if (v202)
@@ -8776,12 +8925,12 @@ LABEL_28:
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
       v205 = objc_opt_class();
-      v1166[0] = MEMORY[0x277D85DD0];
-      v1166[1] = 3221225472;
-      v1166[2] = __33__PLBBAgent_modelMav10BBHWPower___block_invoke_1754;
-      v1166[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v1166[4] = v205;
-      v206 = v1166;
+      v1165[0] = MEMORY[0x277D85DD0];
+      v1165[1] = 3221225472;
+      v1165[2] = __33__PLBBAgent_modelMav10BBHWPower___block_invoke_1754;
+      v1165[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v1165[4] = v205;
+      v206 = v1165;
       if (qword_2811F5560 != -1)
       {
         dispatch_once(&qword_2811F5560, v206);
@@ -8789,7 +8938,7 @@ LABEL_28:
 
       if (byte_2811F4FF5 == 1)
       {
-        v207 = [MEMORY[0x277CCACA8] stringWithFormat:@"DurationInRabType = %@, DurationInRabMode = %@, SCEqTypeDuration = %@, DCEqTypeDuration = %@, SCQSetNumCell = %@, DCQSetNumCell = %@, TimeInCarrierMode=%@, fetCount=%f", v200, v201, v1150, v1138, v1135, v1124, v1144, *&v195];
+        v207 = [MEMORY[0x277CCACA8] stringWithFormat:@"DurationInRabType = %@, DurationInRabMode = %@, SCEqTypeDuration = %@, DCEqTypeDuration = %@, SCQSetNumCell = %@, DCQSetNumCell = %@, TimeInCarrierMode=%@, fetCount=%f", v200, v201, v1149, v1137, v1134, v1123, v1143, *&v195];
         v208 = MEMORY[0x277D3F178];
         v209 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
         lastPathComponent2 = [v209 lastPathComponent];
@@ -8800,64 +8949,64 @@ LABEL_28:
         if (os_log_type_enabled(v212, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v1173 = v207;
+          v1172 = v207;
           _os_log_debug_impl(&dword_21A4C6000, v212, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
     }
 
-    v1085 = v195;
+    v1084 = v195;
     v213 = [v36 objectForKeyedSubscript:mavRevStringQuery];
     v214 = [v213 objectForKeyedSubscript:@"WCDMA"];
     v215 = [v214 objectForKeyedSubscript:@"Cell_FACH"];
     [v215 doubleValue];
-    v1081 = v216;
+    v1080 = v216;
 
     v217 = [v201 objectAtIndexedSubscript:1];
     [v217 doubleValue];
-    v1115 = v218;
+    v1114 = v218;
 
     v219 = [v201 objectAtIndexedSubscript:2];
     [v219 doubleValue];
-    v1114 = v220;
+    v1113 = v220;
 
-    v1090 = v201;
+    v1089 = v201;
     v221 = [v201 objectAtIndexedSubscript:3];
     [v221 doubleValue];
-    v1111 = v222;
+    v1110 = v222;
 
     v223 = [v36 objectForKeyedSubscript:mavRevStringQuery];
     v224 = [v223 objectForKeyedSubscript:@"WCDMA"];
     v225 = [v224 objectForKeyedSubscript:@"RabMode"];
     v226 = [v225 objectAtIndexedSubscript:1];
     [v226 doubleValue];
-    v1078 = v227;
+    v1077 = v227;
 
     v228 = [v36 objectForKeyedSubscript:mavRevStringQuery];
     v229 = [v228 objectForKeyedSubscript:@"WCDMA"];
     v230 = [v229 objectForKeyedSubscript:@"RabMode"];
     v231 = [v230 objectAtIndexedSubscript:2];
     [v231 doubleValue];
-    v1073 = v232;
+    v1072 = v232;
 
     v233 = [v36 objectForKeyedSubscript:mavRevStringQuery];
     v234 = [v233 objectForKeyedSubscript:@"WCDMA"];
     v235 = [v234 objectForKeyedSubscript:@"RabMode"];
     v236 = [v235 objectAtIndexedSubscript:3];
     [v236 doubleValue];
-    v1069 = v237;
+    v1068 = v237;
 
-    v1105 = [v200 objectAtIndexedSubscript:1];
-    [v1105 doubleValue];
+    v1104 = [v200 objectAtIndexedSubscript:1];
+    [v1104 doubleValue];
     v239 = v238;
-    v1099 = [v36 objectForKeyedSubscript:mavRevStringQuery];
-    v1059 = [v1099 objectForKeyedSubscript:@"WCDMA"];
-    v1055 = [v1059 objectForKeyedSubscript:@"RabType"];
-    v1051 = [v1055 objectAtIndexedSubscript:1];
-    [v1051 doubleValue];
+    v1098 = [v36 objectForKeyedSubscript:mavRevStringQuery];
+    v1058 = [v1098 objectForKeyedSubscript:@"WCDMA"];
+    v1054 = [v1058 objectForKeyedSubscript:@"RabType"];
+    v1050 = [v1054 objectAtIndexedSubscript:1];
+    [v1050 doubleValue];
     v241 = v240;
-    v1047 = [v200 objectAtIndexedSubscript:2];
-    [v1047 doubleValue];
+    v1046 = [v200 objectAtIndexedSubscript:2];
+    [v1046 doubleValue];
     v243 = v242;
     v244 = [v36 objectForKeyedSubscript:mavRevStringQuery];
     v245 = [v244 objectForKeyedSubscript:@"WCDMA"];
@@ -8865,36 +9014,36 @@ LABEL_28:
     v247 = [v246 objectAtIndexedSubscript:2];
     [v247 doubleValue];
     v249 = v243 * v248;
-    v1095 = v200;
+    v1094 = v200;
     v250 = [v200 objectAtIndexedSubscript:3];
     [v250 doubleValue];
-    v1066 = v251;
-    v252 = [v1154 objectForKeyedSubscript:mavRevStringQuery];
+    v1065 = v251;
+    v252 = [v1153 objectForKeyedSubscript:mavRevStringQuery];
     v253 = [v252 objectForKeyedSubscript:@"WCDMA"];
     v254 = [v253 objectForKeyedSubscript:@"RabType"];
     v255 = [v254 objectAtIndexedSubscript:3];
     [v255 doubleValue];
-    v1063 = v256;
+    v1062 = v256;
 
-    v257 = [v1150 objectAtIndexedSubscript:2];
+    v257 = [v1149 objectAtIndexedSubscript:2];
     [v257 doubleValue];
     v259 = v258;
-    v260 = [v1138 objectAtIndexedSubscript:2];
+    v260 = [v1137 objectAtIndexedSubscript:2];
     [v260 doubleValue];
     v262 = v261;
 
-    v1100 = 0.0;
+    v1099 = 0.0;
     v263 = v259 <= v262;
     v264 = 0.0;
     if (!v263)
     {
-      v265 = [v1150 objectAtIndexedSubscript:2];
+      v265 = [v1149 objectAtIndexedSubscript:2];
       [v265 doubleValue];
       v267 = v266;
-      v268 = [v1138 objectAtIndexedSubscript:2];
+      v268 = [v1137 objectAtIndexedSubscript:2];
       [v268 doubleValue];
       v270 = v267 - v269;
-      v271 = [v1154 objectForKeyedSubscript:mavRevStringQuery];
+      v271 = [v1153 objectForKeyedSubscript:mavRevStringQuery];
       v272 = [v271 objectForKeyedSubscript:@"WCDMA"];
       v273 = [v272 objectForKeyedSubscript:@"SCeq"];
       v274 = [v273 objectAtIndexedSubscript:1];
@@ -8903,148 +9052,148 @@ LABEL_28:
     }
 
     v276 = v249 + v239 * v241;
-    v277 = [v1138 objectAtIndexedSubscript:2];
+    v277 = [v1137 objectAtIndexedSubscript:2];
     [v277 doubleValue];
     v279 = v278;
-    v280 = [v1154 objectForKeyedSubscript:mavRevStringQuery];
+    v280 = [v1153 objectForKeyedSubscript:mavRevStringQuery];
     v281 = [v280 objectForKeyedSubscript:@"WCDMA"];
     v282 = [v281 objectForKeyedSubscript:@"DCeq"];
     v283 = [v282 objectAtIndexedSubscript:2];
     [v283 doubleValue];
     v285 = v264 + v279 * v284;
 
-    v286 = [v1135 objectAtIndexedSubscript:2];
+    v286 = [v1134 objectAtIndexedSubscript:2];
     [v286 doubleValue];
     v288 = v287;
-    v289 = [v1154 objectForKeyedSubscript:mavRevStringQuery];
+    v289 = [v1153 objectForKeyedSubscript:mavRevStringQuery];
     v290 = [v289 objectForKeyedSubscript:@"WCDMA"];
     v291 = [v290 objectForKeyedSubscript:@"SCeq"];
     v292 = [v291 objectAtIndexedSubscript:1];
     [v292 doubleValue];
-    v1060 = v285 + v288 * v293;
+    v1059 = v285 + v288 * v293;
 
-    v294 = [v1135 objectAtIndexedSubscript:3];
+    v294 = [v1134 objectAtIndexedSubscript:3];
     [v294 doubleValue];
-    v1056 = v295;
-    v296 = [v1154 objectForKeyedSubscript:mavRevStringQuery];
+    v1055 = v295;
+    v296 = [v1153 objectForKeyedSubscript:mavRevStringQuery];
     v297 = [v296 objectForKeyedSubscript:@"WCDMA"];
     v298 = [v297 objectForKeyedSubscript:@"SCeq"];
     v299 = [v298 objectAtIndexedSubscript:2];
     [v299 doubleValue];
-    v1052 = v300;
+    v1051 = v300;
 
-    v1106 = [v1135 objectAtIndexedSubscript:1];
-    [v1106 doubleValue];
+    v1105 = [v1134 objectAtIndexedSubscript:1];
+    [v1105 doubleValue];
     v302 = v301;
-    v1043 = [v1154 objectForKeyedSubscript:mavRevStringQuery];
-    v1041 = [v1043 objectForKeyedSubscript:@"WCDMA"];
-    v1040 = [v1041 objectForKeyedSubscript:@"SCqset"];
-    v1039 = [v1040 objectAtIndexedSubscript:1];
-    [v1039 doubleValue];
-    v304 = v303;
-    v1038 = [v1135 objectAtIndexedSubscript:2];
+    v1042 = [v1153 objectForKeyedSubscript:mavRevStringQuery];
+    v1040 = [v1042 objectForKeyedSubscript:@"WCDMA"];
+    v1039 = [v1040 objectForKeyedSubscript:@"SCqset"];
+    v1038 = [v1039 objectAtIndexedSubscript:1];
     [v1038 doubleValue];
+    v304 = v303;
+    v1037 = [v1134 objectAtIndexedSubscript:2];
+    [v1037 doubleValue];
     v306 = v305;
-    v1037 = [v1154 objectForKeyedSubscript:mavRevStringQuery];
-    v1036 = [v1037 objectForKeyedSubscript:@"WCDMA"];
-    v1035 = [v1036 objectForKeyedSubscript:@"SCqset"];
-    v1034 = [v1035 objectAtIndexedSubscript:2];
-    [v1034 doubleValue];
-    v308 = v306 * v307 + v302 * v304;
-    v1033 = [v1135 objectAtIndexedSubscript:3];
+    v1036 = [v1153 objectForKeyedSubscript:mavRevStringQuery];
+    v1035 = [v1036 objectForKeyedSubscript:@"WCDMA"];
+    v1034 = [v1035 objectForKeyedSubscript:@"SCqset"];
+    v1033 = [v1034 objectAtIndexedSubscript:2];
     [v1033 doubleValue];
+    v308 = v306 * v307 + v302 * v304;
+    v1032 = [v1134 objectAtIndexedSubscript:3];
+    [v1032 doubleValue];
     v310 = v309;
-    v1032 = [v1154 objectForKeyedSubscript:mavRevStringQuery];
-    v1031 = [v1032 objectForKeyedSubscript:@"WCDMA"];
-    v1030 = [v1031 objectForKeyedSubscript:@"SCqset"];
-    v1029 = [v1030 objectAtIndexedSubscript:3];
-    [v1029 doubleValue];
-    v312 = v308 + v310 * v311;
-    v1028 = [v1124 objectAtIndexedSubscript:1];
+    v1031 = [v1153 objectForKeyedSubscript:mavRevStringQuery];
+    v1030 = [v1031 objectForKeyedSubscript:@"WCDMA"];
+    v1029 = [v1030 objectForKeyedSubscript:@"SCqset"];
+    v1028 = [v1029 objectAtIndexedSubscript:3];
     [v1028 doubleValue];
+    v312 = v308 + v310 * v311;
+    v1027 = [v1123 objectAtIndexedSubscript:1];
+    [v1027 doubleValue];
     v314 = v313;
-    v1027 = [v1154 objectForKeyedSubscript:mavRevStringQuery];
-    v1026 = [v1027 objectForKeyedSubscript:@"WCDMA"];
-    v1025 = [v1026 objectForKeyedSubscript:@"DCqset"];
-    v1024 = [v1025 objectAtIndexedSubscript:1];
-    [v1024 doubleValue];
-    v316 = v312 + v314 * v315;
-    v1023 = [v1124 objectAtIndexedSubscript:2];
+    v1026 = [v1153 objectForKeyedSubscript:mavRevStringQuery];
+    v1025 = [v1026 objectForKeyedSubscript:@"WCDMA"];
+    v1024 = [v1025 objectForKeyedSubscript:@"DCqset"];
+    v1023 = [v1024 objectAtIndexedSubscript:1];
     [v1023 doubleValue];
+    v316 = v312 + v314 * v315;
+    v1022 = [v1123 objectAtIndexedSubscript:2];
+    [v1022 doubleValue];
     v318 = v317;
-    v319 = [v1154 objectForKeyedSubscript:mavRevStringQuery];
+    v319 = [v1153 objectForKeyedSubscript:mavRevStringQuery];
     v320 = [v319 objectForKeyedSubscript:@"WCDMA"];
     v321 = [v320 objectForKeyedSubscript:@"DCqset"];
     v322 = [v321 objectAtIndexedSubscript:2];
     [v322 doubleValue];
-    v1048 = v316 + v318 * v323;
-    v324 = [v1124 objectAtIndexedSubscript:3];
+    v1047 = v316 + v318 * v323;
+    v324 = [v1123 objectAtIndexedSubscript:3];
     [v324 doubleValue];
-    v1046 = v325;
-    v326 = [v1154 objectForKeyedSubscript:mavRevStringQuery];
+    v1045 = v325;
+    v326 = [v1153 objectForKeyedSubscript:mavRevStringQuery];
     v327 = [v326 objectForKeyedSubscript:@"WCDMA"];
     v328 = [v327 objectForKeyedSubscript:@"DCqset"];
     v329 = [v328 objectAtIndexedSubscript:3];
     [v329 doubleValue];
-    v1045 = v330;
+    v1044 = v330;
 
-    v331 = [v1144 objectAtIndexedSubscript:1];
+    v331 = [v1143 objectAtIndexedSubscript:1];
     [v331 doubleValue];
-    v1044 = v332;
-    v333 = [v1154 objectForKeyedSubscript:mavRevStringQuery];
+    v1043 = v332;
+    v333 = [v1153 objectForKeyedSubscript:mavRevStringQuery];
     v334 = [v333 objectForKeyedSubscript:@"WCDMA"];
     v335 = [v334 objectForKeyedSubscript:@"DC"];
     [v335 doubleValue];
-    v1042 = v336;
+    v1041 = v336;
 
-    v1107 = [v1159 objectForKeyedSubscript:@"RSSIModeCount"];
-    v337 = [v1154 objectForKeyedSubscript:mavRevStringQuery];
+    v1106 = [v1158 objectForKeyedSubscript:@"RSSIModeCount"];
+    v337 = [v1153 objectForKeyedSubscript:mavRevStringQuery];
     v338 = [v337 objectForKeyedSubscript:@"WCDMA"];
     v339 = [v338 objectForKeyedSubscript:@"RXD"];
     v340 = [v339 objectForKeyedSubscript:@"DC"];
     [v340 doubleValue];
     v342 = v341;
 
-    v343 = [v1154 objectForKeyedSubscript:mavRevStringQuery];
+    v343 = [v1153 objectForKeyedSubscript:mavRevStringQuery];
     v344 = [v343 objectForKeyedSubscript:@"WCDMA"];
     v345 = [v344 objectForKeyedSubscript:@"RXD"];
     v346 = [v345 objectForKeyedSubscript:@"SC"];
     [v346 doubleValue];
     v348 = v347;
 
-    v349 = [v1144 objectAtIndexedSubscript:0];
+    v349 = [v1143 objectAtIndexedSubscript:0];
     [v349 doubleValue];
     v351 = v350;
-    v352 = [v1144 objectAtIndexedSubscript:1];
+    v352 = [v1143 objectAtIndexedSubscript:1];
     [v352 doubleValue];
     v354 = v351 + v353;
 
     if (v354 > 0.0)
     {
-      v355 = [v1107 objectAtIndexedSubscript:3];
+      v355 = [v1106 objectAtIndexedSubscript:3];
       [v355 doubleValue];
       v357 = v356;
-      v358 = [v1144 objectAtIndexedSubscript:0];
+      v358 = [v1143 objectAtIndexedSubscript:0];
       [v358 doubleValue];
       v360 = v359 / v354;
-      v361 = [v1144 objectAtIndexedSubscript:1];
+      v361 = [v1143 objectAtIndexedSubscript:1];
       [v361 doubleValue];
-      v1100 = v357 * (v342 * (v362 / v354) + v348 * v360);
+      v1099 = v357 * (v342 * (v362 / v354) + v348 * v360);
     }
 
-    v1082 = v196 * v1081;
-    v363 = v1114 * v1073;
-    v364 = v1111 * v1069;
-    v365 = v276 + v1066 * v1063;
-    v366 = [v1154 objectForKeyedSubscript:mavRevStringQuery];
+    v1081 = v196 * v1080;
+    v363 = v1113 * v1072;
+    v364 = v1110 * v1068;
+    v365 = v276 + v1065 * v1062;
+    v366 = [v1153 objectForKeyedSubscript:mavRevStringQuery];
     v367 = [v366 objectForKeyedSubscript:@"WCDMA"];
     v368 = [v367 objectForKeyedSubscript:@"FetCnt"];
     [v368 doubleValue];
-    v370 = v1085 * v369;
+    v370 = v1084 * v369;
 
     if ([MEMORY[0x277D3F208] isBasebandClass:1003003])
     {
-      v1070 = 8;
+      v1069 = 8;
       v371 = 12;
     }
 
@@ -9053,7 +9202,7 @@ LABEL_28:
       v371 = 12;
       if ([MEMORY[0x277D3F208] isBasebandClass:1003004])
       {
-        v1070 = 8;
+        v1069 = 8;
       }
 
       else
@@ -9069,7 +9218,7 @@ LABEL_28:
           v374 = 8;
         }
 
-        v1070 = v374;
+        v1069 = v374;
         if (v373)
         {
           v371 = 16;
@@ -9083,19 +9232,19 @@ LABEL_28:
     }
 
     v375 = 0;
-    v1083 = v1082 / v1133;
-    v1086 = v1115 * v1078 / v1133;
-    v1074 = v364 / v1133;
-    v1079 = v363 / v1133;
+    v1082 = v1081 / v1132;
+    v1085 = v1114 * v1077 / v1132;
+    v1073 = v364 / v1132;
+    v1078 = v363 / v1132;
     v376 = v371;
     v377 = 0.0;
-    v378 = v370 / v1133;
+    v378 = v370 / v1132;
     do
     {
-      v379 = [v1119 objectAtIndexedSubscript:v375];
+      v379 = [v1118 objectAtIndexedSubscript:v375];
       [v379 doubleValue];
       v381 = v380;
-      v382 = [v1154 objectForKeyedSubscript:mavRevStringQuery];
+      v382 = [v1153 objectForKeyedSubscript:mavRevStringQuery];
       v383 = [v382 objectForKeyedSubscript:@"WCDMA"];
       v384 = [v383 objectForKeyedSubscript:@"txPower"];
       v385 = [v384 objectAtIndexedSubscript:v375];
@@ -9106,24 +9255,24 @@ LABEL_28:
     }
 
     while (v376 != v375);
-    if (v1070 >= v376)
+    if (v1069 >= v376)
     {
-      powerCopy = v1134;
-      v25 = v1127;
-      entryDate = v1128;
-      v388 = v1119;
+      powerCopy = v1133;
+      v25 = v1126;
+      entryDate = v1127;
+      v388 = v1118;
     }
 
     else
     {
-      v387 = v1070;
-      powerCopy = v1134;
-      v25 = v1127;
-      entryDate = v1128;
-      v388 = v1119;
+      v387 = v1069;
+      powerCopy = v1133;
+      v25 = v1126;
+      entryDate = v1127;
+      v388 = v1118;
       do
       {
-        v389 = [v1119 objectAtIndexedSubscript:v387];
+        v389 = [v1118 objectAtIndexedSubscript:v387];
         [v389 doubleValue];
         v37 = v37 + v390;
 
@@ -9133,40 +9282,40 @@ LABEL_28:
       while (v376 != v387);
     }
 
-    v391 = v365 / v1133 + (v1060 + v1056 * v1052) / v1133 + (v1048 + v1046 * v1045) / v1133 + v1044 * v1042 / v1133 + v1100 / v1133 + v377 / v1133;
+    v391 = v365 / v1132 + (v1059 + v1055 * v1051) / v1132 + (v1047 + v1045 * v1044) / v1132 + v1043 * v1041 / v1132 + v1099 / v1132 + v377 / v1132;
     if (v391 > v378)
     {
       v391 = v391 - v378;
     }
 
-    v392 = v1115 + v1114 + v1111;
+    v392 = v1114 + v1113 + v1110;
     v393 = 0.0;
     v394 = 0.0;
     v194 = 0x277D3F000;
     if (v392 > 0.0)
     {
-      if (v1115 + v1111 > 0.0)
+      if (v1114 + v1110 > 0.0)
       {
-        v394 = (v1115 + v1111 * 0.5) * v391 / v392;
+        v394 = (v1114 + v1110 * 0.5) * v391 / v392;
       }
 
-      if (v1114 + v1111 > 0.0)
+      if (v1113 + v1110 > 0.0)
       {
-        v393 = (v1114 + v1111 * 0.5) * v391 / v392;
+        v393 = (v1113 + v1110 * 0.5) * v391 / v392;
       }
     }
 
-    v372 = v1083 + v1079 + v1074 + v393;
-    v35 = v1133;
+    v372 = v1082 + v1078 + v1073 + v393;
+    v35 = v1132;
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
       v395 = objc_opt_class();
-      v1165[0] = MEMORY[0x277D85DD0];
-      v1165[1] = 3221225472;
-      v1165[2] = __33__PLBBAgent_modelMav10BBHWPower___block_invoke_1760;
-      v1165[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v1165[4] = v395;
-      v396 = v1165;
+      v1164[0] = MEMORY[0x277D85DD0];
+      v1164[1] = 3221225472;
+      v1164[2] = __33__PLBBAgent_modelMav10BBHWPower___block_invoke_1760;
+      v1164[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v1164[4] = v395;
+      v396 = v1164;
       if (qword_2811F5568 != -1)
       {
         dispatch_once(&qword_2811F5568, v396);
@@ -9174,7 +9323,7 @@ LABEL_28:
 
       if (byte_2811F4FF6 == 1)
       {
-        v397 = [MEMORY[0x277CCACA8] stringWithFormat:@"wcdmaDataPower = %f, wcdmaFACHPower = %f, wcdmaPSonlyPower = %f, wcdmaMRABPower = %f, wcdmaDataAdder = %f", *&v372, *&v1083, *&v1079, *&v1074, *&v393];
+        v397 = [MEMORY[0x277CCACA8] stringWithFormat:@"wcdmaDataPower = %f, wcdmaFACHPower = %f, wcdmaPSonlyPower = %f, wcdmaMRABPower = %f, wcdmaDataAdder = %f", *&v372, *&v1082, *&v1078, *&v1073, *&v393];
         v398 = MEMORY[0x277D3F178];
         v399 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
         lastPathComponent3 = [v399 lastPathComponent];
@@ -9185,25 +9334,25 @@ LABEL_28:
         if (os_log_type_enabled(v402, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v1173 = v397;
+          v1172 = v397;
           _os_log_debug_impl(&dword_21A4C6000, v402, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
 
-        entryDate = v1128;
-        v25 = v1127;
+        entryDate = v1127;
+        v25 = v1126;
       }
     }
 
-    v1113 = v1086 + v394;
+    v1112 = v1085 + v394;
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
       v403 = objc_opt_class();
-      v1164[0] = MEMORY[0x277D85DD0];
-      v1164[1] = 3221225472;
-      v1164[2] = __33__PLBBAgent_modelMav10BBHWPower___block_invoke_1766;
-      v1164[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v1164[4] = v403;
-      v404 = v1164;
+      v1163[0] = MEMORY[0x277D85DD0];
+      v1163[1] = 3221225472;
+      v1163[2] = __33__PLBBAgent_modelMav10BBHWPower___block_invoke_1766;
+      v1163[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v1163[4] = v403;
+      v404 = v1163;
       if (qword_2811F5570 != -1)
       {
         dispatch_once(&qword_2811F5570, v404);
@@ -9211,7 +9360,7 @@ LABEL_28:
 
       if (byte_2811F4FF7 == 1)
       {
-        v405 = [MEMORY[0x277CCACA8] stringWithFormat:@"wcdmaVoicePower = %f, wcdmaCSonlyPower = %f, wcdmaVoiceAdder = %f", *&v1113, *&v1086, *&v394];
+        v405 = [MEMORY[0x277CCACA8] stringWithFormat:@"wcdmaVoicePower = %f, wcdmaCSonlyPower = %f, wcdmaVoiceAdder = %f", *&v1112, *&v1085, *&v394];
         v406 = MEMORY[0x277D3F178];
         v407 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
         lastPathComponent4 = [v407 lastPathComponent];
@@ -9222,12 +9371,12 @@ LABEL_28:
         if (os_log_type_enabled(v410, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v1173 = v405;
+          v1172 = v405;
           _os_log_debug_impl(&dword_21A4C6000, v410, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
 
-        entryDate = v1128;
-        v25 = v1127;
+        entryDate = v1127;
+        v25 = v1126;
       }
     }
   }
@@ -9237,36 +9386,36 @@ LABEL_28:
     v372 = 0.0;
   }
 
-  v1108 = 0.0;
-  v1096 = v372;
-  if (!v1131)
+  v1107 = 0.0;
+  v1095 = v372;
+  if (!v1130)
   {
     v447 = 0.0;
-    v448 = v1154;
+    v448 = v1153;
     goto LABEL_270;
   }
 
-  v1084 = [v1131 objectForKeyedSubscript:@"SleepStateArr"];
-  v1080 = [v1131 objectForKeyedSubscript:@"SleepStateConnArr"];
-  v1151 = [v1131 objectForKeyedSubscript:@"TxPwrBktArr"];
-  v1116 = [v1131 objectForKeyedSubscript:@"CAFreqInfo"];
-  v411 = [v1131 objectForKeyedSubscript:@"C0TBSzArr"];
-  v412 = [v1131 objectForKeyedSubscript:@"C1TBSzArr"];
-  v1125 = [v1131 objectForKeyedSubscript:@"DLTBSzArr"];
-  v1112 = [v1131 objectForKeyedSubscript:@"CASCCStateArr"];
-  v413 = [v1131 objectForKeyedSubscript:@"DupMode"];
+  v1083 = [v1130 objectForKeyedSubscript:@"SleepStateArr"];
+  v1079 = [v1130 objectForKeyedSubscript:@"SleepStateConnArr"];
+  v1150 = [v1130 objectForKeyedSubscript:@"TxPwrBktArr"];
+  v1115 = [v1130 objectForKeyedSubscript:@"CAFreqInfo"];
+  v411 = [v1130 objectForKeyedSubscript:@"C0TBSzArr"];
+  v412 = [v1130 objectForKeyedSubscript:@"C1TBSzArr"];
+  v1124 = [v1130 objectForKeyedSubscript:@"DLTBSzArr"];
+  v1111 = [v1130 objectForKeyedSubscript:@"CASCCStateArr"];
+  v413 = [v1130 objectForKeyedSubscript:@"DupMode"];
   longValue = [v413 longValue];
 
-  v1136 = v412;
+  v1135 = v412;
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v415 = objc_opt_class();
-    v1163[0] = MEMORY[0x277D85DD0];
-    v1163[1] = 3221225472;
-    v1163[2] = __33__PLBBAgent_modelMav10BBHWPower___block_invoke_1772;
-    v1163[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v1163[4] = v415;
-    v416 = v1163;
+    v1162[0] = MEMORY[0x277D85DD0];
+    v1162[1] = 3221225472;
+    v1162[2] = __33__PLBBAgent_modelMav10BBHWPower___block_invoke_1772;
+    v1162[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v1162[4] = v415;
+    v416 = v1162;
     if (qword_2811F5578 != -1)
     {
       dispatch_once(&qword_2811F5578, v416);
@@ -9274,18 +9423,18 @@ LABEL_28:
 
     if (byte_2811F4FF8 == 1)
     {
-      v1112 = [MEMORY[0x277CCACA8] stringWithFormat:@"C0TBSz = %@, C1TBSz = %@, carrierAggregationStates = %@", v411, v412, v1112];
+      v1111 = [MEMORY[0x277CCACA8] stringWithFormat:@"C0TBSz = %@, C1TBSz = %@, carrierAggregationStates = %@", v411, v412, v1111];
       v418 = MEMORY[0x277D3F178];
       v419 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
       lastPathComponent5 = [v419 lastPathComponent];
       v421 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLBBAgent modelMav10BBHWPower:]"];
-      [v418 logMessage:v1112 fromFile:lastPathComponent5 fromFunction:v421 fromLineNumber:3955];
+      [v418 logMessage:v1111 fromFile:lastPathComponent5 fromFunction:v421 fromLineNumber:3955];
 
       v422 = PLLogCommon();
       if (os_log_type_enabled(v422, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v1173 = v1112;
+        v1172 = v1111;
         _os_log_debug_impl(&dword_21A4C6000, v422, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
 
@@ -9299,34 +9448,34 @@ LABEL_28:
     v423 = @"TDD";
   }
 
-  v1145 = v423;
-  v1139 = v411;
+  v1144 = v423;
+  v1138 = v411;
   if ([*(v194 + 520) isBasebandClass:?])
   {
-    v424 = [v1084 objectAtIndexedSubscript:1];
+    v424 = [v1083 objectAtIndexedSubscript:1];
     [v424 doubleValue];
     v426 = v425;
 
-    v427 = [v1084 objectAtIndexedSubscript:2];
+    v427 = [v1083 objectAtIndexedSubscript:2];
     [v427 doubleValue];
     v429 = v428;
-    v430 = [v1154 objectForKeyedSubscript:mavRevStringQuery];
+    v430 = [v1153 objectForKeyedSubscript:mavRevStringQuery];
     v431 = [v430 objectForKeyedSubscript:@"LTE"];
     v432 = [v431 objectForKeyedSubscript:@"SemiLite"];
     [v432 doubleValue];
     v434 = v433;
-    v1101 = [v1084 objectAtIndexedSubscript:3];
-    [v1101 doubleValue];
+    v1100 = [v1083 objectAtIndexedSubscript:3];
+    [v1100 doubleValue];
     v436 = v435;
-    v1091 = [v1154 objectForKeyedSubscript:mavRevStringQuery];
-    v1087 = [v1091 objectForKeyedSubscript:@"LTE"];
-    v1075 = [v1087 objectForKeyedSubscript:@"FullLite"];
-    [v1075 doubleValue];
+    v1090 = [v1153 objectForKeyedSubscript:mavRevStringQuery];
+    v1086 = [v1090 objectForKeyedSubscript:@"LTE"];
+    v1074 = [v1086 objectForKeyedSubscript:@"FullLite"];
+    [v1074 doubleValue];
     v438 = v436 * v437 + v429 * v434;
-    v439 = [v1084 objectAtIndexedSubscript:4];
+    v439 = [v1083 objectAtIndexedSubscript:4];
     [v439 doubleValue];
     v441 = v440;
-    v442 = [v1154 objectForKeyedSubscript:mavRevStringQuery];
+    v442 = [v1153 objectForKeyedSubscript:mavRevStringQuery];
     v443 = [v442 objectForKeyedSubscript:@"LTE"];
     v444 = [v443 objectForKeyedSubscript:@"DeepLite"];
     [v444 doubleValue];
@@ -9335,94 +9484,94 @@ LABEL_28:
 
   else
   {
-    v449 = [v1080 objectAtIndexedSubscript:1];
+    v449 = [v1079 objectAtIndexedSubscript:1];
     [v449 doubleValue];
     v426 = v450;
 
-    v1067 = [v1080 objectAtIndexedSubscript:2];
-    [v1067 doubleValue];
+    v1066 = [v1079 objectAtIndexedSubscript:2];
+    [v1066 doubleValue];
     v452 = v451;
-    v1071 = [v1154 objectForKeyedSubscript:mavRevStringQuery];
-    v1061 = [v1071 objectForKeyedSubscript:@"LTE"];
-    v1064 = [v1061 objectForKeyedSubscript:@"MacroSleep"];
-    [v1064 doubleValue];
+    v1070 = [v1153 objectForKeyedSubscript:mavRevStringQuery];
+    v1060 = [v1070 objectForKeyedSubscript:@"LTE"];
+    v1063 = [v1060 objectForKeyedSubscript:@"MacroSleep"];
+    [v1063 doubleValue];
     v454 = v453;
-    v1101 = [v1080 objectAtIndexedSubscript:3];
-    [v1101 doubleValue];
+    v1100 = [v1079 objectAtIndexedSubscript:3];
+    [v1100 doubleValue];
     v456 = v455;
-    v1091 = [v1154 objectForKeyedSubscript:mavRevStringQuery];
-    v1087 = [v1091 objectForKeyedSubscript:@"LTE"];
-    v1075 = [v1087 objectForKeyedSubscript:@"LightSleep"];
-    [v1075 doubleValue];
+    v1090 = [v1153 objectForKeyedSubscript:mavRevStringQuery];
+    v1086 = [v1090 objectForKeyedSubscript:@"LTE"];
+    v1074 = [v1086 objectForKeyedSubscript:@"LightSleep"];
+    [v1074 doubleValue];
     v458 = v456 * v457 + v452 * v454;
-    v1057 = [v1080 objectAtIndexedSubscript:4];
-    [v1057 doubleValue];
+    v1056 = [v1079 objectAtIndexedSubscript:4];
+    [v1056 doubleValue];
     v460 = v459;
-    v1049 = [v1154 objectForKeyedSubscript:mavRevStringQuery];
-    v1053 = [v1049 objectForKeyedSubscript:@"LTE"];
-    v444 = [v1053 objectForKeyedSubscript:@"DeepLightSleep"];
+    v1048 = [v1153 objectForKeyedSubscript:mavRevStringQuery];
+    v1052 = [v1048 objectForKeyedSubscript:@"LTE"];
+    v444 = [v1052 objectForKeyedSubscript:@"DeepLightSleep"];
     [v444 doubleValue];
     v462 = v458 + v460 * v461;
-    v463 = [v1080 objectAtIndexedSubscript:5];
+    v463 = [v1079 objectAtIndexedSubscript:5];
     [v463 doubleValue];
     v465 = v464;
-    v466 = [v1154 objectForKeyedSubscript:mavRevStringQuery];
+    v466 = [v1153 objectForKeyedSubscript:mavRevStringQuery];
     v467 = [v466 objectForKeyedSubscript:@"LTE"];
     v468 = [v467 objectForKeyedSubscript:@"QuickDeepLightSleep"];
     [v468 doubleValue];
     v470 = v462 + v465 * v469;
-    v471 = [v1080 objectAtIndexedSubscript:6];
+    v471 = [v1079 objectAtIndexedSubscript:6];
     [v471 doubleValue];
     v473 = v472;
-    v474 = [v1154 objectForKeyedSubscript:mavRevStringQuery];
+    v474 = [v1153 objectForKeyedSubscript:mavRevStringQuery];
     v475 = [v474 objectForKeyedSubscript:@"LTE"];
     v476 = [v475 objectForKeyedSubscript:@"DeepSleep"];
     [v476 doubleValue];
     v446 = v470 + v473 * v477;
 
     v194 = 0x277D3F000uLL;
-    v427 = v1067;
+    v427 = v1066;
 
-    v439 = v1057;
-    v442 = v1049;
+    v439 = v1056;
+    v442 = v1048;
 
-    v431 = v1061;
-    v443 = v1053;
+    v431 = v1060;
+    v443 = v1052;
 
-    v432 = v1064;
-    v430 = v1071;
+    v432 = v1063;
+    v430 = v1070;
   }
 
   if (([*(v194 + 520) isBasebandClass:1003003] & 1) != 0 || objc_msgSend(*(v194 + 520), "isBasebandClass:", 1003004))
   {
-    v478 = [v1116 objectAtIndexedSubscript:0];
+    v478 = [v1115 objectAtIndexedSubscript:0];
   }
 
   else
   {
-    v478 = [v1131 objectForKeyedSubscript:@"PCC_Band"];
+    v478 = [v1130 objectForKeyedSubscript:@"PCC_Band"];
   }
 
   v479 = v478;
   [v478 doubleValue];
   v481 = v480;
 
-  v1076 = MEMORY[0x277CBEB98];
-  v1102 = [MEMORY[0x277CCABB0] numberWithInt:1];
-  v1072 = [MEMORY[0x277CCABB0] numberWithInt:2];
-  v1092 = [MEMORY[0x277CCABB0] numberWithInt:3];
-  v1068 = [MEMORY[0x277CCABB0] numberWithInt:4];
-  v1088 = [MEMORY[0x277CCABB0] numberWithInt:7];
-  v1065 = [MEMORY[0x277CCABB0] numberWithInt:9];
-  v1062 = [MEMORY[0x277CCABB0] numberWithInt:10];
-  v1058 = [MEMORY[0x277CCABB0] numberWithInt:15];
-  v1054 = [MEMORY[0x277CCABB0] numberWithInt:16];
-  v1050 = [MEMORY[0x277CCABB0] numberWithInt:22];
+  v1075 = MEMORY[0x277CBEB98];
+  v1101 = [MEMORY[0x277CCABB0] numberWithInt:1];
+  v1071 = [MEMORY[0x277CCABB0] numberWithInt:2];
+  v1091 = [MEMORY[0x277CCABB0] numberWithInt:3];
+  v1067 = [MEMORY[0x277CCABB0] numberWithInt:4];
+  v1087 = [MEMORY[0x277CCABB0] numberWithInt:7];
+  v1064 = [MEMORY[0x277CCABB0] numberWithInt:9];
+  v1061 = [MEMORY[0x277CCABB0] numberWithInt:10];
+  v1057 = [MEMORY[0x277CCABB0] numberWithInt:15];
+  v1053 = [MEMORY[0x277CCABB0] numberWithInt:16];
+  v1049 = [MEMORY[0x277CCABB0] numberWithInt:22];
   v482 = [MEMORY[0x277CCABB0] numberWithInt:23];
   v483 = [MEMORY[0x277CCABB0] numberWithInt:24];
   v484 = [MEMORY[0x277CCABB0] numberWithInt:25];
   v485 = [MEMORY[0x277CCABB0] numberWithInt:30];
-  v486 = [v1076 setWithObjects:{v1102, v1072, v1092, v1068, v1088, v1065, v1062, v1058, v1054, v1050, v482, v483, v484, v485, 0}];
+  v486 = [v1075 setWithObjects:{v1101, v1071, v1091, v1067, v1087, v1064, v1061, v1057, v1053, v1049, v482, v483, v484, v485, 0}];
 
   v487 = [MEMORY[0x277CCABB0] numberWithInt:v481];
   v488 = [v486 containsObject:v487];
@@ -9432,10 +9581,10 @@ LABEL_28:
     v489 = @"txPowerHighBand";
   }
 
-  v1103 = v489;
+  v1102 = v489;
 
   v490 = [MEMORY[0x277CCABB0] numberWithInt:v481];
-  v1089 = v486;
+  v1088 = v486;
   v491 = [v486 containsObject:v490];
 
   v492 = 0.0;
@@ -9443,11 +9592,11 @@ LABEL_28:
   {
     v493 = 0x277D3F000uLL;
     v494 = mavRevStringQuery;
-    v495 = v1154;
-    v496 = v1112;
+    v495 = v1153;
+    v496 = v1111;
     if (([MEMORY[0x277D3F208] isBasebandClass:1003004] & 1) != 0 || (objc_msgSend(MEMORY[0x277D3F208], "isBasebandClass:", 1003005) & 1) != 0 || objc_msgSend(MEMORY[0x277D3F208], "isBasebandClass:", 1003007))
     {
-      v497 = [v1154 objectForKeyedSubscript:mavRevStringQuery];
+      v497 = [v1153 objectForKeyedSubscript:mavRevStringQuery];
       v498 = [v497 objectForKeyedSubscript:@"LTE"];
       v499 = [v498 objectForKeyedSubscript:@"elnaAdder"];
       [v499 doubleValue];
@@ -9458,9 +9607,9 @@ LABEL_28:
   else
   {
     v494 = mavRevStringQuery;
-    v495 = v1154;
+    v495 = v1153;
     v493 = 0x277D3F000uLL;
-    v496 = v1112;
+    v496 = v1111;
   }
 
   if (([MEMORY[0x277D3F208] isBasebandClass:1003003] & 1) != 0 || objc_msgSend(MEMORY[0x277D3F208], "isBasebandClass:", 1003004))
@@ -9471,15 +9620,15 @@ LABEL_28:
     v504 = [v495 objectForKeyedSubscript:v494];
     v505 = [v504 objectForKeyedSubscript:@"LTE"];
     v506 = [v505 objectForKeyedSubscript:@"Active"];
-    v507 = [v506 objectForKeyedSubscript:v1145];
+    v507 = [v506 objectForKeyedSubscript:v1144];
     [v507 doubleValue];
     v509 = v503 * (v492 + v508) / v35;
   }
 
   else if ([MEMORY[0x277D3F208] isBasebandClass:1003005])
   {
-    v1093 = [v496 objectAtIndexedSubscript:1];
-    [v1093 doubleValue];
+    v1092 = [v496 objectAtIndexedSubscript:1];
+    [v1092 doubleValue];
     v517 = v426 - v516;
     v518 = [v496 objectAtIndexedSubscript:2];
     [v518 doubleValue];
@@ -9498,7 +9647,7 @@ LABEL_28:
     v532 = [v525 objectForKeyedSubscript:v524];
     v533 = [v532 objectForKeyedSubscript:@"LTE"];
     v534 = [v533 objectForKeyedSubscript:@"Active"];
-    v535 = [v534 objectForKeyedSubscript:v1145];
+    v535 = [v534 objectForKeyedSubscript:v1144];
     [v535 doubleValue];
     v537 = v531 * (v492 + v536) / v35;
 
@@ -9506,10 +9655,10 @@ LABEL_28:
     v501 = [v496 objectAtIndexedSubscript:4];
     [v501 doubleValue];
     v539 = v538;
-    v504 = [v1154 objectForKeyedSubscript:mavRevStringQuery];
+    v504 = [v1153 objectForKeyedSubscript:mavRevStringQuery];
     v505 = [v504 objectForKeyedSubscript:@"LTE"];
     v506 = [v505 objectForKeyedSubscript:@"ActiveCA1configured"];
-    v507 = [v506 objectForKeyedSubscript:v1145];
+    v507 = [v506 objectForKeyedSubscript:v1144];
     [v507 doubleValue];
     v509 = v537 + v539 * v540 / v35;
   }
@@ -9530,7 +9679,7 @@ LABEL_28:
       v597 = [v495 objectForKeyedSubscript:v494];
       v598 = [v597 objectForKeyedSubscript:@"LTE"];
       v599 = [v598 objectForKeyedSubscript:@"Active"];
-      v600 = [v599 objectForKeyedSubscript:v1145];
+      v600 = [v599 objectForKeyedSubscript:v1144];
       [v600 doubleValue];
       v596 = (v426 - v592) * (v492 + v601) / v35;
     }
@@ -9541,7 +9690,7 @@ LABEL_28:
     v605 = [v495 objectForKeyedSubscript:v494];
     v606 = [v605 objectForKeyedSubscript:@"LTE"];
     v607 = [v606 objectForKeyedSubscript:@"ActiveCA1configured"];
-    v608 = [v607 objectForKeyedSubscript:v1145];
+    v608 = [v607 objectForKeyedSubscript:v1144];
     [v608 doubleValue];
     v610 = v596 + v604 * v609 / v35;
 
@@ -9551,7 +9700,7 @@ LABEL_28:
     v614 = [v495 objectForKeyedSubscript:v494];
     v615 = [v614 objectForKeyedSubscript:@"LTE"];
     v616 = [v615 objectForKeyedSubscript:@"ActiveCA2configured"];
-    v617 = [v616 objectForKeyedSubscript:v1145];
+    v617 = [v616 objectForKeyedSubscript:v1144];
     [v617 doubleValue];
     v619 = v610 + v613 * v618 / v35;
 
@@ -9561,7 +9710,7 @@ LABEL_28:
     v504 = [v495 objectForKeyedSubscript:v494];
     v505 = [v504 objectForKeyedSubscript:@"LTE"];
     v506 = [v505 objectForKeyedSubscript:@"ActiveCA3configured"];
-    v507 = [v506 objectForKeyedSubscript:v1145];
+    v507 = [v506 objectForKeyedSubscript:v1144];
     [v507 doubleValue];
     v509 = v619 + v621 * v622 / v35;
     v493 = 0x277D3F000;
@@ -9579,28 +9728,28 @@ LABEL_28:
 
   if (([*(v493 + 520) isBasebandClass:1003003] & 1) != 0 || objc_msgSend(*(v493 + 520), "isBasebandClass:", 1003004))
   {
-    v511 = [v1116 objectAtIndexedSubscript:2];
+    v511 = [v1115 objectAtIndexedSubscript:2];
 
     v512 = mavRevStringQuery;
-    v513 = v1154;
+    v513 = v1153;
     if (v511)
     {
       v514 = MEMORY[0x277CCACA8];
-      v515 = [v1116 objectAtIndexedSubscript:2];
+      v515 = [v1115 objectAtIndexedSubscript:2];
       goto LABEL_186;
     }
   }
 
   else
   {
-    v541 = [v1131 objectForKeyedSubscript:@"PCC_BW"];
+    v541 = [v1130 objectForKeyedSubscript:@"PCC_BW"];
 
     v512 = mavRevStringQuery;
-    v513 = v1154;
+    v513 = v1153;
     if (v541)
     {
       v514 = MEMORY[0x277CCACA8];
-      v515 = [v1131 objectForKeyedSubscript:@"PCC_BW"];
+      v515 = [v1130 objectForKeyedSubscript:@"PCC_BW"];
 LABEL_186:
       v542 = v515;
       v543 = [v514 stringWithFormat:@"%i", objc_msgSend(v515, "intValue")];
@@ -9623,64 +9772,64 @@ LABEL_186:
 
   if (([*(v493 + 520) isBasebandClass:1003003] & 1) != 0 || objc_msgSend(*(v493 + 520), "isBasebandClass:", 1003004))
   {
-    v550 = [v1112 objectAtIndexedSubscript:3];
+    v550 = [v1111 objectAtIndexedSubscript:3];
     [v550 doubleValue];
     v552 = v551;
     v553 = [v513 objectForKeyedSubscript:v512];
     v554 = [v553 objectForKeyedSubscript:@"LTE"];
     v555 = [v554 objectForKeyedSubscript:@"ActiveCA"];
-    v556 = [v555 objectForKeyedSubscript:v1145];
+    v556 = [v555 objectForKeyedSubscript:v1144];
     [v556 doubleValue];
     v558 = 0.0;
     v559 = v35;
     v560 = 0.0;
     v561 = 0.0;
-    v1094 = v552 * v557 / v559;
+    v1093 = v552 * v557 / v559;
   }
 
   else
   {
     if ([*(v493 + 520) isBasebandClass:1003005])
     {
-      v562 = [v1112 objectAtIndexedSubscript:1];
+      v562 = [v1111 objectAtIndexedSubscript:1];
       [v562 doubleValue];
       v564 = v563;
       v565 = [v513 objectForKeyedSubscript:v512];
       v566 = [v565 objectForKeyedSubscript:@"LTE"];
       v567 = [v566 objectForKeyedSubscript:@"ActiveCA2configured"];
-      v568 = [v567 objectForKeyedSubscript:v1145];
+      v568 = [v567 objectForKeyedSubscript:v1144];
       [v568 doubleValue];
       v570 = v564 * v569 / v35;
 
-      v571 = [v1112 objectAtIndexedSubscript:2];
+      v571 = [v1111 objectAtIndexedSubscript:2];
       [v571 doubleValue];
       v573 = v572;
       v574 = [v513 objectForKeyedSubscript:v512];
       v575 = [v574 objectForKeyedSubscript:@"LTE"];
       v576 = [v575 objectForKeyedSubscript:@"Active2CA1configured"];
-      v577 = [v576 objectForKeyedSubscript:v1145];
+      v577 = [v576 objectForKeyedSubscript:v1144];
       [v577 doubleValue];
       v579 = v570 + v573 * v578 / v35;
 
-      v580 = [v1112 objectAtIndexedSubscript:3];
+      v580 = [v1111 objectAtIndexedSubscript:3];
       [v580 doubleValue];
       v582 = v581;
       v583 = [v513 objectForKeyedSubscript:v512];
       v584 = [v583 objectForKeyedSubscript:@"LTE"];
       v585 = [v584 objectForKeyedSubscript:@"Active2CA"];
-      v586 = [v585 objectForKeyedSubscript:v1145];
+      v586 = [v585 objectForKeyedSubscript:v1144];
       [v586 doubleValue];
       v588 = v579 + v582 * v587 / v35;
 
-      v550 = [v1112 objectAtIndexedSubscript:5];
+      v550 = [v1111 objectAtIndexedSubscript:5];
       [v550 doubleValue];
       v590 = v589;
       v553 = [v513 objectForKeyedSubscript:v512];
       v554 = [v553 objectForKeyedSubscript:@"LTE"];
       v555 = [v554 objectForKeyedSubscript:@"Active3CA"];
-      v556 = [v555 objectForKeyedSubscript:v1145];
+      v556 = [v555 objectForKeyedSubscript:v1144];
       [v556 doubleValue];
-      v1094 = v588 + v590 * v591 / v35;
+      v1093 = v588 + v590 * v591 / v35;
       v558 = 0.0;
       v560 = 0.0;
       v561 = 0.0;
@@ -9688,91 +9837,91 @@ LABEL_186:
 
     else
     {
-      v623 = [v1112 objectAtIndexedSubscript:4];
+      v623 = [v1111 objectAtIndexedSubscript:4];
       [v623 doubleValue];
       v625 = v624;
       v626 = [v513 objectForKeyedSubscript:v512];
       v627 = [v626 objectForKeyedSubscript:@"LTE"];
       v628 = [v627 objectForKeyedSubscript:@"Active2CA"];
-      v629 = [v628 objectForKeyedSubscript:v1145];
+      v629 = [v628 objectForKeyedSubscript:v1144];
       [v629 doubleValue];
       v631 = v625 * v630 / v35;
 
-      v632 = [v1112 objectAtIndexedSubscript:5];
+      v632 = [v1111 objectAtIndexedSubscript:5];
       [v632 doubleValue];
       v634 = v633;
       v635 = [v513 objectForKeyedSubscript:v512];
       v636 = [v635 objectForKeyedSubscript:@"LTE"];
       v637 = [v636 objectForKeyedSubscript:@"Active2CA1configured"];
-      v638 = [v637 objectForKeyedSubscript:v1145];
+      v638 = [v637 objectForKeyedSubscript:v1144];
       [v638 doubleValue];
       v640 = v631 + v634 * v639 / v35;
 
-      v641 = [v1112 objectAtIndexedSubscript:6];
+      v641 = [v1111 objectAtIndexedSubscript:6];
       [v641 doubleValue];
       v643 = v642;
       v644 = [v513 objectForKeyedSubscript:v512];
       v645 = [v644 objectForKeyedSubscript:@"LTE"];
       v646 = [v645 objectForKeyedSubscript:@"Active2CA2configured"];
-      v647 = [v646 objectForKeyedSubscript:v1145];
+      v647 = [v646 objectForKeyedSubscript:v1144];
       [v647 doubleValue];
       v558 = v640 + v643 * v648 / v35;
 
-      v649 = [v1112 objectAtIndexedSubscript:7];
+      v649 = [v1111 objectAtIndexedSubscript:7];
       [v649 doubleValue];
       v651 = v650;
       v652 = [v513 objectForKeyedSubscript:v512];
       v653 = [v652 objectForKeyedSubscript:@"LTE"];
       v654 = [v653 objectForKeyedSubscript:@"Active3CA"];
-      v655 = [v654 objectForKeyedSubscript:v1145];
+      v655 = [v654 objectForKeyedSubscript:v1144];
       [v655 doubleValue];
       v657 = v651 * v656 / v35;
 
-      v658 = [v1112 objectAtIndexedSubscript:8];
+      v658 = [v1111 objectAtIndexedSubscript:8];
       [v658 doubleValue];
       v660 = v659;
       v661 = [v513 objectForKeyedSubscript:v512];
       v662 = [v661 objectForKeyedSubscript:@"LTE"];
       v663 = [v662 objectForKeyedSubscript:@"Active3CA1configured"];
-      v664 = [v663 objectForKeyedSubscript:v1145];
+      v664 = [v663 objectForKeyedSubscript:v1144];
       [v664 doubleValue];
       v666 = v35;
       v560 = v657 + v660 * v665 / v35;
 
-      v550 = [v1112 objectAtIndexedSubscript:9];
+      v550 = [v1111 objectAtIndexedSubscript:9];
       [v550 doubleValue];
       v668 = v667;
       v553 = [v513 objectForKeyedSubscript:v512];
       v554 = [v553 objectForKeyedSubscript:@"LTE"];
       v555 = [v554 objectForKeyedSubscript:@"Active4CA"];
-      v556 = [v555 objectForKeyedSubscript:v1145];
+      v556 = [v555 objectForKeyedSubscript:v1144];
       [v556 doubleValue];
-      v1094 = 0.0;
+      v1093 = 0.0;
       v561 = v668 * v669 / v666;
     }
 
     v493 = 0x277D3F000uLL;
   }
 
-  v670 = v1151;
+  v670 = v1150;
   if (([*(v493 + 520) isBasebandClass:1003003] & 1) != 0 || objc_msgSend(*(v493 + 520), "isBasebandClass:", 1003004))
   {
-    v671 = [v1116 objectAtIndexedSubscript:2];
+    v671 = [v1115 objectAtIndexedSubscript:2];
     v672 = mavRevStringQuery;
-    v673 = v1154;
+    v673 = v1153;
     if (v671)
     {
       v674 = v671;
-      v675 = [v1116 objectAtIndexedSubscript:3];
+      v675 = [v1115 objectAtIndexedSubscript:3];
 
-      v676 = v1133;
+      v676 = v1132;
       if (v675)
       {
-        v677 = [v1116 objectAtIndexedSubscript:2];
+        v677 = [v1115 objectAtIndexedSubscript:2];
         [v677 doubleValue];
         [(PLBBAgent *)self translateChannelRBsToChannelBW:?];
         v679 = v678;
-        v680 = [v1116 objectAtIndexedSubscript:3];
+        v680 = [v1115 objectAtIndexedSubscript:3];
         [v680 doubleValue];
         [(PLBBAgent *)self translateChannelRBsToChannelBW:?];
         v682 = v679 + v681;
@@ -9783,34 +9932,34 @@ LABEL_186:
     }
 
 LABEL_229:
-    v676 = v1133;
+    v676 = v1132;
     goto LABEL_230;
   }
 
   v692 = [*(v493 + 520) isBasebandClass:1003005];
-  v693 = [v1131 objectForKeyedSubscript:@"PCC_BW"];
+  v693 = [v1130 objectForKeyedSubscript:@"PCC_BW"];
   v682 = v693;
   v672 = mavRevStringQuery;
-  v673 = v1154;
+  v673 = v1153;
   if (!v692)
   {
     if (v693)
     {
-      v703 = [v1131 objectForKeyedSubscript:@"SCC1_BW"];
+      v703 = [v1130 objectForKeyedSubscript:@"SCC1_BW"];
 
       if (v703)
       {
-        v704 = [v1131 objectForKeyedSubscript:@"PCC_BW"];
+        v704 = [v1130 objectForKeyedSubscript:@"PCC_BW"];
         [v704 doubleValue];
         [(PLBBAgent *)self translateChannelRBsToChannelBW:?];
         v706 = v705;
-        v707 = [v1131 objectForKeyedSubscript:@"SCC1_BW"];
+        v707 = [v1130 objectForKeyedSubscript:@"SCC1_BW"];
         [v707 doubleValue];
         [(PLBBAgent *)self translateChannelRBsToChannelBW:?];
         v709 = v706 + v708;
 
         v709 = [MEMORY[0x277CCACA8] stringWithFormat:@"%i", v709];
-        v711 = [v1154 objectForKeyedSubscript:mavRevStringQuery];
+        v711 = [v1153 objectForKeyedSubscript:mavRevStringQuery];
         v712 = [v711 objectForKeyedSubscript:@"LTE"];
         v713 = [v712 objectForKeyedSubscript:@"2CAMultiplier"];
         v714 = [v713 objectForKeyedSubscript:v709];
@@ -9824,12 +9973,12 @@ LABEL_229:
         }
       }
 
-      v717 = v1131;
+      v717 = v1130;
     }
 
     else
     {
-      v717 = v1131;
+      v717 = v1130;
     }
 
     v718 = [v717 objectForKeyedSubscript:@"PCC_BW"];
@@ -9848,7 +9997,7 @@ LABEL_229:
       if (!v722)
       {
 LABEL_228:
-        v1094 = v561 + v558 + v560;
+        v1093 = v561 + v558 + v560;
         goto LABEL_229;
       }
 
@@ -9866,7 +10015,7 @@ LABEL_228:
       v731 = v728 + v730;
 
       v731 = [MEMORY[0x277CCACA8] stringWithFormat:@"%i", v731];
-      v732 = [v1154 objectForKeyedSubscript:v672];
+      v732 = [v1153 objectForKeyedSubscript:v672];
       v733 = [v732 objectForKeyedSubscript:@"LTE"];
       v734 = [v733 objectForKeyedSubscript:@"3CAMultiplier"];
       [v734 objectForKeyedSubscript:v731];
@@ -9889,27 +10038,27 @@ LABEL_228:
     goto LABEL_229;
   }
 
-  v694 = [v1131 objectForKeyedSubscript:@"SCC1_BW"];
-  v676 = v1133;
+  v694 = [v1130 objectForKeyedSubscript:@"SCC1_BW"];
+  v676 = v1132;
   if (v694)
   {
     v695 = v694;
-    v696 = [v1131 objectForKeyedSubscript:@"SCC2_BW"];
+    v696 = [v1130 objectForKeyedSubscript:@"SCC2_BW"];
 
     if (!v696)
     {
       goto LABEL_230;
     }
 
-    v677 = [v1131 objectForKeyedSubscript:@"PCC_BW"];
+    v677 = [v1130 objectForKeyedSubscript:@"PCC_BW"];
     [v677 doubleValue];
     [(PLBBAgent *)self translateChannelRBsToChannelBW:?];
     v698 = v697;
-    v680 = [v1131 objectForKeyedSubscript:@"SCC1_BW"];
+    v680 = [v1130 objectForKeyedSubscript:@"SCC1_BW"];
     [v680 doubleValue];
     [(PLBBAgent *)self translateChannelRBsToChannelBW:?];
     v700 = v698 + v699;
-    v701 = [v1131 objectForKeyedSubscript:@"SCC2_BW"];
+    v701 = [v1130 objectForKeyedSubscript:@"SCC2_BW"];
     [v701 doubleValue];
     [(PLBBAgent *)self translateChannelRBsToChannelBW:?];
     v682 = v700 + v702;
@@ -9925,13 +10074,13 @@ LABEL_206:
     v690 = v689;
 
     v672 = v687;
-    v691 = v1094;
+    v691 = v1093;
     if (v690 > 0.0)
     {
-      v691 = v1094 * v690;
+      v691 = v1093 * v690;
     }
 
-    v1094 = v691;
+    v1093 = v691;
   }
 
 LABEL_230:
@@ -9945,7 +10094,7 @@ LABEL_230:
     v744 = v743;
     v745 = [v673 objectForKeyedSubscript:v672];
     v746 = [v745 objectForKeyedSubscript:@"LTE"];
-    v747 = [v746 objectForKeyedSubscript:v1103];
+    v747 = [v746 objectForKeyedSubscript:v1102];
     [v747 objectAtIndexedSubscript:v739];
     v748 = v673;
     v750 = v749 = v672;
@@ -9955,14 +10104,14 @@ LABEL_230:
     v672 = v749;
     v673 = v748;
 
-    v670 = v1151;
+    v670 = v1150;
     ++v739;
   }
 
   while (v739 != 12);
   for (jj = 8; jj != 12; ++jj)
   {
-    v753 = [v1151 objectAtIndexedSubscript:jj];
+    v753 = [v1150 objectAtIndexedSubscript:jj];
     [v753 doubleValue];
     v37 = v37 + v754;
   }
@@ -9974,24 +10123,24 @@ LABEL_230:
     v757 = 0.0;
     do
     {
-      v758 = [v1139 objectAtIndexedSubscript:v756];
+      v758 = [v1138 objectAtIndexedSubscript:v756];
       [v758 doubleValue];
       v760 = v759;
-      v761 = [v1154 objectForKeyedSubscript:mavRevStringQuery];
+      v761 = [v1153 objectForKeyedSubscript:mavRevStringQuery];
       v762 = [v761 objectForKeyedSubscript:@"LTE"];
       v763 = [v762 objectForKeyedSubscript:@"C0TBSz"];
-      v764 = [v763 objectForKeyedSubscript:v1145];
+      v764 = [v763 objectForKeyedSubscript:v1144];
       v765 = [v764 objectAtIndexedSubscript:v756];
       [v765 doubleValue];
       v757 = v757 + v760 * v766;
 
-      v767 = [v1136 objectAtIndexedSubscript:v756];
+      v767 = [v1135 objectAtIndexedSubscript:v756];
       [v767 doubleValue];
       v769 = v768;
-      v770 = [v1154 objectForKeyedSubscript:mavRevStringQuery];
+      v770 = [v1153 objectForKeyedSubscript:mavRevStringQuery];
       v771 = [v770 objectForKeyedSubscript:@"LTE"];
       v772 = [v771 objectForKeyedSubscript:@"C1TBSz"];
-      v773 = [v772 objectForKeyedSubscript:v1145];
+      v773 = [v772 objectForKeyedSubscript:v1144];
       v774 = [v773 objectAtIndexedSubscript:v756];
       [v774 doubleValue];
       v755 = v755 + v769 * v775;
@@ -10010,24 +10159,24 @@ LABEL_230:
     v757 = 0.0;
     do
     {
-      v777 = [v1139 objectAtIndexedSubscript:v776];
+      v777 = [v1138 objectAtIndexedSubscript:v776];
       [v777 doubleValue];
       v779 = v778;
-      v780 = [v1154 objectForKeyedSubscript:mavRevStringQuery];
+      v780 = [v1153 objectForKeyedSubscript:mavRevStringQuery];
       v781 = [v780 objectForKeyedSubscript:@"LTE"];
       v782 = [v781 objectForKeyedSubscript:@"C0TBSz"];
-      v783 = [v782 objectForKeyedSubscript:v1145];
+      v783 = [v782 objectForKeyedSubscript:v1144];
       v784 = [v783 objectAtIndexedSubscript:v776];
       [v784 doubleValue];
       v757 = v757 + v779 * v785;
 
-      v786 = [v1136 objectAtIndexedSubscript:v776];
+      v786 = [v1135 objectAtIndexedSubscript:v776];
       [v786 doubleValue];
       v788 = v787;
-      v789 = [v1154 objectForKeyedSubscript:mavRevStringQuery];
+      v789 = [v1153 objectForKeyedSubscript:mavRevStringQuery];
       v790 = [v789 objectForKeyedSubscript:@"LTE"];
       v791 = [v790 objectForKeyedSubscript:@"C1TBSz"];
-      v792 = [v791 objectForKeyedSubscript:v1145];
+      v792 = [v791 objectForKeyedSubscript:v1144];
       v793 = [v792 objectAtIndexedSubscript:v776];
       [v793 doubleValue];
       v755 = v755 + v788 * v794;
@@ -10038,55 +10187,55 @@ LABEL_230:
     while (v776 != 18);
 LABEL_241:
     v795 = v757 + v755;
-    v676 = v1133;
-    v796 = v1125;
+    v676 = v1132;
+    v796 = v1124;
   }
 
   else
   {
-    v1012 = mavRevStringQuery;
-    v796 = v1125;
+    v1011 = mavRevStringQuery;
+    v796 = v1124;
     if (([MEMORY[0x277D3F208] isBasebandClass:1003005] & 1) != 0 || (v795 = 0.0, objc_msgSend(MEMORY[0x277D3F208], "isBasebandClass:", 1003007)))
     {
       v795 = 0.0;
       for (kk = 1; kk != 17; ++kk)
       {
-        v1014 = [v796 objectAtIndexedSubscript:kk];
-        [v1014 doubleValue];
-        v1016 = v1015;
-        v1017 = [v1154 objectForKeyedSubscript:v1012];
-        v1018 = [v1017 objectForKeyedSubscript:@"LTE"];
-        v1019 = [v1018 objectForKeyedSubscript:@"C0TBSz"];
-        v1020 = [v1019 objectForKeyedSubscript:v1145];
-        v1021 = [v1020 objectAtIndexedSubscript:kk];
-        [v1021 doubleValue];
-        v795 = v795 + v1016 * v1022;
+        v1013 = [v796 objectAtIndexedSubscript:kk];
+        [v1013 doubleValue];
+        v1015 = v1014;
+        v1016 = [v1153 objectForKeyedSubscript:v1011];
+        v1017 = [v1016 objectForKeyedSubscript:@"LTE"];
+        v1018 = [v1017 objectForKeyedSubscript:@"C0TBSz"];
+        v1019 = [v1018 objectForKeyedSubscript:v1144];
+        v1020 = [v1019 objectAtIndexedSubscript:kk];
+        [v1020 doubleValue];
+        v795 = v795 + v1015 * v1021;
 
-        v796 = v1125;
-        v1012 = mavRevStringQuery;
+        v796 = v1124;
+        v1011 = mavRevStringQuery;
       }
     }
   }
 
   v797 = v740 / v676;
-  v1120 = v795 / v676;
+  v1119 = v795 / v676;
   if (([MEMORY[0x277D3F208] isBasebandClass:1003004] & 1) != 0 || (v798 = 0.0, v799 = 0.0, v800 = 0.0, objc_msgSend(MEMORY[0x277D3F208], "isBasebandClass:", 1003005)))
   {
-    v801 = [v1131 objectForKeyedSubscript:@"RfBPEArr"];
+    v801 = [v1130 objectForKeyedSubscript:@"RfBPEArr"];
     v802 = [v801 objectAtIndexedSubscript:7];
     [v802 doubleValue];
-    v1077 = v510;
-    v804 = v803 * 3.7 / (v1133 * 0.0000305175781) / 1000.0;
+    v1076 = v510;
+    v804 = v803 * 3.7 / (v1132 * 0.0000305175781) / 1000.0;
 
     v805 = [v801 objectAtIndexedSubscript:6];
     [v805 doubleValue];
     v807 = v797;
     v808 = v741;
-    v809 = v806 * 3.7 / (v1133 * 0.0000305175781) / 1000.0;
+    v809 = v806 * 3.7 / (v1132 * 0.0000305175781) / 1000.0;
 
     v810 = [v801 objectAtIndexedSubscript:5];
     [v810 doubleValue];
-    v800 = v811 * 3.7 / (v1133 * 0.0000305175781) / 1000.0;
+    v800 = v811 * 3.7 / (v1132 * 0.0000305175781) / 1000.0;
 
     if (v804 > 3000.0 || v804 < 0.0)
     {
@@ -10098,7 +10247,7 @@ LABEL_241:
       v798 = v804;
     }
 
-    v510 = v1077;
+    v510 = v1076;
     if (v809 > 3000.0 || v809 < 0.0)
     {
       v799 = 0.0;
@@ -10117,22 +10266,22 @@ LABEL_241:
     }
   }
 
-  v447 = v741 + v510 + v1094 + v797 + v1120 + v798 + v799 + v800;
-  powerCopy = v1134;
-  v25 = v1127;
-  entryDate = v1128;
-  v448 = v1154;
-  v815 = v1116;
-  v816 = v1103;
+  v447 = v741 + v510 + v1093 + v797 + v1119 + v798 + v799 + v800;
+  powerCopy = v1133;
+  v25 = v1126;
+  entryDate = v1127;
+  v448 = v1153;
+  v815 = v1115;
+  v816 = v1102;
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v817 = objc_opt_class();
-    v1162[0] = MEMORY[0x277D85DD0];
-    v1162[1] = 3221225472;
-    v1162[2] = __33__PLBBAgent_modelMav10BBHWPower___block_invoke_1782;
-    v1162[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v1162[4] = v817;
-    v818 = v1162;
+    v1161[0] = MEMORY[0x277D85DD0];
+    v1161[1] = 3221225472;
+    v1161[2] = __33__PLBBAgent_modelMav10BBHWPower___block_invoke_1782;
+    v1161[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v1161[4] = v817;
+    v818 = v1161;
     if (qword_2811F5580 != -1)
     {
       dispatch_once(&qword_2811F5580, v818);
@@ -10140,7 +10289,7 @@ LABEL_241:
 
     if (byte_2811F4FF9 == 1)
     {
-      v819 = [MEMORY[0x277CCACA8] stringWithFormat:@"lteSleepPowerAdder=%f, lteNonCaActivePowerAdder=%f, CAActivePowerAdder=%f, lteTxPowerAdder=%f, TBSzPowerAdder=%f, lnaAdder=%f, nlicAdder=%f, advRxAdder=%f, ltePower=%f", *&v741, *&v510, *&v1094, *&v797, *&v1120, *&v798, *&v799, *&v800, *&v447];
+      v819 = [MEMORY[0x277CCACA8] stringWithFormat:@"lteSleepPowerAdder=%f, lteNonCaActivePowerAdder=%f, CAActivePowerAdder=%f, lteTxPowerAdder=%f, TBSzPowerAdder=%f, lnaAdder=%f, nlicAdder=%f, advRxAdder=%f, ltePower=%f", *&v741, *&v510, *&v1093, *&v797, *&v1119, *&v798, *&v799, *&v800, *&v447];
       v820 = MEMORY[0x277D3F178];
       v821 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
       lastPathComponent6 = [v821 lastPathComponent];
@@ -10151,23 +10300,23 @@ LABEL_241:
       if (os_log_type_enabled(v824, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v1173 = v819;
+        v1172 = v819;
         _os_log_debug_impl(&dword_21A4C6000, v824, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
 
-      entryDate = v1128;
-      v815 = v1116;
-      v796 = v1125;
-      v816 = v1103;
-      v25 = v1127;
+      entryDate = v1127;
+      v815 = v1115;
+      v796 = v1124;
+      v816 = v1102;
+      v25 = v1126;
     }
   }
 
 LABEL_270:
-  v1152 = v447;
-  if (v1132)
+  v1151 = v447;
+  if (v1131)
   {
-    v825 = [v1132 objectForKeyedSubscript:@"SrvcType"];
+    v825 = [v1131 objectForKeyedSubscript:@"SrvcType"];
     v826 = [v825 objectAtIndexedSubscript:0];
     [v826 doubleValue];
     v828 = v827;
@@ -10209,7 +10358,7 @@ LABEL_270:
     [v860 doubleValue];
     v862 = v853 + v856 * v861;
 
-    v1146 = v825;
+    v1145 = v825;
     v863 = [v825 objectAtIndexedSubscript:3];
     [v863 doubleValue];
     v865 = v864;
@@ -10237,65 +10386,65 @@ LABEL_270:
     [v885 doubleValue];
     v887 = v862 + v874 * (v881 - v886);
 
-    v888 = [v1146 objectAtIndexedSubscript:4];
+    v888 = [v1145 objectAtIndexedSubscript:4];
     [v888 doubleValue];
     v890 = v889;
-    v891 = [v1154 objectForKeyedSubscript:mavRevStringQuery];
+    v891 = [v1153 objectForKeyedSubscript:mavRevStringQuery];
     v892 = [v891 objectForKeyedSubscript:@"UTRAN"];
     v893 = [v892 objectForKeyedSubscript:@"SrvcType"];
     v894 = [v893 objectAtIndexedSubscript:0];
     [v894 doubleValue];
     v896 = v871 + v890 * v895;
 
-    v1140 = [v1146 objectAtIndexedSubscript:4];
-    [v1140 doubleValue];
+    v1139 = [v1145 objectAtIndexedSubscript:4];
+    [v1139 doubleValue];
     v898 = v897;
-    v899 = [v1154 objectForKeyedSubscript:mavRevStringQuery];
+    v899 = [v1153 objectForKeyedSubscript:mavRevStringQuery];
     v900 = [v899 objectForKeyedSubscript:@"UTRAN"];
     v901 = [v900 objectForKeyedSubscript:@"SrvcType"];
     v902 = [v901 objectAtIndexedSubscript:4];
     [v902 doubleValue];
     v904 = v903;
-    v905 = [v1154 objectForKeyedSubscript:mavRevStringQuery];
+    v905 = [v1153 objectForKeyedSubscript:mavRevStringQuery];
     v906 = [v905 objectForKeyedSubscript:@"UTRAN"];
     v907 = [v906 objectForKeyedSubscript:@"SrvcType"];
     v908 = [v907 objectAtIndexedSubscript:0];
     [v908 doubleValue];
     v910 = v887 + v898 * (v904 - v909);
 
-    v911 = [v1132 objectForKeyedSubscript:@"RxDState"];
+    v911 = [v1131 objectForKeyedSubscript:@"RxDState"];
     v912 = [v911 objectAtIndexedSubscript:1];
     [v912 doubleValue];
-    v1141 = v913;
-    v914 = [v1154 objectForKeyedSubscript:mavRevStringQuery];
+    v1140 = v913;
+    v914 = [v1153 objectForKeyedSubscript:mavRevStringQuery];
     v915 = [v914 objectForKeyedSubscript:@"UTRAN"];
     v916 = [v915 objectForKeyedSubscript:@"RxDState"];
     v917 = [v916 objectAtIndexedSubscript:1];
     [v917 doubleValue];
-    v1137 = v918;
+    v1136 = v918;
 
-    if (v1156)
+    if (v1155)
     {
-      v1121 = v896;
-      v1126 = v911;
-      v919 = [v1156 objectForKeyedSubscript:@"RSSIModeCount"];
+      v1120 = v896;
+      v1125 = v911;
+      v919 = [v1155 objectForKeyedSubscript:@"RSSIModeCount"];
       v920 = [v919 objectAtIndexedSubscript:1];
       [v920 doubleValue];
       v922 = v921;
       v923 = [v919 objectAtIndexedSubscript:2];
       [v923 doubleValue];
       v925 = v924;
-      v1117 = v919;
+      v1116 = v919;
       v926 = [v919 objectAtIndexedSubscript:3];
       [v926 doubleValue];
       v928 = v927;
-      v929 = [v1154 objectForKeyedSubscript:mavRevStringQuery];
+      v929 = [v1153 objectForKeyedSubscript:mavRevStringQuery];
       v930 = [v929 objectForKeyedSubscript:@"UTRAN"];
       v931 = [v930 objectForKeyedSubscript:@"RX"];
       [v931 doubleValue];
       v933 = v932;
 
-      v934 = [v1156 objectForKeyedSubscript:@"TxPowerHist"];
+      v934 = [v1155 objectForKeyedSubscript:@"TxPowerHist"];
       v935 = 0;
       v936 = 0.0;
       do
@@ -10303,7 +10452,7 @@ LABEL_270:
         v937 = [v934 objectAtIndexedSubscript:v935];
         [v937 doubleValue];
         v939 = v938;
-        v940 = [v1154 objectForKeyedSubscript:mavRevStringQuery];
+        v940 = [v1153 objectForKeyedSubscript:mavRevStringQuery];
         v941 = [v940 objectForKeyedSubscript:@"UTRAN"];
         v942 = [v941 objectForKeyedSubscript:@"txPower"];
         v943 = [v942 objectAtIndexedSubscript:v935];
@@ -10322,22 +10471,22 @@ LABEL_270:
         v37 = v37 + v948;
       }
 
-      v949 = v1133;
-      v833 = v945 * v933 / v1133;
-      v950 = v936 / v1133;
+      v949 = v1132;
+      v833 = v945 * v933 / v1132;
+      v950 = v936 / v1132;
 
-      powerCopy = v1134;
-      v951 = v1146;
-      v911 = v1126;
-      v896 = v1121;
+      powerCopy = v1133;
+      v951 = v1145;
+      v911 = v1125;
+      v896 = v1120;
     }
 
     else
     {
       v950 = 0.0;
-      powerCopy = v1134;
-      v949 = v1133;
-      v951 = v1146;
+      powerCopy = v1133;
+      v949 = v1132;
+      v951 = v1145;
     }
 
     v953 = v896 / v949;
@@ -10369,17 +10518,17 @@ LABEL_270:
     v977 = v974 + v976;
 
     v978 = v962 + v977;
-    v25 = v1127;
-    v448 = v1154;
+    v25 = v1126;
+    v448 = v1153;
     if (v962 + v977 > 0.0)
     {
-      v979 = v1141 * v1137 / v949 + v833 + v950;
+      v979 = v1140 * v1136 / v949 + v833 + v950;
       v953 = v953 + v979 * v962 / v978;
       v952 = v952 + v979 * v977 / v978;
     }
 
-    entryDate = v1128;
-    v1108 = v953;
+    entryDate = v1127;
+    v1107 = v953;
   }
 
   else
@@ -10387,9 +10536,9 @@ LABEL_270:
     v952 = 0.0;
   }
 
-  if (v1109 >= 0.0)
+  if (v1108 >= 0.0)
   {
-    v980 = v1109;
+    v980 = v1108;
   }
 
   else
@@ -10397,9 +10546,9 @@ LABEL_270:
     v980 = 0.0;
   }
 
-  if (v1104 >= 0.0)
+  if (v1103 >= 0.0)
   {
-    v981 = v1104;
+    v981 = v1103;
   }
 
   else
@@ -10407,9 +10556,9 @@ LABEL_270:
     v981 = 0.0;
   }
 
-  if (v1097 >= 0.0)
+  if (v1096 >= 0.0)
   {
-    v982 = v1097;
+    v982 = v1096;
   }
 
   else
@@ -10417,9 +10566,9 @@ LABEL_270:
     v982 = 0.0;
   }
 
-  if (v1096 >= 0.0)
+  if (v1095 >= 0.0)
   {
-    v983 = v1096;
+    v983 = v1095;
   }
 
   else
@@ -10427,9 +10576,9 @@ LABEL_270:
     v983 = 0.0;
   }
 
-  if (v1152 >= 0.0)
+  if (v1151 >= 0.0)
   {
-    v984 = v1152;
+    v984 = v1151;
   }
 
   else
@@ -10451,12 +10600,12 @@ LABEL_270:
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v988 = objc_opt_class();
-    v1161[0] = MEMORY[0x277D85DD0];
-    v1161[1] = 3221225472;
-    v1161[2] = __33__PLBBAgent_modelMav10BBHWPower___block_invoke_1794;
-    v1161[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v1161[4] = v988;
-    v989 = v1161;
+    v1160[0] = MEMORY[0x277D85DD0];
+    v1160[1] = 3221225472;
+    v1160[2] = __33__PLBBAgent_modelMav10BBHWPower___block_invoke_1794;
+    v1160[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v1160[4] = v988;
+    v989 = v1160;
     if (qword_2811F5588 != -1)
     {
       dispatch_once(&qword_2811F5588, v989);
@@ -10476,11 +10625,11 @@ LABEL_270:
       if (os_log_type_enabled(v996, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v1173 = v991;
+        v1172 = v991;
         _os_log_debug_impl(&dword_21A4C6000, v996, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
 
-      entryDate = v1128;
+      entryDate = v1127;
       v25 = v990;
     }
   }
@@ -10491,12 +10640,12 @@ LABEL_270:
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v998 = objc_opt_class();
-    v1160[0] = MEMORY[0x277D85DD0];
-    v1160[1] = 3221225472;
-    v1160[2] = __33__PLBBAgent_modelMav10BBHWPower___block_invoke_1800;
-    v1160[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v1160[4] = v998;
-    v999 = v1160;
+    v1159[0] = MEMORY[0x277D85DD0];
+    v1159[1] = 3221225472;
+    v1159[2] = __33__PLBBAgent_modelMav10BBHWPower___block_invoke_1800;
+    v1159[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v1159[4] = v998;
+    v999 = v1159;
     if (qword_2811F5590 != -1)
     {
       dispatch_once(&qword_2811F5590, v999);
@@ -10504,7 +10653,7 @@ LABEL_270:
 
     if (byte_2811F4FFB == 1)
     {
-      v1000 = [MEMORY[0x277CCACA8] stringWithFormat:@"cdma2kVoicePower=%f, wcdmaVoicePower=%f, gsmVoicePower=%f, tdscdmaVoicePower=%f", *&v1110, *&v1113, *&v1098, *&v1108];
+      v1000 = [MEMORY[0x277CCACA8] stringWithFormat:@"cdma2kVoicePower=%f, wcdmaVoicePower=%f, gsmVoicePower=%f, tdscdmaVoicePower=%f", *&v1109, *&v1112, *&v1097, *&v1107];
       v1001 = MEMORY[0x277D3F178];
       v1002 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
       lastPathComponent8 = [v1002 lastPathComponent];
@@ -10515,22 +10664,22 @@ LABEL_270:
       if (os_log_type_enabled(v1005, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v1173 = v1000;
+        v1172 = v1000;
         _os_log_debug_impl(&dword_21A4C6000, v1005, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
 
-      entryDate = v1128;
-      v25 = v1127;
+      entryDate = v1127;
+      v25 = v1126;
     }
   }
 
   mEMORY[0x277D3F0C0]2 = [MEMORY[0x277D3F0C0] sharedInstance];
-  [mEMORY[0x277D3F0C0]2 createPowerEventBackwardWithRootNodeID:38 withPower:entryDate withEndDate:v1098 + v1110 + v1113 + v1108];
+  [mEMORY[0x277D3F0C0]2 createPowerEventBackwardWithRootNodeID:38 withPower:entryDate withEndDate:v1097 + v1109 + v1112 + v1107];
 
-  v1007 = [entryDate dateByAddingTimeInterval:v1133 * -0.0000305175781];
+  v1007 = [entryDate dateByAddingTimeInterval:v1132 * -0.0000305175781];
   mEMORY[0x277D3F0C0]3 = [MEMORY[0x277D3F0C0] sharedInstance];
   v1009 = mEMORY[0x277D3F0C0]3;
-  if (v37 / v1133 <= 0.100000001)
+  if (v37 / v1132 <= 0.100000001)
   {
     v1010 = MEMORY[0x277CBEBF8];
   }
@@ -10543,59 +10692,58 @@ LABEL_270:
   [mEMORY[0x277D3F0C0]3 createQualificationEventForwardWithQualificationID:1 withChildNodeNames:v1010 withStartDate:v1007];
 
 LABEL_321:
-  v1011 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __33__PLBBAgent_modelMav10BBHWPower___block_invoke(uint64_t a1)
+void *__33__PLBBAgent_modelMav10BBHWPower___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FF4 = result;
   return result;
 }
 
-uint64_t __33__PLBBAgent_modelMav10BBHWPower___block_invoke_1754(uint64_t a1)
+void *__33__PLBBAgent_modelMav10BBHWPower___block_invoke_1754(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FF5 = result;
   return result;
 }
 
-uint64_t __33__PLBBAgent_modelMav10BBHWPower___block_invoke_1760(uint64_t a1)
+void *__33__PLBBAgent_modelMav10BBHWPower___block_invoke_1760(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FF6 = result;
   return result;
 }
 
-uint64_t __33__PLBBAgent_modelMav10BBHWPower___block_invoke_1766(uint64_t a1)
+void *__33__PLBBAgent_modelMav10BBHWPower___block_invoke_1766(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FF7 = result;
   return result;
 }
 
-uint64_t __33__PLBBAgent_modelMav10BBHWPower___block_invoke_1772(uint64_t a1)
+void *__33__PLBBAgent_modelMav10BBHWPower___block_invoke_1772(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FF8 = result;
   return result;
 }
 
-uint64_t __33__PLBBAgent_modelMav10BBHWPower___block_invoke_1782(uint64_t a1)
+void *__33__PLBBAgent_modelMav10BBHWPower___block_invoke_1782(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FF9 = result;
   return result;
 }
 
-uint64_t __33__PLBBAgent_modelMav10BBHWPower___block_invoke_1794(uint64_t a1)
+void *__33__PLBBAgent_modelMav10BBHWPower___block_invoke_1794(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FFA = result;
   return result;
 }
 
-uint64_t __33__PLBBAgent_modelMav10BBHWPower___block_invoke_1800(uint64_t a1)
+void *__33__PLBBAgent_modelMav10BBHWPower___block_invoke_1800(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FFB = result;
@@ -10687,22 +10835,8 @@ LABEL_6:
           v19 = [MEMORY[0x277D3F258] powerModelForOperatorName:@"baseband"];
           v127 = entryDate;
           selfCopy = self;
-          if ([MEMORY[0x277D3F208] isBasebandClass:?])
+          if (([MEMORY[0x277D3F208] isBasebandClass:?] & 1) != 0 || (v20 = 0.0, v21 = 0.0, v22 = 0.0, v23 = 0.0, v24 = 0.0, v25 = 0.0, v26 = 0.0, v27 = 0.0, objc_msgSend(MEMORY[0x277D3F208], "isBasebandClass:", 1003002)))
           {
-            goto LABEL_10;
-          }
-
-          v20 = 0.0;
-          v21 = 0.0;
-          v22 = 0.0;
-          v23 = 0.0;
-          v24 = 0.0;
-          v25 = 0.0;
-          v26 = 0.0;
-          v27 = 0.0;
-          if ([MEMORY[0x277D3F208] isBasebandClass:1003002])
-          {
-LABEL_10:
             v28 = [powerCopy objectForKeyedSubscript:@"PLBBAgent_EventBackward_MavBBHwOtherPerRAT"];
             v29 = [v28 objectAtIndexedSubscript:0];
 
@@ -10948,3220 +11082,3220 @@ LABEL_10:
   }
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FFC = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2233(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2233(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FFD = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2239(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2239(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FFE = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2245(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2245(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4FFF = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2251(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2251(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5000 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2257(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2257(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5001 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2263(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2263(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5002 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2269(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2269(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5003 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2275(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2275(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5004 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2281(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2281(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5005 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2287(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2287(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5006 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2293(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2293(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5007 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2299(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2299(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5008 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2305(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2305(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5009 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2311(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2311(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F500A = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2317(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2317(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F500B = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2323(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2323(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F500C = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2329(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2329(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F500D = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2335(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2335(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F500E = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2341(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2341(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F500F = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2347(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2347(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5010 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2353(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2353(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5011 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2359(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2359(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5012 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2365(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2365(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5013 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2371(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2371(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5014 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2377(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2377(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5015 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2383(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2383(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5016 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2389(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2389(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5017 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2395(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2395(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5018 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2401(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2401(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5019 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2407(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2407(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F501A = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2413(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2413(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F501B = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2419(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2419(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F501C = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2425(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2425(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F501D = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2431(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2431(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F501E = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2437(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2437(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F501F = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2443(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2443(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5020 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2449(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2449(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5021 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2455(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2455(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5022 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2461(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2461(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5023 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2467(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2467(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5024 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2473(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2473(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5025 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2479(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2479(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5026 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2485(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2485(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5027 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2491(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2491(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5028 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2497(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2497(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5029 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2503(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2503(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F502A = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2509(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2509(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F502B = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2515(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2515(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F502C = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2521(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2521(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F502D = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2527(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2527(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F502E = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2533(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2533(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F502F = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2539(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2539(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5030 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2545(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2545(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5031 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2551(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2551(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5032 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2557(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2557(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5033 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2563(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2563(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5034 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2569(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2569(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5035 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2575(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2575(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5036 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2581(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2581(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5037 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2587(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2587(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5038 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2593(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2593(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5039 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2599(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2599(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F503A = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2605(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2605(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F503B = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2611(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2611(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F503C = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2617(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2617(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F503D = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2623(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2623(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F503E = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2629(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2629(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F503F = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2635(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2635(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5040 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2641(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2641(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5041 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2647(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2647(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5042 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2653(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2653(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5043 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2659(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2659(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5044 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2662(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2662(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5045 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2668(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2668(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5046 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2674(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2674(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5047 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2680(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2680(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5048 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2686(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2686(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5049 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2689(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2689(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F504A = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2692(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2692(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F504B = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2698(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2698(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F504C = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2704(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2704(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F504D = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2710(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2710(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F504E = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2716(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2716(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F504F = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2719(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2719(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5050 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2722(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2722(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5051 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2728(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2728(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5052 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2734(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2734(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5053 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2740(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2740(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5054 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2746(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2746(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5055 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2752(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2752(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5056 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2758(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2758(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5057 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2764(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2764(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5058 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2770(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2770(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5059 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2776(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2776(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F505A = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2782(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2782(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F505B = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2788(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2788(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F505C = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2794(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2794(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F505D = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2800(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2800(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F505E = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2806(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2806(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F505F = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2812(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2812(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5060 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2818(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2818(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5061 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2824(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2824(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5062 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2830(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2830(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5063 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2836(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2836(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5064 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2842(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2842(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5065 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2848(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2848(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5066 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2854(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2854(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5067 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2860(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2860(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5068 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2866(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2866(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5069 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2872(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2872(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F506A = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2878(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2878(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F506B = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2884(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2884(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F506C = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2890(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2890(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F506D = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2896(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2896(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F506E = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2902(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2902(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F506F = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2908(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2908(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5070 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2914(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2914(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5071 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2920(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2920(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5072 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2926(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2926(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5073 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2932(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2932(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5074 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2938(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2938(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5075 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2944(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2944(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5076 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2950(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2950(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5077 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2956(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2956(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5078 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2962(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2962(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5079 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2968(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2968(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F507A = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2974(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2974(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F507B = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2980(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2980(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F507C = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2986(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2986(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F507D = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2992(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2992(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F507E = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_2998(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_2998(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F507F = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_3004(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_3004(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5080 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_3010(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_3010(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5081 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_3016(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_3016(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5082 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_3022(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_3022(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5083 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_3028(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_3028(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5084 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_3034(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_3034(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5085 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_3040(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_3040(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5086 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_3046(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_3046(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5087 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_3052(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_3052(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5088 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_3058(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_3058(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5089 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_3064(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_3064(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F508A = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_3070(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_3070(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F508B = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_3076(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_3076(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F508C = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_3082(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_3082(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F508D = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_3088(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_3088(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F508E = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_3094(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_3094(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F508F = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_3100(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_3100(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5090 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_3106(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_3106(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5091 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_3112(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_3112(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5092 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_3118(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_3118(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5093 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_3124(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_3124(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5094 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_3130(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_3130(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5095 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_3136(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_3136(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5096 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_3142(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_3142(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5097 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_3148(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_3148(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5098 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_3154(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_3154(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5099 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_3160(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_3160(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F509A = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_3166(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_3166(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F509B = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_3172(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_3172(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F509C = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_3178(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_3178(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F509D = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_3184(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_3184(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F509E = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_3190(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_3190(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F509F = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_3196(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_3196(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50A0 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_3202(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_3202(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50A1 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_3208(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_3208(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50A2 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_3214(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_3214(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50A3 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_3220(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_3220(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50A4 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_3226(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_3226(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50A5 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_3232(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_3232(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50A6 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_3238(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_3238(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50A7 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_3244(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_3244(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50A8 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_3250(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_3250(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50A9 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_3256(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_3256(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50AA = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_3262(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_3262(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50AB = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_3268(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_3268(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50AC = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_3274(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_3274(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50AD = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_3280(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_3280(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50AE = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_3286(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_3286(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50AF = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_3292(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_3292(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50B0 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_3298(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_3298(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50B1 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_3304(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_3304(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50B2 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_3310(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_3310(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50B3 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_3316(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_3316(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50B4 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_3322(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_3322(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50B5 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_3328(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_3328(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50B6 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_3334(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_3334(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50B7 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_3340(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_3340(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50B8 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_3346(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_3346(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50B9 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_3352(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_3352(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50BA = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_3358(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_3358(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50BB = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_3364(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_3364(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50BC = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_3370(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_3370(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50BD = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_3376(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_3376(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50BE = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_3382(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_3382(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50BF = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_3388(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_3388(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50C0 = result;
   return result;
 }
 
-uint64_t __28__PLBBAgent_modelBB16Power___block_invoke_3400(uint64_t a1)
+void *__28__PLBBAgent_modelBB16Power___block_invoke_3400(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50C1 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50C2 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3406(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3406(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50C3 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3412(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3412(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50C4 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3418(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3418(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50C5 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3424(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3424(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50C6 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3430(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3430(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50C7 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3436(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3436(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50C8 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3442(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3442(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50C9 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3448(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3448(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50CA = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3454(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3454(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50CB = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3460(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3460(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50CC = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3466(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3466(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50CD = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3472(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3472(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50CE = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3478(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3478(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50CF = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3484(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3484(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50D0 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3490(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3490(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50D1 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3496(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3496(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50D2 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3502(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3502(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50D3 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3508(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3508(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50D4 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3514(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3514(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50D5 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3520(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3520(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50D6 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3526(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3526(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50D7 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3532(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3532(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50D8 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3538(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3538(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50D9 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3544(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3544(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50DA = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3550(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3550(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50DB = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3556(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3556(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50DC = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3562(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3562(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50DD = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3568(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3568(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50DE = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3574(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3574(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50DF = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3580(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3580(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50E0 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3586(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3586(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50E1 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3592(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3592(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50E2 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3598(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3598(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50E3 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3604(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3604(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50E4 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3610(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3610(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50E5 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3616(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3616(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50E6 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3622(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3622(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50E7 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3628(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3628(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50E8 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3634(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3634(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50E9 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3640(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3640(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50EA = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3646(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3646(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50EB = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3652(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3652(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50EC = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3658(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3658(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50ED = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3664(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3664(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50EE = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3670(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3670(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50EF = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3676(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3676(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50F0 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3682(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3682(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50F1 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3688(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3688(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50F2 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3694(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3694(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50F3 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3700(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3700(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50F4 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3706(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3706(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50F5 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3712(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3712(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50F6 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3718(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3718(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50F7 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3724(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3724(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50F8 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3730(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3730(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50F9 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3736(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3736(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50FA = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3742(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3742(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50FB = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3748(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3748(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50FC = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3754(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3754(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50FD = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3760(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3760(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50FE = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3766(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3766(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F50FF = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3772(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3772(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5100 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3778(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3778(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5101 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3784(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3784(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5102 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3790(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3790(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5103 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3796(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3796(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5104 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3802(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3802(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5105 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3808(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3808(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5106 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3814(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3814(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5107 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3820(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3820(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5108 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3826(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3826(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5109 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3832(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3832(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F510A = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3838(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3838(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F510B = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3841(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3841(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F510C = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3847(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3847(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F510D = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3853(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3853(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F510E = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3859(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3859(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F510F = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3865(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3865(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5110 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3871(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3871(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5111 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3877(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3877(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5112 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3883(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3883(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5113 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3889(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3889(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5114 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3895(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3895(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5115 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3901(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3901(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5116 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3907(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3907(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5117 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3913(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3913(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5118 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3919(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3919(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5119 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3925(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3925(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F511A = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3931(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3931(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F511B = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3937(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3937(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F511C = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3943(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3943(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F511D = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3949(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3949(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F511E = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3955(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3955(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F511F = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3961(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3961(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5120 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3967(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3967(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5121 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3973(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3973(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5122 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3979(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3979(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5123 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3985(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3985(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5124 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3991(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3991(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5125 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_3997(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_3997(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5126 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4003(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4003(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5127 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4009(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4009(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5128 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4015(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4015(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5129 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4021(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4021(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F512A = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4027(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4027(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F512B = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4033(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4033(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F512C = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4039(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4039(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F512D = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4045(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4045(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F512E = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4051(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4051(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F512F = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4057(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4057(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5130 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4063(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4063(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5131 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4069(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4069(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5132 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4075(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4075(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5133 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4081(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4081(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5134 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4087(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4087(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5135 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4093(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4093(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5136 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4099(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4099(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5137 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4105(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4105(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5138 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4111(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4111(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5139 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4117(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4117(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F513A = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4123(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4123(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F513B = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4129(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4129(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F513C = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4135(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4135(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F513D = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4141(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4141(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F513E = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4147(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4147(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F513F = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4153(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4153(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5140 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4159(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4159(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5141 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4165(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4165(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5142 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4171(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4171(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5143 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4177(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4177(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5144 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4183(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4183(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5145 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4189(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4189(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5146 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4195(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4195(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5147 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4201(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4201(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5148 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4207(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4207(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5149 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4213(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4213(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F514A = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4219(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4219(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F514B = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4225(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4225(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F514C = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4231(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4231(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F514D = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4237(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4237(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F514E = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4243(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4243(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F514F = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4249(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4249(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5150 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4255(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4255(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5151 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4261(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4261(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5152 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4267(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4267(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5153 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4273(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4273(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5154 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4279(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4279(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5155 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4285(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4285(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5156 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4291(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4291(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5157 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4297(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4297(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5158 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4303(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4303(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5159 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4309(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4309(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F515A = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4315(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4315(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F515B = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4321(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4321(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F515C = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4327(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4327(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F515D = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4333(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4333(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F515E = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4339(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4339(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F515F = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4345(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4345(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5160 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4351(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4351(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5161 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4357(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4357(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5162 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4363(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4363(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5163 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4369(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4369(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5164 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4375(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4375(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5165 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4381(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4381(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5166 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4387(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4387(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5167 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4393(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4393(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5168 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4399(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4399(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5169 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4405(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4405(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F516A = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4411(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4411(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F516B = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4417(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4417(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F516C = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4423(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4423(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F516D = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4429(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4429(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F516E = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4435(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4435(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F516F = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4441(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4441(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5170 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4447(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4447(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5171 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4453(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4453(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5172 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4459(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4459(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5173 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4465(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4465(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5174 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4471(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4471(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5175 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4477(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4477(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5176 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4483(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4483(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5177 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4489(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4489(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5178 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4495(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4495(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5179 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4501(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4501(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F517A = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4507(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4507(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F517B = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4513(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4513(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F517C = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4519(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4519(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F517D = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4525(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4525(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F517E = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4531(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4531(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F517F = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4537(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4537(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5180 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4543(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4543(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5181 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4549(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4549(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5182 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4555(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4555(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5183 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4561(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4561(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5184 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4564(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4564(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5185 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4567(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4567(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5186 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4570(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4570(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5187 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4573(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4573(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5188 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4579(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4579(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5189 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4585(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4585(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F518A = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4591(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4591(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F518B = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4597(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4597(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F518C = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4603(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4603(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F518D = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4609(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4609(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F518E = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4615(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4615(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F518F = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4621(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4621(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5190 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4627(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4627(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5191 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4633(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4633(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5192 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4639(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4639(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5193 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4645(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4645(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5194 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4651(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4651(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5195 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4657(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4657(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5196 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4663(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4663(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5197 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4669(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4669(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5198 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4675(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4675(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5199 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4681(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4681(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F519A = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4687(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4687(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F519B = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4693(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4693(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F519C = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4699(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4699(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F519D = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4702(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4702(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F519E = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4705(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4705(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F519F = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4708(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4708(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51A0 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4711(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4711(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51A1 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4717(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4717(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51A2 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4720(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4720(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51A3 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4726(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4726(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51A4 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4732(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4732(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51A5 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4738(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4738(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51A6 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4744(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4744(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51A7 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4750(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4750(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51A8 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4756(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4756(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51A9 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4762(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4762(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51AA = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4768(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4768(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51AB = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4774(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4774(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51AC = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4780(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4780(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51AD = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4786(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4786(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51AE = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4792(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4792(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51AF = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4798(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4798(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51B0 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4804(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4804(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51B1 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4810(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4810(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51B2 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4816(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4816(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51B3 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4819(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4819(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51B4 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4822(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4822(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51B5 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4825(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4825(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51B6 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4828(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4828(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51B7 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4831(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4831(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51B8 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4834(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4834(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51B9 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4837(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4837(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51BA = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4840(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4840(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51BB = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4843(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4843(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51BC = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4846(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4846(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51BD = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4849(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4849(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51BE = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4852(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4852(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51BF = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4858(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4858(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51C0 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4864(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4864(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51C1 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4867(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4867(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51C2 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4873(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4873(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51C3 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4876(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4876(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51C4 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4879(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4879(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51C5 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4885(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4885(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51C6 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4894(uint64_t a1)
+void *__27__PLBBAgent_modelMavPower___block_invoke_4894(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51C7 = result;
@@ -14244,868 +14378,868 @@ uint64_t __27__PLBBAgent_modelMavPower___block_invoke_4894(uint64_t a1)
   }
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51C8 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_4933(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_4933(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51C9 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_4939(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_4939(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51CA = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_4945(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_4945(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51CB = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_4960(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_4960(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51CC = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_4966(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_4966(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51CD = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_4978(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_4978(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51CE = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_4984(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_4984(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51CF = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_4990(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_4990(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51D0 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_4996(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_4996(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51D1 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5002(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5002(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51D2 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5008(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5008(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51D3 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5014(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5014(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51D4 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5020(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5020(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51D5 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5026(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5026(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51D6 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5032(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5032(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51D7 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5038(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5038(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51D8 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5044(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5044(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51D9 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5050(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5050(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51DA = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5056(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5056(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51DB = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5062(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5062(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51DC = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5074(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5074(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51DD = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5080(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5080(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51DE = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5086(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5086(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51DF = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5092(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5092(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51E0 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5098(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5098(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51E1 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5116(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5116(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51E2 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5122(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5122(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51E3 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5128(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5128(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51E4 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5134(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5134(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51E5 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5140(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5140(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51E6 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5146(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5146(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51E7 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5152(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5152(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51E8 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5158(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5158(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51E9 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5164(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5164(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51EA = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5170(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5170(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51EB = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5182(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5182(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51EC = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5188(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5188(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51ED = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5194(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5194(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51EE = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5203(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5203(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51EF = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5209(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5209(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51F0 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5215(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5215(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51F1 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5230(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5230(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51F2 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5236(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5236(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51F3 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5242(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5242(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51F4 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5248(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5248(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51F5 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5254(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5254(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51F6 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5260(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5260(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51F7 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5266(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5266(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51F8 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5272(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5272(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51F9 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5278(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5278(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51FA = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5284(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5284(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51FB = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5290(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5290(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51FC = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5296(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5296(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51FD = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5302(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5302(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51FE = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5308(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5308(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F51FF = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5314(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5314(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5200 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5320(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5320(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5201 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5326(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5326(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5202 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5332(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5332(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5203 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5338(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5338(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5204 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5344(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5344(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5205 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5350(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5350(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5206 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5356(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5356(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5207 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5362(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5362(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5208 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5365(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5365(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5209 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5371(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5371(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F520A = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5377(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5377(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F520B = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5383(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5383(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F520C = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5389(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5389(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F520D = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5395(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5395(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F520E = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5401(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5401(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F520F = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5407(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5407(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5210 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5413(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5413(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5211 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5419(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5419(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5212 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5425(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5425(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5213 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5431(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5431(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5214 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5437(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5437(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5215 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5443(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5443(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5216 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5449(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5449(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5217 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5455(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5455(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5218 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5461(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5461(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5219 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5467(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5467(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F521A = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5473(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5473(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F521B = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5479(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5479(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F521C = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5485(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5485(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F521D = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5491(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5491(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F521E = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5494(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5494(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F521F = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5506(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5506(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5220 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5509(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5509(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5221 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5512(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5512(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5222 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5518(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5518(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5223 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5521(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5521(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5224 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5524(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5524(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5225 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5527(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5527(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5226 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5530(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5530(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5227 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5533(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5533(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5228 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5536(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5536(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5229 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5539(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5539(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F522A = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5551(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5551(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F522B = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5554(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5554(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F522C = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5557(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5557(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F522D = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5563(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5563(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F522E = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5566(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5566(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F522F = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5569(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5569(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5230 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5572(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5572(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5231 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5575(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5575(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5232 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5578(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5578(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5233 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5581(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5581(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5234 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5584(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5584(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5235 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5587(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5587(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5236 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5590(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5590(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5237 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5593(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5593(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5238 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5596(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5596(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5239 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5599(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5599(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F523A = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5605(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5605(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F523B = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5611(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5611(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F523C = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5617(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5617(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F523D = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5623(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5623(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F523E = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5629(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5629(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F523F = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5635(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5635(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5240 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5644(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5644(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5241 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5650(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5650(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5242 = result;
   return result;
 }
 
-uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5656(uint64_t a1)
+void *__30__PLBBAgent_modelSinopePower___block_invoke_5656(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5243 = result;
@@ -15127,7 +15261,7 @@ uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5656(uint64_t a1)
 
 - (void)modelScanPower:(id)power
 {
-  v167 = *MEMORY[0x277D85DE8];
+  v166 = *MEMORY[0x277D85DE8];
   powerCopy = power;
   v4 = [powerCopy objectForKeyedSubscript:@"PLBBAgent_EventBackward_MavBBHwOtherPerRAT"];
 
@@ -15139,7 +15273,7 @@ uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5656(uint64_t a1)
   v5 = [powerCopy objectForKeyedSubscript:@"PLBBAgent_EventBackward_MavBBHwOtherPerRAT"];
   v6 = [v5 count];
 
-  v160 = v6;
+  v159 = v6;
   if (!v6)
   {
     goto LABEL_63;
@@ -15159,11 +15293,11 @@ uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5656(uint64_t a1)
     goto LABEL_62;
   }
 
-  v140 = v9;
-  v141 = entryDate;
-  v157 = mavRevStringQuery;
-  v158 = powerCopy;
-  v159 = [MEMORY[0x277D3F258] powerModelForOperatorName:@"baseband"];
+  v139 = v9;
+  v140 = entryDate;
+  v156 = mavRevStringQuery;
+  v157 = powerCopy;
+  v158 = [MEMORY[0x277D3F258] powerModelForOperatorName:@"baseband"];
   v14 = 0;
   v15 = 0.0;
   v16 = 0.0;
@@ -15189,19 +15323,19 @@ uint64_t __30__PLBBAgent_modelSinopePower___block_invoke_5656(uint64_t a1)
     }
 
     v24 = v23;
-    v25 = [v159 objectForKeyedSubscript:mavRevStringQuery];
+    v25 = [v158 objectForKeyedSubscript:mavRevStringQuery];
     v26 = [v25 objectForKeyedSubscript:v24];
     v27 = [v26 objectForKeyedSubscript:@"SCAN"];
     [v27 doubleValue];
     v29 = v28;
 
-    v30 = [v159 objectForKeyedSubscript:mavRevStringQuery];
+    v30 = [v158 objectForKeyedSubscript:mavRevStringQuery];
     v31 = [v30 objectForKeyedSubscript:v24];
     v32 = [v31 objectForKeyedSubscript:@"CELL_SEL_RESEL"];
     [v32 doubleValue];
     v34 = v33;
 
-    v35 = [v159 objectForKeyedSubscript:mavRevStringQuery];
+    v35 = [v158 objectForKeyedSubscript:mavRevStringQuery];
     v36 = [v35 objectForKeyedSubscript:v24];
     v37 = [v36 objectForKeyedSubscript:@"IDLE"];
     [v37 doubleValue];
@@ -15242,12 +15376,12 @@ LABEL_12:
     ++v14;
   }
 
-  while (v160 != v14);
+  while (v159 != v14);
   v48 = [MEMORY[0x277D3F208] isBasebandClass:1003001];
   if ((v48 & 1) != 0 || [MEMORY[0x277D3F208] isBasebandClass:1003002])
   {
     mEMORY[0x277D3F0C0] = [MEMORY[0x277D3F0C0] sharedInstance];
-    [mEMORY[0x277D3F0C0] createPowerEventBackwardWithRootNodeID:46 withPower:v141 withEndDate:v16 / v13];
+    [mEMORY[0x277D3F0C0] createPowerEventBackwardWithRootNodeID:46 withPower:v140 withEndDate:v16 / v13];
   }
 
   if (![MEMORY[0x277D3F208] isBasebandMavLeg])
@@ -15261,44 +15395,44 @@ LABEL_12:
   if (!v50)
   {
     v64 = 0;
-    v161 = 0;
+    v160 = 0;
     v67 = 0.0;
-    v68 = v141;
-    v63 = v159;
+    v68 = v140;
+    v63 = v158;
     goto LABEL_51;
   }
 
-  v164 = 0u;
-  v165 = 0u;
-  v162 = 0u;
   v163 = 0u;
+  v164 = 0u;
+  v161 = 0u;
+  v162 = 0u;
   v52 = [powerCopy objectForKeyedSubscript:@"PLBBAgent_EventBackward_MavBBHwOtherPerRAT"];
-  v53 = [v52 countByEnumeratingWithState:&v162 objects:v166 count:16];
+  v53 = [v52 countByEnumeratingWithState:&v161 objects:v165 count:16];
   if (!v53)
   {
     v64 = 0;
-    v161 = 0;
+    v160 = 0;
     v67 = 0.0;
-    v68 = v141;
-    v63 = v159;
+    v68 = v140;
+    v63 = v158;
     goto LABEL_50;
   }
 
   v54 = v53;
   v55 = 0;
-  v161 = 0;
-  v56 = *v163;
+  v160 = 0;
+  v56 = *v162;
   while (2)
   {
     v57 = 0;
     while (2)
     {
-      if (*v163 != v56)
+      if (*v162 != v56)
       {
         objc_enumerationMutation(v52);
       }
 
-      v58 = *(*(&v162 + 1) + 8 * v57);
+      v58 = *(*(&v161 + 1) + 8 * v57);
       v59 = [v58 objectForKeyedSubscript:@"RadioTech"];
       intValue2 = [v59 intValue];
 
@@ -15306,8 +15440,8 @@ LABEL_12:
       {
         if (intValue2 == 1)
         {
-          v61 = v161;
-          v161 = v58;
+          v61 = v160;
+          v160 = v58;
           goto LABEL_30;
         }
       }
@@ -15328,7 +15462,7 @@ LABEL_30:
       break;
     }
 
-    v54 = [v52 countByEnumeratingWithState:&v162 objects:v166 count:16];
+    v54 = [v52 countByEnumeratingWithState:&v161 objects:v165 count:16];
     if (v54)
     {
       continue;
@@ -15337,7 +15471,7 @@ LABEL_30:
     break;
   }
 
-  v63 = v159;
+  v63 = v158;
   v64 = v55;
   if (v55)
   {
@@ -15345,7 +15479,7 @@ LABEL_30:
     v66 = [v65 objectAtIndexedSubscript:2];
     [v66 doubleValue];
     v67 = 0.0;
-    v68 = v141;
+    v68 = v140;
     if (v69 >= v13)
     {
       goto LABEL_37;
@@ -15360,7 +15494,7 @@ LABEL_30:
       v73 = [v65 objectAtIndexedSubscript:2];
       [v73 doubleValue];
       v75 = v74;
-      v76 = [v159 objectForKeyedSubscript:v157];
+      v76 = [v158 objectForKeyedSubscript:v156];
       v77 = [v76 objectForKeyedSubscript:@"CDMA2K"];
       v78 = [v77 objectForKeyedSubscript:@"SCAN"];
       [v78 doubleValue];
@@ -15369,7 +15503,7 @@ LABEL_30:
       v66 = [v65 objectAtIndexedSubscript:3];
       [v66 doubleValue];
       v82 = v81;
-      v83 = [v159 objectForKeyedSubscript:v157];
+      v83 = [v158 objectForKeyedSubscript:v156];
       v84 = [v83 objectForKeyedSubscript:@"CDMA2K"];
       v85 = [v84 objectForKeyedSubscript:@"CELL_SEL_RESEL"];
       [v85 doubleValue];
@@ -15384,12 +15518,12 @@ LABEL_37:
   else
   {
     v67 = 0.0;
-    v68 = v141;
+    v68 = v140;
   }
 
-  if (v161)
+  if (v160)
   {
-    v52 = [v161 objectForKeyedSubscript:@"ProtocolStateHist"];
+    v52 = [v160 objectForKeyedSubscript:@"ProtocolStateHist"];
     v87 = [v52 objectAtIndexedSubscript:2];
     [v87 doubleValue];
     if (v88 >= v13)
@@ -15411,7 +15545,7 @@ LABEL_37:
       v92 = [v52 objectAtIndexedSubscript:2];
       [v92 doubleValue];
       v94 = v93;
-      v95 = [v159 objectForKeyedSubscript:v157];
+      v95 = [v158 objectForKeyedSubscript:v156];
       v96 = [v95 objectForKeyedSubscript:@"1xEVDO"];
       v97 = [v96 objectForKeyedSubscript:@"SCAN"];
       [v97 doubleValue];
@@ -15420,8 +15554,8 @@ LABEL_37:
       v87 = [v52 objectAtIndexedSubscript:3];
       [v87 doubleValue];
       v101 = v100;
-      v63 = v159;
-      v102 = [v159 objectForKeyedSubscript:v157];
+      v63 = v158;
+      v102 = [v158 objectForKeyedSubscript:v156];
       v103 = [v102 objectForKeyedSubscript:@"1xEVDO"];
       v104 = [v103 objectForKeyedSubscript:@"CELL_SEL_RESEL"];
       [v104 doubleValue];
@@ -15431,14 +15565,14 @@ LABEL_37:
 LABEL_46:
     }
 
-    powerCopy = v158;
+    powerCopy = v157;
 LABEL_50:
   }
 
   else
   {
-    v161 = 0;
-    powerCopy = v158;
+    v160 = 0;
+    powerCopy = v157;
   }
 
 LABEL_51:
@@ -15446,61 +15580,61 @@ LABEL_51:
 
   if (v106)
   {
-    v139 = v64;
-    v107 = [v158 objectForKeyedSubscript:@"PLBBAgent_EventBackward_BBMavHwRfOos"];
+    v138 = v64;
+    v107 = [v157 objectForKeyedSubscript:@"PLBBAgent_EventBackward_BBMavHwRfOos"];
     v108 = [v107 objectAtIndexedSubscript:0];
 
-    v145 = [v108 objectForKeyedSubscript:@"oosGsmPssiStatTicks"];
-    v144 = [v108 objectForKeyedSubscript:@"oosWcdmaPssiStatTicks"];
-    v143 = [v108 objectForKeyedSubscript:@"oosLtePssiStatTicks"];
-    v138 = v108;
-    v142 = [v108 objectForKeyedSubscript:@"oosTdsPssiStatTicks"];
+    v144 = [v108 objectForKeyedSubscript:@"oosGsmPssiStatTicks"];
+    v143 = [v108 objectForKeyedSubscript:@"oosWcdmaPssiStatTicks"];
+    v142 = [v108 objectForKeyedSubscript:@"oosLtePssiStatTicks"];
+    v137 = v108;
+    v141 = [v108 objectForKeyedSubscript:@"oosTdsPssiStatTicks"];
     for (i = 0; i != 6; ++i)
     {
-      v156 = [v145 objectAtIndexedSubscript:i];
-      [v156 doubleValue];
+      v155 = [v144 objectAtIndexedSubscript:i];
+      [v155 doubleValue];
       v111 = v110;
-      v155 = [v63 objectForKeyedSubscript:v157];
-      v154 = [v155 objectForKeyedSubscript:@"GSM"];
-      v153 = [v154 objectForKeyedSubscript:@"Pssi"];
-      v152 = [v153 objectAtIndexedSubscript:i];
-      [v152 doubleValue];
-      v113 = v112;
-      v151 = [v144 objectAtIndexedSubscript:i];
+      v154 = [v63 objectForKeyedSubscript:v156];
+      v153 = [v154 objectForKeyedSubscript:@"GSM"];
+      v152 = [v153 objectForKeyedSubscript:@"Pssi"];
+      v151 = [v152 objectAtIndexedSubscript:i];
       [v151 doubleValue];
+      v113 = v112;
+      v150 = [v143 objectAtIndexedSubscript:i];
+      [v150 doubleValue];
       v115 = v114;
-      v150 = [v63 objectForKeyedSubscript:v157];
-      v149 = [v150 objectForKeyedSubscript:@"WCDMA"];
-      v148 = [v149 objectForKeyedSubscript:@"Pssi"];
-      v147 = [v148 objectAtIndexedSubscript:i];
-      [v147 doubleValue];
-      v117 = v115 * v116 + v111 * v113;
-      v146 = [v143 objectAtIndexedSubscript:i];
+      v149 = [v63 objectForKeyedSubscript:v156];
+      v148 = [v149 objectForKeyedSubscript:@"WCDMA"];
+      v147 = [v148 objectForKeyedSubscript:@"Pssi"];
+      v146 = [v147 objectAtIndexedSubscript:i];
       [v146 doubleValue];
+      v117 = v115 * v116 + v111 * v113;
+      v145 = [v142 objectAtIndexedSubscript:i];
+      [v145 doubleValue];
       v119 = v118;
-      v120 = [v63 objectForKeyedSubscript:v157];
+      v120 = [v63 objectForKeyedSubscript:v156];
       v121 = [v120 objectForKeyedSubscript:@"LTE"];
       v122 = [v121 objectForKeyedSubscript:@"Pssi"];
       v123 = [v122 objectAtIndexedSubscript:i];
       [v123 doubleValue];
       v125 = v117 + v119 * v124;
-      v126 = [v142 objectAtIndexedSubscript:i];
+      v126 = [v141 objectAtIndexedSubscript:i];
       [v126 doubleValue];
       v128 = v127;
-      v129 = [v159 objectForKeyedSubscript:v157];
+      v129 = [v158 objectForKeyedSubscript:v156];
       v130 = [v129 objectForKeyedSubscript:@"UTRAN"];
       v131 = [v130 objectForKeyedSubscript:@"Pssi"];
       v132 = [v131 objectAtIndexedSubscript:i];
       [v132 doubleValue];
       v67 = v67 + v125 + v128 * v133;
 
-      v63 = v159;
+      v63 = v158;
     }
 
     v51 = v67 / v13;
 
-    v68 = v141;
-    v64 = v139;
+    v68 = v140;
+    v64 = v138;
   }
 
   v134 = 0.0;
@@ -15522,16 +15656,15 @@ LABEL_51:
   mEMORY[0x277D3F0C0]2 = [MEMORY[0x277D3F0C0] sharedInstance];
   [mEMORY[0x277D3F0C0]2 createPowerEventBackwardWithRootNodeID:47 withPower:v68 withEndDate:v135];
 
-  powerCopy = v158;
+  powerCopy = v157;
 LABEL_61:
 
-  mavRevStringQuery = v157;
-  v9 = v140;
-  entryDate = v141;
+  mavRevStringQuery = v156;
+  v9 = v139;
+  entryDate = v140;
 LABEL_62:
 
 LABEL_63:
-  v137 = *MEMORY[0x277D85DE8];
 }
 
 - (void)loadOOSModelValues
@@ -15677,7 +15810,7 @@ LABEL_22:
 
 - (void)modelGPSPower:(id)power
 {
-  v141 = *MEMORY[0x277D85DE8];
+  v140 = *MEMORY[0x277D85DE8];
   powerCopy = power;
   mavRevStringQuery = [MEMORY[0x277D3F258] MavRevStringQuery];
   v5 = [MEMORY[0x277D3F258] powerModelForOperatorName:@"baseband"];
@@ -15687,37 +15820,37 @@ LABEL_22:
     v7 = [v6 objectForKeyedSubscript:@"GPS"];
     v8 = [v7 objectForKeyedSubscript:@"gps_dpo_bins_80ms"];
     [v8 doubleValue];
-    v127 = v9;
+    v126 = v9;
 
     v10 = [v5 objectForKeyedSubscript:mavRevStringQuery];
     v11 = [v10 objectForKeyedSubscript:@"GPS"];
     v12 = [v11 objectForKeyedSubscript:@"gps_dpo_bins_200ms"];
     [v12 doubleValue];
-    v126 = v13;
+    v125 = v13;
 
     v14 = [v5 objectForKeyedSubscript:mavRevStringQuery];
     v15 = [v14 objectForKeyedSubscript:@"GPS"];
     v16 = [v15 objectForKeyedSubscript:@"gps_dpo_bins_400ms"];
     [v16 doubleValue];
-    v125 = v17;
+    v124 = v17;
 
     v18 = [v5 objectForKeyedSubscript:mavRevStringQuery];
     v19 = [v18 objectForKeyedSubscript:@"GPS"];
     v20 = [v19 objectForKeyedSubscript:@"gps_dpo_bins_1000ms"];
     [v20 doubleValue];
-    v124 = v21;
+    v123 = v21;
 
     v22 = [v5 objectForKeyedSubscript:mavRevStringQuery];
     v23 = [v22 objectForKeyedSubscript:@"GPS"];
     v24 = [v23 objectForKeyedSubscript:@"gps_dpo_bins_unknown"];
     [v24 doubleValue];
-    v123 = v25;
+    v122 = v25;
 
     v26 = [v5 objectForKeyedSubscript:mavRevStringQuery];
     v27 = [v26 objectForKeyedSubscript:@"GPS"];
     v28 = [v27 objectForKeyedSubscript:@"gps_dpo_bins_aborted"];
     [v28 doubleValue];
-    v122 = v29;
+    v121 = v29;
 
     v30 = [powerCopy objectForKeyedSubscript:@"GPSOnOffStateHistogram"];
     v31 = [powerCopy objectForKeyedSubscript:@"GPSDPOOnOffStateHistogram"];
@@ -15728,7 +15861,7 @@ LABEL_22:
 
     v36 = [v30 objectAtIndexedSubscript:0];
     [v36 doubleValue];
-    v129 = v37;
+    v128 = v37;
 
     v38 = [v30 objectAtIndexedSubscript:1];
     [v38 doubleValue];
@@ -15744,11 +15877,11 @@ LABEL_22:
 
     v47 = [v32 objectAtIndexedSubscript:0];
     [v47 doubleValue];
-    v121 = v48;
+    v120 = v48;
 
     v49 = [v32 objectAtIndexedSubscript:1];
     [v49 doubleValue];
-    v120 = v50;
+    v119 = v50;
 
     v51 = [v32 objectAtIndexedSubscript:2];
     [v51 doubleValue];
@@ -15766,12 +15899,12 @@ LABEL_22:
     [v60 doubleValue];
     v62 = v61;
 
-    if (v129 + v40 >= v35 && v43 + v46 >= v35)
+    if (v128 + v40 >= v35 && v43 + v46 >= v35)
     {
       v63 = 0.0;
       if (v35 > 0.0)
       {
-        v63 = (v126 * v120 + v121 * v127 + v53 * v125 + v56 * v124 + v59 * v123 + v62 * v122) / v35 * 32768.0;
+        v63 = (v125 * v119 + v120 * v126 + v53 * v124 + v56 * v123 + v59 * v122 + v62 * v121) / v35 * 32768.0;
       }
 
 LABEL_11:
@@ -15801,7 +15934,7 @@ LABEL_11:
           if (os_log_type_enabled(v70, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v140 = v65;
+            v139 = v65;
             _os_log_debug_impl(&dword_21A4C6000, v70, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
           }
         }
@@ -15820,66 +15953,66 @@ LABEL_19:
 
   if ([MEMORY[0x277D3F208] isBasebandClass:1003001])
   {
-    v74 = [v5 objectForKeyedSubscript:mavRevStringQuery];
-    v75 = [v74 objectForKeyedSubscript:@"GPS"];
-    v76 = [v75 objectForKeyedSubscript:@"gps_dpo"];
-    [v76 doubleValue];
-    v78 = v77;
+    v73 = [v5 objectForKeyedSubscript:mavRevStringQuery];
+    v74 = [v73 objectForKeyedSubscript:@"GPS"];
+    v75 = [v74 objectForKeyedSubscript:@"gps_dpo"];
+    [v75 doubleValue];
+    v77 = v76;
 
     v30 = [powerCopy objectForKeyedSubscript:@"GPSOnOffStateHistogram"];
     v31 = [powerCopy objectForKeyedSubscript:@"GPSDPOOnOffStateHistogram"];
-    v79 = [powerCopy objectForKeyedSubscript:@"LogDuration"];
-    [v79 doubleValue];
-    v81 = v80;
+    v78 = [powerCopy objectForKeyedSubscript:@"LogDuration"];
+    [v78 doubleValue];
+    v80 = v79;
 
-    v82 = [v30 objectAtIndexedSubscript:0];
-    [v82 doubleValue];
-    v84 = v83;
+    v81 = [v30 objectAtIndexedSubscript:0];
+    [v81 doubleValue];
+    v83 = v82;
 
-    v85 = [v30 objectAtIndexedSubscript:1];
-    [v85 doubleValue];
-    v87 = v86;
+    v84 = [v30 objectAtIndexedSubscript:1];
+    [v84 doubleValue];
+    v86 = v85;
 
-    v88 = [v31 objectAtIndexedSubscript:0];
-    [v88 doubleValue];
-    v90 = v89;
+    v87 = [v31 objectAtIndexedSubscript:0];
+    [v87 doubleValue];
+    v89 = v88;
 
-    v91 = [v31 objectAtIndexedSubscript:1];
-    [v91 doubleValue];
-    v93 = v92;
+    v90 = [v31 objectAtIndexedSubscript:1];
+    [v90 doubleValue];
+    v92 = v91;
 
-    v95 = v84 + v87;
-    if (v95 < v81 || (v94 = v90 + v93, v90 + v93 < v81))
+    v94 = v83 + v86;
+    if (v94 < v80 || (v93 = v89 + v92, v89 + v92 < v80))
     {
       if ([MEMORY[0x277D3F180] debugEnabled])
       {
-        v107 = objc_opt_class();
-        v138[0] = MEMORY[0x277D85DD0];
-        v138[1] = 3221225472;
-        v138[2] = __27__PLBBAgent_modelGPSPower___block_invoke;
-        v138[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-        v138[4] = v107;
+        v106 = objc_opt_class();
+        v137[0] = MEMORY[0x277D85DD0];
+        v137[1] = 3221225472;
+        v137[2] = __27__PLBBAgent_modelGPSPower___block_invoke;
+        v137[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+        v137[4] = v106;
         if (qword_2811F39C8 != -1)
         {
-          dispatch_once(&qword_2811F39C8, v138);
+          dispatch_once(&qword_2811F39C8, v137);
         }
 
         if (byte_2811F5244 == 1)
         {
-          v108 = [MEMORY[0x277CCACA8] stringWithFormat:@"gpsOnDuration + gpsOffDuration = %f", *&v95];
-          v132 = MEMORY[0x277D3F178];
-          v109 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
-          lastPathComponent2 = [v109 lastPathComponent];
-          v111 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLBBAgent modelGPSPower:]"];
-          [v132 logMessage:v108 fromFile:lastPathComponent2 fromFunction:v111 fromLineNumber:11478];
+          v107 = [MEMORY[0x277CCACA8] stringWithFormat:@"gpsOnDuration + gpsOffDuration = %f", *&v94];
+          v131 = MEMORY[0x277D3F178];
+          v108 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
+          lastPathComponent2 = [v108 lastPathComponent];
+          v110 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLBBAgent modelGPSPower:]"];
+          [v131 logMessage:v107 fromFile:lastPathComponent2 fromFunction:v110 fromLineNumber:11478];
 
-          v112 = v108;
-          v113 = PLLogCommon();
-          if (os_log_type_enabled(v113, OS_LOG_TYPE_DEBUG))
+          v111 = v107;
+          v112 = PLLogCommon();
+          if (os_log_type_enabled(v112, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v140 = v112;
-            _os_log_debug_impl(&dword_21A4C6000, v113, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+            v139 = v111;
+            _os_log_debug_impl(&dword_21A4C6000, v112, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
           }
         }
       }
@@ -15891,44 +16024,44 @@ LABEL_19:
 
     else
     {
-      if (v87 >= v93)
+      if (v86 >= v92)
       {
-        v87 = v93;
+        v86 = v92;
       }
 
-      if (v81 > 0.0)
+      if (v80 > 0.0)
       {
-        v63 = v78 * v87 / v81;
+        v63 = v77 * v86 / v80;
         if ([MEMORY[0x277D3F180] debugEnabled])
         {
-          v96 = objc_opt_class();
-          v137[0] = MEMORY[0x277D85DD0];
-          v137[1] = 3221225472;
-          v137[2] = __27__PLBBAgent_modelGPSPower___block_invoke_5722;
-          v137[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-          v137[4] = v96;
+          v95 = objc_opt_class();
+          v136[0] = MEMORY[0x277D85DD0];
+          v136[1] = 3221225472;
+          v136[2] = __27__PLBBAgent_modelGPSPower___block_invoke_5722;
+          v136[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+          v136[4] = v95;
           if (qword_2811F39D0 != -1)
           {
-            dispatch_once(&qword_2811F39D0, v137);
+            dispatch_once(&qword_2811F39D0, v136);
           }
 
           if (byte_2811F5245 == 1)
           {
-            v97 = [MEMORY[0x277CCACA8] stringWithFormat:@"gpsDPOOnDuration = %f, logDuration = %f, power = %f", *&v87, *&v81, *&v63];
-            v130 = MEMORY[0x277D3F178];
-            v128 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
-            lastPathComponent3 = [v128 lastPathComponent];
-            v99 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLBBAgent modelGPSPower:]"];
-            v100 = v130;
-            v131 = v97;
-            [v100 logMessage:v97 fromFile:lastPathComponent3 fromFunction:v99 fromLineNumber:11495];
+            v96 = [MEMORY[0x277CCACA8] stringWithFormat:@"gpsDPOOnDuration = %f, logDuration = %f, power = %f", *&v86, *&v80, *&v63];
+            v129 = MEMORY[0x277D3F178];
+            v127 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
+            lastPathComponent3 = [v127 lastPathComponent];
+            v98 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLBBAgent modelGPSPower:]"];
+            v99 = v129;
+            v130 = v96;
+            [v99 logMessage:v96 fromFile:lastPathComponent3 fromFunction:v98 fromLineNumber:11495];
 
-            v101 = PLLogCommon();
-            if (os_log_type_enabled(v101, OS_LOG_TYPE_DEBUG))
+            v100 = PLLogCommon();
+            if (os_log_type_enabled(v100, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v140 = v131;
-              _os_log_debug_impl(&dword_21A4C6000, v101, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+              v139 = v130;
+              _os_log_debug_impl(&dword_21A4C6000, v100, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
             }
           }
         }
@@ -15941,15 +16074,15 @@ LABEL_19:
         goto LABEL_21;
       }
 
-      v116 = objc_opt_class();
-      v136[0] = MEMORY[0x277D85DD0];
-      v136[1] = 3221225472;
-      v136[2] = __27__PLBBAgent_modelGPSPower___block_invoke_5728;
-      v136[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v136[4] = v116;
+      v115 = objc_opt_class();
+      v135[0] = MEMORY[0x277D85DD0];
+      v135[1] = 3221225472;
+      v135[2] = __27__PLBBAgent_modelGPSPower___block_invoke_5728;
+      v135[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v135[4] = v115;
       if (qword_2811F39D8 != -1)
       {
-        dispatch_once(&qword_2811F39D8, v136);
+        dispatch_once(&qword_2811F39D8, v135);
       }
 
       if (byte_2811F5246 != 1)
@@ -15960,17 +16093,17 @@ LABEL_21:
       }
 
       mEMORY[0x277D3F0C0]2 = [MEMORY[0x277CCACA8] stringWithFormat:@"modelGPSPower: LogDuration is zero"];
-      v133 = MEMORY[0x277D3F178];
-      v117 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
-      lastPathComponent4 = [v117 lastPathComponent];
-      v119 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLBBAgent modelGPSPower:]"];
-      [v133 logMessage:mEMORY[0x277D3F0C0]2 fromFile:lastPathComponent4 fromFunction:v119 fromLineNumber:11497];
+      v132 = MEMORY[0x277D3F178];
+      v116 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
+      lastPathComponent4 = [v116 lastPathComponent];
+      v118 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLBBAgent modelGPSPower:]"];
+      [v132 logMessage:mEMORY[0x277D3F0C0]2 fromFile:lastPathComponent4 fromFunction:v118 fromLineNumber:11497];
 
       entryDate2 = PLLogCommon();
       if (os_log_type_enabled(entryDate2, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v140 = mEMORY[0x277D3F0C0]2;
+        v139 = mEMORY[0x277D3F0C0]2;
         _os_log_debug_impl(&dword_21A4C6000, entryDate2, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -15980,31 +16113,31 @@ LABEL_21:
 
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
-    v102 = objc_opt_class();
-    v135[0] = MEMORY[0x277D85DD0];
-    v135[1] = 3221225472;
-    v135[2] = __27__PLBBAgent_modelGPSPower___block_invoke_5734;
-    v135[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v135[4] = v102;
+    v101 = objc_opt_class();
+    v134[0] = MEMORY[0x277D85DD0];
+    v134[1] = 3221225472;
+    v134[2] = __27__PLBBAgent_modelGPSPower___block_invoke_5734;
+    v134[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v134[4] = v101;
     if (qword_2811F39E0 != -1)
     {
-      dispatch_once(&qword_2811F39E0, v135);
+      dispatch_once(&qword_2811F39E0, v134);
     }
 
     if (byte_2811F5247 == 1)
     {
       mEMORY[0x277D3F0C0] = [MEMORY[0x277CCACA8] stringWithFormat:@"Mav version not found, return"];
-      v103 = MEMORY[0x277D3F178];
-      v104 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
-      lastPathComponent5 = [v104 lastPathComponent];
-      v106 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLBBAgent modelGPSPower:]"];
-      [v103 logMessage:mEMORY[0x277D3F0C0] fromFile:lastPathComponent5 fromFunction:v106 fromLineNumber:11502];
+      v102 = MEMORY[0x277D3F178];
+      v103 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
+      lastPathComponent5 = [v103 lastPathComponent];
+      v105 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLBBAgent modelGPSPower:]"];
+      [v102 logMessage:mEMORY[0x277D3F0C0] fromFile:lastPathComponent5 fromFunction:v105 fromLineNumber:11502];
 
       entryDate = PLLogCommon();
       if (os_log_type_enabled(entryDate, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v140 = mEMORY[0x277D3F0C0];
+        v139 = mEMORY[0x277D3F0C0];
         _os_log_debug_impl(&dword_21A4C6000, entryDate, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
 
@@ -16013,39 +16146,37 @@ LABEL_21:
   }
 
 LABEL_22:
-
-  v73 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __27__PLBBAgent_modelGPSPower___block_invoke(uint64_t a1)
+void *__27__PLBBAgent_modelGPSPower___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5244 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelGPSPower___block_invoke_5722(uint64_t a1)
+void *__27__PLBBAgent_modelGPSPower___block_invoke_5722(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5245 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelGPSPower___block_invoke_5728(uint64_t a1)
+void *__27__PLBBAgent_modelGPSPower___block_invoke_5728(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5246 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelGPSPower___block_invoke_5734(uint64_t a1)
+void *__27__PLBBAgent_modelGPSPower___block_invoke_5734(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5247 = result;
   return result;
 }
 
-uint64_t __27__PLBBAgent_modelGPSPower___block_invoke_5740(uint64_t a1)
+void *__27__PLBBAgent_modelGPSPower___block_invoke_5740(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5248 = result;
@@ -16108,28 +16239,28 @@ LABEL_9:
 
   if (v4)
   {
-    v5 = [eventCopy objectForKeyedSubscript:@"status"];
-    v6 = [v5 description];
-    if ([v6 isEqualToString:@"NotRegistered"])
+    v6 = [eventCopy objectForKeyedSubscript:@"status"];
+    v7 = [v6 description];
+    if ([v7 isEqualToString:@"NotRegistered"])
     {
-      v7 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v8 = [eventCopy objectForKeyedSubscript:@"status"];
-      v9 = [v8 description];
-      v7 = [v9 isEqualToString:@"EmergencyOnly"];
+      v9 = [eventCopy objectForKeyedSubscript:@"status"];
+      v10 = [v9 description];
+      v8 = [v10 isEqualToString:@"EmergencyOnly"];
     }
 
     if ([(PLBBAgent *)self isFirstTimeAccountingOOS])
     {
-      [(PLBBAgent *)self setIsBBOOS:v7 ^ 1];
+      [(PLBBAgent *)self setIsBBOOS:v8 ^ 1];
       [(PLBBAgent *)self setIsFirstTimeAccountingOOS:0];
     }
 
     isBBOOS = [(PLBBAgent *)self isBBOOS];
-    if (v7)
+    if (v8)
     {
       if (isBBOOS)
       {
@@ -16159,17 +16290,17 @@ LABEL_9:
     entryDate2 = [eventCopy entryDate];
     [mEMORY[0x277D3F0C0]2 createQualificationEventForwardWithQualificationID:1 withChildNodeNames:v11 withStartDate:entryDate2];
 
-    [(PLBBAgent *)self setIsBBOOS:v7];
+    isBBOOS = [(PLBBAgent *)self setIsBBOOS:v8];
   }
 
 LABEL_13:
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](isBBOOS);
 }
 
 - (void)registerForAirplaneModeChange
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
   bundleIdentifier = [mainBundle bundleIdentifier];
 
@@ -16199,10 +16330,10 @@ LABEL_5:
   {
     v9 = objc_opt_class();
     block = MEMORY[0x277D85DD0];
-    v19 = 3221225472;
-    v20 = __42__PLBBAgent_registerForAirplaneModeChange__block_invoke;
-    v21 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v22 = v9;
+    v18 = 3221225472;
+    v19 = __42__PLBBAgent_registerForAirplaneModeChange__block_invoke;
+    v20 = &__block_descriptor_40_e5_v8__0lu32l8;
+    v21 = v9;
     if (qword_2811F39F8 != -1)
     {
       dispatch_once(&qword_2811F39F8, &block);
@@ -16212,7 +16343,7 @@ LABEL_5:
     {
       v10 = MEMORY[0x277CCACA8];
       v11 = SCError();
-      workQueue = [v10 stringWithFormat:@"Unable to create preferences handle: %s", SCErrorString(v11), block, v19, v20, v21, v22, context.version, context.info, context.retain, context.release, context.copyDescription];
+      workQueue = [v10 stringWithFormat:@"Unable to create preferences handle: %s", SCErrorString(v11), block, v18, v19, v20, v21, context.version, context.info, context.retain, context.release, context.copyDescription];
       v12 = MEMORY[0x277D3F178];
       v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
       lastPathComponent = [v13 lastPathComponent];
@@ -16223,7 +16354,7 @@ LABEL_5:
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v25 = workQueue;
+        v24 = workQueue;
         _os_log_debug_impl(&dword_21A4C6000, v16, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
 
@@ -16232,11 +16363,9 @@ LABEL_5:
   }
 
 LABEL_13:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __42__PLBBAgent_registerForAirplaneModeChange__block_invoke(uint64_t a1)
+void *__42__PLBBAgent_registerForAirplaneModeChange__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5249 = result;
@@ -16245,7 +16374,7 @@ uint64_t __42__PLBBAgent_registerForAirplaneModeChange__block_invoke(uint64_t a1
 
 - (BOOL)isChangedAndSetAirplaneMode
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
   bundleIdentifier = [mainBundle bundleIdentifier];
 
@@ -16272,10 +16401,10 @@ uint64_t __42__PLBBAgent_registerForAirplaneModeChange__block_invoke(uint64_t a1
   {
     v8 = objc_opt_class();
     block = MEMORY[0x277D85DD0];
-    v19 = 3221225472;
-    v20 = __40__PLBBAgent_isChangedAndSetAirplaneMode__block_invoke;
-    v21 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v22 = v8;
+    v18 = 3221225472;
+    v19 = __40__PLBBAgent_isChangedAndSetAirplaneMode__block_invoke;
+    v20 = &__block_descriptor_40_e5_v8__0lu32l8;
+    v21 = v8;
     if (qword_2811F3A08 != -1)
     {
       dispatch_once(&qword_2811F3A08, &block);
@@ -16283,7 +16412,7 @@ uint64_t __42__PLBBAgent_registerForAirplaneModeChange__block_invoke(uint64_t a1
 
     if (byte_2811F524B == 1)
     {
-      v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"Airplane mode %@", v7, block, v19, v20, v21, v22];
+      v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"Airplane mode %@", v7, block, v18, v19, v20, v21];
       v10 = MEMORY[0x277D3F178];
       v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
       lastPathComponent = [v11 lastPathComponent];
@@ -16294,7 +16423,7 @@ uint64_t __42__PLBBAgent_registerForAirplaneModeChange__block_invoke(uint64_t a1
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v24 = v9;
+        v23 = v9;
         _os_log_debug_impl(&dword_21A4C6000, v14, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -16306,11 +16435,10 @@ uint64_t __42__PLBBAgent_registerForAirplaneModeChange__block_invoke(uint64_t a1
     objc_storeStrong(&airplaneModeCurrent, v6);
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15 ^ 1;
 }
 
-uint64_t __40__PLBBAgent_isChangedAndSetAirplaneMode__block_invoke(uint64_t a1)
+void *__40__PLBBAgent_isChangedAndSetAirplaneMode__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F524B = result;
@@ -16319,7 +16447,7 @@ uint64_t __40__PLBBAgent_isChangedAndSetAirplaneMode__block_invoke(uint64_t a1)
 
 - (void)telephonyActivityNotificationCB_Agent:(id)agent withName:(__CFString *)name
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   agentCopy = agent;
   if (name)
   {
@@ -16352,27 +16480,25 @@ uint64_t __40__PLBBAgent_isChangedAndSetAirplaneMode__block_invoke(uint64_t a1)
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v22 = v8;
+        v21 = v8;
         _os_log_debug_impl(&dword_21A4C6000, v13, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
 
   workQueue = [(PLOperator *)self workQueue];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __60__PLBBAgent_telephonyActivityNotificationCB_Agent_withName___block_invoke_5800;
-  v17[3] = &unk_27825CFA0;
-  v18 = agentCopy;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __60__PLBBAgent_telephonyActivityNotificationCB_Agent_withName___block_invoke_5800;
+  v16[3] = &unk_27825CFA0;
+  v17 = agentCopy;
   nameCopy = name;
-  v17[4] = self;
+  v16[4] = self;
   v15 = agentCopy;
-  dispatch_async(workQueue, v17);
-
-  v16 = *MEMORY[0x277D85DE8];
+  dispatch_async(workQueue, v16);
 }
 
-uint64_t __60__PLBBAgent_telephonyActivityNotificationCB_Agent_withName___block_invoke(uint64_t a1)
+void *__60__PLBBAgent_telephonyActivityNotificationCB_Agent_withName___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F524C = result;
@@ -16554,7 +16680,7 @@ void __60__PLBBAgent_telephonyActivityNotificationCB_Agent_withName___block_invo
   }
 }
 
-uint64_t __60__PLBBAgent_telephonyActivityNotificationCB_Agent_withName___block_invoke_3(uint64_t a1)
+void *__60__PLBBAgent_telephonyActivityNotificationCB_Agent_withName___block_invoke_3(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F524D = result;
@@ -16563,10 +16689,10 @@ uint64_t __60__PLBBAgent_telephonyActivityNotificationCB_Agent_withName___block_
 
 - (void)logTelephonyActivity
 {
-  v44 = *MEMORY[0x277D85DE8];
-  v40 = 0;
-  v41 = 0;
+  v42 = *MEMORY[0x277D85DE8];
+  v38 = 0;
   v39 = 0;
+  v37 = 0;
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v3 = objc_opt_class();
@@ -16593,23 +16719,23 @@ uint64_t __60__PLBBAgent_telephonyActivityNotificationCB_Agent_withName___block_
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v43 = v4;
+        v41 = v4;
         _os_log_debug_impl(&dword_21A4C6000, v9, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
 
   connection = [(PLBBAgent *)self connection];
-  v36 = 0;
-  v37 = 0;
+  v34 = 0;
   v35 = 0;
-  [connection getRAT:&v37 preferredRAT:&v36 campedRAT:&v35];
-  v11 = v37;
-  v12 = v36;
-  v13 = v35;
+  v33 = 0;
+  [connection getRAT:&v35 preferredRAT:&v34 campedRAT:&v33];
+  v11 = v35;
+  v12 = v34;
+  v13 = v33;
 
   connection2 = [(PLBBAgent *)self connection];
-  [connection2 getSignalStrength:&v41 asPercentage:&v40 withBars:&v39];
+  [connection2 getSignalStrength:&v39 asPercentage:&v38 withBars:&v37];
 
   telActMsgHelper = [(PLBBAgent *)self telActMsgHelper];
   [telActMsgHelper setActiveBand:0];
@@ -16627,13 +16753,13 @@ uint64_t __60__PLBBAgent_telephonyActivityNotificationCB_Agent_withName___block_
   humanReadableSimStatusString = [(PLBBAgent *)self humanReadableSimStatusString];
   [telActMsgHelper setSimStatus:humanReadableSimStatusString];
 
-  v20 = [MEMORY[0x277CCABB0] numberWithInteger:v41];
+  v20 = [MEMORY[0x277CCABB0] numberWithInteger:v39];
   [telActMsgHelper setSignalStrength:v20];
 
-  v21 = [MEMORY[0x277CCABB0] numberWithInteger:v39];
+  v21 = [MEMORY[0x277CCABB0] numberWithInteger:v37];
   [telActMsgHelper setSignalBars:v21];
 
-  v22 = [MEMORY[0x277CCABB0] numberWithLong:v41];
+  v22 = [MEMORY[0x277CCABB0] numberWithLong:v39];
   [(PLBBAgent *)self setLastReportedSignal:v22];
 
   if (([MEMORY[0x277D3F180] fullMode] & 1) == 0)
@@ -16650,57 +16776,54 @@ uint64_t __60__PLBBAgent_telephonyActivityNotificationCB_Agent_withName___block_
 
     else
     {
-      v24 = *MEMORY[0x277CBECE8];
-      v25 = CTRegistrationCopyOperatorName();
-      [(PLBBAgent *)self setOperatorName:v25];
+      v24 = CTRegistrationCopyOperatorName();
+      [(PLBBAgent *)self setOperatorName:v24];
     }
   }
 
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
-    v26 = objc_opt_class();
-    v34[0] = MEMORY[0x277D85DD0];
-    v34[1] = 3221225472;
-    v34[2] = __33__PLBBAgent_logTelephonyActivity__block_invoke_5818;
-    v34[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v34[4] = v26;
+    v25 = objc_opt_class();
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __33__PLBBAgent_logTelephonyActivity__block_invoke_5818;
+    v32[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v32[4] = v25;
     if (qword_2811F3A28 != -1)
     {
-      dispatch_once(&qword_2811F3A28, v34);
+      dispatch_once(&qword_2811F3A28, v32);
     }
 
     if (byte_2811F524F == 1)
     {
-      v27 = [MEMORY[0x277CCACA8] stringWithFormat:@"Decoded Telephony activity line"];
-      v28 = MEMORY[0x277D3F178];
-      v29 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
-      lastPathComponent2 = [v29 lastPathComponent];
-      v31 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLBBAgent logTelephonyActivity]"];
-      [v28 logMessage:v27 fromFile:lastPathComponent2 fromFunction:v31 fromLineNumber:11918];
+      v26 = [MEMORY[0x277CCACA8] stringWithFormat:@"Decoded Telephony activity line"];
+      v27 = MEMORY[0x277D3F178];
+      v28 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLBBAgent.m"];
+      lastPathComponent2 = [v28 lastPathComponent];
+      v30 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLBBAgent logTelephonyActivity]"];
+      [v27 logMessage:v26 fromFile:lastPathComponent2 fromFunction:v30 fromLineNumber:11918];
 
-      v32 = PLLogCommon();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+      v31 = PLLogCommon();
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v43 = v27;
-        _os_log_debug_impl(&dword_21A4C6000, v32, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+        v41 = v26;
+        _os_log_debug_impl(&dword_21A4C6000, v31, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
 
   [telActMsgHelper logPointIntervalTelephonyActivity];
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __33__PLBBAgent_logTelephonyActivity__block_invoke(uint64_t a1)
+void *__33__PLBBAgent_logTelephonyActivity__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F524E = result;
   return result;
 }
 
-uint64_t __33__PLBBAgent_logTelephonyActivity__block_invoke_5818(uint64_t a1)
+void *__33__PLBBAgent_logTelephonyActivity__block_invoke_5818(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F524F = result;
@@ -16709,7 +16832,7 @@ uint64_t __33__PLBBAgent_logTelephonyActivity__block_invoke_5818(uint64_t a1)
 
 - (void)logMessage:(id)message andState:(id)state
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   stateCopy = state;
   if ([MEMORY[0x277D3F180] debugEnabled])
@@ -16738,16 +16861,14 @@ uint64_t __33__PLBBAgent_logTelephonyActivity__block_invoke_5818(uint64_t a1)
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v17 = stateCopy;
+        v16 = stateCopy;
         _os_log_debug_impl(&dword_21A4C6000, v13, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __33__PLBBAgent_logMessage_andState___block_invoke(uint64_t a1)
+void *__33__PLBBAgent_logMessage_andState___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5250 = result;
@@ -16882,7 +17003,7 @@ uint64_t __33__PLBBAgent_logMessage_andState___block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __39__PLBBAgent_processTimeUpdateInfoDict___block_invoke(uint64_t a1)
+void *__39__PLBBAgent_processTimeUpdateInfoDict___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 40) forKey:*(a1 + 32)];
   byte_2811F5251 = result;
@@ -16891,7 +17012,7 @@ uint64_t __39__PLBBAgent_processTimeUpdateInfoDict___block_invoke(uint64_t a1)
 
 - (void)refreshRequestHandler
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v2 = objc_opt_class();
@@ -16918,16 +17039,14 @@ uint64_t __39__PLBBAgent_processTimeUpdateInfoDict___block_invoke(uint64_t a1)
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v12 = v3;
+        v11 = v3;
         _os_log_debug_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __34__PLBBAgent_refreshRequestHandler__block_invoke(uint64_t a1)
+void *__34__PLBBAgent_refreshRequestHandler__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5252 = result;
@@ -16936,7 +17055,7 @@ uint64_t __34__PLBBAgent_refreshRequestHandler__block_invoke(uint64_t a1)
 
 - (void)logBasebandConfig
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v3 = 0x278257000uLL;
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
@@ -16964,7 +17083,7 @@ uint64_t __34__PLBBAgent_refreshRequestHandler__block_invoke(uint64_t a1)
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v28 = v5;
+        v27 = v5;
         _os_log_debug_impl(&dword_21A4C6000, v10, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
 
@@ -16980,7 +17099,7 @@ uint64_t __34__PLBBAgent_refreshRequestHandler__block_invoke(uint64_t a1)
   [(PLBBEurekaEventMsg *)v11 setHeaderWithSeqNum:&unk_282C11D60 andDate:monotonicDate andTimeCal:0.0];
 
   v13 = 0;
-  v25 = *MEMORY[0x277D3F5E0];
+  v24 = *MEMORY[0x277D3F5E0];
   do
   {
     v14 = logBasebandConfig_basebandConfigPropertyKeys[v13];
@@ -17005,7 +17124,7 @@ uint64_t __34__PLBBAgent_refreshRequestHandler__block_invoke(uint64_t a1)
 
     if (([MEMORY[0x277D3F208] isBasebandProto] & 1) != 0 || (objc_msgSend(MEMORY[0x277D3F208], "isBasebandMav") & 1) != 0 || objc_msgSend(MEMORY[0x277D3F208], "isBasebandIce"))
     {
-      v20 = [*(v3 + 2896) entryKeyForType:v25 andName:@"BBMsgLite"];
+      v20 = [*(v3 + 2896) entryKeyForType:v24 andName:@"BBMsgLite"];
       v21 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v20];
       [v21 setObject:v14 forKeyedSubscript:@"unit"];
       [v21 setObject:v16 forKeyedSubscript:@"value_enabled"];
@@ -17033,11 +17152,9 @@ uint64_t __34__PLBBAgent_refreshRequestHandler__block_invoke(uint64_t a1)
   {
     [(PLBBEurekaEventMsg *)v11 logEventForwardBBEurekaEventMsgLite];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __30__PLBBAgent_logBasebandConfig__block_invoke(uint64_t a1)
+void *__30__PLBBAgent_logBasebandConfig__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F5253 = result;

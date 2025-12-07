@@ -152,14 +152,12 @@ LABEL_15:
 - (id)description
 {
   v3 = [NSString alloc];
-  v9.receiver = self;
-  v9.super_class = NFVASResponse;
-  v4 = [(NFVASResponse *)&v9 description];
-  unsignedIntValue = [(NSNumber *)self->_statusCode unsignedIntValue];
-  mobileCapabilities = self->_mobileCapabilities;
-  v7 = [v3 initWithFormat:@"%@ status=0x%04x data=%@ token=%@ mobileCapabilities=%@ request=%@", v4, unsignedIntValue, self->_vasData, self->_token, mobileCapabilities, self->_request];
+  v7.receiver = self;
+  v7.super_class = NFVASResponse;
+  v4 = [(NFVASResponse *)&v7 description];
+  v5 = [v3 initWithFormat:@"%@ status=0x%04x data=%@ token=%@ mobileCapabilities=%@ request=%@", v4, -[NSNumber unsignedIntValue](self->_statusCode, "unsignedIntValue"), self->_vasData, self->_token, self->_mobileCapabilities, self->_request];
 
-  return v7;
+  return v5;
 }
 
 @end

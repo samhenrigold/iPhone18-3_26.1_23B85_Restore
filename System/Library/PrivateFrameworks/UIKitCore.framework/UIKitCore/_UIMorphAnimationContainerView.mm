@@ -24,9 +24,10 @@
   v4 = *(&self->super.super.super.super.isa + OBJC_IVAR____TtC5UIKit30_UIMorphAnimationContainerView_kickView);
   if (v4 == subview)
   {
-    v6.receiver = self;
-    v6.super_class = type metadata accessor for _UIMorphAnimationContainerView();
-    [(UIView *)&v6 addSubview:subview];
+    v6 = type metadata accessor for _UIMorphAnimationContainerView();
+    v8.receiver = self;
+    v8.super_class = v7;
+    [(UIView *)&v8 addSubview:subview, v6];
   }
 
   else
@@ -41,9 +42,10 @@
   v5 = *(&self->super.super.super.super.isa + OBJC_IVAR____TtC5UIKit30_UIMorphAnimationContainerView_kickView);
   if (v5 == subview)
   {
-    v8.receiver = self;
-    v8.super_class = type metadata accessor for _UIMorphAnimationContainerView();
-    [(UIView *)&v8 insertSubview:subview atIndex:index];
+    v8 = type metadata accessor for _UIMorphAnimationContainerView();
+    v10.receiver = self;
+    v10.super_class = v9;
+    [(UIView *)&v10 insertSubview:subview atIndex:index, v8];
   }
 
   else

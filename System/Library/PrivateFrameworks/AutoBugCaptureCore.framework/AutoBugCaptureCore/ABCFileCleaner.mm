@@ -63,20 +63,18 @@
 
 void __31__ABCFileCleaner_cleanupFiles___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
-  v6 = symptomsLogHandle();
+  v6 = symptomsLogHandle(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412546;
-    v9 = v4;
-    v10 = 2112;
-    v11 = v5;
-    _os_log_impl(&dword_241804000, v6, OS_LOG_TYPE_DEFAULT, "SymptomsFileCleaner NetDiagnosticShim start called:%@ error:%@", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = v4;
+    v9 = 2112;
+    v10 = v5;
+    _os_log_impl(&dword_241804000, v6, OS_LOG_TYPE_DEFAULT, "SymptomsFileCleaner NetDiagnosticShim start called:%@ error:%@", &v7, 0x16u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)netDiagnosticTaskStatusChangedFor:(id)for toStatus:(int)status
@@ -84,7 +82,7 @@ void __31__ABCFileCleaner_cleanupFiles___block_invoke_2(uint64_t a1, void *a2, v
   v6 = [for isEqualToString:@"deletefilesforsymptoms"];
   if (status == 3 && v6)
   {
-    v7 = symptomsLogHandle();
+    v7 = symptomsLogHandle(v6);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       *v11 = 0;

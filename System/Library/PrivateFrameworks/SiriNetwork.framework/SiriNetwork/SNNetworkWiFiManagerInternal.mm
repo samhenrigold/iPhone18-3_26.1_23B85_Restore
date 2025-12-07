@@ -44,7 +44,7 @@
 
   selfCopy = self;
   v9 = NetworkWiFiManager.registerOneShotPowerStateDidChangeForWiFiInterface(_:)(v7, v6);
-  outlined consume of (@escaping @callee_guaranteed (@guaranteed SNLinkRecommendationInfo?) -> ())?(v7);
+  outlined consume of (@escaping @callee_guaranteed (@guaranteed SNLinkRecommendationInfo?) -> ())?(v7, v6);
 
   return v9;
 }

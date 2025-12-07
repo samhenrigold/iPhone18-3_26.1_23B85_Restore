@@ -35,7 +35,7 @@
 
 - (id)_subclass_updateWithOptions:(id)options
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   accessory = [(HFAccessoryBatteryLevelItem *)self accessory];
   services = [accessory services];
@@ -55,35 +55,35 @@
     [v9 na_safeAddObject:v11];
   }
 
-  v31 = v11;
+  v30 = v11;
   v12 = *MEMORY[0x277CCFAA8];
   v13 = [v7 hf_characteristicOfType:*MEMORY[0x277CCFAA8]];
   if (!v13)
   {
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
     v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
     accessory2 = [(HFAccessoryBatteryLevelItem *)self accessory];
     services2 = [accessory2 services];
 
-    v16 = [services2 countByEnumeratingWithState:&v35 objects:v41 count:16];
+    v16 = [services2 countByEnumeratingWithState:&v34 objects:v40 count:16];
     if (v16)
     {
       v17 = v16;
-      v29 = v10;
-      v30 = optionsCopy;
-      v18 = *v36;
+      v28 = v10;
+      v29 = optionsCopy;
+      v18 = *v35;
       while (2)
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v36 != v18)
+          if (*v35 != v18)
           {
             objc_enumerationMutation(services2);
           }
 
-          v20 = [*(*(&v35 + 1) + 8 * i) hf_characteristicOfType:v12];
+          v20 = [*(*(&v34 + 1) + 8 * i) hf_characteristicOfType:v12];
           if (v20)
           {
             v13 = v20;
@@ -91,7 +91,7 @@
           }
         }
 
-        v17 = [services2 countByEnumeratingWithState:&v35 objects:v41 count:16];
+        v17 = [services2 countByEnumeratingWithState:&v34 objects:v40 count:16];
         if (v17)
         {
           continue;
@@ -102,8 +102,8 @@
 
       v13 = 0;
 LABEL_20:
-      v10 = v29;
-      optionsCopy = v30;
+      v10 = v28;
+      optionsCopy = v29;
     }
 
     else
@@ -139,13 +139,13 @@ LABEL_25:
   if (bOOLValue)
   {
     v23 = MEMORY[0x277D2C900];
-    v39[0] = @"dependentHomeKitObjects";
-    v39[1] = @"hidden";
-    v40[0] = v9;
-    v40[1] = MEMORY[0x277CBEC38];
-    v39[2] = @"readsSkipped";
-    v40[2] = MEMORY[0x277CBEC38];
-    valueSource = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:v39 count:3];
+    v38[0] = @"dependentHomeKitObjects";
+    v38[1] = @"hidden";
+    v39[0] = v9;
+    v39[1] = MEMORY[0x277CBEC38];
+    v38[2] = @"readsSkipped";
+    v39[2] = MEMORY[0x277CBEC38];
+    valueSource = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:3];
     v25 = [HFItemUpdateOutcome outcomeWithResults:valueSource];
     v26 = [v23 futureWithResult:v25];
   }
@@ -154,16 +154,14 @@ LABEL_25:
   {
     valueSource = [(HFAccessoryBatteryLevelItem *)self valueSource];
     v25 = [valueSource readValuesForCharacteristics:v9];
-    v32[0] = MEMORY[0x277D85DD0];
-    v32[1] = 3221225472;
-    v32[2] = __59__HFAccessoryBatteryLevelItem__subclass_updateWithOptions___block_invoke_2;
-    v32[3] = &unk_277DF3A40;
-    v33 = v10;
-    v34 = v9;
-    v26 = [v25 flatMap:v32];
+    v31[0] = MEMORY[0x277D85DD0];
+    v31[1] = 3221225472;
+    v31[2] = __59__HFAccessoryBatteryLevelItem__subclass_updateWithOptions___block_invoke_2;
+    v31[3] = &unk_277DF3A40;
+    v32 = v10;
+    v33 = v9;
+    v26 = [v25 flatMap:v31];
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v26;
 }

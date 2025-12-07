@@ -27,12 +27,11 @@
 
 - (void)cacheGlobalNotificationStreamIfNecessary
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *(*self + 40);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXNotificationsEventProvider: Could not fetch notification stream with error: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXNotificationsEventProvider: Could not fetch notification stream with error: %@", &v3, 0xCu);
 }
 
 uint64_t __73__ATXNotificationsEventProvider_cacheGlobalNotificationStreamIfNecessary__block_invoke(uint64_t a1, void *a2)
@@ -79,12 +78,11 @@ LABEL_9:
 
 - (void)cacheModeNotificationStreamIfNecessary
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *(*self + 40);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXNotificationsEventProvider: Could not fetch inferred mode stream and notification stream with error: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXNotificationsEventProvider: Could not fetch inferred mode stream and notification stream with error: %@", &v3, 0xCu);
 }
 
 uint64_t __71__ATXNotificationsEventProvider_cacheModeNotificationStreamIfNecessary__block_invoke(uint64_t a1, void *a2, void *a3)

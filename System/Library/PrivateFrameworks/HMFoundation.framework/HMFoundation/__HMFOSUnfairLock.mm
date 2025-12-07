@@ -24,7 +24,6 @@
 {
   if (block)
   {
-    internalOptions = self->_internalOptions;
     blockCopy = block;
     os_unfair_lock_lock_with_options();
     blockCopy[2](blockCopy);

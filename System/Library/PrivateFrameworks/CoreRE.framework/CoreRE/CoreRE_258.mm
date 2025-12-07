@@ -1,7518 +1,6160 @@
-uint64_t physx::Sq::SceneQueryManager::flushUpdates(uint64_t this)
+void physx::Dy::Articulation::updateBodies(uint64_t a1, float a2)
 {
-  if (*(this + 208) == 1)
+  v158[254] = *MEMORY[0x1E69E9840];
+  v3 = *(*a1 + 168);
+  v4 = *(a1 + 64);
+  v5 = *(a1 + 32);
+  v148 = *(a1 + 8);
+  v149 = *(a1 + 16);
+  v6 = *v3;
+  physx::Dy::PxcFsFlushVelocity(v3);
+  physx::Dy::PxcLtbComputeJv(&v155, v3, v3 + 8);
+  physx::Dy::PxcLtbSolve(v3, &v155, v157);
+  v8 = *v3;
+  if (*v3)
   {
-    v1 = this;
-    if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-    {
-      this = pthread_mutex_lock(*(this + 176));
-    }
-
-    if (*(v1 + 208) == 1)
-    {
-      physx::Sq::SceneQueryManager::flushShapes(v1);
-      v2 = 0;
-      v3 = 1;
-      do
-      {
-        v4 = v3;
-        this = *(v1 + 48 * v2);
-        if (this)
-        {
-          this = (*(*this + 32))(this);
-        }
-
-        v3 = 0;
-        v2 = 1;
-      }
-
-      while ((v4 & 1) != 0);
-      __dmb(0xBu);
-      *(v1 + 208) = 0;
-    }
-
-    if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-    {
-      v5 = *(v1 + 176);
-
-      return pthread_mutex_unlock(v5);
-    }
-  }
-
-  return this;
-}
-
-uint64_t physx::Sq::SceneQueryManager::forceDynamicTreeRebuild(uint64_t this, char a2, char a3)
-{
-  v5 = this;
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    this = pthread_mutex_lock(*(this + 176));
-  }
-
-  v6 = 0;
-  v7 = 1;
-  do
-  {
-    v8 = v7;
-    if (a2)
-    {
-      v9 = (v5 + 48 * v6);
-      this = *v9;
-      if (*v9)
-      {
-        if (v9[10] == 1)
-        {
-          (*(*this + 128))(this);
-          this = (*(**v9 + 32))();
-        }
-      }
-    }
-
-    v7 = 0;
-    a2 = a3;
-    v6 = 1;
-  }
-
-  while ((v8 & 1) != 0);
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    v10 = *(v5 + 176);
-
-    return pthread_mutex_unlock(v10);
-  }
-
-  return this;
-}
-
-uint64_t physx::Sq::SceneQueryManager::shiftOrigin(uint64_t a1, uint64_t a2)
-{
-  v4 = 0;
-  v5 = 1;
-  do
-  {
-    v6 = v5;
-    (*(**(a1 + 48 * v4) + 96))(*(a1 + 48 * v4), a2);
-    v5 = 0;
-    v4 = 1;
-  }
-
-  while ((v6 & 1) != 0);
-  v7 = *(**(a1 + 96) + 88);
-
-  return v7();
-}
-
-uint64_t physx::Sq::DynamicBoundsSync::sync(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
-{
-  if (a5)
-  {
-    v10 = result;
-    v11 = *(a6 + 8) & 0x7FFFFFFF;
-    if (!v11)
-    {
-      goto LABEL_12;
-    }
-
-    v12 = 0;
-    v13 = *a6;
+    v9 = (v3 + 72);
+    v10 = v158;
     do
     {
-      v14 = *v13++;
-      v15 = vcnt_s8(v14);
-      v15.i16[0] = vaddlv_u8(v15);
-      v12 += v15.i32[0];
-      --v11;
-    }
-
-    while (v11);
-    if (v12)
-    {
-      v16 = 0;
-      v17 = 0;
-      v18 = a5;
-      a5 = 0;
-      do
-      {
-        if ((*(*a6 + ((*(a3 + 4 * v16) >> 3) & 0x1FFFFFFC)) >> *(a3 + 4 * v16)))
-        {
-          (*(**(v10 + 8) + 24))(*(v10 + 8), a2 + 4 * v17, a3 + 4 * v17, a4, a5);
-          a5 = 0;
-          v17 = ++v16;
-        }
-
-        else
-        {
-          a5 = (a5 + 1);
-          ++v16;
-        }
-      }
-
-      while (v16 != v18);
-    }
-
-    else
-    {
-LABEL_12:
-      v17 = 0;
-    }
-
-    result = (*(**(v10 + 8) + 24))(*(v10 + 8), a2 + 4 * v17, a3 + 4 * v17, a4, a5);
-    ++**(v10 + 16);
-  }
-
-  return result;
-}
-
-void *physx::Sq::SceneQueryManager::addPruningStructure(void *this, const physx::Sq::PruningStructure *a2, uint64_t a3, uint64_t a4)
-{
-  v5 = this;
-  v6 = *(a2 + 3);
-  if (v6)
-  {
-    v7 = *(a2 + 10);
-    v8 = *(a2 + 6);
-    v12 = *(a2 + 3);
-    v13 = v6;
-    v14 = v7;
-    v15 = v8;
-    this = (*(**this + 40))(*this, &v12, a3, a4);
-  }
-
-  v9 = *(a2 + 4);
-  if (v9)
-  {
-    v10 = *(a2 + 11);
-    v11 = *(a2 + 7);
-    v12 = *(a2 + 4);
-    v13 = v9;
-    v14 = v10;
-    v15 = v11;
-    return (*(*v5[6] + 40))(v5[6], &v12);
-  }
-
-  return this;
-}
-
-void physx::Sq::SceneQueryManager::addCompoundShape(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t a4, uint64_t a5, uint64_t *a6, uint64_t a7)
-{
-  v32 = *MEMORY[0x1E69E9840];
-  v14 = (*(*a2 + 80))(a2);
-  v15 = v14;
-  v16 = (4 * v14);
-  v29 = a4;
-  v28 = a3;
-  if (v16 < 0x401)
-  {
-    MEMORY[0x1EEE9AC00](v14);
-    v18 = &v27[-((v16 + 15) & 0x1FFFFFFF0)];
-    bzero(v18, v16);
-  }
-
-  else
-  {
-    v17 = physx::shdfnd::TempAllocator::allocate(v31, v16, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/scenequery/src/SqSceneQueryManager.cpp", 561);
-    v18 = v17;
-  }
-
-  v19 = 16 * v15;
-  if (v19 < 0x401)
-  {
-    MEMORY[0x1EEE9AC00](v17);
-    v20 = &v27[-((v19 + 15) & 0x1FFFFFFF0)];
-    bzero(v20, 16 * v15);
-    if (!v15)
-    {
-      goto LABEL_10;
-    }
-
-LABEL_8:
-    v21 = v15;
-    v22 = v20 + 1;
-    do
-    {
-      v23 = *a6++;
-      *(v22 - 1) = v23;
-      *v22 = a7;
-      v22 += 2;
-      --v21;
-    }
-
-    while (v21);
-    goto LABEL_10;
-  }
-
-  v20 = physx::shdfnd::TempAllocator::allocate(&v30, 16 * v15, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/scenequery/src/SqSceneQueryManager.cpp", 562);
-  if (v15)
-  {
-    goto LABEL_8;
-  }
-
-LABEL_10:
-  if (*(*(&physx::Scb::Actor::sLazyInitOffsets + (*(a7 + 11) & 0xF) + 3) + a7 + 13) == 1)
-  {
-    v24 = 2;
-  }
-
-  else
-  {
-    v24 = 1;
-  }
-
-  (***(a1 + 96))(*(a1 + 96), v18, a2, v28, v29, v24, v20);
-  v25 = a1 + 48 * ((v24 & 1) == 0);
-  ++*(v25 + 44);
-  if (v15)
-  {
-    for (i = 0; i != v15; ++i)
-    {
-      *(a5 + 8 * i) = ((v24 & 1) == 0) | (2 * *&v18[4 * i]);
-    }
-
-    if (v19 >= 0x401)
-    {
-      physx::shdfnd::TempAllocator::deallocate(v31, v20);
-    }
-
-    if (v16 >= 0x401)
-    {
-      physx::shdfnd::TempAllocator::deallocate(v31, v18);
-    }
-  }
-}
-
-uint64_t physx::Sq::SceneQueryManager::updateCompoundActors(uint64_t this, physx::Sc::BodyCore *const *a2, unsigned int a3)
-{
-  v3 = this;
-  if (a3)
-  {
-    v5 = a3;
-    do
-    {
-      v6 = *a2++;
-      this = (*(**(v3 + 96) + 16))(*(v3 + 96), *(*v6 + 88), v6 + 16);
-      --v5;
-    }
-
-    while (v5);
-  }
-
-  ++*(v3 + 92);
-  return this;
-}
-
-uint64_t physx::Sq::BucketPruner::getPayload(void *a1, unsigned int a2, void *a3)
-{
-  v3 = *(a1[983] + 4 * a2);
-  *a3 = a1[981] + 24 * v3;
-  return a1[982] + 16 * v3;
-}
-
-uint64_t physx::Sq::BucketPruner::preallocate(uint64_t this, unsigned int a2)
-{
-  if (*(this + 7844) < a2)
-  {
-    return physx::Sq::PruningPool::resize((this + 7840), a2);
-  }
-
-  return this;
-}
-
-float OBBAABBTest_SIMD::OBBAABBTest_SIMD(float32x4_t *a1, __int32 *a2, uint64_t a3, uint64_t a4, double a5, double a6, float32x4_t a7, float32x4_t a8)
-{
-  v8.i64[0] = *a3;
-  v8.i64[1] = *(a3 + 8);
-  a1[1] = v8;
-  v8.i64[0] = *a4;
-  v8.i64[1] = *(a4 + 8);
-  *a1 = v8;
-  v9.i32[0] = *a2;
-  v9.i32[1] = a2[3];
-  v9.i64[1] = a2[6];
-  a7.i32[0] = a2[1];
-  a7.i32[1] = a2[4];
-  a7.i32[2] = a2[7];
-  a8.i32[0] = a2[2];
-  a8.i32[1] = a2[5];
-  a8.i32[2] = a2[8];
-  a1[2] = v9;
-  a1[3] = a7;
-  v10 = vaddq_f32(vabsq_f32(v9), xmmword_1E3115C00);
-  v11 = vaddq_f32(vabsq_f32(a7), xmmword_1E3115C00);
-  v12 = vaddq_f32(vabsq_f32(a8), xmmword_1E3115C00);
-  a1[4] = a8;
-  a1[5] = v10;
-  a1[6] = v11;
-  a1[7] = v12;
-  v13 = vmulq_f32(v8, v10);
-  v13.i64[0] = vpaddq_f32(v13, v13).u64[0];
-  v14 = vmulq_f32(v8, v11);
-  v14.i64[0] = vpaddq_f32(v14, v14).u64[0];
-  v15 = vmulq_f32(v8, v12);
-  v15.i64[0] = vpaddq_f32(v15, v15).u64[0];
-  LODWORD(result) = vpadd_f32(*v15.f32, *v15.f32).u32[0];
-  *v13.f32 = vext_s8(vpadd_f32(*v13.f32, *v13.f32), vpadd_f32(*v14.f32, *v14.f32), 4uLL);
-  v13.i64[1] = LODWORD(result);
-  a1[8] = v13;
-  return result;
-}
-
-float clipRay(float *a1, float *a2, float *a3, float *a4, float *a5)
-{
-  v5 = a5[1];
-  v6 = a4[1];
-  v7 = a5[2];
-  v8 = a4[2];
-  v9 = (v7 + v8) * 0.5;
-  v10 = (v7 - v8) * 0.5;
-  v11 = a2[1];
-  v12 = a2[2];
-  v13 = ((((v5 + v6) * 0.5) * v11) + (((*a5 + *a4) * 0.5) * *a2)) + (v9 * v12);
-  v14 = sqrtf(((((v5 - v6) * 0.5) * ((v5 - v6) * 0.5)) + (((*a5 - *a4) * 0.5) * ((*a5 - *a4) * 0.5))) + (v10 * v10));
-  v15 = v13 - v14;
-  v16 = v14 + v13;
-  v17 = ((v11 * a1[1]) + (*a1 * *a2)) + (a1[2] * v12);
-  v18 = v14 + v14;
-  v19 = vabds_f32(v15, v17);
-  v20 = vabds_f32(v16, v17);
-  if (v19 >= v20)
-  {
-    v19 = v20;
-  }
-
-  result = v19 + (v18 * 2.0);
-  *a3 = result;
-  return result;
-}
-
-void *physx::shdfnd::internal::HashBase<physx::shdfnd::Pair<physx::Sq::PrunerPayload const,physx::Sq::ExtendedBucketPrunerData>,physx::Sq::PrunerPayload,physx::Sq::ExtendedBucketPrunerHash,physx::shdfnd::internal::HashMapBase<physx::Sq::PrunerPayload,physx::Sq::ExtendedBucketPrunerData,physx::Sq::ExtendedBucketPrunerHash,physx::shdfnd::NonTrackingAllocator>::GetKey,physx::shdfnd::NonTrackingAllocator,true>::reserveInternal(uint64_t a1, unsigned int a2)
-{
-  v2 = a2;
-  if ((a2 ^ (a2 - 1)) <= a2 - 1)
-  {
-    v4 = a2 | (a2 >> 1) | ((a2 | (a2 >> 1)) >> 2);
-    v5 = v4 | (v4 >> 4) | ((v4 | (v4 >> 4)) >> 8);
-    v2 = (v5 | HIWORD(v5)) + 1;
-  }
-
-  v6 = *(a1 + 32);
-  v7 = (*(a1 + 40) * v2);
-  v8 = ((-4 * (v2 + v7)) & 0xC) + 4 * (v2 + v7);
-  if (v8 + 32 * v7)
-  {
-    v9 = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 16))(physx::shdfnd::Foundation::mInstance + 24, v8 + 32 * v7, "NonTrackedAlloc", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsHashInternals.h", 372);
-  }
-
-  else
-  {
-    v9 = 0;
-  }
-
-  v10 = &v9[4 * v2];
-  v11 = &v9[v8];
-  result = memset(v9, 255, 4 * v2);
-  if (*(a1 + 52))
-  {
-    v13 = 0;
-    v14 = 0;
-    do
-    {
-      v15 = *(a1 + 8) + v13;
-      v16 = ~(*v15 << 32) + *v15 + (*(v15 + 8) << 32);
-      v17 = (v16 ^ (v16 >> 22)) + ~((v16 ^ (v16 >> 22)) << 13);
-      v18 = (9 * (v17 ^ (v17 >> 8))) ^ ((9 * (v17 ^ (v17 >> 8))) >> 15);
-      LODWORD(v18) = (v2 - 1) & (((v18 + ~(v18 << 27)) >> 31) ^ (v18 + ~(v18 << 27)));
-      *&v10[4 * v14] = *&v9[4 * v18];
-      *&v9[4 * v18] = v14;
-      v19 = &v11[v13];
-      *v19 = *v15;
-      v20 = *(v15 + 16);
-      *(v19 + 6) = *(v15 + 24);
-      *(v19 + 2) = v20;
-      ++v14;
-      v13 += 32;
-    }
-
-    while (v14 < *(a1 + 52));
-  }
-
-  if (*a1)
-  {
-    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
-  }
-
-  *(a1 + 16) = v10;
-  *(a1 + 24) = v9;
-  *a1 = v9;
-  *(a1 + 8) = v11;
-  *(a1 + 32) = v7;
-  *(a1 + 36) = v2;
-  if (*(a1 + 44) == -1)
-  {
-    *(a1 + 44) = v6;
-  }
-
-  return result;
-}
-
-uint64_t physx::shdfnd::internal::HashBase<physx::shdfnd::Pair<physx::Sq::PrunerPayload const,physx::Sq::ExtendedBucketPrunerData>,physx::Sq::PrunerPayload,physx::Sq::ExtendedBucketPrunerHash,physx::shdfnd::internal::HashMapBase<physx::Sq::PrunerPayload,physx::Sq::ExtendedBucketPrunerData,physx::Sq::ExtendedBucketPrunerHash,physx::shdfnd::NonTrackingAllocator>::GetKey,physx::shdfnd::NonTrackingAllocator,true>::erase(int32x2_t *a1, uint64_t *a2, uint64_t a3)
-{
-  if (!a1[6].i32[1])
-  {
-    return 0;
-  }
-
-  v3 = *a2;
-  v4 = a2[1];
-  v5 = ~(*a2 << 32) + *a2 + (v4 << 32);
-  v6 = 9 * (((v5 ^ (v5 >> 22)) + ~((v5 ^ (v5 >> 22)) << 13)) ^ (((v5 ^ (v5 >> 22)) + ~((v5 ^ (v5 >> 22)) << 13)) >> 8));
-  v7 = (v6 ^ (v6 >> 15)) + ~((v6 ^ (v6 >> 15)) << 27);
-  v8 = (*&a1[3] + 4 * ((a1[4].i32[1] - 1) & ((v7 >> 31) ^ v7)));
-  v9 = *v8;
-  if (v9 == -1)
-  {
-    return 0;
-  }
-
-  v10 = a1[1];
-  v11 = *&v10 + 32 * v9;
-  if (*v11 != v3 || *(v11 + 8) != v4)
-  {
-    v13 = a1[2];
-    while (1)
-    {
-      v14 = v9;
-      v9 = *(*&v13 + 4 * v9);
-      if (v9 == -1)
-      {
-        return 0;
-      }
-
-      v11 = *&v10 + 32 * v9;
-      if (*v11 == v3 && *(v11 + 8) == v4)
-      {
-        v8 = (*&v13 + 4 * v14);
-        break;
-      }
-    }
-  }
-
-  *a3 = *v11;
-  v16 = *(v11 + 16);
-  *(a3 + 24) = *(v11 + 24);
-  *(a3 + 16) = v16;
-  v17 = *v8;
-  *v8 = *(*&a1[2] + 4 * v17);
-  v18 = vadd_s32(a1[6], 0xFFFFFFFF00000001);
-  a1[6] = v18;
-  if (v17 != v18.i32[1])
-  {
-    v19 = a1[1];
-    v20 = *&v19 + 32 * v17;
-    v21 = *&v19 + 32 * v18.u32[1];
-    *v20 = *v21;
-    v19.i32[0] = *(v21 + 24);
-    *(v20 + 16) = *(v21 + 16);
-    *(v20 + 24) = v19.i32[0];
-    v23 = a1[1];
-    v22 = a1[2];
-    *(*&v22 + 4 * v17) = *(*&v22 + 4 * a1[6].u32[1]);
-    v24 = ~(*(*&v23 + 32 * v17) << 32) + *(*&v23 + 32 * v17) + (*(*&v23 + 32 * v17 + 8) << 32);
-    v25 = (v24 ^ (v24 >> 22)) + ~((v24 ^ (v24 >> 22)) << 13);
-    v26 = (9 * (v25 ^ (v25 >> 8))) ^ ((9 * (v25 ^ (v25 >> 8))) >> 15);
-    v27 = (*&a1[3] + 4 * ((a1[4].i32[1] - 1) & (((v26 + ~(v26 << 27)) >> 31) ^ (v26 + ~(v26 << 27)))));
-    v28 = a1[6].u32[1];
-    v29 = *v27;
-    if (v29 != v28)
-    {
-      do
-      {
-        v30 = v29;
-        v29 = *(*&v22 + 4 * v29);
-      }
-
-      while (v29 != v28);
-      v27 = (*&v22 + 4 * v30);
-    }
-
-    *v27 = v17;
-  }
-
-  --a1[5].i32[1];
-  return 1;
-}
-
-void *physx::shdfnd::internal::HashBase<physx::shdfnd::Pair<unsigned int,unsigned int>,physx::shdfnd::Pair<unsigned int,unsigned int>,physx::shdfnd::Hash<physx::shdfnd::Pair<unsigned int,unsigned int>>,physx::shdfnd::internal::HashSetBase<physx::shdfnd::Pair<unsigned int,unsigned int>,physx::shdfnd::Hash<physx::shdfnd::Pair<unsigned int,unsigned int>>,physx::shdfnd::NonTrackingAllocator,true>::GetKey,physx::shdfnd::NonTrackingAllocator,true>::reserveInternal(uint64_t a1, unsigned int a2)
-{
-  v2 = a2;
-  if ((a2 ^ (a2 - 1)) <= a2 - 1)
-  {
-    v4 = a2 | (a2 >> 1) | ((a2 | (a2 >> 1)) >> 2);
-    v5 = v4 | (v4 >> 4) | ((v4 | (v4 >> 4)) >> 8);
-    v2 = (v5 | HIWORD(v5)) + 1;
-  }
-
-  v6 = *(a1 + 32);
-  v7 = (*(a1 + 40) * v2);
-  v8 = ((-4 * (v2 + v7)) & 0xC) + 4 * (v2 + v7);
-  if (v8 + 8 * v7)
-  {
-    v9 = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 16))(physx::shdfnd::Foundation::mInstance + 24, v8 + 8 * v7, "NonTrackedAlloc", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsHashInternals.h", 372);
-  }
-
-  else
-  {
-    v9 = 0;
-  }
-
-  v10 = &v9[4 * v2];
-  v11 = &v9[v8];
-  result = memset(v9, 255, 4 * v2);
-  if (*(a1 + 52))
-  {
-    v13 = 0;
-    v14 = *(a1 + 8);
-    do
-    {
-      v15 = v14[1] + ~(v14[1] << 15);
-      v16 = (9 * (v15 ^ (v15 >> 10))) ^ ((9 * (v15 ^ (v15 >> 10))) >> 6);
-      v17 = *v14 + ~(*v14 << 15);
-      v18 = (9 * (v17 ^ (v17 >> 10))) ^ ((9 * (v17 ^ (v17 >> 10))) >> 6);
-      v19 = ((1000007 * ((v18 + ~(v18 << 11)) ^ ((v18 + ~(v18 << 11)) >> 16) ^ 0xFC955B95)) ^ ((v16 + ~(v16 << 11)) >> 16) ^ (v16 + ~(v16 << 11))) & (v2 - 1);
-      *&v10[4 * v13] = *&v9[4 * v19];
-      *&v9[4 * v19] = v13;
-      v20 = *v14;
-      v14 += 2;
-      *&v11[8 * v13++] = v20;
-    }
-
-    while (v13 < *(a1 + 52));
-  }
-
-  if (*a1)
-  {
-    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
-  }
-
-  *(a1 + 16) = v10;
-  *(a1 + 24) = v9;
-  *a1 = v9;
-  *(a1 + 8) = v11;
-  *(a1 + 32) = v7;
-  *(a1 + 36) = v2;
-  if (*(a1 + 44) == -1)
-  {
-    *(a1 + 44) = v6;
-  }
-
-  return result;
-}
-
-_DWORD *physx::shdfnd::internal::HashBase<physx::shdfnd::Pair<unsigned int,unsigned int>,physx::shdfnd::Pair<unsigned int,unsigned int>,physx::shdfnd::Hash<physx::shdfnd::Pair<unsigned int,unsigned int>>,physx::shdfnd::internal::HashSetBase<physx::shdfnd::Pair<unsigned int,unsigned int>,physx::shdfnd::Hash<physx::shdfnd::Pair<unsigned int,unsigned int>>,physx::shdfnd::NonTrackingAllocator,true>::GetKey,physx::shdfnd::NonTrackingAllocator,true>::create(int32x2_t *a1, int *a2, _BYTE *a3)
-{
-  v5 = a1[4].u32[1];
-  if (!v5)
-  {
-    v11 = 0;
-    goto LABEL_10;
-  }
-
-  v7 = *a2;
-  v6 = a2[1];
-  v8 = 9 * ((v6 + ~(v6 << 15)) ^ ((v6 + ~(v6 << 15)) >> 10));
-  v9 = (v8 ^ (v8 >> 6)) + ~((v8 ^ (v8 >> 6)) << 11);
-  v10 = 9 * ((v7 + ~(v7 << 15)) ^ ((v7 + ~(v7 << 15)) >> 10));
-  v11 = ((1000007 * (((v10 ^ (v10 >> 6)) + ~((v10 ^ (v10 >> 6)) << 11)) ^ (((v10 ^ (v10 >> 6)) + ~((v10 ^ (v10 >> 6)) << 11)) >> 16) ^ 0xFC955B95)) ^ HIWORD(v9) ^ v9) & (v5 - 1);
-  v12 = *(*&a1[3] + 4 * v11);
-  if (v12 == -1)
-  {
-LABEL_10:
-    *a3 = 0;
-    if (a1[6].i32[1] == a1[4].i32[0])
-    {
-      if (v5)
-      {
-        v15 = 2 * v5;
-      }
-
-      else
-      {
-        v15 = 16;
-      }
-
-      if (v5 < v15)
-      {
-        physx::shdfnd::internal::HashBase<physx::shdfnd::Pair<unsigned int,unsigned int>,physx::shdfnd::Pair<unsigned int,unsigned int>,physx::shdfnd::Hash<physx::shdfnd::Pair<unsigned int,unsigned int>>,physx::shdfnd::internal::HashSetBase<physx::shdfnd::Pair<unsigned int,unsigned int>,physx::shdfnd::Hash<physx::shdfnd::Pair<unsigned int,unsigned int>>,physx::shdfnd::NonTrackingAllocator,true>::GetKey,physx::shdfnd::NonTrackingAllocator,true>::reserveInternal(a1, v15);
-        v5 = a1[4].u32[1];
-      }
-
-      v16 = a2[1] + ~(a2[1] << 15);
-      v17 = (9 * (v16 ^ (v16 >> 10))) ^ ((9 * (v16 ^ (v16 >> 10))) >> 6);
-      v18 = 9 * ((*a2 + ~(*a2 << 15)) ^ ((*a2 + ~(*a2 << 15)) >> 10));
-      v11 = ((1000007 * (((v18 ^ (v18 >> 6)) + ~((v18 ^ (v18 >> 6)) << 11)) ^ (((v18 ^ (v18 >> 6)) + ~((v18 ^ (v18 >> 6)) << 11)) >> 16) ^ 0xFC955B95)) ^ ((v17 + ~(v17 << 11)) >> 16) ^ (v17 + ~(v17 << 11))) & (v5 - 1);
-    }
-
-    v19 = a1[5].u32[1];
-    a1[5].i32[1] = v19 + 1;
-    v20 = a1[3];
-    v21 = a1[1];
-    *(*&a1[2] + 4 * v19) = *(*&v20 + 4 * v11);
-    *(*&v20 + 4 * v11) = v19;
-    a1[6] = vadd_s32(a1[6], 0x100000001);
-    return (*&v21 + 8 * v19);
-  }
-
-  while (1)
-  {
-    result = (*&a1[1] + 8 * v12);
-    if (*result == v7 && result[1] == v6)
-    {
-      break;
-    }
-
-    v12 = *(*&a1[2] + 4 * v12);
-    if (v12 == -1)
-    {
-      goto LABEL_10;
-    }
-  }
-
-  *a3 = 1;
-  return result;
-}
-
-uint64_t physx::shdfnd::internal::HashBase<physx::shdfnd::Pair<unsigned int,unsigned int>,physx::shdfnd::Pair<unsigned int,unsigned int>,physx::shdfnd::Hash<physx::shdfnd::Pair<unsigned int,unsigned int>>,physx::shdfnd::internal::HashSetBase<physx::shdfnd::Pair<unsigned int,unsigned int>,physx::shdfnd::Hash<physx::shdfnd::Pair<unsigned int,unsigned int>>,physx::shdfnd::NonTrackingAllocator,true>::GetKey,physx::shdfnd::NonTrackingAllocator,true>::erase(int32x2_t *a1, int *a2)
-{
-  if (!a1[6].i32[1])
-  {
-    return 0;
-  }
-
-  v3 = *a2;
-  v2 = a2[1];
-  v4 = 9 * ((v2 + ~(v2 << 15)) ^ ((v2 + ~(v2 << 15)) >> 10));
-  v5 = (v4 ^ (v4 >> 6)) + ~((v4 ^ (v4 >> 6)) << 11);
-  v6 = 9 * ((v3 + ~(v3 << 15)) ^ ((v3 + ~(v3 << 15)) >> 10));
-  v7 = (1000007 * (((v6 ^ (v6 >> 6)) + ~((v6 ^ (v6 >> 6)) << 11)) ^ (((v6 ^ (v6 >> 6)) + ~((v6 ^ (v6 >> 6)) << 11)) >> 16) ^ 0xFC955B95)) ^ HIWORD(v5) ^ v5;
-  v8 = a1[3];
-  v9 = (*&v8 + 4 * (v7 & (a1[4].i32[1] - 1)));
-  v10 = *v9;
-  if (v10 == -1)
-  {
-    return 0;
-  }
-
-  v12 = a1[1];
-  v11 = a1[2];
-  v13 = (*&v12 + 8 * v10);
-  if (*v13 != v3 || v13[1] != v2)
-  {
-    while (1)
-    {
-      v15 = v10;
-      v10 = *(*&v11 + 4 * v10);
-      if (v10 == -1)
-      {
-        return 0;
-      }
-
-      v13 = (*&v12 + 8 * v10);
-      if (*v13 == v3 && v13[1] == v2)
-      {
-        v9 = (*&v11 + 4 * v15);
-        break;
-      }
-    }
-  }
-
-  *v9 = *(*&v11 + 4 * v10);
-  v17 = vadd_s32(a1[6], 0xFFFFFFFF00000001);
-  a1[6] = v17;
-  if (v10 != v17.i32[1])
-  {
-    *v13 = *(*&v12 + 8 * v17.u32[1]);
-    *(*&v11 + 4 * v10) = *(*&v11 + 4 * v17.u32[1]);
-    v18 = v13[1] + ~(v13[1] << 15);
-    v19 = (9 * (v18 ^ (v18 >> 10))) ^ ((9 * (v18 ^ (v18 >> 10))) >> 6);
-    v20 = 9 * ((*v13 + ~(*v13 << 15)) ^ ((*v13 + ~(*v13 << 15)) >> 10));
-    v21 = (*&v8 + 4 * (((1000007 * (((v20 ^ (v20 >> 6)) + ~((v20 ^ (v20 >> 6)) << 11)) ^ (((v20 ^ (v20 >> 6)) + ~((v20 ^ (v20 >> 6)) << 11)) >> 16) ^ 0xFC955B95)) ^ ((v19 + ~(v19 << 11)) >> 16) ^ (v19 + ~(v19 << 11))) & (a1[4].i32[1] - 1)));
-    v22 = a1[6].u32[1];
-    v23 = *v21;
-    if (v23 != v22)
-    {
-      do
-      {
-        v24 = v23;
-        v23 = *(*&v11 + 4 * v23);
-      }
-
-      while (v23 != v22);
-      v21 = (*&v11 + 4 * v24);
-    }
-
-    *v21 = v10;
-  }
-
-  --a1[5].i32[1];
-  return 1;
-}
-
-float32x2_t physx::PxTransformFromPlaneEquation@<D0>(float32x2_t *a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = a1[1].f32[0];
-  v4 = a1[1].f32[1];
-  v5 = 1.0 / sqrtf((COERCE_FLOAT(vmul_f32(*a1, *a1).i32[1]) + (COERCE_FLOAT(*a1) * COERCE_FLOAT(*a1))) + (v3 * v3));
-  v6 = vmul_n_f32(*a1, v5);
-  v19 = v6;
-  v7 = v3 * v5;
-  v8 = v4 * v5;
-  v20 = v7;
-  v21 = v8;
-  v9 = vceqz_f32(v6);
-  v10 = (v9.i8[0] & 1) - v9.i32[1];
-  if (v7 == 0.0)
-  {
-    ++v10;
-  }
-
-  if (v10 == 2)
-  {
-    if (v6.f32[0] <= 0.0)
-    {
-      if (v6.f32[0] < 0.0)
-      {
-        v11 = xmmword_1E30476A0;
-      }
-
-      else
-      {
-        v11 = xmmword_1E3116080;
-        *(&v11 + 4) = vmul_f32(__PAIR64__(v6.u32[1], LODWORD(v7)), 0x3F3504F3BF3504F3);
-      }
-    }
-
-    else
-    {
-      v11 = xmmword_1E30474D0;
-    }
-  }
-
-  else
-  {
-    v16 = 1065353216;
-    v17 = 0;
-    v14 = v8;
-    v15 = v6;
-    v13 = v7;
-    physx::PxShortestRotation(&v16, &v19, &v18);
-    v7 = v13;
-    v8 = v14;
-    v6 = v15;
-    v11 = v18;
-  }
-
-  *a2 = v11;
-  result = vmul_n_f32(vneg_f32(v6), v8);
-  *(a2 + 16) = result;
-  *(a2 + 24) = -(v7 * v8);
-  return result;
-}
-
-float32x2_t physx::PxTransformFromSegment@<D0>(float32x2_t *a1@<X0>, float32x2_t *a2@<X1>, float *a3@<X2>, uint64_t a4@<X8>)
-{
-  v5 = *a2;
-  v6 = *a1;
-  v7 = vsub_f32(*a2, *a1);
-  v8 = a2[1].f32[0];
-  v9 = a1[1].f32[0];
-  v10 = v8 - v9;
-  v11 = sqrtf((COERCE_FLOAT(vmul_f32(v7, v7).i32[1]) + (v7.f32[0] * v7.f32[0])) + (v10 * v10));
-  if (a3)
-  {
-    *a3 = v11 * 0.5;
-    v5 = *a2;
-    v6 = *a1;
-    v8 = a2[1].f32[0];
-    v9 = a1[1].f32[0];
-  }
-
-  if (v11 >= 0.000001)
-  {
-    v17 = 1065353216;
-    v18 = 0;
-    v13 = 1.0 / v11;
-    v15 = vmul_n_f32(v7, v13);
-    v16 = v10 * v13;
-    physx::PxShortestRotation(&v17, &v15, &v19);
-    v12 = v19;
-  }
-
-  else
-  {
-    v12 = xmmword_1E30474D0;
-  }
-
-  *a4 = v12;
-  result = vmul_f32(vadd_f32(v6, v5), 0x3F0000003F000000);
-  *(a4 + 16) = result;
-  *(a4 + 24) = (v9 + v8) * 0.5;
-  return result;
-}
-
-uint64_t physx::Cm::PtrTable::clear(uint64_t result, uint64_t a2)
-{
-  v2 = result;
-  if (*(result + 10) == 1)
-  {
-    v3 = *(result + 8);
-    if (v3 >= 2)
-    {
-      v4 = (v3 - 1) | ((v3 - 1) >> 1) | (((v3 - 1) | ((v3 - 1) >> 1)) >> 2);
-      result = (*(*a2 + 8))(a2, *result, 8 * (v4 | (v4 >> 4) | ((v4 | (v4 >> 4)) >> 8)) + 8);
-    }
-  }
-
-  *v2 = 0;
-  *(v2 + 10) = 1;
-  *(v2 + 8) = 0;
-  return result;
-}
-
-uint64_t physx::Cm::PtrTable::exportExtraData(uint64_t result, uint64_t a2)
-{
-  if (*(result + 8) >= 2u)
-  {
-    v4 = result;
-    (*(*a2 + 24))(a2, 16);
-    v5 = *v4;
-    v6 = 8 * *(v4 + 8);
-    v7 = *(*a2 + 16);
-
-    return v7(a2, v5, v6);
-  }
-
-  return result;
-}
-
-uint64_t physx::Cm::PtrTable::realloc(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v5 = a3;
-  v6 = a2;
-  if ((*(a1 + 10) & 1) == 0 || (result = (*(*a4 + 16))(a4, a2, a3), (result & 1) == 0))
-  {
-    v9 = (**a4)(a4, (8 * v5));
-    result = memcpy(v9, *a1, 8 * *(a1 + 4));
-    if (*(a1 + 10) == 1)
-    {
-      result = (*(*a4 + 8))(a4, *a1, (8 * v6));
-    }
-
-    *a1 = v9;
-    *(a1 + 10) = 1;
-  }
-
-  return result;
-}
-
-uint64_t physx::Cm::PtrTable::add(uint64_t result, uint64_t a2, uint64_t (***a3)(void, uint64_t))
-{
-  v5 = result;
-  v6 = *(result + 8);
-  if (v6 == 1)
-  {
-    v7 = *result;
-    result = (**a3)(a3, 16);
-    *v5 = result;
-    *result = v7;
-    *(v5 + 10) = 1;
-  }
-
-  else
-  {
-    if (!*(result + 8))
-    {
-      *result = a2;
-      *(result + 8) = 1;
-      *(result + 11) = 1;
-      return result;
-    }
-
-    if ((*(result + 10) & 1) == 0)
-    {
-      v9 = v6 | (v6 >> 1) | ((v6 | (v6 >> 1)) >> 2);
-      v8 = (v9 | (v9 >> 4) | ((v9 | (v9 >> 4)) >> 8)) + 1;
-      v6 = 0;
-      goto LABEL_9;
-    }
-
-    if ((v6 & (v6 - 1)) == 0)
-    {
-      v8 = (2 * v6);
-LABEL_9:
-      result = physx::Cm::PtrTable::realloc(result, v6, v8, a3);
-    }
-  }
-
-  v10 = *v5;
-  v11 = *(v5 + 8);
-  *(v5 + 8) = v11 + 1;
-  *(v10 + 8 * v11) = a2;
-  return result;
-}
-
-void *physx::Cm::PtrTable::replaceWithLast(void *result, unsigned int a2, uint64_t a3)
-{
-  v4 = result;
-  v5 = *(result + 4);
-  if (v5 == 2)
-  {
-    v7 = *(*result + 8 * (1 - a2));
-    if (*(result + 10) == 1)
-    {
-      result = (*(*a3 + 8))(a3, *result, 16);
-    }
-
-    *v4 = v7;
-    *(v4 + 2) = 16842753;
-  }
-
-  else
-  {
-    v6 = v5 - 1;
-    if (!v6)
-    {
-      *result = 0;
-      *(result + 4) = 0;
-      *(result + 11) = 0;
-      return result;
-    }
-
-    v8 = *result;
-    *(result + 4) = v6;
-    *(v8 + 8 * a2) = *(v8 + 8 * v6);
-    v9 = v6;
-    if (*(result + 10))
-    {
-      if ((v6 & (v6 - 1)) != 0)
-      {
-        return result;
-      }
-
-      v10 = 2 * v6;
-    }
-
-    else
-    {
-      v11 = (v6 - 1) | ((v6 - 1) >> 1) | (((v6 - 1) | ((v6 - 1) >> 1)) >> 2);
-      v12 = v11 | (v11 >> 4) | ((v11 | (v11 >> 4)) >> 8);
-      v9 = (v12 | HIWORD(v12)) + 1;
-      v10 = 0;
-    }
-
-    return physx::Cm::PtrTable::realloc(result, v10, v9, a3);
-  }
-
-  return result;
-}
-
-uint64_t physx::Cm::RadixSort::Sort(uint64_t a1, unsigned __int8 *a2, unsigned int a3, int a4)
-{
-  if (!a2 || a3 < 1)
-  {
-    return a1;
-  }
-
-  ++*(a1 + 48);
-  bzero(*(a1 + 32), 0x1000uLL);
-  v8 = 4 * a3;
-  v9 = &a2[v8];
-  v10 = *(a1 + 32);
-  v11 = v10 + 1024;
-  v12 = v10 + 2048;
-  v13 = v10 + 3072;
-  v14 = *(a1 + 8);
-  if (a4 != 1)
-  {
-    if (v14 < 0)
-    {
-      if (!v8)
-      {
-LABEL_36:
-        v38 = 0;
-        v39 = vdupq_n_s64(a3 - 1);
-        ++*(a1 + 52);
-        v40 = xmmword_1E3049640;
-        v41 = xmmword_1E3049620;
-        v42 = vdupq_n_s64(4uLL);
-        v43 = (*(a1 + 16) + 8);
-        do
-        {
-          v44 = vmovn_s64(vcgeq_u64(v39, v41));
-          if (vuzp1_s16(v44, *v39.i8).u8[0])
-          {
-            *(v43 - 2) = v38;
-          }
-
-          if (vuzp1_s16(v44, *&v39).i8[2])
-          {
-            *(v43 - 1) = v38 + 1;
-          }
-
-          if (vuzp1_s16(*&v39, vmovn_s64(vcgeq_u64(v39, *&v40))).i32[1])
-          {
-            *v43 = v38 + 2;
-            v43[1] = v38 + 3;
-          }
-
-          v38 += 4;
-          v40 = vaddq_s64(v40, v42);
-          v41 = vaddq_s64(v41, v42);
-          v43 += 4;
-        }
-
-        while (((a3 + 3) & 0xFFFFFFFC) != v38);
-        return a1;
-      }
-
-      v35 = *a2;
-      v22 = a2;
-      while (1)
-      {
-        v36 = *v22;
-        if (*v22 < v35)
-        {
-          break;
-        }
-
-        ++*(v10 + 4 * *v22);
-        ++*(v11 + 4 * v22[1]);
-        ++*(v12 + 4 * v22[2]);
-        v37 = v22[3];
-        v22 += 4;
-        ++*(v13 + 4 * v37);
-        v35 = v36;
-        v8 -= 4;
-        if (!v8)
-        {
-          goto LABEL_36;
-        }
-      }
-    }
-
-    else
-    {
-      if (!v8)
-      {
-        goto LABEL_15;
-      }
-
-      v20 = *(a1 + 16);
-      v21 = *&a2[4 * *v20];
-      v22 = a2;
-      while (1)
-      {
-        v23 = *&a2[4 * *v20];
-        if (v23 < v21)
-        {
-          break;
-        }
-
-        ++v20;
-        ++*(v10 + 4 * *v22);
-        ++*(v11 + 4 * v22[1]);
-        ++*(v12 + 4 * v22[2]);
-        v24 = v22[3];
-        v22 += 4;
-        ++*(v13 + 4 * v24);
-        v21 = v23;
-        v8 -= 4;
-        if (!v8)
-        {
-          goto LABEL_15;
-        }
-      }
-    }
-
-    while (v22 != v9)
-    {
-      ++*(v10 + 4 * *v22);
-      ++*(v11 + 4 * v22[1]);
-      ++*(v12 + 4 * v22[2]);
-      ++*(v13 + 4 * v22[3]);
-      v22 += 4;
-    }
-
-    goto LABEL_47;
-  }
-
-  if ((v14 & 0x80000000) == 0)
-  {
-    if (v8)
-    {
-      v15 = *(a1 + 16);
-      v16 = *&a2[4 * *v15];
-      v17 = a2;
-      while (1)
-      {
-        v18 = *&a2[4 * *v15];
-        if (v18 < v16)
-        {
-          break;
-        }
-
-        ++v15;
-        ++*(v10 + 4 * *v17);
-        ++*(v11 + 4 * v17[1]);
-        ++*(v12 + 4 * v17[2]);
-        v19 = v17[3];
-        v17 += 4;
-        ++*(v13 + 4 * v19);
-        v16 = v18;
-        v8 -= 4;
-        if (!v8)
-        {
-          goto LABEL_15;
-        }
-      }
-
-LABEL_30:
-      while (v17 != v9)
-      {
-        ++*(v10 + 4 * *v17);
-        ++*(v11 + 4 * v17[1]);
-        ++*(v12 + 4 * v17[2]);
-        ++*(v13 + 4 * v17[3]);
-        v17 += 4;
-      }
-
-LABEL_47:
-      v45 = 0;
-      if (!a4)
-      {
-        v46 = 0uLL;
-        do
-        {
-          v46 = vaddq_s32(*(v10 + 3584 + v45), v46);
-          v45 += 16;
-        }
-
-        while (v45 != 512);
-        v45 = vaddvq_s32(v46);
-      }
-
-      v47 = 0;
-      v48 = 0;
-      v49 = 512;
-      do
-      {
-        v50 = *(a1 + 32);
-        v51 = &a2[v48];
-        if (v50)
-        {
-          v52 = *(v50 + (v48 << 10) + 4 * a2[v48]) == a3;
-        }
-
-        else
-        {
-          v52 = 1;
-        }
-
-        if (!v52)
-        {
-          v53 = *(a1 + 40);
-          v54 = *(a1 + 24);
-          if (a4 == 1 || v48 != 3)
-          {
-            v60 = 0;
-            *v53 = v54;
-            v61 = v50 + v47;
-            do
-            {
-              v54 += 4 * *(v61 + 4 * v60);
-              v53[++v60] = v54;
-            }
-
-            while (v60 != 255);
-          }
-
-          else
-          {
-            v55 = 0;
-            v56 = v54 + 4 * v45;
-            *v53 = v56;
-            do
-            {
-              v56 += 4 * *(v50 + v47 + 4 * v55);
-              v53[++v55] = v56;
-            }
-
-            while (v55 != 127);
-            v57 = 0;
-            v58 = *(a1 + 24);
-            v53[128] = v58;
-            v59 = v50 + v49;
-            do
-            {
-              v58 += 4 * *(v59 + 4 * v57);
-              v53[v57++ + 129] = v58;
-            }
-
-            while (v57 != 127);
-          }
-
-          if ((*(a1 + 8) & 0x80000000) != 0)
-          {
-            v67 = 0;
-            v68 = 0;
-            do
-            {
-              v69 = v51[v67 & 0xFFFFFFFC];
-              v70 = v53[v69];
-              *v70 = v68;
-              v53[v69] = v70 + 1;
-              ++v68;
-              v67 += 4;
-            }
-
-            while (a3 != v68);
-            *(a1 + 8) &= ~0x80000000;
-          }
-
-          else
-          {
-            v62 = *(a1 + 16);
-            v63 = 4 * a3;
-            do
-            {
-              v64 = *v62++;
-              v65 = v51[4 * v64];
-              v66 = v53[v65];
-              *v66 = v64;
-              v53[v65] = v66 + 1;
-              v63 -= 4;
-            }
-
-            while (v63);
-          }
-
-          *(a1 + 16) = vextq_s8(*(a1 + 16), *(a1 + 16), 8uLL);
-        }
-
-        ++v48;
-        v47 += 1024;
-        v49 += 1024;
-      }
-
-      while (v48 != 4);
-      return a1;
-    }
-
-LABEL_15:
-    ++*(a1 + 52);
-    return a1;
-  }
-
-  if (v8)
-  {
-    v25 = *a2;
-    v17 = a2;
-    do
-    {
-      v26 = *v17;
-      if (*v17 < v25)
-      {
-        goto LABEL_30;
-      }
-
-      ++*(v10 + 4 * *v17);
-      ++*(v11 + 4 * v17[1]);
-      ++*(v12 + 4 * v17[2]);
-      v27 = v17[3];
-      v17 += 4;
-      ++*(v13 + 4 * v27);
-      v25 = v26;
-      v8 -= 4;
+      v7 = v10[-1];
+      v11 = vsubq_f32(*v9, *v10);
+      v9[-1] = vsubq_f32(v9[-1], v7);
+      *v9 = v11;
+      v9 += 2;
+      v10 += 2;
+      --v8;
     }
 
     while (v8);
   }
 
-  v28 = 0;
-  v29 = vdupq_n_s64(a3 - 1);
-  ++*(a1 + 52);
-  v30 = xmmword_1E3049640;
-  v31 = xmmword_1E3049620;
-  v32 = vdupq_n_s64(4uLL);
-  v33 = (*(a1 + 16) + 8);
-  do
-  {
-    v34 = vmovn_s64(vcgeq_u64(v29, v31));
-    if (vuzp1_s16(v34, *v29.i8).u8[0])
-    {
-      *(v33 - 2) = v28;
-    }
-
-    if (vuzp1_s16(v34, *&v29).i8[2])
-    {
-      *(v33 - 1) = v28 + 1;
-    }
-
-    if (vuzp1_s16(*&v29, vmovn_s64(vcgeq_u64(v29, *&v30))).i32[1])
-    {
-      *v33 = v28 + 2;
-      v33[1] = v28 + 3;
-    }
-
-    v28 += 4;
-    v30 = vaddq_s64(v30, v32);
-    v31 = vaddq_s64(v31, v32);
-    v33 += 4;
-  }
-
-  while (((a3 + 3) & 0xFFFFFFFC) != v28);
-  return a1;
-}
-
-physx::Cm::RadixSort *physx::Cm::RadixSort::Sort(physx::Cm::RadixSort *this, float *a2, unsigned int a3)
-{
-  if (a2)
-  {
-    v5 = a3 - 1;
-    if (a3 >= 1)
-    {
-      ++*(this + 12);
-      bzero(*(this + 4), 0x1000uLL);
-      v7 = 4 * a3;
-      v8 = *(this + 4);
-      v9 = v8 + 1024;
-      v10 = v8 + 2048;
-      v11 = v8 + 3072;
-      if ((*(this + 2) & 0x80000000) != 0)
-      {
-        if (v7)
-        {
-          v18 = *a2;
-          v19 = 4 * a3;
-          v15 = a2;
-          do
-          {
-            v20 = v18;
-            v18 = *v15;
-            if (*v15 < v20)
-            {
-              goto LABEL_22;
-            }
-
-            ++*(v8 + 4 * LOBYTE(v18));
-            ++*(v9 + 4 * *(v15 + 1));
-            ++*(v10 + 4 * *(v15 + 2));
-            v21 = *(v15++ + 3);
-            ++*(v11 + 4 * v21);
-            v19 -= 4;
-          }
-
-          while (v19);
-        }
-
-        v22 = 0;
-        v23 = vdupq_n_s64(a3 - 1);
-        ++*(this + 13);
-        v24 = xmmword_1E3049640;
-        v25 = xmmword_1E3049620;
-        v26 = vdupq_n_s64(4uLL);
-        v27 = (*(this + 2) + 8);
-        do
-        {
-          v28 = vmovn_s64(vcgeq_u64(v23, v25));
-          if (vuzp1_s16(v28, *v23.i8).u8[0])
-          {
-            *(v27 - 2) = v22;
-          }
-
-          if (vuzp1_s16(v28, *&v23).i8[2])
-          {
-            *(v27 - 1) = v22 + 1;
-          }
-
-          if (vuzp1_s16(*&v23, vmovn_s64(vcgeq_u64(v23, *&v24))).i32[1])
-          {
-            *v27 = v22 + 2;
-            v27[1] = v22 + 3;
-          }
-
-          v22 += 4;
-          v24 = vaddq_s64(v24, v26);
-          v25 = vaddq_s64(v25, v26);
-          v27 += 4;
-        }
-
-        while (((a3 + 3) & 0xFFFFFFFC) != v22);
-      }
-
-      else
-      {
-        if (v7)
-        {
-          v12 = *(this + 2);
-          v13 = a2[*v12];
-          v14 = 4 * a3;
-          v15 = a2;
-          while (1)
-          {
-            v16 = v13;
-            v13 = a2[*v12];
-            if (v13 < v16)
-            {
-              break;
-            }
-
-            ++v12;
-            ++*(v8 + 4 * *v15);
-            ++*(v9 + 4 * *(v15 + 1));
-            ++*(v10 + 4 * *(v15 + 2));
-            v17 = *(v15++ + 3);
-            ++*(v11 + 4 * v17);
-            v14 -= 4;
-            if (!v14)
-            {
-              goto LABEL_8;
-            }
-          }
-
-LABEL_22:
-          v30 = &a2[v7 / 4];
-          while (v15 != v30)
-          {
-            ++*(v8 + 4 * *v15);
-            ++*(v9 + 4 * *(v15 + 1));
-            ++*(v10 + 4 * *(v15 + 2));
-            ++*(v11 + 4 * *(v15++ + 3));
-          }
-
-          v31 = 0;
-          v32 = v11 + 512;
-          v33 = 0uLL;
-          do
-          {
-            v33 = vaddq_s32(*(v32 + v31), v33);
-            v31 += 16;
-          }
-
-          while (v31 != 512);
-          v34 = vaddvq_s32(v33);
-          v35 = vdupq_n_s64(a3 - 1);
-          v36 = vdupq_n_s64(4uLL);
-          v37 = 0;
-          v38 = 0;
-          while (1)
-          {
-            v39 = *(this + 4);
-            v40 = v39 + (v38 << 10);
-            v41 = a2 + v38;
-            v42 = *(a2 + v38);
-            v43 = *(v40 + 4 * v42);
-            if (v43 == a3)
-            {
-              v40 = 0;
-            }
-
-            if (v38 == 3)
-            {
-              break;
-            }
-
-            if (v40)
-            {
-              v50 = 0;
-              v51 = *(this + 5);
-              v52 = *(this + 3);
-              *v51 = v52;
-              do
-              {
-                v52 += 4 * *(v40 + 4 * v50);
-                v51[++v50] = v52;
-              }
-
-              while (v50 != 255);
-              if ((*(this + 2) & 0x80000000) == 0)
-              {
-                v53 = *(this + 2);
-                v54 = 4 * a3;
-                do
-                {
-                  v55 = *v53++;
-                  v56 = v41[4 * v55];
-                  v57 = v51[v56];
-                  *v57 = v55;
-                  v51[v56] = v57 + 1;
-                  v54 -= 4;
-                }
-
-                while (v54);
-                goto LABEL_73;
-              }
-
-              v80 = 0;
-              v81 = 0;
-              do
-              {
-                v82 = v41[v80 & 0xFFFFFFFC];
-                v83 = v51[v82];
-                *v83 = v81;
-                v51[v82] = v83 + 1;
-                ++v81;
-                v80 += 4;
-              }
-
-              while (a3 != v81);
-LABEL_72:
-              *(this + 2) &= ~0x80000000;
-              goto LABEL_73;
-            }
-
-LABEL_75:
-            ++v38;
-            v37 += 1024;
-            if (v38 == 4)
-            {
-              return this;
-            }
-          }
-
-          if (v43 == a3)
-          {
-            if ((v42 & 0x80000000) == 0)
-            {
-              return this;
-            }
-
-            if ((*(this + 2) & 0x80000000) != 0)
-            {
-              v91 = 0;
-              v45 = *(this + 3);
-              v92 = v45 + 2;
-              v93 = v5;
-              v94 = xmmword_1E3049620;
-              v95 = xmmword_1E3049640;
-              do
-              {
-                v96 = vmovn_s64(vcgeq_u64(v35, v94));
-                if (vuzp1_s16(v96, *v35.i8).u8[0])
-                {
-                  *(v92 - 2) = v93;
-                }
-
-                if (vuzp1_s16(v96, *&v35).i8[2])
-                {
-                  *(v92 - 1) = (v91 ^ 0xFFFFFFFE) + a3;
-                }
-
-                if (vuzp1_s16(*&v35, vmovn_s64(vcgeq_u64(v35, *&v95))).i32[1])
-                {
-                  *v92 = (v91 ^ 0xFFFFFFFD) + a3;
-                  v92[1] = (v91 ^ 0xFFFFFFFC) + a3;
-                }
-
-                v91 += 4;
-                v95 = vaddq_s64(v95, v36);
-                v94 = vaddq_s64(v94, v36);
-                v93 -= 4;
-                v92 += 4;
-              }
-
-              while (((a3 + 3) & 0xFFFFFFFC) != v91);
-              *(this + 2) &= ~0x80000000;
-              v44 = *(this + 2);
-            }
-
-            else
-            {
-              v44 = *(this + 2);
-              v45 = *(this + 3);
-              v46 = v5;
-              v47 = v45;
-              v48 = -a3;
-              do
-              {
-                *v47++ = *(v44 + 4 * v46--);
-              }
-
-              while (!__CFADD__(v48++, 1));
-            }
-          }
-
-          else
-          {
-            v58 = 0;
-            v59 = *(this + 5);
-            v60 = *(this + 3) + 4 * v34;
-            v59->i64[0] = v60;
-            v61 = v39 + v37;
-            do
-            {
-              v60 += 4 * *(v61 + 4 * v58);
-              v59->i64[++v58] = v60;
-            }
-
-            while (v58 != 127);
-            v62 = 0;
-            v63 = *(this + 3);
-            v59[127].i64[1] = v63;
-            do
-            {
-              v63 += 4 * *(v40 + 1020 + 4 * v62);
-              v59[127].i64[v62--] = v63;
-            }
-
-            while (v62 != -127);
-            v64 = 0;
-            v65 = v40 + 512;
-            v66 = v59 + 64;
-            do
-            {
-              v67 = *(v65 + v64);
-              v68 = vaddq_s64(*v66, vshll_n_u32(*v67.i8, 2uLL));
-              v69 = vaddq_s64(v66[1], vshll_high_n_u32(v67, 2uLL));
-              *v66 = v68;
-              v66[1] = v69;
-              v66 += 2;
-              v64 += 16;
-            }
-
-            while (v64 != 512);
-            if ((*(this + 2) & 0x80000000) != 0)
-            {
-              v84 = 0;
-              do
-              {
-                v85 = LODWORD(a2[v84]);
-                v86 = (v85 >> 21) & 0x7F8;
-                v87 = *(v59->i64 + v86);
-                v88 = (v85 & 0x80000000) != 0;
-                if ((v85 & 0x80000000) != 0)
-                {
-                  v89 = v87 - 4;
-                }
-
-                else
-                {
-                  v89 = v87 + 4;
-                }
-
-                if (v88)
-                {
-                  v90 = -4;
-                }
-
-                else
-                {
-                  v90 = 0;
-                }
-
-                *(v59->i64 + v86) = v89;
-                *(v87 + v90) = v84++;
-              }
-
-              while (a3 != v84);
-              goto LABEL_72;
-            }
-
-            v70 = *(this + 2);
-            v71 = a3;
-            do
-            {
-              v73 = *v70++;
-              v72 = v73;
-              v74 = LODWORD(a2[v73]);
-              v75 = (v74 >> 21) & 0x7F8;
-              v76 = *(v59->i64 + v75);
-              v77 = (v74 & 0x80000000) != 0;
-              if ((v74 & 0x80000000) != 0)
-              {
-                v78 = v76 - 4;
-              }
-
-              else
-              {
-                v78 = v76 + 4;
-              }
-
-              if (v77)
-              {
-                v79 = -4;
-              }
-
-              else
-              {
-                v79 = 0;
-              }
-
-              *(v59->i64 + v75) = v78;
-              *(v76 + v79) = v72;
-              --v71;
-            }
-
-            while (v71);
-LABEL_73:
-            v44 = *(this + 2);
-            v45 = *(this + 3);
-          }
-
-          *(this + 2) = v45;
-          *(this + 3) = v44;
-          goto LABEL_75;
-        }
-
-LABEL_8:
-        ++*(this + 13);
-      }
-    }
-  }
-
-  return this;
-}
-
-uint64_t physx::Cm::RadixSortBuffered::reset(uint64_t this)
-{
-  v1 = this;
-  if (*(this + 56) == 1)
-  {
-    if (*(this + 24))
-    {
-      this = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
-    }
-
-    *(v1 + 24) = 0;
-    if (*(v1 + 16))
-    {
-      this = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
-    }
-
-    *(v1 + 16) = 0;
-  }
-
-  *(v1 + 8) = 0x80000000;
-  return this;
-}
-
-void physx::Cm::RadixSortBuffered::~RadixSortBuffered(physx::Cm::RadixSortBuffered *this)
-{
-  *this = &unk_1F5D21400;
-  physx::Cm::RadixSortBuffered::reset(this);
-}
-
-{
-  *this = &unk_1F5D21400;
-  physx::Cm::RadixSortBuffered::reset(this);
-
-  JUMPOUT(0x1E6906520);
-}
-
-uint64_t physx::Cm::RadixSortBuffered::Resize(physx::Cm::RadixSortBuffered *this, unsigned int a2)
-{
-  if (*(this + 56) == 1)
-  {
-    if (*(this + 3))
-    {
-      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
-    }
-
-    *(this + 3) = 0;
-    if (*(this + 2))
-    {
-      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
-    }
-
-    *(this + 2) = 0;
-    if (a2)
-    {
-      v4 = 4 * a2;
-      *(this + 2) = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 16))(physx::shdfnd::Foundation::mInstance + 24, v4, "NonTrackedAlloc", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/common/src/CmRadixSortBuffered.cpp", 76);
-      v5 = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 16))(physx::shdfnd::Foundation::mInstance + 24, v4, "NonTrackedAlloc", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/common/src/CmRadixSortBuffered.cpp", 77);
-    }
-
-    else
-    {
-      v5 = 0;
-    }
-
-    *(this + 3) = v5;
-  }
-
-  return 1;
-}
-
-uint64_t physx::Cm::RadixSortBuffered::Sort(uint64_t a1)
-{
-  v1 = MEMORY[0x1EEE9AC00](a1);
-  v5 = v1;
-  v13 = *MEMORY[0x1E69E9840];
-  if (v2)
-  {
-    v6 = v3;
-    if (v3 >= 1)
-    {
-      v7 = v4;
-      v8 = v2;
-      v9 = *(v1 + 2) & 0x7FFFFFFF;
-      if (v9 != v3)
-      {
-        if (v9 < v3)
-        {
-          physx::Cm::RadixSortBuffered::Resize(v1, v3);
-        }
-
-        *(v5 + 8) = v6 | 0x80000000;
-      }
-
-      memset(v11, 0, sizeof(v11));
-      *(v5 + 32) = &v12;
-      *(v5 + 40) = v11;
-      physx::Cm::RadixSort::Sort(v5, v8, v6, v7);
-    }
-  }
-
-  return v5;
-}
-
-physx::Cm::RadixSortBuffered *physx::Cm::RadixSortBuffered::Sort(physx::Cm::RadixSortBuffered *this, const float *a2)
-{
-  v2 = MEMORY[0x1EEE9AC00](this);
-  v5 = v2;
-  v12 = *MEMORY[0x1E69E9840];
-  if (v3)
-  {
-    v6 = v4;
-    if (v4 >= 1)
-    {
-      v7 = v3;
-      v8 = *(v2 + 2) & 0x7FFFFFFF;
-      if (v8 != v4)
-      {
-        if (v8 < v4)
-        {
-          physx::Cm::RadixSortBuffered::Resize(v2, v4);
-        }
-
-        *(v5 + 2) = v6 | 0x80000000;
-      }
-
-      memset(v10, 0, sizeof(v10));
-      *(v5 + 4) = &v11;
-      *(v5 + 5) = v10;
-      physx::Cm::RadixSort::Sort(v5, v7, v6);
-    }
-  }
-
-  return v5;
-}
-
-__n128 physx::Cm::RenderOutput::operator<<(uint64_t a1, uint64_t a2)
-{
-  *(a1 + 36) = *a2;
-  *(a1 + 52) = *(a2 + 16);
-  *(a1 + 68) = *(a2 + 32);
-  result = *(a2 + 48);
-  *(a1 + 84) = result;
-  return result;
-}
-
-uint64_t physx::Cm::RenderOutput::operator<<(uint64_t a1, uint64_t a2)
-{
-  physx::PxMat44::PxMat44(v6, a2);
-  v3 = v6[1];
-  *(a1 + 36) = v6[0];
-  *(a1 + 52) = v3;
-  v4 = v6[3];
-  *(a1 + 68) = v6[2];
-  *(a1 + 84) = v4;
-  return a1;
-}
-
-uint64_t physx::Cm::RenderOutput::operator<<(uint64_t a1, float *a2)
-{
-  v4 = a2[1];
-  v5 = a2[2];
-  v6 = ((*a2 * *(a1 + 44)) + (v4 * *(a1 + 60))) + (v5 * *(a1 + 76));
-  v7 = *(a1 + 92);
-  v8 = vadd_f32(vadd_f32(vadd_f32(vmul_n_f32(*(a1 + 36), *a2), vmul_n_f32(*(a1 + 52), v4)), vmul_n_f32(*(a1 + 68), v5)), *(a1 + 84));
-  v9 = v6 + v7;
-  *a2 = v8;
-  a2[2] = v6 + v7;
-  v10 = *(a1 + 32);
-  v11 = v10 + 1;
-  *(a1 + 32) = v10 + 1;
-  v12 = *a1;
-  if (*a1 > 1)
-  {
-    if (v12 == 2)
-    {
-      if (v11 < 2)
-      {
-        goto LABEL_38;
-      }
-
-      v35 = *(a1 + 104);
-      v36 = *(a1 + 8);
-      v37 = *(a1 + 12);
-      v58 = __PAIR64__(v37, v36);
-      v38 = *(a1 + 16);
-      v59 = v38;
-      v39 = *(a1 + 4);
-      v60 = v39;
-      v61 = v8;
-      v62 = v9;
-      v63 = v39;
-      v40 = *(v35 + 32);
-      if ((*(v35 + 36) & 0x7FFFFFFFu) <= v40)
-      {
-        physx::shdfnd::Array<physx::PxDebugLine,physx::shdfnd::ReflectionAllocator<physx::PxDebugLine>>::growAndPushBack(v35 + 24, &v58);
-      }
-
-      else
-      {
-        v41 = *(v35 + 24) + 32 * v40;
-        *v41 = v36;
-        *(v41 + 4) = v37;
-        *(v41 + 8) = v38;
-        *(v41 + 12) = v39;
-        *(v41 + 16) = v8;
-        *(v41 + 24) = v9;
-        *(v41 + 28) = v39;
-        *(v35 + 32) = v40 + 1;
-      }
-
-      goto LABEL_33;
-    }
-
-    if (v12 != 3)
-    {
-      if (v12 == 4 && v11 >= 3)
-      {
-        v13 = *(a1 + 104);
-        v14 = 8;
-        if (v10)
-        {
-          v15 = 20;
-        }
-
-        else
-        {
-          v15 = 8;
-        }
-
-        v16 = *(a1 + v15);
-        v17 = a1 + 8;
-        if (v10)
-        {
-          v18 = a1 + 20;
-        }
-
-        else
-        {
-          v18 = a1 + 8;
-        }
-
-        v19 = *(v18 + 4);
-        v20 = *(v18 + 8);
-        if ((v10 & 1) == 0)
-        {
-          v14 = 20;
-          v17 = a1 + 20;
-        }
-
-        v58 = __PAIR64__(v19, v16);
-        v59 = v20;
-        v21 = *(a1 + 4);
-        v60 = v21;
-        v22 = *(a1 + v14);
-        v23 = *(v17 + 4);
-        v24 = *(v17 + 8);
-        v61 = __PAIR64__(v23, v22);
-        v62 = v24;
-        v63 = v21;
-        v64 = v8;
-        v65 = v9;
-        v25 = *(v13 + 48);
-        v26 = *(v13 + 52) & 0x7FFFFFFF;
-        v66 = v21;
-        if (v26 <= v25)
-        {
-          physx::shdfnd::Array<physx::PxDebugTriangle,physx::shdfnd::ReflectionAllocator<physx::PxDebugTriangle>>::growAndPushBack(v13 + 40, &v58);
-        }
-
-        else
-        {
-          v27 = *(v13 + 40) + 48 * v25;
-          *v27 = v16;
-          *(v27 + 4) = v19;
-          *(v27 + 8) = v20;
-          *(v27 + 12) = v21;
-          *(v27 + 16) = v22;
-          *(v27 + 20) = v23;
-          *(v27 + 24) = v24;
-          *(v27 + 28) = v21;
-          *(v27 + 32) = v8;
-          *(v27 + 40) = v9;
-          *(v27 + 44) = v21;
-          *(v13 + 48) = v25 + 1;
-        }
-
-        goto LABEL_33;
-      }
-
-      goto LABEL_34;
-    }
-
-    if (v10 != 2)
-    {
-      goto LABEL_34;
-    }
-
-    v42 = *(a1 + 104);
-    v43 = *(a1 + 24);
-    v44 = *(a1 + 28);
-    v46 = *(a1 + 16);
-    v45 = *(a1 + 20);
-    v58 = __PAIR64__(v43, v45);
-    v59 = v44;
-    v47 = *(a1 + 4);
-    v60 = v47;
-    v48 = *(a1 + 8);
-    v49 = *(a1 + 12);
-    v61 = __PAIR64__(v49, v48);
-    v62 = v46;
-    v63 = v47;
-    v64 = v8;
-    v65 = v9;
-    v50 = *(v42 + 48);
-    v51 = *(v42 + 52) & 0x7FFFFFFF;
-    v66 = v47;
-    if (v51 <= v50)
-    {
-      physx::shdfnd::Array<physx::PxDebugTriangle,physx::shdfnd::ReflectionAllocator<physx::PxDebugTriangle>>::growAndPushBack(v42 + 40, &v58);
-    }
-
-    else
-    {
-      v52 = *(v42 + 40) + 48 * v50;
-      *v52 = v45;
-      *(v52 + 4) = v43;
-      *(v52 + 8) = v44;
-      *(v52 + 12) = v47;
-      *(v52 + 16) = v48;
-      *(v52 + 20) = v49;
-      *(v52 + 24) = v46;
-      *(v52 + 28) = v47;
-      *(v52 + 32) = v8;
-      *(v52 + 40) = v9;
-      *(v52 + 44) = v47;
-      *(v42 + 48) = v50 + 1;
-    }
-
-LABEL_37:
-    *(a1 + 32) = 0;
-    goto LABEL_38;
-  }
-
-  if (!v12)
-  {
-    v53 = *(a1 + 104);
-    v58 = v8;
-    v59 = v6 + v7;
-    v54 = *(a1 + 4);
-    v60 = v54;
-    v55 = *(v53 + 16);
-    if ((*(v53 + 20) & 0x7FFFFFFFu) <= v55)
-    {
-      physx::shdfnd::Array<physx::PxDebugPoint,physx::shdfnd::ReflectionAllocator<physx::PxDebugPoint>>::growAndPushBack(v53 + 8, &v58);
-    }
-
-    else
-    {
-      v56 = *(v53 + 8) + 16 * v55;
-      *v56 = v8;
-      *(v56 + 8) = v9;
-      *(v56 + 12) = v54;
-      *(v53 + 16) = v55 + 1;
-    }
-
-LABEL_33:
-    v11 = *(a1 + 32);
-    goto LABEL_34;
-  }
-
-  if (v12 == 1 && v10 == 1)
-  {
-    v28 = *(a1 + 104);
-    v29 = *(a1 + 8);
-    v30 = *(a1 + 12);
-    v58 = __PAIR64__(v30, v29);
-    v31 = *(a1 + 16);
-    v59 = v31;
-    v32 = *(a1 + 4);
-    v60 = v32;
-    v61 = v8;
-    v62 = v9;
-    v63 = v32;
-    v33 = *(v28 + 32);
-    if ((*(v28 + 36) & 0x7FFFFFFFu) <= v33)
-    {
-      physx::shdfnd::Array<physx::PxDebugLine,physx::shdfnd::ReflectionAllocator<physx::PxDebugLine>>::growAndPushBack(v28 + 24, &v58);
-    }
-
-    else
-    {
-      v34 = *(v28 + 24) + 32 * v33;
-      *v34 = v29;
-      *(v34 + 4) = v30;
-      *(v34 + 8) = v31;
-      *(v34 + 12) = v32;
-      *(v34 + 16) = v8;
-      *(v34 + 24) = v9;
-      *(v34 + 28) = v32;
-      *(v28 + 32) = v33 + 1;
-    }
-
-    goto LABEL_37;
-  }
-
-LABEL_34:
-  if (v11 >= 2)
-  {
-    *(a1 + 20) = *(a1 + 8);
-    *(a1 + 28) = *(a1 + 16);
-  }
-
-LABEL_38:
-  *(a1 + 8) = *a2;
-  *(a1 + 16) = a2[2];
-  return a1;
-}
-
-uint64_t physx::Cm::operator<<(_DWORD *a1, uint64_t a2)
-{
-  if (*(a2 + 24) == 1)
-  {
-    *a1 = 2;
-    a1[8] = 0;
-    v3 = *(a2 + 8);
-    *v59 = *a2;
-    *&v59[8] = v3;
-    v4 = physx::Cm::RenderOutput::operator<<(a1, v59);
-    *v59 = *(a2 + 12);
-    *&v59[4] = *(a2 + 4);
-    v5 = physx::Cm::RenderOutput::operator<<(v4, v59);
-    v6 = *(a2 + 8);
-    *v59 = *(a2 + 12);
-    *&v59[8] = v6;
-    v7 = physx::Cm::RenderOutput::operator<<(v5, v59);
-    v8 = *(a2 + 16);
-    v9 = *(a2 + 8);
-    *v59 = *a2;
-    *&v59[4] = v8;
-    *&v59[8] = v9;
-    v10 = physx::Cm::RenderOutput::operator<<(v7, v59);
-    v11 = *(a2 + 8);
-    *v59 = *a2;
-    *&v59[8] = v11;
-    v12 = physx::Cm::RenderOutput::operator<<(v10, v59);
-    v13 = *(a2 + 20);
-    *v59 = *a2;
-    *&v59[8] = v13;
-    v14 = physx::Cm::RenderOutput::operator<<(v12, v59);
-    v15 = *(a2 + 4);
-    v16 = *(a2 + 20);
-    *v59 = *(a2 + 12);
-    *&v59[4] = v15;
-    *&v59[8] = v16;
-    v17 = physx::Cm::RenderOutput::operator<<(v14, v59);
-    v18 = *(a2 + 20);
-    *v59 = *(a2 + 12);
-    *&v59[8] = v18;
-    v19 = physx::Cm::RenderOutput::operator<<(v17, v59);
-    *v59 = *a2;
-    *&v59[4] = *(a2 + 16);
-    v20 = physx::Cm::RenderOutput::operator<<(v19, v59);
-    v21 = *(a2 + 20);
-    *v59 = *a2;
-    *&v59[8] = v21;
-    v22 = physx::Cm::RenderOutput::operator<<(v20, v59);
-    *v22 = 1;
-    v22[8] = 0;
-    *v59 = *(a2 + 12);
-    *&v59[4] = *(a2 + 4);
-    v23 = physx::Cm::RenderOutput::operator<<(v22, v59);
-    v24 = *(a2 + 4);
-    v25 = *(a2 + 20);
-    *v59 = *(a2 + 12);
-    *&v59[4] = v24;
-    *&v59[8] = v25;
-    v26 = physx::Cm::RenderOutput::operator<<(v23, v59);
-    v27 = *(a2 + 8);
-    *v59 = *(a2 + 12);
-    *&v59[8] = v27;
-    v28 = physx::Cm::RenderOutput::operator<<(v26, v59);
-    v29 = *(a2 + 20);
-    *v59 = *(a2 + 12);
-    *&v59[8] = v29;
-    v30 = physx::Cm::RenderOutput::operator<<(v28, v59);
-    v31 = *(a2 + 16);
-    v32 = *(a2 + 8);
-    *v59 = *a2;
-    *&v59[4] = v31;
-    *&v59[8] = v32;
-  }
-
-  else
-  {
-    *a1 = 4;
-    a1[8] = 0;
-    v33 = *(a2 + 8);
-    *v59 = *a2;
-    *&v59[8] = v33;
-    v34 = physx::Cm::RenderOutput::operator<<(a1, v59);
-    v35 = *(a2 + 16);
-    v36 = *(a2 + 8);
-    *v59 = *a2;
-    *&v59[4] = v35;
-    *&v59[8] = v36;
-    v37 = physx::Cm::RenderOutput::operator<<(v34, v59);
-    *v59 = *(a2 + 12);
-    *&v59[4] = *(a2 + 4);
-    v38 = physx::Cm::RenderOutput::operator<<(v37, v59);
-    v39 = *(a2 + 8);
-    *v59 = *(a2 + 12);
-    *&v59[8] = v39;
-    v40 = physx::Cm::RenderOutput::operator<<(v38, v59);
-    v41 = *(a2 + 20);
-    *v59 = *(a2 + 12);
-    *&v59[8] = v41;
-    v42 = physx::Cm::RenderOutput::operator<<(v40, v59);
-    v43 = *(a2 + 16);
-    v44 = *(a2 + 8);
-    *v59 = *a2;
-    *&v59[4] = v43;
-    *&v59[8] = v44;
-    v45 = physx::Cm::RenderOutput::operator<<(v42, v59);
-    *v59 = *a2;
-    *&v59[4] = *(a2 + 16);
-    v46 = physx::Cm::RenderOutput::operator<<(v45, v59);
-    v47 = *(a2 + 8);
-    *v59 = *a2;
-    *&v59[8] = v47;
-    v48 = physx::Cm::RenderOutput::operator<<(v46, v59);
-    v49 = *(a2 + 20);
-    *v59 = *a2;
-    *&v59[8] = v49;
-    v50 = physx::Cm::RenderOutput::operator<<(v48, v59);
-    *v59 = *(a2 + 12);
-    *&v59[4] = *(a2 + 4);
-    v51 = physx::Cm::RenderOutput::operator<<(v50, v59);
-    v52 = *(a2 + 4);
-    v53 = *(a2 + 20);
-    *v59 = *(a2 + 12);
-    *&v59[4] = v52;
-    *&v59[8] = v53;
-    v54 = physx::Cm::RenderOutput::operator<<(v51, v59);
-    v55 = *(a2 + 20);
-    *v59 = *(a2 + 12);
-    *&v59[8] = v55;
-    v30 = physx::Cm::RenderOutput::operator<<(v54, v59);
-    v56 = *(a2 + 20);
-    *v59 = *a2;
-    *&v59[8] = v56;
-  }
-
-  v57 = physx::Cm::RenderOutput::operator<<(v30, v59);
-  *v59 = *a2;
-  *&v59[4] = *(a2 + 16);
-  return physx::Cm::RenderOutput::operator<<(v57, v59);
-}
-
-{
-  v3 = *a2;
-  v4 = sqrtf(((*(a2 + 4) * *(a2 + 4)) + (v3 * v3)) + (*(a2 + 8) * *(a2 + 8)));
-  a1[1] = *(a2 + 12);
-  *(&v12 + 1) = v3 + 0.0;
-  v11 = 0;
-  LODWORD(v12) = 0;
-  v5 = v4 * 0.15;
-  v13 = 0;
-  v14 = v4 * 0.15;
-  v6 = physx::Cm::operator<<(a1, &v11);
-  v6[1] = *(a2 + 16);
-  *&v7 = *(a2 + 4) + 0.0;
-  v11 = 0;
-  v12 = 0;
-  v13 = v7;
-  v14 = v5;
-  v8 = physx::Cm::operator<<(v6, &v11);
-  v8[1] = *(a2 + 20);
-  v9 = *(a2 + 8) + 0.0;
-  v11 = 0;
-  v12 = 0;
-  LODWORD(v13) = 0;
-  *(&v13 + 1) = v9;
-  v14 = v5;
-  return physx::Cm::operator<<(v8, &v11);
-}
-
-{
-  v4 = *a2;
-  *a1 = 2;
-  a1[8] = 0;
-  if (v4)
-  {
-    v5 = 0;
-    v6 = 6.2832 / v4;
-    v7 = 0.0;
-    do
-    {
-      v8 = *(a2 + 4);
-      v9 = __sincosf_stret(v7);
-      v12 = v9.__sinval * v8;
-      v13 = v9.__cosval * v8;
-      v14 = 0;
-      physx::Cm::RenderOutput::operator<<(a1, &v12);
-      ++v5;
-      v7 = v6 + v7;
-    }
-
-    while (v5 < *a2);
-  }
-
-  v10 = *(a2 + 4);
-  v12 = 0.0;
-  v13 = v10;
-  v14 = 0;
-  return physx::Cm::RenderOutput::operator<<(a1, &v12);
-}
-
-{
-  v5 = *(a2 + 8);
-  v4 = *(a2 + 12);
-  v6 = *a2;
-  *a1 = 2;
-  a1[8] = 0;
+  v153 = *(a1 + 80);
+  v12 = *(a1 + 92);
+  v13 = a2;
   if (v6)
   {
-    v7 = 0;
-    v8 = (v4 - v5) / v6;
+    v14 = 0;
+    v15 = v149 + 2;
     do
     {
-      v9 = *(a2 + 4);
-      v10 = __sincosf_stret(v5);
-      v14 = v10.__sinval * v9;
-      v15 = v10.__cosval * v9;
-      v16 = 0;
-      physx::Cm::RenderOutput::operator<<(a1, &v14);
-      ++v7;
-      v5 = v8 + v5;
-    }
-
-    while (v7 < *a2);
-    v4 = *(a2 + 12);
-  }
-
-  v11 = *(a2 + 4);
-  v12 = __sincosf_stret(v4);
-  v14 = v12.__sinval * v11;
-  v15 = v12.__cosval * v11;
-  v16 = 0;
-  return physx::Cm::RenderOutput::operator<<(a1, &v14);
-}
-
-uint64_t physx::Cm::operator<<(_DWORD *a1, float *a2)
-{
-  v3 = *a2;
-  v4 = a2[1];
-  v5 = a2[2];
-  v6 = a2[3];
-  v7 = v6 - *a2;
-  v9 = a2[4];
-  v8 = a2[5];
-  v10 = v9 - v4;
-  v11 = v8 - v5;
-  v12 = sqrtf(((v10 * v10) + (v7 * v7)) + (v11 * v11));
-  if (v12 > 0.0)
-  {
-    v13 = 1.0 / v12;
-    v7 = v7 * v13;
-    v10 = v10 * v13;
-    v11 = v11 * v13;
-  }
-
-  v14 = fabsf(v7);
-  v15 = v14 < 0.70711;
-  v16 = 0.0;
-  if (v14 >= 0.70711)
-  {
-    v17 = -v10;
-  }
-
-  else
-  {
-    v17 = 0.0;
-  }
-
-  if (v15)
-  {
-    v18 = -v11;
-  }
-
-  else
-  {
-    v18 = v7;
-  }
-
-  if (v15)
-  {
-    v16 = v10;
-  }
-
-  v19 = sqrtf(((v18 * v18) + (v17 * v17)) + (v16 * v16));
-  if (v19 > 0.0)
-  {
-    v20 = 1.0 / v19;
-    v17 = v17 * v20;
-    v18 = v18 * v20;
-    v16 = v16 * v20;
-  }
-
-  v21 = (v11 * v17) - (v7 * v16);
-  v22 = (v17 * -v10) + (v7 * v18);
-  v23 = a2[6];
-  v24 = v17 * (v23 * 0.25);
-  v25 = v18 * (v23 * 0.25);
-  v26 = v16 * (v23 * 0.25);
-  v27 = (v23 * 0.25) * 1.7321;
-  v28 = ((v18 * -v11) + (v10 * v16)) * v27;
-  v46 = v22 * v27;
-  v47 = v21 * v27;
-  v29 = v6 - (v7 * v23);
-  v30 = v9 - (v10 * v23);
-  *a1 = 1;
-  a1[8] = 0;
-  v31 = v8 - (v11 * v23);
-  v48 = __PAIR64__(LODWORD(v4), LODWORD(v3));
-  v49 = v5;
-  v32 = physx::Cm::RenderOutput::operator<<(a1, &v48);
-  v48 = *(a2 + 3);
-  v49 = a2[5];
-  v33 = physx::Cm::RenderOutput::operator<<(v32, &v48);
-  *v33 = 4;
-  v33[8] = 0;
-  v48 = *(a2 + 3);
-  v49 = a2[5];
-  v34 = physx::Cm::RenderOutput::operator<<(v33, &v48);
-  *&v44 = v25 + (v30 + v25);
-  *&v45 = v24 + (v29 + v24);
-  v35 = v26 + (v31 + v26);
-  *&v48 = *&v45;
-  *(&v48 + 1) = *&v44;
-  v49 = v35;
-  v36 = physx::Cm::RenderOutput::operator<<(v34, &v48);
-  v37 = v29 - v24;
-  v38 = v30 - v25;
-  v39 = v31 - v26;
-  *&v48 = v37 - v28;
-  *(&v48 + 1) = v38 - v47;
-  v49 = v39 - v46;
-  v40 = physx::Cm::RenderOutput::operator<<(v36, &v48);
-  *&v48 = v37 + v28;
-  *(&v48 + 1) = v38 + v47;
-  v49 = v39 + v46;
-  v41 = physx::Cm::RenderOutput::operator<<(v40, &v48);
-  v48 = *(a2 + 3);
-  v49 = a2[5];
-  v42 = physx::Cm::RenderOutput::operator<<(v41, &v48);
-  v48 = __PAIR64__(v44, v45);
-  v49 = v35;
-  return physx::Cm::RenderOutput::operator<<(v42, &v48);
-}
-
-uint64_t physx::Cm::RenderOutput::outputCapsule(uint64_t a1, float32x2_t *a2, float a3, float a4)
-{
-  v6 = a2[1].f32[0];
-  v7 = a2[1].i32[1];
-  v9 = a2[5].f32[0];
-  v8 = a2[5].f32[1];
-  v122 = 100;
-  v123 = a3;
-  v124 = 0x40C90FDB40490FDBLL;
-  v10 = -v9;
-  v11 = -v8;
-  v109 = a2[3];
-  v116 = vadd_f32(COERCE_UNSIGNED_INT(((0.0 * v109.f32[0]) - (v6 * a4)) + (v9 * 0.0)), a2[7]);
-  *(a1 + 44) = v6;
-  *(a1 + 48) = v7;
-  *(a1 + 60) = v109;
-  *(a1 + 76) = v9;
-  *(a1 + 80) = v8;
-  *(a1 + 92) = v116;
-  v12 = a2[2];
-  v13 = *a2;
-  v14 = a2[4];
-  v15 = -v14.f32[0];
-  v16 = -v14.f32[1];
-  v113 = vadd_f32(vadd_f32(vsub_f32(vmul_f32(v12, 0), vmul_n_f32(*a2, a4)), vmul_f32(v14, 0)), a2[6]);
-  *(a1 + 36) = *a2;
-  *(a1 + 52) = v12;
-  *(a1 + 68) = v14;
-  *(a1 + 84) = v113;
-  v17 = physx::Cm::operator<<(a1, &v122);
-  *(v17 + 36) = v13;
-  *(v17 + 44) = v6;
-  *(v17 + 48) = v7;
-  *(v17 + 52) = v15;
-  *(v17 + 56) = v16;
-  *(v17 + 60) = v10;
-  *(v17 + 64) = v11;
-  *(v17 + 68) = v12;
-  *(v17 + 76) = v109;
-  *&v18 = v113;
-  *(&v18 + 1) = v116;
-  *(v17 + 84) = v18;
-  v122 = 100;
-  v123 = a3;
-  v124 = 0x40C90FDB40490FDBLL;
-  v19 = physx::Cm::operator<<(v17, &v122);
-  *(v19 + 36) = vneg_f32(v12);
-  *(v19 + 44) = vneg_f32(v109);
-  *(v19 + 52) = v15;
-  *(v19 + 56) = v16;
-  *(v19 + 60) = v10;
-  *(v19 + 64) = v11;
-  *(v19 + 68) = v13;
-  *(v19 + 76) = v6;
-  *(v19 + 80) = v7;
-  *(v19 + 84) = v113;
-  *(v19 + 92) = v116;
-  v122 = 100;
-  v123 = a3;
-  v20 = physx::Cm::operator<<(v19, &v122);
-  v21 = a2[1].f32[0];
-  v22 = a2[1].i32[1];
-  v23 = a2[5].f32[0];
-  v24 = a2[5].f32[1];
-  v122 = 100;
-  v123 = a3;
-  v124 = 0x40490FDB00000000;
-  v25 = -v23;
-  v26 = -v24;
-  v110 = a2[3];
-  v117 = vadd_f32(COERCE_UNSIGNED_INT(((v21 * a4) + (0.0 * v110.f32[0])) + (v23 * 0.0)), a2[7]);
-  *(v20 + 44) = v21;
-  *(v20 + 48) = v22;
-  *(v20 + 60) = v110;
-  *(v20 + 76) = v23;
-  *(v20 + 80) = v24;
-  *(v20 + 92) = v117;
-  v27 = a2[2];
-  v28 = *a2;
-  v29 = a2[4];
-  v12.f32[0] = -v29.f32[0];
-  v30 = -v29.f32[1];
-  v114 = vadd_f32(vadd_f32(vadd_f32(vmul_n_f32(*a2, a4), vmul_f32(v27, 0)), vmul_f32(v29, 0)), a2[6]);
-  *(v20 + 36) = *a2;
-  *(v20 + 52) = v27;
-  *(v20 + 68) = v29;
-  *(v20 + 84) = v114;
-  v31 = physx::Cm::operator<<(v20, &v122);
-  *(v31 + 36) = v28;
-  *(v31 + 44) = v21;
-  *(v31 + 48) = v22;
-  *(v31 + 52) = v12.i32[0];
-  *(v31 + 56) = v30;
-  *(v31 + 60) = v25;
-  *(v31 + 64) = v26;
-  *(v31 + 68) = v27;
-  *(v31 + 76) = v110;
-  *&v32 = v114;
-  *(&v32 + 1) = v117;
-  *(v31 + 84) = v32;
-  v122 = 100;
-  v123 = a3;
-  v124 = 0x40490FDB00000000;
-  v33 = physx::Cm::operator<<(v31, &v122);
-  *(v33 + 36) = vneg_f32(v27);
-  *(v33 + 44) = vneg_f32(v110);
-  *(v33 + 52) = v12.i32[0];
-  *(v33 + 56) = v30;
-  *(v33 + 60) = v25;
-  *(v33 + 64) = v26;
-  *(v33 + 68) = v28;
-  *(v33 + 76) = v21;
-  *(v33 + 80) = v22;
-  *(v33 + 84) = v114;
-  *(v33 + 92) = v117;
-  v122 = 100;
-  v123 = a3;
-  v34 = physx::Cm::operator<<(v33, &v122);
-  physx::Cm::RenderOutput::operator<<(v34, a2);
-  v36 = a4;
-  v37 = a2->f32[0];
-  v38 = a2->f32[1];
-  v39 = a2[1].f32[0];
-  v40 = a2[2].f32[0];
-  v41 = a2[2].f32[1];
-  v42 = a2[3].f32[0];
-  v43 = a2->f32[0] * a4;
-  v44 = v38 * a4;
-  v45 = v39 * a4;
-  v46 = a2[4].f32[0];
-  v47 = a2[4].f32[1];
-  v48 = v46 * 0.0;
-  v49 = v47 * 0.0;
-  v50 = a2[5].f32[0];
-  v51 = v50 * 0.0;
-  v52 = a2[6].f32[0];
-  v53 = a2[6].f32[1];
-  v54 = a2[7].f32[0];
-  v55 = (((v40 * a3) - v43) + (v46 * 0.0)) + v52;
-  v56 = (((v41 * a3) - (v38 * a4)) + (v47 * 0.0)) + v53;
-  v57 = (((v42 * a3) - (v39 * a4)) + (v50 * 0.0)) + v54;
-  v58 = ((v43 + (v40 * a3)) + (v46 * 0.0)) + v52;
-  v59 = (((v38 * a4) + (v41 * a3)) + (v47 * 0.0)) + v53;
-  v60 = (((v39 * a4) + (v42 * a3)) + (v50 * 0.0)) + v54;
-  v61 = *(v35 + 104);
-  v62 = *(v61 + 32);
-  v63 = *(v61 + 36) & 0x7FFFFFFF;
-  v64 = v62 + 1;
-  if (v62 + 1 <= v63)
-  {
-    v68 = *(v35 + 104);
-  }
-
-  else
-  {
-    if (v63)
-    {
-      v65 = 2 * *(v61 + 36);
-    }
-
-    else
-    {
-      v65 = 2;
-    }
-
-    if (v64 <= v65)
-    {
-      v66 = v65;
-    }
-
-    else
-    {
-      v66 = v62 + 1;
-    }
-
-    v67 = (((v39 * a4) + (v42 * a3)) + (v50 * 0.0)) + v54;
-    physx::shdfnd::Array<physx::PxDebugLine,physx::shdfnd::ReflectionAllocator<physx::PxDebugLine>>::recreate(v61 + 24, v66);
-    v60 = v67;
-    v36 = a4;
-    v62 = *(v61 + 32);
-    v37 = a2->f32[0];
-    v38 = a2->f32[1];
-    v39 = a2[1].f32[0];
-    v40 = a2[2].f32[0];
-    v41 = a2[2].f32[1];
-    v42 = a2[3].f32[0];
-    v46 = a2[4].f32[0];
-    v47 = a2[4].f32[1];
-    v50 = a2[5].f32[0];
-    v52 = a2[6].f32[0];
-    v53 = a2[6].f32[1];
-    v54 = a2[7].f32[0];
-    v68 = *(a1 + 104);
-    v43 = a2->f32[0] * a4;
-    v44 = v38 * a4;
-    v45 = v39 * a4;
-    v48 = v46 * 0.0;
-    v49 = v47 * 0.0;
-    v51 = v50 * 0.0;
-    v63 = *(v68 + 36) & 0x7FFFFFFF;
-  }
-
-  v69 = *(v61 + 24) + 32 * v62;
-  *(v61 + 32) = v64;
-  *v69 = v55;
-  *(v69 + 4) = v56;
-  *(v69 + 8) = v57;
-  *(v69 + 16) = v58;
-  *(v69 + 20) = v59;
-  *(v69 + 24) = v60;
-  v70 = *(a1 + 4);
-  *(v69 + 28) = v70;
-  *(v69 + 12) = v70;
-  v71 = v52 + (v48 + (-(a3 * v40) - v43));
-  v72 = v53 + (v49 + (-(a3 * v41) - v44));
-  v73 = v54 + (v51 + (-(a3 * v42) - v45));
-  v74 = v52 + (v48 + (v43 - (a3 * v40)));
-  v75 = v53 + (v49 + (v44 - (a3 * v41)));
-  v76 = v54 + (v51 + (v45 - (a3 * v42)));
-  v77 = *(v68 + 32);
-  v78 = v77 + 1;
-  if (v77 + 1 <= v63)
-  {
-    v81 = v68;
-  }
-
-  else
-  {
-    if (v63)
-    {
-      v79 = 2 * v63;
-    }
-
-    else
-    {
-      v79 = 2;
-    }
-
-    if (v78 <= v79)
-    {
-      v80 = v79;
-    }
-
-    else
-    {
-      v80 = v77 + 1;
-    }
-
-    physx::shdfnd::Array<physx::PxDebugLine,physx::shdfnd::ReflectionAllocator<physx::PxDebugLine>>::recreate(v68 + 24, v80);
-    v36 = a4;
-    v77 = *(v68 + 32);
-    v70 = *(a1 + 4);
-    v37 = a2->f32[0];
-    v38 = a2->f32[1];
-    v39 = a2[1].f32[0];
-    v40 = a2[2].f32[0];
-    v41 = a2[2].f32[1];
-    v42 = a2[3].f32[0];
-    v46 = a2[4].f32[0];
-    v47 = a2[4].f32[1];
-    v50 = a2[5].f32[0];
-    v52 = a2[6].f32[0];
-    v53 = a2[6].f32[1];
-    v54 = a2[7].f32[0];
-    v81 = *(a1 + 104);
-    v43 = a2->f32[0] * a4;
-    v44 = v38 * a4;
-    v45 = v39 * a4;
-    v63 = *(v81 + 36) & 0x7FFFFFFF;
-  }
-
-  v82 = *(v68 + 24) + 32 * v77;
-  *(v68 + 32) = v78;
-  *v82 = v71;
-  *(v82 + 4) = v72;
-  *(v82 + 8) = v73;
-  *(v82 + 16) = v74;
-  *(v82 + 20) = v75;
-  *(v82 + 24) = v76;
-  *(v82 + 28) = v70;
-  *(v82 + 12) = v70;
-  v83 = v52 + ((v46 * a3) + ((v40 * 0.0) - v43));
-  v84 = v53 + ((v47 * a3) + ((v41 * 0.0) - v44));
-  v85 = v54 + ((v50 * a3) + ((v42 * 0.0) - v45));
-  v86 = v52 + ((v46 * a3) + (v43 + (v40 * 0.0)));
-  v87 = v53 + ((v47 * a3) + (v44 + (v41 * 0.0)));
-  v88 = v54 + ((v50 * a3) + (v45 + (v42 * 0.0)));
-  v89 = *(v81 + 32);
-  v90 = v89 + 1;
-  if (v89 + 1 <= v63)
-  {
-    v93 = v81;
-  }
-
-  else
-  {
-    if (v63)
-    {
-      v91 = 2 * v63;
-    }
-
-    else
-    {
-      v91 = 2;
-    }
-
-    if (v90 <= v91)
-    {
-      v92 = v91;
-    }
-
-    else
-    {
-      v92 = v89 + 1;
-    }
-
-    physx::shdfnd::Array<physx::PxDebugLine,physx::shdfnd::ReflectionAllocator<physx::PxDebugLine>>::recreate(v81 + 24, v92);
-    v36 = a4;
-    v89 = *(v81 + 32);
-    v70 = *(a1 + 4);
-    v37 = a2->f32[0];
-    v38 = a2->f32[1];
-    v39 = a2[1].f32[0];
-    v40 = a2[2].f32[0];
-    v41 = a2[2].f32[1];
-    v42 = a2[3].f32[0];
-    v46 = a2[4].f32[0];
-    v47 = a2[4].f32[1];
-    v50 = a2[5].f32[0];
-    v52 = a2[6].f32[0];
-    v53 = a2[6].f32[1];
-    v54 = a2[7].f32[0];
-    v93 = *(a1 + 104);
-    v63 = *(v93 + 36) & 0x7FFFFFFF;
-  }
-
-  v94 = -a3;
-  v95 = *(v81 + 24) + 32 * v89;
-  *(v81 + 32) = v90;
-  *v95 = v83;
-  *(v95 + 4) = v84;
-  *(v95 + 8) = v85;
-  *(v95 + 16) = v86;
-  *(v95 + 20) = v87;
-  *(v95 + 24) = v88;
-  *(v95 + 28) = v70;
-  *(v95 + 12) = v70;
-  v96 = *(v93 + 32);
-  v97 = v96 + 1;
-  if (v96 + 1 > v63)
-  {
-    if (v63)
-    {
-      v98 = 2 * v63;
-    }
-
-    else
-    {
-      v98 = 2;
-    }
-
-    if (v97 <= v98)
-    {
-      v99 = v98;
-    }
-
-    else
-    {
-      v99 = v96 + 1;
-    }
-
-    v100 = v37;
-    v112 = v38;
-    v101 = v40;
-    v102 = v39;
-    v111 = v50;
-    v103 = v41;
-    v118 = v46;
-    v104 = v42;
-    v120 = v54;
-    v105 = v52;
-    v115 = v47;
-    v106 = v53;
-    physx::shdfnd::Array<physx::PxDebugLine,physx::shdfnd::ReflectionAllocator<physx::PxDebugLine>>::recreate(v93 + 24, v99);
-    v53 = v106;
-    v47 = v115;
-    v52 = v105;
-    v54 = v120;
-    v42 = v104;
-    v46 = v118;
-    v41 = v103;
-    v50 = v111;
-    v39 = v102;
-    v40 = v101;
-    v38 = v112;
-    v37 = v100;
-    v36 = a4;
-    v96 = *(v93 + 32);
-    v70 = *(a1 + 4);
-  }
-
-  v107 = *(v93 + 24) + 32 * v96;
-  *(v93 + 32) = v97;
-  *v107 = v52 + ((v46 * v94) + ((v40 * 0.0) - (v37 * v36)));
-  *(v107 + 4) = v53 + ((v47 * v94) + ((v41 * 0.0) - (v38 * v36)));
-  *(v107 + 8) = v54 + ((v50 * v94) + ((v42 * 0.0) - (v39 * v36)));
-  *(v107 + 16) = v52 + ((v46 * v94) + ((v40 * 0.0) + (v37 * v36)));
-  *(v107 + 20) = v53 + ((v47 * v94) + ((v41 * 0.0) + (v38 * v36)));
-  *(v107 + 24) = v54 + ((v50 * v94) + ((v42 * 0.0) + (v39 * v36)));
-  *(v107 + 28) = v70;
-  *(v107 + 12) = v70;
-  return a1;
-}
-
-uint64_t physx::Cm::visualizeJointFrames(uint64_t result, uint64_t a2, uint64_t a3, float a4)
-{
-  if (a4 != 0.0)
-  {
-    v18 = v7;
-    v19 = v6;
-    v20 = v4;
-    v21 = v5;
-    v10 = physx::Cm::RenderOutput::operator<<(result, a2);
-    v13 = a4 * 1.5;
-    v14 = a4 * 1.5;
-    v15 = a4 * 1.5;
-    v16 = 0x8800880088880000;
-    v17 = -2013265784;
-    v11 = physx::Cm::operator<<(v10, &v13);
-    v12 = physx::Cm::RenderOutput::operator<<(v11, a3);
-    v13 = a4;
-    v14 = a4;
-    v15 = a4;
-    v16 = 0xFF00FF00FFFF0000;
-    v17 = -16776961;
-    return physx::Cm::operator<<(v12, &v13);
-  }
-
-  return result;
-}
-
-uint64_t physx::Cm::visualizeLinearLimit(uint64_t result, uint64_t a2, float a3, float a4, double a5, double a6, double a7, int8x16_t a8, uint64_t a9, int a10)
-{
-  if (a3 != 0.0)
-  {
-    v42 = v15;
-    v43 = v14;
-    v44 = v13;
-    v45 = v12;
-    v46 = v10;
-    v47 = v11;
-    v18 = *a2;
-    v19 = *(a2 + 4);
-    a8.i32[0] = *(a2 + 8);
-    v20 = *(a2 + 12);
-    v21 = -v19;
-    v22 = *(a2 + 16) + ((((v20 * (v20 + v20)) + -1.0) + (v18 * (v18 + v18))) * a4);
-    v23 = *(a2 + 20) + ((((v18 + v18) * v19) + (*a8.i32 * (v20 + v20))) * a4);
-    v24 = ((((v18 + v18) * *a8.i32) - (v19 * (v20 + v20))) * a4) + *(a2 + 24);
-    a8.i32[1] = *a2;
-    *&a8.i32[2] = v19;
-    v25 = vextq_s8(vextq_s8(a8, a8, 0xCuLL), a8, 8uLL);
-    a8.i32[3] = *a2;
-    v26 = vextq_s8(vextq_s8(v25, v25, 0xCuLL), v25, 8uLL);
-    v25.f32[3] = v21;
-    v26.f32[3] = -*a8.i32;
-    v27 = vmlaq_f32(vmlaq_f32(vmlaq_n_f32(vmulq_f32(a8, xmmword_1E3116090), xmmword_1E31160A0, v20), xmmword_1E31160B0, v25), xmmword_1E30714A0, v26);
-    v38 = vzip2q_s32(vzip1q_s32(v27, vextq_s8(v27, v27, 0xCuLL)), v27);
-    v39 = v22;
-    v40 = v23;
-    v41 = v24;
-    if (a10)
-    {
-      v28 = -65536;
-    }
-
-    else
-    {
-      v28 = -8355712;
-    }
-
-    *(result + 4) = v28;
-    v35 = xmmword_1E30474D0;
-    v36 = 0;
-    v37 = 0.0;
-    v29 = physx::Cm::RenderOutput::operator<<(result, &v35);
-    v31 = *(a2 + 20);
-    v32 = *(a2 + 24);
-    LODWORD(v35) = *(a2 + 16);
-    v30 = *&v35;
-    *(&v35 + 4) = __PAIR64__(LODWORD(v32), LODWORD(v31));
-    *(&v35 + 3) = v30 + (v22 - v30);
-    *&v36 = v31 + (v23 - v31);
-    *(&v36 + 1) = v32 + (v24 - v32);
-    v37 = sqrtf((((v23 - v31) * (v23 - v31)) + ((v22 - v30) * (v22 - v30))) + ((v24 - v32) * (v24 - v32))) * 0.15;
-    v33 = physx::Cm::operator<<(v29, &v35);
-    v34 = physx::Cm::RenderOutput::operator<<(v33, &v38);
-    LODWORD(v35) = 20;
-    *(&v35 + 1) = a3 * 0.3;
-    return physx::Cm::operator<<(v34, &v35);
-  }
-
-  return result;
-}
-
-uint64_t physx::Cm::visualizeAngularLimit(uint64_t result, uint64_t a2, int a3, float a4, float a5, float a6)
-{
-  if (a4 != 0.0)
-  {
-    v29 = v13;
-    v30 = v12;
-    v31 = v11;
-    v32 = v10;
-    v33 = v9;
-    v34 = v8;
-    v35 = v6;
-    v36 = v7;
-    v18 = result;
-    v19 = physx::Cm::RenderOutput::operator<<(result, a2);
-    if (a3)
-    {
-      v20 = -65536;
-    }
-
-    else
-    {
-      v20 = -8355712;
-    }
-
-    *v19 = 1;
-    v19[1] = v20;
-    v19[8] = 0;
-    v27 = 0;
-    v28 = 0.0;
-    physx::Cm::RenderOutput::operator<<(v19, &v27);
-    v21 = __sincosf_stret(a5);
-    *&v27 = a4 * 0.0;
-    *(&v27 + 1) = v21.__cosval * a4;
-    v28 = v21.__sinval * a4;
-    v22 = physx::Cm::RenderOutput::operator<<(v18, &v27);
-    v27 = 0;
-    v28 = 0.0;
-    physx::Cm::RenderOutput::operator<<(v22, &v27);
-    v23 = __sincosf_stret(a6);
-    *&v27 = a4 * 0.0;
-    *(&v27 + 1) = v23.__cosval * a4;
-    v28 = v23.__sinval * a4;
-    physx::Cm::RenderOutput::operator<<(v18, &v27);
-    *v18 = 2;
-    v18[8] = 0;
-    v24 = 21;
-    v25 = (a6 - a5) / 20.0;
-    do
-    {
-      v26 = __sincosf_stret(a5);
-      *&v27 = a4 * 0.0;
-      *(&v27 + 1) = v26.__cosval * a4;
-      v28 = v26.__sinval * a4;
-      result = physx::Cm::RenderOutput::operator<<(v18, &v27);
-      a5 = v25 + a5;
-      --v24;
-    }
-
-    while (v24);
-  }
-
-  return result;
-}
-
-uint64_t physx::Cm::visualizeLimitCone(uint64_t result, uint64_t a2, int a3, float a4, float a5, float a6)
-{
-  if (a4 != 0.0)
-  {
-    v48 = v15;
-    v49 = v14;
-    v50 = v13;
-    v51 = v12;
-    v52 = v11;
-    v53 = v10;
-    v54 = v9;
-    v55 = v8;
-    v56 = v6;
-    v57 = v7;
-    v20 = result;
-    v21 = physx::Cm::RenderOutput::operator<<(result, a2);
-    v22 = 0;
-    if (a3)
-    {
-      v23 = -65536;
-    }
-
-    else
-    {
-      v23 = -8355712;
-    }
-
-    *v21 = 1;
-    v21[1] = v23;
-    v21[8] = 0;
-    v45 = -a6;
-    v24 = 0.0;
-    v25 = 0;
-    v26 = 0;
-    do
-    {
-      v27 = __sincosf_stret(v22 * 0.19635);
-      v28 = v27.__sinval * v45;
-      v29 = v27.__cosval * a5;
-      v30 = (v28 * v28) + (v29 * v29);
-      v31 = 1.0 - v30;
-      v32 = 1.0 / (v30 + 1.0);
-      v33 = v32 * 0.0;
-      v34 = (v28 + v28) * v32;
-      v35 = (v29 + v29) * v32;
-      v36 = v31 * v32;
-      v37 = (v36 * v36) + -0.5;
-      v38 = ((v34 * 0.0) + (v33 * 2.0)) + (v35 * 0.0);
-      *&v39 = (((v36 * ((v35 * -0.0) + (v34 * 0.0))) + (v37 * 2.0)) + (v33 * v38)) * a4;
-      *&v40 = (((v36 * ((v33 * -0.0) + (v35 * 2.0))) + (v37 * 0.0)) + (v34 * v38)) * a4;
-      v41 = (((v36 * ((v34 * -2.0) + (v33 * 0.0))) + (v37 * 0.0)) + (v35 * v38)) * a4;
-      v46 = __PAIR64__(v25, v26);
-      v47 = v24;
-      v42 = physx::Cm::RenderOutput::operator<<(v20, &v46);
-      v46 = __PAIR64__(v40, v39);
-      v47 = v41;
-      v43 = physx::Cm::RenderOutput::operator<<(v42, &v46);
-      v46 = 0;
-      v47 = 0.0;
-      v44 = physx::Cm::RenderOutput::operator<<(v43, &v46);
-      v46 = __PAIR64__(v40, v39);
-      v47 = v41;
-      result = physx::Cm::RenderOutput::operator<<(v44, &v46);
-      ++v22;
-      v24 = v41;
-      v25 = v40;
-      v26 = v39;
-    }
-
-    while (v22 != 33);
-  }
-
-  return result;
-}
-
-uint64_t physx::Cm::visualizeDoubleCone(uint64_t result, uint64_t a2, int a3, float a4, float a5)
-{
-  if (a4 != 0.0)
-  {
-    v34 = v14;
-    v35 = v13;
-    v36 = v12;
-    v37 = v11;
-    v38 = v10;
-    v39 = v9;
-    v40 = v8;
-    v41 = v7;
-    v42 = v5;
-    v43 = v6;
-    v18 = result;
-    v19 = physx::Cm::RenderOutput::operator<<(result, a2);
-    if (a3)
-    {
-      v20 = -65536;
-    }
-
-    else
-    {
-      v20 = -8355712;
-    }
-
-    *(v19 + 4) = v20;
-    v21 = tanf(a5);
-    v22 = 0;
-    *v18 = 2;
-    v18[8] = 0;
-    v23 = v21 * a4;
-    do
-    {
-      v24 = __sincosf_stret(v22 * 0.19635);
-      *&v32 = v21 * a4;
-      *(&v32 + 1) = v24.__cosval * a4;
-      v33 = v24.__sinval * a4;
-      physx::Cm::RenderOutput::operator<<(v18, &v32);
-      ++v22;
-    }
-
-    while (v22 != 33);
-    v25 = 0;
-    *v18 = 2;
-    v18[8] = 0;
-    v26 = -(v21 * a4);
-    do
-    {
-      v27 = __sincosf_stret(v25 * 0.19635);
-      *&v32 = v26;
-      *(&v32 + 1) = v27.__cosval * a4;
-      v33 = v27.__sinval * a4;
-      physx::Cm::RenderOutput::operator<<(v18, &v32);
-      ++v25;
-    }
-
-    while (v25 != 33);
-    v28 = 0;
-    *v18 = 1;
-    v18[8] = 0;
-    do
-    {
-      v32 = 0;
-      v33 = 0.0;
-      physx::Cm::RenderOutput::operator<<(v18, &v32);
-      v29 = __sincosf_stret(v28 * 0.19635);
-      *&v32 = v26;
-      *(&v32 + 1) = v29.__cosval * a4;
-      v33 = v29.__sinval * a4;
-      v30 = physx::Cm::RenderOutput::operator<<(v18, &v32);
-      v32 = 0;
-      v33 = 0.0;
-      v31 = physx::Cm::RenderOutput::operator<<(v30, &v32);
-      v32 = __PAIR64__(v29.__cosval * a4, LODWORD(v23));
-      v33 = v29.__sinval * a4;
-      result = physx::Cm::RenderOutput::operator<<(v31, &v32);
-      ++v28;
-    }
-
-    while (v28 != 32);
-  }
-
-  return result;
-}
-
-BOOL physx::Gu::contactCapsuleMesh(uint64_t a1, uint64_t a2, float *a3, float *a4, float *a5, uint64_t a6, uint64_t a7)
-{
-  v12 = *a3;
-  v13 = a3[1];
-  v15 = a3[2];
-  v14 = a3[3];
-  v16 = v14 + v14;
-  v17 = ((v14 * (v14 + v14)) + -1.0) + (v12 * (v12 + v12));
-  v18 = ((v12 + v12) * v13) + (v15 * v16);
-  v19 = ((v12 + v12) * v15) - (v13 * v16);
-  v20 = *(a1 + 4);
-  v21 = *(a1 + 8);
-  v22 = a4[4] - a3[4];
-  v23 = a4[5] - a3[5];
-  v24 = a4[6] - a3[6];
-  v25 = ((v17 * v21) - v22) + ((v17 * v21) - v22);
-  v26 = ((v21 * v18) - v23) + ((v21 * v18) - v23);
-  v27 = ((v19 * v21) - v24) + ((v19 * v21) - v24);
-  v29 = a4[2];
-  v28 = a4[3];
-  v30 = (v28 * v28) + -0.5;
-  v31 = a4[1];
-  v32 = (v26 * v31) + (*a4 * v25);
-  v33 = (v25 * v30) - (((v31 * v27) - (v29 * v26)) * v28);
-  v34 = (v26 * v30) - (((v29 * v25) - (*a4 * v27)) * v28);
-  v35 = (*a4 * v26) - (v31 * v25);
-  v36 = *a5;
-  v37 = v32 + (v29 * v27);
-  v38 = ((v27 * v30) - (v35 * v28)) + (v29 * v37);
-  v39 = -(v21 * v18);
-  v40 = -(v19 * v21);
-  v41 = (-(v17 * v21) - v22) + (-(v17 * v21) - v22);
-  v42 = (v39 - v23) + (v39 - v23);
-  v43 = (v40 - v24) + (v40 - v24);
-  v44 = ((v42 * v31) + (*a4 * v41)) + (v29 * v43);
-  v45 = ((v41 * v30) - (((v31 * v43) - (v29 * v42)) * v28)) + (*a4 * v44);
-  v46 = ((v42 * v30) - (((v29 * v41) - (*a4 * v43)) * v28)) + (v31 * v44);
-  v47 = -(((*a4 * v42) - (v31 * v41)) * v28);
-  *&v68 = v33 + (*a4 * v37);
-  *(&v68 + 1) = v34 + (v31 * v37);
-  v69 = v38;
-  v70 = v45;
-  v71 = v46;
-  v72 = (v47 + (v43 * v30)) + (v29 * v44);
-  v48 = *(a2 + 48);
-  v58 = v68;
-  v59 = LODWORD(v38);
-  v60 = v45;
-  v49 = v20 + v36;
-  *v61 = v46;
-  *&v61[1] = v72;
-  *&v61[2] = v20 + v36;
-  physx::Gu::Box::create(v65, &v58);
-  if (*(a2 + 4) == 1.0 && *(a2 + 8) == 1.0 && *(a2 + 12) == 1.0)
-  {
-    v51 = *a5;
-    v52 = *(a1 + 4);
-    v59 = 2;
-    v58 = &unk_1F5D21448;
-    *&v50 = v49;
-    v62 = v48;
-  }
-
-  else
-  {
-    physx::Cm::FastVertex2ShapeScaling::init(v64, (a2 + 4), (a2 + 16));
-    v54 = *a5;
-    v55 = *(a1 + 4);
-    v59 = 2;
-    *&v56 = v49;
-    v62 = v48;
-    v63 = v64;
-    v58 = &unk_1F5D21498;
-    v53.n128_f32[0] = physx::Cm::FastVertex2ShapeScaling::transformQueryBounds(v64, &v66, &v67, v65);
-  }
-
-  (physx::Gu::gMidphaseBoxCBOverlapTable[*(v48 + 8) - 3])(v48, v65, &v58, 1, 1, v53);
-  return *(a7 + 4096) != 0;
-}
-
-float physx::Cm::FastVertex2ShapeScaling::transformQueryBounds(uint64_t a1, float *a2, float *a3, float *a4)
-{
-  v5 = *a3 * *a4;
-  v6 = *a3 * a4[1];
-  v7 = a4[3];
-  v8 = *a3 * a4[2];
-  v9 = ((v5 * *(a1 + 44)) + (v6 * *(a1 + 56))) + (v8 * *(a1 + 68));
-  *a4 = vadd_f32(vadd_f32(vmul_n_f32(*(a1 + 36), v5), vmul_n_f32(*(a1 + 48), v6)), vmul_n_f32(*(a1 + 60), v8));
-  a4[2] = v9;
-  v10 = a3[1];
-  v11 = v10 * v7;
-  v12 = v10 * a4[4];
-  v13 = v10 * a4[5];
-  v14 = ((v11 * *(a1 + 44)) + (v12 * *(a1 + 56))) + (v13 * *(a1 + 68));
-  *(a4 + 3) = vadd_f32(vadd_f32(vmul_n_f32(*(a1 + 36), v11), vmul_n_f32(*(a1 + 48), v12)), vmul_n_f32(*(a1 + 60), v13));
-  a4[5] = v14;
-  v15 = a3[2];
-  v16 = v15 * a4[6];
-  v17 = v15 * a4[7];
-  v18 = v15 * a4[8];
-  v19 = ((v16 * *(a1 + 44)) + (v17 * *(a1 + 56))) + (v18 * *(a1 + 68));
-  *(a4 + 3) = vadd_f32(vadd_f32(vmul_n_f32(*(a1 + 36), v16), vmul_n_f32(*(a1 + 48), v17)), vmul_n_f32(*(a1 + 60), v18));
-  a4[8] = v19;
-  v20 = a2[1];
-  v21 = a2[2];
-  v22 = ((*a2 * *(a1 + 44)) + (v20 * *(a1 + 56))) + (v21 * *(a1 + 68));
-  *a2 = vadd_f32(vadd_f32(vmul_n_f32(*(a1 + 36), *a2), vmul_n_f32(*(a1 + 48), v20)), vmul_n_f32(*(a1 + 60), v21));
-  a2[2] = v22;
-  physx::shdfnd::optimizeBoundingBox(a4, &v24);
-  *a3 = v24;
-  result = v25;
-  a3[2] = v25;
-  return result;
-}
-
-BOOL physx::Gu::contactCapsuleHeightfield(uint64_t a1, float32x2_t *a2, uint64_t a3, uint64_t a4, float *a5, int8x16_t a6, double a7, double a8, double a9, double a10, double a11, int32x4_t a12, int32x4_t a13, uint64_t a14, uint64_t a15)
-{
-  v24 = *a5;
-  v25 = *(a1 + 4);
-  v26 = *(a1 + 8);
-  v27 = v25 + *a5;
-  a6.i32[0] = *a3;
-  LODWORD(a9) = *(a3 + 4);
-  a13.i32[0] = *(a3 + 8);
-  a12.i32[0] = *(a3 + 12);
-  v28.f32[0] = (((*a12.i32 * (*a12.i32 + *a12.i32)) + -1.0) + (*a6.i32 * (*a6.i32 + *a6.i32))) * v26;
-  v29.f32[0] = v26 * (((*a6.i32 + *a6.i32) * *&a9) + (*a13.i32 * (*a12.i32 + *a12.i32)));
-  v30.f32[0] = (((*a6.i32 + *a6.i32) * *a13.i32) - (*&a9 * (*a12.i32 + *a12.i32))) * v26;
-  LODWORD(a9) = *(a4 + 12);
-  *v15.i32 = *(a4 + 16) - *(a3 + 16);
-  *v17.i32 = *(a4 + 20) - *(a3 + 20);
-  *v16.i32 = *(a4 + 24) - *(a3 + 24);
-  *&a10 = (*&a9 * *&a9) + -0.5;
-  a6.i32[0] = *a4;
-  v28.f32[1] = -v28.f32[0];
-  *a12.i8 = vsub_f32(v28, vdup_lane_s32(v15, 0));
-  v29.f32[1] = -v29.f32[0];
-  v30.f32[1] = -v30.f32[0];
-  v31 = vsub_f32(v29, vdup_lane_s32(*v17.i8, 0));
-  v32 = vsub_f32(v30, vdup_lane_s32(*v16.i8, 0));
-  *a13.i8 = vadd_f32(*a12.i8, *a12.i8);
-  v33 = vadd_f32(v31, v31);
-  *a12.i8 = vadd_f32(v32, v32);
-  *v34.i8 = vzip1_s32(v33, *a12.i8);
-  v34.i64[1] = __PAIR64__(v33.u32[1], a13.u32[0]);
-  v35 = vzip1q_s32(vrev64q_s32(v34), a12);
-  v35.i32[1] = a13.i32[0];
-  v36 = vdupq_lane_s32(*&a9, 0).u64[0];
-  v37 = vuzp1q_s32(vextq_s8(v34, v34, 8uLL), vuzp2q_s32(v34, a13));
-  v38 = vdupq_lane_s32(*&a10, 0).u64[0];
-  v16.i64[0] = *(a4 + 4);
-  *v17.i32 = -*&v16.i32[1];
-  *v18.i8 = vneg_f32(vzip1_s32(*a6.i8, *v16.i8));
-  v39.i32[0] = vdup_lane_s32(*v16.i8, 1).u32[0];
-  *v19.i8 = vmla_lane_f32(vmla_n_f32(vmul_n_f32(v33, *v16.i32), *a13.i8, *a4), *a12.i8, *v16.i8, 1);
-  v40 = vzip1q_s32(v19, v19);
-  v40.i32[2] = v19.i32[0];
-  v41 = vextq_s8(vextq_s8(v17, v17, 4uLL), v18, 0xCuLL);
-  v41.i32[3] = v41.i32[0];
-  v42 = vmulq_f32(v34, v41);
-  v41.i64[0] = v16.i64[0];
-  v41.i32[2] = *a4;
-  v41.i32[3] = v16.i32[0];
-  v43 = vmlaq_n_f32(vmulq_n_f32(vnegq_f32(vmlaq_f32(v42, v35, v41)), *&a9), v37, *&a10);
-  _Q4 = vextq_s8(vextq_s8(a6, a6, 4uLL), v16, 0xCuLL);
-  _Q4.i32[3] = _Q4.i32[0];
-  v39.i32[1] = *a4;
-  v45 = COERCE_DOUBLE(vmla_lane_f32(vmla_f32(vmul_f32(v36, vneg_f32(vmla_f32(vmul_f32(vzip2_s32(*a12.i8, *a13.i8), *v18.i8), vzip2_s32(*a13.i8, v33), v39))), v38, vzip2_s32(v33, *a12.i8)), *v16.i8, *v19.i8, 1));
-  v112 = vmlaq_f32(v43, v40, _Q4);
-  v113 = v45;
-  v110 = a2[1];
-  v111 = a2;
-  LODWORD(v45) = a2[3].i32[0];
-  __asm { FMOV            V4.2S, #1.0 }
-
-  v108 = vrev64_s32(vdiv_f32(*_Q4.f32, a2[2]));
-  v109 = 1.0 / *&v45;
-  v106 = &unk_1F5D214D8;
-  *&v45 = v27;
-  v107[14] = &v108;
-  v107[15] = a4;
-  v50 = v27 + *(a1 + 8);
-  v51 = *(a4 + 4);
-  v52 = *(a4 + 8);
-  v53 = *(a4 + 12);
-  v54 = *(a3 + 16) - *(a4 + 16);
-  v55 = *(a3 + 20) - *(a4 + 20);
-  v56 = *(a3 + 24) - *(a4 + 24);
-  v57 = v54 + v54;
-  v58 = v55 + v55;
-  v59 = v56 + v56;
-  v60 = (v53 * v53) + -0.5;
-  v61 = (-(v51 * v58) - (*a4 * v57)) - (v52 * v59);
-  v62 = ((v53 * ((v52 * v58) - (v51 * v59))) + (v57 * v60)) - (*a4 * v61);
-  v63 = ((v53 * ((*a4 * v59) - (v52 * v57))) + (v58 * v60)) - (v51 * v61);
-  v64 = ((v53 * ((v51 * v57) - (*a4 * v58))) + (v59 * v60)) - (v52 * v61);
-  v66 = *(a3 + 8);
-  v65 = *(a3 + 12);
-  v67 = *(a3 + 4);
-  v68 = (((v53 * *a3) - (*a4 * v65)) - (v51 * v66)) + (v67 * v52);
-  v69 = (((v53 * v67) - (v51 * v65)) - (v52 * *a3)) + (v66 * *a4);
-  v70 = (((v53 * v66) - (v52 * v65)) - (*a4 * v67)) + (*a3 * v51);
-  v71 = (((*a4 * *a3) + (v53 * v65)) + (v51 * v67)) + (v52 * v66);
-  v72 = ((v50 - v50) * 0.5) + ((v50 - v50) * 0.5);
-  v73 = ((v27 - v27) * 0.5) + ((v27 - v27) * 0.5);
-  v74 = (v71 * v71) + -0.5;
-  v75 = ((v73 * v69) + (v68 * v72)) + (v70 * v73);
-  v76 = ((v71 * ((v69 * v73) - (v70 * v73))) + (v72 * v74)) + (v68 * v75);
-  v77 = ((v71 * ((v70 * v72) - (v68 * v73))) + (v73 * v74)) + (v69 * v75);
-  v78 = ((v71 * ((v68 * v73) - (v69 * v72))) + (v73 * v74)) + (v70 * v75);
-  v79 = v62 + v76;
-  v80 = v63 + v77;
-  v81 = v64 + v78;
-  v82 = v69 + v69;
-  v83 = v70 + v70;
-  v84 = v69 * (v69 + v69);
-  v85 = v70 * (v70 + v70);
-  v86 = (v68 + v68) * v69;
-  v87 = v70 * (v68 + v68);
-  v88 = v71 * (v68 + v68);
-  v89 = v70 * v82;
-  v90 = v71 * v82;
-  v91 = v71 * v83;
-  v92 = (1.0 - v84) - v85;
-  v93 = 1.0 - (v68 * (v68 + v68));
-  v94 = v93 - v85;
-  v95 = v93 - v84;
-  v96 = (v50 + v50) * 0.5;
-  v97 = (v27 + v27) * 0.5;
-  v98 = v96 * (v86 + v91);
-  v99 = v97 * (v86 - v91);
-  v100 = v97 * (v88 + v89);
-  v101 = fabsf(v97 * (v87 + v90)) + (fabsf(v99) + fabsf(v96 * v92));
-  v102 = fabsf(v97 * (v89 - v88)) + (fabsf(v98) + fabsf(v97 * v94));
-  v103 = fabsf(v97 * v95) + (fabsf(v96 * (v87 - v90)) + fabsf(v100));
-  v105[0] = v79 - v101;
-  v105[1] = v80 - v102;
-  v105[2] = v81 - v103;
-  v105[3] = v79 + v101;
-  v105[4] = v80 + v102;
-  v105[5] = v81 + v103;
-  physx::Gu::HeightFieldUtil::overlapAABBTriangles(&v108, a4, v105, 0, &v106);
-  return *(a15 + 4096) != 0;
-}
-
-double physx::PxMat44::PxMat44(uint64_t a1, uint64_t a2)
-{
-  v2 = *a2;
-  v3 = *(a2 + 4);
-  v4 = *(a2 + 8);
-  v5 = *(a2 + 12);
-  v6 = v3 + v3;
-  v7 = v4 + v4;
-  v8 = v3 * (v3 + v3);
-  v9 = v4 * (v4 + v4);
-  v10 = (v2 + v2) * v3;
-  v11 = (v2 + v2) * v4;
-  v12 = (v2 + v2) * v5;
-  v13 = v6 * v4;
-  v14 = v6 * v5;
-  v15 = v7 * v5;
-  v16 = 1.0 - (v2 * (v2 + v2));
-  v17 = v13 + v12;
-  v18 = v13 - v12;
-  v19 = *(a2 + 24);
-  *a1 = (1.0 - v8) - v9;
-  *(a1 + 4) = v10 + v15;
-  *(a1 + 8) = v11 - v14;
-  *(a1 + 12) = 0;
-  *(a1 + 16) = v10 - v15;
-  *(a1 + 20) = v16 - v9;
-  *(a1 + 24) = v17;
-  *(a1 + 28) = 0;
-  *(a1 + 32) = v11 + v14;
-  *(a1 + 36) = v18;
-  *(a1 + 40) = v16 - v8;
-  *(a1 + 44) = 0;
-  result = *(a2 + 16);
-  *(a1 + 48) = result;
-  *(a1 + 56) = v19;
-  *(a1 + 60) = 1065353216;
-  return result;
-}
-
-float anonymous namespace::CapsuleMeshContactGeneration::CapsuleMeshContactGeneration(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, double a5, float a6, float a7)
-{
-  *a1 = a2;
-  v7 = *a3;
-  v8 = *(a3 + 4);
-  v9 = *(a3 + 8);
-  v10 = *(a3 + 12);
-  v11 = v8 + v8;
-  v12 = v9 + v9;
-  v13 = v8 * (v8 + v8);
-  v14 = v9 * (v9 + v9);
-  v15 = (v7 + v7) * v8;
-  v16 = (v7 + v7) * v9;
-  v17 = (v7 + v7) * v10;
-  v18 = v11 * v9;
-  v19 = v11 * v10;
-  v20 = v12 * v10;
-  *(a1 + 8) = (1.0 - v13) - v14;
-  *(a1 + 12) = v15 + v20;
-  v21 = 1.0 - (v7 * (v7 + v7));
-  *(a1 + 16) = v16 - v19;
-  *(a1 + 20) = v15 - v20;
-  *(a1 + 24) = v21 - v14;
-  *(a1 + 28) = v18 + v17;
-  *(a1 + 32) = v16 + v19;
-  *(a1 + 36) = v18 - v17;
-  *(a1 + 40) = v21 - v13;
-  *(a1 + 44) = *(a3 + 16);
-  *(a1 + 52) = *(a3 + 24);
-  *(a1 + 56) = a4;
-  *(a1 + 96) = LODWORD(a5);
-  *(a1 + 100) = a6;
-  *(a1 + 104) = a7;
-  v22 = (*(a4 + 8) + *(a4 + 20)) * 0.5;
-  *(a1 + 64) = vmul_f32(vadd_f32(*a4, *(a4 + 12)), 0x3F0000003F000000);
-  *(a1 + 72) = v22;
-  v23 = (*(a4 + 8) - *(a4 + 20)) * 0.5;
-  *(a1 + 80) = vadd_f32(vabs_f32(vmul_f32(vsub_f32(*a4, *(a4 + 12)), 0x3F0000003F000000)), vdup_lane_s32(*&a5, 0));
-  result = fabsf(v23) + *&a5;
-  *(a1 + 88) = result;
-  return result;
-}
-
-uint64_t anonymous namespace::CapsuleMeshContactGenerationCallback_NoScale::processHit(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  *&v5 = *a3;
-  DWORD2(v5) = *(a3 + 8);
-  HIDWORD(v5) = *a4;
-  *&v6 = *(a4 + 4);
-  *(&v6 + 1) = *a5;
-  v11[0] = v5;
-  v11[1] = v6;
-  v12 = *(a5 + 8);
-  v7 = *(a2 + 16);
-  v8 = *(*(a1 + 128) + 80);
-  if (v8)
-  {
-    v9 = *(v8 + v7);
-  }
-
-  else
-  {
-    v9 = 56;
-  }
-
-  return 1;
-}
-
-void anonymous namespace::CapsuleMeshContactGeneration::processTriangle(uint64_t a1, __int32 a2, void *a3, physx::Gu *a4)
-{
-  if (physx::Gu::intersectTriangleBox_Unsafe((a1 + 64), (a1 + 80), a3, (a3 + 12), (a3 + 3)))
-  {
-    v178 = 0.0;
-    v176 = 0.0;
-    v177 = 0.0;
-    v8 = *(a3 + 2);
-    v9 = *(a3 + 5) - v8;
-    v10 = *a3;
-    *v175 = vsub_f32(*(a3 + 12), *a3);
-    *&v175[8] = v9;
-    v11 = *(a3 + 8) - v8;
-    *v174 = vsub_f32(a3[3], v10);
-    *&v174[8] = v11;
-    v12 = *(a1 + 56);
-    v13 = *(v12 + 20) - *(v12 + 8);
-    v187 = vsub_f32(*(v12 + 12), *v12);
-    v188 = v13;
-    physx::Gu::distanceSegmentTriangleSquared(v12, &v187, a3, v175, v174, &v178, &v177, &v176);
-    v15 = *(a1 + 96);
-    if (v14 < (v15 * v15))
-    {
-      v16.i32[0] = vdup_lane_s32(*&v175[4], 1).u32[0];
-      v16.i32[1] = *v175;
-      v17 = vmul_f32(*&v174[4], vneg_f32(v16));
-      v16.i32[0] = vdup_lane_s32(*&v174[4], 1).u32[0];
-      v16.i32[1] = *v174;
-      v18 = vmla_f32(v17, v16, *&v175[4]);
-      v19 = (*v175 * *&v174[4]) - (*&v175[4] * *v174);
-      v20 = *a3;
-      v21 = v18.f32[1];
-      v22 = *(a3 + 2);
-      if (((vmuls_lane_f32(*(a1 + 68), v18, 1) + (v18.f32[0] * *(a1 + 64))) + (v19 * *(a1 + 72))) >= ((vmuls_lane_f32(v18.f32[1], *a3, 1) + (v18.f32[0] * COERCE_FLOAT(*a3))) + (v19 * v22)))
+      v16 = (v5 + v14 * 4);
+      v17 = v153 + v14 * 4;
+      *v17 = *&v5->f32[v14];
+      v18 = v5[3].f32[v14];
+      *(v17 + 24) = v18;
+      v19 = *(v5 + v14 * 4 + 16);
+      *(v17 + 16) = v19;
+      v20 = v15[-2];
+      v21 = v15[-1].f32[0];
+      v22 = vmul_n_f32(*v15, v13);
+      v23 = v15[1].f32[0] * v13;
+      v24 = (COERCE_FLOAT(vmul_f32(v22, v22).i32[1]) + (v22.f32[0] * v22.f32[0])) + (v23 * v23);
+      if (v24 >= 1.0e-24)
       {
-        v162 = *a3;
-        if (v14 > 0.000001)
-        {
-          v165 = v177;
-          v167 = v176;
-          v170 = v18;
-          if (physx::Gu::selectNormal(a4, v177, v176))
-          {
-            v23 = ((v21 * v21) + (v170.f32[0] * v170.f32[0])) + (v19 * v19);
-            if (v23 <= 0.0)
-            {
-              v25 = 0;
-              v26 = 0.0;
-            }
-
-            else
-            {
-              v24 = 1.0 / sqrtf(v23);
-              v25 = vmul_n_f32(v170, v24);
-              v26 = v19 * v24;
-            }
-
-            v179 = v25;
-            v180 = v26;
-            v118 = *(a1 + 56);
-            v110.i32[0] = *v118;
-            v115 = *(v118 + 4);
-            v106 = *(v118 + 8);
-            v109.i32[0] = *(v118 + 12);
-            v117 = *(v118 + 16);
-            v105 = *(v118 + 20);
-            v111.f32[0] = v109.f32[0] - *v118;
-            v116 = v117 - v115;
-            v107 = v105 - v106;
-          }
-
-          else
-          {
-            v102 = (1.0 - v165) - v167;
-            v103 = ((v165 * *(a3 + 5)) + (v102 * v22)) + (v167 * *(a3 + 8));
-            v104 = *(a1 + 56);
-            v105 = *(v104 + 20);
-            v106 = *(v104 + 8);
-            v107 = v105 - v106;
-            v108 = vmla_n_f32(vmla_n_f32(vmul_n_f32(*(a3 + 12), v165), v162, v102), a3[3], v167);
-            v109 = *(v104 + 12);
-            v110 = *v104;
-            v111 = vsub_f32(v109, *v104);
-            v112 = vsub_f32(vadd_f32(*v104, vmul_n_f32(v111, v178)), v108);
-            v113 = (v106 + (v178 * (v105 - v106))) - v103;
-            v114 = sqrtf((COERCE_FLOAT(vmul_f32(v112, v112).i32[1]) + (v112.f32[0] * v112.f32[0])) + (v113 * v113));
-            if (v114 == 0.0)
-            {
-              return;
-            }
-
-            v179 = vmul_n_f32(v112, 1.0 / v114);
-            v180 = v113 * (1.0 / v114);
-            v115 = v110.f32[1];
-            v116 = v111.f32[1];
-            v117 = v109.f32[1];
-          }
-
-          v119 = *a1;
-          v121 = *(a1 + 100);
-          v120 = *(a1 + 104);
-          v187 = __PAIR64__(LODWORD(v115), v110.u32[0]);
-          v188 = v106;
-          v184 = v109.f32[0];
-          v185 = v117;
-          v186 = v105;
-          v122 = sqrtf(((v116 * v116) + (v111.f32[0] * v111.f32[0])) + (v107 * v107));
-          if (v122 > 0.0)
-          {
-            v123 = 0.01 / v122;
-            v124 = v111.f32[0] * v123;
-            v125 = v116 * v123;
-            v126 = v107 * v123;
-            *&v187 = v110.f32[0] - v124;
-            *(&v187 + 1) = v115 - v125;
-            v188 = v106 - v126;
-            v184 = v109.f32[0] + v124;
-            v185 = v117 + v125;
-            v186 = v105 + v126;
-          }
-
-          v127 = 0;
-          v128 = v120 + v121;
-          v129 = a3;
-          do
-          {
-            v173[0] = 0.0;
-            if (physx::Gu::intersectEdgeEdge(v129, a3 + 3 * ((v127 + (v127 >> 1) + 1) & 3), &v179, &v187, &v184, v173, &v181) && v173[0] < v128)
-            {
-              v130 = *(v119 + 4096);
-              if (v130 <= 0x3F)
-              {
-                v131 = *(a1 + 16);
-                v132 = v181;
-                v133 = *(a1 + 28);
-                v134 = v182;
-                v135 = *(a1 + 40);
-                v136 = *(a1 + 52) + (((v181.f32[0] * v131) + (v181.f32[1] * v133)) + (v182 * v135));
-                v137 = v173[0] - v120;
-                v138 = v179;
-                v139 = (v131 * v179.f32[0]) + (v133 * v179.f32[1]);
-                v140 = v180;
-                v141 = v139 + (v135 * v180);
-                *(v119 + 4096) = v130 + 1;
-                v142 = (v119 + (v130 << 6));
-                v143 = *(a1 + 8);
-                v144 = *(a1 + 20);
-                v145 = *(a1 + 32);
-                v142[1].f32[0] = v141;
-                v146 = vadd_f32(*(a1 + 44), vadd_f32(vadd_f32(vmul_n_f32(v143, v132.f32[0]), vmul_n_f32(v144, v132.f32[1])), vmul_n_f32(v145, v134)));
-                *v142 = vadd_f32(vadd_f32(vmul_n_f32(v143, v138.f32[0]), vmul_n_f32(v144, v138.f32[1])), vmul_n_f32(v145, v140));
-                v142[2] = v146;
-                v142[3].f32[0] = v136;
-                v142[1].f32[1] = v137;
-                v142[6].i32[1] = a2;
-              }
-            }
-
-            ++v127;
-            v129 += 3;
-          }
-
-          while (v127 != 3);
-          v96 = *a1;
-          v97 = *(a1 + 56);
-          v99 = *(a1 + 100);
-          v98 = *(a1 + 104);
-          v100 = a1 + 8;
-          v101 = &v179;
-          goto LABEL_53;
-        }
-
-        LODWORD(v27) = HIDWORD(*a3);
-        v28 = *(a1 + 56);
-        v181.i32[0] = 2139095039;
-        v30 = *(a3 + 3);
-        v29 = *(a3 + 4);
-        v31 = v20.f32[0] - v30;
-        v32 = *(a3 + 6);
-        v161 = *(a3 + 5);
-        v20.f32[0] = v20.f32[0] - v32;
-        v33 = *(a3 + 7);
-        v160 = *(a3 + 8);
-        v34 = ((v20.f32[1] - v29) * (v22 - v160)) - ((v22 - v161) * (v20.f32[1] - v33));
-        v35 = ((v22 - v161) * v20.f32[0]) - (v31 * (v22 - v160));
-        v36 = (v31 * (v20.f32[1] - v33)) - ((v20.f32[1] - v29) * v20.f32[0]);
-        v37 = ((v35 * v35) + (v34 * v34)) + (v36 * v36);
-        v38 = 0.0;
-        v39 = 0.0;
-        v40 = 0.0;
-        if (v37 > 0.0)
-        {
-          v41 = 1.0 / sqrtf(v37);
-          v38 = v34 * v41;
-          v39 = v35 * v41;
-          v40 = v36 * v41;
-        }
-
-        v163 = v39;
-        v164 = v38;
-        v187 = __PAIR64__(LODWORD(v39), LODWORD(v38));
-        v42 = v40;
-        v188 = v40;
-        v168 = v15;
-        if (PxcTestAxis(&v187, v28, a3, &v181, v15))
-        {
-          v155 = v32;
-          v156 = v33;
-          v157 = v30;
-          v158 = v29;
-          v159 = v22;
-          v154 = v28[3];
-          v152 = *v28;
-          v43 = v154 - *v28;
-          v150 = v28[1];
-          v151 = v28[4];
-          v44 = v151 - v150;
-          v153 = v28[5];
-          v149 = v28[2];
-          v45 = v153 - v149;
-          v46 = ((v44 * v44) + (v43 * v43)) + (v45 * v45);
-          v47 = 0.0;
-          v48 = sqrtf(v46);
-          v49 = 0.0;
-          v50 = 0.0;
-          if (v46 > 0.0)
-          {
-            v47 = v43 * (1.0 / v48);
-            v49 = v44 * (1.0 / v48);
-            v50 = v45 * (1.0 / v48);
-          }
-
-          v147 = v154 - *v28;
-          v148 = v48;
-          v51 = 0;
-          v171 = v181.f32[0];
-          v52 = -v50;
-          v53 = -v47;
-          v54 = -v49;
-          v55 = v42;
-          do
-          {
-            if ((*&asc_1E311613C[4 * v51] & a4) != 0)
-            {
-              v56 = a3 + 3 * v51;
-              v57 = v51 + 1;
-              v58 = a3 + 3 * ((v51 + 1 + (v51 >> 1)) & 3);
-              v59 = *v56 - *v58;
-              v60 = v56[1] - v58[1];
-              v61 = v56[2] - v58[2];
-              v62 = (v60 * v52) + (v49 * v61);
-              v63 = (v61 * v53) + (v50 * v59);
-              v64 = (v59 * v54) + (v47 * v60);
-              if (fabsf(v62) > 0.000001 || fabsf(v63) > 0.000001 || fabsf(v64) > 0.000001)
-              {
-                v65 = ((v63 * v63) + (v62 * v62)) + (v64 * v64);
-                v66 = 0.0;
-                v67 = 0.0;
-                v68 = 0.0;
-                if (v65 > 0.0)
-                {
-                  v69 = 1.0 / sqrtf(v65);
-                  v66 = v62 * v69;
-                  v67 = v63 * v69;
-                  v68 = v64 * v69;
-                }
-
-                v184 = v66;
-                v185 = v67;
-                v186 = v68;
-                v179.i32[0] = 0;
-                if (!PxcTestAxis(&v184, v28, a3, &v179, v168))
-                {
-                  return;
-                }
-
-                if (v179.f32[0] < v171)
-                {
-                  v55 = v68;
-                  v163 = v67;
-                  v164 = v66;
-                  v171 = v179.f32[0];
-                }
-
-                v53 = -v47;
-                v52 = -v50;
-                v54 = -v49;
-              }
-
-              v51 = v57;
-            }
-
-            else
-            {
-              ++v51;
-            }
-          }
-
-          while (v51 != 3);
-          v70 = (((((v151 + v150) * 0.5) - (((v27 + v158) + v156) * 0.33333)) * v163) + (v164 * (((v154 + v152) * 0.5) - (((v162.f32[0] + v157) + v155) * 0.33333)))) + (v55 * (((v153 + v149) * 0.5) - (((v159 + v161) + v160) * 0.33333)));
-          v71 = -v164;
-          v72 = v70 < 0.0;
-          if (v70 < 0.0)
-          {
-            v73 = -v163;
-          }
-
-          else
-          {
-            v71 = v164;
-            v73 = v163;
-          }
-
-          v74 = -v55;
-          if (!v72)
-          {
-            v74 = v55;
-          }
-
-          v169 = v73;
-          v172 = v71;
-          v173[0] = v71;
-          v173[1] = v73;
-          v166 = v74;
-          v173[2] = v74;
-          v75 = *a1;
-          v76 = *(a1 + 104);
-          v187 = __PAIR64__(LODWORD(v150), LODWORD(v152));
-          v188 = v149;
-          v184 = v154;
-          v185 = v151;
-          v186 = v153;
-          if (v148 > 0.0)
-          {
-            v77 = v147 * (0.01 / v148);
-            v78 = (v151 - v150) * (0.01 / v148);
-            v79 = (v153 - v149) * (0.01 / v148);
-            *&v187 = v152 - v77;
-            *(&v187 + 1) = v150 - v78;
-            v188 = v149 - v79;
-            v184 = v154 + v77;
-            v185 = v151 + v78;
-            v186 = v153 + v79;
-          }
-
-          v80 = 0;
-          v81 = a3;
-          do
-          {
-            v183 = 0.0;
-            v179.f32[0] = -v172;
-            v179.f32[1] = -v169;
-            v180 = -v166;
-            if (physx::Gu::intersectEdgeEdge(v81, a3 + 3 * ((v80 + (v80 >> 1) + 1) & 3), &v179, &v187, &v184, &v183, &v181))
-            {
-              v82 = *(v75 + 4096);
-              if (v82 <= 0x3F)
-              {
-                v83 = *(a1 + 16);
-                v84 = v181;
-                v85 = *(a1 + 28);
-                v86 = v182;
-                v87 = *(a1 + 40);
-                v88 = *(a1 + 52) + (((v181.f32[0] * v83) + (v181.f32[1] * v85)) + (v182 * v87));
-                v89 = -(v76 + v183);
-                v90 = ((v172 * v83) + (v169 * v85)) + (v166 * v87);
-                *(v75 + 4096) = v82 + 1;
-                v91 = (v75 + (v82 << 6));
-                v92 = *(a1 + 8);
-                v93 = *(a1 + 20);
-                v94 = *(a1 + 32);
-                v91[1].f32[0] = v90;
-                v95 = *(a1 + 44);
-                *v91 = vadd_f32(vadd_f32(vmul_n_f32(v92, v172), vmul_n_f32(v93, v169)), vmul_n_f32(v94, v166));
-                v91[2] = vadd_f32(v95, vadd_f32(vadd_f32(vmul_n_f32(v92, v84.f32[0]), vmul_n_f32(v93, v84.f32[1])), vmul_n_f32(v94, v86)));
-                v91[3].f32[0] = v88;
-                v91[1].f32[1] = v89;
-                v91[6].i32[1] = a2;
-              }
-            }
-
-            ++v80;
-            v81 += 3;
-          }
-
-          while (v80 != 3);
-          v96 = *a1;
-          v97 = *(a1 + 56);
-          v99 = *(a1 + 100);
-          v98 = *(a1 + 104);
-          v100 = a1 + 8;
-          v101 = v173;
-LABEL_53:
-          PxcGenerateVFContacts(v100, v96, v97, a3, v101, a2, v98, v99);
-        }
-      }
-    }
-  }
-}
-
-uint64_t PxcGenerateVFContacts(uint64_t result, uint64_t a2, uint64_t a3, float *a4, float *a5, __int32 a6, float a7, float a8)
-{
-  v8 = 0;
-  v9 = a7 + a8;
-  v10 = *(a2 + 4096);
-  v11 = *a5;
-  v12 = *a4;
-  v13 = 1;
-  do
-  {
-    v14 = v13;
-    v16 = a5[1];
-    v15 = a5[2];
-    v17 = a4[3] - v12;
-    v18 = a4[1];
-    v19 = a4[2];
-    v20 = a4[4] - v18;
-    v21 = a4[5] - v19;
-    v22 = a4[6] - v12;
-    v23 = a4[7] - v18;
-    v24 = a4[8] - v19;
-    v25 = (v15 * v23) - (v16 * v24);
-    v26 = (v11 * v24) - (v15 * v22);
-    v27 = (v16 * v22) - (v11 * v23);
-    v28 = ((v20 * v26) + (v17 * v25)) + (v21 * v27);
-    if (v28 >= 1.4211e-14)
-    {
-      v29 = (a3 + 12 * v8);
-      v30 = v29[1];
-      v31 = *v29 - v12;
-      v32 = v30 - v18;
-      v33 = v29[2];
-      v34 = v33 - v19;
-      v35 = ((v26 * v32) + (v31 * v25)) + (v34 * v27);
-      v36 = -(v28 * 0.001);
-      v37 = v28 + (v28 * 0.001);
-      v38 = v35 >= v36 && v35 <= v37;
-      v39 = (v32 * v21) - (v34 * v20);
-      v40 = (v34 * v17) - (v31 * v21);
-      v41 = (v31 * v20) - (v32 * v17);
-      v42 = ((v40 * -v16) + (-v11 * v39)) + (-v15 * v41);
-      v44 = v38 && v42 >= v36 && (v35 + v42) <= v37;
-      v45 = (1.0 / v28) * (((v23 * v40) + (v22 * v39)) + (v24 * v41));
-      v46 = v44 && v45 < v9;
-      if (v46 && v10 <= 0x3F)
-      {
-        v47 = v45 - a7;
-        v48 = *(result + 8);
-        v49 = *(result + 20);
-        v50 = *(result + 32);
-        v51 = ((v11 * v48) + (v16 * v49)) + (v15 * v50);
-        v52 = *v29 - (v11 * v45);
-        v53 = v30 - (v16 * v45);
-        v54 = v33 - (v15 * v45);
-        v55 = (((v52 * v48) + (v53 * v49)) + (v54 * v50)) + *(result + 44);
-        v56 = (a2 + (v10++ << 6));
-        *(a2 + 4096) = v10;
-        v57 = *result;
-        v58 = *(result + 12);
-        v59 = vadd_f32(vmul_n_f32(*result, v11), vmul_n_f32(v58, v16));
-        v60 = *(result + 24);
-        v61 = vadd_f32(v59, vmul_n_f32(v60, v15));
-        v56[1].f32[0] = v51;
-        v62 = vadd_f32(vadd_f32(vadd_f32(vmul_n_f32(v57, v52), vmul_n_f32(v58, v53)), vmul_n_f32(v60, v54)), *(result + 36));
-        *v56 = v61;
-        v56[2] = v62;
-        v56[3].f32[0] = v55;
-        v56[1].f32[1] = v47;
-        v56[6].i32[1] = a6;
-        v11 = *a5;
-        v12 = *a4;
-      }
-    }
-
-    v13 = 0;
-    v8 = 1;
-  }
-
-  while ((v14 & 1) != 0);
-  return result;
-}
-
-BOOL PxcTestAxis(float *a1, float *a2, float *a3, float *a4, float a5)
-{
-  v5 = *a1;
-  v6 = a1[1];
-  v7 = a1[2];
-  v8 = a2[3];
-  v9 = ((a2[1] * v6) + (*a2 * *a1)) + (a2[2] * v7);
-  v10 = a2[5];
-  v11 = ((v6 * a2[4]) + (v8 * *a1)) + (v10 * v7);
-  if (v9 <= v11)
-  {
-    v12 = ((a2[1] * v6) + (*a2 * *a1)) + (a2[2] * v7);
-  }
-
-  else
-  {
-    v12 = ((v6 * a2[4]) + (v8 * *a1)) + (v10 * v7);
-  }
-
-  if (v9 > v11)
-  {
-    v11 = ((a2[1] * v6) + (*a2 * *a1)) + (a2[2] * v7);
-  }
-
-  v13 = v12 - a5;
-  v14 = v11 + a5;
-  v15 = a3[3];
-  v16 = ((v6 * a3[1]) + (*a3 * v5)) + (a3[2] * v7);
-  v17 = a3[5];
-  v18 = ((v6 * a3[4]) + (v15 * v5)) + (v17 * v7);
-  if (v16 >= v18)
-  {
-    v19 = ((v6 * a3[4]) + (v15 * v5)) + (v17 * v7);
-  }
-
-  else
-  {
-    v19 = ((v6 * a3[1]) + (*a3 * v5)) + (a3[2] * v7);
-  }
-
-  if (v16 <= v18)
-  {
-    v16 = v18;
-  }
-
-  v20 = ((v6 * a3[7]) + (a3[6] * v5)) + (a3[8] * v7);
-  if (v19 >= v20)
-  {
-    v21 = v20;
-  }
-
-  else
-  {
-    v21 = v19;
-  }
-
-  if (v16 > v20)
-  {
-    v20 = v16;
-  }
-
-  result = v20 >= v13 && v14 >= v21;
-  if (result)
-  {
-    v23 = v14 - v21;
-    v24 = v20 - v13;
-    if (v23 >= v24)
-    {
-      v23 = v24;
-    }
-
-    *a4 = v23;
-  }
-
-  return result;
-}
-
-{
-  v5 = *a1;
-  v6 = a1[1];
-  v7 = a1[2];
-  v8 = a2[3];
-  v9 = ((a2[1] * v6) + (*a2 * *a1)) + (a2[2] * v7);
-  v10 = a2[5];
-  v11 = ((v6 * a2[4]) + (v8 * *a1)) + (v10 * v7);
-  if (v9 <= v11)
-  {
-    v12 = ((v6 * a2[4]) + (v8 * *a1)) + (v10 * v7);
-  }
-
-  else
-  {
-    v12 = ((a2[1] * v6) + (*a2 * *a1)) + (a2[2] * v7);
-  }
-
-  if (v9 > v11)
-  {
-    v9 = v11;
-  }
-
-  v13 = v9 - a5;
-  v14 = v12 + a5;
-  v15 = ((v6 * a3[10]) + (a3[9] * v5)) + (a3[11] * v7);
-  v16 = ((a3[13] * fabsf(((v6 * a3[4]) + (a3[3] * v5)) + (a3[5] * v7))) + (fabsf(((v6 * a3[1]) + (*a3 * v5)) + (a3[2] * v7)) * a3[12])) + (fabsf(((v6 * a3[7]) + (a3[6] * v5)) + (a3[8] * v7)) * a3[14]);
-  v17 = v15 - v16;
-  v18 = v15 + v16;
-  result = v18 >= v13 && v14 >= v17;
-  if (result)
-  {
-    v20 = v14 - v17;
-    if (v20 >= (v18 - v13))
-    {
-      v20 = v18 - v13;
-    }
-
-    *a4 = v20;
-  }
-
-  return result;
-}
-
-uint64_t physx::Gu::unsupportedBoxCBOverlapMidphase(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
-{
-  if ((physx::Gu::Midphase::outputError(void)::reportOnlyOnce & 1) == 0)
-  {
-    physx::Gu::Midphase::outputError(void)::reportOnlyOnce = 1;
-    return physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 8, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/geomutils/src/mesh/GuMidphaseInterface.h", 175, "BV4 midphase only supported on Intel platforms.", a6, a7, a8, a9);
-  }
-
-  return result;
-}
-
-{
-  if ((physx::Gu::Midphase::outputError(void)::reportOnlyOnce & 1) == 0)
-  {
-    physx::Gu::Midphase::outputError(void)::reportOnlyOnce = 1;
-    return physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 8, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/geomutils/src/mesh/GuMidphaseInterface.h", 175, "BV4 midphase only supported on Intel platforms.", a6, a7, a8, a9);
-  }
-
-  return result;
-}
-
-{
-  if ((physx::Gu::Midphase::outputError(void)::reportOnlyOnce & 1) == 0)
-  {
-    physx::Gu::Midphase::outputError(void)::reportOnlyOnce = 1;
-    return physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 8, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/geomutils/src/mesh/GuMidphaseInterface.h", 175, "BV4 midphase only supported on Intel platforms.", a6, a7, a8, a9);
-  }
-
-  return result;
-}
-
-{
-  if ((physx::Gu::Midphase::outputError(void)::reportOnlyOnce & 1) == 0)
-  {
-    physx::Gu::Midphase::outputError(void)::reportOnlyOnce = 1;
-    return physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 8, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/geomutils/src/mesh/GuMidphaseInterface.h", 175, "BV4 midphase only supported on Intel platforms.", a6, a7, a8, a9);
-  }
-
-  return result;
-}
-
-{
-  if ((physx::Gu::Midphase::outputError(void)::reportOnlyOnce & 1) == 0)
-  {
-    physx::Gu::Midphase::outputError(void)::reportOnlyOnce = 1;
-    return physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 8, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/geomutils/src/mesh/GuMidphaseInterface.h", 175, "BV4 midphase only supported on Intel platforms.", a6, a7, a8, a9);
-  }
-
-  return result;
-}
-
-{
-  if ((physx::Gu::Midphase::outputError(void)::reportOnlyOnce & 1) == 0)
-  {
-    physx::Gu::Midphase::outputError(void)::reportOnlyOnce = 1;
-    return physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 8, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/common/src/../../geomutils/src/mesh/GuMidphaseInterface.h", 175, "BV4 midphase only supported on Intel platforms.", a6, a7, a8, a9);
-  }
-
-  return result;
-}
-
-{
-  if ((physx::Gu::Midphase::outputError(void)::reportOnlyOnce & 1) == 0)
-  {
-    physx::Gu::Midphase::outputError(void)::reportOnlyOnce = 1;
-    return physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 8, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/geomutils/src/mesh/GuMidphaseInterface.h", 175, "BV4 midphase only supported on Intel platforms.", a6, a7, a8, a9);
-  }
-
-  return result;
-}
-
-{
-  if ((physx::Gu::Midphase::outputError(void)::reportOnlyOnce & 1) == 0)
-  {
-    physx::Gu::Midphase::outputError(void)::reportOnlyOnce = 1;
-    return physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 8, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/geomutils/src/mesh/GuMidphaseInterface.h", 175, "BV4 midphase only supported on Intel platforms.", a6, a7, a8, a9);
-  }
-
-  return result;
-}
-
-{
-  if ((physx::Gu::Midphase::outputError(void)::reportOnlyOnce & 1) == 0)
-  {
-    physx::Gu::Midphase::outputError(void)::reportOnlyOnce = 1;
-    return physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 8, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/geomutils/src/mesh/GuMidphaseInterface.h", 175, "BV4 midphase only supported on Intel platforms.", a6, a7, a8, a9);
-  }
-
-  return result;
-}
-
-uint64_t physx::Cm::FastVertex2ShapeScaling::init(uint64_t result, float *a2, float *a3)
-{
-  v3 = *a3;
-  v4 = a3[1];
-  v5 = a3[2];
-  v6 = a3[3];
-  v7 = v5 + v5;
-  v8 = v3 * (v3 + v3);
-  v9 = v4 * (v4 + v4);
-  v10 = v5 * (v5 + v5);
-  v11 = (v3 + v3) * v4;
-  v12 = (v3 + v3) * v5;
-  v13 = (v3 + v3) * v6;
-  v14 = (v4 + v4) * v5;
-  v15 = (v4 + v4) * v6;
-  v16 = v7 * v6;
-  v17 = 1.0;
-  v18 = (1.0 - v9) - v10;
-  v19 = v11 + v16;
-  v20 = v12 - v15;
-  v21 = v11 - v16;
-  v22 = (1.0 - v8) - v10;
-  v23 = v14 + v13;
-  v24 = v12 + v15;
-  v25 = v14 - v13;
-  v26 = (1.0 - v8) - v9;
-  *result = v18;
-  *(result + 4) = v21;
-  *(result + 8) = v12 + v15;
-  *(result + 12) = v19;
-  *(result + 16) = v22;
-  *(result + 20) = v25;
-  *(result + 24) = v12 - v15;
-  *(result + 28) = v23;
-  *(result + 32) = v26;
-  v27 = a2[1];
-  v28 = a2[2];
-  v29 = ((v12 - v15) * 0.0) + ((v19 * 0.0) + (v18 * *a2));
-  v30 = (v23 * 0.0) + ((v22 * 0.0) + (v21 * *a2));
-  v31 = (v26 * 0.0) + ((v25 * 0.0) + (v24 * *a2));
-  v32 = (v20 * 0.0) + ((v18 * 0.0) + (v19 * v27));
-  v33 = (v23 * 0.0) + ((v21 * 0.0) + (v22 * v27));
-  v34 = (v26 * 0.0) + ((v24 * 0.0) + (v25 * v27));
-  v35 = ((v18 * 0.0) + (v19 * 0.0)) + (v20 * v28);
-  v36 = ((v21 * 0.0) + (v22 * 0.0)) + (v23 * v28);
-  v37 = ((v24 * 0.0) + (v25 * 0.0)) + (v26 * v28);
-  v38 = v20 * v36;
-  v39 = v20 * v37;
-  v40 = (v20 * v35) + ((v18 * v29) + (v19 * v32));
-  v41 = v38 + ((v18 * v30) + (v19 * v33));
-  v42 = v39 + ((v18 * v31) + (v19 * v34));
-  v43 = (v21 * v29) + (v22 * v32);
-  v44 = (v21 * v30) + (v22 * v33);
-  v45 = (v21 * v31) + (v22 * v34);
-  v46 = v23 * v37;
-  v47 = (v23 * v35) + v43;
-  v48 = (v23 * v36) + v44;
-  v49 = v46 + v45;
-  v50 = v24 * v30;
-  v51 = (v24 * v29) + (v25 * v32);
-  v52 = (v24 * v31) + (v25 * v34);
-  v53 = v26 * v36;
-  v54 = v26 * v37;
-  v55 = (v26 * v35) + v51;
-  v56 = v53 + (v50 + (v25 * v33));
-  v57 = v54 + v52;
-  *result = v40;
-  *(result + 4) = v41;
-  *(result + 8) = v42;
-  *(result + 12) = v47;
-  *(result + 16) = v48;
-  *(result + 20) = v49;
-  *(result + 24) = v55;
-  *(result + 28) = v56;
-  *(result + 32) = v57;
-  v58 = ((v41 * ((v49 * v55) - (v47 * v57))) + (v40 * ((v48 * v57) - (v49 * v56)))) + (v42 * ((v47 * v56) - (v48 * v55)));
-  if (v58 == 0.0)
-  {
-    v61 = xmmword_1E3047670;
-    v63 = xmmword_1E3047670;
-  }
-
-  else
-  {
-    v59.f32[0] = (v48 * v57) - (v56 * v49);
-    v59.f32[1] = -((v41 * v57) - (v56 * v42));
-    v59.f32[2] = (v41 * v49) - (v42 * v48);
-    v59.f32[3] = -((v55 * -v49) + (v47 * v57));
-    v60 = 1.0 / v58;
-    v61 = vmulq_n_f32(v59, 1.0 / v58);
-    v62.f32[0] = (v40 * v57) - (v42 * v55);
-    v62.f32[1] = -((v40 * v49) - (v42 * v47));
-    v62.f32[2] = (v47 * v56) - (v48 * v55);
-    v62.f32[3] = -((v40 * v56) - (v41 * v55));
-    v63 = vmulq_n_f32(v62, v60);
-    v17 = ((v41 * -v47) + (v40 * v48)) * v60;
-  }
-
-  *(result + 36) = v61;
-  *(result + 52) = v63;
-  *(result + 68) = v17;
-  *(result + 72) = ((*a2 * a2[1]) * a2[2]) < 0.0;
-  return result;
-}
-
-uint64_t anonymous namespace::CapsuleMeshContactGenerationCallback_Scale::processHit(uint64_t a1, uint64_t a2, float *a3, float *a4, float *a5)
-{
-  v6 = *(a1 + 128);
-  v5 = *(a1 + 136);
-  v7 = v5[1].f32[0];
-  v8 = v5[2].f32[1];
-  v9 = v5[4].f32[0];
-  v10 = *v5;
-  v11 = *(v5 + 12);
-  v12 = v5[3];
-  v13 = a4[1];
-  v14 = (*a4 * COERCE_FLOAT(*v5)) + (v13 * v11.f32[0]);
-  v15 = vmuls_lane_f32(*a4, *v5, 1) + vmuls_lane_f32(v13, v11, 1);
-  v16 = (v7 * *a4) + (v8 * v13);
-  v17 = a4[2];
-  v18 = v14 + (v17 * v12.f32[0]);
-  v19 = v15 + vmuls_lane_f32(v17, v12, 1);
-  v20 = v16 + (v9 * v17);
-  v21 = v5[9].i8[0] == 0;
-  v22 = 3;
-  if (v21)
-  {
-    v23 = 3;
-  }
-
-  else
-  {
-    v23 = 6;
-  }
-
-  v42.f32[v23] = v18;
-  if (v21)
-  {
-    v24 = 4;
-  }
-
-  else
-  {
-    v24 = 7;
-  }
-
-  v42.f32[v24] = v19;
-  if (v21)
-  {
-    v25 = 5;
-  }
-
-  else
-  {
-    v25 = 8;
-  }
-
-  v42.f32[v25] = v20;
-  v26 = a3[1];
-  v27 = a3[2];
-  v28 = ((*a3 * v7) + (v26 * v8)) + (v27 * v9);
-  v42 = vadd_f32(vadd_f32(vmul_n_f32(v10, *a3), vmul_n_f32(v11, v26)), vmul_n_f32(v12, v27));
-  v43 = v28;
-  v29 = a5[1];
-  v30 = *a5 * v10.f32[0];
-  v31 = (v7 * *a5) + (v8 * v29);
-  v32 = a5[2];
-  v33 = v9 * v32;
-  v34 = (vmuls_lane_f32(*a5, v10, 1) + vmuls_lane_f32(v29, v11, 1)) + vmuls_lane_f32(v32, v12, 1);
-  if (v21)
-  {
-    v22 = 6;
-  }
-
-  v42.f32[v22] = (v30 + (v29 * v11.f32[0])) + (v32 * v12.f32[0]);
-  if (v21)
-  {
-    v35 = 7;
-  }
-
-  else
-  {
-    v35 = 4;
-  }
-
-  v42.f32[v35] = v34;
-  v36 = v31 + v33;
-  if (v21)
-  {
-    v37 = 8;
-  }
-
-  else
-  {
-    v37 = 5;
-  }
-
-  v42.f32[v37] = v36;
-  v38 = *(a2 + 16);
-  v39 = *(v6 + 80);
-  if (v39)
-  {
-    v40 = *(v39 + v38);
-  }
-
-  else
-  {
-    v40 = 56;
-  }
-
-  return 1;
-}
-
-uint64_t anonymous namespace::CapsuleHeightfieldContactGenerationCallback::onEvent(_anonymous_namespace_::CapsuleHeightfieldContactGenerationCallback *this, int a2, unsigned int *a3)
-{
-  v42 = *MEMORY[0x1E69E9840];
-  for (i = a2; i; a3 = v21)
-  {
-    v4 = *a3;
-    v21 = a3 + 1;
-    physx::Gu::HeightFieldUtil::getTriangle(*(this + 15), *(this + 16), &v32, v41, v40, *a3, 0, 0);
-    v5 = ((v35 - *(&v32 + 1)) * (v39 - v33)) - ((v36 - v33) * (v38 - *(&v32 + 1)));
-    v6 = ((v36 - v33) * (v37 - *&v32)) - ((v34 - *&v32) * (v39 - v33));
-    v7 = ((v34 - *&v32) * (v38 - *(&v32 + 1))) - ((v35 - *(&v32 + 1)) * (v37 - *&v32));
-    v8 = sqrtf(((v6 * v6) + (v5 * v5)) + (v7 * v7));
-    if (v8 > 0.0)
-    {
-      v9 = 1.0 / v8;
-      v5 = v5 * v9;
-      v6 = v6 * v9;
-      v7 = v7 * v9;
-    }
-
-    v10 = 0;
-    v11 = 0;
-    --i;
-    do
-    {
-      v12 = v40[v10];
-      if (v12 == -1)
-      {
-        v11 |= 8 << v10;
+        v27 = sqrtf(v24);
+        v28 = vmul_n_f32(v22, 1.0 / v27);
+        v29 = v23 * (1.0 / v27);
+        v30 = __sincosf_stret(v27 * 0.5);
+        cosval = v30.__cosval;
+        v13 = a2;
+        *v7.i8 = vmul_n_f32(v28, v30.__sinval);
+        v25 = v30.__sinval * v29;
       }
 
       else
       {
-        physx::Gu::HeightFieldUtil::getTriangle(*(this + 15), *(this + 16), &v23, 0, 0, v12, 0, 0);
-        v13 = ((v27 - v24) * (v31 - v25)) - ((v28 - v25) * (v30 - v24));
-        v14 = ((v28 - v25) * (v29 - v23)) - ((v26 - v23) * (v31 - v25));
-        v15 = ((v26 - v23) * (v30 - v24)) - ((v27 - v24) * (v29 - v23));
-        v16 = &v32 + 3 * byte_1E31161C3[v10];
-        if ((((v14 * (v16[1] - v24)) + (v13 * (*v16 - v23))) + (v15 * (v16[2] - v25))) < 0.0)
-        {
-          v17 = sqrtf(((v14 * v14) + (v13 * v13)) + (v15 * v15));
-          if (v17 > 0.0)
-          {
-            v18 = 1.0 / v17;
-            v13 = v13 * v18;
-            v14 = v14 * v18;
-            v15 = v15 * v18;
-          }
-
-          v19 = 8 << v10;
-          if ((((v6 * v14) + (v13 * v5)) + (v15 * v7)) >= 0.999)
-          {
-            v19 = 0;
-          }
-
-          v11 |= v19;
-        }
+        v7.i64[0] = 0;
+        v25 = 0.0;
+        cosval = 1.0;
       }
 
-      ++v10;
+      v31 = *&v5->f32[v14];
+      v32 = -*&v7.i32[1];
+      *&v7.i32[2] = v25;
+      v33 = v7;
+      v33.f32[3] = -*v7.i32;
+      v34 = vmlaq_n_f32(vmulq_f32(vextq_s8(vdupq_laneq_s32(v31, 3), v31, 4uLL), v33), v31, cosval);
+      v35 = vextq_s8(vextq_s8(v7, v7, 0xCuLL), v7, 8uLL);
+      v7 = vzip1q_s32(v31, v31);
+      v7.i32[0] = *(&v5[1] + v14 * 4);
+      v36 = vuzp1q_s32(vextq_s8(v7, v7, 8uLL), vuzp2q_s32(v7, v35));
+      v37 = vzip1q_s32(vrev64q_s32(v35), v36);
+      v37.i32[1] = v35.i32[2];
+      v35.f32[3] = v32;
+      *&v5->f32[v14] = vmlsq_f32(vmlaq_f32(v34, v7, v35), v37, v36);
+      v16[2] = vadd_f32(v19, vmul_n_f32(v20, v13));
+      v16[3].f32[0] = v18 + (v21 * v13);
+      v14 += 7;
+      v15 += 4;
     }
 
-    while (v10 != 3);
+    while (7 * v6 != v14);
   }
 
-  return 1;
-}
-
-void physx::Gu::computeBounds(uint64_t a1, uint64_t a2, uint64_t a3, _OWORD *a4, float32x4_t a5, double a6, double a7, double a8, double a9, double a10, int32x4_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16)
-{
-  v17 = *&a6;
-  v16.i32[0] = a5.i32[0];
-  v20 = *a2;
-  if (*a2 > 2)
+  if (*(v4 + 8))
   {
-    v21 = a4;
-    if (v20 <= 4)
+    v38 = 0;
+    v39 = 0;
+    v146 = v153 + 176 * v12;
+    v151 = 32 * v12;
+    v152 = 1.0 / v13;
+    v147 = v4;
+    while (1)
     {
-      if (v20 == 3)
+      v40 = -3.4028e38;
+      if (v6 >= 2)
       {
-        a5.i64[0] = *(a3 + 16);
-        a5.i32[2] = *(a3 + 24);
-        v58 = vdup_lane_s32(*a3, 1);
-        v59 = vdup_laneq_s32(*a3, 2);
-        v60 = vdup_laneq_s32(*a3, 3);
-        _Q5 = vaddq_f32(*a3, *a3);
-        v62 = vdup_lane_s32(vmul_f32(*a3, *_Q5.f32), 0);
-        v63 = vmul_lane_f32(v58, *_Q5.f32, 1);
-        v64 = vmul_laneq_f32(v59, _Q5, 2);
-        v65 = vmul_n_f32(v58, _Q5.f32[0]);
-        v66 = vmul_n_f32(v59, _Q5.f32[0]);
-        v67 = vmul_n_f32(v60, _Q5.f32[0]);
-        v68 = vmul_lane_f32(v59, *_Q5.f32, 1);
-        v69 = vmul_lane_f32(v60, *_Q5.f32, 1);
-        *&v70 = vmul_laneq_f32(v60, _Q5, 2);
-        __asm { FMOV            V5.2S, #1.0 }
-
-        v75 = vsub_f32(*_Q5.f32, v62);
-        _Q5.i32[0] = vadd_f32(v65, *&v70).u32[0];
-        LODWORD(v76) = vsub_f32(v66, v69).u32[0];
-        v77 = vsub_f32(v65, *&v70);
-        LODWORD(v70) = vsub_f32(v75, v64).u32[0];
-        *v146 = (1.0 - v63.f32[1]) - v64.f32[1];
-        *&v146[4] = _Q5.i32[0];
-        HIDWORD(v76) = v77.i32[1];
-        *(&v70 + 1) = vext_s8(vadd_f32(v66, v69), vsub_f32(v68, v67), 4uLL);
-        *&v146[8] = v76;
-        DWORD1(v70) = vadd_f32(v68, v67).u32[0];
-        *&v146[16] = v70;
-        *&v146[32] = vsub_f32(v75, v63).u32[0];
-        v78 = vmulq_n_f32(vaddq_f32(vdupq_lane_s32(v16, 0), vaddq_f32(vaddq_f32(vabsq_f32(vmulq_n_f32(*v146, *(a2 + 4))), vabsq_f32(vmulq_n_f32(*&v146[12], *(a2 + 8)))), vabsq_f32(vmulq_n_f32(*&v146[24], *(a2 + 12))))), v17);
-        v79 = vsubq_f32(a5, v78);
-        v80 = vaddq_f32(a5, v78);
-LABEL_40:
-        v79.i32[3] = v80.i32[0];
-        *a1 = v79;
-        v83 = vextq_s8(v80, v80, 4uLL).u64[0];
-LABEL_41:
-        *(a1 + 16) = v83;
-        return;
-      }
-
-      if (v20 != 4)
-      {
-        return;
-      }
-
-      v33 = *(a2 + 32);
-      if (*(a2 + 40))
-      {
-        v84 = vdup_lane_s32(*a3, 1);
-        v86 = *(a2 + 4);
-        v87 = *(a2 + 8);
-        v85 = a2 + 4;
-        v88 = *(v85 + 8);
-        v89 = vdup_laneq_s32(*a3, 2);
-        v90 = vdup_laneq_s32(*a3, 3);
-        _Q4 = vaddq_f32(*a3, *a3);
-        v92 = vdup_lane_s32(vmul_f32(*a3, *_Q4.f32), 0);
-        v93 = vmul_lane_f32(v84, *_Q4.f32, 1);
-        *a11.i8 = vmul_laneq_f32(v89, _Q4, 2);
-        v94 = vmul_n_f32(v84, _Q4.f32[0]);
-        v95 = vmul_n_f32(v89, _Q4.f32[0]);
-        v96 = vmul_n_f32(v90, _Q4.f32[0]);
-        v97 = vmul_lane_f32(v89, *_Q4.f32, 1);
-        v98 = vmul_lane_f32(v90, *_Q4.f32, 1);
-        v99 = vmul_laneq_f32(v90, _Q4, 2);
-        __asm { FMOV            V4.2S, #1.0 }
-
-        v100 = vsub_f32(*_Q4.f32, v92);
-        v101 = COERCE_DOUBLE(vadd_f32(v94, v99));
-        LODWORD(v102) = vsub_f32(v95, v98).u32[0];
-        v103 = COERCE_DOUBLE(vsub_f32(v94, v99));
-        LODWORD(v107) = vsub_f32(v100, *a11.i8).u32[0];
-        v104 = vadd_f32(v97, v96).u32[0];
-        *&v105 = vsub_f32(v100, v93).u32[0];
-        v106 = COERCE_DOUBLE(vext_s8(vadd_f32(v95, v98), vsub_f32(v97, v96), 4uLL));
-        a11.i32[0] = a11.i32[1];
-        *v146 = (1.0 - v93.f32[1]) - *&a11.i32[1];
-        *&v146[4] = LODWORD(v101);
-        HIDWORD(v102) = HIDWORD(v103);
-        *&v146[8] = v102;
-        *(&v107 + 1) = v106;
-        DWORD1(v107) = v104;
-        *&v146[16] = v107;
-        *&v146[32] = LODWORD(v105);
-        if ((v87 - 1065353216) | (v86 - 1065353216) | (v88 - 1065353216))
+        v41 = &v5[6] + 1;
+        v42 = (v148 + 72);
+        v43 = v6 - 1;
+        do
         {
-          v140 = v16;
-          v143 = v17;
-          v93.f32[0] = (1.0 - v93.f32[1]) - *&a11.i32[1];
-          computeScaledMatrix(v146, v85, v103, v105, v106, *&v107, v101, *&v93, a11);
-          v16 = v140;
-          v17 = v143;
+          v44 = *(v42 - 1);
+          v45 = *v42;
+          v42 += 10;
+          v46 = v5 + 7 * v45;
+          v47 = v44[4] + v44[4];
+          v48 = v44[5] + v44[5];
+          v49 = v44[6] + v44[6];
+          v51 = v46[2];
+          v50 = v46[3];
+          v52 = v46[1];
+          v53 = (v50 * v50) + -0.5;
+          v54 = ((v48 * v52) + (*v46 * v47)) + (v51 * v49);
+          v55 = (v50 * ((v52 * v49) - (v51 * v48))) + (v47 * v53);
+          v56 = (v50 * ((v51 * v47) - (*v46 * v49))) + (v48 * v53);
+          v57 = (v50 * ((*v46 * v48) - (v52 * v47))) + (v49 * v53);
+          v58 = v44[11] + v44[11];
+          v59 = v44[12] + v44[12];
+          v60 = v55 + (*v46 * v54);
+          v61 = v44[13] + v44[13];
+          v63 = *(v41 - 4);
+          v62 = *(v41 - 3);
+          v64 = (v62 * v62) + -0.5;
+          v65 = v56 + (v52 * v54);
+          v67 = *(v41 - 6);
+          v66 = *(v41 - 5);
+          v68 = ((v59 * v66) + (v67 * v58)) + (v63 * v61);
+          v69 = v57 + (v51 * v54);
+          v70 = v46[4] + v60;
+          v71 = *(v41 - 2) + (((v62 * ((v66 * v61) - (v63 * v59))) + (v58 * v64)) + (v67 * v68));
+          v72 = *(v41 - 1) + (((v62 * ((v63 * v58) - (v67 * v61))) + (v59 * v64)) + (v66 * v68));
+          v73 = *v41;
+          v41 += 7;
+          v74 = (v46[6] + v69) - (v73 + (((v62 * ((v67 * v59) - (v66 * v58))) + (v61 * v64)) + (v63 * v68)));
+          v75 = sqrtf(((((v46[5] + v65) - v72) * ((v46[5] + v65) - v72)) + ((v70 - v71) * (v70 - v71))) + (v74 * v74));
+          if (v40 <= v75)
+          {
+            v40 = v75;
+          }
+
+          --v43;
         }
 
-        v108 = *(v33 + 72);
-        v109 = 20 * *(v33 + 71);
-        v110 = vaddq_f32(vaddq_f32(vmulq_n_f32(*v146, COERCE_FLOAT(*(v108 + v109))), vmulq_lane_f32(*&v146[12], *(v108 + v109), 1)), vmulq_laneq_f32(*&v146[24], *(v108 + v109), 2));
-        v111 = *(v33 + 70) - 1;
-        if (*(v33 + 70) == 1)
+        while (v43);
+      }
+
+      if (v40 <= *(v4 + 16))
+      {
+        break;
+      }
+
+      v150 = v39;
+      bzero((v153 + v151), 144 * v6);
+      physx::Dy::Articulation::setInertia(v153 + v151, *(v148 + 16), v5);
+      v76 = (v148 + 72);
+      v77 = 32 * v12 + v153 + 144;
+      v78 = (v5 + 28);
+      v79 = v146 + 84;
+      v80 = v6 - 1;
+      if (v6 >= 2)
+      {
+        do
         {
-          v113 = v110;
+          physx::Dy::Articulation::setInertia(v77, *(v76 - 2), v78);
+          physx::Dy::Articulation::setJointTransforms(v79, v5 + 28 * *v76, v78, *(v76 - 1));
+          v79 += 84;
+          v78 = (v78 + 28);
+          v77 += 144;
+          v76 += 10;
+          --v80;
+        }
+
+        while (v80);
+      }
+
+      physx::Dy::Articulation::prepareLtbMatrix(v3, (v153 + v151), v5, v146, v152);
+      physx::Dy::PxcLtbFactor(v3);
+      if (v6 >= 2)
+      {
+        v81 = &v156;
+        v82 = (v3 + v3[8] + 784);
+        v83 = v6 - 1;
+        do
+        {
+          *v81 = *v82;
+          v81 += 2;
+          v82 += 25;
+          --v83;
+        }
+
+        while (v83);
+      }
+
+      bzero(v149, 32 * v6);
+      physx::Dy::PxcLtbSolve(v3, &v155, v157);
+      v4 = v147;
+      if (*v3)
+      {
+        v85 = 0;
+        v86 = v158;
+        v87 = &v149[2];
+        do
+        {
+          v84 = v86[-1];
+          v88 = vsubq_f32(*v87, *v86);
+          v87[-1] = vsubq_f32(v87[-1], v84);
+          *v87 = v88;
+          ++v85;
+          v87 += 2;
+          v86 += 2;
+        }
+
+        while (v85 < *v3);
+      }
+
+      v89 = v149 + 2;
+      v90 = &v5[3];
+      v91 = v6;
+      v92 = a2;
+      if (v6)
+      {
+        do
+        {
+          v93 = v89[-1].f32[0];
+          v94 = v89[-2];
+          v95 = *(v90 - 2);
+          v96 = *v90;
+          v97 = vmul_n_f32(*v89, v92);
+          v98 = v89[1].f32[0] * v92;
+          v99 = (COERCE_FLOAT(vmul_f32(v97, v97).i32[1]) + (v97.f32[0] * v97.f32[0])) + (v98 * v98);
+          if (v99 >= 1.0e-24)
+          {
+            v102 = sqrtf(v99);
+            v103 = vmul_n_f32(v97, 1.0 / v102);
+            v104 = v98 * (1.0 / v102);
+            v105 = __sincosf_stret(v102 * 0.5);
+            v100 = v105.__cosval;
+            v92 = a2;
+            *v84.i8 = vmul_n_f32(v103, v105.__sinval);
+            v101 = v105.__sinval * v104;
+          }
+
+          else
+          {
+            v84.i64[0] = 0;
+            v100 = 1.0;
+            v101 = 0.0;
+          }
+
+          v106 = -*&v84.i32[1];
+          *&v84.i32[2] = v101;
+          v107 = v84;
+          v107.f32[3] = -*v84.i32;
+          v108 = *(v90 - 6);
+          v109 = vmlaq_n_f32(vmulq_f32(vextq_s8(vdupq_laneq_s32(v108, 3), v108, 4uLL), v107), v108, v100);
+          v110 = vextq_s8(vextq_s8(v84, v84, 0xCuLL), v84, 8uLL);
+          v84 = vzip1q_s32(v108, v108);
+          v84.i32[0] = *(v90 - 2);
+          v111 = vuzp1q_s32(vextq_s8(v84, v84, 8uLL), vuzp2q_s32(v84, v110));
+          v112 = vzip1q_s32(vrev64q_s32(v110), v111);
+          v112.i32[1] = v110.i32[2];
+          v110.f32[3] = v106;
+          *(v90 - 6) = vmlsq_f32(vmlaq_f32(v109, v84, v110), v112, v111);
+          *(v90 - 1) = vadd_f32(vmul_n_f32(v94, v92), v95);
+          *v90 = (v93 * v92) + v96;
+          v90 += 7;
+          v89 += 4;
+          --v91;
+        }
+
+        while (v91);
+        v39 = v150 + 1;
+        v38 = 1;
+        if ((v150 + 1) >= *(v147 + 8))
+        {
+          goto LABEL_36;
+        }
+      }
+
+      else
+      {
+        v39 = v150 + 1;
+        v38 = 1;
+        if ((v150 + 1) >= *(v147 + 8))
+        {
+          return;
+        }
+      }
+    }
+
+    if ((v38 & (v6 != 0)) == 0)
+    {
+      goto LABEL_48;
+    }
+
+LABEL_36:
+    if (v6 <= 1)
+    {
+      v113 = 1;
+    }
+
+    else
+    {
+      v113 = v6;
+    }
+
+    v114 = &v5[1] + 4;
+    v115 = v149 + 2;
+    v116 = v153 + 12;
+    do
+    {
+      *&v117 = vmul_n_f32(vsub_f32(*(v114 + 4), *(v116 + 4)), v152);
+      *(&v117 + 2) = v152 * (*(v114 + 3) - *(v116 + 12));
+      HIDWORD(v117) = 0;
+      *v115[-2].f32 = v117;
+      v119 = *(v116 - 12);
+      v118 = *(v116 - 8);
+      v120 = *(v116 - 4);
+      v121 = *(v114 - 3);
+      v122 = *(v114 - 2);
+      v123 = *(v114 - 1);
+      v124 = (((*v116 * v121) - (*v114 * v119)) - (v122 * v120)) + (v118 * v123);
+      v125 = (((*v116 * v122) - (*v114 * v118)) - (v123 * v119)) + (v120 * v121);
+      v126 = (((*v116 * v123) - (*v114 * v120)) - (v121 * v118)) + (v119 * v122);
+      v127 = ((v125 * v125) + (v124 * v124)) + (v126 * v126);
+      v128 = sqrtf(v127);
+      v129 = 0.0;
+      v130 = 0.0;
+      v131 = 0.0;
+      if (v128 >= 1.0e-12)
+      {
+        v132 = (((v119 * v121) + (*v114 * *v116)) + (v122 * v118)) + (v123 * v120);
+        if (v132 >= 0.0)
+        {
+          v133 = v128;
         }
 
         else
         {
-          v112 = (v109 + v108 + 12);
-          v113 = v110;
-          do
-          {
-            v114 = *v112;
-            v112 = (v112 + 12);
-            v115 = vaddq_f32(vmulq_laneq_f32(*&v146[24], v114, 2), vaddq_f32(vmulq_n_f32(*v146, v114.f32[0]), vmulq_lane_f32(*&v146[12], *v114.f32, 1)));
-            v110 = vminq_f32(v110, v115);
-            v113 = vmaxq_f32(v113, v115);
-            --v111;
-          }
-
-          while (v111);
+          v133 = -v128;
+          v132 = -v132;
         }
 
-        v119 = vdupq_lane_s32(v16, 0);
-        v120 = vsubq_f32(v110, v119);
-        v121.i64[0] = *(a3 + 16);
-        v121.i64[1] = *(a3 + 24);
-        v122 = vaddq_f32(vaddq_f32(v119, v113), v121);
-        v123 = vaddq_f32(v120, v121);
-        v124.i64[0] = 0x3F0000003F000000;
-        v124.i64[1] = 0x3F0000003F000000;
-        v125 = vmulq_f32(vaddq_f32(v122, v123), v124);
-        v126 = vmulq_n_f32(vsubq_f32(v122, v123), v17 * 0.5);
-        v127 = vaddq_f32(v125, v126);
-        v128 = vsubq_f32(v125, v126);
-        v128.i32[3] = v127.i32[0];
-        *a1 = v128;
-        v83 = vextq_s8(v127, v127, 4uLL).u64[0];
-        goto LABEL_41;
+        v134 = atan2f(v133, v132);
+        v135 = 0.0;
+        v136 = 0.0;
+        v137 = 0.0;
+        if (v127 > 0.0)
+        {
+          v135 = (v124 * (1.0 / v128)) + (v124 * (1.0 / v128));
+          v136 = (v125 * (1.0 / v128)) + (v125 * (1.0 / v128));
+          v137 = (v126 * (1.0 / v128)) + (v126 * (1.0 / v128));
+        }
+
+        v129 = v134 * v135;
+        v130 = v134 * v136;
+        v131 = v134 * v137;
       }
 
-      if (!a4)
-      {
-        v21 = (v33 + 32);
-      }
-
-      v34 = (a2 + 4);
-      v35 = a3;
-      v36 = v21;
-      v138 = v16;
-      v141 = *&a6;
+      HIDWORD(v138) = 0;
+      *&v138 = v152 * v129;
+      *(&v138 + 1) = v152 * v130;
+      *(&v138 + 2) = v152 * v131;
+      *v115->f32 = v138;
+      v115 += 4;
+      v114 += 28;
+      v116 += 28;
+      --v113;
     }
 
-    else
-    {
-      if (v20 != 5)
-      {
-        if (v20 != 6)
-        {
-          if (v20 != 7)
-          {
-            return;
-          }
-
-          goto LABEL_23;
-        }
-
-        v139 = v16;
-        v142 = *&a6;
-        v81 = *(a2 + 24);
-        v82 = COERCE_DOUBLE(vrev64_s32(*(a2 + 16)));
-        *v146 = v82;
-        *&v146[8] = v81;
-        *&v146[12] = xmmword_1E30474D0;
-        if (!a4)
-        {
-          v21 = (*(a2 + 8) + 32);
-        }
-
-        computeMeshBounds(a3, v21, v146, &v145, &v144, 0.0, v82, a7, a8, a9, a10, a11);
-        v56 = vmulq_n_f32(vaddq_f32(vdupq_lane_s32(v139, 0), v144), v142);
-        v57 = v145;
-        goto LABEL_39;
-      }
-
-      v138 = v16;
-      v141 = *&a6;
-      if (!a4)
-      {
-        v21 = (*(a2 + 40) + 56);
-      }
-
-      v34 = (a2 + 4);
-      v35 = a3;
-      v36 = v21;
-    }
-
-    computeMeshBounds(v35, v36, v34, v146, &v145, *a5.i64, a6, a7, a8, a9, a10, a11);
-    v56 = vmulq_n_f32(vaddq_f32(vdupq_lane_s32(v138, 0), v145), v141);
-    v57 = *v146;
-LABEL_39:
-    v79 = vsubq_f32(v57, v56);
-    v80 = vaddq_f32(v57, v56);
-    goto LABEL_40;
+    while (v113);
   }
 
-  if (v20 <= 0)
+LABEL_48:
+  if (v6)
   {
-    if (v20 == -1)
-    {
-LABEL_23:
-      v37 = physx::shdfnd::Foundation::mInstance;
-
-      physx::shdfnd::Foundation::error(v37, 32, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/common/src/../../geomutils/src/GuBounds.cpp", 364, "Gu::GeometryUnion::computeBounds: Unknown shape type.", a13, a14, a15, a16);
-      return;
-    }
-
-    if (v20)
-    {
-      return;
-    }
-
-    a5.f32[0] = (*(a2 + 4) + a5.f32[0]) * *&a6;
-    v22 = *(a3 + 24) - a5.f32[0];
-    v23 = vdup_lane_s32(*a5.f32, 0);
-    *a1 = vsub_f32(*(a3 + 16), v23);
-    *(a1 + 8) = v22;
-    a5.f32[0] = a5.f32[0] + *(a3 + 24);
-LABEL_16:
-    *(a1 + 12) = vadd_f32(v23, *(a3 + 16));
-    *(a1 + 20) = a5.i32[0];
-    return;
-  }
-
-  if (v20 != 1)
-  {
-    if (v20 != 2)
-    {
-      return;
-    }
-
-    v24 = 0;
-    v26 = *(a3 + 8);
-    v25 = *(a3 + 12);
-    v27 = *a3;
-    v28 = *(a3 + 4);
-    *v146 = ((v25 * (v25 + v25)) + -1.0) + (v27 * (v27 + v27));
-    *&v146[4] = ((v27 + v27) * v28) + (v26 * (v25 + v25));
-    *&v146[8] = ((v27 + v27) * v26) - (v28 * (v25 + v25));
-    v30 = *(a2 + 4);
-    v29 = *(a2 + 8);
+    v139 = (v3 + 72);
+    v140 = (v148 + 16);
+    v141 = v5 + 3;
     do
     {
-      v145.f32[v24] = ((v30 + (fabsf(*&v146[v24 * 4]) * v29)) + *v16.i32) * v17;
-      ++v24;
+      v143 = *v140;
+      v140 += 5;
+      v142 = v143;
+      *v143 = *v141[-3].f32;
+      *(v143 + 16) = v141[-1];
+      LODWORD(v143) = v141->i32[0];
+      v141 = (v141 + 28);
+      *(v142 + 24) = v143;
+      v144 = *(v139 - 1);
+      *(v142 + 64) = v144;
+      *(v142 + 72) = DWORD2(v144);
+      v145 = *v139;
+      v139 += 2;
+      *(v142 + 80) = v145;
+      *(v142 + 88) = DWORD2(v145);
+      --v6;
     }
 
-    while (v24 != 3);
-    v31 = v145.f32[2];
-    v32 = *(a3 + 24) - v145.f32[2];
-    v23 = *v145.f32;
-    *a1 = vsub_f32(*(a3 + 16), *v145.f32);
-    *(a1 + 8) = v32;
-    a5.f32[0] = v31 + *(a3 + 24);
-    goto LABEL_16;
+    while (v6);
   }
-
-  v38 = *a3;
-  v39 = *(a3 + 4);
-  v40 = v38 + v38;
-  v42 = *(a3 + 8);
-  v41 = *(a3 + 12);
-  v43 = v41 + v41;
-  v44 = ((v41 * (v41 + v41)) + -1.0) + (v38 * (v38 + v38));
-  v45 = ((v38 + v38) * v39) + (v42 * v43);
-  v46 = (v40 * v42) - (v39 * v43);
-  v47 = ((*(a3 + 20) * v45) + (*(a3 + 16) * v44)) + (*(a3 + 24) * v46);
-  v48 = -v47;
-  v49 = fabsf(v44);
-  v50 = fabsf(v45);
-  v51 = fabsf(v46);
-  if (v49 > 1.0 && v50 < 0.000001 && v51 < 0.000001)
-  {
-    if (v44 > 0.0)
-    {
-      v52 = v47 + *v16.i32;
-      v53 = -8.5071e37;
-      v54 = 8.5071e37;
-      v55 = 8.5071e37;
-LABEL_66:
-      v117 = -8.5071e37;
-      goto LABEL_67;
-    }
-
-    v53 = v48 - *v16.i32;
-    v117 = -8.5071e37;
-    v52 = 8.5071e37;
-    v54 = 8.5071e37;
-    v55 = 8.5071e37;
-    v118 = -8.5071e37;
-    goto LABEL_68;
-  }
-
-  if (v49 < 0.000001 && v50 > 1.0 && v51 < 0.000001)
-  {
-    if (v45 <= 0.0)
-    {
-      v117 = v48 - *v16.i32;
-      v53 = -8.5071e37;
-      v52 = 8.5071e37;
-      v54 = 8.5071e37;
-      v55 = 8.5071e37;
-LABEL_67:
-      v118 = -8.5071e37;
-      goto LABEL_68;
-    }
-
-    v54 = v47 + *v16.i32;
-    v53 = -8.5071e37;
-    v52 = 8.5071e37;
-    goto LABEL_65;
-  }
-
-  v53 = -8.5071e37;
-  v52 = 8.5071e37;
-  if (v49 >= 0.000001 || v50 >= 0.000001)
-  {
-    v54 = 8.5071e37;
-LABEL_65:
-    v55 = 8.5071e37;
-    goto LABEL_66;
-  }
-
-  v116 = v51 <= 1.0;
-  v54 = 8.5071e37;
-  v55 = 8.5071e37;
-  v117 = -8.5071e37;
-  v118 = -8.5071e37;
-  if (!v116)
-  {
-    if (v46 > 0.0)
-    {
-      v55 = v47 + *v16.i32;
-      v53 = -8.5071e37;
-      v52 = 8.5071e37;
-      v54 = 8.5071e37;
-      goto LABEL_66;
-    }
-
-    v118 = v48 - *v16.i32;
-    v53 = -8.5071e37;
-    v52 = 8.5071e37;
-    v54 = 8.5071e37;
-    v55 = 8.5071e37;
-    v117 = -8.5071e37;
-  }
-
-LABEL_68:
-  if (v17 != 1.0)
-  {
-    v129 = (v52 + v53) * 0.5;
-    v130 = (v54 + v117) * 0.5;
-    v131 = (v55 + v118) * 0.5;
-    v132 = v52 - v53;
-    v133 = v54 - v117;
-    v134 = (v55 - v118) * 0.5;
-    v135 = (v132 * 0.5) * v17;
-    v136 = (v133 * 0.5) * v17;
-    v137 = v134 * v17;
-    v53 = v129 - v135;
-    v117 = v130 - v136;
-    v118 = v131 - (v134 * v17);
-    v52 = v129 + v135;
-    v54 = v130 + v136;
-    v55 = v131 + v137;
-  }
-
-  *a1 = v53;
-  *(a1 + 4) = v117;
-  *(a1 + 8) = v118;
-  *(a1 + 12) = v52;
-  *(a1 + 16) = v54;
-  *(a1 + 20) = v55;
 }
 
-int32x4_t computeScaledMatrix(uint64_t a1, uint64_t a2, double a3, double a4, double a5, double a6, double a7, double a8, int32x4_t a9)
+float32x4_t physx::Dy::Articulation::saveVelocity(void *a1)
 {
-  a9.i32[0] = *(a2 + 8);
-  v11 = *(a2 + 12);
-  v12 = *(a2 + 20);
-  *v9.i8 = vadd_f32(v11, v11);
-  v13 = vmul_f32(v11, __PAIR64__(v9.u32[1], v11.u32[0]));
-  v14 = vadd_f32(v11, __PAIR64__(v9.u32[1], v11.u32[0]));
-  *v10.i8 = vext_s8(v13, v14, 4uLL);
-  v15 = vmul_f32(v11, v14).f32[0];
-  v16 = vmul_n_f32(v12, v14.f32[0]);
-  *v9.i8 = vrev64_s32(vmul_lane_f32(v12, *v9.i8, 1));
-  v11.i32[0] = 1.0;
-  v17 = vmul_n_f32(v12, vadd_f32(v12, v12).f32[0]);
-  v18.i32[0] = vsub_f32(v11, *v10.i8).u32[0];
-  *v10.i8 = vmul_f32(v11, *v10.i8);
-  v18.i32[1] = v10.i32[1];
-  v19 = vsub_f32(v18, v17);
-  v20 = 1.0 - v15;
-  v18.f32[0] = v20;
-  *v10.i8 = vext_s8(vadd_f32(*v10.i8, v17), vsub_f32(v18, v17), 4uLL);
-  v21 = vsub_f32(v16, *v9.i8).f32[0];
-  v22 = vadd_f32(v16, *v9.i8);
-  v18.f32[0] = *a9.i32 * v21;
-  v23 = __PAIR64__(v22.u32[1], LODWORD(v21));
-  *v13.i32 = v20 - *&v13.i32[1];
-  v24 = vmuls_lane_f32(*a9.i32, v22, 1);
-  v25 = *v13.i32 * *a9.i32;
-  v26 = *a2;
-  v22.i32[1] = vsub_f32(*&v9, v16).i32[1];
-  v27 = vmul_f32(*a2, v22);
-  *a9.i8 = vadd_f32(vadd_f32(vmul_n_f32(v19, v27.f32[0]), vmul_lane_f32(*v10.i8, v27, 1)), vmul_n_f32(v23, *v13.i32 * *a9.i32));
-  v28 = vzip1q_s32(a9, a9);
-  v28.i32[2] = a9.i32[0];
-  v29.i32[0] = v19.i32[0];
-  v29.i32[1] = HIDWORD(*a2);
-  v30 = vmul_f32(vzip1_s32(*a2, *v10.i8), v29);
-  *v9.i8 = vadd_f32(vadd_f32(vmul_n_f32(v19, v30.f32[0]), vmul_lane_f32(*v10.i8, v30, 1)), vmul_n_f32(v23, v18.f32[0]));
-  v31 = vzip1q_s32(v9, v9);
-  v31.i32[2] = v9.i32[0];
-  v26.i32[1] = v10.i32[1];
-  v32 = vmul_f32(v26, vzip2_s32(v19, *a2));
-  *v10.i8 = vadd_f32(vadd_f32(vmul_n_f32(v19, v32.f32[0]), vmul_lane_f32(*v10.i8, v32, 1)), vmul_n_f32(v23, v24));
-  v33 = vzip1q_s32(v10, v10);
-  v33.i32[2] = v10.i32[0];
-  v18.f32[0] = vaddv_f32(vmul_f32(v22, v30)) + (*v13.i32 * v18.f32[0]);
-  v34 = vaddv_f32(vmul_f32(v22, v32)) + (*v13.i32 * v24);
-  v19.f32[0] = vaddv_f32(vmul_f32(v22, v27)) + (*v13.i32 * v25);
-  v35.i64[0] = *a1;
-  v35.i32[2] = *(a1 + 8);
-  v35.i32[3] = *a1;
-  v36.i64[0] = *(a1 + 12);
-  v36.i32[2] = *(a1 + 20);
-  v36.i32[3] = v36.i32[0];
-  v37.i64[0] = *(a1 + 24);
-  v37.i32[2] = *(a1 + 32);
-  v37.i32[3] = v37.i32[0];
-  v38 = vaddq_f32(vaddq_f32(vmulq_f32(v35, v31), vmulq_f32(v33, v36)), vmulq_f32(v28, v37));
-  v28.f32[0] = ((*(a1 + 8) * v18.f32[0]) + (v34 * v36.f32[2])) + (v19.f32[0] * v37.f32[2]);
-  *v36.f32 = vrev64_s32(*a1);
-  v36.i32[2] = *(a1 + 8);
-  v36.i32[3] = v36.i32[0];
-  v39.i32[0] = vdup_lane_s32(*v9.i8, 1).u32[0];
-  v39.i32[1] = v18.i32[0];
-  v39.i64[1] = v39.i64[0];
-  v40.i32[0] = vdup_lane_s32(*v10.i8, 1).u32[0];
-  v40.f32[1] = v34;
-  v40.i64[1] = v40.i64[0];
-  *v41.f32 = vrev64_s32(*(a1 + 12));
-  v41.i32[2] = *(a1 + 20);
-  v42 = vmulq_f32(v36, v39);
-  v41.i32[3] = v41.i32[0];
-  v39.i32[0] = vdup_lane_s32(*a9.i8, 1).u32[0];
-  v39.i32[1] = v19.i32[0];
-  v39.i64[1] = v39.i64[0];
-  *v43.f32 = vrev64_s32(*v37.f32);
-  v43.i64[1] = __PAIR64__(v43.u32[0], v37.u32[2]);
-  v44 = vaddq_f32(vaddq_f32(v42, vmulq_f32(v40, v41)), vmulq_f32(v39, v43));
-  result = vuzp1q_s32(v44, vrev64q_s32(v44));
-  *a1 = v38;
-  *(a1 + 16) = result;
-  *(a1 + 32) = v28.i32[0];
-  return result;
-}
-
-float32x4_t computeMeshBounds(int32x2_t *a1, _OWORD *a2, _DWORD *a3, float32x4_t *a4, float32x4_t *a5, double a6, double a7, double a8, double a9, double a10, double a11, int32x4_t a12)
-{
-  v16 = vdup_lane_s32(*a1, 1);
-  v17 = vdup_laneq_s32(*a1->i8, 2);
-  v18 = vdup_laneq_s32(*a1->i8, 3);
-  _Q4 = vaddq_f32(*a1->i8, *a1->i8);
-  v20 = vdup_lane_s32(vmul_f32(*a1, *_Q4.f32), 0);
-  v21 = vmul_lane_f32(v16, *_Q4.f32, 1);
-  *a12.i8 = vmul_laneq_f32(v17, _Q4, 2);
-  v22 = vmul_n_f32(v16, _Q4.f32[0]);
-  v23 = vmul_n_f32(v17, _Q4.f32[0]);
-  v24 = vmul_n_f32(v18, _Q4.f32[0]);
-  v25 = vmul_lane_f32(v17, *_Q4.f32, 1);
-  v26 = vmul_lane_f32(v18, *_Q4.f32, 1);
-  v27 = vmul_laneq_f32(v18, _Q4, 2);
-  __asm { FMOV            V4.2S, #1.0 }
-
-  v32 = vsub_f32(*_Q4.f32, v20);
-  v33 = COERCE_DOUBLE(vadd_f32(v22, v27));
-  LODWORD(v34) = vsub_f32(v23, v26).u32[0];
-  v35 = COERCE_DOUBLE(vsub_f32(v22, v27));
-  LODWORD(v39) = vsub_f32(v32, *a12.i8).u32[0];
-  v36 = vadd_f32(v25, v24).u32[0];
-  *&v37 = vsub_f32(v32, v21).u32[0];
-  v38 = COERCE_DOUBLE(vext_s8(vadd_f32(v23, v26), vsub_f32(v25, v24), 4uLL));
-  a12.i32[0] = a12.i32[1];
-  *v45 = (1.0 - v21.f32[1]) - *&a12.i32[1];
-  *&v45[4] = LODWORD(v33);
-  HIDWORD(v34) = HIDWORD(v35);
-  *(&v39 + 1) = v38;
-  DWORD1(v39) = v36;
-  *&v45[8] = v34;
-  *&v45[16] = v39;
-  *&v45[32] = LODWORD(v37);
-  if ((a3[1] - 1065353216) | (*a3 - 1065353216) | (a3[2] - 1065353216))
+  v14[255] = *MEMORY[0x1E69E9840];
+  v2 = *(*a1 + 168);
+  physx::Dy::PxcFsFlushVelocity(v2);
+  if (*v2)
   {
-    v21.f32[0] = (1.0 - v21.f32[1]) - *&a12.i32[1];
-    computeScaledMatrix(v45, a3, v37, v35, v38, *&v39, v33, *&v21, a12);
-  }
-
-  *v40.f32 = a1[2];
-  v40.i64[1] = a1[3].u32[0];
-  v41 = *v45;
-  v42 = *&v45[12];
-  v43 = *&v45[24];
-  *a4 = vaddq_f32(v40, vaddq_f32(vaddq_f32(vmulq_n_f32(*v45, COERCE_FLOAT(*a2)), vmulq_lane_f32(*&v45[12], *a2, 1)), vmulq_laneq_f32(*&v45[24], *a2, 2)));
-  result = vaddq_f32(vabsq_f32(vmulq_laneq_f32(v43, *(a2 + 12), 2)), vaddq_f32(vabsq_f32(vmulq_n_f32(v41, COERCE_FLOAT(*(a2 + 12)))), vabsq_f32(vmulq_lane_f32(v42, *(a2 + 12), 1))));
-  *a5 = result;
-  return result;
-}
-
-float physx::Gu::computeBoundsWithCCDThreshold(float32x2_t *a1, float32x2_t *a2, uint64_t a3, uint64_t a4, _OWORD *a5, uint64_t a6, uint64_t a7, uint64_t a8, float32x4_t a9, double a10, double a11, double a12, double a13, double a14, int32x4_t a15)
-{
-  a9.i64[0] = 0;
-  LODWORD(a10) = 1.0;
-  physx::Gu::computeBounds(&v33, a3, a4, a5, a9, a10, a11, a12, a13, a14, a15, a5, a6, a7, a8, v31);
-  v21 = v34;
-  v22 = v36;
-  v23 = (v34 + v36) * 0.5;
-  v24 = v33;
-  v25 = v35;
-  *a1 = vmul_f32(vadd_f32(v33, v35), 0x3F0000003F000000);
-  a1[1].f32[0] = v23;
-  *a2 = vmul_f32(vsub_f32(v25, v24), 0x3F0000003F000000);
-  a2[1].f32[0] = (v22 - v21) * 0.5;
-  v26 = *a3;
-  result = 3.4028e38;
-  if (*a3 <= 3)
-  {
-    if (v26 > 1)
+    v3 = 0;
+    v4 = 0;
+    do
     {
-      if (v26 != 2)
-      {
-        if (v26 != 3)
-        {
-          return result;
-        }
-
-        v28 = *(a3 + 4);
-        if (v28 >= *(a3 + 8))
-        {
-          v28 = *(a3 + 8);
-        }
-
-        if (v28 >= *(a3 + 12))
-        {
-          v28 = *(a3 + 12);
-        }
-
-        return v28 * 0.75;
-      }
-
-      goto LABEL_20;
+      v5 = (a1[2] + v3 * 2);
+      *v5 = *&v2[v3 + 64];
+      v5[1] = *&v2[v3 + 72];
+      ++v4;
+      v6 = *v2;
+      v3 += 16;
     }
 
-    if (v26 != -1)
-    {
-      if (v26)
-      {
-        return result;
-      }
-
-LABEL_20:
-      v28 = *(a3 + 4);
-      return v28 * 0.75;
-    }
-
-LABEL_19:
-    physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 32, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/common/src/../../geomutils/src/GuBounds.cpp", 440, "Gu::GeometryUnion::computeBounds: Unknown shape type.", v18, v19, v20, v32);
-    return 3.4028e38;
-  }
-
-  if (v26 > 5)
-  {
-    if (v26 != 6)
-    {
-      if (v26 != 7)
-      {
-        return result;
-      }
-
-      goto LABEL_19;
-    }
-
-    return 0.0;
-  }
-
-  if (v26 == 4)
-  {
-    v29 = *(a3 + 12);
-    v30 = *(a3 + 4);
-    if (v30 >= *(a3 + 8))
-    {
-      v30 = *(a3 + 8);
-    }
-
-    if (v29 >= v30)
-    {
-      v29 = v30;
-    }
-
-    v28 = *(*(a3 + 32) + 88) * v29;
-    return v28 * 0.75;
-  }
-
-  if (v26 == 5)
-  {
-    return 0.0;
-  }
-
-  return result;
-}
-
-uint64_t physx::Gu::ShapeData::ShapeData(uint64_t a1, uint64_t a2, uint64_t a3, double a4, double a5, float32x4_t a6, double a7, int32x4_t a8, int32x4_t a9, float32x4_t _Q6, int32x4_t _Q7)
-{
-  v15 = fabsf(*(a3 + 12));
-  if (v15 >= 1.0)
-  {
-    __asm { FMOV            V7.2S, #1.0 }
-
-    v36 = 0;
-    v35.i32[0] = 1.0;
-    v37 = 20;
-    a6.i64[0] = 0;
-    _Q6.i64[0] = 0;
+    while (v4 < v6);
   }
 
   else
   {
-    v16 = vdup_lane_s32(*a3, 1);
-    v17 = vdup_laneq_s32(*a3, 2);
-    v18 = vdup_laneq_s32(*a3, 3);
-    _Q6 = vaddq_f32(*a3, *a3);
-    v19 = vdup_lane_s32(vmul_f32(*a3, *_Q6.f32), 0);
-    v20 = vmul_lane_f32(v16, *_Q6.f32, 1);
-    v21 = vmul_laneq_f32(v17, _Q6, 2);
-    v22 = vmul_n_f32(v16, _Q6.f32[0]);
-    v23 = vmul_n_f32(v17, _Q6.f32[0]);
-    v24 = vmul_n_f32(v18, _Q6.f32[0]);
-    v25 = vmul_lane_f32(v17, *_Q6.f32, 1);
-    v26 = vmul_lane_f32(v18, *_Q6.f32, 1);
-    v27 = vmul_laneq_f32(v18, _Q6, 2);
-    __asm { FMOV            V6.2S, #1.0 }
-
-    v35 = vsub_f32(*_Q6.f32, v19);
-    *_Q6.f32 = vadd_f32(v22, v27);
-    v31 = vsub_f32(v23, v26);
-    v32 = vsub_f32(v22, v27);
-    v33 = vsub_f32(v35, v21);
-    v34 = vadd_f32(v25, v24);
-    v35.i32[0] = vsub_f32(v35, v20).u32[0];
-    *a6.f32 = vext_s8(vadd_f32(v23, v26), vsub_f32(v25, v24), 4uLL);
-    v25.f32[0] = (1.0 - v20.f32[1]) - v21.f32[1];
-    *(a1 + 20) = v31.i32[0];
-    v36 = vext_s8(v32, *_Q6.f32, 4uLL);
-    *_Q7.i8 = vdup_lane_s32(v33, 0);
-    _Q7.i32[0] = v25.i32[0];
-    *_Q6.f32 = vzip1_s32(v34, v31);
-    v37 = 48;
+    LODWORD(v6) = 0;
   }
 
-  v38 = __PAIR64__(v36.u32[1], _Q7.u32[0]);
-  *(a1 + 12) = __PAIR64__(v36.u32[1], _Q7.u32[0]);
-  *(a1 + v37) = 0;
-  *(a1 + 24) = v36.i32[0];
-  v39 = vdup_lane_s32(*_Q7.i8, 1).u32[0];
-  v40.i64[1] = a6.i64[0];
-  v40.i32[1] = _Q6.i32[0];
-  *(a1 + 28) = v40;
-  *(a1 + 44) = v35.i32[0];
-  v40.i64[0] = *(a3 + 16);
-  *(a1 + 48) = v40.i64[0];
-  a8.i32[0] = *(a3 + 24);
-  *(a1 + 56) = a8.i32[0];
-  v41 = *a2;
-  if (*a2 > 2)
+  physx::Dy::PxcLtbComputeJv(v12, v2, v2 + 8);
+  result.i64[0] = physx::Dy::PxcLtbSolve(v2, v12, v13).u64[0];
+  if (v6)
   {
-    if (v41 == 3)
+    v8 = v6;
+    v9 = (v2 + 72);
+    v10 = v14;
+    do
     {
-      v67 = vdupq_n_s32(0x3F8147AEu);
-      v68 = vmulq_f32(vaddq_f32(vdupq_lane_s32(*&a4, 0), vaddq_f32(vaddq_f32(vabsq_f32(vmulq_n_f32(*(a1 + 12), *(a2 + 4))), vabsq_f32(vmulq_n_f32(*(a1 + 24), *(a2 + 8)))), vabsq_f32(vmulq_n_f32(*(a1 + 36), *(a2 + 12))))), v67);
-      v69 = *(a1 + 48);
-      v70 = vsubq_f32(v69, v68);
-      v71 = vaddq_f32(v69, v68);
-      v70.i32[3] = v71.i32[0];
-      *(a1 + 72) = v70;
-      *(a1 + 88) = vextq_s8(v71, v71, 4uLL).u64[0];
-      *(a1 + 96) = v71.i32[3];
-      v71.i32[0] = *(a2 + 12);
-      *(a1 + 68) = v71.i32[0];
-      v51 = *v71.i32 * 1.01;
-      v69.i64[0] = *(a2 + 4);
-      *(a1 + 60) = v69.i64[0];
-      *a1 = vmul_f32(*v69.f32, *v67.f32);
-      goto LABEL_19;
+      result = vsubq_f32(v9[-1], v10[-1]);
+      v11 = vsubq_f32(*v9, *v10);
+      v9[-1] = result;
+      *v9 = v11;
+      v9 += 2;
+      v10 += 2;
+      --v8;
     }
 
-    if (v41 == 4)
-    {
-      _X2 = *(a2 + 32);
-      __asm { PRFM            #0, [X2,#0x20] }
+    while (v8);
+  }
 
-      v54 = *(a2 + 4);
-      v55 = *(a2 + 12);
-      if (v54.f32[0] == 1.0 && (v54.f32[1] == 1.0 ? (_ZF = v55 == 1.0) : (_ZF = 0), _ZF))
+  return result;
+}
+
+float32x4_t physx::Dy::Articulation::saveVelocityTGS(void *a1, float a2)
+{
+  v19[255] = *MEMORY[0x1E69E9840];
+  v3 = *(*a1 + 168);
+  physx::Dy::PxcFsFlushVelocity(v3);
+  if (*v3)
+  {
+    v4 = 0;
+    v5 = 0;
+    v6 = &v3[32 * *v3];
+    do
+    {
+      v7 = vmulq_n_f32(*&v6[v4 + 64], a2);
+      v7.i32[3] = 0;
+      v8 = vmulq_n_f32(*&v6[v4 + 72], a2);
+      v8.i32[3] = 0;
+      v9 = (a1[2] + v4 * 2);
+      *v9 = v7;
+      v9[1] = v8;
+      ++v5;
+      v10 = *v3;
+      v4 += 16;
+    }
+
+    while (v5 < v10);
+  }
+
+  else
+  {
+    LODWORD(v10) = 0;
+  }
+
+  physx::Dy::PxcLtbComputeJv(v17, v3, v3 + 8);
+  result.i64[0] = physx::Dy::PxcLtbSolve(v3, v17, v18).u64[0];
+  if (v10)
+  {
+    v12 = v10;
+    v13 = (v3 + 72);
+    v14 = v19;
+    do
+    {
+      result = vsubq_f32(v13[-1], v14[-1]);
+      v15 = vsubq_f32(*v13, *v14);
+      v13[-1] = result;
+      *v13 = v15;
+      v13 += 2;
+      v14 += 2;
+      --v12;
+    }
+
+    while (v12);
+  }
+
+  return result;
+}
+
+void physx::Dy::Articulation::recordDeltaMotion(void *a1, double a2)
+{
+  v2 = *(*a1 + 168);
+  v3 = a1[5];
+  v4 = v2->u16[0];
+  physx::Dy::PxcFsFlushVelocity(v2);
+  v7 = v2->u16[0];
+  v5 = v2 + 8;
+  v6 = v7;
+  if (v7)
+  {
+    v8 = vdupq_lane_s32(*&a2, 0).u64[0];
+    v9 = v4 << 6;
+    v30 = v8;
+    do
+    {
+      v10 = vmulq_n_f32(*v5, *&a2);
+      v10.i32[3] = 0;
+      v11 = (v5 + v9);
+      v16 = *(v5 + v9);
+      v12 = vmulq_n_f32(v5[1], *&a2);
+      v12.i32[3] = 0;
+      v13 = vaddq_f32(v12, *(v5 + v9 + 16));
+      *v11 = vaddq_f32(v16, v10);
+      v11[1] = v13;
+      v14 = vmul_f32(*v5[1].f32, v8);
+      v15 = v5[1].f32[2] * *&a2;
+      *v16.i32 = (COERCE_FLOAT(vmul_f32(v14, v14).i32[1]) + (v14.f32[0] * v14.f32[0])) + (v15 * v15);
+      if (*v16.i32 >= 1.0e-24)
       {
-        v57 = *(_X2 + 40);
-        v58 = *(_X2 + 32);
-        v59 = vrev64_s32(v58);
-        v60 = v35.f32[0] * v57;
-        v61 = vadd_f32(vadd_f32(vmul_f32(v36, v59), vmul_f32(*_Q7.i8, v58)), vmul_n_f32(*a6.f32, v57));
-        v62 = vaddv_f32(vmul_f32(*_Q6.f32, v59)) + v60;
-        v36.i32[1] = _Q7.i32[1];
-        v63 = v36;
+        v19 = sqrtf(*v16.i32);
+        v20 = vmul_n_f32(v14, 1.0 / v19);
+        v21 = v15 * (1.0 / v19);
+        v22 = __sincosf_stret(v19 * 0.5);
+        cosval = v22.__cosval;
+        v8 = v30;
+        *v16.i8 = vmul_n_f32(v20, v22.__sinval);
+        v17 = v22.__sinval * v21;
       }
 
       else
       {
-        v72 = *(a2 + 16);
-        v73 = *(a2 + 20);
-        v74 = v72 + v72;
-        v75 = v73 + v73;
-        v76 = v73 * (v73 + v73);
-        v11.f32[0] = (v72 + v72) * v73;
-        v77 = 1.0 - v76;
-        v78 = 1.0 - (v72 * (v72 + v72));
-        v79.f32[0] = v78 - v76;
-        v80 = v55 * (v78 - v76);
-        v81 = *(_X2 + 40);
-        v82 = *(a2 + 24);
-        v83 = vrev64_s32(vmul_n_f32(v82, v74));
-        v84 = vmul_n_f32(v82, v75);
-        v85 = vmul_n_f32(vrev64_s32(v82), vadd_f32(v82, v82).f32[0]);
-        v86 = vadd_f32(v11, v85);
-        v11.f32[1] = v77;
-        v87 = vsub_f32(v11, v85);
-        v11.f32[1] = v78;
-        v88 = vext_s8(vsub_f32(v11, v85), v86, 4uLL);
-        v89 = vadd_f32(v83, v84);
-        v90 = vsub_f32(v83, v84);
-        v84.i32[0] = vsub_f32(v84, v83).u32[0];
-        v91 = vmul_lane_f32(v88, v54, 1);
-        v92 = vmul_n_f32(v91, v84.f32[0]);
-        v84.i32[1] = v89.i32[1];
-        v83.i32[0] = vdup_lane_s32(v89, 1).u32[0];
-        v93 = vmul_n_f32(v87, v54.f32[0]);
-        v94 = vmul_lane_f32(v93, v89, 1);
-        v89.i32[1] = v90.i32[1];
-        v95 = vmul_f32(vrev64_s32(v54), v84);
-        v96 = vmul_n_f32(v89, v55);
-        v97 = vext_s8(v88, v87, 4uLL);
-        v98 = vzip2_s32(v91, v93);
-        v99 = vrev64_s32(vmul_f32(v97, v98));
-        v100 = vzip1_s32(v91, v93);
-        v101 = vrev64_s32(vmul_f32(v97, v100));
-        v88.i32[1] = v87.i32[1];
-        v102 = vmul_f32(v88, v98);
-        v103 = vmul_f32(v88, v100);
-        v104 = vadd_f32(vmul_f32(v88, v95), vrev64_s32(vmul_f32(v97, v95)));
-        v105 = vadd_f32(vmul_lane_f32(v89, v96, 1), vadd_f32(v102, v99));
-        v106 = vadd_f32(vmul_n_f32(v89, v96.f32[0]), vadd_f32(v103, v101));
-        v107 = vadd_f32(vmul_n_f32(v89, v80), v104);
-        v108 = vadd_f32(vmul_n_f32(v96, v79.f32[0]), vadd_f32(v94, v92));
-        v109 = vmul_f32(*_Q6.f32, v106);
-        v110 = vmul_f32(*_Q6.f32, v108);
-        v83.i32[1] = _Q6.i32[1];
-        v111 = vzip1_s32(v84, *_Q6.f32);
-        _Q6.i32[0] = v35.i32[0];
-        v112 = vmul_f32(*_Q6.f32, vzip1_s32(v107, v105));
-        v63 = vadd_f32(vmul_f32(*a6.f32, v107), vadd_f32(vmul_f32(__PAIR64__(v36.u32[1], _Q7.u32[0]), v105), vmul_f32(__PAIR64__(_Q7.u32[1], v36.u32[0]), v106)));
-        v113 = vadd_f32(vmul_f32(*a6.f32, vrev64_s32(v107)), vadd_f32(vmul_f32(__PAIR64__(v36.u32[1], _Q7.u32[0]), vrev64_s32(v105)), vmul_f32(__PAIR64__(_Q7.u32[1], v36.u32[0]), vrev64_s32(v106))));
-        *_Q6.f32 = vadd_f32(v112, vadd_f32(vdup_lane_s32(v112, 1), v109));
-        v114 = vadd_f32(vmul_f32(v36, v108), vmul_f32(*_Q7.i8, vrev64_s32(v108)));
-        *_Q7.i8 = vadd_f32(vdup_lane_s32(v110, 1), v110);
-        v115 = *(_X2 + 32);
-        v116 = vrev64_s32(v115);
-        v117 = vmul_f32(v116, *_Q6.f32);
-        v118 = vadd_f32(vmul_f32(v116, v63), vmul_f32(v115, v113));
-        v119 = vmul_f32(v83, vzip2_s32(v95, v105));
-        v95.i32[1] = v106.i32[1];
-        v79.i32[1] = v35.i32[0];
-        v107.f32[0] = v80;
-        v120 = vadd_f32(vmul_f32(v79, v107), vadd_f32(v119, vmul_f32(v111, v95)));
-        *a6.f32 = vadd_f32(vmul_n_f32(*a6.f32, v120.f32[0]), v114);
-        v116.i32[0] = v35.i32[0];
-        v35 = vadd_f32(vmul_f32(v116, v120), vzip1_s32(*_Q7.i8, v117));
-        *_Q7.i32 = v81 * v35.f32[0];
-        v61 = vadd_f32(vmul_n_f32(*a6.f32, v81), v118);
-        v38 = __PAIR64__(v63.u32[1], v113.u32[0]);
-        v62 = *_Q7.i32 + v35.f32[1];
-        v63.i32[1] = v113.i32[1];
-        _Q6.i32[1] = v120.i32[1];
+        v16.i64[0] = 0;
+        v17 = 0.0;
+        cosval = 1.0;
       }
 
-      *v40.f32 = vadd_f32(*v40.f32, v61);
-      v40.f32[2] = *a8.i32 + v62;
-      a8.i32[0] = *(_X2 + 52);
-      v121 = v35.f32[0] * *a8.i32;
-      *a6.f32 = vabs_f32(vmul_n_f32(*a6.f32, *a8.i32));
-      a8.i64[0] = *(_X2 + 44);
-      *a9.i8 = vmul_f32(vrev64_s32(*_Q6.f32), *a8.i8);
-      *_Q6.f32 = vabs_f32(vmul_n_f32(v38, *a8.i32));
-      *a6.f32 = vadd_f32(vadd_f32(*_Q6.f32, vabs_f32(vmul_lane_f32(v63, *a8.i8, 1))), *a6.f32);
-      *a8.i8 = vabs_f32(*a9.i8);
-      *a8.i32 = vaddv_f32(*a8.i8);
-      a6.f32[2] = *a8.i32 + fabsf(v121);
-      v128 = vdupq_n_s32(0x3F8147AEu);
-      v122 = vmulq_f32(vaddq_f32(vdupq_lane_s32(*&a4, 0), a6), v128);
-      v123 = vsubq_f32(v40, v122);
-      v124 = vaddq_f32(v40, v122);
-      v123.i32[3] = v124.i32[0];
-      *(a1 + 72) = v123;
-      v123.i64[0] = vextq_s8(v124, v124, 4uLL).u64[0];
-      *(a1 + 88) = v123.i64[0];
-      *(a1 + 96) = v124.i32[3];
-      physx::Gu::computeOBBAroundConvex(v129, a2, _X2, a3, *v124.i64, *v123.i64, a6, *v40.i64, a8, a9, _Q6, _Q7);
-      v125 = v129[1];
-      *(a1 + 12) = v129[0];
-      *(a1 + 28) = v125;
-      v126 = v131 * 1.01;
-      *a1 = vmul_f32(v130, *v128.f32);
-      *(a1 + 8) = v126;
-      *(a1 + 44) = v129[2];
+      v23 = -*&v16.i32[1];
+      *&v16.i32[2] = v17;
+      v24 = v16;
+      v24.f32[3] = -*v16.i32;
+      v25 = vmlaq_n_f32(vmulq_f32(vextq_s8(vdupq_laneq_s32(*v3, 3), *v3, 4uLL), v24), *v3, cosval);
+      v26 = vextq_s8(vextq_s8(v16, v16, 0xCuLL), v16, 8uLL);
+      v27 = vzip1q_s32(*v3, *v3);
+      v27.i32[0] = v3->i64[1];
+      v28 = vuzp1q_s32(vextq_s8(v27, v27, 8uLL), vuzp2q_s32(v27, v26));
+      v29 = vzip1q_s32(vrev64q_s32(v26), v28);
+      v29.i32[1] = v26.i32[2];
+      v26.f32[3] = v23;
+      *v3++ = vmlsq_f32(vmlaq_f32(v25, v27, v26), v29, v28);
+      v5 += 2;
+      --v6;
     }
-  }
 
-  else if (v41)
-  {
-    if (v41 == 2)
-    {
-      v36.i32[0] = *(a1 + 12);
-      *a6.f32 = vabs_f32(v36);
-      v42 = *(a2 + 8);
-      *a6.f32 = vmul_n_f32(*a6.f32, v42);
-      a6.f32[2] = fabsf(_Q6.f32[1]) * v42;
-      v40.i32[2] = a8.i32[0];
-      *&a4 = *(a2 + 4) + *&a4;
-      v43 = vmulq_f32(vaddq_f32(a6, vdupq_lane_s32(*&a4, 0)), vdupq_n_s32(0x3F8147AEu));
-      v44 = vsubq_f32(v40, v43);
-      v45 = vaddq_f32(v40, v43);
-      v44.i32[3] = v45.i32[0];
-      *(a1 + 72) = v44;
-      *(a1 + 88) = vextq_s8(v45, v45, 4uLL).u64[0];
-      *(a1 + 96) = v45.i32[3];
-      v45.i32[0] = *a3;
-      v44.f32[0] = *v45.i32 + *v45.i32;
-      v46 = *(a3 + 12);
-      v47 = v46 + v46;
-      *v45.i32 = ((v46 * (v46 + v46)) + -1.0) + (*v45.i32 * (*v45.i32 + *v45.i32));
-      v48 = *(a2 + 8);
-      *v45.i32 = *v45.i32 * v48;
-      *(a1 + 100) = *(a3 + 16) + *v45.i32;
-      v49 = *(a3 + 4);
-      v50.i32[0] = vdup_lane_s32(v49, 1).u32[0];
-      v50.f32[1] = -v49.f32[0];
-      *v44.f32 = vmul_n_f32(vmla_n_f32(vmul_n_f32(v49, v44.f32[0]), v50, v47), v48);
-      *(a1 + 104) = vadd_f32(*(a3 + 20), *v44.f32);
-      v49.f32[0] = *(a3 + 24) - v44.f32[1];
-      *v44.f32 = vdup_lane_s32(*v44.f32, 0);
-      v44.i32[0] = v45.i32[0];
-      *(a1 + 112) = vsub_f32(*(a3 + 16), *v44.f32);
-      v45.i32[0] = *(a2 + 4);
-      *(a1 + 120) = v49.i32[0];
-      *(a1 + 124) = v45.i32[0];
-      *(a1 + 60) = v48;
-      v44.f32[0] = v48 + *v45.i32;
-      v51 = *v45.i32 * 1.01;
-      *a1 = v44.f32[0] * 1.01;
-      *(a1 + 4) = v51;
-LABEL_19:
-      *(a1 + 8) = v51;
-    }
+    while (v6);
   }
-
-  else
-  {
-    v40.i32[2] = a8.i32[0];
-    *&a4 = *(a2 + 4) + *&a4;
-    v64 = vmulq_f32(vaddq_f32(vdupq_lane_s32(*&a4, 0), 0), vdupq_n_s32(0x3F8147AEu));
-    v65 = vsubq_f32(v40, v64);
-    v66 = vaddq_f32(v40, v64);
-    v65.i32[3] = v66.i32[0];
-    *(a1 + 72) = v65;
-    *(a1 + 88) = vextq_s8(v66, v66, 4uLL).u64[0];
-    *(a1 + 96) = v66.i32[3];
-    v66.i64[0] = *(a3 + 16);
-    v66.i32[2] = *(a3 + 24);
-    v66.i32[3] = *(a2 + 4);
-    *(a1 + 100) = v66;
-  }
-
-  *(a1 + 96) = v15 < 1.0;
-  *(a1 + 98) = *a2;
-  return a1;
 }
 
-float physx::Gu::Box::create(physx::Gu::Box *this, const Capsule *a2)
+void *physx::Dy::Articulation::deltaMotionToMotionVelocity(void *result, float a2)
 {
-  v2 = (*(a2 + 2) + *(a2 + 5)) * 0.5;
-  *(this + 36) = vmul_f32(vadd_f32(*a2, *(a2 + 12)), 0x3F0000003F000000);
-  *(this + 11) = v2;
-  v3 = vsub_f32(*(a2 + 12), *a2);
-  v4 = *(a2 + 5) - *(a2 + 2);
-  v5 = sqrtf((COERCE_FLOAT(vmul_f32(v3, v3).i32[1]) + (v3.f32[0] * v3.f32[0])) + (v4 * v4));
-  if (v5 == 0.0)
+  v2 = *(*result + 168);
+  if (*v2)
   {
-    *this = xmmword_1E3047670;
-    *(this + 1) = xmmword_1E3047670;
-    *(this + 8) = 1065353216;
-  }
-
-  else
-  {
-    v6 = v4 * (1.0 / v5);
-    v7 = vmul_n_f32(v3, 1.0 / v5);
-    *this = v7;
-    *(this + 2) = v6;
-    v8 = v7.f32[1];
-    if (fabsf(v7.f32[1]) <= 0.9999)
+    v3 = 0;
+    v4 = *v2 << 6;
+    v5 = 64;
+    do
     {
-      v11 = -v7.f32[0];
-      *(this + 3) = v6;
-      *(this + 4) = 0;
-      *(this + 5) = -v7.f32[0];
-      v12 = sqrtf(((v6 * v6) + 0.0) + (v7.f32[0] * v7.f32[0]));
-      v7.f32[0] = v6;
-      v13 = v11;
-      if (v12 > 0.0)
-      {
-        v7 = vmul_n_f32(LODWORD(v6), 1.0 / v12);
-        *(this + 12) = v7;
-        v13 = (1.0 / v12) * v11;
-        *(this + 5) = v13;
-      }
-
-      *(this + 6) = v8 * v13;
-      *(this + 7) = (v13 * v11) + (v6 * v7.f32[0]);
-      *(this + 8) = -(v8 * v7.f32[0]);
+      v6 = vmulq_n_f32(*(v2 + v4 + 128), a2);
+      v6.i32[3] = 0;
+      v7 = vmulq_n_f32(*(v2 + v4 + 144), a2);
+      v7.i32[3] = 0;
+      v8 = result[2] + v5 * 2;
+      *(v8 - 128) = v6;
+      *(v8 - 112) = v7;
+      v9 = &v2[v5];
+      *v9 = v6;
+      v9[1] = *(v8 - 112);
+      ++v3;
+      v5 += 16;
+      v4 += 32;
     }
 
-    else
-    {
-      *(this + 12) = xmmword_1E3047670;
-      *(this + 7) = v6;
-      *(this + 8) = -v7.f32[1];
-      v9 = sqrtf((v6 * v6) + (v7.f32[1] * v7.f32[1]));
-      if (v9 > 0.0)
-      {
-        v10 = 1.0 / v9;
-        *(this + 6) = v10 * 0.0;
-        *(this + 7) = v6 * v10;
-        *(this + 8) = v10 * -v7.f32[1];
-      }
-    }
+    while (v3 < *v2);
   }
 
-  v14 = *(a2 + 6);
-  result = v14 + (v5 * 0.5);
-  *(this + 12) = result;
-  *(this + 13) = v14;
-  *(this + 14) = v14;
   return result;
 }
 
-float physx::Gu::computeOBBPoints(uint64_t a1, float32x2_t *a2, float *a3, float32x2_t *a4, float32x2_t *a5, float32x2_t *a6)
+void physx::Dy::Articulation::getDataSizes(physx::Dy::Articulation *this, int a2, unsigned int *a3, unsigned int *a4, unsigned int *a5)
 {
-  v6 = *a3;
-  v7 = a3[1];
-  v8 = *a3 * a4[1].f32[0];
-  v9 = v7 * a5[1].f32[0];
-  v10 = a3[2];
-  v11 = v10 * a6[1].f32[0];
-  v12 = a2[1].f32[0] - v8;
-  *(a1 + 92) = v12;
-  *(a1 + 56) = v12;
-  *(a1 + 44) = v12;
-  *(a1 + 8) = v12;
-  v13 = v8 + a2[1].f32[0];
-  v14 = vmul_n_f32(*a4, v6);
-  v15 = vmul_n_f32(*a5, v7);
-  v16 = vmul_n_f32(*a6, v10);
-  v17 = vsub_f32(*a2, v14);
-  *(a1 + 84) = v17;
-  *(a1 + 48) = v17;
-  *(a1 + 36) = v17;
-  *a1 = v17;
-  v18 = vadd_f32(v15, v16);
-  *(a1 + 8) = v12 - (v9 + v11);
-  v19 = vadd_f32(v14, *a2);
-  *a1 = vsub_f32(v17, v18);
-  *(a1 + 12) = vsub_f32(v19, v18);
-  *(a1 + 20) = v13 - (v9 + v11);
-  *(a1 + 72) = vadd_f32(v18, v19);
-  *(a1 + 80) = (v9 + v11) + v13;
-  *(a1 + 84) = vadd_f32(v18, v17);
-  *(a1 + 92) = (v9 + v11) + v12;
-  v20 = v9 - v11;
-  v21 = vsub_f32(v15, v16);
-  *(a1 + 24) = vadd_f32(v21, v19);
-  *(a1 + 32) = v20 + v13;
-  *(a1 + 36) = vadd_f32(v21, v17);
-  *(a1 + 44) = v20 + v12;
-  *(a1 + 48) = vsub_f32(v17, v21);
-  *(a1 + 56) = v12 - v20;
-  *(a1 + 60) = vsub_f32(v19, v21);
-  result = v13 - v20;
-  *(a1 + 68) = result;
-  return result;
+  v5 = 304 * a2 + 4 * ((a2 + 15) & 0x3FFFFFF0) + 272;
+  *a3 = v5;
+  *a4 = v5 + 528 * a2;
+  *a5 = 672 * a2;
 }
 
-uint64_t physx::Gu::computeBoxAroundCapsule(uint64_t this, const Capsule *a2, physx::Gu::Box *a3)
+uint64_t physx::Dy::Articulation::getImpulseResponse(uint64_t a1, uint64_t a2, uint64_t a3, float32x4_t *a4, float32x4_t *a5)
 {
-  v3 = (*(this + 8) + *(this + 20)) * 0.5;
-  *(a2 + 36) = vmul_f32(vadd_f32(*this, *(this + 12)), 0x3F0000003F000000);
-  *(a2 + 11) = v3;
-  v4 = *(this + 4) - *(this + 16);
-  v5 = *(this + 8) - *(this + 20);
-  v6 = sqrtf(((v4 * v4) + ((*this - *(this + 12)) * (*this - *(this + 12)))) + (v5 * v5));
-  v7 = *(this + 24);
-  *(a2 + 12) = v7 + (v6 * 0.5);
-  *(a2 + 13) = v7;
-  *(a2 + 14) = v7;
-  v8 = 0.0;
-  if (v6 == 0.0)
+  return physx::Dy::ArticulationHelper::getImpulseResponse(*(a1 + 168), a2, a4, a5);
+}
+
+{
+  return physx::Dy::ArticulationHelper::getImpulseResponse(*(a1 + 168), a2, a4, a5);
+}
+
+uint64_t physx::Dy::ArticulationHelper::getImpulseResponse(uint64_t result, unsigned int a2, float32x4_t *a3, float32x4_t *a4)
+{
+  v68 = *MEMORY[0x1E69E9840];
+  v4 = (result + *(result + 18));
+  v5 = v4 + 9;
+  v6 = result + *(result + 2);
+  v7 = vnegq_f32(*a3);
+  v7.i32[3] = 0;
+  v8 = vnegq_f32(a3[1]);
+  v8.i32[3] = 0;
+  if (a2)
   {
-    v9 = 0x3F80000000000000;
-    v10 = 1065353216;
-    v11 = 1.0;
-    v12 = 0.0;
-    v13 = 0.0;
-    v14 = 0.0;
+    v9 = 0;
+    v10 = v7;
+    do
+    {
+      v11 = &v5[10 * a2];
+      v12 = (v6 + 32 * a2);
+      v14 = *v12;
+      v13 = v12[1];
+      v15 = vextq_s8(v13, v13, 8uLL).u64[0];
+      v16 = vmls_f32(vmul_f32(*v10.i8, vext_s8(*v13.i8, v15, 4uLL)), *&vextq_s8(v10, v10, 4uLL), *v13.i8);
+      *v13.i8 = vext_s8(v16, vmls_f32(vmul_f32(*&vextq_s8(v10, v10, 8uLL), *v13.i8), *v10.i8, v15), 4uLL);
+      v13.i64[1] = v16.u32[0];
+      v17 = vaddq_f32(v8, v13);
+      *&v67[4 * v9 + 64] = v17;
+      v18 = vmlsq_laneq_f32(v10, v11[4], v17, 2);
+      v18.i64[1] = vextq_s8(v18, v18, 8uLL).u32[0];
+      v19 = vmlsq_lane_f32(v18, v11[2], *v17.f32, 1);
+      v19.i64[1] = vextq_s8(v19, v19, 8uLL).u32[0];
+      v20 = vmlsq_lane_f32(v19, *v11, *v17.f32, 0);
+      v7.i64[0] = v20.i64[0];
+      v7.i64[1] = vextq_s8(v20, v20, 8uLL).u32[0];
+      v21 = vmlsq_laneq_f32(v8, v11[5], v17, 2);
+      v21.i64[1] = vextq_s8(v21, v21, 8uLL).u32[0];
+      v22 = vmlsq_lane_f32(v21, v11[3], *v17.f32, 1);
+      v22.i64[1] = vextq_s8(v22, v22, 8uLL).u32[0];
+      v23 = vmlsq_lane_f32(v22, v11[1], *v17.f32, 0);
+      v24 = vextq_s8(v14, v14, 8uLL).u64[0];
+      v25 = vmls_f32(vmul_f32(*v14.i8, *&vextq_s8(v20, v20, 4uLL)), vext_s8(*v14.i8, v24, 4uLL), *v20.i8);
+      *v20.i8 = vext_s8(v25, vmls_f32(vmul_f32(v24, *v20.i8), *v14.i8, *&v7.u32[2]), 4uLL);
+      v20.i64[1] = v25.u32[0];
+      v23.i64[1] = vextq_s8(v23, v23, 8uLL).u32[0];
+      v8 = vaddq_f32(v23, v20);
+      v26 = v9 + 1;
+      v67[v9] = a2;
+      a2 = *(result + 64 + a2);
+      v10 = v7;
+      ++v9;
+    }
+
+    while (a2);
   }
 
   else
   {
-    v10 = vsub_f32(*(this + 12), *this);
-    v12 = *(this + 20) - *(this + 8);
-    v15 = sqrtf((COERCE_FLOAT(vmul_f32(v10, v10).i32[1]) + (v10.f32[0] * v10.f32[0])) + (v12 * v12));
-    if (v15 > 0.0)
-    {
-      v16 = 1.0 / v15;
-      v10 = vmul_n_f32(v10, v16);
-      v12 = v12 * v16;
-    }
-
-    if (fabsf(v10.f32[1]) <= 0.9999)
-    {
-      v19 = -v10.f32[0];
-      v20 = sqrtf(((v12 * v12) + 0.0) + (v10.f32[0] * v10.f32[0]));
-      v9 = LODWORD(v12);
-      if (v20 <= 0.0)
-      {
-        v8 = -v10.f32[0];
-      }
-
-      else
-      {
-        v21 = 1.0 / v20;
-        v9 = vmul_n_f32(LODWORD(v12), v21);
-        v8 = v21 * v19;
-      }
-
-      v13 = v10.f32[1] * v8;
-      v14 = (v8 * v19) + (v12 * v9.f32[0]);
-      v11 = -v10.f32[1] * v9.f32[0];
-    }
-
-    else
-    {
-      v11 = -v10.f32[1];
-      v17 = sqrtf((v12 * v12) + (v10.f32[1] * v10.f32[1]));
-      v9 = 1065353216;
-      if (v17 <= 0.0)
-      {
-        v13 = 0.0;
-        v14 = v12;
-      }
-
-      else
-      {
-        v18 = 1.0 / v17;
-        v8 = 0.0;
-        v13 = (1.0 / v17) * 0.0;
-        v14 = v12 * v18;
-        v11 = v18 * v11;
-      }
-    }
+    v26 = 0;
   }
 
-  *a2 = v10;
-  *(a2 + 2) = v12;
-  *(a2 + 12) = v9;
-  *(a2 + 5) = v8;
-  *(a2 + 6) = v13;
-  *(a2 + 7) = v14;
-  *(a2 + 8) = v11;
-  return this;
-}
-
-uint64_t sweepCapsule_BoxGeom_Precise(uint64_t a1, uint64_t a2, float a3, uint64_t a4, uint64_t a5, float32x2_t *a6, uint64_t a7, uint64_t a8, __int16 *a9)
-{
-  if (a6->f32[0] == a6[1].f32[1] && a6->f32[1] == a6[2].f32[0] && a6[1].f32[0] == a6[2].f32[1])
-  {
-    v16 = vdup_lane_s32(*a2, 1);
-    v17 = vdup_laneq_s32(*a2, 2);
-    v18 = vdup_laneq_s32(*a2, 3);
-    _Q5 = vaddq_f32(*a2, *a2);
-    v20 = vdup_lane_s32(vmul_f32(*a2, *_Q5.f32), 0);
-    v21 = vmul_lane_f32(v16, *_Q5.f32, 1);
-    v22 = vmul_laneq_f32(v17, _Q5, 2);
-    v23 = vmul_n_f32(v16, _Q5.f32[0]);
-    v24 = vmul_n_f32(v17, _Q5.f32[0]);
-    v25 = vmul_n_f32(v18, _Q5.f32[0]);
-    v26 = vmul_lane_f32(v17, *_Q5.f32, 1);
-    v27 = vmul_lane_f32(v18, *_Q5.f32, 1);
-    v28 = vmul_laneq_f32(v18, _Q5, 2);
-    __asm { FMOV            V5.2S, #1.0 }
-
-    v33 = vsub_f32(*_Q5.f32, v20);
-    LODWORD(v34) = vsub_f32(v24, v27).u32[0];
-    LODWORD(v35) = vadd_f32(v26, v25).u32[0];
-    v77.f32[0] = (1.0 - v21.f32[1]) - v22.f32[1];
-    v77.i32[1] = vadd_f32(v23, v28).u32[0];
-    HIDWORD(v34) = vsub_f32(v23, v28).i32[1];
-    *v78 = v34;
-    HIDWORD(v35) = vadd_f32(v24, v27).i32[1];
-    *&v78[8] = vsub_f32(v33, v22).u32[0];
-    *&v79 = v35;
-    *(&v79 + 1) = vzip1_s32(vsub_f32(v26, v25), vsub_f32(v33, v21));
-    *&v36 = *(a2 + 16);
-    DWORD2(v36) = *(a2 + 24);
-    HIDWORD(v36) = *(a1 + 4);
-    v80 = v36;
-    v81 = *(a1 + 8);
-    LODWORD(v36) = a6[3].i32[0];
-    v37 = (a8 + 48);
-    v72.i16[0] = *a9;
-    result = physx::Gu::sweepBoxSphere(&v77, a6, a7, (a8 + 48), (a8 + 36), &v72, *&v36, a3);
-    if (!result)
-    {
-      return result;
-    }
-
-    v39 = -*(a8 + 44);
-    *(a8 + 36) = vneg_f32(*(a8 + 36));
-    *(a8 + 44) = v39;
-    *(a8 + 20) = 2;
-    if ((*a9 & 1) == 0)
-    {
-      return 1;
-    }
-
-    v40 = *v37;
-    if (*v37 == 0.0)
-    {
-      return 1;
-    }
-
-    v41 = (v40 * *(a7 + 8)) + a6[1].f32[0];
-    *v72.f32 = vadd_f32(vmul_n_f32(*a7, v40), *a6);
-    v72.f32[2] = v41;
-    physx::Gu::distancePointBoxSquared(v72.f32, &v80, &v80 + 12, &v77, &v75);
-    v42 = (((v75.f32[0] * *v78) + (v75.f32[1] * *&v79)) + (v76 * *(&v79 + 3))) + *(&v80 + 2);
-    *(a8 + 24) = vadd_f32(vadd_f32(vadd_f32(vmul_n_f32(v77, v75.f32[0]), vmul_n_f32(*&v78[4], v75.f32[1])), vmul_n_f32(*(&v79 + 4), v76)), *&v80);
-    *(a8 + 32) = v42;
-    v43 = 3;
-    goto LABEL_12;
-  }
-
-  v44 = (a8 + 48);
-  v77.i16[0] = *a9;
-  result = physx::Gu::sweepCapsuleBox(a6, a2, (a1 + 4), a7, a8 + 24, (a8 + 48), a8 + 36, &v77, a3);
-  if (!result)
-  {
-    return result;
-  }
-
-  *(a8 + 20) = 2;
-  if (*a9)
-  {
-    v45.i32[0] = *v44;
-    if (*v44 != 0.0)
-    {
-      v74 = a6[3].i32[0];
-      *v46.i32 = *v45.i32 * *a7;
-      v47 = a6[2];
-      *v45.i8 = vmul_n_f32(*(a7 + 4), *v45.i32);
-      v48 = vextq_s8(vextq_s8(v46, v46, 4uLL), v45, 0xCuLL);
-      v48.i32[3] = v48.i32[0];
-      v72 = vaddq_f32(*a6->f32, v48);
-      v49 = *a2;
-      v50 = vdup_lane_s32(*a2, 1);
-      v73 = vadd_f32(v47, *v45.i8);
-      v51 = vdup_laneq_s32(v49, 2);
-      v52 = vdup_laneq_s32(v49, 3);
-      _Q4 = vaddq_f32(v49, v49);
-      *v49.f32 = vdup_lane_s32(vmul_f32(*v49.f32, *_Q4.f32), 0);
-      v54 = vmul_lane_f32(v50, *_Q4.f32, 1);
-      v55 = vmul_laneq_f32(v51, _Q4, 2);
-      v56 = vmul_n_f32(v50, _Q4.f32[0]);
-      v57 = vmul_n_f32(v51, _Q4.f32[0]);
-      v58 = vmul_n_f32(v52, _Q4.f32[0]);
-      v59 = vmul_lane_f32(v51, *_Q4.f32, 1);
-      v60 = vmul_lane_f32(v52, *_Q4.f32, 1);
-      v61 = vmul_laneq_f32(v52, _Q4, 2);
-      __asm { FMOV            V4.2S, #1.0 }
-
-      *v49.f32 = vsub_f32(*_Q4.f32, *v49.f32);
-      LODWORD(v62) = vsub_f32(v57, v60).u32[0];
-      LODWORD(v63) = vadd_f32(v59, v58).u32[0];
-      v77.f32[0] = (1.0 - v54.f32[1]) - v55.f32[1];
-      v77.i32[1] = vadd_f32(v56, v61).u32[0];
-      HIDWORD(v62) = vsub_f32(v56, v61).i32[1];
-      *v78 = v62;
-      *&v78[8] = vsub_f32(*v49.f32, v55).u32[0];
-      HIDWORD(v63) = vadd_f32(v57, v60).i32[1];
-      *&v79 = v63;
-      *(&v79 + 1) = vzip1_s32(vsub_f32(v59, v58), vsub_f32(*v49.f32, v54));
-      *&v64 = *(a2 + 16);
-      DWORD2(v64) = *(a2 + 24);
-      HIDWORD(v64) = *(a1 + 4);
-      v80 = v64;
-      v81 = *(a1 + 8);
-      physx::Gu::distanceSegmentBoxSquared(v72.f32, (&v72 | 0xC), &v80, (&v80 + 12), &v77, 0, &v75);
-      v66 = *(a2 + 8);
-      v65 = *(a2 + 12);
-      v67 = (v65 * v65) + -0.5;
-      v68 = *(a2 + 4);
-      v69 = (((v75.f32[1] + v75.f32[1]) * v68) + (*a2 * (v75.f32[0] + v75.f32[0]))) + (v66 * (v76 + v76));
-      v70 = *(a2 + 20) + (((v65 * ((v66 * (v75.f32[0] + v75.f32[0])) - (*a2 * (v76 + v76)))) + ((v75.f32[1] + v75.f32[1]) * v67)) + (v68 * v69));
-      v71 = *(a2 + 24) + (((v65 * ((*a2 * (v75.f32[1] + v75.f32[1])) - (v68 * (v75.f32[0] + v75.f32[0])))) + ((v76 + v76) * v67)) + (v66 * v69));
-      *(a8 + 24) = *(a2 + 16) + (((v65 * ((v68 * (v76 + v76)) - (v66 * (v75.f32[1] + v75.f32[1])))) + ((v75.f32[0] + v75.f32[0]) * v67)) + (*a2 * v69));
-      *(a8 + 28) = v70;
-      *(a8 + 32) = v71;
-      v43 = *(a8 + 20) | 1;
-LABEL_12:
-      *(a8 + 20) = v43;
-    }
-  }
-
-  return 1;
-}
-
-uint64_t sweepBox_SphereGeom_Precise(uint64_t a1, float32x2_t *a2, float a3, float a4, uint64_t a5, uint64_t a6, uint64_t a7, float32x2_t *a8, uint64_t a9, __int16 *a10)
-{
-  v15 = *(a7 + 44) - a2[3].f32[0];
-  v16 = *(a7 + 16);
-  *v31 = *a7;
-  *&v31[16] = v16;
-  v32 = *(a7 + 32);
-  v33 = vsub_f32(*(a7 + 36), a2[2]);
-  v34 = v15;
-  v35 = *(a7 + 48);
-  v36 = *(a7 + 56);
-  v17 = *(a1 + 4) + a4;
-  v29 = 0;
-  v30 = 0.0;
-  v18 = -a8[1].f32[0];
-  v27 = vneg_f32(*a8);
-  v28 = v18;
-  v19 = (a9 + 48);
-  v26 = *a10;
-  v20 = physx::Gu::sweepBoxSphere(v31, &v29, &v27, (a9 + 48), (a9 + 36), &v26, v17, a3);
-  if (v20)
-  {
-    *(a9 + 20) = 2;
-    if (*a10)
-    {
-      v21 = *v19;
-      if (*v19 != 0.0)
-      {
-        v22 = v21 * a8[1].f32[0];
-        v23 = vmul_n_f32(*a8, v21);
-        v29 = vneg_f32(v23);
-        v30 = -v22;
-        physx::Gu::distancePointBoxSquared(&v29, &v33, &v35, v31, &v27);
-        v24 = v22 + ((((v27.f32[0] * *&v31[8]) + (v27.f32[1] * *&v31[20])) + (v28 * v32)) + *(a7 + 44));
-        *(a9 + 24) = vadd_f32(v23, vadd_f32(vadd_f32(vadd_f32(vmul_n_f32(*v31, v27.f32[0]), vmul_n_f32(*&v31[12], v27.f32[1])), vmul_n_f32(*&v31[24], v28)), *(a7 + 36)));
-        *(a9 + 32) = v24;
-        *(a9 + 20) = 3;
-      }
-    }
-  }
-
-  return v20;
-}
-
-uint64_t sweepBox_CapsuleGeom_Precise(uint64_t a1, float32x2_t *a2, float a3, uint64_t a4, __int128 *a5, uint64_t a6, float32x2_t *a7, uint64_t a8, __int16 *a9)
-{
-  v13 = *(a6 + 44) - a2[3].f32[0];
-  v14 = *(a6 + 16);
-  *v42 = *a6;
-  *&v42[16] = v14;
-  v43 = *(a6 + 32);
-  v44 = vsub_f32(*(a6 + 36), a2[2]);
-  v45 = v13;
-  v46 = *(a6 + 48);
-  v47 = *(a6 + 56);
-  LODWORD(v14) = a2->i32[0];
-  v15 = a2->f32[1];
-  v16 = *&v14 + *&v14;
-  v18 = a2[1].f32[0];
-  v17 = a2[1].f32[1];
-  v19 = v17 + v17;
-  *&v14 = ((v17 * (v17 + v17)) + -1.0) + (*&v14 * (*&v14 + *&v14));
-  v20 = (v16 * v15) + (v18 * (v17 + v17));
-  v21 = (v16 * v18) - (v15 * v19);
-  v23 = *(a1 + 4);
-  v22 = *(a1 + 8);
-  v40[0] = *&v14 * v22;
-  v40[1] = v22 * v20;
-  v40[2] = v21 * v22;
-  v41[0] = -(*&v14 * v22);
-  v41[1] = -(v22 * v20);
-  v41[2] = -(v21 * v22);
-  v41[3] = v23;
-  v37 = *a5;
-  v38 = v44;
-  v39 = v13;
-  v24 = -a7[1].f32[0];
-  v33 = vneg_f32(*a7);
-  v34 = v24;
-  v25 = (a8 + 48);
-  v32 = *a9;
-  v26 = physx::Gu::sweepCapsuleBox(v40, &v37, &v46, &v33, a8 + 24, (a8 + 48), &v35, &v32, a3);
+  v27 = vmulq_n_f32(*v4, v7.f32[0]);
+  v27.i32[3] = 0;
+  v28 = vmulq_lane_f32(v4[1], *v7.f32, 1);
+  v28.i32[3] = 0;
+  v29 = v4[3];
+  v30 = vmulq_laneq_f32(v4[2], v7, 2);
+  v30.i32[3] = 0;
+  v31 = vmulq_n_f32(v29, v8.f32[0]);
+  v31.i32[3] = 0;
+  v32 = vaddq_f32(v27, v28);
+  v33 = v4[4];
+  v34 = v4[5];
+  v35 = vmulq_lane_f32(v33, *v8.f32, 1);
+  v35.i32[3] = 0;
+  v36 = vaddq_f32(v32, v30);
+  v37 = vmulq_laneq_f32(v34, v8, 2);
+  v37.i32[3] = 0;
+  v38 = vnegq_f32(vaddq_f32(v36, vaddq_f32(vaddq_f32(v31, v35), v37)));
+  v38.i32[3] = 0;
+  v39 = vmulq_f32(v7, v29);
+  v39.i64[0] = vpaddq_f32(v39, v39).u64[0];
+  v40 = vmulq_f32(v7, v33);
+  v40.i64[0] = vpaddq_f32(v40, v40).u64[0];
+  v41 = vmulq_f32(v7, v34);
+  v41.i64[0] = vpaddq_f32(v41, v41).u64[0];
+  *v40.f32 = vext_s8(vpadd_f32(*v39.f32, *v39.f32), vpadd_f32(*v40.f32, *v40.f32), 4uLL);
+  v40.i64[1] = vpadd_f32(*v41.f32, *v41.f32).u32[0];
+  v42 = vmulq_n_f32(v4[6], v8.f32[0]);
+  v42.i32[3] = 0;
+  v43 = vmulq_lane_f32(v4[7], *v8.f32, 1);
+  v43.i32[3] = 0;
+  v44 = vmulq_laneq_f32(v4[8], v8, 2);
+  v44.i32[3] = 0;
+  v45 = vnegq_f32(vaddq_f32(vaddq_f32(vaddq_f32(v42, v43), v44), v40));
+  v45.i32[3] = 0;
   if (v26)
   {
-    v27 = -v36;
-    *(a8 + 36) = vneg_f32(v35);
-    *(a8 + 44) = v27;
-    *(a8 + 20) = 2;
-    if (*a9)
-    {
-      v28 = *v25;
-      if (*v25 != 0.0)
-      {
-        v29 = v28 * a7[1].f32[0];
-        v44 = vadd_f32(vmul_n_f32(*a7, v28), v44);
-        v45 = v29 + v45;
-        physx::Gu::distanceSegmentBoxSquared(v40, v41, &v44, &v46, v42, 0, &v33);
-        v30 = ((((v33.f32[0] * *&v42[8]) + (v33.f32[1] * *&v42[20])) + (v34 * v43)) + v45) + a2[3].f32[0];
-        *(a8 + 24) = vadd_f32(vadd_f32(vadd_f32(vadd_f32(vmul_n_f32(*v42, v33.f32[0]), vmul_n_f32(*&v42[12], v33.f32[1])), vmul_n_f32(*&v42[24], v34)), v44), a2[2]);
-        *(a8 + 32) = v30;
-        *(a8 + 20) |= 1u;
-      }
-    }
-  }
-
-  return v26;
-}
-
-float32_t sweepBox_BoxGeom_Precise(uint64_t a1, uint64_t a2, float a3, uint64_t a4, uint64_t a5, uint64_t a6, float32x2_t *a7, float32x2_t *a8, __int16 *a9)
-{
-  v11 = *(a6 + 44) - *(a2 + 24);
-  v12 = *(a6 + 16);
-  v41[0] = *a6;
-  v41[1] = v12;
-  v42 = *(a6 + 32);
-  v43 = vsub_f32(*(a6 + 36), *(a2 + 16));
-  v44 = v11;
-  v45 = *(a6 + 48);
-  v13 = *a2;
-  *&v12 = vdup_lane_s32(*a2, 1);
-  v14 = vdup_laneq_s32(*a2, 2);
-  v15 = vdup_laneq_s32(*a2, 3);
-  v46 = *(a6 + 56);
-  v16 = vaddq_f32(v13, v13);
-  *v13.f32 = vdup_lane_s32(vmul_f32(*v13.f32, *v16.f32), 0);
-  v17 = vmul_lane_f32(*&v12, *v16.f32, 1);
-  v18 = vmul_laneq_f32(v14, v16, 2);
-  *&v12 = vmul_n_f32(*&v12, v16.f32[0]);
-  v19 = vmul_n_f32(v14, v16.f32[0]);
-  v20 = vmul_n_f32(v15, v16.f32[0]);
-  v21 = vmul_lane_f32(v14, *v16.f32, 1);
-  v22 = vmul_lane_f32(v15, *v16.f32, 1);
-  *v16.f32 = vmul_laneq_f32(v15, v16, 2);
-  __asm { FMOV            V5.2S, #1.0 }
-
-  *v13.f32 = vsub_f32(_D5, *v13.f32);
-  LODWORD(v28) = vsub_f32(v19, v22).u32[0];
-  LODWORD(v29) = vadd_f32(v21, v20).u32[0];
-  v32[0] = (1.0 - v17.f32[1]) - v18.f32[1];
-  LODWORD(v32[1]) = vadd_f32(*&v12, *v16.f32).u32[0];
-  HIDWORD(v28) = vsub_f32(*&v12, *&v16).i32[1];
-  v33 = v28;
-  v34 = vsub_f32(*v13.f32, v18).u32[0];
-  HIDWORD(v29) = vadd_f32(v19, v22).i32[1];
-  v35 = v29;
-  v36 = vzip1_s32(vsub_f32(v21, v20), vsub_f32(*v13.f32, v17));
-  v37 = 0;
-  v38 = 0;
-  v39 = *(a1 + 4);
-  v40 = *(a1 + 12);
-  v31 = *a9;
-  if (physx::Gu::sweepBoxBox(v41, v32, a7, &v31, a8, a3))
-  {
-    result = a8[6].f32[0];
-    if (result != 0.0)
-    {
-      a8[3] = vadd_f32(*(a2 + 16), a8[3]);
-      result = *(a2 + 24) + a8[4].f32[0];
-      a8[4].f32[0] = result;
-    }
-  }
-
-  return result;
-}
-
-uint64_t sweepBox_HeightFieldGeom_Precise(float32x2_t *a1, float *a2, float a3, uint64_t a4, uint64_t a5, __int128 *a6, uint64_t a7, uint64_t a8, __int16 *a9)
-{
-  physx::Gu::computeSweptBox(&v72, a6 + 12, (a6 + 36), a6, a7, a3);
-  if (v80 >= 0.0)
-  {
-    v18 = v73 - v75;
-    if (v72 >= -v76)
-    {
-      v27 = v80 + ((v72 + 1.0) + v76);
-      v28 = 0.5 / sqrtf(v27);
-      v20 = v28 * (v77 - v79);
-      v21 = v28 * (v78 - v74);
-      v22 = v28 * v18;
-      v24 = v27 * v28;
-      goto LABEL_9;
-    }
-
-    v23 = v80 + ((1.0 - v72) - v76);
-    v19 = 0.5 / sqrtf(v23);
-    v20 = v19 * (v78 + v74);
-    v21 = v19 * (v77 + v79);
-    v22 = v23 * v19;
-  }
-
-  else
-  {
-    v16 = v73 + v75;
-    if (v72 <= v76)
-    {
-      v25 = ((1.0 - v72) + v76) - v80;
-      v26 = 0.5 / sqrtf(v25);
-      v20 = v26 * v16;
-      v21 = v25 * v26;
-      v22 = v26 * (v77 + v79);
-      v24 = v26 * (v78 - v74);
-      goto LABEL_9;
-    }
-
-    v17 = ((v72 + 1.0) - v76) - v80;
-    v18 = v77 - v79;
-    v19 = 0.5 / sqrtf(v17);
-    v20 = v17 * v19;
-    v21 = v19 * v16;
-    v22 = v19 * (v78 + v74);
-  }
-
-  v24 = v19 * v18;
-LABEL_9:
-  v29 = v21 + v21;
-  v30 = v22 + v22;
-  v31 = v21 * (v21 + v21);
-  v32 = v22 * (v22 + v22);
-  v33 = (v20 + v20) * v21;
-  v34 = (v20 + v20) * v22;
-  v35 = (v20 + v20) * v24;
-  v36 = v29 * v22;
-  v37 = v29 * v24;
-  v38 = v30 * v24;
-  v39 = (1.0 - v31) - v32;
-  v40 = v33 + v38;
-  v41 = v33 - v38;
-  v42 = 1.0 - (v20 * (v20 + v20));
-  v43 = v42 - v32;
-  v44 = v36 + v35;
-  v45 = (fabsf(v39 * v84) + fabsf(v41 * v85)) + fabsf((v34 + v37) * v86);
-  v46 = (fabsf(v40 * v84) + fabsf(v43 * v85)) + fabsf((v36 - v35) * v86);
-  v47 = (fabsf((v34 - v37) * v84) + fabsf(v44 * v85)) + fabsf((v42 - v31) * v86);
-  v71[0] = v81 - v45;
-  v71[1] = v82 - v46;
-  v71[2] = v83 - v47;
-  v71[3] = v81 + v45;
-  v71[4] = v82 + v46;
-  v71[5] = v83 + v47;
-  *(a8 + 48) = 2139095039;
-  v60 = a1;
-  v61[0] = &unk_1F5D21570;
-  v59 = a1[1];
-  v48 = a1[3].f32[0];
-  __asm { FMOV            V3.2S, #1.0 }
-
-  v57 = vrev64_s32(vdiv_f32(_D3, a1[2]));
-  v58 = 1.0 / v48;
-  v54 = a6[1];
-  v63 = *a6;
-  v64 = v54;
-  v65 = a6[2];
-  *&v55 = *(a6 + 6);
-  DWORD2(v55) = *(a6 + 14);
-  HIDWORD(v55) = *a7;
-  v66 = v55;
-  v67 = *(a7 + 4);
-  v68 = a3;
-  v69 = *a9;
-  v62 = 0;
-  v61[1] = &v57;
-  v61[2] = a2;
-  v61[3] = a8;
-  v70 = (a1[3].i8[4] & 2 | v69 & 0x80) != 0;
-  physx::Gu::HeightFieldUtil::overlapAABBTriangles(&v57, a2, v71, 1, v61);
-  return v62;
-}
-
-float32x2_t physx::Gu::computeSweptBox(uint64_t a1, float *a2, float32x2_t *a3, float *a4, float32x2_t *a5, float a6)
-{
-  v41 = *MEMORY[0x1E69E9840];
-  v7 = a5->f32[0];
-  v6 = a5->f32[1];
-  v8 = a5[1].f32[0];
-  v9 = fabsf(((v6 * a4[1]) + (*a4 * a5->f32[0])) + (a4[2] * v8));
-  v10 = fabsf(((v6 * a4[4]) + (a4[3] * a5->f32[0])) + (a4[5] * v8));
-  *v40 = v9;
-  *&v40[1] = v10;
-  v11 = fabsf(((v6 * a4[7]) + (a4[6] * v7)) + (a4[8] * v8));
-  *&v40[2] = v11;
-  v12 = v10 <= v9;
-  if (v10 > v9)
-  {
-    v9 = v10;
-  }
-
-  if (v11 > v9)
-  {
-    v13 = 1;
-  }
-
-  else
-  {
-    v13 = 2;
-  }
-
-  if (v11 > v9)
-  {
-    v12 = 0;
-  }
-
-  if (*&v40[v13] < *&v40[v12])
-  {
-    v12 = v13;
-  }
-
-  v14 = &a4[3 * v12];
-  v15 = v14[1];
-  v16 = v14[2];
-  v17 = ((v6 * v15) + (*v14 * v7)) + (v16 * v8);
-  v18 = v8 * v17;
-  v19 = *v14 - (v7 * v17);
-  v20 = v15 - (v6 * v17);
-  v21 = v16 - v18;
-  v22 = sqrtf(((v20 * v20) + (v19 * v19)) + (v21 * v21));
-  if (v22 > 0.0)
-  {
-    v23 = 1.0 / v22;
-    v19 = v19 * v23;
-    v20 = v20 * v23;
-    v21 = v21 * v23;
-  }
-
-  v24 = 0;
-  v25 = (v6 * v21) - (v8 * v20);
-  v26 = (v8 * v19) - (v7 * v21);
-  v27 = (v7 * v20) - (v6 * v19);
-  *a1 = v7;
-  *(a1 + 4) = v6;
-  *(a1 + 8) = v8;
-  *(a1 + 12) = v19;
-  *(a1 + 16) = v20;
-  *(a1 + 20) = v21;
-  *(a1 + 24) = v25;
-  *(a1 + 28) = v26;
-  *(a1 + 32) = v27;
-  v28 = a5->f32[0];
-  v29 = a5->f32[1];
-  v30 = (v20 * v29) + (a5->f32[0] * v19);
-  v31 = a5[1].f32[0];
-  *v39 = a6;
-  *&v39[1] = (v30 + (v31 * v21)) * a6;
-  *&v39[2] = (((v26 * v29) + (v28 * v25)) + (v31 * v27)) * a6;
-  v32 = a1 + 48;
-  v33 = -36;
-  do
-  {
-    v34 = *(v32 + v33 - 12);
-    v35 = *(v32 + v33 - 8);
-    v36 = *(v32 + v33 - 4);
-    *(v32 + v24 * 4) = (((*a2 * fabsf(((a4[1] * v35) + (*a4 * v34)) + (a4[2] * v36))) + (*&v39[v24] * 0.5)) + (fabsf(((v35 * a4[4]) + (a4[3] * v34)) + (a4[5] * v36)) * a2[1])) + (fabsf(((v35 * a4[7]) + (a4[6] * v34)) + (a4[8] * v36)) * a2[2]);
-    ++v24;
-    v33 += 12;
-  }
-
-  while (v33);
-  v37 = ((a5[1].f32[0] * a6) * 0.5) + a3[1].f32[0];
-  result = vadd_f32(vmul_f32(vmul_n_f32(*a5, a6), 0x3F0000003F000000), *a3);
-  *(a1 + 36) = result;
-  *(a1 + 44) = v37;
-  return result;
-}
-
-uint64_t physx::Gu::sweepBoxTriangles_Precise(int a1, uint64_t a2, char a3, uint64_t a4, int32x2_t *a5, float32x2_t *a6, uint64_t a7, unsigned int *a8, float a9, double a10, double a11, double a12, double a13, double a14, double a15, __n128 a16, __int16 *a17)
-{
-  v17 = vdup_lane_s32(*a5, 1);
-  v18 = vdup_laneq_s32(*a5->i8, 2);
-  v19 = vdup_laneq_s32(*a5->i8, 3);
-  _Q5 = vaddq_f32(*a5->i8, *a5->i8);
-  v21 = vdup_lane_s32(vmul_f32(*a5, *_Q5.f32), 0);
-  v22 = vmul_lane_f32(v17, *_Q5.f32, 1);
-  a16.n128_u64[0] = vmul_laneq_f32(v18, _Q5, 2);
-  v23 = vmul_n_f32(v17, _Q5.f32[0]);
-  v24 = vmul_n_f32(v18, _Q5.f32[0]);
-  v25 = vmul_n_f32(v19, _Q5.f32[0]);
-  v26 = vmul_lane_f32(v18, *_Q5.f32, 1);
-  v27 = vmul_lane_f32(v19, *_Q5.f32, 1);
-  v28 = vmul_laneq_f32(v19, _Q5, 2);
-  __asm { FMOV            V5.2S, #1.0 }
-
-  v33 = vsub_f32(*_Q5.f32, v21);
-  *_Q5.f32 = vadd_f32(v23, v28);
-  LODWORD(v34) = vsub_f32(v24, v27).u32[0];
-  v35 = vsub_f32(v23, v28);
-  v36 = COERCE_DOUBLE(vsub_f32(v33, a16.n128_u64[0]));
-  LODWORD(v37) = vadd_f32(v26, v25).u32[0];
-  v38 = vsub_f32(v26, v25);
-  v39 = vsub_f32(v33, v22);
-  a16.n128_u32[0] = a16.n128_u32[1];
-  v22.f32[0] = (1.0 - v22.f32[1]) - a16.n128_f32[1];
-  v43[0] = v22.f32[0];
-  v43[1] = _Q5.f32[0];
-  HIDWORD(v34) = v35.i32[1];
-  v44 = v34;
-  v45 = LODWORD(v36);
-  HIDWORD(v37) = vadd_f32(v24, v27).i32[1];
-  *&v40 = a5[2];
-  DWORD2(v40) = a5[3].i32[0];
-  HIDWORD(v40) = *(a4 + 4);
-  v46 = v37;
-  v47 = vzip1_s32(v38, v39);
-  v48 = v40;
-  v49 = *(a4 + 8);
-  v42 = *a17;
-  return sweepBoxVsTriangles(a1, a2, v43, a6, a7, &v42, a3, a8, a9, v49, *&v40, *&v38, v36, *_Q5.i64, *&v22, a16);
-}
-
-uint64_t sweepBoxVsTriangles(int a1, uint64_t a2, uint64_t a3, float32x2_t *a4, uint64_t a5, __int16 *a6, char a7, unsigned int *a8, float a9, double a10, double a11, double a12, double a13, double a14, double a15, __n128 a16)
-{
-  if (!a1)
-  {
-    v52 = 0;
-    return v52 & 1;
-  }
-
-  v105 = *a6;
-  v112 = (*a6 & 0x80) == 0;
-  v23 = *a3;
-  v22 = *(a3 + 4);
-  v25 = *(a3 + 8);
-  v24.i32[0] = *(a3 + 12);
-  v26 = *(a3 + 16);
-  v16.i32[0] = *(a3 + 20);
-  v28 = *(a3 + 24);
-  v27 = *(a3 + 28);
-  v30 = *(a3 + 32);
-  v29 = *(a3 + 36);
-  v32 = *(a3 + 40);
-  v31 = *(a3 + 44);
-  v123 = (-(v32 * v22) - (*a3 * v29)) - (v25 * v31);
-  v124 = *a3;
-  v116 = (-(v32 * v26) - (v24.f32[0] * v29)) - (*v16.i32 * v31);
-  v33 = a4[1].f32[0];
-  *(a5 + 48) = a9;
-  v34 = *a4;
-  v119 = v24.f32[0];
-  v120 = v26;
-  v125 = v22;
-  v24.f32[1] = v22;
-  v126 = v25;
-  v122 = v16;
-  a16.n128_u64[0] = vadd_f32(vadd_f32(vrev64_s32(vmul_f32(v24, *a4)), vmul_f32(__PAIR64__(LODWORD(v26), LODWORD(v23)), *a4)), vmul_n_f32(__PAIR64__(v16.u32[0], LODWORD(v25)), v33));
-  v35 = ((v28 * COERCE_FLOAT(*a4)) + vmuls_lane_f32(v27, *a4, 1)) + (v30 * v33);
-  v136 = vmul_n_f32(a16.n128_u64[0], a9);
-  v137 = v35 * a9;
-  __asm { FMOV            V19.2S, #1.0 }
-
-  v40 = vbic_s8(vdiv_f32(_D19, v136), vceqz_f32(a16.n128_u64[0]));
-  v41 = 1.0;
-  v42 = 1.0 / (v35 * a9);
-  v43 = 0.0;
-  if (v35 == 0.0)
-  {
-    v42 = 0.0;
-  }
-
-  v134 = v40;
-  v135 = v42;
-  v45 = *(a3 + 48);
-  v44 = (a3 + 48);
-  v46 = *(a3 + 56);
-  v47 = fabsf(a16.n128_f32[1]) * *(a3 + 52);
-  v117 = v28;
-  v118 = v27;
-  v121 = v30;
-  v48 = (-(v32 * v27) - (v28 * v29)) - (v30 * v31);
-  v115 = v48;
-  v138 = a16.n128_u64[0];
-  v139 = v35;
-  v49 = (v47 + (fabsf(a16.n128_f32[0]) * v45)) + (fabsf(v35) * v46);
-  v50 = (vmuls_lane_f32(v32, v34, 1) + (v29 * v34.f32[0])) + (v31 * v33);
-  if (a8)
-  {
-    v51 = *a8;
-  }
-
-  else
-  {
-    v51 = 0;
-  }
-
-  v53 = 0;
-  v54 = 0;
-  v55.i64[0] = __PAIR64__(LODWORD(v48), LODWORD(v116));
-  v55.i64[1] = __PAIR64__(LODWORD(v116), LODWORD(v123));
-  v111 = v55;
-  v57.n128_u64[0] = __PAIR64__(LODWORD(v26), LODWORD(v28));
-  v55.i64[0] = __PAIR64__(LODWORD(v27), LODWORD(v119));
-  v56 = v49 + 0.002;
-  v57.n128_u64[1] = __PAIR64__(LODWORD(v125), LODWORD(v119));
-  v55.i64[1] = __PAIR64__(LODWORD(v26), LODWORD(v124));
-  v109 = v55;
-  v110 = v57;
-  v58 = v50 - (v49 + 0.002);
-  v59 = v122;
-  v60.i64[0] = __PAIR64__(LODWORD(v30), v122.u32[0]);
-  v60.i64[1] = __PAIR64__(v122.u32[0], LODWORD(v126));
-  v108 = v60;
-  v61 = 0.0;
-  v62 = 0.0;
-  v113 = a9;
-  while (1)
-  {
-    if (v51 == v54)
-    {
-      v63 = 0;
-    }
-
-    else
-    {
-      v63 = v54;
-    }
-
-    if (v54)
-    {
-      v64 = v63;
-    }
-
-    else
-    {
-      v64 = v51;
-    }
-
-    v65 = (a2 + 36 * v64);
-    v66 = a4->f32[1];
-    v59.i32[0] = *(v65 + 2);
-    v67 = *(v65 + 12);
-    v68 = vmuls_lane_f32(v66, *&v67, 1) + (*&v67 * a4->f32[0]);
-    v70 = *(v65 + 5);
-    v69 = *(v65 + 6);
-    v71 = *(v65 + 7);
-    v72 = *(v65 + 8);
-    v73 = (v66 * v71) + (v69 * a4->f32[0]);
-    v74 = a4[1].f32[0];
-    v75 = (vmuls_lane_f32(v66, *v65, 1) + (COERCE_FLOAT(*v65) * a4->f32[0])) + (*v59.i32 * v74);
-    v76 = v68 + (v70 * v74);
-    v77 = v73 + (v72 * v74);
-    if (v75 >= v76)
-    {
-      v78 = v68 + (v70 * v74);
-    }
-
-    else
-    {
-      v78 = v75;
-    }
-
-    if (v78 >= v77)
-    {
-      v78 = v73 + (v72 * v74);
-    }
-
-    if (v78 > (v56 + (v50 + (v41 * a9))))
-    {
-      goto LABEL_36;
-    }
-
-    _NF = v75 < v58 && v76 < v58;
-    if (_NF && v77 < v58)
-    {
-      goto LABEL_36;
-    }
-
-    v81.i64[0] = *v65;
-    v81.i64[1] = *(v65 + 12);
-    v82 = v59;
-    v82.i32[1] = *(v65 + 5);
-    v128 = v123 + (((v124 * COERCE_FLOAT(*v65)) + (v125 * COERCE_FLOAT(HIDWORD(*v65)))) + (v126 * *v59.i32));
-    v129 = vaddq_f32(v111, vaddq_f32(vaddq_f32(vrev64q_s32(vmulq_f32(v110, v81)), vmulq_f32(v109, v81)), vmulq_f32(v108, vzip1q_s32(v82, v82))));
-    v130 = v115 + (((v117 * *&v67) + (v118 * *(&v67 + 1))) + (v121 * v70));
-    v131 = v123 + (((v124 * v69) + (v125 * v71)) + (v126 * v72));
-    v132 = v116 + (((v119 * v69) + (v120 * v71)) + (*v122.i32 * v72));
-    v133 = v115 + (((v117 * v69) + (v118 * v71)) + (v121 * v72));
-    v127 = 3.4028e38;
-    if (physx::Gu::triBoxSweepTestBoxSpace(&v128, v44, &v136, &v134, &v127, v112 & ~a7, v41))
-    {
-      break;
-    }
-
-    v83 = v41;
-    a9 = v113;
-LABEL_35:
-    v41 = v83;
-LABEL_36:
-    if (a1 == ++v54)
-    {
-      v84 = 0;
-      goto LABEL_38;
-    }
-  }
-
-  v83 = v127;
-  a9 = v113;
-  if (v127 >= v41)
-  {
-    v83 = v41;
-    goto LABEL_35;
-  }
-
-  v84 = v127 == 0.0;
-  if (v127 != 0.0)
-  {
-    *(a5 + 48) = v127 * v113;
-    *(a5 + 16) = v64;
-    v62 = ((v129.f32[3] - v129.f32[0]) * (v133 - v129.f32[1])) - ((v130 - v129.f32[1]) * (v132 - v129.f32[0]));
-    v61 = ((v130 - v129.f32[1]) * (v131 - v128)) - ((v129.f32[2] - v128) * (v133 - v129.f32[1]));
-    v43 = ((v129.f32[2] - v128) * (v132 - v129.f32[0])) - ((v129.f32[3] - v129.f32[0]) * (v131 - v128));
-    v53 = 1;
-    if ((*a6 & 0x40) != 0)
-    {
-      goto LABEL_38;
-    }
-
-    goto LABEL_35;
-  }
-
-  *(a5 + 16) = v64;
-  *(a5 + 20) = 1026;
-  v104 = -a4[1].f32[0];
-  *v59.i8 = vneg_f32(*a4);
-  *(a5 + 36) = v59.i64[0];
-  *(a5 + 44) = v104;
-  *(a5 + 48) = 0;
-LABEL_38:
-  v52 = v84 | v53;
-  if (!v84 && (v53 & 1) != 0)
-  {
-    *(a5 + 20) = 0;
-    if ((*a6 & 3) != 0)
-    {
-      v85 = a2 + 36 * *(a5 + 16);
-      v59.i32[0] = *(v85 + 4);
-      v34.i32[0] = *(v85 + 8);
-      LODWORD(v67) = *(v85 + 12);
-      v60.f32[0] = v116 + (((v119 * *v85) + (v120 * *v59.i32)) + (*v122.i32 * v34.f32[0]));
-      v86 = *(v85 + 16);
-      v87 = *(v85 + 20);
-      *&a15 = v116 + (((v119 * *&v67) + (v120 * v86)) + (*v122.i32 * v87));
-      v88 = *(v85 + 24);
-      v89 = *(v85 + 28);
-      v90 = *(v85 + 32);
-      v91 = v123 + (((v124 * *v85) + (v125 * *v59.i32)) + (v126 * v34.f32[0]));
-      *v59.i32 = v115 + (((v117 * *v85) + (v118 * *v59.i32)) + (v121 * v34.f32[0]));
-      v57.n128_f32[0] = v123 + (((v124 * *&v67) + (v125 * v86)) + (v126 * v87));
-      v34.f32[0] = v115 + (((v117 * *&v67) + (v118 * v86)) + (v121 * v87));
-      a16.n128_f32[0] = v126 * v90;
-      *&v67 = v123 + (((v124 * v88) + (v125 * v89)) + (v126 * v90));
-      v128 = v91;
-      v129.i64[0] = __PAIR64__(v59.u32[0], v60.u32[0]);
-      v129.i64[1] = __PAIR64__(LODWORD(a15), v57.n128_u32[0]);
-      v130 = v34.f32[0];
-      v131 = *&v67;
-      v132 = v116 + (((v119 * v88) + (v120 * v89)) + (*v122.i32 * v90));
-      v133 = v115 + (((v117 * v88) + (v118 * v89)) + (v121 * v90));
-      physx::Gu::computeBoxTriImpactData((a5 + 24), (a5 + 36), v44, &v138, &v128, *(a5 + 48), *v59.i64, *v60.i64, v57, *&v34, v67, a15, a16);
-      v92 = *a6;
-      if ((*a6 & 2) != 0)
-      {
-        v94 = *(a5 + 36);
-        v93 = *(a5 + 40);
-        v95 = *(a5 + 44);
-        v96 = sqrtf(((v93 * v93) + (v94 * v94)) + (v95 * v95));
-        if (v96 > 0.0)
-        {
-          v97 = 1.0 / v96;
-          v94 = v94 * v97;
-          v93 = v93 * v97;
-          v95 = v95 * v97;
-        }
-
-        if ((v105 & 0x80) != 0 && (a7 & 1) == 0 && (((v61 * v138.f32[1]) + (v62 * v138.f32[0])) + (v43 * v139)) > 0.0)
-        {
-          v94 = -v94;
-          v93 = -v93;
-          v95 = -v95;
-        }
-
-        v98 = ((v94 * *(a3 + 8)) + (v93 * *(a3 + 20))) + (v95 * *(a3 + 32));
-        *(a5 + 36) = vadd_f32(vadd_f32(vmul_n_f32(*a3, v94), vmul_n_f32(*(a3 + 12), v93)), vmul_n_f32(*(a3 + 24), v95));
-        *(a5 + 44) = v98;
-        *(a5 + 20) |= 2u;
-        v92 = *a6;
-      }
-
-      if (v92)
-      {
-        v99 = *(a5 + 24);
-        v100 = *(a5 + 28);
-        v101 = *(a5 + 32);
-        v102 = (((v99 * *(a3 + 8)) + (v100 * *(a3 + 20))) + (v101 * *(a3 + 32))) + *(a3 + 44);
-        *(a5 + 24) = vadd_f32(vadd_f32(vadd_f32(vmul_n_f32(*a3, v99), vmul_n_f32(*(a3 + 12), v100)), vmul_n_f32(*(a3 + 24), v101)), *(a3 + 36));
-        *(a5 + 32) = v102;
-        *(a5 + 20) |= 1u;
-      }
-    }
-
-    v52 = v53;
-  }
-
-  return v52 & 1;
-}
-
-uint64_t physx::PxGeometryQuery::sweep(uint64_t a1, uint64_t a2, uint64_t a3, int *a4, uint64_t a5, uint64_t a6, __int16 *a7)
-{
-  result = 0;
-  v10 = *a2;
-  if (*a2 > 2)
-  {
-    if (v10 == 3)
-    {
-      v38 = vdup_lane_s32(*a3, 1);
-      v39 = vdup_laneq_s32(*a3, 2);
-      v40 = vdup_laneq_s32(*a3, 3);
-      _Q6 = vaddq_f32(*a3, *a3);
-      v42 = vdup_lane_s32(vmul_f32(*a3, *_Q6.f32), 0);
-      v43 = vmul_lane_f32(v38, *_Q6.f32, 1);
-      v44 = vmul_laneq_f32(v39, _Q6, 2);
-      v45 = vmul_n_f32(v38, _Q6.f32[0]);
-      v46 = vmul_n_f32(v39, _Q6.f32[0]);
-      v47 = vmul_n_f32(v40, _Q6.f32[0]);
-      v48 = vmul_lane_f32(v39, *_Q6.f32, 1);
-      v49 = vmul_lane_f32(v40, *_Q6.f32, 1);
-      v50 = vmul_laneq_f32(v40, _Q6, 2);
-      __asm { FMOV            V6.2S, #1.0 }
-
-      v55 = vsub_f32(*_Q6.f32, v42);
-      LODWORD(v56) = vsub_f32(v46, v49).u32[0];
-      LODWORD(v57) = vadd_f32(v48, v47).u32[0];
-      *&v60 = (1.0 - v43.f32[1]) - v44.f32[1];
-      DWORD1(v60) = vadd_f32(v45, v50).u32[0];
-      HIDWORD(v56) = vsub_f32(v45, v50).i32[1];
-      *(&v60 + 1) = v56;
-      *v61 = vsub_f32(v55, v44).u32[0];
-      HIDWORD(v57) = vadd_f32(v46, v49).i32[1];
-      *&v61[4] = v57;
-      *&v61[12] = vzip1_s32(vsub_f32(v48, v47), vsub_f32(v55, v43));
-      *&v58 = *(a3 + 16);
-      DWORD2(v58) = *(a3 + 24);
-      HIDWORD(v58) = *(a2 + 4);
-      *&v61[20] = v58;
-      *&v61[36] = *(a2 + 8);
-      v28 = *a7;
-      v29 = *a4;
-      v30 = off_1EE185DF8;
-LABEL_12:
-      if ((v28 & 0x100) != 0)
-      {
-        v30 += 7;
-      }
-
-      v59 = v30[v29];
-      LOWORD(v63[0]) = v28;
-      return (v59)(a4, a5, a2, a3, &v60, a1, a6, v63, v60, *(&v60 + 1), *v61, *&v61[8], *&v61[16], *&v61[24], *&v61[32], *&v61[40]);
-    }
-
-    if (v10 == 4)
-    {
-      v31 = gGeomSweepFuncs[*a4 + 28];
-      LOWORD(v60) = *a7;
-      return (v31)(a4, a5, a2, a3, a1, a6, &v60);
-    }
-  }
-
-  else
-  {
-    if (v10)
-    {
-      if (v10 != 2)
-      {
-        return result;
-      }
-
-      v11 = *a3;
-      v12 = *(a3 + 4);
-      v13 = v11 + v11;
-      v15 = *(a3 + 8);
-      v14 = *(a3 + 12);
-      v16 = v14 + v14;
-      v17 = ((v14 * (v14 + v14)) + -1.0) + (v11 * (v11 + v11));
-      v18 = (v13 * v12) + (v15 * (v14 + v14));
-      v19 = (v13 * v15) - (v12 * v16);
-      v21 = *(a2 + 4);
-      v20 = *(a2 + 8);
-      v22 = v17 * v20;
-      v23 = v20 * v18;
-      v24 = v19 * v20;
-      v25 = *(a3 + 16);
-      v26 = *(a3 + 20);
-      v27 = *(a3 + 24);
-      *&v60 = v25 + v22;
-      *(&v60 + 1) = v26 + v23;
-      *(&v60 + 2) = v24 + v27;
-      *(&v60 + 3) = v25 - v22;
-      *v61 = v26 - v23;
-      *&v61[4] = v27 - v24;
-      *&v61[8] = v21;
-      v28 = *a7;
-      v29 = *a4;
-      v30 = gGeomSweepFuncs;
-      goto LABEL_12;
-    }
-
-    v32 = *(a2 + 4);
-    v63[0] = 2;
-    v63[1] = v32;
-    v63[2] = 0;
-    v33 = *(a3 + 20);
-    v34 = vzip1_s32(*(a3 + 16), v33);
-    *&v35 = v34;
-    *(&v35 + 1) = __PAIR64__(v34.u32[0], vdup_lane_s32(v33, 1).u32[0]);
-    v60 = v35;
-    *v61 = v33;
-    *&v61[8] = v32;
-    v36 = gGeomSweepFuncs;
-    if ((*a7 & 0x100) != 0)
-    {
-      v36 = off_1EE185DC0;
-    }
-
-    v37 = v36[*a4];
-    v62 = *a7;
-    return (v37)(a4, a5, v63, a3, &v60, a1, a6, &v62, v60, *(&v60 + 1), *v61, *&v61[8], *&v61[16], *&v61[24], *&v61[32], *&v61[40]);
-  }
-
-  return result;
-}
-
-uint64_t physx::PxGeometryQuery::overlap(int *a1, uint64_t a2, int *a3, uint64_t a4)
-{
-  v4 = *a1;
-  v5 = *a3;
-  if (v4 <= v5)
-  {
-    return (*(&gGeomOverlapMethodTable[7 * v4] + v5))(a1, a2);
-  }
-
-  else
-  {
-    return (*(&gGeomOverlapMethodTable[7 * v5] + v4))(a3, a4, a1, a2, 0);
-  }
-}
-
-float physx::PxGeometryQuery::pointDistance(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, double a5, double a6, double a7, double a8)
-{
-  v9 = *a2;
-  LODWORD(a5) = -1.0;
-  if (*a2 > 2)
-  {
-    if (v9 == 3)
-    {
-      v45 = vdup_lane_s32(*a3, 1);
-      v46 = vdup_laneq_s32(*a3, 2);
-      v47 = vdup_laneq_s32(*a3, 3);
-      _Q4 = vaddq_f32(*a3, *a3);
-      v49 = vdup_lane_s32(vmul_f32(*a3, *_Q4.f32), 0);
-      v50 = vmul_lane_f32(v45, *_Q4.f32, 1);
-      v51 = vmul_laneq_f32(v46, _Q4, 2);
-      *&v52 = vmul_n_f32(v45, _Q4.f32[0]);
-      v53 = vmul_n_f32(v46, _Q4.f32[0]);
-      v54 = vmul_n_f32(v47, _Q4.f32[0]);
-      v55 = vmul_lane_f32(v46, *_Q4.f32, 1);
-      v56 = vmul_lane_f32(v47, *_Q4.f32, 1);
-      v57 = vmul_laneq_f32(v47, _Q4, 2);
-      __asm { FMOV            V4.2S, #1.0 }
-
-      v58 = vsub_f32(*_Q4.f32, v49);
-      v59 = vadd_f32(*&v52, v57);
-      v60 = vsub_f32(v53, v56);
-      v61 = vsub_f32(*&v52, v57);
-      *_Q4.f32 = vadd_f32(v55, v54);
-      v62 = vadd_f32(v53, v56);
-      v53.i32[0] = vsub_f32(v58, v50).u32[0];
-      v81 = (1.0 - v50.f32[1]) - v51.f32[1];
-      v82 = v60;
-      v92[0] = v81;
-      v92[1] = v59.f32[0];
-      v85 = v59;
-      v86 = *_Q4.f32;
-      v83 = v61;
-      v93 = __PAIR64__(v61.u32[1], v60.u32[0]);
-      v88 = v62;
-      v84 = vsub_f32(v58, v51);
-      v94 = v84.i32[0];
-      v95 = __PAIR64__(v62.u32[1], _Q4.u32[0]);
-      v87 = vsub_f32(v55, v54);
-      *&v63 = __PAIR64__(v53.u32[0], v87.u32[0]);
-      v79 = v53.f32[0];
-      v80 = *(a3 + 16);
-      *(&v63 + 1) = v80;
-      v96 = v63;
-      LODWORD(v52) = *(a3 + 24);
-      v78 = *&v52;
-      DWORD1(v52) = *(a2 + 4);
-      *(&v52 + 1) = *(a2 + 8);
-      v97 = v52;
-      physx::Gu::distancePointBoxSquared(a1, &v96 + 2, &v97 + 4, v92, &v90);
-      if (a4 && *&a5 != 0.0)
-      {
-        v64 = vdup_lane_s32(v84, 0);
-        v64.f32[0] = v81;
-        v65 = v78 + (vadd_f32(vmul_f32(v82, v90), vmul_lane_f32(v86, v90, 1)).f32[0] + (v91 * v79));
-        *a4 = vadd_f32(v80, vadd_f32(vadd_f32(vmul_f32(vext_s8(v83, v85, 4uLL), vrev64_s32(v90)), vmul_f32(v64, v90)), vmul_n_f32(vext_s8(v88, v87, 4uLL), v91)));
-        *(a4 + 8) = v65;
-      }
-    }
-
-    else if (v9 == 4)
-    {
-      v89 = 0;
-      v37 = pointConvexDistance(v92, &v90, &v89, a1, *(a2 + 32), (a2 + 4), a3, a5, a6, a7, a8);
-      if (a4 && !v37)
-      {
-        *a4 = v90;
-        *(a4 + 8) = v91;
-      }
-
-      LODWORD(a5) = v89;
-    }
-  }
-
-  else if (v9)
-  {
-    if (v9 == 2)
-    {
-      v10 = *a3;
-      v11 = v10 + v10;
-      v12 = *(a3 + 12);
-      v13 = *(a3 + 16);
-      v14 = v12 + v12;
-      v15 = ((v12 * (v12 + v12)) + -1.0) + (v10 * (v10 + v10));
-      v16 = *(a2 + 4);
-      v17 = *(a2 + 8);
-      v18 = v15 * v17;
-      v19 = v13 + v18;
-      v20 = (v13 - v18) - (v13 + v18);
-      v21 = *(a3 + 4);
-      v22 = -v21.f32[0];
-      v23 = vmul_n_f32(v21, v11);
-      v21.i32[0] = vdup_lane_s32(v21, 1).u32[0];
-      v21.f32[1] = v22;
-      a5 = COERCE_DOUBLE(vmul_n_f32(vmla_n_f32(v23, v21, v14), v17));
-      v24 = *(a3 + 20);
-      v25 = vadd_f32(v24, *&a5);
-      v26 = vsub_f32(vsub_f32(v24, *&a5), v25);
-      v27 = *(a1 + 4);
-      _D17 = vsub_f32(v27, v25);
-      _S19 = v26.i32[1];
-      __asm { FMLA            S18, S19, V17.S[1] }
-
-      LODWORD(a5) = 0;
-      if (_S18 <= 0.0)
-      {
-        v36 = 0.0;
-      }
-
-      else
-      {
-        v35 = (vmul_f32(v26, v26).f32[0] + (v20 * v20)) + (v26.f32[1] * v26.f32[1]);
-        if (_S18 >= v35)
-        {
-          _D17 = vsub_f32(_D17, v26);
-          v36 = 1.0;
-        }
-
-        else
-        {
-          v36 = _S18 / v35;
-          _D17 = vsub_f32(_D17, vmul_n_f32(v26, v36));
-        }
-      }
-
-      _S19 = _D17.i32[1];
-      __asm { FMLA            S6, S19, V17.S[1] }
-
-      if (_S6 > (v16 * v16))
-      {
-        v68 = sqrtf(_S6);
-        if (a4)
-        {
-          v69 = v19 + (v20 * v36);
-          v70 = *a1 - v69;
-          v71 = vadd_f32(v25, vmul_n_f32(v26, v36));
-          _D4 = vsub_f32(v27, v71);
-          _S7 = _D4.i32[1];
-          __asm { FMLA            S5, S7, V4.S[1] }
-
-          v75 = sqrtf(_S5);
-          if (v75 > 0.0)
-          {
-            v76 = 1.0 / v75;
-            v70 = v70 * v76;
-            _D4 = vmul_n_f32(_D4, v76);
-          }
-
-          *a4 = v69 + (v16 * v70);
-          *(a4 + 4) = vadd_f32(v71, vmul_n_f32(_D4, v16));
-        }
-
-        v44 = v68 - v16;
-LABEL_28:
-        *&a5 = v44 * v44;
-      }
-    }
-  }
-
-  else
-  {
-    v38 = *(a2 + 4);
-    v39 = *(a3 + 16);
-    v40 = vsub_f32(*a1, v39);
-    v41 = *(a3 + 24);
-    v42 = *(a1 + 8) - v41;
-    v43 = sqrtf((COERCE_FLOAT(vmul_f32(v40, v40).i32[1]) + (v40.f32[0] * v40.f32[0])) + (v42 * v42));
-    LODWORD(a5) = 0;
-    if (v43 > v38)
-    {
-      if (a4)
-      {
-        *a4 = vadd_f32(v39, vmul_n_f32(vmul_n_f32(v40, 1.0 / v43), v38));
-        *(a4 + 8) = v41 + (v38 * (v42 * (1.0 / v43)));
-      }
-
-      v44 = v43 - v38;
-      goto LABEL_28;
-    }
-  }
-
-  return *&a5;
-}
-
-BOOL pointConvexDistance(uint64_t a1, uint64_t a2, _DWORD *a3, uint64_t a4, uint64_t a5, _OWORD *a6, float *a7, double a8, double a9, double a10, double a11)
-{
-  v171 = *MEMORY[0x1E69E9840];
-  v16 = *a4;
-  LODWORD(a11) = *(a4 + 4);
-  v17 = *(a4 + 8);
-  v18 = *a6;
-  v19 = *a6;
-  v19.i32[3] = 0;
-  v20 = *(a6 + 12);
-  v21 = *(a5 + 72) + 20 * *(a5 + 71);
-  v22 = COERCE_FLOAT(*(a6 + 1)) == 1.0;
-  if (COERCE_FLOAT(*a6) != 1.0 || COERCE_FLOAT(HIDWORD(*a6)) != 1.0)
-  {
-    v22 = 0;
-  }
-
-  v160 = 0;
-  v158 = 0u;
-  v159 = 0u;
-  v167 = a5 + 32;
-  v169 = v21;
-  v24.i64[0] = *(a5 + 92);
-  v24.i64[1] = *(a5 + 100);
-  v25 = vmulq_f32(v19, v24);
-  v170 = *(a5 + 70);
-  *v25.i8 = vpmin_f32(vdup_laneq_s32(v25, 2), *v25.i8);
-  *v25.i32 = vpmin_f32(*v25.i8, *v25.i8).f32[0];
-  *&v159 = vmul_n_f32(0x3D4CCCCD3DCCCCCDLL, *v25.i32);
-  *(&v159 + 2) = 0.025 * *v25.i32;
-  __asm { FMOV            V0.2S, #1.0 }
-
-  if (v22)
-  {
-    v161 = xmmword_1E3047670;
-    v162 = xmmword_1E3047680;
-    v163 = xmmword_1E30476A0;
-    v164 = xmmword_1E3047670;
-    v165 = xmmword_1E3047680;
-    v166 = xmmword_1E30476A0;
-  }
-
-  else
-  {
-    v30 = vrecpeq_f32(v19);
-    v31 = 4;
+    v46 = v26;
     do
     {
-      v30 = vmulq_f32(v30, vrecpsq_f32(v30, v19));
-      --v31;
-    }
-
-    while (v31);
-    *v32.f32 = vdup_lane_s32(*v18.f32, 0);
-    v32.i64[1] = v32.u32[0];
-    if ((~vuzp1_s8(vmovn_s32(vceqq_f32(v32, v19)), _D0).u32[0] & 0xFFFFFF) != 0)
-    {
-      v39 = vdup_lane_s32(*v20.f32, 1);
-      v40 = vdup_laneq_s32(v20, 2);
-      v41 = vdup_laneq_s32(v20, 3);
-      v42 = vaddq_f32(v20, v20);
-      v43 = vmul_lane_f32(v39, *v42.f32, 1);
-      v44 = vmul_laneq_f32(v40, v42, 2);
-      v45 = vmul_n_f32(v39, v42.f32[0]);
-      v46 = vmul_n_f32(v40, v42.f32[0]);
-      v47 = vmul_n_f32(v41, v42.f32[0]);
-      v48 = vmul_lane_f32(v40, *v42.f32, 1);
-      v49 = vmul_lane_f32(v41, *v42.f32, 1);
-      v50 = vmul_laneq_f32(v41, v42, 2);
-      v51 = vsub_f32(_D0, vdup_lane_s32(vmul_f32(*v20.f32, *v42.f32), 0));
-      v52 = vsub_f32(vsub_f32(_D0, v43), v44);
-      *v42.f32 = vadd_f32(v45, v50);
-      v53 = vsub_f32(v46, v49);
-      v54 = vsub_f32(v45, v50);
-      v55 = vadd_f32(v46, v49);
-      v56 = vsub_f32(v48, v47);
-      v57 = vext_s8(v55, v56, 4uLL);
-      v58 = vsub_f32(v51, v44);
-      *v59.f32 = vext_s8(v52, *&vdupq_lane_s32(v54, 1), 4uLL);
-      v59.i64[1] = vdup_lane_s32(v57, 0).u32[0];
-      v60 = vsub_f32(v51, v43);
-      *v61.f32 = vext_s8(*&vdupq_lane_s32(*v42.f32, 0), v58, 4uLL);
-      v61.i64[1] = vdup_lane_s32(v57, 1).u32[0];
-      v62 = vadd_f32(v48, v47);
-      *v63.f32 = vext_s8(*&vdupq_lane_s32(v53, 0), v62, 4uLL);
-      v63.i64[1] = vdup_lane_s32(v60, 0).u32[0];
-      v64 = vmulq_n_f32(v59, v18.f32[0]);
+      v47 = v67[v46 - 1];
+      v48 = (v6 + 32 * v47);
+      v49 = v48[1];
+      v50 = vextq_s8(*v48, *v48, 8uLL).u64[0];
+      v51 = vmls_f32(vmul_f32(*&vextq_s8(v45, v45, 4uLL), *v48->i8), vext_s8(*v48->i8, v50, 4uLL), *v45.i8);
+      *v52.f32 = vext_s8(v51, vmls_f32(vmul_f32(*v45.i8, v50), *v48->i8, *&vextq_s8(v45, v45, 8uLL)), 4uLL);
+      v52.i64[1] = v51.u32[0];
+      v53 = &v5[10 * v47];
+      v54 = vsubq_f32(v38, v52);
+      v55 = vmulq_f32(*v53, v54);
+      v55.i64[0] = vpaddq_f32(v55, v55).u64[0];
+      v56 = vmulq_f32(v53[2], v54);
+      v56.i64[0] = vpaddq_f32(v56, v56).u64[0];
+      *v55.f32 = vext_s8(vpadd_f32(*v55.f32, *v55.f32), vpadd_f32(*v56.f32, *v56.f32), 4uLL);
+      v57 = vmulq_f32(v53[4], v54);
+      v57.i64[0] = vpaddq_f32(v57, v57).u64[0];
+      v58 = vmulq_f32(v45, v53[1]);
+      v58.i64[0] = vpaddq_f32(v58, v58).u64[0];
+      v59 = vmulq_f32(v45, v53[3]);
+      v59.i64[0] = vpaddq_f32(v59, v59).u64[0];
+      v60 = vmulq_f32(v45, v53[5]);
+      v60.i64[0] = vpaddq_f32(v60, v60).u64[0];
+      *v58.f32 = vext_s8(vpadd_f32(*v58.f32, *v58.f32), vpadd_f32(*v59.f32, *v59.f32), 4uLL);
+      v55.i64[1] = vpadd_f32(*v57.f32, *v57.f32).u32[0];
+      v58.i64[1] = vpadd_f32(*v60.f32, *v60.f32).u32[0];
+      v61 = vaddq_f32(v55, v58);
+      v62 = *&v67[4 * v46 + 60];
+      v63 = vmulq_n_f32(v53[6], v62.f32[0]);
+      v63.i32[3] = 0;
+      v64 = vmulq_lane_f32(v53[7], *v62.f32, 1);
       v64.i32[3] = 0;
-      v65 = vmulq_lane_f32(v61, *v18.f32, 1);
+      v65 = vmulq_laneq_f32(v53[8], v62, 2);
       v65.i32[3] = 0;
-      v66 = vmulq_laneq_f32(v63, v18, 2);
-      v66.i32[3] = 0;
-      v67 = vmulq_lane_f32(v64, v52, 1);
-      v67.i32[3] = 0;
-      v68 = vmulq_n_f32(v65, v42.f32[0]);
-      v68.i32[3] = 0;
-      v69 = vmulq_n_f32(v66, *v53.i32);
-      v69.i32[3] = 0;
-      v33 = vaddq_f32(v69, vaddq_f32(v67, v68));
-      v70 = vmulq_lane_f32(v64, v54, 1);
-      v70.i32[3] = 0;
-      v71 = vmulq_n_f32(v65, *v58.i32);
-      v71.i32[3] = 0;
-      v72 = vmulq_n_f32(v66, *v62.i32);
-      v72.i32[3] = 0;
-      v34 = vaddq_f32(v72, vaddq_f32(v70, v71));
-      v73 = vmulq_lane_f32(v64, v55, 1);
-      v73.i32[3] = 0;
-      v74 = vmulq_n_f32(v65, *v56.i32);
-      v74.i32[3] = 0;
-      v75 = vmulq_n_f32(v66, *v60.i32);
-      v75.i32[3] = 0;
-      v35 = vaddq_f32(v75, vaddq_f32(v73, v74));
-      v161 = v33;
-      v162 = v34;
-      v76 = vmulq_n_f32(v59, v30.f32[0]);
-      v76.i32[3] = 0;
-      v77 = vmulq_lane_f32(v61, *v30.f32, 1);
-      v77.i32[3] = 0;
-      v78 = vmulq_laneq_f32(v63, v30, 2);
-      v78.i32[3] = 0;
-      v79 = vmulq_lane_f32(v76, v52, 1);
-      v79.i32[3] = 0;
-      v80 = vmulq_n_f32(v77, v42.f32[0]);
-      v80.i32[3] = 0;
-      v81 = vmulq_n_f32(v78, *v53.i32);
-      v81.i32[3] = 0;
-      v82 = vaddq_f32(v81, vaddq_f32(v79, v80));
-      v83 = vmulq_lane_f32(v76, v54, 1);
-      v83.i32[3] = 0;
-      v84 = vmulq_n_f32(v77, *v58.i32);
-      v84.i32[3] = 0;
-      v11 = vmulq_n_f32(v78, *v62.i32);
-      v11.i32[3] = 0;
-      v85 = vmulq_lane_f32(v76, v55, 1);
-      v85.i32[3] = 0;
-      v86 = vmulq_n_f32(v77, *v56.i32);
-      v86.i32[3] = 0;
-      v87 = vmulq_n_f32(v78, *v60.i32);
-      v87.i32[3] = 0;
-      v38 = vaddq_f32(v87, vaddq_f32(v85, v86));
-      v163 = v35;
-      v164 = v82;
-      v165 = vaddq_f32(v11, vaddq_f32(v83, v84));
+      v66 = vaddq_f32(v61, vaddq_f32(vaddq_f32(v63, v64), v65));
+      v65.i64[0] = vextq_s8(v49, v49, 8uLL).u64[0];
+      *v64.f32 = vmls_f32(vmul_f32(*v49.i8, *&vextq_s8(v66, v66, 4uLL)), vext_s8(*v49.i8, *v65.f32, 4uLL), *v66.i8);
+      *v49.i8 = vext_s8(*v64.f32, vmls_f32(vmul_f32(*v65.f32, *v66.i8), *v49.i8, *&vextq_s8(v66, v66, 8uLL)), 4uLL);
+      v49.i64[1] = v64.u32[0];
+      v38 = vsubq_f32(v54, v49);
+      v45 = vsubq_f32(v45, v66);
+      --v46;
     }
 
-    else
-    {
-      v30.i32[3] = 0;
-      v33 = vmulq_f32(v19, xmmword_1E3047670);
-      v34 = vmulq_f32(v19, xmmword_1E3047680);
-      v35 = vmulq_f32(v19, xmmword_1E30476A0);
-      v161 = v33;
-      v162 = v34;
-      v36 = vmulq_f32(v30, xmmword_1E3047670);
-      v37 = vmulq_f32(v30, xmmword_1E3047680);
-      v38 = vmulq_f32(v30, xmmword_1E30476A0);
-      v163 = v35;
-      v164 = v36;
-      v165 = v37;
-    }
-
-    v166 = v38;
-    v88 = vmulq_f32(v33, 0);
-    v88.i32[3] = 0;
-    v89 = vmulq_f32(v34, 0);
-    v89.i32[3] = 0;
-    v90 = vmulq_f32(v35, 0);
-    v90.i32[3] = 0;
-    v158 = vaddq_f32(v90, vaddq_f32(v89, v88));
+    while (v46);
   }
 
-  v149 = 0u;
-  v150 = 0u;
-  v148 = 0u;
-  v147 = 0;
-  v168 = *(a5 + 80);
-  v91 = a7[1];
-  v92 = a7[2];
-  v93 = a7[3];
-  v94 = (v16 - a7[4]) + (v16 - a7[4]);
-  *&a11 = (*&a11 - a7[5]) + (*&a11 - a7[5]);
-  v95 = (v17 - a7[6]) + (v17 - a7[6]);
-  v96 = (v93 * v93) + -0.5;
-  v11.f32[0] = (-(v91 * *&a11) - (*a7 * v94)) - (v92 * v95);
-  *&v97 = ((v93 * ((v92 * *&a11) - (v91 * v95))) + (v94 * v96)) - (*a7 * v11.f32[0]);
-  *&v98 = ((v93 * ((*a7 * v95) - (v92 * v94))) + (*&a11 * v96)) - (v91 * v11.f32[0]);
-  *&v99 = ((v93 * ((v91 * v94) - (*a7 * *&a11))) + (v95 * v96)) - (v92 * v11.f32[0]);
-  v100.i32[1] = 0x80000000;
-  *&a11 = ((v91 * -0.0) - (*a7 - (v93 * 0.0))) + (v92 * 0.0);
-  v11.f32[0] = ((v92 * -0.0) - (v91 - (v93 * 0.0))) + (*a7 * 0.0);
-  *v100.i32 = ((*a7 * -0.0) - (v92 - (v93 * 0.0))) + (v91 * 0.0);
-  v101 = ((*a7 * 0.0) + v93) + (v91 * 0.0);
-  v102.i64[0] = __PAIR64__(v98, v97);
-  v102.i64[1] = v99;
-  v103 = vdup_lane_s32(*v11.f32, 0);
-  v104 = vdup_lane_s32(v100, 0);
-  v105 = vdup_lane_s32(COERCE_UNSIGNED_INT(v101 + (v92 * 0.0)), 0);
-  v106 = *&a11 + *&a11;
-  v107 = v11.f32[0] + v11.f32[0];
-  v108 = *v100.i32 + *v100.i32;
-  *&a11 = *&a11 * (*&a11 + *&a11);
-  v109 = vmul_n_f32(v103, v11.f32[0] + v11.f32[0]);
-  v110 = vmul_n_f32(v104, v108);
-  v111 = vmul_n_f32(v103, v106);
-  v112 = vmul_n_f32(v104, v106);
-  v113 = vmul_n_f32(v105, v106);
-  v114 = vmul_n_f32(v104, v107);
-  v115 = vmul_n_f32(v105, v107);
-  v116 = vmul_n_f32(v105, v108);
-  v117 = vsub_f32(_D0, vdup_lane_s32(*&a11, 0));
-  *&v118 = vext_s8(vsub_f32(vsub_f32(_D0, v109), v110), vadd_f32(v111, v116), 4uLL);
-  *(&v118 + 1) = vsub_f32(v112, v115).u32[0];
-  *&v119 = vext_s8(vsub_f32(v111, v116), vsub_f32(v117, v110), 4uLL);
-  *(&v119 + 1) = vadd_f32(v114, v113).u32[0];
-  v143 = v118;
-  v144 = v119;
-  *&v118 = vext_s8(vadd_f32(v112, v115), vsub_f32(v114, v113), 4uLL);
-  *(&v118 + 1) = vsub_f32(v117, v109).u32[0];
-  v145 = v118;
-  v146 = v102;
-  v151 = v102;
-  v157 = 0;
-  v155 = v102;
-  v156 = v102;
-  v152 = 0;
-  v153 = 0x400000000;
-  v154 = 1;
-  v142[1] = &v151;
-  v141[1] = &v158;
-  v142[0] = &unk_1F5D217B8;
-  v141[0] = &unk_1F5D21818;
-  v140 = vneg_f32(0x80000000800000);
-  v120 = physx::Gu::gjk<physx::Gu::LocalConvex<physx::Gu::CapsuleV>,physx::Gu::LocalConvex<physx::Gu::ConvexHullV>>(v142, v141, &v146, &v140, &v150, &v149, &v148, &v147);
-  if (v120 == 2)
-  {
-    *a3 = 0;
-  }
-
-  else
-  {
-    *a3 = vmul_f32(v147, v147).u32[0];
-    v121 = v148.i32[2];
-    *a1 = v148.i64[0];
-    *(a1 + 8) = v121;
-    v122 = v149.i64[0];
-    *(a2 + 8) = v149.i32[2];
-    *a2 = v122;
-    *&v122 = *a1 + *a1;
-    v123 = *(a1 + 4) + *(a1 + 4);
-    v124 = *(a1 + 8) + *(a1 + 8);
-    v126 = a7[2];
-    v125 = a7[3];
-    v127 = (v125 * v125) + -0.5;
-    v128 = *a7;
-    v129 = a7[1];
-    v130 = ((v123 * v129) + (*a7 * *&v122)) + (v126 * v124);
-    v131 = ((v125 * ((v129 * v124) - (v126 * v123))) + (*&v122 * v127)) + (*a7 * v130);
-    v132 = ((v125 * ((v126 * *&v122) - (*a7 * v124))) + (v123 * v127)) + (v129 * v130);
-    *&v122 = ((v125 * ((*a7 * v123) - (v129 * *&v122))) + (v124 * v127)) + (v126 * v130);
-    *a1 = v131;
-    *(a1 + 4) = v132;
-    *(a1 + 8) = v122;
-    *&v122 = *a2 + *a2;
-    v133 = *(a2 + 4) + *(a2 + 4);
-    v134 = *(a2 + 8) + *(a2 + 8);
-    v135 = ((v129 * v133) + (v128 * *&v122)) + (v126 * v134);
-    v136 = ((v125 * ((v129 * v134) - (v126 * v133))) + (*&v122 * v127)) + (v128 * v135);
-    v137 = ((v125 * ((v126 * *&v122) - (v128 * v134))) + (v133 * v127)) + (v129 * v135);
-    *&v122 = ((v125 * ((v128 * v133) - (v129 * *&v122))) + (v134 * v127)) + (v126 * v135);
-    v138 = a7[5] + v137;
-    *&v122 = a7[6] + *&v122;
-    *a2 = a7[4] + v136;
-    *(a2 + 4) = v138;
-    *(a2 + 8) = v122;
-  }
-
-  return v120 == 2;
-}
-
-uint64_t physx::PxGeometryQuery::computePenetration(float32x2_t *a1, uint64_t a2, int *a3, uint64_t a4, int *a5, uint64_t a6)
-{
-  v7 = *a3;
-  v8 = *a5;
-  if (v7 <= v8)
-  {
-    v11 = *(&gGeomMTDMethodTable[7 * v7] + v8);
-
-    return v11();
-  }
-
-  else
-  {
-    result = (*(&gGeomMTDMethodTable[7 * v8] + v7))(a1, a2, a5, a6, a3, a4);
-    if (result)
-    {
-      v10 = -a1[1].f32[0];
-      *a1 = vneg_f32(*a1);
-      a1[1].f32[0] = v10;
-      return 1;
-    }
-  }
-
+  *a4 = v38;
+  a4[1] = v45;
   return result;
 }
 
-uint64_t physx::Gu::GeometryUnion::set(uint64_t result, uint64_t *a2)
+float32x4_t physx::Dy::ArticulationHelper::getImpulseSelfResponse(uint64_t a1, unsigned int a2, float32x4_t *a3, uint64_t a4, unsigned int a5, float32x4_t *a6, float32x4_t *a7)
 {
-  v2 = result;
-  v3 = *a2;
-  if (*a2 <= 2)
+  v113 = *MEMORY[0x1E69E9840];
+  v11 = a1 + 64;
+  if (*(a1 + 64 + a5) == a2)
   {
-    if (v3)
+    v12 = (a1 + *(a1 + 18));
+    v13 = v12 + 9;
+    v14 = a1 + *(a1 + 2);
+    v15 = &v12[10 * a5 + 9];
+    v16 = (v14 + 32 * a5);
+    v17 = vnegq_f32(*a6);
+    v18 = v17;
+    v18.i32[3] = 0;
+    v19 = vnegq_f32(a6[1]);
+    v19.i32[3] = 0;
+    v20 = vextq_s8(v18, v18, 8uLL).u64[0];
+    v21 = v16[1];
+    v22 = vextq_s8(v21, v21, 8uLL).u64[0];
+    v23 = vmls_f32(vmul_f32(*v17.f32, vext_s8(*v21.i8, v22, 4uLL)), vext_s8(*v17.f32, v20, 4uLL), *v21.i8);
+    *v17.f32 = vext_s8(v23, vmls_f32(vmul_f32(v20, *v21.i8), *v17.f32, v22), 4uLL);
+    v17.i64[1] = v23.u32[0];
+    v24 = vaddq_f32(v19, v17);
+    v25 = vmulq_laneq_f32(v15[4], v24, 2);
+    v25.i32[3] = 0;
+    v26 = vmlaq_lane_f32(v25, v15[2], *v24.f32, 1);
+    v26.i64[1] = vextq_s8(v26, v26, 8uLL).u32[0];
+    v27 = vmlaq_n_f32(v26, *v15, v24.f32[0]);
+    v27.i64[1] = vextq_s8(v27, v27, 8uLL).u32[0];
+    v28 = vsubq_f32(v18, v27);
+    v29 = vmulq_laneq_f32(v15[5], v24, 2);
+    v29.i32[3] = 0;
+    v30 = vmlaq_lane_f32(v29, v15[3], *v24.f32, 1);
+    v30.i64[1] = vextq_s8(v30, v30, 8uLL).u32[0];
+    v31 = vmlaq_n_f32(v30, v15[1], v24.f32[0]);
+    v31.i64[1] = vextq_s8(v31, v31, 8uLL).u32[0];
+    v32 = vextq_s8(*v16, *v16, 8uLL).u64[0];
+    v33 = vmls_f32(vmul_f32(*v16->i8, *&vextq_s8(v28, v28, 4uLL)), vext_s8(*v16->i8, v32, 4uLL), *v28.i8);
+    *v34.f32 = vext_s8(v33, vmls_f32(vmul_f32(v32, *v28.i8), *v16->i8, *&vextq_s8(v28, v28, 8uLL)), 4uLL);
+    v34.i64[1] = v33.u32[0];
+    v35 = vsubq_f32(a3[1], vaddq_f32(vsubq_f32(v19, v31), v34));
+    v36 = vnegq_f32(vsubq_f32(*a3, v28));
+    v36.i32[3] = 0;
+    v37 = vnegq_f32(v35);
+    v37.i32[3] = 0;
+    if (a2)
     {
-      if (v3 == 1)
-      {
-        *result = 1;
-      }
-
-      else if (v3 == 2)
-      {
-        v7 = *a2;
-        *(result + 8) = *(a2 + 2);
-        *result = v7;
-      }
-    }
-
-    else
-    {
-      *result = *a2;
-      *(result + 8) = 0;
-    }
-  }
-
-  else if (v3 > 4)
-  {
-    if (v3 == 5)
-    {
-      *result = 5;
-      *(result + 4) = *(a2 + 4);
-      *(result + 20) = *(a2 + 20);
-      *(result + 28) = *(a2 + 7);
-      *(result + 32) = *(a2 + 32);
-      v10 = *(a2 + 33);
-      *(result + 40) = a2[5];
-      *(result + 33) = v10;
-      v11 = *(result + 40);
-      v12 = *(v11 + 96);
-      *(result + 48) = v11;
-      *(result + 56) = v12;
-      *(result + 64) = 0;
-      *(result + 72) = 0xCDCDCDCDCDCD0000;
-    }
-
-    else if (v3 == 6)
-    {
-      *result = 6;
-      v8 = *(a2 + 1);
-      *(result + 24) = *(a2 + 6);
-      *(result + 8) = v8;
-      *(result + 28) = *(a2 + 28);
-      v9 = *(a2 + 29);
-      *(result + 31) = *(a2 + 31);
-      *(result + 29) = v9;
-      *(result + 32) = *(result + 8) + 32;
-      *(result + 40) = 0;
-      *(result + 48) = 0xCDCDCDCDCDCD0000;
-    }
-  }
-
-  else if (v3 == 3)
-  {
-    *result = 3;
-    *(result + 4) = *(a2 + 4);
-    *(result + 12) = *(a2 + 3);
-  }
-
-  else if (v3 == 4)
-  {
-    *result = 4;
-    *(result + 4) = *(a2 + 4);
-    *(result + 20) = *(a2 + 20);
-    *(result + 28) = *(a2 + 7);
-    v4 = a2[4];
-    *(v2 + 32) = v4;
-    *(v2 + 40) = *(a2 + 40);
-    v5 = *(a2 + 41);
-    *(v2 + 43) = *(a2 + 43);
-    *(v2 + 41) = v5;
-    v6 = *v4;
-    *(v2 + 48) = v4 + 4;
-    result = (*(v6 + 120))();
-    *(v2 + 56) = result;
-  }
-
-  return result;
-}
-
-uint64_t physx::Gu::computeBoundsAroundVertices(uint64_t result, int a2, _OWORD *a3)
-{
-  if (a2)
-  {
-    v3 = a2 - 1;
-    v4 = a3 + 12 * (a2 - 1);
-    v5.i64[0] = *v4;
-    v5.i64[1] = *(v4 + 2);
-    v6 = v5;
-    if (a2 != 1)
-    {
+      v38 = 0;
+      v39 = v36;
       do
       {
-        v7 = *a3;
-        a3 = (a3 + 12);
-        v6 = vminq_f32(v6, v7);
-        v5 = vmaxq_f32(v5, v7);
-        --v3;
+        v40 = &v13[10 * a2];
+        v41 = (v14 + 32 * a2);
+        v43 = *v41;
+        v42 = v41[1];
+        v44 = vextq_s8(v42, v42, 8uLL).u64[0];
+        v45 = vmls_f32(vmul_f32(*v39.i8, vext_s8(*v42.i8, v44, 4uLL)), *&vextq_s8(v39, v39, 4uLL), *v42.i8);
+        *v42.i8 = vext_s8(v45, vmls_f32(vmul_f32(*&vextq_s8(v39, v39, 8uLL), *v42.i8), *v39.i8, v44), 4uLL);
+        v42.i64[1] = v45.u32[0];
+        v46 = vaddq_f32(v37, v42);
+        *&v112[4 * v38 + 64] = v46;
+        v47 = vmlsq_laneq_f32(v39, v40[4], v46, 2);
+        v47.i64[1] = vextq_s8(v47, v47, 8uLL).u32[0];
+        v48 = vmlsq_lane_f32(v47, v40[2], *v46.f32, 1);
+        v48.i64[1] = vextq_s8(v48, v48, 8uLL).u32[0];
+        v49 = vmlsq_lane_f32(v48, *v40, *v46.f32, 0);
+        v36.i64[0] = v49.i64[0];
+        v36.i64[1] = vextq_s8(v49, v49, 8uLL).u32[0];
+        v50 = vmlsq_laneq_f32(v37, v40[5], v46, 2);
+        v50.i64[1] = vextq_s8(v50, v50, 8uLL).u32[0];
+        v51 = vmlsq_lane_f32(v50, v40[3], *v46.f32, 1);
+        v51.i64[1] = vextq_s8(v51, v51, 8uLL).u32[0];
+        v52 = vmlsq_lane_f32(v51, v40[1], *v46.f32, 0);
+        v53 = vextq_s8(v43, v43, 8uLL).u64[0];
+        v54 = vmls_f32(vmul_f32(*v43.i8, *&vextq_s8(v49, v49, 4uLL)), vext_s8(*v43.i8, v53, 4uLL), *v49.i8);
+        *v49.i8 = vext_s8(v54, vmls_f32(vmul_f32(v53, *v49.i8), *v43.i8, *&v36.u32[2]), 4uLL);
+        v49.i64[1] = v54.u32[0];
+        v52.i64[1] = vextq_s8(v52, v52, 8uLL).u32[0];
+        v37 = vaddq_f32(v52, v49);
+        v55 = v38 + 1;
+        v112[v38] = a2;
+        a2 = *(v11 + a2);
+        v39 = v36;
+        ++v38;
       }
 
-      while (v3);
+      while (a2);
     }
 
-    v6.i32[3] = v5.i32[0];
-    *result = v6;
-    v8 = vextq_s8(v5, v5, 4uLL).u64[0];
+    else
+    {
+      v55 = 0;
+    }
+
+    v57 = vmulq_n_f32(*v12, v36.f32[0]);
+    v57.i32[3] = 0;
+    v58 = vmulq_lane_f32(v12[1], *v36.f32, 1);
+    v58.i32[3] = 0;
+    v59 = v12[3];
+    v60 = vmulq_laneq_f32(v12[2], v36, 2);
+    v60.i32[3] = 0;
+    v61 = vmulq_n_f32(v59, v37.f32[0]);
+    v61.i32[3] = 0;
+    v62 = vaddq_f32(v57, v58);
+    v63 = v12[4];
+    v64 = v12[5];
+    v65 = vmulq_lane_f32(v63, *v37.f32, 1);
+    v65.i32[3] = 0;
+    v66 = vaddq_f32(v62, v60);
+    v67 = vmulq_laneq_f32(v64, v37, 2);
+    v67.i32[3] = 0;
+    v68 = vnegq_f32(vaddq_f32(v66, vaddq_f32(vaddq_f32(v61, v65), v67)));
+    v68.i32[3] = 0;
+    v69 = vmulq_f32(v36, v59);
+    v69.i64[0] = vpaddq_f32(v69, v69).u64[0];
+    v70 = vmulq_f32(v36, v63);
+    v70.i64[0] = vpaddq_f32(v70, v70).u64[0];
+    v71 = vmulq_f32(v36, v64);
+    v71.i64[0] = vpaddq_f32(v71, v71).u64[0];
+    *v70.f32 = vext_s8(vpadd_f32(*v69.f32, *v69.f32), vpadd_f32(*v70.f32, *v70.f32), 4uLL);
+    v70.i64[1] = vpadd_f32(*v71.f32, *v71.f32).u32[0];
+    v72 = vmulq_n_f32(v12[6], v37.f32[0]);
+    v72.i32[3] = 0;
+    v73 = vmulq_lane_f32(v12[7], *v37.f32, 1);
+    v73.i32[3] = 0;
+    v74 = vmulq_laneq_f32(v12[8], v37, 2);
+    v74.i32[3] = 0;
+    v75 = vnegq_f32(vaddq_f32(vaddq_f32(vaddq_f32(v72, v73), v74), v70));
+    v75.i32[3] = 0;
+    if (v55)
+    {
+      v76 = v55;
+      do
+      {
+        v77 = v112[v76 - 1];
+        v78 = (v14 + 32 * v77);
+        v79 = v78[1];
+        v80 = vextq_s8(*v78, *v78, 8uLL).u64[0];
+        v81 = vmls_f32(vmul_f32(*&vextq_s8(v75, v75, 4uLL), *v78->i8), vext_s8(*v78->i8, v80, 4uLL), *v75.i8);
+        *v82.f32 = vext_s8(v81, vmls_f32(vmul_f32(*v75.i8, v80), *v78->i8, *&vextq_s8(v75, v75, 8uLL)), 4uLL);
+        v82.i64[1] = v81.u32[0];
+        v83 = &v13[10 * v77];
+        v84 = vsubq_f32(v68, v82);
+        v85 = vmulq_f32(*v83, v84);
+        v85.i64[0] = vpaddq_f32(v85, v85).u64[0];
+        v86 = vmulq_f32(v83[2], v84);
+        v86.i64[0] = vpaddq_f32(v86, v86).u64[0];
+        *v85.f32 = vext_s8(vpadd_f32(*v85.f32, *v85.f32), vpadd_f32(*v86.f32, *v86.f32), 4uLL);
+        v87 = vmulq_f32(v83[4], v84);
+        v87.i64[0] = vpaddq_f32(v87, v87).u64[0];
+        v88 = vmulq_f32(v75, v83[1]);
+        v88.i64[0] = vpaddq_f32(v88, v88).u64[0];
+        v89 = vmulq_f32(v75, v83[3]);
+        v89.i64[0] = vpaddq_f32(v89, v89).u64[0];
+        v90 = vmulq_f32(v75, v83[5]);
+        v90.i64[0] = vpaddq_f32(v90, v90).u64[0];
+        *v88.f32 = vext_s8(vpadd_f32(*v88.f32, *v88.f32), vpadd_f32(*v89.f32, *v89.f32), 4uLL);
+        v85.i64[1] = vpadd_f32(*v87.f32, *v87.f32).u32[0];
+        v88.i64[1] = vpadd_f32(*v90.f32, *v90.f32).u32[0];
+        v91 = vaddq_f32(v85, v88);
+        v92 = *&v112[4 * v76 + 60];
+        v93 = vmulq_n_f32(v83[6], v92.f32[0]);
+        v93.i32[3] = 0;
+        v94 = vmulq_lane_f32(v83[7], *v92.f32, 1);
+        v94.i32[3] = 0;
+        v95 = vmulq_laneq_f32(v83[8], v92, 2);
+        v95.i32[3] = 0;
+        v96 = vaddq_f32(v91, vaddq_f32(vaddq_f32(v93, v94), v95));
+        v95.i64[0] = vextq_s8(v79, v79, 8uLL).u64[0];
+        *v94.f32 = vmls_f32(vmul_f32(*v79.i8, *&vextq_s8(v96, v96, 4uLL)), vext_s8(*v79.i8, *v95.f32, 4uLL), *v96.i8);
+        *v79.i8 = vext_s8(*v94.f32, vmls_f32(vmul_f32(*v95.f32, *v96.i8), *v79.i8, *&vextq_s8(v96, v96, 8uLL)), 4uLL);
+        v79.i64[1] = v94.u32[0];
+        v68 = vsubq_f32(v84, v79);
+        v75 = vsubq_f32(v75, v96);
+        --v76;
+      }
+
+      while (v76);
+    }
+
+    *a4 = v68;
+    *(a4 + 16) = v75;
+    v97 = v16[1];
+    v98 = vextq_s8(*v16, *v16, 8uLL).u64[0];
+    v99 = vmls_f32(vmul_f32(*&vextq_s8(v75, v75, 4uLL), *v16->i8), vext_s8(*v16->i8, v98, 4uLL), *v75.i8);
+    *v100.f32 = vext_s8(v99, vmls_f32(vmul_f32(*v75.i8, v98), *v16->i8, *&vextq_s8(v75, v75, 8uLL)), 4uLL);
+    v100.i64[1] = v99.u32[0];
+    v101 = vsubq_f32(v68, v100);
+    v102 = vmulq_f32(*v15, v101);
+    v102.i64[0] = vpaddq_f32(v102, v102).u64[0];
+    v103 = vmulq_f32(v15[2], v101);
+    v103.i64[0] = vpaddq_f32(v103, v103).u64[0];
+    *v102.f32 = vext_s8(vpadd_f32(*v102.f32, *v102.f32), vpadd_f32(*v103.f32, *v103.f32), 4uLL);
+    v104 = vmulq_f32(v15[4], v101);
+    v104.i64[0] = vpaddq_f32(v104, v104).u64[0];
+    v105 = vmulq_f32(v75, v15[1]);
+    v105.i64[0] = vpaddq_f32(v105, v105).u64[0];
+    v106 = vmulq_f32(v75, v15[3]);
+    v106.i64[0] = vpaddq_f32(v106, v106).u64[0];
+    v107 = vmulq_f32(v75, v15[5]);
+    v107.i64[0] = vpaddq_f32(v107, v107).u64[0];
+    *v105.f32 = vext_s8(vpadd_f32(*v105.f32, *v105.f32), vpadd_f32(*v106.f32, *v106.f32), 4uLL);
+    v102.i64[1] = vpadd_f32(*v104.f32, *v104.f32).u32[0];
+    v105.i64[1] = vpadd_f32(*v107.f32, *v107.f32).u32[0];
+    v108 = vmulq_n_f32(v15[6], v24.f32[0]);
+    v109 = vmulq_lane_f32(v15[7], *v24.f32, 1);
+    v110 = vmulq_laneq_f32(v15[8], v24, 2);
+    v108.i32[3] = 0;
+    v109.i32[3] = 0;
+    v110.i32[3] = 0;
+    v111 = vaddq_f32(vaddq_f32(v102, v105), vaddq_f32(vaddq_f32(v108, v109), v110));
+    v102.i64[0] = vextq_s8(v97, v97, 8uLL).u64[0];
+    *v108.f32 = vmls_f32(vmul_f32(*v97.i8, *&vextq_s8(v111, v111, 4uLL)), vext_s8(*v97.i8, *v102.f32, 4uLL), *v111.i8);
+    *v102.f32 = vext_s8(*v108.f32, vmls_f32(vmul_f32(*v102.f32, *v111.i8), *v97.i8, *&vextq_s8(v111, v111, 8uLL)), 4uLL);
+    v102.i64[1] = v108.u32[0];
+    result = vsubq_f32(v75, v111);
+    *a7 = vsubq_f32(v101, v102);
+    a7[1] = result;
   }
 
   else
   {
-    *result = xmmword_1E3113BA0;
-    v8 = vdup_n_s32(0xFE7FFFFF);
+    physx::Dy::ArticulationHelper::getImpulseResponse(a1, a2, a3, a4);
+
+    physx::Dy::ArticulationHelper::getImpulseResponse(a1, a5, a6, a7);
   }
 
-  *(result + 16) = v8;
   return result;
 }
 
-physx::GuMeshFactory *physx::GuMeshFactory::GuMeshFactory(physx::GuMeshFactory *this)
+__n128 physx::Dy::Articulation::getLinkVelocity@<Q0>(physx::Dy::Articulation *this@<X0>, unsigned int a2@<W1>, uint64_t a3@<X8>)
 {
-  *this = &unk_1F5D21538;
-  v2 = physx::shdfnd::Foundation::mInstance;
-  if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
-  {
-    v3 = "static const char *physx::shdfnd::ReflectionAllocator<physx::shdfnd::MutexImpl>::getName() [T = physx::shdfnd::MutexImpl]";
-  }
+  v3 = *(this + 21) + 32 * a2;
+  result = *(v3 + 128);
+  v5 = *(v3 + 144);
+  *a3 = result;
+  *(a3 + 16) = v5;
+  return result;
+}
 
-  else
-  {
-    v3 = "<allocation names disabled>";
-  }
+__n128 physx::Dy::Articulation::getLinkMotionVector@<Q0>(physx::Dy::Articulation *this@<X0>, unsigned int a2@<W1>, uint64_t a3@<X8>)
+{
+  v3 = *(this + 21) + 32 * **(this + 21) + 32 * **(this + 21) + 32 * a2;
+  result = *(v3 + 128);
+  v5 = *(v3 + 144);
+  *a3 = result;
+  *(a3 + 16) = v5;
+  return result;
+}
 
-  v4 = (*(*(v2 + 24) + 16))(v2 + 24, 72, v3, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsMutex.h", 138);
-  *(this + 1) = v4;
-  physx::shdfnd::MutexImpl::MutexImpl(v4);
-  *(this + 6) = 0;
-  *(this + 1) = 0u;
-  *(this + 2) = 0u;
-  *(this + 14) = 1061158912;
-  *(this + 60) = 0xFFFFFFFFLL;
-  *(this + 17) = 0;
-  physx::shdfnd::internal::HashBase<physx::Gu::TriangleMesh *,physx::Gu::TriangleMesh *,physx::shdfnd::Hash<physx::Gu::TriangleMesh *>,physx::shdfnd::internal::HashSetBase<physx::Gu::TriangleMesh *,physx::shdfnd::Hash<physx::Gu::TriangleMesh *>,physx::shdfnd::NonTrackingAllocator,true>::GetKey,physx::shdfnd::NonTrackingAllocator,true>::reserveInternal(this + 16, 0x40u);
-  *(this + 13) = 0;
-  *(this + 88) = 0u;
-  *(this + 72) = 0u;
-  *(this + 28) = 1061158912;
-  *(this + 116) = 0xFFFFFFFFLL;
-  *(this + 31) = 0;
-  physx::shdfnd::internal::HashBase<physx::Gu::TriangleMesh *,physx::Gu::TriangleMesh *,physx::shdfnd::Hash<physx::Gu::TriangleMesh *>,physx::shdfnd::internal::HashSetBase<physx::Gu::TriangleMesh *,physx::shdfnd::Hash<physx::Gu::TriangleMesh *>,physx::shdfnd::NonTrackingAllocator,true>::GetKey,physx::shdfnd::NonTrackingAllocator,true>::reserveInternal(this + 72, 0x40u);
-  *(this + 20) = 0;
-  *(this + 9) = 0u;
-  *(this + 8) = 0u;
-  *(this + 42) = 1061158912;
-  *(this + 172) = 0xFFFFFFFFLL;
-  *(this + 45) = 0;
-  physx::shdfnd::internal::HashBase<physx::Gu::TriangleMesh *,physx::Gu::TriangleMesh *,physx::shdfnd::Hash<physx::Gu::TriangleMesh *>,physx::shdfnd::internal::HashSetBase<physx::Gu::TriangleMesh *,physx::shdfnd::Hash<physx::Gu::TriangleMesh *>,physx::shdfnd::NonTrackingAllocator,true>::GetKey,physx::shdfnd::NonTrackingAllocator,true>::reserveInternal(this + 128, 0x40u);
-  *(this + 27) = 0;
-  *(this + 200) = 0u;
-  *(this + 184) = 0u;
-  *(this + 56) = 1061158912;
-  *(this + 228) = 0xFFFFFFFFLL;
-  *(this + 59) = 0;
-  physx::shdfnd::internal::HashBase<physx::Gu::TriangleMesh *,physx::Gu::TriangleMesh *,physx::shdfnd::Hash<physx::Gu::TriangleMesh *>,physx::shdfnd::internal::HashSetBase<physx::Gu::TriangleMesh *,physx::shdfnd::Hash<physx::Gu::TriangleMesh *>,physx::shdfnd::NonTrackingAllocator,true>::GetKey,physx::shdfnd::NonTrackingAllocator,true>::reserveInternal(this + 184, 0x40u);
-  *(this + 30) = 0;
-  *(this + 31) = 0;
+__n128 physx::Dy::Articulation::getMotionVelocity@<Q0>(physx::Dy::Articulation *this@<X0>, unsigned int a2@<W1>, uint64_t a3@<X8>)
+{
+  v3 = *(this + 33) + 32 * a2;
+  result = *v3;
+  v5 = *(v3 + 16);
+  *a3 = *v3;
+  *(a3 + 8) = result.n128_u32[2];
+  *(a3 + 12) = 0;
+  *(a3 + 16) = v5;
+  *(a3 + 24) = DWORD2(v5);
+  *(a3 + 28) = 0;
+  return result;
+}
+
+double physx::Dy::Articulation::getMotionAcceleration@<D0>(_OWORD *a1@<X8>)
+{
+  result = 0.0;
+  *a1 = 0u;
+  a1[1] = 0u;
+  return result;
+}
+
+unint64_t physx::Dy::Articulation::fillIndexedManager(unint64_t this, unsigned int a2, unint64_t *a3, unsigned __int8 *a4)
+{
+  *a4 = 2;
+  *a3 = a2 | this;
   return this;
 }
 
-void physx::GuMeshFactory::~GuMeshFactory(physx::GuMeshFactory *this)
+float physx::Dy::Articulation::setInertia(uint64_t a1, float32x2_t *a2, float32x2_t *a3)
 {
-  *this = &unk_1F5D21538;
-  v2 = *(this + 63);
-  if ((v2 & 0x80000000) == 0 && (v2 & 0x7FFFFFFF) != 0 && *(this + 30) != 0)
-  {
-    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
-  }
+  v3 = 1.0 / a2[15].f32[1];
+  *a1 = v3;
+  *(a1 + 20) = v3;
+  *(a1 + 40) = v3;
+  v4 = a3[1];
+  v5 = vadd_f32(*a3, *a3);
+  v6 = vadd_f32(v4, v4);
+  v7 = vmul_f32(*a3, v5);
+  v8 = vmul_f32(v4, v6);
+  v9 = vmul_lane_f32(v5, *a3, 1);
+  v10 = vrev64_s32(vmul_n_f32(v4, v5.f32[0]));
+  v11 = vmul_lane_f32(v4, v5, 1);
+  v12 = vmul_lane_f32(v6, v4, 1);
+  v13 = vsub_f32(v9, v12);
+  *&v14 = vdup_lane_s32(v13, 0);
+  v12.i32[0] = vadd_f32(v9, v12).u32[0];
+  __asm { FMOV            V20.2S, #1.0 }
 
-  if (*(this + 23))
-  {
-    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
-  }
-
-  if (*(this + 16))
-  {
-    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
-  }
-
-  if (*(this + 9))
-  {
-    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
-  }
-
-  if (*(this + 2))
-  {
-    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
-  }
-
-  physx::shdfnd::MutexT<physx::shdfnd::ReflectionAllocator<physx::shdfnd::MutexImpl>>::~MutexT(this + 1);
+  v20 = vsub_f32(_D20, v7);
+  v21 = vsub_f32(v20, vdup_lane_s32(v8, 0));
+  LODWORD(v14) = v12.i32[0];
+  v22 = vsub_f32(v10, v11);
+  v23 = vadd_f32(v10, v11);
+  v12.i32[0] = vsub_f32(v11, v10).u32[0];
+  v12.i32[1] = v23.i32[1];
+  v24 = vdiv_f32(_D20, a2[14]);
+  v25 = vmul_f32(v12, 0);
+  v26 = vmul_f32(__PAIR64__(v21.u32[1], v14), 0);
+  v27 = vadd_f32(v25, vadd_f32(v26, vmul_lane_f32(__PAIR64__(DWORD1(v14), v21.u32[0]), v24, 1)));
+  v28 = vmul_n_f32(v27, *v23.i32);
+  v23.i32[1] = v22.i32[1];
+  v29 = vsub_f32(v20, vdup_lane_s32(v7, 1));
+  v30 = vmul_f32(__PAIR64__(DWORD1(v14), v21.u32[0]), 0);
+  v31 = vadd_f32(v25, vadd_f32(v30, vmul_n_f32(__PAIR64__(v21.u32[1], v14), v24.f32[0])));
+  v32 = vmul_f32(v23, 0);
+  v33 = vrev64_s32(v23);
+  v34 = vadd_f32(vdup_lane_s32(COERCE_UNSIGNED_INT(0.0 * v29.f32[0]), 0), vadd_f32(v32, vmul_f32(v33, v24)));
+  v35 = vadd_f32(vadd_f32(v26, v30), vmul_n_f32(v12, 1.0 / a2[15].f32[0]));
+  v36 = vzip2_s32(v35, v31);
+  v37 = vmul_f32(vzip2_s32(v12, v21), v36);
+  v38 = vadd_f32(v37, vdup_lane_s32(vadd_f32(v37, vmul_n_f32(v27, *v13.i32)), 1));
+  v39 = vadd_f32(vmul_f32(*&v14, v34), vmul_f32(v21, vrev64_s32(v34)));
+  v40 = vmul_f32(vzip1_s32(v12, *&v14), v36);
+  v40.f32[0] = v40.f32[0] + (v40.f32[1] + vmuls_lane_f32(*v21.i32, v27, 1));
+  v32.i32[0] = vadd_f32(vdup_lane_s32(v32, 1), v32).u32[0];
+  v32.i32[1] = vmul_n_f32(v22, *&v34).i32[1];
+  v33.i32[0] = v29.i32[0];
+  *v34.i32 = 1.0 / a2[15].f32[0];
+  v41 = vadd_f32(v32, vmul_f32(v33, v34));
+  v42 = vadd_f32(vmul_n_f32(v12, *v41.i32), v39);
+  v43 = vadd_f32(vmul_f32(v29, v41), vdup_lane_s32(v41, 1));
+  v44 = vadd_f32(vmul_n_f32(v12, *v35.i32), vadd_f32(vmul_f32(*&v14, vzip1_s32(v31, v27)), vmul_f32(v21, vzip1_s32(v27, v31))));
+  v45 = vmul_f32(vadd_f32(v44, __PAIR64__(v40.u32[0], v44.u32[0])), 0x3F0000003F000000);
+  *&v14 = 0.5 * vadd_f32(v38, v38).f32[0];
+  DWORD1(v14) = v45.i32[1];
+  v46 = vmul_f32(vadd_f32(v42, vadd_f32(vmul_n_f32(v35, v29.f32[0]), vadd_f32(vmul_lane_f32(v31, v22, 1), v28))), 0x3F0000003F000000);
+  *(&v14 + 1) = v46.u32[1];
+  *&v47 = vrev64_s32(v45);
+  *(&v47 + 1) = v46.u32[0];
+  result = 0.5 * vadd_f32(v43, v43).f32[0];
+  *&v49 = vrev64_s32(v46);
+  *(&v49 + 1) = LODWORD(result);
+  *(a1 + 96) = v14;
+  *(a1 + 112) = v47;
+  *(a1 + 128) = v49;
+  return result;
 }
 
+float32x4_t physx::Dy::Articulation::setJointTransforms(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  physx::GuMeshFactory::~GuMeshFactory(this);
-  if (v1)
+  _S4 = *(a4 + 16) + *(a4 + 16);
+  v8 = *(a4 + 20) + *(a4 + 20);
+  _S6 = *(a4 + 24) + *(a4 + 24);
+  v10 = *(a2 + 12);
+  v11 = (v10 * v10) + -0.5;
+  v4.i32[0] = *a2;
+  _Q18.i64[0] = *(a2 + 4);
+  __asm
   {
-    v2 = *(*(physx::shdfnd::Foundation::mInstance + 24) + 24);
+    FMLA            S19, S6, V18.S[1]
+    FMLA            S2, S4, V18.S[1]
+    FMLA            S3, S19, V18.S[1]
+  }
 
-    v2();
+  v18 = *(a2 + 20) + (((v10 * _S2) + (v8 * v11)) + (*_Q18.i32 * *_Q19.i32));
+  v19 = *(a2 + 24) + _S3;
+  v20 = *a4;
+  v20.i32[3] = _Q18.i32[1];
+  v21 = *(a2 + 16) + (((v10 * (vmuls_lane_f32(v8, vnegq_f32(v20), 3) + (*_Q18.i32 * _S6))) + (_S4 * v11)) + (*a2 * *_Q19.i32));
+  _Q6 = vextq_s8(vextq_s8(v4, v4, 4uLL), _Q18, 0xCuLL);
+  _Q6.f32[3] = -*a2;
+  v23 = vmlaq_n_f32(vmulq_f32(vextq_s8(vdupq_laneq_s32(*a4, 3), *a4, 4uLL), _Q6), *a4, v10);
+  _Q6.f32[3] = -*_Q18.i32;
+  _Q18.i32[2] = *a2;
+  _Q18.i32[3] = *(a4 + 8);
+  _Q1 = vmlsq_f32(vmlaq_f32(vuzp2q_s32(vextq_s8(v23, v23, 4uLL), v23), vextq_s8(vextq_s8(*a4, *a4, 0xCuLL), *a4, 8uLL), _Q6), _Q18, v20);
+  *a1 = vzip2q_s32(vzip1q_s32(_Q1, vextq_s8(_Q1, _Q1, 0xCuLL)), _Q1);
+  *(a1 + 16) = v21;
+  *(a1 + 20) = v18;
+  *(a1 + 24) = v19;
+  _Q6.f32[0] = *(a4 + 52) + *(a4 + 52);
+  _Q18.i32[0] = *(a3 + 12);
+  *v23.i32 = (*_Q18.i32 * *_Q18.i32) + -0.5;
+  v25 = *(a4 + 28);
+  _Q7 = vextq_s8(vextq_s8(v25, v25, 0xCuLL), v25, 8uLL);
+  _Q19.i64[0] = *a3;
+  v20.i64[0] = *a3;
+  v20.i32[2] = *(a3 + 8);
+  v20.f32[3] = -COERCE_FLOAT(*a3);
+  v27 = vmlaq_n_f32(vmulq_f32(vextq_s8(vdupq_laneq_s32(v25, 3), v25, 4uLL), v20), v25, *_Q18.i32);
+  _Q24 = vuzp2q_s32(_Q19, vzip1q_s32(_Q19, _Q19));
+  _Q24.i32[1] = v20.i32[2];
+  _Q24.i32[3] = *(a4 + 36);
+  v25.i32[3] = v20.i32[2];
+  v29 = vadd_f32(*(a4 + 44), *(a4 + 44));
+  v30 = (vmuls_lane_f32(*&v29.i32[1], *a3, 1) + (COERCE_FLOAT(*a3) * *v29.i32)) + (v20.f32[2] * _Q6.f32[0]);
+  v31 = *(a3 + 24) + (((*_Q18.i32 * ((-COERCE_FLOAT(HIDWORD(*a3)) * *v29.i32) + (COERCE_FLOAT(*a3) * *&v29.i32[1]))) + (_Q6.f32[0] * *v23.i32)) + (v20.f32[2] * v30));
+  _D17.i32[0] = vdup_lane_s32(v29, 1).u32[0];
+  _D17.f32[1] = _Q6.f32[0];
+  _Q6.i32[0] = vdup_laneq_s32(vnegq_f32(v25), 3).u32[0];
+  _Q6.f32[1] = v20.f32[3];
+  _D18 = vadd_f32(*(a3 + 16), vmla_n_f32(vmla_n_f32(vmul_f32(*&vdupq_lane_s32(*_Q18.i8, 0), vmla_f32(vmul_f32(_D17, *_Q6.f32), vext_s8(_D17, v29, 4uLL), *(a3 + 4))), v29, *v23.i32), *a3, v30));
+  v20.f32[3] = -COERCE_FLOAT(HIDWORD(*a3));
+  _Q5 = vmlsq_f32(vmlaq_f32(vuzp2q_s32(vextq_s8(v27, v27, 4uLL), v27), _Q7, v20), _Q24, v25);
+  *(a1 + 28) = _Q5.i32[1];
+  _S19 = _Q5.i32[1];
+  _Q6.i32[0] = _Q5.i32[2];
+  *(a1 + 32) = _Q5.i32[2];
+  *(a1 + 36) = _Q5.i32[0];
+  _Q7.i32[0] = _Q5.i32[3];
+  *(a1 + 40) = _Q5.i32[3];
+  *(a1 + 44) = _D18;
+  _S21 = _Q1.i32[2];
+  _S4 = (_D18.f32[0] - v21) + (_D18.f32[0] - v21);
+  _S2 = (_D18.f32[1] - v18) + (_D18.f32[1] - v18);
+  _S3 = (v31 - v19) + (v31 - v19);
+  _D18.i32[0] = _Q1.i32[3];
+  __asm
+  {
+    FMLA            S0, S18, V1.S[3]
+    FMLS            S24, S4, V1.S[1]
+  }
+
+  _Q24.f32[0] = _Q24.f32[0] - (_S3 * *_Q1.i32);
+  __asm
+  {
+    FMLS            S25, S3, V1.S[2]
+    FMLS            S25, S24, V1.S[1]
+    FMLS            S26, S24, V1.S[2]
+    FMLS            S4, S2, V1.S[1]
+  }
+
+  v45 = (vmuls_lane_f32(_S4, _Q1, 3) + (_S3 * _S0)) - (_Q24.f32[0] * *_Q1.i32);
+  __asm { FMLA            S0, S19, V1.S[3] }
+
+  result.f32[0] = (_S0 - (*_Q5.i32 * *&_Q1.i32[2])) + (*&_Q5.i32[2] * *_Q1.i32);
+  __asm { FMLA            S2, S6, V1.S[3] }
+
+  v49 = (_S2 - (*&_Q5.i32[1] * *_Q1.i32)) + (*_Q5.i32 * *&_Q1.i32[1]);
+  __asm
+  {
+    FMLS            S3, S6, V1.S[1]
+    FMLA            S3, S21, V5.S[1]
+    FMLA            S17, S7, V1.S[3]
+    FMLA            S17, S6, V1.S[2]
+  }
+
+  v52 = _D17.f32[0] + (*_Q1.i32 * *_Q5.i32);
+  *(a1 + 52) = v31;
+  *(a1 + 56) = result.i32[0];
+  *(a1 + 60) = v49;
+  *(a1 + 64) = _S3;
+  *(a1 + 68) = v52;
+  *(a1 + 72) = _S25;
+  *(a1 + 76) = _S26;
+  *(a1 + 80) = v45;
+  if (v52 < 0.0)
+  {
+    *(a1 + 56) = -result.f32[0];
+    *(a1 + 60) = -v49;
+    *(a1 + 64) = -_S3;
+    *(a1 + 68) = -v52;
+    result = vnegq_f32(vzip2q_s32(vzip1q_s32(_Q5, vextq_s8(_Q5, _Q5, 0xCuLL)), _Q5));
+    *(a1 + 28) = result;
+  }
+
+  return result;
+}
+
+__n128 physx::Dy::Articulation::prepareDataBlock(char *a1, uint64_t a2, unsigned int a3, uint64_t a4, uint64_t a5, char *a6, uint64_t a7)
+{
+  v58 = a3;
+  v13 = 112 * a3 + ((4 * a3 + 60) & 0xFFC0) + 128;
+  v14 = v13 + 32 * a3;
+  v15 = v14 + 160 * a3 + 144;
+  bzero(a1, 112 * a3 + ((4 * a3 + 60) & 0x7FFC0) + 128);
+  *(a1 + 1) = v13;
+  *(a1 + 9) = v14;
+  *(a1 + 8) = v15;
+  *a1 = a3;
+  if (a3 >= 2)
+  {
+    v16 = v58 - 1;
+    v17 = a1 + 65;
+    v18 = (a2 + 72);
+    do
+    {
+      v19 = *v18;
+      v18 += 10;
+      *v17++ = v19;
+      --v16;
+    }
+
+    while (v16);
+  }
+
+  *(a1 + 2) = 0u;
+  *(a1 + 3) = 0u;
+  bzero(a6, 144 * a3);
+  if (a3)
+  {
+    v21 = 0;
+    v22 = 0;
+    v53 = a3;
+    v23 = 32 * a3;
+    v56 = &a1[v23 + 128 + v23];
+    v24 = a1;
+    v25 = a4;
+    v26 = &a1[64 * *a1 + 128 + 32 * *a1 + 16 * *a1];
+    v27 = (a2 + 104);
+    v28 = a7;
+    v54 = a7;
+    v55 = v25;
+    v29 = v25;
+    do
+    {
+      if (v22 + 2 < v58)
+      {
+        _X9 = *(v27 - 1);
+        _X8 = *v27;
+        __asm
+        {
+          PRFM            #0, [X9]
+          PRFM            #0, [X8]
+        }
+      }
+
+      v38 = *(v27 - 11);
+      *v29 = *v38->f32;
+      *(v29 + 16) = v38[2];
+      *(v29 + 24) = v38[3].i32[0];
+      *(a5 + 16 * v22) = xmmword_1E30474D0;
+      v39 = v38[11].i32[0];
+      v40 = &v24[v21 / 2];
+      v41 = v38[8];
+      v40[17].i32[0] = v38[9].i32[0];
+      v40[17].i32[1] = 0;
+      v42 = v38[10];
+      v40[16] = v41;
+      v40[18] = v42;
+      v40[19].i32[0] = v39;
+      v40[19].i32[1] = 0;
+      v43 = &v56[v21];
+      *v43 = 0u;
+      *(v43 + 1) = 0u;
+      physx::Dy::Articulation::setInertia(a6, v38, v38);
+      result.n128_u32[0] = v38[9].u32[1];
+      *&v26[4 * v22] = result.n128_u32[0];
+      if (v21)
+      {
+        result.n128_u64[0] = physx::Dy::Articulation::setJointTransforms(v28, v55 + 28 * *(v27 - 18), v38, *(v27 - 10)).u64[0];
+      }
+
+      ++v22;
+      v28 += 84;
+      v21 += 32;
+      a6 += 144;
+      v27 += 5;
+      v29 += 28;
+    }
+
+    while (v23 != v21);
+    if (v53 >= 2)
+    {
+      v44 = 0;
+      v45 = (v55 + 52);
+      v46 = (v24 + v24[1] + 48);
+      v47 = v24 + 65;
+      do
+      {
+        v48 = *v47++;
+        v49 = (v55 + 28 * v48);
+        v50 = *(v45 - 2);
+        v51.n128_u64[0] = vsub_f32(v50, v49[2]);
+        v52 = *v45;
+        v45 += 7;
+        result.n128_u64[0] = vsub_f32(*(v54 + v44 + 128), v50);
+        v51.n128_u64[1] = COERCE_UNSIGNED_INT(v52 - v49[3].f32[0]);
+        result.n128_f32[2] = *(v54 + v44 + 136) - v52;
+        result.n128_u32[3] = 0;
+        v46[-1] = v51;
+        *v46 = result;
+        v44 += 84;
+        v46 += 2;
+      }
+
+      while (84 * v58 - 84 != v44);
+    }
+  }
+
+  return result;
+}
+
+unsigned __int16 *physx::Dy::Articulation::prepareFsData(unsigned __int16 *result, void *a2)
+{
+  v2 = *result;
+  v3 = result[9];
+  v4 = result + v3;
+  v5 = result[8];
+  v6 = result[1];
+  *(v4 + 36) = *a2;
+  *(v4 + 37) = 1;
+  if (v2 >= 2)
+  {
+    v7 = (result + v3 + 448);
+    v8 = v2 - 1;
+    v9 = (result + v6 + 48);
+    v10 = (a2 + 5);
+    v11 = (&result[216 * v2 + 88] + v5);
+    do
+    {
+      v12 = *v10;
+      v10 = (v10 + 40);
+      *v7 = v12;
+      v7 += 10;
+      v13 = *v9;
+      v9 += 2;
+      v14 = vextq_s8(v13, v13, 8uLL).u64[0];
+      v15 = vext_s8(*v13.i8, v14, 4uLL);
+      v16 = vmla_f32(vmul_f32(*v13.i8, 0), 0x80000000BF800000, v15);
+      *v17.f32 = vext_s8(v16, vmla_f32(vmul_f32(v14, 1065353216), 0x8000000080000000, *v13.i8), 4uLL);
+      v18 = vmla_f32(vmul_f32(*v13.i8, 1065353216), 0xBF80000080000000, v15);
+      *v19.f32 = vext_s8(v18, vmla_f32(vmul_f32(v14, 0x3F80000000000000), 0x8000000080000000, *v13.i8), 4uLL);
+      v17.i64[1] = v16.u32[0];
+      v19.i64[1] = v18.u32[0];
+      v20 = vmla_f32(vmul_f32(*v13.i8, 0x3F80000000000000), 0x8000000080000000, v15);
+      *(v11 - 5) = vaddq_f32(v17, 0);
+      *(v11 - 4) = xmmword_1E3047670;
+      *v21.f32 = vext_s8(v20, vmla_f32(vmul_f32(v14, 0), 0x80000000BF800000, *v13.i8), 4uLL);
+      v21.i64[1] = v20.u32[0];
+      *(v11 - 3) = vaddq_f32(v19, 0);
+      *(v11 - 2) = xmmword_1E3047680;
+      *(v11 - 1) = vaddq_f32(v21, 0);
+      *v11 = xmmword_1E30476A0;
+      v11 += 6;
+      --v8;
+    }
+
+    while (v8);
+  }
+
+  return result;
+}
+
+unsigned __int16 *physx::Dy::Articulation::prepareLtbMatrix(unsigned __int16 *result, _OWORD *a2, uint64_t a3, uint64_t a4, float a5)
+{
+  v43 = *MEMORY[0x1E69E9840];
+  v6 = *result;
+  v7 = result[8];
+  v8 = (result + v7);
+  *v8 = *a2;
+  v8[1] = a2[1];
+  v8[2] = a2[2];
+  v8[3] = a2[3];
+  v8[4] = a2[4];
+  v8[5] = a2[5];
+  v8[6] = a2[6];
+  v8[7] = a2[7];
+  v8[8] = a2[8];
+  *(&v41[0] + 1) = 0;
+  v41[1] = xmmword_1E3047670;
+  v42 = 1065353216;
+  if (v6 >= 2)
+  {
+    v9 = result + 32;
+    v10 = result + v7 + 656;
+    v11 = 1;
+    v12 = vdup_n_s32(0x3F7D70A4u);
+    do
+    {
+      v13 = &a2[9 * v11];
+      result = &v8[25 * v11];
+      *result = *v13;
+      *(result + 1) = v13[1];
+      *(result + 2) = v13[2];
+      *(result + 3) = v13[3];
+      *(result + 4) = v13[4];
+      *(result + 5) = v13[5];
+      *(result + 6) = v13[6];
+      *(result + 7) = v13[7];
+      *(result + 8) = v13[8];
+      v14 = a4 + 84 * v11;
+      v15 = (a3 + 28 * *(v9 + v11));
+      v16 = v15[4];
+      v17 = v15[5];
+      v18 = *(v14 + 52);
+      v19 = v18 - v15[6];
+      v20 = (a3 + 28 * v11);
+      v21 = v18 - v20[6];
+      v22 = *(v14 + 44);
+      _S6 = v22.f32[0] - v16;
+      v24 = v22.f32[1] - v17;
+      v25 = v22.f32[0] - v20[4];
+      v26 = v22.f32[1] - v20[5];
+      v27 = *(v14 + 24) - v18;
+      v28 = *(v14 + 16);
+      v29 = v10;
+      v30 = v41 + 2;
+      v31 = 3;
+      do
+      {
+        _Q28.i64[0] = *(v30 - 1);
+        __asm { FMLA            S31, S6, V28.S[1] }
+
+        *&v37 = vnegq_f32(_Q28).u64[0];
+        *(&v37 + 2) = -*v30;
+        *&v38 = vmuls_lane_f32(-v19, *_Q28.f32, 1) + (v24 * *v30);
+        HIDWORD(v39) = 0;
+        *&v39 = -(vmuls_lane_f32(-v21, *_Q28.f32, 1) + (v26 * *v30));
+        *(&v38 + 1) = (*v30 * -_S6) + (v19 * _Q28.f32[0]);
+        _Q28.i64[1] = *v30;
+        HIDWORD(v37) = 0;
+        *(&v38 + 1) = _S31;
+        *(&v39 + 1) = -((*v30 * -v25) + (v21 * _Q28.f32[0]));
+        *(&v39 + 2) = -((-v26 * _Q28.f32[0]) + (v25 * _Q28.f32[1]));
+        *(v29 - 7) = _Q28;
+        *(v29 - 6) = v38;
+        *(v29 - 1) = v37;
+        *v29 = v39;
+        v30 += 3;
+        v29 += 2;
+        --v31;
+      }
+
+      while (v31);
+      *&v40 = vmul_n_f32(vmul_f32(vsub_f32(v28, v22), v12), a5);
+      *(&v40 + 2) = (v27 * 0.99) * a5;
+      HIDWORD(v40) = 0;
+      *(result + 24) = v40;
+      ++v11;
+      v10 += 400;
+    }
+
+    while (v11 != v6);
+  }
+
+  return result;
+}
+
+float32x4_t physx::Dy::PxcLtbComputeJv(float32x4_t *a1, unsigned __int16 *a2, int8x16_t *a3)
+{
+  if (*a2 >= 2u)
+  {
+    v3 = a1 + 1;
+    v4 = a2[1] + 48;
+    v5 = a3 + 3;
+    v6 = 65;
+    do
+    {
+      v7 = &a3[2 * *(a2 + v6)];
+      v8 = v7[1];
+      v9 = *(a2 + v4);
+      v10 = vaddq_f32(v9, *(a2 + v4 - 16));
+      v11 = vextq_s8(v8, v8, 8uLL).u64[0];
+      v12 = vext_s8(*v8.i8, v11, 4uLL);
+      v13 = vmls_f32(vmul_f32(v11, *v10.i8), *v8.i8, *&vextq_s8(v10, v10, 8uLL));
+      v14 = vmls_f32(vmul_f32(*v8.i8, *&vextq_s8(v10, v10, 4uLL)), v12, *v10.i8);
+      v8.i64[0] = vextq_s8(*v5, *v5, 8uLL).u64[0];
+      v10.i64[0] = vextq_s8(v9, v9, 8uLL).u64[0];
+      *v15.f32 = vext_s8(v14, v13, 4uLL);
+      v16 = vmls_f32(vmul_f32(*v5->i8, vext_s8(*v9.i8, *v10.i8, 4uLL)), vext_s8(*v5->i8, *v8.i8, 4uLL), *v9.i8);
+      *v17.f32 = vext_s8(v16, vmls_f32(vmul_f32(*v8.i8, *v9.i8), *v5->i8, *v10.i8), 4uLL);
+      v17.i64[1] = v16.u32[0];
+      v15.i64[1] = v14.u32[0];
+      result = vsubq_f32(vaddq_f32(*v7, v15), vaddq_f32(v5[-1], v17));
+      *v3++ = result;
+      v19 = v6 - 63;
+      ++v6;
+      v4 += 32;
+      v5 += 2;
+    }
+
+    while (v19 < *a2);
+  }
+
+  return result;
+}
+
+float32x4_t physx::Dy::PxcLtbSolve(unsigned __int16 *a1, uint64_t a2, float32x2_t *a3)
+{
+  v6 = a1[8];
+  v7 = (a1 + v6);
+  bzero(a3, 32 * *a1);
+  v8 = *a1;
+  if (v8 >= 2)
+  {
+    v9 = (&a1[200 * *a1 - 64] + v6);
+    v10 = &a3[4 * v8 - 2];
+    v11 = a2 - 16;
+    do
+    {
+      v12 = *(a1 + v8 + 63);
+      v13 = v10[-1];
+      v14 = vmulq_f32(v9[-2], v13);
+      v14.i64[0] = vpaddq_f32(v14, v14).u64[0];
+      v15 = vmulq_f32(v9[-1], *v10);
+      v15.i64[0] = vpaddq_f32(v15, v15).u64[0];
+      *v14.f32 = vadd_f32(vpadd_f32(*v14.f32, *v14.f32), vpadd_f32(*v15.f32, *v15.f32));
+      v16 = vmulq_f32(v13, *v9);
+      v16.i64[0] = vpaddq_f32(v16, v16).u64[0];
+      v17 = vmulq_f32(*v10, v9[1]);
+      v17.i64[0] = vpaddq_f32(v17, v17).u64[0];
+      v18 = vmulq_f32(v13, v9[2]);
+      v18.i64[0] = vpaddq_f32(v18, v18).u64[0];
+      v19 = vmulq_f32(*v10, v9[3]);
+      v19.i64[0] = vpaddq_f32(v19, v19).u64[0];
+      *v14.f32 = vext_s8(*v14.f32, vadd_f32(vpadd_f32(*v16.f32, *v16.f32), vpadd_f32(*v17.f32, *v17.f32)), 4uLL);
+      v14.i64[1] = vadd_f32(vpadd_f32(*v18.f32, *v18.f32), vpadd_f32(*v19.f32, *v19.f32)).u32[0];
+      v20 = vsubq_f32(*(v11 + 16 * v8), v14);
+      *(v11 + 16 * v8) = v20;
+      v21 = vmulq_laneq_f32(v9[-4], v20, 2);
+      v21.i32[3] = 0;
+      v22 = vmlaq_lane_f32(v21, v9[-6], *v20.f32, 1);
+      v23 = &a3[4 * v12];
+      v22.i64[1] = vextq_s8(v22, v22, 8uLL).u32[0];
+      v24 = vmlaq_n_f32(v22, v9[-8], v20.f32[0]);
+      v24.i64[1] = vextq_s8(v24, v24, 8uLL).u32[0];
+      v25 = vmulq_laneq_f32(v9[-3], v20, 2);
+      v25.i32[3] = 0;
+      v26 = vmlaq_lane_f32(v25, v9[-5], *v20.f32, 1);
+      v26.i64[1] = vextq_s8(v26, v26, 8uLL).u32[0];
+      v27 = vmlaq_n_f32(v26, v9[-7], v20.f32[0]);
+      v27.i64[1] = vextq_s8(v27, v27, 8uLL).u32[0];
+      v28 = vsubq_f32(*v23, v24);
+      v29 = vsubq_f32(v23[1], v27);
+      *v23 = v28;
+      v23[1] = v29;
+      v9 -= 25;
+      v10 -= 2;
+      --v8;
+    }
+
+    while (v8 > 1);
+  }
+
+  v30 = *a3[2].f32;
+  v31 = vmulq_n_f32(*v7, COERCE_FLOAT(*a3->f32));
+  v31.i32[3] = 0;
+  v32 = vmulq_lane_f32(v7[1], *a3, 1);
+  v32.i32[3] = 0;
+  v33 = v7[3];
+  v34 = vmulq_laneq_f32(v7[2], *a3->f32, 2);
+  v34.i32[3] = 0;
+  v35 = vaddq_f32(vaddq_f32(v31, v32), v34);
+  v36 = vmulq_n_f32(v33, v30.f32[0]);
+  v36.i32[3] = 0;
+  v37 = v7[4];
+  v38 = v7[5];
+  v39 = vmulq_lane_f32(v37, *v30.f32, 1);
+  v39.i32[3] = 0;
+  v40 = vmulq_laneq_f32(v38, v30, 2);
+  v40.i32[3] = 0;
+  v41 = vmulq_f32(*a3->f32, v33);
+  v41.i64[0] = vpaddq_f32(v41, v41).u64[0];
+  v42 = vmulq_f32(*a3->f32, v37);
+  v42.i64[0] = vpaddq_f32(v42, v42).u64[0];
+  v43 = vmulq_f32(*a3->f32, v38);
+  v43.i64[0] = vpaddq_f32(v43, v43).u64[0];
+  *v42.f32 = vext_s8(vpadd_f32(*v41.f32, *v41.f32), vpadd_f32(*v42.f32, *v42.f32), 4uLL);
+  v42.i64[1] = vpadd_f32(*v43.f32, *v43.f32).u32[0];
+  v44 = vmulq_n_f32(v7[6], v30.f32[0]);
+  v44.i32[3] = 0;
+  v45 = vmulq_lane_f32(v7[7], *v30.f32, 1);
+  v45.i32[3] = 0;
+  result = vaddq_f32(v35, vaddq_f32(vaddq_f32(v36, v39), v40));
+  v47 = vmulq_laneq_f32(v7[8], v30, 2);
+  v47.i32[3] = 0;
+  *a3->f32 = result;
+  *a3[2].f32 = vaddq_f32(vaddq_f32(vaddq_f32(v44, v45), v47), v42);
+  if (*a1 >= 2u)
+  {
+    v48 = 0;
+    v49 = a3 + 6;
+    v50 = (a1 + v6 + 400);
+    do
+    {
+      v51 = *(a2 + 16 + 16 * v48);
+      v52 = vmulq_n_f32(v50[21], v51.f32[0]);
+      v52.i32[3] = 0;
+      v53 = vmulq_lane_f32(v50[22], *v51.f32, 1);
+      v53.i32[3] = 0;
+      v54 = vmulq_laneq_f32(v50[23], v51, 2);
+      v54.i32[3] = 0;
+      v55 = &a3[4 * *(a1 + v48 + 65)];
+      v56 = *v55[2].f32;
+      v57 = vmulq_f32(v50[9], *v55->f32);
+      v57.i64[0] = vpaddq_f32(v57, v57).u64[0];
+      v58 = vmulq_f32(v50[10], v56);
+      v58.i64[0] = vpaddq_f32(v58, v58).u64[0];
+      v59 = vmulq_f32(*v55->f32, v50[11]);
+      v59.i64[0] = vpaddq_f32(v59, v59).u64[0];
+      v60 = vmulq_f32(v56, v50[12]);
+      v60.i64[0] = vpaddq_f32(v60, v60).u64[0];
+      v61 = vmulq_f32(*v55->f32, v50[13]);
+      v61.i64[0] = vpaddq_f32(v61, v61).u64[0];
+      v62 = vmulq_f32(v56, v50[14]);
+      v62.i64[0] = vpaddq_f32(v62, v62).u64[0];
+      *v57.f32 = vext_s8(vadd_f32(vpadd_f32(*v57.f32, *v57.f32), vpadd_f32(*v58.f32, *v58.f32)), vadd_f32(vpadd_f32(*v59.f32, *v59.f32), vpadd_f32(*v60.f32, *v60.f32)), 4uLL);
+      v63 = vaddq_f32(v52, v53);
+      v57.i64[1] = vadd_f32(vpadd_f32(*v61.f32, *v61.f32), vpadd_f32(*v62.f32, *v62.f32)).u32[0];
+      v64 = *v49[-2].f32;
+      v65 = vmulq_n_f32(*v50, v64.f32[0]);
+      v65.i32[3] = 0;
+      v66 = vmulq_lane_f32(v50[1], *v64.f32, 1);
+      v66.i32[3] = 0;
+      v67 = vaddq_f32(v63, v54);
+      v68 = v50[3];
+      v69 = vmulq_laneq_f32(v50[2], v64, 2);
+      v69.i32[3] = 0;
+      v70 = vmulq_n_f32(v68, COERCE_FLOAT(*v49->f32));
+      v71 = v50[4];
+      v72 = v50[5];
+      v73 = vmulq_lane_f32(v71, *v49, 1);
+      v70.i32[3] = 0;
+      v73.i32[3] = 0;
+      v74 = vmulq_f32(v64, v68);
+      v75 = vmulq_f32(v64, v71);
+      v76 = vmulq_f32(v64, v72);
+      v77 = vaddq_f32(v65, v66);
+      v78 = vmulq_laneq_f32(v72, *v49->f32, 2);
+      v78.i32[3] = 0;
+      v74.i64[0] = vpaddq_f32(v74, v74).u64[0];
+      v75.i64[0] = vpaddq_f32(v75, v75).u64[0];
+      v76.i64[0] = vpaddq_f32(v76, v76).u64[0];
+      *v74.f32 = vext_s8(vpadd_f32(*v74.f32, *v74.f32), vpadd_f32(*v75.f32, *v75.f32), 4uLL);
+      v79 = vaddq_f32(v77, v69);
+      v80 = vmulq_n_f32(v50[6], COERCE_FLOAT(*v49->f32));
+      v81 = vaddq_f32(vaddq_f32(v70, v73), v78);
+      v80.i32[3] = 0;
+      v82 = vmulq_lane_f32(v50[7], *v49, 1);
+      v82.i32[3] = 0;
+      v83 = vsubq_f32(v67, v57);
+      v84 = vmulq_laneq_f32(v50[8], *v49->f32, 2);
+      v84.i32[3] = 0;
+      v74.i64[1] = vpadd_f32(*v76.f32, *v76.f32).u32[0];
+      v85 = vmulq_laneq_f32(v50[19], v83, 2);
+      v85.i32[3] = 0;
+      v86 = vmlaq_lane_f32(v85, v50[17], *v83.f32, 1);
+      v86.i64[1] = vextq_s8(v86, v86, 8uLL).u32[0];
+      v87 = vmlaq_n_f32(v86, v50[15], v83.f32[0]);
+      v88 = vmulq_laneq_f32(v50[20], v83, 2);
+      v88.i32[3] = 0;
+      v89 = vmlaq_lane_f32(v88, v50[18], *v83.f32, 1);
+      v89.i64[1] = vextq_s8(v89, v89, 8uLL).u32[0];
+      v90 = vmlaq_n_f32(v89, v50[16], v83.f32[0]);
+      v87.i64[1] = vextq_s8(v87, v87, 8uLL).u32[0];
+      v90.i64[1] = vextq_s8(v90, v90, 8uLL).u32[0];
+      result = vsubq_f32(vaddq_f32(vaddq_f32(vaddq_f32(v80, v82), v84), v74), v90);
+      *v49[-2].f32 = vsubq_f32(vaddq_f32(v79, v81), v87);
+      *v49->f32 = result;
+      v91 = v48 + 2;
+      ++v48;
+      v49 += 4;
+      v50 += 25;
+    }
+
+    while (v91 < *a1);
+  }
+
+  return result;
+}
+
+void physx::Dy::PxcFsComputeJointLoadsSimd(unsigned __int16 *a1, const void *a2, uint64_t a3, uint64_t a4, unsigned int a5, int a6, uint64_t *a7)
+{
+  v579 = *MEMORY[0x1E69E9840];
+  if (a6)
+  {
+    v7 = a5;
+    v524 = a5;
+    if (a5 >= 2)
+    {
+      v9 = a5 - 1;
+      v10 = &v561;
+      v11 = (a4 + 4);
+      do
+      {
+        v12 = vld1_dup_f32(v11++);
+        *v10++ = v12;
+        --v9;
+      }
+
+      while (v9);
+    }
+
+    v13 = *a7;
+    v14 = a7[2];
+    v15 = (*a7 + v14);
+    v16 = v14 + 144 * a5;
+    a7[2] = v16 + 144 * a5;
+    v17 = *a1;
+    v18 = &a1[200 * v17] + a1[8];
+    v19 = a1 + a1[1];
+    if (a5)
+    {
+      v20 = a1 + 32;
+      v21 = v560;
+      v22 = a5;
+      do
+      {
+        v23 = *v20;
+        v20 = (v20 + 1);
+        *v21++ = v23;
+        --v22;
+      }
+
+      while (v22);
+    }
+
+    v24 = v13 + v16;
+    v25 = &v18[32 * v17];
+    __n = 144 * a5;
+    do
+    {
+      v523 = a6;
+      memcpy(v15, a2, __n);
+      if (v7 >= 2)
+      {
+        v26 = v524;
+        do
+        {
+          _X26 = a3 + 48 * v26;
+          _X8 = &v19[32 * v26--];
+          __asm
+          {
+            PRFUM           #0, [X26,#-0x60]
+            PRFUM           #0, [X8,#-0x40]
+          }
+
+          v35 = &v15[144 * v26];
+          v555 = v560[v26 + 64];
+          *v36.f32 = physx::Dy::ArticulationFnsSimdBase::computeSIS(v35, &v25[96 * v26], &v562);
+          v39 = vdupq_lane_s32(v555, 0);
+          v40 = vmlaq_n_f32(v36, *(_X26 - 48), *v555.i32);
+          v41 = vdup_lane_s32(*v40.f32, 0);
+          v42 = vrecpe_f32(v41);
+          v43 = 4;
+          do
+          {
+            v42 = vmul_f32(v42, vrecps_f32(v41, v42));
+            --v43;
+          }
+
+          while (v43);
+          v44 = vmlaq_f32(v37, v39, *(_X26 - 32));
+          v45 = vmax_f32(v42, 0);
+          v46 = vrsqrte_f32(v45);
+          v47 = 4;
+          do
+          {
+            v46 = vmul_f32(v46, vrsqrts_f32(vmul_f32(v46, v46), v45));
+            --v47;
+          }
+
+          while (v47);
+          v48 = vbsl_s8(vdup_lane_s32(vceqz_f32(v45), 0), v45, vmul_f32(v45, v46));
+          v49 = vmulq_n_f32(v40, v48.f32[0]);
+          v50 = vdup_lane_s32(*v49.f32, 1);
+          v51 = vneg_f32(v50);
+          v52 = vmls_lane_f32(vdup_lane_s32(*v44.i8, 1), v50, *v49.f32, 1);
+          v53 = vrecpe_f32(v52);
+          v54 = 4;
+          do
+          {
+            v53 = vmul_f32(v53, vrecps_f32(v52, v53));
+            --v54;
+          }
+
+          while (v54);
+          v55 = vmlaq_f32(v38, v39, *(_X26 - 16));
+          v56 = vmax_f32(v53, 0);
+          v57 = vrsqrte_f32(v56);
+          v58 = 4;
+          do
+          {
+            v57 = vmul_f32(v57, vrsqrts_f32(vmul_f32(v57, v57), v56));
+            --v58;
+          }
+
+          while (v58);
+          v59 = vdup_laneq_s32(v55, 2);
+          v60 = vbsl_s8(vdup_lane_s32(vceqz_f32(v56), 0), v56, vmul_f32(v56, v57));
+          v61 = vdup_laneq_s32(v49, 2);
+          v62 = vmul_f32(vmla_laneq_f32(vdup_laneq_s32(v44, 2), v51, v49, 2), v60);
+          v63 = vneg_f32(v62);
+          v64 = vneg_f32(v61);
+          v65 = vmls_laneq_f32(vmls_f32(v59, v62, v62), v61, v49, 2);
+          v66 = vrecpe_f32(v65);
+          v67 = 4;
+          do
+          {
+            v66 = vmul_f32(v66, vrecps_f32(v65, v66));
+            --v67;
+          }
+
+          while (v67);
+          v68 = vmax_f32(v66, 0);
+          v69 = vrsqrte_f32(v68);
+          v70 = 4;
+          do
+          {
+            v69 = vmul_f32(v69, vrsqrts_f32(vmul_f32(v69, v69), v68));
+            --v70;
+          }
+
+          while (v70);
+          v71 = vbsl_s8(vdup_lane_s32(vceqz_f32(v68), 0), v68, vmul_f32(v68, v69));
+          v72 = vmul_f32(vmul_lane_f32(v48, *v49.f32, 1), v60);
+          v73 = vmulq_lane_f32(v562, v48, 1);
+          v74 = v73;
+          v74.i32[3] = 0;
+          v75 = vmul_f32(vext_s8(vmla_f32(vmul_f32(v62, v72), v48, v64), vmul_f32(v60, v71), 4uLL), vext_s8(v71, v63, 4uLL));
+          v76 = vmulq_lane_f32(v563, v48, 1);
+          v77 = v76;
+          v77.i32[3] = 0;
+          v78 = vmulq_n_f32(v564, v60.f32[0]);
+          v78.i32[3] = 0;
+          v79 = vmlsq_lane_f32(v78, v562, v72, 1);
+          v80.i64[0] = v79.i64[0];
+          v80.i64[1] = vextq_s8(v79, v79, 8uLL).u32[0];
+          v81 = vmulq_n_f32(v565, v60.f32[0]);
+          v81.i32[3] = 0;
+          v82 = vmlsq_lane_f32(v81, v563, v72, 1);
+          v83.i64[0] = v82.i64[0];
+          v83.i64[1] = vextq_s8(v82, v82, 8uLL).u32[0];
+          v84 = vmulq_n_f32(v566, v71.f32[0]);
+          v84.i32[3] = 0;
+          v85 = vmlaq_lane_f32(v84, v564, v75, 1);
+          v85.i64[1] = vextq_s8(v85, v85, 8uLL).u32[0];
+          v86 = vmlaq_n_f32(v85, v562, v75.f32[0]);
+          v87.i64[0] = v86.i64[0];
+          v87.i64[1] = vextq_s8(v86, v86, 8uLL).u32[0];
+          v88 = vmulq_n_f32(v567, v71.f32[0]);
+          v88.i32[3] = 0;
+          v89 = vmlaq_lane_f32(v88, v565, v75, 1);
+          v89.i64[1] = vextq_s8(v89, v89, 8uLL).u32[0];
+          v90 = vmlaq_n_f32(v89, v563, v75.f32[0]);
+          v91.i64[0] = v90.i64[0];
+          v91.i64[1] = vextq_s8(v90, v90, 8uLL).u32[0];
+          v92 = vmlsq_lane_f32(*v35, v74, *v73.f32, 0);
+          v92.i64[1] = vextq_s8(v92, v92, 8uLL).u32[0];
+          v93 = vmlsq_lane_f32(v35[3], v74, *v76.f32, 0);
+          v93.i64[1] = vextq_s8(v93, v93, 8uLL).u32[0];
+          v94 = vmlsq_lane_f32(v35[6], v77, *v76.f32, 0);
+          v94.i64[1] = vextq_s8(v94, v94, 8uLL).u32[0];
+          v95 = vmlsq_lane_f32(v35[1], v74, *v73.f32, 1);
+          v95.i64[1] = vextq_s8(v95, v95, 8uLL).u32[0];
+          v96 = vmlsq_lane_f32(v35[4], v74, *v76.f32, 1);
+          v96.i64[1] = vextq_s8(v96, v96, 8uLL).u32[0];
+          v97 = vmlsq_lane_f32(v35[7], v77, *v76.f32, 1);
+          v97.i64[1] = vextq_s8(v97, v97, 8uLL).u32[0];
+          v98 = vmlsq_laneq_f32(v35[2], v74, v73, 2);
+          v98.i64[1] = vextq_s8(v98, v98, 8uLL).u32[0];
+          v99 = vmlsq_laneq_f32(v35[5], v74, v76, 2);
+          v99.i64[1] = vextq_s8(v99, v99, 8uLL).u32[0];
+          v100 = vmlsq_laneq_f32(v35[8], v77, v76, 2);
+          v100.i64[1] = vextq_s8(v100, v100, 8uLL).u32[0];
+          v101 = vmlsq_lane_f32(v92, v80, *v79.i8, 0);
+          v101.i64[1] = vextq_s8(v101, v101, 8uLL).u32[0];
+          v102 = vmlsq_lane_f32(v93, v80, *v82.i8, 0);
+          v102.i64[1] = vextq_s8(v102, v102, 8uLL).u32[0];
+          v103 = vmlsq_lane_f32(v94, v83, *v82.i8, 0);
+          v103.i64[1] = vextq_s8(v103, v103, 8uLL).u32[0];
+          v104 = vmlsq_lane_f32(v95, v80, *v79.i8, 1);
+          v104.i64[1] = vextq_s8(v104, v104, 8uLL).u32[0];
+          v105 = vmlsq_lane_f32(v96, v80, *v82.i8, 1);
+          v105.i64[1] = vextq_s8(v105, v105, 8uLL).u32[0];
+          v106 = vmlsq_lane_f32(v97, v83, *v82.i8, 1);
+          v106.i64[1] = vextq_s8(v106, v106, 8uLL).u32[0];
+          v107 = vmlsq_laneq_f32(v98, v80, v79, 2);
+          v107.i64[1] = vextq_s8(v107, v107, 8uLL).u32[0];
+          v108 = vmlsq_laneq_f32(v99, v80, v82, 2);
+          v108.i64[1] = vextq_s8(v108, v108, 8uLL).u32[0];
+          v109 = vmlsq_laneq_f32(v100, v83, v82, 2);
+          v109.i64[1] = vextq_s8(v109, v109, 8uLL).u32[0];
+          v110 = vmlsq_lane_f32(v101, v87, *v86.i8, 0);
+          v110.i64[1] = vextq_s8(v110, v110, 8uLL).u32[0];
+          v116 = vmlsq_lane_f32(v102, v87, *v90.i8, 0);
+          v111 = *&v19[32 * v26];
+          v112 = vnegq_f32(v111);
+          *v77.f32 = vext_s8(0, *&vextq_s8(v111, v111, 8uLL), 4uLL);
+          v77.i64[1] = vdup_lane_s32(*v112.f32, 1).u32[0];
+          *v76.f32 = vext_s8(vdup_laneq_s32(v112, 2), 0, 4uLL);
+          v76.i64[1] = vdup_lane_s32(*v111.i8, 0).u32[0];
+          *v83.f32 = vext_s8(*v111.i8, *v112.f32, 4uLL);
+          v113 = vmulq_laneq_f32(v83.u64[0], v116, 2);
+          v113.i32[3] = 0;
+          v114 = vmlaq_lane_f32(v113, v76, *v116.i8, 1);
+          v114.i64[1] = vextq_s8(v114, v114, 8uLL).u32[0];
+          v115 = vmlaq_n_f32(v114, v77, *v116.i32);
+          v116.i64[1] = vextq_s8(v116, v116, 8uLL).u32[0];
+          v117 = vmlsq_lane_f32(v103, v91, *v90.i8, 0);
+          v117.i64[1] = vextq_s8(v117, v117, 8uLL).u32[0];
+          v118 = vmlsq_lane_f32(v104, v87, *v86.i8, 1);
+          v118.i64[1] = vextq_s8(v118, v118, 8uLL).u32[0];
+          v119 = vmlsq_lane_f32(v105, v87, *v90.i8, 1);
+          v82.i64[0] = v119.i64[0];
+          v82.i64[1] = vextq_s8(v119, v119, 8uLL).u32[0];
+          v120 = vmlsq_lane_f32(v106, v91, *v90.i8, 1);
+          v120.i64[1] = vextq_s8(v120, v120, 8uLL).u32[0];
+          v121 = vmlsq_laneq_f32(v107, v87, v86, 2);
+          v121.i64[1] = vextq_s8(v121, v121, 8uLL).u32[0];
+          v122 = vmulq_laneq_f32(v83.u64[0], v119, 2);
+          v123 = vmlsq_laneq_f32(v108, v87, v90, 2);
+          v86.i64[0] = v123.i64[0];
+          v86.i64[1] = vextq_s8(v123, v123, 8uLL).u32[0];
+          v124 = vmlsq_laneq_f32(v109, v91, v90, 2);
+          v124.i64[1] = vextq_s8(v124, v124, 8uLL).u32[0];
+          v122.i32[3] = 0;
+          v125 = vmlaq_lane_f32(v122, v76, *v119.i8, 1);
+          v125.i64[1] = vextq_s8(v125, v125, 8uLL).u32[0];
+          v126 = vmlaq_n_f32(v125, v77, *v119.i32);
+          v115.i64[1] = vextq_s8(v115, v115, 8uLL).u32[0];
+          v127 = vmulq_laneq_f32(v83.u64[0], v123, 2);
+          v127.i32[3] = 0;
+          v128 = vmlaq_lane_f32(v127, v76, *v123.i8, 1);
+          v128.i64[1] = vextq_s8(v128, v128, 8uLL).u32[0];
+          v129 = vmlaq_n_f32(v128, v77, *v123.i32);
+          v126.i64[1] = vextq_s8(v126, v126, 8uLL).u32[0];
+          v129.i64[1] = vextq_s8(v129, v129, 8uLL).u32[0];
+          v130 = vmulq_laneq_f32(v118, v112, 2);
+          v130.i32[3] = 0;
+          v131 = vmlaq_lane_f32(v130, v121, *v111.i8, 1);
+          v132 = vmulq_n_f32(v77, *v131.i32);
+          v132.i32[3] = 0;
+          v133 = vmlaq_lane_f32(v132, v76, *v131.i8, 1);
+          v133.i64[1] = vextq_s8(v133, v133, 8uLL).u32[0];
+          v134 = vmlaq_laneq_f32(v133, v83.u64[0], v131, 2);
+          v131.i64[1] = vextq_s8(v131, v131, 8uLL).u32[0];
+          v135 = vmulq_n_f32(v121, v112.f32[0]);
+          v135.i32[3] = 0;
+          v136 = vmlaq_laneq_f32(v135, v110, v111, 2);
+          v137 = vmulq_n_f32(v77, *v136.i32);
+          v87.i64[0] = v136.i64[0];
+          v87.i64[1] = vextq_s8(v136, v136, 8uLL).u32[0];
+          v137.i32[3] = 0;
+          v138 = vmlaq_lane_f32(v137, v76, *v136.i8, 1);
+          v138.i64[1] = vextq_s8(v138, v138, 8uLL).u32[0];
+          v139 = vmlaq_laneq_f32(v138, v83.u64[0], v136, 2);
+          v140 = vmulq_lane_f32(v110, *v112.f32, 1);
+          v140.i32[3] = 0;
+          v141 = vmlaq_n_f32(v140, v118, *v111.i32);
+          v142 = vmulq_n_f32(v77, *v141.i32);
+          v136.i64[0] = v141.i64[0];
+          v136.i64[1] = vextq_s8(v141, v141, 8uLL).u32[0];
+          v134.i64[1] = vextq_s8(v134, v134, 8uLL).u32[0];
+          v139.i64[1] = vextq_s8(v139, v139, 8uLL).u32[0];
+          v142.i32[3] = 0;
+          v143 = vmlaq_lane_f32(v142, v76, *v141.i8, 1);
+          v143.i64[1] = vextq_s8(v143, v143, 8uLL).u32[0];
+          v144 = vmlaq_laneq_f32(v143, v83.u64[0], v141, 2);
+          v144.i64[1] = vextq_s8(v144, v144, 8uLL).u32[0];
+          v83.i64[0] = 0x3F0000003F000000;
+          v83.i64[1] = 0x3F0000003F000000;
+          v145 = vmlaq_f32(v115, v83, v134);
+          v146 = vmlaq_f32(v126, v83, v139);
+          v76.i64[0] = vextq_s8(v146, v146, 8uLL).u64[0];
+          v111.i64[0] = v76.u32[0];
+          v147 = vmlaq_f32(v129, v83, v144);
+          *v76.f32 = vext_s8(vdup_laneq_s32(v145, 2), *v76.f32, 4uLL);
+          *v144.i8 = vext_s8(vdup_lane_s32(*v145.i8, 0), *v146.i8, 4uLL);
+          v144.i64[1] = vdup_lane_s32(*v147.i8, 0).u32[0];
+          *v141.i8 = vext_s8(*v145.i8, vdup_lane_s32(*v146.i8, 1), 4uLL);
+          v145.i64[1] = vextq_s8(v145, v145, 8uLL).u32[0];
+          v141.i64[1] = vdup_lane_s32(*v147.i8, 1).u32[0];
+          v146.i64[1] = v111.i64[0];
+          v76.i64[1] = vdup_laneq_s32(v147, 2).u32[0];
+          v147.i64[1] = vextq_s8(v147, v147, 8uLL).u32[0];
+          v148 = &v15[144 * v560[v26]];
+          v149 = vaddq_f32(v145, v144);
+          v150 = vaddq_f32(v147, v76);
+          v151 = v148[6];
+          v152 = v148[7];
+          v153 = vaddq_f32(v148[3], vaddq_f32(v116, v131));
+          v154 = v148[8];
+          v155 = vaddq_f32(v148[1], v118);
+          v156 = vaddq_f32(v148[2], v121);
+          v157 = vaddq_f32(v148[4], vaddq_f32(v82, v87));
+          v158 = vaddq_f32(v148[5], vaddq_f32(v86, v136));
+          *v148 = vaddq_f32(*v148, v110);
+          v148[1] = v155;
+          v148[2] = v156;
+          v148[3] = v153;
+          v148[4] = v157;
+          v148[5] = v158;
+          v148[6] = vaddq_f32(v151, vaddq_f32(v117, v149));
+          v148[7] = vaddq_f32(v152, vaddq_f32(v120, vaddq_f32(v146, v141)));
+          v148[8] = vaddq_f32(v154, vaddq_f32(v124, v150));
+          v159 = (v24 + 144 * v26);
+          *v159 = v110;
+          v159[1] = v118;
+          v159[2] = v121;
+          v159[3] = v116;
+          v159[4] = v82;
+          v159[5] = v86;
+          v159[6] = v117;
+          v159[7] = v120;
+          v159[8] = v124;
+        }
+
+        while (v26 > 1);
+        v160 = 1;
+        do
+        {
+          v161 = *&v19[32 * v160];
+          v162 = vnegq_f32(v161);
+          v163 = v162;
+          v163.i32[3] = 0;
+          v164 = &v15[144 * v560[v160]];
+          v165 = vnegq_f32(v163);
+          v166 = v164[4];
+          v167 = v164[5];
+          *v168.f32 = vext_s8(0, *&vextq_s8(v162, v162, 8uLL), 4uLL);
+          v168.i64[1] = vdup_lane_s32(*v165.f32, 1).u32[0];
+          v169 = *v164;
+          v170 = v164[1];
+          v171 = v164[2];
+          v172 = v164[3];
+          *v173.f32 = vext_s8(vdup_laneq_s32(v165, 2), 0, 4uLL);
+          v173.i64[1] = vdup_lane_s32(*v162.i8, 0).u32[0];
+          *v116.i8 = vext_s8(*v162.i8, *v165.f32, 4uLL);
+          v174 = vmulq_laneq_f32(v116, v172, 2);
+          v174.i32[3] = 0;
+          v175 = vmlaq_lane_f32(v174, v173, *v172.f32, 1);
+          v175.i64[1] = vextq_s8(v175, v175, 8uLL).u32[0];
+          v176 = vmlaq_n_f32(v175, v168, v172.f32[0]);
+          v176.i64[1] = vextq_s8(v176, v176, 8uLL).u32[0];
+          v177 = vmulq_laneq_f32(v116, v166, 2);
+          v177.i32[3] = 0;
+          v178 = vmlaq_lane_f32(v177, v173, *v166.f32, 1);
+          v178.i64[1] = vextq_s8(v178, v178, 8uLL).u32[0];
+          v179 = vmlaq_n_f32(v178, v168, v166.f32[0]);
+          v179.i64[1] = vextq_s8(v179, v179, 8uLL).u32[0];
+          v180 = vmulq_laneq_f32(v116, v167, 2);
+          v180.i32[3] = 0;
+          v181 = vmlaq_lane_f32(v180, v173, *v167.f32, 1);
+          v181.i64[1] = vextq_s8(v181, v181, 8uLL).u32[0];
+          v182 = vmlaq_n_f32(v181, v168, v167.f32[0]);
+          v182.i64[1] = vextq_s8(v182, v182, 8uLL).u32[0];
+          v183 = vmulq_laneq_f32(v170, v165, 2);
+          v183.i32[3] = 0;
+          v184 = vmlsq_lane_f32(v183, v171, *v161.f32, 1);
+          v185.i64[0] = v184.i64[0];
+          v185.i64[1] = vextq_s8(v184, v184, 8uLL).u32[0];
+          v186 = vmulq_n_f32(v168, *v184.i32);
+          v187 = vmulq_n_f32(v171, v165.f32[0]);
+          v187.i32[3] = 0;
+          v186.i32[3] = 0;
+          v188 = vmlaq_lane_f32(v186, v173, *v184.i8, 1);
+          v188.i64[1] = vextq_s8(v188, v188, 8uLL).u32[0];
+          v189 = vmlaq_laneq_f32(v188, v116, v184, 2);
+          v190 = vmlsq_laneq_f32(v187, *v164, v161, 2);
+          v191 = vmulq_n_f32(v168, *v190.i32);
+          v184.i64[0] = v190.i64[0];
+          v184.i64[1] = vextq_s8(v190, v190, 8uLL).u32[0];
+          v192 = vmulq_lane_f32(*v164, *v165.f32, 1);
+          v192.i32[3] = 0;
+          v193 = vmlsq_lane_f32(v192, v170, *v161.f32, 0);
+          v191.i32[3] = 0;
+          v194 = vmlaq_lane_f32(v191, v173, *v190.i8, 1);
+          v194.i64[1] = vextq_s8(v194, v194, 8uLL).u32[0];
+          v195 = vmlaq_laneq_f32(v194, v116, v190, 2);
+          v196 = vmulq_n_f32(v168, *v193.i32);
+          v196.i32[3] = 0;
+          v197 = vmlaq_lane_f32(v196, v173, *v193.i8, 1);
+          v197.i64[1] = vextq_s8(v197, v197, 8uLL).u32[0];
+          v198 = vmlaq_laneq_f32(v197, v116, v193, 2);
+          v161.i64[0] = v193.i64[0];
+          v161.i64[1] = vextq_s8(v193, v193, 8uLL).u32[0];
+          v189.i64[1] = vextq_s8(v189, v189, 8uLL).u32[0];
+          v199 = v164[8];
+          v195.i64[1] = vextq_s8(v195, v195, 8uLL).u32[0];
+          v198.i64[1] = vextq_s8(v198, v198, 8uLL).u32[0];
+          v193.i64[0] = 0x3F0000003F000000;
+          v193.i64[1] = 0x3F0000003F000000;
+          v200 = vmlaq_f32(v176, v193, v189);
+          v201 = vmlaq_f32(v179, v193, v195);
+          v195.i64[0] = vextq_s8(v201, v201, 8uLL).u64[0];
+          *v190.i8 = vext_s8(vdup_laneq_s32(v200, 2), *v195.i8, 4uLL);
+          v202 = vmlaq_f32(v182, v193, v198);
+          *v193.i8 = vext_s8(vdup_lane_s32(*v200.i8, 0), *v201.i8, 4uLL);
+          v193.i64[1] = vdup_lane_s32(*v202.i8, 0).u32[0];
+          *v203.f32 = vext_s8(*v200.i8, vdup_lane_s32(*v201.i8, 1), 4uLL);
+          v200.i64[1] = vextq_s8(v200, v200, 8uLL).u32[0];
+          v203.i64[1] = vdup_lane_s32(*v202.i8, 1).u32[0];
+          v201.i64[1] = v195.u32[0];
+          v190.i64[1] = vdup_laneq_s32(v202, 2).u32[0];
+          v202.i64[1] = vextq_s8(v202, v202, 8uLL).u32[0];
+          v204 = vaddq_f32(v172, v185);
+          v205 = vaddq_f32(v167, v161);
+          v206 = vaddq_f32(v164[6], vaddq_f32(v200, v193));
+          v207 = vaddq_f32(v164[7], vaddq_f32(v201, v203));
+          v208 = (v24 + 144 * v160);
+          v209 = vaddq_f32(v199, vaddq_f32(v202, v190));
+          v210 = vsubq_f32(v169, *v208);
+          v211 = vsubq_f32(v170, v208[1]);
+          v212 = vsubq_f32(v171, v208[2]);
+          v213 = vsubq_f32(v204, v208[3]);
+          v214 = vsubq_f32(vaddq_f32(v166, v184), v208[4]);
+          v215 = vsubq_f32(v205, v208[5]);
+          v216 = vsubq_f32(v206, v208[6]);
+          v217 = vsubq_f32(v207, v208[7]);
+          v218 = vsubq_f32(v209, v208[8]);
+          v535 = v211;
+          v536 = v210;
+          v559[0] = v210;
+          v559[1] = v211;
+          v537 = v213;
+          v538 = v212;
+          v559[2] = v212;
+          v559[3] = v213;
+          v539 = v215;
+          v540 = v214;
+          v559[4] = v214;
+          v559[5] = v215;
+          v541 = v217;
+          v542 = v216;
+          v559[6] = v216;
+          v559[7] = v217;
+          v543 = v218;
+          v559[8] = v218;
+          v556 = v560[v160 + 64];
+          v219 = (a3 + 48 * v160);
+          *v220.f32 = physx::Dy::ArticulationFnsSimdBase::computeSIS(v559, &v25[96 * v160], &v562);
+          v223 = vdupq_lane_s32(v556, 0);
+          v224 = vmlaq_n_f32(v220, *v219, *v556.i32);
+          v225 = vdup_lane_s32(*v224.f32, 0);
+          v226 = vrecpe_f32(v225);
+          v227 = 4;
+          do
+          {
+            v226 = vmul_f32(v226, vrecps_f32(v225, v226));
+            --v227;
+          }
+
+          while (v227);
+          v228 = vmlaq_f32(v221, v223, v219[1]);
+          v229 = vmax_f32(v226, 0);
+          v230 = vrsqrte_f32(v229);
+          v231 = 4;
+          do
+          {
+            v230 = vmul_f32(v230, vrsqrts_f32(vmul_f32(v230, v230), v229));
+            --v231;
+          }
+
+          while (v231);
+          v232 = vbsl_s8(vdup_lane_s32(vceqz_f32(v229), 0), v229, vmul_f32(v229, v230));
+          v233 = vmulq_n_f32(v224, v232.f32[0]);
+          v234 = vdup_lane_s32(*v233.f32, 1);
+          v235 = vneg_f32(v234);
+          v236 = vmls_lane_f32(vdup_lane_s32(*v228.i8, 1), v234, *v233.f32, 1);
+          v237 = vrecpe_f32(v236);
+          v238 = 4;
+          do
+          {
+            v237 = vmul_f32(v237, vrecps_f32(v236, v237));
+            --v238;
+          }
+
+          while (v238);
+          v239 = vmlaq_f32(v222, v223, v219[2]);
+          v240 = vmax_f32(v237, 0);
+          v241 = vrsqrte_f32(v240);
+          v242 = 4;
+          do
+          {
+            v241 = vmul_f32(v241, vrsqrts_f32(vmul_f32(v241, v241), v240));
+            --v242;
+          }
+
+          while (v242);
+          v243 = vdup_laneq_s32(v239, 2);
+          v244 = vbsl_s8(vdup_lane_s32(vceqz_f32(v240), 0), v240, vmul_f32(v240, v241));
+          v245 = vdup_laneq_s32(v233, 2);
+          v246 = vmul_f32(vmla_laneq_f32(vdup_laneq_s32(v228, 2), v235, v233, 2), v244);
+          v247 = vneg_f32(v246);
+          v248 = vneg_f32(v245);
+          v249 = vmls_laneq_f32(vmls_f32(v243, v246, v246), v245, v233, 2);
+          v250 = vrecpe_f32(v249);
+          v251 = 4;
+          do
+          {
+            v250 = vmul_f32(v250, vrecps_f32(v249, v250));
+            --v251;
+          }
+
+          while (v251);
+          v252 = vmax_f32(v250, 0);
+          v253 = vrsqrte_f32(v252);
+          v254 = 4;
+          do
+          {
+            v253 = vmul_f32(v253, vrsqrts_f32(vmul_f32(v253, v253), v252));
+            --v254;
+          }
+
+          while (v254);
+          v255 = vbsl_s8(vdup_lane_s32(vceqz_f32(v252), 0), v252, vmul_f32(v252, v253));
+          v256 = vmul_f32(vmul_lane_f32(v232, *v233.f32, 1), v244);
+          v257 = vext_s8(vmla_f32(vmul_f32(v246, v256), v232, v248), vmul_f32(v244, v255), 4uLL);
+          v258 = vmulq_lane_f32(v562, v232, 1);
+          v259 = v258;
+          v259.i32[3] = 0;
+          v260 = vmulq_lane_f32(v563, v232, 1);
+          v261 = v260;
+          v261.i32[3] = 0;
+          v262 = vmulq_n_f32(v564, v244.f32[0]);
+          v262.i32[3] = 0;
+          v263 = vmlsq_lane_f32(v262, v562, v256, 1);
+          v264.i64[0] = v263.i64[0];
+          v264.i64[1] = vextq_s8(v263, v263, 8uLL).u32[0];
+          v265 = vmul_f32(v257, vext_s8(v255, v247, 4uLL));
+          v266 = vmulq_n_f32(v565, v244.f32[0]);
+          v266.i32[3] = 0;
+          v267 = vmlsq_lane_f32(v266, v563, v256, 1);
+          v268.i64[0] = v267.i64[0];
+          v268.i64[1] = vextq_s8(v267, v267, 8uLL).u32[0];
+          v269 = vmulq_n_f32(v566, v255.f32[0]);
+          v269.i32[3] = 0;
+          v270 = vmlaq_lane_f32(v269, v564, v265, 1);
+          v270.i64[1] = vextq_s8(v270, v270, 8uLL).u32[0];
+          v271 = vmlaq_n_f32(v270, v562, v265.f32[0]);
+          v272.i64[0] = v271.i64[0];
+          v272.i64[1] = vextq_s8(v271, v271, 8uLL).u32[0];
+          v273 = vmulq_n_f32(v567, v255.f32[0]);
+          v273.i32[3] = 0;
+          v274 = vmlaq_lane_f32(v273, v565, v265, 1);
+          v274.i64[1] = vextq_s8(v274, v274, 8uLL).u32[0];
+          v275 = vmlaq_n_f32(v274, v563, v265.f32[0]);
+          v276.i64[0] = v275.i64[0];
+          v276.i64[1] = vextq_s8(v275, v275, 8uLL).u32[0];
+          v277 = vmlsq_lane_f32(v536, v259, *v258.f32, 0);
+          v277.i64[1] = vextq_s8(v277, v277, 8uLL).u32[0];
+          v278 = vmlsq_lane_f32(v537, v259, *v260.f32, 0);
+          v278.i64[1] = vextq_s8(v278, v278, 8uLL).u32[0];
+          v279 = vmlsq_lane_f32(v542, v261, *v260.f32, 0);
+          v279.i64[1] = vextq_s8(v279, v279, 8uLL).u32[0];
+          v280 = vmlsq_lane_f32(v535, v259, *v258.f32, 1);
+          v280.i64[1] = vextq_s8(v280, v280, 8uLL).u32[0];
+          v281 = vmlsq_lane_f32(v540, v259, *v260.f32, 1);
+          v281.i64[1] = vextq_s8(v281, v281, 8uLL).u32[0];
+          v282 = vmlsq_lane_f32(v541, v261, *v260.f32, 1);
+          v282.i64[1] = vextq_s8(v282, v282, 8uLL).u32[0];
+          v283 = vmlsq_laneq_f32(v538, v259, v258, 2);
+          v283.i64[1] = vextq_s8(v283, v283, 8uLL).u32[0];
+          v284 = vmlsq_laneq_f32(v539, v259, v260, 2);
+          v284.i64[1] = vextq_s8(v284, v284, 8uLL).u32[0];
+          v285 = vmlsq_laneq_f32(v543, v261, v260, 2);
+          v285.i64[1] = vextq_s8(v285, v285, 8uLL).u32[0];
+          v286 = vmlsq_lane_f32(v277, v264, *v263.i8, 0);
+          v286.i64[1] = vextq_s8(v286, v286, 8uLL).u32[0];
+          v287 = vmlsq_lane_f32(v278, v264, *v267.i8, 0);
+          v287.i64[1] = vextq_s8(v287, v287, 8uLL).u32[0];
+          v288 = vmlsq_lane_f32(v279, v268, *v267.i8, 0);
+          v288.i64[1] = vextq_s8(v288, v288, 8uLL).u32[0];
+          v289 = vmlsq_lane_f32(v280, v264, *v263.i8, 1);
+          v289.i64[1] = vextq_s8(v289, v289, 8uLL).u32[0];
+          v290 = vmlsq_lane_f32(v281, v264, *v267.i8, 1);
+          v290.i64[1] = vextq_s8(v290, v290, 8uLL).u32[0];
+          v291 = vmlsq_lane_f32(v282, v268, *v267.i8, 1);
+          v291.i64[1] = vextq_s8(v291, v291, 8uLL).u32[0];
+          v292 = vmlsq_laneq_f32(v283, v264, v263, 2);
+          v292.i64[1] = vextq_s8(v292, v292, 8uLL).u32[0];
+          v293 = vmlsq_laneq_f32(v284, v264, v267, 2);
+          v293.i64[1] = vextq_s8(v293, v293, 8uLL).u32[0];
+          v294 = vmlsq_laneq_f32(v285, v268, v267, 2);
+          v294.i64[1] = vextq_s8(v294, v294, 8uLL).u32[0];
+          v553 = vmlsq_lane_f32(v287, v272, *v275.i8, 0);
+          v557 = vmlsq_lane_f32(v286, v272, *v271.i8, 0);
+          v295 = vmlsq_lane_f32(v288, v276, *v275.i8, 0);
+          v527 = vextq_s8(v557, v557, 8uLL).u32[0];
+          v528 = vextq_s8(v295, v295, 8uLL).u32[0];
+          v549 = vmlsq_lane_f32(v290, v272, *v275.i8, 1);
+          v551 = v295.i64[0];
+          v533 = vmlsq_lane_f32(v291, v276, *v275.i8, 1);
+          v534 = vmlsq_lane_f32(v289, v272, *v271.i8, 1);
+          v545 = vextq_s8(v533, v533, 8uLL).u32[0];
+          v546 = vextq_s8(v534, v534, 8uLL).u32[0];
+          v296 = vmlsq_laneq_f32(v292, v272, v271, 2);
+          v529 = vextq_s8(v553, v553, 8uLL).u32[0];
+          v530 = vextq_s8(v296, v296, 8uLL).u32[0];
+          v531 = vmlsq_laneq_f32(v293, v272, v275, 2);
+          v532 = v296.i64[0];
+          v544 = vextq_s8(v531, v531, 8uLL).u32[0];
+          v547 = vmlsq_laneq_f32(v294, v276, v275, 2);
+          v525 = vextq_s8(v547, v547, 8uLL).u32[0];
+          v526 = vextq_s8(v549, v549, 8uLL).u32[0];
+          v297 = &v15[144 * v160];
+          *v298.i8 = physx::Dy::ArticulationFnsSimdBase::computeSIS(v297, &v25[96 * v160], &v573);
+          v300 = vextq_s8(v299, v299, 8uLL).u64[0];
+          v302 = vextq_s8(v301, v301, 8uLL).u64[0];
+          v303 = vext_s8(*v301.i8, v302, 4uLL);
+          v304 = vext_s8(*v299.i8, v300, 4uLL);
+          v305 = vmls_f32(vmul_f32(v300, *v301.i8), *v299.i8, v302);
+          v306 = vmls_f32(vmul_f32(*v299.i8, v303), v304, *v301.i8);
+          *v307.f32 = vext_s8(v306, v305, 4uLL);
+          v306.i32[1] = 0;
+          v307.i64[1] = v306.u32[0];
+          v308 = vextq_s8(v298, v298, 8uLL).u64[0];
+          v309 = vext_s8(*v298.i8, v308, 4uLL);
+          v310 = vmul_f32(v302, *v298.i8);
+          v311 = vmls_f32(vmul_f32(*v301.i8, v309), v303, *v298.i8).u32[0];
+          *v312.f32 = vdup_lane_s32(vmls_f32(v310, *v301.i8, v308), 0);
+          v312.i64[1] = v311;
+          v313 = vmulq_f32(v298, v307);
+          v313.i64[0] = vpaddq_f32(v313, v313).u64[0];
+          v314 = vpadd_f32(*v313.f32, *v313.f32);
+          v315 = vrecpe_f32(v314);
+          v316 = 4;
+          do
+          {
+            v315 = vmul_f32(v315, vrecps_f32(v314, v315));
+            --v316;
+          }
+
+          while (v316);
+          v317 = vmls_f32(vmul_f32(*v298.i8, v304), v309, *v299.i8);
+          v312.i32[0] = v305.i32[0];
+          *v318.f32 = vext_s8(vdup_lane_s32(v306, 0), v311, 4uLL);
+          *&v318.u32[2] = v317;
+          v319 = vmulq_n_f32(v307, v315.f32[0]);
+          v320 = vmulq_n_f32(v312, v315.f32[0]);
+          v321 = vmulq_n_f32(v318, v315.f32[0]);
+          v322 = vmulq_laneq_f32(v577, v319, 2);
+          v322.i32[3] = 0;
+          v323 = vmlaq_lane_f32(v322, v575, *v319.f32, 1);
+          v323.i64[1] = vextq_s8(v323, v323, 8uLL).u32[0];
+          v324 = vmlaq_n_f32(v323, v573, v319.f32[0]);
+          v324.i64[1] = vextq_s8(v324, v324, 8uLL).u32[0];
+          v325 = vmulq_laneq_f32(v577, v320, 2);
+          v325.i32[3] = 0;
+          v326 = vmlaq_lane_f32(v325, v575, *v320.f32, 1);
+          v326.i64[1] = vextq_s8(v326, v326, 8uLL).u32[0];
+          v327 = vmlaq_n_f32(v326, v573, v320.f32[0]);
+          v327.i64[1] = vextq_s8(v327, v327, 8uLL).u32[0];
+          v328 = vmulq_laneq_f32(v577, v321, 2);
+          v328.i32[3] = 0;
+          v329 = vmlaq_lane_f32(v328, v575, *v321.f32, 1);
+          v329.i64[1] = vextq_s8(v329, v329, 8uLL).u32[0];
+          v330 = vmlaq_n_f32(v329, v573, v321.f32[0]);
+          v330.i64[1] = vextq_s8(v330, v330, 8uLL).u32[0];
+          v331 = vmulq_laneq_f32(v578, v319, 2);
+          v331.i32[3] = 0;
+          v332 = vmlaq_lane_f32(v331, v576, *v319.f32, 1);
+          v332.i64[1] = vextq_s8(v332, v332, 8uLL).u32[0];
+          v333 = vmlaq_n_f32(v332, v574, v319.f32[0]);
+          v333.i64[1] = vextq_s8(v333, v333, 8uLL).u32[0];
+          v334 = vmulq_laneq_f32(v578, v320, 2);
+          v334.i32[3] = 0;
+          v335 = vmlaq_lane_f32(v334, v576, *v320.f32, 1);
+          v335.i64[1] = vextq_s8(v335, v335, 8uLL).u32[0];
+          v336 = vmlaq_n_f32(v335, v574, v320.f32[0]);
+          v381.i64[1] = vextq_s8(v336, v336, 8uLL).u32[0];
+          v337 = vmulq_laneq_f32(v578, v321, 2);
+          v337.i32[3] = 0;
+          v338 = vmlaq_lane_f32(v337, v576, *v321.f32, 1);
+          v338.i64[1] = vextq_s8(v338, v338, 8uLL).u32[0];
+          v339 = vmlaq_n_f32(v338, v574, v321.f32[0]);
+          v339.i64[1] = vextq_s8(v339, v339, 8uLL).u32[0];
+          v340 = vmlsq_lane_f32(vaddq_f32(v536, *v297), v324, *v573.f32, 0);
+          v340.i64[1] = vextq_s8(v340, v340, 8uLL).u32[0];
+          v341 = vmlsq_lane_f32(vaddq_f32(v537, v297[3]), v324, *v574.f32, 0);
+          v341.i64[1] = vextq_s8(v341, v341, 8uLL).u32[0];
+          v342 = vmlsq_lane_f32(vaddq_f32(v542, v297[6]), v333, *v574.f32, 0);
+          v342.i64[1] = vextq_s8(v342, v342, 8uLL).u32[0];
+          v343 = vmlsq_lane_f32(vaddq_f32(v535, v297[1]), v324, *v573.f32, 1);
+          v343.i64[1] = vextq_s8(v343, v343, 8uLL).u32[0];
+          v344 = vmlsq_lane_f32(vaddq_f32(v540, v297[4]), v324, *v574.f32, 1);
+          v344.i64[1] = vextq_s8(v344, v344, 8uLL).u32[0];
+          v345 = vmlsq_lane_f32(vaddq_f32(v541, v297[7]), v333, *v574.f32, 1);
+          v345.i64[1] = vextq_s8(v345, v345, 8uLL).u32[0];
+          v346 = vmlsq_laneq_f32(vaddq_f32(v538, v297[2]), v324, v573, 2);
+          v346.i64[1] = vextq_s8(v346, v346, 8uLL).u32[0];
+          v347 = vmlsq_laneq_f32(vaddq_f32(v539, v297[5]), v324, v574, 2);
+          v347.i64[1] = vextq_s8(v347, v347, 8uLL).u32[0];
+          v348 = vmlsq_laneq_f32(vaddq_f32(v543, v297[8]), v333, v574, 2);
+          v348.i64[1] = vextq_s8(v348, v348, 8uLL).u32[0];
+          v349 = vmlsq_lane_f32(v340, v327, *v575.f32, 0);
+          v349.i64[1] = vextq_s8(v349, v349, 8uLL).u32[0];
+          v350 = vmlsq_lane_f32(v341, v327, *v576.f32, 0);
+          v350.i64[1] = vextq_s8(v350, v350, 8uLL).u32[0];
+          v351 = vmlsq_lane_f32(v342, v381, *v576.f32, 0);
+          v351.i64[1] = vextq_s8(v351, v351, 8uLL).u32[0];
+          v352 = vmlsq_lane_f32(v343, v327, *v575.f32, 1);
+          v352.i64[1] = vextq_s8(v352, v352, 8uLL).u32[0];
+          v353 = vmlsq_lane_f32(v344, v327, *v576.f32, 1);
+          v353.i64[1] = vextq_s8(v353, v353, 8uLL).u32[0];
+          v354 = vmlsq_lane_f32(v345, v381, *v576.f32, 1);
+          v354.i64[1] = vextq_s8(v354, v354, 8uLL).u32[0];
+          v355 = vmlsq_laneq_f32(v346, v327, v575, 2);
+          v355.i64[1] = vextq_s8(v355, v355, 8uLL).u32[0];
+          v356 = vmlsq_laneq_f32(v347, v327, v576, 2);
+          v356.i64[1] = vextq_s8(v356, v356, 8uLL).u32[0];
+          v357 = vmlsq_laneq_f32(v348, v381, v576, 2);
+          v357.i64[1] = vextq_s8(v357, v357, 8uLL).u32[0];
+          v358 = vmlsq_lane_f32(v349, v330, *v577.f32, 0);
+          v359 = vmlsq_lane_f32(v350, v330, *v578.f32, 0);
+          v360 = vextq_s8(v359, v359, 8uLL).u32[0];
+          v361 = vmlsq_lane_f32(v351, v339, *v578.f32, 0);
+          v362 = vmlsq_lane_f32(v352, v330, *v577.f32, 1);
+          v363 = vmlsq_lane_f32(v353, v330, *v578.f32, 1);
+          v364 = vextq_s8(v363, v363, 8uLL).u32[0];
+          v365 = vmlsq_lane_f32(v354, v339, *v578.f32, 1);
+          v366 = vmlsq_laneq_f32(v355, v330, v577, 2);
+          v367 = vmlsq_laneq_f32(v356, v330, v578, 2);
+          v368 = vextq_s8(v367, v367, 8uLL).u32[0];
+          v369 = vmlsq_laneq_f32(v357, v339, v578, 2);
+          *v370.f32 = vext_s8(vdup_lane_s32(*v361.f32, 0), *v365.i8, 4uLL);
+          v370.i64[1] = v369.i64[0];
+          v572[0] = v324;
+          v572[1] = v333;
+          v572[2] = v327;
+          v572[3] = v381;
+          *v324.i8 = vext_s8(*v361.f32, vdup_lane_s32(*v365.i8, 1), 4uLL);
+          v324.u64[1] = vdup_lane_s32(*v369.i8, 1);
+          *v327.i8 = vext_s8(vdup_laneq_s32(v361, 2), *&vextq_s8(v365, v365, 8uLL), 4uLL);
+          v327.i64[1] = vextq_s8(v369, v369, 8uLL).u64[0];
+          v572[4] = v330;
+          v572[5] = v339;
+          v371 = vaddq_f32(v361, v370);
+          v372 = vaddq_f32(v365, v324);
+          v373 = vaddq_f32(v369, v327);
+          v374.i64[0] = 0x3F0000003F000000;
+          v374.i64[1] = 0x3F0000003F000000;
+          v375 = vmulq_f32(v371, v374);
+          v376 = v375;
+          v376.i32[3] = 0;
+          v377 = vmulq_f32(v372, v374);
+          v378 = v377;
+          v378.i32[3] = 0;
+          v379 = vmulq_f32(v373, v374);
+          v380 = v379;
+          v380.i32[3] = 0;
+          *v381.f32 = vext_s8(vdup_lane_s32(*v358.f32, 0), *v362.i8, 4uLL);
+          *v372.f32 = vext_s8(*v358.f32, vdup_lane_s32(*v362.i8, 1), 4uLL);
+          *&v372.u32[2] = vdup_lane_s32(*v366.i8, 1);
+          *v333.i8 = vext_s8(vdup_laneq_s32(v358, 2), *&vextq_s8(v362, v362, 8uLL), 4uLL);
+          v333.i64[1] = vextq_s8(v366, v366, 8uLL).u64[0];
+          v382 = vaddq_f32(v362, v372);
+          v383 = vaddq_f32(v366, v333);
+          v362.i64[0] = vextq_s8(v378, v378, 8uLL).u64[0];
+          v369.i64[0] = vextq_s8(v380, v380, 8uLL).u64[0];
+          v384 = vext_s8(*v379.f32, *v369.i8, 4uLL);
+          v385 = vext_s8(*v377.f32, *v362.i8, 4uLL);
+          v386 = vmls_f32(vmul_f32(*v379.f32, *v362.i8), *v377.f32, *v369.i8);
+          v387 = vmls_f32(vmul_f32(*v377.f32, v384), v385, *v379.f32);
+          *v388.f32 = vext_s8(v387, v386, 4uLL);
+          v387.i32[1] = 0;
+          v388.i64[1] = v387.u32[0];
+          v389 = vextq_s8(v376, v376, 8uLL).u64[0];
+          v390 = vext_s8(*v375.f32, v389, 4uLL);
+          *v392.f32 = vdup_lane_s32(vmls_f32(vmul_f32(*v375.f32, *v369.i8), *v379.f32, v389), 0);
+          v391 = vmls_f32(vmul_f32(*v379.f32, v390), v384, *v375.f32).u32[0];
+          v392.i64[1] = v391;
+          v393 = vmulq_f32(v382, v374);
+          v394 = vmulq_f32(v376, v388);
+          v394.i64[0] = vpaddq_f32(v394, v394).u64[0];
+          v395 = vpadd_f32(*v394.f32, *v394.f32);
+          v396 = vrecpe_f32(v395);
+          v397 = 4;
+          do
+          {
+            v396 = vmul_f32(v396, vrecps_f32(v395, v396));
+            --v397;
+          }
+
+          while (v397);
+          v381.i64[1] = v366.i64[0];
+          v398.i64[0] = v557.i64[0];
+          v398.i64[1] = v527;
+          v558 = v398;
+          v398.i64[0] = 0x3F0000003F000000;
+          v398.i64[1] = 0x3F0000003F000000;
+          v399 = vmulq_f32(vaddq_f32(v358, v381), v398);
+          v400.i64[0] = v549.i64[0];
+          v400.i64[1] = v526;
+          v550 = v400;
+          v400.i64[0] = v547.i64[0];
+          v400.i64[1] = v525;
+          v548 = v400;
+          v401.i64[0] = v359.i64[0];
+          v401.i64[1] = v360;
+          v402.i64[0] = v363.i64[0];
+          v402.i64[1] = v364;
+          v403.i64[0] = v367.i64[0];
+          v403.i64[1] = v368;
+          v399.i32[3] = 0;
+          v393.i32[3] = 0;
+          v404 = vmulq_f32(v383, v398);
+          v404.i32[3] = 0;
+          v392.i32[0] = v386.i32[0];
+          *v400.f32 = vmls_f32(vmul_f32(*v375.f32, v385), v390, *v377.f32);
+          *v405.f32 = vext_s8(vdup_lane_s32(v387, 0), v391, 4uLL);
+          v405.i64[1] = v400.i64[0];
+          v406 = vmulq_n_f32(v388, v396.f32[0]);
+          v407 = vmulq_n_f32(v392, v396.f32[0]);
+          v408 = vmulq_n_f32(v405, v396.f32[0]);
+          v409 = vnegq_f32(v401);
+          v409.i32[3] = 0;
+          v410 = vnegq_f32(v402);
+          v410.i32[3] = 0;
+          v411 = vnegq_f32(v403);
+          v411.i32[3] = 0;
+          v412 = vmulq_n_f32(v409, v406.f32[0]);
+          v412.i32[3] = 0;
+          v413 = vmulq_lane_f32(v410, *v406.f32, 1);
+          v413.i32[3] = 0;
+          v414 = vmulq_laneq_f32(v411, v406, 2);
+          v414.i32[3] = 0;
+          v415 = vaddq_f32(v414, vaddq_f32(v412, v413));
+          v416 = vmulq_n_f32(v409, v407.f32[0]);
+          v416.i32[3] = 0;
+          v417 = vmulq_lane_f32(v410, *v407.f32, 1);
+          v417.i32[3] = 0;
+          v418 = vmulq_laneq_f32(v411, v407, 2);
+          v418.i32[3] = 0;
+          v419 = vaddq_f32(v416, v417);
+          v420 = vmulq_n_f32(v409, v408.f32[0]);
+          v420.i32[3] = 0;
+          v421 = vmulq_lane_f32(v410, *v408.f32, 1);
+          v421.i32[3] = 0;
+          v422 = vmulq_laneq_f32(v411, v408, 2);
+          v422.i32[3] = 0;
+          v423 = vaddq_f32(v418, v419);
+          v424 = vaddq_f32(v422, vaddq_f32(v420, v421));
+          v425 = vmulq_n_f32(v415, *v359.i32);
+          v425.i32[3] = 0;
+          v426 = vmulq_n_f32(v423, *v363.i32);
+          v426.i32[3] = 0;
+          v427 = vmulq_n_f32(v424, *v367.i32);
+          v427.i32[3] = 0;
+          v428 = vaddq_f32(v425, v426);
+          v429 = vmulq_lane_f32(v415, *v359.i8, 1);
+          v429.i32[3] = 0;
+          v430 = vmulq_lane_f32(v423, *v363.i8, 1);
+          v430.i32[3] = 0;
+          v431 = vmulq_n_f32(v424, *vdup_lane_s32(*v367.i8, 1).i32);
+          v431.i32[3] = 0;
+          v432 = vaddq_f32(v431, vaddq_f32(v429, v430));
+          v433 = vmulq_laneq_f32(v415, v359, 2);
+          v433.i32[3] = 0;
+          v434 = vmulq_laneq_f32(v423, v363, 2);
+          v434.i32[3] = 0;
+          v435 = vmulq_laneq_f32(v424, v367, 2);
+          v435.i32[3] = 0;
+          v436 = vaddq_f32(v435, vaddq_f32(v433, v434));
+          v437 = vaddq_f32(v399, vaddq_f32(v427, v428));
+          v438 = vaddq_f32(v393, v432);
+          v439 = vaddq_f32(v404, v436);
+          v427.i64[0] = vextq_s8(v439, v439, 8uLL).u64[0];
+          v399.i64[0] = vextq_s8(v439, v439, 4uLL).u64[0];
+          v440 = vextq_s8(v438, v438, 4uLL).u64[0];
+          v441 = vmls_f32(vmul_f32(*&vextq_s8(v438, v438, 8uLL), *v439.i8), *v438.i8, *v427.f32);
+          v442 = vmls_f32(vmul_f32(*v438.i8, *v399.f32), v440, *v439.i8);
+          *v443.f32 = vext_s8(v442, v441, 4uLL);
+          v442.i32[1] = 0;
+          v443.i64[1] = v442.u32[0];
+          v444 = vextq_s8(v437, v437, 4uLL).u64[0];
+          v445 = vmul_f32(*v427.f32, *v437.i8);
+          v446 = vmls_f32(vmul_f32(*v439.i8, v444), *v399.f32, *v437.i8).u32[0];
+          *v447.f32 = vdup_lane_s32(vmls_f32(v445, *v439.i8, *&vextq_s8(v437, v437, 8uLL)), 0);
+          v447.i64[1] = v446;
+          v448 = vmulq_f32(v437, v443);
+          v448.i64[0] = vpaddq_f32(v448, v448).u64[0];
+          v449 = vpadd_f32(*v448.f32, *v448.f32);
+          v450 = vrecpe_f32(v449);
+          v451 = 4;
+          do
+          {
+            v450 = vmul_f32(v450, vrecps_f32(v449, v450));
+            --v451;
+          }
+
+          while (v451);
+          v452.i64[0] = v551;
+          v452.i64[1] = v528;
+          v552 = v452;
+          v320.i32[3] = 0;
+          v452.i64[0] = v553.i64[0];
+          v452.i64[1] = v529;
+          v554 = v452;
+          v319.i32[3] = 0;
+          v321.i32[3] = 0;
+          v406.i32[3] = 0;
+          v407.i32[3] = 0;
+          v408.i32[3] = 0;
+          v447.i32[0] = v441.i32[0];
+          *v453.f32 = vext_s8(vdup_lane_s32(v442, 0), v446, 4uLL);
+          *&v453.u32[2] = vmls_f32(vmul_f32(*v437.i8, v440), v444, *v438.i8);
+          v454 = vmulq_n_f32(v443, v450.f32[0]);
+          v455 = vmulq_n_f32(v454, v415.f32[0]);
+          v456 = vmulq_n_f32(v454, *v423.i32);
+          v457 = vmulq_n_f32(v454, v424.f32[0]);
+          v454.i32[3] = 0;
+          v458 = vmulq_n_f32(v447, v450.f32[0]);
+          v459 = vmulq_lane_f32(v458, *v415.f32, 1);
+          v460 = vmulq_lane_f32(v458, *v423.i8, 1);
+          v461 = vmulq_lane_f32(v458, *v424.f32, 1);
+          v458.i32[3] = 0;
+          v462 = vmulq_n_f32(v453, v450.f32[0]);
+          v463 = vmulq_laneq_f32(v462, v415, 2);
+          v464 = vmulq_laneq_f32(v462, v423, 2);
+          v465 = v462;
+          v465.i32[3] = 0;
+          v466 = vdupq_laneq_s32(v415, 2).u64[0];
+          v455.i32[3] = 0;
+          v459.i32[3] = 0;
+          v467 = vmulq_laneq_f32(v462, v424, 2);
+          v463.i32[3] = 0;
+          v468 = vaddq_f32(v455, v459);
+          v459.i64[0] = vdupq_lane_s32(*v423.i8, 1).u64[0];
+          v469 = vaddq_f32(v463, v468);
+          v463.i64[0] = vextq_s8(v423, v423, 8uLL).u64[0];
+          v456.i32[3] = 0;
+          v460.i32[3] = 0;
+          v464.i32[3] = 0;
+          v470 = vaddq_f32(v464, vaddq_f32(v456, v460));
+          v457.i32[3] = 0;
+          v461.i32[3] = 0;
+          v467.i32[3] = 0;
+          *v471.f32 = vext_s8(*&vdupq_lane_s32(*v415.f32, 0), *v423.i8, 4uLL);
+          v471.i64[1] = vdup_lane_s32(*v424.f32, 0).u32[0];
+          v472 = vaddq_f32(v467, vaddq_f32(v457, v461));
+          *v473.f32 = vext_s8(*v415.f32, *v459.f32, 4uLL);
+          v473.i64[1] = vdup_lane_s32(*v424.f32, 1).u32[0];
+          *v457.f32 = vext_s8(v466, *v463.f32, 4uLL);
+          v457.i64[1] = vdup_laneq_s32(v424, 2).u32[0];
+          v474 = vmulq_n_f32(v471, v469.f32[0]);
+          v474.i32[3] = 0;
+          v475 = vmulq_lane_f32(v473, *v469.f32, 1);
+          v475.i32[3] = 0;
+          v476 = vmulq_laneq_f32(v457, v469, 2);
+          v476.i32[3] = 0;
+          v477 = vaddq_f32(v476, vaddq_f32(v474, v475));
+          v478 = vmulq_n_f32(v471, v470.f32[0]);
+          v478.i32[3] = 0;
+          v479 = vmulq_lane_f32(v473, *v470.f32, 1);
+          v479.i32[3] = 0;
+          v480 = vmulq_laneq_f32(v457, v470, 2);
+          v480.i32[3] = 0;
+          v481 = vmulq_n_f32(v471, v472.f32[0]);
+          v481.i32[3] = 0;
+          v482 = vmulq_lane_f32(v473, *v472.f32, 1);
+          v482.i32[3] = 0;
+          v483 = vmulq_laneq_f32(v457, v472, 2);
+          v483.i32[3] = 0;
+          v562 = v454;
+          v563 = v458;
+          v564 = v465;
+          v565 = v469;
+          v566 = v470;
+          v567 = v472;
+          v568 = vaddq_f32(v406, v477);
+          v569 = vaddq_f32(v407, vaddq_f32(v480, vaddq_f32(v478, v479)));
+          v570 = vaddq_f32(v408, vaddq_f32(v483, vaddq_f32(v481, v482)));
+          *v484.f32 = physx::Dy::ArticulationFnsSimdBase::computeSIS(&v562, v572, v571);
+          v485 = vaddq_f32(v319, v484);
+          v487 = vaddq_f32(v320, v486);
+          v489 = vaddq_f32(v321, v488);
+          v490 = vextq_s8(v489, v489, 8uLL).u64[0];
+          v491 = vextq_s8(v489, v489, 4uLL).u64[0];
+          v492 = vextq_s8(v487, v487, 4uLL).u64[0];
+          v493 = vmls_f32(vmul_f32(*&vextq_s8(v487, v487, 8uLL), *v489.i8), *v487.i8, v490);
+          v494 = vmls_f32(vmul_f32(*v487.i8, v491), v492, *v489.i8);
+          *v495.f32 = vext_s8(v494, v493, 4uLL);
+          v494.i32[1] = 0;
+          v495.i64[1] = v494.u32[0];
+          v496 = vextq_s8(v485, v485, 4uLL).u64[0];
+          v497 = vmul_f32(v490, *v485.i8);
+          v498 = vmls_f32(vmul_f32(*v489.i8, v496), v491, *v485.i8).u32[0];
+          *v499.f32 = vdup_lane_s32(vmls_f32(v497, *v489.i8, *&vextq_s8(v485, v485, 8uLL)), 0);
+          v499.i64[1] = v498;
+          v500 = vmulq_f32(v485, v495);
+          v500.i64[0] = vpaddq_f32(v500, v500).u64[0];
+          v501 = vpadd_f32(*v500.f32, *v500.f32);
+          v502 = vrecpe_f32(v501);
+          v503 = 4;
+          do
+          {
+            v502 = vmul_f32(v502, vrecps_f32(v501, v502));
+            --v503;
+          }
+
+          while (v503);
+          v116.i64[0] = v532;
+          v504.i64[0] = v533.i64[0];
+          v116.i64[1] = v530;
+          v504.i64[1] = v545;
+          v505.i64[0] = v534.i64[0];
+          v505.i64[1] = v546;
+          v506.i64[0] = v531.i64[0];
+          v506.i64[1] = v544;
+          v499.i32[0] = v493.i32[0];
+          v507 = vmls_f32(vmul_f32(*v485.i8, v492), v496, *v487.i8);
+          *v508.f32 = vext_s8(vdup_lane_s32(v494, 0), v498, 4uLL);
+          *&v508.u32[2] = v507;
+          v509 = vmulq_n_f32(v495, v502.f32[0]);
+          v509.i32[3] = 0;
+          v510 = vmulq_n_f32(v499, v502.f32[0]);
+          v510.i32[3] = 0;
+          v511 = vmulq_n_f32(v508, v502.f32[0]);
+          v511.i32[3] = 0;
+          *v219 = v509;
+          v219[1] = v510;
+          v219[2] = v511;
+          v512 = vaddq_f32(v505, v297[1]);
+          v513 = vaddq_f32(v116, v297[2]);
+          v514 = vaddq_f32(v554, v297[3]);
+          v515 = vaddq_f32(v550, v297[4]);
+          v516 = vaddq_f32(v506, v297[5]);
+          v517 = vaddq_f32(v552, v297[6]);
+          v518 = vaddq_f32(v504, v297[7]);
+          v519 = vaddq_f32(v548, v297[8]);
+          *v297 = vaddq_f32(v558, *v297);
+          v297[1] = v512;
+          v297[2] = v513;
+          v297[3] = v514;
+          v297[4] = v515;
+          v297[5] = v516;
+          v297[6] = v517;
+          v297[7] = v518;
+          v297[8] = v519;
+          ++v160;
+        }
+
+        while (v160 != v524);
+      }
+
+      a6 = v523 - 1;
+      v7 = a5;
+    }
+
+    while (v523 != 1);
   }
 }
 
-uint64_t physx::GuMeshFactory::release(physx::GuMeshFactory *this)
+void physx::Dy::PxcFsPropagateDrivenInertiaSimd(unsigned __int16 *a1, const void *a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  while (*(this + 17))
+  v273 = *MEMORY[0x1E69E9840];
+  v8 = a1[9];
+  v9 = a1[8];
+  v10 = *a1;
+  v11 = a1[1];
+  v12 = a5[2];
+  v13 = *a5 + v12;
+  a5[2] = v12 + 144 * v10;
+  memcpy(v13, a2, 144 * v10);
+  v266 = a1;
+  v14 = *a1;
+  v15 = (v14 - 1);
+  if (v14 != 1)
   {
-    (****(this + 3))(**(this + 3));
+    v16 = v266 + v8 + 144;
+    v17 = &v266[200 * v10 + 16 * v10] + v9;
+    v18 = v266 + v11;
+    do
+    {
+      v19 = (v13 + 144 * v15);
+      *v20.f32 = physx::Dy::ArticulationFnsSimdBase::computeSIS(v19, (v17 + 96 * v15), &v267);
+      v21 = *(a3 + 4 * v15);
+      v22 = (a4 + 48 * v15);
+      v23 = vmlaq_n_f32(v20, *v22, v21);
+      v24 = vextq_s8(v23, v23, 8uLL).u32[0];
+      v26 = vmlaq_n_f32(v25, v22[1], v21);
+      v28 = vmlaq_n_f32(v27, v22[2], v21);
+      v29 = vextq_s8(v28, v28, 8uLL).u32[0];
+      v30 = vextq_s8(v28, v28, 4uLL).u64[0];
+      v31 = vextq_s8(v26, v26, 4uLL).u64[0];
+      v32 = vmls_f32(vmul_f32(vextq_s8(v26, v26, 8uLL).u32[0], *v28.i8), *v26.i8, v29);
+      v34 = vmls_f32(vmul_f32(*v26.i8, v30), v31, *v28.i8);
+      v33 = vext_s8(v34, v32, 4uLL);
+      v34.i32[1] = 0;
+      *v35.f32 = v33;
+      v35.i64[1] = v34.u32[0];
+      v36 = vextq_s8(v23, v23, 4uLL).u64[0];
+      *v38.f32 = vdup_lane_s32(vmls_f32(vmul_f32(*v23.i8, v29), *v28.i8, v24), 0);
+      v37 = vmls_f32(vmul_f32(v36, *v28.i8), v30, *v23.i8).u32[0];
+      v38.i64[1] = v37;
+      *v28.i8 = vpadd_f32(vmul_f32(*v23.i8, v33), vmul_f32(v24, v34.u32[0]));
+      v39 = vpadd_f32(*v28.i8, *v28.i8);
+      v40 = vrecpe_f32(v39);
+      v41 = 4;
+      do
+      {
+        v40 = vmul_f32(v40, vrecps_f32(v39, v40));
+        --v41;
+      }
+
+      while (v41);
+      v42 = vmls_f32(vmul_f32(*v23.i8, v31), v36, *v26.i8);
+      v38.i32[0] = v32.i32[0];
+      *v43.f32 = vext_s8(vdup_lane_s32(v34, 0), v37, 4uLL);
+      *&v43.u32[2] = v42;
+      v44 = vmulq_n_f32(v35, v40.f32[0]);
+      v46 = v267;
+      v45 = v268;
+      v48 = v269;
+      v47 = v270;
+      v50 = v271;
+      v49 = v272;
+      v51 = vmulq_laneq_f32(v271, v44, 2);
+      v51.i32[3] = 0;
+      v52 = vmlaq_lane_f32(v51, v269, *v44.f32, 1);
+      v52.i64[1] = vextq_s8(v52, v52, 8uLL).u32[0];
+      v53 = vmlaq_n_f32(v52, v267, v44.f32[0]);
+      v54 = vmulq_laneq_f32(v272, v44, 2);
+      v54.i32[3] = 0;
+      v55 = vmlaq_lane_f32(v54, v270, *v44.f32, 1);
+      v55.i64[1] = vextq_s8(v55, v55, 8uLL).u32[0];
+      v56 = vmlaq_n_f32(v55, v268, v44.f32[0]);
+      v44.i32[3] = 0;
+      v57 = vmulq_n_f32(v38, v40.f32[0]);
+      v58 = vmulq_laneq_f32(v271, v57, 2);
+      v58.i32[3] = 0;
+      v59 = vmlaq_lane_f32(v58, v269, *v57.f32, 1);
+      v59.i64[1] = vextq_s8(v59, v59, 8uLL).u32[0];
+      v60 = (v16 + 160 * v15);
+      v61 = vmlaq_n_f32(v59, v267, v57.f32[0]);
+      v62 = vmulq_laneq_f32(v272, v57, 2);
+      v63 = v57;
+      v63.i32[3] = 0;
+      v64 = vmulq_n_f32(v43, v40.f32[0]);
+      v65 = vmulq_laneq_f32(v271, v64, 2);
+      v65.i32[3] = 0;
+      v66 = vmlaq_lane_f32(v65, v269, *v64.f32, 1);
+      v66.i64[1] = vextq_s8(v66, v66, 8uLL).u32[0];
+      v67 = vmlaq_n_f32(v66, v267, v64.f32[0]);
+      v68 = v64;
+      v68.i32[3] = 0;
+      v60[6] = v44;
+      v60[7] = v63;
+      v60[8] = v68;
+      v69 = *(v266 + v15 + 64);
+      v70 = *&v18[32 * v15];
+      v62.i32[3] = 0;
+      v71 = vmlaq_lane_f32(v62, v47, *v57.f32, 1);
+      v71.i64[1] = vextq_s8(v71, v71, 8uLL).u32[0];
+      v72 = vmlaq_n_f32(v71, v45, v57.f32[0]);
+      v53.i64[1] = vextq_s8(v53, v53, 8uLL).u32[0];
+      v73 = vmulq_laneq_f32(v49, v64, 2);
+      v61.i64[1] = vextq_s8(v61, v61, 8uLL).u32[0];
+      v67.i64[1] = vextq_s8(v67, v67, 8uLL).u32[0];
+      v56.i64[1] = vextq_s8(v56, v56, 8uLL).u32[0];
+      v73.i32[3] = 0;
+      v74 = vmlaq_lane_f32(v73, v47, *v64.f32, 1);
+      v74.i64[1] = vextq_s8(v74, v74, 8uLL).u32[0];
+      v75 = vmlaq_n_f32(v74, v45, v64.f32[0]);
+      v72.i64[1] = vextq_s8(v72, v72, 8uLL).u32[0];
+      v75.i64[1] = vextq_s8(v75, v75, 8uLL).u32[0];
+      v76 = vmlsq_lane_f32(*v19, v53, *v46.f32, 0);
+      v76.i64[1] = vextq_s8(v76, v76, 8uLL).u32[0];
+      v77 = vmlsq_lane_f32(v19[3], v53, *v45.f32, 0);
+      v77.i64[1] = vextq_s8(v77, v77, 8uLL).u32[0];
+      v78 = vmlsq_lane_f32(v19[6], v56, *v45.f32, 0);
+      v78.i64[1] = vextq_s8(v78, v78, 8uLL).u32[0];
+      v79 = vmlsq_lane_f32(v19[1], v53, *v46.f32, 1);
+      v79.i64[1] = vextq_s8(v79, v79, 8uLL).u32[0];
+      v80 = vmlsq_lane_f32(v19[4], v53, *v45.f32, 1);
+      v80.i64[1] = vextq_s8(v80, v80, 8uLL).u32[0];
+      v81 = vmlsq_lane_f32(v19[7], v56, *v45.f32, 1);
+      v81.i64[1] = vextq_s8(v81, v81, 8uLL).u32[0];
+      v82 = vmlsq_laneq_f32(v19[2], v53, v46, 2);
+      v82.i64[1] = vextq_s8(v82, v82, 8uLL).u32[0];
+      v83 = vmlsq_laneq_f32(v19[5], v53, v45, 2);
+      v83.i64[1] = vextq_s8(v83, v83, 8uLL).u32[0];
+      v84 = vmlsq_laneq_f32(v19[8], v56, v45, 2);
+      v84.i64[1] = vextq_s8(v84, v84, 8uLL).u32[0];
+      v85 = vmlsq_lane_f32(v76, v61, *v48.f32, 0);
+      v85.i64[1] = vextq_s8(v85, v85, 8uLL).u32[0];
+      v86 = vmlsq_lane_f32(v77, v61, *v47.f32, 0);
+      v86.i64[1] = vextq_s8(v86, v86, 8uLL).u32[0];
+      v87 = vmlsq_lane_f32(v78, v72, *v47.f32, 0);
+      v87.i64[1] = vextq_s8(v87, v87, 8uLL).u32[0];
+      v88 = vmlsq_lane_f32(v79, v61, *v48.f32, 1);
+      v88.i64[1] = vextq_s8(v88, v88, 8uLL).u32[0];
+      v89 = vmlsq_lane_f32(v80, v61, *v47.f32, 1);
+      v89.i64[1] = vextq_s8(v89, v89, 8uLL).u32[0];
+      v90 = vmlsq_lane_f32(v81, v72, *v47.f32, 1);
+      v90.i64[1] = vextq_s8(v90, v90, 8uLL).u32[0];
+      v91 = vmlsq_laneq_f32(v82, v61, v48, 2);
+      v91.i64[1] = vextq_s8(v91, v91, 8uLL).u32[0];
+      v92 = vmlsq_laneq_f32(v83, v61, v47, 2);
+      v92.i64[1] = vextq_s8(v92, v92, 8uLL).u32[0];
+      v93 = vmlsq_laneq_f32(v84, v72, v47, 2);
+      v93.i64[1] = vextq_s8(v93, v93, 8uLL).u32[0];
+      v94 = vmlsq_lane_f32(v85, v67, *v50.f32, 0);
+      v94.i64[1] = vextq_s8(v94, v94, 8uLL).u32[0];
+      v95 = vmlsq_lane_f32(v86, v67, *v49.f32, 0);
+      v96 = vmlsq_lane_f32(v87, v75, *v49.f32, 0);
+      v97 = vmlsq_lane_f32(v88, v67, *v50.f32, 1);
+      v97.i64[1] = vextq_s8(v97, v97, 8uLL).u32[0];
+      v98 = vmlsq_lane_f32(v89, v67, *v49.f32, 1);
+      v99 = vmlsq_lane_f32(v90, v75, *v49.f32, 1);
+      v100 = vmlsq_laneq_f32(v91, v67, v50, 2);
+      v100.i64[1] = vextq_s8(v100, v100, 8uLL).u32[0];
+      v101 = vmlsq_laneq_f32(v92, v67, v49, 2);
+      v102 = vnegq_f32(v70);
+      *v48.f32 = vext_s8(0, *&vextq_s8(v70, v70, 8uLL), 4uLL);
+      v48.i64[1] = vdup_lane_s32(*v102.f32, 1).u32[0];
+      v103 = vmlsq_laneq_f32(v93, v75, v49, 2);
+      *v60 = v53;
+      v60[1] = v56;
+      *v104.f32 = vext_s8(vdup_laneq_s32(v102, 2), 0, 4uLL);
+      v104.i64[1] = vdup_lane_s32(*v70.i8, 0).u32[0];
+      *v45.f32 = vext_s8(*v70.i8, *v102.f32, 4uLL);
+      v105 = vmulq_laneq_f32(v45.u64[0], v95, 2);
+      v105.i32[3] = 0;
+      v106 = vmlaq_lane_f32(v105, v104, *v95.i8, 1);
+      v106.i64[1] = vextq_s8(v106, v106, 8uLL).u32[0];
+      v107 = vmlaq_n_f32(v106, v48, *v95.i32);
+      v107.i64[1] = vextq_s8(v107, v107, 8uLL).u32[0];
+      v108 = vmulq_laneq_f32(v45.u64[0], v98, 2);
+      v108.i32[3] = 0;
+      v109 = vmlaq_lane_f32(v108, v104, *v98.i8, 1);
+      v109.i64[1] = vextq_s8(v109, v109, 8uLL).u32[0];
+      v110 = vmlaq_n_f32(v109, v48, *v98.i32);
+      v110.i64[1] = vextq_s8(v110, v110, 8uLL).u32[0];
+      v111 = vmulq_laneq_f32(v45.u64[0], v101, 2);
+      v111.i32[3] = 0;
+      v112 = vmlaq_lane_f32(v111, v104, *v101.i8, 1);
+      v112.i64[1] = vextq_s8(v112, v112, 8uLL).u32[0];
+      v113 = vmlaq_n_f32(v112, v48, *v101.i32);
+      v113.i64[1] = vextq_s8(v113, v113, 8uLL).u32[0];
+      v114 = vmulq_laneq_f32(v97, v102, 2);
+      v114.i32[3] = 0;
+      v115 = vmlaq_lane_f32(v114, v100, *v70.i8, 1);
+      v116 = vmulq_n_f32(v100, v102.f32[0]);
+      v116.i32[3] = 0;
+      v117 = vmulq_lane_f32(v94, *v102.f32, 1);
+      v117.i32[3] = 0;
+      v118 = vmlaq_laneq_f32(v116, v94, v70, 2);
+      v119 = vmlaq_n_f32(v117, v97, *v70.i32);
+      v120 = vmulq_n_f32(v48, *v115.i32);
+      v120.i32[3] = 0;
+      v121 = vmlaq_lane_f32(v120, v104, *v115.i8, 1);
+      v121.i64[1] = vextq_s8(v121, v121, 8uLL).u32[0];
+      v122 = vmlaq_laneq_f32(v121, v45.u64[0], v115, 2);
+      v122.i64[1] = vextq_s8(v122, v122, 8uLL).u32[0];
+      v123 = vmulq_n_f32(v48, *v118.i32);
+      v123.i32[3] = 0;
+      v124 = vmlaq_lane_f32(v123, v104, *v118.i8, 1);
+      v124.i64[1] = vextq_s8(v124, v124, 8uLL).u32[0];
+      v125 = vmlaq_laneq_f32(v124, v45.u64[0], v118, 2);
+      v125.i64[1] = vextq_s8(v125, v125, 8uLL).u32[0];
+      v126 = vmulq_n_f32(v48, *v119.i32);
+      v126.i32[3] = 0;
+      v127 = vmlaq_lane_f32(v126, v104, *v119.i8, 1);
+      v127.i64[1] = vextq_s8(v127, v127, 8uLL).u32[0];
+      v60[2] = v61;
+      v60[3] = v72;
+      v128 = vmlaq_laneq_f32(v127, v45.u64[0], v119, 2);
+      v60[4] = v67;
+      v60[5] = v75;
+      v128.i64[1] = vextq_s8(v128, v128, 8uLL).u32[0];
+      v72.i64[0] = 0x3F0000003F000000;
+      v72.i64[1] = 0x3F0000003F000000;
+      v129 = vmlaq_f32(v107, v72, v122);
+      v115.i64[1] = vextq_s8(v115, v115, 8uLL).u32[0];
+      v130 = vmlaq_f32(v110, v72, v125);
+      v95.i64[1] = vextq_s8(v95, v95, 8uLL).u32[0];
+      v131 = vmlaq_f32(v113, v72, v128);
+      v118.i64[1] = vextq_s8(v118, v118, 8uLL).u32[0];
+      v132 = vaddq_f32(v95, v115);
+      v98.i64[1] = vextq_s8(v98, v98, 8uLL).u32[0];
+      v119.i64[1] = vextq_s8(v119, v119, 8uLL).u32[0];
+      v101.i64[1] = vextq_s8(v101, v101, 8uLL).u32[0];
+      *v67.i8 = vext_s8(vdup_lane_s32(*v129.i8, 0), *v130.i8, 4uLL);
+      *v75.i8 = vext_s8(*v129.i8, vdup_lane_s32(*v130.i8, 1), 4uLL);
+      v67.i64[1] = vdup_lane_s32(*v131.i8, 0).u32[0];
+      *v95.i8 = vdup_laneq_s32(v129, 2);
+      v129.i64[1] = vextq_s8(v129, v129, 8uLL).u32[0];
+      v96.i64[1] = vextq_s8(v96, v96, 8uLL).u32[0];
+      v133 = vaddq_f32(v96, vaddq_f32(v129, v67));
+      v75.i64[1] = vdup_lane_s32(*v131.i8, 1).u32[0];
+      v72.i64[0] = vextq_s8(v130, v130, 8uLL).u64[0];
+      *v67.i8 = vext_s8(*v95.i8, *v72.i8, 4uLL);
+      v130.i64[1] = v72.u32[0];
+      v99.i64[1] = vextq_s8(v99, v99, 8uLL).u32[0];
+      v67.i64[1] = vdup_laneq_s32(v131, 2).u32[0];
+      v131.i64[1] = vextq_s8(v131, v131, 8uLL).u32[0];
+      v103.i64[1] = vextq_s8(v103, v103, 8uLL).u32[0];
+      v134 = (v13 + 144 * v69);
+      v135 = vaddq_f32(v134[1], v97);
+      v136 = vaddq_f32(v134[2], v100);
+      v137 = vaddq_f32(v134[3], v132);
+      v138 = vaddq_f32(v134[4], vaddq_f32(v98, v118));
+      v139 = vaddq_f32(v134[5], vaddq_f32(v101, v119));
+      v140 = vaddq_f32(v134[6], v133);
+      v141 = vaddq_f32(v134[7], vaddq_f32(v99, vaddq_f32(v130, v75)));
+      *v134 = vaddq_f32(*v134, v94);
+      v134[1] = v135;
+      v134[2] = v136;
+      v134[3] = v137;
+      v134[4] = v138;
+      v134[5] = v139;
+      v142 = vaddq_f32(v134[8], vaddq_f32(v103, vaddq_f32(v131, v67)));
+      v134[6] = v140;
+      v134[7] = v141;
+      v134[8] = v142;
+      --v15;
+    }
+
+    while (v15);
   }
 
-  while (*(this + 31))
+  v143 = *(v13 + 96);
+  v144 = *(v13 + 112);
+  v145 = *(v13 + 128);
+  *v146.f32 = vext_s8(vdup_lane_s32(*v143.f32, 0), *v144.i8, 4uLL);
+  v146.i64[1] = v145.i64[0];
+  v147 = vext_s8(*v143.f32, vdup_lane_s32(*v144.i8, 1), 4uLL);
+  *&v161.u32[2] = vdup_lane_s32(*v145.i8, 1);
+  *v148.f32 = vext_s8(vdup_laneq_s32(v143, 2), *&vextq_s8(v144, v144, 8uLL), 4uLL);
+  v148.i64[1] = vextq_s8(v145, v145, 8uLL).u64[0];
+  v149 = vaddq_f32(v143, v146);
+  v150 = vaddq_f32(v144, v161);
+  v151 = vaddq_f32(v145, v148);
+  v152.i64[0] = 0x3F0000003F000000;
+  v152.i64[1] = 0x3F0000003F000000;
+  v153 = vmulq_f32(v149, v152);
+  v154 = v153;
+  v154.i32[3] = 0;
+  v155 = vmulq_f32(v150, v152);
+  v156 = v155;
+  v156.i32[3] = 0;
+  v157 = vmulq_f32(v151, v152);
+  v158 = v157;
+  v158.i32[3] = 0;
+  v159 = *(v13 + 16);
+  v160 = *(v13 + 32);
+  *v161.f32 = vext_s8(vdup_lane_s32(*v13, 0), *v159.i8, 4uLL);
+  *v162.f32 = vext_s8(*v13, vdup_lane_s32(*v159.i8, 1), 4uLL);
+  *&v162.u32[2] = vdup_lane_s32(*v160.i8, 1);
+  *v163.f32 = vext_s8(vdup_laneq_s32(*v13, 2), *&vextq_s8(v159, v159, 8uLL), 4uLL);
+  v163.i64[1] = vextq_s8(v160, v160, 8uLL).u64[0];
+  v164 = vaddq_f32(v159, v162);
+  v165 = vaddq_f32(v160, v163);
+  v156.i64[0] = vextq_s8(v156, v156, 8uLL).u64[0];
+  v166 = vextq_s8(v158, v158, 8uLL).u64[0];
+  v167 = vext_s8(*v157.f32, v166, 4uLL);
+  v168 = vext_s8(*v155.f32, *v156.i8, 4uLL);
+  v169 = vmls_f32(vmul_f32(*v157.f32, *v156.i8), *v155.f32, v166);
+  v170 = vmls_f32(vmul_f32(*v155.f32, v167), v168, *v157.f32);
+  *v171.f32 = vext_s8(v170, v169, 4uLL);
+  v170.i32[1] = 0;
+  v171.i64[1] = v170.u32[0];
+  v172 = vextq_s8(v154, v154, 8uLL).u64[0];
+  v173 = vext_s8(*v153.f32, v172, 4uLL);
+  *v175.f32 = vdup_lane_s32(vmls_f32(vmul_f32(*v153.f32, v166), *v157.f32, v172), 0);
+  v174 = vmls_f32(vmul_f32(*v157.f32, v173), v167, *v153.f32).u32[0];
+  v175.i64[1] = v174;
+  v176 = vmulq_f32(v164, v152);
+  v177 = vmulq_f32(v154, v171);
+  v177.i64[0] = vpaddq_f32(v177, v177).u64[0];
+  v178 = vpadd_f32(*v177.f32, *v177.f32);
+  v179 = vrecpe_f32(v178);
+  v180 = 4;
+  do
   {
-    (****(this + 10))(**(this + 10));
+    v179 = vmul_f32(v179, vrecps_f32(v178, v179));
+    --v180;
   }
 
-  while (*(this + 45))
+  while (v180);
+  v161.i64[1] = *(v13 + 32);
+  v181.i64[0] = 0x3F0000003F000000;
+  v181.i64[1] = 0x3F0000003F000000;
+  v182 = vmulq_f32(vaddq_f32(*v13, v161), v181);
+  v183 = vmulq_f32(v165, v181);
+  v182.i32[3] = 0;
+  v176.i32[3] = 0;
+  v183.i32[3] = 0;
+  v175.i32[0] = v169.i32[0];
+  *v184.f32 = vext_s8(vdup_lane_s32(v170, 0), v174, 4uLL);
+  *&v184.u32[2] = vmls_f32(vmul_f32(*v153.f32, v168), v173, *v155.f32);
+  v185 = vmulq_n_f32(v171, v179.f32[0]);
+  v186 = vmulq_n_f32(v175, v179.f32[0]);
+  v187 = *(v13 + 48);
+  v188 = *(v13 + 64);
+  v189 = vnegq_f32(v187);
+  v189.i32[3] = 0;
+  v190 = vnegq_f32(v188);
+  v190.i32[3] = 0;
+  v191 = *(v13 + 80);
+  v192 = vnegq_f32(v191);
+  v192.i32[3] = 0;
+  v193 = vmulq_n_f32(v189, v185.f32[0]);
+  v193.i32[3] = 0;
+  v194 = vmulq_lane_f32(v190, *v185.f32, 1);
+  v194.i32[3] = 0;
+  v195 = vmulq_n_f32(v184, v179.f32[0]);
+  v196 = vmulq_laneq_f32(v192, v185, 2);
+  v196.i32[3] = 0;
+  v197 = vaddq_f32(vaddq_f32(v193, v194), v196);
+  v198 = vmulq_n_f32(v189, v186.f32[0]);
+  v198.i32[3] = 0;
+  v199 = vmulq_lane_f32(v190, *v186.f32, 1);
+  v199.i32[3] = 0;
+  v200 = vmulq_laneq_f32(v192, v186, 2);
+  v200.i32[3] = 0;
+  v201 = vaddq_f32(vaddq_f32(v198, v199), v200);
+  v202 = vmulq_n_f32(v189, v195.f32[0]);
+  v202.i32[3] = 0;
+  v203 = vmulq_lane_f32(v190, *v195.f32, 1);
+  v203.i32[3] = 0;
+  v204 = vmulq_laneq_f32(v192, v195, 2);
+  v204.i32[3] = 0;
+  v205 = vaddq_f32(vaddq_f32(v202, v203), v204);
+  v206 = vmulq_n_f32(v197, v187.f32[0]);
+  v206.i32[3] = 0;
+  v207 = vmulq_n_f32(v201, v188.f32[0]);
+  v207.i32[3] = 0;
+  v208 = vmulq_n_f32(v205, v191.f32[0]);
+  v208.i32[3] = 0;
+  v209 = vaddq_f32(v208, vaddq_f32(v206, v207));
+  v210 = vmulq_lane_f32(v197, *v187.f32, 1);
+  v210.i32[3] = 0;
+  v211 = vmulq_lane_f32(v201, *v188.f32, 1);
+  v211.i32[3] = 0;
+  v212 = vmulq_n_f32(v205, *vdup_lane_s32(*v191.f32, 1).i32);
+  v212.i32[3] = 0;
+  v213 = vmulq_laneq_f32(v197, v187, 2);
+  v213.i32[3] = 0;
+  v214 = vmulq_laneq_f32(v201, v188, 2);
+  v214.i32[3] = 0;
+  v215 = vmulq_laneq_f32(v205, v191, 2);
+  v215.i32[3] = 0;
+  v216 = vaddq_f32(v215, vaddq_f32(v213, v214));
+  v217 = vaddq_f32(v176, vaddq_f32(v212, vaddq_f32(v210, v211)));
+  v218 = vaddq_f32(v183, v216);
+  v219 = vextq_s8(v218, v218, 8uLL).u64[0];
+  v220 = vextq_s8(v218, v218, 4uLL).u64[0];
+  v221 = vextq_s8(v217, v217, 4uLL).u64[0];
+  v222 = vmls_f32(vmul_f32(*&vextq_s8(v217, v217, 8uLL), *v218.i8), *v217.i8, v219);
+  v223 = vmls_f32(vmul_f32(*v217.i8, v220), v221, *v218.i8);
+  *v224.f32 = vext_s8(v223, v222, 4uLL);
+  v223.i32[1] = 0;
+  v224.i64[1] = v223.u32[0];
+  v225 = vaddq_f32(v182, v209);
+  v226 = vmulq_f32(v225, v224);
+  v226.i64[0] = vpaddq_f32(v226, v226).u64[0];
+  v227 = vpadd_f32(*v226.f32, *v226.f32);
+  v228 = vrecpe_f32(v227);
+  v229 = 4;
+  do
   {
-    (****(this + 17))(**(this + 17));
+    v228 = vmul_f32(v228, vrecps_f32(v227, v228));
+    --v229;
   }
 
-  while (*(this + 59))
-  {
-    (****(this + 24))(**(this + 24));
-  }
-
-  v2 = *(*this + 8);
-
-  return v2(this);
+  while (v229);
+  v230 = vextq_s8(v225, v225, 4uLL).u64[0];
+  v231 = vmls_f32(vmul_f32(*v225.i8, v221), v230, *v217.i8);
+  v232 = vmls_f32(vmul_f32(*v218.i8, v230), v220, *v225.i8);
+  *v233.f32 = vdup_lane_s32(vmls_f32(vmul_f32(v219, *v225.i8), *v218.i8, *&vextq_s8(v225, v225, 8uLL)), 0);
+  *&v233.u32[2] = v232;
+  v195.i32[3] = 0;
+  v186.i32[3] = 0;
+  v185.i32[3] = 0;
+  v233.i32[0] = v222.i32[0];
+  *v234.f32 = vext_s8(vdup_lane_s32(v223, 0), v232, 4uLL);
+  *&v234.u32[2] = v231;
+  v235 = vmulq_n_f32(v224, v228.f32[0]);
+  v236 = vmulq_n_f32(v235, v197.f32[0]);
+  v237 = vmulq_n_f32(v235, *v201.i32);
+  v238 = vmulq_n_f32(v235, v205.f32[0]);
+  v235.i32[3] = 0;
+  v239 = vmulq_n_f32(v233, v228.f32[0]);
+  v240 = vmulq_lane_f32(v239, *v197.f32, 1);
+  v241 = vmulq_lane_f32(v239, *v201.i8, 1);
+  v242 = vmulq_lane_f32(v239, *v205.f32, 1);
+  v239.i32[3] = 0;
+  v243 = vmulq_n_f32(v234, v228.f32[0]);
+  v244 = vmulq_laneq_f32(v243, v197, 2);
+  v245 = vmulq_laneq_f32(v243, v201, 2);
+  v246 = vmulq_laneq_f32(v243, v205, 2);
+  v243.i32[3] = 0;
+  v247 = vdupq_laneq_s32(v197, 2).u64[0];
+  v236.i32[3] = 0;
+  v240.i32[3] = 0;
+  v244.i32[3] = 0;
+  v248 = vaddq_f32(v244, vaddq_f32(v236, v240));
+  v236.i64[0] = vdupq_lane_s32(*v201.i8, 1).u64[0];
+  v237.i32[3] = 0;
+  v241.i32[3] = 0;
+  v249 = vextq_s8(v201, v201, 8uLL).u64[0];
+  v245.i32[3] = 0;
+  v238.i32[3] = 0;
+  v242.i32[3] = 0;
+  v246.i32[3] = 0;
+  v250 = vaddq_f32(v245, vaddq_f32(v237, v241));
+  *v251.f32 = vext_s8(*&vdupq_lane_s32(*v197.f32, 0), *v201.i8, 4uLL);
+  v251.i64[1] = vdup_lane_s32(*v205.f32, 0).u32[0];
+  v252 = vaddq_f32(v238, v242);
+  *v253.f32 = vext_s8(*v197.f32, *v236.f32, 4uLL);
+  v253.i64[1] = vdup_lane_s32(*v205.f32, 1).u32[0];
+  *v236.f32 = vext_s8(v247, v249, 4uLL);
+  v236.i64[1] = vdup_laneq_s32(v205, 2).u32[0];
+  v254 = vmulq_n_f32(v251, v248.f32[0]);
+  v254.i32[3] = 0;
+  v255 = vmulq_lane_f32(v253, *v248.f32, 1);
+  v255.i32[3] = 0;
+  v256 = vmulq_laneq_f32(v236, v248, 2);
+  v256.i32[3] = 0;
+  v257 = vaddq_f32(v246, v252);
+  v258 = vaddq_f32(v256, vaddq_f32(v254, v255));
+  v259 = vmulq_n_f32(v251, v250.f32[0]);
+  v259.i32[3] = 0;
+  v260 = vmulq_lane_f32(v253, *v250.f32, 1);
+  v260.i32[3] = 0;
+  v261 = vmulq_laneq_f32(v236, v250, 2);
+  v261.i32[3] = 0;
+  v262 = vmulq_n_f32(v251, v257.f32[0]);
+  v262.i32[3] = 0;
+  v263 = vmulq_lane_f32(v253, *v257.f32, 1);
+  v263.i32[3] = 0;
+  v264 = vmulq_laneq_f32(v236, v257, 2);
+  v264.i32[3] = 0;
+  v265 = (v266 + v266[9]);
+  *v265 = v235;
+  v265[1] = v239;
+  v265[2] = v243;
+  v265[3] = v248;
+  v265[4] = v250;
+  v265[5] = v257;
+  v265[6] = vaddq_f32(v185, v258);
+  v265[7] = vaddq_f32(v186, vaddq_f32(v261, vaddq_f32(v259, v260)));
+  v265[8] = vaddq_f32(v195, vaddq_f32(v264, vaddq_f32(v262, v263)));
 }
 
-uint64_t physx::GuMeshFactory::addTriangleMesh(uint64_t this, physx::Gu::TriangleMesh *a2, int a3)
+float32x4_t physx::Dy::Articulation::applyImpulses(unsigned __int16 *a1, float32x4_t *a2, float32x4_t *a3)
 {
-  v4 = a2;
-  if (a2)
+  v86[251] = *MEMORY[0x1E69E9840];
+  v3 = a1[9];
+  v4 = *a1;
+  v5 = a1[1];
+  v6 = v3;
+  if (v4 >= 2)
   {
-    v3 = this;
-    if (a3)
+    v7 = 32 * v4 - 16;
+    v8 = (a2 + v7);
+    v9 = v3 + 160 * *a1 + 64;
+    v10 = v7 + v5;
+    do
     {
-      if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-      {
-        pthread_mutex_lock(*(this + 8));
-      }
-
-      v5 = 0;
-      this = physx::shdfnd::internal::HashBase<physx::Gu::TriangleMesh *,physx::Gu::TriangleMesh *,physx::shdfnd::Hash<physx::Gu::TriangleMesh *>,physx::shdfnd::internal::HashSetBase<physx::Gu::TriangleMesh *,physx::shdfnd::Hash<physx::Gu::TriangleMesh *>,physx::shdfnd::NonTrackingAllocator,true>::GetKey,physx::shdfnd::NonTrackingAllocator,true>::create((v3 + 16), &v4, &v5);
-      if ((v5 & 1) == 0)
-      {
-        *this = v4;
-      }
-
-      if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-      {
-        return pthread_mutex_unlock(*(v3 + 8));
-      }
+      v12 = v8[-1];
+      v11 = *v8;
+      v14 = *(a1 + v10 - 16);
+      v13 = *(a1 + v10);
+      v15 = vextq_s8(v12, v12, 8uLL).u64[0];
+      v16 = vextq_s8(v13, v13, 8uLL).u64[0];
+      v17 = vmls_f32(vmul_f32(*v12.i8, vext_s8(*v13.i8, v16, 4uLL)), vext_s8(*v12.i8, v15, 4uLL), *v13.i8);
+      *v13.i8 = vext_s8(v17, vmls_f32(vmul_f32(v15, *v13.i8), *v12.i8, v16), 4uLL);
+      v13.i64[1] = v17.u32[0];
+      v18 = vaddq_f32(*v8, v13);
+      v19 = vmulq_laneq_f32(*(a1 + v9 - 16), v18, 2);
+      v19.i32[3] = 0;
+      v20 = *(a1 + v9 - 32);
+      v21 = vmlaq_lane_f32(v19, *(a1 + v9 - 48), *v18.f32, 1);
+      v22 = *(a1 + v9 - 64);
+      v21.i64[1] = vextq_s8(v21, v21, 8uLL).u32[0];
+      v23 = vmlaq_n_f32(v21, *(a1 + v9 - 80), v18.f32[0]);
+      v24 = vmulq_laneq_f32(*(a1 + v9), v18, 2);
+      v24.i32[3] = 0;
+      *(&v82 + v4 - 1) = v18;
+      v25 = vmlaq_lane_f32(v24, v20, *v18.f32, 1);
+      v23.i64[1] = vextq_s8(v23, v23, 8uLL).u32[0];
+      v25.i64[1] = vextq_s8(v25, v25, 8uLL).u32[0];
+      v26 = vmlaq_n_f32(v25, v22, v18.f32[0]);
+      v27 = vsubq_f32(v12, v23);
+      v26.i64[1] = vextq_s8(v26, v26, 8uLL).u32[0];
+      v18.i64[0] = vextq_s8(v14, v14, 8uLL).u64[0];
+      *v23.i8 = vmls_f32(vmul_f32(*v14.i8, *&vextq_s8(v27, v27, 4uLL)), vext_s8(*v14.i8, *v18.f32, 4uLL), *v27.i8);
+      *v18.f32 = vext_s8(*v23.i8, vmls_f32(vmul_f32(*v18.f32, *v27.i8), *v14.i8, *&vextq_s8(v27, v27, 8uLL)), 4uLL);
+      v18.i64[1] = v23.u32[0];
+      v28 = &a2[2 * *(a1 + v4 + 63)];
+      v29 = vaddq_f32(v28[1], vaddq_f32(vsubq_f32(v11, v26), v18));
+      v8 -= 2;
+      *v28 = vaddq_f32(*v28, v27);
+      v28[1] = v29;
+      v9 -= 160;
+      v10 -= 32;
+      --v4;
     }
 
-    else
-    {
-      v6 = 0;
-      this = physx::shdfnd::internal::HashBase<physx::Gu::TriangleMesh *,physx::Gu::TriangleMesh *,physx::shdfnd::Hash<physx::Gu::TriangleMesh *>,physx::shdfnd::internal::HashSetBase<physx::Gu::TriangleMesh *,physx::shdfnd::Hash<physx::Gu::TriangleMesh *>,physx::shdfnd::NonTrackingAllocator,true>::GetKey,physx::shdfnd::NonTrackingAllocator,true>::create((this + 16), &v4, &v6);
-      if ((v6 & 1) == 0)
-      {
-        *this = v4;
-      }
-    }
+    while (v4 > 1);
+    v6 = a1[9];
+    LODWORD(v4) = *a1;
   }
 
-  return this;
-}
-
-physx::Gu::BV4TriangleMesh *physx::GuMeshFactory::createTriangleMesh(physx::GuMeshFactory *this, physx::Gu::TriangleMeshData *a2)
-{
-  v4 = *(a2 + 2);
-  if (v4 == 1)
+  v30 = (a1 + v6);
+  v31 = vnegq_f32(*a2);
+  v32 = vmulq_n_f32(*v30, v31.f32[0]);
+  v33 = vmulq_lane_f32(v30[1], *v31.f32, 1);
+  v34 = v30[3];
+  v35 = vmulq_laneq_f32(v30[2], v31, 2);
+  v31.i32[3] = 0;
+  v36 = vnegq_f32(a2[1]);
+  v32.i32[3] = 0;
+  v33.i32[3] = 0;
+  v35.i32[3] = 0;
+  v37 = vaddq_f32(v32, v33);
+  v38 = vmulq_n_f32(v34, v36.f32[0]);
+  v38.i32[3] = 0;
+  v39 = v30[4];
+  v40 = v30[5];
+  v41 = vmulq_lane_f32(v39, *v36.f32, 1);
+  v41.i32[3] = 0;
+  v42 = vmulq_laneq_f32(v40, v36, 2);
+  v42.i32[3] = 0;
+  v43 = vaddq_f32(vaddq_f32(v37, v35), vaddq_f32(vaddq_f32(v38, v41), v42));
+  v44 = vmulq_f32(v31, v34);
+  v44.i64[0] = vpaddq_f32(v44, v44).u64[0];
+  v45 = vmulq_f32(v31, v39);
+  v45.i64[0] = vpaddq_f32(v45, v45).u64[0];
+  v46 = vmulq_f32(v31, v40);
+  v46.i64[0] = vpaddq_f32(v46, v46).u64[0];
+  *v44.f32 = vext_s8(vpadd_f32(*v44.f32, *v44.f32), vpadd_f32(*v45.f32, *v45.f32), 4uLL);
+  v44.i64[1] = vpadd_f32(*v46.f32, *v46.f32).u32[0];
+  v47 = vmulq_n_f32(v30[6], v36.f32[0]);
+  v47.i32[3] = 0;
+  v48 = vmulq_lane_f32(v30[7], *v36.f32, 1);
+  v48.i32[3] = 0;
+  v49 = vmulq_laneq_f32(v30[8], v36, 2);
+  v49.i32[3] = 0;
+  result = vaddq_f32(vaddq_f32(vaddq_f32(v47, v48), v49), v44);
+  v84 = v43;
+  v85 = result;
+  if (v4 >= 2)
   {
-    v9 = physx::shdfnd::Foundation::mInstance;
-    if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
+    v51 = v4 - 1;
+    v52 = v86;
+    v53 = a1 + 65;
+    v54 = &v83;
+    v55 = (a1 + v3 + 432);
+    v56 = (a1 + v5 + 48);
+    do
     {
-      v10 = "static const char *physx::shdfnd::ReflectionAllocator<physx::Gu::BV4TriangleMesh>::getName() [T = physx::Gu::BV4TriangleMesh]";
+      v57 = *v53++;
+      v58 = (&v84 + 2 * v57);
+      v59 = vnegq_f32(v56[-1]);
+      v60 = v59;
+      v60.i32[3] = 0;
+      v61 = v58[1];
+      v60.i64[0] = vextq_s8(v60, v60, 8uLL).u64[0];
+      v62 = vextq_s8(v61, v61, 8uLL).u64[0];
+      v63 = vmls_f32(vmul_f32(*v59.f32, vext_s8(*v61.i8, v62, 4uLL)), vext_s8(*v59.f32, *v60.i8, 4uLL), *v61.i8);
+      *v59.f32 = vext_s8(v63, vmls_f32(vmul_f32(*v60.i8, *v61.i8), *v59.f32, v62), 4uLL);
+      v59.i64[1] = v63.u32[0];
+      v64 = *v54++;
+      v65 = vmulq_n_f32(v55[-2], v64.f32[0]);
+      v65.i32[3] = 0;
+      v66 = vmulq_lane_f32(v55[-1], *v64.f32, 1);
+      v66.i32[3] = 0;
+      v67 = vaddq_f32(*v58, v59);
+      v68 = vmulq_laneq_f32(*v55, v64, 2);
+      v69 = vaddq_f32(v65, v66);
+      v70 = vmulq_f32(v55[-8], v67);
+      v70.i64[0] = vpaddq_f32(v70, v70).u64[0];
+      v71 = vmulq_f32(v61, v55[-7]);
+      v71.i64[0] = vpaddq_f32(v71, v71).u64[0];
+      v72 = vmulq_f32(v67, v55[-6]);
+      v73 = vmulq_f32(v67, v55[-4]);
+      *v70.f32 = vadd_f32(vpadd_f32(*v70.f32, *v70.f32), vpadd_f32(*v71.f32, *v71.f32));
+      v71.i64[0] = vpaddq_f32(v73, v73).u64[0];
+      v74 = vmulq_f32(v61, v55[-3]);
+      v74.i64[0] = vpaddq_f32(v74, v74).u64[0];
+      v72.i64[0] = vpaddq_f32(v72, v72).u64[0];
+      v75 = vmulq_f32(v61, v55[-5]);
+      v75.i64[0] = vpaddq_f32(v75, v75).u64[0];
+      v68.i32[3] = 0;
+      *v70.f32 = vext_s8(*v70.f32, vadd_f32(vpadd_f32(*v72.f32, *v72.f32), vpadd_f32(*v75.f32, *v75.f32)), 4uLL);
+      v70.i64[1] = vadd_f32(vpadd_f32(*v71.f32, *v71.f32), vpadd_f32(*v74.f32, *v74.f32)).u32[0];
+      v76 = vaddq_f32(vaddq_f32(v69, v68), v70);
+      v69.i64[0] = vextq_s8(*v56, *v56, 8uLL).u64[0];
+      *v70.f32 = vmls_f32(vmul_f32(*v56->i8, *&vextq_s8(v76, v76, 4uLL)), vext_s8(*v56->i8, *v69.f32, 4uLL), *v76.i8);
+      *v77.f32 = vext_s8(*v70.f32, vmls_f32(vmul_f32(*v69.f32, *v76.i8), *v56->i8, *&vextq_s8(v76, v76, 8uLL)), 4uLL);
+      v77.i64[1] = v70.u32[0];
+      result = vsubq_f32(v61, v76);
+      v52[-1] = vsubq_f32(v67, v77);
+      *v52 = result;
+      v52 += 2;
+      v55 += 10;
+      v56 += 2;
+      --v51;
     }
 
-    else
-    {
-      v10 = "<allocation names disabled>";
-    }
-
-    v7 = (*(*(v9 + 24) + 16))(v9 + 24, 280, v10, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/common/src/../../geomutils/src/GuMeshFactory.cpp", 119);
-    if (!physx::Gu::BV4TriangleMesh::BV4TriangleMesh(v7, this, a2))
-    {
-      return v7;
-    }
-
-LABEL_12:
-    physx::GuMeshFactory::addTriangleMesh(this, v7, 1);
-    return v7;
+    while (v51);
+    LODWORD(v4) = *a1;
   }
 
   if (v4)
+  {
+    v78 = 0;
+    v79 = a3 + 1;
+    v80 = &v85;
+    do
+    {
+      result = vaddq_f32(v79[-1], v80[-1]);
+      v81 = vaddq_f32(*v79, *v80);
+      v79[-1] = result;
+      *v79 = v81;
+      ++v78;
+      v79 += 2;
+      v80 += 2;
+    }
+
+    while (v78 < *a1);
+  }
+
+  return result;
+}
+
+void *physx::Dy::Articulation::computeUnconstrainedVelocitiesInternal(uint64_t a1)
+{
+  *&v1 = MEMORY[0x1EEE9AC00](a1);
+  v225 = v2;
+  v226 = v3;
+  v5 = v4;
+  v7 = v6;
+  v231 = v1;
+  v9 = v8;
+  v11 = v10;
+  v243 = *MEMORY[0x1E69E9840];
+  v12 = *(v8 + 92);
+  v13 = *(v8 + 8);
+  v14 = *(*v8 + 168);
+  v15 = *(v8 + 32);
+  physx::Dy::Articulation::prepareDataBlock(v14->i8, v13, v12, v15, *(v8 + 40), v6, v4);
+  bzero(&v14->i8[v14[1].u16[0]], 400 * v12);
+  physx::Dy::Articulation::prepareLtbMatrix(v14, v7, v15, v5, 1.0 / *&v231);
+  physx::Dy::PxcLtbFactor(v14);
+  v227 = &v14[8];
+  physx::Dy::PxcLtbComputeJv(&v238, v14, v14 + 8);
+  if (v12 >= 2)
+  {
+    v16 = v12 - 1;
+    v17 = &v14[49].i8[v14[1].u16[0]];
+    v18 = v239;
+    do
+    {
+      *v18 = vaddq_f32(*v18, *v17);
+      ++v18;
+      v17 += 25;
+      --v16;
+    }
+
+    while (v16);
+  }
+
+  physx::Dy::PxcLtbSolve(v14, &v238, &v241);
+  v19 = v14->u16[0];
+  if (v14->i16[0])
+  {
+    v20 = &v14[9];
+    v21 = v242;
+    do
+    {
+      v22 = vsubq_f32(*v20, *v21);
+      v20[-1] = vsubq_f32(v20[-1], v21[-1]);
+      *v20 = v22;
+      v20 += 2;
+      v21 += 2;
+      --v19;
+    }
+
+    while (v19);
+  }
+
+  bzero(&v14->i8[v14[1].u16[1]], 160 * v12 + 144);
+  physx::Dy::Articulation::prepareFsData(v14, v13);
+  v23 = *(v9 + 64);
+  if ((v23[1] & 0x80000000) == 0)
+  {
+    bzero(*(v9 + 48), 48 * v12);
+    v23 = *(v9 + 64);
+  }
+
+  v24 = *v23;
+  if ((*v23 & 0x80000000) == 0)
+  {
+    bzero(*(v9 + 56), 48 * v12);
+    v23 = *(v9 + 64);
+    v24 = *v23;
+  }
+
+  v25 = *&v231;
+  v26 = v24;
+  v27 = *(v23 + 2) == v24;
+  if (v12 >= 2)
+  {
+    v28 = v12 - 1;
+    v29 = &v234;
+    v30 = v236;
+    v31 = (v13 + 8);
+    do
+    {
+      v32 = *v31;
+      v31 += 5;
+      v33 = ((v32[76] * v25) + 1.0) + ((v32[75] * v25) * v25);
+      v34 = v32[77];
+      *v30++ = v33 * (1.0 / v34);
+      v35 = v32[78];
+      *v29++ = v33 * (1.0 / v35);
+      v27 &= v34 == v35;
+      --v28;
+    }
+
+    while (v28);
+  }
+
+  v36 = *(v9 + 56);
+  v241 = *v226;
+  v242[0].i64[0] = v226[1].i64[0];
+  physx::Dy::PxcFsComputeJointLoadsSimd(v14, v7, v36, v235, v12, v26, &v241);
+  v37 = *(v9 + 56);
+  v241 = *v226;
+  v242[0].i64[0] = v226[1].i64[0];
+  physx::Dy::PxcFsPropagateDrivenInertiaSimd(v14, v7, v235, v37, &v241);
+  v38 = v14->u16[0];
+  if (v38 <= 1)
+  {
+    v110 = &v14->i8[v14[1].u16[1]];
+    v111 = v14->u16[1];
+    bzero(&v241, 32 * v38);
+  }
+
+  else
+  {
+    v221 = v7;
+    v222 = v12;
+    v223 = v9;
+    v224 = v11;
+    v39 = v38 - 1;
+    v40 = &v232;
+    v41 = (v13 + 9);
+    v42 = (*(v9 + 56) + 80);
+    v43 = (v5 + 152);
+    v44 = &v14[11].i32[2];
+    v45 = -0.5;
+    v46 = 1.0;
+    v47 = *&v231;
+    v48 = v14 + 8;
+    do
+    {
+      v49 = *(v41 - 1);
+      v50 = *(v44 - 1);
+      v51 = *v44;
+      v52 = *(v44 - 2);
+      i32 = v48[2 * *v41].i32;
+      v54 = i32[5];
+      v55 = i32[6];
+      v56 = i32[4];
+      if (*(v49 + 330) == 1)
+      {
+        v57 = *(v49 + 272);
+        v58 = *(v49 + 276);
+        v59 = *(v49 + 280);
+      }
+
+      else
+      {
+        v61 = *(v43 - 3);
+        v60 = *(v43 - 2);
+        v62 = *(v43 - 1);
+        v63 = *(v49 + 284);
+        v64 = *(v49 + 272);
+        v65 = *(v49 + 276);
+        v66 = *(v49 + 280);
+        v67 = (((*v43 * v64) - (v63 * v61)) - (v65 * v62)) + (v60 * v66);
+        v68 = (((*v43 * v65) - (v63 * v60)) - (v66 * v61)) + (v62 * v64);
+        v69 = (((*v43 * v66) - (v63 * v62)) - (v64 * v60)) + (v61 * v65);
+        v70 = ((v68 * v68) + (v67 * v67)) + (v69 * v69);
+        v71 = sqrtf(v70);
+        v57 = 0.0;
+        v58 = 0.0;
+        v59 = 0.0;
+        if (v71 >= 1.0e-12)
+        {
+          v228 = (((*v43 * v65) - (v63 * v60)) - (v66 * v61)) + (v62 * v64);
+          v229 = (((*v43 * v64) - (v63 * v61)) - (v65 * v62)) + (v60 * v66);
+          v230 = *v44;
+          v72 = (((v61 * v64) + (v63 * *v43)) + (v65 * v60)) + (v66 * v62);
+          if (v72 >= 0.0)
+          {
+            v73 = v71;
+          }
+
+          else
+          {
+            v73 = -v71;
+            v72 = -v72;
+          }
+
+          v74 = atan2f(v73, v72);
+          v75 = 0.0;
+          v76 = 0.0;
+          v77 = 0.0;
+          v47 = *&v231;
+          v48 = v14 + 8;
+          v45 = -0.5;
+          v46 = 1.0;
+          v51 = v230;
+          if (v70 > 0.0)
+          {
+            v75 = (v229 * (1.0 / v71)) + (v229 * (1.0 / v71));
+            v76 = (v228 * (1.0 / v71)) + (v228 * (1.0 / v71));
+            v77 = (v69 * (1.0 / v71)) + (v69 * (1.0 / v71));
+          }
+
+          v57 = v74 * v75;
+          v58 = v74 * v76;
+          v59 = v74 * v77;
+        }
+      }
+
+      v78 = v51 - v55;
+      v41 += 10;
+      v79 = v57 + v57;
+      v80 = v58 + v58;
+      v81 = v59 + v59;
+      v83 = *(v43 - 15);
+      v82 = *(v43 - 14);
+      v84 = v45 + (v82 * v82);
+      v85 = *(v43 - 17);
+      v86 = *(v43 - 16);
+      v87 = ((v80 * v86) + (v85 * v79)) + (v83 * v81);
+      v88 = ((v82 * ((v86 * v81) - (v83 * v80))) + (v79 * v84)) + (v85 * v87);
+      v89 = ((v82 * ((v83 * v79) - (v85 * v81))) + (v80 * v84)) + (v86 * v87);
+      v90 = ((v82 * ((v85 * v80) - (v86 * v79))) + (v81 * v84)) + (v83 * v87);
+      v91 = *(v49 + 288) + *(v49 + 288);
+      v92 = *(v49 + 292) + *(v49 + 292);
+      v93 = *(v49 + 296) + *(v49 + 296);
+      v94 = ((v86 * v92) + (v85 * v91)) + (v83 * v93);
+      v95 = ((v82 * ((v86 * v93) - (v83 * v92))) + (v91 * v84)) + (v85 * v94);
+      v96 = ((v82 * ((v83 * v91) - (v85 * v93))) + (v92 * v84)) + (v86 * v94);
+      v97 = (((v82 * ((v85 * v92) - (v86 * v91))) + (v93 * v84)) + (v83 * v94)) - v78;
+      v98 = *(v49 + 300);
+      v99 = v98 * v88;
+      v100 = v89 * v98;
+      v101 = v90 * v98;
+      v102 = *(v49 + 304);
+      v103 = (v101 + (v102 * v97)) * v47;
+      v104 = v46 / *(v49 + 308);
+      v105 = vmulq_n_f32(v42[-2], v104 * ((v99 + (v102 * (v95 - (v52 - v56)))) * v47));
+      v105.i32[3] = 0;
+      v106 = vmulq_n_f32(v42[-1], v104 * ((v100 + (v102 * (v96 - (v50 - v54)))) * v47));
+      v106.i32[3] = 0;
+      v107 = *v42;
+      v42 += 3;
+      v108 = vmulq_n_f32(v107, v104 * v103);
+      v108.i32[3] = 0;
+      *v40++ = vaddq_f32(v108, vaddq_f32(v105, v106));
+      v43 += 21;
+      v44 += 8;
+      --v39;
+    }
+
+    while (v39);
+    v109 = v14[1].u16[1];
+    v110 = &v14->i8[v109];
+    v111 = v14->u16[1];
+    bzero(&v241, 32 * v38);
+    v112 = v109 + 160 * v38 + 64;
+    v113 = &v241 + 2 * v38 - 1;
+    v114 = 32 * v38 - 16 + v111;
+    v115 = v38;
+    do
+    {
+      v117 = v113[-1];
+      v116 = *v113;
+      v118 = vextq_s8(v117, v117, 8uLL).u64[0];
+      v120 = *(&v14[-1] + v114);
+      v119 = *(v14 + v114);
+      v121 = vextq_s8(v119, v119, 8uLL).u64[0];
+      v122 = vmls_f32(vmul_f32(*v117.i8, vext_s8(*v119.i8, v121, 4uLL)), vext_s8(*v117.i8, v118, 4uLL), *v119.i8);
+      *v119.i8 = vext_s8(v122, vmls_f32(vmul_f32(v118, *v119.i8), *v117.i8, v121), 4uLL);
+      v119.i64[1] = v122.u32[0];
+      v123 = vsubq_f32(vaddq_f32(*v113, v119), *(&v231 + v115));
+      v124 = vmulq_laneq_f32(*(&v14[-1] + v112), v123, 2);
+      v124.i32[3] = 0;
+      v125 = vmlaq_lane_f32(v124, *(&v14[-3] + v112), *v123.f32, 1);
+      v125.i64[1] = vextq_s8(v125, v125, 8uLL).u32[0];
+      v126 = *(&v14[-4] + v112);
+      v127 = vmlaq_n_f32(v125, *(&v14[-5] + v112), v123.f32[0]);
+      v127.i64[1] = vextq_s8(v127, v127, 8uLL).u32[0];
+      v128 = vmulq_laneq_f32(*(v14 + v112), v123, 2);
+      v128.i32[3] = 0;
+      v129 = vmlaq_lane_f32(v128, *(&v14[-2] + v112), *v123.f32, 1);
+      v129.i64[1] = vextq_s8(v129, v129, 8uLL).u32[0];
+      *&v236[16 * v115 + 236] = v123;
+      v130 = vmlaq_n_f32(v129, v126, v123.f32[0]);
+      v130.i64[1] = vextq_s8(v130, v130, 8uLL).u32[0];
+      v131 = v115 - 1;
+      v132 = vsubq_f32(v117, v127);
+      v133 = vsubq_f32(v116, v130);
+      v123.i64[0] = vextq_s8(v120, v120, 8uLL).u64[0];
+      *v130.i8 = vmls_f32(vmul_f32(*v120.i8, *&vextq_s8(v132, v132, 4uLL)), vext_s8(*v120.i8, *v123.f32, 4uLL), *v132.i8);
+      *v123.f32 = vext_s8(*v130.i8, vmls_f32(vmul_f32(*v123.f32, *v132.i8), *v120.i8, *&vextq_s8(v132, v132, 8uLL)), 4uLL);
+      v123.i64[1] = v130.u32[0];
+      v134 = &v241 + 2 * v14[3].u8[v115 + 15];
+      v135 = vaddq_f32(v134[1], vaddq_f32(v133, v123));
+      v112 -= 160;
+      *v134 = vaddq_f32(*v134, v132);
+      v134[1] = v135;
+      v113 -= 2;
+      v114 -= 32;
+      v115 = v131;
+    }
+
+    while (v131 > 1);
+    v9 = v223;
+    v11 = v224;
+    v7 = v221;
+    v12 = v222;
+  }
+
+  v136 = *&v231;
+  v137 = vnegq_f32(v241);
+  v138 = vmulq_n_f32(*v110, v137.f32[0]);
+  v139 = vmulq_lane_f32(v110[1], *v137.f32, 1);
+  v140 = v110[3];
+  v141 = vmulq_laneq_f32(v110[2], v137, 2);
+  v137.i32[3] = 0;
+  v142 = vnegq_f32(v242[0]);
+  v138.i32[3] = 0;
+  v139.i32[3] = 0;
+  v141.i32[3] = 0;
+  v143 = vaddq_f32(v138, v139);
+  v144 = vmulq_n_f32(v140, v142.f32[0]);
+  v144.i32[3] = 0;
+  v145 = v110[4];
+  v146 = v110[5];
+  v147 = vmulq_lane_f32(v145, *v142.f32, 1);
+  v147.i32[3] = 0;
+  v148 = vmulq_laneq_f32(v146, v142, 2);
+  v148.i32[3] = 0;
+  v149 = vaddq_f32(vaddq_f32(v143, v141), vaddq_f32(vaddq_f32(v144, v147), v148));
+  v150 = vmulq_f32(v137, v140);
+  v150.i64[0] = vpaddq_f32(v150, v150).u64[0];
+  v151 = vmulq_f32(v137, v145);
+  v151.i64[0] = vpaddq_f32(v151, v151).u64[0];
+  v152 = vmulq_f32(v137, v146);
+  v152.i64[0] = vpaddq_f32(v152, v152).u64[0];
+  *v150.f32 = vext_s8(vpadd_f32(*v150.f32, *v150.f32), vpadd_f32(*v151.f32, *v151.f32), 4uLL);
+  v150.i64[1] = vpadd_f32(*v152.f32, *v152.f32).u32[0];
+  v153 = vmulq_n_f32(v110[6], v142.f32[0]);
+  v153.i32[3] = 0;
+  v154 = vmulq_lane_f32(v110[7], *v142.f32, 1);
+  v154.i32[3] = 0;
+  v155 = vmulq_laneq_f32(v110[8], v142, 2);
+  v155.i32[3] = 0;
+  v156 = vaddq_f32(vaddq_f32(vaddq_f32(v153, v154), v155), v150);
+  v238 = v149;
+  v239[0] = v156;
+  if (v38 >= 2)
+  {
+    v157 = v38 - 1;
+    v158 = v110 + 27;
+    v159 = &v240;
+    v160 = &v14[4].u8[1];
+    v161 = &v237;
+    v162 = (v14 + v111 + 48);
+    do
+    {
+      v163 = *v160++;
+      v164 = &v238 + 2 * v163;
+      v165 = vnegq_f32(v162[-1]);
+      v166 = v165;
+      v166.i32[3] = 0;
+      v167 = v164[1];
+      v166.i64[0] = vextq_s8(v166, v166, 8uLL).u64[0];
+      v168 = vextq_s8(v167, v167, 8uLL).u64[0];
+      v169 = vmls_f32(vmul_f32(*v165.f32, vext_s8(*v167.i8, v168, 4uLL)), vext_s8(*v165.f32, *v166.i8, 4uLL), *v167.i8);
+      *v165.f32 = vext_s8(v169, vmls_f32(vmul_f32(*v166.i8, *v167.i8), *v165.f32, v168), 4uLL);
+      v165.i64[1] = v169.u32[0];
+      v170 = *v161++;
+      v171 = vmulq_n_f32(v158[-2], v170.f32[0]);
+      v171.i32[3] = 0;
+      v172 = vmulq_lane_f32(v158[-1], *v170.f32, 1);
+      v172.i32[3] = 0;
+      v173 = vaddq_f32(*v164, v165);
+      v174 = vmulq_laneq_f32(*v158, v170, 2);
+      v175 = vaddq_f32(v171, v172);
+      v176 = vmulq_f32(v158[-8], v173);
+      v176.i64[0] = vpaddq_f32(v176, v176).u64[0];
+      v177 = vmulq_f32(v167, v158[-7]);
+      v177.i64[0] = vpaddq_f32(v177, v177).u64[0];
+      v178 = vmulq_f32(v173, v158[-6]);
+      v179 = vmulq_f32(v173, v158[-4]);
+      *v176.f32 = vadd_f32(vpadd_f32(*v176.f32, *v176.f32), vpadd_f32(*v177.f32, *v177.f32));
+      v177.i64[0] = vpaddq_f32(v179, v179).u64[0];
+      v180 = vmulq_f32(v167, v158[-3]);
+      v180.i64[0] = vpaddq_f32(v180, v180).u64[0];
+      v178.i64[0] = vpaddq_f32(v178, v178).u64[0];
+      v181 = vmulq_f32(v167, v158[-5]);
+      v181.i64[0] = vpaddq_f32(v181, v181).u64[0];
+      v174.i32[3] = 0;
+      *v176.f32 = vext_s8(*v176.f32, vadd_f32(vpadd_f32(*v178.f32, *v178.f32), vpadd_f32(*v181.f32, *v181.f32)), 4uLL);
+      v176.i64[1] = vadd_f32(vpadd_f32(*v177.f32, *v177.f32), vpadd_f32(*v180.f32, *v180.f32)).u32[0];
+      v182 = vaddq_f32(vaddq_f32(v175, v174), v176);
+      v154 = vextq_s8(*v162, *v162, 8uLL);
+      *v178.f32 = vext_s8(*v162->i8, *v154.i8, 4uLL);
+      *v154.i8 = vmls_f32(vmul_f32(*v154.i8, *v182.i8), *v162->i8, *&vextq_s8(v182, v182, 8uLL));
+      *v176.f32 = vmls_f32(vmul_f32(*v162->i8, *&vextq_s8(v182, v182, 4uLL)), *v178.f32, *v182.i8);
+      *v183.f32 = vext_s8(*v176.f32, *v154.i8, 4uLL);
+      v183.i64[1] = v176.u32[0];
+      v156 = vsubq_f32(v167, v182);
+      v159[-1] = vsubq_f32(v173, v183);
+      *v159 = v156;
+      v158 += 10;
+      v159 += 2;
+      v162 += 2;
+      --v157;
+    }
+
+    while (v157);
+  }
+
+  if (v38)
+  {
+    v184 = &v14[9];
+    v185 = v239;
+    do
+    {
+      v156 = vaddq_f32(v184[-1], v185[-1]);
+      v186 = vaddq_f32(*v184, *v185);
+      v184[-1] = v156;
+      *v184 = v186;
+      v184 += 2;
+      v185 += 2;
+      --v38;
+    }
+
+    while (v38);
+  }
+
+  if ((v27 & 1) == 0)
+  {
+    v187 = *(v9 + 48);
+    v188 = *(*(v9 + 64) + 4);
+    v241 = *v226;
+    v242[0].i64[0] = v226[1].i64[0];
+    physx::Dy::PxcFsComputeJointLoadsSimd(v14, v7, v187, v233, v12, v188, &v241);
+    v189 = *(v9 + 48);
+    v241 = *v226;
+    v242[0].i64[0] = v226[1].i64[0];
+    physx::Dy::PxcFsPropagateDrivenInertiaSimd(v14, v7, v233, v189, &v241);
+    v136 = *&v231;
+  }
+
+  if (v12)
+  {
+    v156.i32[0] = 0;
+    v190.i64[0] = *v225;
+    v190.i64[1] = *(v225 + 8);
+    v191 = *(v9 + 24) + 16;
+    v192 = v242;
+    v193 = (*(v9 + 8) + 16);
+    v194 = (v7 + 64);
+    v195 = v12;
+    do
+    {
+      v196.i64[0] = *(v191 - 16);
+      v196.i64[1] = *(v191 - 8);
+      v197 = *v193;
+      v193 += 5;
+      v154.i8[0] = *(v197 + 157);
+      v198 = vdupq_lane_s8(*&vceqq_s8(v154, v156), 0);
+      v199 = v191;
+      v200 = vld1q_dup_f32(v199++);
+      v201 = vbslq_s8(v198, vaddq_f32(v190, v196), v196);
+      v202 = vmulq_n_f32(v194[-4], v201.f32[0]);
+      v202.i32[3] = 0;
+      v198.i32[0] = *(v191 + 8);
+      v203 = vmulq_lane_f32(v194[-3], *v201.f32, 1);
+      v204 = v194[-1];
+      v203.i32[3] = 0;
+      v205 = vmulq_laneq_f32(v194[-2], v201, 2);
+      v206 = vmulq_f32(v200, v204);
+      v206.i32[3] = 0;
+      v205.i32[3] = 0;
+      v207 = v194[1];
+      v208 = vmulq_n_f32(*v194, *v199);
+      v208.i32[3] = 0;
+      v209 = vaddq_f32(v206, v208);
+      v210 = vmulq_n_f32(v207, *v198.i32);
+      v210.i32[3] = 0;
+      v211 = vmulq_f32(v201, v204);
+      v211.i64[0] = vpaddq_f32(v211, v211).u64[0];
+      v212 = vmulq_f32(v201, *v194);
+      v212.i64[0] = vpaddq_f32(v212, v212).u64[0];
+      v213 = vmulq_f32(v201, v207);
+      v214 = vaddq_f32(v202, v203);
+      v213.i64[0] = vpaddq_f32(v213, v213).u64[0];
+      *v202.f32 = vext_s8(vpadd_f32(*v211.f32, *v211.f32), vpadd_f32(*v212.f32, *v212.f32), 4uLL);
+      v215 = vmulq_f32(v200, v194[2]);
+      v215.i32[3] = 0;
+      v216 = vmulq_n_f32(v194[3], *v199);
+      v216.i32[3] = 0;
+      v202.i64[1] = vpadd_f32(*v213.f32, *v213.f32).u32[0];
+      v217 = vmulq_n_f32(v194[4], *v198.i32);
+      v217.i32[3] = 0;
+      v218 = vaddq_f32(vaddq_f32(vaddq_f32(v215, v216), v217), v202);
+      v154 = vmulq_n_f32(vnegq_f32(vaddq_f32(vaddq_f32(v214, v205), vaddq_f32(v209, v210))), v136);
+      v219 = vmulq_n_f32(vnegq_f32(v218), v136);
+      v154.i32[3] = 0;
+      v219.i32[3] = 0;
+      *v191 = 0;
+      *(v191 + 8) = 0;
+      v192[-1] = v154;
+      *v192 = v219;
+      *(v191 - 16) = 0;
+      *(v191 - 8) = 0;
+      v191 += 32;
+      v192 += 2;
+      v194 += 9;
+      --v195;
+    }
+
+    while (v195);
+  }
+
+  physx::Dy::Articulation::applyImpulses(v14, &v241, v227);
+  result = memcpy(*(v9 + 16), v227, 32 * v12);
+  v14->i64[1] = 0;
+  *(v11 + 8) = 0;
+  return result;
+}
+
+float32x4_t *physx::Dy::PxcFsFlushVelocity(float32x4_t *result)
+{
+  v1 = (result + result[1].u16[1]);
+  v2 = result->u16[0];
+  v3 = 2 * v2;
+  v4 = result->u16[1];
+  v5 = vnegq_f32(result[2]);
+  v6 = vmulq_n_f32(*v1, v5.f32[0]);
+  v7 = vmulq_lane_f32(v1[1], *v5.f32, 1);
+  v8 = v1[3];
+  v9 = vmulq_laneq_f32(v1[2], v5, 2);
+  v10 = v5;
+  v10.i32[3] = 0;
+  v6.i32[3] = 0;
+  v7.i32[3] = 0;
+  v11 = vnegq_f32(result[3]);
+  v9.i32[3] = 0;
+  v12 = vmulq_n_f32(v8, v11.f32[0]);
+  v12.i32[3] = 0;
+  v13 = vaddq_f32(v6, v7);
+  v14 = v1[4];
+  v15 = v1[5];
+  v16 = vmulq_lane_f32(v14, *v11.f32, 1);
+  v16.i32[3] = 0;
+  v17 = vaddq_f32(v13, v9);
+  v18 = vmulq_laneq_f32(v15, v11, 2);
+  v18.i32[3] = 0;
+  v19 = vaddq_f32(v17, vaddq_f32(vaddq_f32(v12, v16), v18));
+  v20 = vmulq_f32(v10, v8);
+  v20.i64[0] = vpaddq_f32(v20, v20).u64[0];
+  v21 = vmulq_f32(v10, v14);
+  v21.i64[0] = vpaddq_f32(v21, v21).u64[0];
+  v22 = vmulq_f32(v10, v15);
+  v22.i64[0] = vpaddq_f32(v22, v22).u64[0];
+  *v20.f32 = vext_s8(vpadd_f32(*v20.f32, *v20.f32), vpadd_f32(*v21.f32, *v21.f32), 4uLL);
+  v20.i64[1] = vpadd_f32(*v22.f32, *v22.f32).u32[0];
+  v23 = vmulq_n_f32(v1[6], v11.f32[0]);
+  v23.i32[3] = 0;
+  v24 = vmulq_lane_f32(v1[7], *v11.f32, 1);
+  v24.i32[3] = 0;
+  v25 = vmulq_laneq_f32(v1[8], v11, 2);
+  v25.i32[3] = 0;
+  v26 = vaddq_f32(vaddq_f32(vaddq_f32(v23, v24), v25), v20);
+  v27 = result + 8;
+  v28 = result[8];
+  result[2] = 0u;
+  result[3] = 0u;
+  result[8] = vaddq_f32(v19, v28);
+  result[9] = vaddq_f32(v26, result[9]);
+  for (i = v1[18].i64[0]; i; i &= i - 1)
+  {
+    v30 = __clz(__rbit32(i));
+    LODWORD(v31) = __clz(__rbit32(HIDWORD(i))) + 32;
+    if (i)
+    {
+      v31 = v30;
+    }
+
+    else
+    {
+      v31 = v31;
+    }
+
+    v32 = &v27[2 * v31 + v3];
+    v33 = vaddq_f32(v26, v32[1]);
+    *v32 = vaddq_f32(v19, *v32);
+    v32[1] = v33;
+  }
+
+  if (v2 >= 2)
+  {
+    v34 = &v1[9];
+    v35 = result + v4;
+    v36 = &v27[v3];
+    for (j = 1; j != v2; ++j)
+    {
+      v38 = &v34[160 * j];
+      v39 = &v35[32 * j];
+      v40 = &v27[4 * v2 + 2 * v2 + j];
+      v41 = &v36[2 * j];
+      v42 = v41[1];
+      v43 = vextq_s8(v42, v42, 8uLL).u64[0];
+      v44 = v39[1];
+      v45 = vextq_s8(*v39, *v39, 8uLL).u64[0];
+      v46 = vmls_f32(vmul_f32(*v42.i8, vext_s8(*v39->i8, v45, 4uLL)), vext_s8(*v42.i8, v43, 4uLL), *v39->i8);
+      *v47.f32 = vext_s8(v46, vmls_f32(vmul_f32(v43, *v39->i8), *v42.i8, v45), 4uLL);
+      v47.i64[1] = v46.u32[0];
+      v48 = vmulq_n_f32(v38[6], COERCE_FLOAT(*v40->f32));
+      v48.i32[3] = 0;
+      v49 = vaddq_f32(*v41, v47);
+      v50 = vmulq_lane_f32(v38[7], *v40, 1);
+      v50.i32[3] = 0;
+      v51 = vmulq_laneq_f32(v38[8], *v40->f32, 2);
+      v51.i32[3] = 0;
+      v52 = vaddq_f32(vaddq_f32(v48, v50), v51);
+      v53 = vmulq_f32(*v38, v49);
+      v53.i64[0] = vpaddq_f32(v53, v53).u64[0];
+      v54 = vmulq_f32(v42, v38[1]);
+      v54.i64[0] = vpaddq_f32(v54, v54).u64[0];
+      *v53.f32 = vadd_f32(vpadd_f32(*v53.f32, *v53.f32), vpadd_f32(*v54.f32, *v54.f32));
+      v55 = vmulq_f32(v49, v38[2]);
+      v55.i64[0] = vpaddq_f32(v55, v55).u64[0];
+      v56 = vmulq_f32(v42, v38[3]);
+      v56.i64[0] = vpaddq_f32(v56, v56).u64[0];
+      *v55.f32 = vadd_f32(vpadd_f32(*v55.f32, *v55.f32), vpadd_f32(*v56.f32, *v56.f32));
+      v57 = vmulq_f32(v49, v38[4]);
+      v57.i64[0] = vpaddq_f32(v57, v57).u64[0];
+      v58 = vmulq_f32(v42, v38[5]);
+      v58.i64[0] = vpaddq_f32(v58, v58).u64[0];
+      *v53.f32 = vext_s8(*v53.f32, *v55.f32, 4uLL);
+      v53.i64[1] = vadd_f32(vpadd_f32(*v57.f32, *v57.f32), vpadd_f32(*v58.f32, *v58.f32)).u32[0];
+      v59 = vaddq_f32(v52, v53);
+      v53.i64[0] = vextq_s8(v44, v44, 8uLL).u64[0];
+      *v57.f32 = vmls_f32(vmul_f32(*v44.i8, *&vextq_s8(v59, v59, 4uLL)), vext_s8(*v44.i8, *v53.f32, 4uLL), *v59.i8);
+      *v53.f32 = vext_s8(*v57.f32, vmls_f32(vmul_f32(*v53.f32, *v59.i8), *v44.i8, *&vextq_s8(v59, v59, 8uLL)), 4uLL);
+      v53.i64[1] = v57.u32[0];
+      v60 = vsubq_f32(v49, v53);
+      v61 = vsubq_f32(v42, v59);
+      *v41 = 0uLL;
+      v41[1] = 0uLL;
+      *v40 = 0;
+      v40[1] = 0;
+      v62 = &v27[2 * j];
+      v63 = vaddq_f32(v62[1], v61);
+      *v62 = vaddq_f32(*v62, v60);
+      v62[1] = v63;
+      for (k = v38[9].i64[0]; k; k &= k - 1)
+      {
+        v65 = __clz(__rbit32(k));
+        LODWORD(v66) = __clz(__rbit32(HIDWORD(k))) + 32;
+        if (k)
+        {
+          v66 = v65;
+        }
+
+        else
+        {
+          v66 = v66;
+        }
+
+        v67 = &v36[2 * v66];
+        v68 = vaddq_f32(v61, v67[1]);
+        *v67 = vaddq_f32(v60, *v67);
+        v67[1] = v68;
+      }
+    }
+  }
+
+  result->i64[1] = 0;
+  return result;
+}
+
+float32x4_t physx::Dy::Articulation::pxcFsApplyImpulse(uint64_t a1, unsigned int a2, float32x4_t a3, float32x4_t a4)
+{
+  v4 = *(a1 + 168);
+  v5 = vnegq_f32(a3);
+  v5.i32[3] = 0;
+  v6 = vnegq_f32(a4);
+  v6.i32[3] = 0;
+  v7 = &v4[9] + v4[1].u16[1];
+  if (a2)
+  {
+    v8 = v4 + v4->u16[1];
+    v9 = &v4[2 * v4->u16[0] + 8 + 2 * v4->u16[0] + 2 * v4->u16[0]];
+    v10 = a2;
+    do
+    {
+      v11 = (v7 + 160 * v10);
+      v12 = &v8[32 * v10];
+      v13 = v12[1];
+      v14 = vextq_s8(v13, v13, 8uLL).u64[0];
+      v15 = vmls_f32(vmul_f32(*v5.i8, vext_s8(*v13.i8, v14, 4uLL)), *&vextq_s8(v5, v5, 4uLL), *v13.i8);
+      *v13.i8 = vext_s8(v15, vmls_f32(vmul_f32(*&vextq_s8(v5, v5, 8uLL), *v13.i8), *v5.i8, v14), 4uLL);
+      v13.i64[1] = v15.u32[0];
+      v16 = vaddq_f32(v6, v13);
+      v17 = vmulq_laneq_f32(v11[4], v16, 2);
+      v17.i32[3] = 0;
+      v18 = vmlaq_lane_f32(v17, v11[2], *v16.f32, 1);
+      v18.i64[1] = vextq_s8(v18, v18, 8uLL).u32[0];
+      v19 = vmlaq_n_f32(v18, *v11, v16.f32[0]);
+      v19.i64[1] = vextq_s8(v19, v19, 8uLL).u32[0];
+      v5 = vsubq_f32(v5, v19);
+      v20 = vmulq_laneq_f32(v11[5], v16, 2);
+      v20.i32[3] = 0;
+      v21 = vmlaq_lane_f32(v20, v11[3], *v16.f32, 1);
+      v21.i64[1] = vextq_s8(v21, v21, 8uLL).u32[0];
+      v22 = vmlaq_n_f32(v21, v11[1], v16.f32[0]);
+      v22.i64[1] = vextq_s8(v22, v22, 8uLL).u32[0];
+      v23 = vsubq_f32(v6, v22);
+      v22.i64[0] = vextq_s8(*v12, *v12, 8uLL).u64[0];
+      v24 = vmls_f32(vmul_f32(*v12->i8, *&vextq_s8(v5, v5, 4uLL)), vext_s8(*v12->i8, *v22.i8, 4uLL), *v5.i8);
+      *v22.i8 = vext_s8(v24, vmls_f32(vmul_f32(*v22.i8, *v5.i8), *v12->i8, *&vextq_s8(v5, v5, 8uLL)), 4uLL);
+      v22.i64[1] = v24.u32[0];
+      v6 = vaddq_f32(v23, v22);
+      *(v9 + 16 * v10) = vaddq_f32(*(v9 + 16 * v10), v16);
+      v10 = v4[4].u8[v10];
+    }
+
+    while (v10);
+  }
+
+  result = vaddq_f32(v5, v4[2]);
+  v26 = vaddq_f32(v6, v4[3]);
+  v4[2] = result;
+  v4[3] = v26;
+  v4->i64[1] |= *(v7 + 160 * a2 + 152);
+  return result;
+}
+
+double physx::Dy::Articulation::pxcFsGetVelocities(uint64_t a1, uint64_t a2, uint64_t a3, _OWORD *a4, _OWORD *a5)
+{
+  (*(*a1 + 312))(&v12);
+  v9 = v13;
+  *a4 = v12;
+  a4[1] = v9;
+  (*(*a1 + 312))(&v12, a1, a3);
+  result = *&v12;
+  v11 = v13;
+  *a5 = v12;
+  a5[1] = v11;
+  return result;
+}
+
+uint64_t physx::Dy::Articulation::pxcFsApplyImpulses(uint64_t a1, uint64_t a2, __n128 *a3, __n128 *a4, uint64_t a5, __n128 *a6, __n128 *a7, uint64_t a8, uint64_t a9)
+{
+  (*(*a1 + 256))(a1, a2, a8, a9, *a3, *a4);
+  v14 = *a6;
+  v15 = *a7;
+  v16 = *(*a1 + 256);
+
+  return v16(a1, a5, a8, a9, v14, v15);
+}
+
+__n128 physx::Dy::Articulation::pxcFsGetVelocity@<Q0>(physx::Dy::Articulation *this@<X0>, unsigned int a2@<W1>, float32x4_t *a3@<X8>)
+{
+  v80 = *MEMORY[0x1E69E9840];
+  v3 = *(this + 21);
+  v4 = (v3 + v3[1].u16[1]);
+  v5 = v4 + 9;
+  v6 = v3 + 8;
+  v7 = a2;
+  v8 = v4[10 * a2 + 18].i64[1];
+  v9 = v3->i64[1];
+  if ((v9 & v8) != 0)
+  {
+    v10 = (v9 | -(v9 & v8)) & v8;
+    v11 = v3->u16[0];
+    if (v10)
+    {
+      v17 = vnegq_f32(v3[2]);
+      v18 = vmulq_n_f32(*v4, v17.f32[0]);
+      v19 = vmulq_lane_f32(v4[1], *v17.f32, 1);
+      v20 = v4[3];
+      v21 = vmulq_laneq_f32(v4[2], v17, 2);
+      v17.i32[3] = 0;
+      v22 = vnegq_f32(v3[3]);
+      v18.i32[3] = 0;
+      v19.i32[3] = 0;
+      v21.i32[3] = 0;
+      v23 = vaddq_f32(v18, v19);
+      v24 = vmulq_n_f32(v20, v22.f32[0]);
+      v24.i32[3] = 0;
+      v25 = v4[4];
+      v26 = v4[5];
+      v27 = vmulq_lane_f32(v25, *v22.f32, 1);
+      v27.i32[3] = 0;
+      v28 = vmulq_laneq_f32(v26, v22, 2);
+      v28.i32[3] = 0;
+      v15 = vaddq_f32(vaddq_f32(v23, v21), vaddq_f32(vaddq_f32(v24, v27), v28));
+      v29 = vmulq_f32(v17, v20);
+      v29.i64[0] = vpaddq_f32(v29, v29).u64[0];
+      v30 = vmulq_f32(v17, v25);
+      v30.i64[0] = vpaddq_f32(v30, v30).u64[0];
+      v31 = vmulq_f32(v17, v26);
+      v31.i64[0] = vpaddq_f32(v31, v31).u64[0];
+      *v29.f32 = vext_s8(vpadd_f32(*v29.f32, *v29.f32), vpadd_f32(*v30.f32, *v30.f32), 4uLL);
+      v29.i64[1] = vpadd_f32(*v31.f32, *v31.f32).u32[0];
+      v32 = vmulq_n_f32(v4[6], v22.f32[0]);
+      v32.i32[3] = 0;
+      v33 = vmulq_lane_f32(v4[7], *v22.f32, 1);
+      v33.i32[3] = 0;
+      v34 = vmulq_laneq_f32(v4[8], v22, 2);
+      v34.i32[3] = 0;
+      v14 = vaddq_f32(vaddq_f32(vaddq_f32(v32, v33), v34), v29);
+      v35 = vaddq_f32(v3[9], v14);
+      v3[8] = vaddq_f32(v15, v3[8]);
+      v3[9] = v35;
+      v3[2] = 0u;
+      v3[3] = 0u;
+      v79[0] = 0;
+      v78[0] = v15;
+      v78[1] = v14;
+      v12 = v4[18].i64[0];
+      v16 = v10 - 1;
+      v13 = 1;
+    }
+
+    else
+    {
+      v12 = 0;
+      v13 = 0;
+      v14 = 0uLL;
+      v15 = 0uLL;
+      v16 = v10;
+    }
+
+    v36 = &v6[2 * v11];
+    if (v16)
+    {
+      v37 = v3 + v3->u16[1];
+      v38 = &v36[2 * v11 + 2 * v11];
+      do
+      {
+        LODWORD(v39) = __clz(__rbit32(v16));
+        v40 = __clz(__rbit32(HIDWORD(v16))) + 32;
+        if (v16)
+        {
+          v39 = v39;
+        }
+
+        else
+        {
+          v39 = v40;
+        }
+
+        v41 = &v37[32 * v39];
+        v42 = &v5[10 * v39];
+        v43 = &v36[2 * v39];
+        v44 = vaddq_f32(v15, *v43);
+        v45 = (v38 + 16 * v39);
+        v46 = vmulq_n_f32(v42[6], COERCE_FLOAT(*v45->f32));
+        v46.i32[3] = 0;
+        v47 = vmulq_lane_f32(v42[7], *v45, 1);
+        v47.i32[3] = 0;
+        v48 = vmulq_laneq_f32(v42[8], *v45->f32, 2);
+        v48.i32[3] = 0;
+        v49 = vaddq_f32(v14, v43[1]);
+        v50 = vaddq_f32(vaddq_f32(v46, v47), v48);
+        v51 = v41[1];
+        v52 = vextq_s8(*v41, *v41, 8uLL).u64[0];
+        v53 = vmls_f32(vmul_f32(*v49.i8, vext_s8(*v41->i8, v52, 4uLL)), *&vextq_s8(v49, v49, 4uLL), *v41->i8);
+        *v54.f32 = vext_s8(v53, vmls_f32(vmul_f32(*&vextq_s8(v49, v49, 8uLL), *v41->i8), *v49.i8, v52), 4uLL);
+        v54.i64[1] = v53.u32[0];
+        v55 = vaddq_f32(v44, v54);
+        v56 = vmulq_f32(*v42, v55);
+        v56.i64[0] = vpaddq_f32(v56, v56).u64[0];
+        v57 = vmulq_f32(v42[2], v55);
+        v57.i64[0] = vpaddq_f32(v57, v57).u64[0];
+        v58 = vmulq_f32(v42[4], v55);
+        v58.i64[0] = vpaddq_f32(v58, v58).u64[0];
+        *v56.f32 = vext_s8(vpadd_f32(*v56.f32, *v56.f32), vpadd_f32(*v57.f32, *v57.f32), 4uLL);
+        v59 = vmulq_f32(v49, v42[1]);
+        v59.i64[0] = vpaddq_f32(v59, v59).u64[0];
+        v60 = vmulq_f32(v49, v42[3]);
+        v60.i64[0] = vpaddq_f32(v60, v60).u64[0];
+        v61 = vmulq_f32(v49, v42[5]);
+        v61.i64[0] = vpaddq_f32(v61, v61).u64[0];
+        *v59.f32 = vext_s8(vpadd_f32(*v59.f32, *v59.f32), vpadd_f32(*v60.f32, *v60.f32), 4uLL);
+        v56.i64[1] = vpadd_f32(*v58.f32, *v58.f32).u32[0];
+        v59.i64[1] = vpadd_f32(*v61.f32, *v61.f32).u32[0];
+        v62 = vaddq_f32(v50, vaddq_f32(v56, v59));
+        v50.i64[0] = vextq_s8(v51, v51, 8uLL).u64[0];
+        *v60.f32 = vmls_f32(vmul_f32(*v51.i8, *&vextq_s8(v62, v62, 4uLL)), vext_s8(*v51.i8, *v50.f32, 4uLL), *v62.i8);
+        *v50.f32 = vext_s8(*v60.f32, vmls_f32(vmul_f32(*v50.f32, *v62.i8), *v51.i8, *&vextq_s8(v62, v62, 8uLL)), 4uLL);
+        v50.i64[1] = v60.u32[0];
+        v15 = vsubq_f32(v55, v50);
+        v14 = vsubq_f32(v49, v62);
+        v63 = &v6[2 * v39];
+        v64 = vaddq_f32(v63[1], v14);
+        *v63 = vaddq_f32(*v63, v15);
+        v63[1] = v64;
+        *v43 = 0uLL;
+        v43[1] = 0uLL;
+        *v45 = 0;
+        v45[1] = 0;
+        v79[v39] = v13;
+        v65 = v13++;
+        v66 = &v78[2 * v65];
+        v12 |= v42[9].u64[0];
+        *v66 = v15;
+        v66[1] = v14;
+        v16 &= v16 - 1;
+      }
+
+      while (v16);
+    }
+
+    v67 = ~v10;
+    for (i = v12 & ~v10; i; i &= i - 1)
+    {
+      v69 = __clz(__rbit32(i));
+      LODWORD(v70) = __clz(__rbit32(HIDWORD(i))) + 32;
+      if (i)
+      {
+        v70 = v69;
+      }
+
+      else
+      {
+        v70 = v70;
+      }
+
+      v71 = v79[v3[4].u8[v70]];
+      v72 = &v36[2 * v70];
+      v73 = &v78[2 * v71];
+      v74 = vaddq_f32(v72[1], v73[1]);
+      *v72 = vaddq_f32(*v72, *v73);
+      v72[1] = v74;
+    }
+
+    v3->i64[1] = (v12 | v9) & v67;
+  }
+
+  v75 = &v6[2 * v7];
+  result = *v75;
+  v77 = v75[1];
+  *a3 = *v75;
+  a3[1] = v77;
+  return result;
+}
+
+void physx::Dy::PxvArticulationDriveCache::initialize(char *a1, unsigned int a2, void *a3, unsigned __int16 a4, char *a5, unsigned int a6, float a7)
+{
+  v25[31] = *MEMORY[0x1E69E9840];
+  v14 = a2;
+  physx::Dy::Articulation::prepareDataBlock(a1, a3, a2, &a5[240 * a2], &a5[272 * a2], a5, &a5[144 * a2]);
+  bzero(&a1[*(a1 + 9)], 160 * a2 + 144);
+  physx::Dy::Articulation::prepareFsData(a1, a3);
+  v24 = 0;
+  if (a2 >= 2)
+  {
+    v15 = 0;
+    v16 = vdupq_n_s64(v14 - 2);
+    v17 = v25;
+    v18 = 1.0 / a7;
+    do
+    {
+      v19 = vdupq_n_s64(v15);
+      v20 = vmovn_s64(vcgeq_u64(v16, vorrq_s8(v19, xmmword_1E3049620)));
+      if (vuzp1_s16(v20, *v16.i8).u8[0])
+      {
+        *(v17 - 1) = v18;
+      }
+
+      if (vuzp1_s16(v20, *&v16).i8[2])
+      {
+        *v17 = v18;
+      }
+
+      if (vuzp1_s16(*&v16, vmovn_s64(vcgeq_u64(v16, vorrq_s8(v19, xmmword_1E3049640)))).i32[1])
+      {
+        v17[1] = v18;
+        v17[2] = v18;
+      }
+
+      v15 += 4;
+      v17 += 4;
+    }
+
+    while (((v14 + 2) & 0x1FFFC) != v15);
+  }
+
+  bzero(&a5[288 * v14], 48 * a2);
+  v21 = a5;
+  v22 = a6;
+  v23 = 336 * v14;
+  physx::Dy::PxcFsComputeJointLoadsSimd(a1, a5, &a5[288 * v14], &v24, a2, a4, &v21);
+  v21 = a5;
+  v22 = a6;
+  v23 = 336 * v14;
+  physx::Dy::PxcFsPropagateDrivenInertiaSimd(a1, a5, &v24, &a5[288 * v14], &v21);
+}
+
+float physx::Dy::SolverExtBody::projectVelocity(uint64_t a1, float *a2, float *a3)
+{
+  if (*(a1 + 16) == 0xFFFF)
+  {
+    v9 = *(a1 + 8);
+    return (((v9[1] * a2[1]) + (*v9 * *a2)) + (v9[2] * a2[2])) + (((v9[5] * a3[1]) + (v9[4] * *a3)) + (v9[6] * a3[2]));
+  }
+
+  else
+  {
+    (*(**a1 + 232))(v10);
+    v5.i64[0] = *a2;
+    v5.i64[1] = *(a2 + 2);
+    v6.i64[0] = *a3;
+    v6.i64[1] = *(a3 + 2);
+    v7 = vaddq_f32(vmulq_f32(v5, v10[0]), vmulq_f32(v6, v10[1]));
+    v7.i64[0] = vpaddq_f32(v7, v7).u64[0];
+    LODWORD(result) = vpadd_f32(*v7.f32, *v7.f32).u32[0];
+  }
+
+  return result;
+}
+
+float32x2_t physx::Dy::SolverExtBody::projectVelocity(uint64_t a1, float32x4_t *a2, float32x4_t *a3)
+{
+  if (*(a1 + 16) == 0xFFFF)
+  {
+    v7 = *(a1 + 8);
+    v8.i64[0] = *v7;
+    v8.i64[1] = *(v7 + 8);
+    v5 = vmulq_f32(v8, *a2);
+    v9.i64[0] = *(v7 + 16);
+    v9.i64[1] = *(v7 + 24);
+    v6 = vmulq_f32(v9, *a3);
+  }
+
+  else
+  {
+    (*(**a1 + 232))(v12);
+    v5 = vmulq_f32(*a2, v12[0]);
+    v6 = vmulq_f32(*a3, v12[1]);
+  }
+
+  v10 = vaddq_f32(v5, v6);
+  v10.i64[0] = vpaddq_f32(v10, v10).u64[0];
+  return vpadd_f32(*v10.f32, *v10.f32);
+}
+
+void *physx::Dy::SolverExtBody::getLinVel(void *this, uint64_t a2)
+{
+  v2 = this;
+  if (*(a2 + 16) == 0xFFFF)
+  {
+    v5 = *(a2 + 8);
+    v3 = *v5;
+    v4 = *(v5 + 2);
+  }
+
+  else
+  {
+    this = (*(**a2 + 232))(&v6);
+    v3 = v6;
+    v4 = v7;
+  }
+
+  *v2 = v3;
+  *(v2 + 2) = v4;
+  return this;
+}
+
+float physx::Dy::SolverExtBody::getVelocity(physx::Dy::SolverExtBody *this, void *a2)
+{
+  if (*(a2 + 8) == 0xFFFF)
+  {
+    v3 = a2[1];
+    *&v2 = *v3;
+    *(&v2 + 1) = *(v3 + 8);
+    *&v4 = *(v3 + 16);
+    *(&v4 + 1) = *(v3 + 24);
+    *this = v2;
+    *(this + 1) = v4;
+  }
+
+  else
+  {
+    (*(**a2 + 232))(*a2);
+  }
+
+  return *&v2;
+}
+
+float32x2_t *physx::Dy::createImpulseResponseVector@<X0>(float32x2_t *result@<X0>, float *a2@<X1>, uint64_t a3@<X2>, float32x2_t *a4@<X8>)
+{
+  if (*(a3 + 16) == -1)
+  {
+    v6 = *(a3 + 8);
+    v7 = a2[1];
+    v8 = a2[2];
+    v9 = v8 * *(v6 + 64);
+    v4 = vadd_f32(vadd_f32(vmul_n_f32(*(v6 + 32), *a2), vmul_n_f32(*(v6 + 44), v7)), vmul_n_f32(*(v6 + 56), v8));
+    v5 = ((*a2 * *(v6 + 40)) + (v7 * *(v6 + 52))) + v9;
+  }
+
+  else
+  {
+    v4 = *a2;
+    v5 = a2[2];
+  }
+
+  v10 = result[1].i32[0];
+  *a4 = *result;
+  a4[1].i32[0] = v10;
+  a4[1].i32[1] = 0;
+  a4[2] = v4;
+  a4[3].f32[0] = v5;
+  a4[3].i32[1] = 0;
+  return result;
+}
+
+float physx::Dy::getImpulseResponse(uint64_t *a1, float32x2_t *a2, float32x2_t *a3, uint64_t *a4, float32x2_t *a5, float32x2_t *a6, uint64_t a7, float a8, float a9, float a10, float a11)
+{
+  v17 = *(a1 + 8);
+  if (v17 == 0xFFFF)
+  {
+    v27 = *(a1[1] + 12);
+    v23 = (v27 * a2[1].f32[0]) * a8;
+    v22 = vmul_n_f32(vmul_n_f32(*a2, v27), a8);
+    *a3 = v22;
+    a3[1].f32[0] = v23;
+    v26 = a2[3].f32[0] * a9;
+    v25 = vmul_n_f32(a2[2], a9);
+    a3[2] = v25;
+    a3[3].f32[0] = v26;
+    v21 = v22.f32[1];
+    v24 = v25.f32[1];
+  }
+
+  else
+  {
+    v18 = *a1;
+    v19 = a2[1].f32[0] * a8;
+    v48 = a10;
+    v50 = a11;
+    v20 = a2[3].f32[0] * a9;
+    v52 = vmul_n_f32(*a2, a8);
+    v53 = v19;
+    v54 = 0;
+    v55 = vmul_n_f32(a2[2], a9);
+    v56 = v20;
+    v57 = 0;
+    (*(*v18 + 208))(v18, v17, a7, &v52, a3);
+    a10 = v48;
+    a11 = v50;
+    v22.i32[0] = a3->i32[0];
+    v21 = a3->f32[1];
+    v23 = a3[1].f32[0];
+    v25.i32[0] = a3[2].i32[0];
+    v24 = a3[2].f32[1];
+    v26 = a3[3].f32[0];
+  }
+
+  v28 = a2->f32[0];
+  v29 = a2->f32[1];
+  v30 = a2[1].f32[0];
+  v32 = a2[2].f32[0];
+  v31 = a2[2].f32[1];
+  v33 = a2[3].f32[0];
+  v34 = *(a4 + 8);
+  if (v34 == 0xFFFF)
+  {
+    v44 = *(a4[1] + 12);
+    v40 = (v44 * a5[1].f32[0]) * a10;
+    v38 = vmul_n_f32(vmul_n_f32(*a5, v44), a10);
+    *a6 = v38;
+    a6[1].f32[0] = v40;
+    v43 = a5[3].f32[0] * a11;
+    v41 = vmul_n_f32(a5[2], a11);
+    a6[2] = v41;
+    a6[3].f32[0] = v43;
+    v39 = v38.f32[1];
+    v42 = v41.f32[1];
+  }
+
+  else
+  {
+    v35 = *a4;
+    v36 = a5[1].f32[0] * a10;
+    v37 = a5[3].f32[0] * a11;
+    v52 = vmul_n_f32(*a5, a10);
+    v53 = v36;
+    v54 = 0;
+    v55 = vmul_n_f32(a5[2], a11);
+    v56 = v37;
+    v57 = 0;
+    v49 = v25.i32[0];
+    v51 = v22.i32[0];
+    v46 = v21;
+    v47 = v29;
+    (*(*v35 + 208))(v35, v34, a7, &v52, a6);
+    v21 = v46;
+    v29 = v47;
+    v25.i32[0] = v49;
+    v22.i32[0] = v51;
+    v38.i32[0] = a6->i32[0];
+    v39 = a6->f32[1];
+    v40 = a6[1].f32[0];
+    v41.i32[0] = a6[2].i32[0];
+    v42 = a6[2].f32[1];
+    v43 = a6[3].f32[0];
+  }
+
+  return ((((v21 * v29) + (v28 * v22.f32[0])) + (v30 * v23)) + (((v24 * v31) + (v32 * v25.f32[0])) + (v33 * v26))) + ((((v39 * a5->f32[1]) + (a5->f32[0] * v38.f32[0])) + (a5[1].f32[0] * v40)) + (((v42 * a5[2].f32[1]) + (a5[2].f32[0] * v41.f32[0])) + (a5[3].f32[0] * v43)));
+}
+
+float32x2_t physx::Dy::getImpulseResponse(uint64_t *a1, float32x4_t *a2, float32x4_t *a3, float32x2_t *a4, float32x2_t *a5, uint64_t *a6, float32x4_t *a7, float32x4_t *a8, double a9, float32x2_t a10, float32x2_t *a11, void *a12, uint64_t a13)
+{
+  v18 = *(a1 + 8);
+  if (v18 == 0xFFFF)
+  {
+    a10.i32[0] = *(a1[1] + 12);
+    v23 = vmulq_n_f32(*a2, vmul_f32(a10, *a4).f32[0]);
+    v23.i32[3] = 0;
+    *a3 = v23;
+    v22 = *a5;
+    v24 = vmulq_n_f32(a2[1], COERCE_FLOAT(*a5));
+    v24.i32[3] = 0;
+    a3[1] = v24;
+  }
+
+  else
+  {
+    v19 = *a1;
+    v20 = vmulq_n_f32(*a2, COERCE_FLOAT(*a4));
+    v20.i32[3] = 0;
+    v21 = vmulq_n_f32(a2[1], COERCE_FLOAT(*a5));
+    v21.i32[3] = 0;
+    v39 = v20;
+    v40 = v21;
+    (*(*v19 + 216))(v19, v18, a13, &v39, a3);
+    v23 = *a3;
+    v24 = a3[1];
+  }
+
+  v25 = *a2;
+  v26 = a2[1];
+  v27 = *(a6 + 8);
+  if (v27 == 0xFFFF)
+  {
+    v22.i32[0] = *(a6[1] + 12);
+    v31 = vmulq_n_f32(*a7, vmul_f32(v22, *a11).f32[0]);
+    v31.i32[3] = 0;
+    *a8 = v31;
+    v32 = vmulq_n_f32(a7[1], COERCE_FLOAT(*a12));
+    v32.i32[3] = 0;
+    a8[1] = v32;
+  }
+
+  else
+  {
+    v28 = *a6;
+    v29 = vmulq_n_f32(*a7, COERCE_FLOAT(*a11));
+    v29.i32[3] = 0;
+    v30 = vmulq_n_f32(a7[1], COERCE_FLOAT(*a12));
+    v30.i32[3] = 0;
+    v39 = v29;
+    v40 = v30;
+    v37 = v24;
+    v38 = v23;
+    v35 = v26;
+    v36 = v25;
+    (*(*v28 + 216))(v28, v27, a13, &v39, a8);
+    v26 = v35;
+    v25 = v36;
+    v24 = v37;
+    v23 = v38;
+    v31 = *a8;
+    v32 = a8[1];
+  }
+
+  v33 = vaddq_f32(vaddq_f32(vmulq_f32(v23, v25), vmulq_f32(v24, v26)), vaddq_f32(vmulq_f32(v31, *a7), vmulq_f32(v32, a7[1])));
+  v33.i64[0] = vpaddq_f32(v33, v33).u64[0];
+  return vpadd_f32(*v33.f32, *v33.f32);
+}
+
+void physx::Dy::setupFinalizeExtSolverContacts(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int8x16_t *a5, uint64_t a6, uint64_t a7, uint64_t a8, double a9, int32x2_t a10, int32x2_t a11, int32x2_t a12, int32x2_t a13, int32x2_t a14, int32x2_t a15, int32x2_t a16, uint64_t a17)
+{
+  _X26 = a5;
+  v24 = vdup_lane_s32(a16, 0);
+  v257[0] = v24;
+  if (*(a6 + 16) == 0xFFFF)
+  {
+    v25 = *(*(a6 + 8) + 68);
+  }
+
+  else
+  {
+    v25 = (*(**a6 + 248))();
+  }
+
+  if (*(a7 + 16) == 0xFFFF)
+  {
+    v24.i32[0] = *(*(a7 + 8) + 68);
+  }
+
+  else
+  {
+    (*(**a7 + 248))();
+  }
+
+  if (v25 > *v24.i32)
+  {
+    *v24.i32 = v25;
+  }
+
+  v256 = vdup_lane_s32(v24, 0);
+  v26.i64[0] = *(a3 + 16);
+  v26.i64[1] = *(a3 + 24);
+  v255 = v26;
+  v26.i64[0] = *(a4 + 16);
+  v26.i64[1] = *(a4 + 24);
+  v254 = v26;
+  physx::Dy::SolverExtBody::getVelocity(v253, a6);
+  physx::Dy::SolverExtBody::getVelocity(&v252, a7);
+  v251 = vdup_lane_s32(a11, 0);
+  v250 = vdup_lane_s32(a13, 0);
+  v249 = vdup_lane_s32(a12, 0);
+  v248 = vdup_lane_s32(a14, 0);
+  v247 = vdup_lane_s32(a15, 0);
+  _X8 = a2 + 7556;
+  __asm { PRFM            #0, [X8] }
+
+  _X8 = a2 + 7684;
+  __asm { PRFM            #0, [X8] }
+
+  v246 = vdup_lane_s32(*&a9, 0);
+  v245 = vdup_lane_s32(a10, 0);
+  v35 = vdup_n_s32(0x3F4CCCCDu);
+  v244 = vmul_n_f32(v35, *&a9);
+  v36 = *(a2 + 7688);
+  if (v36)
+  {
+    v37 = 0;
+    v38 = 0;
+    v39.i64[0] = 0;
+    v39.i32[2] = 0;
+    v39.i32[3] = vdupq_lane_s32(a13, 0).i32[3];
+    v40.i64[0] = 0;
+    v40.i64[1] = a11.u32[0];
+    v195 = a2 + 7296;
+    v191 = a2 + 2816;
+    v192 = a3;
+    v221 = a2 + 7424;
+    v188 = vdup_n_s32(0x38D1B717u);
+    v189 = vdup_n_s32(0x3F3504F3u);
+    v41 = vorrq_s8(v39, v40);
+    v198 = v35;
+    v204 = a1;
+    v208 = a2;
+    do
+    {
+      v42 = *(v195 + 4 * v37);
+      if (v42)
+      {
+        v43 = v191 + 104 * v37;
+        v44 = a1 + (*(a2 + 44 * *(v221 + 4 * v37)) << 6);
+        v45 = *(v44 + 48);
+        v40.i32[0] = 1.0;
+        if ((v45 & 4) != 0 && *(v43 + 2) == 2)
+        {
+          *v40.i32 = 0.5;
+        }
+
+        v46 = *(v44 + 44);
+        v47 = *(v44 + 56);
+        v39.i32[0] = *(v44 + 60);
+        __asm
+        {
+          PRFM            #0, [X26,#0xD0]
+          PRFM            #0, [X26,#0x150]
+          PRFM            #0, [X26,#0x1D0]
+        }
+
+        _X26->i8[2] = v42;
+        v205 = v191 + 104 * v37;
+        if (v45)
+        {
+          v51 = 0;
+        }
+
+        else
+        {
+          v51 = 2 * *(v43 + 2);
+        }
+
+        v213 = v45;
+        v217 = v42;
+        v197 = v38;
+        *v41.i32 = *v40.i32 * v46;
+        *v40.i32 = *v40.i32 * v47;
+        v41.i32[1] = vdupq_lane_s32(*&v40, 0).i32[1];
+        _X26->i8[3] = v51;
+        _X26->i16[0] = 3;
+        v243 = vdup_lane_s32(*v39.i8, 0);
+        v196 = v41.i64[1];
+        _X26[1] = v41;
+        _X26->i32[1] = a12.i32[0];
+        _X26->i32[2] = a14.i32[0];
+        v52 = *(v221 + 4 * v37);
+        v53 = a1 + (*(a2 + 44 * v52) << 6);
+        v55.i64[0] = *v53;
+        v55.i32[2] = *(v53 + 8);
+        v223 = _X26;
+        i64 = _X26[5].i64;
+        v55.i64[1] = v55.u32[2];
+        v242 = v55;
+        v56 = 0;
+        if (v52 == 0xFFFF)
+        {
+          v57 = _X26 + 5;
+        }
+
+        else
+        {
+          do
+          {
+            v58 = (a2 + 44 * v52);
+            v59 = *(v58 + 5);
+            v228 = v58;
+            if (*(v58 + 5))
+            {
+              v60 = v204 + (*v58 << 6);
+              do
+              {
+                v57 = (i64 + 112);
+                *v55.i8 = physx::Dy::setupExtSolverContact(a6, a7, &v251, &v250, &v249, &v248, &v255, &v254, &v242, &v246, &v244, &v247, &v256, &v243, &v245, v60, i64, v257, a17, v253, &v252);
+                v56 = vadd_f32(v56, *v55.i8);
+                v60 += 64;
+                i64 = v57;
+                --v59;
+              }
+
+              while (v59);
+            }
+
+            else
+            {
+              v57 = i64;
+            }
+
+            v52 = v228[1];
+            i64 = v57;
+            a2 = v208;
+          }
+
+          while (v52 != 0xFFFF);
+        }
+
+        *v55.i32 = v217;
+        v61 = vdup_lane_s32(*v55.i8, 0);
+        v62 = vrecpe_f32(v61);
+        v63 = 4;
+        do
+        {
+          v62 = vmul_f32(v62, vrecps_f32(v61, v62));
+          --v63;
+        }
+
+        while (v63);
+        v64 = v242;
+        v64.i32[3] = vmul_f32(v56, v62).i32[1];
+        _X26[2] = v64;
+        bzero(v57, 4 * v217);
+        _X26 = (v57 + 4 * ((v217 + 3) & 0xFFFFFFFC));
+        v223[3].i32[1] = 0;
+        v65 = v197;
+        if (v213)
+        {
+          a1 = v204;
+        }
+
+        else
+        {
+          v66.i64[1] = v252.i64[1];
+          v67 = vdup_lane_s32(*v242.i8, 1);
+          *v68.i8 = vext_s8(0, vneg_f32(vdup_laneq_s32(v242, 2)), 4uLL);
+          v68.i64[1] = v67.u32[0];
+          v69 = vsubq_f32(v253[0], v252);
+          *v66.i8 = vext_s8(vneg_f32(v67), *v242.i8, 4uLL);
+          v70 = vmulq_f32(v242, v69);
+          v70.i64[0] = vpaddq_f32(v70, v70).u64[0];
+          v71 = vmulq_n_f32(v242, vpadd_f32(*v70.f32, *v70.f32).f32[0]);
+          v71.i32[3] = 0;
+          v72 = vsubq_f32(v69, v71);
+          v73 = vmulq_f32(v72, v72);
+          v73.i64[0] = vpaddq_f32(v73, v73).u64[0];
+          v74 = vbslq_s8(vmovl_s16(vdup_lane_s16(vcgt_f32(vpadd_f32(*v73.f32, *v73.f32), v188), 0)), v72, vbslq_s8(vcltzq_s32(vshlq_n_s32(vmovl_u16(vdup_lane_s16(vcgt_f32(v189, vabs_f32(vdup_lane_s32(*v242.i8, 0))), 0)), 0x1FuLL)), v68, v66));
+          v75 = vmulq_f32(v74, v74);
+          v75.i64[0] = vpaddq_f32(v75, v75).u64[0];
+          v76 = vpadd_f32(*v75.f32, *v75.f32);
+          v77 = vrsqrte_f32(v76);
+          v78 = 4;
+          do
+          {
+            v77 = vmul_f32(v77, vrsqrts_f32(vmul_f32(v77, v77), v76));
+            --v78;
+          }
+
+          while (v78);
+          v79 = vbsl_s8(vdup_lane_s32(vceqz_f32(v76), 0), v76, vmul_f32(v76, v77));
+          v80 = vrecpe_f32(v79);
+          v81 = 4;
+          a1 = v204;
+          do
+          {
+            v80 = vmul_f32(v80, vrecps_f32(v79, v80));
+            --v81;
+          }
+
+          while (v81);
+          v82 = vmulq_n_f32(v74, v80.f32[0]);
+          v39 = v82;
+          v39.i32[3] = 0;
+          v241 = v39;
+          v39.i64[0] = vextq_s8(v39, v39, 8uLL).u64[0];
+          v203 = vext_s8(*v82.f32, *v39.i8, 4uLL);
+          v84 = vmls_f32(vmul_f32(*v242.i8, v203), *&vextq_s8(v242, v242, 4uLL), *v82.f32);
+          v83 = vext_s8(v84, vmls_f32(vmul_f32(*&vextq_s8(v242, v242, 8uLL), *v82.f32), *v242.i8, *v39.i8), 4uLL);
+          v84.i32[1] = 0;
+          *v40.i8 = v83;
+          v40.i64[1] = v84.u32[0];
+          v240 = v40;
+          v223[3].i64[1] = a8 + 104 * v197;
+          if (*(v205 + 2))
+          {
+            v85 = 0;
+            v199 = vneg_f32(*v82.f32);
+            v200 = vneg_f32(*v39.i8);
+            v86 = vext_s8(v83, v84, 4uLL);
+            v87 = vneg_f32(v84);
+            v201 = v83;
+            v202 = v82.i64[0];
+            v88 = vneg_f32(v83);
+            do
+            {
+              v89 = v85;
+              v90 = 3 * v85;
+              v91 = (v205 + 40 + 12 * v85);
+              v92 = *v91 + *v91;
+              v93 = v91[1] + v91[1];
+              v94 = v91[2] + v91[2];
+              v96 = v192[2];
+              v95 = v192[3];
+              v97 = (v95 * v95) + -0.5;
+              v98 = v192[1];
+              v99 = ((v93 * v98) + (*v192 * v92)) + (v96 * v94);
+              v100.f32[0] = ((v95 * ((v98 * v94) - (v96 * v93))) + (v92 * v97)) + (*v192 * v99);
+              v100.f32[1] = ((v95 * ((v96 * v92) - (*v192 * v94))) + (v93 * v97)) + (v98 * v99);
+              *&v101 = ((v95 * ((*v192 * v93) - (v98 * v92))) + (v94 * v97)) + (v96 * v99);
+              v102 = v100;
+              v102.i32[2] = v101;
+              v103 = (v205 + 64 + 4 * v90);
+              v104 = *v103 + *v103;
+              v105 = v103[1] + v103[1];
+              v106 = v103[2] + v103[2];
+              v108 = *(a4 + 8);
+              v107 = *(a4 + 12);
+              v109 = (v107 * v107) + -0.5;
+              v110 = *(a4 + 4);
+              v111 = ((v105 * v110) + (*a4 * v104)) + (v108 * v106);
+              v112 = ((v107 * ((v108 * v104) - (*a4 * v106))) + (v105 * v109)) + (v110 * v111);
+              v113.f32[0] = ((v107 * ((v110 * v106) - (v108 * v105))) + (v104 * v109)) + (*a4 * v111);
+              *&v114 = ((v107 * ((*a4 * v105) - (v110 * v104))) + (v106 * v109)) + (v108 * v111);
+              v113.f32[1] = v112;
+              v115 = v113;
+              v115.i32[2] = v114;
+              v116 = _X26;
+              v117 = vextq_s8(v102, v102, 8uLL).u64[0];
+              v118 = vext_s8(v100, v117, 4uLL);
+              v210 = v117;
+              v214 = v113;
+              v218 = v100;
+              v119 = vmla_f32(vmul_f32(*v82.f32, v117), v100, v200);
+              v120 = vmla_f32(vmul_f32(v203, v100), v118, v199);
+              v121 = v120.f32[0];
+              *v122.f32 = vext_s8(v120, v119, 4uLL);
+              v122.i64[1] = v120.u32[0];
+              v123 = vextq_s8(v115, v115, 8uLL).u64[0];
+              v124 = vext_s8(v113, v123, 4uLL);
+              v209 = v123;
+              v125 = vmla_f32(vmul_f32(v203, v113), v124, v199);
+              *v126.f32 = vext_s8(v125, vmla_f32(vmul_f32(*v82.f32, v123), v113, v200), 4uLL);
+              v126.i64[1] = v125.u32[0];
+              v238 = v126;
+              v239 = v122;
+              if (*(a6 + 16) == -1)
+              {
+                v127 = *(a6 + 8);
+                v128 = *(v127 + 44);
+                v129 = vdupq_laneq_s32(v128, 3);
+                v129.i32[1] = *(v127 + 60);
+                v129.i32[2] = *(v127 + 64);
+                v130 = vmulq_lane_f32(*(v127 + 32), v120, 1);
+                v130.i32[3] = 0;
+                v131 = vmulq_n_f32(v128, *v119.i32);
+                v131.i32[3] = 0;
+                v132 = vmulq_n_f32(v129, v121);
+                v132.i32[3] = 0;
+                v122 = vaddq_f32(vaddq_f32(v130, v131), v132);
+              }
+
+              v232 = v241;
+              v233 = v122;
+              v133 = vnegq_f32(v126);
+              if (*(a7 + 16) == -1)
+              {
+                v134 = *(a7 + 8);
+                v135 = *(v134 + 44);
+                v136 = vdupq_laneq_s32(v135, 3);
+                v136.i32[1] = *(v134 + 60);
+                v136.i32[2] = *(v134 + 64);
+                v137 = vmulq_n_f32(*(v134 + 32), v133.f32[0]);
+                v137.i32[3] = 0;
+                v138 = vmulq_lane_f32(v135, *v133.f32, 1);
+                v138.i32[3] = 0;
+                v139 = vmulq_laneq_f32(v136, v133, 2);
+                v139.i32[3] = 0;
+                v133 = vaddq_f32(vaddq_f32(v137, v138), v139);
+              }
+
+              else
+              {
+                v133.i32[3] = 0;
+              }
+
+              _X26 += 16;
+              v140 = vaddq_f32(v254, v115);
+              v224 = v241;
+              v141 = vnegq_f32(v241);
+              v141.i32[3] = 0;
+              v229 = vsubq_f32(vaddq_f32(v102, v255), v140);
+              v230 = v141;
+              v231 = v133;
+              ImpulseResponse = physx::Dy::getImpulseResponse(a6, &v232, &v236, &v251, &v249, a7, &v230, &v234, *v229.i64, *v140.f32, &v250, &v248, a17);
+              v143 = vrecpe_f32(ImpulseResponse);
+              v144 = 4;
+              do
+              {
+                v143 = vmul_f32(v143, vrecps_f32(ImpulseResponse, v143));
+                --v144;
+              }
+
+              while (v144);
+              v145 = v204 + (*(a2 + 44 * *(v221 + 4 * v37)) << 6);
+              v146.i64[0] = *(v145 + 32);
+              v146.i64[1] = *(v145 + 40);
+              v147 = v224;
+              v148 = vmulq_f32(v224, v146);
+              v148.i64[0] = vpaddq_f32(v148, v148).u64[0];
+              v149 = vpadd_f32(*v148.f32, *v148.f32);
+              if (*(a6 + 16) == -1)
+              {
+                v207 = v149;
+                v151 = physx::Dy::SolverExtBody::projectVelocity(a6, &v241, &v239);
+                v147 = v224;
+                v149.i32[0] = vsub_f32(v207, v151).u32[0];
+              }
+
+              else if (*(a7 + 16) == -1)
+              {
+                v206 = v149;
+                v150 = physx::Dy::SolverExtBody::projectVelocity(a7, &v241, &v238);
+                v147 = v224;
+                v149.i32[0] = vadd_f32(v206, v150).u32[0];
+              }
+
+              v152 = vdup_n_s32(0x3727C5ACu);
+              v147.i32[3] = 0;
+              *v116 = v147;
+              v153 = v233;
+              v153.i32[3] = vand_s8(vdup_lane_s32(vcgt_f32(ImpulseResponse, v152), 0), vmul_f32(v143, v198)).i32[1];
+              v116[1] = v153;
+              v154 = vnegq_f32(v231);
+              v155 = vmulq_f32(v229, v241);
+              v155.i64[0] = vpaddq_f32(v155, v155).u64[0];
+              v154.i32[3] = vmul_f32(vpadd_f32(*&v155, *&v155), v246).i32[1];
+              v116[2] = v154;
+              v156 = v237;
+              v116[4] = v236;
+              v116[5] = v156;
+              v159 = v235;
+              v116[6] = v234;
+              v116[7] = v159;
+              v116[3].i32[0] = v149.i32[0];
+              v157 = vmla_f32(vmul_f32(v201, v210), v218, v87);
+              v158 = vmla_f32(vmul_f32(v86, v218), v118, v88);
+              *v160.f32 = vext_s8(v158, v157, 4uLL);
+              v159.i64[0] = v158.u32[0];
+              v160.i64[1] = v158.u32[0];
+              v161 = vmla_f32(vmul_f32(v86, v214), v124, v88);
+              *v162.f32 = vext_s8(v161, vmla_f32(vmul_f32(v201, v209), v214, v87), 4uLL);
+              v162.i64[1] = v161.u32[0];
+              v238 = v162;
+              v239 = v160;
+              if (*(a6 + 16) == -1)
+              {
+                v163 = *(a6 + 8);
+                v164 = *(v163 + 44);
+                v165 = vdupq_laneq_s32(v164, 3);
+                v165.i32[1] = *(v163 + 60);
+                v165.i32[2] = *(v163 + 64);
+                v166 = vmulq_lane_f32(*(v163 + 32), v158, 1);
+                v166.i32[3] = 0;
+                v167 = vmulq_n_f32(v164, *v157.i32);
+                v167.i32[3] = 0;
+                v159 = vmulq_n_f32(v165, v159.f32[0]);
+                v159.i32[3] = 0;
+                v160 = vaddq_f32(vaddq_f32(v166, v167), v159);
+              }
+
+              v232 = v240;
+              v233 = v160;
+              v168 = vnegq_f32(v162);
+              v219 = v160;
+              if (*(a7 + 16) == -1)
+              {
+                v169 = *(a7 + 8);
+                v170 = *(v169 + 44);
+                v171 = vdupq_laneq_s32(v170, 3);
+                v171.i32[1] = *(v169 + 60);
+                v171.i32[2] = *(v169 + 64);
+                v172 = vmulq_n_f32(*(v169 + 32), v168.f32[0]);
+                v172.i32[3] = 0;
+                v159 = vmulq_lane_f32(v170, *v168.f32, 1);
+                v159.i32[3] = 0;
+                v173 = vmulq_laneq_f32(v171, v168, 2);
+                v173.i32[3] = 0;
+                v168 = vaddq_f32(vaddq_f32(v172, v159), v173);
+              }
+
+              else
+              {
+                v168.i32[3] = 0;
+              }
+
+              v225 = v240;
+              v174 = vnegq_f32(v240);
+              v174.i32[3] = 0;
+              v230 = v174;
+              v231 = v168;
+              v215 = v168;
+              v175 = physx::Dy::getImpulseResponse(a6, &v232, &v236, &v251, &v249, a7, &v230, &v234, *v174.i64, *v159.f32, &v250, &v248, a17);
+              v176 = vrecpe_f32(v175);
+              v177 = 4;
+              do
+              {
+                v176 = vmul_f32(v176, vrecps_f32(v175, v176));
+                --v177;
+              }
+
+              while (v177);
+              v178 = v204 + (*(a2 + 44 * *(v221 + 4 * v37)) << 6);
+              v179.i64[0] = *(v178 + 32);
+              v179.i64[1] = *(v178 + 40);
+              v180 = v225;
+              v181 = vmulq_f32(v225, v179);
+              v181.i64[0] = vpaddq_f32(v181, v181).u64[0];
+              v182 = vpadd_f32(*v181.f32, *v181.f32);
+              if (*(a6 + 16) == -1)
+              {
+                v212 = v182;
+                v184 = physx::Dy::SolverExtBody::projectVelocity(a6, &v240, &v239);
+                v180 = v225;
+                v182.i32[0] = vsub_f32(v212, v184).u32[0];
+              }
+
+              else if (*(a7 + 16) == -1)
+              {
+                v211 = v182;
+                v183 = physx::Dy::SolverExtBody::projectVelocity(a7, &v240, &v238);
+                v180 = v225;
+                v182.i32[0] = vadd_f32(v211, v183).u32[0];
+              }
+
+              v185 = vmulq_f32(v229, v180);
+              v180.i32[3] = 0;
+              v186 = v219;
+              v186.i32[3] = vand_s8(vdup_lane_s32(vcgt_f32(v175, v152), 0), vmul_f32(v176, v198)).i32[1];
+              v116[8] = v180;
+              v116[9] = v186;
+              v40 = vnegq_f32(v215);
+              v185.i64[0] = vpaddq_f32(v185, v185).u64[0];
+              v40.i32[3] = vmul_f32(vpadd_f32(*&v185, *&v185), v246).i32[1];
+              v116[10] = v40;
+              v187 = v237;
+              v116[12] = v236;
+              v116[13] = v187;
+              v40.i32[1] = v234.i32[1];
+              v39 = v235;
+              v116[14] = v234;
+              v116[15] = v39;
+              v116[11].i32[0] = v182.i32[0];
+              v85 = v89 + 1;
+              v82.i64[0] = v202;
+            }
+
+            while (v89 + 1 < *(v205 + 2));
+          }
+
+          v65 = v197;
+        }
+
+        v38 = v65 + 1;
+        v36 = *(a2 + 7688);
+        v41.i64[1] = v196;
+      }
+
+      ++v37;
+    }
+
+    while (v37 < v36);
+  }
+}
+
+uint64_t physx::Dy::setupFinalizeExtSolverContactsCoulomb(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int32x2_t *a5, uint64_t a6, uint64_t a7, int a8, double a9, int32x2_t a10, int32x2_t a11, int32x2_t a12, int32x2_t a13, int32x2_t a14, int32x2_t a15, int32x2_t a16, uint64_t a17)
+{
+  _X24 = a5;
+  v195 = *MEMORY[0x1E69E9840];
+  v24 = vdup_lane_s32(a16, 0);
+  v193 = v24;
+  if (*(a6 + 16) == 0xFFFF)
+  {
+    v25 = *(*(a6 + 8) + 68);
+  }
+
+  else
+  {
+    v25 = (*(**a6 + 248))();
+  }
+
+  if (*(a7 + 16) == 0xFFFF)
+  {
+    v24.i32[0] = *(*(a7 + 8) + 68);
+  }
+
+  else
+  {
+    (*(**a7 + 248))();
+  }
+
+  if (v25 > *v24.i32)
+  {
+    *v24.i32 = v25;
+  }
+
+  *v24.i32 = *v24.i32 / *&a9;
+  v191 = vdup_lane_s32(a15, 0);
+  v192 = vdup_lane_s32(v24, 0);
+  v190 = vdup_lane_s32(a10, 0);
+  physx::Dy::SolverExtBody::getVelocity(&v188, a6);
+  physx::Dy::SolverExtBody::getVelocity(&v186, a7);
+  v185 = vdup_lane_s32(*&a9, 0);
+  v26.i64[0] = *(a3 + 16);
+  v26.i32[2] = *(a3 + 24);
+  v184 = vmul_n_f32(vdup_n_s32(0x3F4CCCCDu), *&a9);
+  v26.i64[1] = v26.u32[2];
+  v27.i64[0] = *(a4 + 16);
+  v27.i64[1] = *(a4 + 24);
+  v182 = v27;
+  v183 = v26;
+  _X8 = a2 + 7556;
+  __asm { PRFM            #0, [X8] }
+
+  _X8 = a2 + 7684;
+  __asm { PRFM            #0, [X8] }
+
+  v36 = *(a2 + 7688);
+  v181 = vdup_lane_s32(a11, 0);
+  v180 = vdup_lane_s32(a13, 0);
+  v179 = vdup_lane_s32(a12, 0);
+  v178 = vdup_lane_s32(a14, 0);
+  v150 = v36;
+  if (v36)
+  {
+    v37 = 0;
+    v149 = a2 + 7296;
+    v148 = a2 + 7424;
+    v141 = _X24;
+    v153 = a2;
+    do
+    {
+      v38 = *(v149 + 4 * v37);
+      if (v38)
+      {
+        v167 = v37;
+        v39 = *(v148 + 4 * v37);
+        v40 = a1 + (*(a2 + 44 * v39) << 6);
+        v41 = *(v40 + 8);
+        v42 = (v40 + 60);
+        v43 = vld1_dup_f32(v42);
+        v44 = *v40;
+        v45.i64[0] = *v40;
+        v45.i64[1] = v41;
+        v46 = &_X24[6];
+        v177[0] = v45;
+        __asm
+        {
+          PRFM            #0, [X24,#0xB0]
+          PRFM            #0, [X24,#0x130]
+          PRFM            #0, [X24,#0x1B0]
+        }
+
+        *v176[0].f32 = v43;
+        _X24->i8[1] = v38;
+        _X24->i8[0] = 3;
+        v50 = vzip1_s32(v181, v180);
+        _X24->i32[1] = a12.i32[0];
+        _X24[5].i8[0] = 0;
+        _X24[1] = v50;
+        _X24[2] = v44;
+        _X24[3].i32[0] = v41;
+        for (_X24[3].i32[1] = a14.i32[0]; v39 != 0xFFFF; a2 = v153)
+        {
+          v51 = (a2 + 44 * v39);
+          v52 = *(v51 + 5);
+          v170 = v51;
+          if (*(v51 + 5))
+          {
+            v53 = a1 + (*v51 << 6);
+            do
+            {
+              v54 = v46 + 112;
+              physx::Dy::setupExtSolverContact(a6, a7, &v181, &v180, &v179, &v178, &v183, &v182, v177, &v185, &v184, &v191, &v192, v176, &v190, v53, v46, &v193, a17, &v188, &v186);
+              v53 += 64;
+              v46 = v54;
+              --v52;
+            }
+
+            while (v52);
+          }
+
+          else
+          {
+            v54 = v46;
+          }
+
+          v39 = v170[1];
+          v46 = v54;
+        }
+
+        _X24 = v46;
+        v37 = v167;
+      }
+
+      ++v37;
+    }
+
+    while (v37 != v150);
+    v55 = 0;
+    v171 = 0;
+    v56 = v141;
+    do
+    {
+      v57 = *(v149 + 4 * v55);
+      if (v57)
+      {
+        v56->i16[1] = _X24 - v56;
+        v147 = v56->u8[1];
+        v58 = a1 + (*(v153 + 44 * *(v148 + 4 * v55)) << 6);
+        v60 = *v58;
+        v59 = *(v58 + 4);
+        v61 = *(v58 + 8);
+        v62 = *(v58 + 44);
+        v63 = *(v58 + 48);
+        _X24->i8[1] = v57;
+        v64 = v57 * a8;
+        if (v63)
+        {
+          v64 = 0;
+        }
+
+        _X24->i8[2] = v64;
+        _X24->i8[3] = 0;
+        v65 = _X24;
+        v66 = _X24 + 4;
+        v67 = (4 * v57);
+        _X24 = (_X24 + ((v67 + 12) & 0xFFFFFFF0) + 32);
+        bzero(v66, v67);
+        __asm
+        {
+          PRFM            #0, [X24,#0x80]
+          PRFM            #0, [X24,#0x100]
+          PRFM            #0, [X24,#0x180]
+        }
+
+        v71 = fabsf(v60);
+        v72 = 0.0;
+        if (v71 >= 0.70711)
+        {
+          v73 = -v59;
+        }
+
+        else
+        {
+          v73 = 0.0;
+        }
+
+        if (v71 >= 0.70711)
+        {
+          v74 = v60;
+        }
+
+        else
+        {
+          v74 = -v61;
+        }
+
+        if (v71 >= 0.70711)
+        {
+          v75 = 0.0;
+        }
+
+        else
+        {
+          v75 = v59;
+        }
+
+        physx::Dy::SolverExtBody::getLinVel(v177, a6);
+        physx::Dy::SolverExtBody::getLinVel(v176, a7);
+        v76 = ((v59 * (v177[0].f32[1] - v176[0].f32[1])) + (v60 * (v177[0].f32[0] - v176[0].f32[0]))) + (v61 * (v177[0].f32[2] - v176[0].f32[2]));
+        v77 = (v177[0].f32[2] - v176[0].f32[2]) - (v61 * v76);
+        v78 = ((((v177[0].f32[1] - v176[0].f32[1]) - (v59 * v76)) * ((v177[0].f32[1] - v176[0].f32[1]) - (v59 * v76))) + (((v177[0].f32[0] - v176[0].f32[0]) - (v60 * v76)) * ((v177[0].f32[0] - v176[0].f32[0]) - (v60 * v76)))) + (v77 * v77);
+        v79 = v78 <= 0.00001;
+        if (v78 <= 0.00001)
+        {
+          v80 = v73;
+        }
+
+        else
+        {
+          v80 = (v177[0].f32[0] - v176[0].f32[0]) - (v60 * v76);
+        }
+
+        if (v79)
+        {
+          v81 = v74;
+        }
+
+        else
+        {
+          v81 = (v177[0].f32[1] - v176[0].f32[1]) - (v59 * v76);
+        }
+
+        if (v79)
+        {
+          v77 = v75;
+        }
+
+        v82 = ((v81 * v81) + (v80 * v80)) + (v77 * v77);
+        v83 = 0.0;
+        v84 = 0.0;
+        if (v82 > 0.0)
+        {
+          v85 = 1.0 / sqrtf(v82);
+          v84 = v80 * v85;
+          v83 = v81 * v85;
+          v72 = v77 * v85;
+        }
+
+        *v194 = v84;
+        *&v194[1] = v83;
+        *&v194[2] = v72;
+        *&v194[3] = (v83 * v61) - (v72 * v59);
+        *&v194[4] = (v72 * v60) - (v84 * v61);
+        *&v194[5] = (v84 * v59) - (v83 * v60);
+        if ((v63 & 1) == 0)
+        {
+          v65->i32[1] = v62;
+          v65[1].i32[0] = a11.i32[0];
+          v65[1].i32[1] = a13.i32[0];
+          v65[2].i32[0] = a12.i32[0];
+          v65[2].i32[1] = a14.i32[0];
+          v65->i8[0] = 12;
+          v86 = *(v148 + 4 * v55);
+          if (v86 == 0xFFFF)
+          {
+            v171 = 1;
+          }
+
+          else
+          {
+            v140 = v55;
+            v142 = v56;
+            v87 = 0;
+            do
+            {
+              v88 = (v153 + 44 * v86);
+              v155 = *(v88 + 5);
+              v151 = v88;
+              if (*(v88 + 5))
+              {
+                v89 = 0;
+                v154 = a1 + (*v88 << 6);
+                v90 = _X24;
+                do
+                {
+                  if (a8)
+                  {
+                    v91 = 0;
+                    v92 = v154 + (v89 << 6);
+                    v93.i64[0] = *(v92 + 16);
+                    v93.i64[1] = *(v92 + 24);
+                    v94.i64[0] = *(v92 + 32);
+                    v94.i64[1] = *(v92 + 40);
+                    v163 = v94;
+                    v165 = vsubq_f32(v93, v183);
+                    v95 = vextq_s8(v189, v189, 8uLL).u64[0];
+                    v161 = vextq_s8(v165, v165, 4uLL).u64[0];
+                    v162 = vextq_s8(v165, v165, 8uLL).u64[0];
+                    v96 = vmls_f32(vmul_f32(v161, *v189.i8), vext_s8(*v189.i8, v95, 4uLL), *v165.i8);
+                    *v97.f32 = vext_s8(v96, vmls_f32(vmul_f32(*v165.i8, v95), *v189.i8, v162), 4uLL);
+                    v97.i64[1] = v96.u32[0];
+                    v98 = vsubq_f32(v93, v182);
+                    v156 = vaddq_f32(v188, v97);
+                    v94.i64[0] = vextq_s8(v187, v187, 8uLL).u64[0];
+                    v158 = vextq_s8(v98, v98, 4uLL).u64[0];
+                    v159 = vextq_s8(v98, v98, 8uLL).u64[0];
+                    v160 = *v98.i8;
+                    v99 = vmls_f32(vmul_f32(v158, *v187.i8), vext_s8(*v187.i8, *v94.f32, 4uLL), *v98.i8);
+                    *v100.f32 = vext_s8(v99, vmls_f32(vmul_f32(*v98.i8, *v94.f32), *v187.i8, v159), 4uLL);
+                    v100.i64[1] = v99.u32[0];
+                    v157 = vaddq_f32(v186, v100);
+                    do
+                    {
+                      v101 = &v194[3 * v87];
+                      v102 = *v101;
+                      *v103.i8 = *v101;
+                      v103.i64[1] = v101[1].u32[0];
+                      v104 = vextq_s8(v103, v103, 8uLL).u64[0];
+                      v105 = vext_s8(*v101, v104, 4uLL);
+                      v106 = vmls_f32(vmul_f32(v162, *v101), *v165.i8, v104);
+                      v107 = vmls_f32(vmul_f32(*v165.i8, v105), v161, *v101);
+                      v108 = v107.u32[0];
+                      if (*(a6 + 16) == -1)
+                      {
+                        v110 = *(a6 + 8);
+                        v111 = *(v110 + 44);
+                        v112 = vdupq_laneq_s32(v111, 3);
+                        v112.i32[1] = *(v110 + 60);
+                        v112.i32[2] = *(v110 + 64);
+                        v113 = vmulq_lane_f32(*(v110 + 32), v107, 1);
+                        v113.i32[3] = 0;
+                        v114 = vmulq_n_f32(v111, *v106.i32);
+                        v114.i32[3] = 0;
+                        v115 = vmulq_n_f32(v112, *&v108);
+                        v115.i32[3] = 0;
+                        v109 = vaddq_f32(vaddq_f32(v113, v114), v115);
+                      }
+
+                      else
+                      {
+                        *v109.f32 = vext_s8(v107, v106, 4uLL);
+                        v109.i64[1] = v108;
+                      }
+
+                      v116 = vmls_f32(vmul_f32(v160, v105), v158, v102);
+                      *v117.f32 = vext_s8(v116, vmls_f32(vmul_f32(v159, v102), v160, v104), 4uLL);
+                      v117.i64[1] = v116.u32[0];
+                      v175[0] = v103;
+                      v175[1] = v109;
+                      v118 = vnegq_f32(v117);
+                      v168 = v109;
+                      if (*(a7 + 16) == -1)
+                      {
+                        v119 = *(a7 + 8);
+                        v120 = *(v119 + 44);
+                        v121 = vdupq_laneq_s32(v120, 3);
+                        v121.i32[1] = *(v119 + 60);
+                        v121.i32[2] = *(v119 + 64);
+                        v122 = vmulq_n_f32(*(v119 + 32), v118.f32[0]);
+                        v122.i32[3] = 0;
+                        v123 = vmulq_lane_f32(v120, *v118.f32, 1);
+                        v123.i32[3] = 0;
+                        v124 = vmulq_laneq_f32(v121, v118, 2);
+                        v124.i32[3] = 0;
+                        v118 = vaddq_f32(vaddq_f32(v122, v123), v124);
+                      }
+
+                      else
+                      {
+                        v118.i32[3] = 0;
+                      }
+
+                      v125 = vnegq_f32(v103);
+                      v125.i32[3] = 0;
+                      v173 = v125;
+                      v174 = v118;
+                      v172 = v103;
+                      ImpulseResponse = physx::Dy::getImpulseResponse(a6, v175, v177, &v181, &v179, a7, &v173, v176, *v118.i64, *v125.f32, &v180, &v178, a17);
+                      v127 = v172;
+                      v128 = vmulq_f32(v163, v172);
+                      v128.i64[0] = vpaddq_f32(v128, v128).u64[0];
+                      v129 = COERCE_DOUBLE(vpadd_f32(*v128.f32, *v128.f32));
+                      if (*(a6 + 16) == -1)
+                      {
+                        v132 = vmulq_f32(v156, v172);
+                        v132.i64[0] = vpaddq_f32(v132, v132).u64[0];
+                        LODWORD(v129) = vadd_f32(*&v129, vpadd_f32(*v132.f32, *v132.f32)).u32[0];
+                      }
+
+                      else
+                      {
+                        v130 = vmulq_f32(v157, v172);
+                        v130.i64[0] = vpaddq_f32(v130, v130).u64[0];
+                        v131 = COERCE_DOUBLE(vsub_f32(*&v129, vpadd_f32(*v130.f32, *v130.f32)));
+                        if (*(a7 + 16) == -1)
+                        {
+                          v129 = v131;
+                        }
+                      }
+
+                      v133 = v168;
+                      _X24 = v90 + 16;
+                      v87 = 1 - v87;
+                      v134 = vrecpe_f32(ImpulseResponse);
+                      v135 = 4;
+                      do
+                      {
+                        v134 = vmul_f32(v134, vrecps_f32(ImpulseResponse, v134));
+                        --v135;
+                      }
+
+                      while (v135);
+                      v133.i32[3] = vand_s8(vdup_lane_s32(vcgtz_f32(ImpulseResponse), 0), *&v134).i32[1];
+                      *v90[2].i8 = v133;
+                      v136 = vnegq_f32(v174);
+                      v136.i32[3] = 0;
+                      *v90[4].i8 = v136;
+                      v127.i32[3] = 0;
+                      *v90->i8 = v127;
+                      v90[6].i32[0] = LODWORD(v129);
+                      v137 = v177[1];
+                      *v90[8].i8 = v177[0];
+                      *v90[10].i8 = v137;
+                      v138 = v176[1];
+                      *v90[12].i8 = v176[0];
+                      *v90[14].i8 = v138;
+                      ++v91;
+                      v90 += 16;
+                    }
+
+                    while (v91 != a8);
+                  }
+
+                  else
+                  {
+                    _X24 = v90;
+                  }
+
+                  ++v89;
+                  v90 = _X24;
+                }
+
+                while (v89 != v155);
+              }
+
+              v86 = v151[1];
+            }
+
+            while (v86 != 0xFFFF);
+            v171 = 1;
+            v55 = v140;
+            v56 = v142;
+          }
+        }
+
+        v56 += 14 * v147 + 6;
+      }
+
+      ++v55;
+    }
+
+    while (v55 != v150);
+  }
+
+  else
+  {
+    v171 = 0;
+  }
+
+  return v171 & 1;
+}
+
+float32_t physx::Dy::ArticulationHelper::createHardLimit(uint64_t a1, uint64_t a2, unsigned int a3, float32x4_t *a4, float *a5, float a6, float32x4_t a7)
+{
+  v9 = a7.f32[0];
+  a4->i64[0] = 0;
+  a4->i32[2] = 0;
+  a4[1].i64[0] = 0;
+  a4[1].i32[2] = 0;
+  v11 = *a5;
+  a7.f32[0] = a5[1];
+  a4[2].f32[0] = *a5;
+  a4[2].i32[1] = a7.i32[0];
+  v12 = *(a5 + 2);
+  a4[2].i32[2] = v12;
+  a4[3].i32[0] = v11;
+  a4[3].i32[1] = a7.i32[0];
+  a4[3].i32[2] = v12;
+  a4[5] = 0x7F7FFFFF00000000uLL;
+  v13 = *(a2 + 40 * a3 + 32);
+  a7.i64[0] = *a5;
+  v14.i64[0] = vnegq_f32(a7).u64[0];
+  a7.i64[1] = *(a5 + 2);
+  v23[0] = 0u;
+  v23[1] = a7;
+  v14.f32[2] = -a7.f32[2];
+  v14.i32[3] = 0;
+  v22[0] = 0u;
+  v22[1] = v14;
+  physx::Dy::ArticulationHelper::getImpulseSelfResponse(a1, v13, v23, &a4[6], a3, v22, a4 + 8);
+  v18 = (((a5[1] * a4[7].f32[1]) + (*a5 * a4[7].f32[0])) + (a5[2] * a4[7].f32[2])) - (((a5[1] * a4[9].f32[1]) + (*a5 * a4[9].f32[0])) + (a5[2] * a4[9].f32[2]));
+  if (v18 < 0.0)
+  {
+    physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 2, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/lowleveldynamics/src/DyArticulationHelper.cpp", 345, "Warning: articulation ill-conditioned or under severe stress, joint limit ignored", v15, v16, v17);
+  }
+
+  v19 = 1.0 / v18;
+  v20 = 0.0;
+  if (v18 <= 0.0)
+  {
+    v19 = 0.0;
+  }
+
+  a4->f32[3] = -(a6 * v19) * v9;
+  if (a6 > 0.0)
+  {
+    v20 = -(a6 * v19) * v9;
+  }
+
+  a4[1].f32[3] = v20;
+  result = -v19;
+  a4[2].f32[3] = result;
+  a4[3].i32[3] = 1065353216;
+  return result;
+}
+
+BOOL physx::Cm::ConeLimitHelper::getLimit(float32x2_t *a1, uint64_t a2, float *a3, float *a4, double a5, double a6, double a7, double a8, double a9, double a10)
+{
+  v11 = *(a2 + 12);
+  _D4 = *(a2 + 4);
+  v13 = vrev64_s32(_D4);
+  *&a10 = v11 + 1.0;
+  v14 = COERCE_DOUBLE(vdiv_f32(v13, vdup_lane_s32(*&a10, 0)));
+  v15 = vbsl_s8(vcltz_f32(v13), vdup_n_s32(0xDF7FFFFF), vdup_n_s32(0x5F7FFFFFu));
+  if (v11 == -1.0)
+  {
+    v16 = *&v15;
+  }
+
+  else
+  {
+    v16 = v14;
+  }
+
+  v17 = vabs_f32(*&v16);
+  v15.i32[0] = a1[1].i32[0];
+  v18 = *a1;
+  __asm { FMOV            V16.2S, #1.0 }
+
+  v24 = vdiv_f32(vdiv_f32(vadd_f32(v17, vdup_lane_s32(v15, 0)), vmls_lane_f32(_D16, v17, v15, 0)), *a1);
+  v25 = vaddv_f32(vmul_f32(v24, v24));
+  if (v25 > 1.0)
+  {
+    v26 = *a2;
+    _S19 = v11 + v11;
+    v28 = ((v11 * (v11 + v11)) + -1.0) + (v26 * (v26 + v26));
+    __asm { FMLA            S3, S19, V4.S[1] }
+
+    v30 = vmuls_lane_f32(v26 + v26, _D4, 1) - (_S19 * *_D4.i32);
+    if (v18.f32[0] >= v18.f32[1])
+    {
+      if (v17.f32[1] < 0.000001)
+      {
+        if (*&v16 <= 0.0)
+        {
+          *&v16 = -v18.f32[0];
+        }
+
+        else
+        {
+          LODWORD(v16) = *a1;
+        }
+
+        v31 = 0.0;
+        goto LABEL_23;
+      }
+    }
+
+    else if (v17.f32[0] < 0.000001)
+    {
+      if (*(&v16 + 1) >= 0.0)
+      {
+        v31 = -v18.f32[1];
+      }
+
+      else
+      {
+        LODWORD(v31) = HIDWORD(*a1);
+      }
+
+      LODWORD(v16) = 0;
+LABEL_23:
+      v18.f32[0] = *&v16 / vmul_f32(v18, v18).f32[0];
+      v44 = -v31 / (v18.f32[1] * v18.f32[1]);
+      v45 = (v31 * v31) + (*&v16 * *&v16);
+      v46 = 1.0 / (v45 + 1.0);
+      v47 = ((1.0 - v45) + (1.0 - v45)) * (v46 * v46);
+      v48 = *&v16 + *&v16;
+      v49 = v31 + v31;
+      v50 = (*&v16 + *&v16) * v47;
+      v51 = (v31 + v31) * v47;
+      v52 = ((1.0 - v45) * v47) + -1.0;
+      v53 = (0.0 - (v31 * v44)) + (*&v16 * v18.f32[0]);
+      v54 = v46 * ((v46 * v46) * ((3.0 - v45) * (v53 * -4.0)));
+      v55 = ((1.0 - v45) * v54) - ((v53 + v53) * v47);
+      v56 = ((v18.f32[0] + v18.f32[0]) * v47) + (v48 * v54);
+      v57 = (v49 * v54) - ((v44 + v44) * v47);
+      v58 = (v50 * v57) - (v51 * v56);
+      v59 = (v51 * v55) - (v52 * v57);
+      v60 = (v52 * v56) - (v50 * v55);
+      v61 = 1.0 / sqrtf(((v56 * v56) + (v55 * v55)) + (v57 * v57));
+      v62 = v58 * v61;
+      v63 = v59 * v61;
+      v64 = v60 * v61;
+      *a3 = v62;
+      a3[1] = v63;
+      a3[2] = v64;
+      *a4 = ((_S3 * ((v51 * v62) - (v52 * v64))) + (((v50 * v64) - (v51 * v63)) * v28)) + (((v52 * v63) - (v50 * v62)) * v30);
+      return v25 > 1.0;
+    }
+
+    v32 = vmul_f32(v18, v18);
+    v33 = vmul_f32(v17, v18);
+    v34 = vsub_f32(v33, v32);
+    v10.i32[0] = v34.i32[1];
+    if (v34.f32[0] > v34.f32[1])
+    {
+      *v10.i32 = v34.f32[0];
+    }
+
+    v35 = 20;
+    while (1)
+    {
+      _D20 = vdiv_f32(_D16, vadd_f32(v32, vdup_lane_s32(v10, 0)));
+      v37 = vmul_f32(v33, _D20);
+      v38 = vmul_f32(v37, v37);
+      v39 = vaddv_f32(v38) + -1.0;
+      if (v39 < 0.0001)
+      {
+        break;
+      }
+
+      _S27 = v38.i32[1];
+      __asm { FMLA            S26, S27, V20.S[1] }
+
+      *v10.i32 = *v10.i32 + (v39 / (_S26 + _S26));
+      if (!--v35)
+      {
+        *(&v16 + 1) = -*(&v16 + 1);
+        v42 = vmul_f32(vmul_f32(*&v16, v32), _D20);
+        v16 = COERCE_DOUBLE(vdiv_f32(v42, v18));
+        v43 = 1.0 / sqrtf(vaddv_f32(vmul_f32(*&v16, *&v16)));
+        *&v16 = v43 * v42.f32[0];
+        v31 = vmuls_lane_f32(v43, v42, 1);
+        goto LABEL_23;
+      }
+    }
+
+    LODWORD(v16) = vmul_f32(vmul_f32(*&v16, v32), _D20).u32[0];
+    v31 = vmuls_lane_f32(vmuls_lane_f32(-*(&v16 + 1), v32, 1), _D20, 1);
+    goto LABEL_23;
+  }
+
+  return v25 > 1.0;
+}
+
+uint64_t physx::Dy::ArticulationV::addBody(uint64_t this)
+{
+  v1 = this;
+  memset(v4, 0, sizeof(v4));
+  v2 = *(this + 152);
+  if ((*(this + 156) & 0x7FFFFFFFu) <= v2)
+  {
+    this = physx::shdfnd::Array<physx::Cm::SpatialVector,physx::shdfnd::ReflectionAllocator<physx::Cm::SpatialVector>>::growAndPushBack(this + 144, v4);
+  }
+
+  else
+  {
+    v3 = (*(this + 144) + 32 * v2);
+    *v3 = 0uLL;
+    v3[1] = 0uLL;
+    *(this + 152) = v2 + 1;
+  }
+
+  *(v1 + 160) = 1;
+  return this;
+}
+
+void physx::Dy::Articulation::onUpdateSolverDesc(void **this)
+{
+  bzero(this[25], (48 * *(this + 52)));
+  v2 = this[23];
+  v3 = (48 * *(this + 52));
+
+  bzero(v2, v3);
+}
+
+uint64_t physx::shdfnd::Array<physx::Cm::SpatialVector,physx::shdfnd::ReflectionAllocator<physx::Cm::SpatialVector>>::growAndPushBack(uint64_t a1, _OWORD *a2)
+{
+  v4 = *(a1 + 12);
+  if ((v4 & 0x7FFFFFFF) != 0)
+  {
+    v5 = 2 * v4;
+  }
+
+  else
+  {
+    v5 = 1;
+  }
+
+  if (v5)
+  {
+    v6 = physx::shdfnd::ReflectionAllocator<physx::Cm::SpatialVector>::allocate(a1, 32 * v5, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsArray.h", 553);
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  v7 = *(a1 + 8);
+  v8 = (v6 + 32 * v7);
+  v9 = *a1;
+  if (v7)
+  {
+    v10 = *a1;
+    v11 = v6;
+    do
+    {
+      *v11 = *v10;
+      v11[1] = v10[1];
+      v11 += 2;
+      v10 += 2;
+    }
+
+    while (v11 < v8);
+  }
+
+  *v8 = *a2;
+  v8[1] = a2[1];
+  if ((*(a1 + 12) & 0x80000000) == 0 && v9)
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
+    v7 = *(a1 + 8);
+  }
+
+  *a1 = v6;
+  *(a1 + 8) = v7 + 1;
+  *(a1 + 12) = v5;
+  return v6 + 32 * v7;
+}
+
+uint64_t physx::shdfnd::ReflectionAllocator<physx::Cm::SpatialVector>::allocate(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  if (!a2)
   {
     return 0;
   }
 
-  v5 = physx::shdfnd::Foundation::mInstance;
+  v7 = physx::shdfnd::Foundation::mInstance;
   if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
   {
-    v6 = "static const char *physx::shdfnd::ReflectionAllocator<physx::Gu::RTreeTriangleMesh>::getName() [T = physx::Gu::RTreeTriangleMesh]";
+    v8 = "static const char *physx::shdfnd::ReflectionAllocator<physx::Cm::SpatialVector>::getName() [T = physx::Cm::SpatialVector]";
+  }
+
+  else
+  {
+    v8 = "<allocation names disabled>";
+  }
+
+  v9 = *(*(v7 + 24) + 16);
+
+  return v9(v7 + 24, a2, v8, a3, a4);
+}
+
+uint64_t physx::shdfnd::Array<char,physx::shdfnd::ReflectionAllocator<char>>::recreate(uint64_t result, unsigned int a2)
+{
+  v3 = result;
+  if (a2)
+  {
+    result = physx::shdfnd::ReflectionAllocator<char>::allocate(result, a2, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsArray.h", 553);
+    v4 = result;
+  }
+
+  else
+  {
+    v4 = 0;
+  }
+
+  v5 = *(v3 + 8);
+  v6 = *v3;
+  if (v5)
+  {
+    v7 = v4;
+    do
+    {
+      v8 = *v6++;
+      *v7++ = v8;
+      --v5;
+    }
+
+    while (v5);
+    v6 = *v3;
+  }
+
+  if ((*(v3 + 12) & 0x80000000) == 0 && v6)
+  {
+    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
+  }
+
+  *v3 = v4;
+  *(v3 + 12) = a2;
+  return result;
+}
+
+uint64_t physx::shdfnd::ReflectionAllocator<char>::allocate(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  v7 = physx::shdfnd::Foundation::mInstance;
+  if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
+  {
+    v8 = "static const char *physx::shdfnd::ReflectionAllocator<char>::getName() [T = char]";
+  }
+
+  else
+  {
+    v8 = "<allocation names disabled>";
+  }
+
+  v9 = *(*(v7 + 24) + 16);
+
+  return v9(v7 + 24, a2, v8, a3, a4);
+}
+
+_OWORD *physx::shdfnd::Array<physx::shdfnd::aos::Mat33V,physx::shdfnd::ReflectionAllocator<physx::shdfnd::aos::Mat33V>>::recreate(uint64_t a1, uint64_t a2)
+{
+  v2 = a2;
+  v4 = 48 * a2;
+  v5 = physx::shdfnd::Foundation::mInstance;
+  if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance, a2))
+  {
+    v6 = "static const char *physx::shdfnd::ReflectionAllocator<physx::shdfnd::aos::Mat33V>::getName() [T = physx::shdfnd::aos::Mat33V]";
   }
 
   else
@@ -7520,2394 +6162,3997 @@ LABEL_12:
     v6 = "<allocation names disabled>";
   }
 
-  v7 = (*(*(v5 + 24) + 16))(v5 + 24, 256, v6, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/common/src/../../geomutils/src/GuMeshFactory.cpp", 115);
-  physx::Gu::RTreeTriangleMesh::RTreeTriangleMesh(v7, this, a2);
-  if (v8)
+  result = (*(*(v5 + 24) + 16))(v5 + 24, v4, v6, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsArray.h", 553);
+  v8 = result;
+  v9 = *(a1 + 8);
+  v10 = *a1;
+  if (v9)
   {
-    goto LABEL_12;
-  }
-
-  return v7;
-}
-
-physx::Gu::BV4TriangleMesh *physx::GuMeshFactory::createTriangleMesh(physx::GuMeshFactory *a1, uint64_t (***a2)(void, uint64_t, uint64_t))
-{
-  v115 = 0;
-  v114 = 0;
-  if (!physx::readHeader(0x4Du, 0x45u, 0x53u, 0x48u, &v115, &v114, a2))
-  {
-    return 0;
-  }
-
-  v7 = v115;
-  if (v115 <= 0xD)
-  {
-    if (v115 <= 9)
-    {
-      physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 32, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/common/src/../../geomutils/src/GuMeshFactory.cpp", 152, "Loading triangle mesh failed: Deprecated mesh cooking format. Please recook your mesh in a new cooking format.", v4, v5, v6, v107);
-      return 0;
-    }
-
-    v8 = v114;
-    Dword = physx::readDword(v114, a2);
-    if (v7 != 13)
-    {
-      v11.n128_f32[0] = physx::readFloat(v8, a2);
-    }
-
-    goto LABEL_10;
-  }
-
-  v8 = v114;
-  v9 = physx::readDword(v114, a2);
-  Dword = physx::readDword(v8, a2);
-  if (v9 != 1)
-  {
-    if (v9)
-    {
-      return 0;
-    }
-
-LABEL_10:
-    v110 = a1;
-    v12 = physx::shdfnd::Foundation::mInstance;
-    if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance, v11))
-    {
-      v13 = "static const char *physx::shdfnd::ReflectionAllocator<physx::Gu::RTreeTriangleData>::getName() [T = physx::Gu::RTreeTriangleData]";
-    }
-
-    else
-    {
-      v13 = "<allocation names disabled>";
-    }
-
-    v14 = (*(*(v12 + 24) + 16))(v12 + 24, 240, v13, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/common/src/../../geomutils/src/GuMeshFactory.cpp", 170);
-    v15 = 0;
-    *(v14 + 12) = 0;
-    *(v14 + 16) = 0;
-    *(v14 + 24) = 0;
-    *(v14 + 32) = xmmword_1E3113BA0;
-    *(v14 + 48) = vdup_n_s32(0xFE7FFFFF);
-    *(v14 + 56) = 0;
-    *(v14 + 112) = 0u;
-    *(v14 + 128) = 0u;
-    *(v14 + 64) = 0u;
-    *(v14 + 80) = 0u;
-    *(v14 + 92) = 0u;
-    *v14 = &unk_1F5D215B0;
-    *(v14 + 228) = 0;
-    *(v14 + 232) = 0;
-    *(v14 + 216) = 0;
-    *(v14 + 208) = 4;
-    *(v14 + 8) = 0;
-    v16 = 1;
-    goto LABEL_18;
-  }
-
-  v110 = a1;
-  v17 = physx::shdfnd::Foundation::mInstance;
-  if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
-  {
-    v18 = "static const char *physx::shdfnd::ReflectionAllocator<physx::Gu::BV4TriangleData>::getName() [T = physx::Gu::BV4TriangleData]";
-  }
-
-  else
-  {
-    v18 = "<allocation names disabled>";
-  }
-
-  v14 = (*(*(v17 + 24) + 16))(v17 + 24, 264, v18, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/common/src/../../geomutils/src/GuMeshFactory.cpp", 172);
-  v16 = 0;
-  *(v14 + 12) = 0;
-  *(v14 + 16) = 0;
-  *(v14 + 32) = xmmword_1E3113BA0;
-  *(v14 + 24) = 0;
-  *(v14 + 48) = vdup_n_s32(0xFE7FFFFF);
-  *(v14 + 56) = 0;
-  *(v14 + 112) = 0u;
-  *(v14 + 128) = 0u;
-  *(v14 + 64) = 0u;
-  *(v14 + 80) = 0u;
-  *(v14 + 92) = 0u;
-  *v14 = &unk_1F5D21658;
-  *(v14 + 144) = 0;
-  *(v14 + 152) = 0;
-  *(v14 + 160) = 0;
-  *(v14 + 168) = 0;
-  *(v14 + 224) = 0u;
-  *(v14 + 240) = 0u;
-  *(v14 + 254) = 0;
-  *(v14 + 204) = 0u;
-  *(v14 + 176) = 0u;
-  *(v14 + 192) = 0u;
-  v15 = 1;
-  *(v14 + 8) = 1;
-LABEL_18:
-  v19 = physx::readDword(v8, a2);
-  Vertices = physx::Gu::MeshDataBase::allocateVertices(v14, v19);
-  v108 = physx::readDword(v8, a2);
-  Triangles = physx::Gu::TriangleMeshData::allocateTriangles(v14, v108, (Dword & 0xC) == 0, Dword & 0x20);
-  (**a2)(a2, Vertices, (12 * *(v14 + 16)));
-  if (v8 && *(v14 + 16))
-  {
-    v21 = 0;
-    v22 = (Vertices + 8);
+    v11 = &result[3 * v9];
+    v12 = result;
     do
     {
-      v23 = vrev32_s8(v22[-1]);
-      v22[-1] = v23;
-      v23.i32[0] = v22->i32[0];
-      v24 = vrev64_s16(*&vmovl_u8(v23));
-      v22->i32[0] = vuzp1_s8(v24, v24).u32[0];
-      v22 = (v22 + 12);
-      ++v21;
+      v13 = *v10;
+      v14 = v10[2];
+      v12[1] = v10[1];
+      v12[2] = v14;
+      *v12 = v13;
+      v12 += 3;
+      v10 += 3;
     }
 
-    while (v21 < *(v14 + 16));
+    while (v12 < v11);
+    v10 = *a1;
   }
 
-  v109 = Vertices;
-  v25 = *(v14 + 104);
-  v112 = 3 * v25;
-  if ((Dword & 4) != 0)
+  if ((*(a1 + 12) & 0x80000000) == 0 && v10)
   {
-    v31 = v15;
-    v32 = v16;
-    LOBYTE(v113) = 0;
-    if ((*(v14 + 12) & 2) != 0)
-    {
-      if (v25)
-      {
-        if (v112 <= 1)
-        {
-          v38 = 1;
-        }
-
-        else
-        {
-          v38 = 3 * v25;
-        }
-
-        v39 = Triangles;
-        do
-        {
-          (**a2)(a2, &v113, 1);
-          *v39++ = v113;
-          --v38;
-        }
-
-        while (v38);
-      }
-    }
-
-    else if (v25)
-    {
-      if (v112 <= 1)
-      {
-        v33 = 1;
-      }
-
-      else
-      {
-        v33 = 3 * v25;
-      }
-
-      v34 = Triangles;
-      do
-      {
-        (**a2)(a2, &v113, 1);
-        *v34++ = v113;
-        --v33;
-      }
-
-      while (v33);
-    }
-
-    goto LABEL_68;
+    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
   }
 
-  if ((Dword & 8) == 0)
-  {
-    if ((*(v14 + 12) & 2) == 0)
-    {
-      (**a2)(a2, Triangles, (12 * v25));
-      if (v25)
-      {
-        v27 = v8;
-      }
-
-      else
-      {
-        v27 = 0;
-      }
-
-      if (v27 == 1)
-      {
-        if (v112 <= 1)
-        {
-          v28 = 1;
-        }
-
-        else
-        {
-          v28 = v112;
-        }
-
-        v29 = Triangles;
-        do
-        {
-          v26.i32[0] = *v29;
-          v30 = vrev64_s16(*&vmovl_u8(v26));
-          v26 = vuzp1_s8(v30, v30);
-          *v29++ = v26.i32[0];
-          --v28;
-        }
-
-        while (v28);
-      }
-
-      goto LABEL_69;
-    }
-
-    v31 = v15;
-    v32 = v16;
-    v113 = 0;
-    if (v25)
-    {
-      if (v112 <= 1)
-      {
-        v40 = 1;
-      }
-
-      else
-      {
-        v40 = 3 * v25;
-      }
-
-      v41 = Triangles;
-      do
-      {
-        (**a2)(a2, &v113, 4);
-        if (v8)
-        {
-          v42.i32[0] = v113;
-          v43 = vrev64_s16(*&vmovl_u8(v42));
-          v113 = vuzp1_s8(v43, v43).u32[0];
-        }
-
-        *v41++ = v113;
-        --v40;
-      }
-
-      while (v40);
-    }
-
-LABEL_68:
-    v16 = v32;
-    v15 = v31;
-    goto LABEL_69;
-  }
-
-  if ((*(v14 + 12) & 2) == 0)
-  {
-    v31 = v15;
-    v32 = v16;
-    LOWORD(v113) = 0;
-    if (v25)
-    {
-      if (v112 <= 1)
-      {
-        v35 = 1;
-      }
-
-      else
-      {
-        v35 = 3 * v25;
-      }
-
-      v36 = Triangles;
-      do
-      {
-        (**a2)(a2, &v113, 2);
-        if (v8)
-        {
-          v37 = v113;
-          LOBYTE(v113) = BYTE1(v113);
-          BYTE1(v113) = v37;
-        }
-
-        *v36++ = v113;
-        --v35;
-      }
-
-      while (v35);
-    }
-
-    goto LABEL_68;
-  }
-
-  (**a2)(a2, Triangles, (6 * v25));
-  if (v25)
-  {
-    v75 = v8;
-  }
-
-  else
-  {
-    v75 = 0;
-  }
-
-  if (v75 == 1)
-  {
-    if (v112 <= 1)
-    {
-      v76 = 1;
-    }
-
-    else
-    {
-      v76 = v112;
-    }
-
-    v77 = (Triangles + 1);
-    do
-    {
-      v78 = *(v77 - 1);
-      *(v77 - 1) = *v77;
-      *v77 = v78;
-      v77 += 2;
-      --v76;
-    }
-
-    while (v76);
-  }
-
-LABEL_69:
-  if (Dword)
-  {
-    v44 = physx::shdfnd::ReflectionAllocator<unsigned short>::allocate(&v113, 2 * *(v14 + 104), "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/geomutils/src/mesh/GuMeshData.h", 239);
-    *(v14 + 128) = v44;
-    (**a2)(a2, v44, (2 * *(v14 + 104)));
-    if (v8)
-    {
-      if (*(v14 + 104))
-      {
-        v45 = 0;
-        v46 = (v44 + 1);
-        do
-        {
-          v47 = *(v46 - 1);
-          *(v46 - 1) = *v46;
-          *v46 = v47;
-          v46 += 2;
-          ++v45;
-        }
-
-        while (v45 < *(v14 + 104));
-      }
-    }
-  }
-
-  if ((Dword & 2) != 0)
-  {
-    v48 = physx::shdfnd::ReflectionAllocator<unsigned int>::allocate(&v113, 4 * *(v14 + 104), "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/geomutils/src/mesh/GuMeshData.h", 215);
-    *(v14 + 64) = v48;
-    v49 = physx::readDword(v8, a2);
-    physx::readIndices(v49, *(v14 + 104), v48, a2, v8);
-  }
-
-  if ((Dword & 0x10) != 0)
-  {
-    v50 = physx::shdfnd::ReflectionAllocator<unsigned int>::allocate(&v113, 4 * (3 * *(v14 + 104)), "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/geomutils/src/mesh/GuMeshData.h", 206);
-    *(v14 + 72) = v50;
-    *(v14 + 12) |= 4u;
-    (**a2)(a2, v50, (12 * *(v14 + 104)));
-    if (v8)
-    {
-      if (*(v14 + 104))
-      {
-        v52 = 0;
-        do
-        {
-          v51.i32[0] = *(v50 + 4 * v52);
-          v53 = vrev64_s16(*&vmovl_u8(v51));
-          v51 = vuzp1_s8(v53, v53);
-          *(v50 + 4 * v52++) = v51.i32[0];
-        }
-
-        while (v52 < (3 * *(v14 + 104)));
-      }
-    }
-  }
-
-  if (v16)
-  {
-    if ((physx::Gu::RTree::load(v14 + 144, a2, v7, v8) & 1) == 0)
-    {
-      v57 = physx::shdfnd::Foundation::mInstance;
-      v58 = "RTree binary image load error.";
-      v59 = 303;
-LABEL_177:
-      physx::shdfnd::Foundation::error(v57, 32, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/common/src/../../geomutils/src/GuMeshFactory.cpp", v59, v58, v54, v55, v56, v107);
-      (*(*v14 + 8))(v14);
-      return 0;
-    }
-  }
-
-  else if (v15)
-  {
-    if ((physx::Gu::BV4Tree::load(v14 + 192, a2, v8) & 1) == 0)
-    {
-      v57 = physx::shdfnd::Foundation::mInstance;
-      v58 = "BV4 binary image load error.";
-      v59 = 313;
-      goto LABEL_177;
-    }
-
-    *(v14 + 144) = *(v14 + 16);
-    *(v14 + 168) = v108;
-    v60 = Triangles;
-    if ((*(v14 + 12) & 2) != 0)
-    {
-      v61 = 0;
-    }
-
-    else
-    {
-      v61 = Triangles;
-    }
-
-    if ((*(v14 + 12) & 2) == 0)
-    {
-      v60 = 0;
-    }
-
-    *(v14 + 176) = v61;
-    *(v14 + 184) = v60;
-    *(v14 + 152) = v109;
-    *(v14 + 192) = v14 + 144;
-  }
-
-  v62 = v114;
-  *(v14 + 56) = physx::readFloat(v114, a2);
-  physx::readFloatBuffer((v14 + 32), 6u, v62, a2);
-  v63 = v114;
-  v64 = physx::readDword(v114, a2);
-  if (v64)
-  {
-    v65 = v64;
-    v66 = physx::shdfnd::ReflectionAllocator<unsigned char>::allocate(&v113, *(v14 + 104), "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/geomutils/src/mesh/GuMeshData.h", 247);
-    *(v14 + 120) = v66;
-    (**a2)(a2, v66, v65);
-  }
-
-  if ((Dword & 0x20) != 0)
-  {
-    v67 = v115;
-    if (v115 > 0xE)
-    {
-      v68 = 0;
-      if ((Dword & 4) != 0)
-      {
-LABEL_97:
-        LOBYTE(v113) = 0;
-        if ((*(v14 + 12) & 2) != 0)
-        {
-          if (v25)
-          {
-            v79 = *(v14 + 80);
-            if (v112 <= 1)
-            {
-              v80 = 1;
-            }
-
-            else
-            {
-              v80 = 3 * v25;
-            }
-
-            do
-            {
-              (**a2)(a2, &v113, 1);
-              *v79++ = v113;
-              --v80;
-            }
-
-            while (v80);
-          }
-        }
-
-        else if (v25)
-        {
-          v69 = *(v14 + 80);
-          if (v112 <= 1)
-          {
-            v70 = 1;
-          }
-
-          else
-          {
-            v70 = 3 * v25;
-          }
-
-          do
-          {
-            (**a2)(a2, &v113, 1);
-            *v69++ = v113;
-            --v70;
-          }
-
-          while (v70);
-        }
-
-        goto LABEL_155;
-      }
-    }
-
-    else
-    {
-      v68 = physx::readDword(v63, a2);
-      if ((Dword & 4) != 0)
-      {
-        goto LABEL_97;
-      }
-    }
-
-    if ((Dword & 8) != 0)
-    {
-      v81 = *(v14 + 80);
-      if ((*(v14 + 12) & 2) != 0)
-      {
-        (**a2)(a2, *(v14 + 80), (6 * v25));
-        if (v63 && v25)
-        {
-          if (v112 <= 1)
-          {
-            v88 = 1;
-          }
-
-          else
-          {
-            v88 = v112;
-          }
-
-          v89 = v81 + 1;
-          do
-          {
-            v90 = *(v89 - 1);
-            *(v89 - 1) = *v89;
-            *v89 = v90;
-            v89 += 2;
-            --v88;
-          }
-
-          while (v88);
-        }
-      }
-
-      else
-      {
-        LOWORD(v113) = 0;
-        if (v25)
-        {
-          if (v112 <= 1)
-          {
-            v82 = 1;
-          }
-
-          else
-          {
-            v82 = 3 * v25;
-          }
-
-          do
-          {
-            (**a2)(a2, &v113, 2);
-            if (v63)
-            {
-              v83 = v113;
-              LOBYTE(v113) = BYTE1(v113);
-              BYTE1(v113) = v83;
-            }
-
-            *v81++ = v113;
-            --v82;
-          }
-
-          while (v82);
-        }
-      }
-    }
-
-    else if ((*(v14 + 12) & 2) != 0)
-    {
-      v113 = 0;
-      if (v25)
-      {
-        v84 = *(v14 + 80);
-        if (v112 <= 1)
-        {
-          v85 = 1;
-        }
-
-        else
-        {
-          v85 = 3 * v25;
-        }
-
-        do
-        {
-          (**a2)(a2, &v113, 4);
-          if (v63)
-          {
-            v86.i32[0] = v113;
-            v87 = vrev64_s16(*&vmovl_u8(v86));
-            v113 = vuzp1_s8(v87, v87).u32[0];
-          }
-
-          *v84++ = v113;
-          --v85;
-        }
-
-        while (v85);
-      }
-    }
-
-    else
-    {
-      v71 = *(v14 + 80);
-      (**a2)(a2, v71, (12 * v25));
-      if (v63 && v25)
-      {
-        if (v112 <= 1)
-        {
-          v73 = 1;
-        }
-
-        else
-        {
-          v73 = v112;
-        }
-
-        do
-        {
-          v72.i32[0] = *v71;
-          v74 = vrev64_s16(*&vmovl_u8(v72));
-          v72 = vuzp1_s8(v74, v74);
-          *v71++ = v72.i32[0];
-          --v73;
-        }
-
-        while (v73);
-      }
-    }
-
-LABEL_155:
-    *(v14 + 88) = physx::shdfnd::ReflectionAllocator<unsigned int>::allocate(&v113, 4 * (4 * *(v14 + 104)), "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/common/src/../../geomutils/src/GuMeshFactory.cpp", 427);
-    *(v14 + 96) = physx::shdfnd::ReflectionAllocator<unsigned int>::allocate(&v113, 4 * *(v14 + 104), "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/common/src/../../geomutils/src/GuMeshFactory.cpp", 428);
-    (**a2)(a2, *(v14 + 88), (16 * *(v14 + 104)));
-    if (v67 <= 0xE)
-    {
-      if (*(v14 + 16))
-      {
-        v91 = 0;
-        do
-        {
-          physx::readDword(v63, a2);
-          ++v91;
-          v92 = *(v14 + 16);
-        }
-
-        while (v91 < v92);
-        if (v92)
-        {
-          v93 = 0;
-          do
-          {
-            physx::readDword(v63, a2);
-            ++v93;
-          }
-
-          while (v93 < *(v14 + 16));
-        }
-      }
-
-      for (; v68; --v68)
-      {
-        physx::readDword(v63, a2);
-      }
-    }
-
-    (**a2)(a2, *(v14 + 96), (4 * *(v14 + 104)));
-    if (v63)
-    {
-      if ((*(v14 + 104) & 0x3FFFFFFF) != 0)
-      {
-        v95 = 0;
-        do
-        {
-          v96 = *(v14 + 80);
-          v94.i32[0] = *(v96 + 4 * v95);
-          v97 = vrev64_s16(*&vmovl_u8(v94));
-          v94 = vuzp1_s8(v97, v97);
-          *(v96 + 4 * v95++) = v94.i32[0];
-          v98 = *(v14 + 104);
-        }
-
-        while (v95 < (4 * v98));
-        if ((v98 & 0x3FFFFFFF) != 0)
-        {
-          v99 = 0;
-          do
-          {
-            v100 = *(v14 + 88);
-            v94.i32[0] = *(v100 + 4 * v99);
-            v101 = vrev64_s16(*&vmovl_u8(v94));
-            v94 = vuzp1_s8(v101, v101);
-            *(v100 + 4 * v99++) = v94.i32[0];
-          }
-
-          while (v99 < (4 * *(v14 + 104)));
-        }
-      }
-    }
-
-    v102 = physx::shdfnd::Foundation::mInstance;
-    if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
-    {
-      v103 = "static const char *physx::shdfnd::ReflectionAllocator<physx::Gu::BV32Tree>::getName() [T = physx::Gu::BV32Tree]";
-    }
-
-    else
-    {
-      v103 = "<allocation names disabled>";
-    }
-
-    v104 = (*(*(v102 + 24) + 16))(v102 + 24, 64, v103, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/common/src/../../geomutils/src/GuMeshFactory.cpp", 455);
-    *(v104 + 40) = 0;
-    *(v104 + 48) = 0;
-    *(v104 + 32) = 0;
-    *(v104 + 56) = 0;
-    *(v104 + 8) = 0;
-    *(v104 + 16) = 0;
-    *v104 = 0;
-    *(v104 + 24) = 0;
-    *(v14 + 136) = v104;
-    if ((physx::Gu::BV32Tree::load(v104, a2, v63) & 1) == 0)
-    {
-      v57 = physx::shdfnd::Foundation::mInstance;
-      v58 = "BV32 binary image load error.";
-      v59 = 459;
-      goto LABEL_177;
-    }
-  }
-
-  TriangleMesh = physx::GuMeshFactory::createTriangleMesh(v110, v14);
-  (*(*v14 + 8))(v14);
-  return TriangleMesh;
+  *a1 = v8;
+  *(a1 + 12) = v2;
+  return result;
 }
 
-uint64_t physx::GuMeshFactory::removeTriangleMesh(uint64_t a1, uint64_t a2)
-{
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    pthread_mutex_lock(*(a1 + 8));
-  }
-
-  if (!*(a1 + 68) || (v4 = (~(a2 << 32) + a2) ^ ((~(a2 << 32) + a2) >> 22), v5 = 9 * ((v4 + ~(v4 << 13)) ^ ((v4 + ~(v4 << 13)) >> 8)), v6 = (v5 ^ (v5 >> 15)) + ~((v5 ^ (v5 >> 15)) << 27), v7 = (*(a1 + 40) + 4 * ((*(a1 + 52) - 1) & ((v6 >> 31) ^ v6))), v8 = *v7, v8 == -1))
-  {
-LABEL_16:
-    v22 = 0;
-    goto LABEL_17;
-  }
-
-  v9 = *(a1 + 24);
-  v10 = *(a1 + 32);
-  if (*(v9 + 8 * v8) != a2)
-  {
-    while (1)
-    {
-      v11 = v8;
-      v8 = *(v10 + 4 * v8);
-      if (v8 == -1)
-      {
-        goto LABEL_16;
-      }
-
-      if (*(v9 + 8 * v8) == a2)
-      {
-        v7 = (v10 + 4 * v11);
-        break;
-      }
-    }
-  }
-
-  *v7 = *(v10 + 4 * v8);
-  v12 = vadd_s32(*(a1 + 64), 0xFFFFFFFF00000001);
-  *(a1 + 64) = v12;
-  if (v8 != v12.i32[1])
-  {
-    *(v9 + 8 * v8) = *(v9 + 8 * v12.u32[1]);
-    v14 = *(a1 + 24);
-    v13 = *(a1 + 32);
-    *(v13 + 4 * v8) = *(v13 + 4 * v12.u32[1]);
-    v15 = ~(*(v14 + 8 * v8) << 32) + *(v14 + 8 * v8);
-    v16 = 9 * (((v15 ^ (v15 >> 22)) + ~((v15 ^ (v15 >> 22)) << 13)) ^ (((v15 ^ (v15 >> 22)) + ~((v15 ^ (v15 >> 22)) << 13)) >> 8));
-    v17 = (v16 ^ (v16 >> 15)) + ~((v16 ^ (v16 >> 15)) << 27);
-    v18 = (*(a1 + 40) + 4 * ((*(a1 + 52) - 1) & ((v17 >> 31) ^ v17)));
-    v19 = *(a1 + 68);
-    v20 = *v18;
-    if (v20 != v19)
-    {
-      do
-      {
-        v21 = v20;
-        v20 = *(v13 + 4 * v20);
-      }
-
-      while (v20 != v19);
-      v18 = (v13 + 4 * v21);
-    }
-
-    *v18 = v8;
-  }
-
-  --*(a1 + 60);
-  v22 = 1;
-LABEL_17:
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    pthread_mutex_unlock(*(a1 + 8));
-  }
-
-  return v22;
-}
-
-uint64_t physx::GuMeshFactory::getNbTriangleMeshes(pthread_mutex_t **this)
-{
-  if ((physx::shdfnd::g_alwaysUseLocking & 1) == 0 && (physx::shdfnd::g_isLockingEnabled & 1) == 0)
-  {
-    return *(this + 17);
-  }
-
-  pthread_mutex_lock(this[1]);
-  v2 = *(this + 17);
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    pthread_mutex_unlock(this[1]);
-  }
-
-  return v2;
-}
-
-uint64_t physx::GuMeshFactory::getTriangleMeshes(uint64_t a1, void *a2, int a3, unsigned int a4)
-{
-  LODWORD(v5) = a3;
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    pthread_mutex_lock(*(a1 + 8));
-  }
-
-  v8 = (*(a1 + 68) - a4) & ~((*(a1 + 68) - a4) >> 31);
-  if (v8 >= v5)
-  {
-    v5 = v5;
-  }
-
-  else
-  {
-    v5 = v8;
-  }
-
-  if (v5)
-  {
-    v9 = (*(a1 + 24) + 8 * a4);
-    v10 = v5;
-    do
-    {
-      v11 = *v9++;
-      *a2++ = v11;
-      --v10;
-    }
-
-    while (v10);
-  }
-
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    pthread_mutex_unlock(*(a1 + 8));
-  }
-
-  return v5;
-}
-
-uint64_t physx::GuMeshFactory::addConvexMesh(uint64_t this, physx::Gu::ConvexMesh *a2, int a3)
-{
-  v4 = a2;
-  if (a2)
-  {
-    v3 = this;
-    if (a3)
-    {
-      if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-      {
-        pthread_mutex_lock(*(this + 8));
-      }
-
-      v5 = 0;
-      this = physx::shdfnd::internal::HashBase<physx::Gu::TriangleMesh *,physx::Gu::TriangleMesh *,physx::shdfnd::Hash<physx::Gu::TriangleMesh *>,physx::shdfnd::internal::HashSetBase<physx::Gu::TriangleMesh *,physx::shdfnd::Hash<physx::Gu::TriangleMesh *>,physx::shdfnd::NonTrackingAllocator,true>::GetKey,physx::shdfnd::NonTrackingAllocator,true>::create((v3 + 72), &v4, &v5);
-      if ((v5 & 1) == 0)
-      {
-        *this = v4;
-      }
-
-      if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-      {
-        return pthread_mutex_unlock(*(v3 + 8));
-      }
-    }
-
-    else
-    {
-      v6 = 0;
-      this = physx::shdfnd::internal::HashBase<physx::Gu::TriangleMesh *,physx::Gu::TriangleMesh *,physx::shdfnd::Hash<physx::Gu::TriangleMesh *>,physx::shdfnd::internal::HashSetBase<physx::Gu::TriangleMesh *,physx::shdfnd::Hash<physx::Gu::TriangleMesh *>,physx::shdfnd::NonTrackingAllocator,true>::GetKey,physx::shdfnd::NonTrackingAllocator,true>::create((this + 72), &v4, &v6);
-      if ((v6 & 1) == 0)
-      {
-        *this = v4;
-      }
-    }
-  }
-
-  return this;
-}
-
-physx::Gu::ConvexMesh *physx::GuMeshFactory::createConvexMesh(uint64_t a1, uint64_t a2)
-{
-  v4 = physx::shdfnd::Foundation::mInstance;
-  if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
-  {
-    v5 = "static const char *physx::shdfnd::ReflectionAllocator<physx::Gu::ConvexMesh>::getName() [T = physx::Gu::ConvexMesh]";
-  }
-
-  else
-  {
-    v5 = "<allocation names disabled>";
-  }
-
-  v6 = (*(*(v4 + 24) + 16))(v4 + 24, 168, v5, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/common/src/../../geomutils/src/GuMeshFactory.cpp", 514);
-  physx::Gu::ConvexMesh::ConvexMesh(v6, a1, a2);
-  if (v7)
-  {
-    physx::GuMeshFactory::addConvexMesh(a1, v6, 1);
-  }
-
-  return v6;
-}
-
-uint64_t physx::GuMeshFactory::createConvexMesh(uint64_t a1, uint64_t (***a2)(void, uint64_t, uint64_t))
-{
-  v4 = physx::shdfnd::Foundation::mInstance;
-  if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
-  {
-    v5 = "static const char *physx::shdfnd::ReflectionAllocator<physx::Gu::ConvexMesh>::getName() [T = physx::Gu::ConvexMesh]";
-  }
-
-  else
-  {
-    v5 = "<allocation names disabled>";
-  }
-
-  v6 = (*(*(v4 + 24) + 16))(v4 + 24, 168, v5, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/common/src/../../geomutils/src/GuMeshFactory.cpp", 524);
-  physx::Gu::ConvexMesh::ConvexMesh(v6);
-  if (v7)
-  {
-    *(v6 + 160) = a1;
-    if (physx::Gu::ConvexMesh::load(v6, a2))
-    {
-      physx::GuMeshFactory::addConvexMesh(a1, v6, 1);
-    }
-
-    else
-    {
-      if (atomic_fetch_add((v6 + 24), 0xFFFFFFFF) == 1)
-      {
-        (*(*(v6 + 16) + 16))(v6 + 16);
-      }
-
-      return 0;
-    }
-  }
-
-  return v6;
-}
-
-uint64_t physx::GuMeshFactory::removeConvexMesh(uint64_t a1, uint64_t a2)
-{
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    pthread_mutex_lock(*(a1 + 8));
-  }
-
-  if (!*(a1 + 124) || (v4 = (~(a2 << 32) + a2) ^ ((~(a2 << 32) + a2) >> 22), v5 = 9 * ((v4 + ~(v4 << 13)) ^ ((v4 + ~(v4 << 13)) >> 8)), v6 = (v5 ^ (v5 >> 15)) + ~((v5 ^ (v5 >> 15)) << 27), v7 = (*(a1 + 96) + 4 * ((*(a1 + 108) - 1) & ((v6 >> 31) ^ v6))), v8 = *v7, v8 == -1))
-  {
-LABEL_16:
-    v22 = 0;
-    goto LABEL_17;
-  }
-
-  v9 = *(a1 + 80);
-  v10 = *(a1 + 88);
-  if (*(v9 + 8 * v8) != a2)
-  {
-    while (1)
-    {
-      v11 = v8;
-      v8 = *(v10 + 4 * v8);
-      if (v8 == -1)
-      {
-        goto LABEL_16;
-      }
-
-      if (*(v9 + 8 * v8) == a2)
-      {
-        v7 = (v10 + 4 * v11);
-        break;
-      }
-    }
-  }
-
-  *v7 = *(v10 + 4 * v8);
-  v12 = vadd_s32(*(a1 + 120), 0xFFFFFFFF00000001);
-  *(a1 + 120) = v12;
-  if (v8 != v12.i32[1])
-  {
-    *(v9 + 8 * v8) = *(v9 + 8 * v12.u32[1]);
-    v14 = *(a1 + 80);
-    v13 = *(a1 + 88);
-    *(v13 + 4 * v8) = *(v13 + 4 * v12.u32[1]);
-    v15 = ~(*(v14 + 8 * v8) << 32) + *(v14 + 8 * v8);
-    v16 = 9 * (((v15 ^ (v15 >> 22)) + ~((v15 ^ (v15 >> 22)) << 13)) ^ (((v15 ^ (v15 >> 22)) + ~((v15 ^ (v15 >> 22)) << 13)) >> 8));
-    v17 = (v16 ^ (v16 >> 15)) + ~((v16 ^ (v16 >> 15)) << 27);
-    v18 = (*(a1 + 96) + 4 * ((*(a1 + 108) - 1) & ((v17 >> 31) ^ v17)));
-    v19 = *(a1 + 124);
-    v20 = *v18;
-    if (v20 != v19)
-    {
-      do
-      {
-        v21 = v20;
-        v20 = *(v13 + 4 * v20);
-      }
-
-      while (v20 != v19);
-      v18 = (v13 + 4 * v21);
-    }
-
-    *v18 = v8;
-  }
-
-  --*(a1 + 116);
-  v22 = 1;
-LABEL_17:
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    pthread_mutex_unlock(*(a1 + 8));
-  }
-
-  return v22;
-}
-
-uint64_t physx::GuMeshFactory::getNbConvexMeshes(pthread_mutex_t **this)
-{
-  if ((physx::shdfnd::g_alwaysUseLocking & 1) == 0 && (physx::shdfnd::g_isLockingEnabled & 1) == 0)
-  {
-    return *(this + 31);
-  }
-
-  pthread_mutex_lock(this[1]);
-  v2 = *(this + 31);
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    pthread_mutex_unlock(this[1]);
-  }
-
-  return v2;
-}
-
-uint64_t physx::GuMeshFactory::getConvexMeshes(uint64_t a1, void *a2, int a3, unsigned int a4)
-{
-  LODWORD(v5) = a3;
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    pthread_mutex_lock(*(a1 + 8));
-  }
-
-  v8 = (*(a1 + 124) - a4) & ~((*(a1 + 124) - a4) >> 31);
-  if (v8 >= v5)
-  {
-    v5 = v5;
-  }
-
-  else
-  {
-    v5 = v8;
-  }
-
-  if (v5)
-  {
-    v9 = (*(a1 + 80) + 8 * a4);
-    v10 = v5;
-    do
-    {
-      v11 = *v9++;
-      *a2++ = v11;
-      --v10;
-    }
-
-    while (v10);
-  }
-
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    pthread_mutex_unlock(*(a1 + 8));
-  }
-
-  return v5;
-}
-
-uint64_t physx::GuMeshFactory::addHeightField(uint64_t this, physx::Gu::HeightField *a2, int a3)
-{
-  v4 = a2;
-  if (a2)
-  {
-    v3 = this;
-    if (a3)
-    {
-      if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-      {
-        pthread_mutex_lock(*(this + 8));
-      }
-
-      v5 = 0;
-      this = physx::shdfnd::internal::HashBase<physx::Gu::TriangleMesh *,physx::Gu::TriangleMesh *,physx::shdfnd::Hash<physx::Gu::TriangleMesh *>,physx::shdfnd::internal::HashSetBase<physx::Gu::TriangleMesh *,physx::shdfnd::Hash<physx::Gu::TriangleMesh *>,physx::shdfnd::NonTrackingAllocator,true>::GetKey,physx::shdfnd::NonTrackingAllocator,true>::create((v3 + 128), &v4, &v5);
-      if ((v5 & 1) == 0)
-      {
-        *this = v4;
-      }
-
-      if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-      {
-        return pthread_mutex_unlock(*(v3 + 8));
-      }
-    }
-
-    else
-    {
-      v6 = 0;
-      this = physx::shdfnd::internal::HashBase<physx::Gu::TriangleMesh *,physx::Gu::TriangleMesh *,physx::shdfnd::Hash<physx::Gu::TriangleMesh *>,physx::shdfnd::internal::HashSetBase<physx::Gu::TriangleMesh *,physx::shdfnd::Hash<physx::Gu::TriangleMesh *>,physx::shdfnd::NonTrackingAllocator,true>::GetKey,physx::shdfnd::NonTrackingAllocator,true>::create((this + 128), &v4, &v6);
-      if ((v6 & 1) == 0)
-      {
-        *this = v4;
-      }
-    }
-  }
-
-  return this;
-}
-
-physx::Gu::HeightField *physx::GuMeshFactory::createHeightField(physx::GuMeshFactory *this, uint64_t a2)
-{
-  v4 = physx::shdfnd::Foundation::mInstance;
-  if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
-  {
-    v5 = "static const char *physx::shdfnd::ReflectionAllocator<physx::Gu::HeightField>::getName() [T = physx::Gu::HeightField]";
-  }
-
-  else
-  {
-    v5 = "<allocation names disabled>";
-  }
-
-  v6 = (*(*(v4 + 24) + 16))(v4 + 24, 136, v5, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/common/src/../../geomutils/src/GuMeshFactory.cpp", 570);
-  physx::Gu::HeightField::HeightField(v6, this, a2);
-  if (v7)
-  {
-    physx::GuMeshFactory::addHeightField(this, v6, 1);
-  }
-
-  return v6;
-}
-
-uint64_t physx::GuMeshFactory::createHeightField(uint64_t a1, void (***a2)(void, unsigned __int32 *, uint64_t))
-{
-  v4 = physx::shdfnd::Foundation::mInstance;
-  if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
-  {
-    v5 = "static const char *physx::shdfnd::ReflectionAllocator<physx::Gu::HeightField>::getName() [T = physx::Gu::HeightField]";
-  }
-
-  else
-  {
-    v5 = "<allocation names disabled>";
-  }
-
-  v6 = (*(*(v4 + 24) + 16))(v4 + 24, 136, v5, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/common/src/../../geomutils/src/GuMeshFactory.cpp", 580);
-  *(v6 + 8) = 196609;
-  *(v6 + 24) = 1;
-  *v6 = &unk_1F5D21FF8;
-  *(v6 + 16) = &unk_1F5D220C8;
-  *(v6 + 104) = 0;
-  *(v6 + 112) = 0;
-  *(v6 + 120) = 0;
-  *(v6 + 128) = a1;
-  *(v6 + 96) = 1;
-  *(v6 + 56) = 0;
-  *(v6 + 88) = 0;
-  *(v6 + 92) = 0;
-  *(v6 + 80) = 0;
-  if (physx::Gu::HeightField::load(v6, a2))
-  {
-    physx::GuMeshFactory::addHeightField(a1, v6, 1);
-  }
-
-  else
-  {
-    if (atomic_fetch_add((v6 + 24), 0xFFFFFFFF) == 1)
-    {
-      (*(*(v6 + 16) + 16))(v6 + 16);
-    }
-
-    return 0;
-  }
-
-  return v6;
-}
-
-uint64_t physx::GuMeshFactory::removeHeightField(uint64_t a1, uint64_t a2)
-{
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    pthread_mutex_lock(*(a1 + 8));
-  }
-
-  if (!*(a1 + 180) || (v4 = (~(a2 << 32) + a2) ^ ((~(a2 << 32) + a2) >> 22), v5 = 9 * ((v4 + ~(v4 << 13)) ^ ((v4 + ~(v4 << 13)) >> 8)), v6 = (v5 ^ (v5 >> 15)) + ~((v5 ^ (v5 >> 15)) << 27), v7 = (*(a1 + 152) + 4 * ((*(a1 + 164) - 1) & ((v6 >> 31) ^ v6))), v8 = *v7, v8 == -1))
-  {
-LABEL_16:
-    v22 = 0;
-    goto LABEL_17;
-  }
-
-  v9 = *(a1 + 136);
-  v10 = *(a1 + 144);
-  if (*(v9 + 8 * v8) != a2)
-  {
-    while (1)
-    {
-      v11 = v8;
-      v8 = *(v10 + 4 * v8);
-      if (v8 == -1)
-      {
-        goto LABEL_16;
-      }
-
-      if (*(v9 + 8 * v8) == a2)
-      {
-        v7 = (v10 + 4 * v11);
-        break;
-      }
-    }
-  }
-
-  *v7 = *(v10 + 4 * v8);
-  v12 = vadd_s32(*(a1 + 176), 0xFFFFFFFF00000001);
-  *(a1 + 176) = v12;
-  if (v8 != v12.i32[1])
-  {
-    *(v9 + 8 * v8) = *(v9 + 8 * v12.u32[1]);
-    v14 = *(a1 + 136);
-    v13 = *(a1 + 144);
-    *(v13 + 4 * v8) = *(v13 + 4 * v12.u32[1]);
-    v15 = ~(*(v14 + 8 * v8) << 32) + *(v14 + 8 * v8);
-    v16 = 9 * (((v15 ^ (v15 >> 22)) + ~((v15 ^ (v15 >> 22)) << 13)) ^ (((v15 ^ (v15 >> 22)) + ~((v15 ^ (v15 >> 22)) << 13)) >> 8));
-    v17 = (v16 ^ (v16 >> 15)) + ~((v16 ^ (v16 >> 15)) << 27);
-    v18 = (*(a1 + 152) + 4 * ((*(a1 + 164) - 1) & ((v17 >> 31) ^ v17)));
-    v19 = *(a1 + 180);
-    v20 = *v18;
-    if (v20 != v19)
-    {
-      do
-      {
-        v21 = v20;
-        v20 = *(v13 + 4 * v20);
-      }
-
-      while (v20 != v19);
-      v18 = (v13 + 4 * v21);
-    }
-
-    *v18 = v8;
-  }
-
-  --*(a1 + 172);
-  v22 = 1;
-LABEL_17:
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    pthread_mutex_unlock(*(a1 + 8));
-  }
-
-  return v22;
-}
-
-uint64_t physx::GuMeshFactory::getNbHeightFields(pthread_mutex_t **this)
-{
-  if ((physx::shdfnd::g_alwaysUseLocking & 1) == 0 && (physx::shdfnd::g_isLockingEnabled & 1) == 0)
-  {
-    return *(this + 45);
-  }
-
-  pthread_mutex_lock(this[1]);
-  v2 = *(this + 45);
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    pthread_mutex_unlock(this[1]);
-  }
-
-  return v2;
-}
-
-uint64_t physx::GuMeshFactory::getHeightFields(uint64_t a1, void *a2, int a3, unsigned int a4)
-{
-  LODWORD(v5) = a3;
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    pthread_mutex_lock(*(a1 + 8));
-  }
-
-  v8 = (*(a1 + 180) - a4) & ~((*(a1 + 180) - a4) >> 31);
-  if (v8 >= v5)
-  {
-    v5 = v5;
-  }
-
-  else
-  {
-    v5 = v8;
-  }
-
-  if (v5)
-  {
-    v9 = (*(a1 + 136) + 8 * a4);
-    v10 = v5;
-    do
-    {
-      v11 = *v9++;
-      *a2++ = v11;
-      --v10;
-    }
-
-    while (v10);
-  }
-
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    pthread_mutex_unlock(*(a1 + 8));
-  }
-
-  return v5;
-}
-
-uint64_t physx::GuMeshFactory::addFactoryListener(uint64_t result, uint64_t a2)
+uint64_t physx::shdfnd::Array<physx::PxTransform,physx::shdfnd::ReflectionAllocator<physx::PxTransform>>::recreate(uint64_t result, unsigned int a2)
 {
   v3 = result;
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
+  if (a2)
   {
-    result = pthread_mutex_lock(*(result + 8));
-  }
-
-  v5 = a2;
-  v4 = *(v3 + 248);
-  if ((*(v3 + 252) & 0x7FFFFFFFu) <= v4)
-  {
-    result = physx::shdfnd::Array<physx::GuMeshFactoryListener *,physx::shdfnd::ReflectionAllocator<physx::GuMeshFactoryListener *>>::growAndPushBack(v3 + 240, &v5);
+    result = physx::shdfnd::ReflectionAllocator<physx::PxTransform>::allocate(result, 28 * a2, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsArray.h", 553);
+    v4 = result;
   }
 
   else
   {
-    *(*(v3 + 240) + 8 * v4) = a2;
-    *(v3 + 248) = v4 + 1;
+    v4 = 0;
   }
 
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
+  v5 = *(v3 + 8);
+  v6 = *v3;
+  if (v5)
   {
-    return pthread_mutex_unlock(*(v3 + 8));
+    v7 = v4 + 28 * v5;
+    v8 = *v3;
+    v9 = v4;
+    do
+    {
+      *v9 = *v8;
+      *(v9 + 16) = *(v8 + 16);
+      *(v9 + 24) = *(v8 + 24);
+      v9 += 28;
+      v8 += 28;
+    }
+
+    while (v9 < v7);
+  }
+
+  if ((*(v3 + 12) & 0x80000000) == 0 && v6)
+  {
+    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
+  }
+
+  *v3 = v4;
+  *(v3 + 12) = a2;
+  return result;
+}
+
+uint64_t physx::shdfnd::ReflectionAllocator<physx::PxTransform>::allocate(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  v7 = physx::shdfnd::Foundation::mInstance;
+  if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
+  {
+    v8 = "static const char *physx::shdfnd::ReflectionAllocator<physx::PxTransform>::getName() [T = physx::PxTransform]";
+  }
+
+  else
+  {
+    v8 = "<allocation names disabled>";
+  }
+
+  v9 = *(*(v7 + 24) + 16);
+
+  return v9(v7 + 24, a2, v8, a3, a4);
+}
+
+uint64_t physx::shdfnd::Array<physx::PxQuat,physx::shdfnd::ReflectionAllocator<physx::PxQuat>>::recreate(uint64_t result, unsigned int a2)
+{
+  v3 = result;
+  if (a2)
+  {
+    result = physx::shdfnd::ReflectionAllocator<physx::PxQuat>::allocate(result, 16 * a2, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsArray.h", 553);
+    v4 = result;
+  }
+
+  else
+  {
+    v4 = 0;
+  }
+
+  v5 = *(v3 + 8);
+  v6 = *v3;
+  if (v5)
+  {
+    v7 = v4 + 16 * v5;
+    v8 = *v3;
+    v9 = v4;
+    do
+    {
+      v10 = *v8++;
+      *v9++ = v10;
+    }
+
+    while (v9 < v7);
+  }
+
+  if ((*(v3 + 12) & 0x80000000) == 0 && v6)
+  {
+    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
+  }
+
+  *v3 = v4;
+  *(v3 + 12) = a2;
+  return result;
+}
+
+uint64_t physx::shdfnd::ReflectionAllocator<physx::PxQuat>::allocate(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  v7 = physx::shdfnd::Foundation::mInstance;
+  if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
+  {
+    v8 = "static const char *physx::shdfnd::ReflectionAllocator<physx::PxQuat>::getName() [T = physx::PxQuat]";
+  }
+
+  else
+  {
+    v8 = "<allocation names disabled>";
+  }
+
+  v9 = *(*(v7 + 24) + 16);
+
+  return v9(v7 + 24, a2, v8, a3, a4);
+}
+
+_OWORD *physx::shdfnd::Array<physx::Cm::SpatialVectorV,physx::shdfnd::ReflectionAllocator<physx::Cm::SpatialVectorV>>::recreate(uint64_t a1, unsigned int a2)
+{
+  v4 = 32 * a2;
+  v5 = physx::shdfnd::Foundation::mInstance;
+  if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
+  {
+    v6 = "static const char *physx::shdfnd::ReflectionAllocator<physx::Cm::SpatialVectorV>::getName() [T = physx::Cm::SpatialVectorV]";
+  }
+
+  else
+  {
+    v6 = "<allocation names disabled>";
+  }
+
+  result = (*(*(v5 + 24) + 16))(v5 + 24, v4, v6, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsArray.h", 553);
+  v8 = result;
+  v9 = *(a1 + 8);
+  v10 = *a1;
+  if (v9)
+  {
+    v11 = &result[2 * v9];
+    v12 = result;
+    do
+    {
+      *v12 = *v10;
+      v12[1] = v10[1];
+      v12 += 2;
+      v10 += 2;
+    }
+
+    while (v12 < v11);
+    v10 = *a1;
+  }
+
+  if ((*(a1 + 12) & 0x80000000) == 0 && v10)
+  {
+    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+  }
+
+  *a1 = v8;
+  *(a1 + 12) = a2;
+  return result;
+}
+
+void physx::Dy::PxvRegisterArticulationsReducedCoordinate(physx::Dy *this)
+{
+  physx::Dy::ArticulationPImpl::sComputeUnconstrainedVelocities[0] = physx::Dy::FeatherstoneArticulation::computeUnconstrainedVelocities;
+  physx::Dy::ArticulationPImpl::sUpdateBodies[0] = physx::Dy::FeatherstoneArticulation::updateBodies;
+  physx::Dy::ArticulationPImpl::sUpdateBodiesTGS[0] = physx::Dy::FeatherstoneArticulation::updateBodiesTGS;
+  physx::Dy::ArticulationPImpl::sSaveVelocity[0] = physx::Dy::FeatherstoneArticulation::saveVelocity;
+  physx::Dy::ArticulationPImpl::sSaveVelocityTGS[0] = physx::Dy::FeatherstoneArticulation::saveVelocityTGS;
+  physx::Dy::ArticulationPImpl::sUpdateDeltaMotion[0] = physx::Dy::FeatherstoneArticulation::recordDeltaMotion;
+  physx::Dy::ArticulationPImpl::sDeltaMotionToMotionVel = physx::Dy::FeatherstoneArticulation::deltaMotionToMotionVelocity;
+  physx::Dy::ArticulationPImpl::sComputeUnconstrainedVelocitiesTGS[0] = physx::Dy::FeatherstoneArticulation::computeUnconstrainedVelocitiesTGS;
+  physx::Dy::ArticulationPImpl::sSetupInternalConstraintsTGS[0] = physx::Dy::FeatherstoneArticulation::setupSolverConstraintsTGS;
+  physx::Dy::SolverCoreRegisterArticulationFns(this);
+
+  physx::Dy::SolverCoreRegisterArticulationFnsCoulomb(v1);
+}
+
+uint64_t physx::Dy::FeatherstoneArticulation::computeUnconstrainedVelocities(uint64_t *a1, float a2, uint64_t a3, uint64_t a4, _DWORD *a5, float32x2_t *a6, uint64_t a7, float *a8, float32x2_t *a9)
+{
+  v11 = *a1;
+  *(v11 + 648) = a2;
+  physx::Dy::FeatherstoneArticulation::computeUnconstrainedVelocitiesInternal(v11, a6, a8, a9);
+  v12 = **(v11 + 664);
+  v13 = *(v11 + 608);
+  v14 = *(v11 + 616);
+  *a5 = 0;
+  v15.i32[0] = *(v11 + 648);
+  v16.f32[0] = 1.0 / v15.f32[0];
+  v17.i32[0] = 1.0;
+  v18.i32[0] = v15.i32[0];
+  physx::Dy::FeatherstoneArticulation::setupInternalConstraints(v11, v13, v14, v12 & 1, v11 + 176, a8, 0, v15, v18, v16, v17, v19, v20, v21, v22);
+  return 0;
+}
+
+void *physx::Dy::FeatherstoneArticulation::saveVelocity(uint64_t *a1, float32x2_t *a2, double a3, double a4, double a5)
+{
+  v6 = *a1;
+  if (*(*a1 + 685) == 1)
+  {
+    physx::Dy::PxcFsFlushVelocity(*a1, a2, a3, a4, a5);
+  }
+
+  memcpy(*(v6 + 304), *(v6 + 320), (32 * *(v6 + 616)));
+  result = memcpy(*(v6 + 288), *(v6 + 240), (4 * *(v6 + 652)));
+  v8 = *a1;
+  v9 = *(v8 + 880);
+  if (v9)
+  {
+    for (i = 0; i < v9; ++i)
+    {
+      result = (*(v8 + 872) + 48 * i);
+      v11 = result[4];
+      v12 = *v11;
+      if (v12 == 3)
+      {
+        result = physx::Dy::concludeContact(result);
+        v9 = *(v8 + 880);
+      }
+
+      else
+      {
+        v13 = v11[1];
+        if (v11[1])
+        {
+          if (v12 == 4)
+          {
+            v14 = 160;
+          }
+
+          else
+          {
+            v14 = 96;
+          }
+
+          v15 = v11 + 76;
+          do
+          {
+            *(v15 - 4) = *v15;
+            v15 = (v15 + v14);
+            --v13;
+          }
+
+          while (v13);
+        }
+      }
+    }
   }
 
   return result;
 }
 
-uint64_t physx::GuMeshFactory::addBVHStructure(uint64_t this, physx::Gu::BVHStructure *a2, int a3)
+void physx::Dy::FeatherstoneArticulation::recordDeltaMotion(uint64_t *a1, int8x16_t _Q0, double _S1, int8x16_t _Q2, float a5, float a6, float a7, float32x2_t *a8)
 {
-  v4 = a2;
-  if (a2)
+  v8 = *_Q0.i32;
+  v9 = *a1;
+  v10 = *(*a1 + 616);
+  v233 = _Q0.i32[0];
+  v228 = v10;
+  if (*(*a1 + 685) == 1)
   {
-    v3 = this;
-    if (a3)
+    physx::Dy::PxcFsFlushVelocity(v9, a8, *_Q0.i64, _S1, *_Q2.i64);
+    v10 = v228;
+    v8 = *&v233;
+  }
+
+  v11 = *(v9 + 432);
+  v12 = *(v9 + 320);
+  v13 = *(v9 + 256);
+  v14 = *(v9 + 224);
+  v15 = *(v9 + 240);
+  *_Q0.i32 = *(v9 + 728) + v8;
+  *(v9 + 728) = _Q0.i32[0];
+  *(v9 + 648) = v8;
+  v226 = v12;
+  v227 = v11;
+  v224 = v14;
+  v225 = v13;
+  if ((**(v9 + 664) & 1) == 0)
+  {
+    v16 = *(v9 + 696);
+    v18 = v16->f32[0];
+    v17 = v16->f32[1];
+    v19 = v16[1].f32[0];
+    v20 = v16[1].f32[1];
+    v21 = vadd_f32(v16[2], vmul_n_f32(v12[2], v8));
+    v22 = v16[3].f32[0] + (v12[3].f32[0] * v8);
+    v23 = v12->f32[0] * v8;
+    v24 = v12->f32[1] * v8;
+    v25 = v12[1].f32[0] * v8;
+    v26 = ((v24 * v24) + (v23 * v23)) + (v25 * v25);
+    if (v26 >= 1.0e-24)
     {
-      if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-      {
-        pthread_mutex_lock(*(this + 8));
-      }
-
-      v5 = 0;
-      this = physx::shdfnd::internal::HashBase<physx::Gu::TriangleMesh *,physx::Gu::TriangleMesh *,physx::shdfnd::Hash<physx::Gu::TriangleMesh *>,physx::shdfnd::internal::HashSetBase<physx::Gu::TriangleMesh *,physx::shdfnd::Hash<physx::Gu::TriangleMesh *>,physx::shdfnd::NonTrackingAllocator,true>::GetKey,physx::shdfnd::NonTrackingAllocator,true>::create((v3 + 184), &v4, &v5);
-      if ((v5 & 1) == 0)
-      {
-        *this = v4;
-      }
-
-      if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-      {
-        return pthread_mutex_unlock(*(v3 + 8));
-      }
+      v29 = sqrtf(v26);
+      v30 = v23 * (1.0 / v29);
+      v31 = v24 * (1.0 / v29);
+      v229 = v25 * (1.0 / v29);
+      v32 = __sincosf_stret(v29 * 0.5);
+      cosval = v32.__cosval;
+      v14 = v224;
+      v13 = v225;
+      v12 = v226;
+      v11 = v227;
+      v10 = v228;
+      v8 = *&v233;
+      *_Q2.i32 = v32.__sinval * v30;
+      v28 = v32.__sinval * v31;
+      *_Q0.i32 = v32.__sinval * v229;
     }
 
     else
     {
-      v6 = 0;
-      this = physx::shdfnd::internal::HashBase<physx::Gu::TriangleMesh *,physx::Gu::TriangleMesh *,physx::shdfnd::Hash<physx::Gu::TriangleMesh *>,physx::shdfnd::internal::HashSetBase<physx::Gu::TriangleMesh *,physx::shdfnd::Hash<physx::Gu::TriangleMesh *>,physx::shdfnd::NonTrackingAllocator,true>::GetKey,physx::shdfnd::NonTrackingAllocator,true>::create((this + 184), &v4, &v6);
-      if ((v6 & 1) == 0)
-      {
-        *this = v4;
-      }
+      cosval = 1.0;
+      _Q2.i32[0] = 0;
+      v28 = 0.0;
+      _Q0.i32[0] = 0;
     }
-  }
 
-  return this;
-}
-
-uint64_t physx::GuMeshFactory::createBVHStructure(uint64_t a1, uint64_t a2)
-{
-  v4 = physx::shdfnd::Foundation::mInstance;
-  if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
-  {
-    v5 = "static const char *physx::shdfnd::ReflectionAllocator<physx::Gu::BVHStructure>::getName() [T = physx::Gu::BVHStructure]";
-  }
-
-  else
-  {
-    v5 = "<allocation names disabled>";
-  }
-
-  v6 = (*(*(v4 + 24) + 16))(v4 + 24, 80, v5, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/common/src/../../geomutils/src/GuMeshFactory.cpp", 658);
-  *(v6 + 8) = 196625;
-  *(v6 + 24) = 1;
-  *v6 = &unk_1F5D21878;
-  *(v6 + 16) = &unk_1F5D218E8;
-  *(v6 + 32) = a1;
-  *(v6 + 40) = *a2;
-  *(v6 + 48) = *(a2 + 8);
-  v7 = *(a2 + 24);
-  *(v6 + 64) = 0;
-  *(v6 + 72) = v7;
-  physx::GuMeshFactory::addBVHStructure(a1, v6, 1);
-  return v6;
-}
-
-uint64_t physx::GuMeshFactory::createBVHStructure(uint64_t a1, uint64_t (***a2)(void, uint64_t, uint64_t))
-{
-  v4 = physx::shdfnd::Foundation::mInstance;
-  if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
-  {
-    v5 = "static const char *physx::shdfnd::ReflectionAllocator<physx::Gu::BVHStructure>::getName() [T = physx::Gu::BVHStructure]";
-  }
-
-  else
-  {
-    v5 = "<allocation names disabled>";
-  }
-
-  v6 = (*(*(v4 + 24) + 16))(v4 + 24, 80, v5, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/common/src/../../geomutils/src/GuMeshFactory.cpp", 668);
-  *(v6 + 8) = 196625;
-  *(v6 + 24) = 1;
-  *v6 = &unk_1F5D21878;
-  *(v6 + 16) = &unk_1F5D218E8;
-  *(v6 + 32) = a1;
-  *(v6 + 40) = 0u;
-  *(v6 + 56) = 0u;
-  *(v6 + 72) = 0;
-  if (physx::Gu::BVHStructure::load(v6, a2))
-  {
-    physx::GuMeshFactory::addBVHStructure(a1, v6, 1);
-  }
-
-  else
-  {
-    if (atomic_fetch_add((v6 + 24), 0xFFFFFFFF) == 1)
+    v33 = (((v20 * *_Q2.i32) + (cosval * v18)) + (v28 * v19)) - (v17 * *_Q0.i32);
+    a7 = (((v20 * v28) + (cosval * v17)) + (*_Q0.i32 * v18)) - (v19 * *_Q2.i32);
+    v34 = (((v20 * *_Q0.i32) + (cosval * v19)) + (*_Q2.i32 * v17)) - (v18 * v28);
+    v35 = (((cosval * v20) - (*_Q2.i32 * v18)) - (v28 * v17)) - (*_Q0.i32 * v19);
+    v16->f32[0] = v33;
+    v16->f32[1] = a7;
+    v16[1].f32[0] = v34;
+    v16[1].f32[1] = v35;
+    v16[2] = v21;
+    v16[3].f32[0] = v22;
+    v36 = *(v9 + 448);
+    v37 = v36[1];
+    v38 = v36[2];
+    v39 = v36[3];
+    v40 = (((v33 * v39) - (v35 * *v36)) - (a7 * v38)) + (v37 * v34);
+    v41 = (((a7 * v39) - (v35 * v37)) - (v34 * *v36)) + (v38 * v33);
+    v42 = (((v34 * v39) - (v35 * v38)) - (v33 * v37)) + (*v36 * a7);
+    a6 = v33 * *v36;
+    v43 = ((a6 + (v35 * v39)) + (a7 * v37)) + (v34 * v38);
+    if (v43 < 0.0)
     {
-      (*(*(v6 + 16) + 16))(v6 + 16);
+      v40 = -v40;
+      v41 = -v41;
+      v42 = -v42;
+      v43 = -v43;
     }
 
-    return 0;
+    v44 = *(v9 + 712);
+    *v44 = v40;
+    v44[1] = v41;
+    v44[2] = v42;
+    v44[3] = v43;
+    *&_S1 = v12[3].f32[0] * v8;
+    v45 = vadd_f32(vmul_n_f32(*v12, v8), *v11);
+    a5 = v11[1].f32[0];
+    v11[1].f32[0] = (v12[1].f32[0] * v8) + a5;
+    *_Q0.i8 = vmul_n_f32(v12[2], v8);
+    *v11 = v45;
+    *_Q2.i8 = v11[2];
+    v11[2] = vadd_f32(*_Q0.i8, *_Q2.i8);
+    *_Q0.i32 = *&_S1 + v11[3].f32[0];
+    v11[3].i32[0] = _Q0.i32[0];
   }
 
-  return v6;
-}
-
-uint64_t physx::GuMeshFactory::removeBVHStructure(uint64_t a1, uint64_t a2)
-{
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
+  if (v10 >= 2)
   {
-    pthread_mutex_lock(*(a1 + 8));
-  }
-
-  if (!*(a1 + 236) || (v4 = (~(a2 << 32) + a2) ^ ((~(a2 << 32) + a2) >> 22), v5 = 9 * ((v4 + ~(v4 << 13)) ^ ((v4 + ~(v4 << 13)) >> 8)), v6 = (v5 ^ (v5 >> 15)) + ~((v5 ^ (v5 >> 15)) << 27), v7 = (*(a1 + 208) + 4 * ((*(a1 + 220) - 1) & ((v6 >> 31) ^ v6))), v8 = *v7, v8 == -1))
-  {
-LABEL_16:
-    v22 = 0;
-    goto LABEL_17;
-  }
-
-  v9 = *(a1 + 192);
-  v10 = *(a1 + 200);
-  if (*(v9 + 8 * v8) != a2)
-  {
+    v46 = *(v9 + 696);
+    v47 = 1;
+    v48 = 84;
+    v49 = -0.5;
     while (1)
     {
-      v11 = v8;
-      v8 = *(v10 + 4 * v8);
-      if (v8 == -1)
+      v50 = *(v9 + 632) + 80 * v47;
+      v51 = *(v9 + 608) + 40 * v47;
+      v52 = (v46 + 28 * *(v51 + 32));
+      v53 = *(v9 + 512);
+      v54 = (v53 + 76 * v47);
+      v55 = *(v50 + 72);
+      _Q21 = *(*(v9 + 592) + 16 * v47);
+      v57 = *(v51 + 24);
+      v58 = (v14 + 4 * v55);
+      v59 = (v15 + 4 * v55);
+      v60 = (v13 + 4 * v55);
+      v62 = *(v57 + 44);
+      v61 = *(v57 + 48);
+      v63 = *(v57 + 52);
+      v65 = *(v57 + 16);
+      v64 = *(v57 + 20);
+      v66 = *(v57 + 24);
+      v67 = *(v57 + 270);
+      if (v67 <= 1)
       {
-        goto LABEL_16;
+        if (*(v57 + 270))
+        {
+          if (v67 == 1)
+          {
+            v68 = *v60 + ((*v58 + *v59) * v8);
+            v230 = *(*(v9 + 592) + 16 * v47);
+            v69 = *(v9 + 632) + 80 * v47;
+            v70 = v48;
+            if (*(v57 + 329) == 1)
+            {
+              v71 = v57 + 8 * *(v57 + 252);
+              if (v68 < *(v71 + 56))
+              {
+                v68 = *(v71 + 56);
+              }
+
+              if (v68 > *(v71 + 60))
+              {
+                v68 = *(v71 + 60);
+              }
+            }
+
+            *v60 = v68;
+            *v58 = *v59 + *v58;
+            *v59 = 0.0;
+            v72 = __sincosf_stret(v68 * v49);
+            *&_S1 = v72.__cosval;
+            *_Q2.i8 = vmul_n_f32(*v54, v72.__sinval);
+            *_Q2.i8 = vbsl_s8(vdup_lane_s32(vcgt_f32(0, *&_S1), 0), vneg_f32(*_Q2.i8), *_Q2.i8);
+            *_Q0.i32 = -(v72.__sinval * v54[1].f32[0]);
+            if (v72.__cosval < 0.0)
+            {
+              *&_S1 = -v72.__cosval;
+            }
+
+            else
+            {
+              *_Q0.i32 = v72.__sinval * v54[1].f32[0];
+            }
+
+            _V16.D[1] = *(&v230 + 1);
+            _S6 = DWORD2(v230);
+            __asm { FMLA            S4, S6, V2.S[1] }
+
+            _S7 = DWORD1(v230);
+            __asm
+            {
+              FMLS            S4, S0, V16.S[1]
+              FMLA            S3, S1, V16.S[1]
+            }
+
+            v83 = (_S3 + (*_Q0.i32 * *&v230)) - (*_Q2.i32 * *(&v230 + 2));
+            __asm { FMLA            S6, S1, V16.S[2] }
+
+            v85 = (_S6 + (*_Q2.i32 * *(&v230 + 1))) - (*&_Q2.i32[1] * *&v230);
+            __asm
+            {
+              FMLA            S6, S1, V16.S[3]
+              FMLS            S6, S7, V2.S[1]
+              FMLS            S6, S0, V16.S[2]
+            }
+
+            v89 = sqrtf((((v83 * v83) + (_S4 * _S4)) + (v85 * v85)) + (_S6 * _S6));
+            _Q21.f32[0] = _S4 / v89;
+            *_Q0.i32 = v83 / v89;
+            *_Q2.i32 = v85 / v89;
+            *&_S1 = _S6 / v89;
+            v90 = v49 + (*&_S1 * *&_S1);
+            v91 = (((v64 + v64) * *_Q0.i32) + (_Q21.f32[0] * (v65 + v65))) + (*_Q2.i32 * (v66 + v66));
+            a5 = (((*&_S1 * ((*_Q0.i32 * (v66 + v66)) - (*_Q2.i32 * (v64 + v64)))) + ((v65 + v65) * v90)) + (_Q21.f32[0] * v91)) - v62;
+            a6 = (((*&_S1 * ((*_Q2.i32 * (v65 + v65)) - (_Q21.f32[0] * (v66 + v66)))) + ((v64 + v64) * v90)) + (*_Q0.i32 * v91)) - v61;
+            a7 = (((*&_S1 * ((_Q21.f32[0] * (v64 + v64)) - (*_Q0.i32 * (v65 + v65)))) + ((v66 + v66) * v90)) + (*_Q2.i32 * v91)) - v63;
+            v8 = *&v233;
+            v11 = v227;
+            v10 = v228;
+            v13 = v225;
+            v12 = v226;
+            v14 = v224;
+            v48 = v70;
+            v50 = v69;
+          }
+        }
+
+        else
+        {
+          v101 = *v60 + ((*v58 + *v59) * v8);
+          v102 = *(v57 + 252);
+          if (*(v57 + v102 + 258) == 1)
+          {
+            v103 = v57 + 8 * v102;
+            v104 = *(v103 + 56);
+            if (v101 >= v104)
+            {
+              v104 = *v60 + ((*v58 + *v59) * v8);
+            }
+
+            if (v104 > *(v103 + 60))
+            {
+              v101 = *(v103 + 60);
+            }
+
+            else
+            {
+              v101 = v104;
+            }
+          }
+
+          *v60 = v101;
+          *v58 = *v59 + *v58;
+          *v59 = 0.0;
+          _S4 = v65 + v65;
+          _S6 = v66 + v66;
+          LODWORD(_S1) = _Q21.i32[3];
+          __asm { FMLA            S7, S1, V21.S[3] }
+
+          _Q0.i32[0] = _Q21.i32[1];
+          _Q2.i32[0] = _Q21.i32[2];
+          __asm
+          {
+            FMLA            S16, S6, V21.S[2]
+            FMLA            S17, S6, V21.S[1]
+            FMLA            S18, S4, V21.S[2]
+            FMLA            S18, S16, V21.S[1]
+            FMLA            S4, S16, V21.S[2]
+          }
+
+          v113 = ((vmuls_lane_f32(_S17, _Q21, 3) + ((v65 + v65) * _S7)) + (_Q21.f32[0] * _S16)) - v62;
+          v114 = _S4 - v63;
+          v115 = (v53 + 76 * v47);
+          v116 = v101 * v115[4];
+          v117 = v101 * v115[5];
+          a5 = v113 + (v101 * v115[3]);
+          a6 = (_S18 - v61) + v116;
+          a7 = v114 + v117;
+        }
+
+        goto LABEL_52;
       }
 
-      if (*(v9 + 8 * v8) == a2)
+      if (v67 == 2)
       {
-        v7 = (v10 + 4 * v11);
         break;
       }
-    }
-  }
 
-  *v7 = *(v10 + 4 * v8);
-  v12 = vadd_s32(*(a1 + 232), 0xFFFFFFFF00000001);
-  *(a1 + 232) = v12;
-  if (v8 != v12.i32[1])
-  {
-    *(v9 + 8 * v8) = *(v9 + 8 * v12.u32[1]);
-    v14 = *(a1 + 192);
-    v13 = *(a1 + 200);
-    *(v13 + 4 * v8) = *(v13 + 4 * v12.u32[1]);
-    v15 = ~(*(v14 + 8 * v8) << 32) + *(v14 + 8 * v8);
-    v16 = 9 * (((v15 ^ (v15 >> 22)) + ~((v15 ^ (v15 >> 22)) << 13)) ^ (((v15 ^ (v15 >> 22)) + ~((v15 ^ (v15 >> 22)) << 13)) >> 8));
-    v17 = (v16 ^ (v16 >> 15)) + ~((v16 ^ (v16 >> 15)) << 27);
-    v18 = (*(a1 + 208) + 4 * ((*(a1 + 220) - 1) & ((v17 >> 31) ^ v17)));
-    v19 = *(a1 + 236);
-    v20 = *v18;
-    if (v20 != v19)
-    {
-      do
+      if (v67 == 3)
       {
-        v21 = v20;
-        v20 = *(v13 + 4 * v20);
+        _S3 = v65 + v65;
+        _S5 = v66 + v66;
+        LODWORD(_S1) = HIDWORD(*(*(v9 + 592) + 16 * v47));
+        __asm { FMLA            S6, S1, V21.S[3] }
+
+        _Q0.i32[0] = HIDWORD(*(*(v9 + 592) + 16 * v47));
+        _Q2.i32[0] = *(*(v9 + 592) + 16 * v47 + 8);
+        __asm
+        {
+          FMLA            S7, S5, V21.S[2]
+          FMLA            S16, S5, V21.S[1]
+        }
+
+        v97 = (vmuls_lane_f32(_S16, _Q21, 3) + ((v65 + v65) * _S6)) + (_Q21.f32[0] * _S7);
+        __asm
+        {
+          FMLA            S17, S3, V21.S[2]
+          FMLA            S17, S7, V21.S[1]
+          FMLA            S5, S7, V21.S[2]
+        }
+
+LABEL_51:
+        a5 = v97 - v62;
+        a6 = _S17 - v61;
+        a7 = _S5 - v63;
       }
 
-      while (v20 != v19);
-      v18 = (v13 + 4 * v21);
+LABEL_52:
+      v179 = v52[1];
+      v181 = v52[2];
+      v180 = v52[3];
+      v182 = (((*&_S1 * *v52) - (v180 * _Q21.f32[0])) - (v179 * *_Q2.i32)) + (*_Q0.i32 * v181);
+      v183 = (((*&_S1 * v179) - (v180 * *_Q0.i32)) - (v181 * _Q21.f32[0])) + (*_Q2.i32 * *v52);
+      v184 = (((*&_S1 * v181) - (v180 * *_Q2.i32)) - (*v52 * *_Q0.i32)) + (_Q21.f32[0] * v179);
+      v185 = (((_Q21.f32[0] * *v52) + (v180 * *&_S1)) + (v179 * *_Q0.i32)) + (v181 * *_Q2.i32);
+      v186 = sqrtf((((v183 * v183) + (v182 * v182)) + (v184 * v184)) + (v185 * v185));
+      *_Q0.i32 = v182 / v186;
+      *&_S1 = v183 / v186;
+      *_Q2.i32 = v184 / v186;
+      v187 = v185 / v186;
+      v188 = v52[4];
+      v189 = v52[5];
+      v190 = v52[6];
+      v191 = (*(v9 + 448) + 28 * v47);
+      v192 = v191[1];
+      v193 = v191[2];
+      v194 = v191[3];
+      v195 = (((v194 * *_Q0.i32) - (v187 * *v191)) - (*&_S1 * v193)) + (v192 * *_Q2.i32);
+      v196 = (((v194 * *&_S1) - (v187 * v192)) - (*_Q2.i32 * *v191)) + (v193 * *_Q0.i32);
+      v197 = (((v194 * *_Q2.i32) - (v187 * v193)) - (*_Q0.i32 * v192)) + (*v191 * *&_S1);
+      v198 = (((*v191 * *_Q0.i32) + (v187 * v194)) + (*&_S1 * v192)) + (*_Q2.i32 * v193);
+      if (v198 < 0.0)
+      {
+        v195 = -v195;
+        v196 = -v196;
+        v197 = -v197;
+        v198 = -v198;
+      }
+
+      v199 = (*(v9 + 712) + 16 * v47);
+      *v199 = v195;
+      v199[1] = v196;
+      v199[2] = v197;
+      v199[3] = v198;
+      v200 = *(v50 + 76);
+      if (*(v50 + 76))
+      {
+        v201 = *(v50 + 72);
+        do
+        {
+          *(v15 + 4 * v201++) = 0;
+          --v200;
+        }
+
+        while (v200);
+      }
+
+      v202 = a5 + a5;
+      v203 = a6 + a6;
+      v204 = a7 + a7;
+      v205 = v49 + (v187 * v187);
+      v206 = ((v203 * *&_S1) + (*_Q0.i32 * v202)) + (*_Q2.i32 * v204);
+      v207 = ((v187 * ((*&_S1 * v204) - (*_Q2.i32 * v203))) + (v202 * v205)) + (*_Q0.i32 * v206);
+      v208 = ((v187 * ((*_Q2.i32 * v202) - (*_Q0.i32 * v204))) + (v203 * v205)) + (*&_S1 * v206);
+      v209 = ((v187 * ((*_Q0.i32 * v203) - (*&_S1 * v202))) + (v204 * v205)) + (*_Q2.i32 * v206);
+      a6 = v188 + v207;
+      a7 = v189 + v208;
+      a5 = v190 + v209;
+      v210 = (v188 + v207) - v191[4];
+      v211 = (v189 + v208) - v191[5];
+      v212 = a5 - v191[6];
+      v213 = &v12[4 * v47];
+      v214 = v213[1].f32[0] * v8;
+      v215 = &v11[4 * v47];
+      *v215 = vadd_f32(vmul_n_f32(*v213, v8), *v215);
+      v215[1].f32[0] = v214 + v215[1].f32[0];
+      v215[2].f32[0] = v210;
+      v215[2].f32[1] = v211;
+      v215[3].f32[0] = v212;
+      v46 = *(v9 + 696);
+      v216 = v46 + 28 * v47;
+      *v216 = _Q0.i32[0];
+      *(v216 + 4) = LODWORD(_S1);
+      *(v216 + 8) = _Q2.i32[0];
+      *(v216 + 12) = v187;
+      *(v216 + 16) = a6;
+      *(v216 + 20) = a7;
+      *(v216 + 24) = a5;
+      ++v47;
+      v48 += 76;
+      if (v47 == v10)
+      {
+        return;
+      }
     }
 
-    *v18 = v8;
-  }
+    v118 = *(v50 + 76);
+    v222 = *(v9 + 632) + 80 * v47;
+    v223 = v48;
+    if (v118 > 2)
+    {
+      v139 = *(v9 + 320);
+      v221 = *(v9 + 528);
+      v140 = v139 + 32 * v47;
+      v218 = *v140;
+      v220 = *(v140 + 4);
+      _D1 = vmul_n_f32(v220, v8);
+      _S3 = _D1.i32[1];
+      __asm { FMLA            S2, S3, V1.S[1] }
 
-  --*(a1 + 228);
-  v22 = 1;
-LABEL_17:
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    pthread_mutex_unlock(*(a1 + 8));
-  }
+      if (_S2 >= 1.0e-24)
+      {
+        v145 = sqrtf(_S2);
+        v146 = (v218 * v8) * (1.0 / v145);
+        v147 = vmul_n_f32(_D1, 1.0 / v145);
+        v232 = *(*(v9 + 592) + 16 * v47);
+        v148 = __sincosf_stret(v145 * 0.5);
+        v144 = v148.__cosval;
+        _Q21 = v232;
+        *_Q2.i32 = v148.__sinval * v146;
+        v49 = -0.5;
+        *_Q0.i8 = vmul_n_f32(v147, v148.__sinval);
+      }
 
-  return v22;
+      else
+      {
+        _Q0.i64[0] = 0;
+        v144 = 1.0;
+        _Q2.i64[0] = 0;
+      }
+
+      v149 = (v46 + 28 * v47);
+      *&v150 = -*_Q2.i32;
+      v151 = -*_Q0.i32;
+      v236 = _Q21;
+      v152 = vextq_s8(vextq_s8(_Q2, _Q2, 4uLL), _Q0, 0xCuLL);
+      v153 = vextq_s8(vextq_s8(v152, v152, 0xCuLL), v152, 8uLL);
+      v152.i32[3] = v150;
+      v154 = vzip1q_s32(*v149, *v149);
+      v154.i32[0] = v149->i64[1];
+      v155 = vuzp1q_s32(vextq_s8(v154, v154, 8uLL), vuzp2q_s32(v154, v153));
+      v156 = vzip1q_s32(vrev64q_s32(v153), v155);
+      v156.i32[1] = v153.i32[2];
+      v153.f32[3] = v151;
+      v235 = vmlsq_f32(vmlaq_f32(vmlaq_n_f32(vmulq_f32(vextq_s8(vdupq_laneq_s32(*v149, 3), *v149, 4uLL), v152), *v149, v144), v154, v153), v156, v155);
+      v234 = *v52;
+      physx::Dy::computeSphericalJointPositions(v237, v236.f32, v235.f32, &v234, v60, v54);
+      v157 = 0;
+      v158 = (v139 + 32 * *(v51 + 32));
+      _Q21.f32[0] = v237[0];
+      *_Q0.i32 = v237[1];
+      *_Q2.i32 = v237[2];
+      *&_S1 = v237[3];
+      v159 = v218 - *v158;
+      v160 = v220.f32[0] - v158[1];
+      v161 = v220.f32[1] - v158[2];
+      v48 = v223;
+      v162 = (v221 + v223);
+      do
+      {
+        v163 = (v160 * *(v162 - 1)) + (*(v162 - 2) * v159);
+        v164 = *v162;
+        v162 += 6;
+        v58[v157++] = v163 + (v164 * v161);
+      }
+
+      while (v157 != 3);
+      v8 = *&v233;
+      v11 = v227;
+      v10 = v228;
+      v13 = v225;
+      v12 = v226;
+      v14 = v224;
+      v50 = v222;
+    }
+
+    else
+    {
+      v217 = v66;
+      v219 = v61;
+      v231 = *(*(v9 + 592) + 16 * v47);
+      if (*(v50 + 76))
+      {
+        v119 = 0;
+        v120 = 4 * v118;
+        v121 = (v53 + v48);
+        _S8 = 0.0;
+        _S9 = 1.0;
+        _S12 = 0.0;
+        _S13 = 0.0;
+        do
+        {
+          v126 = v58[v119 / 4] + v59[v119 / 4];
+          v58[v119 / 4] = v126;
+          v60[v119 / 4] = v60[v119 / 4] + (v126 * v8);
+          v59[v119 / 4] = 0.0;
+          v128 = __sincosf_stret(v60[v119 / 4] * -0.5);
+          v127.f32[0] = v128.__cosval;
+          v8 = *&v233;
+          *_Q2.i8 = vmul_n_f32(*(v121 - 2), v128.__sinval);
+          v129 = *v121;
+          v121 += 6;
+          v130 = v128.__sinval * v129;
+          _D5 = vbsl_s8(vdup_lane_s32(vcgt_f32(0, v127), 0), vneg_f32(*_Q2.i8), *_Q2.i8);
+          *_Q0.i32 = -(v128.__sinval * v129);
+          if (v128.__cosval >= 0.0)
+          {
+            v132 = v130;
+          }
+
+          else
+          {
+            v132 = *_Q0.i32;
+          }
+
+          __asm
+          {
+            FMLS            S0, S8, V5.S[1]
+            FMLA            S1, S9, V5.S[1]
+          }
+
+          _S1 = (_S1 + (_S8 * *_D5.i32)) - (v132 * _S13);
+          __asm { FMLA            S2, S13, V5.S[1] }
+
+          _S2 = _S2 - (_S12 * *_D5.i32);
+          __asm { FMLS            S4, S12, V5.S[1] }
+
+          v119 += 4;
+          _S9 = _S4 - (_S8 * v132);
+          _S8 = _S2;
+          _S12 = _S1;
+          _S13 = _S0;
+        }
+
+        while (v120 != v119);
+      }
+
+      else
+      {
+        _S9 = 1.0;
+        _S0 = 0.0;
+        _S1 = 0.0;
+        _S2 = 0.0;
+      }
+
+      _Q7 = v231;
+      __asm
+      {
+        FMLA            S3, S1, V7.S[2]
+        FMLS            S3, S2, V7.S[1]
+        FMLA            S4, S9, V7.S[1]
+        FMLS            S4, S0, V7.S[2]
+        FMLA            S5, S9, V7.S[2]
+        FMLA            S5, S0, V7.S[1]
+      }
+
+      v172 = _S5 - (_S1 * *&v231);
+      __asm
+      {
+        FMLA            S6, S9, V7.S[3]
+        FMLS            S6, S1, V7.S[1]
+        FMLS            S6, S2, V7.S[2]
+      }
+
+      v176 = sqrtf((((_S4 * _S4) + (_S3 * _S3)) + (v172 * v172)) + (_S6 * _S6));
+      _Q21.f32[0] = _S3 / v176;
+      *_Q0.i32 = _S4 / v176;
+      *_Q2.i32 = v172 / v176;
+      *&_S1 = _S6 / v176;
+      v11 = v227;
+      v10 = v228;
+      v13 = v225;
+      v12 = v226;
+      v48 = v223;
+      v14 = v224;
+      v49 = -0.5;
+      v50 = v222;
+      v61 = v219;
+      v66 = v217;
+    }
+
+    v177 = v49 + (*&_S1 * *&_S1);
+    v178 = (((v64 + v64) * *_Q0.i32) + (_Q21.f32[0] * (v65 + v65))) + (*_Q2.i32 * (v66 + v66));
+    v97 = ((*&_S1 * ((*_Q0.i32 * (v66 + v66)) - (*_Q2.i32 * (v64 + v64)))) + ((v65 + v65) * v177)) + (_Q21.f32[0] * v178);
+    _S17 = ((((*_Q2.i32 * (v65 + v65)) - (_Q21.f32[0] * (v66 + v66))) * *&_S1) + ((v64 + v64) * v177)) + (*_Q0.i32 * v178);
+    _S5 = ((((_Q21.f32[0] * (v64 + v64)) - (*_Q0.i32 * (v65 + v65))) * *&_S1) + ((v66 + v66) * v177)) + (*_Q2.i32 * v178);
+    goto LABEL_51;
+  }
 }
 
-uint64_t physx::GuMeshFactory::getNbBVHStructures(pthread_mutex_t **this)
+void *physx::Dy::FeatherstoneArticulation::deltaMotionToMotionVelocity(void *result, float a2)
 {
-  if ((physx::shdfnd::g_alwaysUseLocking & 1) == 0 && (physx::shdfnd::g_isLockingEnabled & 1) == 0)
+  v2 = *result;
+  v3 = *(*result + 616);
+  if (v3)
   {
-    return *(this + 59);
+    v4 = 0;
+    v5 = *(v2 + 432);
+    v6 = 32 * v3;
+    do
+    {
+      v7 = *(v2 + 320) + v4;
+      *&v8 = *(v5 + v4 + 8) * a2;
+      v9 = *(v5 + v4 + 24);
+      *&v10 = vmul_n_f32(*(v5 + v4), a2);
+      *(v7 + 8) = *&v8;
+      *(v7 + 12) = 0;
+      v11 = *(v5 + v4 + 16);
+      *v7 = v10;
+      *(&v10 + 1) = v8;
+      *&v12 = v9 * a2;
+      *&v13 = vmul_n_f32(v11, a2);
+      *(v7 + 16) = v13;
+      *(&v13 + 1) = v12;
+      *(v7 + 24) = *&v12;
+      *(v7 + 28) = 0;
+      v14 = (result[2] + v4);
+      *v14 = v10;
+      v14[1] = v13;
+      v4 += 32;
+    }
+
+    while (v6 != v4);
   }
 
-  pthread_mutex_lock(this[1]);
-  v2 = *(this + 59);
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
+  return result;
+}
+
+double physx::Dy::FeatherstoneArticulation::computeUnconstrainedVelocitiesTGS(uint64_t *a1, float32x2_t *a2, float a3, uint64_t a4, float *a5, float32x2_t *a6)
+{
+  v6 = *a1;
+  *(v6 + 648) = a3;
+  physx::Dy::FeatherstoneArticulation::computeUnconstrainedVelocitiesInternal(v6, a2, a5, a6);
+  return result;
+}
+
+uint64_t physx::Dy::FeatherstoneArticulation::setupSolverConstraintsTGS(uint64_t *a1, float32x4_t a2, float32x4_t a3, float32x4_t a4, uint64_t a5, uint64_t a6, _DWORD *a7, uint64_t a8, uint64_t a9, float32x4_t a10, float32x4_t a11, float32x4_t a12, float32x4_t a13, float32x4_t a14)
+{
+  a11.i32[0] = a3.i32[0];
+  *a7 = 0;
+  a10.i32[0] = 1060320051;
+  a3.i32[0] = a4.i32[0];
+  a4.i32[0] = a11.i32[0];
+  physx::Dy::FeatherstoneArticulation::setupInternalConstraints(*a1, *(*a1 + 608), *(*a1 + 616), **(*a1 + 664) & 1, *a1 + 176, a9, 1, a2, a3, a4, a10, a11, a12, a13, a14);
+  return 0;
+}
+
+uint64_t physx::shdfnd::Array<physx::Dy::SpatialSubspaceMatrix,physx::shdfnd::ReflectionAllocator<physx::Dy::SpatialSubspaceMatrix>>::resize(uint64_t result, uint64_t a2, uint64_t a3)
+{
+  v4 = a2;
+  v5 = result;
+  if ((*(result + 12) & 0x7FFFFFFFu) < a2)
   {
-    pthread_mutex_unlock(this[1]);
+    result = physx::shdfnd::Array<physx::Dy::SpatialSubspaceMatrix,physx::shdfnd::ReflectionAllocator<physx::Dy::SpatialSubspaceMatrix>>::recreate(result, a2);
+  }
+
+  v6 = *(v5 + 8);
+  if (v6 < v4)
+  {
+    v7 = *v5 + 76 * v4;
+    v8 = *v5 + 76 * v6;
+    v9 = a3 + 8;
+    do
+    {
+      for (i = 0; i != 72; i += 24)
+      {
+        v11 = (v8 + i);
+        *v11 = *(a3 + i);
+        v11[1] = *(v9 + i);
+        v11[2] = *(v9 + i + 8);
+      }
+
+      *(v8 + 72) = *(a3 + 72);
+      v8 += 76;
+    }
+
+    while (v8 < v7);
+  }
+
+  *(v5 + 8) = v4;
+  return result;
+}
+
+void physx::Dy::ArticulationData::resizeJointData(physx::Dy::ArticulationData *this, uint64_t a2)
+{
+  v2 = a2;
+  if ((*(this + 11) & 0x7FFFFFFFu) < a2)
+  {
+    physx::shdfnd::Array<float,physx::shdfnd::ReflectionAllocator<float>>::recreate(this + 32, a2);
+  }
+
+  *(this + 10) = v2;
+  if ((*(this + 15) & 0x7FFFFFFFu) < v2)
+  {
+    physx::shdfnd::Array<float,physx::shdfnd::ReflectionAllocator<float>>::recreate(this + 48, v2);
+  }
+
+  *(this + 14) = v2;
+  if ((*(this + 19) & 0x7FFFFFFFu) < v2)
+  {
+    physx::shdfnd::Array<float,physx::shdfnd::ReflectionAllocator<float>>::recreate(this + 64, v2);
+  }
+
+  *(this + 18) = v2;
+  if ((*(this + 23) & 0x7FFFFFFFu) < v2)
+  {
+    physx::shdfnd::Array<float,physx::shdfnd::ReflectionAllocator<float>>::recreate(this + 80, v2);
+  }
+
+  *(this + 22) = v2;
+  if ((*(this + 27) & 0x7FFFFFFFu) < v2)
+  {
+    physx::shdfnd::Array<float,physx::shdfnd::ReflectionAllocator<float>>::recreate(this + 96, v2);
+  }
+
+  *(this + 26) = v2;
+  if ((*(this + 31) & 0x7FFFFFFFu) < v2)
+  {
+    physx::shdfnd::Array<float,physx::shdfnd::ReflectionAllocator<float>>::recreate(this + 112, v2);
+  }
+
+  *(this + 30) = v2;
+  v4 = 4 * v2;
+  bzero(*(this + 4), v4);
+  bzero(*(this + 6), v4);
+  bzero(*(this + 8), v4);
+  bzero(*(this + 14), v4);
+  bzero(*(this + 10), v4);
+  v5 = *(this + 12);
+
+  bzero(v5, v4);
+}
+
+void physx::Dy::FeatherstoneArticulation::~FeatherstoneArticulation(physx::Dy::FeatherstoneArticulation *this)
+{
+  *this = &unk_1F5D1D2F0;
+  v2 = *(this + 221);
+  if ((v2 & 0x80000000) == 0 && (v2 & 0x7FFFFFFF) != 0 && *(this + 109) != 0)
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+  }
+
+  v4 = *(this + 215);
+  if ((v4 & 0x80000000) == 0 && (v4 & 0x7FFFFFFF) != 0 && *(this + 106) != 0)
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+  }
+
+  if (*(this + 78))
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+    *(this + 78) = 0;
+  }
+
+  if (*(this + 79))
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+    *(this + 79) = 0;
+  }
+
+  if (*(this + 80))
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+    *(this + 80) = 0;
+  }
+
+  v6 = *(this + 181);
+  if ((v6 & 0x80000000) == 0 && (v6 & 0x7FFFFFFF) != 0 && *(this + 89))
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+  }
+
+  v7 = *(this + 177);
+  if ((v7 & 0x80000000) == 0 && (v7 & 0x7FFFFFFF) != 0 && *(this + 87))
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+  }
+
+  v8 = *(this + 151);
+  if ((v8 & 0x80000000) == 0 && (v8 & 0x7FFFFFFF) != 0 && *(this + 74))
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+  }
+
+  v9 = *(this + 147);
+  if ((v9 & 0x80000000) == 0 && (v9 & 0x7FFFFFFF) != 0 && *(this + 72))
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+  }
+
+  v10 = *(this + 143);
+  if ((v10 & 0x80000000) == 0 && (v10 & 0x7FFFFFFF) != 0 && *(this + 70))
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+  }
+
+  v11 = *(this + 139);
+  if ((v11 & 0x80000000) == 0 && (v11 & 0x7FFFFFFF) != 0 && *(this + 68))
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+  }
+
+  v12 = *(this + 135);
+  if ((v12 & 0x80000000) == 0 && (v12 & 0x7FFFFFFF) != 0 && *(this + 66))
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+  }
+
+  v13 = *(this + 131);
+  if ((v13 & 0x80000000) == 0 && (v13 & 0x7FFFFFFF) != 0 && *(this + 64))
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+  }
+
+  v14 = *(this + 127);
+  if ((v14 & 0x80000000) == 0 && (v14 & 0x7FFFFFFF) != 0 && *(this + 62))
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+  }
+
+  v15 = *(this + 123);
+  if ((v15 & 0x80000000) == 0 && (v15 & 0x7FFFFFFF) != 0 && *(this + 60))
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+  }
+
+  v16 = *(this + 119);
+  if ((v16 & 0x80000000) == 0 && (v16 & 0x7FFFFFFF) != 0 && *(this + 58))
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+  }
+
+  v17 = *(this + 115);
+  if ((v17 & 0x80000000) == 0 && (v17 & 0x7FFFFFFF) != 0 && *(this + 56))
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+  }
+
+  v18 = *(this + 111);
+  if ((v18 & 0x80000000) == 0 && (v18 & 0x7FFFFFFF) != 0 && *(this + 54))
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+  }
+
+  v19 = *(this + 107);
+  if ((v19 & 0x80000000) == 0 && (v19 & 0x7FFFFFFF) != 0 && *(this + 52))
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+  }
+
+  v20 = *(this + 103);
+  if ((v20 & 0x80000000) == 0 && (v20 & 0x7FFFFFFF) != 0 && *(this + 50))
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+  }
+
+  v21 = *(this + 99);
+  if ((v21 & 0x80000000) == 0 && (v21 & 0x7FFFFFFF) != 0 && *(this + 48))
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+  }
+
+  v22 = *(this + 95);
+  if ((v22 & 0x80000000) == 0 && (v22 & 0x7FFFFFFF) != 0 && *(this + 46))
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+  }
+
+  v23 = *(this + 91);
+  if ((v23 & 0x80000000) == 0 && (v23 & 0x7FFFFFFF) != 0 && *(this + 44))
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+  }
+
+  v24 = *(this + 87);
+  if ((v24 & 0x80000000) == 0 && (v24 & 0x7FFFFFFF) != 0 && *(this + 42))
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+  }
+
+  v25 = *(this + 83);
+  if ((v25 & 0x80000000) == 0 && (v25 & 0x7FFFFFFF) != 0 && *(this + 40))
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+  }
+
+  v26 = *(this + 79);
+  if ((v26 & 0x80000000) == 0 && (v26 & 0x7FFFFFFF) != 0 && *(this + 38))
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+  }
+
+  v27 = *(this + 75);
+  if ((v27 & 0x80000000) == 0 && (v27 & 0x7FFFFFFF) != 0 && *(this + 36))
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+  }
+
+  v28 = *(this + 71);
+  if ((v28 & 0x80000000) == 0 && (v28 & 0x7FFFFFFF) != 0 && *(this + 34))
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+  }
+
+  v29 = *(this + 67);
+  if ((v29 & 0x80000000) == 0 && (v29 & 0x7FFFFFFF) != 0 && *(this + 32))
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+  }
+
+  v30 = *(this + 63);
+  if ((v30 & 0x80000000) == 0 && (v30 & 0x7FFFFFFF) != 0 && *(this + 30))
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+  }
+
+  v31 = *(this + 59);
+  if ((v31 & 0x80000000) == 0 && (v31 & 0x7FFFFFFF) != 0 && *(this + 28))
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+  }
+
+  v32 = *(this + 55);
+  if ((v32 & 0x80000000) == 0 && (v32 & 0x7FFFFFFF) != 0 && *(this + 26))
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+  }
+
+  *this = &unk_1F5D1D138;
+  v33 = *(this + 39);
+  if ((v33 & 0x80000000) == 0 && (v33 & 0x7FFFFFFF) != 0)
+  {
+    if (*(this + 18))
+    {
+      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+    }
+  }
+}
+
+{
+  physx::Dy::FeatherstoneArticulation::~FeatherstoneArticulation(this);
+
+  JUMPOUT(0x1E6906510);
+}
+
+void physx::Dy::FeatherstoneArticulation::computeDofs(physx::Dy::FeatherstoneArticulation *this)
+{
+  v2 = *(this + 154);
+  if (v2 < 2)
+  {
+    v4 = 0;
+    v3 = 0;
+  }
+
+  else
+  {
+    LODWORD(v3) = 0;
+    v4 = 0;
+    v5 = 1;
+    v6 = 80;
+    do
+    {
+      v7 = 0;
+      v8 = *(this + 79);
+      v9 = *(*(this + 76) + 40 * v5 + 24);
+      v10 = v8 + 80 * v5;
+      *(v10 + 76) = 0;
+      *(v10 + 79) = 0;
+      v11 = v9 + 258;
+      v12 = v9 + 252;
+      do
+      {
+        if (*(v11 + v7))
+        {
+          v13 = *(v10 + 76);
+          *(v8 + v6 + 24 * v13 + 4 * v7) = 1065353216;
+          if (*(v11 + v7) == 1)
+          {
+            ++*(v10 + 77);
+          }
+
+          *(v10 + 76) = v13 + 1;
+          *(v12 + v13) = v7;
+        }
+
+        ++v7;
+      }
+
+      while (v7 != 6);
+      *(v10 + 79) = 0;
+      v14 = *(v10 + 76);
+      if (*(v9 + 270) == 2 && v14 == 2)
+      {
+        v17 = 0;
+        v18 = 0;
+        v19 = v8 + v6;
+        do
+        {
+          if (!*(v11 + v18))
+          {
+            v20 = *(v10 + 76);
+            *(v19 + 24 * v20 + 4 * v18) = 1065353216;
+            *(v10 + 76) = v20 + 1;
+            *(v12 + v20) = v18;
+            v17 = *(v10 + 79) + 1;
+            *(v10 + 79) = v17;
+          }
+
+          ++v18;
+        }
+
+        while (v18 != 3);
+        v14 = *(v10 + 76);
+        v16 = v17;
+      }
+
+      else
+      {
+        v16 = 0;
+      }
+
+      *(v9 + 269) &= ~1u;
+      *(v10 + 72) = v3;
+      v3 = (v3 + v14);
+      v4 += v16;
+      ++v5;
+      v6 += 80;
+    }
+
+    while (v5 != v2);
+  }
+
+  if (v3 != *(this + 163))
+  {
+    physx::Dy::ArticulationData::resizeJointData((this + 176), v3);
+  }
+
+  *(this + 163) = v3;
+  *(this + 164) = v4;
+}
+
+uint64_t physx::Dy::FeatherstoneArticulation::resize(physx::Dy::FeatherstoneArticulation *this, uint64_t a2)
+{
+  v2 = *(this + 160);
+  if (v2 == 1)
+  {
+    if (*(this + 140) == a2)
+    {
+      *(this + 160) = 0;
+    }
+
+    else
+    {
+      *(this + 9) = *(this + 18);
+      *(this + 6) = this;
+      *(this + 160) = 0;
+      v5 = 288 * ((a2 + 3) & 0xFFFC);
+      LOBYTE(v11[0]) = 0;
+      physx::shdfnd::Array<char,physx::shdfnd::ReflectionAllocator<char>>::resize(this + 212, 288 * ((a2 + 3) & 0x7FFFFFCu), v11);
+      *(this + 16) = *(this + 106);
+      *(this + 71) = v5;
+      if ((*(this + 83) & 0x7FFFFFFFu) < a2)
+      {
+        physx::shdfnd::Array<physx::Cm::SpatialVectorF,physx::shdfnd::ReflectionAllocator<physx::Cm::SpatialVectorF>>::recreate(this + 320, a2);
+      }
+
+      *(this + 82) = a2;
+      if ((*(this + 87) & 0x7FFFFFFFu) < a2)
+      {
+        physx::shdfnd::Array<physx::Cm::SpatialVectorF,physx::shdfnd::ReflectionAllocator<physx::Cm::SpatialVectorF>>::recreate(this + 336, a2);
+      }
+
+      *(this + 86) = a2;
+      if ((*(this + 91) & 0x7FFFFFFFu) < a2)
+      {
+        physx::shdfnd::Array<physx::Cm::SpatialVectorF,physx::shdfnd::ReflectionAllocator<physx::Cm::SpatialVectorF>>::recreate(this + 352, a2);
+      }
+
+      *(this + 90) = a2;
+      if ((*(this + 95) & 0x7FFFFFFFu) < a2)
+      {
+        physx::shdfnd::Array<physx::Cm::SpatialVectorF,physx::shdfnd::ReflectionAllocator<physx::Cm::SpatialVectorF>>::recreate(this + 368, a2);
+      }
+
+      *(this + 94) = a2;
+      if ((*(this + 143) & 0x7FFFFFFFu) < a2)
+      {
+        physx::shdfnd::Array<unsigned int,physx::shdfnd::ReflectionAllocator<unsigned int>>::recreate(this + 560, a2);
+      }
+
+      *(this + 142) = a2;
+      if ((*(this + 147) & 0x7FFFFFFFu) < a2)
+      {
+        physx::shdfnd::Array<unsigned int,physx::shdfnd::ReflectionAllocator<unsigned int>>::recreate(this + 576, a2);
+      }
+
+      *(this + 146) = a2;
+      if ((*(this + 111) & 0x7FFFFFFFu) < a2)
+      {
+        physx::shdfnd::Array<physx::Cm::SpatialVectorF,physx::shdfnd::ReflectionAllocator<physx::Cm::SpatialVectorF>>::recreate(this + 432, a2);
+      }
+
+      *(this + 110) = a2;
+      if ((*(this + 115) & 0x7FFFFFFFu) < a2)
+      {
+        physx::shdfnd::Array<physx::PxTransform,physx::shdfnd::ReflectionAllocator<physx::PxTransform>>::recreate(this + 448, a2);
+      }
+
+      *(this + 114) = a2;
+      if ((*(this + 119) & 0x7FFFFFFFu) < a2)
+      {
+        physx::shdfnd::Array<physx::Dy::SpatialImpulseResponseMatrix,physx::shdfnd::ReflectionAllocator<physx::Dy::SpatialImpulseResponseMatrix>>::recreate(this + 58, a2);
+      }
+
+      *(this + 118) = a2;
+      if ((*(this + 123) & 0x7FFFFFFFu) < a2)
+      {
+        physx::shdfnd::Array<physx::Dy::SpatialMatrix,physx::shdfnd::ReflectionAllocator<physx::Dy::SpatialMatrix>>::recreate(this + 60, a2);
+      }
+
+      *(this + 122) = a2;
+      if ((*(this + 127) & 0x7FFFFFFFu) < a2)
+      {
+        physx::shdfnd::Array<physx::Dy::InvStIs,physx::shdfnd::ReflectionAllocator<physx::Dy::InvStIs>>::recreate(this + 62, a2);
+      }
+
+      *(this + 126) = a2;
+      memset(v11, 0, 76);
+      physx::shdfnd::Array<physx::Dy::SpatialSubspaceMatrix,physx::shdfnd::ReflectionAllocator<physx::Dy::SpatialSubspaceMatrix>>::resize(this + 512, a2, v11);
+      if ((*(this + 135) & 0x7FFFFFFFu) < a2)
+      {
+        physx::shdfnd::Array<physx::Dy::SpatialSubspaceMatrix,physx::shdfnd::ReflectionAllocator<physx::Dy::SpatialSubspaceMatrix>>::recreate(this + 66, a2);
+      }
+
+      *(this + 134) = a2;
+      if ((*(this + 139) & 0x7FFFFFFFu) < a2)
+      {
+        physx::shdfnd::Array<physx::Dy::IsInvD,physx::shdfnd::ReflectionAllocator<physx::Dy::IsInvD>>::recreate(this + 68, a2);
+      }
+
+      *(this + 138) = a2;
+      if ((*(this + 177) & 0x7FFFFFFFu) < a2)
+      {
+        physx::shdfnd::Array<physx::PxTransform,physx::shdfnd::ReflectionAllocator<physx::PxTransform>>::recreate(this + 696, a2);
+      }
+
+      *(this + 176) = a2;
+      if ((*(this + 181) & 0x7FFFFFFFu) < a2)
+      {
+        physx::shdfnd::Array<physx::PxQuat,physx::shdfnd::ReflectionAllocator<physx::PxQuat>>::recreate(this + 712, a2);
+      }
+
+      *(this + 180) = a2;
+      if ((*(this + 79) & 0x7FFFFFFFu) < a2)
+      {
+        physx::shdfnd::Array<physx::Cm::SpatialVectorF,physx::shdfnd::ReflectionAllocator<physx::Cm::SpatialVectorF>>::recreate(this + 304, a2);
+      }
+
+      *(this + 78) = a2;
+      if ((*(this + 99) & 0x7FFFFFFFu) < a2)
+      {
+        physx::shdfnd::Array<physx::Cm::SpatialVectorF,physx::shdfnd::ReflectionAllocator<physx::Cm::SpatialVectorF>>::recreate(this + 384, a2);
+      }
+
+      *(this + 98) = a2;
+      physx::shdfnd::Array<physx::PxQuat,physx::shdfnd::ReflectionAllocator<physx::PxQuat>>::resize(this + 592, a2, v11);
+      if (*(this + 78))
+      {
+        (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+        *(this + 78) = 0;
+      }
+
+      if (*(this + 79))
+      {
+        (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+        *(this + 79) = 0;
+      }
+
+      if (*(this + 80))
+      {
+        (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+        *(this + 80) = 0;
+      }
+
+      v6 = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 16))(physx::shdfnd::Foundation::mInstance + 24, 160 * a2, "NonTrackedAlloc", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/lowleveldynamics/src/DyFeatherstoneArticulation.cpp", 172);
+      *(v6 + 144) = 0;
+      *(this + 78) = v6;
+      v7 = 80 * a2;
+      v8 = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 16))(physx::shdfnd::Foundation::mInstance + 24, v7, "NonTrackedAlloc", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/lowleveldynamics/src/DyFeatherstoneArticulation.cpp", 173);
+      *(v8 + 72) = -1;
+      *(v8 + 78) = 0;
+      *(this + 79) = v8;
+      v9 = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 16))(physx::shdfnd::Foundation::mInstance + 24, 96 * a2, "NonTrackedAlloc", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/lowleveldynamics/src/DyFeatherstoneArticulation.cpp", 174);
+      v9[1] = 0;
+      v9[2] = 0;
+      *v9 = 0;
+      *(this + 80) = v9;
+      bzero(*(this + 40), (32 * a2));
+      bzero(*(this + 42), (32 * a2));
+      bzero(*(this + 44), (32 * a2));
+      bzero(*(this + 46), (32 * a2));
+      bzero(*(this + 54), (32 * a2));
+      bzero(*(this + 56), (28 * a2));
+      bzero(*(this + 78), (160 * a2));
+      bzero(*(this + 79), v7);
+      bzero(*(this + 80), (96 * a2));
+    }
   }
 
   return v2;
 }
 
-uint64_t physx::GuMeshFactory::getBVHStructures(uint64_t a1, void *a2, int a3, unsigned int a4)
+void physx::Dy::FeatherstoneArticulation::getDataSizes(physx::Dy::FeatherstoneArticulation *this, unsigned int a2, unsigned int *a3, unsigned int *a4, unsigned int *a5)
 {
-  LODWORD(v5) = a3;
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    pthread_mutex_lock(*(a1 + 8));
-  }
+  *a3 = 0;
+  *a4 = 0;
+  *a5 = 0;
+}
 
-  v8 = (*(a1 + 236) - a4) & ~((*(a1 + 236) - a4) >> 31);
-  if (v8 >= v5)
+void physx::Dy::FeatherstoneArticulation::onUpdateSolverDesc(physx::Dy::FeatherstoneArticulation *this)
+{
+  *(this + 76) = *(this + 7);
+  *(this + 154) = *(this + 140);
+  v1 = *(this + 14);
+  if (v1)
   {
-    v5 = v5;
+    v2 = v1 + 32;
   }
 
   else
   {
-    v5 = v8;
+    v2 = *(this + 15);
   }
 
-  if (v5)
-  {
-    v9 = (*(a1 + 192) + 8 * a4);
-    v10 = v5;
-    do
-    {
-      v11 = *v9++;
-      *a2++ = v11;
-      --v10;
-    }
-
-    while (v10);
-  }
-
-  if (physx::shdfnd::g_alwaysUseLocking & 1) != 0 || (physx::shdfnd::g_isLockingEnabled)
-  {
-    pthread_mutex_unlock(*(a1 + 8));
-  }
-
-  return v5;
+  *(this + 83) = v2;
+  *(this + 84) = *(this + 9);
+  *(this + 170) = *(this + 69);
+  *(this + 86) = this;
+  physx::Dy::FeatherstoneArticulation::computeDofs(this);
 }
 
-uint64_t physx::Gu::gjk<physx::Gu::LocalConvex<physx::Gu::CapsuleV>,physx::Gu::LocalConvex<physx::Gu::ConvexHullV>>(uint64_t a1, uint64_t a2, float32x4_t *a3, void *a4, int8x16_t *a5, int8x16_t *a6, float32x4_t *a7, float32x2_t *a8)
+uint64_t physx::Dy::FeatherstoneArticulation::getDofs(physx::Dy::FeatherstoneArticulation *this)
 {
-  v222 = *MEMORY[0x1E69E9840];
-  v210 = 0;
-  v10 = vmulq_f32(*a3, *a3);
-  v10.i64[0] = vpaddq_f32(v10, v10).u64[0];
-  v11 = vbslq_s8(vmovl_s16(vdup_lane_s16(vcgtz_f32(vpadd_f32(*v10.f32, *v10.f32)), 0)), *a3, xmmword_1E3047670);
-  v209 = v11;
-  v12 = vmulq_f32(v11, v11);
-  v12.i64[0] = vpaddq_f32(v12, v12).u64[0];
-  v13 = vpadd_f32(*v12.f32, *v12.f32);
-  v14 = vrsqrte_f32(v13);
-  v15 = 4;
-  do
+  result = *(this + 163);
+  if (result == -1)
   {
-    v14 = vmul_f32(v14, vrsqrts_f32(vmul_f32(v14, v14), v13));
-    --v15;
+    physx::Dy::FeatherstoneArticulation::computeDofs(this);
+    return *(this + 163);
   }
 
-  while (v15);
-  v16 = vbsl_s8(vdup_lane_s32(vceqz_f32(v13), 0), v13, vmul_f32(v13, v14));
-  v17 = vrecpe_f32(v16);
-  v18 = 4;
-  do
+  return result;
+}
+
+BOOL physx::Dy::FeatherstoneArticulation::applyCache(void **a1, uint64_t a2, char *a3, double a4, double a5, double a6, double a7, double a8, double a9, int8x16_t a10, int8x16_t a11)
+{
+  v11 = a1[28];
+  v12 = a1[26];
+  v13 = a1[32];
+  v14 = a1[34];
+  v16 = *a3;
+  return physx::Dy::FeatherstoneArticulation::applyCacheToDest(a1, (a1 + 22), a2, v11, v12, v13, v14, &v16, a4, a5, a6, a7, a8, a9, a10, a11);
+}
+
+float physx::Dy::FeatherstoneArticulation::copyInternalStateToCache(float32x2_t *a1, uint64_t a2, char *a3, float result)
+{
+  v7 = *a3;
+  if (*a3)
   {
-    v17 = vmul_f32(v17, vrecps_f32(v16, v17));
-    --v18;
+    memcpy(*(a2 + 24), *&a1[28], (4 * a1[81].i32[1]));
+    v7 = *a3;
+    if ((*a3 & 2) == 0)
+    {
+LABEL_3:
+      if ((v7 & 4) == 0)
+      {
+        goto LABEL_4;
+      }
+
+      goto LABEL_9;
+    }
   }
 
-  while (v18);
-  v19 = vmulq_n_f32(v11, v17.f32[0]);
-  v19.i32[3] = 0;
-  v20 = *(a1 + 8);
-  v21 = (v20 + 20);
-  v22 = vld1_dup_f32(v21);
-  v23 = *(a2 + 8);
-  v24 = (v23 + 20);
-  v25 = vld1_dup_f32(v24);
-  v26 = vdup_n_s32(0x358637BDu);
-  v27 = vmax_f32(vmul_f32(vmin_f32(v22, v25), vdup_n_s32(0x3DCCCCCDu)), v26);
-  v28 = vdupq_n_s32(-*(v20 + 32));
-  v29 = vdupq_n_s32(-*(v23 + 32));
-  v196 = v28;
-  v197 = v29;
-  v29.i32[0] = *(v20 + 16);
-  v28.i32[0] = -*(v20 + 32);
-  *v29.i8 = vdup_lane_s32(vand_s8(*v29.i8, *v28.i8), 0);
-  v28.i32[0] = *(v23 + 16);
-  v26.i32[0] = -*(v23 + 32);
-  *v28.i8 = vadd_f32(*v29.i8, vdup_lane_s32(vand_s8(*v28.i8, v26), 0));
-  v203 = *v28.i8;
-  v30 = COERCE_FLOAT(*a4) + *v28.i32;
-  v31 = vneg_f32(0x80000000800000);
-  v32 = vdup_n_s32(0x3F7FF141u);
-  v28.i32[0] = -1;
-  v195 = v28;
-  while (1)
+  else if ((*a3 & 2) == 0)
   {
-    v205 = v19;
-    v208 = v11;
-    v33 = v31;
-    v202 = v11;
-    v34 = vnegq_f32(v11);
-    v34.i32[3] = 0;
-    v35 = *(a1 + 8);
-    v36 = v35[3];
-    v37 = v35[4];
-    v38 = vmulq_f32(v34, v36);
-    v38.i64[0] = vpaddq_f32(v38, v38).u64[0];
-    v39 = vmulq_f32(v34, v37);
-    v39.i64[0] = vpaddq_f32(v39, v39).u64[0];
-    v204 = vbslq_s8(vmovl_s16(vdup_lane_s16(vcgt_f32(vpadd_f32(*v38.f32, *v38.f32), vpadd_f32(*v39.f32, *v39.f32)), 0)), v36, v37);
-    *v40.i64 = physx::Gu::LocalConvex<physx::Gu::ConvexHullV>::support(a2, &v209);
-    v41 = v40;
-    v11 = vsubq_f32(v204, v40);
-    v42 = vmulq_f32(v205, v11);
-    v42.i64[0] = vpaddq_f32(v42, v42).u64[0];
-    v43 = vpadd_f32(*v42.f32, *v42.f32);
-    if (v43.f32[0] > v30)
+    goto LABEL_3;
+  }
+
+  memcpy(*(a2 + 32), *&a1[26], (4 * a1[81].i32[1]));
+  v7 = *a3;
+  if ((*a3 & 4) == 0)
+  {
+LABEL_4:
+    if ((v7 & 8) == 0)
     {
-      return 0;
+      goto LABEL_5;
     }
 
-    if (vuzp1_s8(vdup_lane_s16(vand_s8(vcgt_f32(v43, v203), vcgt_f32(v43, vmul_f32(v33, v32))), 0), *v11.f32).u32[0] == -1)
+    goto LABEL_10;
+  }
+
+LABEL_9:
+  memcpy(*(a2 + 40), *&a1[32], (4 * a1[81].i32[1]));
+  v7 = *a3;
+  if ((*a3 & 8) == 0)
+  {
+LABEL_5:
+    if ((v7 & 0x10) == 0)
     {
-      break;
+      goto LABEL_14;
     }
 
-    v44 = v210;
-    *(&v216 + v210) = v204;
-    *(&v213 + v44) = v41;
-    v210 = v44 + 1;
-    *(&v219 + v44) = v11;
-    if (v44 == 3)
+    goto LABEL_11;
+  }
+
+LABEL_10:
+  memcpy(*(a2 + 48), *&a1[34], (4 * a1[81].i32[1]));
+  v7 = *a3;
+  if ((*a3 & 0x10) == 0)
+  {
+    goto LABEL_14;
+  }
+
+LABEL_11:
+  v8 = a1[77].u32[0];
+  if (v8)
+  {
+    v9 = *&a1[40] + 16;
+    v10 = *(a2 + 56) + 16;
+    do
     {
-      physx::Gu::closestPtPointTetrahedron(&v219, &v216, &v213, &v210);
-      goto LABEL_45;
+      *(v10 - 16) = *v9;
+      *(v10 - 8) = *(v9 + 8);
+      *v10 = *(v9 - 16);
+      result = *(v9 - 8);
+      *(v10 + 8) = result;
+      v9 += 32;
+      v10 += 32;
+      --v8;
     }
 
-    if (v44 != 2)
+    while (v8);
+  }
+
+LABEL_14:
+  if ((v7 & 0x20) != 0)
+  {
+    v11 = a1[77].u32[0];
+    result = a1[81].f32[0];
+    if (result <= 0.0)
     {
-      if (v44 != 1)
-      {
-        goto LABEL_45;
-      }
-
-      v11 = v219;
-      v45 = vsubq_f32(v220, v219);
-      v46 = vmulq_f32(v45, v45);
-      v46.i64[0] = vpaddq_f32(v46, v46).u64[0];
-      v47 = vpadd_f32(*v46.f32, *v46.f32);
-      if (vuzp1_s8(vdup_lane_s16(vcge_f32(0x3400000034000000, v47), 0), *v219.f32).u32[0] != -1)
-      {
-        v48 = vnegq_f32(v219);
-        v48.i32[3] = 0;
-        v49 = vmulq_f32(v48, v45);
-        v49.i64[0] = vpaddq_f32(v49, v49).u64[0];
-        v50 = vpadd_f32(*v49.f32, *v49.f32);
-        v51 = vrecpe_f32(v47);
-        v52 = 4;
-        do
-        {
-          v51 = vmul_f32(v51, vrecps_f32(v47, v51));
-          --v52;
-        }
-
-        while (v52);
-        v53 = vmul_f32(v50, v51);
-        __asm { FMOV            V3.2S, #1.0 }
-
-        v11 = vmlaq_n_f32(v219, v45, vmax_f32(vmin_f32(v53, _D3), 0).f32[0]);
-LABEL_29:
-        v11.i64[1] = vextq_s8(v11, v11, 8uLL).u32[0];
-        goto LABEL_45;
-      }
-
-LABEL_30:
-      v210 = 1;
-      goto LABEL_45;
-    }
-
-    v11 = v219;
-    v59 = vsubq_f32(v220, v219);
-    v60 = vsubq_f32(v221[0], v219);
-    v62 = vmls_f32(vmul_f32(*v59.f32, *&vextq_s8(v60, v60, 4uLL)), *&vextq_s8(v59, v59, 4uLL), *v60.f32);
-    *v61.f32 = vext_s8(v62, vmls_f32(vmul_f32(*&vextq_s8(v59, v59, 8uLL), *v60.f32), *v59.f32, *&vextq_s8(v60, v60, 8uLL)), 4uLL);
-    v62.i32[1] = 0;
-    v210 = 3;
-    v63 = vpadd_f32(vmul_f32(*v61.f32, *v61.f32), vmul_f32(v62.u32[0], v62.u32[0]));
-    v64 = vpadd_f32(v63, v63);
-    if (v64.f32[0] <= 0.00000011921)
-    {
-      v210 = 2;
-      v101 = vmulq_f32(v59, v59);
-      v101.i64[0] = vpaddq_f32(v101, v101).u64[0];
-      v102 = vpadd_f32(*v101.f32, *v101.f32);
-      if (vuzp1_s8(vdup_lane_s16(vcge_f32(0x3400000034000000, v102), 0), *v219.f32).u32[0] != -1)
-      {
-        v103 = vnegq_f32(v219);
-        v103.i32[3] = 0;
-        v104 = vmulq_f32(v103, v59);
-        v104.i64[0] = vpaddq_f32(v104, v104).u64[0];
-        v105 = vpadd_f32(*v104.f32, *v104.f32);
-        v106 = vrecpe_f32(v102);
-        v107 = 4;
-        do
-        {
-          v106 = vmul_f32(v106, vrecps_f32(v102, v106));
-          --v107;
-        }
-
-        while (v107);
-        v108 = vmul_f32(v105, v106);
-        __asm { FMOV            V2.2S, #1.0 }
-
-        v11 = vmlaq_n_f32(v219, v59, vmax_f32(vmin_f32(v108, _D2), 0).f32[0]);
-        goto LABEL_29;
-      }
-
-      goto LABEL_30;
-    }
-
-    *&v61.u32[2] = v62;
-    v65 = vextq_s8(v220, v220, 8uLL).u64[0];
-    v66 = vextq_s8(v221[0], v221[0], 8uLL).u64[0];
-    v67 = vextq_s8(v221[0], v221[0], 4uLL).u64[0];
-    v68 = vextq_s8(v220, v220, 4uLL).u64[0];
-    v69 = vmls_f32(vmul_f32(*v220.f32, v67), v68, *v221[0].f32);
-    *v70.f32 = vext_s8(v69, vmls_f32(vmul_f32(v65, *v221[0].f32), *v220.f32, v66), 4uLL);
-    v70.i64[1] = v69.u32[0];
-    v71 = vextq_s8(v219, v219, 8uLL).u64[0];
-    v72 = vextq_s8(v219, v219, 4uLL).u64[0];
-    v73 = vmls_f32(vmul_f32(v72, *v221[0].f32), v67, *v219.f32);
-    *v74.f32 = vext_s8(v73, vmls_f32(vmul_f32(*v219.f32, v66), *v221[0].f32, v71), 4uLL);
-    v74.i64[1] = v73.u32[0];
-    v75 = vmls_f32(vmul_f32(*v219.f32, v68), v72, *v220.f32);
-    *v76.f32 = vext_s8(v75, vmls_f32(vmul_f32(v71, *v220.f32), *v219.f32, v65), 4uLL);
-    v76.i64[1] = v75.u32[0];
-    v77 = vmulq_f32(v70, v61);
-    v77.i64[0] = vpaddq_f32(v77, v77).u64[0];
-    v78 = vpadd_f32(*v77.f32, *v77.f32);
-    v79 = vmulq_f32(v74, v61);
-    v79.i64[0] = vpaddq_f32(v79, v79).u64[0];
-    v80 = vpadd_f32(*v79.f32, *v79.f32);
-    v81 = vmulq_f32(v76, v61);
-    v81.i64[0] = vpaddq_f32(v81, v81).u64[0];
-    v82 = vpadd_f32(*v81.f32, *v81.f32);
-    if (vuzp1_s8(vdup_lane_s16(vand_s8(vand_s8(vcgez_f32(v80), vcgez_f32(v78)), vcgez_f32(v82)), 0), *v219.f32).u32[0] == -1)
-    {
-      v110 = vmulq_f32(v219, v61);
-      v111 = vextq_s8(v110, v110, 8uLL).u64[0];
-      v112 = vrecpe_f32(v64);
-      v113 = 4;
-      do
-      {
-        v112 = vmul_f32(v112, vrecps_f32(v64, v112));
-        --v113;
-      }
-
-      while (v113);
-      v114 = vpadd_f32(*v110.i8, v111);
-      v11 = vmulq_n_f32(v61, vmul_f32(v112, vpadd_f32(v114, v114)).f32[0]);
-      v11.i32[3] = 0;
-      goto LABEL_45;
-    }
-
-    v83 = vnegq_f32(v219);
-    v83.i32[3] = 0;
-    v84 = vnegq_f32(v220);
-    v84.i32[3] = 0;
-    v85 = vmulq_f32(v83, v59);
-    v85.i64[0] = vpaddq_f32(v85, v85).u64[0];
-    v86 = vpadd_f32(*v85.f32, *v85.f32);
-    v87 = vmulq_f32(v59, v84);
-    v87.i64[0] = vpaddq_f32(v87, v87).u64[0];
-    v88 = vpadd_f32(*v87.f32, *v87.f32);
-    if (vuzp1_s8(vdup_lane_s16(vand_s8(vclez_f32(v82), vand_s8(vclez_f32(v88), vcgez_f32(v86))), 0), *v219.f32).u32[0] == -1)
-    {
-      v115 = vsub_f32(v86, v88);
-      v116 = vrecpe_f32(v115);
-      v117 = 4;
-      do
-      {
-        v116 = vmul_f32(v116, vrecps_f32(v115, v116));
-        --v117;
-      }
-
-      while (v117);
-      v100 = 0;
-      v11 = vmlaq_n_f32(v219, v59, vmul_f32(v86, vbsl_s8(vcgt_f32(vabs_f32(v115), 0x3400000034000000), v116, 0)).f32[0]);
-      v11.i64[1] = vextq_s8(v11, v11, 8uLL).u32[0];
-      v99 = 2;
+      v13 = a1[42];
     }
 
     else
     {
-      v89 = vnegq_f32(v221[0]);
-      v89.i32[3] = 0;
-      v90 = vmulq_f32(v84, v60);
-      v90.i64[0] = vpaddq_f32(v90, v90).u64[0];
-      v91 = vpadd_f32(*v90.f32, *v90.f32);
-      v92 = vmulq_f32(v59, v89);
-      v92.i64[0] = vpaddq_f32(v92, v92).u64[0];
-      v93 = vpadd_f32(*v92.f32, *v92.f32);
-      v94 = vmulq_f32(v60, v89);
-      v94.i64[0] = vpaddq_f32(v94, v94).u64[0];
-      v95 = vpadd_f32(*v94.f32, *v94.f32);
-      if (vuzp1_s8(vdup_lane_s16(vand_s8(vand_s8(vcge_f32(v91, v88), vcge_f32(v93, v95)), vclez_f32(v78)), 0), *v219.f32).u32[0] == -1)
+      v12 = a1[79];
+      v13 = a1[42];
+      v14 = a1[30];
+      result = 1.0 / result;
+      if (**&a1[83])
       {
-        v121 = vsub_f32(v91, v88);
-        v122 = vadd_f32(v121, vsub_f32(v93, v95));
-        v123 = vrecpe_f32(v122);
-        v124 = 4;
-        do
-        {
-          v123 = vmul_f32(v123, vrecps_f32(v122, v123));
-          --v124;
-        }
-
-        while (v124);
-        v125 = vmlaq_n_f32(v220, vsubq_f32(v221[0], v220), vmul_f32(v121, vbsl_s8(vcgt_f32(vabs_f32(v122), 0x3400000034000000), v123, 0)).f32[0]);
-        v99 = 2;
-        v118 = v215;
-        v119 = v218;
-        v125.i64[1] = vextq_s8(v125, v125, 8uLL).u32[0];
-        v120 = v221;
-        v100 = 1;
-        v11 = v125;
-        goto LABEL_44;
-      }
-
-      v96 = vmulq_f32(v83, v60);
-      v96.i64[0] = vpaddq_f32(v96, v96).u64[0];
-      v97 = vpadd_f32(*v96.f32, *v96.f32);
-      if (vuzp1_s8(vdup_lane_s16(vand_s8(vclez_f32(v80), vand_s8(vclez_f32(v95), vcgez_f32(v97))), 0), *v219.f32).u32[0] == -1)
-      {
-        v126 = vsub_f32(v97, v95);
-        v127 = vrecpe_f32(v126);
-        v128 = 4;
-        do
-        {
-          v127 = vmul_f32(v127, vrecps_f32(v126, v127));
-          --v128;
-        }
-
-        while (v128);
-        v100 = 0;
-        v11 = vmlaq_n_f32(v219, v60, vmul_f32(v97, vbsl_s8(vcgt_f32(vabs_f32(v126), 0x3400000034000000), v127, 0)).f32[0]);
-        v11.i64[1] = vextq_s8(v11, v11, 8uLL).u32[0];
-        v99 = 2;
-        v118 = v215;
-        v119 = v218;
-        v120 = v221;
-        goto LABEL_44;
-      }
-
-      if (vuzp1_s8(vdup_lane_s16(vand_s8(vclez_f32(v97), vclez_f32(v86)), 0), *v219.f32).u32[0] == -1)
-      {
-        v100 = 0;
-        v99 = 1;
+        *(*&v13 + 12) = 0;
+        *(*&v13 + 28) = 0;
+        v16 = 0;
+        v17 = 0.0;
+        v19 = 0.0;
+        v18 = 0;
       }
 
       else
       {
-        *v11.f32 = vdup_lane_s16(vand_s8(vcge_f32(v88, v91), vcgez_f32(v88)), 0);
-        *v11.f32 = vuzp1_s8(*v11.f32, *v11.f32);
-        v98 = v11.i32[0];
-        v99 = 1;
-        v11 = vbslq_s8(vdupq_lane_s32(*&vceqq_s32(v11, v195), 0), v220, v221[0]);
-        if (v98 == -1)
-        {
-          v100 = 1;
-        }
-
-        else
-        {
-          v100 = 2;
-        }
-      }
-    }
-
-    v118 = &v214;
-    v119 = &v217;
-    v120 = &v220;
-LABEL_44:
-    v129 = *(&v216 + v100);
-    v130 = *v120;
-    v131 = *v119;
-    v132 = *(&v213 + v100);
-    v133 = *v118;
-    v219 = *(&v219 + v100);
-    v220 = v130;
-    v216 = v129;
-    v217 = v131;
-    v213 = v132;
-    v214 = v133;
-    v210 = v99;
-LABEL_45:
-    v209 = v11;
-    v134 = vmulq_f32(v11, v11);
-    v134.i64[0] = vpaddq_f32(v134, v134).u64[0];
-    v135 = vpadd_f32(*v134.f32, *v134.f32);
-    v136 = vrsqrte_f32(v135);
-    v137 = 4;
-    do
-    {
-      v136 = vmul_f32(v136, vrsqrts_f32(vmul_f32(v136, v136), v135));
-      --v137;
-    }
-
-    while (v137);
-    v31 = vbsl_s8(vdup_lane_s32(vceqz_f32(v135), 0), v135, vmul_f32(v135, v136));
-    v138 = vrecpe_f32(v31);
-    v139 = 4;
-    do
-    {
-      v138 = vmul_f32(v138, vrecps_f32(v31, v138));
-      --v139;
-    }
-
-    while (v139);
-    v19 = vmulq_n_f32(v11, v138.f32[0]);
-    v19.i32[3] = 0;
-    v140 = vcgt_f32(v33, v31);
-    if (vuzp1_s8(vdup_lane_s16(vand_s8(vcgt_f32(v31, v27), v140), 0), *v11.f32).u32[0] != -1)
-    {
-      v151 = vdup_lane_s16(v140, 0);
-      *v152.f32 = vuzp1_s8(v151, v151);
-      if (v152.i32[0] == -1)
-      {
-        *a8 = 0;
-        return 2;
+        v15 = a1[40];
+        v16 = vmul_n_f32(vsub_f32(*v15, a1[22]), result);
+        v17 = result * (v15[1].f32[0] - a1[23].f32[0]);
+        v18 = vmul_n_f32(vsub_f32(v15[2], a1[24]), result);
+        v19 = result * (v15[3].f32[0] - a1[25].f32[0]);
       }
 
-      else
+      **&v13 = v16;
+      *(*&v13 + 8) = v17;
+      *(*&v13 + 16) = v18;
+      *(*&v13 + 24) = v19;
+      if (v11 >= 2)
       {
-        v152.i32[0] = *(*(a1 + 8) + 16);
-        v153 = (*(a2 + 8) + 16);
-        v154 = vld1_dup_f32(v153);
-        v155 = vbsl_s8(vdup_lane_s32(vcgtz_f32(v203), 0), v203, vmul_f32(vmin_f32(vdup_lane_s32(*v152.f32, 0), v154), vdup_n_s32(0x3E4CCCCDu)));
-        v156 = vnegq_f32(v205);
-        v156.i32[3] = 0;
-        if (v210 == 3)
+        v20 = 1;
+        v21 = 96;
+        do
         {
-          v211 = 0;
-          v212 = 0;
-          v207 = v156;
-          physx::Gu::barycentricCoordinates(&v208, &v219, &v220, v221, &v212, &v211);
-          v156 = v207;
-          v189 = vmulq_n_f32(vsubq_f32(v217, v216), v212.f32[0]);
-          v189.i32[3] = 0;
-          v190 = vmulq_n_f32(vsubq_f32(v218[0], v216), v211.f32[0]);
-          v190.i32[3] = 0;
-          v157 = vaddq_f32(v216, vaddq_f32(v189, v190));
-          v152 = vmulq_n_f32(vsubq_f32(v214, v213), v212.f32[0]);
-          v152.i32[3] = 0;
-          v191 = vmulq_n_f32(vsubq_f32(v215[0], v213), v211.f32[0]);
-          v191.i32[3] = 0;
-          v164 = vaddq_f32(v213, vaddq_f32(v152, v191));
-          v152.i32[0] = *(*(a1 + 8) + 16);
-          v159 = a7;
-          v158 = a8;
-          v161 = a5;
-          v160 = a6;
-          v163 = v196;
-          v162 = v197;
-        }
-
-        else if (v210 == 2)
-        {
-          v181 = vsubq_f32(v219, v202);
-          v182 = vsubq_f32(vsubq_f32(v220, v202), v181);
-          v183 = vmulq_f32(v182, v182);
-          v183.i64[0] = vpaddq_f32(v183, v183).u64[0];
-          v184 = vpadd_f32(*v183.f32, *v183.f32);
-          v185 = vrecpe_f32(v184);
-          v186 = 4;
-          v159 = a7;
-          v158 = a8;
-          v161 = a5;
-          v160 = a6;
-          v163 = v196;
-          v162 = v197;
-          do
+          v22 = *&v12 + 80 * v20;
+          v23 = *(v22 + 76);
+          if (*(v22 + 76))
           {
-            v185 = vmul_f32(v185, vrecps_f32(v184, v185));
-            --v186;
+            v24 = (*&v14 + 4 * *(v22 + 72));
+            v25 = (*&v13 + 32 * v20);
+            v26 = *v25;
+            v27 = v25[1].f32[0];
+            v28 = v25[2];
+            v29 = v25[3].f32[0];
+            v30 = (*&a1[66] + v21);
+            do
+            {
+              v31 = *v24++;
+              v32 = (result * v31) * *(v30 - 3);
+              v26 = vadd_f32(v26, vmul_n_f32(*(v30 - 5), result * v31));
+              *v25 = v26;
+              v27 = v27 + v32;
+              v25[1].f32[0] = v27;
+              v33 = (result * v31) * *v30;
+              v28 = vadd_f32(v28, vmul_n_f32(*(v30 - 2), result * v31));
+              v25[2] = v28;
+              v29 = v29 + v33;
+              v25[3].f32[0] = v29;
+              v30 += 6;
+              --v23;
+            }
+
+            while (v23);
           }
 
-          while (v186);
-          v187 = vnegq_f32(v181);
-          v187.i32[3] = 0;
-          v188 = vmulq_f32(v187, v182);
-          v188.i64[0] = vpaddq_f32(v188, v188).u64[0];
-          v187.i32[0] = vmul_f32(vbsl_s8(vcgtz_f32(v184), v185, 0), vpadd_f32(*v188.f32, *v188.f32)).u32[0];
-          v157 = vmlaq_n_f32(v216, vsubq_f32(v217, v216), v187.f32[0]);
-          v157.i64[1] = vextq_s8(v157, v157, 8uLL).u32[0];
-          v164 = vmlaq_n_f32(v213, vsubq_f32(v214, v213), v187.f32[0]);
-          v164.i64[1] = vextq_s8(v164, v164, 8uLL).u32[0];
+          ++v20;
+          v21 += 76;
+        }
+
+        while (v20 != v11);
+      }
+    }
+
+    if (v11)
+    {
+      v34 = *&v13 + 16;
+      v35 = *(a2 + 64) + 16;
+      do
+      {
+        *(v35 - 16) = *v34;
+        *(v35 - 8) = *(v34 + 8);
+        *v35 = *(v34 - 16);
+        result = *(v34 - 8);
+        *(v35 + 8) = result;
+        v34 += 32;
+        v35 += 32;
+        --v11;
+      }
+
+      while (v11);
+    }
+  }
+
+  if ((v7 & 0x40) != 0)
+  {
+    v36 = a1[40];
+    v37 = *(*&a1[76] + 16);
+    v38 = v37[12] * -2.0;
+    v39 = v37[13] * -2.0;
+    v40 = v37[14] * -2.0;
+    v42 = v37[10];
+    v41 = v37[11];
+    v43 = (v41 * v41) + -0.5;
+    v45 = v37[8];
+    v44 = v37[9];
+    v46 = ((v39 * v44) + (v45 * v38)) + (v42 * v40);
+    v47 = ((v38 * v43) - (((v44 * v40) - (v42 * v39)) * v41)) + (v45 * v46);
+    v48 = ((v39 * v43) - (((v42 * v38) - (v45 * v40)) * v41)) + (v44 * v46);
+    v49 = ((v40 * v43) - (((v45 * v39) - (v44 * v38)) * v41)) + (v42 * v46);
+    v50 = v48 + v48;
+    v51 = v49 + v49;
+    v53 = v37[2];
+    v52 = v37[3];
+    v54 = (v52 * v52) + -0.5;
+    v55 = v37[1];
+    v56 = ((v55 * v50) + (*v37 * (v47 + v47))) + (v53 * v51);
+    v57 = ((v52 * ((v55 * v51) - (v53 * v50))) + ((v47 + v47) * v54)) + (*v37 * v56);
+    v58 = ((v52 * ((v53 * (v47 + v47)) - (*v37 * v51))) + (v50 * v54)) + (v55 * v56);
+    v59 = ((v52 * ((*v37 * v50) - (v55 * (v47 + v47)))) + (v51 * v54)) + (v53 * v56);
+    v60 = v37[4] + v57;
+    v61 = v37[5] + v58;
+    v62 = v37[6] + v59;
+    v63 = (((v41 * *v37) - (v52 * v45)) - (v55 * v42)) + (v44 * v53);
+    v64 = (((v41 * v55) - (v52 * v44)) - (v53 * v45)) + (v42 * *v37);
+    v65 = (((v41 * v53) - (v52 * v42)) - (*v37 * v44)) + (v45 * v55);
+    v66 = v45 * *v37;
+    v67 = *(a2 + 72);
+    *v67 = v63;
+    *(v67 + 4) = v64;
+    *(v67 + 8) = v65;
+    *(v67 + 12) = ((v66 + (v52 * v41)) + (v55 * v44)) + (v53 * v42);
+    *(v67 + 16) = v60;
+    *(v67 + 20) = v61;
+    *(v67 + 24) = v62;
+    *(v67 + 28) = *(*&v36 + 16);
+    *(v67 + 36) = *(*&v36 + 24);
+    *(v67 + 40) = **&v36;
+    *(v67 + 48) = *(*&v36 + 8);
+    v68 = a1[42];
+    *(v67 + 52) = *(*&v68 + 16);
+    *(v67 + 60) = *(*&v68 + 24);
+    *(v67 + 64) = **&v68;
+    result = *(*&v68 + 8);
+    *(v67 + 72) = result;
+  }
+
+  return result;
+}
+
+int8x16_t physx::Dy::FeatherstoneArticulation::translateInertia(float32x2_t *a1, uint64_t a2)
+{
+  v2 = *a1->f32;
+  v2.i32[3] = 0;
+  v3 = *&a1[1].i32[1];
+  v4 = v3;
+  v4.i32[3] = 0;
+  v5.i32[0] = v3.i32[3];
+  v5.i32[1] = a1[3].i32[1];
+  LODWORD(v6) = vdup_lane_s32(*v5.f32, 1).u32[0];
+  v5.i64[1] = a1[4].u32[0];
+  LODWORD(v7) = vdup_laneq_s32(v3, 3).u32[0];
+  v8 = *(a2 + 12);
+  v9.i32[0] = v8.i32[3];
+  v9.i32[1] = *(a2 + 28);
+  v10 = vmulq_lane_f32(v4, *v9.f32, 1);
+  v9.i64[1] = *(a2 + 32);
+  v11 = *(a2 + 36);
+  v12 = vmulq_n_f32(v2, v11.f32[0]);
+  v13 = vmulq_lane_f32(v4, *v11.f32, 1);
+  v14 = vmulq_laneq_f32(v5, v11, 2);
+  v15 = vmulq_n_f32(v11, COERCE_FLOAT(*a1->f32));
+  v11.i32[3] = 0;
+  v16 = *(a2 + 48);
+  v17.i32[0] = v16.i32[3];
+  v18 = vmulq_n_f32(v2, v16.f32[0]);
+  v19 = vmulq_lane_f32(v4, *v16.f32, 1);
+  v20 = vmulq_laneq_f32(v5, v16, 2);
+  v21 = vmulq_laneq_f32(v2, v16, 3);
+  v22 = vmulq_n_f32(v16, v3.f32[0]);
+  v16.i32[3] = 0;
+  v17.i32[1] = *(a2 + 64);
+  v23 = vmulq_lane_f32(v4, *v17.f32, 1);
+  v17.i64[1] = *(a2 + 68);
+  v24 = *(a2 + 72);
+  v24.i32[3] = 0;
+  v25 = *(a2 + 84);
+  v26.i32[0] = v25.i32[3];
+  v25.i32[3] = 0;
+  v26.i32[1] = *(a2 + 100);
+  v26.i64[1] = *(a2 + 104);
+  v27 = vmulq_n_f32(v2, COERCE_FLOAT(*a2));
+  v27.i32[3] = 0;
+  v28 = vmulq_lane_f32(v4, *a2, 1);
+  v28.i32[3] = 0;
+  v29 = vmulq_laneq_f32(v5, *a2, 2);
+  v29.i32[3] = 0;
+  v30 = vaddq_f32(v29, vaddq_f32(v27, v28));
+  v31 = vmulq_n_f32(v2, *v8.i32);
+  v31.i32[3] = 0;
+  v32 = vmulq_lane_f32(v4, *v8.i8, 1);
+  v32.i32[3] = 0;
+  v33 = vaddq_f32(v31, v32);
+  v34 = vmulq_laneq_f32(v5, v8, 2);
+  v34.i32[3] = 0;
+  v35 = vmulq_laneq_f32(v2, v8, 3);
+  v35.i32[3] = 0;
+  v10.i32[3] = 0;
+  v36 = vaddq_f32(v35, v10);
+  v37 = vmulq_laneq_f32(v5, v9, 2);
+  v37.i32[3] = 0;
+  v38 = vaddq_f32(vaddq_f32(v36, v37), v26);
+  v12.i32[3] = 0;
+  v13.i32[3] = 0;
+  v14.i32[3] = 0;
+  v18.i32[3] = 0;
+  v39 = vaddq_f32(v14, vaddq_f32(v12, v13));
+  v19.i32[3] = 0;
+  v20.i32[3] = 0;
+  v40 = vaddq_f32(v20, vaddq_f32(v18, v19));
+  v21.i32[3] = 0;
+  v23.i32[3] = 0;
+  v41 = vmulq_laneq_f32(v5, v17, 2);
+  v41.i32[3] = 0;
+  *v19.f32 = vext_s8(*&vdupq_lane_s32(*a2, 0), *v8.i8, 4uLL);
+  v19.i64[1] = vdup_laneq_s32(v8, 3).u32[0];
+  v42 = vaddq_f32(vaddq_f32(v21, v23), v41);
+  *v21.f32 = vext_s8(*a2, *&vdupq_lane_s32(*v8.i8, 1), 4uLL);
+  v21.i64[1] = vdup_lane_s32(*v9.f32, 1).u32[0];
+  *v26.f32 = vext_s8(*&vdupq_laneq_s32(*a2, 2), *&vextq_s8(v8, v8, 8uLL), 4uLL);
+  v26.i64[1] = vdup_laneq_s32(v9, 2).u32[0];
+  v43 = vaddq_f32(v39, v19);
+  v44 = vaddq_f32(v40, v21);
+  v45 = vaddq_f32(v42, v26);
+  v46 = vmulq_n_f32(v43, COERCE_FLOAT(*a1->f32));
+  v46.i32[3] = 0;
+  v47 = vmulq_n_f32(v44, v3.f32[0]);
+  v47.i32[3] = 0;
+  v48 = vmulq_n_f32(v45, v7);
+  v48.i32[3] = 0;
+  v49 = vaddq_f32(v46, v47);
+  v50 = vmulq_lane_f32(v43, *a1, 1);
+  v50.i32[3] = 0;
+  v51 = vmulq_lane_f32(v44, *v3.f32, 1);
+  v51.i32[3] = 0;
+  v52 = vaddq_f32(v49, v48);
+  v53 = vmulq_n_f32(v45, v6);
+  v53.i32[3] = 0;
+  v54 = vmulq_laneq_f32(v43, *a1->f32, 2);
+  v54.i32[3] = 0;
+  v55 = vmulq_laneq_f32(v44, v3, 2);
+  v55.i32[3] = 0;
+  v56 = vmulq_laneq_f32(v45, v5, 2);
+  v56.i32[3] = 0;
+  v57 = vaddq_f32(vaddq_f32(v54, v55), v56);
+  v58 = vaddq_f32(vaddq_f32(v30, v24), v52);
+  v59 = vaddq_f32(vaddq_f32(vaddq_f32(v34, v33), v25), vaddq_f32(vaddq_f32(v50, v51), v53));
+  v60 = vaddq_f32(v38, v57);
+  v61 = vaddq_f32(vaddq_f32(vmulq_lane_f32(v11, *a1, 1), vmulq_lane_f32(v16, *v3.f32, 1)), vmulq_n_f32(v17, v6));
+  v62 = vaddq_f32(vaddq_f32(vmulq_laneq_f32(v11, *a1->f32, 2), vmulq_laneq_f32(v16, v3, 2)), vmulq_laneq_f32(v17, v5, 2));
+  v63 = vaddq_f32(*a2, vaddq_f32(vaddq_f32(v15, v22), vmulq_n_f32(v17, v7)));
+  v64 = vaddq_f32(v8, v61);
+  v65 = vaddq_f32(v9, v62);
+  v63.i32[3] = v64.i32[0];
+  v66 = vextq_s8(vextq_s8(v64, v64, 0xCuLL), v65, 8uLL);
+  *(a2 + 32) = v65.i32[2];
+  *v65.i8 = vext_s8(vdup_lane_s32(*v58.f32, 0), *v59.i8, 4uLL);
+  v65.i64[1] = v60.i64[0];
+  *a2 = v63;
+  *(a2 + 16) = v66;
+  *v63.f32 = vext_s8(*v58.f32, vdup_lane_s32(*v59.i8, 1), 4uLL);
+  *&v63.u32[2] = vdup_lane_s32(*v60.i8, 1);
+  *v66.f32 = vext_s8(vdup_laneq_s32(v58, 2), *&vextq_s8(v59, v59, 8uLL), 4uLL);
+  v66.i64[1] = vextq_s8(v60, v60, 8uLL).u64[0];
+  v8.i64[0] = 0x3F0000003F000000;
+  v8.i64[1] = 0x3F0000003F000000;
+  v67 = vmulq_f32(vaddq_f32(v58, v65), v8);
+  v68 = vmulq_f32(vaddq_f32(v59, v63), v8);
+  v69 = vmulq_f32(vaddq_f32(v60, v66), v8);
+  v67.i32[3] = v68.i32[0];
+  *(a2 + 72) = v67;
+  result = vextq_s8(vextq_s8(v68, v68, 0xCuLL), v69, 8uLL);
+  *(a2 + 88) = result;
+  *(a2 + 104) = v69.i32[2];
+  return result;
+}
+
+float32_t physx::Dy::FeatherstoneArticulation::getImpulseResponse(uint64_t a1, unsigned int a2, uint64_t a3, float32x4_t *a4, uint64_t a5, double a6, double a7, float32x4_t a8, float32x4_t a9, float32x4_t a10, float32x4_t a11, float32x4_t a12, float32x4_t a13)
+{
+  physx::Dy::SpatialImpulseResponseMatrix::getResponse(&v15, *(a1 + 464) + 192 * a2, *a4, a4[1], a8, a9, a10, a11, a12, a13);
+  *a5 = v16;
+  *(a5 + 8) = v17;
+  *(a5 + 16) = v15.i64[0];
+  result = v15.f32[2];
+  *(a5 + 24) = v15.i32[2];
+  return result;
+}
+
+float32x4_t physx::Dy::SpatialImpulseResponseMatrix::getResponse(float32x4_t *a1, uint64_t a2, float32x4_t a3, float32x4_t a4, float32x4_t a5, float32x4_t a6, float32x4_t a7, float32x4_t a8, float32x4_t a9, float32x4_t a10)
+{
+  a5.i64[0] = *a2;
+  a5.i32[2] = *(a2 + 8);
+  a6.i64[0] = *(a2 + 16);
+  a6.i32[2] = *(a2 + 24);
+  a7.i64[0] = *(a2 + 32);
+  a7.i32[2] = *(a2 + 40);
+  a8.i64[0] = *(a2 + 48);
+  a8.i32[2] = *(a2 + 56);
+  a9.i64[0] = *(a2 + 64);
+  a9.i32[2] = *(a2 + 72);
+  a10.i64[0] = *(a2 + 80);
+  a10.i32[2] = *(a2 + 88);
+  v10.i64[0] = *(a2 + 96);
+  v10.i32[2] = *(a2 + 104);
+  v11.i64[0] = *(a2 + 112);
+  v11.i32[2] = *(a2 + 120);
+  v12.i64[0] = *(a2 + 128);
+  v12.i32[2] = *(a2 + 136);
+  v13.i64[0] = *(a2 + 144);
+  v13.i32[2] = *(a2 + 152);
+  v14.i64[0] = *(a2 + 160);
+  v14.i32[2] = *(a2 + 168);
+  v15.i64[0] = *(a2 + 176);
+  v15.i32[2] = *(a2 + 184);
+  v16 = vmulq_n_f32(a5, a3.f32[0]);
+  v16.i32[3] = 0;
+  v17 = vmulq_n_f32(a6, a3.f32[0]);
+  v17.i32[3] = 0;
+  v18 = vmulq_lane_f32(a7, *a3.f32, 1);
+  v18.i32[3] = 0;
+  v19 = vmulq_lane_f32(a8, *a3.f32, 1);
+  v19.i32[3] = 0;
+  v20 = vaddq_f32(v16, v18);
+  v21 = vmulq_laneq_f32(a9, a3, 2);
+  v21.i32[3] = 0;
+  v22 = vmulq_laneq_f32(a10, a3, 2);
+  v22.i32[3] = 0;
+  v23 = vaddq_f32(v20, v21);
+  v24 = vmulq_n_f32(v10, a4.f32[0]);
+  v24.i32[3] = 0;
+  v25 = vaddq_f32(vaddq_f32(v17, v19), v22);
+  v26 = vmulq_n_f32(v11, a4.f32[0]);
+  v26.i32[3] = 0;
+  v27 = vaddq_f32(v23, v24);
+  v28 = vaddq_f32(v25, v26);
+  v29 = vmulq_lane_f32(v12, *a4.f32, 1);
+  v29.i32[3] = 0;
+  v30 = vmulq_lane_f32(v13, *a4.f32, 1);
+  v30.i32[3] = 0;
+  v31 = vaddq_f32(v27, v29);
+  v32 = vmulq_laneq_f32(v14, a4, 2);
+  v32.i32[3] = 0;
+  v33 = vmulq_laneq_f32(v15, a4, 2);
+  v33.i32[3] = 0;
+  result = vaddq_f32(vaddq_f32(v28, v30), v33);
+  *a1 = vaddq_f32(v31, v32);
+  a1[1] = result;
+  return result;
+}
+
+float32x4_t physx::Dy::FeatherstoneArticulation::getImpulseResponse(uint64_t a1, unsigned int a2, double a3, double a4, float32x4_t a5, float32x4_t a6, float32x4_t a7, float32x4_t a8, float32x4_t a9, float32x4_t a10, uint64_t a11, float32x2_t *a12, float32x4_t *a13)
+{
+  v19 = *(a1 + 464) + 192 * a2;
+  v20 = *a12[2].f32;
+  a5.i64[0] = *v19;
+  a5.i32[2] = *(v19 + 8);
+  a6.i64[0] = *(v19 + 16);
+  a6.i32[2] = *(v19 + 24);
+  a7.i64[0] = *(v19 + 32);
+  a7.i32[2] = *(v19 + 40);
+  a8.i64[0] = *(v19 + 48);
+  a8.i32[2] = *(v19 + 56);
+  a9.i64[0] = *(v19 + 64);
+  a9.i32[2] = *(v19 + 72);
+  a10.i64[0] = *(v19 + 80);
+  a10.i32[2] = *(v19 + 88);
+  v13.i64[0] = *(v19 + 96);
+  v13.i32[2] = *(v19 + 104);
+  v14.i64[0] = *(v19 + 112);
+  v14.i32[2] = *(v19 + 120);
+  v15.i64[0] = *(v19 + 128);
+  v15.i32[2] = *(v19 + 136);
+  v16.i64[0] = *(v19 + 144);
+  v16.i32[2] = *(v19 + 152);
+  v17.i64[0] = *(v19 + 160);
+  v17.i32[2] = *(v19 + 168);
+  v18.i64[0] = *(v19 + 176);
+  v18.i32[2] = *(v19 + 184);
+  v21 = vmulq_n_f32(a5, COERCE_FLOAT(*a12->f32));
+  v21.i32[3] = 0;
+  v22 = vmulq_n_f32(a6, COERCE_FLOAT(*a12->f32));
+  v22.i32[3] = 0;
+  v23 = vmulq_lane_f32(a7, *a12, 1);
+  v23.i32[3] = 0;
+  v24 = vmulq_lane_f32(a8, *a12, 1);
+  v24.i32[3] = 0;
+  v25 = vaddq_f32(v21, v23);
+  v26 = vmulq_laneq_f32(a9, *a12->f32, 2);
+  v26.i32[3] = 0;
+  v27 = vmulq_laneq_f32(a10, *a12->f32, 2);
+  v27.i32[3] = 0;
+  v28 = vaddq_f32(v25, v26);
+  v29 = vmulq_n_f32(v13, v20.f32[0]);
+  v29.i32[3] = 0;
+  v30 = vaddq_f32(vaddq_f32(v22, v24), v27);
+  v31 = vmulq_n_f32(v14, v20.f32[0]);
+  v31.i32[3] = 0;
+  v32 = vaddq_f32(v28, v29);
+  v33 = vaddq_f32(v30, v31);
+  v34 = vmulq_lane_f32(v15, *v20.f32, 1);
+  v34.i32[3] = 0;
+  v35 = vmulq_lane_f32(v16, *v20.f32, 1);
+  v35.i32[3] = 0;
+  v36 = vaddq_f32(v32, v34);
+  v37 = vmulq_laneq_f32(v17, v20, 2);
+  v37.i32[3] = 0;
+  v38 = vmulq_laneq_f32(v18, v20, 2);
+  v38.i32[3] = 0;
+  result = vaddq_f32(vaddq_f32(v33, v35), v38);
+  *a13 = result;
+  a13[1] = vaddq_f32(v36, v37);
+  return result;
+}
+
+float physx::Dy::FeatherstoneArticulation::getLinkVelocity@<S0>(physx::Dy::FeatherstoneArticulation *this@<X0>, unsigned int a2@<W1>, _OWORD *a3@<X8>)
+{
+  v3 = *(this + 40) + 32 * a2;
+  *&v4 = *(v3 + 16);
+  *(&v4 + 1) = *(v3 + 24);
+  *&v5 = *v3;
+  *(&v5 + 1) = *(v3 + 8);
+  *a3 = v4;
+  a3[1] = v5;
+  return *&v4;
+}
+
+float physx::Dy::FeatherstoneArticulation::getLinkMotionVector@<S0>(physx::Dy::FeatherstoneArticulation *this@<X0>, unsigned int a2@<W1>, _OWORD *a3@<X8>)
+{
+  v3 = *(this + 54) + 32 * a2;
+  *&v4 = *(v3 + 16);
+  *(&v4 + 1) = *(v3 + 24);
+  *&v5 = *v3;
+  *(&v5 + 1) = *(v3 + 8);
+  *a3 = v4;
+  a3[1] = v5;
+  return *&v4;
+}
+
+float physx::Dy::FeatherstoneArticulation::getMotionVelocity@<S0>(physx::Dy::FeatherstoneArticulation *this@<X0>, unsigned int a2@<W1>, uint64_t a3@<X8>)
+{
+  v3 = *(this + 40) + 32 * a2;
+  *a3 = *(v3 + 16);
+  *(a3 + 8) = *(v3 + 24);
+  *(a3 + 12) = 0;
+  *(a3 + 16) = *v3;
+  result = *(v3 + 8);
+  *(a3 + 24) = result;
+  *(a3 + 28) = 0;
+  return result;
+}
+
+uint64_t physx::Dy::FeatherstoneArticulation::getMotionAcceleration@<X0>(uint64_t this@<X0>, unsigned int a2@<W1>, uint64_t a3@<X8>)
+{
+  v3 = *(this + 608);
+  v4 = 1.0 / *(this + 648);
+  if (a2)
+  {
+    v5 = *(this + 632) + 80 * a2;
+    v6 = *(v3 + 40 * a2 + 16);
+    if (*(v5 + 76))
+    {
+      v7 = *(v5 + 76) - 1;
+      v8 = v4 * *(*(this + 240) + 4 * *(v5 + 72) + 4 * v7);
+      v9 = *(this + 336) + 32 * a2;
+      v10 = (*(this + 512) + 76 * a2 + 24 * v7);
+      v11.i64[0] = *v9;
+      v12 = v8 * v10[1].f32[0];
+      v13 = v8 * v10[1].f32[1];
+      v11.i32[2] = *(v9 + 8);
+      v11.i32[3] = *(v9 + 16);
+      v14 = vaddq_f32(vmulq_n_f32(*v10, v8), v11);
+      v11.f32[0] = v12 + *(v9 + 20);
+      v15 = v13 + *(v9 + 24);
+      _Q3 = vaddq_f32(v14, v14);
+      v17 = v11.f32[0] + v11.f32[0];
+      v18 = v15 + v15;
+    }
+
+    else
+    {
+      v46.i64[0] = 0x3F0000003FLL;
+      v46.i64[1] = 0x3F0000003FLL;
+      _Q3 = vnegq_f32(v46);
+      v17 = NAN;
+      v18 = NAN;
+    }
+
+    _S17 = v6[2];
+    v47 = v6[3];
+    _S18 = (v47 * v47) + -0.5;
+    _S19 = *v6;
+    _S7 = v6[1];
+    __asm
+    {
+      FMLA            S2, S17, V3.S[2]
+      FMLA            S0, S7, V3.S[2]
+    }
+
+    v19 = ((v47 * _S0) + (_Q3.f32[0] * _S18)) + (*v6 * _S2);
+    __asm { FMLA            S1, S18, V3.S[1] }
+
+    v20 = _S1 + (_S7 * _S2);
+    v58 = -_S7;
+    __asm
+    {
+      FMLA            S6, S19, V3.S[1]
+      FMLA            S6, S18, V3.S[2]
+    }
+
+    v21 = _S6 + (_S17 * _S2);
+    __asm { FMLA            S6, S19, V3.S[3] }
+
+    v44 = _S6 + (_S17 * v18);
+    __asm { FMLA            S6, S18, V3.S[3] }
+
+    v22 = _S6 + (*v6 * v44);
+    __asm { FMLA            S22, S17, V3.S[3] }
+
+    v23 = ((v47 * _S22) + (v17 * _S18)) + (_S7 * v44);
+    v45 = (v47 * (vmuls_lane_f32(v58, _Q3, 3) + (*v6 * v17))) + (v18 * _S18);
+    goto LABEL_8;
+  }
+
+  v19 = 0.0;
+  v20 = 0.0;
+  v21 = 0.0;
+  v22 = 0.0;
+  v23 = 0.0;
+  v24 = 0.0;
+  if ((**(this + 664) & 1) == 0)
+  {
+    v25 = *(v3 + 16);
+    v26 = *(this + 320);
+    v27 = v4 * (*v26 - *(this + 176));
+    v28 = v4 * (v26[1] - *(this + 180));
+    v29 = v4 * (v26[2] - *(this + 184));
+    v30 = v4 * (v26[4] - *(this + 192));
+    v31 = v4 * (v26[5] - *(this + 196));
+    v32 = v4 * (v26[6] - *(this + 200));
+    v33 = v27 + v27;
+    v34 = v28 + v28;
+    v35 = v29 + v29;
+    _S17 = v25[2];
+    v36 = v25[3];
+    v38 = (v36 * v36) + -0.5;
+    v39 = v25[1];
+    v40 = (((v28 + v28) * v39) + (*v25 * (v27 + v27))) + (_S17 * v35);
+    v19 = ((v36 * ((v39 * v35) - (_S17 * (v28 + v28)))) + ((v27 + v27) * v38)) + (*v25 * v40);
+    v20 = ((v36 * ((_S17 * v33) - (*v25 * v35))) + ((v28 + v28) * v38)) + (v39 * v40);
+    v21 = ((v36 * ((*v25 * v34) - (v39 * v33))) + (v35 * v38)) + (_S17 * v40);
+    v41 = v30 + v30;
+    v42 = v31 + v31;
+    v43 = v32 + v32;
+    v44 = ((v42 * v39) + (*v25 * v41)) + (_S17 * v43);
+    v22 = ((v36 * ((v39 * v43) - (_S17 * v42))) + (v41 * v38)) + (*v25 * v44);
+    v23 = ((v36 * ((_S17 * v41) - (*v25 * v43))) + (v42 * v38)) + (v39 * v44);
+    v45 = (v36 * ((*v25 * v42) - (v39 * v41))) + (v43 * v38);
+LABEL_8:
+    v24 = v45 + (_S17 * v44);
+  }
+
+  *a3 = v22;
+  *(a3 + 4) = v23;
+  *(a3 + 8) = v24;
+  *(a3 + 12) = 0;
+  *(a3 + 16) = v19;
+  *(a3 + 20) = v20;
+  *(a3 + 24) = v21;
+  *(a3 + 28) = 0;
+  return this;
+}
+
+unint64_t physx::Dy::FeatherstoneArticulation::fillIndexedManager(unint64_t this, unsigned int a2, unint64_t *a3, unsigned __int8 *a4)
+{
+  if (*(*(*(this + 608) + 40 * a2 + 16) + 159))
+  {
+    *a4 = 3;
+  }
+
+  else
+  {
+    *a4 = 2;
+    *a3 = a2 | this;
+  }
+
+  return this;
+}
+
+void physx::Dy::PxcFsFlushVelocity(uint64_t a1, float32x2_t *a2, double a3, double a4, double a5)
+{
+  v6 = *(a1 + 320);
+  v7 = *(a1 + 368);
+  v8 = *(a1 + 608);
+  v9 = *(a1 + 632);
+  v10 = *(a1 + 624);
+  v11 = *(a1 + 240);
+  v45 = v7;
+  if (**(a1 + 664))
+  {
+    *a2 = 0;
+    a2[1] = 0;
+    a2[3].i32[0] = 0;
+    a2[2] = 0;
+  }
+
+  else
+  {
+    v12 = *v7;
+    v13 = v7[1];
+    v14 = -v13;
+    v15 = v7[2];
+    *&a5 = v7[4];
+    v16 = v7[5];
+    v17 = -v16;
+    *&a3 = v7[6];
+    v18.i32[0] = *(a1 + 740);
+    v19 = *(a1 + 752);
+    v20 = *(a1 + 764);
+    v21 = ((-(v13 * v19) - (*v7 * v18.f32[0])) - (v15 * v20)) + ((-(v16 * *(a1 + 788)) - (*&a5 * *(a1 + 776))) - (*&a3 * *(a1 + 800)));
+    v22 = *(a1 + 732);
+    v23 = *(a1 + 744);
+    v24 = *(a1 + 756);
+    v25 = vadd_f32(vsub_f32(vsub_f32(vmul_n_f32(v23, -v13), vmul_n_f32(v22, *v7)), vmul_n_f32(v24, v15)), vsub_f32(vsub_f32(vmul_n_f32(*(a1 + 780), v17), vmul_n_f32(*(a1 + 768), *&a5)), vmul_n_f32(*(a1 + 792), *&a3)));
+    v26 = ((vmuls_lane_f32(v17, v24, 1) - (v24.f32[0] * *&a5)) - (v20 * *&a3)) + ((-(v13 * *(a1 + 824)) - (*v7 * *(a1 + 812))) - (v15 * *(a1 + 836)));
+    a2[1].f32[0] = v21;
+    a2[1].i32[1] = 0;
+    v18.f32[1] = v19;
+    v27 = vadd_f32(vmls_lane_f32(vmls_lane_f32(vmul_n_f32(vzip2_s32(v22, v23), v17), vzip1_s32(v22, v23), *&a5, 0), v18, *&a3, 0), vsub_f32(vsub_f32(vmul_n_f32(*(a1 + 816), v14), vmul_n_f32(*(a1 + 804), v12)), vmul_n_f32(*(a1 + 828), v15)));
+    *a2 = v25;
+    a2[2] = v27;
+    a2[3].f32[0] = v26;
+    *v6 = vadd_f32(v25, *v6);
+    v6[1].f32[0] = v21 + v6[1].f32[0];
+    v6[2] = vadd_f32(a2[2], v6[2]);
+    v6[3].f32[0] = a2[3].f32[0] + v6[3].f32[0];
+  }
+
+  a2[3].i32[1] = 0;
+  v44 = *(a1 + 616);
+  if (v44 >= 2)
+  {
+    v28 = 0;
+    v29 = v10 + 280;
+    v30 = (v9 + 152);
+    v31 = (v8 + 72);
+    v32 = 112;
+    v33 = 36;
+    v34 = 76;
+    do
+    {
+      v35 = *v30;
+      v30 += 20;
+      v36 = v11 + 4 * v35;
+      v37 = *v31;
+      v31 += 10;
+      physx::Dy::FeatherstoneArticulation::propagateVelocityW(v29, (*(a1 + 480) + v32), (*(a1 + 496) + v33), *(a1 + 528) + v34, &v45[v28 / 4 + 8], v36, &a2[4 * v37], &v47);
+      v38 = &a2[v28 / 8 + 4];
+      v39 = v48;
+      v38[1].f32[0] = v48;
+      v38[1].i32[1] = 0;
+      v40 = v50;
+      v38[3].f32[0] = v50;
+      v38[3].i32[1] = 0;
+      v41 = &v6[v28 / 8];
+      v42 = v47;
+      *v38 = v47;
+      v41[5].f32[0] = v39 + v6[v28 / 8 + 5].f32[0];
+      v43 = v49;
+      v38[2] = v49;
+      v41[4] = vadd_f32(v42, v6[v28 / 8 + 4]);
+      v41[6] = vadd_f32(v43, v6[v28 / 8 + 6]);
+      v43.i32[0] = v6[v28 / 8 + 7].i32[0];
+      v28 += 32;
+      v29 += 160;
+      v41[7].f32[0] = v40 + v43.f32[0];
+      v32 += 112;
+      v33 += 36;
+      v34 += 76;
+    }
+
+    while (32 * v44 - 32 != v28);
+  }
+
+  bzero(v45, (32 * v44));
+}
+
+float32_t physx::Dy::FeatherstoneArticulation::propagateVelocityW@<S0>(uint64_t a1@<X0>, float *a2@<X1>, float *a3@<X2>, uint64_t a4@<X3>, float *a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, float32x2_t *a8@<X8>)
+{
+  v60[3] = *MEMORY[0x1E69E9840];
+  v8 = *(a4 + 72);
+  _S2 = *a1;
+  v10 = *(a7 + 8);
+  _D1 = *a7;
+  _D3 = *(a1 + 4);
+  v13.i32[0] = vdup_lane_s32(_D3, 1).u32[0];
+  v13.i32[1] = *a1;
+  v14 = vrev64_s32(*a7);
+  v14.f32[0] = v10;
+  v15 = vmls_f32(vmul_f32(v13, *(a7 + 4)), v14, _D3);
+  __asm { FMLS            S3, S2, V1.S[1] }
+
+  v20 = vadd_f32(v15, *(a7 + 16));
+  v21 = *_D3.i32 + *(a7 + 24);
+  if (v8)
+  {
+    v22 = a2[1];
+    v23 = a2[2];
+    v24 = a2[3];
+    v25 = vmuls_lane_f32(v24, _D1, 1);
+    v27 = a2[4];
+    v26 = a2[5];
+    v28 = a2[6];
+    v29 = a2[7];
+    v30 = a2[8];
+    v31 = (((v22 * _D1.f32[0]) + vmuls_lane_f32(v27, _D1, 1)) + (v10 * v29)) + (((a2[10] * v20.f32[0]) + vmuls_lane_f32(a2[13], v20, 1)) + (v21 * a2[16]));
+    v32 = (((v23 * _D1.f32[0]) + vmuls_lane_f32(v26, _D1, 1)) + (v10 * v30)) + (((a2[11] * v20.f32[0]) + vmuls_lane_f32(a2[14], v20, 1)) + (v21 * a2[17]));
+    v33 = (vmuls_lane_f32(v22, v20, 1) + (*a2 * v20.f32[0])) + (v23 * v21);
+    v34 = (vmuls_lane_f32(v27, v20, 1) + (v24 * v20.f32[0])) + (v26 * v21);
+    v35 = v33 + (((a2[18] * _D1.f32[0]) + vmuls_lane_f32(a2[21], _D1, 1)) + (v10 * a2[24]));
+    v36 = v34 + (((a2[19] * _D1.f32[0]) + vmuls_lane_f32(a2[22], _D1, 1)) + (v10 * a2[25]));
+    v37 = ((((*a2 * _D1.f32[0]) + v25) + (v10 * v28)) + (((a2[9] * v20.f32[0]) + vmuls_lane_f32(a2[12], v20, 1)) + (v21 * a2[15]))) + *a5;
+    v38 = v31 + a5[1];
+    v39 = v32 + a5[2];
+    v40 = v35 + a5[4];
+    v41 = v36 + a5[5];
+    v42 = (((vmuls_lane_f32(v29, v20, 1) + (v28 * v20.f32[0])) + (v30 * v21)) + (((a2[20] * _D1.f32[0]) + vmuls_lane_f32(a2[23], _D1, 1)) + (v10 * a2[26]))) + a5[6];
+    v43 = (a4 + 12);
+    v44 = v60;
+    v45 = *(a4 + 72);
+    do
+    {
+      *v44++ = -((((v38 * v43[1]) + (*v43 * v37)) + (v43[2] * v39)) + (((v41 * *(v43 - 2)) + (*(v43 - 3) * v40)) + (*(v43 - 1) * v42)));
+      v43 += 6;
+      --v45;
+    }
+
+    while (v45);
+    v46 = 0;
+    v47 = 0;
+    v48 = 0.0;
+    v49 = 0.0;
+    v50 = 0;
+    do
+    {
+      v51 = v60;
+      v52 = a3;
+      v53 = v8;
+      v54 = 0.0;
+      do
+      {
+        v55 = *v52;
+        v52 += 3;
+        v56 = v55;
+        v57 = *v51++;
+        v54 = v54 + (v56 * v57);
+        --v53;
+      }
+
+      while (v53);
+      *(a6 + 4 * v46) = v54 + *(a6 + 4 * v46);
+      v58 = a4 + 24 * v46;
+      v47 = vadd_f32(v47, vmul_n_f32(*v58, v54));
+      v49 = v49 + (v54 * *(v58 + 8));
+      v50 = vadd_f32(v50, vmul_n_f32(*(v58 + 12), v54));
+      v48 = v48 + (v54 * *(v58 + 20));
+      ++v46;
+      ++a3;
+    }
+
+    while (v46 != v8);
+  }
+
+  else
+  {
+    v47 = 0;
+    v49 = 0.0;
+    v48 = 0.0;
+    v50 = 0;
+  }
+
+  result = v10 + v49;
+  *a8 = vadd_f32(_D1, v47);
+  a8[1].f32[0] = result;
+  a8[1].i32[1] = 0;
+  a8[2] = vadd_f32(v20, v50);
+  a8[3].f32[0] = v21 + v48;
+  a8[3].i32[1] = 0;
+  return result;
+}
+
+float physx::Dy::FeatherstoneArticulation::pxcFsGetVelocity@<S0>(physx::Dy::FeatherstoneArticulation *this@<X0>, unsigned int a2@<W1>, _OWORD *a3@<X8>, __n128 a5@<Q2>, double a6@<D4>)
+{
+  v6 = *(this + 46);
+  v7 = **(this + 83);
+  v8 = *(this + 76);
+  v44 = 0u;
+  v45 = 0u;
+  if (v7)
+  {
+    a5.n128_u64[0] = 0;
+    v24 = 0.0;
+    v19 = 0.0;
+    v18 = 0;
+  }
+
+  else
+  {
+    v9 = *(v6 + 4);
+    v10 = -v9;
+    v11 = *(v6 + 8);
+    LODWORD(a6) = *(v6 + 16);
+    v12 = *(v6 + 20);
+    v13 = -v12;
+    a5.n128_u32[0] = *(v6 + 24);
+    v14.i32[0] = *(this + 185);
+    v15 = *(this + 191);
+    v16 = *(this + 732);
+    v17 = *(this + 756);
+    v18 = vadd_f32(vsub_f32(vsub_f32(vmul_n_f32(*(this + 744), -v9), vmul_n_f32(v16, *v6)), vmul_n_f32(v17, v11)), vsub_f32(vsub_f32(vmul_n_f32(*(this + 780), -v12), vmul_n_f32(*(this + 768), *&a6)), vmul_n_f32(*(this + 792), a5.n128_f32[0])));
+    v19 = ((-(v9 * *(this + 188)) - (*v6 * v14.f32[0])) - (v11 * v15)) + ((-(v12 * *(this + 197)) - (*&a6 * *(this + 194))) - (a5.n128_f32[0] * *(this + 200)));
+    v20 = (-(v9 * *(this + 206)) - (*v6 * *(this + 203))) - (v11 * *(this + 209));
+    v21 = (vmuls_lane_f32(v13, v17, 1) - (v17.f32[0] * *&a6)) - (v15 * a5.n128_f32[0]);
+    v22 = vsub_f32(vsub_f32(vmul_n_f32(*(this + 816), v10), vmul_n_f32(*(this + 804), *v6)), vmul_n_f32(*(this + 828), v11));
+    v23.i32[1] = HIDWORD(*(this + 93));
+    v23.i32[0] = v16.i32[1];
+    v16.i32[1] = *(this + 93);
+    v14.i32[1] = *(this + 188);
+    a5.n128_u64[0] = vadd_f32(vmls_lane_f32(vmls_lane_f32(vmul_n_f32(v23, v13), v16, *&a6, 0), v14, a5.n128_u64[0], 0), v22);
+    *&v44 = v18;
+    *(&v44 + 2) = v19;
+    v24 = v21 + v20;
+    *&v45 = a5.n128_u64[0];
+    *(&v45 + 2) = v21 + v20;
+  }
+
+  v37 = a2;
+  v25 = *(v8 + 40 * a2 + 8);
+  v26 = v25 - 1;
+  if (v25 != 1)
+  {
+    v27 = *(this + 78);
+    v28 = *(this + 60);
+    v29 = *(this + 62);
+    v30 = *(this + 66);
+    do
+    {
+      v31 = __clz(__rbit32(v26));
+      LODWORD(v32) = __clz(__rbit32(HIDWORD(v26))) + 32;
+      if (v26)
+      {
+        v32 = v31;
+      }
+
+      else
+      {
+        v32 = v32;
+      }
+
+      physx::Dy::FeatherstoneArticulation::propagateVelocityTestImpulseW(&v40, v27 + 160 * v32 + 120, (v28 + 112 * v32), (v29 + 36 * v32), v30 + 76 * v32, (v6 + 32 * v32), &v44);
+      v18 = v40;
+      *&v44 = v40;
+      v19 = v41;
+      *(&v44 + 1) = LODWORD(v41);
+      a5.n128_u64[0] = v42;
+      *&v45 = v42;
+      v24 = v43;
+      *(&v45 + 1) = LODWORD(v43);
+      v26 &= v26 - 1;
+    }
+
+    while (v26);
+  }
+
+  v33 = (*(this + 40) + 32 * v37);
+  *&v34 = vadd_f32(v18, *v33);
+  result = v19 + v33[1].f32[0];
+  *&v36 = vadd_f32(a5.n128_u64[0], v33[2]);
+  *(&v36 + 1) = COERCE_UNSIGNED_INT(v24 + v33[3].f32[0]);
+  *(&v34 + 1) = LODWORD(result);
+  *a3 = v36;
+  a3[1] = v34;
+  return result;
+}
+
+float32_t physx::Dy::FeatherstoneArticulation::propagateVelocityTestImpulseW(float32x2_t *a1, uint64_t a2, float *a3, float *a4, uint64_t a5, float *a6, uint64_t a7)
+{
+  v59[3] = *MEMORY[0x1E69E9840];
+  v7 = *(a5 + 72);
+  _S2 = *a2;
+  v9 = *(a7 + 8);
+  _D1 = *a7;
+  _D3 = *(a2 + 4);
+  v12.i32[0] = vdup_lane_s32(_D3, 1).u32[0];
+  v12.i32[1] = *a2;
+  v13 = vrev64_s32(*a7);
+  v13.f32[0] = v9;
+  v14 = vmls_f32(vmul_f32(v12, *(a7 + 4)), v13, _D3);
+  __asm { FMLS            S3, S2, V1.S[1] }
+
+  v19 = vadd_f32(v14, *(a7 + 16));
+  v20 = *_D3.i32 + *(a7 + 24);
+  if (v7)
+  {
+    v21 = a3[1];
+    v22 = a3[2];
+    v23 = a3[3];
+    v24 = vmuls_lane_f32(v23, _D1, 1);
+    v26 = a3[4];
+    v25 = a3[5];
+    v27 = a3[6];
+    v28 = a3[7];
+    v29 = a3[8];
+    v30 = (((v21 * _D1.f32[0]) + vmuls_lane_f32(v26, _D1, 1)) + (v9 * v28)) + (((a3[10] * v19.f32[0]) + vmuls_lane_f32(a3[13], v19, 1)) + (v20 * a3[16]));
+    v31 = (((v22 * _D1.f32[0]) + vmuls_lane_f32(v25, _D1, 1)) + (v9 * v29)) + (((a3[11] * v19.f32[0]) + vmuls_lane_f32(a3[14], v19, 1)) + (v20 * a3[17]));
+    v32 = (vmuls_lane_f32(v21, v19, 1) + (*a3 * v19.f32[0])) + (v22 * v20);
+    v33 = (vmuls_lane_f32(v26, v19, 1) + (v23 * v19.f32[0])) + (v25 * v20);
+    v34 = v32 + (((a3[18] * _D1.f32[0]) + vmuls_lane_f32(a3[21], _D1, 1)) + (v9 * a3[24]));
+    v35 = v33 + (((a3[19] * _D1.f32[0]) + vmuls_lane_f32(a3[22], _D1, 1)) + (v9 * a3[25]));
+    v36 = ((((*a3 * _D1.f32[0]) + v24) + (v9 * v27)) + (((a3[9] * v19.f32[0]) + vmuls_lane_f32(a3[12], v19, 1)) + (v20 * a3[15]))) + *a6;
+    v37 = v30 + a6[1];
+    v38 = v31 + a6[2];
+    v39 = v34 + a6[4];
+    v40 = v35 + a6[5];
+    v41 = (((vmuls_lane_f32(v28, v19, 1) + (v27 * v19.f32[0])) + (v29 * v20)) + (((a3[20] * _D1.f32[0]) + vmuls_lane_f32(a3[23], _D1, 1)) + (v9 * a3[26]))) + a6[6];
+    v42 = (a5 + 12);
+    v43 = v59;
+    v44 = *(a5 + 72);
+    do
+    {
+      *v43++ = -((((v37 * v42[1]) + (*v42 * v36)) + (v42[2] * v38)) + (((v40 * *(v42 - 2)) + (*(v42 - 3) * v39)) + (*(v42 - 1) * v41)));
+      v42 += 6;
+      --v44;
+    }
+
+    while (v44);
+    v45 = 0;
+    v46 = 0;
+    v47 = 0.0;
+    v48 = 0.0;
+    v49 = 0;
+    do
+    {
+      v50 = v59;
+      v51 = a4;
+      v52 = v7;
+      v53 = 0.0;
+      do
+      {
+        v54 = *v51;
+        v51 += 3;
+        v55 = v54;
+        v56 = *v50++;
+        v53 = v53 + (v55 * v56);
+        --v52;
+      }
+
+      while (v52);
+      v57 = a5 + 24 * v45;
+      v46 = vadd_f32(v46, vmul_n_f32(*v57, v53));
+      v48 = v48 + (v53 * *(v57 + 8));
+      v49 = vadd_f32(v49, vmul_n_f32(*(v57 + 12), v53));
+      v47 = v47 + (v53 * *(v57 + 20));
+      ++v45;
+      ++a4;
+    }
+
+    while (v45 != v7);
+  }
+
+  else
+  {
+    v46 = 0;
+    v48 = 0.0;
+    v47 = 0.0;
+    v49 = 0;
+  }
+
+  result = v9 + v48;
+  *a1 = vadd_f32(_D1, v46);
+  a1[1].f32[0] = result;
+  a1[1].i32[1] = 0;
+  a1[2] = vadd_f32(v19, v49);
+  a1[3].f32[0] = v20 + v47;
+  a1[3].i32[1] = 0;
+  return result;
+}
+
+__n128 physx::Dy::FeatherstoneArticulation::pxcFsGetVelocities(uint64_t a1, unsigned int a2, unsigned int a3, _OWORD *a4, uint64_t a5, double a6, double a7, double a8)
+{
+  v8 = *(a1 + 368);
+  v9 = **(a1 + 664);
+  v10 = *(a1 + 608);
+  v74 = 0u;
+  v75 = 0u;
+  if (v9)
+  {
+    v21 = 0;
+    v25 = 0.0;
+    v22 = 0.0;
+    v24 = 0;
+  }
+
+  else
+  {
+    v11 = *(v8 + 4);
+    v12 = -v11;
+    v13 = *(v8 + 8);
+    LODWORD(a8) = *(v8 + 16);
+    v14 = *(v8 + 20);
+    v15 = *(v8 + 24);
+    v16.i32[0] = *(a1 + 740);
+    v17 = *(a1 + 764);
+    v18 = *(a1 + 732);
+    v19 = *(a1 + 744);
+    v20 = *(a1 + 756);
+    v21 = vadd_f32(vsub_f32(vsub_f32(vmul_n_f32(v19, -v11), vmul_n_f32(v18, *v8)), vmul_n_f32(v20, v13)), vsub_f32(vsub_f32(vmul_n_f32(*(a1 + 780), -v14), vmul_n_f32(*(a1 + 768), *&a8)), vmul_n_f32(*(a1 + 792), v15.f32[0])));
+    v22 = ((-(v11 * *(a1 + 752)) - (*v8 * v16.f32[0])) - (v13 * v17)) + ((-(v14 * *(a1 + 788)) - (*&a8 * *(a1 + 776))) - (v15.f32[0] * *(a1 + 800)));
+    v23 = (-(v11 * *(a1 + 824)) - (*v8 * *(a1 + 812))) - (v13 * *(a1 + 836));
+    v16.i32[1] = *(a1 + 752);
+    v24 = vadd_f32(vmls_lane_f32(vmls_lane_f32(vmul_n_f32(vzip2_s32(v18, v19), -v14), vzip1_s32(v18, v19), *&a8, 0), v16, v15, 0), vsub_f32(vsub_f32(vmul_n_f32(*(a1 + 816), v12), vmul_n_f32(*(a1 + 804), *v8)), vmul_n_f32(*(a1 + 828), v13)));
+    *&v74 = v21;
+    *(&v74 + 2) = v22;
+    v25 = ((vmuls_lane_f32(-v14, v20, 1) - (v20.f32[0] * *&a8)) - (v17 * v15.f32[0])) + v23;
+    *&v75 = v24;
+    *(&v75 + 2) = v25;
+  }
+
+  v56 = *(v10 + 40 * a2 + 8);
+  v57 = *(v10 + 40 * a3 + 8);
+  v62 = v57 & v56;
+  v26 = (v57 & v56) - 1;
+  if ((v57 & v56) != 1)
+  {
+    v27 = *(a1 + 624);
+    v28 = *(a1 + 480);
+    v29 = *(a1 + 496);
+    v30 = *(a1 + 528);
+    do
+    {
+      v31 = __clz(__rbit32(v26));
+      LODWORD(v32) = __clz(__rbit32(HIDWORD(v26))) + 32;
+      if (v26)
+      {
+        v32 = v31;
+      }
+
+      else
+      {
+        v32 = v32;
+      }
+
+      physx::Dy::FeatherstoneArticulation::propagateVelocityTestImpulseW(&v68, v27 + 160 * v32 + 120, (v28 + 112 * v32), (v29 + 36 * v32), v30 + 76 * v32, (v8 + 32 * v32), &v74);
+      v21 = v68;
+      *&v74 = v68;
+      v22 = v69;
+      *(&v74 + 1) = LODWORD(v69);
+      v24 = v71;
+      *&v75 = v71;
+      v25 = v72;
+      *(&v75 + 1) = LODWORD(v72);
+      v26 &= v26 - 1;
+    }
+
+    while (v26);
+  }
+
+  v68 = v21;
+  v69 = v22;
+  v70 = 0;
+  v33 = v25;
+  v34 = v22;
+  v71 = v24;
+  v72 = v25;
+  v35 = v21;
+  v36 = v24;
+  v73 = 0;
+  if (v62 != v56)
+  {
+    v37 = v62 ^ v56;
+    v38 = *(a1 + 624);
+    v39 = *(a1 + 480);
+    v40 = *(a1 + 496);
+    v41 = *(a1 + 528);
+    do
+    {
+      v42 = __clz(__rbit32(v37));
+      LODWORD(v43) = __clz(__rbit32(HIDWORD(v37))) + 32;
+      if (v37)
+      {
+        v43 = v42;
+      }
+
+      else
+      {
+        v43 = v43;
+      }
+
+      physx::Dy::FeatherstoneArticulation::propagateVelocityTestImpulseW(&v64, v38 + 160 * v43 + 120, (v39 + 112 * v43), (v40 + 36 * v43), v41 + 76 * v43, (v8 + 32 * v43), &v74);
+      v35 = v64;
+      *&v74 = v64;
+      v34 = v65;
+      *(&v74 + 1) = LODWORD(v65);
+      v36 = v66;
+      *&v75 = v66;
+      v33 = v67;
+      *(&v75 + 1) = LODWORD(v67);
+      v37 &= v37 - 1;
+    }
+
+    while (v37);
+  }
+
+  if (v62 != v57)
+  {
+    v44 = v62 ^ v57;
+    v45 = *(a1 + 624);
+    v46 = *(a1 + 480);
+    v47 = *(a1 + 496);
+    v48 = *(a1 + 528);
+    do
+    {
+      v49 = __clz(__rbit32(v44));
+      LODWORD(v50) = __clz(__rbit32(HIDWORD(v44))) + 32;
+      if (v44)
+      {
+        v50 = v49;
+      }
+
+      else
+      {
+        v50 = v50;
+      }
+
+      physx::Dy::FeatherstoneArticulation::propagateVelocityTestImpulseW(&v64, v45 + 160 * v50 + 120, (v46 + 112 * v50), (v47 + 36 * v50), v48 + 76 * v50, (v8 + 32 * v50), &v68);
+      v21 = v64;
+      v68 = v64;
+      v22 = v65;
+      v69 = v65;
+      v70 = 0;
+      v24 = v66;
+      v71 = v66;
+      v25 = v67;
+      v72 = v67;
+      v73 = 0;
+      v44 &= v44 - 1;
+    }
+
+    while (v44);
+  }
+
+  v51 = (*(a1 + 320) + 32 * a2);
+  *&v52 = vadd_f32(v35, *v51);
+  *&v53 = vadd_f32(v36, v51[2]);
+  *(&v53 + 2) = v33 + v51[3].f32[0];
+  HIDWORD(v53) = 0;
+  *(&v52 + 2) = v34 + v51[1].f32[0];
+  HIDWORD(v52) = 0;
+  *a4 = v53;
+  a4[1] = v52;
+  v54 = (*(a1 + 320) + 32 * a3);
+  result.n128_u64[0] = vadd_f32(v21, *v54);
+  *&v53 = vadd_f32(v24, v54[2]);
+  *(&v53 + 2) = v25 + v54[3].f32[0];
+  HIDWORD(v53) = 0;
+  result.n128_f32[2] = v22 + v54[1].f32[0];
+  result.n128_u32[3] = 0;
+  *a5 = v53;
+  *(a5 + 16) = result;
+  return result;
+}
+
+float32_t physx::Dy::FeatherstoneArticulation::pxcFsApplyImpulse(uint64_t a1, unsigned int a2, __n128 a3, __n128 a4)
+{
+  v4 = a2;
+  v5 = *(a1 + 56);
+  v6 = *(a1 + 368);
+  v7 = *(a1 + 624);
+  *(a1 + 685) = 1;
+  v20 = vneg_f32(a3.n128_u64[0]);
+  v21 = -a3.n128_f32[2];
+  v22 = 0;
+  v23 = vneg_f32(a4.n128_u64[0]);
+  v24 = -a4.n128_f32[2];
+  v25 = 0;
+  v8 = (v6 + 32 * a2);
+  *v8 = vsub_f32(*v8, a3.n128_u64[0]);
+  v8[1].f32[0] = v8[1].f32[0] - a3.n128_f32[2];
+  v8[2] = vsub_f32(v8[2], a4.n128_u64[0]);
+  result = v8[3].f32[0] - a4.n128_f32[2];
+  v8[3].f32[0] = result;
+  if (a2)
+  {
+    v10 = *(a1 + 544);
+    v11 = *(a1 + 528);
+    do
+    {
+      physx::Dy::FeatherstoneArticulation::propagateImpulseW((v10 + 96 * v4), v7 + 160 * v4 + 120, v11 + 76 * v4, &v20, &v16);
+      v12 = v17;
+      v21 = v17;
+      v22 = 0;
+      v13 = v19;
+      v24 = v19;
+      v25 = 0;
+      v20 = v16;
+      v14 = v18;
+      v23 = v18;
+      v4 = *(v5 + 40 * v4 + 32);
+      v15 = (v6 + 32 * v4);
+      *v15 = vadd_f32(v16, *v15);
+      v15[1].f32[0] = v12 + v15[1].f32[0];
+      v15[2] = vadd_f32(v14, v15[2]);
+      result = v13 + v15[3].f32[0];
+      v15[3].f32[0] = result;
+    }
+
+    while (v4);
+  }
+
+  return result;
+}
+
+float32_t physx::Dy::FeatherstoneArticulation::propagateImpulseW@<S0>(float32x2_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, float32x2_t *a4@<X3>, float32x2_t *a5@<X8>)
+{
+  v5 = *(a3 + 72);
+  v6 = *a4;
+  v7 = a4[1].f32[0];
+  v8 = a4[2];
+  v9 = a4[3].f32[0];
+  if (v5)
+  {
+    v10 = (a3 + 12);
+    v11 = a1 + 2;
+    v12 = 0;
+    v13 = 0.0;
+    v14 = 0.0;
+    v15 = 0;
+    do
+    {
+      v16 = (((v6.f32[1] * v10[1]) + (*v10 * v6.f32[0])) + (v10[2] * v7)) + (((v8.f32[1] * *(v10 - 2)) + (*(v10 - 3) * v8.f32[0])) + (*(v10 - 1) * v9));
+      v12 = vadd_f32(v12, vmul_n_f32(v11[-2], v16));
+      v14 = v14 + (v16 * v11[-1].f32[0]);
+      v15 = vadd_f32(v15, vmul_n_f32(*v11, v16));
+      v13 = v13 + (v16 * v11[1].f32[0]);
+      v10 += 6;
+      v11 += 4;
+      --v5;
+    }
+
+    while (v5);
+  }
+
+  else
+  {
+    v12 = 0;
+    v14 = 0.0;
+    v13 = 0.0;
+    v15 = 0;
+  }
+
+  _D3 = vsub_f32(v6, v12);
+  v18 = v7 - v14;
+  v19 = v9 - v13;
+  _S4 = *a2;
+  *a5 = _D3;
+  a5[1].f32[0] = v18;
+  v21 = *(a2 + 4);
+  v22.i32[0] = vdup_lane_s32(v21, 1).u32[0];
+  v22.i32[1] = _S4;
+  a5[1].i32[1] = 0;
+  v23 = vrev64_s32(_D3);
+  v24 = __PAIR64__(LODWORD(v18), v23.u32[0]);
+  v23.f32[0] = v18;
+  __asm { FMLA            S0, S4, V3.S[1] }
+
+  a5[2] = vadd_f32(vsub_f32(v8, v15), vmla_f32(vmul_f32(v24, vneg_f32(v22)), v23, v21));
+  result = v19 + _S0;
+  a5[3].f32[0] = result;
+  a5[3].i32[1] = 0;
+  return result;
+}
+
+float32_t physx::Dy::FeatherstoneArticulation::pxcFsApplyImpulses(uint64_t a1, float32x2_t *a2)
+{
+  v3 = *(a1 + 608);
+  v4 = *(a1 + 616);
+  v5 = *(a1 + 368);
+  *(a1 + 685) = 1;
+  v6 = (v4 - 1);
+  if (v6)
+  {
+    v7 = v6 - 1;
+    v8 = (*(a1 + 544) + 96 * v6);
+    v9 = &v5[4 * v6 + 2];
+    v10 = *(a1 + 624) + 160 * v6 + 120;
+    v11 = (v3 + 40 * v6 + 32);
+    v12 = *(a1 + 528) + 76 * v6;
+    v13 = &a2[4 * v6];
+    do
+    {
+      physx::Dy::FeatherstoneArticulation::propagateImpulseW(v8, v10, v12, v13, &v17);
+      v14 = *v11;
+      v11 -= 10;
+      v15 = &a2[4 * v14];
+      *v15 = vadd_f32(v17, *v15);
+      v15[1].f32[0] = v18 + v15[1].f32[0];
+      v15[2] = vadd_f32(v19, v15[2]);
+      v15[3].f32[0] = v20 + v15[3].f32[0];
+      v9[-2] = vadd_f32(*v13, v9[-2]);
+      v9[-1].f32[0] = v13[1].f32[0] + v9[-1].f32[0];
+      *v9 = vadd_f32(v13[2], *v9);
+      LODWORD(v15) = v7--;
+      v8 -= 12;
+      v9[1].f32[0] = v13[3].f32[0] + v9[1].f32[0];
+      v9 -= 4;
+      v10 -= 160;
+      v12 -= 76;
+      v13 -= 4;
+    }
+
+    while (v15);
+  }
+
+  *v5 = vadd_f32(*a2, *v5);
+  v5[1].f32[0] = a2[1].f32[0] + v5[1].f32[0];
+  v5[2] = vadd_f32(a2[2], v5[2]);
+  result = a2[3].f32[0] + v5[3].f32[0];
+  v5[3].f32[0] = result;
+  return result;
+}
+
+void physx::Dy::FeatherstoneArticulation::pxcFsApplyImpulses(uint64_t a1, unsigned int a2, __int128 *a3, __int128 *a4, unsigned int a5, __int128 *a6, __int128 *a7)
+{
+  LODWORD(v7) = a2;
+  v8 = *(a1 + 624);
+  *(a1 + 685) = 1;
+  v9 = *(a1 + 368);
+  v10 = *(a1 + 56);
+  v11 = *a4;
+  LODWORD(v12) = *(a4 + 1);
+  v13 = *a3;
+  LODWORD(v14) = *(a3 + 1);
+  v15 = *a7;
+  LODWORD(v16) = HIDWORD(*a7);
+  LODWORD(v17) = *(a7 + 1);
+  v18 = *a6;
+  LODWORD(v19) = HIDWORD(*a6);
+  LODWORD(v20) = *(a6 + 1);
+  v21 = a2;
+  v22 = *(v10 + 40 * a5 + 8) & *(v10 + 40 * a2 + 8);
+  v23 = HIDWORD(v22);
+  v24 = 31 - __clz(v22);
+  v25 = __clz(v23) ^ 0x3F;
+  if (v23)
+  {
+    LODWORD(v26) = v25;
+  }
+
+  else
+  {
+    LODWORD(v26) = v24;
+  }
+
+  v27 = -v14;
+  v28 = -v12;
+  v29 = vneg_f32(*&v13);
+  v78 = v29;
+  v79 = -v14;
+  v80 = 0;
+  v30 = vneg_f32(*&v11);
+  v81 = v30;
+  v82 = -v12;
+  v83 = 0;
+  v31.f32[0] = -*&v18;
+  v32 = -v19;
+  v33 = -v20;
+  v34.f32[0] = -*&v15;
+  v35 = -v16;
+  v36 = -v17;
+  v72.f32[0] = -*&v18;
+  v72.f32[1] = v32;
+  v73 = -v20;
+  v74 = 0;
+  v75.f32[0] = -*&v15;
+  v75.f32[1] = -v16;
+  v76 = -v17;
+  v77 = 0;
+  v37 = (v9 + 32 * a5);
+  *v37 = vsub_f32(*v37, *&v18);
+  v37[1].f32[0] = v37[1].f32[0] - v20;
+  v37[2] = vsub_f32(v37[2], *&v15);
+  v37[3].f32[0] = v37[3].f32[0] - v17;
+  v61 = a1;
+  if (v26 != a5)
+  {
+    LODWORD(v38) = a5;
+    v54 = a2;
+    v55 = v13;
+    v56 = v11;
+    v57 = v30;
+    v59 = v29;
+    v39 = *(a1 + 544);
+    v40 = *(a1 + 528);
+    do
+    {
+      physx::Dy::FeatherstoneArticulation::propagateImpulseW((v39 + 96 * v38), v8 + 160 * v38 + 120, v40 + 76 * v38, &v72, &v66);
+      v33 = v67;
+      v73 = v67;
+      v74 = 0;
+      v36 = v70;
+      v76 = v70;
+      v77 = 0;
+      v31 = v66;
+      v72 = v66;
+      v34 = v69;
+      v75 = v69;
+      v38 = *(v10 + 40 * v38 + 32);
+      v41 = (v9 + 32 * v38);
+      *v41 = vadd_f32(v66, *v41);
+      v41[1].f32[0] = v33 + v41[1].f32[0];
+      v41[2] = vadd_f32(v34, v41[2]);
+      v41[3].f32[0] = v36 + v41[3].f32[0];
+    }
+
+    while (v38 != v26);
+    v32 = v31.f32[1];
+    v35 = v34.f32[1];
+    a1 = v61;
+    v30 = v57;
+    v29 = v59;
+    *&v13 = v55;
+    *&v11 = v56;
+    v21 = v54;
+  }
+
+  v42 = (v9 + 32 * v21);
+  *v42 = vsub_f32(*v42, *&v13);
+  v42[1].f32[0] = v42[1].f32[0] - v14;
+  v42[2] = vsub_f32(v42[2], *&v11);
+  v42[3].f32[0] = v42[3].f32[0] - v12;
+  if (v26 == v7)
+  {
+    v43 = v29.f32[1];
+    v44 = v30.f32[1];
+  }
+
+  else
+  {
+    v58 = v34.i32[0];
+    v60 = v31.i32[0];
+    v45 = *(a1 + 544);
+    v46 = *(a1 + 528);
+    do
+    {
+      physx::Dy::FeatherstoneArticulation::propagateImpulseW((v45 + 96 * v7), v8 + 160 * v7 + 120, v46 + 76 * v7, &v78, &v66);
+      v27 = v67;
+      v79 = v67;
+      v80 = 0;
+      v28 = v70;
+      v82 = v70;
+      v83 = 0;
+      v29 = v66;
+      v78 = v66;
+      v30 = v69;
+      v81 = v69;
+      v7 = *(v10 + 40 * v7 + 32);
+      v47 = (v9 + 32 * v7);
+      *v47 = vadd_f32(v66, *v47);
+      v47[1].f32[0] = v27 + v47[1].f32[0];
+      v47[2] = vadd_f32(v30, v47[2]);
+      v47[3].f32[0] = v28 + v47[3].f32[0];
+    }
+
+    while (v7 != v26);
+    v43 = v29.f32[1];
+    v44 = v30.f32[1];
+    a1 = v61;
+    v34.i32[0] = v58;
+    v31.i32[0] = v60;
+  }
+
+  v66.f32[0] = v31.f32[0] + v29.f32[0];
+  v66.f32[1] = v32 + v43;
+  v67 = v33 + v27;
+  v68 = 0;
+  v69.f32[0] = v34.f32[0] + v30.f32[0];
+  v69.f32[1] = v35 + v44;
+  v70 = v36 + v28;
+  v71 = 0;
+  if (v26)
+  {
+    v48 = *(a1 + 544);
+    v49 = *(a1 + 528);
+    do
+    {
+      physx::Dy::FeatherstoneArticulation::propagateImpulseW((v48 + 96 * v26), v8 + 160 * v26 + 120, v49 + 76 * v26, &v66, &v62);
+      v50 = v63;
+      v67 = v63;
+      v68 = 0;
+      v51 = v65;
+      v70 = v65;
+      v71 = 0;
+      v66 = v62;
+      v52 = v64;
+      v69 = v64;
+      v26 = *(v10 + 40 * v26 + 32);
+      v53 = (v9 + 32 * v26);
+      *v53 = vadd_f32(v62, *v53);
+      v53[1].f32[0] = v50 + v53[1].f32[0];
+      v53[2] = vadd_f32(v52, v53[2]);
+      v53[3].f32[0] = v51 + v53[3].f32[0];
+    }
+
+    while (v26);
+  }
+}
+
+void physx::Dy::computeSphericalJointPositions(float *a1, float *a2, float *a3, float *a4, uint64_t a5, uint64_t a6)
+{
+  v8 = a3[1];
+  v9 = a3[2];
+  v10 = a3[3];
+  v12 = a4[2];
+  v11 = a4[3];
+  v13 = a4[1];
+  v14 = (((v10 * *a4) - (*a3 * v11)) - (v8 * v12)) + (v13 * v9);
+  v15 = (((v10 * v13) - (v8 * v11)) - (v9 * *a4)) + (v12 * *a3);
+  v16 = (((v10 * v12) - (v9 * v11)) - (*a3 * v13)) + (*a4 * v8);
+  v17 = (((*a3 * *a4) + (v10 * v11)) + (v8 * v13)) + (v9 * v12);
+  v18 = sqrtf((((v15 * v15) + (v14 * v14)) + (v16 * v16)) + (v17 * v17));
+  v19 = v14 / v18;
+  v20 = v15 / v18;
+  v21 = v16 / v18;
+  v22 = v17 / v18;
+  *a1 = v14 / v18;
+  a1[1] = v15 / v18;
+  a1[2] = v16 / v18;
+  a1[3] = v22;
+  v23 = a2[1];
+  v24 = a2[2];
+  v25 = a2[3];
+  v26 = (((v25 * v19) - (v22 * *a2)) - (v20 * v24)) + (v23 * v21);
+  v27 = (((v25 * v20) - (v22 * v23)) - (v21 * *a2)) + (v24 * v19);
+  v28 = (((v25 * v21) - (v22 * v24)) - (v19 * v23)) + (*a2 * v20);
+  v29 = ((v27 * v27) + (v26 * v26)) + (v28 * v28);
+  if (v29 >= 1.0e-16)
+  {
+    v34 = (((*a2 * v19) + (v22 * v25)) + (v20 * v23)) + (v21 * v24);
+    v35 = 1.0 / sqrtf(v29);
+    v30 = v26 * v35;
+    v33 = v27 * v35;
+    v32 = v28 * v35;
+    if (fabsf(v34) >= 0.00000001)
+    {
+      v36 = atan2f(v29 * v35, v34);
+      v31 = v36 + v36;
+    }
+
+    else
+    {
+      v31 = 3.1416;
+    }
+  }
+
+  else
+  {
+    v30 = 1.0;
+    v31 = 0.0;
+    v32 = 0.0;
+    v33 = 0.0;
+  }
+
+  v37 = 0;
+  v38 = v31 * v30;
+  v39 = v31 * v33;
+  v40 = (a6 + 8);
+  v41 = v31 * v32;
+  do
+  {
+    v42 = (v39 * *(v40 - 1)) + (*(v40 - 2) * v38);
+    v43 = *v40;
+    v40 += 6;
+    *(a5 + v37) = -(v42 + (v43 * v41));
+    v37 += 4;
+  }
+
+  while (v37 != 12);
+}
+
+float32_t physx::Dy::FeatherstoneArticulation::getDeltaVWithDeltaJV@<S0>(char a1@<W0>, unsigned int a2@<W1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>, double a7@<D2>)
+{
+  v11 = 0;
+  *a6 = 0u;
+  *(a6 + 16) = 0u;
+  if ((a1 & 1) == 0)
+  {
+    v12 = *a4;
+    v13 = *(a4 + 4);
+    v14 = -v13;
+    v15 = *(a4 + 8);
+    LODWORD(a7) = *(a4 + 16);
+    v16 = *(a4 + 20);
+    v17 = -v16;
+    v11.i32[0] = *(a4 + 24);
+    v18.i32[0] = *(a3 + 564);
+    v19 = *(a3 + 576);
+    v20 = *(a3 + 588);
+    v21 = ((-(v13 * v19) - (*a4 * v18.f32[0])) - (v15 * v20)) + ((-(v16 * *(a3 + 612)) - (*&a7 * *(a3 + 600))) - (v11.f32[0] * *(a3 + 624)));
+    v22 = *(a3 + 556);
+    v23 = *(a3 + 568);
+    v24 = *(a3 + 580);
+    v25 = vadd_f32(vsub_f32(vsub_f32(vmul_n_f32(v23, -v13), vmul_n_f32(v22, *a4)), vmul_n_f32(v24, v15)), vsub_f32(vsub_f32(vmul_n_f32(*(a3 + 604), v17), vmul_n_f32(*(a3 + 592), *&a7)), vmul_n_f32(*(a3 + 616), v11.f32[0])));
+    v26 = ((vmuls_lane_f32(v17, v24, 1) - (v24.f32[0] * *&a7)) - (v20 * v11.f32[0])) + ((-(v13 * *(a3 + 648)) - (*a4 * *(a3 + 636))) - (v15 * *(a3 + 660)));
+    *a6 = v25;
+    *(a6 + 8) = v21;
+    v18.f32[1] = v19;
+    v11 = vadd_f32(vmls_lane_f32(vmls_lane_f32(vmul_n_f32(vzip2_s32(v22, v23), v17), vzip1_s32(v22, v23), *&a7, 0), v18, v11, 0), vsub_f32(vsub_f32(vmul_n_f32(*(a3 + 640), v14), vmul_n_f32(*(a3 + 628), v12)), vmul_n_f32(*(a3 + 652), v15)));
+    *(a6 + 16) = v11;
+    *(a6 + 24) = v26;
+  }
+
+  v27 = *(*(a3 + 432) + 40 * a2 + 8);
+  v28 = v27 - 1;
+  if (v27 != 1)
+  {
+    do
+    {
+      v29 = __clz(__rbit32(v28));
+      LODWORD(v30) = __clz(__rbit32(HIDWORD(v28))) + 32;
+      if (v28)
+      {
+        v30 = v29;
+      }
+
+      else
+      {
+        v30 = v30;
+      }
+
+      physx::Dy::FeatherstoneArticulation::propagateVelocityW(*(a3 + 448) + 160 * v30 + 120, (*(a3 + 304) + 112 * v30), (*(a3 + 320) + 36 * v30), *(a3 + 352) + 76 * v30, (a4 + 32 * v30), a5 + 4 * *(*(a3 + 456) + 80 * v30 + 72), a6, &v32);
+      *a6 = v32;
+      *(a6 + 8) = v33;
+      *(a6 + 12) = 0;
+      *(a6 + 16) = v34;
+      v11.i32[0] = v35;
+      *(a6 + 24) = v35;
+      *(a6 + 28) = 0;
+      v28 &= v28 - 1;
+    }
+
+    while (v28);
+  }
+
+  return v11.f32[0];
+}
+
+float32_t physx::Dy::FeatherstoneArticulation::getZ(unsigned int a1, void *a2, uint64_t a3, float32x2_t *a4)
+{
+  v4 = a1;
+  v5 = a2[54];
+  v6 = -a4[3].f32[0];
+  v7 = (a3 + 32 * a1);
+  v8 = vneg_f32(*a4);
+  v7[1].f32[0] = -a4[1].f32[0];
+  v7[1].i32[1] = 0;
+  v9 = vneg_f32(a4[2]);
+  *v7 = v8;
+  v7[2] = v9;
+  v7[3].f32[0] = v6;
+  v7[3].i32[1] = 0;
+  if (a1)
+  {
+    v11 = a2[46];
+    v12 = a2[56];
+    v13 = a2[44];
+    do
+    {
+      physx::Dy::FeatherstoneArticulation::propagateImpulseW((v11 + 96 * v4), v12 + 160 * v4 + 120, v13 + 76 * v4, (a3 + 32 * v4), &v16);
+      v4 = *(v5 + 40 * v4 + 32);
+      v14 = (a3 + 32 * v4);
+      *v14 = v16;
+      v14[1].i32[0] = v17;
+      v14[1].i32[1] = 0;
+      v14[2] = v18;
+      v9.i32[0] = v19;
+      v14[3].i32[0] = v19;
+      v14[3].i32[1] = 0;
+    }
+
+    while (v4);
+  }
+
+  return v9.f32[0];
+}
+
+void physx::Dy::FeatherstoneArticulation::getImpulseSelfResponse(uint64_t a1, uint64_t a2, void *a3, unsigned int a4, __int128 *a5, uint64_t a6, unsigned int a7, float32x2_t *a8, float32x4_t a9, double a10, float32x4_t a11, float32x4_t a12, float32x4_t a13, float32x4_t a14, float32x4_t a15, float32x4_t a16, uint64_t a17)
+{
+  v132 = *MEMORY[0x1E69E9840];
+  v20 = a7;
+  if (*(a1 + 40 * a7 + 32) == a4)
+  {
+    v22 = *a8->f32;
+    v21 = *a8[2].f32;
+    v101 = *a5;
+    v102 = a5[1];
+    v126 = vneg_f32(*a8);
+    v127 = -*(&v22 + 2);
+    v128 = 0;
+    v129 = vneg_f32(*&v21);
+    v130 = -*(&v21 + 2);
+    v131 = 0;
+    v23 = a3[56] + 160 * a7;
+    v24 = a3[44] + 76 * a7;
+    physx::Dy::FeatherstoneArticulation::propagateImpulseW((a3[46] + 96 * a7), v23 + 120, v24, &v126, &v120);
+    v25 = v102;
+    *v26.f32 = vsub_f32(*&v101, v120);
+    v27.f32[0] = *(&v101 + 2) - v121;
+    *v28.f32 = vsub_f32(*&v102, v123);
+    v29.f32[0] = v124;
+    v25.f32[0] = *(&v102 + 2) - v124;
+    v26.f32[2] = *(&v101 + 2) - v121;
+    v26.i32[3] = 0;
+    v28.f32[2] = *(&v102 + 2) - v124;
+    v28.i32[3] = 0;
+    physx::Dy::SpatialImpulseResponseMatrix::getResponse(&v118, a3[36] + 192 * a4, v26, v28, v27, v25, v29, v30, v31, v32);
+    physx::Dy::FeatherstoneArticulation::propagateVelocityTestImpulseW(&v116, v23 + 120, (a3[38] + 112 * v20), (a3[40] + 36 * v20), v24, &v126, &v118);
+    v34 = v118;
+    v33 = v119;
+    HIDWORD(v33) = 0;
+    v34.i32[3] = 0;
+    *a6 = v33;
+    *(a6 + 16) = v34;
+    v36 = v116;
+    v35 = v117;
+    HIDWORD(v35) = 0;
+    v36.i32[3] = 0;
+    *a17 = v35;
+    *(a17 + 16) = v36;
+  }
+
+  else
+  {
+    v39 = a4;
+    v40 = a7;
+    if (a4 != a7)
+    {
+      v41 = a4;
+      v40 = a7;
+      do
+      {
+        if (v41 >= v40)
+        {
+          v41 = *(a1 + 40 * v41 + 32);
         }
 
         else
         {
-          v157 = 0uLL;
-          v159 = a7;
-          v158 = a8;
-          v161 = a5;
-          v160 = a6;
-          v163 = v196;
-          v162 = v197;
-          if (v210 == 1)
+          v40 = *(a1 + 40 * v40 + 32);
+        }
+      }
+
+      while (v41 != v40);
+    }
+
+    v42 = 0;
+    v43 = *a5;
+    a12.i64[0] = *(a5 + 2);
+    v45 = -*(a5 + 6);
+    v121 = -*(a5 + 2);
+    v44 = v121;
+    v122 = 0;
+    v124 = v45;
+    v125 = 0;
+    v46 = vneg_f32(v43);
+    v120 = v46;
+    v47 = vneg_f32(*a8);
+    v48 = -a8[1].f32[0];
+    v49 = vneg_f32(*a12.f32);
+    v123 = v49;
+    v50 = vneg_f32(a8[2]);
+    v51 = -a8[3].f32[0];
+    *v118.f32 = v47;
+    v118.i64[1] = LODWORD(v48);
+    *&v119 = v50;
+    *(&v119 + 2) = v51;
+    HIDWORD(v119) = 0;
+    v52 = (a2 + 32 * a4);
+    *v52 = v46;
+    v52[1].f32[0] = v44;
+    v52[1].i32[1] = 0;
+    v52[2] = v49;
+    v52[3].f32[0] = v45;
+    v52[3].i32[1] = 0;
+    v53 = (a2 + 32 * a7);
+    *v53 = v47;
+    v53[1].f32[0] = v48;
+    v53[1].i32[1] = 0;
+    v53[2] = v50;
+    v53[3].f32[0] = v51;
+    v53[3].i32[1] = 0;
+    if (v40 != a4)
+    {
+      v54 = 0;
+      v55 = a3[46];
+      v56 = a3[56];
+      v57 = a3[44];
+      do
+      {
+        physx::Dy::FeatherstoneArticulation::propagateImpulseW((v55 + 96 * v39), v56 + 160 * v39 + 120, v57 + 76 * v39, &v120, &v116);
+        v46 = *v116.f32;
+        v120 = *v116.f32;
+        v44 = v116.f32[2];
+        v121 = v116.f32[2];
+        v122 = 0;
+        v49 = v117;
+        v123 = v117;
+        v45 = *(&v117 + 2);
+        v124 = *(&v117 + 2);
+        v125 = 0;
+        v126.i32[v54] = v39;
+        v58 = *(a1 + 40 * v39 + 32);
+        v59 = (a2 + 32 * v58);
+        *v59 = v46;
+        v59[1].f32[0] = v44;
+        v59[1].i32[1] = 0;
+        v59[2] = v49;
+        v59[3].f32[0] = v45;
+        v59[3].i32[1] = 0;
+        v42 = ++v54;
+        v39 = v58;
+      }
+
+      while (v58 != v40);
+    }
+
+    v60 = v42;
+    if (v40 != v20)
+    {
+      v61 = a3[46];
+      v62 = a3[56];
+      v63 = a3[44];
+      v64 = v42;
+      do
+      {
+        physx::Dy::FeatherstoneArticulation::propagateImpulseW((v61 + 96 * v20), v62 + 160 * v20 + 120, v63 + 76 * v20, &v118, &v116);
+        v47 = *v116.f32;
+        v118.i64[0] = v116.i64[0];
+        v48 = v116.f32[2];
+        v118.i64[1] = v116.u32[2];
+        v50 = v117;
+        *&v119 = v117;
+        v51 = *(&v117 + 2);
+        *(&v119 + 1) = DWORD2(v117);
+        v126.i32[v64] = v20;
+        v65 = *(a1 + 40 * v20 + 32);
+        v66 = (a2 + 32 * v65);
+        *v66 = v47;
+        v66[1].f32[0] = v48;
+        v66[1].i32[1] = 0;
+        v66[2] = v50;
+        v66[3].f32[0] = v51;
+        v66[3].i32[1] = 0;
+        v60 = ++v64;
+        v20 = v65;
+      }
+
+      while (v65 != v40);
+    }
+
+    *a9.f32 = vadd_f32(v46, v47);
+    *a11.f32 = vadd_f32(v49, v50);
+    v67.i64[0] = vnegq_f32(a9).u64[0];
+    v67.f32[2] = -(v44 + v48);
+    v67.i32[3] = 0;
+    a12.f32[0] = -(v45 + v51);
+    v68.i64[0] = vnegq_f32(a11).u64[0];
+    v68.f32[2] = a12.f32[0];
+    v68.i32[3] = 0;
+    physx::Dy::SpatialImpulseResponseMatrix::getResponse(&v116, a3[36] + 192 * v40, v67, v68, a11, a12, a13, a14, a15, a16);
+    v70 = v116.i32[1];
+    v69 = v116.i32[0];
+    v114 = v116;
+    v95 = v116.i32[3];
+    v71 = v116.i32[2];
+    v73 = DWORD1(v117);
+    v72 = v117;
+    v115 = v117;
+    v74 = v116.i32[2];
+    v75 = v116.i32[1];
+    v76 = DWORD2(v117);
+    v77 = v116.i32[0];
+    v78 = DWORD2(v117);
+    v79 = DWORD1(v117);
+    v80 = v117;
+    v94 = HIDWORD(v117);
+    if (v60 > v42)
+    {
+      v81 = a3[56];
+      v82 = a3[38];
+      v83 = v60;
+      v84 = a3[40];
+      v85 = a3[44];
+      do
+      {
+        v86 = *(&v125 + v83);
+        v87 = v83 - 1;
+        physx::Dy::FeatherstoneArticulation::propagateVelocityTestImpulseW(&v108, v81 + 160 * v86 + 120, (v82 + 112 * v86), (v84 + 36 * v86), v85 + 76 * v86, (a2 + 32 * v86), &v114);
+        v75 = v108.i32[1];
+        v77 = v108.i32[0];
+        *v114.f32 = v108;
+        v74 = v109;
+        v79 = HIDWORD(v111);
+        v80 = v111;
+        v114.i64[1] = v109;
+        v78 = v112;
+        *&v115 = v111;
+        *(&v115 + 1) = v112;
+        v83 = v87;
+      }
+
+      while (v87 > v42);
+    }
+
+    v96 = v80;
+    v97 = v77;
+    v98 = v74;
+    v99 = v75;
+    v108 = __PAIR64__(v70, v69);
+    v109 = v71;
+    v110 = v95;
+    v111 = __PAIR64__(v73, v72);
+    v112 = v76;
+    v113 = v94;
+    if (v42)
+    {
+      v88 = a3[56];
+      v89 = a3[38];
+      v90 = 4 * v42;
+      v91 = a3[40];
+      v92 = a3[44];
+      do
+      {
+        v93 = *(&v125 + v90);
+        physx::Dy::FeatherstoneArticulation::propagateVelocityTestImpulseW(&v104, v88 + 160 * v93 + 120, (v89 + 112 * v93), (v91 + 36 * v93), v92 + 76 * v93, (a2 + 32 * v93), &v108);
+        v70 = v104.i32[1];
+        v69 = v104.i32[0];
+        v108 = v104;
+        v71 = v105;
+        v73 = HIDWORD(v106);
+        v72 = v106;
+        v109 = v105;
+        v110 = 0;
+        v76 = v107;
+        v111 = v106;
+        v112 = v107;
+        v113 = 0;
+        v90 -= 4;
+      }
+
+      while (v90);
+    }
+
+    *a6 = v72;
+    *(a6 + 4) = v73;
+    *(a6 + 8) = v76;
+    *(a6 + 16) = v69;
+    *(a6 + 20) = v70;
+    *(a6 + 24) = v71;
+    *a17 = v96;
+    *(a17 + 4) = v79;
+    *(a17 + 8) = v78;
+    *(a17 + 16) = v97;
+    *(a17 + 20) = v99;
+    *(a17 + 24) = v98;
+  }
+}
+
+uint64_t physx::Dy::FeatherstoneArticulation::storeStaticConstraint(uint64_t a1, __int128 *a2)
+{
+  v2 = *(a1 + 880);
+  if ((*(a1 + 884) & 0x7FFFFFFFu) <= v2)
+  {
+    physx::shdfnd::Array<physx::PxSolverConstraintDesc,physx::shdfnd::ReflectionAllocator<physx::PxSolverConstraintDesc>>::growAndPushBack(a1 + 872, a2);
+  }
+
+  else
+  {
+    v3 = (*(a1 + 872) + 48 * v2);
+    v4 = *a2;
+    v5 = a2[2];
+    v3[1] = a2[1];
+    v3[2] = v5;
+    *v3 = v4;
+    ++*(a1 + 880);
+  }
+
+  return 1;
+}
+
+void physx::Dy::FeatherstoneArticulation::prepareStaticConstraintsTGS(uint64_t a1, uint64_t a2, uint64_t (**a3)(void, void), uint64_t a4, uint64_t a5, uint64_t (**a6)(void, void), uint64_t a7, float a8, float a9, float a10, float a11, float a12, float a13, float a14, float a15)
+{
+  v123[0] = &unk_1F5D1DC80;
+  v123[1] = a6;
+  v123[2] = a3 + 1484;
+  v123[3] = a3 + 1478;
+  v123[4] = a3 + 1526;
+  v120 = xmmword_1E30474D0;
+  v121 = 0;
+  v122 = 0;
+  physx::shdfnd::sort<physx::PxSolverConstraintDesc,physx::Dy::ArticulationStaticConstraintSortPredicate,physx::shdfnd::ReflectionAllocator<physx::PxSolverConstraintDesc>>(*(a1 + 872), *(a1 + 880));
+  if (*(a1 + 880))
+  {
+    v26 = 0;
+    __asm { FMOV            V8.2S, #1.0 }
+
+    do
+    {
+      v31 = *(a1 + 872) + 48 * v26;
+      v32 = *(v31 + 16);
+      v33 = *(v31 + 18);
+      if (v32 == 0xFFFF)
+      {
+        v34 = *(v31 + 18);
+      }
+
+      else
+      {
+        v34 = *(v31 + 16);
+      }
+
+      if (*(v31 + 30) == 1)
+      {
+        v35 = *(v31 + 32);
+        v36 = *(a2 + 32) + 32 * (*(a2 + 4 * (*(v35 + 108) & 7)) + (*(v35 + 108) >> 3));
+        _ZF = v32 == 0xFFFF;
+        v37 = *(v31 + 20);
+        v38 = *(v31 + 24);
+        if (_ZF)
+        {
+          v39 = *(v31 + 20);
+        }
+
+        else
+        {
+          v39 = 0;
+        }
+
+        v40 = a4 + 48 * v39;
+        if (v33 == 0xFFFF)
+        {
+          v41 = *(v31 + 24);
+        }
+
+        else
+        {
+          v41 = 0;
+        }
+
+        v42 = a4 + 48 * v41;
+        v44 = *(v35 + 32);
+        v43 = *(v35 + 40);
+        v45 = *(v35 + 24);
+        v46 = *(v36 + 16);
+        v47 = *v31;
+        v105 = *v44;
+        *&v48 = *(v44 + 16);
+        DWORD2(v48) = *(v44 + 24);
+        HIDWORD(v48) = *v43;
+        v106 = v48;
+        v107 = *(v43 + 4);
+        v108 = *(v43 + 20);
+        v111 = v45;
+        v117 = v46;
+        v99 = v31;
+        v100 = v47;
+        v101 = a5 + (v37 << 6);
+        v102 = a5 + (v38 << 6);
+        v103 = v40;
+        v104 = v42;
+        v49 = *(v35 + 80);
+        BYTE2(v113) = HIBYTE(v49) & 1;
+        BYTE1(v113) = (v49 & 4) != 0;
+        v50 = 8;
+        if ((v49 & 8) != 0)
+        {
+          v51 = 8;
+        }
+
+        else
+        {
+          v51 = 1;
+        }
+
+        v109 = v51;
+        if ((v49 & 0x10) == 0)
+        {
+          if ((v49 & 0x400) != 0)
           {
-            v157 = v216;
-            v164 = v213;
+            v50 = 4;
+          }
+
+          else if ((v49 & 0x40) != 0)
+          {
+            v50 = 1;
           }
 
           else
           {
-            v164 = 0uLL;
+            v50 = 2;
           }
         }
 
-        v192 = vmlaq_n_f32(v157, v156, v152.f32[0]);
-        v192.i64[1] = vextq_s8(v192, v192, 8uLL).u32[0];
-        v193 = vbslq_s8(v163, v192, v157);
-        *v161 = v193;
-        v193.i32[0] = *(*(a2 + 8) + 16);
-        v194 = vmlsq_lane_f32(v164, v156, *v193.i8, 0);
-        v194.i64[1] = vextq_s8(v194, v194, 8uLL).u32[0];
-        *v160 = vbslq_s8(v162, v194, v164);
-        *v159 = v156;
-        *v193.i8 = vmax_f32(vsub_f32(v33, v203), 0);
-        *v158 = *v193.i8;
-        if (vcgt_f32(*v193.i8, v155).u8[0])
+        v110 = v50;
+        v77 = (v40 + 12);
+        if ((v49 & 8) != 0)
         {
-          return 1;
+          v77 = (*(v35 + 32) + 128);
+        }
+
+        v78 = *v77;
+        v79 = (*(v35 + 40) + 128);
+        v80 = (v42 + 12);
+        if ((v49 & 0x10) == 0)
+        {
+          v79 = v80;
+        }
+
+        v81.i32[0] = *(v35 + 84);
+        v81.i32[1] = *(v35 + 85);
+        v82 = *v79;
+        v83 = vceqz_s32(v81);
+        v124.val[0] = vbic_s8(_D8, v83);
+        v124.val[1] = v124.val[0];
+        v84 = v98;
+        vst2_f32(v84, v124);
+        LODWORD(v114) = *(v35 + 92);
+        v115 = *(v35 + 72);
+        v116 = *(v35 + 82);
+        HIDWORD(v114) = 2139095039;
+        if (v78 >= v82)
+        {
+          v78 = v82;
+        }
+
+        v118 = v78;
+        v119 = *(v35 + 112);
+        *v83.i32 = a11;
+        *&v25 = a13;
+        physx::Dy::createFinalizeSolverContactsStep(v98, v36, a3, v123, a10, *&v83, *&v25, a14, a12);
+        *(v31 + 28) = *(v36 + 24);
+        *(v31 + 40) = *(v36 + 16);
+        *(v35 + 72) = v115;
+        *(v35 + 82) = v116;
+        if (*(v31 + 32))
+        {
+LABEL_52:
+          v85 = *(a1 + 560);
+          v86 = *(v85 + 4 * v34);
+          if (!v86)
+          {
+            *(*(a1 + 576) + 4 * v34) = v26;
+            v86 = *(v85 + 4 * v34);
+          }
+
+          *(v85 + 4 * v34) = v86 + 1;
+          goto LABEL_59;
+        }
+
+        v87 = v26 + 1;
+        LODWORD(v72) = *(a1 + 880);
+        if (v87 < v72)
+        {
+          v88 = (*(a1 + 872) + 48 * v26);
+          v89 = 48 * (v26 + 1);
+          do
+          {
+            v90 = (*(a1 + 872) + v89);
+            v91 = *v90;
+            v25 = v90[2];
+            v88[1] = v90[1];
+            v88[2] = v25;
+            *v88 = v91;
+            v88 += 3;
+            ++v87;
+            v72 = *(a1 + 880);
+            v89 += 48;
+          }
+
+          while (v87 < v72);
+        }
+      }
+
+      else
+      {
+        v52 = *(v31 + 32);
+        v53 = v52[5];
+        if (v53)
+        {
+          v54 = *(v53 + 40);
         }
 
         else
         {
-          return 2;
+          v54 = &v120;
+        }
+
+        v55 = v52[6];
+        if (v55)
+        {
+          v56 = *(v55 + 40);
+        }
+
+        else
+        {
+          v56 = &v120;
+        }
+
+        v57 = v52[4];
+        v58 = *(v52 + 4);
+        _ZF = v32 == 0xFFFF;
+        v60 = *(v31 + 20);
+        v61 = *(v31 + 24);
+        if (_ZF)
+        {
+          v62 = *(v31 + 20);
+        }
+
+        else
+        {
+          v62 = 0;
+        }
+
+        v63 = a4 + 48 * v62;
+        if (_ZF)
+        {
+          v64 = 1;
+        }
+
+        else
+        {
+          v64 = 8;
+        }
+
+        v65 = v33 == 0xFFFF;
+        if (v33 == 0xFFFF)
+        {
+          v66 = *(v31 + 24);
+        }
+
+        else
+        {
+          v66 = 0;
+        }
+
+        v96[1] = v52[2];
+        v96[2] = v57;
+        v97 = v58;
+        v96[0] = v52;
+        v67 = *v54;
+        v68 = *v31;
+        v99 = v31;
+        v105 = v67;
+        *&v67 = *(v54 + 2);
+        DWORD2(v67) = *(v54 + 6);
+        HIDWORD(v67) = *v56;
+        v106 = v67;
+        v107 = *(v56 + 4);
+        v108 = *(v56 + 20);
+        v100 = v68;
+        v101 = a5 + (v60 << 6);
+        v102 = a5 + (v61 << 6);
+        v103 = v63;
+        v104 = a4 + 48 * v66;
+        v112 = *v52;
+        v114 = a7 + 32 * *(v52 + 18);
+        v69 = *(v52 + 5);
+        LOBYTE(v115) = HIBYTE(v69) & 1;
+        BYTE1(v115) = (v69 & 0x80) != 0;
+        BYTE2(v115) = (v69 & 0x20) != 0;
+        BYTE3(v115) = (v69 & 0x200) != 0;
+        v113 = *(v52 + 19);
+        if (v65)
+        {
+          v70 = 1;
+        }
+
+        else
+        {
+          v70 = 8;
+        }
+
+        v109 = v64;
+        v110 = v70;
+        physx::Dy::SetupSolverConstraintStep(v96, v98, v123, a8, a9, a10, a11, a15);
+        if (*(v31 + 32))
+        {
+          goto LABEL_52;
+        }
+
+        v71 = v26 + 1;
+        LODWORD(v72) = *(a1 + 880);
+        if (v71 < v72)
+        {
+          v73 = (*(a1 + 872) + 48 * v26);
+          v74 = 48 * (v26 + 1);
+          do
+          {
+            v75 = (*(a1 + 872) + v74);
+            v76 = *v75;
+            v25 = v75[2];
+            v73[1] = v75[1];
+            v73[2] = v25;
+            *v73 = v76;
+            v73 += 3;
+            ++v71;
+            v72 = *(a1 + 880);
+            v74 += 48;
+          }
+
+          while (v71 < v72);
         }
       }
+
+      *(a1 + 880) = v72 - 1;
+      --v26;
+LABEL_59:
+      ++v26;
     }
+
+    while (v26 < *(a1 + 880));
   }
-
-  v142 = vnegq_f32(v205);
-  v142.i32[3] = 0;
-  if (v210 == 3)
-  {
-    v211 = 0;
-    v212 = 0;
-    v206 = v142;
-    physx::Gu::barycentricCoordinates(&v209, &v219, &v220, v221, &v212, &v211);
-    v173 = vmulq_n_f32(vsubq_f32(v217, v216), v212.f32[0]);
-    v173.i32[3] = 0;
-    v174 = vmulq_n_f32(vsubq_f32(v218[0], v216), v211.f32[0]);
-    v174.i32[3] = 0;
-    v175 = vaddq_f32(v173, v174);
-    v176 = vmulq_n_f32(vsubq_f32(v214, v213), v212.f32[0]);
-    v176.i32[3] = 0;
-    v143 = vaddq_f32(v216, v175);
-    v177 = vmulq_n_f32(vsubq_f32(v215[0], v213), v211.f32[0]);
-    v142 = v206;
-    v177.i32[3] = 0;
-    v144 = vaddq_f32(v213, vaddq_f32(v176, v177));
-    v146 = a7;
-    v145 = a8;
-    v148 = a5;
-    v147 = a6;
-    v150 = v196;
-    v149 = v197;
-  }
-
-  else if (v210 == 2)
-  {
-    v165 = vsubq_f32(v219, v209);
-    v166 = vsubq_f32(vsubq_f32(v220, v209), v165);
-    v167 = vmulq_f32(v166, v166);
-    v167.i64[0] = vpaddq_f32(v167, v167).u64[0];
-    v168 = vpadd_f32(*v167.f32, *v167.f32);
-    v169 = vrecpe_f32(v168);
-    v170 = 4;
-    v146 = a7;
-    v145 = a8;
-    v148 = a5;
-    v147 = a6;
-    v150 = v196;
-    v149 = v197;
-    do
-    {
-      v169 = vmul_f32(v169, vrecps_f32(v168, v169));
-      --v170;
-    }
-
-    while (v170);
-    v171 = vnegq_f32(v165);
-    v171.i32[3] = 0;
-    v172 = vmulq_f32(v171, v166);
-    v172.i64[0] = vpaddq_f32(v172, v172).u64[0];
-    v171.i32[0] = vmul_f32(vbsl_s8(vcgtz_f32(v168), v169, 0), vpadd_f32(*v172.f32, *v172.f32)).u32[0];
-    v143 = vmlaq_n_f32(v216, vsubq_f32(v217, v216), v171.f32[0]);
-    v143.i64[1] = vextq_s8(v143, v143, 8uLL).u32[0];
-    v144 = vmlaq_n_f32(v213, vsubq_f32(v214, v213), v171.f32[0]);
-    v144.i64[1] = vextq_s8(v144, v144, 8uLL).u32[0];
-  }
-
-  else
-  {
-    v143 = 0uLL;
-    v144 = 0uLL;
-    v146 = a7;
-    v145 = a8;
-    v148 = a5;
-    v147 = a6;
-    v150 = v196;
-    v149 = v197;
-    if (v210 == 1)
-    {
-      v143 = v216;
-      v144 = v213;
-    }
-  }
-
-  v178 = vmlaq_n_f32(v143, v142, *(*(a1 + 8) + 16));
-  v178.i64[1] = vextq_s8(v178, v178, 8uLL).u32[0];
-  v179 = vbslq_s8(v150, v178, v143);
-  *v148 = v179;
-  v179.i32[0] = *(*(a2 + 8) + 16);
-  v180 = vmlsq_lane_f32(v144, v142, *v179.i8, 0);
-  v180.i64[1] = vextq_s8(v180, v180, 8uLL).u32[0];
-  *v147 = vbslq_s8(v149, v180, v144);
-  *v145 = vmax_f32(vsub_f32(v33, v203), 0);
-  *v146 = v142;
-  return 1;
-}
-
-BOOL GeomMTDCallback_SphereSphere(float32x2_t *a1, float *a2, uint64_t a3, float32x2_t *a4, uint64_t a5, float32x2_t *a6)
-{
-  v6 = vsub_f32(a4[2], a6[2]);
-  v7 = a4[3].f32[0] - a6[3].f32[0];
-  v8 = (COERCE_FLOAT(vmul_f32(v6, v6).i32[1]) + (v6.f32[0] * v6.f32[0])) + (v7 * v7);
-  v9 = *(a3 + 4) + *(a5 + 4);
-  if (v8 <= (v9 * v9))
-  {
-    v10 = sqrtf(v8);
-    if (v8 >= 0.000001)
-    {
-      v11 = vmul_n_f32(v6, 1.0 / v10);
-      v12 = v7 * (1.0 / v10);
-    }
-
-    else
-    {
-      v11 = 1065353216;
-      v12 = 0.0;
-    }
-
-    *a1 = v11;
-    a1[1].f32[0] = v12;
-    *a2 = fmaxf(v9 - v10, 0.0);
-  }
-
-  return v8 <= (v9 * v9);
-}
-
-BOOL GeomMTDCallback_SpherePlane(float *a1, float *a2, uint64_t a3, float *a4, uint64_t a5, float *a6)
-{
-  v6 = *(a3 + 4);
-  v8 = a6[2];
-  v7 = a6[3];
-  v9 = v7 + v7;
-  v10 = *a6;
-  v11 = a6[1];
-  v12 = v10 + v10;
-  v13 = ((v7 * (v7 + v7)) + -1.0) + (v10 * (v10 + v10));
-  v14 = ((v10 + v10) * v11) + (v8 * v9);
-  v15 = (v12 * v8) - (v11 * v9);
-  v16 = (((a4[5] * v14) + (a4[4] * v13)) + (a4[6] * v15)) - (((a6[5] * v14) + (a6[4] * v13)) + (a6[6] * v15));
-  if (v16 <= v6)
-  {
-    *a1 = v13;
-    a1[1] = v14;
-    a1[2] = v15;
-    *a2 = fmaxf(v6 - v16, 0.0);
-  }
-
-  return v16 <= v6;
-}
-
-BOOL GeomMTDCallback_SphereCapsule(uint64_t a1, float *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
-{
-  v6 = *a6;
-  v7 = v6 + v6;
-  v8 = *(a6 + 12);
-  v9 = *(a6 + 16);
-  v10 = v8 + v8;
-  v11 = *(a5 + 8);
-  v12 = (((v8 * (v8 + v8)) + -1.0) + (v6 * (v6 + v6))) * v11;
-  v13 = v9 + v12;
-  v14 = v9 - v12;
-  v15 = *(a5 + 4) + *(a3 + 4);
-  v16 = v14 - v13;
-  v17 = *(a6 + 4);
-  v18.i32[0] = vdup_lane_s32(v17, 1).u32[0];
-  v18.f32[1] = -v17.f32[0];
-  v19 = vmul_n_f32(vmla_n_f32(vmul_n_f32(v17, v7), v18, v10), v11);
-  v20 = *(a6 + 20);
-  v21 = vadd_f32(v20, v19);
-  v22 = vsub_f32(v20, v19);
-  v23 = *(a4 + 20);
-  v24 = vsub_f32(v22, v21);
-  _D7 = vsub_f32(v23, v21);
-  _S19 = v24.i32[1];
-  __asm { FMLA            S18, S19, V7.S[1] }
-
-  v32 = 0.0;
-  if (_S18 > 0.0)
-  {
-    v33 = (vmul_f32(v24, v24).f32[0] + (v16 * v16)) + (v24.f32[1] * v24.f32[1]);
-    if (_S18 >= v33)
-    {
-      _D7 = vsub_f32(_D7, v24);
-      v32 = 1.0;
-    }
-
-    else
-    {
-      v32 = _S18 / v33;
-      _D7 = vsub_f32(_D7, vmul_n_f32(v24, v32));
-    }
-  }
-
-  _S18 = _D7.i32[1];
-  __asm { FMLA            S16, S18, V7.S[1] }
-
-  if (_S16 <= (v15 * v15))
-  {
-    v36 = *(a4 + 16) - (v13 + (v16 * v32));
-    _D3 = vsub_f32(v23, vadd_f32(v21, vmul_n_f32(v24, v32)));
-    _S1 = _D3.i32[1];
-    __asm { FMLA            S4, S1, V3.S[1] }
-
-    v40 = sqrtf(_S4);
-    if (_S4 >= 0.000001)
-    {
-      v42 = v36 * (1.0 / v40);
-      v41 = vmul_n_f32(_D3, 1.0 / v40);
-    }
-
-    else
-    {
-      v41 = 0;
-      v42 = 1.0;
-    }
-
-    *a1 = v42;
-    *(a1 + 4) = v41;
-    *a2 = fmaxf(v15 - v40, 0.0);
-  }
-
-  return _S16 <= (v15 * v15);
 }

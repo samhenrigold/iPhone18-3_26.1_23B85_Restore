@@ -23,9 +23,11 @@
 
 uint64_t __42__CFXEffectHostAppDelegate_sharedInstance__block_invoke()
 {
-  sharedInstance_s_instance = objc_alloc_init(CFXEffectHostAppDelegate);
+  v0 = objc_alloc_init(CFXEffectHostAppDelegate);
+  v1 = sharedInstance_s_instance;
+  sharedInstance_s_instance = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (BOOL)wantsToAssertThatLoadedSceneHasAnimateFlagDisabled

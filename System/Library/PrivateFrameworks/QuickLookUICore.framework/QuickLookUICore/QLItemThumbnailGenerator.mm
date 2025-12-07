@@ -120,7 +120,7 @@ LABEL_19:
 
 void __118__QLItemThumbnailGenerator_generateThumbnailRepresentationForItem_ofSize_minimumSize_scale_badgeType_completionBlock___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -135,9 +135,9 @@ void __118__QLItemThumbnailGenerator_generateThumbnailRepresentationForItem_ofSi
 
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v10 = 138412290;
-      v11 = v6;
-      _os_log_impl(&dword_261653000, v8, OS_LOG_TYPE_ERROR, "Could not generate thumbnail because an error occurred while fetching the contents of the item: %@. #Thumbnail", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v6;
+      _os_log_impl(&dword_261653000, v8, OS_LOG_TYPE_ERROR, "Could not generate thumbnail because an error occurred while fetching the contents of the item: %@. #Thumbnail", &v9, 0xCu);
     }
 
     goto LABEL_11;
@@ -165,8 +165,6 @@ LABEL_11:
 
   [*(a1 + 32) _generateThumbnailWithURL:v5 size:*(a1 + 88) minimumDimension:*(a1 + 48) scale:*(a1 + 56) badgeType:*(a1 + 64) completionHandler:{*(a1 + 72), *(a1 + 80)}];
 LABEL_12:
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_generateThumbnailWithURL:(id)l size:(CGSize)size minimumDimension:(double)dimension scale:(double)scale badgeType:(unint64_t)type completionHandler:(id)handler
@@ -234,7 +232,7 @@ LABEL_12:
 
 void __75__QLItemThumbnailGenerator__generateThumbnailForRequest_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -249,15 +247,13 @@ void __75__QLItemThumbnailGenerator__generateThumbnailForRequest_completionHandl
 
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v10 = 138412290;
-      v11 = v6;
-      _os_log_impl(&dword_261653000, v8, OS_LOG_TYPE_ERROR, "Could not generate thumbnail because an error occurred while generating best representation for contents of the item: %@. #Thumbnail", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v6;
+      _os_log_impl(&dword_261653000, v8, OS_LOG_TYPE_ERROR, "Could not generate thumbnail because an error occurred while generating best representation for contents of the item: %@. #Thumbnail", &v9, 0xCu);
     }
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)fetcherClassesForPreviewItem:(id)item

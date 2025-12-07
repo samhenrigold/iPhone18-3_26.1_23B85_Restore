@@ -82,10 +82,11 @@
 - (void)dispatchPowerOnMessageCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = sub_10F8();
+  v5 = sub_10F8(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    sub_2F78(&dword_0, v6, v7, "Power on", v8, v9, v10, v11, v18, v19, 0);
+    *buf = 0;
+    sub_2F78(&dword_0, v6, v7, "Power on", v8, v9, v10, v11, v18, v19);
   }
 
   *(&v19 + 3) = 8197;

@@ -12,39 +12,39 @@
 
 - (void)_init
 {
-  v25[2] = *MEMORY[0x277D85DE8];
+  v24[2] = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277D44098];
-  v24[0] = *MEMORY[0x277D44090];
-  v24[1] = v3;
-  v25[0] = @"bird";
-  v25[1] = @"clouddocs";
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:2];
+  v23[0] = *MEMORY[0x277D44090];
+  v23[1] = v3;
+  v24[0] = @"bird";
+  v24[1] = @"clouddocs";
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:2];
   userInfo = self->_userInfo;
   self->_userInfo = v4;
 
   v6 = objc_alloc_init(BRCDeviceConfiguration);
   getConfiguration = [(BRCDeviceConfiguration *)v6 getConfiguration];
-  v22[0] = @"isIcloudAnalyticsFlagOn";
+  v21[0] = @"isIcloudAnalyticsFlagOn";
   v8 = [MEMORY[0x277CCABB0] numberWithBool:{+[BRCAnalyticsReporter isTelemetryReportingEnabled](BRCAnalyticsReporter, "isTelemetryReportingEnabled")}];
-  v23[0] = v8;
-  v22[1] = @"isDesktopEnabled";
+  v22[0] = v8;
+  v21[1] = @"isDesktopEnabled";
   v9 = MEMORY[0x277CCABB0];
   v10 = +[BRCAccountHandler currentiCloudAccount];
   v11 = [v9 numberWithBool:{objc_msgSend(v10, "br_isEnabledForDesktopSync")}];
-  v23[1] = v11;
-  v22[2] = @"isEDS";
+  v22[1] = v11;
+  v21[2] = @"isEDS";
   v12 = [getConfiguration objectForKeyedSubscript:@"EDS"];
-  v23[2] = v12;
-  v22[3] = @"isFPFS";
+  v22[2] = v12;
+  v21[3] = @"isFPFS";
   v13 = [getConfiguration objectForKeyedSubscript:@"FPFS"];
-  v23[3] = v13;
-  v22[4] = @"isTestDevice";
+  v22[3] = v13;
+  v21[4] = @"isTestDevice";
   v14 = [getConfiguration objectForKeyedSubscript:@"TESTING"];
-  v23[4] = v14;
-  v22[5] = @"isSharedIPad";
+  v22[4] = v14;
+  v21[5] = @"isSharedIPad";
   v15 = [getConfiguration objectForKeyedSubscript:@"SHARED_IPAD"];
-  v23[5] = v15;
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:6];
+  v22[5] = v15;
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:6];
   globalPayload = self->_globalPayload;
   self->_globalPayload = v16;
 
@@ -52,16 +52,14 @@
   telemetryRTCAllowedZoneNamePrefixes = [v18 telemetryRTCAllowedZoneNamePrefixes];
   allowedZoneNamePrefixes = self->_allowedZoneNamePrefixes;
   self->_allowedZoneNamePrefixes = telemetryRTCAllowedZoneNamePrefixes;
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (BRCRTCReporter)initWithFPRTCReportingSession:(id)session
 {
   sessionCopy = session;
-  v22.receiver = self;
-  v22.super_class = BRCRTCReporter;
-  v6 = [(BRCRTCReporter *)&v22 init];
+  v19.receiver = self;
+  v19.super_class = BRCRTCReporter;
+  v6 = [(BRCRTCReporter *)&v19 init];
   v7 = v6;
   if (v6)
   {
@@ -76,21 +74,18 @@
     pacerQueue = v7->_pacerQueue;
     v7->_pacerQueue = v11;
 
-    v13 = v7->_pacerQueue;
-    v14 = br_pacer_create();
+    v13 = br_pacer_create();
     reportingPacer = v7->_reportingPacer;
-    v7->_reportingPacer = v14;
+    v7->_reportingPacer = v13;
 
-    v16 = v7->_reportingPacer;
-    v21 = v7;
+    v18 = v7;
     br_pacer_set_event_handler();
-    v17 = v7->_reportingPacer;
     br_pacer_resume();
-    v18 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    events = v21->_events;
-    v21->_events = v18;
+    v15 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    events = v18->_events;
+    v18->_events = v15;
 
-    [(BRCRTCReporter *)v21 _init];
+    [(BRCRTCReporter *)v18 _init];
   }
 
   return v7;
@@ -131,8 +126,6 @@ uint64_t __23__BRCRTCReporter_close__block_invoke(uint64_t a1)
   objc_sync_enter(v2);
   [*(*(a1 + 32) + 56) removeAllObjects];
   objc_sync_exit(v2);
-
-  v3 = *(*(a1 + 32) + 48);
 
   return br_pacer_cancel();
 }
@@ -215,7 +208,6 @@ uint64_t __23__BRCRTCReporter_close__block_invoke(uint64_t a1)
   [v21 addObject:v11];
 
   objc_sync_exit(v12);
-  reportingPacer = self->_reportingPacer;
   br_pacer_signal();
 }
 

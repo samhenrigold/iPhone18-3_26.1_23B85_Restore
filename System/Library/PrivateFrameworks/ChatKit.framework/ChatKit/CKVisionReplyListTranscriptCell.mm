@@ -49,19 +49,19 @@
 
 - (void)layoutSubviewsForAlignmentContents
 {
-  v12.receiver = self;
-  v12.super_class = CKVisionReplyListTranscriptCell;
-  [(CKEditableCollectionViewCell *)&v12 layoutSubviewsForAlignmentContents];
-  if (CKIsRunningInMessagesNotificationExtension())
+  v13.receiver = self;
+  v13.super_class = CKVisionReplyListTranscriptCell;
+  layoutSubviewsForAlignmentContents = [(CKEditableCollectionViewCell *)&v13 layoutSubviewsForAlignmentContents];
+  if (CKIsRunningInMessagesNotificationExtension(layoutSubviewsForAlignmentContents))
   {
     contentView = [(CKEditableCollectionViewCell *)self contentView];
     [contentView bounds];
-    v5 = v4;
-    v7 = v6;
-    v9 = v8;
-    v11 = v10;
+    v6 = v5;
+    v8 = v7;
+    v10 = v9;
+    v12 = v11;
 
-    [(CKEditableCollectionViewCell *)self setContentAlignmentRect:v5 + 0.0, v7 + 0.0, v9 + -8.0, v11];
+    [(CKEditableCollectionViewCell *)self setContentAlignmentRect:v6 + 0.0, v8 + 0.0, v10 + -8.0, v12];
   }
 
   [(CKEditableCollectionViewCell *)self contentAlignmentRect];

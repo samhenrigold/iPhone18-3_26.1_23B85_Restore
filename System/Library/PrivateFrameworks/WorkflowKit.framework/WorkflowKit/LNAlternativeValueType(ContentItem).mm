@@ -223,22 +223,21 @@ LABEL_30:
 
 - (id)wf_contentCollectionFromLinkValue:()ContentItem appBundleIdentifier:displayedBundleIdentifier:
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v4 = getWFAppIntentsLogObject();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     v5 = NSStringFromSelector(a2);
-    v9 = 136315650;
-    v10 = "[LNAlternativeValueType(ContentItem) wf_contentCollectionFromLinkValue:appBundleIdentifier:displayedBundleIdentifier:]";
-    v11 = 2112;
+    v8 = 136315650;
+    v9 = "[LNAlternativeValueType(ContentItem) wf_contentCollectionFromLinkValue:appBundleIdentifier:displayedBundleIdentifier:]";
+    v10 = 2112;
     selfCopy = self;
-    v13 = 2112;
-    v14 = v5;
-    _os_log_impl(&dword_1CA256000, v4, OS_LOG_TYPE_FAULT, "%s [%@ %@] should not be reachable; there is no such thing as an LNAlternativeValue.", &v9, 0x20u);
+    v12 = 2112;
+    v13 = v5;
+    _os_log_impl(&dword_1CA256000, v4, OS_LOG_TYPE_FAULT, "%s [%@ %@] should not be reachable; there is no such thing as an LNAlternativeValue.", &v8, 0x20u);
   }
 
   v6 = objc_opt_new();
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -260,21 +259,20 @@ LABEL_30:
 
 - (uint64_t)wf_contentItemClassWithAppBundleIdentifier:()ContentItem
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v4 = getWFAppIntentsLogObject();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     v5 = NSStringFromSelector(a2);
-    v8 = 136315650;
-    v9 = "[LNAlternativeValueType(ContentItem) wf_contentItemClassWithAppBundleIdentifier:]";
-    v10 = 2112;
+    v7 = 136315650;
+    v8 = "[LNAlternativeValueType(ContentItem) wf_contentItemClassWithAppBundleIdentifier:]";
+    v9 = 2112;
     selfCopy = self;
-    v12 = 2112;
-    v13 = v5;
-    _os_log_impl(&dword_1CA256000, v4, OS_LOG_TYPE_FAULT, "%s [%@ %@] should not be called; use wf_contentItemClasses...", &v8, 0x20u);
+    v11 = 2112;
+    v12 = v5;
+    _os_log_impl(&dword_1CA256000, v4, OS_LOG_TYPE_FAULT, "%s [%@ %@] should not be called; use wf_contentItemClasses...", &v7, 0x20u);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return 0;
 }
 

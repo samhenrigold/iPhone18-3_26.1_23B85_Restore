@@ -49,29 +49,29 @@
 
 void __49__HFAccessorySettingsEntity_settingsAtURL_error___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a2;
   [a3 objectForKeyedSubscript:@"Children"];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  obj = v19 = 0u;
-  v6 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+  obj = v18 = 0u;
+  v6 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       v9 = 0;
       do
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * v9);
+        v10 = *(*(&v15 + 1) + 8 * v9);
         v11 = [[HFAccessorySettingsEntity alloc] initWithDictionary:v10];
         v12 = [objc_alloc(MEMORY[0x277D2C910]) initWithRepresentedObject:v11];
         [v5 addChild:v12];
@@ -82,13 +82,11 @@ void __49__HFAccessorySettingsEntity_settingsAtURL_error___block_invoke(uint64_t
       }
 
       while (v7 != v9);
-      v7 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)description

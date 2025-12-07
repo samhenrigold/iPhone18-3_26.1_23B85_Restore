@@ -24,13 +24,13 @@
 - (void)loadView
 {
   selfCopy = self;
-  sub_10028427C();
+  sub_10028427C(selfCopy, v2);
 }
 
 - (void)viewDidLoad
 {
   v4.receiver = self;
-  v4.super_class = type metadata accessor for HistoryPagingViewController();
+  v4.super_class = type metadata accessor for HistoryPagingViewController(0);
   v2 = v4.receiver;
   [(HistoryPagingViewController *)&v4 viewDidLoad];
   navigationItem = [v2 navigationItem];
@@ -43,7 +43,7 @@
 {
   appearCopy = appear;
   v7.receiver = self;
-  v7.super_class = type metadata accessor for HistoryPagingViewController();
+  v7.super_class = type metadata accessor for HistoryPagingViewController(0);
   v4 = v7.receiver;
   [(HistoryPagingViewController *)&v7 viewDidAppear:appearCopy];
   sub_10028388C();
@@ -58,13 +58,13 @@
 - (void)viewWillAppear:(BOOL)appear
 {
   selfCopy = self;
-  sub_1002853B4(appear);
+  sub_1002853B4(appear, selfCopy);
 }
 
 - (void)viewWillLayoutSubviews
 {
   v15.receiver = self;
-  v15.super_class = type metadata accessor for HistoryPagingViewController();
+  v15.super_class = type metadata accessor for HistoryPagingViewController(0);
   v2 = v15.receiver;
   [(HistoryPagingViewController *)&v15 viewWillLayoutSubviews];
   view = [*&v2[OBJC_IVAR____TtC10FitnessApp27HistoryPagingViewController_pageViewController] view];
@@ -118,9 +118,9 @@
 {
   controllerCopy = controller;
   selfCopy = self;
-  v8 = sub_100287238(index);
+  v9 = sub_100287238(index, v8);
 
-  return v8;
+  return v9;
 }
 
 - (void)pageViewController:(id)controller didUpdateCurrentlyDisplayedIndex:(int64_t)index
@@ -138,7 +138,7 @@
   toViewControllerCopy = toViewController;
   selfCopy = self;
   currentlyDisplayedViewController = [v10 currentlyDisplayedViewController];
-  type metadata accessor for HistoryDayViewController();
+  type metadata accessor for HistoryDayViewController(0);
   v16 = swift_dynamicCastClass();
   if (v16)
   {

@@ -133,109 +133,109 @@ LABEL_10:
   v5 = 0;
   v6 = sub_1006DA200(v5);
 
-  copyIdentity = [sub_1006DAF6C() copyIdentity];
-  v8 = copyIdentity;
+  copyIdentity = [sub_1006DAF6C(v7) copyIdentity];
+  v9 = copyIdentity;
   if (copyIdentity)
   {
-    v9 = 0;
+    v10 = 0;
   }
 
   else
   {
-    v9 = -25300;
+    v10 = -25300;
   }
 
   if (v4 && copyIdentity)
   {
     cf = 0;
     certificateRef = 0;
-    v10 = SecIdentityCopyCertificate(v4, &certificateRef);
-    v11 = SecIdentityCopyCertificate(v8, &cf);
-    v12 = v11;
-    if (v10 || !certificateRef || v11 || !cf)
+    v11 = SecIdentityCopyCertificate(v4, &certificateRef);
+    v12 = SecIdentityCopyCertificate(v9, &cf);
+    v13 = v12;
+    if (v11 || !certificateRef || v12 || !cf)
     {
-      v19 = +[IMRGLog warning];
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
+      v20 = +[IMRGLog warning];
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
       {
-        sub_100933338(v10, v12, v19);
+        sub_100933338(v11, v13, v20);
       }
     }
 
     else
     {
-      v13 = sub_1006DAD80(cf);
-      v14 = sub_1006DAD80(certificateRef);
-      v15 = +[IMRGLog warning];
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v14 = sub_1006DAD80(cf);
+      v15 = sub_1006DAD80(certificateRef);
+      v16 = +[IMRGLog warning];
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = @"NO";
+        v17 = @"NO";
+        if (v15)
+        {
+          v18 = @"YES";
+        }
+
+        else
+        {
+          v18 = @"NO";
+        }
+
+        *buf = 134218754;
         if (v14)
         {
           v17 = @"YES";
         }
 
-        else
-        {
-          v17 = @"NO";
-        }
-
-        *buf = 134218754;
-        if (v13)
-        {
-          v16 = @"YES";
-        }
-
         *&buf[4] = certificateRef;
-        v33 = 2112;
-        *v34 = v17;
-        *&v34[8] = 2048;
-        *&v34[10] = cf;
-        *&v34[18] = 2112;
-        v35[0] = v16;
-        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Loaded identities { lockdownIdentityCert: %p, lockdownCertWillExpire: %@, apsIdentityCert: %p, apsCertWillExpire: %@ }", buf, 0x2Au);
+        v34 = 2112;
+        *v35 = v18;
+        *&v35[8] = 2048;
+        *&v35[10] = cf;
+        *&v35[18] = 2112;
+        v36[0] = v17;
+        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Loaded identities { lockdownIdentityCert: %p, lockdownCertWillExpire: %@, apsIdentityCert: %p, apsCertWillExpire: %@ }", buf, 0x2Au);
       }
 
-      v18 = v13 || v14;
-      v19 = +[IMRGLog warning];
-      v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
-      if (!v18)
+      v19 = v14 || v15;
+      v20 = +[IMRGLog warning];
+      v21 = os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
+      if (!v19)
       {
-        if (v20)
+        if (v21)
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Device identity is not expired", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Device identity is not expired", buf, 2u);
         }
 
-        v27 = 0;
+        v28 = 0;
         goto LABEL_45;
       }
 
-      if (v20)
+      if (v21)
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "An identity is expired -- deleting identity", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "An identity is expired -- deleting identity", buf, 2u);
       }
 
       sleep(5u);
       *buf = 0;
-      v21 = MAEDeleteLegacyDeviceIdentityWithError();
-      v22 = *buf;
-      if ((v21 & 1) == 0)
+      v22 = MAEDeleteLegacyDeviceIdentityWithError();
+      v23 = *buf;
+      if ((v22 & 1) == 0)
       {
-        v23 = +[IMRGLog warning];
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
+        v24 = +[IMRGLog warning];
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
         {
-          sub_1009333C0(v22, v23);
+          sub_1009333C0(v23, v24);
         }
       }
 
       sleep(5u);
-      v24 = dispatch_time(0, 5000000000);
-      v19 = im_primary_queue();
-      dispatch_after(v24, v19, &stru_100BE59D0);
+      v25 = dispatch_time(0, 5000000000);
+      v20 = im_primary_queue();
+      dispatch_after(v25, v20, &stru_100BE59D0);
     }
 
-    v27 = 1;
+    v28 = 1;
 LABEL_45:
 
     if (certificateRef)
@@ -269,51 +269,51 @@ LABEL_45:
 
     if (!byte_100CBF5A0)
     {
-      v25 = MGGetBoolAnswer();
-      v26 = +[IMRGLog warning];
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
+      v26 = MGGetBoolAnswer();
+      v27 = +[IMRGLog warning];
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
       {
-        v29 = @"NO";
+        v30 = @"NO";
         *buf = 134219010;
         *&buf[4] = v4;
-        v33 = 1024;
-        if (v25)
+        v34 = 1024;
+        if (v26)
         {
-          v29 = @"YES";
+          v30 = @"YES";
         }
 
-        *v34 = v6;
-        *&v34[4] = 2048;
-        *&v34[6] = v8;
-        *&v34[14] = 1024;
-        *&v34[16] = v9;
-        LOWORD(v35[0]) = 2112;
-        *(v35 + 2) = v29;
-        _os_log_fault_impl(&_mh_execute_header, v26, OS_LOG_TYPE_FAULT, "Failed to load identities { lockdownIdentity: %p, lockdownResult: %d, apsIdentity: %p, apsResult: %d, shouldHacktivate: %@ }", buf, 0x2Cu);
+        *v35 = v6;
+        *&v35[4] = 2048;
+        *&v35[6] = v9;
+        *&v35[14] = 1024;
+        *&v35[16] = v10;
+        LOWORD(v36[0]) = 2112;
+        *(v36 + 2) = v30;
+        _os_log_fault_impl(&_mh_execute_header, v27, OS_LOG_TYPE_FAULT, "Failed to load identities { lockdownIdentity: %p, lockdownResult: %d, apsIdentity: %p, apsResult: %d, shouldHacktivate: %@ }", buf, 0x2Cu);
       }
     }
   }
 
-  v27 = 1;
+  v28 = 1;
   if (v4)
   {
 LABEL_49:
     CFRelease(v4);
-    if (!v8)
+    if (!v9)
     {
-      return v27;
+      return v28;
     }
 
     goto LABEL_37;
   }
 
-  if (v8)
+  if (v9)
   {
 LABEL_37:
-    CFRelease(v8);
+    CFRelease(v9);
   }
 
-  return v27;
+  return v28;
 }
 
 - (IDSDeviceCertificationRepairDelegate)delegate

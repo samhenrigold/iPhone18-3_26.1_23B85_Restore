@@ -101,9 +101,9 @@ void __50__SBCaptureButtonAppConfigurationCoordinator_init__block_invoke(uint64_
   if (observerCopy)
   {
     v6 = observerCopy;
-    v5 = [(NSHashTable *)self->_observers containsObject:observerCopy];
+    v5 = objc_msgSend_containsObject_(self->_observers, observerCopy, observerCopy);
     observerCopy = v6;
-    if (!v5)
+    if ((v5 & 1) == 0)
     {
       [(NSHashTable *)self->_observers addObject:v6];
       observerCopy = v6;

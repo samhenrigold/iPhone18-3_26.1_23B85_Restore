@@ -6,14 +6,14 @@
 
 + (id)detailSpecifiersForFollowUpItem:(id)item target:(id)target selector:(SEL)selector
 {
-  v76 = *MEMORY[0x277D85DE8];
+  v75 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   targetCopy = target;
   v9 = objc_alloc(MEMORY[0x277CFE518]);
   groupIdentifier = [itemCopy groupIdentifier];
   v11 = [v9 initWithIdentifier:groupIdentifier];
 
-  v57 = v11;
+  v56 = v11;
   if ([v11 restrictionEnabled])
   {
     mEMORY[0x277CFE4E8] = [MEMORY[0x277CFE4E8] sharedFilter];
@@ -30,18 +30,18 @@
   uniqueIdentifier = [itemCopy uniqueIdentifier];
   v17 = [v15 groupSpecifierWithID:uniqueIdentifier];
 
-  v56 = v17;
+  v55 = v17;
   [array addObject:v17];
   v18 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:&stru_28584F260 target:0 set:0 get:0 detail:0 cell:-1 edit:0];
   v19 = objc_opt_class();
-  v63 = *MEMORY[0x277D3FE58];
+  v62 = *MEMORY[0x277D3FE58];
   [v18 setProperty:v19 forKey:?];
-  v68 = *MEMORY[0x277CFE418];
+  v67 = *MEMORY[0x277CFE418];
   [v18 setProperty:itemCopy forKey:?];
   representingBundlePath = [itemCopy representingBundlePath];
 
   v21 = MEMORY[0x277D3FFC0];
-  v69 = v18;
+  v68 = v18;
   if (representingBundlePath)
   {
     v22 = v13;
@@ -70,49 +70,49 @@
     }
     v31 = ;
 
-    v18 = v69;
-    [v69 setProperty:v31 forKey:*v21];
+    v18 = v68;
+    [v68 setProperty:v31 forKey:*v21];
 
     v13 = v22;
   }
 
   [array addObject:v18];
-  v73 = 0u;
-  v74 = 0u;
-  v71 = 0u;
   v72 = 0u;
+  v73 = 0u;
+  v70 = 0u;
+  v71 = 0u;
   obj = [itemCopy actions];
-  v70 = [obj countByEnumeratingWithState:&v71 objects:v75 count:16];
-  if (v70)
+  v69 = [obj countByEnumeratingWithState:&v70 objects:v74 count:16];
+  if (v69)
   {
-    v67 = *v72;
-    v65 = *MEMORY[0x277D3FD80];
-    v66 = *MEMORY[0x277CFE410];
-    v64 = *MEMORY[0x277CFE450];
-    v58 = *MEMORY[0x277CFE400];
-    v62 = *v21;
-    v59 = itemCopy;
-    v60 = *MEMORY[0x277D3FF38];
+    v66 = *v71;
+    v64 = *MEMORY[0x277D3FD80];
+    v65 = *MEMORY[0x277CFE410];
+    v63 = *MEMORY[0x277CFE450];
+    v57 = *MEMORY[0x277CFE400];
+    v61 = *v21;
+    v58 = itemCopy;
+    v59 = *MEMORY[0x277D3FF38];
     do
     {
-      for (i = 0; i != v70; ++i)
+      for (i = 0; i != v69; ++i)
       {
-        if (*v72 != v67)
+        if (*v71 != v66)
         {
           objc_enumerationMutation(obj);
         }
 
-        v33 = *(*(&v71 + 1) + 8 * i);
+        v33 = *(*(&v70 + 1) + 8 * i);
         v34 = MEMORY[0x277D3FAD8];
         label = [v33 label];
         v36 = [v34 preferenceSpecifierNamed:label target:targetCopy set:0 get:0 detail:0 cell:13 edit:0];
 
-        [v36 setProperty:v33 forKey:v66];
-        [v36 setProperty:MEMORY[0x277CBEC38] forKey:v65];
-        [v36 setProperty:itemCopy forKey:v68];
+        [v36 setProperty:v33 forKey:v65];
+        [v36 setProperty:MEMORY[0x277CBEC38] forKey:v64];
+        [v36 setProperty:itemCopy forKey:v67];
         [v36 setButtonAction:selector];
         groupIdentifier2 = [itemCopy groupIdentifier];
-        if ([groupIdentifier2 isEqualToString:v64])
+        if ([groupIdentifier2 isEqualToString:v63])
         {
           actions = [itemCopy actions];
           if ([actions count] == 1)
@@ -125,7 +125,7 @@
             }
 
             groupIdentifier2 = [itemCopy uniqueIdentifier];
-            actions = [v58 stringByAppendingString:groupIdentifier2];
+            actions = [v57 stringByAppendingString:groupIdentifier2];
             [v36 setIdentifier:actions];
           }
         }
@@ -135,7 +135,7 @@ LABEL_20:
 
         if (representingBundlePath3)
         {
-          [v36 setProperty:objc_opt_class() forKey:v63];
+          [v36 setProperty:objc_opt_class() forKey:v62];
           v41 = MEMORY[0x277CCA8D8];
           representingBundlePath4 = [itemCopy representingBundlePath];
           v43 = [v41 bundleWithPath:representingBundlePath4];
@@ -164,31 +164,29 @@ LABEL_20:
             selector = selectorCopy;
             array = v49;
             v13 = v48;
-            itemCopy = v59;
+            itemCopy = v58;
           }
 
           v53 = [v47 _imageWithSize:{29.0, 29.0}];
 
-          [v36 setProperty:v53 forKey:v62];
+          [v36 setProperty:v53 forKey:v61];
         }
 
         if (v13)
         {
-          [v36 setProperty:MEMORY[0x277CBEC28] forKey:v60];
+          [v36 setProperty:MEMORY[0x277CBEC28] forKey:v59];
         }
 
         [array addObject:v36];
 
-        v18 = v69;
+        v18 = v68;
       }
 
-      v70 = [obj countByEnumeratingWithState:&v71 objects:v75 count:16];
+      v69 = [obj countByEnumeratingWithState:&v70 objects:v74 count:16];
     }
 
-    while (v70);
+    while (v69);
   }
-
-  v54 = *MEMORY[0x277D85DE8];
 
   return array;
 }

@@ -1,916 +1,3 @@
-void sub_1D97B93B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, void *a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, void *a61, uint64_t a62, uint64_t a63)
-{
-  if (__p)
-  {
-    a66 = __p;
-    operator delete(__p);
-  }
-
-  v68 = *(v66 - 256);
-  if (v68)
-  {
-    *(v66 - 248) = v68;
-    operator delete(v68);
-  }
-
-  CSCppCoreFileMemory::~CSCppCoreFileMemory((v66 - 224));
-  CSCppFileMemory::~CSCppFileMemory(&a19);
-  CSCppFileMemory::~CSCppFileMemory(&a34);
-  _Unwind_Resume(a1);
-}
-
-uint64_t create_mapped_memory_cache_for_core_file_with_label(char *a1, uint64_t a2, void *a3)
-{
-  common_create_mapped_memory_cache_for_core_file_with_label_and_optional_exclave_metadata(a1, 1, &v5);
-  if (v6 == 1)
-  {
-    return v5;
-  }
-
-  result = 0;
-  if (a3)
-  {
-    *a3 = v5;
-  }
-
-  return result;
-}
-
-uint64_t mapped_memory_is_64_bit(uint64_t a1)
-{
-  if (a1)
-  {
-    v1 = *(a1 + 101);
-  }
-
-  else
-  {
-    v1 = 0;
-  }
-
-  return v1 & 1;
-}
-
-uint64_t *std::unique_ptr<mapped_memory_t>::~unique_ptr[abi:ne200100](uint64_t *a1)
-{
-  v2 = *a1;
-  *a1 = 0;
-  if (v2)
-  {
-    v3 = *(v2 + 192);
-    *(v2 + 192) = 0;
-    if (v3)
-    {
-      (*(*v3 + 8))(v3);
-    }
-
-    std::mutex::~mutex((v2 + 128));
-    v4 = *(v2 + 64);
-    if (v4)
-    {
-      *(v2 + 72) = v4;
-      operator delete(v4);
-    }
-
-    std::__tree<TRange<Pointer64>>::destroy(v2 + 40, *(v2 + 48));
-    MEMORY[0x1DA736760](v2, 0x10F0C404EA5A0FDLL);
-  }
-
-  return a1;
-}
-
-void set_mapped_memory_cache_region_info_block(uint64_t a1, uint64_t a2)
-{
-  std::mutex::lock((a1 + 128));
-  *(a1 + 112) = a2;
-
-  std::mutex::unlock((a1 + 128));
-}
-
-uint64_t destroy_mapped_memory_cache(uint64_t result)
-{
-  if (result)
-  {
-    v1 = result;
-    clear_mapped_memory(result);
-    v2 = *(v1 + 88);
-    if (v2)
-    {
-      mach_port_deallocate(*MEMORY[0x1E69E9A60], v2);
-    }
-
-    v3 = *(v1 + 92);
-    if (v3)
-    {
-      task_resume2(v3);
-    }
-
-    v4 = *(v1 + 192);
-    *(v1 + 192) = 0;
-    if (v4)
-    {
-      (*(*v4 + 8))(v4);
-    }
-
-    std::mutex::~mutex((v1 + 128));
-    v5 = *(v1 + 64);
-    if (v5)
-    {
-      *(v1 + 72) = v5;
-      operator delete(v5);
-    }
-
-    std::__tree<TRange<Pointer64>>::destroy(v1 + 40, *(v1 + 48));
-
-    JUMPOUT(0x1DA736760);
-  }
-
-  return result;
-}
-
-void clear_mapped_memory(uint64_t a1)
-{
-  std::mutex::lock((a1 + 128));
-  v2 = *(a1 + 40);
-  v3 = (a1 + 48);
-  if (v2 != (a1 + 48))
-  {
-    do
-    {
-      v4 = *(v2 + 3);
-      v11 = *(v2 + 2);
-      v12 = v4;
-      v13 = v2[8];
-      deallocate_node(&v11);
-      v5 = v2[1];
-      if (v5)
-      {
-        do
-        {
-          v6 = v5;
-          v5 = *v5;
-        }
-
-        while (v5);
-      }
-
-      else
-      {
-        do
-        {
-          v6 = v2[2];
-          v7 = *v6 == v2;
-          v2 = v6;
-        }
-
-        while (!v7);
-      }
-
-      v2 = v6;
-    }
-
-    while (v6 != v3);
-  }
-
-  std::__tree<TRange<Pointer64>>::destroy(a1 + 40, *(a1 + 48));
-  *(a1 + 48) = 0;
-  *(a1 + 56) = 0;
-  *(a1 + 40) = v3;
-  v8 = *(a1 + 64);
-  v9 = *(a1 + 72);
-  if (v8 != v9)
-  {
-    do
-    {
-      v10 = v8[1];
-      v11 = *v8;
-      v12 = v10;
-      v13 = *(v8 + 4);
-      deallocate_node(&v11);
-      v8 = (v8 + 40);
-    }
-
-    while (v8 != v9);
-    v8 = *(a1 + 64);
-  }
-
-  *(a1 + 72) = v8;
-  *a1 = 0;
-  *(a1 + 8) = 0;
-
-  std::mutex::unlock((a1 + 128));
-}
-
-tree *__cdecl find_node(const char *a1, tree *a2)
-{
-  if (!a1)
-  {
-    return 0;
-  }
-
-  v4 = v3;
-  v5 = v2;
-  std::mutex::lock(a1 + 2);
-  v8 = a2 + v5;
-  if ((a2 + v5) <= a2)
-  {
-    goto LABEL_13;
-  }
-
-  v9 = a1 + 48;
-  for (i = *(a1 + 6); i; i = *(i + 8 * v13))
-  {
-    v11 = *(i + 32);
-    v12 = v11 > a2;
-    v13 = v11 <= a2;
-    if (v12)
-    {
-      v9 = i;
-    }
-  }
-
-  if (v9 == *(a1 + 5))
-  {
-    goto LABEL_13;
-  }
-
-  v14 = *v9;
-  if (*v9)
-  {
-    do
-    {
-      v15 = v14;
-      v14 = *(v14 + 8);
-    }
-
-    while (v14);
-  }
-
-  else
-  {
-    do
-    {
-      v15 = *(v9 + 2);
-      v20 = *v15 == v9;
-      v9 = v15;
-    }
-
-    while (v20);
-  }
-
-  v17 = (v15 + 32);
-  v16 = *(v15 + 32);
-  if (v16 > a2)
-  {
-    goto LABEL_13;
-  }
-
-  v19 = *(v15 + 40) + v16;
-  v20 = v19 <= a2 || v4 == 0;
-  if (v20)
-  {
-    if (v19 > a2)
-    {
-      goto LABEL_25;
-    }
-  }
-
-  else if (v19 >= v8)
-  {
-LABEL_25:
-    ++*(v15 + 64);
-    goto LABEL_14;
-  }
-
-LABEL_13:
-  v17 = 0;
-LABEL_14:
-  std::mutex::unlock(a1 + 2);
-  return v17;
-}
-
-BOOL vm_tag_is_malloc(unsigned int a1)
-{
-  result = 1;
-  if (a1 > 0xD || ((1 << a1) & 0x3BDE) == 0)
-  {
-    return a1 == 99;
-  }
-
-  return result;
-}
-
-void *map_new_node(uint64_t a1, mach_vm_address_t a2, uint64_t a3, int *a4)
-{
-  v94 = *MEMORY[0x1E69E9840];
-  if (a1)
-  {
-    if (a2)
-    {
-      v8 = *(a1 + 192);
-      std::mutex::lock((a1 + 128));
-      if (v8)
-      {
-        cur_protection = 0;
-        v85 = 0;
-        v86 = 0;
-        core_file_dumped_region_containing_location = find_core_file_dumped_region_containing_location(*(a1 + 192) + 16, a2);
-        if (v10)
-        {
-          v11 = *core_file_dumped_region_containing_location;
-          v12 = core_file_dumped_region_containing_location[3];
-          *&info = core_file_dumped_region_containing_location[2];
-          *(&info + 1) = v12;
-          v89[0] = 1;
-          *&v89[8] = v11;
-          *&v89[16] = v12;
-          v90 = 1;
-        }
-
-        else
-        {
-          v37 = *(a1 + 192);
-          LOBYTE(info) = 0;
-          v90 = 0;
-          if ((*(v37 + 112) & 1) == 0 || (region_at_address = CSCppCoreFileRegionsTree::get_region_at_address((v37 + 88), a2, 0x270FuLL), (v39 & 1) == 0) || (a2 - *region_at_address < *(region_at_address + 8) ? (v40 = *(region_at_address + 67) == 3) : (v40 = 0), !v40))
-          {
-            if (!a4)
-            {
-              goto LABEL_138;
-            }
-
-            v27 = 0;
-            v28 = 1;
-            goto LABEL_84;
-          }
-
-          *&size[7] = *region_at_address;
-          LOBYTE(info) = 0;
-          v89[0] = 0;
-          *&v89[1] = *size;
-          *&v89[16] = *&size[15];
-          v90 = 1;
-        }
-
-        std::vector<CSCoreFileRangePair>::push_back[abi:ne200100](&cur_protection, &info);
-        if ((v90 & 1) == 0)
-        {
-          std::__throw_bad_optional_access[abi:ne200100]();
-        }
-
-        v13 = *&v89[8];
-        v14 = *&v89[16];
-        v15 = *&v89[16] + *&v89[8];
-        if (a3 + a2 > *&v89[16] + *&v89[8])
-        {
-          while (1)
-          {
-            v16 = find_core_file_dumped_region_containing_location(*(a1 + 192) + 16, v15);
-            if (v17)
-            {
-              break;
-            }
-
-            v20 = *(a1 + 192);
-            size[0] = 0;
-            v93 = 0;
-            if ((*(v20 + 112) & 1) == 0)
-            {
-              goto LABEL_60;
-            }
-
-            v21 = CSCppCoreFileRegionsTree::get_region_at_address((v20 + 88), v15, 0x270FuLL);
-            if (v22)
-            {
-              v23 = v93;
-              v24 = *v21 == v15 && *(v21 + 67) == 3;
-              if (v24)
-              {
-                *(address + 7) = *v21;
-                size[0] = 0;
-                size[16] = 0;
-                *&size[17] = *address;
-                *&size[32] = *(&address[1] + 7);
-                if (v93)
-                {
-                  goto LABEL_22;
-                }
-
-                goto LABEL_10;
-              }
-            }
-
-            else
-            {
-              v23 = v93;
-            }
-
-            if ((v23 & 1) == 0)
-            {
-LABEL_60:
-              if (a4)
-              {
-                *a4 = 1;
-              }
-
-LABEL_138:
-              v27 = 0;
-              goto LABEL_139;
-            }
-
-LABEL_22:
-            std::vector<CSCoreFileRangePair>::push_back[abi:ne200100](&cur_protection, size);
-            if ((v93 & 1) == 0)
-            {
-              std::__throw_bad_optional_access[abi:ne200100]();
-            }
-
-            v14 = *&size[32];
-            v15 = *&size[32] + *&size[24];
-            if (a3 + a2 <= *&size[32] + *&size[24])
-            {
-              if ((v90 & 1) == 0)
-              {
-                std::__throw_bad_optional_access[abi:ne200100]();
-              }
-
-              v13 = *&v89[8];
-              goto LABEL_26;
-            }
-          }
-
-          v18 = *v16;
-          v19 = v16[3];
-          *size = v16[2];
-          *&size[8] = v19;
-          size[16] = 1;
-          *&size[24] = v18;
-          *&size[32] = v19;
-LABEL_10:
-          v93 = 1;
-          goto LABEL_22;
-        }
-
-LABEL_26:
-        v25 = v15 - v13;
-        *size = v13;
-        *&size[8] = v25;
-        *&size[24] = *(a1 + 88);
-        *&size[32] = 0;
-        if (!*(a1 + 192) || cur_protection == v85 || (address[0] = 0, v26 = MEMORY[0x1E69E9A60], mach_vm_allocate(*MEMORY[0x1E69E9A60], address, v25, 1)))
-        {
-LABEL_29:
-          if (!a4)
-          {
-            goto LABEL_138;
-          }
-
-          v27 = 0;
-          v28 = 5;
-LABEL_84:
-          *a4 = v28;
-          goto LABEL_139;
-        }
-
-        v46 = cur_protection;
-        v47 = v85;
-        if (cur_protection != v85)
-        {
-          v48 = *MEMORY[0x1E69E9AB8];
-          v49 = cur_protection;
-          while (*(v49 + 16) != 1 || (*v49 & v48) == 0 && (*(v49 + 8) & v48) == 0)
-          {
-            v49 += 40;
-            if (v49 == v85)
-            {
-              v50 = 1;
-              goto LABEL_106;
-            }
-          }
-
-          v50 = 0;
-          do
-          {
-LABEL_106:
-            if (*(v46 + 16) == 1)
-            {
-              v59 = *(v46 + 24) - *(cur_protection + 24);
-              if (v50)
-              {
-                if (mmap((address[0] + v59), *(v46 + 8), 1, 18, *(*(a1 + 192) + 8), *v46) == -1)
-                {
-                  goto LABEL_121;
-                }
-              }
-
-              else
-              {
-                while (1)
-                {
-                  v60 = pread(*(*(a1 + 192) + 8), (address[0] + v59), *(v46 + 8), *v46);
-                  if (v60 != -1)
-                  {
-                    break;
-                  }
-
-                  if (*__error() != 4)
-                  {
-                    goto LABEL_114;
-                  }
-                }
-
-                if (v60 < *(v46 + 8))
-                {
-LABEL_121:
-                  mach_vm_deallocate(*v26, address[0], v25);
-                  goto LABEL_29;
-                }
-              }
-            }
-
-LABEL_114:
-            v46 += 40;
-          }
-
-          while (v46 != v47);
-        }
-
-        *&size[16] = address[0];
-        v61 = std::__tree<mapped_region_node_internal_t,CompareMappedRegionNode,std::allocator<mapped_region_node_internal_t>>::__emplace_unique_key_args<mapped_region_node_internal_t,mapped_region_node_internal_t const&>(a1 + 40, size);
-        v62 = v61;
-        v64 = v63;
-        v65 = v61;
-        if (v63)
-        {
-          v66 = v61[1];
-          if (v66)
-          {
-            do
-            {
-              v65 = v66;
-              v66 = *v66;
-            }
-
-            while (v66);
-          }
-
-          else
-          {
-            v68 = v61;
-            do
-            {
-              v65 = v68[2];
-              v24 = *v65 == v68;
-              v68 = v65;
-            }
-
-            while (!v24);
-          }
-        }
-
-        if (v65 != (a1 + 48))
-        {
-          do
-          {
-            v69 = v65[4];
-            if (*size > v69 || v65[5] + v69 > *&size[8] + *size)
-            {
-              break;
-            }
-
-            v70 = v65[1];
-            v71 = v65;
-            if (v70)
-            {
-              do
-              {
-                v72 = v70;
-                v70 = *v70;
-              }
-
-              while (v70);
-            }
-
-            else
-            {
-              do
-              {
-                v72 = v71[2];
-                v24 = *v72 == v71;
-                v71 = v72;
-              }
-
-              while (!v24);
-            }
-
-            std::vector<mapped_region_node_internal_t>::push_back[abi:ne200100](a1 + 64, v65 + 2);
-            std::__tree<TRangeValue<Pointer64,unsigned char *>>::__remove_node_pointer((a1 + 40), v65);
-            operator delete(v65);
-            v65 = v72;
-          }
-
-          while (v72 != (a1 + 48));
-        }
-
-        if ((v64 & 1) == 0)
-        {
-          v73 = std::__tree<mapped_region_node_internal_t,CompareMappedRegionNode,std::allocator<mapped_region_node_internal_t>>::__emplace_unique_key_args<mapped_region_node_internal_t,mapped_region_node_internal_t const&>(a1 + 40, size);
-          if ((v74 & 1) == 0)
-          {
-            goto LABEL_138;
-          }
-
-          v62 = v73;
-        }
-
-        ++*a1;
-        *(a1 + 8) += v14;
-        v27 = v62 + 4;
-LABEL_139:
-        if (cur_protection)
-        {
-          v85 = cur_protection;
-          operator delete(cur_protection);
-        }
-
-        goto LABEL_163;
-      }
-
-      v30 = *(a1 + 88);
-      LODWORD(address[0]) = 999999;
-      infoCnt = 12;
-      *size = 0;
-      cur_protection = a2;
-      if (mach_vm_region_recurse(v30, &cur_protection, size, address, &info, &infoCnt) || (v31 = cur_protection, cur_protection > a2) || (v32 = *size, *size + cur_protection <= a2))
-      {
-        v35 = 0;
-        v31 = 0;
-        v32 = 0;
-        v34 = 1;
-      }
-
-      else
-      {
-        v34 = (info & 2) == 0 && ((BYTE4(info) & 2) == 0 || v89[15] != 2);
-        v35 = *&v89[4] == 64;
-      }
-
-      if (v31 - 1 >= a2)
-      {
-LABEL_79:
-        if (a4)
-        {
-          v27 = 0;
-          v36 = 1;
-          goto LABEL_81;
-        }
-
-LABEL_162:
-        v27 = 0;
-        goto LABEL_163;
-      }
-
-      if (v35)
-      {
-LABEL_50:
-        if (a4)
-        {
-          v27 = 0;
-          v36 = 4;
-LABEL_81:
-          *a4 = v36;
-LABEL_163:
-          std::mutex::unlock((a1 + 128));
-          goto LABEL_164;
-        }
-
-        goto LABEL_162;
-      }
-
-      v41 = a3 + a2;
-      v42 = v31;
-      while (1)
-      {
-        v43 = v42 + v32;
-        if (v41 <= v42 + v32)
-        {
-          break;
-        }
-
-        LODWORD(address[0]) = 999999;
-        infoCnt = 12;
-        *size = 0;
-        cur_protection = v42 + v32;
-        if (mach_vm_region_recurse(v30, &cur_protection, size, address, &info, &infoCnt))
-        {
-          goto LABEL_79;
-        }
-
-        v42 = cur_protection;
-        if (cur_protection > v43)
-        {
-          goto LABEL_79;
-        }
-
-        v32 = *size;
-        if (*size + cur_protection <= v43)
-        {
-          goto LABEL_79;
-        }
-
-        if ((info & 2) != 0)
-        {
-          v45 = 0;
-        }
-
-        else
-        {
-          v44 = (BYTE4(info) & 2) != 0 && v89[15] == 2;
-          v45 = !v44;
-        }
-
-        if (!cur_protection)
-        {
-          goto LABEL_79;
-        }
-
-        v34 &= v45;
-        if (*&v89[4] == 64)
-        {
-          goto LABEL_50;
-        }
-      }
-
-      v51 = v43 - v31;
-      if (CSRangeContainsRange(*(a1 + 16), *(a1 + 24), v31, v43 - v31) && ((*(a1 + 32) == 0) & v34) != 0)
-      {
-        v30 = *MEMORY[0x1E69E9A60];
-      }
-
-      if (*(a1 + 100) == 1 && !mach_task_is_self(v30))
-      {
-        *&info = 0;
-        *size = 0;
-        overwrite = mach_vm_read_overwrite(*(a1 + 88), v31, 1uLL, &info, size);
-        if (overwrite)
-        {
-LABEL_142:
-          if (a4)
-          {
-            *a4 = overwrite;
-          }
-
-          goto LABEL_162;
-        }
-      }
-
-      *&info = v31;
-      *(&info + 1) = v43 - v31;
-      *&v89[8] = v30;
-      *&v89[16] = 0;
-      if (mach_task_is_self(v30))
-      {
-        v52 = *(a1 + 32) + v31;
-      }
-
-      else
-      {
-        LODWORD(cur_protection) = 0;
-        LODWORD(address[0]) = 1;
-        *size = 0;
-        overwrite = remap_memory_from_target(*MEMORY[0x1E69E9A60], size, v43 - v31, 0, 33, v30, v31, 0, &cur_protection, address, 1u);
-        if (overwrite)
-        {
-          goto LABEL_142;
-        }
-
-        v52 = *size;
-      }
-
-      *v89 = v52;
-      v53 = std::__tree<mapped_region_node_internal_t,CompareMappedRegionNode,std::allocator<mapped_region_node_internal_t>>::__emplace_unique_key_args<mapped_region_node_internal_t,mapped_region_node_internal_t const&>(a1 + 40, &info);
-      v54 = v53;
-      v56 = v55;
-      v57 = v53;
-      if (v55)
-      {
-        v58 = v53[1];
-        if (v58)
-        {
-          do
-          {
-            v57 = v58;
-            v58 = *v58;
-          }
-
-          while (v58);
-        }
-
-        else
-        {
-          v75 = v53;
-          do
-          {
-            v57 = v75[2];
-            v24 = *v57 == v75;
-            v75 = v57;
-          }
-
-          while (!v24);
-        }
-      }
-
-      if (v57 != (a1 + 48))
-      {
-        do
-        {
-          v76 = v57[4];
-          if (info > v76 || v57[5] + v76 > *(&info + 1) + info)
-          {
-            break;
-          }
-
-          v77 = v57[1];
-          v78 = v57;
-          if (v77)
-          {
-            do
-            {
-              v79 = v77;
-              v77 = *v77;
-            }
-
-            while (v77);
-          }
-
-          else
-          {
-            do
-            {
-              v79 = v78[2];
-              v24 = *v79 == v78;
-              v78 = v79;
-            }
-
-            while (!v24);
-          }
-
-          std::vector<mapped_region_node_internal_t>::push_back[abi:ne200100](a1 + 64, v57 + 2);
-          std::__tree<TRangeValue<Pointer64,unsigned char *>>::__remove_node_pointer((a1 + 40), v57);
-          operator delete(v57);
-          v57 = v79;
-        }
-
-        while (v79 != (a1 + 48));
-      }
-
-      if ((v56 & 1) == 0)
-      {
-        v80 = std::__tree<mapped_region_node_internal_t,CompareMappedRegionNode,std::allocator<mapped_region_node_internal_t>>::__emplace_unique_key_args<mapped_region_node_internal_t,mapped_region_node_internal_t const&>(a1 + 40, &info);
-        if ((v81 & 1) == 0)
-        {
-          goto LABEL_162;
-        }
-
-        v54 = v80;
-      }
-
-      if (!mach_task_is_self(v30))
-      {
-        ++*a1;
-        *(a1 + 8) += v51;
-      }
-
-      v27 = v54 + 4;
-      goto LABEL_163;
-    }
-
-    if (a4)
-    {
-      v27 = 0;
-      v29 = 1;
-      goto LABEL_35;
-    }
-
-LABEL_36:
-    v27 = 0;
-    goto LABEL_164;
-  }
-
-  if (!a4)
-  {
-    goto LABEL_36;
-  }
-
-  v27 = 0;
-  v29 = 4;
-LABEL_35:
-  *a4 = v29;
-LABEL_164:
-  v82 = *MEMORY[0x1E69E9840];
-  return v27;
-}
-
 void std::vector<mapped_region_node_internal_t>::push_back[abi:ne200100](uint64_t a1, __int128 *a2)
 {
   v4 = *(a1 + 8);
@@ -1145,63 +232,68 @@ void enumerate_mapped_memory_cache(uint64_t a1, uint64_t a2)
 
 uint64_t mapped_memory_suspend_target(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  if (a1)
+  v6 = *MEMORY[0x1E69E9840];
+  if (!a1)
   {
-    if (*(a1 + 192) || (v2 = *(a1 + 96), *(a1 + 96) = v2 + 1, v2) || mach_task_is_self(*(a1 + 88)))
-    {
-      v3 = 0;
-    }
-
-    else
-    {
-      v3 = task_suspend2(*(a1 + 88), (a1 + 92));
-      if (v3)
-      {
-        snprintf(__str, 0x400uLL, "%s: %s failed ", "mapped_memory_suspend_target", "can't suspend");
-        mach_error(__str, v3);
-      }
-    }
+    return 4;
   }
 
-  else
+  if (*(a1 + 192))
   {
-    v3 = 4;
+    return 0;
   }
 
-  v4 = *MEMORY[0x1E69E9840];
+  v2 = *(a1 + 96);
+  *(a1 + 96) = v2 + 1;
+  if (v2 || mach_task_is_self(*(a1 + 88)))
+  {
+    return 0;
+  }
+
+  v3 = task_suspend2(*(a1 + 88), (a1 + 92));
+  if (v3)
+  {
+    snprintf(__str, 0x400uLL, "%s: %s failed ", "mapped_memory_suspend_target", "can't suspend");
+    mach_error(__str, v3);
+  }
+
   return v3;
 }
 
 uint64_t mapped_memory_resume_target(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  if (a1)
+  v7 = *MEMORY[0x1E69E9840];
+  if (!a1)
   {
-    v2 = *(a1 + 96);
-    if (!v2 || *(a1 + 192) || (v3 = v2 - 1, (*(a1 + 96) = v3) != 0) || mach_task_is_self(*(a1 + 88)))
-    {
-      v4 = 0;
-    }
-
-    else
-    {
-      v4 = task_resume2(*(a1 + 92));
-      *(a1 + 92) = 0;
-      if (v4)
-      {
-        snprintf(__str, 0x400uLL, "%s: %s failed ", "mapped_memory_resume_target", "can't suspend");
-        mach_error(__str, v4);
-      }
-    }
+    return 4;
   }
 
-  else
+  v2 = *(a1 + 96);
+  if (!v2)
   {
-    v4 = 4;
+    return 0;
   }
 
-  v5 = *MEMORY[0x1E69E9840];
+  if (*(a1 + 192))
+  {
+    return 0;
+  }
+
+  v3 = v2 - 1;
+  *(a1 + 96) = v3;
+  if (v3 || mach_task_is_self(*(a1 + 88)))
+  {
+    return 0;
+  }
+
+  v4 = task_resume2(*(a1 + 92));
+  *(a1 + 92) = 0;
+  if (v4)
+  {
+    snprintf(__str, 0x400uLL, "%s: %s failed ", "mapped_memory_resume_target", "can't suspend");
+    mach_error(__str, v4);
+  }
+
   return v4;
 }
 
@@ -1875,17 +967,16 @@ uint64_t mapped_memory_core_file_has_info_for_memory_analysis(uint64_t a1)
   }
 }
 
-_DWORD *mapped_memory_core_file_is_exclavecore(_DWORD *result)
+void *mapped_memory_core_file_is_exclavecore(void *result)
 {
   if (result)
   {
-    result = *(result + 24);
+    result = result[24];
     if (result)
     {
-      v1 = **result;
       if (result)
       {
-        return (result[30] == 1);
+        return (*(result + 30) == 1);
       }
     }
   }
@@ -1893,14 +984,13 @@ _DWORD *mapped_memory_core_file_is_exclavecore(_DWORD *result)
   return result;
 }
 
-char **mapped_memory_core_file_is_exclave(char **result)
+void *mapped_memory_core_file_is_exclave(void *result)
 {
   if (result)
   {
     result = result[24];
     if (result)
     {
-      v1 = **result;
     }
   }
 
@@ -1920,13 +1010,12 @@ uint64_t mapped_memory_core_file_get_exclave_vm_flags_for_address(uint64_t a1, u
     return 4;
   }
 
-  v6 = **v3;
-  if (!v7)
+  if (!v6)
   {
     return 4;
   }
 
-  return CSCppCoreFileExclavesMetadata::get_exclave_vm_flags_for_address(v7, a2, a3);
+  return CSCppCoreFileExclavesMetadata::get_exclave_vm_flags_for_address(v6, a2, a3);
 }
 
 uint64_t mapped_memory_core_file_get_addressing_mask(uint64_t a1, void *a2)
@@ -2092,33 +1181,33 @@ void std::vector<mapped_memory_core_file_dumped_region_info_t>::push_back[abi:ne
   *(a1 + 8) = v8;
 }
 
-void parse_thread_load_command(const thread_command *a1@<X0>, uint64_t a2@<X8>)
+void parse_thread_load_command(uint64_t *__return_ptr a1@<X8>, const thread_command *a2@<X0>)
 {
   v27 = 0;
   v28 = 0;
   v26 = &v27;
-  cmdsize = a1->cmdsize;
+  cmdsize = a2->cmdsize;
   if (cmdsize <= 8)
   {
-    *(a2 + 8) = 0;
-    *(a2 + 16) = 0;
-    v19 = a2 + 8;
+    a1[1] = 0;
+    a1[2] = 0;
+    v19 = a1 + 1;
 LABEL_29:
-    *a2 = v19;
+    *a1 = v19;
     v20 = 1;
   }
 
   else
   {
-    v21 = a2;
+    v21 = a1;
     v3 = 8;
-    v22 = a1;
+    v22 = a2;
     do
     {
-      if (v3 + 8 > cmdsize || (v4 = (a1 + v3), v5 = *(&a1->cmdsize + v3), v5 >> 30) || (v6 = 4 * v5, v7 = 4 * v5 + 8, v7 > cmdsize))
+      if (v3 + 8 > cmdsize || (v4 = (a2 + v3), v5 = *(&a2->cmdsize + v3), v5 >> 30) || (v6 = 4 * v5, v7 = 4 * v5 + 8, v7 > cmdsize))
       {
         v20 = 0;
-        a2 = v21;
+        a1 = v21;
         *v21 = 0;
         goto LABEL_31;
       }
@@ -2129,7 +1218,7 @@ LABEL_29:
       std::vector<unsigned char>::reserve(&__p, 4 * v5);
       if (v5)
       {
-        v8 = v4 + 2;
+        v8 = v4 + 1;
         v9 = v24;
         do
         {
@@ -2165,7 +1254,7 @@ LABEL_29:
             }
 
             v15 = v9 - __p;
-            *v11 = *v8;
+            *v11 = v8->cmd;
             v9 = v11 + 1;
             memcpy(0, v10, v15);
             __p = 0;
@@ -2179,11 +1268,11 @@ LABEL_29:
 
           else
           {
-            *v9++ = *v8;
+            *v9++ = v8->cmd;
           }
 
           v24 = v9;
-          ++v8;
+          v8 = (v8 + 1);
           --v6;
         }
 
@@ -2191,7 +1280,7 @@ LABEL_29:
       }
 
       v29 = v4;
-      v16 = std::__tree<std::__value_type<int,std::vector<unsigned char>>,std::__map_value_compare<int,std::__value_type<int,std::vector<unsigned char>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::vector<unsigned char>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v26, v4) + 5;
+      v16 = std::__tree<std::__value_type<int,std::vector<unsigned char>>,std::__map_value_compare<int,std::__value_type<int,std::vector<unsigned char>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::vector<unsigned char>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v26, v4, &std::piecewise_construct, &v29) + 5;
       if (v16 != &__p)
       {
         std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(v16, __p, v24, v24 - __p);
@@ -2204,18 +1293,18 @@ LABEL_29:
       }
 
       v3 += v7;
-      a1 = v22;
+      a2 = v22;
       cmdsize = v22->cmdsize;
     }
 
     while (v3 < cmdsize);
     v17 = v27;
     v18 = v28;
-    a2 = v21;
+    a1 = v21;
     *v21 = v26;
-    *(v21 + 8) = v17;
-    v19 = v21 + 8;
-    *(v21 + 16) = v18;
+    v21[1] = v17;
+    v19 = v21 + 1;
+    v21[2] = v18;
     if (!v18)
     {
       goto LABEL_29;
@@ -2229,11 +1318,11 @@ LABEL_29:
   }
 
 LABEL_31:
-  *(a2 + 24) = v20;
+  *(a1 + 24) = v20;
   std::__tree<std::__value_type<int,std::vector<unsigned char>>,std::__map_value_compare<int,std::__value_type<int,std::vector<unsigned char>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::vector<unsigned char>>>>::destroy(&v26, v27);
 }
 
-void sub_1D97BC064(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, uint64_t a15, char a16, void *a17)
+void sub_1D97BC064(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, uint64_t a15, uint64_t a16, void *a17)
 {
   if (__p)
   {
@@ -2244,7 +1333,7 @@ void sub_1D97BC064(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t std::optional<CSCppCoreFileRegionsTree>::operator=[abi:ne200100]<CSCppCoreFileRegionsTree const&,void>(uint64_t a1, uint64_t *a2)
+uint64_t std::optional<CSCppCoreFileRegionsTree>::operator=[abi:ne200100]<CSCppCoreFileRegionsTree const&,void>(uint64_t a1, CSCppCoreFileRegionInfo ***a2)
 {
   if (*(a1 + 24) == 1)
   {
@@ -2282,8 +1371,8 @@ uint64_t std::optional<CSCppCoreFileTaskCrashinfo>::operator=[abi:ne200100]<CSCp
     *(a1 + 160) = v5;
     *(a1 + 176) = v6;
     *(a1 + 144) = v4;
-    std::__optional_storage_base<std::vector<unsigned long long>,false>::__assign_from[abi:ne200100]<std::__optional_copy_assign_base<std::vector<unsigned long long>,false> const&>(a1 + 208, a2 + 208);
-    std::__optional_storage_base<std::vector<CS_vm_object_query_data_t>,false>::__assign_from[abi:ne200100]<std::__optional_copy_assign_base<std::vector<CS_vm_object_query_data_t>,false> const&>(a1 + 240, a2 + 240);
+    std::__optional_storage_base<std::vector<unsigned long long>,false>::__assign_from[abi:ne200100]<std::__optional_copy_assign_base<std::vector<unsigned long long>,false> const&>((a1 + 208), a2 + 208);
+    std::__optional_storage_base<std::vector<CS_vm_object_query_data_t>,false>::__assign_from[abi:ne200100]<std::__optional_copy_assign_base<std::vector<CS_vm_object_query_data_t>,false> const&>((a1 + 240), a2 + 240);
     v7 = *(a2 + 17);
     v8 = *(a2 + 19);
     *(a1 + 288) = *(a2 + 18);
@@ -2314,28 +1403,28 @@ uint64_t std::optional<CSCppCoreFileTaskCrashinfo>::operator=[abi:ne200100]<CSCp
   return a1;
 }
 
-void sub_1D97BC414(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_1D97BC414(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  if (a66 == 1)
+  if (a65 == 1)
   {
     CSCppCoreFileTaskCrashinfo::~CSCppCoreFileTaskCrashinfo(&a11);
   }
 
-  if (*(v68 - 152) == 1)
+  if (*(v67 - 152) == 1)
   {
-    *(v68 - 96) = v68 - 176;
-    std::vector<CSCppCoreFileRegionInfo>::__destroy_vector::operator()[abi:ne200100]((v68 - 96));
+    *(v67 - 96) = v67 - 176;
+    std::vector<CSCppCoreFileRegionInfo>::__destroy_vector::operator()[abi:ne200100]((v67 - 96));
   }
 
-  std::__tree<std::__value_type<unsigned int,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>>>>::destroy(v68 - 144, *(v68 - 136));
-  v70 = *(v68 - 120);
-  if (v70)
+  std::__tree<std::__value_type<unsigned int,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>>>>::destroy(v67 - 144, *(v67 - 136));
+  v69 = *(v67 - 120);
+  if (v69)
   {
-    *(v68 - 112) = v70;
-    operator delete(v70);
+    *(v67 - 112) = v69;
+    operator delete(v69);
   }
 
-  MEMORY[0x1DA736760](v67, v66);
+  MEMORY[0x1DA736760](v66, v65);
   _Unwind_Resume(a1);
 }
 
@@ -2349,41 +1438,41 @@ void std::allocator<mapped_memory_core_file_dumped_region_info_t>::allocate_at_l
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t *std::__tree<std::__value_type<int,std::vector<unsigned char>>,std::__map_value_compare<int,std::__value_type<int,std::vector<unsigned char>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::vector<unsigned char>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(uint64_t a1, int *a2)
+uint64_t *std::__tree<std::__value_type<int,std::vector<unsigned char>>,std::__map_value_compare<int,std::__value_type<int,std::vector<unsigned char>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::vector<unsigned char>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(uint64_t a1, int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 32);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -2410,7 +1499,7 @@ void std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_ty
   operator delete(__p);
 }
 
-void *std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v7 = result;
   v8 = result[2];
@@ -2495,7 +1584,7 @@ void *std::map<int,std::vector<unsigned char>>::map[abi:ne200100](void *a1, uint
   return a1;
 }
 
-uint64_t std::map<int,std::vector<unsigned char>>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<int,std::vector<unsigned char>>,std::__tree_node<std::__value_type<int,std::vector<unsigned char>>,void *> *,long>>>(uint64_t result, int *a2, int *a3)
+void *std::map<int,std::vector<unsigned char>>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<int,std::vector<unsigned char>>,std::__tree_node<std::__value_type<int,std::vector<unsigned char>>,void *> *,long>>>(void *result, int *a2, int *a3)
 {
   if (a2 != a3)
   {
@@ -2503,7 +1592,7 @@ uint64_t std::map<int,std::vector<unsigned char>>::insert[abi:ne200100]<std::__m
     v5 = result;
     do
     {
-      result = std::__tree<std::__value_type<int,std::vector<unsigned char>>,std::__map_value_compare<int,std::__value_type<int,std::vector<unsigned char>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::vector<unsigned char>>>>::__emplace_hint_unique_key_args<int,std::pair<int const,std::vector<unsigned char>> const&>(v5, v5 + 1, v4 + 8);
+      result = std::__tree<std::__value_type<int,std::vector<unsigned char>>,std::__map_value_compare<int,std::__value_type<int,std::vector<unsigned char>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::vector<unsigned char>>>>::__emplace_hint_unique_key_args<int,std::pair<int const,std::vector<unsigned char>> const&>(v5, (v5 + 8), v4 + 8, (v4 + 8));
       v6 = *(v4 + 1);
       if (v6)
       {
@@ -2537,9 +1626,9 @@ uint64_t std::map<int,std::vector<unsigned char>>::insert[abi:ne200100]<std::__m
   return result;
 }
 
-uint64_t std::__tree<std::__value_type<int,std::vector<unsigned char>>,std::__map_value_compare<int,std::__value_type<int,std::vector<unsigned char>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::vector<unsigned char>>>>::__emplace_hint_unique_key_args<int,std::pair<int const,std::vector<unsigned char>> const&>(void *a1, uint64_t *a2, int *a3)
+void *std::__tree<std::__value_type<int,std::vector<unsigned char>>,std::__map_value_compare<int,std::__value_type<int,std::vector<unsigned char>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::vector<unsigned char>>>>::__emplace_hint_unique_key_args<int,std::pair<int const,std::vector<unsigned char>> const&>(uint64_t **a1, uint64_t *a2, int *a3, uint64_t a4)
 {
-  result = *std::__tree<std::__value_type<int,std::vector<unsigned char>>,std::__map_value_compare<int,std::__value_type<int,std::vector<unsigned char>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::vector<unsigned char>>>>::__find_equal<int>(a1, a2, &v5, &v4, a3);
+  result = *std::__tree<std::__value_type<int,std::vector<unsigned char>>,std::__map_value_compare<int,std::__value_type<int,std::vector<unsigned char>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::vector<unsigned char>>>>::__find_equal<int>(a1, a2, &v6, &v5, a3);
   if (!result)
   {
     std::__tree<std::__value_type<int,std::vector<unsigned char>>,std::__map_value_compare<int,std::__value_type<int,std::vector<unsigned char>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::vector<unsigned char>>>>::__construct_node<std::pair<int const,std::vector<unsigned char>> const&>();
@@ -2548,9 +1637,9 @@ uint64_t std::__tree<std::__value_type<int,std::vector<unsigned char>>,std::__ma
   return result;
 }
 
-uint64_t *std::__tree<std::__value_type<int,std::vector<unsigned char>>,std::__map_value_compare<int,std::__value_type<int,std::vector<unsigned char>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::vector<unsigned char>>>>::__find_equal<int>(void *a1, uint64_t *a2, uint64_t **a3, uint64_t *a4, int *a5)
+uint64_t *std::__tree<std::__value_type<int,std::vector<unsigned char>>,std::__map_value_compare<int,std::__value_type<int,std::vector<unsigned char>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::vector<unsigned char>>>>::__find_equal<int>(uint64_t **a1, uint64_t *a2, uint64_t **a3, uint64_t *a4, int *a5)
 {
-  v5 = a1 + 1;
+  v5 = (a1 + 1);
   if (a1 + 1 == a2 || (v6 = *a5, v7 = *(a2 + 8), *a5 < v7))
   {
     v8 = *a2;
@@ -2577,7 +1666,7 @@ LABEL_17:
       do
       {
         v10 = v9;
-        v9 = v9[1];
+        v9 = *(v9 + 8);
       }
 
       while (v9);
@@ -2638,7 +1727,7 @@ LABEL_17:
 
     else
     {
-      v17 = a1 + 1;
+      v17 = (a1 + 1);
     }
 
 LABEL_29:
@@ -2717,7 +1806,7 @@ LABEL_29:
 
     else
     {
-      v21 = a1 + 1;
+      v21 = (a1 + 1);
     }
 
 LABEL_48:
@@ -2746,41 +1835,41 @@ void sub_1D97BCAF0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned int,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(uint64_t a1, unsigned int *a2)
+uint64_t *std::__tree<std::__value_type<unsigned int,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(uint64_t a1, unsigned int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 32);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -2802,7 +1891,7 @@ void std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_ty
   operator delete(a2);
 }
 
-void std::vector<CSCppCoreFileRegionInfo>::__assign_with_size[abi:ne200100]<CSCppCoreFileRegionInfo*,CSCppCoreFileRegionInfo*>(uint64_t a1, void *a2, CSCppCoreFileRegionInfo *a3, unint64_t a4)
+void std::vector<CSCppCoreFileRegionInfo>::__assign_with_size[abi:ne200100]<CSCppCoreFileRegionInfo*,CSCppCoreFileRegionInfo*>(uint64_t a1, CSCppCoreFileRegionInfo **a2, CSCppCoreFileRegionInfo **a3, unint64_t a4)
 {
   v7 = *a1;
   if (0x6DB6DB6DB6DB6DB7 * ((*(a1 + 16) - *a1) >> 5) < a4)
@@ -2923,7 +2012,7 @@ void CSCppCoreFileRegionInfo::~CSCppCoreFileRegionInfo(CSCppCoreFileRegionInfo *
   }
 }
 
-void *std::__copy_impl::operator()[abi:ne200100]<CSCppCoreFileRegionInfo *,CSCppCoreFileRegionInfo *,CSCppCoreFileRegionInfo *>(uint64_t a1, void *a2, void *a3, uint64_t a4)
+CSCppCoreFileRegionInfo **std::__copy_impl::operator()[abi:ne200100]<CSCppCoreFileRegionInfo *,CSCppCoreFileRegionInfo *,CSCppCoreFileRegionInfo *>(uint64_t a1, CSCppCoreFileRegionInfo **a2, CSCppCoreFileRegionInfo **a3, uint64_t a4)
 {
   if (a2 == a3)
   {
@@ -2948,13 +2037,11 @@ void *std::__copy_impl::operator()[abi:ne200100]<CSCppCoreFileRegionInfo *,CSCpp
     *(a4 + 80) = v12;
     *(a4 + 48) = v10;
     std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_copy_assign_base<std::string,false> const&>((a4 + 104), (v6 - 13));
-    std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_copy_assign_base<std::vector<unsigned short>,false> const&>(a4 + 136, (v6 - 9));
-    std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_copy_assign_base<std::vector<unsigned short>,false> const&>(a4 + 168, (v6 - 5));
+    std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_copy_assign_base<std::vector<unsigned short>,false> const&>((a4 + 136), (v6 - 9));
+    std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_copy_assign_base<std::vector<unsigned short>,false> const&>((a4 + 168), (v6 - 5));
     if (a4 != v6 - 26)
     {
-      v13 = *(v6 - 1);
-      v14 = *v6;
-      std::vector<CSCppCoreFileRegionInfo>::__assign_with_size[abi:ne200100]<CSCppCoreFileRegionInfo*,CSCppCoreFileRegionInfo*>(a4 + 200);
+      std::vector<CSCppCoreFileRegionInfo>::__assign_with_size[abi:ne200100]<CSCppCoreFileRegionInfo*,CSCppCoreFileRegionInfo*>(a4 + 200, *(v6 - 1), *v6, 0x6DB6DB6DB6DB6DB7 * ((*v6 - *(v6 - 1)) >> 5));
     }
 
     a4 += 224;
@@ -3004,7 +2091,7 @@ void std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100
   }
 }
 
-void std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_copy_assign_base<std::vector<unsigned short>,false> const&>(uint64_t a1, uint64_t a2)
+void std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_copy_assign_base<std::vector<unsigned short>,false> const&>(uint64_t *a1, uint64_t a2)
 {
   if (*(a1 + 24) == *(a2 + 24))
   {
@@ -3023,7 +2110,7 @@ void std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_f
     v6 = *a1;
     if (*a1)
     {
-      *(a1 + 8) = v6;
+      a1[1] = v6;
       operator delete(v6);
     }
 
@@ -3033,14 +2120,14 @@ void std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_f
   else
   {
     *a1 = 0;
-    *(a1 + 8) = 0;
-    *(a1 + 16) = 0;
+    a1[1] = 0;
+    a1[2] = 0;
     std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(a1, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 1);
     *(a1 + 24) = 1;
   }
 }
 
-void *std::vector<unsigned short>::__assign_with_size[abi:ne200100]<unsigned short *,unsigned short *>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<unsigned short>::__assign_with_size[abi:ne200100]<unsigned short *,unsigned short *>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v7 = result;
   v8 = result[2];
@@ -3120,7 +2207,7 @@ void *std::vector<unsigned short>::__assign_with_size[abi:ne200100]<unsigned sho
   return result;
 }
 
-void std::__optional_storage_base<std::vector<unsigned long long>,false>::__assign_from[abi:ne200100]<std::__optional_copy_assign_base<std::vector<unsigned long long>,false> const&>(uint64_t a1, uint64_t a2)
+void std::__optional_storage_base<std::vector<unsigned long long>,false>::__assign_from[abi:ne200100]<std::__optional_copy_assign_base<std::vector<unsigned long long>,false> const&>(uint64_t *a1, uint64_t a2)
 {
   if (*(a1 + 24) == *(a2 + 24))
   {
@@ -3139,7 +2226,7 @@ void std::__optional_storage_base<std::vector<unsigned long long>,false>::__assi
     v6 = *a1;
     if (*a1)
     {
-      *(a1 + 8) = v6;
+      a1[1] = v6;
       operator delete(v6);
     }
 
@@ -3149,14 +2236,14 @@ void std::__optional_storage_base<std::vector<unsigned long long>,false>::__assi
   else
   {
     *a1 = 0;
-    *(a1 + 8) = 0;
-    *(a1 + 16) = 0;
+    a1[1] = 0;
+    a1[2] = 0;
     std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(a1, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 3);
     *(a1 + 24) = 1;
   }
 }
 
-void *std::vector<unsigned long long>::__assign_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<unsigned long long>::__assign_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v7 = result;
   v8 = result[2];
@@ -3232,7 +2319,7 @@ void *std::vector<unsigned long long>::__assign_with_size[abi:ne200100]<unsigned
   return result;
 }
 
-void std::__optional_storage_base<std::vector<CS_vm_object_query_data_t>,false>::__assign_from[abi:ne200100]<std::__optional_copy_assign_base<std::vector<CS_vm_object_query_data_t>,false> const&>(uint64_t a1, uint64_t a2)
+void std::__optional_storage_base<std::vector<CS_vm_object_query_data_t>,false>::__assign_from[abi:ne200100]<std::__optional_copy_assign_base<std::vector<CS_vm_object_query_data_t>,false> const&>(uint64_t *a1, uint64_t a2)
 {
   if (*(a1 + 24) == *(a2 + 24))
   {
@@ -3251,7 +2338,7 @@ void std::__optional_storage_base<std::vector<CS_vm_object_query_data_t>,false>:
     v6 = *a1;
     if (*a1)
     {
-      *(a1 + 8) = v6;
+      a1[1] = v6;
       operator delete(v6);
     }
 
@@ -3261,14 +2348,14 @@ void std::__optional_storage_base<std::vector<CS_vm_object_query_data_t>,false>:
   else
   {
     *a1 = 0;
-    *(a1 + 8) = 0;
-    *(a1 + 16) = 0;
+    a1[1] = 0;
+    a1[2] = 0;
     std::vector<CS_vm_object_query_data_t>::__init_with_size[abi:ne200100]<CS_vm_object_query_data_t*,CS_vm_object_query_data_t*>(a1, *a2, *(a2 + 8), 0x6DB6DB6DB6DB6DB7 * ((*(a2 + 8) - *a2) >> 3));
     *(a1 + 24) = 1;
   }
 }
 
-void *std::vector<CS_vm_object_query_data_t>::__assign_with_size[abi:ne200100]<CS_vm_object_query_data_t*,CS_vm_object_query_data_t*>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<CS_vm_object_query_data_t>::__assign_with_size[abi:ne200100]<CS_vm_object_query_data_t*,CS_vm_object_query_data_t*>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v7 = result;
   v8 = result[2];
@@ -3359,8 +2446,8 @@ void CSCppCoreFileTaskCrashinfo::CSCppCoreFileTaskCrashinfo(CSCppCoreFileTaskCra
   *(this + 10) = v6;
   *(this + 11) = v7;
   *(this + 9) = v5;
-  std::__optional_copy_base<std::vector<unsigned long long>,false>::__optional_copy_base[abi:ne200100](this + 208, a2 + 208);
-  std::__optional_copy_base<std::vector<CS_vm_object_query_data_t>,false>::__optional_copy_base[abi:ne200100](this + 240, a2 + 240);
+  std::__optional_copy_base<std::vector<unsigned long long>,false>::__optional_copy_base[abi:ne200100](this + 26, a2 + 208);
+  std::__optional_copy_base<std::vector<CS_vm_object_query_data_t>,false>::__optional_copy_base[abi:ne200100](this + 30, a2 + 240);
   v8 = *(a2 + 17);
   v9 = *(a2 + 19);
   *(this + 18) = *(a2 + 18);
@@ -3417,7 +2504,7 @@ void sub_1D97BD788(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-__n128 std::__introsort<std::_ClassicAlgPolicy,std::expected<mapped_memory_t *,char const*> create_mapped_memory_cache_for_core_file_without_exclave_metadata_arch_specific<SizeAndEndianness<Pointer32,LittleEndian>>(char const*,unsigned long,char const*)::{lambda(mapped_memory_core_file_dumped_region_info_t const&,mapped_memory_core_file_dumped_region_info_t const&)#1} &,mapped_memory_core_file_dumped_region_info_t*,false>(uint64_t a1, unint64_t a2, uint64_t a3, char a4, __n128 result)
+__n128 std::__introsort<std::_ClassicAlgPolicy,std::expected<mapped_memory_t *,char const*> create_mapped_memory_cache_for_core_file_without_exclave_metadata_arch_specific<SizeAndEndianness<Pointer32,LittleEndian>>(char const*,unsigned long,char const*)::{lambda(mapped_memory_core_file_dumped_region_info_t const&,mapped_memory_core_file_dumped_region_info_t const&)#1} &,mapped_memory_core_file_dumped_region_info_t*,false>(unint64_t a1, unint64_t a2, uint64_t a3, char a4, __n128 result)
 {
 LABEL_1:
   v9 = (a2 - 40);
@@ -3438,28 +2525,28 @@ LABEL_1:
 
       if (v14 == 2)
       {
-        v124 = *(a2 - 40);
-        v123 = a2 - 40;
-        if (v124 >= *v12)
+        v122 = *(a2 - 40);
+        v121 = a2 - 40;
+        if (v122 >= *v12)
         {
           return result;
         }
 
 LABEL_106:
-        v295 = *(v12 + 32);
-        v231 = *v12;
-        v264 = *(v12 + 16);
-        v129 = *v123;
-        v130 = *(v123 + 16);
-        *(v12 + 32) = *(v123 + 32);
-        *v12 = v129;
-        *(v12 + 16) = v130;
-        result = v231;
-        v131 = v264;
-        *(v123 + 32) = v295;
+        v292 = *(v12 + 32);
+        v228 = *v12;
+        v261 = *(v12 + 16);
+        v127 = *v121;
+        v128 = *(v121 + 16);
+        *(v12 + 32) = *(v121 + 32);
+        *v12 = v127;
+        *(v12 + 16) = v128;
+        result = v228;
+        v129 = v261;
+        *(v121 + 32) = v292;
 LABEL_107:
-        *v123 = result;
-        *(v123 + 16) = v131;
+        *v121 = result;
+        *(v121 + 16) = v129;
         return result;
       }
 
@@ -3473,131 +2560,131 @@ LABEL_107:
 
     if (v14 == 4)
     {
-      v125 = v12 + 40;
-      v132 = *(v12 + 40);
-      v133 = (v12 + 80);
-      v134 = *(v12 + 80);
-      if (v132 >= *v12)
+      v123 = v12 + 40;
+      v130 = *(v12 + 40);
+      v131 = (v12 + 80);
+      v132 = *(v12 + 80);
+      if (v130 >= *v12)
       {
-        if (v134 < v132)
+        if (v132 < v130)
         {
-          v186 = *(v12 + 72);
-          v187 = *v125;
+          v183 = *(v12 + 72);
+          v184 = *v123;
           result = *(v12 + 56);
-          v188 = *(v12 + 96);
-          *v125 = *v133;
-          *(v12 + 56) = v188;
+          v185 = *(v12 + 96);
+          *v123 = *v131;
+          *(v12 + 56) = v185;
           *(v12 + 72) = *(v12 + 112);
-          *v133 = v187;
+          *v131 = v184;
           *(v12 + 96) = result;
-          *(v12 + 112) = v186;
+          *(v12 + 112) = v183;
           if (*(v12 + 40) < *v12)
           {
-            v299 = *(v12 + 32);
-            v236 = *v12;
-            v270 = *(v12 + 16);
-            v189 = *(v12 + 56);
-            *v12 = *v125;
-            *(v12 + 16) = v189;
+            v296 = *(v12 + 32);
+            v233 = *v12;
+            v267 = *(v12 + 16);
+            v186 = *(v12 + 56);
+            *v12 = *v123;
+            *(v12 + 16) = v186;
             *(v12 + 32) = *(v12 + 72);
-            result = v236;
-            *v125 = v236;
-            *(v12 + 56) = v270;
-            *(v12 + 72) = v299;
+            result = v233;
+            *v123 = v233;
+            *(v12 + 56) = v267;
+            *(v12 + 72) = v296;
           }
         }
       }
 
       else
       {
-        if (v134 < v132)
+        if (v132 < v130)
         {
-          v296 = *(v12 + 32);
-          v232 = *v12;
-          v265 = *(v12 + 16);
-          v135 = *(v12 + 96);
-          *v12 = *v133;
-          *(v12 + 16) = v135;
+          v293 = *(v12 + 32);
+          v229 = *v12;
+          v262 = *(v12 + 16);
+          v133 = *(v12 + 96);
+          *v12 = *v131;
+          *(v12 + 16) = v133;
           *(v12 + 32) = *(v12 + 112);
-          result = v232;
-          *v133 = v232;
-          *(v12 + 96) = v265;
-          v136 = v296;
+          result = v229;
+          *v131 = v229;
+          *(v12 + 96) = v262;
+          v134 = v293;
           goto LABEL_187;
         }
 
-        v302 = *(v12 + 32);
-        v239 = *v12;
-        v273 = *(v12 + 16);
-        v197 = *(v12 + 56);
-        *v12 = *v125;
-        *(v12 + 16) = v197;
+        v299 = *(v12 + 32);
+        v236 = *v12;
+        v270 = *(v12 + 16);
+        v194 = *(v12 + 56);
+        *v12 = *v123;
+        *(v12 + 16) = v194;
         *(v12 + 32) = *(v12 + 72);
-        result = v239;
-        *v125 = v239;
-        *(v12 + 56) = v273;
-        *(v12 + 72) = v302;
-        if (v134 < *(v12 + 40))
+        result = v236;
+        *v123 = v236;
+        *(v12 + 56) = v270;
+        *(v12 + 72) = v299;
+        if (v132 < *(v12 + 40))
         {
-          v136 = *(v12 + 72);
-          v198 = *v125;
+          v134 = *(v12 + 72);
+          v195 = *v123;
           result = *(v12 + 56);
-          v199 = *(v12 + 96);
-          *v125 = *v133;
-          *(v12 + 56) = v199;
+          v196 = *(v12 + 96);
+          *v123 = *v131;
+          *(v12 + 56) = v196;
           *(v12 + 72) = *(v12 + 112);
-          *v133 = v198;
+          *v131 = v195;
           *(v12 + 96) = result;
 LABEL_187:
-          *(v12 + 112) = v136;
+          *(v12 + 112) = v134;
         }
       }
 
-      if (v9->n128_u64[0] >= v133->n128_u64[0])
+      if (v9->n128_u64[0] >= v131->n128_u64[0])
       {
         return result;
       }
 
-      result = *v133;
-      v274 = *(v12 + 96);
-      v303 = *(v12 + 112);
-      v201 = *v9;
-      v200 = *(a2 - 24);
+      result = *v131;
+      v271 = *(v12 + 96);
+      v300 = *(v12 + 112);
+      v198 = *v9;
+      v197 = *(a2 - 24);
       *(v12 + 112) = *(a2 - 8);
-      *v133 = v201;
-      *(v12 + 96) = v200;
-      *(a2 - 8) = v303;
+      *v131 = v198;
+      *(v12 + 96) = v197;
+      *(a2 - 8) = v300;
       *v9 = result;
-      *(a2 - 24) = v274;
-      if (v133->n128_u64[0] >= *v125)
+      *(a2 - 24) = v271;
+      if (v131->n128_u64[0] >= *v123)
       {
         return result;
       }
 
-      v202 = *(v12 + 72);
-      v203 = *v125;
+      v199 = *(v12 + 72);
+      v200 = *v123;
       result = *(v12 + 56);
-      v204 = *(v12 + 96);
-      *v125 = *v133;
-      *(v12 + 56) = v204;
+      v201 = *(v12 + 96);
+      *v123 = *v131;
+      *(v12 + 56) = v201;
       *(v12 + 72) = *(v12 + 112);
-      *v133 = v203;
+      *v131 = v200;
       *(v12 + 96) = result;
-      *(v12 + 112) = v202;
+      *(v12 + 112) = v199;
 LABEL_191:
       if (*(v12 + 40) < *v12)
       {
-        v304 = *(v12 + 32);
-        v240 = *v12;
-        v275 = *(v12 + 16);
-        v205 = *(v125 + 16);
-        *v12 = *v125;
-        *(v12 + 16) = v205;
-        *(v12 + 32) = *(v125 + 32);
-        result = v240;
-        *v125 = v240;
-        *(v125 + 16) = v275;
-        *(v125 + 32) = v304;
+        v301 = *(v12 + 32);
+        v237 = *v12;
+        v272 = *(v12 + 16);
+        v202 = *(v123 + 16);
+        *v12 = *v123;
+        *(v12 + 16) = v202;
+        *(v12 + 32) = *(v123 + 32);
+        result = v237;
+        *v123 = v237;
+        *(v123 + 16) = v272;
+        *(v123 + 32) = v301;
       }
 
       return result;
@@ -3613,92 +2700,92 @@ LABEL_191:
 LABEL_9:
     if (v13 <= 959)
     {
-      v137 = v12 + 40;
-      v139 = v12 == a2 || v137 == a2;
+      v135 = v12 + 40;
+      v137 = v12 == a2 || v135 == a2;
       if (a4)
       {
-        if (!v139)
+        if (!v137)
         {
-          v140 = 0;
-          v141 = v12;
+          v138 = 0;
+          v139 = v12;
           do
           {
-            v142 = v137;
-            v143 = *(v141 + 40);
-            if (v143 < *v141)
+            v140 = v135;
+            v141 = *(v139 + 40);
+            if (v141 < *v139)
             {
-              v233 = *(v141 + 48);
-              v266 = *(v141 + 64);
-              v144 = v140;
+              v230 = *(v139 + 48);
+              v263 = *(v139 + 64);
+              v142 = v138;
               while (1)
               {
-                v145 = v12 + v144;
-                v146 = *(v12 + v144 + 16);
-                *(v145 + 40) = *(v12 + v144);
-                *(v145 + 56) = v146;
-                *(v145 + 72) = *(v12 + v144 + 32);
-                if (!v144)
+                v143 = v12 + v142;
+                v144 = *(v12 + v142 + 16);
+                *(v143 + 40) = *(v12 + v142);
+                *(v143 + 56) = v144;
+                *(v143 + 72) = *(v12 + v142 + 32);
+                if (!v142)
                 {
                   break;
                 }
 
-                v144 -= 40;
-                if (v143 >= *(v145 - 40))
+                v142 -= 40;
+                if (v141 >= *(v143 - 40))
                 {
-                  v147 = v12 + v144 + 40;
+                  v145 = v12 + v142 + 40;
                   goto LABEL_126;
                 }
               }
 
-              v147 = v12;
+              v145 = v12;
 LABEL_126:
-              *v147 = v143;
-              result = v233;
-              *(v147 + 24) = v266;
-              *(v147 + 8) = v233;
+              *v145 = v141;
+              result = v230;
+              *(v145 + 24) = v263;
+              *(v145 + 8) = v230;
             }
 
-            v137 = v142 + 40;
-            v140 += 40;
-            v141 = v142;
+            v135 = v140 + 40;
+            v138 += 40;
+            v139 = v140;
           }
 
-          while (v142 + 40 != a2);
+          while (v140 + 40 != a2);
         }
       }
 
-      else if (!v139)
+      else if (!v137)
       {
         do
         {
-          v190 = v137;
-          v191 = *(a1 + 40);
-          if (v191 < *a1)
+          v187 = v135;
+          v188 = *(a1 + 40);
+          if (v188 < *a1)
           {
-            v237 = *(a1 + 48);
-            v271 = *(a1 + 64);
+            v234 = *(a1 + 48);
+            v268 = *(a1 + 64);
             do
             {
-              v192 = *(v137 - 24);
-              *v137 = *(v137 - 40);
-              *(v137 + 16) = v192;
-              *(v137 + 32) = *(v137 - 8);
-              v193 = *(v137 - 80);
-              v137 -= 40;
+              v189 = *(v135 - 24);
+              *v135 = *(v135 - 40);
+              *(v135 + 16) = v189;
+              *(v135 + 32) = *(v135 - 8);
+              v190 = *(v135 - 80);
+              v135 -= 40;
             }
 
-            while (v191 < v193);
-            *v137 = v191;
-            result = v237;
-            *(v137 + 24) = v271;
-            *(v137 + 8) = v237;
+            while (v188 < v190);
+            *v135 = v188;
+            result = v234;
+            *(v135 + 24) = v268;
+            *(v135 + 8) = v234;
           }
 
-          v137 = v190 + 40;
-          a1 = v190;
+          v135 = v187 + 40;
+          a1 = v187;
         }
 
-        while (v190 + 40 != a2);
+        while (v187 + 40 != a2);
       }
 
       return result;
@@ -3708,200 +2795,199 @@ LABEL_126:
     {
       if (v12 != a2)
       {
-        v148 = (v14 - 2) >> 1;
-        v149 = v148;
+        v146 = (v14 - 2) >> 1;
+        v147 = v146;
         do
         {
-          v150 = v149;
-          if (v148 >= v149)
+          v148 = v147;
+          if (v146 >= v147)
           {
-            v151 = (2 * v149) | 1;
-            v152 = v12 + 40 * v151;
-            if (2 * v150 + 2 >= v14)
+            v149 = (2 * v147) | 1;
+            v150 = v12 + 40 * v149;
+            if (2 * v148 + 2 >= v14)
             {
-              v153 = *v152;
+              v151 = *v150;
             }
 
             else
             {
-              v153 = *(v152 + 40);
-              v154 = *v152 >= v153;
-              if (*v152 > v153)
+              v151 = *(v150 + 40);
+              v152 = *v150 >= v151;
+              if (*v150 > v151)
               {
-                v153 = *v152;
+                v151 = *v150;
               }
 
-              if (!v154)
+              if (!v152)
               {
-                v152 += 40;
-                v151 = 2 * v150 + 2;
+                v150 += 40;
+                v149 = 2 * v148 + 2;
               }
             }
 
-            v155 = v12 + 40 * v150;
-            v156 = *v155;
-            if (v153 >= *v155)
+            v153 = v12 + 40 * v148;
+            v154 = *v153;
+            if (v151 >= *v153)
             {
-              v234 = *(v155 + 8);
-              v267 = *(v155 + 24);
+              v231 = *(v153 + 8);
+              v264 = *(v153 + 24);
               do
               {
-                v157 = v155;
-                v155 = v152;
-                v158 = *v152;
-                v159 = *(v152 + 16);
-                *(v157 + 32) = *(v152 + 32);
-                *v157 = v158;
-                *(v157 + 16) = v159;
-                if (v148 < v151)
+                v155 = v153;
+                v153 = v150;
+                v156 = *v150;
+                v157 = *(v150 + 16);
+                *(v155 + 32) = *(v150 + 32);
+                *v155 = v156;
+                *(v155 + 16) = v157;
+                if (v146 < v149)
                 {
                   break;
                 }
 
-                v160 = (2 * v151) | 1;
-                v152 = v12 + 40 * v160;
-                v151 = 2 * v151 + 2;
-                if (v151 >= v14)
+                v158 = (2 * v149) | 1;
+                v150 = v12 + 40 * v158;
+                v149 = 2 * v149 + 2;
+                if (v149 >= v14)
                 {
-                  v161 = *v152;
-                  v151 = v160;
+                  v159 = *v150;
+                  v149 = v158;
                 }
 
                 else
                 {
-                  v161 = *v152;
-                  v162 = *(v152 + 40);
-                  if (*v152 <= v162)
+                  v159 = *v150;
+                  v160 = *(v150 + 40);
+                  if (*v150 <= v160)
                   {
-                    v161 = *(v152 + 40);
+                    v159 = *(v150 + 40);
                   }
 
-                  if (*v152 >= v162)
+                  if (*v150 >= v160)
                   {
-                    v151 = v160;
+                    v149 = v158;
                   }
 
                   else
                   {
-                    v152 += 40;
+                    v150 += 40;
                   }
                 }
               }
 
-              while (v161 >= v156);
-              *v155 = v156;
-              *(v155 + 24) = v267;
-              *(v155 + 8) = v234;
+              while (v159 >= v154);
+              *v153 = v154;
+              *(v153 + 24) = v264;
+              *(v153 + 8) = v231;
             }
           }
 
-          v149 = v150 - 1;
+          v147 = v148 - 1;
         }
 
-        while (v150);
-        v163 = 0xCCCCCCCCCCCCCCCDLL * (v13 >> 3);
+        while (v148);
+        v161 = 0xCCCCCCCCCCCCCCCDLL * (v13 >> 3);
         do
         {
-          v164 = 0;
-          v297 = *(v12 + 32);
-          v235 = *v12;
-          v268 = *(v12 + 16);
-          v165 = v12;
+          v162 = 0;
+          v294 = *(v12 + 32);
+          v232 = *v12;
+          v265 = *(v12 + 16);
+          v163 = v12;
           do
           {
-            v166 = v165 + 40 * v164;
-            v167 = v166 + 40;
-            v168 = (2 * v164) | 1;
-            v164 = 2 * v164 + 2;
-            if (v164 >= v163)
+            v164 = v163 + 40 * v162;
+            v165 = v164 + 40;
+            v166 = (2 * v162) | 1;
+            v162 = 2 * v162 + 2;
+            if (v162 >= v161)
             {
-              v164 = v168;
+              v162 = v166;
             }
 
             else
             {
-              v170 = *(v166 + 80);
-              v169 = v166 + 80;
-              if (*(v169 - 40) >= v170)
+              v168 = *(v164 + 80);
+              v167 = v164 + 80;
+              if (*(v167 - 40) >= v168)
               {
-                v164 = v168;
+                v162 = v166;
               }
 
               else
               {
-                v167 = v169;
+                v165 = v167;
               }
             }
 
-            v171 = *v167;
-            v172 = *(v167 + 16);
-            *(v165 + 32) = *(v167 + 32);
-            *v165 = v171;
-            *(v165 + 16) = v172;
-            v165 = v167;
+            v169 = *v165;
+            v170 = *(v165 + 16);
+            *(v163 + 32) = *(v165 + 32);
+            *v163 = v169;
+            *(v163 + 16) = v170;
+            v163 = v165;
           }
 
-          while (v164 <= ((v163 - 2) >> 1));
+          while (v162 <= ((v161 - 2) >> 1));
           a2 -= 40;
-          if (v167 == a2)
+          if (v165 == a2)
           {
-            result = v235;
-            *(v167 + 32) = v297;
-            *v167 = v235;
-            *(v167 + 16) = v268;
+            result = v232;
+            *(v165 + 32) = v294;
+            *v165 = v232;
+            *(v165 + 16) = v265;
           }
 
           else
           {
-            v173 = *a2;
-            v174 = *(a2 + 16);
-            *(v167 + 32) = *(a2 + 32);
-            *v167 = v173;
-            *(v167 + 16) = v174;
-            result = v235;
-            *(a2 + 32) = v297;
-            *a2 = v235;
-            *(a2 + 16) = v268;
-            v175 = v167 - v12 + 40;
-            if (v175 >= 41)
+            v171 = *a2;
+            v172 = *(a2 + 16);
+            *(v165 + 32) = *(a2 + 32);
+            *v165 = v171;
+            *(v165 + 16) = v172;
+            result = v232;
+            *(a2 + 32) = v294;
+            *a2 = v232;
+            *(a2 + 16) = v265;
+            v173 = v165 - v12 + 40;
+            if (v173 >= 41)
             {
-              v176 = (-2 - 0x3333333333333333 * (v175 >> 3)) >> 1;
-              v177 = v12 + 40 * v176;
-              v178 = *v167;
-              if (*v177 < *v167)
+              v174 = (-2 - 0x3333333333333333 * (v173 >> 3)) >> 1;
+              v175 = v12 + 40 * v174;
+              v176 = *v165;
+              if (*v175 < *v165)
               {
-                v179 = *(v167 + 8);
-                v208 = v179;
-                v211 = *(v167 + 24);
+                v205 = *(v165 + 8);
+                v208 = *(v165 + 24);
                 do
                 {
-                  v180 = v167;
-                  v167 = v177;
-                  v181 = *v177;
-                  v182 = *(v177 + 16);
-                  *(v180 + 32) = *(v177 + 32);
-                  *v180 = v181;
-                  *(v180 + 16) = v182;
-                  if (!v176)
+                  v177 = v165;
+                  v165 = v175;
+                  v178 = *v175;
+                  v179 = *(v175 + 16);
+                  *(v177 + 32) = *(v175 + 32);
+                  *v177 = v178;
+                  *(v177 + 16) = v179;
+                  if (!v174)
                   {
                     break;
                   }
 
-                  v176 = (v176 - 1) >> 1;
-                  v177 = v12 + 40 * v176;
+                  v174 = (v174 - 1) >> 1;
+                  v175 = v12 + 40 * v174;
                 }
 
-                while (*v177 < v178);
-                *v167 = v178;
-                result = v208;
-                *(v167 + 24) = v211;
-                *(v167 + 8) = v208;
+                while (*v175 < v176);
+                *v165 = v176;
+                result = v205;
+                *(v165 + 24) = v208;
+                *(v165 + 8) = v205;
               }
             }
           }
         }
 
-        while (v163-- > 2);
+        while (v161-- > 2);
       }
 
       return result;
@@ -3917,30 +3003,30 @@ LABEL_126:
       {
         if (v17 < v18)
         {
-          v278 = *(v16 + 32);
-          v214 = *v16;
-          v243 = *(v16 + 16);
+          v275 = *(v16 + 32);
+          v211 = *v16;
+          v240 = *(v16 + 16);
           v24 = *v9;
           v25 = *(a2 - 24);
           *(v16 + 32) = *(a2 - 8);
           *v16 = v24;
           *(v16 + 16) = v25;
-          *(a2 - 8) = v278;
-          *v9 = v214;
-          *(a2 - 24) = v243;
+          *(a2 - 8) = v275;
+          *v9 = v211;
+          *(a2 - 24) = v240;
           if (*v16 < *v12)
           {
-            v279 = *(v12 + 32);
-            v215 = *v12;
-            v244 = *(v12 + 16);
+            v276 = *(v12 + 32);
+            v212 = *v12;
+            v241 = *(v12 + 16);
             v26 = *v16;
             v27 = *(v16 + 16);
             *(v12 + 32) = *(v16 + 32);
             *v12 = v26;
             *(v12 + 16) = v27;
-            *(v16 + 32) = v279;
-            *v16 = v215;
-            *(v16 + 16) = v244;
+            *(v16 + 32) = v276;
+            *v16 = v212;
+            *(v16 + 16) = v241;
           }
         }
       }
@@ -3949,9 +3035,9 @@ LABEL_126:
       {
         if (v17 < v18)
         {
-          v276 = *(v12 + 32);
-          v212 = *v12;
-          v241 = *(v12 + 16);
+          v273 = *(v12 + 32);
+          v209 = *v12;
+          v238 = *(v12 + 16);
           v19 = *v9;
           v20 = *(a2 - 24);
           *(v12 + 32) = *(a2 - 8);
@@ -3960,31 +3046,31 @@ LABEL_126:
           goto LABEL_26;
         }
 
-        v282 = *(v12 + 32);
-        v218 = *v12;
-        v247 = *(v12 + 16);
+        v279 = *(v12 + 32);
+        v215 = *v12;
+        v244 = *(v12 + 16);
         v32 = *v16;
         v33 = *(v16 + 16);
         *(v12 + 32) = *(v16 + 32);
         *v12 = v32;
         *(v12 + 16) = v33;
-        *(v16 + 32) = v282;
-        *v16 = v218;
-        *(v16 + 16) = v247;
+        *(v16 + 32) = v279;
+        *v16 = v215;
+        *(v16 + 16) = v244;
         if (v9->n128_u64[0] < *v16)
         {
-          v276 = *(v16 + 32);
-          v212 = *v16;
-          v241 = *(v16 + 16);
+          v273 = *(v16 + 32);
+          v209 = *v16;
+          v238 = *(v16 + 16);
           v34 = *v9;
           v35 = *(a2 - 24);
           *(v16 + 32) = *(a2 - 8);
           *v16 = v34;
           *(v16 + 16) = v35;
 LABEL_26:
-          *(a2 - 8) = v276;
-          *v9 = v212;
-          *(a2 - 24) = v241;
+          *(a2 - 8) = v273;
+          *v9 = v209;
+          *(a2 - 24) = v238;
         }
       }
 
@@ -3998,21 +3084,21 @@ LABEL_26:
       {
         if (v41 < v39)
         {
-          v283 = *(v38 + 32);
-          v219 = *v38;
-          v248 = *(v38 + 16);
+          v280 = *(v38 + 32);
+          v216 = *v38;
+          v245 = *(v38 + 16);
           v47 = *v10;
           v48 = *(a2 - 64);
           *(v38 + 32) = *(a2 - 48);
           *v38 = v47;
           *(v38 + 16) = v48;
-          *(a2 - 48) = v283;
-          *v10 = v219;
-          *(a2 - 64) = v248;
+          *(a2 - 48) = v280;
+          *v10 = v216;
+          *(a2 - 64) = v245;
           if (*v38 < *v36)
           {
             v49 = *v36;
-            v249 = *(v12 + 56);
+            v246 = *(v12 + 56);
             v50 = *(v12 + 72);
             v52 = *v38;
             v51 = *(v38 + 16);
@@ -4021,7 +3107,7 @@ LABEL_26:
             *(v12 + 56) = v51;
             *(v38 + 32) = v50;
             *v38 = v49;
-            *(v38 + 16) = v249;
+            *(v38 + 16) = v246;
           }
         }
       }
@@ -4043,7 +3129,7 @@ LABEL_26:
         }
 
         v57 = *v36;
-        v251 = *(v12 + 56);
+        v248 = *(v12 + 56);
         v58 = *(v12 + 72);
         v60 = *v38;
         v59 = *(v38 + 16);
@@ -4052,20 +3138,20 @@ LABEL_26:
         *(v12 + 56) = v59;
         *(v38 + 32) = v58;
         *v38 = v57;
-        *(v38 + 16) = v251;
+        *(v38 + 16) = v248;
         if (*v10 < *v38)
         {
-          v285 = *(v38 + 32);
-          v221 = *v38;
-          v252 = *(v38 + 16);
+          v282 = *(v38 + 32);
+          v218 = *v38;
+          v249 = *(v38 + 16);
           v61 = *v10;
           v62 = *(a2 - 64);
           *(v38 + 32) = *(a2 - 48);
           *v38 = v61;
           *(v38 + 16) = v62;
-          v42 = v221;
-          v43 = v252;
-          *(a2 - 48) = v285;
+          v42 = v218;
+          v43 = v249;
+          *(a2 - 48) = v282;
 LABEL_38:
           *v10 = v42;
           *(a2 - 64) = v43;
@@ -4082,21 +3168,21 @@ LABEL_38:
       {
         if (v68 < v66)
         {
-          v286 = *(v65 + 32);
-          v222 = *v65;
-          v253 = *(v65 + 16);
+          v283 = *(v65 + 32);
+          v219 = *v65;
+          v250 = *(v65 + 16);
           v74 = *v11;
           v75 = *(a2 - 104);
           *(v65 + 32) = *(a2 - 88);
           *v65 = v74;
           *(v65 + 16) = v75;
-          *(a2 - 88) = v286;
-          *v11 = v222;
-          *(a2 - 104) = v253;
+          *(a2 - 88) = v283;
+          *v11 = v219;
+          *(a2 - 104) = v250;
           if (*v65 < *v63)
           {
             v76 = *v63;
-            v254 = *(v12 + 96);
+            v251 = *(v12 + 96);
             v77 = *(v12 + 112);
             v79 = *v65;
             v78 = *(v65 + 16);
@@ -4105,7 +3191,7 @@ LABEL_38:
             *(v12 + 96) = v78;
             *(v65 + 32) = v77;
             *v65 = v76;
-            *(v65 + 16) = v254;
+            *(v65 + 16) = v251;
           }
         }
       }
@@ -4127,7 +3213,7 @@ LABEL_38:
         }
 
         v80 = *v63;
-        v255 = *(v12 + 96);
+        v252 = *(v12 + 96);
         v81 = *(v12 + 112);
         v83 = *v65;
         v82 = *(v65 + 16);
@@ -4136,20 +3222,20 @@ LABEL_38:
         *(v12 + 96) = v82;
         *(v65 + 32) = v81;
         *v65 = v80;
-        *(v65 + 16) = v255;
+        *(v65 + 16) = v252;
         if (*v11 < *v65)
         {
-          v287 = *(v65 + 32);
-          v223 = *v65;
-          v256 = *(v65 + 16);
+          v284 = *(v65 + 32);
+          v220 = *v65;
+          v253 = *(v65 + 16);
           v84 = *v11;
           v85 = *(a2 - 104);
           *(v65 + 32) = *(a2 - 88);
           *v65 = v84;
           *(v65 + 16) = v85;
-          v69 = v223;
-          v70 = v256;
-          *(a2 - 88) = v287;
+          v69 = v220;
+          v70 = v253;
+          *(a2 - 88) = v284;
 LABEL_47:
           *v11 = v69;
           *(a2 - 104) = v70;
@@ -4162,28 +3248,28 @@ LABEL_47:
       {
         if (v87 < v86)
         {
-          v289 = *(v16 + 32);
-          v225 = *v16;
-          v258 = *(v16 + 16);
+          v286 = *(v16 + 32);
+          v222 = *v16;
+          v255 = *(v16 + 16);
           v89 = *(v65 + 16);
           *v16 = *v65;
           *(v16 + 16) = v89;
           *(v16 + 32) = *(v65 + 32);
-          *(v65 + 32) = v289;
-          *v65 = v225;
-          *(v65 + 16) = v258;
+          *(v65 + 32) = v286;
+          *v65 = v222;
+          *(v65 + 16) = v255;
           if (*v16 < *v38)
           {
-            v290 = *(v38 + 32);
-            v226 = *v38;
-            v259 = *(v38 + 16);
+            v287 = *(v38 + 32);
+            v223 = *v38;
+            v256 = *(v38 + 16);
             v90 = *(v16 + 16);
             *v38 = *v16;
             *(v38 + 16) = v90;
             *(v38 + 32) = *(v16 + 32);
-            *(v16 + 32) = v290;
-            *v16 = v226;
-            *(v16 + 16) = v259;
+            *(v16 + 32) = v287;
+            *v16 = v223;
+            *(v16 + 16) = v256;
           }
         }
       }
@@ -4192,9 +3278,9 @@ LABEL_47:
       {
         if (v87 < v86)
         {
-          v288 = *(v38 + 32);
-          v224 = *v38;
-          v257 = *(v38 + 16);
+          v285 = *(v38 + 32);
+          v221 = *v38;
+          v254 = *(v38 + 16);
           v88 = *(v65 + 16);
           *v38 = *v65;
           *(v38 + 16) = v88;
@@ -4202,43 +3288,43 @@ LABEL_47:
           goto LABEL_56;
         }
 
-        v291 = *(v38 + 32);
-        v227 = *v38;
-        v260 = *(v38 + 16);
+        v288 = *(v38 + 32);
+        v224 = *v38;
+        v257 = *(v38 + 16);
         v91 = *(v16 + 16);
         *v38 = *v16;
         *(v38 + 16) = v91;
         *(v38 + 32) = *(v16 + 32);
-        *(v16 + 32) = v291;
-        *v16 = v227;
-        *(v16 + 16) = v260;
+        *(v16 + 32) = v288;
+        *v16 = v224;
+        *(v16 + 16) = v257;
         if (*v65 < *v16)
         {
-          v288 = *(v16 + 32);
-          v224 = *v16;
-          v257 = *(v16 + 16);
+          v285 = *(v16 + 32);
+          v221 = *v16;
+          v254 = *(v16 + 16);
           v92 = *(v65 + 16);
           *v16 = *v65;
           *(v16 + 16) = v92;
           *(v16 + 32) = *(v65 + 32);
 LABEL_56:
-          *(v65 + 32) = v288;
-          *v65 = v224;
-          *(v65 + 16) = v257;
+          *(v65 + 32) = v285;
+          *v65 = v221;
+          *(v65 + 16) = v254;
         }
       }
 
-      v292 = *(v12 + 32);
-      v228 = *v12;
-      v261 = *(v12 + 16);
+      v289 = *(v12 + 32);
+      v225 = *v12;
+      v258 = *(v12 + 16);
       v93 = *v16;
       v94 = *(v16 + 16);
       *(v12 + 32) = *(v16 + 32);
       *v12 = v93;
       *(v12 + 16) = v94;
-      *(v16 + 32) = v292;
-      *v16 = v228;
-      *(v16 + 16) = v261;
+      *(v16 + 32) = v289;
+      *v16 = v225;
+      *(v16 + 16) = v258;
       goto LABEL_58;
     }
 
@@ -4247,30 +3333,30 @@ LABEL_56:
     {
       if (v17 < v21)
       {
-        v280 = *(v12 + 32);
-        v216 = *v12;
-        v245 = *(v12 + 16);
+        v277 = *(v12 + 32);
+        v213 = *v12;
+        v242 = *(v12 + 16);
         v28 = *v9;
         v29 = *(a2 - 24);
         *(v12 + 32) = *(a2 - 8);
         *v12 = v28;
         *(v12 + 16) = v29;
-        *(a2 - 8) = v280;
-        *v9 = v216;
-        *(a2 - 24) = v245;
+        *(a2 - 8) = v277;
+        *v9 = v213;
+        *(a2 - 24) = v242;
         if (*v12 < *v16)
         {
-          v281 = *(v16 + 32);
-          v217 = *v16;
-          v246 = *(v16 + 16);
+          v278 = *(v16 + 32);
+          v214 = *v16;
+          v243 = *(v16 + 16);
           v30 = *v12;
           v31 = *(v12 + 16);
           *(v16 + 32) = *(v12 + 32);
           *v16 = v30;
           *(v16 + 16) = v31;
-          *(v12 + 32) = v281;
-          *v12 = v217;
-          *(v12 + 16) = v246;
+          *(v12 + 32) = v278;
+          *v12 = v214;
+          *(v12 + 16) = v243;
         }
       }
 
@@ -4279,25 +3365,25 @@ LABEL_56:
 
     if (v17 >= v21)
     {
-      v284 = *(v16 + 32);
-      v220 = *v16;
-      v250 = *(v16 + 16);
+      v281 = *(v16 + 32);
+      v217 = *v16;
+      v247 = *(v16 + 16);
       v53 = *v12;
       v54 = *(v12 + 16);
       *(v16 + 32) = *(v12 + 32);
       *v16 = v53;
       *(v16 + 16) = v54;
-      *(v12 + 32) = v284;
-      *v12 = v220;
-      *(v12 + 16) = v250;
+      *(v12 + 32) = v281;
+      *v12 = v217;
+      *(v12 + 16) = v247;
       if (v9->n128_u64[0] >= *v12)
       {
         goto LABEL_58;
       }
 
-      v277 = *(v12 + 32);
-      v213 = *v12;
-      v242 = *(v12 + 16);
+      v274 = *(v12 + 32);
+      v210 = *v12;
+      v239 = *(v12 + 16);
       v55 = *v9;
       v56 = *(a2 - 24);
       *(v12 + 32) = *(a2 - 8);
@@ -4307,9 +3393,9 @@ LABEL_56:
 
     else
     {
-      v277 = *(v16 + 32);
-      v213 = *v16;
-      v242 = *(v16 + 16);
+      v274 = *(v16 + 32);
+      v210 = *v16;
+      v239 = *(v16 + 16);
       v22 = *v9;
       v23 = *(a2 - 24);
       *(v16 + 32) = *(a2 - 8);
@@ -4317,113 +3403,113 @@ LABEL_56:
       *(v16 + 16) = v23;
     }
 
-    *(a2 - 8) = v277;
-    *v9 = v213;
-    *(a2 - 24) = v242;
+    *(a2 - 8) = v274;
+    *v9 = v210;
+    *(a2 - 24) = v239;
 LABEL_58:
     --a3;
     v95 = *v12;
     if ((a4 & 1) != 0 || *(v12 - 40) < v95)
     {
       v96 = 0;
-      v97 = *(v12 + 8);
-      v206 = v97;
-      v209 = *(v12 + 24);
+      v203 = *(v12 + 8);
+      v206 = *(v12 + 24);
       do
       {
-        v98 = *(v12 + v96 + 40);
+        v97 = *(v12 + v96 + 40);
         v96 += 40;
       }
 
-      while (v98 < v95);
-      v99 = v12 + v96;
-      v100 = a2;
+      while (v97 < v95);
+      v98 = v12 + v96;
+      v99 = a2;
       if (v96 == 40)
       {
-        v100 = a2;
+        v99 = a2;
         do
         {
-          if (v99 >= v100)
+          if (v98 >= v99)
           {
             break;
           }
 
-          v102 = *(v100 - 40);
-          v100 -= 40;
+          v101 = *(v99 - 40);
+          v99 -= 40;
         }
 
-        while (v102 >= v95);
+        while (v101 >= v95);
       }
 
       else
       {
         do
         {
-          v101 = *(v100 - 40);
-          v100 -= 40;
+          v100 = *(v99 - 40);
+          v99 -= 40;
         }
 
-        while (v101 >= v95);
+        while (v100 >= v95);
       }
 
       v12 += v96;
-      if (v99 < v100)
+      if (v98 < v99)
       {
-        v103 = v100;
+        v102 = v99;
         do
         {
-          v293 = *(v12 + 32);
-          v229 = *v12;
-          v262 = *(v12 + 16);
-          v104 = *v103;
-          v105 = *(v103 + 16);
-          *(v12 + 32) = *(v103 + 32);
-          *v12 = v104;
-          *(v12 + 16) = v105;
-          *(v103 + 32) = v293;
-          *v103 = v229;
-          *(v103 + 16) = v262;
+          v290 = *(v12 + 32);
+          v226 = *v12;
+          v259 = *(v12 + 16);
+          v103 = *v102;
+          v104 = *(v102 + 16);
+          *(v12 + 32) = *(v102 + 32);
+          *v12 = v103;
+          *(v12 + 16) = v104;
+          *(v102 + 32) = v290;
+          *v102 = v226;
+          *(v102 + 16) = v259;
           do
           {
-            v106 = *(v12 + 40);
+            v105 = *(v12 + 40);
             v12 += 40;
           }
 
-          while (v106 < v95);
+          while (v105 < v95);
           do
           {
-            v107 = *(v103 - 40);
-            v103 -= 40;
+            v106 = *(v102 - 40);
+            v102 -= 40;
           }
 
-          while (v107 >= v95);
+          while (v106 >= v95);
         }
 
-        while (v12 < v103);
+        while (v12 < v102);
       }
 
       if (v12 - 40 != a1)
       {
-        v108 = *(v12 - 40);
-        v109 = *(v12 - 24);
+        v107 = *(v12 - 40);
+        v108 = *(v12 - 24);
         *(a1 + 32) = *(v12 - 8);
-        *a1 = v108;
-        *(a1 + 16) = v109;
+        *a1 = v107;
+        *(a1 + 16) = v108;
       }
 
       *(v12 - 40) = v95;
-      *(v12 - 32) = v206;
-      *(v12 - 16) = v209;
-      if (v99 < v100)
+      result = v203;
+      *(v12 - 32) = v203;
+      *(v12 - 16) = v206;
+      if (v98 < v99)
       {
         goto LABEL_79;
       }
 
-      v110 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::expected<mapped_memory_t *,char const*> create_mapped_memory_cache_for_core_file_without_exclave_metadata_arch_specific<SizeAndEndianness<Pointer32,LittleEndian>>(char const*,unsigned long,char const*)::{lambda(mapped_memory_core_file_dumped_region_info_t const&,mapped_memory_core_file_dumped_region_info_t const&)#1} &,mapped_memory_core_file_dumped_region_info_t*>(a1, (v12 - 40), v206);
-      if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::expected<mapped_memory_t *,char const*> create_mapped_memory_cache_for_core_file_without_exclave_metadata_arch_specific<SizeAndEndianness<Pointer32,LittleEndian>>(char const*,unsigned long,char const*)::{lambda(mapped_memory_core_file_dumped_region_info_t const&,mapped_memory_core_file_dumped_region_info_t const&)#1} &,mapped_memory_core_file_dumped_region_info_t*>(v12, a2, v111))
+      v109 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::expected<mapped_memory_t *,char const*> create_mapped_memory_cache_for_core_file_without_exclave_metadata_arch_specific<SizeAndEndianness<Pointer32,LittleEndian>>(char const*,unsigned long,char const*)::{lambda(mapped_memory_core_file_dumped_region_info_t const&,mapped_memory_core_file_dumped_region_info_t const&)#1} &,mapped_memory_core_file_dumped_region_info_t*>(a1, (v12 - 40), v203);
+      if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::expected<mapped_memory_t *,char const*> create_mapped_memory_cache_for_core_file_without_exclave_metadata_arch_specific<SizeAndEndianness<Pointer32,LittleEndian>>(char const*,unsigned long,char const*)::{lambda(mapped_memory_core_file_dumped_region_info_t const&,mapped_memory_core_file_dumped_region_info_t const&)#1} &,mapped_memory_core_file_dumped_region_info_t*>(v12, a2, v110))
       {
         a2 = v12 - 40;
-        if (!v110)
+        if (!v109)
         {
           goto LABEL_1;
         }
@@ -4431,31 +3517,30 @@ LABEL_58:
         return result;
       }
 
-      if (!v110)
+      if (!v109)
       {
 LABEL_79:
-        std::__introsort<std::_ClassicAlgPolicy,std::expected<mapped_memory_t *,char const*> create_mapped_memory_cache_for_core_file_without_exclave_metadata_arch_specific<SizeAndEndianness<Pointer32,LittleEndian>>(char const*,unsigned long,char const*)::{lambda(mapped_memory_core_file_dumped_region_info_t const&,mapped_memory_core_file_dumped_region_info_t const&)#1} &,mapped_memory_core_file_dumped_region_info_t*,false>(a1, v12 - 40, a3, a4 & 1);
+        result = std::__introsort<std::_ClassicAlgPolicy,std::expected<mapped_memory_t *,char const*> create_mapped_memory_cache_for_core_file_without_exclave_metadata_arch_specific<SizeAndEndianness<Pointer32,LittleEndian>>(char const*,unsigned long,char const*)::{lambda(mapped_memory_core_file_dumped_region_info_t const&,mapped_memory_core_file_dumped_region_info_t const&)#1} &,mapped_memory_core_file_dumped_region_info_t*,false>(a1, v12 - 40, a3, a4 & 1, result);
         a4 = 0;
       }
     }
 
     else
     {
-      v112 = *(v12 + 8);
-      v207 = v112;
-      v210 = *(v12 + 24);
+      v204 = *(v12 + 8);
+      v207 = *(v12 + 24);
       if (v95 >= v9->n128_u64[0])
       {
-        v114 = v12 + 40;
+        v112 = v12 + 40;
         do
         {
-          v12 = v114;
-          if (v114 >= a2)
+          v12 = v112;
+          if (v112 >= a2)
           {
             break;
           }
 
-          v114 += 40;
+          v112 += 40;
         }
 
         while (v95 >= *v12);
@@ -4465,125 +3550,125 @@ LABEL_79:
       {
         do
         {
-          v113 = *(v12 + 40);
+          v111 = *(v12 + 40);
           v12 += 40;
         }
 
-        while (v95 >= v113);
+        while (v95 >= v111);
       }
 
-      v115 = a2;
+      v113 = a2;
       if (v12 < a2)
       {
-        v115 = a2;
+        v113 = a2;
         do
         {
-          v116 = *(v115 - 40);
-          v115 -= 40;
+          v114 = *(v113 - 40);
+          v113 -= 40;
         }
 
-        while (v95 < v116);
+        while (v95 < v114);
       }
 
-      while (v12 < v115)
+      while (v12 < v113)
       {
-        v294 = *(v12 + 32);
-        v230 = *v12;
-        v263 = *(v12 + 16);
-        v117 = *v115;
-        v118 = *(v115 + 16);
-        *(v12 + 32) = *(v115 + 32);
-        *v12 = v117;
-        *(v12 + 16) = v118;
-        *(v115 + 32) = v294;
-        *v115 = v230;
-        *(v115 + 16) = v263;
+        v291 = *(v12 + 32);
+        v227 = *v12;
+        v260 = *(v12 + 16);
+        v115 = *v113;
+        v116 = *(v113 + 16);
+        *(v12 + 32) = *(v113 + 32);
+        *v12 = v115;
+        *(v12 + 16) = v116;
+        *(v113 + 32) = v291;
+        *v113 = v227;
+        *(v113 + 16) = v260;
         do
         {
-          v119 = *(v12 + 40);
+          v117 = *(v12 + 40);
           v12 += 40;
         }
 
-        while (v95 >= v119);
+        while (v95 >= v117);
         do
         {
-          v120 = *(v115 - 40);
-          v115 -= 40;
+          v118 = *(v113 - 40);
+          v113 -= 40;
         }
 
-        while (v95 < v120);
+        while (v95 < v118);
       }
 
       if (v12 - 40 != a1)
       {
-        v121 = *(v12 - 40);
-        v122 = *(v12 - 24);
+        v119 = *(v12 - 40);
+        v120 = *(v12 - 24);
         *(a1 + 32) = *(v12 - 8);
-        *a1 = v121;
-        *(a1 + 16) = v122;
+        *a1 = v119;
+        *(a1 + 16) = v120;
       }
 
       a4 = 0;
       *(v12 - 40) = v95;
-      result = v207;
-      *(v12 - 32) = v207;
-      *(v12 - 16) = v210;
+      result = v204;
+      *(v12 - 32) = v204;
+      *(v12 - 16) = v207;
     }
   }
 
-  v125 = v12 + 40;
-  v126 = *(v12 + 40);
-  v128 = *(a2 - 40);
-  v123 = a2 - 40;
-  v127 = v128;
-  if (v126 >= *v12)
+  v123 = v12 + 40;
+  v124 = *(v12 + 40);
+  v126 = *(a2 - 40);
+  v121 = a2 - 40;
+  v125 = v126;
+  if (v124 >= *v12)
   {
-    if (v127 >= v126)
+    if (v125 >= v124)
     {
       return result;
     }
 
-    result = *v125;
-    v269 = *(v12 + 56);
-    v298 = *(v12 + 72);
-    v185 = *v123;
-    v184 = *(v123 + 16);
-    *(v12 + 72) = *(v123 + 32);
-    *v125 = v185;
-    *(v12 + 56) = v184;
-    *(v123 + 32) = v298;
-    *v123 = result;
-    *(v123 + 16) = v269;
+    result = *v123;
+    v266 = *(v12 + 56);
+    v295 = *(v12 + 72);
+    v182 = *v121;
+    v181 = *(v121 + 16);
+    *(v12 + 72) = *(v121 + 32);
+    *v123 = v182;
+    *(v12 + 56) = v181;
+    *(v121 + 32) = v295;
+    *v121 = result;
+    *(v121 + 16) = v266;
     goto LABEL_191;
   }
 
-  if (v127 < v126)
+  if (v125 < v124)
   {
     goto LABEL_106;
   }
 
-  v300 = *(v12 + 32);
-  v238 = *v12;
-  v272 = *(v12 + 16);
-  v194 = *(v12 + 56);
-  *v12 = *v125;
-  *(v12 + 16) = v194;
+  v297 = *(v12 + 32);
+  v235 = *v12;
+  v269 = *(v12 + 16);
+  v191 = *(v12 + 56);
+  *v12 = *v123;
+  *(v12 + 16) = v191;
   *(v12 + 32) = *(v12 + 72);
-  result = v238;
-  *v125 = v238;
-  *(v12 + 56) = v272;
-  *(v12 + 72) = v300;
-  if (*v123 < *(v12 + 40))
+  result = v235;
+  *v123 = v235;
+  *(v12 + 56) = v269;
+  *(v12 + 72) = v297;
+  if (*v121 < *(v12 + 40))
   {
-    result = *v125;
-    v131 = *(v12 + 56);
-    v301 = *(v12 + 72);
-    v196 = *v123;
-    v195 = *(v123 + 16);
-    *(v12 + 72) = *(v123 + 32);
-    *v125 = v196;
-    *(v12 + 56) = v195;
-    *(v123 + 32) = v301;
+    result = *v123;
+    v129 = *(v12 + 56);
+    v298 = *(v12 + 72);
+    v193 = *v121;
+    v192 = *(v121 + 16);
+    *(v12 + 72) = *(v121 + 32);
+    *v123 = v193;
+    *(v12 + 56) = v192;
+    *(v121 + 32) = v298;
     goto LABEL_107;
   }
 
@@ -4774,15 +3859,15 @@ LABEL_10:
   return result;
 }
 
-BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::expected<mapped_memory_t *,char const*> create_mapped_memory_cache_for_core_file_without_exclave_metadata_arch_specific<SizeAndEndianness<Pointer32,LittleEndian>>(char const*,unsigned long,char const*)::{lambda(mapped_memory_core_file_dumped_region_info_t const&,mapped_memory_core_file_dumped_region_info_t const&)#1} &,mapped_memory_core_file_dumped_region_info_t*>(uint64_t a1, __int128 *a2, __n128 a3)
+BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::expected<mapped_memory_t *,char const*> create_mapped_memory_cache_for_core_file_without_exclave_metadata_arch_specific<SizeAndEndianness<Pointer32,LittleEndian>>(char const*,unsigned long,char const*)::{lambda(mapped_memory_core_file_dumped_region_info_t const&,mapped_memory_core_file_dumped_region_info_t const&)#1} &,mapped_memory_core_file_dumped_region_info_t*>(__int128 *a1, char *a2, __n128 a3)
 {
   v3 = 0xCCCCCCCCCCCCCCCDLL * ((a2 - a1) >> 3);
   if (v3 > 2)
   {
     if (v3 == 3)
     {
-      v6 = a1 + 40;
-      v7 = *(a1 + 40);
+      v6 = (a1 + 40);
+      v7 = *(a1 + 5);
       v9 = *(a2 - 5);
       v4 = a2 - 40;
       v8 = v9;
@@ -4792,42 +3877,42 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::
         {
 LABEL_12:
           v10 = *a1;
-          v11 = *(a1 + 16);
-          v12 = *(a1 + 32);
-          v13 = *(v4 + 32);
-          v14 = *(v4 + 16);
+          v11 = a1[1];
+          v12 = *(a1 + 4);
+          v13 = *(v4 + 4);
+          v14 = *(v4 + 1);
           *a1 = *v4;
-          *(a1 + 16) = v14;
-          *(a1 + 32) = v13;
-          *(v4 + 32) = v12;
+          a1[1] = v14;
+          *(a1 + 4) = v13;
+          *(v4 + 4) = v12;
 LABEL_13:
           result = 1;
           *v4 = v10;
-          *(v4 + 16) = v11;
+          *(v4 + 1) = v11;
           return result;
         }
 
-        v55 = *(a1 + 32);
+        v55 = *(a1 + 4);
         v57 = *a1;
-        v56 = *(a1 + 16);
+        v56 = a1[1];
         v58 = *(a1 + 56);
         *a1 = *v6;
-        *(a1 + 16) = v58;
-        *(a1 + 32) = *(a1 + 72);
+        a1[1] = v58;
+        *(a1 + 4) = *(a1 + 9);
         *v6 = v57;
         *(a1 + 56) = v56;
-        *(a1 + 72) = v55;
-        if (*v4 < *(a1 + 40))
+        *(a1 + 9) = v55;
+        if (*v4 < *(a1 + 5))
         {
           v10 = *v6;
           v11 = *(a1 + 56);
-          v59 = *(a1 + 72);
-          v60 = *(v4 + 32);
-          v61 = *(v4 + 16);
+          v59 = *(a1 + 9);
+          v60 = *(v4 + 4);
+          v61 = *(v4 + 1);
           *v6 = *v4;
           *(a1 + 56) = v61;
-          *(a1 + 72) = v60;
-          *(v4 + 32) = v59;
+          *(a1 + 9) = v60;
+          *(v4 + 4) = v59;
           goto LABEL_13;
         }
 
@@ -4841,29 +3926,29 @@ LABEL_13:
 
       v34 = *v6;
       v35 = *(a1 + 56);
-      v36 = *(a1 + 72);
-      v37 = *(v4 + 32);
-      v38 = *(v4 + 16);
+      v36 = *(a1 + 9);
+      v37 = *(v4 + 4);
+      v38 = *(v4 + 1);
       *v6 = *v4;
       *(a1 + 56) = v38;
-      *(a1 + 72) = v37;
-      *(v4 + 32) = v36;
+      *(a1 + 9) = v37;
+      *(v4 + 4) = v36;
       *v4 = v34;
-      *(v4 + 16) = v35;
+      *(v4 + 1) = v35;
 LABEL_49:
-      if (*(a1 + 40) < *a1)
+      if (*(a1 + 5) < *a1)
       {
-        v93 = *(a1 + 32);
-        v95 = *a1;
-        v94 = *(a1 + 16);
-        v96 = *(v6 + 16);
+        v92 = *(a1 + 4);
+        v94 = *a1;
+        v93 = a1[1];
+        v95 = v6[1];
         *a1 = *v6;
-        *(a1 + 16) = v96;
-        *(a1 + 32) = *(v6 + 32);
-        *v6 = v95;
-        *(v6 + 16) = v94;
+        a1[1] = v95;
+        *(a1 + 4) = *(v6 + 4);
+        *v6 = v94;
+        v6[1] = v93;
         result = 1;
-        *(v6 + 32) = v93;
+        *(v6 + 4) = v92;
         return result;
       }
 
@@ -4877,42 +3962,42 @@ LABEL_49:
         goto LABEL_14;
       }
 
-      std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,std::expected<mapped_memory_t *,char const*> create_mapped_memory_cache_for_core_file_without_exclave_metadata_arch_specific<SizeAndEndianness<Pointer32,LittleEndian>>(char const*,unsigned long,char const*)::{lambda(mapped_memory_core_file_dumped_region_info_t const&,mapped_memory_core_file_dumped_region_info_t const&)#1} &,mapped_memory_core_file_dumped_region_info_t*,0>(a1, (a1 + 40), (a1 + 80), a1 + 120, a2 - 40, a3);
+      std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,std::expected<mapped_memory_t *,char const*> create_mapped_memory_cache_for_core_file_without_exclave_metadata_arch_specific<SizeAndEndianness<Pointer32,LittleEndian>>(char const*,unsigned long,char const*)::{lambda(mapped_memory_core_file_dumped_region_info_t const&,mapped_memory_core_file_dumped_region_info_t const&)#1} &,mapped_memory_core_file_dumped_region_info_t*,0>(a1, a1 + 5, a1 + 10, a1 + 120, (a2 - 40), a3);
       return 1;
     }
 
-    v6 = a1 + 40;
-    v25 = *(a1 + 40);
-    v26 = (a1 + 80);
-    v27 = *(a1 + 80);
-    v28 = a2 - 5;
+    v6 = (a1 + 40);
+    v25 = *(a1 + 5);
+    v26 = a1 + 5;
+    v27 = *(a1 + 10);
+    v28 = a2 - 40;
     v29 = *a1;
     if (v25 >= *a1)
     {
       if (v27 < v25)
       {
-        v47 = *(a1 + 72);
+        v47 = *(a1 + 9);
         v49 = *v6;
         v48 = *(a1 + 56);
-        v50 = *(a1 + 96);
+        v50 = a1[6];
         *v6 = *v26;
         *(a1 + 56) = v50;
-        *(a1 + 72) = *(a1 + 112);
+        *(a1 + 9) = *(a1 + 14);
         *v26 = v49;
-        *(a1 + 96) = v48;
-        *(a1 + 112) = v47;
+        a1[6] = v48;
+        *(a1 + 14) = v47;
         if (*v6 < v29)
         {
-          v51 = *(a1 + 32);
+          v51 = *(a1 + 4);
           v53 = *a1;
-          v52 = *(a1 + 16);
+          v52 = a1[1];
           v54 = *(a1 + 56);
           *a1 = *v6;
-          *(a1 + 16) = v54;
-          *(a1 + 32) = *(a1 + 72);
+          a1[1] = v54;
+          *(a1 + 4) = *(a1 + 9);
           *v6 = v53;
           *(a1 + 56) = v52;
-          *(a1 + 72) = v51;
+          *(a1 + 9) = v51;
         }
       }
 
@@ -4921,76 +4006,76 @@ LABEL_49:
 
     if (v27 >= v25)
     {
-      v79 = *(a1 + 32);
-      v81 = *a1;
-      v80 = *(a1 + 16);
-      v82 = *(a1 + 56);
+      v78 = *(a1 + 4);
+      v80 = *a1;
+      v79 = a1[1];
+      v81 = *(a1 + 56);
       *a1 = *v6;
-      *(a1 + 16) = v82;
-      *(a1 + 32) = *(a1 + 72);
-      *v6 = v81;
-      *(a1 + 56) = v80;
-      *(a1 + 72) = v79;
-      if (v27 >= *(a1 + 40))
+      a1[1] = v81;
+      *(a1 + 4) = *(a1 + 9);
+      *v6 = v80;
+      *(a1 + 56) = v79;
+      *(a1 + 9) = v78;
+      if (v27 >= *(a1 + 5))
       {
         goto LABEL_46;
       }
 
-      v30 = *(a1 + 72);
+      v30 = *(a1 + 9);
       v32 = *v6;
       v31 = *(a1 + 56);
-      v83 = *(a1 + 96);
+      v82 = a1[6];
       *v6 = *v26;
-      *(a1 + 56) = v83;
-      *(a1 + 72) = *(a1 + 112);
+      *(a1 + 56) = v82;
+      *(a1 + 9) = *(a1 + 14);
     }
 
     else
     {
-      v30 = *(a1 + 32);
+      v30 = *(a1 + 4);
       v32 = *a1;
-      v31 = *(a1 + 16);
-      v33 = *(a1 + 96);
+      v31 = a1[1];
+      v33 = a1[6];
       *a1 = *v26;
-      *(a1 + 16) = v33;
-      *(a1 + 32) = *(a1 + 112);
+      a1[1] = v33;
+      *(a1 + 4) = *(a1 + 14);
     }
 
     *v26 = v32;
-    *(a1 + 96) = v31;
-    *(a1 + 112) = v30;
+    a1[6] = v31;
+    *(a1 + 14) = v30;
 LABEL_46:
     if (*v28 >= *v26)
     {
       return 1;
     }
 
-    v84 = *v26;
-    v85 = *(a1 + 96);
-    v86 = *(a1 + 112);
-    v87 = *(a2 - 1);
-    v88 = *(a2 - 24);
+    v83 = *v26;
+    v84 = a1[6];
+    v85 = *(a1 + 14);
+    v86 = *(a2 - 1);
+    v87 = *(a2 - 24);
     *v26 = *v28;
-    *(a1 + 96) = v88;
-    *(a1 + 112) = v87;
-    *(a2 - 1) = v86;
-    *v28 = v84;
-    *(a2 - 24) = v85;
+    a1[6] = v87;
+    *(a1 + 14) = v86;
+    *(a2 - 1) = v85;
+    *v28 = v83;
+    *(a2 - 24) = v84;
     if (*v26 >= *v6)
     {
       return 1;
     }
 
-    v89 = *(a1 + 72);
-    v91 = *v6;
-    v90 = *(a1 + 56);
-    v92 = *(a1 + 96);
+    v88 = *(a1 + 9);
+    v90 = *v6;
+    v89 = *(a1 + 56);
+    v91 = a1[6];
     *v6 = *v26;
-    *(a1 + 56) = v92;
-    *(a1 + 72) = *(a1 + 112);
-    *v26 = v91;
-    *(a1 + 96) = v90;
-    *(a1 + 112) = v89;
+    *(a1 + 56) = v91;
+    *(a1 + 9) = *(a1 + 14);
+    *v26 = v90;
+    a1[6] = v89;
+    *(a1 + 14) = v88;
     goto LABEL_49;
   }
 
@@ -5012,84 +4097,84 @@ LABEL_46:
   }
 
 LABEL_14:
-  v16 = (a1 + 80);
-  v17 = *(a1 + 80);
+  v16 = a1 + 5;
+  v17 = *(a1 + 10);
   v18 = (a1 + 40);
-  v19 = *(a1 + 40);
+  v19 = *(a1 + 5);
   v20 = *a1;
   if (v19 >= *a1)
   {
     if (v17 < v19)
     {
-      v39 = *(a1 + 72);
+      v39 = *(a1 + 9);
       v41 = *v18;
       v40 = *(a1 + 56);
-      v42 = *(a1 + 96);
+      v42 = a1[6];
       *v18 = *v16;
       *(a1 + 56) = v42;
-      *(a1 + 72) = *(a1 + 112);
+      *(a1 + 9) = *(a1 + 14);
       *v16 = v41;
-      *(a1 + 96) = v40;
-      *(a1 + 112) = v39;
+      a1[6] = v40;
+      *(a1 + 14) = v39;
       if (*v18 < v20)
       {
-        v43 = *(a1 + 32);
+        v43 = *(a1 + 4);
         v45 = *a1;
-        v44 = *(a1 + 16);
+        v44 = a1[1];
         v46 = *(a1 + 56);
         *a1 = *v18;
-        *(a1 + 16) = v46;
-        *(a1 + 32) = *(a1 + 72);
+        a1[1] = v46;
+        *(a1 + 4) = *(a1 + 9);
         *v18 = v45;
         *(a1 + 56) = v44;
-        *(a1 + 72) = v43;
+        *(a1 + 9) = v43;
       }
     }
   }
 
   else if (v17 >= v19)
   {
-    v62 = *(a1 + 32);
+    v62 = *(a1 + 4);
     v64 = *a1;
-    v63 = *(a1 + 16);
+    v63 = a1[1];
     v65 = *(a1 + 56);
     *a1 = *v18;
-    *(a1 + 16) = v65;
-    *(a1 + 32) = *(a1 + 72);
+    a1[1] = v65;
+    *(a1 + 4) = *(a1 + 9);
     *v18 = v64;
     *(a1 + 56) = v63;
-    *(a1 + 72) = v62;
-    if (v17 < *(a1 + 40))
+    *(a1 + 9) = v62;
+    if (v17 < *(a1 + 5))
     {
-      v66 = *(a1 + 72);
+      v66 = *(a1 + 9);
       v68 = *v18;
       v67 = *(a1 + 56);
-      v69 = *(a1 + 96);
+      v69 = a1[6];
       *v18 = *v16;
       *(a1 + 56) = v69;
-      *(a1 + 72) = *(a1 + 112);
+      *(a1 + 9) = *(a1 + 14);
       *v16 = v68;
-      *(a1 + 96) = v67;
-      *(a1 + 112) = v66;
+      a1[6] = v67;
+      *(a1 + 14) = v66;
     }
   }
 
   else
   {
-    v21 = *(a1 + 32);
+    v21 = *(a1 + 4);
     v23 = *a1;
-    v22 = *(a1 + 16);
-    v24 = *(a1 + 96);
+    v22 = a1[1];
+    v24 = a1[6];
     *a1 = *v16;
-    *(a1 + 16) = v24;
-    *(a1 + 32) = *(a1 + 112);
+    a1[1] = v24;
+    *(a1 + 4) = *(a1 + 14);
     *v16 = v23;
-    *(a1 + 96) = v22;
-    *(a1 + 112) = v21;
+    a1[6] = v22;
+    *(a1 + 14) = v21;
   }
 
   v70 = (a1 + 120);
-  if ((a1 + 120) == a2)
+  if (a1 + 120 == a2)
   {
     return 1;
   }
@@ -5101,37 +4186,37 @@ LABEL_14:
     v73 = *v70;
     if (*v70 < *v16)
     {
-      v74 = *(v70 + 8);
+      v96 = *(v70 + 8);
       v97 = *(v70 + 24);
-      v75 = v71;
+      v74 = v71;
       while (1)
       {
-        v76 = a1 + v75;
-        v77 = *(a1 + v75 + 96);
-        *(v76 + 120) = *(a1 + v75 + 80);
-        *(v76 + 136) = v77;
-        *(v76 + 152) = *(a1 + v75 + 112);
-        if (v75 == -80)
+        v75 = a1 + v74;
+        v76 = *(a1 + v74 + 96);
+        *(v75 + 120) = *(a1 + v74 + 80);
+        *(v75 + 136) = v76;
+        *(v75 + 152) = *(a1 + v74 + 112);
+        if (v74 == -80)
         {
           break;
         }
 
-        v75 -= 40;
-        if (v73 >= *(v76 + 40))
+        v74 -= 40;
+        if (v73 >= *(v75 + 40))
         {
-          v78 = a1 + v75 + 120;
+          v77 = a1 + v74 + 120;
           goto LABEL_40;
         }
       }
 
-      v78 = a1;
+      v77 = a1;
 LABEL_40:
-      *v78 = v73;
-      *(v78 + 8) = v74;
-      *(v78 + 24) = v97;
+      *v77 = v73;
+      *(v77 + 8) = v96;
+      *(v77 + 24) = v97;
       if (++v72 == 8)
       {
-        return (v70 + 40) == a2;
+        return v70 + 40 == a2;
       }
     }
 
@@ -5145,7 +4230,7 @@ LABEL_40:
   }
 }
 
-uint64_t std::vector<mapped_memory_core_file_dumped_region_info_t>::__init_with_size[abi:ne200100]<mapped_memory_core_file_dumped_region_info_t*,mapped_memory_core_file_dumped_region_info_t*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<mapped_memory_core_file_dumped_region_info_t>::__init_with_size[abi:ne200100]<mapped_memory_core_file_dumped_region_info_t*,mapped_memory_core_file_dumped_region_info_t*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -5167,7 +4252,7 @@ void sub_1D97BEF04(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<mapped_memory_core_file_dumped_region_info_t>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<mapped_memory_core_file_dumped_region_info_t>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x666666666666667)
   {
@@ -5186,7 +4271,7 @@ void *std::map<unsigned int,std::pair<unsigned int,std::map<int,std::vector<unsi
   return a1;
 }
 
-uint64_t std::map<unsigned int,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<unsigned int,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>>,std::__tree_node<std::__value_type<unsigned int,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>>,void *> *,long>>>(uint64_t result, unsigned int *a2, unsigned int *a3)
+void *std::map<unsigned int,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<unsigned int,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>>,std::__tree_node<std::__value_type<unsigned int,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>>,void *> *,long>>>(void *result, unsigned int *a2, unsigned int *a3)
 {
   if (a2 != a3)
   {
@@ -5194,7 +4279,7 @@ uint64_t std::map<unsigned int,std::pair<unsigned int,std::map<int,std::vector<u
     v5 = result;
     do
     {
-      result = std::__tree<std::__value_type<unsigned int,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>>>>::__emplace_hint_unique_key_args<unsigned int,std::pair<unsigned int const,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>> const&>(v5, v5 + 1, v4 + 8);
+      result = std::__tree<std::__value_type<unsigned int,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>>>>::__emplace_hint_unique_key_args<unsigned int,std::pair<unsigned int const,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>> const&>(v5, (v5 + 8), v4 + 8, (v4 + 8));
       v6 = *(v4 + 1);
       if (v6)
       {
@@ -5228,9 +4313,9 @@ uint64_t std::map<unsigned int,std::pair<unsigned int,std::map<int,std::vector<u
   return result;
 }
 
-uint64_t std::__tree<std::__value_type<unsigned int,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>>>>::__emplace_hint_unique_key_args<unsigned int,std::pair<unsigned int const,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>> const&>(void *a1, uint64_t *a2, unsigned int *a3)
+void *std::__tree<std::__value_type<unsigned int,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>>>>::__emplace_hint_unique_key_args<unsigned int,std::pair<unsigned int const,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>> const&>(uint64_t **a1, uint64_t *a2, unsigned int *a3, uint64_t a4)
 {
-  result = *std::__tree<std::__value_type<unsigned int,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>>>>::__find_equal<unsigned int>(a1, a2, &v5, &v4, a3);
+  result = *std::__tree<std::__value_type<unsigned int,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>>>>::__find_equal<unsigned int>(a1, a2, &v6, &v5, a3);
   if (!result)
   {
     std::__tree<std::__value_type<unsigned int,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>>>>::__construct_node<std::pair<unsigned int const,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>> const&>();
@@ -5239,9 +4324,9 @@ uint64_t std::__tree<std::__value_type<unsigned int,std::pair<unsigned int,std::
   return result;
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned int,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>>>>::__find_equal<unsigned int>(void *a1, uint64_t *a2, uint64_t **a3, uint64_t *a4, unsigned int *a5)
+uint64_t *std::__tree<std::__value_type<unsigned int,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>>>>::__find_equal<unsigned int>(uint64_t **a1, uint64_t *a2, uint64_t **a3, uint64_t *a4, unsigned int *a5)
 {
-  v5 = a1 + 1;
+  v5 = (a1 + 1);
   if (a1 + 1 == a2 || (v6 = *a5, v7 = *(a2 + 8), *a5 < v7))
   {
     v8 = *a2;
@@ -5268,7 +4353,7 @@ LABEL_17:
       do
       {
         v10 = v9;
-        v9 = v9[1];
+        v9 = *(v9 + 8);
       }
 
       while (v9);
@@ -5329,7 +4414,7 @@ LABEL_17:
 
     else
     {
-      v17 = a1 + 1;
+      v17 = (a1 + 1);
     }
 
 LABEL_29:
@@ -5408,7 +4493,7 @@ LABEL_29:
 
     else
     {
-      v21 = a1 + 1;
+      v21 = (a1 + 1);
     }
 
 LABEL_48:
@@ -5437,7 +4522,7 @@ void sub_1D97BF300(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__optional_copy_base<CSCppCoreFileRegionsTree,false>::__optional_copy_base[abi:ne200100](uint64_t a1, uint64_t a2)
+uint64_t *std::__optional_copy_base<CSCppCoreFileRegionsTree,false>::__optional_copy_base[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   *a1 = 0;
   *(a1 + 24) = 0;
@@ -5456,7 +4541,7 @@ void sub_1D97BF354(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::__optional_storage_base<CSCppCoreFileRegionsTree,false>::__construct_from[abi:ne200100]<std::__optional_copy_base<CSCppCoreFileRegionsTree,false> const&>(void *result, uint64_t a2)
+uint64_t *std::__optional_storage_base<CSCppCoreFileRegionsTree,false>::__construct_from[abi:ne200100]<std::__optional_copy_base<CSCppCoreFileRegionsTree,false> const&>(uint64_t *result, uint64_t a2)
 {
   if (*(a2 + 24) == 1)
   {
@@ -5494,25 +4579,26 @@ void sub_1D97BF428(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *CSCppCoreFileDarwinMetadata::CSCppCoreFileDarwinMetadata(void *a1, int a2, uint64_t *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, const CSCppCoreFileTaskCrashinfo *a9)
+void *CSCppCoreFileDarwinMetadata::CSCppCoreFileDarwinMetadata(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, const CSCppCoreFileTaskCrashinfo *a9)
 {
+  v14 = a2;
   __p = 0;
-  v20 = 0;
   v21 = 0;
-  std::vector<mapped_memory_core_file_dumped_region_info_t>::__init_with_size[abi:ne200100]<mapped_memory_core_file_dumped_region_info_t*,mapped_memory_core_file_dumped_region_info_t*>(&__p, *a3, a3[1], 0xCCCCCCCCCCCCCCCDLL * ((a3[1] - *a3) >> 3));
-  std::map<unsigned int,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>>::map[abi:ne200100](v18, a5);
+  v22 = 0;
+  std::vector<mapped_memory_core_file_dumped_region_info_t>::__init_with_size[abi:ne200100]<mapped_memory_core_file_dumped_region_info_t*,mapped_memory_core_file_dumped_region_info_t*>(&__p, *a3, *(a3 + 8), 0xCCCCCCCCCCCCCCCDLL * ((*(a3 + 8) - *a3) >> 3));
+  std::map<unsigned int,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>>::map[abi:ne200100](v19, a5);
   std::__optional_copy_base<CSCppCoreFileRegionsTree,false>::__optional_copy_base[abi:ne200100](v17, a6);
-  CSCppCoreFileMetadata::CSCppCoreFileMetadata(a1, a2, &__p, a4, v18, a7, a8, v17);
-  if (v17[24] == 1)
+  CSCppCoreFileMetadata::CSCppCoreFileMetadata(a1, v14, &__p, a4, v19, a7, a8, v17);
+  if (v18 == 1)
   {
-    v22 = v17;
-    std::vector<CSCppCoreFileRegionInfo>::__destroy_vector::operator()[abi:ne200100](&v22);
+    v23 = v17;
+    std::vector<CSCppCoreFileRegionInfo>::__destroy_vector::operator()[abi:ne200100](&v23);
   }
 
-  std::__tree<std::__value_type<unsigned int,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>>>>::destroy(v18, v18[1]);
+  std::__tree<std::__value_type<unsigned int,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>>>>::destroy(v19, v19[1]);
   if (__p)
   {
-    v20 = __p;
+    v21 = __p;
     operator delete(__p);
   }
 
@@ -5521,19 +4607,19 @@ void *CSCppCoreFileDarwinMetadata::CSCppCoreFileDarwinMetadata(void *a1, int a2,
   return a1;
 }
 
-uint64_t CSCppCoreFileMetadata::CSCppCoreFileMetadata(uint64_t a1, int a2, uint64_t *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CSCppCoreFileMetadata::CSCppCoreFileMetadata(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   *a1 = &unk_1F5507B68;
   *(a1 + 8) = a2;
   *(a1 + 16) = 0;
   *(a1 + 24) = 0;
   *(a1 + 32) = 0;
-  std::vector<mapped_memory_core_file_dumped_region_info_t>::__init_with_size[abi:ne200100]<mapped_memory_core_file_dumped_region_info_t*,mapped_memory_core_file_dumped_region_info_t*>(a1 + 16, *a3, a3[1], 0xCCCCCCCCCCCCCCCDLL * ((a3[1] - *a3) >> 3));
+  std::vector<mapped_memory_core_file_dumped_region_info_t>::__init_with_size[abi:ne200100]<mapped_memory_core_file_dumped_region_info_t*,mapped_memory_core_file_dumped_region_info_t*>((a1 + 16), *a3, *(a3 + 8), 0xCCCCCCCCCCCCCCCDLL * ((*(a3 + 8) - *a3) >> 3));
   *(a1 + 40) = a4;
   std::map<unsigned int,std::pair<unsigned int,std::map<int,std::vector<unsigned char>>>>::map[abi:ne200100]((a1 + 48), a5);
   *(a1 + 72) = a6;
   *(a1 + 80) = a7;
-  std::__optional_copy_base<CSCppCoreFileRegionsTree,false>::__optional_copy_base[abi:ne200100](a1 + 88, a8);
+  std::__optional_copy_base<CSCppCoreFileRegionsTree,false>::__optional_copy_base[abi:ne200100]((a1 + 88), a8);
   return a1;
 }
 
@@ -5570,7 +4656,7 @@ uint64_t std::__function::__func<std::optional<std::pair<vas_segmentinfo_table,C
   }
 }
 
-void *std::vector<_CSTypeRef>::__assign_with_size[abi:ne200100]<_CSTypeRef const*,_CSTypeRef const*>(void *result, char *__src, char *a3, unint64_t a4)
+void **std::vector<_CSTypeRef>::__assign_with_size[abi:ne200100]<_CSTypeRef const*,_CSTypeRef const*>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v7 = result;
   v8 = result[2];
@@ -5657,7 +4743,7 @@ void *std::vector<_CSTypeRef>::__assign_with_size[abi:ne200100]<_CSTypeRef const
   return result;
 }
 
-void std::vector<_CSTypeRef>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<_CSTypeRef>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -5769,61 +4855,62 @@ void set_up_mapped_memory_cache_for_exclave_core_file<SizeAndEndianness<Pointer3
         v7 = v5;
       }
 
-      *&v16 = v2;
-      *(&v16 + 1) = v7;
-      v19 = 0;
-      v18 = 0;
+      *&v17 = v2;
+      *(&v17 + 1) = v7;
       v20 = 0;
+      v19 = 0;
+      v21 = 0;
       v8 = *(a1 + 25);
-      v17 = 1;
-      v21 = v8;
-      memset(v23, 0, sizeof(v23));
-      v22 = 0;
-      v24 = 3;
-      v25 = 0;
+      v18 = 1;
+      v22 = v8;
+      memset(v24, 0, sizeof(v24));
+      v23 = 0;
+      v25 = 3;
       v26 = 0;
       v27 = 0;
       v28 = 0;
+      v29 = 0;
       v9 = *(a1 + 28);
-      v29 = 3;
-      v30 = v9;
-      LOBYTE(v31) = 0;
-      v33 = 0;
+      v30 = 3;
+      v31 = v9;
+      LOBYTE(v32) = 0;
+      v34 = 0;
       v10 = v7 >> 14;
-      v13 = 0;
-      std::vector<unsigned short>::vector[abi:ne200100](v14, v7 >> 14);
-      v34 = *v14;
-      v35 = v15;
-      v14[1] = 0;
-      v15 = 0;
-      v14[0] = 0;
-      v36 = 1;
-      std::vector<unsigned short>::vector[abi:ne200100](__p, v10);
-      v37 = *__p;
-      v38 = v12;
+      v14 = 0;
+      std::vector<unsigned short>::vector[abi:ne200100](v15, v7 >> 14, &v14);
+      v35 = *v15;
+      v36 = v16;
+      v15[1] = 0;
+      v16 = 0;
+      v15[0] = 0;
+      v37 = 1;
+      v11 = 0;
+      std::vector<unsigned short>::vector[abi:ne200100](__p, v10, &v11);
+      v38 = *__p;
+      v39 = v13;
       __p[1] = 0;
-      v12 = 0;
+      v13 = 0;
       __p[0] = 0;
-      v39 = 1;
-      memset(v40, 0, sizeof(v40));
-      std::vector<CSCppCoreFileRegionInfo>::push_back[abi:ne200100](v6, &v16);
-      v41 = v40;
-      std::vector<CSCppCoreFileRegionInfo>::__destroy_vector::operator()[abi:ne200100](&v41);
-      if (v39 == 1 && v37)
+      v40 = 1;
+      memset(v41, 0, sizeof(v41));
+      std::vector<CSCppCoreFileRegionInfo>::push_back[abi:ne200100](v6, &v17);
+      v42 = v41;
+      std::vector<CSCppCoreFileRegionInfo>::__destroy_vector::operator()[abi:ne200100](&v42);
+      if (v40 == 1 && v38)
       {
-        *(&v37 + 1) = v37;
-        operator delete(v37);
+        *(&v38 + 1) = v38;
+        operator delete(v38);
       }
 
-      if (v36 == 1 && v34)
+      if (v37 == 1 && v35)
       {
-        *(&v34 + 1) = v34;
-        operator delete(v34);
+        *(&v35 + 1) = v35;
+        operator delete(v35);
       }
 
-      if (v33 == 1 && v32 < 0)
+      if (v34 == 1 && v33 < 0)
       {
-        operator delete(v31);
+        operator delete(v32);
       }
 
       if (__p[0])
@@ -5832,10 +4919,10 @@ void set_up_mapped_memory_cache_for_exclave_core_file<SizeAndEndianness<Pointer3
         operator delete(__p[0]);
       }
 
-      if (v14[0])
+      if (v15[0])
       {
-        v14[1] = v14[0];
-        operator delete(v14[0]);
+        v15[1] = v15[0];
+        operator delete(v15[0]);
       }
 
       v2 += 104857600;
@@ -5856,7 +4943,7 @@ void sub_1D97BFC38(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_1D97BFE10(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, char a14, uint64_t a15, char a16, void *a17, uint64_t a18, void *__p, uint64_t a20)
+void sub_1D97BFE10(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, char a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, void *__p, uint64_t a20)
 {
   if (a14 == 1)
   {
@@ -5875,7 +4962,7 @@ void sub_1D97BFE10(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-__n128 _ZNSt3__111__introsortINS_17_ClassicAlgPolicyERZL48set_up_mapped_memory_cache_for_exclave_core_fileI17SizeAndEndiannessI9Pointer3212LittleEndianEENS_8expectedIvPKcEES9_y21vas_segmentinfo_table21CSExclaveCoreFileTypeP15mapped_memory_tEUlRKT_RKT0_E_P11vas_segmentLb0EEEvT1_SP_SI_NS_15iterator_traitsISP_E15difference_typeEb(uint64_t a1, __n128 *a2, uint64_t a3, char a4, __n128 result)
+__n128 _ZNSt3__111__introsortINS_17_ClassicAlgPolicyERZL48set_up_mapped_memory_cache_for_exclave_core_fileI17SizeAndEndiannessI9Pointer3212LittleEndianEENS_8expectedIvPKcEES9_y21vas_segmentinfo_table21CSExclaveCoreFileTypeP15mapped_memory_tEUlRKT_RKT0_E_P11vas_segmentLb0EEEvT1_SP_SI_NS_15iterator_traitsISP_E15difference_typeEb(unint64_t a1, __n128 *a2, uint64_t a3, char a4, __n128 result)
 {
 LABEL_1:
   v9 = a2 - 2;
@@ -6118,11 +5205,11 @@ LABEL_126:
             *(v98 + 8) = v188;
           }
 
-          v98 = (v144 + 32);
+          v98 = v144 + 2;
           a1 = v144;
         }
 
-        while ((v144 + 32) != a2);
+        while (&v144[2] != a2);
       }
 
       return result;
@@ -6509,28 +5596,28 @@ LABEL_47:
         }
       }
 
-      v56 = *v15;
+      v56 = v15->n128_u64[0];
       v57 = v43->n128_u64[0];
-      if (*v15 >= v28->n128_u64[0])
+      if (v15->n128_u64[0] >= v28->n128_u64[0])
       {
         if (v57 < v56)
         {
           v176 = *v15;
-          v209 = *(v15 + 16);
+          v209 = v15[1];
           v59 = v43[1];
           *v15 = *v43;
-          *(v15 + 16) = v59;
+          v15[1] = v59;
           *v43 = v176;
           v43[1] = v209;
-          if (*v15 < v28->n128_u64[0])
+          if (v15->n128_u64[0] < v28->n128_u64[0])
           {
             v177 = *v28;
             v210 = v28[1];
-            v60 = *(v15 + 16);
+            v60 = v15[1];
             *v28 = *v15;
             v28[1] = v60;
             *v15 = v177;
-            *(v15 + 16) = v210;
+            v15[1] = v210;
           }
         }
       }
@@ -6549,18 +5636,18 @@ LABEL_47:
 
         v178 = *v28;
         v211 = v28[1];
-        v61 = *(v15 + 16);
+        v61 = v15[1];
         *v28 = *v15;
         v28[1] = v61;
         *v15 = v178;
-        *(v15 + 16) = v211;
-        if (v43->n128_u64[0] < *v15)
+        v15[1] = v211;
+        if (v43->n128_u64[0] < v15->n128_u64[0])
         {
           v175 = *v15;
-          v208 = *(v15 + 16);
+          v208 = v15[1];
           v62 = v43[1];
           *v15 = *v43;
-          *(v15 + 16) = v62;
+          v15[1] = v62;
 LABEL_56:
           *v43 = v175;
           v43[1] = v208;
@@ -6569,16 +5656,16 @@ LABEL_56:
 
       v179 = *v12;
       v212 = *(v12 + 16);
-      v63 = *(v15 + 16);
+      v63 = v15[1];
       *v12 = *v15;
       *(v12 + 16) = v63;
       *v15 = v179;
-      *(v15 + 16) = v212;
+      v15[1] = v212;
       goto LABEL_58;
     }
 
     v19 = *v12;
-    if (*v12 >= *v15)
+    if (*v12 >= v15->n128_u64[0])
     {
       if (v16 < v19)
       {
@@ -6589,13 +5676,13 @@ LABEL_56:
         *(v12 + 16) = v23;
         *v9 = v167;
         a2[-1] = v196;
-        if (*v12 < *v15)
+        if (*v12 < v15->n128_u64[0])
         {
           v168 = *v15;
-          v197 = *(v15 + 16);
+          v197 = v15[1];
           v24 = *(v12 + 16);
           *v15 = *v12;
-          *(v15 + 16) = v24;
+          v15[1] = v24;
           *v12 = v168;
           *(v12 + 16) = v197;
         }
@@ -6607,10 +5694,10 @@ LABEL_56:
     if (v16 >= v19)
     {
       v171 = *v15;
-      v201 = *(v15 + 16);
+      v201 = v15[1];
       v37 = *(v12 + 16);
       *v15 = *v12;
-      *(v15 + 16) = v37;
+      v15[1] = v37;
       *v12 = v171;
       *(v12 + 16) = v201;
       if (v9->n128_u64[0] >= *v12)
@@ -6628,10 +5715,10 @@ LABEL_56:
     else
     {
       v164 = *v15;
-      v193 = *(v15 + 16);
+      v193 = v15[1];
       v20 = a2[-1];
       *v15 = *v9;
-      *(v15 + 16) = v20;
+      v15[1] = v20;
     }
 
     *v9 = v164;
@@ -6721,6 +5808,7 @@ LABEL_58:
       }
 
       *(v12 - 32) = v64;
+      result = v157;
       *(v12 - 8) = v160;
       *(v12 - 24) = v157;
       if (v67 < v68)
@@ -6728,7 +5816,7 @@ LABEL_58:
         goto LABEL_79;
       }
 
-      v76 = _ZNSt3__127__insertion_sort_incompleteB8ne200100INS_17_ClassicAlgPolicyERZL48set_up_mapped_memory_cache_for_exclave_core_fileI17SizeAndEndiannessI9Pointer3212LittleEndianEENS_8expectedIvPKcEES9_y21vas_segmentinfo_table21CSExclaveCoreFileTypeP15mapped_memory_tEUlRKT_RKT0_E_P11vas_segmentEEbT1_SP_SI_(a1, v12 - 32, v157);
+      v76 = _ZNSt3__127__insertion_sort_incompleteB8ne200100INS_17_ClassicAlgPolicyERZL48set_up_mapped_memory_cache_for_exclave_core_fileI17SizeAndEndiannessI9Pointer3212LittleEndianEENS_8expectedIvPKcEES9_y21vas_segmentinfo_table21CSExclaveCoreFileTypeP15mapped_memory_tEUlRKT_RKT0_E_P11vas_segmentEEbT1_SP_SI_(a1, (v12 - 32), v157);
       if (_ZNSt3__127__insertion_sort_incompleteB8ne200100INS_17_ClassicAlgPolicyERZL48set_up_mapped_memory_cache_for_exclave_core_fileI17SizeAndEndiannessI9Pointer3212LittleEndianEENS_8expectedIvPKcEES9_y21vas_segmentinfo_table21CSExclaveCoreFileTypeP15mapped_memory_tEUlRKT_RKT0_E_P11vas_segmentEEbT1_SP_SI_(v12, a2, v77))
       {
         a2 = (v12 - 32);
@@ -6743,7 +5831,7 @@ LABEL_58:
       if (!v76)
       {
 LABEL_79:
-        _ZNSt3__111__introsortINS_17_ClassicAlgPolicyERZL48set_up_mapped_memory_cache_for_exclave_core_fileI17SizeAndEndiannessI9Pointer3212LittleEndianEENS_8expectedIvPKcEES9_y21vas_segmentinfo_table21CSExclaveCoreFileTypeP15mapped_memory_tEUlRKT_RKT0_E_P11vas_segmentLb0EEEvT1_SP_SI_NS_15iterator_traitsISP_E15difference_typeEb(a1, v12 - 32, a3, a4 & 1);
+        result = _ZNSt3__111__introsortINS_17_ClassicAlgPolicyERZL48set_up_mapped_memory_cache_for_exclave_core_fileI17SizeAndEndiannessI9Pointer3212LittleEndianEENS_8expectedIvPKcEES9_y21vas_segmentinfo_table21CSExclaveCoreFileTypeP15mapped_memory_tEUlRKT_RKT0_E_P11vas_segmentLb0EEEvT1_SP_SI_NS_15iterator_traitsISP_E15difference_typeEb(a1, (v12 - 32), a3, a4 & 1, result);
         a4 = 0;
       }
     }
@@ -6881,7 +5969,7 @@ LABEL_79:
   return result;
 }
 
-BOOL _ZNSt3__127__insertion_sort_incompleteB8ne200100INS_17_ClassicAlgPolicyERZL48set_up_mapped_memory_cache_for_exclave_core_fileI17SizeAndEndiannessI9Pointer3212LittleEndianEENS_8expectedIvPKcEES9_y21vas_segmentinfo_table21CSExclaveCoreFileTypeP15mapped_memory_tEUlRKT_RKT0_E_P11vas_segmentEEbT1_SP_SI_(uint64_t a1, uint64_t a2, __n128 a3)
+BOOL _ZNSt3__127__insertion_sort_incompleteB8ne200100INS_17_ClassicAlgPolicyERZL48set_up_mapped_memory_cache_for_exclave_core_fileI17SizeAndEndiannessI9Pointer3212LittleEndianEENS_8expectedIvPKcEES9_y21vas_segmentinfo_table21CSExclaveCoreFileTypeP15mapped_memory_tEUlRKT_RKT0_E_P11vas_segmentEEbT1_SP_SI_(uint64_t a1, uint64_t *a2, __n128 a3)
 {
   v3 = (a2 - a1) >> 5;
   if (v3 > 2)
@@ -6890,8 +5978,8 @@ BOOL _ZNSt3__127__insertion_sort_incompleteB8ne200100INS_17_ClassicAlgPolicyERZL
     {
       v6 = (a1 + 32);
       v7 = *(a1 + 32);
-      v9 = *(a2 - 32);
-      v4 = a2 - 32;
+      v9 = *(a2 - 4);
+      v4 = a2 - 4;
       v8 = v9;
       if (v7 < *a1)
       {
@@ -6911,7 +5999,7 @@ BOOL _ZNSt3__127__insertion_sort_incompleteB8ne200100INS_17_ClassicAlgPolicyERZL
 
           v11 = *v6;
           v10 = *(a1 + 48);
-          v47 = *(v4 + 16);
+          v47 = *(v4 + 1);
           *v6 = *v4;
           *(a1 + 48) = v47;
           goto LABEL_13;
@@ -6920,12 +6008,12 @@ BOOL _ZNSt3__127__insertion_sort_incompleteB8ne200100INS_17_ClassicAlgPolicyERZL
 LABEL_12:
         v11 = *a1;
         v10 = *(a1 + 16);
-        v12 = *(v4 + 16);
+        v12 = *(v4 + 1);
         *a1 = *v4;
         *(a1 + 16) = v12;
 LABEL_13:
         *v4 = v11;
-        *(v4 + 16) = v10;
+        *(v4 + 1) = v10;
         return 1;
       }
 
@@ -6936,11 +6024,11 @@ LABEL_13:
 
       v30 = *v6;
       v29 = *(a1 + 48);
-      v31 = *(v4 + 16);
+      v31 = *(v4 + 1);
       *v6 = *v4;
       *(a1 + 48) = v31;
       *v4 = v30;
-      *(v4 + 16) = v29;
+      *(v4 + 1) = v29;
 LABEL_50:
       if (*(a1 + 32) < *a1)
       {
@@ -6963,7 +6051,7 @@ LABEL_50:
         goto LABEL_14;
       }
 
-      std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,CSCppSegmentRange *,0>(a1, (a1 + 32), (a1 + 64), (a1 + 96), (a2 - 32), a3);
+      std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,CSCppSegmentRange *,0>(a1, (a1 + 32), (a1 + 64), (a1 + 96), a2 - 2, a3);
       return 1;
     }
 
@@ -6971,7 +6059,7 @@ LABEL_50:
     v21 = *(a1 + 32);
     v22 = (a1 + 64);
     v23 = *(a1 + 64);
-    v24 = (a2 - 32);
+    v24 = (a2 - 4);
     v25 = *a1;
     if (v21 >= *a1)
     {
@@ -7039,11 +6127,11 @@ LABEL_47:
 
     v65 = *v22;
     v64 = *(a1 + 80);
-    v66 = *(a2 - 16);
+    v66 = *(a2 - 1);
     *v22 = *v24;
     *(a1 + 80) = v66;
     *v24 = v65;
-    *(a2 - 16) = v64;
+    *(a2 - 1) = v64;
     if (v22->n128_u64[0] >= v6->n128_u64[0])
     {
       return 1;
@@ -7066,8 +6154,8 @@ LABEL_47:
 
   if (v3 == 2)
   {
-    v5 = *(a2 - 32);
-    v4 = a2 - 32;
+    v5 = *(a2 - 4);
+    v4 = a2 - 4;
     if (v5 >= *a1)
     {
       return 1;
@@ -7143,8 +6231,8 @@ LABEL_14:
   }
 
 LABEL_33:
-  v52 = a1 + 96;
-  if (a1 + 96 == a2)
+  v52 = (a1 + 96);
+  if ((a1 + 96) == a2)
   {
     return 1;
   }
@@ -7156,8 +6244,8 @@ LABEL_33:
     v55 = *v52;
     if (*v52 < v13->n128_u64[0])
     {
-      v74 = *(v52 + 8);
-      v75 = *(v52 + 24);
+      v74 = *(v52 + 1);
+      v75 = v52[3];
       v56 = v53;
       while (1)
       {
@@ -7185,13 +6273,13 @@ LABEL_41:
       *(v59 + 24) = v75;
       if (++v54 == 8)
       {
-        return v52 + 32 == a2;
+        return v52 + 4 == a2;
       }
     }
 
     v13 = v52;
     v53 += 32;
-    v52 += 32;
+    v52 += 4;
     if (v52 == a2)
     {
       return 1;
@@ -7199,41 +6287,41 @@ LABEL_41:
   }
 }
 
-void *std::__tree<unsigned long,std::greater<unsigned long>,std::allocator<unsigned long>>::__emplace_unique_key_args<unsigned long,unsigned long>(uint64_t a1, unint64_t *a2)
+void *std::__tree<unsigned long,std::greater<unsigned long>,std::allocator<unsigned long>>::__emplace_unique_key_args<unsigned long,unsigned long>(uint64_t a1, unint64_t *a2, void *a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 <= v5)
+      v5 = v3;
+      v6 = v3[4];
+      if (v4 <= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 <= v3)
+    if (v6 <= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
@@ -7290,9 +6378,9 @@ uint64_t std::vector<CSCppCoreFileRegionInfo>::__emplace_back_slow_path<CSCppCor
   return v12;
 }
 
-void sub_1D97C0FA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1D97C0FA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<CSCppCoreFileRegionInfo>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -7318,8 +6406,7 @@ __n128 std::allocator_traits<std::allocator<CSCppCoreFileRegionInfo>>::construct
     v8 = *(a3 + 104);
     *(a2 + 120) = *(a3 + 15);
     *(a2 + 104) = v8;
-    *(a3 + 14) = 0;
-    *(a3 + 15) = 0;
+    a3[7] = 0uLL;
     *(a3 + 13) = 0;
     *(a2 + 128) = 1;
   }
@@ -7333,8 +6420,7 @@ __n128 std::allocator_traits<std::allocator<CSCppCoreFileRegionInfo>>::construct
     *(a2 + 152) = 0;
     *(a2 + 136) = *(a3 + 136);
     *(a2 + 152) = *(a3 + 19);
-    *(a3 + 17) = 0;
-    *(a3 + 18) = 0;
+    *(a3 + 136) = 0uLL;
     *(a3 + 19) = 0;
     *(a2 + 160) = 1;
   }
@@ -7348,8 +6434,7 @@ __n128 std::allocator_traits<std::allocator<CSCppCoreFileRegionInfo>>::construct
     *(a2 + 184) = 0;
     *(a2 + 168) = *(a3 + 168);
     *(a2 + 184) = *(a3 + 23);
-    *(a3 + 21) = 0;
-    *(a3 + 22) = 0;
+    *(a3 + 168) = 0uLL;
     *(a3 + 23) = 0;
     *(a2 + 192) = 1;
   }
@@ -7360,23 +6445,22 @@ __n128 std::allocator_traits<std::allocator<CSCppCoreFileRegionInfo>>::construct
   result = *(a3 + 200);
   *(a2 + 200) = result;
   *(a2 + 216) = *(a3 + 27);
-  *(a3 + 25) = 0;
-  *(a3 + 26) = 0;
+  *(a3 + 200) = 0uLL;
   *(a3 + 27) = 0;
   return result;
 }
 
-void *std::vector<unsigned short>::vector[abi:ne200100](void *result, uint64_t a2)
+uint64_t *std::vector<unsigned short>::vector[abi:ne200100](uint64_t *a1, uint64_t a2, __int16 *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<unsigned short>::__vallocate[abi:ne200100](result, a2);
+    std::vector<unsigned short>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_1D97C1240(_Unwind_Exception *exception_object)
@@ -7391,7 +6475,7 @@ void sub_1D97C1240(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<CSCppCoreFileRegionInfo>::__insert_with_size[abi:ne200100]<std::__wrap_iter<CSCppCoreFileRegionInfo*>,std::__wrap_iter<CSCppCoreFileRegionInfo*>>(uint64_t *a1, uint64_t a2, const CSCppCoreFileRegionInfo *a3, CSCppCoreFileRegionInfo *a4, uint64_t a5)
+uint64_t std::vector<CSCppCoreFileRegionInfo>::__insert_with_size[abi:ne200100]<std::__wrap_iter<CSCppCoreFileRegionInfo*>,std::__wrap_iter<CSCppCoreFileRegionInfo*>>(uint64_t *a1, uint64_t a2, CSCppCoreFileRegionInfo **a3, CSCppCoreFileRegionInfo *a4, uint64_t a5)
 {
   v5 = a2;
   if (a5 >= 1)
@@ -7404,9 +6488,9 @@ uint64_t std::vector<CSCppCoreFileRegionInfo>::__insert_with_size[abi:ne200100]<
       v16 = v10 - a2;
       if (0x6DB6DB6DB6DB6DB7 * ((v10 - a2) >> 5) >= a5)
       {
-        v18 = 224 * a5;
+        v18 = 28 * a5;
         std::vector<CSCppCoreFileRegionInfo>::__move_range(a1, a2, a1[1], a2 + 224 * a5);
-        v17 = (v7 + v18);
+        v17 = &v7[v18];
       }
 
       else
@@ -7466,7 +6550,7 @@ uint64_t std::vector<CSCppCoreFileRegionInfo>::__insert_with_size[abi:ne200100]<
     {
       CSCppCoreFileRegionInfo::CSCppCoreFileRegionInfo(v19, v7);
       v19 = (v19 + 224);
-      v7 = (v7 + 224);
+      v7 += 28;
       v20 -= 224;
     }
 
@@ -7598,8 +6682,7 @@ __n128 std::__optional_storage_base<std::vector<unsigned short>,false>::__assign
     result = *a2;
     *a1 = *a2;
     *(a1 + 16) = a2[1].n128_u64[0];
-    a2->n128_u64[0] = 0;
-    a2->n128_u64[1] = 0;
+    *a2 = 0uLL;
     a2[1].n128_u64[0] = 0;
     *(a1 + 24) = 1;
   }
@@ -7607,13 +6690,13 @@ __n128 std::__optional_storage_base<std::vector<unsigned short>,false>::__assign
   return result;
 }
 
-void _ZNSt3__111__introsortINS_17_ClassicAlgPolicyERZL48set_up_mapped_memory_cache_for_exclave_core_fileI17SizeAndEndiannessI9Pointer3212LittleEndianEENS_8expectedIvPKcEES9_y21vas_segmentinfo_table21CSExclaveCoreFileTypeP15mapped_memory_tEUlRKT_RKT0_E0_P23CSCppCoreFileRegionInfoLb0EEEvT1_SP_SI_NS_15iterator_traitsISP_E15difference_typeEb(unint64_t a1, __int128 *a2, uint64_t a3, char a4)
+void _ZNSt3__111__introsortINS_17_ClassicAlgPolicyERZL48set_up_mapped_memory_cache_for_exclave_core_fileI17SizeAndEndiannessI9Pointer3212LittleEndianEENS_8expectedIvPKcEES9_y21vas_segmentinfo_table21CSExclaveCoreFileTypeP15mapped_memory_tEUlRKT_RKT0_E0_P23CSCppCoreFileRegionInfoLb0EEEvT1_SP_SI_NS_15iterator_traitsISP_E15difference_typeEb(char *a1, char *a2, uint64_t a3, char a4)
 {
 LABEL_1:
   v6 = a2;
-  v7 = a2 - 14;
-  v223 = a2 - 42;
-  v224 = a2 - 28;
+  v7 = (a2 - 224);
+  v223 = (a2 - 672);
+  v224 = (a2 - 448);
   v8 = a1;
   while (1)
   {
@@ -7631,7 +6714,7 @@ LABEL_1:
       v6 = a2;
       if (v10 == 2)
       {
-        v93 = a2 - 14;
+        v93 = (a2 - 224);
         if (*(a2 - 28) >= *a1)
         {
           return;
@@ -7653,25 +6736,25 @@ LABEL_136:
 
     if (v10 == 4)
     {
-      _ZNSt3__17__sort4B8ne200100INS_17_ClassicAlgPolicyERZL48set_up_mapped_memory_cache_for_exclave_core_fileI17SizeAndEndiannessI9Pointer3212LittleEndianEENS_8expectedIvPKcEES9_y21vas_segmentinfo_table21CSExclaveCoreFileTypeP15mapped_memory_tEUlRKT_RKT0_E0_P23CSCppCoreFileRegionInfoLi0EEEvT1_SP_SP_SP_SI_(a1, (a1 + 224), (a1 + 448), v7);
+      _ZNSt3__17__sort4B8ne200100INS_17_ClassicAlgPolicyERZL48set_up_mapped_memory_cache_for_exclave_core_fileI17SizeAndEndiannessI9Pointer3212LittleEndianEENS_8expectedIvPKcEES9_y21vas_segmentinfo_table21CSExclaveCoreFileTypeP15mapped_memory_tEUlRKT_RKT0_E0_P23CSCppCoreFileRegionInfoLi0EEEvT1_SP_SP_SP_SI_(a1, a1 + 14, a1 + 28, v7);
       return;
     }
 
     if (v10 == 5)
     {
-      _ZNSt3__17__sort4B8ne200100INS_17_ClassicAlgPolicyERZL48set_up_mapped_memory_cache_for_exclave_core_fileI17SizeAndEndiannessI9Pointer3212LittleEndianEENS_8expectedIvPKcEES9_y21vas_segmentinfo_table21CSExclaveCoreFileTypeP15mapped_memory_tEUlRKT_RKT0_E0_P23CSCppCoreFileRegionInfoLi0EEEvT1_SP_SP_SP_SI_(a1, (a1 + 224), (a1 + 448), (a1 + 672));
+      _ZNSt3__17__sort4B8ne200100INS_17_ClassicAlgPolicyERZL48set_up_mapped_memory_cache_for_exclave_core_fileI17SizeAndEndiannessI9Pointer3212LittleEndianEENS_8expectedIvPKcEES9_y21vas_segmentinfo_table21CSExclaveCoreFileTypeP15mapped_memory_tEUlRKT_RKT0_E0_P23CSCppCoreFileRegionInfoLi0EEEvT1_SP_SP_SP_SI_(a1, a1 + 14, a1 + 28, a1 + 42);
       v98 = *(v6 - 28);
-      v97 = v6 - 14;
-      if (v98 < *(a1 + 672))
+      v97 = (v6 - 224);
+      if (v98 < *(a1 + 84))
       {
-        std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>((a1 + 672), v97);
-        if (*(a1 + 672) < *(a1 + 448))
+        std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>(a1 + 42, v97);
+        if (*(a1 + 84) < *(a1 + 56))
         {
-          std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>((a1 + 448), (a1 + 672));
-          if (*(a1 + 448) < *(a1 + 224))
+          std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>(a1 + 28, a1 + 42);
+          if (*(a1 + 56) < *(a1 + 28))
           {
-            std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>((a1 + 224), (a1 + 448));
-            if (*(a1 + 224) < *a1)
+            std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>(a1 + 14, a1 + 28);
+            if (*(a1 + 28) < *a1)
             {
               v95 = (a1 + 224);
               v96 = a1;
@@ -7692,103 +6775,103 @@ LABEL_9:
         if (a1 != v6)
         {
           v99 = a1 + 224;
-          if ((a1 + 224) != a2)
+          if (a1 + 224 != a2)
           {
             v100 = 0;
             v101 = a1;
             do
             {
               v102 = v99;
-              if (*(v101 + 224) < *v101)
+              if (*(v101 + 28) < *v101)
               {
                 v103 = *v99;
-                v104 = *(v99 + 32);
-                v248 = *(v99 + 16);
+                v104 = *(v99 + 2);
+                v248 = *(v99 + 1);
                 v249 = v104;
                 v247 = v103;
-                v105 = *(v99 + 48);
-                v106 = *(v99 + 64);
-                v107 = *(v99 + 80);
-                v253 = *(v99 + 96);
+                v105 = *(v99 + 3);
+                v106 = *(v99 + 4);
+                v107 = *(v99 + 5);
+                v253 = *(v99 + 12);
                 v251 = v106;
                 v252 = v107;
                 v250 = v105;
                 v254.n128_u8[0] = 0;
                 v256 = 0;
-                if (*(v101 + 352) == 1)
+                if (v101[352] == 1)
                 {
-                  v255 = *(v101 + 344);
+                  v255 = *(v101 + 43);
                   v254 = *(v101 + 328);
-                  *(v101 + 336) = 0;
-                  *(v101 + 344) = 0;
-                  *(v101 + 328) = 0;
+                  *(v101 + 42) = 0;
+                  *(v101 + 43) = 0;
+                  *(v101 + 41) = 0;
                   v256 = 1;
                 }
 
                 v108 = (v101 + 360);
                 v257.n128_u8[0] = 0;
                 v259 = 0;
-                if (*(v101 + 384) == 1)
+                if (v101[384] == 1)
                 {
                   v257 = *v108;
-                  v258 = *(v101 + 376);
+                  v258 = *(v101 + 47);
                   v108->n128_u64[0] = 0;
-                  *(v101 + 368) = 0;
-                  *(v101 + 376) = 0;
+                  *(v101 + 46) = 0;
+                  *(v101 + 47) = 0;
                   v259 = 1;
                 }
 
                 __p.n128_u8[0] = 0;
                 v262 = 0;
-                if (*(v101 + 416) == 1)
+                if (v101[416] == 1)
                 {
                   __p = *(v101 + 392);
-                  v261 = *(v101 + 408);
-                  *(v101 + 392) = 0;
-                  *(v101 + 400) = 0;
-                  *(v101 + 408) = 0;
+                  v261 = *(v101 + 51);
+                  *(v101 + 49) = 0;
+                  *(v101 + 50) = 0;
+                  *(v101 + 51) = 0;
                   v262 = 1;
                 }
 
                 v263[0] = *(v101 + 424);
-                *&v263[1] = *(v101 + 440);
-                *(v101 + 424) = 0;
-                *(v101 + 432) = 0;
-                *(v101 + 440) = 0;
+                *&v263[1] = *(v101 + 55);
+                *(v101 + 53) = 0;
+                *(v101 + 54) = 0;
+                *(v101 + 55) = 0;
                 v109 = v100;
                 while (1)
                 {
                   v110 = v109;
-                  v111 = a1 + v109;
-                  v112 = *(a1 + v109 + 80);
-                  *(v111 + 288) = *(a1 + v109 + 64);
-                  *(v111 + 304) = v112;
-                  *(v111 + 320) = *(a1 + v109 + 96);
-                  v113 = *(a1 + v109 + 16);
-                  *(v111 + 224) = *v111;
-                  *(v111 + 240) = v113;
-                  v114 = *(a1 + v109 + 48);
-                  *(v111 + 256) = *(a1 + v109 + 32);
-                  *(v111 + 272) = v114;
-                  std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>(a1 + v109 + 328, (a1 + v109 + 104));
-                  std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(v111 + 360, (v111 + 136));
-                  v115 = a1 + v110;
-                  std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(a1 + v110 + 392, (a1 + v110 + 168));
-                  std::vector<CSCppCoreFileRegionInfo>::__vdeallocate((a1 + v110 + 424));
+                  v111 = &a1[v109];
+                  v112 = *&a1[v109 + 80];
+                  *(v111 + 18) = *&a1[v109 + 64];
+                  *(v111 + 19) = v112;
+                  *(v111 + 40) = *&a1[v109 + 96];
+                  v113 = *&a1[v109 + 16];
+                  *(v111 + 14) = *v111;
+                  *(v111 + 15) = v113;
+                  v114 = *&a1[v109 + 48];
+                  *(v111 + 16) = *&a1[v109 + 32];
+                  *(v111 + 17) = v114;
+                  std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>(&a1[v109 + 328], &a1[v109 + 104]);
+                  std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>((v111 + 360), (v111 + 136));
+                  v115 = &a1[v110];
+                  std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(&a1[v110 + 392], &a1[v110 + 168]);
+                  std::vector<CSCppCoreFileRegionInfo>::__vdeallocate(&a1[v110 + 424]);
                   *(v115 + 424) = *(v115 + 200);
-                  *(v115 + 440) = *(v115 + 216);
-                  *(v115 + 208) = 0;
-                  *(v115 + 216) = 0;
-                  *(v115 + 200) = 0;
+                  *(v115 + 55) = *(v115 + 27);
+                  *(v115 + 26) = 0;
+                  *(v115 + 27) = 0;
+                  *(v115 + 25) = 0;
                   if (!v110)
                   {
                     break;
                   }
 
                   v109 = v110 - 224;
-                  if (v247 >= *(a1 + v110 - 224))
+                  if (v247 >= *&a1[v110 - 224])
                   {
-                    v116 = a1 + v110;
+                    v116 = &a1[v110];
                     goto LABEL_160;
                   }
                 }
@@ -7797,23 +6880,23 @@ LABEL_9:
 LABEL_160:
                 v117 = v247;
                 v118 = v249;
-                *(v116 + 16) = v248;
-                *(v116 + 32) = v118;
+                *(v116 + 1) = v248;
+                *(v116 + 2) = v118;
                 *v116 = v117;
                 v119 = v250;
                 v120 = v251;
                 v121 = v252;
-                *(v116 + 96) = v253;
-                *(v116 + 64) = v120;
-                *(v116 + 80) = v121;
-                *(v116 + 48) = v119;
-                v122 = a1 + v110;
-                std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>(v122 + 104, &v254);
-                std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(v122 + 136, &v257);
-                std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(v122 + 168, &__p);
-                std::vector<CSCppCoreFileRegionInfo>::__vdeallocate((v122 + 200));
-                *(v122 + 200) = *&v263[0];
-                *(v116 + 208) = *(v263 + 8);
+                *(v116 + 12) = v253;
+                *(v116 + 4) = v120;
+                *(v116 + 5) = v121;
+                *(v116 + 3) = v119;
+                v122 = &a1[v110];
+                std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>((v122 + 104), &v254);
+                std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>((v122 + 136), &v257);
+                std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>((v122 + 168), &__p);
+                std::vector<CSCppCoreFileRegionInfo>::__vdeallocate(v122 + 25);
+                *(v122 + 25) = *&v263[0];
+                *(v116 + 13) = *(v263 + 8);
                 memset(v263, 0, 24);
                 *&v228 = v263;
                 std::vector<CSCppCoreFileRegionInfo>::__destroy_vector::operator()[abi:ne200100](&v228);
@@ -7840,7 +6923,7 @@ LABEL_160:
               v101 = v102;
             }
 
-            while ((v102 + 224) != a2);
+            while (v102 + 224 != a2);
           }
         }
       }
@@ -7848,90 +6931,90 @@ LABEL_160:
       else if (a1 != v6)
       {
         v204 = a1 + 224;
-        if ((a1 + 224) != a2)
+        if (a1 + 224 != a2)
         {
           v205 = a1 - 224;
           do
           {
             v206 = v204;
-            if (*(a1 + 224) < *a1)
+            if (*(a1 + 28) < *a1)
             {
               v207 = *v204;
-              v208 = *(v204 + 32);
-              v248 = *(v204 + 16);
+              v208 = *(v204 + 2);
+              v248 = *(v204 + 1);
               v249 = v208;
               v247 = v207;
-              v209 = *(v204 + 48);
-              v210 = *(v204 + 64);
-              v211 = *(v204 + 80);
-              v253 = *(v204 + 96);
+              v209 = *(v204 + 3);
+              v210 = *(v204 + 4);
+              v211 = *(v204 + 5);
+              v253 = *(v204 + 12);
               v251 = v210;
               v252 = v211;
               v250 = v209;
               v254.n128_u8[0] = 0;
               v256 = 0;
-              if (*(a1 + 352) == 1)
+              if (a1[352] == 1)
               {
-                v255 = *(a1 + 344);
+                v255 = *(a1 + 43);
                 v254 = *(a1 + 328);
-                *(a1 + 336) = 0;
-                *(a1 + 344) = 0;
-                *(a1 + 328) = 0;
+                *(a1 + 42) = 0;
+                *(a1 + 43) = 0;
+                *(a1 + 41) = 0;
                 v256 = 1;
               }
 
               v212 = (a1 + 360);
               v257.n128_u8[0] = 0;
               v259 = 0;
-              if (*(a1 + 384) == 1)
+              if (a1[384] == 1)
               {
                 v257 = *v212;
-                v258 = *(a1 + 376);
+                v258 = *(a1 + 47);
                 v212->n128_u64[0] = 0;
-                *(a1 + 368) = 0;
-                *(a1 + 376) = 0;
+                *(a1 + 46) = 0;
+                *(a1 + 47) = 0;
                 v259 = 1;
               }
 
               __p.n128_u8[0] = 0;
               v262 = 0;
-              if (*(a1 + 416) == 1)
+              if (a1[416] == 1)
               {
                 __p = *(a1 + 392);
-                v261 = *(a1 + 408);
-                *(a1 + 392) = 0;
-                *(a1 + 400) = 0;
-                *(a1 + 408) = 0;
+                v261 = *(a1 + 51);
+                *(a1 + 49) = 0;
+                *(a1 + 50) = 0;
+                *(a1 + 51) = 0;
                 v262 = 1;
               }
 
               v263[0] = *(a1 + 424);
-              *&v263[1] = *(a1 + 440);
-              *(a1 + 424) = 0;
-              *(a1 + 432) = 0;
-              *(a1 + 440) = 0;
+              *&v263[1] = *(a1 + 55);
+              *(a1 + 53) = 0;
+              *(a1 + 54) = 0;
+              *(a1 + 55) = 0;
               v213 = v205;
               do
               {
-                v214 = *(v213 + 304);
-                *(v213 + 512) = *(v213 + 288);
-                *(v213 + 528) = v214;
-                *(v213 + 544) = *(v213 + 320);
-                v215 = *(v213 + 240);
-                *(v213 + 448) = *(v213 + 224);
-                *(v213 + 464) = v215;
-                v216 = *(v213 + 272);
-                *(v213 + 480) = *(v213 + 256);
-                *(v213 + 496) = v216;
-                std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>(v213 + 552, (v213 + 328));
-                std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(v213 + 584, (v213 + 360));
-                std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(v213 + 616, (v213 + 392));
-                std::vector<CSCppCoreFileRegionInfo>::__vdeallocate((v213 + 648));
+                v214 = *(v213 + 19);
+                *(v213 + 32) = *(v213 + 18);
+                *(v213 + 33) = v214;
+                *(v213 + 68) = *(v213 + 40);
+                v215 = *(v213 + 15);
+                *(v213 + 28) = *(v213 + 14);
+                *(v213 + 29) = v215;
+                v216 = *(v213 + 17);
+                *(v213 + 30) = *(v213 + 16);
+                *(v213 + 31) = v216;
+                std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>((v213 + 552), (v213 + 328));
+                std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>((v213 + 584), (v213 + 360));
+                std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>((v213 + 616), (v213 + 392));
+                std::vector<CSCppCoreFileRegionInfo>::__vdeallocate(v213 + 81);
                 *(v213 + 648) = *(v213 + 424);
-                *(v213 + 664) = *(v213 + 440);
-                *(v213 + 424) = 0;
-                *(v213 + 432) = 0;
-                *(v213 + 440) = 0;
+                *(v213 + 83) = *(v213 + 55);
+                *(v213 + 53) = 0;
+                *(v213 + 54) = 0;
+                *(v213 + 55) = 0;
                 v217 = *v213;
                 v213 -= 224;
               }
@@ -7939,22 +7022,22 @@ LABEL_160:
               while (v247 < v217);
               v218 = v247;
               v219 = v249;
-              *(v213 + 464) = v248;
-              *(v213 + 480) = v219;
-              *(v213 + 448) = v218;
+              *(v213 + 29) = v248;
+              *(v213 + 30) = v219;
+              *(v213 + 28) = v218;
               v220 = v250;
               v221 = v251;
               v222 = v252;
-              *(v213 + 544) = v253;
-              *(v213 + 512) = v221;
-              *(v213 + 528) = v222;
-              *(v213 + 496) = v220;
-              std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>(v213 + 552, &v254);
-              std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(v213 + 584, &v257);
-              std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(v213 + 616, &__p);
-              std::vector<CSCppCoreFileRegionInfo>::__vdeallocate((v213 + 648));
+              *(v213 + 68) = v253;
+              *(v213 + 32) = v221;
+              *(v213 + 33) = v222;
+              *(v213 + 31) = v220;
+              std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>((v213 + 552), &v254);
+              std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>((v213 + 584), &v257);
+              std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>((v213 + 616), &__p);
+              std::vector<CSCppCoreFileRegionInfo>::__vdeallocate(v213 + 81);
               *(v213 + 648) = v263[0];
-              *(v213 + 664) = *&v263[1];
+              *(v213 + 83) = *&v263[1];
               memset(v263, 0, 24);
               *&v228 = v263;
               std::vector<CSCppCoreFileRegionInfo>::__destroy_vector::operator()[abi:ne200100](&v228);
@@ -7981,7 +7064,7 @@ LABEL_160:
             a1 = v206;
           }
 
-          while ((v206 + 224) != a2);
+          while (v206 + 224 != a2);
         }
       }
 
@@ -8000,7 +7083,7 @@ LABEL_160:
           if (v123 >= v124)
           {
             v126 = (2 * v124) | 1;
-            v127 = (a1 + 224 * v126);
+            v127 = &a1[224 * v126];
             if (2 * v125 + 2 >= v10)
             {
               v128 = *v127;
@@ -8017,89 +7100,89 @@ LABEL_160:
 
               if (*v127 < v129)
               {
-                v127 += 14;
+                v127 += 224;
                 v126 = 2 * v125 + 2;
               }
             }
 
-            v130 = a1 + 224 * v125;
+            v130 = &a1[224 * v125];
             if (v128 >= *v130)
             {
               v131 = *v130;
-              v132 = *(v130 + 32);
-              v248 = *(v130 + 16);
+              v132 = *(v130 + 2);
+              v248 = *(v130 + 1);
               v249 = v132;
               v247 = v131;
-              v133 = *(v130 + 48);
-              v134 = *(v130 + 64);
-              v135 = *(v130 + 80);
-              v253 = *(v130 + 96);
+              v133 = *(v130 + 3);
+              v134 = *(v130 + 4);
+              v135 = *(v130 + 5);
+              v253 = *(v130 + 12);
               v251 = v134;
               v252 = v135;
               v250 = v133;
               v254.n128_u8[0] = 0;
               v256 = 0;
-              if (*(v130 + 128) == 1)
+              if (v130[128] == 1)
               {
                 v136 = *(v130 + 104);
-                v255 = *(v130 + 120);
+                v255 = *(v130 + 15);
                 v254 = v136;
-                *(v130 + 112) = 0;
-                *(v130 + 120) = 0;
-                *(v130 + 104) = 0;
+                *(v130 + 14) = 0;
+                *(v130 + 15) = 0;
+                *(v130 + 13) = 0;
                 v256 = 1;
               }
 
               v257.n128_u8[0] = 0;
               v259 = 0;
-              if (*(v130 + 160) == 1)
+              if (v130[160] == 1)
               {
                 v257 = *(v130 + 136);
-                v258 = *(v130 + 152);
-                *(v130 + 136) = 0;
-                *(v130 + 144) = 0;
-                *(v130 + 152) = 0;
+                v258 = *(v130 + 19);
+                *(v130 + 17) = 0;
+                *(v130 + 18) = 0;
+                *(v130 + 19) = 0;
                 v259 = 1;
               }
 
               __p.n128_u8[0] = 0;
               v262 = 0;
-              if (*(v130 + 192) == 1)
+              if (v130[192] == 1)
               {
                 __p = *(v130 + 168);
-                v261 = *(v130 + 184);
-                *(v130 + 168) = 0;
-                *(v130 + 176) = 0;
-                *(v130 + 184) = 0;
+                v261 = *(v130 + 23);
+                *(v130 + 21) = 0;
+                *(v130 + 22) = 0;
+                *(v130 + 23) = 0;
                 v262 = 1;
               }
 
               v263[0] = *(v130 + 200);
-              *&v263[1] = *(v130 + 216);
-              *(v130 + 200) = 0;
-              *(v130 + 208) = 0;
-              *(v130 + 216) = 0;
+              *&v263[1] = *(v130 + 27);
+              *(v130 + 25) = 0;
+              *(v130 + 26) = 0;
+              *(v130 + 27) = 0;
               do
               {
                 v137 = v127;
                 v138 = *v127;
-                v139 = v127[2];
-                *(v130 + 16) = v127[1];
-                *(v130 + 32) = v139;
+                v139 = *(v127 + 2);
+                *(v130 + 1) = *(v127 + 1);
+                *(v130 + 2) = v139;
                 *v130 = v138;
-                v140 = v127[3];
-                v141 = v127[4];
-                v142 = v127[5];
-                *(v130 + 96) = *(v127 + 12);
-                *(v130 + 64) = v141;
-                *(v130 + 80) = v142;
-                *(v130 + 48) = v140;
-                std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>(v130 + 104, (v127 + 104));
-                std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(v130 + 136, (v137 + 136));
-                std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(v130 + 168, (v137 + 168));
-                std::vector<CSCppCoreFileRegionInfo>::__vdeallocate((v130 + 200));
+                v140 = *(v127 + 3);
+                v141 = *(v127 + 4);
+                v142 = *(v127 + 5);
+                *(v130 + 12) = *(v127 + 12);
+                *(v130 + 4) = v141;
+                *(v130 + 5) = v142;
+                *(v130 + 3) = v140;
+                std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>((v130 + 104), (v127 + 104));
+                std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>((v130 + 136), (v137 + 136));
+                std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>((v130 + 168), (v137 + 168));
+                std::vector<CSCppCoreFileRegionInfo>::__vdeallocate(v130 + 25);
                 *(v130 + 200) = *(v137 + 200);
-                *(v130 + 216) = *(v137 + 27);
+                *(v130 + 27) = *(v137 + 27);
                 *(v137 + 25) = 0;
                 *(v137 + 26) = 0;
                 *(v137 + 27) = 0;
@@ -8108,7 +7191,7 @@ LABEL_160:
                   break;
                 }
 
-                v127 = (a1 + 224 * ((2 * v126) | 1));
+                v127 = &a1[224 * ((2 * v126) | 1)];
                 if (2 * v126 + 2 >= v10)
                 {
                   v143 = *v127;
@@ -8131,7 +7214,7 @@ LABEL_160:
 
                   else
                   {
-                    v127 += 14;
+                    v127 += 224;
                     v126 = 2 * v126 + 2;
                   }
                 }
@@ -8142,19 +7225,19 @@ LABEL_160:
               while (v143 >= v247);
               v145 = v247;
               v146 = v249;
-              v137[1] = v248;
-              v137[2] = v146;
+              *(v137 + 1) = v248;
+              *(v137 + 2) = v146;
               *v137 = v145;
               v147 = v250;
               v148 = v251;
               v149 = v252;
               *(v137 + 12) = v253;
-              v137[4] = v148;
-              v137[5] = v149;
-              v137[3] = v147;
-              std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>(v137 + 104, &v254);
-              std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(v137 + 136, &v257);
-              std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(v137 + 168, &__p);
+              *(v137 + 4) = v148;
+              *(v137 + 5) = v149;
+              *(v137 + 3) = v147;
+              std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>((v137 + 104), &v254);
+              std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>((v137 + 136), &v257);
+              std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>((v137 + 168), &__p);
               std::vector<CSCppCoreFileRegionInfo>::__vdeallocate(v137 + 25);
               *(v137 + 200) = v263[0];
               *(v137 + 27) = *&v263[1];
@@ -8188,72 +7271,72 @@ LABEL_160:
         do
         {
           v151 = *a1;
-          v152 = *(a1 + 32);
-          v229 = *(a1 + 16);
+          v152 = *(a1 + 2);
+          v229 = *(a1 + 1);
           v230 = v152;
           v228 = v151;
-          v153 = *(a1 + 48);
-          v154 = *(a1 + 64);
-          v155 = *(a1 + 80);
-          v234 = *(a1 + 96);
+          v153 = *(a1 + 3);
+          v154 = *(a1 + 4);
+          v155 = *(a1 + 5);
+          v234 = *(a1 + 12);
           v232 = v154;
           v233 = v155;
           v231 = v153;
           v235.n128_u8[0] = 0;
           v237 = 0;
-          if (*(a1 + 128) == 1)
+          if (a1[128] == 1)
           {
             v156 = *(a1 + 104);
-            v236 = *(a1 + 120);
+            v236 = *(a1 + 15);
             v235 = v156;
-            *(a1 + 112) = 0;
-            *(a1 + 120) = 0;
-            *(a1 + 104) = 0;
+            *(a1 + 14) = 0;
+            *(a1 + 15) = 0;
+            *(a1 + 13) = 0;
             v237 = 1;
           }
 
           v238.n128_u8[0] = 0;
           v240 = 0;
-          if (*(a1 + 160) == 1)
+          if (a1[160] == 1)
           {
             v238 = *(a1 + 136);
-            v239 = *(a1 + 152);
-            *(a1 + 136) = 0;
-            *(a1 + 144) = 0;
-            *(a1 + 152) = 0;
+            v239 = *(a1 + 19);
+            *(a1 + 17) = 0;
+            *(a1 + 18) = 0;
+            *(a1 + 19) = 0;
             v240 = 1;
           }
 
           v226 = a2;
           v241.n128_u8[0] = 0;
           v243 = 0;
-          if (*(a1 + 192) == 1)
+          if (a1[192] == 1)
           {
             v241 = *(a1 + 168);
-            v242 = *(a1 + 184);
-            *(a1 + 168) = 0;
-            *(a1 + 176) = 0;
-            *(a1 + 184) = 0;
+            v242 = *(a1 + 23);
+            *(a1 + 21) = 0;
+            *(a1 + 22) = 0;
+            *(a1 + 23) = 0;
             v243 = 1;
           }
 
           v157 = 0;
           v244 = *(a1 + 200);
-          v245 = *(a1 + 216);
-          *(a1 + 200) = 0;
-          *(a1 + 208) = 0;
-          *(a1 + 216) = 0;
+          v245 = *(a1 + 27);
+          *(a1 + 25) = 0;
+          *(a1 + 26) = 0;
+          *(a1 + 27) = 0;
           v158 = a1;
           do
           {
-            v159 = v158 + 224 * v157;
+            v159 = &v158[224 * v157];
             v160 = v159 + 224;
             if (2 * v157 + 2 >= v150)
             {
               v157 = (2 * v157) | 1;
             }
 
-            else if (*(v159 + 224) >= *(v159 + 448))
+            else if (*(v159 + 28) >= *(v159 + 56))
             {
               v157 = (2 * v157) | 1;
             }
@@ -8265,52 +7348,52 @@ LABEL_160:
             }
 
             v161 = *v160;
-            v162 = *(v160 + 32);
-            *(v158 + 16) = *(v160 + 16);
-            *(v158 + 32) = v162;
+            v162 = *(v160 + 2);
+            *(v158 + 1) = *(v160 + 1);
+            *(v158 + 2) = v162;
             *v158 = v161;
-            v163 = *(v160 + 48);
-            v164 = *(v160 + 64);
-            v165 = *(v160 + 80);
-            *(v158 + 96) = *(v160 + 96);
-            *(v158 + 64) = v164;
-            *(v158 + 80) = v165;
-            *(v158 + 48) = v163;
-            std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>(v158 + 104, (v160 + 104));
-            std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(v158 + 136, (v160 + 136));
-            std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(v158 + 168, (v160 + 168));
-            std::vector<CSCppCoreFileRegionInfo>::__vdeallocate((v158 + 200));
+            v163 = *(v160 + 3);
+            v164 = *(v160 + 4);
+            v165 = *(v160 + 5);
+            *(v158 + 12) = *(v160 + 12);
+            *(v158 + 4) = v164;
+            *(v158 + 5) = v165;
+            *(v158 + 3) = v163;
+            std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>((v158 + 104), (v160 + 104));
+            std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>((v158 + 136), (v160 + 136));
+            std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>((v158 + 168), (v160 + 168));
+            std::vector<CSCppCoreFileRegionInfo>::__vdeallocate(v158 + 25);
             *(v158 + 200) = *(v160 + 200);
-            *(v158 + 216) = *(v160 + 216);
-            *(v160 + 200) = 0;
-            *(v160 + 208) = 0;
-            *(v160 + 216) = 0;
+            *(v158 + 27) = *(v160 + 27);
+            *(v160 + 25) = 0;
+            *(v160 + 26) = 0;
+            *(v160 + 27) = 0;
             v158 = v160;
           }
 
           while (v157 <= ((v150 - 2) >> 1));
-          v166 = a2 - 14;
-          a2 -= 14;
-          if (v160 == v226 - 14)
+          v166 = a2 - 224;
+          a2 -= 224;
+          if (v160 == v226 - 224)
           {
             v198 = v228;
             v199 = v230;
-            *(v160 + 16) = v229;
-            *(v160 + 32) = v199;
+            *(v160 + 1) = v229;
+            *(v160 + 2) = v199;
             *v160 = v198;
             v200 = v231;
             v201 = v232;
             v202 = v233;
-            *(v160 + 96) = v234;
-            *(v160 + 64) = v201;
-            *(v160 + 80) = v202;
-            *(v160 + 48) = v200;
-            std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>(v160 + 104, &v235);
-            std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(v160 + 136, &v238);
-            std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(v160 + 168, &v241);
-            std::vector<CSCppCoreFileRegionInfo>::__vdeallocate((v160 + 200));
+            *(v160 + 12) = v234;
+            *(v160 + 4) = v201;
+            *(v160 + 5) = v202;
+            *(v160 + 3) = v200;
+            std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>((v160 + 104), &v235);
+            std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>((v160 + 136), &v238);
+            std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>((v160 + 168), &v241);
+            std::vector<CSCppCoreFileRegionInfo>::__vdeallocate(v160 + 25);
             *(v160 + 200) = v244;
-            *(v160 + 216) = v245;
+            *(v160 + 27) = v245;
             v244 = 0uLL;
             v245 = 0;
           }
@@ -8319,26 +7402,26 @@ LABEL_160:
           {
             v167 = *v166;
             v168 = *(v226 - 12);
-            *(v160 + 16) = *(v226 - 13);
-            *(v160 + 32) = v168;
+            *(v160 + 1) = *(v226 - 13);
+            *(v160 + 2) = v168;
             *v160 = v167;
             v169 = *(v226 - 11);
             v170 = *(v226 - 10);
             v171 = *(v226 - 9);
-            *(v160 + 96) = *(v226 - 16);
-            *(v160 + 64) = v170;
-            *(v160 + 80) = v171;
-            *(v160 + 48) = v169;
-            std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>(v160 + 104, (v226 - 120));
-            std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(v160 + 136, (v226 - 88));
-            std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(v160 + 168, (v226 - 56));
-            std::vector<CSCppCoreFileRegionInfo>::__vdeallocate((v160 + 200));
-            v172 = v226 - 3;
+            *(v160 + 12) = *(v226 - 16);
+            *(v160 + 4) = v170;
+            *(v160 + 5) = v171;
+            *(v160 + 3) = v169;
+            std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>((v160 + 104), (v226 - 120));
+            std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>((v160 + 136), (v226 - 88));
+            std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>((v160 + 168), (v226 - 56));
+            std::vector<CSCppCoreFileRegionInfo>::__vdeallocate(v160 + 25);
+            v172 = v226 - 24;
             *(v160 + 200) = *(v226 - 24);
-            *(v160 + 216) = *(v226 - 1);
+            *(v160 + 27) = *(v226 - 1);
             *v172 = 0;
-            v172[1] = 0;
-            v172[2] = 0;
+            *(v172 + 1) = 0;
+            *(v172 + 2) = 0;
             v173 = v228;
             v174 = v230;
             *(v226 - 13) = v229;
@@ -8351,9 +7434,9 @@ LABEL_160:
             *(v226 - 10) = v176;
             *(v226 - 9) = v177;
             *(v226 - 11) = v175;
-            std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>(v226 - 120, &v235);
-            std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(v226 - 88, &v238);
-            std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(v226 - 56, &v241);
+            std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>((v226 - 120), &v235);
+            std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>((v226 - 88), &v238);
+            std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>((v226 - 56), &v241);
             std::vector<CSCppCoreFileRegionInfo>::__vdeallocate(v226 - 3);
             *(v226 - 24) = v244;
             *(v226 - 1) = v245;
@@ -8363,84 +7446,84 @@ LABEL_160:
             if (v178 >= 225)
             {
               v179 = (0x6DB6DB6DB6DB6DB7 * (v178 >> 5) - 2) >> 1;
-              v180 = (a1 + 224 * v179);
+              v180 = &a1[224 * v179];
               if (*v180 < *v160)
               {
                 v181 = *v160;
-                v182 = *(v160 + 32);
-                v248 = *(v160 + 16);
+                v182 = *(v160 + 2);
+                v248 = *(v160 + 1);
                 v249 = v182;
                 v247 = v181;
-                v183 = *(v160 + 48);
-                v184 = *(v160 + 64);
-                v185 = *(v160 + 80);
-                v253 = *(v160 + 96);
+                v183 = *(v160 + 3);
+                v184 = *(v160 + 4);
+                v185 = *(v160 + 5);
+                v253 = *(v160 + 12);
                 v251 = v184;
                 v252 = v185;
                 v250 = v183;
                 v254.n128_u8[0] = 0;
                 v256 = 0;
-                if (*(v160 + 128) == 1)
+                if (v160[128] == 1)
                 {
                   v186 = *(v160 + 104);
-                  v255 = *(v160 + 120);
+                  v255 = *(v160 + 15);
                   v254 = v186;
-                  *(v160 + 112) = 0;
-                  *(v160 + 120) = 0;
-                  *(v160 + 104) = 0;
+                  *(v160 + 14) = 0;
+                  *(v160 + 15) = 0;
+                  *(v160 + 13) = 0;
                   v256 = 1;
                 }
 
                 v257.n128_u8[0] = 0;
                 v259 = 0;
-                if (*(v160 + 160) == 1)
+                if (v160[160] == 1)
                 {
                   v257 = *(v160 + 136);
-                  v258 = *(v160 + 152);
-                  *(v160 + 136) = 0;
-                  *(v160 + 144) = 0;
-                  *(v160 + 152) = 0;
+                  v258 = *(v160 + 19);
+                  *(v160 + 17) = 0;
+                  *(v160 + 18) = 0;
+                  *(v160 + 19) = 0;
                   v259 = 1;
                 }
 
                 __p.n128_u8[0] = 0;
                 v262 = 0;
-                if (*(v160 + 192) == 1)
+                if (v160[192] == 1)
                 {
                   __p = *(v160 + 168);
-                  v261 = *(v160 + 184);
-                  *(v160 + 168) = 0;
-                  *(v160 + 176) = 0;
-                  *(v160 + 184) = 0;
+                  v261 = *(v160 + 23);
+                  *(v160 + 21) = 0;
+                  *(v160 + 22) = 0;
+                  *(v160 + 23) = 0;
                   v262 = 1;
                 }
 
                 v263[0] = *(v160 + 200);
-                *&v263[1] = *(v160 + 216);
-                *(v160 + 200) = 0;
-                *(v160 + 208) = 0;
-                *(v160 + 216) = 0;
+                *&v263[1] = *(v160 + 27);
+                *(v160 + 25) = 0;
+                *(v160 + 26) = 0;
+                *(v160 + 27) = 0;
                 do
                 {
                   v187 = v180;
                   v188 = *v180;
-                  v189 = v180[2];
-                  *(v160 + 16) = v180[1];
-                  *(v160 + 32) = v189;
+                  v189 = *(v180 + 2);
+                  *(v160 + 1) = *(v180 + 1);
+                  *(v160 + 2) = v189;
                   *v160 = v188;
-                  v190 = v180[3];
-                  v191 = v180[4];
-                  v192 = v180[5];
-                  *(v160 + 96) = *(v180 + 12);
-                  *(v160 + 64) = v191;
-                  *(v160 + 80) = v192;
-                  *(v160 + 48) = v190;
-                  std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>(v160 + 104, (v180 + 104));
-                  std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(v160 + 136, (v187 + 136));
-                  std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(v160 + 168, (v187 + 168));
-                  std::vector<CSCppCoreFileRegionInfo>::__vdeallocate((v160 + 200));
+                  v190 = *(v180 + 3);
+                  v191 = *(v180 + 4);
+                  v192 = *(v180 + 5);
+                  *(v160 + 12) = *(v180 + 12);
+                  *(v160 + 4) = v191;
+                  *(v160 + 5) = v192;
+                  *(v160 + 3) = v190;
+                  std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>((v160 + 104), (v180 + 104));
+                  std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>((v160 + 136), (v187 + 136));
+                  std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>((v160 + 168), (v187 + 168));
+                  std::vector<CSCppCoreFileRegionInfo>::__vdeallocate(v160 + 25);
                   *(v160 + 200) = *(v187 + 200);
-                  *(v160 + 216) = *(v187 + 27);
+                  *(v160 + 27) = *(v187 + 27);
                   *(v187 + 25) = 0;
                   *(v187 + 26) = 0;
                   *(v187 + 27) = 0;
@@ -8450,26 +7533,26 @@ LABEL_160:
                   }
 
                   v179 = (v179 - 1) >> 1;
-                  v180 = (a1 + 224 * v179);
+                  v180 = &a1[224 * v179];
                   v160 = v187;
                 }
 
                 while (*v180 < v247);
                 v193 = v247;
                 v194 = v249;
-                v187[1] = v248;
-                v187[2] = v194;
+                *(v187 + 1) = v248;
+                *(v187 + 2) = v194;
                 *v187 = v193;
                 v195 = v250;
                 v196 = v251;
                 v197 = v252;
                 *(v187 + 12) = v253;
-                v187[4] = v196;
-                v187[5] = v197;
-                v187[3] = v195;
-                std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>(v187 + 104, &v254);
-                std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(v187 + 136, &v257);
-                std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(v187 + 168, &__p);
+                *(v187 + 4) = v196;
+                *(v187 + 5) = v197;
+                *(v187 + 3) = v195;
+                std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>((v187 + 104), &v254);
+                std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>((v187 + 136), &v257);
+                std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>((v187 + 168), &__p);
                 std::vector<CSCppCoreFileRegionInfo>::__vdeallocate(v187 + 25);
                 *(v187 + 200) = v263[0];
                 *(v187 + 27) = *&v263[1];
@@ -8523,7 +7606,7 @@ LABEL_160:
     }
 
     v12 = v10 >> 1;
-    v13 = (a1 + 224 * (v10 >> 1));
+    v13 = &a1[224 * (v10 >> 1)];
     v14 = *v7;
     if (v9 > 0x7000)
     {
@@ -8555,23 +7638,23 @@ LABEL_160:
         {
           v16 = v13;
 LABEL_16:
-          v17 = a2 - 14;
+          v17 = (a2 - 224);
 LABEL_25:
           std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>(v16, v17);
         }
       }
 
-      v21 = a1 + 224 * v12;
-      v24 = *(v21 - 224);
+      v21 = &a1[224 * v12];
+      v24 = *(v21 - 28);
       v23 = (v21 - 224);
       v22 = v24;
       v25 = *v224;
-      if (v24 >= *(a1 + 224))
+      if (v24 >= *(a1 + 28))
       {
         if (v25 < v22)
         {
           std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>(v23, v224);
-          if (*v23 < *(a1 + 224))
+          if (*v23 < *(a1 + 28))
           {
             v26 = (a1 + 224);
             v27 = v23;
@@ -8593,23 +7676,23 @@ LABEL_25:
         {
           v26 = v23;
 LABEL_30:
-          v27 = a2 - 28;
+          v27 = (a2 - 448);
 LABEL_37:
           std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>(v26, v27);
         }
       }
 
-      v28 = a1 + 224 * v12;
-      v31 = *(v28 + 224);
+      v28 = &a1[224 * v12];
+      v31 = *(v28 + 28);
       v30 = (v28 + 224);
       v29 = v31;
       v32 = *v223;
-      if (v31 >= *(a1 + 448))
+      if (v31 >= *(a1 + 56))
       {
         if (v32 < v29)
         {
           std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>(v30, v223);
-          if (*v30 < *(a1 + 448))
+          if (*v30 < *(a1 + 56))
           {
             v33 = (a1 + 448);
             v34 = v30;
@@ -8631,7 +7714,7 @@ LABEL_37:
         {
           v33 = v30;
 LABEL_42:
-          v34 = a2 - 42;
+          v34 = (a2 - 672);
 LABEL_46:
           std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>(v33, v34);
         }
@@ -8709,79 +7792,79 @@ LABEL_55:
         v19 = a1;
       }
 
-      v20 = a2 - 14;
+      v20 = a2 - 224;
     }
 
 LABEL_57:
     std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>(v19, v20);
 LABEL_58:
     --a3;
-    if ((a4 & 1) != 0 || *(a1 - 224) < *a1)
+    if ((a4 & 1) != 0 || *(a1 - 28) < *a1)
     {
       v39 = *a1;
-      v40 = *(a1 + 32);
-      v248 = *(a1 + 16);
+      v40 = *(a1 + 2);
+      v248 = *(a1 + 1);
       v249 = v40;
       v247 = v39;
-      v41 = *(a1 + 48);
-      v42 = *(a1 + 64);
-      v43 = *(a1 + 80);
-      v253 = *(a1 + 96);
+      v41 = *(a1 + 3);
+      v42 = *(a1 + 4);
+      v43 = *(a1 + 5);
+      v253 = *(a1 + 12);
       v251 = v42;
       v252 = v43;
       v250 = v41;
       v254.n128_u8[0] = 0;
       v256 = 0;
-      if (*(a1 + 128) == 1)
+      if (a1[128] == 1)
       {
         v44 = *(a1 + 104);
-        v255 = *(a1 + 120);
+        v255 = *(a1 + 15);
         v254 = v44;
-        *(a1 + 112) = 0;
-        *(a1 + 120) = 0;
-        *(a1 + 104) = 0;
+        *(a1 + 14) = 0;
+        *(a1 + 15) = 0;
+        *(a1 + 13) = 0;
         v256 = 1;
       }
 
       v257.n128_u8[0] = 0;
       v259 = 0;
-      if (*(a1 + 160) == 1)
+      if (a1[160] == 1)
       {
         v257 = *(a1 + 136);
-        v258 = *(a1 + 152);
-        *(a1 + 136) = 0;
-        *(a1 + 144) = 0;
-        *(a1 + 152) = 0;
+        v258 = *(a1 + 19);
+        *(a1 + 17) = 0;
+        *(a1 + 18) = 0;
+        *(a1 + 19) = 0;
         v259 = 1;
       }
 
       __p.n128_u8[0] = 0;
       v262 = 0;
-      if (*(a1 + 192) == 1)
+      if (a1[192] == 1)
       {
         __p = *(a1 + 168);
-        v261 = *(a1 + 184);
-        *(a1 + 168) = 0;
-        *(a1 + 176) = 0;
-        *(a1 + 184) = 0;
+        v261 = *(a1 + 23);
+        *(a1 + 21) = 0;
+        *(a1 + 22) = 0;
+        *(a1 + 23) = 0;
         v262 = 1;
       }
 
       v45 = 0;
       v263[0] = *(a1 + 200);
-      *&v263[1] = *(a1 + 216);
-      *(a1 + 200) = 0;
-      *(a1 + 208) = 0;
-      *(a1 + 216) = 0;
+      *&v263[1] = *(a1 + 27);
+      *(a1 + 25) = 0;
+      *(a1 + 26) = 0;
+      *(a1 + 27) = 0;
       v46 = v247;
       do
       {
-        v47 = *(a1 + v45 + 224);
+        v47 = *&a1[v45 + 224];
         v45 += 224;
       }
 
       while (v47 < v247);
-      v48 = a1 + v45;
+      v48 = &a1[v45];
       if (v45 == 224)
       {
         v6 = a2;
@@ -8793,7 +7876,7 @@ LABEL_58:
           }
 
           v50 = *(v6 - 28);
-          v6 -= 14;
+          v6 -= 224;
         }
 
         while (v50 >= v247);
@@ -8804,13 +7887,13 @@ LABEL_58:
         do
         {
           v49 = *(v6 - 28);
-          v6 -= 14;
+          v6 -= 224;
         }
 
         while (v49 >= v247);
       }
 
-      v8 = a1 + v45;
+      v8 = &a1[v45];
       if (v48 < v6)
       {
         v51 = v6;
@@ -8819,7 +7902,7 @@ LABEL_58:
           std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>(v8, v51);
           do
           {
-            v52 = *(v8 + 224);
+            v52 = *(v8 + 28);
             v8 += 224;
           }
 
@@ -8836,50 +7919,50 @@ LABEL_58:
         while (v8 < v51);
       }
 
-      v54 = (v8 - 224);
+      v54 = v8 - 224;
       if (v8 - 224 != a1)
       {
         v55 = *v54;
-        v56 = *(v8 - 192);
-        *(a1 + 16) = *(v8 - 208);
-        *(a1 + 32) = v56;
+        v56 = *(v8 - 12);
+        *(a1 + 1) = *(v8 - 13);
+        *(a1 + 2) = v56;
         *a1 = v55;
-        v57 = *(v8 - 176);
-        v58 = *(v8 - 160);
-        v59 = *(v8 - 144);
-        *(a1 + 96) = *(v8 - 128);
-        *(a1 + 64) = v58;
-        *(a1 + 80) = v59;
-        *(a1 + 48) = v57;
-        std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>(a1 + 104, (v8 - 120));
-        std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(a1 + 136, (v8 - 88));
-        std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(a1 + 168, (v8 - 56));
-        std::vector<CSCppCoreFileRegionInfo>::__vdeallocate((a1 + 200));
+        v57 = *(v8 - 11);
+        v58 = *(v8 - 10);
+        v59 = *(v8 - 9);
+        *(a1 + 12) = *(v8 - 16);
+        *(a1 + 4) = v58;
+        *(a1 + 5) = v59;
+        *(a1 + 3) = v57;
+        std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>((a1 + 104), (v8 - 120));
+        std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>((a1 + 136), (v8 - 88));
+        std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>((a1 + 168), (v8 - 56));
+        std::vector<CSCppCoreFileRegionInfo>::__vdeallocate(a1 + 25);
         *(a1 + 200) = *(v8 - 24);
-        *(a1 + 216) = *(v8 - 8);
-        *(v8 - 24) = 0;
-        *(v8 - 16) = 0;
-        *(v8 - 8) = 0;
+        *(a1 + 27) = *(v8 - 1);
+        *(v8 - 3) = 0;
+        *(v8 - 2) = 0;
+        *(v8 - 1) = 0;
       }
 
       v60 = v247;
       v61 = v249;
-      *(v8 - 208) = v248;
-      *(v8 - 192) = v61;
+      *(v8 - 13) = v248;
+      *(v8 - 12) = v61;
       *v54 = v60;
       v62 = v250;
       v63 = v251;
       v64 = v252;
-      *(v8 - 128) = v253;
-      *(v8 - 160) = v63;
-      *(v8 - 144) = v64;
-      *(v8 - 176) = v62;
-      std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>(v8 - 120, &v254);
-      std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(v8 - 88, &v257);
-      std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(v8 - 56, &__p);
-      std::vector<CSCppCoreFileRegionInfo>::__vdeallocate((v8 - 24));
+      *(v8 - 16) = v253;
+      *(v8 - 10) = v63;
+      *(v8 - 9) = v64;
+      *(v8 - 11) = v62;
+      std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>((v8 - 120), &v254);
+      std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>((v8 - 88), &v257);
+      std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>((v8 - 56), &__p);
+      std::vector<CSCppCoreFileRegionInfo>::__vdeallocate(v8 - 3);
       *(v8 - 24) = v263[0];
-      *(v8 - 8) = *&v263[1];
+      *(v8 - 1) = *&v263[1];
       memset(v263, 0, 24);
       *&v228 = v263;
       std::vector<CSCppCoreFileRegionInfo>::__destroy_vector::operator()[abi:ne200100](&v228);
@@ -8907,10 +7990,10 @@ LABEL_58:
         goto LABEL_95;
       }
 
-      v66 = _ZNSt3__127__insertion_sort_incompleteB8ne200100INS_17_ClassicAlgPolicyERZL48set_up_mapped_memory_cache_for_exclave_core_fileI17SizeAndEndiannessI9Pointer3212LittleEndianEENS_8expectedIvPKcEES9_y21vas_segmentinfo_table21CSExclaveCoreFileTypeP15mapped_memory_tEUlRKT_RKT0_E0_P23CSCppCoreFileRegionInfoEEbT1_SP_SI_(a1, (v8 - 224));
+      v66 = _ZNSt3__127__insertion_sort_incompleteB8ne200100INS_17_ClassicAlgPolicyERZL48set_up_mapped_memory_cache_for_exclave_core_fileI17SizeAndEndiannessI9Pointer3212LittleEndianEENS_8expectedIvPKcEES9_y21vas_segmentinfo_table21CSExclaveCoreFileTypeP15mapped_memory_tEUlRKT_RKT0_E0_P23CSCppCoreFileRegionInfoEEbT1_SP_SI_(a1, v8 - 224);
       if (_ZNSt3__127__insertion_sort_incompleteB8ne200100INS_17_ClassicAlgPolicyERZL48set_up_mapped_memory_cache_for_exclave_core_fileI17SizeAndEndiannessI9Pointer3212LittleEndianEENS_8expectedIvPKcEES9_y21vas_segmentinfo_table21CSExclaveCoreFileTypeP15mapped_memory_tEUlRKT_RKT0_E0_P23CSCppCoreFileRegionInfoEEbT1_SP_SI_(v8, a2))
       {
-        a2 = (v8 - 224);
+        a2 = v8 - 224;
         if (!v66)
         {
           goto LABEL_1;
@@ -8930,59 +8013,59 @@ LABEL_95:
     else
     {
       v67 = *a1;
-      v68 = *(a1 + 32);
-      v248 = *(a1 + 16);
+      v68 = *(a1 + 2);
+      v248 = *(a1 + 1);
       v249 = v68;
       v247 = v67;
-      v69 = *(a1 + 48);
-      v70 = *(a1 + 64);
-      v71 = *(a1 + 80);
-      v253 = *(a1 + 96);
+      v69 = *(a1 + 3);
+      v70 = *(a1 + 4);
+      v71 = *(a1 + 5);
+      v253 = *(a1 + 12);
       v251 = v70;
       v252 = v71;
       v250 = v69;
       v254.n128_u8[0] = 0;
       v256 = 0;
-      if (*(a1 + 128) == 1)
+      if (a1[128] == 1)
       {
         v72 = *(a1 + 104);
-        v255 = *(a1 + 120);
+        v255 = *(a1 + 15);
         v254 = v72;
-        *(a1 + 112) = 0;
-        *(a1 + 120) = 0;
-        *(a1 + 104) = 0;
+        *(a1 + 14) = 0;
+        *(a1 + 15) = 0;
+        *(a1 + 13) = 0;
         v256 = 1;
       }
 
       v257.n128_u8[0] = 0;
       v259 = 0;
-      if (*(a1 + 160) == 1)
+      if (a1[160] == 1)
       {
         v257 = *(a1 + 136);
-        v258 = *(a1 + 152);
-        *(a1 + 136) = 0;
-        *(a1 + 144) = 0;
-        *(a1 + 152) = 0;
+        v258 = *(a1 + 19);
+        *(a1 + 17) = 0;
+        *(a1 + 18) = 0;
+        *(a1 + 19) = 0;
         v259 = 1;
       }
 
       __p.n128_u8[0] = 0;
       v262 = 0;
-      if (*(a1 + 192) == 1)
+      if (a1[192] == 1)
       {
         __p = *(a1 + 168);
-        v261 = *(a1 + 184);
-        *(a1 + 168) = 0;
-        *(a1 + 176) = 0;
-        *(a1 + 184) = 0;
+        v261 = *(a1 + 23);
+        *(a1 + 21) = 0;
+        *(a1 + 22) = 0;
+        *(a1 + 23) = 0;
         v262 = 1;
       }
 
       v263[0] = *(a1 + 200);
-      *&v263[1] = *(a1 + 216);
-      *(a1 + 200) = 0;
-      *(a1 + 208) = 0;
-      *(a1 + 216) = 0;
+      *&v263[1] = *(a1 + 27);
+      *(a1 + 25) = 0;
+      *(a1 + 26) = 0;
+      *(a1 + 27) = 0;
       v73 = v247;
       if (v247 >= *v7)
       {
@@ -9006,7 +8089,7 @@ LABEL_95:
         v8 = a1;
         do
         {
-          v74 = *(v8 + 224);
+          v74 = *(v8 + 28);
           v8 += 224;
         }
 
@@ -9031,7 +8114,7 @@ LABEL_95:
         std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>(v8, v76);
         do
         {
-          v78 = *(v8 + 224);
+          v78 = *(v8 + 28);
           v8 += 224;
         }
 
@@ -9045,50 +8128,50 @@ LABEL_95:
         while (v73 < v79);
       }
 
-      v80 = (v8 - 224);
+      v80 = v8 - 224;
       if (v8 - 224 != a1)
       {
         v81 = *v80;
-        v82 = *(v8 - 192);
-        *(a1 + 16) = *(v8 - 208);
-        *(a1 + 32) = v82;
+        v82 = *(v8 - 12);
+        *(a1 + 1) = *(v8 - 13);
+        *(a1 + 2) = v82;
         *a1 = v81;
-        v83 = *(v8 - 176);
-        v84 = *(v8 - 160);
-        v85 = *(v8 - 144);
-        *(a1 + 96) = *(v8 - 128);
-        *(a1 + 64) = v84;
-        *(a1 + 80) = v85;
-        *(a1 + 48) = v83;
-        std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>(a1 + 104, (v8 - 120));
-        std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(a1 + 136, (v8 - 88));
-        std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(a1 + 168, (v8 - 56));
-        std::vector<CSCppCoreFileRegionInfo>::__vdeallocate((a1 + 200));
+        v83 = *(v8 - 11);
+        v84 = *(v8 - 10);
+        v85 = *(v8 - 9);
+        *(a1 + 12) = *(v8 - 16);
+        *(a1 + 4) = v84;
+        *(a1 + 5) = v85;
+        *(a1 + 3) = v83;
+        std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>((a1 + 104), (v8 - 120));
+        std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>((a1 + 136), (v8 - 88));
+        std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>((a1 + 168), (v8 - 56));
+        std::vector<CSCppCoreFileRegionInfo>::__vdeallocate(a1 + 25);
         *(a1 + 200) = *(v8 - 24);
-        *(a1 + 216) = *(v8 - 8);
-        *(v8 - 24) = 0;
-        *(v8 - 16) = 0;
-        *(v8 - 8) = 0;
+        *(a1 + 27) = *(v8 - 1);
+        *(v8 - 3) = 0;
+        *(v8 - 2) = 0;
+        *(v8 - 1) = 0;
       }
 
       v86 = v247;
       v87 = v249;
-      *(v8 - 208) = v248;
-      *(v8 - 192) = v87;
+      *(v8 - 13) = v248;
+      *(v8 - 12) = v87;
       *v80 = v86;
       v88 = v250;
       v89 = v251;
       v90 = v252;
-      *(v8 - 128) = v253;
-      *(v8 - 160) = v89;
-      *(v8 - 144) = v90;
-      *(v8 - 176) = v88;
-      std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>(v8 - 120, &v254);
-      std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(v8 - 88, &v257);
-      std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(v8 - 56, &__p);
-      std::vector<CSCppCoreFileRegionInfo>::__vdeallocate((v8 - 24));
+      *(v8 - 16) = v253;
+      *(v8 - 10) = v89;
+      *(v8 - 9) = v90;
+      *(v8 - 11) = v88;
+      std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>((v8 - 120), &v254);
+      std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>((v8 - 88), &v257);
+      std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>((v8 - 56), &__p);
+      std::vector<CSCppCoreFileRegionInfo>::__vdeallocate(v8 - 3);
       *(v8 - 24) = v263[0];
-      *(v8 - 8) = *&v263[1];
+      *(v8 - 1) = *&v263[1];
       memset(v263, 0, 24);
       *&v228 = v263;
       std::vector<CSCppCoreFileRegionInfo>::__destroy_vector::operator()[abi:ne200100](&v228);
@@ -9114,9 +8197,9 @@ LABEL_96:
     }
   }
 
-  v91 = *(a1 + 224);
+  v91 = *(a1 + 28);
   v94 = *(v6 - 28);
-  v93 = v6 - 14;
+  v93 = (v6 - 224);
   v92 = v94;
   if (v91 < *a1)
   {
@@ -9125,14 +8208,14 @@ LABEL_96:
       goto LABEL_136;
     }
 
-    std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>(a1, (a1 + 224));
-    if (*v93 >= *(a1 + 224))
+    std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>(a1, a1 + 14);
+    if (*v93 >= *(a1 + 28))
     {
       return;
     }
 
     v95 = v93;
-    v96 = (a1 + 224);
+    v96 = a1 + 224;
 LABEL_137:
     std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>(v96, v95);
     return;
@@ -9140,8 +8223,8 @@ LABEL_137:
 
   if (v92 < v91)
   {
-    std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>((a1 + 224), v93);
-    if (*(a1 + 224) < *a1)
+    std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>(a1 + 14, v93);
+    if (*(a1 + 28) < *a1)
     {
       v96 = a1;
       v95 = (a1 + 224);
@@ -9150,19 +8233,19 @@ LABEL_137:
   }
 }
 
-void _ZNSt3__17__sort4B8ne200100INS_17_ClassicAlgPolicyERZL48set_up_mapped_memory_cache_for_exclave_core_fileI17SizeAndEndiannessI9Pointer3212LittleEndianEENS_8expectedIvPKcEES9_y21vas_segmentinfo_table21CSExclaveCoreFileTypeP15mapped_memory_tEUlRKT_RKT0_E0_P23CSCppCoreFileRegionInfoLi0EEEvT1_SP_SP_SP_SI_(__int128 *a1, __int128 *a2, __int128 *a3, __int128 *a4)
+void _ZNSt3__17__sort4B8ne200100INS_17_ClassicAlgPolicyERZL48set_up_mapped_memory_cache_for_exclave_core_fileI17SizeAndEndiannessI9Pointer3212LittleEndianEENS_8expectedIvPKcEES9_y21vas_segmentinfo_table21CSExclaveCoreFileTypeP15mapped_memory_tEUlRKT_RKT0_E0_P23CSCppCoreFileRegionInfoLi0EEEvT1_SP_SP_SP_SI_(__int128 *result, __int128 *a2, __int128 *a3, __int128 *a4)
 {
-  v7 = a1;
+  v7 = result;
   v8 = *a2;
   v9 = *a3;
-  if (*a2 >= *a1)
+  if (*a2 >= *result)
   {
     if (v9 < v8)
     {
       std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>(a2, a3);
       if (*a2 < *v7)
       {
-        a1 = v7;
+        result = v7;
         v10 = a2;
         goto LABEL_9;
       }
@@ -9176,14 +8259,14 @@ void _ZNSt3__17__sort4B8ne200100INS_17_ClassicAlgPolicyERZL48set_up_mapped_memor
 LABEL_5:
       v10 = a3;
 LABEL_9:
-      std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>(a1, v10);
+      std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>(result, v10);
       goto LABEL_10;
     }
 
-    std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>(a1, a2);
+    std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>(result, a2);
     if (*a3 < *a2)
     {
-      a1 = a2;
+      result = a2;
       goto LABEL_5;
     }
   }
@@ -9204,7 +8287,7 @@ LABEL_10:
   }
 }
 
-BOOL _ZNSt3__127__insertion_sort_incompleteB8ne200100INS_17_ClassicAlgPolicyERZL48set_up_mapped_memory_cache_for_exclave_core_fileI17SizeAndEndiannessI9Pointer3212LittleEndianEENS_8expectedIvPKcEES9_y21vas_segmentinfo_table21CSExclaveCoreFileTypeP15mapped_memory_tEUlRKT_RKT0_E0_P23CSCppCoreFileRegionInfoEEbT1_SP_SI_(__int128 *a1, __int128 *a2)
+BOOL _ZNSt3__127__insertion_sort_incompleteB8ne200100INS_17_ClassicAlgPolicyERZL48set_up_mapped_memory_cache_for_exclave_core_fileI17SizeAndEndiannessI9Pointer3212LittleEndianEENS_8expectedIvPKcEES9_y21vas_segmentinfo_table21CSExclaveCoreFileTypeP15mapped_memory_tEUlRKT_RKT0_E0_P23CSCppCoreFileRegionInfoEEbT1_SP_SI_(unint64_t *a1, char *a2)
 {
   v3 = a1;
   v4 = 0x6DB6DB6DB6DB6DB7 * ((a2 - a1) >> 5);
@@ -9213,8 +8296,8 @@ BOOL _ZNSt3__127__insertion_sort_incompleteB8ne200100INS_17_ClassicAlgPolicyERZL
     switch(v4)
     {
       case 3:
-        v10 = *(a1 + 28);
-        v5 = a2 - 14;
+        v10 = a1[28];
+        v5 = (a2 - 224);
         v11 = *(a2 - 28);
         if (v10 >= *a1)
         {
@@ -9224,25 +8307,25 @@ BOOL _ZNSt3__127__insertion_sort_incompleteB8ne200100INS_17_ClassicAlgPolicyERZL
           }
 
           std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>(a1 + 14, v5);
-          if (*(v3 + 28) >= *v3)
+          if (v3[28] >= *v3)
           {
             return 1;
           }
 
           a1 = v3;
-          v9 = v3 + 14;
+          v9 = (v3 + 28);
           goto LABEL_17;
         }
 
         if (v11 >= v10)
         {
           std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>(a1, a1 + 14);
-          if (*v5 >= *(v3 + 28))
+          if (*v5 >= v3[28])
           {
             return 1;
           }
 
-          a1 = v3 + 14;
+          a1 = v3 + 28;
         }
 
 LABEL_16:
@@ -9254,34 +8337,34 @@ LABEL_17:
         _ZNSt3__17__sort4B8ne200100INS_17_ClassicAlgPolicyERZL48set_up_mapped_memory_cache_for_exclave_core_fileI17SizeAndEndiannessI9Pointer3212LittleEndianEENS_8expectedIvPKcEES9_y21vas_segmentinfo_table21CSExclaveCoreFileTypeP15mapped_memory_tEUlRKT_RKT0_E0_P23CSCppCoreFileRegionInfoLi0EEEvT1_SP_SP_SP_SI_(a1, a1 + 14, a1 + 28, a2 - 14);
         return 1;
       case 5:
-        v6 = a1 + 42;
+        v6 = a1 + 84;
         _ZNSt3__17__sort4B8ne200100INS_17_ClassicAlgPolicyERZL48set_up_mapped_memory_cache_for_exclave_core_fileI17SizeAndEndiannessI9Pointer3212LittleEndianEENS_8expectedIvPKcEES9_y21vas_segmentinfo_table21CSExclaveCoreFileTypeP15mapped_memory_tEUlRKT_RKT0_E0_P23CSCppCoreFileRegionInfoLi0EEEvT1_SP_SP_SP_SI_(a1, a1 + 14, a1 + 28, a1 + 42);
         v8 = *(a2 - 28);
-        v7 = a2 - 14;
-        if (v8 >= *(v3 + 84))
+        v7 = (a2 - 224);
+        if (v8 >= v3[84])
         {
           return 1;
         }
 
         std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>(v3 + 42, v7);
-        if (*v6 >= *(v3 + 56))
+        if (*v6 >= v3[56])
         {
           return 1;
         }
 
         std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>(v3 + 28, v3 + 42);
-        if (*(v3 + 56) >= *(v3 + 28))
+        if (v3[56] >= v3[28])
         {
           return 1;
         }
 
         std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>(v3 + 14, v3 + 28);
-        if (*(v3 + 28) >= *v3)
+        if (v3[28] >= *v3)
         {
           return 1;
         }
 
-        v9 = v3 + 14;
+        v9 = (v3 + 28);
         a1 = v3;
         goto LABEL_17;
     }
@@ -9296,7 +8379,7 @@ LABEL_17:
 
     if (v4 == 2)
     {
-      v5 = a2 - 14;
+      v5 = (a2 - 224);
       if (*(a2 - 28) >= *a1)
       {
         return 1;
@@ -9306,42 +8389,42 @@ LABEL_17:
     }
   }
 
-  v12 = a1 + 28;
-  v13 = *(a1 + 28);
-  v14 = *(a1 + 56);
+  v12 = a1 + 56;
+  v13 = a1[28];
+  v14 = a1[56];
   if (v13 < *a1)
   {
     if (v14 >= v13)
     {
       std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>(a1, a1 + 14);
-      if (*(v3 + 56) >= *(v3 + 28))
+      if (v3[56] >= v3[28])
       {
         goto LABEL_31;
       }
 
-      a1 = v3 + 14;
+      a1 = v3 + 28;
     }
 
-    v15 = v3 + 28;
+    v15 = (v3 + 56);
     goto LABEL_30;
   }
 
   if (v14 < v13)
   {
     std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>(a1 + 14, a1 + 28);
-    if (*(v3 + 28) < *v3)
+    if (v3[28] < *v3)
     {
       a1 = v3;
-      v15 = v3 + 14;
+      v15 = (v3 + 28);
 LABEL_30:
       std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>(a1, v15);
     }
   }
 
 LABEL_31:
-  v16 = v3 + 42;
+  v16 = v3 + 84;
   result = 1;
-  if (v3 + 42 != a2)
+  if (v3 + 84 != a2)
   {
     v18 = 0;
     v19 = 0;
@@ -9349,22 +8432,22 @@ LABEL_31:
     {
       if (*v16 < *v12)
       {
-        v34 = v16[4];
-        v35 = v16[5];
-        v36 = *(v16 + 12);
+        v34 = *(v16 + 4);
+        v35 = *(v16 + 5);
+        v36 = v16[12];
         v30 = *v16;
-        v31 = v16[1];
-        v32 = v16[2];
-        v33 = v16[3];
+        v31 = *(v16 + 1);
+        v32 = *(v16 + 2);
+        v33 = *(v16 + 3);
         v37.n128_u8[0] = 0;
         v39 = 0;
         if (*(v16 + 128) == 1)
         {
-          v37 = *(v16 + 104);
-          v38 = *(v16 + 15);
-          *(v16 + 14) = 0;
-          *(v16 + 15) = 0;
-          *(v16 + 13) = 0;
+          v37 = *(v16 + 13);
+          v38 = v16[15];
+          v16[14] = 0;
+          v16[15] = 0;
+          v16[13] = 0;
           v39 = 1;
         }
 
@@ -9372,11 +8455,11 @@ LABEL_31:
         v42 = 0;
         if (*(v16 + 160) == 1)
         {
-          v40 = *(v16 + 136);
-          v41 = *(v16 + 19);
-          *(v16 + 18) = 0;
-          *(v16 + 19) = 0;
-          *(v16 + 17) = 0;
+          v40 = *(v16 + 17);
+          v41 = v16[19];
+          v16[18] = 0;
+          v16[19] = 0;
+          v16[17] = 0;
           v42 = 1;
         }
 
@@ -9384,19 +8467,19 @@ LABEL_31:
         v45 = 0;
         if (*(v16 + 192) == 1)
         {
-          __p = *(v16 + 168);
-          v44 = *(v16 + 23);
-          *(v16 + 22) = 0;
-          *(v16 + 23) = 0;
-          *(v16 + 21) = 0;
+          __p = *(v16 + 21);
+          v44 = v16[23];
+          v16[22] = 0;
+          v16[23] = 0;
+          v16[21] = 0;
           v45 = 1;
         }
 
-        v46[0] = *(v16 + 200);
-        *&v46[1] = *(v16 + 27);
-        *(v16 + 26) = 0;
-        *(v16 + 27) = 0;
-        *(v16 + 25) = 0;
+        v46[0] = *(v16 + 25);
+        *&v46[1] = v16[27];
+        v16[26] = 0;
+        v16[27] = 0;
+        v16[25] = 0;
         v20 = v18;
         while (1)
         {
@@ -9473,13 +8556,13 @@ LABEL_45:
 
         if (++v19 == 8)
         {
-          return v16 + 14 == a2;
+          return v16 + 28 == a2;
         }
       }
 
       v12 = v16;
       v18 += 224;
-      v16 += 14;
+      v16 += 28;
       if (v16 == a2)
       {
         return 1;
@@ -9505,8 +8588,7 @@ void std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>(__int128 *a1, __int128 *a2
   {
     *v16 = *(a1 + 104);
     v17 = *(a1 + 15);
-    *(a1 + 14) = 0;
-    *(a1 + 15) = 0;
+    a1[7] = 0uLL;
     *(a1 + 13) = 0;
     v18 = 1;
   }
@@ -9517,8 +8599,7 @@ void std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>(__int128 *a1, __int128 *a2
   {
     v19 = *(a1 + 136);
     v20 = *(a1 + 19);
-    *(a1 + 18) = 0;
-    *(a1 + 19) = 0;
+    a1[9] = 0uLL;
     *(a1 + 17) = 0;
     v21 = 1;
   }
@@ -9529,16 +8610,14 @@ void std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>(__int128 *a1, __int128 *a2
   {
     __p = *(a1 + 168);
     v23 = *(a1 + 23);
-    *(a1 + 22) = 0;
-    *(a1 + 23) = 0;
+    a1[11] = 0uLL;
     *(a1 + 21) = 0;
     v24 = 1;
   }
 
   v25 = *(a1 + 200);
   v26 = *(a1 + 27);
-  *(a1 + 26) = 0;
-  *(a1 + 27) = 0;
+  a1[13] = 0uLL;
   *(a1 + 25) = 0;
   v5 = a2[4];
   v4 = a2[5];
@@ -9596,7 +8675,7 @@ void std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>(__int128 *a1, __int128 *a2
   }
 }
 
-void _ZNSt3__111__introsortINS_17_ClassicAlgPolicyERZL48set_up_mapped_memory_cache_for_exclave_core_fileI17SizeAndEndiannessI9Pointer3212LittleEndianEENS_8expectedIvPKcEES9_y21vas_segmentinfo_table21CSExclaveCoreFileTypeP15mapped_memory_tEUlRKT_RKT0_E1_P23CSCppCoreFileRegionInfoLb0EEEvT1_SP_SI_NS_15iterator_traitsISP_E15difference_typeEb(unint64_t a1, __int128 *a2, uint64_t a3, char a4)
+void _ZNSt3__111__introsortINS_17_ClassicAlgPolicyERZL48set_up_mapped_memory_cache_for_exclave_core_fileI17SizeAndEndiannessI9Pointer3212LittleEndianEENS_8expectedIvPKcEES9_y21vas_segmentinfo_table21CSExclaveCoreFileTypeP15mapped_memory_tEUlRKT_RKT0_E1_P23CSCppCoreFileRegionInfoLb0EEEvT1_SP_SI_NS_15iterator_traitsISP_E15difference_typeEb(__int128 *a1, __int128 *a2, uint64_t a3, char a4)
 {
 LABEL_1:
   v6 = a2;
@@ -9642,27 +8721,27 @@ LABEL_136:
 
     if (v10 == 4)
     {
-      _ZNSt3__17__sort4B8ne200100INS_17_ClassicAlgPolicyERZL48set_up_mapped_memory_cache_for_exclave_core_fileI17SizeAndEndiannessI9Pointer3212LittleEndianEENS_8expectedIvPKcEES9_y21vas_segmentinfo_table21CSExclaveCoreFileTypeP15mapped_memory_tEUlRKT_RKT0_E0_P23CSCppCoreFileRegionInfoLi0EEEvT1_SP_SP_SP_SI_(a1, (a1 + 224), (a1 + 448), v7);
+      _ZNSt3__17__sort4B8ne200100INS_17_ClassicAlgPolicyERZL48set_up_mapped_memory_cache_for_exclave_core_fileI17SizeAndEndiannessI9Pointer3212LittleEndianEENS_8expectedIvPKcEES9_y21vas_segmentinfo_table21CSExclaveCoreFileTypeP15mapped_memory_tEUlRKT_RKT0_E0_P23CSCppCoreFileRegionInfoLi0EEEvT1_SP_SP_SP_SI_(a1, a1 + 14, a1 + 28, v7);
       return;
     }
 
     if (v10 == 5)
     {
-      _ZNSt3__17__sort4B8ne200100INS_17_ClassicAlgPolicyERZL48set_up_mapped_memory_cache_for_exclave_core_fileI17SizeAndEndiannessI9Pointer3212LittleEndianEENS_8expectedIvPKcEES9_y21vas_segmentinfo_table21CSExclaveCoreFileTypeP15mapped_memory_tEUlRKT_RKT0_E0_P23CSCppCoreFileRegionInfoLi0EEEvT1_SP_SP_SP_SI_(a1, (a1 + 224), (a1 + 448), (a1 + 672));
+      _ZNSt3__17__sort4B8ne200100INS_17_ClassicAlgPolicyERZL48set_up_mapped_memory_cache_for_exclave_core_fileI17SizeAndEndiannessI9Pointer3212LittleEndianEENS_8expectedIvPKcEES9_y21vas_segmentinfo_table21CSExclaveCoreFileTypeP15mapped_memory_tEUlRKT_RKT0_E0_P23CSCppCoreFileRegionInfoLi0EEEvT1_SP_SP_SP_SI_(a1, a1 + 14, a1 + 28, a1 + 42);
       v98 = *(v6 - 28);
       v97 = v6 - 14;
-      if (v98 < *(a1 + 672))
+      if (v98 < *(a1 + 84))
       {
-        std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>((a1 + 672), v97);
-        if (*(a1 + 672) < *(a1 + 448))
+        std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>(a1 + 42, v97);
+        if (*(a1 + 84) < *(a1 + 56))
         {
-          std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>((a1 + 448), (a1 + 672));
-          if (*(a1 + 448) < *(a1 + 224))
+          std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>(a1 + 28, a1 + 42);
+          if (*(a1 + 56) < *(a1 + 28))
           {
-            std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>((a1 + 224), (a1 + 448));
-            if (*(a1 + 224) < *a1)
+            std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>(a1 + 14, a1 + 28);
+            if (*(a1 + 28) < *a1)
             {
-              v95 = (a1 + 224);
+              v95 = a1 + 14;
               v96 = a1;
               goto LABEL_137;
             }
@@ -9680,8 +8759,8 @@ LABEL_9:
       {
         if (a1 != v6)
         {
-          v99 = a1 + 224;
-          if ((a1 + 224) != a2)
+          v99 = (a1 + 14);
+          if (a1 + 14 != a2)
           {
             v100 = 0;
             v101 = a1;
@@ -9836,14 +8915,14 @@ LABEL_160:
 
       else if (a1 != v6)
       {
-        v204 = a1 + 224;
-        if ((a1 + 224) != a2)
+        v204 = (a1 + 14);
+        if (a1 + 14 != a2)
         {
-          v205 = a1 - 224;
+          v205 = (a1 - 14);
           do
           {
             v206 = v204;
-            if (*(a1 + 224) < *a1)
+            if (*(a1 + 28) < *a1)
             {
               v207 = *v204;
               v208 = *(v204 + 32);
@@ -9861,11 +8940,11 @@ LABEL_160:
               v256 = 0;
               if (*(a1 + 352) == 1)
               {
-                v255 = *(a1 + 344);
+                v255 = *(a1 + 43);
                 v254 = *(a1 + 328);
-                *(a1 + 336) = 0;
-                *(a1 + 344) = 0;
-                *(a1 + 328) = 0;
+                *(a1 + 42) = 0;
+                *(a1 + 43) = 0;
+                *(a1 + 41) = 0;
                 v256 = 1;
               }
 
@@ -9875,10 +8954,10 @@ LABEL_160:
               if (*(a1 + 384) == 1)
               {
                 v257 = *v212;
-                v258 = *(a1 + 376);
+                v258 = *(a1 + 47);
                 v212->n128_u64[0] = 0;
-                *(a1 + 368) = 0;
-                *(a1 + 376) = 0;
+                *(a1 + 46) = 0;
+                *(a1 + 47) = 0;
                 v259 = 1;
               }
 
@@ -9887,63 +8966,63 @@ LABEL_160:
               if (*(a1 + 416) == 1)
               {
                 __p = *(a1 + 392);
-                v261 = *(a1 + 408);
-                *(a1 + 392) = 0;
-                *(a1 + 400) = 0;
-                *(a1 + 408) = 0;
+                v261 = *(a1 + 51);
+                *(a1 + 49) = 0;
+                *(a1 + 50) = 0;
+                *(a1 + 51) = 0;
                 v262 = 1;
               }
 
               v263[0] = *(a1 + 424);
-              *&v263[1] = *(a1 + 440);
-              *(a1 + 424) = 0;
-              *(a1 + 432) = 0;
-              *(a1 + 440) = 0;
+              *&v263[1] = *(a1 + 55);
+              *(a1 + 53) = 0;
+              *(a1 + 54) = 0;
+              *(a1 + 55) = 0;
               v213 = v205;
               do
               {
-                v214 = *(v213 + 304);
-                *(v213 + 512) = *(v213 + 288);
-                *(v213 + 528) = v214;
-                *(v213 + 544) = *(v213 + 320);
-                v215 = *(v213 + 240);
-                *(v213 + 448) = *(v213 + 224);
-                *(v213 + 464) = v215;
-                v216 = *(v213 + 272);
-                *(v213 + 480) = *(v213 + 256);
-                *(v213 + 496) = v216;
-                std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>(v213 + 552, (v213 + 328));
-                std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(v213 + 584, (v213 + 360));
-                std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(v213 + 616, (v213 + 392));
-                std::vector<CSCppCoreFileRegionInfo>::__vdeallocate((v213 + 648));
-                *(v213 + 648) = *(v213 + 424);
-                *(v213 + 664) = *(v213 + 440);
-                *(v213 + 424) = 0;
-                *(v213 + 432) = 0;
-                *(v213 + 440) = 0;
+                v214 = *(v213 + 19);
+                *(v213 + 32) = *(v213 + 18);
+                *(v213 + 33) = v214;
+                v213[68] = v213[40];
+                v215 = *(v213 + 15);
+                *(v213 + 28) = *(v213 + 14);
+                *(v213 + 29) = v215;
+                v216 = *(v213 + 17);
+                *(v213 + 30) = *(v213 + 16);
+                *(v213 + 31) = v216;
+                std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>((v213 + 69), (v213 + 41));
+                std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>((v213 + 73), (v213 + 45));
+                std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>((v213 + 77), (v213 + 49));
+                std::vector<CSCppCoreFileRegionInfo>::__vdeallocate(v213 + 81);
+                *(v213 + 81) = *(v213 + 53);
+                v213[83] = v213[55];
+                v213[53] = 0;
+                v213[54] = 0;
+                v213[55] = 0;
                 v217 = *v213;
-                v213 -= 224;
+                v213 -= 28;
               }
 
               while (v247 < v217);
               v218 = v247;
               v219 = v249;
-              *(v213 + 464) = v248;
-              *(v213 + 480) = v219;
-              *(v213 + 448) = v218;
+              *(v213 + 29) = v248;
+              *(v213 + 30) = v219;
+              *(v213 + 28) = v218;
               v220 = v250;
               v221 = v251;
               v222 = v252;
-              *(v213 + 544) = v253;
-              *(v213 + 512) = v221;
-              *(v213 + 528) = v222;
-              *(v213 + 496) = v220;
-              std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>(v213 + 552, &v254);
-              std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(v213 + 584, &v257);
-              std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(v213 + 616, &__p);
-              std::vector<CSCppCoreFileRegionInfo>::__vdeallocate((v213 + 648));
-              *(v213 + 648) = v263[0];
-              *(v213 + 664) = *&v263[1];
+              v213[68] = v253;
+              *(v213 + 32) = v221;
+              *(v213 + 33) = v222;
+              *(v213 + 31) = v220;
+              std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>((v213 + 69), &v254);
+              std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>((v213 + 73), &v257);
+              std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>((v213 + 77), &__p);
+              std::vector<CSCppCoreFileRegionInfo>::__vdeallocate(v213 + 81);
+              *(v213 + 81) = v263[0];
+              v213[83] = *&v263[1];
               memset(v263, 0, 24);
               *&v228 = v263;
               std::vector<CSCppCoreFileRegionInfo>::__destroy_vector::operator()[abi:ne200100](&v228);
@@ -9966,7 +9045,7 @@ LABEL_160:
             }
 
             v204 = v206 + 224;
-            v205 += 224;
+            v205 += 28;
             a1 = v206;
           }
 
@@ -9989,7 +9068,7 @@ LABEL_160:
           if (v123 >= v124)
           {
             v126 = (2 * v124) | 1;
-            v127 = (a1 + 224 * v126);
+            v127 = &a1[14 * v126];
             if (2 * v125 + 2 >= v10)
             {
               v128 = *v127;
@@ -9998,31 +9077,31 @@ LABEL_160:
             else
             {
               v128 = *v127;
-              v129 = *(v127 + 28);
+              v129 = v127[28];
               if (*v127 <= v129)
               {
-                v128 = *(v127 + 28);
+                v128 = v127[28];
               }
 
               if (*v127 < v129)
               {
-                v127 += 14;
+                v127 += 28;
                 v126 = 2 * v125 + 2;
               }
             }
 
-            v130 = a1 + 224 * v125;
+            v130 = &a1[14 * v125];
             if (v128 >= *v130)
             {
               v131 = *v130;
-              v132 = *(v130 + 32);
-              v248 = *(v130 + 16);
+              v132 = *(v130 + 2);
+              v248 = *(v130 + 1);
               v249 = v132;
               v247 = v131;
-              v133 = *(v130 + 48);
-              v134 = *(v130 + 64);
-              v135 = *(v130 + 80);
-              v253 = *(v130 + 96);
+              v133 = *(v130 + 3);
+              v134 = *(v130 + 4);
+              v135 = *(v130 + 5);
+              v253 = v130[12];
               v251 = v134;
               v252 = v135;
               v250 = v133;
@@ -10030,12 +9109,12 @@ LABEL_160:
               v256 = 0;
               if (*(v130 + 128) == 1)
               {
-                v136 = *(v130 + 104);
-                v255 = *(v130 + 120);
+                v136 = *(v130 + 13);
+                v255 = v130[15];
                 v254 = v136;
-                *(v130 + 112) = 0;
-                *(v130 + 120) = 0;
-                *(v130 + 104) = 0;
+                v130[14] = 0;
+                v130[15] = 0;
+                v130[13] = 0;
                 v256 = 1;
               }
 
@@ -10043,11 +9122,11 @@ LABEL_160:
               v259 = 0;
               if (*(v130 + 160) == 1)
               {
-                v257 = *(v130 + 136);
-                v258 = *(v130 + 152);
-                *(v130 + 136) = 0;
-                *(v130 + 144) = 0;
-                *(v130 + 152) = 0;
+                v257 = *(v130 + 17);
+                v258 = v130[19];
+                v130[17] = 0;
+                v130[18] = 0;
+                v130[19] = 0;
                 v259 = 1;
               }
 
@@ -10055,40 +9134,40 @@ LABEL_160:
               v262 = 0;
               if (*(v130 + 192) == 1)
               {
-                __p = *(v130 + 168);
-                v261 = *(v130 + 184);
-                *(v130 + 168) = 0;
-                *(v130 + 176) = 0;
-                *(v130 + 184) = 0;
+                __p = *(v130 + 21);
+                v261 = v130[23];
+                v130[21] = 0;
+                v130[22] = 0;
+                v130[23] = 0;
                 v262 = 1;
               }
 
-              v263[0] = *(v130 + 200);
-              *&v263[1] = *(v130 + 216);
-              *(v130 + 200) = 0;
-              *(v130 + 208) = 0;
-              *(v130 + 216) = 0;
+              v263[0] = *(v130 + 25);
+              *&v263[1] = v130[27];
+              v130[25] = 0;
+              v130[26] = 0;
+              v130[27] = 0;
               do
               {
                 v137 = v127;
                 v138 = *v127;
-                v139 = v127[2];
-                *(v130 + 16) = v127[1];
-                *(v130 + 32) = v139;
+                v139 = *(v127 + 2);
+                *(v130 + 1) = *(v127 + 1);
+                *(v130 + 2) = v139;
                 *v130 = v138;
-                v140 = v127[3];
-                v141 = v127[4];
-                v142 = v127[5];
-                *(v130 + 96) = *(v127 + 12);
-                *(v130 + 64) = v141;
-                *(v130 + 80) = v142;
-                *(v130 + 48) = v140;
-                std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>(v130 + 104, (v127 + 104));
-                std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(v130 + 136, (v137 + 136));
-                std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(v130 + 168, (v137 + 168));
-                std::vector<CSCppCoreFileRegionInfo>::__vdeallocate((v130 + 200));
-                *(v130 + 200) = *(v137 + 200);
-                *(v130 + 216) = *(v137 + 27);
+                v140 = *(v127 + 3);
+                v141 = *(v127 + 4);
+                v142 = *(v127 + 5);
+                v130[12] = v127[12];
+                *(v130 + 4) = v141;
+                *(v130 + 5) = v142;
+                *(v130 + 3) = v140;
+                std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>((v130 + 13), (v127 + 13));
+                std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>((v130 + 17), (v137 + 136));
+                std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>((v130 + 21), (v137 + 168));
+                std::vector<CSCppCoreFileRegionInfo>::__vdeallocate(v130 + 25);
+                *(v130 + 25) = *(v137 + 200);
+                v130[27] = *(v137 + 27);
                 *(v137 + 25) = 0;
                 *(v137 + 26) = 0;
                 *(v137 + 27) = 0;
@@ -10097,7 +9176,7 @@ LABEL_160:
                   break;
                 }
 
-                v127 = (a1 + 224 * ((2 * v126) | 1));
+                v127 = &a1[14 * ((2 * v126) | 1)];
                 if (2 * v126 + 2 >= v10)
                 {
                   v143 = *v127;
@@ -10107,10 +9186,10 @@ LABEL_160:
                 else
                 {
                   v143 = *v127;
-                  v144 = *(v127 + 28);
+                  v144 = v127[28];
                   if (*v127 <= v144)
                   {
-                    v143 = *(v127 + 28);
+                    v143 = v127[28];
                   }
 
                   if (*v127 >= v144)
@@ -10120,7 +9199,7 @@ LABEL_160:
 
                   else
                   {
-                    v127 += 14;
+                    v127 += 28;
                     v126 = 2 * v126 + 2;
                   }
                 }
@@ -10177,14 +9256,14 @@ LABEL_160:
         do
         {
           v151 = *a1;
-          v152 = *(a1 + 32);
-          v229 = *(a1 + 16);
+          v152 = a1[2];
+          v229 = a1[1];
           v230 = v152;
           v228 = v151;
-          v153 = *(a1 + 48);
-          v154 = *(a1 + 64);
-          v155 = *(a1 + 80);
-          v234 = *(a1 + 96);
+          v153 = a1[3];
+          v154 = a1[4];
+          v155 = a1[5];
+          v234 = *(a1 + 12);
           v232 = v154;
           v233 = v155;
           v231 = v153;
@@ -10193,11 +9272,11 @@ LABEL_160:
           if (*(a1 + 128) == 1)
           {
             v156 = *(a1 + 104);
-            v236 = *(a1 + 120);
+            v236 = *(a1 + 15);
             v235 = v156;
-            *(a1 + 112) = 0;
-            *(a1 + 120) = 0;
-            *(a1 + 104) = 0;
+            *(a1 + 14) = 0;
+            *(a1 + 15) = 0;
+            *(a1 + 13) = 0;
             v237 = 1;
           }
 
@@ -10206,10 +9285,10 @@ LABEL_160:
           if (*(a1 + 160) == 1)
           {
             v238 = *(a1 + 136);
-            v239 = *(a1 + 152);
-            *(a1 + 136) = 0;
-            *(a1 + 144) = 0;
-            *(a1 + 152) = 0;
+            v239 = *(a1 + 19);
+            *(a1 + 17) = 0;
+            *(a1 + 18) = 0;
+            *(a1 + 19) = 0;
             v240 = 1;
           }
 
@@ -10219,19 +9298,19 @@ LABEL_160:
           if (*(a1 + 192) == 1)
           {
             v241 = *(a1 + 168);
-            v242 = *(a1 + 184);
-            *(a1 + 168) = 0;
-            *(a1 + 176) = 0;
-            *(a1 + 184) = 0;
+            v242 = *(a1 + 23);
+            *(a1 + 21) = 0;
+            *(a1 + 22) = 0;
+            *(a1 + 23) = 0;
             v243 = 1;
           }
 
           v157 = 0;
           v244 = *(a1 + 200);
-          v245 = *(a1 + 216);
-          *(a1 + 200) = 0;
-          *(a1 + 208) = 0;
-          *(a1 + 216) = 0;
+          v245 = *(a1 + 27);
+          *(a1 + 25) = 0;
+          *(a1 + 26) = 0;
+          *(a1 + 27) = 0;
           v158 = a1;
           do
           {
@@ -10352,7 +9431,7 @@ LABEL_160:
             if (v178 >= 225)
             {
               v179 = (0x6DB6DB6DB6DB6DB7 * (v178 >> 5) - 2) >> 1;
-              v180 = (a1 + 224 * v179);
+              v180 = &a1[14 * v179];
               if (*v180 < *v160)
               {
                 v181 = *v160;
@@ -10413,55 +9492,55 @@ LABEL_160:
                 {
                   v187 = v180;
                   v188 = *v180;
-                  v189 = v180[2];
-                  *(v160 + 16) = v180[1];
+                  v189 = *(v180 + 2);
+                  *(v160 + 16) = *(v180 + 1);
                   *(v160 + 32) = v189;
                   *v160 = v188;
-                  v190 = v180[3];
-                  v191 = v180[4];
-                  v192 = v180[5];
-                  *(v160 + 96) = *(v180 + 12);
+                  v190 = *(v180 + 3);
+                  v191 = *(v180 + 4);
+                  v192 = *(v180 + 5);
+                  *(v160 + 96) = v180[12];
                   *(v160 + 64) = v191;
                   *(v160 + 80) = v192;
                   *(v160 + 48) = v190;
-                  std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>(v160 + 104, (v180 + 104));
+                  std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>(v160 + 104, (v180 + 13));
                   std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(v160 + 136, (v187 + 136));
                   std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(v160 + 168, (v187 + 168));
                   std::vector<CSCppCoreFileRegionInfo>::__vdeallocate((v160 + 200));
                   *(v160 + 200) = *(v187 + 200);
-                  *(v160 + 216) = *(v187 + 27);
-                  *(v187 + 25) = 0;
-                  *(v187 + 26) = 0;
-                  *(v187 + 27) = 0;
+                  *(v160 + 216) = *(v187 + 216);
+                  *(v187 + 200) = 0;
+                  *(v187 + 208) = 0;
+                  *(v187 + 216) = 0;
                   if (!v179)
                   {
                     break;
                   }
 
                   v179 = (v179 - 1) >> 1;
-                  v180 = (a1 + 224 * v179);
+                  v180 = &a1[14 * v179];
                   v160 = v187;
                 }
 
                 while (*v180 < v247);
                 v193 = v247;
                 v194 = v249;
-                v187[1] = v248;
-                v187[2] = v194;
+                *(v187 + 16) = v248;
+                *(v187 + 32) = v194;
                 *v187 = v193;
                 v195 = v250;
                 v196 = v251;
                 v197 = v252;
-                *(v187 + 12) = v253;
-                v187[4] = v196;
-                v187[5] = v197;
-                v187[3] = v195;
+                *(v187 + 96) = v253;
+                *(v187 + 64) = v196;
+                *(v187 + 80) = v197;
+                *(v187 + 48) = v195;
                 std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>(v187 + 104, &v254);
                 std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(v187 + 136, &v257);
                 std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(v187 + 168, &__p);
-                std::vector<CSCppCoreFileRegionInfo>::__vdeallocate(v187 + 25);
+                std::vector<CSCppCoreFileRegionInfo>::__vdeallocate((v187 + 200));
                 *(v187 + 200) = v263[0];
-                *(v187 + 27) = *&v263[1];
+                *(v187 + 216) = *&v263[1];
                 memset(v263, 0, 24);
                 v246 = v263;
                 std::vector<CSCppCoreFileRegionInfo>::__destroy_vector::operator()[abi:ne200100](&v246);
@@ -10512,7 +9591,7 @@ LABEL_160:
     }
 
     v12 = v10 >> 1;
-    v13 = (a1 + 224 * (v10 >> 1));
+    v13 = &a1[14 * (v10 >> 1)];
     v14 = *v7;
     if (v9 > 0x7000)
     {
@@ -10550,19 +9629,19 @@ LABEL_25:
         }
       }
 
-      v21 = a1 + 224 * v12;
-      v24 = *(v21 - 224);
-      v23 = (v21 - 224);
+      v21 = &a1[14 * v12];
+      v24 = *(v21 - 28);
+      v23 = (v21 - 28);
       v22 = v24;
       v25 = *v224;
-      if (v24 >= *(a1 + 224))
+      if (v24 >= *(a1 + 28))
       {
         if (v25 < v22)
         {
           std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>(v23, v224);
-          if (*v23 < *(a1 + 224))
+          if (*v23 < *(a1 + 28))
           {
-            v26 = (a1 + 224);
+            v26 = a1 + 14;
             v27 = v23;
             goto LABEL_37;
           }
@@ -10571,7 +9650,7 @@ LABEL_25:
 
       else
       {
-        v26 = (a1 + 224);
+        v26 = a1 + 14;
         if (v25 < v22)
         {
           goto LABEL_30;
@@ -10588,19 +9667,19 @@ LABEL_37:
         }
       }
 
-      v28 = a1 + 224 * v12;
-      v31 = *(v28 + 224);
-      v30 = (v28 + 224);
+      v28 = &a1[14 * v12];
+      v31 = v28[28];
+      v30 = (v28 + 28);
       v29 = v31;
       v32 = *v223;
-      if (v31 >= *(a1 + 448))
+      if (v31 >= *(a1 + 56))
       {
         if (v32 < v29)
         {
           std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>(v30, v223);
-          if (*v30 < *(a1 + 448))
+          if (*v30 < *(a1 + 56))
           {
-            v33 = (a1 + 448);
+            v33 = a1 + 28;
             v34 = v30;
             goto LABEL_46;
           }
@@ -10609,7 +9688,7 @@ LABEL_37:
 
       else
       {
-        v33 = (a1 + 448);
+        v33 = a1 + 28;
         if (v32 < v29)
         {
           goto LABEL_42;
@@ -10705,17 +9784,17 @@ LABEL_57:
     std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>(v19, v20);
 LABEL_58:
     --a3;
-    if ((a4 & 1) != 0 || *(a1 - 224) < *a1)
+    if ((a4 & 1) != 0 || *(a1 - 28) < *a1)
     {
       v39 = *a1;
-      v40 = *(a1 + 32);
-      v248 = *(a1 + 16);
+      v40 = a1[2];
+      v248 = a1[1];
       v249 = v40;
       v247 = v39;
-      v41 = *(a1 + 48);
-      v42 = *(a1 + 64);
-      v43 = *(a1 + 80);
-      v253 = *(a1 + 96);
+      v41 = a1[3];
+      v42 = a1[4];
+      v43 = a1[5];
+      v253 = *(a1 + 12);
       v251 = v42;
       v252 = v43;
       v250 = v41;
@@ -10724,11 +9803,11 @@ LABEL_58:
       if (*(a1 + 128) == 1)
       {
         v44 = *(a1 + 104);
-        v255 = *(a1 + 120);
+        v255 = *(a1 + 15);
         v254 = v44;
-        *(a1 + 112) = 0;
-        *(a1 + 120) = 0;
-        *(a1 + 104) = 0;
+        *(a1 + 14) = 0;
+        *(a1 + 15) = 0;
+        *(a1 + 13) = 0;
         v256 = 1;
       }
 
@@ -10737,10 +9816,10 @@ LABEL_58:
       if (*(a1 + 160) == 1)
       {
         v257 = *(a1 + 136);
-        v258 = *(a1 + 152);
-        *(a1 + 136) = 0;
-        *(a1 + 144) = 0;
-        *(a1 + 152) = 0;
+        v258 = *(a1 + 19);
+        *(a1 + 17) = 0;
+        *(a1 + 18) = 0;
+        *(a1 + 19) = 0;
         v259 = 1;
       }
 
@@ -10749,29 +9828,29 @@ LABEL_58:
       if (*(a1 + 192) == 1)
       {
         __p = *(a1 + 168);
-        v261 = *(a1 + 184);
-        *(a1 + 168) = 0;
-        *(a1 + 176) = 0;
-        *(a1 + 184) = 0;
+        v261 = *(a1 + 23);
+        *(a1 + 21) = 0;
+        *(a1 + 22) = 0;
+        *(a1 + 23) = 0;
         v262 = 1;
       }
 
       v45 = 0;
       v263[0] = *(a1 + 200);
-      *&v263[1] = *(a1 + 216);
-      *(a1 + 200) = 0;
-      *(a1 + 208) = 0;
-      *(a1 + 216) = 0;
+      *&v263[1] = *(a1 + 27);
+      *(a1 + 25) = 0;
+      *(a1 + 26) = 0;
+      *(a1 + 27) = 0;
       v46 = v247;
       do
       {
-        v47 = *(a1 + v45 + 224);
-        v45 += 224;
+        v47 = *&a1[v45 + 14];
+        v45 += 14;
       }
 
       while (v47 < v247);
-      v48 = a1 + v45;
-      if (v45 == 224)
+      v48 = &a1[v45];
+      if (v45 == 14)
       {
         v6 = a2;
         do
@@ -10799,7 +9878,7 @@ LABEL_58:
         while (v49 >= v247);
       }
 
-      v8 = a1 + v45;
+      v8 = &a1[v45];
       if (v48 < v6)
       {
         v51 = v6;
@@ -10826,26 +9905,26 @@ LABEL_58:
       }
 
       v54 = (v8 - 224);
-      if (v8 - 224 != a1)
+      if ((v8 - 224) != a1)
       {
         v55 = *v54;
         v56 = *(v8 - 192);
-        *(a1 + 16) = *(v8 - 208);
-        *(a1 + 32) = v56;
+        a1[1] = *(v8 - 208);
+        a1[2] = v56;
         *a1 = v55;
         v57 = *(v8 - 176);
         v58 = *(v8 - 160);
         v59 = *(v8 - 144);
-        *(a1 + 96) = *(v8 - 128);
-        *(a1 + 64) = v58;
-        *(a1 + 80) = v59;
-        *(a1 + 48) = v57;
+        *(a1 + 12) = *(v8 - 128);
+        a1[4] = v58;
+        a1[5] = v59;
+        a1[3] = v57;
         std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>(a1 + 104, (v8 - 120));
         std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(a1 + 136, (v8 - 88));
         std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(a1 + 168, (v8 - 56));
-        std::vector<CSCppCoreFileRegionInfo>::__vdeallocate((a1 + 200));
+        std::vector<CSCppCoreFileRegionInfo>::__vdeallocate(a1 + 25);
         *(a1 + 200) = *(v8 - 24);
-        *(a1 + 216) = *(v8 - 8);
+        *(a1 + 27) = *(v8 - 8);
         *(v8 - 24) = 0;
         *(v8 - 16) = 0;
         *(v8 - 8) = 0;
@@ -10911,7 +9990,7 @@ LABEL_58:
       if (!v66)
       {
 LABEL_95:
-        _ZNSt3__111__introsortINS_17_ClassicAlgPolicyERZL48set_up_mapped_memory_cache_for_exclave_core_fileI17SizeAndEndiannessI9Pointer3212LittleEndianEENS_8expectedIvPKcEES9_y21vas_segmentinfo_table21CSExclaveCoreFileTypeP15mapped_memory_tEUlRKT_RKT0_E1_P23CSCppCoreFileRegionInfoLb0EEEvT1_SP_SI_NS_15iterator_traitsISP_E15difference_typeEb(a1, v8 - 224, a3, a4 & 1);
+        _ZNSt3__111__introsortINS_17_ClassicAlgPolicyERZL48set_up_mapped_memory_cache_for_exclave_core_fileI17SizeAndEndiannessI9Pointer3212LittleEndianEENS_8expectedIvPKcEES9_y21vas_segmentinfo_table21CSExclaveCoreFileTypeP15mapped_memory_tEUlRKT_RKT0_E1_P23CSCppCoreFileRegionInfoLb0EEEvT1_SP_SI_NS_15iterator_traitsISP_E15difference_typeEb(a1, (v8 - 224), a3, a4 & 1);
         goto LABEL_96;
       }
     }
@@ -10919,14 +9998,14 @@ LABEL_95:
     else
     {
       v67 = *a1;
-      v68 = *(a1 + 32);
-      v248 = *(a1 + 16);
+      v68 = a1[2];
+      v248 = a1[1];
       v249 = v68;
       v247 = v67;
-      v69 = *(a1 + 48);
-      v70 = *(a1 + 64);
-      v71 = *(a1 + 80);
-      v253 = *(a1 + 96);
+      v69 = a1[3];
+      v70 = a1[4];
+      v71 = a1[5];
+      v253 = *(a1 + 12);
       v251 = v70;
       v252 = v71;
       v250 = v69;
@@ -10935,11 +10014,11 @@ LABEL_95:
       if (*(a1 + 128) == 1)
       {
         v72 = *(a1 + 104);
-        v255 = *(a1 + 120);
+        v255 = *(a1 + 15);
         v254 = v72;
-        *(a1 + 112) = 0;
-        *(a1 + 120) = 0;
-        *(a1 + 104) = 0;
+        *(a1 + 14) = 0;
+        *(a1 + 15) = 0;
+        *(a1 + 13) = 0;
         v256 = 1;
       }
 
@@ -10948,10 +10027,10 @@ LABEL_95:
       if (*(a1 + 160) == 1)
       {
         v257 = *(a1 + 136);
-        v258 = *(a1 + 152);
-        *(a1 + 136) = 0;
-        *(a1 + 144) = 0;
-        *(a1 + 152) = 0;
+        v258 = *(a1 + 19);
+        *(a1 + 17) = 0;
+        *(a1 + 18) = 0;
+        *(a1 + 19) = 0;
         v259 = 1;
       }
 
@@ -10960,22 +10039,22 @@ LABEL_95:
       if (*(a1 + 192) == 1)
       {
         __p = *(a1 + 168);
-        v261 = *(a1 + 184);
-        *(a1 + 168) = 0;
-        *(a1 + 176) = 0;
-        *(a1 + 184) = 0;
+        v261 = *(a1 + 23);
+        *(a1 + 21) = 0;
+        *(a1 + 22) = 0;
+        *(a1 + 23) = 0;
         v262 = 1;
       }
 
       v263[0] = *(a1 + 200);
-      *&v263[1] = *(a1 + 216);
-      *(a1 + 200) = 0;
-      *(a1 + 208) = 0;
-      *(a1 + 216) = 0;
+      *&v263[1] = *(a1 + 27);
+      *(a1 + 25) = 0;
+      *(a1 + 26) = 0;
+      *(a1 + 27) = 0;
       v73 = v247;
       if (v247 >= *v7)
       {
-        v75 = a1 + 224;
+        v75 = (a1 + 14);
         do
         {
           v8 = v75;
@@ -11035,26 +10114,26 @@ LABEL_95:
       }
 
       v80 = (v8 - 224);
-      if (v8 - 224 != a1)
+      if ((v8 - 224) != a1)
       {
         v81 = *v80;
         v82 = *(v8 - 192);
-        *(a1 + 16) = *(v8 - 208);
-        *(a1 + 32) = v82;
+        a1[1] = *(v8 - 208);
+        a1[2] = v82;
         *a1 = v81;
         v83 = *(v8 - 176);
         v84 = *(v8 - 160);
         v85 = *(v8 - 144);
-        *(a1 + 96) = *(v8 - 128);
-        *(a1 + 64) = v84;
-        *(a1 + 80) = v85;
-        *(a1 + 48) = v83;
+        *(a1 + 12) = *(v8 - 128);
+        a1[4] = v84;
+        a1[5] = v85;
+        a1[3] = v83;
         std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>(a1 + 104, (v8 - 120));
         std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(a1 + 136, (v8 - 88));
         std::__optional_storage_base<std::vector<unsigned short>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::vector<unsigned short>,false>>(a1 + 168, (v8 - 56));
-        std::vector<CSCppCoreFileRegionInfo>::__vdeallocate((a1 + 200));
+        std::vector<CSCppCoreFileRegionInfo>::__vdeallocate(a1 + 25);
         *(a1 + 200) = *(v8 - 24);
-        *(a1 + 216) = *(v8 - 8);
+        *(a1 + 27) = *(v8 - 8);
         *(v8 - 24) = 0;
         *(v8 - 16) = 0;
         *(v8 - 8) = 0;
@@ -11103,7 +10182,7 @@ LABEL_96:
     }
   }
 
-  v91 = *(a1 + 224);
+  v91 = *(a1 + 28);
   v94 = *(v6 - 28);
   v93 = v6 - 14;
   v92 = v94;
@@ -11114,14 +10193,14 @@ LABEL_96:
       goto LABEL_136;
     }
 
-    std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>(a1, (a1 + 224));
-    if (*v93 >= *(a1 + 224))
+    std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>(a1, a1 + 14);
+    if (*v93 >= *(a1 + 28))
     {
       return;
     }
 
     v95 = v93;
-    v96 = (a1 + 224);
+    v96 = a1 + 14;
 LABEL_137:
     std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>(v96, v95);
     return;
@@ -11129,11 +10208,11 @@ LABEL_137:
 
   if (v92 < v91)
   {
-    std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>((a1 + 224), v93);
-    if (*(a1 + 224) < *a1)
+    std::swap[abi:ne200100]<CSCppCoreFileRegionInfo>(a1 + 14, v93);
+    if (*(a1 + 28) < *a1)
     {
       v96 = a1;
-      v95 = (a1 + 224);
+      v95 = a1 + 14;
       goto LABEL_137;
     }
   }

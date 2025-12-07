@@ -5,7 +5,7 @@
 
 uint64_t __cmsmdevicestate_RegisterForDeviceIsLockedNotification_block_invoke()
 {
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   if (sMKBGetLockStatus)
   {
     v0 = sMKBGetLockStatus(0) != 0;
@@ -25,9 +25,7 @@ uint64_t __cmsmdevicestate_RegisterForDeviceIsLockedNotification_block_invoke()
 
   FigSimpleMutexLock();
   byte_1EB75D32A = v0;
-  result = FigSimpleMutexUnlock();
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
+  return FigSimpleMutexUnlock();
 }
 
 @end

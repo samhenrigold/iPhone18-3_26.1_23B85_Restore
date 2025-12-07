@@ -1,7 +1,8 @@
-void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void SetEspressoArray(uint64_t *a1, void *a2)
@@ -9,23 +10,24 @@ void SetEspressoArray(uint64_t *a1, void *a2)
   v3 = a2;
   v4 = *a1;
   v5 = a1[11] * a1[10];
-  if (v5 == [v3 count])
+  v6 = [v3 count];
+  if (v5 == v6)
   {
     if (v5)
     {
       for (i = 0; i != v5; ++i)
       {
-        v7 = [v3 objectAtIndexedSubscript:i];
-        [v7 floatValue];
-        *(v4 + 4 * i) = v8;
+        v8 = [v3 objectAtIndexedSubscript:i];
+        [v8 floatValue];
+        *(v4 + 4 * i) = v9;
       }
     }
   }
 
   else
   {
-    v9 = _PTLogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = _PTLogSystem(v6);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       SetEspressoArray_cold_1(v3, v5);
     }
@@ -57,7 +59,7 @@ void _DebugLogEspressoBufferRow(void *a1, unint64_t a2)
   }
 
   v2 = _CSVStringForFloats(*a1 + 4 * a1[10] * a2, 1, a1[10]);
-  v3 = _PTLogSystem();
+  v3 = _PTLogSystem(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     _DebugLogEspressoBufferRow_cold_2();
@@ -91,13 +93,14 @@ void purgeMetalDevice(void *a1)
 {
   v1 = a1;
   v2 = objc_opt_respondsToSelector();
-  v3 = _PTLogSystem();
-  v4 = v3;
-  if (v2)
+  v3 = v2;
+  v4 = _PTLogSystem(v2);
+  v5 = v4;
+  if (v3)
   {
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      purgeMetalDevice_cold_2(v4);
+      purgeMetalDevice_cold_2(v5);
     }
 
     [v1 _purgeDevice];
@@ -105,9 +108,9 @@ void purgeMetalDevice(void *a1)
 
   else
   {
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      purgeMetalDevice_cold_1(v4, v5, v6);
+      purgeMetalDevice_cold_1(v5, v6, v7);
     }
   }
 }
@@ -297,9 +300,9 @@ id loadTracksWithMediaType(void *a1, void *a2)
   return v7;
 }
 
-void sub_22440FD88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22440FD88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -316,6 +319,13 @@ __CFString *StringFromTimeRange(_OWORD *a1)
   return v3;
 }
 
+void sub_224410F98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
+{
+  va_start(va, a27);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
 {
   *(result + 40) = *(a2 + 40);
@@ -327,10 +337,11 @@ void __loadTracksWithMediaType_block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v6 = a2;
   v7 = a3;
+  v8 = v7;
   if (v7)
   {
-    v8 = _PTLogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _PTLogSystem(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       __loadTracksWithMediaType_block_invoke_cold_1();
     }
@@ -348,10 +359,11 @@ void __loadMetadataForFormat_block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v6 = a2;
   v7 = a3;
+  v8 = v7;
   if (v7)
   {
-    v8 = _PTLogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _PTLogSystem(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       __loadMetadataForFormat_block_invoke_cold_1();
     }
@@ -365,22 +377,23 @@ void __loadMetadataForFormat_block_invoke(uint64_t a1, void *a2, void *a3)
   dispatch_semaphore_signal(*(a1 + 40));
 }
 
-void OUTLINED_FUNCTION_0_4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-uint64_t PTParameterPairSerialization_GetParameter(uint64_t a1, unsigned int a2, int a3, int a4, float *a5)
+uint64_t PTParameterPairSerialization_GetParameter(unsigned int *a1, unsigned int a2, uint64_t a3, int a4, float *a5)
 {
   v5 = a3;
   if (a2)
   {
     v7 = a2;
-    v8 = (a1 + 4);
-    while (a3 != bswap32(*(v8 - 2)) >> 16)
+    ++a1;
+    while (a3 != bswap32(*(a1 - 2)) >> 16)
     {
-      v8 += 2;
+      a1 += 2;
       if (!--v7)
       {
         goto LABEL_5;
@@ -389,12 +402,12 @@ uint64_t PTParameterPairSerialization_GetParameter(uint64_t a1, unsigned int a2,
 
     if (a4 == 1)
     {
-      Float = _PTSwapBigGetFloat(v8);
+      Float = _PTSwapBigGetFloat(a1);
     }
 
     else
     {
-      Float = COERCE_FLOAT(bswap32(*v8));
+      Float = COERCE_FLOAT(bswap32(*a1));
     }
 
     *a5 = Float;
@@ -404,20 +417,21 @@ uint64_t PTParameterPairSerialization_GetParameter(uint64_t a1, unsigned int a2,
   else
   {
 LABEL_5:
-    v9 = _PTLogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v8 = _PTLogSystem(a1);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      PTParameterPairSerialization_GetParameter_cold_1(v5, v9);
+      PTParameterPairSerialization_GetParameter_cold_1(v5, v8);
     }
 
     return 0;
   }
 }
 
-void OUTLINED_FUNCTION_0_6(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_6(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 uint64_t PTGroupIDFromFTTrack(void *a1)
@@ -438,28 +452,30 @@ uint64_t PTGroupIDFromFTTrack(void *a1)
   return v3;
 }
 
-void OUTLINED_FUNCTION_3_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_3_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
-void OUTLINED_FUNCTION_2_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 8u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 8u);
 }
 
-id _PTLogSystem()
+id _PTLogSystem(uint64_t a1)
 {
   if (_PTLogSystem_onceToken != -1)
   {
     _PTLogSystem_cold_1();
   }
 
-  v1 = _PTLogSystem_log;
+  v2 = _PTLogSystem_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t CanTriggerTwoHandReaction(void *a1, void *a2, float a3)
@@ -549,7 +565,7 @@ id PTCinematographyDictionaryFromCGRect(double a1, double a2, double a3, double 
 {
   v14[4] = *MEMORY[0x277D85DE8];
   v13[0] = @"x";
-  v7 = [MEMORY[0x277CCABB0] numberWithDouble:?];
+  v7 = [MEMORY[0x277CCABB0] numberWithDouble:a1];
   v14[0] = v7;
   v13[1] = @"y";
   v8 = [MEMORY[0x277CCABB0] numberWithDouble:a2];
@@ -590,11 +606,11 @@ CMTime *OUTLINED_FUNCTION_1_4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4
   return CMTimeMake(&a9, 1, 3);
 }
 
-__n128 OUTLINED_FUNCTION_5_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, __n128 a12, unint64_t a13)
+__n128 OUTLINED_FUNCTION_5_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __n128 a12, uint64_t a9, uint64_t a10, uint64_t a11, __n128 a13, unint64_t a14)
 {
-  result = a12;
-  v13[1].n128_u64[0] = a13;
-  *v13 = a12;
+  result = a13;
+  v14[1].n128_u64[0] = a14;
+  *v14 = a13;
   return result;
 }
 
@@ -607,319 +623,319 @@ __CFString *NSStringFromCMTime(CMTime *a1)
   return v2;
 }
 
-float __vfx_script_balloons_graph_159(double a1)
+float __vfx_script_balloons_graph_159(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_balloons_graph_159_cold_1();
   }
 
-  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a1);
+  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a2);
   result = **arguments_buffer_delayInitStub;
   *arguments_buffer_delayInitStub[1] = result;
   return result;
 }
 
-float __vfx_script_balloons_graph_160(double a1)
+float __vfx_script_balloons_graph_160(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_balloons_graph_159_cold_1();
   }
 
-  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a1);
+  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a2);
   result = **arguments_buffer_delayInitStub;
   *arguments_buffer_delayInitStub[1] = result;
   return result;
 }
 
-uint64_t __vfx_script_balloons_graph_163(double a1)
+uint64_t __vfx_script_balloons_graph_163(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_balloons_graph_159_cold_1();
   }
 
-  result = vfx_script_get_arguments_buffer_delayInitStub(a1);
-  v2 = *(result + 24);
-  v3 = *(result + 40);
-  v4 = *(result + 72);
-  v5 = *(result + 96);
-  v6 = **(result + 16);
-  v7 = **(result + 32);
-  v8 = **(result + 64);
-  v9 = **(result + 80);
-  v10 = **(result + 88);
-  LOBYTE(v11) = **(result + 56);
+  result = vfx_script_get_arguments_buffer_delayInitStub(a2);
+  v3 = *(result + 24);
+  v4 = *(result + 40);
+  v5 = *(result + 72);
+  v6 = *(result + 96);
+  v7 = **(result + 16);
+  v8 = **(result + 32);
+  v9 = **(result + 64);
+  v10 = **(result + 80);
+  v11 = **(result + 88);
+  LOBYTE(v12) = **(result + 56);
   **(result + 8) = **result;
-  *v2 = v6;
   *v3 = v7;
-  *v4 = vdup_n_s32((v11 * v8));
-  v12 = 0.0;
-  if (((HIDWORD(v9) & 0x7FFFFFFFu) - 0x800000) >> 24 <= 0x7E)
+  *v4 = v8;
+  *v5 = vdup_n_s32((v12 * v9));
+  v13 = 0.0;
+  if (((HIDWORD(v10) & 0x7FFFFFFFu) - 0x800000) >> 24 <= 0x7E)
   {
-    v12 = (*&v9 / *(&v9 + 1)) * 0.25;
+    v13 = (*&v10 / *(&v10 + 1)) * 0.25;
   }
 
-  v13 = *&v9 <= *(&v9 + 1);
-  v14 = 0.25;
-  if (!v13)
+  v14 = *&v10 <= *(&v10 + 1);
+  v15 = 0.25;
+  if (!v14)
   {
-    v14 = v12;
+    v15 = v13;
   }
 
-  v15 = *v5;
-  *&v15 = v14;
-  *(v5 + 2) = v10;
-  *v5 = v15;
+  v16 = *v6;
+  *&v16 = v15;
+  *(v6 + 2) = v11;
+  *v6 = v16;
   return result;
 }
 
-_DWORD **__vfx_script_balloons_graph_166(double a1)
+_DWORD **__vfx_script_balloons_graph_166(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_balloons_graph_159_cold_1();
   }
 
-  result = vfx_script_get_arguments_buffer_delayInitStub(a1);
+  result = vfx_script_get_arguments_buffer_delayInitStub(a2);
   *result[1] = **result;
   return result;
 }
 
-int32x2_t __vfx_script_balloons_graph_169(double a1)
+int32x2_t __vfx_script_balloons_graph_169(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_balloons_graph_159_cold_1();
   }
 
-  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a1);
-  v3 = *arguments_buffer_delayInitStub;
-  v2 = *(arguments_buffer_delayInitStub + 8);
-  v4 = *(arguments_buffer_delayInitStub + 16);
-  v5 = *(arguments_buffer_delayInitStub + 24);
-  v6 = *(arguments_buffer_delayInitStub + 32);
-  v7 = *(arguments_buffer_delayInitStub + 40);
-  v8 = *(arguments_buffer_delayInitStub + 48);
-  v9 = *(arguments_buffer_delayInitStub + 56);
-  v10 = *(arguments_buffer_delayInitStub + 64);
-  v11 = *(arguments_buffer_delayInitStub + 72);
-  v12 = *(arguments_buffer_delayInitStub + 80);
-  v13 = *(arguments_buffer_delayInitStub + 88);
-  v14 = *(arguments_buffer_delayInitStub + 96);
-  v15 = *v4;
-  v16 = *v6;
-  v17 = *v8;
-  v18 = *v11;
+  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a2);
+  v4 = *arguments_buffer_delayInitStub;
+  v3 = *(arguments_buffer_delayInitStub + 8);
+  v5 = *(arguments_buffer_delayInitStub + 16);
+  v6 = *(arguments_buffer_delayInitStub + 24);
+  v7 = *(arguments_buffer_delayInitStub + 32);
+  v8 = *(arguments_buffer_delayInitStub + 40);
+  v9 = *(arguments_buffer_delayInitStub + 48);
+  v10 = *(arguments_buffer_delayInitStub + 56);
+  v11 = *(arguments_buffer_delayInitStub + 64);
+  v12 = *(arguments_buffer_delayInitStub + 72);
+  v13 = *(arguments_buffer_delayInitStub + 80);
+  v14 = *(arguments_buffer_delayInitStub + 88);
+  v15 = *(arguments_buffer_delayInitStub + 96);
+  v16 = *v5;
+  v17 = *v7;
+  v18 = *v9;
   v19 = *v12;
   v20 = *v13;
-  LODWORD(v3) = 277803737 * (((747796405 * *v3 + 673953854) >> (((747796405 * *v3 + 673953854) >> 28) + 4)) ^ (747796405 * *v3 + 673953854));
-  v21 = (((COERCE_FLOAT((v3 >> 31) ^ (v3 >> 9) | 0x3F800000) + -1.0) * 6.0) + 0.0);
-  v22 = *&v17 / *(&v17 + 1);
-  if (((HIDWORD(v17) & 0x7FFFFFFFu) - 0x800000) >> 24 >= 0x7F)
+  v21 = *v14;
+  LODWORD(v4) = 277803737 * (((747796405 * *v4 + 673953854) >> (((747796405 * *v4 + 673953854) >> 28) + 4)) ^ (747796405 * *v4 + 673953854));
+  v22 = (((COERCE_FLOAT((v4 >> 31) ^ (v4 >> 9) | 0x3F800000) + -1.0) * 6.0) + 0.0);
+  v23 = *&v18 / *(&v18 + 1);
+  if (((HIDWORD(v18) & 0x7FFFFFFFu) - 0x800000) >> 24 >= 0x7F)
   {
-    v22 = 0.0;
+    v23 = 0.0;
   }
 
-  v23 = *&v17 <= *(&v17 + 1);
-  v24 = 1.0;
-  if (!v23)
+  v24 = *&v18 <= *(&v18 + 1);
+  v25 = 1.0;
+  if (!v24)
   {
-    v24 = v22;
+    v25 = v23;
   }
 
   __asm { FMOV            V3.4S, #1.0 }
 
-  *&_Q3 = v24;
-  DWORD2(_Q3) = *v9;
-  *v2 = v21;
-  *v5 = v15;
-  *v7 = v16;
-  *v10 = _Q3;
-  if (v18)
+  *&_Q3 = v25;
+  DWORD2(_Q3) = *v10;
+  *v3 = v22;
+  *v6 = v16;
+  *v8 = v17;
+  *v11 = _Q3;
+  if (v19)
   {
-    v30 = v19;
+    v31 = v20;
   }
 
   else
   {
-    v30 = 0.0;
+    v31 = 0.0;
   }
 
-  result = vdup_n_s32((v30 * v20));
-  *v14 = result;
+  result = vdup_n_s32((v31 * v21));
+  *v15 = result;
   return result;
 }
 
-double __vfx_script_balloons_graph_170(double a1)
+double __vfx_script_balloons_graph_170(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_balloons_graph_159_cold_1();
   }
 
-  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a1);
+  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a2);
   result = 0.00000133972957;
   **arguments_buffer_delayInitStub = xmmword_2244A56B0;
   return result;
 }
 
-_BYTE **__vfx_script_balloons_graph_171(double a1)
+_BYTE **__vfx_script_balloons_graph_171(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_balloons_graph_159_cold_1();
   }
 
-  result = vfx_script_get_arguments_buffer_delayInitStub(a1);
+  result = vfx_script_get_arguments_buffer_delayInitStub(a2);
   **result = 1;
   return result;
 }
 
-float __vfx_script_balloons_graph_172(double a1)
+float __vfx_script_balloons_graph_172(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_balloons_graph_159_cold_1();
   }
 
-  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a1);
+  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a2);
   result = **arguments_buffer_delayInitStub * 2000.0;
   *arguments_buffer_delayInitStub[1] = result;
   return result;
 }
 
-float __vfx_script_balloons_graph_173(double a1)
+float __vfx_script_balloons_graph_173(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_balloons_graph_159_cold_1();
   }
 
-  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a1);
+  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a2);
   result = **arguments_buffer_delayInitStub * 300.0;
   *arguments_buffer_delayInitStub[1] = result;
   return result;
 }
 
-float __vfx_script_balloons_graph_177(double a1)
+float __vfx_script_balloons_graph_177(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_balloons_graph_159_cold_1();
   }
 
-  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a1);
-  v2 = *(arguments_buffer_delayInitStub + 16);
-  v3 = *(arguments_buffer_delayInitStub + 24);
-  v4 = **(arguments_buffer_delayInitStub + 8);
-  inited = vfx_script_clock_simulation_index_delayInitStub(v5);
-  v7 = 277803737 * (((747796405 * (v4 + inited) - 1377591464) >> (((747796405 * (v4 + inited) - 1377591464) >> 28) + 4)) ^ (747796405 * (v4 + inited) - 1377591464));
-  result = ((COERCE_FLOAT((v7 >> 31) ^ (v7 >> 9) | 0x3F800000) + -1.0) * 0.5) + -0.25;
-  *v2 = result;
-  *v3 = 0;
+  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a2);
+  v3 = *(arguments_buffer_delayInitStub + 16);
+  v4 = *(arguments_buffer_delayInitStub + 24);
+  v5 = **(arguments_buffer_delayInitStub + 8);
+  inited = vfx_script_clock_simulation_index_delayInitStub(v6);
+  v8 = 277803737 * (((747796405 * (v5 + inited) - 1377591464) >> (((747796405 * (v5 + inited) - 1377591464) >> 28) + 4)) ^ (747796405 * (v5 + inited) - 1377591464));
+  result = ((COERCE_FLOAT((v8 >> 31) ^ (v8 >> 9) | 0x3F800000) + -1.0) * 0.5) + -0.25;
+  *v3 = result;
+  *v4 = 0;
   return result;
 }
 
-uint64_t __vfx_script_balloons_particleInit_161(double a1)
+void *__vfx_script_balloons_particleInit_161(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_balloons_graph_159_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  return vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  return vfx_script_get_arguments_buffer_delayInitStub(v2);
 }
 
-uint64_t __vfx_script_balloons_particleInit_164(double a1)
+void *__vfx_script_balloons_particleInit_164(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_balloons_graph_159_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  return vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  return vfx_script_get_arguments_buffer_delayInitStub(v2);
 }
 
-uint64_t __vfx_script_balloons_particleInit_167(double a1)
+void *__vfx_script_balloons_particleInit_167(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_balloons_graph_159_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  return vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  return vfx_script_get_arguments_buffer_delayInitStub(v2);
 }
 
-uint64_t __vfx_script_balloons_particleInit_174(double a1)
+void *__vfx_script_balloons_particleInit_174(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_balloons_graph_159_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  return vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  return vfx_script_get_arguments_buffer_delayInitStub(v2);
 }
 
-uint64_t __vfx_script_balloons_particleInit_175(double a1)
+void *__vfx_script_balloons_particleInit_175(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_balloons_graph_159_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  return vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  return vfx_script_get_arguments_buffer_delayInitStub(v2);
 }
 
-uint64_t __vfx_script_balloons_particleUpdate_162(double a1)
+void __vfx_script_balloons_particleUpdate_162(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_balloons_graph_159_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  return vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  vfx_script_get_arguments_buffer_delayInitStub(v2);
 }
 
-__n128 __vfx_script_balloons_particleUpdate_165(double a1)
+__n128 __vfx_script_balloons_particleUpdate_165(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_balloons_graph_159_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  vfx_script_get_arguments_buffer_delayInitStub(v2);
   return result;
 }
 
-void __vfx_script_balloons_particleUpdate_168(double a1)
+void __vfx_script_balloons_particleUpdate_168(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_balloons_graph_159_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  vfx_script_get_arguments_buffer_delayInitStub(v2);
 }
 
-uint64_t __vfx_script_balloons_particleUpdate_176(double a1)
+void *__vfx_script_balloons_particleUpdate_176(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_balloons_graph_159_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  return vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  return vfx_script_get_arguments_buffer_delayInitStub(v2);
 }
 
 SEL ___ZL34vfx_script_initialize_objc_helpersv_block_invoke()
@@ -978,41 +994,43 @@ void sub_22442F00C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_22442FEE4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_22442FEE4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = PTEffect;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
-uint64_t isExpectedSize(void *a1, uint64_t *a2, void *a3)
+uint64_t isExpectedSize(void *a1, void **a2, void *a3)
 {
   v5 = a1;
   v6 = a3;
   v7 = *a2;
-  if (v7 == [v5 width] && (v8 = a2[1], v8 == objc_msgSend(v5, "height")))
+  v8 = [v5 width];
+  if (v7 == v8 && (v9 = a2[1], v8 = [v5 height], v9 == v8))
   {
-    v9 = 1;
+    v10 = 1;
   }
 
   else
   {
-    v10 = _PTLogSystem();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = _PTLogSystem(v8);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       isExpectedSize_cold_1();
     }
 
-    v9 = 0;
+    v10 = 0;
   }
 
-  return v9;
+  return v10;
 }
 
-void OUTLINED_FUNCTION_1_5(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_5(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x2Au);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x2Au);
 }
 
 uint64_t OUTLINED_FUNCTION_5_2()
@@ -1021,31 +1039,31 @@ uint64_t OUTLINED_FUNCTION_5_2()
   return [v0 height];
 }
 
-uint64_t MediaAnalysisLibraryCore()
+uint64_t MediaAnalysisLibraryCore(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = 0;
-  v3 = &v2;
-  v4 = 0x2020000000;
-  v0 = MediaAnalysisLibraryCore_frameworkLibrary;
-  v5 = MediaAnalysisLibraryCore_frameworkLibrary;
+  v10 = *MEMORY[0x277D85DE8];
+  v3 = 0;
+  v4 = &v3;
+  v5 = 0x2020000000;
+  v1 = MediaAnalysisLibraryCore_frameworkLibrary;
+  v6 = MediaAnalysisLibraryCore_frameworkLibrary;
   if (!MediaAnalysisLibraryCore_frameworkLibrary)
   {
-    v6 = xmmword_278523228;
-    v7 = *off_278523238;
-    v8 = 0;
-    v3[3] = _sl_dlopen();
-    MediaAnalysisLibraryCore_frameworkLibrary = v3[3];
-    v0 = v3[3];
+    v7 = xmmword_278523228;
+    v8 = *off_278523238;
+    v9 = 0;
+    v4[3] = _sl_dlopen();
+    MediaAnalysisLibraryCore_frameworkLibrary = v4[3];
+    v1 = v4[3];
   }
 
-  _Block_object_dispose(&v2, 8);
-  return v0;
+  _Block_object_dispose(&v3, 8);
+  return v1;
 }
 
-void sub_2244379B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2244379B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1060,11 +1078,19 @@ uint64_t __MediaAnalysisLibraryCore_block_invoke(uint64_t a1)
 
 uint64_t MediaAnalysisLibrary()
 {
-  v0 = MediaAnalysisLibraryCore();
+  v3 = 0;
+  v0 = MediaAnalysisLibraryCore(&v3);
+  v1 = v3;
   if (!v0)
   {
-    v2 = abort_report_np();
-    free(v2);
+    v1 = abort_report_np("%s", v3);
+    goto LABEL_5;
+  }
+
+  if (v3)
+  {
+LABEL_5:
+    free(v1);
   }
 
   return v0;
@@ -1094,9 +1120,9 @@ id getVCPHandGestureImageRequestClass()
   return v1;
 }
 
-void sub_224437B88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_224437B88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1113,8 +1139,8 @@ Class __getVCPHandGestureImageRequestClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = __getVCPHandGestureImageRequestClass_block_invoke_cold_1();
-    return getVCPHandGestureVideoRequestClass(v3);
+    __getVCPHandGestureImageRequestClass_block_invoke_cold_1();
+    return getVCPHandGestureVideoRequestClass();
   }
 
   return result;
@@ -1144,9 +1170,9 @@ id getVCPHandGestureVideoRequestClass()
   return v1;
 }
 
-void sub_224437CC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_224437CC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1163,8 +1189,8 @@ Class __getVCPHandGestureVideoRequestClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = __getVCPHandGestureVideoRequestClass_block_invoke_cold_1();
-    return getVCPHandObjectClass(v3);
+    __getVCPHandGestureVideoRequestClass_block_invoke_cold_1();
+    return getVCPHandObjectClass();
   }
 
   return result;
@@ -1194,9 +1220,9 @@ id getVCPHandObjectClass()
   return v1;
 }
 
-void sub_224437DF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_224437DF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1239,9 +1265,9 @@ uint64_t getVCPRequestFrameWidthPropertyKeySymbolLoc()
   return v0;
 }
 
-void sub_224437F3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_224437F3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1267,8 +1293,8 @@ id getVCPRequestFrameWidthPropertyKey()
 
   else
   {
-    VCPRequestFrameWidthPropertyKey_cold_1 = getVCPRequestFrameWidthPropertyKey_cold_1();
-    return getVCPRequestFrameHeightPropertyKeySymbolLoc(VCPRequestFrameWidthPropertyKey_cold_1);
+    getVCPRequestFrameWidthPropertyKey_cold_1();
+    return getVCPRequestFrameHeightPropertyKeySymbolLoc();
   }
 }
 
@@ -1291,9 +1317,9 @@ uint64_t getVCPRequestFrameHeightPropertyKeySymbolLoc()
   return v0;
 }
 
-void sub_2244380AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2244380AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1319,8 +1345,8 @@ id getVCPRequestFrameHeightPropertyKey()
 
   else
   {
-    VCPRequestFrameWidthPropertyKey_cold_1 = getVCPRequestFrameWidthPropertyKey_cold_1();
-    return getVCPRequestEnableANSTHandDetectionPropertyKeySymbolLoc(VCPRequestFrameWidthPropertyKey_cold_1);
+    getVCPRequestFrameWidthPropertyKey_cold_1();
+    return getVCPRequestEnableANSTHandDetectionPropertyKeySymbolLoc();
   }
 }
 
@@ -1343,9 +1369,9 @@ uint64_t getVCPRequestEnableANSTHandDetectionPropertyKeySymbolLoc()
   return v0;
 }
 
-void sub_22443821C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22443821C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1371,8 +1397,8 @@ id getVCPRequestEnableANSTHandDetectionPropertyKey()
 
   else
   {
-    VCPRequestFrameWidthPropertyKey_cold_1 = getVCPRequestFrameWidthPropertyKey_cold_1();
-    return getVCPRequestRotationInDegreesPropertyKeySymbolLoc(VCPRequestFrameWidthPropertyKey_cold_1);
+    getVCPRequestFrameWidthPropertyKey_cold_1();
+    return getVCPRequestRotationInDegreesPropertyKeySymbolLoc();
   }
 }
 
@@ -1395,9 +1421,9 @@ uint64_t getVCPRequestRotationInDegreesPropertyKeySymbolLoc()
   return v0;
 }
 
-void sub_22443838C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22443838C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1447,9 +1473,9 @@ uint64_t getVCPRequestDisableHandDetectionPropertyKeySymbolLoc()
   return v0;
 }
 
-void sub_2244384FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2244384FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1475,8 +1501,8 @@ id getVCPRequestDisableHandDetectionPropertyKey()
 
   else
   {
-    VCPRequestFrameWidthPropertyKey_cold_1 = getVCPRequestFrameWidthPropertyKey_cold_1();
-    return getVCPRequestHandObjectsPropertyKeySymbolLoc(VCPRequestFrameWidthPropertyKey_cold_1);
+    getVCPRequestFrameWidthPropertyKey_cold_1();
+    return getVCPRequestHandObjectsPropertyKeySymbolLoc();
   }
 }
 
@@ -1499,9 +1525,9 @@ uint64_t getVCPRequestHandObjectsPropertyKeySymbolLoc()
   return v0;
 }
 
-void sub_22443866C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22443866C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1527,8 +1553,8 @@ id getVCPRequestHandObjectsPropertyKey()
 
   else
   {
-    VCPRequestFrameWidthPropertyKey_cold_1 = getVCPRequestFrameWidthPropertyKey_cold_1();
-    return getVCPRequestFaceRectsPropertyKeySymbolLoc(VCPRequestFrameWidthPropertyKey_cold_1);
+    getVCPRequestFrameWidthPropertyKey_cold_1();
+    return getVCPRequestFaceRectsPropertyKeySymbolLoc();
   }
 }
 
@@ -1551,9 +1577,9 @@ uint64_t getVCPRequestFaceRectsPropertyKeySymbolLoc()
   return v0;
 }
 
-void sub_2244387DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2244387DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1579,8 +1605,8 @@ id getVCPRequestFaceRectsPropertyKey()
 
   else
   {
-    VCPRequestFrameWidthPropertyKey_cold_1 = getVCPRequestFrameWidthPropertyKey_cold_1();
-    return getVCPRequestFaceYawsPropertyKeySymbolLoc(VCPRequestFrameWidthPropertyKey_cold_1);
+    getVCPRequestFrameWidthPropertyKey_cold_1();
+    return getVCPRequestFaceYawsPropertyKeySymbolLoc();
   }
 }
 
@@ -1603,9 +1629,9 @@ uint64_t getVCPRequestFaceYawsPropertyKeySymbolLoc()
   return v0;
 }
 
-void sub_22443894C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22443894C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1655,9 +1681,9 @@ uint64_t getVCPRequestMaxNumOfPersonsPropertyKeySymbolLoc()
   return v0;
 }
 
-void sub_224438ABC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_224438ABC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1683,8 +1709,8 @@ id getVCPRequestMaxNumOfPersonsPropertyKey()
 
   else
   {
-    VCPRequestFrameWidthPropertyKey_cold_1 = getVCPRequestFrameWidthPropertyKey_cold_1();
-    return getVCPRequestUseAsyncPropertyKeySymbolLoc(VCPRequestFrameWidthPropertyKey_cold_1);
+    getVCPRequestFrameWidthPropertyKey_cold_1();
+    return getVCPRequestUseAsyncPropertyKeySymbolLoc();
   }
 }
 
@@ -1707,9 +1733,9 @@ uint64_t getVCPRequestUseAsyncPropertyKeySymbolLoc()
   return v0;
 }
 
-void sub_224438C2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_224438C2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1735,8 +1761,8 @@ id getVCPRequestUseAsyncPropertyKey()
 
   else
   {
-    VCPRequestFrameWidthPropertyKey_cold_1 = getVCPRequestFrameWidthPropertyKey_cold_1();
-    return getVCPRequestCoreMLANEPriorityPropertyKeySymbolLoc(VCPRequestFrameWidthPropertyKey_cold_1);
+    getVCPRequestFrameWidthPropertyKey_cold_1();
+    return getVCPRequestCoreMLANEPriorityPropertyKeySymbolLoc();
   }
 }
 
@@ -1759,9 +1785,9 @@ uint64_t getVCPRequestCoreMLANEPriorityPropertyKeySymbolLoc()
   return v0;
 }
 
-void sub_224438D9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_224438D9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1787,8 +1813,8 @@ id getVCPRequestCoreMLANEPriorityPropertyKey()
 
   else
   {
-    VCPRequestFrameWidthPropertyKey_cold_1 = getVCPRequestFrameWidthPropertyKey_cold_1();
-    return getVCPRequestEspressoPlanPriorityPropertyKeySymbolLoc(VCPRequestFrameWidthPropertyKey_cold_1);
+    getVCPRequestFrameWidthPropertyKey_cold_1();
+    return getVCPRequestEspressoPlanPriorityPropertyKeySymbolLoc();
   }
 }
 
@@ -1811,9 +1837,9 @@ uint64_t getVCPRequestEspressoPlanPriorityPropertyKeySymbolLoc()
   return v0;
 }
 
-void sub_224438F0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_224438F0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1862,244 +1888,244 @@ CMTime *PTNanosecondsToCMTime@<X0>(int64_t a1@<X0>, uint64_t a2@<X8>)
   return CMTimeMake(a2, a1, 1000000000);
 }
 
-double __vfx_script_rain_graph_216(double a1)
+double __vfx_script_rain_graph_216(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_rain_graph_216_cold_1();
   }
 
-  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a1);
-  v2 = *(arguments_buffer_delayInitStub + 8);
-  v3 = **arguments_buffer_delayInitStub;
-  v4 = vextq_s8(v3, v3, 8uLL);
-  *v4.i8 = vadd_f32(vext_s8(*v3.i8, *v4.i8, 4uLL), 0xBF0000003D4CCCCDLL);
-  *&result = vzip1q_s32(v3, v4).u64[0];
-  *(v2 + 8) = v4.i32[1];
-  *v2 = result;
+  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a2);
+  v3 = *(arguments_buffer_delayInitStub + 8);
+  v4 = **arguments_buffer_delayInitStub;
+  v5 = vextq_s8(v4, v4, 8uLL);
+  *v5.i8 = vadd_f32(vext_s8(*v4.i8, *v5.i8, 4uLL), 0xBF0000003D4CCCCDLL);
+  *&result = vzip1q_s32(v4, v5).u64[0];
+  *(v3 + 8) = v5.i32[1];
+  *v3 = result;
   return result;
 }
 
-_DWORD **__vfx_script_rain_graph_219(double a1)
+_DWORD **__vfx_script_rain_graph_219(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_rain_graph_216_cold_1();
   }
 
-  result = vfx_script_get_arguments_buffer_delayInitStub(a1);
+  result = vfx_script_get_arguments_buffer_delayInitStub(a2);
   **result = 0;
   return result;
 }
 
-_DWORD **__vfx_script_rain_graph_222(double a1)
+_DWORD **__vfx_script_rain_graph_222(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_rain_graph_216_cold_1();
   }
 
-  result = vfx_script_get_arguments_buffer_delayInitStub(a1);
+  result = vfx_script_get_arguments_buffer_delayInitStub(a2);
   **result = 1143111680;
   return result;
 }
 
-float __vfx_script_rain_graph_223(double a1)
+float __vfx_script_rain_graph_223(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_rain_graph_216_cold_1();
   }
 
-  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a1);
+  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a2);
   result = **arguments_buffer_delayInitStub;
   *arguments_buffer_delayInitStub[1] = result;
   return result;
 }
 
-__n128 __vfx_script_rain_graph_226(double a1)
+__n128 __vfx_script_rain_graph_226(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_rain_graph_216_cold_1();
   }
 
-  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a1);
-  v2 = *(arguments_buffer_delayInitStub + 24);
-  v3 = *(arguments_buffer_delayInitStub + 40);
-  v4 = *(arguments_buffer_delayInitStub + 56);
-  v5 = *(arguments_buffer_delayInitStub + 64);
-  v6 = *(arguments_buffer_delayInitStub + 72);
-  v7 = *(arguments_buffer_delayInitStub + 88);
-  v8 = *(arguments_buffer_delayInitStub + 96);
-  v9 = *(arguments_buffer_delayInitStub + 104);
-  v10 = **arguments_buffer_delayInitStub;
-  v11 = **(arguments_buffer_delayInitStub + 32);
-  v12 = **(arguments_buffer_delayInitStub + 48);
-  *&v13 = **(arguments_buffer_delayInitStub + 16) / 3.0;
-  v14 = vld1q_dup_f32(v8);
-  v23 = **(arguments_buffer_delayInitStub + 80);
-  v24 = v14;
-  vfx_script_texture_sample1d_delayInitStub(v13);
-  *v2 = (v10 * v15) * 66.0;
-  *v3 = v11;
-  *v4 = v12;
-  __asm { FMOV            V0.4S, #-1.0 }
-
-  *v5 = _Q0;
-  __asm { FMOV            V0.4S, #1.0 }
-
-  *v6 = _Q0;
-  *(v7 + 8) = *(&v23 + 2) + -0.65;
-  *v7 = v23;
-  result = v24;
-  *v9 = v24;
-  return result;
-}
-
-float __vfx_script_rain_graph_229(double a1)
-{
-  if (vfx_script_initialize_objc_helpers(void)::once != -1)
-  {
-    __vfx_script_rain_graph_216_cold_1();
-  }
-
-  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a1);
-  v2 = *(arguments_buffer_delayInitStub + 16);
+  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a2);
   v3 = *(arguments_buffer_delayInitStub + 24);
   v4 = *(arguments_buffer_delayInitStub + 40);
-  v5 = *(arguments_buffer_delayInitStub + 48);
-  v6 = *(arguments_buffer_delayInitStub + 56);
-  v7 = *(arguments_buffer_delayInitStub + 88);
-  v8 = *(arguments_buffer_delayInitStub + 104);
-  v9 = **(arguments_buffer_delayInitStub + 32);
-  v10 = **(arguments_buffer_delayInitStub + 64);
-  v11 = **(arguments_buffer_delayInitStub + 80);
-  v12 = **(arguments_buffer_delayInitStub + 96);
-  v13 = vld1q_dup_f32(v5);
-  **(arguments_buffer_delayInitStub + 8) = **arguments_buffer_delayInitStub;
-  *v2 = vdupq_n_s32(0xC2C80000);
-  *v3 = vdupq_n_s32(0x42C80000u);
-  *(v4 + 8) = *(&v9 + 2) + -0.85;
-  *v4 = v9;
-  *v6 = v13;
-  *&v9 = v11 / 3.5;
-  vfx_script_texture_sample1d_delayInitStub(*&v9);
-  result = (v10 * v14) * 2500.0;
-  *v7 = result;
-  *v8 = v12;
+  v5 = *(arguments_buffer_delayInitStub + 56);
+  v6 = *(arguments_buffer_delayInitStub + 64);
+  v7 = *(arguments_buffer_delayInitStub + 72);
+  v8 = *(arguments_buffer_delayInitStub + 88);
+  v9 = *(arguments_buffer_delayInitStub + 96);
+  v10 = *(arguments_buffer_delayInitStub + 104);
+  v11 = **arguments_buffer_delayInitStub;
+  v12 = **(arguments_buffer_delayInitStub + 32);
+  v13 = **(arguments_buffer_delayInitStub + 48);
+  *&v14 = **(arguments_buffer_delayInitStub + 16) / 3.0;
+  v15 = vld1q_dup_f32(v9);
+  v24 = **(arguments_buffer_delayInitStub + 80);
+  v25 = v15;
+  vfx_script_texture_sample1d_delayInitStub(v14);
+  *v3 = (v11 * v16) * 66.0;
+  *v4 = v12;
+  *v5 = v13;
+  __asm { FMOV            V0.4S, #-1.0 }
+
+  *v6 = _Q0;
+  __asm { FMOV            V0.4S, #1.0 }
+
+  *v7 = _Q0;
+  *(v8 + 8) = *(&v24 + 2) + -0.65;
+  *v8 = v24;
+  result = v25;
+  *v10 = v25;
   return result;
 }
 
-__n64 __vfx_script_rain_graph_232(double a1)
+float __vfx_script_rain_graph_229(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_rain_graph_216_cold_1();
   }
 
-  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a1);
-  v2 = *(arguments_buffer_delayInitStub + 16);
+  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a2);
+  v3 = *(arguments_buffer_delayInitStub + 16);
+  v4 = *(arguments_buffer_delayInitStub + 24);
+  v5 = *(arguments_buffer_delayInitStub + 40);
+  v6 = *(arguments_buffer_delayInitStub + 48);
+  v7 = *(arguments_buffer_delayInitStub + 56);
+  v8 = *(arguments_buffer_delayInitStub + 88);
+  v9 = *(arguments_buffer_delayInitStub + 104);
+  v10 = **(arguments_buffer_delayInitStub + 32);
+  v11 = **(arguments_buffer_delayInitStub + 64);
+  v12 = **(arguments_buffer_delayInitStub + 80);
+  v13 = **(arguments_buffer_delayInitStub + 96);
+  v14 = vld1q_dup_f32(v6);
+  **(arguments_buffer_delayInitStub + 8) = **arguments_buffer_delayInitStub;
+  *v3 = vdupq_n_s32(0xC2C80000);
+  *v4 = vdupq_n_s32(0x42C80000u);
+  *(v5 + 8) = *(&v10 + 2) + -0.85;
+  *v5 = v10;
+  *v7 = v14;
+  *&v10 = v12 / 3.5;
+  vfx_script_texture_sample1d_delayInitStub(*&v10);
+  result = (v11 * v15) * 2500.0;
+  *v8 = result;
+  *v9 = v13;
+  return result;
+}
+
+__n64 __vfx_script_rain_graph_232(uint64_t a1, double a2)
+{
+  if (vfx_script_initialize_objc_helpers(void)::once != -1)
+  {
+    __vfx_script_rain_graph_216_cold_1();
+  }
+
+  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a2);
+  v3 = *(arguments_buffer_delayInitStub + 16);
   result.n64_f32[0] = 1.5 * COERCE_FLOAT(**arguments_buffer_delayInitStub);
   result.n64_f32[1] = (*(*(arguments_buffer_delayInitStub + 8) + 4) * -6.0) + 0.0;
-  v2[1].n64_f32[0] = COERCE_FLOAT(*(*arguments_buffer_delayInitStub + 8)) + 0.5;
-  v2->n64_u64[0] = result.n64_u64[0];
+  v3[1].n64_f32[0] = COERCE_FLOAT(*(*arguments_buffer_delayInitStub + 8)) + 0.5;
+  v3->n64_u64[0] = result.n64_u64[0];
   return result;
 }
 
-uint64_t __vfx_script_rain_graph_233(double a1)
+uint64_t __vfx_script_rain_graph_233(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_rain_graph_216_cold_1();
   }
 
-  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a1);
-  v2 = *(arguments_buffer_delayInitStub + 16);
-  v3 = **(arguments_buffer_delayInitStub + 8);
+  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a2);
+  v3 = *(arguments_buffer_delayInitStub + 16);
+  v4 = **(arguments_buffer_delayInitStub + 8);
   vfx_script_curve_create_delayInitStub(5.23869004e-11);
-  *&v4 = v3 / 3.0;
-  vfx_script_curve_evaluate_delayInitStub(v4);
-  *v2 = LODWORD(v5);
-  return vfx_script_curve_destroy_delayInitStub(v5);
+  *&v5 = v4 / 3.0;
+  vfx_script_curve_evaluate_delayInitStub(v5);
+  *v3 = LODWORD(v6);
+  return vfx_script_curve_destroy_delayInitStub(v6);
 }
 
-uint64_t __vfx_script_rain_particleInit_213(double a1)
+void *__vfx_script_rain_particleInit_213(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_rain_graph_216_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  return vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  return vfx_script_get_arguments_buffer_delayInitStub(v2);
 }
 
-uint64_t __vfx_script_rain_particleInit_220(double a1)
+void __vfx_script_rain_particleInit_220(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_rain_graph_216_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  return vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  vfx_script_get_arguments_buffer_delayInitStub(v2);
 }
 
-uint64_t __vfx_script_rain_particleInit_230(double a1)
+void *__vfx_script_rain_particleInit_230(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_rain_graph_216_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  return vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  return vfx_script_get_arguments_buffer_delayInitStub(v2);
 }
 
-uint64_t __vfx_script_rain_particleUpdate_214(double a1)
+void *__vfx_script_rain_particleUpdate_214(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_rain_graph_216_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  return vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  return vfx_script_get_arguments_buffer_delayInitStub(v2);
 }
 
-uint64_t __vfx_script_rain_particleUpdate_215(double a1)
+void __vfx_script_rain_particleUpdate_215(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_rain_graph_216_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  return vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  vfx_script_get_arguments_buffer_delayInitStub(v2);
 }
 
-__n128 __vfx_script_rain_particleUpdate_221(double a1)
+float32x4_t __vfx_script_rain_particleUpdate_221(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_rain_graph_216_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  vfx_script_get_arguments_buffer_delayInitStub(v2);
   return result;
 }
 
-uint64_t __vfx_script_rain_particleUpdate_231(double a1)
+void __vfx_script_rain_particleUpdate_231(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_rain_graph_216_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  return vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  vfx_script_get_arguments_buffer_delayInitStub(v2);
 }
 
 SEL ___ZL34vfx_script_initialize_objc_helpersv_block_invoke_0()
@@ -2157,10 +2183,10 @@ void PTIOSurfaceSetColorSpace(__IOSurface *a1, CGColorSpaceRef space)
   }
 }
 
-void sub_22443CD1C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_22443CD1C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = PTSyntheticLight;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -2193,58 +2219,98 @@ void OUTLINED_FUNCTION_1_6(void *a1, uint64_t a2, os_log_t log, const char *a4, 
   _os_log_error_impl(a1, log, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-float __vfx_script_lasers_graph_134(double a1)
+float __vfx_script_lasers_graph_134(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_lasers_graph_134_cold_1();
   }
 
-  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a1);
+  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a2);
   result = **arguments_buffer_delayInitStub * 2000.0;
   *arguments_buffer_delayInitStub[1] = result;
   return result;
 }
 
-float __vfx_script_lasers_graph_135(double a1)
+float __vfx_script_lasers_graph_135(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_lasers_graph_134_cold_1();
   }
 
-  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a1);
+  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a2);
   result = **arguments_buffer_delayInitStub * 300.0;
   *arguments_buffer_delayInitStub[1] = result;
   return result;
 }
 
-float __vfx_script_lasers_graph_136(double a1)
+float __vfx_script_lasers_graph_136(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_lasers_graph_134_cold_1();
   }
 
-  v1 = *(vfx_script_get_arguments_buffer_delayInitStub(a1) + 8);
-  vfx_script_clock_time_delayInitStub(v2);
-  *&v3 = v3;
-  result = (fminf(fmaxf((sinf(*&v3 * 75.0) + 1.0) * 0.5, 0.0), 1.0) * 0.75) + 0.5;
-  *v1 = result;
+  v2 = *(vfx_script_get_arguments_buffer_delayInitStub(a2) + 8);
+  vfx_script_clock_time_delayInitStub(v3);
+  *&v4 = v4;
+  result = (fminf(fmaxf((sinf(*&v4 * 75.0) + 1.0) * 0.5, 0.0), 1.0) * 0.75) + 0.5;
+  *v2 = result;
   return result;
 }
 
-uint64_t __vfx_script_lasers_graph_138(double a1)
+uint64_t __vfx_script_lasers_graph_138(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_lasers_graph_134_cold_1();
   }
 
-  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a1);
-  v2 = *(arguments_buffer_delayInitStub + 16);
-  v3 = *(arguments_buffer_delayInitStub + 24);
-  v4 = **(arguments_buffer_delayInitStub + 8);
+  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a2);
+  v3 = *(arguments_buffer_delayInitStub + 16);
+  v4 = *(arguments_buffer_delayInitStub + 24);
+  v5 = **(arguments_buffer_delayInitStub + 8);
+  vfx_script_curve_create_delayInitStub(5.23869004e-11);
+  vfx_script_clock_time_delayInitStub(v6);
+  *&v7 = v7;
+  *&v7 = *&v7 / 5.0;
+  if (*&v7 >= 1.0)
+  {
+    *&v7 = 0.0;
+  }
+
+  vfx_script_curve_evaluate_delayInitStub(v7);
+  *v4 = LODWORD(v8);
+  *v3 = v5;
+  return vfx_script_curve_destroy_delayInitStub(v8);
+}
+
+__n128 __vfx_script_lasers_graph_140(uint64_t a1, double a2)
+{
+  if (vfx_script_initialize_objc_helpers(void)::once != -1)
+  {
+    __vfx_script_lasers_graph_134_cold_1();
+  }
+
+  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a2);
+  v3 = *(arguments_buffer_delayInitStub + 16);
+  result = **(arguments_buffer_delayInitStub + 8);
+  **(arguments_buffer_delayInitStub + 24) = **arguments_buffer_delayInitStub;
+  *v3 = result;
+  return result;
+}
+
+uint64_t __vfx_script_lasers_graph_141(uint64_t a1, double a2)
+{
+  if (vfx_script_initialize_objc_helpers(void)::once != -1)
+  {
+    __vfx_script_lasers_graph_134_cold_1();
+  }
+
+  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a2);
+  v3 = *(arguments_buffer_delayInitStub + 8);
+  v4 = *(arguments_buffer_delayInitStub + 16);
   vfx_script_curve_create_delayInitStub(5.23869004e-11);
   vfx_script_clock_time_delayInitStub(v5);
   *&v6 = v6;
@@ -2255,204 +2321,164 @@ uint64_t __vfx_script_lasers_graph_138(double a1)
   }
 
   vfx_script_curve_evaluate_delayInitStub(v6);
-  *v3 = LODWORD(v7);
-  *v2 = v4;
-  return vfx_script_curve_destroy_delayInitStub(v7);
-}
-
-__n128 __vfx_script_lasers_graph_140(double a1)
-{
-  if (vfx_script_initialize_objc_helpers(void)::once != -1)
-  {
-    __vfx_script_lasers_graph_134_cold_1();
-  }
-
-  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a1);
-  v2 = *(arguments_buffer_delayInitStub + 16);
-  result = **(arguments_buffer_delayInitStub + 8);
-  **(arguments_buffer_delayInitStub + 24) = **arguments_buffer_delayInitStub;
-  *v2 = result;
-  return result;
-}
-
-uint64_t __vfx_script_lasers_graph_141(double a1)
-{
-  if (vfx_script_initialize_objc_helpers(void)::once != -1)
-  {
-    __vfx_script_lasers_graph_134_cold_1();
-  }
-
-  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a1);
-  v2 = *(arguments_buffer_delayInitStub + 8);
-  v3 = *(arguments_buffer_delayInitStub + 16);
-  vfx_script_curve_create_delayInitStub(5.23869004e-11);
-  vfx_script_clock_time_delayInitStub(v4);
-  *&v5 = v5;
-  *&v5 = *&v5 / 5.0;
-  if (*&v5 >= 1.0)
-  {
-    *&v5 = 0.0;
-  }
-
-  vfx_script_curve_evaluate_delayInitStub(v5);
-  *v3 = v6;
-  *v2 = xmmword_2244A56B0;
+  *v4 = v7;
+  *v3 = xmmword_2244A56B0;
   return vfx_script_curve_destroy_delayInitStub(0.00000133972957);
 }
 
-float32x4_t __vfx_script_lasers_graph_142(double a1)
+float32x4_t __vfx_script_lasers_graph_142(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_lasers_graph_134_cold_1();
   }
 
-  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a1);
-  v2 = *(arguments_buffer_delayInitStub + 16);
-  v3 = **(arguments_buffer_delayInitStub + 8);
+  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a2);
+  v3 = *(arguments_buffer_delayInitStub + 16);
+  v4 = **(arguments_buffer_delayInitStub + 8);
   **(arguments_buffer_delayInitStub + 24) = **arguments_buffer_delayInitStub;
-  result = vaddq_f32(v3, xmmword_2244A5960);
-  *v2 = result;
+  result = vaddq_f32(v4, xmmword_2244A5960);
+  *v3 = result;
   return result;
 }
 
-__n128 __vfx_script_lasers_graph_146(double a1)
+__n128 __vfx_script_lasers_graph_146(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_lasers_graph_134_cold_1();
   }
 
-  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a1);
-  v2 = *arguments_buffer_delayInitStub;
+  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a2);
+  v3 = *arguments_buffer_delayInitStub;
   __asm { FMOV            V0.4S, #1.0 }
 
   **(arguments_buffer_delayInitStub + 8) = _Q0;
   __asm { FMOV            V0.4S, #-1.0 }
 
-  *v2 = result;
+  *v3 = result;
   return result;
 }
 
-int32x2_t __vfx_script_lasers_graph_150(double a1)
+int32x2_t __vfx_script_lasers_graph_150(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_lasers_graph_134_cold_1();
   }
 
-  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a1);
-  v2 = *(arguments_buffer_delayInitStub + 8);
-  v3 = **arguments_buffer_delayInitStub;
+  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a2);
+  v3 = *(arguments_buffer_delayInitStub + 8);
+  v4 = **arguments_buffer_delayInitStub;
   result = vdup_n_s32(**(arguments_buffer_delayInitStub + 16));
   **(arguments_buffer_delayInitStub + 24) = result;
-  *v2 = v3;
+  *v3 = v4;
   return result;
 }
 
-_DWORD **__vfx_script_lasers_graph_151(double a1)
+_DWORD **__vfx_script_lasers_graph_151(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_lasers_graph_134_cold_1();
   }
 
-  result = vfx_script_get_arguments_buffer_delayInitStub(a1);
+  result = vfx_script_get_arguments_buffer_delayInitStub(a2);
   *result[1] = **result;
   return result;
 }
 
-_BYTE **__vfx_script_lasers_graph_154(double a1)
+_BYTE **__vfx_script_lasers_graph_154(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_lasers_graph_134_cold_1();
   }
 
-  result = vfx_script_get_arguments_buffer_delayInitStub(a1);
+  result = vfx_script_get_arguments_buffer_delayInitStub(a2);
   **result = 1;
   return result;
 }
 
-__n128 __vfx_script_lasers_graph_156(double a1)
+__n128 __vfx_script_lasers_graph_156(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_lasers_graph_134_cold_1();
   }
 
-  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a1);
-  v2 = *(arguments_buffer_delayInitStub + 16);
+  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a2);
+  v3 = *(arguments_buffer_delayInitStub + 16);
   result = **(arguments_buffer_delayInitStub + 8);
   **(arguments_buffer_delayInitStub + 24) = **arguments_buffer_delayInitStub;
-  *v2 = result;
+  *v3 = result;
   return result;
 }
 
-uint64_t __vfx_script_lasers_particleInit_137(double a1)
+void *__vfx_script_lasers_particleInit_137(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_lasers_graph_134_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  return vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  return vfx_script_get_arguments_buffer_delayInitStub(v2);
 }
 
-uint64_t __vfx_script_lasers_particleInit_143(double a1)
+void *__vfx_script_lasers_particleInit_143(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_lasers_graph_134_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  return vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  return vfx_script_get_arguments_buffer_delayInitStub(v2);
 }
 
-uint64_t __vfx_script_lasers_particleInit_145(double a1)
+void __vfx_script_lasers_particleInit_145(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_lasers_graph_134_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  return vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  vfx_script_get_arguments_buffer_delayInitStub(v2);
 }
 
-uint64_t __vfx_script_lasers_particleInit_148(double a1)
+void *__vfx_script_lasers_particleInit_148(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_lasers_graph_134_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  return vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  return vfx_script_get_arguments_buffer_delayInitStub(v2);
 }
 
-uint64_t __vfx_script_lasers_particleInit_152(double a1)
+void *__vfx_script_lasers_particleInit_152(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_lasers_graph_134_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  return vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  return vfx_script_get_arguments_buffer_delayInitStub(v2);
 }
 
-uint64_t __vfx_script_lasers_particleInit_155(double a1)
+void *__vfx_script_lasers_particleInit_155(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_lasers_graph_134_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  return vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  return vfx_script_get_arguments_buffer_delayInitStub(v2);
 }
 
 __n128 particle_update_lasers_particleUpdate_4(uint64_t a1, __n128 *a2, __n128 *a3)
@@ -2462,84 +2488,84 @@ __n128 particle_update_lasers_particleUpdate_4(uint64_t a1, __n128 *a2, __n128 *
   return result;
 }
 
-double __vfx_script_lasers_particleUpdate_4(double a1)
+double __vfx_script_lasers_particleUpdate_4(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_lasers_graph_134_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  vfx_script_get_arguments_buffer_delayInitStub(v2);
   return result;
 }
 
-void __vfx_script_lasers_particleUpdate_139(double a1)
+void __vfx_script_lasers_particleUpdate_139(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_lasers_graph_134_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  vfx_script_get_arguments_buffer_delayInitStub(v2);
 }
 
-__n128 __vfx_script_lasers_particleUpdate_144(double a1)
+float32x4_t __vfx_script_lasers_particleUpdate_144(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_lasers_graph_134_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  vfx_script_get_arguments_buffer_delayInitStub(v2);
   return result;
 }
 
-__n128 __vfx_script_lasers_particleUpdate_147(double a1)
+float32x4_t __vfx_script_lasers_particleUpdate_147(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_lasers_graph_134_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  vfx_script_get_arguments_buffer_delayInitStub(v2);
   return result;
 }
 
-uint64_t __vfx_script_lasers_particleUpdate_149(double a1)
+void __vfx_script_lasers_particleUpdate_149(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_lasers_graph_134_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  return vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  vfx_script_get_arguments_buffer_delayInitStub(v2);
 }
 
-uint64_t __vfx_script_lasers_particleUpdate_153(double a1)
+void __vfx_script_lasers_particleUpdate_153(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_lasers_graph_134_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  return vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  vfx_script_get_arguments_buffer_delayInitStub(v2);
 }
 
-uint64_t __vfx_script_lasers_particleUpdate_157(double a1)
+void __vfx_script_lasers_particleUpdate_157(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_lasers_graph_134_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  return vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  vfx_script_get_arguments_buffer_delayInitStub(v2);
 }
 
 SEL ___ZL34vfx_script_initialize_objc_helpersv_block_invoke_1()
@@ -2637,7 +2663,7 @@ double CGRectGetCenter(CGFloat a1, CGFloat a2, CGFloat a3, CGFloat a4)
   return MidX;
 }
 
-uint64_t PTSerializationDebugIsEnabled()
+uint64_t PTSerializationDebugIsEnabled(uint64_t a1, uint64_t a2)
 {
   if (PTSerializationDebugIsEnabled_onceToken != -1)
   {
@@ -2747,7 +2773,7 @@ BOOL PTDetectionTypeIsBetter(uint64_t a1, uint64_t a2)
   return v17;
 }
 
-unint64_t __PTDetectionTypeIsBetter_block_invoke()
+void *__PTDetectionTypeIsBetter_block_invoke()
 {
   v0 = objc_opt_new();
   v1 = PTDetectionTypeIsBetter_sOrderMap;
@@ -2781,10 +2807,10 @@ uint64_t PTDetectionTypeParent(uint64_t result)
   return result;
 }
 
-id PTDetectionTypeAccessibilityLabel(unint64_t a1)
+id PTDetectionTypeAccessibilityLabel(unint64_t a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v3 = v2;
+  v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v4 = v3;
   if (a1 > 0xB)
   {
     goto LABEL_11;
@@ -2792,35 +2818,35 @@ id PTDetectionTypeAccessibilityLabel(unint64_t a1)
 
   if (((1 << a1) & 0x630) != 0)
   {
-    v4 = @"PTCinematographyDetectionTypePet";
-    v5 = @"pet";
+    v5 = @"PTCinematographyDetectionTypePet";
+    v6 = @"pet";
     goto LABEL_6;
   }
 
   if (((1 << a1) & 0xE) != 0)
   {
-    v4 = @"PTCinematographyDetectionTypeHuman";
-    v5 = @"person";
+    v5 = @"PTCinematographyDetectionTypeHuman";
+    v6 = @"person";
     goto LABEL_6;
   }
 
   if (a1 == 11)
   {
-    v4 = @"PTCinematographyDetectionTypeSportsBall";
-    v5 = @"sports ball";
+    v5 = @"PTCinematographyDetectionTypeSportsBall";
+    v6 = @"sports ball";
   }
 
   else
   {
 LABEL_11:
-    v4 = @"PTCinematographyDetectionTypeDefault";
-    v5 = @"object";
+    v5 = @"PTCinematographyDetectionTypeDefault";
+    v6 = @"object";
   }
 
 LABEL_6:
-  v6 = [v2 localizedStringForKey:v4 value:v5 table:0];
+  v7 = [v3 localizedStringForKey:v5 value:v6 table:0];
 
-  return v6;
+  return v7;
 }
 
 id PTDefaultsPublicGetDictionary()
@@ -2860,7 +2886,7 @@ id _ErrorForDataBufferNotFoundAtURL(void *a1)
 {
   v10[2] = *MEMORY[0x277D85DE8];
   v1 = a1;
-  v2 = _PTLogSystem();
+  v2 = _PTLogSystem(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     _ErrorForDataBufferNotFoundAtURL_cold_1(v1, v2);
@@ -2905,260 +2931,257 @@ BOOL LoadDataVec(char *a1, size_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uin
   return v14 != 0;
 }
 
-float __vfx_script_hearts_graph_222(double a1)
+float __vfx_script_hearts_graph_222(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_hearts_graph_222_cold_1();
   }
 
-  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a1);
+  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a2);
   result = **arguments_buffer_delayInitStub;
   *arguments_buffer_delayInitStub[1] = result;
   return result;
 }
 
-int32x2_t __vfx_script_hearts_graph_226(double a1)
+int32x2_t __vfx_script_hearts_graph_226(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_hearts_graph_222_cold_1();
   }
 
-  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a1);
-  v2 = *(arguments_buffer_delayInitStub + 16);
-  v3 = *(arguments_buffer_delayInitStub + 32);
-  v4 = **(arguments_buffer_delayInitStub + 8);
-  v5 = **(arguments_buffer_delayInitStub + 24);
-  inited = vfx_script_clock_simulation_index_delayInitStub(v6);
-  v8 = 277803737 * (((747796405 * (v4 + inited) + 432355790) >> (((747796405 * (v4 + inited) + 432355790) >> 28) + 4)) ^ (747796405 * (v4 + inited) + 432355790));
-  v9.i32[0] = -4.0;
-  if ((COERCE_FLOAT((v8 >> 31) ^ (v8 >> 9) | 0x3F800000) + -1.0) > 0.5)
+  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a2);
+  v3 = *(arguments_buffer_delayInitStub + 16);
+  v4 = *(arguments_buffer_delayInitStub + 32);
+  v5 = **(arguments_buffer_delayInitStub + 8);
+  v6 = **(arguments_buffer_delayInitStub + 24);
+  inited = vfx_script_clock_simulation_index_delayInitStub(v7);
+  v9 = 277803737 * (((747796405 * (v5 + inited) + 432355790) >> (((747796405 * (v5 + inited) + 432355790) >> 28) + 4)) ^ (747796405 * (v5 + inited) + 432355790));
+  v10.i32[0] = -4.0;
+  if ((COERCE_FLOAT((v9 >> 31) ^ (v9 >> 9) | 0x3F800000) + -1.0) > 0.5)
   {
-    *v9.i32 = 4.0;
+    *v10.i32 = 4.0;
   }
 
-  result = vdup_lane_s32(v9, 0);
-  *v2 = result;
-  *v3 = v5;
+  result = vdup_lane_s32(v10, 0);
+  *v3 = result;
+  *v4 = v6;
   return result;
 }
 
-float __vfx_script_hearts_graph_227(double a1)
+float __vfx_script_hearts_graph_227(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_hearts_graph_222_cold_1();
   }
 
-  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a1);
+  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a2);
   result = **arguments_buffer_delayInitStub * 300.0;
   *arguments_buffer_delayInitStub[1] = result;
   return result;
 }
 
-float __vfx_script_hearts_graph_228(double a1)
+float __vfx_script_hearts_graph_228(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_hearts_graph_222_cold_1();
   }
 
-  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a1);
+  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a2);
   result = **arguments_buffer_delayInitStub * 2000.0;
   *arguments_buffer_delayInitStub[1] = result;
   return result;
 }
 
-_DWORD *__vfx_script_hearts_graph_231(double a1)
+_DWORD *__vfx_script_hearts_graph_231(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_hearts_graph_222_cold_1();
   }
 
-  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a1);
-  v2 = *arguments_buffer_delayInitStub;
-  v3 = *(arguments_buffer_delayInitStub + 8);
-  v4 = *(arguments_buffer_delayInitStub + 16);
-  v5 = *(arguments_buffer_delayInitStub + 24);
-  v6 = *(arguments_buffer_delayInitStub + 32);
-  v7 = *(arguments_buffer_delayInitStub + 40);
-  v8 = *(arguments_buffer_delayInitStub + 48);
-  v9 = *(arguments_buffer_delayInitStub + 56);
-  v10 = *(arguments_buffer_delayInitStub + 64);
-  v11 = *(arguments_buffer_delayInitStub + 72);
-  v12 = *(arguments_buffer_delayInitStub + 80);
-  v13 = *(arguments_buffer_delayInitStub + 88);
-  v15 = *(arguments_buffer_delayInitStub + 96);
+  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a2);
+  v3 = *arguments_buffer_delayInitStub;
+  v4 = *(arguments_buffer_delayInitStub + 8);
+  v5 = *(arguments_buffer_delayInitStub + 16);
+  v6 = *(arguments_buffer_delayInitStub + 24);
+  v7 = *(arguments_buffer_delayInitStub + 32);
+  v8 = *(arguments_buffer_delayInitStub + 40);
+  v9 = *(arguments_buffer_delayInitStub + 48);
+  v10 = *(arguments_buffer_delayInitStub + 56);
+  v11 = *(arguments_buffer_delayInitStub + 64);
+  v12 = *(arguments_buffer_delayInitStub + 72);
+  v13 = *(arguments_buffer_delayInitStub + 80);
+  v14 = *(arguments_buffer_delayInitStub + 88);
+  v16 = *(arguments_buffer_delayInitStub + 96);
   result = *(arguments_buffer_delayInitStub + 104);
-  v16 = *v5;
-  v17 = *v7;
-  v18 = *v9;
-  v19 = *v11;
+  v17 = *v6;
+  v18 = *v8;
+  v19 = *v10;
   v20 = *v12;
-  v21 = *v15;
-  v22 = *v2 == 0;
-  v23.i32[0] = 1008981770;
-  if (*v2)
+  v21 = *v13;
+  v22 = *v16;
+  v23 = *v3 == 0;
+  v24.i32[0] = 1008981770;
+  if (*v3)
   {
-    *v23.i32 = 0.03;
+    *v24.i32 = 0.03;
   }
 
-  *v3 = vdup_lane_s32(v23, 0);
-  *v4 = 0u;
-  v24 = v16 + 0.5;
-  if (!v22)
-  {
-    v24 = 0.0;
-  }
-
-  *v6 = v24;
-  *v8 = v17;
-  *v10 = vaddq_f32(v18, xmmword_2244A5AE0);
-  v25 = v20 * 9.0;
-  if (!v19)
+  *v4 = vdup_lane_s32(v24, 0);
+  *v5 = 0u;
+  v25 = v17 + 0.5;
+  if (!v23)
   {
     v25 = 0.0;
   }
 
-  *v13 = v25;
-  *result = v21;
+  *v7 = v25;
+  *v9 = v18;
+  *v11 = vaddq_f32(v19, xmmword_2244A5AE0);
+  v26 = v21 * 9.0;
+  if (!v20)
+  {
+    v26 = 0.0;
+  }
+
+  *v14 = v26;
+  *result = v22;
   return result;
 }
 
-float __vfx_script_hearts_graph_232(double a1)
+float __vfx_script_hearts_graph_232(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_hearts_graph_222_cold_1();
   }
 
-  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a1);
-  v2 = *(arguments_buffer_delayInitStub + 16);
-  v3 = *(arguments_buffer_delayInitStub + 24);
+  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a2);
+  v3 = *(arguments_buffer_delayInitStub + 16);
+  v4 = *(arguments_buffer_delayInitStub + 24);
   result = **(arguments_buffer_delayInitStub + 8);
   **arguments_buffer_delayInitStub = xmmword_2244A5AF0;
-  *v2 = result;
-  *v3 = 1065353216;
+  *v3 = result;
+  *v4 = 1065353216;
   return result;
 }
 
-_DWORD **__vfx_script_hearts_graph_233(double a1)
+_DWORD **__vfx_script_hearts_graph_233(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_hearts_graph_222_cold_1();
   }
 
-  result = vfx_script_get_arguments_buffer_delayInitStub(a1);
+  result = vfx_script_get_arguments_buffer_delayInitStub(a2);
   **result = 1053609165;
   return result;
 }
 
-double __vfx_script_hearts_graph_234(double a1)
+double __vfx_script_hearts_graph_234(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_hearts_graph_222_cold_1();
   }
 
-  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a1);
+  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a2);
   result = 0.00000133972957;
   **arguments_buffer_delayInitStub = xmmword_2244A56B0;
   return result;
 }
 
-_BYTE **__vfx_script_hearts_graph_235(double a1)
+_BYTE **__vfx_script_hearts_graph_235(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_hearts_graph_222_cold_1();
   }
 
-  result = vfx_script_get_arguments_buffer_delayInitStub(a1);
+  result = vfx_script_get_arguments_buffer_delayInitStub(a2);
   **result = 1;
   return result;
 }
 
-uint64_t __vfx_script_hearts_particleInit_223(double a1)
+void *__vfx_script_hearts_particleInit_223(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_hearts_graph_222_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  return vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  return vfx_script_get_arguments_buffer_delayInitStub(v2);
 }
 
-uint64_t __vfx_script_hearts_particleInit_224(double a1)
+void __vfx_script_hearts_particleInit_224(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_hearts_graph_222_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  return vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  vfx_script_get_arguments_buffer_delayInitStub(v2);
 }
 
-uint64_t __vfx_script_hearts_particleInit_229(double a1)
+void __vfx_script_hearts_particleInit_229(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_hearts_graph_222_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  return vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  vfx_script_get_arguments_buffer_delayInitStub(v2);
 }
 
-uint64_t particle_update_hearts_particleUpdate_6(double a1, uint64_t a2, double *a3, _DWORD *a4, float *a5, float *a6)
+void particle_update_hearts_particleUpdate_6(uint64_t a1, float32x4_t *a2, _DWORD *a3, float *a4, float *a5, uint64_t a6, double a7)
 {
-  v30 = *MEMORY[0x277D85DE8];
-  vfx_script_clock_delta_time_delayInitStub(a1);
-  v28 = v10;
-  result = vfx_script_particle_find_nearest_neighbors_delayInitStub(*a3);
-  if (result)
+  v31 = *MEMORY[0x277D85DE8];
+  vfx_script_clock_delta_time_delayInitStub(a7);
+  v29 = v11;
+  nearest_neighbors_delayInitStub = vfx_script_particle_find_nearest_neighbors_delayInitStub(*a2->i64);
+  if (nearest_neighbors_delayInitStub)
   {
-    v12 = result;
-    v13 = &v29;
+    v13 = nearest_neighbors_delayInitStub;
+    v14 = &v30;
     __asm { FMOV            V0.4S, #0.25 }
 
-    v27 = _Q0;
+    v28 = _Q0;
     do
     {
-      v13 += 8;
-      result = vfx_script_particle_get_id_delayInitStub(*_Q0.i64);
-      if (*a4 != result)
+      v14 += 8;
+      if (*a3 != vfx_script_particle_get_id_delayInitStub(*_Q0.i64))
       {
         vfx_script_particle_get_size1d_delayInitStub(*_Q0.i64);
-        v20 = *&v19;
-        result = vfx_script_particle_get_position_delayInitStub(v19);
-        _Q0 = vsubq_f32(v21, *a3);
-        v22 = vmulq_f32(_Q0, _Q0);
-        v23 = v22.f32[2] + vaddv_f32(*v22.f32);
-        v24 = v20 + *a6;
-        if (v23 < ((v24 * 0.6) * (v24 * 0.6)) && v23 > 1.0e-10)
+        v21 = *&v20;
+        vfx_script_particle_get_position_delayInitStub(v20);
+        _Q0 = vsubq_f32(v22, *a2);
+        v23 = vmulq_f32(_Q0, _Q0);
+        v24 = v23.f32[2] + vaddv_f32(*v23.f32);
+        v25 = v21 + *a5;
+        if (v24 < ((v25 * 0.6) * (v25 * 0.6)) && v24 > 1.0e-10)
         {
-          v25 = vrsqrte_f32(LODWORD(v23));
-          v26 = vmul_f32(v25, vrsqrts_f32(LODWORD(v23), vmul_f32(v25, v25)));
-          _Q0 = vmulq_n_f32(vmulq_f32(vmulq_n_f32(vmulq_n_f32(_Q0, vmul_f32(v26, vrsqrts_f32(LODWORD(v23), vmul_f32(v26, v26))).f32[0]), sqrtf(v23) - v24), v27), v28);
-          *a3 = vmlaq_n_f32(*a3, _Q0, fminf(*a5 * 10.0, 1.0));
+          v26 = vrsqrte_f32(LODWORD(v24));
+          v27 = vmul_f32(v26, vrsqrts_f32(LODWORD(v24), vmul_f32(v26, v26)));
+          _Q0 = vmulq_n_f32(vmulq_f32(vmulq_n_f32(vmulq_n_f32(_Q0, vmul_f32(v27, vrsqrts_f32(LODWORD(v24), vmul_f32(v27, v27))).f32[0]), sqrtf(v24) - v25), v28), v29);
+          *a2 = vmlaq_n_f32(*a2, _Q0, fminf(*a4 * 10.0, 1.0));
         }
       }
 
-      --v12;
+      --v13;
     }
 
-    while (v12);
+    while (v13);
   }
-
-  return result;
 }
 
-uint64_t __vfx_script_hearts_particleUpdate_6(double a1)
+void __vfx_script_hearts_particleUpdate_6(uint64_t a1, double a2)
 {
   v3 = *MEMORY[0x277D85DE8];
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
@@ -3166,30 +3189,30 @@ uint64_t __vfx_script_hearts_particleUpdate_6(double a1)
     __vfx_script_hearts_graph_222_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  return vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  vfx_script_get_arguments_buffer_delayInitStub(v2);
 }
 
-uint64_t __vfx_script_hearts_particleUpdate_225(double a1)
+void *__vfx_script_hearts_particleUpdate_225(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_hearts_graph_222_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  return vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  return vfx_script_get_arguments_buffer_delayInitStub(v2);
 }
 
-uint64_t __vfx_script_hearts_particleUpdate_230(double a1)
+void __vfx_script_hearts_particleUpdate_230(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_hearts_graph_222_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  return vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  vfx_script_get_arguments_buffer_delayInitStub(v2);
 }
 
 SEL ___ZL34vfx_script_initialize_objc_helpersv_block_invoke_2()
@@ -3232,18 +3255,20 @@ SEL ___ZL34vfx_script_initialize_objc_helpersv_block_invoke_2()
   return result;
 }
 
-void OUTLINED_FUNCTION_0_11(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_11(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 8u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 8u);
 }
 
-void memsetE5Buffer()
+void memsetE5Buffer(uint64_t a1)
 {
-  if (e5rt_buffer_object_get_data_ptr())
+  data_ptr = e5rt_buffer_object_get_data_ptr();
+  if (data_ptr)
   {
-    v0 = _PTLogSystem();
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+    v2 = _PTLogSystem(data_ptr);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_6;
     }
@@ -3251,10 +3276,11 @@ void memsetE5Buffer()
     goto LABEL_7;
   }
 
-  if (e5rt_buffer_object_get_size())
+  size = e5rt_buffer_object_get_size();
+  if (size)
   {
-    v0 = _PTLogSystem();
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+    v2 = _PTLogSystem(size);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
 LABEL_6:
       [PTEffectPersonSegmentationViSegHQVisionCoreE5 initWithMetalContext:colorSize:];
@@ -3268,15 +3294,16 @@ LABEL_7:
   bzero(0, 0);
 }
 
-uint64_t dataPtrFromE5Buffer()
+uint64_t dataPtrFromE5Buffer(uint64_t a1)
 {
-  if (!e5rt_buffer_object_get_data_ptr())
+  data_ptr = e5rt_buffer_object_get_data_ptr();
+  if (!data_ptr)
   {
     return 0;
   }
 
-  v0 = _PTLogSystem();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v2 = _PTLogSystem(data_ptr);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     [PTEffectPersonSegmentationViSegHQVisionCoreE5 initWithMetalContext:colorSize:];
   }
@@ -3284,614 +3311,612 @@ uint64_t dataPtrFromE5Buffer()
   return 0;
 }
 
-uint64_t __vfx_script_fireworks_graph_353(double a1)
+void __vfx_script_fireworks_graph_353(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_fireworks_graph_353_cold_1();
   }
 
-  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a1);
-  v2 = *(arguments_buffer_delayInitStub + 16);
-  v3 = *(arguments_buffer_delayInitStub + 48);
-  v4 = **(arguments_buffer_delayInitStub + 32);
-  v5 = **(arguments_buffer_delayInitStub + 40);
-  **(arguments_buffer_delayInitStub + 8) = **arguments_buffer_delayInitStub;
-  *v2 = 0xC0600000C0933333;
-  *&v6 = fminf(fmaxf((v5 - v4) / ((v4 + 1.0) - v4), 0.0), 1.0);
-  result = vfx_script_texture_sample1d_delayInitStub(v6);
-  *v3 = v8;
-  return result;
-}
-
-int32x2_t __vfx_script_fireworks_graph_356(double a1)
-{
-  if (vfx_script_initialize_objc_helpers(void)::once != -1)
-  {
-    __vfx_script_fireworks_graph_353_cold_1();
-  }
-
-  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a1);
-  v2 = *(arguments_buffer_delayInitStub + 16);
-  v3 = *(arguments_buffer_delayInitStub + 32);
+  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a2);
+  v3 = *(arguments_buffer_delayInitStub + 16);
   v4 = *(arguments_buffer_delayInitStub + 48);
-  v5 = *(arguments_buffer_delayInitStub + 64);
-  v6 = **(arguments_buffer_delayInitStub + 24);
-  v7 = **(arguments_buffer_delayInitStub + 40);
-  v8 = **(arguments_buffer_delayInitStub + 56);
+  v5 = **(arguments_buffer_delayInitStub + 32);
+  v6 = **(arguments_buffer_delayInitStub + 40);
   **(arguments_buffer_delayInitStub + 8) = **arguments_buffer_delayInitStub;
-  *v2 = 0x3CC49BA63C89A027;
-  *v3 = v6;
-  *v4 = v7;
-  result = vdup_n_s32((v8 * 250.0));
-  *v5 = result;
-  return result;
+  *v3 = 0xC0600000C0933333;
+  *&v7 = fminf(fmaxf((v6 - v5) / ((v5 + 1.0) - v5), 0.0), 1.0);
+  vfx_script_texture_sample1d_delayInitStub(v7);
+  *v4 = v8;
 }
 
-float __vfx_script_fireworks_graph_357(double a1)
+int32x2_t __vfx_script_fireworks_graph_356(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_fireworks_graph_353_cold_1();
   }
 
-  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a1);
+  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a2);
+  v3 = *(arguments_buffer_delayInitStub + 16);
+  v4 = *(arguments_buffer_delayInitStub + 32);
+  v5 = *(arguments_buffer_delayInitStub + 48);
+  v6 = *(arguments_buffer_delayInitStub + 64);
+  v7 = **(arguments_buffer_delayInitStub + 24);
+  v8 = **(arguments_buffer_delayInitStub + 40);
+  v9 = **(arguments_buffer_delayInitStub + 56);
+  **(arguments_buffer_delayInitStub + 8) = **arguments_buffer_delayInitStub;
+  *v3 = 0x3CC49BA63C89A027;
+  *v4 = v7;
+  *v5 = v8;
+  result = vdup_n_s32((v9 * 250.0));
+  *v6 = result;
+  return result;
+}
+
+float __vfx_script_fireworks_graph_357(uint64_t a1, double a2)
+{
+  if (vfx_script_initialize_objc_helpers(void)::once != -1)
+  {
+    __vfx_script_fireworks_graph_353_cold_1();
+  }
+
+  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a2);
   result = **arguments_buffer_delayInitStub;
   *arguments_buffer_delayInitStub[1] = result;
   return result;
 }
 
-__n128 __vfx_script_fireworks_graph_359(double a1)
+__n128 __vfx_script_fireworks_graph_359(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_fireworks_graph_353_cold_1();
   }
 
-  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a1);
-  v2 = *(arguments_buffer_delayInitStub + 24);
-  v3 = *(arguments_buffer_delayInitStub + 40);
-  v4 = *(arguments_buffer_delayInitStub + 48);
-  v5 = *(arguments_buffer_delayInitStub + 56);
-  v6 = **(arguments_buffer_delayInitStub + 16);
+  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a2);
+  v3 = *(arguments_buffer_delayInitStub + 24);
+  v4 = *(arguments_buffer_delayInitStub + 40);
+  v5 = *(arguments_buffer_delayInitStub + 48);
+  v6 = *(arguments_buffer_delayInitStub + 56);
+  v7 = **(arguments_buffer_delayInitStub + 16);
   result = **(arguments_buffer_delayInitStub + 32);
-  v8 = 277803737 * (((747796405 * **arguments_buffer_delayInitStub + 1102377755) >> (((747796405 * **arguments_buffer_delayInitStub + 1102377755) >> 28) + 4)) ^ (747796405 * **arguments_buffer_delayInitStub + 1102377755));
-  **(arguments_buffer_delayInitStub + 8) = (((COERCE_FLOAT((v8 >> 31) ^ (v8 >> 9) | 0x3F800000) + -1.0) * 6.0) + 0.0);
-  *v2 = v6;
-  v9 = vld1q_dup_f32(v4);
-  *v3 = result;
-  *v5 = v9;
+  v9 = 277803737 * (((747796405 * **arguments_buffer_delayInitStub + 1102377755) >> (((747796405 * **arguments_buffer_delayInitStub + 1102377755) >> 28) + 4)) ^ (747796405 * **arguments_buffer_delayInitStub + 1102377755));
+  **(arguments_buffer_delayInitStub + 8) = (((COERCE_FLOAT((v9 >> 31) ^ (v9 >> 9) | 0x3F800000) + -1.0) * 6.0) + 0.0);
+  *v3 = v7;
+  v10 = vld1q_dup_f32(v5);
+  *v4 = result;
+  *v6 = v10;
   return result;
 }
 
-__n128 __vfx_script_fireworks_graph_361(double a1)
+__n128 __vfx_script_fireworks_graph_361(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_fireworks_graph_353_cold_1();
   }
 
-  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a1);
-  v2 = *(arguments_buffer_delayInitStub + 24);
-  v3 = *(arguments_buffer_delayInitStub + 40);
-  v5 = *(arguments_buffer_delayInitStub + 56);
-  v4 = *(arguments_buffer_delayInitStub + 64);
-  v6 = *(arguments_buffer_delayInitStub + 72);
-  LODWORD(v7) = **(arguments_buffer_delayInitStub + 8);
-  v8 = **(arguments_buffer_delayInitStub + 32);
-  v9 = vld1q_dup_f32(v4);
-  v21 = v9;
-  v22 = **(arguments_buffer_delayInitStub + 48);
-  **(arguments_buffer_delayInitStub + 16) = LODWORD(v7);
-  is_first_frame_delayInitStub = vfx_script_clock_is_first_frame_delayInitStub(v7);
-  vfx_script_clock_delta_time_delayInitStub(v11);
-  v13 = vmulq_n_f32(*v2, 1.0 - (v12 + v12));
+  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a2);
+  v3 = *(arguments_buffer_delayInitStub + 24);
+  v4 = *(arguments_buffer_delayInitStub + 40);
+  v6 = *(arguments_buffer_delayInitStub + 56);
+  v5 = *(arguments_buffer_delayInitStub + 64);
+  v7 = *(arguments_buffer_delayInitStub + 72);
+  LODWORD(v8) = **(arguments_buffer_delayInitStub + 8);
+  v9 = **(arguments_buffer_delayInitStub + 32);
+  v10 = vld1q_dup_f32(v5);
+  v22 = v10;
+  v23 = **(arguments_buffer_delayInitStub + 48);
+  **(arguments_buffer_delayInitStub + 16) = LODWORD(v8);
+  is_first_frame_delayInitStub = vfx_script_clock_is_first_frame_delayInitStub(v8);
+  vfx_script_clock_delta_time_delayInitStub(v12);
+  v14 = vmulq_n_f32(*v3, 1.0 - (v13 + v13));
   if (is_first_frame_delayInitStub)
   {
-    v14 = -1;
+    v15 = -1;
   }
 
   else
   {
-    v14 = 0;
+    v15 = 0;
   }
 
   __asm { FMOV            V2.4S, #1.0 }
 
-  *v2 = vbslq_s8(vdupq_n_s32(v14), _Q2, v13);
-  *v3 = v8;
-  result = v21;
-  *v5 = v22;
-  *v6 = v21;
+  *v3 = vbslq_s8(vdupq_n_s32(v15), _Q2, v14);
+  *v4 = v9;
+  result = v22;
+  *v6 = v23;
+  *v7 = v22;
   return result;
 }
 
-int32x4_t __vfx_script_fireworks_graph_364(double a1)
+int32x4_t __vfx_script_fireworks_graph_364(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_fireworks_graph_353_cold_1();
   }
 
-  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a1);
-  v2 = *(arguments_buffer_delayInitStub + 16);
-  v3 = *(arguments_buffer_delayInitStub + 24);
-  v4 = *(arguments_buffer_delayInitStub + 40);
-  v5 = *(arguments_buffer_delayInitStub + 56);
-  v6 = **(arguments_buffer_delayInitStub + 32);
-  v7 = **(arguments_buffer_delayInitStub + 48);
+  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a2);
+  v3 = *(arguments_buffer_delayInitStub + 16);
+  v4 = *(arguments_buffer_delayInitStub + 24);
+  v5 = *(arguments_buffer_delayInitStub + 40);
+  v6 = *(arguments_buffer_delayInitStub + 56);
+  v7 = **(arguments_buffer_delayInitStub + 32);
+  v8 = **(arguments_buffer_delayInitStub + 48);
   **(arguments_buffer_delayInitStub + 8) = **arguments_buffer_delayInitStub * 8000.0;
-  *v2 = 0x3C9D49523B81C2E4;
+  *v3 = 0x3C9D49523B81C2E4;
   result = vdupq_n_s32(0x3DCCCCCDu);
-  *v3 = result;
-  *v4 = v6;
-  *v5 = v7;
-  return result;
-}
-
-int32x4_t __vfx_script_fireworks_graph_367(double a1)
-{
-  if (vfx_script_initialize_objc_helpers(void)::once != -1)
-  {
-    __vfx_script_fireworks_graph_353_cold_1();
-  }
-
-  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a1);
-  v2 = *(arguments_buffer_delayInitStub + 16);
-  v3 = *(arguments_buffer_delayInitStub + 24);
-  v4 = *(arguments_buffer_delayInitStub + 40);
-  v5 = *(arguments_buffer_delayInitStub + 56);
-  v6 = **(arguments_buffer_delayInitStub + 32);
-  v7 = **(arguments_buffer_delayInitStub + 48);
-  **(arguments_buffer_delayInitStub + 8) = **arguments_buffer_delayInitStub * 7000.0;
-  *v2 = 0x3C83126F3B5844D0;
-  result = vdupq_n_s32(0x3CF5C28Fu);
-  *v3 = result;
-  *v4 = v6;
-  *v5 = v7;
-  return result;
-}
-
-float __vfx_script_fireworks_graph_370(double a1)
-{
-  if (vfx_script_initialize_objc_helpers(void)::once != -1)
-  {
-    __vfx_script_fireworks_graph_353_cold_1();
-  }
-
-  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a1);
-  v2 = *(arguments_buffer_delayInitStub + 24);
-  v3 = *(arguments_buffer_delayInitStub + 32);
-  v4 = *(arguments_buffer_delayInitStub + 40);
-  v5 = *(arguments_buffer_delayInitStub + 56);
-  v6 = **(arguments_buffer_delayInitStub + 16);
-  v7 = **(arguments_buffer_delayInitStub + 48);
-  **(arguments_buffer_delayInitStub + 8) = **arguments_buffer_delayInitStub;
-  *v2 = v6;
-  *v3 = 0x3CAA64C33C378035;
-  *v4 = vdupq_n_s32(0x3DCCCCCDu);
-  result = v7 * 12000.0;
-  *v5 = v7 * 12000.0;
-  return result;
-}
-
-int32x4_t __vfx_script_fireworks_graph_373(double a1)
-{
-  if (vfx_script_initialize_objc_helpers(void)::once != -1)
-  {
-    __vfx_script_fireworks_graph_353_cold_1();
-  }
-
-  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a1);
-  v2 = *(arguments_buffer_delayInitStub + 16);
-  v3 = *(arguments_buffer_delayInitStub + 32);
-  v4 = *(arguments_buffer_delayInitStub + 48);
-  v5 = *(arguments_buffer_delayInitStub + 56);
-  v6 = *(arguments_buffer_delayInitStub + 64);
-  v7 = **arguments_buffer_delayInitStub;
-  v8 = **(arguments_buffer_delayInitStub + 24);
-  v9 = **(arguments_buffer_delayInitStub + 40);
-  **(arguments_buffer_delayInitStub + 8) = v7;
-  *v2 = v7;
-  *v3 = v8;
-  *v4 = v9 * 10000.0;
-  *v5 = 0x3C51B7183B2D03DBLL;
-  result = vdupq_n_s32(0x3D4CCCCDu);
-  *v6 = result;
-  return result;
-}
-
-int32x4_t __vfx_script_fireworks_graph_376(double a1)
-{
-  if (vfx_script_initialize_objc_helpers(void)::once != -1)
-  {
-    __vfx_script_fireworks_graph_353_cold_1();
-  }
-
-  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a1);
-  v2 = *(arguments_buffer_delayInitStub + 24);
-  v3 = *(arguments_buffer_delayInitStub + 32);
-  v4 = *(arguments_buffer_delayInitStub + 40);
-  v5 = *(arguments_buffer_delayInitStub + 48);
-  v6 = **(arguments_buffer_delayInitStub + 16);
-  **(arguments_buffer_delayInitStub + 8) = vdup_n_s32((**arguments_buffer_delayInitStub * 50.0));
-  *v2 = v6;
-  *v3 = 0x40ABAE1540023D71;
-  *v4 = 0x3F68F5C23EEC8B44;
-  result = vdupq_n_s32(0x3E99999Au);
-  *v5 = result;
-  return result;
-}
-
-float __vfx_script_fireworks_graph_379(double a1)
-{
-  if (vfx_script_initialize_objc_helpers(void)::once != -1)
-  {
-    __vfx_script_fireworks_graph_353_cold_1();
-  }
-
-  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a1);
-  v2 = *(arguments_buffer_delayInitStub + 8);
-  v3 = *(arguments_buffer_delayInitStub + 24);
-  v4 = *(arguments_buffer_delayInitStub + 40);
-  v5 = *(arguments_buffer_delayInitStub + 56);
-  v6 = **(arguments_buffer_delayInitStub + 16);
-  v7 = **(arguments_buffer_delayInitStub + 32);
-  v8 = **(arguments_buffer_delayInitStub + 48);
-  **arguments_buffer_delayInitStub = 0x3C83126F3B5844D0;
-  *v2 = vdupq_n_s32(0x3D75C28Fu);
-  *v3 = v6;
-  result = v7 * 10000.0;
-  *v4 = result;
-  *v5 = v8;
-  return result;
-}
-
-float32x4_t __vfx_script_fireworks_graph_382(double a1)
-{
-  if (vfx_script_initialize_objc_helpers(void)::once != -1)
-  {
-    __vfx_script_fireworks_graph_353_cold_1();
-  }
-
-  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a1);
-  v2 = *(arguments_buffer_delayInitStub + 16);
-  v3 = *(arguments_buffer_delayInitStub + 24);
-  v4 = *(arguments_buffer_delayInitStub + 40);
-  v5 = *(arguments_buffer_delayInitStub + 56);
-  v6 = **(arguments_buffer_delayInitStub + 32);
-  v7 = **(arguments_buffer_delayInitStub + 48);
-  **(arguments_buffer_delayInitStub + 8) = vdup_n_s32((**arguments_buffer_delayInitStub * 30.0));
-  *v2 = 0x3F3A5E353EBD3C37;
-  *v3 = vdupq_n_s32(0x3E4CCCCDu);
-  result = vmulq_f32(v6, vdupq_n_s32(0x3F19999Au));
   *v4 = result;
   *v5 = v7;
-  return result;
-}
-
-float __vfx_script_fireworks_graph_385(double a1)
-{
-  if (vfx_script_initialize_objc_helpers(void)::once != -1)
-  {
-    __vfx_script_fireworks_graph_353_cold_1();
-  }
-
-  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a1);
-  v2 = *(arguments_buffer_delayInitStub + 24);
-  v3 = *(arguments_buffer_delayInitStub + 32);
-  v4 = *(arguments_buffer_delayInitStub + 40);
-  v5 = *(arguments_buffer_delayInitStub + 56);
-  v6 = *(arguments_buffer_delayInitStub + 72);
-  v7 = **(arguments_buffer_delayInitStub + 16);
-  v8 = **(arguments_buffer_delayInitStub + 48);
-  v9 = **(arguments_buffer_delayInitStub + 64);
-  **(arguments_buffer_delayInitStub + 8) = **arguments_buffer_delayInitStub;
-  *v2 = v7;
-  *v3 = 0x3C5844D13C449BA6;
-  *v4 = vdupq_n_s32(0x3B83126Fu);
-  *v5 = v8;
-  result = v9 * 140.0;
-  *v6 = v9 * 140.0;
-  return result;
-}
-
-int32x2_t __vfx_script_fireworks_graph_388(double a1)
-{
-  if (vfx_script_initialize_objc_helpers(void)::once != -1)
-  {
-    __vfx_script_fireworks_graph_353_cold_1();
-  }
-
-  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a1);
-  v2 = *(arguments_buffer_delayInitStub + 16);
-  v3 = *(arguments_buffer_delayInitStub + 24);
-  v4 = *(arguments_buffer_delayInitStub + 32);
-  v5 = *(arguments_buffer_delayInitStub + 48);
-  v6 = **(arguments_buffer_delayInitStub + 40);
-  **(arguments_buffer_delayInitStub + 8) = **arguments_buffer_delayInitStub;
-  *v2 = 0x40E8000040300000;
-  *v3 = 0x3F3A5E353EBD3C37;
-  *v4 = vdupq_n_s32(0x3E75C28Fu);
-  result = vdup_n_s32((v6 * 30.0));
-  *v5 = result;
-  return result;
-}
-
-float __vfx_script_fireworks_graph_391(double a1)
-{
-  if (vfx_script_initialize_objc_helpers(void)::once != -1)
-  {
-    __vfx_script_fireworks_graph_353_cold_1();
-  }
-
-  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a1);
-  v2 = *(arguments_buffer_delayInitStub + 16);
-  v3 = *(arguments_buffer_delayInitStub + 24);
-  v4 = *(arguments_buffer_delayInitStub + 40);
-  v5 = *(arguments_buffer_delayInitStub + 56);
-  v6 = *(arguments_buffer_delayInitStub + 64);
-  v7 = **(arguments_buffer_delayInitStub + 32);
-  v8 = **(arguments_buffer_delayInitStub + 48);
-  **(arguments_buffer_delayInitStub + 8) = **arguments_buffer_delayInitStub;
-  *v2 = 0x3CBFB15A3C42A455;
-  *v3 = vdupq_n_s32(0x3DCCCCCDu);
-  result = v7 * 5000.0;
-  *v4 = result;
-  *v5 = v8;
   *v6 = v8;
   return result;
 }
 
-uint64_t __vfx_script_fireworks_graph_394(double a1)
+int32x4_t __vfx_script_fireworks_graph_367(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_fireworks_graph_353_cold_1();
   }
 
-  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a1);
-  v2 = *(arguments_buffer_delayInitStub + 32);
-  v3 = *(arguments_buffer_delayInitStub + 48);
-  v4 = **(arguments_buffer_delayInitStub + 16);
-  v5 = **(arguments_buffer_delayInitStub + 24);
-  v6 = **(arguments_buffer_delayInitStub + 40);
+  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a2);
+  v3 = *(arguments_buffer_delayInitStub + 16);
+  v4 = *(arguments_buffer_delayInitStub + 24);
+  v5 = *(arguments_buffer_delayInitStub + 40);
+  v6 = *(arguments_buffer_delayInitStub + 56);
+  v7 = **(arguments_buffer_delayInitStub + 32);
+  v8 = **(arguments_buffer_delayInitStub + 48);
+  **(arguments_buffer_delayInitStub + 8) = **arguments_buffer_delayInitStub * 7000.0;
+  *v3 = 0x3C83126F3B5844D0;
+  result = vdupq_n_s32(0x3CF5C28Fu);
+  *v4 = result;
+  *v5 = v7;
+  *v6 = v8;
+  return result;
+}
+
+float __vfx_script_fireworks_graph_370(uint64_t a1, double a2)
+{
+  if (vfx_script_initialize_objc_helpers(void)::once != -1)
+  {
+    __vfx_script_fireworks_graph_353_cold_1();
+  }
+
+  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a2);
+  v3 = *(arguments_buffer_delayInitStub + 24);
+  v4 = *(arguments_buffer_delayInitStub + 32);
+  v5 = *(arguments_buffer_delayInitStub + 40);
+  v6 = *(arguments_buffer_delayInitStub + 56);
+  v7 = **(arguments_buffer_delayInitStub + 16);
+  v8 = **(arguments_buffer_delayInitStub + 48);
+  **(arguments_buffer_delayInitStub + 8) = **arguments_buffer_delayInitStub;
+  *v3 = v7;
+  *v4 = 0x3CAA64C33C378035;
+  *v5 = vdupq_n_s32(0x3DCCCCCDu);
+  result = v8 * 12000.0;
+  *v6 = v8 * 12000.0;
+  return result;
+}
+
+int32x4_t __vfx_script_fireworks_graph_373(uint64_t a1, double a2)
+{
+  if (vfx_script_initialize_objc_helpers(void)::once != -1)
+  {
+    __vfx_script_fireworks_graph_353_cold_1();
+  }
+
+  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a2);
+  v3 = *(arguments_buffer_delayInitStub + 16);
+  v4 = *(arguments_buffer_delayInitStub + 32);
+  v5 = *(arguments_buffer_delayInitStub + 48);
+  v6 = *(arguments_buffer_delayInitStub + 56);
+  v7 = *(arguments_buffer_delayInitStub + 64);
+  v8 = **arguments_buffer_delayInitStub;
+  v9 = **(arguments_buffer_delayInitStub + 24);
+  v10 = **(arguments_buffer_delayInitStub + 40);
+  **(arguments_buffer_delayInitStub + 8) = v8;
+  *v3 = v8;
+  *v4 = v9;
+  *v5 = v10 * 10000.0;
+  *v6 = 0x3C51B7183B2D03DBLL;
+  result = vdupq_n_s32(0x3D4CCCCDu);
+  *v7 = result;
+  return result;
+}
+
+int32x4_t __vfx_script_fireworks_graph_376(uint64_t a1, double a2)
+{
+  if (vfx_script_initialize_objc_helpers(void)::once != -1)
+  {
+    __vfx_script_fireworks_graph_353_cold_1();
+  }
+
+  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a2);
+  v3 = *(arguments_buffer_delayInitStub + 24);
+  v4 = *(arguments_buffer_delayInitStub + 32);
+  v5 = *(arguments_buffer_delayInitStub + 40);
+  v6 = *(arguments_buffer_delayInitStub + 48);
+  v7 = **(arguments_buffer_delayInitStub + 16);
+  **(arguments_buffer_delayInitStub + 8) = vdup_n_s32((**arguments_buffer_delayInitStub * 50.0));
+  *v3 = v7;
+  *v4 = 0x40ABAE1540023D71;
+  *v5 = 0x3F68F5C23EEC8B44;
+  result = vdupq_n_s32(0x3E99999Au);
+  *v6 = result;
+  return result;
+}
+
+float __vfx_script_fireworks_graph_379(uint64_t a1, double a2)
+{
+  if (vfx_script_initialize_objc_helpers(void)::once != -1)
+  {
+    __vfx_script_fireworks_graph_353_cold_1();
+  }
+
+  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a2);
+  v3 = *(arguments_buffer_delayInitStub + 8);
+  v4 = *(arguments_buffer_delayInitStub + 24);
+  v5 = *(arguments_buffer_delayInitStub + 40);
+  v6 = *(arguments_buffer_delayInitStub + 56);
+  v7 = **(arguments_buffer_delayInitStub + 16);
+  v8 = **(arguments_buffer_delayInitStub + 32);
+  v9 = **(arguments_buffer_delayInitStub + 48);
+  **arguments_buffer_delayInitStub = 0x3C83126F3B5844D0;
+  *v3 = vdupq_n_s32(0x3D75C28Fu);
+  *v4 = v7;
+  result = v8 * 10000.0;
+  *v5 = result;
+  *v6 = v9;
+  return result;
+}
+
+float32x4_t __vfx_script_fireworks_graph_382(uint64_t a1, double a2)
+{
+  if (vfx_script_initialize_objc_helpers(void)::once != -1)
+  {
+    __vfx_script_fireworks_graph_353_cold_1();
+  }
+
+  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a2);
+  v3 = *(arguments_buffer_delayInitStub + 16);
+  v4 = *(arguments_buffer_delayInitStub + 24);
+  v5 = *(arguments_buffer_delayInitStub + 40);
+  v6 = *(arguments_buffer_delayInitStub + 56);
+  v7 = **(arguments_buffer_delayInitStub + 32);
+  v8 = **(arguments_buffer_delayInitStub + 48);
+  **(arguments_buffer_delayInitStub + 8) = vdup_n_s32((**arguments_buffer_delayInitStub * 30.0));
+  *v3 = 0x3F3A5E353EBD3C37;
+  *v4 = vdupq_n_s32(0x3E4CCCCDu);
+  result = vmulq_f32(v7, vdupq_n_s32(0x3F19999Au));
+  *v5 = result;
+  *v6 = v8;
+  return result;
+}
+
+float __vfx_script_fireworks_graph_385(uint64_t a1, double a2)
+{
+  if (vfx_script_initialize_objc_helpers(void)::once != -1)
+  {
+    __vfx_script_fireworks_graph_353_cold_1();
+  }
+
+  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a2);
+  v3 = *(arguments_buffer_delayInitStub + 24);
+  v4 = *(arguments_buffer_delayInitStub + 32);
+  v5 = *(arguments_buffer_delayInitStub + 40);
+  v6 = *(arguments_buffer_delayInitStub + 56);
+  v7 = *(arguments_buffer_delayInitStub + 72);
+  v8 = **(arguments_buffer_delayInitStub + 16);
+  v9 = **(arguments_buffer_delayInitStub + 48);
+  v10 = **(arguments_buffer_delayInitStub + 64);
+  **(arguments_buffer_delayInitStub + 8) = **arguments_buffer_delayInitStub;
+  *v3 = v8;
+  *v4 = 0x3C5844D13C449BA6;
+  *v5 = vdupq_n_s32(0x3B83126Fu);
+  *v6 = v9;
+  result = v10 * 140.0;
+  *v7 = v10 * 140.0;
+  return result;
+}
+
+int32x2_t __vfx_script_fireworks_graph_388(uint64_t a1, double a2)
+{
+  if (vfx_script_initialize_objc_helpers(void)::once != -1)
+  {
+    __vfx_script_fireworks_graph_353_cold_1();
+  }
+
+  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a2);
+  v3 = *(arguments_buffer_delayInitStub + 16);
+  v4 = *(arguments_buffer_delayInitStub + 24);
+  v5 = *(arguments_buffer_delayInitStub + 32);
+  v6 = *(arguments_buffer_delayInitStub + 48);
+  v7 = **(arguments_buffer_delayInitStub + 40);
+  **(arguments_buffer_delayInitStub + 8) = **arguments_buffer_delayInitStub;
+  *v3 = 0x40E8000040300000;
+  *v4 = 0x3F3A5E353EBD3C37;
+  *v5 = vdupq_n_s32(0x3E75C28Fu);
+  result = vdup_n_s32((v7 * 30.0));
+  *v6 = result;
+  return result;
+}
+
+float __vfx_script_fireworks_graph_391(uint64_t a1, double a2)
+{
+  if (vfx_script_initialize_objc_helpers(void)::once != -1)
+  {
+    __vfx_script_fireworks_graph_353_cold_1();
+  }
+
+  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a2);
+  v3 = *(arguments_buffer_delayInitStub + 16);
+  v4 = *(arguments_buffer_delayInitStub + 24);
+  v5 = *(arguments_buffer_delayInitStub + 40);
+  v6 = *(arguments_buffer_delayInitStub + 56);
+  v7 = *(arguments_buffer_delayInitStub + 64);
+  v8 = **(arguments_buffer_delayInitStub + 32);
+  v9 = **(arguments_buffer_delayInitStub + 48);
+  **(arguments_buffer_delayInitStub + 8) = **arguments_buffer_delayInitStub;
+  *v3 = 0x3CBFB15A3C42A455;
+  *v4 = vdupq_n_s32(0x3DCCCCCDu);
+  result = v8 * 5000.0;
+  *v5 = result;
+  *v6 = v9;
+  *v7 = v9;
+  return result;
+}
+
+void __vfx_script_fireworks_graph_394(uint64_t a1, double a2)
+{
+  if (vfx_script_initialize_objc_helpers(void)::once != -1)
+  {
+    __vfx_script_fireworks_graph_353_cold_1();
+  }
+
+  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a2);
+  v3 = *(arguments_buffer_delayInitStub + 32);
+  v4 = *(arguments_buffer_delayInitStub + 48);
+  v5 = **(arguments_buffer_delayInitStub + 16);
+  v6 = **(arguments_buffer_delayInitStub + 24);
+  v7 = **(arguments_buffer_delayInitStub + 40);
   **arguments_buffer_delayInitStub = 0xC0600000C0933333;
-  *&v7 = fminf(fmaxf((v5 - v4) / ((v4 + 1.0) - v4), 0.0), 1.0);
-  result = vfx_script_texture_sample1d_delayInitStub(v7);
-  *v2 = v9;
-  *v3 = v6;
-  return result;
+  *&v8 = fminf(fmaxf((v6 - v5) / ((v5 + 1.0) - v5), 0.0), 1.0);
+  vfx_script_texture_sample1d_delayInitStub(v8);
+  *v3 = v9;
+  *v4 = v7;
 }
 
-float __vfx_script_fireworks_graph_395(double a1)
+float __vfx_script_fireworks_graph_395(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_fireworks_graph_353_cold_1();
   }
 
-  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a1);
+  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a2);
   result = **arguments_buffer_delayInitStub * 2000.0;
   *arguments_buffer_delayInitStub[1] = result;
   return result;
 }
 
-float __vfx_script_fireworks_graph_396(double a1)
+float __vfx_script_fireworks_graph_396(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_fireworks_graph_353_cold_1();
   }
 
-  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a1);
+  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a2);
   result = **arguments_buffer_delayInitStub * 2000.0;
   *arguments_buffer_delayInitStub[1] = result;
   return result;
 }
 
-int32x4_t __vfx_script_fireworks_graph_397(double a1)
+int32x4_t __vfx_script_fireworks_graph_397(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_fireworks_graph_353_cold_1();
   }
 
-  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a1);
-  *v2.i32 = **arguments_buffer_delayInitStub * 1.12;
-  result = vdupq_lane_s32(v2, 0);
+  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a2);
+  *v3.i32 = **arguments_buffer_delayInitStub * 1.12;
+  result = vdupq_lane_s32(v3, 0);
   **(arguments_buffer_delayInitStub + 8) = result;
   return result;
 }
 
-int32x4_t __vfx_script_fireworks_graph_398(double a1)
+int32x4_t __vfx_script_fireworks_graph_398(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_fireworks_graph_353_cold_1();
   }
 
-  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a1);
-  *v2.i32 = **arguments_buffer_delayInitStub * 0.8;
-  result = vdupq_lane_s32(v2, 0);
+  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a2);
+  *v3.i32 = **arguments_buffer_delayInitStub * 0.8;
+  result = vdupq_lane_s32(v3, 0);
   **(arguments_buffer_delayInitStub + 8) = result;
   return result;
 }
 
-_BYTE **__vfx_script_fireworks_graph_399(double a1)
+_BYTE **__vfx_script_fireworks_graph_399(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_fireworks_graph_353_cold_1();
   }
 
-  result = vfx_script_get_arguments_buffer_delayInitStub(a1);
+  result = vfx_script_get_arguments_buffer_delayInitStub(a2);
   **result = 1;
   return result;
 }
 
-float32x4_t __vfx_script_fireworks_graph_401(double a1)
+float32x4_t __vfx_script_fireworks_graph_401(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_fireworks_graph_353_cold_1();
   }
 
-  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a1);
-  v2 = *(arguments_buffer_delayInitStub + 16);
+  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a2);
+  v3 = *(arguments_buffer_delayInitStub + 16);
   **(arguments_buffer_delayInitStub + 8) = xmmword_2244A56B0;
   is_first_frame_delayInitStub = vfx_script_clock_is_first_frame_delayInitStub(0.00000133972957);
-  vfx_script_clock_delta_time_delayInitStub(v4);
-  v6 = vmulq_n_f32(*v2, 1.0 - v5);
+  vfx_script_clock_delta_time_delayInitStub(v5);
+  v7 = vmulq_n_f32(*v3, 1.0 - v6);
   if (is_first_frame_delayInitStub)
   {
-    v7 = -1;
+    v8 = -1;
   }
 
   else
   {
-    v7 = 0;
+    v8 = 0;
   }
 
   __asm { FMOV            V2.4S, #1.0 }
 
-  result = vbslq_s8(vdupq_n_s32(v7), _Q2, v6);
-  *v2 = result;
+  result = vbslq_s8(vdupq_n_s32(v8), _Q2, v7);
+  *v3 = result;
   return result;
 }
 
-uint64_t __vfx_script_fireworks_particleInit_351(double a1)
+void __vfx_script_fireworks_particleInit_351(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_fireworks_graph_353_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  return vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  vfx_script_get_arguments_buffer_delayInitStub(v2);
 }
 
-uint64_t __vfx_script_fireworks_particleInit_354(double a1)
+void __vfx_script_fireworks_particleInit_354(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_fireworks_graph_353_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  return vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  vfx_script_get_arguments_buffer_delayInitStub(v2);
 }
 
-__n128 __vfx_script_fireworks_particleInit_358(double a1)
+float32x4_t __vfx_script_fireworks_particleInit_358(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_fireworks_graph_353_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  vfx_script_get_arguments_buffer_delayInitStub(v2);
   return result;
 }
 
-uint64_t __vfx_script_fireworks_particleInit_360(double a1)
+void *__vfx_script_fireworks_particleInit_360(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_fireworks_graph_353_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  return vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  return vfx_script_get_arguments_buffer_delayInitStub(v2);
 }
 
-double __vfx_script_fireworks_particleInit_362(double a1)
+double __vfx_script_fireworks_particleInit_362(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_fireworks_graph_353_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  vfx_script_get_arguments_buffer_delayInitStub(v2);
   return result;
 }
 
-uint64_t __vfx_script_fireworks_particleInit_368(double a1)
+void __vfx_script_fireworks_particleInit_368(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_fireworks_graph_353_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  return vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  vfx_script_get_arguments_buffer_delayInitStub(v2);
 }
 
-uint64_t __vfx_script_fireworks_particleInit_371(double a1)
+void *__vfx_script_fireworks_particleInit_371(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_fireworks_graph_353_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  return vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  return vfx_script_get_arguments_buffer_delayInitStub(v2);
 }
 
-uint64_t __vfx_script_fireworks_particleInit_374(double a1)
+void *__vfx_script_fireworks_particleInit_374(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_fireworks_graph_353_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  return vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  return vfx_script_get_arguments_buffer_delayInitStub(v2);
 }
 
-uint64_t __vfx_script_fireworks_particleInit_380(double a1)
+void __vfx_script_fireworks_particleInit_380(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_fireworks_graph_353_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  return vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  vfx_script_get_arguments_buffer_delayInitStub(v2);
 }
 
-uint64_t __vfx_script_fireworks_particleInit_386(double a1)
+void *__vfx_script_fireworks_particleInit_386(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_fireworks_graph_353_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  return vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  return vfx_script_get_arguments_buffer_delayInitStub(v2);
 }
 
-uint64_t __vfx_script_fireworks_particleInit_392(double a1)
+void __vfx_script_fireworks_particleInit_392(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_fireworks_graph_353_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  return vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  vfx_script_get_arguments_buffer_delayInitStub(v2);
 }
 
-uint64_t __vfx_script_fireworks_particleInit_400(double a1)
+void *__vfx_script_fireworks_particleInit_400(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_fireworks_graph_353_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  return vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  return vfx_script_get_arguments_buffer_delayInitStub(v2);
 }
 
 double particle_update_fireworks_particleUpdate_268(uint64_t a1, float *a2, float *a3, _OWORD *a4)
@@ -3906,15 +3931,15 @@ double particle_update_fireworks_particleUpdate_268(uint64_t a1, float *a2, floa
   return result;
 }
 
-uint64_t __vfx_script_fireworks_particleUpdate_268(double a1)
+void *__vfx_script_fireworks_particleUpdate_268(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_fireworks_graph_353_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  return vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  return vfx_script_get_arguments_buffer_delayInitStub(v2);
 }
 
 float32x4_t particle_update_fireworks_particleUpdate_292(uint64_t a1, __int32 *a2, float32x4_t *a3, __int32 *a4, float32x4_t *a5)
@@ -3938,114 +3963,114 @@ float32x4_t particle_update_fireworks_particleUpdate_292(uint64_t a1, __int32 *a
   return result;
 }
 
-uint64_t __vfx_script_fireworks_particleUpdate_292(double a1)
+void *__vfx_script_fireworks_particleUpdate_292(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_fireworks_graph_353_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  return vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  return vfx_script_get_arguments_buffer_delayInitStub(v2);
 }
 
-uint64_t __vfx_script_fireworks_particleUpdate_352(double a1)
+void __vfx_script_fireworks_particleUpdate_352(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_fireworks_graph_353_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  return vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  vfx_script_get_arguments_buffer_delayInitStub(v2);
 }
 
-uint64_t __vfx_script_fireworks_particleUpdate_355(double a1)
+void __vfx_script_fireworks_particleUpdate_355(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_fireworks_graph_353_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  return vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  vfx_script_get_arguments_buffer_delayInitStub(v2);
 }
 
-uint64_t __vfx_script_fireworks_particleUpdate_363(double a1)
+void __vfx_script_fireworks_particleUpdate_363(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_fireworks_graph_353_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  return vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  vfx_script_get_arguments_buffer_delayInitStub(v2);
 }
 
-uint64_t __vfx_script_fireworks_particleUpdate_369(double a1)
+void __vfx_script_fireworks_particleUpdate_369(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_fireworks_graph_353_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  return vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  vfx_script_get_arguments_buffer_delayInitStub(v2);
 }
 
-uint64_t __vfx_script_fireworks_particleUpdate_372(double a1)
+void __vfx_script_fireworks_particleUpdate_372(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_fireworks_graph_353_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  return vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  vfx_script_get_arguments_buffer_delayInitStub(v2);
 }
 
-uint64_t __vfx_script_fireworks_particleUpdate_375(double a1)
+void __vfx_script_fireworks_particleUpdate_375(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_fireworks_graph_353_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  return vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  vfx_script_get_arguments_buffer_delayInitStub(v2);
 }
 
-uint64_t __vfx_script_fireworks_particleUpdate_381(double a1)
+void __vfx_script_fireworks_particleUpdate_381(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_fireworks_graph_353_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  return vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  vfx_script_get_arguments_buffer_delayInitStub(v2);
 }
 
-uint64_t __vfx_script_fireworks_particleUpdate_387(double a1)
+void __vfx_script_fireworks_particleUpdate_387(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_fireworks_graph_353_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  return vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  vfx_script_get_arguments_buffer_delayInitStub(v2);
 }
 
-uint64_t __vfx_script_fireworks_particleUpdate_393(double a1)
+void __vfx_script_fireworks_particleUpdate_393(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_fireworks_graph_353_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  return vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  vfx_script_get_arguments_buffer_delayInitStub(v2);
 }
 
 SEL ___ZL34vfx_script_initialize_objc_helpersv_block_invoke_3()
@@ -4088,342 +4113,342 @@ SEL ___ZL34vfx_script_initialize_objc_helpersv_block_invoke_3()
   return result;
 }
 
-double __vfx_script_confetti_graph_233(double a1)
+double __vfx_script_confetti_graph_233(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_confetti_graph_233_cold_1();
   }
 
-  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a1);
+  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a2);
   result = 0.00000133972957;
   **arguments_buffer_delayInitStub = xmmword_2244A56B0;
   return result;
 }
 
-float __vfx_script_confetti_graph_236(double a1)
+float __vfx_script_confetti_graph_236(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_confetti_graph_233_cold_1();
   }
 
-  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a1);
-  v2 = *(arguments_buffer_delayInitStub + 16);
-  v3 = *(arguments_buffer_delayInitStub + 24);
-  v4 = **(arguments_buffer_delayInitStub + 8);
-  inited = vfx_script_clock_simulation_index_delayInitStub(v5);
-  v7 = 277803737 * (((747796405 * (v4 + inited) + 1798203370) >> (((747796405 * (v4 + inited) + 1798203370) >> 28) + 4)) ^ (747796405 * (v4 + inited) + 1798203370));
-  result = ((COERCE_FLOAT((v7 >> 31) ^ (v7 >> 9) | 0x3F800000) + -1.0) * 0.5) + -0.25;
-  *v2 = result;
-  *v3 = 0;
+  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a2);
+  v3 = *(arguments_buffer_delayInitStub + 16);
+  v4 = *(arguments_buffer_delayInitStub + 24);
+  v5 = **(arguments_buffer_delayInitStub + 8);
+  inited = vfx_script_clock_simulation_index_delayInitStub(v6);
+  v8 = 277803737 * (((747796405 * (v5 + inited) + 1798203370) >> (((747796405 * (v5 + inited) + 1798203370) >> 28) + 4)) ^ (747796405 * (v5 + inited) + 1798203370));
+  result = ((COERCE_FLOAT((v8 >> 31) ^ (v8 >> 9) | 0x3F800000) + -1.0) * 0.5) + -0.25;
+  *v3 = result;
+  *v4 = 0;
   return result;
 }
 
-float32x4_t __vfx_script_confetti_graph_239(double a1)
+float32x4_t __vfx_script_confetti_graph_239(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_confetti_graph_233_cold_1();
   }
 
-  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a1);
-  v2 = *(arguments_buffer_delayInitStub + 48);
-  v3 = *(arguments_buffer_delayInitStub + 64);
-  v4 = *(arguments_buffer_delayInitStub + 80);
-  v5 = *(arguments_buffer_delayInitStub + 96);
-  v6 = **(arguments_buffer_delayInitStub + 56);
-  v7 = **(arguments_buffer_delayInitStub + 72);
-  v8 = **(arguments_buffer_delayInitStub + 16) * 0.5;
-  v9 = v8 - **(arguments_buffer_delayInitStub + 24);
-  v10.i64[0] = 0;
-  v10.i32[3] = 0;
-  v10.f32[2] = v8;
-  v11 = v9 / v8;
-  if ((COERCE_INT(fabs(v8)) - 0x800000) >> 24 >= 0x7F)
+  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a2);
+  v3 = *(arguments_buffer_delayInitStub + 48);
+  v4 = *(arguments_buffer_delayInitStub + 64);
+  v5 = *(arguments_buffer_delayInitStub + 80);
+  v6 = *(arguments_buffer_delayInitStub + 96);
+  v7 = **(arguments_buffer_delayInitStub + 56);
+  v8 = **(arguments_buffer_delayInitStub + 72);
+  v9 = **(arguments_buffer_delayInitStub + 16) * 0.5;
+  v10 = v9 - **(arguments_buffer_delayInitStub + 24);
+  v11.i64[0] = 0;
+  v11.i32[3] = 0;
+  v11.f32[2] = v9;
+  v12 = v10 / v9;
+  if ((COERCE_INT(fabs(v9)) - 0x800000) >> 24 >= 0x7F)
   {
-    v11 = 0.0;
+    v12 = 0.0;
   }
 
-  v12 = (**(arguments_buffer_delayInitStub + 8) * 10.0) * v11;
+  v13 = (**(arguments_buffer_delayInitStub + 8) * 10.0) * v12;
   if (**arguments_buffer_delayInitStub)
   {
-    LOBYTE(v11) = **(arguments_buffer_delayInitStub + 32);
-    v13 = ((v12 * LODWORD(v11)) + 0.0);
+    LOBYTE(v12) = **(arguments_buffer_delayInitStub + 32);
+    v14 = ((v13 * LODWORD(v12)) + 0.0);
   }
 
   else
   {
-    v13 = 0;
+    v14 = 0;
   }
 
-  v14 = vdup_n_s32(v13);
-  v15 = **(arguments_buffer_delayInitStub + 88);
-  **(arguments_buffer_delayInitStub + 40) = v14;
-  *v2 = v14;
-  *v3 = v6;
+  v15 = vdup_n_s32(v14);
+  v16 = **(arguments_buffer_delayInitStub + 88);
+  **(arguments_buffer_delayInitStub + 40) = v15;
+  *v3 = v15;
   *v4 = v7;
-  *v14.i32 = v9 * 0.5;
-  v16.i64[0] = 0;
-  v16.i64[1] = v14.u32[0];
-  result = vsubq_f32(vaddq_f32(v10, v15), v16);
-  *v5 = result;
+  *v5 = v8;
+  *v15.i32 = v10 * 0.5;
+  v17.i64[0] = 0;
+  v17.i64[1] = v15.u32[0];
+  result = vsubq_f32(vaddq_f32(v11, v16), v17);
+  *v6 = result;
   return result;
 }
 
-int32x2_t __vfx_script_confetti_graph_242(double a1)
+int32x2_t __vfx_script_confetti_graph_242(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_confetti_graph_233_cold_1();
   }
 
-  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a1);
-  v2 = *(arguments_buffer_delayInitStub + 8);
-  v3 = *(arguments_buffer_delayInitStub + 24);
-  v4 = *(arguments_buffer_delayInitStub + 32);
-  v5 = *(arguments_buffer_delayInitStub + 40);
-  v6 = *(arguments_buffer_delayInitStub + 48);
-  v7 = *(arguments_buffer_delayInitStub + 56);
-  v9 = *(arguments_buffer_delayInitStub + 64);
-  v8 = *(arguments_buffer_delayInitStub + 72);
-  v10 = *(arguments_buffer_delayInitStub + 80);
-  v11 = *(arguments_buffer_delayInitStub + 88);
-  v13 = *(arguments_buffer_delayInitStub + 96);
-  v12 = *(arguments_buffer_delayInitStub + 104);
-  v14 = *(arguments_buffer_delayInitStub + 112);
-  v15 = **arguments_buffer_delayInitStub;
+  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a2);
+  v3 = *(arguments_buffer_delayInitStub + 8);
+  v4 = *(arguments_buffer_delayInitStub + 24);
+  v5 = *(arguments_buffer_delayInitStub + 32);
+  v6 = *(arguments_buffer_delayInitStub + 40);
+  v7 = *(arguments_buffer_delayInitStub + 48);
+  v8 = *(arguments_buffer_delayInitStub + 56);
+  v10 = *(arguments_buffer_delayInitStub + 64);
+  v9 = *(arguments_buffer_delayInitStub + 72);
+  v11 = *(arguments_buffer_delayInitStub + 80);
+  v12 = *(arguments_buffer_delayInitStub + 88);
+  v14 = *(arguments_buffer_delayInitStub + 96);
+  v13 = *(arguments_buffer_delayInitStub + 104);
+  v15 = *(arguments_buffer_delayInitStub + 112);
+  v16 = **arguments_buffer_delayInitStub;
   LODWORD(arguments_buffer_delayInitStub) = **(arguments_buffer_delayInitStub + 16);
-  v16 = *v4;
-  *&v17 = -*v5;
-  v18 = *v5 - *v6;
-  v19 = v18 / *v5;
-  v20 = *v5;
-  v21 = *v9;
+  v17 = *v5;
+  *&v18 = -*v6;
+  v19 = *v6 - *v7;
+  v20 = v19 / *v6;
+  v21 = *v6;
   v22 = *v10;
   v23 = *v11;
-  LOBYTE(v24) = *v13;
-  *v2 = v15;
-  *v3 = arguments_buffer_delayInitStub;
-  v25.i64[0] = 0;
-  v25.i32[3] = 0;
+  v24 = *v12;
+  LOBYTE(v25) = *v14;
+  *v3 = v16;
+  *v4 = arguments_buffer_delayInitStub;
   v26.i64[0] = 0;
-  v26.i64[1] = v17;
-  v25.f32[2] = v18 * 0.5;
-  v27 = vaddq_f32(vaddq_f32(vaddq_f32(v16, v26), v25), xmmword_2244C5F00);
-  *v7 = v27;
-  v28 = *&v21 / *(&v21 + 1);
-  if (((HIDWORD(v21) & 0x7FFFFFFFu) - 0x800000) >> 24 >= 0x7F)
-  {
-    v28 = 0.0;
-  }
-
-  v29 = *(&v21 + 1) / *&v21;
-  if (((v21 & 0x7FFFFFFF) - 0x800000) >> 24 >= 0x7F)
+  v26.i32[3] = 0;
+  v27.i64[0] = 0;
+  v27.i64[1] = v18;
+  v26.f32[2] = v19 * 0.5;
+  v28 = vaddq_f32(vaddq_f32(vaddq_f32(v17, v27), v26), xmmword_2244C5F00);
+  *v8 = v28;
+  v29 = *&v22 / *(&v22 + 1);
+  if (((HIDWORD(v22) & 0x7FFFFFFFu) - 0x800000) >> 24 >= 0x7F)
   {
     v29 = 0.0;
   }
 
-  if (*&v21 <= *(&v21 + 1))
-  {
-    v27.f32[0] = v29;
-  }
-
-  else
-  {
-    v27.f32[0] = v28;
-  }
-
-  *v8 = vbsl_s8(vdup_lane_s32(vcgt_f32(*v27.f32, 0), 0), 0x40A0000040900000, 0x40E0000040C00000);
-  if (((LODWORD(v20) & 0x7FFFFFFFu) - 0x800000) >> 24 >= 0x7F)
+  v30 = *(&v22 + 1) / *&v22;
+  if (((v22 & 0x7FFFFFFF) - 0x800000) >> 24 >= 0x7F)
   {
     v30 = 0.0;
   }
 
+  if (*&v22 <= *(&v22 + 1))
+  {
+    v28.f32[0] = v30;
+  }
+
   else
   {
-    v30 = v19;
+    v28.f32[0] = v29;
   }
 
-  v31 = (((v30 * (v23 * 30.0)) * v24) + 0.0);
-  if (!v22)
+  *v9 = vbsl_s8(vdup_lane_s32(vcgt_f32(*v28.f32, 0), 0), 0x40A0000040900000, 0x40E0000040C00000);
+  if (((LODWORD(v21) & 0x7FFFFFFFu) - 0x800000) >> 24 >= 0x7F)
   {
-    v31 = 0;
+    v31 = 0.0;
   }
 
-  result = vdup_n_s32(v31);
-  *v12 = result;
-  *v14 = result;
+  else
+  {
+    v31 = v20;
+  }
+
+  v32 = (((v31 * (v24 * 30.0)) * v25) + 0.0);
+  if (!v23)
+  {
+    v32 = 0;
+  }
+
+  result = vdup_n_s32(v32);
+  *v13 = result;
+  *v15 = result;
   return result;
 }
 
-_BYTE **__vfx_script_confetti_graph_243(double a1)
+_BYTE **__vfx_script_confetti_graph_243(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_confetti_graph_233_cold_1();
   }
 
-  result = vfx_script_get_arguments_buffer_delayInitStub(a1);
+  result = vfx_script_get_arguments_buffer_delayInitStub(a2);
   **result = 1;
   return result;
 }
 
-int32x2_t __vfx_script_confetti_graph_246(double a1)
+int32x2_t __vfx_script_confetti_graph_246(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_confetti_graph_233_cold_1();
   }
 
-  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a1);
-  v2 = *(arguments_buffer_delayInitStub + 24);
-  v3 = *(arguments_buffer_delayInitStub + 40);
-  v4 = *(arguments_buffer_delayInitStub + 56);
-  v5 = *(arguments_buffer_delayInitStub + 88);
-  v6 = *(arguments_buffer_delayInitStub + 104);
-  v7 = *(arguments_buffer_delayInitStub + 112);
-  v8 = **(arguments_buffer_delayInitStub + 16);
-  v9 = **(arguments_buffer_delayInitStub + 32);
-  v10 = **(arguments_buffer_delayInitStub + 48);
-  v11 = **(arguments_buffer_delayInitStub + 64);
-  v12 = **(arguments_buffer_delayInitStub + 72);
-  v15 = *v5;
-  v13 = **(arguments_buffer_delayInitStub + 80) / *v5;
-  v14 = *v5;
-  LOBYTE(v15) = **(arguments_buffer_delayInitStub + 96);
+  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a2);
+  v3 = *(arguments_buffer_delayInitStub + 24);
+  v4 = *(arguments_buffer_delayInitStub + 40);
+  v5 = *(arguments_buffer_delayInitStub + 56);
+  v6 = *(arguments_buffer_delayInitStub + 88);
+  v7 = *(arguments_buffer_delayInitStub + 104);
+  v8 = *(arguments_buffer_delayInitStub + 112);
+  v9 = **(arguments_buffer_delayInitStub + 16);
+  v10 = **(arguments_buffer_delayInitStub + 32);
+  v11 = **(arguments_buffer_delayInitStub + 48);
+  v12 = **(arguments_buffer_delayInitStub + 64);
+  v13 = **(arguments_buffer_delayInitStub + 72);
+  v16 = *v6;
+  v14 = **(arguments_buffer_delayInitStub + 80) / *v6;
+  v15 = *v6;
+  LOBYTE(v16) = **(arguments_buffer_delayInitStub + 96);
   **(arguments_buffer_delayInitStub + 8) = **arguments_buffer_delayInitStub;
-  *v2 = v8;
   *v3 = v9;
-  *v4 = vbsl_s8(vdup_lane_s32(vcgt_f32(v10, vdup_lane_s32(v10, 1)), 0), 0x4040000040200000, 0x40D0000040C00000);
-  v16 = 0.0;
-  if (((v14 & 0x7FFFFFFF) - 0x800000) >> 24 < 0x7F)
+  *v4 = v10;
+  *v5 = vbsl_s8(vdup_lane_s32(vcgt_f32(v11, vdup_lane_s32(v11, 1)), 0), 0x4040000040200000, 0x40D0000040C00000);
+  v17 = 0.0;
+  if (((v15 & 0x7FFFFFFF) - 0x800000) >> 24 < 0x7F)
   {
-    v16 = v13;
+    v17 = v14;
   }
 
-  v17 = (((v12 * 150.0) * v16) + (((((v12 * 150.0) * v16) * 0.5) - ((v12 * 150.0) * v16)) * v15));
-  if (!v11)
+  v18 = (((v13 * 150.0) * v17) + (((((v13 * 150.0) * v17) * 0.5) - ((v13 * 150.0) * v17)) * v16));
+  if (!v12)
   {
-    v17 = 0;
+    v18 = 0;
   }
 
-  result = vdup_n_s32(v17);
-  *v6 = result;
+  result = vdup_n_s32(v18);
   *v7 = result;
+  *v8 = result;
   return result;
 }
 
-float __vfx_script_confetti_graph_247(double a1)
+float __vfx_script_confetti_graph_247(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_confetti_graph_233_cold_1();
   }
 
-  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a1);
+  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a2);
   result = **arguments_buffer_delayInitStub;
   *arguments_buffer_delayInitStub[1] = result;
   return result;
 }
 
-uint64_t __vfx_script_confetti_particleInit_234(double a1)
+void *__vfx_script_confetti_particleInit_234(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_confetti_graph_233_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  return vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  return vfx_script_get_arguments_buffer_delayInitStub(v2);
 }
 
-uint64_t __vfx_script_confetti_particleInit_237(double a1)
+void __vfx_script_confetti_particleInit_237(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_confetti_graph_233_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  return vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  vfx_script_get_arguments_buffer_delayInitStub(v2);
 }
 
-uint64_t __vfx_script_confetti_particleInit_240(double a1)
+void __vfx_script_confetti_particleInit_240(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_confetti_graph_233_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  return vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  vfx_script_get_arguments_buffer_delayInitStub(v2);
 }
 
-uint64_t __vfx_script_confetti_particleInit_244(double a1)
+void __vfx_script_confetti_particleInit_244(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_confetti_graph_233_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  return vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  vfx_script_get_arguments_buffer_delayInitStub(v2);
 }
 
-uint64_t __vfx_script_confetti_particleInit_248(double a1)
+void *__vfx_script_confetti_particleInit_248(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_confetti_graph_233_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  return vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  return vfx_script_get_arguments_buffer_delayInitStub(v2);
 }
 
-uint64_t __vfx_script_confetti_particleUpdate_235(double a1)
+void *__vfx_script_confetti_particleUpdate_235(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_confetti_graph_233_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  return vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  return vfx_script_get_arguments_buffer_delayInitStub(v2);
 }
 
-uint64_t __vfx_script_confetti_particleUpdate_238(double a1)
+void __vfx_script_confetti_particleUpdate_238(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_confetti_graph_233_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  return vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  vfx_script_get_arguments_buffer_delayInitStub(v2);
 }
 
-uint64_t __vfx_script_confetti_particleUpdate_241(double a1)
+void __vfx_script_confetti_particleUpdate_241(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_confetti_graph_233_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  return vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  vfx_script_get_arguments_buffer_delayInitStub(v2);
 }
 
-void __vfx_script_confetti_particleUpdate_245(double a1)
+void __vfx_script_confetti_particleUpdate_245(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_confetti_graph_233_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  vfx_script_get_arguments_buffer_delayInitStub(v2);
 }
 
 SEL ___ZL34vfx_script_initialize_objc_helpersv_block_invoke_4()
@@ -4466,40 +4491,40 @@ SEL ___ZL34vfx_script_initialize_objc_helpersv_block_invoke_4()
   return result;
 }
 
-float __vfx_script_lighting_graph_6(double a1)
+float __vfx_script_lighting_graph_6(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_lighting_graph_6_cold_1();
   }
 
-  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a1);
+  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a2);
   result = **arguments_buffer_delayInitStub;
   *arguments_buffer_delayInitStub[1] = result;
   return result;
 }
 
-float __vfx_script_lighting_graph_7(double a1)
+float __vfx_script_lighting_graph_7(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_lighting_graph_6_cold_1();
   }
 
-  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a1);
+  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a2);
   result = **arguments_buffer_delayInitStub * 300.0;
   *arguments_buffer_delayInitStub[1] = result;
   return result;
 }
 
-float __vfx_script_lighting_graph_8(double a1)
+float __vfx_script_lighting_graph_8(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_lighting_graph_6_cold_1();
   }
 
-  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a1);
+  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a2);
   result = **arguments_buffer_delayInitStub * 1000.0;
   *arguments_buffer_delayInitStub[1] = result;
   return result;
@@ -4593,11 +4618,11 @@ uint64_t __Block_byref_object_copy__1(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_22445FF40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22445FF40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 96), 8);
+  _Block_object_dispose((v16 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -4706,59 +4731,60 @@ float32x2_t PTFilterRectDEMA(float32x4_t *a1, float32x4_t *a2, int8x16_t a3, int
   return vmls_f32(*v11.i8, 0x3F0000003F000000, *&vextq_s8(v11, v11, 8uLL));
 }
 
-float PeakInNormalizedRectFromLockedPixelBufferInfo(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5, unsigned int a6, float *a7, void *a8, float64_t a9, float64_t a10, double a11, double a12)
+float PeakInNormalizedRectFromLockedPixelBufferInfo(uint64_t a1, uint64_t a2, unint64_t a3, unint64_t a4, uint64_t a5, unsigned int a6, float *a7, void *a8, float64_t a9, float64_t a10, double a11, double a12)
 {
-  v105 = *MEMORY[0x277D85DE8];
+  v109 = *MEMORY[0x277D85DE8];
   v23 = a8;
   v26 = v23;
   if (v23)
   {
     v27 = v23;
+    v28 = v27;
     if (a6 == 1717856627)
     {
-      v28 = a9;
-      v29 = a10;
-      v30 = a11;
-      v32 = a2;
-      v33 = a3;
-      v31 = a12;
-      v34 = a4;
-      v35 = a5;
-      v36 = v27;
-      v37 = 0;
+      v29 = a9;
+      v30 = a10;
+      v31 = a11;
+      v33 = a2;
+      v34 = a3;
+      v32 = a12;
+      v35 = a4;
+      v36 = a5;
+      v37 = v27;
+      v38 = 0;
       goto LABEL_9;
     }
 
     if (a6 == 1751411059)
     {
-      v28 = a9;
-      v29 = a10;
-      v30 = a11;
-      v31 = a12;
-      v32 = a2;
-      v33 = a3;
-      v34 = a4;
-      v35 = a5;
-      v36 = v27;
-      v37 = 1;
+      v29 = a9;
+      v30 = a10;
+      v31 = a11;
+      v32 = a12;
+      v33 = a2;
+      v34 = a3;
+      v35 = a4;
+      v36 = a5;
+      v37 = v27;
+      v38 = 1;
 LABEL_9:
-      HistogramInNormalizedRectFromLockedPixelBufferInfo_Mask(v104, v32, v33, v34, v35, v36, v37, v28, v29, v30, v31);
+      HistogramInNormalizedRectFromLockedPixelBufferInfo_Mask(v108, v33, v34, v35, v36, v37, v38, v29, v30, v31, v32);
 LABEL_16:
 
       goto LABEL_17;
     }
 
-    v46 = _PTLogSystem();
-    if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+    v47 = _PTLogSystem(v27);
+    if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
     {
-      v75 = NSStringFromFourCharCode(a6);
-      *v97 = 138412802;
-      v98 = v75;
-      v99 = 2048;
-      v100 = a3;
-      v101 = 2048;
-      v102 = a4;
-      _os_log_error_impl(&dword_2243FB000, v46, OS_LOG_TYPE_ERROR, "error: histogram - unexpected pixel format type '%@' (%zdx%zd) - must be DisparityFloat16 or DisparityFloat32", v97, 0x20u);
+      v79 = NSStringFromFourCharCode(a6);
+      *v101 = 138412802;
+      v102 = v79;
+      v103 = 2048;
+      v104 = a3;
+      v105 = 2048;
+      v106 = a4;
+      _os_log_error_impl(&dword_2243FB000, v47, OS_LOG_TYPE_ERROR, "error: histogram - unexpected pixel format type '%@' (%zdx%zd) - must be DisparityFloat16 or DisparityFloat32", v101, 0x20u);
     }
 
 LABEL_12:
@@ -4769,251 +4795,252 @@ LABEL_12:
   if (a6 == 1717856627)
   {
     v24.f64[0] = a9;
-    v38 = a10;
-    v39 = a11;
-    v41 = a2;
-    v42 = a3;
-    v40 = a12;
-    v43 = a4;
-    v44 = a5;
-    v45 = 0;
+    v39 = a10;
+    v40 = a11;
+    v42 = a2;
+    v43 = a3;
+    v41 = a12;
+    v44 = a4;
+    v45 = a5;
+    v46 = 0;
   }
 
   else
   {
     if (a6 != 1751411059)
     {
-      v27 = _PTLogSystem();
-      if (!os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+      v28 = _PTLogSystem(0);
+      if (!os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_16;
       }
 
-      v46 = NSStringFromFourCharCode(a6);
-      *v97 = 138412802;
-      v98 = v46;
-      v99 = 2048;
-      v100 = a3;
-      v101 = 2048;
-      v102 = a4;
-      _os_log_error_impl(&dword_2243FB000, v27, OS_LOG_TYPE_ERROR, "error: histogram - unexpected pixel format type '%@' (%zdx%zd) - must be DisparityFloat16 or DisparityFloat32", v97, 0x20u);
+      v47 = NSStringFromFourCharCode(a6);
+      *v101 = 138412802;
+      v102 = v47;
+      v103 = 2048;
+      v104 = a3;
+      v105 = 2048;
+      v106 = a4;
+      _os_log_error_impl(&dword_2243FB000, v28, OS_LOG_TYPE_ERROR, "error: histogram - unexpected pixel format type '%@' (%zdx%zd) - must be DisparityFloat16 or DisparityFloat32", v101, 0x20u);
       goto LABEL_12;
     }
 
     v24.f64[0] = a9;
-    v38 = a10;
-    v39 = a11;
-    v40 = a12;
-    v41 = a2;
-    v42 = a3;
-    v43 = a4;
-    v44 = a5;
-    v45 = 1;
+    v39 = a10;
+    v40 = a11;
+    v41 = a12;
+    v42 = a2;
+    v43 = a3;
+    v44 = a4;
+    v45 = a5;
+    v46 = 1;
   }
 
-  HistogramInNormalizedRectFromLockedPixelBufferInfo_FloatSize(v104, v41, v42, v43, v44, v45, v24, v38, v39, v40, v25);
+  HistogramInNormalizedRectFromLockedPixelBufferInfo_FloatSize(v108, v42, v43, v44, v45, v46, v24, v39, v40, v41, v25);
 LABEL_17:
-  v47 = 0;
-  v48 = 0;
   v49 = 0;
+  v50 = 0;
+  v51 = 0;
   do
   {
-    v50 = v104[v47];
-    if (v50 < 1)
+    v52 = v108[v49];
+    if (v52 < 1)
     {
       goto LABEL_24;
     }
 
-    if (v47 * 4)
+    if (v49 * 4)
     {
-      if (*&v103[v47 * 4] > v50)
+      if (*&v107[v49 * 4] > v52)
       {
         goto LABEL_24;
       }
 
-      if (v47 == 191)
+      if (v49 == 191)
       {
         goto LABEL_23;
       }
     }
 
-    if (v50 > v104[v47 + 1])
+    if (v52 > v108[v49 + 1])
     {
 LABEL_23:
-      *&v97[4 * v49++] = v48;
+      *&v101[4 * v51++] = v50;
     }
 
 LABEL_24:
-    ++v48;
-    ++v47;
+    ++v50;
+    ++v49;
   }
 
-  while (v47 != 192);
+  while (v49 != 192);
   do
   {
-    v51 = v49;
-    if (v49 < 3)
+    v53 = v51;
+    if (v51 < 3)
     {
       break;
     }
 
-    v52 = 0;
-    v49 = 0;
-    v53 = (v51 - 1);
-    v54 = v97;
+    v54 = 0;
+    v51 = 0;
+    v55 = (v53 - 1);
+    v56 = v101;
     do
     {
-      if (!v52 || v104[*(v54 - 1)] <= v104[*v54])
+      if (!v54 || v108[*(v56 - 1)] <= v108[*v56])
       {
-        if (v53 == v52)
+        if (v55 == v54)
         {
-          LODWORD(v55) = *&v97[4 * v53];
+          LODWORD(v57) = *&v101[4 * v55];
         }
 
         else
         {
-          v55 = *v54;
-          if (v104[v55] <= v104[*(v54 + 1)])
+          v57 = *v56;
+          v48 = v108[v57];
+          if (v48 <= v108[*(v56 + 1)])
           {
             goto LABEL_33;
           }
         }
 
-        *&v97[4 * v49++] = v55;
+        *&v101[4 * v51++] = v57;
       }
 
 LABEL_33:
-      ++v52;
-      v54 += 4;
+      ++v54;
+      v56 += 4;
     }
 
-    while (v51 != v52);
+    while (v53 != v54);
   }
 
-  while (v49 < v51);
-  if (v51)
+  while (v51 < v53);
+  if (v53)
   {
-    if (v51 <= 0)
+    if (v53 <= 0)
     {
       PeakInNormalizedRectFromLockedPixelBufferInfo_cold_1();
     }
 
-    v56 = (v51 - 1);
-    v57 = (((*&v97[4 * v56] + 0.5) * 7.65) / 192.0) + 0.0;
-    if (a7 && v51 != 1)
+    v58 = (v53 - 1);
+    v59 = (((*&v101[4 * v58] + 0.5) * 7.65) / 192.0) + 0.0;
+    if (a7 && v53 != 1)
     {
-      v58 = v56 + 1;
-      v59 = &v97[4 * v56];
-      v60 = INFINITY;
+      v60 = v58 + 1;
+      v61 = &v101[4 * v58];
+      v62 = INFINITY;
       do
       {
-        v61 = *v59;
-        v59 -= 4;
-        v62 = ((v61 + 0.5) * 7.65) / 192.0;
-        if (v62 > 0.0)
+        v63 = *v61;
+        v61 -= 4;
+        v64 = ((v63 + 0.5) * 7.65) / 192.0;
+        if (v64 > 0.0)
         {
-          v63 = fabsf((*a7 / v62) + -1.0);
-          if (v60 > v63)
+          v65 = fabsf((*a7 / v64) + -1.0);
+          if (v62 > v65)
           {
-            v57 = v62;
-            v60 = v63;
+            v59 = v64;
+            v62 = v65;
           }
         }
       }
 
-      while (v58-- > 1);
+      while (v60-- > 1);
     }
 
-    v65 = _PTLogSystem();
-    if (os_log_type_enabled(v65, OS_LOG_TYPE_DEBUG))
+    v67 = _PTLogSystem(v48);
+    if (os_log_type_enabled(v67, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134219264;
-      v78 = a1;
-      v79 = 2048;
-      v80 = a9;
-      v81 = 2048;
-      v82 = a10;
+      v82 = a1;
       v83 = 2048;
-      v84 = a11;
+      v84 = a9;
       v85 = 2048;
-      v86 = a12;
+      v86 = a10;
       v87 = 2048;
-      v88 = v57;
-      v66 = "detection type: %ld rect: { %.3f, %.3f, %.3f, %.3f } disparity: %.3f";
-      v67 = v65;
-      v68 = 62;
+      v88 = a11;
+      v89 = 2048;
+      v90 = a12;
+      v91 = 2048;
+      v92 = v59;
+      v68 = "detection type: %ld rect: { %.3f, %.3f, %.3f, %.3f } disparity: %.3f";
+      v69 = v67;
+      v70 = 62;
       goto LABEL_57;
     }
 
     goto LABEL_58;
   }
 
-  v69 = _PTLogSystem();
-  if (os_log_type_enabled(v69, OS_LOG_TYPE_INFO))
+  v71 = _PTLogSystem(v48);
+  if (os_log_type_enabled(v71, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_2243FB000, v69, OS_LOG_TYPE_INFO, "Failed to find peaks in disparity buffer, using prior or default disparity value", buf, 2u);
+    _os_log_impl(&dword_2243FB000, v71, OS_LOG_TYPE_INFO, "Failed to find peaks in disparity buffer, using prior or default disparity value", buf, 2u);
   }
 
   if (a7)
   {
-    v57 = *a7;
+    v59 = *a7;
   }
 
   else
   {
-    v57 = 3.8449;
+    v59 = 3.8449;
   }
 
-  v70 = _PTLogSystem();
-  v71 = os_log_type_enabled(v70, OS_LOG_TYPE_DEBUG);
+  v73 = _PTLogSystem(v72);
+  v74 = os_log_type_enabled(v73, OS_LOG_TYPE_DEBUG);
 
-  if (v71)
+  if (v74)
   {
-    v72 = 0;
-    v73 = 0uLL;
+    v76 = 0;
+    v77 = 0uLL;
     do
     {
-      v73 = vaddq_s32(*&v104[v72], v73);
-      v72 += 4;
+      v77 = vaddq_s32(*&v108[v76], v77);
+      v76 += 4;
     }
 
-    while (v72 != 192);
-    v76 = v73;
-    v65 = _PTLogSystem();
-    if (os_log_type_enabled(v65, OS_LOG_TYPE_DEBUG))
+    while (v76 != 192);
+    v80 = v77;
+    v67 = _PTLogSystem(v75);
+    if (os_log_type_enabled(v67, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134220288;
-      v78 = a1;
-      v79 = 2048;
-      v80 = a9;
-      v81 = 2048;
-      v82 = a10;
+      v82 = a1;
       v83 = 2048;
-      v84 = a11;
+      v84 = a9;
       v85 = 2048;
-      v86 = a12;
+      v86 = a10;
       v87 = 2048;
-      v88 = *&a3;
+      v88 = a11;
       v89 = 2048;
-      v90 = a4;
-      v91 = 1024;
-      v92 = vaddvq_s32(v76);
-      v93 = 1024;
-      v94 = a7 != 0;
-      v95 = 2048;
-      v96 = v57;
-      v66 = "detection type: %ld rect: { %.3f, %.3f, %.3f, %.3f } buffer size: (%zu,%zu) hist samples:%u prior:%u disparity: unknown (returning %.3f)";
-      v67 = v65;
-      v68 = 94;
+      v90 = a12;
+      v91 = 2048;
+      v92 = *&a3;
+      v93 = 2048;
+      v94 = a4;
+      v95 = 1024;
+      v96 = vaddvq_s32(v80);
+      v97 = 1024;
+      v98 = a7 != 0;
+      v99 = 2048;
+      v100 = v59;
+      v68 = "detection type: %ld rect: { %.3f, %.3f, %.3f, %.3f } buffer size: (%zu,%zu) hist samples:%u prior:%u disparity: unknown (returning %.3f)";
+      v69 = v67;
+      v70 = 94;
 LABEL_57:
-      _os_log_debug_impl(&dword_2243FB000, v67, OS_LOG_TYPE_DEBUG, v66, buf, v68);
+      _os_log_debug_impl(&dword_2243FB000, v69, OS_LOG_TYPE_DEBUG, v68, buf, v70);
     }
 
 LABEL_58:
   }
 
-  return v57;
+  return v59;
 }
 
 float PTDisparityInNormalizedRectFromPixelBufferWithPrior(uint64_t a1, CVPixelBufferRef pixelBuffer, float *a3, float64_t a4, float64_t a5, double a6, double a7)
@@ -5250,92 +5277,80 @@ double CGRectFromRectDictionary(void *a1)
   return v4;
 }
 
-_DWORD **__vfx_script_thumbsup_graph_127(double a1)
+_DWORD **__vfx_script_thumbsup_graph_127(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_thumbsup_graph_127_cold_1();
   }
 
-  result = vfx_script_get_arguments_buffer_delayInitStub(a1);
+  result = vfx_script_get_arguments_buffer_delayInitStub(a2);
   **result = 0;
   return result;
 }
 
-_DWORD **__vfx_script_thumbsup_graph_128(double a1)
+_DWORD **__vfx_script_thumbsup_graph_128(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_thumbsup_graph_127_cold_1();
   }
 
-  result = vfx_script_get_arguments_buffer_delayInitStub(a1);
+  result = vfx_script_get_arguments_buffer_delayInitStub(a2);
   **result = 0;
   return result;
 }
 
-float32_t __vfx_script_thumbsup_graph_130(double a1)
+float32_t __vfx_script_thumbsup_graph_130(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_thumbsup_graph_127_cold_1();
   }
 
-  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a1);
-  v2 = arguments_buffer_delayInitStub[1];
-  v3 = arguments_buffer_delayInitStub[2];
-  v4 = arguments_buffer_delayInitStub[5];
-  v5 = **arguments_buffer_delayInitStub;
-  v6 = *arguments_buffer_delayInitStub[4];
-  v7 = -1.0;
+  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a2);
+  v3 = arguments_buffer_delayInitStub[1];
+  v4 = arguments_buffer_delayInitStub[2];
+  v5 = arguments_buffer_delayInitStub[5];
+  v6 = **arguments_buffer_delayInitStub;
+  v7 = *arguments_buffer_delayInitStub[4];
+  v8 = -1.0;
   if (*arguments_buffer_delayInitStub[3])
   {
-    v7 = 1.0;
+    v8 = 1.0;
   }
 
-  *(arguments_buffer_delayInitStub[6] + 1) = v7;
-  *v4 = v6;
-  *v3 = vdup_n_s32(0x3BB0F27Cu);
-  v8 = v5 == 0;
+  *(arguments_buffer_delayInitStub[6] + 1) = v8;
+  *v5 = v7;
+  *v4 = vdup_n_s32(0x3BB0F27Cu);
+  v9 = v6 == 0;
   result = 0.1;
-  v10 = &unk_2244C5FF8;
-  v11 = vld1q_dup_f32(v10);
-  if (!v8)
+  v11 = &unk_2244C5FF8;
+  v12 = vld1q_dup_f32(v11);
+  if (!v9)
   {
     result = -0.1;
   }
 
-  v11.f32[0] = result;
-  *(v2 + 2) = -1090519040;
-  *v2 = v11.i64[0];
+  v12.f32[0] = result;
+  *(v3 + 2) = -1090519040;
+  *v3 = v12.i64[0];
   return result;
 }
 
-unsigned __int8 **__vfx_script_thumbsup_graph_132(double a1)
+unsigned __int8 **__vfx_script_thumbsup_graph_132(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_thumbsup_graph_127_cold_1();
   }
 
-  result = vfx_script_get_arguments_buffer_delayInitStub(a1);
-  v2 = result[1];
-  v3 = result[4];
-  v4 = **result;
-  v5 = *result[3];
+  result = vfx_script_get_arguments_buffer_delayInitStub(a2);
+  v3 = result[1];
+  v4 = result[4];
+  v5 = **result;
+  v6 = *result[3];
   if (*result[2])
-  {
-    v6 = 1.0;
-  }
-
-  else
-  {
-    v6 = -1.0;
-  }
-
-  *result[5] = v6;
-  *v3 = v5;
-  if (v4)
   {
     v7 = 1.0;
   }
@@ -5345,116 +5360,128 @@ unsigned __int8 **__vfx_script_thumbsup_graph_132(double a1)
     v7 = -1.0;
   }
 
-  *v2 = v7;
+  *result[5] = v7;
+  *v4 = v6;
+  if (v5)
+  {
+    v8 = 1.0;
+  }
+
+  else
+  {
+    v8 = -1.0;
+  }
+
+  *v3 = v8;
   return result;
 }
 
-int32x4_t __vfx_script_thumbsup_graph_134(double a1)
+int32x4_t __vfx_script_thumbsup_graph_134(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_thumbsup_graph_127_cold_1();
   }
 
-  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a1);
-  v2 = *arguments_buffer_delayInitStub;
-  v3 = *(arguments_buffer_delayInitStub + 8);
-  v4 = *(arguments_buffer_delayInitStub + 24);
-  v5 = **(arguments_buffer_delayInitStub + 16);
+  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a2);
+  v3 = *arguments_buffer_delayInitStub;
+  v4 = *(arguments_buffer_delayInitStub + 8);
+  v5 = *(arguments_buffer_delayInitStub + 24);
+  v6 = **(arguments_buffer_delayInitStub + 16);
   *(*(arguments_buffer_delayInitStub + 32) + 4) = -1082130432;
-  *v4 = v5;
-  *(v3 + 8) = 1008981770;
+  *v5 = v6;
+  *(v4 + 8) = 1008981770;
   result = vdupq_n_s32(0x3CA3D70Au);
-  *v3 = result.i64[0];
-  *v2 = result;
+  *v4 = result.i64[0];
+  *v3 = result;
   return result;
 }
 
-int32x4_t __vfx_script_thumbsup_graph_136(double a1)
+int32x4_t __vfx_script_thumbsup_graph_136(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_thumbsup_graph_127_cold_1();
   }
 
-  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a1);
-  v2 = *arguments_buffer_delayInitStub;
-  v3 = *(arguments_buffer_delayInitStub + 8);
-  v4 = *(arguments_buffer_delayInitStub + 24);
-  v5 = **(arguments_buffer_delayInitStub + 16);
+  arguments_buffer_delayInitStub = vfx_script_get_arguments_buffer_delayInitStub(a2);
+  v3 = *arguments_buffer_delayInitStub;
+  v4 = *(arguments_buffer_delayInitStub + 8);
+  v5 = *(arguments_buffer_delayInitStub + 24);
+  v6 = **(arguments_buffer_delayInitStub + 16);
   *(*(arguments_buffer_delayInitStub + 32) + 4) = -1082130432;
-  *v4 = v5;
-  *(v3 + 8) = 1008981770;
+  *v5 = v6;
+  *(v4 + 8) = 1008981770;
   result = vdupq_n_s32(0x3CA3D70Au);
-  *v3 = result.i64[0];
-  *v2 = result;
+  *v4 = result.i64[0];
+  *v3 = result;
   return result;
 }
 
-uint64_t __vfx_script_thumbsup_particleInit_129(double a1)
+void __vfx_script_thumbsup_particleInit_129(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_thumbsup_graph_127_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  return vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  vfx_script_get_arguments_buffer_delayInitStub(v2);
 }
 
-uint64_t __vfx_script_thumbsup_particleInit_133(double a1)
+uint64_t __vfx_script_thumbsup_particleInit_133(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_thumbsup_graph_127_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  return vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  return vfx_script_get_arguments_buffer_delayInitStub(v2);
 }
 
-uint64_t __vfx_script_thumbsup_particleInit_138(double a1)
+uint64_t __vfx_script_thumbsup_particleInit_138(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_thumbsup_graph_127_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  return vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  return vfx_script_get_arguments_buffer_delayInitStub(v2);
 }
 
-uint64_t __vfx_script_thumbsup_particleUpdate_131(double a1)
+void __vfx_script_thumbsup_particleUpdate_131(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_thumbsup_graph_127_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  return vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  vfx_script_get_arguments_buffer_delayInitStub(v2);
 }
 
-uint64_t __vfx_script_thumbsup_particleUpdate_135(double a1)
+void __vfx_script_thumbsup_particleUpdate_135(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_thumbsup_graph_127_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  return vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  vfx_script_get_arguments_buffer_delayInitStub(v2);
 }
 
-uint64_t __vfx_script_thumbsup_particleUpdate_137(double a1)
+void __vfx_script_thumbsup_particleUpdate_137(uint64_t a1, double a2)
 {
   if (vfx_script_initialize_objc_helpers(void)::once != -1)
   {
     __vfx_script_thumbsup_graph_127_cold_1();
   }
 
-  vfx_script_get_iteration_range_delayInitStub(a1);
-  return vfx_script_get_arguments_buffer_delayInitStub(v1);
+  vfx_script_get_iteration_range_delayInitStub(a2);
+  vfx_script_get_arguments_buffer_delayInitStub(v2);
 }
 
 SEL ___ZL34vfx_script_initialize_objc_helpersv_block_invoke_6()
@@ -5538,7 +5565,7 @@ void sub_224473874(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void PTKTraceInit()
+void PTKTraceInit(uint64_t result, uint64_t a2)
 {
   if (initializeOnceToken != -1)
   {
@@ -5548,13 +5575,14 @@ void PTKTraceInit()
 
 void ptKTraceInitialize()
 {
-  if (kdebug_is_enabled())
+  is_enabled = kdebug_is_enabled();
+  if (is_enabled)
   {
-    v0 = _PTLogSystem();
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+    v1 = _PTLogSystem(is_enabled);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
     {
-      *v1 = 0;
-      _os_log_impl(&dword_2243FB000, v0, OS_LOG_TYPE_INFO, "Tracing enabled", v1, 2u);
+      *v2 = 0;
+      _os_log_impl(&dword_2243FB000, v1, OS_LOG_TYPE_INFO, "Tracing enabled", v2, 2u);
     }
   }
 }
@@ -5714,9 +5742,9 @@ void PTParameterPairSerialization_GetParameter_cold_1(unsigned __int16 a1, NSObj
 
 id getVCPRequestFrameWidthPropertyKey_cold_1()
 {
-  dlerror();
-  v0 = abort_report_np();
-  return [(PTSerialization *)v0 objectFromData:v1 error:v2, v3];
+  v0 = dlerror();
+  v1 = abort_report_np("%s", v0);
+  return [(PTSerialization *)v1 objectFromData:v2 error:v3, v4];
 }
 
 void _ErrorForDataBufferNotFoundAtURL_cold_1(uint64_t a1, NSObject *a2)
@@ -6049,7 +6077,7 @@ double gotLoadHelper_x8__VFXWorldLoaderOptionMetalLibraryURL(double result)
   return result;
 }
 
-double __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> dlopenHelper_VFX(double a1)
+double dlopenHelper_VFX(double a1)
 {
   dlopen("/System/Library/PrivateFrameworks/VFX.framework/VFX", 0);
   atomic_store(1u, &dlopenHelperFlag_VFX);

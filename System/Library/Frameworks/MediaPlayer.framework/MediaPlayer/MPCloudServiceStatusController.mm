@@ -194,7 +194,7 @@ void __68__MPCloudServiceStatusController__beginObservingCloudLibraryEnabled__bl
   return v3;
 }
 
-uint64_t __65__MPCloudServiceStatusController__updateSubscriptionAvailability__block_invoke_2(uint64_t result, void *a2, uint64_t a3)
+void *__65__MPCloudServiceStatusController__updateSubscriptionAvailability__block_invoke_2(void *result, void *a2, uint64_t a3)
 {
   if (!a3)
   {
@@ -202,7 +202,7 @@ uint64_t __65__MPCloudServiceStatusController__updateSubscriptionAvailability__b
     v5 = [a2 dictionaryForBagKey:*MEMORY[0x1E69E4320]];
     v6 = v5 != 0;
 
-    v7 = *(v4 + 32);
+    v7 = v4[4];
 
     return [v7 _updateSubscriptionAvailabilityWithValue:v6];
   }

@@ -18,11 +18,11 @@
 
 - (ATCIOA2Device)initWithService:(id)service
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
-  v62.receiver = self;
-  v62.super_class = ATCIOA2Device;
-  v6 = [(ATCIOA2Device *)&v62 init];
+  v61.receiver = self;
+  v61.super_class = ATCIOA2Device;
+  v6 = [(ATCIOA2Device *)&v61 init];
   if (!v6)
   {
     goto LABEL_43;
@@ -71,9 +71,9 @@ LABEL_43:
     goto LABEL_43;
   }
 
+  v59 = 0;
   v60 = 0;
-  v61 = 0;
-  if (([(IOKConnection *)v19 mapMemory64OfType:0 withOptions:1 atAddress:&v61 ofSize:&v60 error:0]& 1) == 0)
+  if (([(IOKConnection *)v19 mapMemory64OfType:0 withOptions:1 atAddress:&v60 ofSize:&v59 error:0]& 1) == 0)
   {
     [ATCIOA2Device initWithService:];
 LABEL_42:
@@ -81,14 +81,14 @@ LABEL_42:
     goto LABEL_43;
   }
 
-  if (v60 != 40)
+  if (v59 != 40)
   {
     [ATCIOA2Device initWithService:];
     goto LABEL_42;
   }
 
-  v20 = v61;
-  v7->_engineStatus = v61;
+  v20 = v60;
+  v7->_engineStatus = v60;
   if (!v20)
   {
     [ATCIOA2Device initWithService:];
@@ -112,7 +112,7 @@ LABEL_42:
   handler[2] = __33__ATCIOA2Device_initWithService___block_invoke;
   handler[3] = &unk_278CEB868;
   v25 = v7;
-  v59 = v25;
+  v58 = v25;
   dispatch_source_set_event_handler(v24, handler);
   dispatch_resume(v7->_notificationSource);
   if (([(IOKConnection *)v7->_connection setNotificationPort:v7->_notificationPort ofType:0 withReference:v25 error:0]& 1) == 0)
@@ -134,29 +134,29 @@ LABEL_42:
   if ([(NSArray *)v25->_inputStreams count])
   {
     array = [MEMORY[0x277CBEB18] array];
+    v53 = 0u;
     v54 = 0u;
     v55 = 0u;
     v56 = 0u;
-    v57 = 0u;
     firstObject = [(NSArray *)v25->_inputStreams firstObject];
     availableFormats = [firstObject availableFormats];
 
-    v33 = [availableFormats countByEnumeratingWithState:&v54 objects:v64 count:16];
+    v33 = [availableFormats countByEnumeratingWithState:&v53 objects:v63 count:16];
     if (v33)
     {
       v34 = v33;
-      v35 = *v55;
+      v35 = *v54;
       do
       {
         for (i = 0; i != v34; ++i)
         {
-          if (*v55 != v35)
+          if (*v54 != v35)
           {
             objc_enumerationMutation(availableFormats);
           }
 
           v37 = MEMORY[0x277CCABB0];
-          [*(*(&v54 + 1) + 8 * i) sampleRate];
+          [*(*(&v53 + 1) + 8 * i) sampleRate];
           v38 = [v37 numberWithDouble:?];
           if (![(NSArray *)array containsObject:v38])
           {
@@ -164,7 +164,7 @@ LABEL_42:
           }
         }
 
-        v34 = [availableFormats countByEnumeratingWithState:&v54 objects:v64 count:16];
+        v34 = [availableFormats countByEnumeratingWithState:&v53 objects:v63 count:16];
       }
 
       while (v34);
@@ -182,29 +182,29 @@ LABEL_42:
     }
 
     array = [MEMORY[0x277CBEB18] array];
+    v49 = 0u;
     v50 = 0u;
     v51 = 0u;
     v52 = 0u;
-    v53 = 0u;
     firstObject2 = [(NSArray *)v25->_outputStreams firstObject];
     availableFormats = [firstObject2 availableFormats];
 
-    v40 = [availableFormats countByEnumeratingWithState:&v50 objects:v63 count:16];
+    v40 = [availableFormats countByEnumeratingWithState:&v49 objects:v62 count:16];
     if (v40)
     {
       v41 = v40;
-      v42 = *v51;
+      v42 = *v50;
       do
       {
         for (j = 0; j != v41; ++j)
         {
-          if (*v51 != v42)
+          if (*v50 != v42)
           {
             objc_enumerationMutation(availableFormats);
           }
 
           v44 = MEMORY[0x277CCABB0];
-          [*(*(&v50 + 1) + 8 * j) sampleRate];
+          [*(*(&v49 + 1) + 8 * j) sampleRate];
           v45 = [v44 numberWithDouble:?];
           if (![(NSArray *)array containsObject:v45])
           {
@@ -212,7 +212,7 @@ LABEL_42:
           }
         }
 
-        v41 = [availableFormats countByEnumeratingWithState:&v50 objects:v63 count:16];
+        v41 = [availableFormats countByEnumeratingWithState:&v49 objects:v62 count:16];
       }
 
       while (v41);
@@ -226,24 +226,23 @@ LABEL_32:
 LABEL_33:
 LABEL_44:
 
-  v48 = *MEMORY[0x277D85DE8];
   return v25;
 }
 
 void __33__ATCIOA2Device_initWithService___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
-  v6.msgh_local_port = [*(*(a1 + 32) + 32) machPort];
-  if (mach_msg(&v6, 2, 0, 0x88u, [*(*(a1 + 32) + 32) machPort], 0, 0))
+  v5.msgh_local_port = [*(*(a1 + 32) + 32) machPort];
+  if (mach_msg(&v5, 2, 0, 0x88u, [*(*(a1 + 32) + 32) machPort], 0, 0))
   {
     __33__ATCIOA2Device_initWithService___block_invoke_cold_1();
   }
 
-  else if (v7)
+  else if (v6)
   {
     v3 = 0;
-    v4 = &v8;
+    v4 = &v7;
     do
     {
       [*(a1 + 32) handleNotification:v4];
@@ -251,11 +250,10 @@ void __33__ATCIOA2Device_initWithService___block_invoke(uint64_t a1)
       v4 += 2;
     }
 
-    while (v3 < v7);
+    while (v3 < v6);
   }
 
   objc_autoreleasePoolPop(v2);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (double)sampleRate
@@ -393,35 +391,35 @@ void __33__ATCIOA2Device_initWithService___block_invoke(uint64_t a1)
 
 - (id)_buildInputStreams
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = [(IOKService *)self->_service propertyForKey:@"input streams"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     array = [MEMORY[0x277CBEB18] array];
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     v5 = v3;
-    v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v6)
     {
       v7 = v6;
       v8 = 0;
-      v9 = *v18;
+      v9 = *v17;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v18 != v9)
+          if (*v17 != v9)
           {
             objc_enumerationMutation(v5);
           }
 
-          v11 = *(*(&v17 + 1) + 8 * i);
+          v11 = *(*(&v16 + 1) + 8 * i);
           v12 = [ATCIOA2Stream alloc];
-          v13 = [(ATCIOA2Stream *)v12 initWithService:self->_service connection:self->_connection index:v8 input:1 description:v11, v17];
+          v13 = [(ATCIOA2Stream *)v12 initWithService:self->_service connection:self->_connection index:v8 input:1 description:v11, v16];
           if (v13)
           {
             [array addObject:v13];
@@ -430,7 +428,7 @@ void __33__ATCIOA2Device_initWithService___block_invoke(uint64_t a1)
           ++v8;
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v7);
@@ -451,43 +449,41 @@ void __33__ATCIOA2Device_initWithService___block_invoke(uint64_t a1)
   {
     v14 = 0;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
 
 - (id)_buildOutputStreams
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = [(IOKService *)self->_service propertyForKey:@"output streams"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     array = [MEMORY[0x277CBEB18] array];
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     v5 = v3;
-    v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v6)
     {
       v7 = v6;
       v8 = 0;
-      v9 = *v18;
+      v9 = *v17;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v18 != v9)
+          if (*v17 != v9)
           {
             objc_enumerationMutation(v5);
           }
 
-          v11 = *(*(&v17 + 1) + 8 * i);
+          v11 = *(*(&v16 + 1) + 8 * i);
           v12 = [ATCIOA2Stream alloc];
-          v13 = [(ATCIOA2Stream *)v12 initWithService:self->_service connection:self->_connection index:v8 input:0 description:v11, v17];
+          v13 = [(ATCIOA2Stream *)v12 initWithService:self->_service connection:self->_connection index:v8 input:0 description:v11, v16];
           if (v13)
           {
             [array addObject:v13];
@@ -496,7 +492,7 @@ void __33__ATCIOA2Device_initWithService___block_invoke(uint64_t a1)
           ++v8;
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v7);
@@ -518,14 +514,12 @@ void __33__ATCIOA2Device_initWithService___block_invoke(uint64_t a1)
     v14 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v14;
 }
 
 - (BOOL)performConfiigChangeForNotification:(IOAudio2Notification *)notification error:(id *)error
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   properties = [(IOKService *)self->_service properties];
   v8 = [(IOKConnection *)self->_connection callMethodWithSelector:3 scalarInputs:0 scalarInputCount:0 structInput:notification structInputSize:32 scalarOutputs:0 scalarOutputCount:0 structOutput:0 structOutputSize:0 error:error];
   properties2 = [(IOKService *)self->_service properties];
@@ -554,34 +548,34 @@ void __33__ATCIOA2Device_initWithService___block_invoke(uint64_t a1)
 
   if (v21)
   {
-    v45 = v16;
-    v46 = v12;
-    v47 = v8;
+    v44 = v16;
+    v45 = v12;
+    v46 = v8;
     array = [MEMORY[0x277CBEB18] array];
+    v51 = 0u;
     v52 = 0u;
     v53 = 0u;
     v54 = 0u;
-    v55 = 0u;
     inputStreams2 = [(ATCIOA2Device *)self inputStreams];
     firstObject = [inputStreams2 firstObject];
     availableFormats = [firstObject availableFormats];
 
-    v26 = [availableFormats countByEnumeratingWithState:&v52 objects:v57 count:16];
+    v26 = [availableFormats countByEnumeratingWithState:&v51 objects:v56 count:16];
     if (v26)
     {
       v27 = v26;
-      v28 = *v53;
+      v28 = *v52;
       do
       {
         for (i = 0; i != v27; ++i)
         {
-          if (*v53 != v28)
+          if (*v52 != v28)
           {
             objc_enumerationMutation(availableFormats);
           }
 
           v30 = MEMORY[0x277CCABB0];
-          [*(*(&v52 + 1) + 8 * i) sampleRate];
+          [*(*(&v51 + 1) + 8 * i) sampleRate];
           v31 = [v30 numberWithDouble:?];
           if (([array containsObject:v31] & 1) == 0)
           {
@@ -589,7 +583,7 @@ void __33__ATCIOA2Device_initWithService___block_invoke(uint64_t a1)
           }
         }
 
-        v27 = [availableFormats countByEnumeratingWithState:&v52 objects:v57 count:16];
+        v27 = [availableFormats countByEnumeratingWithState:&v51 objects:v56 count:16];
       }
 
       while (v27);
@@ -609,34 +603,34 @@ void __33__ATCIOA2Device_initWithService___block_invoke(uint64_t a1)
       goto LABEL_23;
     }
 
-    v45 = v16;
-    v46 = v12;
-    v47 = v8;
+    v44 = v16;
+    v45 = v12;
+    v46 = v8;
     array = [MEMORY[0x277CBEB18] array];
+    v47 = 0u;
     v48 = 0u;
     v49 = 0u;
     v50 = 0u;
-    v51 = 0u;
     outputStreams2 = [(ATCIOA2Device *)self outputStreams];
     firstObject2 = [outputStreams2 firstObject];
     availableFormats = [firstObject2 availableFormats];
 
-    v36 = [availableFormats countByEnumeratingWithState:&v48 objects:v56 count:16];
+    v36 = [availableFormats countByEnumeratingWithState:&v47 objects:v55 count:16];
     if (v36)
     {
       v37 = v36;
-      v38 = *v49;
+      v38 = *v48;
       do
       {
         for (j = 0; j != v37; ++j)
         {
-          if (*v49 != v38)
+          if (*v48 != v38)
           {
             objc_enumerationMutation(availableFormats);
           }
 
           v40 = MEMORY[0x277CCABB0];
-          [*(*(&v48 + 1) + 8 * j) sampleRate];
+          [*(*(&v47 + 1) + 8 * j) sampleRate];
           v41 = [v40 numberWithDouble:?];
           if (([array containsObject:v41] & 1) == 0)
           {
@@ -644,7 +638,7 @@ void __33__ATCIOA2Device_initWithService___block_invoke(uint64_t a1)
           }
         }
 
-        v37 = [availableFormats countByEnumeratingWithState:&v48 objects:v56 count:16];
+        v37 = [availableFormats countByEnumeratingWithState:&v47 objects:v55 count:16];
       }
 
       while (v37);
@@ -652,12 +646,11 @@ void __33__ATCIOA2Device_initWithService___block_invoke(uint64_t a1)
   }
 
   [(ATCIOA2Device *)self setAvailableSampleRates:array];
-  v8 = v47;
-  v16 = v45;
-  v12 = v46;
+  v8 = v46;
+  v16 = v44;
+  v12 = v45;
 LABEL_23:
 
-  v42 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -743,119 +736,101 @@ void __36__ATCIOA2Device_handleNotification___block_invoke(uint64_t a1)
 
 - (void)initWithService:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_241795000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_241795000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithService:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_241795000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_241795000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithService:(void *)a1 .cold.3(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v7 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_241795000, MEMORY[0x277D86220], v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, 2u);
+    OUTLINED_FUNCTION_2(&dword_241795000, MEMORY[0x277D86220], v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, v7);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithService:.cold.4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_241795000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_241795000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithService:.cold.5()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_241795000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_241795000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithService:(void *)a1 .cold.6(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v7 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_241795000, MEMORY[0x277D86220], v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, 2u);
+    OUTLINED_FUNCTION_2(&dword_241795000, MEMORY[0x277D86220], v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, v7);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithService:(void *)a1 .cold.7(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v7 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_241795000, MEMORY[0x277D86220], v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, 2u);
+    OUTLINED_FUNCTION_2(&dword_241795000, MEMORY[0x277D86220], v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, v7);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithService:(void *)a1 .cold.8(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v7 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_241795000, MEMORY[0x277D86220], v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, 2u);
+    OUTLINED_FUNCTION_2(&dword_241795000, MEMORY[0x277D86220], v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, v7);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __33__ATCIOA2Device_initWithService___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_241795000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_241795000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

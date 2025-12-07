@@ -564,10 +564,9 @@ uint64_t __35__TKPage_showLoadingViewController__block_invoke(uint64_t a1)
     MEMORY[0x277D82BD8](v12);
     MEMORY[0x277D82BD8](v13);
     MEMORY[0x277D82BD8](v14);
-    result = MEMORY[0x277D82BD8](v15);
+    return MEMORY[0x277D82BD8](v15);
   }
 
-  *MEMORY[0x277D85DE8];
   return result;
 }
 

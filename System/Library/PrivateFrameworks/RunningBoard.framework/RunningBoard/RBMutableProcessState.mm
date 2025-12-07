@@ -6,9 +6,7 @@
 - (void)addPreventIdleSleepIdentifier:(id)identifier;
 - (void)addRBAssertion:(id)assertion;
 - (void)addTag:(id)tag;
-- (void)removeAllEndowmentInfos;
 - (void)removeAllInheritances;
-- (void)removeAllPreventIdleSleepIdentifiers;
 - (void)removeEndowmentInfo:(id)info;
 - (void)removeInheritance:(id)inheritance;
 - (void)removePreventIdleSleepIdentifier:(id)identifier;
@@ -16,6 +14,8 @@
 - (void)setForceRoleManage:(BOOL)manage;
 - (void)setIsBeingDebugged:(BOOL)debugged;
 - (void)setJetsamLenientMode:(BOOL)mode;
+- (void)setMaxCPUUsageLimits:(id)limits forRole:(unsigned __int8)role;
+- (void)setMinCPUUsageLimits:(id)limits forRole:(unsigned __int8)role;
 - (void)setPreventBaseMemoryLimitReduction:(BOOL)reduction;
 - (void)setPreventIdleSleep:(BOOL)sleep;
 - (void)setPreventSuspend:(BOOL)suspend;
@@ -352,11 +352,33 @@ void __36__RBMutableProcessState_unionState___block_invoke_2(uint64_t a1, void *
   }
 }
 
-- (void)removeAllPreventIdleSleepIdentifiers
+- (void)setMinCPUUsageLimits:(id)limits forRole:(unsigned __int8)role
 {
-  preventIdleSleepIdentifiers = self->super._preventIdleSleepIdentifiers;
-  self->super._preventIdleSleepIdentifiers = 0;
-  MEMORY[0x2821F96F8]();
+  roleCopy = role;
+  limitsCopy = limits;
+  if (limitsCopy)
+  {
+    v15 = limitsCopy;
+    minCPULimitsByRole = self->super._minCPULimitsByRole;
+    if (!minCPULimitsByRole)
+    {
+      dictionary = [MEMORY[0x277CBEB38] dictionary];
+      v9 = self->super._minCPULimitsByRole;
+      self->super._minCPULimitsByRole = dictionary;
+
+      minCPULimitsByRole = self->super._minCPULimitsByRole;
+    }
+
+    v10 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:roleCopy];
+    v11 = [(NSMutableDictionary *)minCPULimitsByRole objectForKeyedSubscript:v10];
+
+    v12 = [v15 unionLimit:v11];
+    v13 = self->super._minCPULimitsByRole;
+    v14 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:roleCopy];
+    [(NSMutableDictionary *)v13 setObject:v12 forKeyedSubscript:v14];
+
+    limitsCopy = v15;
+  }
 }
 
 - (void)setPreventIdleSleep:(BOOL)sleep
@@ -465,13 +487,6 @@ void __36__RBMutableProcessState_unionState___block_invoke_2(uint64_t a1, void *
   }
 }
 
-- (void)removeAllEndowmentInfos
-{
-  endowmentInfos = self->super._endowmentInfos;
-  self->super._endowmentInfos = 0;
-  MEMORY[0x2821F96F8]();
-}
-
 - (void)addInheritance:(id)inheritance
 {
   inheritanceCopy = inheritance;
@@ -523,6 +538,35 @@ void __36__RBMutableProcessState_unionState___block_invoke_2(uint64_t a1, void *
   self->super._inheritances = 0;
 
   [(RBMutableProcessState *)self removeAllEndowmentInfos];
+}
+
+- (void)setMaxCPUUsageLimits:(id)limits forRole:(unsigned __int8)role
+{
+  roleCopy = role;
+  limitsCopy = limits;
+  if (limitsCopy)
+  {
+    v15 = limitsCopy;
+    maxCPULimitsByRole = self->super._maxCPULimitsByRole;
+    if (!maxCPULimitsByRole)
+    {
+      dictionary = [MEMORY[0x277CBEB38] dictionary];
+      v9 = self->super._maxCPULimitsByRole;
+      self->super._maxCPULimitsByRole = dictionary;
+
+      maxCPULimitsByRole = self->super._maxCPULimitsByRole;
+    }
+
+    v10 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:roleCopy];
+    v11 = [(NSMutableDictionary *)maxCPULimitsByRole objectForKeyedSubscript:v10];
+
+    v12 = [v15 unionLimit:v11];
+    v13 = self->super._maxCPULimitsByRole;
+    v14 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:roleCopy];
+    [(NSMutableDictionary *)v13 setObject:v12 forKeyedSubscript:v14];
+
+    limitsCopy = v15;
+  }
 }
 
 - (void)addTag:(id)tag

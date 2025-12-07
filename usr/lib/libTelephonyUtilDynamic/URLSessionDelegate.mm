@@ -163,11 +163,11 @@ LABEL_14:
     do
     {
       v10 = v11[2].__left_;
-      v36 = *v10 == v11;
+      v35 = *v10 == v11;
       v11 = v10;
     }
 
-    while (!v36);
+    while (!v35);
   }
 
   if (self->fTaskHandlers.__tree_.__begin_node_ == p_end_node)
@@ -268,7 +268,6 @@ LABEL_25:
   {
     v22 = v17[2].__left_;
     v23 = *v22;
-    v24 = v17[3].__left_;
     if (*v22 == v17)
     {
       break;
@@ -278,19 +277,19 @@ LABEL_25:
     {
       LOBYTE(v17[3].__left_) = 1;
       *(v22 + 24) = 0;
-      v25 = v22[1];
-      v26 = *v25;
-      v22[1] = *v25;
-      if (v26)
+      v24 = v22[1];
+      v25 = *v24;
+      v22[1] = *v24;
+      if (v25)
       {
-        *(v26 + 16) = v22;
+        *(v25 + 16) = v22;
       }
 
-      v27 = v22[2];
-      v25[2] = v27;
-      v27[*v27 != v22] = v25;
-      *v25 = v22;
-      v22[2] = v25;
+      v26 = v22[2];
+      v24[2] = v26;
+      v26[*v26 != v22] = v24;
+      *v24 = v22;
+      v22[2] = v24;
       if (left == v17->__left_)
       {
         left = v17;
@@ -299,164 +298,164 @@ LABEL_25:
       v17 = *(v17->__left_ + 1);
     }
 
-    v28.__left_ = v17->__left_;
-    if (v17->__left_ && *(v28.__left_ + 24) != 1)
+    v27.__left_ = v17->__left_;
+    if (v17->__left_ && *(v27.__left_ + 24) != 1)
     {
-      v29 = v17[1].__left_;
-      if (v29 && (v29[24] & 1) == 0)
+      v28 = v17[1].__left_;
+      if (v28 && (v28[24] & 1) == 0)
       {
 LABEL_74:
-        v28.__left_ = v17;
+        v27.__left_ = v17;
       }
 
       else
       {
-        *(v28.__left_ + 24) = 1;
+        *(v27.__left_ + 24) = 1;
         LOBYTE(v17[3].__left_) = 0;
-        v37 = *(v28.__left_ + 1);
-        v17->__left_ = v37;
-        if (v37)
+        v36 = *(v27.__left_ + 1);
+        v17->__left_ = v36;
+        if (v36)
         {
-          v37[2] = v17;
+          v36[2] = v17;
         }
 
-        v38 = v17[2].__left_;
-        *(v28.__left_ + 2) = v38;
-        v38[*v38 != v17] = v28.__left_;
-        *(v28.__left_ + 1) = v17;
-        v17[2].__left_ = v28.__left_;
-        v29 = v17;
+        v37 = v17[2].__left_;
+        *(v27.__left_ + 2) = v37;
+        v37[*v37 != v17] = v27.__left_;
+        *(v27.__left_ + 1) = v17;
+        v17[2].__left_ = v27.__left_;
+        v28 = v17;
       }
 
-      v39 = *(v28.__left_ + 2);
-      *(v28.__left_ + 24) = *(v39 + 24);
-      *(v39 + 24) = 1;
-      v29[24] = 1;
-      v40 = *(v39 + 8);
-      v41 = *v40;
-      *(v39 + 8) = *v40;
-      if (v41)
+      v38 = *(v27.__left_ + 2);
+      *(v27.__left_ + 24) = *(v38 + 24);
+      *(v38 + 24) = 1;
+      v28[24] = 1;
+      v39 = *(v38 + 8);
+      v40 = *v39;
+      *(v38 + 8) = *v39;
+      if (v40)
       {
-        *(v41 + 16) = v39;
+        *(v40 + 16) = v38;
       }
 
-      v42 = *(v39 + 16);
-      v40[2] = v42;
-      v42[*v42 != v39] = v40;
-      *v40 = v39;
+      v41 = *(v38 + 16);
+      v39[2] = v41;
+      v41[*v41 != v38] = v39;
+      *v39 = v38;
       goto LABEL_87;
     }
 
-    v29 = v17[1].__left_;
-    if (v29 && v29[24] != 1)
+    v28 = v17[1].__left_;
+    if (v28 && v28[24] != 1)
     {
       goto LABEL_74;
     }
 
     LOBYTE(v17[3].__left_) = 0;
-    v30 = v17[2].__left_;
-    if (v30 == left || (v30[3].__left_ & 1) == 0)
+    v29 = v17[2].__left_;
+    if (v29 == left || (v29[3].__left_ & 1) == 0)
     {
       goto LABEL_68;
     }
 
 LABEL_66:
-    v17 = *(v30[2].__left_ + (*v30[2].__left_ == v30));
+    v17 = *(v29[2].__left_ + (*v29[2].__left_ == v29));
   }
 
   if ((v17[3].__left_ & 1) == 0)
   {
     LOBYTE(v17[3].__left_) = 1;
     *(v22 + 24) = 0;
-    v31 = v23[1].__left_;
-    *v22 = v31;
-    if (v31)
+    v30 = v23[1].__left_;
+    *v22 = v30;
+    if (v30)
     {
-      v31[2].__left_ = v22;
+      v30[2].__left_ = v22;
     }
 
-    v32 = v22[2];
-    v23[2].__left_ = v32;
-    v32[*v32 != v22] = v23;
+    v31 = v22[2];
+    v23[2].__left_ = v31;
+    v31[*v31 != v22] = v23;
     v23[1].__left_ = v22;
     v22[2] = v23;
-    v33 = v17[1].__left_;
-    if (left == v33)
+    v32 = v17[1].__left_;
+    if (left == v32)
     {
       left = v17;
     }
 
-    v17 = v33->__left_;
+    v17 = v32->__left_;
   }
 
-  v34.__left_ = v17->__left_;
-  if (v17->__left_ && *(v34.__left_ + 24) != 1)
+  v33.__left_ = v17->__left_;
+  if (v17->__left_ && *(v33.__left_ + 24) != 1)
   {
     goto LABEL_83;
   }
 
-  v35 = v17[1].__left_;
-  if (!v35 || *(v35 + 24) == 1)
+  v34 = v17[1].__left_;
+  if (!v34 || *(v34 + 24) == 1)
   {
     LOBYTE(v17[3].__left_) = 0;
-    v30 = v17[2].__left_;
-    v36 = LOBYTE(v30[3].__left_) != 1 || v30 == left;
-    if (v36)
+    v29 = v17[2].__left_;
+    v35 = LOBYTE(v29[3].__left_) != 1 || v29 == left;
+    if (v35)
     {
 LABEL_68:
-      LOBYTE(v30[3].__left_) = 1;
+      LOBYTE(v29[3].__left_) = 1;
       goto LABEL_88;
     }
 
     goto LABEL_66;
   }
 
-  if (v34.__left_ && (*(v34.__left_ + 24) & 1) == 0)
+  if (v33.__left_ && (*(v33.__left_ + 24) & 1) == 0)
   {
 LABEL_83:
-    v35 = v17;
+    v34 = v17;
     goto LABEL_84;
   }
 
-  *(v35 + 24) = 1;
+  *(v34 + 24) = 1;
   LOBYTE(v17[3].__left_) = 0;
-  v43 = *v35;
-  v17[1].__left_ = *v35;
-  if (v43)
+  v42 = *v34;
+  v17[1].__left_ = *v34;
+  if (v42)
   {
-    *(v43 + 16) = v17;
+    *(v42 + 16) = v17;
   }
 
-  v44 = v17[2].__left_;
-  v35[2] = v44;
-  v44[*v44 != v17] = v35;
-  *v35 = v17;
-  v17[2].__left_ = v35;
-  v34.__left_ = v17;
+  v43 = v17[2].__left_;
+  v34[2] = v43;
+  v43[*v43 != v17] = v34;
+  *v34 = v17;
+  v17[2].__left_ = v34;
+  v33.__left_ = v17;
 LABEL_84:
-  v39 = v35[2];
-  *(v35 + 24) = *(v39 + 24);
-  *(v39 + 24) = 1;
-  *(v34.__left_ + 24) = 1;
-  v40 = *v39;
-  v45 = *(*v39 + 8);
-  *v39 = v45;
-  if (v45)
+  v38 = v34[2];
+  *(v34 + 24) = *(v38 + 24);
+  *(v38 + 24) = 1;
+  *(v33.__left_ + 24) = 1;
+  v39 = *v38;
+  v44 = *(*v38 + 8);
+  *v38 = v44;
+  if (v44)
   {
-    *(v45 + 16) = v39;
+    *(v44 + 16) = v38;
   }
 
-  v46 = *(v39 + 16);
-  v40[2] = v46;
-  v46[*v46 != v39] = v40;
-  v40[1] = v39;
+  v45 = *(v38 + 16);
+  v39[2] = v45;
+  v45[*v45 != v38] = v39;
+  v39[1] = v38;
 LABEL_87:
-  *(v39 + 16) = v40;
+  *(v38 + 16) = v39;
 LABEL_88:
-  v47 = p_end_node[6].__left_;
-  if (v47)
+  v46 = p_end_node[6].__left_;
+  if (v46)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v47);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v46);
   }
 
   operator delete(p_end_node);
@@ -465,7 +464,7 @@ LABEL_88:
 - (void)dealloc
 {
   p_end_node = &self->fTaskHandlers.__tree_.__end_node_;
-  std::__tree<std::__value_type<unsigned long,std::shared_ptr<SessionTaskContext>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::shared_ptr<SessionTaskContext>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::shared_ptr<SessionTaskContext>>>>::destroy(self->fTaskHandlers.__tree_.__end_node_.__left_);
+  std::__tree<std::__value_type<unsigned long,std::shared_ptr<SessionTaskContext>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::shared_ptr<SessionTaskContext>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::shared_ptr<SessionTaskContext>>>>::destroy(self->fTaskHandlers.__tree_.__end_node_.__left_, a2);
   self->fTaskHandlers.__tree_.__begin_node_ = p_end_node;
   self->fTaskHandlers.__tree_.__size_ = 0;
   p_end_node->__left_ = 0;
@@ -525,152 +524,152 @@ LABEL_9:
 
 - (void)URLSession:(id)session dataTask:(id)task didReceiveResponse:(id)response completionHandler:(id)handler
 {
-  v12 = 0xAAAAAAAAAAAAAAAALL;
-  taskIdentifier = [task taskIdentifier];
+  v11 = 0xAAAAAAAAAAAAAAAALL;
+  [task taskIdentifier];
   if (self)
   {
-    [(URLSessionDelegate *)self getContext:taskIdentifier];
+    objc_msgSend_getContext_(self);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v11 = operator new(0x68uLL);
-      ctu::Http::HttpResponseConcrete::HttpResponseConcrete(v11, response);
-      *(v11 + 48) = [task _TLSNegotiatedCipherSuite];
-      std::shared_ptr<ctu::Http::HttpResponse>::reset[abi:ne200100]<ctu::Http::HttpResponseConcrete,0>(0xAAAAAAAAAAAAAACALL, v11);
+      v10 = operator new(0x68uLL);
+      ctu::Http::HttpResponseConcrete::HttpResponseConcrete(v10, response);
+      *(v10 + 48) = [task _TLSNegotiatedCipherSuite];
+      std::shared_ptr<ctu::Http::HttpResponse>::reset[abi:ne200100]<ctu::Http::HttpResponseConcrete,0>(0xAAAAAAAAAAAAAACALL, v10);
     }
   }
 
   else
   {
-    v12 = 0;
+    v11 = 0;
   }
 
   (*(handler + 2))(handler, 1);
-  if (v12)
+  if (v11)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v12);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v11);
   }
 }
 
 - (void)URLSession:(id)session task:(id)task didCompleteWithError:(id)error
 {
-  v25 = 0xAAAAAAAAAAAAAAAALL;
-  v26 = 0xAAAAAAAAAAAAAAAALL;
-  taskIdentifier = [task taskIdentifier];
+  v23 = 0xAAAAAAAAAAAAAAAALL;
+  v24 = 0xAAAAAAAAAAAAAAAALL;
+  [task taskIdentifier];
   if (self)
   {
-    [(URLSessionDelegate *)self getContext:taskIdentifier];
-    v8 = v25[1];
-    if (v8)
+    objc_msgSend_getContext_(self);
+    v7 = v23[1];
+    if (v7)
     {
-      v9 = std::__shared_weak_count::lock(v8);
-      if (v9)
+      v8 = std::__shared_weak_count::lock(v7);
+      if (v8)
       {
-        v10 = v9;
-        v11 = *v25;
-        if (*v25)
+        v9 = v8;
+        v10 = *v23;
+        if (*v23)
         {
-          v12 = v25;
-          v13 = v25[4];
+          v11 = v23;
+          v12 = v23[4];
           {
-            v17 = v16;
-            v18 = v12[5];
-            if (v18)
+            v15 = v14;
+            v16 = v11[5];
+            if (v16)
             {
-              atomic_fetch_add_explicit(&v18->__shared_owners_, 1uLL, memory_order_relaxed);
+              atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
             }
 
             if (error)
             {
               domain = [error domain];
-              if ([domain isEqualToString:*MEMORY[0x1E696A978]] && (v20 = objc_msgSend(error, "code"), (v20 + 1009) <= 9))
+              if ([domain isEqualToString:*MEMORY[0x1E696A978]] && (v18 = objc_msgSend(error, "code"), (v18 + 1009) <= 9))
               {
-                v21 = *(&unk_1A9164B44 + v20 + 1009);
+                v19 = dword_1A9164B44[v18 + 1009];
               }
 
               else
               {
-                v21 = 0;
+                v19 = 0;
               }
 
-              *(v17 + 2) = v21;
-              v17[6] = [error code];
+              *(v15 + 2) = v19;
+              v15[6] = [error code];
               errorCopy = error;
-              ctu::cf::CFSharedRef<__CFError>::operator=(v17 + 11, &errorCopy);
+              ctu::cf::CFSharedRef<__CFError>::operator=(v15 + 11, &errorCopy);
             }
 
             else
             {
-              errorCopy = v12[2];
-              ctu::cf::CFSharedRef<__CFData const>::operator=(v16 + 10, &errorCopy);
-              *(v17 + 2) = 1;
+              errorCopy = v11[2];
+              ctu::cf::CFSharedRef<__CFData const>::operator=(v14 + 10, &errorCopy);
+              *(v15 + 2) = 1;
             }
           }
 
           else
           {
-            v18 = 0;
+            v16 = 0;
           }
 
-          v22 = v25[5];
-          v23 = v25[4];
-          v24 = v22;
+          v20 = v23[5];
+          v21 = v23[4];
+          v22 = v20;
+          if (v20)
+          {
+            atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
+          }
+
+          (*(*v10 + 16))(v10, &v21);
           if (v22)
           {
-            atomic_fetch_add_explicit(&v22->__shared_owners_, 1uLL, memory_order_relaxed);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v22);
           }
 
-          (*(*v11 + 16))(v11, &v23);
-          if (v24)
+          if (v16)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v24);
-          }
-
-          if (v18)
-          {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v18);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v16);
           }
         }
 
-        std::__shared_weak_count::__release_shared[abi:ne200100](v10);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v9);
       }
     }
   }
 
   else
   {
-    v25 = 0;
-    v26 = 0;
+    v23 = 0;
+    v24 = 0;
   }
 
-  if (v26)
+  if (v24)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v26);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v24);
   }
 }
 
 - (void)URLSession:(id)session dataTask:(id)task didReceiveData:(id)data
 {
-  v10 = 0xAAAAAAAAAAAAAAAALL;
-  taskIdentifier = [task taskIdentifier];
+  v9 = 0xAAAAAAAAAAAAAAAALL;
+  [task taskIdentifier];
   if (self)
   {
-    [(URLSessionDelegate *)self getContext:taskIdentifier];
+    objc_msgSend_getContext_(self);
     if (data)
     {
       [MEMORY[0xAAAAAAAAAAAAAABA] appendData:data];
       if (MEMORY[0xAAAAAAAAAAAAAAB2])
       {
-        v8 = std::__shared_weak_count::lock(MEMORY[0xAAAAAAAAAAAAAAB2]);
-        if (v8)
+        v7 = std::__shared_weak_count::lock(MEMORY[0xAAAAAAAAAAAAAAB2]);
+        if (v7)
         {
-          v9 = v8;
+          v8 = v7;
           if (MEMORY[0xAAAAAAAAAAAAAAAA])
           {
             (*(*MEMORY[0xAAAAAAAAAAAAAAAA] + 32))(MEMORY[0xAAAAAAAAAAAAAAAA], [data length], objc_msgSend(MEMORY[0xAAAAAAAAAAAAAABA], "length"));
           }
 
-          std::__shared_weak_count::__release_shared[abi:ne200100](v9);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v8);
         }
       }
     }
@@ -678,88 +677,88 @@ LABEL_9:
 
   else
   {
-    v10 = 0;
+    v9 = 0;
   }
 
-  if (v10)
+  if (v9)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v10);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v9);
   }
 }
 
 - (void)URLSession:(id)session task:(id)task didSendBodyData:(int64_t)data totalBytesSent:(int64_t)sent totalBytesExpectedToSend:(int64_t)send
 {
-  v14 = 0xAAAAAAAAAAAAAAAALL;
-  taskIdentifier = [task taskIdentifier];
+  v13 = 0xAAAAAAAAAAAAAAAALL;
+  [task taskIdentifier];
   if (self)
   {
-    [(URLSessionDelegate *)self getContext:taskIdentifier];
+    objc_msgSend_getContext_(self);
     if (MEMORY[0xAAAAAAAAAAAAAAB2])
     {
-      v12 = std::__shared_weak_count::lock(MEMORY[0xAAAAAAAAAAAAAAB2]);
-      if (v12)
+      v11 = std::__shared_weak_count::lock(MEMORY[0xAAAAAAAAAAAAAAB2]);
+      if (v11)
       {
-        v13 = v12;
+        v12 = v11;
         if (MEMORY[0xAAAAAAAAAAAAAAAA])
         {
           (*(*MEMORY[0xAAAAAAAAAAAAAAAA] + 40))(MEMORY[0xAAAAAAAAAAAAAAAA], data, sent, send);
         }
 
-        std::__shared_weak_count::__release_shared[abi:ne200100](v13);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v12);
       }
     }
   }
 
   else
   {
-    v14 = 0;
+    v13 = 0;
   }
 
-  if (v14)
+  if (v13)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v14);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v13);
   }
 }
 
 - (void)URLSession:(id)session task:(id)task didReceiveChallenge:(id)challenge completionHandler:(id)handler
 {
   theDict[1] = *MEMORY[0x1E69E9840];
-  v31 = 0xAAAAAAAAAAAAAAAALL;
-  v32 = 0xAAAAAAAAAAAAAAAALL;
-  taskIdentifier = [task taskIdentifier];
+  v29 = 0xAAAAAAAAAAAAAAAALL;
+  v30 = 0xAAAAAAAAAAAAAAAALL;
+  [task taskIdentifier];
   if (!self)
   {
     Value = 0;
-    v31 = 0;
-    v32 = 0;
+    v29 = 0;
+    v30 = 0;
 LABEL_21:
-    v17 = 1;
+    v16 = 1;
     goto LABEL_22;
   }
 
-  [(URLSessionDelegate *)self getContext:taskIdentifier];
-  v10 = [objc_msgSend(challenge "protectionSpace")];
-  if ([v10 isEqualToString:*MEMORY[0x1E696A940]])
+  objc_msgSend_getContext_(self);
+  v9 = [objc_msgSend(challenge "protectionSpace")];
+  if ([v9 isEqualToString:*MEMORY[0x1E696A940]])
   {
-    v11 = v31[1];
-    if (v11)
+    v10 = v29[1];
+    if (v10)
     {
-      v12 = std::__shared_weak_count::lock(v11);
-      if (v12)
+      v11 = std::__shared_weak_count::lock(v10);
+      if (v11)
       {
-        v13 = v12;
-        v14 = *v31;
-        if (*v31)
+        v12 = v11;
+        v13 = *v29;
+        if (*v29)
         {
           theDict[0] = 0xAAAAAAAAAAAAAAAALL;
-          (*(*v14 + 48))(theDict);
+          (*(*v13 + 48))(theDict);
           if (theDict[0])
           {
             Value = CFDictionaryGetValue(theDict[0], *MEMORY[0x1E697B0B8]);
             if (!Value)
             {
 LABEL_26:
-              v17 = 1;
+              v16 = 1;
               goto LABEL_27;
             }
 
@@ -767,7 +766,7 @@ LABEL_26:
             if (TypeID == CFGetTypeID(Value))
             {
               Value = [MEMORY[0x1E696AF30] credentialWithIdentity:Value certificates:0 persistence:0];
-              v17 = 0;
+              v16 = 0;
 LABEL_27:
               ctu::SharedRef<__CFDictionary const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFDictionary const>::~SharedRef(theDict);
               goto LABEL_31;
@@ -785,28 +784,28 @@ LABEL_27:
     goto LABEL_20;
   }
 
-  if (![v10 isEqualToString:*MEMORY[0x1E696A968]] || (v18 = v31[1]) == 0 || (v19 = std::__shared_weak_count::lock(v18)) == 0)
+  if (![v9 isEqualToString:*MEMORY[0x1E696A968]] || (v17 = v29[1]) == 0 || (v18 = std::__shared_weak_count::lock(v17)) == 0)
   {
 LABEL_20:
     Value = 0;
     goto LABEL_21;
   }
 
-  v13 = v19;
-  v20 = *v31;
-  if (!*v31)
+  v12 = v18;
+  v19 = *v29;
+  if (!*v29)
   {
     goto LABEL_30;
   }
 
-  (*(*v20 + 56))(theDict, v20);
+  (*(*v19 + 56))(theDict, v19);
   if (!theDict[0])
   {
     ctu::SharedRef<__CFArray const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFArray const>::~SharedRef(theDict);
     goto LABEL_30;
   }
 
-  (*(*v20 + 56))(&theArray, v20);
+  (*(*v19 + 56))(&theArray, v19);
   Count = CFArrayGetCount(theArray);
   ctu::SharedRef<__CFArray const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFArray const>::~SharedRef(&theArray);
   ctu::SharedRef<__CFArray const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFArray const>::~SharedRef(theDict);
@@ -814,12 +813,12 @@ LABEL_20:
   {
 LABEL_30:
     Value = 0;
-    v17 = 1;
+    v16 = 1;
     goto LABEL_31;
   }
 
-  v22 = [objc_msgSend(challenge "protectionSpace")];
-  if (((*(*v20 + 64))(v20, v22) & 1) == 0)
+  v21 = [objc_msgSend(challenge "protectionSpace")];
+  if (((*(*v19 + 64))(v19, v21) & 1) == 0)
   {
     if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
     {
@@ -827,22 +826,22 @@ LABEL_30:
     }
 
     LOWORD(theDict[0]) = 0;
-    v26 = MEMORY[0x1E69E9C10];
-    v27 = "DEBUG: Failed to validate certs.";
-    v28 = 2;
+    v24 = MEMORY[0x1E69E9C10];
+    v25 = "DEBUG: Failed to validate certs.";
+    v26 = 2;
 LABEL_40:
-    _os_log_debug_impl(&dword_1A90E3000, v26, OS_LOG_TYPE_DEBUG, v27, theDict, v28);
+    _os_log_debug_impl(&dword_1A90E3000, v24, OS_LOG_TYPE_DEBUG, v25, theDict, v26);
     goto LABEL_30;
   }
 
-  (*(*v20 + 56))(theDict, v20);
-  v23 = SecTrustSetAnchorCertificates(v22, theDict[0]);
+  (*(*v19 + 56))(theDict, v19);
+  v22 = SecTrustSetAnchorCertificates(v21, theDict[0]);
   ctu::SharedRef<__CFArray const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFArray const>::~SharedRef(theDict);
-  if (!v23)
+  if (!v22)
   {
     LODWORD(theArray) = -1431655766;
-    v25 = MEMORY[0x1AC580760](v22, &theArray);
-    if (v25)
+    v23 = MEMORY[0x1AC580760](v21, &theArray);
+    if (v23)
     {
       if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
       {
@@ -850,18 +849,18 @@ LABEL_40:
       }
 
       LODWORD(theDict[0]) = 67109120;
-      HIDWORD(theDict[0]) = v25;
-      v26 = MEMORY[0x1E69E9C10];
-      v27 = "Server pinned certs' trust evaluation failed due to STATUS code: %d";
+      HIDWORD(theDict[0]) = v23;
+      v24 = MEMORY[0x1E69E9C10];
+      v25 = "Server pinned certs' trust evaluation failed due to STATUS code: %d";
     }
 
     else
     {
-      v29 = theArray;
+      v27 = theArray;
       if (theArray == 4 || theArray == 1)
       {
         Value = [MEMORY[0x1E696AF30] credentialForTrust:{objc_msgSend(objc_msgSend(challenge, "protectionSpace"), "serverTrust")}];
-        v17 = 0;
+        v16 = 0;
         goto LABEL_31;
       }
 
@@ -871,68 +870,66 @@ LABEL_40:
       }
 
       LODWORD(theDict[0]) = 67109120;
-      HIDWORD(theDict[0]) = v29;
-      v26 = MEMORY[0x1E69E9C10];
-      v27 = "DEBUG: Server pinned certs' trust evaluation failed due to RESULT code: %u";
+      HIDWORD(theDict[0]) = v27;
+      v24 = MEMORY[0x1E69E9C10];
+      v25 = "DEBUG: Server pinned certs' trust evaluation failed due to RESULT code: %u";
     }
 
-    v28 = 8;
+    v26 = 8;
     goto LABEL_40;
   }
 
   Value = 0;
-  v17 = 2;
+  v16 = 2;
 LABEL_31:
-  std::__shared_weak_count::__release_shared[abi:ne200100](v13);
+  std::__shared_weak_count::__release_shared[abi:ne200100](v12);
 LABEL_22:
-  (*(handler + 2))(handler, v17, Value);
-  if (v32)
+  (*(handler + 2))(handler, v16, Value);
+  if (v30)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v32);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v30);
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)URLSession:(id)session task:(id)task willPerformHTTPRedirection:(id)redirection newRequest:(id)request completionHandler:(id)handler
 {
-  v15 = 0xAAAAAAAAAAAAAAAALL;
-  taskIdentifier = [task taskIdentifier];
+  v14 = 0xAAAAAAAAAAAAAAAALL;
+  [task taskIdentifier];
   if (self)
   {
-    [(URLSessionDelegate *)self getContext:taskIdentifier];
-    if (MEMORY[0xAAAAAAAAAAAAAAB2] && (v12 = std::__shared_weak_count::lock(MEMORY[0xAAAAAAAAAAAAAAB2])) != 0)
+    objc_msgSend_getContext_(self);
+    if (MEMORY[0xAAAAAAAAAAAAAAB2] && (v11 = std::__shared_weak_count::lock(MEMORY[0xAAAAAAAAAAAAAAB2])) != 0)
     {
-      v13 = v12;
+      v12 = v11;
       if (MEMORY[0xAAAAAAAAAAAAAAAA])
       {
-        v14 = (*(*MEMORY[0xAAAAAAAAAAAAAAAA] + 24))(MEMORY[0xAAAAAAAAAAAAAAAA], request, redirection);
+        v13 = (*(*MEMORY[0xAAAAAAAAAAAAAAAA] + 24))(MEMORY[0xAAAAAAAAAAAAAAAA], request, redirection);
       }
 
       else
       {
-        v14 = 0;
+        v13 = 0;
       }
 
-      std::__shared_weak_count::__release_shared[abi:ne200100](v13);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v12);
     }
 
     else
     {
-      v14 = 0;
+      v13 = 0;
     }
   }
 
   else
   {
+    v13 = 0;
     v14 = 0;
-    v15 = 0;
   }
 
-  (*(handler + 2))(handler, v14);
-  if (v15)
+  (*(handler + 2))(handler, v13);
+  if (v14)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v15);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v14);
   }
 }
 

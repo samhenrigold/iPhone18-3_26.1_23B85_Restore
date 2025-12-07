@@ -9,7 +9,7 @@
   classesCopy = classes;
   keyCopy = key;
   v9 = objc_alloc_init(HDCloudSyncSerializedField);
-  v10 = [keyCopy copy];
+  v10 = objc_msgSend_copy(keyCopy);
 
   key = v9->_key;
   v9->_key = v10;

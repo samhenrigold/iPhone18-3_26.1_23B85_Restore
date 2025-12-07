@@ -74,7 +74,7 @@ LABEL_19:
 
 - (id)jsonDictionary
 {
-  v15[3] = *MEMORY[0x1E69E9840];
+  v14[3] = *MEMORY[0x1E69E9840];
   _personRelationshipsJSONArray = [(BMMomentsEventDataEventBundlePerson *)self _personRelationshipsJSONArray];
   if ([(BMMomentsEventDataEventBundlePerson *)self hasIsMEPerson])
   {
@@ -99,31 +99,31 @@ LABEL_19:
     v7 = [v6 numberWithDouble:?];
   }
 
-  v14[0] = @"personRelationships";
+  v13[0] = @"personRelationships";
   null = _personRelationshipsJSONArray;
   if (!_personRelationshipsJSONArray)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v15[0] = null;
-  v14[1] = @"isMEPerson";
+  v14[0] = null;
+  v13[1] = @"isMEPerson";
   null2 = v4;
   if (!v4)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v15[1] = null2;
-  v14[2] = @"significanceScore";
+  v14[1] = null2;
+  v13[2] = @"significanceScore";
   null3 = v7;
   if (!v7)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v15[2] = null3;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:3];
+  v14[2] = null3;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:3];
   if (v7)
   {
     if (v4)
@@ -155,52 +155,49 @@ LABEL_16:
 LABEL_22:
 
 LABEL_17:
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
 
 - (id)_personRelationshipsJSONArray
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   personRelationships = [(BMMomentsEventDataEventBundlePerson *)self personRelationships];
-  v5 = [personRelationships countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [personRelationships countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(personRelationships);
         }
 
-        jsonDictionary = [*(*(&v12 + 1) + 8 * i) jsonDictionary];
+        jsonDictionary = [*(*(&v11 + 1) + 8 * i) jsonDictionary];
         [v3 addObject:jsonDictionary];
       }
 
-      v6 = [personRelationships countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [personRelationships countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 - (BMMomentsEventDataEventBundlePerson)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v60[1] = *MEMORY[0x1E69E9840];
+  v59[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v6 = [dictionaryCopy objectForKeyedSubscript:@"personRelationships"];
   null = [MEMORY[0x1E695DFB0] null];
@@ -208,7 +205,7 @@ LABEL_17:
 
   if (v8)
   {
-    v40 = dictionaryCopy;
+    v39 = dictionaryCopy;
     selfCopy2 = self;
 
     v6 = 0;
@@ -223,14 +220,14 @@ LABEL_17:
       {
         if (error)
         {
-          v32 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v33 = *MEMORY[0x1E698F240];
-          v59 = *MEMORY[0x1E696A578];
-          v44 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Expecting %@ as an array", @"personRelationships"];
-          v60[0] = v44;
-          v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v60 forKeys:&v59 count:1];
+          v31 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v32 = *MEMORY[0x1E698F240];
+          v58 = *MEMORY[0x1E696A578];
+          v43 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Expecting %@ as an array", @"personRelationships"];
+          v59[0] = v43;
+          v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v59 forKeys:&v58 count:1];
           selfCopy3 = 0;
-          *error = [v32 initWithDomain:v33 code:2 userInfo:v18];
+          *error = [v31 initWithDomain:v32 code:2 userInfo:v18];
           goto LABEL_35;
         }
 
@@ -239,34 +236,34 @@ LABEL_17:
       }
     }
 
-    v40 = dictionaryCopy;
+    v39 = dictionaryCopy;
     selfCopy2 = self;
   }
 
-  v44 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v6, "count")}];
+  v43 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v6, "count")}];
+  v45 = 0u;
   v46 = 0u;
   v47 = 0u;
   v48 = 0u;
-  v49 = 0u;
   v6 = v6;
-  v9 = [v6 countByEnumeratingWithState:&v46 objects:v58 count:16];
+  v9 = [v6 countByEnumeratingWithState:&v45 objects:v57 count:16];
   if (!v9)
   {
     goto LABEL_16;
   }
 
   v10 = v9;
-  v11 = *v47;
+  v11 = *v46;
   while (2)
   {
     for (i = 0; i != v10; ++i)
     {
-      if (*v47 != v11)
+      if (*v46 != v11)
       {
         objc_enumerationMutation(v6);
       }
 
-      v13 = *(*(&v46 + 1) + 8 * i);
+      v13 = *(*(&v45 + 1) + 8 * i);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -275,12 +272,12 @@ LABEL_17:
         {
           v23 = objc_alloc(MEMORY[0x1E696ABC0]);
           v24 = *MEMORY[0x1E698F240];
-          v56 = *MEMORY[0x1E696A578];
+          v55 = *MEMORY[0x1E696A578];
           v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type null for element of %@, must not be null", @"personRelationships"];
-          v57 = v14;
+          v56 = v14;
           v25 = MEMORY[0x1E695DF20];
-          v26 = &v57;
-          v27 = &v56;
+          v26 = &v56;
+          v27 = &v55;
 LABEL_28:
           v20 = [v25 dictionaryWithObjects:v26 forKeys:v27 count:1];
           v28 = [v23 initWithDomain:v24 code:2 userInfo:v20];
@@ -288,7 +285,7 @@ LABEL_28:
           *errorCopy2 = v28;
 LABEL_32:
           v18 = v6;
-          dictionaryCopy = v40;
+          dictionaryCopy = v39;
           self = selfCopy2;
           goto LABEL_33;
         }
@@ -296,7 +293,7 @@ LABEL_32:
 LABEL_39:
         selfCopy3 = 0;
         v18 = v6;
-        dictionaryCopy = v40;
+        dictionaryCopy = v39;
         self = selfCopy2;
         goto LABEL_35;
       }
@@ -309,12 +306,12 @@ LABEL_39:
         {
           v23 = objc_alloc(MEMORY[0x1E696ABC0]);
           v24 = *MEMORY[0x1E698F240];
-          v54 = *MEMORY[0x1E696A578];
+          v53 = *MEMORY[0x1E696A578];
           v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"personRelationships"];
-          v55 = v14;
+          v54 = v14;
           v25 = MEMORY[0x1E695DF20];
-          v26 = &v55;
-          v27 = &v54;
+          v26 = &v54;
+          v27 = &v53;
           goto LABEL_28;
         }
 
@@ -323,9 +320,9 @@ LABEL_39:
 
       v14 = v13;
       v15 = [BMMomentsEventDataEventBundlePersonPersonRelationship alloc];
-      v45 = 0;
-      v16 = [(BMMomentsEventDataEventBundlePersonPersonRelationship *)v15 initWithJSONDictionary:v14 error:&v45];
-      v17 = v45;
+      v44 = 0;
+      v16 = [(BMMomentsEventDataEventBundlePersonPersonRelationship *)v15 initWithJSONDictionary:v14 error:&v44];
+      v17 = v44;
       if (v17)
       {
         v20 = v17;
@@ -339,10 +336,10 @@ LABEL_39:
         goto LABEL_32;
       }
 
-      [v44 addObject:v16];
+      [v43 addObject:v16];
     }
 
-    v10 = [v6 countByEnumeratingWithState:&v46 objects:v58 count:16];
+    v10 = [v6 countByEnumeratingWithState:&v45 objects:v57 count:16];
     if (v10)
     {
       continue;
@@ -353,8 +350,8 @@ LABEL_39:
 
 LABEL_16:
 
-  dictionaryCopy = v40;
-  v14 = [v40 objectForKeyedSubscript:@"isMEPerson"];
+  dictionaryCopy = v39;
+  v14 = [v39 objectForKeyedSubscript:@"isMEPerson"];
   if (v14 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
   {
     objc_opt_class();
@@ -367,16 +364,16 @@ LABEL_16:
 
     if (error)
     {
-      v34 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v35 = *MEMORY[0x1E698F240];
-      v52 = *MEMORY[0x1E696A578];
+      v33 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v34 = *MEMORY[0x1E698F240];
+      v51 = *MEMORY[0x1E696A578];
       v20 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"isMEPerson"];
-      v53 = v20;
-      v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
-      v36 = [v34 initWithDomain:v35 code:2 userInfo:v19];
+      v52 = v20;
+      v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v52 forKeys:&v51 count:1];
+      v35 = [v33 initWithDomain:v34 code:2 userInfo:v19];
       v18 = 0;
       selfCopy3 = 0;
-      *error = v36;
+      *error = v35;
       goto LABEL_23;
     }
 
@@ -389,7 +386,7 @@ LABEL_16:
     v18 = 0;
     self = selfCopy2;
 LABEL_19:
-    v19 = [v40 objectForKeyedSubscript:@"significanceScore"];
+    v19 = [v39 objectForKeyedSubscript:@"significanceScore"];
     if (!v19 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
       v20 = 0;
@@ -401,7 +398,7 @@ LABEL_19:
     {
       v20 = v19;
 LABEL_22:
-      self = [(BMMomentsEventDataEventBundlePerson *)self initWithPersonRelationships:v44 isMEPerson:v18 significanceScore:v20];
+      self = [(BMMomentsEventDataEventBundlePerson *)self initWithPersonRelationships:v43 isMEPerson:v18 significanceScore:v20];
       selfCopy3 = self;
     }
 
@@ -409,13 +406,13 @@ LABEL_22:
     {
       if (error)
       {
-        v37 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v42 = *MEMORY[0x1E698F240];
-        v50 = *MEMORY[0x1E696A578];
-        v38 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"significanceScore"];
-        v51 = v38;
-        v39 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v51 forKeys:&v50 count:1];
-        *error = [v37 initWithDomain:v42 code:2 userInfo:v39];
+        v36 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v41 = *MEMORY[0x1E698F240];
+        v49 = *MEMORY[0x1E696A578];
+        v37 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"significanceScore"];
+        v50 = v37;
+        v38 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v50 forKeys:&v49 count:1];
+        *error = [v36 initWithDomain:v41 code:2 userInfo:v38];
       }
 
       v20 = 0;
@@ -430,7 +427,6 @@ LABEL_33:
 LABEL_35:
 LABEL_36:
 
-  v30 = *MEMORY[0x1E69E9840];
   return selfCopy3;
 }
 
@@ -445,34 +441,34 @@ LABEL_36:
 
 - (void)writeTo:(id)to
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   toCopy = to;
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v17 = 0u;
   v5 = self->_personRelationships;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v12;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
+        v10 = *(*(&v11 + 1) + 8 * i);
         PBDataWriterPlaceMark();
         [v10 writeTo:toCopy];
         PBDataWriterRecallMark();
       }
 
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
@@ -480,17 +476,13 @@ LABEL_36:
 
   if (self->_hasIsMEPerson)
   {
-    isMEPerson = self->_isMEPerson;
     PBDataWriterWriteBOOLField();
   }
 
   if (self->_hasSignificanceScore)
   {
-    significanceScore = self->_significanceScore;
     PBDataWriterWriteDoubleField();
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (id)initByReadFrom:(id)from
@@ -726,42 +718,38 @@ LABEL_45:
 
 + (id)protoFields
 {
-  v8[3] = *MEMORY[0x1E69E9840];
+  v7[3] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"personRelationships" number:1 type:14 subMessageClass:objc_opt_class()];
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"isMEPerson" number:2 type:12 subMessageClass:{0, v2}];
-  v8[1] = v3;
+  v7[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"significanceScore" number:3 type:0 subMessageClass:0];
-  v8[2] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:3];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v7[2] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:3];
 
   return v5;
 }
 
 + (id)columns
 {
-  v8[3] = *MEMORY[0x1E69E9840];
+  v7[3] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"personRelationships_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_2806];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"isMEPerson" dataType:0 requestOnly:0 fieldNumber:2 protoDataType:12 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"significanceScore" dataType:1 requestOnly:0 fieldNumber:3 protoDataType:0 convertedType:0];
-  v8[0] = v2;
-  v8[1] = v3;
-  v8[2] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:3];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v7[0] = v2;
+  v7[1] = v3;
+  v7[2] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:3];
 
   return v5;
 }
 
-id __46__BMMomentsEventDataEventBundlePerson_columns__block_invoke(uint64_t a1, void *a2)
+id __46__BMMomentsEventDataEventBundlePerson_columns__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 _personRelationshipsJSONArray];
-  v4 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 _personRelationshipsJSONArray];
+  v5 = BMConvertObjectToJSONString();
 
-  return v4;
+  return v5;
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version

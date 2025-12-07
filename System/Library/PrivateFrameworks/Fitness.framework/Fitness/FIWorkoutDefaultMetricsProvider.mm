@@ -1,7 +1,7 @@
 @interface FIWorkoutDefaultMetricsProvider
-+ (BOOL)operatingSystemVersion:(id *)version atLeastVersion:(id *)leastVersion;
 + (int64_t)metricsVersionForWorkout:(id)workout;
 + (void)initialize;
+- (BOOL)isMetricTypeSupported:(unint64_t)supported isMachineWorkout:(BOOL)workout activityType:(id)type;
 - (FIWorkoutDefaultMetricsProvider)initWithMetricsVersion:(int64_t)version activityType:(id)type activityMoveMode:(int64_t)mode deviceSupportsElevationMetrics:(BOOL)metrics deviceSupportsGroundElevationMetrics:(BOOL)elevationMetrics;
 - (id)_defaultEnabledMetricsForActivityType:(id)type metricsVersion:(int64_t)version;
 - (id)_defaultEnabledMetricsForSwimmingWithLocationType:(int64_t)type metricsVersion:(int64_t)version;
@@ -12,6 +12,7 @@
 - (id)_defaultLuckOutdoorEnabledMetricsForActivityType:(unint64_t)type supportsElevationMetrics:(BOOL)metrics;
 - (id)_defaultMoonstoneIndoorEnabledMetricsForActivityType:(unint64_t)type;
 - (id)_defaultMoonstoneOutdoorEnabledMetricsForActivityType:(unint64_t)type supportsElevationMetrics:(BOOL)metrics;
+- (id)_defaultOutdoorEnabledMetricsForActivityType:(unint64_t)type metricsVersion:(int64_t)version supportsElevationMetrics:(BOOL)metrics;
 - (id)_defaultPreGloryIndoorEnabledMetricsForActivityType:(unint64_t)type;
 - (id)_defaultPreGloryOutdoorEnabledMetricsForActivityType:(unint64_t)type;
 - (id)_indoorDefaultEnabledMetricsForActivityType:(unint64_t)type metricsVersion:(int64_t)version;
@@ -105,22 +106,20 @@ LABEL_7:
 
 - (id)_defaultEnabledMetricsForSwimmingWithLocationType:(int64_t)type metricsVersion:(int64_t)version
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if ((version - 2) >= 5)
   {
     if (!version && type < 3)
     {
       v5 = &unk_279004940;
-      goto LABEL_4;
+      return v5[type];
     }
   }
 
   else if (type < 3)
   {
     v5 = &unk_279004928;
-LABEL_4:
-    result = v5[type];
-    goto LABEL_11;
+    return v5[type];
   }
 
   _HKInitializeLogging();
@@ -130,15 +129,12 @@ LABEL_4:
     v8 = MEMORY[0x277CCABB0];
     v9 = v7;
     v10 = [v8 numberWithInteger:type];
-    v12 = 138412290;
-    v13 = v10;
-    _os_log_impl(&dword_24B35E000, v9, OS_LOG_TYPE_DEFAULT, "Can't find default Glory metrics for swimming workout with location type %@", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = v10;
+    _os_log_impl(&dword_24B35E000, v9, OS_LOG_TYPE_DEFAULT, "Can't find default Glory metrics for swimming workout with location type %@", &v11, 0xCu);
   }
 
-  result = 0;
-LABEL_11:
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 - (id)_indoorDefaultEnabledMetricsForActivityType:(unint64_t)type metricsVersion:(int64_t)version
@@ -175,7 +171,7 @@ LABEL_11:
 
 - (id)_defaultMoonstoneIndoorEnabledMetricsForActivityType:(unint64_t)type
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (type <= 0x29 && ((1 << type) & 0x28800000000) != 0)
   {
     v4 = &unk_285E6A830;
@@ -187,22 +183,20 @@ LABEL_11:
     if (!v4)
     {
       _HKInitializeLogging();
-      v7 = *MEMORY[0x277CCC330];
+      v6 = *MEMORY[0x277CCC330];
       if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
       {
-        v8 = MEMORY[0x277CCABB0];
-        v9 = v7;
-        v10 = [v8 numberWithUnsignedInteger:type];
-        v11 = 138412290;
-        v12 = v10;
-        _os_log_impl(&dword_24B35E000, v9, OS_LOG_TYPE_DEFAULT, "Can't find default Moonstone metrics for indoor workout of type %@", &v11, 0xCu);
+        v7 = MEMORY[0x277CCABB0];
+        v8 = v6;
+        v9 = [v7 numberWithUnsignedInteger:type];
+        v10 = 138412290;
+        v11 = v9;
+        _os_log_impl(&dword_24B35E000, v8, OS_LOG_TYPE_DEFAULT, "Can't find default Moonstone metrics for indoor workout of type %@", &v10, 0xCu);
       }
 
       v4 = 0;
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -222,13 +216,13 @@ LABEL_11:
 
 - (id)_defaultGloryIndoorEnabledMetricsForActivityType:(unint64_t)type
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   result = &unk_285E6A878;
   if (type != 52 && type != 37)
   {
     if (type == 13)
     {
-      result = &unk_285E6A890;
+      return &unk_285E6A890;
     }
 
     else
@@ -240,28 +234,27 @@ LABEL_11:
         v6 = MEMORY[0x277CCABB0];
         v7 = v5;
         v8 = [v6 numberWithUnsignedInteger:type];
-        v10 = 138412290;
-        v11 = v8;
-        _os_log_impl(&dword_24B35E000, v7, OS_LOG_TYPE_DEFAULT, "Can't find default Glory metrics for indoor workout of type %@", &v10, 0xCu);
+        v9 = 138412290;
+        v10 = v8;
+        _os_log_impl(&dword_24B35E000, v7, OS_LOG_TYPE_DEFAULT, "Can't find default Glory metrics for indoor workout of type %@", &v9, 0xCu);
       }
 
-      result = 0;
+      return 0;
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (id)_defaultPreGloryIndoorEnabledMetricsForActivityType:(unint64_t)type
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   result = &unk_285E6A8A8;
   if (type != 52 && type != 37)
   {
     if (type == 13)
     {
-      result = &unk_285E6A8C0;
+      return &unk_285E6A8C0;
     }
 
     else
@@ -273,17 +266,48 @@ LABEL_11:
         v6 = MEMORY[0x277CCABB0];
         v7 = v5;
         v8 = [v6 numberWithUnsignedInteger:type];
-        v10 = 138412290;
-        v11 = v8;
-        _os_log_impl(&dword_24B35E000, v7, OS_LOG_TYPE_DEFAULT, "Can't find default Pre-Glory metrics for indoor workout of type %@", &v10, 0xCu);
+        v9 = 138412290;
+        v10 = v8;
+        _os_log_impl(&dword_24B35E000, v7, OS_LOG_TYPE_DEFAULT, "Can't find default Pre-Glory metrics for indoor workout of type %@", &v9, 0xCu);
       }
 
-      result = 0;
+      return 0;
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return result;
+}
+
+- (id)_defaultOutdoorEnabledMetricsForActivityType:(unint64_t)type metricsVersion:(int64_t)version supportsElevationMetrics:(BOOL)metrics
+{
+  metrics = 0;
+  if (version > 5)
+  {
+    if (version == 6)
+    {
+      metrics = [(FIWorkoutDefaultMetricsProvider *)self _defaultMoonstoneOutdoorEnabledMetricsForActivityType:type supportsElevationMetrics:metrics];
+    }
+
+    else if (version == 101)
+    {
+      metrics = [(FIWorkoutDefaultMetricsProvider *)self _defaultLuckOutdoorEnabledMetricsForActivityType:type supportsElevationMetrics:metrics];
+    }
+  }
+
+  else if ((version - 2) >= 4)
+  {
+    if (!version)
+    {
+      metrics = [(FIWorkoutDefaultMetricsProvider *)self _defaultPreGloryOutdoorEnabledMetricsForActivityType:type, 0, metrics];
+    }
+  }
+
+  else
+  {
+    metrics = [(FIWorkoutDefaultMetricsProvider *)self _defaultGloryOutdoorEnabledMetricsForActivityType:type supportsElevationMetrics:metrics];
+  }
+
+  return metrics;
 }
 
 - (id)_defaultGloryOutdoorEnabledMetricsForActivityType:(unint64_t)type supportsElevationMetrics:(BOOL)metrics
@@ -510,77 +534,65 @@ LABEL_44:
 
 - (id)_defaultPreGloryOutdoorEnabledMetricsForActivityType:(unint64_t)type
 {
-  v13 = *MEMORY[0x277D85DE8];
-  if (type <= 36)
+  v12 = *MEMORY[0x277D85DE8];
+  if (type > 36)
   {
-    if (type == 13)
+    v4 = type - 44;
+    if (type - 44 <= 0x1B)
     {
-      result = &unk_285E6AB18;
-      goto LABEL_17;
+      if (((1 << v4) & 0x82001) != 0)
+      {
+        return &unk_285E6AB78;
+      }
+
+      if (((1 << v4) & 0xC000000) != 0)
+      {
+        return &unk_285E6AB48;
+      }
+
+      if (type == 52)
+      {
+        return &unk_285E6AB60;
+      }
     }
 
-    if (type != 16 && type != 35)
+    if (type != 3000)
     {
+      if (type == 37)
+      {
+        return &unk_285E6AB30;
+      }
+
       goto LABEL_18;
     }
 
-    goto LABEL_16;
+    return &unk_285E6AB78;
   }
 
-  v4 = type - 44;
-  if (type - 44 > 0x1B)
+  if (type == 13)
   {
-    goto LABEL_13;
+    return &unk_285E6AB18;
   }
 
-  if (((1 << v4) & 0x82001) != 0)
+  if (type == 16 || type == 35)
   {
-LABEL_16:
-    result = &unk_285E6AB78;
-    goto LABEL_17;
-  }
-
-  if (((1 << v4) & 0xC000000) != 0)
-  {
-    result = &unk_285E6AB48;
-    goto LABEL_17;
-  }
-
-  if (type == 52)
-  {
-    result = &unk_285E6AB60;
-    goto LABEL_17;
-  }
-
-LABEL_13:
-  if (type == 3000)
-  {
-    goto LABEL_16;
-  }
-
-  if (type == 37)
-  {
-    result = &unk_285E6AB30;
-    goto LABEL_17;
+    return &unk_285E6AB78;
   }
 
 LABEL_18:
   _HKInitializeLogging();
-  v7 = *MEMORY[0x277CCC330];
+  v6 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
   {
-    v8 = MEMORY[0x277CCABB0];
-    v9 = v7;
-    v10 = [v8 numberWithUnsignedInteger:type];
-    v11 = 138412290;
-    v12 = v10;
-    _os_log_impl(&dword_24B35E000, v9, OS_LOG_TYPE_DEFAULT, "Can't find metrics for outdoor/unspecified workout of type %@", &v11, 0xCu);
+    v7 = MEMORY[0x277CCABB0];
+    v8 = v6;
+    v9 = [v7 numberWithUnsignedInteger:type];
+    v10 = 138412290;
+    v11 = v9;
+    _os_log_impl(&dword_24B35E000, v8, OS_LOG_TYPE_DEFAULT, "Can't find metrics for outdoor/unspecified workout of type %@", &v10, 0xCu);
   }
 
-  result = 0;
-LABEL_17:
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 - (void)_updateSupportedMetrics
@@ -600,7 +612,7 @@ LABEL_17:
 
 - (id)_supportedMetricsForActivityType:(id)type metricsVersion:(int64_t)version
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   effectiveTypeIdentifier = [typeCopy effectiveTypeIdentifier];
   if (effectiveTypeIdentifier > 38)
@@ -646,9 +658,9 @@ LABEL_17:
 
       if (([typeCopy isIndoor] & 1) == 0 && self->_supportsGroundElevationMetrics)
       {
-        v21 = [v8 arrayByAddingObject:&unk_285E69C60];
+        v20 = [v8 arrayByAddingObject:&unk_285E69C60];
 
-        v8 = v21;
+        v8 = v20;
       }
 
       if (version < 4)
@@ -658,7 +670,7 @@ LABEL_17:
 
       v12 = &unk_285E6AC80;
 LABEL_77:
-      v22 = [v8 arrayByAddingObjectsFromArray:v12];
+      v21 = [v8 arrayByAddingObjectsFromArray:v12];
 
       goto LABEL_78;
     }
@@ -703,11 +715,11 @@ LABEL_77:
         goto LABEL_55;
       }
 
-      v22 = [v8 arrayByAddingObjectsFromArray:&unk_285E6AD10];
+      v21 = [v8 arrayByAddingObjectsFromArray:&unk_285E6AD10];
 
       if (version >= 6)
       {
-        v8 = [v22 arrayByAddingObjectsFromArray:&unk_285E6AD28];
+        v8 = [v21 arrayByAddingObjectsFromArray:&unk_285E6AD28];
 
         if (_os_feature_enabled_impl())
         {
@@ -719,7 +731,7 @@ LABEL_77:
       }
 
 LABEL_79:
-      v8 = v22;
+      v8 = v21;
       goto LABEL_55;
     }
 
@@ -801,28 +813,28 @@ LABEL_20:
 
         else
         {
-          v25 = [&unk_285E6ABC0 arrayByAddingObjectsFromArray:&unk_285E6ABD8];
-          v8 = v25;
+          v24 = [&unk_285E6ABC0 arrayByAddingObjectsFromArray:&unk_285E6ABD8];
+          v8 = v24;
           if (version != 4)
           {
-            v26 = [v25 arrayByAddingObject:&unk_285E69C48];
+            v25 = [v24 arrayByAddingObject:&unk_285E69C48];
 
-            v8 = v26;
+            v8 = v25;
           }
         }
 
         if (self->_supportsElevationMetrics)
         {
-          v30 = [v8 arrayByAddingObject:&unk_285E69AE0];
+          v29 = [v8 arrayByAddingObject:&unk_285E69AE0];
 
-          v8 = v30;
+          v8 = v29;
         }
 
         if (self->_supportsGroundElevationMetrics)
         {
-          v31 = [v8 arrayByAddingObject:&unk_285E69C60];
+          v30 = [v8 arrayByAddingObject:&unk_285E69C60];
 
-          v8 = v31;
+          v8 = v30;
         }
       }
 
@@ -832,9 +844,9 @@ LABEL_20:
 
         if (_os_feature_enabled_impl())
         {
-          v32 = [v13 arrayByAddingObjectsFromArray:&unk_285E6AC08];
+          v31 = [v13 arrayByAddingObjectsFromArray:&unk_285E6AC08];
 
-          v13 = v32;
+          v13 = v31;
         }
 
         if (![typeCopy isIndoor] || !+[FIBluetoothSensorLookup hasHadPairedCyclingSpeedSensors](FIBluetoothSensorLookup, "hasHadPairedCyclingSpeedSensors"))
@@ -904,16 +916,16 @@ LABEL_87:
 
         if (([typeCopy isIndoor] & 1) == 0 && self->_supportsElevationMetrics)
         {
-          v27 = [v8 arrayByAddingObject:&unk_285E69AE0];
+          v26 = [v8 arrayByAddingObject:&unk_285E69AE0];
 
-          v8 = v27;
+          v8 = v26;
         }
 
         if (([typeCopy isIndoor] & 1) == 0 && self->_supportsGroundElevationMetrics)
         {
-          v28 = [v8 arrayByAddingObject:&unk_285E69C60];
+          v27 = [v8 arrayByAddingObject:&unk_285E69C60];
 
-          v8 = v28;
+          v8 = v27;
         }
 
         if (version < 4)
@@ -921,19 +933,19 @@ LABEL_87:
           goto LABEL_55;
         }
 
-        v22 = [v8 arrayByAddingObjectsFromArray:&unk_285E6ACC8];
+        v21 = [v8 arrayByAddingObjectsFromArray:&unk_285E6ACC8];
 
         if (([typeCopy isIndoor] & 1) == 0 && objc_msgSend(MEMORY[0x277CC1D38], "isRunningFormAvailable") && self->_activityMoveMode == 1)
         {
-          v29 = [v22 arrayByAddingObjectsFromArray:&unk_285E6ACE0];
+          v28 = [v21 arrayByAddingObjectsFromArray:&unk_285E6ACE0];
 
-          v22 = v29;
+          v21 = v28;
         }
 
 LABEL_78:
         if (version != 4)
         {
-          v8 = [v22 arrayByAddingObject:&unk_285E69C48];
+          v8 = [v21 arrayByAddingObject:&unk_285E69C48];
 
           goto LABEL_55;
         }
@@ -993,9 +1005,9 @@ LABEL_55:
       v15 = MEMORY[0x277CCABB0];
       v16 = v14;
       v17 = [v15 numberWithUnsignedInteger:{objc_msgSend(typeCopy, "effectiveTypeIdentifier")}];
-      v33 = 138412290;
-      v34 = v17;
-      _os_log_impl(&dword_24B35E000, v16, OS_LOG_TYPE_DEFAULT, "Can't find supported metrics for workout of type %@", &v33, 0xCu);
+      v32 = 138412290;
+      v33 = v17;
+      _os_log_impl(&dword_24B35E000, v16, OS_LOG_TYPE_DEFAULT, "Can't find supported metrics for workout of type %@", &v32, 0xCu);
     }
 
     v8 = 0;
@@ -1009,8 +1021,6 @@ LABEL_59:
 
     v8 = v18;
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -1108,6 +1118,15 @@ LABEL_9:
   return metricsCopy;
 }
 
+- (BOOL)isMetricTypeSupported:(unint64_t)supported isMachineWorkout:(BOOL)workout activityType:(id)type
+{
+  v6 = [(FIWorkoutDefaultMetricsProvider *)self supportedMetricsWithIsMachineWorkout:workout activityType:type];
+  v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:supported];
+  v8 = [v6 containsObject:v7];
+
+  return v8;
+}
+
 - (id)supportedMetricsWithIsMachineWorkout:(BOOL)workout activityType:(id)type
 {
   workoutCopy = workout;
@@ -1163,7 +1182,7 @@ LABEL_9:
 
   if (sourceRevision3)
   {
-    [sourceRevision3 operatingSystemVersion];
+    objc_msgSend_operatingSystemVersion(sourceRevision3);
   }
 
   else
@@ -1261,13 +1280,6 @@ LABEL_9:
   }
 
   return result;
-}
-
-+ (BOOL)operatingSystemVersion:(id *)version atLeastVersion:(id *)leastVersion
-{
-  v6 = *leastVersion;
-  v5 = *version;
-  return (HKNSOperatingSystemVersionCompare() + 1) < 2;
 }
 
 @end

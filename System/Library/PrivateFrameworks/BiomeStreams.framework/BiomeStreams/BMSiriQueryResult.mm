@@ -63,8 +63,8 @@
 
 - (id)jsonDict
 {
-  v11[3] = *MEMORY[0x1E69E9840];
-  v10[0] = @"qid";
+  v10[3] = *MEMORY[0x1E69E9840];
+  v9[0] = @"qid";
   qid = self->_qid;
   null = qid;
   if (!qid)
@@ -73,19 +73,17 @@
   }
 
   domain = self->_domain;
-  v11[0] = null;
-  v11[1] = domain;
-  v10[1] = @"domain";
-  v10[2] = @"confidence";
+  v10[0] = null;
+  v10[1] = domain;
+  v9[1] = @"domain";
+  v9[2] = @"confidence";
   v6 = [MEMORY[0x1E696AD98] numberWithDouble:self->_confidence];
-  v11[2] = v6;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:3];
+  v10[2] = v6;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:3];
 
   if (!qid)
   {
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

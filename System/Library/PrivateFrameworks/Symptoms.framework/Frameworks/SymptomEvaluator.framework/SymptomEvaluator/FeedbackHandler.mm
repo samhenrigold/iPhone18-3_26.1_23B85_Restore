@@ -47,7 +47,7 @@ void __33__FeedbackHandler_sharedInstance__block_invoke(uint64_t a1)
 
 - (BOOL)noteSymptom:(id)symptom
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   eventData = [symptom eventData];
   v4 = *(eventData + 4);
   if ((v4 & 1) == 0)
@@ -78,9 +78,9 @@ void __33__FeedbackHandler_sharedInstance__block_invoke(uint64_t a1)
     v8 = *(eventData + 24);
     v9 = *(eventData + 32);
     *buf = 134218240;
-    v33 = v8;
-    v34 = 2048;
-    v35 = v9;
+    v32 = v8;
+    v33 = 2048;
+    v34 = v9;
     _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEBUG, "Feedback on notification %lld has value %lld", buf, 0x16u);
   }
 
@@ -88,36 +88,36 @@ void __33__FeedbackHandler_sharedInstance__block_invoke(uint64_t a1)
   v11 = v10;
   if (v10)
   {
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
-    v12 = [v10 countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
+    v12 = [v10 countByEnumeratingWithState:&v26 objects:v30 count:16];
     if (v12)
     {
       v14 = v12;
-      v15 = *v28;
+      v15 = *v27;
       *&v13 = 136315138;
-      v26 = v13;
+      v25 = v13;
       do
       {
         v16 = 0;
         do
         {
-          if (*v28 != v15)
+          if (*v27 != v15)
           {
             objc_enumerationMutation(v11);
           }
 
-          v17 = *(*(&v27 + 1) + 8 * v16);
+          v17 = *(*(&v26 + 1) + 8 * v16);
           v18 = evaluationLogHandle;
           if (os_log_type_enabled(evaluationLogHandle, OS_LOG_TYPE_DEBUG))
           {
             v19 = v18;
             v20 = [v17 description];
             uTF8String = [v20 UTF8String];
-            *buf = v26;
-            v33 = uTF8String;
+            *buf = v25;
+            v32 = uTF8String;
             _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_DEBUG, "About to calibrate Evaluation %s", buf, 0xCu);
           }
 
@@ -133,14 +133,13 @@ void __33__FeedbackHandler_sharedInstance__block_invoke(uint64_t a1)
         }
 
         while (v14 != v16);
-        v14 = [v11 countByEnumeratingWithState:&v27 objects:v31 count:16];
+        v14 = [v11 countByEnumeratingWithState:&v26 objects:v30 count:16];
       }
 
       while (v14);
     }
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return 0;
 }
 

@@ -44,21 +44,21 @@
 
 - (BOOL)validateOperation
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (!self || (database = self->_database) == 0)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"fetch operation must have a database"];
-      v7 = 136315906;
-      v8 = "[FCCKBatchedMultiFetchQueryOperation validateOperation]";
-      v9 = 2080;
-      v10 = "FCCKBatchedMultiFetchQueryOperation.m";
-      v11 = 1024;
-      v12 = 56;
-      v13 = 2114;
-      v14 = v6;
-      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v7, 0x26u);
+      v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"fetch operation must have a database"];
+      v6 = 136315906;
+      v7 = "[FCCKBatchedMultiFetchQueryOperation validateOperation]";
+      v8 = 2080;
+      v9 = "FCCKBatchedMultiFetchQueryOperation.m";
+      v10 = 1024;
+      v11 = 56;
+      v12 = 2114;
+      v13 = v5;
+      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v6, 0x26u);
 
       if (self)
       {
@@ -70,16 +70,13 @@
     {
 LABEL_5:
       database = self->_database;
-      goto LABEL_6;
+      return database != 0;
     }
 
     database = 0;
   }
 
-LABEL_6:
-  result = database != 0;
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  return database != 0;
 }
 
 - (void)prepareOperation
@@ -445,10 +442,9 @@ uint64_t __56__FCCKBatchedMultiFetchQueryOperation__continueFetching__block_invo
     v3 = *(v5 + 448);
     if (v3)
     {
-      v6 = *(a1 + 40);
-      v8 = v4;
+      v7 = v4;
       v3 = v3[2]();
-      v4 = v8;
+      v4 = v7;
     }
   }
 
@@ -531,37 +527,13 @@ void __56__FCCKBatchedMultiFetchQueryOperation__continueFetching__block_invoke_5
   else
   {
     v19 = *(a1 + 32);
-    if (!v19)
+    if (v19 && ((v20 = *(v19 + 456)) == 0 || ((v21 = v20 + 2, v22 = *(a1 + 40), v23 = v20, v24 = objc_loadWeakRetained((a1 + 56)), (v25 = v24) == 0) ? (v26 = 0) : (v26 = *(v24 + 53)), v27 = v26, [v27 firstObject], v28 = objc_claimAutoreleasedReturnValue(), (*v21)(v23, v22, v32, v28), v23, v28, v27, v25, (v19 = *(a1 + 32)) != 0)))
     {
-      goto LABEL_29;
-    }
-
-    v20 = *(v19 + 456);
-    if (!v20)
-    {
-      goto LABEL_18;
-    }
-
-    v21 = v20 + 2;
-    v22 = *(a1 + 40);
-    v23 = v20;
-    v24 = objc_loadWeakRetained((a1 + 56));
-    v25 = v24;
-    v26 = v24 ? *(v24 + 53) : 0;
-    v27 = v26;
-    v28 = [v27 firstObject];
-    (*v21)(v23, v22, v32, v28);
-
-    v19 = *(a1 + 32);
-    if (v19)
-    {
-LABEL_18:
       v29 = *(v19 + 480);
     }
 
     else
     {
-LABEL_29:
       v29 = 0;
     }
 

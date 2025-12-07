@@ -85,11 +85,11 @@ LABEL_6:
       v7 = [type isEqual:self->_type];
 
       titleOverride = [(MRMediaControlsCustomRow *)v5 titleOverride];
-      v9 = v7 & [titleOverride isEqualToString:self->_titleOverride];
+      v9 = v7 & objc_msgSend_isEqualToString_(titleOverride);
 
       identifier = [(MRMediaControlsCustomRow *)v5 identifier];
 
-      v11 = v9 & [identifier isEqualToString:self->_identifier];
+      v11 = v9 & objc_msgSend_isEqualToString_(identifier);
     }
 
     else

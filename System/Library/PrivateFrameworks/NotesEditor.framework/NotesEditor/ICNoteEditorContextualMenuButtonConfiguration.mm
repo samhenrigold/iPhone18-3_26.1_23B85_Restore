@@ -11,8 +11,8 @@
   v11 = _Block_copy(handler);
   if (context)
   {
-    sub_2151A6C9C(0, &qword_2811994B0);
-    sub_2151A6C9C(0, &qword_2811994B8);
+    sub_2151A6C9C(0, &qword_2811994B0, 0x277CCABB0);
+    sub_2151A6C9C(0, &qword_2811994B8, 0x277D755B8);
     sub_2153DDB08();
     context = sub_2154A1C8C();
   }

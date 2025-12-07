@@ -33,7 +33,7 @@
 
 - (NSError)reservationIdError
 {
-  v2 = sub_232BC3494();
+  v2 = sub_232BC3494(self);
 
   return v2;
 }
@@ -42,12 +42,12 @@
 {
   errorCopy = error;
   selfCopy = self;
-  sub_232BC352C();
+  sub_232BC352C(error);
 }
 
 - (NSError)reservationNameError
 {
-  v2 = sub_232BC36B0();
+  v2 = sub_232BC36B0(self);
 
   return v2;
 }
@@ -56,12 +56,12 @@
 {
   errorCopy = error;
   selfCopy = self;
-  sub_232BC3748();
+  sub_232BC3748(error);
 }
 
 - (NSError)hotelNameError
 {
-  v2 = sub_232BC39F0();
+  v2 = sub_232BC39F0(self);
 
   return v2;
 }
@@ -70,12 +70,12 @@
 {
   errorCopy = error;
   selfCopy = self;
-  sub_232BC3A88();
+  sub_232BC3A88(error);
 }
 
 - (NSError)guestNameError
 {
-  v2 = sub_232BC3C0C();
+  v2 = sub_232BC3C0C(self);
 
   return v2;
 }
@@ -84,12 +84,12 @@
 {
   errorCopy = error;
   selfCopy = self;
-  sub_232BC3CA4();
+  sub_232BC3CA4(error);
 }
 
 - (NSError)movieNameError
 {
-  v2 = sub_232BC3E28();
+  v2 = sub_232BC3E28(self);
 
   return v2;
 }
@@ -98,12 +98,12 @@
 {
   errorCopy = error;
   selfCopy = self;
-  sub_232BC3EC0();
+  sub_232BC3EC0(error);
 }
 
 - (NSError)startAddressError
 {
-  v2 = sub_232BC4044();
+  v2 = sub_232BC4044(self);
 
   return v2;
 }
@@ -112,12 +112,12 @@
 {
   errorCopy = error;
   selfCopy = self;
-  sub_232BC40DC();
+  sub_232BC40DC(error);
 }
 
 - (NSError)endAddressError
 {
-  v2 = sub_232BC4320();
+  v2 = sub_232BC4320(self);
 
   return v2;
 }
@@ -126,12 +126,12 @@
 {
   errorCopy = error;
   selfCopy = self;
-  sub_232BC43B8();
+  sub_232BC43B8(error);
 }
 
 - (NSError)startPlaceError
 {
-  v2 = sub_232BC46F8();
+  v2 = sub_232BC46F8(self);
 
   return v2;
 }
@@ -140,12 +140,12 @@
 {
   errorCopy = error;
   selfCopy = self;
-  sub_232BC4790();
+  sub_232BC4790(error);
 }
 
 - (NSError)endPlaceError
 {
-  v2 = sub_232BC4914();
+  v2 = sub_232BC4914(self);
 
   return v2;
 }
@@ -154,12 +154,12 @@
 {
   errorCopy = error;
   selfCopy = self;
-  sub_232BC49AC();
+  sub_232BC49AC(error);
 }
 
 - (NSError)startDateError
 {
-  v2 = sub_232BC4B30();
+  v2 = sub_232BC4B30(self);
 
   return v2;
 }
@@ -168,12 +168,12 @@
 {
   errorCopy = error;
   selfCopy = self;
-  sub_232BC4BC8();
+  sub_232BC4BC8(error);
 }
 
 - (NSError)endDateError
 {
-  v2 = sub_232BC4D4C();
+  v2 = sub_232BC4D4C(self);
 
   return v2;
 }
@@ -182,7 +182,7 @@
 {
   errorCopy = error;
   selfCopy = self;
-  sub_232BC4DE4();
+  sub_232BC4DE4(error);
 }
 
 + (id)mapErrorCodeToUserInfoWithFieldName:(id)name errorCode:(int64_t)code

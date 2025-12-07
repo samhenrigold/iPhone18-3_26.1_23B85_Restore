@@ -17,7 +17,6 @@ id __34__ATXBackgroundSaver_scheduleSave__block_invoke_2(uint64_t a1)
   (*(*(*(a1 + 32) + 16) + 16))();
   [*(a1 + 32) _cancelSaveTimer];
   objc_autoreleasePoolPop(v2);
-  v3 = *(a1 + 40);
   return objc_opt_self();
 }
 
@@ -133,11 +132,11 @@ void __34__ATXBackgroundSaver_scheduleSave__block_invoke(uint64_t a1, void *a2)
   [(_PASLock *)lock runWithLockAcquired:v3];
 }
 
-uint64_t __35__ATXBackgroundSaver_handleSigterm__block_invoke(uint64_t result, uint64_t a2)
+id *__35__ATXBackgroundSaver_handleSigterm__block_invoke(id *result, uint64_t a2)
 {
   if (*(a2 + 8))
   {
-    return [*(result + 32) scheduleSaveImmediately];
+    return [result[4] scheduleSaveImmediately];
   }
 
   return result;
@@ -164,7 +163,6 @@ id __45__ATXBackgroundSaver_scheduleSaveImmediately__block_invoke(uint64_t a1)
   v2 = objc_autoreleasePoolPush();
   (*(*(*(a1 + 32) + 16) + 16))();
   objc_autoreleasePoolPop(v2);
-  v3 = *(a1 + 40);
   return objc_opt_self();
 }
 

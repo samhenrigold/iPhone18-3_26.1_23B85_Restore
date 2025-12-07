@@ -46,10 +46,11 @@ void sub_1000032D4(uint64_t a1, void *a2)
   [WeakRetained _companionLinkClientActivatedWithError:v3];
 }
 
-void sub_1000041D8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000041D8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 id sub_100005BD4(uint64_t a1)
@@ -677,10 +678,11 @@ void sub_10000C89C(uint64_t a1, void *a2, void *a3)
   }
 }
 
-void sub_10000D5DC(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000D5DC(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 BOOL sub_10000DA5C(id a1, id a2)
@@ -776,9 +778,9 @@ void sub_10000EDFC(uint64_t a1, void *a2, void *a3, void *a4)
   }
 }
 
-void sub_10000FC9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10000FC9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1260,9 +1262,9 @@ void sub_1000113FC(uint64_t a1, void *a2)
   }
 }
 
-void sub_1000115F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000115F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1431,11 +1433,12 @@ void sub_100013644(uint64_t a1, void *a2)
   [v13 setClock:{objc_msgSend(v15, "clockValue")}];
 }
 
-void sub_100014234(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41)
+void sub_100014234(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, ...)
 {
-  _Block_object_dispose(&a41, 8);
-  _Block_object_dispose((v41 - 256), 8);
-  _Block_object_dispose((v41 - 160), 8);
+  va_start(va, a40);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v40 - 256), 8);
+  _Block_object_dispose((v40 - 160), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1994,9 +1997,9 @@ void sub_100015CC4(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
   objc_autoreleasePoolPop(v7);
 }
 
-void sub_100016278(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100016278(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2102,18 +2105,8 @@ void sub_10001725C(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
     if (v29)
     {
       v30 = [v15 mergeableValueID];
-      if (!v30)
+      if (!v30 || (v31 = v30, -[NSObject mergeableValueID](v15, "mergeableValueID"), v32 = objc_claimAutoreleasedReturnValue(), [v32 identifier], v33 = objc_claimAutoreleasedReturnValue(), v33, v32, v31, !v33))
       {
-        goto LABEL_22;
-      }
-
-      v31 = v30;
-      v32 = [v15 mergeableValueID];
-      v33 = [v32 identifier];
-
-      if (!v33)
-      {
-LABEL_22:
         p_super = __biome_log_for_category();
         if (os_log_type_enabled(p_super, OS_LOG_TYPE_FAULT))
         {
@@ -2253,9 +2246,9 @@ LABEL_8:
   objc_autoreleasePoolPop(v8);
 }
 
-void sub_100017A68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100017A68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2333,10 +2326,11 @@ void sub_100017A80(uint64_t a1, void *a2, _BYTE *a3)
   objc_autoreleasePoolPop(v6);
 }
 
-void sub_10001804C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28)
+void sub_10001804C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
 {
-  _Block_object_dispose(&a28, 8);
-  _Block_object_dispose((v28 - 120), 8);
+  va_start(va, a27);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v27 - 120), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2383,7 +2377,7 @@ void sub_100018090(uint64_t a1, void *a2, _BYTE *a3)
     {
       v21 = [v5 referenceLocation];
       *buf = 138412290;
-      v71 = v21;
+      v67 = v21;
       _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "causal reference location %@ points to dead location, not a violation", buf, 0xCu);
     }
 
@@ -2396,26 +2390,22 @@ LABEL_8:
 
     if ([v5 type])
     {
-      v65 = a3;
+      v61 = a3;
       *(*(*(a1 + 88) + 8) + 24) = 1;
       v23 = *(a1 + 40);
       v24 = *(a1 + 56);
-      v67 = 0;
-      v68 = 0;
-      v25 = [v23 handleDeleteAtomRow:v5 usingPruner:v24 outBookmark:&v68 outTombstoneBookmark:&v67];
-      v26 = v68;
-      v27 = v67;
-      v28 = *(a1 + 40);
-      v29 = *(a1 + 64);
-      v30 = *(v28 + 16);
-      v66 = v27;
-      [*(v28 + 48) saveLatestTombstoneBookmark:? forSiteIdentifier:? inStream:?];
-      v31 = 0;
+      v63 = 0;
+      v64 = 0;
+      v25 = [v23 handleDeleteAtomRow:v5 usingPruner:v24 outBookmark:&v64 outTombstoneBookmark:&v63];
+      v26 = v64;
+      v62 = v63;
+      [*(*(a1 + 40) + 48) saveLatestTombstoneBookmark:? forSiteIdentifier:? inStream:?];
+      v27 = 0;
       if ((v25 & 1) == 0)
       {
 LABEL_28:
-        v45 = __biome_log_for_category();
-        if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+        v41 = __biome_log_for_category();
+        if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
         {
           sub_10004903C();
         }
@@ -2428,96 +2418,96 @@ LABEL_30:
 
     else
     {
-      v31 = [*(a1 + 40) atomValueFromAtomRow:v5];
-      if (!v31)
+      v27 = [*(a1 + 40) atomValueFromAtomRow:v5];
+      if (!v27)
       {
         v26 = 0;
-        v66 = 0;
+        v62 = 0;
         goto LABEL_28;
       }
 
-      v65 = a3;
+      v61 = a3;
       *(*(*(a1 + 80) + 8) + 24) = 1;
-      v32 = *(a1 + 40);
-      v33 = *(a1 + 48);
-      v69 = 0;
-      v34 = [v32 writeAtomValue:v31 fromAtomRow:v5 usingWriter:v33 outBookmark:&v69];
-      v26 = v69;
-      v66 = 0;
-      if ((v34 & 1) == 0)
+      v28 = *(a1 + 40);
+      v29 = *(a1 + 48);
+      v65 = 0;
+      v30 = [v28 writeAtomValue:v27 fromAtomRow:v5 usingWriter:v29 outBookmark:&v65];
+      v26 = v65;
+      v62 = 0;
+      if ((v30 & 1) == 0)
       {
         goto LABEL_28;
       }
     }
 
-    v61 = v13;
-    v62 = v12;
-    v63 = v7;
-    v64 = v6;
-    v60 = v31;
-    v35 = [v31 value];
-    v36 = [v35 eventData];
-    v37 = v36 | v26;
+    v57 = v13;
+    v58 = v12;
+    v59 = v7;
+    v60 = v6;
+    v56 = v27;
+    v31 = [v27 value];
+    v32 = [v31 eventData];
+    v33 = v32 | v26;
 
-    if (!v37)
+    if (!v33)
     {
       v26 = [[BMStoreBookmark alloc] initWithStream:*(*(a1 + 40) + 8) segment:@"DOA" iterationStartTime:clock_gettime_nsec_np(_CLOCK_MONOTONIC) offset:0.0];
     }
 
-    v38 = [BMSyncCKAtomRow alloc];
-    v39 = [v5 location];
-    v40 = [v5 timestamp];
-    v41 = [v5 referenceLocation];
-    v42 = [v5 causalReference];
-    v43 = [v5 type];
-    v44 = [v26 segmentName];
-    v45 = -[BMSyncCKAtomRow initWithLocation:timestamp:referenceLocation:causalReference:type:segmentName:segmentOffset:](v38, "initWithLocation:timestamp:referenceLocation:causalReference:type:segmentName:segmentOffset:", v39, v40, v41, v42, v43, v44, [v26 offset]);
+    v34 = [BMSyncCKAtomRow alloc];
+    v35 = [v5 location];
+    v36 = [v5 timestamp];
+    v37 = [v5 referenceLocation];
+    v38 = [v5 causalReference];
+    v39 = [v5 type];
+    v40 = [v26 segmentName];
+    v41 = -[BMSyncCKAtomRow initWithLocation:timestamp:referenceLocation:causalReference:type:segmentName:segmentOffset:](v34, "initWithLocation:timestamp:referenceLocation:causalReference:type:segmentName:segmentOffset:", v35, v36, v37, v38, v39, v40, [v26 offset]);
 
-    if ([*(*(a1 + 40) + 48) updateCKAtomRow:v45 inStream:*(*(a1 + 40) + 16)])
+    if ([*(*(a1 + 40) + 48) updateCKAtomRow:v41 inStream:*(*(a1 + 40) + 16)])
     {
-      v13 = v61;
-      v12 = v62;
+      v13 = v57;
+      v12 = v58;
       if (![v5 type])
       {
-        v46 = [v5 location];
-        v47 = [v46 location];
-        v48 = [v47 ckMergeableValueIDWithFormatVersion:0];
+        v42 = [v5 location];
+        v43 = [v42 location];
+        v44 = [v43 ckMergeableValueIDWithFormatVersion:0];
 
-        v49 = [CKAtomReference alloc];
-        v50 = [v5 timestamp];
-        v51 = [v49 initWithMergeableValueID:v48 timestamp:v50 type:0];
-        v52 = *(*(a1 + 72) + 8);
-        v53 = *(v52 + 40);
-        *(v52 + 40) = v51;
+        v45 = [CKAtomReference alloc];
+        v46 = [v5 timestamp];
+        v47 = [v45 initWithMergeableValueID:v44 timestamp:v46 type:0];
+        v48 = *(*(a1 + 72) + 8);
+        v49 = *(v48 + 40);
+        *(v48 + 40) = v47;
       }
 
-      v54 = *(a1 + 40);
-      v55 = *(v54 + 112);
-      v56 = *(v54 + 16);
-      v31 = v60;
-      v57 = [v60 value];
-      [v57 dataTimestamp];
-      v58 = v56;
-      v7 = v63;
-      [v55 recordAtomMergeResult:3 inStream:v58 ownerSite:v62 originatingSite:v63 eventCreatedAt:*(a1 + 32) sessionContext:?];
+      v50 = *(a1 + 40);
+      v51 = *(v50 + 112);
+      v52 = *(v50 + 16);
+      v27 = v56;
+      v53 = [v56 value];
+      [v53 dataTimestamp];
+      v54 = v52;
+      v7 = v59;
+      [v51 recordAtomMergeResult:3 inStream:v54 ownerSite:v58 originatingSite:v59 eventCreatedAt:*(a1 + 32) sessionContext:?];
 
-      v6 = v64;
+      v6 = v60;
     }
 
     else
     {
-      v59 = __biome_log_for_category();
-      v12 = v62;
-      v7 = v63;
-      v13 = v61;
-      if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
+      v55 = __biome_log_for_category();
+      v12 = v58;
+      v7 = v59;
+      v13 = v57;
+      if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
       {
         sub_100048DCC();
       }
 
-      v6 = v64;
-      *v65 = 1;
-      v31 = v60;
+      v6 = v60;
+      *v61 = 1;
+      v27 = v56;
     }
 
     goto LABEL_30;
@@ -2535,9 +2525,9 @@ LABEL_31:
   objc_autoreleasePoolPop(v6);
 }
 
-void sub_10001884C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10001884C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2854,16 +2844,18 @@ void sub_10001B240(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
   }
 }
 
-void sub_10001B6E4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10001B6E4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, &a9, 2u);
+  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, va, 2u);
 }
 
-void sub_10001C694(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10001C694(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, &a9, 0xCu);
+  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, va, 0xCu);
 }
 
 void sub_10001DD34(uint64_t a1, void *a2)
@@ -2889,9 +2881,9 @@ id sub_10001E150(uint64_t a1, void *a2)
   return [v2 addIndex:v3];
 }
 
-void sub_10001E408(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10001E408(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2949,6 +2941,13 @@ void sub_10001FB7C(uint64_t a1, uint64_t a2, uint64_t a3)
   (*(v4 + 16))(v4, v5, a3);
 }
 
+void sub_100020364(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, ...)
+{
+  va_start(va, a44);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 void sub_1000203B0(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   v4 = *(*(a1 + 40) + 8);
@@ -2958,65 +2957,63 @@ void sub_1000203B0(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
   {
     if (a3 == 1)
     {
-      v11 = *(*(*(a1 + 48) + 8) + 24);
-      v12 = *(a1 + 32);
+      v11 = *(a1 + 32);
       if (*(*(*(a1 + 48) + 8) + 24))
       {
-        v13 = @"AND clock = ? ";
+        v12 = @"AND clock = ? ";
       }
 
       else
       {
-        v13 = @"OR clock = ? ";
+        v12 = @"OR clock = ? ";
       }
     }
 
     else
     {
-      v14 = sub_100005BA8(a2, a3);
-      v15 = *(*(*(a1 + 48) + 8) + 24);
-      v12 = *(a1 + 32);
-      if (!v14)
+      v13 = sub_100005BA8(a2, a3);
+      v11 = *(a1 + 32);
+      if (!v13)
       {
         if (*(*(*(a1 + 48) + 8) + 24))
         {
-          v19 = @"AND clock BETWEEN ? ";
+          v17 = @"AND clock BETWEEN ? ";
         }
 
         else
         {
-          v19 = @"OR clock BETWEEN ? ";
+          v17 = @"OR clock BETWEEN ? ";
         }
 
-        [v12 addObject:v19];
-        v20 = *(a1 + 32);
-        v21 = [NSNumber numberWithUnsignedInteger:a2];
-        [v20 addObject:v21];
+        [v11 addObject:v17];
+        v18 = *(a1 + 32);
+        v19 = [NSNumber numberWithUnsignedInteger:a2];
+        [v18 addObject:v19];
 
         [*(a1 + 32) addObject:@" AND ?"];
-        v22 = *(a1 + 32);
-        v17 = [NSNumber numberWithUnsignedInteger:a3 + a2 - 1];
-        v18 = v22;
+        v20 = *(a1 + 32);
+        v15 = [NSNumber numberWithUnsignedInteger:a3 + a2 - 1];
+        v16 = v20;
         goto LABEL_18;
       }
 
       if (*(*(*(a1 + 48) + 8) + 24))
       {
-        v13 = @"AND clock >= ? ";
+        v12 = @"AND clock >= ? ";
       }
 
       else
       {
-        v13 = @"OR clock >= ? ";
+        v12 = @"OR clock >= ? ";
       }
     }
 
-    [v12 addObject:v13];
-    v16 = *(a1 + 32);
-    v17 = [NSNumber numberWithUnsignedInteger:a2];
-    v18 = v16;
+    [v11 addObject:{v12, a4}];
+    v14 = *(a1 + 32);
+    v15 = [NSNumber numberWithUnsignedInteger:a2];
+    v16 = v14;
 LABEL_18:
-    [v18 addObject:v17];
+    [v16 addObject:v15];
 
     *(*(*(a1 + 48) + 8) + 24) = 0;
     return;
@@ -3069,6 +3066,13 @@ void sub_100020680(uint64_t a1, uint64_t a2, _BYTE *a3)
   }
 }
 
+void sub_100020BA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, ...)
+{
+  va_start(va, a40);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 void sub_100020BF0(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   v4 = *(*(a1 + 40) + 8);
@@ -3078,65 +3082,63 @@ void sub_100020BF0(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
   {
     if (a3 == 1)
     {
-      v11 = *(*(*(a1 + 48) + 8) + 24);
-      v12 = *(a1 + 32);
+      v11 = *(a1 + 32);
       if (*(*(*(a1 + 48) + 8) + 24))
       {
-        v13 = @"AND clock = ? ";
+        v12 = @"AND clock = ? ";
       }
 
       else
       {
-        v13 = @"OR clock = ? ";
+        v12 = @"OR clock = ? ";
       }
     }
 
     else
     {
-      v14 = sub_100005BA8(a2, a3);
-      v15 = *(*(*(a1 + 48) + 8) + 24);
-      v12 = *(a1 + 32);
-      if (!v14)
+      v13 = sub_100005BA8(a2, a3);
+      v11 = *(a1 + 32);
+      if (!v13)
       {
         if (*(*(*(a1 + 48) + 8) + 24))
         {
-          v19 = @"AND clock BETWEEN ? ";
+          v17 = @"AND clock BETWEEN ? ";
         }
 
         else
         {
-          v19 = @"OR clock BETWEEN ? ";
+          v17 = @"OR clock BETWEEN ? ";
         }
 
-        [v12 addObject:v19];
-        v20 = *(a1 + 32);
-        v21 = [NSNumber numberWithUnsignedInteger:a2];
-        [v20 addObject:v21];
+        [v11 addObject:v17];
+        v18 = *(a1 + 32);
+        v19 = [NSNumber numberWithUnsignedInteger:a2];
+        [v18 addObject:v19];
 
         [*(a1 + 32) addObject:@" AND ?"];
-        v22 = *(a1 + 32);
-        v17 = [NSNumber numberWithUnsignedInteger:a3 + a2 - 1];
-        v18 = v22;
+        v20 = *(a1 + 32);
+        v15 = [NSNumber numberWithUnsignedInteger:a3 + a2 - 1];
+        v16 = v20;
         goto LABEL_18;
       }
 
       if (*(*(*(a1 + 48) + 8) + 24))
       {
-        v13 = @"AND clock >= ? ";
+        v12 = @"AND clock >= ? ";
       }
 
       else
       {
-        v13 = @"OR clock >= ? ";
+        v12 = @"OR clock >= ? ";
       }
     }
 
-    [v12 addObject:v13];
-    v16 = *(a1 + 32);
-    v17 = [NSNumber numberWithUnsignedInteger:a2];
-    v18 = v16;
+    [v11 addObject:{v12, a4}];
+    v14 = *(a1 + 32);
+    v15 = [NSNumber numberWithUnsignedInteger:a2];
+    v16 = v14;
 LABEL_18:
-    [v18 addObject:v17];
+    [v16 addObject:v15];
 
     *(*(*(a1 + 48) + 8) + 24) = 0;
     return;
@@ -3173,10 +3175,11 @@ void sub_100020E6C(uint64_t a1, uint64_t a2, uint64_t a3)
   (*(v4 + 16))(v4, v5, a3);
 }
 
-void sub_1000214DC(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000214DC(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, v9, OS_LOG_TYPE_FAULT, a4, &a9, 0xCu);
+  _os_log_fault_impl(a1, v8, OS_LOG_TYPE_FAULT, a4, va, 0xCu);
 }
 
 void sub_100021668(uint64_t a1, void *a2)
@@ -3260,9 +3263,9 @@ void sub_100021668(uint64_t a1, void *a2)
   _Block_object_dispose(&v14, 8);
 }
 
-void sub_100021944(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100021944(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4041,23 +4044,23 @@ void sub_100028E90(uint64_t a1)
   dispatch_sync(v2, v3);
 }
 
-void sub_1000292B8(uint64_t a1)
+void sub_1000292B8(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
-  if (!v2[7] || !v2[8] || !v2[9])
+  v3 = *(a1 + 32);
+  if (!v3[7] || !v3[8] || !v3[9])
   {
-    v3 = objc_opt_new();
-    [v3 setFetchChangesForMergeableValues:1];
-    v4 = [[CKContainerID alloc] initWithContainerIdentifier:@"com.apple.biome.sync" environment:1];
-    v5 = [[CKContainer alloc] initWithContainerID:v4 options:v3];
-    v6 = *(a1 + 32);
-    v7 = *(v6 + 56);
-    *(v6 + 56) = v5;
+    v4 = objc_opt_new();
+    [v4 setFetchChangesForMergeableValues:1];
+    v5 = [[CKContainerID alloc] initWithContainerIdentifier:@"com.apple.biome.sync" environment:1];
+    v6 = [[CKContainer alloc] initWithContainerID:v5 options:v4];
+    v7 = *(a1 + 32);
+    v8 = *(v7 + 56);
+    *(v7 + 56) = v6;
 
     if (!*(*(a1 + 32) + 56))
     {
-      v8 = __biome_log_for_category();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = __biome_log_for_category();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         sub_10004AA48();
       }
@@ -4071,44 +4074,44 @@ void sub_1000292B8(uint64_t a1)
     }
 
     [*(a1 + 32) handleTransitionToNewMergeableValueRecordValueKey];
-    v9 = [*(*(a1 + 32) + 16) ckSyncEngineMetaData];
-    v10 = +[NSNull null];
-    v11 = [v9 isEqual:v10];
+    v10 = [*(*(a1 + 32) + 16) ckSyncEngineMetaData];
+    v11 = +[NSNull null];
+    v12 = [v10 isEqual:v11];
 
-    if (v11)
+    if (v12)
     {
-      v12 = 0;
       v13 = 0;
-      v14 = v9;
-      v9 = 0;
+      v14 = 0;
+      v15 = v10;
+      v10 = 0;
     }
 
     else
     {
-      if (!v9)
+      if (!v10)
       {
-        v12 = 0;
         v13 = 0;
+        v14 = 0;
         goto LABEL_17;
       }
 
-      v26 = 0;
-      v12 = [NSKeyedUnarchiver unarchivedObjectOfClass:objc_opt_class() fromData:v9 error:&v26];
-      v13 = v26;
-      if (!v13)
+      v27 = 0;
+      v13 = [NSKeyedUnarchiver unarchivedObjectOfClass:objc_opt_class() fromData:v10 error:&v27];
+      v14 = v27;
+      if (!v14)
       {
 LABEL_18:
-        v16 = [CKSyncEngineConfiguration alloc];
-        v17 = [*(*(a1 + 32) + 56) privateCloudDatabase];
-        v18 = [v16 initWithDatabase:v17 stateSerialization:v12 delegate:*(a1 + 32)];
-        v19 = *(a1 + 32);
-        v20 = *(v19 + 64);
-        *(v19 + 64) = v18;
+        v17 = [CKSyncEngineConfiguration alloc];
+        v18 = [*(*(a1 + 32) + 56) privateCloudDatabase];
+        v19 = [v17 initWithDatabase:v18 stateSerialization:v13 delegate:*(a1 + 32)];
+        v20 = *(a1 + 32);
+        v21 = *(v20 + 64);
+        *(v20 + 64) = v19;
 
         if (!*(*(a1 + 32) + 64))
         {
-          v21 = __biome_log_for_category();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+          v22 = __biome_log_for_category();
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
           {
             sub_10004AAF4();
           }
@@ -4119,15 +4122,15 @@ LABEL_18:
         if (*(*(*(a1 + 40) + 8) + 24))
         {
           [*(*(a1 + 32) + 64) setAutomaticSyncingEnabled:0];
-          v22 = [[CKSyncEngine alloc] initWithConfiguration:*(*(a1 + 32) + 64)];
-          v23 = *(a1 + 32);
-          v24 = *(v23 + 72);
-          *(v23 + 72) = v22;
+          v23 = [[CKSyncEngine alloc] initWithConfiguration:*(*(a1 + 32) + 64)];
+          v24 = *(a1 + 32);
+          v25 = *(v24 + 72);
+          *(v24 + 72) = v23;
 
           if (!*(*(a1 + 32) + 72))
           {
-            v25 = __biome_log_for_category();
-            if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+            v26 = __biome_log_for_category();
+            if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
             {
               sub_10004AB30();
             }
@@ -4141,8 +4144,8 @@ LABEL_27:
         return;
       }
 
-      v14 = __biome_log_for_category();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = __biome_log_for_category();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         sub_10004AA84();
       }
@@ -4150,9 +4153,9 @@ LABEL_27:
 
 LABEL_17:
     [*(*(a1 + 32) + 16) clearCKSyncEngineMetaData];
-    v15 = [[CKSyncEngineStateSerialization alloc] initWithDeprecatedData:v9];
+    v16 = [[CKSyncEngineStateSerialization alloc] initWithDeprecatedData:v10];
 
-    v12 = v15;
+    v13 = v16;
     goto LABEL_18;
   }
 }
@@ -4375,19 +4378,19 @@ void sub_10002AA5C(uint64_t a1)
   objc_autoreleasePoolPop(v2);
 }
 
-void sub_10002AC04(uint64_t a1)
+void sub_10002AC04(id *a1)
 {
   v2 = objc_autoreleasePoolPush();
-  [*(*(a1 + 32) + 16) saveSystemFieldsDataForRecord:*(a1 + 40) syncToCloudKit:&__kCFBooleanFalse recordType:1 crdtDeleted:*(a1 + 48)];
-  v3 = [*(a1 + 40) encryptedValues];
-  v4 = [*(a1 + 32) mergeableRecordValueKey];
+  [*(a1[4] + 2) saveSystemFieldsDataForRecord:a1[5] syncToCloudKit:&__kCFBooleanFalse recordType:1 crdtDeleted:a1[6]];
+  v3 = [a1[5] encryptedValues];
+  v4 = [a1[4] mergeableRecordValueKey];
   v5 = [v3 objectForKeyedSubscript:v4];
 
   if (v5)
   {
-    v6 = (a1 + 56);
-    v7 = (a1 + 64);
-    v8 = [*(*(a1 + 32) + 16) ckRecordForRecordName:*(a1 + 56) zoneName:*(a1 + 64) recordType:1];
+    v6 = a1 + 7;
+    v7 = a1 + 8;
+    v8 = [*(a1[4] + 2) ckRecordForRecordName:a1[7] zoneName:a1[8] recordType:1];
     v9 = v8;
     if (v8)
     {
@@ -4467,13 +4470,13 @@ LABEL_27:
           else
           {
             v31 = v2;
-            v24 = *(*(a1 + 32) + 16);
-            v25 = [[BMStreamCRDTLocation alloc] initWithZoneName:*(a1 + 64) recordName:*(a1 + 56)];
+            v24 = *(a1[4] + 2);
+            v25 = [[BMStreamCRDTLocation alloc] initWithZoneName:a1[8] recordName:a1[7]];
             v23 = [v24 locationRowWithLocation:v25];
 
             if (v23)
             {
-              [*(*(a1 + 32) + 16) saveCKRecordLocalMergeableValue:v22 recordName:*(a1 + 56) zoneName:*(a1 + 64) locationRow:v23];
+              [*(a1[4] + 2) saveCKRecordLocalMergeableValue:v22 recordName:a1[7] zoneName:a1[8] locationRow:v23];
               v2 = v31;
             }
 
@@ -4483,7 +4486,7 @@ LABEL_27:
               v2 = v31;
               if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
               {
-                sub_10004B05C(v7);
+                sub_10004B05C();
               }
             }
           }
@@ -4504,7 +4507,7 @@ LABEL_27:
       v21 = __biome_log_for_category();
       if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
       {
-        sub_10004AF78((a1 + 56));
+        sub_10004AF78();
       }
 
       v14 = v5;
@@ -4514,7 +4517,7 @@ LABEL_27:
     v20 = __biome_log_for_category();
     if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
     {
-      sub_10004B0D0(v6);
+      sub_10004B0D0();
     }
 
 LABEL_21:
@@ -4524,12 +4527,12 @@ LABEL_36:
     goto LABEL_37;
   }
 
-  if (([*(a1 + 48) isEqual:&__kCFBooleanTrue] & 1) == 0)
+  if (([a1[6] isEqual:&__kCFBooleanTrue] & 1) == 0)
   {
     v9 = __biome_log_for_category();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
-      sub_10004B144(a1);
+      sub_10004B144();
     }
 
     goto LABEL_21;
@@ -4682,7 +4685,7 @@ LABEL_14:
       v24 = __biome_log_for_category();
       if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
       {
-        sub_10004B41C(a1 + 4);
+        sub_10004B41C();
       }
     }
 
@@ -4696,7 +4699,7 @@ LABEL_14:
 
   if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
   {
-    sub_10004B398(a1 + 4);
+    sub_10004B398();
   }
 
   v9 = v12;
@@ -4850,11 +4853,12 @@ void sub_10002D41C(uint64_t a1)
   objc_autoreleasePoolPop(v2);
 }
 
-void sub_10002D6EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_10002D6EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
+  va_start(va, a26);
   _Block_object_dispose(&a21, 8);
-  _Block_object_dispose(&a27, 8);
-  _Block_object_dispose((v27 - 96), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v26 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -5046,7 +5050,7 @@ LABEL_37:
     v27 = __biome_log_for_category();
     if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
-      sub_10004B684(a1, (a1 + 40));
+      sub_10004B684();
     }
   }
 
@@ -5257,11 +5261,11 @@ void sub_10002ED4C(uint64_t a1, void *a2)
 {
   v3 = a2;
   v67 = 0;
-  v68[0] = &v67;
-  v68[1] = 0x3032000000;
-  v68[2] = sub_10002D0CC;
-  v68[3] = sub_10002D0DC;
-  v69 = 0;
+  v68 = &v67;
+  v69 = 0x3032000000;
+  v70 = sub_10002D0CC;
+  v71 = sub_10002D0DC;
+  v72 = 0;
   v4 = __biome_log_for_category();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
@@ -5280,8 +5284,8 @@ void sub_10002ED4C(uint64_t a1, void *a2)
     v66 = 0;
     v9 = [NSKeyedUnarchiver unarchivedObjectOfClass:v7 fromData:v8 error:&v66];
     v10 = v66;
-    v11 = *(v68[0] + 40);
-    *(v68[0] + 40) = v9;
+    v11 = v68[5];
+    v68[5] = v9;
 
     if (v10)
     {
@@ -5295,7 +5299,7 @@ void sub_10002ED4C(uint64_t a1, void *a2)
         *&buf[12] = 2114;
         *&buf[14] = v14;
         *&buf[22] = 2114;
-        v77 = v10;
+        v80 = v10;
         _os_log_fault_impl(&_mh_execute_header, v12, OS_LOG_TYPE_FAULT, "syncEngineDidEndFetchingChanges: Unable to unarchive localMergeableValue for %{public}@ %{public}@ %{public}@", buf, 0x20u);
       }
     }
@@ -5305,7 +5309,7 @@ void sub_10002ED4C(uint64_t a1, void *a2)
       v12 = __biome_log_for_category();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
-        v15 = *(v68[0] + 40);
+        v15 = v68[5];
         *buf = 138543362;
         *&buf[4] = v15;
         _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Has a localMergeableValue: %{public}@", buf, 0xCu);
@@ -5326,7 +5330,7 @@ void sub_10002ED4C(uint64_t a1, void *a2)
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x2020000000;
-  LOBYTE(v77) = 0;
+  LOBYTE(v80) = 0;
   v16 = *(*(a1 + 32) + 16);
   v17 = [v3 recordName];
   v18 = [v3 streamIdentifier];
@@ -5353,9 +5357,9 @@ void sub_10002ED4C(uint64_t a1, void *a2)
       v21 = "NO";
     }
 
-    *v70 = 136446210;
-    v71 = v21;
-    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "Were there mergeableRecordValues: %{public}s", v70, 0xCu);
+    *v73 = 136446210;
+    v74 = v21;
+    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "Were there mergeableRecordValues: %{public}s", v73, 0xCu);
   }
 
   v22 = [*(*(a1 + 32) + 8) distributedSyncManagers];
@@ -5371,9 +5375,9 @@ void sub_10002ED4C(uint64_t a1, void *a2)
   v30 = __biome_log_for_category();
   if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
   {
-    *v70 = 138543362;
-    v71 = v29;
-    _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_INFO, "syncEngineDidEndFetchingChanges location: %{public}@", v70, 0xCu);
+    *v73 = 138543362;
+    v74 = v29;
+    _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_INFO, "syncEngineDidEndFetchingChanges location: %{public}@", v73, 0xCu);
   }
 
   if (v29)
@@ -5382,9 +5386,9 @@ void sub_10002ED4C(uint64_t a1, void *a2)
     v32 = __biome_log_for_category();
     if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
     {
-      *v70 = 138543362;
-      v71 = v31;
-      _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_INFO, "syncEngineDidEndFetchingChanges locationRow: %{public}@", v70, 0xCu);
+      *v73 = 138543362;
+      v74 = v31;
+      _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_INFO, "syncEngineDidEndFetchingChanges locationRow: %{public}@", v73, 0xCu);
     }
 
     if (v31)
@@ -5400,14 +5404,14 @@ void sub_10002ED4C(uint64_t a1, void *a2)
       v39 = __biome_log_for_category();
       if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
       {
-        v40 = *(v68[0] + 40);
-        *v70 = 138543362;
-        v71 = v40;
-        _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_INFO, "recordValue %{public}@", v70, 0xCu);
+        v40 = v68[5];
+        *v73 = 138543362;
+        v74 = v40;
+        _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_INFO, "recordValue %{public}@", v73, 0xCu);
       }
 
       v41 = objc_autoreleasePoolPush();
-      v42 = *(v68[0] + 40);
+      v42 = v68[5];
       v61 = 0;
       [v42 mergeIntoMergeable:v59 error:&v61];
       v43 = v61;
@@ -5419,22 +5423,22 @@ void sub_10002ED4C(uint64_t a1, void *a2)
         {
           v57 = [v19 recordName];
           v58 = [v19 streamIdentifier];
-          *v70 = 138543874;
-          v71 = v57;
-          v72 = 2114;
-          v73 = v58;
-          v74 = 2114;
-          v75 = v43;
-          _os_log_fault_impl(&_mh_execute_header, v44, OS_LOG_TYPE_FAULT, "Unable to  [recordValue mergeIntoMergeable:recordCRDT] for recordName:%{public}@ site:%{public}@ error:%{public}@", v70, 0x20u);
+          *v73 = 138543874;
+          v74 = v57;
+          v75 = 2114;
+          v76 = v58;
+          v77 = 2114;
+          v78 = v43;
+          _os_log_fault_impl(&_mh_execute_header, v44, OS_LOG_TYPE_FAULT, "Unable to  [recordValue mergeIntoMergeable:recordCRDT] for recordName:%{public}@ site:%{public}@ error:%{public}@", v73, 0x20u);
         }
       }
 
       v45 = [(BMStreamCRDTLocation *)v29 streamName];
 
-      if (*(v68[0] + 40))
+      if (v68[5])
       {
         v46 = objc_autoreleasePoolPush();
-        v47 = *(v68[0] + 40);
+        v47 = v68[5];
         v60 = 0;
         v48 = [NSKeyedArchiver archivedDataWithRootObject:v47 requiringSecureCoding:1 error:&v60];
         v49 = v60;
@@ -5444,7 +5448,7 @@ void sub_10002ED4C(uint64_t a1, void *a2)
           v50 = __biome_log_for_category();
           if (os_log_type_enabled(v50, OS_LOG_TYPE_FAULT))
           {
-            sub_10004B7A8(v68);
+            sub_10004B7A8();
           }
         }
 
@@ -5500,10 +5504,10 @@ void sub_10002ED4C(uint64_t a1, void *a2)
   _Block_object_dispose(&v67, 8);
 }
 
-void sub_10002F67C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_10002F67C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
-  _Block_object_dispose((v13 - 144), 8);
+  va_start(va, a20);
+  _Block_object_dispose((v20 - 144), 8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5639,9 +5643,9 @@ void sub_10002FAA0(uint64_t a1)
   objc_autoreleasePoolPop(v2);
 }
 
-void sub_10002FCE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_10002FCE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5686,13 +5690,6 @@ id sub_100031334(uint64_t a1, void *a2)
   return v4;
 }
 
-uint64_t *sub_100031548@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *result;
-  return result;
-}
-
 void sub_1000329F8(uint64_t a1, void *a2)
 {
   v3 = a2;
@@ -5727,9 +5724,9 @@ void sub_1000329F8(uint64_t a1, void *a2)
   objc_autoreleasePoolPop(v4);
 }
 
-void sub_100034BE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100034BE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5786,9 +5783,9 @@ void sub_100035708(uint64_t a1, void *a2, void *a3, void *a4)
   [WeakRetained _handleRequestID:*(a1 + 32) request:v9 options:v8 responseHandler:v7];
 }
 
-void sub_100037FD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100037FD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5851,7 +5848,7 @@ void sub_100038F80(uint64_t a1)
   [v1 syncRapportNowIfPolicyAllowsWithReason:v3 activity:v2 completionHandler:v4];
 }
 
-BOOL sub_10003902C(_BOOL8 result)
+uint64_t sub_10003902C(uint64_t result)
 {
   if (*(result + 32))
   {
@@ -5877,20 +5874,19 @@ void sub_1000395EC(void *a1, void *a2, void *a3)
   v7 = __biome_log_for_category();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412546;
-    v12 = v5;
-    v13 = 2112;
-    v14 = v6;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Rapport syncNowWithCompletionHandler %@, errors: %@", &v11, 0x16u);
+    v10 = 138412546;
+    v11 = v5;
+    v12 = 2112;
+    v13 = v6;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Rapport syncNowWithCompletionHandler %@, errors: %@", &v10, 0x16u);
   }
 
   [*(a1[4] + 32) clearCachedStatements];
-  v8 = a1[5];
-  v9 = objc_opt_self();
-  v10 = a1[6];
-  if (v10)
+  v8 = objc_opt_self();
+  v9 = a1[6];
+  if (v9)
   {
-    (*(v10 + 16))(v10, v5, v6);
+    (*(v9 + 16))(v9, v5, v6);
   }
 }
 
@@ -5902,26 +5898,25 @@ void sub_100039A74(void *a1, void *a2, void *a3)
   v7 = __biome_log_for_category();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412546;
-    v12 = v5;
-    v13 = 2112;
-    v14 = v6;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Rapport syncNowWithDevicesCompletionHandler %@, errors: %@", &v11, 0x16u);
+    v10 = 138412546;
+    v11 = v5;
+    v12 = 2112;
+    v13 = v6;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Rapport syncNowWithDevicesCompletionHandler %@, errors: %@", &v10, 0x16u);
   }
 
   [*(a1[4] + 32) clearCachedStatements];
-  v8 = a1[5];
-  v9 = objc_opt_self();
-  v10 = a1[6];
-  if (v10)
+  v8 = objc_opt_self();
+  v9 = a1[6];
+  if (v9)
   {
-    (*(v10 + 16))(v10, v5, v6);
+    (*(v9 + 16))(v9, v5, v6);
   }
 }
 
-void sub_100039CEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100039CEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6042,20 +6037,19 @@ void sub_10003A44C(void *a1, void *a2, void *a3)
   v7 = __biome_log_for_category();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412546;
-    v12 = v5;
-    v13 = 2112;
-    v14 = v6;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "CloudKit syncNowWithCompletionHandler %@, errors: %@", &v11, 0x16u);
+    v10 = 138412546;
+    v11 = v5;
+    v12 = 2112;
+    v13 = v6;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "CloudKit syncNowWithCompletionHandler %@, errors: %@", &v10, 0x16u);
   }
 
   [*(a1[4] + 32) clearCachedStatements];
-  v8 = a1[5];
-  v9 = objc_opt_self();
-  v10 = a1[6];
-  if (v10)
+  v8 = objc_opt_self();
+  v9 = a1[6];
+  if (v9)
   {
-    (*(v10 + 16))(v10, v5, v6);
+    (*(v9 + 16))(v9, v5, v6);
   }
 }
 
@@ -6290,17 +6284,11 @@ id sub_10003AF74()
   return v9;
 }
 
-uint64_t sub_10003CE18@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
+void sub_10003D190(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  *(v2 - 8) = a2;
-  v3 = *(result + 40);
-  return result;
-}
+  va_start(va, a8);
 
-void sub_10003D190(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
-{
-
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 BOOL sub_10003DFE0(uint64_t a1)
@@ -6566,9 +6554,9 @@ id sub_100045AD8(uint64_t a1)
   return [v4 removeObject:v3];
 }
 
-void sub_100045C44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100045C44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6615,26 +6603,18 @@ void sub_100045C74(uint64_t a1)
     *(v11 + 40) = v10;
   }
 
-  v13 = [*(*(*(a1 + 40) + 8) + 40) openWithFlags:*(*(a1 + 32) + 32) vfs:*(*(a1 + 32) + 64)];
-  v14 = *(a1 + 32);
-  if (v13)
+  if ([*(*(*(a1 + 40) + 8) + 40) openWithFlags:*(*(a1 + 32) + 32) vfs:*(*(a1 + 32) + 64)])
   {
-    v15 = *(v14 + 48);
     if (objc_opt_respondsToSelector() & 1) == 0 || ([*(*(a1 + 32) + 48) databasePool:*(a1 + 32) shouldAddDatabaseToPool:*(*(*(a1 + 40) + 8) + 40)])
     {
       if (([*(*(a1 + 32) + 24) containsObject:*(*(*(a1 + 40) + 8) + 40)] & 1) == 0)
       {
         [*(*(a1 + 32) + 24) addObject:*(*(*(a1 + 40) + 8) + 40)];
-        if (!v7)
+        if (!v7 && (objc_opt_respondsToSelector() & 1) != 0)
         {
-          v16 = *(*(a1 + 32) + 48);
-          if (objc_opt_respondsToSelector())
-          {
-            v17 = *(*(a1 + 32) + 48);
-            v18 = *(*(*(a1 + 40) + 8) + 40);
+          v13 = *(*(a1 + 32) + 48);
 
-            [v17 databasePool:? didAddDatabase:?];
-          }
+          [v13 databasePool:? didAddDatabase:?];
         }
       }
 
@@ -6646,17 +6626,17 @@ void sub_100045C74(uint64_t a1)
 
   else
   {
-    NSLog(@"Could not open up the database at path %@", *(v14 + 40));
+    NSLog(@"Could not open up the database at path %@", *(*(a1 + 32) + 40));
   }
 
-  v19 = *(*(a1 + 40) + 8);
-  v20 = *(v19 + 40);
-  *(v19 + 40) = 0;
+  v14 = *(*(a1 + 40) + 8);
+  v15 = *(v14 + 40);
+  *(v14 + 40) = 0;
 }
 
-void sub_100045F2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100045F2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6668,9 +6648,9 @@ id sub_100045F44(uint64_t a1)
   return result;
 }
 
-void sub_100046020(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100046020(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6682,14 +6662,14 @@ id sub_100046038(uint64_t a1)
   return result;
 }
 
-void sub_100046114(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100046114(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-id sub_10004612C(uint64_t a1)
+char *sub_10004612C(uint64_t a1)
 {
   v2 = [*(*(a1 + 32) + 24) count];
   result = [*(*(a1 + 32) + 16) count];
@@ -6833,6 +6813,20 @@ void sub_100047408(uint64_t a1, NSObject *a2)
   _os_log_fault_impl(&_mh_execute_header, a2, OS_LOG_TYPE_FAULT, "BMRapportClient[%@]: Must be inactive before creating and activating companion link client", &v3, 0xCu);
 }
 
+void sub_1000474C8(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  sub_1000041D8(&_mh_execute_header, a2, a3, "error initializing atomBatchData: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100047534(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  sub_1000041D8(&_mh_execute_header, a2, a3, "Unable to write AtomBatchData for location: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_1000475A4(uint8_t *a1, void *a2, void *a3, NSObject *a4)
 {
   v7 = [a2 locationRow];
@@ -6875,15 +6869,19 @@ void sub_100047974()
   sub_10000D614();
   v1 = [*v0 siteSuffix];
   sub_10000D5C4();
-  sub_10000D5DC(&_mh_execute_header, v2, v3, "BMRapportSyncEngine%@: fetchAtomBatchRequest is nil, skip sending request to device: %@", v4, v5, v6, v7, v8);
+  sub_10000D5DC(&_mh_execute_header, v2, v3, "BMRapportSyncEngine%@: fetchAtomBatchRequest is nil, skip sending request to device: %@", v4, v5, v6, v7);
 }
 
 void sub_100047A04()
 {
   sub_10000D614();
   v2 = [v1 siteSuffix];
-  v9 = [v0 account];
-  sub_10000D5DC(&_mh_execute_header, v3, v4, "BMRapportSyncEngine%@: unable to create a sync manager for account %@", v5, v6, v7, v8, 2u);
+  v3 = [v0 account];
+  *v10 = 138412546;
+  *&v10[4] = v2;
+  *&v10[12] = 2112;
+  *&v10[14] = v3;
+  sub_10000D5DC(&_mh_execute_header, v4, v5, "BMRapportSyncEngine%@: unable to create a sync manager for account %@", v6, v7, v8, v9, *v10, *&v10[8], *&v10[16]);
 }
 
 void sub_100047AB4()
@@ -6891,7 +6889,7 @@ void sub_100047AB4()
   sub_10000D614();
   v1 = [sub_10000D620(v0) siteSuffix];
   sub_10000D5C4();
-  sub_10000D5DC(&_mh_execute_header, v2, v3, "BMRapportSyncEngine%@: rejecting request from personal device to sync cross account %@", v4, v5, v6, v7, v8);
+  sub_10000D5DC(&_mh_execute_header, v2, v3, "BMRapportSyncEngine%@: rejecting request from personal device to sync cross account %@", v4, v5, v6, v7);
 }
 
 void sub_100047B40()
@@ -6899,7 +6897,7 @@ void sub_100047B40()
   sub_10000D614();
   v1 = [*v0 siteSuffix];
   sub_10000D5FC();
-  sub_10000D5DC(&_mh_execute_header, v2, v3, "BMRapportSyncEngine%@: unable to create sync manager for %{public}@", v4, v5, v6, v7, v8);
+  sub_10000D5DC(&_mh_execute_header, v2, v3, "BMRapportSyncEngine%@: unable to create sync manager for %{public}@", v4, v5, v6, v7);
 }
 
 void sub_100047BD0()
@@ -6907,7 +6905,7 @@ void sub_100047BD0()
   sub_10000D614();
   v1 = [sub_10000D620(v0) siteSuffix];
   sub_10000D5C4();
-  sub_10000D5DC(&_mh_execute_header, v2, v3, "BMRapportSyncEngine%@: rejecting request from communal device to sync outside home %@", v4, v5, v6, v7, v8);
+  sub_10000D5DC(&_mh_execute_header, v2, v3, "BMRapportSyncEngine%@: rejecting request from communal device to sync outside home %@", v4, v5, v6, v7);
 }
 
 void sub_100047C5C()
@@ -6915,7 +6913,7 @@ void sub_100047C5C()
   sub_10000D614();
   v1 = [sub_10000D620(v0) siteSuffix];
   sub_10000D5FC();
-  sub_10000D5DC(&_mh_execute_header, v2, v3, "BMRapportSyncEngine%@: unable to determine platform for model %{public}@", v4, v5, v6, v7, v8);
+  sub_10000D5DC(&_mh_execute_header, v2, v3, "BMRapportSyncEngine%@: unable to determine platform for model %{public}@", v4, v5, v6, v7);
 }
 
 void sub_100047CE8()
@@ -6923,7 +6921,7 @@ void sub_100047CE8()
   sub_10000D614();
   v1 = [sub_10000D620(v0) siteSuffix];
   sub_10000D5C4();
-  sub_10000D5DC(&_mh_execute_header, v2, v3, "BMRapportSyncEngine%@: unable to determine sender model info: %@", v4, v5, v6, v7, v8);
+  sub_10000D5DC(&_mh_execute_header, v2, v3, "BMRapportSyncEngine%@: unable to determine sender model info: %@", v4, v5, v6, v7);
 }
 
 void sub_100047D74()
@@ -6931,7 +6929,7 @@ void sub_100047D74()
   sub_10000D614();
   v1 = [v0 siteSuffix];
   sub_10000D5C4();
-  sub_10000D5DC(&_mh_execute_header, v2, v3, "BMRapportSyncEngine%@: fetchAtomBatchRequest is nil, skip sending request to device: %@", v4, v5, v6, v7, v8);
+  sub_10000D5DC(&_mh_execute_header, v2, v3, "BMRapportSyncEngine%@: fetchAtomBatchRequest is nil, skip sending request to device: %@", v4, v5, v6, v7);
 }
 
 void sub_100047E00()
@@ -6939,7 +6937,7 @@ void sub_100047E00()
   sub_10000D614();
   v1 = [v0 siteSuffix];
   sub_10000D5FC();
-  sub_10000D5DC(&_mh_execute_header, v2, v3, "BMRapportSyncEngine%@: unable to create sync manager for %{public}@", v4, v5, v6, v7, v8);
+  sub_10000D5DC(&_mh_execute_header, v2, v3, "BMRapportSyncEngine%@: unable to create sync manager for %{public}@", v4, v5, v6, v7);
 }
 
 void sub_100047E8C()
@@ -6947,7 +6945,7 @@ void sub_100047E8C()
   sub_10000D614();
   v1 = [v0 siteSuffix];
   sub_10000D5C4();
-  sub_10000D5DC(&_mh_execute_header, v2, v3, "BMRapportSyncEngine%@: createDistributedSyncManagerFromOptions unable to determine sender account info: %@", v4, v5, v6, v7, v8);
+  sub_10000D5DC(&_mh_execute_header, v2, v3, "BMRapportSyncEngine%@: createDistributedSyncManagerFromOptions unable to determine sender account info: %@", v4, v5, v6, v7);
 }
 
 void sub_100047F18(uint64_t a1, NSObject *a2)
@@ -6987,6 +6985,13 @@ void sub_100048124(uint64_t a1, uint64_t a2, NSObject *a3)
   _os_log_error_impl(&_mh_execute_header, a3, OS_LOG_TYPE_ERROR, "%@ could not archive state vector: %@", v6, 0x16u);
 }
 
+void sub_1000481C8(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "com.apple.biomesyncd.metrics-collection";
+  sub_1000041D8(&_mh_execute_header, a1, a3, "Tried to defer activity %s, but failed", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_100048240(uint64_t a1, NSObject *a2)
 {
   v2 = 138412290;
@@ -6999,6 +7004,20 @@ void sub_1000482B8(uint64_t a1, NSObject *a2)
   v2 = 138412290;
   v3 = a1;
   _os_log_fault_impl(&_mh_execute_header, a2, OS_LOG_TYPE_FAULT, "Received unexpected object on com.apple.rapport.matching: %@", &v2, 0xCu);
+}
+
+void sub_100048330(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "com.apple.biomesyncd.cascade.periodic-sync";
+  sub_1000041D8(&_mh_execute_header, a1, a3, "Tried to defer activity %s, but failed", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1000483A8(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = *(a1 + 48);
+  sub_1000041D8(&_mh_execute_header, a2, a3, "Tried to defer activity %s, but failed", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_100048418()
@@ -7113,28 +7132,26 @@ void sub_100048B94()
 void sub_100048BD0()
 {
   sub_10000D614();
-  v3 = v2;
-  v4 = [v2 timestamp];
-  v5 = [v4 bm_description];
-  v6 = sub_100025DD8([v3 type]);
-  v7 = *v1;
+  v2 = v1;
+  v3 = [v1 timestamp];
+  v4 = [v3 bm_description];
+  v5 = sub_100025DD8([v2 type]);
   sub_100018C30();
-  v10 = 2048;
-  v11 = v8;
-  _os_log_debug_impl(&_mh_execute_header, v0, OS_LOG_TYPE_DEBUG, "Received atom: %@ (%@), index: %lu", v9, 0x20u);
+  v8 = 2048;
+  v9 = v6;
+  _os_log_debug_impl(&_mh_execute_header, v0, OS_LOG_TYPE_DEBUG, "Received atom: %@ (%@), index: %lu", v7, 0x20u);
 }
 
 void sub_100048CB0()
 {
   sub_10000D614();
-  v2 = v1;
-  v3 = [v1 timestamp];
-  v4 = [v3 bm_description];
-  v5 = sub_100025DD8([v2 type]);
-  v6 = *(*v0 + 16);
+  v1 = v0;
+  v2 = [v0 timestamp];
+  v3 = [v2 bm_description];
+  v4 = sub_100025DD8([v1 type]);
   sub_100018C30();
   sub_100018BFC();
-  _os_log_error_impl(v7, v8, v9, v10, v11, 0x2Au);
+  _os_log_error_impl(v5, v6, v7, v8, v9, 0x2Au);
 }
 
 void sub_100048D90()
@@ -7478,14 +7495,14 @@ void sub_100049D14(id *a1)
 {
   v1 = [*a1 lastErrorMessage];
   sub_100018BE4();
-  sub_1000214DC(&_mh_execute_header, v2, v3, "Failed to insert: %@", v4, v5, v6, v7, v8);
+  sub_1000214DC(&_mh_execute_header, v2, v3, "Failed to insert: %@", v4, v5, v6, v7);
 }
 
 void sub_100049D9C(id *a1)
 {
   v1 = [*a1 lastErrorMessage];
   sub_100018BE4();
-  sub_1000214DC(&_mh_execute_header, v2, v3, "Failed to update: %@", v4, v5, v6, v7, v8);
+  sub_1000214DC(&_mh_execute_header, v2, v3, "Failed to update: %@", v4, v5, v6, v7);
 }
 
 void sub_100049E24()
@@ -7540,57 +7557,36 @@ void sub_10004A0F4(const __CFString *a1, NSObject *a2)
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "BGSystemTask (submitBackgroundTaskForDeferredMerge) failed to submit task with error: %@ for %@", &v3, 0x16u);
 }
 
-void sub_10004A1A4(uint64_t a1)
+void sub_10004A30C(uint64_t a1)
 {
-  v1 = *(a1 + 64);
-  sub_100023A24();
-  sub_1000071C8(&_mh_execute_header, v2, v3, "BMRapportManager[%@]: skipping RPCompanionLinkDevice failed validation: %@");
-}
-
-void sub_10004A21C(uint64_t a1)
-{
-  v1 = *(a1 + 64);
-  sub_100023A24();
-  sub_1000071C8(&_mh_execute_header, v2, v3, "BMRapportManager[%@]: skipping RPCompanionLinkDevice missing model: %@");
-}
-
-void sub_10004A294(uint64_t a1)
-{
-  v1 = *(a1 + 64);
-  sub_100023A24();
-  sub_1000071C8(&_mh_execute_header, v2, v3, "BMRapportManager[%@]: skipping RPCompanionLinkDevice missing identifier: %@");
-}
-
-void sub_10004A30C()
-{
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   sub_100018BE4();
-  sub_1000214DC(&_mh_execute_header, v2, v3, "%@: tried to initialize with a non-BMPBSyncAtomValue proto", v4, v5, v6, v7, v8);
+  sub_1000214DC(&_mh_execute_header, v3, v4, "%@: tried to initialize with a non-BMPBSyncAtomValue proto", v5, v6, v7, v8);
 }
 
-void sub_10004A394()
+void sub_10004A394(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   sub_100018BE4();
-  sub_1000214DC(&_mh_execute_header, v2, v3, "%@: tried to initialize a BMPBSyncAtomValue proto, missing type or value", v4, v5, v6, v7, v8);
+  sub_1000214DC(&_mh_execute_header, v3, v4, "%@: tried to initialize a BMPBSyncAtomValue proto, missing type or value", v5, v6, v7, v8);
 }
 
-void sub_10004A490()
+void sub_10004A490(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   sub_100018BE4();
-  sub_1000214DC(&_mh_execute_header, v2, v3, "%@: tried to initialize with a non-BMPBStoreEventAtomValue proto", v4, v5, v6, v7, v8);
+  sub_1000214DC(&_mh_execute_header, v3, v4, "%@: tried to initialize with a non-BMPBStoreEventAtomValue proto", v5, v6, v7, v8);
 }
 
-void sub_10004A518()
+void sub_10004A518(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   sub_100018BE4();
-  sub_1000214DC(&_mh_execute_header, v2, v3, "%@: tried to initialize a BMPBStoreEventAtomValue proto: missing dataVersion or dataTimestamp", v4, v5, v6, v7, v8);
+  sub_1000214DC(&_mh_execute_header, v3, v4, "%@: tried to initialize a BMPBStoreEventAtomValue proto: missing dataVersion or dataTimestamp", v5, v6, v7, v8);
 }
 
 void sub_10004A5A0(uint64_t a1, uint64_t a2)
@@ -7744,13 +7740,12 @@ void sub_10004AEB8()
   _os_log_fault_impl(v5, v6, v7, v8, v9, 0x16u);
 }
 
-void sub_10004AF78(uint64_t *a1)
+void sub_10004AF78()
 {
-  sub_100031548(a1, __stack_chk_guard);
-  v2 = *v1;
+  sub_100031548(__stack_chk_guard);
   sub_1000314DC();
   sub_100031504();
-  _os_log_fault_impl(v3, v4, v5, v6, v7, 0x16u);
+  _os_log_fault_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void sub_10004AFEC()
@@ -7760,30 +7755,20 @@ void sub_10004AFEC()
   _os_log_fault_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_10004B05C(uint64_t *a1)
+void sub_10004B05C()
 {
-  sub_100031548(a1, __stack_chk_guard);
-  v2 = *v1;
+  sub_100031548(__stack_chk_guard);
   sub_1000314DC();
   sub_100031504();
-  _os_log_fault_impl(v3, v4, v5, v6, v7, 0x16u);
+  _os_log_fault_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_10004B0D0(uint64_t *a1)
+void sub_10004B0D0()
 {
-  sub_100031548(a1, __stack_chk_guard);
-  v2 = *v1;
+  sub_100031548(__stack_chk_guard);
   sub_1000314DC();
   sub_100031504();
-  _os_log_fault_impl(v3, v4, v5, v6, v7, 0x16u);
-}
-
-void sub_10004B144(uint64_t a1)
-{
-  v1 = *(a1 + 56);
-  v2 = *(a1 + 64);
-  sub_1000314DC();
-  _os_log_fault_impl(&_mh_execute_header, v3, OS_LOG_TYPE_FAULT, "handleDidSaveRecordSyncRecord: serverValue nil for %{public}@ %{public}@", v4, 0x16u);
+  _os_log_fault_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void sub_10004B1BC()
@@ -7813,14 +7798,22 @@ void sub_10004B328()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_10004B398(uint64_t *a1)
+void sub_10004B398()
 {
-  sub_100031548(a1, __stack_chk_guard);
-  v3 = 138543618;
-  v4 = 0;
-  v5 = 2114;
-  v6 = v1;
-  _os_log_fault_impl(&_mh_execute_header, v2, OS_LOG_TYPE_FAULT, "handleFailedToSaveSyncRecordServerRecordChanged: serverCRDT is nil for record: %{public}@ for error: %{public}@", &v3, 0x16u);
+  sub_100031548(__stack_chk_guard);
+  v2 = 138543618;
+  v3 = 0;
+  v4 = 2114;
+  v5 = v0;
+  _os_log_fault_impl(&_mh_execute_header, v1, OS_LOG_TYPE_FAULT, "handleFailedToSaveSyncRecordServerRecordChanged: serverCRDT is nil for record: %{public}@ for error: %{public}@", &v2, 0x16u);
+}
+
+void sub_10004B41C()
+{
+  sub_100031548(__stack_chk_guard);
+  LODWORD(v7) = 138543362;
+  *(&v7 + 4) = v0;
+  sub_10001C694(&_mh_execute_header, v1, v2, "handleFailedToSaveSyncRecordServerRecordChanged: error archiving serverCRDT error: %{public}@", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
 void sub_10004B488()
@@ -7834,14 +7827,6 @@ void sub_10004B488()
   _os_log_fault_impl(v5, v6, v7, v8, v9, 0x16u);
 }
 
-void sub_10004B684(uint64_t a1, uint64_t *a2)
-{
-  v2 = *(a1 + 56);
-  v3 = *a2;
-  sub_1000314DC();
-  _os_log_error_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "locationID can not be found for recordID %{public}@, stream:%{public}@", v5, 0x16u);
-}
-
 void sub_10004B704(uint64_t a1, id *a2)
 {
   v2 = [*a2 recordName];
@@ -7850,12 +7835,11 @@ void sub_10004B704(uint64_t a1, id *a2)
   _os_log_fault_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
-void sub_10004B7A8(uint64_t *a1)
+void sub_10004B7A8()
 {
-  sub_100031548(a1, __stack_chk_guard);
-  v7 = *(v1 + 40);
+  sub_100031548(__stack_chk_guard);
   sub_100031504();
-  _os_log_fault_impl(v2, v3, v4, v5, v6, 0x16u);
+  _os_log_fault_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void sub_10004B894()
@@ -7897,6 +7881,20 @@ void sub_10004BA80()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
+void sub_10004BB5C(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  sub_1000041D8(&_mh_execute_header, a2, a3, "Unable to create atom batch file for location: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10004BBC8(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  sub_1000041D8(&_mh_execute_header, a2, a3, "Failed addAtomBatchFileNameToAtomBatchFiles: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_10004BCA0(void *a1, uint64_t a2, NSObject *a3)
 {
   v5 = [a1 attributes];
@@ -7904,6 +7902,13 @@ void sub_10004BCA0(void *a1, uint64_t a2, NSObject *a3)
   sub_100018BD0();
   v8 = a2;
   _os_log_error_impl(&_mh_execute_header, a3, OS_LOG_TYPE_ERROR, "Unable to create write atom batch vectors to file: %@ error: %@", v7, 0x16u);
+}
+
+void sub_10004BDC0(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  sub_1000041D8(&_mh_execute_header, a2, a3, "Unable to create atom batch vectors file for location: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_10004BE2C(uint8_t *a1, void *a2, void *a3, NSObject *a4)
@@ -7917,13 +7922,17 @@ void sub_10004BE2C(uint8_t *a1, void *a2, void *a3, NSObject *a4)
 void sub_10004BF10()
 {
   v0 = BMDevicePlatformGetDescription();
-  sub_1000214DC(&_mh_execute_header, v1, v2, "BMRapportManager: could not determine appropriate control flags for device platform: %@", v3, v4, v5, v6, 2u);
+  LODWORD(v7) = 138412290;
+  *(&v7 + 4) = v0;
+  sub_1000214DC(&_mh_execute_header, v1, v2, "BMRapportManager: could not determine appropriate control flags for device platform: %@", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
-void sub_10004BF9C()
+void sub_10004BF9C(uint64_t a1)
 {
-  v0 = BMDevicePlatformGetDescription();
-  sub_1000214DC(&_mh_execute_header, v1, v2, "BMRapportManager: could not determine appropriate control flags for device platform: %@", v3, v4, v5, v6, 2u);
+  v1 = BMDevicePlatformGetDescription();
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  sub_1000214DC(&_mh_execute_header, v2, v3, "BMRapportManager: could not determine appropriate control flags for device platform: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 void sub_10004C024(uint64_t a1, uint64_t a2)
@@ -8156,42 +8165,42 @@ void sub_10004CAE8(uint64_t a1, uint64_t a2)
   [v4 handleFailureInMethod:a1 object:a2 file:@"BMSyncDatabase.m" lineNumber:315 description:{@"Invalid parameter not satisfying: %@", @"path"}];
 }
 
-void sub_10004CB64(uint64_t a1)
+void sub_10004CB64()
 {
-  sub_10003CE18(a1, __stack_chk_guard);
+  sub_10003CE18(__stack_chk_guard);
   sub_10003CE04();
-  sub_1000388DC(&_mh_execute_header, v1, v2, "BMSyncDatabase%@ database corrupt: %@");
+  sub_1000388DC(&_mh_execute_header, v0, v1, "BMSyncDatabase%@ database corrupt: %@");
 }
 
-void sub_10004CBD0(uint64_t a1)
+void sub_10004CBD0()
 {
-  sub_10003CE18(a1, __stack_chk_guard);
-  v3 = 138412290;
-  v4 = v1;
-  _os_log_fault_impl(&_mh_execute_header, v2, OS_LOG_TYPE_FAULT, "BMSyncDatabase%@ database corrupt", &v3, 0xCu);
+  sub_10003CE18(__stack_chk_guard);
+  v2 = 138412290;
+  v3 = v0;
+  _os_log_fault_impl(&_mh_execute_header, v1, OS_LOG_TYPE_FAULT, "BMSyncDatabase%@ database corrupt", &v2, 0xCu);
 }
 
-void sub_10004CC48(uint64_t a1)
+void sub_10004CC48()
 {
-  sub_10003CE18(a1, __stack_chk_guard);
+  sub_10003CE18(__stack_chk_guard);
   sub_10003CE04();
-  sub_1000388DC(&_mh_execute_header, v1, v2, "BMSyncDatabase%@ unrecoverable error: %@");
+  sub_1000388DC(&_mh_execute_header, v0, v1, "BMSyncDatabase%@ unrecoverable error: %@");
 }
 
-void sub_10004CCC4(uint64_t a1)
+void sub_10004CCC4()
 {
-  sub_10003CE18(a1, __stack_chk_guard);
+  sub_10003CE18(__stack_chk_guard);
   sub_10003CE04();
-  v4 = v1;
-  _os_log_error_impl(&_mh_execute_header, v2, OS_LOG_TYPE_ERROR, "BMSyncDatabase%@ error: %@", v3, 0x16u);
+  v3 = v0;
+  _os_log_error_impl(&_mh_execute_header, v1, OS_LOG_TYPE_ERROR, "BMSyncDatabase%@ error: %@", v2, 0x16u);
 }
 
-void sub_10004CD84(uint64_t a1)
+void sub_10004CD84()
 {
-  sub_10003CE18(a1, __stack_chk_guard);
-  v3 = 138412290;
-  v4 = v1;
-  _os_log_fault_impl(&_mh_execute_header, v2, OS_LOG_TYPE_FAULT, "BMSyncDatabase%@ state queried while opening", &v3, 0xCu);
+  sub_10003CE18(__stack_chk_guard);
+  v2 = 138412290;
+  v3 = v0;
+  _os_log_fault_impl(&_mh_execute_header, v1, OS_LOG_TYPE_FAULT, "BMSyncDatabase%@ state queried while opening", &v2, 0xCu);
 }
 
 void sub_10004CDFC(uint64_t a1, id *a2, NSObject *a3)

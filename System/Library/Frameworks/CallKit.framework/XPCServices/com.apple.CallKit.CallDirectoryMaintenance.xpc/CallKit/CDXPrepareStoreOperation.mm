@@ -23,23 +23,23 @@
 
 - (BOOL)performWithError:(id *)error
 {
-  v40 = 0;
-  v5 = [[CXCallDirectoryStore alloc] initForReadingAndWritingWithError:&v40];
-  v6 = v40;
+  v47 = 0;
+  v5 = [[CXCallDirectoryStore alloc] initForReadingAndWritingWithError:&v47];
+  v6 = v47;
   isCorrupt = [v5 isCorrupt];
   v8 = [v5 url];
 
   if (!isCorrupt)
   {
-    v14 = objc_alloc_init(CXCallDirectoryStoreMigrator);
-    v36 = v6;
-    v21 = [v14 performMigrationsWithError:&v36];
-    v12 = v36;
+    v16 = objc_alloc_init(CXCallDirectoryStoreMigrator);
+    v43 = v6;
+    v25 = [v16 performMigrationsWithError:&v43];
+    v13 = v43;
 
-    if (!v21)
+    if (!v25)
     {
-      v26 = sub_100005CC4();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v32 = sub_100005CC4(v26);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
         sub_100023314();
       }
@@ -47,29 +47,29 @@
       goto LABEL_44;
     }
 
-    if ([v21 requiresExtensionDisablement])
+    if ([v25 requiresExtensionDisablement])
     {
-      v35 = v12;
-      v22 = [(CDXPrepareStoreOperation *)self disableAllExtensionsWithError:&v35];
-      v23 = v35;
+      v42 = v13;
+      v27 = [(CDXPrepareStoreOperation *)self disableAllExtensionsWithError:&v42];
+      v28 = v42;
 
-      v24 = sub_100005CC4();
-      v25 = v24;
-      if (v22)
+      v30 = sub_100005CC4(v29);
+      v31 = v30;
+      if (v27)
       {
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Disabled all extensions successfully", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "Disabled all extensions successfully", buf, 2u);
         }
       }
 
-      else if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      else if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
         sub_100023244();
       }
 
-      if (v23)
+      if (v28)
       {
         goto LABEL_41;
       }
@@ -77,23 +77,23 @@
 
     else
     {
-      v23 = v12;
-      if (v12)
+      v28 = v13;
+      if (v13)
       {
 LABEL_41:
-        v33 = v23;
-        v30 = [(CDXPrepareStoreOperation *)self checkForExtensionsStuckLoading:&v33];
-        v12 = v33;
+        v40 = v28;
+        v36 = [(CDXPrepareStoreOperation *)self checkForExtensionsStuckLoading:&v40];
+        v13 = v40;
 
-        if (v30)
+        if (v36)
         {
 LABEL_45:
 
           goto LABEL_46;
         }
 
-        v26 = sub_100005CC4();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+        v32 = sub_100005CC4(v37);
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
         {
           sub_1000232AC();
         }
@@ -104,23 +104,23 @@ LABEL_44:
       }
     }
 
-    if ([v21 requiresExtensionSynchronization])
+    if ([v25 requiresExtensionSynchronization])
     {
-      v34 = 0;
-      v27 = [(CDXPrepareStoreOperation *)self synchronizeExtensionsWithError:&v34];
-      v23 = v34;
-      v28 = sub_100005CC4();
-      v29 = v28;
-      if (v27)
+      v41 = 0;
+      v33 = [(CDXPrepareStoreOperation *)self synchronizeExtensionsWithError:&v41];
+      v28 = v41;
+      v34 = sub_100005CC4(v28);
+      v35 = v34;
+      if (v33)
       {
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "Synchronized extensions successfully", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "Synchronized extensions successfully", buf, 2u);
         }
       }
 
-      else if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+      else if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
       {
         sub_100021FE0();
       }
@@ -128,64 +128,64 @@ LABEL_44:
 
     else
     {
-      v23 = 0;
+      v28 = 0;
     }
 
     goto LABEL_41;
   }
 
-  v9 = sub_100005CC4();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+  v10 = sub_100005CC4(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
-    sub_10002337C(v9);
+    sub_10002337C(v10);
   }
 
-  v10 = +[NSFileManager defaultManager];
-  v39 = v6;
-  v11 = [v10 removeItemAtURL:v8 error:&v39];
-  v12 = v39;
+  v11 = +[NSFileManager defaultManager];
+  v46 = v6;
+  v12 = [v11 removeItemAtURL:v8 error:&v46];
+  v13 = v46;
 
-  v13 = sub_100005CC4();
-  v14 = v13;
-  if (v11)
+  v15 = sub_100005CC4(v14);
+  v16 = v15;
+  if (v12)
   {
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v42 = v8;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Successfully removed DB at URL '%@'", buf, 0xCu);
+      v49 = v8;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Successfully removed DB at URL '%@'", buf, 0xCu);
     }
 
-    v38 = v12;
-    v14 = [[CXCallDirectoryStore alloc] initForReadingAndWritingWithError:&v38];
-    v15 = v38;
+    v45 = v13;
+    v16 = [[CXCallDirectoryStore alloc] initForReadingAndWritingWithError:&v45];
+    v17 = v45;
 
-    v16 = sub_100005CC4();
-    v17 = v16;
-    if (v14)
+    v19 = sub_100005CC4(v18);
+    v20 = v19;
+    if (v16)
     {
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Created new store successfully", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Created new store successfully", buf, 2u);
       }
 
-      v37 = v15;
-      v18 = [(CDXPrepareStoreOperation *)self synchronizeExtensionsWithError:&v37];
-      v12 = v37;
+      v44 = v17;
+      v21 = [(CDXPrepareStoreOperation *)self synchronizeExtensionsWithError:&v44];
+      v13 = v44;
 
-      v19 = sub_100005CC4();
-      v20 = v19;
-      if (v18)
+      v23 = sub_100005CC4(v22);
+      v24 = v23;
+      if (v21)
       {
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Synchronized extensions successfully", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Synchronized extensions successfully", buf, 2u);
         }
       }
 
-      else if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      else if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         sub_100021FE0();
       }
@@ -193,30 +193,30 @@ LABEL_44:
 
     else
     {
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         sub_100023434();
       }
 
-      v14 = v17;
-      v12 = v15;
+      v16 = v20;
+      v13 = v17;
     }
   }
 
-  else if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
     sub_1000233C0();
   }
 
 LABEL_46:
 
-  if (error && v12)
+  if (error && v13)
   {
-    v31 = v12;
-    *error = v12;
+    v38 = v13;
+    *error = v13;
   }
 
-  return v12 == 0;
+  return v13 == 0;
 }
 
 - (BOOL)disableAllExtensionsWithError:(id *)error
@@ -238,141 +238,145 @@ LABEL_46:
 
 - (BOOL)synchronizeExtensionsWithError:(id *)error
 {
-  v25 = 0;
-  v26[0] = &v25;
-  v26[1] = 0x3032000000;
-  v26[2] = sub_100013B90;
-  v26[3] = sub_100013BA0;
-  v27 = 0;
+  v26 = 0;
+  v27[0] = &v26;
+  v27[1] = 0x3032000000;
+  v27[2] = sub_100013B90;
+  v27[3] = sub_100013BA0;
+  v28 = 0;
   v5 = [CXCallDirectoryStore alloc];
-  v6 = (v26[0] + 40);
-  obj = *(v26[0] + 40);
+  v6 = (v27[0] + 40);
+  obj = *(v27[0] + 40);
   v7 = [v5 initForReadingAndWritingWithError:&obj];
   objc_storeStrong(v6, obj);
   if (v7)
   {
-    v8 = [[CDXSynchronizeExtensionsOperation alloc] initWithStore:v7 firstUnlockStatus:[(CDXPrepareStoreOperation *)self afterFirstUnlock]];
-    v21[0] = _NSConcreteStackBlock;
-    v21[1] = 3221225472;
-    v21[2] = sub_100013BA8;
-    v21[3] = &unk_1000350C0;
-    v23 = &v25;
-    v9 = dispatch_semaphore_create(0);
-    v22 = v9;
-    [(CDXSynchronizeExtensionsOperation *)v8 performWithCompletionHandler:v21];
-    dispatch_semaphore_wait(v9, 0xFFFFFFFFFFFFFFFFLL);
+    v9 = [[CDXSynchronizeExtensionsOperation alloc] initWithStore:v7 firstUnlockStatus:[(CDXPrepareStoreOperation *)self afterFirstUnlock]];
+    v22[0] = _NSConcreteStackBlock;
+    v22[1] = 3221225472;
+    v22[2] = sub_100013BA8;
+    v22[3] = &unk_1000350C0;
+    v24 = &v26;
+    v10 = dispatch_semaphore_create(0);
+    v23 = v10;
+    [(CDXSynchronizeExtensionsOperation *)v9 performWithCompletionHandler:v22];
+    dispatch_semaphore_wait(v10, 0xFFFFFFFFFFFFFFFFLL);
   }
 
   else
   {
-    v10 = sub_100005CC4();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = sub_100005CC4(v8);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      sub_10002349C(v26, v10, v11, v12, v13, v14, v15, v16);
+      sub_10002349C(v27, v11, v12, v13, v14, v15, v16, v17);
     }
 
-    v17 = [NSError cx_callDirectoryManagerErrorWithCode:0];
-    v8 = *(v26[0] + 40);
-    *(v26[0] + 40) = v17;
+    v18 = [NSError cx_callDirectoryManagerErrorWithCode:0];
+    v9 = *(v27[0] + 40);
+    *(v27[0] + 40) = v18;
   }
 
-  v18 = *(v26[0] + 40);
-  if (error && v18)
+  v19 = *(v27[0] + 40);
+  if (error && v19)
   {
-    *error = v18;
-    v18 = *(v26[0] + 40);
+    *error = v19;
+    v19 = *(v27[0] + 40);
   }
 
-  v19 = v18 == 0;
+  v20 = v19 == 0;
 
-  _Block_object_dispose(&v25, 8);
-  return v19;
+  _Block_object_dispose(&v26, 8);
+  return v20;
 }
 
 - (BOOL)checkForExtensionsStuckLoading:(id *)loading
 {
-  v39 = 0;
-  v4 = [[CXCallDirectoryStore alloc] initForReadingAndWritingWithError:&v39];
-  v5 = v39;
+  v41 = 0;
+  v4 = [[CXCallDirectoryStore alloc] initForReadingAndWritingWithError:&v41];
+  v5 = v41;
   v6 = v5;
   if (v4)
   {
-    v38 = v5;
-    v7 = [v4 prioritizedExtensionsWithError:&v38];
-    v8 = v38;
+    v40 = v5;
+    v7 = [v4 prioritizedExtensionsWithError:&v40];
+    v8 = v40;
 
     if (v7)
     {
-      v29 = v7;
+      v31 = v7;
       loadingCopy = loading;
+      v38 = 0u;
+      v39 = 0u;
       v36 = 0u;
       v37 = 0u;
-      v34 = 0u;
-      v35 = 0u;
       v9 = v7;
-      v10 = [v9 countByEnumeratingWithState:&v34 objects:v44 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v36 objects:v46 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v35;
+        v12 = *v37;
         v13 = &_s14IdentityLookup04LiveB11DBExtensionCMa_ptr;
-        v31 = *v35;
-        v32 = v9;
+        v33 = *v37;
+        v34 = v9;
         while (2)
         {
           for (i = 0; i != v11; i = i + 1)
           {
-            if (*v35 != v12)
+            if (*v37 != v12)
             {
               objc_enumerationMutation(v9);
             }
 
-            v15 = *(*(&v34 + 1) + 8 * i);
+            v15 = *(*(&v36 + 1) + 8 * i);
             date = [v13[287] date];
             stateLastModified = [v15 stateLastModified];
             [date timeIntervalSinceDate:stateLastModified];
             v19 = v18;
-            if ([v15 state] == 3 && objc_msgSend(stateLastModified, "compare:", date) != 1 && v19 > 3600.0)
+            if ([v15 state] == 3)
             {
-              v20 = v13;
-              v21 = v8;
-              v22 = sub_100005CC4();
-              if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+              v20 = [stateLastModified compare:date];
+              if (v20 != 1 && v19 > 3600.0)
               {
-                *buf = 138412546;
-                v41 = v15;
-                v42 = 2048;
-                v43 = 0x40AC200000000000;
-                _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Store extension %@ has Loading state but time interval since state last modified is %f. Assuming state is stuck and resetting to Enabled", buf, 0x16u);
-              }
-
-              primaryKey = [v15 primaryKey];
-              v33 = v21;
-              v24 = v4;
-              v25 = [v4 setState:4 forExtensionWithID:primaryKey error:&v33];
-              v8 = v33;
-
-              if ((v25 & 1) == 0)
-              {
-                v26 = sub_100005CC4();
-                if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+                v21 = v13;
+                v22 = v8;
+                v23 = sub_100005CC4(v20);
+                if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
                 {
-                  sub_100023510();
+                  *buf = 138412546;
+                  v43 = v15;
+                  v44 = 2048;
+                  v45 = 0x40AC200000000000;
+                  _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Store extension %@ has Loading state but time interval since state last modified is %f. Assuming state is stuck and resetting to Enabled", buf, 0x16u);
                 }
 
-                v4 = v24;
-                v9 = v32;
-                goto LABEL_21;
-              }
+                primaryKey = [v15 primaryKey];
+                v35 = v22;
+                v25 = v4;
+                v26 = [v4 setState:4 forExtensionWithID:primaryKey error:&v35];
+                v8 = v35;
 
-              v4 = v24;
-              v13 = v20;
-              v12 = v31;
-              v9 = v32;
+                if ((v26 & 1) == 0)
+                {
+                  v28 = sub_100005CC4(v27);
+                  if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+                  {
+                    sub_100023510();
+                  }
+
+                  v4 = v25;
+                  v9 = v34;
+                  goto LABEL_21;
+                }
+
+                v4 = v25;
+                v13 = v21;
+                v12 = v33;
+                v9 = v34;
+              }
             }
           }
 
-          v11 = [v9 countByEnumeratingWithState:&v34 objects:v44 count:16];
+          v11 = [v9 countByEnumeratingWithState:&v36 objects:v46 count:16];
           if (v11)
           {
             continue;
@@ -384,7 +388,7 @@ LABEL_46:
 
 LABEL_21:
 
-      v7 = v29;
+      v7 = v31;
       loading = loadingCopy;
     }
 
@@ -393,7 +397,7 @@ LABEL_21:
 
   if (loading && v6)
   {
-    v27 = v6;
+    v29 = v6;
     *loading = v6;
   }
 

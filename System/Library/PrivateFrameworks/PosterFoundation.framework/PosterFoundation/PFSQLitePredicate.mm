@@ -44,35 +44,35 @@
 
 + (id)predicateForDescriptor:(id)descriptor coder:(id)coder
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   descriptorCopy = descriptor;
   coderCopy = coder;
   columns = [descriptorCopy columns];
   v7 = [columns bs_firstObjectPassingTest:&__block_literal_global_4];
 
   v8 = +[PFSQLitePredicateBuilder builder];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
-  v22 = descriptorCopy;
+  v21 = descriptorCopy;
   columns2 = [descriptorCopy columns];
-  v10 = [columns2 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v10 = [columns2 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v25;
+    v12 = *v24;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v25 != v12)
+        if (*v24 != v12)
         {
           objc_enumerationMutation(columns2);
         }
 
-        v14 = *(*(&v24 + 1) + 8 * i);
-        if (!v7 || [*(*(&v24 + 1) + 8 * i) isPrimaryKey])
+        v14 = *(*(&v23 + 1) + 8 * i);
+        if (!v7 || [*(*(&v23 + 1) + 8 * i) isPrimaryKey])
         {
           dictionary = [coderCopy dictionary];
           name = [v14 name];
@@ -82,7 +82,7 @@
         }
       }
 
-      v11 = [columns2 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v11 = [columns2 countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v11);
@@ -90,14 +90,12 @@
 
   buildAndPredicate = [v8 buildAndPredicate];
 
-  v20 = *MEMORY[0x1E69E9840];
-
   return buildAndPredicate;
 }
 
 + (id)predicateWithColumn:(id)column operatorType:(unint64_t)type value:(id)value
 {
-  v40[1] = *MEMORY[0x1E69E9840];
+  v39[1] = *MEMORY[0x1E69E9840];
   columnCopy = column;
   valueCopy = value;
   v10 = NSStringForPFSQLPredicateOperator(type);
@@ -115,11 +113,11 @@
     v13 = [v11 stringWithFormat:@"%@ %@ ?", name, v10];
 
     v14 = [_PFSQLitePredicateArgumentContainer arg:valueCopy column:columnCopy operator:type];
-    v40[0] = v14;
-    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v40 count:1];
+    v39[0] = v14;
+    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:1];
 
-    v39 = columnCopy;
-    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v39 count:1];
+    v38 = columnCopy;
+    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v38 count:1];
   }
 
   else
@@ -130,20 +128,20 @@
       v17 = objc_opt_new();
       v18 = MEMORY[0x1E696AEC0];
       name2 = [columnCopy name];
-      v29 = MEMORY[0x1E69E9820];
-      v30 = 3221225472;
-      v31 = __60__PFSQLitePredicate_predicateWithColumn_operatorType_value___block_invoke;
-      v32 = &unk_1E8189510;
-      v33 = valueCopy;
-      v34 = v16;
-      v35 = columnCopy;
+      v28 = MEMORY[0x1E69E9820];
+      v29 = 3221225472;
+      v30 = __60__PFSQLitePredicate_predicateWithColumn_operatorType_value___block_invoke;
+      v31 = &unk_1E8189510;
+      v32 = valueCopy;
+      v33 = v16;
+      v34 = columnCopy;
       v20 = v17;
-      v36 = v20;
+      v35 = v20;
       typeCopy = type;
-      v21 = __60__PFSQLitePredicate_predicateWithColumn_operatorType_value___block_invoke(&v29);
-      v13 = [v18 stringWithFormat:@"%@ %@ (%@)", name2, v10, v21, v29, v30];
+      v21 = __60__PFSQLitePredicate_predicateWithColumn_operatorType_value___block_invoke(&v28);
+      v13 = [v18 stringWithFormat:@"%@ %@ (%@)", name2, v10, v21, v28, v29];
 
-      v22 = v36;
+      v22 = v35;
       v23 = v20;
 
       v15 = v23;
@@ -156,58 +154,54 @@
       v13 = [v24 stringWithFormat:@"%@ %@ (?)", name3, v10];
 
       v23 = [_PFSQLitePredicateArgumentContainer arg:valueCopy column:columnCopy operator:type];
-      v38 = v23;
-      v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v38 count:1];
+      v37 = v23;
+      v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v37 count:1];
     }
   }
 
   v26 = [[self alloc] initWithFormat:v13 arguments:v15 columns:v16];
-
-  v27 = *MEMORY[0x1E69E9840];
 
   return v26;
 }
 
 id __60__PFSQLitePredicate_predicateWithColumn_operatorType_value___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E695DF70] array];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v3 = *(a1 + 32);
-  v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v15;
+    v6 = *v14;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v14 + 1) + 8 * i);
-        [v2 addObject:{@"?", v14}];
+        v8 = *(*(&v13 + 1) + 8 * i);
+        [v2 addObject:{@"?", v13}];
         [*(a1 + 40) addObject:*(a1 + 48)];
         v9 = *(a1 + 56);
         v10 = [_PFSQLitePredicateArgumentContainer arg:v8 column:*(a1 + 48) operator:*(a1 + 64)];
         [v9 addObject:v10];
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v5);
   }
 
   v11 = [v2 componentsJoinedByString:{@", "}];
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }

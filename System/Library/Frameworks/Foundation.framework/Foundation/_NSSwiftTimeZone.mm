@@ -42,27 +42,27 @@
 {
   archiverCopy = archiver;
   selfCopy = self;
-  _NSSwiftTimeZone.replacementObject(for:)(v13);
+  _NSSwiftTimeZone.replacementObject(for:)(v14);
 
-  v6 = v14;
-  if (v14)
+  v6 = v15;
+  if (v15)
   {
-    v7 = __swift_project_boxed_opaque_existential_1(v13, v14);
+    v7 = __swift_project_boxed_opaque_existential_1(v14, v15);
     v8 = *(v6 - 8);
-    MEMORY[0x1EEE9AC00](v7);
-    v10 = v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-    (*(v8 + 16))(v10);
-    v11 = _bridgeAnythingToObjectiveC<A>(_:)();
-    (*(v8 + 8))(v10, v6);
-    __swift_destroy_boxed_opaque_existential_1(v13);
+    v9 = MEMORY[0x1EEE9AC00](v7);
+    v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+    (*(v8 + 16))(v11, v9);
+    v12 = _bridgeAnythingToObjectiveC<A>(_:)();
+    (*(v8 + 8))(v11, v6);
+    __swift_destroy_boxed_opaque_existential_1(v14);
   }
 
   else
   {
-    v11 = 0;
+    v12 = 0;
   }
 
-  return v11;
+  return v12;
 }
 
 - (int64_t)secondsFromGMT
@@ -110,7 +110,7 @@
 
 - (Class)classForCoder
 {
-  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSTimeZone);
+  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSTimeZone, 0x1E695DFE8);
 
   return swift_getObjCClassFromMetadata();
 }
@@ -315,7 +315,7 @@ LABEL_9:
       type metadata accessor for _LocaleBridged();
       v8 = swift_allocObject();
       *(v8 + 16) = locale;
-      v9 = _s10Foundation14_LocaleBridgedCAcA01_B8ProtocolAAWlTm_0(&lazy protocol witness table cache variable for type _LocaleBridged and conformance _LocaleBridged, type metadata accessor for _LocaleBridged);
+      v9 = _s10Foundation14_LocaleBridgedCAcA01_B8ProtocolAAWlTm_0(&lazy protocol witness table cache variable for type _LocaleBridged and conformance _LocaleBridged, type metadata accessor for _LocaleBridged, &protocol conformance descriptor for _LocaleBridged);
       localeCopy = locale;
     }
   }

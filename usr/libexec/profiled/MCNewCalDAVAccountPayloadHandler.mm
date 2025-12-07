@@ -263,17 +263,17 @@
     [v24 setHost:hostname2];
 
     [v24 setUseSSL:{objc_msgSend(payload, "useSSL")}];
-    backingAccountInfo = [v24 backingAccountInfo];
+    v28 = objc_msgSend_backingAccountInfo(v24);
     payload2 = [(MCNewPayloadHandler *)self payload];
     [payload2 UUID];
     v31 = v30 = v24;
-    [backingAccountInfo setMcPayloadUUID:v31];
+    [v28 setMcPayloadUUID:v31];
 
-    backingAccountInfo2 = [v30 backingAccountInfo];
+    v32 = objc_msgSend_backingAccountInfo(v30);
     payload3 = [(MCNewPayloadHandler *)self payload];
     profile = [payload3 profile];
     uUID = [profile UUID];
-    [backingAccountInfo2 setMcProfileUUID:uUID];
+    [v32 setMcProfileUUID:uUID];
 
     payload4 = [(MCNewPayloadHandler *)self payload];
     profile2 = [payload4 profile];
@@ -283,8 +283,8 @@
     v75 = v8;
     if (identifier3)
     {
-      backingAccountInfo3 = [v30 backingAccountInfo];
-      [backingAccountInfo3 setMcConfigurationProfileIdentifier:identifier3];
+      v39 = objc_msgSend_backingAccountInfo(v30);
+      [v39 setMcConfigurationProfileIdentifier:identifier3];
     }
 
     else
@@ -411,8 +411,8 @@
     }
 
     v66 = v65;
-    backingAccountInfo4 = [v60 backingAccountInfo];
-    [backingAccountInfo4 setAccountProperty:v66 forKey:ACAccountPropertyShouldNeverUseSyncableCredential];
+    v67 = objc_msgSend_backingAccountInfo(v60);
+    [v67 setAccountProperty:v66 forKey:ACAccountPropertyShouldNeverUseSyncableCredential];
 
     v24 = v80;
     [v80 setPassword:v47];
@@ -427,8 +427,8 @@
     v7 = v76;
   }
 
-  backingAccountInfo5 = [v24 backingAccountInfo];
-  identifier4 = [backingAccountInfo5 identifier];
+  v68 = objc_msgSend_backingAccountInfo(v24);
+  identifier4 = [v68 identifier];
   [(MCNewPayloadHandler *)self payload];
   v71 = v70 = v24;
   [v71 setAcAccountIdentifier:identifier4];
@@ -657,8 +657,8 @@ LABEL_12:
         }
       }
 
-      backingAccountInfo = [v16 backingAccountInfo];
-      [(MCACAccountPayloadHandler *)self markIfUpdatingOverInstalledAccount:backingAccountInfo];
+      v17 = objc_msgSend_backingAccountInfo(v16);
+      [(MCACAccountPayloadHandler *)self markIfUpdatingOverInstalledAccount:v17];
 
       v46 = 0;
       v47 = &v46;
@@ -673,26 +673,26 @@ LABEL_12:
       v18 = [installerCopy setAsideAccountIdentifiersForPayloadClass:objc_opt_class()];
       if ([v18 count])
       {
-        backingAccountInfo2 = [v16 backingAccountInfo];
+        v19 = objc_msgSend_backingAccountInfo(v16);
         v20 = +[DASharedAccountProperties DAAccountIdentifiersToIgnoreForUniquenessCheck];
-        [backingAccountInfo2 setAccountProperty:v18 forKey:v20];
+        [v19 setAccountProperty:v18 forKey:v20];
       }
 
       v21 = sharedDAAccountStore();
-      backingAccountInfo3 = [v16 backingAccountInfo];
+      v22 = objc_msgSend_backingAccountInfo(v16);
       v41[0] = _NSConcreteStackBlock;
       v41[1] = 3221225472;
       v41[2] = sub_100067568;
       v41[3] = &unk_10011C8E0;
       v41[4] = &v42;
       v41[5] = &v46;
-      [v21 canSaveAccount:backingAccountInfo3 withCompletionHandler:v41];
+      [v21 canSaveAccount:v22 withCompletionHandler:v41];
 
       dispatch_semaphore_wait(v47[5], 0xFFFFFFFFFFFFFFFFLL);
       if (*(v43 + 24) == 1)
       {
-        backingAccountInfo4 = [v16 backingAccountInfo];
-        [backingAccountInfo4 setAuthenticated:1];
+        v23 = objc_msgSend_backingAccountInfo(v16);
+        [v23 setAuthenticated:1];
 
         v37[0] = _NSConcreteStackBlock;
         v37[1] = 3221225472;
@@ -719,9 +719,9 @@ LABEL_12:
       {
         v32 = MCErrorArray();
         v33 = [NSError MCErrorWithDomain:MCCalDAVErrorDomain code:17002 descriptionArray:v32 errorType:MCErrorTypeFatal, 0];
-        mCCopyAsPrimaryError = [v33 MCCopyAsPrimaryError];
+        v34 = objc_msgSend_MCCopyAsPrimaryError(v33);
         v35 = v53[5];
-        v53[5] = mCCopyAsPrimaryError;
+        v53[5] = v34;
       }
 
       _Block_object_dispose(&v42, 8);
@@ -842,11 +842,11 @@ LABEL_12:
   v6 = _installedDAAccount;
   if (_installedDAAccount)
   {
-    backingAccountInfo = [_installedDAAccount backingAccountInfo];
-    [(MCACAccountPayloadHandler *)self setSetAsideAccount:backingAccountInfo];
+    v7 = objc_msgSend_backingAccountInfo(_installedDAAccount);
+    [(MCACAccountPayloadHandler *)self setSetAsideAccount:v7];
 
-    backingAccountInfo2 = [v6 backingAccountInfo];
-    identifier = [backingAccountInfo2 identifier];
+    v8 = objc_msgSend_backingAccountInfo(v6);
+    identifier = [v8 identifier];
     [installerCopy addSetAsideAccountIdentifier:identifier forPayloadClass:objc_opt_class()];
   }
 }
@@ -864,8 +864,8 @@ LABEL_12:
       setAsideAccount2 = [(MCACAccountPayloadHandler *)self setAsideAccount];
       v6 = [setAsideAccount2 accountPropertyForKey:@"MCAccountIdentifer"];
 
-      backingAccountInfo = [_installedDAAccount backingAccountInfo];
-      v8 = [backingAccountInfo accountPropertyForKey:@"MCAccountIdentifer"];
+      v7 = objc_msgSend_backingAccountInfo(_installedDAAccount);
+      v8 = [v7 accountPropertyForKey:@"MCAccountIdentifer"];
 
       if (v6 && (!v8 || ([v6 isEqualToString:v8] & 1) == 0))
       {
@@ -904,21 +904,21 @@ LABEL_12:
   {
     if ([(MCACAccountPayloadHandler *)self updatedOverInstalledAccount])
     {
-      backingAccountInfo = 0;
+      v7 = 0;
       goto LABEL_11;
     }
 
     _installedDAAccount = [(MCACAccountPayloadHandler *)self _installedDAAccount];
-    backingAccountInfo = [_installedDAAccount backingAccountInfo];
+    v7 = objc_msgSend_backingAccountInfo(_installedDAAccount);
 
-    if (!backingAccountInfo)
+    if (!v7)
     {
       goto LABEL_11;
     }
 
 LABEL_10:
     [MCFeatureOverrides accountRemovalTimeoutWithDefaultValue:600.0];
-    [(MCACAccountPayloadHandler *)self _synchronouslyDeleteAccountAndAssociatedData:backingAccountInfo timeout:0 completion:?];
+    [(MCACAccountPayloadHandler *)self _synchronouslyDeleteAccountAndAssociatedData:v7 timeout:0 completion:?];
     goto LABEL_11;
   }
 
@@ -934,9 +934,9 @@ LABEL_10:
   {
     [(MCACAccountPayloadHandler *)self setAsideAccount];
   }
-  backingAccountInfo = ;
+  v7 = ;
   [(MCACAccountPayloadHandler *)self setSetAsideAccount:0];
-  if (backingAccountInfo)
+  if (v7)
   {
     goto LABEL_10;
   }

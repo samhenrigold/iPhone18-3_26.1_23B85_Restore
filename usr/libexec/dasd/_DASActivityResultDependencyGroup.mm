@@ -143,32 +143,32 @@
 - (BOOL)registerProducer:(id)producer error:(id *)error
 {
   producerCopy = producer;
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x2020000000;
-  v21 = 1;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x2020000000;
+  v24 = 1;
   v15 = 0;
-  v16[0] = &v15;
-  v16[1] = 0x3032000000;
-  v16[2] = sub_1000B894C;
-  v16[3] = sub_1000B895C;
-  v17 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = sub_1000B894C;
+  v19 = sub_1000B895C;
+  v20 = 0;
   queue = self->_queue;
   v11[0] = _NSConcreteStackBlock;
   v11[1] = 3221225472;
   v11[2] = sub_1000B8964;
   v11[3] = &unk_1001B7EC8;
   v11[4] = self;
-  v13 = &v18;
+  v13 = &v21;
   v14 = &v15;
   v8 = producerCopy;
   v12 = v8;
   dispatch_sync(queue, v11);
-  if (*(v19 + 24) != 1 || *(v16[0] + 40))
+  if (*(v22 + 24) != 1 || v16[5])
   {
     if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
     {
-      sub_100128F98(self, v16);
+      sub_100128F98();
       if (!error)
       {
         goto LABEL_6;
@@ -180,15 +180,15 @@
     if (error)
     {
 LABEL_5:
-      *error = *(v16[0] + 40);
+      *error = v16[5];
     }
   }
 
 LABEL_6:
-  v9 = *(v19 + 24);
+  v9 = *(v22 + 24);
 
   _Block_object_dispose(&v15, 8);
-  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(&v21, 8);
 
   return v9;
 }
@@ -210,16 +210,16 @@ LABEL_6:
 - (BOOL)deregisterProducer:(id)producer error:(id *)error
 {
   producerCopy = producer;
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x2020000000;
-  v21 = 1;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x2020000000;
+  v24 = 1;
   v15 = 0;
-  v16[0] = &v15;
-  v16[1] = 0x3032000000;
-  v16[2] = sub_1000B894C;
-  v16[3] = sub_1000B895C;
-  v17 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = sub_1000B894C;
+  v19 = sub_1000B895C;
+  v20 = 0;
   queue = self->_queue;
   v11[0] = _NSConcreteStackBlock;
   v11[1] = 3221225472;
@@ -228,14 +228,14 @@ LABEL_6:
   v11[4] = self;
   v8 = producerCopy;
   v12 = v8;
-  v13 = &v18;
+  v13 = &v21;
   v14 = &v15;
   dispatch_sync(queue, v11);
-  if (*(v19 + 24) != 1 || *(v16[0] + 40))
+  if (*(v22 + 24) != 1 || v16[5])
   {
     if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
     {
-      sub_10012900C(self, v16);
+      sub_10012900C();
       if (!error)
       {
         goto LABEL_6;
@@ -247,15 +247,15 @@ LABEL_6:
     if (error)
     {
 LABEL_5:
-      *error = *(v16[0] + 40);
+      *error = v16[5];
     }
   }
 
 LABEL_6:
-  v9 = *(v19 + 24);
+  v9 = *(v22 + 24);
 
   _Block_object_dispose(&v15, 8);
-  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(&v21, 8);
 
   return v9;
 }
@@ -282,16 +282,16 @@ LABEL_6:
 {
   activityCopy = activity;
   resultCopy = result;
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x2020000000;
-  v26 = 1;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x2020000000;
+  v29 = 1;
   v20 = 0;
-  v21[0] = &v20;
-  v21[1] = 0x3032000000;
-  v21[2] = sub_1000B894C;
-  v21[3] = sub_1000B895C;
-  v22 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = sub_1000B894C;
+  v24 = sub_1000B895C;
+  v25 = 0;
   queue = self->_queue;
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
@@ -301,15 +301,15 @@ LABEL_6:
   v11 = activityCopy;
   v16 = v11;
   v18 = &v20;
-  v19 = &v23;
+  v19 = &v26;
   v12 = resultCopy;
   v17 = v12;
   dispatch_sync(queue, block);
-  if ((v24[3] & 1) == 0)
+  if ((v27[3] & 1) == 0)
   {
     if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
     {
-      sub_100129080(v11, v21);
+      sub_100129080();
       if (!error)
       {
         goto LABEL_5;
@@ -321,15 +321,15 @@ LABEL_6:
     if (error)
     {
 LABEL_4:
-      *error = *(v21[0] + 40);
+      *error = v21[5];
     }
   }
 
 LABEL_5:
-  v13 = *(v24 + 24);
+  v13 = *(v27 + 24);
 
   _Block_object_dispose(&v20, 8);
-  _Block_object_dispose(&v23, 8);
+  _Block_object_dispose(&v26, 8);
 
   return v13;
 }
@@ -338,16 +338,16 @@ LABEL_5:
 {
   activityCopy = activity;
   resultCopy = result;
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x2020000000;
-  v26 = 1;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x2020000000;
+  v29 = 1;
   v20 = 0;
-  v21[0] = &v20;
-  v21[1] = 0x3032000000;
-  v21[2] = sub_1000B894C;
-  v21[3] = sub_1000B895C;
-  v22 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = sub_1000B894C;
+  v24 = sub_1000B895C;
+  v25 = 0;
   queue = self->_queue;
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
@@ -359,13 +359,13 @@ LABEL_5:
   v18 = &v20;
   v12 = resultCopy;
   v17 = v12;
-  v19 = &v23;
+  v19 = &v26;
   dispatch_sync(queue, block);
-  if ((v24[3] & 1) == 0)
+  if ((v27[3] & 1) == 0)
   {
     if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
     {
-      sub_1001290FC(v11, v21);
+      sub_1001290FC();
       if (!error)
       {
         goto LABEL_5;
@@ -377,15 +377,15 @@ LABEL_5:
     if (error)
     {
 LABEL_4:
-      *error = *(v21[0] + 40);
+      *error = v21[5];
     }
   }
 
 LABEL_5:
-  v13 = *(v24 + 24);
+  v13 = *(v27 + 24);
 
   _Block_object_dispose(&v20, 8);
-  _Block_object_dispose(&v23, 8);
+  _Block_object_dispose(&v26, 8);
 
   return v13;
 }
@@ -424,7 +424,7 @@ LABEL_5:
   resultIdentifier = self->_resultIdentifier;
   identifier = [byCopy identifier];
 
-  v10 = [NSNumber numberWithInteger:[(_DASActivityResult *)self->_cumulativelyProducedResult count]];
+  v10 = [NSNumber numberWithInteger:objc_msgSend_count(self->_cumulativelyProducedResult)];
   v11 = [v7 initWithResultIdentifier:resultIdentifier activityIdentifier:identifier resultCount:v10 type:1];
 
   source = [(BMStream *)self->_resultStream source];
@@ -442,7 +442,7 @@ LABEL_5:
   resultIdentifier = self->_resultIdentifier;
   identifier2 = [byCopy identifier];
 
-  v12 = [resultCopy count];
+  v12 = objc_msgSend_count(resultCopy);
   v13 = [NSNumber numberWithInteger:v12];
   v15 = [v9 initWithResultIdentifier:resultIdentifier activityIdentifier:identifier2 resultCount:v13 type:2];
 
@@ -570,7 +570,7 @@ LABEL_5:
   v22[0] = self->_resultIdentifier;
   v21[0] = @"resultIdentifier";
   v21[1] = @"producedResults";
-  v9 = [NSNumber numberWithInteger:[(_DASActivityResult *)cumulativelyProducedResult count:v14]];
+  v9 = [NSNumber numberWithInteger:objc_msgSend_count(cumulativelyProducedResult, v14, v15, v16, v17, selfCopy)];
   v22[1] = v9;
   v22[2] = v6;
   v21[2] = @"consumedResults";

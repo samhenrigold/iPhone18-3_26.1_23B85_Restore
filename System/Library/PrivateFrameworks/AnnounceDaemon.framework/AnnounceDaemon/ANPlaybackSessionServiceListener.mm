@@ -73,16 +73,15 @@
     appIntentConnectionListener = v2->_appIntentConnectionListener;
     v2->_appIntentConnectionListener = v17;
 
-    v19 = ANLogHandlePlaybackSessionServiceListener();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v20 = ANLogHandlePlaybackSessionServiceListener(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       v24 = &stru_2851BDB18;
-      _os_log_impl(&dword_23F525000, v19, OS_LOG_TYPE_DEFAULT, "%@Playback Session Service Listeners Up!", buf, 0xCu);
+      _os_log_impl(&dword_23F525000, v20, OS_LOG_TYPE_DEFAULT, "%@Playback Session Service Listeners Up!", buf, 0xCu);
     }
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -97,33 +96,35 @@
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   listenerCopy = listener;
   connectionCopy = connection;
-  v8 = ANLogHandlePlaybackSessionServiceListener();
+  v8 = ANLogHandlePlaybackSessionServiceListener(connectionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(connectionCopy, "processIdentifier")}];
     serviceName = [connectionCopy serviceName];
     *buf = 138412802;
-    v54 = &stru_2851BDB18;
-    v55 = 2112;
-    v56 = v9;
+    v56 = &stru_2851BDB18;
     v57 = 2112;
-    v58 = serviceName;
+    v58 = v9;
+    v59 = 2112;
+    v60 = serviceName;
     _os_log_impl(&dword_23F525000, v8, OS_LOG_TYPE_DEFAULT, "%@New Playback Session Connection Request From (PID = %@) For Service: (%@)", buf, 0x20u);
   }
 
-  if ([MEMORY[0x277CEAB38] isAnnounceEnabled])
+  isAnnounceEnabled = [MEMORY[0x277CEAB38] isAnnounceEnabled];
+  if (isAnnounceEnabled)
   {
-    if ([connectionCopy hasAnnounceEntitlement])
+    hasAnnounceEntitlement = [connectionCopy hasAnnounceEntitlement];
+    if (hasAnnounceEntitlement)
     {
-      v11 = [ANPlaybackSessionClient clientWithXPCConnection:connectionCopy];
+      v13 = [ANPlaybackSessionClient clientWithXPCConnection:connectionCopy];
       serviceName2 = [listenerCopy serviceName];
-      v38 = *MEMORY[0x277CEAA50];
-      v13 = [serviceName2 isEqualToString:?];
+      v40 = *MEMORY[0x277CEAA50];
+      v15 = [serviceName2 isEqualToString:?];
 
-      if (v13)
+      if (v15)
       {
         log = [MEMORY[0x277CCAE90] an_remotePlaybackSessionServiceInterface];
         an_remotePlaybackSessionServiceDelegateInterface = [MEMORY[0x277CCAE90] an_remotePlaybackSessionServiceDelegateInterface];
@@ -132,37 +133,37 @@
       else
       {
         serviceName3 = [listenerCopy serviceName];
-        v20 = [serviceName3 isEqualToString:*MEMORY[0x277CEAA48]];
+        v22 = [serviceName3 isEqualToString:*MEMORY[0x277CEAA48]];
 
-        if (!v20)
+        if (!v22)
         {
-          log = ANLogHandlePlaybackSessionServiceListener();
+          log = ANLogHandlePlaybackSessionServiceListener(v23);
           if (os_log_type_enabled(log, OS_LOG_TYPE_ERROR))
           {
             serviceName4 = [listenerCopy serviceName];
             *buf = 138412802;
-            v54 = &stru_2851BDB18;
-            v55 = 2112;
-            v56 = serviceName4;
+            v56 = &stru_2851BDB18;
             v57 = 2112;
-            v58 = connectionCopy;
+            v58 = serviceName4;
+            v59 = 2112;
+            v60 = connectionCopy;
             _os_log_impl(&dword_23F525000, log, OS_LOG_TYPE_ERROR, "%@Unsupported Service. serviceName=%@, connection=%@", buf, 0x20u);
           }
 
-          v18 = 0;
+          v20 = 0;
           goto LABEL_26;
         }
 
         log = [MEMORY[0x277CCAE90] an_localPlaybackSessionServiceInterface];
         an_remotePlaybackSessionServiceDelegateInterface = [MEMORY[0x277CCAE90] an_localPlaybackSessionServiceDelegateInterface];
         [log setClass:objc_opt_class() forSelector:sel_sendPlaybackCommand_forEndpointID_completionHandler_ argumentIndex:0 ofReply:0];
-        v21 = MEMORY[0x277CBEB98];
-        v22 = objc_opt_class();
-        v23 = objc_opt_class();
-        v24 = objc_opt_class();
+        v24 = MEMORY[0x277CBEB98];
         v25 = objc_opt_class();
-        v26 = [v21 setWithObjects:{v22, v23, v24, v25, objc_opt_class(), 0}];
-        [log setClasses:v26 forSelector:sel_lastPlayedAnnouncementInfoForEndpointID_completionHandler_ argumentIndex:0 ofReply:1];
+        v26 = objc_opt_class();
+        v27 = objc_opt_class();
+        v28 = objc_opt_class();
+        v29 = [v24 setWithObjects:{v25, v26, v27, v28, objc_opt_class(), 0}];
+        [log setClasses:v29 forSelector:sel_lastPlayedAnnouncementInfoForEndpointID_completionHandler_ argumentIndex:0 ofReply:1];
       }
 
       [an_remotePlaybackSessionServiceDelegateInterface setClass:objc_opt_class() forSelector:sel_didReceiveAnnouncement_forGroupID_ argumentIndex:0 ofReply:0];
@@ -171,63 +172,62 @@
       [connectionCopy setRemoteObjectInterface:an_remotePlaybackSessionServiceDelegateInterface];
       objc_initWeak(&location, self);
       objc_initWeak(&from, connectionCopy);
-      v48[0] = MEMORY[0x277D85DD0];
-      v48[1] = 3221225472;
-      v48[2] = __71__ANPlaybackSessionServiceListener_listener_shouldAcceptNewConnection___block_invoke;
-      v48[3] = &unk_278C865F0;
-      objc_copyWeak(&v49, &from);
-      objc_copyWeak(&v50, &location);
-      [connectionCopy setInterruptionHandler:v48];
-      v45[0] = MEMORY[0x277D85DD0];
-      v45[1] = 3221225472;
-      v45[2] = __71__ANPlaybackSessionServiceListener_listener_shouldAcceptNewConnection___block_invoke_23;
-      v45[3] = &unk_278C865F0;
-      objc_copyWeak(&v46, &from);
-      objc_copyWeak(&v47, &location);
-      [connectionCopy setInvalidationHandler:v45];
-      [connectionCopy resume];
-      v27 = ANLogHandlePlaybackSessionServiceListener();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+      v50[0] = MEMORY[0x277D85DD0];
+      v50[1] = 3221225472;
+      v50[2] = __71__ANPlaybackSessionServiceListener_listener_shouldAcceptNewConnection___block_invoke;
+      v50[3] = &unk_278C865F0;
+      objc_copyWeak(&v51, &from);
+      objc_copyWeak(&v52, &location);
+      [connectionCopy setInterruptionHandler:v50];
+      v47[0] = MEMORY[0x277D85DD0];
+      v47[1] = 3221225472;
+      v47[2] = __71__ANPlaybackSessionServiceListener_listener_shouldAcceptNewConnection___block_invoke_23;
+      v47[3] = &unk_278C865F0;
+      objc_copyWeak(&v48, &from);
+      objc_copyWeak(&v49, &location);
+      [connectionCopy setInvalidationHandler:v47];
+      v30 = ANLogHandlePlaybackSessionServiceListener([connectionCopy resume]);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v54 = &stru_2851BDB18;
-        v55 = 2112;
-        v56 = connectionCopy;
-        _os_log_impl(&dword_23F525000, v27, OS_LOG_TYPE_DEFAULT, "%@Connection Accepted: (%@)", buf, 0x16u);
+        v56 = &stru_2851BDB18;
+        v57 = 2112;
+        v58 = connectionCopy;
+        _os_log_impl(&dword_23F525000, v30, OS_LOG_TYPE_DEFAULT, "%@Connection Accepted: (%@)", buf, 0x16u);
       }
 
       serviceName5 = [listenerCopy serviceName];
-      v29 = [serviceName5 isEqualToString:v38];
+      v32 = [serviceName5 isEqualToString:v40];
 
-      if (v29)
+      if (v32)
       {
         playbackClientsSerialQueue = [(ANPlaybackSessionServiceListener *)self playbackClientsSerialQueue];
-        v43[0] = MEMORY[0x277D85DD0];
-        v43[1] = 3221225472;
-        v43[2] = __71__ANPlaybackSessionServiceListener_listener_shouldAcceptNewConnection___block_invoke_24;
-        v43[3] = &unk_278C86378;
-        v43[4] = self;
-        v31 = &v44;
-        v44 = v11;
-        v32 = v43;
+        v45[0] = MEMORY[0x277D85DD0];
+        v45[1] = 3221225472;
+        v45[2] = __71__ANPlaybackSessionServiceListener_listener_shouldAcceptNewConnection___block_invoke_24;
+        v45[3] = &unk_278C86378;
+        v45[4] = self;
+        v34 = &v46;
+        v46 = v13;
+        v35 = v45;
       }
 
       else
       {
         serviceName6 = [listenerCopy serviceName];
-        v34 = [serviceName6 isEqualToString:*MEMORY[0x277CEAA48]];
+        v37 = [serviceName6 isEqualToString:*MEMORY[0x277CEAA48]];
 
-        if (!v34)
+        if (!v37)
         {
 LABEL_22:
-          objc_destroyWeak(&v47);
-          objc_destroyWeak(&v46);
-          objc_destroyWeak(&v50);
           objc_destroyWeak(&v49);
+          objc_destroyWeak(&v48);
+          objc_destroyWeak(&v52);
+          objc_destroyWeak(&v51);
           objc_destroyWeak(&from);
           objc_destroyWeak(&location);
 
-          v18 = 1;
+          v20 = 1;
 LABEL_26:
 
           goto LABEL_27;
@@ -239,93 +239,88 @@ LABEL_26:
         block[2] = __71__ANPlaybackSessionServiceListener_listener_shouldAcceptNewConnection___block_invoke_2;
         block[3] = &unk_278C86378;
         block[4] = self;
-        v31 = &v42;
-        v42 = v11;
-        v32 = block;
+        v34 = &v44;
+        v44 = v13;
+        v35 = block;
       }
 
-      dispatch_sync(playbackClientsSerialQueue, v32);
+      dispatch_sync(playbackClientsSerialQueue, v35);
 
       goto LABEL_22;
     }
 
-    v11 = ANLogHandlePlaybackSessionServiceListener();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = ANLogHandlePlaybackSessionServiceListener(hasAnnounceEntitlement);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v17 = *MEMORY[0x277CEAC10];
+      v19 = *MEMORY[0x277CEAC10];
       *buf = 138412546;
-      v54 = &stru_2851BDB18;
-      v55 = 2112;
-      v56 = v17;
-      v14 = "%@Missing Announce Entitlement: %@";
-      v15 = v11;
-      v16 = 22;
+      v56 = &stru_2851BDB18;
+      v57 = 2112;
+      v58 = v19;
+      v16 = "%@Missing Announce Entitlement: %@";
+      v17 = v13;
+      v18 = 22;
       goto LABEL_11;
     }
   }
 
   else
   {
-    v11 = ANLogHandlePlaybackSessionServiceListener();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = ANLogHandlePlaybackSessionServiceListener(isAnnounceEnabled);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v54 = &stru_2851BDB18;
-      v14 = "%@Rejecting connection. Announce not enabled.";
-      v15 = v11;
-      v16 = 12;
+      v56 = &stru_2851BDB18;
+      v16 = "%@Rejecting connection. Announce not enabled.";
+      v17 = v13;
+      v18 = 12;
 LABEL_11:
-      _os_log_impl(&dword_23F525000, v15, OS_LOG_TYPE_ERROR, v14, buf, v16);
+      _os_log_impl(&dword_23F525000, v17, OS_LOG_TYPE_ERROR, v16, buf, v18);
     }
   }
 
-  v18 = 0;
+  v20 = 0;
 LABEL_27:
 
-  v36 = *MEMORY[0x277D85DE8];
-  return v18;
+  return v20;
 }
 
 void __71__ANPlaybackSessionServiceListener_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v2 = ANLogHandlePlaybackSessionServiceListener();
+  v10 = *MEMORY[0x277D85DE8];
+  v2 = ANLogHandlePlaybackSessionServiceListener(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     WeakRetained = objc_loadWeakRetained((a1 + 32));
-    v7 = 138412546;
-    v8 = &stru_2851BDB18;
-    v9 = 2112;
-    v10 = WeakRetained;
-    _os_log_impl(&dword_23F525000, v2, OS_LOG_TYPE_DEFAULT, "%@Connection Interrupted: (%@)", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = &stru_2851BDB18;
+    v8 = 2112;
+    v9 = WeakRetained;
+    _os_log_impl(&dword_23F525000, v2, OS_LOG_TYPE_DEFAULT, "%@Connection Interrupted: (%@)", &v6, 0x16u);
   }
 
   v4 = objc_loadWeakRetained((a1 + 40));
   v5 = objc_loadWeakRetained((a1 + 32));
   [v4 _removeConnection:v5];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __71__ANPlaybackSessionServiceListener_listener_shouldAcceptNewConnection___block_invoke_23(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v2 = ANLogHandlePlaybackSessionServiceListener();
+  v10 = *MEMORY[0x277D85DE8];
+  v2 = ANLogHandlePlaybackSessionServiceListener(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     WeakRetained = objc_loadWeakRetained((a1 + 32));
-    v7 = 138412546;
-    v8 = &stru_2851BDB18;
-    v9 = 2112;
-    v10 = WeakRetained;
-    _os_log_impl(&dword_23F525000, v2, OS_LOG_TYPE_DEFAULT, "%@Connection Invalidated: (%@)", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = &stru_2851BDB18;
+    v8 = 2112;
+    v9 = WeakRetained;
+    _os_log_impl(&dword_23F525000, v2, OS_LOG_TYPE_DEFAULT, "%@Connection Invalidated: (%@)", &v6, 0x16u);
   }
 
   v4 = objc_loadWeakRetained((a1 + 40));
   v5 = objc_loadWeakRetained((a1 + 32));
   [v4 _removeConnection:v5];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __71__ANPlaybackSessionServiceListener_listener_shouldAcceptNewConnection___block_invoke_24(uint64_t a1)
@@ -363,32 +358,32 @@ void __71__ANPlaybackSessionServiceListener_listener_shouldAcceptNewConnection__
 
 void __56__ANPlaybackSessionServiceListener_remoteSessionsActive__block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) remotePlaybackClients];
   v3 = [v2 count];
 
   if (v3)
   {
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
     v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
     v4 = [*(a1 + 32) remotePlaybackClients];
-    v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v12;
+      v7 = *v11;
       while (2)
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v12 != v7)
+          if (*v11 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = [*(*(&v11 + 1) + 8 * i) groupID];
+          v9 = [*(*(&v10 + 1) + 8 * i) groupID];
 
           if (v9)
           {
@@ -397,7 +392,7 @@ void __56__ANPlaybackSessionServiceListener_remoteSessionsActive__block_invoke(u
           }
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
         if (v6)
         {
           continue;
@@ -409,8 +404,6 @@ void __56__ANPlaybackSessionServiceListener_remoteSessionsActive__block_invoke(u
 
 LABEL_12:
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeConnection:(id)connection
@@ -430,31 +423,31 @@ LABEL_12:
 
 void __54__ANPlaybackSessionServiceListener__removeConnection___block_invoke(uint64_t a1)
 {
-  v45 = *MEMORY[0x277D85DE8];
-  v35 = 0u;
+  v46 = *MEMORY[0x277D85DE8];
   v36 = 0u;
   v37 = 0u;
   v38 = 0u;
+  v39 = 0u;
   v2 = [*(a1 + 32) remotePlaybackClients];
   v3 = [v2 copy];
 
-  v4 = [v3 countByEnumeratingWithState:&v35 objects:v44 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v36 objects:v45 count:16];
   if (v4)
   {
     v6 = v4;
-    v7 = *v36;
+    v7 = *v37;
     *&v5 = 138412546;
-    v29 = v5;
+    v30 = v5;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v36 != v7)
+        if (*v37 != v7)
         {
           objc_enumerationMutation(v3);
         }
 
-        v9 = *(*(&v35 + 1) + 8 * i);
+        v9 = *(*(&v36 + 1) + 8 * i);
         v10 = *(a1 + 40);
         v11 = [v9 connection];
 
@@ -463,77 +456,75 @@ void __54__ANPlaybackSessionServiceListener__removeConnection___block_invoke(uin
           v12 = [*(a1 + 32) remotePlaybackClients];
           [v12 removeObject:v9];
 
-          v13 = ANLogHandlePlaybackSessionServiceListener();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+          v14 = ANLogHandlePlaybackSessionServiceListener(v13);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
           {
-            v14 = *(a1 + 40);
-            *buf = v29;
-            v41 = &stru_2851BDB18;
-            v42 = 2112;
-            v43 = v14;
-            _os_log_impl(&dword_23F525000, v13, OS_LOG_TYPE_DEFAULT, "%@Removed Playback Info for Connection: (%@)", buf, 0x16u);
+            v15 = *(a1 + 40);
+            *buf = v30;
+            v42 = &stru_2851BDB18;
+            v43 = 2112;
+            v44 = v15;
+            _os_log_impl(&dword_23F525000, v14, OS_LOG_TYPE_DEFAULT, "%@Removed Playback Info for Connection: (%@)", buf, 0x16u);
           }
         }
       }
 
-      v6 = [v3 countByEnumeratingWithState:&v35 objects:v44 count:16];
+      v6 = [v3 countByEnumeratingWithState:&v36 objects:v45 count:16];
     }
 
     while (v6);
   }
 
-  v33 = 0u;
   v34 = 0u;
-  v31 = 0u;
+  v35 = 0u;
   v32 = 0u;
-  v15 = [*(a1 + 32) localPlaybackClients];
-  v16 = [v15 copy];
+  v33 = 0u;
+  v16 = [*(a1 + 32) localPlaybackClients];
+  v17 = [v16 copy];
 
-  v17 = [v16 countByEnumeratingWithState:&v31 objects:v39 count:16];
-  if (v17)
+  v18 = [v17 countByEnumeratingWithState:&v32 objects:v40 count:16];
+  if (v18)
   {
-    v19 = v17;
-    v20 = *v32;
-    *&v18 = 138412546;
-    v30 = v18;
+    v20 = v18;
+    v21 = *v33;
+    *&v19 = 138412546;
+    v31 = v19;
     do
     {
-      for (j = 0; j != v19; ++j)
+      for (j = 0; j != v20; ++j)
       {
-        if (*v32 != v20)
+        if (*v33 != v21)
         {
-          objc_enumerationMutation(v16);
+          objc_enumerationMutation(v17);
         }
 
-        v22 = *(*(&v31 + 1) + 8 * j);
-        v23 = *(a1 + 40);
-        v24 = [v22 connection];
+        v23 = *(*(&v32 + 1) + 8 * j);
+        v24 = *(a1 + 40);
+        v25 = [v23 connection];
 
-        if (v23 == v24)
+        if (v24 == v25)
         {
-          v25 = [*(a1 + 32) localPlaybackClients];
-          [v25 removeObject:v22];
+          v26 = [*(a1 + 32) localPlaybackClients];
+          [v26 removeObject:v23];
 
-          v26 = ANLogHandlePlaybackSessionServiceListener();
-          if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+          v28 = ANLogHandlePlaybackSessionServiceListener(v27);
+          if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
           {
-            v27 = *(a1 + 40);
-            *buf = v30;
-            v41 = &stru_2851BDB18;
-            v42 = 2112;
-            v43 = v27;
-            _os_log_impl(&dword_23F525000, v26, OS_LOG_TYPE_DEFAULT, "%@Removed Other Playback for Connection: (%@)", buf, 0x16u);
+            v29 = *(a1 + 40);
+            *buf = v31;
+            v42 = &stru_2851BDB18;
+            v43 = 2112;
+            v44 = v29;
+            _os_log_impl(&dword_23F525000, v28, OS_LOG_TYPE_DEFAULT, "%@Removed Other Playback for Connection: (%@)", buf, 0x16u);
           }
         }
       }
 
-      v19 = [v16 countByEnumeratingWithState:&v31 objects:v39 count:16];
+      v20 = [v17 countByEnumeratingWithState:&v32 objects:v40 count:16];
     }
 
-    while (v19);
+    while (v20);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_clientForConnection:(id)connection
@@ -564,27 +555,27 @@ void __54__ANPlaybackSessionServiceListener__removeConnection___block_invoke(uin
 
 void __57__ANPlaybackSessionServiceListener__clientForConnection___block_invoke(uint64_t a1)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v2 = [*(a1 + 32) remotePlaybackClients];
-  v3 = [v2 countByEnumeratingWithState:&v23 objects:v28 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v22 objects:v27 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v24;
+    v5 = *v23;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v24 != v5)
+        if (*v23 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v23 + 1) + 8 * i);
+        v7 = *(*(&v22 + 1) + 8 * i);
         v8 = *(a1 + 40);
         v9 = [v7 connection];
 
@@ -595,7 +586,7 @@ void __57__ANPlaybackSessionServiceListener__clientForConnection___block_invoke(
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v22 objects:v27 count:16];
       if (v4)
       {
         continue;
@@ -609,26 +600,26 @@ LABEL_11:
 
   if (!*(*(*(a1 + 48) + 8) + 40))
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v10 = [*(a1 + 32) localPlaybackClients];
-    v11 = [v10 countByEnumeratingWithState:&v19 objects:v27 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v18 objects:v26 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v20;
+      v13 = *v19;
       while (2)
       {
         for (j = 0; j != v12; ++j)
         {
-          if (*v20 != v13)
+          if (*v19 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v19 + 1) + 8 * j);
+          v15 = *(*(&v18 + 1) + 8 * j);
           v16 = *(a1 + 40);
           v17 = [v15 connection];
 
@@ -639,7 +630,7 @@ LABEL_11:
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v19 objects:v27 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v18 objects:v26 count:16];
         if (v12)
         {
           continue;
@@ -651,8 +642,6 @@ LABEL_11:
 
 LABEL_22:
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_endSessionForConnection:(id)connection
@@ -660,26 +649,26 @@ LABEL_22:
   v14 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   v5 = [(ANPlaybackSessionServiceListener *)self _clientForConnection:connectionCopy];
+  v6 = v5;
   if (v5)
   {
-    v6 = ANLogHandlePlaybackSessionServiceListener();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = ANLogHandlePlaybackSessionServiceListener(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v10 = 138412546;
       v11 = &stru_2851BDB18;
       v12 = 2112;
       v13 = connectionCopy;
-      _os_log_impl(&dword_23F525000, v6, OS_LOG_TYPE_DEFAULT, "%@Ended Session For Connection: %@", &v10, 0x16u);
+      _os_log_impl(&dword_23F525000, v7, OS_LOG_TYPE_DEFAULT, "%@Ended Session For Connection: %@", &v10, 0x16u);
     }
 
-    [v5 setGroupID:0];
+    [v6 setGroupID:0];
   }
 
-  v7 = +[ANAnnouncementCoordinator localDeviceIdentifier];
-  [(ANPlaybackSessionServiceListener *)self _setTimersActive:1 forEndPointID:v7];
+  v8 = +[ANAnnouncementCoordinator localDeviceIdentifier];
+  [(ANPlaybackSessionServiceListener *)self _setTimersActive:1 forEndPointID:v8];
 
-  v8 = *MEMORY[0x277D85DE8];
-  return v5 != 0;
+  return v6 != 0;
 }
 
 - (void)_setTimersActive:(BOOL)active forEndPointID:(id)d
@@ -687,7 +676,7 @@ LABEL_22:
   activeCopy = active;
   *&v18[5] = *MEMORY[0x277D85DE8];
   dCopy = d;
-  v7 = ANLogHandlePlaybackSessionServiceListener();
+  v7 = ANLogHandlePlaybackSessionServiceListener(dCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = @"IN";
@@ -718,11 +707,11 @@ LABEL_22:
     v11 = +[ANAnnouncementCoordinator sharedCoordinator];
     v12 = [v11 playbackStateForEndpointID:dCopy];
 
-    v10 = ANLogHandlePlaybackSessionServiceListener();
-    v13 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+    v10 = ANLogHandlePlaybackSessionServiceListener(v13);
+    v14 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
     if (remoteSessionsActive || v12 == 1)
     {
-      if (v13)
+      if (v14)
       {
         v15 = 138412802;
         v16 = &stru_2851BDB18;
@@ -736,7 +725,7 @@ LABEL_22:
 
     else
     {
-      if (v13)
+      if (v14)
       {
         v15 = 138412290;
         v16 = &stru_2851BDB18;
@@ -753,13 +742,11 @@ LABEL_22:
     v10 = +[ANAnnouncementCoordinator sharedCoordinator];
     [v10 pauseAllTimersForEndpointID:dCopy];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startSessionForGroupID:(id)d reply:(id)reply
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   dCopy = d;
   replyCopy = reply;
   v8 = +[ANAnnouncementCoordinator localDeviceIdentifier];
@@ -771,30 +758,31 @@ LABEL_22:
   if (v10)
   {
     [v10 setGroupID:dCopy];
-    v11 = +[ANAnnouncementCoordinator sharedCoordinator];
-    v12 = +[ANAnnouncementCoordinator localDeviceIdentifier];
-    v13 = [v11 announcementsForGroupID:dCopy endpointID:v12];
+    v12 = +[ANAnnouncementCoordinator sharedCoordinator];
+    v13 = +[ANAnnouncementCoordinator localDeviceIdentifier];
+    v14 = [v12 announcementsForGroupID:dCopy endpointID:v13];
 
-    v14 = [MEMORY[0x277CEAB48] contextsFrom:v13];
+    v15 = [MEMORY[0x277CEAB48] contextsFrom:v14];
     connection = [v10 connection];
     remoteObjectProxy = [connection remoteObjectProxy];
 
-    if ([remoteObjectProxy conformsToProtocol:&unk_2851E1B88])
+    v18 = [remoteObjectProxy conformsToProtocol:&unk_2851E1B88];
+    if (v18)
     {
-      [remoteObjectProxy didUpdateAnnouncements:v14 forGroupID:dCopy];
+      v18 = [remoteObjectProxy didUpdateAnnouncements:v15 forGroupID:dCopy];
     }
 
-    v17 = ANLogHandlePlaybackSessionServiceListener();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v19 = ANLogHandlePlaybackSessionServiceListener(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       currentConnection2 = [MEMORY[0x277CCAE80] currentConnection];
-      v22 = 138412802;
-      v23 = &stru_2851BDB18;
-      v24 = 2112;
-      v25 = dCopy;
-      v26 = 2112;
-      v27 = currentConnection2;
-      _os_log_impl(&dword_23F525000, v17, OS_LOG_TYPE_DEFAULT, "%@Started remote playback session. GroupID = %@, connection = %@)", &v22, 0x20u);
+      v23 = 138412802;
+      v24 = &stru_2851BDB18;
+      v25 = 2112;
+      v26 = dCopy;
+      v27 = 2112;
+      v28 = currentConnection2;
+      _os_log_impl(&dword_23F525000, v19, OS_LOG_TYPE_DEFAULT, "%@Started remote playback session. GroupID = %@, connection = %@)", &v23, 0x20u);
     }
 
     replyCopy[2](replyCopy, 1);
@@ -802,23 +790,21 @@ LABEL_22:
 
   else
   {
-    v19 = ANLogHandlePlaybackSessionServiceListener();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v21 = ANLogHandlePlaybackSessionServiceListener(v11);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       currentConnection3 = [MEMORY[0x277CCAE80] currentConnection];
-      v22 = 138412546;
-      v23 = &stru_2851BDB18;
-      v24 = 2112;
-      v25 = currentConnection3;
-      _os_log_impl(&dword_23F525000, v19, OS_LOG_TYPE_DEFAULT, "%@Failed to start remote playback session. Connection = %@", &v22, 0x16u);
+      v23 = 138412546;
+      v24 = &stru_2851BDB18;
+      v25 = 2112;
+      v26 = currentConnection3;
+      _os_log_impl(&dword_23F525000, v21, OS_LOG_TYPE_DEFAULT, "%@Failed to start remote playback session. Connection = %@", &v23, 0x16u);
     }
 
     replyCopy[2](replyCopy, 0);
-    v13 = +[ANAnalytics shared];
-    [v13 error:5001];
+    v14 = +[ANAnalytics shared];
+    [v14 error:5001];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)endSessionWithReply:(id)reply
@@ -833,58 +819,54 @@ LABEL_22:
 
 - (void)setPlaybackStartedForAnnouncement:(id)announcement
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   announcementCopy = announcement;
-  v4 = ANLogHandlePlaybackSessionServiceListener();
+  v4 = ANLogHandlePlaybackSessionServiceListener(announcementCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = &stru_2851BDB18;
-    _os_log_impl(&dword_23F525000, v4, OS_LOG_TYPE_DEFAULT, "%@Set Remote Playback Started", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = &stru_2851BDB18;
+    _os_log_impl(&dword_23F525000, v4, OS_LOG_TYPE_DEFAULT, "%@Set Remote Playback Started", &v7, 0xCu);
   }
 
   v5 = +[ANAnnouncementCoordinator sharedCoordinator];
   v6 = +[ANAnnouncementCoordinator localDeviceIdentifier];
   [v5 setPlaybackStartedForAnnouncement:announcementCopy endpointID:v6];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setPlaybackStoppedForAnnouncement:(id)announcement
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   announcementCopy = announcement;
-  v4 = ANLogHandlePlaybackSessionServiceListener();
+  v4 = ANLogHandlePlaybackSessionServiceListener(announcementCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = &stru_2851BDB18;
-    _os_log_impl(&dword_23F525000, v4, OS_LOG_TYPE_DEFAULT, "%@Set Remote Playback Stopped", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = &stru_2851BDB18;
+    _os_log_impl(&dword_23F525000, v4, OS_LOG_TYPE_DEFAULT, "%@Set Remote Playback Stopped", &v7, 0xCu);
   }
 
   v5 = +[ANAnnouncementCoordinator sharedCoordinator];
   v6 = +[ANAnnouncementCoordinator localDeviceIdentifier];
   [v5 setPlaybackStoppedForAnnouncement:announcementCopy endpointID:v6];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendPlaybackCommand:(id)command forEndpointID:(id)d completionHandler:(id)handler
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   commandCopy = command;
   dCopy = d;
   handlerCopy = handler;
-  v10 = ANLogHandlePlaybackSessionServiceListener();
+  v10 = ANLogHandlePlaybackSessionServiceListener(handlerCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = 138412802;
-    v20 = &stru_2851BDB18;
-    v21 = 2112;
-    v22 = dCopy;
-    v23 = 2112;
-    v24 = commandCopy;
-    _os_log_impl(&dword_23F525000, v10, OS_LOG_TYPE_DEFAULT, "%@Received Playback Command. Endpoint ID = %@, Command = %@", &v19, 0x20u);
+    v18 = 138412802;
+    v19 = &stru_2851BDB18;
+    v20 = 2112;
+    v21 = dCopy;
+    v22 = 2112;
+    v23 = commandCopy;
+    _os_log_impl(&dword_23F525000, v10, OS_LOG_TYPE_DEFAULT, "%@Received Playback Command. Endpoint ID = %@, Command = %@", &v18, 0x20u);
   }
 
   currentConnection = [MEMORY[0x277CCAE80] currentConnection];
@@ -899,8 +881,6 @@ LABEL_22:
   v16 = [MEMORY[0x277CEAB48] sourceFromString:clientID];
   v17 = [ANAnalyticsContext contextWithEndpointID:dCopy];
   [v14 playbackAction:operation fromSource:v16 context:v17];
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resumeWithEndpointID:(id)d completionHandler:(id)handler
@@ -953,7 +933,7 @@ LABEL_22:
   announcementsCopy = announcements;
   dCopy = d;
   iDCopy = iD;
-  v12 = ANLogHandlePlaybackSessionServiceListener();
+  v12 = ANLogHandlePlaybackSessionServiceListener(iDCopy);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
@@ -966,7 +946,7 @@ LABEL_22:
   an_isLocalDevice = [iDCopy an_isLocalDevice];
   if (an_isLocalDevice)
   {
-    v14 = [MEMORY[0x277CEAB48] contextsFrom:announcementsCopy];
+    v15 = [MEMORY[0x277CEAB48] contextsFrom:announcementsCopy];
     playbackClientsSerialQueue = [(ANPlaybackSessionServiceListener *)self playbackClientsSerialQueue];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
@@ -974,23 +954,21 @@ LABEL_22:
     block[3] = &unk_278C86668;
     block[4] = self;
     v19 = dCopy;
-    v20 = v14;
-    v16 = v14;
+    v20 = v15;
+    v17 = v15;
     dispatch_async(playbackClientsSerialQueue, block);
   }
 
   else
   {
-    v16 = ANLogHandlePlaybackSessionServiceListener();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v17 = ANLogHandlePlaybackSessionServiceListener(v14);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       v22 = &stru_2851BDB18;
-      _os_log_impl(&dword_23F525000, v16, OS_LOG_TYPE_DEFAULT, "%@Skipping updates not for local device", buf, 0xCu);
+      _os_log_impl(&dword_23F525000, v17, OS_LOG_TYPE_DEFAULT, "%@Skipping updates not for local device", buf, 0xCu);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __96__ANPlaybackSessionServiceListener_coordinator_didUpdateAnnouncements_forGroupID_forEndpointID___block_invoke(uint64_t a1)
@@ -1028,14 +1006,14 @@ void __96__ANPlaybackSessionServiceListener_coordinator_didUpdateAnnouncements_f
 
           if (v12)
           {
-            v13 = ANLogHandlePlaybackSessionServiceListener();
-            if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+            v14 = ANLogHandlePlaybackSessionServiceListener(v13);
+            if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
             {
               *buf = v15;
               v21 = &stru_2851BDB18;
               v22 = 2112;
               v23 = v8;
-              _os_log_impl(&dword_23F525000, v13, OS_LOG_TYPE_DEFAULT, "%@Notifying Connection Announcements Changed: %@", buf, 0x16u);
+              _os_log_impl(&dword_23F525000, v14, OS_LOG_TYPE_DEFAULT, "%@Notifying Connection Announcements Changed: %@", buf, 0x16u);
             }
 
             [v10 didUpdateAnnouncements:*(a1 + 48) forGroupID:*(a1 + 40)];
@@ -1052,31 +1030,28 @@ void __96__ANPlaybackSessionServiceListener_coordinator_didUpdateAnnouncements_f
 
     while (v5);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)coordinator:(id)coordinator didReceiveAnnouncement:(id)announcement forGroupID:(id)d forEndpointID:(id)iD
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   announcementCopy = announcement;
   dCopy = d;
   iDCopy = iD;
-  v12 = ANLogHandlePlaybackSessionServiceListener();
+  v12 = ANLogHandlePlaybackSessionServiceListener(iDCopy);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     identifier = [announcementCopy identifier];
-    v15 = 138412802;
-    v16 = &stru_2851BDB18;
-    v17 = 2112;
-    v18 = identifier;
-    v19 = 2112;
-    v20 = dCopy;
-    _os_log_impl(&dword_23F525000, v12, OS_LOG_TYPE_DEFAULT, "%@Did Receive Announcement ID: %@, for Group ID: %@", &v15, 0x20u);
+    v14 = 138412802;
+    v15 = &stru_2851BDB18;
+    v16 = 2112;
+    v17 = identifier;
+    v18 = 2112;
+    v19 = dCopy;
+    _os_log_impl(&dword_23F525000, v12, OS_LOG_TYPE_DEFAULT, "%@Did Receive Announcement ID: %@, for Group ID: %@", &v14, 0x20u);
   }
 
   [(ANPlaybackSessionServiceListener *)self _updateConnectionForReceivedAnnouncement:announcementCopy groupID:dCopy endpointID:iDCopy];
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateConnectionForReceivedAnnouncement:(id)announcement groupID:(id)d endpointID:(id)iD
@@ -1150,14 +1125,14 @@ void __96__ANPlaybackSessionServiceListener__updateConnectionForReceivedAnnounce
 
           if (v12)
           {
-            v13 = ANLogHandlePlaybackSessionServiceListener();
-            if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+            v14 = ANLogHandlePlaybackSessionServiceListener(v13);
+            if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
             {
               *buf = v15;
               v21 = &stru_2851BDB18;
               v22 = 2112;
               v23 = v8;
-              _os_log_impl(&dword_23F525000, v13, OS_LOG_TYPE_DEFAULT, "%@Notifying Remote Playback Client Announcement Received: %@", buf, 0x16u);
+              _os_log_impl(&dword_23F525000, v14, OS_LOG_TYPE_DEFAULT, "%@Notifying Remote Playback Client Announcement Received: %@", buf, 0x16u);
             }
 
             [v10 didReceiveAnnouncement:*(a1 + 48) forGroupID:*(a1 + 40)];
@@ -1174,8 +1149,6 @@ void __96__ANPlaybackSessionServiceListener__updateConnectionForReceivedAnnounce
 
     while (v5);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __96__ANPlaybackSessionServiceListener__updateConnectionForReceivedAnnouncement_groupID_endpointID___block_invoke_78(uint64_t a1)
@@ -1220,19 +1193,23 @@ void __96__ANPlaybackSessionServiceListener__updateConnectionForReceivedAnnounce
         v13 = [v8 connection];
         v14 = [v13 remoteObjectProxy];
 
-        if ([v12 isEqual:*(a1 + 40)] && objc_msgSend(v14, "conformsToProtocol:", &unk_2851DEFF8))
+        if ([v12 isEqual:*(a1 + 40)])
         {
-          v15 = ANLogHandlePlaybackSessionServiceListener();
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+          v15 = [v14 conformsToProtocol:&unk_2851DEFF8];
+          if (v15)
           {
-            *buf = v17;
-            v23 = &stru_2851BDB18;
-            v24 = 2112;
-            v25 = v8;
-            _os_log_impl(&dword_23F525000, v15, OS_LOG_TYPE_DEFAULT, "%@Notifying Local Playback Client Announcement Received: %@", buf, 0x16u);
-          }
+            v16 = ANLogHandlePlaybackSessionServiceListener(v15);
+            if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+            {
+              *buf = v17;
+              v23 = &stru_2851BDB18;
+              v24 = 2112;
+              v25 = v8;
+              _os_log_impl(&dword_23F525000, v16, OS_LOG_TYPE_DEFAULT, "%@Notifying Local Playback Client Announcement Received: %@", buf, 0x16u);
+            }
 
-          [v14 didReceiveAnnouncement:*(a1 + 48) forGroupID:*(a1 + 56)];
+            [v14 didReceiveAnnouncement:*(a1 + 48) forGroupID:*(a1 + 56)];
+          }
         }
       }
 
@@ -1241,8 +1218,6 @@ void __96__ANPlaybackSessionServiceListener__updateConnectionForReceivedAnnounce
 
     while (v5);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)coordinator:(id)coordinator didStartPlayingAnnouncementsAtMachAbsoluteTime:(unint64_t)time forEndpointID:(id)d
@@ -1305,37 +1280,41 @@ void __109__ANPlaybackSessionServiceListener_coordinator_didStartPlayingAnnounce
         v13 = [v8 connection];
         v14 = [v13 remoteObjectProxy];
 
-        if ([v12 isEqual:*(a1 + 40)] && objc_msgSend(v14, "conformsToProtocol:", v6[328]))
+        if ([v12 isEqual:*(a1 + 40)])
         {
-          v15 = ANLogHandlePlaybackSessionServiceListener();
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+          v15 = [v14 conformsToProtocol:v6[328]];
+          if (v15)
           {
-            v16 = MEMORY[0x277CCABB0];
-            v26 = [v8 connection];
-            v17 = [v16 numberWithInt:{objc_msgSend(v26, "processIdentifier")}];
-            v18 = [v8 connection];
-            [v18 clientID];
-            v19 = v5;
-            v21 = v20 = v4;
-            v22 = *(a1 + 48);
-            *buf = v24;
-            v33 = &stru_2851BDB18;
-            v34 = 2112;
-            v35 = v17;
-            v36 = 2112;
-            v37 = v21;
-            v38 = 2048;
-            v39 = v22;
-            _os_log_impl(&dword_23F525000, v15, OS_LOG_TYPE_DEFAULT, "%@Notifying Local Playback Client (%@, %@) Announcement playback starting at time: %lld", buf, 0x2Au);
+            v16 = ANLogHandlePlaybackSessionServiceListener(v15);
+            if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+            {
+              v17 = MEMORY[0x277CCABB0];
+              v26 = [v8 connection];
+              v18 = [v17 numberWithInt:{objc_msgSend(v26, "processIdentifier")}];
+              v19 = [v8 connection];
+              [v19 clientID];
+              v20 = v5;
+              v22 = v21 = v4;
+              v23 = *(a1 + 48);
+              *buf = v24;
+              v33 = &stru_2851BDB18;
+              v34 = 2112;
+              v35 = v18;
+              v36 = 2112;
+              v37 = v22;
+              v38 = 2048;
+              v39 = v23;
+              _os_log_impl(&dword_23F525000, v16, OS_LOG_TYPE_DEFAULT, "%@Notifying Local Playback Client (%@, %@) Announcement playback starting at time: %lld", buf, 0x2Au);
 
-            v4 = v20;
-            v5 = v19;
-            v6 = &selRef_type;
+              v4 = v21;
+              v5 = v20;
+              v6 = &selRef_type;
 
-            v2 = v25;
+              v2 = v25;
+            }
+
+            [v14 announcementsWillStartPlaying:*(a1 + 48)];
           }
-
-          [v14 announcementsWillStartPlaying:*(a1 + 48)];
         }
       }
 
@@ -1344,8 +1323,6 @@ void __109__ANPlaybackSessionServiceListener_coordinator_didStartPlayingAnnounce
 
     while (v27);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)coordinator:(id)coordinator didUpdatePlaybackState:(unint64_t)state forEndpointID:(id)d
@@ -1365,27 +1342,27 @@ void __109__ANPlaybackSessionServiceListener_coordinator_didStartPlayingAnnounce
 
 void __85__ANPlaybackSessionServiceListener_coordinator_didUpdatePlaybackState_forEndpointID___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v2 = [*(a1 + 32) localPlaybackClients];
-  v3 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v16;
+    v5 = *v15;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v16 != v5)
+        if (*v15 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v15 + 1) + 8 * i);
+        v7 = *(*(&v14 + 1) + 8 * i);
         v8 = [v7 endpointID];
         v9 = v8;
         if (v8)
@@ -1409,13 +1386,11 @@ void __85__ANPlaybackSessionServiceListener_coordinator_didUpdatePlaybackState_f
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v4);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)coordinator:(id)coordinator didUpdatePlaybackInfo:(id)info forEndpointID:(id)d
@@ -1437,27 +1412,27 @@ void __85__ANPlaybackSessionServiceListener_coordinator_didUpdatePlaybackState_f
 
 void __84__ANPlaybackSessionServiceListener_coordinator_didUpdatePlaybackInfo_forEndpointID___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v2 = [*(a1 + 32) localPlaybackClients];
-  v3 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v16;
+    v5 = *v15;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v16 != v5)
+        if (*v15 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v15 + 1) + 8 * i);
+        v7 = *(*(&v14 + 1) + 8 * i);
         v8 = [v7 endpointID];
         v9 = v8;
         if (v8)
@@ -1481,13 +1456,11 @@ void __84__ANPlaybackSessionServiceListener_coordinator_didUpdatePlaybackInfo_fo
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v4);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 @end

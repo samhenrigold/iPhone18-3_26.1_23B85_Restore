@@ -7,60 +7,53 @@
 - (MCMError)initWithErrorType:(unint64_t)type;
 - (MCMError)initWithErrorType:(unint64_t)type category:(unint64_t)category;
 - (MCMError)initWithErrorType:(unint64_t)type category:(unint64_t)category message:(id)message;
+- (MCMError)initWithErrorType:(unint64_t)type category:(unint64_t)category path:(id)path POSIXerrno:(int)xerrno;
 - (MCMError)initWithErrorType:(unint64_t)type category:(unint64_t)category path:(id)path POSIXerrno:(int)xerrno message:(id)message;
 - (MCMError)initWithLibsystemError:(container_error_extended_s *)error;
 - (MCMError)initWithNSError:(id)error url:(id)url defaultErrorType:(unint64_t)type;
-- (NSString)message;
-- (NSString)path;
 - (container_error_extended_s)libsystemError;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)fullDescription;
-- (int)POSIXerrno;
-- (unint64_t)category;
 - (unint64_t)hash;
-- (unint64_t)type;
 @end
 
 @implementation MCMError
 
 + (MCMError)notEntitled
 {
-  v5[5] = *MEMORY[0x1E69E9840];
-  v5[0] = MEMORY[0x1E69E9820];
-  v5[1] = 3221225472;
-  v5[2] = __23__MCMError_notEntitled__block_invoke;
-  v5[3] = &__block_descriptor_40_e5_v8__0l;
-  v5[4] = self;
+  v4[5] = *MEMORY[0x1E69E9840];
+  v4[0] = MEMORY[0x1E69E9820];
+  v4[1] = 3221225472;
+  v4[2] = __23__MCMError_notEntitled__block_invoke;
+  v4[3] = &__block_descriptor_40_e5_v8__0l;
+  v4[4] = self;
   if (notEntitled_onceToken != -1)
   {
-    dispatch_once(&notEntitled_onceToken, v5);
+    dispatch_once(&notEntitled_onceToken, v4);
   }
 
   v2 = notEntitled__notEntitled;
-  v3 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
 
 - (id)description
 {
-  v7[5] = *MEMORY[0x1E69E9840];
+  v6[5] = *MEMORY[0x1E69E9840];
   v3 = [MCMLazyDescription alloc];
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __23__MCMError_description__block_invoke;
-  v7[3] = &unk_1E86B1128;
-  v7[4] = self;
-  v4 = [(MCMLazyDescription *)v3 initWithDescriber:v7];
-  v5 = *MEMORY[0x1E69E9840];
+  v6[0] = MEMORY[0x1E69E9820];
+  v6[1] = 3221225472;
+  v6[2] = __23__MCMError_description__block_invoke;
+  v6[3] = &unk_1E86B1128;
+  v6[4] = self;
+  v4 = [(MCMLazyDescription *)v3 initWithDescriber:v6];
 
   return v4;
 }
 
 id __23__MCMError_description__block_invoke(uint64_t a1, int a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E696AEC0];
   v5 = [*(a1 + 32) type];
   v6 = [*(a1 + 32) category];
@@ -89,54 +82,11 @@ id __23__MCMError_description__block_invoke(uint64_t a1, int a2)
   {
   }
 
-  v13 = *MEMORY[0x1E69E9840];
-
   return v12;
-}
-
-- (unint64_t)type
-{
-  result = self->_type;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (unint64_t)category
-{
-  result = self->_category;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (int)POSIXerrno
-{
-  result = self->_POSIXerrno;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (NSString)path
-{
-  result = self->_path;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (NSString)message
-{
-  result = self->_message;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v11 = *MEMORY[0x1E69E9840];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = v5;
   if (v5)
@@ -151,13 +101,11 @@ id __23__MCMError_description__block_invoke(uint64_t a1, int a2)
     objc_storeStrong((v6 + 40), self->_message);
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (BOOL)isEqual:(id)equal
 {
-  v8 = *MEMORY[0x1E69E9840];
   equalCopy = equal;
   v5 = self == equalCopy;
   if (equalCopy)
@@ -169,13 +117,11 @@ id __23__MCMError_description__block_invoke(uint64_t a1, int a2)
     }
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (BOOL)isEqualToMCMError:(id)error
 {
-  v9 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   path = self->_path;
   if (!path)
@@ -210,71 +156,62 @@ LABEL_7:
     v6 = 0;
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (unint64_t)hash
 {
-  v7 = *MEMORY[0x1E69E9840];
   type = self->_type;
   category = self->_category;
-  v4 = [(NSString *)self->_path hash];
-  v5 = *MEMORY[0x1E69E9840];
-  return category ^ type ^ v4;
+  return category ^ type ^ [(NSString *)self->_path hash];
 }
 
 - (id)fullDescription
 {
-  v7[5] = *MEMORY[0x1E69E9840];
+  v6[5] = *MEMORY[0x1E69E9840];
   v3 = [MCMLazyDescription alloc];
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __27__MCMError_fullDescription__block_invoke;
-  v7[3] = &unk_1E86B1128;
-  v7[4] = self;
-  v4 = [(MCMLazyDescription *)v3 initWithDescriber:v7];
-  v5 = *MEMORY[0x1E69E9840];
+  v6[0] = MEMORY[0x1E69E9820];
+  v6[1] = 3221225472;
+  v6[2] = __27__MCMError_fullDescription__block_invoke;
+  v6[3] = &unk_1E86B1128;
+  v6[4] = self;
+  v4 = [(MCMLazyDescription *)v3 initWithDescriber:v6];
 
   return v4;
 }
 
-id __27__MCMError_fullDescription__block_invoke(uint64_t a1, int a2)
+id __27__MCMError_fullDescription__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v2 = a2;
   v4 = MEMORY[0x1E696AEC0];
-  v5 = *(a1 + 32);
-  v6 = objc_opt_class();
-  v7 = NSStringFromClass(v6);
-  v8 = *(a1 + 32);
-  v9 = [v8 type];
-  v10 = [*(a1 + 32) category];
-  v11 = [*(a1 + 32) POSIXerrno];
-  if (a2)
+  v5 = objc_opt_class();
+  v6 = NSStringFromClass(v5);
+  v7 = *(a1 + 32);
+  v8 = [v7 type];
+  v9 = [*(a1 + 32) category];
+  v10 = [*(a1 + 32) POSIXerrno];
+  if (v2)
   {
-    v12 = [*(a1 + 32) path];
+    v11 = [*(a1 + 32) path];
   }
 
   else
   {
-    v12 = @"~~";
+    v11 = @"~~";
   }
 
-  v13 = [*(a1 + 32) message];
-  v14 = [v4 stringWithFormat:@"<%@: %p type = %llu, category = %llu, POSIX errno = %d, path = [%@], %@>", v7, v8, v9, v10, v11, v12, v13];;
+  v12 = [*(a1 + 32) message];
+  v13 = [v4 stringWithFormat:@"<%@: %p type = %llu, category = %llu, POSIX errno = %d, path = [%@], %@>", v6, v7, v8, v9, v10, v11, v12];;
 
-  if (a2)
+  if (v2)
   {
   }
 
-  v15 = *MEMORY[0x1E69E9840];
-
-  return v14;
+  return v13;
 }
 
 - (container_error_extended_s)libsystemError
 {
-  v8 = *MEMORY[0x1E69E9840];
   [(MCMError *)self category];
   [(MCMError *)self type];
   path = [(MCMError *)self path];
@@ -284,13 +221,11 @@ id __27__MCMError_fullDescription__block_invoke(uint64_t a1, int a2)
   [message UTF8String];
   v5 = container_error_create_with_message();
 
-  v6 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (MCMError)initWithNSError:(id)error url:(id)url defaultErrorType:(unint64_t)type
 {
-  v23 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   urlCopy = url;
   if (errorCopy)
@@ -348,13 +283,12 @@ LABEL_12:
   selfCopy2 = 0;
 LABEL_13:
 
-  v21 = *MEMORY[0x1E69E9840];
   return selfCopy2;
 }
 
 - (MCMError)initWithErrorType:(unint64_t)type category:(unint64_t)category path:(id)path POSIXerrno:(int)xerrno message:(id)message
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   messageCopy = message;
   if (type == 1)
@@ -362,15 +296,14 @@ LABEL_13:
     selfCopy = 0;
 LABEL_7:
 
-    v18 = *MEMORY[0x1E69E9840];
     return selfCopy;
   }
 
   if (type)
   {
-    v20.receiver = self;
-    v20.super_class = MCMError;
-    v15 = [(MCMError *)&v20 init];
+    v19.receiver = self;
+    v19.super_class = MCMError;
+    v15 = [(MCMError *)&v19 init];
     v16 = v15;
     if (v15)
     {
@@ -391,41 +324,38 @@ LABEL_7:
   return result;
 }
 
+- (MCMError)initWithErrorType:(unint64_t)type category:(unint64_t)category path:(id)path POSIXerrno:(int)xerrno
+{
+
+  return [(MCMError *)self initWithErrorType:type category:category path:path POSIXerrno:*&xerrno message:0];
+}
+
 - (MCMError)initWithErrorType:(unint64_t)type category:(unint64_t)category message:(id)message
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v5 = *MEMORY[0x1E69E9840];
 
   return [(MCMError *)self initWithErrorType:type category:category path:0 POSIXerrno:0 message:message];
 }
 
 - (MCMError)initWithErrorType:(unint64_t)type category:(unint64_t)category
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v4 = *MEMORY[0x1E69E9840];
 
   return [(MCMError *)self initWithErrorType:type category:category path:0 POSIXerrno:0 message:0];
 }
 
 - (MCMError)initWithErrorType:(unint64_t)type
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = *MEMORY[0x1E69E9840];
 
   return [(MCMError *)self initWithErrorType:type category:0 path:0 POSIXerrno:0];
 }
 
 - (MCMError)init
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = *MEMORY[0x1E69E9840];
 
   return [(MCMError *)self initWithErrorType:1 category:0 path:0 POSIXerrno:0];
 }
 
 - (MCMError)initWithLibsystemError:(container_error_extended_s *)error
 {
-  v14 = *MEMORY[0x1E69E9840];
   if (error)
   {
     type = container_error_get_type();
@@ -463,43 +393,37 @@ LABEL_7:
     selfCopy = 0;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 + (MCMError)unsupported
 {
-  v5[5] = *MEMORY[0x1E69E9840];
-  v5[0] = MEMORY[0x1E69E9820];
-  v5[1] = 3221225472;
-  v5[2] = __23__MCMError_unsupported__block_invoke;
-  v5[3] = &__block_descriptor_40_e5_v8__0l;
-  v5[4] = self;
+  v4[5] = *MEMORY[0x1E69E9840];
+  v4[0] = MEMORY[0x1E69E9820];
+  v4[1] = 3221225472;
+  v4[2] = __23__MCMError_unsupported__block_invoke;
+  v4[3] = &__block_descriptor_40_e5_v8__0l;
+  v4[4] = self;
   if (unsupported_onceToken != -1)
   {
-    dispatch_once(&unsupported_onceToken, v5);
+    dispatch_once(&unsupported_onceToken, v4);
   }
 
   v2 = unsupported__unsupported;
-  v3 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
 
 uint64_t __23__MCMError_unsupported__block_invoke(uint64_t a1)
 {
-  v3 = *MEMORY[0x1E69E9840];
   unsupported__unsupported = [objc_alloc(*(a1 + 32)) initWithErrorType:72 category:3];
-  v1 = *MEMORY[0x1E69E9840];
 
   return MEMORY[0x1EEE66BB8]();
 }
 
 uint64_t __23__MCMError_notEntitled__block_invoke(uint64_t a1)
 {
-  v3 = *MEMORY[0x1E69E9840];
   notEntitled__notEntitled = [objc_alloc(*(a1 + 32)) initWithErrorType:55 category:3];
-  v1 = *MEMORY[0x1E69E9840];
 
   return MEMORY[0x1EEE66BB8]();
 }

@@ -20,16 +20,15 @@
 {
   v2 = sub_220C9F754();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   MEMORY[0x28223BE20](v2);
-  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = &v8 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
 
   sub_220C44DAC();
 
-  v7 = sub_220C9F744();
-  (*(v3 + 8))(v6, v2);
+  v6 = sub_220C9F744();
+  (*(v3 + 8))(v5, v2);
 
-  return v7;
+  return v6;
 }
 
 - (NSString)sharedContainerIdentifier

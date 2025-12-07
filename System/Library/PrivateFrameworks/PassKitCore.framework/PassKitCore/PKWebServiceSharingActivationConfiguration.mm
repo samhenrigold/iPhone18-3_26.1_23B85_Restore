@@ -37,9 +37,9 @@ LABEL_25:
       goto LABEL_8;
     }
 
-    v10 = [(__CFString *)v8 isEqualToString:@"high"];
+    isEqualToString = objc_msgSend_isEqualToString_(v8);
 
-    if (v10)
+    if (isEqualToString)
     {
 LABEL_6:
       v11 = 1;
@@ -48,7 +48,7 @@ LABEL_6:
     else
     {
       v32 = v9;
-      if (v32 == @"medium" || (v33 = v32, v34 = [(__CFString *)v32 isEqualToString:@"medium"], v33, (v34 & 1) != 0))
+      if (v32 == @"medium" || (v33 = v32, v34 = objc_msgSend_isEqualToString_(v32), v33, (v34 & 1) != 0))
       {
         v11 = 2;
       }
@@ -59,7 +59,7 @@ LABEL_6:
         if (v38 != @"low")
         {
           v39 = v38;
-          v40 = [(__CFString *)v38 isEqualToString:@"low"];
+          v40 = objc_msgSend_isEqualToString_(v38);
 
           if (!v40)
           {
@@ -119,19 +119,19 @@ LABEL_24:
             {
               if (v23)
               {
-                v25 = [(__CFString *)v23 isEqualToString:@"trusted"];
+                v25 = objc_msgSend_isEqualToString_(v23);
 
                 if ((v25 & 1) == 0)
                 {
                   v35 = v24;
-                  if (v35 == @"blocked" || (v36 = v35, v37 = [(__CFString *)v35 isEqualToString:@"blocked"], v36, (v37 & 1) != 0))
+                  if (v35 == @"blocked" || (v36 = v35, v37 = objc_msgSend_isEqualToString_(v35), v36, (v37 & 1) != 0))
                   {
                     v26 = 3;
                     goto LABEL_23;
                   }
 
                   v41 = v36;
-                  if (v41 == @"untrusted" || (v42 = v41, v43 = [(__CFString *)v41 isEqualToString:@"untrusted"], v42, (v43 & 1) != 0))
+                  if (v41 == @"untrusted" || (v42 = v41, v43 = objc_msgSend_isEqualToString_(v41), v42, (v43 & 1) != 0))
                   {
                     v26 = 2;
                     goto LABEL_23;

@@ -11,36 +11,40 @@
 
 - (JUMeasurements)measurementsWithFitting:(CGSize)fitting in:(id)in
 {
+  height = fitting.height;
+  width = fitting.width;
   swift_getObjectType();
   swift_unknownObjectRetain();
   selfCopy = self;
-  v7 = sub_63D324(in, selfCopy);
-  v9 = v8;
+  v9 = sub_63D324(in, selfCopy, width, height);
   v11 = v10;
   v13 = v12;
+  v15 = v14;
   swift_unknownObjectRelease();
 
-  v14 = v7;
-  v15 = v9;
-  v16 = v11;
-  v17 = v13;
-  result.var3 = v17;
-  result.var2 = v16;
-  result.var1 = v15;
-  result.var0 = v14;
+  v16 = v9;
+  v17 = v11;
+  v18 = v13;
+  v19 = v15;
+  result.var3 = v19;
+  result.var2 = v18;
+  result.var1 = v17;
+  result.var0 = v16;
   return result;
 }
 
 - (CGSize)sizeThatFits:(CGSize)fits
 {
+  height = fits.height;
+  width = fits.width;
   selfCopy = self;
-  v4 = sub_63D324(selfCopy, selfCopy);
-  v6 = v5;
+  v6 = sub_63D324(selfCopy, selfCopy, width, height);
+  v8 = v7;
 
-  v7 = v4;
-  v8 = v6;
-  result.height = v8;
-  result.width = v7;
+  v9 = v6;
+  v10 = v8;
+  result.height = v10;
+  result.width = v9;
   return result;
 }
 
@@ -52,18 +56,18 @@
 
 - (void)traitCollectionDidChange:(id)change
 {
-  v7.receiver = self;
-  v7.super_class = swift_getObjectType();
+  v9.receiver = self;
+  v9.super_class = swift_getObjectType();
   changeCopy = change;
-  v5 = v7.receiver;
-  [(BreakoutDetailsView *)&v7 traitCollectionDidChange:changeCopy];
+  v5 = v9.receiver;
+  [(BreakoutDetailsView *)&v9 traitCollectionDidChange:changeCopy];
   contentView = [*&v5[OBJC_IVAR____TtC18ASMessagesProvider19BreakoutDetailsView_backgroundMaterialView] contentView];
-  sub_639218();
+  sub_639218(v7);
   sub_769BA0();
   [contentView setLayoutMargins:?];
 
   sub_6385E0();
-  sub_63A390();
+  sub_63A390(v8);
   [v5 setNeedsLayout];
 }
 
@@ -72,11 +76,12 @@
   v2 = *(&self->super.super.super.isa + OBJC_IVAR____TtC18ASMessagesProvider19BreakoutDetailsView_callToActionButtonHandler);
   if (v2)
   {
+    v3 = *&self->badgeLabel[OBJC_IVAR____TtC18ASMessagesProvider19BreakoutDetailsView_callToActionButtonHandler];
     selfCopy = self;
-    v4 = sub_F714(v2);
-    v2(v4);
+    v5 = sub_F714(v2, v3);
+    v2(v5);
 
-    sub_F704(v2);
+    sub_F704(v2, v3);
   }
 }
 

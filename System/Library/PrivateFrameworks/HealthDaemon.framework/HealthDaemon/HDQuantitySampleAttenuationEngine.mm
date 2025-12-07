@@ -141,7 +141,7 @@ LABEL_21:
 
 - (void)_loadSamplesFromDelegateAtLocation:(char *)location
 {
-  v4 = (location + 40960);
+  v4 = location + 40960;
   attenuationEngineDelegate = [location attenuationEngineDelegate];
   v9 = 0;
   v6 = [attenuationEngineDelegate loadAttenuationSamples:location + 8 anchorTime:&v9 errorOut:a2];
@@ -150,20 +150,20 @@ LABEL_21:
 
   if (v6 < 0)
   {
-    if (!v4[5])
+    if (!*(v4 + 5))
     {
       objc_storeStrong(v4 + 5, v7);
     }
 
-    v4[4] = v4[4] + 1;
+    ++*(v4 + 4);
   }
 
   else
   {
-    v4[1] = v6;
+    *(v4 + 1) = v6;
   }
 
-  v4[2] = 0;
+  *(v4 + 2) = 0;
 }
 
 - (BOOL)delegateLoadingWasSuccessful:(id *)successful

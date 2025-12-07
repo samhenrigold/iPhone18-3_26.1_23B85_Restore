@@ -45,15 +45,16 @@
 
 - (void)invalidate
 {
-  v7 = *MEMORY[0x277D85DE8];
-  if ([(NSTimer *)self->_timer isValid])
+  v8 = *MEMORY[0x277D85DE8];
+  isValid = [(NSTimer *)self->_timer isValid];
+  if (isValid)
   {
-    v3 = SBLogScreenLongevityController();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = SBLogScreenLongevityController(isValid);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 138543362;
+      v6 = 138543362;
       selfCopy = self;
-      _os_log_impl(&dword_21ED4E000, v3, OS_LOG_TYPE_DEFAULT, "Dimming timer invalidate %{public}@", &v5, 0xCu);
+      _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_DEFAULT, "Dimming timer invalidate %{public}@", &v6, 0xCu);
     }
 
     [(NSTimer *)self->_timer invalidate];
@@ -78,7 +79,7 @@
 - (void)start
 {
   v14 = *MEMORY[0x277D85DE8];
-  v3 = SBLogScreenLongevityController();
+  v3 = SBLogScreenLongevityController(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
@@ -193,7 +194,7 @@ void __31__SBScreenLongevityTimer_start__block_invoke_4(uint64_t a1, void *a2)
 {
   v6 = *MEMORY[0x277D85DE8];
   self->_currentFaceDetectionTimerInterval = self->_dimInterval - self->_waitInterval + self->_minimalFaceDetectionInterval;
-  v3 = SBLogScreenLongevityController();
+  v3 = SBLogScreenLongevityController(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 138543362;

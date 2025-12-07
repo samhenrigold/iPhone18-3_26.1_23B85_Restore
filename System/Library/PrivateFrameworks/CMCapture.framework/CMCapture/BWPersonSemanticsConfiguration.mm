@@ -14,57 +14,57 @@
 
 + (unsigned)personSemanticForAttachedMediaKey:(id)key
 {
-  if ([key isEqualToString:0x1F219E750])
+  if (objc_msgSend_isEqualToString_(key, a2, 0x1F219E750))
   {
     return 1;
   }
 
-  if ([key isEqualToString:0x1F219E770])
+  if (objc_msgSend_isEqualToString_(key))
   {
     return 2;
   }
 
-  if ([key isEqualToString:0x1F219E7B0])
+  if (objc_msgSend_isEqualToString_(key))
   {
     return 8;
   }
 
-  if ([key isEqualToString:0x1F219E7D0])
+  if (objc_msgSend_isEqualToString_(key))
   {
     return 16;
   }
 
-  if ([key isEqualToString:0x1F219E7F0])
+  if (objc_msgSend_isEqualToString_(key))
   {
     return 32;
   }
 
-  if ([key isEqualToString:0x1F219E810])
+  if (objc_msgSend_isEqualToString_(key))
   {
     return 64;
   }
 
-  if ([key isEqualToString:0x1F219E870])
+  if (objc_msgSend_isEqualToString_(key))
   {
     return 1024;
   }
 
-  if ([key isEqualToString:0x1F219E850])
+  if (objc_msgSend_isEqualToString_(key))
   {
     return 256;
   }
 
-  if ([key isEqualToString:0x1F219E830])
+  if (objc_msgSend_isEqualToString_(key))
   {
     return 512;
   }
 
-  if ([key isEqualToString:0x1F219E890])
+  if (objc_msgSend_isEqualToString_(key))
   {
     return 2048;
   }
 
-  if ([key isEqualToString:0x1F219E8B0])
+  if (objc_msgSend_isEqualToString_(key))
   {
     return 4096;
   }

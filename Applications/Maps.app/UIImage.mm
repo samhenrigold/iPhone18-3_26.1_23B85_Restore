@@ -934,10 +934,10 @@ LABEL_25:
 {
   infoCopy = info;
   v9 = [[GuidanceManeuverView alloc] initWithFrame:CGRectZero.origin.x, CGRectZero.origin.y, CGRectZero.size.width, CGRectZero.size.height];
-  [SignStyle arrowMetricsForStyle:0];
+  objc_msgSend_arrowMetricsForStyle_(SignStyle);
   memcpy(__dst, __src, sizeof(__dst));
   [(GuidanceManeuverView *)v9 setArrowMetrics:__dst];
-  [SignStyle junctionArrowMetricsForStyle:0];
+  objc_msgSend_junctionArrowMetricsForStyle_(SignStyle);
   memcpy(__dst, v20, sizeof(__dst));
   [(GuidanceManeuverView *)v9 setJunctionArrowMetrics:__dst];
   [(GuidanceManeuverView *)v9 setFraming:1];
@@ -1053,26 +1053,26 @@ LABEL_25:
   if ((objc_opt_respondsToSelector() & 1) != 0 && (+[NSBundle tapToRadarKit], (v2 = objc_claimAutoreleasedReturnValue()) != 0))
   {
     v3 = v2;
-    v9 = 0;
-    v10 = &v9;
-    v11 = 0x2020000000;
+    v10 = 0;
+    v11 = &v10;
+    v12 = 0x2020000000;
     v4 = qword_10195EB08;
-    v12 = qword_10195EB08;
+    v13 = qword_10195EB08;
     if (!qword_10195EB08)
     {
       v5 = sub_100BFC70C();
-      v10[3] = dlsym(v5, "TapToRadarSymbolCircleUnfilled");
-      qword_10195EB08 = v10[3];
-      v4 = v10[3];
+      v11[3] = dlsym(v5, "TapToRadarSymbolCircleUnfilled");
+      qword_10195EB08 = v11[3];
+      v4 = v11[3];
     }
 
-    _Block_object_dispose(&v9, 8);
+    _Block_object_dispose(&v10, 8);
     if (!v4)
     {
-      dlerror();
-      v8 = abort_report_np();
-      _Block_object_dispose(&v9, 8);
-      _Unwind_Resume(v8);
+      v8 = dlerror();
+      v9 = abort_report_np("%s", v8);
+      _Block_object_dispose(&v10, 8);
+      _Unwind_Resume(v9);
     }
 
     v6 = [UIImage imageNamed:*v4 inBundle:v3];
@@ -1092,26 +1092,26 @@ LABEL_25:
   if ((objc_opt_respondsToSelector() & 1) != 0 && (+[NSBundle tapToRadarKit], (v2 = objc_claimAutoreleasedReturnValue()) != 0))
   {
     v3 = v2;
-    v9 = 0;
-    v10 = &v9;
-    v11 = 0x2020000000;
+    v10 = 0;
+    v11 = &v10;
+    v12 = 0x2020000000;
     v4 = qword_10195EB00;
-    v12 = qword_10195EB00;
+    v13 = qword_10195EB00;
     if (!qword_10195EB00)
     {
       v5 = sub_100BFC70C();
-      v10[3] = dlsym(v5, "TapToRadarSymbolCircleFilled");
-      qword_10195EB00 = v10[3];
-      v4 = v10[3];
+      v11[3] = dlsym(v5, "TapToRadarSymbolCircleFilled");
+      qword_10195EB00 = v11[3];
+      v4 = v11[3];
     }
 
-    _Block_object_dispose(&v9, 8);
+    _Block_object_dispose(&v10, 8);
     if (!v4)
     {
-      dlerror();
-      v8 = abort_report_np();
-      _Block_object_dispose(&v9, 8);
-      _Unwind_Resume(v8);
+      v8 = dlerror();
+      v9 = abort_report_np("%s", v8);
+      _Block_object_dispose(&v10, 8);
+      _Unwind_Resume(v9);
     }
 
     v6 = [UIImage imageNamed:*v4 inBundle:v3];
@@ -1131,26 +1131,26 @@ LABEL_25:
   if ((objc_opt_respondsToSelector() & 1) != 0 && (+[NSBundle tapToRadarKit], (v2 = objc_claimAutoreleasedReturnValue()) != 0))
   {
     v3 = v2;
-    v9 = 0;
-    v10 = &v9;
-    v11 = 0x2020000000;
+    v10 = 0;
+    v11 = &v10;
+    v12 = 0x2020000000;
     v4 = qword_10195EAF8;
-    v12 = qword_10195EAF8;
+    v13 = qword_10195EAF8;
     if (!qword_10195EAF8)
     {
       v5 = sub_100BFC70C();
-      v10[3] = dlsym(v5, "TapToRadarSymbolUnfilled");
-      qword_10195EAF8 = v10[3];
-      v4 = v10[3];
+      v11[3] = dlsym(v5, "TapToRadarSymbolUnfilled");
+      qword_10195EAF8 = v11[3];
+      v4 = v11[3];
     }
 
-    _Block_object_dispose(&v9, 8);
+    _Block_object_dispose(&v10, 8);
     if (!v4)
     {
-      dlerror();
-      v8 = abort_report_np();
-      _Block_object_dispose(&v9, 8);
-      _Unwind_Resume(v8);
+      v8 = dlerror();
+      v9 = abort_report_np("%s", v8);
+      _Block_object_dispose(&v10, 8);
+      _Unwind_Resume(v9);
     }
 
     v6 = [UIImage imageNamed:*v4 inBundle:v3];
@@ -1170,26 +1170,26 @@ LABEL_25:
   if ((objc_opt_respondsToSelector() & 1) != 0 && (+[NSBundle tapToRadarKit], (v2 = objc_claimAutoreleasedReturnValue()) != 0))
   {
     v3 = v2;
-    v9 = 0;
-    v10 = &v9;
-    v11 = 0x2020000000;
+    v10 = 0;
+    v11 = &v10;
+    v12 = 0x2020000000;
     v4 = qword_10195EAE8;
-    v12 = qword_10195EAE8;
+    v13 = qword_10195EAE8;
     if (!qword_10195EAE8)
     {
       v5 = sub_100BFC70C();
-      v10[3] = dlsym(v5, "TapToRadarSymbolFilled");
-      qword_10195EAE8 = v10[3];
-      v4 = v10[3];
+      v11[3] = dlsym(v5, "TapToRadarSymbolFilled");
+      qword_10195EAE8 = v11[3];
+      v4 = v11[3];
     }
 
-    _Block_object_dispose(&v9, 8);
+    _Block_object_dispose(&v10, 8);
     if (!v4)
     {
-      dlerror();
-      v8 = abort_report_np();
-      _Block_object_dispose(&v9, 8);
-      _Unwind_Resume(v8);
+      v8 = dlerror();
+      v9 = abort_report_np("%s", v8);
+      _Block_object_dispose(&v10, 8);
+      _Unwind_Resume(v9);
     }
 
     v6 = [UIImage imageNamed:*v4 inBundle:v3];

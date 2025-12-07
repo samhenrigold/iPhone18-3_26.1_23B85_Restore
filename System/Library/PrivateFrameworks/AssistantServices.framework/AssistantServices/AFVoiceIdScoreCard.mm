@@ -17,7 +17,7 @@
 
 - (id)buildDictionaryRepresentation
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v4 = v3;
   spIdAudioProcessedDuration = self->_spIdAudioProcessedDuration;
@@ -35,31 +35,31 @@
   if (self->_spIdKnownUserScores)
   {
     v7 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{-[NSDictionary count](self->_spIdKnownUserScores, "count")}];
+    v32 = 0u;
     v33 = 0u;
     v34 = 0u;
     v35 = 0u;
-    v36 = 0u;
     v8 = self->_spIdKnownUserScores;
-    v9 = [(NSDictionary *)v8 countByEnumeratingWithState:&v33 objects:v37 count:16];
+    v9 = [(NSDictionary *)v8 countByEnumeratingWithState:&v32 objects:v36 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v34;
+      v11 = *v33;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v34 != v11)
+          if (*v33 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v33 + 1) + 8 * i);
-          v14 = [(NSDictionary *)self->_spIdKnownUserScores objectForKey:v13, v33];
+          v13 = *(*(&v32 + 1) + 8 * i);
+          v14 = [(NSDictionary *)self->_spIdKnownUserScores objectForKey:v13, v32];
           [v7 setObject:v14 forKey:v13];
         }
 
-        v10 = [(NSDictionary *)v8 countByEnumeratingWithState:&v33 objects:v37 count:16];
+        v10 = [(NSDictionary *)v8 countByEnumeratingWithState:&v32 objects:v36 count:16];
       }
 
       while (v10);
@@ -146,14 +146,13 @@
   [v4 setObject:v29 forKey:@"hasSufficientAudioProcessed"];
 
   v30 = [v4 copy];
-  v31 = *MEMORY[0x1E69E9840];
 
   return v30;
 }
 
 - (AFVoiceIdScoreCard)initWithDictionaryRepresentation:(id)representation
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   representationCopy = representation;
   v5 = representationCopy;
   if (representationCopy)
@@ -162,53 +161,53 @@
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v45 = v6;
+      v44 = v6;
     }
 
     else
     {
-      v45 = 0;
+      v44 = 0;
     }
 
     v8 = [v5 objectForKey:@"spIdUnknownUserScore"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v43 = v8;
+      v42 = v8;
     }
 
     else
     {
-      v43 = 0;
+      v42 = 0;
     }
 
     v9 = [v5 objectForKey:@"spIdKnownUserScores"];
     objc_opt_class();
-    v44 = v5;
+    v43 = v5;
     if (objc_opt_isKindOfClass())
     {
       v10 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(v9, "count")}];
+      v45 = 0u;
       v46 = 0u;
       v47 = 0u;
       v48 = 0u;
-      v49 = 0u;
-      v40 = v9;
+      v39 = v9;
       v11 = v9;
-      v12 = [v11 countByEnumeratingWithState:&v46 objects:v50 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v45 objects:v49 count:16];
       if (v12)
       {
         v13 = v12;
-        v14 = *v47;
+        v14 = *v46;
         do
         {
           for (i = 0; i != v13; ++i)
           {
-            if (*v47 != v14)
+            if (*v46 != v14)
             {
               objc_enumerationMutation(v11);
             }
 
-            v16 = *(*(&v46 + 1) + 8 * i);
+            v16 = *(*(&v45 + 1) + 8 * i);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -232,27 +231,15 @@
             }
           }
 
-          v13 = [v11 countByEnumeratingWithState:&v46 objects:v50 count:16];
+          v13 = [v11 countByEnumeratingWithState:&v45 objects:v49 count:16];
         }
 
         while (v13);
       }
 
-      v42 = [v10 copy];
-      v5 = v44;
-      v9 = v40;
-    }
-
-    else
-    {
-      v42 = 0;
-    }
-
-    v19 = [v5 objectForKey:@"spIdUserScoresVersion"];
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
-    {
-      v41 = v19;
+      v41 = [v10 copy];
+      v5 = v43;
+      v9 = v39;
     }
 
     else
@@ -260,28 +247,40 @@
       v41 = 0;
     }
 
-    v20 = [v5 objectForKey:@"spIdScoreThresholdingType"];
+    v19 = [v5 objectForKey:@"spIdUserScoresVersion"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v39 = v20;
+      v40 = v19;
     }
 
     else
     {
-      v39 = 0;
+      v40 = 0;
+    }
+
+    v20 = [v5 objectForKey:@"spIdScoreThresholdingType"];
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      v38 = v20;
+    }
+
+    else
+    {
+      v38 = 0;
     }
 
     v21 = [v5 objectForKey:@"spIdAssetVersion"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v38 = v21;
+      v37 = v21;
     }
 
     else
     {
-      v38 = 0;
+      v37 = 0;
     }
 
     v22 = [v5 objectForKey:@"userClassified"];
@@ -368,9 +367,9 @@
       v35 = 0;
     }
 
-    self = [(AFVoiceIdScoreCard *)self initWithSpIdAudioProcessedDuration:v45 spIdUnknownUserScore:v43 spIdKnownUserScores:v42 spIdUserScoresVersion:v41 spIdScoreThresholdingType:v39 spIdAssetVersion:v38 userClassified:v23 userIdentityClassification:v25 lowScoreThreshold:v27 highScoreThreshold:v29 confidentScoreThreshold:v31 deltaScoreThreshold:v33 hasSufficientAudioProcessed:v35];
+    self = [(AFVoiceIdScoreCard *)self initWithSpIdAudioProcessedDuration:v44 spIdUnknownUserScore:v42 spIdKnownUserScores:v41 spIdUserScoresVersion:v40 spIdScoreThresholdingType:v38 spIdAssetVersion:v37 userClassified:v23 userIdentityClassification:v25 lowScoreThreshold:v27 highScoreThreshold:v29 confidentScoreThreshold:v31 deltaScoreThreshold:v33 hasSufficientAudioProcessed:v35];
     selfCopy = self;
-    v5 = v44;
+    v5 = v43;
   }
 
   else
@@ -378,7 +377,6 @@
     selfCopy = 0;
   }
 
-  v36 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

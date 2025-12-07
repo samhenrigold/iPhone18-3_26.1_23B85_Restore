@@ -117,7 +117,7 @@
   }
 
   [v3 hmf_appendObject:asEncodedData];
-  v13 = [v3 copy];
+  v13 = objc_msgSend_copy(v3);
 
   return v13;
 }
@@ -166,12 +166,11 @@ void __41__HMDVendorModelCollection_asEncodedData__block_invoke(uint64_t a1, voi
 
 void __46__HMDVendorModelCollection_lookupProductData___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v9 = a2;
-  v6 = [v9 productData];
-  v7 = *(a1 + 32);
-  v8 = HMFAreStringsEqualIgnoringCase();
+  v8 = a2;
+  v6 = [v8 productData];
+  v7 = HMFAreStringsEqualIgnoringCase();
 
-  if (v8)
+  if (v7)
   {
     objc_storeStrong((*(*(a1 + 40) + 8) + 40), a2);
     *a3 = 1;
@@ -187,30 +186,13 @@ void __46__HMDVendorModelCollection_lookupProductData___block_invoke(uint64_t a1
   v20 = __Block_byref_object_copy__161946;
   v21 = __Block_byref_object_dispose__161947;
   v22 = 0;
-  if (!modelCopy)
-  {
-    goto LABEL_6;
-  }
-
-  v5 = self ? self->_entries : 0;
-  v6 = v5;
-  v11 = MEMORY[0x277D85DD0];
-  v12 = 3221225472;
-  v13 = __40__HMDVendorModelCollection_lookupModel___block_invoke;
-  v14 = &unk_27867C190;
-  v15 = modelCopy;
-  v16 = &v17;
-  [(NSMutableSet *)v6 hmf_enumerateWithAutoreleasePoolUsingBlock:&v11];
-
-  v7 = v18[5];
-  if (v7)
+  if (modelCopy && (!self ? (entries = 0) : (entries = self->_entries), v6 = entries, v11 = MEMORY[0x277D85DD0], v12 = 3221225472, v13 = __40__HMDVendorModelCollection_lookupModel___block_invoke, v14 = &unk_27867C190, v15 = modelCopy, v16 = &v17, [(NSMutableSet *)v6 hmf_enumerateWithAutoreleasePoolUsingBlock:&v11], v6, v15, (v7 = v18[5]) != 0))
   {
     v8 = v7;
   }
 
   else
   {
-LABEL_6:
     v8 = [(HMDVendorModelCollection *)self defaultEntry:v11];
   }
 
@@ -222,12 +204,11 @@ LABEL_6:
 
 void __40__HMDVendorModelCollection_lookupModel___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v9 = a2;
-  v6 = [v9 model];
-  v7 = *(a1 + 32);
-  v8 = HMFAreStringsEqualIgnoringCase();
+  v8 = a2;
+  v6 = [v8 model];
+  v7 = HMFAreStringsEqualIgnoringCase();
 
-  if (v8)
+  if (v7)
   {
     objc_storeStrong((*(*(a1 + 40) + 8) + 40), a2);
     *a3 = 1;
@@ -246,7 +227,7 @@ void __40__HMDVendorModelCollection_lookupModel___block_invoke(uint64_t a1, void
 
 - (id)attributeDescriptions
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   if (self)
   {
@@ -260,14 +241,12 @@ void __40__HMDVendorModelCollection_lookupModel___block_invoke(uint64_t a1, void
 
   v5 = entries;
   v6 = [v3 initWithName:@"Entries" value:v5];
-  v13[0] = v6;
+  v12[0] = v6;
   v7 = objc_alloc(MEMORY[0x277D0F778]);
   defaultEntry = [(HMDVendorModelCollection *)self defaultEntry];
   v9 = [v7 initWithName:@"DefaultEntry" value:defaultEntry];
-  v13[1] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v12[1] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
 
   return v10;
 }

@@ -8,10 +8,20 @@ void ___APBrokerHTTPSendRequestToURL_block_invoke(uint64_t a1, void *a2, void *a
   v5 = *(a1 + 32);
   if (a4)
   {
-    NSErrorToOSStatus();
+    v6 = NSErrorToOSStatus();
+    if (v6)
+    {
+      v7 = v6;
+    }
+
+    else
+    {
+      v7 = 4294960596;
+    }
+
     if (gLogCategory_APBrokerHTTPUtils <= 30 && (gLogCategory_APBrokerHTTPUtils != -1 || _LogCategory_Initialize()))
     {
-      ___APBrokerHTTPSendRequestToURL_block_invoke_cold_1(v5);
+      ___APBrokerHTTPSendRequestToURL_block_invoke_cold_1(v5, v7);
     }
   }
 
@@ -20,22 +30,20 @@ void ___APBrokerHTTPSendRequestToURL_block_invoke(uint64_t a1, void *a2, void *a
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v7 = [a3 statusCode];
+      v9 = [a3 statusCode];
     }
 
     else
     {
-      v7 = 0;
+      v9 = 0;
     }
 
     if (gLogCategory_APBrokerHTTPUtils <= 30 && (gLogCategory_APBrokerHTTPUtils != -1 || _LogCategory_Initialize()))
     {
-      v10 = *v5;
-      v11 = v7;
-      LogPrintF();
+      LogPrintF(&gLogCategory_APBrokerHTTPUtils, "void _APBrokerHTTPHandlerDataTaskCompletion(APBrokerHTTPRequestData *, NSData * _Nullable, NSURLResponse * _Nullable, NSError * _Nullable)", 33554462, "[%{ptr}] Data task callback success. Response code: %ld\n", *v5, v9);
     }
 
-    if (a2 && v7 == 200 && [a2 length])
+    if (a2 && v9 == 200 && [a2 length])
     {
       if (IsAppleInternalBuild())
       {
@@ -56,29 +64,14 @@ void ___APBrokerHTTPSendRequestToURL_block_invoke(uint64_t a1, void *a2, void *a
 
       else if (gLogCategory_APBrokerHTTPUtils <= 90 && (gLogCategory_APBrokerHTTPUtils != -1 || _LogCategory_Initialize()))
       {
-        ___APBrokerHTTPSendRequestToURL_block_invoke_cold_2(v5, a2);
+        ___APBrokerHTTPSendRequestToURL_block_invoke_cold_2(v5, a2, IntWithDefault);
       }
     }
   }
 
-  v9 = *(v5 + 100);
-  (*(*(v5 + 56) + 16))();
+  (*(v5[7] + 16))();
 
   _APBrokerHTTPReleaseRequestData(v5);
-}
-
-uint64_t ___APBrokerHTTPSendRequestToURL_block_invoke_cold_1(uint64_t *a1)
-{
-  v3 = a1[4];
-  v2 = *a1;
-  return LogPrintF();
-}
-
-uint64_t ___APBrokerHTTPSendRequestToURL_block_invoke_cold_2(uint64_t *a1, void *a2)
-{
-  v2 = *a1;
-  [a2 length];
-  return LogPrintF();
 }
 
 @end

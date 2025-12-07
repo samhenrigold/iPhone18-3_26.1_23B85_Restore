@@ -18,31 +18,31 @@
 - (id)hk_errorByAddingEntriesToUserInfo:()HealthKit;
 - (id)hk_sanitizedErrorForDomain:()HealthKit;
 - (id)hk_underlyingErrorWithDomain:()HealthKit;
-- (uint64_t)hk_isAuthorizationDeniedError;
-- (uint64_t)hk_isAuthorizationNotDeterminedError;
 - (uint64_t)hk_isCocoaFileExistsError;
 - (uint64_t)hk_isCocoaNoSuchFileError;
-- (uint64_t)hk_isDatabaseAccessibilityError;
 - (uint64_t)hk_isHealthKitError;
-- (uint64_t)hk_isHealthKitErrorWithCode:()HealthKit;
-- (uint64_t)hk_isInternalFailureError;
-- (uint64_t)hk_isInvalidArgumentError;
-- (uint64_t)hk_isRequiredAuthorizationError;
-- (uint64_t)hk_isServiceDeviceNotFoundError;
-- (uint64_t)hk_isStreamFailureError;
-- (uint64_t)hk_isTimeoutError;
-- (uint64_t)hk_isUserCanceledError;
+- (void)hk_isAuthorizationDeniedError;
+- (void)hk_isAuthorizationNotDeterminedError;
+- (void)hk_isDatabaseAccessibilityError;
+- (void)hk_isHealthKitErrorWithCode:()HealthKit;
+- (void)hk_isInternalFailureError;
+- (void)hk_isInvalidArgumentError;
+- (void)hk_isRequiredAuthorizationError;
+- (void)hk_isServiceDeviceNotFoundError;
+- (void)hk_isStreamFailureError;
+- (void)hk_isTimeoutError;
+- (void)hk_isUserCanceledError;
 @end
 
 @implementation NSError(HealthKit)
 
-- (uint64_t)hk_isDatabaseAccessibilityError
+- (void)hk_isDatabaseAccessibilityError
 {
   result = [self hk_isHealthKitError];
   if (result)
   {
     code = [self code];
-    return code == 6 || code == 101;
+    return (code == 6 || code == 101);
   }
 
   return result;
@@ -58,14 +58,14 @@
 
 + (id)hk_error:()HealthKit description:
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   v6 = a4;
   v7 = v6;
   if (v6)
   {
-    v12 = *MEMORY[0x1E696A578];
-    v13[0] = v6;
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    v11 = *MEMORY[0x1E696A578];
+    v12[0] = v6;
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
     v9 = [self errorWithDomain:@"com.apple.healthkit" code:a3 userInfo:v8];
   }
 
@@ -73,8 +73,6 @@
   {
     v9 = [self errorWithDomain:@"com.apple.healthkit" code:a3 userInfo:0];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -113,79 +111,27 @@
 
 + (id)hk_error:()HealthKit class:selector:format:
 {
-  v23[3] = *MEMORY[0x1E69E9840];
+  v22[3] = *MEMORY[0x1E69E9840];
   v12 = MEMORY[0x1E696AEC0];
   v13 = a6;
   v14 = [[v12 alloc] initWithFormat:v13 arguments:&a9];
 
   v15 = MEMORY[0x1E696ABC0];
-  v22[0] = @"HKErrorClass";
+  v21[0] = @"HKErrorClass";
   v16 = NSStringFromClass(a4);
-  v23[0] = v16;
-  v22[1] = @"HKErrorSelector";
+  v22[0] = v16;
+  v21[1] = @"HKErrorSelector";
   v17 = NSStringFromSelector(a5);
-  v22[2] = *MEMORY[0x1E696A578];
-  v23[1] = v17;
-  v23[2] = v14;
-  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:3];
+  v21[2] = *MEMORY[0x1E696A578];
+  v22[1] = v17;
+  v22[2] = v14;
+  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:3];
   v19 = [v15 hk_error:a3 userInfo:v18];
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v19;
 }
 
 + (id)hk_errorForInvalidArgument:()HealthKit class:selector:
-{
-  v18[4] = *MEMORY[0x1E69E9840];
-  v7 = MEMORY[0x1E696ABC0];
-  v17[0] = @"HKErrorClass";
-  v8 = a3;
-  v9 = NSStringFromClass(a4);
-  v18[0] = v9;
-  v17[1] = @"HKErrorSelector";
-  v10 = NSStringFromSelector(a5);
-  v18[1] = v10;
-  v18[2] = v8;
-  v11 = *MEMORY[0x1E696A578];
-  v12 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid argument: %@", v8, @"HKErrorClass", @"HKErrorSelector", @"HKErrorParameter", v11, v9, v10, v8];
-  v18[3] = v12;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:4];
-  v14 = [v7 hk_error:3 userInfo:v13];
-
-  v15 = *MEMORY[0x1E69E9840];
-
-  return v14;
-}
-
-+ (id)hk_errorForInvalidArgument:()HealthKit class:selector:format:
-{
-  v24[4] = *MEMORY[0x1E69E9840];
-  v12 = MEMORY[0x1E696ABC0];
-  v23[0] = @"HKErrorClass";
-  v13 = a6;
-  v14 = a3;
-  v15 = NSStringFromClass(a4);
-  v24[0] = v15;
-  v23[1] = @"HKErrorSelector";
-  v16 = NSStringFromSelector(a5);
-  v24[1] = v16;
-  v24[2] = v14;
-  v17 = *MEMORY[0x1E696A578];
-  v23[2] = @"HKErrorParameter";
-  v23[3] = v17;
-  v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:v13 arguments:&a9];
-
-  v24[3] = v18;
-  v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:4];
-  v20 = [v12 hk_error:3 userInfo:v19];
-
-  v21 = *MEMORY[0x1E69E9840];
-
-  return v20;
-}
-
-+ (id)hk_errorForNilArgument:()HealthKit class:selector:
 {
   v17[4] = *MEMORY[0x1E69E9840];
   v7 = MEMORY[0x1E696ABC0];
@@ -195,12 +141,56 @@
   v17[0] = v9;
   v16[1] = @"HKErrorSelector";
   v10 = NSStringFromSelector(a5);
-  v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Argument %@ must not be nil", v8, @"HKErrorClass", @"HKErrorSelector", @"HKErrorParameter", *MEMORY[0x1E696A578], v9, v10, v8];
-  v17[3] = v11;
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:4];
-  v13 = [v7 hk_error:3 userInfo:v12];
+  v17[1] = v10;
+  v17[2] = v8;
+  v11 = *MEMORY[0x1E696A578];
+  v12 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid argument: %@", v8, @"HKErrorClass", @"HKErrorSelector", @"HKErrorParameter", v11, v9, v10, v8];
+  v17[3] = v12;
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:4];
+  v14 = [v7 hk_error:3 userInfo:v13];
 
-  v14 = *MEMORY[0x1E69E9840];
+  return v14;
+}
+
++ (id)hk_errorForInvalidArgument:()HealthKit class:selector:format:
+{
+  v23[4] = *MEMORY[0x1E69E9840];
+  v12 = MEMORY[0x1E696ABC0];
+  v22[0] = @"HKErrorClass";
+  v13 = a6;
+  v14 = a3;
+  v15 = NSStringFromClass(a4);
+  v23[0] = v15;
+  v22[1] = @"HKErrorSelector";
+  v16 = NSStringFromSelector(a5);
+  v23[1] = v16;
+  v23[2] = v14;
+  v17 = *MEMORY[0x1E696A578];
+  v22[2] = @"HKErrorParameter";
+  v22[3] = v17;
+  v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:v13 arguments:&a9];
+
+  v23[3] = v18;
+  v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:4];
+  v20 = [v12 hk_error:3 userInfo:v19];
+
+  return v20;
+}
+
++ (id)hk_errorForNilArgument:()HealthKit class:selector:
+{
+  v16[4] = *MEMORY[0x1E69E9840];
+  v7 = MEMORY[0x1E696ABC0];
+  v15[0] = @"HKErrorClass";
+  v8 = a3;
+  v9 = NSStringFromClass(a4);
+  v16[0] = v9;
+  v15[1] = @"HKErrorSelector";
+  v10 = NSStringFromSelector(a5);
+  v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Argument %@ must not be nil", v8, @"HKErrorClass", @"HKErrorSelector", @"HKErrorParameter", *MEMORY[0x1E696A578], v9, v10, v8];
+  v16[3] = v11;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:4];
+  v13 = [v7 hk_error:3 userInfo:v12];
 
   return v13;
 }
@@ -328,111 +318,111 @@
   return 1;
 }
 
-- (uint64_t)hk_isHealthKitErrorWithCode:()HealthKit
+- (void)hk_isHealthKitErrorWithCode:()HealthKit
 {
   result = [self hk_isHealthKitError];
   if (result)
   {
-    return [self code] == a3;
+    return ([self code] == a3);
   }
 
   return result;
 }
 
-- (uint64_t)hk_isServiceDeviceNotFoundError
+- (void)hk_isServiceDeviceNotFoundError
 {
   result = [self hk_isHealthKitError];
   if (result)
   {
-    return [self code] == 313;
+    return ([self code] == 313);
   }
 
   return result;
 }
 
-- (uint64_t)hk_isAuthorizationDeniedError
+- (void)hk_isAuthorizationDeniedError
 {
   result = [self hk_isHealthKitError];
   if (result)
   {
-    return [self code] == 4;
+    return ([self code] == 4);
   }
 
   return result;
 }
 
-- (uint64_t)hk_isAuthorizationNotDeterminedError
+- (void)hk_isAuthorizationNotDeterminedError
 {
   result = [self hk_isHealthKitError];
   if (result)
   {
-    return [self code] == 5;
+    return ([self code] == 5);
   }
 
   return result;
 }
 
-- (uint64_t)hk_isInvalidArgumentError
+- (void)hk_isInvalidArgumentError
 {
   result = [self hk_isHealthKitError];
   if (result)
   {
-    return [self code] == 3;
+    return ([self code] == 3);
   }
 
   return result;
 }
 
-- (uint64_t)hk_isInternalFailureError
+- (void)hk_isInternalFailureError
 {
   result = [self hk_isHealthKitError];
   if (result)
   {
-    return [self code] == 100;
+    return ([self code] == 100);
   }
 
   return result;
 }
 
-- (uint64_t)hk_isRequiredAuthorizationError
+- (void)hk_isRequiredAuthorizationError
 {
   result = [self hk_isHealthKitError];
   if (result)
   {
-    return [self code] == 10;
+    return ([self code] == 10);
   }
 
   return result;
 }
 
-- (uint64_t)hk_isStreamFailureError
+- (void)hk_isStreamFailureError
 {
   result = [self hk_isHealthKitError];
   if (result)
   {
-    return [self code] == 104;
+    return ([self code] == 104);
   }
 
   return result;
 }
 
-- (uint64_t)hk_isTimeoutError
+- (void)hk_isTimeoutError
 {
   result = [self hk_isHealthKitError];
   if (result)
   {
-    return [self code] == 103;
+    return ([self code] == 103);
   }
 
   return result;
 }
 
-- (uint64_t)hk_isUserCanceledError
+- (void)hk_isUserCanceledError
 {
   result = [self hk_isHealthKitError];
   if (result)
   {
-    return [self code] == 7;
+    return ([self code] == 7);
   }
 
   return result;

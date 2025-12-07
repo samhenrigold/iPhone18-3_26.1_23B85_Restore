@@ -12,7 +12,7 @@
 - (void)viewDidLoad
 {
   v5.receiver = self;
-  v5.super_class = type metadata accessor for EmergencyAccessBuddyStewieViewController();
+  v5.super_class = type metadata accessor for EmergencyAccessBuddyStewieViewController(0);
   v2 = v5.receiver;
   [(OBBaseWelcomeController *)&v5 viewDidLoad];
   sub_1BA460C18();
@@ -30,7 +30,7 @@
   sub_1BA4A7BF8();
   swift_unknownObjectRelease();
   (*(&selfCopy->super.super.super.super.super.isa + OBJC_IVAR____TtC18HealthExperienceUI40EmergencyAccessBuddyStewieViewController_nextVCHandler))(selfCopy);
-  __swift_destroy_boxed_opaque_existential_1(&v5);
+  __swift_destroy_boxed_opaque_existential_1(v5);
 }
 
 - (void)didTapLearnMore:(id)more
@@ -41,7 +41,7 @@
   swift_unknownObjectRelease();
   [objc_opt_self() presentStewieLearnMoreLinkOnViewController_];
 
-  __swift_destroy_boxed_opaque_existential_1(&v5);
+  __swift_destroy_boxed_opaque_existential_1(v5);
 }
 
 - (void)didTapCancel:(id)cancel
@@ -52,7 +52,7 @@
   swift_unknownObjectRelease();
   sub_1BA461760();
 
-  __swift_destroy_boxed_opaque_existential_1(&v5);
+  __swift_destroy_boxed_opaque_existential_1(v5);
 }
 
 - (_TtC18HealthExperienceUI40EmergencyAccessBuddyStewieViewController)initWithTitle:(id)title detailText:(id)text symbolName:(id)name contentLayout:(int64_t)layout

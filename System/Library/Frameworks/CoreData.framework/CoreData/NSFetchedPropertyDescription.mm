@@ -179,11 +179,13 @@
 - (id)description
 {
   v3 = objc_autoreleasePoolPush();
-  v6.receiver = self;
-  v6.super_class = NSFetchedPropertyDescription;
-  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@, fetchRequest %@", -[NSPropertyDescription description](&v6, sel_description), -[NSFetchedPropertyDescription fetchRequest](self, "fetchRequest")];
+  v4 = MEMORY[0x1E696AEC0];
+  v8.receiver = self;
+  v8.super_class = NSFetchedPropertyDescription;
+  v5 = [(NSPropertyDescription *)&v8 description];
+  v6 = objc_msgSend_stringWithFormat_(v4, v5, [(NSFetchedPropertyDescription *)self fetchRequest]);
   objc_autoreleasePoolPop(v3);
-  return v4;
+  return v6;
 }
 
 - (void)setFetchRequest:(NSFetchRequest *)fetchRequest

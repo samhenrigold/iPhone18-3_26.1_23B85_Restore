@@ -15,10 +15,10 @@
 
 - (CKDetailsAddGroupNameView)initWithFrame:(CGRect)frame
 {
-  v69[2] = *MEMORY[0x1E69E9840];
-  v66.receiver = self;
-  v66.super_class = CKDetailsAddGroupNameView;
-  v3 = [(CKDetailsAddGroupNameView *)&v66 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v70[2] = *MEMORY[0x1E69E9840];
+  v67.receiver = self;
+  v67.super_class = CKDetailsAddGroupNameView;
+  v3 = [(CKDetailsAddGroupNameView *)&v67 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
   v4 = v3;
   if (v3)
   {
@@ -33,94 +33,94 @@
     v4->_placeholderLabel = v10;
 
     v12 = v4->_placeholderLabel;
-    v13 = CKFrameworkBundle();
-    v14 = [v13 localizedStringForKey:@"GROUP_NAME_LABEL" value:&stru_1F04268F8 table:@"ChatKit"];
-    localizedUppercaseString = [v14 localizedUppercaseString];
+    v14 = CKFrameworkBundle(v13);
+    v15 = [v14 localizedStringForKey:@"GROUP_NAME_LABEL" value:&stru_1F04268F8 table:@"ChatKit"];
+    localizedUppercaseString = [v15 localizedUppercaseString];
     [(UILabel *)v12 setText:localizedUppercaseString];
 
-    v16 = v4->_placeholderLabel;
-    v17 = +[CKUIBehavior sharedBehaviors];
-    theme = [v17 theme];
+    v17 = v4->_placeholderLabel;
+    v18 = +[CKUIBehavior sharedBehaviors];
+    theme = [v18 theme];
     primaryLabelColor = [theme primaryLabelColor];
-    [(UILabel *)v16 setTextColor:primaryLabelColor];
+    [(UILabel *)v17 setTextColor:primaryLabelColor];
 
-    v20 = v4->_placeholderLabel;
-    v21 = [MEMORY[0x1E69DB878] preferredFontForTextStyle:*MEMORY[0x1E69DDD28]];
-    [(UILabel *)v20 setFont:v21];
+    v21 = v4->_placeholderLabel;
+    v22 = [MEMORY[0x1E69DB878] preferredFontForTextStyle:*MEMORY[0x1E69DDD28]];
+    [(UILabel *)v21 setFont:v22];
 
     [(CKDetailsAddGroupNameView *)v4 addSubview:v4->_placeholderLabel];
     [(UILabel *)v4->_placeholderLabel setTranslatesAutoresizingMaskIntoConstraints:0];
-    v22 = [[CKDetailsViewAddGroupNameViewUITextField alloc] initWithFrame:v6, v7, v8, v9];
+    v23 = [[CKDetailsViewAddGroupNameViewUITextField alloc] initWithFrame:v6, v7, v8, v9];
     inputField = v4->_inputField;
-    v4->_inputField = v22;
+    v4->_inputField = v23;
 
-    v24 = v4->_inputField;
+    v25 = v4->_inputField;
     clearColor = [MEMORY[0x1E69DC888] clearColor];
-    [(CKDetailsViewAddGroupNameViewUITextField *)v24 setBackgroundColor:clearColor];
+    [(CKDetailsViewAddGroupNameViewUITextField *)v25 setBackgroundColor:clearColor];
 
     [(CKDetailsViewAddGroupNameViewUITextField *)v4->_inputField setReturnKeyType:9];
-    v26 = v4->_inputField;
-    v27 = *MEMORY[0x1E69DDCF8];
-    v28 = [MEMORY[0x1E69DB878] preferredFontForTextStyle:*MEMORY[0x1E69DDCF8]];
-    [(CKDetailsViewAddGroupNameViewUITextField *)v26 setFont:v28];
+    v27 = v4->_inputField;
+    v28 = *MEMORY[0x1E69DDCF8];
+    v29 = [MEMORY[0x1E69DB878] preferredFontForTextStyle:*MEMORY[0x1E69DDCF8]];
+    [(CKDetailsViewAddGroupNameViewUITextField *)v27 setFont:v29];
 
     [(CKDetailsViewAddGroupNameViewUITextField *)v4->_inputField setClearButtonMode:1];
     [(CKDetailsViewAddGroupNameViewUITextField *)v4->_inputField setDelegate:v4];
-    v29 = v4->_inputField;
-    v30 = +[CKUIBehavior sharedBehaviors];
-    theme2 = [v30 theme];
+    v30 = v4->_inputField;
+    v31 = +[CKUIBehavior sharedBehaviors];
+    theme2 = [v31 theme];
     primaryLabelColor2 = [theme2 primaryLabelColor];
-    [(CKDetailsViewAddGroupNameViewUITextField *)v29 setTextColor:primaryLabelColor2];
+    [(CKDetailsViewAddGroupNameViewUITextField *)v30 setTextColor:primaryLabelColor2];
 
-    v33 = v4->_inputField;
-    v34 = +[CKUIBehavior sharedBehaviors];
-    theme3 = [v34 theme];
-    -[CKDetailsViewAddGroupNameViewUITextField setKeyboardAppearance:](v33, "setKeyboardAppearance:", [theme3 keyboardAppearance]);
+    v34 = v4->_inputField;
+    v35 = +[CKUIBehavior sharedBehaviors];
+    theme3 = [v35 theme];
+    -[CKDetailsViewAddGroupNameViewUITextField setKeyboardAppearance:](v34, "setKeyboardAppearance:", [theme3 keyboardAppearance]);
 
-    v36 = v4->_inputField;
-    v37 = objc_alloc(MEMORY[0x1E696AAB0]);
-    v38 = CKFrameworkBundle();
-    v39 = [v38 localizedStringForKey:@"GROUP_NAME_PLACEHOLDER" value:&stru_1F04268F8 table:@"ChatKit"];
-    v68[0] = *MEMORY[0x1E69DB650];
-    v40 = [MEMORY[0x1E69DC888] ckColorNamed:@"CKSystemBlueColor"];
-    v69[0] = v40;
-    v68[1] = *MEMORY[0x1E69DB648];
-    v41 = [MEMORY[0x1E69DB878] preferredFontForTextStyle:v27];
-    v69[1] = v41;
-    v42 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v69 forKeys:v68 count:2];
-    v43 = [v37 initWithString:v39 attributes:v42];
-    [(CKDetailsViewAddGroupNameViewUITextField *)v36 setAttributedPlaceholder:v43];
+    v37 = v4->_inputField;
+    v38 = objc_alloc(MEMORY[0x1E696AAB0]);
+    v39 = CKFrameworkBundle(v38);
+    v40 = [v39 localizedStringForKey:@"GROUP_NAME_PLACEHOLDER" value:&stru_1F04268F8 table:@"ChatKit"];
+    v69[0] = *MEMORY[0x1E69DB650];
+    v41 = [MEMORY[0x1E69DC888] ckColorNamed:@"CKSystemBlueColor"];
+    v70[0] = v41;
+    v69[1] = *MEMORY[0x1E69DB648];
+    v42 = [MEMORY[0x1E69DB878] preferredFontForTextStyle:v28];
+    v70[1] = v42;
+    v43 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v70 forKeys:v69 count:2];
+    v44 = [v38 initWithString:v40 attributes:v43];
+    [(CKDetailsViewAddGroupNameViewUITextField *)v37 setAttributedPlaceholder:v44];
 
     [(CKDetailsAddGroupNameView *)v4 addSubview:v4->_inputField];
     [(CKDetailsViewAddGroupNameViewUITextField *)v4->_inputField setTranslatesAutoresizingMaskIntoConstraints:0];
-    v57 = MEMORY[0x1E696ACD8];
+    v58 = MEMORY[0x1E696ACD8];
     topAnchor = [(UILabel *)v4->_placeholderLabel topAnchor];
     topAnchor2 = [(CKDetailsAddGroupNameView *)v4 topAnchor];
-    v63 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:4.0];
-    v67[0] = v63;
+    v64 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:4.0];
+    v68[0] = v64;
     leadingAnchor = [(UILabel *)v4->_placeholderLabel leadingAnchor];
     leadingAnchor2 = [(CKDetailsAddGroupNameView *)v4 leadingAnchor];
-    v60 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-    v67[1] = v60;
+    v61 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+    v68[1] = v61;
     trailingAnchor = [(UILabel *)v4->_placeholderLabel trailingAnchor];
     trailingAnchor2 = [(CKDetailsAddGroupNameView *)v4 trailingAnchor];
-    v56 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-    v67[2] = v56;
+    v57 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+    v68[2] = v57;
     topAnchor3 = [(CKDetailsViewAddGroupNameViewUITextField *)v4->_inputField topAnchor];
     placeholderLabel = [(CKDetailsAddGroupNameView *)v4 placeholderLabel];
     bottomAnchor = [placeholderLabel bottomAnchor];
-    v45 = [topAnchor3 constraintEqualToAnchor:bottomAnchor constant:4.0];
-    v67[3] = v45;
+    v46 = [topAnchor3 constraintEqualToAnchor:bottomAnchor constant:4.0];
+    v68[3] = v46;
     leadingAnchor3 = [(CKDetailsViewAddGroupNameViewUITextField *)v4->_inputField leadingAnchor];
     leadingAnchor4 = [(CKDetailsAddGroupNameView *)v4 leadingAnchor];
-    v48 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
-    v67[4] = v48;
+    v49 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
+    v68[4] = v49;
     trailingAnchor3 = [(CKDetailsViewAddGroupNameViewUITextField *)v4->_inputField trailingAnchor];
     trailingAnchor4 = [(CKDetailsAddGroupNameView *)v4 trailingAnchor];
-    v51 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4];
-    v67[5] = v51;
-    v52 = [MEMORY[0x1E695DEC8] arrayWithObjects:v67 count:6];
-    [v57 activateConstraints:v52];
+    v52 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4];
+    v68[5] = v52;
+    v53 = [MEMORY[0x1E695DEC8] arrayWithObjects:v68 count:6];
+    [v58 activateConstraints:v53];
   }
 
   return v4;
@@ -164,7 +164,7 @@
     self->_enabled = enabled;
     inputField = [(CKDetailsAddGroupNameView *)self inputField];
     v5 = objc_alloc(MEMORY[0x1E696AAB0]);
-    v6 = CKFrameworkBundle();
+    v6 = CKFrameworkBundle(v5);
     v7 = [v6 localizedStringForKey:@"GROUP_NAME_PLACEHOLDER" value:&stru_1F04268F8 table:@"ChatKit"];
     v12 = *MEMORY[0x1E69DB650];
     systemGrayColor = [MEMORY[0x1E69DC888] systemGrayColor];

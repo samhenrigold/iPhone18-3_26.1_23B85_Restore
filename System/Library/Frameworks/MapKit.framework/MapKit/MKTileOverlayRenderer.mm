@@ -278,7 +278,7 @@
           overlay2 = [(MKOverlayRenderer *)self overlay];
           if (v18)
           {
-            [v18 path];
+            objc_msgSend_path(v18);
           }
 
           else
@@ -329,7 +329,7 @@
   return v14 & 1;
 }
 
-uint64_t __50__MKTileOverlayRenderer_canDrawMapRect_zoomScale___block_invoke(uint64_t a1)
+void *__50__MKTileOverlayRenderer_canDrawMapRect_zoomScale___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 112) containsKey:a1 + 48];
   if (result)

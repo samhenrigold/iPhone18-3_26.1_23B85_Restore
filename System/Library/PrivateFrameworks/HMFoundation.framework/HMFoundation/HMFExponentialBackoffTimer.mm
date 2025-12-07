@@ -44,26 +44,26 @@ LABEL_6:
 - (HMFExponentialBackoffTimer)initWithMinimumTimeInterval:(double)interval maximumTimeInterval:(double)timeInterval exponentialFactor:(int64_t)factor options:(unsigned int)options
 {
   selfCopy = self;
-  v28 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   if (!factor)
   {
     v11 = objc_autoreleasePoolPush();
-    v12 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = HMFGetOSLogHandle(0, v18);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v13 = HMFGetLogIdentifier(0);
+      v14 = HMFGetLogIdentifier(0);
       *buf = 138543362;
-      v23 = v13;
-      v14 = "%{public}@[HMFExponentialBackoffTimer] The exponential factor cannot be 0";
-      v15 = v12;
-      v16 = 12;
+      v25 = v14;
+      v15 = "%{public}@[HMFExponentialBackoffTimer] The exponential factor cannot be 0";
+      v16 = v13;
+      v17 = 12;
       goto LABEL_10;
     }
 
 LABEL_11:
 
     objc_autoreleasePoolPop(v11);
-    v17 = 0;
+    v20 = 0;
     goto LABEL_12;
   }
 
@@ -72,17 +72,17 @@ LABEL_11:
   if (interval <= 0.0)
   {
     v11 = objc_autoreleasePoolPush();
-    v12 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = HMFGetOSLogHandle(0, v19);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v13 = HMFGetLogIdentifier(0);
+      v14 = HMFGetLogIdentifier(0);
       *buf = 138543618;
-      v23 = v13;
-      v24 = 2048;
+      v25 = v14;
+      v26 = 2048;
       timeIntervalCopy = intervalCopy;
-      v14 = "%{public}@[HMFExponentialBackoffTimer] The minimum time interval, %f, must be greater than 0";
-      v15 = v12;
-      v16 = 22;
+      v15 = "%{public}@[HMFExponentialBackoffTimer] The minimum time interval, %f, must be greater than 0";
+      v16 = v13;
+      v17 = 22;
       goto LABEL_10;
     }
 
@@ -92,21 +92,21 @@ LABEL_11:
   if (timeInterval < interval)
   {
     v11 = objc_autoreleasePoolPush();
-    v12 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = HMFGetOSLogHandle(0, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v13 = HMFGetLogIdentifier(0);
+      v14 = HMFGetLogIdentifier(0);
       *buf = 138543874;
-      v23 = v13;
-      v24 = 2048;
-      timeIntervalCopy = timeInterval;
+      v25 = v14;
       v26 = 2048;
-      v27 = intervalCopy;
-      v14 = "%{public}@[HMFExponentialBackoffTimer] The maximum time interval, %f, must be greater than or equal to the minimum time interval, %f";
-      v15 = v12;
-      v16 = 32;
+      timeIntervalCopy = timeInterval;
+      v28 = 2048;
+      v29 = intervalCopy;
+      v15 = "%{public}@[HMFExponentialBackoffTimer] The maximum time interval, %f, must be greater than or equal to the minimum time interval, %f";
+      v16 = v13;
+      v17 = 32;
 LABEL_10:
-      _os_log_impl(&dword_22ADEC000, v15, OS_LOG_TYPE_ERROR, v14, buf, v16);
+      _os_log_impl(&dword_22ADEC000, v16, OS_LOG_TYPE_ERROR, v15, buf, v17);
 
       goto LABEL_11;
     }
@@ -119,23 +119,22 @@ LABEL_10:
     interval = timeInterval;
   }
 
-  v21.receiver = self;
-  v21.super_class = HMFExponentialBackoffTimer;
-  v20 = [(HMFTimer *)&v21 initWithTimeInterval:options | 4 options:interval];
-  if (v20)
+  v23.receiver = self;
+  v23.super_class = HMFExponentialBackoffTimer;
+  v22 = [(HMFTimer *)&v23 initWithTimeInterval:options | 4 options:interval];
+  if (v22)
   {
-    v20->_minimumTimeInterval = intervalCopy;
-    v20->_maximumTimeInterval = timeInterval;
-    v20->_exponentialFactor = factor;
-    v20->_increasing = v9;
+    v22->_minimumTimeInterval = intervalCopy;
+    v22->_maximumTimeInterval = timeInterval;
+    v22->_exponentialFactor = factor;
+    v22->_increasing = v9;
   }
 
-  selfCopy = v20;
-  v17 = selfCopy;
+  selfCopy = v22;
+  v20 = selfCopy;
 LABEL_12:
 
-  v18 = *MEMORY[0x277D85DE8];
-  return v17;
+  return v20;
 }
 
 - (double)timeInterval

@@ -3,7 +3,7 @@
 
 @implementation SFCardSection
 
-uint64_t __116__SFCardSection_SearchUIHorizontallyScrollingSectionModel__searchUIHorizontallyScrollingSectionModel_idealItemWidth__block_invoke()
+void *__116__SFCardSection_SearchUIHorizontallyScrollingSectionModel__searchUIHorizontallyScrollingSectionModel_idealItemWidth__block_invoke()
 {
   result = [MEMORY[0x1E69D9240] isMacOS];
   if (result)

@@ -1,298 +1,3 @@
-uint64_t *std::__tree_remove[abi:nn200100]<std::__tree_node_base<void *> *>(uint64_t *result, uint64_t *a2)
-{
-  v2 = *a2;
-  v3 = a2;
-  if (*a2)
-  {
-    v4 = a2[1];
-    if (!v4)
-    {
-      v3 = a2;
-      goto LABEL_7;
-    }
-
-    do
-    {
-      v3 = v4;
-      v4 = *v4;
-    }
-
-    while (v4);
-  }
-
-  v2 = v3[1];
-  if (v2)
-  {
-LABEL_7:
-    v6 = 0;
-    v5 = v3[2];
-    *(v2 + 16) = v5;
-    goto LABEL_8;
-  }
-
-  v5 = v3[2];
-  v6 = 1;
-LABEL_8:
-  v7 = *v5;
-  if (*v5 == v3)
-  {
-    *v5 = v2;
-    if (v3 == result)
-    {
-      v7 = 0;
-      result = v2;
-    }
-
-    else
-    {
-      v7 = v5[1];
-    }
-  }
-
-  else
-  {
-    v5[1] = v2;
-  }
-
-  v8 = *(v3 + 24);
-  if (v3 != a2)
-  {
-    v9 = a2[2];
-    v3[2] = v9;
-    v9[*v9 != a2] = v3;
-    v11 = *a2;
-    v10 = a2[1];
-    *(v11 + 16) = v3;
-    *v3 = v11;
-    v3[1] = v10;
-    if (v10)
-    {
-      *(v10 + 16) = v3;
-    }
-
-    *(v3 + 24) = *(a2 + 24);
-    if (result == a2)
-    {
-      result = v3;
-    }
-  }
-
-  if (!result || !v8)
-  {
-    return result;
-  }
-
-  if (!v6)
-  {
-    *(v2 + 24) = 1;
-    return result;
-  }
-
-  while (1)
-  {
-    v12 = v7[2];
-    v13 = *v12;
-    v14 = *(v7 + 24);
-    if (*v12 == v7)
-    {
-      break;
-    }
-
-    if ((v7[3] & 1) == 0)
-    {
-      *(v7 + 24) = 1;
-      *(v12 + 24) = 0;
-      v15 = v12[1];
-      v16 = *v15;
-      v12[1] = *v15;
-      if (v16)
-      {
-        *(v16 + 16) = v12;
-      }
-
-      v17 = v12[2];
-      v15[2] = v17;
-      v17[*v17 != v12] = v15;
-      *v15 = v12;
-      v12[2] = v15;
-      if (result == *v7)
-      {
-        result = v7;
-      }
-
-      v7 = *(*v7 + 8);
-    }
-
-    v18 = *v7;
-    if (*v7 && *(v18 + 24) != 1)
-    {
-      v19 = v7[1];
-      if (!v19)
-      {
-        goto LABEL_55;
-      }
-
-LABEL_54:
-      if (*(v19 + 24) == 1)
-      {
-LABEL_55:
-        *(v18 + 24) = 1;
-        *(v7 + 24) = 0;
-        v27 = v18[1];
-        *v7 = v27;
-        if (v27)
-        {
-          *(v27 + 16) = v7;
-        }
-
-        v28 = v7[2];
-        v18[2] = v28;
-        v28[*v28 != v7] = v18;
-        v18[1] = v7;
-        v7[2] = v18;
-        v19 = v7;
-      }
-
-      else
-      {
-        v18 = v7;
-      }
-
-      v29 = v18[2];
-      *(v18 + 24) = *(v29 + 24);
-      *(v29 + 24) = 1;
-      *(v19 + 24) = 1;
-      v30 = *(v29 + 8);
-      v31 = *v30;
-      *(v29 + 8) = *v30;
-      if (v31)
-      {
-        *(v31 + 16) = v29;
-      }
-
-      v32 = *(v29 + 16);
-      v30[2] = v32;
-      v32[*v32 != v29] = v30;
-      *v30 = v29;
-      goto LABEL_72;
-    }
-
-    v19 = v7[1];
-    if (v19 && *(v19 + 24) != 1)
-    {
-      goto LABEL_54;
-    }
-
-    *(v7 + 24) = 0;
-    v20 = v7[2];
-    if (v20 == result || (v20[3] & 1) == 0)
-    {
-      goto LABEL_52;
-    }
-
-LABEL_49:
-    v7 = *(v20[2] + 8 * (*v20[2] == v20));
-  }
-
-  if ((v7[3] & 1) == 0)
-  {
-    *(v7 + 24) = 1;
-    *(v12 + 24) = 0;
-    v21 = v13[1];
-    *v12 = v21;
-    if (v21)
-    {
-      *(v21 + 16) = v12;
-    }
-
-    v22 = v12[2];
-    v13[2] = v22;
-    v22[*v22 != v12] = v13;
-    v13[1] = v12;
-    v12[2] = v13;
-    v23 = v7[1];
-    if (result == v23)
-    {
-      result = v7;
-    }
-
-    v7 = *v23;
-  }
-
-  v24 = *v7;
-  if (*v7 && *(v24 + 24) != 1)
-  {
-    goto LABEL_68;
-  }
-
-  v25 = v7[1];
-  if (!v25 || *(v25 + 24) == 1)
-  {
-    *(v7 + 24) = 0;
-    v20 = v7[2];
-    if (*(v20 + 24) != 1 || v20 == result)
-    {
-LABEL_52:
-      *(v20 + 24) = 1;
-      return result;
-    }
-
-    goto LABEL_49;
-  }
-
-  if (!v24)
-  {
-    goto LABEL_65;
-  }
-
-  if (v24[3])
-  {
-    v25 = v7[1];
-LABEL_65:
-    *(v25 + 24) = 1;
-    *(v7 + 24) = 0;
-    v33 = *v25;
-    v7[1] = *v25;
-    if (v33)
-    {
-      *(v33 + 16) = v7;
-    }
-
-    v34 = v7[2];
-    v25[2] = v34;
-    v34[*v34 != v7] = v25;
-    *v25 = v7;
-    v7[2] = v25;
-    v24 = v7;
-  }
-
-  else
-  {
-LABEL_68:
-    v25 = v7;
-  }
-
-  v29 = v25[2];
-  *(v25 + 24) = *(v29 + 24);
-  *(v29 + 24) = 1;
-  *(v24 + 24) = 1;
-  v30 = *v29;
-  v35 = *(*v29 + 8);
-  *v29 = v35;
-  if (v35)
-  {
-    *(v35 + 16) = v29;
-  }
-
-  v36 = *(v29 + 16);
-  v30[2] = v36;
-  v36[*v36 != v29] = v30;
-  v30[1] = v29;
-LABEL_72:
-  *(v29 + 16) = v30;
-  return result;
-}
-
 uint64_t std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:nn200100]<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> *,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> *,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> *>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v5 = a2;
@@ -327,16 +32,16 @@ uint64_t std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:nn200100]<nloh
   return v5;
 }
 
-void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<std::string&,std::string,0>(uint64_t a1)
+void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<std::string&,std::string,0>(uint64_t a1, uint64_t a2)
 {
   *(a1 + 8) = 0;
   *a1 = 3;
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::create<std::string,std::string const&>();
+  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::create<std::string,std::string const&>(a2);
 }
 
-uint64_t std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t a1, void **a2)
+void *std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t **a1, uint64_t ***a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  result = *std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__find_equal<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>(a1, &v3, a2);
+  result = *std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__find_equal<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>(a1, &v6, a2);
   if (!result)
   {
     std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__construct_node<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
@@ -374,7 +79,7 @@ std::string *_ZNSt3__14pairIKNS_12basic_stringIcNS_11char_traitsIcEENS_9allocato
   return this;
 }
 
-uint64_t nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<double &>(uint64_t *a1, uint64_t *a2, char a3)
+uint64_t nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<double &>(uint64_t *a1, uint64_t **a2, char a3)
 {
   v3 = a1[5];
   if (!v3)
@@ -385,33 +90,32 @@ uint64_t nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std
   if ((*(a1[4] + (((v3 - 1) >> 3) & 0x1FFFFFFFFFFFFFF8)) >> (v3 - 1)))
   {
     v6 = *a2;
-    v30[0] = 7;
-    v31 = v6;
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v30);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v30);
+    v27[0] = 7;
+    v28 = v6;
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v27);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v27);
     if (a3 & 1) != 0 || (std::function<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::operator()((a1 + 12), (a1[2] - a1[1]) >> 3, 5))
     {
       v7 = a1[2];
       if (a1[1] == v7)
       {
-        v28[0] = v30[0];
-        v29 = v31;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v30);
-        v30[0] = 0;
-        v31 = 0;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v28);
-        v12 = *a1;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v28);
-        v13 = *v12;
-        *v12 = v28[0];
-        v28[0] = v13;
-        v14 = *(v12 + 8);
-        *(v12 + 8) = v29;
-        v29 = v14;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v12);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v28);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v29, v28[0]);
-        v15 = *a1;
+        v25[0] = v27[0];
+        v26 = v28;
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v27);
+        v27[0] = 0;
+        v28 = 0;
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v25);
+        v11 = *a1;
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v25);
+        v12 = *v11;
+        *v11 = v25[0];
+        v25[0] = v12;
+        v13 = *(v11 + 8);
+        *(v11 + 8) = v26;
+        v26 = v13;
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v11);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v25);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v26, v25[0]);
         goto LABEL_16;
       }
 
@@ -421,80 +125,78 @@ uint64_t nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std
         v9 = *v8;
         if (v9 == 2)
         {
-          std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::push_back[abi:nn200100](*(v8 + 1), v30);
-          v10 = *(*(*(a1[2] - 8) + 8) + 8) - 16;
+          std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::push_back[abi:nn200100](*(v8 + 1), v27);
 LABEL_16:
-          v11 = 1;
+          v10 = 1;
 LABEL_18:
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v30);
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v31, v30[0]);
-          return v11;
+          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v27);
+          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v28, v27[0]);
+          return v10;
         }
 
         if (v9 == 1)
         {
-          v16 = a1[8];
-          if (v16)
+          v14 = a1[8];
+          if (v14)
           {
-            v17 = v16 - 1;
-            v18 = *(a1[7] + ((v17 >> 3) & 0x1FFFFFFFFFFFFFF8));
-            a1[8] = v17;
-            if ((v18 >> v17))
+            v15 = v14 - 1;
+            v16 = *(a1[7] + ((v15 >> 3) & 0x1FFFFFFFFFFFFFF8));
+            a1[8] = v15;
+            if ((v16 >> v15))
             {
               if (!a1[10])
               {
                 __assert_rtn("handle_value", "json_sax.hpp", 624, "object_element");
               }
 
-              v26[0] = v30[0];
-              v27 = v31;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v30);
-              v30[0] = 0;
-              v31 = 0;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v26);
-              v19 = a1[10];
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v26);
-              v20 = *v19;
-              *v19 = v26[0];
-              v26[0] = v20;
-              v21 = *(v19 + 8);
-              *(v19 + 8) = v27;
-              v27 = v21;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v19);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v26);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v27, v26[0]);
-              v22 = a1[10];
+              v23[0] = v27[0];
+              v24 = v28;
+              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v27);
+              v27[0] = 0;
+              v28 = 0;
+              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v23);
+              v17 = a1[10];
+              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v23);
+              v18 = *v17;
+              *v17 = v23[0];
+              v23[0] = v18;
+              v19 = *(v17 + 8);
+              *(v17 + 8) = v24;
+              v24 = v19;
+              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v17);
+              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v23);
+              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v24, v23[0]);
               goto LABEL_16;
             }
 
             goto LABEL_17;
           }
 
-          v24 = "not key_keep_stack.empty()";
-          v25 = 615;
+          v21 = "not key_keep_stack.empty()";
+          v22 = 615;
         }
 
         else
         {
-          v24 = "ref_stack.back()->is_array() or ref_stack.back()->is_object()";
-          v25 = 603;
+          v21 = "ref_stack.back()->is_array() or ref_stack.back()->is_object()";
+          v22 = 603;
         }
 
-        __assert_rtn("handle_value", "json_sax.hpp", v25, v24);
+        __assert_rtn("handle_value", "json_sax.hpp", v22, v21);
       }
     }
 
 LABEL_17:
-    v11 = 0;
+    v10 = 0;
     goto LABEL_18;
   }
 
   return 0;
 }
 
-void sub_258918E5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_258918E5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(va);
   _Unwind_Resume(a1);
 }
@@ -510,33 +212,32 @@ uint64_t nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std
   if ((*(a1[4] + (((v3 - 1) >> 3) & 0x1FFFFFFFFFFFFFF8)) >> (v3 - 1)))
   {
     v6 = *a2;
-    v30[0] = 4;
-    v31 = v6;
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v30);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v30);
+    v27[0] = 4;
+    v28 = v6;
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v27);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v27);
     if (a3 & 1) != 0 || (std::function<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::operator()((a1 + 12), (a1[2] - a1[1]) >> 3, 5))
     {
       v7 = a1[2];
       if (a1[1] == v7)
       {
-        v28[0] = v30[0];
-        v29 = v31;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v30);
-        v30[0] = 0;
-        v31 = 0;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v28);
-        v12 = *a1;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v28);
-        v13 = *v12;
-        *v12 = v28[0];
-        v28[0] = v13;
-        v14 = *(v12 + 8);
-        *(v12 + 8) = v29;
-        v29 = v14;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v12);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v28);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v29, v28[0]);
-        v15 = *a1;
+        v25[0] = v27[0];
+        v26 = v28;
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v27);
+        v27[0] = 0;
+        v28 = 0;
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v25);
+        v11 = *a1;
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v25);
+        v12 = *v11;
+        *v11 = v25[0];
+        v25[0] = v12;
+        v13 = *(v11 + 8);
+        *(v11 + 8) = v26;
+        v26 = v13;
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v11);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v25);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v26, v25[0]);
         goto LABEL_16;
       }
 
@@ -546,80 +247,78 @@ uint64_t nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std
         v9 = *v8;
         if (v9 == 2)
         {
-          std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::push_back[abi:nn200100](*(v8 + 1), v30);
-          v10 = *(*(*(a1[2] - 8) + 8) + 8) - 16;
+          std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::push_back[abi:nn200100](*(v8 + 1), v27);
 LABEL_16:
-          v11 = 1;
+          v10 = 1;
 LABEL_18:
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v30);
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v31, v30[0]);
-          return v11;
+          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v27);
+          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v28, v27[0]);
+          return v10;
         }
 
         if (v9 == 1)
         {
-          v16 = a1[8];
-          if (v16)
+          v14 = a1[8];
+          if (v14)
           {
-            v17 = v16 - 1;
-            v18 = *(a1[7] + ((v17 >> 3) & 0x1FFFFFFFFFFFFFF8));
-            a1[8] = v17;
-            if ((v18 >> v17))
+            v15 = v14 - 1;
+            v16 = *(a1[7] + ((v15 >> 3) & 0x1FFFFFFFFFFFFFF8));
+            a1[8] = v15;
+            if ((v16 >> v15))
             {
               if (!a1[10])
               {
                 __assert_rtn("handle_value", "json_sax.hpp", 624, "object_element");
               }
 
-              v26[0] = v30[0];
-              v27 = v31;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v30);
-              v30[0] = 0;
-              v31 = 0;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v26);
-              v19 = a1[10];
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v26);
-              v20 = *v19;
-              *v19 = v26[0];
-              v26[0] = v20;
-              v21 = *(v19 + 8);
-              *(v19 + 8) = v27;
-              v27 = v21;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v19);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v26);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v27, v26[0]);
-              v22 = a1[10];
+              v23[0] = v27[0];
+              v24 = v28;
+              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v27);
+              v27[0] = 0;
+              v28 = 0;
+              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v23);
+              v17 = a1[10];
+              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v23);
+              v18 = *v17;
+              *v17 = v23[0];
+              v23[0] = v18;
+              v19 = *(v17 + 8);
+              *(v17 + 8) = v24;
+              v24 = v19;
+              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v17);
+              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v23);
+              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v24, v23[0]);
               goto LABEL_16;
             }
 
             goto LABEL_17;
           }
 
-          v24 = "not key_keep_stack.empty()";
-          v25 = 615;
+          v21 = "not key_keep_stack.empty()";
+          v22 = 615;
         }
 
         else
         {
-          v24 = "ref_stack.back()->is_array() or ref_stack.back()->is_object()";
-          v25 = 603;
+          v21 = "ref_stack.back()->is_array() or ref_stack.back()->is_object()";
+          v22 = 603;
         }
 
-        __assert_rtn("handle_value", "json_sax.hpp", v25, v24);
+        __assert_rtn("handle_value", "json_sax.hpp", v22, v21);
       }
     }
 
 LABEL_17:
-    v11 = 0;
+    v10 = 0;
     goto LABEL_18;
   }
 
   return 0;
 }
 
-void sub_258919118(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_258919118(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(va);
   _Unwind_Resume(a1);
 }
@@ -634,33 +333,32 @@ uint64_t nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std
 
   if ((*(a1[4] + (((v3 - 1) >> 3) & 0x1FFFFFFFFFFFFFF8)) >> (v3 - 1)))
   {
-    v29[0] = 0;
-    v30 = 0;
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v29);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v29);
+    v26[0] = 0;
+    v27 = 0;
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v26);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v26);
     if (a3 & 1) != 0 || (std::function<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::operator()((a1 + 12), (a1[2] - a1[1]) >> 3, 5))
     {
       v6 = a1[2];
       if (a1[1] == v6)
       {
-        v27[0] = v29[0];
-        v28 = v30;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v29);
-        v29[0] = 0;
-        v30 = 0;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v27);
-        v11 = *a1;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v27);
-        v12 = *v11;
-        *v11 = v27[0];
-        v27[0] = v12;
-        v13 = *(v11 + 8);
-        *(v11 + 8) = v28;
-        v28 = v13;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v11);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v27);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v28, v27[0]);
-        v14 = *a1;
+        v24[0] = v26[0];
+        v25 = v27;
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v26);
+        v26[0] = 0;
+        v27 = 0;
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v24);
+        v10 = *a1;
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v24);
+        v11 = *v10;
+        *v10 = v24[0];
+        v24[0] = v11;
+        v12 = *(v10 + 8);
+        *(v10 + 8) = v25;
+        v25 = v12;
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v10);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v24);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v25, v24[0]);
         goto LABEL_16;
       }
 
@@ -670,66 +368,186 @@ uint64_t nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std
         v8 = *v7;
         if (v8 == 2)
         {
-          std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::push_back[abi:nn200100](*(v7 + 1), v29);
-          v9 = *(*(*(a1[2] - 8) + 8) + 8) - 16;
+          std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::push_back[abi:nn200100](*(v7 + 1), v26);
 LABEL_16:
-          v10 = 1;
+          v9 = 1;
 LABEL_18:
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v29);
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v30, v29[0]);
-          return v10;
+          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v26);
+          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v27, v26[0]);
+          return v9;
         }
 
         if (v8 == 1)
         {
-          v15 = a1[8];
-          if (v15)
+          v13 = a1[8];
+          if (v13)
           {
-            v16 = v15 - 1;
-            v17 = *(a1[7] + ((v16 >> 3) & 0x1FFFFFFFFFFFFFF8));
-            a1[8] = v16;
-            if ((v17 >> v16))
+            v14 = v13 - 1;
+            v15 = *(a1[7] + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8));
+            a1[8] = v14;
+            if ((v15 >> v14))
             {
               if (!a1[10])
               {
                 __assert_rtn("handle_value", "json_sax.hpp", 624, "object_element");
               }
 
-              v25[0] = v29[0];
-              v26 = v30;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v29);
-              v29[0] = 0;
-              v30 = 0;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v25);
-              v18 = a1[10];
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v25);
-              v19 = *v18;
-              *v18 = v25[0];
-              v25[0] = v19;
-              v20 = *(v18 + 8);
-              *(v18 + 8) = v26;
-              v26 = v20;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v18);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v25);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v26, v25[0]);
-              v21 = a1[10];
+              v22[0] = v26[0];
+              v23 = v27;
+              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v26);
+              v26[0] = 0;
+              v27 = 0;
+              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v22);
+              v16 = a1[10];
+              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v22);
+              v17 = *v16;
+              *v16 = v22[0];
+              v22[0] = v17;
+              v18 = *(v16 + 8);
+              *(v16 + 8) = v23;
+              v23 = v18;
+              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v16);
+              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v22);
+              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v23, v22[0]);
               goto LABEL_16;
             }
 
             goto LABEL_17;
           }
 
-          v23 = "not key_keep_stack.empty()";
-          v24 = 615;
+          v20 = "not key_keep_stack.empty()";
+          v21 = 615;
         }
 
         else
         {
-          v23 = "ref_stack.back()->is_array() or ref_stack.back()->is_object()";
-          v24 = 603;
+          v20 = "ref_stack.back()->is_array() or ref_stack.back()->is_object()";
+          v21 = 603;
         }
 
-        __assert_rtn("handle_value", "json_sax.hpp", v24, v23);
+        __assert_rtn("handle_value", "json_sax.hpp", v21, v20);
+      }
+    }
+
+LABEL_17:
+    v9 = 0;
+    goto LABEL_18;
+  }
+
+  return 0;
+}
+
+void sub_2589193CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+{
+  va_start(va, a9);
+  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<long long &>(uint64_t *a1, uint64_t **a2, char a3)
+{
+  v3 = a1[5];
+  if (!v3)
+  {
+    nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<nlohmann::detail::value_t>();
+  }
+
+  if ((*(a1[4] + (((v3 - 1) >> 3) & 0x1FFFFFFFFFFFFFF8)) >> (v3 - 1)))
+  {
+    v6 = *a2;
+    v27[0] = 5;
+    v28 = v6;
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v27);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v27);
+    if (a3 & 1) != 0 || (std::function<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::operator()((a1 + 12), (a1[2] - a1[1]) >> 3, 5))
+    {
+      v7 = a1[2];
+      if (a1[1] == v7)
+      {
+        v25[0] = v27[0];
+        v26 = v28;
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v27);
+        v27[0] = 0;
+        v28 = 0;
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v25);
+        v11 = *a1;
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v25);
+        v12 = *v11;
+        *v11 = v25[0];
+        v25[0] = v12;
+        v13 = *(v11 + 8);
+        *(v11 + 8) = v26;
+        v26 = v13;
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v11);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v25);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v26, v25[0]);
+        goto LABEL_16;
+      }
+
+      v8 = *(v7 - 8);
+      if (v8)
+      {
+        v9 = *v8;
+        if (v9 == 2)
+        {
+          std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::push_back[abi:nn200100](*(v8 + 1), v27);
+LABEL_16:
+          v10 = 1;
+LABEL_18:
+          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v27);
+          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v28, v27[0]);
+          return v10;
+        }
+
+        if (v9 == 1)
+        {
+          v14 = a1[8];
+          if (v14)
+          {
+            v15 = v14 - 1;
+            v16 = *(a1[7] + ((v15 >> 3) & 0x1FFFFFFFFFFFFFF8));
+            a1[8] = v15;
+            if ((v16 >> v15))
+            {
+              if (!a1[10])
+              {
+                __assert_rtn("handle_value", "json_sax.hpp", 624, "object_element");
+              }
+
+              v23[0] = v27[0];
+              v24 = v28;
+              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v27);
+              v27[0] = 0;
+              v28 = 0;
+              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v23);
+              v17 = a1[10];
+              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v23);
+              v18 = *v17;
+              *v17 = v23[0];
+              v23[0] = v18;
+              v19 = *(v17 + 8);
+              *(v17 + 8) = v24;
+              v24 = v19;
+              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v17);
+              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v23);
+              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v24, v23[0]);
+              goto LABEL_16;
+            }
+
+            goto LABEL_17;
+          }
+
+          v21 = "not key_keep_stack.empty()";
+          v22 = 615;
+        }
+
+        else
+        {
+          v21 = "ref_stack.back()->is_array() or ref_stack.back()->is_object()";
+          v22 = 603;
+        }
+
+        __assert_rtn("handle_value", "json_sax.hpp", v22, v21);
       }
     }
 
@@ -741,14 +559,37 @@ LABEL_17:
   return 0;
 }
 
-void sub_2589193CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_258919688(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<long long &>(uint64_t *a1, uint64_t *a2, char a3)
+uint64_t nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<std::string&>(uint64_t *a1, uint64_t a2, char a3)
+{
+  v3 = a1[5];
+  if (!v3)
+  {
+    nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<nlohmann::detail::value_t>();
+  }
+
+  if ((*(a1[4] + (((v3 - 1) >> 3) & 0x1FFFFFFFFFFFFFF8)) >> (v3 - 1)))
+  {
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<std::string&,std::string,0>(v5, a2);
+  }
+
+  return 0;
+}
+
+void sub_25891992C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+{
+  va_start(va, a9);
+  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<unsigned long long &>(uint64_t *a1, uint64_t **a2, char a3)
 {
   v3 = a1[5];
   if (!v3)
@@ -759,33 +600,32 @@ uint64_t nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std
   if ((*(a1[4] + (((v3 - 1) >> 3) & 0x1FFFFFFFFFFFFFF8)) >> (v3 - 1)))
   {
     v6 = *a2;
-    v30[0] = 5;
-    v31 = v6;
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v30);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v30);
+    v27[0] = 6;
+    v28 = v6;
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v27);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v27);
     if (a3 & 1) != 0 || (std::function<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::operator()((a1 + 12), (a1[2] - a1[1]) >> 3, 5))
     {
       v7 = a1[2];
       if (a1[1] == v7)
       {
-        v28[0] = v30[0];
-        v29 = v31;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v30);
-        v30[0] = 0;
-        v31 = 0;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v28);
-        v12 = *a1;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v28);
-        v13 = *v12;
-        *v12 = v28[0];
-        v28[0] = v13;
-        v14 = *(v12 + 8);
-        *(v12 + 8) = v29;
-        v29 = v14;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v12);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v28);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v29, v28[0]);
-        v15 = *a1;
+        v25[0] = v27[0];
+        v26 = v28;
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v27);
+        v27[0] = 0;
+        v28 = 0;
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v25);
+        v11 = *a1;
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v25);
+        v12 = *v11;
+        *v11 = v25[0];
+        v25[0] = v12;
+        v13 = *(v11 + 8);
+        *(v11 + 8) = v26;
+        v26 = v13;
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v11);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v25);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v26, v25[0]);
         goto LABEL_16;
       }
 
@@ -795,228 +635,78 @@ uint64_t nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std
         v9 = *v8;
         if (v9 == 2)
         {
-          std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::push_back[abi:nn200100](*(v8 + 1), v30);
-          v10 = *(*(*(a1[2] - 8) + 8) + 8) - 16;
+          std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::push_back[abi:nn200100](*(v8 + 1), v27);
 LABEL_16:
-          v11 = 1;
+          v10 = 1;
 LABEL_18:
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v30);
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v31, v30[0]);
-          return v11;
+          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v27);
+          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v28, v27[0]);
+          return v10;
         }
 
         if (v9 == 1)
         {
-          v16 = a1[8];
-          if (v16)
+          v14 = a1[8];
+          if (v14)
           {
-            v17 = v16 - 1;
-            v18 = *(a1[7] + ((v17 >> 3) & 0x1FFFFFFFFFFFFFF8));
-            a1[8] = v17;
-            if ((v18 >> v17))
+            v15 = v14 - 1;
+            v16 = *(a1[7] + ((v15 >> 3) & 0x1FFFFFFFFFFFFFF8));
+            a1[8] = v15;
+            if ((v16 >> v15))
             {
               if (!a1[10])
               {
                 __assert_rtn("handle_value", "json_sax.hpp", 624, "object_element");
               }
 
-              v26[0] = v30[0];
-              v27 = v31;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v30);
-              v30[0] = 0;
-              v31 = 0;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v26);
-              v19 = a1[10];
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v26);
-              v20 = *v19;
-              *v19 = v26[0];
-              v26[0] = v20;
-              v21 = *(v19 + 8);
-              *(v19 + 8) = v27;
-              v27 = v21;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v19);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v26);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v27, v26[0]);
-              v22 = a1[10];
+              v23[0] = v27[0];
+              v24 = v28;
+              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v27);
+              v27[0] = 0;
+              v28 = 0;
+              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v23);
+              v17 = a1[10];
+              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v23);
+              v18 = *v17;
+              *v17 = v23[0];
+              v23[0] = v18;
+              v19 = *(v17 + 8);
+              *(v17 + 8) = v24;
+              v24 = v19;
+              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v17);
+              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v23);
+              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v24, v23[0]);
               goto LABEL_16;
             }
 
             goto LABEL_17;
           }
 
-          v24 = "not key_keep_stack.empty()";
-          v25 = 615;
+          v21 = "not key_keep_stack.empty()";
+          v22 = 615;
         }
 
         else
         {
-          v24 = "ref_stack.back()->is_array() or ref_stack.back()->is_object()";
-          v25 = 603;
+          v21 = "ref_stack.back()->is_array() or ref_stack.back()->is_object()";
+          v22 = 603;
         }
 
-        __assert_rtn("handle_value", "json_sax.hpp", v25, v24);
+        __assert_rtn("handle_value", "json_sax.hpp", v22, v21);
       }
     }
 
 LABEL_17:
-    v11 = 0;
+    v10 = 0;
     goto LABEL_18;
   }
 
   return 0;
 }
 
-void sub_258919688(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_258919BE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<std::string&>(uint64_t a1)
-{
-  v1 = *(a1 + 40);
-  if (!v1)
-  {
-    nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<nlohmann::detail::value_t>();
-  }
-
-  if ((*(*(a1 + 32) + (((v1 - 1) >> 3) & 0x1FFFFFFFFFFFFFF8)) >> (v1 - 1)))
-  {
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<std::string&,std::string,0>(v3);
-  }
-
-  return 0;
-}
-
-void sub_25891992C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
-{
-  va_start(va, a5);
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<unsigned long long &>(uint64_t *a1, uint64_t *a2, char a3)
-{
-  v3 = a1[5];
-  if (!v3)
-  {
-    nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<nlohmann::detail::value_t>();
-  }
-
-  if ((*(a1[4] + (((v3 - 1) >> 3) & 0x1FFFFFFFFFFFFFF8)) >> (v3 - 1)))
-  {
-    v6 = *a2;
-    v30[0] = 6;
-    v31 = v6;
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v30);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v30);
-    if (a3 & 1) != 0 || (std::function<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::operator()((a1 + 12), (a1[2] - a1[1]) >> 3, 5))
-    {
-      v7 = a1[2];
-      if (a1[1] == v7)
-      {
-        v28[0] = v30[0];
-        v29 = v31;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v30);
-        v30[0] = 0;
-        v31 = 0;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v28);
-        v12 = *a1;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v28);
-        v13 = *v12;
-        *v12 = v28[0];
-        v28[0] = v13;
-        v14 = *(v12 + 8);
-        *(v12 + 8) = v29;
-        v29 = v14;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v12);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v28);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v29, v28[0]);
-        v15 = *a1;
-        goto LABEL_16;
-      }
-
-      v8 = *(v7 - 8);
-      if (v8)
-      {
-        v9 = *v8;
-        if (v9 == 2)
-        {
-          std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::push_back[abi:nn200100](*(v8 + 1), v30);
-          v10 = *(*(*(a1[2] - 8) + 8) + 8) - 16;
-LABEL_16:
-          v11 = 1;
-LABEL_18:
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v30);
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v31, v30[0]);
-          return v11;
-        }
-
-        if (v9 == 1)
-        {
-          v16 = a1[8];
-          if (v16)
-          {
-            v17 = v16 - 1;
-            v18 = *(a1[7] + ((v17 >> 3) & 0x1FFFFFFFFFFFFFF8));
-            a1[8] = v17;
-            if ((v18 >> v17))
-            {
-              if (!a1[10])
-              {
-                __assert_rtn("handle_value", "json_sax.hpp", 624, "object_element");
-              }
-
-              v26[0] = v30[0];
-              v27 = v31;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v30);
-              v30[0] = 0;
-              v31 = 0;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v26);
-              v19 = a1[10];
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v26);
-              v20 = *v19;
-              *v19 = v26[0];
-              v26[0] = v20;
-              v21 = *(v19 + 8);
-              *(v19 + 8) = v27;
-              v27 = v21;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v19);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v26);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v27, v26[0]);
-              v22 = a1[10];
-              goto LABEL_16;
-            }
-
-            goto LABEL_17;
-          }
-
-          v24 = "not key_keep_stack.empty()";
-          v25 = 615;
-        }
-
-        else
-        {
-          v24 = "ref_stack.back()->is_array() or ref_stack.back()->is_object()";
-          v25 = 603;
-        }
-
-        __assert_rtn("handle_value", "json_sax.hpp", v25, v24);
-      }
-    }
-
-LABEL_17:
-    v11 = 0;
-    goto LABEL_18;
-  }
-
-  return 0;
-}
-
-void sub_258919BE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
-{
-  va_start(va, a5);
+  va_start(va, a9);
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(va);
   _Unwind_Resume(a1);
 }
@@ -1279,7 +969,7 @@ unsigned __int8 *std::vector<nlohmann::basic_json<std::map,std::vector,std::stri
   v4 = *a2;
   v3 = *(a1 + 8);
   *v3 = v4;
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::json_value((v3 + 8), v4);
+  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::json_value(v3 + 8, v4);
   result = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v3);
   *(a1 + 8) = v3 + 16;
   return result;
@@ -1316,17 +1006,17 @@ uint64_t std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,
     std::__allocate_at_least[abi:nn200100]<std::allocator<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>(a1, v7);
   }
 
-  v8 = 16 * v2;
+  v8 = (16 * v2);
   v16 = 0;
   v17 = v8;
   v18 = v8;
   v9 = *a2;
   *v8 = v9;
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::json_value((v8 + 8), v9);
+  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::json_value(v8 + 8, v9);
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v8);
   *&v18 = v18 + 16;
   v10 = *(a1 + 8);
-  v11 = v17 + *a1 - v10;
+  v11 = &v17[*a1 - v10];
   std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>*>(a1, *a1, v10, v11);
   v12 = *a1;
   *a1 = v11;
@@ -1341,14 +1031,14 @@ uint64_t std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,
   return v15;
 }
 
-void sub_25891A380(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25891A380(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t nlohmann::detail::json_sax_dom_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<double &>(void *a1, uint64_t *a2)
+uint64_t nlohmann::detail::json_sax_dom_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<double &>(void *a1, uint64_t **a2)
 {
   v3 = a1[2];
   if (a1[1] == v3)
@@ -1491,9 +1181,9 @@ uint64_t std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,
   return v15;
 }
 
-void sub_25891A64C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25891A64C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -1641,9 +1331,9 @@ uint64_t std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,
   return v15;
 }
 
-void sub_25891A918(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25891A918(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -1785,14 +1475,14 @@ uint64_t std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,
   return v12;
 }
 
-void sub_25891ABB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25891ABB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t nlohmann::detail::json_sax_dom_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<long long &>(void *a1, uint64_t *a2)
+uint64_t nlohmann::detail::json_sax_dom_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<long long &>(void *a1, uint64_t **a2)
 {
   v3 = a1[2];
   if (a1[1] == v3)
@@ -1935,36 +1625,36 @@ uint64_t std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,
   return v15;
 }
 
-void sub_25891AE7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25891AE7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void nlohmann::detail::json_sax_dom_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<std::string&>(void *a1)
+void nlohmann::detail::json_sax_dom_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<std::string&>(void *a1, uint64_t a2)
 {
-  v1 = a1[2];
-  if (a1[1] != v1)
+  v2 = a1[2];
+  if (a1[1] != v2)
   {
-    v2 = *(v1 - 8);
-    v3 = *v2;
-    if (v3 == 2)
+    v3 = *(v2 - 8);
+    v4 = *v3;
+    if (v4 == 2)
     {
-      v4 = *(v2 + 1);
-      if (v4[1] < v4[2])
+      v5 = *(v3 + 1);
+      if (v5[1] < v5[2])
       {
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<std::string&,std::string,0>(v4[1]);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<std::string&,std::string,0>(v5[1], a2);
       }
 
-      std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__emplace_back_slow_path<std::string&>(v4);
+      std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__emplace_back_slow_path<std::string&>(v5, a2);
     }
 
-    if (v3 == 1)
+    if (v4 == 1)
     {
       if (a1[4])
       {
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<std::string&,std::string,0>(v5);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<std::string&,std::string,0>(v6, a2);
       }
 
       nlohmann::detail::json_sax_dom_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<nlohmann::detail::value_t>();
@@ -1973,52 +1663,52 @@ void nlohmann::detail::json_sax_dom_parser<nlohmann::basic_json<std::map,std::ve
     nlohmann::detail::json_sax_dom_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<nlohmann::detail::value_t>();
   }
 
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<std::string&,std::string,0>(v6);
+  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<std::string&,std::string,0>(v7, a2);
 }
 
-void std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__emplace_back_slow_path<std::string&>(void *a1)
+void std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__emplace_back_slow_path<std::string&>(void *a1, uint64_t a2)
 {
-  v1 = (a1[1] - *a1) >> 4;
-  v2 = v1 + 1;
-  if (!((v1 + 1) >> 60))
+  v2 = (a1[1] - *a1) >> 4;
+  v3 = v2 + 1;
+  if (!((v2 + 1) >> 60))
   {
-    v3 = a1[2] - *a1;
-    if (v3 >> 3 > v2)
+    v5 = a1[2] - *a1;
+    if (v5 >> 3 > v3)
     {
-      v2 = v3 >> 3;
+      v3 = v5 >> 3;
     }
 
-    if (v3 >= 0x7FFFFFFFFFFFFFF0)
+    if (v5 >= 0x7FFFFFFFFFFFFFF0)
     {
-      v4 = 0xFFFFFFFFFFFFFFFLL;
+      v6 = 0xFFFFFFFFFFFFFFFLL;
     }
 
     else
     {
-      v4 = v2;
+      v6 = v3;
     }
 
-    v6 = a1;
-    if (v4)
+    v8 = a1;
+    if (v6)
     {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>(a1, v4);
+      std::__allocate_at_least[abi:nn200100]<std::allocator<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>(a1, v6);
     }
 
-    v5 = (16 * v1);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<std::string&,std::string,0>(16 * v1);
+    v7 = (16 * v2);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<std::string&,std::string,0>(16 * v2, a2);
   }
 
   std::string::__throw_length_error[abi:nn200100]();
 }
 
-void sub_25891B0F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25891B0F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t nlohmann::detail::json_sax_dom_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<unsigned long long &>(void *a1, uint64_t *a2)
+uint64_t nlohmann::detail::json_sax_dom_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<unsigned long long &>(void *a1, uint64_t **a2)
 {
   v3 = a1[2];
   if (a1[1] == v3)
@@ -2161,86 +1851,86 @@ uint64_t std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,
   return v15;
 }
 
-void sub_25891B3C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25891B3C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__emplace_back_slow_path<std::string>(void *a1)
+void std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__emplace_back_slow_path<std::string>(void *a1, uint64_t a2)
 {
-  v1 = (a1[1] - *a1) >> 4;
-  v2 = v1 + 1;
-  if (!((v1 + 1) >> 60))
+  v2 = (a1[1] - *a1) >> 4;
+  v3 = v2 + 1;
+  if (!((v2 + 1) >> 60))
   {
-    v3 = a1[2] - *a1;
-    if (v3 >> 3 > v2)
+    v5 = a1[2] - *a1;
+    if (v5 >> 3 > v3)
     {
-      v2 = v3 >> 3;
+      v3 = v5 >> 3;
     }
 
-    if (v3 >= 0x7FFFFFFFFFFFFFF0)
+    if (v5 >= 0x7FFFFFFFFFFFFFF0)
     {
-      v4 = 0xFFFFFFFFFFFFFFFLL;
+      v6 = 0xFFFFFFFFFFFFFFFLL;
     }
 
     else
     {
-      v4 = v2;
+      v6 = v3;
     }
 
-    v6 = a1;
-    if (v4)
+    v8 = a1;
+    if (v6)
     {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>(a1, v4);
+      std::__allocate_at_least[abi:nn200100]<std::allocator<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>(a1, v6);
     }
 
-    v5 = (16 * v1);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<std::string,std::string,0>(16 * v1);
+    v7 = (16 * v2);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<std::string,std::string,0>(16 * v2, a2);
   }
 
   std::string::__throw_length_error[abi:nn200100]();
 }
 
-void sub_25891B4D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25891B4D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[27],char [27],0>(uint64_t a1)
+void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[27],char [27],0>(uint64_t a1, char *a2)
 {
   *(a1 + 8) = 0;
   *a1 = 3;
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::create<std::string,char const(&)[27]>();
+  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::create<std::string,char const(&)[27]>(a2);
 }
 
-void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[14],char [14],0>(uint64_t a1)
+void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[14],char [14],0>(uint64_t a1, char *a2)
 {
   *(a1 + 8) = 0;
   *a1 = 3;
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::create<std::string,char const(&)[14]>();
+  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::create<std::string,char const(&)[14]>(a2);
 }
 
-void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[7],char [7],0>(uint64_t a1)
+void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[7],char [7],0>(uint64_t a1, char *a2)
 {
   *(a1 + 8) = 0;
   *a1 = 3;
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::create<std::string,char const(&)[7]>();
+  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::create<std::string,char const(&)[7]>(a2);
 }
 
-void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[35],char [35],0>(uint64_t a1)
+void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[35],char [35],0>(uint64_t a1, char *a2)
 {
   *(a1 + 8) = 0;
   *a1 = 3;
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::create<std::string,char const(&)[35]>();
+  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::create<std::string,char const(&)[35]>(a2);
 }
 
-uint64_t std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t a1, void **a2)
+void *std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t **a1, uint64_t ***a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  result = *std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__find_equal<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>(a1, &v3, a2);
+  result = *std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__find_equal<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>(a1, &v6, a2);
   if (!result)
   {
     std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__construct_node<std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>();
@@ -2253,9 +1943,10 @@ uint64_t Nightingale::fwPredictorWrapper_t::init(Nightingale::fwPredictorWrapper
 {
   if ((*(a2 + 296) & 1) == 0)
   {
-    v22 = std::__throw_bad_optional_access[abi:nn200100]();
+    std::__throw_bad_optional_access[abi:nn200100]();
+    v23 = v22;
 
-    _Unwind_Resume(v22);
+    _Unwind_Resume(v23);
   }
 
   if (*(a2 + 295) >= 0)
@@ -2278,9 +1969,9 @@ uint64_t Nightingale::fwPredictorWrapper_t::init(Nightingale::fwPredictorWrapper
   if (v9)
   {
     [v9 setComputeUnits:0];
-    v24 = 0;
-    v10 = [objc_alloc(MEMORY[0x277CBFF48]) initWithShape:&unk_2869C9E08 dataType:65600 error:&v24];
-    v11 = v24;
+    v25 = 0;
+    v10 = [objc_alloc(MEMORY[0x277CBFF48]) initWithShape:&unk_2869C9E08 dataType:65600 error:&v25];
+    v11 = v25;
     v12 = *this;
     *this = v10;
 
@@ -2288,9 +1979,9 @@ uint64_t Nightingale::fwPredictorWrapper_t::init(Nightingale::fwPredictorWrapper
     {
       v13 = [model_fwEnd_10pct alloc];
       v14 = *(this + 2);
-      v23 = v11;
-      v15 = [(model_fwEnd_10pct *)v13 initWithContentsOfURL:v6 configuration:v14 error:&v23];
-      v16 = v23;
+      v24 = v11;
+      v15 = [(model_fwEnd_10pct *)v13 initWithContentsOfURL:v6 configuration:v14 error:&v24];
+      v16 = v24;
 
       v17 = *(this + 4);
       *(this + 4) = v15;
@@ -2485,7 +2176,7 @@ void Nightingale::fwEstimatorBase::suppressHistFWOverCycleBoundary(uint64_t a1, 
   {
     if ((*(a4 + 12) & 1) == 0)
     {
-      v4 = std::__throw_bad_optional_access[abi:nn200100]();
+      std::__throw_bad_optional_access[abi:nn200100]();
       Nightingale::fill_bundled_model_paths(v4, v5);
       return;
     }
@@ -2700,8 +2391,7 @@ void std::vector<std::string>::push_back[abi:nn200100](uint64_t a1, __int128 *a2
     v6 = *a2;
     *(v4 + 16) = *(a2 + 2);
     *v4 = v6;
-    *(a2 + 1) = 0;
-    *(a2 + 2) = 0;
+    *(a2 + 8) = 0uLL;
     *a2 = 0;
     v7 = v4 + 24;
   }
@@ -2913,16 +2603,16 @@ uint64_t ha_sensitive_logging_is_enabled()
   return v1;
 }
 
-id ha_get_log()
+id ha_get_log(uint64_t a1)
 {
   if (ha_get_log_onceToken != -1)
   {
     ha_get_log_cold_1();
   }
 
-  v1 = ha_get_log_log;
+  v2 = ha_get_log_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __ha_get_log_block_invoke()
@@ -2932,7 +2622,7 @@ uint64_t __ha_get_log_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-void *Nightingale::uiLogProcessor::uiLogProcessor(void *a1, uint64_t a2)
+uint64_t *Nightingale::uiLogProcessor::uiLogProcessor(uint64_t *a1, uint64_t a2)
 {
   v8 = 1798;
   v9 = 5;
@@ -3495,7 +3185,7 @@ void std::vector<std::pair<int,int>>::push_back[abi:nn200100](uint64_t a1, void 
   *(a1 + 8) = v6;
 }
 
-void *Nightingale::uiCycleFactorProcess::suppressPeriodReproductive(uint64_t a1, void *a2, uint64_t *a3)
+uint64_t **Nightingale::uiCycleFactorProcess::suppressPeriodReproductive(uint64_t a1, uint64_t **a2, uint64_t *a3)
 {
   std::vector<std::pair<int,int>>::vector[abi:nn200100](&v18, a2);
   v6 = v18;
@@ -3518,20 +3208,19 @@ void *Nightingale::uiCycleFactorProcess::suppressPeriodReproductive(uint64_t a1,
       if ((((v10 & 0x100) == 0) & v10) != 0 || (v10 & 0x10000) != 0)
       {
         v11 = a2[1];
-        v12 = *a2 + 8 * v8;
+        v12 = &(*a2)[v8];
         v13 = (v12 + 8);
         if ((v12 + 8) != v11)
         {
           do
           {
-            v14 = v13[1];
+            v14 = *(v13 + 1);
             *(v13 - 2) = *v13;
-            *(v13 - 1) = v14;
-            v13 += 2;
+            *(v13++ - 1) = v14;
           }
 
           while (v13 != v11);
-          v12 = (v13 - 2);
+          v12 = (v13 - 1);
         }
 
         a2[1] = v12;
@@ -3756,7 +3445,7 @@ LABEL_7:
         std::string::__throw_length_error[abi:nn200100]();
       }
 
-      if (*(v3 + 3) == 2)
+      if (v3[3] == 2)
       {
         v7 = *v3;
         if (v7 >= *(*(a3 + 8) - 96))
@@ -3766,7 +3455,7 @@ LABEL_7:
       }
 
       --v5;
-      v3 += 64;
+      v3 += 16;
       if (!--v6)
       {
         goto LABEL_7;
@@ -4196,15 +3885,15 @@ LABEL_18:
   return v8 | (v5 << 32);
 }
 
-void Nightingale::uiLogProcessor::removeOutlier(char **a1@<X1>, char **a2@<X8>)
+void Nightingale::uiLogProcessor::removeOutlier(char **a1@<X1>, uint64_t *a2@<X8>)
 {
   *a2 = 0;
   a2[1] = 0;
   a2[2] = 0;
-  v3 = *a1;
-  v4 = a1[1];
-  v6 = (v4 - v3) >> 2;
-  if (v6 > 2)
+  v4 = *a1;
+  v5 = a1[1];
+  v7 = (v5 - v4) >> 2;
+  if (v7 > 2)
   {
     std::vector<int>::vector[abi:nn200100](__p, a1);
     Nightingale::get_mad(__p, 1);
@@ -4214,20 +3903,19 @@ void Nightingale::uiLogProcessor::removeOutlier(char **a1@<X1>, char **a2@<X8>)
       operator delete(__p[0]);
     }
 
-    v7 = a1[1] - *a1;
     Nightingale::vMedian<double>();
   }
 
   if (a2 != a1)
   {
 
-    std::vector<float>::__assign_with_size[abi:nn200100]<float *,float *>(a2, v3, v4, v6);
+    std::vector<float>::__assign_with_size[abi:nn200100]<float *,float *>(a2, v4, v5, v7);
   }
 }
 
 void Nightingale::uiLogProcessor::genPeriodSlide(void *a1@<X1>, int a2@<W2>, uint64_t a3@<X3>, int a4@<W4>, const void **a5@<X8>)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   *a5 = 0;
   a5[1] = 0;
   a5[2] = 0;
@@ -4289,9 +3977,10 @@ void Nightingale::uiLogProcessor::genPeriodSlide(void *a1@<X1>, int a2@<W2>, uin
 
     *buf = v17;
     std::vector<float>::push_back[abi:nn200100](a5, buf);
-    if (ha_sensitive_logging_is_enabled())
+    is_enabled = ha_sensitive_logging_is_enabled();
+    if (is_enabled)
     {
-      log = ha_get_log();
+      log = ha_get_log(is_enabled);
       if (os_log_type_enabled(log, OS_LOG_TYPE_DEBUG))
       {
         Nightingale::uiLogProcessor::genPeriodSlide();
@@ -4300,56 +3989,59 @@ void Nightingale::uiLogProcessor::genPeriodSlide(void *a1@<X1>, int a2@<W2>, uin
 
     if (a5[1] - *a5 != 4)
     {
-      v24 = 0;
+      v27 = 0;
       do
       {
-        if (ha_sensitive_logging_is_enabled())
+        v28 = ha_sensitive_logging_is_enabled();
+        if (v28)
         {
-          v25 = ha_get_log();
-          if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+          v29 = ha_get_log(v28);
+          if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
           {
-            if (v24 >= (a5[1] - *a5) >> 2)
+            if (v27 >= (a5[1] - *a5) >> 2)
             {
 LABEL_49:
               std::string::__throw_length_error[abi:nn200100]();
             }
 
-            v26 = *(*a5 + v24);
+            v30 = *(*a5 + v27);
             *buf = 134217984;
-            *&buf[4] = v26;
-            _os_log_debug_impl(&dword_2588F5000, v25, OS_LOG_TYPE_DEBUG, "%3.1f, ", buf, 0xCu);
+            *&buf[4] = v30;
+            _os_log_debug_impl(&dword_2588F5000, v29, OS_LOG_TYPE_DEBUG, "%3.1f, ", buf, 0xCu);
           }
         }
 
-        ++v24;
+        ++v27;
       }
 
-      while (v24 < ((a5[1] - *a5) >> 2) - 1);
+      while (v27 < ((a5[1] - *a5) >> 2) - 1);
     }
 
-    if (ha_sensitive_logging_is_enabled())
+    v20 = ha_sensitive_logging_is_enabled();
+    if (v20)
     {
-      v19 = ha_get_log();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+      v21 = ha_get_log(v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
       {
         Nightingale::uiLogProcessor::genPeriodSlide(a5 + 1);
       }
     }
 
     Nightingale::uiLogProcessor::removeOutlier(a5, buf);
-    v20 = *a5;
+    v22 = *a5;
     if (*a5)
     {
-      a5[1] = v20;
-      operator delete(v20);
+      a5[1] = v22;
+      operator delete(v22);
     }
 
     *a5 = *buf;
-    a5[2] = v31;
-    if (ha_sensitive_logging_is_enabled())
+    a5[2] = v36;
+    v23 = ha_sensitive_logging_is_enabled();
+    if (v23)
     {
-      v21 = ha_get_log();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+      v24 = ha_get_log(v23);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
       {
         Nightingale::uiLogProcessor::genPeriodSlide();
       }
@@ -4359,36 +4051,36 @@ LABEL_49:
     {
       for (i = 0; i < ((a5[1] - *a5) >> 2) - 1; ++i)
       {
-        if (ha_sensitive_logging_is_enabled())
+        v32 = ha_sensitive_logging_is_enabled();
+        if (v32)
         {
-          v28 = ha_get_log();
-          if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+          v33 = ha_get_log(v32);
+          if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
           {
             if (i >= (a5[1] - *a5) >> 2)
             {
               goto LABEL_49;
             }
 
-            v29 = *(*a5 + i);
+            v34 = *(*a5 + i);
             *buf = 134217984;
-            *&buf[4] = v29;
-            _os_log_debug_impl(&dword_2588F5000, v28, OS_LOG_TYPE_DEBUG, "%3.1f, ", buf, 0xCu);
+            *&buf[4] = v34;
+            _os_log_debug_impl(&dword_2588F5000, v33, OS_LOG_TYPE_DEBUG, "%3.1f, ", buf, 0xCu);
           }
         }
       }
     }
 
-    if (ha_sensitive_logging_is_enabled())
+    v25 = ha_sensitive_logging_is_enabled();
+    if (v25)
     {
-      v22 = ha_get_log();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+      v26 = ha_get_log(v25);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
       {
         Nightingale::uiLogProcessor::genPeriodSlide(a5 + 1);
       }
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 BOOL Nightingale::uiLogProcessor::vecPhaseContains(uint64_t a1, unsigned __int8 **a2, int a3)
@@ -4433,14 +4125,14 @@ BOOL Nightingale::uiLogProcessor::vecPhaseContains(uint64_t a1, unsigned __int8 
 
 void Nightingale::uiLogProcessor::genCycleSlide(uint64_t *a1@<X1>, uint64_t a2@<X2>, uint64_t a3@<X3>, _DWORD *a4@<X4>, char a5@<W5>, char **a6@<X8>)
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   *a6 = 0;
   a6[1] = 0;
   a6[2] = 0;
   v7 = -1431655765 * ((a1[1] - *a1) >> 5);
   if (!v7)
   {
-    goto LABEL_59;
+    return;
   }
 
   v8 = a5;
@@ -4465,10 +4157,10 @@ void Nightingale::uiLogProcessor::genCycleSlide(uint64_t *a1@<X1>, uint64_t a2@<
   else if (a2 == 1)
   {
 LABEL_5:
-    v54 = v7 - 1;
+    v61 = v7 - 1;
     if (v7 - HIDWORD(a2) < v7 - 1)
     {
-      v50 = a2;
+      v57 = a2;
       v13 = v7 - HIDWORD(a2);
       while (1)
       {
@@ -4525,12 +4217,12 @@ LABEL_75:
           std::vector<float>::push_back[abi:nn200100](a6, buf);
         }
 
-        if (v54 == ++v13)
+        if (v61 == ++v13)
         {
           v12 = *a6;
           v8 = a5;
           v9 = a4;
-          LODWORD(a2) = v50;
+          LODWORD(a2) = v57;
           goto LABEL_22;
         }
       }
@@ -4570,22 +4262,24 @@ LABEL_22:
     std::vector<float>::push_back[abi:nn200100](a6, buf);
   }
 
-  if (ha_sensitive_logging_is_enabled())
+  is_enabled = ha_sensitive_logging_is_enabled();
+  if (is_enabled)
   {
-    log = ha_get_log();
+    log = ha_get_log(is_enabled);
     if (os_log_type_enabled(log, OS_LOG_TYPE_DEBUG))
     {
       Nightingale::uiLogProcessor::genCycleSlide();
     }
   }
 
-  v31 = a6[1];
-  if (*a6 == v31)
+  v32 = a6[1];
+  if (*a6 == v32)
   {
-    if (ha_sensitive_logging_is_enabled())
+    v35 = ha_sensitive_logging_is_enabled();
+    if (v35)
     {
-      v33 = ha_get_log();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
+      v36 = ha_get_log(v35);
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
       {
         Nightingale::uiLogProcessor::genCycleSlide();
       }
@@ -4594,80 +4288,84 @@ LABEL_22:
 
   else
   {
-    if (v31 - *a6 != 4)
+    if (v32 - *a6 != 4)
     {
-      v44 = 0;
+      v49 = 0;
       do
       {
-        if (ha_sensitive_logging_is_enabled())
+        v50 = ha_sensitive_logging_is_enabled();
+        if (v50)
         {
-          v45 = ha_get_log();
-          if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
+          v51 = ha_get_log(v50);
+          if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
           {
-            if (v44 >= (a6[1] - *a6) >> 2)
+            if (v49 >= (a6[1] - *a6) >> 2)
             {
 LABEL_76:
               std::string::__throw_length_error[abi:nn200100]();
             }
 
-            v46 = *&(*a6)[4 * v44];
+            v52 = *&(*a6)[4 * v49];
             *buf = 134217984;
-            *&buf[4] = v46;
-            _os_log_debug_impl(&dword_2588F5000, v45, OS_LOG_TYPE_DEBUG, "%3.1f, ", buf, 0xCu);
+            *&buf[4] = v52;
+            _os_log_debug_impl(&dword_2588F5000, v51, OS_LOG_TYPE_DEBUG, "%3.1f, ", buf, 0xCu);
           }
         }
 
-        ++v44;
+        ++v49;
       }
 
-      while (v44 < ((a6[1] - *a6) >> 2) - 1);
+      while (v49 < ((a6[1] - *a6) >> 2) - 1);
     }
 
-    if (ha_sensitive_logging_is_enabled())
+    v33 = ha_sensitive_logging_is_enabled();
+    if (v33)
     {
-      v32 = ha_get_log();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+      v34 = ha_get_log(v33);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
       {
         Nightingale::uiLogProcessor::genPeriodSlide(a6 + 1);
       }
     }
   }
 
-  v35 = *a6;
-  v34 = a6[1];
+  v38 = *a6;
+  v37 = a6[1];
   Nightingale::uiLogProcessor::removeOutlier(a6, buf);
-  v36 = *a6;
+  v39 = *a6;
   if (*a6)
   {
-    *v26 = v36;
-    operator delete(v36);
+    *v26 = v39;
+    operator delete(v39);
   }
 
-  v37 = *buf;
+  v40 = *buf;
   *a6 = *buf;
-  v38 = *&buf[8];
+  v41 = *&buf[8];
   *(a6 + 1) = *&buf[8];
   if ((v8 & 1) != 0 && v9)
   {
-    *v9 = ((v34 - v35) >> 2) - ((v38 - v37) >> 2);
+    *v9 = ((v37 - v38) >> 2) - ((v41 - v40) >> 2);
   }
 
-  if (ha_sensitive_logging_is_enabled())
+  v42 = ha_sensitive_logging_is_enabled();
+  if (v42)
   {
-    v39 = ha_get_log();
-    if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
+    v43 = ha_get_log(v42);
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
     {
       Nightingale::uiLogProcessor::genCycleSlide();
     }
   }
 
-  v40 = a6[1];
-  if (*a6 == v40)
+  v44 = a6[1];
+  if (*a6 == v44)
   {
-    if (ha_sensitive_logging_is_enabled())
+    v47 = ha_sensitive_logging_is_enabled();
+    if (v47)
     {
-      v42 = ha_get_log();
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
+      v48 = ha_get_log(v47);
+      if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
       {
         Nightingale::uiLogProcessor::genCycleSlide();
       }
@@ -4676,46 +4374,44 @@ LABEL_76:
 
   else
   {
-    if (v40 - *a6 != 4)
+    if (v44 - *a6 != 4)
     {
       for (i = 0; i < ((a6[1] - *a6) >> 2) - 1; ++i)
       {
-        if (ha_sensitive_logging_is_enabled())
+        v54 = ha_sensitive_logging_is_enabled();
+        if (v54)
         {
-          v48 = ha_get_log();
-          if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
+          v55 = ha_get_log(v54);
+          if (os_log_type_enabled(v55, OS_LOG_TYPE_DEBUG))
           {
             if (i >= (a6[1] - *a6) >> 2)
             {
               goto LABEL_76;
             }
 
-            v49 = *&(*a6)[4 * i];
+            v56 = *&(*a6)[4 * i];
             *buf = 134217984;
-            *&buf[4] = v49;
-            _os_log_debug_impl(&dword_2588F5000, v48, OS_LOG_TYPE_DEBUG, "%3.1f, ", buf, 0xCu);
+            *&buf[4] = v56;
+            _os_log_debug_impl(&dword_2588F5000, v55, OS_LOG_TYPE_DEBUG, "%3.1f, ", buf, 0xCu);
           }
         }
       }
     }
 
-    if (ha_sensitive_logging_is_enabled())
+    v45 = ha_sensitive_logging_is_enabled();
+    if (v45)
     {
-      v41 = ha_get_log();
-      if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
+      v46 = ha_get_log(v45);
+      if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
       {
         Nightingale::uiLogProcessor::genPeriodSlide(v26);
       }
     }
   }
-
-LABEL_59:
-  v43 = *MEMORY[0x277D85DE8];
 }
 
-void Nightingale::uiLogProcessor::getCenter(uint64_t a1, void *a2, int a3)
+void Nightingale::uiLogProcessor::getCenter(uint64_t a1, uint64_t *a2, int a3)
 {
-  v3 = (a2[1] - *a2) >> 2;
   if (a3)
   {
     Nightingale::vMedian<double>();
@@ -4738,8 +4434,8 @@ void Nightingale::uiLogProcessor::calSlideMeanStd(void *a1@<X1>, int a2@<W2>, ui
 {
   if (a1[1] != *a1)
   {
-    v4 = std::vector<int>::vector[abi:nn200100](&__p, a1);
-    Nightingale::uiLogProcessor::getCenter(v4, &__p, a2);
+    v6 = std::vector<int>::vector[abi:nn200100](&__p, a1);
+    Nightingale::uiLogProcessor::getCenter(v6, &__p, a2);
   }
 
   *a3 = 0;
@@ -4748,24 +4444,22 @@ void Nightingale::uiLogProcessor::calSlideMeanStd(void *a1@<X1>, int a2@<W2>, ui
   *(a3 + 24) = 0;
 }
 
-float Nightingale::uiLogProcessor::getACyclePeriodSlideMeanStd(_DWORD *a1, void *a2, void *a3, uint64_t a4)
+float Nightingale::uiLogProcessor::getACyclePeriodSlideMeanStd(float *a1, void *a2, void *a3, uint64_t a4)
 {
   std::vector<int>::vector[abi:nn200100](__p, a2);
-  v7 = a1[6];
-  v8 = a1[7];
-  Nightingale::uiLogProcessor::calSlideMeanStd(__p, 1, &v22);
+  Nightingale::uiLogProcessor::calSlideMeanStd(__p, 1, &v17);
   if (__p[0])
   {
     __p[1] = __p[0];
     operator delete(__p[0]);
   }
 
-  if (*(a4 + 36) == v23)
+  if (*(a4 + 36) == v18)
   {
     if (*(a4 + 36))
     {
-      v9 = v22;
-      *(a4 + 32) = v9;
+      v6 = v17;
+      *(a4 + 32) = v6;
     }
   }
 
@@ -4776,17 +4470,17 @@ float Nightingale::uiLogProcessor::getACyclePeriodSlideMeanStd(_DWORD *a1, void 
 
   else
   {
-    v10 = v22;
-    *(a4 + 32) = v10;
+    v7 = v17;
+    *(a4 + 32) = v7;
     *(a4 + 36) = 1;
   }
 
-  if (*(a4 + 44) == v25)
+  if (*(a4 + 44) == v20)
   {
     if (*(a4 + 44))
     {
-      v11 = v24;
-      *(a4 + 40) = v11;
+      v8 = v19;
+      *(a4 + 40) = v8;
     }
   }
 
@@ -4797,26 +4491,24 @@ float Nightingale::uiLogProcessor::getACyclePeriodSlideMeanStd(_DWORD *a1, void 
 
   else
   {
-    v12 = v24;
-    *(a4 + 40) = v12;
+    v9 = v19;
+    *(a4 + 40) = v9;
     *(a4 + 44) = 1;
   }
 
-  std::vector<int>::vector[abi:nn200100](v16, a3);
-  v13 = a1[8];
-  v14 = a1[9];
-  Nightingale::uiLogProcessor::calSlideMeanStd(v16, 1, &v17);
-  if (v16[0])
+  std::vector<int>::vector[abi:nn200100](v11, a3);
+  Nightingale::uiLogProcessor::calSlideMeanStd(v11, 1, &v12);
+  if (v11[0])
   {
-    v16[1] = v16[0];
-    operator delete(v16[0]);
+    v11[1] = v11[0];
+    operator delete(v11[0]);
   }
 
-  if (*(a4 + 52) == v18)
+  if (*(a4 + 52) == v13)
   {
     if (*(a4 + 52))
     {
-      result = v17;
+      result = v12;
       *(a4 + 48) = result;
     }
   }
@@ -4828,16 +4520,16 @@ float Nightingale::uiLogProcessor::getACyclePeriodSlideMeanStd(_DWORD *a1, void 
 
   else
   {
-    result = v17;
+    result = v12;
     *(a4 + 48) = result;
     *(a4 + 52) = 1;
   }
 
-  if (*(a4 + 60) == v20)
+  if (*(a4 + 60) == v15)
   {
     if (*(a4 + 60))
     {
-      result = v19;
+      result = v14;
       *(a4 + 56) = result;
     }
   }
@@ -4849,7 +4541,7 @@ float Nightingale::uiLogProcessor::getACyclePeriodSlideMeanStd(_DWORD *a1, void 
 
   else
   {
-    result = v19;
+    result = v14;
     *(a4 + 56) = result;
     *(a4 + 60) = 1;
   }
@@ -4883,7 +4575,7 @@ void Nightingale::uiLogProcessor::getDLStartProcDate(uint64_t a1, uint64_t a2, u
     while (1)
     {
       v13 = *v7;
-      v7 += 16;
+      v7 += 64;
       v12 = v13;
       if (v5)
       {
@@ -4904,17 +4596,17 @@ void Nightingale::uiLogProcessor::getDLStartProcDate(uint64_t a1, uint64_t a2, u
   }
 }
 
-void Nightingale::uiLogProcessor::getCyclePeriodMeanStdAllCycles(_DWORD *a1, uint64_t *a2, uint64_t a3, int a4, uint64_t a5)
+void Nightingale::uiLogProcessor::getCyclePeriodMeanStdAllCycles(float *a1, uint64_t *a2, uint64_t a3, int a4, uint64_t a5)
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   v7 = *a2;
   v8 = a2[1];
   if (v7 != v8)
   {
-    v54 = 0;
     v55 = 0;
     v56 = 0;
-    v11 = std::vector<Nightingale::cycleInfo>::__init_with_size[abi:nn200100]<Nightingale::cycleInfo*,Nightingale::cycleInfo*>(&v54, v7, v8, 0xAAAAAAAAAAAAAAABLL * ((v8 - v7) >> 5));
+    v57 = 0;
+    v11 = std::vector<Nightingale::cycleInfo>::__init_with_size[abi:nn200100]<Nightingale::cycleInfo*,Nightingale::cycleInfo*>(&v55, v7, v8, 0xAAAAAAAAAAAAAAABLL * ((v8 - v7) >> 5));
     v13 = 0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 5);
     if (v13 >= 1)
     {
@@ -4944,89 +4636,72 @@ void Nightingale::uiLogProcessor::getCyclePeriodMeanStdAllCycles(_DWORD *a1, uin
           while (v16 != v15);
         }
 
-        ShouldBeInSlideCC = Nightingale::uiLogProcessor::getWhatShouldBeInSlideCC(v11, v12, &v54, a5);
+        ShouldBeInSlideCC = Nightingale::uiLogProcessor::getWhatShouldBeInSlideCC(v11, v12, &v55, a5);
         v20 = HIDWORD(ShouldBeInSlideCC);
-        Nightingale::uiLogProcessor::genCycleSlide(&v54, ShouldBeInSlideCC, a3, 0, 0, &v52);
+        Nightingale::uiLogProcessor::genCycleSlide(&v55, ShouldBeInSlideCC, a3, 0, 0, &v53);
         if (v17 < v20)
         {
           LODWORD(v20) = v17;
         }
 
-        memset(v49, 0, sizeof(v49));
-        std::vector<Nightingale::cycleInfo>::__init_with_size[abi:nn200100]<Nightingale::cycleInfo*,Nightingale::cycleInfo*>(v49, *a2, a2[1], 0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 5));
-        Nightingale::uiLogProcessor::genPeriodSlide(v49, v20, a3, a4, &v50);
-        *buf = v49;
+        memset(v50, 0, sizeof(v50));
+        std::vector<Nightingale::cycleInfo>::__init_with_size[abi:nn200100]<Nightingale::cycleInfo*,Nightingale::cycleInfo*>(v50, *a2, a2[1], 0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 5));
+        Nightingale::uiLogProcessor::genPeriodSlide(v50, v20, a3, a4, &v51);
+        *buf = v50;
         std::vector<Nightingale::cycleInfo>::__destroy_vector::operator()[abi:nn200100](buf);
         __dst = 0;
-        v48 = 0;
-        v46 = 0;
-        if (v53 != v52)
+        v49 = 0;
+        v47 = 0;
+        if (v54 != v53)
         {
-          std::vector<int>::__vallocate[abi:nn200100](&v46, (v53 - v52) >> 2);
+          std::vector<int>::__vallocate[abi:nn200100](&v47, (v54 - v53) >> 2);
         }
 
         __p = 0;
-        v44 = 0;
         v45 = 0;
-        if (v51 != v50)
+        v46 = 0;
+        if (v52 != v51)
         {
-          std::vector<int>::__vallocate[abi:nn200100](&__p, (v51 - v50) >> 2);
+          std::vector<int>::__vallocate[abi:nn200100](&__p, (v52 - v51) >> 2);
         }
 
-        Nightingale::uiLogProcessor::getACyclePeriodSlideMeanStd(a1, &v46, &__p, v55 - 96);
+        Nightingale::uiLogProcessor::getACyclePeriodSlideMeanStd(a1, &v47, &__p, v56 - 96);
         if (__p)
         {
-          v44 = __p;
+          v45 = __p;
           operator delete(__p);
         }
 
-        if (v46)
+        if (v47)
         {
-          __dst = v46;
-          operator delete(v46);
+          __dst = v47;
+          operator delete(v47);
         }
 
         v21 = v14 - 1;
-        if (0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 5) <= v14 - 1)
-        {
-          goto LABEL_52;
-        }
-
-        v22 = *a2 + 96 * v21;
-        v23 = *(v55 - 64);
-        *(v22 + 36) = *(v55 - 60);
-        *(v22 + 32) = v23;
-        if (0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 5) <= v21)
-        {
-          goto LABEL_52;
-        }
-
-        v24 = *a2 + 96 * v21;
-        v25 = *(v55 - 56);
-        *(v24 + 44) = *(v55 - 52);
-        *(v24 + 40) = v25;
-        if (0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 5) <= v21 || (v26 = *a2 + 96 * v21, v27 = *(v55 - 48), *(v26 + 52) = *(v55 - 44), *(v26 + 48) = v27, 0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 5) <= v21))
+        if (0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 5) <= v14 - 1 || (v22 = *a2 + 96 * v21, v23 = *(v56 - 64), *(v22 + 36) = *(v56 - 60), *(v22 + 32) = v23, 0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 5) <= v21) || (v24 = *a2 + 96 * v21, v25 = *(v56 - 56), *(v24 + 44) = *(v56 - 52), *(v24 + 40) = v25, 0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 5) <= v21) || (v26 = *a2 + 96 * v21, v27 = *(v56 - 48), *(v26 + 52) = *(v56 - 44), *(v26 + 48) = v27, 0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 5) <= v21))
         {
 LABEL_52:
           std::string::__throw_length_error[abi:nn200100]();
         }
 
         v28 = *a2 + 96 * v21;
-        v29 = *(v55 - 40);
-        *(v28 + 60) = *(v55 - 36);
+        v29 = *(v56 - 40);
+        *(v28 + 60) = *(v56 - 36);
         *(v28 + 56) = v29;
-        v30 = v55;
-        v31 = *(v55 - 24);
+        v30 = v56;
+        v31 = *(v56 - 24);
         if (v31)
         {
-          *(v55 - 16) = v31;
+          *(v56 - 16) = v31;
           operator delete(v31);
         }
 
-        v55 = v30 - 96;
-        if (ha_sensitive_logging_is_enabled())
+        v56 = v30 - 96;
+        is_enabled = ha_sensitive_logging_is_enabled();
+        if (is_enabled)
         {
-          log = ha_get_log();
+          log = ha_get_log(is_enabled);
           if (os_log_type_enabled(log, OS_LOG_TYPE_DEBUG))
           {
             if (0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 5) <= v21)
@@ -5034,90 +4709,89 @@ LABEL_52:
               goto LABEL_52;
             }
 
-            v35 = *a2 + 96 * v21;
-            v36 = -1.0;
-            v37 = -1.0;
-            if (*(v35 + 36) == 1)
+            v37 = *a2 + 96 * v21;
+            v38 = -1.0;
+            v39 = -1.0;
+            if (*(v37 + 36) == 1)
             {
-              v37 = *(v35 + 32);
+              v39 = *(v37 + 32);
             }
 
-            if (*(v35 + 44) == 1)
+            if (*(v37 + 44) == 1)
             {
-              v36 = *(v35 + 40);
+              v38 = *(v37 + 40);
             }
 
             *buf = 134218240;
-            *&buf[4] = v37;
-            v58 = 2048;
-            v59 = v36;
+            *&buf[4] = v39;
+            v59 = 2048;
+            v60 = v38;
             _os_log_debug_impl(&dword_2588F5000, log, OS_LOG_TYPE_DEBUG, "\t cycleLenMean: %6.4f, cycleLenVar: %6.4f, ", buf, 0x16u);
           }
         }
 
         if (v14 != 1)
         {
-          if (ha_sensitive_logging_is_enabled())
+          v34 = ha_sensitive_logging_is_enabled();
+          if (v34)
           {
-            v33 = ha_get_log();
-            if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
+            v35 = ha_get_log(v34);
+            if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
             {
               if (0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 5) <= v21)
               {
                 goto LABEL_52;
               }
 
-              v38 = *a2 + 96 * v21;
-              v39 = -1.0;
-              v40 = -1.0;
-              if (*(v38 + 52) == 1)
+              v40 = *a2 + 96 * v21;
+              v41 = -1.0;
+              v42 = -1.0;
+              if (*(v40 + 52) == 1)
               {
-                v40 = *(v38 + 48);
+                v42 = *(v40 + 48);
               }
 
-              if (*(v38 + 60) == 1)
+              if (*(v40 + 60) == 1)
               {
-                v39 = *(v38 + 56);
+                v41 = *(v40 + 56);
               }
 
               *buf = 134218240;
-              *&buf[4] = v40;
-              v58 = 2048;
-              v59 = v39;
-              _os_log_debug_impl(&dword_2588F5000, v33, OS_LOG_TYPE_DEBUG, "periodLenMean: %6.4f, periodLenVar: %6.4f},", buf, 0x16u);
+              *&buf[4] = v42;
+              v59 = 2048;
+              v60 = v41;
+              _os_log_debug_impl(&dword_2588F5000, v35, OS_LOG_TYPE_DEBUG, "periodLenMean: %6.4f, periodLenVar: %6.4f},", buf, 0x16u);
             }
           }
         }
 
-        if (v50)
+        if (v51)
         {
-          v51 = v50;
-          operator delete(v50);
+          v52 = v51;
+          operator delete(v51);
         }
 
-        v11 = v52;
-        if (v52)
+        v11 = v53;
+        if (v53)
         {
-          v53 = v52;
-          operator delete(v52);
+          v54 = v53;
+          operator delete(v53);
         }
       }
 
       while (v14-- > 1);
     }
 
-    v52 = &v54;
-    std::vector<Nightingale::cycleInfo>::__destroy_vector::operator()[abi:nn200100](&v52);
+    v53 = &v55;
+    std::vector<Nightingale::cycleInfo>::__destroy_vector::operator()[abi:nn200100](&v53);
   }
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 void Nightingale::uiLogProcessor::getAvgCycleLenForSomeCycleReproductive(uint64_t a1, uint64_t *a2, uint64_t a3, int a4)
 {
   __p = 0;
-  v23 = 0;
-  v24 = 0;
+  v25 = 0;
+  v26 = 0;
   v4 = *a2;
   v5 = a2[1];
   if (*a2 != v5)
@@ -5125,7 +4799,7 @@ void Nightingale::uiLogProcessor::getAvgCycleLenForSomeCycleReproductive(uint64_
     v6 = a4;
     v8 = 0;
     v9 = -a4;
-    v20 = a2[1];
+    v22 = a2[1];
     do
     {
       if (Nightingale::phaseFactorProcessor::vPhasesContainsAPhase(&__p, (v4 + 72), 0))
@@ -5172,8 +4846,8 @@ LABEL_25:
               v17 = *a2 + v15;
               if ((*(v17 + 24) & 1) == 0)
               {
-                v19 = std::__throw_bad_optional_access[abi:nn200100]();
-                Nightingale::uiLogProcessor::hist_process(v19);
+                std::__throw_bad_optional_access[abi:nn200100]();
+                Nightingale::uiLogProcessor::hist_process(v19, v20, v21);
                 return;
               }
 
@@ -5186,7 +4860,7 @@ LABEL_25:
 
           while (v14++ < v11);
           v6 = a4;
-          v5 = v20;
+          v5 = v22;
           if (v12 > 0)
           {
             *(v4 + 64) = v13 / v12;
@@ -5203,13 +4877,13 @@ LABEL_25:
     while (v4 != v5);
     if (__p)
     {
-      v23 = __p;
+      v25 = __p;
       operator delete(__p);
     }
   }
 }
 
-void Nightingale::uiLogProcessor::hist_process(uint64_t a1@<X1>, uint64_t *a2@<X2>, uint64_t a3@<X8>)
+void Nightingale::uiLogProcessor::hist_process(int **a1@<X1>, uint64_t *a2@<X2>, uint64_t a3@<X8>)
 {
   *(a3 + 28) = 0;
   *(a3 + 32) = 0;
@@ -5238,7 +4912,7 @@ void Nightingale::uiLogProcessor::hist_process(uint64_t a1@<X1>, uint64_t *a2@<X
   *(a3 + 8) = 0;
   *(a3 + 24) = 0;
   *(a3 + 16) = 0;
-  if (*a1 != *(a1 + 8))
+  if (*a1 != a1[1])
   {
     Nightingale::uiLogProcessor::process(a1, a2, __p);
     std::vector<Nightingale::cycleInfo>::__vdeallocate(a3);
@@ -5259,7 +4933,7 @@ void Nightingale::uiLogProcessor::hist_process(uint64_t a1@<X1>, uint64_t *a2@<X
     Nightingale::uiLogProcessor::addCycleEnd(v6, a3);
     Nightingale::uiLogProcessor::opk2Cycles(v7, a1, a3);
     v8 = *a1;
-    v9 = *(a1 + 8) - *a1;
+    v9 = a1[1] - *a1;
     if (v9)
     {
       v10 = v9 >> 6;
@@ -5297,7 +4971,7 @@ LABEL_9:
 
 void Nightingale::uiLogProcessor::process(int **a1@<X1>, uint64_t *a2@<X2>, uint64_t a3@<X8>)
 {
-  v92 = *MEMORY[0x277D85DE8];
+  v109 = *MEMORY[0x277D85DE8];
   *(a3 + 28) = 0;
   *(a3 + 32) = 0;
   *(a3 + 36) = 0;
@@ -5326,11 +5000,11 @@ void Nightingale::uiLogProcessor::process(int **a1@<X1>, uint64_t *a2@<X2>, uint
   *(a3 + 24) = 0;
   *(a3 + 16) = 0;
   __src = 0;
-  v88 = 0;
-  v89 = 0;
+  v105 = 0;
+  v106 = 0;
   __p = 0;
-  v85 = 0;
-  v86 = 0;
+  v102 = 0;
+  v103 = 0;
   v5 = *a1;
   v4 = a1[1];
   if (*a1 != v4)
@@ -5341,12 +5015,12 @@ void Nightingale::uiLogProcessor::process(int **a1@<X1>, uint64_t *a2@<X2>, uint
       v7 += 16;
       if (v7 == v4)
       {
-        v77 = *v5;
+        v94 = *v5;
         goto LABEL_7;
       }
     }
 
-    v77 = *v7;
+    v94 = *v7;
 LABEL_7:
     if (v5 != v4)
     {
@@ -5358,20 +5032,20 @@ LABEL_7:
         v12 = &v5[v9];
         if ((v5[v9 + 1] - 1) <= 3)
         {
-          v13 = v88;
-          if (v88 >= v89)
+          v13 = v105;
+          if (v105 >= v106)
           {
             v15 = __src;
-            v16 = v88 - __src;
-            v17 = (v88 - __src) >> 2;
+            v16 = v105 - __src;
+            v17 = (v105 - __src) >> 2;
             v18 = v17 + 1;
             if ((v17 + 1) >> 62)
             {
               std::string::__throw_length_error[abi:nn200100]();
             }
 
-            v19 = v89 - __src;
-            if ((v89 - __src) >> 1 > v18)
+            v19 = v106 - __src;
+            if ((v106 - __src) >> 1 > v18)
             {
               v18 = v19 >> 1;
             }
@@ -5393,14 +5067,14 @@ LABEL_7:
 
             v21 = (4 * v17);
             v22 = *v12;
-            v23 = &v21[-((v88 - __src) >> 2)];
+            v23 = &v21[-((v105 - __src) >> 2)];
             *v21 = v22;
-            v14 = v21 + 1;
+            v14 = (v21 + 1);
             memcpy(v23, v15, v16);
             v24 = __src;
             __src = v23;
-            v88 = v14;
-            v89 = 0;
+            v105 = v14;
+            v106 = 0;
             if (v24)
             {
               operator delete(v24);
@@ -5409,31 +5083,31 @@ LABEL_7:
 
           else
           {
-            *v88 = *v12;
-            v14 = v13 + 1;
+            *v105 = *v12;
+            v14 = v13 + 4;
           }
 
-          v88 = v14;
+          v105 = v14;
           if (v11 >= (a1[1] - *a1) >> 6)
           {
             std::string::__throw_length_error[abi:nn200100]();
           }
 
           v25 = &(*a1)[v9];
-          v26 = v85;
-          if (v85 >= v86)
+          v26 = v102;
+          if (v102 >= v103)
           {
             v27 = __p;
-            v28 = v85 - __p;
-            v29 = (v85 - __p) >> 2;
+            v28 = v102 - __p;
+            v29 = (v102 - __p) >> 2;
             v30 = v29 + 1;
             if ((v29 + 1) >> 62)
             {
               std::string::__throw_length_error[abi:nn200100]();
             }
 
-            v31 = v86 - __p;
-            if ((v86 - __p) >> 1 > v30)
+            v31 = v103 - __p;
+            if ((v103 - __p) >> 1 > v30)
             {
               v30 = v31 >> 1;
             }
@@ -5455,14 +5129,14 @@ LABEL_7:
 
             v33 = (4 * v29);
             v34 = v25[1];
-            v35 = &v33[-((v85 - __p) >> 2)];
+            v35 = &v33[-((v102 - __p) >> 2)];
             *v33 = v34;
-            v10 = v33 + 1;
+            v10 = (v33 + 1);
             memcpy(v35, v27, v28);
             v36 = __p;
             __p = v35;
-            v85 = v10;
-            v86 = 0;
+            v102 = v10;
+            v103 = 0;
             if (v36)
             {
               operator delete(v36);
@@ -5471,11 +5145,11 @@ LABEL_7:
 
           else
           {
-            *v85 = v25[1];
-            v10 = v26 + 1;
+            *v102 = v25[1];
+            v10 = v26 + 4;
           }
 
-          v85 = v10;
+          v102 = v10;
           v5 = *a1;
           v4 = a1[1];
         }
@@ -5485,7 +5159,7 @@ LABEL_7:
       }
 
       while (v11 < (v4 - v5) >> 6);
-      if (__src != v88)
+      if (__src != v105)
       {
         v37 = __p;
         if (__p == v10)
@@ -5493,21 +5167,23 @@ LABEL_7:
           goto LABEL_103;
         }
 
-        if (ha_sensitive_logging_is_enabled())
+        is_enabled = ha_sensitive_logging_is_enabled();
+        if (is_enabled)
         {
-          log = ha_get_log();
+          log = ha_get_log(is_enabled);
           if (os_log_type_enabled(log, OS_LOG_TYPE_DEBUG))
           {
             Nightingale::uiLogProcessor::process();
           }
         }
 
-        if (__src == v88)
+        if (__src == v105)
         {
-          if (ha_sensitive_logging_is_enabled())
+          v42 = ha_sensitive_logging_is_enabled();
+          if (v42)
           {
-            v40 = ha_get_log();
-            if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
+            v43 = ha_get_log(v42);
+            if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
             {
               Nightingale::uiLogProcessor::genCycleSlide();
             }
@@ -5516,144 +5192,59 @@ LABEL_7:
 
         else
         {
-          if (v88 - __src != 4)
+          if (v105 - __src != 4)
           {
-            v58 = 0;
+            v70 = 0;
             do
             {
-              if (ha_sensitive_logging_is_enabled())
+              v71 = ha_sensitive_logging_is_enabled();
+              if (v71)
               {
-                v59 = ha_get_log();
-                if (os_log_type_enabled(v59, OS_LOG_TYPE_DEBUG))
+                v72 = ha_get_log(v71);
+                if (os_log_type_enabled(v72, OS_LOG_TYPE_DEBUG))
                 {
-                  v60 = *(__src + v58);
+                  v73 = *(__src + v70);
                   *buf = 67109120;
-                  v91 = v60;
-                  _os_log_debug_impl(&dword_2588F5000, v59, OS_LOG_TYPE_DEBUG, "%d, ", buf, 8u);
+                  v108 = v73;
+                  _os_log_debug_impl(&dword_2588F5000, v72, OS_LOG_TYPE_DEBUG, "%d, ", buf, 8u);
                 }
               }
 
-              ++v58;
+              ++v70;
             }
 
-            while (v58 < ((v88 - __src) >> 2) - 1);
+            while (v70 < ((v105 - __src) >> 2) - 1);
           }
 
-          if (ha_sensitive_logging_is_enabled())
+          v40 = ha_sensitive_logging_is_enabled();
+          if (v40)
           {
-            v39 = ha_get_log();
-            if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
+            v41 = ha_get_log(v40);
+            if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
             {
-              Nightingale::uiLogProcessor::process(&v88);
+              Nightingale::uiLogProcessor::process();
             }
           }
         }
 
-        if (ha_sensitive_logging_is_enabled())
+        v44 = ha_sensitive_logging_is_enabled();
+        if (v44)
         {
-          v41 = ha_get_log();
-          if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
-          {
-            Nightingale::uiLogProcessor::process();
-          }
-        }
-
-        if (__p == v85)
-        {
-          is_enabled = ha_sensitive_logging_is_enabled();
-          if (is_enabled)
-          {
-            v44 = ha_get_log();
-            is_enabled = os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG);
-            if (is_enabled)
-            {
-              Nightingale::uiLogProcessor::genCycleSlide();
-            }
-          }
-        }
-
-        else
-        {
-          if (v85 - __p != 4)
-          {
-            v61 = 0;
-            do
-            {
-              if (ha_sensitive_logging_is_enabled())
-              {
-                v62 = ha_get_log();
-                if (os_log_type_enabled(v62, OS_LOG_TYPE_DEBUG))
-                {
-                  v63 = *(__p + v61);
-                  *buf = 67109120;
-                  v91 = v63;
-                  _os_log_debug_impl(&dword_2588F5000, v62, OS_LOG_TYPE_DEBUG, "%d, ", buf, 8u);
-                }
-              }
-
-              ++v61;
-            }
-
-            while (v61 < ((v85 - __p) >> 2) - 1);
-          }
-
-          is_enabled = ha_sensitive_logging_is_enabled();
-          if (is_enabled)
-          {
-            v43 = ha_get_log();
-            is_enabled = os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG);
-            if (is_enabled)
-            {
-              Nightingale::uiLogProcessor::process(&v85);
-            }
-          }
-        }
-
-        v81 = 0;
-        __dst = 0;
-        v83 = 0;
-        if (v88 != __src)
-        {
-          std::vector<int>::__vallocate[abi:nn200100](&v81, (v88 - __src) >> 2);
-        }
-
-        v78 = 0;
-        v79 = 0;
-        v80 = 0;
-        if (v85 != __p)
-        {
-          std::vector<int>::__vallocate[abi:nn200100](&v78, (v85 - __p) >> 2);
-        }
-
-        Nightingale::uiLogProcessor::extractPeriods(is_enabled, &v81, &v78, v77, a2, a3);
-        if (v78)
-        {
-          v79 = v78;
-          operator delete(v78);
-        }
-
-        if (v81)
-        {
-          __dst = v81;
-          operator delete(v81);
-        }
-
-        if (ha_sensitive_logging_is_enabled())
-        {
-          v45 = ha_get_log();
+          v45 = ha_get_log(v44);
           if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
           {
             Nightingale::uiLogProcessor::process();
           }
         }
 
-        v46 = *(a3 + 8);
-        if (*a3 == v46)
+        if (__p == v102)
         {
-          if (ha_sensitive_logging_is_enabled())
+          v46 = ha_sensitive_logging_is_enabled();
+          if (v46)
           {
-            v48 = ha_get_log();
-            if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
+            v48 = ha_get_log(v46);
+            v46 = os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG);
+            if (v46)
             {
               Nightingale::uiLogProcessor::genCycleSlide();
             }
@@ -5662,63 +5253,89 @@ LABEL_7:
 
         else
         {
-          if (v46 - *a3 != 96)
+          if (v102 - __p != 4)
           {
-            v64 = 0;
-            v65 = 0;
+            v74 = 0;
             do
             {
-              if (ha_sensitive_logging_is_enabled())
+              v75 = ha_sensitive_logging_is_enabled();
+              if (v75)
               {
-                v66 = ha_get_log();
-                if (os_log_type_enabled(v66, OS_LOG_TYPE_DEBUG))
+                v76 = ha_get_log(v75);
+                if (os_log_type_enabled(v76, OS_LOG_TYPE_DEBUG))
                 {
-                  if (0xAAAAAAAAAAAAAAABLL * ((*(a3 + 8) - *a3) >> 5) <= v65)
-                  {
-LABEL_147:
-                    std::string::__throw_length_error[abi:nn200100]();
-                  }
-
-                  v67 = *(*a3 + v64);
+                  v77 = *(__p + v74);
                   *buf = 67109120;
-                  v91 = v67;
-                  _os_log_debug_impl(&dword_2588F5000, v66, OS_LOG_TYPE_DEBUG, "%d, ", buf, 8u);
+                  v108 = v77;
+                  _os_log_debug_impl(&dword_2588F5000, v76, OS_LOG_TYPE_DEBUG, "%d, ", buf, 8u);
                 }
               }
 
-              ++v65;
-              v64 += 96;
+              ++v74;
             }
 
-            while (v65 < -1 - 0x5555555555555555 * ((*(a3 + 8) - *a3) >> 5));
+            while (v74 < ((v102 - __p) >> 2) - 1);
           }
 
-          if (ha_sensitive_logging_is_enabled())
+          v46 = ha_sensitive_logging_is_enabled();
+          if (v46)
           {
-            v47 = ha_get_log();
-            if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
+            v47 = ha_get_log(v46);
+            v46 = os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG);
+            if (v46)
             {
-              Nightingale::uiLogProcessor::process((a3 + 8));
+              Nightingale::uiLogProcessor::process();
             }
           }
         }
 
-        if (ha_sensitive_logging_is_enabled())
+        v98 = 0;
+        __dst = 0;
+        v100 = 0;
+        if (v105 != __src)
         {
-          v49 = ha_get_log();
-          if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
+          std::vector<int>::__vallocate[abi:nn200100](&v98, (v105 - __src) >> 2);
+        }
+
+        v95 = 0;
+        v96 = 0;
+        v97 = 0;
+        if (v102 != __p)
+        {
+          std::vector<int>::__vallocate[abi:nn200100](&v95, (v102 - __p) >> 2);
+        }
+
+        Nightingale::uiLogProcessor::extractPeriods(v46, &v98, &v95, v94, a2, a3);
+        if (v95)
+        {
+          v96 = v95;
+          operator delete(v95);
+        }
+
+        if (v98)
+        {
+          __dst = v98;
+          operator delete(v98);
+        }
+
+        v49 = ha_sensitive_logging_is_enabled();
+        if (v49)
+        {
+          v50 = ha_get_log(v49);
+          if (os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
           {
             Nightingale::uiLogProcessor::process();
           }
         }
 
-        v50 = *(a3 + 8);
-        if (*a3 == v50)
+        v51 = *(a3 + 8);
+        if (*a3 == v51)
         {
-          if (ha_sensitive_logging_is_enabled())
+          v54 = ha_sensitive_logging_is_enabled();
+          if (v54)
           {
-            v52 = ha_get_log();
-            if (os_log_type_enabled(v52, OS_LOG_TYPE_DEBUG))
+            v55 = ha_get_log(v54);
+            if (os_log_type_enabled(v55, OS_LOG_TYPE_DEBUG))
             {
               Nightingale::uiLogProcessor::genCycleSlide();
             }
@@ -5727,68 +5344,141 @@ LABEL_147:
 
         else
         {
-          if (v50 - *a3 != 96)
+          if (v51 - *a3 != 96)
           {
-            v68 = 0;
+            v78 = 0;
+            v79 = 0;
+            do
+            {
+              v80 = ha_sensitive_logging_is_enabled();
+              if (v80)
+              {
+                v81 = ha_get_log(v80);
+                if (os_log_type_enabled(v81, OS_LOG_TYPE_DEBUG))
+                {
+                  if (0xAAAAAAAAAAAAAAABLL * ((*(a3 + 8) - *a3) >> 5) <= v79)
+                  {
+LABEL_147:
+                    std::string::__throw_length_error[abi:nn200100]();
+                  }
+
+                  v82 = *(*a3 + v78);
+                  *buf = 67109120;
+                  v108 = v82;
+                  _os_log_debug_impl(&dword_2588F5000, v81, OS_LOG_TYPE_DEBUG, "%d, ", buf, 8u);
+                }
+              }
+
+              ++v79;
+              v78 += 96;
+            }
+
+            while (v79 < -1 - 0x5555555555555555 * ((*(a3 + 8) - *a3) >> 5));
+          }
+
+          v52 = ha_sensitive_logging_is_enabled();
+          if (v52)
+          {
+            v53 = ha_get_log(v52);
+            if (os_log_type_enabled(v53, OS_LOG_TYPE_DEBUG))
+            {
+              Nightingale::uiLogProcessor::process();
+            }
+          }
+        }
+
+        v56 = ha_sensitive_logging_is_enabled();
+        if (v56)
+        {
+          v57 = ha_get_log(v56);
+          if (os_log_type_enabled(v57, OS_LOG_TYPE_DEBUG))
+          {
+            Nightingale::uiLogProcessor::process();
+          }
+        }
+
+        v58 = *(a3 + 8);
+        if (*a3 == v58)
+        {
+          v61 = ha_sensitive_logging_is_enabled();
+          if (v61)
+          {
+            v62 = ha_get_log(v61);
+            if (os_log_type_enabled(v62, OS_LOG_TYPE_DEBUG))
+            {
+              Nightingale::uiLogProcessor::genCycleSlide();
+            }
+          }
+        }
+
+        else
+        {
+          if (v58 - *a3 != 96)
+          {
+            v83 = 0;
             for (i = 0; i < -1 - 0x5555555555555555 * ((*(a3 + 8) - *a3) >> 5); ++i)
             {
-              if (ha_sensitive_logging_is_enabled())
+              v85 = ha_sensitive_logging_is_enabled();
+              if (v85)
               {
-                v70 = ha_get_log();
-                if (os_log_type_enabled(v70, OS_LOG_TYPE_DEBUG))
+                v86 = ha_get_log(v85);
+                if (os_log_type_enabled(v86, OS_LOG_TYPE_DEBUG))
                 {
                   if (0xAAAAAAAAAAAAAAABLL * ((*(a3 + 8) - *a3) >> 5) <= i)
                   {
                     goto LABEL_147;
                   }
 
-                  v71 = *a3 + v68;
-                  if (*(v71 + 8) == 1)
+                  v87 = *a3 + v83;
+                  if (*(v87 + 8) == 1)
                   {
-                    v72 = *(v71 + 4);
+                    v88 = *(v87 + 4);
                   }
 
                   else
                   {
-                    v72 = -1;
+                    v88 = -1;
                   }
 
                   *buf = 67109120;
-                  v91 = v72;
-                  _os_log_debug_impl(&dword_2588F5000, v70, OS_LOG_TYPE_DEBUG, "%d, ", buf, 8u);
+                  v108 = v88;
+                  _os_log_debug_impl(&dword_2588F5000, v86, OS_LOG_TYPE_DEBUG, "%d, ", buf, 8u);
                 }
               }
 
-              v68 += 96;
+              v83 += 96;
             }
           }
 
-          if (ha_sensitive_logging_is_enabled())
+          v59 = ha_sensitive_logging_is_enabled();
+          if (v59)
           {
-            v51 = ha_get_log();
-            if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
+            v60 = ha_get_log(v59);
+            if (os_log_type_enabled(v60, OS_LOG_TYPE_DEBUG))
             {
-              Nightingale::uiLogProcessor::process((a3 + 8));
+              Nightingale::uiLogProcessor::process();
             }
           }
         }
 
-        if (ha_sensitive_logging_is_enabled())
+        v63 = ha_sensitive_logging_is_enabled();
+        if (v63)
         {
-          v53 = ha_get_log();
-          if (os_log_type_enabled(v53, OS_LOG_TYPE_DEBUG))
+          v64 = ha_get_log(v63);
+          if (os_log_type_enabled(v64, OS_LOG_TYPE_DEBUG))
           {
             Nightingale::uiLogProcessor::process();
           }
         }
 
-        v54 = *(a3 + 8);
-        if (*a3 == v54)
+        v65 = *(a3 + 8);
+        if (*a3 == v65)
         {
-          if (ha_sensitive_logging_is_enabled())
+          v68 = ha_sensitive_logging_is_enabled();
+          if (v68)
           {
-            v56 = ha_get_log();
-            if (os_log_type_enabled(v56, OS_LOG_TYPE_DEBUG))
+            v69 = ha_get_log(v68);
+            if (os_log_type_enabled(v69, OS_LOG_TYPE_DEBUG))
             {
               Nightingale::uiLogProcessor::process();
             }
@@ -5797,42 +5487,44 @@ LABEL_147:
 
         else
         {
-          if (v54 - *a3 != 96)
+          if (v65 - *a3 != 96)
           {
-            v73 = 0;
-            v74 = 28;
+            v89 = 0;
+            v90 = 28;
             do
             {
-              if (ha_sensitive_logging_is_enabled())
+              v91 = ha_sensitive_logging_is_enabled();
+              if (v91)
               {
-                v75 = ha_get_log();
-                if (os_log_type_enabled(v75, OS_LOG_TYPE_DEBUG))
+                v92 = ha_get_log(v91);
+                if (os_log_type_enabled(v92, OS_LOG_TYPE_DEBUG))
                 {
-                  if (0xAAAAAAAAAAAAAAABLL * ((*(a3 + 8) - *a3) >> 5) <= v73)
+                  if (0xAAAAAAAAAAAAAAABLL * ((*(a3 + 8) - *a3) >> 5) <= v89)
                   {
                     goto LABEL_147;
                   }
 
-                  v76 = *(*a3 + v74);
+                  v93 = *(*a3 + v90);
                   *buf = 67109120;
-                  v91 = v76;
-                  _os_log_debug_impl(&dword_2588F5000, v75, OS_LOG_TYPE_DEBUG, "%d, ", buf, 8u);
+                  v108 = v93;
+                  _os_log_debug_impl(&dword_2588F5000, v92, OS_LOG_TYPE_DEBUG, "%d, ", buf, 8u);
                 }
               }
 
-              ++v73;
-              v74 += 96;
+              ++v89;
+              v90 += 96;
             }
 
-            while (v73 < -1 - 0x5555555555555555 * ((*(a3 + 8) - *a3) >> 5));
+            while (v89 < -1 - 0x5555555555555555 * ((*(a3 + 8) - *a3) >> 5));
           }
 
-          if (ha_sensitive_logging_is_enabled())
+          v66 = ha_sensitive_logging_is_enabled();
+          if (v66)
           {
-            v55 = ha_get_log();
-            if (os_log_type_enabled(v55, OS_LOG_TYPE_DEBUG))
+            v67 = ha_get_log(v66);
+            if (os_log_type_enabled(v67, OS_LOG_TYPE_DEBUG))
             {
-              Nightingale::uiLogProcessor::process((a3 + 8));
+              Nightingale::uiLogProcessor::process();
             }
           }
         }
@@ -5844,17 +5536,15 @@ LABEL_147:
 LABEL_103:
   if (v37)
   {
-    v85 = v37;
+    v102 = v37;
     operator delete(v37);
   }
 
   if (__src)
   {
-    v88 = __src;
+    v105 = __src;
     operator delete(__src);
   }
-
-  v57 = *MEMORY[0x277D85DE8];
 }
 
 void Nightingale::uiCycleFactorProcess::tagCycleInfoReproductive(uint64_t a1, void *a2, uint64_t *a3)
@@ -5923,7 +5613,7 @@ LABEL_17:
   }
 }
 
-void Nightingale::uiLogProcessor::extractCycles(_DWORD *a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
+void Nightingale::uiLogProcessor::extractCycles(float *a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
 {
   *(a5 + 28) = 0;
   *(a5 + 32) = 0;
@@ -6066,351 +5756,380 @@ __n128 Nightingale::getEnsembleInputArray@<Q0>(uint64_t a1@<X0>, uint64_t *a2@<X
   return result;
 }
 
-void std::vector<float>::resize(void *a1, unint64_t a2)
+void std::vector<float>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 2;
+  v2 = (result[1] - *result) >> 2;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 4 * a2;
+      result[1] = *result + 4 * a2;
     }
   }
 
   else
   {
-    std::vector<float>::__append(a1, a2 - v2);
+    std::vector<float>::__append(result, a2 - v2);
   }
 }
 
-void Nightingale::uiLogProcessor::print_anUILog(uint64_t a1, uint64_t *a2)
+void Nightingale::uiLogProcessor::print_anUILog(uint64_t a1, char **a2)
 {
-  v70 = *MEMORY[0x277D85DE8];
+  v100 = *MEMORY[0x277D85DE8];
   if (*a2 != a2[1])
   {
-    if (ha_sensitive_logging_is_enabled())
+    is_enabled = ha_sensitive_logging_is_enabled();
+    if (is_enabled)
     {
-      log = ha_get_log();
+      log = ha_get_log(is_enabled);
       if (os_log_type_enabled(log, OS_LOG_TYPE_DEBUG))
       {
         Nightingale::uiLogProcessor::print_anUILog();
       }
     }
 
-    v4 = *a2;
-    v5 = a2[1];
-    if (*a2 != v5)
+    v5 = *a2;
+    v6 = a2[1];
+    if (*a2 != v6)
     {
-      v6 = 0;
+      v7 = 0;
       do
       {
-        if (ha_sensitive_logging_is_enabled())
+        v8 = ha_sensitive_logging_is_enabled();
+        if (v8)
         {
-          v7 = ha_get_log();
-          if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
-          {
-            v24 = *v4;
-            v25 = *(v4 + 28);
-            *buf = 67109376;
-            v67 = v24;
-            v68 = 1024;
-            v69 = v25;
-            _os_log_debug_impl(&dword_2588F5000, v7, OS_LOG_TYPE_DEBUG, "\t{jDayPeriodStart: %d, isDeterminant: %d", buf, 0xEu);
-          }
-        }
-
-        if (ha_sensitive_logging_is_enabled())
-        {
-          v8 = ha_get_log();
-          if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
-          {
-            Nightingale::uiLogProcessor::print_anUILog(&v64, v4, v65);
-          }
-        }
-
-        if (ha_sensitive_logging_is_enabled())
-        {
-          v9 = ha_get_log();
+          v9 = ha_get_log(v8);
           if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
           {
-            Nightingale::uiLogProcessor::print_anUILog(&v62, v4, v63);
+            v38 = *v5;
+            v39 = v5[28];
+            *buf = 67109376;
+            v97 = v38;
+            v98 = 1024;
+            v99 = v39;
+            _os_log_debug_impl(&dword_2588F5000, v9, OS_LOG_TYPE_DEBUG, "\t{jDayPeriodStart: %d, isDeterminant: %d", buf, 0xEu);
           }
         }
 
-        if (ha_sensitive_logging_is_enabled())
+        v10 = ha_sensitive_logging_is_enabled();
+        if (v10)
         {
-          v10 = ha_get_log();
-          if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
-          {
-            Nightingale::uiLogProcessor::print_anUILog(&v60, v4, v61);
-          }
-        }
-
-        if (ha_sensitive_logging_is_enabled())
-        {
-          v11 = ha_get_log();
+          v11 = ha_get_log(v10);
           if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
           {
-            Nightingale::uiLogProcessor::print_anUILog(&v58, v4, &v59, v11);
+            Nightingale::uiLogProcessor::print_anUILog(&v94, v5, v95);
           }
         }
 
-        if (ha_sensitive_logging_is_enabled())
+        v12 = ha_sensitive_logging_is_enabled();
+        if (v12)
         {
-          v12 = ha_get_log();
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
-          {
-            Nightingale::uiLogProcessor::print_anUILog(&v56, v4, &v57, v12);
-          }
-        }
-
-        if (ha_sensitive_logging_is_enabled())
-        {
-          v13 = ha_get_log();
+          v13 = ha_get_log(v12);
           if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
           {
-            Nightingale::uiLogProcessor::print_anUILog(&v54, v4, &v55, v13);
+            Nightingale::uiLogProcessor::print_anUILog(&v92, v5, v93);
           }
         }
 
-        if (ha_sensitive_logging_is_enabled())
+        v14 = ha_sensitive_logging_is_enabled();
+        if (v14)
         {
-          v14 = ha_get_log();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
-          {
-            Nightingale::uiLogProcessor::print_anUILog(&v52, v4, &v53, v14);
-          }
-        }
-
-        if (ha_sensitive_logging_is_enabled())
-        {
-          v15 = ha_get_log();
+          v15 = ha_get_log(v14);
           if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
           {
-            Nightingale::uiLogProcessor::print_anUILog(&v50, v51);
+            Nightingale::uiLogProcessor::print_anUILog(&v90, v5, v91);
           }
         }
 
-        v17 = *(v4 + 72);
-        v16 = *(v4 + 80);
-        if (v17 != v16)
+        v16 = ha_sensitive_logging_is_enabled();
+        if (v16)
         {
-          v18 = 0;
+          v17 = ha_get_log(v16);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+          {
+            Nightingale::uiLogProcessor::print_anUILog(&v88, v5, &v89, v17);
+          }
+        }
+
+        v18 = ha_sensitive_logging_is_enabled();
+        if (v18)
+        {
+          v19 = ha_get_log(v18);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+          {
+            Nightingale::uiLogProcessor::print_anUILog(&v86, v5, &v87, v19);
+          }
+        }
+
+        v20 = ha_sensitive_logging_is_enabled();
+        if (v20)
+        {
+          v21 = ha_get_log(v20);
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+          {
+            Nightingale::uiLogProcessor::print_anUILog(&v84, v5, &v85, v21);
+          }
+        }
+
+        v22 = ha_sensitive_logging_is_enabled();
+        if (v22)
+        {
+          v23 = ha_get_log(v22);
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+          {
+            Nightingale::uiLogProcessor::print_anUILog(&v82, v5, &v83, v23);
+          }
+        }
+
+        v24 = ha_sensitive_logging_is_enabled();
+        if (v24)
+        {
+          v25 = ha_get_log(v24);
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+          {
+            Nightingale::uiLogProcessor::print_anUILog(&v80, v81);
+          }
+        }
+
+        v27 = *(v5 + 9);
+        v26 = *(v5 + 10);
+        if (v27 != v26)
+        {
+          v28 = 0;
           do
           {
-            if (ha_sensitive_logging_is_enabled())
+            v29 = ha_sensitive_logging_is_enabled();
+            if (v29)
             {
-              v19 = ha_get_log();
-              if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+              v30 = ha_get_log(v29);
+              if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
               {
-                v21 = *(v17 + v18);
+                v33 = *(v27 + v28);
                 *buf = 67109120;
-                v67 = v21;
-                _os_log_debug_impl(&dword_2588F5000, v19, OS_LOG_TYPE_DEBUG, "%d ", buf, 8u);
+                v97 = v33;
+                _os_log_debug_impl(&dword_2588F5000, v30, OS_LOG_TYPE_DEBUG, "%d ", buf, 8u);
               }
             }
 
-            if (~*(v4 + 72) + *(v4 + 80) > v18)
+            if (~*(v5 + 9) + *(v5 + 10) > v28)
             {
-              if (ha_sensitive_logging_is_enabled())
+              v31 = ha_sensitive_logging_is_enabled();
+              if (v31)
               {
-                v20 = ha_get_log();
-                if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+                v32 = ha_get_log(v31);
+                if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
                 {
-                  Nightingale::uiLogProcessor::print_anUILog(&v48, v49);
+                  Nightingale::uiLogProcessor::print_anUILog(&v78, v79);
                 }
               }
             }
 
-            ++v18;
+            ++v28;
           }
 
-          while (v17 + v18 != v16);
+          while (v27 + v28 != v26);
         }
 
-        if (ha_sensitive_logging_is_enabled())
+        v34 = ha_sensitive_logging_is_enabled();
+        if (v34)
         {
-          v22 = ha_get_log();
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+          v35 = ha_get_log(v34);
+          if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
           {
-            Nightingale::uiLogProcessor::print_anUILog(&v46, v47);
+            Nightingale::uiLogProcessor::print_anUILog(&v76, v77);
           }
         }
 
-        if (0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 5) - 1 > v6)
+        if (0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 5) - 1 > v7)
         {
-          if (ha_sensitive_logging_is_enabled())
+          v36 = ha_sensitive_logging_is_enabled();
+          if (v36)
           {
-            v23 = ha_get_log();
-            if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+            v37 = ha_get_log(v36);
+            if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
             {
-              Nightingale::uiLogProcessor::print_anUILog(&v44, v45);
+              Nightingale::uiLogProcessor::print_anUILog(&v74, v75);
             }
           }
         }
 
-        ++v6;
-        v4 += 96;
+        ++v7;
+        v5 += 96;
       }
 
-      while (v4 != v5);
+      while (v5 != v6);
     }
 
-    if (ha_sensitive_logging_is_enabled())
+    v40 = ha_sensitive_logging_is_enabled();
+    if (v40)
     {
-      v26 = ha_get_log();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
-      {
-        Nightingale::uiLogProcessor::print_anUILog();
-      }
-    }
-
-    if (ha_sensitive_logging_is_enabled())
-    {
-      v27 = ha_get_log();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
-      {
-        Nightingale::uiLogProcessor::print_anUILog();
-      }
-    }
-
-    if (ha_sensitive_logging_is_enabled())
-    {
-      v28 = ha_get_log();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
-      {
-        Nightingale::uiLogProcessor::print_anUILog(a2);
-      }
-    }
-
-    if (ha_sensitive_logging_is_enabled())
-    {
-      v29 = ha_get_log();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
-      {
-        Nightingale::uiLogProcessor::print_anUILog(a2);
-      }
-    }
-
-    if (ha_sensitive_logging_is_enabled())
-    {
-      v30 = ha_get_log();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
-      {
-        Nightingale::uiLogProcessor::print_anUILog(a2);
-      }
-    }
-
-    if (ha_sensitive_logging_is_enabled())
-    {
-      v31 = ha_get_log();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
-      {
-        Nightingale::uiLogProcessor::print_anUILog(a2);
-      }
-    }
-
-    if (ha_sensitive_logging_is_enabled())
-    {
-      v32 = ha_get_log();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
-      {
-        Nightingale::uiLogProcessor::print_anUILog(a2);
-      }
-    }
-
-    if (ha_sensitive_logging_is_enabled())
-    {
-      v33 = ha_get_log();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
-      {
-        Nightingale::uiLogProcessor::print_anUILog(a2);
-      }
-    }
-
-    if (ha_sensitive_logging_is_enabled())
-    {
-      v34 = ha_get_log();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
-      {
-        Nightingale::uiLogProcessor::print_anUILog(a2);
-      }
-    }
-
-    if (ha_sensitive_logging_is_enabled())
-    {
-      v35 = ha_get_log();
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
-      {
-        Nightingale::uiLogProcessor::print_anUILog(a2);
-      }
-    }
-
-    if (ha_sensitive_logging_is_enabled())
-    {
-      v36 = ha_get_log();
-      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
-      {
-        Nightingale::uiLogProcessor::print_anUILog(a2);
-      }
-    }
-
-    if (ha_sensitive_logging_is_enabled())
-    {
-      v37 = ha_get_log();
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
-      {
-        Nightingale::uiLogProcessor::print_anUILog(a2);
-      }
-    }
-
-    if (ha_sensitive_logging_is_enabled())
-    {
-      v38 = ha_get_log();
-      if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
-      {
-        Nightingale::uiLogProcessor::print_anUILog(a2);
-      }
-    }
-
-    if (ha_sensitive_logging_is_enabled())
-    {
-      v39 = ha_get_log();
-      if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
-      {
-        Nightingale::uiLogProcessor::print_anUILog(a2);
-      }
-    }
-
-    if (ha_sensitive_logging_is_enabled())
-    {
-      v40 = ha_get_log();
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
-      {
-        Nightingale::uiLogProcessor::print_anUILog(a2);
-      }
-    }
-
-    if (ha_sensitive_logging_is_enabled())
-    {
-      v41 = ha_get_log();
+      v41 = ha_get_log(v40);
       if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
       {
-        Nightingale::uiLogProcessor::print_anUILog(a2);
+        Nightingale::uiLogProcessor::print_anUILog();
       }
     }
 
-    if (ha_sensitive_logging_is_enabled())
+    v42 = ha_sensitive_logging_is_enabled();
+    if (v42)
     {
-      v42 = ha_get_log();
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
+      v43 = ha_get_log(v42);
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
       {
-        Nightingale::uiLogProcessor::print_anUILog(a2);
+        Nightingale::uiLogProcessor::print_anUILog();
+      }
+    }
+
+    v44 = ha_sensitive_logging_is_enabled();
+    if (v44)
+    {
+      v45 = ha_get_log(v44);
+      if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
+      {
+        Nightingale::uiLogProcessor::print_anUILog();
+      }
+    }
+
+    v46 = ha_sensitive_logging_is_enabled();
+    if (v46)
+    {
+      v47 = ha_get_log(v46);
+      if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
+      {
+        Nightingale::uiLogProcessor::print_anUILog();
+      }
+    }
+
+    v48 = ha_sensitive_logging_is_enabled();
+    if (v48)
+    {
+      v49 = ha_get_log(v48);
+      if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
+      {
+        Nightingale::uiLogProcessor::print_anUILog();
+      }
+    }
+
+    v50 = ha_sensitive_logging_is_enabled();
+    if (v50)
+    {
+      v51 = ha_get_log(v50);
+      if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
+      {
+        Nightingale::uiLogProcessor::print_anUILog();
+      }
+    }
+
+    v52 = ha_sensitive_logging_is_enabled();
+    if (v52)
+    {
+      v53 = ha_get_log(v52);
+      if (os_log_type_enabled(v53, OS_LOG_TYPE_DEBUG))
+      {
+        Nightingale::uiLogProcessor::print_anUILog();
+      }
+    }
+
+    v54 = ha_sensitive_logging_is_enabled();
+    if (v54)
+    {
+      v55 = ha_get_log(v54);
+      if (os_log_type_enabled(v55, OS_LOG_TYPE_DEBUG))
+      {
+        Nightingale::uiLogProcessor::print_anUILog();
+      }
+    }
+
+    v56 = ha_sensitive_logging_is_enabled();
+    if (v56)
+    {
+      v57 = ha_get_log(v56);
+      if (os_log_type_enabled(v57, OS_LOG_TYPE_DEBUG))
+      {
+        Nightingale::uiLogProcessor::print_anUILog();
+      }
+    }
+
+    v58 = ha_sensitive_logging_is_enabled();
+    if (v58)
+    {
+      v59 = ha_get_log(v58);
+      if (os_log_type_enabled(v59, OS_LOG_TYPE_DEBUG))
+      {
+        Nightingale::uiLogProcessor::print_anUILog();
+      }
+    }
+
+    v60 = ha_sensitive_logging_is_enabled();
+    if (v60)
+    {
+      v61 = ha_get_log(v60);
+      if (os_log_type_enabled(v61, OS_LOG_TYPE_DEBUG))
+      {
+        Nightingale::uiLogProcessor::print_anUILog();
+      }
+    }
+
+    v62 = ha_sensitive_logging_is_enabled();
+    if (v62)
+    {
+      v63 = ha_get_log(v62);
+      if (os_log_type_enabled(v63, OS_LOG_TYPE_DEBUG))
+      {
+        Nightingale::uiLogProcessor::print_anUILog();
+      }
+    }
+
+    v64 = ha_sensitive_logging_is_enabled();
+    if (v64)
+    {
+      v65 = ha_get_log(v64);
+      if (os_log_type_enabled(v65, OS_LOG_TYPE_DEBUG))
+      {
+        Nightingale::uiLogProcessor::print_anUILog();
+      }
+    }
+
+    v66 = ha_sensitive_logging_is_enabled();
+    if (v66)
+    {
+      v67 = ha_get_log(v66);
+      if (os_log_type_enabled(v67, OS_LOG_TYPE_DEBUG))
+      {
+        Nightingale::uiLogProcessor::print_anUILog();
+      }
+    }
+
+    v68 = ha_sensitive_logging_is_enabled();
+    if (v68)
+    {
+      v69 = ha_get_log(v68);
+      if (os_log_type_enabled(v69, OS_LOG_TYPE_DEBUG))
+      {
+        Nightingale::uiLogProcessor::print_anUILog();
+      }
+    }
+
+    v70 = ha_sensitive_logging_is_enabled();
+    if (v70)
+    {
+      v71 = ha_get_log(v70);
+      if (os_log_type_enabled(v71, OS_LOG_TYPE_DEBUG))
+      {
+        Nightingale::uiLogProcessor::print_anUILog();
+      }
+    }
+
+    v72 = ha_sensitive_logging_is_enabled();
+    if (v72)
+    {
+      v73 = ha_get_log(v72);
+      if (os_log_type_enabled(v73, OS_LOG_TYPE_DEBUG))
+      {
+        Nightingale::uiLogProcessor::print_anUILog();
       }
     }
   }
-
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 void *Nightingale::PhaseSet::add(void *result, unsigned int a2)
@@ -6447,13 +6166,13 @@ uint64_t Nightingale::PhaseSet::contains(void *a1, unsigned int a2)
 
 void Nightingale::PhaseSet::phasesOnInPhaseSet2Vec(void *a1, uint64_t a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v20 = 0x706050403020100;
-  v21 = 8;
-  std::vector<Nightingale::Phase>::vector[abi:nn200100](&v18, &v20, 9);
-  v5 = v18;
-  v4 = v19;
-  if (v19 != v18)
+  v21 = *MEMORY[0x277D85DE8];
+  v19 = 0x706050403020100;
+  v20 = 8;
+  std::vector<Nightingale::Phase>::vector[abi:nn200100](&v17, &v19, 9);
+  v5 = v17;
+  v4 = v18;
+  if (v18 != v17)
   {
     v6 = 0;
     do
@@ -6519,8 +6238,8 @@ void Nightingale::PhaseSet::phasesOnInPhaseSet2Vec(void *a1, uint64_t a2)
         }
 
         *(a2 + 8) = v10;
-        v5 = v18;
-        v4 = v19;
+        v5 = v17;
+        v4 = v18;
       }
 
       ++v6;
@@ -6531,11 +6250,9 @@ void Nightingale::PhaseSet::phasesOnInPhaseSet2Vec(void *a1, uint64_t a2)
 
   if (v5)
   {
-    v19 = v5;
+    v18 = v5;
     operator delete(v5);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 __n128 Nightingale::uiProcessForLstm::uiProcessForLstm(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, __n128 *a5)
@@ -6559,16 +6276,16 @@ __n128 Nightingale::uiProcessForLstm::uiProcessForLstm(uint64_t a1, uint64_t a2,
   return result;
 }
 
-void Nightingale::uiProcessForLstm::prepareUiLogForDL(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void Nightingale::uiProcessForLstm::prepareUiLogForDL(uint64_t **result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (*(a2 + 4) == 1 && *(a2 + 12) == 1 && *(a2 + 20) == 1)
   {
-    *(a1 + 56) = *(a2 + 16);
-    *(a1 + 48) = *a2;
-    *(a1 + 52) = *(a2 + 8);
-    Nightingale::uiProcessForLstm::prepareDLSliceFlow(a1, a2, a3);
+    *(result + 14) = *(a2 + 16);
+    *(result + 12) = *a2;
+    *(result + 13) = *(a2 + 8);
+    Nightingale::uiProcessForLstm::prepareDLSliceFlow(result, a2, a3);
 
-    Nightingale::uiProcessForLstm::prepareDLSliceCycleMeanStd(a1, v9, a4, a5);
+    Nightingale::uiProcessForLstm::prepareDLSliceCycleMeanStd(result, v10, v11, v9, a4, a5);
   }
 }
 
@@ -6770,71 +6487,71 @@ void Nightingale::uiProcessForLstm::prepareDLSliceFlow(uint64_t **a1, uint64_t a
   }
 }
 
-void Nightingale::uiProcessForLstm::prepareDLSliceCycleMeanStd(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void Nightingale::uiProcessForLstm::prepareDLSliceCycleMeanStd(uint64_t result, __n128 a2, __n128 a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v4 = **(a1 + 8);
-  v5 = 0xAAAAAAAAAAAAAAABLL * ((*(*(a1 + 8) + 8) - v4) >> 5);
-  if (v5 >= 2)
+  v6 = **(result + 8);
+  v7 = 0xAAAAAAAAAAAAAAABLL * ((*(*(result + 8) + 8) - v6) >> 5);
+  if (v7 >= 2)
   {
-    v9 = v5 - 1;
-    v10 = v5 & 0x7FFFFFFF;
-    v11 = (96 * v10) | 0x18;
-    v12 = 0xAAAAAAAAAAAAAAABLL * ((*(*(a1 + 8) + 8) - v4) >> 5);
+    v11 = v7 - 1;
+    v12 = v7 & 0x7FFFFFFF;
+    v13 = (96 * v12) | 0x18;
+    v14 = 0xAAAAAAAAAAAAAAABLL * ((*(*(result + 8) + 8) - v6) >> 5);
     while (1)
     {
-      v13 = (v12 - 1);
-      if (v5 <= v13)
+      v15 = (v14 - 1);
+      if (v7 <= v15)
       {
         goto LABEL_35;
       }
 
-      v14 = v4 + 96 * v13;
-      v15 = *(a1 + 48);
-      if (v15 >= *v14)
+      v16 = v6 + 96 * v15;
+      v17 = *(result + 48);
+      if (v17 >= *v16)
       {
         break;
       }
 
-      --v10;
-      v11 -= 96;
-      LODWORD(v12) = v12 - 1;
-      if (v13 <= 0)
+      --v12;
+      v13 -= 96;
+      LODWORD(v14) = v14 - 1;
+      if (v15 <= 0)
       {
         return;
       }
     }
 
-    if (*(v14 + 36) == 1 && *(v14 + 44) == 1)
+    if (*(v16 + 36) == 1 && *(v16 + 44) == 1)
     {
-      v16 = roundf(*(v14 + 32)) - (v15 - *v14);
-      v17 = sqrtf(*(v14 + 40));
-      v18 = *(a1 + 52);
-      if (*(v14 + 24) == 1 && v18 >= *(v14 + 20))
+      v18 = roundf(*(v16 + 32)) - (v17 - *v16);
+      v19 = sqrtf(*(v16 + 40));
+      v20 = *(result + 52);
+      if (*(v16 + 24) == 1 && v20 >= *(v16 + 20))
       {
-        v18 = *(v14 + 20);
+        v20 = *(v16 + 20);
       }
 
-      Nightingale::uiProcessForLstm::fillUpMeanStdVec(v16, v17, a1, v15, v18, a3, a4);
-      if (v12 < v9)
+      Nightingale::uiProcessForLstm::fillUpMeanStdVec(v18, v19, result, v17, v20, a5, a6);
+      if (v14 < v11)
       {
-        v20 = 0;
+        v22 = 0;
         while (1)
         {
-          v21 = **(a1 + 8);
-          if (0xAAAAAAAAAAAAAAABLL * ((*(*(a1 + 8) + 8) - v21) >> 5) <= v10 + v20)
+          v23 = **(result + 8);
+          if (0xAAAAAAAAAAAAAAABLL * ((*(*(result + 8) + 8) - v23) >> 5) <= v12 + v22)
           {
             break;
           }
 
-          v22 = v21 + v11;
-          if (*(v21 + v11 + 12) == 1 && *(v22 + 20) == 1 && *(v21 + v11) == 1)
+          v24 = v23 + v13;
+          if (*(v23 + v13 + 12) == 1 && *(v24 + 20) == 1 && *(v23 + v13) == 1)
           {
-            Nightingale::uiProcessForLstm::fillUpMeanStdVec(roundf(*(v22 + 8)), sqrtf(*(v22 + 16)), v19, *(v22 - 24), *(v21 + v11 - 4), a3, a4);
+            Nightingale::uiProcessForLstm::fillUpMeanStdVec(roundf(*(v24 + 8)), sqrtf(*(v24 + 16)), v21, *(v24 - 24), *(v23 + v13 - 4), a5, a6);
           }
 
-          v23 = v10 + v20++;
-          v11 += 96;
-          if (v9 <= v23 + 1)
+          v25 = v12 + v22++;
+          v13 += 96;
+          if (v11 <= v25 + 1)
           {
             goto LABEL_20;
           }
@@ -6845,60 +6562,60 @@ LABEL_35:
       }
 
 LABEL_20:
-      v24 = *(*(a1 + 8) + 8);
-      v25 = *(v24 - 96);
-      if (*(a1 + 48) < v25 && *(v24 - 60) == 1 && *(v24 - 52) == 1)
+      v26 = *(*(result + 8) + 8);
+      v27 = *(v26 - 96);
+      if (*(result + 48) < v27 && *(v26 - 60) == 1 && *(v26 - 52) == 1)
       {
-        Nightingale::uiProcessForLstm::fillUpMeanStdVec(roundf(*(v24 - 64)), sqrtf(*(v24 - 56)), v19, v25, *(a1 + 52), a3, a4);
+        Nightingale::uiProcessForLstm::fillUpMeanStdVec(roundf(*(v26 - 64)), sqrtf(*(v26 - 56)), v21, v27, *(result + 52), a5, a6);
       }
 
-      v26 = *a3;
-      v27 = *(a3 + 8);
-      if (*a3 != v27)
+      v28 = *a5;
+      v29 = *(a5 + 8);
+      if (*a5 != v29)
       {
-        v28 = *(a1 + 36);
-        if (v28 != 0.0)
+        v30 = *(result + 36);
+        if (v30 != 0.0)
         {
-          v29 = *(a1 + 32);
-          v30 = (v27 - v26) >> 2;
-          if (v30 <= 1)
+          v31 = *(result + 32);
+          v32 = (v29 - v28) >> 2;
+          if (v32 <= 1)
           {
-            v30 = 1;
+            v32 = 1;
           }
 
           do
           {
-            *v26 = (*v26 - v29) / v28;
-            ++v26;
-            --v30;
+            *v28 = (*v28 - v31) / v30;
+            ++v28;
+            --v32;
           }
 
-          while (v30);
+          while (v32);
         }
       }
 
-      v31 = *a4;
-      v32 = *(a4 + 8);
-      if (*a4 != v32)
+      v33 = *a6;
+      v34 = *(a6 + 8);
+      if (*a6 != v34)
       {
-        v33 = *(a1 + 44);
-        if (v33 != 0.0)
+        v35 = *(result + 44);
+        if (v35 != 0.0)
         {
-          v34 = *(a1 + 40);
-          v35 = (v32 - v31) >> 2;
-          if (v35 <= 1)
+          v36 = *(result + 40);
+          v37 = (v34 - v33) >> 2;
+          if (v37 <= 1)
           {
-            v35 = 1;
+            v37 = 1;
           }
 
           do
           {
-            *v31 = (*v31 - v34) / v33;
-            ++v31;
-            --v35;
+            *v33 = (*v33 - v36) / v35;
+            ++v33;
+            --v37;
           }
 
-          while (v35);
+          while (v37);
         }
       }
     }
@@ -6924,7 +6641,7 @@ void Nightingale::uiProcessForLstm::fillUpMeanStdVec(float a1, float a2, uint64_
   }
 }
 
-char *std::vector<std::pair<int,int>>::__assign_with_size[abi:nn200100]<std::pair<int,int>*,std::pair<int,int>*>(char **a1, uint64_t *a2, uint64_t *a3, unint64_t a4)
+char *std::vector<std::pair<int,int>>::__assign_with_size[abi:nn200100]<std::pair<int,int>*,std::pair<int,int>*>(uint64_t *a1, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   v5 = a2;
   v7 = a1[2];
@@ -7020,18 +6737,18 @@ char *std::vector<std::pair<int,int>>::__assign_with_size[abi:nn200100]<std::pai
   return result;
 }
 
-void *std::vector<std::pair<int,int>>::vector[abi:nn200100](void *result, void *a2)
+uint64_t *std::vector<std::pair<int,int>>::vector[abi:nn200100](uint64_t *a1, uint64_t **a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   v2 = a2[1];
   if (v2 != *a2)
   {
-    std::vector<Nightingale::PhaseSet>::__vallocate[abi:nn200100](result, (v2 - *a2) >> 3);
+    std::vector<Nightingale::PhaseSet>::__vallocate[abi:nn200100](a1, v2 - *a2);
   }
 
-  return result;
+  return a1;
 }
 
 void std::vector<Nightingale::cycleInfo>::__vdeallocate(uint64_t *a1)
@@ -7131,15 +6848,15 @@ unint64_t Nightingale::phaseFactorProcessor::detectPhaseJDayRange(uint64_t a1, u
 
   else
   {
-    v5 = &v4[-*a3] >> 2;
+    v5 = (v4 - *a3) >> 2;
     v6 = v5;
     v7 = *a3;
     do
     {
       v8 = v6 >> 1;
-      v9 = &v7[4 * (v6 >> 1)];
+      v9 = &v7[v6 >> 1];
       v11 = *v9;
-      v10 = (v9 + 1);
+      v10 = v9 + 1;
       v6 += ~(v6 >> 1);
       if (v11 > a2)
       {
@@ -7158,9 +6875,9 @@ unint64_t Nightingale::phaseFactorProcessor::detectPhaseJDayRange(uint64_t a1, u
     do
     {
       v13 = v5 >> 1;
-      v14 = &v4[4 * (v5 >> 1)];
+      v14 = (v4 + 4 * (v5 >> 1));
       v16 = *v14;
-      v15 = (v14 + 1);
+      v15 = v14 + 1;
       v5 += ~(v5 >> 1);
       if (v16 > SHIDWORD(a2))
       {
@@ -7780,38 +7497,39 @@ LABEL_12:
   return v10;
 }
 
-uint64_t Nightingale::phaseFactorProcessor::ccMenstCycleLen_handling(uint64_t *a1, void *a2, uint64_t *a3)
+unint64_t Nightingale::phaseFactorProcessor::ccMenstCycleLen_handling(uint64_t *a1, void *a2, uint64_t *a3)
 {
   EndOfAPhaseSet = Nightingale::phaseFactorProcessor::jDayLastEndOfAPhaseSet(a1, a2, a3);
   v6 = *a1;
   v5 = a1[1];
-  if (ha_sensitive_logging_is_enabled())
+  is_enabled = ha_sensitive_logging_is_enabled();
+  if (is_enabled)
   {
-    log = ha_get_log();
+    log = ha_get_log(is_enabled);
     if (os_log_type_enabled(log, OS_LOG_TYPE_DEBUG))
     {
       Nightingale::phaseFactorProcessor::ccMenstCycleLen_handling(EndOfAPhaseSet, log);
     }
   }
 
-  v9 = *a1;
-  v8 = a1[1];
-  if (*a1 == v8)
+  v10 = *a1;
+  v9 = a1[1];
+  if (*a1 == v9)
   {
     return 0;
   }
 
   if (EndOfAPhaseSet == -2)
   {
-    v16 = (v8 - v9) >> 3;
-    if (v16 >= 2)
+    v17 = (v9 - v10) >> 3;
+    if (v17 >= 2)
     {
       return 2;
     }
 
     else
     {
-      return v16;
+      return v17;
     }
   }
 
@@ -7820,15 +7538,15 @@ uint64_t Nightingale::phaseFactorProcessor::ccMenstCycleLen_handling(uint64_t *a
     result = (v5 - v6) >> 3;
     if (EndOfAPhaseSet != -1)
     {
-      v11 = v8 - v9;
-      v12 = (v8 - v9) >> 3;
-      if (v12 >= 1)
+      v12 = v9 - v10;
+      v13 = (v9 - v10) >> 3;
+      if (v13 >= 1)
       {
-        v13 = (result - v12);
-        v14 = (v11 >> 3) & 0x7FFFFFFF;
-        for (i = (v9 + 4); ; i += 2)
+        v14 = (result - v13);
+        v15 = (v12 >> 3) & 0x7FFFFFFF;
+        for (i = (v10 + 4); ; i += 2)
         {
-          if (!v12)
+          if (!v13)
           {
             std::string::__throw_length_error[abi:nn200100]();
           }
@@ -7839,10 +7557,10 @@ uint64_t Nightingale::phaseFactorProcessor::ccMenstCycleLen_handling(uint64_t *a
           }
 
           result = (result - 1);
-          --v12;
-          if (!--v14)
+          --v13;
+          if (!--v15)
           {
-            return v13;
+            return v14;
           }
         }
       }
@@ -8077,8 +7795,8 @@ char *std::vector<Nightingale::Phase>::insert(void *a1, char *__src, char *a3)
     }
 
     v23 = 0;
-    v24 = (__src - v10);
-    v25 = (__src - v10);
+    v24 = &__src[-v10];
+    v25 = &__src[-v10];
     std::__split_buffer<Nightingale::Phase>::emplace_back<Nightingale::Phase const&>(&v23, a3);
     v14 = v24;
     memcpy(v25, v4, a1[1] - v4);
@@ -8116,7 +7834,7 @@ char *std::vector<Nightingale::Phase>::insert(void *a1, char *__src, char *a3)
     if (v6)
     {
       *v6 = *(v6 - 1);
-      v9 = v6 + 1;
+      v9 = (v6 + 1);
     }
 
     else
@@ -8190,20 +7908,18 @@ LABEL_12:
   return v9;
 }
 
-void *Nightingale::phaseFactorProcessor::getCCVec@<X0>(void *a1@<X8>)
+uint64_t *Nightingale::phaseFactorProcessor::getCCVec@<X0>(uint64_t *__return_ptr a1@<X8>)
 {
-  v3 = 1798;
-  v4 = 5;
-  return std::vector<Nightingale::Phase>::vector[abi:nn200100](a1, &v3, 3);
+  v2 = 1798;
+  v3 = 5;
+  return std::vector<Nightingale::Phase>::vector[abi:nn200100](a1, &v2, 3);
 }
 
-void *Nightingale::phaseFactorProcessor::getAllCycleVec@<X0>(void *a1@<X8>)
+uint64_t *Nightingale::phaseFactorProcessor::getAllCycleVec@<X0>(uint64_t *__return_ptr a1@<X8>)
 {
-  v4[1] = *MEMORY[0x277D85DE8];
-  v4[0] = 0x706050403020100;
-  result = std::vector<Nightingale::Phase>::vector[abi:nn200100](a1, v4, 8);
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  v2[1] = *MEMORY[0x277D85DE8];
+  v2[0] = 0x706050403020100;
+  return std::vector<Nightingale::Phase>::vector[abi:nn200100](a1, v2, 8);
 }
 
 uint64_t Nightingale::phaseFactorProcessor::aPhase_contains_phaseTobeDetected(uint64_t a1, uint64_t a2, void *a3)
@@ -8444,51 +8160,50 @@ LABEL_36:
 
 BOOL Nightingale::phaseFactorProcessor::containContraceptiveCycleFactors(uint64_t a1, unsigned __int8 **a2)
 {
-  v10 = 84148994;
-  v11 = 1798;
-  std::vector<Nightingale::Phase>::vector[abi:nn200100](&__p, &v10, 6);
-  v3 = *a2;
-  v4 = a2[1];
-  v5 = *a2;
-  if (*a2 == v4 || __p == v13)
+  v9 = 84148994;
+  v10 = 1798;
+  std::vector<Nightingale::Phase>::vector[abi:nn200100](&__p, &v9, 6);
+  v3 = a2[1];
+  v4 = *a2;
+  if (*a2 == v3 || __p == v12)
   {
-    v8 = 0;
+    v7 = 0;
   }
 
   else
   {
-    v6 = __p;
+    v5 = __p;
     do
     {
-      v7 = v5;
-      while (*v7 != *v6)
+      v6 = v4;
+      while (*v6 != *v5)
       {
-        if (++v7 == v4)
+        if (++v6 == v3)
         {
-          v7 = v4;
+          v6 = v3;
           break;
         }
       }
 
-      v8 = v7 != v4;
-      if (v7 != v4)
+      v7 = v6 != v3;
+      if (v6 != v3)
       {
         break;
       }
 
-      ++v6;
+      ++v5;
     }
 
-    while (v6 != v13);
+    while (v5 != v12);
   }
 
   if (__p)
   {
-    v13 = __p;
+    v12 = __p;
     operator delete(__p);
   }
 
-  return v8;
+  return v7;
 }
 
 BOOL Nightingale::phaseFactorProcessor::vPhasesContainsAPhase(uint64_t a1, unsigned __int8 **a2, int a3)
@@ -8549,21 +8264,15 @@ BOOL Nightingale::phaseFactorProcessor::vPhasesContainsVPhases(uint64_t a1, unsi
   return result;
 }
 
-void *std::__split_buffer<Nightingale::Phase>::emplace_back<Nightingale::Phase const&>(void *result, char *a2)
+void std::__split_buffer<Nightingale::Phase>::emplace_back<Nightingale::Phase const&>(unint64_t *a1, char *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if ((2 * &v4[-*result]) > 1)
-      {
-        v10 = 2 * &v4[-*result];
-      }
-
       operator new();
     }
 
@@ -8572,20 +8281,19 @@ void *std::__split_buffer<Nightingale::Phase>::emplace_back<Nightingale::Phase c
     v9 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-((v6 + 1) / 2)], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-((v6 + 1) / 2)], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v8[v9];
-    v3[1] = &v5[v7];
+    a1[1] = &v5[v7];
   }
 
   *v4 = *a2;
-  v3[2] = v4 + 1;
-  return result;
+  a1[2] = (v4 + 1);
 }
 
-void Nightingale::periodEstimatorAggregation::deriveRestPeriodProjs(Nightingale::ngt_Config *a1@<X3>, uint64_t a2@<X1>, uint64_t a3@<X2>, int a4@<W4>, int a5@<W5>, int a6@<W6>, int a7@<W7>, uint64_t *a8@<X8>)
+void Nightingale::periodEstimatorAggregation::deriveRestPeriodProjs(Nightingale::ngt_Config *a1@<X3>, uint64_t a2@<X1>, uint64_t a3@<X2>, int a4@<W4>, int a5@<W5>, int a6@<W6>, int a7@<W7>, unint64_t *a8@<X8>)
 {
   v15 = &v55;
   Nightingale::periodEstimatorCalendarWithEnd::periodEstimatorCalendarWithEnd(v69, a1);
@@ -8855,7 +8563,7 @@ LABEL_49:
   Nightingale::periodEstimatorCalendarWithEnd::~periodEstimatorCalendarWithEnd(v69);
 }
 
-uint64_t std::vector<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>>::__emplace_back_slow_path<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>>(uint64_t *a1, uint64_t a2)
+uint64_t std::vector<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>>::__emplace_back_slow_path<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>>(unint64_t *a1, uint64_t a2)
 {
   v2 = 0xCCCCCCCCCCCCCCCDLL * ((a1[1] - *a1) >> 5);
   v3 = v2 + 1;
@@ -9027,11 +8735,11 @@ uint64_t std::__split_buffer<std::pair<Nightingale::periodEstimationOutStruct,Ni
 
 uint64_t Nightingale::slidingWindowBaseLuna::slidingWindowBaseLuna(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   *a1 = &unk_2869C6088;
-  v6[0] = xmmword_2589510F0;
-  *(v6 + 12) = *(&xmmword_2589510F0 + 12);
-  std::vector<int>::vector[abi:nn200100]((a1 + 8), v6, 7uLL);
+  *v5 = xmmword_2589510F0;
+  *&v5[3] = *(&xmmword_2589510F0 + 12);
+  std::vector<int>::vector[abi:nn200100]((a1 + 8), v5, 7uLL);
   *(a1 + 32) = a2;
   Nightingale::slidingWindowBaseLuna::slidingWinConfigStruct::slidingWinConfigStruct((a1 + 40));
   *(a1 + 120) = 0;
@@ -9058,7 +8766,6 @@ uint64_t Nightingale::slidingWindowBaseLuna::slidingWindowBaseLuna(uint64_t a1, 
   *(a1 + 288) = 0;
   *(a1 + 272) = 0;
   *(a1 + 296) = 0;
-  v4 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
@@ -9107,7 +8814,7 @@ void Nightingale::slidingWindowBaseLuna::process(_BYTE *a1@<X0>, void *a2@<X1>, 
     (*(*a1 + 8))(a1);
     if (a1[124] == 1 && a1[132] == 1)
     {
-      Nightingale::slidingWindowBaseLuna::acquireWTmp(a1, a2, *(a1 + 30) + **(a1 + 4) - *(a1 + 10) + 1, *(a1 + 32) + *(a1 + 11) + **(a1 + 4), v10);
+      Nightingale::slidingWindowBaseLuna::acquireWTmp(a1, a2, (*(a1 + 30) + **(a1 + 4) - *(a1 + 10) + 1), (*(a1 + 32) + *(a1 + 11) + **(a1 + 4)), v10);
       if (Nightingale::assertVectorOfVectors(v10))
       {
         Nightingale::slidingWindowBaseLuna::validateWTmp(a1, v10, *(a1 + 10), a1 + 6, &v8);
@@ -9173,127 +8880,129 @@ BOOL Nightingale::slidingWindowBaseLuna::validateConfigurationPass(Nightingale::
   return *(this + 6) != *(this + 7);
 }
 
-void Nightingale::slidingWindowBaseLuna::acquireWTmp(uint64_t a1@<X0>, void *a2@<X1>, int a3@<W2>, int a4@<W3>, void *a5@<X8>)
+void Nightingale::slidingWindowBaseLuna::acquireWTmp(uint64_t a1@<X0>, void *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t *a5@<X8>)
 {
-  Nightingale::wristTemperatureInputAcquisition::wristTemperatureInputAcquisition(v25);
-  Nightingale::wristTemperatureInputProcess::wristTemperatureInputProcess(&v24);
-  memset(v23, 0, sizeof(v23));
-  if (a4 - a3 < 0 || *(a1 + 132) != 1 || (*(a1 + 124) & 1) == 0)
+  v5 = a4;
+  v6 = a3;
+  Nightingale::wristTemperatureInputAcquisition::wristTemperatureInputAcquisition(v29);
+  Nightingale::wristTemperatureInputProcess::wristTemperatureInputProcess(&v28);
+  memset(v27, 0, sizeof(v27));
+  if (v5 - v6 < 0 || *(a1 + 132) != 1 || (*(a1 + 124) & 1) == 0)
   {
     *a5 = 0;
     a5[1] = 0;
     a5[2] = 0;
 LABEL_17:
-    v18[0] = v23;
-    std::vector<std::vector<std::pair<BOOL,float>>>::__destroy_vector::operator()[abi:nn200100](v18);
-    Nightingale::wristTemperatureInputProcess::~wristTemperatureInputProcess(&v24);
-    Nightingale::wristTemperatureInputAcquisition::~wristTemperatureInputAcquisition(v25);
+    v22[0] = v27;
+    std::vector<std::vector<std::pair<BOOL,float>>>::__destroy_vector::operator()[abi:nn200100](v22);
+    Nightingale::wristTemperatureInputProcess::~wristTemperatureInputProcess(&v28);
+    Nightingale::wristTemperatureInputAcquisition::~wristTemperatureInputAcquisition(v29);
     return;
   }
 
   v10 = *(a1 + 32);
   if (*(v10 + 24))
   {
-    Nightingale::wristTemperatureInputAcquisition::extractWTmp_removeOutlier_withBuf_fromCycleOffset(v25, a4 - a3 + 1, a4, a3 - 43, a2, *(v10 + 16), v18);
+    Nightingale::wristTemperatureInputAcquisition::extractWTmp_removeOutlier_withBuf_fromCycleOffset(v29, (v5 - v6 + 1), v5, v6 - 43, a2, *(v10 + 16), v22);
     if (*(a1 + 132) & 1) != 0 && (*(a1 + 124))
     {
-      Nightingale::wristTemperatureInputProcess::constructVectorOfSlicesFromMultipleWatches(v18, *(a1 + 44) + *(a1 + 40), *(a1 + 128) - *(a1 + 120) + 1, a3, &v12);
+      Nightingale::wristTemperatureInputProcess::constructVectorOfSlicesFromMultipleWatches(v22, *(a1 + 44) + *(a1 + 40), *(a1 + 128) - *(a1 + 120) + 1, v6, &v16);
       *a5 = 0;
       a5[1] = 0;
       a5[2] = 0;
-      std::vector<std::vector<float>>::__init_with_size[abi:nn200100]<std::vector<float>*,std::vector<float>*>(a5, v12, v13, 0xAAAAAAAAAAAAAAABLL * ((v13 - v12) >> 3));
+      std::vector<std::vector<float>>::__init_with_size[abi:nn200100]<std::vector<float>*,std::vector<float>*>(a5, v16, v17, 0xAAAAAAAAAAAAAAABLL * ((v17 - v16) >> 3));
       if (__p)
       {
-        v17 = __p;
+        v21 = __p;
         operator delete(__p);
       }
 
-      if (v14)
+      if (v18)
       {
-        v15 = v14;
-        operator delete(v14);
+        v19 = v18;
+        operator delete(v18);
       }
 
-      v26 = &v12;
-      std::vector<std::vector<std::pair<BOOL,float>>>::__destroy_vector::operator()[abi:nn200100](&v26);
-      if (v21)
+      v30 = &v16;
+      std::vector<std::vector<std::pair<BOOL,float>>>::__destroy_vector::operator()[abi:nn200100](&v30);
+      if (v25)
       {
-        v22 = v21;
-        operator delete(v21);
+        v26 = v25;
+        operator delete(v25);
       }
 
-      if (v19)
+      if (v23)
       {
-        v20 = v19;
-        operator delete(v19);
+        v24 = v23;
+        operator delete(v23);
       }
 
-      v12 = v18;
-      std::vector<std::vector<std::pair<BOOL,float>>>::__destroy_vector::operator()[abi:nn200100](&v12);
+      v16 = v22;
+      std::vector<std::vector<std::pair<BOOL,float>>>::__destroy_vector::operator()[abi:nn200100](&v16);
       goto LABEL_17;
     }
   }
 
-  v11 = std::__throw_bad_optional_access[abi:nn200100]();
-  Nightingale::slidingWindowBaseLuna::validateWTmp(v11);
+  std::__throw_bad_optional_access[abi:nn200100]();
+  Nightingale::slidingWindowBaseLuna::validateWTmp(v11, v12, v13, v14, v15);
 }
 
 void Nightingale::slidingWindowBaseLuna::validateWTmp(uint64_t a1@<X0>, uint64_t *a2@<X1>, int a3@<W2>, void *a4@<X3>, void *a5@<X8>)
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v16 = a3;
+  v20 = *MEMORY[0x277D85DE8];
+  v15 = a3;
   a5[1] = 0;
   a5[2] = 0;
   *a5 = 0;
   if (*a4 != a4[1] && Nightingale::assertVectorOfVectors(a2))
   {
-    memset(v15, 0, sizeof(v15));
-    v17 = &unk_2869C5CD8;
-    v18 = Nightingale::wristTemperatureInputValidation::wristTemperatureInputCheckItems::checkWTmpMissingCntHigh;
-    v19 = 0;
-    v20 = &v17;
-    std::vector<std::function<std::pair<BOOL,float> ()(Nightingale::wristTemperatureInputValidation::wristTemperatureInputCheckItems &,std::vector<float> const&,int,float)>>::push_back[abi:nn200100](v15, &v17);
-    std::__function::__value_func<std::pair<BOOL,float> ()(Nightingale::wristTemperatureInputValidation::wristTemperatureInputCheckItems &,std::vector<float> const&,int,float)>::~__value_func[abi:nn200100](&v17);
-    v17 = &unk_2869C5CD8;
-    v18 = Nightingale::wristTemperatureInputValidation::wristTemperatureInputCheckItems::checkWTmpEarlyWinMissingCntHigh;
-    v19 = 0;
-    v20 = &v17;
-    std::vector<std::function<std::pair<BOOL,float> ()(Nightingale::wristTemperatureInputValidation::wristTemperatureInputCheckItems &,std::vector<float> const&,int,float)>>::push_back[abi:nn200100](v15, &v17);
-    std::__function::__value_func<std::pair<BOOL,float> ()(Nightingale::wristTemperatureInputValidation::wristTemperatureInputCheckItems &,std::vector<float> const&,int,float)>::~__value_func[abi:nn200100](&v17);
-    v17 = &unk_2869C5CD8;
-    v18 = Nightingale::wristTemperatureInputValidation::wristTemperatureInputCheckItems::checkWTmpLaterWinMissingCntHigh;
-    v19 = 0;
-    v20 = &v17;
-    std::vector<std::function<std::pair<BOOL,float> ()(Nightingale::wristTemperatureInputValidation::wristTemperatureInputCheckItems &,std::vector<float> const&,int,float)>>::push_back[abi:nn200100](v15, &v17);
-    std::__function::__value_func<std::pair<BOOL,float> ()(Nightingale::wristTemperatureInputValidation::wristTemperatureInputCheckItems &,std::vector<float> const&,int,float)>::~__value_func[abi:nn200100](&v17);
-    v17 = &unk_2869C5CD8;
-    v18 = Nightingale::wristTemperatureInputValidation::wristTemperatureInputCheckItems::checkWTmpDay2dayNoiseHigh;
-    v19 = 0;
-    v20 = &v17;
-    std::vector<std::function<std::pair<BOOL,float> ()(Nightingale::wristTemperatureInputValidation::wristTemperatureInputCheckItems &,std::vector<float> const&,int,float)>>::push_back[abi:nn200100](v15, &v17);
-    std::__function::__value_func<std::pair<BOOL,float> ()(Nightingale::wristTemperatureInputValidation::wristTemperatureInputCheckItems &,std::vector<float> const&,int,float)>::~__value_func[abi:nn200100](&v17);
-    v17 = &unk_2869C5CD8;
-    v18 = Nightingale::wristTemperatureInputValidation::wristTemperatureInputCheckItems::checkWTmpSnrLow;
-    v19 = 0;
-    v20 = &v17;
-    std::vector<std::function<std::pair<BOOL,float> ()(Nightingale::wristTemperatureInputValidation::wristTemperatureInputCheckItems &,std::vector<float> const&,int,float)>>::push_back[abi:nn200100](v15, &v17);
-    std::__function::__value_func<std::pair<BOOL,float> ()(Nightingale::wristTemperatureInputValidation::wristTemperatureInputCheckItems &,std::vector<float> const&,int,float)>::~__value_func[abi:nn200100](&v17);
+    memset(v14, 0, sizeof(v14));
+    v16 = &unk_2869C5CD8;
+    v17 = Nightingale::wristTemperatureInputValidation::wristTemperatureInputCheckItems::checkWTmpMissingCntHigh;
+    v18 = 0;
+    v19 = &v16;
+    std::vector<std::function<std::pair<BOOL,float> ()(Nightingale::wristTemperatureInputValidation::wristTemperatureInputCheckItems &,std::vector<float> const&,int,float)>>::push_back[abi:nn200100](v14, &v16);
+    std::__function::__value_func<std::pair<BOOL,float> ()(Nightingale::wristTemperatureInputValidation::wristTemperatureInputCheckItems &,std::vector<float> const&,int,float)>::~__value_func[abi:nn200100](&v16);
+    v16 = &unk_2869C5CD8;
+    v17 = Nightingale::wristTemperatureInputValidation::wristTemperatureInputCheckItems::checkWTmpEarlyWinMissingCntHigh;
+    v18 = 0;
+    v19 = &v16;
+    std::vector<std::function<std::pair<BOOL,float> ()(Nightingale::wristTemperatureInputValidation::wristTemperatureInputCheckItems &,std::vector<float> const&,int,float)>>::push_back[abi:nn200100](v14, &v16);
+    std::__function::__value_func<std::pair<BOOL,float> ()(Nightingale::wristTemperatureInputValidation::wristTemperatureInputCheckItems &,std::vector<float> const&,int,float)>::~__value_func[abi:nn200100](&v16);
+    v16 = &unk_2869C5CD8;
+    v17 = Nightingale::wristTemperatureInputValidation::wristTemperatureInputCheckItems::checkWTmpLaterWinMissingCntHigh;
+    v18 = 0;
+    v19 = &v16;
+    std::vector<std::function<std::pair<BOOL,float> ()(Nightingale::wristTemperatureInputValidation::wristTemperatureInputCheckItems &,std::vector<float> const&,int,float)>>::push_back[abi:nn200100](v14, &v16);
+    std::__function::__value_func<std::pair<BOOL,float> ()(Nightingale::wristTemperatureInputValidation::wristTemperatureInputCheckItems &,std::vector<float> const&,int,float)>::~__value_func[abi:nn200100](&v16);
+    v16 = &unk_2869C5CD8;
+    v17 = Nightingale::wristTemperatureInputValidation::wristTemperatureInputCheckItems::checkWTmpDay2dayNoiseHigh;
+    v18 = 0;
+    v19 = &v16;
+    std::vector<std::function<std::pair<BOOL,float> ()(Nightingale::wristTemperatureInputValidation::wristTemperatureInputCheckItems &,std::vector<float> const&,int,float)>>::push_back[abi:nn200100](v14, &v16);
+    std::__function::__value_func<std::pair<BOOL,float> ()(Nightingale::wristTemperatureInputValidation::wristTemperatureInputCheckItems &,std::vector<float> const&,int,float)>::~__value_func[abi:nn200100](&v16);
+    v16 = &unk_2869C5CD8;
+    v17 = Nightingale::wristTemperatureInputValidation::wristTemperatureInputCheckItems::checkWTmpSnrLow;
+    v18 = 0;
+    v19 = &v16;
+    std::vector<std::function<std::pair<BOOL,float> ()(Nightingale::wristTemperatureInputValidation::wristTemperatureInputCheckItems &,std::vector<float> const&,int,float)>>::push_back[abi:nn200100](v14, &v16);
+    std::__function::__value_func<std::pair<BOOL,float> ()(Nightingale::wristTemperatureInputValidation::wristTemperatureInputCheckItems &,std::vector<float> const&,int,float)>::~__value_func[abi:nn200100](&v16);
+    v16 = 0;
     v17 = 0;
     v18 = 0;
-    v19 = 0;
-    v14 = (*(*a2 + 8) - **a2) >> 2;
-    std::vector<int>::push_back[abi:nn200100](&v17, &v14);
-    std::vector<int>::push_back[abi:nn200100](&v17, &v16);
-    std::vector<int>::push_back[abi:nn200100](&v17, &v16);
-    std::vector<int>::push_back[abi:nn200100](&v17, &v16);
-    std::vector<int>::push_back[abi:nn200100](&v17, &v16);
-    *(a1 + 156) = (v18 - v17) >> 2;
-    Nightingale::wristTemperatureInputValidation::wristTemperatureInputValidation(&v13);
+    v13 = (*(*a2 + 8) - **a2) >> 2;
+    std::vector<int>::push_back[abi:nn200100](&v16, &v13);
+    std::vector<int>::push_back[abi:nn200100](&v16, &v15);
+    std::vector<int>::push_back[abi:nn200100](&v16, &v15);
+    std::vector<int>::push_back[abi:nn200100](&v16, &v15);
+    std::vector<int>::push_back[abi:nn200100](&v16, &v15);
+    *(a1 + 156) = (v17 - v16) >> 2;
+    Nightingale::wristTemperatureInputValidation::wristTemperatureInputValidation(&v12);
     v10 = *a2;
     v9 = a2[1];
     while (v10 != v9)
     {
-      Nightingale::wristTemperatureInputValidation::checkListOfConditions(&v13, v15, v10, &v17, a4, *(a1 + 72), __p);
+      Nightingale::wristTemperatureInputValidation::checkListOfConditions(&v12, v14, v10, &v16, a4, *(a1 + 72), __p);
       std::vector<std::vector<std::pair<BOOL,float>>>::push_back[abi:nn200100](a5, __p);
       if (__p[0])
       {
@@ -9304,18 +9013,16 @@ void Nightingale::slidingWindowBaseLuna::validateWTmp(uint64_t a1@<X0>, uint64_t
       v10 += 24;
     }
 
-    Nightingale::wristTemperatureInputValidation::~wristTemperatureInputValidation(&v13);
-    if (v17)
+    Nightingale::wristTemperatureInputValidation::~wristTemperatureInputValidation(&v12);
+    if (v16)
     {
-      v18 = v17;
-      operator delete(v17);
+      v17 = v16;
+      operator delete(v16);
     }
 
-    v17 = v15;
-    std::vector<std::function<std::pair<BOOL,float> ()(Nightingale::wristTemperatureInputValidation::wristTemperatureInputCheckItems &,std::vector<float> const&,int,float)>>::__destroy_vector::operator()[abi:nn200100](&v17);
+    v16 = v14;
+    std::vector<std::function<std::pair<BOOL,float> ()(Nightingale::wristTemperatureInputValidation::wristTemperatureInputCheckItems &,std::vector<float> const&,int,float)>>::__destroy_vector::operator()[abi:nn200100](&v16);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 float32x2_t Nightingale::slidingWindowBaseLuna::reset(Nightingale::slidingWindowBaseLuna *this)
@@ -9346,10 +9053,10 @@ float32x2_t Nightingale::slidingWindowBaseLuna::reset(Nightingale::slidingWindow
   return result;
 }
 
-float Nightingale::slidingWindowBaseLuna::getRollingScoreASlice(uint64_t a1, uint64_t *a2)
+float Nightingale::slidingWindowBaseLuna::getRollingScoreASlice(uint64_t a1, int **a2)
 {
-  std::vector<float>::vector[abi:nn200100]<float const*,0>(v7, *a2, *a2 + 4 * *(a1 + 40));
-  std::vector<float>::vector[abi:nn200100]<float const*,0>(__p, *a2 + 4 * *(a1 + 40), a2[1]);
+  std::vector<float>::vector[abi:nn200100]<float const*,0>(v7, *a2, &(*a2)[*(a1 + 40)]);
+  std::vector<float>::vector[abi:nn200100]<float const*,0>(__p, &(*a2)[*(a1 + 40)], a2[1]);
   SlidingWinScore = Nightingale::getSlidingWinScore(v7, __p, -1.0);
   if (__p[0])
   {
@@ -9495,13 +9202,13 @@ LABEL_41:
               if (Mean <= *(a1 + 80) || Mean >= *(a1 + 84))
               {
                 v31 = 1;
-                OverallWTmpValidationRsltASlice = std::vector<BOOL>::push_back(a1 + 272, &v31);
+                std::vector<BOOL>::push_back(a1 + 272, &v31);
               }
 
               else
               {
                 v31 = 0;
-                OverallWTmpValidationRsltASlice = std::vector<BOOL>::push_back(a1 + 272, &v31);
+                std::vector<BOOL>::push_back(a1 + 272, &v31);
                 if (a3)
                 {
                   v13 = v28;
@@ -9751,4 +9458,229 @@ void Nightingale::slidingWindowBaseLuna::accumulateFailureReasonOverSlices(Night
   v12 = std::__count_BOOL[abi:nn200100]<true,std::vector<BOOL>,false>(&__p, v11);
   std::vector<int>::push_back[abi:nn200100](&v13, &v12);
   operator new();
+}
+
+void Nightingale::slidingWindowBaseLuna::getSlidingWindowCAOut(Nightingale::slidingWindowBaseLuna *this)
+{
+  *(this + 65) = *(this + 66);
+  __p[0] = 0;
+  __p[1] = 0;
+  v10 = 0;
+  v2 = *(this + 20);
+  v3 = *(this + 21);
+  if (v2 == v3)
+  {
+    v7 = 0.0;
+  }
+
+  else
+  {
+    v4 = 0;
+    do
+    {
+      v5 = *v2;
+      v6 = v2[1];
+      if ((v6 - *v2) >= 0x19)
+      {
+        std::vector<float>::push_back[abi:nn200100](__p, v5 + 7);
+        v5 = *v2;
+        v6 = v2[1];
+      }
+
+      if (v6 != v5)
+      {
+        v4 += *v5;
+      }
+
+      v2 += 3;
+    }
+
+    while (v2 != v3);
+    v7 = v4 + v4;
+    if (__p[0] != __p[1])
+    {
+      Nightingale::removeNANFromVector(__p);
+      if (__p[0] != __p[1])
+      {
+        std::__sort<std::__less<float,float> &,float *>();
+        *(this + 63) = Nightingale::getPercentile(__p, 0, 0.5);
+      }
+    }
+  }
+
+  v8 = 0.0;
+  if (v7 <= (-1431655765 * ((*(this + 21) - *(this + 20)) >> 3)))
+  {
+    v8 = 1.0;
+  }
+
+  *(this + 61) = v8;
+  if (*(this + 232) == 1)
+  {
+    *(this + 62) = *(this + 56);
+  }
+
+  if (__p[0])
+  {
+    __p[1] = __p[0];
+    operator delete(__p[0]);
+  }
+}
+
+void *Nightingale::slidingWindowHistLuna::slidingWindowHistLuna(uint64_t a1, uint64_t a2)
+{
+  result = Nightingale::slidingWindowBaseLuna::slidingWindowBaseLuna(a1, a2);
+  *result = &unk_2869C60D8;
+  return result;
+}
+
+{
+  result = Nightingale::slidingWindowBaseLuna::slidingWindowBaseLuna(a1, a2);
+  *result = &unk_2869C60D8;
+  return result;
+}
+
+uint64_t Nightingale::slidingWindowDayStreamLuna::slidingWindowDayStreamLuna(uint64_t a1, uint64_t a2)
+{
+  v3 = Nightingale::slidingWindowBaseLuna::slidingWindowBaseLuna(a1, a2);
+  *v3 = &unk_2869C6128;
+  Nightingale::slidingWindowDayStreamLuna::setSlidingWinConfig(v3);
+  return a1;
+}
+
+{
+  v3 = Nightingale::slidingWindowBaseLuna::slidingWindowBaseLuna(a1, a2);
+  *v3 = &unk_2869C6128;
+  Nightingale::slidingWindowDayStreamLuna::setSlidingWinConfig(v3);
+  return a1;
+}
+
+double Nightingale::slidingWindowDayStreamLuna::setSlidingWinConfig(Nightingale::slidingWindowDayStreamLuna *this)
+{
+  v6 = *MEMORY[0x277D85DE8];
+  *(this + 5) = 0x500000007;
+  v3 = xmmword_25895110C;
+  v4 = 1050337608;
+  std::vector<float>::__assign_with_size[abi:nn200100]<float const*,float const*>(this + 6, &v3, v5, 5uLL);
+  *(this + 72) = 0;
+  *(this + 19) = 3;
+  *(this + 10) = 0x3F3AE1483F09E83ELL;
+  *(this + 44) = 257;
+  *(this + 23) = 1058139013;
+  *(this + 12) = 0x300000002;
+  *(this + 27) = 1058139013;
+  *&result = 0x100000001;
+  *(this + 14) = 0x100000001;
+  return result;
+}
+
+uint64_t Nightingale::slidingWindowDayStreamLuna::getSliceCenterOffsetRange(uint64_t this)
+{
+  v1 = *(this + 32);
+  v2 = *(v1 + 28) - (*(this + 44) + *v1);
+  *(this + 128) = v2;
+  *(this + 132) = 1;
+  v3 = *(this + 76);
+  *(this + 120) = v2 - v3 + 1;
+  *(this + 124) = 1;
+  if (*(v1 + 12) == 1)
+  {
+    v4 = *(v1 + 8) + -13.0;
+    if ((*(this + 140) & 1) == 0)
+    {
+      *(this + 140) = 1;
+    }
+
+    *(this + 136) = v4;
+  }
+
+  *(this + 144) = v3;
+  *(this + 148) = 1;
+  return this;
+}
+
+double Nightingale::slidingWindowDayStreamLuna::applyAlgorithm(uint64_t a1, uint64_t *a2)
+{
+  Nightingale::slidingWindowBaseLuna::findRollingOfRolling(a1, a2, *(a1 + 88), *(a1 + 76) - 1, 0, 1, &v4);
+  result = *&v4;
+  *(a1 + 216) = v4;
+  *(a1 + 232) = v5;
+  return result;
+}
+
+uint64_t Nightingale::slidingWindowDayStreamLuna::checkNumContinuousSlicesFailAvailabilityOverThreshold(Nightingale::slidingWindowDayStreamLuna *this)
+{
+  if (*(this + 148) != 1)
+  {
+    return 0;
+  }
+
+  v1 = *(this + 20);
+  v2 = *(this + 21);
+  if (v1 == v2)
+  {
+    return 0;
+  }
+
+  v3 = 0;
+  while (1)
+  {
+    if (**v1 != 1)
+    {
+      LODWORD(v2) = 0;
+      v4 = 1;
+      return v4 & v2;
+    }
+
+    if (++v3 >= *(this + 36))
+    {
+      break;
+    }
+
+    v1 += 3;
+    if (v1 == v2)
+    {
+      v4 = 0;
+      return v4 & v2;
+    }
+  }
+
+  v4 = 1;
+  LODWORD(v2) = 1;
+  return v4 & v2;
+}
+
+uint64_t Nightingale::slidingWindowDayStreamLuna::validateResults(uint64_t a1, uint64_t a2)
+{
+  if (*(a2 + 16) != 1)
+  {
+    return 0;
+  }
+
+  if (*(a1 + 124))
+  {
+    v3 = *(a1 + 32);
+    if (*(v3 + 12))
+    {
+      v7 = Nightingale::passLutealPhaseCheck((*(a1 + 120) + *a2), *(v3 + 8), *(a1 + 112));
+      std::vector<BOOL>::push_back(a1 + 192, &v7);
+      return v7;
+    }
+  }
+
+  std::__throw_bad_optional_access[abi:nn200100]();
+  return Nightingale::slidingWindowDayStreamLuna::getSlidingWindowCAOut(v6);
+}
+
+uint64_t Nightingale::slidingWindowDayStreamLuna::getSlidingWindowCAOut(Nightingale::slidingWindowDayStreamLuna *this)
+{
+  *(this + 65) = *(this + 66);
+  if (*(this + 232) == 1)
+  {
+    *(this + 62) = Nightingale::getLogit(this, *(this + 57));
+  }
+
+  result = (*(*this + 56))(this);
+  *(this + 256) = result ^ 1;
+  return result;
 }

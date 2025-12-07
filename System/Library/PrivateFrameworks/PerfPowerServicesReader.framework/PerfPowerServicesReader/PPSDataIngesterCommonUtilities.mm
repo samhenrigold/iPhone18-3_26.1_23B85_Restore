@@ -68,33 +68,33 @@
 
 + (id)allTableNamesForMetadataHistory:(id)history withEntryKey:(id)key
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   historyCopy = history;
   keyCopy = key;
   v7 = objc_opt_new();
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   v8 = historyCopy;
-  v9 = [v8 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v27;
+    v11 = *v26;
     v12 = 0x277CCA000uLL;
-    v25 = v7;
+    v24 = v7;
     do
     {
       v13 = 0;
       do
       {
-        if (*v27 != v11)
+        if (*v26 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v14 = [v8 objectForKeyedSubscript:*(*(&v26 + 1) + 8 * v13)];
+        v14 = [v8 objectForKeyedSubscript:*(*(&v25 + 1) + 8 * v13)];
         lastObject = [v14 lastObject];
         if ([lastObject auxiliaryType] == 2)
         {
@@ -113,7 +113,7 @@ LABEL_8:
           keyCopy = [v17 stringWithFormat:@"%@_Array_%@", keyCopy, v19];
 
           v12 = v18;
-          v7 = v25;
+          v7 = v24;
           goto LABEL_8;
         }
 
@@ -123,7 +123,7 @@ LABEL_11:
       }
 
       while (v10 != v13);
-      v20 = [v8 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v20 = [v8 countByEnumeratingWithState:&v25 objects:v29 count:16];
       v10 = v20;
     }
 
@@ -132,8 +132,6 @@ LABEL_11:
 
   allObjects = [v7 allObjects];
   v22 = [allObjects copy];
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v22;
 }

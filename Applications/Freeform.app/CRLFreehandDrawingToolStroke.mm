@@ -223,7 +223,7 @@
     v24 = v9;
     if (pointCopy)
     {
-      [pointCopy PKInputPoint];
+      objc_msgSend_PKInputPoint(pointCopy);
     }
 
     else
@@ -262,7 +262,7 @@
   {
     if (pointCopy)
     {
-      [pointCopy PKInputPoint];
+      objc_msgSend_PKInputPoint(pointCopy);
     }
 
     else
@@ -468,7 +468,7 @@ LABEL_80:
     if (mask)
     {
       v37 = +[CRLBezierPath bezierPathWithCGPath:](CRLBezierPath, "bezierPathWithCGPath:", [mask CGPath]);
-      [v19 transformInRoot];
+      objc_msgSend_transformInRoot(v19);
       CGAffineTransformInvert(&v68, &v67);
       [v37 transformUsingAffineTransform:&v68];
     }
@@ -598,7 +598,7 @@ LABEL_73:
   canvasView = [_tiledView canvasView];
   if (pointCopy)
   {
-    [pointCopy PKInputPoint];
+    objc_msgSend_PKInputPoint(pointCopy);
   }
 
   else

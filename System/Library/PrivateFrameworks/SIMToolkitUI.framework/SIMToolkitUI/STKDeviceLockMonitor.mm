@@ -19,7 +19,7 @@ void __28__STKDeviceLockMonitor_init__block_invoke(uint64_t a1)
 
 - (void)_updateDeviceLockState
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_stateLock);
   os_unfair_lock_lock(&self->_observersLock);
   v3 = +[STKUtil isDeviceLocked];
@@ -33,7 +33,7 @@ void __28__STKDeviceLockMonitor_init__block_invoke(uint64_t a1)
   {
     self->_deviceLocked = v3;
     v5 = [(NSHashTable *)self->_observersList copy];
-    v6 = STKCommonLog();
+    v6 = STKCommonLog(v5);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = "unlocked";
@@ -43,44 +43,42 @@ void __28__STKDeviceLockMonitor_init__block_invoke(uint64_t a1)
       }
 
       *buf = 136315138;
-      v20 = v7;
+      v19 = v7;
       _os_log_impl(&dword_262BB4000, v6, OS_LOG_TYPE_DEFAULT, "Device is %s", buf, 0xCu);
     }
   }
 
   os_unfair_lock_unlock(&self->_observersLock);
   os_unfair_lock_unlock(&self->_stateLock);
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v8 = v5;
-  v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v15;
+    v11 = *v14;
     do
     {
       v12 = 0;
       do
       {
-        if (*v15 != v11)
+        if (*v14 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        [*(*(&v14 + 1) + 8 * v12++) deviceLockStateChanged:{v4, v14}];
+        [*(*(&v13 + 1) + 8 * v12++) deviceLockStateChanged:{v4, v13}];
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v10);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 + (id)sharedInstance
@@ -104,10 +102,10 @@ uint64_t __38__STKDeviceLockMonitor_sharedInstance__block_invoke()
 
 - (STKDeviceLockMonitor)init
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v18.receiver = self;
-  v18.super_class = STKDeviceLockMonitor;
-  v2 = [(STKDeviceLockMonitor *)&v18 init];
+  v22 = *MEMORY[0x277D85DE8];
+  v19.receiver = self;
+  v19.super_class = STKDeviceLockMonitor;
+  v2 = [(STKDeviceLockMonitor *)&v19 init];
   v3 = v2;
   if (v2)
   {
@@ -117,37 +115,36 @@ uint64_t __38__STKDeviceLockMonitor_sharedInstance__block_invoke()
     p_notify_token = &v2->_notify_token;
     objc_initWeak(&location, v2);
     v5 = dispatch_get_global_queue(33, 0);
-    v12 = MEMORY[0x277D85DD0];
-    v13 = 3221225472;
-    v14 = __28__STKDeviceLockMonitor_init__block_invoke;
-    v15 = &unk_279B4C648;
-    objc_copyWeak(&v16, &location);
-    v6 = notify_register_dispatch("com.apple.mobile.keybagd.lock_status", &v3->_notify_token, v5, &v12);
+    v13 = MEMORY[0x277D85DD0];
+    v14 = 3221225472;
+    v15 = __28__STKDeviceLockMonitor_init__block_invoke;
+    v16 = &unk_279B4C648;
+    objc_copyWeak(&v17, &location);
+    v6 = notify_register_dispatch("com.apple.mobile.keybagd.lock_status", &v3->_notify_token, v5, &v13);
 
-    v7 = STKCommonLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = STKCommonLog(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *p_notify_token;
+      v9 = *p_notify_token;
       *buf = 67109120;
-      v20 = v8;
-      _os_log_impl(&dword_262BB4000, v7, OS_LOG_TYPE_DEFAULT, "Received token: %d for lock status update", buf, 8u);
+      v21 = v9;
+      _os_log_impl(&dword_262BB4000, v8, OS_LOG_TYPE_DEFAULT, "Received token: %d for lock status update", buf, 8u);
     }
 
     if (v6)
     {
-      v9 = STKCommonLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v11 = STKCommonLog(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         [(STKDeviceLockMonitor *)v6 init];
       }
     }
 
-    [(STKDeviceLockMonitor *)v3 _updateDeviceLockState:v12];
-    objc_destroyWeak(&v16);
+    [(STKDeviceLockMonitor *)v3 _updateDeviceLockState:v13];
+    objc_destroyWeak(&v17);
     objc_destroyWeak(&location);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -216,11 +213,10 @@ uint64_t __38__STKDeviceLockMonitor_sharedInstance__block_invoke()
 
 - (void)init
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = self;
-  _os_log_error_impl(&dword_262BB4000, a2, OS_LOG_TYPE_ERROR, "Could not register for lock state notification: %d", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = self;
+  _os_log_error_impl(&dword_262BB4000, a2, OS_LOG_TYPE_ERROR, "Could not register for lock state notification: %d", v2, 8u);
 }
 
 @end

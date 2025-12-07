@@ -79,7 +79,7 @@
 - (void)viewDidLayoutSubviews
 {
   selfCopy = self;
-  sub_100715F20();
+  sub_100715F20(selfCopy);
 }
 
 - (_TtC8Freeform49CRLiOSMiniFormatterPopoverContainerViewController)initWithNibName:(id)name bundle:(id)bundle

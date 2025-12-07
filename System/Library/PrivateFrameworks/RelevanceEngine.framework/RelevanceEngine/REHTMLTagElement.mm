@@ -40,21 +40,21 @@
 
 - (id)_prefixContentString
 {
-  v48 = *MEMORY[0x277D85DE8];
-  v40 = 0;
-  v41 = &v40;
-  v42 = 0x3032000000;
-  v43 = __Block_byref_object_copy__5;
-  v44 = __Block_byref_object_dispose__5;
-  v45 = 0;
-  v39[0] = MEMORY[0x277D85DD0];
-  v39[1] = 3221225472;
-  v39[2] = __40__REHTMLTagElement__prefixContentString__block_invoke;
-  v39[3] = &unk_2785FADB8;
-  v39[4] = self;
-  v39[5] = &v40;
-  REHTMLElementAccessLock(v39);
-  v2 = v41[5];
+  v47 = *MEMORY[0x277D85DE8];
+  v39 = 0;
+  v40 = &v39;
+  v41 = 0x3032000000;
+  v42 = __Block_byref_object_copy__5;
+  v43 = __Block_byref_object_dispose__5;
+  v44 = 0;
+  v38[0] = MEMORY[0x277D85DD0];
+  v38[1] = 3221225472;
+  v38[2] = __40__REHTMLTagElement__prefixContentString__block_invoke;
+  v38[3] = &unk_2785FADB8;
+  v38[4] = self;
+  v38[5] = &v39;
+  REHTMLElementAccessLock(v38);
+  v2 = v40[5];
   if (v2)
   {
     v3 = v2;
@@ -69,25 +69,25 @@
     {
       v8 = [*(v6 + 2920) stringWithString:{self->_tag, v4}];
       [v8 appendString:@" "];
-      v37 = 0u;
-      v38 = 0u;
-      v35 = 0u;
       v36 = 0u;
+      v37 = 0u;
+      v34 = 0u;
+      v35 = 0u;
       v9 = self->_attributes;
-      v10 = [(NSDictionary *)v9 countByEnumeratingWithState:&v35 objects:v47 count:16];
+      v10 = [(NSDictionary *)v9 countByEnumeratingWithState:&v34 objects:v46 count:16];
       if (v10)
       {
-        v11 = *v36;
+        v11 = *v35;
         do
         {
           for (i = 0; i != v10; ++i)
           {
-            if (*v36 != v11)
+            if (*v35 != v11)
             {
               objc_enumerationMutation(v9);
             }
 
-            v13 = *(*(&v35 + 1) + 8 * i);
+            v13 = *(*(&v34 + 1) + 8 * i);
             v14 = [(NSDictionary *)self->_attributes objectForKeyedSubscript:v13];
             [v8 appendString:v13];
             [v8 appendString:@"="];
@@ -95,7 +95,7 @@
             [v8 appendString:@" "];
           }
 
-          v10 = [(NSDictionary *)v9 countByEnumeratingWithState:&v35 objects:v47 count:16];
+          v10 = [(NSDictionary *)v9 countByEnumeratingWithState:&v34 objects:v46 count:16];
         }
 
         while (v10);
@@ -104,29 +104,29 @@
       if ([(NSArray *)self->_classes count])
       {
         [v8 appendString:@"class="];
-        v33 = 0u;
-        v34 = 0u;
-        v31 = 0u;
         v32 = 0u;
+        v33 = 0u;
+        v30 = 0u;
+        v31 = 0u;
         v15 = self->_classes;
-        v16 = [(NSArray *)v15 countByEnumeratingWithState:&v31 objects:v46 count:16];
+        v16 = [(NSArray *)v15 countByEnumeratingWithState:&v30 objects:v45 count:16];
         if (v16)
         {
-          v17 = *v32;
+          v17 = *v31;
           do
           {
             for (j = 0; j != v16; ++j)
             {
-              if (*v32 != v17)
+              if (*v31 != v17)
               {
                 objc_enumerationMutation(v15);
               }
 
-              [v8 appendString:*(*(&v31 + 1) + 8 * j)];
+              [v8 appendString:*(*(&v30 + 1) + 8 * j)];
               [v8 appendString:@" "];
             }
 
-            v16 = [(NSArray *)v15 countByEnumeratingWithState:&v31 objects:v46 count:16];
+            v16 = [(NSArray *)v15 countByEnumeratingWithState:&v30 objects:v45 count:16];
           }
 
           while (v16);
@@ -148,22 +148,20 @@
     [v23 appendString:@">"];
     v24 = [v23 copy];
 
-    v25 = v41[5];
-    v41[5] = v24;
+    v25 = v40[5];
+    v40[5] = v24;
 
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v30[2] = __40__REHTMLTagElement__prefixContentString__block_invoke_2;
-    v30[3] = &unk_2785FADE0;
-    v30[4] = self;
-    v30[5] = &v40;
-    REHTMLElementAccessLock(v30);
-    v3 = v41[5];
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 3221225472;
+    v29[2] = __40__REHTMLTagElement__prefixContentString__block_invoke_2;
+    v29[3] = &unk_2785FADE0;
+    v29[4] = self;
+    v29[5] = &v39;
+    REHTMLElementAccessLock(v29);
+    v3 = v40[5];
   }
 
-  _Block_object_dispose(&v40, 8);
-
-  v26 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v39, 8);
 
   return v3;
 }

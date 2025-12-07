@@ -43,12 +43,13 @@
 void __42__VUIJSNotificationCenter_setBadgeNumber___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v3 = v2;
   if (v2)
   {
-    v3 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = VUIDefaultLogObject(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __42__VUIJSNotificationCenter_setBadgeNumber___block_invoke_cold_1(v2, v3);
+      __42__VUIJSNotificationCenter_setBadgeNumber___block_invoke_cold_1(v3, v4);
     }
   }
 }

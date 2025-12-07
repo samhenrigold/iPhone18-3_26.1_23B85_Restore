@@ -12,7 +12,7 @@
   selfCopy = self;
   sub_1C3C822E0(v6, context);
 
-  sub_1C3C27CB4(0, &qword_1EC0866B0);
+  sub_1C3C27CB4(0, &qword_1EC0866B0, off_1E81B2DB0);
   v8 = sub_1C3D202A4();
 
   return v8;

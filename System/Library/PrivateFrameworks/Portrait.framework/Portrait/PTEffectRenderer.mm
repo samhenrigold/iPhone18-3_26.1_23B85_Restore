@@ -17,147 +17,149 @@
 
 - (PTEffectRenderer)initWithDescriptor:(id)descriptor metalContext:(id)context depthPrioritization:(int64_t)prioritization humanDetections:(id)detections prevTemporalState:(id)state sharedResources:(id)resources
 {
-  v254[1] = *MEMORY[0x277D85DE8];
+  v284[1] = *MEMORY[0x277D85DE8];
   descriptorCopy = descriptor;
   contextCopy = context;
   detectionsCopy = detections;
   stateCopy = state;
   resourcesCopy = resources;
-  v240.receiver = self;
-  v240.super_class = PTEffectRenderer;
-  v13 = [(PTEffectRenderer *)&v240 init];
+  v270.receiver = self;
+  v270.super_class = PTEffectRenderer;
+  v13 = [(PTEffectRenderer *)&v270 init];
+  v15 = v13;
   if (v13)
   {
-    PTKTraceInit();
+    PTKTraceInit(v13, v14);
     kdebug_trace();
-    objc_storeStrong(v13 + 1, context);
-    v14 = [descriptorCopy copy];
-    v15 = *(v13 + 40);
-    *(v13 + 40) = v14;
+    objc_storeStrong(&v15->_metalContext, context);
+    v16 = [descriptorCopy copy];
+    effectDescriptor = v15->_effectDescriptor;
+    v15->_effectDescriptor = v16;
 
-    *(v13 + 47) = 0;
-    *(v13 + 41) = [descriptorCopy availableEffectTypes];
-    objc_storeStrong(v13 + 55, resources);
-    objc_storeStrong(v13 + 54, detections);
-    v253 = *MEMORY[0x277CC4D40];
-    v254[0] = &unk_2837F39F0;
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v254 forKeys:&v253 count:1];
-    device = [*(v13 + 1) device];
-    LODWORD(v16) = CVMetalTextureCacheCreate(*MEMORY[0x277CBECE8], v16, device, 0, v13 + 2);
+    v15->_debugType = 0;
+    v15->_availableEffectTypes = [descriptorCopy availableEffectTypes];
+    objc_storeStrong(&v15->_sharedResources, resources);
+    objc_storeStrong(&v15->_humanDetections, detections);
+    v283 = *MEMORY[0x277CC4D40];
+    v284[0] = &unk_2837F39F0;
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v284 forKeys:&v283 count:1];
+    v19 = objc_msgSend_device(v15->_metalContext);
+    LODWORD(v18) = CVMetalTextureCacheCreate(*MEMORY[0x277CBECE8], v18, v19, 0, &v15->_textureCache);
 
-    if (v16 || !*(v13 + 2))
+    if (v18 || !v15->_textureCache)
     {
-      v18 = _PTLogSystem();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v21 = _PTLogSystem(v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         [PTEffectRenderer initWithDescriptor:metalContext:depthPrioritization:humanDetections:prevTemporalState:sharedResources:];
       }
 
-      *(v13 + 2) = 0;
+      v15->_textureCache = 0;
     }
 
-    *(v13 + 57) = [descriptorCopy effectQuality];
-    v20 = *(v13 + 41);
-    v216 = v20;
-    v217 = v20 & 0x48;
-    v21 = (v20 & 3) != 0 || ((v20 & 4) == 0 || (v20 & 0x48) == 0) && (v20 & 0x50) == 16;
-    v218 = v21;
-    v13[448] = [PTEffectRenderer useStudioLightFromSegmentation:descriptorCopy];
-    *(v13 + 63) = 0;
-    *(v13 + 130) = 0;
-    *(v13 + 33) = 0x7FF8000000000000;
-    [descriptorCopy colorSize];
-    v25 = v24;
-    [descriptorCopy colorSize];
-    v26 = 0;
-    v27 = v25;
-    v29 = v28;
-    v30 = *MEMORY[0x277CC4DE8];
-    v31 = 1;
-    v32 = MEMORY[0x277CBEC10];
+    v15->effectQuality = [descriptorCopy effectQuality];
+    availableEffectTypes = v15->_availableEffectTypes;
+    v246 = availableEffectTypes;
+    v247 = availableEffectTypes & 0x48;
+    v24 = (availableEffectTypes & 3) != 0 || ((availableEffectTypes & 4) == 0 || (availableEffectTypes & 0x48) == 0) && (availableEffectTypes & 0x50) == 16;
+    v248 = v24;
+    v15->_studiolightFromSegmentation = [PTEffectRenderer useStudioLightFromSegmentation:descriptorCopy];
+    v15->_frameIndex = 0;
+    *&v15->_runCVMNetworkPreviousFrame = 0;
+    v15->_lastFrameTime = NAN;
+    objc_msgSend_colorSize(descriptorCopy);
+    v28 = v27;
+    objc_msgSend_colorSize(descriptorCopy);
+    v29 = 0;
+    v30 = v28;
+    v32 = v31;
+    v33 = *MEMORY[0x277CC4DE8];
+    v34 = 1;
+    v35 = MEMORY[0x277CBEC10];
     while (1)
     {
-      v33 = v31;
-      v251 = v30;
-      v252 = v32;
-      if (CVPixelBufferCreate(0, v25, v29, 0x34323076u, [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v252 forKeys:&v251 count:1], &v13[8 * v26 + 96]))
+      v36 = v34;
+      v281 = v33;
+      v282 = v35;
+      v37 = CVPixelBufferCreate(0, v28, v32, 0x34323076u, [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v282 forKeys:&v281 count:1], &v15->_intermediateColorPixelbuffers[v29]);
+      if (v37)
       {
         break;
       }
 
-      v31 = 0;
-      v26 = 1;
-      if ((v33 & 1) == 0)
+      v34 = 0;
+      v29 = 1;
+      if ((v36 & 1) == 0)
       {
-        *(v13 + 70) = 0x40000000;
-        *(v13 + 308) = 0x3F0000003E800000;
-        v34 = PTDefaultsGetDictionary();
-        *(v13 + 284) = 1064262697;
-        *(v13 + 292) = vbsl_s8(vcgtd_u64(2uLL, prioritization - 1), 0x3DCCCCCD3F800000, 0x3E3333333F800000);
-        *(v13 + 300) = 0x3E4CCCCD3F800000;
-        v35 = [v34 objectForKeyedSubscript:@"PTEffectFocusDisparityMax"];
-        v36 = v35;
-        if (v35)
-        {
-          [v35 floatValue];
-          *(v13 + 70) = v37;
-          v38 = _PTLogSystem();
-          if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
-          {
-            [PTEffectRenderer initWithDescriptor:v36 metalContext:? depthPrioritization:? humanDetections:? prevTemporalState:? sharedResources:?];
-          }
-        }
-
-        v39 = [v34 objectForKeyedSubscript:@"PTEffectFocusDisparityExponentialMovingAverage"];
-
+        v15->_focusDisparityMax = 2.0;
+        *&v15->_focusDisparityUpdateCoefficientSDOF = 0x3F0000003E800000;
+        v38 = PTDefaultsGetDictionary();
+        v15->_disparityFocusOffsetSDOF = 1064262697;
+        v15->_disparityFocusOffsetReactions = vbsl_s8(vcgtd_u64(2uLL, prioritization - 1), 0x3DCCCCCD3F800000, 0x3E3333333F800000);
+        v15->_disparityFocusOffsetStudioLight = 0x3E4CCCCD3F800000;
+        v39 = [v38 objectForKeyedSubscript:@"PTEffectFocusDisparityMax"];
+        v40 = v39;
         if (v39)
         {
-          [v39 floatValue];
-          *(v13 + 77) = v40;
-          v41 = _PTLogSystem();
-          if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
-          {
-            [PTEffectRenderer initWithDescriptor:v39 metalContext:? depthPrioritization:? humanDetections:? prevTemporalState:? sharedResources:?];
-          }
-        }
-
-        v221 = [v34 objectForKeyedSubscript:@"PTEffectFocusDisparityExponentialMovingAverageStudioLight"];
-
-        if (v221)
-        {
-          [v221 floatValue];
-          *(v13 + 78) = v42;
-          v43 = _PTLogSystem();
+          floatValue = [v39 floatValue];
+          v15->_focusDisparityMax = v42;
+          v43 = _PTLogSystem(floatValue);
           if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
           {
-            [PTEffectRenderer initWithDescriptor:v221 metalContext:? depthPrioritization:? humanDetections:? prevTemporalState:? sharedResources:?];
+            [PTEffectRenderer initWithDescriptor:v40 metalContext:? depthPrioritization:? humanDetections:? prevTemporalState:? sharedResources:?];
           }
         }
 
-        device2 = [*(v13 + 1) device];
-        v45 = [device2 newBufferWithLength:16 options:0];
-        v46 = *(v13 + 16);
-        *(v13 + 16) = v45;
+        v44 = [v38 objectForKeyedSubscript:@"PTEffectFocusDisparityExponentialMovingAverage"];
 
-        if (*(v13 + 16))
+        if (v44)
         {
-          device3 = [*(v13 + 1) device];
-          v48 = [device3 newBufferWithLength:4 options:0];
-          v49 = *(v13 + 18);
-          *(v13 + 18) = v48;
-
-          if (*(v13 + 18))
+          floatValue2 = [v44 floatValue];
+          v15->_focusDisparityUpdateCoefficientSDOF = v46;
+          v47 = _PTLogSystem(floatValue2);
+          if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
           {
-            v239 = 1;
-            device4 = [*(v13 + 1) device];
-            v51 = [device4 newBufferWithBytes:&v239 length:1 options:0];
-            v52 = *(v13 + 22);
-            *(v13 + 22) = v51;
+            [PTEffectRenderer initWithDescriptor:v44 metalContext:? depthPrioritization:? humanDetections:? prevTemporalState:? sharedResources:?];
+          }
+        }
 
-            if (!*(v13 + 22))
+        v251 = [v38 objectForKeyedSubscript:@"PTEffectFocusDisparityExponentialMovingAverageStudioLight"];
+
+        if (v251)
+        {
+          floatValue3 = [v251 floatValue];
+          v15->_focusDisparityUpdateCoefficientStudioLight = v49;
+          v50 = _PTLogSystem(floatValue3);
+          if (os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
+          {
+            [PTEffectRenderer initWithDescriptor:v251 metalContext:? depthPrioritization:? humanDetections:? prevTemporalState:? sharedResources:?];
+          }
+        }
+
+        v51 = objc_msgSend_device(v15->_metalContext);
+        v52 = [v51 newBufferWithLength:16 options:0];
+        faceDisparityArray = v15->_faceDisparityArray;
+        v15->_faceDisparityArray = v52;
+
+        if (v15->_faceDisparityArray)
+        {
+          v55 = objc_msgSend_device(v15->_metalContext);
+          v56 = [v55 newBufferWithLength:4 options:0];
+          focusDisparityRaw = v15->_focusDisparityRaw;
+          v15->_focusDisparityRaw = v56;
+
+          if (v15->_focusDisparityRaw)
+          {
+            v269 = 1;
+            v59 = objc_msgSend_device(v15->_metalContext);
+            v60 = [v59 newBufferWithBytes:&v269 length:1 options:0];
+            useDisparityBufferForReactions = v15->_useDisparityBufferForReactions;
+            v15->_useDisparityBufferForReactions = v60;
+
+            if (!v15->_useDisparityBufferForReactions)
             {
-              v58 = _PTLogSystem();
-              if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
+              v68 = _PTLogSystem(v62);
+              if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
               {
                 [PTEffectRenderer initWithDescriptor:metalContext:depthPrioritization:humanDetections:prevTemporalState:sharedResources:];
               }
@@ -165,16 +167,16 @@
               goto LABEL_120;
             }
 
-            v53 = *(v13 + 26);
-            *(v13 + 26) = 0;
+            cvmNetwork = v15->_cvmNetwork;
+            v15->_cvmNetwork = 0;
 
-            v54 = *(v13 + 19);
-            *(v13 + 19) = 0;
+            msrColorPyramid = v15->_msrColorPyramid;
+            v15->_msrColorPyramid = 0;
 
             if ([descriptorCopy prewarmOnly])
             {
-              v55 = [[PTEspressoGenericExecutor alloc] initWithMetalContext:*(v13 + 1)];
-              if (v55)
+              v65 = [[PTEspressoGenericExecutor alloc] initWithMetalContext:v15->_metalContext];
+              if (v65)
               {
 
                 width = 320;
@@ -182,8 +184,8 @@
                 goto LABEL_61;
               }
 
-              v58 = _PTLogSystem();
-              if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
+              v68 = _PTLogSystem(0);
+              if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
               {
                 [PTEffectRenderer initWithDescriptor:metalContext:depthPrioritization:humanDetections:prevTemporalState:sharedResources:];
               }
@@ -191,28 +193,28 @@
 LABEL_120:
 
 LABEL_158:
-              v19 = 0;
+              v22 = 0;
 LABEL_159:
 
               goto LABEL_160;
             }
 
-            if (v218)
+            if (v248)
             {
-              v59 = [PTCVMNetwork alloc];
-              v60 = *(v13 + 1);
-              v245 = v25;
-              *&v246 = v29;
-              *(&v246 + 1) = 1;
-              v61 = [(PTCVMNetwork *)v59 initWithMetalContext:v60 colorSize:&v245 depthPrioritization:prioritization sharedResources:resourcesCopy];
-              v62 = *(v13 + 26);
-              *(v13 + 26) = v61;
+              v69 = [PTCVMNetwork alloc];
+              metalContext = v15->_metalContext;
+              v275 = v28;
+              *&v276 = v32;
+              *(&v276 + 1) = 1;
+              v71 = [(PTCVMNetwork *)v69 initWithMetalContext:metalContext colorSize:&v275 depthPrioritization:prioritization sharedResources:resourcesCopy];
+              v72 = v15->_cvmNetwork;
+              v15->_cvmNetwork = v71;
 
-              v63 = *(v13 + 26);
-              if (!v63)
+              v73 = v15->_cvmNetwork;
+              if (!v73)
               {
-                v58 = _PTLogSystem();
-                if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
+                v68 = _PTLogSystem(0);
+                if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
                 {
                   [PTEffectRenderer initWithDescriptor:metalContext:depthPrioritization:humanDetections:prevTemporalState:sharedResources:];
                 }
@@ -220,15 +222,15 @@ LABEL_159:
                 goto LABEL_120;
               }
 
-              outDisparity = [v63 outDisparity];
+              outDisparity = [(PTCVMNetwork *)v73 outDisparity];
               width = [outDisparity width];
-              outDisparity2 = [*(v13 + 26) outDisparity];
+              outDisparity2 = [(PTCVMNetwork *)v15->_cvmNetwork outDisparity];
               height = [outDisparity2 height];
 
               if (!width || !height)
               {
-                v66 = _PTLogSystem();
-                if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
+                v77 = _PTLogSystem(v76);
+                if (os_log_type_enabled(v77, OS_LOG_TYPE_ERROR))
                 {
                   [PTEffectRenderer initWithDescriptor:metalContext:depthPrioritization:humanDetections:prevTemporalState:sharedResources:];
                 }
@@ -237,132 +239,132 @@ LABEL_159:
                 height = 176;
               }
 
-              v67 = [PTMSRResize alloc];
-              v68 = *(v13 + 1);
-              rotated = [*(v13 + 26) rotated];
-              v245 = v25;
-              *&v246 = v29;
-              *(&v246 + 1) = 1;
-              *&v237 = width;
-              *(&v237 + 1) = height;
-              v238 = 1;
-              v70 = [(PTMSRResize *)v67 initWithMetalContext:v68 inputSize:&v245 targetSize:&v237 rotateTargetPixelBuffer:rotated compressedIntermediates:v217 == 0 sRGB:0 sharedResources:resourcesCopy];
-              v71 = *(v13 + 19);
-              *(v13 + 19) = v70;
+              v78 = [PTMSRResize alloc];
+              v79 = v15->_metalContext;
+              rotated = [(PTCVMNetwork *)v15->_cvmNetwork rotated];
+              v275 = v28;
+              *&v276 = v32;
+              *(&v276 + 1) = 1;
+              *&v267 = width;
+              *(&v267 + 1) = height;
+              v268 = 1;
+              v81 = [(PTMSRResize *)v78 initWithMetalContext:v79 inputSize:&v275 targetSize:&v267 rotateTargetPixelBuffer:rotated compressedIntermediates:v247 == 0 sRGB:0 sharedResources:resourcesCopy];
+              v82 = v15->_msrColorPyramid;
+              v15->_msrColorPyramid = v81;
 
-              v72 = *(v13 + 19);
-              if (v72)
+              v83 = v15->_msrColorPyramid;
+              if (v83)
               {
-                [*(v13 + 26) bindColorInputPixelBuffer:{objc_msgSend(v72, "targetRGBAPixelBuffer")}];
+                [(PTCVMNetwork *)v15->_cvmNetwork bindColorInputPixelBuffer:[(PTMSRResize *)v83 targetRGBAPixelBuffer]];
 LABEL_61:
-                v73 = 1;
+                v84 = 1;
 LABEL_62:
-                if (!*(v13 + 19) && ([descriptorCopy prewarmOnly] & 1) == 0)
+                if (!v15->_msrColorPyramid && ([descriptorCopy prewarmOnly] & 1) == 0)
                 {
-                  v74 = [PTMSRResize alloc];
-                  v75 = *(v13 + 1);
-                  v245 = v25;
-                  *&v246 = v29;
-                  *(&v246 + 1) = 1;
-                  v237 = xmmword_2244C60A0;
-                  v238 = 1;
-                  v76 = [(PTMSRResize *)v74 initWithMetalContext:v75 inputSize:&v245 targetSize:&v237 rotateTargetPixelBuffer:0 compressedIntermediates:0 sRGB:0 sharedResources:resourcesCopy];
-                  v77 = *(v13 + 19);
-                  *(v13 + 19) = v76;
+                  v85 = [PTMSRResize alloc];
+                  v86 = v15->_metalContext;
+                  v275 = v28;
+                  *&v276 = v32;
+                  *(&v276 + 1) = 1;
+                  v267 = xmmword_2244C60A0;
+                  v268 = 1;
+                  v87 = [(PTMSRResize *)v85 initWithMetalContext:v86 inputSize:&v275 targetSize:&v267 rotateTargetPixelBuffer:0 compressedIntermediates:0 sRGB:0 sharedResources:resourcesCopy];
+                  v88 = v15->_msrColorPyramid;
+                  v15->_msrColorPyramid = v87;
 
                   width = 320;
                   height = 176;
-                  v73 = 1;
+                  v84 = 1;
                 }
 
 LABEL_68:
-                if (v27 >= v29)
+                if (v30 >= v32)
                 {
-                  v86 = v29;
+                  v98 = v32;
                 }
 
                 else
                 {
-                  v86 = v27;
+                  v98 = v30;
                 }
 
-                v87 = 2.0;
-                if (v86 > 0x2CF)
+                v99 = 2.0;
+                if (v98 > 0x2CF)
                 {
-                  v87 = 3.0;
+                  v99 = 3.0;
                 }
 
-                if (v86 <= 0x437)
+                if (v98 <= 0x437)
                 {
-                  v88 = v87;
+                  v100 = v99;
                 }
 
                 else
                 {
-                  v88 = 4.0;
+                  v100 = 4.0;
                 }
 
-                v89 = [[PTColorConversion alloc] initWithMetalContext:contextCopy];
-                v90 = *(v13 + 28);
-                *(v13 + 28) = v89;
+                v101 = [[PTColorConversion alloc] initWithMetalContext:contextCopy];
+                colorConversion = v15->_colorConversion;
+                v15->_colorConversion = v101;
 
-                if (*(v13 + 28))
+                if (v15->_colorConversion)
                 {
-                  if ((v216 & 2) == 0)
+                  if ((v246 & 2) == 0)
                   {
                     goto LABEL_80;
                   }
 
-                  v91 = [[PTNormalAndDiffuseEstimation alloc] initWithMetalContext:*(v13 + 1)];
-                  v92 = *(v13 + 42);
-                  *(v13 + 42) = v91;
+                  v104 = [[PTNormalAndDiffuseEstimation alloc] initWithMetalContext:v15->_metalContext];
+                  diffuseEstimation = v15->_diffuseEstimation;
+                  v15->_diffuseEstimation = v104;
 
-                  if (*(v13 + 42))
+                  if (v15->_diffuseEstimation)
                   {
-                    textureUtil = [*(v13 + 1) textureUtil];
-                    v94 = [textureUtil createWithWidth:width height:height pixelFormat:20];
-                    v95 = *(v13 + 11);
-                    *(v13 + 11) = v94;
+                    textureUtil = [(PTMetalContext *)v15->_metalContext textureUtil];
+                    v108 = [textureUtil createWithWidth:width height:height pixelFormat:20];
+                    diffuse = v15->_diffuse;
+                    v15->_diffuse = v108;
 
-                    if (*(v13 + 11))
+                    if (v15->_diffuse)
                     {
 LABEL_80:
-                      if (!v218)
+                      if (!v248)
                       {
                         goto LABEL_94;
                       }
 
-                      v96 = [PTEffectTemporalFilter alloc];
-                      v97 = *(v13 + 1);
-                      v245 = width;
-                      *&v246 = height;
-                      *(&v246 + 1) = v73;
-                      v98 = [(PTEffectTemporalFilter *)v96 initWithMetalContext:v97 disparitySize:&v245];
-                      v99 = *(v13 + 43);
-                      *(v13 + 43) = v98;
+                      v111 = [PTEffectTemporalFilter alloc];
+                      v112 = v15->_metalContext;
+                      v275 = width;
+                      *&v276 = height;
+                      *(&v276 + 1) = v84;
+                      v113 = [(PTEffectTemporalFilter *)v111 initWithMetalContext:v112 disparitySize:&v275];
+                      temporalFilter = v15->_temporalFilter;
+                      v15->_temporalFilter = v113;
 
-                      if (*(v13 + 43))
+                      if (v15->_temporalFilter)
                       {
-                        textureUtil2 = [*(v13 + 1) textureUtil];
-                        v219 = (width * 1.5);
-                        v213 = (height * 1.5);
-                        v101 = [textureUtil2 createWithWidth:? height:? pixelFormat:?];
-                        v102 = *(v13 + 6);
-                        *(v13 + 6) = v101;
+                        textureUtil2 = [(PTMetalContext *)v15->_metalContext textureUtil];
+                        v249 = (width * 1.5);
+                        v243 = (height * 1.5);
+                        v117 = [textureUtil2 createWithWidth:? height:? pixelFormat:?];
+                        disparityCenteredUpscaledSDOF = v15->_disparityCenteredUpscaledSDOF;
+                        v15->_disparityCenteredUpscaledSDOF = v117;
 
-                        if (*(v13 + 6))
+                        if (v15->_disparityCenteredUpscaledSDOF)
                         {
-                          textureUtil3 = [*(v13 + 1) textureUtil];
-                          v104 = [textureUtil3 createWithWidth:v219 height:v213 pixelFormat:25];
-                          v105 = *(v13 + 7);
-                          *(v13 + 7) = v104;
+                          textureUtil3 = [(PTMetalContext *)v15->_metalContext textureUtil];
+                          v121 = [textureUtil3 createWithWidth:v249 height:v243 pixelFormat:25];
+                          disparityCenteredUpscaledReactions = v15->_disparityCenteredUpscaledReactions;
+                          v15->_disparityCenteredUpscaledReactions = v121;
 
-                          if (*(v13 + 7))
+                          if (v15->_disparityCenteredUpscaledReactions)
                           {
-                            if ((v216 & 0x4C) != 0 && ([*(v13 + 1) textureUtil], v106 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v106, "createWithWidth:height:pixelFormat:", v219, v213, 25), v107 = objc_claimAutoreleasedReturnValue(), v108 = *(v13 + 8), *(v13 + 8) = v107, v108, v106, !*(v13 + 8)))
+                            if ((v246 & 0x4C) != 0 && (-[PTMetalContext textureUtil](v15->_metalContext, "textureUtil"), v124 = objc_claimAutoreleasedReturnValue(), [v124 createWithWidth:v249 height:v243 pixelFormat:25], v125 = objc_claimAutoreleasedReturnValue(), disparityCenteredUpscaledWithScreenCaptureRect = v15->_disparityCenteredUpscaledWithScreenCaptureRect, v15->_disparityCenteredUpscaledWithScreenCaptureRect = v125, disparityCenteredUpscaledWithScreenCaptureRect, v124, !v15->_disparityCenteredUpscaledWithScreenCaptureRect))
                             {
-                              v168 = _PTLogSystem();
-                              if (os_log_type_enabled(v168, OS_LOG_TYPE_ERROR))
+                              v196 = _PTLogSystem(v127);
+                              if (os_log_type_enabled(v196, OS_LOG_TYPE_ERROR))
                               {
                                 [PTEffectRenderer initWithDescriptor:metalContext:depthPrioritization:humanDetections:prevTemporalState:sharedResources:];
                               }
@@ -370,253 +372,253 @@ LABEL_80:
 
                             else
                             {
-                              if (stateCopy && *(v13 + 26))
+                              if (stateCopy && v15->_cvmNetwork)
                               {
-                                commandQueue = [*(v13 + 1) commandQueue];
+                                commandQueue = [(PTMetalContext *)v15->_metalContext commandQueue];
                                 commandBuffer = [commandQueue commandBuffer];
 
                                 if (!commandBuffer)
                                 {
-                                  v111 = _PTLogSystem();
-                                  if (os_log_type_enabled(v111, OS_LOG_TYPE_ERROR))
+                                  v131 = _PTLogSystem(v130);
+                                  if (os_log_type_enabled(v131, OS_LOG_TYPE_ERROR))
                                   {
                                     [PTEffectPersonSegmentation runPersonSegmentationToOutPersonSegmentationMatteBuffer:inColor:transform:inSegmentationRGBA:inSegmentationRGBATexture:outUpscaledSegmentation:];
                                   }
                                 }
 
                                 [commandBuffer setLabel:@"PTEffectRenderer Restore temporal state"];
-                                [stateCopy restoreState:commandBuffer cvmNetwork:*(v13 + 26) temporalFilter:*(v13 + 43)];
+                                [stateCopy restoreState:commandBuffer cvmNetwork:v15->_cvmNetwork temporalFilter:v15->_temporalFilter];
                                 [commandBuffer commit];
                                 [commandBuffer waitUntilScheduled];
                               }
 
-                              pyramidRGBA = [*(v13 + 19) pyramidRGBA];
-                              v245 = (width * 1.5);
-                              *&v246 = (height * 1.5);
-                              *(&v246 + 1) = 1;
-                              v113 = [PTUtil findMipmapLevel:pyramidRGBA largerThan:&v245];
-                              v114 = *(v13 + 24);
-                              *(v13 + 24) = v113;
+                              pyramidRGBA = [(PTMSRResize *)v15->_msrColorPyramid pyramidRGBA];
+                              v275 = (width * 1.5);
+                              *&v276 = (height * 1.5);
+                              *(&v276 + 1) = 1;
+                              v133 = [PTUtil findMipmapLevel:pyramidRGBA largerThan:&v275];
+                              guideRGBAUpscale = v15->_guideRGBAUpscale;
+                              v15->_guideRGBAUpscale = v133;
 
-                              pyramidRGBA2 = [*(v13 + 19) pyramidRGBA];
-                              v245 = width;
-                              *&v246 = height;
-                              *(&v246 + 1) = v73;
-                              v116 = [PTUtil findMipmapLevel:pyramidRGBA2 largerThan:&v245];
-                              v117 = *(v13 + 25);
-                              *(v13 + 25) = v116;
+                              pyramidRGBA2 = [(PTMSRResize *)v15->_msrColorPyramid pyramidRGBA];
+                              v275 = width;
+                              *&v276 = height;
+                              *(&v276 + 1) = v84;
+                              v136 = [PTUtil findMipmapLevel:pyramidRGBA2 largerThan:&v275];
+                              guideRGBACoefficients = v15->_guideRGBACoefficients;
+                              v15->_guideRGBACoefficients = v136;
 
-                              v118 = [PTGuidedFilter alloc];
-                              v119 = *(v13 + 1);
-                              v245 = width;
-                              *&v246 = height;
-                              *(&v246 + 1) = v73;
-                              LODWORD(v120) = 1028443341;
-                              v121 = [(PTGuidedFilter *)v118 initWithMetalContext:v119 inputSize:&v245 epsilon:v120];
-                              v122 = *(v13 + 23);
-                              *(v13 + 23) = v121;
+                              v138 = [PTGuidedFilter alloc];
+                              v139 = v15->_metalContext;
+                              v275 = width;
+                              *&v276 = height;
+                              *(&v276 + 1) = v84;
+                              LODWORD(v140) = 1028443341;
+                              v141 = [(PTGuidedFilter *)v138 initWithMetalContext:v139 inputSize:&v275 epsilon:v140];
+                              guidedFilter = v15->_guidedFilter;
+                              v15->_guidedFilter = v141;
 
-                              if (*(v13 + 23))
+                              if (v15->_guidedFilter)
                               {
 LABEL_94:
-                                if (v217)
+                                if (v247)
                                 {
-                                  textureUtil4 = [*(v13 + 1) textureUtil];
-                                  v124 = [textureUtil4 createWithWidth:v27 height:v29 pixelFormat:10];
-                                  v125 = *(v13 + 9);
-                                  *(v13 + 9) = v124;
+                                  textureUtil4 = [(PTMetalContext *)v15->_metalContext textureUtil];
+                                  v145 = [textureUtil4 createWithWidth:v30 height:v32 pixelFormat:10];
+                                  upscaledPersonSegmentation = v15->_upscaledPersonSegmentation;
+                                  v15->_upscaledPersonSegmentation = v145;
                                 }
 
-                                v250 = 0;
-                                v249 = 0;
-                                device5 = [*(v13 + 1) device];
-                                v127 = [device5 newBufferWithBytes:&v249 length:12 options:0];
-                                v128 = *(v13 + 17);
-                                *(v13 + 17) = v127;
+                                v280 = 0;
+                                v279 = 0;
+                                v147 = objc_msgSend_device(v15->_metalContext);
+                                v148 = [v147 newBufferWithBytes:&v279 length:12 options:0];
+                                lastFocus = v15->_lastFocus;
+                                v15->_lastFocus = v148;
 
-                                if (*(v13 + 17))
+                                if (v15->_lastFocus)
                                 {
-                                  LODWORD(v246) = 0;
-                                  v245 = 0xFF7FFFFFBFC00000;
-                                  HIDWORD(v246) = 0;
-                                  *(&v246 + 4) = 0xFF7FFFFFBFC00000;
-                                  v248 = 0;
-                                  v247 = 0xFF7FFFFFBFC00000;
-                                  device6 = [*(v13 + 1) device];
-                                  v130 = [device6 newBufferWithBytes:&v245 length:36 options:0];
-                                  v131 = *(v13 + 20);
-                                  *(v13 + 20) = v130;
+                                  LODWORD(v276) = 0;
+                                  v275 = 0xFF7FFFFFBFC00000;
+                                  HIDWORD(v276) = 0;
+                                  *(&v276 + 4) = 0xFF7FFFFFBFC00000;
+                                  v278 = 0;
+                                  v277 = 0xFF7FFFFFBFC00000;
+                                  v151 = objc_msgSend_device(v15->_metalContext);
+                                  v152 = [v151 newBufferWithBytes:&v275 length:36 options:0];
+                                  focusDisparityModifiers = v15->_focusDisparityModifiers;
+                                  v15->_focusDisparityModifiers = v152;
 
-                                  if (*(v13 + 20))
+                                  if (v15->_focusDisparityModifiers)
                                   {
-                                    v236 = 1065353216;
-                                    device7 = [*(v13 + 1) device];
-                                    v133 = [device7 newBufferWithBytes:&v236 length:4 options:0];
-                                    v134 = *(v13 + 21);
-                                    *(v13 + 21) = v133;
+                                    v266 = 1065353216;
+                                    v155 = objc_msgSend_device(v15->_metalContext);
+                                    v156 = [v155 newBufferWithBytes:&v266 length:4 options:0];
+                                    studioLightEffectModifier = v15->_studioLightEffectModifier;
+                                    v15->_studioLightEffectModifier = v156;
 
-                                    if (*(v13 + 21))
+                                    if (v15->_studioLightEffectModifier)
                                     {
-                                      if ((v216 & 2) == 0 || (v136 = [PTEffectRelighting alloc], v137 = *(v13 + 1), v138 = *(v13 + 41), v139 = [descriptorCopy prewarmOnly], v140 = *(v13 + 19), v141 = v13[448], *&v237 = v27, *(&v237 + 1) = v29, v238 = 1, v142 = -[PTEffectRelighting initWithMetalContext:availableEffectTypes:prewarmOnly:colorSize:msrColorPyramid:studiolightFromSegmentation:sharedResources:](v136, "initWithMetalContext:availableEffectTypes:prewarmOnly:colorSize:msrColorPyramid:studiolightFromSegmentation:sharedResources:", v137, v138, v139, &v237, v140, v141, resourcesCopy), v143 = *(v13 + 27), *(v13 + 27) = v142, v143, *(v13 + 27)))
+                                      if ((v246 & 2) == 0 || (v160 = [PTEffectRelighting alloc], v161 = v15->_metalContext, v162 = v15->_availableEffectTypes, v163 = [descriptorCopy prewarmOnly], v164 = v15->_msrColorPyramid, studiolightFromSegmentation = v15->_studiolightFromSegmentation, *&v267 = v30, *(&v267 + 1) = v32, v268 = 1, v166 = -[PTEffectRelighting initWithMetalContext:availableEffectTypes:prewarmOnly:colorSize:msrColorPyramid:studiolightFromSegmentation:sharedResources:](v160, "initWithMetalContext:availableEffectTypes:prewarmOnly:colorSize:msrColorPyramid:studiolightFromSegmentation:sharedResources:", v161, v162, v163, &v267, v164, studiolightFromSegmentation, resourcesCopy), v167 = v15->_effectRelighting, v15->_effectRelighting = v166, v167, v15->_effectRelighting))
                                       {
-                                        v243 = &unk_2837F3700;
-                                        *&v135 = fminf(v88, 4.0);
-                                        v144 = [MEMORY[0x277CCABB0] numberWithFloat:v135];
-                                        v244 = v144;
-                                        v145 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v244 forKeys:&v243 count:1];
-                                        v220 = [PTQualitySettings createWithQuality:25 options:v145];
+                                        v273 = &unk_2837F3700;
+                                        *&v159 = fminf(v100, 4.0);
+                                        v169 = [MEMORY[0x277CCABB0] numberWithFloat:v159];
+                                        v274 = v169;
+                                        v170 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v274 forKeys:&v273 count:1];
+                                        v250 = [PTQualitySettings createWithQuality:25 options:v170];
 
-                                        if (!v220)
+                                        if (!v250)
                                         {
-                                          v171 = _PTLogSystem();
-                                          p_super = v171;
-                                          if (os_log_type_enabled(v171, OS_LOG_TYPE_ERROR))
+                                          v199 = _PTLogSystem(0);
+                                          p_super = v199;
+                                          if (os_log_type_enabled(v199, OS_LOG_TYPE_ERROR))
                                           {
                                             [PTEffectRenderer initWithDescriptor:metalContext:depthPrioritization:humanDetections:prevTemporalState:sharedResources:];
-                                            v19 = 0;
-                                            p_super = v171;
+                                            v22 = 0;
+                                            p_super = v199;
                                           }
 
                                           else
                                           {
-                                            v19 = 0;
+                                            v22 = 0;
                                           }
 
                                           goto LABEL_217;
                                         }
 
-                                        [v220 setDoCenterDisparity:0];
-                                        LODWORD(v146) = 1.0;
-                                        [v220 setDisparityUpsampleFactor:v146];
-                                        [v220 setIntermediatePixelFormat:71];
-                                        v147 = [PTRenderPipelineDescriptor alloc];
-                                        device8 = [*(v13 + 1) device];
-                                        v215 = [(PTRenderPipelineDescriptor *)v147 initWithDevice:device8 version:3001 colorSize:v27 disparitySize:v29, (width * 1.5), (height * 1.5)];
+                                        [v250 setDoCenterDisparity:0];
+                                        LODWORD(v171) = 1.0;
+                                        [v250 setDisparityUpsampleFactor:v171];
+                                        [v250 setIntermediatePixelFormat:71];
+                                        v172 = [PTRenderPipelineDescriptor alloc];
+                                        v173 = objc_msgSend_device(v15->_metalContext);
+                                        v245 = [(PTRenderPipelineDescriptor *)v172 initWithDevice:v173 version:3001 colorSize:v30 disparitySize:v32, (width * 1.5), (height * 1.5)];
 
-                                        if (v215)
+                                        if (v245)
                                         {
-                                          v149 = [PTPyramid alloc];
-                                          [descriptorCopy colorSize];
-                                          v150 = [(PTPyramid *)v149 initWithMetalContext:contextCopy colorSize:71 pixelFormat:1 skipFullSizeLayer:0 doFirstLevelGaussianDownsample:4 mipmapLevelCount:?];
-                                          v151 = *(v13 + 5);
-                                          *(v13 + 5) = v150;
+                                          v175 = [PTPyramid alloc];
+                                          objc_msgSend_colorSize(descriptorCopy);
+                                          v176 = [(PTPyramid *)v175 initWithMetalContext:contextCopy colorSize:71 pixelFormat:1 skipFullSizeLayer:0 doFirstLevelGaussianDownsample:4 mipmapLevelCount:?];
+                                          colorPyramid = v15->_colorPyramid;
+                                          v15->_colorPyramid = v176;
 
-                                          v152 = *(v13 + 5);
-                                          if (v152)
+                                          v179 = v15->_colorPyramid;
+                                          if (v179)
                                           {
-                                            v241[0] = &unk_2837F3718;
-                                            v241[1] = &unk_2837F3730;
-                                            v242[0] = v220;
-                                            v242[1] = MEMORY[0x277CBEC28];
-                                            v241[2] = &unk_2837F3748;
-                                            v153 = *(v13 + 1);
-                                            v241[3] = &unk_2837F3760;
-                                            v242[2] = v153;
-                                            v242[3] = v152;
-                                            v154 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v242 forKeys:v241 count:4];
-                                            [(PTRenderPipelineDescriptor *)v215 setOptions:v154];
+                                            v271[0] = &unk_2837F3718;
+                                            v271[1] = &unk_2837F3730;
+                                            v272[0] = v250;
+                                            v272[1] = MEMORY[0x277CBEC28];
+                                            v271[2] = &unk_2837F3748;
+                                            v180 = v15->_metalContext;
+                                            v271[3] = &unk_2837F3760;
+                                            v272[2] = v180;
+                                            v272[3] = v179;
+                                            v181 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v272 forKeys:v271 count:4];
+                                            [(PTRenderPipelineDescriptor *)v245 setOptions:v181];
 
-                                            v155 = [[PTRenderPipeline alloc] initWithDescriptor:v215];
-                                            v156 = *(v13 + 3);
-                                            *(v13 + 3) = v155;
+                                            v182 = [[PTRenderPipeline alloc] initWithDescriptor:v245];
+                                            renderPipeline = v15->_renderPipeline;
+                                            v15->_renderPipeline = v182;
 
-                                            v157 = *(v13 + 3);
-                                            if (v157)
+                                            v185 = v15->_renderPipeline;
+                                            if (v185)
                                             {
-                                              v158 = [v157 createRenderStateWithQuality:{-[NSObject quality](v220, "quality")}];
-                                              v159 = *(v13 + 4);
-                                              *(v13 + 4) = v158;
+                                              v186 = [(PTRenderPipeline *)v185 createRenderStateWithQuality:[v250 quality]];
+                                              renderState = v15->_renderState;
+                                              v15->_renderState = v186;
 
-                                              v160 = *(v13 + 4);
-                                              if (v160)
+                                              v188 = v15->_renderState;
+                                              if (v188)
                                               {
-                                                [v160 setSourceColorBitDepth:8];
-                                                [*(v13 + 4) prepareForRendering:1];
-                                                v161 = objc_opt_new();
-                                                v163 = (v13 + 232);
-                                                v162 = *(v13 + 29);
-                                                *(v13 + 29) = v161;
+                                                [(PTRenderState *)v188 setSourceColorBitDepth:8];
+                                                [(PTRenderState *)v15->_renderState prepareForRendering:1];
+                                                v189 = objc_opt_new();
+                                                p_sdofRenderRequest = &v15->_sdofRenderRequest;
+                                                sdofRenderRequest = v15->_sdofRenderRequest;
+                                                v15->_sdofRenderRequest = v189;
 
-                                                [*(v13 + 29) setFrameId:0];
-                                                [*(v13 + 29) setRenderState:*(v13 + 4)];
-                                                LODWORD(v164) = dword_2244C6078[prioritization == 2];
+                                                [(PTRenderRequest *)v15->_sdofRenderRequest setFrameId:0];
+                                                [(PTRenderRequest *)v15->_sdofRenderRequest setRenderState:v15->_renderState];
+                                                LODWORD(v192) = dword_2244C6078[prioritization == 2];
                                                 if (prioritization == 1)
                                                 {
-                                                  *&v164 = 39.0;
+                                                  *&v192 = 39.0;
                                                 }
 
-                                                [*v163 setFocalLenIn35mmFilm:v164];
-                                                LODWORD(v165) = 1.0;
-                                                [*v163 setFocusDisparity:v165];
-                                                v13[368] = 0;
-                                                if (v217)
+                                                [*p_sdofRenderRequest setFocalLenIn35mmFilm:v192];
+                                                LODWORD(v193) = 1.0;
+                                                [*p_sdofRenderRequest setFocusDisparity:v193];
+                                                v15->_externalHandDetectionsAvailable = 0;
+                                                if (v247)
                                                 {
-                                                  objc_initWeak(&location, v13);
-                                                  v231[0] = MEMORY[0x277D85DD0];
-                                                  v231[1] = 3221225472;
-                                                  v231[2] = __122__PTEffectRenderer_initWithDescriptor_metalContext_depthPrioritization_humanDetections_prevTemporalState_sharedResources___block_invoke;
-                                                  v231[3] = &unk_278523738;
-                                                  objc_copyWeak(&v234, &location);
-                                                  v166 = descriptorCopy;
-                                                  v232 = v166;
-                                                  v233 = resourcesCopy;
-                                                  v167 = MEMORY[0x22AA50020](v231);
-                                                  if (([*(v13 + 40) activeEffectType] & 0x48) != 0)
+                                                  objc_initWeak(&location, v15);
+                                                  v261[0] = MEMORY[0x277D85DD0];
+                                                  v261[1] = 3221225472;
+                                                  v261[2] = __122__PTEffectRenderer_initWithDescriptor_metalContext_depthPrioritization_humanDetections_prevTemporalState_sharedResources___block_invoke;
+                                                  v261[3] = &unk_278523738;
+                                                  objc_copyWeak(&v264, &location);
+                                                  v194 = descriptorCopy;
+                                                  v262 = v194;
+                                                  v263 = resourcesCopy;
+                                                  v195 = MEMORY[0x22AA50020](v261);
+                                                  if (([(PTEffectDescriptor *)v15->_effectDescriptor activeEffectType]& 0x48) != 0)
                                                   {
-                                                    v167[2](v167);
+                                                    v195[2](v195);
                                                   }
 
                                                   else
                                                   {
-                                                    asyncInitQueue = [v166 asyncInitQueue];
-                                                    dispatch_async(asyncInitQueue, v167);
+                                                    asyncInitQueue = [v194 asyncInitQueue];
+                                                    dispatch_async(asyncInitQueue, v195);
                                                   }
 
-                                                  [v166 colorSize];
-                                                  [PTEffectPersonSegmentation segmentationSizeForColorSize:?];
-                                                  v176 = *(v13 + 19);
-                                                  *&v237 = v177;
-                                                  *(&v237 + 1) = v178;
-                                                  v238 = 1;
-                                                  v179 = [v176 addAdditionalOutput:&v237 allowCompressed:0 pixelFormat:1111970369 highQuality:1];
-                                                  v180 = *(v13 + 49);
-                                                  *(v13 + 49) = v179;
+                                                  objc_msgSend_colorSize(v194);
+                                                  objc_msgSend_segmentationSizeForColorSize_(PTEffectPersonSegmentation);
+                                                  v204 = v15->_msrColorPyramid;
+                                                  *&v267 = v205;
+                                                  *(&v267 + 1) = v206;
+                                                  v268 = 1;
+                                                  v207 = [(PTMSRResize *)v204 addAdditionalOutput:&v267 allowCompressed:0 pixelFormat:1111970369 highQuality:1];
+                                                  personSegmentationInput = v15->_personSegmentationInput;
+                                                  v15->_personSegmentationInput = v207;
 
-                                                  objc_destroyWeak(&v234);
+                                                  objc_destroyWeak(&v264);
                                                   objc_destroyWeak(&location);
                                                 }
 
-                                                if ((v216 & 0x40) != 0)
+                                                if ((v246 & 0x40) != 0)
                                                 {
-                                                  v181 = [[PTBackgroundReplacement alloc] initWithMetalContext:*(v13 + 1) effectDescriptor:*(v13 + 40) sharedSDOFRenderRequest:*(v13 + 29) renderPipeline:*(v13 + 3)];
-                                                  v182 = *(v13 + 10);
-                                                  *(v13 + 10) = v181;
+                                                  v209 = [[PTBackgroundReplacement alloc] initWithMetalContext:v15->_metalContext effectDescriptor:v15->_effectDescriptor sharedSDOFRenderRequest:v15->_sdofRenderRequest renderPipeline:v15->_renderPipeline];
+                                                  backgroundReplacement = v15->_backgroundReplacement;
+                                                  v15->_backgroundReplacement = v209;
                                                 }
 
-                                                if ((v13[328] & 0x10) == 0)
+                                                if ((v15->_availableEffectTypes & 0x10) == 0)
                                                 {
 LABEL_184:
-                                                  v183 = [PTEffectDebugLayer alloc];
-                                                  v184 = *(v13 + 1);
-                                                  v185 = *(v13 + 27);
-                                                  v186 = *(v13 + 40);
-                                                  v187 = *(v13 + 4);
-                                                  util = [*(v13 + 55) util];
-                                                  v189 = [(PTEffectDebugLayer *)v183 initWithMetalContext:v184 effectRelighting:v185 effectDescritor:v186 renderState:v187 util:util colorConversion:*(v13 + 28) msrColorPyramid:*(v13 + 19) vfxRenderEffect:*(v13 + 50) depthConverter:*(v13 + 53) disparityFixedFocus:*(v13 + 6) faceDisparityArray:*(v13 + 16) focusDisparityRaw:*(v13 + 18) focusDisparityModifiers:*(v13 + 20)];
-                                                  v190 = *(v13 + 30);
-                                                  *(v13 + 30) = v189;
+                                                  v211 = [PTEffectDebugLayer alloc];
+                                                  v212 = v15->_metalContext;
+                                                  effectRelighting = v15->_effectRelighting;
+                                                  v214 = v15->_effectDescriptor;
+                                                  v215 = v15->_renderState;
+                                                  util = [(PTEffectResources *)v15->_sharedResources util];
+                                                  v217 = [(PTEffectDebugLayer *)v211 initWithMetalContext:v212 effectRelighting:effectRelighting effectDescritor:v214 renderState:v215 util:util colorConversion:v15->_colorConversion msrColorPyramid:v15->_msrColorPyramid vfxRenderEffect:v15->_vfxEffect depthConverter:v15->_depthConverter disparityFixedFocus:v15->_disparityCenteredUpscaledSDOF faceDisparityArray:v15->_faceDisparityArray focusDisparityRaw:v15->_focusDisparityRaw focusDisparityModifiers:v15->_focusDisparityModifiers];
+                                                  debugLayer = v15->_debugLayer;
+                                                  v15->_debugLayer = v217;
 
-                                                  v191 = *(v13 + 30);
-                                                  if (v191)
+                                                  v219 = v15->_debugLayer;
+                                                  if (v219)
                                                   {
-                                                    [v191 setReactionProvider:*(v13 + 44)];
+                                                    [(PTEffectDebugLayer *)v219 setReactionProvider:v15->_reactionProvider];
                                                     kdebug_trace();
-                                                    v19 = v13;
+                                                    v22 = v15;
                                                     goto LABEL_216;
                                                   }
 
-                                                  v196 = _PTLogSystem();
-                                                  if (os_log_type_enabled(v196, OS_LOG_TYPE_ERROR))
+                                                  v224 = _PTLogSystem(0);
+                                                  if (os_log_type_enabled(v224, OS_LOG_TYPE_ERROR))
                                                   {
                                                     [PTEffectRenderer initWithDescriptor:metalContext:depthPrioritization:humanDetections:prevTemporalState:sharedResources:];
                                                   }
@@ -624,12 +626,12 @@ LABEL_184:
 LABEL_214:
 
 LABEL_215:
-                                                  v19 = 0;
+                                                  v22 = 0;
 LABEL_216:
-                                                  p_super = &v215->super;
+                                                  p_super = &v245->super;
 LABEL_217:
 
-                                                  v170 = v220;
+                                                  v198 = v250;
 LABEL_218:
 
                                                   goto LABEL_159;
@@ -639,59 +641,59 @@ LABEL_218:
                                                 if (renderEffect)
                                                 {
                                                   renderEffect2 = [resourcesCopy renderEffect];
-                                                  v194 = renderEffect2;
+                                                  v222 = renderEffect2;
                                                   if (renderEffect2)
                                                   {
-                                                    [renderEffect2 colorSize];
-                                                    v195 = v230;
+                                                    objc_msgSend_colorSize(renderEffect2);
+                                                    v223 = v260;
                                                   }
 
                                                   else
                                                   {
-                                                    v195 = 0;
+                                                    v223 = 0;
                                                   }
 
-                                                  if (v195 == v27)
+                                                  if (v223 == v30)
                                                   {
                                                     renderEffect3 = [resourcesCopy renderEffect];
-                                                    v198 = renderEffect3;
+                                                    v226 = renderEffect3;
                                                     if (renderEffect3)
                                                     {
-                                                      [renderEffect3 colorSize];
-                                                      v199 = v229;
+                                                      objc_msgSend_colorSize(renderEffect3);
+                                                      v227 = v259;
                                                     }
 
                                                     else
                                                     {
-                                                      v199 = 0;
+                                                      v227 = 0;
                                                     }
 
-                                                    v200 = v199 == v29;
+                                                    v228 = v227 == v32;
 
-                                                    if (v200)
+                                                    if (v228)
                                                     {
                                                       renderEffect4 = [resourcesCopy renderEffect];
-                                                      v202 = *(v13 + 50);
-                                                      *(v13 + 50) = renderEffect4;
+                                                      vfxEffect = v15->_vfxEffect;
+                                                      v15->_vfxEffect = renderEffect4;
 
 LABEL_202:
-                                                      *&v237 = v27;
-                                                      *(&v237 + 1) = v29;
-                                                      v238 = 1;
-                                                      [v13 createVfxTextures:&v237];
-                                                      v211 = [[PTDepthConverter alloc] initWithMetalContext:*(v13 + 1)];
-                                                      v212 = *(v13 + 53);
-                                                      *(v13 + 53) = v211;
+                                                      *&v267 = v30;
+                                                      *(&v267 + 1) = v32;
+                                                      v268 = 1;
+                                                      [(PTEffectRenderer *)v15 createVfxTextures:&v267];
+                                                      v240 = [[PTDepthConverter alloc] initWithMetalContext:v15->_metalContext];
+                                                      depthConverter = v15->_depthConverter;
+                                                      v15->_depthConverter = v240;
 
-                                                      if (*(v13 + 53))
+                                                      if (v15->_depthConverter)
                                                       {
-                                                        if (*(v13 + 50) && *(v13 + 52) && *(v13 + 51))
+                                                        if (v15->_vfxEffect && v15->_vfxRenderTarget && v15->_vfxDepthBuffer)
                                                         {
                                                           goto LABEL_184;
                                                         }
 
-                                                        v196 = _PTLogSystem();
-                                                        if (os_log_type_enabled(v196, OS_LOG_TYPE_ERROR))
+                                                        v224 = _PTLogSystem(v242);
+                                                        if (os_log_type_enabled(v224, OS_LOG_TYPE_ERROR))
                                                         {
                                                           [PTEffectRenderer initWithDescriptor:metalContext:depthPrioritization:humanDetections:prevTemporalState:sharedResources:];
                                                         }
@@ -699,8 +701,8 @@ LABEL_202:
 
                                                       else
                                                       {
-                                                        v196 = _PTLogSystem();
-                                                        if (os_log_type_enabled(v196, OS_LOG_TYPE_ERROR))
+                                                        v224 = _PTLogSystem(v242);
+                                                        if (os_log_type_enabled(v224, OS_LOG_TYPE_ERROR))
                                                         {
                                                           [PTEffectRenderer initWithDescriptor:metalContext:depthPrioritization:humanDetections:prevTemporalState:sharedResources:];
                                                         }
@@ -715,24 +717,24 @@ LABEL_202:
                                                   }
                                                 }
 
-                                                v203 = [PTVFXRenderEffect alloc];
-                                                v204 = *(v13 + 1);
-                                                v205 = *(v13 + 28);
+                                                v231 = [PTVFXRenderEffect alloc];
+                                                v232 = v15->_metalContext;
+                                                v233 = v15->_colorConversion;
                                                 prewarmOnly = [descriptorCopy prewarmOnly];
-                                                v207 = *(v13 + 54);
-                                                v206 = *(v13 + 55);
+                                                humanDetections = v15->_humanDetections;
+                                                sharedResources = v15->_sharedResources;
                                                 asyncInitQueue2 = [descriptorCopy asyncInitQueue];
-                                                *&v237 = v27;
-                                                *(&v237 + 1) = v29;
-                                                v238 = 1;
-                                                v209 = [(PTVFXRenderEffect *)v203 initWithMetalContext:v204 colorSize:&v237 colorConversion:v205 prewarmOnly:prewarmOnly humanDetections:v207 sharedResources:v206 asyncInitQueue:asyncInitQueue2];
-                                                v210 = *(v13 + 50);
-                                                *(v13 + 50) = v209;
+                                                *&v267 = v30;
+                                                *(&v267 + 1) = v32;
+                                                v268 = 1;
+                                                v237 = [(PTVFXRenderEffect *)v231 initWithMetalContext:v232 colorSize:&v267 colorConversion:v233 prewarmOnly:prewarmOnly humanDetections:humanDetections sharedResources:sharedResources asyncInitQueue:asyncInitQueue2];
+                                                v238 = v15->_vfxEffect;
+                                                v15->_vfxEffect = v237;
 
-                                                if (!*(v13 + 50))
+                                                if (!v15->_vfxEffect)
                                                 {
-                                                  v196 = _PTLogSystem();
-                                                  if (os_log_type_enabled(v196, OS_LOG_TYPE_ERROR))
+                                                  v224 = _PTLogSystem(v239);
+                                                  if (os_log_type_enabled(v224, OS_LOG_TYPE_ERROR))
                                                   {
                                                     [PTEffectRenderer initWithDescriptor:metalContext:depthPrioritization:humanDetections:prevTemporalState:sharedResources:];
                                                   }
@@ -744,8 +746,8 @@ LABEL_202:
                                                 goto LABEL_202;
                                               }
 
-                                              v174 = _PTLogSystem();
-                                              if (os_log_type_enabled(v174, OS_LOG_TYPE_ERROR))
+                                              v202 = _PTLogSystem(0);
+                                              if (os_log_type_enabled(v202, OS_LOG_TYPE_ERROR))
                                               {
                                                 [PTEffectRenderer initWithDescriptor:metalContext:depthPrioritization:humanDetections:prevTemporalState:sharedResources:];
                                               }
@@ -753,8 +755,8 @@ LABEL_202:
 
                                             else
                                             {
-                                              v174 = _PTLogSystem();
-                                              if (os_log_type_enabled(v174, OS_LOG_TYPE_ERROR))
+                                              v202 = _PTLogSystem(v184);
+                                              if (os_log_type_enabled(v202, OS_LOG_TYPE_ERROR))
                                               {
                                                 [PTEffectRenderer initWithDescriptor:metalContext:depthPrioritization:humanDetections:prevTemporalState:sharedResources:];
                                               }
@@ -763,8 +765,8 @@ LABEL_202:
 
                                           else
                                           {
-                                            v174 = _PTLogSystem();
-                                            if (os_log_type_enabled(v174, OS_LOG_TYPE_ERROR))
+                                            v202 = _PTLogSystem(v178);
+                                            if (os_log_type_enabled(v202, OS_LOG_TYPE_ERROR))
                                             {
                                               [PTEffectRenderer initWithDescriptor:metalContext:depthPrioritization:humanDetections:prevTemporalState:sharedResources:];
                                             }
@@ -773,8 +775,8 @@ LABEL_202:
 
                                         else
                                         {
-                                          v174 = _PTLogSystem();
-                                          if (os_log_type_enabled(v174, OS_LOG_TYPE_ERROR))
+                                          v202 = _PTLogSystem(v174);
+                                          if (os_log_type_enabled(v202, OS_LOG_TYPE_ERROR))
                                           {
                                             [PTEffectRenderer initWithDescriptor:metalContext:depthPrioritization:humanDetections:prevTemporalState:sharedResources:];
                                           }
@@ -783,9 +785,9 @@ LABEL_202:
                                         goto LABEL_215;
                                       }
 
-                                      v169 = _PTLogSystem();
-                                      v170 = v169;
-                                      if (os_log_type_enabled(v169, OS_LOG_TYPE_ERROR))
+                                      v197 = _PTLogSystem(v168);
+                                      v198 = v197;
+                                      if (os_log_type_enabled(v197, OS_LOG_TYPE_ERROR))
                                       {
                                         [PTEffectRenderer initWithDescriptor:metalContext:depthPrioritization:humanDetections:prevTemporalState:sharedResources:];
                                         goto LABEL_167;
@@ -794,24 +796,24 @@ LABEL_202:
 
                                     else
                                     {
-                                      v169 = _PTLogSystem();
-                                      v170 = v169;
-                                      if (os_log_type_enabled(v169, OS_LOG_TYPE_ERROR))
+                                      v197 = _PTLogSystem(v158);
+                                      v198 = v197;
+                                      if (os_log_type_enabled(v197, OS_LOG_TYPE_ERROR))
                                       {
                                         [PTEffectRenderer initWithDescriptor:metalContext:depthPrioritization:humanDetections:prevTemporalState:sharedResources:];
 LABEL_167:
-                                        v19 = 0;
-                                        v170 = v169;
+                                        v22 = 0;
+                                        v198 = v197;
                                         goto LABEL_218;
                                       }
                                     }
 
-                                    v19 = 0;
+                                    v22 = 0;
                                     goto LABEL_218;
                                   }
 
-                                  v168 = _PTLogSystem();
-                                  if (os_log_type_enabled(v168, OS_LOG_TYPE_ERROR))
+                                  v196 = _PTLogSystem(v154);
+                                  if (os_log_type_enabled(v196, OS_LOG_TYPE_ERROR))
                                   {
                                     [PTEffectRenderer initWithDescriptor:metalContext:depthPrioritization:humanDetections:prevTemporalState:sharedResources:];
                                   }
@@ -819,8 +821,8 @@ LABEL_167:
 
                                 else
                                 {
-                                  v168 = _PTLogSystem();
-                                  if (os_log_type_enabled(v168, OS_LOG_TYPE_ERROR))
+                                  v196 = _PTLogSystem(v150);
+                                  if (os_log_type_enabled(v196, OS_LOG_TYPE_ERROR))
                                   {
                                     [PTEffectRenderer initWithDescriptor:metalContext:depthPrioritization:humanDetections:prevTemporalState:sharedResources:];
                                   }
@@ -829,8 +831,8 @@ LABEL_167:
 
                               else
                               {
-                                v168 = _PTLogSystem();
-                                if (os_log_type_enabled(v168, OS_LOG_TYPE_ERROR))
+                                v196 = _PTLogSystem(v143);
+                                if (os_log_type_enabled(v196, OS_LOG_TYPE_ERROR))
                                 {
                                   [PTEffectRenderer initWithDescriptor:metalContext:depthPrioritization:humanDetections:prevTemporalState:sharedResources:];
                                 }
@@ -840,8 +842,8 @@ LABEL_167:
 
                           else
                           {
-                            v168 = _PTLogSystem();
-                            if (os_log_type_enabled(v168, OS_LOG_TYPE_ERROR))
+                            v196 = _PTLogSystem(v123);
+                            if (os_log_type_enabled(v196, OS_LOG_TYPE_ERROR))
                             {
                               [PTEffectRenderer initWithDescriptor:metalContext:depthPrioritization:humanDetections:prevTemporalState:sharedResources:];
                             }
@@ -850,8 +852,8 @@ LABEL_167:
 
                         else
                         {
-                          v168 = _PTLogSystem();
-                          if (os_log_type_enabled(v168, OS_LOG_TYPE_ERROR))
+                          v196 = _PTLogSystem(v119);
+                          if (os_log_type_enabled(v196, OS_LOG_TYPE_ERROR))
                           {
                             [PTEffectRenderer initWithDescriptor:metalContext:depthPrioritization:humanDetections:prevTemporalState:sharedResources:];
                           }
@@ -860,8 +862,8 @@ LABEL_167:
 
                       else
                       {
-                        v168 = _PTLogSystem();
-                        if (os_log_type_enabled(v168, OS_LOG_TYPE_ERROR))
+                        v196 = _PTLogSystem(v115);
+                        if (os_log_type_enabled(v196, OS_LOG_TYPE_ERROR))
                         {
                           [PTEffectRenderer initWithDescriptor:metalContext:depthPrioritization:humanDetections:prevTemporalState:sharedResources:];
                         }
@@ -870,8 +872,8 @@ LABEL_167:
 
                     else
                     {
-                      v168 = _PTLogSystem();
-                      if (os_log_type_enabled(v168, OS_LOG_TYPE_ERROR))
+                      v196 = _PTLogSystem(v110);
+                      if (os_log_type_enabled(v196, OS_LOG_TYPE_ERROR))
                       {
                         [PTEffectRenderer initWithDescriptor:metalContext:depthPrioritization:humanDetections:prevTemporalState:sharedResources:];
                       }
@@ -880,8 +882,8 @@ LABEL_167:
 
                   else
                   {
-                    v168 = _PTLogSystem();
-                    if (os_log_type_enabled(v168, OS_LOG_TYPE_ERROR))
+                    v196 = _PTLogSystem(v106);
+                    if (os_log_type_enabled(v196, OS_LOG_TYPE_ERROR))
                     {
                       [PTEffectRenderer initWithDescriptor:metalContext:depthPrioritization:humanDetections:prevTemporalState:sharedResources:];
                     }
@@ -890,8 +892,8 @@ LABEL_167:
 
                 else
                 {
-                  v168 = _PTLogSystem();
-                  if (os_log_type_enabled(v168, OS_LOG_TYPE_ERROR))
+                  v196 = _PTLogSystem(v103);
+                  if (os_log_type_enabled(v196, OS_LOG_TYPE_ERROR))
                   {
                     [PTEffectRenderer initWithDescriptor:metalContext:depthPrioritization:humanDetections:prevTemporalState:sharedResources:];
                   }
@@ -900,8 +902,8 @@ LABEL_167:
 
               else
               {
-                v168 = _PTLogSystem();
-                if (os_log_type_enabled(v168, OS_LOG_TYPE_ERROR))
+                v196 = _PTLogSystem(0);
+                if (os_log_type_enabled(v196, OS_LOG_TYPE_ERROR))
                 {
                   [PTEffectRenderer initWithDescriptor:metalContext:depthPrioritization:humanDetections:prevTemporalState:sharedResources:];
                 }
@@ -910,40 +912,40 @@ LABEL_167:
 
             else
             {
-              if (!v217)
+              if (!v247)
               {
-                v73 = 0;
+                v84 = 0;
                 height = 0;
                 width = 0;
                 goto LABEL_62;
               }
 
-              [descriptorCopy colorSize];
-              [PTEffectPersonSegmentation segmentationSizeForColorSize:?];
-              v79 = v78;
-              v81 = v80;
-              v82 = [PTMSRResize alloc];
-              v83 = *(v13 + 1);
-              v245 = v79;
-              *&v246 = v81;
-              *(&v246 + 1) = 1;
-              *&v237 = v27;
-              *(&v237 + 1) = v29;
-              v238 = 1;
-              v84 = [(PTMSRResize *)v82 initWithMetalContext:v83 inputSize:&v237 targetSize:&v245 rotateTargetPixelBuffer:0 compressedIntermediates:0 sRGB:0 sharedResources:resourcesCopy];
-              v85 = *(v13 + 19);
-              *(v13 + 19) = v84;
+              objc_msgSend_colorSize(descriptorCopy);
+              objc_msgSend_segmentationSizeForColorSize_(PTEffectPersonSegmentation);
+              v90 = v89;
+              v92 = v91;
+              v93 = [PTMSRResize alloc];
+              v94 = v15->_metalContext;
+              v275 = v90;
+              *&v276 = v92;
+              *(&v276 + 1) = 1;
+              *&v267 = v30;
+              *(&v267 + 1) = v32;
+              v268 = 1;
+              v95 = [(PTMSRResize *)v93 initWithMetalContext:v94 inputSize:&v267 targetSize:&v275 rotateTargetPixelBuffer:0 compressedIntermediates:0 sRGB:0 sharedResources:resourcesCopy];
+              v96 = v15->_msrColorPyramid;
+              v15->_msrColorPyramid = v95;
 
-              if (*(v13 + 19))
+              if (v15->_msrColorPyramid)
               {
-                v73 = 0;
+                v84 = 0;
                 height = 0;
                 width = 0;
                 goto LABEL_68;
               }
 
-              v168 = _PTLogSystem();
-              if (os_log_type_enabled(v168, OS_LOG_TYPE_ERROR))
+              v196 = _PTLogSystem(v97);
+              if (os_log_type_enabled(v196, OS_LOG_TYPE_ERROR))
               {
                 [PTEffectRenderer initWithDescriptor:metalContext:depthPrioritization:humanDetections:prevTemporalState:sharedResources:];
               }
@@ -952,8 +954,8 @@ LABEL_167:
             goto LABEL_158;
           }
 
-          v57 = _PTLogSystem();
-          if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+          v67 = _PTLogSystem(v58);
+          if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
           {
             [PTEffectRenderer initWithDescriptor:metalContext:depthPrioritization:humanDetections:prevTemporalState:sharedResources:];
           }
@@ -961,8 +963,8 @@ LABEL_167:
 
         else
         {
-          v57 = _PTLogSystem();
-          if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+          v67 = _PTLogSystem(v54);
+          if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
           {
             [PTEffectRenderer initWithDescriptor:metalContext:depthPrioritization:humanDetections:prevTemporalState:sharedResources:];
           }
@@ -972,22 +974,22 @@ LABEL_167:
       }
     }
 
-    v34 = _PTLogSystem();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+    v38 = _PTLogSystem(v37);
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
     {
       [PTEffectRenderer initWithDescriptor:metalContext:depthPrioritization:humanDetections:prevTemporalState:sharedResources:];
     }
 
-    v19 = 0;
+    v22 = 0;
 LABEL_160:
   }
 
   else
   {
-    v19 = 0;
+    v22 = 0;
   }
 
-  return v19;
+  return v22;
 }
 
 void __122__PTEffectRenderer_initWithDescriptor_metalContext_depthPrioritization_humanDetections_prevTemporalState_sharedResources___block_invoke(uint64_t a1)
@@ -998,7 +1000,7 @@ void __122__PTEffectRenderer_initWithDescriptor_metalContext_depthPrioritization
     v14 = WeakRetained;
     v3 = [PTEffectPersonSegmentation alloc];
     v4 = v14[1];
-    [*(a1 + 32) colorSize];
+    objc_msgSend_colorSize(*(a1 + 32));
     v6 = v5;
     v8 = v7;
     v9 = v14[19];
@@ -1017,16 +1019,16 @@ void __122__PTEffectRenderer_initWithDescriptor_metalContext_depthPrioritization
   v12 = [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:-[PTVFXRenderEffect rgbaOutputPixelFormat](self->_vfxEffect width:"rgbaOutputPixelFormat") height:textures->var0 mipmapped:textures->var1, 0];
   [v12 setUsage:7];
   [v12 setStorageMode:0];
-  device = [(PTMetalContext *)self->_metalContext device];
-  v6 = [device newTextureWithDescriptor:v12];
+  v5 = objc_msgSend_device(self->_metalContext);
+  v6 = [v5 newTextureWithDescriptor:v12];
   vfxRenderTarget = self->_vfxRenderTarget;
   self->_vfxRenderTarget = v6;
 
   v8 = [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:-[PTVFXRenderEffect depthOutputPixelFormat](self->_vfxEffect width:"depthOutputPixelFormat") height:textures->var0 mipmapped:textures->var1, 0];
   [v8 setUsage:7];
   [v8 setStorageMode:0];
-  device2 = [(PTMetalContext *)self->_metalContext device];
-  v10 = [device2 newTextureWithDescriptor:v8];
+  v9 = objc_msgSend_device(self->_metalContext);
+  v10 = [v9 newTextureWithDescriptor:v8];
   vfxDepthBuffer = self->_vfxDepthBuffer;
   self->_vfxDepthBuffer = v10;
 }
@@ -1070,90 +1072,91 @@ void __122__PTEffectRenderer_initWithDescriptor_metalContext_depthPrioritization
 - (int)render:(id)render waitUntilCompleted:(BOOL)completed gpuCompleted:(id)gpuCompleted
 {
   completedCopy = completed;
-  *(&v219[1] + 4) = *MEMORY[0x277D85DE8];
+  *(&v229[1] + 4) = *MEMORY[0x277D85DE8];
   renderCopy = render;
   gpuCompletedCopy = gpuCompleted;
-  v202 = objc_opt_new();
-  if ([(PTMetalContext *)self->_metalContext isCommandBufferCommitted])
+  v212 = objc_opt_new();
+  isCommandBufferCommitted = [(PTMetalContext *)self->_metalContext isCommandBufferCommitted];
+  if (isCommandBufferCommitted)
   {
-    v8 = 0;
+    v9 = 0;
   }
 
   else
   {
-    v9 = _PTLogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = _PTLogSystem(isCommandBufferCommitted);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [PTEffect render:];
     }
 
-    v8 = -9;
+    v9 = -9;
   }
 
-  v207 = v8;
+  v217 = v9;
   [renderCopy frameTimeSeconds];
   intermediateColor = self->_intermediateColor;
   if (!self->_intermediateColor[0])
   {
-    v24 = 0;
+    v25 = 0;
     intermediateColorPixelbuffers = self->_intermediateColorPixelbuffers;
-    v26 = 1;
+    v27 = 1;
     do
     {
-      v27 = v26;
-      CVBufferPropagateAttachments([renderCopy inColorBuffer], intermediateColorPixelbuffers[v24]);
-      v28 = intermediateColorPixelbuffers[v24];
-      device = [(PTMetalContext *)self->_metalContext device];
-      v30 = [PTTexture createFromPixelbuffer:v28 device:device textureCache:self->_textureCache metalYCBCRConversion:1 read:1 write:1];
-      v31 = intermediateColor[v24];
-      intermediateColor[v24] = v30;
+      v28 = v27;
+      CVBufferPropagateAttachments([renderCopy inColorBuffer], intermediateColorPixelbuffers[v25]);
+      v29 = intermediateColorPixelbuffers[v25];
+      v30 = objc_msgSend_device(self->_metalContext);
+      v31 = [PTTexture createFromPixelbuffer:v29 device:v30 textureCache:self->_textureCache metalYCBCRConversion:1 read:1 write:1];
+      v32 = intermediateColor[v25];
+      intermediateColor[v25] = v31;
 
-      if (!intermediateColor[v24])
+      if (!intermediateColor[v25])
       {
-        v32 = _PTLogSystem();
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+        v34 = _PTLogSystem(v33);
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
         {
-          [PTEffectRenderer render:v218 waitUntilCompleted:v219 gpuCompleted:v32];
+          [PTEffectRenderer render:v228 waitUntilCompleted:v229 gpuCompleted:v34];
         }
       }
 
-      v26 = 0;
-      v24 = 1;
+      v27 = 0;
+      v25 = 1;
     }
 
-    while ((v27 & 1) != 0);
+    while ((v28 & 1) != 0);
   }
 
-  v11 = self->_availableEffectTypes & [renderCopy effectType];
-  v12 = (v11 & 0x40) == 0;
-  if (self->_personSegmentation || (v11 & 0x40) == 0)
+  v12 = self->_availableEffectTypes & [renderCopy effectType];
+  v13 = (v12 & 0x40) == 0;
+  if (self->_personSegmentation || (v12 & 0x40) == 0)
   {
-    v13 = [(PTBackgroundReplacement *)self->_backgroundReplacement updateAndGetBackgroundState:renderCopy frameIndex:self->_frameIndex];
+    v14 = [(PTBackgroundReplacement *)self->_backgroundReplacement updateAndGetBackgroundState:renderCopy frameIndex:self->_frameIndex];
   }
 
   else
   {
-    v13 = 0;
-    v11 &= ~0x40uLL;
-    v12 = 1;
+    v14 = 0;
+    v12 &= ~0x40uLL;
+    v13 = 1;
   }
 
   inColorBuffer = [renderCopy inColorBuffer];
   outColorBuffer = [renderCopy outColorBuffer];
-  v15 = !v12 && [renderCopy inBackgroundReplacementBuffer] || v13 != 0;
-  v208 = v15;
-  v16 = 0;
-  v188 = v13;
-  v18 = v13 != 4 && v13 != 1;
-  v19 = v11 & v18;
-  if ((v11 & 2) == 0 && (v19 & 1) == 0 && !v208)
+  v16 = !v13 && [renderCopy inBackgroundReplacementBuffer] || v14 != 0;
+  v218 = v16;
+  v17 = 0;
+  v198 = v14;
+  v19 = v14 != 4 && v14 != 1;
+  v20 = v12 & v19;
+  if ((v12 & 2) == 0 && (v20 & 1) == 0 && !v218)
   {
-    v16 = [renderCopy outColorBuffer] != 0;
+    v17 = [renderCopy outColorBuffer] != 0;
   }
 
-  v192 = v16;
+  v202 = v17;
   [renderCopy remappedAperture];
-  v21 = v20;
+  v22 = v21;
   context = objc_autoreleasePoolPush();
   reactions = [renderCopy reactions];
   reactionsToRender = self->_reactionsToRender;
@@ -1161,51 +1164,51 @@ void __122__PTEffectRenderer_initWithDescriptor_metalContext_depthPrioritization
   if (reactions == reactionsToRender)
   {
     [renderCopy setReactions:0];
-    if ((v11 & 0x20) == 0)
+    if ((v12 & 0x20) == 0)
     {
       goto LABEL_27;
     }
   }
 
-  else if ((v11 & 0x20) == 0)
+  else if ((v12 & 0x20) == 0)
   {
 LABEL_27:
     [renderCopy setGestureCount:0];
     goto LABEL_37;
   }
 
-  [(PTEffectRenderer *)self runGestureDetection:renderCopy asyncWork:v202];
+  [(PTEffectRenderer *)self runGestureDetection:renderCopy asyncWork:v212];
 LABEL_37:
-  v33 = (v11 >> 3) & 1 | v208;
-  v34 = v11 & 2;
-  v201 = (v11 & 0x10) != 0 && [(PTVFXRenderEffect *)self->_vfxEffect updateWithRenderRequest:renderCopy lastFrameTime:self->_lastFrameTime];
-  v191 = (v11 >> 2) & 1;
-  if ((v11 & 2) != 0)
+  v35 = (v12 >> 3) & 1 | v218;
+  v36 = v12 & 2;
+  v211 = (v12 & 0x10) != 0 && [(PTVFXRenderEffect *)self->_vfxEffect updateWithRenderRequest:renderCopy lastFrameTime:self->_lastFrameTime];
+  v201 = (v12 >> 2) & 1;
+  if ((v12 & 2) != 0)
   {
-    v35 = 1;
+    v37 = 1;
   }
 
   else
   {
-    v35 = v19;
+    v37 = v20;
   }
 
-  v190 = v191 & v33 | v208;
-  if (v35)
+  v200 = v201 & v35 | v218;
+  if (v37)
   {
-    v36 = 1;
+    v38 = 1;
   }
 
   else
   {
-    v36 = ((v191 & v33 | v208) ^ 1) & v201;
+    v38 = ((v201 & v35 | v218) ^ 1) & v211;
   }
 
-  v205 = v19;
-  if (!v208)
+  v215 = v20;
+  if (!v218)
   {
 LABEL_52:
-    if ((v36 & 1) == 0)
+    if ((v38 & 1) == 0)
     {
       goto LABEL_50;
     }
@@ -1213,21 +1216,21 @@ LABEL_52:
     goto LABEL_53;
   }
 
-  if ((v11 & 2) == 0)
+  if ((v12 & 2) == 0)
   {
-    LOBYTE(v36) = v36 & ((v188 & 0xFFFFFFFFFFFFFFFELL) == 2);
+    LOBYTE(v38) = v38 & ((v198 & 0xFFFFFFFFFFFFFFFELL) == 2);
     goto LABEL_52;
   }
 
   studiolightFromSegmentation = self->_studiolightFromSegmentation;
-  if (studiolightFromSegmentation & v36)
+  if (studiolightFromSegmentation & v38)
   {
-    if ((v188 & 0xFFFFFFFFFFFFFFFELL) != 2)
+    if ((v198 & 0xFFFFFFFFFFFFFFFELL) != 2)
     {
 LABEL_50:
-      v209 = 0;
-      v189 = 0;
-      v38 = (v11 & 8) != 0 || v208;
+      v219 = 0;
+      v199 = 0;
+      v40 = (v12 & 8) != 0 || v218;
       goto LABEL_54;
     }
   }
@@ -1238,168 +1241,169 @@ LABEL_50:
   }
 
 LABEL_53:
-  v189 = [(PTHumanDetections *)self->_humanDetections detectionsRawCount]> 0;
-  v38 = 1;
-  v209 = 1;
+  v199 = [(PTHumanDetections *)self->_humanDetections detectionsRawCount]> 0;
+  v40 = 1;
+  v219 = 1;
 LABEL_54:
   frameTimeSeconds = [renderCopy frameTimeSeconds];
-  v41 = v40 - self->_lastFrameTime;
-  if (v41 > 1.0)
+  v43 = v42 - self->_lastFrameTime;
+  if (v43 > 1.0)
   {
     self->_frameIndex = 0;
   }
 
-  v204 = v11 & 2;
-  if ((v11 >> 3) & 1 | v208 && (v41 > 1.0 || !self->_renderSegmentationPreviousFrame))
+  v214 = v12 & 2;
+  if ((v12 >> 3) & 1 | v218 && (v43 > 1.0 || !self->_renderSegmentationPreviousFrame))
   {
-    v42 = _PTLogSystem();
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
+    v44 = _PTLogSystem(frameTimeSeconds);
+    if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_2243FB000, v42, OS_LOG_TYPE_INFO, "Reset segmentation network", buf, 2u);
+      _os_log_impl(&dword_2243FB000, v44, OS_LOG_TYPE_INFO, "Reset segmentation network", buf, 2u);
     }
 
     frameTimeSeconds = [(PTEffectPersonSegmentation *)self->_personSegmentation reset];
-    v34 = v11 & 2;
+    v36 = v12 & 2;
   }
 
-  self->_renderSegmentationPreviousFrame = (v11 & 8) != 0 || v208;
-  if (v209 && (v41 > 1.0 || !self->_runCVMNetworkPreviousFrame))
+  self->_renderSegmentationPreviousFrame = (v12 & 8) != 0 || v218;
+  if (v219 && (v43 > 1.0 || !self->_runCVMNetworkPreviousFrame))
   {
-    v43 = _PTLogSystem();
-    if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
+    v45 = _PTLogSystem(frameTimeSeconds);
+    if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_2243FB000, v43, OS_LOG_TYPE_INFO, "Reset network", buf, 2u);
+      _os_log_impl(&dword_2243FB000, v45, OS_LOG_TYPE_INFO, "Reset network", buf, 2u);
     }
 
     [(PTCVMNetwork *)self->_cvmNetwork reset];
     frameTimeSeconds = [(PTEffectTemporalFilter *)self->_temporalFilter reset];
-    v34 = v11 & 2;
+    v36 = v12 & 2;
   }
 
-  self->_runCVMNetworkPreviousFrame = v209;
-  if (v34 && (v41 > 1.0 || !self->_renderStudioLightPreviousFrame))
+  self->_runCVMNetworkPreviousFrame = v219;
+  if (v36 && (v43 > 1.0 || !self->_renderStudioLightPreviousFrame))
   {
-    v44 = _PTLogSystem();
-    if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
+    v46 = _PTLogSystem(frameTimeSeconds);
+    if (os_log_type_enabled(v46, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_2243FB000, v44, OS_LOG_TYPE_INFO, "Reset studio light", buf, 2u);
+      _os_log_impl(&dword_2243FB000, v46, OS_LOG_TYPE_INFO, "Reset studio light", buf, 2u);
     }
 
-    frameTimeSeconds = [(PTEffectRelighting *)self->_effectRelighting reset];
-    v34 = v11 & 2;
+    [(PTEffectRelighting *)self->_effectRelighting reset];
+    v36 = v12 & 2;
   }
 
-  self->_renderStudioLightPreviousFrame = v34 >> 1;
-  PTDefaultsFlush(frameTimeSeconds);
-  v195 = PTDefaultsPublicGetDictionary();
-  v194 = [v195 objectForKeyedSubscript:@"PTEffectDebug"];
-  v203 = v11;
-  v45 = [v194 intValue] > 0 || self->_debugType != 0;
-  device2 = [(PTMetalContext *)self->_metalContext device];
-  v206 = [PTTexture createFromPixelbuffer:inColorBuffer device:device2 textureCache:self->_textureCache metalYCBCRConversion:1 read:1 write:0];
+  self->_renderStudioLightPreviousFrame = v36 >> 1;
+  PTDefaultsFlush();
+  v205 = PTDefaultsPublicGetDictionary();
+  v204 = [v205 objectForKeyedSubscript:@"PTEffectDebug"];
+  v213 = v12;
+  v47 = [v204 intValue] > 0 || self->_debugType != 0;
+  v48 = objc_msgSend_device(self->_metalContext);
+  v216 = [PTTexture createFromPixelbuffer:inColorBuffer device:v48 textureCache:self->_textureCache metalYCBCRConversion:1 read:1 write:0];
 
   if (outColorBuffer)
   {
-    device3 = [(PTMetalContext *)self->_metalContext device];
-    v48 = [PTTexture createFromPixelbuffer:outColorBuffer device:device3 textureCache:self->_textureCache metalYCBCRConversion:1 read:v45 write:1];
+    v49 = objc_msgSend_device(self->_metalContext);
+    v50 = [PTTexture createFromPixelbuffer:outColorBuffer device:v49 textureCache:self->_textureCache metalYCBCRConversion:1 read:v47 write:1];
   }
 
   else
   {
-    v48 = 0;
+    v50 = 0;
   }
 
-  v49 = objc_opt_new();
-  [v49 addObject:v206];
-  if (v204)
+  v51 = objc_opt_new();
+  [v51 addObject:v216];
+  if (v214)
   {
-    [v49 addObject:{intermediateColor[objc_msgSend(v49, "count") & 1]}];
+    [v51 addObject:{intermediateColor[objc_msgSend(v51, "count") & 1]}];
   }
 
-  if (v205)
+  if (v215)
   {
-    [v49 addObject:{intermediateColor[objc_msgSend(v49, "count") & 1]}];
+    [v51 addObject:{intermediateColor[objc_msgSend(v51, "count") & 1]}];
   }
 
-  if (v208)
+  if (v218)
   {
-    [v49 addObject:{intermediateColor[objc_msgSend(v49, "count") & 1]}];
+    [v51 addObject:{intermediateColor[objc_msgSend(v51, "count") & 1]}];
   }
 
-  if (v48)
+  if (v50)
   {
-    [v49 replaceObjectAtIndex:objc_msgSend(v49 withObject:{"count") - 1, v48}];
+    [v51 replaceObjectAtIndex:objc_msgSend(v51 withObject:{"count") - 1, v50}];
   }
 
-  v197 = v48;
-  asRGBAFromYUV = [v206 asRGBAFromYUV];
+  v207 = v50;
+  asRGBAFromYUV = [v216 asRGBAFromYUV];
 
-  v51 = v204;
-  if ([v49 count] && !asRGBAFromYUV)
+  v53 = v214;
+  if ([v51 count] && !asRGBAFromYUV)
   {
     do
     {
-      v52 = [v49 objectAtIndexedSubscript:asRGBAFromYUV];
-      asRGBAFromYUV2 = [v52 asRGBAFromYUV];
+      v54 = [v51 objectAtIndexedSubscript:asRGBAFromYUV];
+      asRGBAFromYUV2 = [v54 asRGBAFromYUV];
 
       if (asRGBAFromYUV2)
       {
-        v54 = [v49 objectAtIndexedSubscript:asRGBAFromYUV];
-        asYUV = [v54 asYUV];
-        [v49 replaceObjectAtIndex:asRGBAFromYUV withObject:asYUV];
+        v56 = [v51 objectAtIndexedSubscript:asRGBAFromYUV];
+        asYUV = [v56 asYUV];
+        [v51 replaceObjectAtIndex:asRGBAFromYUV withObject:asYUV];
       }
 
       ++asRGBAFromYUV;
     }
 
-    while ([v49 count] > asRGBAFromYUV);
+    while ([v51 count] > asRGBAFromYUV);
   }
 
-  if ((v38 & 1) == 0)
+  if ((v40 & 1) == 0)
   {
     goto LABEL_102;
   }
 
-  if (v204)
+  if (v214)
   {
-    v56 = 1;
+    v58 = 1;
   }
 
   else
   {
-    v56 = v209;
+    v58 = v219;
   }
 
-  [(PTMSRResize *)self->_msrColorPyramid setEnablePyramidDownsampling:v56];
-  [(PTMSRResizeAdditionalOutput *)self->_personSegmentationInput setEnabled:v33 & 1];
-  v207 |= [(PTMSRResize *)self->_msrColorPyramid downsample:inColorBuffer];
-  if (!v207)
+  [(PTMSRResize *)self->_msrColorPyramid setEnablePyramidDownsampling:v58];
+  [(PTMSRResizeAdditionalOutput *)self->_personSegmentationInput setEnabled:v35 & 1];
+  v59 = [(PTMSRResize *)self->_msrColorPyramid downsample:inColorBuffer];
+  v217 |= v59;
+  if (!v217)
   {
-    v207 = 0;
+    v217 = 0;
 LABEL_102:
-    v58 = v205;
+    v61 = v215;
     goto LABEL_103;
   }
 
-  v57 = _PTLogSystem();
-  v58 = v205;
-  if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+  v60 = _PTLogSystem(v59);
+  v61 = v215;
+  if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
   {
     [PTCVMNetwork executeNetwork:];
   }
 
 LABEL_103:
-  if (v209)
+  if (v219)
   {
     commandBuffer = [(PTMetalContext *)self->_metalContext commandBuffer];
 
     if (!commandBuffer)
     {
-      v60 = _PTLogSystem();
-      if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
+      v64 = _PTLogSystem(v63);
+      if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
       {
         [PTEffectPersonSegmentation runPersonSegmentationToOutPersonSegmentationMatteBuffer:inColor:transform:inSegmentationRGBA:inSegmentationRGBATexture:outUpscaledSegmentation:];
       }
@@ -1417,8 +1421,8 @@ LABEL_103:
     if ([renderCopy inExternalDisparityBuffer])
     {
       inExternalDisparityBuffer = [renderCopy inExternalDisparityBuffer];
-      device4 = [(PTMetalContext *)self->_metalContext device];
-      outDisparity = [PTPixelBufferUtil createTextureFromPixelBuffer:inExternalDisparityBuffer device:device4 textureCache:self->_textureCache sRGB:0];
+      v70 = objc_msgSend_device(self->_metalContext);
+      outDisparity = [PTPixelBufferUtil createTextureFromPixelBuffer:inExternalDisparityBuffer device:v70 textureCache:self->_textureCache sRGB:0];
     }
 
     else
@@ -1431,8 +1435,8 @@ LABEL_103:
 
     if (!commandBuffer4)
     {
-      v69 = _PTLogSystem();
-      if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
+      v74 = _PTLogSystem(v73);
+      if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
       {
         [PTEffectPersonSegmentation runPersonSegmentationToOutPersonSegmentationMatteBuffer:inColor:transform:inSegmentationRGBA:inSegmentationRGBATexture:outUpscaledSegmentation:];
       }
@@ -1442,35 +1446,35 @@ LABEL_103:
     [commandBuffer5 setLabel:@"PTEffectRenderer filter disparity and normal."];
 
     [(PTHumanDetections *)self->_humanDetections detectionsRawCount];
-    if (v204)
+    if (v214)
     {
       [(PTNormalAndDiffuseEstimation *)self->_diffuseEstimation estimateDiffuseFromDisparity:outDisparity outDiffuse:self->_diffuse];
     }
 
-    v72 = 1.0;
+    v77 = 1.0;
     if ([(PTCVMNetwork *)self->_cvmNetwork networkVersionID]== 7)
     {
       depthPrioritization = [(PTCVMNetwork *)self->_cvmNetwork depthPrioritization];
-      LODWORD(v71) = 1070138536;
+      LODWORD(v76) = 1070138536;
       if (depthPrioritization != 2)
       {
-        *&v71 = 1.0;
+        *&v76 = 1.0;
       }
 
       if (depthPrioritization == 1)
       {
-        v72 = 1.941;
+        v77 = 1.941;
       }
 
       else
       {
-        v72 = *&v71;
+        v77 = *&v76;
       }
     }
 
-    v74 = self->_temporalFilter;
+    v79 = self->_temporalFilter;
     commandBuffer6 = [(PTMetalContext *)self->_metalContext commandBuffer];
-    if (v204)
+    if (v214)
     {
       diffuse = self->_diffuse;
     }
@@ -1480,17 +1484,17 @@ LABEL_103:
       diffuse = 0;
     }
 
-    LODWORD(v187) = self->_networkFrameIndex;
-    *&v76 = v72;
-    [(PTEffectTemporalFilter *)v74 filter:commandBuffer6 inDisparity:outDisparity inNormal:0 inDiffuse:diffuse filterNormalSpatial:1 filterDiffuseSpatial:1 frameIndex:v76 disparityScale:v187];
+    LODWORD(v197) = self->_networkFrameIndex;
+    *&v81 = v77;
+    [(PTEffectTemporalFilter *)v79 filter:commandBuffer6 inDisparity:outDisparity inNormal:0 inDiffuse:diffuse filterNormalSpatial:1 filterDiffuseSpatial:1 frameIndex:v81 disparityScale:v197];
 
-    v58 = v205;
+    v61 = v215;
   }
 
-  if ((v33 & 1) == 0)
+  if ((v35 & 1) == 0)
   {
-    v200 = 0;
-    v80 = v203;
+    v210 = 0;
+    v85 = v213;
     goto LABEL_141;
   }
 
@@ -1498,37 +1502,37 @@ LABEL_103:
   if ([renderCopy outPersonSegmentationMatteBuffer])
   {
     outPersonSegmentationMatteBuffer = [renderCopy outPersonSegmentationMatteBuffer];
-    device5 = [(PTMetalContext *)self->_metalContext device];
-    v200 = [PTPixelBufferUtil createTextureFromPixelBuffer:outPersonSegmentationMatteBuffer device:device5];
+    v84 = objc_msgSend_device(self->_metalContext);
+    v210 = [PTPixelBufferUtil createTextureFromPixelBuffer:outPersonSegmentationMatteBuffer device:v84];
 
 LABEL_133:
     personSegmentation = self->_personSegmentation;
     commandBuffer7 = [(PTMetalContext *)self->_metalContext commandBuffer];
     if (renderCopy)
     {
-      [renderCopy transform];
+      objc_msgSend_transform(renderCopy);
     }
 
     else
     {
-      v216 = 0u;
-      v217 = 0u;
+      v226 = 0u;
+      v227 = 0u;
       *buf = 0u;
     }
 
     pixelbuffer = [(PTMSRResizeAdditionalOutput *)self->_personSegmentationInput pixelbuffer];
     texture = [(PTMSRResizeAdditionalOutput *)self->_personSegmentationInput texture];
-    v207 |= [(PTEffectPersonSegmentation *)personSegmentation runPersonSegmentationToOutPersonSegmentationMatteBuffer:commandBuffer7 inColor:v206 transform:buf inSegmentationRGBA:pixelbuffer inSegmentationRGBATexture:texture outUpscaledSegmentation:v200];
+    v217 |= [(PTEffectPersonSegmentation *)personSegmentation runPersonSegmentationToOutPersonSegmentationMatteBuffer:commandBuffer7 inColor:v216 transform:buf inSegmentationRGBA:pixelbuffer inSegmentationRGBATexture:texture outUpscaledSegmentation:v210];
 
     [(PTMetalContext *)self->_metalContext commit];
     commandBuffer8 = [(PTMetalContext *)self->_metalContext commandBuffer];
 
-    v80 = v203;
-    v58 = v205;
+    v85 = v213;
+    v61 = v215;
     if (!commandBuffer8)
     {
-      v87 = _PTLogSystem();
-      if (os_log_type_enabled(v87, OS_LOG_TYPE_ERROR))
+      v93 = _PTLogSystem(v92);
+      if (os_log_type_enabled(v93, OS_LOG_TYPE_ERROR))
       {
         [PTEffectPersonSegmentation runPersonSegmentationToOutPersonSegmentationMatteBuffer:inColor:transform:inSegmentationRGBA:inSegmentationRGBATexture:outUpscaledSegmentation:];
       }
@@ -1538,90 +1542,90 @@ LABEL_133:
     [commandBuffer9 setLabel:@"PTEffectRenderer renderPostSegmentationMask"];
 
 LABEL_141:
-    if (v189 || [(PTVFXRenderEffect *)self->_vfxEffect emitNewReaction])
+    if (v199 || [(PTVFXRenderEffect *)self->_vfxEffect emitNewReaction])
     {
       if ([(PTVFXRenderEffect *)self->_vfxEffect emitNewReaction])
       {
-        v89 = [(PTHumanDetections *)self->_humanDetections detectionsRawCount]== 0;
+        v95 = [(PTHumanDetections *)self->_humanDetections detectionsRawCount]== 0;
       }
 
       else
       {
-        v89 = 0;
+        v95 = 0;
       }
 
-      v90 = [(PTHumanDetections *)self->_humanDetections faceDetectionsFilteredState:v89];
+      v96 = [(PTHumanDetections *)self->_humanDetections faceDetectionsFilteredState:v95];
       effectUtil = [(PTEffectResources *)self->_sharedResources effectUtil];
       commandBuffer10 = [(PTMetalContext *)self->_metalContext commandBuffer];
       faceDetectionsRaw = [(PTHumanDetections *)self->_humanDetections faceDetectionsRaw];
       focusDisparityMax = self->_focusDisparityMax;
       disparityFiltered = [(PTEffectTemporalFilter *)self->_temporalFilter disparityFiltered];
-      *&v96 = focusDisparityMax;
-      [effectUtil sampleFaceRects:commandBuffer10 maxFaceRects:4 faceRects:faceDetectionsRaw faceRectsState:v90 focusDisparityMax:disparityFiltered inDisparity:self->_faceDisparityArray outFaceDistanceArray:v96];
+      *&v102 = focusDisparityMax;
+      [effectUtil sampleFaceRects:commandBuffer10 maxFaceRects:4 faceRects:faceDetectionsRaw faceRectsState:v96 focusDisparityMax:disparityFiltered inDisparity:self->_faceDisparityArray outFaceDistanceArray:v102];
 
       effectUtil2 = [(PTEffectResources *)self->_sharedResources effectUtil];
       commandBuffer11 = [(PTMetalContext *)self->_metalContext commandBuffer];
       detectionsRawCount = [(PTHumanDetections *)self->_humanDetections detectionsRawCount];
       focusDisparityUpdateCoefficientSDOF = self->_focusDisparityUpdateCoefficientSDOF;
       focusDisparityUpdateCoefficientStudioLight = self->_focusDisparityUpdateCoefficientStudioLight;
-      v102 = self->_networkFrameIndex == 0;
+      v108 = self->_networkFrameIndex == 0;
       emitNewReaction = [(PTVFXRenderEffect *)self->_vfxEffect emitNewReaction];
       focusOnAll = [renderCopy focusOnAll];
-      *&v105 = self->_disparityFocusOffsetSDOF.disparityOffsetFactor;
-      *&v106 = self->_disparityFocusOffsetSDOF.offsetInMeters;
-      *&v107 = self->_disparityFocusOffsetReactions.disparityOffsetFactor;
-      *&v108 = self->_disparityFocusOffsetReactions.offsetInMeters;
-      *&v109 = self->_disparityFocusOffsetStudioLight.disparityOffsetFactor;
-      *&v110 = self->_disparityFocusOffsetStudioLight.offsetInMeters;
-      *&v111 = focusDisparityUpdateCoefficientSDOF;
-      *&v112 = focusDisparityUpdateCoefficientStudioLight;
-      [effectUtil2 updateFocusObject:commandBuffer11 faceRectCount:detectionsRawCount disparityFocusOffsetSDOF:v90 disparityFocusOffsetReactions:v102 disparityFocusOffsetStudioLight:emitNewReaction exponentialMovingAverageSDOF:focusOnAll exponentialMovingAverageStudioLight:v105 faceRectsState:v106 isFirstFrame:v107 emitNewReaction:v108 focusOnAll:v109 lastFocus:v110 inFaceDisparityArray:v111 outDisparityModifiers:v112 outDisparityFocus:self->_lastFocus outStudioLightEffectModifier:self->_faceDisparityArray outUseDisparityBufferForReactions:{self->_focusDisparityModifiers, self->_focusDisparityRaw, self->_studioLightEffectModifier, self->_useDisparityBufferForReactions}];
+      *&v111 = self->_disparityFocusOffsetSDOF.disparityOffsetFactor;
+      *&v112 = self->_disparityFocusOffsetSDOF.offsetInMeters;
+      *&v113 = self->_disparityFocusOffsetReactions.disparityOffsetFactor;
+      *&v114 = self->_disparityFocusOffsetReactions.offsetInMeters;
+      *&v115 = self->_disparityFocusOffsetStudioLight.disparityOffsetFactor;
+      *&v116 = self->_disparityFocusOffsetStudioLight.offsetInMeters;
+      *&v117 = focusDisparityUpdateCoefficientSDOF;
+      *&v118 = focusDisparityUpdateCoefficientStudioLight;
+      [effectUtil2 updateFocusObject:commandBuffer11 faceRectCount:detectionsRawCount disparityFocusOffsetSDOF:v96 disparityFocusOffsetReactions:v108 disparityFocusOffsetStudioLight:emitNewReaction exponentialMovingAverageSDOF:focusOnAll exponentialMovingAverageStudioLight:v111 faceRectsState:v112 isFirstFrame:v113 emitNewReaction:v114 focusOnAll:v115 lastFocus:v116 inFaceDisparityArray:v117 outDisparityModifiers:v118 outDisparityFocus:self->_lastFocus outStudioLightEffectModifier:self->_faceDisparityArray outUseDisparityBufferForReactions:{self->_focusDisparityModifiers, self->_focusDisparityRaw, self->_studioLightEffectModifier, self->_useDisparityBufferForReactions}];
 
-      v80 = v203;
-      v51 = v204;
-      v58 = v205;
+      v85 = v213;
+      v53 = v214;
+      v61 = v215;
     }
 
-    v113 = v58 | v201 & ~v190;
+    v119 = v61 | v211 & ~v200;
     diffuseFiltered = [(PTEffectTemporalFilter *)self->_temporalFilter diffuseFiltered];
-    if (v51)
+    if (v53)
     {
-      if (self->_studiolightFromSegmentation && v208)
+      if (self->_studiolightFromSegmentation && v218)
       {
-        v115 = [(PTEffectRelighting *)self->_effectRelighting approximateDiffuseFromSegmentation:v200];
+        v121 = [(PTEffectRelighting *)self->_effectRelighting approximateDiffuseFromSegmentation:v210];
         backgroundReplacement = self->_backgroundReplacement;
-        if (backgroundReplacement && (v188 & 0xFFFFFFFFFFFFFFFELL) == 2)
+        if (backgroundReplacement && (v198 & 0xFFFFFFFFFFFFFFFELL) == 2)
         {
           [(PTBackgroundReplacement *)backgroundReplacement transitionTimeNormalized:renderCopy];
-          if (v188 == 3)
+          if (v198 == 3)
           {
-            v118 = 1.0 - v117;
+            v124 = 1.0 - v123;
           }
 
           else
           {
-            v118 = v117;
+            v124 = v123;
           }
 
           textureUtil = [(PTMetalContext *)self->_metalContext textureUtil];
           commandBuffer12 = [(PTMetalContext *)self->_metalContext commandBuffer];
-          *&v121 = v118;
-          [textureUtil mix:commandBuffer12 inTexX:diffuseFiltered inTexY:v115 outTex:v115 alpha:v121];
+          *&v127 = v124;
+          [textureUtil mix:commandBuffer12 inTexX:diffuseFiltered inTexY:v121 outTex:v121 alpha:v127];
         }
 
-        v122 = v115;
+        v128 = v121;
 
-        diffuseFiltered = v122;
+        diffuseFiltered = v128;
       }
 
       [(PTMetalContext *)self->_metalContext commit];
-      [(PTEffectRelighting *)self->_effectRelighting estimateLightIntensity:v206 inFaceRects:[(PTHumanDetections *)self->_humanDetections faceDetectionsRaw] numberOfFaceRects:[(PTHumanDetections *)self->_humanDetections detectionsRawCount] humanDetections:self->_humanDetections effectRenderRequest:renderCopy asyncWork:v202];
+      [(PTEffectRelighting *)self->_effectRelighting estimateLightIntensity:v216 inFaceRects:[(PTHumanDetections *)self->_humanDetections faceDetectionsRaw] numberOfFaceRects:[(PTHumanDetections *)self->_humanDetections detectionsRawCount] humanDetections:self->_humanDetections effectRenderRequest:renderCopy asyncWork:v212];
       commandBuffer13 = [(PTMetalContext *)self->_metalContext commandBuffer];
 
       if (!commandBuffer13)
       {
-        v124 = _PTLogSystem();
-        if (os_log_type_enabled(v124, OS_LOG_TYPE_ERROR))
+        v131 = _PTLogSystem(v130);
+        if (os_log_type_enabled(v131, OS_LOG_TYPE_ERROR))
         {
           [PTEffectPersonSegmentation runPersonSegmentationToOutPersonSegmentationMatteBuffer:inColor:transform:inSegmentationRGBA:inSegmentationRGBATexture:outUpscaledSegmentation:];
         }
@@ -1632,8 +1636,8 @@ LABEL_141:
 
       [(PTHumanDetections *)self->_humanDetections detectionsRawCount];
       effectRelighting = self->_effectRelighting;
-      v127 = [v49 objectAtIndexedSubscript:0];
-      if (v209)
+      v134 = [v51 objectAtIndexedSubscript:0];
+      if (v219)
       {
         disparityFiltered2 = [(PTEffectTemporalFilter *)self->_temporalFilter disparityFiltered];
       }
@@ -1644,31 +1648,31 @@ LABEL_141:
       }
 
       focusDisparityModifiers = self->_focusDisparityModifiers;
-      v130 = [v49 objectAtIndexedSubscript:1];
+      v137 = [v51 objectAtIndexedSubscript:1];
       [renderCopy relightStrengthStudioLight];
-      [PTEffectRelighting studioLightInColor:"studioLightInColor:inDiffuse:inDisparity:inFocusDisparityModifier:outColor:relightStrength:studioLightFromSegmentationBlend:studioLightEffectModifier:" inDiffuse:v127 inDisparity:diffuseFiltered inFocusDisparityModifier:disparityFiltered2 outColor:focusDisparityModifiers relightStrength:v130 studioLightFromSegmentationBlend:self->_studioLightEffectModifier studioLightEffectModifier:?];
+      [PTEffectRelighting studioLightInColor:"studioLightInColor:inDiffuse:inDisparity:inFocusDisparityModifier:outColor:relightStrength:studioLightFromSegmentationBlend:studioLightEffectModifier:" inDiffuse:v134 inDisparity:diffuseFiltered inFocusDisparityModifier:disparityFiltered2 outColor:focusDisparityModifiers relightStrength:v137 studioLightFromSegmentationBlend:self->_studioLightEffectModifier studioLightEffectModifier:?];
 
-      if (v209)
+      if (v219)
       {
       }
 
-      [v49 removeObjectAtIndex:0];
-      v80 = v203;
-      v58 = v205;
+      [v51 removeObjectAtIndex:0];
+      v85 = v213;
+      v61 = v215;
     }
 
-    v131 = v113 & v209;
-    if (v58)
+    v138 = v119 & v219;
+    if (v61)
     {
       colorPyramid = self->_colorPyramid;
       commandBuffer15 = [(PTMetalContext *)self->_metalContext commandBuffer];
-      v134 = [v49 objectAtIndexedSubscript:0];
-      [(PTPyramid *)colorPyramid updatePyramid:commandBuffer15 inPTTexture:v134];
+      v141 = [v51 objectAtIndexedSubscript:0];
+      [(PTPyramid *)colorPyramid updatePyramid:commandBuffer15 inPTTexture:v141];
 
-      if (!v131)
+      if (!v138)
       {
 LABEL_168:
-        if (!v58)
+        if (!v61)
         {
           goto LABEL_187;
         }
@@ -1677,12 +1681,12 @@ LABEL_168:
       }
     }
 
-    else if (!v131)
+    else if (!v138)
     {
       goto LABEL_168;
     }
 
-    if (v201)
+    if (v211)
     {
       disparityCenteredUpscaledReactions = self->_disparityCenteredUpscaledReactions;
     }
@@ -1692,43 +1696,43 @@ LABEL_168:
       disparityCenteredUpscaledReactions = 0;
     }
 
-    v136 = [MEMORY[0x277CBEA60] arrayWithObjects:{self->_disparityCenteredUpscaledSDOF, disparityCenteredUpscaledReactions, 0}];
+    v143 = [MEMORY[0x277CBEA60] arrayWithObjects:{self->_disparityCenteredUpscaledSDOF, disparityCenteredUpscaledReactions, 0}];
     guidedFilter = self->_guidedFilter;
     commandBuffer16 = [(PTMetalContext *)self->_metalContext commandBuffer];
     disparityFiltered3 = [(PTEffectTemporalFilter *)self->_temporalFilter disparityFiltered];
-    v140 = [(PTGuidedFilter *)guidedFilter guidedFilter:commandBuffer16 image:disparityFiltered3 guideRGBACoefficients:self->_guideRGBACoefficients guideRGBAUpscale:self->_guideRGBAUpscale upscaledImageArray:v136 sourceColorBitDepth:8 postModifierBuffer:self->_focusDisparityModifiers]| v207;
+    v147 = [(PTGuidedFilter *)guidedFilter guidedFilter:commandBuffer16 image:disparityFiltered3 guideRGBACoefficients:self->_guideRGBACoefficients guideRGBAUpscale:self->_guideRGBAUpscale upscaledImageArray:v143 sourceColorBitDepth:8 postModifierBuffer:self->_focusDisparityModifiers]| v217;
 
-    v207 = v140;
-    v80 = v203;
-    if (v140)
+    v217 = v147;
+    v85 = v213;
+    if (v147)
     {
-      v141 = _PTLogSystem();
-      if (os_log_type_enabled(v141, OS_LOG_TYPE_ERROR))
+      v149 = _PTLogSystem(v148);
+      if (os_log_type_enabled(v149, OS_LOG_TYPE_ERROR))
       {
         [PTEffectRenderer render:waitUntilCompleted:gpuCompleted:];
       }
     }
 
-    if (!v58)
+    if (!v61)
     {
 LABEL_187:
-      if (v208)
+      if (v218)
       {
-        v168 = self->_backgroundReplacement;
+        v177 = self->_backgroundReplacement;
         commandBuffer17 = [(PTMetalContext *)self->_metalContext commandBuffer];
-        v170 = [v49 objectAtIndexedSubscript:0];
-        v171 = self->_colorPyramid;
-        v172 = [v49 objectAtIndexedSubscript:1];
-        LODWORD(v187) = self->_frameIndex;
-        v173 = v171;
-        v80 = v203;
-        [(PTBackgroundReplacement *)v168 replaceBackground:commandBuffer17 inColor:v170 inColorPyramid:v173 inSegmentation:v200 effectRenderRequest:renderCopy outColor:v172 frameIndex:v187];
+        v179 = [v51 objectAtIndexedSubscript:0];
+        v180 = self->_colorPyramid;
+        v181 = [v51 objectAtIndexedSubscript:1];
+        LODWORD(v197) = self->_frameIndex;
+        v182 = v180;
+        v85 = v213;
+        [(PTBackgroundReplacement *)v177 replaceBackground:commandBuffer17 inColor:v179 inColorPyramid:v182 inSegmentation:v210 effectRenderRequest:renderCopy outColor:v181 frameIndex:v197];
 
-        [v49 removeObjectAtIndex:0];
+        [v51 removeObjectAtIndex:0];
       }
 
       [renderCopy setOutColorBufferWriteSkipped:0];
-      if (!v192)
+      if (!v202)
       {
         goto LABEL_197;
       }
@@ -1752,32 +1756,32 @@ LABEL_187:
         }
       }
 
-      [(PTEffectRenderer *)self copyInColor:v206 toOutColor:v197];
+      [(PTEffectRenderer *)self copyInColor:v216 toOutColor:v207];
 LABEL_197:
-      if (((v191 | !v201) & 1) == 0)
+      if (((v201 | !v211) & 1) == 0)
       {
         commandBuffer18 = [(PTMetalContext *)self->_metalContext commandBuffer];
-        v207 |= [(PTEffectRenderer *)self renderReaction:commandBuffer18 effectRenderRequest:renderCopy];
+        v217 |= [(PTEffectRenderer *)self renderReaction:commandBuffer18 effectRenderRequest:renderCopy];
       }
 
       asyncProcessingQueue = [(PTEffectDescriptor *)self->_effectDescriptor asyncProcessingQueue];
       commandBuffer19 = [(PTMetalContext *)self->_metalContext commandBuffer];
-      v212[0] = MEMORY[0x277D85DD0];
-      v212[1] = 3221225472;
-      v212[2] = __59__PTEffectRenderer_render_waitUntilCompleted_gpuCompleted___block_invoke;
-      v212[3] = &unk_278523760;
-      v213 = v202;
-      v179 = asyncProcessingQueue;
-      v214 = v179;
-      [commandBuffer19 addScheduledHandler:v212];
+      v222[0] = MEMORY[0x277D85DD0];
+      v222[1] = 3221225472;
+      v222[2] = __59__PTEffectRenderer_render_waitUntilCompleted_gpuCompleted___block_invoke;
+      v222[3] = &unk_278523760;
+      v223 = v212;
+      v188 = asyncProcessingQueue;
+      v224 = v188;
+      [commandBuffer19 addScheduledHandler:v222];
 
       commandBuffer20 = [(PTMetalContext *)self->_metalContext commandBuffer];
-      v210[0] = MEMORY[0x277D85DD0];
-      v210[1] = 3221225472;
-      v210[2] = __59__PTEffectRenderer_render_waitUntilCompleted_gpuCompleted___block_invoke_2;
-      v210[3] = &unk_278523788;
-      v211 = gpuCompletedCopy;
-      [commandBuffer20 addCompletedHandler:v210];
+      v220[0] = MEMORY[0x277D85DD0];
+      v220[1] = 3221225472;
+      v220[2] = __59__PTEffectRenderer_render_waitUntilCompleted_gpuCompleted___block_invoke_2;
+      v220[3] = &unk_278523788;
+      v221 = gpuCompletedCopy;
+      [commandBuffer20 addCompletedHandler:v220];
 
       metalContext = self->_metalContext;
       if (completedCopy)
@@ -1790,47 +1794,47 @@ LABEL_197:
         [(PTMetalContext *)metalContext commitAndWaitUntilScheduled];
       }
 
-      if (v209)
+      if (v219)
       {
         ++self->_networkFrameIndex;
       }
 
       [renderCopy frameTimeSeconds];
-      self->_lastFrameTime = v182;
+      self->_lastFrameTime = v191;
 
-      v183 = 1;
+      v192 = 1;
       goto LABEL_205;
     }
 
 LABEL_179:
-    v142 = [v49 objectAtIndexedSubscript:0];
-    [(PTRenderRequest *)self->_sdofRenderRequest setSourceColor:v142];
+    v150 = [v51 objectAtIndexedSubscript:0];
+    [(PTRenderRequest *)self->_sdofRenderRequest setSourceColor:v150];
 
-    v143 = [v49 objectAtIndexedSubscript:1];
-    [(PTRenderRequest *)self->_sdofRenderRequest setDestinationColor:v143];
+    v151 = [v51 objectAtIndexedSubscript:1];
+    [(PTRenderRequest *)self->_sdofRenderRequest setDestinationColor:v151];
 
-    LODWORD(v144) = v21;
-    [(PTRenderRequest *)self->_sdofRenderRequest setFNumber:v144];
-    if ((v80 & 4) != 0)
+    LODWORD(v152) = v22;
+    [(PTRenderRequest *)self->_sdofRenderRequest setFNumber:v152];
+    if ((v85 & 4) != 0)
     {
       effectUtil3 = [(PTEffectResources *)self->_sharedResources effectUtil];
       commandBuffer21 = [(PTMetalContext *)self->_metalContext commandBuffer];
       [renderCopy inScreenCaptureRect];
-      v148 = v147;
-      v150 = v149;
-      v152 = v151;
-      v154 = v153;
+      v156 = v155;
+      v158 = v157;
+      v160 = v159;
+      v162 = v161;
       p_disparityCenteredUpscaledWithScreenCaptureRect = &self->_disparityCenteredUpscaledWithScreenCaptureRect;
       disparityCenteredUpscaledWithScreenCaptureRect = self->_disparityCenteredUpscaledWithScreenCaptureRect;
       disparityCenteredUpscaledSDOF = self->_disparityCenteredUpscaledSDOF;
       [(PTRenderRequest *)self->_sdofRenderRequest focalLenIn35mmFilm];
-      v159 = v158;
+      v167 = v166;
       [(PTRenderRequest *)self->_sdofRenderRequest fNumber];
-      LODWORD(v161) = v160;
-      v162 = disparityCenteredUpscaledSDOF;
-      v80 = v203;
-      LODWORD(v163) = v159;
-      [effectUtil3 updateDisparity:commandBuffer21 inScreenCaptureRect:v162 inDisparity:disparityCenteredUpscaledWithScreenCaptureRect outDisparity:v148 focalLenIn35mmFilm:v150 fNumber:{v152, v154, v163, v161}];
+      LODWORD(v169) = v168;
+      v170 = disparityCenteredUpscaledSDOF;
+      v85 = v213;
+      LODWORD(v171) = v167;
+      [effectUtil3 updateDisparity:commandBuffer21 inScreenCaptureRect:v170 inDisparity:disparityCenteredUpscaledWithScreenCaptureRect outDisparity:v156 focalLenIn35mmFilm:v158 fNumber:{v160, v162, v171, v169}];
     }
 
     else
@@ -1841,68 +1845,69 @@ LABEL_179:
     [(PTRenderRequest *)self->_sdofRenderRequest setSourceDisparity:*p_disparityCenteredUpscaledWithScreenCaptureRect];
     renderPipeline = self->_renderPipeline;
     commandBuffer22 = [(PTMetalContext *)self->_metalContext commandBuffer];
-    v166 = [(PTRenderPipeline *)renderPipeline encodeRenderTo:commandBuffer22 withRenderRequest:self->_sdofRenderRequest]| v207;
+    v174 = [(PTRenderPipeline *)renderPipeline encodeRenderTo:commandBuffer22 withRenderRequest:self->_sdofRenderRequest]| v217;
 
-    v207 = v166;
-    if (v166)
+    v217 = v174;
+    if (v174)
     {
-      v167 = _PTLogSystem();
-      if (os_log_type_enabled(v167, OS_LOG_TYPE_ERROR))
+      v176 = _PTLogSystem(v175);
+      if (os_log_type_enabled(v176, OS_LOG_TYPE_ERROR))
       {
         [PTEffectRenderer render:waitUntilCompleted:gpuCompleted:];
       }
     }
 
-    [v49 removeObjectAtIndex:0];
+    [v51 removeObjectAtIndex:0];
     goto LABEL_187;
   }
 
   upscaledPersonSegmentation = self->_upscaledPersonSegmentation;
   if (upscaledPersonSegmentation)
   {
-    v200 = upscaledPersonSegmentation;
+    v210 = upscaledPersonSegmentation;
     goto LABEL_133;
   }
 
-  v200 = _PTLogSystem();
-  if (os_log_type_enabled(v200, OS_LOG_TYPE_ERROR))
+  v210 = _PTLogSystem(0);
+  if (os_log_type_enabled(v210, OS_LOG_TYPE_ERROR))
   {
     [PTEffectRenderer render:waitUntilCompleted:gpuCompleted:];
   }
 
-  v183 = 0;
-  v80 = v203;
+  v192 = 0;
+  v85 = v213;
 LABEL_205:
 
   objc_autoreleasePoolPop(context);
-  if (v183)
+  if (v192)
   {
-    if ([(PTMetalContext *)self->_metalContext isCommandBufferCommitted])
+    isCommandBufferCommitted2 = [(PTMetalContext *)self->_metalContext isCommandBufferCommitted];
+    if (isCommandBufferCommitted2)
     {
-      v184 = v207;
+      v194 = v217;
     }
 
     else
     {
-      v185 = _PTLogSystem();
-      if (os_log_type_enabled(v185, OS_LOG_TYPE_ERROR))
+      v195 = _PTLogSystem(isCommandBufferCommitted2);
+      if (os_log_type_enabled(v195, OS_LOG_TYPE_ERROR))
       {
         [PTEffect render:];
       }
 
-      v184 = v207 | 0xFFFFFFF7;
+      v194 = v217 | 0xFFFFFFF7;
     }
 
     ++self->_frameIndex;
-    self->_lastEffectType = v80;
+    self->_lastEffectType = v85;
   }
 
   else
   {
-    v184 = -10;
+    v194 = -10;
   }
 
-  return v184;
+  return v194;
 }
 
 void __59__PTEffectRenderer_render_waitUntilCompleted_gpuCompleted___block_invoke(uint64_t a1)
@@ -1949,8 +1954,8 @@ void __59__PTEffectRenderer_render_waitUntilCompleted_gpuCompleted___block_invok
 
   if (!commandBuffer)
   {
-    v10 = _PTLogSystem();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = _PTLogSystem(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [PTEffectPersonSegmentation runPersonSegmentationToOutPersonSegmentationMatteBuffer:inColor:transform:inSegmentationRGBA:inSegmentationRGBATexture:outUpscaledSegmentation:];
     }
@@ -2060,7 +2065,7 @@ LABEL_8:
 
 - (int)runGestureDetection:(id)detection asyncWork:(id)work
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   detectionCopy = detection;
   workCopy = work;
   detectedObjects = [detectionCopy detectedObjects];
@@ -2083,8 +2088,8 @@ LABEL_8:
   {
     if (self->_externalHandDetectionsAvailable && !v13)
     {
-      v22 = _PTLogSystem();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v24 = _PTLogSystem(v16);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         [PTEffectRenderer runGestureDetection:asyncWork:];
       }
@@ -2094,136 +2099,135 @@ LABEL_8:
   else
   {
     self->_externalHandDetectionsAvailable = v13 != 0;
-    v16 = _PTLogSystem();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+    v17 = _PTLogSystem(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       if (self->_externalHandDetectionsAvailable)
       {
-        v17 = @"YES";
+        v18 = @"YES";
       }
 
       else
       {
-        v17 = @"NO";
+        v18 = @"NO";
       }
 
       *buf = 138412290;
-      *&buf[4] = v17;
-      _os_log_impl(&dword_2243FB000, v16, OS_LOG_TYPE_INFO, "External hand detections available: %@", buf, 0xCu);
+      *&buf[4] = v18;
+      _os_log_impl(&dword_2243FB000, v17, OS_LOG_TYPE_INFO, "External hand detections available: %@", buf, 0xCu);
     }
 
-    v18 = [[PTEffectReactionProvider alloc] initWithEffectDescriptor:self->_effectDescriptor sharedResources:self->_sharedResources externalHandDetectionsEnabled:self->_externalHandDetectionsAvailable];
+    v19 = [[PTEffectReactionProvider alloc] initWithEffectDescriptor:self->_effectDescriptor sharedResources:self->_sharedResources externalHandDetectionsEnabled:self->_externalHandDetectionsAvailable];
     reactionProvider = self->_reactionProvider;
-    self->_reactionProvider = v18;
+    self->_reactionProvider = v19;
 
-    v20 = self->_reactionProvider;
-    if (!v20)
+    v22 = self->_reactionProvider;
+    if (!v22)
     {
-      v21 = _PTLogSystem();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v23 = _PTLogSystem(v21);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         [PTEffectRenderer runGestureDetection:asyncWork:];
       }
 
-      v20 = self->_reactionProvider;
+      v22 = self->_reactionProvider;
     }
 
-    [(PTEffectDebugLayer *)self->_debugLayer setReactionProvider:v20];
+    [(PTEffectDebugLayer *)self->_debugLayer setReactionProvider:v22];
   }
 
   if (self->_reactionProvider)
   {
-    v23 = objc_alloc(MEMORY[0x277CBEB18]);
+    v25 = objc_alloc(MEMORY[0x277CBEB18]);
     reactions = [detectionCopy reactions];
-    v51 = [v23 initWithArray:reactions];
+    v53 = [v25 initWithArray:reactions];
 
     [detectionCopy frameTimeSeconds];
-    v26 = (v25 * 100000.0);
+    v28 = (v27 * 100000.0);
     if (detectionCopy)
     {
-      [detectionCopy transform];
+      objc_msgSend_transform(detectionCopy);
     }
 
     else
     {
-      v58 = 0u;
+      v60 = 0u;
       memset(buf, 0, sizeof(buf));
     }
 
-    v27 = [PTUtil getRotationDegreesFromAffineTransform:buf];
-    v28 = self->_reactionProvider;
+    v29 = [PTUtil getRotationDegreesFromAffineTransform:buf];
+    v30 = self->_reactionProvider;
     inColorBuffer = [detectionCopy inColorBuffer];
-    *buf = v26;
+    *buf = v28;
     *&buf[8] = 0x1000186A0;
     *&buf[16] = 0;
-    [(PTEffectReactionProvider *)v28 updateWithFrame:inColorBuffer withTimeStamp:buf withRotationDegrees:v27 withDetectedHands:v13 withDetectedFaces:v15 asyncWork:workCopy];
+    [(PTEffectReactionProvider *)v30 updateWithFrame:inColorBuffer withTimeStamp:buf withRotationDegrees:v29 withDetectedHands:v13 withDetectedFaces:v15 asyncWork:workCopy];
     latestReactions = [(PTEffectReactionProvider *)self->_reactionProvider latestReactions];
-    v31 = latestReactions;
+    v33 = latestReactions;
     if (latestReactions && [latestReactions count])
     {
-      v46 = v15;
-      v47 = v13;
-      v48 = v10;
-      v49 = detectedObjects;
-      v50 = workCopy;
+      v48 = v15;
+      v49 = v13;
+      v50 = v10;
+      v51 = detectedObjects;
+      v52 = workCopy;
+      v56 = 0u;
+      v57 = 0u;
       v54 = 0u;
       v55 = 0u;
-      v52 = 0u;
-      v53 = 0u;
-      v45 = v31;
-      v32 = v31;
-      v33 = [v32 countByEnumeratingWithState:&v52 objects:v56 count:16];
-      if (v33)
+      v47 = v33;
+      v34 = v33;
+      v35 = [v34 countByEnumeratingWithState:&v54 objects:v58 count:16];
+      if (v35)
       {
-        v34 = v33;
-        v35 = *v53;
+        v36 = v35;
+        v37 = *v55;
         do
         {
-          for (i = 0; i != v34; ++i)
+          for (i = 0; i != v36; ++i)
           {
-            if (*v53 != v35)
+            if (*v55 != v37)
             {
-              objc_enumerationMutation(v32);
+              objc_enumerationMutation(v34);
             }
 
-            v37 = *(*(&v52 + 1) + 8 * i);
-            [v37 startTimeSeconds];
-            if (v38 < 0.0)
+            v39 = *(*(&v54 + 1) + 8 * i);
+            [v39 startTimeSeconds];
+            if (v40 < 0.0)
             {
               [detectionCopy frameTimeSeconds];
-              [v37 setStartTimeSeconds:?];
-              v39 = _PTLogSystem();
-              if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
+              v41 = _PTLogSystem([v39 setStartTimeSeconds:?]);
+              if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
               {
-                triggerID = [v37 triggerID];
-                emoji = [v37 emoji];
+                triggerID = [v39 triggerID];
+                emoji = [v39 emoji];
                 *buf = 134218242;
                 *&buf[4] = triggerID;
                 *&buf[12] = 2112;
                 *&buf[14] = emoji;
-                _os_log_debug_impl(&dword_2243FB000, v39, OS_LOG_TYPE_DEBUG, "PTEffect: Detected reaction with ID %li, type %@", buf, 0x16u);
+                _os_log_debug_impl(&dword_2243FB000, v41, OS_LOG_TYPE_DEBUG, "PTEffect: Detected reaction with ID %li, type %@", buf, 0x16u);
               }
             }
           }
 
-          v34 = [v32 countByEnumeratingWithState:&v52 objects:v56 count:16];
+          v36 = [v34 countByEnumeratingWithState:&v54 objects:v58 count:16];
         }
 
-        while (v34);
+        while (v36);
       }
 
-      [v51 addObjectsFromArray:v32];
-      detectedObjects = v49;
-      workCopy = v50;
-      v13 = v47;
-      v10 = v48;
-      v31 = v45;
-      v15 = v46;
+      [v53 addObjectsFromArray:v34];
+      detectedObjects = v51;
+      workCopy = v52;
+      v13 = v49;
+      v10 = v50;
+      v33 = v47;
+      v15 = v48;
     }
 
-    v42 = [v51 copy];
+    v44 = [v53 copy];
     reactionsToRender = self->_reactionsToRender;
-    self->_reactionsToRender = v42;
+    self->_reactionsToRender = v44;
 
     if (([detectionCopy suppressGestureTriggeredReactions] & 1) == 0)
     {
@@ -2249,11 +2253,11 @@ LABEL_8:
     [(PTVFXRenderEffect *)self->_vfxEffect depthNearFar];
     v12 = v11;
     reverseZ = [(PTVFXRenderEffect *)self->_vfxEffect reverseZ];
-    [requestCopy outColorROI];
-    if (v14 <= 0.0 || ([requestCopy outColorROI], v15 <= 0.0))
+    outColorROI = [requestCopy outColorROI];
+    if (v15 <= 0.0 || (outColorROI = [requestCopy outColorROI], v16 <= 0.0))
     {
-      v18 = _PTLogSystem();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v19 = _PTLogSystem(outColorROI);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         [PTEffectRenderer renderReaction:effectRenderRequest:];
       }
@@ -2266,68 +2270,68 @@ LABEL_8:
       if ([requestCopy outPersonSegmentationMatteBuffer])
       {
         outPersonSegmentationMatteBuffer = [requestCopy outPersonSegmentationMatteBuffer];
-        device = [(PTMetalContext *)self->_metalContext device];
-        v18 = [PTPixelBufferUtil createTextureFromPixelBuffer:outPersonSegmentationMatteBuffer device:device textureCache:self->_textureCache sRGB:0];
+        v18 = objc_msgSend_device(self->_metalContext);
+        v19 = [PTPixelBufferUtil createTextureFromPixelBuffer:outPersonSegmentationMatteBuffer device:v18 textureCache:self->_textureCache sRGB:0];
       }
 
       else if (v8)
       {
-        v18 = self->_upscaledPersonSegmentation;
+        v19 = self->_upscaledPersonSegmentation;
       }
 
       else
       {
-        v18 = 0;
+        v19 = 0;
       }
 
       [requestCopy outColorROI];
-      v20 = v19;
-      v22 = v21;
-      v24 = v23;
-      v26 = v25;
-      LOWORD(v47) = CVPixelBufferGetWidth([requestCopy outColorBuffer]);
-      HIWORD(v47) = CVPixelBufferGetHeight([requestCopy outColorBuffer]);
-      [PTEffectUtil computeRectInPixelCoordinates:v47 pixelBufferSize:131074 alignment:v20, v22, v24, v26];
-      v46 = v27;
-      v29 = v28;
-      if ([(MTLTexture *)self->_vfxRenderTarget width]!= v28 || [(MTLTexture *)self->_vfxRenderTarget height]!= v46)
+      v21 = v20;
+      v23 = v22;
+      v25 = v24;
+      v27 = v26;
+      LOWORD(v48) = CVPixelBufferGetWidth([requestCopy outColorBuffer]);
+      HIWORD(v48) = CVPixelBufferGetHeight([requestCopy outColorBuffer]);
+      [PTEffectUtil computeRectInPixelCoordinates:v48 pixelBufferSize:131074 alignment:v21, v23, v25, v27];
+      v47 = v28;
+      v30 = v29;
+      if ([(MTLTexture *)self->_vfxRenderTarget width]!= v29 || [(MTLTexture *)self->_vfxRenderTarget height]!= v47)
       {
-        valuePtr[0] = v29;
-        valuePtr[1] = v46;
+        valuePtr[0] = v30;
+        valuePtr[1] = v47;
         valuePtr[2] = 1;
         [(PTEffectRenderer *)self createVfxTextures:valuePtr];
       }
 
       depthConverter = self->_depthConverter;
-      if (v18)
+      if (v19)
       {
         inBilbyAlphaMaskTexture = [requestCopy inBilbyAlphaMaskTexture];
         vfxDepthBuffer = self->_vfxDepthBuffer;
         [requestCopy reactionsCombinedCropRect];
-        LODWORD(v33) = 0.75;
-        [(PTDepthConverter *)depthConverter segmentationToDepth:reactionCopy inSegmentation:v18 inAlphaMask:inBilbyAlphaMaskTexture outDepth:vfxDepthBuffer depthNearFar:reverseZ segmentationDepthNearFar:v12 reverseZ:5.27765665e13 threshold:v33 cropRect:v34];
+        LODWORD(v34) = 0.75;
+        [(PTDepthConverter *)depthConverter segmentationToDepth:reactionCopy inSegmentation:v19 inAlphaMask:inBilbyAlphaMaskTexture outDepth:vfxDepthBuffer depthNearFar:reverseZ segmentationDepthNearFar:v12 reverseZ:5.27765665e13 threshold:v34 cropRect:v35];
       }
 
       else
       {
         disparityCenteredUpscaledReactions = self->_disparityCenteredUpscaledReactions;
-        v36 = self->_vfxDepthBuffer;
+        v37 = self->_vfxDepthBuffer;
         useDisparityBufferForReactions = self->_useDisparityBufferForReactions;
         [requestCopy reactionsCombinedCropRect];
-        [(PTDepthConverter *)depthConverter thresholdedDisparityToDepth:reactionCopy inBaseDisparity:disparityCenteredUpscaledReactions outDepth:v36 depthNearFar:reverseZ segmentationDepthNearFar:useDisparityBufferForReactions disparityThresholdNearFar:v12 reverseZ:5.27765665e13 useDisparityBuffer:-5.2386921e-11 cropRect:v38];
+        [(PTDepthConverter *)depthConverter thresholdedDisparityToDepth:reactionCopy inBaseDisparity:disparityCenteredUpscaledReactions outDepth:v37 depthNearFar:reverseZ segmentationDepthNearFar:useDisparityBufferForReactions disparityThresholdNearFar:v12 reverseZ:5.27765665e13 useDisparityBuffer:-5.2386921e-11 cropRect:v39];
       }
 
-      v39 = self->_vfxDepthBuffer;
+      v40 = self->_vfxDepthBuffer;
       vfxRenderTarget = self->_vfxRenderTarget;
-      v40 = self->_disparityCenteredUpscaledReactions;
+      v41 = self->_disparityCenteredUpscaledReactions;
       vfxEffect = self->_vfxEffect;
       disparityFiltered = [(PTEffectTemporalFilter *)self->_temporalFilter disparityFiltered];
-      LODWORD(vfxRenderTarget) = [(PTVFXRenderEffect *)vfxEffect renderWithBackgroundDimming:reactionCopy effectRGBA:vfxRenderTarget inCenteredDisparity:v40 inSegmentation:v18 effectDepth:v39 disparityFiltered:disparityFiltered focusDisparityModifiers:self->_focusDisparityModifiers renderRequest:requestCopy debugType:self->_debugType];
+      LODWORD(vfxRenderTarget) = [(PTVFXRenderEffect *)vfxEffect renderWithBackgroundDimming:reactionCopy effectRGBA:vfxRenderTarget inCenteredDisparity:v41 inSegmentation:v19 effectDepth:v40 disparityFiltered:disparityFiltered focusDisparityModifiers:self->_focusDisparityModifiers renderRequest:requestCopy debugType:self->_debugType];
 
       LODWORD(valuePtr[0]) = [(PTVFXRenderEffect *)self->_vfxEffect maxReactionEffectComplexity];
       outColorBuffer = [requestCopy outColorBuffer];
-      v44 = CFNumberCreate(0, kCFNumberIntType, valuePtr);
-      CMSetAttachment(outColorBuffer, @"ReactionEffectComplexity", v44, 1u);
+      v45 = CFNumberCreate(0, kCFNumberIntType, valuePtr);
+      CMSetAttachment(outColorBuffer, @"ReactionEffectComplexity", v45, 1u);
     }
   }
 
@@ -2370,22 +2374,22 @@ LABEL_8:
 - (void)initWithDescriptor:(void *)a1 metalContext:depthPrioritization:humanDetections:prevTemporalState:sharedResources:.cold.3(void *a1)
 {
   [a1 floatValue];
-  OUTLINED_FUNCTION_3_7(v1);
-  OUTLINED_FUNCTION_0_6(&dword_2243FB000, v2, v3, "defaults write com.apple.coremedia PTEffectFocusDisparityMax %f", v4, v5, v6, v7, v8);
+  v2 = OUTLINED_FUNCTION_3_7(v1);
+  OUTLINED_FUNCTION_0_6(&dword_2243FB000, v3, v4, "defaults write com.apple.coremedia PTEffectFocusDisparityMax %f", v5, v6, v7, v8, v2);
 }
 
 - (void)initWithDescriptor:(void *)a1 metalContext:depthPrioritization:humanDetections:prevTemporalState:sharedResources:.cold.4(void *a1)
 {
   [a1 floatValue];
-  OUTLINED_FUNCTION_3_7(v1);
-  OUTLINED_FUNCTION_0_6(&dword_2243FB000, v2, v3, "defaults write com.apple.coremedia PTEffectFocusDisparityExponentialMovingAverage %f", v4, v5, v6, v7, v8);
+  v2 = OUTLINED_FUNCTION_3_7(v1);
+  OUTLINED_FUNCTION_0_6(&dword_2243FB000, v3, v4, "defaults write com.apple.coremedia PTEffectFocusDisparityExponentialMovingAverage %f", v5, v6, v7, v8, v2);
 }
 
 - (void)initWithDescriptor:(void *)a1 metalContext:depthPrioritization:humanDetections:prevTemporalState:sharedResources:.cold.5(void *a1)
 {
   [a1 floatValue];
-  OUTLINED_FUNCTION_3_7(v1);
-  OUTLINED_FUNCTION_0_6(&dword_2243FB000, v2, v3, "defaults write com.apple.coremedia PTEffectFocusDisparityExponentialMovingAverageStudioLight %f", v4, v5, v6, v7, v8);
+  v2 = OUTLINED_FUNCTION_3_7(v1);
+  OUTLINED_FUNCTION_0_6(&dword_2243FB000, v3, v4, "defaults write com.apple.coremedia PTEffectFocusDisparityExponentialMovingAverageStudioLight %f", v5, v6, v7, v8, v2);
 }
 
 - (void)initWithDescriptor:metalContext:depthPrioritization:humanDetections:prevTemporalState:sharedResources:.cold.7()

@@ -90,13 +90,14 @@ void __45__ATXHistogramBundleIdTable_permutationFrom___block_invoke_2(uint64_t a
   v5 = a2;
   v6 = a3;
   v7 = [v6 unsignedShortValue];
-  v8 = a1 + 40;
+  v8 = v7;
+  v9 = a1 + 40;
   if (v7 >= *(*(*(a1 + 40) + 8) + 24))
   {
-    v9 = __atxlog_handle_default();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = __atxlog_handle_default(v7);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      __45__ATXHistogramBundleIdTable_permutationFrom___block_invoke_2_cold_1(v8, v7, v9);
+      __45__ATXHistogramBundleIdTable_permutationFrom___block_invoke_2_cold_1(v9, v8, v10);
     }
   }
 
@@ -108,49 +109,46 @@ void __45__ATXHistogramBundleIdTable_permutationFrom___block_invoke_2(uint64_t a
 
 - (void)removeBundleIds:(id)ids
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   idsCopy = ids;
-  v5 = [idsCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v5 = [idsCopy countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v5)
   {
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(idsCopy);
         }
 
-        [(ATXHistogramTable *)self remove:*(*(&v9 + 1) + 8 * v7++), v9];
+        [(ATXHistogramTable *)self remove:*(*(&v8 + 1) + 8 * v7++), v8];
       }
 
       while (v5 != v7);
-      v5 = [idsCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [idsCopy countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __45__ATXHistogramBundleIdTable_permutationFrom___block_invoke_2_cold_1(uint64_t a1, int a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = *(*(*a1 + 8) + 24);
-  v5[0] = 67109376;
-  v5[1] = a2;
-  v6 = 1024;
-  v7 = v3;
-  _os_log_error_impl(&dword_2263AA000, log, OS_LOG_TYPE_ERROR, "Event id %u greater than max %u", v5, 0xEu);
-  v4 = *MEMORY[0x277D85DE8];
+  v4[0] = 67109376;
+  v4[1] = a2;
+  v5 = 1024;
+  v6 = v3;
+  _os_log_error_impl(&dword_2263AA000, log, OS_LOG_TYPE_ERROR, "Event id %u greater than max %u", v4, 0xEu);
 }
 
 @end

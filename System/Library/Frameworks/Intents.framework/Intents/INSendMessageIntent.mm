@@ -1,5 +1,6 @@
 @interface INSendMessageIntent
 - (BOOL)_isValidSubProducer:(id)producer;
+- (BOOL)configureAttributeSet:(id)set includingData:(BOOL)data;
 - (INOutgoingMessageType)outgoingMessageType;
 - (INPerson)sender;
 - (INSendMessageIntent)initWithRecipients:(NSArray *)recipients content:(NSString *)content groupName:(NSString *)groupName serviceName:(NSString *)serviceName sender:(INPerson *)sender;
@@ -72,8 +73,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v29[8] = *MEMORY[0x1E69E9840];
-  v28[0] = @"recipients";
+  v28[8] = *MEMORY[0x1E69E9840];
+  v27[0] = @"recipients";
   recipients = [(INSendMessageIntent *)self recipients];
   v4 = recipients;
   if (!recipients)
@@ -81,9 +82,9 @@
     recipients = [MEMORY[0x1E695DFB0] null];
   }
 
-  v25 = recipients;
-  v29[0] = recipients;
-  v28[1] = @"outgoingMessageType";
+  v24 = recipients;
+  v28[0] = recipients;
+  v27[1] = @"outgoingMessageType";
   outgoingMessageType = [(INSendMessageIntent *)self outgoingMessageType];
   v6 = @"unknown";
   if (outgoingMessageType == INOutgoingMessageTypeOutgoingMessageAudio)
@@ -96,9 +97,9 @@
     v6 = @"outgoingMessageText";
   }
 
-  v26 = v6;
-  v29[1] = v26;
-  v28[2] = @"content";
+  v25 = v6;
+  v28[1] = v25;
+  v27[2] = @"content";
   content = [(INSendMessageIntent *)self content];
   v8 = content;
   if (!content)
@@ -106,9 +107,9 @@
     content = [MEMORY[0x1E695DFB0] null];
   }
 
-  v24 = content;
-  v29[2] = content;
-  v28[3] = @"speakableGroupName";
+  v23 = content;
+  v28[2] = content;
+  v27[3] = @"speakableGroupName";
   speakableGroupName = [(INSendMessageIntent *)self speakableGroupName];
   v10 = speakableGroupName;
   if (!speakableGroupName)
@@ -116,9 +117,9 @@
     speakableGroupName = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23 = speakableGroupName;
-  v29[3] = speakableGroupName;
-  v28[4] = @"conversationIdentifier";
+  v22 = speakableGroupName;
+  v28[3] = speakableGroupName;
+  v27[4] = @"conversationIdentifier";
   conversationIdentifier = [(INSendMessageIntent *)self conversationIdentifier];
   v12 = conversationIdentifier;
   if (!conversationIdentifier)
@@ -126,8 +127,8 @@
     conversationIdentifier = [MEMORY[0x1E695DFB0] null];
   }
 
-  v29[4] = conversationIdentifier;
-  v28[5] = @"serviceName";
+  v28[4] = conversationIdentifier;
+  v27[5] = @"serviceName";
   serviceName = [(INSendMessageIntent *)self serviceName];
   null = serviceName;
   if (!serviceName)
@@ -135,9 +136,9 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v27 = v4;
-  v29[5] = null;
-  v28[6] = @"sender";
+  v26 = v4;
+  v28[5] = null;
+  v27[6] = @"sender";
   sender = [(INSendMessageIntent *)self sender];
   null2 = sender;
   if (!sender)
@@ -145,8 +146,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v29[6] = null2;
-  v28[7] = @"attachments";
+  v28[6] = null2;
+  v27[7] = @"attachments";
   attachments = [(INSendMessageIntent *)self attachments];
   null3 = attachments;
   if (!attachments)
@@ -154,8 +155,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v29[7] = null3;
-  v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v28 count:8];
+  v28[7] = null3;
+  v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:v27 count:8];
   if (!attachments)
   {
   }
@@ -180,11 +181,9 @@
   {
   }
 
-  if (!v27)
+  if (!v26)
   {
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v19;
 }
@@ -376,6 +375,98 @@
   return v6 ^ 1;
 }
 
+- (BOOL)configureAttributeSet:(id)set includingData:(BOOL)data
+{
+  dataCopy = data;
+  v39 = *MEMORY[0x1E69E9840];
+  setCopy = set;
+  recipients = [(INSendMessageIntent *)self recipients];
+  v8 = objc_opt_new();
+  v32 = 0u;
+  v33 = 0u;
+  v34 = 0u;
+  v35 = 0u;
+  v9 = recipients;
+  v10 = [v9 countByEnumeratingWithState:&v32 objects:v38 count:16];
+  if (v10)
+  {
+    v11 = v10;
+    v12 = *v33;
+    do
+    {
+      for (i = 0; i != v11; ++i)
+      {
+        if (*v33 != v12)
+        {
+          objc_enumerationMutation(v9);
+        }
+
+        v14 = INPersonToCSPerson(*(*(&v32 + 1) + 8 * i));
+        if (v14)
+        {
+          [v8 addObject:v14];
+        }
+      }
+
+      v11 = [v9 countByEnumeratingWithState:&v32 objects:v38 count:16];
+    }
+
+    while (v11);
+  }
+
+  [setCopy setPrimaryRecipients:v8];
+  v15 = NSStringFromSelector(sel_displayName);
+  v16 = [v8 valueForKey:v15];
+  [setCopy setRecipientNames:v16];
+
+  v17 = [v8 valueForKeyPath:@"handles.@distinctUnionOfArrays.self"];
+  [setCopy setRecipientAddresses:v17];
+
+  content = [(INSendMessageIntent *)self content];
+  [setCopy setTextContent:content];
+
+  sender = [(INSendMessageIntent *)self sender];
+  contactIdentifier = [sender contactIdentifier];
+  if (contactIdentifier)
+  {
+    [setCopy setAccountIdentifier:contactIdentifier];
+  }
+
+  else
+  {
+    customIdentifier = [sender customIdentifier];
+    [setCopy setAccountIdentifier:customIdentifier];
+  }
+
+  v22 = INPersonToCSPerson(sender);
+  v23 = v22;
+  if (v22)
+  {
+    v37 = v22;
+    v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v37 count:1];
+    [setCopy setAuthors:v24];
+
+    handles = [v23 handles];
+    [setCopy setAccountHandles:handles];
+  }
+
+  speakableGroupName = [(INSendMessageIntent *)self speakableGroupName];
+  spokenPhrase = [speakableGroupName spokenPhrase];
+
+  if ([spokenPhrase length])
+  {
+    v36 = spokenPhrase;
+    v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v36 count:1];
+    [setCopy setAlternateNames:v28];
+  }
+
+  v31.receiver = self;
+  v31.super_class = INSendMessageIntent;
+  v29 = [(INIntent *)&v31 configureAttributeSet:setCopy includingData:dataCopy];
+
+  return v29;
+}
+
 - (id)_currentParameterCombination
 {
   _nonNilParameters = [(INIntent *)self _nonNilParameters];
@@ -387,27 +478,11 @@
   _nonNilParameters2 = [(INIntent *)self _nonNilParameters];
   v7 = [_nonNilParameters2 containsObject:@"conversationIdentifier"];
 
-  if (!v7)
+  if (!v7 || (-[INIntent _parameterCombinations](self, "_parameterCombinations"), v8 = objc_claimAutoreleasedReturnValue(), [v8 objectForKey:v4], _currentParameterCombination = objc_claimAutoreleasedReturnValue(), v8, !_currentParameterCombination) && (objc_msgSend(v4, "removeObject:", @"conversationIdentifier"), -[INIntent _parameterCombinations](self, "_parameterCombinations"), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "objectForKey:", v4), _currentParameterCombination = objc_claimAutoreleasedReturnValue(), v10, !_currentParameterCombination))
   {
-    goto LABEL_4;
-  }
-
-  _parameterCombinations = [(INIntent *)self _parameterCombinations];
-  _currentParameterCombination = [_parameterCombinations objectForKey:v4];
-
-  if (!_currentParameterCombination)
-  {
-    [v4 removeObject:@"conversationIdentifier"];
-    _parameterCombinations2 = [(INIntent *)self _parameterCombinations];
-    _currentParameterCombination = [_parameterCombinations2 objectForKey:v4];
-
-    if (!_currentParameterCombination)
-    {
-LABEL_4:
-      v12.receiver = self;
-      v12.super_class = INSendMessageIntent;
-      _currentParameterCombination = [(INIntent *)&v12 _currentParameterCombination];
-    }
+    v12.receiver = self;
+    v12.super_class = INSendMessageIntent;
+    _currentParameterCombination = [(INIntent *)&v12 _currentParameterCombination];
   }
 
   return _currentParameterCombination;
@@ -415,10 +490,10 @@ LABEL_4:
 
 - (id)_validParameterCombinationsWithSchema:(id)schema
 {
-  v32 = *MEMORY[0x1E69E9840];
-  v28.receiver = self;
-  v28.super_class = INSendMessageIntent;
-  v4 = [(INIntent *)&v28 _validParameterCombinationsWithSchema:schema];
+  v31 = *MEMORY[0x1E69E9840];
+  v27.receiver = self;
+  v27.super_class = INSendMessageIntent;
+  v4 = [(INIntent *)&v27 _validParameterCombinationsWithSchema:schema];
   _nonNilParameters = [(INIntent *)self _nonNilParameters];
   if ([_nonNilParameters containsObject:@"speakableGroupName"] && objc_msgSend(_nonNilParameters, "containsObject:", @"recipients"))
   {
@@ -428,39 +503,39 @@ LABEL_4:
     allKeys = [v7 allKeys];
     v10 = [v8 initWithArray:allKeys];
 
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 3221225472;
-    v29[2] = __INCoalesceValidMessagingParameterCombinations_block_invoke;
-    v29[3] = &unk_1E7281E68;
-    v30 = v10;
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 3221225472;
+    v28[2] = __INCoalesceValidMessagingParameterCombinations_block_invoke;
+    v28[3] = &unk_1E7281E68;
+    v29 = v10;
     v11 = v10;
-    v4 = INDictionaryWithObjectsForKeysPassingTest(v7, v29);
+    v4 = INDictionaryWithObjectsForKeysPassingTest(v7, v28);
   }
 
   if ([_nonNilParameters containsObject:@"conversationIdentifier"] && ((objc_msgSend(_nonNilParameters, "containsObject:", @"speakableGroupName") & 1) != 0 || objc_msgSend(_nonNilParameters, "containsObject:", @"recipients")))
   {
-    v23 = _nonNilParameters;
+    v22 = _nonNilParameters;
     v12 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(v4, "count")}];
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
     allKeys2 = [v4 allKeys];
-    v14 = [allKeys2 countByEnumeratingWithState:&v24 objects:v31 count:16];
+    v14 = [allKeys2 countByEnumeratingWithState:&v23 objects:v30 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v25;
+      v16 = *v24;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v25 != v16)
+          if (*v24 != v16)
           {
             objc_enumerationMutation(allKeys2);
           }
 
-          v18 = *(*(&v24 + 1) + 8 * i);
+          v18 = *(*(&v23 + 1) + 8 * i);
           if (([v18 containsObject:@"speakableGroupName"] & 1) != 0 || objc_msgSend(v18, "containsObject:", @"recipients"))
           {
             v19 = [v4 objectForKey:v18];
@@ -469,21 +544,19 @@ LABEL_4:
           }
         }
 
-        v15 = [allKeys2 countByEnumeratingWithState:&v24 objects:v31 count:16];
+        v15 = [allKeys2 countByEnumeratingWithState:&v23 objects:v30 count:16];
       }
 
       while (v15);
     }
 
-    _nonNilParameters = v23;
+    _nonNilParameters = v22;
   }
 
   else
   {
     v12 = v4;
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v12;
 }

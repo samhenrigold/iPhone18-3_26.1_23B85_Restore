@@ -1,6 +1,6 @@
-void sub_10000EEA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10000EEA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -120,10 +120,11 @@ void endCallback(uint64_t a1, void *a2)
   [v3 endPhase:v4];
 }
 
-void sub_10000F930(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_10000F930(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
+  va_start(va, a32);
   _Block_object_dispose(&a15, 8);
-  _Block_object_dispose(&a33, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -160,7 +161,7 @@ void sub_10000FA3C(uint64_t a1, void *a2)
   {
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      sub_100010F58(a1 + 40);
+      sub_100010F58();
     }
   }
 
@@ -179,12 +180,11 @@ void sub_10000FDF8()
   _os_log_fault_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_FAULT, "%s: ran out of buffers!", &v0, 0xCu);
 }
 
-void sub_100010334(void *a1, uint64_t a2)
+void sub_100010334(void *a1)
 {
-  v2 = *(a2 + 8);
-  v8 = [a1 connection];
+  v6 = [a1 connection];
   sub_10000FB18();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x26u);
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x26u);
 }
 
 void sub_1000103F8(void *a1)
@@ -226,28 +226,25 @@ void sub_100010724(_DWORD *a1, void *a2)
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
-void sub_100010904(unsigned __int8 *a1)
+void sub_100010904()
 {
-  v1 = *a1;
   sub_10000FAFC();
   sub_10000FAF0();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void sub_100010988(unsigned __int8 *a1)
+void sub_100010988()
 {
-  v1 = *a1;
   sub_10000FAFC();
   sub_10000FAF0();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void sub_100010A8C(unsigned __int8 *a1)
+void sub_100010A8C()
 {
-  v1 = *a1;
   sub_10000FAFC();
   sub_10000FAF0();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
 void sub_100010C10()
@@ -257,13 +254,12 @@ void sub_100010C10()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_100010CCC(void *a1, unsigned int *a2)
+void sub_100010CCC(void *a1)
 {
   [a1 fileDescriptor];
-  v3 = *a2;
   sub_10000FAFC();
   sub_10000FB18();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x18u);
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
 }
 
 void sub_100010D6C(os_log_t log)
@@ -281,13 +277,6 @@ void sub_100010DF0(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
   *(a2 + 14) = a1;
   sub_10000FB0C();
   _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
-}
-
-void sub_100010F58(uint64_t a1)
-{
-  v6 = *(*(*a1 + 8) + 40);
-  sub_10000FAF0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
 }
 
 void sub_100010FEC(os_log_t log)

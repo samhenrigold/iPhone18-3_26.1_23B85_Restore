@@ -605,7 +605,7 @@
 
   if (!v11)
   {
-    v12 = sub_1003D64DC();
+    v12 = sub_1003D64DC(AppDefaultsManager);
     v13 = v12;
     if (v12 && (([v12 isEqualToNumber:&off_100548160] & 1) != 0 || objc_msgSend(v13, "isEqualToNumber:", &off_100548178)))
     {

@@ -114,40 +114,51 @@
 
 - (BOOL)validateAppendedImageWithInfo:(id)info error:(id *)error
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v4 = *__error();
-  if (DIForwardLogs())
+  v5 = DIForwardLogs();
+  if (v5)
   {
-    v5 = getDIOSLog();
-    os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
-    *buf = 68157954;
-    v11 = 72;
-    v12 = 2080;
-    v13 = "[PluginDiskImageGraphNode(Append) validateAppendedImageWithInfo:error:]";
-    v6 = _os_log_send_and_compose_impl();
-
-    if (v6)
+    v13 = 0;
+    v7 = getDIOSLog(v5, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      fprintf(*MEMORY[0x277D85DF8], "%s\n", v6);
-      free(v6);
+      v8 = 3;
+    }
+
+    else
+    {
+      v8 = 2;
+    }
+
+    *buf = 68157954;
+    v15 = 72;
+    v16 = 2080;
+    v17 = "[PluginDiskImageGraphNode(Append) validateAppendedImageWithInfo:error:]";
+    LODWORD(v12) = 18;
+    v9 = _os_log_send_and_compose_impl(v8, &v13, 0, 0, &dword_248DE0000, v7, 0, "%.*s: Appending to plugin node, skipping validation.", buf, v12);
+
+    if (v9)
+    {
+      fprintf(*MEMORY[0x277D85DF8], "%s\n", v9);
+      free(v9);
     }
   }
 
   else
   {
-    v7 = getDIOSLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v10 = getDIOSLog(v5, v6);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 68157954;
-      v11 = 72;
-      v12 = 2080;
-      v13 = "[PluginDiskImageGraphNode(Append) validateAppendedImageWithInfo:error:]";
-      _os_log_impl(&dword_248DE0000, v7, OS_LOG_TYPE_DEFAULT, "%.*s: Appending to plugin node, skipping validation.", buf, 0x12u);
+      v15 = 72;
+      v16 = 2080;
+      v17 = "[PluginDiskImageGraphNode(Append) validateAppendedImageWithInfo:error:]";
+      _os_log_impl(&dword_248DE0000, v10, OS_LOG_TYPE_DEFAULT, "%.*s: Appending to plugin node, skipping validation.", buf, 0x12u);
     }
   }
 
   *__error() = v4;
-  v8 = *MEMORY[0x277D85DE8];
   return 1;
 }
 

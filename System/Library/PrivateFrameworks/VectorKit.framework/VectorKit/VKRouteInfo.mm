@@ -610,8 +610,8 @@ LABEL_21:
           {
             icon2 = [v71 icon];
             iconDataSource = [icon2 iconDataSource];
-            styleAttributes = [iconDataSource styleAttributes];
-            v18 = styleAttributes;
+            v64 = objc_msgSend_styleAttributes(iconDataSource);
+            v18 = v64;
           }
 
           else
@@ -628,8 +628,8 @@ LABEL_21:
 
           if (type == 5 || type == 2)
           {
-            styleAttributes2 = [v71 styleAttributes];
-            v20 = styleAttributes2 != 0;
+            v66 = objc_msgSend_styleAttributes(v71);
+            v20 = v66 != 0;
           }
 
           else
@@ -643,8 +643,8 @@ LABEL_21:
 
           if (v20)
           {
-            styleAttributes3 = [v71 styleAttributes];
-            attributesCount = [styleAttributes3 attributesCount];
+            v21 = objc_msgSend_styleAttributes(v71);
+            attributesCount = [v21 attributesCount];
 
             v86 = 0;
             v87 = 0;
@@ -675,10 +675,10 @@ LABEL_21:
             v75 = 0u;
             v72 = 0u;
             v73 = 0u;
-            styleAttributes4 = [v71 styleAttributes];
-            attributes = [styleAttributes4 attributes];
+            v31 = objc_msgSend_styleAttributes(v71);
+            v32 = objc_msgSend_attributes(v31);
 
-            v33 = [attributes countByEnumeratingWithState:&v72 objects:v85 count:16];
+            v33 = [v32 countByEnumeratingWithState:&v72 objects:v85 count:16];
             v61 = icon2;
             if (v33)
             {
@@ -689,7 +689,7 @@ LABEL_21:
                 {
                   if (*v73 != v34)
                   {
-                    objc_enumerationMutation(attributes);
+                    objc_enumerationMutation(v32);
                   }
 
                   v36 = stringWithDefaultOptions;
@@ -763,7 +763,7 @@ LABEL_21:
                 }
 
                 iconDataSource = v24;
-                v33 = [attributes countByEnumeratingWithState:&v72 objects:v85 count:16];
+                v33 = [v32 countByEnumeratingWithState:&v72 objects:v85 count:16];
               }
 
               while (v33);
@@ -772,8 +772,8 @@ LABEL_21:
             descriptionCopy = v59;
             type = typeCopy;
             icon2 = v61;
-            styleAttributes5 = [(VKRouteEtaDescription *)v67 styleAttributes];
-            [styleAttributes5 replaceAttributes:? count:?];
+            v53 = objc_msgSend_styleAttributes(v67);
+            [v53 replaceAttributes:? count:?];
 
             std::vector<GeoCodecsFeatureStylePair,geo::allocator_adapter<GeoCodecsFeatureStylePair,mdm::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](&v86);
           }

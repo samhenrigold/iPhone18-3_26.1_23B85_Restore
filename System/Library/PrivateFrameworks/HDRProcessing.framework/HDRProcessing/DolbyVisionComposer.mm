@@ -3,7 +3,10 @@
 - (BOOL)hdr10_tm_configChanged:(_HDR10TMParam *)changed HDRControl:(id *)control EdrAdaptationParam:(_EdrAdaptationParam *)param AmbAdaptationParam:(_AmbAdaptationParam *)adaptationParam;
 - (BOOL)hlg_tm_configChanged:(id *)changed HDRControl:(id *)control TMParam:(_HLGTMParam *)param EdrAdaptationParam:(_EdrAdaptationParam *)adaptationParam AmbAdaptationParam:(_AmbAdaptationParam *)ambAdaptationParam;
 - (DolbyVisionComposer)initWithDevice:(id)device;
+- (id)createShaderWithName:(id)name dolby84:(BOOL)dolby84 forLLDovi:(BOOL)dovi;
+- (id)createShaderWithNameAndInputOutput:(id)output dolby84:(BOOL)dolby84 forLLDovi:(BOOL)dovi input:(int)input output:(int)a7;
 - (id)getComputePipeLineStateForShader:(id)shader;
+- (id)getComputePipeLineStateForShader:(id)shader input:(int)input output:(int)output;
 - (int64_t)checkForContent:(unsigned int)content contentReturn1:(BOOL *)return1 contentReturn2:(BOOL *)return2 contentReturn3:(BOOL *)return3 forDisplay:(unsigned int)display displayReturn1:(BOOL *)displayReturn1 displayReturn2:(BOOL *)displayReturn2 displayReturn3:(BOOL *)self0 displayReturn4:(BOOL *)self1 displayReturn5:(BOOL *)self2;
 - (int64_t)checkInputFormats:(unsigned int)formats returnInput1:(BOOL *)input1 returnInput2:(BOOL *)input2 returnInput3:(BOOL *)input3 returnInput4:(BOOL *)input4 returnInput5:(BOOL *)input5 outputFormat:(unsigned int)format returnOutput1:(BOOL *)self0 returnOutput2:(BOOL *)self1 returnOutput3:(BOOL *)self2 returnOutput4:(BOOL *)self3;
 - (int64_t)embeddedSetupEncoderForCommandBuffer:(id)buffer DMData:(id *)data dmConfig:(id)config isInput422:(BOOL)input422 hasThreeOutputPlane:(BOOL)plane isSdrOnDolbyOrHDR10:(BOOL)r10 isHDR10OnHDR10TV:(BOOL)v isDolbyOnHDR10TV:(BOOL)self0 isHDR10OnDolby:(BOOL)self1 isHDR10OnPad:(BOOL)self2 isHLGOnPad:(BOOL)self3 isDoviOnPad:(BOOL)self4 isDoviOnLLDovi:(BOOL)self5 isHDR10OnLLDovi:(BOOL)self6 isHLGOnHDR10TV:(BOOL)self7 isHLGOnDolbyTV:(BOOL)self8 isHLGOnLLDovi:(BOOL)self9 isPtvMode:(BOOL)mode orientation:(int)orientation isDolby84:(BOOL)dolby84 dovi50toHDR10TVMode:(unsigned int)vMode isDM4:(BOOL)m4 isGpuTmRefMode:(BOOL)refMode;
@@ -94,11 +97,32 @@
   self->_defaultLibrary = newDefaultLibrary;
 }
 
+- (id)createShaderWithName:(id)name dolby84:(BOOL)dolby84 forLLDovi:(BOOL)dovi
+{
+  v5 = [ComposerShader createShaderWithName:name dolby84:dolby84 forLLDovi:dovi];
+
+  return v5;
+}
+
+- (id)createShaderWithNameAndInputOutput:(id)output dolby84:(BOOL)dolby84 forLLDovi:(BOOL)dovi input:(int)input output:(int)a7
+{
+  v7 = [ComposerShader createShaderWithNameAndInputOutput:output dolby84:dolby84 forLLDovi:dovi input:*&input output:*&a7];
+
+  return v7;
+}
+
 - (id)getComputePipeLineStateForShader:(id)shader
 {
   v3 = [shader getComputePipeLineStateForDevice:self->_device Library:self->_defaultLibrary];
 
   return v3;
+}
+
+- (id)getComputePipeLineStateForShader:(id)shader input:(int)input output:(int)output
+{
+  v5 = [shader getComputePipeLineStateForDevice:self->_device Library:self->_defaultLibrary input:*&input output:*&output];
+
+  return v5;
 }
 
 - (void)embeddedCreateKernels
@@ -848,7 +872,7 @@
 
 - (int64_t)encodeToCommandBuffer:(id)buffer BL:(__IOSurface *)l EL:(__IOSurface *)eL Output:(__IOSurface *)output ComposerData:(id *)data DM:(id)m DMData:(id *)mData tcControl:(ToneCurve_Control *)self0 hdrControl:(id *)self1 hdr10InfoFrame:(id *)self2 frameNumber:(unint64_t)self3
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v19 = &self->_timeArray[107];
   bufferCopy = buffer;
   mCopy = m;
@@ -894,9 +918,9 @@
       }
 
       *buf = 134218242;
-      v35 = WORD1(v26);
-      v36 = 2080;
-      v37 = "[DolbyVisionComposer encodeToCommandBuffer:BL:EL:Output:ComposerData:DM:DMData:tcControl:hdrControl:hdr10InfoFrame:frameNumber:]";
+      v34 = WORD1(v26);
+      v35 = 2080;
+      v36 = "[DolbyVisionComposer encodeToCommandBuffer:BL:EL:Output:ComposerData:DM:DMData:tcControl:hdrControl:hdr10InfoFrame:frameNumber:]";
       v27 = MEMORY[0x277D86220];
       v28 = " [1.450.54] #%04llx %s : Failed with setupInputTexturesWithBL\n";
       goto LABEL_26;
@@ -908,7 +932,7 @@
     }
 
     *buf = 136315138;
-    v35 = "[DolbyVisionComposer encodeToCommandBuffer:BL:EL:Output:ComposerData:DM:DMData:tcControl:hdrControl:hdr10InfoFrame:frameNumber:]";
+    v34 = "[DolbyVisionComposer encodeToCommandBuffer:BL:EL:Output:ComposerData:DM:DMData:tcControl:hdrControl:hdr10InfoFrame:frameNumber:]";
     v29 = MEMORY[0x277D86220];
     v30 = " [1.450.54] %s : Failed with setupInputTexturesWithBL\n";
 LABEL_32:
@@ -937,9 +961,9 @@ LABEL_32:
       }
 
       *buf = 134218242;
-      v35 = WORD1(v26);
-      v36 = 2080;
-      v37 = "[DolbyVisionComposer encodeToCommandBuffer:BL:EL:Output:ComposerData:DM:DMData:tcControl:hdrControl:hdr10InfoFrame:frameNumber:]";
+      v34 = WORD1(v26);
+      v35 = 2080;
+      v36 = "[DolbyVisionComposer encodeToCommandBuffer:BL:EL:Output:ComposerData:DM:DMData:tcControl:hdrControl:hdr10InfoFrame:frameNumber:]";
       v27 = MEMORY[0x277D86220];
       v28 = " [1.450.54] #%04llx %s : Failed with setupOutputTexturesWithBuffer\n";
 LABEL_26:
@@ -955,7 +979,7 @@ LABEL_27:
     }
 
     *buf = 136315138;
-    v35 = "[DolbyVisionComposer encodeToCommandBuffer:BL:EL:Output:ComposerData:DM:DMData:tcControl:hdrControl:hdr10InfoFrame:frameNumber:]";
+    v34 = "[DolbyVisionComposer encodeToCommandBuffer:BL:EL:Output:ComposerData:DM:DMData:tcControl:hdrControl:hdr10InfoFrame:frameNumber:]";
     v29 = MEMORY[0x277D86220];
     v30 = " [1.450.54] %s : Failed with setupOutputTexturesWithBuffer\n";
     goto LABEL_32;
@@ -976,13 +1000,12 @@ LABEL_27:
   ++self->_frameIndex;
 LABEL_35:
 
-  v31 = *MEMORY[0x277D85DE8];
   return v24;
 }
 
 - (int64_t)checkInputFormats:(unsigned int)formats returnInput1:(BOOL *)input1 returnInput2:(BOOL *)input2 returnInput3:(BOOL *)input3 returnInput4:(BOOL *)input4 returnInput5:(BOOL *)input5 outputFormat:(unsigned int)format returnOutput1:(BOOL *)self0 returnOutput2:(BOOL *)self1 returnOutput3:(BOOL *)self2 returnOutput4:(BOOL *)self3
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v16 = 1;
   if (formats != 875704422 && formats != 875704438 && formats != 2016686640)
   {
@@ -1004,16 +1027,16 @@ LABEL_35:
         v20 = prevLogInstanceID;
       }
 
-      v28 = v20;
+      v27 = v20;
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        v31 = WORD1(v28);
+        v30 = WORD1(v27);
         _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx Assertion: hasThreeOutputPlane || has10BitOutput warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Metal/Composer/DolbyVisionComposer.mm at line 1145\n", buf, 0xCu);
       }
 
       input3 = input3Copy;
-      prevLogInstanceID = v28;
+      prevLogInstanceID = v27;
     }
 
     else
@@ -1038,7 +1061,6 @@ LABEL_35:
   *output3 = format == 1919365992;
   *output4 = v25;
   *input3 = formats == 1815162994;
-  v26 = *MEMORY[0x277D85DE8];
   return -17000;
 }
 
@@ -1319,14 +1341,14 @@ LABEL_35:
   r10Copy = r10;
   planeCopy = plane;
   input422Copy = input422;
-  v123 = *MEMORY[0x277D85DE8];
+  v122 = *MEMORY[0x277D85DE8];
   v28 = &self->_dm4_sLutIBuffer[120];
   bufferCopy = buffer;
   configCopy = config;
   v30 = bufferCopy;
   v31 = v28;
   v32 = v30;
-  v114 = v30;
+  v113 = v30;
   if (*(v28 + 457))
   {
     [v30 setProtectionOptions:?];
@@ -1343,7 +1365,7 @@ LABEL_35:
     LODWORD(v34) = dolby84;
   }
 
-  v105 = dovi && dolby84;
+  v104 = dovi && dolby84;
   if (dovi && dolby84)
   {
     v34 = 3;
@@ -1364,9 +1386,9 @@ LABEL_35:
     v35 = 2;
   }
 
-  v107 = tV && refMode;
-  v106 = v34;
-  if (v107)
+  v106 = tV && refMode;
+  v105 = v34;
+  if (v106)
   {
     v36 = v35;
   }
@@ -1381,7 +1403,7 @@ LABEL_35:
     p_sdr2cif10 = &self->_sdr2cif10;
 LABEL_17:
     v38 = [(DolbyVisionComposer *)self getComputePipeLineStateForShader:*p_sdr2cif10];
-    v109 = 0;
+    v108 = 0;
     goto LABEL_44;
   }
 
@@ -1490,10 +1512,10 @@ LABEL_158:
   v38 = [(DolbyVisionComposer *)self getComputePipeLineStateForShader:*p_RGhAHLGw30r];
   lLDoviCopy = lLDovi;
 LABEL_43:
-  v109 = !lLDoviCopy;
+  v108 = !lLDoviCopy;
 LABEL_44:
   width = [(MTLTexture *)self->_blTexture width];
-  v117 = v38;
+  v116 = v38;
   height = [(MTLTexture *)self->_blTexture height];
   [computeCommandEncoder setTexture:self->_blTexture atIndex:0];
   if (self->_blTextureUV)
@@ -1540,7 +1562,7 @@ LABEL_44:
 
   [computeCommandEncoder setTexture:self->_outputTexture[0] atIndex:v46];
   modeCopy2 = mode;
-  v108 = r10TV && refMode;
+  v107 = r10TV && refMode;
   v48 = v46 + 1;
   if (planeCopy)
   {
@@ -1586,7 +1608,7 @@ LABEL_44:
 
     if (modeCopy2)
     {
-      v117 = v51;
+      v116 = v51;
       if (*(v31 + 3664) == 1)
       {
         if (tV)
@@ -1745,8 +1767,8 @@ LABEL_44:
         }
 
         LOWORD(buf) = 0;
-        v96 = MEMORY[0x277D86220];
-        v97 = " [1.450.54] Assertion: 0 warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Metal/Composer/DolbyVisionComposer.mm at line 1791\n";
+        v95 = MEMORY[0x277D86220];
+        v96 = " [1.450.54] Assertion: 0 warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Metal/Composer/DolbyVisionComposer.mm at line 1791\n";
         goto LABEL_365;
       }
 
@@ -1797,8 +1819,8 @@ LABEL_190:
         }
 
         LOWORD(buf) = 0;
-        v96 = MEMORY[0x277D86220];
-        v97 = " [1.450.54] Assertion: 0 warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Metal/Composer/DolbyVisionComposer.mm at line 1782\n";
+        v95 = MEMORY[0x277D86220];
+        v96 = " [1.450.54] Assertion: 0 warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Metal/Composer/DolbyVisionComposer.mm at line 1782\n";
         goto LABEL_365;
       }
 
@@ -1837,8 +1859,8 @@ LABEL_190:
         }
 
         LOWORD(buf) = 0;
-        v96 = MEMORY[0x277D86220];
-        v97 = " [1.450.54] Assertion: 0 warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Metal/Composer/DolbyVisionComposer.mm at line 1785\n";
+        v95 = MEMORY[0x277D86220];
+        v96 = " [1.450.54] Assertion: 0 warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Metal/Composer/DolbyVisionComposer.mm at line 1785\n";
         goto LABEL_365;
       }
 
@@ -1849,7 +1871,7 @@ LABEL_190:
 
     if (!refMode)
     {
-      v117 = v51;
+      v116 = v51;
       if (*(v31 + 3664) == 1)
       {
         if (dolby)
@@ -1933,7 +1955,7 @@ LABEL_190:
 
                 else
                 {
-                  [(DolbyVisionComposer *)self getComputePipeLineStateForShader:self->_packed422DolbyIPTtoRGB_YUVTM[v106]];
+                  [(DolbyVisionComposer *)self getComputePipeLineStateForShader:self->_packed422DolbyIPTtoRGB_YUVTM[v105]];
                 }
               }
 
@@ -1953,7 +1975,7 @@ LABEL_190:
 
                 else
                 {
-                  [(DolbyVisionComposer *)self getComputePipeLineStateForShader:self->_packedDolbyIPTtoRGB_YUVTM[v106]];
+                  [(DolbyVisionComposer *)self getComputePipeLineStateForShader:self->_packedDolbyIPTtoRGB_YUVTM[v105]];
                 }
               }
             }
@@ -1981,7 +2003,7 @@ LABEL_190:
 
               else
               {
-                [(DolbyVisionComposer *)self getComputePipeLineStateForShader:self->_packed422DolbyYUVtoRGB_YUVTM[v106]];
+                [(DolbyVisionComposer *)self getComputePipeLineStateForShader:self->_packed422DolbyYUVtoRGB_YUVTM[v105]];
               }
             }
 
@@ -2008,7 +2030,7 @@ LABEL_190:
 
               else
               {
-                [(DolbyVisionComposer *)self getComputePipeLineStateForShader:self->_packedDolbyYUVtoRGB_YUVTM[v106]];
+                [(DolbyVisionComposer *)self getComputePipeLineStateForShader:self->_packedDolbyYUVtoRGB_YUVTM[v105]];
               }
             }
 
@@ -2019,24 +2041,24 @@ LABEL_190:
           {
             if (var12 != 2)
             {
-              if (!v105 || !m4)
+              if (!v104 || !m4)
               {
                 if ((orientation & 4) != 0 && dolby84)
                 {
-                  v64 = [(DolbyVisionComposer *)self getComputePipeLineStateForShader:self->_yuvP422PackedPlanar_rotate[v106]];
+                  v64 = [(DolbyVisionComposer *)self getComputePipeLineStateForShader:self->_yuvP422PackedPlanar_rotate[v105]];
                 }
 
                 else
                 {
-                  v103 = &self->super.isa + v106;
+                  v102 = &self->super.isa + v105;
                   if (orientation && dolby84)
                   {
-                    v64 = [(DolbyVisionComposer *)self getComputePipeLineStateForShader:v103[124]];
+                    v64 = [(DolbyVisionComposer *)self getComputePipeLineStateForShader:v102[124]];
                   }
 
                   else
                   {
-                    v64 = [(DolbyVisionComposer *)self getComputePipeLineStateForShader:v103[116]];
+                    v64 = [(DolbyVisionComposer *)self getComputePipeLineStateForShader:v102[116]];
                   }
                 }
 
@@ -2045,49 +2067,49 @@ LABEL_190:
 
               if ((orientation & 4) != 0)
               {
-                v64 = [(DolbyVisionComposer *)self getComputePipeLineStateForShader:self->_yuvP422PackedPlanarDM4_rotate[v106]];
+                v64 = [(DolbyVisionComposer *)self getComputePipeLineStateForShader:self->_yuvP422PackedPlanarDM4_rotate[v105]];
 
                 goto LABEL_187;
               }
 
               if (orientation)
               {
-                [(DolbyVisionComposer *)self getComputePipeLineStateForShader:self->_yuvP422PackedPlanarDM4_flip[v106]];
+                [(DolbyVisionComposer *)self getComputePipeLineStateForShader:self->_yuvP422PackedPlanarDM4_flip[v105]];
               }
 
               else
               {
-                [(DolbyVisionComposer *)self getComputePipeLineStateForShader:self->_yuvP422PackedPlanarDM4[v106]];
+                [(DolbyVisionComposer *)self getComputePipeLineStateForShader:self->_yuvP422PackedPlanarDM4[v105]];
               }
 
               goto LABEL_358;
             }
 
-            v64 = [(DolbyVisionComposer *)self getComputePipeLineStateForShader:self->_iptP422PackedPlanar[v106]];
+            v64 = [(DolbyVisionComposer *)self getComputePipeLineStateForShader:self->_iptP422PackedPlanar[v105]];
           }
 
           else
           {
             if (var12 != 2)
             {
-              if (!v105 || !m4)
+              if (!v104 || !m4)
               {
                 if ((orientation & 4) != 0 && dolby84)
                 {
-                  v64 = [(DolbyVisionComposer *)self getComputePipeLineStateForShader:self->_singleLayerIntegratedKernelPackedPlanar_rotate[v106]];
+                  v64 = [(DolbyVisionComposer *)self getComputePipeLineStateForShader:self->_singleLayerIntegratedKernelPackedPlanar_rotate[v105]];
                 }
 
                 else
                 {
-                  v104 = &self->super.isa + v106;
+                  v103 = &self->super.isa + v105;
                   if (orientation && dolby84)
                   {
-                    v64 = [(DolbyVisionComposer *)self getComputePipeLineStateForShader:v104[83]];
+                    v64 = [(DolbyVisionComposer *)self getComputePipeLineStateForShader:v103[83]];
                   }
 
                   else
                   {
-                    v64 = [(DolbyVisionComposer *)self getComputePipeLineStateForShader:v104[79]];
+                    v64 = [(DolbyVisionComposer *)self getComputePipeLineStateForShader:v103[79]];
                   }
                 }
 
@@ -2096,25 +2118,25 @@ LABEL_190:
 
               if ((orientation & 4) != 0)
               {
-                v64 = [(DolbyVisionComposer *)self getComputePipeLineStateForShader:self->_singleLayerIntegratedKernelPackedPlanarDM4_rotate[v106]];
+                v64 = [(DolbyVisionComposer *)self getComputePipeLineStateForShader:self->_singleLayerIntegratedKernelPackedPlanarDM4_rotate[v105]];
 
                 goto LABEL_187;
               }
 
               if (orientation)
               {
-                [(DolbyVisionComposer *)self getComputePipeLineStateForShader:self->_singleLayerIntegratedKernelPackedPlanarDM4_flip[v106]];
+                [(DolbyVisionComposer *)self getComputePipeLineStateForShader:self->_singleLayerIntegratedKernelPackedPlanarDM4_flip[v105]];
               }
 
               else
               {
-                [(DolbyVisionComposer *)self getComputePipeLineStateForShader:self->_singleLayerIntegratedKernelPackedPlanarDM4[v106]];
+                [(DolbyVisionComposer *)self getComputePipeLineStateForShader:self->_singleLayerIntegratedKernelPackedPlanarDM4[v105]];
               }
 
               goto LABEL_358;
             }
 
-            v64 = [(DolbyVisionComposer *)self getComputePipeLineStateForShader:self->_singleLayerIntegratedIPTKernelPackedPlanar[v106]];
+            v64 = [(DolbyVisionComposer *)self getComputePipeLineStateForShader:self->_singleLayerIntegratedIPTKernelPackedPlanar[v105]];
           }
         }
       }
@@ -2162,8 +2184,8 @@ LABEL_190:
                 }
 
                 LOWORD(buf) = 0;
-                v101 = MEMORY[0x277D86220];
-                v102 = " [1.450.54] Assertion: 0 warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Metal/Composer/DolbyVisionComposer.mm at line 1966\n";
+                v100 = MEMORY[0x277D86220];
+                v101 = " [1.450.54] Assertion: 0 warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Metal/Composer/DolbyVisionComposer.mm at line 1966\n";
               }
 
               else
@@ -2206,8 +2228,8 @@ LABEL_190:
                 }
 
                 LOWORD(buf) = 0;
-                v101 = MEMORY[0x277D86220];
-                v102 = " [1.450.54] Assertion: 0 warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Metal/Composer/DolbyVisionComposer.mm at line 1969\n";
+                v100 = MEMORY[0x277D86220];
+                v101 = " [1.450.54] Assertion: 0 warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Metal/Composer/DolbyVisionComposer.mm at line 1969\n";
               }
             }
 
@@ -2244,11 +2266,11 @@ LABEL_190:
               }
 
               LOWORD(buf) = 0;
-              v101 = MEMORY[0x277D86220];
-              v102 = " [1.450.54] Assertion: 0 warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Metal/Composer/DolbyVisionComposer.mm at line 1975\n";
+              v100 = MEMORY[0x277D86220];
+              v101 = " [1.450.54] Assertion: 0 warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Metal/Composer/DolbyVisionComposer.mm at line 1975\n";
             }
 
-            _os_log_impl(&dword_250836000, v101, OS_LOG_TYPE_DEFAULT, v102, &buf, 2u);
+            _os_log_impl(&dword_250836000, v100, OS_LOG_TYPE_DEFAULT, v101, &buf, 2u);
             goto LABEL_190;
           }
 
@@ -2285,10 +2307,10 @@ LABEL_190:
             }
           }
 
-          v100 = *(v31 + 909);
-          if (v100 > 2016686639)
+          v99 = *(v31 + 909);
+          if (v99 > 2016686639)
           {
-            if (v100 == 2016686640 || v100 == 2019963440)
+            if (v99 == 2016686640 || v99 == 2019963440)
             {
               v64 = [(DolbyVisionComposer *)self getComputePipeLineStateForShader:self->_unpackedHLG10toRGB_YUVTM];
 
@@ -2296,7 +2318,7 @@ LABEL_190:
             }
           }
 
-          else if (v100 == 875704422 || v100 == 875704438)
+          else if (v99 == 875704422 || v99 == 875704438)
           {
             v64 = [(DolbyVisionComposer *)self getComputePipeLineStateForShader:self->_unpackedHLG8toRGB_YUVTM];
 
@@ -2336,10 +2358,10 @@ LABEL_190:
           }
 
           LOWORD(buf) = 0;
-          v96 = MEMORY[0x277D86220];
-          v97 = " [1.450.54] Assertion: 0 warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Metal/Composer/DolbyVisionComposer.mm at line 1962\n";
+          v95 = MEMORY[0x277D86220];
+          v96 = " [1.450.54] Assertion: 0 warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Metal/Composer/DolbyVisionComposer.mm at line 1962\n";
 LABEL_365:
-          _os_log_impl(&dword_250836000, v96, OS_LOG_TYPE_DEFAULT, v97, &buf, 2u);
+          _os_log_impl(&dword_250836000, v95, OS_LOG_TYPE_DEFAULT, v96, &buf, 2u);
           goto LABEL_189;
         }
 
@@ -2378,8 +2400,8 @@ LABEL_365:
           }
 
           LOWORD(buf) = 0;
-          v96 = MEMORY[0x277D86220];
-          v97 = " [1.450.54] Assertion: 0 warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Metal/Composer/DolbyVisionComposer.mm at line 1947\n";
+          v95 = MEMORY[0x277D86220];
+          v96 = " [1.450.54] Assertion: 0 warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Metal/Composer/DolbyVisionComposer.mm at line 1947\n";
           goto LABEL_365;
         }
 
@@ -2389,13 +2411,13 @@ LABEL_365:
 LABEL_187:
       v56 = modeCopy2;
 LABEL_188:
-      v117 = v64;
+      v116 = v64;
       goto LABEL_189;
     }
 
-    if (v107)
+    if (v106)
     {
-      v118 = v51;
+      v117 = v51;
       if (data->var12 == 2)
       {
         if (input422Copy)
@@ -2433,17 +2455,17 @@ LABEL_188:
       v51 = [(DolbyVisionComposer *)self getComputePipeLineStateForShader:*p_iptP422PackedPlanar_msr];
     }
 
-    v117 = v51;
+    v116 = v51;
     if (v && refMode)
     {
       if (input422Copy)
       {
-        v98 = [(DolbyVisionComposer *)self getComputePipeLineStateForShader:self->_packed422HDR10_msr];
+        v97 = [(DolbyVisionComposer *)self getComputePipeLineStateForShader:self->_packed422HDR10_msr];
 
         v56 = modeCopy2;
-        v117 = v98;
+        v116 = v97;
         v67 = v46 + 1;
-        if (!v108)
+        if (!v107)
         {
           goto LABEL_190;
         }
@@ -2451,12 +2473,12 @@ LABEL_188:
         goto LABEL_289;
       }
 
-      v99 = [(DolbyVisionComposer *)self getComputePipeLineStateForShader:self->_packedHDR10_msr];
+      v98 = [(DolbyVisionComposer *)self getComputePipeLineStateForShader:self->_packedHDR10_msr];
 
       v56 = modeCopy2;
-      v117 = v99;
+      v116 = v98;
       v67 = v46 + 1;
-      if (!v108)
+      if (!v107)
       {
         goto LABEL_190;
       }
@@ -2466,7 +2488,7 @@ LABEL_188:
     {
       v56 = modeCopy2;
       v67 = v46 + 1;
-      if (!v108)
+      if (!v107)
       {
         goto LABEL_190;
       }
@@ -2487,7 +2509,7 @@ LABEL_289:
 
 LABEL_191:
   v70 = v48;
-  if (v117)
+  if (v116)
   {
     [computeCommandEncoder setComputePipelineState:?];
   }
@@ -2524,7 +2546,7 @@ LABEL_191:
 
   if (!modeCopy2)
   {
-    if (!v109)
+    if (!v108)
     {
       if (r10Copy)
       {
@@ -2560,7 +2582,7 @@ LABEL_191:
 
       v83 = tVCopy | v & ~refMode | lDovi;
       v84 = 17896;
-      if ((v107 || dovi) && m4)
+      if ((v106 || dovi) && m4)
       {
         v84 = 28176;
       }
@@ -2574,12 +2596,12 @@ LABEL_191:
 
       [computeCommandEncoder setTexture:*(&self->super.isa + v86) atIndex:v70 + 1];
       v87 = 28160;
-      if (v && refMode || v108)
+      if (v && refMode || v107)
       {
         v87 = 26104;
       }
 
-      if ((v107 || dovi) && m4)
+      if ((v106 || dovi) && m4)
       {
         v87 = 28184;
       }
@@ -2730,19 +2752,18 @@ LABEL_249:
     }
   }
 
-  if (v117)
+  if (v116)
   {
     *&buf = (v93 + v92 - 1) / v92;
     *(&buf + 1) = (height + 15) >> 4;
-    v122 = 1;
-    v119 = v92;
-    v120 = xmmword_2508CEC50;
-    [computeCommandEncoder dispatchThreadgroups:&buf threadsPerThreadgroup:&v119];
+    v121 = 1;
+    v118 = v92;
+    v119 = xmmword_2508CEC50;
+    [computeCommandEncoder dispatchThreadgroups:&buf threadsPerThreadgroup:&v118];
   }
 
   [computeCommandEncoder endEncoding];
 
-  v94 = *MEMORY[0x277D85DE8];
   return -17000;
 }
 
@@ -3529,7 +3550,7 @@ LABEL_106:
 
 void __218__DolbyVisionComposer_embeddedSetupEncoderForGpuMatchMsrCommandBuffer_DMData_dmConfig_isInput422_orientation_isDolby84_dovi50toHDR10TVMode_isDM4_dpcParam_tcControl_hdrControl_isHDR10Content_isHLGContent_isDOVIContent___block_invoke(void *a1, void *a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v3 = a2;
   [v3 GPUEndTime];
   v5 = v4;
@@ -3570,21 +3591,21 @@ void __218__DolbyVisionComposer_embeddedSetupEncoderForGpuMatchMsrCommandBuffer_
 
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        v20 = 134219264;
+        v19 = 134219264;
         v15 = a1[6];
         v16 = a1[7];
-        *&v21 = WORD1(v14);
-        v22 = 2048;
-        v23 = v7;
-        v24 = 2048;
-        v25 = (v11 / 300.0);
-        v26 = 2048;
-        *v27 = v12;
-        *&v27[8] = 1024;
-        v28 = v15;
-        v29 = 1024;
-        v30 = v16;
-        _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx [frame_%llu] scheduled2completed: avg: %5.1f, max: %5.1f [in ms], [ %d : %d ]\n", &v20, 0x36u);
+        *&v20 = WORD1(v14);
+        v21 = 2048;
+        v22 = v7;
+        v23 = 2048;
+        v24 = (v11 / 300.0);
+        v25 = 2048;
+        *v26 = v12;
+        *&v26[8] = 1024;
+        v27 = v15;
+        v28 = 1024;
+        v29 = v16;
+        _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx [frame_%llu] scheduled2completed: avg: %5.1f, max: %5.1f [in ms], [ %d : %d ]\n", &v19, 0x36u);
       }
 
       prevLogInstanceID = v14;
@@ -3592,23 +3613,21 @@ void __218__DolbyVisionComposer_embeddedSetupEncoderForGpuMatchMsrCommandBuffer_
 
     else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v20 = 134219008;
+      v19 = 134219008;
       v17 = a1[6];
       v18 = a1[7];
-      v21 = v7;
-      v22 = 2048;
-      v23 = (v11 / 300.0);
-      v24 = 2048;
-      v25 = v12;
-      v26 = 1024;
-      *v27 = v17;
-      *&v27[4] = 1024;
-      *&v27[6] = v18;
-      _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] [frame_%llu] scheduled2completed: avg: %5.1f, max: %5.1f [in ms], [ %d : %d ]\n", &v20, 0x2Cu);
+      v20 = v7;
+      v21 = 2048;
+      v22 = (v11 / 300.0);
+      v23 = 2048;
+      v24 = v12;
+      v25 = 1024;
+      *v26 = v17;
+      *&v26[4] = 1024;
+      *&v26[6] = v18;
+      _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] [frame_%llu] scheduled2completed: avg: %5.1f, max: %5.1f [in ms], [ %d : %d ]\n", &v19, 0x2Cu);
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)encodeDualLayerToCommandBuffer:(id)buffer BL:(__IOSurface *)l EL:(__IOSurface *)eL Output:(__IOSurface *)output MetaData:(id *)data tcControl:(ToneCurve_Control *)control
@@ -3734,7 +3753,7 @@ void __218__DolbyVisionComposer_embeddedSetupEncoderForGpuMatchMsrCommandBuffer_
 
 - (int64_t)setupInputTexturesWithBL:(__IOSurface *)l EL:(__IOSurface *)eL Output:(__IOSurface *)output MetaData:(id *)data
 {
-  v80 = *MEMORY[0x277D85DE8];
+  v79 = *MEMORY[0x277D85DE8];
   p_srcFormat = &self->_srcFormat;
   PixelFormat = IOSurfaceGetPixelFormat(l);
   *p_srcFormat = PixelFormat;
@@ -3756,8 +3775,8 @@ void __218__DolbyVisionComposer_embeddedSetupEncoderForGpuMatchMsrCommandBuffer_
     {
       v15 = 1;
       v16 = 2;
-      v63 = 0;
-      v64 = 525;
+      v62 = 0;
+      v63 = 525;
       if (v14 == 2016686640 || v14 == 2019963440)
       {
         goto LABEL_114;
@@ -3766,17 +3785,17 @@ void __218__DolbyVisionComposer_embeddedSetupEncoderForGpuMatchMsrCommandBuffer_
 
     else if (v14 == 1882468912 || v14 == 1885745712)
     {
-      v63 = 0;
+      v62 = 0;
       v15 = 1;
       v16 = 2;
       v17 = 528;
 LABEL_27:
-      v64 = v17;
+      v63 = v17;
       [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:v17 width:WidthOfPlane height:HeightOfPlane mipmapped:0, eL];
       goto LABEL_115;
     }
 
-    v63 = 0;
+    v62 = 0;
     v15 = 1;
     v16 = 2;
     v17 = 520;
@@ -3797,11 +3816,11 @@ LABEL_27:
             {
               if (v14 == 2033463606)
               {
-                v63 = 0;
+                v62 = 0;
 LABEL_85:
                 v15 = 1;
                 v16 = 2;
-                v64 = 110;
+                v63 = 110;
                 goto LABEL_113;
               }
 
@@ -3824,7 +3843,7 @@ LABEL_87:
             {
               if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
               {
-                goto LABEL_148;
+                return -17007;
               }
 
               goto LABEL_147;
@@ -3874,10 +3893,10 @@ LABEL_57:
           }
 
           WidthOfPlane >>= 2;
-          v64 = 113;
+          v63 = 113;
           v25 = 63;
 LABEL_111:
-          v63 = v25;
+          v62 = v25;
           goto LABEL_112;
         }
 
@@ -3887,14 +3906,14 @@ LABEL_52:
           if (PlaneCount == 3 && (p_srcFormat[807] & 1) == 0)
           {
             WidthOfPlane >>= 2;
-            v64 = 113;
-            v63 = 63;
+            v63 = 113;
+            v62 = 63;
           }
 
           else
           {
-            v63 = 0;
-            v64 = 544;
+            v62 = 0;
+            v63 = 544;
           }
 
           *(p_srcFormat + 36) = 0;
@@ -3907,7 +3926,7 @@ LABEL_100:
         {
           if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
-            goto LABEL_148;
+            return -17007;
           }
 
           goto LABEL_147;
@@ -3931,33 +3950,31 @@ LABEL_100:
 LABEL_144:
         v52 = *p_srcFormat;
         *buf = 134220546;
-        v67 = WORD1(v24);
-        v68 = 2080;
-        *v69 = "[DolbyVisionComposer setupInputTexturesWithBL:EL:Output:MetaData:]";
-        *&v69[8] = 1024;
-        *v70 = v52;
+        v66 = WORD1(v24);
+        v67 = 2080;
+        *v68 = "[DolbyVisionComposer setupInputTexturesWithBL:EL:Output:MetaData:]";
+        *&v68[8] = 1024;
+        *v69 = v52;
+        *&v69[4] = 1024;
+        *v70 = HIBYTE(v52);
         *&v70[4] = 1024;
-        *v71 = HIBYTE(v52);
+        *v71 = BYTE2(v52);
         *&v71[4] = 1024;
-        *v72 = BYTE2(v52);
+        *v72 = BYTE1(v52);
         *&v72[4] = 1024;
-        *v73 = BYTE1(v52);
+        *v73 = v52;
         *&v73[4] = 1024;
-        *v74 = v52;
+        *v74 = HIBYTE(v14);
         *&v74[4] = 1024;
-        *v75 = HIBYTE(v14);
+        *v75 = BYTE2(v14);
         *&v75[4] = 1024;
-        *v76 = BYTE2(v14);
-        *&v76[4] = 1024;
-        v77 = BYTE1(v14);
-        v78 = 1024;
-        v79 = v14;
+        v76 = BYTE1(v14);
+        v77 = 1024;
+        v78 = v14;
         _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx %s : format (%d) %c%c%c%c [%c%c%c%c]is not supported yet\n", buf, 0x4Cu);
 LABEL_145:
         prevLogInstanceID = v24;
-LABEL_148:
-        result = -17007;
-        goto LABEL_149;
+        return -17007;
       }
 
       if (v14 != 1999843442)
@@ -3971,8 +3988,8 @@ LABEL_148:
         v16 = 2;
         v21 = 552;
 LABEL_99:
-        v63 = 0;
-        v64 = v21;
+        v62 = 0;
+        v63 = v21;
         goto LABEL_113;
       }
 
@@ -4017,7 +4034,7 @@ LABEL_79:
       {
         if (v14 == 1983000886)
         {
-          v63 = 0;
+          v62 = 0;
           WidthOfPlane >>= 1;
           goto LABEL_85;
         }
@@ -4027,8 +4044,8 @@ LABEL_79:
 
 LABEL_86:
       v16 = 1;
-      v64 = 23;
-      v63 = 63;
+      v63 = 23;
+      v62 = 63;
 LABEL_109:
       v15 = 1;
       goto LABEL_113;
@@ -4058,8 +4075,8 @@ LABEL_109:
 LABEL_81:
         v15 = 2;
         v16 = 1;
-        v64 = 23;
-        v63 = 63;
+        v63 = 23;
+        v62 = 63;
         goto LABEL_113;
       }
 
@@ -4091,8 +4108,8 @@ LABEL_66:
 
 LABEL_76:
         v16 = 2;
-        v64 = 23;
-        v63 = 63;
+        v63 = 23;
+        v62 = 63;
         v15 = 2;
         goto LABEL_113;
       }
@@ -4106,8 +4123,8 @@ LABEL_76:
 
     v16 = 1;
     *(p_srcFormat + 36) = 1;
-    v63 = 0;
-    v64 = 547;
+    v62 = 0;
+    v63 = 547;
     goto LABEL_109;
   }
 
@@ -4185,15 +4202,15 @@ LABEL_70:
   if (PlaneCount == 3 && (p_srcFormat[807] & 1) == 0)
   {
     WidthOfPlane >>= 2;
-    v64 = 70;
+    v63 = 70;
     v25 = 30;
     goto LABEL_111;
   }
 
   v18 = 540;
 LABEL_60:
-  v63 = 0;
-  v64 = v18;
+  v62 = 0;
+  v63 = v18;
 LABEL_112:
   *(p_srcFormat + 36) = 0;
   v15 = 1;
@@ -4244,7 +4261,7 @@ LABEL_139:
 
         if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
-          goto LABEL_148;
+          return -17007;
         }
 
 LABEL_147:
@@ -4252,27 +4269,27 @@ LABEL_147:
         v54 = HIBYTE(*p_srcFormat);
         v55 = BYTE2(*p_srcFormat);
         *buf = 136317442;
-        v67 = "[DolbyVisionComposer setupInputTexturesWithBL:EL:Output:MetaData:]";
-        v68 = 1024;
-        *v69 = v53;
-        *&v69[4] = 1024;
-        *&v69[6] = v54;
+        v66 = "[DolbyVisionComposer setupInputTexturesWithBL:EL:Output:MetaData:]";
+        v67 = 1024;
+        *v68 = v53;
+        *&v68[4] = 1024;
+        *&v68[6] = v54;
+        *v69 = 1024;
+        *&v69[2] = v55;
         *v70 = 1024;
-        *&v70[2] = v55;
+        *&v70[2] = BYTE1(v53);
         *v71 = 1024;
-        *&v71[2] = BYTE1(v53);
+        *&v71[2] = v53;
         *v72 = 1024;
-        *&v72[2] = v53;
+        *&v72[2] = HIBYTE(v14);
         *v73 = 1024;
-        *&v73[2] = HIBYTE(v14);
+        *&v73[2] = BYTE2(v14);
         *v74 = 1024;
-        *&v74[2] = BYTE2(v14);
+        *&v74[2] = BYTE1(v14);
         *v75 = 1024;
-        *&v75[2] = BYTE1(v14);
-        *v76 = 1024;
-        *&v76[2] = v14;
+        *&v75[2] = v14;
         _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] %s : format (%d) %c%c%c%c [%c%c%c%c]is not supported yet\n", buf, 0x42u);
-        goto LABEL_148;
+        return -17007;
       }
 
       if (v14 == 1999908961)
@@ -4293,7 +4310,7 @@ LABEL_138:
   }
 
 LABEL_114:
-  [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:v64 width:WidthOfPlane height:HeightOfPlane mipmapped:0, eL];
+  [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:v63 width:WidthOfPlane height:HeightOfPlane mipmapped:0, eL];
   v26 = LABEL_115:;
   v27 = [(MTLDeviceSPI *)self->_device newTextureWithDescriptor:v26 iosurface:l plane:0];
   blTexture = self->_blTexture;
@@ -4304,10 +4321,10 @@ LABEL_114:
     blTextureUV = self->_blTextureUV;
     self->_blTextureUV = 0;
 
-    v30 = v63;
-    if (v63 && (p_srcFormat[807] & 1) != 0)
+    v30 = v62;
+    if (v62 && (p_srcFormat[807] & 1) != 0)
     {
-      v31 = [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:v63 width:WidthOfPlane / v15 height:HeightOfPlane / v16 mipmapped:0];
+      v31 = [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:v62 width:WidthOfPlane / v15 height:HeightOfPlane / v16 mipmapped:0];
       v32 = [(MTLDeviceSPI *)self->_device newTextureWithDescriptor:v31 iosurface:l plane:1];
       v33 = self->_blTextureUV;
       self->_blTextureUV = v32;
@@ -4316,28 +4333,28 @@ LABEL_114:
 
   else
   {
-    if (!v63)
+    if (!v62)
     {
       if (enableLogInstance)
       {
         if (logInstanceID)
         {
-          v57 = logInstanceID;
+          v56 = logInstanceID;
         }
 
         else
         {
-          v57 = prevLogInstanceID;
+          v56 = prevLogInstanceID;
         }
 
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134217984;
-          v67 = WORD1(v57);
+          v66 = WORD1(v56);
           _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx Assertion: chromaPixelFormat != MTLPixelFormatInvalid warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Metal/Composer/DolbyVisionComposer.mm at line 3750\n", buf, 0xCu);
         }
 
-        prevLogInstanceID = v57;
+        prevLogInstanceID = v56;
       }
 
       else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -4347,18 +4364,18 @@ LABEL_114:
       }
     }
 
-    v58 = [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:v63 width:2 * WidthOfPlane height:HeightOfPlane / v16 mipmapped:0];
-    v59 = [(MTLDeviceSPI *)self->_device newTextureWithDescriptor:v58 iosurface:l plane:1];
-    v60 = self->_blTextureUV;
-    self->_blTextureUV = v59;
+    v57 = [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:v62 width:2 * WidthOfPlane height:HeightOfPlane / v16 mipmapped:0];
+    v58 = [(MTLDeviceSPI *)self->_device newTextureWithDescriptor:v57 iosurface:l plane:1];
+    v59 = self->_blTextureUV;
+    self->_blTextureUV = v58;
 
-    v30 = v63;
+    v30 = v62;
   }
 
   if (*(p_srcFormat + 3230) == 1 && data->var14[0][0][1][0])
   {
     v34 = WidthOfPlane >> 1;
-    v35 = [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:v64 width:WidthOfPlane >> 1 height:WidthOfPlane mipmapped:0];
+    v35 = [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:v63 width:WidthOfPlane >> 1 height:WidthOfPlane mipmapped:0];
     [v35 setUsage:3];
     v36 = [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:v30 width:v34 height:HeightOfPlane >> 1 mipmapped:0];
     [v36 setUsage:3];
@@ -4380,25 +4397,25 @@ LABEL_114:
     self->_blSubsampledTexture = 0;
   }
 
-  if (buffera && !data->var32)
+  if (buffera)
   {
-    v42 = IOSurfaceGetWidthOfPlane(buffera, 0);
-    v43 = IOSurfaceGetHeightOfPlane(buffera, 0);
-    v44 = [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:v64 width:v42 height:v43 mipmapped:0];
-    v45 = [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:v63 width:v42 >> 1 height:v43 >> 1 mipmapped:0];
-    v46 = [(MTLDeviceSPI *)self->_device newTextureWithDescriptor:v44 iosurface:buffera plane:0];
-    elTexture = self->_elTexture;
-    self->_elTexture = v46;
+    if (!data->var32)
+    {
+      v42 = IOSurfaceGetWidthOfPlane(buffera, 0);
+      v43 = IOSurfaceGetHeightOfPlane(buffera, 0);
+      v44 = [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:v63 width:v42 height:v43 mipmapped:0];
+      v45 = [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:v62 width:v42 >> 1 height:v43 >> 1 mipmapped:0];
+      v46 = [(MTLDeviceSPI *)self->_device newTextureWithDescriptor:v44 iosurface:buffera plane:0];
+      elTexture = self->_elTexture;
+      self->_elTexture = v46;
 
-    v48 = [(MTLDeviceSPI *)self->_device newTextureWithDescriptor:v45 iosurface:buffera plane:1];
-    elTextureUV = self->_elTextureUV;
-    self->_elTextureUV = v48;
+      v48 = [(MTLDeviceSPI *)self->_device newTextureWithDescriptor:v45 iosurface:buffera plane:1];
+      elTextureUV = self->_elTextureUV;
+      self->_elTextureUV = v48;
+    }
   }
 
-  result = -17000;
-LABEL_149:
-  v56 = *MEMORY[0x277D85DE8];
-  return result;
+  return -17000;
 }
 
 - (int64_t)setupOutputTexturesWithBuffer:(__IOSurface *)buffer orientation:(int)orientation ptvMode:(BOOL)mode

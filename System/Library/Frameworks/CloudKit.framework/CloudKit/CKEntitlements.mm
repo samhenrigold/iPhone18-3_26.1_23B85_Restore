@@ -7,6 +7,7 @@
 - (BOOL)isBackgroundAssetsExtension;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)validateEntitlementsWithSDKVersion:(unsigned int)version error:(id *)error;
+- (CKEntitlements)initWithAuditToken:(id *)token pid:(int)pid;
 - (CKEntitlements)initWithCurrentProcess;
 - (CKEntitlements)initWithEntitlementsDict:(id)dict;
 - (CKEntitlements)initWithSqliteRepresentation:(id)representation;
@@ -28,9 +29,9 @@
 
 - (CKEntitlements)initWithCurrentProcess
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   *task_info_out = 0u;
-  v13 = 0u;
+  v12 = 0u;
   task_info_outCnt = 8;
   v3 = task_info(*MEMORY[0x1E69E9A60], 0xFu, task_info_out, &task_info_outCnt);
   if (v3)
@@ -56,12 +57,11 @@
   {
     v7 = getpid();
     *buf = *task_info_out;
-    v15 = v13;
+    v14 = v12;
     self = objc_msgSend_initWithAuditToken_pid_(self, v8, buf, v7);
     selfCopy = self;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -122,7 +122,7 @@ LABEL_4:
 
 - (NSString)applicationBundleID
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (selfCopy)
@@ -186,14 +186,14 @@ LABEL_4:
 LABEL_17:
   }
 
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = sub_1884213EC;
-  v15[3] = &unk_1E70BC388;
-  v15[4] = selfCopy;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = sub_1884213EC;
+  v14[3] = &unk_1E70BC388;
+  v14[4] = selfCopy;
   if (qword_1ED4B6010 != -1)
   {
-    dispatch_once(&qword_1ED4B6010, v15);
+    dispatch_once(&qword_1ED4B6010, v14);
     if (selfCopy)
     {
       goto LABEL_20;
@@ -216,8 +216,6 @@ LABEL_21:
 
 LABEL_22:
   objc_sync_exit(selfCopy);
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -287,6 +285,187 @@ LABEL_22:
   return v7;
 }
 
+- (CKEntitlements)initWithAuditToken:(id *)token pid:(int)pid
+{
+  v4 = *&pid;
+  v87 = *MEMORY[0x1E69E9840];
+  v7 = *&token->var0[4];
+  *token.val = *token->var0;
+  *&token.val[4] = v7;
+  v8 = SecTaskCreateWithAuditToken(0, &token);
+  aBlock[0] = MEMORY[0x1E69E9820];
+  aBlock[1] = 3221225472;
+  aBlock[2] = sub_1886AF084;
+  aBlock[3] = &unk_1E70BC418;
+  aBlock[4] = v8;
+  v10 = _Block_copy(aBlock);
+  error = 0;
+  if (v8)
+  {
+    objc_opt_self();
+    *token.val = @"com.apple.private.cloudkit.masquerade";
+    *&token.val[2] = @"com.apple.private.cloudkit.setEnvironment";
+    *&token.val[4] = @"com.apple.private.cloudkit.customAccounts";
+    *&token.val[6] = @"com.apple.private.cloudkit.assetBoundaryKey";
+    v51 = @"com.apple.private.cloudkit.protectiondata";
+    v52 = @"com.apple.private.cloudkit.systemService";
+    v53 = @"com.apple.private.dark-wake-push";
+    v54 = @"com.apple.private.cloudkit.buddyAccess";
+    v55 = @"com.apple.private.cloudkit.lightweightPCS";
+    v56 = @"com.apple.private.cloudkit.oopui";
+    v57 = @"com.apple.private.cloudkit.participant-pii";
+    v58 = @"com.apple.developer.icloud-extended-share-access";
+    v59 = @"com.apple.private.cloudkit.displaysSystemAcceptPrompt";
+    v60 = @"com.apple.private.cloudkit.spi";
+    v61 = @"com.apple.private.cloudkit.systemLaunchDaemonAccess";
+    v62 = @"com.apple.private.cloudkit.packages";
+    v63 = @"com.apple.private.vfs.open-by-id";
+    v64 = @"com.apple.private.network.socket-delegate";
+    v65 = @"com.apple.private.cloudkit.serviceNameForContainerMap";
+    v66 = @"application-identifier";
+    v67 = @"com.apple.developer.associated-application-identifier";
+    v68 = @"com.apple.private.cloudkit.prefix";
+    v69 = @"aps-environment";
+    v70 = @"aps-connection-initiate";
+    v71 = @"com.apple.developer.icloud-container-environment";
+    v72 = @"com.apple.developer.icloud-container-development-container-identifiers";
+    v73 = @"com.apple.developer.icloud-services";
+    v74 = @"com.apple.private.cloudkit.fakeEntitlements";
+    v75 = @"com.apple.private.cloudkit.zoneprotectiondata";
+    v76 = @"com.apple.private.cloudkit.nonLegacySharingURL";
+    v77 = @"com.apple.private.cloudkit.allowUnverifiedAccount";
+    v78 = @"com.apple.private.cloudkit.notifyOnAccountWarmup";
+    v79 = @"com.apple.private.cloudkit.realTimeOperations";
+    v80 = @"com.apple.developer.icloud-code-destination";
+    v81 = @"com.apple.developer.icloud-code-destination-by-service";
+    v82 = @"com.apple.developer.icloud-code-destination-by-container-and-service";
+    v83 = @"com.apple.private.cloudkit.explicitCodeOperationURL";
+    v84 = @"com.apple.private.cloudkit.supportservice";
+    v85 = @"com.apple.private.cloudkit.publishAssets";
+    v86 = @"com.apple.private.cloudkit.onDeviceStreaming";
+    v12 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v11, &token, 40);
+    v13 = SecTaskCopyValuesForEntitlements(v8, v12, &error);
+
+    if (error)
+    {
+      secEntitlementsError = self->_secEntitlementsError;
+      self->_secEntitlementsError = error;
+
+      error = 0;
+      if (ck_log_initialization_predicate != -1)
+      {
+        dispatch_once(&ck_log_initialization_predicate, ck_log_initialization_block);
+      }
+
+      v17 = ck_log_facility_ck;
+      if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_ERROR))
+      {
+        v45 = self->_secEntitlementsError;
+        token.val[0] = 138543618;
+        *&token.val[1] = v8;
+        LOWORD(token.val[3]) = 2114;
+        *(&token.val[3] + 2) = v45;
+        _os_log_error_impl(&dword_1883EA000, v17, OS_LOG_TYPE_ERROR, "Couldn't fetch client entitlements from sec task %{public}@ because we got an error from Security: %{public}@", &token, 0x16u);
+      }
+
+      selfCopy = 0;
+    }
+
+    else
+    {
+      v22 = objc_msgSend_mutableCopy(v13, v14, v15);
+      if (objc_opt_respondsToSelector())
+      {
+        v24 = *&token->var0[4];
+        *token.val = *token->var0;
+        *&token.val[4] = v24;
+        objc_msgSend_daemonInitHook_mutableEntitlements_(self, v23, &token, v22);
+      }
+
+      v25 = proc_name(v4, &token, 0x40u);
+      v26 = objc_alloc(MEMORY[0x1E696AEC0]);
+      p_token = "???";
+      if (v25 > 0)
+      {
+        p_token = &token;
+      }
+
+      v29 = objc_msgSend_initWithFormat_(v26, v27, @"%s(%d)", p_token, v4);
+      v31 = v29;
+      if (__sTestOverridesAvailable == 1 && ((objc_msgSend_isEqualToString_(v29, v30, @"xctest") & 1) != 0 || objc_msgSend_hasPrefix_(v31, v32, @"xctest(")))
+      {
+        if (ck_log_initialization_predicate != -1)
+        {
+          dispatch_once(&ck_log_initialization_predicate, ck_log_initialization_block);
+        }
+
+        v33 = ck_log_facility_ck;
+        if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 0;
+          _os_log_error_impl(&dword_1883EA000, v33, OS_LOG_TYPE_ERROR, "Allowing xctest access to CloudKitTesting.  Note that parts of CloudKit are non-functional in an un-entitled process.  Strongly consider moving to an entitled test host", buf, 2u);
+        }
+
+        v35 = objc_msgSend_objectForKeyedSubscript_(v22, v34, @"application-identifier");
+        v36 = v35 == 0;
+
+        if (v36)
+        {
+          objc_msgSend_setObject_forKeyedSubscript_(v22, v37, @"com.apple.xctest", @"application-identifier");
+        }
+
+        v38 = objc_msgSend_objectForKeyedSubscript_(v22, v37, @"com.apple.developer.icloud-services");
+        v39 = v38 == 0;
+
+        if (v39)
+        {
+          v49 = @"CloudKit";
+          v40 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v30, &v49, 1);
+          objc_msgSend_setObject_forKeyedSubscript_(v22, v41, v40, @"com.apple.developer.icloud-services");
+        }
+      }
+
+      v42 = objc_msgSend_initWithEntitlementsDict_(self, v30, v22);
+      v43 = v42;
+      if (v42)
+      {
+        *(v42 + 8) = v4;
+        objc_storeStrong((v42 + 40), v31);
+      }
+
+      self = v43;
+
+      selfCopy = self;
+    }
+  }
+
+  else
+  {
+    v19 = objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v9, @"CKErrorDomain", 1, @"Can't fetch client entitlements from a NULL secTask for pid %d", v4);
+    v20 = self->_secEntitlementsError;
+    self->_secEntitlementsError = v19;
+
+    if (ck_log_initialization_predicate != -1)
+    {
+      dispatch_once(&ck_log_initialization_predicate, ck_log_initialization_block);
+    }
+
+    v21 = ck_log_facility_ck;
+    if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_ERROR))
+    {
+      token.val[0] = 67109120;
+      token.val[1] = v4;
+      _os_log_error_impl(&dword_1883EA000, v21, OS_LOG_TYPE_ERROR, "Can't fetch client entitlements from a NULL secTask for pid %d", &token, 8u);
+    }
+
+    selfCopy = 0;
+  }
+
+  v10[2](v10);
+
+  return selfCopy;
+}
+
 - (NSString)description
 {
   v3 = MEMORY[0x1E696AEC0];
@@ -299,7 +478,7 @@ LABEL_22:
 
 - (id)entitlementsByAddingOverlay:(id)overlay
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   overlayCopy = overlay;
   if (self)
   {
@@ -325,27 +504,27 @@ LABEL_22:
 
   v13 = v12;
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   v14 = overlayCopy;
-  v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v15, &v35, v39, 16);
+  v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v15, &v34, v38, 16);
   if (v16)
   {
     v18 = v16;
-    v19 = *v36;
+    v19 = *v35;
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v36 != v19)
+        if (*v35 != v19)
         {
           objc_enumerationMutation(v14);
         }
 
-        v21 = *(*(&v35 + 1) + 8 * i);
-        v22 = objc_msgSend_objectForKeyedSubscript_(v14, v17, v21, v35);
+        v21 = *(*(&v34 + 1) + 8 * i);
+        v22 = objc_msgSend_objectForKeyedSubscript_(v14, v17, v21, v34);
         v25 = objc_msgSend_null(MEMORY[0x1E695DFB0], v23, v24);
 
         if (v22 == v25)
@@ -359,7 +538,7 @@ LABEL_22:
         }
       }
 
-      v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v17, &v35, v39, 16);
+      v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v17, &v34, v38, 16);
     }
 
     while (v18);
@@ -408,8 +587,6 @@ LABEL_21:
   }
 
 LABEL_22:
-
-  v33 = *MEMORY[0x1E69E9840];
 
   return v30;
 }
@@ -909,16 +1086,16 @@ LABEL_81:
 
 - (id)sqliteRepresentation
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (self)
   {
     self = objc_getProperty(self, a2, 24, 1);
   }
 
   v3 = objc_msgSend_mutableCopy(self, a2, v2);
-  v13 = 0;
-  v5 = objc_msgSend_dataWithJSONObject_options_error_(MEMORY[0x1E696ACB0], v4, v3, 0, &v13);
-  v6 = v13;
+  v12 = 0;
+  v5 = objc_msgSend_dataWithJSONObject_options_error_(MEMORY[0x1E696ACB0], v4, v3, 0, &v12);
+  v6 = v12;
   if (v6)
   {
     if (ck_log_initialization_predicate != -1)
@@ -930,7 +1107,7 @@ LABEL_81:
     if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v15 = v6;
+      v14 = v6;
       _os_log_error_impl(&dword_1883EA000, v7, OS_LOG_TYPE_ERROR, "Error converting CKEntitlements to JSON: %{public}@", buf, 0xCu);
     }
   }
@@ -938,21 +1115,19 @@ LABEL_81:
   v8 = objc_alloc(MEMORY[0x1E696AEC0]);
   v10 = objc_msgSend_initWithData_encoding_(v8, v9, v5, 4);
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return v10;
 }
 
 - (CKEntitlements)initWithSqliteRepresentation:(id)representation
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   representationCopy = representation;
   if (objc_msgSend_length(representationCopy, v5, v6))
   {
     v8 = objc_msgSend_dataUsingEncoding_(representationCopy, v7, 4);
-    v17 = 0;
-    v10 = objc_msgSend_JSONObjectWithData_options_error_(MEMORY[0x1E696ACB0], v9, v8, 0, &v17);
-    v12 = v17;
+    v16 = 0;
+    v10 = objc_msgSend_JSONObjectWithData_options_error_(MEMORY[0x1E696ACB0], v9, v8, 0, &v16);
+    v12 = v16;
     if (v12 || !v10)
     {
       if (ck_log_initialization_predicate != -1)
@@ -964,7 +1139,7 @@ LABEL_81:
       if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v19 = v12;
+        v18 = v12;
         _os_log_error_impl(&dword_1883EA000, v14, OS_LOG_TYPE_ERROR, "Error converting JSON data to CKEntitlements: %{public}@", buf, 0xCu);
       }
 
@@ -983,13 +1158,12 @@ LABEL_81:
     selfCopy = 0;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (BOOL)validateEntitlementsWithSDKVersion:(unsigned int)version error:(id *)error
 {
-  v231[26] = *MEMORY[0x1E69E9840];
+  v223[26] = *MEMORY[0x1E69E9840];
   selfCopy = self;
   if (self)
   {
@@ -999,68 +1173,68 @@ LABEL_81:
   selfCopy2 = self;
   newValue = objc_msgSend_mutableCopy(selfCopy2, v6, v7);
 
-  v231[0] = @"com.apple.private.cloudkit.masquerade";
-  v231[1] = @"com.apple.private.cloudkit.setEnvironment";
-  v231[2] = @"com.apple.private.cloudkit.customAccounts";
-  v231[3] = @"com.apple.private.cloudkit.assetBoundaryKey";
-  v231[4] = @"com.apple.private.cloudkit.protectiondata";
-  v231[5] = @"com.apple.private.cloudkit.systemService";
-  v231[6] = @"com.apple.private.dark-wake-push";
-  v231[7] = @"com.apple.private.cloudkit.buddyAccess";
-  v231[8] = @"com.apple.private.cloudkit.lightweightPCS";
-  v231[9] = @"com.apple.private.cloudkit.oopui";
-  v231[10] = @"com.apple.private.cloudkit.participant-pii";
-  v231[11] = @"com.apple.private.cloudkit.displaysSystemAcceptPrompt";
-  v231[12] = @"com.apple.private.cloudkit.systemLaunchDaemonAccess";
-  v231[13] = @"com.apple.private.cloudkit.packages";
-  v231[14] = @"com.apple.private.vfs.open-by-id";
-  v231[15] = @"com.apple.private.network.socket-delegate";
-  v231[16] = @"com.apple.private.cloudkit.fakeEntitlements";
-  v231[17] = @"com.apple.private.cloudkit.zoneprotectiondata";
-  v231[18] = @"com.apple.private.cloudkit.nonLegacySharingURL";
-  v231[19] = @"com.apple.private.cloudkit.allowUnverifiedAccount";
-  v231[20] = @"com.apple.private.cloudkit.notifyOnAccountWarmup";
-  v231[21] = @"com.apple.private.cloudkit.explicitCodeOperationURL";
-  v231[22] = @"com.apple.private.cloudkit.realTimeOperations";
-  v231[23] = @"com.apple.private.cloudkit.supportservice";
-  v231[24] = @"com.apple.private.cloudkit.publishAssets";
-  v231[25] = @"com.apple.private.cloudkit.onDeviceStreaming";
-  v9 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v8, v231, 26);
-  v230[0] = @"application-identifier";
-  v230[1] = @"com.apple.private.cloudkit.prefix";
-  v230[2] = @"aps-environment";
-  v230[3] = @"com.apple.developer.icloud-code-destination";
-  v165 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v10, v230, 4);
-  v229[0] = @"com.apple.developer.icloud-container-development-container-identifiers";
-  v229[1] = @"com.apple.developer.icloud-services";
-  v229[2] = @"com.apple.developer.icloud-extended-share-access";
-  v164 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v11, v229, 3);
-  v228[0] = @"com.apple.private.cloudkit.serviceNameForContainerMap";
-  v228[1] = @"com.apple.developer.icloud-code-destination-by-service";
-  v163 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v12, v228, 2);
-  v207 = 0u;
-  v208 = 0u;
-  v209 = 0u;
-  v210 = 0u;
+  v223[0] = @"com.apple.private.cloudkit.masquerade";
+  v223[1] = @"com.apple.private.cloudkit.setEnvironment";
+  v223[2] = @"com.apple.private.cloudkit.customAccounts";
+  v223[3] = @"com.apple.private.cloudkit.assetBoundaryKey";
+  v223[4] = @"com.apple.private.cloudkit.protectiondata";
+  v223[5] = @"com.apple.private.cloudkit.systemService";
+  v223[6] = @"com.apple.private.dark-wake-push";
+  v223[7] = @"com.apple.private.cloudkit.buddyAccess";
+  v223[8] = @"com.apple.private.cloudkit.lightweightPCS";
+  v223[9] = @"com.apple.private.cloudkit.oopui";
+  v223[10] = @"com.apple.private.cloudkit.participant-pii";
+  v223[11] = @"com.apple.private.cloudkit.displaysSystemAcceptPrompt";
+  v223[12] = @"com.apple.private.cloudkit.systemLaunchDaemonAccess";
+  v223[13] = @"com.apple.private.cloudkit.packages";
+  v223[14] = @"com.apple.private.vfs.open-by-id";
+  v223[15] = @"com.apple.private.network.socket-delegate";
+  v223[16] = @"com.apple.private.cloudkit.fakeEntitlements";
+  v223[17] = @"com.apple.private.cloudkit.zoneprotectiondata";
+  v223[18] = @"com.apple.private.cloudkit.nonLegacySharingURL";
+  v223[19] = @"com.apple.private.cloudkit.allowUnverifiedAccount";
+  v223[20] = @"com.apple.private.cloudkit.notifyOnAccountWarmup";
+  v223[21] = @"com.apple.private.cloudkit.explicitCodeOperationURL";
+  v223[22] = @"com.apple.private.cloudkit.realTimeOperations";
+  v223[23] = @"com.apple.private.cloudkit.supportservice";
+  v223[24] = @"com.apple.private.cloudkit.publishAssets";
+  v223[25] = @"com.apple.private.cloudkit.onDeviceStreaming";
+  v9 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v8, v223, 26);
+  v222[0] = @"application-identifier";
+  v222[1] = @"com.apple.private.cloudkit.prefix";
+  v222[2] = @"aps-environment";
+  v222[3] = @"com.apple.developer.icloud-code-destination";
+  v157 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v10, v222, 4);
+  v221[0] = @"com.apple.developer.icloud-container-development-container-identifiers";
+  v221[1] = @"com.apple.developer.icloud-services";
+  v221[2] = @"com.apple.developer.icloud-extended-share-access";
+  v156 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v11, v221, 3);
+  v220[0] = @"com.apple.private.cloudkit.serviceNameForContainerMap";
+  v220[1] = @"com.apple.developer.icloud-code-destination-by-service";
+  v155 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v12, v220, 2);
+  v199 = 0u;
+  v200 = 0u;
+  v201 = 0u;
+  v202 = 0u;
   v13 = v9;
-  v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v14, &v207, v227, 16);
-  v171 = HIWORD(version);
-  v173 = v13;
+  v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v14, &v199, v219, 16);
+  v163 = HIWORD(version);
+  v165 = v13;
   if (v15)
   {
     v17 = v15;
-    v18 = *v208;
+    v18 = *v200;
     do
     {
       v19 = 0;
       do
       {
-        if (*v208 != v18)
+        if (*v200 != v18)
         {
           objc_enumerationMutation(v13);
         }
 
-        v20 = *(*(&v207 + 1) + 8 * v19);
+        v20 = *(*(&v199 + 1) + 8 * v19);
         objc_msgSend_addObject_(0, v16, v20);
         v22 = objc_msgSend_valueForEntitlement_(selfCopy, v21, v20);
         if (v22 && (objc_opt_respondsToSelector() & 1) == 0)
@@ -1075,65 +1249,65 @@ LABEL_81:
           if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543618;
-            v212 = v22;
-            v213 = 2114;
-            v214 = v20;
+            v204 = v22;
+            v205 = 2114;
+            v206 = v20;
             _os_log_error_impl(&dword_1883EA000, v24, OS_LOG_TYPE_ERROR, "This application has a malformed value %{public}@ for entitlement %{public}@, expected something that supports -BOOLValue", buf, 0x16u);
           }
 
-          if (v171 > 0xE)
+          if (v163 > 0xE)
           {
-            v13 = v173;
+            v13 = v165;
             if (error)
             {
               objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v25, @"CKErrorDomain", 8, @"Application has malformed entitlements.  Found value %@ for entitlement %@, expected something that supports -BOOLValue", v22, v20);
-              *error = v102 = 0;
+              *error = v97 = 0;
             }
 
             else
             {
-              v102 = 0;
+              v97 = 0;
             }
 
-            v38 = v173;
+            v38 = v165;
             goto LABEL_166;
           }
 
           objc_msgSend_setObject_forKeyedSubscript_(newValue, v25, 0, v20);
-          v13 = v173;
+          v13 = v165;
         }
 
         ++v19;
       }
 
       while (v17 != v19);
-      v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v16, &v207, v227, 16);
+      v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v16, &v199, v219, 16);
     }
 
     while (v17);
   }
 
-  v205 = 0u;
-  v206 = 0u;
-  v203 = 0u;
-  v204 = 0u;
-  v26 = v165;
-  v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(v26, v27, &v203, v226, 16);
+  v197 = 0u;
+  v198 = 0u;
+  v195 = 0u;
+  v196 = 0u;
+  v26 = v157;
+  v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(v26, v27, &v195, v218, 16);
   if (v28)
   {
     v30 = v28;
-    v31 = *v204;
+    v31 = *v196;
     do
     {
       v32 = 0;
       do
       {
-        if (*v204 != v31)
+        if (*v196 != v31)
         {
           objc_enumerationMutation(v26);
         }
 
-        v33 = *(*(&v203 + 1) + 8 * v32);
+        v33 = *(*(&v195 + 1) + 8 * v32);
         objc_msgSend_addObject_(0, v29, v33);
         v22 = objc_msgSend_valueForEntitlement_(selfCopy, v34, v33);
         if (v22)
@@ -1151,24 +1325,24 @@ LABEL_81:
             if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
             {
               *buf = 138543618;
-              v212 = v22;
-              v213 = 2114;
-              v214 = v33;
+              v204 = v22;
+              v205 = 2114;
+              v206 = v33;
               _os_log_error_impl(&dword_1883EA000, v36, OS_LOG_TYPE_ERROR, "This application has a malformed value %{public}@ for entitlement %{public}@, expected a string", buf, 0x16u);
             }
 
-            if (v171 > 0xE)
+            if (v163 > 0xE)
             {
-              v13 = v173;
+              v13 = v165;
               if (error)
               {
                 objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v37, @"CKErrorDomain", 8, @"Application has malformed entitlements.  Found value %@ for entitlement %@, expected a string", v22, v33);
-                *error = v102 = 0;
+                *error = v97 = 0;
               }
 
               else
               {
-                v102 = 0;
+                v97 = 0;
               }
 
               v38 = v26;
@@ -1176,7 +1350,7 @@ LABEL_81:
             }
 
             objc_msgSend_setObject_forKeyedSubscript_(newValue, v37, 0, v33);
-            v13 = v173;
+            v13 = v165;
           }
         }
 
@@ -1184,35 +1358,35 @@ LABEL_81:
       }
 
       while (v30 != v32);
-      v30 = objc_msgSend_countByEnumeratingWithState_objects_count_(v26, v29, &v203, v226, 16);
+      v30 = objc_msgSend_countByEnumeratingWithState_objects_count_(v26, v29, &v195, v218, 16);
     }
 
     while (v30);
   }
 
-  v201 = 0u;
-  v202 = 0u;
-  v199 = 0u;
-  v200 = 0u;
-  v38 = v164;
+  v193 = 0u;
+  v194 = 0u;
+  v191 = 0u;
+  v192 = 0u;
+  v38 = v156;
   v40 = selfCopy;
-  v168 = objc_msgSend_countByEnumeratingWithState_objects_count_(v38, v39, &v199, v225, 16);
-  if (v168)
+  v160 = objc_msgSend_countByEnumeratingWithState_objects_count_(v38, v39, &v191, v217, 16);
+  if (v160)
   {
-    v42 = *v200;
-    v157 = *v200;
-    v160 = v38;
+    v42 = *v192;
+    v149 = *v192;
+    v152 = v38;
     do
     {
       v43 = 0;
       do
       {
-        if (*v200 != v42)
+        if (*v192 != v42)
         {
           objc_enumerationMutation(v38);
         }
 
-        v44 = *(*(&v199 + 1) + 8 * v43);
+        v44 = *(*(&v191 + 1) + 8 * v43);
         objc_msgSend_addObject_(0, v41, v44);
         v22 = objc_msgSend_valueForEntitlement_(v40, v45, v44);
         if (v22)
@@ -1223,79 +1397,78 @@ LABEL_81:
             goto LABEL_48;
           }
 
-          v197 = 0u;
-          v198 = 0u;
-          v195 = 0u;
-          v196 = 0u;
+          v189 = 0u;
+          v190 = 0u;
+          v187 = 0u;
+          v188 = 0u;
           v46 = v22;
-          v48 = objc_msgSend_countByEnumeratingWithState_objects_count_(v46, v47, &v195, v224, 16);
+          v48 = objc_msgSend_countByEnumeratingWithState_objects_count_(v46, v47, &v187, v216, 16);
           if (!v48)
           {
 
-            v13 = v173;
+            v13 = v165;
             goto LABEL_56;
           }
 
           v49 = v48;
-          v50 = *v196;
+          v50 = *v188;
           v51 = 1;
           do
           {
             for (i = 0; i != v49; ++i)
             {
-              if (*v196 != v50)
+              if (*v188 != v50)
               {
                 objc_enumerationMutation(v46);
               }
 
-              v53 = *(*(&v195 + 1) + 8 * i);
               objc_opt_class();
               v51 &= objc_opt_isKindOfClass();
             }
 
-            v49 = objc_msgSend_countByEnumeratingWithState_objects_count_(v46, v54, &v195, v224, 16);
+            v49 = objc_msgSend_countByEnumeratingWithState_objects_count_(v46, v53, &v187, v216, 16);
           }
 
           while (v49);
 
-          v13 = v173;
+          v13 = v165;
           v40 = selfCopy;
-          v42 = v157;
-          v38 = v160;
+          v42 = v149;
+          v38 = v152;
           if ((v51 & 1) == 0)
           {
 LABEL_48:
-            v55 = ck_log_initialization_block;
+            v54 = ck_log_initialization_block;
             if (ck_log_initialization_predicate != -1)
             {
-              dispatch_once(&ck_log_initialization_predicate, v55);
+              dispatch_once(&ck_log_initialization_predicate, v54);
             }
 
-            v56 = ck_log_facility_ck;
-            if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
+            v55 = ck_log_facility_ck;
+            if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
             {
               *buf = 138543618;
-              v212 = v22;
-              v213 = 2114;
-              v214 = v44;
-              _os_log_error_impl(&dword_1883EA000, v56, OS_LOG_TYPE_ERROR, "This application has a malformed value %{public}@ for entitlement %{public}@, expected an array of strings", buf, 0x16u);
+              v204 = v22;
+              v205 = 2114;
+              v206 = v44;
+              _os_log_error_impl(&dword_1883EA000, v55, OS_LOG_TYPE_ERROR, "This application has a malformed value %{public}@ for entitlement %{public}@, expected an array of strings", buf, 0x16u);
             }
 
-            if (v171 > 0xE || (objc_msgSend_isEqualToString_(v44, v57, @"com.apple.developer.icloud-services") & 1) != 0)
+            if (v163 > 0xE || (objc_msgSend_isEqualToString_(v44, v56, @"com.apple.developer.icloud-services") & 1) != 0)
             {
               errorCopy4 = error;
               if (error)
               {
-                v152 = v22;
-                v154 = v44;
-                v104 = @"Application has malformed entitlements.  Found value %@ for entitlement %@, expected an array of strings";
+                v144 = v22;
+                v146 = v44;
+                v99 = @"Application has malformed entitlements.  Found value %@ for entitlement %@, expected an array of strings";
                 goto LABEL_115;
               }
 
               goto LABEL_165;
             }
 
-            objc_msgSend_setObject_forKeyedSubscript_(newValue, v57, 0, v44);
+            objc_msgSend_setObject_forKeyedSubscript_(newValue, v56, 0, v44);
           }
         }
 
@@ -1304,26 +1477,26 @@ LABEL_56:
         ++v43;
       }
 
-      while (v43 != v168);
-      v168 = objc_msgSend_countByEnumeratingWithState_objects_count_(v38, v41, &v199, v225, 16);
+      while (v43 != v160);
+      v160 = objc_msgSend_countByEnumeratingWithState_objects_count_(v38, v41, &v191, v217, 16);
     }
 
-    while (v168);
+    while (v160);
   }
 
-  v193 = 0u;
-  v194 = 0u;
-  v191 = 0u;
-  v192 = 0u;
-  v38 = v163;
-  v59 = objc_msgSend_countByEnumeratingWithState_objects_count_(v38, v58, &v191, v223, 16);
-  if (!v59)
+  v185 = 0u;
+  v186 = 0u;
+  v183 = 0u;
+  v184 = 0u;
+  v38 = v155;
+  v58 = objc_msgSend_countByEnumeratingWithState_objects_count_(v38, v57, &v183, v215, 16);
+  if (!v58)
   {
 LABEL_85:
 
     v38 = @"com.apple.developer.associated-application-identifier";
-    v22 = objc_msgSend_valueForEntitlement_(v40, v85, v38);
-    objc_msgSend_addObject_(0, v86, v38);
+    v22 = objc_msgSend_valueForEntitlement_(v40, v82, v38);
+    objc_msgSend_addObject_(0, v83, v38);
     if (v22)
     {
       objc_opt_class();
@@ -1333,78 +1506,75 @@ LABEL_85:
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
 LABEL_96:
-          v97 = ck_log_initialization_block;
+          v92 = ck_log_initialization_block;
           if (ck_log_initialization_predicate != -1)
           {
-            dispatch_once(&ck_log_initialization_predicate, v97);
+            dispatch_once(&ck_log_initialization_predicate, v92);
           }
 
-          v98 = ck_log_facility_ck;
-          if (os_log_type_enabled(v98, OS_LOG_TYPE_ERROR))
+          v93 = ck_log_facility_ck;
+          if (os_log_type_enabled(v93, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543618;
-            v212 = v22;
-            v213 = 2114;
-            v214 = v38;
-            _os_log_error_impl(&dword_1883EA000, v98, OS_LOG_TYPE_ERROR, "This application has a malformed value %{public}@ for entitlement %{public}@, expected a string", buf, 0x16u);
+            v204 = v22;
+            v205 = 2114;
+            v206 = v38;
+            _os_log_error_impl(&dword_1883EA000, v93, OS_LOG_TYPE_ERROR, "This application has a malformed value %{public}@ for entitlement %{public}@, expected a string", buf, 0x16u);
           }
 
-          if (v171 > 0xE)
+          if (v163 > 0xE)
           {
             if (error)
             {
-              v153 = v38;
-              v100 = v38;
+              v145 = v38;
+              v95 = v38;
               errorCopy3 = error;
-              objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v99, @"CKErrorDomain", 8, @"Application has malformed entitlements.  Found value %@ for entitlement %@, expected a string", v22, v153);
+              objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v94, @"CKErrorDomain", 8, @"Application has malformed entitlements.  Found value %@ for entitlement %@, expected a string", v22, v145);
 LABEL_164:
-              *errorCopy3 = v102 = 0;
+              *errorCopy3 = v97 = 0;
 LABEL_177:
-              v38 = v100;
+              v38 = v95;
               goto LABEL_166;
             }
 
             goto LABEL_165;
           }
 
-          objc_msgSend_setObject_forKeyedSubscript_(newValue, v99, 0, v38);
+          objc_msgSend_setObject_forKeyedSubscript_(newValue, v94, 0, v38);
           goto LABEL_118;
         }
 
-        v185 = 0u;
-        v186 = 0u;
-        v183 = 0u;
-        v184 = 0u;
-        v87 = v22;
-        v89 = objc_msgSend_countByEnumeratingWithState_objects_count_(v87, v88, &v183, v221, 16);
-        if (v89)
+        v177 = 0u;
+        v178 = 0u;
+        v175 = 0u;
+        v176 = 0u;
+        v84 = v22;
+        v86 = objc_msgSend_countByEnumeratingWithState_objects_count_(v84, v85, &v175, v213, 16);
+        if (v86)
         {
-          v90 = v89;
-          v91 = v38;
-          v92 = *v184;
-          v93 = 1;
+          v87 = v86;
+          v88 = *v176;
+          v89 = 1;
           do
           {
-            for (j = 0; j != v90; ++j)
+            for (j = 0; j != v87; ++j)
             {
-              if (*v184 != v92)
+              if (*v176 != v88)
               {
-                objc_enumerationMutation(v87);
+                objc_enumerationMutation(v84);
               }
 
-              v95 = *(*(&v183 + 1) + 8 * j);
               objc_opt_class();
-              v93 &= objc_opt_isKindOfClass();
+              v89 &= objc_opt_isKindOfClass();
             }
 
-            v90 = objc_msgSend_countByEnumeratingWithState_objects_count_(v87, v96, &v183, v221, 16);
+            v87 = objc_msgSend_countByEnumeratingWithState_objects_count_(v84, v91, &v175, v213, 16);
           }
 
-          while (v90);
+          while (v87);
 
-          v13 = v173;
-          v38 = v91;
-          if ((v93 & 1) == 0)
+          v13 = v165;
+          if ((v89 & 1) == 0)
           {
             goto LABEL_96;
           }
@@ -1417,83 +1587,81 @@ LABEL_177:
     }
 
 LABEL_118:
-    v100 = @"com.apple.developer.icloud-code-destination-by-container-and-service";
+    v95 = @"com.apple.developer.icloud-code-destination-by-container-and-service";
 
-    v107 = objc_msgSend_valueForEntitlement_(v40, v106, v100);
+    v102 = objc_msgSend_valueForEntitlement_(v40, v101, v95);
 
-    objc_msgSend_addObject_(0, v108, v100);
-    if (v107)
+    objc_msgSend_addObject_(0, v103, v95);
+    if (v102)
     {
-      v109 = 0x1E695D000uLL;
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
         goto LABEL_144;
       }
 
-      v179 = 0u;
-      v180 = 0u;
-      v181 = 0u;
-      v182 = 0u;
-      v110 = v107;
-      v112 = objc_msgSend_countByEnumeratingWithState_objects_count_(v110, v111, &v179, v220, 16);
-      if (!v112)
+      v171 = 0u;
+      v172 = 0u;
+      v173 = 0u;
+      v174 = 0u;
+      v104 = v102;
+      v106 = objc_msgSend_countByEnumeratingWithState_objects_count_(v104, v105, &v171, v212, 16);
+      if (!v106)
       {
 
         goto LABEL_153;
       }
 
-      v113 = v112;
-      v159 = v100;
-      v114 = *v180;
-      v115 = 1;
-      v167 = v110;
-      v161 = *v180;
+      v107 = v106;
+      v151 = v95;
+      v108 = *v172;
+      v109 = 1;
+      v159 = v104;
+      v153 = *v172;
       do
       {
-        v116 = 0;
-        v170 = v113;
+        v110 = 0;
+        v162 = v107;
         do
         {
-          if (*v180 != v114)
+          if (*v172 != v108)
           {
-            objc_enumerationMutation(v110);
+            objc_enumerationMutation(v104);
           }
 
-          v117 = *(*(&v179 + 1) + 8 * v116);
+          v111 = *(*(&v171 + 1) + 8 * v110);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v119 = objc_msgSend_objectForKeyedSubscript_(v110, v118, v117);
-            v120 = *(v109 + 3872);
+            v113 = objc_msgSend_objectForKeyedSubscript_(v104, v112, v111);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v121 = v119;
-              v175 = 0u;
-              v176 = 0u;
-              v177 = 0u;
-              v178 = 0u;
-              v122 = v121;
-              v124 = objc_msgSend_countByEnumeratingWithState_objects_count_(v122, v123, &v175, v219, 16);
-              if (v124)
+              v114 = v113;
+              v167 = 0u;
+              v168 = 0u;
+              v169 = 0u;
+              v170 = 0u;
+              v115 = v114;
+              v117 = objc_msgSend_countByEnumeratingWithState_objects_count_(v115, v116, &v167, v211, 16);
+              if (v117)
               {
-                v125 = v124;
-                v126 = *v176;
+                v118 = v117;
+                v119 = *v168;
                 do
                 {
-                  for (k = 0; k != v125; ++k)
+                  for (k = 0; k != v118; ++k)
                   {
-                    if (*v176 != v126)
+                    if (*v168 != v119)
                     {
-                      objc_enumerationMutation(v122);
+                      objc_enumerationMutation(v115);
                     }
 
-                    v128 = *(*(&v175 + 1) + 8 * k);
+                    v121 = *(*(&v167 + 1) + 8 * k);
                     objc_opt_class();
                     if (objc_opt_isKindOfClass())
                     {
-                      v130 = objc_msgSend_objectForKeyedSubscript_(v122, v129, v128);
+                      v123 = objc_msgSend_objectForKeyedSubscript_(v115, v122, v121);
                       objc_opt_class();
                       isKindOfClass = objc_opt_isKindOfClass();
 
@@ -1503,46 +1671,93 @@ LABEL_118:
                       }
                     }
 
-                    v115 = 0;
+                    v109 = 0;
                   }
 
-                  v125 = objc_msgSend_countByEnumeratingWithState_objects_count_(v122, v129, &v175, v219, 16);
+                  v118 = objc_msgSend_countByEnumeratingWithState_objects_count_(v115, v122, &v167, v211, 16);
                 }
 
-                while (v125);
+                while (v118);
               }
 
-              v13 = v173;
-              v109 = 0x1E695D000;
-              v110 = v167;
-              v113 = v170;
-              v114 = v161;
+              v13 = v165;
+              v104 = v159;
+              v107 = v162;
+              v108 = v153;
             }
 
             else
             {
-              v115 = 0;
+              v109 = 0;
             }
           }
 
           else
           {
-            v115 = 0;
+            v109 = 0;
           }
 
-          ++v116;
+          ++v110;
         }
 
-        while (v116 != v113);
-        v113 = objc_msgSend_countByEnumeratingWithState_objects_count_(v110, v118, &v179, v220, 16);
+        while (v110 != v107);
+        v107 = objc_msgSend_countByEnumeratingWithState_objects_count_(v104, v112, &v171, v212, 16);
       }
 
-      while (v113);
+      while (v107);
 
-      v100 = v159;
-      if ((v115 & 1) == 0)
+      v95 = v151;
+      if ((v109 & 1) == 0)
       {
 LABEL_144:
+        v125 = ck_log_initialization_block;
+        if (ck_log_initialization_predicate != -1)
+        {
+          dispatch_once(&ck_log_initialization_predicate, v125);
+        }
+
+        v126 = ck_log_facility_ck;
+        if (os_log_type_enabled(v126, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 138543618;
+          v204 = v102;
+          v205 = 2114;
+          v206 = v95;
+          _os_log_error_impl(&dword_1883EA000, v126, OS_LOG_TYPE_ERROR, "This application has a malformed value %{public}@ for entitlement %{public}@, expected a type of [ string : [ string : string ] ]", buf, 0x16u);
+        }
+
+        if (v163 > 0xE)
+        {
+          if (error)
+          {
+            objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v127, @"CKErrorDomain", 8, @"Application has malformed entitlements.  Found value %@ for entitlement %@, expected a type of [ string : [ string : string ] ]", v102, v95);
+            *error = v97 = 0;
+          }
+
+          else
+          {
+            v97 = 0;
+          }
+
+          v22 = v102;
+          goto LABEL_177;
+        }
+
+        objc_msgSend_setObject_forKeyedSubscript_(newValue, v127, 0, v95);
+      }
+    }
+
+LABEL_153:
+    v38 = @"com.apple.developer.icloud-container-environment";
+
+    v22 = objc_msgSend_valueForEntitlement_(selfCopy, v128, v38);
+
+    objc_msgSend_addObject_(0, v129, v38);
+    if (v22)
+    {
+      objc_opt_class();
+      if ((objc_opt_isKindOfClass() & 1) == 0 || objc_msgSend_compare_options_(v22, v131, @"production", 1) && objc_msgSend_compare_options_(v22, v130, @"development", 1))
+      {
         v132 = ck_log_initialization_block;
         if (ck_log_initialization_predicate != -1)
         {
@@ -1552,93 +1767,45 @@ LABEL_144:
         v133 = ck_log_facility_ck;
         if (os_log_type_enabled(v133, OS_LOG_TYPE_ERROR))
         {
-          *buf = 138543618;
-          v212 = v107;
-          v213 = 2114;
-          v214 = v100;
-          _os_log_error_impl(&dword_1883EA000, v133, OS_LOG_TYPE_ERROR, "This application has a malformed value %{public}@ for entitlement %{public}@, expected a type of [ string : [ string : string ] ]", buf, 0x16u);
-        }
-
-        if (v171 > 0xE)
-        {
-          if (error)
-          {
-            objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v134, @"CKErrorDomain", 8, @"Application has malformed entitlements.  Found value %@ for entitlement %@, expected a type of [ string : [ string : string ] ]", v107, v100);
-            *error = v102 = 0;
-          }
-
-          else
-          {
-            v102 = 0;
-          }
-
-          v22 = v107;
-          goto LABEL_177;
-        }
-
-        objc_msgSend_setObject_forKeyedSubscript_(newValue, v134, 0, v100);
-      }
-    }
-
-LABEL_153:
-    v38 = @"com.apple.developer.icloud-container-environment";
-
-    v22 = objc_msgSend_valueForEntitlement_(selfCopy, v135, v38);
-
-    objc_msgSend_addObject_(0, v136, v38);
-    if (v22)
-    {
-      objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) == 0 || objc_msgSend_compare_options_(v22, v138, @"production", 1) && objc_msgSend_compare_options_(v22, v137, @"development", 1))
-      {
-        v139 = ck_log_initialization_block;
-        if (ck_log_initialization_predicate != -1)
-        {
-          dispatch_once(&ck_log_initialization_predicate, v139);
-        }
-
-        v140 = ck_log_facility_ck;
-        if (os_log_type_enabled(v140, OS_LOG_TYPE_ERROR))
-        {
           *buf = 138544130;
-          v212 = v22;
-          v213 = 2114;
-          v214 = v38;
-          v215 = 2114;
-          v216 = @"production";
-          v217 = 2114;
-          v218 = @"development";
-          _os_log_error_impl(&dword_1883EA000, v140, OS_LOG_TYPE_ERROR, "This application has a malformed value %{public}@ for entitlement %{public}@, expected %{public}@ or %{public}@", buf, 0x2Au);
+          v204 = v22;
+          v205 = 2114;
+          v206 = v38;
+          v207 = 2114;
+          v208 = @"production";
+          v209 = 2114;
+          v210 = @"development";
+          _os_log_error_impl(&dword_1883EA000, v133, OS_LOG_TYPE_ERROR, "This application has a malformed value %{public}@ for entitlement %{public}@, expected %{public}@ or %{public}@", buf, 0x2Au);
         }
 
-        if (v171 > 0xE)
+        if (v163 > 0xE)
         {
           if (error)
           {
-            v155 = v38;
-            v100 = v38;
+            v147 = v38;
+            v95 = v38;
             errorCopy3 = error;
-            objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v141, @"CKErrorDomain", 8, @"Application has malformed entitlements.  Found value %@ for entitlement %@, expected %@ or %@", v22, v155, @"production", @"development");
+            objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v134, @"CKErrorDomain", 8, @"Application has malformed entitlements.  Found value %@ for entitlement %@, expected %@ or %@", v22, v147, @"production", @"development");
             goto LABEL_164;
           }
 
 LABEL_165:
-          v102 = 0;
+          v97 = 0;
           goto LABEL_166;
         }
 
-        objc_msgSend_setObject_forKeyedSubscript_(newValue, v141, 0, v38);
+        objc_msgSend_setObject_forKeyedSubscript_(newValue, v134, 0, v38);
       }
     }
 
-    objc_msgSend_addObject_(0, v137, @"com.apple.private.cloudkit.spi");
-    objc_msgSend_addObject_(0, v144, @"aps-connection-initiate");
-    if (v171 <= 0xE)
+    objc_msgSend_addObject_(0, v130, @"com.apple.private.cloudkit.spi");
+    objc_msgSend_addObject_(0, v136, @"aps-connection-initiate");
+    if (v163 <= 0xE)
     {
-      v146 = v38;
+      v138 = v38;
       if (selfCopy)
       {
-        Property = objc_getProperty(selfCopy, v145, 24, 1);
+        Property = objc_getProperty(selfCopy, v137, 24, 1);
       }
 
       else
@@ -1646,147 +1813,143 @@ LABEL_165:
         Property = 0;
       }
 
-      v148 = Property;
-      isEqual = objc_msgSend_isEqual_(v148, v149, newValue);
+      v140 = Property;
+      isEqual = objc_msgSend_isEqual_(v140, v141, newValue);
 
-      v102 = 1;
-      v38 = v146;
+      v97 = 1;
+      v38 = v138;
       if (selfCopy && (isEqual & 1) == 0)
       {
-        objc_setProperty_atomic_copy(selfCopy, v151, newValue, 24);
+        objc_setProperty_atomic_copy(selfCopy, v143, newValue, 24);
       }
     }
 
     else
     {
-      v102 = 1;
+      v97 = 1;
     }
 
     goto LABEL_166;
   }
 
-  v61 = v59;
-  v62 = *v192;
-  v63 = 0x1E695D000uLL;
-  v160 = v38;
-  v156 = *v192;
+  v60 = v58;
+  v61 = *v184;
+  v152 = v38;
+  v148 = *v184;
 LABEL_60:
-  v64 = 0;
-  v158 = v61;
+  v62 = 0;
+  v150 = v60;
   while (1)
   {
-    if (*v192 != v62)
+    if (*v184 != v61)
     {
       objc_enumerationMutation(v38);
     }
 
-    v65 = *(*(&v191 + 1) + 8 * v64);
-    objc_msgSend_addObject_(0, v60, v65);
-    v169 = v65;
-    v22 = objc_msgSend_valueForEntitlement_(v40, v66, v65);
+    v63 = *(*(&v183 + 1) + 8 * v62);
+    objc_msgSend_addObject_(0, v59, v63);
+    v161 = v63;
+    v22 = objc_msgSend_valueForEntitlement_(v40, v64, v63);
     if (!v22)
     {
       goto LABEL_83;
     }
 
-    v67 = *(v63 + 3872);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v166 = v64;
-      v68 = v22;
-      v187 = 0u;
-      v188 = 0u;
-      v189 = 0u;
-      v190 = 0u;
-      v71 = objc_msgSend_allKeys(v68, v69, v70);
-      v73 = objc_msgSend_countByEnumeratingWithState_objects_count_(v71, v72, &v187, v222, 16);
-      if (!v73)
+      v158 = v62;
+      v65 = v22;
+      v179 = 0u;
+      v180 = 0u;
+      v181 = 0u;
+      v182 = 0u;
+      v68 = objc_msgSend_allKeys(v65, v66, v67);
+      v70 = objc_msgSend_countByEnumeratingWithState_objects_count_(v68, v69, &v179, v214, 16);
+      if (!v70)
       {
 
-        v13 = v173;
-        v63 = 0x1E695D000;
-        v64 = v166;
+        v13 = v165;
+        v62 = v158;
         goto LABEL_83;
       }
 
-      v74 = v73;
-      v75 = *v188;
-      v76 = 1;
+      v71 = v70;
+      v72 = *v180;
+      v73 = 1;
       do
       {
-        for (m = 0; m != v74; ++m)
+        for (m = 0; m != v71; ++m)
         {
-          if (*v188 != v75)
+          if (*v180 != v72)
           {
-            objc_enumerationMutation(v71);
+            objc_enumerationMutation(v68);
           }
 
-          v78 = *(*(&v187 + 1) + 8 * m);
+          v75 = *(*(&v179 + 1) + 8 * m);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v80 = objc_msgSend_objectForKeyedSubscript_(v68, v79, v78);
+            v77 = objc_msgSend_objectForKeyedSubscript_(v65, v76, v75);
             objc_opt_class();
-            v81 = objc_opt_isKindOfClass();
+            v78 = objc_opt_isKindOfClass();
 
-            if (v81)
+            if (v78)
             {
               continue;
             }
           }
 
-          v76 = 0;
+          v73 = 0;
         }
 
-        v74 = objc_msgSend_countByEnumeratingWithState_objects_count_(v71, v79, &v187, v222, 16);
+        v71 = objc_msgSend_countByEnumeratingWithState_objects_count_(v68, v76, &v179, v214, 16);
       }
 
-      while (v74);
+      while (v71);
 
-      v13 = v173;
+      v13 = v165;
       v40 = selfCopy;
-      v61 = v158;
-      v38 = v160;
-      v62 = v156;
-      v63 = 0x1E695D000;
-      v64 = v166;
-      if (v76)
+      v60 = v150;
+      v38 = v152;
+      v61 = v148;
+      v62 = v158;
+      if (v73)
       {
         goto LABEL_83;
       }
     }
 
-    v82 = v64;
-    v83 = ck_log_initialization_block;
+    v79 = v62;
+    v80 = ck_log_initialization_block;
     if (ck_log_initialization_predicate != -1)
     {
-      dispatch_once(&ck_log_initialization_predicate, v83);
+      dispatch_once(&ck_log_initialization_predicate, v80);
     }
 
-    v84 = ck_log_facility_ck;
-    if (os_log_type_enabled(v84, OS_LOG_TYPE_ERROR))
+    v81 = ck_log_facility_ck;
+    if (os_log_type_enabled(v81, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      v212 = v22;
-      v213 = 2114;
-      v214 = v169;
-      _os_log_error_impl(&dword_1883EA000, v84, OS_LOG_TYPE_ERROR, "This application has a malformed value %{public}@ for entitlement %{public}@, expected a dict of string : string", buf, 0x16u);
+      v204 = v22;
+      v205 = 2114;
+      v206 = v161;
+      _os_log_error_impl(&dword_1883EA000, v81, OS_LOG_TYPE_ERROR, "This application has a malformed value %{public}@ for entitlement %{public}@, expected a dict of string : string", buf, 0x16u);
     }
 
-    if (v171 > 0xE)
+    if (v163 > 0xE)
     {
       break;
     }
 
-    objc_msgSend_setObject_forKeyedSubscript_(newValue, v57, 0, v169);
-    v64 = v82;
+    objc_msgSend_setObject_forKeyedSubscript_(newValue, v56, 0, v161);
+    v62 = v79;
 LABEL_83:
 
-    if (++v64 == v61)
+    if (++v62 == v60)
     {
-      v61 = objc_msgSend_countByEnumeratingWithState_objects_count_(v38, v60, &v191, v223, 16);
-      if (v61)
+      v60 = objc_msgSend_countByEnumeratingWithState_objects_count_(v38, v59, &v183, v215, 16);
+      if (v60)
       {
         goto LABEL_60;
       }
@@ -1801,18 +1964,17 @@ LABEL_83:
     goto LABEL_165;
   }
 
-  v152 = v22;
-  v154 = v169;
-  v104 = @"Application has malformed entitlements.  Found value %@ for entitlement %@, expected a dict of string : string";
+  v144 = v22;
+  v146 = v161;
+  v99 = @"Application has malformed entitlements.  Found value %@ for entitlement %@, expected a dict of string : string";
 LABEL_115:
-  v105 = errorCopy4;
-  objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v57, @"CKErrorDomain", 8, v104, v152, v154);
-  *v105 = v102 = 0;
-  v38 = v160;
+  v100 = errorCopy4;
+  objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v56, @"CKErrorDomain", 8, v99, v144, v146);
+  *v100 = v97 = 0;
+  v38 = v152;
 LABEL_166:
 
-  v142 = *MEMORY[0x1E69E9840];
-  return v102;
+  return v97;
 }
 
 - (void)ck_bindInStatement:(id)statement atIndex:(unint64_t)index

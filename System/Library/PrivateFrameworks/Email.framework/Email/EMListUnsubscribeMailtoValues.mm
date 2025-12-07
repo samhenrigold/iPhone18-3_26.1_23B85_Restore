@@ -119,15 +119,12 @@
   if (objc_opt_isKindOfClass())
   {
     v5 = equalCopy;
-    address = self->_address;
     address = [v5 address];
     if (EFObjectsAreEqual())
     {
-      subject = self->_subject;
       subject = [v5 subject];
       if (EFObjectsAreEqual())
       {
-        body = self->_body;
         body = [v5 body];
         if (EFObjectsAreEqual())
         {
@@ -135,33 +132,33 @@
           identifier = [account identifier];
           account2 = [v5 account];
           identifier2 = [account2 identifier];
-          v16 = EFObjectsAreEqual();
+          v13 = EFObjectsAreEqual();
         }
 
         else
         {
-          v16 = 0;
+          v13 = 0;
         }
       }
 
       else
       {
-        v16 = 0;
+        v13 = 0;
       }
     }
 
     else
     {
-      v16 = 0;
+      v13 = 0;
     }
   }
 
   else
   {
-    v16 = 0;
+    v13 = 0;
   }
 
-  return v16;
+  return v13;
 }
 
 @end

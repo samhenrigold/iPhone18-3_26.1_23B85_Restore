@@ -243,24 +243,23 @@ uint64_t __69__SBIconIndexMutableList_directlyContainsNodeIdentifier_passingTest
 {
   identifierCopy = identifier;
   nodes = self->_nodes;
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __58__SBIconIndexMutableList_directlyContainedNodeIdentifier___block_invoke;
-  v10[3] = &unk_1E808B028;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __58__SBIconIndexMutableList_directlyContainedNodeIdentifier___block_invoke;
+  v9[3] = &unk_1E808B028;
   v6 = identifierCopy;
-  v11 = v6;
-  v7 = [(NSMutableArray *)nodes indexOfObjectPassingTest:v10];
-  if (v7 == 0x7FFFFFFFFFFFFFFFLL)
+  v10 = v6;
+  if ([(NSMutableArray *)nodes indexOfObjectPassingTest:v9]== 0x7FFFFFFFFFFFFFFFLL)
   {
-    v8 = 0;
+    v7 = 0;
   }
 
   else
   {
-    v8 = [(NSMutableArray *)self->_nodes objectAtIndex:v7];
+    v7 = objc_msgSend_objectAtIndex_(self->_nodes);
   }
 
-  return v8;
+  return v7;
 }
 
 uint64_t __58__SBIconIndexMutableList_directlyContainedNodeIdentifier___block_invoke(uint64_t a1, void *a2)

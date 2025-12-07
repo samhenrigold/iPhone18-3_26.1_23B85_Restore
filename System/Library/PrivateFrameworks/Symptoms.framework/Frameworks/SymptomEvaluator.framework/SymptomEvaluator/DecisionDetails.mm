@@ -7,11 +7,11 @@
 
 - (DecisionDetails)initWithReason:(const char *)reason code:(unint64_t)code evaluations:(id)evaluations
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   evaluationsCopy = evaluations;
-  v18.receiver = self;
-  v18.super_class = DecisionDetails;
-  v10 = [(DecisionDetails *)&v18 init];
+  v17.receiver = self;
+  v17.super_class = DecisionDetails;
+  v10 = [(DecisionDetails *)&v17 init];
   if (v10)
   {
     v11 = evaluationLogHandle;
@@ -25,8 +25,8 @@
 
       *buf = 134218242;
       codeCopy = code;
-      v21 = 2080;
-      v22 = reasonCopy;
+      v20 = 2080;
+      v21 = reasonCopy;
       _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEBUG, "allocate awd %lld for reason %s", buf, 0x16u);
     }
 
@@ -52,7 +52,6 @@
     }
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v10;
 }
 

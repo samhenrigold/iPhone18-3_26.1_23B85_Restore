@@ -6,10 +6,6 @@
 - (Calibration)init;
 - (DistortionModel)distModelFor:(SEL)for;
 - (DistortionModel)undistModelFor:(SEL)for;
-- (__n128)auxiliaryPaddingHInv;
-- (__n128)rectReferenceToAuxiliary;
-- (__n128)rectReferenceToReference;
-- (__n128)referenceToRectReference;
 - (float)_computeCanonicalDisparityScaleFactor;
 - (float)referenceMagnification;
 - (int)_allocateResourcesForMaxNumOfTransposedPoints:(unsigned int)points;
@@ -17,10 +13,12 @@
 - (int)_computeCalibrationWithoutDistortion;
 - (int)_computeCenteredRectificationHomographies;
 - (int)_computePaddedAuxiliaryRectificationHomography;
+- (int)allocateResourcesForMaxNumPoints:(unsigned int)points;
 - (int)applyCurrentTemporalState;
 - (int)computeAuxiliaryImageShiftForKeypoints:(Calibration *)self;
 - (int)computeCalibration;
 - (int)computeInitialCalibration;
+- (int)computeStereoRectificationHomographies:(float)homographies alignedToAngle:;
 - (int)extractParametersFromReferenceMetadata:(id)metadata auxiliaryMetadata:(id)auxiliaryMetadata options:(id)options adaptiveCorrectionConfig:(AdaptiveCorrectionConfig *)config useReferenceFrame:(BOOL)frame;
 - (void)_releaseResourcesForTransformedPoints;
 - (void)dealloc;
@@ -45,6 +43,33 @@
   }
 
   return result;
+}
+
+- (int)allocateResourcesForMaxNumPoints:(unsigned int)points
+{
+  v9 = *&points;
+  objc_msgSend_releaseResources(self, a2, *&points, v3, v4, v5, v6, v7, v8);
+  if (self->_distortionCorrectionEnabled)
+  {
+    v18 = sub_29575F754(v9, &self->_adc);
+    v19 = v18;
+    if (v18)
+    {
+      sub_2957684A8(v18);
+    }
+  }
+
+  else
+  {
+    ResourcesForMaxNumOfTransposedPoints = objc_msgSend__allocateResourcesForMaxNumOfTransposedPoints_(self, v11, v9, v12, v13, v14, v15, v16, v17);
+    v19 = ResourcesForMaxNumOfTransposedPoints;
+    if (ResourcesForMaxNumOfTransposedPoints)
+    {
+      sub_29576842C(ResourcesForMaxNumOfTransposedPoints);
+    }
+  }
+
+  return v19;
 }
 
 - (void)releaseResources
@@ -540,58 +565,58 @@ LABEL_71:
 
 - (int)computeInitialCalibration
 {
-  v9 = objc_msgSend_objectForKeyedSubscript_(self->_staticParametersByPortType, a2, self->_portTypeName[1], v2, v3, v4, v5, v6, v7);
-  v17 = objc_msgSend_objectForKeyedSubscript_(v9, v10, @"CameraViewMatrix", v11, v12, v13, v14, v15, v16);
-  v18 = v17;
-  v27 = objc_msgSend_bytes(v18, v19, v20, v21, v22, v23, v24, v25, v26);
+  v10 = objc_msgSend_objectForKeyedSubscript_(self->_staticParametersByPortType, a2, self->_portTypeName[1], v2, v3, v4, v5, v6, v8);
+  v18 = objc_msgSend_objectForKeyedSubscript_(v10, v11, @"CameraViewMatrix", v12, v13, v14, v15, v16, v17);
+  v19 = v18;
+  v28 = objc_msgSend_bytes(v19, v20, v21, v22, v23, v24, v25, v26, v27);
 
   selfCopy = self;
-  v35 = objc_msgSend_objectForKeyedSubscript_(self->_staticParametersByPortType, v28, self->_portTypeName[0], v29, v30, v31, v32, v33, v34);
-  v43 = objc_msgSend_objectForKeyedSubscript_(v35, v36, @"CameraViewMatrix", v37, v38, v39, v40, v41, v42);
-  v44 = v43;
-  v53 = objc_msgSend_bytes(v44, v45, v46, v47, v48, v49, v50, v51, v52);
+  v36 = objc_msgSend_objectForKeyedSubscript_(self->_staticParametersByPortType, v29, self->_portTypeName[0], v30, v31, v32, v33, v34, v35);
+  v44 = objc_msgSend_objectForKeyedSubscript_(v36, v37, @"CameraViewMatrix", v38, v39, v40, v41, v42, v43);
+  v45 = v44;
+  v54 = objc_msgSend_bytes(v45, v46, v47, v48, v49, v50, v51, v52, v53);
 
-  if (v27)
+  if (v28)
   {
-    if (v53)
+    if (v54)
     {
       portTypeName = self->_portTypeName;
-      *v59.i64 = sub_295750D8C(v27, v54, v55, v56, v57, v58);
-      v171 = v59;
-      v173 = v60;
-      v169 = v61;
-      v175 = v62;
-      *v70.i64 = sub_295750D8C(v53, *v59.i64, *v60.i64, *v61.i64, *v62.i64, v63);
-      v72 = 0;
-      v180 = 0u;
+      *v60.i64 = sub_295750D8C(v28, v55, v56, v57, v58, v59);
+      v172 = v60;
+      v174 = v61;
+      v170 = v62;
+      v176 = v63;
+      *v71.i64 = sub_295750D8C(v54, *v60.i64, *v61.i64, *v62.i64, *v63.i64, v64);
+      v73 = 0;
       v181 = 0u;
-      v74 = vzip1q_s32(v70, v73);
       v182 = 0u;
+      v75 = vzip1q_s32(v71, v74);
       v183 = 0u;
-      v184[0] = vzip1q_s32(v74, v75);
-      v184[1] = vzip2q_s32(v74, vdupq_lane_s32(*v75.i8, 1));
-      v184[2] = vzip1q_s32(vzip2q_s32(v70, v73), vdupq_laneq_s32(v75, 2));
+      v184 = 0u;
+      v185[0] = vzip1q_s32(v75, v76);
+      v185[1] = vzip2q_s32(v75, vdupq_lane_s32(*v76.i8, 1));
+      v185[2] = vzip1q_s32(vzip2q_s32(v71, v74), vdupq_laneq_s32(v76, 2));
       time = 0u;
       time_16 = 0u;
-      v187 = 0u;
+      v188 = 0u;
       do
       {
-        *(&time + v72 * 16) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v171, COERCE_FLOAT(v184[v72])), v173, *&v184[v72], 1), v169, v184[v72], 2);
-        ++v72;
+        *(&time + v73 * 16) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v172, COERCE_FLOAT(v185[v73])), v174, *&v185[v73], 1), v170, v185[v73], 2);
+        ++v73;
       }
 
-      while (v72 != 3);
-      v76 = 0;
-      DWORD2(v180) = time.i32[2];
-      DWORD2(v181) = time_16.i32[2];
-      v77 = vsubq_f32(v175, vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(time, v71.f32[0]), time_16, *v71.f32, 1), v187, v71, 2));
-      *&v180 = time.i64[0];
-      *&v181 = time_16.i64[0];
-      DWORD2(v182) = v187.i32[2];
-      DWORD2(v183) = v77.i32[2];
-      *&v182 = v187.i64[0];
-      *&v183 = v77.i64[0];
-      v78 = self->_pixelBufferDimensions[0];
+      while (v73 != 3);
+      v77 = 0;
+      DWORD2(v181) = time.i32[2];
+      DWORD2(v182) = time_16.i32[2];
+      v78 = vsubq_f32(v176, vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(time, v72.f32[0]), time_16, *v72.f32, 1), v188, v72, 2));
+      *&v181 = time.i64[0];
+      *&v182 = time_16.i64[0];
+      DWORD2(v183) = v188.i32[2];
+      DWORD2(v184) = v78.i32[2];
+      *&v183 = v188.i64[0];
+      *&v184 = v78.i64[0];
+      v79 = self->_pixelBufferDimensions[0];
       *self->_initialCalibration.focalLengthPix = 0u;
       p_initialCalibration = &self->_initialCalibration;
       *&self->_initialCalibration.canonicalDisparityScale = 0u;
@@ -606,23 +631,23 @@ LABEL_71:
       self->_initialCalibration.pixelSize_um[1] = 0.0;
       *self->_initialCalibration.extrinRotRefefenceToAuxiliary = 0u;
       extrinRotRefefenceToAuxiliary = self->_initialCalibration.extrinRotRefefenceToAuxiliary;
-      v80.i64[0] = v78.width;
-      v80.i64[1] = v78.height;
+      v81.i64[0] = v79.width;
+      v81.i64[1] = v79.height;
       pixelBufferDimensions = self->_pixelBufferDimensions;
-      *self->_initialCalibration.calibrationDimensions = vcvtq_f64_s64(v80);
+      *self->_initialCalibration.calibrationDimensions = vcvtq_f64_s64(v81);
       do
       {
         for (i = 0; i != 4; ++i)
         {
-          extrinRotRefefenceToAuxiliary[i] = *((&v180 + i) & 0xFFFFFFFFFFFFFFF3 | (4 * (v76 & 3)));
+          extrinRotRefefenceToAuxiliary[i] = *((&v181 + i) & 0xFFFFFFFFFFFFFFF3 | (4 * (v77 & 3)));
         }
 
-        ++v76;
+        ++v77;
         extrinRotRefefenceToAuxiliary += 4;
       }
 
-      while (v76 != 3);
-      v82 = 0;
+      while (v77 != 3);
+      v83 = 0;
       rawSensorSize = self->_rawSensorSize;
       pixelBufferScalingFactor = self->_pixelBufferScalingFactor;
       opticalCenter = self->_opticalCenter;
@@ -631,107 +656,103 @@ LABEL_71:
       pixelSize_um = self->_initialCalibration.pixelSize_um;
       focalLength = self->_focalLength;
       metadata = self->_metadata;
-      v166 = *MEMORY[0x29EDC0560];
-      v165 = *MEMORY[0x29EDBFFA0];
-      v164 = *(MEMORY[0x29EDB9398] + 12);
+      v167 = *MEMORY[0x29EDC0560];
+      v166 = *MEMORY[0x29EDBFFA0];
+      v165 = *(MEMORY[0x29EDB9398] + 12);
       v163 = *(MEMORY[0x29EDB9398] + 16);
       v161 = self->_initialCalibration.opticalCenterY;
       v162 = *MEMORY[0x29EDC04A8];
       for (j = 1; ; j = 0)
       {
-        v88 = j;
-        p_width = &rawSensorSize[v82].width;
-        v90 = (*p_width + -1.0) * 0.5;
-        v91 = (p_width[1] + -1.0) * 0.5;
-        v92 = &pixelBufferDimensions[v82];
-        p_x = &opticalCenter[v82].x;
-        v94 = *&pixelBufferScalingFactor[8 * v82];
-        v95 = p_x[1];
-        v96 = (v92[1] + -1.0) * 0.5;
-        opticalCenterX[v82] = (*v92 + -1.0) * 0.5 + (*p_x - v90) * *&v94;
-        v97 = v96 + (v95 - v91) * *(&v94 + 1);
-        opticalCenterY[v82] = v97;
-        v98 = objc_msgSend_objectForKeyedSubscript_(selfCopy->_staticParametersByPortType, v64, portTypeName[v82], v65, v66, v67, v68, v69, *&v97);
-        v106 = objc_msgSend_objectForKeyedSubscript_(v98, v99, @"pixelSizeMicrometers", v100, v101, v102, v103, v104, v105);
-        objc_msgSend_floatValue(v106, v107, v108, v109, v110, v111, v112, v113, v114);
-        v116 = v115;
+        v89 = j;
+        p_width = &rawSensorSize[v83].width;
+        v91 = (*p_width + -1.0) * 0.5;
+        v92 = (p_width[1] + -1.0) * 0.5;
+        v93 = &pixelBufferDimensions[v83];
+        p_x = &opticalCenter[v83].x;
+        v95 = *&pixelBufferScalingFactor[8 * v83];
+        v96 = p_x[1];
+        v97 = (v93[1] + -1.0) * 0.5;
+        opticalCenterX[v83] = (*v93 + -1.0) * 0.5 + (*p_x - v91) * *&v95;
+        v98 = v97 + (v96 - v92) * *(&v95 + 1);
+        opticalCenterY[v83] = v98;
+        v99 = objc_msgSend_objectForKeyedSubscript_(selfCopy->_staticParametersByPortType, v65, portTypeName[v83], v66, v67, v68, v69, v70, *&v98);
+        v107 = objc_msgSend_objectForKeyedSubscript_(v99, v100, @"pixelSizeMicrometers", v101, v102, v103, v104, v105, v106);
+        objc_msgSend_floatValue(v107, v108, v109, v110, v111, v112, v113, v114, v115);
+        v117 = v116;
 
-        v117 = (v116 / (vaddv_f32(*&pixelBufferScalingFactor[8 * v82]) * 0.5));
-        pixelSize_um[v82] = v117;
-        v118 = focalLength[v82] / v117;
-        p_initialCalibration->focalLengthPix[v82] = v118;
-        v125 = objc_msgSend_objectForKeyedSubscript_(metadata[v82], v119, v166, v120, v121, v122, v123, v124, *&v118);
+        v118 = (v117 / (vaddv_f32(*&pixelBufferScalingFactor[8 * v83]) * 0.5));
+        pixelSize_um[v83] = v118;
+        v119 = focalLength[v83] / v118;
+        p_initialCalibration->focalLengthPix[v83] = v119;
+        v126 = objc_msgSend_objectForKeyedSubscript_(metadata[v83], v120, v167, v121, v122, v123, v124, v125, *&v119);
 
-        if (v125)
+        if (v126)
         {
-          v127 = opticalCenterX;
-          v128 = objc_msgSend_objectForKeyedSubscript_(metadata[v82], v64, v165, v65, v66, v67, v68, v69, v126);
-          v136 = v128;
-          v179 = 0;
-          *&v184[0] = *MEMORY[0x29EDB9398];
-          DWORD2(v184[0]) = *(MEMORY[0x29EDB9398] + 8);
-          v137 = v164;
-          v138 = v163;
-          if (v128)
+          v128 = opticalCenterX;
+          v129 = objc_msgSend_objectForKeyedSubscript_(metadata[v83], v65, v166, v66, v67, v68, v69, v70, v127);
+          v137 = v129;
+          v180 = 0;
+          *&v185[0] = *MEMORY[0x29EDB9398];
+          DWORD2(v185[0]) = *(MEMORY[0x29EDB9398] + 8);
+          v138 = v165;
+          v139 = v163;
+          if (v129)
           {
-            CMTimeMakeFromDictionary(&time, v128);
-            *&v184[0] = time.i64[0];
-            v137 = time.i32[3];
-            DWORD2(v184[0]) = time.i32[2];
-            v138 = time_16.i64[0];
+            CMTimeMakeFromDictionary(&time, v129);
+            *&v185[0] = time.i64[0];
+            v138 = time.i32[3];
+            DWORD2(v185[0]) = time.i32[2];
+            v139 = time_16.i64[0];
           }
 
-          if ((v137 & 1) == 0)
+          if ((v138 & 1) == 0)
           {
-            sub_295768DE0(v184, &v179, v136, &time);
+            sub_295768DE0(v185, &v180, v137, &time);
             return time.i32[0];
           }
 
-          v139 = objc_msgSend_objectForKeyedSubscript_(metadata[v82], v129, v162, v130, v131, v132, v133, v134, v135);
-          v148 = v139;
-          if (v139)
+          v140 = objc_msgSend_objectForKeyedSubscript_(metadata[v83], v130, v162, v131, v132, v133, v134, v135, v136);
+          v149 = v140;
+          if (v140)
           {
-            objc_msgSend_floatValue(v139, v140, v141, v142, v143, v144, v145, v146, v147);
-            v150 = v149;
+            objc_msgSend_floatValue(v140, v141, v142, v143, v144, v145, v146, v147, v148);
+            v151 = v150;
           }
 
           else
           {
-            v150 = 1.0;
+            v151 = 1.0;
           }
 
-          v151 = pixelSize_um;
-          v152 = pixelSize_um[v82];
-          v153 = metadata[v82];
-          time.i64[0] = *&v184[0];
-          time.i64[1] = __PAIR64__(v137, DWORD2(v184[0]));
-          time_16.i64[0] = v138;
+          v152 = pixelSize_um[v83];
+          time.i64[0] = *&v185[0];
+          time.i64[1] = __PAIR64__(v138, DWORD2(v185[0]));
+          time_16.i64[0] = v139;
           CMTimeGetSeconds(&time);
-          v154 = FigMotionComputeAverageSpherePosition();
-          if (v154)
+          v153 = FigMotionComputeAverageSpherePosition();
+          if (v153)
           {
-            v159 = v154;
+            v158 = v153;
             fig_log_get_emitter();
-            FigDebugAssert3();
+            FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v158, v7, v160, v7, v161, v162, v163, v164);
 
-            return v159;
+            return v158;
           }
 
-          v155 = v152;
-          v156 = v150 / v155;
-          v157 = *(&v179 + 1);
-          opticalCenterX = v127;
-          v127[v82] = v127[v82] + (v156 * *&v179);
+          v154 = v152;
+          v155 = v151 / v154;
+          v156 = *(&v180 + 1);
+          opticalCenterX = v128;
+          v128[v83] = v128[v83] + (v155 * *&v180);
           opticalCenterY = v161;
-          v161[v82] = v161[v82] + (v156 * v157);
-          v158 = metadata[v82];
-          metadata[v82] = 0;
-
-          pixelSize_um = v151;
+          v161[v83] = v161[v83] + (v155 * v156);
+          v157 = metadata[v83];
+          metadata[v83] = 0;
         }
 
-        v82 = 1;
-        if ((v88 & 1) == 0)
+        v83 = 1;
+        if ((v89 & 1) == 0)
         {
           return 0;
         }
@@ -1007,12 +1028,12 @@ LABEL_71:
         p_correctedCalibration = &self->_correctedCalibration;
         if (self->_temporalCorrectionEnabled)
         {
-          v21 = sub_29575FA78(adc, v16, v17, keypointsCount, undistModels, v19, p_correctedCalibration);
+          v21 = sub_29575FA78(adc, v16, v17, keypointsCount, undistModels, v19, p_correctedCalibration->focalLengthPix);
         }
 
         else
         {
-          v21 = sub_295760D0C(adc, v16, v17, keypointsCount, undistModels, v19, p_correctedCalibration);
+          v21 = sub_295760D0C(adc, v16, v17, keypointsCount, undistModels, &v19->pixelSizeMM, p_correctedCalibration);
         }
 
         if (!v21)
@@ -1381,43 +1402,43 @@ LABEL_18:
 {
   if (!status->var1)
   {
-    sub_29576960C();
+    sub_29576960C(self, a2);
     return 1;
   }
 
   if (!status->var4)
   {
-    sub_295769684();
+    sub_295769684(self, a2);
     return 1;
   }
 
   if (!status->var9)
   {
-    sub_2957696FC();
+    sub_2957696FC(self, a2);
     return 2;
   }
 
   if (!status->var13)
   {
-    sub_295769774();
+    sub_295769774(self, a2);
     return 1;
   }
 
   if (!status->var19)
   {
-    sub_2957697EC();
+    sub_2957697EC(self, a2);
     return 2;
   }
 
   if (!status->var25)
   {
-    sub_295769864();
+    sub_295769864(self, a2);
     return 1;
   }
 
   if (!status->var28)
   {
-    sub_2957698DC();
+    sub_2957698DC(self, a2);
     return 2;
   }
 
@@ -1484,17 +1505,17 @@ LABEL_18:
   *self->_correctedCalibration.opticalCenterX = v6;
   v7 = *self->_initialCalibration.extrinRotRefefenceToAuxiliary;
   *self->_correctedCalibration.opticalCenterY = *self->_initialCalibration.opticalCenterY;
-  memset(v44, 0, 512);
-  v43 = 0;
-  v41 = 0u;
-  memset(v42, 0, sizeof(v42));
-  v39 = 0u;
-  v40 = 0u;
-  v38 = 0u;
-  v36 = 0;
-  v37 = 0;
-  v34 = 0;
-  v35 = 0;
+  memset(v54, 0, 512);
+  v53 = 0;
+  v51 = 0u;
+  memset(v52, 0, sizeof(v52));
+  v49 = 0u;
+  v50 = 0u;
+  v48 = 0u;
+  v46 = 0;
+  v47 = 0;
+  v44 = 0;
+  v45 = 0;
   self->_correctedCalibration.pixelSize_um[1] = self->_initialCalibration.pixelSize_um[1];
   *self->_correctedCalibration.extrinRotRefefenceToAuxiliary = v7;
   if (self->_keypointsCount)
@@ -1512,76 +1533,249 @@ LABEL_18:
     v13 = vzip1q_s32(v8, v11);
     v14 = vzip1q_s32(v9, v12);
     v15 = vzip2q_s32(vcvt_hight_f32_f64(*&self->_correctedCalibration.extrinRotRefefenceToAuxiliary[6], *&self->_correctedCalibration.extrinRotRefefenceToAuxiliary[6]), 0);
-    v30 = vzip1q_s32(v13, v10);
-    v31 = vzip1q_s32(v14, v15);
-    v28 = vzip2q_s32(v13, vdupq_lane_s32(*&v10.f64[0], 1));
-    v29 = vzip2q_s32(v14, v15);
-    if (AdaptiveCorrection_computeVerticalBaselineTransform(&v38, &v36, &v34))
+    v56.columns[0] = vzip1q_s32(v13, v10);
+    v56.columns[2] = vzip1q_s32(v14, v15);
+    v56.columns[1] = vzip2q_s32(v13, vdupq_lane_s32(*&v10.f64[0], 1));
+    v40 = v56.columns[0];
+    v41 = v56.columns[2];
+    v38 = v56.columns[1];
+    v39 = vzip2q_s32(v14, v15);
+    v16 = AdaptiveCorrection_computeVerticalBaselineTransform(&v48, &v46, &v44, v56, v39);
+    if (v16)
     {
-      sub_295769A3C();
+      sub_295769A3C(v16, v17);
       return 3;
     }
 
-    if (AdaptiveCorrection_rotateCalModel(&self->_correctedCalibration, v42, v38, v39, v40, v41, v36, v37, v34, v35))
+    v18 = AdaptiveCorrection_rotateCalModel(&self->_correctedCalibration, v52, v48, v49, v50, v51, v46, v47, v44, v45);
+    if (v18)
     {
-      sub_295769AB8();
+      sub_295769AB8(v18, v19);
       return 3;
     }
 
-    if (AdaptiveCorrection_transformPointsWithMatrix(self->_adaptiveCorrectionKeypointsDistorted[0], self->_keypointsCount, self->_transposedKeypoints.xyPointsTeleTransposed, v36, v37))
+    v20 = AdaptiveCorrection_transformPointsWithMatrix(self->_adaptiveCorrectionKeypointsDistorted[0], self->_keypointsCount, self->_transposedKeypoints.xyPointsTeleTransposed, v46, v47);
+    if (v20)
     {
-      sub_295769B34();
+      sub_295769B34(v20, v21);
       return 3;
     }
 
-    if (AdaptiveCorrection_transformPointsWithMatrix(self->_adaptiveCorrectionKeypointsDistorted[1], self->_keypointsCount, self->_transposedKeypoints.xyPointsWideTransposed, v34, v35))
+    v22 = AdaptiveCorrection_transformPointsWithMatrix(self->_adaptiveCorrectionKeypointsDistorted[1], self->_keypointsCount, self->_transposedKeypoints.xyPointsWideTransposed, v44, v45);
+    if (v22)
     {
-      sub_295769BB0();
+      sub_295769BB0(v22, v23);
       return 3;
     }
 
-    v33 = 0;
-    memset(v32, 0, sizeof(v32));
-    AdaptiveCorrection_fullCorrection(self->_transposedKeypoints.xyPointsTeleTransposed, self->_transposedKeypoints.xyPointsWideTransposed, self->_keypointsCount, v42, &self->_adaptiveCorrectionConfig, v44, v32);
-    v46.columns[0] = v36;
-    v46.columns[1] = v37;
-    v16 = __invert_f2(v46);
-    v47.columns[0] = v34;
-    v47.columns[1] = v35;
-    v17 = __invert_f2(v47);
-    if (AdaptiveCorrection_rotateCalModel(v32, &self->_correctedCalibration, v30, v28, v31, v29, v16.columns[0], v16.columns[1], v17.columns[0], v17.columns[1]))
+    v43 = 0;
+    memset(v42, 0, sizeof(v42));
+    AdaptiveCorrection_fullCorrection(v42, self->_transposedKeypoints.xyPointsTeleTransposed, self->_transposedKeypoints.xyPointsWideTransposed, self->_keypointsCount, v52, &self->_adaptiveCorrectionConfig, v54);
+    v57.columns[0] = v46;
+    v57.columns[1] = v47;
+    v24 = __invert_f2(v57);
+    v58.columns[0] = v44;
+    v58.columns[1] = v45;
+    v25 = __invert_f2(v58);
+    v26 = AdaptiveCorrection_rotateCalModel(v42, &self->_correctedCalibration, v40, v38, v41, v39, v24.columns[0], v24.columns[1], v25.columns[0], v25.columns[1]);
+    if (v26)
     {
-      sub_295769C2C();
+      sub_295769C2C(v26, v42);
       return 3;
     }
   }
 
   else
   {
-    bzero(v44, 0x748uLL);
+    bzero(v54, 0x748uLL);
   }
 
-  objc_msgSend__computeCanonicalDisparityScaleFactor(self, v18, v19, v20, v21, v22, v23, v24, v25, *&v28, *&v29, *&v30, *&v31);
-  self->_correctedCalibration.canonicalDisparityScale = v26;
-  if (BYTE4(v44[0]))
+  v35 = objc_msgSend__computeCanonicalDisparityScaleFactor(self, v27, v28, v29, v30, v31, v32, v33, v34, *&v38, *&v39, *&v40, *&v41);
+  self->_correctedCalibration.canonicalDisparityScale = v36;
+  if (BYTE4(v54[0]))
   {
-    if (v45)
+    if (v55)
     {
       return 0;
     }
 
     else
     {
-      sub_295769D20();
+      sub_295769D20(v35);
       return 2;
     }
   }
 
   else
   {
-    sub_295769CA8();
+    sub_295769CA8(v35);
     return 1;
   }
+}
+
+- (int)computeStereoRectificationHomographies:(float)homographies alignedToAngle:
+{
+  *self->_limitDistances_mm = *&homographies;
+  self->_rectificationAngleStep = (v3 / 180.0) * 3.1416;
+  *self->_anon_6b0 = 0u;
+  *&self->_anon_6b0[16] = 0u;
+  *&self->_anon_6b0[32] = 0u;
+  *self->_anon_6e0 = 0u;
+  *&self->_anon_6e0[16] = 0u;
+  *&self->_anon_6e0[32] = 0u;
+  *self->_anon_710 = 0u;
+  anon_6b0 = self->_anon_6b0;
+  *&self->_anon_710[16] = 0u;
+  *&self->_anon_710[32] = 0u;
+  v6 = sub_295761954(&self->_correctedCalibration, self->_anon_6b0, self->_anon_6e0, self->_anon_710, 0, 0);
+  if (v6)
+  {
+    v62 = v6;
+    sub_295769D98();
+    return v62;
+  }
+
+  v15 = objc_msgSend__computeCenteredRectificationHomographies(self, v7, v8, v9, v10, v11, v12, v13, v14);
+  if (v15)
+  {
+    v62 = v15;
+    sub_295769E10();
+    return v62;
+  }
+
+  v26 = *self->_orientationVector;
+  if (sqrtf(vaddv_f32(vmul_f32(v26, v26))) <= 0.0)
+  {
+    sub_295769F78();
+    return -12780;
+  }
+
+  v23.i64[0] = *&self->_initialCalibration.extrinRotRefefenceToAuxiliary[3];
+  *v23.i32 = *v23.i64;
+  *v23.i32 = -*v23.i32;
+  v27 = self->_initialCalibration.extrinRotRefefenceToAuxiliary[7];
+  *v24.i32 = -v27;
+  if (sqrtf(vaddv_f32(vmul_f32(__PAIR64__(v24.u32[0], v23.u32[0]), __PAIR64__(v24.u32[0], v23.u32[0])))) <= 0.0)
+  {
+    sub_295769F00();
+    return -12780;
+  }
+
+  v25.i32[0] = 1.0;
+  v28.i64[0] = 0x8000000080000000;
+  v28.i64[1] = 0x8000000080000000;
+  v29 = *vbslq_s8(v28, v25, v23).i32;
+  LODWORD(v30) = vbslq_s8(v28, v25, v24).u32[0];
+  v25.i64[0] = 0;
+  v31 = 0;
+  if (v29 <= 0.0)
+  {
+    *v31.i32 = self->_pixelBufferDimensions[0].width + -1.0;
+  }
+
+  if (v30 <= 0.0)
+  {
+    *v25.i32 = self->_pixelBufferDimensions[0].height + -1.0;
+  }
+
+  v32 = 0;
+  __asm { FMOV            V3.4S, #1.0 }
+
+  v37 = vzip2q_s32(vdupq_lane_s32(v31, 0), _Q3);
+  v38 = LODWORD(v29);
+  v39.i32[0] = 0;
+  v39.i64[1] = 0;
+  v39.f32[1] = v30;
+  _Q3.i64[0] = __PAIR64__(v25.u32[0], v31.u32[0]);
+  *self->_orientationVector = vbsl_s8(vcltz_f32(v26), vneg_f32(v26), v26);
+  v41 = *&self->_anon_710[16];
+  v42 = *&self->_anon_710[32];
+  v43 = vzip1q_s32(v37, v25);
+  v64 = *self->_anon_710;
+  v65 = v41;
+  v66 = v42;
+  v67 = 0u;
+  v68 = 0u;
+  v69 = 0u;
+  do
+  {
+    *(&v67 + v32 * 4) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v38, COERCE_FLOAT(*(&v64 + v32 * 4))), v39, *&v64.f32[v32], 1), _Q3, *(&v64 + v32 * 4), 2);
+    v32 += 4;
+  }
+
+  while (v32 != 12);
+  v44 = 0;
+  v38.i32[3] = 0;
+  v39.i32[3] = 0;
+  v43.i32[3] = 0;
+  v45 = v67;
+  v46 = v68;
+  v47 = v69;
+  *(anon_6b0 + 26) = DWORD2(v67);
+  *(anon_6b0 + 30) = DWORD2(v46);
+  *(anon_6b0 + 12) = v45;
+  *(anon_6b0 + 14) = v46;
+  *(anon_6b0 + 34) = DWORD2(v47);
+  *(anon_6b0 + 16) = v47;
+  v48 = *self->_anon_6b0;
+  v49 = *&self->_anon_6b0[16];
+  v50 = *&self->_anon_6b0[32];
+  v64 = v38;
+  v65 = v39;
+  v66 = v43;
+  v67 = 0u;
+  v68 = 0u;
+  v69 = 0u;
+  do
+  {
+    *(&v67 + v44 * 4) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v48, COERCE_FLOAT(*(&v64 + v44 * 4))), v49, *&v64.f32[v44], 1), v50, *(&v64 + v44 * 4), 2);
+    v44 += 4;
+  }
+
+  while (v44 != 12);
+  v51 = 0;
+  v52 = v67;
+  v53 = v68;
+  v54 = v69;
+  *(anon_6b0 + 2) = DWORD2(v67);
+  *(anon_6b0 + 6) = DWORD2(v53);
+  *anon_6b0 = v52;
+  *(anon_6b0 + 2) = v53;
+  *(anon_6b0 + 10) = DWORD2(v54);
+  *(anon_6b0 + 4) = v54;
+  v55 = *self->_anon_6e0;
+  v56 = *&self->_anon_6e0[16];
+  v57 = *&self->_anon_6e0[32];
+  v64 = v38;
+  v65 = v39;
+  v66 = v43;
+  v67 = 0u;
+  v68 = 0u;
+  v69 = 0u;
+  do
+  {
+    *(&v67 + v51 * 4) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v55, COERCE_FLOAT(*(&v64 + v51 * 4))), v56, *&v64.f32[v51], 1), v57, *(&v64 + v51 * 4), 2);
+    v51 += 4;
+  }
+
+  while (v51 != 12);
+  v58 = v67;
+  v59 = v68;
+  v60 = v69;
+  *(anon_6b0 + 14) = DWORD2(v67);
+  *(anon_6b0 + 18) = DWORD2(v59);
+  *(anon_6b0 + 6) = v58;
+  *(anon_6b0 + 8) = v59;
+  *(anon_6b0 + 22) = DWORD2(v60);
+  *(anon_6b0 + 10) = v60;
+  v61 = objc_msgSend__computePaddedAuxiliaryRectificationHomography(self, v16, v17, v18, v19, v20, v21, v22, *&v58, *&v64, *&v65, *&v66);
+  v62 = v61;
+  if (v61)
+  {
+    sub_295769E88(v61);
+  }
+
+  return v62;
 }
 
 - (int)_computePaddedAuxiliaryRectificationHomography
@@ -1652,439 +1846,439 @@ LABEL_18:
 {
   anon_6b0 = self->_anon_6b0;
   v4 = *&self->_undistModels[0].polyDynamic[2];
-  v160 = *self->_undistModels[0].polyDynamic;
-  v161 = v4;
+  v161 = *self->_undistModels[0].polyDynamic;
+  v162 = v4;
   v5 = *&self->_undistModels[0].polyDynamic[6];
-  v162 = *&self->_undistModels[0].polyDynamic[4];
-  v163 = v5;
+  v163 = *&self->_undistModels[0].polyDynamic[4];
+  v164 = v5;
   v6 = *&self->_undistModels[0].polyBase[2];
-  v156 = *self->_undistModels[0].polyBase;
-  v157 = v6;
+  v157 = *self->_undistModels[0].polyBase;
+  v158 = v6;
   v7 = *&self->_undistModels[0].polyBase[6];
-  v158 = *&self->_undistModels[0].polyBase[4];
-  v159 = v7;
+  v159 = *&self->_undistModels[0].polyBase[4];
+  v160 = v7;
   v8 = *&self->_undistModels[0].opticalCenterX;
-  v154 = *&self->_undistModels[0].pixelSizeMM;
-  v155 = v8;
+  v155 = *&self->_undistModels[0].pixelSizeMM;
+  v156 = v8;
   x = self->_referenceFinalCropRect.origin.x;
   *&v8 = self->_referenceFinalCropRect.origin.y;
   v10 = x + self->_referenceFinalCropRect.size.width;
   v11 = *&v8 + self->_referenceFinalCropRect.size.height;
-  v139.f64[0] = x;
-  *&v139.f64[1] = v8;
-  v140 = v10;
-  v141 = v8;
-  v142 = x;
-  v143 = v11;
-  v144 = v10;
-  v145 = v11;
-  v146 = v155;
-  v147 = v8;
-  v148 = v155;
-  v149 = v11;
-  v150 = x;
-  v151 = *(&v155 + 1);
-  v152 = v10;
-  v153 = *(&v155 + 1);
-  memset(v138, 0, sizeof(v138));
-  sub_295761800(&v139, 8, &v154, v138);
-  v19 = 0;
+  v140.f64[0] = x;
+  *&v140.f64[1] = v8;
+  v141 = v10;
+  v142 = v8;
+  v143 = x;
+  v144 = v11;
+  v145 = v10;
+  v146 = v11;
+  v147 = v156;
+  v148 = v8;
+  v149 = v156;
+  v150 = v11;
+  v151 = x;
+  v152 = *(&v156 + 1);
+  v153 = v10;
+  v154 = *(&v156 + 1);
+  memset(v139, 0, sizeof(v139));
+  v12 = sub_295761800(&v140, 8, &v155, v139);
+  v20 = 0;
   __asm { FMOV            V0.2S, #1.0 }
 
-  memset(v137, 0, sizeof(v137));
+  memset(v138, 0, sizeof(v138));
   do
   {
-    *&v25 = vcvt_f32_f64(v138[v19]);
-    *(&v25 + 1) = _D0;
-    v137[v19++] = v25;
+    *&v26 = vcvt_f32_f64(v139[v20]);
+    *(&v26 + 1) = _D0;
+    v138[v20++] = v26;
   }
 
-  while (v19 != 8);
-  v26 = 0;
-  v135 = 0u;
+  while (v20 != 8);
+  v27 = 0;
   v136 = 0u;
-  v27 = *anon_6b0;
-  v28 = *(anon_6b0 + 1);
-  v29 = *(anon_6b0 + 2);
-  v30.i64[0] = 0x3F0000003F000000;
-  v30.i64[1] = 0x3F0000003F000000;
+  v137 = 0u;
+  v28 = *anon_6b0;
+  v29 = *(anon_6b0 + 1);
+  v30 = *(anon_6b0 + 2);
+  v31.i64[0] = 0x3F0000003F000000;
+  v31.i64[1] = 0x3F0000003F000000;
   do
   {
-    v31 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v27, COERCE_FLOAT(v137[v26])), v28, *&v137[v26], 1), v29, v137[v26], 2);
-    if (v31.f32[2] <= 0.0)
+    v32 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v28, COERCE_FLOAT(v138[v27])), v29, *&v138[v27], 1), v30, v138[v27], 2);
+    if (v32.f32[2] <= 0.0)
     {
-      sub_295769FF0();
+      sub_295769FF0(v12);
       return -12780;
     }
 
-    *(&v135 + (v26 & 1)) = vmlaq_f32(*(&v135 + (v26 & 1)), v30, vdivq_f32(v31, vdupq_laneq_s32(v31, 2)));
-    ++v26;
+    *(&v136 + (v27 & 1)) = vmlaq_f32(*(&v136 + (v27 & 1)), v31, vdivq_f32(v32, vdupq_laneq_s32(v32, 2)));
+    ++v27;
   }
 
-  while (v26 != 4);
-  v130 = v29;
-  v131 = v28;
-  v132 = v27;
-  v35 = vsubq_f32(v136, v135);
-  v32 = COERCE_UNSIGNED_INT(vaddv_f32(*&vmulq_f32(v35, v35)));
-  v33 = vrsqrte_f32(v32);
-  v34 = vmul_f32(v33, vrsqrts_f32(v32.u32[0], vmul_f32(v33, v33)));
-  *v35.f32 = vmul_n_f32(*v35.f32, vmul_f32(v34, vrsqrts_f32(v32.u32[0], vmul_f32(v34, v34))).f32[0]);
+  while (v27 != 4);
+  v131 = v30;
+  v132 = v29;
+  v133 = v28;
+  v36 = vsubq_f32(v137, v136);
+  v33 = COERCE_UNSIGNED_INT(vaddv_f32(*&vmulq_f32(v36, v36)));
+  v34 = vrsqrte_f32(v33);
+  v35 = vmul_f32(v34, vrsqrts_f32(v33.u32[0], vmul_f32(v34, v34)));
+  *v36.f32 = vmul_n_f32(*v36.f32, vmul_f32(v35, vrsqrts_f32(v33.u32[0], vmul_f32(v35, v35))).f32[0]);
   __asm { FMOV            V2.2S, #-1.0 }
 
-  *v27.f32 = vminnm_f32(vmaxnm_f32(*v35.f32, _D2), _D0);
-  *self->_orientationVector = v27.i64[0];
+  *v28.f32 = vminnm_f32(vmaxnm_f32(*v36.f32, _D2), _D0);
+  *self->_orientationVector = v28.i64[0];
   rectificationAngleStep = self->_rectificationAngleStep;
   if (rectificationAngleStep != 0.0)
   {
-    v133 = v27;
-    *v38.i32 = rectificationAngleStep * roundf(acosf(v27.f32[0]) / rectificationAngleStep);
-    v39 = v133;
-    v39.i32[0] = v133.i32[1];
-    v40.i64[0] = 0x8000000080000000;
-    v40.i64[1] = 0x8000000080000000;
-    LODWORD(v129) = vbslq_s8(v40, v38, v39).u32[0];
-    v41.f32[0] = cosf(*v38.i32);
-    v134 = v41;
-    v42 = sinf(v129);
-    v27 = v134;
-    v27.f32[1] = v42;
-    *self->_orientationVector = v27.i64[0];
+    v134 = v28;
+    *v39.i32 = rectificationAngleStep * roundf(acosf(v28.f32[0]) / rectificationAngleStep);
+    v40 = v134;
+    v40.i32[0] = v134.i32[1];
+    v41.i64[0] = 0x8000000080000000;
+    v41.i64[1] = 0x8000000080000000;
+    LODWORD(v130) = vbslq_s8(v41, v39, v40).u32[0];
+    v42.f32[0] = cosf(*v39.i32);
+    v135 = v42;
+    v43 = sinf(v130);
+    v28 = v135;
+    v28.f32[1] = v43;
+    *self->_orientationVector = v28.i64[0];
   }
 
-  v43 = 0;
-  *v35.f32 = vrev64_s32(*v27.f32);
-  v49.i64[0] = 0;
-  v49.i32[3] = 0;
-  *&v49.i32[2] = -v27.f32[1];
-  v44 = vdupq_lane_s32(*v35.f32, 1);
-  v45 = v27;
-  v45.i32[1] = 0;
-  v46 = vzip1q_s32(v45, v35);
-  v35.i64[0] = v27.i64[0];
-  v47 = vzip2q_s32(v49, v44);
-  v29.f32[0] = self->_correctedCalibration.focalLengthPix[0];
-  v44.f64[0] = self->_correctedCalibration.opticalCenterX[0];
-  v44.f64[1] = self->_correctedCalibration.opticalCenterY[0];
-  v48 = vcvt_f32_f64(v44);
-  v49.i64[1] = 0;
-  *v49.i32 = 1.0 / v29.f32[0];
-  v50.i32[0] = 0;
+  v44 = 0;
+  *v36.f32 = vrev64_s32(*v28.f32);
+  v50.i64[0] = 0;
+  v50.i32[3] = 0;
+  *&v50.i32[2] = -v28.f32[1];
+  v45 = vdupq_lane_s32(*v36.f32, 1);
+  v46 = v28;
+  v46.i32[1] = 0;
+  v47 = vzip1q_s32(v46, v36);
+  v36.i64[0] = v28.i64[0];
+  v48 = vzip2q_s32(v50, v45);
+  v30.f32[0] = self->_correctedCalibration.focalLengthPix[0];
+  v45.f64[0] = self->_correctedCalibration.opticalCenterX[0];
+  v45.f64[1] = self->_correctedCalibration.opticalCenterY[0];
+  v49 = vcvt_f32_f64(v45);
   v50.i64[1] = 0;
-  v50.f32[1] = 1.0 / v29.f32[0];
-  *v51.f32 = vdiv_f32(vneg_f32(v48), vdup_lane_s32(*v29.f32, 0));
-  v51.i64[1] = COERCE_UNSIGNED_INT(1.0);
-  v52 = v29.u32[0];
-  v164 = COERCE_UNSIGNED_INT(1.0 / v29.f32[0]);
-  v165 = v50.u64[0];
-  v166 = v51;
-  v167 = 0u;
+  *v50.i32 = 1.0 / v30.f32[0];
+  v51.i32[0] = 0;
+  v51.i64[1] = 0;
+  v51.f32[1] = 1.0 / v30.f32[0];
+  *v52.f32 = vdiv_f32(vneg_f32(v49), vdup_lane_s32(*v30.f32, 0));
+  v52.i64[1] = COERCE_UNSIGNED_INT(1.0);
+  v53 = v30.u32[0];
+  v165 = COERCE_UNSIGNED_INT(1.0 / v30.f32[0]);
+  v166 = v51.u64[0];
+  v167 = v52;
   v168 = 0u;
   v169 = 0u;
+  v170 = 0u;
   do
   {
-    *(&v167 + v43) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v35, COERCE_FLOAT(*(&v164 + v43))), v47, *&v164.i8[v43], 1), xmmword_29577A870, *(&v164 + v43), 2);
-    v43 += 16;
+    *(&v168 + v44) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v36, COERCE_FLOAT(*(&v165 + v44))), v48, *&v165.i8[v44], 1), xmmword_29577A870, *(&v165 + v44), 2);
+    v44 += 16;
   }
 
-  while (v43 != 48);
-  v53 = 0;
+  while (v44 != 48);
+  v54 = 0;
   __asm { FMOV            V6.4S, #1.0 }
 
-  v55.i64[1] = _Q6.i64[1];
-  *v55.f32 = v48;
-  v56.i32[0] = 0;
-  v56.i64[1] = 0;
-  v56.i32[1] = v29.i32[0];
-  v164 = v167;
+  v56.i64[1] = _Q6.i64[1];
+  *v56.f32 = v49;
+  v57.i32[0] = 0;
+  v57.i64[1] = 0;
+  v57.i32[1] = v30.i32[0];
   v165 = v168;
   v166 = v169;
-  v167 = 0u;
+  v167 = v170;
   v168 = 0u;
   v169 = 0u;
+  v170 = 0u;
   do
   {
-    *(&v167 + v53) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v29.u32[0], COERCE_FLOAT(*(&v164 + v53))), v56, *&v164.i8[v53], 1), v55, *(&v164 + v53), 2);
-    v53 += 16;
+    *(&v168 + v54) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v30.u32[0], COERCE_FLOAT(*(&v165 + v54))), v57, *&v165.i8[v54], 1), v56, *(&v165 + v54), 2);
+    v54 += 16;
   }
 
-  while (v53 != 48);
-  v57 = 0;
-  v58 = v167;
+  while (v54 != 48);
+  v58 = 0;
   v59 = v168;
   v60 = v169;
-  v61 = vdupq_lane_s32(*v47.f32, 1);
-  v62 = vzip1q_s32(v46, v47);
-  v62.i32[2] = 0;
-  v63 = vzip2q_s32(vzip1q_s32(v46, 0), v61);
-  v64 = vdupq_laneq_s32(v46, 2);
-  v64.i32[1] = 0;
-  v64.i32[2] = 1.0;
-  v164 = v49;
+  v61 = v170;
+  v62 = vdupq_lane_s32(*v48.f32, 1);
+  v63 = vzip1q_s32(v47, v48);
+  v63.i32[2] = 0;
+  v64 = vzip2q_s32(vzip1q_s32(v47, 0), v62);
+  v65 = vdupq_laneq_s32(v47, 2);
+  v65.i32[1] = 0;
+  v65.i32[2] = 1.0;
   v165 = v50;
   v166 = v51;
-  v167 = 0u;
+  v167 = v52;
   v168 = 0u;
   v169 = 0u;
+  v170 = 0u;
   do
   {
-    *(&v167 + v57) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v62, COERCE_FLOAT(*(&v164 + v57))), v63, *&v164.i8[v57], 1), v64, *(&v164 + v57), 2);
-    v57 += 16;
+    *(&v168 + v58) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v63, COERCE_FLOAT(*(&v165 + v58))), v64, *&v165.i8[v58], 1), v65, *(&v165 + v58), 2);
+    v58 += 16;
   }
 
-  while (v57 != 48);
-  v65 = 0;
-  v164 = v167;
+  while (v58 != 48);
+  v66 = 0;
   v165 = v168;
   v166 = v169;
-  v167 = 0u;
+  v167 = v170;
   v168 = 0u;
   v169 = 0u;
+  v170 = 0u;
   do
   {
-    *(&v167 + v65) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v29.u32[0], COERCE_FLOAT(*(&v164 + v65))), v56, *&v164.i8[v65], 1), v55, *(&v164 + v65), 2);
-    v65 += 16;
-  }
-
-  while (v65 != 48);
-  v66 = 0;
-  v67 = v167;
-  v68 = v168;
-  v69 = v169;
-  v70 = *(anon_6b0 + 7);
-  v71 = *(anon_6b0 + 8);
-  v164 = *(anon_6b0 + 6);
-  v165 = v70;
-  v166 = v71;
-  v167 = 0u;
-  v168 = 0u;
-  v169 = 0u;
-  do
-  {
-    *(&v167 + v66) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v58, COERCE_FLOAT(*(&v164 + v66))), v59, *&v164.i8[v66], 1), v60, *(&v164 + v66), 2);
+    *(&v168 + v66) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v30.u32[0], COERCE_FLOAT(*(&v165 + v66))), v57, *&v165.i8[v66], 1), v56, *(&v165 + v66), 2);
     v66 += 16;
   }
 
   while (v66 != 48);
-  v72 = 0;
-  v67.i32[3] = 0;
+  v67 = 0;
+  v68 = v168;
+  v69 = v169;
+  v70 = v170;
+  v71 = *(anon_6b0 + 7);
+  v72 = *(anon_6b0 + 8);
+  v165 = *(anon_6b0 + 6);
+  v166 = v71;
+  v167 = v72;
+  v168 = 0u;
+  v169 = 0u;
+  v170 = 0u;
+  do
+  {
+    *(&v168 + v67) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v59, COERCE_FLOAT(*(&v165 + v67))), v60, *&v165.i8[v67], 1), v61, *(&v165 + v67), 2);
+    v67 += 16;
+  }
+
+  while (v67 != 48);
+  v73 = 0;
   v68.i32[3] = 0;
   v69.i32[3] = 0;
-  v73 = v167.i64[0];
-  v74 = v168;
+  v70.i32[3] = 0;
+  v74 = v168.i64[0];
   v75 = v169;
-  *(anon_6b0 + 26) = v167.i32[2];
-  *(anon_6b0 + 12) = v73;
-  *(anon_6b0 + 30) = v74.i32[2];
-  *(anon_6b0 + 14) = v74.i64[0];
-  *(anon_6b0 + 34) = v75.i32[2];
-  *(anon_6b0 + 16) = v75.i64[0];
-  v164 = v67;
+  v76 = v170;
+  *(anon_6b0 + 26) = v168.i32[2];
+  *(anon_6b0 + 12) = v74;
+  *(anon_6b0 + 30) = v75.i32[2];
+  *(anon_6b0 + 14) = v75.i64[0];
+  *(anon_6b0 + 34) = v76.i32[2];
+  *(anon_6b0 + 16) = v76.i64[0];
   v165 = v68;
   v166 = v69;
-  v167 = 0u;
+  v167 = v70;
   v168 = 0u;
   v169 = 0u;
-  v76.i32[1] = v130.i32[1];
+  v170 = 0u;
+  v77.i32[1] = v131.i32[1];
   do
   {
-    *(&v167 + v72) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v132, COERCE_FLOAT(*(&v164 + v72))), v131, *&v164.i8[v72], 1), v130, *(&v164 + v72), 2);
-    v72 += 16;
+    *(&v168 + v73) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v133, COERCE_FLOAT(*(&v165 + v73))), v132, *&v165.i8[v73], 1), v131, *(&v165 + v73), 2);
+    v73 += 16;
   }
 
-  while (v72 != 48);
-  v77 = 0;
-  v78 = v167.i64[0];
-  v79 = v168;
+  while (v73 != 48);
+  v78 = 0;
+  v79 = v168.i64[0];
   v80 = v169;
-  *(anon_6b0 + 2) = v167.i32[2];
-  *(anon_6b0 + 6) = v79.i32[2];
-  *anon_6b0 = v78;
-  *(anon_6b0 + 2) = v79.i64[0];
-  *(anon_6b0 + 10) = v80.i32[2];
-  *(anon_6b0 + 4) = v80.i64[0];
-  v81 = *(anon_6b0 + 3);
-  v82 = *(anon_6b0 + 4);
-  v83 = *(anon_6b0 + 5);
-  v164 = v67;
+  v81 = v170;
+  *(anon_6b0 + 2) = v168.i32[2];
+  *(anon_6b0 + 6) = v80.i32[2];
+  *anon_6b0 = v79;
+  *(anon_6b0 + 2) = v80.i64[0];
+  *(anon_6b0 + 10) = v81.i32[2];
+  *(anon_6b0 + 4) = v81.i64[0];
+  v82 = *(anon_6b0 + 3);
+  v83 = *(anon_6b0 + 4);
+  v84 = *(anon_6b0 + 5);
   v165 = v68;
   v166 = v69;
-  v167 = 0u;
+  v167 = v70;
   v168 = 0u;
   v169 = 0u;
+  v170 = 0u;
   do
   {
-    *(&v167 + v77) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v81, COERCE_FLOAT(*(&v164 + v77))), v82, *&v164.i8[v77], 1), v83, *(&v164 + v77), 2);
-    v77 += 16;
+    *(&v168 + v78) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v82, COERCE_FLOAT(*(&v165 + v78))), v83, *&v165.i8[v78], 1), v84, *(&v165 + v78), 2);
+    v78 += 16;
   }
 
-  while (v77 != 48);
-  v84 = 0;
-  v85 = v167.i64[0];
-  v86 = v168;
+  while (v78 != 48);
+  v85 = 0;
+  v86 = v168.i64[0];
   v87 = v169;
-  *(anon_6b0 + 14) = v167.i32[2];
-  *(anon_6b0 + 18) = v86.i32[2];
-  *(anon_6b0 + 6) = v85;
-  *(anon_6b0 + 8) = v86.i64[0];
-  *(anon_6b0 + 22) = v87.i32[2];
-  *(anon_6b0 + 10) = v87.i64[0];
-  v88 = *(anon_6b0 + 6);
-  v89 = *(anon_6b0 + 7);
-  v90 = 0x80000000800000;
-  v91 = vneg_f32(0x80000000800000);
-  v92 = *(anon_6b0 + 8);
+  v88 = v170;
+  *(anon_6b0 + 14) = v168.i32[2];
+  *(anon_6b0 + 18) = v87.i32[2];
+  *(anon_6b0 + 6) = v86;
+  *(anon_6b0 + 8) = v87.i64[0];
+  *(anon_6b0 + 22) = v88.i32[2];
+  *(anon_6b0 + 10) = v88.i64[0];
+  v89 = *(anon_6b0 + 6);
+  v90 = *(anon_6b0 + 7);
+  v91 = 0x80000000800000;
+  v92 = vneg_f32(0x80000000800000);
+  v93 = *(anon_6b0 + 8);
   do
   {
-    v93 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v88, COERCE_FLOAT(v137[v84])), v89, *&v137[v84], 1), v92, v137[v84], 2);
-    if (*&v93.i32[2] <= 0.0)
+    v94 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v89, COERCE_FLOAT(v138[v85])), v90, *&v138[v85], 1), v93, v138[v85], 2);
+    if (*&v94.i32[2] <= 0.0)
     {
       sub_29576A064();
       return -12780;
     }
 
-    v94 = vdiv_f32(*v93.i8, *&vdupq_laneq_s32(v93, 2));
-    v91 = vminnm_f32(v91, v94);
-    v90 = vmaxnm_f32(v90, v94);
-    ++v84;
+    v95 = vdiv_f32(*v94.i8, *&vdupq_laneq_s32(v94, 2));
+    v92 = vminnm_f32(v92, v95);
+    v91 = vmaxnm_f32(v91, v95);
+    ++v85;
   }
 
-  while (v84 != 8);
-  v95 = 0;
-  v96 = vcvt_f32_s32(self->_pixelBufferDimensions[0]);
-  v97 = vdiv_f32(v96, vsub_f32(v90, v91));
-  if (v97.f32[0] >= v97.f32[1])
+  while (v85 != 8);
+  v96 = 0;
+  v97 = vcvt_f32_s32(self->_pixelBufferDimensions[0]);
+  v98 = vdiv_f32(v97, vsub_f32(v91, v92));
+  if (v98.f32[0] >= v98.f32[1])
   {
-    v97.f32[0] = v97.f32[1];
+    v98.f32[0] = v98.f32[1];
   }
 
-  *v76.i32 = v97.f32[0] * v29.f32[0];
-  v98.i64[1] = _Q6.i64[1];
-  *v98.f32 = vmla_n_f32(vmul_f32(v96, 0x3F0000003F000000), vsub_f32(v48, vmul_f32(vadd_f32(v91, v90), 0x3F0000003F000000)), v97.f32[0]);
-  v99.i32[0] = 0;
-  v99.i64[1] = 0;
-  v99.i32[1] = v76.i32[0];
+  *v77.i32 = v98.f32[0] * v30.f32[0];
+  v99.i64[1] = _Q6.i64[1];
+  *v99.f32 = vmla_n_f32(vmul_f32(v97, 0x3F0000003F000000), vsub_f32(v49, vmul_f32(vadd_f32(v92, v91), 0x3F0000003F000000)), v98.f32[0]);
+  v100.i32[0] = 0;
   v100.i64[1] = 0;
-  *_Q6.f32 = vdiv_f32(vneg_f32(*v98.f32), vdup_lane_s32(v76, 0));
-  LODWORD(self->_rectificationFocalLengthFactor) = v97.i32[0];
-  v164 = v49;
+  v100.i32[1] = v77.i32[0];
+  v101.i64[1] = 0;
+  *_Q6.f32 = vdiv_f32(vneg_f32(*v99.f32), vdup_lane_s32(v77, 0));
+  LODWORD(self->_rectificationFocalLengthFactor) = v98.i32[0];
   v165 = v50;
   v166 = v51;
-  v167 = 0u;
+  v167 = v52;
   v168 = 0u;
   v169 = 0u;
+  v170 = 0u;
   do
   {
-    *(&v167 + v95) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v76.u32[0], COERCE_FLOAT(*(&v164 + v95))), v99, *&v164.i8[v95], 1), v98, *(&v164 + v95), 2);
-    v95 += 16;
+    *(&v168 + v96) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v77.u32[0], COERCE_FLOAT(*(&v165 + v96))), v100, *&v165.i8[v96], 1), v99, *(&v165 + v96), 2);
+    v96 += 16;
   }
 
-  while (v95 != 48);
-  v101 = 0;
-  LODWORD(v102) = 0;
-  *(&v102 + 1) = 1.0 / *v76.i32;
+  while (v96 != 48);
+  v102 = 0;
+  LODWORD(v103) = 0;
+  *(&v103 + 1) = 1.0 / *v77.i32;
   _Q6.i32[3] = 0;
-  v103 = v167;
   v104 = v168;
   v105 = v169;
-  v100.i64[0] = COERCE_UNSIGNED_INT(1.0 / *v76.i32);
-  v164 = v100;
-  v165 = v102;
-  v166 = _Q6;
-  v167 = 0u;
+  v106 = v170;
+  v101.i64[0] = COERCE_UNSIGNED_INT(1.0 / *v77.i32);
+  v165 = v101;
+  v166 = v103;
+  v167 = _Q6;
   v168 = 0u;
   v169 = 0u;
+  v170 = 0u;
   do
   {
-    *(&v167 + v101) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v52, COERCE_FLOAT(*(&v164 + v101))), v56, *&v164.i8[v101], 1), v55, *(&v164 + v101), 2);
-    v101 += 16;
+    *(&v168 + v102) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v53, COERCE_FLOAT(*(&v165 + v102))), v57, *&v165.i8[v102], 1), v56, *(&v165 + v102), 2);
+    v102 += 16;
   }
 
-  while (v101 != 48);
-  v106 = 0;
-  v107 = v167;
+  while (v102 != 48);
+  v107 = 0;
   v108 = v168;
   v109 = v169;
-  v164 = v88;
+  v110 = v170;
   v165 = v89;
-  v166 = v92;
-  v167 = 0u;
+  v166 = v90;
+  v167 = v93;
   v168 = 0u;
   v169 = 0u;
+  v170 = 0u;
   do
   {
-    *(&v167 + v106) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v103, COERCE_FLOAT(*(&v164 + v106))), v104, *&v164.i8[v106], 1), v105, *(&v164 + v106), 2);
-    v106 += 16;
+    *(&v168 + v107) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v104, COERCE_FLOAT(*(&v165 + v107))), v105, *&v165.i8[v107], 1), v106, *(&v165 + v107), 2);
+    v107 += 16;
   }
 
-  while (v106 != 48);
-  v110 = 0;
-  v107.i32[3] = 0;
+  while (v107 != 48);
+  v111 = 0;
   v108.i32[3] = 0;
   v109.i32[3] = 0;
-  v111 = v167.i64[0];
-  v112 = v168;
+  v110.i32[3] = 0;
+  v112 = v168.i64[0];
   v113 = v169;
-  *(anon_6b0 + 26) = v167.i32[2];
-  *(anon_6b0 + 30) = v112.i32[2];
-  *(anon_6b0 + 12) = v111;
-  *(anon_6b0 + 14) = v112.i64[0];
-  *(anon_6b0 + 34) = v113.i32[2];
-  *(anon_6b0 + 16) = v113.i64[0];
-  v114 = *anon_6b0;
-  v115 = *(anon_6b0 + 1);
-  v116 = *(anon_6b0 + 2);
-  v164 = v107;
+  v114 = v170;
+  *(anon_6b0 + 26) = v168.i32[2];
+  *(anon_6b0 + 30) = v113.i32[2];
+  *(anon_6b0 + 12) = v112;
+  *(anon_6b0 + 14) = v113.i64[0];
+  *(anon_6b0 + 34) = v114.i32[2];
+  *(anon_6b0 + 16) = v114.i64[0];
+  v115 = *anon_6b0;
+  v116 = *(anon_6b0 + 1);
+  v117 = *(anon_6b0 + 2);
   v165 = v108;
   v166 = v109;
-  v167 = 0u;
+  v167 = v110;
   v168 = 0u;
   v169 = 0u;
+  v170 = 0u;
   do
   {
-    *(&v167 + v110) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v114, COERCE_FLOAT(*(&v164 + v110))), v115, *&v164.i8[v110], 1), v116, *(&v164 + v110), 2);
-    v110 += 16;
+    *(&v168 + v111) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v115, COERCE_FLOAT(*(&v165 + v111))), v116, *&v165.i8[v111], 1), v117, *(&v165 + v111), 2);
+    v111 += 16;
   }
 
-  while (v110 != 48);
-  v117 = 0;
-  v118 = v167.i64[0];
-  v119 = v168;
+  while (v111 != 48);
+  v118 = 0;
+  v119 = v168.i64[0];
   v120 = v169;
-  *(anon_6b0 + 2) = v167.i32[2];
-  *(anon_6b0 + 6) = v119.i32[2];
-  *anon_6b0 = v118;
-  *(anon_6b0 + 2) = v119.i64[0];
-  *(anon_6b0 + 10) = v120.i32[2];
-  *(anon_6b0 + 4) = v120.i64[0];
-  v121 = *(anon_6b0 + 3);
-  v122 = *(anon_6b0 + 4);
-  v123 = *(anon_6b0 + 5);
-  v164 = v107;
+  v121 = v170;
+  *(anon_6b0 + 2) = v168.i32[2];
+  *(anon_6b0 + 6) = v120.i32[2];
+  *anon_6b0 = v119;
+  *(anon_6b0 + 2) = v120.i64[0];
+  *(anon_6b0 + 10) = v121.i32[2];
+  *(anon_6b0 + 4) = v121.i64[0];
+  v122 = *(anon_6b0 + 3);
+  v123 = *(anon_6b0 + 4);
+  v124 = *(anon_6b0 + 5);
   v165 = v108;
   v166 = v109;
-  v167 = 0u;
+  v167 = v110;
   v168 = 0u;
   v169 = 0u;
+  v170 = 0u;
   do
   {
-    *(&v167 + v117) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v121, COERCE_FLOAT(*(&v164 + v117))), v122, *&v164.i8[v117], 1), v123, *(&v164 + v117), 2);
-    v117 += 16;
+    *(&v168 + v118) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v122, COERCE_FLOAT(*(&v165 + v118))), v123, *&v165.i8[v118], 1), v124, *(&v165 + v118), 2);
+    v118 += 16;
   }
 
-  while (v117 != 48);
-  v124 = v167.i64[0];
-  v125 = v168;
+  while (v118 != 48);
+  v125 = v168.i64[0];
   v126 = v169;
-  *(anon_6b0 + 14) = v167.i32[2];
-  *(anon_6b0 + 18) = v125.i32[2];
-  *(anon_6b0 + 6) = v124;
-  *(anon_6b0 + 8) = v125.i64[0];
-  *(anon_6b0 + 22) = v126.i32[2];
-  *(anon_6b0 + 10) = v126.i64[0];
-  objc_msgSend__computeCanonicalDisparityScaleFactor(self, v12, v13, v14, v15, v16, v17, v18, *&v124);
+  v127 = v170;
+  *(anon_6b0 + 14) = v168.i32[2];
+  *(anon_6b0 + 18) = v126.i32[2];
+  *(anon_6b0 + 6) = v125;
+  *(anon_6b0 + 8) = v126.i64[0];
+  *(anon_6b0 + 22) = v127.i32[2];
+  *(anon_6b0 + 10) = v127.i64[0];
+  objc_msgSend__computeCanonicalDisparityScaleFactor(self, v13, v14, v15, v16, v17, v18, v19, *&v125);
   result = 0;
-  self->_correctedCalibration.canonicalDisparityScale = v128;
+  self->_correctedCalibration.canonicalDisparityScale = v129;
   return result;
 }
 
@@ -2124,9 +2318,9 @@ LABEL_18:
   {
     v6 = vaddq_f32(v18, vmlaq_n_f32(vmulq_n_f32(v16, (self->_pixelBufferDimensions[0].width + -1.0) * 0.5), v17, (self->_pixelBufferDimensions[0].height + -1.0) * 0.5));
     v7 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v19, v6.f32[0]), v20, *v6.f32, 1), v21, v6, 2);
-    if (v7.f32[2] <= 0.1)
+    if (v7.n128_f32[2] <= 0.1)
     {
-      sub_29576A150();
+      sub_29576A150(v7, v7.n128_f32[2]);
       return -12780;
     }
 
@@ -2198,38 +2392,6 @@ LABEL_18:
   *retstr->opticalCenterY = *self[10].extrinRotRefefenceToAuxiliary;
   *retstr->extrinRotRefefenceToAuxiliary = v7;
   return self;
-}
-
-- (__n128)auxiliaryPaddingHInv
-{
-  result = *(self + 1664);
-  v2 = *(self + 1680);
-  v3 = *(self + 1696);
-  return result;
-}
-
-- (__n128)rectReferenceToReference
-{
-  result = *(self + 1712);
-  v2 = *(self + 1728);
-  v3 = *(self + 1744);
-  return result;
-}
-
-- (__n128)rectReferenceToAuxiliary
-{
-  result = *(self + 1760);
-  v2 = *(self + 1776);
-  v3 = *(self + 1792);
-  return result;
-}
-
-- (__n128)referenceToRectReference
-{
-  result = *(self + 1808);
-  v2 = *(self + 1824);
-  v3 = *(self + 1840);
-  return result;
 }
 
 @end

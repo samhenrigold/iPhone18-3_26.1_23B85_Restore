@@ -169,13 +169,14 @@ LABEL_12:
 - (void)_recordMutatedPegasusResponseJSON
 {
   lastSimulatedJSON = self->_lastSimulatedJSON;
-  v19 = 0;
-  v3 = [MEMORY[0x1E696ACB0] dataWithJSONObject:lastSimulatedJSON options:1 error:&v19];
-  v4 = v19;
+  v23 = 0;
+  v3 = [MEMORY[0x1E696ACB0] dataWithJSONObject:lastSimulatedJSON options:1 error:&v23];
+  v4 = v23;
+  v6 = v4;
   if (v4)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXSafariSuggestions();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = WBS_LOG_CHANNEL_PREFIXSafariSuggestions(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [WBSPegasusResponseFuzzer _recordMutatedPegasusResponseJSON];
     }
@@ -183,31 +184,31 @@ LABEL_12:
 
   else
   {
-    v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithData:v3 encoding:4];
+    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithData:v3 encoding:4];
     mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
     bundleURL = [mainBundle bundleURL];
-    v9 = [bundleURL URLByAppendingPathComponent:@"PegasusResponseFuzzingJSON.json"];
+    v11 = [bundleURL URLByAppendingPathComponent:@"PegasusResponseFuzzingJSON.json"];
 
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-    path = [v9 path];
-    v12 = [defaultManager fileExistsAtPath:path];
+    path = [v11 path];
+    v14 = [defaultManager fileExistsAtPath:path];
 
-    if ((v12 & 1) == 0)
+    if ((v14 & 1) == 0)
     {
       defaultManager2 = [MEMORY[0x1E696AC08] defaultManager];
-      path2 = [v9 path];
+      path2 = [v11 path];
       [defaultManager2 createFileAtPath:path2 contents:0 attributes:0];
     }
 
-    path3 = [v9 path];
-    v18 = 0;
-    [v6 writeToFile:path3 atomically:1 encoding:4 error:&v18];
-    v16 = v18;
+    path3 = [v11 path];
+    v22 = 0;
+    [v8 writeToFile:path3 atomically:1 encoding:4 error:&v22];
+    v18 = v22;
 
-    if (v16)
+    if (v18)
     {
-      v17 = WBS_LOG_CHANNEL_PREFIXSafariSuggestions();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v21 = WBS_LOG_CHANNEL_PREFIXSafariSuggestions(v19, v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         [WBSPegasusResponseFuzzer _recordMutatedPegasusResponseJSON];
       }
@@ -217,7 +218,7 @@ LABEL_12:
 
 - (id)_validPegasusResponseForKey:(id)key
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E696AAE8];
   keyCopy = key;
   safari_safariSharedBundle = [v4 safari_safariSharedBundle];
@@ -231,21 +232,22 @@ LABEL_12:
   self->_query = v10;
 
   v12 = [v9 objectForKeyedSubscript:@"sampleJSON"];
-  v13 = [v12 dataUsingEncoding:4];
-  if (v13)
+  v14 = [v12 dataUsingEncoding:4];
+  if (v14)
   {
-    v21 = 0;
-    v14 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v13 options:0 error:&v21];
-    v15 = v21;
-    if (v15)
+    v24 = 0;
+    v15 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v14 options:0 error:&v24];
+    v16 = v24;
+    v18 = v16;
+    if (v16)
     {
-      v16 = WBS_LOG_CHANNEL_PREFIXSafariSuggestions();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v19 = WBS_LOG_CHANNEL_PREFIXSafariSuggestions(v16, v17);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         [WBSPegasusResponseFuzzer _validPegasusResponseForKey:];
       }
 
-      v17 = 0;
+      v20 = 0;
     }
 
     else
@@ -253,30 +255,30 @@ LABEL_12:
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v22[0] = v14;
-        v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
+        v25[0] = v15;
+        v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:1];
 
-        v14 = v19;
+        v15 = v22;
       }
 
-      objc_storeStrong(&self->_lastSimulatedJSON, v14);
-      v14 = v14;
-      v17 = v14;
+      objc_storeStrong(&self->_lastSimulatedJSON, v15);
+      v15 = v15;
+      v20 = v15;
     }
   }
 
   else
   {
-    v18 = WBS_LOG_CHANNEL_PREFIXSafariSuggestions();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v21 = WBS_LOG_CHANNEL_PREFIXSafariSuggestions(0, v13);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       [WBSPegasusResponseFuzzer _validPegasusResponseForKey:];
     }
 
-    v17 = 0;
+    v20 = 0;
   }
 
-  return v17;
+  return v20;
 }
 
 @end

@@ -775,7 +775,7 @@ LABEL_6:
     goto LABEL_6;
   }
 
-  [*(a1 + 40) _awaitESSOConfigActivationWithExtensionIdentifierEnumerator:*(a1 + 48) completionHandler:{*(a1 + 56), *v12, *&v12[16], v13}];
+  [*(a1 + 40) _awaitESSOConfigActivationWithExtensionIdentifierEnumerator:*(a1 + 48) completionHandler:{*(a1 + 56), *v12, *&v12[8], v13}];
 }
 
 - (void)reauthenticationComplete

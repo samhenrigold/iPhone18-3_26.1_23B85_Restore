@@ -9,6 +9,7 @@
 - (unint64_t)lostModeType;
 - (void)_removeSharedInfo;
 - (void)recalculateLostMode;
+- (void)setFMiPActive:(BOOL)active;
 @end
 
 @implementation FMDFMIPSharedStateManager
@@ -47,9 +48,40 @@ uint64_t __43__FMDFMIPSharedStateManager_sharedInstance__block_invoke()
   return v2;
 }
 
+- (void)setFMiPActive:(BOOL)active
+{
+  activeCopy = active;
+  v13[1] = *MEMORY[0x1E69E9840];
+  _fmipSharedFileURL = [(FMDFMIPSharedStateManager *)self _fmipSharedFileURL];
+  if (_fmipSharedFileURL)
+  {
+    _readSharedInfo = [(FMDFMIPSharedStateManager *)self _readSharedInfo];
+    if (!_readSharedInfo)
+    {
+      v12 = @"fmipActive";
+      v7 = [MEMORY[0x1E696AD98] numberWithBool:activeCopy];
+      v13[0] = v7;
+      _readSharedInfo = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    }
+
+    v8 = LogCategory_Unspecified();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    {
+      *v11 = 0;
+      _os_log_impl(&dword_1DF650000, v8, OS_LOG_TYPE_DEFAULT, "Shared file present. Writing new FMiP state.", v11, 2u);
+    }
+
+    v9 = [_readSharedInfo mutableCopy];
+    v10 = [MEMORY[0x1E696AD98] numberWithBool:activeCopy];
+    [v9 setObject:v10 forKey:@"fmipActive"];
+
+    [(FMDFMIPSharedStateManager *)self _writeSharedInfo:v9];
+  }
+}
+
 - (void)recalculateLostMode
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = +[FMDFMIPManager sharedInstance];
   lostModeInfo = [v3 lostModeInfo];
 
@@ -73,17 +105,16 @@ uint64_t __43__FMDFMIPSharedStateManager_sharedInstance__block_invoke()
   else
   {
     v9 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(lostModeInfo, "lostModeType", @"fmipLostModeType"}];
-    v12 = v9;
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
+    v11 = v9;
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
   }
 
   [(FMDFMIPSharedStateManager *)self _writeSharedInfo:v8];
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)fmipActive
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   _readSharedInfo = [(FMDFMIPSharedStateManager *)self _readSharedInfo];
   v3 = _readSharedInfo;
   if (_readSharedInfo)
@@ -94,9 +125,9 @@ uint64_t __43__FMDFMIPSharedStateManager_sharedInstance__block_invoke()
     v6 = LogCategory_Unspecified();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v9[0] = 67109120;
-      v9[1] = bOOLValue;
-      _os_log_impl(&dword_1DF650000, v6, OS_LOG_TYPE_DEFAULT, "Shared file found. Returning FMiP active - %i", v9, 8u);
+      v8[0] = 67109120;
+      v8[1] = bOOLValue;
+      _os_log_impl(&dword_1DF650000, v6, OS_LOG_TYPE_DEFAULT, "Shared file found. Returning FMiP active - %i", v8, 8u);
     }
   }
 
@@ -105,20 +136,19 @@ uint64_t __43__FMDFMIPSharedStateManager_sharedInstance__block_invoke()
     v6 = LogCategory_Unspecified();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v9[0]) = 0;
-      _os_log_impl(&dword_1DF650000, v6, OS_LOG_TYPE_DEFAULT, "Shared file not found. Returning FMiP active as - NO", v9, 2u);
+      LOWORD(v8[0]) = 0;
+      _os_log_impl(&dword_1DF650000, v6, OS_LOG_TYPE_DEFAULT, "Shared file not found. Returning FMiP active as - NO", v8, 2u);
     }
 
     LOBYTE(bOOLValue) = 0;
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return bOOLValue;
 }
 
 - (unint64_t)lostModeType
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   _readSharedInfo = [(FMDFMIPSharedStateManager *)self _readSharedInfo];
   v3 = _readSharedInfo;
   if (_readSharedInfo)
@@ -129,9 +159,9 @@ uint64_t __43__FMDFMIPSharedStateManager_sharedInstance__block_invoke()
     v6 = LogCategory_Unspecified();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 134217984;
-      v10 = integerValue;
-      _os_log_impl(&dword_1DF650000, v6, OS_LOG_TYPE_DEFAULT, "Shared file found. Returning lost mode type as - %lu", &v9, 0xCu);
+      v8 = 134217984;
+      v9 = integerValue;
+      _os_log_impl(&dword_1DF650000, v6, OS_LOG_TYPE_DEFAULT, "Shared file found. Returning lost mode type as - %lu", &v8, 0xCu);
     }
   }
 
@@ -140,14 +170,13 @@ uint64_t __43__FMDFMIPSharedStateManager_sharedInstance__block_invoke()
     v6 = LogCategory_Unspecified();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v9) = 0;
-      _os_log_impl(&dword_1DF650000, v6, OS_LOG_TYPE_DEFAULT, "Shared file not found. Returning lost mode type as - FMDLostModeTypeNone", &v9, 2u);
+      LOWORD(v8) = 0;
+      _os_log_impl(&dword_1DF650000, v6, OS_LOG_TYPE_DEFAULT, "Shared file not found. Returning lost mode type as - FMDLostModeTypeNone", &v8, 2u);
     }
 
     integerValue = 0;
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return integerValue;
 }
 
@@ -261,31 +290,27 @@ void __47__FMDFMIPSharedStateManager__fmipSharedFileURL__block_invoke(uint64_t a
 
 - (void)_writeSharedInfo:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1DF650000, a2, OS_LOG_TYPE_ERROR, "Could not write the shared file. Error - %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1DF650000, a2, OS_LOG_TYPE_ERROR, "Could not write the shared file. Error - %@", &v2, 0xCu);
 }
 
 - (void)_removeSharedInfo
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_1DF650000, a2, OS_LOG_TYPE_ERROR, "Could not remove the shared file. Error - %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1DF650000, a2, OS_LOG_TYPE_ERROR, "Could not remove the shared file. Error - %@", &v2, 0xCu);
 }
 
 void __47__FMDFMIPSharedStateManager__fmipSharedFileURL__block_invoke_cold_1(id *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = [*a1 fmipSharedFileStaticURL];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_debug_impl(&dword_1DF650000, a2, OS_LOG_TYPE_DEBUG, "Container path URL %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_debug_impl(&dword_1DF650000, a2, OS_LOG_TYPE_DEBUG, "Container path URL %@", &v4, 0xCu);
 }
 
 @end

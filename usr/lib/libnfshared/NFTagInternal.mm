@@ -322,11 +322,11 @@ LABEL_20:
 
 - (NFTagInternal)initWithDictionary:(id)dictionary
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
-  v69.receiver = self;
-  v69.super_class = NFTagInternal;
-  v6 = [(NFTagInternal *)&v69 init];
+  v68.receiver = self;
+  v68.super_class = NFTagInternal;
+  v6 = [(NFTagInternal *)&v68 init];
   if (v6)
   {
     v8 = objc_msgSend_objectForKey_(dictionaryCopy, v5, @"technology");
@@ -387,27 +387,27 @@ LABEL_20:
       }
     }
 
-    v67 = 0u;
-    v68 = 0u;
-    v65 = 0u;
     v66 = 0u;
-    v26 = objc_msgSend_countByEnumeratingWithState_objects_count_(&unk_2843B4DB8, v22, &v65, v70, 16);
+    v67 = 0u;
+    v64 = 0u;
+    v65 = 0u;
+    v26 = objc_msgSend_countByEnumeratingWithState_objects_count_(&unk_2843B4DB8, v22, &v64, v69, 16);
     if (v26)
     {
       v28 = v26;
-      v29 = *v66;
+      v29 = *v65;
       while (2)
       {
         v30 = 0;
         v31 = v21;
         do
         {
-          if (*v66 != v29)
+          if (*v65 != v29)
           {
             objc_enumerationMutation(&unk_2843B4DB8);
           }
 
-          v21 = objc_msgSend_objectForKey_(dictionaryCopy, v27, *(*(&v65 + 1) + 8 * v30));
+          v21 = objc_msgSend_objectForKey_(dictionaryCopy, v27, *(*(&v64 + 1) + 8 * v30));
 
           if (v21)
           {
@@ -427,7 +427,7 @@ LABEL_20:
         }
 
         while (v28 != v30);
-        v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(&unk_2843B4DB8, v27, &v65, v70, 16);
+        v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(&unk_2843B4DB8, v27, &v64, v69, 16);
         if (v28)
         {
           continue;
@@ -515,7 +515,6 @@ LABEL_28:
     }
   }
 
-  v63 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -663,63 +662,49 @@ LABEL_13:
 
 - (void)_setIDm:(id)dm
 {
-  v4 = objc_msgSend_copy(dm, a2, dm);
-  tagID = self->_tagID;
-  self->_tagID = v4;
+  self->_tagID = objc_msgSend_copy(dm, a2, dm);
 
   MEMORY[0x2821F96F8]();
 }
 
 - (void)_setPMm:(id)mm
 {
-  v4 = objc_msgSend_copy(mm, a2, mm);
-  pmm = self->_pmm;
-  self->_pmm = v4;
+  self->_pmm = objc_msgSend_copy(mm, a2, mm);
 
   MEMORY[0x2821F96F8]();
 }
 
 - (void)_setSystemCode:(id)code
 {
-  v4 = objc_msgSend_copy(code, a2, code);
-  appData = self->_appData;
-  self->_appData = v4;
+  self->_appData = objc_msgSend_copy(code, a2, code);
 
   MEMORY[0x2821F96F8]();
 }
 
 - (void)_setIdentifier:(id)identifier
 {
-  v4 = objc_msgSend_copy(identifier, a2, identifier);
-  tagID = self->_tagID;
-  self->_tagID = v4;
+  self->_tagID = objc_msgSend_copy(identifier, a2, identifier);
 
   MEMORY[0x2821F96F8]();
 }
 
 - (void)_setUID:(id)d
 {
-  v4 = objc_msgSend_copy(d, a2, d);
-  uid = self->_uid;
-  self->_uid = v4;
+  self->_uid = objc_msgSend_copy(d, a2, d);
 
   MEMORY[0x2821F96F8]();
 }
 
 - (void)_setAppData:(id)data
 {
-  v4 = objc_msgSend_copy(data, a2, data);
-  appData = self->_appData;
-  self->_appData = v4;
+  self->_appData = objc_msgSend_copy(data, a2, data);
 
   MEMORY[0x2821F96F8]();
 }
 
 - (void)_setSystemCodes:(id)codes
 {
-  v4 = objc_msgSend_copy(codes, a2, codes);
-  allSystemCodes = self->_allSystemCodes;
-  self->_allSystemCodes = v4;
+  self->_allSystemCodes = objc_msgSend_copy(codes, a2, codes);
 
   MEMORY[0x2821F96F8]();
 }
@@ -757,36 +742,28 @@ LABEL_13:
 
 - (void)_setAtqa:(id)atqa
 {
-  v4 = objc_msgSend_copy(atqa, a2, atqa);
-  atqa = self->_atqa;
-  self->_atqa = v4;
+  self->_atqa = objc_msgSend_copy(atqa, a2, atqa);
 
   MEMORY[0x2821F96F8]();
 }
 
 - (void)_setSak:(id)sak
 {
-  v4 = objc_msgSend_copy(sak, a2, sak);
-  sak = self->_sak;
-  self->_sak = v4;
+  self->_sak = objc_msgSend_copy(sak, a2, sak);
 
   MEMORY[0x2821F96F8]();
 }
 
 - (void)_setHistoricalBytes:(id)bytes
 {
-  v4 = objc_msgSend_copy(bytes, a2, bytes);
-  historicalBytes = self->_historicalBytes;
-  self->_historicalBytes = v4;
+  self->_historicalBytes = objc_msgSend_copy(bytes, a2, bytes);
 
   MEMORY[0x2821F96F8]();
 }
 
 - (void)_setSelectedAID:(id)d
 {
-  v4 = objc_msgSend_copy(d, a2, d);
-  appData = self->_appData;
-  self->_appData = v4;
+  self->_appData = objc_msgSend_copy(d, a2, d);
 
   MEMORY[0x2821F96F8]();
 }

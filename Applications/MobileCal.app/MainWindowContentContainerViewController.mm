@@ -329,9 +329,9 @@ LABEL_16:
   v8 = coordinatorCopy;
   if (coordinatorCopy)
   {
-    [coordinatorCopy targetTransform];
+    objc_msgSend_targetTransform(coordinatorCopy);
     v9 = *(&v22 + 1);
-    [v8 targetTransform];
+    objc_msgSend_targetTransform(v8);
     v10 = *&v19;
   }
 

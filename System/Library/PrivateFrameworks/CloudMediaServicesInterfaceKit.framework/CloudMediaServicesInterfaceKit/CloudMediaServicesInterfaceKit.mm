@@ -19,14 +19,15 @@ void applyHeaderOverrides(void *a1, void *a2)
 
 void __applyHeaderOverrides_block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v7 = _CMSILogingFacility();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _CMSILogingFacility(isKindOfClass);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __applyHeaderOverrides_block_invoke_cold_3();
     }
@@ -37,49 +38,50 @@ void __applyHeaderOverrides_block_invoke(uint64_t a1, void *a2, void *a3)
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v8 = headerStringFormat(v6);
-    if (v8)
+    v9 = headerStringFormat(v6);
+    if (v9)
     {
-      v16 = v8;
+      v19 = v9;
     }
 
     else
     {
-      v16 = &stru_2856A7BB0;
+      v19 = &stru_2856A7BB0;
     }
 
-    [*(a1 + 32) setValue:v16 forHTTPHeaderField:v5];
+    [*(a1 + 32) setValue:v19 forHTTPHeaderField:v5];
     goto LABEL_28;
   }
 
+  v23 = 0u;
+  v24 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v19 = 0u;
-  v20 = 0u;
-  v8 = v6;
-  v9 = [(__CFString *)v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
-  if (!v9)
+  v9 = v6;
+  v10 = [(__CFString *)v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  if (!v10)
   {
     goto LABEL_28;
   }
 
-  v10 = v9;
-  v11 = *v20;
+  v11 = v10;
+  v12 = *v22;
   while (2)
   {
-    for (i = 0; i != v10; ++i)
+    for (i = 0; i != v11; ++i)
     {
-      if (*v20 != v11)
+      if (*v22 != v12)
       {
-        objc_enumerationMutation(v8);
+        objc_enumerationMutation(v9);
       }
 
-      v13 = *(*(&v19 + 1) + 8 * i);
+      v14 = *(*(&v21 + 1) + 8 * i);
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      v15 = objc_opt_isKindOfClass();
+      if (v15)
       {
-        v17 = _CMSILogingFacility();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+        v20 = _CMSILogingFacility(v15);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
           __applyHeaderOverrides_block_invoke_cold_2();
         }
@@ -88,10 +90,11 @@ void __applyHeaderOverrides_block_invoke(uint64_t a1, void *a2, void *a3)
       }
 
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      v16 = objc_opt_isKindOfClass();
+      if (v16)
       {
-        v17 = _CMSILogingFacility();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+        v20 = _CMSILogingFacility(v16);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
           __applyHeaderOverrides_block_invoke_cold_1();
         }
@@ -101,21 +104,21 @@ LABEL_27:
         goto LABEL_28;
       }
 
-      v14 = headerStringFormat(v13);
-      v15 = *(a1 + 32);
-      if (v14)
+      v17 = headerStringFormat(v14);
+      v18 = *(a1 + 32);
+      if (v17)
       {
-        [v15 addValue:v14 forHTTPHeaderField:v5];
+        [v18 addValue:v17 forHTTPHeaderField:v5];
       }
 
       else
       {
-        [v15 setValue:&stru_2856A7BB0 forHTTPHeaderField:{v5, v19}];
+        [v18 setValue:&stru_2856A7BB0 forHTTPHeaderField:{v5, v21}];
       }
     }
 
-    v10 = [(__CFString *)v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
-    if (v10)
+    v11 = [(__CFString *)v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    if (v11)
     {
       continue;
     }
@@ -126,7 +129,6 @@ LABEL_27:
 LABEL_28:
 
 LABEL_29:
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 __CFString *headerStringFormat(void *a1)
@@ -174,28 +176,30 @@ __CFString *headerStringFormat(void *a1)
   return v2;
 }
 
-void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void OUTLINED_FUNCTION_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
-id cmsDateFormatter()
+id cmsDateFormatter(uint64_t a1)
 {
   if (cmsDateFormatter_onceToken != -1)
   {
     cmsDateFormatter_cold_1();
   }
 
-  v1 = cmsDateFormatter_formatter;
+  v2 = cmsDateFormatter_formatter;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __cmsDateFormatter_block_invoke()
@@ -226,16 +230,16 @@ id cmsSafeDictionary(void *a1)
   return v2;
 }
 
-id cmsDateCalender()
+id cmsDateCalender(uint64_t a1)
 {
   if (cmsDateCalender_onceToken != -1)
   {
     cmsDateCalender_cold_1();
   }
 
-  v1 = cmsDateCalender_gregorian;
+  v2 = cmsDateCalender_gregorian;
 
-  return v1;
+  return v2;
 }
 
 id _userInfoValueToJSONValue(void *a1)
@@ -269,9 +273,10 @@ LABEL_8:
   }
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v7 = cmsDateFormatter();
+    v7 = cmsDateFormatter(isKindOfClass);
     v8 = [v7 stringFromDate:v1];
 LABEL_14:
     v9 = v8;
@@ -386,8 +391,6 @@ LABEL_15:
 
 LABEL_9:
 
-  v5 = *MEMORY[0x277D85DE8];
-
   return v2;
 }
 
@@ -425,10 +428,11 @@ LABEL_31:
         goto LABEL_31;
       }
 
-      if ([v3 isEqualToString:@"date"])
+      v22 = [v3 isEqualToString:@"date"];
+      if (v22)
       {
-        v22 = cmsDateFormatter();
-        v13 = [v22 dateFromString:v5];
+        v23 = cmsDateFormatter(v22);
+        v13 = [v23 dateFromString:v5];
 
         goto LABEL_37;
       }
@@ -494,15 +498,15 @@ LABEL_39:
         }
 
 LABEL_38:
-        v23 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v2, "count")}];
+        v24 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v2, "count")}];
         v33[0] = MEMORY[0x277D85DD0];
         v33[1] = 3221225472;
         v33[2] = ___JSONValueToUserInfoValue_block_invoke;
         v33[3] = &unk_278DDCC18;
-        v34 = v23;
-        v24 = v23;
+        v34 = v24;
+        v25 = v24;
         [v2 enumerateKeysAndObjectsUsingBlock:v33];
-        v13 = [v24 copy];
+        v13 = [v25 copy];
 
         goto LABEL_39;
       }
@@ -567,11 +571,9 @@ LABEL_18:
 LABEL_41:
   v14 = v13;
 LABEL_42:
-  v25 = v14;
+  v26 = v14;
 
-  v26 = *MEMORY[0x277D85DE8];
-
-  return v25;
+  return v26;
 }
 
 uint64_t INIntentHandlingStatusFromString(void *a1)
@@ -1346,7 +1348,7 @@ uint64_t __cmsDateCalender_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-void ___userInfoValueToJSONValue_block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void ___userInfoValueToJSONValue_block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v4 = *(a1 + 32);
   v5 = a2;
@@ -1357,15 +1359,16 @@ void ___userInfoValueToJSONValue_block_invoke(uint64_t a1, void *a2, uint64_t a3
 id CreateDataWithSerializedJSON(void *a1, void *a2)
 {
   v3 = a1;
-  if ([MEMORY[0x277CCAAA0] isValidJSONObject:v3])
+  v4 = [MEMORY[0x277CCAAA0] isValidJSONObject:v3];
+  if (v4)
   {
-    v4 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v3 options:0 error:a2];
+    v5 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v3 options:0 error:a2];
   }
 
   else
   {
-    v5 = _CMSILogingFacility();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = _CMSILogingFacility(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       CreateDataWithSerializedJSON_cold_1();
     }
@@ -1373,16 +1376,16 @@ id CreateDataWithSerializedJSON(void *a1, void *a2)
     if (a2)
     {
       [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.cloudextension.errors.session" code:13 userInfo:0];
-      *a2 = v4 = 0;
+      *a2 = v5 = 0;
     }
 
     else
     {
-      v4 = 0;
+      v5 = 0;
     }
   }
 
-  return v4;
+  return v5;
 }
 
 void sub_2439BB3E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id location)
@@ -1424,16 +1427,14 @@ void sub_2439C0C5C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 id nwActivityFromUUID(void *a1)
 {
-  v3[2] = *MEMORY[0x277D85DE8];
+  v2[2] = *MEMORY[0x277D85DE8];
   if (a1)
   {
-    v3[0] = 0;
-    v3[1] = 0;
-    [a1 getUUIDBytes:v3];
+    v2[0] = 0;
+    v2[1] = 0;
+    [a1 getUUIDBytes:v2];
     a1 = nw_activity_create_from_token();
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 
   return a1;
 }
@@ -1464,16 +1465,16 @@ __CFString *CMSActivityTransitionTypeToString(unint64_t a1)
   }
 }
 
-id CMSCloudExtensionLanguageCode()
+id CMSCloudExtensionLanguageCode(uint64_t a1)
 {
   if (CMSCloudExtensionLanguageCode_onceToken != -1)
   {
     CMSCloudExtensionLanguageCode_cold_1();
   }
 
-  v1 = CMSCloudExtensionLanguageCode_languageCode;
+  v2 = CMSCloudExtensionLanguageCode_languageCode;
 
-  return v1;
+  return v2;
 }
 
 void __CMSCloudExtensionLanguageCode_block_invoke()
@@ -1525,44 +1526,42 @@ id CMSExtensionEndpointForProtocolMethodName(void *a1)
 
 void __CMSExtensionEndpointForProtocolMethodName_block_invoke()
 {
-  v4[16] = *MEMORY[0x277D85DE8];
-  v3[0] = @"PlayMediaIntentHandling.resolveMediaItems";
-  v3[1] = @"PlayMediaIntentHandling.resolvePlayShuffled";
-  v4[0] = @"intent/playMedia";
-  v4[1] = @"intent/playMedia";
-  v3[2] = @"PlayMediaIntentHandling.resolvePlaybackQueueLocation";
-  v3[3] = @"PlayMediaIntentHandling.resolvePlaybackRepeatMode";
-  v4[2] = @"intent/playMedia";
-  v4[3] = @"intent/playMedia";
-  v3[4] = @"PlayMediaIntentHandling.resolvePlaybackSpeed";
-  v3[5] = @"PlayMediaIntentHandling.resolveResumePlayback";
-  v4[4] = @"intent/playMedia";
-  v4[5] = @"intent/playMedia";
-  v3[6] = @"PlayMediaIntentHandling.confirm";
-  v3[7] = @"PlayMediaIntentHandling.handle";
-  v4[6] = @"intent/playMedia";
-  v4[7] = @"intent/playMedia";
-  v3[8] = @"AddMediaIntentHandling.resolveMediaItems";
-  v3[9] = @"AddMediaIntentHandling.resolveMediaDestination";
-  v4[8] = @"intent/addMedia";
-  v4[9] = @"intent/addMedia";
-  v3[10] = @"AddMediaIntentHandling.confirm";
-  v3[11] = @"AddMediaIntentHandling.handle";
-  v4[10] = @"intent/addMedia";
-  v4[11] = @"intent/addMedia";
-  v3[12] = @"UpdateMediaAffinityIntentHandling.resolveMediaItems";
-  v3[13] = @"UpdateMediaAffinityIntentHandling.resolveAffinityType";
-  v4[12] = @"intent/updateMediaAffinity";
-  v4[13] = @"intent/updateMediaAffinity";
-  v3[14] = @"UpdateMediaAffinityIntentHandling.confirm";
-  v3[15] = @"UpdateMediaAffinityIntentHandling.handle";
-  v4[14] = @"intent/updateMediaAffinity";
-  v4[15] = @"intent/updateMediaAffinity";
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:16];
+  v3[16] = *MEMORY[0x277D85DE8];
+  v2[0] = @"PlayMediaIntentHandling.resolveMediaItems";
+  v2[1] = @"PlayMediaIntentHandling.resolvePlayShuffled";
+  v3[0] = @"intent/playMedia";
+  v3[1] = @"intent/playMedia";
+  v2[2] = @"PlayMediaIntentHandling.resolvePlaybackQueueLocation";
+  v2[3] = @"PlayMediaIntentHandling.resolvePlaybackRepeatMode";
+  v3[2] = @"intent/playMedia";
+  v3[3] = @"intent/playMedia";
+  v2[4] = @"PlayMediaIntentHandling.resolvePlaybackSpeed";
+  v2[5] = @"PlayMediaIntentHandling.resolveResumePlayback";
+  v3[4] = @"intent/playMedia";
+  v3[5] = @"intent/playMedia";
+  v2[6] = @"PlayMediaIntentHandling.confirm";
+  v2[7] = @"PlayMediaIntentHandling.handle";
+  v3[6] = @"intent/playMedia";
+  v3[7] = @"intent/playMedia";
+  v2[8] = @"AddMediaIntentHandling.resolveMediaItems";
+  v2[9] = @"AddMediaIntentHandling.resolveMediaDestination";
+  v3[8] = @"intent/addMedia";
+  v3[9] = @"intent/addMedia";
+  v2[10] = @"AddMediaIntentHandling.confirm";
+  v2[11] = @"AddMediaIntentHandling.handle";
+  v3[10] = @"intent/addMedia";
+  v3[11] = @"intent/addMedia";
+  v2[12] = @"UpdateMediaAffinityIntentHandling.resolveMediaItems";
+  v2[13] = @"UpdateMediaAffinityIntentHandling.resolveAffinityType";
+  v3[12] = @"intent/updateMediaAffinity";
+  v3[13] = @"intent/updateMediaAffinity";
+  v2[14] = @"UpdateMediaAffinityIntentHandling.confirm";
+  v2[15] = @"UpdateMediaAffinityIntentHandling.handle";
+  v3[14] = @"intent/updateMediaAffinity";
+  v3[15] = @"intent/updateMediaAffinity";
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:16];
   v1 = CMSExtensionEndpointForProtocolMethodName_methodNameToEndpointMapping;
   CMSExtensionEndpointForProtocolMethodName_methodNameToEndpointMapping = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 id CMSProtocolNameForExtensionEndpoint(void *a1)
@@ -1581,18 +1580,16 @@ id CMSProtocolNameForExtensionEndpoint(void *a1)
 
 void __CMSProtocolNameForExtensionEndpoint_block_invoke()
 {
-  v4[3] = *MEMORY[0x277D85DE8];
-  v3[0] = @"intent/playMedia";
-  v3[1] = @"intent/addMedia";
-  v4[0] = @"PlayMediaIntentHandling";
-  v4[1] = @"AddMediaIntentHandling";
-  v3[2] = @"intent/updateMediaAffinity";
-  v4[2] = @"UpdateMediaAffinityIntentHandling";
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:3];
+  v3[3] = *MEMORY[0x277D85DE8];
+  v2[0] = @"intent/playMedia";
+  v2[1] = @"intent/addMedia";
+  v3[0] = @"PlayMediaIntentHandling";
+  v3[1] = @"AddMediaIntentHandling";
+  v2[2] = @"intent/updateMediaAffinity";
+  v3[2] = @"UpdateMediaAffinityIntentHandling";
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:3];
   v1 = CMSProtocolNameForExtensionEndpoint_nameMapping;
   CMSProtocolNameForExtensionEndpoint_nameMapping = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 id CMSPredictedMethodNameForElidingMethod(void *a1)
@@ -1611,38 +1608,36 @@ id CMSPredictedMethodNameForElidingMethod(void *a1)
 
 void __CMSPredictedMethodNameForElidingMethod_block_invoke()
 {
-  v4[7] = *MEMORY[0x277D85DE8];
-  v3[0] = @"PlayMediaIntentHandling.resolvePlayShuffled";
-  v3[1] = @"PlayMediaIntentHandling.resolvePlaybackQueueLocation";
-  v4[0] = @"PlayMediaIntentHandling.handle";
-  v4[1] = @"PlayMediaIntentHandling.handle";
-  v3[2] = @"PlayMediaIntentHandling.resolvePlaybackRepeatMode";
-  v3[3] = @"PlayMediaIntentHandling.resolvePlaybackSpeed";
-  v4[2] = @"PlayMediaIntentHandling.handle";
-  v4[3] = @"PlayMediaIntentHandling.handle";
-  v3[4] = @"PlayMediaIntentHandling.resolveResumePlayback";
-  v3[5] = @"AddMediaIntentHandling.resolveMediaDestination";
-  v4[4] = @"PlayMediaIntentHandling.handle";
-  v4[5] = @"AddMediaIntentHandling.handle";
-  v3[6] = @"UpdateMediaAffinityIntentHandling.resolveAffinityType";
-  v4[6] = @"UpdateMediaAffinityIntentHandling.handle";
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:7];
+  v3[7] = *MEMORY[0x277D85DE8];
+  v2[0] = @"PlayMediaIntentHandling.resolvePlayShuffled";
+  v2[1] = @"PlayMediaIntentHandling.resolvePlaybackQueueLocation";
+  v3[0] = @"PlayMediaIntentHandling.handle";
+  v3[1] = @"PlayMediaIntentHandling.handle";
+  v2[2] = @"PlayMediaIntentHandling.resolvePlaybackRepeatMode";
+  v2[3] = @"PlayMediaIntentHandling.resolvePlaybackSpeed";
+  v3[2] = @"PlayMediaIntentHandling.handle";
+  v3[3] = @"PlayMediaIntentHandling.handle";
+  v2[4] = @"PlayMediaIntentHandling.resolveResumePlayback";
+  v2[5] = @"AddMediaIntentHandling.resolveMediaDestination";
+  v3[4] = @"PlayMediaIntentHandling.handle";
+  v3[5] = @"AddMediaIntentHandling.handle";
+  v2[6] = @"UpdateMediaAffinityIntentHandling.resolveAffinityType";
+  v3[6] = @"UpdateMediaAffinityIntentHandling.handle";
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:7];
   v1 = CMSPredictedMethodNameForElidingMethod_predictionDependencies;
   CMSPredictedMethodNameForElidingMethod_predictionDependencies = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
-id _CMSILogingFacility()
+id _CMSILogingFacility(uint64_t a1)
 {
   if (_CMSILogingFacility_onceToken != -1)
   {
     _CMSILogingFacility_cold_1();
   }
 
-  v1 = _CMSILogingFacility_oslog;
+  v2 = _CMSILogingFacility_oslog;
 
-  return v1;
+  return v2;
 }
 
 BOOL DEROidCompare(uint64_t a1, uint64_t a2)
@@ -1655,36 +1650,4 @@ BOOL DEROidCompare(uint64_t a1, uint64_t a2)
   }
 
   return result;
-}
-
-void __applyHeaderOverrides_block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_2439AD000, v0, v1, "Unexpected array in header value list: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __applyHeaderOverrides_block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_2439AD000, v0, v1, "Unexpected dictionary in header value list: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __applyHeaderOverrides_block_invoke_cold_3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_2439AD000, v0, v1, "Unexpected dictionary in header map: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void CreateDataWithSerializedJSON_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }

@@ -17,34 +17,34 @@
 
 - (id)extensionUserInfo
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   shareExtensionDefinition = [(WFShareExtensionAction *)self shareExtensionDefinition];
   v4 = [shareExtensionDefinition objectForKey:@"UserInfo"];
 
   if (v4)
   {
-    v22 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v21 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
-    v20 = v4;
+    v19 = v4;
     obj = v4;
-    v5 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v5 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v24;
+      v7 = *v23;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v24 != v7)
+          if (*v23 != v7)
           {
             objc_enumerationMutation(obj);
           }
 
-          v9 = *(*(&v23 + 1) + 8 * i);
+          v9 = *(*(&v22 + 1) + 8 * i);
           v10 = [v9 objectForKey:@"ParameterKey"];
           v11 = [v9 objectForKey:@"DestinationKey"];
           v12 = [v9 objectForKey:@"ItemClass"];
@@ -58,33 +58,31 @@
             if (v15)
             {
               v17 = [v15 objectForKey:v14];
-              [v22 setObject:v17 forKey:v11];
+              [v21 setObject:v17 forKey:v11];
             }
 
             else
             {
-              [v22 setObject:v14 forKey:v11];
+              [v21 setObject:v14 forKey:v11];
             }
           }
         }
 
-        v6 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v6 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
       while (v6);
     }
 
-    v4 = v20;
+    v4 = v19;
   }
 
   else
   {
-    v22 = 0;
+    v21 = 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
-  return v22;
+  return v21;
 }
 
 - (id)textItemHandling

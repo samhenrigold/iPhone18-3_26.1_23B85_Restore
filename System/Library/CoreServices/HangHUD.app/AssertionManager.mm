@@ -45,7 +45,7 @@ LABEL_6:
   v15 = 0;
   v8 = [(RBSAssertion *)v7 acquireWithError:&v15];
   v9 = v15;
-  v10 = sub_10000A9AC();
+  v10 = sub_10000A9AC(v9);
   v11 = v10;
   if (v8)
   {
@@ -77,8 +77,7 @@ LABEL_7:
   if (self->_keepAliveAssertion)
   {
     os_unfair_lock_lock(&self->_assertionLock);
-    [(RBSAssertion *)self->_keepAliveAssertion invalidate];
-    v3 = sub_10000A9AC();
+    v3 = sub_10000A9AC([(RBSAssertion *)self->_keepAliveAssertion invalidate]);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       keepAliveAssertion = self->_keepAliveAssertion;
@@ -100,18 +99,18 @@ LABEL_7:
   v3 = [RBSAssertion alloc];
   v4 = +[RBSProcessIdentity identityOfCurrentProcess];
   v5 = [RBSTarget targetWithProcessIdentity:v4];
-  v14 = v2;
-  v6 = [NSArray arrayWithObjects:&v14 count:1];
+  v15 = v2;
+  v6 = [NSArray arrayWithObjects:&v15 count:1];
   v7 = [v3 initWithExplanation:@"HangHUD is rendering HUD" target:v5 attributes:v6];
 
-  v8 = sub_10000A9AC();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v9 = sub_10000A9AC(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    v10 = 134218242;
-    v11 = v7;
-    v12 = 2112;
-    v13 = v2;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "Created render assertion: %p withAttributes: %@", &v10, 0x16u);
+    v11 = 134218242;
+    v12 = v7;
+    v13 = 2112;
+    v14 = v2;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Created render assertion: %p withAttributes: %@", &v11, 0x16u);
   }
 
   return v7;

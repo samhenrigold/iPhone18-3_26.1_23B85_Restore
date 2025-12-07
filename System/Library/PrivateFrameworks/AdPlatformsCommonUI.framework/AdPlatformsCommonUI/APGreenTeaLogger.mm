@@ -22,29 +22,28 @@
 
 - (void)dealloc
 {
-  logger = self->_logger;
   ct_green_tea_logger_destroy();
-  v4.receiver = self;
-  v4.super_class = APGreenTeaLogger;
-  [(APGreenTeaLogger *)&v4 dealloc];
+  v3.receiver = self;
+  v3.super_class = APGreenTeaLogger;
+  [(APGreenTeaLogger *)&v3 dealloc];
 }
 
 - (void)willAccessLocation
 {
-  [(APGreenTeaLogger *)self logger];
-  v2 = getCTGreenTeaOsLogHandle();
-  v3 = v2;
-  if (v2 && os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  objc_msgSend_logger(self, a2, v2);
+  v3 = getCTGreenTeaOsLogHandle();
+  v4 = v3;
+  if (v3 && os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_23E74A000, v3, OS_LOG_TYPE_INFO, "Accessing location for ad targeting", buf, 2u);
+    _os_log_impl(&dword_23E74A000, v4, OS_LOG_TYPE_INFO, "Accessing location for ad targeting", buf, 2u);
   }
 
-  v4 = APLogForCategory();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v5 = APLogForCategory();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    *v5 = 0;
-    _os_log_impl(&dword_23E74A000, v4, OS_LOG_TYPE_INFO, "Accessing location for ad targeting", v5, 2u);
+    *v6 = 0;
+    _os_log_impl(&dword_23E74A000, v5, OS_LOG_TYPE_INFO, "Accessing location for ad targeting", v6, 2u);
   }
 }
 
@@ -59,7 +58,7 @@
         return;
       }
 
-      [(APGreenTeaLogger *)self logger];
+      objc_msgSend_logger(self, a2, 1);
       v3 = getCTGreenTeaOsLogHandle();
       v4 = v3;
       if (v3)
@@ -83,7 +82,7 @@
 
     else
     {
-      [(APGreenTeaLogger *)self logger];
+      objc_msgSend_logger(self, a2, 0);
       v9 = getCTGreenTeaOsLogHandle();
       v10 = v9;
       if (v9 && os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
@@ -107,7 +106,7 @@
 
   if (for == 2)
   {
-    [(APGreenTeaLogger *)self logger];
+    objc_msgSend_logger(self, a2, 2);
     v11 = getCTGreenTeaOsLogHandle();
     v12 = v11;
     if (v11 && os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
@@ -132,7 +131,7 @@
     return;
   }
 
-  [(APGreenTeaLogger *)self logger];
+  objc_msgSend_logger(self, a2, 3);
   v7 = getCTGreenTeaOsLogHandle();
   v8 = v7;
   if (v7 && os_log_type_enabled(v7, OS_LOG_TYPE_INFO))

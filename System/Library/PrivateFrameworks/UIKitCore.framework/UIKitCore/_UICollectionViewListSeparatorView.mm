@@ -31,10 +31,10 @@
 
 - (void)applyLayoutAttributes:(id)attributes
 {
-  v16.receiver = self;
-  v16.super_class = _UICollectionViewListSeparatorView;
+  v14.receiver = self;
+  v14.super_class = _UICollectionViewListSeparatorView;
   attributesCopy = attributes;
-  [(UICollectionReusableView *)&v16 applyLayoutAttributes:attributesCopy];
+  [(UICollectionReusableView *)&v14 applyLayoutAttributes:attributesCopy];
   _existingListAttributes = [(UICollectionViewLayoutAttributes *)attributesCopy _existingListAttributes];
 
   if (_existingListAttributes)
@@ -63,52 +63,32 @@
 
   if (!v10)
   {
-    if (_existingListAttributes)
-    {
-      v11 = *(_existingListAttributes + 16) - 1;
-    }
-
-    else
-    {
-      v11 = -1;
-    }
-
-    v15 = 0u;
-    v12 = +[_UIListMetrics sharedMetrics];
+    v13 = 0u;
+    v11 = +[_UIListMetrics sharedMetrics];
     traitCollection = [(UIView *)self traitCollection];
-    if (v12)
+    if (v11)
     {
-      if (v11 < 4)
-      {
-        v14 = v11 + 1;
-      }
-
-      else
-      {
-        v14 = 0;
-      }
-
-      [v12 metricsForSeparatorWithListStyle:v14 traitCollection:traitCollection];
+      objc_msgSend_metricsForSeparatorWithListStyle_traitCollection_(v11);
     }
 
     else
     {
-      v15 = 0u;
+      v13 = 0u;
     }
 
-    v6 = *(&v15 + 1);
-    goto LABEL_20;
+    v6 = *(&v13 + 1);
+    goto LABEL_14;
   }
 
   if (v8)
   {
-LABEL_20:
-    [(_UICollectionViewListSeparatorView *)self _setUpEffectViewWithEffect:v9, v15];
-    goto LABEL_21;
+LABEL_14:
+    [(_UICollectionViewListSeparatorView *)self _setUpEffectViewWithEffect:v9, v13];
+    goto LABEL_15;
   }
 
   [(_UICollectionViewListSeparatorView *)self _tearDownEffectView];
-LABEL_21:
+LABEL_15:
   [(UIView *)self setBackgroundColor:v6];
 }
 

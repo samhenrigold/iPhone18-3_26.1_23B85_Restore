@@ -87,7 +87,7 @@
   {
     if (v6)
     {
-      sub_10010D694(self);
+      sub_10010D694();
     }
   }
 
@@ -95,7 +95,7 @@
   {
     if (v6)
     {
-      sub_10010D6FC(self);
+      sub_10010D6FC();
     }
 
     v23[0] = @"AssertType";
@@ -163,7 +163,7 @@
     v3 = +[APSLog power];
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      sub_10010D7F8(self);
+      sub_10010D7F8();
     }
 
     v4 = +[APSWakeStateManager wakeStateManager];
@@ -174,7 +174,7 @@
       v5 = +[APSLog power];
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
       {
-        sub_10010D860(self);
+        sub_10010D860();
       }
 
       dispatch_source_set_timer(self->_timer, 0xFFFFFFFFFFFFFFFFLL, 0, 0);

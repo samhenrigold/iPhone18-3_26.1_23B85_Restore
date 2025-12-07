@@ -21,6 +21,7 @@
 - (void)setMaxConcurrentOperationCount:(int64_t)count;
 - (void)setName:(id)name;
 - (void)setQualityOfService:(int64_t)service;
+- (void)setSuspended:(BOOL)suspended;
 @end
 
 @implementation AMSUIAssetQueue
@@ -113,6 +114,13 @@
   return isSuspended;
 }
 
+- (void)setSuspended:(BOOL)suspended
+{
+  suspendedCopy = suspended;
+  underlyingQueue = [(AMSUIAssetQueue *)self underlyingQueue];
+  [underlyingQueue setSuspended:suspendedCopy];
+}
+
 - (void)_incrementCountAt:(int64_t)at
 {
   priorityCounts = [(AMSUIAssetQueue *)self priorityCounts];
@@ -152,7 +160,7 @@
 
 - (void)_didBeginFetchingAssets
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedConfig];
   if (!mEMORY[0x1E698C968])
   {
@@ -165,19 +173,17 @@
     v4 = objc_opt_class();
     v5 = v4;
     v6 = AMSLogKey();
-    v8 = 138543618;
-    v9 = v4;
-    v10 = 2114;
-    v11 = v6;
-    _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Beginning to fetch assets", &v8, 0x16u);
+    v7 = 138543618;
+    v8 = v4;
+    v9 = 2114;
+    v10 = v6;
+    _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Beginning to fetch assets", &v7, 0x16u);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_didFetchAllAssetsAtPriority:(int64_t)priority
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedConfig];
   if (!mEMORY[0x1E698C968])
   {
@@ -190,21 +196,19 @@
     v6 = objc_opt_class();
     v7 = v6;
     v8 = AMSLogKey();
-    v10 = 138543874;
-    v11 = v6;
-    v12 = 2114;
-    v13 = v8;
-    v14 = 2048;
+    v9 = 138543874;
+    v10 = v6;
+    v11 = 2114;
+    v12 = v8;
+    v13 = 2048;
     priorityCopy = priority;
-    _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Did fetch all assets at Priority %li", &v10, 0x20u);
+    _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Did fetch all assets at Priority %li", &v9, 0x20u);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_didFinishFetchingAllAssets
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedConfig];
   if (!mEMORY[0x1E698C968])
   {
@@ -217,14 +221,12 @@
     v4 = objc_opt_class();
     v5 = v4;
     v6 = AMSLogKey();
-    v8 = 138543618;
-    v9 = v4;
-    v10 = 2114;
-    v11 = v6;
-    _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Did fetch all assets in queue", &v8, 0x16u);
+    v7 = 138543618;
+    v8 = v4;
+    v9 = 2114;
+    v10 = v6;
+    _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Did fetch all assets in queue", &v7, 0x16u);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_addObserverForOperation:(id)operation
@@ -247,7 +249,7 @@
 
 - (void)_operationDidChangePriority:(id)priority
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   priorityCopy = priority;
   object = [priorityCopy object];
   objc_opt_class();
@@ -281,15 +283,15 @@
         if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
         {
           v14 = objc_opt_class();
-          v22 = v14;
+          v21 = v14;
           v15 = AMSLogKey();
           *buf = 138544130;
-          v24 = v14;
-          v25 = 2114;
-          v26 = v15;
-          v27 = 2112;
-          v28 = v6;
-          v29 = 2048;
+          v23 = v14;
+          v24 = 2114;
+          v25 = v15;
+          v26 = 2112;
+          v27 = v6;
+          v28 = 2048;
           integerValue = [v9 integerValue];
           _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEBUG, "%{public}@: [%{public}@] Operation priority of %@ was changed to %li", buf, 0x2Au);
         }
@@ -314,9 +316,9 @@
       v19 = v18;
       v20 = AMSLogKey();
       *buf = 138543618;
-      v24 = v18;
-      v25 = 2114;
-      v26 = v20;
+      v23 = v18;
+      v24 = 2114;
+      v25 = v20;
       _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] called with notification without priority keys", buf, 0x16u);
     }
 
@@ -339,21 +341,19 @@ LABEL_25:
     v9 = v16;
     mEMORY[0x1E698C968]2 = AMSLogKey();
     *buf = 138543618;
-    v24 = v16;
-    v25 = 2114;
-    v26 = mEMORY[0x1E698C968]2;
+    v23 = v16;
+    v24 = 2114;
+    v25 = mEMORY[0x1E698C968]2;
     _os_log_impl(&dword_1BB036000, oSLogObject3, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] called with notification without operation object", buf, 0x16u);
     goto LABEL_24;
   }
 
 LABEL_26:
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_operationDidCancel:(id)cancel
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   object = [cancel object];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -382,36 +382,36 @@ LABEL_26:
       v10 = v9;
       v11 = AMSLogKey();
       *buf = 138543874;
-      v32 = v9;
-      v33 = 2114;
-      v34 = v11;
-      v35 = 2112;
-      v36 = v5;
+      v31 = v9;
+      v32 = 2114;
+      v33 = v11;
+      v34 = 2112;
+      v35 = v5;
       _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEBUG, "%{public}@: [%{public}@] Operation %@ was cancelled", buf, 0x20u);
     }
 
     os_unfair_lock_lock(&self->_stateLock);
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     pendingOperations = [(AMSUIAssetQueue *)self pendingOperations];
-    v13 = [pendingOperations countByEnumeratingWithState:&v26 objects:v30 count:16];
+    v13 = [pendingOperations countByEnumeratingWithState:&v25 objects:v29 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v27;
+      v15 = *v26;
       do
       {
         v16 = 0;
         do
         {
-          if (*v27 != v15)
+          if (*v26 != v15)
           {
             objc_enumerationMutation(pendingOperations);
           }
 
-          v17 = *(*(&v26 + 1) + 8 * v16);
+          v17 = *(*(&v25 + 1) + 8 * v16);
           pendingOperations2 = [(AMSUIAssetQueue *)self pendingOperations];
           v19 = [pendingOperations2 objectForKey:v17];
 
@@ -425,7 +425,7 @@ LABEL_26:
         }
 
         while (v14 != v16);
-        v14 = [pendingOperations countByEnumeratingWithState:&v26 objects:v30 count:16];
+        v14 = [pendingOperations countByEnumeratingWithState:&v25 objects:v29 count:16];
       }
 
       while (v14);
@@ -450,19 +450,17 @@ LABEL_26:
       v23 = v22;
       v24 = AMSLogKey();
       *buf = 138543618;
-      v32 = v22;
-      v33 = 2114;
-      v34 = v24;
+      v31 = v22;
+      v32 = 2114;
+      v33 = v24;
       _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] called with notification without operation object", buf, 0x16u);
     }
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_prepareToAddOperation:(id)operation withKey:(id)key
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   operationCopy = operation;
   keyCopy = key;
   os_unfair_lock_lock(&self->_stateLock);
@@ -490,11 +488,11 @@ LABEL_26:
       v16 = v15;
       v17 = AMSLogKey();
       *buf = 138543875;
-      v32 = v15;
-      v33 = 2114;
-      v34 = v17;
-      v35 = 2117;
-      v36 = keyCopy;
+      v31 = v15;
+      v32 = 2114;
+      v33 = v17;
+      v34 = 2117;
+      v35 = keyCopy;
       _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Cancelling old enqueued operation with key %{sensitive}@", buf, 0x20u);
     }
 
@@ -508,27 +506,25 @@ LABEL_26:
   objc_initWeak(buf, self);
   objc_initWeak(&location, operationCopy);
   operationPromise3 = [operationCopy operationPromise];
-  v23 = MEMORY[0x1E69E9820];
-  v24 = 3221225472;
-  v25 = __50__AMSUIAssetQueue__prepareToAddOperation_withKey___block_invoke;
-  v26 = &unk_1E7F24540;
-  objc_copyWeak(&v28, buf);
-  objc_copyWeak(&v29, &location);
+  v22 = MEMORY[0x1E69E9820];
+  v23 = 3221225472;
+  v24 = __50__AMSUIAssetQueue__prepareToAddOperation_withKey___block_invoke;
+  v25 = &unk_1E7F24540;
+  objc_copyWeak(&v27, buf);
+  objc_copyWeak(&v28, &location);
   v21 = keyCopy;
-  v27 = v21;
-  [operationPromise3 addFinishBlock:&v23];
+  v26 = v21;
+  [operationPromise3 addFinishBlock:&v22];
 
   os_unfair_lock_lock(&self->_stateLock);
   -[AMSUIAssetQueue _incrementCountAt:](self, "_incrementCountAt:", [operationCopy queuePriority]);
   os_unfair_lock_unlock(&self->_stateLock);
   [(AMSUIAssetQueue *)self _addObserverForOperation:operationCopy];
 
-  objc_destroyWeak(&v29);
   objc_destroyWeak(&v28);
+  objc_destroyWeak(&v27);
   objc_destroyWeak(&location);
   objc_destroyWeak(buf);
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __50__AMSUIAssetQueue__prepareToAddOperation_withKey___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -552,7 +548,7 @@ void __50__AMSUIAssetQueue__prepareToAddOperation_withKey___block_invoke(uint64_
 
 - (void)_didFetchAssetWithKey:(id)key producingImage:(id)image orError:(id)error
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   os_unfair_lock_lock(&self->_stateLock);
   pendingOperations = [(AMSUIAssetQueue *)self pendingOperations];
@@ -583,13 +579,13 @@ void __50__AMSUIAssetQueue__prepareToAddOperation_withKey___block_invoke(uint64_
       v14 = objc_opt_class();
       v15 = v14;
       v16 = AMSLogKey();
-      v25 = 138543875;
-      v26 = v14;
-      v27 = 2114;
-      v28 = v16;
-      v29 = 2117;
-      v30 = keyCopy;
-      _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Operation for key %{sensitive}@ completed with no record in queue. This is a serious bug.", &v25, 0x20u);
+      v24 = 138543875;
+      v25 = v14;
+      v26 = 2114;
+      v27 = v16;
+      v28 = 2117;
+      v29 = keyCopy;
+      _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Operation for key %{sensitive}@ completed with no record in queue. This is a serious bug.", &v24, 0x20u);
     }
   }
 
@@ -608,23 +604,21 @@ void __50__AMSUIAssetQueue__prepareToAddOperation_withKey___block_invoke(uint64_
     v21 = AMSLogKey();
     underlyingQueue = [(AMSUIAssetQueue *)self underlyingQueue];
     operationCount = [underlyingQueue operationCount];
-    v25 = 138544131;
-    v26 = v19;
-    v27 = 2114;
-    v28 = v21;
-    v29 = 2117;
-    v30 = keyCopy;
-    v31 = 2048;
-    v32 = operationCount;
-    _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_DEBUG, "%{public}@: [%{public}@] Completed operation for %{sensitive}@ %lu operations pending", &v25, 0x2Au);
+    v24 = 138544131;
+    v25 = v19;
+    v26 = 2114;
+    v27 = v21;
+    v28 = 2117;
+    v29 = keyCopy;
+    v30 = 2048;
+    v31 = operationCount;
+    _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_DEBUG, "%{public}@: [%{public}@] Completed operation for %{sensitive}@ %lu operations pending", &v24, 0x2Au);
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addOperation:(id)operation withKey:(id)key
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   operationCopy = operation;
   [(AMSUIAssetQueue *)self _prepareToAddOperation:operationCopy withKey:keyCopy];
@@ -644,18 +638,16 @@ void __50__AMSUIAssetQueue__prepareToAddOperation_withKey___block_invoke(uint64_
     v12 = v11;
     v13 = AMSLogKey();
     underlyingQueue2 = [(AMSUIAssetQueue *)self underlyingQueue];
-    v16 = 138544130;
-    v17 = v11;
-    v18 = 2114;
-    v19 = v13;
-    v20 = 2114;
-    v21 = keyCopy;
-    v22 = 2048;
+    v15 = 138544130;
+    v16 = v11;
+    v17 = 2114;
+    v18 = v13;
+    v19 = 2114;
+    v20 = keyCopy;
+    v21 = 2048;
     operationCount = [underlyingQueue2 operationCount];
-    _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEBUG, "%{public}@: [%{public}@] Began operation for %{public}@ %lu operations pending", &v16, 0x2Au);
+    _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEBUG, "%{public}@: [%{public}@] Began operation for %{public}@ %lu operations pending", &v15, 0x2Au);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (id)operationWithKey:(id)key

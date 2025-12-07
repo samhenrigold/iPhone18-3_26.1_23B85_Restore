@@ -8,6 +8,7 @@
 - (void)proxCardFlowDidDismiss;
 - (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidDisappear:(BOOL)disappear;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation TVSetupAlertViewController
@@ -30,7 +31,22 @@
   contextCopy = context;
   selfCopy = self;
   sub_100007FCC(context, v6, v7);
-  sub_1000106BC(v6);
+  sub_1000106BC(v6, v7);
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v6.receiver = self;
+  v6.super_class = type metadata accessor for TVSetupAlertViewController(0);
+  v4 = v6.receiver;
+  [(TVSetupAlertViewController *)&v6 viewWillAppear:appearCopy];
+  v5 = sub_100007E44();
+  if (v5)
+  {
+    [v5 setStatusBarHidden:1 withDuration:{0.0, v6.receiver, v6.super_class}];
+    swift_unknownObjectRelease();
+  }
 }
 
 - (void)viewDidAppear:(BOOL)appear
@@ -49,14 +65,13 @@
 {
   v4 = type metadata accessor for Notification();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  __chkstk_darwin(v4, v7);
-  v9 = &v11 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v4, v6);
+  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   static Notification._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
   sub_10000BBF0();
 
-  (*(v5 + 8))(v9, v4);
+  (*(v5 + 8))(v8, v4);
 }
 
 - (void)handleButtonActions:(id)actions

@@ -47,88 +47,89 @@
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   v6 = [WeakRetained presentationContextForHook:self];
 
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x2050000000;
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x2050000000;
   v7 = getFACircleStateControllerClass_softClass_0;
-  v32 = getFACircleStateControllerClass_softClass_0;
+  v33 = getFACircleStateControllerClass_softClass_0;
   if (!getFACircleStateControllerClass_softClass_0)
   {
     location = MEMORY[0x277D85DD0];
-    v25 = 3221225472;
-    v26 = __getFACircleStateControllerClass_block_invoke_0;
-    v27 = &unk_27A65A9F8;
-    v28 = &v29;
+    v26 = 3221225472;
+    v27 = __getFACircleStateControllerClass_block_invoke_0;
+    v28 = &unk_27A65A9F8;
+    v29 = &v30;
     __getFACircleStateControllerClass_block_invoke_0(&location);
-    v7 = v30[3];
+    v7 = v31[3];
   }
 
   v8 = v7;
-  _Block_object_dispose(&v29, 8);
+  _Block_object_dispose(&v30, 8);
   v9 = [[v7 alloc] initWithPresenter:v6];
   familyCircleStateController = self->_familyCircleStateController;
   self->_familyCircleStateController = v9;
 
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x2050000000;
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x2050000000;
   v11 = getFACircleContextClass_softClass_0;
-  v32 = getFACircleContextClass_softClass_0;
+  v33 = getFACircleContextClass_softClass_0;
   if (!getFACircleContextClass_softClass_0)
   {
     location = MEMORY[0x277D85DD0];
-    v25 = 3221225472;
-    v26 = __getFACircleContextClass_block_invoke_0;
-    v27 = &unk_27A65A9F8;
-    v28 = &v29;
+    v26 = 3221225472;
+    v27 = __getFACircleContextClass_block_invoke_0;
+    v28 = &unk_27A65A9F8;
+    v29 = &v30;
     __getFACircleContextClass_block_invoke_0(&location);
-    v11 = v30[3];
+    v11 = v31[3];
   }
 
   v12 = v11;
-  _Block_object_dispose(&v29, 8);
+  _Block_object_dispose(&v30, 8);
   v13 = [v11 alloc];
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x2020000000;
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x2020000000;
   v14 = getFACircleEventTypeInitiateSymbolLoc_ptr_0;
-  v32 = getFACircleEventTypeInitiateSymbolLoc_ptr_0;
+  v33 = getFACircleEventTypeInitiateSymbolLoc_ptr_0;
   if (!getFACircleEventTypeInitiateSymbolLoc_ptr_0)
   {
     location = MEMORY[0x277D85DD0];
-    v25 = 3221225472;
-    v26 = __getFACircleEventTypeInitiateSymbolLoc_block_invoke_0;
-    v27 = &unk_27A65A9F8;
-    v28 = &v29;
+    v26 = 3221225472;
+    v27 = __getFACircleEventTypeInitiateSymbolLoc_block_invoke_0;
+    v28 = &unk_27A65A9F8;
+    v29 = &v30;
     v15 = FamilyCircleUILibrary_0();
     v16 = dlsym(v15, "FACircleEventTypeInitiate");
-    *(v28[1] + 24) = v16;
-    getFACircleEventTypeInitiateSymbolLoc_ptr_0 = *(v28[1] + 24);
-    v14 = v30[3];
+    *(v29[1] + 24) = v16;
+    getFACircleEventTypeInitiateSymbolLoc_ptr_0 = *(v29[1] + 24);
+    v14 = v31[3];
   }
 
-  _Block_object_dispose(&v29, 8);
+  _Block_object_dispose(&v30, 8);
   if (!v14)
   {
-    v20 = [ICQFamilySharingHook _beginFamilySharingFlowWithCompletion:];
-    _Block_object_dispose(&v29, 8);
-    _Unwind_Resume(v20);
+    [ICQFamilySharingHook _beginFamilySharingFlowWithCompletion:];
+    v21 = v20;
+    _Block_object_dispose(&v30, 8);
+    _Unwind_Resume(v21);
   }
 
   v17 = [v13 initWithEventType:*v14];
   [v17 setClientName:@"iCloudStorage"];
   objc_initWeak(&location, self);
   v18 = self->_familyCircleStateController;
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __62__ICQFamilySharingHook__beginFamilySharingFlowWithCompletion___block_invoke;
-  v21[3] = &unk_27A65B6E8;
-  objc_copyWeak(&v23, &location);
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __62__ICQFamilySharingHook__beginFamilySharingFlowWithCompletion___block_invoke;
+  v22[3] = &unk_27A65B6E8;
+  objc_copyWeak(&v24, &location);
   v19 = completionCopy;
-  v22 = v19;
-  [(FACircleStateController *)v18 performOperationWithContext:v17 completion:v21];
+  v23 = v19;
+  [(FACircleStateController *)v18 performOperationWithContext:v17 completion:v22];
 
-  objc_destroyWeak(&v23);
+  objc_destroyWeak(&v24);
   objc_destroyWeak(&location);
 }
 
@@ -166,11 +167,11 @@ void __62__ICQFamilySharingHook__beginFamilySharingFlowWithCompletion___block_in
   return WeakRetained;
 }
 
-- (uint64_t)_beginFamilySharingFlowWithCompletion:.cold.1()
+- (void)_beginFamilySharingFlowWithCompletion:.cold.1()
 {
-  dlerror();
-  v0 = abort_report_np();
-  return +[(ICQQuotaRequestManager *)v0];
+  v0 = dlerror();
+  abort_report_np("%s", v0);
+  +[ICQQuotaRequestManager sharedManager];
 }
 
 @end

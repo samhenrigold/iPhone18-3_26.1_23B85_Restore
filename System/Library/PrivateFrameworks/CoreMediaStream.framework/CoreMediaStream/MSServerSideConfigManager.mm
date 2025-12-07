@@ -21,13 +21,13 @@
 
 - (void)serverSideConfigProtocol:(id)protocol didReceiveAuthenticationError:(id)error
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     mSVerboseDescription = [error MSVerboseDescription];
-    v10 = 138543362;
-    v11 = mSVerboseDescription;
-    _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Failed to retrieve configuration due to authentication error: %{public}@", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = mSVerboseDescription;
+    _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Failed to retrieve configuration due to authentication error: %{public}@", &v9, 0xCu);
   }
 
   daemon = self->_daemon;
@@ -36,23 +36,22 @@
 
   [(MSDaemon *)self->_daemon releaseBusy];
   self->_state = 0;
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)serverSideConfigProtocol:(id)protocol didFinishWithConfiguration:(id)configuration error:(id)error
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   protocolCopy = protocol;
   configurationCopy = configuration;
   errorCopy = error;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     mSVerboseDescription = [errorCopy MSVerboseDescription];
-    v15 = 138543618;
-    v16 = configurationCopy;
-    v17 = 2114;
-    v18 = mSVerboseDescription;
-    _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Finished retrieving server-side configuration: %{public}@, error: %{public}@", &v15, 0x16u);
+    v14 = 138543618;
+    v15 = configurationCopy;
+    v16 = 2114;
+    v17 = mSVerboseDescription;
+    _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Finished retrieving server-side configuration: %{public}@, error: %{public}@", &v14, 0x16u);
   }
 
   if (!errorCopy)
@@ -66,8 +65,6 @@
 
   [(MSDaemon *)self->_daemon releaseBusy];
   self->_state = 0;
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)abort
@@ -107,7 +104,7 @@
 
 - (void)setConfig:(id)config
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   configCopy = config;
   config = self->_config;
   if (!config || ![(NSDictionary *)config isEqualToDictionary:configCopy])
@@ -119,13 +116,13 @@
       stringByDeletingLastPathComponent = [(NSString *)self->_configPath stringByDeletingLastPathComponent];
       [v8 createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:0];
 
-      v19 = 0;
-      v10 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:configCopy requiringSecureCoding:1 error:&v19];
-      v11 = v19;
+      v18 = 0;
+      v10 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:configCopy requiringSecureCoding:1 error:&v18];
+      v11 = v18;
       if (!v10 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v21 = v11;
+        v20 = v11;
         _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Failed to archive config, error: %@", buf, 0xCu);
       }
 
@@ -152,8 +149,6 @@
     personID2 = [(MSServerSideConfigManager *)self personID];
     [(MSMediaStreamDaemon *)daemon didReceiveNewServerSideConfigurationForPersonID:personID2];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (NSDictionary)config
@@ -206,7 +201,7 @@
 
 + (id)objectForKey:(id)key forPersonID:(id)d defaultValue:(id)value
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   dCopy = d;
   valueCopy = value;
@@ -222,27 +217,25 @@
     v14 = v13;
     if (v15)
     {
-      v19 = 138412802;
-      v20 = dCopy;
-      v21 = 2114;
-      v22 = keyCopy;
-      v23 = 2114;
-      v24 = v13;
-      _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "PersonID %@ using server-side value for key %{public}@. Value: %{public}@", &v19, 0x20u);
+      v18 = 138412802;
+      v19 = dCopy;
+      v20 = 2114;
+      v21 = keyCopy;
+      v22 = 2114;
+      v23 = v13;
+      _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "PersonID %@ using server-side value for key %{public}@. Value: %{public}@", &v18, 0x20u);
       v14 = v13;
     }
   }
 
   v16 = v14;
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v16;
 }
 
 + (int64_t)longLongValueForParameter:(id)parameter forPersonID:(id)d defaultValue:(int64_t)value
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   parameterCopy = parameter;
   dCopy = d;
   v9 = MSPlatform();
@@ -257,24 +250,23 @@
       value = [v12 longLongValue];
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
       {
-        v15 = 138412802;
-        v16 = dCopy;
-        v17 = 2114;
-        v18 = parameterCopy;
-        v19 = 2048;
+        v14 = 138412802;
+        v15 = dCopy;
+        v16 = 2114;
+        v17 = parameterCopy;
+        v18 = 2048;
         valueCopy = value;
-        _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "PersonID %@ using server-side value for parameter %{public}@. Value: %lld", &v15, 0x20u);
+        _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "PersonID %@ using server-side value for parameter %{public}@. Value: %lld", &v14, 0x20u);
       }
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return value;
 }
 
 + (int64_t)longValueForParameter:(id)parameter forPersonID:(id)d defaultValue:(int64_t)value
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   parameterCopy = parameter;
   dCopy = d;
   v9 = MSPlatform();
@@ -289,24 +281,23 @@
       value = [v12 longValue];
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
       {
-        v15 = 138412802;
-        v16 = dCopy;
-        v17 = 2114;
-        v18 = parameterCopy;
-        v19 = 2048;
+        v14 = 138412802;
+        v15 = dCopy;
+        v16 = 2114;
+        v17 = parameterCopy;
+        v18 = 2048;
         valueCopy = value;
-        _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "PersonID %@ using server-side value for parameter %{public}@. Value: %ld", &v15, 0x20u);
+        _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "PersonID %@ using server-side value for parameter %{public}@. Value: %ld", &v14, 0x20u);
       }
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return value;
 }
 
 + (double)doubleValueForParameter:(id)parameter forPersonID:(id)d defaultValue:(double)value
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   parameterCopy = parameter;
   dCopy = d;
   v9 = MSPlatform();
@@ -322,24 +313,23 @@
       value = v13;
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
       {
-        v16 = 138412802;
-        v17 = dCopy;
-        v18 = 2114;
-        v19 = parameterCopy;
-        v20 = 2048;
+        v15 = 138412802;
+        v16 = dCopy;
+        v17 = 2114;
+        v18 = parameterCopy;
+        v19 = 2048;
         valueCopy = value;
-        _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "PersonID %@ using server-side value for parameter %{public}@. Value: %f", &v16, 0x20u);
+        _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "PersonID %@ using server-side value for parameter %{public}@. Value: %f", &v15, 0x20u);
       }
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return value;
 }
 
 + (int)intValueForParameter:(id)parameter forPersonID:(id)d defaultValue:(int)value
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   parameterCopy = parameter;
   dCopy = d;
   v9 = MSPlatform();
@@ -354,18 +344,17 @@
       value = [v12 intValue];
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
       {
-        v15 = 138412802;
-        v16 = dCopy;
-        v17 = 2114;
-        v18 = parameterCopy;
-        v19 = 1024;
+        v14 = 138412802;
+        v15 = dCopy;
+        v16 = 2114;
+        v17 = parameterCopy;
+        v18 = 1024;
         valueCopy = value;
-        _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "PersonID %@ using server-side value for parameter %{public}@. Value: %d", &v15, 0x1Cu);
+        _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "PersonID %@ using server-side value for parameter %{public}@. Value: %d", &v14, 0x1Cu);
       }
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return value;
 }
 
@@ -383,38 +372,36 @@
 
 + (void)abortAllActivities
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   allValues = [_configManagerByID allValues];
-  v3 = [allValues countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [allValues countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(allValues);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) abort];
+        [*(*(&v7 + 1) + 8 * v6++) abort];
       }
 
       while (v4 != v6);
-      v4 = [allValues countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [allValues countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (id)configManagerForPersonID:(id)d

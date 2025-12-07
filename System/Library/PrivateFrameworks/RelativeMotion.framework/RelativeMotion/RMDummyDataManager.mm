@@ -113,14 +113,12 @@ void __53__RMDummyDataManager_startReceivingDummyDataUpdates___block_invoke(uint
 
     if (!v14)
     {
-      __53__RMDummyDataManager_startReceivingDummyDataUpdates___block_invoke_cold_1();
+      __53__RMDummyDataManager_startReceivingDummyDataUpdates___block_invoke_cold_1(v15);
     }
 
-    v15 = [*(a1 + 32) relativeDataCallback];
-    (v15)[2](v15, v13, 0);
+    v16 = [*(a1 + 32) relativeDataCallback];
+    (v16)[2](v16, v13, 0);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopReceivingDummyDataUpdates
@@ -136,31 +134,31 @@ void __53__RMDummyDataManager_startReceivingDummyDataUpdates___block_invoke(uint
   [(RMDummyDataManager *)self setRelativeDataCallback:0];
 }
 
-void __53__RMDummyDataManager_startReceivingDummyDataUpdates___block_invoke_cold_1()
+void __53__RMDummyDataManager_startReceivingDummyDataUpdates___block_invoke_cold_1(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v0 = _CLLogObjectForCategory_ConnectionClient_Default_0();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
+  v7 = *MEMORY[0x277D85DE8];
+  v1 = _CLLogObjectForCategory_ConnectionClient_Default_0(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
     OUTLINED_FUNCTION_0();
-    _os_log_impl(&dword_261A9A000, v0, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Streamed data received while no callback was in place, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+    _os_log_impl(&dword_261A9A000, v1, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Streamed data received while no callback was in place, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
   }
 
-  v1 = _CLLogObjectForCategory_ConnectionClient_Default_0();
-  if (os_signpost_enabled(v1))
+  v3 = _CLLogObjectForCategory_ConnectionClient_Default_0(v2);
+  if (os_signpost_enabled(v3))
   {
     OUTLINED_FUNCTION_0();
-    _os_signpost_emit_with_name_impl(&dword_261A9A000, v1, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Streamed data received while no callback was in place", "{msg%{public}.0s:Streamed data received while no callback was in place, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+    _os_signpost_emit_with_name_impl(&dword_261A9A000, v3, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Streamed data received while no callback was in place", "{msg%{public}.0s:Streamed data received while no callback was in place, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
   }
 
-  v2 = _CLLogObjectForCategory_ConnectionClient_Default_0();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v5 = _CLLogObjectForCategory_ConnectionClient_Default_0(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     OUTLINED_FUNCTION_0();
-    _os_log_impl(&dword_261A9A000, v2, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Streamed data received while no callback was in place, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+    _os_log_impl(&dword_261A9A000, v5, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Streamed data received while no callback was in place, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
   }
 
-  abort_report_np();
+  abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/RelativeMotion/RelativeMotion/RMDummyDataManager.m", 80, "[RMDummyDataManager startReceivingDummyDataUpdates:]_block_invoke");
   _CLLogObjectForCategory_ConnectionClient_Default_cold_1_0();
 }
 

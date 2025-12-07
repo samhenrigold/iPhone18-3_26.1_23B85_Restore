@@ -321,7 +321,7 @@ void __41__VCCellularAudioTap_printAudioTapHealth__block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __44__VCCellularAudioTap_setUpPeriodicReporting__block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void *__44__VCCellularAudioTap_setUpPeriodicReporting__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   if (a3)
   {
@@ -827,7 +827,7 @@ LABEL_6:
     v16 = 0xFFFFFFFFLL;
   }
 
-  VCTerminateProcess(v12, [v13 stringWithFormat:@"%s tapType=%u", Name, v16], -[VCObject reportingAgent](self, "reportingAgent"));
+  VCTerminateProcess(v12, [v13 stringWithFormat:@"%s tapType=%u", Name, v16], -[VCObject reportingAgent](self, "reportingAgent"), 1);
 }
 
 - (int)validateAddAudioTapForStreamToken:(int64_t)token
@@ -1045,53 +1045,51 @@ LABEL_9:
 
 - (int)makeAudioIOForAudioTapIO:(id)o
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   realtimeContext = [o realtimeContext];
   if (!realtimeContext)
   {
-    [(VCCellularAudioTap *)o makeAudioIOForAudioTapIO:&v20];
+    [(VCCellularAudioTap *)o makeAudioIOForAudioTapIO:&v17];
 LABEL_10:
-    v12 = v19;
-    v13 = v20;
+    v9 = v16;
+    v10 = v17;
     goto LABEL_7;
   }
 
-  v6 = realtimeContext;
-  v7 = *(realtimeContext + 8);
-  v8 = [VCCellularAudioTap audioIOTypeFromTapType:v7];
-  *&v9 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v9 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v16 = v9;
-  v17 = v9;
-  v18 = v9;
+  v6 = *(realtimeContext + 8);
+  [VCCellularAudioTap audioIOTypeFromTapType:v6];
+  *&v7 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v7 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v13 = v7;
+  v14 = v7;
+  v15 = v7;
   if (self)
   {
-    v10 = v8;
-    [(VCCellularAudioTap *)self sinkDelegateContextWithTapType:v7 realtimeContext:v6];
-    [(VCCellularAudioTap *)self audioIOConfigWithAudioType:v10 sinkDelegateContext:&v16, 0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL];
+    objc_msgSend_sinkDelegateContextWithTapType_realtimeContext_(self);
+    objc_msgSend_audioIOConfigWithAudioType_sinkDelegateContext_(self, 0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL, v13, v14, v15);
   }
 
   else
   {
-    v17 = 0u;
-    v18 = 0u;
-    v16 = 0u;
-    memset(v15, 0, sizeof(v15));
+    v14 = 0u;
+    v15 = 0u;
+    v13 = 0u;
+    memset(v12, 0, sizeof(v12));
   }
 
-  v11 = [[VCAudioIO alloc] initWithConfiguration:v15];
-  if (!v11)
+  v8 = [[VCAudioIO alloc] initWithConfiguration:v12];
+  if (!v8)
   {
-    [(VCCellularAudioTap *)v7 makeAudioIOForAudioTapIO:&v20];
+    [(VCCellularAudioTap *)v6 makeAudioIOForAudioTapIO:&v17];
     goto LABEL_10;
   }
 
-  v12 = v11;
-  [o setAudioIO:v11];
-  v13 = 0;
+  v9 = v8;
+  [o setAudioIO:v8];
+  v10 = 0;
 LABEL_7:
 
-  return v13;
+  return v10;
 }
 
 - (void)setAudioTapIO:(id)o forStreamToken:(int64_t)token
@@ -1099,14 +1097,14 @@ LABEL_7:
   dispatch_assert_queue_V2(self->_stateQueue);
   if (![(NSMutableDictionary *)self->_audioTapIOMap count])
   {
-    [(VCCellularAudioTap *)self setUpPeriodicReporting];
-    [VCPowerManager_DefaultManager() registerForThermalEvents:self];
+    setUpPeriodicReporting = [(VCCellularAudioTap *)self setUpPeriodicReporting];
+    [VCPowerManager_DefaultManager(setUpPeriodicReporting v8)];
   }
 
   audioTapIOMap = self->_audioTapIOMap;
-  v8 = [MEMORY[0x1E696AD98] numberWithInteger:token];
+  v10 = [MEMORY[0x1E696AD98] numberWithInteger:token];
 
-  [(NSMutableDictionary *)audioTapIOMap setObject:o forKeyedSubscript:v8];
+  [(NSMutableDictionary *)audioTapIOMap setObject:o forKeyedSubscript:v10];
 }
 
 - (void)unregisterAudioTapForStreamToken:(int64_t)token
@@ -1204,7 +1202,7 @@ LABEL_7:
   return v10;
 }
 
-uint64_t __58__VCCellularAudioTap_actionWillBeginForContext_withError___block_invoke(uint64_t a1)
+void *__58__VCCellularAudioTap_actionWillBeginForContext_withError___block_invoke(uint64_t a1)
 {
   v13 = *MEMORY[0x1E69E9840];
   atomic_fetch_add((*(a1 + 32) + 232), 0xFFFFFFFF);
@@ -1309,7 +1307,7 @@ LABEL_4:
   return v10;
 }
 
-uint64_t __58__VCCellularAudioTap_actionDidFinishForContext_withError___block_invoke(uint64_t a1)
+void *__58__VCCellularAudioTap_actionDidFinishForContext_withError___block_invoke(uint64_t a1)
 {
   v16 = *MEMORY[0x1E69E9840];
   atomic_fetch_add((*(a1 + 32) + 232), 0xFFFFFFFF);
@@ -1353,7 +1351,7 @@ uint64_t __58__VCCellularAudioTap_actionDidFinishForContext_withError___block_in
             *(v9 + 40) = v8;
           }
 
-          ++v7;
+          v7 = v7 + 1;
         }
 
         while (v5 != v7);
@@ -2135,35 +2133,35 @@ void __82__VCCellularAudioTap_addAudioTapForStreamToken_tapType_enableAsyncTapSt
         goto LABEL_24;
       }
 
-      v8 = VRTraceErrorLogLevelToCSTR();
+      v10 = VRTraceErrorLogLevelToCSTR();
       if (!OUTLINED_FUNCTION_40())
       {
         goto LABEL_24;
       }
 
-      *v18 = 136316162;
-      *&v18[4] = v8;
-      *&v18[12] = 2080;
+      *v20 = 136316162;
+      *&v20[4] = v10;
+      *&v20[12] = 2080;
       OUTLINED_FUNCTION_7();
-      LODWORD(v19) = 471;
-      WORD2(v19) = v9;
-      *(&v19 + 6) = v10;
-      WORD5(v19) = v9;
-      HIDWORD(v19) = v3;
+      LODWORD(v21) = 471;
+      WORD2(v21) = v11;
+      *(&v21 + 6) = v12;
+      WORD5(v21) = v11;
+      HIDWORD(v21) = v3;
       OUTLINED_FUNCTION_24();
-      v16 = 40;
+      v18 = 40;
     }
 
     else
     {
       if (objc_opt_respondsToSelector())
       {
-        v7 = [*(a1 + 32) performSelector:sel_logPrefix];
+        v9 = [*(a1 + 32) performSelector:sel_logPrefix];
       }
 
       else
       {
-        v7 = &stru_1F570E008;
+        v9 = &stru_1F570E008;
       }
 
       if (VRTraceGetErrorLogLevelForModule() < 3)
@@ -2171,31 +2169,31 @@ void __82__VCCellularAudioTap_addAudioTapForStreamToken_tapType_enableAsyncTapSt
         goto LABEL_24;
       }
 
-      v17 = VRTraceErrorLogLevelToCSTR();
+      v19 = VRTraceErrorLogLevelToCSTR();
       if (!OUTLINED_FUNCTION_31())
       {
         goto LABEL_24;
       }
 
-      *v18 = 136316674;
-      *&v18[4] = v17;
-      *&v18[12] = 2080;
-      *&v18[14] = "[VCCellularAudioTap addAudioTapForStreamToken:tapType:enableAsyncTapStart:error:]_block_invoke";
-      *&v18[22] = 1024;
-      LODWORD(v19) = 471;
-      WORD2(v19) = 2112;
-      *(&v19 + 6) = v7;
-      HIWORD(v19) = 2048;
-      v20 = *(a1 + 32);
-      LOWORD(v21) = 1024;
-      *(&v21 + 2) = *(a1 + 48);
-      HIWORD(v21) = 1024;
-      LODWORD(v22) = v3;
+      *v20 = 136316674;
+      *&v20[4] = v19;
+      *&v20[12] = 2080;
+      *&v20[14] = "[VCCellularAudioTap addAudioTapForStreamToken:tapType:enableAsyncTapStart:error:]_block_invoke";
+      *&v20[22] = 1024;
+      LODWORD(v21) = 471;
+      WORD2(v21) = 2112;
+      *(&v21 + 6) = v9;
+      HIWORD(v21) = 2048;
+      v22 = *(a1 + 32);
+      LOWORD(v23) = 1024;
+      *(&v23 + 2) = *(a1 + 48);
+      HIWORD(v23) = 1024;
+      LODWORD(v24) = v3;
       OUTLINED_FUNCTION_17_0();
-      v16 = 60;
+      v18 = 60;
     }
 
-    _os_log_error_impl(v11, v12, v13, v14, v15, v16);
+    _os_log_error_impl(v13, v14, v15, v16, v17, v18);
 LABEL_24:
     v5 = 0;
     v4 = 0;
@@ -2229,16 +2227,16 @@ LABEL_5:
       *v6 = v4;
     }
 
-    [*(a1 + 32) cleanUpPeriodicReporting];
-    [VCPowerManager_DefaultManager() unregisterForThermalEvents:*(a1 + 32)];
+    v7 = [*(a1 + 32) cleanUpPeriodicReporting];
+    [VCPowerManager_DefaultManager(v7 v8)];
   }
 }
 
-uint64_t __57__VCCellularAudioTap_removeAudioTapForStreamToken_error___block_invoke(uint64_t a1)
+void *__57__VCCellularAudioTap_removeAudioTapForStreamToken_error___block_invoke(uint64_t a1)
 {
   if (!*(a1 + 48))
   {
-    v3 = -2142830591;
+    v5 = -2142830591;
     if (objc_opt_class() == *(a1 + 32))
     {
       if (VRTraceGetErrorLogLevelForModule() < 3)
@@ -2255,7 +2253,7 @@ uint64_t __57__VCCellularAudioTap_removeAudioTapForStreamToken_error___block_inv
       OUTLINED_FUNCTION_10();
       OUTLINED_FUNCTION_0();
       OUTLINED_FUNCTION_24();
-      v10 = 28;
+      v12 = 28;
     }
 
     else
@@ -2278,10 +2276,10 @@ uint64_t __57__VCCellularAudioTap_removeAudioTapForStreamToken_error___block_inv
 
       OUTLINED_FUNCTION_9_9();
       OUTLINED_FUNCTION_17_0();
-      v10 = 48;
+      v12 = 48;
     }
 
-    _os_log_error_impl(v5, v6, v7, v8, v9, v10);
+    _os_log_error_impl(v7, v8, v9, v10, v11, v12);
 LABEL_21:
     result = 0;
     goto LABEL_6;
@@ -2290,7 +2288,7 @@ LABEL_21:
   result = [*(a1 + 32) stopAudioForStreamToken:objc_msgSend(MEMORY[0x1E696AD98] isDeinitialization:{"numberWithInteger:"), 1}];
   if (result)
   {
-    v3 = 0;
+    v5 = 0;
   }
 
   else
@@ -2298,11 +2296,11 @@ LABEL_21:
     [*(a1 + 32) unregisterAudioTapForStreamToken:*(a1 + 48)];
     if (![*(*(a1 + 32) + 168) count])
     {
-      [*(a1 + 32) cleanUpPeriodicReporting];
-      [VCPowerManager_DefaultManager() unregisterForThermalEvents:*(a1 + 32)];
+      v3 = [*(a1 + 32) cleanUpPeriodicReporting];
+      [VCPowerManager_DefaultManager(v3 v4)];
     }
 
-    v3 = 0;
+    v5 = 0;
     result = 0;
     *(*(*(a1 + 40) + 8) + 24) = 1;
   }
@@ -2310,16 +2308,16 @@ LABEL_21:
 LABEL_6:
   if ((*(*(*(a1 + 40) + 8) + 24) & 1) == 0)
   {
-    v4 = *(a1 + 56);
-    if (v4)
+    v6 = *(a1 + 56);
+    if (v6)
     {
       if (!result)
       {
-        result = [MEMORY[0x1E696ABC0] errorWithDomain:@"VCCellularAudioTap" code:v3 userInfo:0];
-        v4 = *(a1 + 56);
+        result = [MEMORY[0x1E696ABC0] errorWithDomain:@"VCCellularAudioTap" code:v5 userInfo:0];
+        v6 = *(a1 + 56);
       }
 
-      *v4 = result;
+      *v6 = result;
     }
   }
 

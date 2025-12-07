@@ -120,7 +120,7 @@
   if (originalClip)
   {
     v6 = originalClip;
-    [originalClip videoTimeRange];
+    objc_msgSend_videoTimeRange(originalClip);
     originalClip = v6;
   }
 

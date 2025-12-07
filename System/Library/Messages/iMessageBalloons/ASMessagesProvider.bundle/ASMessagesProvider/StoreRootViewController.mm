@@ -38,7 +38,7 @@
 {
   disappearCopy = disappear;
   v5.receiver = self;
-  v5.super_class = type metadata accessor for StoreRootViewController();
+  v5.super_class = type metadata accessor for StoreRootViewController(0);
   v4 = v5.receiver;
   [(StoreRootViewController *)&v5 viewWillDisappear:disappearCopy];
   v4[OBJC_IVAR____TtC18ASMessagesProvider23StoreRootViewController_startedDisappearTransition] = 1;
@@ -48,7 +48,7 @@
 {
   disappearCopy = disappear;
   v6.receiver = self;
-  v6.super_class = type metadata accessor for StoreRootViewController();
+  v6.super_class = type metadata accessor for StoreRootViewController(0);
   v4 = v6.receiver;
   [(StoreRootViewController *)&v6 viewDidDisappear:disappearCopy];
   v5 = OBJC_IVAR____TtC18ASMessagesProvider23StoreRootViewController_startedDisappearTransition;
@@ -63,7 +63,7 @@
 {
   appearCopy = appear;
   v5.receiver = self;
-  v5.super_class = type metadata accessor for StoreRootViewController();
+  v5.super_class = type metadata accessor for StoreRootViewController(0);
   v4 = v5.receiver;
   [(StoreRootViewController *)&v5 viewDidAppear:appearCopy];
   sub_737EB8();

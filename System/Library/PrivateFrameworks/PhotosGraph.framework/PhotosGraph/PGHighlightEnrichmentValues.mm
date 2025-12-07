@@ -200,9 +200,9 @@
 - (id)description
 {
   v3 = MEMORY[0x277CCACA8];
-  v10.receiver = self;
-  v10.super_class = PGHighlightEnrichmentValues;
-  v4 = [(PGHighlightEnrichmentValues *)&v10 description];
+  v9.receiver = self;
+  v9.super_class = PGHighlightEnrichmentValues;
+  v4 = [(PGHighlightEnrichmentValues *)&v9 description];
   if ([(PGHighlightEnrichmentValues *)self hasChanges])
   {
     v5 = @"Yes";
@@ -213,11 +213,10 @@
     v5 = @"No";
   }
 
-  enrichmentState = self->_enrichmentState;
-  v7 = PHShortDescriptionForPhotosHighlightEnrichmentState();
-  v8 = [v3 stringWithFormat:@"%@ - hasChanges: %@, enrichmentState: %@", v4, v5, v7];
+  v6 = PHShortDescriptionForPhotosHighlightEnrichmentState();
+  v7 = [v3 stringWithFormat:@"%@ - hasChanges: %@, enrichmentState: %@", v4, v5, v6];
 
-  return v8;
+  return v7;
 }
 
 - (PGHighlightEnrichmentValues)initWithHighlight:(id)highlight

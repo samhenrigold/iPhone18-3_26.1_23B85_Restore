@@ -7,6 +7,8 @@
 - (void)handleURL:(id)l withCompletion:(id)completion;
 - (void)setPreferenceValue:(id)value specifier:(id)specifier;
 - (void)showController:(id)controller;
+- (void)showController:(id)controller animate:(BOOL)animate;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation HKHealthRecordsSettingsViewController
@@ -16,6 +18,17 @@
   v3.receiver = self;
   v3.super_class = HKHealthRecordsSettingsViewController;
   return [(HKHealthRecordsSettingsViewController *)&v3 init];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v7.receiver = self;
+  v7.super_class = HKHealthRecordsSettingsViewController;
+  [(HKHealthRecordsSettingsViewController *)&v7 viewDidAppear:appear];
+  settingsNavigationDonatingDelegate = [(HKHealthRecordsSettingsViewController *)self settingsNavigationDonatingDelegate];
+  v5 = +[HAServicesDefines healthSettingsHealthRecordsSpecifier];
+  v6 = [HAServicesDefines internalHealthSettingsURLTo:v5];
+  [settingsNavigationDonatingDelegate donateWithDeepLink:v6 andTitle:@"Health Records"];
 }
 
 - (void)handleURL:(id)l withCompletion:(id)completion
@@ -48,6 +61,14 @@
   controllerCopy = controller;
   WeakRetained = objc_loadWeakRetained(&self->_parentController);
   [WeakRetained showController:controllerCopy];
+}
+
+- (void)showController:(id)controller animate:(BOOL)animate
+{
+  animateCopy = animate;
+  controllerCopy = controller;
+  WeakRetained = objc_loadWeakRetained(&self->_parentController);
+  [WeakRetained showController:controllerCopy animate:animateCopy];
 }
 
 - (HKHealthSettingsNavigationDonating)settingsNavigationDonatingDelegate

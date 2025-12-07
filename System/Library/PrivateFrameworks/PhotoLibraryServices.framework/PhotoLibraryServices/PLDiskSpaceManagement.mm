@@ -164,7 +164,7 @@ LABEL_29:
     v9 = 0;
 LABEL_36:
 
-    if (spaceCopy && [v39 count])
+    if (spaceCopy && objc_msgSend_count(v39))
     {
       v44 = 0u;
       v45 = 0u;
@@ -217,45 +217,44 @@ LABEL_36:
 + (unint64_t)_scanAndDeleteCacheFilesInDirectory:(id)directory shouldFreeSpace:(BOOL)space bytesToPurge:(unint64_t)purge
 {
   spaceCopy = space;
-  v47[3] = *MEMORY[0x1E69E9840];
+  v46[3] = *MEMORY[0x1E69E9840];
   directoryCopy = directory;
   v6 = *MEMORY[0x1E695DC30];
   v7 = *MEMORY[0x1E695DBB8];
-  v47[0] = *MEMORY[0x1E695DC30];
-  v47[1] = v7;
+  v46[0] = *MEMORY[0x1E695DC30];
+  v46[1] = v7;
   v34 = *MEMORY[0x1E695DB50];
-  v47[2] = *MEMORY[0x1E695DB50];
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v47 count:3];
+  v46[2] = *MEMORY[0x1E695DB50];
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v46 count:3];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   v30 = directoryCopy;
   [defaultManager enumeratorAtURL:directoryCopy includingPropertiesForKeys:v8 options:0 errorHandler:&__block_literal_global_68];
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
-  obj = v43 = 0u;
-  v9 = [obj countByEnumeratingWithState:&v40 objects:v46 count:16];
+  obj = v42 = 0u;
+  v9 = [obj countByEnumeratingWithState:&v39 objects:v45 count:16];
   if (!v9)
   {
-    v38 = 0;
+    v37 = 0;
     goto LABEL_30;
   }
 
   v10 = v9;
-  v38 = 0;
-  v39 = *v41;
-  v35 = *MEMORY[0x1E69BFEE8];
+  v37 = 0;
+  v38 = *v40;
   while (2)
   {
     v11 = 0;
-    v36 = v10;
+    v35 = v10;
     do
     {
-      if (*v41 != v39)
+      if (*v40 != v38)
       {
         objc_enumerationMutation(obj);
       }
 
-      v12 = *(*(&v40 + 1) + 8 * v11);
+      v12 = *(*(&v39 + 1) + 8 * v11);
       v13 = objc_autoreleasePoolPush();
       v14 = [v12 resourceValuesForKeys:v8 error:0];
       v15 = [v14 objectForKeyedSubscript:v6];
@@ -278,9 +277,9 @@ LABEL_36:
       v18 = v7;
       v19 = v6;
       v20 = v8;
-      v21 = [v15 isEqualToString:v35];
+      isEqualToString = objc_msgSend_isEqualToString_(v15);
 
-      if ((v21 & 1) != 0 || ([v14 objectForKeyedSubscript:v34], v22 = objc_claimAutoreleasedReturnValue(), v38 += objc_msgSend(v22, "unsignedLongLongValue"), v22, !spaceCopy))
+      if ((isEqualToString & 1) != 0 || ([v14 objectForKeyedSubscript:v34], v22 = objc_claimAutoreleasedReturnValue(), v37 += objc_msgSend(v22, "unsignedLongLongValue"), v22, !spaceCopy))
       {
         v8 = v20;
       }
@@ -297,22 +296,22 @@ LABEL_36:
           if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v45 = v12;
+            v44 = v12;
             _os_log_impl(&dword_19BF1F000, v25, OS_LOG_TYPE_DEFAULT, "failed to remove %@", buf, 0xCu);
           }
 
           v16 = [v14 objectForKeyedSubscript:v34];
-          v38 -= [v16 unsignedLongLongValue];
+          v37 -= [v16 unsignedLongLongValue];
           v6 = v19;
           v7 = v18;
-          v10 = v36;
+          v10 = v35;
 LABEL_11:
 
           goto LABEL_19;
         }
 
         v8 = v20;
-        if (v38 >= purge)
+        if (v37 >= purge)
         {
           v27 = PLPhotoSharingGetLog();
           if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
@@ -328,7 +327,7 @@ LABEL_11:
 
       v6 = v19;
       v7 = v18;
-      v10 = v36;
+      v10 = v35;
 LABEL_19:
 
       objc_autoreleasePoolPop(v13);
@@ -336,7 +335,7 @@ LABEL_19:
     }
 
     while (v10 != v11);
-    v26 = [obj countByEnumeratingWithState:&v40 objects:v46 count:16];
+    v26 = [obj countByEnumeratingWithState:&v39 objects:v45 count:16];
     v10 = v26;
     if (v26)
     {
@@ -348,7 +347,7 @@ LABEL_19:
 
 LABEL_30:
 
-  return v38;
+  return v37;
 }
 
 + (unint64_t)_scanFilesInPhotoLibrary:(id)library fromPhotoMetadataDirectoryShouldFreeSpace:(BOOL)space bytesToPurge:(unint64_t)purge skipAssets:(id)assets
@@ -421,7 +420,7 @@ LABEL_30:
       {
         pathExtension = [v20 pathExtension];
         path2 = +[PLManagedAsset extensionForLargeThumbnailFile];
-        if ([pathExtension isEqualToString:path2])
+        if (objc_msgSend_isEqualToString_(pathExtension))
         {
           v28 = [assetsCopy containsObject:stringByDeletingPathExtension];
 
@@ -698,12 +697,12 @@ void __169__PLDiskSpaceManagement__purgeAssetsFromFetchRequest_photoLibrary_requ
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v28 = [v13 count];
+    v28 = objc_msgSend_count(v13);
     _os_log_impl(&dword_19BF1F000, v14, OS_LOG_TYPE_DEFAULT, "recentlyUsedGUIDS contains %lu entries", buf, 0xCu);
   }
 
   v15 = [PLManagedAsset fetchRequestForSortedCloudSharedAssetsWithPlaceholderKindsRequiringThumbnails:1 additionalPredicate:0 ascending:1];
-  v16 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v13, "count")}];
+  v16 = [MEMORY[0x1E695DF70] arrayWithCapacity:objc_msgSend_count(v13)];
   v17 = [self _purgeAssetsFromFetchRequest:v15 photoLibrary:libraryCopy requireBetterThanThumbnails:1 recentlyUsedGUIDS:v13 recentlyUsedAssetObjectIDs:v16 shouldFreeSpace:spaceCopy bytesToPurge:purge];
   v18 = v17;
   if (v17 < purge)
@@ -712,7 +711,7 @@ void __169__PLDiskSpaceManagement__purgeAssetsFromFetchRequest_photoLibrary_requ
     v19 = [self _purgeAssetsFromFetchRequest:purge photoLibrary:? requireBetterThanThumbnails:? recentlyUsedGUIDS:? recentlyUsedAssetObjectIDs:? shouldFreeSpace:? bytesToPurge:?] + v18;
     if (v19 < purge)
     {
-      if (!assetsCopy && [v16 count])
+      if (!assetsCopy && objc_msgSend_count(v16))
       {
         v23 = MEMORY[0x1E695D5E0];
         v20 = +[PLManagedAsset entityName];

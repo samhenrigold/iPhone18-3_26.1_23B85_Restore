@@ -64,20 +64,18 @@
 {
   toCopy = to;
   has = self->_has;
-  v8 = toCopy;
+  v6 = toCopy;
   if ((has & 2) != 0)
   {
-    willSend = self->_willSend;
     PBDataWriterWriteBOOLField();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if (has)
   {
-    additionalWait = self->_additionalWait;
     PBDataWriterWriteUint32Field();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 
@@ -134,7 +132,6 @@
       goto LABEL_9;
     }
 
-    v7 = *(equalCopy + 12);
     if (self->_willSend)
     {
       if ((*(equalCopy + 12) & 1) == 0)

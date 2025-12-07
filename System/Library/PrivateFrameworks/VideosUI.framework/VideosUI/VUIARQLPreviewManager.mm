@@ -56,7 +56,7 @@ void __39__VUIARQLPreviewManager_sharedInstance__block_invoke()
 {
   v11 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E696AF80] backgroundSessionConfigurationWithIdentifier:@"com.apple.tv.arql"];
-  v4 = VUIDefaultLogObject();
+  v4 = VUIDefaultLogObject(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     resourceTimeout = self->_resourceTimeout;
@@ -108,7 +108,7 @@ void __53__VUIARQLPreviewManager_cancelExistingDownloadsIfAny__block_invoke(uint
 
 - (void)configureUsingDictionary:(id)dictionary
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   if ([dictionaryCopy count])
   {
@@ -116,17 +116,17 @@ void __53__VUIARQLPreviewManager_cancelExistingDownloadsIfAny__block_invoke(uint
     v6 = v5;
     if (v5)
     {
-      [v5 doubleValue];
-      if (v7 > 0.0 && self->_resourceTimeout != v7)
+      doubleValue = [v5 doubleValue];
+      if (v8 > 0.0 && self->_resourceTimeout != v8)
       {
-        self->_resourceTimeout = v7;
-        v8 = VUIDefaultLogObject();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+        self->_resourceTimeout = v8;
+        v9 = VUIDefaultLogObject(doubleValue);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
           resourceTimeout = self->_resourceTimeout;
-          v10 = 134217984;
-          v11 = resourceTimeout;
-          _os_log_impl(&dword_1E323F000, v8, OS_LOG_TYPE_DEFAULT, "VUIARQLPreviewManager - resourceTimeout set by js config: %lf", &v10, 0xCu);
+          v11 = 134217984;
+          v12 = resourceTimeout;
+          _os_log_impl(&dword_1E323F000, v9, OS_LOG_TYPE_DEFAULT, "VUIARQLPreviewManager - resourceTimeout set by js config: %lf", &v11, 0xCu);
         }
 
         [(NSURLSession *)self->_session invalidateAndCancel];
@@ -160,20 +160,21 @@ void __53__VUIARQLPreviewManager_cancelExistingDownloadsIfAny__block_invoke(uint
 
 - (void)previewControllerDidDismiss:(id)dismiss
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   activeAssetRequest = [(VUIARQLPreviewManager *)self activeAssetRequest];
   v5 = activeAssetRequest;
   if (activeAssetRequest)
   {
-    if ([activeAssetRequest isDownloading])
+    isDownloading = [activeAssetRequest isDownloading];
+    if (isDownloading)
     {
-      v6 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = VUIDefaultLogObject(isDownloading);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         fileName = [v5 fileName];
-        v8 = 138412290;
-        v9 = fileName;
-        _os_log_impl(&dword_1E323F000, v6, OS_LOG_TYPE_DEFAULT, "VUIARQLPreviewManager - Cancel the active download: %@", &v8, 0xCu);
+        v9 = 138412290;
+        v10 = fileName;
+        _os_log_impl(&dword_1E323F000, v7, OS_LOG_TYPE_DEFAULT, "VUIARQLPreviewManager - Cancel the active download: %@", &v9, 0xCu);
       }
 
       [v5 cancelDownload];
@@ -199,7 +200,7 @@ void __53__VUIARQLPreviewManager_cancelExistingDownloadsIfAny__block_invoke(uint
   taskCopy = task;
   lCopy = l;
   activeAssetRequest = [(VUIARQLPreviewManager *)self activeAssetRequest];
-  v10 = VUIDefaultLogObject();
+  v10 = VUIDefaultLogObject(activeAssetRequest);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     remoteURL = [activeAssetRequest remoteURL];
@@ -267,7 +268,7 @@ LABEL_8:
 {
   errorCopy = error;
   activeAssetRequest = [(VUIARQLPreviewManager *)self activeAssetRequest];
-  v8 = VUIDefaultLogObject();
+  v8 = VUIDefaultLogObject(activeAssetRequest);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     [VUIARQLPreviewManager URLSession:activeAssetRequest task:errorCopy didCompleteWithError:v8];
@@ -315,7 +316,7 @@ uint64_t __62__VUIARQLPreviewManager_URLSession_task_didCompleteWithError___bloc
 - (void)URLSessionDidFinishEventsForBackgroundURLSession:(id)session
 {
   v13 = *MEMORY[0x1E69E9840];
-  v5 = VUIDefaultLogObject();
+  v5 = VUIDefaultLogObject(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = NSStringFromSelector(a2);
@@ -350,7 +351,7 @@ void __74__VUIARQLPreviewManager_URLSessionDidFinishEventsForBackgroundURLSessio
 {
   v9 = *MEMORY[0x1E69E9840];
   errorCopy = error;
-  v6 = VUIDefaultLogObject();
+  v6 = VUIDefaultLogObject(errorCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 138412290;
@@ -386,7 +387,7 @@ void __74__VUIARQLPreviewManager_URLSessionDidFinishEventsForBackgroundURLSessio
   if (cachePath)
   {
     v13 = [MEMORY[0x1E695DFF8] fileURLWithPath:cachePath];
-    v14 = VUIDefaultLogObject();
+    v14 = VUIDefaultLogObject(v13);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       v19 = 138412290;
@@ -444,7 +445,7 @@ void __74__VUIARQLPreviewManager_URLSessionDidFinishEventsForBackgroundURLSessio
 
 void __60__VUIARQLPreviewManager__previewControllerWithAssetRequest___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (v3)
@@ -453,21 +454,21 @@ void __60__VUIARQLPreviewManager__previewControllerWithAssetRequest___block_invo
     aBlock[1] = 3221225472;
     aBlock[2] = __60__VUIARQLPreviewManager__previewControllerWithAssetRequest___block_invoke_2;
     aBlock[3] = &unk_1E8731BB0;
-    v11 = *(a1 + 32);
-    v12 = WeakRetained;
-    v13 = v3;
+    v12 = *(a1 + 32);
+    v13 = WeakRetained;
+    v14 = v3;
     v5 = _Block_copy(aBlock);
     v6 = *(a1 + 40);
     v7 = [WeakRetained session];
     [v6 startDownloadWithSession:v7 completionHandler:v5];
 
-    v8 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = VUIDefaultLogObject(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = *(a1 + 32);
+      v10 = *(a1 + 32);
       *buf = 138412290;
-      v15 = v9;
-      _os_log_impl(&dword_1E323F000, v8, OS_LOG_TYPE_DEFAULT, "VUIARQLPreviewManager - Start downloading url: %@", buf, 0xCu);
+      v16 = v10;
+      _os_log_impl(&dword_1E323F000, v9, OS_LOG_TYPE_DEFAULT, "VUIARQLPreviewManager - Start downloading url: %@", buf, 0xCu);
     }
 
     [WeakRetained setActiveAssetRequest:*(a1 + 40)];

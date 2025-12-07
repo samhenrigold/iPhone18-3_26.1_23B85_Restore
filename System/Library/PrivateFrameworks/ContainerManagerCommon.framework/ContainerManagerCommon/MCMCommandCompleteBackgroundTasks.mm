@@ -1,6 +1,5 @@
 @interface MCMCommandCompleteBackgroundTasks
 + (Class)incomingMessageClass;
-+ (unint64_t)command;
 - (BOOL)preflightClientAllowed;
 - (void)execute;
 @end
@@ -9,22 +8,12 @@
 
 + (Class)incomingMessageClass
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = *MEMORY[0x1E69E9840];
 
   return objc_opt_class();
 }
 
-+ (unint64_t)command
-{
-  v2 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return 46;
-}
-
 - (void)execute
 {
-  v10 = *MEMORY[0x1E69E9840];
   v3 = objc_autoreleasePoolPush();
   v4 = MCMSharedBackgroundQueue();
   dispatch_barrier_async_and_wait(v4, &__block_literal_global_14748);
@@ -39,14 +28,11 @@
   v8 = objc_opt_new();
   [resultPromise completeWithResult:v8];
 
-  v9 = *MEMORY[0x1E69E9840];
-
   objc_autoreleasePoolPop(v3);
 }
 
 - (BOOL)preflightClientAllowed
 {
-  v9 = *MEMORY[0x1E69E9840];
   context = [(MCMCommand *)self context];
   clientIdentity = [context clientIdentity];
   codeSignInfo = [clientIdentity codeSignInfo];
@@ -62,7 +48,6 @@
     testabilityAllowed = [entitlements testabilityAllowed];
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return testabilityAllowed;
 }
 

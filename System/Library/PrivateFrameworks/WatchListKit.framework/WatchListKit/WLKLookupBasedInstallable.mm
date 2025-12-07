@@ -56,27 +56,23 @@
 
 - (NSArray)appBundleIDs
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   item = [(WLKLookupBasedInstallable *)self item];
   bundleIdentifier = [item bundleIdentifier];
-  v7[0] = bundleIdentifier;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v6[0] = bundleIdentifier;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
 
   return v4;
 }
 
 - (NSArray)appAdamIDs
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   item = [(WLKLookupBasedInstallable *)self item];
   iTunesStoreIdentifier = [item iTunesStoreIdentifier];
   stringValue = [iTunesStoreIdentifier stringValue];
-  v8[0] = stringValue;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v7[0] = stringValue;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
 
   return v5;
 }

@@ -233,7 +233,7 @@
 
     CGContextSaveGState(context);
     memset(&v30[1], 0, sizeof(CGAffineTransform));
-    [AKGeometryHelper rotationTransformForRectangularAnnotation:annotationCopy hasRotation:0];
+    objc_msgSend_rotationTransformForRectangularAnnotation_hasRotation_(AKGeometryHelper);
     v30[0] = v30[1];
     CGContextConcatCTM(context, v30);
     CGContextSaveGState(context);
@@ -318,7 +318,7 @@
 
   v12 = [AKAnnotationRendererUtilities newStandardStrokedBorderPathWithPath:v10 withStrokeWidth:thicknessCopy];
   memset(&m, 0, sizeof(m));
-  [AKGeometryHelper rotationTransformForRectangularAnnotation:annotationCopy hasRotation:0];
+  objc_msgSend_rotationTransformForRectangularAnnotation_hasRotation_(AKGeometryHelper);
 
   v15 = m;
   CGAffineTransformInvert(&v16, &v15);
@@ -338,7 +338,7 @@
   annotationCopy = annotation;
   v8 = [self _newPathScaledToModelSpaceForAnnotation:annotationCopy];
   memset(&m, 0, sizeof(m));
-  [AKGeometryHelper rotationTransformForRectangularAnnotation:annotationCopy hasRotation:0];
+  objc_msgSend_rotationTransformForRectangularAnnotation_hasRotation_(AKGeometryHelper);
 
   v10 = m;
   CGAffineTransformInvert(&v11, &v10);
@@ -354,119 +354,128 @@
 {
   annotationCopy = annotation;
   [annotationCopy rectangle];
-  v4 = v48.origin.x;
-  v5 = v48.origin.y;
-  width = v48.size.width;
-  height = v48.size.height;
-  MidX = CGRectGetMidX(v48);
-  v49.origin.x = v4;
-  v49.origin.y = v5;
-  v49.size.width = width;
-  v49.size.height = height;
-  MidY = CGRectGetMidY(v49);
-  v10 = +[AKGeometryHelper inverseExifOrientation:](AKGeometryHelper, "inverseExifOrientation:", [annotationCopy originalExifOrientation]);
-  [AKGeometryHelper adjustRect:v10 forExifOrientation:v4 aboutCenter:v5, width, height, MidX, MidY];
-  v12 = v11;
-  v14 = v13;
-  v16 = v15;
-  v18 = v17;
+  v4 = v47.origin.x;
+  v5 = v47.origin.y;
+  width = v47.size.width;
+  height = v47.size.height;
+  MidX = CGRectGetMidX(v47);
+  v48.origin.x = v4;
+  v48.origin.y = v5;
+  v48.size.width = width;
+  v48.size.height = height;
+  MidY = CGRectGetMidY(v48);
+  +[AKGeometryHelper adjustRect:forExifOrientation:aboutCenter:](AKGeometryHelper, "adjustRect:forExifOrientation:aboutCenter:", +[AKGeometryHelper inverseExifOrientation:](AKGeometryHelper, "inverseExifOrientation:", [annotationCopy originalExifOrientation]), v4, v5, width, height, MidX, MidY);
+  v11 = v10;
+  v13 = v12;
+  v15 = v14;
+  v17 = v16;
   path = [annotationCopy path];
 
-  v20 = MEMORY[0x277CBF2C0];
+  v19 = MEMORY[0x277CBF2C0];
   if (path)
   {
     path2 = [annotationCopy path];
     newCGPathForPlatformBezierPath = [path2 newCGPathForPlatformBezierPath];
 
     BoundingBox = CGPathGetBoundingBox(newCGPathForPlatformBezierPath);
-    v23 = v16 / fmax(BoundingBox.size.width, 0.0005);
-    *yb = v20[1];
-    *&v47.a = *v20;
-    *xb = *&v47.a;
-    *&v47.c = *yb;
-    v24 = v18 / fmax(BoundingBox.size.height, 0.0005);
-    *&v47.tx = v20[2];
-    *v34 = *&v47.tx;
+    v22 = v15 / fmax(BoundingBox.size.width, 0.0005);
+    *yb = v19[1];
+    *&v46.a = *v19;
+    *xb = *&v46.a;
+    *&v46.c = *yb;
+    v23 = v17 / fmax(BoundingBox.size.height, 0.0005);
+    *&v46.tx = v19[2];
+    *v33 = *&v46.tx;
     CGAffineTransformMakeTranslation(&t2, -BoundingBox.origin.x, -BoundingBox.origin.y);
     *&t1.a = *xb;
     *&t1.c = *yb;
-    *&t1.tx = *v34;
-    CGAffineTransformConcat(&v47, &t1, &t2);
-    CGAffineTransformMakeScale(&t1, v23, v24);
-    v44 = v47;
-    CGAffineTransformConcat(&t2, &v44, &t1);
-    v47 = t2;
-    CGAffineTransformMakeTranslation(&t1, v12, v14);
-    v44 = v47;
-    CGAffineTransformConcat(&t2, &v44, &t1);
-    v47 = t2;
-    v25 = MEMORY[0x245CAE590](newCGPathForPlatformBezierPath, &v47);
+    *&t1.tx = *v33;
+    CGAffineTransformConcat(&v46, &t1, &t2);
+    CGAffineTransformMakeScale(&t1, v22, v23);
+    v43 = v46;
+    CGAffineTransformConcat(&t2, &v43, &t1);
+    v46 = t2;
+    CGAffineTransformMakeTranslation(&t1, v11, v13);
+    v43 = v46;
+    CGAffineTransformConcat(&t2, &v43, &t1);
+    v46 = t2;
+    v24 = MEMORY[0x245CAE590](newCGPathForPlatformBezierPath, &v46);
     CGPathRelease(newCGPathForPlatformBezierPath);
   }
 
   else
   {
-    v51.origin.x = v12;
-    v51.origin.y = v14;
-    v51.size.width = v16;
-    v51.size.height = v18;
-    x = CGRectGetMinX(v51);
-    v52.origin.x = v12;
-    v52.origin.y = v14;
-    v52.size.width = v16;
-    v52.size.height = v18;
-    y = CGRectGetMinY(v52);
-    v53.origin.x = v12;
-    v53.origin.y = v14;
-    v53.size.width = v16;
-    v53.size.height = v18;
-    MaxX = CGRectGetMaxX(v53);
-    v54.origin.x = v12;
-    v54.origin.y = v14;
-    v54.size.width = v16;
-    v54.size.height = v18;
-    MinY = CGRectGetMinY(v54);
-    v55.origin.x = v12;
-    v55.origin.y = v14;
-    v55.size.width = v16;
-    v55.size.height = v18;
-    v27 = CGRectGetMidX(v55);
-    v56.origin.x = v12;
-    v56.origin.y = v14;
-    v56.size.width = v16;
-    v56.size.height = v18;
-    MaxY = CGRectGetMaxY(v56);
+    v50.origin.x = v11;
+    v50.origin.y = v13;
+    v50.size.width = v15;
+    v50.size.height = v17;
+    x = CGRectGetMinX(v50);
+    v51.origin.x = v11;
+    v51.origin.y = v13;
+    v51.size.width = v15;
+    v51.size.height = v17;
+    y = CGRectGetMinY(v51);
+    v52.origin.x = v11;
+    v52.origin.y = v13;
+    v52.size.width = v15;
+    v52.size.height = v17;
+    MaxX = CGRectGetMaxX(v52);
+    v53.origin.x = v11;
+    v53.origin.y = v13;
+    v53.size.width = v15;
+    v53.size.height = v17;
+    MinY = CGRectGetMinY(v53);
+    v54.origin.x = v11;
+    v54.origin.y = v13;
+    v54.size.width = v15;
+    v54.size.height = v17;
+    v26 = CGRectGetMidX(v54);
+    v55.origin.x = v11;
+    v55.origin.y = v13;
+    v55.size.width = v15;
+    v55.size.height = v17;
+    MaxY = CGRectGetMaxY(v55);
     Mutable = CGPathCreateMutable();
-    v25 = Mutable;
+    v24 = Mutable;
     if (Mutable)
     {
       CGPathMoveToPoint(Mutable, 0, x, y);
-      CGPathAddLineToPoint(v25, 0, MaxX, MinY);
-      CGPathAddLineToPoint(v25, 0, v27, MaxY);
-      CGPathCloseSubpath(v25);
+      CGPathAddLineToPoint(v24, 0, MaxX, MinY);
+      CGPathAddLineToPoint(v24, 0, v26, MaxY);
+      CGPathCloseSubpath(v24);
     }
   }
 
-  *ya = v20[1];
-  *xa = *v20;
-  *&v47.a = *v20;
-  *&v47.c = *ya;
-  *&v47.tx = v20[2];
-  v36[1] = v47.ty;
-  [AKGeometryHelper affineTransformForExifOrientation:v10 aboutCenter:MidX, MidY, *&v47.tx];
-  t1 = v47;
-  CGAffineTransformConcat(&v47, &t1, &t2);
+  *ya = v19[1];
+  *xa = *v19;
+  *&v46.a = *v19;
+  *&v46.c = *ya;
+  *&v46.tx = v19[2];
+  v35[1] = v46.ty;
+  objc_msgSend_affineTransformForExifOrientation_aboutCenter_(AKGeometryHelper, MidX, MidY, *&v46.tx);
+  t1 = v46;
+  CGAffineTransformConcat(&v46, &t1, &t2);
   if (([annotationCopy horizontallyFlipped] & 1) != 0 || objc_msgSend(annotationCopy, "verticallyFlipped"))
   {
     *&t2.a = *xa;
     *&t2.c = *ya;
-    *&t2.tx = *v36;
+    *&t2.tx = *v35;
     CGAffineTransformMakeTranslation(&t1, -MidX, -MidY);
-    *&v44.a = *xa;
-    *&v44.c = *ya;
-    *&v44.tx = *v36;
-    CGAffineTransformConcat(&t2, &v44, &t1);
+    *&v43.a = *xa;
+    *&v43.c = *ya;
+    *&v43.tx = *v35;
+    CGAffineTransformConcat(&t2, &v43, &t1);
     if ([annotationCopy horizontallyFlipped])
+    {
+      v29 = -1.0;
+    }
+
+    else
+    {
+      v29 = 1.0;
+    }
+
+    if ([annotationCopy verticallyFlipped])
     {
       v30 = -1.0;
     }
@@ -476,42 +485,32 @@
       v30 = 1.0;
     }
 
-    if ([annotationCopy verticallyFlipped])
-    {
-      v31 = -1.0;
-    }
-
-    else
-    {
-      v31 = 1.0;
-    }
-
-    CGAffineTransformMakeScale(&v44, v30, v31);
-    v43 = t2;
-    CGAffineTransformConcat(&t1, &v43, &v44);
+    CGAffineTransformMakeScale(&v43, v29, v30);
+    v42 = t2;
+    CGAffineTransformConcat(&t1, &v42, &v43);
     t2 = t1;
-    CGAffineTransformMakeTranslation(&v44, MidX, MidY);
-    v43 = t2;
-    CGAffineTransformConcat(&t1, &v43, &v44);
+    CGAffineTransformMakeTranslation(&v43, MidX, MidY);
+    v42 = t2;
+    CGAffineTransformConcat(&t1, &v42, &v43);
     t2 = t1;
-    v44 = v47;
-    v43 = t1;
-    CGAffineTransformConcat(&t1, &v44, &v43);
-    v47 = t1;
+    v43 = v46;
+    v42 = t1;
+    CGAffineTransformConcat(&t1, &v43, &v42);
+    v46 = t1;
   }
 
-  if (v25)
+  if (v24)
   {
-    v32 = MEMORY[0x245CAE590](v25, &v47);
-    CGPathRelease(v25);
+    v31 = MEMORY[0x245CAE590](v24, &v46);
+    CGPathRelease(v24);
   }
 
   else
   {
-    v32 = 0;
+    v31 = 0;
   }
 
-  return v32;
+  return v31;
 }
 
 @end

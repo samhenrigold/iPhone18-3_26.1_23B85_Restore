@@ -52,7 +52,7 @@
     [selfCopy operatorType];
     v15 = HDSQLiteComparisonTypeForPredicateOperator();
     value = [selfCopy value];
-    v8 = HDWorkoutActivityEntityPredicateForStartDate(v15);
+    v8 = HDWorkoutActivityEntityPredicateForStartDate(v15, value);
     goto LABEL_4;
   }
 
@@ -69,7 +69,7 @@
     [selfCopy operatorType];
     v18 = HDSQLiteComparisonTypeForPredicateOperator();
     value = [selfCopy value];
-    v8 = HDWorkoutActivityEntityPredicateForEndDate(v18);
+    v8 = HDWorkoutActivityEntityPredicateForEndDate(v18, value);
 LABEL_4:
     selfCopy = v8;
 LABEL_5:

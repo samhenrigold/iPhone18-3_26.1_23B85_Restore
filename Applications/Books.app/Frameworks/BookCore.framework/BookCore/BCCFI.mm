@@ -155,33 +155,34 @@
 - (BCCFI)initWithCFI:(id)i error:(id *)error
 {
   iCopy = i;
-  v12.receiver = self;
-  v12.super_class = BCCFI;
-  v7 = [(BCCFI *)&v12 init];
+  v13.receiver = self;
+  v13.super_class = BCCFI;
+  v7 = [(BCCFI *)&v13 init];
   v8 = v7;
   if (!v7)
   {
     goto LABEL_4;
   }
 
-  if ([(BCCFI *)v7 parseCFI:iCopy error:error])
+  v9 = [(BCCFI *)v7 parseCFI:iCopy error:error];
+  if (v9)
   {
     v8->_pageIndexOffset = 0x7FFFFFFFFFFFFFFFLL;
 LABEL_4:
-    v9 = v8;
+    v10 = v8;
     goto LABEL_8;
   }
 
-  v10 = BCReadingStatisticsLog();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  v11 = BCReadingStatisticsLog(v9);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
-    sub_1E8E50(iCopy, v10);
+    sub_1E8E50(iCopy, v11);
   }
 
-  v9 = 0;
+  v10 = 0;
 LABEL_8:
 
-  return v9;
+  return v10;
 }
 
 - (BCCFI)initWithLocationDictionary:(id)dictionary
@@ -565,7 +566,7 @@ LABEL_18:
         {
           if (v11 != -1)
           {
-            v17 = BCReadingStatisticsLog();
+            v17 = BCReadingStatisticsLog(v13);
             if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
             {
               v20 = 138412802;
@@ -1801,10 +1802,10 @@ LABEL_33:
   {
     p_isa = [(BCCFI *)selfCopy _simplifiedVersion];
     _simplifiedVersion = [headCopy _simplifiedVersion];
-    v28 = 0x7FFFFFFFFFFFFFFFLL;
-    v29 = 0x7FFFFFFFFFFFFFFFLL;
-    sub_A4734(p_isa, _simplifiedVersion, 1, 1, &v29, 0);
-    sub_A4734(p_isa, _simplifiedVersion, 0, 1, &v28, 0);
+    v30 = 0x7FFFFFFFFFFFFFFFLL;
+    v31 = 0x7FFFFFFFFFFFFFFFLL;
+    sub_A4734(p_isa, _simplifiedVersion, 1, 1, &v31, 0);
+    sub_A4734(p_isa, _simplifiedVersion, 0, 1, &v30, 0);
     v9 = 0;
     v10 = p_isa[1];
     if (v10 < p_isa[3])
@@ -1814,7 +1815,7 @@ LABEL_33:
       v12 = 0;
       v13 = 0;
       v14 = _simplifiedVersion[1];
-      v15 = v29;
+      v15 = v31;
       do
       {
         if (v14 >= _simplifiedVersion[3] || v12 > v15)
@@ -1844,23 +1845,24 @@ LABEL_33:
               break;
             }
 
-            if (![(BCCFI *)v6 _subtractStep:v14 fromStep:v10, v28])
+            v17 = [(BCCFI *)v6 _subtractStep:v14 fromStep:v10, v30];
+            if (!v17)
             {
-              v26 = BCReadingStatisticsLog();
-              if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+              v28 = BCReadingStatisticsLog(v17);
+              if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412546;
-                v31 = _simplifiedVersion;
-                v32 = 2112;
-                v33 = p_isa;
-                _os_log_impl(&dword_0, v26, OS_LOG_TYPE_DEFAULT, "Failed to subtract %@ from %@.", buf, 0x16u);
+                v33 = _simplifiedVersion;
+                v34 = 2112;
+                v35 = p_isa;
+                _os_log_impl(&dword_0, v28, OS_LOG_TYPE_DEFAULT, "Failed to subtract %@ from %@.", buf, 0x16u);
               }
 
               break;
             }
 
             v13 = 1;
-            v15 = v29;
+            v15 = v31;
           }
 
           else
@@ -1889,96 +1891,97 @@ LABEL_33:
       while (v10 < p_isa[3]);
     }
 
-    v17 = p_isa[1];
-    v18 = p_isa[4];
-    if (v17 < v18)
+    v18 = p_isa[1];
+    v19 = p_isa[4];
+    if (v18 < v19)
     {
-      v19 = 0;
       v20 = 0;
       v21 = 0;
-      v22 = _simplifiedVersion[1];
+      v22 = 0;
+      v23 = _simplifiedVersion[1];
       do
       {
-        if (v22 >= _simplifiedVersion[3] || v20 > v28)
+        if (v23 >= _simplifiedVersion[3] || v21 > v30)
         {
           break;
         }
 
-        if (v17 == p_isa[2])
+        if (v18 == p_isa[2])
         {
-          v17 = p_isa[3];
-          if (!v19)
+          v18 = p_isa[3];
+          if (!v20)
           {
 LABEL_46:
-            v19 = *v17 == 4;
+            v20 = *v18 == 4;
             goto LABEL_54;
           }
         }
 
-        else if (!v19)
+        else if (!v20)
         {
           goto LABEL_46;
         }
 
-        if (v21)
+        if (v22)
         {
-          if (v20 >= v9)
+          if (v21 >= v9)
           {
-            if (v20 >= v28)
+            if (v21 >= v30)
             {
-              if (!v17)
+              if (!v18)
               {
                 break;
               }
 
-              if (*v17 == 1)
+              if (*v18 == 1)
               {
-                if (!v22 || *v22 != 1)
+                if (!v23 || *v23 != 1)
                 {
                   break;
                 }
               }
 
-              else if (*v17 != 5 || !v22 || *v22 != 5)
+              else if (*v18 != 5 || !v23 || *v23 != 5)
               {
                 break;
               }
             }
 
-            if (![(BCCFI *)v6 _subtractStep:v22 fromStep:v17, v28])
+            v25 = [(BCCFI *)v6 _subtractStep:v23 fromStep:v18, v30];
+            if (!v25)
             {
-              v27 = BCReadingStatisticsLog();
-              if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+              v29 = BCReadingStatisticsLog(v25);
+              if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412546;
-                v31 = _simplifiedVersion;
-                v32 = 2112;
-                v33 = p_isa;
-                _os_log_impl(&dword_0, v27, OS_LOG_TYPE_DEFAULT, "Failed to subtract %@ from %@.", buf, 0x16u);
+                v33 = _simplifiedVersion;
+                v34 = 2112;
+                v35 = p_isa;
+                _os_log_impl(&dword_0, v29, OS_LOG_TYPE_DEFAULT, "Failed to subtract %@ from %@.", buf, 0x16u);
               }
 
               break;
             }
 
-            v18 = p_isa[4];
+            v19 = p_isa[4];
           }
 
-          v21 = 1;
+          v22 = 1;
         }
 
         else
         {
-          v21 = *v17 == 1;
+          v22 = *v18 == 1;
         }
 
-        v19 = 1;
+        v20 = 1;
 LABEL_54:
-        ++v20;
-        v17 += 8;
-        v22 += 8;
+        ++v21;
+        v18 += 8;
+        v23 += 8;
       }
 
-      while (v17 < v18);
+      while (v18 < v19);
     }
 
     generateCFI = [p_isa generateCFI];
@@ -2043,7 +2046,7 @@ LABEL_54:
     while (v9 < v10);
   }
 
-  v13 = BCReadingStatisticsLog();
+  v13 = BCReadingStatisticsLog(v7);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -2098,29 +2101,30 @@ LABEL_14:
   }
 
   [v3 appendString:@""]);
-  v11 = 0;
-  v5 = [BCCFI cfiWithString:v3 error:&v11];
-  v6 = v11;
+  v12 = 0;
+  v5 = [BCCFI cfiWithString:v3 error:&v12];
+  v6 = v12;
+  v7 = v6;
   if (v6)
   {
-    v7 = BCReadingStatisticsLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = BCReadingStatisticsLog(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v13 = v6;
-      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Failed to create CFI. %@", buf, 0xCu);
+      v14 = v7;
+      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Failed to create CFI. %@", buf, 0xCu);
     }
   }
 
   if (!v5)
   {
-    v8 = BCReadingStatisticsLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = BCReadingStatisticsLog(v6);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = [(BCCFI *)self description];
+      v10 = [(BCCFI *)self description];
       *buf = 138412290;
-      v13 = v9;
-      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Failed to create head CFI from %@", buf, 0xCu);
+      v14 = v10;
+      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Failed to create head CFI from %@", buf, 0xCu);
     }
   }
 
@@ -2141,29 +2145,30 @@ LABEL_14:
   }
 
   [v3 appendString:@""]);
-  v12 = 0;
-  v6 = [BCCFI cfiWithString:v3 error:&v12];
-  v7 = v12;
+  v13 = 0;
+  v6 = [BCCFI cfiWithString:v3 error:&v13];
+  v7 = v13;
+  v8 = v7;
   if (v7)
   {
-    v8 = BCReadingStatisticsLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = BCReadingStatisticsLog(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v14 = v7;
-      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Failed to create CFI. %@", buf, 0xCu);
+      v15 = v8;
+      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Failed to create CFI. %@", buf, 0xCu);
     }
   }
 
   if (!v6)
   {
-    v9 = BCReadingStatisticsLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = BCReadingStatisticsLog(v7);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = [(BCCFI *)self description];
+      v11 = [(BCCFI *)self description];
       *buf = 138412290;
-      v14 = v10;
-      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Failed to create tail CFI from %@", buf, 0xCu);
+      v15 = v11;
+      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "Failed to create tail CFI from %@", buf, 0xCu);
     }
   }
 
@@ -2438,7 +2443,7 @@ LABEL_14:
   var0 = fromStep->var0;
   if (fromStep->var0 != step->var0)
   {
-    v13 = BCReadingStatisticsLog();
+    v13 = BCReadingStatisticsLog(self);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       v14 = objc_opt_class();
@@ -2464,7 +2469,7 @@ LABEL_22:
     v19 = step->var1.var0.var0;
     if (v19 > v18)
     {
-      v20 = BCReadingStatisticsLog();
+      v20 = BCReadingStatisticsLog(self);
       if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(v24) = 0;
@@ -2480,7 +2485,7 @@ LABEL_22:
 
   if (var0 != 1)
   {
-    v13 = BCReadingStatisticsLog();
+    v13 = BCReadingStatisticsLog(self);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       v22 = objc_opt_class();
@@ -2501,7 +2506,7 @@ LABEL_22:
   v9 = step->var1.var0.var0;
   if (v9 > v8)
   {
-    v10 = BCReadingStatisticsLog();
+    v10 = BCReadingStatisticsLog(self);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(v24) = 0;
@@ -2537,14 +2542,14 @@ LABEL_25:
 {
   ofCopy = of;
   tailOfCopy = tailOf;
-  v29 = 0;
   v30 = 0;
-  sub_A4734(ofCopy, tailOfCopy, 1, 0, &v30, &v29);
+  v31 = 0;
+  sub_A4734(ofCopy, tailOfCopy, 1, 0, &v31, &v30);
   v7 = +[NSMutableString stringWithString:](NSMutableString, "stringWithString:", @"epubcfi(");
   v9 = ofCopy[1];
   v8 = ofCopy[2];
   v10 = 0;
-  if (v9 < v8 && v30 != 0)
+  if (v9 < v8 && v31 != 0)
   {
     do
     {
@@ -2554,13 +2559,13 @@ LABEL_25:
       v8 = ofCopy[2];
     }
 
-    while (v9 < v8 && v10 < v30);
+    while (v9 < v8 && v10 < v31);
   }
 
   v13 = ofCopy[3];
   while (v8 < v13)
   {
-    if (v10 < v30)
+    if (v10 < v31)
     {
       sub_A6FDC(v7, v8);
       v13 = ofCopy[3];
@@ -2583,7 +2588,7 @@ LABEL_25:
     v16 = 0;
     do
     {
-      if (v16 >= v30)
+      if (v16 >= v31)
       {
         sub_A6FDC(v7, v15);
         v14 = ofCopy[2];
@@ -2599,7 +2604,7 @@ LABEL_25:
   v17 = ofCopy[3];
   while (v14 < v17)
   {
-    if (v16 >= v30)
+    if (v16 >= v31)
     {
       sub_A6FDC(v7, v14);
       v17 = ofCopy[3];
@@ -2622,7 +2627,7 @@ LABEL_25:
     v20 = 0;
     do
     {
-      if (v20 >= v29)
+      if (v20 >= v30)
       {
         sub_A6FDC(v7, v19);
         v18 = tailOfCopy[2];
@@ -2639,7 +2644,7 @@ LABEL_25:
   v21 = tailOfCopy[4];
   while (v22 < v21)
   {
-    if (v20 >= v29)
+    if (v20 >= v30)
     {
       sub_A6FDC(v7, v22);
       v21 = tailOfCopy[4];
@@ -2650,30 +2655,31 @@ LABEL_25:
   }
 
   [v7 appendString:@""]);
-  v28 = 0;
-  v23 = [BCCFI cfiWithString:v7 error:&v28];
-  v24 = v28;
+  v29 = 0;
+  v23 = [BCCFI cfiWithString:v7 error:&v29];
+  v24 = v29;
+  v25 = v24;
   if (v24)
   {
-    v25 = BCReadingStatisticsLog();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    v26 = BCReadingStatisticsLog(v24);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v32 = v24;
-      _os_log_impl(&dword_0, v25, OS_LOG_TYPE_DEFAULT, "Failed to create CFI. %@", buf, 0xCu);
+      v33 = v25;
+      _os_log_impl(&dword_0, v26, OS_LOG_TYPE_DEFAULT, "Failed to create CFI. %@", buf, 0xCu);
     }
   }
 
   if (!v23)
   {
-    v26 = BCReadingStatisticsLog();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+    v27 = BCReadingStatisticsLog(v24);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v32 = ofCopy;
-      v33 = 2112;
-      v34 = tailOfCopy;
-      _os_log_impl(&dword_0, v26, OS_LOG_TYPE_DEFAULT, "Failed to create CFI from %@ to %@", buf, 0x16u);
+      v33 = ofCopy;
+      v34 = 2112;
+      v35 = tailOfCopy;
+      _os_log_impl(&dword_0, v27, OS_LOG_TYPE_DEFAULT, "Failed to create CFI from %@ to %@", buf, 0x16u);
     }
   }
 
@@ -2684,15 +2690,15 @@ LABEL_25:
 {
   ofCopy = of;
   headOfCopy = headOf;
-  v29 = 0;
   v30 = 0;
+  v31 = 0;
   v7 = 0;
-  if (sub_A4734(ofCopy, headOfCopy, 0, 1, &v30, &v29) != 1)
+  if (sub_A4734(ofCopy, headOfCopy, 0, 1, &v31, &v30) != 1)
   {
     v8 = +[NSMutableString stringWithString:](NSMutableString, "stringWithString:", @"epubcfi(");
     v9 = ofCopy[1];
     v10 = 0;
-    if (v9 < ofCopy[2] && v30 != 0)
+    if (v9 < ofCopy[2] && v31 != 0)
     {
       do
       {
@@ -2701,14 +2707,14 @@ LABEL_25:
         v9 += 32;
       }
 
-      while (v9 < ofCopy[2] && v10 < v30);
+      while (v9 < ofCopy[2] && v10 < v31);
     }
 
     v14 = ofCopy[3];
     v13 = ofCopy[4];
     while (v14 < v13)
     {
-      if (v10 < v30)
+      if (v10 < v31)
       {
         sub_A6FDC(v8, v14);
         v13 = ofCopy[4];
@@ -2731,7 +2737,7 @@ LABEL_25:
       v17 = 0;
       do
       {
-        if (v17 >= v30)
+        if (v17 >= v31)
         {
           sub_A6FDC(v8, v16);
           v15 = ofCopy[2];
@@ -2748,7 +2754,7 @@ LABEL_25:
     v18 = ofCopy[4];
     while (v19 < v18)
     {
-      if (v17 >= v30)
+      if (v17 >= v31)
       {
         sub_A6FDC(v8, v19);
         v18 = ofCopy[4];
@@ -2771,7 +2777,7 @@ LABEL_25:
       v22 = 0;
       do
       {
-        if (v22 >= v29)
+        if (v22 >= v30)
         {
           sub_A6FDC(v8, v21);
           v20 = headOfCopy[2];
@@ -2787,7 +2793,7 @@ LABEL_25:
     v23 = headOfCopy[3];
     while (v20 < v23)
     {
-      if (v22 >= v29)
+      if (v22 >= v30)
       {
         sub_A6FDC(v8, v20);
         v23 = headOfCopy[3];
@@ -2798,30 +2804,31 @@ LABEL_25:
     }
 
     [v8 appendString:@""]);
-    v28 = 0;
-    v7 = [BCCFI cfiWithString:v8 error:&v28];
-    v24 = v28;
+    v29 = 0;
+    v7 = [BCCFI cfiWithString:v8 error:&v29];
+    v24 = v29;
+    v25 = v24;
     if (v24)
     {
-      v25 = BCReadingStatisticsLog();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+      v26 = BCReadingStatisticsLog(v24);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v32 = v24;
-        _os_log_impl(&dword_0, v25, OS_LOG_TYPE_DEFAULT, "Failed to create CFI. %@", buf, 0xCu);
+        v33 = v25;
+        _os_log_impl(&dword_0, v26, OS_LOG_TYPE_DEFAULT, "Failed to create CFI. %@", buf, 0xCu);
       }
     }
 
     if (!v7)
     {
-      v26 = BCReadingStatisticsLog();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+      v27 = BCReadingStatisticsLog(v24);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v32 = ofCopy;
-        v33 = 2112;
-        v34 = headOfCopy;
-        _os_log_impl(&dword_0, v26, OS_LOG_TYPE_DEFAULT, "Failed to create CFI from %@ to %@", buf, 0x16u);
+        v33 = ofCopy;
+        v34 = 2112;
+        v35 = headOfCopy;
+        _os_log_impl(&dword_0, v27, OS_LOG_TYPE_DEFAULT, "Failed to create CFI from %@ to %@", buf, 0x16u);
       }
     }
   }

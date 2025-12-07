@@ -43,19 +43,19 @@
 
 + (id)createRouteArrayFromTunnelConfig:(void *)config localTS:(void *)s remoteTS:(void *)tS gatewayAddress:(int)address isIPv4:
 {
-  v77 = *MEMORY[0x1E69E9840];
+  v76 = *MEMORY[0x1E69E9840];
   v9 = a2;
   configCopy = config;
   sCopy = s;
   tSCopy = tS;
   objc_opt_self();
-  v63 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v62 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v70 = 0u;
   v71 = 0u;
   v72 = 0u;
   v73 = 0u;
-  v74 = 0u;
   obj = v9;
-  v10 = [obj countByEnumeratingWithState:&v71 objects:v76 count:16];
+  v10 = [obj countByEnumeratingWithState:&v70 objects:v75 count:16];
   if (!v10)
   {
     v12 = 0;
@@ -64,17 +64,17 @@
 
   v11 = v10;
   v12 = 0;
-  v13 = *v72;
+  v13 = *v71;
   do
   {
     for (i = 0; i != v11; ++i)
     {
-      if (*v72 != v13)
+      if (*v71 != v13)
       {
         objc_enumerationMutation(obj);
       }
 
-      v15 = *(*(&v71 + 1) + 8 * i);
+      v15 = *(*(&v70 + 1) + 8 * i);
       if (address)
       {
         objc_opt_class();
@@ -107,11 +107,11 @@
       }
 
       [(NEIPv4Route *)v21 setGatewayAddress:tSCopy];
-      [v63 addObject:v21];
+      [v62 addObject:v21];
       ++v12;
     }
 
-    v11 = [obj countByEnumeratingWithState:&v71 objects:v76 count:16];
+    v11 = [obj countByEnumeratingWithState:&v70 objects:v75 count:16];
   }
 
   while (v11);
@@ -139,31 +139,31 @@ LABEL_16:
     v25 = @"ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff";
   }
 
-  v58 = v24;
-  v57 = v25;
+  v57 = v24;
+  v56 = v25;
+  v66 = 0u;
   v67 = 0u;
   v68 = 0u;
   v69 = 0u;
-  v70 = 0u;
   v26 = sCopy;
-  v27 = [v26 countByEnumeratingWithState:&v67 objects:v75 count:16];
+  v27 = [v26 countByEnumeratingWithState:&v66 objects:v74 count:16];
   if (v27)
   {
     v28 = v27;
-    v60 = 0;
-    v62 = 0;
-    v29 = *v68;
-    v59 = *v68;
+    v59 = 0;
+    v61 = 0;
+    v29 = *v67;
+    v58 = *v67;
 LABEL_24:
     v30 = 0;
     while (1)
     {
-      if (*v68 != v29)
+      if (*v67 != v29)
       {
         objc_enumerationMutation(v26);
       }
 
-      v31 = *(*(&v67 + 1) + 8 * v30);
+      v31 = *(*(&v66 + 1) + 8 * v30);
       if ([(NEIKEv2TrafficSelector *)v31 type]!= v23)
       {
         goto LABEL_48;
@@ -187,7 +187,7 @@ LABEL_24:
           hostname6 = [endAddress2 hostname];
 
           v26 = v35;
-          if (hostname5 && hostname6 && ([(__CFString *)hostname5 isEqualToString:v58]&& [(__CFString *)hostname6 isEqualToString:v57]|| [(__CFString *)hostname5 isEqualToString:v58, configCopy]&& [(__CFString *)hostname6 isEqualToString:v58]))
+          if (hostname5 && hostname6 && (objc_msgSend_isEqualToString_(hostname5) && objc_msgSend_isEqualToString_(hostname6) || objc_msgSend_isEqualToString_(hostname5, configCopy) && objc_msgSend_isEqualToString_(hostname6)))
           {
             if (!v12)
             {
@@ -198,10 +198,10 @@ LABEL_24:
               }
 
               defaultRoute = [(__objc2_class *)*v52 defaultRoute];
-              [v63 addObject:defaultRoute];
+              [v62 addObject:defaultRoute];
 
-              v49 = v63;
-              v51 = v63;
+              v49 = v62;
+              v51 = v62;
 
               goto LABEL_59;
             }
@@ -221,7 +221,7 @@ LABEL_24:
 
                 v26 = v35;
                 [(NEIPv6Route *)v45 setGatewayAddress:tSCopy];
-                [v63 addObject:v45];
+                [v62 addObject:v45];
                 goto LABEL_47;
               }
 
@@ -231,21 +231,21 @@ LABEL_24:
                 v45 = v44;
                 v46 = [[NEIPv4Route alloc] initWithDestinationAddress:hostname5 subnetMask:v44];
                 [(NEIPv4Route *)v46 setGatewayAddress:tSCopy];
-                [v63 addObject:v46];
+                [v62 addObject:v46];
 
 LABEL_47:
-                v29 = v59;
+                v29 = v58;
 
                 ++v12;
-                v60 = hostname5;
-                v62 = hostname6;
+                v59 = hostname5;
+                v61 = hostname6;
                 goto LABEL_48;
               }
             }
           }
 
-          v60 = hostname5;
-          v62 = hostname6;
+          v59 = hostname5;
+          v61 = hostname6;
         }
 
         else
@@ -253,7 +253,7 @@ LABEL_47:
           v26 = v35;
         }
 
-        v29 = v59;
+        v29 = v58;
       }
 
       else
@@ -263,7 +263,7 @@ LABEL_47:
 LABEL_48:
       if (v28 == ++v30)
       {
-        v28 = [v26 countByEnumeratingWithState:&v67 objects:v75 count:16];
+        v28 = [v26 countByEnumeratingWithState:&v66 objects:v74 count:16];
         if (v28)
         {
           goto LABEL_24;
@@ -274,14 +274,14 @@ LABEL_48:
     }
   }
 
-  v60 = 0;
-  v62 = 0;
+  v59 = 0;
+  v61 = 0;
 LABEL_52:
 
-  v49 = v63;
+  v49 = v62;
   if (v12)
   {
-    v50 = v63;
+    v50 = v62;
   }
 
   else
@@ -290,18 +290,16 @@ LABEL_52:
   }
 
   v51 = v50;
-  hostname5 = v60;
-  hostname6 = v62;
+  hostname5 = v59;
+  hostname6 = v61;
 LABEL_59:
-
-  v54 = *MEMORY[0x1E69E9840];
 
   return v51;
 }
 
 + (uint64_t)copyAdditionalKEMProtocolsForSAParameters:(uint64_t)parameters
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v2 = a2;
   objc_opt_self();
   postQuantumKeyExchangeMethods = [v2 postQuantumKeyExchangeMethods];
@@ -309,33 +307,33 @@ LABEL_59:
   if (v4)
   {
     v5 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:v4];
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
-    v19 = postQuantumKeyExchangeMethods;
+    v18 = postQuantumKeyExchangeMethods;
     v6 = postQuantumKeyExchangeMethods;
-    v7 = [v6 countByEnumeratingWithState:&v20 objects:v25 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v19 objects:v24 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v21;
+      v9 = *v20;
       v10 = 6;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v21 != v9)
+          if (*v20 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          intValue = [*(*(&v20 + 1) + 8 * i) intValue];
+          intValue = [*(*(&v19 + 1) + 8 * i) intValue];
           if (intValue)
           {
             v13 = [[NEIKEv2KEMProtocol alloc] initWithMethod:intValue];
-            v24 = v13;
-            v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v24 count:1];
+            v23 = v13;
+            v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v23 count:1];
             v15 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v10];
             [v5 setObject:v14 forKeyedSubscript:v15];
           }
@@ -343,7 +341,7 @@ LABEL_59:
           ++v10;
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v20 objects:v25 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v19 objects:v24 count:16];
       }
 
       while (v8);
@@ -359,7 +357,7 @@ LABEL_59:
       v16 = 0;
     }
 
-    postQuantumKeyExchangeMethods = v19;
+    postQuantumKeyExchangeMethods = v18;
   }
 
   else
@@ -367,13 +365,12 @@ LABEL_59:
     v16 = 0;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
 + (NEIKEv2IKESAProposal)createIKESAProposalFromProtocol:(void *)protocol saParameters:(void *)parameters options:(unsigned int *)options nonceSize:
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   v8 = a2;
   protocolCopy = protocol;
   parametersCopy = parameters;
@@ -384,7 +381,7 @@ LABEL_59:
     -[NEIKEv2IKESAProposal setLifetimeSeconds:](v10, "setLifetimeSeconds:", (60 * [protocolCopy lifetimeMinutes]));
     encryptionAlgorithm = [protocolCopy encryptionAlgorithm];
     v12 = [NEIKEv2EncryptionProtocol alloc];
-    v43 = v8;
+    v42 = v8;
     if (encryptionAlgorithm > 3)
     {
       if (encryptionAlgorithm > 5)
@@ -430,8 +427,8 @@ LABEL_20:
         v17 = v15;
         v18 = 1;
 LABEL_21:
-        v49 = v17;
-        v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v49 count:{1, v43}];
+        v48 = v17;
+        v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v48 count:{1, v42}];
         [(NEIKEv2IKESAProposal *)v10 setEncryptionProtocols:v19];
 
         integrityAlgorithm = [protocolCopy integrityAlgorithm];
@@ -462,15 +459,15 @@ LABEL_37:
             v23 = 0;
 LABEL_38:
             v24 = [[NEIKEv2PRFProtocol alloc] initWithType:v21];
-            v48 = v24;
-            v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v48 count:1];
+            v47 = v24;
+            v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v47 count:1];
             [(NEIKEv2IKESAProposal *)v10 setPrfProtocols:v25];
 
             nonceSize = [(NEIKEv2PRFProtocol *)v24 nonceSize];
             if (v18)
             {
-              v47 = v23;
-              v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v47 count:1];
+              v46 = v23;
+              v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v46 count:1];
               [(NEIKEv2IKESAProposal *)v10 setIntegrityProtocols:v27];
             }
 
@@ -480,16 +477,16 @@ LABEL_38:
             }
 
             v28 = -[NEIKEv2KEMProtocol initWithMethod:]([NEIKEv2KEMProtocol alloc], "initWithMethod:", [protocolCopy diffieHellmanGroup]);
-            v46 = v28;
-            v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v46 count:1];
+            v45 = v28;
+            v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v45 count:1];
             [(NEIKEv2IKESAProposal *)v10 setKemProtocols:v29];
 
             v30 = [NEIKEv2Helper copyAdditionalKEMProtocolsForSAParameters:protocolCopy];
             [(NEIKEv2IKESAProposal *)v10 setAdditionalKEMProtocols:v30];
 
             v31 = objc_alloc_init(MEMORY[0x1E695DF70]);
-            v8 = v44;
-            if ([v44 useExtendedAuthentication])
+            v8 = v43;
+            if ([v43 useExtendedAuthentication])
             {
               v32 = [parametersCopy objectForKeyedSubscript:@"AccountName"];
               if (v32)
@@ -499,13 +496,13 @@ LABEL_38:
 
               else
               {
-                [v44 username];
+                [v43 username];
               }
               v33 = ;
 
               if (v33)
               {
-                identityReferenceInternal = [v44 identityReferenceInternal];
+                identityReferenceInternal = [v43 identityReferenceInternal];
 
                 if (identityReferenceInternal)
                 {
@@ -517,7 +514,7 @@ LABEL_38:
                 [v31 addObject:v36];
               }
 
-              identityReferenceInternal2 = [v44 identityReferenceInternal];
+              identityReferenceInternal2 = [v43 identityReferenceInternal];
 
               if (identityReferenceInternal2)
               {
@@ -527,11 +524,11 @@ LABEL_38:
 
               if (![v31 count])
               {
-                v42 = ne_log_obj();
-                if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+                v41 = ne_log_obj();
+                if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 0;
-                  _os_log_error_impl(&dword_1BA83C000, v42, OS_LOG_TYPE_ERROR, "missing eap protocol", buf, 2u);
+                  _os_log_error_impl(&dword_1BA83C000, v41, OS_LOG_TYPE_ERROR, "missing eap protocol", buf, 2u);
                 }
 
                 v39 = 0;
@@ -604,21 +601,19 @@ LABEL_13:
   if (os_log_type_enabled(&v10->super, OS_LOG_TYPE_FAULT))
   {
     *buf = 136315138;
-    v51 = "+[NEIKEv2Helper createIKESAProposalFromProtocol:saParameters:options:nonceSize:]";
+    v50 = "+[NEIKEv2Helper createIKESAProposalFromProtocol:saParameters:options:nonceSize:]";
     _os_log_fault_impl(&dword_1BA83C000, &v10->super, OS_LOG_TYPE_FAULT, "%s called with null saParameters", buf, 0xCu);
   }
 
   v39 = 0;
 LABEL_57:
 
-  v40 = *MEMORY[0x1E69E9840];
-
   return v39;
 }
 
 + (NEIKEv2ChildSAProposal)createIKEv2ChildSAProposalFromProtocol:(void *)protocol saParameters:
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v4 = a2;
   protocolCopy = protocol;
   objc_opt_self();
@@ -647,8 +642,8 @@ LABEL_17:
           p_super = &v12->super;
           v14 = 1;
 LABEL_20:
-          v28 = p_super;
-          v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v28 count:1];
+          v27 = p_super;
+          v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v27 count:1];
           [(NEIKEv2ChildSAProposal *)v6 setEncryptionProtocols:v15];
 
           if (v14)
@@ -666,16 +661,16 @@ LABEL_20:
             }
 
             v19 = [(NEIKEv2IntegrityProtocol *)v17 initWithType:v18];
-            v27 = v19;
-            v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v27 count:1];
+            v26 = v19;
+            v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v26 count:1];
             [(NEIKEv2ChildSAProposal *)v6 setIntegrityProtocols:v20];
           }
 
           if ([v4 enablePFS])
           {
             v21 = -[NEIKEv2KEMProtocol initWithMethod:]([NEIKEv2KEMProtocol alloc], "initWithMethod:", [protocolCopy diffieHellmanGroup]);
-            v26 = v21;
-            v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v26 count:1];
+            v25 = v21;
+            v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v25 count:1];
             [(NEIKEv2ChildSAProposal *)v6 setKemProtocols:v22];
 
             v23 = [NEIKEv2Helper copyAdditionalKEMProtocolsForSAParameters:protocolCopy];
@@ -717,14 +712,12 @@ LABEL_13:
   if (os_log_type_enabled(p_super, OS_LOG_TYPE_FAULT))
   {
     *buf = 136315138;
-    v30 = "+[NEIKEv2Helper createIKEv2ChildSAProposalFromProtocol:saParameters:]";
+    v29 = "+[NEIKEv2Helper createIKEv2ChildSAProposalFromProtocol:saParameters:]";
     _os_log_fault_impl(&dword_1BA83C000, p_super, OS_LOG_TYPE_FAULT, "%s called with null saParameters", buf, 0xCu);
   }
 
   v6 = 0;
 LABEL_27:
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

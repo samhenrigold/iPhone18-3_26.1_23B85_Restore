@@ -47,7 +47,7 @@
   v5 = optionsCopy;
   if (optionsCopy)
   {
-    [optionsCopy ear_toString];
+    objc_msgSend_ear_toString(optionsCopy);
   }
 
   else
@@ -74,7 +74,7 @@
   v5 = utteranceCopy;
   if (utteranceCopy)
   {
-    [utteranceCopy ear_toString];
+    objc_msgSend_ear_toString(utteranceCopy);
   }
 
   else

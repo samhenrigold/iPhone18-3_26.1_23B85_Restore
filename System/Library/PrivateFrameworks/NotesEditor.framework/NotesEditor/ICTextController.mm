@@ -149,39 +149,39 @@ void __126__ICTextController_ICChecklistSortAnimation__setFinalFramesForSortedIn
   }
 }
 
-void __127__ICTextController_ICChecklistSortAnimation__imageInfoForTrackedParagraph_textView_characterRangeToRender_visibleRectToRender___block_invoke(uint64_t a1)
+void __127__ICTextController_ICChecklistSortAnimation__imageInfoForTrackedParagraph_textView_characterRangeToRender_visibleRectToRender___block_invoke(uint64_t a1, uint64_t a2)
 {
   if ((ICInternalSettingsIsTextKit2Enabled() & 1) == 0)
   {
-    v2 = [*(a1 + 32) icLayoutManager];
-    [v2 setShouldManuallyRenderSeparateSubviews:1];
-
     v3 = [*(a1 + 32) icLayoutManager];
-    [v3 setIsDraggingChecklistItem:1];
+    [v3 setShouldManuallyRenderSeparateSubviews:1];
 
     v4 = [*(a1 + 32) icLayoutManager];
-    v5 = [*(a1 + 40) characterRange];
-    [v4 updateSubviewsForCharacterRange:{v5, v6}];
+    [v4 setIsDraggingChecklistItem:1];
+
+    v5 = [*(a1 + 32) icLayoutManager];
+    v6 = [*(a1 + 40) characterRange];
+    [v5 updateSubviewsForCharacterRange:{v6, v7}];
   }
 
   [*(a1 + 32) ic_rectForRange:{*(a1 + 64), *(a1 + 72)}];
-  v7 = *(*(a1 + 48) + 8);
-  v7[4] = v8;
-  v7[5] = v9;
-  v7[6] = v10;
-  v7[7] = v11;
-  v12 = [*(a1 + 32) ic_imageForRange:{*(a1 + 64), *(a1 + 72)}];
-  v13 = *(*(a1 + 56) + 8);
-  v14 = *(v13 + 40);
-  *(v13 + 40) = v12;
+  v8 = *(*(a1 + 48) + 8);
+  v8[4] = v9;
+  v8[5] = v10;
+  v8[6] = v11;
+  v8[7] = v12;
+  v13 = [*(a1 + 32) ic_imageForRange:{*(a1 + 64), *(a1 + 72)}];
+  v14 = *(*(a1 + 56) + 8);
+  v15 = *(v14 + 40);
+  *(v14 + 40) = v13;
 
   if ((ICInternalSettingsIsTextKit2Enabled() & 1) == 0)
   {
-    v15 = [*(a1 + 32) icLayoutManager];
-    [v15 setShouldManuallyRenderSeparateSubviews:0];
-
     v16 = [*(a1 + 32) icLayoutManager];
-    [v16 setIsDraggingChecklistItem:0];
+    [v16 setShouldManuallyRenderSeparateSubviews:0];
+
+    v17 = [*(a1 + 32) icLayoutManager];
+    [v17 setIsDraggingChecklistItem:0];
   }
 }
 
@@ -373,12 +373,12 @@ LABEL_8:
 LABEL_9:
 }
 
-void __105__ICTextController_Checklist__autoSortChecklistIfNecessaryForTrackedParagraph_textView_analyticsHandler___block_invoke(uint64_t a1)
+void __105__ICTextController_Checklist__autoSortChecklistIfNecessaryForTrackedParagraph_textView_analyticsHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
   if ([objc_opt_class() checklistAutoSortEnabled])
   {
-    v2 = *(a1 + 40);
-    v3 = *(a1 + 48);
+    v3 = *(a1 + 40);
+    v4 = *(a1 + 48);
     dispatchMainAfterDelay();
   }
 }
@@ -393,34 +393,34 @@ uint64_t __105__ICTextController_Checklist__autoSortChecklistIfNecessaryForTrack
   return [v3 moveCheckedChecklistsToBottomInTextView:v4 forRange:v6 animated:{v5, !IsVoiceOverRunning}];
 }
 
-uint64_t __112__ICTextController_Checklist__showFirstTimeAutoSortEnabledAlertWithTextView_completionHandler_analyticsHandler___block_invoke(uint64_t a1)
+uint64_t __112__ICTextController_Checklist__showFirstTimeAutoSortEnabledAlertWithTextView_completionHandler_analyticsHandler___block_invoke(void *a1, uint64_t a2)
 {
   [objc_opt_class() setChecklistAutoAlertShown:1];
   [objc_opt_class() setChecklistAutoSortEnabled:0];
-  v2 = *(a1 + 40);
-  if (v2)
+  v3 = a1[5];
+  if (v3)
   {
-    (*(v2 + 16))(v2, 0);
+    (*(v3 + 16))(v3, 0);
   }
 
-  v3 = *(*(a1 + 48) + 16);
+  v4 = *(a1[6] + 16);
 
-  return v3();
+  return v4();
 }
 
-uint64_t __112__ICTextController_Checklist__showFirstTimeAutoSortEnabledAlertWithTextView_completionHandler_analyticsHandler___block_invoke_2(uint64_t a1)
+uint64_t __112__ICTextController_Checklist__showFirstTimeAutoSortEnabledAlertWithTextView_completionHandler_analyticsHandler___block_invoke_2(void *a1, uint64_t a2)
 {
   [objc_opt_class() setChecklistAutoAlertShown:1];
   [objc_opt_class() setChecklistAutoSortEnabled:1];
-  v2 = *(a1 + 40);
-  if (v2)
+  v3 = a1[5];
+  if (v3)
   {
-    (*(v2 + 16))(v2, 1);
+    (*(v3 + 16))(v3, 1);
   }
 
-  v3 = *(*(a1 + 48) + 16);
+  v4 = *(a1[6] + 16);
 
-  return v3();
+  return v4();
 }
 
 uint64_t __73__ICTextController_Checklist__analyticsInfoForChecklistAtIndex_textView___block_invoke(uint64_t a1, void *a2)

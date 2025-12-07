@@ -420,11 +420,10 @@ LABEL_67:
 
 - (void)dealloc
 {
-  gtLogger = self->_gtLogger;
   ct_green_tea_logger_destroy();
-  v4.receiver = self;
-  v4.super_class = ABSLasordaSession;
-  [(ABSLasordaSession *)&v4 dealloc];
+  v3.receiver = self;
+  v3.super_class = ABSLasordaSession;
+  [(ABSLasordaSession *)&v3 dealloc];
 }
 
 @end

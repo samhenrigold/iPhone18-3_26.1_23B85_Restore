@@ -1,10 +1,3 @@
-uint64_t sub_100278B2C()
-{
-  STACK[0x650] = v1 - 1072;
-  v4 = STACK[0x3B0];
-  return (*(v3 + 8 * ((109 * ((((v0 - 1715) ^ ((v2 ^ 0x63BFEBD7) + ((v0 ^ 0xC77FCD15) & (2 * v2)) == 1673522135)) & 1) == 0)) ^ v0)))();
-}
-
 uint64_t sub_100278B90()
 {
   STACK[0x660] += (((v1 ^ 0x82B) - 4618) | 0x1A50u) ^ 0x12E6;
@@ -1308,221 +1301,220 @@ uint64_t sub_100278CC0@<X0>(int a1@<W5>, __int16 a2@<W8>)
   LODWORD(STACK[0x384]) = v437;
   v438 = v392 ^ 0x19759623 ^ LODWORD(STACK[0x538]);
   v439 = v389 ^ 0x28B97193 ^ LODWORD(STACK[0x538]);
-  v440 = LODWORD(STACK[0x538]) ^ LODWORD(STACK[0x5C8]) ^ v394 ^ 0xCE6049EF;
   if (v432)
+  {
+    v440 = LODWORD(STACK[0x538]) ^ LODWORD(STACK[0x5C8]) ^ v394 ^ 0xCE6049EF;
+  }
+
+  else
+  {
+    v440 = v392 ^ 0x19759623 ^ LODWORD(STACK[0x538]);
+  }
+
+  if (v432)
+  {
+    v441 = LODWORD(STACK[0x538]) ^ LODWORD(STACK[0x5C8]) ^ 0x358480BE;
+  }
+
+  else
   {
     v441 = LODWORD(STACK[0x538]) ^ LODWORD(STACK[0x5C8]) ^ v394 ^ 0xCE6049EF;
   }
 
-  else
+  if (v432)
   {
-    v441 = v392 ^ 0x19759623 ^ LODWORD(STACK[0x538]);
+    v442 = v439;
   }
 
-  if (v432)
+  else
   {
     v442 = LODWORD(STACK[0x538]) ^ LODWORD(STACK[0x5C8]) ^ 0x358480BE;
   }
 
-  else
+  LODWORD(STACK[0x368]) = v442;
+  if (v432)
   {
-    v442 = LODWORD(STACK[0x538]) ^ LODWORD(STACK[0x5C8]) ^ v394 ^ 0xCE6049EF;
+    v443 = v438;
   }
 
-  if (v432)
+  else
   {
     v443 = v439;
   }
 
-  else
-  {
-    v443 = LODWORD(STACK[0x538]) ^ LODWORD(STACK[0x5C8]) ^ 0x358480BE;
-  }
-
-  LODWORD(STACK[0x368]) = v443;
-  if (v432)
-  {
-    v444 = v438;
-  }
-
-  else
-  {
-    v444 = v439;
-  }
-
-  v445 = v393 ^ 0xF8FC9A59;
-  v446 = LODWORD(STACK[0x594]) ^ 0xCDC9CFE3;
-  v447 = LODWORD(STACK[0x46C]) ^ v402 ^ 0x9C9B0864;
-  v448 = LODWORD(STACK[0x46C]) ^ v403 ^ 0x79367EEE;
-  v449 = LODWORD(STACK[0x46C]) ^ v400 ^ 0x9348003B;
-  LODWORD(STACK[0x334]) = v449;
-  v450 = v427 ^ v404 ^ 0xB950A3B4;
-  v451 = LODWORD(STACK[0x5B4]) ^ 0x20C4600A;
-  v452 = STACK[0x564];
-  v453 = LODWORD(STACK[0x564]) ^ v402;
-  v454 = LODWORD(STACK[0x5E0]) ^ 0x133C8F38;
-  LODWORD(STACK[0x418]) = v454;
-  v455 = v453 ^ LODWORD(STACK[0x4C8]) ^ v454;
-  v456 = LODWORD(STACK[0x4E0]) ^ v453 ^ 0xA7099ECA;
-  v457 = v399 ^ 0x5908C033;
-  v458 = v399 ^ 0xC55968A8;
-  v459 = v455 ^ v451;
-  v460 = v455 ^ v458;
-  v461 = LODWORD(STACK[0x4F4]) ^ v452 ^ 0xB3B17051;
-  v462 = LODWORD(STACK[0x5B8]) ^ 0xD3D2C938;
+  v444 = v393 ^ 0xF8FC9A59;
+  v445 = LODWORD(STACK[0x594]) ^ 0xCDC9CFE3;
+  v446 = LODWORD(STACK[0x46C]) ^ v402 ^ 0x9C9B0864;
+  v447 = LODWORD(STACK[0x46C]) ^ v403 ^ 0x79367EEE;
+  v448 = LODWORD(STACK[0x46C]) ^ v400 ^ 0x9348003B;
+  LODWORD(STACK[0x334]) = v448;
+  v449 = v427 ^ v404 ^ 0xB950A3B4;
+  v450 = LODWORD(STACK[0x5B4]) ^ 0x20C4600A;
+  v451 = STACK[0x564];
+  v452 = LODWORD(STACK[0x564]) ^ v402;
+  v453 = LODWORD(STACK[0x5E0]) ^ 0x133C8F38;
+  LODWORD(STACK[0x418]) = v453;
+  v454 = v452 ^ LODWORD(STACK[0x4C8]) ^ v453;
+  v455 = LODWORD(STACK[0x4E0]) ^ v452 ^ 0xA7099ECA;
+  v456 = v399 ^ 0x5908C033;
+  v457 = v399 ^ 0xC55968A8;
+  v458 = v454 ^ v450;
+  v459 = v454 ^ v457;
+  v460 = LODWORD(STACK[0x4F4]) ^ v451 ^ 0xB3B17051;
+  v461 = LODWORD(STACK[0x5B8]) ^ 0xD3D2C938;
   LODWORD(STACK[0x338]) = v432;
-  v463 = v432 ^ 0x1EF594F7;
-  v464 = LODWORD(STACK[0x568]) ^ v445;
-  v465 = LODWORD(STACK[0x568]) ^ v457;
+  v462 = v432 ^ 0x1EF594F7;
+  v463 = LODWORD(STACK[0x568]) ^ v444;
+  v464 = LODWORD(STACK[0x568]) ^ v456;
   if (v432)
   {
-    v466 = LODWORD(STACK[0x568]) ^ v446;
+    v465 = LODWORD(STACK[0x568]) ^ v445;
   }
 
   else
   {
-    v466 = LODWORD(STACK[0x568]) ^ v457;
+    v465 = LODWORD(STACK[0x568]) ^ v456;
   }
 
-  LODWORD(STACK[0x364]) = v466;
-  LODWORD(STACK[0x328]) = v464;
+  LODWORD(STACK[0x364]) = v465;
+  LODWORD(STACK[0x328]) = v463;
   if ((v432 & 1) == 0)
   {
-    v465 = v464;
+    v464 = v463;
   }
 
-  LODWORD(STACK[0x358]) = v465;
+  LODWORD(STACK[0x358]) = v464;
   if (v432)
   {
-    v467 = v447;
+    v466 = v446;
   }
 
   else
+  {
+    v466 = v447;
+  }
+
+  LODWORD(STACK[0x4E0]) = v466;
+  if (v432)
   {
     v467 = v448;
   }
 
-  LODWORD(STACK[0x4E0]) = v467;
-  if (v432)
+  else
   {
-    v468 = v449;
+    v467 = v446;
   }
 
-  else
+  LODWORD(STACK[0x460]) = v461;
+  if (v432)
   {
     v468 = v447;
   }
 
-  LODWORD(STACK[0x460]) = v462;
+  else
+  {
+    v468 = v449 ^ v461;
+  }
+
+  LODWORD(STACK[0x330]) = v455;
+  LODWORD(STACK[0x32C]) = v458;
   if (v432)
   {
-    v469 = v448;
+    v469 = v455;
   }
 
   else
   {
-    v469 = v450 ^ v462;
+    v469 = v458;
   }
 
-  LODWORD(STACK[0x330]) = v456;
-  LODWORD(STACK[0x32C]) = v459;
   if (v432)
-  {
-    v470 = v456;
-  }
-
-  else
   {
     v470 = v459;
   }
 
-  if (v432)
+  else
   {
-    v471 = v460;
+    v470 = v460;
+  }
+
+  LODWORD(STACK[0x5B4]) = v462;
+  if ((v462 & 2) != 0)
+  {
+    v471 = v467;
   }
 
   else
   {
-    v471 = v461;
+    v471 = v468;
   }
 
-  LODWORD(STACK[0x5B4]) = v463;
-  if ((v463 & 2) != 0)
+  LODWORD(STACK[0x3F8]) = v471;
+  if ((v462 & 2) != 0)
   {
-    v472 = v468;
+    v467 = v468;
   }
 
-  else
-  {
-    v472 = v469;
-  }
-
-  LODWORD(STACK[0x3F8]) = v472;
-  if ((v463 & 2) != 0)
-  {
-    v468 = v469;
-  }
-
-  LODWORD(STACK[0x3F0]) = v468;
+  LODWORD(STACK[0x3F0]) = v467;
   LODWORD(STACK[0x46C]) = v415;
   LODWORD(STACK[0x538]) = v419;
-  v473 = LODWORD(STACK[0x5A0]) + 382957339 + (v419 ^ (v415 + 1844568610));
-  v474 = LODWORD(STACK[0x600]) + LODWORD(STACK[0x534]) + LODWORD(STACK[0x52C]) + 2050208102;
+  v472 = LODWORD(STACK[0x5A0]) + 382957339 + (v419 ^ (v415 + 1844568610));
+  v473 = LODWORD(STACK[0x600]) + LODWORD(STACK[0x534]) + LODWORD(STACK[0x52C]) + 2050208102;
   STACK[0x6A8] = 0;
   LODWORD(STACK[0x564]) = v425;
-  v475 = v425 - LODWORD(STACK[0x5A4]) + 798007216;
+  v474 = v425 - LODWORD(STACK[0x5A4]) + 798007216;
   LODWORD(STACK[0x4C8]) = v421;
-  LODWORD(STACK[0x5C0]) = ((v475 + v421) >> 1) - 679276586;
-  LODWORD(STACK[0x5C8]) = (v473 >> 1) + 1333957019;
-  LODWORD(STACK[0x4F4]) = 2 * v474;
+  LODWORD(STACK[0x5C0]) = ((v474 + v421) >> 1) - 679276586;
+  LODWORD(STACK[0x5C8]) = (v472 >> 1) + 1333957019;
+  LODWORD(STACK[0x4F4]) = 2 * v473;
   LODWORD(STACK[0x610]) = (v431 + 1488453776) & 0xA747FFFB;
   STACK[0x608] = STACK[0x630] + 1056;
   LODWORD(STACK[0x594]) = LODWORD(STACK[0x488]) >> 3;
-  v476 = STACK[0x4EC];
-  if ((v463 & 2) == 0)
+  v475 = STACK[0x4EC];
+  if ((v462 & 2) == 0)
   {
-    v476 = v436;
+    v475 = v436;
   }
 
-  LODWORD(STACK[0x378]) = v476;
-  LODWORD(STACK[0x370]) = v441;
-  if ((v463 & 2) != 0)
+  LODWORD(STACK[0x378]) = v475;
+  LODWORD(STACK[0x370]) = v440;
+  if ((v462 & 2) != 0)
   {
-    v477 = v443;
+    v476 = v442;
   }
 
   else
+  {
+    v476 = v440;
+  }
+
+  LODWORD(STACK[0x38C]) = v476;
+  LODWORD(STACK[0x380]) = v441;
+  LODWORD(STACK[0x37C]) = v443;
+  if ((v462 & 2) != 0)
   {
     v477 = v441;
   }
 
-  LODWORD(STACK[0x38C]) = v477;
-  LODWORD(STACK[0x380]) = v442;
-  LODWORD(STACK[0x37C]) = v444;
-  if ((v463 & 2) != 0)
+  else
   {
-    v478 = v442;
+    v477 = v443;
+  }
+
+  LODWORD(STACK[0x3C8]) = v477;
+  LODWORD(STACK[0x350]) = v469;
+  LODWORD(STACK[0x34C]) = v470;
+  if ((v462 & 2) != 0)
+  {
+    v478 = v470;
   }
 
   else
   {
-    v478 = v444;
+    v478 = v469;
   }
 
-  LODWORD(STACK[0x3C8]) = v478;
-  LODWORD(STACK[0x350]) = v470;
-  LODWORD(STACK[0x34C]) = v471;
-  if ((v463 & 2) != 0)
-  {
-    v479 = v471;
-  }
-
-  else
-  {
-    v479 = v470;
-  }
-
-  LODWORD(STACK[0x408]) = v479;
+  LODWORD(STACK[0x408]) = v478;
   return (*(STACK[0x4F8] + 8 * ((14834 * (v335 == 10)) ^ v431)))(2241470664);
 }
 
@@ -2169,7 +2161,6 @@ uint64_t sub_10027CE24(uint64_t a1, int a2, int a3, int a4)
   LODWORD(STACK[0x504]) = v123 ^ 0x8F64971C;
   LODWORD(STACK[0x530]) = v126 + 1576327964;
   LODWORD(STACK[0x31C]) = v94 ^ 0xCDC7A868;
-  v136 = 14 * (LODWORD(STACK[0x610]) ^ 0x1BBEu);
   return (*(STACK[0x4F8] + 8 * SLODWORD(STACK[0x610])))(0, v94 ^ 0xAD009A90 ^ (441839008 << (14 * (LOBYTE(STACK[0x610]) ^ 0xBE) + 124)) & 0xAECBE9F0 ^ 0x143B0102);
 }
 
@@ -2194,21 +2185,20 @@ uint64_t sub_10027DBB0(uint64_t a1, int a2)
   LODWORD(STACK[0x4C8]) = v6;
   v9 = v8 ^ v6 ^ v7 ^ (4 * v6) & 0xAECBE9F0 ^ (4 * v7) & 0xAECBE9F0 ^ a2;
   LODWORD(STACK[0x30C]) = v9;
-  v10 = LODWORD(STACK[0x4F4]) ^ LODWORD(STACK[0x598]) ^ 0x151C5DBD;
   LODWORD(STACK[0x2FC]) = v9 ^ 0x367AD363;
   LODWORD(STACK[0x4BC]) = v9 ^ 0xCAF81C63;
   LODWORD(STACK[0x610]) = 4 * (v9 ^ 0xCAF81C63);
   LODWORD(STACK[0x4AC]) = LODWORD(STACK[0x5C8]) ^ LODWORD(STACK[0x5A8]) ^ LODWORD(STACK[0x304]) ^ LODWORD(STACK[0x54C]) ^ LODWORD(STACK[0x5C8]) ^ LODWORD(STACK[0x5A8]) ^ LODWORD(STACK[0x558]) ^ 0x4DD52F87 ^ LODWORD(STACK[0x4CC]) ^ (4 * (LODWORD(STACK[0x5C8]) ^ LODWORD(STACK[0x5A8]) ^ LODWORD(STACK[0x558]) ^ 0x4DD52F87 ^ LODWORD(STACK[0x5A8]))) & 0xAECBE9F0 ^ v2;
-  v11 = STACK[0x5DC];
+  v10 = STACK[0x5DC];
   if ((STACK[0x5F8] & 2) == 0)
   {
-    v11 = STACK[0x550];
+    v10 = STACK[0x550];
   }
 
-  LODWORD(STACK[0x4CC]) = v11;
-  v12 = v5 ^ LODWORD(STACK[0x2F0]) ^ LODWORD(STACK[0x2E8]);
-  LODWORD(STACK[0x5DC]) = v12;
-  LODWORD(STACK[0x518]) = v12 ^ 3;
+  LODWORD(STACK[0x4CC]) = v10;
+  v11 = v5 ^ LODWORD(STACK[0x2F0]) ^ LODWORD(STACK[0x2E8]);
+  LODWORD(STACK[0x5DC]) = v11;
+  LODWORD(STACK[0x518]) = v11 ^ 3;
   LODWORD(STACK[0x4C4]) = LODWORD(STACK[0x2E0]) + LODWORD(STACK[0x4C4]) - LODWORD(STACK[0x4C0]);
   LODWORD(STACK[0x4C0]) = LODWORD(STACK[0x4DC]) ^ 0xA152570E;
   return (*(STACK[0x4F8] + 8 * v3))(0);
@@ -2239,8 +2229,6 @@ uint64_t sub_10027DF9C(uint64_t a1, uint64_t a2, int a3, uint64_t a4, int a5, in
   v24 = (v23 ^ 0x57A2878C) & STACK[0x610];
   v25 = (v18 & 0xF72FCCE1 ^ 0xC8000 ^ (v23 ^ 0x64C4E336) & v19) << LODWORD(STACK[0x628]);
   v26 = (v17 ^ v24 ^ 8) >> LODWORD(STACK[0x618]);
-  LODWORD(STACK[0x638]);
-  LODWORD(STACK[0x600]);
   v27 = 4 * ((v12 ^ v16) ^ 0x16 ^ (((v14 & 0xFA | v15) ^ (LODWORD(STACK[0x5F8]) + 29)) >> LODWORD(STACK[0x620])));
   *(STACK[0x630] + v27) = v20 ^ (v25 - ((2 * v25) & 0xC23884FC) + 1629241982) ^ (v26 - ((2 * v26) & 0x2E74AE) - 2145961385) ^ 0x32273172;
   *(STACK[0x608] + v27) = v20 ^ 0xA7E693C ^ *(STACK[0x648] + 952);
@@ -2589,455 +2577,481 @@ uint64_t sub_10027E278(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a
   LODWORD(STACK[0x5B0]) = LODWORD(STACK[0x5B4]) + STACK[0x630] + v311;
   LODWORD(STACK[0x5B4]) = LODWORD(STACK[0x3D4]) + v312 + v311;
   v313 = v311 + v312;
-  v314 = STACK[0x4F4];
-  if (v313)
+  if ((v311 + v312))
   {
-    v315 = v305;
+    v314 = v305;
   }
 
   else
+  {
+    v314 = STACK[0x4F4];
+  }
+
+  if (v313)
   {
     v315 = STACK[0x4F4];
   }
 
-  if (v313)
+  else
   {
-    v316 = STACK[0x4F4];
+    v315 = v264;
   }
 
-  else
+  if (v313)
   {
     v316 = v264;
   }
 
-  if (v313)
+  else
   {
-    v317 = v264;
+    v316 = v262;
   }
 
-  else
+  if (v313)
   {
     v317 = v262;
   }
 
+  else
+  {
+    v317 = v305;
+  }
+
+  v318 = STACK[0x5A0];
   if (v313)
   {
-    v318 = v262;
+    v319 = v265;
   }
 
   else
   {
-    v318 = v305;
+    v319 = STACK[0x5A0];
   }
 
-  v319 = STACK[0x5A0];
+  v320 = STACK[0x4D4];
   if (v313)
-  {
-    v320 = v265;
-  }
-
-  else
-  {
-    v320 = STACK[0x5A0];
-  }
-
-  v321 = STACK[0x4D4];
-  if ((v313 & 1) == 0)
-  {
-    v319 = STACK[0x4D4];
-  }
-
-  v322 = STACK[0x534];
-  if (v313)
-  {
-    v323 = STACK[0x534];
-  }
-
-  else
   {
     v321 = STACK[0x534];
-    v323 = v265;
-  }
-
-  v324 = STACK[0x52C];
-  v325 = STACK[0x310];
-  if (v313)
-  {
-    v326 = STACK[0x52C];
   }
 
   else
   {
-    v326 = STACK[0x310];
-  }
-
-  v327 = STACK[0x510];
-  if (v313)
-  {
-    v328 = STACK[0x510];
-  }
-
-  else
-  {
-    v328 = STACK[0x52C];
-  }
-
-  v329 = STACK[0x508];
-  if (v313)
-  {
-    v330 = STACK[0x508];
-  }
-
-  else
-  {
-    v330 = STACK[0x510];
+    v318 = STACK[0x4D4];
+    v320 = STACK[0x534];
+    v321 = v265;
   }
 
   if (v313)
   {
-    v331 = STACK[0x310];
+    v322 = STACK[0x52C];
   }
 
   else
   {
-    v331 = STACK[0x508];
+    v322 = STACK[0x310];
   }
 
-  v332 = STACK[0x4EC];
-  v333 = STACK[0x4CC];
   if (v313)
   {
-    v334 = STACK[0x4EC];
+    v323 = STACK[0x510];
   }
 
   else
   {
-    v334 = STACK[0x4CC];
+    v323 = STACK[0x52C];
   }
 
-  LODWORD(STACK[0x438]) = v334;
-  v335 = STACK[0x4E8];
+  if (v313)
+  {
+    v324 = STACK[0x508];
+  }
+
+  else
+  {
+    v324 = STACK[0x510];
+  }
+
+  if (v313)
+  {
+    v325 = STACK[0x310];
+  }
+
+  else
+  {
+    v325 = STACK[0x508];
+  }
+
+  v326 = STACK[0x4EC];
+  v327 = STACK[0x4CC];
+  if (v313)
+  {
+    v328 = STACK[0x4EC];
+  }
+
+  else
+  {
+    v328 = STACK[0x4CC];
+  }
+
+  LODWORD(STACK[0x438]) = v328;
+  v329 = STACK[0x4E8];
   if ((v313 & 1) == 0)
   {
-    v333 = STACK[0x4E8];
+    v327 = STACK[0x4E8];
   }
 
-  LODWORD(STACK[0x430]) = v333;
-  v336 = STACK[0x4F0];
+  LODWORD(STACK[0x430]) = v327;
+  v330 = STACK[0x4F0];
   if ((v313 & 1) == 0)
   {
-    v335 = STACK[0x4F0];
+    v329 = STACK[0x4F0];
   }
 
-  LODWORD(STACK[0x410]) = v335;
+  LODWORD(STACK[0x410]) = v329;
   if ((v313 & 1) == 0)
   {
-    v336 = v332;
+    v330 = v326;
   }
 
-  LODWORD(STACK[0x420]) = v336;
-  v337 = STACK[0x4B0];
+  LODWORD(STACK[0x420]) = v330;
+  v331 = STACK[0x4B0];
   if (v313)
   {
-    v338 = v302;
+    v332 = v302;
   }
 
   else
   {
-    v338 = STACK[0x4B0];
+    v332 = STACK[0x4B0];
   }
 
-  LODWORD(STACK[0x418]) = v338;
-  v339 = STACK[0x4B8];
+  LODWORD(STACK[0x418]) = v332;
+  v333 = STACK[0x4B8];
   if ((v313 & 1) == 0)
   {
-    v337 = STACK[0x4B8];
+    v331 = STACK[0x4B8];
   }
 
-  LODWORD(STACK[0x428]) = v337;
+  LODWORD(STACK[0x428]) = v331;
   if ((v313 & 1) == 0)
   {
-    v339 = v301;
+    v333 = v301;
   }
 
-  LODWORD(STACK[0x400]) = v339;
+  LODWORD(STACK[0x400]) = v333;
   if (v313)
   {
-    v340 = v301;
+    v334 = v301;
   }
 
   else
   {
-    v340 = v302;
+    v334 = v302;
   }
 
-  LODWORD(STACK[0x408]) = v340;
-  v341 = STACK[0x514];
-  v342 = STACK[0x4DC];
+  LODWORD(STACK[0x408]) = v334;
+  v335 = STACK[0x514];
+  v336 = STACK[0x4DC];
   if (v313)
   {
-    v343 = STACK[0x4DC];
+    v337 = STACK[0x4DC];
   }
 
   else
   {
-    v343 = STACK[0x514];
+    v337 = STACK[0x514];
   }
 
-  LODWORD(STACK[0x5A0]) = v343;
-  v344 = STACK[0x5A4];
+  LODWORD(STACK[0x5A0]) = v337;
+  v338 = STACK[0x5A4];
   if (v313)
   {
-    v342 = STACK[0x5A4];
+    v336 = STACK[0x5A4];
   }
 
-  LODWORD(STACK[0x554]) = v342;
+  LODWORD(STACK[0x554]) = v336;
   if (v313)
   {
-    v344 = v309;
+    v338 = v309;
   }
 
-  LODWORD(STACK[0x564]) = v344;
+  LODWORD(STACK[0x564]) = v338;
   if (v313)
+  {
+    v339 = v335;
+  }
+
+  else
+  {
+    v339 = v309;
+  }
+
+  LODWORD(STACK[0x514]) = v339;
+  v340 = STACK[0x59C];
+  v341 = STACK[0x4D8];
+  if (v313)
+  {
+    v342 = STACK[0x4D8];
+  }
+
+  else
+  {
+    v342 = STACK[0x59C];
+  }
+
+  LODWORD(STACK[0x558]) = v342;
+  v343 = STACK[0x538];
+  if ((v313 & 1) == 0)
+  {
+    v340 = STACK[0x538];
+  }
+
+  LODWORD(STACK[0x59C]) = v340;
+  v344 = STACK[0x504];
+  if ((v313 & 1) == 0)
+  {
+    v343 = STACK[0x504];
+  }
+
+  LODWORD(STACK[0x548]) = v343;
+  if (v313)
+  {
+    v345 = v344;
+  }
+
+  else
   {
     v345 = v341;
   }
 
-  else
-  {
-    v345 = v309;
-  }
-
-  LODWORD(STACK[0x514]) = v345;
-  v346 = STACK[0x59C];
-  v347 = STACK[0x4D8];
+  LODWORD(STACK[0x560]) = v345;
+  v346 = STACK[0x4C4];
+  v347 = STACK[0x4C0];
   if (v313)
   {
-    v348 = STACK[0x4D8];
+    v348 = STACK[0x4C0];
   }
 
   else
   {
-    v348 = STACK[0x59C];
+    v348 = STACK[0x4C4];
   }
 
-  LODWORD(STACK[0x558]) = v348;
-  v349 = STACK[0x538];
+  LODWORD(STACK[0x520]) = v348;
+  v349 = STACK[0x4BC];
+  if (v313)
+  {
+    v347 = STACK[0x4BC];
+  }
+
+  LODWORD(STACK[0x538]) = v347;
+  v350 = STACK[0x378];
+  if (v313)
+  {
+    v349 = STACK[0x378];
+  }
+
+  LODWORD(STACK[0x504]) = v349;
   if ((v313 & 1) == 0)
   {
-    v346 = STACK[0x538];
+    v346 = v350;
   }
 
-  LODWORD(STACK[0x59C]) = v346;
-  v350 = STACK[0x504];
-  if ((v313 & 1) == 0)
-  {
-    v349 = STACK[0x504];
-  }
-
-  LODWORD(STACK[0x548]) = v349;
+  LODWORD(STACK[0x528]) = v346;
+  v351 = STACK[0x4E0];
+  v352 = STACK[0x524];
   if (v313)
   {
-    v351 = v350;
+    v353 = STACK[0x524];
   }
 
   else
   {
-    v351 = v347;
+    v353 = STACK[0x4E0];
   }
 
-  LODWORD(STACK[0x560]) = v351;
-  v352 = STACK[0x4C4];
-  v353 = STACK[0x4C0];
+  LODWORD(STACK[0x52C]) = v353;
+  v354 = STACK[0x55C];
   if (v313)
   {
-    v354 = STACK[0x4C0];
+    v355 = STACK[0x55C];
   }
 
   else
   {
-    v354 = STACK[0x4C4];
+    v355 = v352;
   }
 
-  LODWORD(STACK[0x520]) = v354;
-  v355 = STACK[0x4BC];
+  LODWORD(STACK[0x534]) = v355;
+  v356 = STACK[0x4C8];
   if (v313)
   {
-    v353 = STACK[0x4BC];
-  }
-
-  LODWORD(STACK[0x538]) = v353;
-  v356 = STACK[0x378];
-  if (v313)
-  {
-    v355 = STACK[0x378];
-  }
-
-  LODWORD(STACK[0x504]) = v355;
-  if ((v313 & 1) == 0)
-  {
-    v352 = v356;
-  }
-
-  LODWORD(STACK[0x528]) = v352;
-  v357 = STACK[0x4E0];
-  v358 = STACK[0x524];
-  if (v313)
-  {
-    v359 = STACK[0x524];
+    v357 = STACK[0x4C8];
   }
 
   else
   {
-    v359 = STACK[0x4E0];
+    v357 = v354;
   }
 
-  LODWORD(STACK[0x52C]) = v359;
-  v360 = STACK[0x55C];
+  LODWORD(STACK[0x510]) = v357;
   if (v313)
   {
-    v361 = STACK[0x55C];
+    v356 = v351;
+  }
+
+  LODWORD(STACK[0x55C]) = v356;
+  v358 = STACK[0x38C];
+  v359 = STACK[0x50C];
+  if (v313)
+  {
+    v360 = STACK[0x50C];
   }
 
   else
   {
-    v361 = v358;
+    v360 = STACK[0x38C];
   }
 
-  LODWORD(STACK[0x534]) = v361;
-  v362 = STACK[0x4C8];
+  LODWORD(STACK[0x51C]) = v360;
+  v361 = STACK[0x348];
   if (v313)
   {
-    v363 = STACK[0x4C8];
+    v359 = STACK[0x348];
+  }
+
+  LODWORD(STACK[0x530]) = v359;
+  v362 = STACK[0x34C];
+  if (v313)
+  {
+    v361 = STACK[0x34C];
+  }
+
+  LODWORD(STACK[0x50C]) = v361;
+  if (v313)
+  {
+    v363 = v358;
   }
 
   else
   {
-    v363 = v360;
+    v363 = v362;
   }
 
-  LODWORD(STACK[0x510]) = v363;
+  LODWORD(STACK[0x518]) = v363;
+  v364 = STACK[0x33C];
+  v365 = STACK[0x340];
   if (v313)
   {
-    v362 = v357;
-  }
-
-  LODWORD(STACK[0x55C]) = v362;
-  v364 = STACK[0x38C];
-  v365 = STACK[0x50C];
-  if (v313)
-  {
-    v366 = STACK[0x50C];
+    v366 = STACK[0x340];
   }
 
   else
   {
-    v366 = STACK[0x38C];
+    v366 = STACK[0x33C];
   }
 
-  LODWORD(STACK[0x51C]) = v366;
-  v367 = STACK[0x348];
+  LODWORD(STACK[0x524]) = v366;
+  v367 = STACK[0x344];
   if (v313)
   {
-    v365 = STACK[0x348];
-  }
-
-  LODWORD(STACK[0x530]) = v365;
-  v368 = STACK[0x34C];
-  if (v313)
-  {
-    v367 = STACK[0x34C];
-  }
-
-  LODWORD(STACK[0x50C]) = v367;
-  if (v313)
-  {
-    v369 = v364;
+    v368 = v364;
   }
 
   else
   {
-    v369 = v368;
+    v368 = STACK[0x344];
   }
 
-  LODWORD(STACK[0x518]) = v369;
-  v370 = STACK[0x33C];
-  v371 = STACK[0x340];
+  LODWORD(STACK[0x544]) = v368;
+  v369 = STACK[0x320];
   if (v313)
   {
-    v372 = STACK[0x340];
+    v370 = v367;
   }
 
   else
   {
-    v372 = STACK[0x33C];
+    v370 = STACK[0x320];
   }
 
-  LODWORD(STACK[0x524]) = v372;
-  v373 = STACK[0x344];
+  LODWORD(STACK[0x508]) = v370;
   if (v313)
   {
-    v374 = v370;
+    v371 = v369;
   }
 
   else
   {
-    v374 = STACK[0x344];
+    v371 = v365;
   }
 
-  LODWORD(STACK[0x544]) = v374;
-  v375 = STACK[0x320];
+  LODWORD(STACK[0x4E0]) = v371;
+  v372 = STACK[0x32C];
+  v373 = STACK[0x338];
   if (v313)
+  {
+    v374 = STACK[0x338];
+  }
+
+  else
+  {
+    v374 = STACK[0x32C];
+  }
+
+  LODWORD(STACK[0x4E8]) = v374;
+  v375 = STACK[0x31C];
+  if (v313)
+  {
+    v376 = STACK[0x31C];
+  }
+
+  else
   {
     v376 = v373;
   }
 
-  else
-  {
-    v376 = STACK[0x320];
-  }
-
-  LODWORD(STACK[0x508]) = v376;
+  LODWORD(STACK[0x4F4]) = v376;
+  v377 = STACK[0x350];
   if (v313)
   {
-    v377 = v375;
+    v378 = STACK[0x350];
   }
 
   else
   {
-    v377 = v371;
+    v378 = v375;
   }
 
-  LODWORD(STACK[0x4E0]) = v377;
-  v378 = STACK[0x32C];
-  v379 = STACK[0x338];
+  LODWORD(STACK[0x4D8]) = v378;
   if (v313)
   {
-    v380 = STACK[0x338];
+    v379 = v372;
   }
 
   else
   {
-    v380 = STACK[0x32C];
+    v379 = v377;
   }
 
-  LODWORD(STACK[0x4E8]) = v380;
-  v381 = STACK[0x31C];
+  LODWORD(STACK[0x4DC]) = v379;
+  v380 = STACK[0x3C8];
+  v381 = STACK[0x364];
   if (v313)
   {
-    v382 = STACK[0x31C];
+    v382 = STACK[0x364];
   }
 
   else
   {
-    v382 = v379;
+    v382 = STACK[0x3C8];
   }
 
-  LODWORD(STACK[0x4F4]) = v382;
-  v383 = STACK[0x350];
+  LODWORD(STACK[0x4EC]) = v382;
+  v383 = STACK[0x370];
   if (v313)
   {
-    v384 = STACK[0x350];
+    v384 = STACK[0x370];
   }
 
   else
@@ -3045,1901 +3059,1857 @@ uint64_t sub_10027E278(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a
     v384 = v381;
   }
 
-  LODWORD(STACK[0x4D8]) = v384;
+  LODWORD(STACK[0x450]) = v384;
+  v385 = STACK[0x374];
   if (v313)
   {
-    v385 = v378;
+    v386 = v380;
   }
 
   else
   {
-    v385 = v383;
+    v386 = STACK[0x374];
   }
 
-  LODWORD(STACK[0x4DC]) = v385;
-  v386 = STACK[0x3C8];
-  v387 = STACK[0x364];
+  LODWORD(STACK[0x448]) = v386;
   if (v313)
   {
-    v388 = STACK[0x364];
+    v387 = v385;
   }
 
   else
   {
-    v388 = STACK[0x3C8];
+    v387 = v383;
   }
 
-  LODWORD(STACK[0x4EC]) = v388;
-  v389 = STACK[0x370];
+  LODWORD(STACK[0x4D0]) = v387;
+  v388 = STACK[0x3F0];
+  v389 = STACK[0x37C];
   if (v313)
   {
-    v390 = STACK[0x370];
+    v390 = STACK[0x3F0];
   }
 
   else
   {
-    v390 = v387;
+    v390 = STACK[0x37C];
   }
 
-  LODWORD(STACK[0x450]) = v390;
-  v391 = STACK[0x374];
+  LODWORD(STACK[0x4F0]) = v390;
+  v391 = STACK[0x360];
   if (v313)
   {
-    v392 = v386;
+    v392 = STACK[0x360];
   }
 
   else
   {
-    v392 = STACK[0x374];
+    v392 = v388;
   }
 
-  LODWORD(STACK[0x448]) = v392;
+  LODWORD(STACK[0x4C4]) = v392;
+  v393 = STACK[0x358];
   if (v313)
   {
-    v393 = v391;
+    v394 = STACK[0x358];
   }
 
   else
   {
-    v393 = v389;
+    v394 = v391;
   }
 
-  LODWORD(STACK[0x4D0]) = v393;
-  v394 = STACK[0x3F0];
-  v395 = STACK[0x37C];
+  LODWORD(STACK[0x4D4]) = v394;
   if (v313)
   {
-    v396 = STACK[0x3F0];
+    v395 = v389;
   }
 
   else
   {
-    v396 = STACK[0x37C];
+    v395 = v393;
   }
 
-  LODWORD(STACK[0x4F0]) = v396;
-  v397 = STACK[0x360];
+  LODWORD(STACK[0x4B8]) = v395;
+  v396 = STACK[0x3CC];
+  v397 = STACK[0x388];
   if (v313)
   {
-    v398 = STACK[0x360];
+    v398 = STACK[0x388];
   }
 
   else
   {
-    v398 = v394;
+    v398 = STACK[0x3CC];
   }
 
-  LODWORD(STACK[0x4C4]) = v398;
-  v399 = STACK[0x358];
+  LODWORD(STACK[0x4CC]) = v398;
   if (v313)
   {
-    v400 = STACK[0x358];
+    v399 = v286;
   }
 
   else
   {
-    v400 = v397;
+    v399 = v397;
   }
 
-  LODWORD(STACK[0x4D4]) = v400;
+  LODWORD(STACK[0x4C0]) = v399;
   if (v313)
   {
-    v401 = v395;
+    v400 = v285;
   }
 
   else
   {
-    v401 = v399;
+    v400 = v286;
   }
 
-  LODWORD(STACK[0x4B8]) = v401;
-  v402 = STACK[0x3CC];
-  v403 = STACK[0x388];
+  LODWORD(STACK[0x4A8]) = v400;
   if (v313)
   {
-    v404 = STACK[0x388];
+    v401 = v396;
   }
 
   else
   {
-    v404 = STACK[0x3CC];
+    v401 = v285;
   }
 
-  LODWORD(STACK[0x4CC]) = v404;
+  LODWORD(STACK[0x4B0]) = v401;
+  v402 = STACK[0x3D0];
+  v403 = STACK[0x380];
   if (v313)
   {
-    v405 = v286;
+    v404 = STACK[0x3D0];
   }
 
   else
   {
-    v405 = v403;
+    v404 = STACK[0x380];
   }
 
-  LODWORD(STACK[0x4C0]) = v405;
+  LODWORD(STACK[0x4C8]) = v404;
+  v405 = STACK[0x3E0];
   if (v313)
   {
-    v406 = v285;
+    v406 = v403;
   }
 
   else
   {
-    v406 = v286;
+    v406 = STACK[0x3E0];
   }
 
-  LODWORD(STACK[0x4A8]) = v406;
+  LODWORD(STACK[0x4AC]) = v406;
+  v407 = STACK[0x384];
   if (v313)
   {
-    v407 = v402;
+    v408 = v405;
   }
 
   else
   {
-    v407 = v285;
+    v408 = STACK[0x384];
   }
 
-  LODWORD(STACK[0x4B0]) = v407;
-  v408 = STACK[0x3D0];
-  v409 = STACK[0x380];
+  LODWORD(STACK[0x4BC]) = v408;
   if (v313)
   {
-    v410 = STACK[0x3D0];
+    v409 = v407;
   }
 
   else
   {
-    v410 = STACK[0x380];
+    v409 = v402;
   }
 
-  LODWORD(STACK[0x4C8]) = v410;
-  v411 = STACK[0x3E0];
-  if (v313)
-  {
-    v412 = v409;
-  }
-
-  else
-  {
-    v412 = STACK[0x3E0];
-  }
-
-  LODWORD(STACK[0x4AC]) = v412;
-  v413 = STACK[0x384];
-  if (v313)
-  {
-    v414 = v411;
-  }
-
-  else
-  {
-    v414 = STACK[0x384];
-  }
-
-  LODWORD(STACK[0x4BC]) = v414;
-  if (v313)
-  {
-    v415 = v413;
-  }
-
-  else
-  {
-    v415 = v408;
-  }
-
-  LODWORD(STACK[0x45C]) = v415;
-  v416 = v313 + LODWORD(STACK[0x3E8]);
-  LODWORD(STACK[0x5A4]) = v416;
-  v417 = (v313 & 2) == 0;
+  LODWORD(STACK[0x45C]) = v409;
+  v410 = v313 + LODWORD(STACK[0x3E8]);
+  LODWORD(STACK[0x5A4]) = v410;
+  v411 = (v313 & 2) == 0;
   if ((v313 & 2) != 0)
   {
-    v418 = v316;
+    v412 = v315;
   }
 
   else
   {
-    v418 = v318;
+    v412 = v317;
   }
 
   if ((v313 & 2) != 0)
   {
-    v419 = v318;
+    v413 = v317;
   }
 
   else
   {
-    v419 = v316;
+    v413 = v315;
   }
 
   if ((v313 & 2) != 0)
   {
-    v420 = v317;
+    v414 = v316;
   }
 
   else
   {
-    v420 = v315;
+    v414 = v314;
   }
 
   if ((v313 & 2) != 0)
   {
-    v421 = v315;
+    v415 = v314;
   }
 
   else
   {
-    v421 = v317;
+    v415 = v316;
   }
 
   if ((v313 & 2) != 0)
   {
-    v422 = v320;
+    v416 = v319;
   }
 
   else
   {
-    v422 = v321;
+    v416 = v320;
   }
 
-  LODWORD(STACK[0x3C8]) = v422;
+  LODWORD(STACK[0x3C8]) = v416;
   if ((v313 & 2) != 0)
   {
-    v423 = v321;
+    v417 = v320;
   }
 
   else
   {
-    v423 = v320;
+    v417 = v319;
   }
 
-  LODWORD(STACK[0x3CC]) = v423;
+  LODWORD(STACK[0x3CC]) = v417;
   if ((v313 & 2) != 0)
   {
-    v424 = v326;
+    v418 = v322;
   }
 
   else
   {
-    v424 = v330;
+    v418 = v324;
   }
 
-  LODWORD(STACK[0x3E0]) = v424;
+  LODWORD(STACK[0x3E0]) = v418;
   if ((v313 & 2) != 0)
   {
-    v425 = v330;
+    v419 = v324;
   }
 
   else
   {
-    v425 = v326;
+    v419 = v322;
   }
 
-  LODWORD(STACK[0x3F0]) = v425;
+  LODWORD(STACK[0x3F0]) = v419;
   if ((v313 & 2) != 0)
   {
-    v426 = v319;
+    v420 = v318;
   }
 
   else
   {
-    v426 = v323;
+    v420 = v321;
   }
 
-  LODWORD(STACK[0x3D0]) = v426;
+  LODWORD(STACK[0x3D0]) = v420;
   if ((v313 & 2) != 0)
   {
-    v427 = v323;
+    v421 = v321;
   }
 
   else
   {
-    v427 = v319;
+    v421 = v318;
   }
 
   if ((v313 & 2) != 0)
   {
-    v428 = v331;
+    v422 = v325;
   }
 
   else
   {
-    v428 = v328;
+    v422 = v323;
   }
 
-  LODWORD(STACK[0x3E8]) = v428;
+  LODWORD(STACK[0x3E8]) = v422;
   if ((v313 & 2) != 0)
   {
-    v429 = v328;
+    v423 = v323;
   }
 
   else
   {
-    v429 = v331;
+    v423 = v325;
   }
 
-  LODWORD(STACK[0x3D4]) = v429;
-  v430 = STACK[0x46C];
-  v431 = STACK[0x5F0];
-  v432 = STACK[0x46C] & 0x5ACA4E5A ^ 0xB5949CB5;
-  v433 = STACK[0x46C] & 0x2004E1A ^ 0x24040C95 ^ (LODWORD(STACK[0x5F0]) ^ 0x2608CE9D) & v432;
-  v434 = STACK[0x468];
-  v435 = STACK[0x468] & 0x5ACA4E5A ^ 0xB5949CB5;
-  v436 = (STACK[0x46C] & 0x42400650 ^ 0x148415 ^ v432 & (LODWORD(STACK[0x5DC]) ^ 0x4254865E)) >> v88;
-  v437 = LODWORD(STACK[0x5C8]) ^ v291;
-  v438 = v437 ^ v436 ^ (v433 << v153) ^ LODWORD(STACK[0x390]) ^ v418;
-  v439 = STACK[0x468] & 0x18004A40 ^ 0x14149805 ^ v435 & (v294 ^ 0xE3CA04BA);
-  v440 = (STACK[0x468] & 0xA404A1A ^ 0x810018B1 ^ (LODWORD(STACK[0x5E8]) ^ 0x749E8444) & v435) >> LODWORD(STACK[0x618]);
-  v441 = LODWORD(STACK[0x390]) ^ v291;
-  v442 = v441 ^ (v439 << v87) ^ v440 ^ LODWORD(STACK[0x5C8]) ^ v419;
-  v443 = v87;
-  v444 = v437 ^ LODWORD(STACK[0x390]) ^ ((v433 << v87) | v436) ^ v421;
-  LOBYTE(v436) = v153;
-  v445 = v441 ^ LODWORD(STACK[0x5C8]) ^ (v440 | (v439 << v153)) ^ v420;
-  v446 = *(v312 + 4 * BYTE2(v444)) ^ __ROR4__(*(v312 + 4 * BYTE1(v442)), 8) ^ __ROR4__(*(v312 + 4 * v445), 16) ^ __ROR4__(*(v312 + 4 * HIBYTE(v438)), 24);
-  v447 = __ROR4__(v427 ^ __ROR4__(*(v312 + 4 * BYTE1(v445)), 8) ^ __ROR4__(*(v312 + 4 * HIBYTE(v444)), 24) ^ __ROR4__(*(v312 + 4 * v438), 16) ^ *(v312 + 4 * BYTE2(v442)), 8);
-  v448 = STACK[0x5E8];
-  v449 = STACK[0x46C] & 0x3FE5807D ^ 0x7FCB00FA;
-  v450 = STACK[0x618];
-  v451 = ((v430 & 0x2E618001 ^ 0x2E4B0000 ^ (LODWORD(STACK[0x5E8]) ^ 0x518400FE) & v449) >> LODWORD(STACK[0x618])) | ((v430 & 0x1D640015 ^ 0x5D480090 ^ (LODWORD(STACK[0x5F0]) ^ 0x5D608097) & v449) << v436);
-  v452 = STACK[0x468] & 0x3FE5807D ^ 0x7FCB00FA;
-  v453 = STACK[0x5DC];
-  v454 = v443;
-  v455 = v88;
-  v456 = ((v434 & 0xDE18021 ^ 0xDC900A0 ^ v452 & (LODWORD(STACK[0x5DC]) ^ 0xDE980AAu)) >> v88) | ((v434 & 0x18C00029 ^ 0x18C00028 ^ v452 & (v294 ^ 0x672F80D6)) << v443);
-  v457 = STACK[0x440] & ~v294;
-  v458 = v294;
-  v459 = (STACK[0x5C0] & LODWORD(STACK[0x440])) >> v88;
-  v460 = v459 ^ (v457 << v443);
-  v461 = STACK[0x3D8];
-  v462 = v460 ^ LODWORD(STACK[0x3D8]);
-  v463 = v462 ^ v456 ^ LODWORD(STACK[0x3C8]);
-  v464 = STACK[0x5B0];
-  v465 = v416 - LODWORD(STACK[0x5B0]);
-  LODWORD(STACK[0x440]) = v465;
-  v466 = v463 ^ (v446 + v465);
-  v467 = v462 ^ v451 ^ v464 ^ LODWORD(STACK[0x5B4]) ^ __ROR4__(v447 ^ 0x9D96AD32, 24) ^ 0x96AD329D;
-  v468 = v462 ^ (((v434 & 0x25250028 ^ 0x6501002A ^ (v448 ^ 0x1ACA80D5) & v452) >> v455) | ((v434 & 0x2261802C ^ 0x22410028 ^ v452 & (v458 ^ 0x5D8E00D3)) << v436)) ^ LODWORD(STACK[0x3CC]) ^ __ROR4__(*(v312 + 4 * v444), 16) ^ *(v312 + 4 * BYTE2(v445)) ^ __ROR4__(*(v312 + 4 * HIBYTE(v442)), 24) ^ __ROR4__(*(v312 + 4 * BYTE1(v438)), 8);
-  v469 = ((v430 & 0x20048005 ^ 0x20080000 ^ v449 & (v453 ^ 0x200C800Eu)) >> v450) ^ v461 ^ v459 ^ ((v457 ^ v430 & 0x35858021 ^ (v431 ^ 0x358900A3) & v449 ^ 0x358100A0) << v454) ^ LODWORD(STACK[0x3D0]) ^ __ROR4__(*(v312 + 4 * HIBYTE(v445)), 24) ^ __ROR4__(*(v312 + 4 * v442), 16) ^ *(v312 + 4 * BYTE2(v438)) ^ __ROR4__(*(v312 + 4 * BYTE1(v444)), 8);
-  v470 = v453;
-  v471 = v434 & 0x7839010C ^ 0xF0720219;
-  v472 = v430 & 0x7839010C ^ 0xF0720219;
-  v473 = LODWORD(STACK[0x5AC]) ^ LODWORD(STACK[0x3F8]);
-  v474 = (v434 & 0x38300108 ^ 0xB0320218 ^ (v431 ^ 0xB83A0318) & v471) << v436;
-  v475 = v473 ^ (v474 | ((v434 & 0x10100008 ^ 0x90100009 ^ v471 & (v453 ^ 0x90100000)) >> v450)) ^ LODWORD(STACK[0x3D4]) ^ *(v312 + 4 * BYTE2(v469)) ^ __ROR4__(*(v312 + 4 * v467), 16) ^ __ROR4__(*(v312 + 4 * BYTE1(v466)), 8) ^ __ROR4__(*(v312 + 4 * HIBYTE(v468)), 24);
-  v476 = (v430 & 0x6011000C ^ 0x60100219 ^ v472 & (v458 ^ 0x986A0100)) << v454;
-  v477 = v473 ^ v476 ^ ((v430 & 0x28010C ^ 0x220209 ^ (v448 ^ 0xF8510010) & v472) >> v455) ^ LODWORD(STACK[0x3E0]) ^ __ROR4__(*(v312 + 4 * BYTE1(v469)), 8) ^ __ROR4__(*(v312 + 4 * v466), 16) ^ *(v312 + 4 * BYTE2(v468)) ^ __ROR4__(*(v312 + 4 * HIBYTE(v467)), 24);
-  v478 = v473 ^ ((v434 & 0x8000C ^ 0x80400019 ^ (v448 ^ 0x78330300) & v471) >> v455) ^ v474 ^ LODWORD(STACK[0x3E8]) ^ __ROR4__(*(v312 + 4 * v469), 16) ^ *(v312 + 4 * BYTE2(v467)) ^ __ROR4__(*(v312 + 4 * BYTE1(v468)), 8) ^ __ROR4__(*(v312 + 4 * HIBYTE(v466)), 24);
-  LOBYTE(v431) = v450;
-  v479 = v473 ^ (((v430 & 0x28090108 ^ 0x20400008 ^ v472 & (v453 ^ 0x28490101)) >> v450) | v476) ^ LODWORD(STACK[0x3F0]) ^ __ROR4__(*(v312 + 4 * BYTE1(v467)), 8) ^ *(v312 + 4 * BYTE2(v466)) ^ __ROR4__(*(v312 + 4 * v468), 16) ^ __ROR4__(*(v312 + 4 * HIBYTE(v469)), 24);
-  v480 = (*(v312 + 4 * BYTE2(v478)) ^ __ROR4__(*(v312 + 4 * BYTE1(v477)), 8) ^ __ROR4__(*(v312 + 4 * HIBYTE(v479)), 24) ^ __ROR4__(*(v312 + 4 * v475), 16)) + 1965153319 * ((LODWORD(STACK[0x5A8]) ^ LODWORD(STACK[0x550])) - LODWORD(STACK[0x54C]));
-  v481 = LODWORD(STACK[0x56C]) ^ ((STACK[0x638] & LODWORD(STACK[0x56C])) >> 1);
-  v482 = v458;
-  v483 = v436;
-  v484 = v455;
-  v485 = ((STACK[0x5C0] & v481) >> v455) + ((v481 & ~v458) << v436);
-  v486 = LODWORD(STACK[0x470]) ^ ((STACK[0x638] & LODWORD(STACK[0x470])) >> 1);
-  v487 = v431;
-  v488 = ((STACK[0x598] & v486) << v454) ^ ((STACK[0x5C0] & v486) >> v431);
-  v489 = STACK[0x438];
-  v490 = STACK[0x410];
-  if (v417)
+  LODWORD(STACK[0x3D4]) = v423;
+  v424 = STACK[0x46C];
+  v425 = STACK[0x5F0];
+  v426 = STACK[0x46C] & 0x5ACA4E5A ^ 0xB5949CB5;
+  v427 = STACK[0x46C] & 0x2004E1A ^ 0x24040C95 ^ (LODWORD(STACK[0x5F0]) ^ 0x2608CE9D) & v426;
+  v428 = STACK[0x468];
+  v429 = STACK[0x468] & 0x5ACA4E5A ^ 0xB5949CB5;
+  v430 = (STACK[0x46C] & 0x42400650 ^ 0x148415 ^ v426 & (LODWORD(STACK[0x5DC]) ^ 0x4254865E)) >> v88;
+  v431 = LODWORD(STACK[0x5C8]) ^ v291;
+  v432 = v431 ^ v430 ^ (v427 << v153) ^ LODWORD(STACK[0x390]) ^ v412;
+  v433 = STACK[0x468] & 0x18004A40 ^ 0x14149805 ^ v429 & (v294 ^ 0xE3CA04BA);
+  v434 = (STACK[0x468] & 0xA404A1A ^ 0x810018B1 ^ (LODWORD(STACK[0x5E8]) ^ 0x749E8444) & v429) >> LODWORD(STACK[0x618]);
+  v435 = LODWORD(STACK[0x390]) ^ v291;
+  v436 = v435 ^ (v433 << v87) ^ v434 ^ LODWORD(STACK[0x5C8]) ^ v413;
+  v437 = v87;
+  v438 = v431 ^ LODWORD(STACK[0x390]) ^ ((v427 << v87) | v430) ^ v415;
+  LOBYTE(v430) = v153;
+  v439 = v435 ^ LODWORD(STACK[0x5C8]) ^ (v434 | (v433 << v153)) ^ v414;
+  v440 = *(v312 + 4 * BYTE2(v438)) ^ __ROR4__(*(v312 + 4 * BYTE1(v436)), 8) ^ __ROR4__(*(v312 + 4 * v439), 16) ^ __ROR4__(*(v312 + 4 * HIBYTE(v432)), 24);
+  v441 = __ROR4__(v421 ^ __ROR4__(*(v312 + 4 * BYTE1(v439)), 8) ^ __ROR4__(*(v312 + 4 * HIBYTE(v438)), 24) ^ __ROR4__(*(v312 + 4 * v432), 16) ^ *(v312 + 4 * BYTE2(v436)), 8);
+  v442 = STACK[0x5E8];
+  v443 = STACK[0x46C] & 0x3FE5807D ^ 0x7FCB00FA;
+  v444 = STACK[0x618];
+  v445 = ((v424 & 0x2E618001 ^ 0x2E4B0000 ^ (LODWORD(STACK[0x5E8]) ^ 0x518400FE) & v443) >> LODWORD(STACK[0x618])) | ((v424 & 0x1D640015 ^ 0x5D480090 ^ (LODWORD(STACK[0x5F0]) ^ 0x5D608097) & v443) << v430);
+  v446 = STACK[0x468] & 0x3FE5807D ^ 0x7FCB00FA;
+  v447 = STACK[0x5DC];
+  v448 = v437;
+  v449 = v88;
+  v450 = ((v428 & 0xDE18021 ^ 0xDC900A0 ^ v446 & (LODWORD(STACK[0x5DC]) ^ 0xDE980AAu)) >> v88) | ((v428 & 0x18C00029 ^ 0x18C00028 ^ v446 & (v294 ^ 0x672F80D6)) << v437);
+  v451 = STACK[0x440] & ~v294;
+  v452 = v294;
+  v453 = (STACK[0x5C0] & LODWORD(STACK[0x440])) >> v88;
+  v454 = v453 ^ (v451 << v437);
+  v455 = STACK[0x3D8];
+  v456 = v454 ^ LODWORD(STACK[0x3D8]);
+  v457 = v456 ^ v450 ^ LODWORD(STACK[0x3C8]);
+  v458 = STACK[0x5B0];
+  v459 = v410 - LODWORD(STACK[0x5B0]);
+  LODWORD(STACK[0x440]) = v459;
+  v460 = v457 ^ (v440 + v459);
+  v461 = v456 ^ v445 ^ v458 ^ LODWORD(STACK[0x5B4]) ^ __ROR4__(v441 ^ 0x9D96AD32, 24) ^ 0x96AD329D;
+  v462 = v456 ^ (((v428 & 0x25250028 ^ 0x6501002A ^ (v442 ^ 0x1ACA80D5) & v446) >> v449) | ((v428 & 0x2261802C ^ 0x22410028 ^ v446 & (v452 ^ 0x5D8E00D3)) << v430)) ^ LODWORD(STACK[0x3CC]) ^ __ROR4__(*(v312 + 4 * v438), 16) ^ *(v312 + 4 * BYTE2(v439)) ^ __ROR4__(*(v312 + 4 * HIBYTE(v436)), 24) ^ __ROR4__(*(v312 + 4 * BYTE1(v432)), 8);
+  v463 = ((v424 & 0x20048005 ^ 0x20080000 ^ v443 & (v447 ^ 0x200C800Eu)) >> v444) ^ v455 ^ v453 ^ ((v451 ^ v424 & 0x35858021 ^ (v425 ^ 0x358900A3) & v443 ^ 0x358100A0) << v448) ^ LODWORD(STACK[0x3D0]) ^ __ROR4__(*(v312 + 4 * HIBYTE(v439)), 24) ^ __ROR4__(*(v312 + 4 * v436), 16) ^ *(v312 + 4 * BYTE2(v432)) ^ __ROR4__(*(v312 + 4 * BYTE1(v438)), 8);
+  v464 = v447;
+  v465 = v428 & 0x7839010C ^ 0xF0720219;
+  v466 = v424 & 0x7839010C ^ 0xF0720219;
+  v467 = LODWORD(STACK[0x5AC]) ^ LODWORD(STACK[0x3F8]);
+  v468 = (v428 & 0x38300108 ^ 0xB0320218 ^ (v425 ^ 0xB83A0318) & v465) << v430;
+  v469 = v467 ^ (v468 | ((v428 & 0x10100008 ^ 0x90100009 ^ v465 & (v447 ^ 0x90100000)) >> v444)) ^ LODWORD(STACK[0x3D4]) ^ *(v312 + 4 * BYTE2(v463)) ^ __ROR4__(*(v312 + 4 * v461), 16) ^ __ROR4__(*(v312 + 4 * BYTE1(v460)), 8) ^ __ROR4__(*(v312 + 4 * HIBYTE(v462)), 24);
+  v470 = (v424 & 0x6011000C ^ 0x60100219 ^ v466 & (v452 ^ 0x986A0100)) << v448;
+  v471 = v467 ^ v470 ^ ((v424 & 0x28010C ^ 0x220209 ^ (v442 ^ 0xF8510010) & v466) >> v449) ^ LODWORD(STACK[0x3E0]) ^ __ROR4__(*(v312 + 4 * BYTE1(v463)), 8) ^ __ROR4__(*(v312 + 4 * v460), 16) ^ *(v312 + 4 * BYTE2(v462)) ^ __ROR4__(*(v312 + 4 * HIBYTE(v461)), 24);
+  v472 = v467 ^ ((v428 & 0x8000C ^ 0x80400019 ^ (v442 ^ 0x78330300) & v465) >> v449) ^ v468 ^ LODWORD(STACK[0x3E8]) ^ __ROR4__(*(v312 + 4 * v463), 16) ^ *(v312 + 4 * BYTE2(v461)) ^ __ROR4__(*(v312 + 4 * BYTE1(v462)), 8) ^ __ROR4__(*(v312 + 4 * HIBYTE(v460)), 24);
+  LOBYTE(v425) = v444;
+  v473 = v467 ^ (((v424 & 0x28090108 ^ 0x20400008 ^ v466 & (v447 ^ 0x28490101)) >> v444) | v470) ^ LODWORD(STACK[0x3F0]) ^ __ROR4__(*(v312 + 4 * BYTE1(v461)), 8) ^ *(v312 + 4 * BYTE2(v460)) ^ __ROR4__(*(v312 + 4 * v462), 16) ^ __ROR4__(*(v312 + 4 * HIBYTE(v463)), 24);
+  v474 = (*(v312 + 4 * BYTE2(v472)) ^ __ROR4__(*(v312 + 4 * BYTE1(v471)), 8) ^ __ROR4__(*(v312 + 4 * HIBYTE(v473)), 24) ^ __ROR4__(*(v312 + 4 * v469), 16)) + 1965153319 * ((LODWORD(STACK[0x5A8]) ^ LODWORD(STACK[0x550])) - LODWORD(STACK[0x54C]));
+  v475 = LODWORD(STACK[0x56C]) ^ ((STACK[0x638] & LODWORD(STACK[0x56C])) >> 1);
+  v476 = v452;
+  v477 = v430;
+  v478 = v449;
+  v479 = ((STACK[0x5C0] & v475) >> v449) + ((v475 & ~v452) << v430);
+  v480 = LODWORD(STACK[0x470]) ^ ((STACK[0x638] & LODWORD(STACK[0x470])) >> 1);
+  v481 = v425;
+  v482 = ((STACK[0x598] & v480) << v448) ^ ((STACK[0x5C0] & v480) >> v425);
+  if (v411)
   {
-    v491 = STACK[0x410];
+    v483 = STACK[0x410];
   }
 
   else
   {
-    v491 = STACK[0x438];
+    v483 = STACK[0x438];
   }
 
-  if (v417)
+  if (v411)
   {
-    v492 = STACK[0x438];
+    v484 = STACK[0x438];
   }
 
   else
   {
-    v492 = STACK[0x410];
+    v484 = STACK[0x410];
   }
 
-  v493 = STACK[0x430];
-  v494 = STACK[0x420];
-  if (v417)
+  v485 = STACK[0x420];
+  if (v411)
   {
-    v495 = STACK[0x430];
+    v486 = STACK[0x430];
   }
 
   else
   {
-    v495 = STACK[0x420];
+    v486 = STACK[0x420];
   }
 
-  if (!v417)
+  if (!v411)
   {
-    v494 = STACK[0x430];
+    v485 = STACK[0x430];
   }
 
-  v496 = STACK[0x418];
-  v497 = STACK[0x400];
-  if (v417)
+  v487 = STACK[0x418];
+  v488 = STACK[0x400];
+  if (v411)
   {
-    v498 = STACK[0x418];
+    v489 = STACK[0x418];
   }
 
   else
   {
-    v498 = STACK[0x400];
+    v489 = STACK[0x400];
   }
 
-  LODWORD(STACK[0x430]) = v498;
-  if (v417)
+  LODWORD(STACK[0x430]) = v489;
+  if (v411)
   {
-    v496 = v497;
+    v487 = v488;
   }
 
-  LODWORD(STACK[0x438]) = v496;
-  v499 = STACK[0x428];
-  v500 = STACK[0x408];
-  if (v417)
+  LODWORD(STACK[0x438]) = v487;
+  v490 = STACK[0x428];
+  v491 = STACK[0x408];
+  if (v411)
   {
-    v501 = STACK[0x428];
+    v492 = STACK[0x428];
   }
 
   else
   {
-    v501 = STACK[0x408];
+    v492 = STACK[0x408];
   }
 
-  LODWORD(STACK[0x470]) = v501;
-  if (v417)
+  LODWORD(STACK[0x470]) = v492;
+  if (v411)
   {
-    v499 = v500;
+    v490 = v491;
   }
 
-  LODWORD(STACK[0x56C]) = v499;
-  v502 = v488 ^ __ROR4__(*(v312 + 4 * HIBYTE(v478)), 24) ^ __ROR4__(*(v312 + 4 * BYTE1(v475)), 8) ^ __ROR4__(*(v312 + 4 * v479), 16) ^ *(v312 + 4 * BYTE2(v477));
-  v503 = v448;
-  v504 = v430 & 0x5B1D1203 ^ 0xB63A2407;
-  v505 = v430 & 0x13040200 ^ 0xB2000000 ^ v504 & (v482 ^ 0x4C3B3407);
-  v506 = v485;
-  v507 = (v430 & 0xA010202 ^ 0x82020402 ^ (v448 ^ 0x753C3005) & v504) >> v487;
-  v508 = v507 ^ (v505 << v483) ^ v491 ^ (v502 + v485 - 2 * (v502 & v485));
-  v509 = STACK[0x5F0];
-  v510 = v434 & 0x5B1D1203 ^ 0xB63A2407;
-  v511 = v434 & 0x41091003 ^ 0x200A2403 ^ (LODWORD(STACK[0x5F0]) ^ 0x61073401) & v510;
-  v512 = (v434 & 0xB000002 ^ 0x22220002 ^ v510 & (v470 ^ 0x2B220001)) >> v484;
-  v513 = v488 ^ v485;
-  v514 = v513 ^ ((v511 << v454) + v512) ^ v494 ^ v480;
-  v515 = v483;
-  v516 = v513 ^ v512 ^ (v511 << v483) ^ v492 ^ __ROR4__(*(v312 + 4 * v477), 16) ^ __ROR4__(*(v312 + 4 * BYTE1(v478)), 8) ^ __ROR4__(*(v312 + 4 * HIBYTE(v475)), 24) ^ *(v312 + 4 * BYTE2(v479));
-  v517 = v513 ^ (v505 << v454) ^ v507 ^ v495 ^ __ROR4__(*(v312 + 4 * HIBYTE(v477)), 24) ^ __ROR4__(*(v312 + 4 * BYTE1(v479)), 8) ^ *(v312 + 4 * BYTE2(v475)) ^ __ROR4__(*(v312 + 4 * v478), 16);
-  v518 = (*(v312 + 4 * v508) >> (STACK[0x568] & 0x10) >> (STACK[0x568] & 0x10 ^ 0x10)) + (*(v312 + 4 * v508) << 16);
-  v519 = v434 & 0x73A08DF4 ^ 0xE7411BE9;
-  v520 = STACK[0x5C8];
-  LODWORD(STACK[0x5AC]) = v485;
-  v521 = v520 ^ v485;
-  v522 = v520 ^ v485 ^ (((v434 & 0x70008160 ^ 0xE4010161 ^ (v509 ^ 0xF4010161) & v519) << v454) + ((v434 & 0x40A009C4 ^ 0xC4410BC9 ^ v519 & (v470 ^ 0xC4E10BC4)) >> v487)) ^ LODWORD(STACK[0x430]) ^ *(v312 + 4 * BYTE2(v516)) ^ __ROR4__(*(v312 + 4 * BYTE1(v514)), 8) ^ __ROR4__(*(v312 + 4 * HIBYTE(v517)), 24) ^ v518;
-  v523 = v430 & 0x73A08DF4 ^ 0xE7411BE9;
-  v524 = STACK[0x5D0];
-  v525 = v430 & 0x43200CF4 ^ 0xC70108E0 ^ v523 & (LODWORD(STACK[0x5D0]) ^ 0x30C09309);
-  v526 = v430 & 0x10A088D0 ^ 0x84400AC0 ^ (v503 ^ 0x6301152D) & v523;
-  v527 = v484;
-  v528 = v506 ^ (v525 << v515) ^ (v526 >> v484) ^ LODWORD(STACK[0x438]) ^ v520 ^ __ROR4__(*(v312 + 4 * BYTE1(v517)), 8) ^ __ROR4__(*(v312 + 4 * v516), 16) ^ __ROR4__(*(v312 + 4 * HIBYTE(v514)), 24) ^ *(v312 + 4 * BYTE2(v508));
-  v529 = v509;
-  v530 = v521 ^ (((v434 & 0x52200434 ^ 0x42411029 ^ (v509 ^ 0x5261943D) & v519) << v515) + ((v434 & 0x41800D10 ^ 0xC1411B01 ^ v519 & (v470 ^ 0xC1C11F18)) >> v484)) ^ LODWORD(STACK[0x470]) ^ __ROR4__(*(v312 + 4 * v514), 16) ^ __ROR4__(*(v312 + 4 * BYTE1(v516)), 8) ^ __ROR4__(*(v312 + 4 * HIBYTE(v508)), 24) ^ *(v312 + 4 * BYTE2(v517));
-  v531 = v521 ^ ((v526 >> v487) + (v525 << v454)) ^ LODWORD(STACK[0x56C]) ^ __ROR4__(*(v312 + 4 * HIBYTE(v516)), 24) ^ __ROR4__(*(v312 + 4 * v517), 16) ^ __ROR4__(*(v312 + 4 * BYTE1(v508)), 8) ^ *(v312 + 4 * BYTE2(v514));
-  HIDWORD(v532) = *(v312 + 4 * BYTE1(v528));
-  LODWORD(v532) = HIDWORD(v532);
-  v533 = ((v532 >> 8) ^ __ROR4__(*(v312 + 4 * HIBYTE(v522)), 24) ^ *(v312 + 4 * BYTE2(v531)) ^ __ROR4__(*(v312 + 4 * v530), 16)) + 2091567585 * (LODWORD(STACK[0x550]) - (LODWORD(STACK[0x5A8]) ^ LODWORD(STACK[0x54C])));
-  v534 = STACK[0x640];
-  v535 = (((v534 & (LODWORD(STACK[0x474]) ^ 0x8FF5AAAC)) >> 1) - (v534 & (LODWORD(STACK[0x474]) ^ 0x8FF5AAAC) & 0x7C5817E2) + 1043074033) ^ LODWORD(STACK[0x570]);
-  v536 = STACK[0x610];
-  LODWORD(STACK[0x418]) = ((STACK[0x598] & v535) << v515) | ((v535 & STACK[0x610]) >> v487);
-  v537 = STACK[0x638];
-  v538 = (((STACK[0x638] & (LODWORD(STACK[0x5B8]) ^ 0xB35130DE)) >> 1) - (STACK[0x638] & (LODWORD(STACK[0x5B8]) ^ 0xB35130DE) & 0xC107F3CE) + 1619261927) ^ LODWORD(STACK[0x460]);
-  v539 = v524;
-  v540 = STACK[0x5C0];
-  v541 = ((STACK[0x5C0] & v538) >> v484) + ((v538 & ~v524) << v454);
-  LODWORD(STACK[0x474]) = v541;
-  v542 = (((v537 & (LODWORD(STACK[0x490]) ^ 0x90DEED8E)) >> 1) - (v537 & (LODWORD(STACK[0x490]) ^ 0x90DEED8E) & 0x83CA74E2) - 1041941903) ^ LODWORD(STACK[0x478]);
-  v543 = v537 & (LODWORD(STACK[0x480]) ^ 0x7A39754A);
-  LODWORD(STACK[0x430]) = ((v540 & v542) >> v484) ^ ((v542 & ~v524) << v515);
-  v544 = ((v543 >> 1) - (v543 & 0x6CC53218) - 1235052276) ^ LODWORD(STACK[0x484]);
-  v545 = v515;
-  LODWORD(STACK[0x428]) = ((v540 & v544) >> v484) | ((v544 & ~v524) << v515);
-  v546 = LODWORD(STACK[0x48C]) ^ ((v534 & STACK[0x48C]) >> 1);
-  LODWORD(STACK[0x478]) = ((v546 & v536) >> v484) + ((v546 & ~v524) << v515);
-  v547 = STACK[0x554];
-  v548 = STACK[0x514];
-  if (v417)
+  LODWORD(STACK[0x56C]) = v490;
+  v493 = v482 ^ __ROR4__(*(v312 + 4 * HIBYTE(v472)), 24) ^ __ROR4__(*(v312 + 4 * BYTE1(v469)), 8) ^ __ROR4__(*(v312 + 4 * v473), 16) ^ *(v312 + 4 * BYTE2(v471));
+  v494 = v442;
+  v495 = v424 & 0x5B1D1203 ^ 0xB63A2407;
+  v496 = v424 & 0x13040200 ^ 0xB2000000 ^ v495 & (v476 ^ 0x4C3B3407);
+  v497 = v479;
+  v498 = (v424 & 0xA010202 ^ 0x82020402 ^ (v442 ^ 0x753C3005) & v495) >> v481;
+  v499 = v498 ^ (v496 << v477) ^ v483 ^ (v493 + v479 - 2 * (v493 & v479));
+  v500 = STACK[0x5F0];
+  v501 = v428 & 0x5B1D1203 ^ 0xB63A2407;
+  v502 = v428 & 0x41091003 ^ 0x200A2403 ^ (LODWORD(STACK[0x5F0]) ^ 0x61073401) & v501;
+  v503 = (v428 & 0xB000002 ^ 0x22220002 ^ v501 & (v464 ^ 0x2B220001)) >> v478;
+  v504 = v482 ^ v479;
+  v505 = v504 ^ ((v502 << v448) + v503) ^ v485 ^ v474;
+  v506 = v477;
+  v507 = v504 ^ v503 ^ (v502 << v477) ^ v484 ^ __ROR4__(*(v312 + 4 * v471), 16) ^ __ROR4__(*(v312 + 4 * BYTE1(v472)), 8) ^ __ROR4__(*(v312 + 4 * HIBYTE(v469)), 24) ^ *(v312 + 4 * BYTE2(v473));
+  v508 = v504 ^ (v496 << v448) ^ v498 ^ v486 ^ __ROR4__(*(v312 + 4 * HIBYTE(v471)), 24) ^ __ROR4__(*(v312 + 4 * BYTE1(v473)), 8) ^ *(v312 + 4 * BYTE2(v469)) ^ __ROR4__(*(v312 + 4 * v472), 16);
+  v509 = (*(v312 + 4 * v499) >> (STACK[0x568] & 0x10) >> (STACK[0x568] & 0x10 ^ 0x10)) + (*(v312 + 4 * v499) << 16);
+  v510 = v428 & 0x73A08DF4 ^ 0xE7411BE9;
+  v511 = STACK[0x5C8];
+  LODWORD(STACK[0x5AC]) = v479;
+  v512 = v511 ^ v479;
+  v513 = v511 ^ v479 ^ (((v428 & 0x70008160 ^ 0xE4010161 ^ (v500 ^ 0xF4010161) & v510) << v448) + ((v428 & 0x40A009C4 ^ 0xC4410BC9 ^ v510 & (v464 ^ 0xC4E10BC4)) >> v481)) ^ LODWORD(STACK[0x430]) ^ *(v312 + 4 * BYTE2(v507)) ^ __ROR4__(*(v312 + 4 * BYTE1(v505)), 8) ^ __ROR4__(*(v312 + 4 * HIBYTE(v508)), 24) ^ v509;
+  v514 = v424 & 0x73A08DF4 ^ 0xE7411BE9;
+  v515 = STACK[0x5D0];
+  v516 = v424 & 0x43200CF4 ^ 0xC70108E0 ^ v514 & (LODWORD(STACK[0x5D0]) ^ 0x30C09309);
+  v517 = v424 & 0x10A088D0 ^ 0x84400AC0 ^ (v494 ^ 0x6301152D) & v514;
+  v518 = v478;
+  v519 = v497 ^ (v516 << v506) ^ (v517 >> v478) ^ LODWORD(STACK[0x438]) ^ v511 ^ __ROR4__(*(v312 + 4 * BYTE1(v508)), 8) ^ __ROR4__(*(v312 + 4 * v507), 16) ^ __ROR4__(*(v312 + 4 * HIBYTE(v505)), 24) ^ *(v312 + 4 * BYTE2(v499));
+  v520 = v500;
+  v521 = v512 ^ (((v428 & 0x52200434 ^ 0x42411029 ^ (v500 ^ 0x5261943D) & v510) << v506) + ((v428 & 0x41800D10 ^ 0xC1411B01 ^ v510 & (v464 ^ 0xC1C11F18)) >> v478)) ^ LODWORD(STACK[0x470]) ^ __ROR4__(*(v312 + 4 * v505), 16) ^ __ROR4__(*(v312 + 4 * BYTE1(v507)), 8) ^ __ROR4__(*(v312 + 4 * HIBYTE(v499)), 24) ^ *(v312 + 4 * BYTE2(v508));
+  v522 = v512 ^ ((v517 >> v481) + (v516 << v448)) ^ LODWORD(STACK[0x56C]) ^ __ROR4__(*(v312 + 4 * HIBYTE(v507)), 24) ^ __ROR4__(*(v312 + 4 * v508), 16) ^ __ROR4__(*(v312 + 4 * BYTE1(v499)), 8) ^ *(v312 + 4 * BYTE2(v505));
+  HIDWORD(v523) = *(v312 + 4 * BYTE1(v519));
+  LODWORD(v523) = HIDWORD(v523);
+  v524 = ((v523 >> 8) ^ __ROR4__(*(v312 + 4 * HIBYTE(v513)), 24) ^ *(v312 + 4 * BYTE2(v522)) ^ __ROR4__(*(v312 + 4 * v521), 16)) + 2091567585 * (LODWORD(STACK[0x550]) - (LODWORD(STACK[0x5A8]) ^ LODWORD(STACK[0x54C])));
+  v525 = STACK[0x640];
+  v526 = (((v525 & (LODWORD(STACK[0x474]) ^ 0x8FF5AAAC)) >> 1) - (v525 & (LODWORD(STACK[0x474]) ^ 0x8FF5AAAC) & 0x7C5817E2) + 1043074033) ^ LODWORD(STACK[0x570]);
+  v527 = STACK[0x610];
+  LODWORD(STACK[0x418]) = ((STACK[0x598] & v526) << v506) | ((v526 & STACK[0x610]) >> v481);
+  v528 = STACK[0x638];
+  v529 = (((STACK[0x638] & (LODWORD(STACK[0x5B8]) ^ 0xB35130DE)) >> 1) - (STACK[0x638] & (LODWORD(STACK[0x5B8]) ^ 0xB35130DE) & 0xC107F3CE) + 1619261927) ^ LODWORD(STACK[0x460]);
+  v530 = v515;
+  v531 = STACK[0x5C0];
+  v532 = ((STACK[0x5C0] & v529) >> v478) + ((v529 & ~v515) << v448);
+  LODWORD(STACK[0x474]) = v532;
+  v533 = (((v528 & (LODWORD(STACK[0x490]) ^ 0x90DEED8E)) >> 1) - (v528 & (LODWORD(STACK[0x490]) ^ 0x90DEED8E) & 0x83CA74E2) - 1041941903) ^ LODWORD(STACK[0x478]);
+  v534 = v528 & (LODWORD(STACK[0x480]) ^ 0x7A39754A);
+  LODWORD(STACK[0x430]) = ((v531 & v533) >> v478) ^ ((v533 & ~v515) << v506);
+  v535 = ((v534 >> 1) - (v534 & 0x6CC53218) - 1235052276) ^ LODWORD(STACK[0x484]);
+  v536 = v506;
+  LODWORD(STACK[0x428]) = ((v531 & v535) >> v478) | ((v535 & ~v515) << v506);
+  v537 = LODWORD(STACK[0x48C]) ^ ((v525 & STACK[0x48C]) >> 1);
+  LODWORD(STACK[0x478]) = ((v537 & v527) >> v478) + ((v537 & ~v515) << v506);
+  if (v411)
   {
-    v549 = STACK[0x514];
+    v538 = STACK[0x514];
   }
 
   else
   {
-    v549 = STACK[0x554];
+    v538 = STACK[0x554];
   }
 
-  if (v417)
+  if (v411)
   {
-    v550 = STACK[0x554];
+    v539 = STACK[0x554];
   }
 
   else
   {
-    v550 = STACK[0x514];
+    v539 = STACK[0x514];
   }
 
-  v551 = STACK[0x5A0];
-  v552 = STACK[0x564];
-  if (v417)
+  if (v411)
   {
-    v553 = STACK[0x564];
+    v540 = STACK[0x564];
   }
 
   else
   {
-    v553 = STACK[0x5A0];
+    v540 = STACK[0x5A0];
   }
 
-  if (v417)
+  if (v411)
   {
-    v554 = STACK[0x5A0];
+    v541 = STACK[0x5A0];
   }
 
   else
   {
-    v554 = STACK[0x564];
+    v541 = STACK[0x564];
   }
 
-  v555 = STACK[0x558];
-  v556 = STACK[0x548];
-  if (v417)
+  v542 = STACK[0x558];
+  v543 = STACK[0x548];
+  if (v411)
   {
-    v557 = STACK[0x558];
+    v544 = STACK[0x558];
   }
 
   else
   {
-    v557 = STACK[0x548];
+    v544 = STACK[0x548];
   }
 
-  LODWORD(STACK[0x3F8]) = v557;
-  if (v417)
+  LODWORD(STACK[0x3F8]) = v544;
+  if (v411)
   {
-    v555 = v556;
+    v542 = v543;
   }
 
-  LODWORD(STACK[0x410]) = v555;
-  v558 = STACK[0x520];
-  v559 = STACK[0x504];
-  if (v417)
+  LODWORD(STACK[0x410]) = v542;
+  v545 = STACK[0x520];
+  v546 = STACK[0x504];
+  if (v411)
   {
-    v560 = STACK[0x504];
+    v547 = STACK[0x504];
   }
 
   else
   {
-    v560 = STACK[0x520];
+    v547 = STACK[0x520];
   }
 
-  LODWORD(STACK[0x548]) = v560;
-  if (v417)
+  LODWORD(STACK[0x548]) = v547;
+  if (v411)
   {
-    v561 = v558;
+    v548 = v545;
   }
 
   else
   {
-    v561 = v559;
+    v548 = v546;
   }
 
-  LODWORD(STACK[0x520]) = v561;
-  v562 = STACK[0x59C];
-  v563 = STACK[0x560];
-  if (v417)
+  LODWORD(STACK[0x520]) = v548;
+  v549 = STACK[0x59C];
+  v550 = STACK[0x560];
+  if (v411)
   {
-    v564 = STACK[0x59C];
+    v551 = STACK[0x59C];
   }
 
   else
   {
-    v564 = STACK[0x560];
+    v551 = STACK[0x560];
   }
 
-  LODWORD(STACK[0x408]) = v564;
-  if (v417)
+  LODWORD(STACK[0x408]) = v551;
+  if (v411)
   {
-    v562 = v563;
+    v549 = v550;
   }
 
-  LODWORD(STACK[0x400]) = v562;
-  v565 = STACK[0x538];
-  v566 = STACK[0x528];
-  if (v417)
+  LODWORD(STACK[0x400]) = v549;
+  v552 = STACK[0x538];
+  v553 = STACK[0x528];
+  if (v411)
   {
-    v567 = STACK[0x538];
+    v554 = STACK[0x538];
   }
 
   else
   {
-    v567 = STACK[0x528];
+    v554 = STACK[0x528];
   }
 
-  LODWORD(STACK[0x54C]) = v567;
-  if (v417)
+  LODWORD(STACK[0x54C]) = v554;
+  if (v411)
   {
-    v568 = v566;
+    v555 = v553;
   }
 
   else
   {
-    v568 = v565;
+    v555 = v552;
   }
 
-  LODWORD(STACK[0x538]) = v568;
-  v569 = STACK[0x52C];
-  v570 = STACK[0x510];
-  if (v417)
+  LODWORD(STACK[0x538]) = v555;
+  v556 = STACK[0x52C];
+  v557 = STACK[0x510];
+  if (v411)
   {
-    v571 = STACK[0x510];
+    v558 = STACK[0x510];
   }
 
   else
   {
-    v571 = STACK[0x52C];
+    v558 = STACK[0x52C];
   }
 
-  LODWORD(STACK[0x460]) = v571;
-  if (!v417)
+  LODWORD(STACK[0x460]) = v558;
+  if (!v411)
   {
-    v569 = v570;
+    v556 = v557;
   }
 
-  LODWORD(STACK[0x484]) = v569;
-  v572 = STACK[0x534];
-  v573 = STACK[0x55C];
-  if (v417)
+  LODWORD(STACK[0x484]) = v556;
+  v559 = STACK[0x534];
+  v560 = STACK[0x55C];
+  if (v411)
   {
-    v574 = STACK[0x55C];
+    v561 = STACK[0x55C];
   }
 
   else
   {
-    v574 = STACK[0x534];
+    v561 = STACK[0x534];
   }
 
-  LODWORD(STACK[0x420]) = v574;
-  if (!v417)
+  LODWORD(STACK[0x420]) = v561;
+  if (!v411)
   {
-    v572 = v573;
+    v559 = v560;
   }
 
-  LODWORD(STACK[0x438]) = v572;
-  v575 = STACK[0x51C];
-  v576 = STACK[0x50C];
-  if (v417)
+  LODWORD(STACK[0x438]) = v559;
+  v562 = STACK[0x51C];
+  v563 = STACK[0x50C];
+  if (v411)
   {
-    v577 = STACK[0x51C];
+    v564 = STACK[0x51C];
   }
 
   else
   {
-    v577 = STACK[0x50C];
+    v564 = STACK[0x50C];
   }
 
-  LODWORD(STACK[0x558]) = v577;
-  if (v417)
+  LODWORD(STACK[0x558]) = v564;
+  if (v411)
   {
-    v578 = v576;
+    v565 = v563;
   }
 
   else
   {
-    v578 = v575;
+    v565 = v562;
   }
 
-  LODWORD(STACK[0x550]) = v578;
-  v579 = STACK[0x530];
-  v580 = STACK[0x518];
-  if (v417)
+  LODWORD(STACK[0x550]) = v565;
+  v566 = STACK[0x530];
+  v567 = STACK[0x518];
+  if (v411)
   {
-    v581 = STACK[0x530];
+    v568 = STACK[0x530];
   }
 
   else
   {
-    v581 = STACK[0x518];
+    v568 = STACK[0x518];
   }
 
-  LODWORD(STACK[0x55C]) = v581;
-  if (v417)
+  LODWORD(STACK[0x55C]) = v568;
+  if (v411)
   {
-    v582 = v580;
+    v569 = v567;
   }
 
   else
   {
-    v582 = v579;
+    v569 = v566;
   }
 
-  LODWORD(STACK[0x554]) = v582;
-  v583 = STACK[0x524];
-  v584 = STACK[0x508];
-  if (v417)
+  LODWORD(STACK[0x554]) = v569;
+  v570 = STACK[0x524];
+  v571 = STACK[0x508];
+  if (v411)
   {
-    v585 = STACK[0x524];
+    v572 = STACK[0x524];
   }
 
   else
   {
-    v585 = STACK[0x508];
+    v572 = STACK[0x508];
   }
 
-  LODWORD(STACK[0x48C]) = v585;
-  if (v417)
+  LODWORD(STACK[0x48C]) = v572;
+  if (v411)
+  {
+    v570 = v571;
+  }
+
+  LODWORD(STACK[0x480]) = v570;
+  v573 = STACK[0x450];
+  v574 = STACK[0x448];
+  if (v411)
+  {
+    v575 = STACK[0x448];
+  }
+
+  else
+  {
+    v575 = STACK[0x450];
+  }
+
+  LODWORD(STACK[0x564]) = v575;
+  if (v411)
+  {
+    v576 = v573;
+  }
+
+  else
+  {
+    v576 = v574;
+  }
+
+  LODWORD(STACK[0x560]) = v576;
+  v577 = STACK[0x544];
+  v578 = STACK[0x4E0];
+  if (v411)
+  {
+    v579 = STACK[0x4E0];
+  }
+
+  else
+  {
+    v579 = STACK[0x544];
+  }
+
+  LODWORD(STACK[0x470]) = v579;
+  if (!v411)
+  {
+    v577 = v578;
+  }
+
+  LODWORD(STACK[0x490]) = v577;
+  v580 = STACK[0x4E8];
+  v581 = STACK[0x4D8];
+  if (v411)
+  {
+    v582 = STACK[0x4D8];
+  }
+
+  else
+  {
+    v582 = STACK[0x4E8];
+  }
+
+  LODWORD(STACK[0x51C]) = v582;
+  if (!v411)
+  {
+    v580 = v581;
+  }
+
+  LODWORD(STACK[0x4E8]) = v580;
+  v583 = STACK[0x4F4];
+  v584 = STACK[0x4DC];
+  if (v411)
+  {
+    v585 = STACK[0x4F4];
+  }
+
+  else
+  {
+    v585 = STACK[0x4DC];
+  }
+
+  LODWORD(STACK[0x50C]) = v585;
+  if (v411)
   {
     v583 = v584;
   }
 
-  LODWORD(STACK[0x480]) = v583;
-  v586 = STACK[0x450];
-  v587 = STACK[0x448];
-  if (v417)
+  LODWORD(STACK[0x528]) = v583;
+  v586 = STACK[0x4EC];
+  v587 = STACK[0x4D0];
+  if (v411)
   {
-    v588 = STACK[0x448];
+    v588 = STACK[0x4EC];
   }
 
   else
   {
-    v588 = STACK[0x450];
+    v588 = STACK[0x4D0];
   }
 
-  LODWORD(STACK[0x564]) = v588;
-  if (v417)
-  {
-    v589 = v586;
-  }
-
-  else
+  LODWORD(STACK[0x56C]) = v588;
+  if (v411)
   {
     v589 = v587;
   }
 
-  LODWORD(STACK[0x560]) = v589;
-  v590 = STACK[0x544];
-  v591 = STACK[0x4E0];
-  if (v417)
+  else
   {
-    v592 = STACK[0x4E0];
+    v589 = v586;
+  }
+
+  LODWORD(STACK[0x568]) = v589;
+  v590 = STACK[0x4C4];
+  v591 = STACK[0x4B8];
+  if (v411)
+  {
+    v592 = STACK[0x4B8];
   }
 
   else
   {
-    v592 = STACK[0x544];
+    v592 = STACK[0x4C4];
   }
 
-  LODWORD(STACK[0x470]) = v592;
-  if (!v417)
+  LODWORD(STACK[0x59C]) = v592;
+  if (v411)
   {
-    v590 = v591;
-  }
-
-  LODWORD(STACK[0x490]) = v590;
-  v593 = STACK[0x4E8];
-  v594 = STACK[0x4D8];
-  if (v417)
-  {
-    v595 = STACK[0x4D8];
+    v593 = v590;
   }
 
   else
   {
-    v595 = STACK[0x4E8];
+    v593 = v591;
   }
 
-  LODWORD(STACK[0x51C]) = v595;
-  if (!v417)
+  LODWORD(STACK[0x570]) = v593;
+  v594 = STACK[0x4F0];
+  v595 = STACK[0x4D4];
+  if (v411)
   {
-    v593 = v594;
-  }
-
-  LODWORD(STACK[0x4E8]) = v593;
-  v596 = STACK[0x4F4];
-  v597 = STACK[0x4DC];
-  if (v417)
-  {
-    v598 = STACK[0x4F4];
+    v596 = STACK[0x4F0];
   }
 
   else
   {
-    v598 = STACK[0x4DC];
+    v596 = STACK[0x4D4];
   }
 
-  LODWORD(STACK[0x50C]) = v598;
-  if (v417)
+  LODWORD(STACK[0x5A8]) = v596;
+  if (v411)
   {
-    v596 = v597;
-  }
-
-  LODWORD(STACK[0x528]) = v596;
-  v599 = STACK[0x4EC];
-  v600 = STACK[0x4D0];
-  if (v417)
-  {
-    v601 = STACK[0x4EC];
+    v597 = v595;
   }
 
   else
   {
-    v601 = STACK[0x4D0];
+    v597 = v594;
   }
 
-  LODWORD(STACK[0x56C]) = v601;
-  if (v417)
+  LODWORD(STACK[0x5A0]) = v597;
+  v598 = STACK[0x4CC];
+  v599 = STACK[0x4A8];
+  if (v411)
   {
-    v602 = v600;
+    v600 = STACK[0x4CC];
   }
 
   else
   {
-    v602 = v599;
+    v600 = STACK[0x4A8];
   }
 
-  LODWORD(STACK[0x568]) = v602;
-  v603 = STACK[0x4C4];
-  v604 = STACK[0x4B8];
-  if (v417)
+  LODWORD(STACK[0x530]) = v600;
+  if (v411)
   {
-    v605 = STACK[0x4B8];
+    v598 = v599;
+  }
+
+  LODWORD(STACK[0x534]) = v598;
+  v601 = STACK[0x4C0];
+  v602 = STACK[0x4B0];
+  if (v411)
+  {
+    v603 = STACK[0x4C0];
   }
 
   else
   {
-    v605 = STACK[0x4C4];
+    v603 = STACK[0x4B0];
   }
 
-  LODWORD(STACK[0x59C]) = v605;
-  if (v417)
+  LODWORD(STACK[0x544]) = v603;
+  if (v411)
   {
-    v606 = v603;
+    v601 = v602;
+  }
+
+  LODWORD(STACK[0x52C]) = v601;
+  v604 = STACK[0x4AC];
+  v605 = STACK[0x45C];
+  if (v411)
+  {
+    v606 = STACK[0x4AC];
   }
 
   else
   {
-    v606 = v604;
+    v606 = STACK[0x45C];
   }
 
-  LODWORD(STACK[0x570]) = v606;
-  v607 = STACK[0x4F0];
-  v608 = STACK[0x4D4];
-  if (v417)
+  LODWORD(STACK[0x5B8]) = v606;
+  if (v411)
   {
-    v609 = STACK[0x4F0];
+    v607 = v605;
   }
 
   else
   {
-    v609 = STACK[0x4D4];
+    v607 = v604;
   }
 
-  LODWORD(STACK[0x5A8]) = v609;
-  if (v417)
+  LODWORD(STACK[0x610]) = v607;
+  v608 = STACK[0x4C8];
+  v609 = STACK[0x4BC];
+  if (v411)
   {
-    v610 = v608;
+    v610 = STACK[0x4C8];
   }
 
   else
   {
-    v610 = v607;
+    v610 = STACK[0x4BC];
   }
 
-  LODWORD(STACK[0x5A0]) = v610;
-  v611 = STACK[0x4CC];
-  v612 = STACK[0x4A8];
-  if (v417)
+  LODWORD(STACK[0x5C0]) = v610;
+  if (v411)
   {
-    v613 = STACK[0x4CC];
+    v611 = v609;
   }
 
   else
   {
-    v613 = STACK[0x4A8];
+    v611 = v608;
   }
 
-  LODWORD(STACK[0x530]) = v613;
-  if (v417)
-  {
-    v611 = v612;
-  }
-
-  LODWORD(STACK[0x534]) = v611;
-  v614 = STACK[0x4C0];
-  v615 = STACK[0x4B0];
-  if (v417)
-  {
-    v616 = STACK[0x4C0];
-  }
-
-  else
-  {
-    v616 = STACK[0x4B0];
-  }
-
-  LODWORD(STACK[0x544]) = v616;
-  if (v417)
-  {
-    v614 = v615;
-  }
-
-  LODWORD(STACK[0x52C]) = v614;
-  v617 = STACK[0x4AC];
-  v618 = STACK[0x45C];
-  if (v417)
-  {
-    v619 = STACK[0x4AC];
-  }
-
-  else
-  {
-    v619 = STACK[0x45C];
-  }
-
-  LODWORD(STACK[0x5B8]) = v619;
-  if (v417)
-  {
-    v620 = v618;
-  }
-
-  else
-  {
-    v620 = v617;
-  }
-
-  LODWORD(STACK[0x610]) = v620;
-  v621 = STACK[0x4C8];
-  v622 = STACK[0x4BC];
-  if (v417)
-  {
-    v623 = STACK[0x4C8];
-  }
-
-  else
-  {
-    v623 = STACK[0x4BC];
-  }
-
-  LODWORD(STACK[0x5C0]) = v623;
-  if (v417)
-  {
-    v624 = v622;
-  }
-
-  else
-  {
-    v624 = v621;
-  }
-
-  LODWORD(STACK[0x638]) = v624;
-  v625 = v529;
-  v626 = v434 & 0x366840EA ^ 0x6CD081D4;
-  v627 = STACK[0x5E8];
-  v628 = (v434 & 0x24284008 ^ 0x6C108010 ^ (v529 ^ 0x6C30401A) & v626) << v454;
-  v629 = v454;
-  v630 = LODWORD(STACK[0x5C8]) ^ v541;
-  v631 = v630 ^ (v628 + ((v434 & 0x10480048 ^ 0x40D08144 ^ (LODWORD(STACK[0x5E8]) ^ 0x2E2040B2) & v626) >> v527)) ^ v550 ^ __ROR4__(*(v312 + 4 * v522), 16) ^ __ROR4__(*(v312 + 4 * BYTE1(v530)), 8) ^ __ROR4__(*(v312 + 4 * HIBYTE(v531)), 24) ^ *(v312 + 4 * BYTE2(v528));
-  v632 = v430 & 0x366840EA ^ 0x6CD081D4;
-  v633 = (v430 & 0x1008406A ^ 0x48100044 ^ v632 & (v539 ^ 0x26E08190)) << v515;
-  v634 = v630 ^ (((v430 & 0x32404008 ^ 0x20400010 ^ v632 & (LODWORD(STACK[0x5DC]) ^ 0x32404012u)) >> v487) | v633) ^ v553 ^ __ROR4__(*(v312 + 4 * v531), 16) ^ *(v312 + 4 * BYTE2(v530)) ^ __ROR4__(*(v312 + 4 * BYTE1(v522)), 8) ^ __ROR4__(*(v312 + 4 * HIBYTE(v528)), 24);
-  v635 = v630 ^ (((v430 & 0x6000080 ^ 0x4C900184 ^ (LODWORD(STACK[0x5E8]) ^ 0x3068C07A) & v632) >> v527) | v633) ^ v549 ^ __ROR4__(*(v312 + 4 * HIBYTE(v530)), 24) ^ *(v312 + 4 * BYTE2(v522)) ^ __ROR4__(*(v312 + 4 * v528), 16) ^ __ROR4__(*(v312 + 4 * BYTE1(v531)), 8);
-  v636 = STACK[0x5DC];
-  v637 = v487;
-  v638 = v630 ^ (v628 | ((v434 & 0x146800C8 ^ 0xCC081C0 ^ v626 & (LODWORD(STACK[0x5DC]) ^ 0x1CE881C2u)) >> v487)) ^ v554 ^ v533;
-  v639 = *(v312 + 4 * BYTE2(v634)) ^ __ROR4__(*(v312 + 4 * BYTE1(v635)), 8);
-  v640 = *(v312 + 4 * BYTE2(v638)) ^ __ROR4__(*(v312 + 4 * HIBYTE(v635)), 24) ^ __ROR4__(*(v312 + 4 * v634), 16);
-  v641 = *(v312 + 4 * BYTE2(v635)) ^ __ROR4__(*(v312 + 4 * HIBYTE(v634)), 24);
-  v642 = *(v312 + 4 * BYTE2(v631)) ^ __ROR4__(*(v312 + 4 * HIBYTE(v638)), 24) ^ __ROR4__(*(v312 + 4 * v635), 16);
-  v643 = v639 ^ __ROR4__(*(v312 + 4 * v638), 16);
-  v644 = v641 ^ __ROR4__(*(v312 + 4 * BYTE1(v638)), 8) ^ __ROR4__(*(v312 + 4 * v631), 16);
-  LODWORD(STACK[0x4AC]) = v644;
-  v645 = v643 ^ __ROR4__(*(v312 + 4 * HIBYTE(v631)), 24);
-  v646 = (v642 ^ __ROR4__(*(v312 + 4 * BYTE1(v634)), 8)) - LODWORD(STACK[0x5B4]);
-  v647 = v640 ^ __ROR4__(*(v312 + 4 * BYTE1(v631)), 8);
-  LODWORD(STACK[0x4B8]) = v647;
-  v648 = v646 + LODWORD(STACK[0x5B0]);
-  LODWORD(STACK[0x4B0]) = v648;
-  v649 = v645 + LODWORD(STACK[0x440]);
-  LODWORD(STACK[0x4D4]) = v649;
-  v650 = v625;
-  v651 = v434 & 0x7EB32991 ^ 0xFD665323;
-  LODWORD(STACK[0x5C8]) = v651;
-  v652 = v434 & 0x2C302900 ^ 0x2C641102 ^ (v625 ^ 0x2C703900) & v651;
-  v653 = v434 & 0x42802810 ^ 0xC0001202 ^ v651 & (v636 ^ 0xC2803A11);
-  LODWORD(STACK[0x5B4]) = v653;
-  v654 = v430;
-  v655 = v430 & 0x7EB32991 ^ 0xFD665323;
-  LODWORD(STACK[0x504]) = v655;
-  v656 = v430 & 0x52A02900 ^ 0x50645102 ^ v655 & (v539 ^ 0xAD1302B1);
-  LOBYTE(v641) = v545;
-  v657 = LODWORD(STACK[0x418]) ^ LODWORD(STACK[0x5AC]);
-  LODWORD(STACK[0x514]) = v652 << v545;
-  v658 = v657 ^ ((v652 << v545) + (v653 >> v527)) ^ LODWORD(STACK[0x3F8]);
-  v659 = v430 & 0x5EA20810 ^ 0xDC264020 ^ (v627 ^ 0x21513383) & v655;
-  LODWORD(STACK[0x5B0]) = v659;
-  v660 = v629;
-  v661 = v656 << v629;
-  v662 = v659 >> v637;
-  LODWORD(STACK[0x518]) = v656 << v629;
-  v663 = v657 ^ (v662 | (v656 << v629)) ^ LODWORD(STACK[0x400]);
-  v664 = v657 ^ (v662 + v661) ^ LODWORD(STACK[0x408]);
-  v665 = v657 ^ (v653 >> v527) ^ (v652 << v545) ^ LODWORD(STACK[0x410]);
-  v666 = v650;
-  v667 = v434 & 0x1D74FE03 ^ 0x3AE9FC06;
-  LODWORD(STACK[0x524]) = v667;
-  v668 = v434 & 0x410A600 ^ 0x1A400 ^ (v650 ^ 0x41D2602) & v667;
-  LODWORD(STACK[0x510]) = v668;
-  v669 = v434 & 0x5605800 ^ 0x2685804 ^ (v627 ^ 0x3895A603) & v667;
-  v670 = v668 << v641;
-  v671 = STACK[0x428];
-  v672 = LODWORD(STACK[0x430]) ^ LODWORD(STACK[0x428]);
-  v673 = v658 ^ v647;
-  v674 = v664 ^ v644;
-  v675 = v672 ^ (v670 | (v669 >> v527)) ^ LODWORD(STACK[0x420]) ^ *(v312 + 4 * ((v658 ^ v647) >> 16)) ^ __ROR4__(*(v312 + 4 * ((v664 ^ v644) >> 24)), 24);
-  v676 = v663 ^ v648;
-  v677 = v665 ^ v649;
-  v678 = v675 ^ __ROR4__(*(v312 + 4 * ((v663 ^ v648) >> 8)), 8) ^ __ROR4__(*(v312 + 4 * v677), 16);
-  v679 = v654 & 0x1D74FE03 ^ 0x3AE9FC06;
-  LODWORD(STACK[0x508]) = v679;
-  v680 = v654 & 0x1303003 ^ 0x2203002 ^ v679 & (v636 ^ 0x3303000);
-  v681 = v654 & 0x1C245E00 ^ 0x3AA85C04 ^ v679 & (v539 ^ 0x151A003);
-  LODWORD(STACK[0x4E0]) = v681;
-  v682 = v681 << v660;
-  LOBYTE(v649) = v637;
-  LODWORD(STACK[0x4F0]) = v681 << v660;
-  v683 = v672 ^ ((v680 >> v637) | (v681 << v660)) ^ LODWORD(STACK[0x438]) ^ __ROR4__(*(v312 + 4 * BYTE1(v674)), 8) ^ __ROR4__(*(v312 + 4 * v673), 16) ^ __ROR4__(*(v312 + 4 * HIBYTE(v676)), 24) ^ *(v312 + 4 * BYTE2(v677));
-  v684 = v669 >> v637;
-  LODWORD(STACK[0x4DC]) = v684;
-  LODWORD(STACK[0x4C8]) = v672;
-  v685 = v672 ^ v670;
-  LODWORD(STACK[0x4F4]) = v685;
-  v686 = v685 ^ v684 ^ LODWORD(STACK[0x460]) ^ *(v312 + 4 * BYTE2(v674)) ^ __ROR4__(*(v312 + 4 * v676), 16) ^ __ROR4__(*(v312 + 4 * HIBYTE(v677)), 24) ^ __ROR4__(*(v312 + 4 * BYTE1(v673)), 8);
-  v687 = v680 >> v527;
-  LODWORD(STACK[0x4CC]) = v687;
-  v688 = v672 ^ v682 ^ v687 ^ LODWORD(STACK[0x484]) ^ __ROR4__(*(v312 + 4 * v674), 16) ^ __ROR4__(*(v312 + 4 * HIBYTE(v673)), 24) ^ __ROR4__(*(v312 + 4 * BYTE1(v677)), 8) ^ *(v312 + 4 * BYTE2(v676));
-  HIDWORD(v689) = *(v312 + 4 * v678);
-  LODWORD(v689) = HIDWORD(v689);
-  v690 = __ROR4__((v689 >> 16) ^ __ROR4__(*(v312 + 4 * HIBYTE(v688)), 24), 24) ^ 0xFB87CF55;
-  v691 = v654 & 0x273A535B ^ 0x4E74A6B7;
-  v692 = v654 & 0x53A0141 ^ 0xC740001 ^ v691 & (v636 ^ 0xD7E014A);
-  v693 = v654 & 0x21325153 ^ 0x708413 ^ v691 & (v539 ^ 0x4E0C22AC);
-  LODWORD(STACK[0x484]) = v693;
-  v694 = v434 & 0x273A535B ^ 0x4E74A6B7;
-  v695 = v434 & 0x7001218 ^ 0xE040294 ^ (v666 ^ 0xF08929E) & v694;
-  LODWORD(STACK[0x4D0]) = v695;
-  v696 = v434 & 0x6120218 ^ 0xE10A290 ^ (v627 ^ 0x616C5567) & v694;
-  v697 = v671 ^ LODWORD(STACK[0x478]);
-  LODWORD(STACK[0x4EC]) = v696 >> v527;
-  LOBYTE(v648) = v641;
-  v698 = v697 ^ (v695 << v641) ^ (v696 >> v527) ^ LODWORD(STACK[0x470]) ^ __ROR4__(*(v312 + 4 * HIBYTE(v686)), 24) ^ __ROR4__(*(v312 + 4 * BYTE1(v688)), 8) ^ __ROR4__(*(v312 + 4 * v683), 16) ^ *(v312 + 4 * BYTE2(v678));
-  v699 = v654 & 0x25180318 ^ 0x445082B0 ^ (v666 ^ 0x655403BA) & v691;
-  LODWORD(STACK[0x4D8]) = v699;
-  LODWORD(STACK[0x4C0]) = v692 >> v527;
-  v700 = v697 ^ ((v699 << v641) + (v692 >> v527)) ^ LODWORD(STACK[0x480]) ^ *(v312 + 4 * BYTE2(v688)) ^ __ROR4__(*(v312 + 4 * v686), 16) ^ __ROR4__(*(v312 + 4 * HIBYTE(v678)), 24) ^ __ROR4__(*(v312 + 4 * BYTE1(v683)), 8);
-  v701 = v434 & 0x7181050 ^ 0x4610A090 ^ v694 & (v539 ^ 0x2866472F);
-  LODWORD(STACK[0x4C4]) = v701;
-  LODWORD(STACK[0x4A8]) = v696 >> v649;
-  v702 = v697 ^ ((v696 >> v649) + (v701 << v660)) ^ LODWORD(STACK[0x48C]) ^ *(v312 + 4 * BYTE2(v686)) ^ __ROR4__(*(v312 + 4 * BYTE1(v678)), 8) ^ __ROR4__(*(v312 + 4 * v688), 16) ^ __ROR4__(*(v312 + 4 * HIBYTE(v683)), 24);
-  v703 = *(v312 + 4 * BYTE2(v683));
-  LOBYTE(v647) = v649;
-  v704 = v697 ^ (v692 >> v649);
-  LODWORD(STACK[0x4BC]) = v704;
-  v705 = v704 ^ (v693 << v660) ^ LODWORD(STACK[0x490]) ^ v703 ^ __ROR4__(v690, 8) ^ __ROR4__(*(v312 + 4 * BYTE1(v686)), 8) ^ 0x55FB87CF;
-  v706 = v434 & 0xFEF15D1 ^ 0x1FDE2BA3;
-  v707 = LODWORD(STACK[0x5AC]) ^ LODWORD(STACK[0x474]);
-  v708 = (v434 & 0x50D01C1 ^ 0x151C2183 ^ v706 & (v539 ^ 0xAE21E30)) << v641;
-  LODWORD(STACK[0x5AC]) = v708;
-  v709 = v707 ^ (((v434 & 0x8EE0191 ^ 0x8DE0383 ^ v706 & (v636 ^ 0x8FE0390u)) >> v647) | v708) ^ LODWORD(STACK[0x4E8]) ^ __ROR4__(*(v312 + 4 * v698), 16) ^ __ROR4__(*(v312 + 4 * HIBYTE(v700)), 24) ^ *(v312 + 4 * BYTE2(v705)) ^ __ROR4__(*(v312 + 4 * BYTE1(v702)), 8);
-  v710 = (v654 & 0xFEF15D1) - (STACK[0x640] & 0x1F9C0302) + 534653859;
-  v711 = v707 ^ ((STACK[0x598] & v710) << v660) ^ (((v627 ^ 0x3FFFFFFF) & v710) >> v527) ^ LODWORD(STACK[0x50C]) ^ __ROR4__(*(v312 + 4 * BYTE1(v698)), 8) ^ __ROR4__(*(v312 + 4 * v700), 16) ^ *(v312 + 4 * BYTE2(v702));
-  v712 = v434 & 0x8E61480 ^ 0x8C62082 ^ (v627 ^ 0x17190B71) & v706;
-  LODWORD(STACK[0x4E8]) = v712;
-  v713 = v712 >> v647;
-  LODWORD(STACK[0x50C]) = v713;
-  v714 = v707 ^ (v713 | ((v434 & 0x3C60441 ^ 0x13C62021 ^ (v666 ^ 0x13CA2463) & v706) << v660)) ^ LODWORD(STACK[0x51C]) ^ (*(v312 + 4 * v705) << 16) ^ HIWORD(*(v312 + 4 * v705)) ^ *(v312 + 4 * BYTE2(v698)) ^ __ROR4__(*(v312 + 4 * HIBYTE(v702)), 24) ^ __ROR4__(*(v312 + 4 * BYTE1(v700)), 8);
-  v715 = v654 & 0xFEF15D1 ^ 0x1FDE2BA3;
-  LODWORD(STACK[0x48C]) = v715;
-  v716 = v654 & 0x4A80580 ^ 0x14880982 ^ v715 & (v539 ^ 0xB573271);
-  v717 = v636;
-  v718 = v654 & 0xA6B1540 ^ 0x1A4A2300 ^ v715 & (v636 ^ 0x1A6B3743);
-  LODWORD(STACK[0x490]) = v718;
-  v719 = *(v312 + 4 * HIBYTE(v698));
-  v720 = v718 >> v527;
-  LODWORD(STACK[0x51C]) = v720;
-  v721 = v707 ^ (v720 | (v716 << v648)) ^ LODWORD(STACK[0x528]) ^ __ROR4__(v719, 24) ^ *(v312 + 4 * BYTE2(v700)) ^ __ROR4__(*(v312 + 4 * v702), 16) ^ __ROR4__(*(v312 + 4 * BYTE1(v705)), 8);
-  v722 = STACK[0x608];
-  v723 = *(STACK[0x608] + 4 * HIBYTE(v714));
-  HIDWORD(v689) = v723 ^ 0x2D1D;
-  LODWORD(v689) = v723 ^ 0x30B80000;
-  v724 = v689 >> 16;
-  v725 = *(STACK[0x608] + 4 * HIBYTE(v721));
-  HIDWORD(v689) = v725 ^ 0x2D1D;
-  LODWORD(v689) = v725 ^ 0x30B80000;
-  v726 = v689 >> 16;
-  v727 = *(v312 + 4 * HIBYTE(v705));
-  v728 = *(STACK[0x608] + 4 * BYTE2(v721));
-  v729 = v711 ^ __ROR4__(v727, 24);
-  HIDWORD(v689) = v728 ^ 0xB82D1D;
-  LODWORD(v689) = v728 ^ 0x30000000;
-  v730 = v689 >> 24;
-  v731 = *(STACK[0x608] + 4 * v721);
-  HIDWORD(v689) = v731 ^ 0x1D;
-  LODWORD(v689) = v731 ^ 0x30B82D00;
-  v732 = v689 >> 8;
-  v733 = *(STACK[0x608] + 4 * BYTE2(v729));
-  HIDWORD(v689) = v733 ^ 0xB82D1D;
-  LODWORD(v689) = v733 ^ 0x30000000;
-  v734 = *(STACK[0x608] + 4 * HIBYTE(v709));
-  v735 = (v689 >> 24) ^ v732;
-  HIDWORD(v689) = v734 ^ 0x2D1D;
-  LODWORD(v689) = v734 ^ 0x30B80000;
-  v736 = v689 >> 16;
-  v737 = *(STACK[0x608] + 4 * BYTE2(v709));
-  HIDWORD(v689) = v737 ^ 0xB82D1D;
-  LODWORD(v689) = v737 ^ 0x30000000;
-  v738 = v735 ^ v736;
-  v739 = (v689 >> 24) ^ v726;
-  v740 = *(STACK[0x608] + 4 * BYTE2(v714));
-  HIDWORD(v689) = v740 ^ 0xB82D1D;
-  LODWORD(v689) = v740 ^ 0x30000000;
+  LODWORD(STACK[0x638]) = v611;
+  v612 = v520;
+  v613 = v428 & 0x366840EA ^ 0x6CD081D4;
+  v614 = STACK[0x5E8];
+  v615 = (v428 & 0x24284008 ^ 0x6C108010 ^ (v520 ^ 0x6C30401A) & v613) << v448;
+  v616 = v448;
+  v617 = LODWORD(STACK[0x5C8]) ^ v532;
+  v618 = v617 ^ (v615 + ((v428 & 0x10480048 ^ 0x40D08144 ^ (LODWORD(STACK[0x5E8]) ^ 0x2E2040B2) & v613) >> v518)) ^ v539 ^ __ROR4__(*(v312 + 4 * v513), 16) ^ __ROR4__(*(v312 + 4 * BYTE1(v521)), 8) ^ __ROR4__(*(v312 + 4 * HIBYTE(v522)), 24) ^ *(v312 + 4 * BYTE2(v519));
+  v619 = v424 & 0x366840EA ^ 0x6CD081D4;
+  v620 = (v424 & 0x1008406A ^ 0x48100044 ^ v619 & (v530 ^ 0x26E08190)) << v506;
+  v621 = v617 ^ (((v424 & 0x32404008 ^ 0x20400010 ^ v619 & (LODWORD(STACK[0x5DC]) ^ 0x32404012u)) >> v481) | v620) ^ v540 ^ __ROR4__(*(v312 + 4 * v522), 16) ^ *(v312 + 4 * BYTE2(v521)) ^ __ROR4__(*(v312 + 4 * BYTE1(v513)), 8) ^ __ROR4__(*(v312 + 4 * HIBYTE(v519)), 24);
+  v622 = v617 ^ (((v424 & 0x6000080 ^ 0x4C900184 ^ (LODWORD(STACK[0x5E8]) ^ 0x3068C07A) & v619) >> v518) | v620) ^ v538 ^ __ROR4__(*(v312 + 4 * HIBYTE(v521)), 24) ^ *(v312 + 4 * BYTE2(v513)) ^ __ROR4__(*(v312 + 4 * v519), 16) ^ __ROR4__(*(v312 + 4 * BYTE1(v522)), 8);
+  v623 = STACK[0x5DC];
+  v624 = v481;
+  v625 = v617 ^ (v615 | ((v428 & 0x146800C8 ^ 0xCC081C0 ^ v613 & (LODWORD(STACK[0x5DC]) ^ 0x1CE881C2u)) >> v481)) ^ v541 ^ v524;
+  v626 = *(v312 + 4 * BYTE2(v621)) ^ __ROR4__(*(v312 + 4 * BYTE1(v622)), 8);
+  v627 = *(v312 + 4 * BYTE2(v625)) ^ __ROR4__(*(v312 + 4 * HIBYTE(v622)), 24) ^ __ROR4__(*(v312 + 4 * v621), 16);
+  v628 = *(v312 + 4 * BYTE2(v622)) ^ __ROR4__(*(v312 + 4 * HIBYTE(v621)), 24);
+  v629 = *(v312 + 4 * BYTE2(v618)) ^ __ROR4__(*(v312 + 4 * HIBYTE(v625)), 24) ^ __ROR4__(*(v312 + 4 * v622), 16);
+  v630 = v626 ^ __ROR4__(*(v312 + 4 * v625), 16);
+  v631 = v628 ^ __ROR4__(*(v312 + 4 * BYTE1(v625)), 8) ^ __ROR4__(*(v312 + 4 * v618), 16);
+  LODWORD(STACK[0x4AC]) = v631;
+  v632 = v630 ^ __ROR4__(*(v312 + 4 * HIBYTE(v618)), 24);
+  v633 = (v629 ^ __ROR4__(*(v312 + 4 * BYTE1(v621)), 8)) - LODWORD(STACK[0x5B4]);
+  v634 = v627 ^ __ROR4__(*(v312 + 4 * BYTE1(v618)), 8);
+  LODWORD(STACK[0x4B8]) = v634;
+  v635 = v633 + LODWORD(STACK[0x5B0]);
+  LODWORD(STACK[0x4B0]) = v635;
+  v636 = v632 + LODWORD(STACK[0x440]);
+  LODWORD(STACK[0x4D4]) = v636;
+  v637 = v612;
+  v638 = v428 & 0x7EB32991 ^ 0xFD665323;
+  LODWORD(STACK[0x5C8]) = v638;
+  v639 = v428 & 0x2C302900 ^ 0x2C641102 ^ (v612 ^ 0x2C703900) & v638;
+  v640 = v428 & 0x42802810 ^ 0xC0001202 ^ v638 & (v623 ^ 0xC2803A11);
+  LODWORD(STACK[0x5B4]) = v640;
+  v641 = v424;
+  v642 = v424 & 0x7EB32991 ^ 0xFD665323;
+  LODWORD(STACK[0x504]) = v642;
+  v643 = v424 & 0x52A02900 ^ 0x50645102 ^ v642 & (v530 ^ 0xAD1302B1);
+  LOBYTE(v628) = v536;
+  v644 = LODWORD(STACK[0x418]) ^ LODWORD(STACK[0x5AC]);
+  LODWORD(STACK[0x514]) = v639 << v536;
+  v645 = v644 ^ ((v639 << v536) + (v640 >> v518)) ^ LODWORD(STACK[0x3F8]);
+  v646 = v424 & 0x5EA20810 ^ 0xDC264020 ^ (v614 ^ 0x21513383) & v642;
+  LODWORD(STACK[0x5B0]) = v646;
+  v647 = v616;
+  v648 = v643 << v616;
+  v649 = v646 >> v624;
+  LODWORD(STACK[0x518]) = v643 << v616;
+  v650 = v644 ^ (v649 | (v643 << v616)) ^ LODWORD(STACK[0x400]);
+  v651 = v644 ^ (v649 + v648) ^ LODWORD(STACK[0x408]);
+  v652 = v644 ^ (v640 >> v518) ^ (v639 << v536) ^ LODWORD(STACK[0x410]);
+  v653 = v637;
+  v654 = v428 & 0x1D74FE03 ^ 0x3AE9FC06;
+  LODWORD(STACK[0x524]) = v654;
+  v655 = v428 & 0x410A600 ^ 0x1A400 ^ (v637 ^ 0x41D2602) & v654;
+  LODWORD(STACK[0x510]) = v655;
+  v656 = v428 & 0x5605800 ^ 0x2685804 ^ (v614 ^ 0x3895A603) & v654;
+  v657 = v655 << v628;
+  v658 = STACK[0x428];
+  v659 = LODWORD(STACK[0x430]) ^ LODWORD(STACK[0x428]);
+  v660 = v645 ^ v634;
+  v661 = v651 ^ v631;
+  v662 = v659 ^ (v657 | (v656 >> v518)) ^ LODWORD(STACK[0x420]) ^ *(v312 + 4 * ((v645 ^ v634) >> 16)) ^ __ROR4__(*(v312 + 4 * ((v651 ^ v631) >> 24)), 24);
+  v663 = v650 ^ v635;
+  v664 = v652 ^ v636;
+  v665 = v662 ^ __ROR4__(*(v312 + 4 * ((v650 ^ v635) >> 8)), 8) ^ __ROR4__(*(v312 + 4 * v664), 16);
+  v666 = v641 & 0x1D74FE03 ^ 0x3AE9FC06;
+  LODWORD(STACK[0x508]) = v666;
+  v667 = v641 & 0x1303003 ^ 0x2203002 ^ v666 & (v623 ^ 0x3303000);
+  v668 = v641 & 0x1C245E00 ^ 0x3AA85C04 ^ v666 & (v530 ^ 0x151A003);
+  LODWORD(STACK[0x4E0]) = v668;
+  v669 = v668 << v647;
+  LOBYTE(v636) = v624;
+  LODWORD(STACK[0x4F0]) = v668 << v647;
+  v670 = v659 ^ ((v667 >> v624) | (v668 << v647)) ^ LODWORD(STACK[0x438]) ^ __ROR4__(*(v312 + 4 * BYTE1(v661)), 8) ^ __ROR4__(*(v312 + 4 * v660), 16) ^ __ROR4__(*(v312 + 4 * HIBYTE(v663)), 24) ^ *(v312 + 4 * BYTE2(v664));
+  v671 = v656 >> v624;
+  LODWORD(STACK[0x4DC]) = v671;
+  LODWORD(STACK[0x4C8]) = v659;
+  v672 = v659 ^ v657;
+  LODWORD(STACK[0x4F4]) = v672;
+  v673 = v672 ^ v671 ^ LODWORD(STACK[0x460]) ^ *(v312 + 4 * BYTE2(v661)) ^ __ROR4__(*(v312 + 4 * v663), 16) ^ __ROR4__(*(v312 + 4 * HIBYTE(v664)), 24) ^ __ROR4__(*(v312 + 4 * BYTE1(v660)), 8);
+  v674 = v667 >> v518;
+  LODWORD(STACK[0x4CC]) = v674;
+  v675 = v659 ^ v669 ^ v674 ^ LODWORD(STACK[0x484]) ^ __ROR4__(*(v312 + 4 * v661), 16) ^ __ROR4__(*(v312 + 4 * HIBYTE(v660)), 24) ^ __ROR4__(*(v312 + 4 * BYTE1(v664)), 8) ^ *(v312 + 4 * BYTE2(v663));
+  HIDWORD(v676) = *(v312 + 4 * v665);
+  LODWORD(v676) = HIDWORD(v676);
+  v677 = __ROR4__((v676 >> 16) ^ __ROR4__(*(v312 + 4 * HIBYTE(v675)), 24), 24) ^ 0xFB87CF55;
+  v678 = v641 & 0x273A535B ^ 0x4E74A6B7;
+  v679 = v641 & 0x53A0141 ^ 0xC740001 ^ v678 & (v623 ^ 0xD7E014A);
+  v680 = v641 & 0x21325153 ^ 0x708413 ^ v678 & (v530 ^ 0x4E0C22AC);
+  LODWORD(STACK[0x484]) = v680;
+  v681 = v428 & 0x273A535B ^ 0x4E74A6B7;
+  v682 = v428 & 0x7001218 ^ 0xE040294 ^ (v653 ^ 0xF08929E) & v681;
+  LODWORD(STACK[0x4D0]) = v682;
+  v683 = v428 & 0x6120218 ^ 0xE10A290 ^ (v614 ^ 0x616C5567) & v681;
+  v684 = v658 ^ LODWORD(STACK[0x478]);
+  LODWORD(STACK[0x4EC]) = v683 >> v518;
+  LOBYTE(v635) = v628;
+  v685 = v684 ^ (v682 << v628) ^ (v683 >> v518) ^ LODWORD(STACK[0x470]) ^ __ROR4__(*(v312 + 4 * HIBYTE(v673)), 24) ^ __ROR4__(*(v312 + 4 * BYTE1(v675)), 8) ^ __ROR4__(*(v312 + 4 * v670), 16) ^ *(v312 + 4 * BYTE2(v665));
+  v686 = v641 & 0x25180318 ^ 0x445082B0 ^ (v653 ^ 0x655403BA) & v678;
+  LODWORD(STACK[0x4D8]) = v686;
+  LODWORD(STACK[0x4C0]) = v679 >> v518;
+  v687 = v684 ^ ((v686 << v628) + (v679 >> v518)) ^ LODWORD(STACK[0x480]) ^ *(v312 + 4 * BYTE2(v675)) ^ __ROR4__(*(v312 + 4 * v673), 16) ^ __ROR4__(*(v312 + 4 * HIBYTE(v665)), 24) ^ __ROR4__(*(v312 + 4 * BYTE1(v670)), 8);
+  v688 = v428 & 0x7181050 ^ 0x4610A090 ^ v681 & (v530 ^ 0x2866472F);
+  LODWORD(STACK[0x4C4]) = v688;
+  LODWORD(STACK[0x4A8]) = v683 >> v636;
+  v689 = v684 ^ ((v683 >> v636) + (v688 << v647)) ^ LODWORD(STACK[0x48C]) ^ *(v312 + 4 * BYTE2(v673)) ^ __ROR4__(*(v312 + 4 * BYTE1(v665)), 8) ^ __ROR4__(*(v312 + 4 * v675), 16) ^ __ROR4__(*(v312 + 4 * HIBYTE(v670)), 24);
+  v690 = *(v312 + 4 * BYTE2(v670));
+  LOBYTE(v634) = v636;
+  v691 = v684 ^ (v679 >> v636);
+  LODWORD(STACK[0x4BC]) = v691;
+  v692 = v691 ^ (v680 << v647) ^ LODWORD(STACK[0x490]) ^ v690 ^ __ROR4__(v677, 8) ^ __ROR4__(*(v312 + 4 * BYTE1(v673)), 8) ^ 0x55FB87CF;
+  v693 = v428 & 0xFEF15D1 ^ 0x1FDE2BA3;
+  v694 = LODWORD(STACK[0x5AC]) ^ LODWORD(STACK[0x474]);
+  v695 = (v428 & 0x50D01C1 ^ 0x151C2183 ^ v693 & (v530 ^ 0xAE21E30)) << v628;
+  LODWORD(STACK[0x5AC]) = v695;
+  v696 = v694 ^ (((v428 & 0x8EE0191 ^ 0x8DE0383 ^ v693 & (v623 ^ 0x8FE0390u)) >> v634) | v695) ^ LODWORD(STACK[0x4E8]) ^ __ROR4__(*(v312 + 4 * v685), 16) ^ __ROR4__(*(v312 + 4 * HIBYTE(v687)), 24) ^ *(v312 + 4 * BYTE2(v692)) ^ __ROR4__(*(v312 + 4 * BYTE1(v689)), 8);
+  v697 = (v641 & 0xFEF15D1) - (STACK[0x640] & 0x1F9C0302) + 534653859;
+  v698 = v694 ^ ((STACK[0x598] & v697) << v647) ^ (((v614 ^ 0x3FFFFFFF) & v697) >> v518) ^ LODWORD(STACK[0x50C]) ^ __ROR4__(*(v312 + 4 * BYTE1(v685)), 8) ^ __ROR4__(*(v312 + 4 * v687), 16) ^ *(v312 + 4 * BYTE2(v689));
+  v699 = v428 & 0x8E61480 ^ 0x8C62082 ^ (v614 ^ 0x17190B71) & v693;
+  LODWORD(STACK[0x4E8]) = v699;
+  v700 = v699 >> v634;
+  LODWORD(STACK[0x50C]) = v700;
+  v701 = v694 ^ (v700 | ((v428 & 0x3C60441 ^ 0x13C62021 ^ (v653 ^ 0x13CA2463) & v693) << v647)) ^ LODWORD(STACK[0x51C]) ^ (*(v312 + 4 * v692) << 16) ^ HIWORD(*(v312 + 4 * v692)) ^ *(v312 + 4 * BYTE2(v685)) ^ __ROR4__(*(v312 + 4 * HIBYTE(v689)), 24) ^ __ROR4__(*(v312 + 4 * BYTE1(v687)), 8);
+  v702 = v641 & 0xFEF15D1 ^ 0x1FDE2BA3;
+  LODWORD(STACK[0x48C]) = v702;
+  v703 = v641 & 0x4A80580 ^ 0x14880982 ^ v702 & (v530 ^ 0xB573271);
+  v704 = v623;
+  v705 = v641 & 0xA6B1540 ^ 0x1A4A2300 ^ v702 & (v623 ^ 0x1A6B3743);
+  LODWORD(STACK[0x490]) = v705;
+  v706 = *(v312 + 4 * HIBYTE(v685));
+  v707 = v705 >> v518;
+  LODWORD(STACK[0x51C]) = v707;
+  v708 = v694 ^ (v707 | (v703 << v635)) ^ LODWORD(STACK[0x528]) ^ __ROR4__(v706, 24) ^ *(v312 + 4 * BYTE2(v687)) ^ __ROR4__(*(v312 + 4 * v689), 16) ^ __ROR4__(*(v312 + 4 * BYTE1(v692)), 8);
+  v709 = STACK[0x608];
+  v710 = *(STACK[0x608] + 4 * HIBYTE(v701));
+  HIDWORD(v676) = v710 ^ 0x2D1D;
+  LODWORD(v676) = v710 ^ 0x30B80000;
+  v711 = v676 >> 16;
+  v712 = *(STACK[0x608] + 4 * HIBYTE(v708));
+  HIDWORD(v676) = v712 ^ 0x2D1D;
+  LODWORD(v676) = v712 ^ 0x30B80000;
+  v713 = v676 >> 16;
+  v714 = *(v312 + 4 * HIBYTE(v692));
+  v715 = *(STACK[0x608] + 4 * BYTE2(v708));
+  v716 = v698 ^ __ROR4__(v714, 24);
+  HIDWORD(v676) = v715 ^ 0xB82D1D;
+  LODWORD(v676) = v715 ^ 0x30000000;
+  v717 = v676 >> 24;
+  v718 = *(STACK[0x608] + 4 * v708);
+  HIDWORD(v676) = v718 ^ 0x1D;
+  LODWORD(v676) = v718 ^ 0x30B82D00;
+  v719 = v676 >> 8;
+  v720 = *(STACK[0x608] + 4 * BYTE2(v716));
+  HIDWORD(v676) = v720 ^ 0xB82D1D;
+  LODWORD(v676) = v720 ^ 0x30000000;
+  v721 = *(STACK[0x608] + 4 * HIBYTE(v696));
+  v722 = (v676 >> 24) ^ v719;
+  HIDWORD(v676) = v721 ^ 0x2D1D;
+  LODWORD(v676) = v721 ^ 0x30B80000;
+  v723 = v676 >> 16;
+  v724 = *(STACK[0x608] + 4 * BYTE2(v696));
+  HIDWORD(v676) = v724 ^ 0xB82D1D;
+  LODWORD(v676) = v724 ^ 0x30000000;
+  v725 = v722 ^ v723;
+  v726 = (v676 >> 24) ^ v713;
+  v727 = *(STACK[0x608] + 4 * BYTE2(v701));
+  HIDWORD(v676) = v727 ^ 0xB82D1D;
+  LODWORD(v676) = v727 ^ 0x30000000;
   LODWORD(STACK[0x640]) = 817376542;
   LODWORD(STACK[0x598]) = -1634753083;
-  v741 = (v689 >> 24) + 817376542 + (~(2 * (v689 >> 24)) | 0x9E8FA5C5);
-  v742 = *(v722 + 4 * HIBYTE(v729));
-  HIDWORD(v689) = v742 ^ 0x2D1D;
-  LODWORD(v689) = v742 ^ 0x30B80000;
-  v743 = v689 >> 16;
-  v744 = *(v722 + 4 * v714);
-  HIDWORD(v689) = v744 ^ 0x1D;
-  LODWORD(v689) = v744 ^ 0x30B82D00;
-  v745 = *(v722 + 4 * v729);
-  v746 = v739 ^ (v689 >> 8);
-  HIDWORD(v689) = v745 ^ 0x1D;
-  LODWORD(v689) = v745 ^ 0x30B82D00;
-  v747 = v730 ^ (v689 >> 8) ^ v724;
-  v748 = *(v722 + 4 * v709);
-  HIDWORD(v689) = v748 ^ 0x1D;
-  LODWORD(v689) = v748 ^ 0x30B82D00;
-  v749 = *(v722 + 4 * BYTE1(v714));
-  v750 = LODWORD(STACK[0x57C]) ^ LODWORD(STACK[0x5BC]);
-  v751 = v750 ^ LODWORD(STACK[0x52C]) ^ v749 ^ (v738 + 817376541 - ((2 * v738) & 0x61705A3A));
-  LODWORD(STACK[0x52C]) = v751 - ((2 * v751) & 0x564CD294);
-  v752 = v750 ^ LODWORD(STACK[0x530]) ^ *(v722 + 4 * BYTE1(v721)) ^ v743 ^ (v689 >> 8) ^ v741;
-  v753 = *(v722 + 4 * BYTE1(v729)) ^ LODWORD(STACK[0x534]) ^ (v746 + 817376541 - ((2 * v746) & 0x61705A3A));
-  LODWORD(STACK[0x534]) = v752 - ((2 * v752) & 0x564CD294);
-  v754 = v750 ^ LODWORD(STACK[0x544]) ^ *(v722 + 4 * BYTE1(v709)) ^ (v747 + 817376541 - ((2 * v747) & 0x61705A3A));
-  LODWORD(STACK[0x544]) = v754 - ((2 * v754) & 0x564CD294);
-  v755 = (v753 + 121406673 - ((2 * v753) & 0xE7909A2)) ^ LODWORD(STACK[0x494]);
-  LODWORD(STACK[0x530]) = v755 - ((2 * v755) & 0x564CD294);
-  v756 = v657 ^ (((v654 & 0x58212881 ^ 0x59241021 ^ (LODWORD(STACK[0x5F0]) ^ 0x592138A3) & STACK[0x504]) << v660) | ((v654 & 0x14912190 ^ 0x14001300 ^ STACK[0x504] & (v717 ^ 0x14913393)) >> v647)) ^ LODWORD(STACK[0x520]) ^ LODWORD(STACK[0x4AC]);
-  v757 = v657 ^ (((v434 & 0x30100080 ^ 0xB0404020 ^ (LODWORD(STACK[0x5E8]) ^ 0x4FA73B13) & STACK[0x5C8]) >> v527) | ((v434 & 0x18330010 ^ 0x19225022 ^ STACK[0x5C8] & (LODWORD(STACK[0x5D0]) ^ 0xE6C42B81)) << v648)) ^ LODWORD(STACK[0x538]);
-  v758 = v757 ^ LODWORD(STACK[0x4D4]);
-  v759 = v657 ^ (LODWORD(STACK[0x5B4]) >> v647) ^ LODWORD(STACK[0x514]) ^ LODWORD(STACK[0x548]) ^ LODWORD(STACK[0x4B0]);
-  v760 = v657 ^ ((LODWORD(STACK[0x5B0]) >> v527) + LODWORD(STACK[0x518])) ^ LODWORD(STACK[0x54C]) ^ LODWORD(STACK[0x4B8]);
-  v761 = LODWORD(STACK[0x4C8]) ^ (LODWORD(STACK[0x4CC]) + (LODWORD(STACK[0x4E0]) << v648)) ^ LODWORD(STACK[0x550]) ^ __ROR4__(*(v312 + 4 * HIBYTE(v756)), 24) ^ __ROR4__(*(v312 + 4 * BYTE1(v759)), 8) ^ *(v312 + 4 * BYTE2(v760)) ^ __ROR4__(*(v312 + 4 * (v757 ^ LOBYTE(STACK[0x4D4]))), 16);
-  v762 = LODWORD(STACK[0x4C8]) ^ (LODWORD(STACK[0x4DC]) | (LODWORD(STACK[0x510]) << v660)) ^ LODWORD(STACK[0x554]) ^ __ROR4__(*(v312 + 4 * (v657 ^ (((v654 & 0x81 ^ 0x21 ^ (LOBYTE(STACK[0x5F0]) ^ 0xA3) & STACK[0x504]) << v660) | ((v654 & 0x14912190 ^ 0x14001300 ^ STACK[0x504] & (v717 ^ 0x14913393)) >> v647)) ^ LOBYTE(STACK[0x520]) ^ LOBYTE(STACK[0x4AC]))), 16) ^ *(v312 + 4 * BYTE2(v759)) ^ __ROR4__(*(v312 + 4 * HIBYTE(v760)), 24) ^ __ROR4__(*(v312 + 4 * BYTE1(v758)), 8);
-  v763 = LODWORD(STACK[0x4F4]) ^ ((v434 & 0x5007402 ^ 0x22897406 ^ STACK[0x524] & (v717 ^ 0x27897405)) >> v647) ^ LODWORD(STACK[0x558]) ^ *(v312 + 4 * BYTE2(v758)) ^ __ROR4__(*(v312 + 4 * BYTE1(v756)), 8) ^ __ROR4__(*(v312 + 4 * HIBYTE(v759)), 24) ^ __ROR4__(*(v312 + 4 * (v657 ^ ((LODWORD(STACK[0x5B0]) >> v527) + LOBYTE(STACK[0x518])) ^ LOBYTE(STACK[0x54C]) ^ LOBYTE(STACK[0x4B8]))), 16);
-  v764 = LODWORD(STACK[0x4C8]) ^ (((v654 & 0xD70FC02 ^ 0x2861FC02 ^ (LODWORD(STACK[0x5E8]) ^ 0x128C0205u) & STACK[0x508]) >> v527) + LODWORD(STACK[0x4F0])) ^ LODWORD(STACK[0x55C]) ^ *(v312 + 4 * BYTE2(v756)) ^ __ROR4__(*(v312 + 4 * HIBYTE(v758)), 24) ^ __ROR4__(*(v312 + 4 * BYTE1(v760)), 8) ^ __ROR4__(*(v312 + 4 * (v657 ^ (LODWORD(STACK[0x5B4]) >> v647) ^ LOBYTE(STACK[0x514]) ^ LOBYTE(STACK[0x548]) ^ LOBYTE(STACK[0x4B0]))), 16);
-  HIDWORD(v689) = *(v312 + 4 * HIBYTE(v763));
-  LODWORD(v689) = HIDWORD(v689);
-  v765 = (v689 >> 24) ^ __ROR4__(*(v312 + 4 * v762), 16) ^ __ROR4__(*(v312 + 4 * BYTE1(v761)), 8) ^ *(v312 + 4 * BYTE2(v764));
-  v766 = (*(v312 + 4 * v764) << (v765 & 0x10) << (v765 & 0x10 ^ 0x10)) | HIWORD(*(v312 + 4 * v764));
-  v767 = v697 ^ (LODWORD(STACK[0x4A8]) + (LODWORD(STACK[0x4D0]) << v660)) ^ LODWORD(STACK[0x560]) ^ __ROR4__(*(v312 + 4 * BYTE1(v764)), 8) ^ __ROR4__(*(v312 + 4 * v761), 16) ^ __ROR4__(*(v312 + 4 * HIBYTE(v762)), 24) ^ *(v312 + 4 * BYTE2(v763));
-  v768 = v697 ^ (LODWORD(STACK[0x4C0]) | (LODWORD(STACK[0x484]) << v648)) ^ LODWORD(STACK[0x564]) ^ *(v312 + 4 * BYTE2(v761)) ^ __ROR4__(*(v312 + 4 * BYTE1(v762)), 8) ^ __ROR4__(*(v312 + 4 * v763), 16) ^ __ROR4__(*(v312 + 4 * HIBYTE(v764)), 24);
-  v769 = v697 ^ (LODWORD(STACK[0x4EC]) | (LODWORD(STACK[0x4C4]) << v648)) ^ LODWORD(STACK[0x568]) ^ v765;
-  LODWORD(v689) = __ROR4__(*(v312 + 4 * HIBYTE(v761)), 24);
-  v770 = LODWORD(STACK[0x4BC]) ^ (LODWORD(STACK[0x4D8]) << v660) ^ LODWORD(STACK[0x56C]) ^ *(v312 + 4 * BYTE2(v762)) ^ (*(v312 + 4 * BYTE1(v763)) << 24) ^ (*(v312 + 4 * BYTE1(v763)) >> 8) ^ v689 ^ v766;
-  v771 = *(v312 + 4 * HIBYTE(v769));
-  v772 = *(v312 + 4 * (LOBYTE(STACK[0x4BC]) ^ (LOBYTE(STACK[0x4D8]) << v660) ^ LOBYTE(STACK[0x56C]) ^ *(v312 + 4 * BYTE2(v762)) ^ BYTE1(*(v312 + 4 * BYTE1(v763))) ^ v689 ^ v766));
-  v773 = *(v312 + 4 * v769);
-  v774 = *(v312 + 4 * BYTE2(v770));
-  v775 = *(v312 + 4 * BYTE2(v769));
-  v776 = HIBYTE(v768);
-  v777 = *(v312 + 4 * BYTE1(v770));
-  v778 = v707 ^ ((LODWORD(STACK[0x4E8]) >> v527) + LODWORD(STACK[0x5AC])) ^ LODWORD(STACK[0x570]) ^ __ROR4__(*(v312 + 4 * HIBYTE(v770)), 24) ^ *(v312 + 4 * BYTE2(v767)) ^ __ROR4__(*(v312 + 4 * v768), 16) ^ __ROR4__(*(v312 + 4 * BYTE1(v769)), 8);
-  v779 = (v654 & 0xA004C0 ^ 0x8002A0 ^ (LODWORD(STACK[0x5F0]) ^ 0xAC06E2) & STACK[0x48C]) << v660;
-  v780 = v707 ^ (v779 + (LODWORD(STACK[0x490]) >> v647)) ^ LODWORD(STACK[0x59C]) ^ __ROR4__(*(v312 + 4 * v767), 16) ^ __ROR4__(v771, 24) ^ *(v312 + 4 * BYTE2(v768)) ^ __ROR4__(v777, 8);
-  v781 = v707 ^ LODWORD(STACK[0x5AC]) ^ LODWORD(STACK[0x50C]) ^ LODWORD(STACK[0x5A0]) ^ __ROR4__(v772, 16) ^ __ROR4__(*(v312 + 4 * BYTE1(v768)), 8) ^ v775 ^ __ROR4__(*(v312 + 4 * HIBYTE(v767)), 24);
-  v782 = *(v722 + 4 * HIBYTE(v778));
-  HIDWORD(v689) = v782 ^ 0x2D1D;
-  LODWORD(v689) = v782 ^ 0x30B80000;
-  v783 = v689 >> 16;
-  v784 = v707 ^ LODWORD(STACK[0x51C]) ^ v779 ^ LODWORD(STACK[0x5A8]) ^ __ROR4__(*(v312 + 4 * BYTE1(v767)), 8) ^ __ROR4__(v773, 16);
-  v785 = *(v722 + 4 * BYTE2(v780));
-  HIDWORD(v689) = v785 ^ 0xB82D1D;
-  LODWORD(v689) = v785 ^ 0x30000000;
-  v786 = v689 >> 24;
-  v787 = *(v722 + 4 * v778);
-  HIDWORD(v689) = v787 ^ 0x1D;
-  LODWORD(v689) = v787 ^ 0x30B82D00;
-  v788 = v689 >> 8;
-  v789 = *(v722 + 4 * BYTE2(v778));
-  v790 = v784 ^ v774;
-  HIDWORD(v689) = v789 ^ 0xB82D1D;
-  LODWORD(v689) = v789 ^ 0x30000000;
-  v791 = v689 >> 24;
-  v792 = *(v722 + 4 * v780);
-  HIDWORD(v689) = v792 ^ 0x1D;
-  LODWORD(v689) = v792 ^ 0x30B82D00;
-  v793 = v689 >> 8;
-  LODWORD(v689) = __ROR4__(*(v312 + 4 * v776), 24);
-  v794 = v790 ^ v689;
-  v795 = *(v722 + 4 * (v790 ^ v689));
-  HIDWORD(v689) = v795 ^ 0x1D;
-  LODWORD(v689) = v795 ^ 0x30B82D00;
-  v796 = v689 >> 8;
-  v797 = *(v722 + 4 * BYTE2(v781));
-  v798 = (((((LODWORD(STACK[0x4AC]) ^ 0x8E5B5081) - 1234313519) ^ LODWORD(STACK[0x4B8]) ^ 0xBCFFF704 ^ LODWORD(STACK[0x4B0])) + 1277578268) ^ LODWORD(STACK[0x4D4])) - 795851445;
-  HIDWORD(v689) = v797 ^ 0xB82D1D;
-  LODWORD(v689) = v797 ^ 0x30000000;
-  v799 = v689 >> 24;
-  v800 = *(v722 + 4 * BYTE2(v794));
-  HIDWORD(v689) = v800 ^ 0xB82D1D;
-  LODWORD(v689) = v800 ^ 0x30000000;
-  v801 = v788 ^ v786;
-  v802 = *(v722 + 4 * HIBYTE(v794));
-  v803 = (v689 >> 24) + 817376541 - ((2 * (v689 >> 24)) & 0x61705A3A);
-  HIDWORD(v689) = v802 ^ 0x2D1D;
-  LODWORD(v689) = v802 ^ 0x30B80000;
-  v804 = v791 ^ v793 ^ (v689 >> 16);
-  v805 = *(v722 + 4 * HIBYTE(v780));
-  v806 = (v804 + 817376541 - ((2 * v804) & 0x61705A3A)) ^ *(v722 + 4 * BYTE1(v781));
-  v807 = v783 ^ LODWORD(STACK[0x5B8]) ^ v796;
-  v808 = *(v722 + 4 * HIBYTE(v781));
-  HIDWORD(v689) = v808 ^ 0x2D1D;
-  LODWORD(v689) = v808 ^ 0x30B80000;
-  v809 = v689 >> 16;
-  v810 = *(v722 + 4 * v781);
-  v811 = v750 ^ v798 ^ *(v722 + 4 * BYTE1(v780)) ^ ((v807 ^ v799) + LODWORD(STACK[0x640]) + (LODWORD(STACK[0x598]) | ~(2 * (v807 ^ v799))));
-  v812 = v811 - ((2 * v811) & 0x564CD294);
-  HIDWORD(v689) = v810 ^ 0x1D;
-  LODWORD(v689) = v810 ^ 0x30B82D00;
-  v813 = v750 ^ v798 ^ LODWORD(STACK[0x5C0]) ^ *(v722 + 4 * BYTE1(v794)) ^ v809 ^ (v801 + 817376541 - ((2 * v801) & 0x61705A3A));
-  v814 = v750 ^ v798 ^ LODWORD(STACK[0x610]) ^ *(v722 + 4 * BYTE1(v778)) ^ (__PAIR64__(v805 ^ 0x2D1Du, v805 ^ 0x30B80000u) >> 16) ^ v803 ^ (v689 >> 8);
-  v815 = v813 - ((2 * v813) & 0x564CD294);
-  v816 = v814 - ((2 * v814) & 0x564CD294);
-  v817 = (v806 + LODWORD(STACK[0x57C]) - 2 * (v806 & STACK[0x57C])) ^ LODWORD(STACK[0x638]);
-  v818 = v817 - ((2 * v817) & 0x564CD294);
-  v819 = STACK[0x5E0];
-  v820 = LODWORD(STACK[0x5E0]) ^ 0xA12D5543;
-  v821 = v820 ^ (LODWORD(STACK[0x530]) + 723937610);
-  v822 = v820 ^ (LODWORD(STACK[0x52C]) + 723937610);
-  v823 = v820 ^ (LODWORD(STACK[0x534]) + 723937610);
-  v824 = v820 ^ (LODWORD(STACK[0x544]) + 723937610);
-  v825 = STACK[0x5A4];
+  v728 = (v676 >> 24) + 817376542 + (~(2 * (v676 >> 24)) | 0x9E8FA5C5);
+  v729 = *(v709 + 4 * HIBYTE(v716));
+  HIDWORD(v676) = v729 ^ 0x2D1D;
+  LODWORD(v676) = v729 ^ 0x30B80000;
+  v730 = v676 >> 16;
+  v731 = *(v709 + 4 * v701);
+  HIDWORD(v676) = v731 ^ 0x1D;
+  LODWORD(v676) = v731 ^ 0x30B82D00;
+  v732 = *(v709 + 4 * v716);
+  v733 = v726 ^ (v676 >> 8);
+  HIDWORD(v676) = v732 ^ 0x1D;
+  LODWORD(v676) = v732 ^ 0x30B82D00;
+  v734 = v717 ^ (v676 >> 8) ^ v711;
+  v735 = *(v709 + 4 * v696);
+  HIDWORD(v676) = v735 ^ 0x1D;
+  LODWORD(v676) = v735 ^ 0x30B82D00;
+  v736 = *(v709 + 4 * BYTE1(v701));
+  v737 = LODWORD(STACK[0x57C]) ^ LODWORD(STACK[0x5BC]);
+  v738 = v737 ^ LODWORD(STACK[0x52C]) ^ v736 ^ (v725 + 817376541 - ((2 * v725) & 0x61705A3A));
+  LODWORD(STACK[0x52C]) = v738 - ((2 * v738) & 0x564CD294);
+  v739 = v737 ^ LODWORD(STACK[0x530]) ^ *(v709 + 4 * BYTE1(v708)) ^ v730 ^ (v676 >> 8) ^ v728;
+  v740 = *(v709 + 4 * BYTE1(v716)) ^ LODWORD(STACK[0x534]) ^ (v733 + 817376541 - ((2 * v733) & 0x61705A3A));
+  LODWORD(STACK[0x534]) = v739 - ((2 * v739) & 0x564CD294);
+  v741 = v737 ^ LODWORD(STACK[0x544]) ^ *(v709 + 4 * BYTE1(v696)) ^ (v734 + 817376541 - ((2 * v734) & 0x61705A3A));
+  LODWORD(STACK[0x544]) = v741 - ((2 * v741) & 0x564CD294);
+  v742 = (v740 + 121406673 - ((2 * v740) & 0xE7909A2)) ^ LODWORD(STACK[0x494]);
+  LODWORD(STACK[0x530]) = v742 - ((2 * v742) & 0x564CD294);
+  v743 = v644 ^ (((v641 & 0x58212881 ^ 0x59241021 ^ (LODWORD(STACK[0x5F0]) ^ 0x592138A3) & STACK[0x504]) << v647) | ((v641 & 0x14912190 ^ 0x14001300 ^ STACK[0x504] & (v704 ^ 0x14913393)) >> v634)) ^ LODWORD(STACK[0x520]) ^ LODWORD(STACK[0x4AC]);
+  v744 = v644 ^ (((v428 & 0x30100080 ^ 0xB0404020 ^ (LODWORD(STACK[0x5E8]) ^ 0x4FA73B13) & STACK[0x5C8]) >> v518) | ((v428 & 0x18330010 ^ 0x19225022 ^ STACK[0x5C8] & (LODWORD(STACK[0x5D0]) ^ 0xE6C42B81)) << v635)) ^ LODWORD(STACK[0x538]);
+  v745 = v744 ^ LODWORD(STACK[0x4D4]);
+  v746 = v644 ^ (LODWORD(STACK[0x5B4]) >> v634) ^ LODWORD(STACK[0x514]) ^ LODWORD(STACK[0x548]) ^ LODWORD(STACK[0x4B0]);
+  v747 = v644 ^ ((LODWORD(STACK[0x5B0]) >> v518) + LODWORD(STACK[0x518])) ^ LODWORD(STACK[0x54C]) ^ LODWORD(STACK[0x4B8]);
+  v748 = LODWORD(STACK[0x4C8]) ^ (LODWORD(STACK[0x4CC]) + (LODWORD(STACK[0x4E0]) << v635)) ^ LODWORD(STACK[0x550]) ^ __ROR4__(*(v312 + 4 * HIBYTE(v743)), 24) ^ __ROR4__(*(v312 + 4 * BYTE1(v746)), 8) ^ *(v312 + 4 * BYTE2(v747)) ^ __ROR4__(*(v312 + 4 * (v744 ^ LOBYTE(STACK[0x4D4]))), 16);
+  v749 = LODWORD(STACK[0x4C8]) ^ (LODWORD(STACK[0x4DC]) | (LODWORD(STACK[0x510]) << v647)) ^ LODWORD(STACK[0x554]) ^ __ROR4__(*(v312 + 4 * (v644 ^ (((v641 & 0x81 ^ 0x21 ^ (LOBYTE(STACK[0x5F0]) ^ 0xA3) & STACK[0x504]) << v647) | ((v641 & 0x14912190 ^ 0x14001300 ^ STACK[0x504] & (v704 ^ 0x14913393)) >> v634)) ^ LOBYTE(STACK[0x520]) ^ LOBYTE(STACK[0x4AC]))), 16) ^ *(v312 + 4 * BYTE2(v746)) ^ __ROR4__(*(v312 + 4 * HIBYTE(v747)), 24) ^ __ROR4__(*(v312 + 4 * BYTE1(v745)), 8);
+  v750 = LODWORD(STACK[0x4F4]) ^ ((v428 & 0x5007402 ^ 0x22897406 ^ STACK[0x524] & (v704 ^ 0x27897405)) >> v634) ^ LODWORD(STACK[0x558]) ^ *(v312 + 4 * BYTE2(v745)) ^ __ROR4__(*(v312 + 4 * BYTE1(v743)), 8) ^ __ROR4__(*(v312 + 4 * HIBYTE(v746)), 24) ^ __ROR4__(*(v312 + 4 * (v644 ^ ((LODWORD(STACK[0x5B0]) >> v518) + LOBYTE(STACK[0x518])) ^ LOBYTE(STACK[0x54C]) ^ LOBYTE(STACK[0x4B8]))), 16);
+  v751 = LODWORD(STACK[0x4C8]) ^ (((v641 & 0xD70FC02 ^ 0x2861FC02 ^ (LODWORD(STACK[0x5E8]) ^ 0x128C0205u) & STACK[0x508]) >> v518) + LODWORD(STACK[0x4F0])) ^ LODWORD(STACK[0x55C]) ^ *(v312 + 4 * BYTE2(v743)) ^ __ROR4__(*(v312 + 4 * HIBYTE(v745)), 24) ^ __ROR4__(*(v312 + 4 * BYTE1(v747)), 8) ^ __ROR4__(*(v312 + 4 * (v644 ^ (LODWORD(STACK[0x5B4]) >> v634) ^ LOBYTE(STACK[0x514]) ^ LOBYTE(STACK[0x548]) ^ LOBYTE(STACK[0x4B0]))), 16);
+  HIDWORD(v676) = *(v312 + 4 * HIBYTE(v750));
+  LODWORD(v676) = HIDWORD(v676);
+  v752 = (v676 >> 24) ^ __ROR4__(*(v312 + 4 * v749), 16) ^ __ROR4__(*(v312 + 4 * BYTE1(v748)), 8) ^ *(v312 + 4 * BYTE2(v751));
+  v753 = (*(v312 + 4 * v751) << (v752 & 0x10) << (v752 & 0x10 ^ 0x10)) | HIWORD(*(v312 + 4 * v751));
+  v754 = v684 ^ (LODWORD(STACK[0x4A8]) + (LODWORD(STACK[0x4D0]) << v647)) ^ LODWORD(STACK[0x560]) ^ __ROR4__(*(v312 + 4 * BYTE1(v751)), 8) ^ __ROR4__(*(v312 + 4 * v748), 16) ^ __ROR4__(*(v312 + 4 * HIBYTE(v749)), 24) ^ *(v312 + 4 * BYTE2(v750));
+  v755 = v684 ^ (LODWORD(STACK[0x4C0]) | (LODWORD(STACK[0x484]) << v635)) ^ LODWORD(STACK[0x564]) ^ *(v312 + 4 * BYTE2(v748)) ^ __ROR4__(*(v312 + 4 * BYTE1(v749)), 8) ^ __ROR4__(*(v312 + 4 * v750), 16) ^ __ROR4__(*(v312 + 4 * HIBYTE(v751)), 24);
+  v756 = v684 ^ (LODWORD(STACK[0x4EC]) | (LODWORD(STACK[0x4C4]) << v635)) ^ LODWORD(STACK[0x568]) ^ v752;
+  LODWORD(v676) = __ROR4__(*(v312 + 4 * HIBYTE(v748)), 24);
+  v757 = LODWORD(STACK[0x4BC]) ^ (LODWORD(STACK[0x4D8]) << v647) ^ LODWORD(STACK[0x56C]) ^ *(v312 + 4 * BYTE2(v749)) ^ (*(v312 + 4 * BYTE1(v750)) << 24) ^ (*(v312 + 4 * BYTE1(v750)) >> 8) ^ v676 ^ v753;
+  v758 = *(v312 + 4 * HIBYTE(v756));
+  v759 = *(v312 + 4 * (LOBYTE(STACK[0x4BC]) ^ (LOBYTE(STACK[0x4D8]) << v647) ^ LOBYTE(STACK[0x56C]) ^ *(v312 + 4 * BYTE2(v749)) ^ BYTE1(*(v312 + 4 * BYTE1(v750))) ^ v676 ^ v753));
+  v760 = *(v312 + 4 * v756);
+  v761 = *(v312 + 4 * BYTE2(v757));
+  v762 = *(v312 + 4 * BYTE2(v756));
+  v763 = HIBYTE(v755);
+  v764 = *(v312 + 4 * BYTE1(v757));
+  v765 = v694 ^ ((LODWORD(STACK[0x4E8]) >> v518) + LODWORD(STACK[0x5AC])) ^ LODWORD(STACK[0x570]) ^ __ROR4__(*(v312 + 4 * HIBYTE(v757)), 24) ^ *(v312 + 4 * BYTE2(v754)) ^ __ROR4__(*(v312 + 4 * v755), 16) ^ __ROR4__(*(v312 + 4 * BYTE1(v756)), 8);
+  v766 = (v641 & 0xA004C0 ^ 0x8002A0 ^ (LODWORD(STACK[0x5F0]) ^ 0xAC06E2) & STACK[0x48C]) << v647;
+  v767 = v694 ^ (v766 + (LODWORD(STACK[0x490]) >> v634)) ^ LODWORD(STACK[0x59C]) ^ __ROR4__(*(v312 + 4 * v754), 16) ^ __ROR4__(v758, 24) ^ *(v312 + 4 * BYTE2(v755)) ^ __ROR4__(v764, 8);
+  v768 = v694 ^ LODWORD(STACK[0x5AC]) ^ LODWORD(STACK[0x50C]) ^ LODWORD(STACK[0x5A0]) ^ __ROR4__(v759, 16) ^ __ROR4__(*(v312 + 4 * BYTE1(v755)), 8) ^ v762 ^ __ROR4__(*(v312 + 4 * HIBYTE(v754)), 24);
+  v769 = *(v709 + 4 * HIBYTE(v765));
+  HIDWORD(v676) = v769 ^ 0x2D1D;
+  LODWORD(v676) = v769 ^ 0x30B80000;
+  v770 = v676 >> 16;
+  v771 = v694 ^ LODWORD(STACK[0x51C]) ^ v766 ^ LODWORD(STACK[0x5A8]) ^ __ROR4__(*(v312 + 4 * BYTE1(v754)), 8) ^ __ROR4__(v760, 16);
+  v772 = *(v709 + 4 * BYTE2(v767));
+  HIDWORD(v676) = v772 ^ 0xB82D1D;
+  LODWORD(v676) = v772 ^ 0x30000000;
+  v773 = v676 >> 24;
+  v774 = *(v709 + 4 * v765);
+  HIDWORD(v676) = v774 ^ 0x1D;
+  LODWORD(v676) = v774 ^ 0x30B82D00;
+  v775 = v676 >> 8;
+  v776 = *(v709 + 4 * BYTE2(v765));
+  v777 = v771 ^ v761;
+  HIDWORD(v676) = v776 ^ 0xB82D1D;
+  LODWORD(v676) = v776 ^ 0x30000000;
+  v778 = v676 >> 24;
+  v779 = *(v709 + 4 * v767);
+  HIDWORD(v676) = v779 ^ 0x1D;
+  LODWORD(v676) = v779 ^ 0x30B82D00;
+  v780 = v676 >> 8;
+  LODWORD(v676) = __ROR4__(*(v312 + 4 * v763), 24);
+  v781 = v777 ^ v676;
+  v782 = *(v709 + 4 * (v777 ^ v676));
+  HIDWORD(v676) = v782 ^ 0x1D;
+  LODWORD(v676) = v782 ^ 0x30B82D00;
+  v783 = v676 >> 8;
+  v784 = *(v709 + 4 * BYTE2(v768));
+  v785 = (((((LODWORD(STACK[0x4AC]) ^ 0x8E5B5081) - 1234313519) ^ LODWORD(STACK[0x4B8]) ^ 0xBCFFF704 ^ LODWORD(STACK[0x4B0])) + 1277578268) ^ LODWORD(STACK[0x4D4])) - 795851445;
+  HIDWORD(v676) = v784 ^ 0xB82D1D;
+  LODWORD(v676) = v784 ^ 0x30000000;
+  v786 = v676 >> 24;
+  v787 = *(v709 + 4 * BYTE2(v781));
+  HIDWORD(v676) = v787 ^ 0xB82D1D;
+  LODWORD(v676) = v787 ^ 0x30000000;
+  v788 = v775 ^ v773;
+  v789 = *(v709 + 4 * HIBYTE(v781));
+  v790 = (v676 >> 24) + 817376541 - ((2 * (v676 >> 24)) & 0x61705A3A);
+  HIDWORD(v676) = v789 ^ 0x2D1D;
+  LODWORD(v676) = v789 ^ 0x30B80000;
+  v791 = v778 ^ v780 ^ (v676 >> 16);
+  v792 = *(v709 + 4 * HIBYTE(v767));
+  v793 = (v791 + 817376541 - ((2 * v791) & 0x61705A3A)) ^ *(v709 + 4 * BYTE1(v768));
+  v794 = v770 ^ LODWORD(STACK[0x5B8]) ^ v783;
+  v795 = *(v709 + 4 * HIBYTE(v768));
+  HIDWORD(v676) = v795 ^ 0x2D1D;
+  LODWORD(v676) = v795 ^ 0x30B80000;
+  v796 = v676 >> 16;
+  v797 = *(v709 + 4 * v768);
+  v798 = v737 ^ v785 ^ *(v709 + 4 * BYTE1(v767)) ^ ((v794 ^ v786) + LODWORD(STACK[0x640]) + (LODWORD(STACK[0x598]) | ~(2 * (v794 ^ v786))));
+  v799 = v798 - ((2 * v798) & 0x564CD294);
+  HIDWORD(v676) = v797 ^ 0x1D;
+  LODWORD(v676) = v797 ^ 0x30B82D00;
+  v800 = v737 ^ v785 ^ LODWORD(STACK[0x5C0]) ^ *(v709 + 4 * BYTE1(v781)) ^ v796 ^ (v788 + 817376541 - ((2 * v788) & 0x61705A3A));
+  v801 = v737 ^ v785 ^ LODWORD(STACK[0x610]) ^ *(v709 + 4 * BYTE1(v765)) ^ (__PAIR64__(v792 ^ 0x2D1Du, v792 ^ 0x30B80000u) >> 16) ^ v790 ^ (v676 >> 8);
+  v802 = v800 - ((2 * v800) & 0x564CD294);
+  v803 = v801 - ((2 * v801) & 0x564CD294);
+  v804 = (v793 + LODWORD(STACK[0x57C]) - 2 * (v793 & STACK[0x57C])) ^ LODWORD(STACK[0x638]);
+  v805 = v804 - ((2 * v804) & 0x564CD294);
+  v806 = STACK[0x5E0];
+  v807 = LODWORD(STACK[0x5E0]) ^ 0xA12D5543;
+  v808 = v807 ^ (LODWORD(STACK[0x530]) + 723937610);
+  v809 = v807 ^ (LODWORD(STACK[0x52C]) + 723937610);
+  v810 = v807 ^ (LODWORD(STACK[0x534]) + 723937610);
+  v811 = v807 ^ (LODWORD(STACK[0x544]) + 723937610);
+  v812 = STACK[0x5A4];
   if (STACK[0x5A4])
   {
-    v826 = v820 ^ (LODWORD(STACK[0x52C]) + 723937610);
+    v813 = v807 ^ (LODWORD(STACK[0x52C]) + 723937610);
   }
 
   else
   {
-    v826 = v820 ^ (LODWORD(STACK[0x534]) + 723937610);
+    v813 = v807 ^ (LODWORD(STACK[0x534]) + 723937610);
   }
 
-  if (v825)
+  if (v812)
   {
-    v822 = v821;
+    v809 = v808;
   }
 
   else
   {
-    v823 = v824;
+    v810 = v811;
   }
 
-  if ((v825 & 1) == 0)
+  if ((v812 & 1) == 0)
   {
-    v824 = v821;
+    v811 = v808;
   }
 
-  v827 = v819 ^ 0x74FC784 ^ LODWORD(STACK[0x5BC]) ^ v798 ^ (v818 + 723937610);
-  v828 = v819 ^ 0x74FC784 ^ (v816 + 723937610);
-  v829 = v819 ^ 0x74FC784 ^ (v812 + 723937610);
-  v830 = v819 ^ 0x74FC784 ^ (v815 + 723937610);
-  if (v825)
+  v814 = v806 ^ 0x74FC784 ^ LODWORD(STACK[0x5BC]) ^ v785 ^ (v805 + 723937610);
+  v815 = v806 ^ 0x74FC784 ^ (v803 + 723937610);
+  v816 = v806 ^ 0x74FC784 ^ (v799 + 723937610);
+  v817 = v806 ^ 0x74FC784 ^ (v802 + 723937610);
+  if (v812)
   {
-    v831 = v827;
+    v818 = v814;
   }
 
   else
   {
-    v831 = v829;
+    v818 = v816;
   }
 
-  if (v825)
+  if (v812)
   {
-    v827 = v828;
-    v828 = v830;
+    v814 = v815;
+    v815 = v817;
   }
 
   else
   {
-    v829 = v830;
+    v816 = v817;
   }
 
-  v417 = (STACK[0x5A4] & 2) == 0;
-  if ((v825 & 2) != 0)
+  if ((v812 & 2) != 0)
   {
-    v832 = v826;
+    v819 = v813;
   }
 
   else
   {
-    v832 = v824;
+    v819 = v811;
   }
 
-  if ((v825 & 2) != 0)
+  if ((v812 & 2) != 0)
   {
-    v833 = v822;
+    v820 = v809;
   }
 
   else
   {
-    v824 = v826;
-    v833 = v823;
+    v811 = v813;
+    v820 = v810;
   }
 
-  if ((v825 & 2) != 0)
+  if ((v812 & 2) != 0)
   {
-    v822 = v823;
-    v834 = v827;
+    v809 = v810;
+    v821 = v814;
   }
 
   else
   {
-    v834 = v829;
+    v821 = v816;
   }
 
-  if ((v825 & 2) == 0)
+  if ((v812 & 2) == 0)
   {
-    v829 = v827;
+    v816 = v814;
   }
 
-  v835 = v834 ^ v798;
-  v836 = v834 ^ v798 ^ v822 ^ v824;
-  if ((v825 & 2) != 0)
+  v822 = v821 ^ v785;
+  v823 = v821 ^ v785 ^ v809 ^ v811;
+  if ((v812 & 2) != 0)
   {
-    v837 = v828;
+    v824 = v815;
   }
 
   else
   {
-    v837 = v831;
+    v824 = v818;
   }
 
-  v838 = v837 ^ v798;
-  v839 = v837 ^ v798 ^ v832 ^ v836;
-  v840 = v798 ^ 0xA66292C7;
-  v841 = v833 + 1287199953 * ((v798 ^ 0xA66292C7) - (v839 ^ v829));
+  v825 = v824 ^ v785;
+  v826 = v824 ^ v785 ^ v819 ^ v823;
+  v827 = v785 ^ 0xA66292C7;
+  v828 = v820 + 1287199953 * ((v785 ^ 0xA66292C7) - (v826 ^ v816));
   if ((STACK[0x5A4] & 2) != 0)
   {
-    v828 = v831;
+    v815 = v818;
   }
 
-  v842 = v828 ^ v798;
-  v843 = v841 ^ v828 ^ v798;
-  v844 = v843 ^ v824 ^ v836;
-  v845 = (v843 ^ v824 ^ 0xA66292C7) + 923628177 * ((v829 ^ v798) + (v839 ^ 0x599D6D38)) + 923628177;
-  LODWORD(v847) = ((-1686110208 * v840) | ((-1889889481 * v840) >> 9)) ^ __ROR4__(v839 ^ 0xA66292C7 ^ (-1889889481 * (v837 ^ v835 ^ 0xA66292C7 ^ v844)), 9) ^ 0xF8B3B8A6;
-  HIDWORD(v847) = v847;
-  v846 = v847 >> 23;
-  v848 = v829 ^ v834 ^ v844 ^ v846;
-  v849 = v843 ^ v846;
-  v850 = v842 ^ (-520713245 * v838) ^ v845 ^ (-520713245 * (v848 ^ 0x67714DF1));
-  v851 = v850 ^ v841;
-  v852 = v850 ^ v835;
-  v853 = v848 ^ 0xE1A6FEFB;
-  STACK[0x608] = ((v848 ^ 0xE1A6FEFB) >> (v850 & 0x10) >> (v850 & 0x10 ^ 0x10)) ^ 0x1DLL;
-  v854 = ((v849 ^ 0x60) + 131) ^ v849 ^ 0x60;
-  v855 = LODWORD(STACK[0x5F8]) - 3020;
-  v856 = *(&off_1006B4E30 + LODWORD(STACK[0x5F8]) - 6217) - 8;
-  v857 = v856[v849 ^ 0xADLL];
-  LODWORD(STACK[0x630]) = v857;
-  v858 = ~v857 & 0x20;
-  if ((v854 & v858) != 0)
+  v829 = v815 ^ v785;
+  v830 = v828 ^ v815 ^ v785;
+  v831 = v830 ^ v811 ^ v823;
+  v832 = (v830 ^ v811 ^ 0xA66292C7) + 923628177 * ((v816 ^ v785) + (v826 ^ 0x599D6D38)) + 923628177;
+  LODWORD(v834) = ((-1686110208 * v827) | ((-1889889481 * v827) >> 9)) ^ __ROR4__(v826 ^ 0xA66292C7 ^ (-1889889481 * (v824 ^ v822 ^ 0xA66292C7 ^ v831)), 9) ^ 0xF8B3B8A6;
+  HIDWORD(v834) = v834;
+  v833 = v834 >> 23;
+  v835 = v816 ^ v821 ^ v831 ^ v833;
+  v836 = v830 ^ v833;
+  v837 = v829 ^ (-520713245 * v825) ^ v832 ^ (-520713245 * (v835 ^ 0x67714DF1));
+  v838 = v837 ^ v828;
+  v839 = v837 ^ v822;
+  v840 = v835 ^ 0xE1A6FEFB;
+  STACK[0x608] = ((v835 ^ 0xE1A6FEFB) >> (v837 & 0x10) >> (v837 & 0x10 ^ 0x10)) ^ 0x1DLL;
+  v841 = ((v836 ^ 0x60) + 131) ^ v836 ^ 0x60;
+  v842 = LODWORD(STACK[0x5F8]) - 3020;
+  v843 = *(&off_1006B4E30 + LODWORD(STACK[0x5F8]) - 6217) - 8;
+  v844 = v843[v836 ^ 0xADLL];
+  LODWORD(STACK[0x630]) = v844;
+  v845 = ~v844 & 0x20;
+  if ((v841 & v845) != 0)
   {
-    v858 = -v858;
+    v845 = -v845;
   }
 
-  LODWORD(STACK[0x638]) = v858 + v854;
-  STACK[0x628] = BYTE2(v849) ^ 0x3ALL;
-  STACK[0x610] = v848 ^ 0x56;
-  STACK[0x5F8] = BYTE1(v848) ^ 0x2CLL;
-  STACK[0x640] = BYTE2(v852) ^ 0x6DLL;
-  STACK[0x618] = HIBYTE(v849) ^ 0x5FLL;
-  v859 = v849 ^ 0xF3427E88;
-  STACK[0x620] = BYTE1(v849) ^ 0x4DLL;
-  v860 = HIBYTE(v852);
-  v861 = v860 ^ 0xDE;
-  v862 = v860 ^ 0x13;
-  STACK[0x5F0] = v851 ^ 0x6CLL;
-  v863 = HIBYTE(v848) ^ 0x97;
-  v864 = ((v852 ^ 0x7A00) >> 8);
-  v865 = v864 ^ 0x4A;
-  v866 = v864 ^ 0x87;
-  LODWORD(v860) = 2 * ((v864 ^ 0x87) & 3) + (((v852 ^ 0x87847A00) >> 8) ^ 4);
-  STACK[0x5E8] = HIBYTE(v851) ^ 0x9CLL;
-  LODWORD(STACK[0x5E0]) = v853 % 0x107;
-  v867 = ((v851 ^ 0x5ED4) >> 8) ^ 0x78;
-  v868 = (v867 - ((2 * v867 + 6) & 0xC8) - 25) ^ v856[((v851 ^ 0x5ED4) >> 8) ^ 0xB5];
-  v869 = ((v851 ^ 0xED1B5ED4) % 0x10D) & 0x3F;
-  LODWORD(STACK[0x5B8]) = v869;
-  v870 = v867 ^ v869 ^ v868;
-  v871 = (v851 ^ 0xED1B5ED4) % 0x101;
-  v872 = (v851 ^ 0xED1B5ED4) % 0x10F;
-  v873 = ((v851 ^ 0xED1B5ED4) >> 16);
-  v874 = v856[v873 ^ 0xB6];
-  v875 = v856[v862];
-  LODWORD(v864) = ((v851 ^ 0xED1B5ED4) % 0x107) & 0x3F;
-  LODWORD(STACK[0x5B4]) = v864;
-  LODWORD(v862) = v873 ^ 0x7B ^ v864 ^ ((v873 ^ 0x7B) - ((2 * (v873 ^ 0x7B) + 6) & 0xC8) - 25) ^ v874;
-  LODWORD(v864) = (v852 - ((v852 ^ 0x87847A00) / 0x101)) & 0x3F;
-  LODWORD(STACK[0x5B0]) = v864;
-  LODWORD(STACK[0x600]) = v864 ^ v861 ^ (v861 - ((2 * v861 + 6) & 0xC8) - 25) ^ v875;
-  LOBYTE(v861) = v852 - 15 * ((v852 ^ 0x87847A00) / 0x10F);
-  v876 = v859 % 0x10F;
-  v877 = (v860 + (~(2 * v860) | 0x37) + 101) ^ v856[v865];
-  v878 = (v852 ^ 0x87847A00) % 0x107;
-  LODWORD(v864) = (v852 - 13 * ((v852 ^ 0x87847A00) / 0x10D)) & 0x3F;
-  LODWORD(STACK[0x5AC]) = v864;
-  v879 = v866 ^ v864 ^ v877;
-  v880 = v859 % 0x107;
-  v881 = v859 % 0x10D;
-  v882 = v859 % 0x101;
-  LODWORD(v860) = *(*(&off_1006B4E30 + v855 - 2726) + STACK[0x608]);
-  v883 = *(&off_1006B4E30 + (v855 ^ 0xEE8));
-  v884 = *(v883 + v863);
-  LODWORD(STACK[0x5A8]) = (v853 % 0x101) & 0x3F;
-  HIDWORD(v886) = (((2 * (v853 % 0x101)) & 0x32) - ((v853 % 0x101) & 0x3F) + 38) ^ v884;
-  LODWORD(v886) = ~v860 << 24;
-  v885 = v886 >> 31;
-  v887 = v852;
-  LODWORD(v863) = ((v852 ^ 0xBD) - ((2 * (v852 ^ 0xBD) + 6) & 0xC8) - 25) ^ v856[v852 ^ 0x70];
-  v888 = *(&off_1006B4E30 + v855 - 2478) - 12;
-  v889 = v888[STACK[0x5F8]];
-  v890 = STACK[0x5E0] & 0x3F;
-  LODWORD(STACK[0x5A4]) = v890;
-  LODWORD(v860) = v890 ^ v860;
-  LODWORD(STACK[0x5A0]) = (v853 % 0x10D) & 0x3F;
-  v891 = (((v853 % 0x10D) & 0x3F) - ((2 * (v853 % 0x10D)) & 0x5A) + 45) ^ v889;
-  HIDWORD(v886) = v860;
-  LODWORD(v886) = ~v889 << 24;
-  v892 = (v886 >> 31);
-  v893 = v888[STACK[0x610]] ^ 0xFFFFFF92;
-  LODWORD(STACK[0x598]) = (v853 % 0x10F) & 0x3F;
-  v894 = v893 ^ (((v853 % 0x10F) & 0x3F) - ((2 * (v853 % 0x10F)) & 0x5A) - 83);
-  HIDWORD(v886) = v891;
-  LODWORD(v886) = v894 << 24;
-  v895 = (v886 >> 31);
-  v896 = *(v883 + STACK[0x5E8]);
-  LODWORD(STACK[0x59C]) = v871 & 0x3F;
-  HIDWORD(v886) = v894;
-  LODWORD(v886) = (v896 ^ 0xFFFFFFB5 ^ ((v871 & 0x3F) - ((2 * v871) & 0x32) + 89)) << 24;
-  v897 = v886 >> 31;
-  v898 = (v862 >> 7) & 0xFFFFFE01 | (2 * (v896 ^ 0xB5 ^ ((v871 & 0x3F) - ((2 * v871) & 0x32) + 89)));
-  v899 = (v870 >> 7) | (2 * v862);
-  v900 = v888[STACK[0x5F0]];
-  HIDWORD(v886) = v870;
-  LODWORD(v886) = ~v900 << 24;
-  v901 = (v886 >> 31);
-  LODWORD(v862) = *(v883 + STACK[0x618]) ^ 0xFFFFFFBB;
-  LODWORD(STACK[0x57C]) = v882 & 0x3F;
-  LODWORD(v862) = v862 ^ ((v882 & 0x3F) - ((2 * v882) & 0x32) + 89);
-  v902 = v861 & 0x3F;
-  STACK[0x570] = v902;
-  v903 = v902 ^ v887 ^ v863;
-  HIDWORD(v886) = v903 ^ 0x7B;
-  LODWORD(v886) = v862 << 24;
-  v904 = (v886 >> 31);
-  LODWORD(v860) = *(v883 + STACK[0x628]);
-  LODWORD(STACK[0x56C]) = v880 & 0x3F;
-  v905 = ((v880 & 0x3F) - ((2 * v880) & 0x32) + 89) ^ v860;
-  HIDWORD(v886) = v862;
-  LODWORD(v886) = v860 << 24;
-  v906 = v886 >> 31;
-  v907 = *(v883 + STACK[0x620]);
-  LODWORD(STACK[0x568]) = v881 & 0x3F;
-  HIDWORD(v886) = v905;
-  LODWORD(v886) = v907 << 24;
-  v908 = v886 >> 31;
-  v909 = STACK[0x630] & 0xFFFFFFDF;
-  LODWORD(STACK[0x560]) = v876 & 0x3F;
-  v910 = v909 ^ v876 & 0x3F ^ 0xFFFFFFCD ^ LODWORD(STACK[0x638]);
-  HIDWORD(v886) = ((v881 & 0x3F) + (~(2 * v881) | 0x7FFFFFCD) + 90) ^ v907;
-  LODWORD(v886) = v910 << 24;
-  v911 = v886 >> 31;
-  if (((((v884 ^ 0x3D) - 61) ^ ((v884 ^ 0xAC) + 84) ^ ((v884 ^ 0xC8) + 56)) - 39) >= 0)
+  LODWORD(STACK[0x638]) = v845 + v841;
+  STACK[0x628] = BYTE2(v836) ^ 0x3ALL;
+  STACK[0x610] = v835 ^ 0x56;
+  STACK[0x5F8] = BYTE1(v835) ^ 0x2CLL;
+  STACK[0x640] = BYTE2(v839) ^ 0x6DLL;
+  STACK[0x618] = HIBYTE(v836) ^ 0x5FLL;
+  v846 = v836 ^ 0xF3427E88;
+  STACK[0x620] = BYTE1(v836) ^ 0x4DLL;
+  v847 = HIBYTE(v839);
+  v848 = v847 ^ 0xDE;
+  v849 = v847 ^ 0x13;
+  STACK[0x5F0] = v838 ^ 0x6CLL;
+  v850 = HIBYTE(v835) ^ 0x97;
+  v851 = ((v839 ^ 0x7A00) >> 8);
+  v852 = v851 ^ 0x4A;
+  v853 = v851 ^ 0x87;
+  LODWORD(v847) = 2 * ((v851 ^ 0x87) & 3) + (((v839 ^ 0x87847A00) >> 8) ^ 4);
+  STACK[0x5E8] = HIBYTE(v838) ^ 0x9CLL;
+  LODWORD(STACK[0x5E0]) = v840 % 0x107;
+  v854 = ((v838 ^ 0x5ED4) >> 8) ^ 0x78;
+  v855 = (v854 - ((2 * v854 + 6) & 0xC8) - 25) ^ v843[((v838 ^ 0x5ED4) >> 8) ^ 0xB5];
+  v856 = ((v838 ^ 0xED1B5ED4) % 0x10D) & 0x3F;
+  LODWORD(STACK[0x5B8]) = v856;
+  v857 = v854 ^ v856 ^ v855;
+  v858 = (v838 ^ 0xED1B5ED4) % 0x101;
+  v859 = (v838 ^ 0xED1B5ED4) % 0x10F;
+  v860 = ((v838 ^ 0xED1B5ED4) >> 16);
+  v861 = v843[v860 ^ 0xB6];
+  v862 = v843[v849];
+  LODWORD(v851) = ((v838 ^ 0xED1B5ED4) % 0x107) & 0x3F;
+  LODWORD(STACK[0x5B4]) = v851;
+  LODWORD(v849) = v860 ^ 0x7B ^ v851 ^ ((v860 ^ 0x7B) - ((2 * (v860 ^ 0x7B) + 6) & 0xC8) - 25) ^ v861;
+  LODWORD(v851) = (v839 - ((v839 ^ 0x87847A00) / 0x101)) & 0x3F;
+  LODWORD(STACK[0x5B0]) = v851;
+  LODWORD(STACK[0x600]) = v851 ^ v848 ^ (v848 - ((2 * v848 + 6) & 0xC8) - 25) ^ v862;
+  LOBYTE(v848) = v839 - 15 * ((v839 ^ 0x87847A00) / 0x10F);
+  v863 = v846 % 0x10F;
+  v864 = (v847 + (~(2 * v847) | 0x37) + 101) ^ v843[v852];
+  v865 = (v839 ^ 0x87847A00) % 0x107;
+  LODWORD(v851) = (v839 - 13 * ((v839 ^ 0x87847A00) / 0x10D)) & 0x3F;
+  LODWORD(STACK[0x5AC]) = v851;
+  v866 = v853 ^ v851 ^ v864;
+  v867 = v846 % 0x107;
+  v868 = v846 % 0x10D;
+  v869 = v846 % 0x101;
+  LODWORD(v847) = *(*(&off_1006B4E30 + v842 - 2726) + STACK[0x608]);
+  v870 = *(&off_1006B4E30 + (v842 ^ 0xEE8));
+  v871 = *(v870 + v850);
+  LODWORD(STACK[0x5A8]) = (v840 % 0x101) & 0x3F;
+  HIDWORD(v873) = (((2 * (v840 % 0x101)) & 0x32) - ((v840 % 0x101) & 0x3F) + 38) ^ v871;
+  LODWORD(v873) = ~v847 << 24;
+  v872 = v873 >> 31;
+  v874 = v839;
+  LODWORD(v850) = ((v839 ^ 0xBD) - ((2 * (v839 ^ 0xBD) + 6) & 0xC8) - 25) ^ v843[v839 ^ 0x70];
+  v875 = *(&off_1006B4E30 + v842 - 2478) - 12;
+  v876 = v875[STACK[0x5F8]];
+  v877 = STACK[0x5E0] & 0x3F;
+  LODWORD(STACK[0x5A4]) = v877;
+  LODWORD(v847) = v877 ^ v847;
+  LODWORD(STACK[0x5A0]) = (v840 % 0x10D) & 0x3F;
+  v878 = (((v840 % 0x10D) & 0x3F) - ((2 * (v840 % 0x10D)) & 0x5A) + 45) ^ v876;
+  HIDWORD(v873) = v847;
+  LODWORD(v873) = ~v876 << 24;
+  v879 = (v873 >> 31);
+  v880 = v875[STACK[0x610]] ^ 0xFFFFFF92;
+  LODWORD(STACK[0x598]) = (v840 % 0x10F) & 0x3F;
+  v881 = v880 ^ (((v840 % 0x10F) & 0x3F) - ((2 * (v840 % 0x10F)) & 0x5A) - 83);
+  HIDWORD(v873) = v878;
+  LODWORD(v873) = v881 << 24;
+  v882 = (v873 >> 31);
+  v883 = *(v870 + STACK[0x5E8]);
+  LODWORD(STACK[0x59C]) = v858 & 0x3F;
+  HIDWORD(v873) = v881;
+  LODWORD(v873) = (v883 ^ 0xFFFFFFB5 ^ ((v858 & 0x3F) - ((2 * v858) & 0x32) + 89)) << 24;
+  v884 = v873 >> 31;
+  v885 = (v849 >> 7) & 0xFFFFFE01 | (2 * (v883 ^ 0xB5 ^ ((v858 & 0x3F) - ((2 * v858) & 0x32) + 89)));
+  v886 = (v857 >> 7) | (2 * v849);
+  v887 = v875[STACK[0x5F0]];
+  HIDWORD(v873) = v857;
+  LODWORD(v873) = ~v887 << 24;
+  v888 = (v873 >> 31);
+  LODWORD(v849) = *(v870 + STACK[0x618]) ^ 0xFFFFFFBB;
+  LODWORD(STACK[0x57C]) = v869 & 0x3F;
+  LODWORD(v849) = v849 ^ ((v869 & 0x3F) - ((2 * v869) & 0x32) + 89);
+  v889 = v848 & 0x3F;
+  STACK[0x570] = v889;
+  v890 = v889 ^ v874 ^ v850;
+  HIDWORD(v873) = v890 ^ 0x7B;
+  LODWORD(v873) = v849 << 24;
+  v891 = (v873 >> 31);
+  LODWORD(v847) = *(v870 + STACK[0x628]);
+  LODWORD(STACK[0x56C]) = v867 & 0x3F;
+  v892 = ((v867 & 0x3F) - ((2 * v867) & 0x32) + 89) ^ v847;
+  HIDWORD(v873) = v849;
+  LODWORD(v873) = v847 << 24;
+  v893 = v873 >> 31;
+  v894 = *(v870 + STACK[0x620]);
+  LODWORD(STACK[0x568]) = v868 & 0x3F;
+  HIDWORD(v873) = v892;
+  LODWORD(v873) = v894 << 24;
+  v895 = v873 >> 31;
+  v896 = STACK[0x630] & 0xFFFFFFDF;
+  LODWORD(STACK[0x560]) = v863 & 0x3F;
+  v897 = v896 ^ v863 & 0x3F ^ 0xFFFFFFCD ^ LODWORD(STACK[0x638]);
+  HIDWORD(v873) = ((v868 & 0x3F) + (~(2 * v868) | 0x7FFFFFCD) + 90) ^ v894;
+  LODWORD(v873) = v897 << 24;
+  v898 = v873 >> 31;
+  if (((((v871 ^ 0x3D) - 61) ^ ((v871 ^ 0xAC) + 84) ^ ((v871 ^ 0xC8) + 56)) - 39) >= 0)
   {
-    v912 = -121;
+    v899 = -121;
   }
 
   else
   {
-    v912 = 0;
+    v899 = 0;
   }
 
-  v913 = v912 ^ (2 * v910);
-  v914 = v900 ^ 0x43;
-  HIDWORD(v916) = v908 ^ 0x44;
-  LODWORD(v916) = v911 << 24;
-  v915 = v916 >> 31;
-  LODWORD(STACK[0x564]) = v872 & 0x3F;
-  v917 = v914 ^ ((v872 & 0x3F) - ((2 * v872) & 0x5A) - 83);
-  HIDWORD(v916) = v911 ^ 0x40;
-  LODWORD(v916) = v913 << 24;
-  v918 = v916 >> 31;
-  v919 = *(v883 + STACK[0x640]) ^ 0xFFFFFFE4;
-  LODWORD(STACK[0x55C]) = v878 & 0x3F;
-  v920 = v919 ^ ((v878 & 0x3F) - ((2 * v878) & 0x32) + 89);
-  v921 = *(&off_1006B4E30 + (v855 ^ 0xD0F));
-  v922 = STACK[0x488] & 0xF;
-  v923 = v921 + (v922 ^ 8);
-  STACK[0x5C0] = v895;
-  HIDWORD(v916) = v895 ^ 0xFFFFFFD6;
-  LODWORD(v916) = v897 << 24;
-  v924 = v916 >> 31;
-  LODWORD(STACK[0x5DC]) = v899;
-  v925 = v899 ^ 0xFFFFFF88;
-  STACK[0x5D0] = v901;
-  v926 = v901 ^ 0xFFFFFFB2;
-  HIDWORD(v916) = v899 ^ 0xFFFFFF88;
-  LODWORD(v916) = (v901 ^ 0xFFFFFFB2) << 24;
-  v927 = v916 >> 31;
-  STACK[0x5E0] = v892;
-  HIDWORD(v916) = v892 ^ 0xFFFFFFBE;
-  LODWORD(v916) = (v895 ^ 0xFFFFFFD6) << 24;
-  v928 = v916 >> 31;
-  STACK[0x640] = v927 ^ 0xFFFFFF9E;
-  HIDWORD(v916) = v885;
-  LODWORD(v916) = (v892 ^ 0xFFFFFFBE) << 24;
-  STACK[0x630] = (v916 >> 31) ^ 0xFFFFFF97;
-  v929 = (v903 >> 7) | (2 * v879);
-  v930 = (v879 >> 7) & 0xFFFFFE01 | (2 * v920);
-  LODWORD(STACK[0x5BC]) = v929;
-  v929 ^= 0xFFFFFFC0;
-  HIDWORD(v916) = v929;
-  LODWORD(v916) = v904 << 24;
-  v931 = v916 >> 31;
-  HIDWORD(v916) = v930;
-  LODWORD(v916) = v929 << 24;
-  v932 = v924 ^ 0x7Du;
-  v933 = (v916 >> 31) ^ 0xFFFFFFA5;
-  HIDWORD(v916) = v906;
-  LODWORD(v916) = v908 << 24;
-  v934 = (v916 >> 31) ^ 0x67;
-  HIDWORD(v916) = STACK[0x600];
-  LODWORD(v916) = v920 << 24;
-  v935 = v916 >> 31;
-  v936 = (LODWORD(STACK[0x600]) >> 7) & 0xFFFFFE01 | (2 * v917);
-  v937 = ((v917 >> 6) & 1 | (2 * v926)) ^ 0xFFFFFF99;
-  STACK[0x628] = v915 ^ 0x2Bu;
-  v938 = *(v923 - 4) ^ 0x14;
-  v939 = (v920 >> 6) & 1 | (2 * (v935 ^ 0xFFFFFFE6));
-  HIDWORD(v916) = v936;
-  LODWORD(v916) = (v935 ^ 0xFFFFFFE6) << 24;
-  STACK[0x638] = (v916 >> 31) ^ 0xFFFFFF8D;
-  v940 = v928 ^ 0x21u;
-  HIDWORD(v916) = v898;
-  LODWORD(v916) = v925 << 24;
-  v941 = (v916 >> 31) ^ 0xFFFFFF9A;
-  v942 = v885;
-  if ((v885 & 0x80u) == 0)
+  v900 = v899 ^ (2 * v897);
+  v901 = v887 ^ 0x43;
+  HIDWORD(v903) = v895 ^ 0x44;
+  LODWORD(v903) = v898 << 24;
+  v902 = v903 >> 31;
+  LODWORD(STACK[0x564]) = v859 & 0x3F;
+  v904 = v901 ^ ((v859 & 0x3F) - ((2 * v859) & 0x5A) - 83);
+  HIDWORD(v903) = v898 ^ 0x40;
+  LODWORD(v903) = v900 << 24;
+  v905 = v903 >> 31;
+  v906 = *(v870 + STACK[0x640]) ^ 0xFFFFFFE4;
+  LODWORD(STACK[0x55C]) = v865 & 0x3F;
+  v907 = v906 ^ ((v865 & 0x3F) - ((2 * v865) & 0x32) + 89);
+  v908 = *(&off_1006B4E30 + (v842 ^ 0xD0F));
+  v909 = STACK[0x488] & 0xF;
+  v910 = v908 + (v909 ^ 8);
+  STACK[0x5C0] = v882;
+  HIDWORD(v903) = v882 ^ 0xFFFFFFD6;
+  LODWORD(v903) = v884 << 24;
+  v911 = v903 >> 31;
+  LODWORD(STACK[0x5DC]) = v886;
+  v912 = v886 ^ 0xFFFFFF88;
+  STACK[0x5D0] = v888;
+  v913 = v888 ^ 0xFFFFFFB2;
+  HIDWORD(v903) = v886 ^ 0xFFFFFF88;
+  LODWORD(v903) = (v888 ^ 0xFFFFFFB2) << 24;
+  v914 = v903 >> 31;
+  STACK[0x5E0] = v879;
+  HIDWORD(v903) = v879 ^ 0xFFFFFFBE;
+  LODWORD(v903) = (v882 ^ 0xFFFFFFD6) << 24;
+  v915 = v903 >> 31;
+  STACK[0x640] = v914 ^ 0xFFFFFF9E;
+  HIDWORD(v903) = v872;
+  LODWORD(v903) = (v879 ^ 0xFFFFFFBE) << 24;
+  STACK[0x630] = (v903 >> 31) ^ 0xFFFFFF97;
+  v916 = (v890 >> 7) | (2 * v866);
+  v917 = (v866 >> 7) & 0xFFFFFE01 | (2 * v907);
+  LODWORD(STACK[0x5BC]) = v916;
+  v916 ^= 0xFFFFFFC0;
+  HIDWORD(v903) = v916;
+  LODWORD(v903) = v891 << 24;
+  v918 = v903 >> 31;
+  HIDWORD(v903) = v917;
+  LODWORD(v903) = v916 << 24;
+  v919 = v911 ^ 0x7Du;
+  v920 = (v903 >> 31) ^ 0xFFFFFFA5;
+  HIDWORD(v903) = v893;
+  LODWORD(v903) = v895 << 24;
+  v921 = (v903 >> 31) ^ 0x67;
+  HIDWORD(v903) = STACK[0x600];
+  LODWORD(v903) = v907 << 24;
+  v922 = v903 >> 31;
+  v923 = (LODWORD(STACK[0x600]) >> 7) & 0xFFFFFE01 | (2 * v904);
+  v924 = ((v904 >> 6) & 1 | (2 * v913)) ^ 0xFFFFFF99;
+  STACK[0x628] = v902 ^ 0x2Bu;
+  v925 = *(v910 - 4) ^ 0x14;
+  v926 = (v907 >> 6) & 1 | (2 * (v922 ^ 0xFFFFFFE6));
+  HIDWORD(v903) = v923;
+  LODWORD(v903) = (v922 ^ 0xFFFFFFE6) << 24;
+  STACK[0x638] = (v903 >> 31) ^ 0xFFFFFF8D;
+  v927 = v915 ^ 0x21u;
+  HIDWORD(v903) = v885;
+  LODWORD(v903) = v912 << 24;
+  v928 = (v903 >> 31) ^ 0xFFFFFF9A;
+  v929 = v872;
+  if ((v872 & 0x80u) == 0)
   {
-    v943 = 116;
+    v930 = 116;
   }
 
   else
   {
-    v943 = -13;
+    v930 = -13;
   }
 
-  STACK[0x5C8] = v904;
-  HIDWORD(v944) = v904;
-  LODWORD(v944) = v906 << 24;
-  v945 = v939 ^ 0x78;
-  v946 = (v944 >> 31) ^ 0xFFFFFFC3;
-  v947 = (v896 >> 6) & 1 | (2 * v897);
-  v948 = v918 ^ 4u;
-  v949 = v943 ^ (2 * v913);
-  v950 = v931 ^ 0x38;
-  LODWORD(v951) = v941;
-  switch(v938)
+  STACK[0x5C8] = v891;
+  HIDWORD(v931) = v891;
+  LODWORD(v931) = v893 << 24;
+  v932 = v926 ^ 0x78;
+  v933 = (v931 >> 31) ^ 0xFFFFFFC3;
+  v934 = (v883 >> 6) & 1 | (2 * v884);
+  v935 = v905 ^ 4u;
+  v936 = v930 ^ (2 * v900);
+  v937 = v918 ^ 0x38;
+  LODWORD(v938) = v928;
+  switch(v925)
   {
     case 0:
-      LODWORD(v951) = v945;
+      LODWORD(v938) = v932;
       break;
     case 1:
-      LODWORD(v951) = v933;
+      LODWORD(v938) = v920;
       break;
     case 2:
-      LODWORD(v951) = v947;
+      LODWORD(v938) = v934;
       break;
     case 3:
-      v951 = STACK[0x640];
+      v938 = STACK[0x640];
       break;
     case 4:
-      LODWORD(v951) = v937;
+      LODWORD(v938) = v924;
       break;
     case 5:
-      v951 = STACK[0x630];
+      v938 = STACK[0x630];
       break;
     case 6:
-      LODWORD(v951) = v934;
+      LODWORD(v938) = v921;
       break;
     case 7:
-      LODWORD(v951) = v943 ^ (2 * v913);
+      LODWORD(v938) = v930 ^ (2 * v900);
       break;
     case 8:
-      v951 = STACK[0x628];
+      v938 = STACK[0x628];
       break;
     case 9:
-      LODWORD(v951) = v931 ^ 0x38;
+      LODWORD(v938) = v918 ^ 0x38;
       break;
     case 10:
       break;
     case 12:
-      LODWORD(v951) = v940;
+      LODWORD(v938) = v927;
       break;
     case 13:
-      LODWORD(v951) = v932;
+      LODWORD(v938) = v919;
       break;
     case 14:
-      v951 = STACK[0x638];
+      v938 = STACK[0x638];
       break;
     case 15:
-      LODWORD(v951) = v946;
+      LODWORD(v938) = v933;
       break;
     default:
-      LODWORD(v951) = v948;
+      LODWORD(v938) = v935;
       break;
   }
 
-  STACK[0x5F0] = v934;
-  STACK[0x5F8] = v941;
-  STACK[0x600] = v948;
-  STACK[0x608] = v940;
-  STACK[0x610] = v946;
-  STACK[0x618] = v933;
-  STACK[0x620] = v932;
-  v952 = (((v922 ^ 0xB43375B6) - 25192467) ^ ((v922 ^ 0x45428A2F) + 252602486) ^ ((v922 ^ 0xF171FF93) - 1153622582)) + 180178716;
-  v953 = (v952 ^ 0xA0E1CEEA) & (2 * (v952 & 0x10B)) ^ v952 & 0x10B;
-  v954 = ((2 * (v952 ^ 0xA0C0D2EE)) ^ 0x146A3BCA) & (v952 ^ 0xA0C0D2EE) ^ (2 * (v952 ^ 0xA0C0D2EE)) & 0xA351DE4;
-  v955 = v949;
-  v956 = ((4 * (v954 ^ 0xA150425)) & 0xA351DE4 ^ 0x8141580 ^ ((4 * (v954 ^ 0xA150425)) ^ 0x28D47790) & (v954 ^ 0xA150425)) & (16 * ((v954 ^ 0x201841) & (4 * v953) ^ v953)) ^ (v954 ^ 0x201841) & (4 * v953) ^ v953;
-  v957 = *(*(&off_1006B4E30 + (LODWORD(STACK[0x464]) ^ 0xF4D)) + (v922 ^ 4) - 12);
-  v958 = *(*(&off_1006B4E30 + (LODWORD(STACK[0x464]) ^ 0xD0A)) + (v922 ^ 4) - 8) + 17;
-  v959 = v957 & 2 | 0xFFFFFFB9;
-  v960 = v952 ^ v922 ^ (2 * (v956 ^ (v957 ^ 0x50) & (2 * ((v957 ^ 0x50) & (2 * ((v957 ^ 0x50) & (2 * ((v957 ^ 0x50) & (2 * ((v957 ^ 0x50) & (2 * (((4 * (((v957 & 2) >> 1) & 1)) | 0x52) & (v957 ^ 0x50) ^ v959)) ^ v959)) ^ v959)) ^ v959)) ^ v959)) ^ v959));
-  v961 = *(*(&off_1006B4E30 + (LODWORD(STACK[0x464]) ^ 0xD70)) + (v922 ^ 0xB) - 4) - (((v922 ^ 0xFFFFFFD6) + 47) ^ ((v922 ^ 0x6C) - 107) ^ ((v922 ^ 0x6D) - 106)) + 58;
-  v962 = v961 & 0xFFFFFFD2 ^ 0xFFFFFF92;
-  v963 = (v961 ^ 0x2C) & (2 * ((v961 ^ 0x2C) & (2 * ((v961 ^ 0x2C) & (2 * ((v961 ^ 0x2C) & (2 * ((v961 ^ 0x2C) & (2 * v962) | v962)) ^ v962)) ^ v962)) ^ v962)) ^ v962;
-  STACK[0x5E8] = v922;
-  if (v922 == 3)
+  STACK[0x5F0] = v921;
+  STACK[0x5F8] = v928;
+  STACK[0x600] = v935;
+  STACK[0x608] = v927;
+  STACK[0x610] = v933;
+  STACK[0x618] = v920;
+  STACK[0x620] = v919;
+  v939 = (((v909 ^ 0xB43375B6) - 25192467) ^ ((v909 ^ 0x45428A2F) + 252602486) ^ ((v909 ^ 0xF171FF93) - 1153622582)) + 180178716;
+  v940 = (v939 ^ 0xA0E1CEEA) & (2 * (v939 & 0x10B)) ^ v939 & 0x10B;
+  v941 = ((2 * (v939 ^ 0xA0C0D2EE)) ^ 0x146A3BCA) & (v939 ^ 0xA0C0D2EE) ^ (2 * (v939 ^ 0xA0C0D2EE)) & 0xA351DE4;
+  v942 = v936;
+  v943 = ((4 * (v941 ^ 0xA150425)) & 0xA351DE4 ^ 0x8141580 ^ ((4 * (v941 ^ 0xA150425)) ^ 0x28D47790) & (v941 ^ 0xA150425)) & (16 * ((v941 ^ 0x201841) & (4 * v940) ^ v940)) ^ (v941 ^ 0x201841) & (4 * v940) ^ v940;
+  v944 = *(*(&off_1006B4E30 + (LODWORD(STACK[0x464]) ^ 0xF4D)) + (v909 ^ 4) - 12);
+  v945 = *(*(&off_1006B4E30 + (LODWORD(STACK[0x464]) ^ 0xD0A)) + (v909 ^ 4) - 8) + 17;
+  v946 = v944 & 2 | 0xFFFFFFB9;
+  v947 = v939 ^ v909 ^ (2 * (v943 ^ (v944 ^ 0x50) & (2 * ((v944 ^ 0x50) & (2 * ((v944 ^ 0x50) & (2 * ((v944 ^ 0x50) & (2 * ((v944 ^ 0x50) & (2 * (((4 * (((v944 & 2) >> 1) & 1)) | 0x52) & (v944 ^ 0x50) ^ v946)) ^ v946)) ^ v946)) ^ v946)) ^ v946)) ^ v946));
+  v948 = *(*(&off_1006B4E30 + (LODWORD(STACK[0x464]) ^ 0xD70)) + (v909 ^ 0xB) - 4) - (((v909 ^ 0xFFFFFFD6) + 47) ^ ((v909 ^ 0x6C) - 107) ^ ((v909 ^ 0x6D) - 106)) + 58;
+  v949 = v948 & 0xFFFFFFD2 ^ 0xFFFFFF92;
+  v950 = (v948 ^ 0x2C) & (2 * ((v948 ^ 0x2C) & (2 * ((v948 ^ 0x2C) & (2 * ((v948 ^ 0x2C) & (2 * ((v948 ^ 0x2C) & (2 * v949) | v949)) ^ v949)) ^ v949)) ^ v949)) ^ v949;
+  STACK[0x5E8] = v909;
+  if (v909 == 3)
   {
-    v964 = -37;
+    v951 = -37;
   }
 
   else
   {
-    v964 = 91;
+    v951 = 91;
   }
 
-  v965 = v951 ^ v964 ^ v958 ^ v961 ^ (2 * v963);
-  v966 = v965;
-  switch(v960 ^ v957 ^ 0xA7)
+  v952 = v938 ^ v951 ^ v945 ^ v948 ^ (2 * v950);
+  v953 = v952;
+  switch(v947 ^ v944 ^ 0xA7)
   {
     case 224:
-      STACK[0x5F8] = v965;
-      goto LABEL_426;
+      STACK[0x5F8] = v952;
+      goto LABEL_424;
     case 225:
-      v966 = v945;
-      STACK[0x600] = v965;
-      goto LABEL_427;
+      v953 = v932;
+      STACK[0x600] = v952;
+      goto LABEL_425;
     case 226:
-      STACK[0x628] = v965;
-      goto LABEL_426;
+      STACK[0x628] = v952;
+      goto LABEL_424;
     case 227:
-      v950 = v965;
-      goto LABEL_426;
+      v937 = v952;
+      goto LABEL_424;
     case 228:
-      STACK[0x638] = v965;
-      goto LABEL_426;
+      STACK[0x638] = v952;
+      goto LABEL_424;
     case 229:
-      v966 = v945;
-      STACK[0x610] = v965;
-      goto LABEL_427;
+      v953 = v932;
+      STACK[0x610] = v952;
+      goto LABEL_425;
     case 231:
-      v966 = v945;
-      STACK[0x620] = v965;
-      goto LABEL_427;
+      v953 = v932;
+      STACK[0x620] = v952;
+      goto LABEL_425;
     case 232:
-      LOBYTE(v947) = v965;
-      goto LABEL_426;
+      LOBYTE(v934) = v952;
+      goto LABEL_424;
     case 233:
-      v966 = v945;
-      STACK[0x640] = v965;
-      goto LABEL_427;
+      v953 = v932;
+      STACK[0x640] = v952;
+      goto LABEL_425;
     case 234:
-      goto LABEL_427;
+      goto LABEL_425;
     case 235:
-      STACK[0x618] = v965;
-      goto LABEL_426;
+      STACK[0x618] = v952;
+      goto LABEL_424;
     case 236:
-      STACK[0x5F0] = v965;
-      goto LABEL_426;
+      STACK[0x5F0] = v952;
+      goto LABEL_424;
     case 237:
-      v955 = v965;
-      goto LABEL_426;
+      v942 = v952;
+      goto LABEL_424;
     case 238:
-      v966 = v945;
-      LOBYTE(v937) = v965;
-      goto LABEL_427;
+      v953 = v932;
+      LOBYTE(v924) = v952;
+      goto LABEL_425;
     case 239:
-      STACK[0x630] = v965;
-      goto LABEL_426;
+      STACK[0x630] = v952;
+      goto LABEL_424;
     default:
-      STACK[0x608] = v965;
-LABEL_426:
-      v966 = v945;
-LABEL_427:
-      v967 = STACK[0x464];
-      v968 = v955;
-      v969 = *(&off_1006B4E30 + LODWORD(STACK[0x464]) - 3321) - 12;
-      v970 = STACK[0x398];
-      v971 = ((v935 ^ 0x3F) - (v935 ^ 0x4C) - ((2 * ((v935 ^ 0x3F) - (v935 ^ 0x4C))) & 0xA8) - 44) ^ 0x69 ^ *(STACK[0x398] + (v935 ^ 0xF4));
-      v972 = ((v897 ^ 0x28) + v969[v897 ^ 0xA9] - 124) ^ 0x95 | ((((STACK[0x5C0] ^ 0xB8) + v969[STACK[0x5C0] ^ 0x39] - 124) ^ 0x89) << 8);
-      v973 = (v911 - (v911 ^ 0x73) + (~(2 * (v911 - (v911 ^ 0x73))) | 0x57) - 43) ^ *(STACK[0x398] + (v911 ^ 0xCBLL));
-      v974 = STACK[0x3A8];
-      v975 = *(STACK[0x3A8] + (LODWORD(STACK[0x5BC]) ^ 0x6BLL));
-      v976 = STACK[0x3B0];
-      v977 = (v936 ^ 0x7D) + v969[v936 ^ 0xFCLL];
-      v978 = (v971 << 24) | ((((-3 * v975 - 22) ^ (4 * ((LOBYTE(STACK[0x3B0]) + 58 * v975) ^ (-3 * v975 - 22)))) ^ 0xC9) << 8);
-      LOBYTE(v971) = *(STACK[0x3A8] + (v913 ^ 0x13));
-      LOBYTE(v971) = (-3 * v971 - 22) ^ (4 * ((LOBYTE(STACK[0x3B0]) + 58 * v971) ^ (-3 * v971 - 22)));
-      v979 = *(STACK[0x3A8] + (v930 ^ 0xCALL));
-      v980 = v978 & 0xFF00FFFF | ((((-3 * v979 - 22) ^ (4 * ((LOBYTE(STACK[0x3B0]) + 58 * v979) ^ (-3 * v979 - 22)))) ^ 0xE7) << 16);
-      LODWORD(STACK[0x5C0]) = v980 - ((2 * v980) & 0xD8A9200);
-      v981 = ((STACK[0x5D0] ^ 0x1D) + v969[STACK[0x5D0] ^ 0x9CLL] - 124) ^ 0x8C;
-      v982 = STACK[0x5C8] ^ 0x26;
-      LOBYTE(v971) = v971 ^ 0x3E;
-      v983 = ((v973 ^ 0xBD) << 8) & 0xFF00FF00 | ((((v908 ^ 0x70) + v969[v908 ^ 0xF1] - 124) ^ 0x13) << 16) | v971;
-      LODWORD(STACK[0x5D0]) = v983 - 2 * (v983 & 0x72DC7F ^ v971 & 6);
-      v984 = STACK[0x3A0];
-      LODWORD(STACK[0x5DC]) = (((*(STACK[0x3A0] + (LODWORD(STACK[0x5DC]) ^ 0x10)) ^ 0x5B) << 16) | (v981 << 8) | (v977 - 124) ^ 0x57) - 2 * (((((*(STACK[0x3A0] + (LODWORD(STACK[0x5DC]) ^ 0x10)) ^ 0x5B) << 16) | (v981 << 8)) & 0x507C6F | ((v977 - 124) ^ 0x57) & 0x6F) ^ ((v977 - 124) ^ 0x57) & 0xB);
-      v985 = *(v974 + v982);
-      LOBYTE(v983) = *(v974 + (STACK[0x5E0] ^ 0x16));
-      v986 = 75 * v985 + 39 * (6 - 2 * v985);
-      v987 = v986 ^ (4 * (v986 ^ (v976 + 58 * v985))) ^ 0x57;
-      LODWORD(STACK[0x5E0]) = v987 - ((2 * v987) & 0x1DE);
-      v988 = v972 & 0xFF00FFFF | ((((-3 * v983 - 22) ^ (4 * ((-3 * v983 - 22) ^ (v976 + 58 * v983)))) ^ 7) << 16);
-      LODWORD(STACK[0x5C8]) = v988 - ((2 * v988) & 0x15140BE);
-      v989 = (v906 ^ 7) + v969[v906 ^ 0x86];
-      v990 = (v942 ^ 0xA3) + v969[v942 ^ 0x22];
-      v991 = (v898 ^ 0x25) + v969[v898 ^ 0xA4];
-      LOBYTE(v988) = (v947 ^ 8) + v969[v947 ^ 0x89] - 124;
-      v992 = v988 | ((*(v984 + (STACK[0x630] ^ 0x60)) ^ 0xA8) << 24);
-      v993 = STACK[0x5F0] ^ 0xB3;
-      v994 = (STACK[0x5F0] ^ 0x78) - (STACK[0x5F0] ^ 0xB);
-      v995 = v950 ^ 0xB7;
-      v996 = STACK[0x628] ^ 0x8DLL;
-      v997 = (v950 ^ 0x7C) - (v950 ^ 0xF) - ((2 * ((v950 ^ 0x7C) - (v950 ^ 0xF))) & 0xA8);
-      LODWORD(v982) = ((((STACK[0x640] ^ 0x18) + v969[STACK[0x640] ^ 0x99] - 124) ^ 0x63) << 16) | ((((v937 ^ 0x96) + v969[v937 ^ 0x17] - 124) ^ 0xA7) << 8);
-      v998 = (STACK[0x618] ^ 0x5E) + v969[STACK[0x618] ^ 0xDFLL];
-      v999 = (STACK[0x608] ^ 0xC5) + v969[STACK[0x608] ^ 0x44];
-      v1000 = STACK[0x600] ^ 0xDELL;
-      LODWORD(v982) = v982 & 0xFFFFFF00 | ((((STACK[0x5F8] ^ 4) + v969[STACK[0x5F8] ^ 0x85] - 124) ^ 0xFFFFFFBF) << 24) | ((STACK[0x638] ^ 0xE1) + v969[STACK[0x638] ^ 0x60] - 124);
-      LODWORD(STACK[0x630]) = v982 - 2 * (v982 & 0x15D9677F ^ ((STACK[0x638] ^ 0xE1) + v969[STACK[0x638] ^ 0x60] - 124) & 4);
-      v1001 = ((*(v984 + (STACK[0x620] ^ 0xD3)) ^ 0xFC) << 8) & 0xFF00FFFF | (((v999 - 124) ^ 0x83) << 16) | v992;
-      LODWORD(STACK[0x628]) = v1001 - 2 * (v1001 & 0x5DD056AC ^ v988 & 8);
-      v1002 = STACK[0x610] ^ 0xD3;
-      v1003 = *(v984 + (v968 ^ 0xB4));
-      LODWORD(STACK[0x620]) = (v1003 ^ 0x8A) - ((2 * v1003) & 0xE2);
-      v1004 = v967 ^ 0x459;
-      LODWORD(STACK[0x638]) = v967 + 6250;
-      v1005 = v967 ^ 0x3DE9;
-      v1006 = v989 - 124;
-      v1007 = v990 - 124;
-      LODWORD(STACK[0x600]) = *(v984 + (v966 ^ 0xF2));
-      LODWORD(STACK[0x5F0]) = *(v970 + v993);
-      v1008 = v991 - 124;
-      v1009 = v994 - ((2 * v994) & 0xA8) - 44;
-      LODWORD(STACK[0x5F8]) = *(v970 + v995);
-      LODWORD(STACK[0x610]) = *(v984 + v996);
-      LODWORD(STACK[0x5BC]) = v997 - 44;
-      LODWORD(STACK[0x608]) = v998 - 124;
-      LODWORD(STACK[0x618]) = *(v984 + v1000);
-      v1010 = *(v974 + v1002);
-      LODWORD(STACK[0x558]) = v1004;
-      LODWORD(STACK[0x640]) = 2 * v1004;
-      v1011 = STACK[0x4F8];
-      v1012 = (*(STACK[0x4F8] + 8 * v1005))(1032);
-      STACK[0x6A8] = v1012;
-      v1013 = (*(v1011 + 8 * v1005))(1028);
-      v1018 = LODWORD(STACK[0x3B0]);
-      v1019 = STACK[0x5E8] == 3;
-      v1020 = (LODWORD(STACK[0x5E0]) + 879862767) & 0x1159 ^ 0xD1C833D3 ^ ((LODWORD(STACK[0x5E0]) + 879862767) ^ 0xCB8E5C10) & ((LODWORD(STACK[0x5C0]) + 113592591) ^ 0x355E27A9);
-      v1021 = (((LODWORD(STACK[0x5D0]) + 2104679545) ^ 0xE042FF20) & ~((v1006 ^ 0x6B) << 24) | ((v1006 ^ 0x6B) << 24) & 0x62000000) ^ 0xF3ABFE11;
-      v1022 = (LODWORD(STACK[0x5C8]) - 274161569) & 0xF8FF1C39 ^ 0x328FD906 ^ ((LODWORD(STACK[0x5C8]) - 274161569) ^ 0x10004380) & (((v1007 ^ 0x1A) << 24) ^ 0x700E3C6);
-      v1023 = ((v1008 ^ 0x86) << 24) & 0xD3000000 ^ 0xE17CA5A1 ^ ((LODWORD(STACK[0x5DC]) - 1269793692) ^ 0x98D5BF76) & (((v1008 ^ 0x86) << 24) ^ 0x7FFFFFFF);
-      v1024 = (LODWORD(STACK[0x630]) - 1780914309) ^ 0x5820010A;
-      v1025 = LODWORD(STACK[0x628]) + 1573934756;
-      v1026 = ((v1009 ^ LODWORD(STACK[0x5F0]) ^ 0xF8) << 24) | ((LODWORD(STACK[0x610]) ^ 0x30) << 16) | ((LODWORD(STACK[0x618]) ^ 0x1D) << 8);
-      v1027 = (LODWORD(STACK[0x600]) << 24) | ((LODWORD(STACK[0x5BC]) ^ LODWORD(STACK[0x5F8]) ^ 0xE7) << 8) & 0xFF00FF00 | ((LODWORD(STACK[0x608]) ^ 0xCB) << 16) | (-3 * v1010 - 22);
-      v1028 = (LODWORD(STACK[0x620]) + 1082018161) & 0x4126 ^ 0x719202B1 ^ ((v1026 - 1125468348 + (~(2 * v1026) | 0x862A91FF)) ^ 0xA3E3299A) & ((LODWORD(STACK[0x620]) + 1082018161) ^ 0xBF81B68E);
+      STACK[0x608] = v952;
+LABEL_424:
+      v953 = v932;
+LABEL_425:
+      v954 = STACK[0x464];
+      v955 = v942;
+      v956 = *(&off_1006B4E30 + LODWORD(STACK[0x464]) - 3321) - 12;
+      v957 = STACK[0x398];
+      v958 = ((v922 ^ 0x3F) - (v922 ^ 0x4C) - ((2 * ((v922 ^ 0x3F) - (v922 ^ 0x4C))) & 0xA8) - 44) ^ 0x69 ^ *(STACK[0x398] + (v922 ^ 0xF4));
+      v959 = ((v884 ^ 0x28) + v956[v884 ^ 0xA9] - 124) ^ 0x95 | ((((STACK[0x5C0] ^ 0xB8) + v956[STACK[0x5C0] ^ 0x39] - 124) ^ 0x89) << 8);
+      v960 = (v898 - (v898 ^ 0x73) + (~(2 * (v898 - (v898 ^ 0x73))) | 0x57) - 43) ^ *(STACK[0x398] + (v898 ^ 0xCBLL));
+      v961 = STACK[0x3A8];
+      v962 = *(STACK[0x3A8] + (LODWORD(STACK[0x5BC]) ^ 0x6BLL));
+      v963 = STACK[0x3B0];
+      v964 = (v923 ^ 0x7D) + v956[v923 ^ 0xFCLL];
+      v965 = (v958 << 24) | ((((-3 * v962 - 22) ^ (4 * ((LOBYTE(STACK[0x3B0]) + 58 * v962) ^ (-3 * v962 - 22)))) ^ 0xC9) << 8);
+      LOBYTE(v958) = *(STACK[0x3A8] + (v900 ^ 0x13));
+      LOBYTE(v958) = (-3 * v958 - 22) ^ (4 * ((LOBYTE(STACK[0x3B0]) + 58 * v958) ^ (-3 * v958 - 22)));
+      v966 = *(STACK[0x3A8] + (v917 ^ 0xCALL));
+      v967 = v965 & 0xFF00FFFF | ((((-3 * v966 - 22) ^ (4 * ((LOBYTE(STACK[0x3B0]) + 58 * v966) ^ (-3 * v966 - 22)))) ^ 0xE7) << 16);
+      LODWORD(STACK[0x5C0]) = v967 - ((2 * v967) & 0xD8A9200);
+      v968 = ((STACK[0x5D0] ^ 0x1D) + v956[STACK[0x5D0] ^ 0x9CLL] - 124) ^ 0x8C;
+      v969 = STACK[0x5C8] ^ 0x26;
+      LOBYTE(v958) = v958 ^ 0x3E;
+      v970 = ((v960 ^ 0xBD) << 8) & 0xFF00FF00 | ((((v895 ^ 0x70) + v956[v895 ^ 0xF1] - 124) ^ 0x13) << 16) | v958;
+      LODWORD(STACK[0x5D0]) = v970 - 2 * (v970 & 0x72DC7F ^ v958 & 6);
+      v971 = STACK[0x3A0];
+      LODWORD(STACK[0x5DC]) = (((*(STACK[0x3A0] + (LODWORD(STACK[0x5DC]) ^ 0x10)) ^ 0x5B) << 16) | (v968 << 8) | (v964 - 124) ^ 0x57) - 2 * (((((*(STACK[0x3A0] + (LODWORD(STACK[0x5DC]) ^ 0x10)) ^ 0x5B) << 16) | (v968 << 8)) & 0x507C6F | ((v964 - 124) ^ 0x57) & 0x6F) ^ ((v964 - 124) ^ 0x57) & 0xB);
+      v972 = *(v961 + v969);
+      LOBYTE(v970) = *(v961 + (STACK[0x5E0] ^ 0x16));
+      v973 = 75 * v972 + 39 * (6 - 2 * v972);
+      v974 = v973 ^ (4 * (v973 ^ (v963 + 58 * v972))) ^ 0x57;
+      LODWORD(STACK[0x5E0]) = v974 - ((2 * v974) & 0x1DE);
+      v975 = v959 & 0xFF00FFFF | ((((-3 * v970 - 22) ^ (4 * ((-3 * v970 - 22) ^ (v963 + 58 * v970)))) ^ 7) << 16);
+      LODWORD(STACK[0x5C8]) = v975 - ((2 * v975) & 0x15140BE);
+      v976 = (v893 ^ 7) + v956[v893 ^ 0x86];
+      v977 = (v929 ^ 0xA3) + v956[v929 ^ 0x22];
+      v978 = (v885 ^ 0x25) + v956[v885 ^ 0xA4];
+      LOBYTE(v975) = (v934 ^ 8) + v956[v934 ^ 0x89] - 124;
+      v979 = v975 | ((*(v971 + (STACK[0x630] ^ 0x60)) ^ 0xA8) << 24);
+      v980 = STACK[0x5F0] ^ 0xB3;
+      v981 = (STACK[0x5F0] ^ 0x78) - (STACK[0x5F0] ^ 0xB);
+      v982 = v937 ^ 0xB7;
+      v983 = STACK[0x628] ^ 0x8DLL;
+      v984 = (v937 ^ 0x7C) - (v937 ^ 0xF) - ((2 * ((v937 ^ 0x7C) - (v937 ^ 0xF))) & 0xA8);
+      LODWORD(v969) = ((((STACK[0x640] ^ 0x18) + v956[STACK[0x640] ^ 0x99] - 124) ^ 0x63) << 16) | ((((v924 ^ 0x96) + v956[v924 ^ 0x17] - 124) ^ 0xA7) << 8);
+      v985 = (STACK[0x618] ^ 0x5E) + v956[STACK[0x618] ^ 0xDFLL];
+      v986 = (STACK[0x608] ^ 0xC5) + v956[STACK[0x608] ^ 0x44];
+      v987 = STACK[0x600] ^ 0xDELL;
+      LODWORD(v969) = v969 & 0xFFFFFF00 | ((((STACK[0x5F8] ^ 4) + v956[STACK[0x5F8] ^ 0x85] - 124) ^ 0xFFFFFFBF) << 24) | ((STACK[0x638] ^ 0xE1) + v956[STACK[0x638] ^ 0x60] - 124);
+      LODWORD(STACK[0x630]) = v969 - 2 * (v969 & 0x15D9677F ^ ((STACK[0x638] ^ 0xE1) + v956[STACK[0x638] ^ 0x60] - 124) & 4);
+      v988 = ((*(v971 + (STACK[0x620] ^ 0xD3)) ^ 0xFC) << 8) & 0xFF00FFFF | (((v986 - 124) ^ 0x83) << 16) | v979;
+      LODWORD(STACK[0x628]) = v988 - 2 * (v988 & 0x5DD056AC ^ v975 & 8);
+      v989 = STACK[0x610] ^ 0xD3;
+      v990 = *(v971 + (v955 ^ 0xB4));
+      LODWORD(STACK[0x620]) = (v990 ^ 0x8A) - ((2 * v990) & 0xE2);
+      v991 = v954 ^ 0x459;
+      LODWORD(STACK[0x638]) = v954 + 6250;
+      v992 = v954 ^ 0x3DE9;
+      v993 = v976 - 124;
+      v994 = v977 - 124;
+      LODWORD(STACK[0x600]) = *(v971 + (v953 ^ 0xF2));
+      LODWORD(STACK[0x5F0]) = *(v957 + v980);
+      v995 = v978 - 124;
+      v996 = v981 - ((2 * v981) & 0xA8) - 44;
+      LODWORD(STACK[0x5F8]) = *(v957 + v982);
+      LODWORD(STACK[0x610]) = *(v971 + v983);
+      LODWORD(STACK[0x5BC]) = v984 - 44;
+      LODWORD(STACK[0x608]) = v985 - 124;
+      LODWORD(STACK[0x618]) = *(v971 + v987);
+      v997 = *(v961 + v989);
+      LODWORD(STACK[0x558]) = v991;
+      LODWORD(STACK[0x640]) = 2 * v991;
+      v998 = STACK[0x4F8];
+      v999 = (*(STACK[0x4F8] + 8 * v992))(1032);
+      STACK[0x6A8] = v999;
+      v1000 = (*(v998 + 8 * v992))(1028);
+      v1005 = LODWORD(STACK[0x3B0]);
+      v1006 = STACK[0x5E8] == 3;
+      v1007 = (LODWORD(STACK[0x5E0]) + 879862767) & 0x1159 ^ 0xD1C833D3 ^ ((LODWORD(STACK[0x5E0]) + 879862767) ^ 0xCB8E5C10) & ((LODWORD(STACK[0x5C0]) + 113592591) ^ 0x355E27A9);
+      v1008 = (((LODWORD(STACK[0x5D0]) + 2104679545) ^ 0xE042FF20) & ~((v993 ^ 0x6B) << 24) | ((v993 ^ 0x6B) << 24) & 0x62000000) ^ 0xF3ABFE11;
+      v1009 = (LODWORD(STACK[0x5C8]) - 274161569) & 0xF8FF1C39 ^ 0x328FD906 ^ ((LODWORD(STACK[0x5C8]) - 274161569) ^ 0x10004380) & (((v994 ^ 0x1A) << 24) ^ 0x700E3C6);
+      v1010 = ((v995 ^ 0x86) << 24) & 0xD3000000 ^ 0xE17CA5A1 ^ ((LODWORD(STACK[0x5DC]) - 1269793692) ^ 0x98D5BF76) & (((v995 ^ 0x86) << 24) ^ 0x7FFFFFFF);
+      v1011 = (LODWORD(STACK[0x630]) - 1780914309) ^ 0x5820010A;
+      v1012 = LODWORD(STACK[0x628]) + 1573934756;
+      v1013 = ((v996 ^ LODWORD(STACK[0x5F0]) ^ 0xF8) << 24) | ((LODWORD(STACK[0x610]) ^ 0x30) << 16) | ((LODWORD(STACK[0x618]) ^ 0x1D) << 8);
+      v1014 = (LODWORD(STACK[0x600]) << 24) | ((LODWORD(STACK[0x5BC]) ^ LODWORD(STACK[0x5F8]) ^ 0xE7) << 8) & 0xFF00FF00 | ((LODWORD(STACK[0x608]) ^ 0xCB) << 16) | (-3 * v997 - 22);
+      v1015 = (LODWORD(STACK[0x620]) + 1082018161) & 0x4126 ^ 0x719202B1 ^ ((v1013 - 1125468348 + (~(2 * v1013) | 0x862A91FF)) ^ 0xA3E3299A) & ((LODWORD(STACK[0x620]) + 1082018161) ^ 0xBF81B68E);
       if (STACK[0x5E8] != 3)
       {
-        v1021 = v1028;
+        v1008 = v1015;
       }
 
-      LODWORD(STACK[0x38C]) = v1021;
-      if (v1019)
+      LODWORD(STACK[0x38C]) = v1008;
+      if (v1006)
       {
-        v1029 = v1023;
+        v1016 = v1010;
       }
 
       else
       {
-        v1029 = v1024;
+        v1016 = v1011;
       }
 
-      LODWORD(STACK[0x388]) = v1029;
-      v1030 = v1025 ^ 0x80F76CCB;
-      if (v1019)
+      LODWORD(STACK[0x388]) = v1016;
+      v1017 = v1012 ^ 0x80F76CCB;
+      if (v1006)
       {
-        v1030 = v1022;
+        v1017 = v1009;
       }
 
-      LODWORD(STACK[0x384]) = v1030;
-      if (!v1019)
+      LODWORD(STACK[0x384]) = v1017;
+      if (!v1006)
       {
-        v1020 = v1027 ^ (4 * (((-3 * v1010 - 22) ^ (v1018 + 58 * v1010)) & 0x3F)) ^ 0xE2535CCC;
+        v1007 = v1014 ^ (4 * (((-3 * v997 - 22) ^ (v1005 + 58 * v997)) & 0x3F)) ^ 0xE2535CCC;
       }
 
-      LODWORD(STACK[0x380]) = v1020;
-      if (v1012)
+      LODWORD(STACK[0x380]) = v1007;
+      if (v999)
       {
-        v1031 = v1013 == 0;
+        v1018 = v1000 == 0;
       }
 
       else
       {
-        v1031 = 1;
+        v1018 = 1;
       }
 
-      v1032 = !v1031;
-      v1033 = STACK[0x638];
-      STACK[0x6B0] = v1013;
-      return (*(v1011 + 8 * ((214 * v1032) ^ v1033)))(v1013, 1905394353, v1018, v1014, 58, v1015, v1016, v1017, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26, a27, a28, a29, a30, a31, a32, a33, a34, a35, a36, a37, a38, a39, a40, a41, a42, a43, a44, a45, a46, a47, a48, a49, a50, a51, a52, a53);
+      v1019 = !v1018;
+      v1020 = STACK[0x638];
+      STACK[0x6B0] = v1000;
+      return (*(v998 + 8 * ((214 * v1019) ^ v1020)))(v1000, 1905394353, v1005, v1001, 58, v1002, v1003, v1004, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26, a27, a28, a29, a30, a31, a32, a33, a34, a35, a36, a37, a38, a39, a40, a41, a42, a43, a44, a45, a46, a47, a48, a49, a50, a51, a52, a53);
   }
 }
 
@@ -6564,26 +6534,24 @@ uint64_t sub_100284DF0(uint64_t a1, uint64_t a2, char a3, uint64_t a4, char a5)
   }
 
   LODWORD(STACK[0x340]) = v448;
-  v449 = 0xB5EDB38BD1D38DD1 * *(v436 + 8 * ((STACK[0x640] ^ 0x5EEB89DAF2D0B81DLL) + 1389448030) + 0x8A3B125D2F04768) - 0x3323D36B42630DCELL;
-  v450 = v442 > 0x397F2C00;
+  v449 = v442 > 0x397F2C00;
   if (v442 < 0x397F2BFF)
   {
-    v450 = 1;
+    v449 = 1;
   }
 
-  return (*(STACK[0x4F8] + 8 * ((102 * !v450) ^ v443)))(1389448031);
+  return (*(STACK[0x4F8] + 8 * ((102 * !v449) ^ v443)))(1389448031);
 }
 
 uint64_t sub_100289888()
 {
   v2 = STACK[0x640];
   (*(v1 + 8 * (LODWORD(STACK[0x640]) ^ 0x2245)))();
-  v3 = (*(STACK[0x4F8] + 8 * (v2 + 7749)))(v0);
-  v4 = STACK[0x4F8];
-  return sub_10029539C(v3);
+  (*(STACK[0x4F8] + 8 * (v2 + 7749)))(v0);
+  return sub_10029539C();
 }
 
-uint64_t sub_100289890(unsigned int a1)
+uint64_t sub_100289890(int a1)
 {
   v1 = STACK[0x628];
   if (STACK[0x628])
@@ -6848,14 +6816,13 @@ uint64_t sub_100289890(unsigned int a1)
   }
 
   LODWORD(STACK[0x528]) = v39;
-  v40 = 0xB5EDB38BD1D38DD1 * *(STACK[0x698] + 8 * ((a1 | ((a1 < (v35 ^ 0x128Du) + 1389447749) << 32)) + 0x696EC101A6678EB8) - 0x4B76080FC9C6D0B0) + 0x1A4CB98889E62FAELL;
-  v41 = a1 - 563266763 < v36;
-  if (v36 < 0x313E8692 != a1 - 563266763 < 0x313E8692)
+  v40 = a1 - 563266763 < v36;
+  if (v36 < 0x313E8692 != (a1 - 563266763) < 0x313E8692)
   {
-    v41 = v36 < 0x313E8692;
+    v40 = v36 < 0x313E8692;
   }
 
-  return (*(STACK[0x4F8] + 8 * ((60 * v41) ^ v35)))();
+  return (*(STACK[0x4F8] + 8 * ((60 * v40) ^ v35)))();
 }
 
 uint64_t sub_10028A518(uint64_t a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5, int a6)
@@ -7009,59 +6976,57 @@ uint64_t sub_10028A518(uint64_t a1, uint64_t a2, uint64_t a3, int a4, uint64_t a
 
   LODWORD(STACK[0x498]) = (v39 & v50);
   LODWORD(STACK[0x4EC]) = 16843009 * (v38 ^ 0x8A ^ ((v38 ^ 0xDA8A) >> 8) ^ ((v38 ^ 0xE282DA8A) >> 16) ^ HIBYTE(v38) ^ 0xD5);
-  v51 = LODWORD(STACK[0x610]) ^ 0x4FAE2C65;
   LODWORD(STACK[0x600]) = v41;
   LODWORD(STACK[0x558]) = v41 ^ 0x20EAD209;
-  v52 = LODWORD(STACK[0x608]) ^ 0xAC83BAF1;
-  v53 = LODWORD(STACK[0x618]) ^ 0x6D429065;
+  v51 = LODWORD(STACK[0x608]) ^ 0xAC83BAF1;
   LODWORD(STACK[0x510]) = v39;
   LODWORD(STACK[0x548]) = v39 & 0xFFFFFF01;
-  v54 = 0xB5EDB38BD1D38DD1 * *(v42 + 8 * ((a4 ^ 0x1F60u) + 0x70D75C54EDB9419ELL) + 0x79451D589234FF48) - 0x34DE436640AC613;
-  v55 = ((v54 ^ 0xC12427B2EE8D432ELL) - 0x3D963C7B75787AC3) ^ v54 ^ ((v54 ^ 0x1CBDE99EA6C8F685) + 0x1FF00DA8C2C23098) ^ ((v54 ^ 0x5E9C291824DFE3BCLL) + 0x5DD1CD2E40D525AFLL) ^ ((v54 ^ 0x7FB7FCFDF76F6FFALL) + 0x7CFA18CB9365A9E9);
-  v56 = (((v55 ^ v7 ^ 0x662A699DA30B4693) - 0x6269C8984A30474FLL) ^ ((v55 ^ v7 ^ 0xA801CC8BC1C4C0C9) + 0x53BD9271D7003EEBLL) ^ ((v55 ^ v7 ^ 0x3299BEDFF93ABFB7) - 0x36DA1FDA1001BE6BLL)) + 0x489B7C43F7ACB349;
-  v57 = (((v56 ^ 0x20A3966EAD6F0908) - 0x6F0A571929B17210) ^ v56 ^ ((v56 ^ 0xD7839E56B6063ELL) - 0x4F7E42E9D2687D26) ^ ((v56 ^ 0x9100CA4486718FDALL) + 0x2156F4CCFD500B3ELL) ^ ((v56 ^ 0xFEDD1EC3F976FBF4) + 0x4E8B204B82577F14)) >> 32;
-  v58 = v56 - (((v57 ^ 0xFAFE529AA39F8914) + 0x6FDE5F0A4FDF9C2FLL) ^ ((v57 ^ 0x5405E178E8A4C398) - 0x3EDA1317FB1B295DLL) ^ ((v57 ^ 0xAEFBB3E204928BFBLL) + 0x3BDBBE72E8D29EC2)) + 0x45764C191F0B5936;
-  v59 = v58 - (v58 >> 16) + ((v58 - (v58 >> 16)) >> 8) + 0x3782C8B659116B30;
-  v60 = v59 ^ v52;
-  v61 = (((v59 ^ v55 ^ 0xAFC24655207B4821) + 0x73D3E949730E6458) ^ ((v59 ^ v55 ^ 0xEE9FD4A570A16717) + 0x328E7BB923D44B62) ^ ((v59 ^ v55 ^ 0xBDEF8939CB2F16DBLL) + 0x61FE2625985A3AAELL)) + 0x5F24263AA7D008AFLL;
-  v62 = (v61 ^ 0x4DB3B2CFCF8FC530) & (2 * (v61 & 0x803824EF8FAFE1B5)) ^ v61 & 0x803824EF8FAFE1B5;
-  v63 = ((2 * (v61 ^ 0x4DB3B38CD2DB8572)) ^ 0x9B172EC6BAE8C98ELL) & (v61 ^ 0x4DB3B38CD2DB8572) ^ (2 * (v61 ^ 0x4DB3B38CD2DB8572)) & 0xCD8B97635D7464C6;
-  v64 = v63 ^ 0x4488912145142441;
-  v65 = (v63 ^ 0x101064218600084) & (4 * v62) ^ v62;
-  v66 = ((4 * v64) ^ 0x362E5D8D75D1931CLL) & v64 ^ (4 * v64) & 0xCD8B97635D7464C4;
-  v67 = (v66 ^ 0x40A150155500000) & (16 * v65) ^ v65;
-  v68 = ((16 * (v66 ^ 0xC9818262082464C3)) ^ 0xD8B97635D7464C70) & (v66 ^ 0xC9818262082464C3) ^ (16 * (v66 ^ 0xC9818262082464C3)) & 0xCD8B97635D7464C0;
-  v69 = (v68 ^ 0xC889162155444400) & (v67 << 8) ^ v67;
-  v70 = (((v68 ^ 0x502814208302087) << 8) ^ 0x8B97635D7464C700) & (v68 ^ 0x502814208302087) ^ ((v68 ^ 0x502814208302087) << 8) & 0xCD8B97635D746400;
-  v71 = v69 ^ 0xCD8B97635D7464C7 ^ (v70 ^ 0x8983034154640000) & (v69 << 16);
-  v72 = (v61 ^ (2 * ((v71 << 32) & 0x4D8B976300000000 ^ v71 ^ ((v71 << 32) ^ 0x5D7464C700000000) & (((v70 ^ 0x44089422091020C7) << 16) & 0x4D8B976300000000 ^ 0x4888820300000000 ^ (((v70 ^ 0x44089422091020C7) << 16) ^ 0x17635D7400000000) & (v70 ^ 0x44089422091020C7))))) >> 32;
-  v73 = v61 - (((v72 ^ 0xABD438D14AFF8654) + 0x6F9FE910C7906C6CLL) ^ ((v72 ^ 0x26A68D8DA3154793) - 0x1D12A3B3D1855253) ^ ((v72 ^ 0x8D72B55C68C5C368) + 0x4939649DE5AA2958)) + 0x4483F6B09BF0CA46;
-  v74 = v73 - (v73 >> 16) + ((v73 - (v73 >> 16)) >> 8) + 0x3782C8B659116B30;
-  v75 = v60 ^ v74;
-  v76 = (((v74 ^ v55 ^ 0x98915B02690A7F3) + 0xFF1650ACFA5FFD5) ^ ((v74 ^ v55 ^ 0x5A128798CE7B5026) + 0x5C6AF722274E0802) ^ ((v74 ^ v55 ^ 0xAF2989E1731ECE38) - 0x56AE06A465D469E0)) + 0x23F4A4B2773B97DBLL;
-  v77 = (v76 ^ 0xC90ACFD08530541ALL) & (2 * (v76 & 0xE140EFDA1604065ALL)) ^ v76 & 0xE140EFDA1604065ALL;
-  v78 = ((2 * (v76 ^ 0x8B0B16D0A1305C2ELL)) ^ 0xD497F2156E68B4E8) & (v76 ^ 0x8B0B16D0A1305C2ELL) ^ (2 * (v76 ^ 0x8B0B16D0A1305C2ELL)) & 0x6A4BF90AB7345A74;
-  v79 = v78 ^ 0x2A48090A91144A14;
-  v80 = (v78 ^ 0x3F00020201060) & (4 * v77) ^ v77;
-  v81 = ((4 * v79) ^ 0xA92FE42ADCD169D0) & v79 ^ (4 * v79) & 0x6A4BF90AB7345A74;
-  v82 = (v81 ^ 0x280BE00A94104840) & (16 * v80) ^ v80;
-  v83 = ((16 * (v81 ^ 0x4240190023241224)) ^ 0xA4BF90AB7345A740) & (v81 ^ 0x4240190023241224) ^ (16 * (v81 ^ 0x4240190023241224)) & 0x6A4BF90AB7345A70;
-  v84 = (v83 ^ 0x200B900A33040200) & (v82 << 8) ^ v82;
-  v85 = (((v83 ^ 0x4A40690084305834) << 8) ^ 0x4BF90AB7345A7400) & (v83 ^ 0x4A40690084305834) ^ ((v83 ^ 0x4A40690084305834) << 8) & 0x6A4BF90AB7345A00;
-  v86 = v84 ^ 0x6A4BF90AB7345A74 ^ (v85 ^ 0x4A49080234100000) & (v84 << 16);
-  v87 = (v76 ^ (2 * ((v86 << 32) & 0x6A4BF90A00000000 ^ v86 ^ ((v86 << 32) ^ 0x37345A7400000000) & (((v85 ^ 0x2002F10883240A74) << 16) & 0x6A4BF90A00000000 ^ 0x241480A00000000 ^ (((v85 ^ 0x2002F10883240A74) << 16) ^ 0x790AB73400000000) & (v85 ^ 0x2002F10883240A74))))) >> 32;
-  v88 = v76 - (((v87 ^ 0x50A3274BE57B244ALL) + 0x496B0BDC30CE47BBLL) ^ ((v87 ^ 0xA2C356F802BBB32BLL) - 0x44F4859028F12F24) ^ ((v87 ^ 0xF26071B396173AAELL) - 0x1457A2DBBC5DA6A1)) - 0x4F6E38E45992B66;
-  v89 = v88 - (v88 >> 16) + ((v88 - (v88 >> 16)) >> 8);
-  v90 = v43 > 0x950F87C3;
+  v52 = 0xB5EDB38BD1D38DD1 * *(v42 + 8 * ((a4 ^ 0x1F60u) + 0x70D75C54EDB9419ELL) + 0x79451D589234FF48) - 0x34DE436640AC613;
+  v53 = ((v52 ^ 0xC12427B2EE8D432ELL) - 0x3D963C7B75787AC3) ^ v52 ^ ((v52 ^ 0x1CBDE99EA6C8F685) + 0x1FF00DA8C2C23098) ^ ((v52 ^ 0x5E9C291824DFE3BCLL) + 0x5DD1CD2E40D525AFLL) ^ ((v52 ^ 0x7FB7FCFDF76F6FFALL) + 0x7CFA18CB9365A9E9);
+  v54 = (((v53 ^ v7 ^ 0x662A699DA30B4693) - 0x6269C8984A30474FLL) ^ ((v53 ^ v7 ^ 0xA801CC8BC1C4C0C9) + 0x53BD9271D7003EEBLL) ^ ((v53 ^ v7 ^ 0x3299BEDFF93ABFB7) - 0x36DA1FDA1001BE6BLL)) + 0x489B7C43F7ACB349;
+  v55 = (((v54 ^ 0x20A3966EAD6F0908) - 0x6F0A571929B17210) ^ v54 ^ ((v54 ^ 0xD7839E56B6063ELL) - 0x4F7E42E9D2687D26) ^ ((v54 ^ 0x9100CA4486718FDALL) + 0x2156F4CCFD500B3ELL) ^ ((v54 ^ 0xFEDD1EC3F976FBF4) + 0x4E8B204B82577F14)) >> 32;
+  v56 = v54 - (((v55 ^ 0xFAFE529AA39F8914) + 0x6FDE5F0A4FDF9C2FLL) ^ ((v55 ^ 0x5405E178E8A4C398) - 0x3EDA1317FB1B295DLL) ^ ((v55 ^ 0xAEFBB3E204928BFBLL) + 0x3BDBBE72E8D29EC2)) + 0x45764C191F0B5936;
+  v57 = v56 - (v56 >> 16) + ((v56 - (v56 >> 16)) >> 8) + 0x3782C8B659116B30;
+  v58 = v57 ^ v51;
+  v59 = (((v57 ^ v53 ^ 0xAFC24655207B4821) + 0x73D3E949730E6458) ^ ((v57 ^ v53 ^ 0xEE9FD4A570A16717) + 0x328E7BB923D44B62) ^ ((v57 ^ v53 ^ 0xBDEF8939CB2F16DBLL) + 0x61FE2625985A3AAELL)) + 0x5F24263AA7D008AFLL;
+  v60 = (v59 ^ 0x4DB3B2CFCF8FC530) & (2 * (v59 & 0x803824EF8FAFE1B5)) ^ v59 & 0x803824EF8FAFE1B5;
+  v61 = ((2 * (v59 ^ 0x4DB3B38CD2DB8572)) ^ 0x9B172EC6BAE8C98ELL) & (v59 ^ 0x4DB3B38CD2DB8572) ^ (2 * (v59 ^ 0x4DB3B38CD2DB8572)) & 0xCD8B97635D7464C6;
+  v62 = v61 ^ 0x4488912145142441;
+  v63 = (v61 ^ 0x101064218600084) & (4 * v60) ^ v60;
+  v64 = ((4 * v62) ^ 0x362E5D8D75D1931CLL) & v62 ^ (4 * v62) & 0xCD8B97635D7464C4;
+  v65 = (v64 ^ 0x40A150155500000) & (16 * v63) ^ v63;
+  v66 = ((16 * (v64 ^ 0xC9818262082464C3)) ^ 0xD8B97635D7464C70) & (v64 ^ 0xC9818262082464C3) ^ (16 * (v64 ^ 0xC9818262082464C3)) & 0xCD8B97635D7464C0;
+  v67 = (v66 ^ 0xC889162155444400) & (v65 << 8) ^ v65;
+  v68 = (((v66 ^ 0x502814208302087) << 8) ^ 0x8B97635D7464C700) & (v66 ^ 0x502814208302087) ^ ((v66 ^ 0x502814208302087) << 8) & 0xCD8B97635D746400;
+  v69 = v67 ^ 0xCD8B97635D7464C7 ^ (v68 ^ 0x8983034154640000) & (v67 << 16);
+  v70 = (v59 ^ (2 * ((v69 << 32) & 0x4D8B976300000000 ^ v69 ^ ((v69 << 32) ^ 0x5D7464C700000000) & (((v68 ^ 0x44089422091020C7) << 16) & 0x4D8B976300000000 ^ 0x4888820300000000 ^ (((v68 ^ 0x44089422091020C7) << 16) ^ 0x17635D7400000000) & (v68 ^ 0x44089422091020C7))))) >> 32;
+  v71 = v59 - (((v70 ^ 0xABD438D14AFF8654) + 0x6F9FE910C7906C6CLL) ^ ((v70 ^ 0x26A68D8DA3154793) - 0x1D12A3B3D1855253) ^ ((v70 ^ 0x8D72B55C68C5C368) + 0x4939649DE5AA2958)) + 0x4483F6B09BF0CA46;
+  v72 = v71 - (v71 >> 16) + ((v71 - (v71 >> 16)) >> 8) + 0x3782C8B659116B30;
+  v73 = v58 ^ v72;
+  v74 = (((v72 ^ v53 ^ 0x98915B02690A7F3) + 0xFF1650ACFA5FFD5) ^ ((v72 ^ v53 ^ 0x5A128798CE7B5026) + 0x5C6AF722274E0802) ^ ((v72 ^ v53 ^ 0xAF2989E1731ECE38) - 0x56AE06A465D469E0)) + 0x23F4A4B2773B97DBLL;
+  v75 = (v74 ^ 0xC90ACFD08530541ALL) & (2 * (v74 & 0xE140EFDA1604065ALL)) ^ v74 & 0xE140EFDA1604065ALL;
+  v76 = ((2 * (v74 ^ 0x8B0B16D0A1305C2ELL)) ^ 0xD497F2156E68B4E8) & (v74 ^ 0x8B0B16D0A1305C2ELL) ^ (2 * (v74 ^ 0x8B0B16D0A1305C2ELL)) & 0x6A4BF90AB7345A74;
+  v77 = v76 ^ 0x2A48090A91144A14;
+  v78 = (v76 ^ 0x3F00020201060) & (4 * v75) ^ v75;
+  v79 = ((4 * v77) ^ 0xA92FE42ADCD169D0) & v77 ^ (4 * v77) & 0x6A4BF90AB7345A74;
+  v80 = (v79 ^ 0x280BE00A94104840) & (16 * v78) ^ v78;
+  v81 = ((16 * (v79 ^ 0x4240190023241224)) ^ 0xA4BF90AB7345A740) & (v79 ^ 0x4240190023241224) ^ (16 * (v79 ^ 0x4240190023241224)) & 0x6A4BF90AB7345A70;
+  v82 = (v81 ^ 0x200B900A33040200) & (v80 << 8) ^ v80;
+  v83 = (((v81 ^ 0x4A40690084305834) << 8) ^ 0x4BF90AB7345A7400) & (v81 ^ 0x4A40690084305834) ^ ((v81 ^ 0x4A40690084305834) << 8) & 0x6A4BF90AB7345A00;
+  v84 = v82 ^ 0x6A4BF90AB7345A74 ^ (v83 ^ 0x4A49080234100000) & (v82 << 16);
+  v85 = (v74 ^ (2 * ((v84 << 32) & 0x6A4BF90A00000000 ^ v84 ^ ((v84 << 32) ^ 0x37345A7400000000) & (((v83 ^ 0x2002F10883240A74) << 16) & 0x6A4BF90A00000000 ^ 0x241480A00000000 ^ (((v83 ^ 0x2002F10883240A74) << 16) ^ 0x790AB73400000000) & (v83 ^ 0x2002F10883240A74))))) >> 32;
+  v86 = v74 - (((v85 ^ 0x50A3274BE57B244ALL) + 0x496B0BDC30CE47BBLL) ^ ((v85 ^ 0xA2C356F802BBB32BLL) - 0x44F4859028F12F24) ^ ((v85 ^ 0xF26071B396173AAELL) - 0x1457A2DBBC5DA6A1)) - 0x4F6E38E45992B66;
+  v87 = v86 - (v86 >> 16) + ((v86 - (v86 >> 16)) >> 8);
+  v88 = v43 > 0x950F87C3;
   if (v43 < 0x950F87C2)
   {
-    v90 = 1;
+    v88 = 1;
   }
 
-  return (*(STACK[0x4F8] + 8 * ((2 * !v90) | (4 * !v90) | a4)))(8529970, 2492293010, v75 ^ (v89 + 1494313776));
+  return (*(STACK[0x4F8] + 8 * ((2 * !v88) | (4 * !v88) | a4)))(8529970, 2492293010, v73 ^ (v87 + 1494313776));
 }
 
-uint64_t sub_10028B4D4(unsigned int a1)
+uint64_t sub_10028B4D4(int a1)
 {
   v2 = (v1 + 1993) | 0x1BC;
   v3 = (STACK[0x628] & 2) == 0;
@@ -7106,17 +7071,15 @@ uint64_t sub_10028B4D4(unsigned int a1)
   LODWORD(STACK[0x36C]) = ~LODWORD(STACK[0x46C]);
   LODWORD(STACK[0x4F4]) = 16843009 * LODWORD(STACK[0x560]);
   LODWORD(STACK[0x5A4]) = LODWORD(STACK[0x510]) ^ 0x20EAD209;
-  v10 = STACK[0x698];
-  v11 = (((LODWORD(STACK[0x594]) ^ 0x720F306) - 827346485) ^ ((LODWORD(STACK[0x594]) ^ 0x3E55A1C7) - 136649972) ^ ((LODWORD(STACK[0x594]) ^ 0x23906E6D) - 367065948 + v2)) + 1546986422;
+  v10 = (((LODWORD(STACK[0x594]) ^ 0x720F306) - 827346485) ^ ((LODWORD(STACK[0x594]) ^ 0x3E55A1C7) - 136649972) ^ ((LODWORD(STACK[0x594]) ^ 0x23906E6D) - 367065948 + v2)) + 1546986422;
   STACK[0x640] = v2 ^ 0x239Eu;
-  v12 = 0xB5EDB38BD1D38DD1 * *(v10 + 8 * (STACK[0x640] + a1 + ((a1 < 0x822831) << 32) + 0x3F42C9F6CC265511) + 0x5E9B0499ABBF2F0) - 0xCD537B2D13975DLL;
-  v13 = a1 + 790460903 < v11;
-  if (v11 < 0x2F9FA217 != a1 + 790460903 < 0x2F9FA217)
+  v11 = a1 + 790460903 < v10;
+  if (v10 < 0x2F9FA217 != (a1 + 790460903) < 0x2F9FA217)
   {
-    v13 = v11 < 0x2F9FA217;
+    v11 = v10 < 0x2F9FA217;
   }
 
-  return (*(STACK[0x4F8] + 8 * ((4048 * !v13) ^ v2)))();
+  return (*(STACK[0x4F8] + 8 * ((4048 * !v11) ^ v2)))();
 }
 
 uint64_t sub_10028C054(uint64_t a1, uint64_t a2, int a3)
@@ -7240,28 +7203,25 @@ uint64_t sub_10028C054(uint64_t a1, uint64_t a2, int a3)
   LODWORD(STACK[0x230]) = v65;
   LODWORD(STACK[0x5B0]) = v62 ^ v65 ^ (32 * v65) ^ v69;
   LODWORD(STACK[0x298]) = 1280045023 * (v60 - v57);
-  v70 = 2 * v49 + 738333706 - ((4 * v49) & 0x58042814);
-  v71 = v26 ^ 0x59C5EA0D ^ v28 ^ (2 * (v26 ^ 0x59C5EA0D)) ^ v49;
-  v72 = STACK[0x5F8];
-  v73 = STACK[0x698];
-  v74 = *(STACK[0x698] + 8 * ((*(STACK[0x698] + 8 * ((*(STACK[0x698] + 8 * ((*(STACK[0x698] + 8 * (0xB45B1E3E % STACK[0x5F8])) + 3124832505) % STACK[0x5F8])) + 1412408501) % STACK[0x5F8])) + 2707915429) % STACK[0x5F8]));
-  LODWORD(STACK[0x5A4]) = v71 ^ v70;
-  v75 = (v74 + 2650220707) % v72 - ((2 * ((v74 + 2650220707) % v72)) & 0x330F86A6) - 1182284973;
-  v76 = (((v75 ^ 0x4EB9F397) - 661603724) ^ ((v75 ^ 0xE6E2FE2B) + 1892399056) ^ ((v75 ^ 0x11DCCEEF) - 2013952244)) - 590185475;
-  v77 = 883 * (v63 ^ 0x2A19);
+  v70 = v26 ^ 0x59C5EA0D ^ v28 ^ (2 * (v26 ^ 0x59C5EA0D)) ^ v49;
+  v71 = STACK[0x5F8];
+  v72 = *(STACK[0x698] + 8 * ((*(STACK[0x698] + 8 * ((*(STACK[0x698] + 8 * ((*(STACK[0x698] + 8 * (0xB45B1E3E % STACK[0x5F8])) + 3124832505) % STACK[0x5F8])) + 1412408501) % STACK[0x5F8])) + 2707915429) % STACK[0x5F8]));
+  LODWORD(STACK[0x5A4]) = v70 ^ (2 * v49 + 738333706 - ((4 * v49) & 0x58042814));
+  v73 = (v72 + 2650220707) % v71 - ((2 * ((v72 + 2650220707) % v71)) & 0x330F86A6) - 1182284973;
+  v74 = (((v73 ^ 0x4EB9F397) - 661603724) ^ ((v73 ^ 0xE6E2FE2B) + 1892399056) ^ ((v73 ^ 0x11DCCEEF) - 2013952244)) - 590185475;
   LODWORD(STACK[0x468]) = STACK[0x630] & v31 ^ LODWORD(STACK[0x548]);
   if (v35)
   {
-    v78 = 0;
+    v75 = 0;
   }
 
   else
   {
-    v78 = ~LODWORD(STACK[0x638]);
+    v75 = ~LODWORD(STACK[0x638]);
   }
 
   LODWORD(STACK[0x2D0]) = v26;
-  LODWORD(STACK[0x2E0]) = v26 & v78;
+  LODWORD(STACK[0x2E0]) = v26 & v75;
   LODWORD(STACK[0x30C]) = v68 + LODWORD(STACK[0x550]);
   LODWORD(STACK[0x4D4]) = v42 ^ 0xF4B930EC;
   LODWORD(STACK[0x470]) = v34;
@@ -7270,12 +7230,9 @@ uint64_t sub_10028C054(uint64_t a1, uint64_t a2, int a3)
   LODWORD(STACK[0x308]) = v56 ^ 0xC5F56161;
   LODWORD(STACK[0x2D8]) = 4 * v53;
   LODWORD(STACK[0x290]) = -648124405 * v53;
-  v79 = LODWORD(STACK[0x618]) ^ 0x41D17220;
-  v80 = LODWORD(STACK[0x608]) ^ 0xACD9B154;
   LODWORD(STACK[0x2C8]) = v31;
   LODWORD(STACK[0x638]) = v31 ^ 0x13046542;
-  v81 = LODWORD(STACK[0x610]) ^ 0xE9BF2E20;
-  LODWORD(STACK[0x630]) = v77;
+  LODWORD(STACK[0x630]) = 883 * (v63 ^ 0x2A19);
   LODWORD(STACK[0x228]) = 4 * v61;
   LODWORD(STACK[0x31C]) = LODWORD(STACK[0x4C0]) << 8;
   LODWORD(STACK[0x640]) = v61;
@@ -7283,14 +7240,13 @@ uint64_t sub_10028C054(uint64_t a1, uint64_t a2, int a3)
   LODWORD(STACK[0x280]) = v67 >> 5;
   LODWORD(STACK[0x2B0]) = v64;
   LODWORD(STACK[0x288]) = v64 >> 5;
-  v82 = 0xB5EDB38BD1D38DD1 * *(v73 + 8 * (((((v77 + 1677470350) > 0x63FC42B3) << 32) | 0x63FC42B3) + 0x3334AAD6937BFF51) + 0x665AA948443DEFE0) + 0x53C7C697FF07C779;
-  v83 = v76 > 0xC8106B6;
-  if (v76 < 0xC8106B5)
+  v76 = v74 > 0xC8106B6;
+  if (v74 < 0xC8106B5)
   {
-    v83 = 1;
+    v76 = 1;
   }
 
-  return (*(STACK[0x4F8] + 8 * ((107 * v83) ^ v63)))();
+  return (*(STACK[0x4F8] + 8 * ((107 * v76) ^ v63)))();
 }
 
 uint64_t sub_10028D320()
@@ -7326,8 +7282,7 @@ uint64_t sub_10028D320()
   LODWORD(STACK[0x508]) = LODWORD(STACK[0x268]) ^ 0x10101010;
   v6 = (((LODWORD(STACK[0x594]) ^ 0xCB0A023C) + 42287345) ^ ((LODWORD(STACK[0x594]) ^ 0xE4C04AD4) + 760154137) ^ ((LODWORD(STACK[0x594]) ^ 0x352F7444) - 56609143)) + 786312506;
   v7 = v6 < 0x248AB9B;
-  v8 = (LODWORD(STACK[0x630]) ^ 0x8C68D04A7EAC3B5ELL) - 0x4A124C742E2C722FLL * *(STACK[0x698] + 8 * ((v0 | ((v0 < 0x63FC42B3) << 32)) + 0x4B3BA73803DE488BLL) - 0x59DD39C33ED459F0);
-  if (v7 == v0 - 1639159575 < 0x248AB9B)
+  if (v7 == (v0 - 1639159575) < 0x248AB9B)
   {
     v7 = v6 > v0 - 1639159575;
   }
@@ -7342,68 +7297,65 @@ uint64_t sub_10028E0B4@<X0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
   v8 = (v2 - 1362369562) & (4 * v7);
   v9 = v7 - 0x6AA763026AFA247BLL - ((v7 - 0x6AA763026AFA247BLL) >> 25) + ((v7 - 0x6AA763026AFA247BLL - ((v7 - 0x6AA763026AFA247BLL) >> 25)) >> 13);
   v10 = v9 - (v9 >> 3);
-  v11 = STACK[0x698];
-  v12 = (*(STACK[0x698] + 8 * ((*(STACK[0x698] + 8 * ((*(STACK[0x698] + 8 * ((*(STACK[0x698] + 8 * (0x5CF99A98 % STACK[0x5F8])) + 1799354789) % STACK[0x5F8])) + 996361021) % STACK[0x5F8])) + 1916735291) % STACK[0x5F8])) + 4227968227) % STACK[0x5F8];
-  v13 = v2 + 7472;
-  v14 = (v10 ^ 0xBA058D1D793E20EBLL) - ((v10 ^ 0xBA058D1D793E20EBLL) >> 28) + (((v10 ^ 0xBA058D1D793E20EBLL) - ((v10 ^ 0xBA058D1D793E20EBLL) >> 28)) >> 14);
-  v15 = v14 - (v14 >> 3);
+  v11 = (*(STACK[0x698] + 8 * ((*(STACK[0x698] + 8 * ((*(STACK[0x698] + 8 * ((*(STACK[0x698] + 8 * (0x5CF99A98 % STACK[0x5F8])) + 1799354789) % STACK[0x5F8])) + 996361021) % STACK[0x5F8])) + 1916735291) % STACK[0x5F8])) + 4227968227) % STACK[0x5F8];
+  v12 = v2 + 7472;
+  v13 = (v10 ^ 0xBA058D1D793E20EBLL) - ((v10 ^ 0xBA058D1D793E20EBLL) >> 28) + (((v10 ^ 0xBA058D1D793E20EBLL) - ((v10 ^ 0xBA058D1D793E20EBLL) >> 28)) >> 14);
+  v14 = v13 - (v13 >> 3);
   LODWORD(STACK[0x550]) = LODWORD(STACK[0x2A8]) ^ LODWORD(STACK[0x2A0]);
   LODWORD(STACK[0x2C0]) += LODWORD(STACK[0x598]);
-  v16 = (v15 ^ 0xA4957750A8B11609) - ((v15 ^ 0xA4957750A8B11609) >> 26) + (((v15 ^ 0xA4957750A8B11609) - ((v15 ^ 0xA4957750A8B11609) >> 26)) >> 9);
-  v17 = v16 - (v16 >> 5);
+  v15 = (v14 ^ 0xA4957750A8B11609) - ((v14 ^ 0xA4957750A8B11609) >> 26) + (((v14 ^ 0xA4957750A8B11609) - ((v14 ^ 0xA4957750A8B11609) >> 26)) >> 9);
+  v16 = v15 - (v15 >> 5);
   LODWORD(STACK[0x2B8]) += 1509760098;
-  v18 = LODWORD(STACK[0x298]) + LODWORD(STACK[0x4B0]);
-  v19 = (v17 ^ 0xBE5138A0032B1D32) - ((v17 ^ 0xBE5138A0032B1D32) >> 30) + (((v17 ^ 0xBE5138A0032B1D32) - ((v17 ^ 0xBE5138A0032B1D32) >> 30)) >> 12);
-  v20 = v19 - (v19 >> 7);
-  LODWORD(v19) = LODWORD(STACK[0x558]) ^ LODWORD(STACK[0x478]);
-  LODWORD(STACK[0x5F8]) = (4 * v20) & 0xAECBE9F0;
-  LODWORD(v19) = v19 ^ LODWORD(STACK[0x280]);
-  v21 = (v20 ^ 0x18D57D50B0DF9590) + ((v20 ^ 0x18D57D50B0DF9590) >> 28) - (((v20 ^ 0x18D57D50B0DF9590) + ((v20 ^ 0x18D57D50B0DF9590) >> 28)) >> 11);
-  v22 = v21 + (v21 >> 2);
-  STACK[0x620] = v22;
-  v23 = v22 + 0x781349C584EC0A22 - ((v22 + 0x781349C584EC0A22) >> 25) + ((v22 + 0x781349C584EC0A22 - ((v22 + 0x781349C584EC0A22) >> 25)) >> 12);
-  v24 = v23 - (v23 >> 4);
-  v25 = (v24 ^ 0x6CF8F3B3864DD2ELL) - ((v24 ^ 0x6CF8F3B3864DD2ELL) >> 24) - (((v24 ^ 0x6CF8F3B3864DD2ELL) - ((v24 ^ 0x6CF8F3B3864DD2ELL) >> 24)) >> 15);
-  v26 = v25 + (v25 >> 1);
-  LODWORD(STACK[0x558]) = v19 ^ LODWORD(STACK[0x290]) ^ LODWORD(STACK[0x4C4]) ^ LODWORD(STACK[0x2FC]) ^ LODWORD(STACK[0x2B0]) ^ LODWORD(STACK[0x288]);
+  v17 = LODWORD(STACK[0x298]) + LODWORD(STACK[0x4B0]);
+  v18 = (v16 ^ 0xBE5138A0032B1D32) - ((v16 ^ 0xBE5138A0032B1D32) >> 30) + (((v16 ^ 0xBE5138A0032B1D32) - ((v16 ^ 0xBE5138A0032B1D32) >> 30)) >> 12);
+  v19 = v18 - (v18 >> 7);
+  LODWORD(v18) = LODWORD(STACK[0x558]) ^ LODWORD(STACK[0x478]);
+  LODWORD(STACK[0x5F8]) = (4 * v19) & 0xAECBE9F0;
+  LODWORD(v18) = v18 ^ LODWORD(STACK[0x280]);
+  v20 = (v19 ^ 0x18D57D50B0DF9590) + ((v19 ^ 0x18D57D50B0DF9590) >> 28) - (((v19 ^ 0x18D57D50B0DF9590) + ((v19 ^ 0x18D57D50B0DF9590) >> 28)) >> 11);
+  v21 = v20 + (v20 >> 2);
+  STACK[0x620] = v21;
+  v22 = v21 + 0x781349C584EC0A22 - ((v21 + 0x781349C584EC0A22) >> 25) + ((v21 + 0x781349C584EC0A22 - ((v21 + 0x781349C584EC0A22) >> 25)) >> 12);
+  v23 = v22 - (v22 >> 4);
+  v24 = (v23 ^ 0x6CF8F3B3864DD2ELL) - ((v23 ^ 0x6CF8F3B3864DD2ELL) >> 24) - (((v23 ^ 0x6CF8F3B3864DD2ELL) - ((v23 ^ 0x6CF8F3B3864DD2ELL) >> 24)) >> 15);
+  v25 = v24 + (v24 >> 1);
+  LODWORD(STACK[0x558]) = v18 ^ LODWORD(STACK[0x290]) ^ LODWORD(STACK[0x4C4]) ^ LODWORD(STACK[0x2FC]) ^ LODWORD(STACK[0x2B0]) ^ LODWORD(STACK[0x288]);
   LODWORD(STACK[0x630]) = LODWORD(STACK[0x2D0]) ^ 0x6818EF0B;
-  v27 = v8 ^ v7;
-  v28 = v26 + 0x11BA5EB3014B5A91 + ((v26 + 0x11BA5EB3014B5A91) >> 28) + ((v26 + 0x11BA5EB3014B5A91 + ((v26 + 0x11BA5EB3014B5A91) >> 28)) >> 8);
-  v29 = v28 - (v28 >> 2);
-  LODWORD(v28) = a2 & (4 * v10) ^ v10;
-  v30 = STACK[0x510];
+  v26 = v8 ^ v7;
+  v27 = v25 + 0x11BA5EB3014B5A91 + ((v25 + 0x11BA5EB3014B5A91) >> 28) + ((v25 + 0x11BA5EB3014B5A91 + ((v25 + 0x11BA5EB3014B5A91) >> 28)) >> 8);
+  v28 = v27 - (v27 >> 2);
+  LODWORD(v27) = a2 & (4 * v10) ^ v10;
+  v29 = STACK[0x510];
   LODWORD(v10) = (4 * (LODWORD(STACK[0x510]) ^ LODWORD(STACK[0x618]))) & 0xAECBE9F0;
-  STACK[0x4B0] = a2 & (4 * v15) ^ v15;
-  LODWORD(v15) = STACK[0x55C];
-  v31 = v18 ^ LODWORD(STACK[0x55C]);
-  STACK[0x478] = a2 & (4 * v29) ^ v29;
-  v32 = v10 ^ v30 ^ v15 ^ LODWORD(STACK[0x2C8]) ^ LODWORD(STACK[0x628]) ^ v5 ^ v17 ^ (4 * v17) & 0xAECBE9F0 ^ v24 ^ v27 ^ (4 * v24) & 0xAECBE9F0;
-  LODWORD(v28) = v31 ^ LODWORD(STACK[0x4A0]) ^ (((4 * (v31 ^ LODWORD(STACK[0x610]))) & 0xAECBE9F0) + 738333706 - ((8 * (v31 ^ LODWORD(STACK[0x610]))) & 0x58040000)) ^ v4 ^ v28 ^ v20 ^ LODWORD(STACK[0x5F8]) ^ v26 ^ (4 * v26) & 0xAECBE9F0;
-  LODWORD(STACK[0x598]) = v18;
-  v33 = (4 * v18) & 0xAECBE9F0 ^ v18;
-  v34 = v28 & 0x20000;
-  v35 = v28 & 0xFFFDFFFF;
-  if ((v34 & v33) != 0)
+  STACK[0x4B0] = a2 & (4 * v14) ^ v14;
+  LODWORD(v14) = STACK[0x55C];
+  v30 = v17 ^ LODWORD(STACK[0x55C]);
+  STACK[0x478] = a2 & (4 * v28) ^ v28;
+  v31 = v10 ^ v29 ^ v14 ^ LODWORD(STACK[0x2C8]) ^ LODWORD(STACK[0x628]) ^ v5 ^ v16 ^ (4 * v16) & 0xAECBE9F0 ^ v23 ^ v26 ^ (4 * v23) & 0xAECBE9F0;
+  LODWORD(v27) = v30 ^ LODWORD(STACK[0x4A0]) ^ (((4 * (v30 ^ LODWORD(STACK[0x610]))) & 0xAECBE9F0) + 738333706 - ((8 * (v30 ^ LODWORD(STACK[0x610]))) & 0x58040000)) ^ v4 ^ v27 ^ v19 ^ LODWORD(STACK[0x5F8]) ^ v25 ^ (4 * v25) & 0xAECBE9F0;
+  LODWORD(STACK[0x598]) = v17;
+  v32 = (4 * v17) & 0xAECBE9F0 ^ v17;
+  v33 = v27 & 0x20000;
+  v34 = v27 & 0xFFFDFFFF;
+  if ((v33 & v32) != 0)
   {
-    v34 = -v34;
+    v33 = -v33;
   }
 
-  v36 = (v34 + v33) ^ v35;
-  v37 = v36 ^ LODWORD(STACK[0x600]);
-  v38 = STACK[0x54C];
-  LODWORD(STACK[0x2D0]) = v37;
-  LODWORD(STACK[0x2B0]) = 4 * (v37 ^ v38);
-  LODWORD(STACK[0x2FC]) = v36;
-  v39 = LODWORD(STACK[0x608]) ^ 0x163BBECB;
-  LODWORD(STACK[0x2C8]) = v32;
-  LODWORD(STACK[0x2A8]) = v32 ^ 0x2C1143C5;
-  v40 = ((((v12 - ((2 * v12) & 0x1CCFA52C) + 1852297878) ^ 0x231CD038) - 1763109276) ^ (((v12 - ((2 * v12) & 0x1CCFA52C) + 1852297878) ^ 0x4EF5DEF2) - 83879766) ^ (((v12 - ((2 * v12) & 0x1CCFA52C) + 1852297878) ^ 0x38EDC5C) - 1233446392)) + 633382448;
+  v35 = (v33 + v32) ^ v34;
+  v36 = v35 ^ LODWORD(STACK[0x600]);
+  v37 = STACK[0x54C];
+  LODWORD(STACK[0x2D0]) = v36;
+  LODWORD(STACK[0x2B0]) = 4 * (v36 ^ v37);
+  LODWORD(STACK[0x2FC]) = v35;
+  LODWORD(STACK[0x2C8]) = v31;
+  LODWORD(STACK[0x2A8]) = v31 ^ 0x2C1143C5;
+  v38 = ((((v11 - ((2 * v11) & 0x1CCFA52C) + 1852297878) ^ 0x231CD038) - 1763109276) ^ (((v11 - ((2 * v11) & 0x1CCFA52C) + 1852297878) ^ 0x4EF5DEF2) - 83879766) ^ (((v11 - ((2 * v11) & 0x1CCFA52C) + 1852297878) ^ 0x38EDC5C) - 1233446392)) + 633382448;
   LODWORD(STACK[0x2A0]) = 4 * STACK[0x620];
-  LODWORD(STACK[0x628]) = v36 ^ 0x553E7BC1;
-  LODWORD(STACK[0x608]) = 4 * (v36 ^ 0x553E7BC1);
-  v41 = 0xB5EDB38BD1D38DD1 * *(v11 + 8 * (((2 * v13) ^ 0x57E4u) + 0x1C773D7F553ED695) + 0x1C4614055608BED8) - 0x6267427282C26BA6;
-  v42 = v40 < 0x152BAFE || v40 > 0x152BAFF;
-  return (*(STACK[0x4F8] + 8 * ((124 * v42) ^ v13)))(0x307F760F00000000, a1, 0x13B70DB600000000);
+  LODWORD(STACK[0x628]) = v35 ^ 0x553E7BC1;
+  LODWORD(STACK[0x608]) = 4 * (v35 ^ 0x553E7BC1);
+  v39 = v38 < 0x152BAFE || v38 > 0x152BAFF;
+  return (*(STACK[0x4F8] + 8 * ((124 * v39) ^ v12)))(0x307F760F00000000, a1, 0x13B70DB600000000);
 }
 
 uint64_t sub_10028F0E0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6)
@@ -7418,14 +7370,13 @@ uint64_t sub_10028F0E0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   LODWORD(STACK[0x480]) = v8;
   LODWORD(STACK[0x474]) = (v8 - LODWORD(STACK[0x2A8])) ^ 0xFFFFFFFE;
   v9 = (((LODWORD(STACK[0x594]) ^ 0xFF02350A) + 915240903) ^ ((LODWORD(STACK[0x594]) ^ 0xD3FBAFA5) + 443870570) ^ (((v7 + 907840683) ^ LODWORD(STACK[0x594])) - 7084848)) + 818102691;
-  v10 = 0xB5EDB38BD1D38DD1 * *(STACK[0x698] + 8 * ((v6 | ((v6 < (((v7 - 759) | 0x10C) ^ 0x3EC01AEAu)) << 32)) + 0x7E85CCC815E01120) + 0xBD199BD5AFF0AC8) + 0x784E302DFBCCABAFLL;
-  v11 = v6 - 982666626 < v9;
-  if (v9 < 0x42DC004 != v6 - 982666626 < 0x42DC004)
+  v10 = v6 - 982666626 < v9;
+  if (v9 < 0x42DC004 != (v6 - 982666626) < 0x42DC004)
   {
-    v11 = v9 < 0x42DC004;
+    v10 = v9 < 0x42DC004;
   }
 
-  return (*(STACK[0x4F8] + 8 * ((243 * v11) ^ v7)))(0x50987B4600000000);
+  return (*(STACK[0x4F8] + 8 * ((243 * v10) ^ v7)))(0x50987B4600000000, a2);
 }
 
 uint64_t sub_10028FDB0(uint64_t a1, int a2)
@@ -7472,9 +7423,6 @@ uint64_t sub_10028FDB0(uint64_t a1, int a2)
   LODWORD(v13) = 467461271 * *(*(&off_1006B4E30 + v3 - 5981) + 172) + 879558944;
   v31 = ((v13 ^ 0xCDE1CBB2) & (LODWORD(STACK[0x470]) ^ 0xE50C8B8) ^ v13 & (((v3 - 5980) | 0x120) ^ 0x9AEABFD0)) >> 1;
   v32 = v13 ^ 0xD9DA0362 ^ ((v31 ^ 0x44704550) + 339461694 - 2 * ((v31 ^ 0x44704550) & 0x143BC8D7 ^ v31 & 6) + 659);
-  LODWORD(STACK[0x4A0]);
-  LODWORD(STACK[0x4C0]);
-  LODWORD(STACK[0x4C4]);
   v33 = 4 * LODWORD(STACK[0x640]);
   *(STACK[0x6B0] + v33) = LODWORD(STACK[0x638]) ^ LODWORD(STACK[0x630]) ^ (((v32 & STACK[0x498]) >> LODWORD(STACK[0x4C8])) | ((v32 & STACK[0x4A8]) << LODWORD(STACK[0x4D8])));
   *(v29 + v33) = v30 ^ *(STACK[0x648] + 952) ^ 0xEE5B4637;
@@ -7511,12 +7459,6 @@ void sub_100294FDC(int a1@<W8>, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   }
 
   v76 = STACK[0x3D0];
-  if ((v72 & 1) == 0)
-  {
-    v74 = STACK[0x3D0];
-  }
-
-  v77 = STACK[0x4DC];
   if (v72)
   {
     v73 = STACK[0x4DC];
@@ -7524,20 +7466,21 @@ void sub_100294FDC(int a1@<W8>, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
 
   else
   {
+    v74 = STACK[0x3D0];
     v76 = STACK[0x4DC];
   }
 
   if ((v72 & 2) != 0)
   {
-    v78 = v73;
+    v77 = v73;
   }
 
   else
   {
-    v78 = v74;
+    v77 = v74;
   }
 
-  LODWORD(STACK[0x3D0]) = v78;
+  LODWORD(STACK[0x3D0]) = v77;
   if ((v72 & 2) == 0)
   {
     v74 = v73;
@@ -7546,15 +7489,15 @@ void sub_100294FDC(int a1@<W8>, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   LODWORD(STACK[0x3D4]) = v74;
   if ((v72 & 2) != 0)
   {
-    v79 = v76;
+    v78 = v76;
   }
 
   else
   {
-    v79 = v75;
+    v78 = v75;
   }
 
-  LODWORD(STACK[0x3CC]) = v79;
+  LODWORD(STACK[0x3CC]) = v78;
   if ((v72 & 2) == 0)
   {
     v75 = v76;
@@ -7584,8 +7527,6 @@ void sub_100295148(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   v69[9] = *(a61 + (BYTE2(v67) ^ 0xD5)) ^ ((BYTE2(v67) ^ 0x18) - 125) ^ BYTE2(v67) ^ 0x18 ^ 0x64;
   v69[2] = *(a59 + (BYTE1(v66) ^ 0x62)) ^ 0x76;
   v69[5] = *(a60 + (BYTE2(v64) ^ 0x88)) ^ 0xA;
-  v70 = STACK[0x6B0];
-  v71 = STACK[0x6A8];
   JUMPOUT(0x100295358);
 }
 
@@ -7598,10 +7539,9 @@ uint64_t sub_10029539C()
 
 _DWORD *sub_100295560@<X0>(uint64_t a1@<X8>)
 {
-  (*(v4 + 8 * (v1 + 10166)))(a1);
-  result = v7;
-  *v7 = v2;
-  v6 = *(v3 - 96);
+  (*(v3 + 8 * (v1 + 10166)))(a1);
+  result = v5;
+  *v5 = v2;
   return result;
 }
 
@@ -7643,7 +7583,6 @@ uint64_t sub_100295A2C(uint64_t a1, uint64_t a2, int a3, unsigned int a4, uint64
   v9 = *(a2 + 4 * a3);
   *(a2 + 4 * a3) = *(a2 + 4 * a4);
   *(a2 + 4 * a4) = v9;
-  v10 = *(v8 - 112);
   return (*(a7 + 8 * ((((a4 + 1) >= a3) * (v7 - 3027 + v7 + 3395 - 13309)) ^ (v7 + 3376))))(*(v8 - 104));
 }
 
@@ -7652,21 +7591,21 @@ uint64_t sub_100295AD0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a
   *(v10 + 4 * (v8 + 1)) = v7;
   v11 = ((a5 + 3021) ^ 0x1962) + v8;
   *(v10 + 4 * v11) = v9;
-  return (*(a7 + 8 * (((v11 > ((a5 + 409464299) & 0xE7981DE7 ^ 0xFFFFE699)) * ((a5 + 3021) ^ 0x1966)) | (a5 + 3021))))();
+  return (*(a7 + 8 * (((v11 > ((a5 + 409464299) & 0xE7981DE7 ^ 0xFFFFE699)) * ((a5 + 3021) ^ 0x1966)) | (a5 + 3021))))(a1);
 }
 
 uint64_t sub_100295B40(uint64_t a1, uint64_t a2, int a3, int a4, uint64_t a5, uint64_t a6, uint64_t a7, int a8)
 {
   *(a2 + 4 * a3) = *(a2 + 4 * v8);
   *(a2 + 4 * v8) = a4;
-  return (*(a7 + 8 * ((((v8 + 1) >= a3) * (a8 - 3027 + a8 + 3395 - 13309)) ^ (a8 + 3376))))();
+  return (*(a7 + 8 * ((((v8 + 1) >= a3) * (a8 - 3027 + a8 + 3395 - 13309)) ^ (a8 + 3376))))(a1);
 }
 
 uint64_t sub_100295B88(uint64_t a1, int a2, int a3, int a4, uint64_t a5, int a6, uint64_t a7)
 {
   *(v9 + 4 * *(v10 - 96)) = a2;
   *(v9 + 4 * v8) = a3;
-  return (*(a7 + 8 * ((((5 * (a6 ^ 0x241E) + 449645655) & 0xE532FF75 ^ 0x3BD8) * (a4 - 1 > v7)) ^ (5 * (a6 ^ 0x241E)))))();
+  return (*(a7 + 8 * ((((5 * (a6 ^ 0x241E) + 449645655) & 0xE532FF75 ^ 0x3BD8) * (a4 - 1 > v7)) ^ (5 * (a6 ^ 0x241E)))))(a1);
 }
 
 void sub_100295C2C(uint64_t a1, uint64_t a2)
@@ -7722,15 +7661,13 @@ uint64_t sub_100296074(uint64_t a1, uint64_t a2)
 void sub_1002962A8(uint64_t a1)
 {
   v1 = *a1 ^ (325024769 * (((a1 | 0x4D0FB136) - (a1 & 0x4D0FB136)) ^ 0x39691814));
-  v529 = ((32 * *(*(a1 + 8) + 16)) ^ 0xDCEE8C00) - ((((32 * *(*(a1 + 8) + 16)) ^ 0xDCEE8C00) << ((*a1 ^ ((a1 | 0x36) - (a1 & 0x36)) ^ 0x14) - 121)) & 0xEFC44980) + 2011309259;
-  v527 = v1;
-  v521 = *(a1 + 8);
-  v533 = v1 + 2715;
+  v525 = ((32 * *(*(a1 + 8) + 16)) ^ 0xDCEE8C00) - ((((32 * *(*(a1 + 8) + 16)) ^ 0xDCEE8C00) << ((*a1 ^ ((a1 | 0x36) - (a1 & 0x36)) ^ 0x14) - 121)) & 0xEFC44980) + 2011309259;
+  v529 = v1 + 2715;
   v2 = *(&off_1006B4E30 + v1 + 1131);
   v3 = 15 - 119 * v2[29];
   v4 = v3 & ((*a1 ^ ((a1 | 0x36) - (a1 & 0x36)) ^ 0x14) + 57) ^ 0xE1;
   v5 = *(&off_1006B4E30 + v1 + 715);
-  v525 = v5 + 788;
+  v523 = v5 + 788;
   v6 = *(v5 + 788 + ((v3 ^ (2 * ((v3 ^ 0x70) & (2 * ((v3 ^ 0x70) & (2 * ((v3 ^ 0x70) & (2 * ((v3 ^ 0x70) & (2 * (v3 & (2 * (((2 * v3) & 0x62 ^ 0x42) & v3 ^ v4)) ^ v4)) ^ v4)) ^ v4)) ^ v4)) ^ v4))) ^ 0x8Eu)) + 8;
   LOBYTE(v1) = v6 & 0x6E ^ 0xDD;
   v7 = v6 ^ (2 * ((v6 ^ 0x74) & (2 * ((v6 ^ 0x74) & (2 * ((v6 ^ 0x74) & (2 * ((v6 ^ 0x74) & (2 * ((v6 ^ 0x74) & (2 * (v1 ^ v6 & 0x1A)) ^ v1)) ^ v1)) ^ v1)) ^ v1)) ^ v1));
@@ -7743,15 +7680,15 @@ void sub_1002962A8(uint64_t a1)
   v13 = ((v2[3] - ((2 * v2[3]) & 0x10A)) << 24) - 0x75523DC87B000000;
   v14 = ((v2[80] - ((2 * v2[80]) & 0x9C)) << 16) + 0x65BB3B743E4E0000;
   v15 = v5 + 518;
-  v519 = v5 + 518;
+  v518 = v5 + 518;
   v16 = *(v5 + 518 + ((v1 ^ (2 * (v10 ^ v9))) ^ 0x22u)) + 103;
   v17 = v16 & 0x2B ^ 0xB6;
   v18 = v16 ^ (2 * ((v16 ^ 0x4E) & (2 * ((v16 ^ 0x4E) & (2 * ((v16 ^ 0x4E) & (2 * ((v16 ^ 0x4E) & (2 * ((v16 ^ 0x4E) & (2 * ((v16 ^ 0x4E) & (2 * v16) & 0x1E ^ v17)) ^ v17)) ^ v17)) ^ v17)) ^ v17)) ^ v17));
-  v532 = *(&off_1006B4E30 + (v533 ^ 0xA0A));
-  v530 = v5 - 8;
+  v528 = *(&off_1006B4E30 + (v529 ^ 0xA0A));
+  v526 = v5 - 8;
   v20 = ((v2[47] - ((2 * v2[47]) & 0x168) - 0x6B5E2B66836B7C4CLL) & 0x40002000546DLL ^ 0xD0E733DBD6BBF212 ^ (((v11 ^ (2 * ((v11 ^ 0x70) & (2 * ((v11 ^ 0x70) & (2 * ((v11 ^ 0x70) & (2 * ((v11 ^ 0x70) & (2 * ((v11 ^ 0x70) & (2 * ((v11 ^ 0x70) & (2 * v11) ^ v12)) ^ v12)) ^ v12)) ^ v12)) ^ v12)) ^ v12))) << 8) ^ 0x7088BD2FDD13C692) & ((v2[47] - ((2 * v2[47]) & 0x168) - 0x6B5E2B66836B7C4CLL) ^ 0xEE7929B681AB7C46)) & (v14 ^ 0x9A44C48BC1B1FFFFLL) ^ v14 & 0x4590310014570000;
   v21 = (v20 ^ 0x1A00000BC0112448) & ((((*v2 - ((2 * *v2) & 0x1AA)) << 24) - 0xAE7CBE82B000000) ^ 0x82FAB72F8335244CLL) ^ v20 & 0x881D7CC7A9CADBB3;
-  v531 = *(v532 + 4);
+  v527 = *(v528 + 4);
   v22 = ((((v2[96] - ((2 * v2[96]) & 0x140)) << 8) + 0xCCF01BC42C4A000) ^ 0x145A0B2807E4646BLL) & ((v2[82] - ((2 * v2[82]) & 0x162) + 0x64A99474EB209EB1) ^ 0x9B566B8B14DF61CALL) ^ (v2[82] - ((2 * v2[82]) & 0x162) + 0x64A99474EB209EB1) & 0x2408040088001394;
   v23 = (v21 ^ 0x800000380008000) & ((((v2[100] - ((2 * v2[100]) & 0x1C4u) - 261186300) << 32) - 0x2200000000) ^ 0x5B18180FAA5F904);
   v24 = v21 & 0xA20E29D055A06FBLL;
@@ -7779,7 +7716,7 @@ void sub_1002962A8(uint64_t a1)
 
   v38 = ((v2[97] - ((2 * v2[97]) & 0x134u) + 879787177) << 32) - 0xF00000000;
   v39 = v36 & 0x60DCE812F6;
-  v523 = v5 + 253;
+  v521 = v5 + 253;
   v40 = *(v5 + 253 + ((v31 ^ (2 * v32)) ^ 0xE4u));
   v41 = 2 * ((v37 ^ 0x2CEDA1A408AD3615) & (v34 ^ 0x4F8448FEFFFFFDECLL) ^ v34 & 0x3B3BECCA2E395515);
   v42 = ((v40 >> 4) | (16 * v40)) + (~(2 * ((v40 >> 4) | (16 * v40))) | 0x65) + 78;
@@ -7819,13 +7756,13 @@ void sub_1002962A8(uint64_t a1)
   v19 = ((v2[68] - ((2 * v2[68]) & 0xBCu) + 155) << 56) - 0x3D00000000000000;
   v70 = (v62 ^ 0x4D6D000008401064) & (v19 & 0x3B00000000000000 ^ 0xA31C6D6BB3180CFCLL ^ ((((v2[6] - ((2 * v2[6]) & 0xAEu) + 5994) << 48) - 0x13000000000000) ^ 0xD3B0069AEDD35C80) & (v19 ^ 0xA1FF5FFFEFF37FDALL));
   v71 = v62 & 0x8204940EA134AF83;
-  v72 = v531 - 0x63038EF807E5583ALL - ((2 * v531) & 0x1F0354F8CLL);
+  v72 = v527 - 0x63038EF807E5583ALL - ((2 * v527) & 0x1F0354F8CLL);
   v73 = (v62 ^ 0xF305A8A43) & (v72 ^ 0x9CFC7107F81AA7C6);
   v74 = (v61 & 0x7A2FCE8906B2A19 ^ 0x63A696BDD50956A0 ^ v69) & (v64 ^ 0x6024A2FFFFFFFFFFLL);
   LOBYTE(v65) = v2[93] + 103;
   v75 = v65 & 0xD2 ^ 0x1A;
   LOBYTE(v62) = v65 ^ (2 * ((v65 ^ 0x3C) & (2 * ((v65 ^ 0x3C) & (2 * ((v65 ^ 0x3C) & (2 * ((v65 ^ 0x3C) & (2 * ((v65 ^ 0x3C) & (2 * v75) ^ v75)) ^ v75)) ^ v75)) ^ v75)) ^ v75));
-  v76 = *(v530 + (v47 ^ 0xA9)) ^ v47 ^ 0xB0u;
+  v76 = *(v526 + (v47 ^ 0xA9)) ^ v47 ^ 0xB0u;
   v77 = (v67 ^ 0x27977B5A3AB3455CLL ^ v66) & (v68 ^ 0x5DE87AB9FFFFFFFFLL);
   LOBYTE(v67) = *(v15 + ((v63 ^ (2 * v40)) ^ 0x15u));
   v78 = ((v62 ^ 0xF8312673) + 130996630) ^ ((v62 ^ 0xE1968438) + 510229471) ^ ((v62 ^ 0x19A7A2E5) - 430416636);
@@ -7848,701 +7785,699 @@ void sub_1002962A8(uint64_t a1)
   LOBYTE(v65) = v40 - 87;
   v86 = v2[52] - ((2 * v2[52]) & 0xFF07);
   LOBYTE(v40) = ((86 - v40) & 0xD4 | 0x22) ^ (v40 - 87) & 0x64;
-  v87 = *(&off_1006B4E30 + (v533 ^ 0x878)) - 4;
-  v88 = *v521;
-  v528 = *&v87[8 * v527];
-  LOBYTE(v62) = v62 ^ *(v530 + v78 - 1589969116 + (((v67 ^ 0x40318952) + 1874903298) ^ ((v67 ^ 0x96619B65) - 1181691081) ^ ((v67 ^ 0xA7645BF6) - 2003496026)));
-  v89 = v73 ^ v72 & 0x18B0605887AC6A4FLL ^ v79;
-  v90 = v2[19];
-  v91 = v77 ^ v68 & 0x821131DA00000000 ^ (((v2[61] - ((2 * v2[61]) & 0x10u) + 176) << 56) - 0x2800000000000000) ^ (((v2[37] - ((2 * v2[37]) & 0xFF83u) + 43759) << 48) - 0x2E000000000000) ^ ((v65 ^ (2 * ((v65 ^ 0x54) & (2 * ((v65 ^ 0x54) & (2 * ((v65 ^ 0x54) & (2 * ((v65 ^ 0x54) & (2 * ((v65 ^ 0x54) & (2 * v40) ^ v40)) ^ v40)) ^ v40)) ^ v40)) ^ v40))) << 40);
-  v92 = v64 & 0x586E60000000000 ^ (((v2[40] - ((2 * v2[40]) & 0x134u) + 45992) << 48) - 0xE000000000000) ^ (v76 << 56) ^ v74 ^ v89;
-  LOBYTE(v76) = v90 + 81;
-  v93 = ((v62 << 8) ^ 0x158E690A621FDBA5) & ((v90 + 0x752767DAF0AEB151 - ((2 * v90) & 0xA2)) ^ 0x809808D49BD14EE4) ^ (v90 + 0x752767DAF0AEB151 - ((2 * v90) & 0xA2)) & 0x602106000020285ALL;
-  v94 = (v93 ^ 0x8A5090F59DC0080ALL) & ((((v86 - 775220072) << 32) - 0x1500000000) & 0x80C1164700000000 ^ 0xC5F2344B3158862DLL ^ ((((v2[76] - ((2 * v2[76]) & 0x5C)) << 16) + 0x60BF93EC362E0000) ^ 0x1DA1BA54FD047440) & ((((v86 - 775220072) << 32) - 0x1500000000) ^ 0x2E34EB7CFFFF7C4ALL)) ^ v93 & 0x4582660A000D0D92;
-  v95 = (((v2[59] - ((2 * v2[59]) & 0xC0u) + 138) << 56) - 0x2A00000000000000) ^ (((v2[91] - ((2 * v2[91]) & 0xAAu) + 633) << 48) - 0x24000000000000) ^ v94 & 0xD4B5E0575936FB55 ^ (v94 ^ 0x8250900505800002) & (((v81 << 24) - 0x43E55F769F000000) & 0x2018808BFC000000 ^ 0x9695B155C53C433DLL ^ (((v81 << 24) - 0x43E55F769F000000) ^ 0x43E55F7402F54797) & ((((v2[39] - ((2 * v2[39]) & 0x44u) + 73292) << 40) - 0x2A0000000000) ^ 0x9CD90C7403F54797)) ^ 0x554370896EDE8253;
-  v96 = v48 ^ v95 ^ (2 * v59);
-  v97 = v91 ^ 0x646F8ACFFC9FBBEALL;
-  v98 = v89 & 0x79BB21155067A926 ^ (v92 ^ 0x169205272F67A49) & (v89 ^ 0xF6D66086F07A2BCFLL) ^ 0xDB2DB9AE0650A8BALL ^ v96;
-  v99 = v92 & 0x27D7C0EE0DEEBEEDLL ^ v89 ^ (v91 ^ 0xB50D3F248F09CCEDLL) & (v92 ^ 0x872DFEB8DD6E2C90) ^ v98;
-  v100 = v91 ^ 0x646F8ACFFC9FBBEALL ^ v95;
-  v101 = v96 & 0x3F3C62EB76E7F9CALL ^ v100 ^ (v96 ^ 0xF97901CDDC6E66F9) & (v89 ^ 0x3615FD9279622DFALL);
-  v102 = v101 ^ v98 ^ 0x42E758514C29F6ACLL;
-  v103 = v91 & 0x607A52348803C09ALL ^ (v100 ^ 0xA5D30D5B6B457BE4) & (v91 ^ 0x6D2500357D188DFFLL) ^ v92;
-  v104 = v100 & 0xE4DB28A9724A58E4 ^ v97 ^ v103 ^ 0x73248BF023FEAE93 ^ (v96 ^ 0xE25DD69B51DBC1E2) & (v100 ^ 0x3A56A0901CB94481);
-  LOBYTE(v100) = (((v76 & 1) + 67) ^ ((v76 & 1) - 69) ^ ((v76 & 1 ^ 0xDD) - 24)) + 127 + (((v76 & 1 ^ 0x2B) + 28) ^ ((v76 & 1) + 65) ^ ((v76 & 1 ^ 3) + 52));
-  LOBYTE(v97) = (v100 ^ 0xBE) & (2 * (v100 & 0xBE)) ^ v100 & 0xBE;
-  LOBYTE(v96) = ((2 * (v100 ^ 0xC2)) ^ 0xF8) & (v100 ^ 0xC2) ^ (2 * (v100 ^ 0xC2)) & 0x7C;
-  LOBYTE(v96) = (((4 * (v96 ^ 4)) ^ 0xF0) & (v96 ^ 4) ^ (4 * (v96 ^ 4)) & 0x7C ^ 0x60) & (16 * ((v96 ^ 0x78) & (4 * v97) ^ v97)) ^ (v96 ^ 0x78) & (4 * v97) ^ v97;
-  v105 = (v103 >> 6) ^ 0x3163816761BC7C91;
-  v106 = ((((v101 ^ v98) >> 28) ^ 0xF61F8CA35) << !(v76 & 1) << ((v100 ^ (2 * v96) ^ 4) & (v76 & 1 | 4))) ^ __ROR8__(v102 ^ __ROR8__(v102, 19), 63);
-  v107 = ((((v103 >> 6) ^ 0x8CE5C62511EE6056) + 0x4279B8BD8FADE339) ^ (((v103 >> 6) ^ 0x88D1A633C5E5F680) + 0x464DD8AB5BA675EFLL) ^ (((v103 >> 6) ^ 0x416350A167C699FLL) - 0x3575B46D77C0150ELL)) - ((((2 * v105) ^ 0xC707AB9414F70685) + 0x75FD3D5A57E01CCALL) ^ (((2 * v105) ^ 0x517D5CEFF3BF52C0) - 0x1C7835DE4F57B773) ^ (((2 * v105) ^ 0xF4F95F8CA0DF53F5) + 0x4603C942E3C849BALL)) + 0x693AFCA2A3A1871;
-  v108 = (v107 ^ 0xF2B762C37F912473) & (2 * (v107 & 0xFB2762EA7E118964)) ^ v107 & 0xFB2762EA7E118964;
-  v109 = ((2 * (v107 ^ 0x36FD23576F9226B3)) ^ 0x9BB4837A23075FAELL) & (v107 ^ 0x36FD23576F9226B3) ^ (2 * (v107 ^ 0x36FD23576F9226B3)) & 0xCDDA41BD1183AFD6;
-  v110 = v109 ^ 0x444A40851080A051;
-  v111 = (v109 ^ 0x8990013800020F80) & (4 * v108) ^ v108;
-  v112 = ((4 * v110) ^ 0x376906F4460EBF5CLL) & v110 ^ (4 * v110) & 0xCDDA41BD1183AFD4;
-  v113 = (v112 ^ 0x54800B40002AF40) & (16 * v111) ^ v111;
-  v114 = ((16 * (v112 ^ 0xC892410911810083)) ^ 0xDDA41BD1183AFD70) & (v112 ^ 0xC892410911810083) ^ (16 * (v112 ^ 0xC892410911810083)) & 0xCDDA41BD1183AFD0;
-  v115 = (v114 ^ 0xCD8001911002AD00) & (v113 << 8) ^ v113;
-  v116 = (((v114 ^ 0x5A402C01810287) << 8) ^ 0xDA41BD1183AFD700) & (v114 ^ 0x5A402C01810287) ^ ((v114 ^ 0x5A402C01810287) << 8) & 0xCDDA41BD1183AF00;
-  v117 = v115 ^ 0xCDDA41BD1183AFD7 ^ (v116 ^ 0xC840011101830000) & (v115 << 16);
-  v118 = (v117 << 32) & 0x4DDA41BD00000000 ^ v117 ^ ((v117 << 32) ^ 0x1183AFD700000000) & (((v116 ^ 0x59A40AC100028D7) << 16) & 0x4DDA41BD00000000 ^ 0xC42403C00000000 ^ (((v116 ^ 0x59A40AC100028D7) << 16) ^ 0x41BD118300000000) & (v116 ^ 0x59A40AC100028D7));
-  *(&v119 + 1) = v103 ^ 0x73248BF023FEAE93;
-  *&v119 = v103 ^ 0x8FEE7458B4430CEALL;
-  *&v119 = __ROR8__(v103 ^ 0xE67A2C84678BACBBLL ^ (v119 >> 1), 44);
-  v120 = v99 & 0xFFFFFFFEFFFFFFFFLL ^ (v99 >> 61) ^ (v99 & &_mh_execute_header | 0x2420285A34801449);
-  *(&v119 + 1) = v119 ^ 0xAD52F;
-  *&v119 = v119 ^ 0x200EEAA119000000;
-  v121 = v119 >> 20;
-  v122 = ((v120 ^ 0x90D9E7BA10585785) - 2 * ((v120 ^ 0x90D9E7BA10585785) & 0x6B6B25B47346363DLL ^ v120 & 0x28) - 0x1494DA4B8CB9C9EBLL) ^ (8 * (v99 ^ 0x34880770942ADAB9));
-  *(&v119 + 1) = v104 ^ 0xA5;
-  *&v119 = v104 ^ 0x6F7042F0982AE800;
-  v123 = v119 >> 10;
-  *(&v119 + 1) = ~v106;
-  *&v119 = v106 ^ 0xECAEA4EF35C7E78ELL;
-  v124 = ((v122 ^ 0xE8E56131F4D2FD95) + 0x6971EDC810925E97 - 2 * ((v122 ^ 0xE8E56131F4D2FD95) & 0x6971EDC810925EB7 ^ v122 & 0x20)) ^ (v99 >> 39);
-  v125 = (v119 >> 1) - ((2 * (v119 >> 1)) & 0x699386420ABCB202) + 0x34C9C321055E5901;
-  v126 = ((v124 ^ 0x6971EDC811FBAD08) - 2 * ((v124 ^ 0x6971EDC811FBAD08) & 0x66D134667C912FBELL ^ v124 & 2) - 0x192ECB99836ED044) ^ ((v99 ^ 0x34880770942ADAB9) << 25);
-  v127 = v126 ^ 0xC7B0D1549C912FBCLL;
-  v128 = v121 - ((v121 + 0x3141D47BA3CB83D8 - ((2 * v121) & 0x6283A8F7479707B0)) ^ v105);
-  *(&v119 + 1) = v101 ^ 0x13;
-  *&v119 = v101 ^ 0xAE0638AA55B6C600;
-  v129 = v107 ^ (v128 - ((2 * v128) & 0x207A9DF5ECC982E8) - 0x6FC2B105099B3E8CLL) ^ (2 * v118) ^ 0xF3AAAC40AB7217BELL;
-  v130 = (v129 + 0x3141D47BA3CB83D8 - ((2 * v129) & 0x6283A8F7479707B0)) ^ v105;
-  v131 = (v119 >> 7) - ((2 * (v119 >> 7)) & 0xEB7D3D0F335A4702) - 0xA4161786652DC7FLL;
-  *&v119 = __ROR8__(v101, 41);
-  v132 = v101 ^ 0xD80DEDAFCFB32E31 ^ ((v131 ^ v119 ^ 0xA09445E4907A209DLL) - ((2 * (v131 ^ v119 ^ 0xA09445E4907A209DLL)) & 0xEC17AA0B340BD044) + 0x760BD5059A05E822);
-  v133 = v130 + v121;
-  *&v119 = __ROR8__(v104, 17);
-  v134 = (((v123 - ((2 * v123) & 0xE78F6F5F6F494A30) + 0x73C7B7AFB7A4A518) ^ v119 ^ 0x795001796DCE90DLL) - ((2 * ((v123 - ((2 * v123) & 0xE78F6F5F6F494A30) + 0x73C7B7AFB7A4A518) ^ v119 ^ 0x795001796DCE90DLL)) & 0x1B81EB7FCEC62F20) - 0x723F0A40189CE870) ^ v104;
-  v135 = v134 ^ 0xE2B0B74F7F49FF35;
-  v136 = v133 ^ (v103 << 58) ^ 0xAC00000000000000;
-  v137 = v136 ^ v126 ^ 0xC7B0D1549C912FBCLL;
-  v138 = v132 ^ (v102 << 36) ^ v125;
-  v139 = v138 ^ 0xA47541EB96D48395;
-  v140 = v138 ^ 0x5B8ABE14692B7C6ALL;
-  v141 = v134 ^ 0xE2B0B74F7F49FF35 ^ v132;
-  v142 = v136 & (v126 ^ 0x384F2EAB636ED043);
-  v143 = (v134 ^ 0xE2B0B74F7F49FF35) & ~v137;
-  v144 = v143 + v127;
-  v145 = v143 & v127;
-  v146 = (v134 ^ 0x1D4F48B080B600CALL) & v132;
-  v147 = v127 & v140;
-  v148 = v139 ^ v141;
-  v149 = v139 | ~v141;
-  v150 = v139 ^ 0x54F9868382B168DLL ^ v142;
-  v151 = v148 + v149 + 1;
-  v152 = v147 ^ v141;
-  v153 = v151 ^ v135;
-  v154 = ~v144 + 2 * v145;
-  v155 = __ROR8__(__ROR8__(v137 ^ v146, 28) ^ 0xAE0BD8973B79BE1FLL, 36);
-  v156 = v150 ^ v147 ^ v141;
-  v157 = v155 ^ 0x73B79BE1FAE0BD89 | v153;
-  v158 = v157 & 0x800000000000000;
-  v159 = (v155 ^ 0x73B79BE1FAE0BD89) & v153;
-  v160 = (~(2 * v154) + v154) ^ v150;
-  v161 = v160 ^ 0xCDD9B263CA650C6DLL;
-  if ((v159 & 0x800000000000000) != 0)
+  v87 = *(&off_1006B4E30 + (v529 ^ 0x878)) - 4;
+  LOBYTE(v62) = v62 ^ *(v526 + v78 - 1589969116 + (((v67 ^ 0x40318952) + 1874903298) ^ ((v67 ^ 0x96619B65) - 1181691081) ^ ((v67 ^ 0xA7645BF6) - 2003496026)));
+  v88 = v73 ^ v72 & 0x18B0605887AC6A4FLL ^ v79;
+  v89 = v2[19];
+  v90 = v77 ^ v68 & 0x821131DA00000000 ^ (((v2[61] - ((2 * v2[61]) & 0x10u) + 176) << 56) - 0x2800000000000000) ^ (((v2[37] - ((2 * v2[37]) & 0xFF83u) + 43759) << 48) - 0x2E000000000000) ^ ((v65 ^ (2 * ((v65 ^ 0x54) & (2 * ((v65 ^ 0x54) & (2 * ((v65 ^ 0x54) & (2 * ((v65 ^ 0x54) & (2 * ((v65 ^ 0x54) & (2 * v40) ^ v40)) ^ v40)) ^ v40)) ^ v40)) ^ v40))) << 40);
+  v91 = v64 & 0x586E60000000000 ^ (((v2[40] - ((2 * v2[40]) & 0x134u) + 45992) << 48) - 0xE000000000000) ^ (v76 << 56) ^ v74 ^ v88;
+  LOBYTE(v76) = v89 + 81;
+  v92 = ((v62 << 8) ^ 0x158E690A621FDBA5) & ((v89 + 0x752767DAF0AEB151 - ((2 * v89) & 0xA2)) ^ 0x809808D49BD14EE4) ^ (v89 + 0x752767DAF0AEB151 - ((2 * v89) & 0xA2)) & 0x602106000020285ALL;
+  v93 = (v92 ^ 0x8A5090F59DC0080ALL) & ((((v86 - 775220072) << 32) - 0x1500000000) & 0x80C1164700000000 ^ 0xC5F2344B3158862DLL ^ ((((v2[76] - ((2 * v2[76]) & 0x5C)) << 16) + 0x60BF93EC362E0000) ^ 0x1DA1BA54FD047440) & ((((v86 - 775220072) << 32) - 0x1500000000) ^ 0x2E34EB7CFFFF7C4ALL)) ^ v92 & 0x4582660A000D0D92;
+  v94 = (((v2[59] - ((2 * v2[59]) & 0xC0u) + 138) << 56) - 0x2A00000000000000) ^ (((v2[91] - ((2 * v2[91]) & 0xAAu) + 633) << 48) - 0x24000000000000) ^ v93 & 0xD4B5E0575936FB55 ^ (v93 ^ 0x8250900505800002) & (((v81 << 24) - 0x43E55F769F000000) & 0x2018808BFC000000 ^ 0x9695B155C53C433DLL ^ (((v81 << 24) - 0x43E55F769F000000) ^ 0x43E55F7402F54797) & ((((v2[39] - ((2 * v2[39]) & 0x44u) + 73292) << 40) - 0x2A0000000000) ^ 0x9CD90C7403F54797)) ^ 0x554370896EDE8253;
+  v95 = v48 ^ v94 ^ (2 * v59);
+  v96 = v90 ^ 0x646F8ACFFC9FBBEALL;
+  v97 = v88 & 0x79BB21155067A926 ^ (v91 ^ 0x169205272F67A49) & (v88 ^ 0xF6D66086F07A2BCFLL) ^ 0xDB2DB9AE0650A8BALL ^ v95;
+  v98 = v91 & 0x27D7C0EE0DEEBEEDLL ^ v88 ^ (v90 ^ 0xB50D3F248F09CCEDLL) & (v91 ^ 0x872DFEB8DD6E2C90) ^ v97;
+  v99 = v90 ^ 0x646F8ACFFC9FBBEALL ^ v94;
+  v100 = v95 & 0x3F3C62EB76E7F9CALL ^ v99 ^ (v95 ^ 0xF97901CDDC6E66F9) & (v88 ^ 0x3615FD9279622DFALL);
+  v101 = v100 ^ v97 ^ 0x42E758514C29F6ACLL;
+  v102 = v90 & 0x607A52348803C09ALL ^ (v99 ^ 0xA5D30D5B6B457BE4) & (v90 ^ 0x6D2500357D188DFFLL) ^ v91;
+  v103 = v99 & 0xE4DB28A9724A58E4 ^ v96 ^ v102 ^ 0x73248BF023FEAE93 ^ (v95 ^ 0xE25DD69B51DBC1E2) & (v99 ^ 0x3A56A0901CB94481);
+  LOBYTE(v99) = (((v76 & 1) + 67) ^ ((v76 & 1) - 69) ^ ((v76 & 1 ^ 0xDD) - 24)) + 127 + (((v76 & 1 ^ 0x2B) + 28) ^ ((v76 & 1) + 65) ^ ((v76 & 1 ^ 3) + 52));
+  LOBYTE(v96) = (v99 ^ 0xBE) & (2 * (v99 & 0xBE)) ^ v99 & 0xBE;
+  LOBYTE(v95) = ((2 * (v99 ^ 0xC2)) ^ 0xF8) & (v99 ^ 0xC2) ^ (2 * (v99 ^ 0xC2)) & 0x7C;
+  LOBYTE(v95) = (((4 * (v95 ^ 4)) ^ 0xF0) & (v95 ^ 4) ^ (4 * (v95 ^ 4)) & 0x7C ^ 0x60) & (16 * ((v95 ^ 0x78) & (4 * v96) ^ v96)) ^ (v95 ^ 0x78) & (4 * v96) ^ v96;
+  v104 = (v102 >> 6) ^ 0x3163816761BC7C91;
+  v105 = ((((v100 ^ v97) >> 28) ^ 0xF61F8CA35) << !(v76 & 1) << ((v99 ^ (2 * v95) ^ 4) & (v76 & 1 | 4))) ^ __ROR8__(v101 ^ __ROR8__(v101, 19), 63);
+  v106 = ((((v102 >> 6) ^ 0x8CE5C62511EE6056) + 0x4279B8BD8FADE339) ^ (((v102 >> 6) ^ 0x88D1A633C5E5F680) + 0x464DD8AB5BA675EFLL) ^ (((v102 >> 6) ^ 0x416350A167C699FLL) - 0x3575B46D77C0150ELL)) - ((((2 * v104) ^ 0xC707AB9414F70685) + 0x75FD3D5A57E01CCALL) ^ (((2 * v104) ^ 0x517D5CEFF3BF52C0) - 0x1C7835DE4F57B773) ^ (((2 * v104) ^ 0xF4F95F8CA0DF53F5) + 0x4603C942E3C849BALL)) + 0x693AFCA2A3A1871;
+  v107 = (v106 ^ 0xF2B762C37F912473) & (2 * (v106 & 0xFB2762EA7E118964)) ^ v106 & 0xFB2762EA7E118964;
+  v108 = ((2 * (v106 ^ 0x36FD23576F9226B3)) ^ 0x9BB4837A23075FAELL) & (v106 ^ 0x36FD23576F9226B3) ^ (2 * (v106 ^ 0x36FD23576F9226B3)) & 0xCDDA41BD1183AFD6;
+  v109 = v108 ^ 0x444A40851080A051;
+  v110 = (v108 ^ 0x8990013800020F80) & (4 * v107) ^ v107;
+  v111 = ((4 * v109) ^ 0x376906F4460EBF5CLL) & v109 ^ (4 * v109) & 0xCDDA41BD1183AFD4;
+  v112 = (v111 ^ 0x54800B40002AF40) & (16 * v110) ^ v110;
+  v113 = ((16 * (v111 ^ 0xC892410911810083)) ^ 0xDDA41BD1183AFD70) & (v111 ^ 0xC892410911810083) ^ (16 * (v111 ^ 0xC892410911810083)) & 0xCDDA41BD1183AFD0;
+  v114 = (v113 ^ 0xCD8001911002AD00) & (v112 << 8) ^ v112;
+  v115 = (((v113 ^ 0x5A402C01810287) << 8) ^ 0xDA41BD1183AFD700) & (v113 ^ 0x5A402C01810287) ^ ((v113 ^ 0x5A402C01810287) << 8) & 0xCDDA41BD1183AF00;
+  v116 = v114 ^ 0xCDDA41BD1183AFD7 ^ (v115 ^ 0xC840011101830000) & (v114 << 16);
+  v117 = (v116 << 32) & 0x4DDA41BD00000000 ^ v116 ^ ((v116 << 32) ^ 0x1183AFD700000000) & (((v115 ^ 0x59A40AC100028D7) << 16) & 0x4DDA41BD00000000 ^ 0xC42403C00000000 ^ (((v115 ^ 0x59A40AC100028D7) << 16) ^ 0x41BD118300000000) & (v115 ^ 0x59A40AC100028D7));
+  *(&v118 + 1) = v102 ^ 0x73248BF023FEAE93;
+  *&v118 = v102 ^ 0x8FEE7458B4430CEALL;
+  *&v118 = __ROR8__(v102 ^ 0xE67A2C84678BACBBLL ^ (v118 >> 1), 44);
+  v119 = v98 & 0xFFFFFFFEFFFFFFFFLL ^ (v98 >> 61) ^ (v98 & &_mh_execute_header | 0x2420285A34801449);
+  *(&v118 + 1) = v118 ^ 0xAD52F;
+  *&v118 = v118 ^ 0x200EEAA119000000;
+  v120 = v118 >> 20;
+  v121 = ((v119 ^ 0x90D9E7BA10585785) - 2 * ((v119 ^ 0x90D9E7BA10585785) & 0x6B6B25B47346363DLL ^ v119 & 0x28) - 0x1494DA4B8CB9C9EBLL) ^ (8 * (v98 ^ 0x34880770942ADAB9));
+  *(&v118 + 1) = v103 ^ 0xA5;
+  *&v118 = v103 ^ 0x6F7042F0982AE800;
+  v122 = v118 >> 10;
+  *(&v118 + 1) = ~v105;
+  *&v118 = v105 ^ 0xECAEA4EF35C7E78ELL;
+  v123 = ((v121 ^ 0xE8E56131F4D2FD95) + 0x6971EDC810925E97 - 2 * ((v121 ^ 0xE8E56131F4D2FD95) & 0x6971EDC810925EB7 ^ v121 & 0x20)) ^ (v98 >> 39);
+  v124 = (v118 >> 1) - ((2 * (v118 >> 1)) & 0x699386420ABCB202) + 0x34C9C321055E5901;
+  v125 = ((v123 ^ 0x6971EDC811FBAD08) - 2 * ((v123 ^ 0x6971EDC811FBAD08) & 0x66D134667C912FBELL ^ v123 & 2) - 0x192ECB99836ED044) ^ ((v98 ^ 0x34880770942ADAB9) << 25);
+  v126 = v125 ^ 0xC7B0D1549C912FBCLL;
+  v127 = v120 - ((v120 + 0x3141D47BA3CB83D8 - ((2 * v120) & 0x6283A8F7479707B0)) ^ v104);
+  *(&v118 + 1) = v100 ^ 0x13;
+  *&v118 = v100 ^ 0xAE0638AA55B6C600;
+  v128 = v106 ^ (v127 - ((2 * v127) & 0x207A9DF5ECC982E8) - 0x6FC2B105099B3E8CLL) ^ (2 * v117) ^ 0xF3AAAC40AB7217BELL;
+  v129 = (v128 + 0x3141D47BA3CB83D8 - ((2 * v128) & 0x6283A8F7479707B0)) ^ v104;
+  v130 = (v118 >> 7) - ((2 * (v118 >> 7)) & 0xEB7D3D0F335A4702) - 0xA4161786652DC7FLL;
+  *&v118 = __ROR8__(v100, 41);
+  v131 = v100 ^ 0xD80DEDAFCFB32E31 ^ ((v130 ^ v118 ^ 0xA09445E4907A209DLL) - ((2 * (v130 ^ v118 ^ 0xA09445E4907A209DLL)) & 0xEC17AA0B340BD044) + 0x760BD5059A05E822);
+  v132 = v129 + v120;
+  *&v118 = __ROR8__(v103, 17);
+  v133 = (((v122 - ((2 * v122) & 0xE78F6F5F6F494A30) + 0x73C7B7AFB7A4A518) ^ v118 ^ 0x795001796DCE90DLL) - ((2 * ((v122 - ((2 * v122) & 0xE78F6F5F6F494A30) + 0x73C7B7AFB7A4A518) ^ v118 ^ 0x795001796DCE90DLL)) & 0x1B81EB7FCEC62F20) - 0x723F0A40189CE870) ^ v103;
+  v134 = v133 ^ 0xE2B0B74F7F49FF35;
+  v135 = v132 ^ (v102 << 58) ^ 0xAC00000000000000;
+  v136 = v135 ^ v125 ^ 0xC7B0D1549C912FBCLL;
+  v137 = v131 ^ (v101 << 36) ^ v124;
+  v138 = v137 ^ 0xA47541EB96D48395;
+  v139 = v137 ^ 0x5B8ABE14692B7C6ALL;
+  v140 = v133 ^ 0xE2B0B74F7F49FF35 ^ v131;
+  v141 = v135 & (v125 ^ 0x384F2EAB636ED043);
+  v142 = (v133 ^ 0xE2B0B74F7F49FF35) & ~v136;
+  v143 = v142 + v126;
+  v144 = v142 & v126;
+  v145 = (v133 ^ 0x1D4F48B080B600CALL) & v131;
+  v146 = v126 & v139;
+  v147 = v138 ^ v140;
+  v148 = v138 | ~v140;
+  v149 = v138 ^ 0x54F9868382B168DLL ^ v141;
+  v150 = v147 + v148 + 1;
+  v151 = v146 ^ v140;
+  v152 = v150 ^ v134;
+  v153 = ~v143 + 2 * v144;
+  v154 = __ROR8__(__ROR8__(v136 ^ v145, 28) ^ 0xAE0BD8973B79BE1FLL, 36);
+  v155 = v149 ^ v146 ^ v140;
+  v156 = v154 ^ 0x73B79BE1FAE0BD89 | v152;
+  v157 = v156 & 0x800000000000000;
+  v158 = (v154 ^ 0x73B79BE1FAE0BD89) & v152;
+  v159 = (~(2 * v153) + v153) ^ v149;
+  v160 = v159 ^ 0xCDD9B263CA650C6DLL;
+  if ((v158 & 0x800000000000000) != 0)
   {
-    v158 = -v158;
+    v157 = -v157;
   }
 
-  v162 = ((v158 + v159) ^ v157 & 0xF7FFFFFFFFFFFFFFLL ^ -((v158 + v159) ^ v157 & 0xF7FFFFFFFFFFFFFFLL) ^ (0x776FAB65F4A9803ALL - ((v158 + v159) ^ v157 & 0xF7FFFFFFFFFFFFFFLL ^ 0x776FAB65F4A9803ALL))) + 0x776FAB65F4A9803ALL;
-  *(&v163 + 1) = v155;
-  *&v163 = v155 ^ 0xD24A6ECC60194DE8;
-  v164 = (((*(v519 + ((69 * ((v160 ^ 0xCDD9B263CA650C6DLL) >> 61)) ^ 0x68)) + 54) ^ 0x69) - 47) ^ (8 * v160) ^ v160 ^ 0xA314217D994D6F05;
-  v165 = (v164 + (v161 >> 39) - 2 * (v164 & (v161 >> 39))) ^ (v161 << 25);
-  v166 = (v163 >> 1) ^ v155 ^ 0xD24A6ECC60194DE8 ^ ((v155 ^ 0xD24A6ECC60194DE8) >> 6) ^ ((v155 ^ 0xD24A6ECC60194DE8) << 58);
-  v167 = v165 ^ v166;
-  v168 = ((v162 >> 10) | v162) ^ (v162 << 47) ^ (v162 >> 10) & v162 ^ ((v162 >> 17) | (v162 << 54));
-  v169 = v152 ^ 0x917AAA3CD96CD60ELL ^ __ROR8__(v152 ^ 0x917AAA3CD96CD60ELL, 7) ^ ((v152 ^ 0x917AAA3CD96CD60ELL) >> 41) ^ ((v152 ^ 0x917AAA3CD96CD60ELL) << 23);
-  v170 = v168 & ~(v165 ^ v166);
-  v171 = v169 ^ (v156 >> 28) ^ v156 ^ 0xED7206BD2EC87F48 ^ __ROR8__(v156 ^ 0xED7206BD2EC87F48, 19) ^ ((v156 ^ 0xED7206BD2EC87F48) << 36);
-  v172 = v171 ^ 0xED7206BD2;
-  v173 = v166 & ~v165;
-  v174 = v171 & 0x800000000000;
-  v175 = v168 ^ v169;
-  if ((v173 & v171 & 0x800000000000) != 0)
+  v161 = ((v157 + v158) ^ v156 & 0xF7FFFFFFFFFFFFFFLL ^ -((v157 + v158) ^ v156 & 0xF7FFFFFFFFFFFFFFLL) ^ (0x776FAB65F4A9803ALL - ((v157 + v158) ^ v156 & 0xF7FFFFFFFFFFFFFFLL ^ 0x776FAB65F4A9803ALL))) + 0x776FAB65F4A9803ALL;
+  *(&v162 + 1) = v154;
+  *&v162 = v154 ^ 0xD24A6ECC60194DE8;
+  v163 = (((*(v518 + ((69 * ((v159 ^ 0xCDD9B263CA650C6DLL) >> 61)) ^ 0x68)) + 54) ^ 0x69) - 47) ^ (8 * v159) ^ v159 ^ 0xA314217D994D6F05;
+  v164 = (v163 + (v160 >> 39) - 2 * (v163 & (v160 >> 39))) ^ (v160 << 25);
+  v165 = (v162 >> 1) ^ v154 ^ 0xD24A6ECC60194DE8 ^ ((v154 ^ 0xD24A6ECC60194DE8) >> 6) ^ ((v154 ^ 0xD24A6ECC60194DE8) << 58);
+  v166 = v164 ^ v165;
+  v167 = ((v161 >> 10) | v161) ^ (v161 << 47) ^ (v161 >> 10) & v161 ^ ((v161 >> 17) | (v161 << 54));
+  v168 = v151 ^ 0x917AAA3CD96CD60ELL ^ __ROR8__(v151 ^ 0x917AAA3CD96CD60ELL, 7) ^ ((v151 ^ 0x917AAA3CD96CD60ELL) >> 41) ^ ((v151 ^ 0x917AAA3CD96CD60ELL) << 23);
+  v169 = v167 & ~(v164 ^ v165);
+  v170 = v168 ^ (v155 >> 28) ^ v155 ^ 0xED7206BD2EC87F48 ^ __ROR8__(v155 ^ 0xED7206BD2EC87F48, 19) ^ ((v155 ^ 0xED7206BD2EC87F48) << 36);
+  v171 = v170 ^ 0xED7206BD2;
+  v172 = v165 & ~v164;
+  v173 = v170 & 0x800000000000;
+  v174 = v167 ^ v168;
+  if ((v172 & v170 & 0x800000000000) != 0)
   {
-    v174 = -v174;
+    v173 = -v173;
   }
 
-  v176 = (v174 + v173) ^ v172 & 0xFFFF7FFFFFFFFFFFLL;
-  v177 = v175 ^ v165 & (v171 ^ 0xFFFFFFF128DF942DLL);
-  v178 = v169 & ~v168 ^ v167;
-  v179 = v172 & ~v175 ^ v168 ^ v178;
-  v180 = (((v177 ^ 0x98B77F10B1BA9E36) & 0x22FFE6224A1D36D6) + (v176 & 0x22FFE6224A1D36D6) - 2 * ((v177 ^ 0x98B77F10B1BA9E36) & 0x22FFE6224A1D36D6 & v176)) | (v177 ^ 0x98B77F10B1BA9E36 ^ v176) & 0xDD0019DDB5E2C929;
-  v181 = v165 ^ 0xE2E4CD6B12D4B3B0 ^ v170 ^ v176;
-  v182 = v178 ^ 0x3318D22A1B3BD713;
-  v183 = v180 ^ __ROR8__(v180, 19) ^ (v180 >> 28) ^ (v180 << 36);
-  *(&v184 + 1) = ~v178;
-  *&v184 = v178 ^ 0x3318D22A1B3BD713;
-  v185 = v181 ^ __ROR8__(v181, 61) ^ (v181 >> 39) ^ (v181 << 25);
-  v186 = (v184 >> 1) ^ v178 ^ 0x3318D22A1B3BD713 ^ ((v178 ^ 0x3318D22A1B3BD713) >> (v179 & 6) >> (v179 & 6 ^ 6));
-  v187 = v177 ^ 0xD9321B1807A54237 ^ __ROR8__(v177 ^ 0xD9321B1807A54237, 7) ^ ((v177 ^ 0xD9321B1807A54237) >> 41) ^ ((v177 ^ 0xD9321B1807A54237) << 23);
-  v188 = v186 & 0x503C638009AD5A8 ^ (v182 << 58) & 0x400000000000000 | v186 & 0xFAFC39C7FF652A57 ^ (v182 << 58) & 0xF800000000000000;
-  v189 = v179 ^ 0x57D4AE0B6BADFBD8 ^ __ROR8__(v179 ^ 0x57D4AE0B6BADFBD8, 10) ^ ((v179 ^ 0x57D4AE0B6BADFBD8uLL) >> 17) ^ ((v179 ^ 0x57D4AE0B6BADFBD8) << 47);
-  v190 = v188 ^ v185;
-  v191 = v183 + v187 - 2 * (v183 & v187);
-  v192 = v191 & ~(v189 ^ v187);
-  v193 = v189 & ~(v188 ^ v185) ^ v185;
-  v194 = v188 & ~v185;
-  v195 = v185 & ~v191;
-  v196 = v191 ^ v194;
-  v197 = v193 ^ v196;
-  v198 = v195 ^ v189 ^ v187;
-  v199 = v196 ^ 0xDE1CA53CC441A02 ^ v198;
-  v200 = v190 ^ v187 & ~v189;
-  v201 = v197 ^ 0x8CEE1D69D550E5FLL;
-  v202 = v199 ^ __ROR8__(v199, 19);
-  v203 = v200 ^ 0x47C66056EC22CF95 ^ ((v192 ^ -v192 ^ (v189 - (v192 ^ v189))) + v189);
-  v204 = (v199 >> 28) & 0x20000;
-  *(&v184 + 1) = v197 ^ 0x8CEE1D69D550E5FLL;
-  *&v184 = v197;
-  v205 = v184 >> 61;
-  v206 = v198 ^ 0x98D780F384182967;
-  v207 = __ROR8__(v198, 62) & 0xC000000000000003 ^ 0x4000000000000002;
-  if ((v204 & v202) != 0)
+  v175 = (v173 + v172) ^ v171 & 0xFFFF7FFFFFFFFFFFLL;
+  v176 = v174 ^ v164 & (v170 ^ 0xFFFFFFF128DF942DLL);
+  v177 = v168 & ~v167 ^ v166;
+  v178 = v171 & ~v174 ^ v167 ^ v177;
+  v179 = (((v176 ^ 0x98B77F10B1BA9E36) & 0x22FFE6224A1D36D6) + (v175 & 0x22FFE6224A1D36D6) - 2 * ((v176 ^ 0x98B77F10B1BA9E36) & 0x22FFE6224A1D36D6 & v175)) | (v176 ^ 0x98B77F10B1BA9E36 ^ v175) & 0xDD0019DDB5E2C929;
+  v180 = v164 ^ 0xE2E4CD6B12D4B3B0 ^ v169 ^ v175;
+  v181 = v177 ^ 0x3318D22A1B3BD713;
+  v182 = v179 ^ __ROR8__(v179, 19) ^ (v179 >> 28) ^ (v179 << 36);
+  *(&v183 + 1) = ~v177;
+  *&v183 = v177 ^ 0x3318D22A1B3BD713;
+  v184 = v180 ^ __ROR8__(v180, 61) ^ (v180 >> 39) ^ (v180 << 25);
+  v185 = (v183 >> 1) ^ v177 ^ 0x3318D22A1B3BD713 ^ ((v177 ^ 0x3318D22A1B3BD713) >> (v178 & 6) >> (v178 & 6 ^ 6));
+  v186 = v176 ^ 0xD9321B1807A54237 ^ __ROR8__(v176 ^ 0xD9321B1807A54237, 7) ^ ((v176 ^ 0xD9321B1807A54237) >> 41) ^ ((v176 ^ 0xD9321B1807A54237) << 23);
+  v187 = v185 & 0x503C638009AD5A8 ^ (v181 << 58) & 0x400000000000000 | v185 & 0xFAFC39C7FF652A57 ^ (v181 << 58) & 0xF800000000000000;
+  v188 = v178 ^ 0x57D4AE0B6BADFBD8 ^ __ROR8__(v178 ^ 0x57D4AE0B6BADFBD8, 10) ^ ((v178 ^ 0x57D4AE0B6BADFBD8uLL) >> 17) ^ ((v178 ^ 0x57D4AE0B6BADFBD8) << 47);
+  v189 = v187 ^ v184;
+  v190 = v182 + v186 - 2 * (v182 & v186);
+  v191 = v190 & ~(v188 ^ v186);
+  v192 = v188 & ~(v187 ^ v184) ^ v184;
+  v193 = v187 & ~v184;
+  v194 = v184 & ~v190;
+  v195 = v190 ^ v193;
+  v196 = v192 ^ v195;
+  v197 = v194 ^ v188 ^ v186;
+  v198 = v195 ^ 0xDE1CA53CC441A02 ^ v197;
+  v199 = v189 ^ v186 & ~v188;
+  v200 = v196 ^ 0x8CEE1D69D550E5FLL;
+  v201 = v198 ^ __ROR8__(v198, 19);
+  v202 = v199 ^ 0x47C66056EC22CF95 ^ ((v191 ^ -v191 ^ (v188 - (v191 ^ v188))) + v188);
+  v203 = (v198 >> 28) & 0x20000;
+  *(&v183 + 1) = v196 ^ 0x8CEE1D69D550E5FLL;
+  *&v183 = v196;
+  v204 = v183 >> 61;
+  v205 = v197 ^ 0x98D780F384182967;
+  v206 = __ROR8__(v197, 62) & 0xC000000000000003 ^ 0x4000000000000002;
+  if ((v203 & v201) != 0)
   {
-    v204 = -v204;
+    v203 = -v203;
   }
 
-  *(&v208 + 1) = v200;
-  *&v208 = v200 ^ 0x73E735CE3C270102;
-  v209 = v205 ^ v201 ^ (v201 >> 39) ^ (v201 << 25);
-  v210 = __ROR8__((__ROR8__(v207, 62) + 16 * v206) ^ (16 * (v206 >> 7)) ^ 0xEE1A3DC19B9D1534, 4);
-  v211 = (v208 >> 1) ^ v200 ^ 0x73E735CE3C270102 ^ ((v200 ^ 0x73E735CE3C270102) >> 6) ^ ((v200 ^ 0x73E735CE3C270102) << 58);
-  v212 = __ROR8__(__ROR8__(v209 ^ v211, 52) ^ 0xE62AEC87F39CAACBLL, 12) ^ 0x53419D513780C635;
-  v213 = v203 ^ __ROR8__(v203, 10) ^ (v203 >> 17) ^ (v203 << 47);
-  v214 = (((v206 >> 41) ^ -(v206 >> 41) ^ ((v210 ^ (v206 << 57) ^ 0x4EE1A3DC19B9D153) - (v210 ^ (v206 << 57) ^ 0x4EE1A3DC19B9D153 ^ (v206 >> 41)))) + (v210 ^ (v206 << 57) ^ 0x4EE1A3DC19B9D153)) ^ (v206 << 23);
-  v215 = (v204 + v202) ^ __ROR8__(v199, 28) & 0xFFFFFFFFFFFDFFFFLL ^ v214;
-  v216 = v214 ^ v213;
-  v217 = v215 & ~v216;
-  v218 = v209 & ~v215 ^ v216;
-  v219 = v216 & (~(2 * v213) + v213) ^ v209 ^ v211;
-  v220 = v215 ^ v211 & ~v209;
-  v221 = ((v212 & v213 ^ -(v212 & v213) ^ (v209 - (v212 & v213 ^ v209))) + v209) ^ 0x64ADE1BAEB790508 ^ v220;
-  v222 = v220 ^ __ROR8__(__ROR8__(v218, 11) ^ 0x88FFBFEC4B4040A9, 53) ^ 0x6B96B379295964E3;
-  v223 = v213 ^ 0x82ABCDAC52312543 ^ v217 ^ v219;
-  v224 = v221 << 25;
-  v225 = v221 ^ (((*(v519 + ((69 * (v221 >> 61)) ^ 0x68)) + 54) ^ 0x69) - 47) ^ (8 * v221) ^ (v221 >> 39);
-  v226 = (v218 - ((2 * v218) & 0x8340D40CC70EA05ELL) + 0x41A06A066387502FLL) ^ 0xB4A2A3669BB0C01BLL;
-  v227 = ((v223 >> 10) + v223 - 2 * ((v223 >> 10) & v223)) ^ ((v223 >> 17) | (v223 << 54));
-  v228 = v225 + v224 - 2 * (v225 & v224);
-  *(&v208 + 1) = v219;
-  *&v208 = v219 ^ 0x770298E464E2FFC0;
-  v229 = v208 >> 1;
-  v230 = v227 & 0x525FA3E58812F4DELL ^ (v223 << 47) & 0x525F800000000000 | v227 & 0xADA05C1A77ED0B21 ^ (v223 << 47) & 0xADA0000000000000;
-  *(&v208 + 1) = v219;
-  *&v208 = v219 ^ 0x770298E464E2FFC0;
-  v231 = v229 ^ v219 ^ 0x770298E464E2FFC0 ^ (v208 >> 6);
-  v232 = v226 ^ __ROR8__(v226, 7) ^ (v226 >> 41) ^ (v226 << 23);
-  v233 = v228 ^ v231;
-  v234 = v227 & 0x200000000000;
-  v235 = v222 ^ __ROR8__(v222, 19) ^ (v222 >> 28) ^ (v222 << 36) ^ v232;
-  if ((v234 & v232) != 0)
+  *(&v207 + 1) = v199;
+  *&v207 = v199 ^ 0x73E735CE3C270102;
+  v208 = v204 ^ v200 ^ (v200 >> 39) ^ (v200 << 25);
+  v209 = __ROR8__((__ROR8__(v206, 62) + 16 * v205) ^ (16 * (v205 >> 7)) ^ 0xEE1A3DC19B9D1534, 4);
+  v210 = (v207 >> 1) ^ v199 ^ 0x73E735CE3C270102 ^ ((v199 ^ 0x73E735CE3C270102) >> 6) ^ ((v199 ^ 0x73E735CE3C270102) << 58);
+  v211 = __ROR8__(__ROR8__(v208 ^ v210, 52) ^ 0xE62AEC87F39CAACBLL, 12) ^ 0x53419D513780C635;
+  v212 = v202 ^ __ROR8__(v202, 10) ^ (v202 >> 17) ^ (v202 << 47);
+  v213 = (((v205 >> 41) ^ -(v205 >> 41) ^ ((v209 ^ (v205 << 57) ^ 0x4EE1A3DC19B9D153) - (v209 ^ (v205 << 57) ^ 0x4EE1A3DC19B9D153 ^ (v205 >> 41)))) + (v209 ^ (v205 << 57) ^ 0x4EE1A3DC19B9D153)) ^ (v205 << 23);
+  v214 = (v203 + v201) ^ __ROR8__(v198, 28) & 0xFFFFFFFFFFFDFFFFLL ^ v213;
+  v215 = v213 ^ v212;
+  v216 = v214 & ~v215;
+  v217 = v208 & ~v214 ^ v215;
+  v218 = v215 & (~(2 * v212) + v212) ^ v208 ^ v210;
+  v219 = v214 ^ v210 & ~v208;
+  v220 = ((v211 & v212 ^ -(v211 & v212) ^ (v208 - (v211 & v212 ^ v208))) + v208) ^ 0x64ADE1BAEB790508 ^ v219;
+  v221 = v219 ^ __ROR8__(__ROR8__(v217, 11) ^ 0x88FFBFEC4B4040A9, 53) ^ 0x6B96B379295964E3;
+  v222 = v212 ^ 0x82ABCDAC52312543 ^ v216 ^ v218;
+  v223 = v220 << 25;
+  v224 = v220 ^ (((*(v518 + ((69 * (v220 >> 61)) ^ 0x68)) + 54) ^ 0x69) - 47) ^ (8 * v220) ^ (v220 >> 39);
+  v225 = (v217 - ((2 * v217) & 0x8340D40CC70EA05ELL) + 0x41A06A066387502FLL) ^ 0xB4A2A3669BB0C01BLL;
+  v226 = ((v222 >> 10) + v222 - 2 * ((v222 >> 10) & v222)) ^ ((v222 >> 17) | (v222 << 54));
+  v227 = v224 + v223 - 2 * (v224 & v223);
+  *(&v207 + 1) = v218;
+  *&v207 = v218 ^ 0x770298E464E2FFC0;
+  v228 = v207 >> 1;
+  v229 = v226 & 0x525FA3E58812F4DELL ^ (v222 << 47) & 0x525F800000000000 | v226 & 0xADA05C1A77ED0B21 ^ (v222 << 47) & 0xADA0000000000000;
+  *(&v207 + 1) = v218;
+  *&v207 = v218 ^ 0x770298E464E2FFC0;
+  v230 = v228 ^ v218 ^ 0x770298E464E2FFC0 ^ (v207 >> 6);
+  v231 = v225 ^ __ROR8__(v225, 7) ^ (v225 >> 41) ^ (v225 << 23);
+  v232 = v227 ^ v230;
+  v233 = v226 & 0x200000000000;
+  v234 = v221 ^ __ROR8__(v221, 19) ^ (v221 >> 28) ^ (v221 << 36) ^ v231;
+  if ((v233 & v231) != 0)
   {
-    v234 = -v234;
+    v233 = -v233;
   }
 
-  v236 = v234 + v232;
-  v237 = v236 ^ v230 & 0xFFFFDFFFFFFFFFFFLL;
-  v238 = v235 & ~v237;
-  v239 = v231 & ~v228;
-  if ((v233 & 0x80000000000) != 0)
+  v235 = v233 + v231;
+  v236 = v235 ^ v229 & 0xFFFFDFFFFFFFFFFFLL;
+  v237 = v234 & ~v236;
+  v238 = v230 & ~v227;
+  if ((v232 & 0x80000000000) != 0)
   {
-    v240 = 0xFFFFF80000000000;
-  }
-
-  else
-  {
-    v240 = 0x80000000000;
-  }
-
-  v241 = v237 ^ v228 & ~v235;
-  v242 = v235 ^ v239;
-  v243 = v240 + v233 - ((2 * (v240 + v233)) & 0xFFFFEFFFFFFFFFFFLL) - 0x80000000001;
-  v244 = v236 & ~v230 ^ v233;
-  v245 = v244 ^ 0x9B8A09540E116771;
-  v246 = v242 ^ v228 ^ v243 & v230;
-  v247 = ((v242 ^ -v242 ^ ((v241 ^ v242) + v241 - 2 * (v241 ^ v242))) + v241) ^ 0x7E638DBD201A39EALL;
-  v248 = ((v246 ^ 0xE37C01731BA39442) >> 61) ^ v246 ^ 0x1BA39442;
-  v249 = v238 ^ -v238 ^ -(v238 ^ -v238 ^ (v230 - (v238 ^ v230)));
-  v250 = __ROR8__(v241, 53) ^ 0x4ECC6A72E1CB64E0;
-  v251 = __ROR8__(v246 ^ 0xE37C01731BA39442, 22) & 0xFFFFFC7FFFFFFFFFLL;
-  v252 = v248 << 39;
-  v253 = (v247 >> 28) | (v247 << 45);
-  v254 = __ROR8__((((v248 & 0x1FFFFFF) << 14) | __ROR8__((v246 ^ 0xE37C01731BA39442) >> 25, 25)) ^ 0x98CF8ACC70C44F60, 39) ^ 0x98E1889EC1319F15;
-  if (!v253)
-  {
-    v254 = (v246 ^ 0xE37C01731BA39442) >> 25;
-  }
-
-  v255 = v251 ^ 0x363EEBDE05700211;
-  *(&v256 + 1) = v254 ^ v255;
-  *&v256 = (v254 | v252) ^ v255;
-  v257 = __ROR8__((v256 >> 33) ^ 0xA8001A65BCDA7B75, 31);
-  v258 = v249 + v230;
-  v259 = v247 ^ (v247 << 36) ^ (v247 >> 19) ^ v253;
-  v260 = v244 ^ v258 ^ 0x9206B969C5084AE4;
-  v261 = __ROR8__(v250, 11) ^ 0xC4AAD47B34D029E8;
-  v262 = v245 ^ __ROR8__(v245, 1) ^ (v245 >> 6);
-  v2[47] = v259;
-  v263 = v260 ^ (v260 << 47) ^ ((v260 >> 17) ^ (v260 >> 10) | (v260 << 54));
-  v264 = ((*(v525 + ((-119 * BYTE1(v259)) ^ 0x3DLL)) - 4) ^ 0x83) - 33;
-  *(&v256 + 1) = v257 ^ v246 ^ 0xE37C01731BA39442;
-  *&v256 = v257 ^ v246;
-  v265 = (v256 >> 39) ^ 0x6AAAE06DB559EC38;
-  v2[80] = BYTE2(v259);
-  v2[29] = v264;
-  if (v137 == v146)
-  {
-    v266 = 48;
+    v239 = 0xFFFFF80000000000;
   }
 
   else
   {
-    v266 = v262 ^ 0xCF;
+    v239 = 0x80000000000;
   }
 
-  v267 = v262 & v266;
-  v268 = v265 >> (v262 & v266);
-  v269 = *(v530 + ((BYTE3(v259) + 37) ^ 0x41));
-  v2[100] = BYTE4(v259);
-  v2[82] = v265;
-  v270 = v261 ^ (v261 << 23) ^ ((v261 >> 7) ^ (v261 >> 41) | (v261 << 57));
-  v2[99] = BYTE5(v259);
-  v2[27] = HIBYTE(v259);
-  v2[42] = BYTE6(v259);
-  v2[34] = BYTE5(v265);
-  v2[9] = BYTE2(v265);
-  v2[96] = BYTE1(v265);
-  v2[3] = BYTE3(v265);
-  v2[94] = BYTE4(v265);
-  *v2 = v269 ^ (BYTE3(v259) + 37) ^ 0xDE;
-  v271 = *(v523 + ((53 * (v268 >> (v267 ^ 0x30u))) ^ 0x79));
-  v2[81] = BYTE1(v262);
-  v2[26] = BYTE2(v262);
-  v2[68] = HIBYTE(v265);
-  v2[35] = v262;
-  v2[6] = (((v271 >> 4) | (16 * v271)) ^ 0x5A) - 1;
-  v2[49] = BYTE3(v262);
-  v272 = *(v530 + ((BYTE4(v262) + 37) ^ 0x41));
-  v2[40] = BYTE6(v262);
-  v2[73] = v263;
-  v2[55] = BYTE5(v262);
-  v2[95] = BYTE1(v263);
-  v2[32] = (v262 ^ (v245 << 58)) >> 56;
-  v2[21] = BYTE5(v263);
-  v2[97] = v272 ^ (BYTE4(v262) + 37) ^ 0xDE;
-  v2[18] = (v261 ^ (v261 << 23) ^ (v261 >> 7) ^ (v261 >> 41)) >> 24;
-  v2[76] = (v261 ^ (v261 << 23) ^ (v261 >> 7) ^ (v261 >> 41)) >> 16;
-  v2[93] = (v261 ^ (v261 >> 7) ^ (v261 >> 41)) >> 8;
-  v2[62] = BYTE4(v263);
-  v2[28] = BYTE2(v263);
-  v2[19] = v261 ^ (v261 >> 7) ^ (v261 >> 41);
-  v2[64] = BYTE3(v263);
-  v2[61] = HIBYTE(v263);
-  v2[37] = BYTE6(v263);
-  v273 = *(v519 + ((69 * BYTE4(v270)) ^ 0x68));
-  v2[59] = HIBYTE(v270);
-  v2[39] = BYTE5(v270);
-  v2[91] = BYTE6(v270);
-  v2[52] = ((v273 + 54) ^ 0x69) - 47;
-  *(v532 + 4) = v531 + 1;
-  v274 = ((v2[69] - ((2 * v2[69]) & 0x82)) << 24) + 0x4ACB737941000000;
-  v275 = ((v532[31] - 2 * (v532[31] & 1u) + 16926) << 48) - 0x1D000000000000;
-  v276 = v532;
-  v277 = v2[84] - ((2 * v2[84]) & 0x34) - 0xD48129BA2A357E6;
-  v278 = *(v532 - 1);
-  v279 = *(&off_1006B4E30 + v533 - 2498) + 1;
-  v280 = (v277 ^ 0xD48129BA2A35705) & ((((v2[20] - ((2 * v2[20]) & 0x196)) << 8) + 0x9BFEA6A1A06CB00) ^ 0xBFC637E7A08DAE0FLL) ^ v277 & 0x86000041508AF0;
-  v281 = (v2[92] >> 3) | (32 * v2[92]);
-  v522 = ((v2[90] - ((2 * v2[90]) & 0x4Eu) + 189) << 56) - 0x1600000000000000;
-  v282 = v2[11] ^ v279[v2[11] ^ 0x3CLL] ^ 0xC1;
-  v283 = (v274 & 0x4A89204C36000000 ^ 0x6DC905A824770B4 ^ ((((v2[88] - ((2 * v2[88]) & 0x1F0)) << 8) - 0x14F3F12630830800) ^ 0x6A5AD9EA0622038BLL) & (v274 ^ 0xB5348C86BEFFFFAFLL)) & ((v278 - ((2 * v278) & 0xC0) + 0x3D29BB3392D9DD60) ^ 0xC2D644CC6D26229FLL) ^ (v278 - ((2 * v278) & 0xC0) + 0x3D29BB3392D9DD60) & 0x30281812804014C0;
-  v284 = *(&off_1006B4E30 + v533 - 2498);
-  v520 = v284 + 271;
-  LOBYTE(v281) = *(v284 + 271 + ((v281 - ((2 * v281) & 0x9F) - 49) ^ 0xF5));
-  v524 = (v275 & 0x2DF2000000000000 ^ 0xA925D652EE6BB55 ^ ((((*(v532 - 12) - 2 * (*(v532 - 12) & 3u) + 625940) << 40) - 0x110000000000) ^ 0x5B809AEEF6BDBB3CLL) & (v275 ^ 0xBDFEFFEEF7FFFBBDLL)) & (v522 ^ 0x58FFFFFFFFFFFFFFLL);
-  v285 = ((v282 >> 1) | (v282 << 7)) << 24;
-  LOBYTE(v281) = (((v281 ^ 0x58) - 111) ^ ((v281 ^ 0xC6) + 15) ^ ((v281 ^ 0xE2) + 43)) - 22;
-  v287 = *(v276 - 7) - ((2 * *(v276 - 7)) & 0x19C) + 0x721C8A83A7CB78CELL;
-  v288 = (v287 ^ 0x8D96730448348720) & ((((v2[58] + (~(2 * v2[58]) | 0xFFFFFFFFFFFEC9)) << 8) - 0x7AE3A1EE7F9F6400) ^ 0x588AA5144CFC386ALL) ^ v287 & 0x8008221425C95;
-  LOBYTE(v287) = v281 & 0x96 ^ 0x6C;
-  v517 = (v281 ^ (2 * ((v281 ^ 0x5C) & (2 * ((v281 ^ 0x5C) & (2 * ((v281 ^ 0x5C) & (2 * ((v281 ^ 0x5C) & (2 * ((v281 ^ 0x5C) & (2 * v287) ^ v287)) ^ v287)) ^ v287)) ^ v287)) ^ v287))) << 32;
-  v518 = (v517 ^ 0xFFFFFF69FFFFFFFFLL) & (v285 & 0xCB000000 ^ 0x6D79BD6DE97BDA96 ^ (v280 & 0x774320C1E4183B1ELL ^ 0x76D29402CFED8248 ^ ((((v2[101] - ((2 * v2[101]) & 0x142)) << 16) + 0x302F104EB0A10000) ^ 0xB893CF70AB46C4E1) & (v280 ^ 0x49002272042412EALL)) & (v285 ^ 0xFFFFFFFF03FFFFFFLL));
-  v289 = (v288 ^ 0x2275067812210001) & ((((v2[53] - ((2 * v2[53]) & 0x50)) << 16) - 0x6B59B6794AD80000) ^ 0x2760B6307B20A0E7) ^ v288 & 0x4C39004931F75F18;
-  v290 = ((v289 ^ 0x31004810210410) & ((((v532[43] - ((2 * v532[43]) & 0x8E)) << 24) + 0x7B8F1E3847000000) ^ 0xD58BD6D55021AFDDLL) ^ v289 & 0x51FB3712E8DE5022) & ((((v532[2] - ((2 * v532[2]) & 0x12Cu) + 1620563656) << 32) - 0x3200000000) ^ 0x9F682969FFFFFFFFLL);
-  v291 = v2[63];
-  v526 = v279[v2[1] ^ 0x3CLL] ^ v2[1];
-  LOBYTE(v270) = v2[89] + 2;
-  v292 = v279[v291 ^ 0x3C];
-  v293 = v291 & 0x40 ^ 0x77;
-  v294 = (v293 - 4) & 0xFFFFFFC1 | 0x2C;
-  v295 = (v293 - 4) ^ (2 * (v294 ^ (v293 - 4) & 0x40 ^ ((v293 - 4) ^ 0x4C) & (2 * ((v293 | 8) & (2 * ((v293 | 8) & (2 * ((v293 | 8) & (2 * ((v293 | 8) & (2 * ((2 * v294) & 0xA ^ v294)) ^ v294)) ^ v294)) ^ v294)) ^ v294))));
-  LOBYTE(v281) = v270 & 0x72 ^ 0x56;
-  v296 = ((v2[85] - ((2 * v2[85]) & 0x1EAu) + 103416) << 40) - 0x30000000000;
-  LOBYTE(v270) = v270 ^ (2 * ((v270 ^ 0x54) & (2 * ((v270 ^ 0x54) & (2 * ((v270 ^ 0x54) & (2 * ((v270 ^ 0x54) & (2 * ((v270 ^ 0x54) & (2 * v281) ^ v281)) ^ v281)) ^ v281)) ^ v281)) ^ v281));
-  v297 = v290 & 0x1E606F4B98718642 ^ v296 & 0x6F0000000000;
-  v298 = (v297 ^ 0x61BF94B4678E79BDLL) & (v296 & 0x900000000000 ^ 0x396A14E0BC28F5DBLL ^ v290 & 0x619F90B4678E79BDLL);
-  v513 = v284 + 809;
-  LOBYTE(v290) = *(v284 + 809 + (v270 ^ 0x3FLL));
-  v516 = v298 | v297 & 0x6006B0B00510200;
-  LOBYTE(v270) = ((v290 ^ v270 ^ 0xF0) >> 6) | (4 * (v290 ^ v270 ^ 0xF0));
-  v299 = ((v270 ^ 0xB3) + 89) ^ ((v270 ^ 0xC7) + 45) ^ ((v270 ^ 0x77) - 99);
-  v514 = ((v276[39] - ((2 * v276[39]) & 0xC0u) + 144) << 56) - 0x3000000000000000;
-  v515 = ((((*(v276 - 8) - ((2 * *(v276 - 8)) & 0x7Au) + 12665) << 48) - 0x3C000000000000) ^ 0x3486600000000000) & (v514 ^ 0x9FFFE00000000000);
-  v300 = 106 - v293;
-  if (((v295 ^ 0xFFFFFF81) & (v292 ^ 0x6A) ^ v295 & 0x6A) == (v292 & 0x84))
+  v240 = v236 ^ v227 & ~v234;
+  v241 = v234 ^ v238;
+  v242 = v239 + v232 - ((2 * (v239 + v232)) & 0xFFFFEFFFFFFFFFFFLL) - 0x80000000001;
+  v243 = v235 & ~v229 ^ v232;
+  v244 = v243 ^ 0x9B8A09540E116771;
+  v245 = v241 ^ v227 ^ v242 & v229;
+  v246 = ((v241 ^ -v241 ^ ((v240 ^ v241) + v240 - 2 * (v240 ^ v241))) + v240) ^ 0x7E638DBD201A39EALL;
+  v247 = ((v245 ^ 0xE37C01731BA39442) >> 61) ^ v245 ^ 0x1BA39442;
+  v248 = v237 ^ -v237 ^ -(v237 ^ -v237 ^ (v229 - (v237 ^ v229)));
+  v249 = __ROR8__(v240, 53) ^ 0x4ECC6A72E1CB64E0;
+  v250 = __ROR8__(v245 ^ 0xE37C01731BA39442, 22) & 0xFFFFFC7FFFFFFFFFLL;
+  v251 = v247 << 39;
+  v252 = (v246 >> 28) | (v246 << 45);
+  v253 = __ROR8__((((v247 & 0x1FFFFFF) << 14) | __ROR8__((v245 ^ 0xE37C01731BA39442) >> 25, 25)) ^ 0x98CF8ACC70C44F60, 39) ^ 0x98E1889EC1319F15;
+  if (!v252)
   {
-    v300 = v293 - 4;
+    v253 = (v245 ^ 0xE37C01731BA39442) >> 25;
   }
 
-  v301 = v300 + v292;
-  v302 = v301 & 0x81 ^ 0xEA;
-  v303 = v2[50];
-  v304 = (v301 ^ 0x4C) & (2 * ((v301 ^ 0x4C) & (2 * ((v301 ^ 0x4C) & (2 * ((v301 ^ 0x4C) & (2 * ((v301 ^ 0x4C) & (2 * ((v301 ^ 0x4C) & (2 * v301) & 0x1A ^ v302)) ^ v302)) ^ v302)) ^ v302)) ^ v302)) ^ v302;
-  v305 = v291 & 0xBF ^ v301;
-  v306 = 32 * v303;
-  v307 = v303 >> 3;
-  v308 = v305 ^ (2 * v304);
-  v309 = ((v303 >> 3) ^ 0x7B) & ~(32 * v303) & 0xFFFFE07F | (v303 >> 2 << 7);
-  v310 = (v299 + 105) & 0xAC ^ 0x83;
-  v311 = (v299 + 105) ^ (2 * (((v299 + 105) ^ 0x2E) & (2 * (((v299 + 105) ^ 0x2E) & (2 * (((v299 + 105) ^ 0x2E) & (2 * (((v299 + 105) ^ 0x2E) & (2 * (((v299 + 105) ^ 0x2E) & (2 * (v310 ^ (2 - v299) & 2)) ^ v310)) ^ v310)) ^ v310)) ^ v310)) ^ v310));
-  v312 = 73 - ((v303 >> 3) ^ (((v303 >> 3) ^ 0x2E) + 40) ^ (((v303 >> 3) ^ 0x58) + 82) ^ 0xFFFFFFF6);
-  v313 = v312 & 1 | 0x60;
-  v314 = ((v308 ^ 0x21) >> 1) | ((v308 ^ 0x21) << 7);
-  v315 = (v306 ^ ((v306 ^ 0x50) + 39) ^ ((v306 ^ 0x31) + 72) ^ 0x79) - (((v309 ^ 0xFFFFFFE8) - 31) ^ ((v309 ^ 0x46) + 79) ^ ((v309 ^ 0xFFFFFFD5) - 34)) + 3;
-  v316 = v315 & 0xFFFFFFB0 ^ 0xFFFFFFEF;
-  v317 = v312 ^ v307 ^ v315 ^ (2 * (v316 ^ v313 ^ (v312 ^ 0x40) & (2 * (v312 & (2 * (v312 & (2 * (v312 & (2 * (v312 & (2 * (((2 * (v312 & 1)) | 1) & v312)) | v313)) ^ v313)) ^ v313)) ^ v313)) ^ (v315 ^ 0x7A) & (2 * ((v315 ^ 0x7A) & (2 * ((v315 ^ 0x7A) & (2 * ((v315 ^ 0x7A) & (2 * ((v315 ^ 0x7A) & (2 * ((v315 ^ 0x7A) & 0xA ^ v316)) ^ v316)) ^ v316)) ^ v316)) ^ v316))));
-  v286 = v2[102] - ((2 * v2[102]) & 0x1EC);
-  v318 = ((v311 << 16) ^ 0xF9FBEFFF5B52FFFFLL) & ((v286 - 0x4074195ACE62030ALL) & 0x80042000000042ELL ^ 0xE1E9AC53412ECF91 ^ (((((v526 ^ 0xCD) >> 1) | ((v526 ^ 0xCD) << 7)) << 8) ^ 0xF1FAA5AD5BD271D1) & ((v286 - 0x4074195ACE62030ALL) ^ 0x4271110ACA4F030FLL)) ^ (v311 << 16) & 0x30000;
-  v319 = (((v306 ^ 0x21) + 88) ^ ((v306 ^ 0x56) + 33) ^ ((v306 ^ 0x77) + 2)) + (((v317 ^ 0xFFFFFFD3) + 51) ^ ((v317 ^ 0x52) - 76) ^ ((v317 ^ 0xFFFFFFB0) + 82)) + 28;
-  v320 = v319 & 0x78 ^ 0x76;
-  HIDWORD(v321) = v317;
-  LODWORD(v321) = (((v319 ^ 0x1C) & (2 * ((v319 ^ 0x1C) & (2 * ((v319 ^ 0x1C) & (2 * ((v319 ^ 0x1C) & (2 * ((v319 ^ 0x1C) & (2 * v320) ^ v320)) ^ v320)) ^ v320)) ^ v320)) ^ v320) << 25) ^ (v319 << 24);
-  v322 = (v318 ^ 0x61640001E5021091) & ((((v2[79] + (~(2 * v2[79]) | 0xFFFFFFFE71)) << 24) - 0x218B5A2C38000000) ^ 0xA712A758175A10B7) ^ v318 & 0x8099ED740BA5EF48;
-  v323 = *(v284 + 538 + ((((v321 >> 26) >> 6) | (4 * (v321 >> 26))) ^ 0xB2)) + 67;
-  LODWORD(v318) = v323 & 0x13 ^ 0x45;
-  v324 = (2 * (((2 * (((2 * v323) & 0x16 | 9) & v323)) | 9) & v323)) ^ 0xFFFFFF9A;
-  v325 = (v318 & 0xFFFFFFF7 | (8 * ((((v324 & 8 | v318) ^ v324 & v323) >> 2) & 1))) ^ v323 & (2 * ((v324 & 8 | v318) ^ v324 & v323));
-  v326 = (v318 & 0xFFFFFFF7 | (8 * ((v325 >> 2) & 1))) ^ v323 & (2 * v325);
-  LOBYTE(v323) = v323 ^ (2 * ((v318 & 0xF7 | (8 * ((v326 & 4) != 0))) ^ v323 & (2 * v326))) ^ 0xBE;
-  LODWORD(v318) = v2[13] ^ 0x13 ^ v279[v2[13] ^ 0x3CLL];
-  LODWORD(v318) = ((v318 >> 3) | (32 * v318)) ^ 0x6F;
-  LODWORD(v318) = ((v318 >> 2) | (v318 << 6)) ^ 0x68;
-  LOBYTE(v320) = v323 ^ (4 * v323) ^ (2 * v323);
-  v327 = ((v318 >> 6) | (4 * v318)) ^ 0x38;
-  LODWORD(v318) = (v327 >> 5) | (8 * v327);
-  v328 = v318 ^ 0xFFFFFFD5;
-  LOBYTE(v312) = ((v320 ^ 0x41) + 110) ^ ((v320 ^ 0xB7) - 100) ^ ((v320 ^ 0xAA) - 121);
-  v329 = (v318 ^ 0xD5) >> 1;
-  LODWORD(v318) = (v329 ^ 0xFFFFFF89) + 109;
-  v330 = v312 + 106;
-  LOBYTE(v312) = ((-107 - v312) & 0xA0 | 0x43) ^ (v312 + 106) & 0xC6;
-  LOBYTE(v312) = v330 ^ (2 * ((v330 ^ 0x20) & (2 * ((v330 ^ 0x20) & (2 * ((v330 ^ 0x20) & (2 * ((v330 ^ 0x20) & (2 * ((v330 ^ 0x20) & (2 * (v330 & (2 * v312) ^ v312)) ^ v312)) ^ v312)) ^ v312)) ^ v312)) ^ v312));
-  v331 = (((v329 ^ 0x1E) + 4) ^ ((v329 ^ 8) + 22) ^ ((v329 ^ 0xFFFFFFBC) - 94)) + (((v329 ^ 0x6F) - 117) ^ ((v329 ^ 0xFFFFFFC2) + 40) ^ v318) - (((v328 & 0xFFFFFFFE ^ 0x18) - 127) ^ ((v328 & 0xFFFFFFFE ^ 0xFFFFFFDB) + 68) ^ ((v328 & 0xFFFFFFFE ^ 0xFFFFFF97) + 16));
-  v332 = v331 - 100;
-  v333 = v331 & 2 ^ (v331 - 100) & 0xFFFFFFB7 ^ 3;
-  v334 = v332 ^ (2 * ((v332 ^ 0x36) & (2 * ((v332 ^ 0x36) & (2 * ((v332 ^ 0x36) & (2 * ((v332 ^ 0x36) & (2 * ((v332 ^ 0x36) & (2 * (((2 * (v332 & 0xFFFFFFB7)) ^ 2) & (v332 ^ 0x26) ^ v333)) ^ v333)) ^ v333)) ^ v333)) ^ v333)) ^ v333));
-  LOBYTE(v332) = v2[45] - 12;
-  v335 = v332 & 0xC4 | 0x30;
-  LOBYTE(v286) = v332 ^ (2 * ((v332 ^ 0x64) & (2 * ((v332 ^ 0x64) & (2 * ((v332 ^ 0x64) & (2 * ((v332 ^ 0x64) & (2 * v335) ^ v335)) ^ v335)) ^ v335)) ^ v335));
-  LODWORD(v318) = (((v329 ^ 0x2B) - 49) ^ ((v329 ^ 0xFFFFFF86) + 100) ^ v318) + (((v334 ^ 0x28) - 79) ^ ((v334 ^ 0x78) - 31) ^ ((v334 ^ 0x19) - 126)) - 83;
-  v336 = v318 & 0x2F ^ 0x58;
-  LOBYTE(v327) = v2[25] ^ 0x35 ^ v279[v2[25] ^ 0x3CLL];
-  v337 = v322 & 0x74CFCDADA6B8C3F4 ^ (((v2[41] - ((2 * v2[41]) & 0x1B0u) + 13912583) << 40) - 0x2F0000000000) ^ (((v314 ^ 0x75u) << 32) ^ 0x8B30324B59473C0BLL) & (v322 ^ 0x8200300001012C08) ^ (v312 << 48);
-  LOBYTE(v322) = (v327 >> 1) | (v327 << 7);
-  v338 = (v318 ^ ((v328 << 7) | 0x50) ^ (2 * ((v318 ^ 0x3E) & (2 * ((v318 ^ 0x3E) & (2 * ((v318 ^ 0x3E) & (2 * ((v318 ^ 0x3E) & (2 * ((v318 ^ 0x3E) & (2 * ((v318 ^ 0x3E) & (2 * v318) ^ v336)) ^ v336)) ^ v336)) ^ v336)) ^ v336)) ^ v336))) << 56;
-  v339 = (v338 ^ 0x12F6B6359664D93CLL) & (v337 ^ 0x2F50A3BDF3EC587ELL) ^ v337 & 0x63F6B6359664D93CLL;
-  v340 = ((v338 ^ 0xB736A5615FA55ED2) - 0x762438DA289D468) ^ ((v338 ^ 0x2D7B24275E1531F4) + 0x62D03D345CC644B2) ^ ((v338 ^ 0xEB4D814601B06F26) - 0x5B1967AAFC9CE59CLL);
-  v341 = v286 ^ 0x29;
-  v342 = (((v286 ^ 0x1CE02F5F) + 978582945) ^ ((v286 ^ 0x4A3B18AA) + 1820904022) ^ ((v286 ^ 0x56DB377C) + 1885922692)) - ((((2 * v341) ^ 0x579057EB) - 34116764) ^ (((2 * v341) ^ 0x32E0FE63) - 1735933204) ^ (((2 * v341) ^ 0x6570A8C8) - 820538303)) - 2073001906;
-  LODWORD(v338) = (v342 ^ 0xFE22CB87) & (2 * (v342 & 0xFF42EBA7)) ^ v342 & 0xFF42EBA7;
-  v343 = ((2 * (v342 ^ 0x24A7CA89)) ^ 0xB7CA425C) & (v342 ^ 0x24A7CA89) ^ (2 * (v342 ^ 0x24A7CA89)) & 0x5BE5212E;
-  LODWORD(v338) = (v343 ^ 0x9300000C) & (4 * v338) ^ v338;
-  v344 = ((4 * (v343 ^ 0x48252122)) ^ 0x6F9484B8) & (v343 ^ 0x48252122) ^ (4 * (v343 ^ 0x48252122)) & 0xDBE5212C;
-  LODWORD(v338) = (v344 ^ 0x4B840020) & (16 * v338) ^ v338;
-  v345 = ((16 * (v344 ^ 0x90612106)) ^ 0xBE5212E0) & (v344 ^ 0x90612106) ^ (16 * (v344 ^ 0x90612106)) & 0xDBE52120;
-  LODWORD(v338) = v338 ^ 0xDBE5212E ^ (v345 ^ 0x9A400000) & (v338 << 8);
-  LODWORD(v338) = (v338 << 16) & 0x5BE50000 ^ v338 ^ ((v338 << 16) ^ 0x212E0000) & (((v345 ^ 0x41A5210E) << 8) & 0x5BE50000 ^ 0x1AC40000 ^ (((v345 ^ 0x41A5210E) << 8) ^ 0x65210000) & (v345 ^ 0x41A5210E));
-  v346 = (((v337 ^ 0xC5303C80F2D7206BLL) - 0x61F7DC00F8561F2FLL) ^ ((v337 ^ 0xBCE6BEFF2A2B92F5) - 0x18215E7F20AAADB1) ^ ((v337 ^ 0x568E21800303CE61) + 0xDB63EFFF67D0EDBLL)) + v340 - ((((2 * v339) ^ 0x539F570FD195A16ALL) + 0x68CD848EF1811C4CLL) ^ (((2 * v339) ^ 0x6D3822D1792E3570) + 0x566AF150593A8852) ^ (((2 * v339) ^ 0x780631B58C732462) + 0x4354E234AC679944)) - 0x21E080812B541FCALL;
-  v347 = (v346 ^ 0xEC874297FE9AF3D8) & (2 * (v346 & 0xECC842D7FEDAFB99)) ^ v346 & 0xECC842D7FEDAFB99;
-  v348 = ((2 * (v346 ^ 0xF597431B8A0E44C8)) ^ 0x32BE0398E9A97EA2) & (v346 ^ 0xF597431B8A0E44C8) ^ (2 * (v346 ^ 0xF597431B8A0E44C8)) & 0x195F01CC74D4BF50;
-  v349 = (v348 ^ 0x1002018860803E00) & (4 * v347) ^ v347;
-  v350 = ((4 * (v348 ^ 0x941004414548151)) ^ 0x657C0731D352FD44) & (v348 ^ 0x941004414548151) ^ (4 * (v348 ^ 0x941004414548151)) & 0x195F01CC74D4BF50;
-  v351 = (v350 ^ 0x15C01005050BD40) & (16 * v349) ^ v349;
-  v352 = ((16 * (v350 ^ 0x180300CC24840211)) ^ 0x95F01CC74D4BF510) & (v350 ^ 0x180300CC24840211) ^ (16 * (v350 ^ 0x180300CC24840211)) & 0x195F01CC74D4BF50;
-  v353 = (v352 ^ 0x115000C44440B500) & (v351 << 8) ^ v351;
-  v354 = (((v352 ^ 0x80F010830940A41) << 8) ^ 0x5F01CC74D4BF5100) & (v352 ^ 0x80F010830940A41) ^ ((v352 ^ 0x80F010830940A41) << 8) & 0x195F01CC74D4BF00;
-  v355 = v353 ^ 0x195F01CC74D4BF51 ^ (v354 ^ 0x1901004454940000) & (v353 << 16);
-  v356 = v346 ^ (2 * ((v355 << 32) & 0x195F01CC00000000 ^ v355 ^ ((v355 << 32) ^ 0x74D4BF5100000000) & (((v354 ^ 0x5E01882040AE51) << 16) & 0x195F01CC00000000 ^ 0x1813010800000000 ^ (((v354 ^ 0x5E01882040AE51) << 16) ^ 0x1CC74D400000000) & (v354 ^ 0x5E01882040AE51))));
-  LODWORD(v355) = -166925432 - (((v286 ^ 0x5AA0C9E) - 1315717000) ^ ((v286 ^ 0xB5B265F3) + 25930011) ^ ((v286 ^ 0xB0186947) + 69313967));
-  LODWORD(v338) = v355 ^ v341 ^ ((v355 ^ 0x1E9844F8) - 1598773820) ^ ((v355 ^ 0x33E86B2) - 1122867318) ^ ((v355 ^ 0xA3882271) + 497337163) ^ ((v355 ^ 0xFFFDFEFF) + 1104224197) ^ v342 ^ (2 * v338);
-  v357 = v2[24] - ((2 * v2[24]) & 0xF0) + 0x61FFC8EDF0EDC678;
-  v358 = (v357 ^ 0x60027120C123982) & ((v322 << 8) ^ 0x2784AF3E8CB3EDD2);
-  LOBYTE(v338) = *(v513 + (((v338 ^ 0xB42AF6F3) - 866732429) ^ ((v338 ^ 0xD04B8FA0) - 1472737502) ^ ((v338 ^ 0x6F72CE6F) + 386830063)) - 1936717595) ^ v286 ^ 0x86;
-  LODWORD(v354) = ((v2[71] - ((2 * v2[71]) & 0x168)) << 16) + 330563584;
-  v359 = v358 ^ v357 & 0x401100014044042DLL;
-  v360 = (v359 & 0x4215 ^ 0x8DBC98D1C75D052FLL) & (v354 & 0x4D0000 ^ 0x8DBC98D1C750473FLL) | v358 & 0x1040;
-  LOBYTE(v336) = (v338 >> 6) | (4 * v338);
-  v361 = *(v532 + 3);
-  v362 = (v361 - ((2 * v361) & 0x1075BF08) - 0x1E8AFBA7F7C5207CLL) ^ (((v2[87] - ((2 * v2[87]) & 0x86u) + 45396) << 48) - 0x11000000000000) ^ (((v2[12] - ((2 * v2[12]) & 0x1CCu) + 8674580) << 40) - 0x2E0000000000) ^ (v517 & 0x2F00000000 | 0x209090008144816) ^ v518 ^ 0x73371D8E154722B3;
-  v363 = (v362 - ((2 * v362) & 0x5967BB7086B6802ALL) + 0x6CB3DDB8435B4015) ^ (((v2[83] - ((2 * v2[83]) & 0x36u) + 205) << 56) - 0x3200000000000000);
-  v364 = v360 ^ 0x8DBC98D1C754477FLL | ((v359 | 0x4BB210A452BE4014) & (v354 & 0xB20000 ^ 0x4BB210A4528C4D9ELL) | v359 & 0xA020) ^ 0x4BB210A4523C6DBELL;
-  *(&v366 + 1) = v337 ^ 0xA3FFDBFF7CFFLL;
-  *&v366 = v356 ^ 0xFED8000000000000;
-  v365 = v366 >> 51;
-  v367 = ((((v2[31] - ((2 * v2[31]) & 0xC6)) << 24) + 0x29B2C2B663000000) ^ 0x771AA92742F79197) & ~v364 | v364 & 0x86E68;
-  v368 = v367 & 0xC0356464BEEA2D6CLL ^ 0x7FEAFB9B61F7D397 ^ (v367 ^ 0xA157946E40004200) & ((((v2[17] - ((2 * v2[17]) & 0x42u) + 1697391454) << 32) - 0x3D00000000) ^ 0x5AE6B8BA4115D293);
-  v369 = (v368 + (v336 << 40)) ^ ((v2[103] << 56) | (((*(v520 + (((v2[22] >> 3) | (32 * v2[22])) ^ 0x3ALL)) ^ 0x7C) + 125) << 48));
-  v370 = v356 ^ (v369 - 2 * (v369 & 0x6124A5C3912E895FLL ^ v368 & 0x10) - 0x1EDB5A3C6ED176B1);
-  v371 = v524 ^ v522 & 0xA700000000000000 ^ ((v283 ^ 0x2D480CC34A62080) & ((((*v532 - ((2 * *v532) & 0x17C)) << 16) - 0x64A4E58518420000) ^ 0x8D9D5CBE2957B0CCLL) ^ v283 & 0xE939B93B31164F33) & 0xA5D939687D738F3DLL ^ ((v283 ^ 0x2D480CC34A62080) & ((((*v532 - ((2 * *v532) & 0x17C)) << 16) - 0x64A4E58518420000) ^ 0x8D9D5CBE2957B0CCLL) ^ v283 & 0xE939B93B31164F33 ^ 0x10800800044000) & ((((v2[38] - ((2 * v2[38]) & 0x70u) - 1397474979) << 32) - 0x2500000000) ^ 0xF692FFAF828C70C2) ^ (v369 - ((2 * v369) & 0xBA7CA7BA0B25CFEELL) + 0x5D3E53DD0592E7F7);
-  *(&v366 + 1) = v362 ^ v516;
-  *&v366 = v514 & 0xFA00000000000000 ^ v515 ^ v516 ^ 0xF7B3C00000000000 ^ v363;
-  v372 = v365 ^ 0x600029976D1BE69CLL;
-  *&v366 = __ROR8__((v366 >> 45) ^ 0x85211A498FE2457BLL, 19);
-  v373 = v366 ^ 0x2A90928CDF2AEAFALL;
-  v374 = v366 ^ 0xB3E1F6A7335A026ELL;
-  v375 = (v366 ^ 0xB3E1F6A7335A026ELL) - (v366 ^ 0xD56F6D7320D51505);
-  v376 = v371 ^ (v366 ^ 0x2A90928CDF2AEAFALL) & (v363 ^ 0x43647ED5D1DF7041);
-  *&v366 = __ROR8__(v372, 13);
-  v377 = v370 ^ (v371 ^ 0xC77D5D5383AF453) & (v363 ^ 0xBC9B812A2E208FBELL);
-  v378 = (v366 ^ 0xA9FCDD9CD97451E0) & ((v375 ^ 0xFFFFFFFFFFFFFFFELL) + v374);
-  v379 = v376 ^ 0x543F9EB75A985521 ^ v377 ^ 0xB69D107F4118E018;
-  v380 = v363 ^ v376 ^ 0x58FF5CA9BA7527D1 ^ v378;
-  v381 = (v370 ^ 0x4962EF80BEE71FE7) & (v371 ^ 0xF3882A2AC7C50BACLL);
-  v382 = (v366 ^ 0x56032263268BAE1FLL) & (v370 ^ 0xB69D107F4118E018) ^ v373;
-  v383 = v382 ^ 0x10674643B76E819ELL;
-  LOBYTE(v373) = *(v284 + 538 + ((32 * (v380 >> 61)) ^ 0xCB)) - 52;
-  v384 = v381 ^ v366 ^ 0xA9FCDD9CD97451E0 ^ 0xD2419DF6FF359CA9 ^ v382;
-  v385 = v380 << 25;
-  v386 = (((v377 ^ 0xB69D107F4118E018) - (v377 ^ 0xE40A7773A38EFDBDLL)) ^ 0xFFFFFFFFFFFFFFFELL) + (v377 ^ 0xB69D107F4118E018);
-  v387 = ((v382 ^ 0x10674643B76E819ELL) >> 6) | (v382 << 63);
-  v388 = v380 ^ ((v373 ^ (4 * v373) ^ (2 * v373) ^ 0x1F) + 123) ^ (8 * v380) ^ (v380 >> 39);
-  v389 = (v386 << 57) | 0x3DAEBD79EEBFDCB8;
-  v390 = v384 ^ (v384 << 47) ^ ((v384 >> 10) ^ (v384 >> 17) | (v384 << 54));
-  v391 = ((~v389 + (v386 << 57)) ^ ((v386 << 57) | 0xC251428611402347) ^ (((v386 << 57) | 0xC251428611402347) + 1)) + v389;
-  if (!(v379 >> 28))
+  v254 = v250 ^ 0x363EEBDE05700211;
+  *(&v255 + 1) = v253 ^ v254;
+  *&v255 = (v253 | v251) ^ v254;
+  v256 = __ROR8__((v255 >> 33) ^ 0xA8001A65BCDA7B75, 31);
+  v257 = v248 + v229;
+  v258 = v246 ^ (v246 << 36) ^ (v246 >> 19) ^ v252;
+  v259 = v243 ^ v257 ^ 0x9206B969C5084AE4;
+  v260 = __ROR8__(v249, 11) ^ 0xC4AAD47B34D029E8;
+  v261 = v244 ^ __ROR8__(v244, 1) ^ (v244 >> 6);
+  v2[47] = v258;
+  v262 = v259 ^ (v259 << 47) ^ ((v259 >> 17) ^ (v259 >> 10) | (v259 << 54));
+  v263 = ((*(v523 + ((-119 * BYTE1(v258)) ^ 0x3DLL)) - 4) ^ 0x83) - 33;
+  *(&v255 + 1) = v256 ^ v245 ^ 0xE37C01731BA39442;
+  *&v255 = v256 ^ v245;
+  v264 = (v255 >> 39) ^ 0x6AAAE06DB559EC38;
+  v2[80] = BYTE2(v258);
+  v2[29] = v263;
+  if (v136 == v145)
   {
-    v391 = (v386 << 57) | 0xC251428611402347;
-  }
-
-  v392 = (v385 ^ -v385 ^ (v388 - (v388 ^ v385))) + v388;
-  v393 = v383 ^ (v383 << 58) ^ (v383 >> 1) ^ v387;
-  v394 = v392 ^ v393;
-  v395 = (((v386 >> 41) ^ -(v386 >> 41) ^ ((v386 ^ (v386 >> 7)) - (v386 ^ (v386 >> 7) ^ (v386 >> 41)))) + (v386 ^ (v386 >> 7))) ^ (v386 << 23) ^ v391 & v389;
-  v396 = (((v379 << 36) ^ (v379 << 45)) & 0xFFFFFFF000000000 | (v379 >> 28)) ^ __ROR8__(__ROR8__((v379 >> (v314 & 0x13) >> (v314 & 0x13 ^ 0x13u)) ^ v379, 23) ^ 0x9E5CC3727235CB0ALL, 41) ^ v395;
-  v397 = v392 & (v396 ^ 0x46C6E51A7AB0D19ELL);
-  v396 ^= 0xB9391AE5854F2E61;
-  v398 = v396 ^ v393 & ~v392;
-  v399 = v397 ^ v395 ^ v390;
-  v400 = v398 ^ v392 ^ ((v394 ^ v390) + (v390 | ~v394) + 1);
-  v401 = v396 & ~(v395 ^ v390);
-  v402 = v394 ^ v395 & ~v390;
-  v403 = ((v398 ^ -v398 ^ (v399 - (v399 ^ v398))) + v399) ^ 0xE83D9ED516E369C5;
-  v404 = (v402 ^ 0xA1FDF52D9AF9F061) << 58;
-  v405 = v390 ^ 0x776FAB65F4A9803ALL ^ v401 ^ v402;
-  v406 = v404 & 0xA400000000000000;
-  v407 = ((v402 ^ 0xA1FDF52D9AF9F061 ^ ((v402 ^ 0xA1FDF52D9AF9F061) >> 1)) + ((v402 ^ 0xA1FDF52D9AF9F061) << 63)) ^ ((v402 ^ 0xA1FDF52D9AF9F061) >> 6);
-  v408 = v404 & 0x5800000000000000;
-  v409 = v407 & 0x5B9B91EC46377FD1;
-  v410 = v400 ^ 0xC8962A0BF24E1AE0 ^ (v400 >> 39) ^ (8 * (v400 ^ 0xC8962A0BF24E1AE0)) ^ ((v400 ^ 0xC8962A0BF24E1AE0) >> 61) ^ ((v400 ^ 0xC8962A0BF24E1AE0) << 25);
-  v411 = v410 ^ 0x1912C54;
-  v412 = v407 & 0xA4646E13B9C8802ELL ^ v406;
-  v413 = v405 ^ __ROR8__(v405, 10) ^ (v405 >> 17);
-  v414 = v409 ^ v408;
-  v415 = v413 ^ (v405 << 47);
-  v416 = v414 | v412;
-  v417 = v399 ^ 0x917AAA3CD96CD60ELL ^ __ROR8__(v399 ^ 0x917AAA3CD96CD60ELL, 7) ^ ((v399 ^ 0x917AAA3CD96CD60ELL) << 23) ^ ((v399 ^ 0x917AAA3CD96CD60ELL) >> 41);
-  v418 = v403 ^ v417 ^ __ROR8__(v403, 19) ^ (v403 >> 28) ^ (v403 << 36);
-  v419 = v410 ^ 0x1912C54 ^ v416;
-  v420 = v419 | v410 ^ 0xFFFFFFFFFE6ED3ABLL;
-  v421 = (((v413 ^ ~(v405 << 47)) - v415) ^ 0xFFFFFFFFFFFFFFFELL) + (v413 ^ ~(v405 << 47));
-  v422 = v418 ^ v416;
-  v423 = v422 ^ v420;
-  v424 = v422 ^ ~v420;
-  v425 = (~(2 * v418) + v418) & v411;
-  v426 = v415 ^ v417;
-  v427 = v418 & ~v426;
-  v428 = v421 ^ v426;
-  if (v526 == 56)
-  {
-    v428 = ~v415;
-  }
-
-  v429 = v428 & v426;
-  v430 = v425 ^ v426;
-  v431 = v419 ^ v429;
-  v432 = (v415 & ~v419 ^ v411 ^ -(v415 & ~v419 ^ v411) ^ ((v423 ^ v415 & ~v419 ^ v411) - v423)) + v424;
-  v433 = v430 ^ v423 ^ 0x674880EF4E4561C9;
-  v434 = (v432 & 0x80000000 | 0xE2E4CD6B12D4B3B0) ^ v432 & 0xFFFFFFFF7FFFFFFFLL;
-  v435 = __ROR8__(v427 ^ v415, 16) ^ 0x37E3F87D8EF59184;
-  v436 = (v434 >> 61) - ((v434 >> 60) & 0xC) + 54;
-  v437 = v436 ^ *(v513 + (v436 ^ 0xA3));
-  v438 = v433 << 36;
-  if ((v431 & 0x200000000000000) != 0)
-  {
-    v439 = 0xFE00000000000000;
+    v265 = 48;
   }
 
   else
   {
-    v439 = 0x200000000000000;
+    v265 = v261 ^ 0xCF;
   }
 
-  v440 = (v439 + v431) ^ 0x3118D22A1B3BD713;
-  v441 = v431 ^ __ROR8__(v435, 48) ^ 0xAFA920FEFA29CC3BLL;
-  v442 = v430 ^ 0xD9321B1807A54237;
-  v443 = v440 ^ __ROR8__(v440, 1) ^ (v440 >> 6) ^ (v440 << 58);
-  v444 = v434 ^ (v434 >> 39) ^ (8 * v434) ^ (v434 << 25) ^ ((v437 >> 6) | (4 * v437)) ^ 0xB2u;
-  *(&v445 + 1) = v430;
-  *&v445 = v430 ^ 0xD9321B1807A54237;
-  v446 = (v445 >> 7) ^ v430 ^ 0xD9321B1807A54237;
-  v447 = v441 ^ __ROR8__(v441, 10) ^ (v441 >> 17) ^ (v441 << 47);
-  v448 = v446 ^ __ROR8__(v442, 41) ^ 0x6E00000000000000;
-  v449 = v447 ^ v448;
-  v450 = v433 ^ __ROR8__(v433, 19) ^ (v433 >> 28) ^ v438 ^ v448;
-  v451 = ((v444 - (v444 ^ v443)) ^ __ROR8__(__ROR8__(v443 ^ -v443, 58) ^ 0xA0266D85940830D7, 6) ^ 0x5E8099B6165020C3) + v444;
-  v452 = v448 & ~v447;
-  if (v446 == 0x6E00000000000000)
+  v266 = v261 & v265;
+  v267 = v264 >> (v261 & v265);
+  v268 = *(v526 + ((BYTE3(v258) + 37) ^ 0x41));
+  v2[100] = BYTE4(v258);
+  v2[82] = v264;
+  v269 = v260 ^ (v260 << 23) ^ ((v260 >> 7) ^ (v260 >> 41) | (v260 << 57));
+  v2[99] = BYTE5(v258);
+  v2[27] = HIBYTE(v258);
+  v2[42] = BYTE6(v258);
+  v2[34] = BYTE5(v264);
+  v2[9] = BYTE2(v264);
+  v2[96] = BYTE1(v264);
+  v2[3] = BYTE3(v264);
+  v2[94] = BYTE4(v264);
+  *v2 = v268 ^ (BYTE3(v258) + 37) ^ 0xDE;
+  v270 = *(v521 + ((53 * (v267 >> (v266 ^ 0x30u))) ^ 0x79));
+  v2[81] = BYTE1(v261);
+  v2[26] = BYTE2(v261);
+  v2[68] = HIBYTE(v264);
+  v2[35] = v261;
+  v2[6] = (((v270 >> 4) | (16 * v270)) ^ 0x5A) - 1;
+  v2[49] = BYTE3(v261);
+  v271 = *(v526 + ((BYTE4(v261) + 37) ^ 0x41));
+  v2[40] = BYTE6(v261);
+  v2[73] = v262;
+  v2[55] = BYTE5(v261);
+  v2[95] = BYTE1(v262);
+  v2[32] = (v261 ^ (v244 << 58)) >> 56;
+  v2[21] = BYTE5(v262);
+  v2[97] = v271 ^ (BYTE4(v261) + 37) ^ 0xDE;
+  v2[18] = (v260 ^ (v260 << 23) ^ (v260 >> 7) ^ (v260 >> 41)) >> 24;
+  v2[76] = (v260 ^ (v260 << 23) ^ (v260 >> 7) ^ (v260 >> 41)) >> 16;
+  v2[93] = (v260 ^ (v260 >> 7) ^ (v260 >> 41)) >> 8;
+  v2[62] = BYTE4(v262);
+  v2[28] = BYTE2(v262);
+  v2[19] = v260 ^ (v260 >> 7) ^ (v260 >> 41);
+  v2[64] = BYTE3(v262);
+  v2[61] = HIBYTE(v262);
+  v2[37] = BYTE6(v262);
+  v272 = *(v518 + ((69 * BYTE4(v269)) ^ 0x68));
+  v2[59] = HIBYTE(v269);
+  v2[39] = BYTE5(v269);
+  v2[91] = BYTE6(v269);
+  v2[52] = ((v272 + 54) ^ 0x69) - 47;
+  *(v528 + 4) = v527 + 1;
+  v273 = ((v2[69] - ((2 * v2[69]) & 0x82)) << 24) + 0x4ACB737941000000;
+  v274 = ((v528[31] - 2 * (v528[31] & 1u) + 16926) << 48) - 0x1D000000000000;
+  v275 = v528;
+  v276 = v2[84] - ((2 * v2[84]) & 0x34) - 0xD48129BA2A357E6;
+  v277 = *(v528 - 1);
+  v278 = *(&off_1006B4E30 + v529 - 2498) + 1;
+  v279 = (v276 ^ 0xD48129BA2A35705) & ((((v2[20] - ((2 * v2[20]) & 0x196)) << 8) + 0x9BFEA6A1A06CB00) ^ 0xBFC637E7A08DAE0FLL) ^ v276 & 0x86000041508AF0;
+  v280 = (v2[92] >> 3) | (32 * v2[92]);
+  v520 = ((v2[90] - ((2 * v2[90]) & 0x4Eu) + 189) << 56) - 0x1600000000000000;
+  v281 = v2[11] ^ v278[v2[11] ^ 0x3CLL] ^ 0xC1;
+  v282 = (v273 & 0x4A89204C36000000 ^ 0x6DC905A824770B4 ^ ((((v2[88] - ((2 * v2[88]) & 0x1F0)) << 8) - 0x14F3F12630830800) ^ 0x6A5AD9EA0622038BLL) & (v273 ^ 0xB5348C86BEFFFFAFLL)) & ((v277 - ((2 * v277) & 0xC0) + 0x3D29BB3392D9DD60) ^ 0xC2D644CC6D26229FLL) ^ (v277 - ((2 * v277) & 0xC0) + 0x3D29BB3392D9DD60) & 0x30281812804014C0;
+  v283 = *(&off_1006B4E30 + v529 - 2498);
+  v519 = v283 + 271;
+  LOBYTE(v280) = *(v283 + 271 + ((v280 - ((2 * v280) & 0x9F) - 49) ^ 0xF5));
+  v522 = (v274 & 0x2DF2000000000000 ^ 0xA925D652EE6BB55 ^ ((((*(v528 - 12) - 2 * (*(v528 - 12) & 3u) + 625940) << 40) - 0x110000000000) ^ 0x5B809AEEF6BDBB3CLL) & (v274 ^ 0xBDFEFFEEF7FFFBBDLL)) & (v520 ^ 0x58FFFFFFFFFFFFFFLL);
+  v284 = ((v281 >> 1) | (v281 << 7)) << 24;
+  LOBYTE(v280) = (((v280 ^ 0x58) - 111) ^ ((v280 ^ 0xC6) + 15) ^ ((v280 ^ 0xE2) + 43)) - 22;
+  v286 = *(v275 - 7) - ((2 * *(v275 - 7)) & 0x19C) + 0x721C8A83A7CB78CELL;
+  v287 = (v286 ^ 0x8D96730448348720) & ((((v2[58] + (~(2 * v2[58]) | 0xFFFFFFFFFFFEC9)) << 8) - 0x7AE3A1EE7F9F6400) ^ 0x588AA5144CFC386ALL) ^ v286 & 0x8008221425C95;
+  LOBYTE(v286) = v280 & 0x96 ^ 0x6C;
+  v516 = (v280 ^ (2 * ((v280 ^ 0x5C) & (2 * ((v280 ^ 0x5C) & (2 * ((v280 ^ 0x5C) & (2 * ((v280 ^ 0x5C) & (2 * ((v280 ^ 0x5C) & (2 * v286) ^ v286)) ^ v286)) ^ v286)) ^ v286)) ^ v286))) << 32;
+  v517 = (v516 ^ 0xFFFFFF69FFFFFFFFLL) & (v284 & 0xCB000000 ^ 0x6D79BD6DE97BDA96 ^ (v279 & 0x774320C1E4183B1ELL ^ 0x76D29402CFED8248 ^ ((((v2[101] - ((2 * v2[101]) & 0x142)) << 16) + 0x302F104EB0A10000) ^ 0xB893CF70AB46C4E1) & (v279 ^ 0x49002272042412EALL)) & (v284 ^ 0xFFFFFFFF03FFFFFFLL));
+  v288 = (v287 ^ 0x2275067812210001) & ((((v2[53] - ((2 * v2[53]) & 0x50)) << 16) - 0x6B59B6794AD80000) ^ 0x2760B6307B20A0E7) ^ v287 & 0x4C39004931F75F18;
+  v289 = ((v288 ^ 0x31004810210410) & ((((v528[43] - ((2 * v528[43]) & 0x8E)) << 24) + 0x7B8F1E3847000000) ^ 0xD58BD6D55021AFDDLL) ^ v288 & 0x51FB3712E8DE5022) & ((((v528[2] - ((2 * v528[2]) & 0x12Cu) + 1620563656) << 32) - 0x3200000000) ^ 0x9F682969FFFFFFFFLL);
+  v290 = v2[63];
+  v524 = v278[v2[1] ^ 0x3CLL] ^ v2[1];
+  LOBYTE(v269) = v2[89] + 2;
+  v291 = v278[v290 ^ 0x3C];
+  v292 = v290 & 0x40 ^ 0x77;
+  v293 = (v292 - 4) & 0xFFFFFFC1 | 0x2C;
+  v294 = (v292 - 4) ^ (2 * (v293 ^ (v292 - 4) & 0x40 ^ ((v292 - 4) ^ 0x4C) & (2 * ((v292 | 8) & (2 * ((v292 | 8) & (2 * ((v292 | 8) & (2 * ((v292 | 8) & (2 * ((2 * v293) & 0xA ^ v293)) ^ v293)) ^ v293)) ^ v293)) ^ v293))));
+  LOBYTE(v280) = v269 & 0x72 ^ 0x56;
+  v295 = ((v2[85] - ((2 * v2[85]) & 0x1EAu) + 103416) << 40) - 0x30000000000;
+  LOBYTE(v269) = v269 ^ (2 * ((v269 ^ 0x54) & (2 * ((v269 ^ 0x54) & (2 * ((v269 ^ 0x54) & (2 * ((v269 ^ 0x54) & (2 * ((v269 ^ 0x54) & (2 * v280) ^ v280)) ^ v280)) ^ v280)) ^ v280)) ^ v280));
+  v296 = v289 & 0x1E606F4B98718642 ^ v295 & 0x6F0000000000;
+  v297 = (v296 ^ 0x61BF94B4678E79BDLL) & (v295 & 0x900000000000 ^ 0x396A14E0BC28F5DBLL ^ v289 & 0x619F90B4678E79BDLL);
+  v512 = v283 + 809;
+  LOBYTE(v289) = *(v283 + 809 + (v269 ^ 0x3FLL));
+  v515 = v297 | v296 & 0x6006B0B00510200;
+  LOBYTE(v269) = ((v289 ^ v269 ^ 0xF0) >> 6) | (4 * (v289 ^ v269 ^ 0xF0));
+  v298 = ((v269 ^ 0xB3) + 89) ^ ((v269 ^ 0xC7) + 45) ^ ((v269 ^ 0x77) - 99);
+  v513 = ((v275[39] - ((2 * v275[39]) & 0xC0u) + 144) << 56) - 0x3000000000000000;
+  v514 = ((((*(v275 - 8) - ((2 * *(v275 - 8)) & 0x7Au) + 12665) << 48) - 0x3C000000000000) ^ 0x3486600000000000) & (v513 ^ 0x9FFFE00000000000);
+  v299 = 106 - v292;
+  if (((v294 ^ 0xFFFFFF81) & (v291 ^ 0x6A) ^ v294 & 0x6A) == (v291 & 0x84))
   {
-    v453 = v451;
+    v299 = v292 - 4;
+  }
+
+  v300 = v299 + v291;
+  v301 = v300 & 0x81 ^ 0xEA;
+  v302 = v2[50];
+  v303 = (v300 ^ 0x4C) & (2 * ((v300 ^ 0x4C) & (2 * ((v300 ^ 0x4C) & (2 * ((v300 ^ 0x4C) & (2 * ((v300 ^ 0x4C) & (2 * ((v300 ^ 0x4C) & (2 * v300) & 0x1A ^ v301)) ^ v301)) ^ v301)) ^ v301)) ^ v301)) ^ v301;
+  v304 = v290 & 0xBF ^ v300;
+  v305 = 32 * v302;
+  v306 = v302 >> 3;
+  v307 = v304 ^ (2 * v303);
+  v308 = ((v302 >> 3) ^ 0x7B) & ~(32 * v302) & 0xFFFFE07F | (v302 >> 2 << 7);
+  v309 = (v298 + 105) & 0xAC ^ 0x83;
+  v310 = (v298 + 105) ^ (2 * (((v298 + 105) ^ 0x2E) & (2 * (((v298 + 105) ^ 0x2E) & (2 * (((v298 + 105) ^ 0x2E) & (2 * (((v298 + 105) ^ 0x2E) & (2 * (((v298 + 105) ^ 0x2E) & (2 * (v309 ^ (2 - v298) & 2)) ^ v309)) ^ v309)) ^ v309)) ^ v309)) ^ v309));
+  v311 = 73 - ((v302 >> 3) ^ (((v302 >> 3) ^ 0x2E) + 40) ^ (((v302 >> 3) ^ 0x58) + 82) ^ 0xFFFFFFF6);
+  v312 = v311 & 1 | 0x60;
+  v313 = ((v307 ^ 0x21) >> 1) | ((v307 ^ 0x21) << 7);
+  v314 = (v305 ^ ((v305 ^ 0x50) + 39) ^ ((v305 ^ 0x31) + 72) ^ 0x79) - (((v308 ^ 0xFFFFFFE8) - 31) ^ ((v308 ^ 0x46) + 79) ^ ((v308 ^ 0xFFFFFFD5) - 34)) + 3;
+  v315 = v314 & 0xFFFFFFB0 ^ 0xFFFFFFEF;
+  v316 = v311 ^ v306 ^ v314 ^ (2 * (v315 ^ v312 ^ (v311 ^ 0x40) & (2 * (v311 & (2 * (v311 & (2 * (v311 & (2 * (v311 & (2 * (((2 * (v311 & 1)) | 1) & v311)) | v312)) ^ v312)) ^ v312)) ^ v312)) ^ (v314 ^ 0x7A) & (2 * ((v314 ^ 0x7A) & (2 * ((v314 ^ 0x7A) & (2 * ((v314 ^ 0x7A) & (2 * ((v314 ^ 0x7A) & (2 * ((v314 ^ 0x7A) & 0xA ^ v315)) ^ v315)) ^ v315)) ^ v315)) ^ v315))));
+  v285 = v2[102] - ((2 * v2[102]) & 0x1EC);
+  v317 = ((v310 << 16) ^ 0xF9FBEFFF5B52FFFFLL) & ((v285 - 0x4074195ACE62030ALL) & 0x80042000000042ELL ^ 0xE1E9AC53412ECF91 ^ (((((v524 ^ 0xCD) >> 1) | ((v524 ^ 0xCD) << 7)) << 8) ^ 0xF1FAA5AD5BD271D1) & ((v285 - 0x4074195ACE62030ALL) ^ 0x4271110ACA4F030FLL)) ^ (v310 << 16) & 0x30000;
+  v318 = (((v305 ^ 0x21) + 88) ^ ((v305 ^ 0x56) + 33) ^ ((v305 ^ 0x77) + 2)) + (((v316 ^ 0xFFFFFFD3) + 51) ^ ((v316 ^ 0x52) - 76) ^ ((v316 ^ 0xFFFFFFB0) + 82)) + 28;
+  v319 = v318 & 0x78 ^ 0x76;
+  HIDWORD(v320) = v316;
+  LODWORD(v320) = (((v318 ^ 0x1C) & (2 * ((v318 ^ 0x1C) & (2 * ((v318 ^ 0x1C) & (2 * ((v318 ^ 0x1C) & (2 * ((v318 ^ 0x1C) & (2 * v319) ^ v319)) ^ v319)) ^ v319)) ^ v319)) ^ v319) << 25) ^ (v318 << 24);
+  v321 = (v317 ^ 0x61640001E5021091) & ((((v2[79] + (~(2 * v2[79]) | 0xFFFFFFFE71)) << 24) - 0x218B5A2C38000000) ^ 0xA712A758175A10B7) ^ v317 & 0x8099ED740BA5EF48;
+  v322 = *(v283 + 538 + ((((v320 >> 26) >> 6) | (4 * (v320 >> 26))) ^ 0xB2)) + 67;
+  LODWORD(v317) = v322 & 0x13 ^ 0x45;
+  v323 = (2 * (((2 * (((2 * v322) & 0x16 | 9) & v322)) | 9) & v322)) ^ 0xFFFFFF9A;
+  v324 = (v317 & 0xFFFFFFF7 | (8 * ((((v323 & 8 | v317) ^ v323 & v322) >> 2) & 1))) ^ v322 & (2 * ((v323 & 8 | v317) ^ v323 & v322));
+  v325 = (v317 & 0xFFFFFFF7 | (8 * ((v324 >> 2) & 1))) ^ v322 & (2 * v324);
+  LOBYTE(v322) = v322 ^ (2 * ((v317 & 0xF7 | (8 * ((v325 & 4) != 0))) ^ v322 & (2 * v325))) ^ 0xBE;
+  LODWORD(v317) = v2[13] ^ 0x13 ^ v278[v2[13] ^ 0x3CLL];
+  LODWORD(v317) = ((v317 >> 3) | (32 * v317)) ^ 0x6F;
+  LODWORD(v317) = ((v317 >> 2) | (v317 << 6)) ^ 0x68;
+  LOBYTE(v319) = v322 ^ (4 * v322) ^ (2 * v322);
+  v326 = ((v317 >> 6) | (4 * v317)) ^ 0x38;
+  LODWORD(v317) = (v326 >> 5) | (8 * v326);
+  v327 = v317 ^ 0xFFFFFFD5;
+  LOBYTE(v311) = ((v319 ^ 0x41) + 110) ^ ((v319 ^ 0xB7) - 100) ^ ((v319 ^ 0xAA) - 121);
+  v328 = (v317 ^ 0xD5) >> 1;
+  LODWORD(v317) = (v328 ^ 0xFFFFFF89) + 109;
+  v329 = v311 + 106;
+  LOBYTE(v311) = ((-107 - v311) & 0xA0 | 0x43) ^ (v311 + 106) & 0xC6;
+  LOBYTE(v311) = v329 ^ (2 * ((v329 ^ 0x20) & (2 * ((v329 ^ 0x20) & (2 * ((v329 ^ 0x20) & (2 * ((v329 ^ 0x20) & (2 * ((v329 ^ 0x20) & (2 * (v329 & (2 * v311) ^ v311)) ^ v311)) ^ v311)) ^ v311)) ^ v311)) ^ v311));
+  v330 = (((v328 ^ 0x1E) + 4) ^ ((v328 ^ 8) + 22) ^ ((v328 ^ 0xFFFFFFBC) - 94)) + (((v328 ^ 0x6F) - 117) ^ ((v328 ^ 0xFFFFFFC2) + 40) ^ v317) - (((v327 & 0xFFFFFFFE ^ 0x18) - 127) ^ ((v327 & 0xFFFFFFFE ^ 0xFFFFFFDB) + 68) ^ ((v327 & 0xFFFFFFFE ^ 0xFFFFFF97) + 16));
+  v331 = v330 - 100;
+  v332 = v330 & 2 ^ (v330 - 100) & 0xFFFFFFB7 ^ 3;
+  v333 = v331 ^ (2 * ((v331 ^ 0x36) & (2 * ((v331 ^ 0x36) & (2 * ((v331 ^ 0x36) & (2 * ((v331 ^ 0x36) & (2 * ((v331 ^ 0x36) & (2 * (((2 * (v331 & 0xFFFFFFB7)) ^ 2) & (v331 ^ 0x26) ^ v332)) ^ v332)) ^ v332)) ^ v332)) ^ v332)) ^ v332));
+  LOBYTE(v331) = v2[45] - 12;
+  v334 = v331 & 0xC4 | 0x30;
+  LOBYTE(v285) = v331 ^ (2 * ((v331 ^ 0x64) & (2 * ((v331 ^ 0x64) & (2 * ((v331 ^ 0x64) & (2 * ((v331 ^ 0x64) & (2 * v334) ^ v334)) ^ v334)) ^ v334)) ^ v334));
+  LODWORD(v317) = (((v328 ^ 0x2B) - 49) ^ ((v328 ^ 0xFFFFFF86) + 100) ^ v317) + (((v333 ^ 0x28) - 79) ^ ((v333 ^ 0x78) - 31) ^ ((v333 ^ 0x19) - 126)) - 83;
+  v335 = v317 & 0x2F ^ 0x58;
+  LOBYTE(v326) = v2[25] ^ 0x35 ^ v278[v2[25] ^ 0x3CLL];
+  v336 = v321 & 0x74CFCDADA6B8C3F4 ^ (((v2[41] - ((2 * v2[41]) & 0x1B0u) + 13912583) << 40) - 0x2F0000000000) ^ (((v313 ^ 0x75u) << 32) ^ 0x8B30324B59473C0BLL) & (v321 ^ 0x8200300001012C08) ^ (v311 << 48);
+  LOBYTE(v321) = (v326 >> 1) | (v326 << 7);
+  v337 = (v317 ^ ((v327 << 7) | 0x50) ^ (2 * ((v317 ^ 0x3E) & (2 * ((v317 ^ 0x3E) & (2 * ((v317 ^ 0x3E) & (2 * ((v317 ^ 0x3E) & (2 * ((v317 ^ 0x3E) & (2 * ((v317 ^ 0x3E) & (2 * v317) ^ v335)) ^ v335)) ^ v335)) ^ v335)) ^ v335)) ^ v335))) << 56;
+  v338 = (v337 ^ 0x12F6B6359664D93CLL) & (v336 ^ 0x2F50A3BDF3EC587ELL) ^ v336 & 0x63F6B6359664D93CLL;
+  v339 = ((v337 ^ 0xB736A5615FA55ED2) - 0x762438DA289D468) ^ ((v337 ^ 0x2D7B24275E1531F4) + 0x62D03D345CC644B2) ^ ((v337 ^ 0xEB4D814601B06F26) - 0x5B1967AAFC9CE59CLL);
+  v340 = v285 ^ 0x29;
+  v341 = (((v285 ^ 0x1CE02F5F) + 978582945) ^ ((v285 ^ 0x4A3B18AA) + 1820904022) ^ ((v285 ^ 0x56DB377C) + 1885922692)) - ((((2 * v340) ^ 0x579057EB) - 34116764) ^ (((2 * v340) ^ 0x32E0FE63) - 1735933204) ^ (((2 * v340) ^ 0x6570A8C8) - 820538303)) - 2073001906;
+  LODWORD(v337) = (v341 ^ 0xFE22CB87) & (2 * (v341 & 0xFF42EBA7)) ^ v341 & 0xFF42EBA7;
+  v342 = ((2 * (v341 ^ 0x24A7CA89)) ^ 0xB7CA425C) & (v341 ^ 0x24A7CA89) ^ (2 * (v341 ^ 0x24A7CA89)) & 0x5BE5212E;
+  LODWORD(v337) = (v342 ^ 0x9300000C) & (4 * v337) ^ v337;
+  v343 = ((4 * (v342 ^ 0x48252122)) ^ 0x6F9484B8) & (v342 ^ 0x48252122) ^ (4 * (v342 ^ 0x48252122)) & 0xDBE5212C;
+  LODWORD(v337) = (v343 ^ 0x4B840020) & (16 * v337) ^ v337;
+  v344 = ((16 * (v343 ^ 0x90612106)) ^ 0xBE5212E0) & (v343 ^ 0x90612106) ^ (16 * (v343 ^ 0x90612106)) & 0xDBE52120;
+  LODWORD(v337) = v337 ^ 0xDBE5212E ^ (v344 ^ 0x9A400000) & (v337 << 8);
+  LODWORD(v337) = (v337 << 16) & 0x5BE50000 ^ v337 ^ ((v337 << 16) ^ 0x212E0000) & (((v344 ^ 0x41A5210E) << 8) & 0x5BE50000 ^ 0x1AC40000 ^ (((v344 ^ 0x41A5210E) << 8) ^ 0x65210000) & (v344 ^ 0x41A5210E));
+  v345 = (((v336 ^ 0xC5303C80F2D7206BLL) - 0x61F7DC00F8561F2FLL) ^ ((v336 ^ 0xBCE6BEFF2A2B92F5) - 0x18215E7F20AAADB1) ^ ((v336 ^ 0x568E21800303CE61) + 0xDB63EFFF67D0EDBLL)) + v339 - ((((2 * v338) ^ 0x539F570FD195A16ALL) + 0x68CD848EF1811C4CLL) ^ (((2 * v338) ^ 0x6D3822D1792E3570) + 0x566AF150593A8852) ^ (((2 * v338) ^ 0x780631B58C732462) + 0x4354E234AC679944)) - 0x21E080812B541FCALL;
+  v346 = (v345 ^ 0xEC874297FE9AF3D8) & (2 * (v345 & 0xECC842D7FEDAFB99)) ^ v345 & 0xECC842D7FEDAFB99;
+  v347 = ((2 * (v345 ^ 0xF597431B8A0E44C8)) ^ 0x32BE0398E9A97EA2) & (v345 ^ 0xF597431B8A0E44C8) ^ (2 * (v345 ^ 0xF597431B8A0E44C8)) & 0x195F01CC74D4BF50;
+  v348 = (v347 ^ 0x1002018860803E00) & (4 * v346) ^ v346;
+  v349 = ((4 * (v347 ^ 0x941004414548151)) ^ 0x657C0731D352FD44) & (v347 ^ 0x941004414548151) ^ (4 * (v347 ^ 0x941004414548151)) & 0x195F01CC74D4BF50;
+  v350 = (v349 ^ 0x15C01005050BD40) & (16 * v348) ^ v348;
+  v351 = ((16 * (v349 ^ 0x180300CC24840211)) ^ 0x95F01CC74D4BF510) & (v349 ^ 0x180300CC24840211) ^ (16 * (v349 ^ 0x180300CC24840211)) & 0x195F01CC74D4BF50;
+  v352 = (v351 ^ 0x115000C44440B500) & (v350 << 8) ^ v350;
+  v353 = (((v351 ^ 0x80F010830940A41) << 8) ^ 0x5F01CC74D4BF5100) & (v351 ^ 0x80F010830940A41) ^ ((v351 ^ 0x80F010830940A41) << 8) & 0x195F01CC74D4BF00;
+  v354 = v352 ^ 0x195F01CC74D4BF51 ^ (v353 ^ 0x1901004454940000) & (v352 << 16);
+  v355 = v345 ^ (2 * ((v354 << 32) & 0x195F01CC00000000 ^ v354 ^ ((v354 << 32) ^ 0x74D4BF5100000000) & (((v353 ^ 0x5E01882040AE51) << 16) & 0x195F01CC00000000 ^ 0x1813010800000000 ^ (((v353 ^ 0x5E01882040AE51) << 16) ^ 0x1CC74D400000000) & (v353 ^ 0x5E01882040AE51))));
+  LODWORD(v354) = -166925432 - (((v285 ^ 0x5AA0C9E) - 1315717000) ^ ((v285 ^ 0xB5B265F3) + 25930011) ^ ((v285 ^ 0xB0186947) + 69313967));
+  LODWORD(v337) = v354 ^ v340 ^ ((v354 ^ 0x1E9844F8) - 1598773820) ^ ((v354 ^ 0x33E86B2) - 1122867318) ^ ((v354 ^ 0xA3882271) + 497337163) ^ ((v354 ^ 0xFFFDFEFF) + 1104224197) ^ v341 ^ (2 * v337);
+  v356 = v2[24] - ((2 * v2[24]) & 0xF0) + 0x61FFC8EDF0EDC678;
+  v357 = (v356 ^ 0x60027120C123982) & ((v321 << 8) ^ 0x2784AF3E8CB3EDD2);
+  LOBYTE(v337) = *(v512 + (((v337 ^ 0xB42AF6F3) - 866732429) ^ ((v337 ^ 0xD04B8FA0) - 1472737502) ^ ((v337 ^ 0x6F72CE6F) + 386830063)) - 1936717595) ^ v285 ^ 0x86;
+  LODWORD(v353) = ((v2[71] - ((2 * v2[71]) & 0x168)) << 16) + 330563584;
+  v358 = v357 ^ v356 & 0x401100014044042DLL;
+  v359 = (v358 & 0x4215 ^ 0x8DBC98D1C75D052FLL) & (v353 & 0x4D0000 ^ 0x8DBC98D1C750473FLL) | v357 & 0x1040;
+  LOBYTE(v335) = (v337 >> 6) | (4 * v337);
+  v360 = *(v528 + 3);
+  v361 = (v360 - ((2 * v360) & 0x1075BF08) - 0x1E8AFBA7F7C5207CLL) ^ (((v2[87] - ((2 * v2[87]) & 0x86u) + 45396) << 48) - 0x11000000000000) ^ (((v2[12] - ((2 * v2[12]) & 0x1CCu) + 8674580) << 40) - 0x2E0000000000) ^ (v516 & 0x2F00000000 | 0x209090008144816) ^ v517 ^ 0x73371D8E154722B3;
+  v362 = (v361 - ((2 * v361) & 0x5967BB7086B6802ALL) + 0x6CB3DDB8435B4015) ^ (((v2[83] - ((2 * v2[83]) & 0x36u) + 205) << 56) - 0x3200000000000000);
+  v363 = v359 ^ 0x8DBC98D1C754477FLL | ((v358 | 0x4BB210A452BE4014) & (v353 & 0xB20000 ^ 0x4BB210A4528C4D9ELL) | v358 & 0xA020) ^ 0x4BB210A4523C6DBELL;
+  *(&v365 + 1) = v336 ^ 0xA3FFDBFF7CFFLL;
+  *&v365 = v355 ^ 0xFED8000000000000;
+  v364 = v365 >> 51;
+  v366 = ((((v2[31] - ((2 * v2[31]) & 0xC6)) << 24) + 0x29B2C2B663000000) ^ 0x771AA92742F79197) & ~v363 | v363 & 0x86E68;
+  v367 = v366 & 0xC0356464BEEA2D6CLL ^ 0x7FEAFB9B61F7D397 ^ (v366 ^ 0xA157946E40004200) & ((((v2[17] - ((2 * v2[17]) & 0x42u) + 1697391454) << 32) - 0x3D00000000) ^ 0x5AE6B8BA4115D293);
+  v368 = (v367 + (v335 << 40)) ^ ((v2[103] << 56) | (((*(v519 + (((v2[22] >> 3) | (32 * v2[22])) ^ 0x3ALL)) ^ 0x7C) + 125) << 48));
+  v369 = v355 ^ (v368 - 2 * (v368 & 0x6124A5C3912E895FLL ^ v367 & 0x10) - 0x1EDB5A3C6ED176B1);
+  v370 = v522 ^ v520 & 0xA700000000000000 ^ ((v282 ^ 0x2D480CC34A62080) & ((((*v528 - ((2 * *v528) & 0x17C)) << 16) - 0x64A4E58518420000) ^ 0x8D9D5CBE2957B0CCLL) ^ v282 & 0xE939B93B31164F33) & 0xA5D939687D738F3DLL ^ ((v282 ^ 0x2D480CC34A62080) & ((((*v528 - ((2 * *v528) & 0x17C)) << 16) - 0x64A4E58518420000) ^ 0x8D9D5CBE2957B0CCLL) ^ v282 & 0xE939B93B31164F33 ^ 0x10800800044000) & ((((v2[38] - ((2 * v2[38]) & 0x70u) - 1397474979) << 32) - 0x2500000000) ^ 0xF692FFAF828C70C2) ^ (v368 - ((2 * v368) & 0xBA7CA7BA0B25CFEELL) + 0x5D3E53DD0592E7F7);
+  *(&v365 + 1) = v361 ^ v515;
+  *&v365 = v513 & 0xFA00000000000000 ^ v514 ^ v515 ^ 0xF7B3C00000000000 ^ v362;
+  v371 = v364 ^ 0x600029976D1BE69CLL;
+  *&v365 = __ROR8__((v365 >> 45) ^ 0x85211A498FE2457BLL, 19);
+  v372 = v365 ^ 0x2A90928CDF2AEAFALL;
+  v373 = v365 ^ 0xB3E1F6A7335A026ELL;
+  v374 = (v365 ^ 0xB3E1F6A7335A026ELL) - (v365 ^ 0xD56F6D7320D51505);
+  v375 = v370 ^ (v365 ^ 0x2A90928CDF2AEAFALL) & (v362 ^ 0x43647ED5D1DF7041);
+  *&v365 = __ROR8__(v371, 13);
+  v376 = v369 ^ (v370 ^ 0xC77D5D5383AF453) & (v362 ^ 0xBC9B812A2E208FBELL);
+  v377 = (v365 ^ 0xA9FCDD9CD97451E0) & ((v374 ^ 0xFFFFFFFFFFFFFFFELL) + v373);
+  v378 = v375 ^ 0x543F9EB75A985521 ^ v376 ^ 0xB69D107F4118E018;
+  v379 = v362 ^ v375 ^ 0x58FF5CA9BA7527D1 ^ v377;
+  v380 = (v369 ^ 0x4962EF80BEE71FE7) & (v370 ^ 0xF3882A2AC7C50BACLL);
+  v381 = (v365 ^ 0x56032263268BAE1FLL) & (v369 ^ 0xB69D107F4118E018) ^ v372;
+  v382 = v381 ^ 0x10674643B76E819ELL;
+  LOBYTE(v372) = *(v283 + 538 + ((32 * (v379 >> 61)) ^ 0xCB)) - 52;
+  v383 = v380 ^ v365 ^ 0xA9FCDD9CD97451E0 ^ 0xD2419DF6FF359CA9 ^ v381;
+  v384 = v379 << 25;
+  v385 = (((v376 ^ 0xB69D107F4118E018) - (v376 ^ 0xE40A7773A38EFDBDLL)) ^ 0xFFFFFFFFFFFFFFFELL) + (v376 ^ 0xB69D107F4118E018);
+  v386 = ((v381 ^ 0x10674643B76E819ELL) >> 6) | (v381 << 63);
+  v387 = v379 ^ ((v372 ^ (4 * v372) ^ (2 * v372) ^ 0x1F) + 123) ^ (8 * v379) ^ (v379 >> 39);
+  v388 = (v385 << 57) | 0x3DAEBD79EEBFDCB8;
+  v389 = v383 ^ (v383 << 47) ^ ((v383 >> 10) ^ (v383 >> 17) | (v383 << 54));
+  v390 = ((~v388 + (v385 << 57)) ^ ((v385 << 57) | 0xC251428611402347) ^ (((v385 << 57) | 0xC251428611402347) + 1)) + v388;
+  if (!(v378 >> 28))
+  {
+    v390 = (v385 << 57) | 0xC251428611402347;
+  }
+
+  v391 = (v384 ^ -v384 ^ (v387 - (v387 ^ v384))) + v387;
+  v392 = v382 ^ (v382 << 58) ^ (v382 >> 1) ^ v386;
+  v393 = v391 ^ v392;
+  v394 = (((v385 >> 41) ^ -(v385 >> 41) ^ ((v385 ^ (v385 >> 7)) - (v385 ^ (v385 >> 7) ^ (v385 >> 41)))) + (v385 ^ (v385 >> 7))) ^ (v385 << 23) ^ v390 & v388;
+  v395 = (((v378 << 36) ^ (v378 << 45)) & 0xFFFFFFF000000000 | (v378 >> 28)) ^ __ROR8__(__ROR8__((v378 >> (v313 & 0x13) >> (v313 & 0x13 ^ 0x13u)) ^ v378, 23) ^ 0x9E5CC3727235CB0ALL, 41) ^ v394;
+  v396 = v391 & (v395 ^ 0x46C6E51A7AB0D19ELL);
+  v395 ^= 0xB9391AE5854F2E61;
+  v397 = v395 ^ v392 & ~v391;
+  v398 = v396 ^ v394 ^ v389;
+  v399 = v397 ^ v391 ^ ((v393 ^ v389) + (v389 | ~v393) + 1);
+  v400 = v395 & ~(v394 ^ v389);
+  v401 = v393 ^ v394 & ~v389;
+  v402 = ((v397 ^ -v397 ^ (v398 - (v398 ^ v397))) + v398) ^ 0xE83D9ED516E369C5;
+  v403 = (v401 ^ 0xA1FDF52D9AF9F061) << 58;
+  v404 = v389 ^ 0x776FAB65F4A9803ALL ^ v400 ^ v401;
+  v405 = v403 & 0xA400000000000000;
+  v406 = ((v401 ^ 0xA1FDF52D9AF9F061 ^ ((v401 ^ 0xA1FDF52D9AF9F061) >> 1)) + ((v401 ^ 0xA1FDF52D9AF9F061) << 63)) ^ ((v401 ^ 0xA1FDF52D9AF9F061) >> 6);
+  v407 = v403 & 0x5800000000000000;
+  v408 = v406 & 0x5B9B91EC46377FD1;
+  v409 = v399 ^ 0xC8962A0BF24E1AE0 ^ (v399 >> 39) ^ (8 * (v399 ^ 0xC8962A0BF24E1AE0)) ^ ((v399 ^ 0xC8962A0BF24E1AE0) >> 61) ^ ((v399 ^ 0xC8962A0BF24E1AE0) << 25);
+  v410 = v409 ^ 0x1912C54;
+  v411 = v406 & 0xA4646E13B9C8802ELL ^ v405;
+  v412 = v404 ^ __ROR8__(v404, 10) ^ (v404 >> 17);
+  v413 = v408 ^ v407;
+  v414 = v412 ^ (v404 << 47);
+  v415 = v413 | v411;
+  v416 = v398 ^ 0x917AAA3CD96CD60ELL ^ __ROR8__(v398 ^ 0x917AAA3CD96CD60ELL, 7) ^ ((v398 ^ 0x917AAA3CD96CD60ELL) << 23) ^ ((v398 ^ 0x917AAA3CD96CD60ELL) >> 41);
+  v417 = v402 ^ v416 ^ __ROR8__(v402, 19) ^ (v402 >> 28) ^ (v402 << 36);
+  v418 = v409 ^ 0x1912C54 ^ v415;
+  v419 = v418 | v409 ^ 0xFFFFFFFFFE6ED3ABLL;
+  v420 = (((v412 ^ ~(v404 << 47)) - v414) ^ 0xFFFFFFFFFFFFFFFELL) + (v412 ^ ~(v404 << 47));
+  v421 = v417 ^ v415;
+  v422 = v421 ^ v419;
+  v423 = v421 ^ ~v419;
+  v424 = (~(2 * v417) + v417) & v410;
+  v425 = v414 ^ v416;
+  v426 = v417 & ~v425;
+  v427 = v420 ^ v425;
+  if (v524 == 56)
+  {
+    v427 = ~v414;
+  }
+
+  v428 = v427 & v425;
+  v429 = v424 ^ v425;
+  v430 = v418 ^ v428;
+  v431 = (v414 & ~v418 ^ v410 ^ -(v414 & ~v418 ^ v410) ^ ((v422 ^ v414 & ~v418 ^ v410) - v422)) + v423;
+  v432 = v429 ^ v422 ^ 0x674880EF4E4561C9;
+  v433 = (v431 & 0x80000000 | 0xE2E4CD6B12D4B3B0) ^ v431 & 0xFFFFFFFF7FFFFFFFLL;
+  v434 = __ROR8__(v426 ^ v414, 16) ^ 0x37E3F87D8EF59184;
+  v435 = (v433 >> 61) - ((v433 >> 60) & 0xC) + 54;
+  v436 = v435 ^ *(v512 + (v435 ^ 0xA3));
+  v437 = v432 << 36;
+  if ((v430 & 0x200000000000000) != 0)
+  {
+    v438 = 0xFE00000000000000;
   }
 
   else
   {
-    v453 = (((v451 ^ ~v444) - (v451 ^ v444)) ^ 0xFFFFFFFFFFFFFFFELL) + (v451 ^ ~v444);
+    v438 = 0x200000000000000;
   }
 
-  v454 = v453 & ~v444 ^ v450;
-  v455 = v447 & ~v451;
-  v456 = __ROR8__(v451 ^ v452, 45) ^ 0xEAEA523628CADACALL;
-  v457 = v444 & ~v450 ^ v449;
-  if (v438)
+  v439 = (v438 + v430) ^ 0x3118D22A1B3BD713;
+  v440 = v430 ^ __ROR8__(v434, 48) ^ 0xAFA920FEFA29CC3BLL;
+  v441 = v429 ^ 0xD9321B1807A54237;
+  v442 = v439 ^ __ROR8__(v439, 1) ^ (v439 >> 6) ^ (v439 << 58);
+  v443 = v433 ^ (v433 >> 39) ^ (8 * v433) ^ (v433 << 25) ^ ((v436 >> 6) | (4 * v436)) ^ 0xB2u;
+  *(&v444 + 1) = v429;
+  *&v444 = v429 ^ 0xD9321B1807A54237;
+  v445 = (v444 >> 7) ^ v429 ^ 0xD9321B1807A54237;
+  v446 = v440 ^ __ROR8__(v440, 10) ^ (v440 >> 17) ^ (v440 << 47);
+  v447 = v445 ^ __ROR8__(v441, 41) ^ 0x6E00000000000000;
+  v448 = v446 ^ v447;
+  v449 = v432 ^ __ROR8__(v432, 19) ^ (v432 >> 28) ^ v437 ^ v447;
+  v450 = ((v443 - (v443 ^ v442)) ^ __ROR8__(__ROR8__(v442 ^ -v442, 58) ^ 0xA0266D85940830D7, 6) ^ 0x5E8099B6165020C3) + v443;
+  v451 = v447 & ~v446;
+  if (v445 == 0x6E00000000000000)
   {
-    v458 = v457 ^ 0x67287F0C7BE7D698;
+    v452 = v450;
   }
 
   else
   {
-    v458 = 0x98D780F384182967;
+    v452 = (((v450 ^ ~v443) - (v450 ^ v443)) ^ 0xFFFFFFFFFFFFFFFELL) + (v450 ^ ~v443);
   }
 
-  v459 = __ROR8__(v456, 19);
-  v460 = v455 ^ v444 ^ v454;
-  *(&v461 + 1) = v460 ^ 0x8CEE1D69D550E5FLL;
-  *&v461 = v460;
-  v462 = v457 - 0x67287F0C7BE7D699 + 2 * (v458 & v457) - 4 * (v458 & v457);
-  v463 = (v459 ^ 0x28BE68937661C41BLL) << 58;
-  v464 = v447 ^ v450 & ~v449 ^ 0x1C9F3D0BA6640A8CLL ^ v459;
-  v465 = (v461 >> 61) ^ v460 ^ 0x8CEE1D69D550E5FLL ^ ((v460 ^ 0x8CEE1D69D550E5FuLL) >> 39) ^ ((v460 ^ 0x8CEE1D69D550E5FLL) << 25);
-  v466 = v459 ^ 0x28BE68937661C41BLL ^ __ROR8__(v459 ^ 0x28BE68937661C41BLL, 1) ^ ((v459 ^ 0x28BE68937661C41BuLL) >> 6);
-  v467 = v462 ^ (v462 << 23) ^ (v462 << 57) ^ (v462 >> 7) ^ (v462 >> 41);
-  v468 = v457 ^ 0xDE1CA53CC441A02 ^ v454 ^ __ROR8__(v457 ^ 0xDE1CA53CC441A02 ^ v454, 19) ^ ((v457 ^ 0xDE1CA53CC441A02 ^ v454) >> 28) ^ ((v457 ^ 0xDE1CA53CC441A02 ^ v454) << 36) ^ v467;
-  v469 = (v463 ^ -v463 ^ (v466 - (v466 ^ v463))) + v466;
-  v470 = v464 ^ __ROR8__(v464, 10) ^ (v464 >> 17) ^ (v464 << 47);
-  v471 = v465 & ~v468;
-  v472 = v471 & 0x20000000000000;
-  v473 = v469 ^ v465;
-  v474 = v470 ^ v467;
-  v475 = v469 ^ v465 | ~v470;
-  v476 = v471 & 0xFFDFFFFFFFFFFFFFLL;
-  v477 = v469 & ~v465 ^ v468;
-  if ((v472 & (v470 ^ v467)) != 0)
+  v453 = v452 & ~v443 ^ v449;
+  v454 = v446 & ~v450;
+  v455 = __ROR8__(v450 ^ v451, 45) ^ 0xEAEA523628CADACALL;
+  v456 = v443 & ~v449 ^ v448;
+  if (v437)
   {
-    v472 = -v472;
+    v457 = v456 ^ 0x67287F0C7BE7D698;
   }
 
-  v478 = v465 ^ ~v475 ^ v477;
-  v479 = (v472 + v474) ^ v476;
-  v480 = v477 ^ 0x9669D1232B5C28A4 ^ v479;
-  v481 = v473 ^ v467 & ~v470;
-  v482 = __ROR8__(__ROR8__(__ROR8__(v478, 39) ^ 0x48A1BB5E1D5E1C06, 15) ^ 0x4C5B213B48609D75, 10) ^ 0x96F0F456F576B221;
-  v483 = v470 ^ 0x82ABCDAC52312543 ^ v468 & ~v474 ^ v481;
-  v484 = v483 ^ __ROR8__(v483, 10) ^ (v483 >> 17) ^ (v483 << 47);
-  v485 = (8 * v482) ^ (v482 >> 39) ^ (v482 << 25) ^ ((v482 >> 61) + v482 - 2 * ((v482 >> 61) & v482));
-  v486 = v479 ^ 0xF502C960F8379034 ^ __ROR8__(v479 ^ 0xF502C960F8379034, 41) ^ ((v479 ^ 0xF502C960F8379034) << 57) ^ ((v479 ^ 0xF502C960F8379034) >> 7);
-  *(&v487 + 1) = v481;
-  *&v487 = v481 + 0x770298E464E2FFC0 - ((2 * v481) & 0xEE0531C8C9C5FF80);
-  v488 = (2 * (v487 ^ (v487 >> 1)) - (v487 ^ (v487 >> 1) ^ (v481 << 63))) ^ (v487 >> 6);
-  v489 = v485 ^ v488;
-  v490 = v480 ^ (v480 << 36) ^ ((v480 >> 19) ^ (v480 >> 28) | (v480 << 45)) ^ v486;
-  v491 = v485 & ~v490 ^ v486 ^ v484;
-  v492 = v488 & ~v485 ^ v490;
-  v493 = v489 ^ v486 & ~v484;
-  v494 = v485 ^ v484 & ~v489 ^ v492 ^ 0x46E4A679C9EBE44CLL;
-  v495 = v484 ^ v490 & ~(v486 ^ v484) ^ 0x5F4353815836A37FLL ^ v493;
-  *(&v487 + 1) = v492 ^ v491 ^ 0xAE0A4CFAF4BC990DLL;
-  *&v487 = v492 ^ v491;
-  v496 = v487 >> 19;
-  v497 = *(&v487 + 1) ^ __ROR8__(*(&v487 + 1), 28);
-  *(&v487 + 1) = v493;
-  *&v487 = v493 ^ 0xF3E8F9C9C239B274;
-  v498 = v487 >> 1;
-  v499 = v497 ^ v496;
-  *&v487 = __ROR8__(__ROR8__(v495, 29) & 0xFFFFE007FFFFFFFFLL ^ __ROR8__(v495, 19) ^ 0x942A3D47BF77E35FLL, 45);
-  v500 = v491 ^ 0x5120D79A612A4FBCLL;
-  v501 = v487 - ((2 * v487) & 0xD47BF77E35F942A2);
-  v502 = v493 ^ __ROR8__(v493, 6) ^ v498;
-  *(v532 - 1) = v499 ^ 0xD1;
-  v503 = ((v491 ^ 0x5120D79A612A4FBCLL) >> 7) & 0x8BC4D61ADC3676 ^ v491 & 0x288BC4D61ADC3676 | ((v491 ^ 0x5120D79A612A4FBCLL) >> 7) & 0x1743B29E523C989;
-  v504 = *(v284 + 538 + (((v499 >> 3) & 0xE0 | (v499 >> 11)) ^ 9)) - 52;
-  v2[38] = BYTE4(v499) ^ 0x47;
-  v2[69] = BYTE3(v499) ^ 0xD5;
-  v2[88] = (v504 ^ (4 * v504) ^ (2 * v504) ^ 0x1F) + 123;
-  *v532 = BYTE2(v499) ^ 0x21;
-  v505 = v494 ^ __ROR8__(v494, 61) ^ (v494 >> 39);
-  v506 = v505 ^ (v494 << 25);
-  v507 = *(v520 + ((((v499 >> 35) & 0xE0 ^ 0x6E3BF28D11102E4ALL) & ((v499 >> 43) & 0x1F ^ 0x7FFBF7ED3B173FFBLL) | (v499 >> 43) & 0x15) ^ 0x6E3BF28D11102E61));
-  v532[31] = BYTE6(v499) ^ 0xE;
-  v2[20] = BYTE1(v505);
-  v2[84] = v505;
-  v2[101] = BYTE2(v505);
-  v2[90] = HIBYTE(v499) ^ 0x1A;
-  *(v532 - 12) = (((v507 ^ 0xC6) + 46) ^ ((v507 ^ 0x2C) - 56) ^ ((v507 ^ 0x96) + 126)) - 27;
-  v2[12] = BYTE5(v506);
-  v2[83] = HIBYTE(v506);
-  v508 = (((v502 ^ 0x26) + 68) ^ ((v502 ^ 0xE2) - 120) ^ ((v502 ^ 0x79) + 29)) + 43;
-  if ((v502 & 4) == 0)
+  else
   {
-    v508 = (((v502 ^ 0x86) + 35) ^ ((v502 ^ 0x77) - 44) ^ ((v502 ^ 0x4C) - 23)) - 30;
+    v457 = 0x98D780F384182967;
   }
 
-  *(v532 - 7) = v508 ^ 4;
-  v532[39] = HIBYTE(v502) ^ 0x20;
-  v2[87] = BYTE6(v506);
-  v2[11] = BYTE3(v506);
-  v2[92] = BYTE4(v506);
-  v509 = ((v501 - 0x15C20440E5035EAFLL) ^ (v495 << 54) ^ -((v501 - 0x15C20440E5035EAFLL) ^ (v495 << 54)) ^ ((v495 >> 17) - ((v501 - 0x15C20440E5035EAFLL) ^ (v495 << 54) ^ (v495 >> 17)))) + (v495 >> 17);
-  v2[58] = BYTE1(v502) ^ 0x54;
-  v532[43] = BYTE3(v502) ^ 0xE5;
-  v2[63] = BYTE4(v509);
-  v2[85] = BYTE5(v502) ^ 0x5A;
-  *(v532 - 8) = BYTE6(v502) ^ 0x27;
-  v532[2] = BYTE4(v502) ^ 0x2E;
-  v2[53] = BYTE2(v502) ^ 0x31;
-  v2[89] = BYTE2(v509);
-  v510 = v509 ^ (v495 << 47);
-  v511 = ((v503 ^ (v500 & 0xD7743B29E523C989 | 0xC49200080634)) & 0xB07DF1A0D5A3031FLL ^ (v500 << 57) & 0xB000000000000000 | (v503 ^ (v500 & 0xD7743B29E523C989 | 0xC49200080634)) & 0x4F820E5F2A5CFCE0 ^ (v500 << 57) & 0x4E00000000000000) ^ (v500 >> 41);
-  v2[25] = (v503 ^ (v500 & 0xC989 | 0x634) ^ (v500 >> 41)) >> 8;
-  v512 = v511 ^ (v500 << 23);
-  v2[41] = v510 >> (v506 & 0x28) >> (v506 & 0x28 ^ 0x28);
-  v2[1] = BYTE1(v509);
-  v2[22] = BYTE6(v512);
-  v2[17] = BYTE4(v512);
-  v2[71] = BYTE2(v512);
-  v2[50] = BYTE6(v510);
-  v2[102] = v509;
-  v2[79] = BYTE3(v509);
-  v2[24] = v511;
-  v2[103] = HIBYTE(v512);
-  v2[13] = HIBYTE(v510);
-  v2[45] = BYTE5(v512);
-  v2[31] = v512 >> (-v390 & 0x18) >> (-v390 & 0x18 ^ 0x18u);
-  *(v532 + 3) = v361 + 1;
-  LODWORD(v512) = ((((v529 >> 2) ^ 0x12A4D3BB) - 1583579870) ^ (((v529 >> 2) ^ 0x5520442B) - 434574670) ^ (((v529 >> 2) ^ 0x5A7C1EA2) - 381374407)) == -1363138647;
+  v458 = __ROR8__(v455, 19);
+  v459 = v454 ^ v443 ^ v453;
+  *(&v460 + 1) = v459 ^ 0x8CEE1D69D550E5FLL;
+  *&v460 = v459;
+  v461 = v456 - 0x67287F0C7BE7D699 + 2 * (v457 & v456) - 4 * (v457 & v456);
+  v462 = (v458 ^ 0x28BE68937661C41BLL) << 58;
+  v463 = v446 ^ v449 & ~v448 ^ 0x1C9F3D0BA6640A8CLL ^ v458;
+  v464 = (v460 >> 61) ^ v459 ^ 0x8CEE1D69D550E5FLL ^ ((v459 ^ 0x8CEE1D69D550E5FuLL) >> 39) ^ ((v459 ^ 0x8CEE1D69D550E5FLL) << 25);
+  v465 = v458 ^ 0x28BE68937661C41BLL ^ __ROR8__(v458 ^ 0x28BE68937661C41BLL, 1) ^ ((v458 ^ 0x28BE68937661C41BuLL) >> 6);
+  v466 = v461 ^ (v461 << 23) ^ (v461 << 57) ^ (v461 >> 7) ^ (v461 >> 41);
+  v467 = v456 ^ 0xDE1CA53CC441A02 ^ v453 ^ __ROR8__(v456 ^ 0xDE1CA53CC441A02 ^ v453, 19) ^ ((v456 ^ 0xDE1CA53CC441A02 ^ v453) >> 28) ^ ((v456 ^ 0xDE1CA53CC441A02 ^ v453) << 36) ^ v466;
+  v468 = (v462 ^ -v462 ^ (v465 - (v465 ^ v462))) + v465;
+  v469 = v463 ^ __ROR8__(v463, 10) ^ (v463 >> 17) ^ (v463 << 47);
+  v470 = v464 & ~v467;
+  v471 = v470 & 0x20000000000000;
+  v472 = v468 ^ v464;
+  v473 = v469 ^ v466;
+  v474 = v468 ^ v464 | ~v469;
+  v475 = v470 & 0xFFDFFFFFFFFFFFFFLL;
+  v476 = v468 & ~v464 ^ v467;
+  if ((v471 & (v469 ^ v466)) != 0)
+  {
+    v471 = -v471;
+  }
+
+  v477 = v464 ^ ~v474 ^ v476;
+  v478 = (v471 + v473) ^ v475;
+  v479 = v476 ^ 0x9669D1232B5C28A4 ^ v478;
+  v480 = v472 ^ v466 & ~v469;
+  v481 = __ROR8__(__ROR8__(__ROR8__(v477, 39) ^ 0x48A1BB5E1D5E1C06, 15) ^ 0x4C5B213B48609D75, 10) ^ 0x96F0F456F576B221;
+  v482 = v469 ^ 0x82ABCDAC52312543 ^ v467 & ~v473 ^ v480;
+  v483 = v482 ^ __ROR8__(v482, 10) ^ (v482 >> 17) ^ (v482 << 47);
+  v484 = (8 * v481) ^ (v481 >> 39) ^ (v481 << 25) ^ ((v481 >> 61) + v481 - 2 * ((v481 >> 61) & v481));
+  v485 = v478 ^ 0xF502C960F8379034 ^ __ROR8__(v478 ^ 0xF502C960F8379034, 41) ^ ((v478 ^ 0xF502C960F8379034) << 57) ^ ((v478 ^ 0xF502C960F8379034) >> 7);
+  *(&v486 + 1) = v480;
+  *&v486 = v480 + 0x770298E464E2FFC0 - ((2 * v480) & 0xEE0531C8C9C5FF80);
+  v487 = (2 * (v486 ^ (v486 >> 1)) - (v486 ^ (v486 >> 1) ^ (v480 << 63))) ^ (v486 >> 6);
+  v488 = v484 ^ v487;
+  v489 = v479 ^ (v479 << 36) ^ ((v479 >> 19) ^ (v479 >> 28) | (v479 << 45)) ^ v485;
+  v490 = v484 & ~v489 ^ v485 ^ v483;
+  v491 = v487 & ~v484 ^ v489;
+  v492 = v488 ^ v485 & ~v483;
+  v493 = v484 ^ v483 & ~v488 ^ v491 ^ 0x46E4A679C9EBE44CLL;
+  v494 = v483 ^ v489 & ~(v485 ^ v483) ^ 0x5F4353815836A37FLL ^ v492;
+  *(&v486 + 1) = v491 ^ v490 ^ 0xAE0A4CFAF4BC990DLL;
+  *&v486 = v491 ^ v490;
+  v495 = v486 >> 19;
+  v496 = *(&v486 + 1) ^ __ROR8__(*(&v486 + 1), 28);
+  *(&v486 + 1) = v492;
+  *&v486 = v492 ^ 0xF3E8F9C9C239B274;
+  v497 = v486 >> 1;
+  v498 = v496 ^ v495;
+  *&v486 = __ROR8__(__ROR8__(v494, 29) & 0xFFFFE007FFFFFFFFLL ^ __ROR8__(v494, 19) ^ 0x942A3D47BF77E35FLL, 45);
+  v499 = v490 ^ 0x5120D79A612A4FBCLL;
+  v500 = v486 - ((2 * v486) & 0xD47BF77E35F942A2);
+  v501 = v492 ^ __ROR8__(v492, 6) ^ v497;
+  *(v528 - 1) = v498 ^ 0xD1;
+  v502 = ((v490 ^ 0x5120D79A612A4FBCLL) >> 7) & 0x8BC4D61ADC3676 ^ v490 & 0x288BC4D61ADC3676 | ((v490 ^ 0x5120D79A612A4FBCLL) >> 7) & 0x1743B29E523C989;
+  v503 = *(v283 + 538 + (((v498 >> 3) & 0xE0 | (v498 >> 11)) ^ 9)) - 52;
+  v2[38] = BYTE4(v498) ^ 0x47;
+  v2[69] = BYTE3(v498) ^ 0xD5;
+  v2[88] = (v503 ^ (4 * v503) ^ (2 * v503) ^ 0x1F) + 123;
+  *v528 = BYTE2(v498) ^ 0x21;
+  v504 = v493 ^ __ROR8__(v493, 61) ^ (v493 >> 39);
+  v505 = v504 ^ (v493 << 25);
+  v506 = *(v519 + ((((v498 >> 35) & 0xE0 ^ 0x6E3BF28D11102E4ALL) & ((v498 >> 43) & 0x1F ^ 0x7FFBF7ED3B173FFBLL) | (v498 >> 43) & 0x15) ^ 0x6E3BF28D11102E61));
+  v528[31] = BYTE6(v498) ^ 0xE;
+  v2[20] = BYTE1(v504);
+  v2[84] = v504;
+  v2[101] = BYTE2(v504);
+  v2[90] = HIBYTE(v498) ^ 0x1A;
+  *(v528 - 12) = (((v506 ^ 0xC6) + 46) ^ ((v506 ^ 0x2C) - 56) ^ ((v506 ^ 0x96) + 126)) - 27;
+  v2[12] = BYTE5(v505);
+  v2[83] = HIBYTE(v505);
+  v507 = (((v501 ^ 0x26) + 68) ^ ((v501 ^ 0xE2) - 120) ^ ((v501 ^ 0x79) + 29)) + 43;
+  if ((v501 & 4) == 0)
+  {
+    v507 = (((v501 ^ 0x86) + 35) ^ ((v501 ^ 0x77) - 44) ^ ((v501 ^ 0x4C) - 23)) - 30;
+  }
+
+  *(v528 - 7) = v507 ^ 4;
+  v528[39] = HIBYTE(v501) ^ 0x20;
+  v2[87] = BYTE6(v505);
+  v2[11] = BYTE3(v505);
+  v2[92] = BYTE4(v505);
+  v508 = ((v500 - 0x15C20440E5035EAFLL) ^ (v494 << 54) ^ -((v500 - 0x15C20440E5035EAFLL) ^ (v494 << 54)) ^ ((v494 >> 17) - ((v500 - 0x15C20440E5035EAFLL) ^ (v494 << 54) ^ (v494 >> 17)))) + (v494 >> 17);
+  v2[58] = BYTE1(v501) ^ 0x54;
+  v528[43] = BYTE3(v501) ^ 0xE5;
+  v2[63] = BYTE4(v508);
+  v2[85] = BYTE5(v501) ^ 0x5A;
+  *(v528 - 8) = BYTE6(v501) ^ 0x27;
+  v528[2] = BYTE4(v501) ^ 0x2E;
+  v2[53] = BYTE2(v501) ^ 0x31;
+  v2[89] = BYTE2(v508);
+  v509 = v508 ^ (v494 << 47);
+  v510 = ((v502 ^ (v499 & 0xD7743B29E523C989 | 0xC49200080634)) & 0xB07DF1A0D5A3031FLL ^ (v499 << 57) & 0xB000000000000000 | (v502 ^ (v499 & 0xD7743B29E523C989 | 0xC49200080634)) & 0x4F820E5F2A5CFCE0 ^ (v499 << 57) & 0x4E00000000000000) ^ (v499 >> 41);
+  v2[25] = (v502 ^ (v499 & 0xC989 | 0x634) ^ (v499 >> 41)) >> 8;
+  v511 = v510 ^ (v499 << 23);
+  v2[41] = v509 >> (v505 & 0x28) >> (v505 & 0x28 ^ 0x28);
+  v2[1] = BYTE1(v508);
+  v2[22] = BYTE6(v511);
+  v2[17] = BYTE4(v511);
+  v2[71] = BYTE2(v511);
+  v2[50] = BYTE6(v509);
+  v2[102] = v508;
+  v2[79] = BYTE3(v508);
+  v2[24] = v510;
+  v2[103] = HIBYTE(v511);
+  v2[13] = HIBYTE(v509);
+  v2[45] = BYTE5(v511);
+  v2[31] = v511 >> (-v389 & 0x18) >> (-v389 & 0x18 ^ 0x18u);
+  *(v528 + 3) = v360 + 1;
+  LODWORD(v511) = ((((v525 >> 2) ^ 0x12A4D3BB) - 1583579870) ^ (((v525 >> 2) ^ 0x5520442B) - 434574670) ^ (((v525 >> 2) ^ 0x5A7C1EA2) - 381374407)) == -1363138647;
   __asm { BRAA            X11, X17 }
 }
 
@@ -8571,7 +8506,7 @@ uint64_t sub_10029BD90()
   return (*(v3 + 8 * ((54 * !v5) ^ v0)))();
 }
 
-uint64_t sub_10029BE68@<X0>(int a1@<W0>, int a2@<W1>, int a3@<W2>, char a4@<W8>)
+uint64_t sub_10029BE68@<X0>(int a1@<W0>, int a2@<W1>, unsigned int a3@<W2>, char a4@<W8>)
 {
   v11 = v6 < v7;
   *(v10 + v5) ^= a4;
@@ -8700,19 +8635,18 @@ void sub_10029CC48(uint64_t a1, uint64_t a2)
   v3 = *(&off_1006B4E30 + ((99 * ((dword_1006D53C8 - dword_1006D56C8) ^ 0x89)) ^ byte_10062CD80[byte_10060CFD0[(99 * ((dword_1006D53C8 - dword_1006D56C8) ^ 0x89))] ^ 0x2B]) + 552);
   v4 = *(v3 - 4);
   v5 = *(&off_1006B4E30 + ((99 * ((dword_1006D53C8 - v4) ^ 0x89)) ^ byte_10066CCA0[byte_10064CCF0[(99 * ((dword_1006D53C8 - v4) ^ 0x89))] ^ 0x1B]) + 1054);
-  v6 = &v11[*v5 ^ v4];
+  v6 = &v10[*v5 ^ v4];
   *(v3 - 4) = (1758147683 * v6) ^ 0xFB29CEEFDABC1789;
   *v5 = 1758147683 * (v6 ^ 0xFB29CEEFDABC1789);
-  v14 = (961063711 * ((((&v12 | 0xCC5F41E2) ^ 0xFFFFFFFE) - (~&v12 | 0x33A0BE1D)) ^ 0x42547702)) ^ 0x374A6F0F;
-  v12 = a2;
+  v13 = (961063711 * ((((&v11 | 0xCC5F41E2) ^ 0xFFFFFFFE) - (~&v11 | 0x33A0BE1D)) ^ 0x42547702)) ^ 0x374A6F0F;
+  v11 = a2;
   LOBYTE(v6) = 99 * ((*v5 + *(v3 - 4)) ^ 0x89);
   v7 = *(&off_1006B4E30 + ((99 * (dword_1006D56C8 ^ 0x89 ^ dword_1006D53C8)) ^ byte_10062CD80[byte_10060CFD0[(99 * (dword_1006D56C8 ^ 0x89 ^ dword_1006D53C8))] ^ 0xC]) + 866) - 4;
-  (*&v7[8 * (byte_10066CDA0[byte_10064CDF8[v6 - 8] ^ 0xCE] ^ v6) + 99712])(&v12);
-  v8 = v13;
-  *(a1 + 8) = *(v13 + 4) - 476382832;
+  (*&v7[8 * (byte_10066CDA0[byte_10064CDF8[v6 - 8] ^ 0xCE] ^ v6) + 99712])(&v11);
+  v8 = v12;
+  *(a1 + 8) = *(v12 + 4) - 476382832;
   v9 = 99 * ((*v5 + *(v3 - 4)) ^ 0x89);
   *a1 = (*&v7[8 * (byte_10060D0D8[(byte_10066CFA0[v9] ^ 0xCB) - 8] ^ v9) + 97448])((*(v8 + 4) - 476382832), 0x100004077774924);
-  v10 = *(v8 + 8);
   __asm { BRAA            X12, X17 }
 }
 
@@ -8834,9 +8768,6 @@ uint64_t sub_10029D9B0(uint64_t a1, uint64_t a2)
 void sub_10029DBC8(uint64_t a1)
 {
   v1 = *(a1 + 24) + 122489177 * ((((2 * a1) | 0xB3C996A2) - a1 - 1508166481) ^ 0x9A83844B);
-  v2 = ((*(*a1 + 16) != 0) * ((v1 ^ 0xF5E) - 8457)) ^ v1;
-  v3 = v1 ^ 0x2D63;
-  v4 = *(a1 + 16);
   __asm { BRAA            X13, X17 }
 }
 
@@ -8857,7 +8788,7 @@ uint64_t sub_10029E1AC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 {
   v38 = v35 & 0x2FAABAFD;
   v39 = **(v34 + 8 * (v38 ^ 0xA3Bu));
-  v41 = (*(v36 + 8 * (v38 + 9842)))(a1, v39, 0, &a34);
+  v41 = (*(v36 + 8 * (v38 + 9842)))(a1, v39, 0, &a34, a5, a6, a7, a8);
   v42 = v37 + v38 - 1321 + v41 - ((2 * v41) & 0xBCCBBF20) - 1388;
   v43 = (*(v36 + 8 * (v38 + 9821)))(a1);
   return (*(v36 + 8 * ((4347 * (v42 == v37)) ^ v38)))(v43);
@@ -8869,11 +8800,8 @@ uint64_t sub_10029E240(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   STACK[0x1C70] = 0;
   STACK[0x1C78] = 0x6A66EEF00000000;
   LODWORD(STACK[0x1C80]) = 0;
-  v38 = (*(v35 + 84) ^ 0xB9A1EFFF3EDDDBFDLL) + 0x465E1000C1222403 + ((2 * *(v35 + 84)) & 0xFFFB);
-  v39 = (*(v35 + 96) ^ 0x79D5B913E7FF49FFLL) - 0x79D5B913E7FF49FFLL + ((2 * *(v35 + 96)) & 0x1CFFE93FELL);
-  v40 = (*(v35 + 100) ^ 0xDF377F6D7BFE9FDDLL) + 0x20C8809284016023 + ((2 * *(v35 + 100)) & 0xF7FD3FBALL);
-  v41 = *(v35 + 240);
-  return (*(v36 + 8 * ((59 * (*(v35 + 16) == 1)) ^ v34)))(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26, a27, a28, 0, a30, 4096, a32, a33, a34, ((v34 - 1673) | 0x2060) + (*(v35 + 16) ^ 0xDE681F7FFFEFF5E7) + 0x2197E080000FE5ADLL + ((*(v35 + 16) << (((v34 + 115) | 0x64) - 107)) & 0x1FFDFEBCELL), (*(v35 + 32) ^ 0x7EDB5BFFFB7FA7B5) - 0x7EDB5BFFFB7FA7B5 + ((2 * *(v35 + 32)) & 0x1F6FF4F6ALL), 24);
+  v37 = *(v35 + 16);
+  return (*(v36 + 8 * ((59 * (v37 == 1)) ^ v34)))(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26, a27, a28, 0, a30, 4096, a32, a33, a34, ((v34 - 1673) | 0x2060) + (v37 ^ 0xDE681F7FFFEFF5E7) + 0x2197E080000FE5ADLL + ((v37 << (((v34 + 115) | 0x64) - 107)) & 0x1FFDFEBCELL), (*(v35 + 32) ^ 0x7EDB5BFFFB7FA7B5) - 0x7EDB5BFFFB7FA7B5 + ((2 * *(v35 + 32)) & 0x1F6FF4F6ALL), 24, 8, 8, 8, (*(v35 + 84) ^ 0xB9A1EFFF3EDDDBFDLL) + 0x465E1000C1222403 + ((2 * *(v35 + 84)) & 0xFFFB), 0, (*(v35 + 96) ^ 0x79D5B913E7FF49FFLL) - 0x79D5B913E7FF49FFLL + ((2 * *(v35 + 96)) & 0x1CFFE93FELL), (*(v35 + 100) ^ 0xDF377F6D7BFE9FDDLL) + 0x20C8809284016023 + ((2 * *(v35 + 100)) & 0xF7FD3FBALL), *(v35 + 240));
 }
 
 uint64_t sub_10029E478(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37)
@@ -8972,8 +8900,15 @@ uint64_t sub_10029FC98(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *(v34 - 120) = v31;
   *(v34 - 160) = &a30;
   *(v34 - 152) = v31;
-  (*(v33 + 8 * (v30 ^ 0x3BE2)))(v34 - 160);
+  (*(v33 + 8 * (v30 ^ 0x3BE2)))(v34 - 160, a2, a3, a4, a5, a6, a7, a8);
   return (*(v33 + 8 * ((5565 * (*(v34 - 128) == ((v30 - 1429) | 0x6C) + 1172927105)) ^ v30)))(a28);
+}
+
+uint64_t sub_10029FD4C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
+{
+  va_start(va, a34);
+  v38 = (*(v35 + 8 * (v37 + 11147)))(a1, 3, va, 11, v34, a29);
+  return (*(v35 + 8 * (((v38 + v36 - ((2 * v38) & 0xBCCBBF20) == ((v37 + 8415) ^ 0x5E65F9DB)) * (v37 + 2662)) ^ (v37 + 7942))))(v38, v39, v40, v41, v42, v43, v44, v45, &STACK[0xC70], &a31, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20);
 }
 
 uint64_t sub_10029FDE4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, void *a28)
@@ -8992,45 +8927,47 @@ uint64_t sub_10029FF68@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   return (*(v5 + 8 * (((a2 & 0xFFFFFFF8) - 8 == v2) | (2 * ((a2 & 0xFFFFFFF8) - 8 == v2)) | v3)))();
 }
 
-uint64_t sub_1002A06B8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, int a21)
+uint64_t sub_1002A06B8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, unsigned int a23, uint64_t a24, uint64_t a25)
 {
-  v24 = (((v21 - 92) | 0x417) - 566) | 0x8C2;
-  HIDWORD(v26) = LODWORD(STACK[0xC60]) - 1477745135;
-  LODWORD(v26) = v24 + 1477734155;
+  LODWORD(a24) = 0;
+  v28 = (((v25 - 92) | 0x417) - 566) | 0x8C2;
+  HIDWORD(v30) = LODWORD(STACK[0xC60]) - 1477745135;
+  LODWORD(v30) = v28 + 1477734155;
   HIDWORD(a12) = -1477743488;
-  LODWORD(v29) = v22 + 1688278110;
-  HIDWORD(v29) = STACK[0xC60];
-  LODWORD(v28) = ((v22 + 625906302) & 0xDAB17BDE) - 6617;
-  HIDWORD(v28) = v22 + 5275;
-  LODWORD(v27) = (v22 + 625906302) & 0xDAB17BDE;
-  HIDWORD(v27) = (v22 + 5275) | 0x1027;
-  return (*(v23 + 8 * (((a21 != 0) * ((v24 ^ 0xB14) - 8517 + 61 * (v24 ^ 0x2AE7))) ^ v24)))(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, &STACK[0x1C78], a12, v26, v27, v28, v29, a17, a18);
+  LODWORD(v33) = v26 + 1688278110;
+  HIDWORD(v33) = STACK[0xC60];
+  LODWORD(v32) = ((v26 + 625906302) & 0xDAB17BDE) - 6617;
+  HIDWORD(v32) = v26 + 5275;
+  LODWORD(v31) = (v26 + 625906302) & 0xDAB17BDE;
+  HIDWORD(v31) = (v26 + 5275) | 0x1027;
+  return (*(v27 + 8 * (((a21 != 0) * ((v28 ^ 0xB14) - 8517 + 61 * (v28 ^ 0x2AE7))) ^ v28)))(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, &STACK[0x1C78], a12, v30, v31, v32, v33, a17, a18, a19, a20, a21, &STACK[0x1C90], a23, a24, a25, 0);
 }
 
-uint64_t sub_1002A0808@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, int a9@<W8>, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21)
+uint64_t sub_1002A0808@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, int a9@<W8>, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28)
 {
-  v22 = ((7 * (a9 ^ 0x2074)) ^ HIDWORD(a13)) + HIDWORD(a21);
-  v23 = v22 < 1749 * (a9 ^ 0x21F2u) - 1477753880;
-  v24 = v22 > HIDWORD(a14);
-  if (HIDWORD(a17) > a14 != v23)
+  v29 = ((7 * (a9 ^ 0x2074)) ^ HIDWORD(a13)) + HIDWORD(a21);
+  v30 = v29 < 1749 * (a9 ^ 0x21F2u) - 1477753880;
+  v31 = v29 > HIDWORD(a14);
+  if (HIDWORD(a17) > a14 != v30)
   {
-    v25 = v23;
+    v32 = v30;
   }
 
   else
   {
-    v25 = v24;
+    v32 = v31;
   }
 
-  return (*(v21 + 8 * ((1010 * v25) ^ a9)))(a1, a2, a3, a4, a5, a6, a7, a8, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21);
+  return (*(v28 + 8 * ((1010 * v32) ^ a9)))(a1, a2, a3, a4, a5, a6, a7, a8, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26, a27, a28, 0);
 }
 
-uint64_t sub_1002A0894(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20)
+uint64_t sub_1002A0894(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27)
 {
-  v22 = (a18 + HIDWORD(a20));
-  v23 = *v22 - ((2 * *v22) & 0x80) + 993023808;
-  HIDWORD(a20) += ((v22[2] << 16) | (v22[3] << 24)) + (v23 & 0x1F98 ^ 0x294D3767 ^ ((((v20 - 1713869644) & 0x66277BB7 ^ 0xFFFFE495) + ((49 * (v20 ^ 0x2238) + v22[1] - ((2 * v22[1]) & 0x96)) << 8) + 263855104) ^ 0x26F06B67) & (v23 ^ 0xC4CFA8A7)) + 4;
-  return (*(v21 + 8 * ((131 * (HIDWORD(a20) > HIDWORD(a16))) ^ v20)))(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20);
+  v29 = (a18 + HIDWORD(a20));
+  v30 = *v29 - ((2 * *v29) & 0x80) + 993023808;
+  LODWORD(a27) = ((v29[2] << 16) | (v29[3] << 24)) + (v30 & 0x1F98 ^ 0x294D3767 ^ ((((v27 - 1713869644) & 0x66277BB7 ^ 0xFFFFE495) + ((49 * (v27 ^ 0x2238) + v29[1] - ((2 * v29[1]) & 0x96)) << 8) + 263855104) ^ 0x26F06B67) & (v30 ^ 0xC4CFA8A7));
+  HIDWORD(a20) += a27 + 4;
+  return (*(v28 + 8 * ((131 * (HIDWORD(a20) > HIDWORD(a16))) ^ v27)))(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26, a27, 0);
 }
 
 uint64_t sub_1002A0A64@<X0>(_DWORD *a1@<X8>, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, _BYTE *a15)
@@ -9075,7 +9012,7 @@ uint64_t sub_1002A0FA0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   v28 = (v25 + 597949127) & 0xDC5BFDBF;
   v29 = (v28 ^ 0x1DBB) + v24;
   *(a22 + v29) = v26 ^ HIBYTE(v23);
-  return (*(v27 + 8 * ((88 * (v29 + (v28 ^ 0x1DB8) <= v22)) ^ v28)))();
+  return (*(v27 + 8 * ((88 * (v29 + (v28 ^ 0x1DB8) <= v22)) ^ v28)))(a1, a2, a3, a4, a5, a6, a7, a8);
 }
 
 uint64_t sub_1002A10F0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -9144,14 +9081,7 @@ uint64_t sub_1002A1C14(uint64_t a1, uint64_t a2, char a3, int a4, unsigned int a
 {
   v13 = v10 - 1;
   *(v11 + v13 + v7) = *(v8 + v13) ^ a3;
-  return (*(v12 + 8 * (((v13 == ((v9 + a4) & a5 ^ a6)) * a7) | v9)))();
-}
-
-uint64_t sub_1002A1C50(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, int a33, int a34, unsigned int a35)
-{
-  v39 = LODWORD(STACK[0xC68]) + ((v35 - 1321) ^ (v38 - 1172)) - ((2 * LODWORD(STACK[0xC68])) & 0xBCCBBF20);
-  (*(v36 + 8 * ((v35 - 1321) ^ 0x359E)))(a35);
-  return (*(v36 + 8 * ((97 * (a34 == ((379 * ((v35 - 1321) ^ 0x563) - 1851229880) & 0x6E577BFF) - 5886 + ((379 * ((v35 - 1321) ^ 0x563) - 3637) | 0x381))) ^ (379 * ((v35 - 1321) ^ 0x563)))))(v37);
+  return (*(v12 + 8 * (((v13 == ((v9 + a4) & a5 ^ a6)) * a7) | v9)))(a1, a2);
 }
 
 uint64_t sub_1002A296C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
@@ -9159,7 +9089,6 @@ uint64_t sub_1002A296C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   (*(v3 + 8 * (v2 ^ 0x3ABB)))(a2);
   result = a1;
   *(a1 + 48) = v4;
-  v8 = *(v5 - 112);
   return result;
 }
 
@@ -9184,7 +9113,7 @@ uint64_t sub_1002A2B8C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   v41 = *(v39 + 64);
   v42 = *(v39 + 40);
   LODWORD(STACK[0x1C80]) = 1;
-  v43 = (*(v38 + 8 * (v37 ^ 0x31D9)))(a28);
+  v43 = (*(v38 + 8 * (v37 ^ 0x31D9)))(a28, a2, a3, a4, a5, a6, a7, a8);
   *v42 = *(&a37 + v40);
   *(v41 - 0x2B1B4DD47AF3E1CCLL) = STACK[0x1C78];
   return sub_1002A1C50(v43, v44, v45, v46, v47, v48, v49, v50, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26, a27, a28, a29, a30, a31, a32, a33, a34, a35);
@@ -9279,7 +9208,7 @@ uint64_t sub_1002A366C()
 uint64_t sub_1002A3718(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10)
 {
   v14 = 961 * (v13 ^ 0xB2A);
-  v15 = (*(v12 + 8 * (v13 ^ 0x3BF4)))(*(v11 + 40));
+  v15 = (*(v12 + 8 * (v13 ^ 0x3BF4)))(*(v11 + 40), a2, a3, a4, a5, a6, a7, a8);
   *(v11 + 40) = v10;
   v16 = *(v11 + 32);
   *(v11 + 32) = a10;
@@ -9327,22 +9256,20 @@ uint64_t sub_1002A3B60(uint64_t result)
   v2 = *(result + 16);
   v3 = *(&off_1006B4E30 + (v1 ^ 0xEFBC4710)) - 5;
   v4 = *(&off_1006B4E30 + v1 + 272874678);
-  v5 = *(&off_1006B4E30 + v1 + 272875171) - 1;
-  v6 = *(&off_1006B4E30 + v1 + 272875392) - 4;
-  v7 = *(&off_1006B4E30 + v1 + 272875475) - 4;
-  v8 = (*(result + 24) + (((result | 0xA2) - result + (result & 0x5D)) ^ 0x80));
-  if (v8 <= 0xB)
+  v5 = *(&off_1006B4E30 + v1 + 272875475) - 4;
+  v6 = (*(result + 24) + (((result | 0xA2) - result + (result & 0x5D)) ^ 0x80));
+  if (v6 <= 0xB)
   {
-    if (v8 - 6 >= 3)
+    if (v6 - 6 >= 3)
     {
-      if (v8 - 9 < 2)
+      if (v6 - 9 < 2)
       {
-        v9 = 16 * (v1 ^ 0xEFBC43E6);
-        v10 = v1 + 272876582;
-        v17 = *(&off_1006B4E30 + (v1 ^ 0xEFBC4710)) - 5;
-        v18 = v2;
-        v16 = v1 + 613327279 * ((2 * (v15 & 0x2F4B9DF8) - v15 - 793484795) ^ 0xB7230C3B) + 272880050;
-        (*&v7[8 * (v1 ^ 0xEFBC7280)])(v15);
+        v7 = 16 * (v1 ^ 0xEFBC43E6);
+        v8 = v1 + 272876582;
+        v15 = *(&off_1006B4E30 + (v1 ^ 0xEFBC4710)) - 5;
+        v16 = v2;
+        v14 = v1 + 613327279 * ((2 * (v13 & 0x2F4B9DF8) - v13 - 793484795) ^ 0xB7230C3B) + 272880050;
+        (*&v5[8 * (v1 ^ 0xEFBC7280)])(v13);
         __asm { BRAA            X9, X17 }
       }
 
@@ -9350,37 +9277,37 @@ uint64_t sub_1002A3B60(uint64_t result)
     }
 
 LABEL_9:
-    v12 = v1 + 272876568;
-    v16 = v1 + 613327279 * (v15 ^ 0x67976E3E) + 272880050;
-    v17 = v3;
-    v18 = v2;
-    (*&v7[8 * (v1 ^ 0xEFBC7280)])(v15);
+    v10 = v1 + 272876568;
+    v14 = v1 + 613327279 * (v13 ^ 0x67976E3E) + 272880050;
+    v15 = v3;
+    v16 = v2;
+    (*&v5[8 * (v1 ^ 0xEFBC7280)])(v13);
     __asm { BRAA            X9, X17 }
   }
 
-  if (v8 - 14 < 2)
+  if (v6 - 14 < 2)
   {
     goto LABEL_9;
   }
 
-  if (v8 == 12)
+  if (v6 == 12)
   {
-    v13 = v1 ^ 0xEFBC445A;
-    v14 = v1 + 272876582;
-    v16 = v1 + 613327279 * ((2 * (v15 & 0x16559860) - v15 - 374708325) ^ 0x8E3D09A5) + 272880050;
-    v17 = v4;
-    v18 = v2;
-    (*&v7[8 * (v1 ^ 0xEFBC7280)])(v15);
+    v11 = v1 ^ 0xEFBC445A;
+    v12 = v1 + 272876582;
+    v14 = v1 + 613327279 * ((2 * (v13 & 0x16559860) - v13 - 374708325) ^ 0x8E3D09A5) + 272880050;
+    v15 = v4;
+    v16 = v2;
+    (*&v5[8 * (v1 ^ 0xEFBC7280)])(v13);
     __asm { BRAA            X9, X17 }
   }
 
-  if (v8 == 13)
+  if (v6 == 13)
   {
-    v11 = v1 + 272876568;
-    v16 = v1 + 613327279 * ((((2 * v15) | 0x573C2E12) - v15 - 731780873) ^ 0x4C097937) + 272880050;
-    v17 = *(&off_1006B4E30 + v1 + 272874624);
-    v18 = v2;
-    (*&v7[8 * v1 + 2183097344])(v15);
+    v9 = v1 + 272876568;
+    v14 = v1 + 613327279 * ((((2 * v13) | 0x573C2E12) - v13 - 731780873) ^ 0x4C097937) + 272880050;
+    v15 = *(&off_1006B4E30 + v1 + 272874624);
+    v16 = v2;
+    (*&v5[8 * v1 + 2183097344])(v13);
     __asm { BRAA            X9, X17 }
   }
 
@@ -9569,9 +9496,6 @@ uint64_t sub_1002A5920(unint64_t a1)
   STACK[0x448] = ((4 - v3) & 0xFu) + v3 - 943747684;
   v6 = v5();
   v7 = *(v4 + 8 * ((15 * (v3 - ((((v2 - 665528456) & 0x27AB2F7F) + 2 * v3 + 58650109) & 0x232F3EA) != 943747684)) ^ v2));
-  v8 = *(&off_1006B4E30 + (v2 ^ 0x247C)) - 12;
-  v9 = *(&off_1006B4E30 + (v2 - 9465)) - 4;
-  v10 = *(&off_1006B4E30 + (v2 ^ 0x2438)) - 8;
   STACK[0x4D8] = v6;
   return v7();
 }
@@ -9585,32 +9509,31 @@ uint64_t sub_1002A5AB8@<X0>(uint64_t a1@<X8>)
 
 uint64_t sub_1002A5BA4@<X0>(uint64_t a1@<X8>)
 {
-  v12.val[1].i64[0] = (v4 + 13) & 0xF;
-  v12.val[1].i64[1] = (v4 + 12) & 0xF;
-  v12.val[2].i64[0] = (v4 + 11) & 0xF;
-  v12.val[2].i64[1] = (v4 + 10) & 0xF;
-  v12.val[3].i64[0] = (v4 + 9) & 0xF;
-  v12.val[3].i64[1] = v4 & 0xF ^ 8;
-  v7 = STACK[0x4D8];
-  v13.val[0].i64[0] = (v4 + 7) & 0xF;
-  v13.val[0].i64[1] = (v4 + 6) & 0xF;
-  v13.val[1].i64[0] = (v4 + 5) & 0xF;
-  v13.val[1].i64[1] = (v4 + 4) & 0xF;
-  v13.val[2].i64[0] = (v4 + 3) & 0xF;
-  v13.val[2].i64[1] = (v4 + 2) & 0xF;
-  v13.val[3].i64[0] = (v4 + 1) & 0xF;
-  v13.val[3].i64[1] = v4 & 0xF;
-  v8 = vqtbl4q_s8(v13, xmmword_10066D0A0).u64[0];
-  v9.i64[0] = 0x1313131313131313;
-  v9.i64[1] = 0x1313131313131313;
-  v12.val[0].i64[0] = (v4 - 1) & 0xF;
-  v12.val[0].i64[1] = (v4 + 14) & 0xF;
-  v13.val[2].i64[0] = vqtbl4q_s8(v12, xmmword_10066D0A0).u64[0];
-  v13.val[2].i64[1] = v8;
-  v13.val[0] = vrev64q_s8(vmulq_s8(v13.val[2], v9));
-  *(STACK[0x4D8] - 15 + v4 - 1) = veorq_s8(veorq_s8(veorq_s8(*(v2 + v12.val[0].i64[0] - 15), *(v3 - 15 + v4 - 1)), veorq_s8(*(v12.val[0].i64[0] + a1 - 13), *(v1 + v12.val[0].i64[0] - 15))), vextq_s8(v13.val[0], v13.val[0], 8uLL));
-  v10 = (((v5 | 0x1010) - 6855) | 0x425u) - 1311 == (v4 & 0x10);
-  return (*(v6 + 8 * ((v10 | (8 * v10)) ^ (v5 | 0x1010))))(v12.val[0].i64[1]);
+  v11.val[1].i64[0] = (v4 + 13) & 0xF;
+  v11.val[1].i64[1] = (v4 + 12) & 0xF;
+  v11.val[2].i64[0] = (v4 + 11) & 0xF;
+  v11.val[2].i64[1] = (v4 + 10) & 0xF;
+  v11.val[3].i64[0] = (v4 + 9) & 0xF;
+  v11.val[3].i64[1] = v4 & 0xF ^ 8;
+  v12.val[0].i64[0] = (v4 + 7) & 0xF;
+  v12.val[0].i64[1] = (v4 + 6) & 0xF;
+  v12.val[1].i64[0] = (v4 + 5) & 0xF;
+  v12.val[1].i64[1] = (v4 + 4) & 0xF;
+  v12.val[2].i64[0] = (v4 + 3) & 0xF;
+  v12.val[2].i64[1] = (v4 + 2) & 0xF;
+  v12.val[3].i64[0] = (v4 + 1) & 0xF;
+  v12.val[3].i64[1] = v4 & 0xF;
+  v7 = vqtbl4q_s8(v12, xmmword_10066D0A0).u64[0];
+  v8.i64[0] = 0x1313131313131313;
+  v8.i64[1] = 0x1313131313131313;
+  v11.val[0].i64[0] = (v4 - 1) & 0xF;
+  v11.val[0].i64[1] = (v4 + 14) & 0xF;
+  v12.val[2].i64[0] = vqtbl4q_s8(v11, xmmword_10066D0A0).u64[0];
+  v12.val[2].i64[1] = v7;
+  v12.val[0] = vrev64q_s8(vmulq_s8(v12.val[2], v8));
+  *(STACK[0x4D8] - 15 + v4 - 1) = veorq_s8(veorq_s8(veorq_s8(*(v2 + v11.val[0].i64[0] - 15), *(v3 - 15 + v4 - 1)), veorq_s8(*(v11.val[0].i64[0] + a1 - 13), *(v1 + v11.val[0].i64[0] - 15))), vextq_s8(v12.val[0], v12.val[0], 8uLL));
+  v9 = (((v5 | 0x1010) - 6855) | 0x425u) - 1311 == (v4 & 0x10);
+  return (*(v6 + 8 * ((v9 | (8 * v9)) ^ (v5 | 0x1010))))(v11.val[0].i64[1]);
 }
 
 uint64_t sub_1002A5DB8@<X0>(uint64_t a1@<X8>)
@@ -10030,70 +9953,66 @@ uint64_t sub_1002A6194(unint64_t a1)
   LODWORD(STACK[0x2B0]) = v196;
   v218 = v216 ^ v196 ^ LODWORD(STACK[0x3F4]) ^ LODWORD(STACK[0x338]);
   LODWORD(STACK[0x294]) = v189;
-  v219 = STACK[0x438];
-  v220 = v198 ^ LODWORD(STACK[0x3B4]) ^ LODWORD(STACK[0x410]) ^ LODWORD(STACK[0x3D4]) ^ LODWORD(STACK[0x438]) ^ LODWORD(STACK[0x330]) ^ LODWORD(STACK[0x308]) ^ LODWORD(STACK[0x360]) ^ LODWORD(STACK[0x488]);
+  v219 = v198 ^ LODWORD(STACK[0x3B4]) ^ LODWORD(STACK[0x410]) ^ LODWORD(STACK[0x3D4]) ^ LODWORD(STACK[0x438]) ^ LODWORD(STACK[0x330]) ^ LODWORD(STACK[0x308]) ^ LODWORD(STACK[0x360]) ^ LODWORD(STACK[0x488]);
   LODWORD(STACK[0x31C]) = v172;
-  v221 = v215 ^ v218 ^ v189 ^ v220 ^ v172 ^ LODWORD(STACK[0x328]) ^ LODWORD(STACK[0x440]);
+  v220 = v215 ^ v218 ^ v189 ^ v219 ^ v172 ^ LODWORD(STACK[0x328]) ^ LODWORD(STACK[0x440]);
   LODWORD(STACK[0x298]) = v197;
-  LODWORD(STACK[0x378]) = v221 ^ v197 ^ 0x17EDDE3C;
-  v222 = STACK[0x4B8];
-  *v222 = 0x64C2E1497E34EE43;
+  LODWORD(STACK[0x378]) = v220 ^ v197 ^ 0x17EDDE3C;
+  v221 = STACK[0x4B8];
+  *v221 = 0x64C2E1497E34EE43;
   STACK[0x518] = 0x53833A680ED2DCC3;
-  v223 = STACK[0x4B0];
-  v224 = LODWORD(STACK[0x4B0]) ^ 0xE7B11C55;
-  v225 = LOBYTE(STACK[0x4B0]) ^ 0x55 ^ HIBYTE(v224) ^ BYTE1(v224) ^ BYTE2(v224);
+  v222 = STACK[0x4B0];
+  v223 = LODWORD(STACK[0x4B0]) ^ 0xE7B11C55;
+  v224 = LOBYTE(STACK[0x4B0]) ^ 0x55 ^ HIBYTE(v223) ^ BYTE1(v223) ^ BYTE2(v223);
   LODWORD(STACK[0x480]) = v201 ^ 0x9FB8478A;
   LODWORD(STACK[0x460]) = v201 ^ 0x8A ^ ((v201 ^ 0x478A) >> 8) ^ ((v201 ^ 0x9FB8478A) >> 16) ^ ((v201 ^ 0x9FB8478A) >> 24) ^ 0xC6;
-  v226 = v223 ^ 0x72F1F1A9;
-  v227 = v222[(v222[v222[1] & 1] & 1) == 0] & 1;
-  v228 = ((v227 - 427310035) ^ (v227 + 392703309) ^ ((v227 ^ 0xEE9774BD) + 955315378)) - 1314933987;
-  v229 = STACK[0x4A0];
-  v230 = -105 * (LODWORD(STACK[0x4A0]) ^ 0xD2);
-  v231 = LODWORD(STACK[0x4D0]) + 977751537;
+  v225 = v221[(v221[v221[1] & 1] & 1) == 0] & 1;
+  v226 = ((v225 - 427310035) ^ (v225 + 392703309) ^ ((v225 ^ 0xEE9774BD) + 955315378)) - 1314933987;
+  v227 = STACK[0x4A0];
+  v228 = -105 * (LODWORD(STACK[0x4A0]) ^ 0xD2);
   LODWORD(STACK[0x278]) = v213;
-  v232 = ((v231 ^ v213) - LODWORD(STACK[0x3F0])) ^ v219;
   LODWORD(STACK[0x28C]) = v217;
-  LODWORD(STACK[0x488]) = v224;
-  v233 = v224 ^ 0x6BE78015;
+  LODWORD(STACK[0x488]) = v223;
+  v229 = v223 ^ 0x6BE78015;
   LODWORD(STACK[0x3C8]) = v204 ^ 0xAFCD607D;
-  v234 = (v204 ^ 0xAFCD607D) & 7 ^ 2;
+  v230 = (v204 ^ 0xAFCD607D) & 7 ^ 2;
   if (((v204 ^ 0xAFCD607D) & 7) == 2)
   {
-    v235 = 0;
+    v231 = 0;
   }
 
   else
   {
-    v235 = 255;
+    v231 = 255;
   }
 
-  LODWORD(STACK[0x4B0]) = v234;
-  v236 = -v234 & 7;
-  LODWORD(STACK[0x4D0]) = v236;
+  LODWORD(STACK[0x4B0]) = v230;
+  v232 = -v230 & 7;
+  LODWORD(STACK[0x4D0]) = v232;
   if (((v204 ^ 0x7D) & 7) == 2)
   {
-    v237 = 0;
+    v233 = 0;
   }
 
   else
   {
-    v237 = ~(v235 << v236);
+    v233 = ~(v231 << v232);
   }
 
-  LODWORD(STACK[0x458]) = (v233 & v237);
-  LODWORD(STACK[0x358]) = v225 ^ 0xC0;
-  LODWORD(STACK[0x2D8]) = v233;
-  v238 = v228 < 0x8807332B;
-  v239 = 0x747DDC96BBD4DE5 * (*STACK[0x4B8] ^ 0xA1A1A1A1A1A1A1A1);
-  v240 = (v239 ^ 0x47B06012FF61E83FLL) - ((v239 ^ 0x47B06012FF61E83FLL) >> (v230 ^ 0xE5u));
-  v241 = v240 + (v240 >> 16) - ((v240 + (v240 >> 16)) >> 8);
-  v242 = v241 ^ v226;
-  v241 -= 0x46585549F617C75CLL;
-  v243 = v242 ^ ((v241 ^ v239) - ((v241 ^ v239) >> 32) + (((v241 ^ v239) - ((v241 ^ v239) >> 32)) >> 16) - (((v241 ^ v239) - ((v241 ^ v239) >> 32) + (((v241 ^ v239) - ((v241 ^ v239) >> 32)) >> 16)) >> 8));
-  if (v228 >= 0x8807332B)
+  LODWORD(STACK[0x458]) = (v229 & v233);
+  LODWORD(STACK[0x358]) = v224 ^ 0xC0;
+  LODWORD(STACK[0x2D8]) = v229;
+  v234 = v226 < 0x8807332B;
+  v235 = 0x747DDC96BBD4DE5 * (*STACK[0x4B8] ^ 0xA1A1A1A1A1A1A1A1);
+  v236 = (v235 ^ 0x47B06012FF61E83FLL) - ((v235 ^ 0x47B06012FF61E83FLL) >> (v228 ^ 0xE5u));
+  v237 = v236 + (v236 >> 16) - ((v236 + (v236 >> 16)) >> 8);
+  v238 = v237 ^ v222 ^ 0x72F1F1A9;
+  v237 -= 0x46585549F617C75CLL;
+  v239 = v238 ^ ((v237 ^ v235) - ((v237 ^ v235) >> 32) + (((v237 ^ v235) - ((v237 ^ v235) >> 32)) >> 16) - (((v237 ^ v235) - ((v237 ^ v235) >> 32) + (((v237 ^ v235) - ((v237 ^ v235) >> 32)) >> 16)) >> 8));
+  if (v226 >= 0x8807332B)
   {
-    v238 = v228 > 0x8807332C;
+    v234 = v226 > 0x8807332C;
   }
 
-  return (*(v134 + 8 * ((2 * v238) | (4 * v238) | v229)))(469445982, v243, 8933);
+  return (*(v134 + 8 * ((2 * v234) | (4 * v234) | v227)))(469445982, v239, 8933);
 }

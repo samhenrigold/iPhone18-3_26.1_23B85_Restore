@@ -57,13 +57,13 @@
 - (void)viewDidLayoutSubviews
 {
   selfCopy = self;
-  sub_417850();
+  sub_417850(selfCopy);
 }
 
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_417A14();
+  sub_417A14(selfCopy);
 }
 
 - (_TtC16MusicApplication27JSStaticImageViewController)initWithNibName:(id)name bundle:(id)bundle

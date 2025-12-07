@@ -69,7 +69,7 @@
 - (void)setContentOption:(int64_t)option
 {
   selfCopy = self;
-  sub_23BFBEEF4(option);
+  sub_23BFBEEF4(option, v4);
 }
 
 - (NSString)placeholderName
@@ -106,7 +106,7 @@
   v6[1] = v5;
   selfCopy = self;
 
-  sub_23BFBF10C();
+  sub_23BFBF10C(v7, v8);
 }
 
 - (void)setFaceState:(id)state

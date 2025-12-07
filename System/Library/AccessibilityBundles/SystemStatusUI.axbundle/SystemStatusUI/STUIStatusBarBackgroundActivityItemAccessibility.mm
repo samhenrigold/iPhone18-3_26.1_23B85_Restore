@@ -34,125 +34,123 @@
 
 void __101__STUIStatusBarBackgroundActivityItemAccessibility__axBackgroundActivityLabelByBackgroundActivityID___block_invoke()
 {
-  v23[47] = *MEMORY[0x29EDCA608];
+  v22[47] = *MEMORY[0x29EDCA608];
   v0 = *MEMORY[0x29EDC6EB0];
-  v22[0] = *MEMORY[0x29EDC6EA8];
-  v22[1] = v0;
-  v23[0] = @"status.backgroundactivity.call.stewie";
-  v23[1] = @"status.backgroundactivity.call.stewie.disconnected";
+  v21[0] = *MEMORY[0x29EDC6EA8];
+  v21[1] = v0;
+  v22[0] = @"status.backgroundactivity.call.stewie";
+  v22[1] = @"status.backgroundactivity.call.stewie.disconnected";
   v1 = *MEMORY[0x29EDC6F00];
-  v22[2] = *MEMORY[0x29EDC6E20];
-  v22[3] = v1;
-  v23[2] = @"status.backgroundactivity.callRinging";
-  v23[3] = @"status.backgroundactivity.videoConferenceRinging";
+  v21[2] = *MEMORY[0x29EDC6E20];
+  v21[3] = v1;
+  v22[2] = @"status.backgroundactivity.callRinging";
+  v22[3] = @"status.backgroundactivity.videoConferenceRinging";
   v2 = *MEMORY[0x29EDC6EF8];
-  v22[4] = *MEMORY[0x29EDC6E18];
-  v22[5] = v2;
-  v23[4] = @"status.backgroundactivity.call.handoff";
-  v23[5] = @"status.backgroundactivity.video.handoff";
+  v21[4] = *MEMORY[0x29EDC6E18];
+  v21[5] = v2;
+  v22[4] = @"status.backgroundactivity.call.handoff";
+  v22[5] = @"status.backgroundactivity.video.handoff";
   v3 = *MEMORY[0x29EDC6E78];
-  v22[6] = *MEMORY[0x29EDC6E70];
-  v22[7] = v3;
-  v23[6] = @"status.backgroundactivity.incall";
-  v23[7] = @"status.backgroundactivity.videoconference";
+  v21[6] = *MEMORY[0x29EDC6E70];
+  v21[7] = v3;
+  v22[6] = @"status.backgroundactivity.incall";
+  v22[7] = @"status.backgroundactivity.videoconference";
   v4 = *MEMORY[0x29EDC6E68];
-  v22[8] = *MEMORY[0x29EDC6DE8];
-  v22[9] = v4;
-  v23[8] = @"status.backgroundactivity.push.to.talk.active";
-  v23[9] = @"status.backgroundactivity.push.to.talk.idle";
+  v21[8] = *MEMORY[0x29EDC6DE8];
+  v21[9] = v4;
+  v22[8] = @"status.backgroundactivity.push.to.talk.active";
+  v22[9] = @"status.backgroundactivity.push.to.talk.idle";
   v5 = *MEMORY[0x29EDC6F10];
-  v22[10] = *MEMORY[0x29EDC6F18];
-  v22[11] = v5;
-  v23[10] = @"status.backgroundactivity.web.rtc.video";
-  v23[11] = @"status.backgroundactivity.web.rtc.audio";
+  v21[10] = *MEMORY[0x29EDC6F18];
+  v21[11] = v5;
+  v22[10] = @"status.backgroundactivity.web.rtc.video";
+  v22[11] = @"status.backgroundactivity.web.rtc.audio";
   v6 = *MEMORY[0x29EDC6E50];
-  v22[12] = *MEMORY[0x29EDC6E58];
-  v22[13] = v6;
-  v23[12] = @"status.backgroundactivity.web.rtc.screen.video";
-  v23[13] = @"status.backgroundactivity.web.rtc.screen.audio";
+  v21[12] = *MEMORY[0x29EDC6E58];
+  v21[13] = v6;
+  v22[12] = @"status.backgroundactivity.web.rtc.screen.video";
+  v22[13] = @"status.backgroundactivity.web.rtc.screen.audio";
   v7 = *MEMORY[0x29EDC6E10];
-  v22[14] = *MEMORY[0x29EDC6E88];
-  v22[15] = v7;
-  v23[14] = @"status.backgroundactivity.navigation";
-  v23[15] = @"status.backgroundactivity.location";
+  v21[14] = *MEMORY[0x29EDC6E88];
+  v21[15] = v7;
+  v22[14] = @"status.backgroundactivity.navigation";
+  v22[15] = @"status.backgroundactivity.location";
   v8 = *MEMORY[0x29EDC6EA0];
-  v22[16] = *MEMORY[0x29EDC6E90];
-  v22[17] = v8;
-  v23[16] = @"status.backgroundactivity.nearby.interactions";
-  v23[17] = @"status.backgroundactivity.audiorecording";
+  v21[16] = *MEMORY[0x29EDC6E90];
+  v21[17] = v8;
+  v22[16] = @"status.backgroundactivity.nearby.interactions";
+  v22[17] = @"status.backgroundactivity.audiorecording";
   v9 = *MEMORY[0x29EDC6ED0];
-  v22[18] = *MEMORY[0x29EDC6E60];
-  v22[19] = v9;
-  v23[18] = @"status.backgroundactivity.hearingaidrecording";
-  v23[19] = @"status.backgroundactivity.shareplay";
+  v21[18] = *MEMORY[0x29EDC6E60];
+  v21[19] = v9;
+  v22[18] = @"status.backgroundactivity.hearingaidrecording";
+  v22[19] = @"status.backgroundactivity.shareplay";
   v10 = *MEMORY[0x29EDC6ED8];
-  v22[20] = *MEMORY[0x29EDC6EE0];
-  v22[21] = v10;
-  v23[20] = @"status.backgroundactivity.shareplay.screen";
-  v23[21] = @"status.backgroundactivity.shareplay.inactive";
+  v21[20] = *MEMORY[0x29EDC6EE0];
+  v21[21] = v10;
+  v22[20] = @"status.backgroundactivity.shareplay.screen";
+  v22[21] = @"status.backgroundactivity.shareplay.inactive";
   v11 = *MEMORY[0x29EDC6F08];
-  v22[22] = *MEMORY[0x29EDC6E98];
-  v22[23] = v11;
-  v23[22] = @"status.backgroundactivity.playground";
-  v23[23] = @"status.backgroundactivity.videoout";
+  v21[22] = *MEMORY[0x29EDC6E98];
+  v21[23] = v11;
+  v22[22] = @"status.backgroundactivity.playground";
+  v22[23] = @"status.backgroundactivity.videoout";
   v12 = *MEMORY[0x29EDC6EC8];
-  v22[24] = *MEMORY[0x29EDC6EC0];
-  v22[25] = v12;
-  v23[24] = @"status.backgroundactivity.screenshare";
-  v23[25] = @"status.backgroundactivity.videoout";
+  v21[24] = *MEMORY[0x29EDC6EC0];
+  v21[25] = v12;
+  v22[24] = @"status.backgroundactivity.screenshare";
+  v22[25] = @"status.backgroundactivity.videoout";
   v13 = *MEMORY[0x29EDC6E08];
-  v22[26] = *MEMORY[0x29EDC6EB8];
-  v22[27] = v13;
-  v23[26] = @"status.backgroundactivity.screenrecording";
-  v23[27] = @"status.backgroundactivity.auto.airplay.ready";
+  v21[26] = *MEMORY[0x29EDC6EB8];
+  v21[27] = v13;
+  v22[26] = @"status.backgroundactivity.screenrecording";
+  v22[27] = @"status.backgroundactivity.auto.airplay.ready";
   v14 = *MEMORY[0x29EDC6EE8];
-  v22[28] = *MEMORY[0x29EDC6E00];
-  v22[29] = v14;
-  v23[28] = @"status.backgroundactivity.auto.airplay.play";
-  v23[29] = @"status.backgroundactivity.sysdiagnose";
+  v21[28] = *MEMORY[0x29EDC6E00];
+  v21[29] = v14;
+  v22[28] = @"status.backgroundactivity.auto.airplay.play";
+  v22[29] = @"status.backgroundactivity.sysdiagnose";
   v15 = *MEMORY[0x29EDC6E80];
-  v22[30] = *MEMORY[0x29EDC6E48];
-  v22[31] = v15;
-  v23[30] = @"status.backgroundactivity.diagnostics";
-  v23[31] = @"status.backgroundactivity.logging";
+  v21[30] = *MEMORY[0x29EDC6E48];
+  v21[31] = v15;
+  v22[30] = @"status.backgroundactivity.diagnostics";
+  v22[31] = @"status.backgroundactivity.logging";
   v16 = *MEMORY[0x29EDC6DF8];
-  v22[32] = *MEMORY[0x29EDC6E30];
-  v22[33] = v16;
-  v23[32] = @"status.backgroundactivity.carplay";
-  v23[33] = @"status.backgroundactivity.assistant";
+  v21[32] = *MEMORY[0x29EDC6E30];
+  v21[33] = v16;
+  v22[32] = @"status.backgroundactivity.carplay";
+  v22[33] = @"status.backgroundactivity.assistant";
   v17 = *MEMORY[0x29EDC6DF0];
-  v22[34] = *MEMORY[0x29EDC6EF0];
-  v22[35] = v17;
-  v23[34] = @"status.backgroundactivity.tethering";
-  v23[35] = @"status.backgroundactivity.airprint";
+  v21[34] = *MEMORY[0x29EDC6EF0];
+  v21[35] = v17;
+  v22[34] = @"status.backgroundactivity.tethering";
+  v22[35] = @"status.backgroundactivity.airprint";
   v18 = *MEMORY[0x29EDC6E40];
-  v22[36] = *MEMORY[0x29EDC6E38];
-  v22[37] = v18;
-  v23[36] = @"status.backgroundactivity.sos";
-  v23[37] = @"status.backgroundactivity.devtools";
-  v22[38] = @"com.apple.mediaremoted.background-activity.routed-video";
-  v22[39] = @"com.apple.mediaremoted.background-activity.routed-audio-pulse";
-  v23[38] = @"status.backgroundactivity.mediaremote.video";
-  v23[39] = @"status.backgroundactivity.mediaremote.video";
-  v22[40] = @"com.apple.mediaremoted.background-activity.routed-audio";
-  v22[41] = @"com.apple.mediaremoted.background-activity.routed-video-pulse";
-  v23[40] = @"status.backgroundactivity.mediaremote.audio";
-  v23[41] = @"status.backgroundactivity.mediaremote.audio";
-  v22[42] = @"com.apple.systemstatus.background-activity.continuitycapture.streaming-video";
-  v22[43] = @"com.apple.systemstatus.background-activity.continuitycapture.streaming-audio";
-  v23[42] = @"status.backgroundactivity.continuitycapture.video";
-  v23[43] = @"status.backgroundactivity.continuitycapture.audio";
-  v22[44] = @"com.apple.systemstatus.background-activity.continuitycapture.streaming-none";
-  v22[45] = @"com.apple.systemstatus.background-activity.guestpass";
-  v23[44] = @"status.backgroundactivity.continuitycapture.none";
-  v23[45] = @"status.backgroundactivity.guestpass.session.active";
-  v22[46] = *MEMORY[0x29EDC6E28];
-  v23[46] = @"status.backgroundactivity.call.screening";
-  v19 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v23 forKeys:v22 count:47];
+  v21[36] = *MEMORY[0x29EDC6E38];
+  v21[37] = v18;
+  v22[36] = @"status.backgroundactivity.sos";
+  v22[37] = @"status.backgroundactivity.devtools";
+  v21[38] = @"com.apple.mediaremoted.background-activity.routed-video";
+  v21[39] = @"com.apple.mediaremoted.background-activity.routed-audio-pulse";
+  v22[38] = @"status.backgroundactivity.mediaremote.video";
+  v22[39] = @"status.backgroundactivity.mediaremote.video";
+  v21[40] = @"com.apple.mediaremoted.background-activity.routed-audio";
+  v21[41] = @"com.apple.mediaremoted.background-activity.routed-video-pulse";
+  v22[40] = @"status.backgroundactivity.mediaremote.audio";
+  v22[41] = @"status.backgroundactivity.mediaremote.audio";
+  v21[42] = @"com.apple.systemstatus.background-activity.continuitycapture.streaming-video";
+  v21[43] = @"com.apple.systemstatus.background-activity.continuitycapture.streaming-audio";
+  v22[42] = @"status.backgroundactivity.continuitycapture.video";
+  v22[43] = @"status.backgroundactivity.continuitycapture.audio";
+  v21[44] = @"com.apple.systemstatus.background-activity.continuitycapture.streaming-none";
+  v21[45] = @"com.apple.systemstatus.background-activity.guestpass";
+  v22[44] = @"status.backgroundactivity.continuitycapture.none";
+  v22[45] = @"status.backgroundactivity.guestpass.session.active";
+  v21[46] = *MEMORY[0x29EDC6E28];
+  v22[46] = @"status.backgroundactivity.call.screening";
+  v19 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v22 forKeys:v21 count:47];
   v20 = _MergedGlobals;
   _MergedGlobals = v19;
-
-  v21 = *MEMORY[0x29EDCA608];
 }
 
 - (void)_axApplyLabelToBackground
@@ -163,24 +161,22 @@ void __101__STUIStatusBarBackgroundActivityItemAccessibility__axBackgroundActivi
 
 id __77__STUIStatusBarBackgroundActivityItemAccessibility__axApplyLabelToBackground__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v3 = AXStatusBarPillTimeView(WeakRetained);
-  v6 = [v3 accessibilityLabel];
-  v4 = __UIAXStringForVariables();
+  v2 = AXStatusBarPillTimeView(WeakRetained);
+  v5 = [v2 accessibilityLabel];
+  v3 = __UIAXStringForVariables();
 
-  return v4;
+  return v3;
 }
 
 id __77__STUIStatusBarBackgroundActivityItemAccessibility__axApplyLabelToBackground__block_invoke_2(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v3 = AXStatusBarPillTimeView(WeakRetained);
-  v6 = [v3 accessibilityLabel];
-  v4 = __UIAXStringForVariables();
+  v2 = AXStatusBarPillTimeView(WeakRetained);
+  v5 = [v2 accessibilityLabel];
+  v3 = __UIAXStringForVariables();
 
-  return v4;
+  return v3;
 }
 
 - (void)_accessibilityLoadAccessibilityInformation
@@ -195,15 +191,12 @@ id __77__STUIStatusBarBackgroundActivityItemAccessibility__axApplyLabelToBackgro
 
 uint64_t __94__STUIStatusBarBackgroundActivityItemAccessibility__accessibilityLoadAccessibilityInformation__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) safeValueForKey:@"setNeedsUpdate"];
-  v6 = *(a1 + 32);
+  v1 = [*(a1 + 32) safeValueForKey:@"setNeedsUpdate"];
   AXPerformSafeBlock();
-  v3 = *(a1 + 32);
   MEMORY[0x29ED3ADB0](@"STUIStatusBarPillBackgroundActivityItem");
   result = objc_opt_isKindOfClass();
   if (result)
   {
-    v5 = *(a1 + 32);
     return AXPerformSafeBlock();
   }
 

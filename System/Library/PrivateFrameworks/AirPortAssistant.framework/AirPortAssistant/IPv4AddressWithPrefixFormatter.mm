@@ -6,17 +6,17 @@
 
 - (BOOL)isPartialStringValid:(id)valid newEditingString:(id *)string errorDescription:(id *)description
 {
-  v18.receiver = self;
-  v18.super_class = IPv4AddressWithPrefixFormatter;
-  v7 = [(IPv4AddressFormatter *)&v18 isPartialStringValid:valid newEditingString:string errorDescription:?];
+  v22.receiver = self;
+  v22.super_class = IPv4AddressWithPrefixFormatter;
+  v7 = [(IPv4AddressFormatter *)&v22 isPartialStringValid:valid newEditingString:string errorDescription:?];
   if (v7)
   {
-    if (objc_msgSend_length(valid, v8, v9))
+    if (objc_msgSend_length(valid, v8, v9, v10))
     {
-      v11 = objc_msgSend_rangeOfString_(valid, v10, @"/");
-      if (v11 == 0x7FFFFFFFFFFFFFFFLL)
+      v13 = objc_msgSend_rangeOfString_(valid, v11, @"/", v12);
+      if (v13 == 0x7FFFFFFFFFFFFFFFLL)
       {
-        if (objc_msgSend_length(valid, v12, v13) >= 0x10)
+        if (objc_msgSend_length(valid, v14, v15, v16) >= 0x10)
         {
           if (description)
           {
@@ -34,8 +34,8 @@ LABEL_9:
 
       else
       {
-        v14 = objc_msgSend_substringFromIndex_(valid, v12, v11 + 1);
-        if (objc_msgSend_integerValue(v14, v15, v16) >= 0x21)
+        v17 = objc_msgSend_substringFromIndex_(valid, v14, v13 + 1, v16);
+        if (objc_msgSend_integerValue(v17, v18, v19, v20) >= 0x21)
         {
           if (description)
           {

@@ -9,7 +9,7 @@
 
 - (WFStartPhoneCallContextualAction)initWithPerson:(id)person serializedRepresentation:(id)representation namedQueryInfo:(id)info
 {
-  v43[1] = *MEMORY[0x1E69E9840];
+  v42[1] = *MEMORY[0x1E69E9840];
   personCopy = person;
   representationCopy = representation;
   infoCopy = info;
@@ -71,7 +71,7 @@ LABEL_3:
     v15 = value;
   }
 
-  v41 = representationCopy;
+  v40 = representationCopy;
   v20 = [[WFContextualActionParameter alloc] initWithType:@"WFContactContentItem" displayString:v15 wfParameterKey:@"WFCallContact" wfSerializedRepresentation:representationCopy];
   image = [personCopy image];
   _imageData = [image _imageData];
@@ -90,19 +90,18 @@ LABEL_3:
     v27 = [(WFContextualActionIcon *)v23 initWithSystemName:@"person.fill"];
   }
 
-  v43[0] = v20;
-  v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:v43 count:1];
+  v42[0] = v20;
+  v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:v42 count:1];
   v29 = MEMORY[0x1E696AEC0];
   v30 = WFLocalizedString(@"Call %@");
   v31 = [v29 localizedStringWithFormat:v30, v15];
   WFLocalizedString(@"Start Call");
-  v32 = v39 = v20;
+  v32 = v38 = v20;
   v33 = [WFContextualActionIcon iconWithApplicationBundleIdentifier:@"com.apple.mobilephone"];
-  v42.receiver = self;
-  v42.super_class = WFStartPhoneCallContextualAction;
-  v34 = [(WFTopHitItemContextualAction *)&v42 initWithItem:personCopy identifier:@"com.apple.mobilephone.call" wfActionIdentifier:@"com.apple.mobilephone.call" associatedAppBundleIdentifier:@"com.apple.mobilephone" parameters:v28 displayString:v31 title:v32 subtitle:v15 primaryColor:4 icon:v27 accessoryIcon:v33 namedQueryInfo:infoCopy];
+  v41.receiver = self;
+  v41.super_class = WFStartPhoneCallContextualAction;
+  v34 = [(WFTopHitItemContextualAction *)&v41 initWithItem:personCopy identifier:@"com.apple.mobilephone.call" wfActionIdentifier:@"com.apple.mobilephone.call" associatedAppBundleIdentifier:@"com.apple.mobilephone" parameters:v28 displayString:v31 title:v32 subtitle:v15 primaryColor:4 icon:v27 accessoryIcon:v33 namedQueryInfo:infoCopy];
 
-  v35 = *MEMORY[0x1E69E9840];
   return v34;
 }
 

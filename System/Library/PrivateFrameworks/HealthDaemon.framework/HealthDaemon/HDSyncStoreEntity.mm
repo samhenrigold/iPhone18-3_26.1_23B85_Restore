@@ -58,7 +58,7 @@
 
 BOOL __84__HDSyncStoreEntity_syncStoreEntityWithUUID_type_creationDate_healthDatabase_error___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v24[3] = *MEMORY[0x277D85DE8];
+  v23[3] = *MEMORY[0x277D85DE8];
   v5 = [a2 databaseForEntityClass:*(a1 + 56)];
   v6 = [(HDSyncStoreEntity *)*(a1 + 56) _predicateWithStoreUUID:*(a1 + 64) type:?];
   v7 = [*(a1 + 56) anyInDatabase:v5 predicate:v6 error:a3];
@@ -73,21 +73,21 @@ BOOL __84__HDSyncStoreEntity_syncStoreEntityWithUUID_type_creationDate_healthDat
 
   else
   {
-    v24[0] = @"uuid";
-    v24[1] = @"type";
-    v24[2] = @"creation_date";
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:3];
+    v23[0] = @"uuid";
+    v23[1] = @"type";
+    v23[2] = @"creation_date";
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:3];
     v12 = *(a1 + 56);
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __84__HDSyncStoreEntity_syncStoreEntityWithUUID_type_creationDate_healthDatabase_error___block_invoke_2;
-    v20[3] = &unk_278613AE8;
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __84__HDSyncStoreEntity_syncStoreEntityWithUUID_type_creationDate_healthDatabase_error___block_invoke_2;
+    v19[3] = &unk_278613AE8;
     v13 = *(a1 + 32);
     v14 = *(a1 + 64);
-    v21 = v13;
-    v23 = v14;
-    v22 = *(a1 + 40);
-    v15 = [v12 insertOrReplaceEntity:0 database:v5 properties:v11 error:a3 bindingHandler:v20];
+    v20 = v13;
+    v22 = v14;
+    v21 = *(a1 + 40);
+    v15 = [v12 insertOrReplaceEntity:0 database:v5 properties:v11 error:a3 bindingHandler:v19];
     v16 = *(*(a1 + 48) + 8);
     v17 = *(v16 + 40);
     *(v16 + 40) = v15;
@@ -95,7 +95,6 @@ BOOL __84__HDSyncStoreEntity_syncStoreEntityWithUUID_type_creationDate_healthDat
     v10 = *(*(*(a1 + 48) + 8) + 40) != 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v10;
 }
 

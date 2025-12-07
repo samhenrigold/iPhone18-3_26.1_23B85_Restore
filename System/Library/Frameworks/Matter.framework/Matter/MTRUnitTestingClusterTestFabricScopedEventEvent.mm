@@ -24,8 +24,8 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc_init(MTRUnitTestingClusterTestFabricScopedEventEvent);
-  fabricIndex = [(MTRUnitTestingClusterTestFabricScopedEventEvent *)self fabricIndex];
-  [(MTRUnitTestingClusterTestFabricScopedEventEvent *)v4 setFabricIndex:fabricIndex];
+  v5 = objc_msgSend_fabricIndex(self);
+  [(MTRUnitTestingClusterTestFabricScopedEventEvent *)v4 setFabricIndex:v5];
 
   return v4;
 }

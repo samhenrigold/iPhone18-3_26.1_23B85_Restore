@@ -88,8 +88,8 @@
   layoutInfo = [(PUTileController *)self layoutInfo];
   v4 = MEMORY[0x1E696AEC0];
   v5 = objc_opt_class();
-  indexPath = [layoutInfo indexPath];
-  pu_shortDescription = [indexPath pu_shortDescription];
+  v6 = objc_msgSend_indexPath(layoutInfo);
+  pu_shortDescription = [v6 pu_shortDescription];
   v8 = [v4 stringWithFormat:@"<%@ %p indexPath: %@>", v5, self, pu_shortDescription];;
 
   return v8;

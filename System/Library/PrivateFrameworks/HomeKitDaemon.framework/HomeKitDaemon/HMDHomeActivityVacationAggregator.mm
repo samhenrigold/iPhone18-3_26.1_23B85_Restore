@@ -92,7 +92,7 @@
 
 - (id)_computedState
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -101,9 +101,9 @@
     v6 = HMFGetLogIdentifier();
     userActivityMap = [(HMDHomeActivityStateAggregator *)selfCopy userActivityMap];
     *buf = 138543618;
-    v24 = v6;
-    v25 = 2112;
-    v26 = userActivityMap;
+    v23 = v6;
+    v24 = 2112;
+    v25 = userActivityMap;
     _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Computing state from user activity map %@", buf, 0x16u);
   }
 
@@ -126,12 +126,12 @@
   }
 
   userActivityMap2 = [(HMDHomeActivityStateAggregator *)selfCopy userActivityMap];
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __51__HMDHomeActivityVacationAggregator__computedState__block_invoke;
-  v22[3] = &unk_27866E388;
-  v22[4] = selfCopy;
-  v15 = [userActivityMap2 na_map:v22];
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __51__HMDHomeActivityVacationAggregator__computedState__block_invoke;
+  v21[3] = &unk_27866E388;
+  v21[4] = selfCopy;
+  v15 = [userActivityMap2 na_map:v21];
 
   if (![v15 count])
   {
@@ -153,7 +153,6 @@ LABEL_11:
   v19 = v18;
 
 LABEL_12:
-  v20 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
@@ -173,18 +172,7 @@ id __51__HMDHomeActivityVacationAggregator__computedState__block_invoke(uint64_t
   }
 
   v6 = v5;
-  if (!v6)
-  {
-    goto LABEL_6;
-  }
-
-  v7 = [*(a1 + 32) dataSource];
-  v8 = [v7 currentDate];
-  v9 = [*(a1 + 32) dataSource];
-  [v9 reportValidityInterval];
-  v10 = [v6 isExpiredWithCurrentDate:v8 validInterval:?];
-
-  if ((v10 & 1) == 0)
+  if (v6 && ([*(a1 + 32) dataSource], v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "currentDate"), v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(*(a1 + 32), "dataSource"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "reportValidityInterval"), v10 = objc_msgSend(v6, "isExpiredWithCurrentDate:validInterval:", v8), v9, v8, v7, (v10 & 1) == 0))
   {
     v12 = v6;
     v11 = v4;
@@ -192,7 +180,6 @@ id __51__HMDHomeActivityVacationAggregator__computedState__block_invoke(uint64_t
 
   else
   {
-LABEL_6:
     v11 = 0;
   }
 
@@ -201,7 +188,7 @@ LABEL_6:
 
 - (HMDHomeActivityVacationAggregatorState)computedState
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   _computedState = [(HMDHomeActivityVacationAggregator *)self _computedState];
   v4 = _computedState;
   if (self)
@@ -247,13 +234,13 @@ LABEL_5:
 
     v14 = HMDHomeActivityVacationAggregatorStateTypeAsString(v13);
     v15 = HMDHomeActivityVacationAggregatorStateTypeAsString([v4 type]);
-    v19 = 138543874;
-    v20 = v12;
-    v21 = 2112;
-    v22 = v14;
-    v23 = 2112;
-    v24 = v15;
-    _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Vacation aggregator state changed from %@ to %@", &v19, 0x20u);
+    v18 = 138543874;
+    v19 = v12;
+    v20 = 2112;
+    v21 = v14;
+    v22 = 2112;
+    v23 = v15;
+    _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Vacation aggregator state changed from %@ to %@", &v18, 0x20u);
   }
 
   objc_autoreleasePoolPop(v9);
@@ -264,7 +251,6 @@ LABEL_5:
   }
 
 LABEL_11:
-  v17 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -291,7 +277,7 @@ LABEL_11:
 
 - (double)moveToVacationTimeIntervalFromDataSource:(id)source
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   preferences = [sourceCopy preferences];
   v6 = [preferences preferenceForKey:@"vacationAggregatorDefaultTimerInSec"];
@@ -306,11 +292,11 @@ LABEL_11:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       v12 = HMFGetLogIdentifier();
-      v20 = 138543618;
-      v21 = v12;
-      v22 = 2048;
-      v23 = integerValue;
-      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_DEBUG, "%{public}@Using user-defined vacation time interval: %ld", &v20, 0x16u);
+      v19 = 138543618;
+      v20 = v12;
+      v21 = 2048;
+      v22 = integerValue;
+      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_DEBUG, "%{public}@Using user-defined vacation time interval: %ld", &v19, 0x16u);
     }
 
     objc_autoreleasePoolPop(v9);
@@ -325,18 +311,17 @@ LABEL_11:
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
       v17 = HMFGetLogIdentifier();
-      v20 = 138543618;
-      v21 = v17;
-      v22 = 2048;
-      v23 = 86400;
-      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_DEBUG, "%{public}@Using the default vacation time interval: %ld", &v20, 0x16u);
+      v19 = 138543618;
+      v20 = v17;
+      v21 = 2048;
+      v22 = 86400;
+      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_DEBUG, "%{public}@Using the default vacation time interval: %ld", &v19, 0x16u);
     }
 
     objc_autoreleasePoolPop(v14);
     v13 = 86400.0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -376,10 +361,9 @@ LABEL_11:
 
 void __48__HMDHomeActivityVacationAggregator_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v8_4385;
-  logCategory__hmf_once_v8_4385 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v8_4385;
+  logCategory__hmf_once_v8_4385 = v0;
 }
 
 @end

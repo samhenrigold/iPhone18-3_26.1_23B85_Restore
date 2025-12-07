@@ -7,14 +7,14 @@
 
 - (void)URLSession:(id)session didReceiveChallenge:(id)challenge completionHandler:(id)handler
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   challengeCopy = challenge;
   handlerCopy = handler;
   v8 = handleForCategory();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v23) = 0;
-    _os_log_impl(&dword_24785F000, v8, OS_LOG_TYPE_DEFAULT, "didReceiveChallenge", &v23, 2u);
+    LOWORD(v22) = 0;
+    _os_log_impl(&dword_24785F000, v8, OS_LOG_TYPE_DEFAULT, "didReceiveChallenge", &v22, 2u);
   }
 
   protectionSpace = [challengeCopy protectionSpace];
@@ -49,11 +49,11 @@
   v17 = handleForCategory();
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
-    v23 = 138412546;
-    v24 = v14;
-    v25 = 2112;
-    v26 = challengeCopy;
-    _os_log_impl(&dword_24785F000, v17, OS_LOG_TYPE_DEFAULT, "Certificate:%@:%@", &v23, 0x16u);
+    v22 = 138412546;
+    v23 = v14;
+    v24 = 2112;
+    v25 = challengeCopy;
+    _os_log_impl(&dword_24785F000, v17, OS_LOG_TYPE_DEFAULT, "Certificate:%@:%@", &v22, 0x16u);
   }
 
   if (v16)
@@ -75,13 +75,11 @@
 
     handlerCopy[2](handlerCopy, 2, 0);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)trustIsValidWithProtectionSpace:(id)space
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   spaceCopy = space;
   v4 = spaceCopy;
   error = 0;
@@ -163,9 +161,9 @@ LABEL_26:
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109376;
-    v25 = TrustResult;
-    v26 = 1024;
-    v27 = result;
+    v24 = TrustResult;
+    v25 = 1024;
+    v26 = result;
     _os_log_impl(&dword_24785F000, v16, OS_LOG_TYPE_DEFAULT, "SecTrust result: %d, evaluated: %u", buf, 0xEu);
   }
 
@@ -179,17 +177,15 @@ LABEL_29:
   v18 = result == kSecTrustResultProceed || result == kSecTrustResultUnspecified;
 LABEL_30:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
 + (void)trustIsValidWithProtectionSpace:(int)a1 .cold.4(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_error_impl(&dword_24785F000, a2, OS_LOG_TYPE_ERROR, "SecTrustSetAnchorCertificates failed: %d", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_error_impl(&dword_24785F000, a2, OS_LOG_TYPE_ERROR, "SecTrustSetAnchorCertificates failed: %d", v2, 8u);
 }
 
 @end

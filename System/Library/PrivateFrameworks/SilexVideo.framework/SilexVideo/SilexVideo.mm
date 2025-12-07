@@ -34,16 +34,16 @@ void sub_26609858C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-id SVBundle()
+id SVBundle(uint64_t a1)
 {
   if (SVBundle_onceToken != -1)
   {
     SVBundle_cold_1();
   }
 
-  v1 = SVBundle___SVBundle;
+  v2 = SVBundle___SVBundle;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __SVBundle_block_invoke()
@@ -160,16 +160,16 @@ void sub_2660A246C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t VideoPlayerState.isFullScreen.getter()
+uint64_t VideoPlayerState.isFullScreen.getter(uint64_t a1, uint64_t a2)
 {
   swift_getKeyPath();
-  v3 = v0;
+  v5 = v2;
   sub_2660A6110();
   sub_2660A7058();
 
-  v1 = OBJC_IVAR___SVVideoPlayerState__isFullScreen;
+  v3 = OBJC_IVAR___SVVideoPlayerState__isFullScreen;
   swift_beginAccess();
-  return *(v3 + v1);
+  return *(v5 + v3);
 }
 
 uint64_t VideoPlayerState.isFullScreen.setter(char a1)
@@ -184,8 +184,8 @@ uint64_t VideoPlayerState.isFullScreen.setter(char a1)
 
   else
   {
-    swift_getKeyPath();
-    MEMORY[0x28223BE20]();
+    KeyPath = swift_getKeyPath();
+    MEMORY[0x28223BE20](KeyPath);
     sub_2660A6110();
     sub_2660A7048();
   }
@@ -193,16 +193,16 @@ uint64_t VideoPlayerState.isFullScreen.setter(char a1)
   return result;
 }
 
-uint64_t sub_2660A6054@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_2660A6054@<X0>(uint64_t *a1@<X0>, _BYTE *a3@<X8>)
 {
-  v3 = *a1;
+  v4 = *a1;
   swift_getKeyPath();
   sub_2660A6110();
   sub_2660A7058();
 
-  v4 = OBJC_IVAR___SVVideoPlayerState__isFullScreen;
+  v5 = OBJC_IVAR___SVVideoPlayerState__isFullScreen;
   result = swift_beginAccess();
-  *a2 = *(v3 + v4);
+  *a3 = *(v4 + v5);
   return result;
 }
 
@@ -211,7 +211,7 @@ unint64_t sub_2660A6110()
   result = qword_28005BB78;
   if (!qword_28005BB78)
   {
-    type metadata accessor for VideoPlayerState();
+    type metadata accessor for VideoPlayerState(255);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_28005BB78);
   }
@@ -219,7 +219,7 @@ unint64_t sub_2660A6110()
   return result;
 }
 
-uint64_t type metadata accessor for VideoPlayerState()
+uint64_t type metadata accessor for VideoPlayerState(uint64_t a1)
 {
   result = qword_28005BB88;
   if (!qword_28005BB88)
@@ -240,7 +240,7 @@ uint64_t sub_2660A61B4()
   return result;
 }
 
-void (*VideoPlayerState.isFullScreen.modify(uint64_t *a1))(void **a1)
+uint64_t (*VideoPlayerState.isFullScreen.modify(uint64_t *a1))()
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -269,12 +269,10 @@ void (*VideoPlayerState.isFullScreen.modify(uint64_t *a1))(void **a1)
   return sub_2660A6328;
 }
 
-void sub_2660A6328(void **a1)
+void sub_2660A6328(void *a1)
 {
   v1 = *a1;
   swift_endAccess();
-  v2 = v1[4];
-  v3 = v1[5];
   *v1 = v1[3];
   swift_getKeyPath();
   sub_2660A7068();
@@ -282,17 +280,17 @@ void sub_2660A6328(void **a1)
   free(v1);
 }
 
-double VideoPlayerState.customControlHeight.getter()
+double VideoPlayerState.customControlHeight.getter(uint64_t a1, uint64_t a2)
 {
   swift_getKeyPath();
-  v3 = v0;
+  v5 = v2;
   sub_2660A6110();
   sub_2660A7058();
 
-  v1 = OBJC_IVAR___SVVideoPlayerState__isFullScreen;
+  v3 = OBJC_IVAR___SVVideoPlayerState__isFullScreen;
   swift_beginAccess();
   result = 32.0;
-  if (*(v3 + v1))
+  if (*(v5 + v3))
   {
     return 44.0;
   }
@@ -324,12 +322,11 @@ id VideoPlayerState.__deallocating_deinit()
   return objc_msgSendSuper2(&v2, sel_dealloc);
 }
 
-uint64_t sub_2660A66AC()
+uint64_t sub_2660A66AC(uint64_t a1, uint64_t a2)
 {
   result = sub_2660A7098();
-  if (v1 <= 0x3F)
+  if (v3 <= 0x3F)
   {
-    v2 = *(result - 8) + 64;
     result = swift_updateClassMetadata2();
     if (!result)
     {
@@ -344,24 +341,23 @@ Swift::Void __swiftcall UIView.setPlayButtonBackground(fallBackColor:)(UIColor f
 {
   v3 = sub_2660A7108();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  v6 = (MEMORY[0x28223BE20])();
-  v8 = &v14[-1] - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = MEMORY[0x28223BE20](v6);
-  v11 = &v14[-1] - v10;
-  MEMORY[0x28223BE20](v9);
+  v5 = MEMORY[0x28223BE20](v3);
+  v7 = &v13[-1] - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = MEMORY[0x28223BE20](v5);
+  v10 = &v13[-1] - v9;
+  MEMORY[0x28223BE20](v8);
   if (sub_2660A7138())
   {
     [v1 setOverrideUserInterfaceStyle_];
     sub_2660A70D8();
     sub_2660A70E8();
-    v12 = *(v4 + 8);
-    v12(v8, v3);
+    v11 = *(v4 + 8);
+    v11(v7, v3);
     sub_2660A70C8();
-    v12(v11, v3);
-    v14[3] = sub_2660A7118();
-    v14[4] = MEMORY[0x277D74E20];
-    __swift_allocate_boxed_opaque_existential_1(v14);
+    v11(v10, v3);
+    v13[3] = sub_2660A7118();
+    v13[4] = MEMORY[0x277D74E20];
+    __swift_allocate_boxed_opaque_existential_1(v13);
     sub_2660A7128();
     sub_2660A7178();
   }
@@ -402,31 +398,29 @@ void sub_2660A6988(void *a1, uint64_t a2, void *a3)
 Swift::Void __swiftcall UIView.setGlassBackground()()
 {
   v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_28005BB98, &qword_2660A9938);
-  v1 = *(*(v0 - 8) + 64);
   MEMORY[0x28223BE20](v0 - 8);
-  v3 = &v16[-1] - v2;
-  v4 = sub_2660A7108();
-  v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  v7 = MEMORY[0x28223BE20](v4);
-  v9 = &v16[-1] - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = MEMORY[0x28223BE20](v7);
-  v12 = &v16[-1] - v11;
-  MEMORY[0x28223BE20](v10);
+  v2 = &v14[-1] - v1;
+  v3 = sub_2660A7108();
+  v4 = *(v3 - 8);
+  v5 = MEMORY[0x28223BE20](v3);
+  v7 = &v14[-1] - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = MEMORY[0x28223BE20](v5);
+  v10 = &v14[-1] - v9;
+  MEMORY[0x28223BE20](v8);
   sub_2660A70F8();
   sub_2660A70E8();
-  v13 = *(v5 + 8);
-  v13(v9, v4);
+  v11 = *(v4 + 8);
+  v11(v7, v3);
   sub_2660A70C8();
-  v13(v12, v4);
-  v16[3] = sub_2660A7118();
-  v16[4] = MEMORY[0x277D74E20];
-  __swift_allocate_boxed_opaque_existential_1(v16);
+  v11(v10, v3);
+  v14[3] = sub_2660A7118();
+  v14[4] = MEMORY[0x277D74E20];
+  __swift_allocate_boxed_opaque_existential_1(v14);
   sub_2660A7128();
   sub_2660A7178();
   sub_2660A70A8();
-  v14 = sub_2660A70B8();
-  (*(*(v14 - 8) + 56))(v3, 0, 1, v14);
+  v12 = sub_2660A70B8();
+  (*(*(v12 - 8) + 56))(v2, 0, 1, v12);
   sub_2660A7188();
 }
 
@@ -435,7 +429,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }

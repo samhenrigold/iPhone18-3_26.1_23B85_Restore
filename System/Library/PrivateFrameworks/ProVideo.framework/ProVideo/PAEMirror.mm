@@ -62,25 +62,16 @@
   if (v9)
   {
     v10 = v9;
-    v24 = 0;
-    v25 = 0;
-    v23 = 0.0;
-    [v9 getXValue:&v25 YValue:&v24 fromParm:1 atFxTime:info->var0.var1];
-    [v10 getFloatValue:&v23 fromParm:2 atFxTime:info->var0.var1];
-    v22 = 0;
-    [v10 getIntValue:&v22 fromParm:3 atFxTime:info->var0.var1];
-    v21 = 0;
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
-    v18 = 0u;
+    v17 = 0;
+    v18 = 0;
+    v16 = 0.0;
+    [v9 getXValue:&v18 YValue:&v17 fromParm:1 atFxTime:info->var0.var1];
+    [v10 getFloatValue:&v16 fromParm:2 atFxTime:info->var0.var1];
+    v15 = 0;
+    [v10 getIntValue:&v15 fromParm:3 atFxTime:info->var0.var1];
     if (output)
     {
-      [output imageInfo];
-      if (*(&v19 + 1))
-      {
-        v23 = -v23;
-      }
+      objc_msgSend_imageInfo(output);
     }
 
     LODWORD(v9) = [(PAESharedDefaultBase *)self getRenderMode:info->var0.var1];
@@ -90,42 +81,33 @@
       {
         if (input)
         {
-          [input heliumRef];
+          objc_msgSend_heliumRef(input);
         }
 
         else
         {
-          v16 = 0;
+          v14 = 0;
         }
 
-        if (v22)
+        if (v15)
         {
-          v14 = v16;
-          if (v16)
+          if (v14)
           {
-            (*(*v16 + 16))(v16);
+            (*(*v14 + 16))(v14);
           }
 
-          [(PAESharedDefaultBase *)self smear:&v14 fromImage:input toImage:input];
-          v11 = v15;
-          if (v16 == v15)
+          objc_msgSend_smear_fromImage_toImage_(self);
+          if (v14 == v13)
           {
-            if (v16)
+            if (v14)
             {
-              (*(*v15 + 24))(v15);
+              (*(*v13 + 24))();
             }
           }
 
-          else
+          else if (v14)
           {
-            if (v16)
-            {
-              (*(*v16 + 24))();
-              v11 = v15;
-            }
-
-            v15 = 0;
-            v16 = v11;
+            (*(*v14 + 24))();
           }
 
           if (v14)
@@ -134,9 +116,9 @@
           }
         }
 
-        __sincos_stret(v23);
-        v12 = HGObject::operator new(0x1E0uLL);
-        HMirror::HMirror(v12);
+        __sincos_stret(v16);
+        v11 = HGObject::operator new(0x1E0uLL);
+        HMirror::HMirror(v11);
       }
 
       LOBYTE(v9) = 0;

@@ -432,11 +432,11 @@ void __74__PXCloudPhotoWelcomeViewController__cloudPhotoWelcomeViewGoButtonTappe
   dispatch_async(MEMORY[0x1E69E96A0], v2);
 }
 
-uint64_t __74__PXCloudPhotoWelcomeViewController__cloudPhotoWelcomeViewGoButtonTapped___block_invoke_3(uint64_t result)
+id *__74__PXCloudPhotoWelcomeViewController__cloudPhotoWelcomeViewGoButtonTapped___block_invoke_3(id *result)
 {
   if (*(result + 40) == 1)
   {
-    return [*(result + 32) _enableCloudPhotoLibrary];
+    return [result[4] _enableCloudPhotoLibrary];
   }
 
   return result;

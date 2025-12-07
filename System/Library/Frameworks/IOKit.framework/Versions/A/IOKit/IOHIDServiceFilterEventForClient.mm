@@ -3,7 +3,7 @@
 
 @implementation IOHIDServiceFilterEventForClient
 
-void ____IOHIDServiceFilterEventForClient_block_invoke(void *a1, uint64_t *a2)
+void ____IOHIDServiceFilterEventForClient_block_invoke(void *a1, void *a2)
 {
   if (*(*(a1[4] + 8) + 24))
   {

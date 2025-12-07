@@ -64,7 +64,7 @@ void __66__HUEnergyAnalytics_sendToUTFWithData_withSubsystem_withCategory___bloc
   }
 }
 
-uint64_t __66__HUEnergyAnalytics_sendToUTFWithData_withSubsystem_withCategory___block_invoke_2()
+uint64_t __66__HUEnergyAnalytics_sendToUTFWithData_withSubsystem_withCategory___block_invoke_2(uint64_t a1)
 {
   _MergedGlobals_621 = PPSCreateTelemetryIdentifier();
   result = PPSCreateTelemetryIdentifier();

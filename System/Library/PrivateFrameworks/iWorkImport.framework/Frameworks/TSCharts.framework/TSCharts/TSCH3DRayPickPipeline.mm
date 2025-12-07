@@ -124,21 +124,21 @@
     v20 = v15;
     if (v15)
     {
-      objc_msgSend_position(v15, v16, v17, v18, v19);
+      objc_msgSend_position(v15, v17, v18, v19);
     }
 
     else
     {
-      v48 = 0;
+      v47 = 0;
     }
 
     v22 = objc_msgSend_objectAtIndexedSubscript_(v6, v16, v17, v18, v19, 0);
     v21 = v22;
     if (v22)
     {
-      objc_msgSend_centerProjectionPoint(v22, v23, v24, v25, v26);
-      *&v28 = v46;
-      *&v27 = v47;
+      objc_msgSend_centerProjectionPoint(v22, v24, v25, v26);
+      *&v28 = v45;
+      *&v27 = v46;
     }
 
     else
@@ -147,34 +147,34 @@
       v28 = 0.0;
     }
 
-    LODWORD(v26) = v48;
-    *&v28 = *&v28 - *&v48;
-    *&v27 = ((*&v27 - *(&v48 + 1)) * (*&v27 - *(&v48 + 1))) + (*&v28 * *&v28);
+    LODWORD(v26) = v47;
+    *&v28 = *&v28 - *&v47;
+    *&v27 = ((*&v27 - *(&v47 + 1)) * (*&v27 - *(&v47 + 1))) + (*&v28 * *&v28);
     v29 = sqrtf(*&v27);
     for (i = 1; i < objc_msgSend_count(v6, v23, v27, v28, v26); ++i)
     {
       v35 = objc_msgSend_objectAtIndexedSubscript_(v6, v31, v32, v33, v34, i);
-      v40 = v35;
+      v39 = v35;
       if (v35)
       {
-        objc_msgSend_centerProjectionPoint(v35, v36, v37, v38, v39);
-        v42 = v46;
-        v41 = v47;
+        objc_msgSend_centerProjectionPoint(v35, v36, v37, v38);
+        v41 = v45;
+        v40 = v46;
       }
 
       else
       {
+        v40 = 0.0;
         v41 = 0.0;
-        v42 = 0.0;
       }
 
-      v43 = sqrtf(((v41 - *(&v48 + 1)) * (v41 - *(&v48 + 1))) + ((v42 - *&v48) * (v42 - *&v48)));
-      if (v43 < v29)
+      v42 = sqrtf(((v40 - *(&v47 + 1)) * (v40 - *(&v47 + 1))) + ((v41 - *&v47) * (v41 - *&v47)));
+      if (v42 < v29)
       {
-        v44 = v40;
+        v43 = v39;
 
-        v21 = v44;
-        v29 = v43;
+        v21 = v43;
+        v29 = v42;
       }
     }
   }

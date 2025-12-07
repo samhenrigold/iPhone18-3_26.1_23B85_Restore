@@ -114,10 +114,10 @@
 
   else
   {
-    v7 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    v8 = __atxlog_handle_modes(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
-      [ATXUnifiedInferredActivitySession initWithCoder:];
+      [ATXUnifiedInferredActivitySession initWithCoder:?];
     }
 
     selfCopy = 0;
@@ -223,28 +223,29 @@ LABEL_7:
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v15 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+    v16 = __atxlog_handle_modes(isKindOfClass);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
     {
-      [ATXUnifiedInferredActivitySession initWithProto:];
+      [ATXUnifiedInferredActivitySession initWithProto:?];
     }
 
     goto LABEL_7;
   }
 
-  v5 = protoCopy;
-  [v5 startTime];
-  v7 = v6;
-  [v5 endTime];
-  v9 = v8;
-  source = [v5 source];
-  inferredActivity = [v5 inferredActivity];
-  [v5 confidence];
-  v13 = v12;
+  v6 = protoCopy;
+  [v6 startTime];
+  v8 = v7;
+  [v6 endTime];
+  v10 = v9;
+  source = [v6 source];
+  inferredActivity = [v6 inferredActivity];
+  [v6 confidence];
+  v14 = v13;
 
-  self = [(ATXUnifiedInferredActivitySession *)self initFromStartTime:source endTime:inferredActivity source:v7 activityType:v9 confidence:v13];
+  self = [(ATXUnifiedInferredActivitySession *)self initFromStartTime:source endTime:inferredActivity source:v8 activityType:v10 confidence:v14];
   selfCopy = self;
 LABEL_8:
 
@@ -303,24 +304,22 @@ LABEL_8:
   return jsonRepresentation;
 }
 
-- (void)initWithCoder:.cold.1()
+- (void)initWithCoder:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
-  OUTLINED_FUNCTION_0_10(&dword_2263AA000, v2, v3, "Unable to construct class %@ from coder", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
+  LODWORD(v9) = 138412290;
+  *(&v9 + 4) = v2;
+  OUTLINED_FUNCTION_0_10(&dword_2263AA000, v3, v4, "Unable to construct class %@ from coder", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
-- (void)initWithProto:.cold.1()
+- (void)initWithProto:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
-  OUTLINED_FUNCTION_0_10(&dword_2263AA000, v2, v3, "Unable to construct class %@ from ProtoBuf object", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
+  LODWORD(v9) = 138412290;
+  *(&v9 + 4) = v2;
+  OUTLINED_FUNCTION_0_10(&dword_2263AA000, v3, v4, "Unable to construct class %@ from ProtoBuf object", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
 @end

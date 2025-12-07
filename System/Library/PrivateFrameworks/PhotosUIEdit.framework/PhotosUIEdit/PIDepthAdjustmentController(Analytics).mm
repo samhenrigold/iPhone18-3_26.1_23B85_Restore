@@ -52,9 +52,9 @@
           if (([analyticsKeysBlocklist containsObject:v14] & 1) == 0)
           {
             apertureKey = [*(v11 + 2248) apertureKey];
-            v16 = [v14 isEqualToString:apertureKey];
+            isEqualToString = objc_msgSend_isEqualToString_(v14);
 
-            if (v16)
+            if (isEqualToString)
             {
               v17 = MEMORY[0x277CCABB0];
               [selfCopy aperture];
@@ -65,7 +65,7 @@
             }
 
             focusRectKey = [*(v11 + 2248) focusRectKey];
-            v21 = [v14 isEqualToString:focusRectKey];
+            v21 = objc_msgSend_isEqualToString_(v14);
 
             if (v21)
             {

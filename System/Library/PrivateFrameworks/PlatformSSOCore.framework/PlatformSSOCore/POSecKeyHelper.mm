@@ -32,27 +32,27 @@
 {
   setCopy = set;
   presenceCopy = presence;
-  v58[1] = *MEMORY[0x277D85DE8];
+  v56[1] = *MEMORY[0x277D85DE8];
   algorithmCopy = algorithm;
   error = 0;
-  v57 = @"osgn";
-  v54 = @"com.apple.PlatformSSO.auth";
-  v55 = @"cag";
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v54 count:1];
-  v56 = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v56 forKeys:&v55 count:1];
-  v58[0] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v58 forKeys:&v57 count:1];
+  v55 = @"osgn";
+  v52 = @"com.apple.PlatformSSO.auth";
+  v53 = @"cag";
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v52 count:1];
+  v54 = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v54 forKeys:&v53 count:1];
+  v56[0] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v56 forKeys:&v55 count:1];
 
   v11 = SecAccessControlCreateWithFlags(0, *MEMORY[0x277CDBF10], 0x40000000uLL, &error);
   if (!v11)
   {
-    v47[0] = MEMORY[0x277D85DD0];
-    v47[1] = 3221225472;
-    v47[2] = __78__POSecKeyHelper_createUserSEPSigningKeyForAlgorithm_userPresence_currentSet___block_invoke;
-    v47[3] = &__block_descriptor_40_e14___NSError_8__0l;
-    v47[4] = error;
-    v14 = __78__POSecKeyHelper_createUserSEPSigningKeyForAlgorithm_userPresence_currentSet___block_invoke(v47);
+    v45[0] = MEMORY[0x277D85DD0];
+    v45[1] = 3221225472;
+    v45[2] = __78__POSecKeyHelper_createUserSEPSigningKeyForAlgorithm_userPresence_currentSet___block_invoke;
+    v45[3] = &__block_descriptor_40_e14___NSError_8__0l;
+    v45[4] = error;
+    v14 = __78__POSecKeyHelper_createUserSEPSigningKeyForAlgorithm_userPresence_currentSet___block_invoke(v45);
     goto LABEL_33;
   }
 
@@ -77,42 +77,41 @@
       if (Companion)
       {
         v17 = Companion;
-        v18 = *MEMORY[0x277CBECE8];
-        v53[0] = v15;
-        v53[1] = Companion;
-        [MEMORY[0x277CBEA60] arrayWithObjects:v53 count:2];
+        v51[0] = v15;
+        v51[1] = Companion;
+        [MEMORY[0x277CBEA60] arrayWithObjects:v51 count:2];
         KofN = SecAccessConstraintCreateKofN();
-        v20 = KofN;
+        v19 = KofN;
         if (KofN)
         {
-          v43 = KofN;
-          v42 = SecAccessControlGetConstraint();
-          v21 = [v42 mutableCopy];
-          v22 = v21;
-          if (v21)
+          v41 = KofN;
+          v40 = SecAccessControlGetConstraint();
+          v20 = [v40 mutableCopy];
+          v21 = v20;
+          if (v20)
           {
-            v23 = v21;
+            v22 = v20;
           }
 
           else
           {
-            v23 = objc_alloc_init(MEMORY[0x277CBEB38]);
+            v22 = objc_alloc_init(MEMORY[0x277CBEB38]);
           }
 
-          v28 = v23;
+          v27 = v22;
 
-          v20 = v43;
-          [v28 addEntriesFromDictionary:v43];
-          v27 = SecAccessControlAddConstraintForOperation();
-          if ((v27 & 1) == 0)
+          v19 = v41;
+          [v27 addEntriesFromDictionary:v41];
+          v26 = SecAccessControlAddConstraintForOperation();
+          if ((v26 & 1) == 0)
           {
             CFRelease(v11);
-            v45[0] = MEMORY[0x277D85DD0];
-            v45[1] = 3221225472;
-            v45[2] = __78__POSecKeyHelper_createUserSEPSigningKeyForAlgorithm_userPresence_currentSet___block_invoke_23;
-            v45[3] = &__block_descriptor_40_e14___NSError_8__0l;
-            v45[4] = error;
-            v29 = __78__POSecKeyHelper_createUserSEPSigningKeyForAlgorithm_userPresence_currentSet___block_invoke_23(v45);
+            v43[0] = MEMORY[0x277D85DD0];
+            v43[1] = 3221225472;
+            v43[2] = __78__POSecKeyHelper_createUserSEPSigningKeyForAlgorithm_userPresence_currentSet___block_invoke_23;
+            v43[3] = &__block_descriptor_40_e14___NSError_8__0l;
+            v43[4] = error;
+            v28 = __78__POSecKeyHelper_createUserSEPSigningKeyForAlgorithm_userPresence_currentSet___block_invoke_23(v43);
             v11 = 0;
           }
         }
@@ -120,17 +119,17 @@
         else
         {
           CFRelease(v11);
-          v46[0] = MEMORY[0x277D85DD0];
-          v46[1] = 3221225472;
-          v46[2] = __78__POSecKeyHelper_createUserSEPSigningKeyForAlgorithm_userPresence_currentSet___block_invoke_18;
-          v46[3] = &__block_descriptor_40_e14___NSError_8__0l;
-          v46[4] = error;
-          v26 = __78__POSecKeyHelper_createUserSEPSigningKeyForAlgorithm_userPresence_currentSet___block_invoke_18(v46);
-          v27 = 0;
+          v44[0] = MEMORY[0x277D85DD0];
+          v44[1] = 3221225472;
+          v44[2] = __78__POSecKeyHelper_createUserSEPSigningKeyForAlgorithm_userPresence_currentSet___block_invoke_18;
+          v44[3] = &__block_descriptor_40_e14___NSError_8__0l;
+          v44[4] = error;
+          v25 = __78__POSecKeyHelper_createUserSEPSigningKeyForAlgorithm_userPresence_currentSet___block_invoke_18(v44);
+          v26 = 0;
           v11 = 0;
         }
 
-        if (v27)
+        if (v26)
         {
           goto LABEL_21;
         }
@@ -141,77 +140,76 @@ LABEL_23:
       }
 
       CFRelease(v11);
-      v25 = __78__POSecKeyHelper_createUserSEPSigningKeyForAlgorithm_userPresence_currentSet___block_invoke_12();
+      v24 = __78__POSecKeyHelper_createUserSEPSigningKeyForAlgorithm_userPresence_currentSet___block_invoke_12();
     }
 
     else
     {
       CFRelease(v11);
-      v24 = __78__POSecKeyHelper_createUserSEPSigningKeyForAlgorithm_userPresence_currentSet___block_invoke_8();
+      v23 = __78__POSecKeyHelper_createUserSEPSigningKeyForAlgorithm_userPresence_currentSet___block_invoke_8();
     }
 
     goto LABEL_23;
   }
 
 LABEL_21:
-  v30 = *MEMORY[0x277CDC040];
+  v29 = *MEMORY[0x277CDC040];
   if (([algorithmCopy isEqualToNumber:0x2870A9198] & 1) == 0)
   {
     if ([algorithmCopy isEqualToNumber:0x2870A91B0])
     {
-      v31 = &unk_2870A9150;
+      v30 = &unk_2870A9150;
       goto LABEL_28;
     }
 
     if ([algorithmCopy isEqualToNumber:0x2870A91C8])
     {
-      v32 = *MEMORY[0x277CDC050];
+      v31 = *MEMORY[0x277CDC050];
 
-      v31 = &unk_2870A9138;
-      v30 = v32;
+      v30 = &unk_2870A9138;
+      v29 = v31;
       goto LABEL_28;
     }
   }
 
-  v31 = &unk_2870A9138;
+  v30 = &unk_2870A9138;
 LABEL_28:
-  v33 = *MEMORY[0x277CDC018];
-  v51[0] = *MEMORY[0x277CDC028];
-  v51[1] = v33;
-  v52[0] = v30;
-  v52[1] = v31;
-  v34 = *MEMORY[0x277CDC158];
-  v52[2] = *MEMORY[0x277CDC160];
-  v35 = *MEMORY[0x277CDC4F0];
-  v51[2] = v34;
-  v51[3] = v35;
-  v36 = *MEMORY[0x277CDBEC0];
-  v49[0] = *MEMORY[0x277CDBFD0];
-  v49[1] = v36;
-  v50[0] = MEMORY[0x277CBEC28];
-  v50[1] = v11;
-  v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v50 forKeys:v49 count:2];
-  v52[3] = v37;
-  v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v52 forKeys:v51 count:4];
+  v32 = *MEMORY[0x277CDC018];
+  v49[0] = *MEMORY[0x277CDC028];
+  v49[1] = v32;
+  v50[0] = v29;
+  v50[1] = v30;
+  v33 = *MEMORY[0x277CDC158];
+  v50[2] = *MEMORY[0x277CDC160];
+  v34 = *MEMORY[0x277CDC4F0];
+  v49[2] = v33;
+  v49[3] = v34;
+  v35 = *MEMORY[0x277CDBEC0];
+  v47[0] = *MEMORY[0x277CDBFD0];
+  v47[1] = v35;
+  v48[0] = MEMORY[0x277CBEC28];
+  v48[1] = v11;
+  v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v48 forKeys:v47 count:2];
+  v50[3] = v36;
+  v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v50 forKeys:v49 count:4];
 
   if (v11)
   {
     CFRelease(v11);
   }
 
-  v11 = SecKeyCreateRandomKey(v38, &error);
+  v11 = SecKeyCreateRandomKey(v37, &error);
   if (!v11)
   {
-    v44[0] = MEMORY[0x277D85DD0];
-    v44[1] = 3221225472;
-    v44[2] = __78__POSecKeyHelper_createUserSEPSigningKeyForAlgorithm_userPresence_currentSet___block_invoke_30;
-    v44[3] = &__block_descriptor_40_e14___NSError_8__0l;
-    v44[4] = error;
-    v39 = __78__POSecKeyHelper_createUserSEPSigningKeyForAlgorithm_userPresence_currentSet___block_invoke_30(v44);
+    v42[0] = MEMORY[0x277D85DD0];
+    v42[1] = 3221225472;
+    v42[2] = __78__POSecKeyHelper_createUserSEPSigningKeyForAlgorithm_userPresence_currentSet___block_invoke_30;
+    v42[3] = &__block_descriptor_40_e14___NSError_8__0l;
+    v42[4] = error;
+    v38 = __78__POSecKeyHelper_createUserSEPSigningKeyForAlgorithm_userPresence_currentSet___block_invoke_30(v42);
   }
 
 LABEL_33:
-  v40 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -220,8 +218,8 @@ id __78__POSecKeyHelper_createUserSEPSigningKeyForAlgorithm_userPresence_current
   v1 = *(a1 + 32);
   v2 = [POError errorWithCode:-1001 underlyingError:v1 description:@"Error with SecAccessControlCreateWithFlags."];
 
-  v3 = PO_LOG_POSecKeyHelper();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = PO_LOG_POSecKeyHelper(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();
   }
@@ -232,7 +230,7 @@ id __78__POSecKeyHelper_createUserSEPSigningKeyForAlgorithm_userPresence_current
 id __78__POSecKeyHelper_createUserSEPSigningKeyForAlgorithm_userPresence_currentSet___block_invoke_8()
 {
   v0 = [POError errorWithCode:-1001 description:@"Error with SecAccessConstraintCreateBiometry."];
-  v1 = PO_LOG_POSecKeyHelper();
+  v1 = PO_LOG_POSecKeyHelper(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();
@@ -244,7 +242,7 @@ id __78__POSecKeyHelper_createUserSEPSigningKeyForAlgorithm_userPresence_current
 id __78__POSecKeyHelper_createUserSEPSigningKeyForAlgorithm_userPresence_currentSet___block_invoke_12()
 {
   v0 = [POError errorWithCode:-1001 description:@"Error with SecAccessConstraintCreateCompanion."];
-  v1 = PO_LOG_POSecKeyHelper();
+  v1 = PO_LOG_POSecKeyHelper(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();
@@ -258,8 +256,8 @@ id __78__POSecKeyHelper_createUserSEPSigningKeyForAlgorithm_userPresence_current
   v1 = *(a1 + 32);
   v2 = [POError errorWithCode:-1001 underlyingError:v1 description:@"Error with SecAccessConstraintCreateKofN."];
 
-  v3 = PO_LOG_POSecKeyHelper();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = PO_LOG_POSecKeyHelper(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();
   }
@@ -272,8 +270,8 @@ id __78__POSecKeyHelper_createUserSEPSigningKeyForAlgorithm_userPresence_current
   v1 = *(a1 + 32);
   v2 = [POError errorWithCode:-1001 underlyingError:v1 description:@"Error adding biometric constraint."];
 
-  v3 = PO_LOG_POSecKeyHelper();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = PO_LOG_POSecKeyHelper(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();
   }
@@ -286,8 +284,8 @@ id __78__POSecKeyHelper_createUserSEPSigningKeyForAlgorithm_userPresence_current
   v1 = *(a1 + 32);
   v2 = [POError errorWithCode:-1001 underlyingError:v1 description:@"Error with SecKeyCreateRandomKey."];
 
-  v3 = PO_LOG_POSecKeyHelper();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = PO_LOG_POSecKeyHelper(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();
   }
@@ -297,140 +295,132 @@ id __78__POSecKeyHelper_createUserSEPSigningKeyForAlgorithm_userPresence_current
 
 + (__SecKey)createSEPSigningKeyForAlgorithm:(id)algorithm shared:(BOOL)shared preboot:(BOOL)preboot
 {
-  sharedCopy = shared;
-  v50[1] = *MEMORY[0x277D85DE8];
+  v47[1] = *MEMORY[0x277D85DE8];
   algorithmCopy = algorithm;
   error = 0;
-  v49 = @"osgn";
-  v46 = @"com.apple.PlatformSSO.auth";
-  v47 = @"cag";
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v46 count:1];
-  v48 = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v48 forKeys:&v47 count:1];
-  v50[0] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v50 forKeys:&v49 count:1];
+  v46 = @"osgn";
+  v43 = @"com.apple.PlatformSSO.auth";
+  v44 = @"cag";
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v43 count:1];
+  v45 = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v45 forKeys:&v44 count:1];
+  v47[0] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:&v46 count:1];
 
   v10 = SecAccessControlCreateWithFlags(0, *MEMORY[0x277CDBEF8], 0x40000000uLL, &error);
   if (!v10)
   {
-    v36[0] = MEMORY[0x277D85DD0];
-    v36[1] = 3221225472;
-    v36[2] = __65__POSecKeyHelper_createSEPSigningKeyForAlgorithm_shared_preboot___block_invoke;
-    v36[3] = &__block_descriptor_40_e14___NSError_8__0l;
-    v36[4] = error;
-    v14 = __65__POSecKeyHelper_createSEPSigningKeyForAlgorithm_shared_preboot___block_invoke(v36);
-    goto LABEL_19;
-  }
-
-  v11 = *MEMORY[0x277CDBF10];
-  if (!sharedCopy)
-  {
-    v12 = *MEMORY[0x277CDBF10];
+    v33[0] = MEMORY[0x277D85DD0];
+    v33[1] = 3221225472;
+    v33[2] = __65__POSecKeyHelper_createSEPSigningKeyForAlgorithm_shared_preboot___block_invoke;
+    v33[3] = &__block_descriptor_40_e14___NSError_8__0l;
+    v33[4] = error;
+    v12 = __65__POSecKeyHelper_createSEPSigningKeyForAlgorithm_shared_preboot___block_invoke(v33);
+    goto LABEL_17;
   }
 
   SecAccessControlSetProtection();
   if (error)
   {
     CFRelease(v10);
-    v35[0] = MEMORY[0x277D85DD0];
-    v35[1] = 3221225472;
-    v35[2] = __65__POSecKeyHelper_createSEPSigningKeyForAlgorithm_shared_preboot___block_invoke_34;
-    v35[3] = &__block_descriptor_40_e14___NSError_8__0l;
-    v35[4] = error;
-    v13 = __65__POSecKeyHelper_createSEPSigningKeyForAlgorithm_shared_preboot___block_invoke_34(v35);
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __65__POSecKeyHelper_createSEPSigningKeyForAlgorithm_shared_preboot___block_invoke_34;
+    v32[3] = &__block_descriptor_40_e14___NSError_8__0l;
+    v32[4] = error;
+    v11 = __65__POSecKeyHelper_createSEPSigningKeyForAlgorithm_shared_preboot___block_invoke_34(v32);
     v10 = 0;
-    goto LABEL_19;
+    goto LABEL_17;
   }
 
   SecAccessControlSetConstraints();
-  v15 = *MEMORY[0x277CDC040];
+  v13 = *MEMORY[0x277CDC040];
   if (([algorithmCopy isEqualToNumber:0x2870A9198] & 1) == 0)
   {
     if ([algorithmCopy isEqualToNumber:0x2870A91B0])
     {
-      v16 = &unk_2870A9150;
-      goto LABEL_13;
+      v14 = &unk_2870A9150;
+      goto LABEL_11;
     }
 
     if ([algorithmCopy isEqualToNumber:0x2870A91C8])
     {
-      v17 = *MEMORY[0x277CDC050];
+      v15 = *MEMORY[0x277CDC050];
 
-      v16 = &unk_2870A9138;
-      v15 = v17;
-      goto LABEL_13;
+      v14 = &unk_2870A9138;
+      v13 = v15;
+      goto LABEL_11;
     }
   }
 
-  v16 = &unk_2870A9138;
-LABEL_13:
-  v18 = *MEMORY[0x277CDC018];
-  if (sharedCopy)
+  v14 = &unk_2870A9138;
+LABEL_11:
+  v16 = *MEMORY[0x277CDC018];
+  if (shared)
   {
-    v40[0] = *MEMORY[0x277CDC028];
-    v40[1] = v18;
-    v41[0] = v15;
-    v41[1] = v16;
-    v19 = *MEMORY[0x277CDC160];
-    v20 = *MEMORY[0x277CDC5D8];
-    v40[2] = *MEMORY[0x277CDC158];
-    v40[3] = v20;
-    v41[2] = v19;
-    v41[3] = MEMORY[0x277CBEC38];
-    v40[4] = *MEMORY[0x277CDC4F0];
-    v21 = *MEMORY[0x277CDBEC0];
-    v38[0] = *MEMORY[0x277CDBFD0];
-    v38[1] = v21;
-    v39[0] = MEMORY[0x277CBEC28];
-    v39[1] = v10;
-    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:2];
-    v41[4] = v22;
-    v23 = MEMORY[0x277CBEAC0];
-    v24 = v41;
-    v25 = v40;
-    v26 = 5;
+    v37[0] = *MEMORY[0x277CDC028];
+    v37[1] = v16;
+    v38[0] = v13;
+    v38[1] = v14;
+    v17 = *MEMORY[0x277CDC160];
+    v18 = *MEMORY[0x277CDC5D8];
+    v37[2] = *MEMORY[0x277CDC158];
+    v37[3] = v18;
+    v38[2] = v17;
+    v38[3] = MEMORY[0x277CBEC38];
+    v37[4] = *MEMORY[0x277CDC4F0];
+    v19 = *MEMORY[0x277CDBEC0];
+    v35[0] = *MEMORY[0x277CDBFD0];
+    v35[1] = v19;
+    v36[0] = MEMORY[0x277CBEC28];
+    v36[1] = v10;
+    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:v35 count:2];
+    v38[4] = v20;
+    v21 = MEMORY[0x277CBEAC0];
+    v22 = v38;
+    v23 = v37;
+    v24 = 5;
   }
 
   else
   {
-    v44[0] = *MEMORY[0x277CDC028];
-    v44[1] = v18;
-    v45[0] = v15;
-    v45[1] = v16;
-    v27 = *MEMORY[0x277CDC158];
-    v45[2] = *MEMORY[0x277CDC160];
-    v28 = *MEMORY[0x277CDC4F0];
-    v44[2] = v27;
-    v44[3] = v28;
-    v29 = *MEMORY[0x277CDBEC0];
-    v42[0] = *MEMORY[0x277CDBFD0];
-    v42[1] = v29;
-    v43[0] = MEMORY[0x277CBEC28];
-    v43[1] = v10;
-    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:v42 count:2];
-    v45[3] = v22;
-    v23 = MEMORY[0x277CBEAC0];
-    v24 = v45;
-    v25 = v44;
-    v26 = 4;
+    v41[0] = *MEMORY[0x277CDC028];
+    v41[1] = v16;
+    v42[0] = v13;
+    v42[1] = v14;
+    v25 = *MEMORY[0x277CDC158];
+    v42[2] = *MEMORY[0x277CDC160];
+    v26 = *MEMORY[0x277CDC4F0];
+    v41[2] = v25;
+    v41[3] = v26;
+    v27 = *MEMORY[0x277CDBEC0];
+    v39[0] = *MEMORY[0x277CDBFD0];
+    v39[1] = v27;
+    v40[0] = MEMORY[0x277CBEC28];
+    v40[1] = v10;
+    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:v39 count:2];
+    v42[3] = v20;
+    v21 = MEMORY[0x277CBEAC0];
+    v22 = v42;
+    v23 = v41;
+    v24 = 4;
   }
 
-  v30 = [v23 dictionaryWithObjects:v24 forKeys:v25 count:v26];
+  v28 = [v21 dictionaryWithObjects:v22 forKeys:v23 count:v24];
 
   CFRelease(v10);
-  v10 = SecKeyCreateRandomKey(v30, &error);
+  v10 = SecKeyCreateRandomKey(v28, &error);
   if (!v10)
   {
-    v34[0] = MEMORY[0x277D85DD0];
-    v34[1] = 3221225472;
-    v34[2] = __65__POSecKeyHelper_createSEPSigningKeyForAlgorithm_shared_preboot___block_invoke_38;
-    v34[3] = &__block_descriptor_40_e14___NSError_8__0l;
-    v34[4] = error;
-    v31 = __65__POSecKeyHelper_createSEPSigningKeyForAlgorithm_shared_preboot___block_invoke_38(v34);
+    v31[0] = MEMORY[0x277D85DD0];
+    v31[1] = 3221225472;
+    v31[2] = __65__POSecKeyHelper_createSEPSigningKeyForAlgorithm_shared_preboot___block_invoke_38;
+    v31[3] = &__block_descriptor_40_e14___NSError_8__0l;
+    v31[4] = error;
+    v29 = __65__POSecKeyHelper_createSEPSigningKeyForAlgorithm_shared_preboot___block_invoke_38(v31);
   }
 
-LABEL_19:
-  v32 = *MEMORY[0x277D85DE8];
+LABEL_17:
   return v10;
 }
 
@@ -439,8 +429,8 @@ id __65__POSecKeyHelper_createSEPSigningKeyForAlgorithm_shared_preboot___block_i
   v1 = *(a1 + 32);
   v2 = [POError errorWithCode:-1001 underlyingError:v1 description:@"Error with SecAccessControlCreateWithFlags."];
 
-  v3 = PO_LOG_POSecKeyHelper();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = PO_LOG_POSecKeyHelper(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();
   }
@@ -453,8 +443,8 @@ id __65__POSecKeyHelper_createSEPSigningKeyForAlgorithm_shared_preboot___block_i
   v1 = *(a1 + 32);
   v2 = [POError errorWithCode:-1001 underlyingError:v1 description:@"Error with SecAccessControlSetProtection."];
 
-  v3 = PO_LOG_POSecKeyHelper();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = PO_LOG_POSecKeyHelper(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();
   }
@@ -467,8 +457,8 @@ id __65__POSecKeyHelper_createSEPSigningKeyForAlgorithm_shared_preboot___block_i
   v1 = *(a1 + 32);
   v2 = [POError errorWithCode:-1001 underlyingError:v1 description:@"Error with SecKeyCreateRandomKey."];
 
-  v3 = PO_LOG_POSecKeyHelper();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = PO_LOG_POSecKeyHelper(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();
   }
@@ -479,14 +469,14 @@ id __65__POSecKeyHelper_createSEPSigningKeyForAlgorithm_shared_preboot___block_i
 + (__SecKey)createSEPEncryptionKeyForAlgorithm:(id)algorithm shared:(BOOL)shared preboot:(BOOL)preboot
 {
   prebootCopy = preboot;
-  v83[1] = *MEMORY[0x277D85DE8];
+  v80[1] = *MEMORY[0x277D85DE8];
   algorithmCopy = algorithm;
   error = 0;
-  v81 = @"com.apple.PlatformSSO.auth";
-  v82 = @"cag";
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:&v81 count:1];
-  v83[0] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v83 forKeys:&v82 count:1];
+  v78 = @"com.apple.PlatformSSO.auth";
+  v79 = @"cag";
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:&v78 count:1];
+  v80[0] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v80 forKeys:&v79 count:1];
 
   if (prebootCopy)
   {
@@ -496,174 +486,171 @@ id __65__POSecKeyHelper_createSEPSigningKeyForAlgorithm_shared_preboot___block_i
     v7 = v8;
   }
 
-  v50 = v7;
-  v80[0] = v7;
-  v79[0] = @"ock";
-  v79[1] = @"oece";
-  v76 = @"com.apple.PlatformSSO.auth";
-  v77 = @"cag";
-  v49 = [MEMORY[0x277CBEA60] arrayWithObjects:&v76 count:1];
-  v78 = v49;
-  v48 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v78 forKeys:&v77 count:1];
-  v80[1] = v48;
-  v79[2] = @"oecd";
-  v74 = @"cag";
+  v47 = v7;
+  v77[0] = v7;
+  v76[0] = @"ock";
+  v76[1] = @"oece";
   v73 = @"com.apple.PlatformSSO.auth";
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v73 count:1];
-  v75 = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v75 forKeys:&v74 count:1];
-  v80[2] = v10;
-  v79[3] = @"oe";
-  v70 = @"com.apple.PlatformSSO.auth";
+  v74 = @"cag";
+  v46 = [MEMORY[0x277CBEA60] arrayWithObjects:&v73 count:1];
+  v75 = v46;
+  v45 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v75 forKeys:&v74 count:1];
+  v77[1] = v45;
+  v76[2] = @"oecd";
   v71 = @"cag";
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v70 count:1];
-  v72 = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v72 forKeys:&v71 count:1];
-  v80[3] = v12;
-  v79[4] = @"od";
+  v70 = @"com.apple.PlatformSSO.auth";
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v70 count:1];
+  v72 = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v72 forKeys:&v71 count:1];
+  v77[2] = v10;
+  v76[3] = @"oe";
   v67 = @"com.apple.PlatformSSO.auth";
   v68 = @"cag";
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v67 count:1];
-  v69 = v13;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v69 forKeys:&v68 count:1];
-  v80[4] = v14;
-  v79[5] = @"osgn";
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v67 count:1];
+  v69 = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v69 forKeys:&v68 count:1];
+  v77[3] = v12;
+  v76[4] = @"od";
   v64 = @"com.apple.PlatformSSO.auth";
   v65 = @"cag";
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v64 count:1];
-  v66 = v15;
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v66 forKeys:&v65 count:1];
-  v80[5] = v16;
-  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v80 forKeys:v79 count:6];
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v64 count:1];
+  v66 = v13;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v66 forKeys:&v65 count:1];
+  v77[4] = v14;
+  v76[5] = @"osgn";
+  v61 = @"com.apple.PlatformSSO.auth";
+  v62 = @"cag";
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v61 count:1];
+  v63 = v15;
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v63 forKeys:&v62 count:1];
+  v77[5] = v16;
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v77 forKeys:v76 count:6];
 
   v18 = SecAccessControlCreateWithFlags(0, *MEMORY[0x277CDBEF8], 0x40000000uLL, &error);
   if (!v18)
   {
-    v54[0] = MEMORY[0x277D85DD0];
-    v54[1] = 3221225472;
-    v54[2] = __68__POSecKeyHelper_createSEPEncryptionKeyForAlgorithm_shared_preboot___block_invoke;
-    v54[3] = &__block_descriptor_40_e14___NSError_8__0l;
-    v54[4] = error;
-    v25 = __68__POSecKeyHelper_createSEPEncryptionKeyForAlgorithm_shared_preboot___block_invoke(v54);
-    v23 = 0;
-    v24 = v50;
-    v21 = algorithmCopy;
+    v51[0] = MEMORY[0x277D85DD0];
+    v51[1] = 3221225472;
+    v51[2] = __68__POSecKeyHelper_createSEPEncryptionKeyForAlgorithm_shared_preboot___block_invoke;
+    v51[3] = &__block_descriptor_40_e14___NSError_8__0l;
+    v51[4] = error;
+    v24 = __68__POSecKeyHelper_createSEPEncryptionKeyForAlgorithm_shared_preboot___block_invoke(v51);
+    v22 = 0;
+    v23 = v47;
+    v20 = algorithmCopy;
     goto LABEL_16;
   }
 
   v19 = v18;
-  v20 = *MEMORY[0x277CDBF10];
   SecAccessControlSetProtection();
-  v21 = algorithmCopy;
+  v20 = algorithmCopy;
   if (error)
   {
     CFRelease(v19);
-    v53[0] = MEMORY[0x277D85DD0];
-    v53[1] = 3221225472;
-    v53[2] = __68__POSecKeyHelper_createSEPEncryptionKeyForAlgorithm_shared_preboot___block_invoke_42;
-    v53[3] = &__block_descriptor_40_e14___NSError_8__0l;
-    v53[4] = error;
-    v22 = __68__POSecKeyHelper_createSEPEncryptionKeyForAlgorithm_shared_preboot___block_invoke_42(v53);
-    v23 = 0;
-    v24 = v50;
+    v50[0] = MEMORY[0x277D85DD0];
+    v50[1] = 3221225472;
+    v50[2] = __68__POSecKeyHelper_createSEPEncryptionKeyForAlgorithm_shared_preboot___block_invoke_42;
+    v50[3] = &__block_descriptor_40_e14___NSError_8__0l;
+    v50[4] = error;
+    v21 = __68__POSecKeyHelper_createSEPEncryptionKeyForAlgorithm_shared_preboot___block_invoke_42(v50);
+    v22 = 0;
+    v23 = v47;
     goto LABEL_16;
   }
 
-  v26 = v17;
+  v25 = v17;
   SecAccessControlSetConstraints();
-  v27 = *MEMORY[0x277CDC040];
+  v26 = *MEMORY[0x277CDC040];
   if (([algorithmCopy isEqualToNumber:0x2870A9198] & 1) == 0 && (objc_msgSend(algorithmCopy, "isEqualToNumber:", 0x2870A91B0) & 1) == 0)
   {
     if ([algorithmCopy isEqualToNumber:0x2870A91C8])
     {
-      v28 = &unk_2870A9150;
+      v27 = &unk_2870A9150;
       goto LABEL_10;
     }
 
     if ([algorithmCopy isEqualToNumber:0x2870A91E0])
     {
-      v46 = *MEMORY[0x277CDC078];
+      v43 = *MEMORY[0x277CDC078];
 
-      v28 = &unk_2870A9138;
-      v27 = v46;
+      v27 = &unk_2870A9138;
+      v26 = v43;
       goto LABEL_10;
     }
   }
 
-  v28 = &unk_2870A9138;
+  v27 = &unk_2870A9138;
 LABEL_10:
-  v29 = *MEMORY[0x277CDC028];
-  v30 = *MEMORY[0x277CDC018];
+  v28 = *MEMORY[0x277CDC018];
   if (shared)
   {
-    v58[0] = *MEMORY[0x277CDC028];
-    v58[1] = v30;
-    v59[0] = v27;
-    v59[1] = v28;
-    v31 = *MEMORY[0x277CDC160];
-    v32 = *MEMORY[0x277CDC5D8];
-    v58[2] = *MEMORY[0x277CDC158];
-    v58[3] = v32;
-    v59[2] = v31;
-    v59[3] = MEMORY[0x277CBEC38];
-    v58[4] = *MEMORY[0x277CDC4F0];
-    v33 = *MEMORY[0x277CDBEC0];
-    v56[0] = *MEMORY[0x277CDBFD0];
-    v56[1] = v33;
-    v57[0] = MEMORY[0x277CBEC28];
-    v57[1] = v19;
-    v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v57 forKeys:v56 count:2];
-    v59[4] = v34;
-    v35 = MEMORY[0x277CBEAC0];
-    v36 = v59;
-    v37 = v58;
-    v38 = 5;
+    v55[0] = *MEMORY[0x277CDC028];
+    v55[1] = v28;
+    v56[0] = v26;
+    v56[1] = v27;
+    v29 = *MEMORY[0x277CDC160];
+    v30 = *MEMORY[0x277CDC5D8];
+    v55[2] = *MEMORY[0x277CDC158];
+    v55[3] = v30;
+    v56[2] = v29;
+    v56[3] = MEMORY[0x277CBEC38];
+    v55[4] = *MEMORY[0x277CDC4F0];
+    v31 = *MEMORY[0x277CDBEC0];
+    v53[0] = *MEMORY[0x277CDBFD0];
+    v53[1] = v31;
+    v54[0] = MEMORY[0x277CBEC28];
+    v54[1] = v19;
+    v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v54 forKeys:v53 count:2];
+    v56[4] = v32;
+    v33 = MEMORY[0x277CBEAC0];
+    v34 = v56;
+    v35 = v55;
+    v36 = 5;
   }
 
   else
   {
-    v62[0] = *MEMORY[0x277CDC028];
-    v62[1] = v30;
-    v63[0] = v27;
-    v63[1] = v28;
-    v39 = *MEMORY[0x277CDC158];
-    v63[2] = *MEMORY[0x277CDC160];
-    v40 = *MEMORY[0x277CDC4F0];
-    v62[2] = v39;
-    v62[3] = v40;
-    v41 = *MEMORY[0x277CDBEC0];
-    v60[0] = *MEMORY[0x277CDBFD0];
-    v60[1] = v41;
-    v61[0] = MEMORY[0x277CBEC28];
-    v61[1] = v19;
-    v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v61 forKeys:v60 count:2];
-    v63[3] = v34;
-    v35 = MEMORY[0x277CBEAC0];
-    v36 = v63;
-    v37 = v62;
-    v38 = 4;
+    v59[0] = *MEMORY[0x277CDC028];
+    v59[1] = v28;
+    v60[0] = v26;
+    v60[1] = v27;
+    v37 = *MEMORY[0x277CDC158];
+    v60[2] = *MEMORY[0x277CDC160];
+    v38 = *MEMORY[0x277CDC4F0];
+    v59[2] = v37;
+    v59[3] = v38;
+    v39 = *MEMORY[0x277CDBEC0];
+    v57[0] = *MEMORY[0x277CDBFD0];
+    v57[1] = v39;
+    v58[0] = MEMORY[0x277CBEC28];
+    v58[1] = v19;
+    v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v58 forKeys:v57 count:2];
+    v60[3] = v32;
+    v33 = MEMORY[0x277CBEAC0];
+    v34 = v60;
+    v35 = v59;
+    v36 = 4;
   }
 
-  v42 = [v35 dictionaryWithObjects:v36 forKeys:v37 count:v38];
+  v40 = [v33 dictionaryWithObjects:v34 forKeys:v35 count:v36];
 
   CFRelease(v19);
-  v23 = SecKeyCreateRandomKey(v42, &error);
-  if (!v23)
+  v22 = SecKeyCreateRandomKey(v40, &error);
+  if (!v22)
   {
-    v52[0] = MEMORY[0x277D85DD0];
-    v52[1] = 3221225472;
-    v52[2] = __68__POSecKeyHelper_createSEPEncryptionKeyForAlgorithm_shared_preboot___block_invoke_43;
-    v52[3] = &__block_descriptor_40_e14___NSError_8__0l;
-    v52[4] = error;
-    v43 = __68__POSecKeyHelper_createSEPEncryptionKeyForAlgorithm_shared_preboot___block_invoke_43(v52);
+    v49[0] = MEMORY[0x277D85DD0];
+    v49[1] = 3221225472;
+    v49[2] = __68__POSecKeyHelper_createSEPEncryptionKeyForAlgorithm_shared_preboot___block_invoke_43;
+    v49[3] = &__block_descriptor_40_e14___NSError_8__0l;
+    v49[4] = error;
+    v41 = __68__POSecKeyHelper_createSEPEncryptionKeyForAlgorithm_shared_preboot___block_invoke_43(v49);
   }
 
-  v24 = v50;
-  v17 = v26;
+  v23 = v47;
+  v17 = v25;
 LABEL_16:
 
-  v44 = *MEMORY[0x277D85DE8];
-  return v23;
+  return v22;
 }
 
 id __68__POSecKeyHelper_createSEPEncryptionKeyForAlgorithm_shared_preboot___block_invoke(uint64_t a1)
@@ -671,8 +658,8 @@ id __68__POSecKeyHelper_createSEPEncryptionKeyForAlgorithm_shared_preboot___bloc
   v1 = *(a1 + 32);
   v2 = [POError errorWithCode:-1001 underlyingError:v1 description:@"Error with SecAccessControlCreateWithFlags."];
 
-  v3 = PO_LOG_POSecKeyHelper();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = PO_LOG_POSecKeyHelper(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();
   }
@@ -685,8 +672,8 @@ id __68__POSecKeyHelper_createSEPEncryptionKeyForAlgorithm_shared_preboot___bloc
   v1 = *(a1 + 32);
   v2 = [POError errorWithCode:-1001 underlyingError:v1 description:@"Error with SecAccessControlSetProtection."];
 
-  v3 = PO_LOG_POSecKeyHelper();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = PO_LOG_POSecKeyHelper(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();
   }
@@ -699,8 +686,8 @@ id __68__POSecKeyHelper_createSEPEncryptionKeyForAlgorithm_shared_preboot___bloc
   v1 = *(a1 + 32);
   v2 = [POError errorWithCode:-1001 underlyingError:v1 description:@"Error with SecKeyCreateRandomKey."];
 
-  v3 = PO_LOG_POSecKeyHelper();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = PO_LOG_POSecKeyHelper(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();
   }
@@ -710,7 +697,7 @@ id __68__POSecKeyHelper_createSEPEncryptionKeyForAlgorithm_shared_preboot___bloc
 
 + (__SecKey)createEncryptionKeyForAlgorithm:(id)algorithm
 {
-  v17[4] = *MEMORY[0x277D85DE8];
+  v16[4] = *MEMORY[0x277D85DE8];
   algorithmCopy = algorithm;
   error = 0;
   v4 = *MEMORY[0x277CDC040];
@@ -733,36 +720,35 @@ LABEL_3:
       goto LABEL_4;
     }
 
-    v13 = *MEMORY[0x277CDC078];
+    v12 = *MEMORY[0x277CDC078];
 
     v5 = &unk_2870A9138;
-    v4 = v13;
+    v4 = v12;
   }
 
 LABEL_4:
   v6 = *MEMORY[0x277CDC018];
-  v16[0] = *MEMORY[0x277CDC028];
-  v16[1] = v6;
-  v17[0] = v4;
-  v17[1] = v5;
+  v15[0] = *MEMORY[0x277CDC028];
+  v15[1] = v6;
+  v16[0] = v4;
+  v16[1] = v5;
   v7 = *MEMORY[0x277CDC5C8];
-  v16[2] = *MEMORY[0x277CDBFD0];
-  v16[3] = v7;
-  v17[2] = MEMORY[0x277CBEC28];
-  v17[3] = MEMORY[0x277CBEC38];
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:4];
+  v15[2] = *MEMORY[0x277CDBFD0];
+  v15[3] = v7;
+  v16[2] = MEMORY[0x277CBEC28];
+  v16[3] = MEMORY[0x277CBEC38];
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:4];
   v9 = SecKeyCreateRandomKey(v8, &error);
   if (!v9)
   {
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __50__POSecKeyHelper_createEncryptionKeyForAlgorithm___block_invoke;
-    v14[3] = &__block_descriptor_40_e14___NSError_8__0l;
-    v14[4] = error;
-    v10 = __50__POSecKeyHelper_createEncryptionKeyForAlgorithm___block_invoke(v14);
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __50__POSecKeyHelper_createEncryptionKeyForAlgorithm___block_invoke;
+    v13[3] = &__block_descriptor_40_e14___NSError_8__0l;
+    v13[4] = error;
+    v10 = __50__POSecKeyHelper_createEncryptionKeyForAlgorithm___block_invoke(v13);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -771,8 +757,8 @@ id __50__POSecKeyHelper_createEncryptionKeyForAlgorithm___block_invoke(uint64_t 
   v1 = *(a1 + 32);
   v2 = [POError errorWithCode:-1001 underlyingError:v1 description:@"Error with SecKeyCreateRandomKey."];
 
-  v3 = PO_LOG_POSecKeyHelper();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = PO_LOG_POSecKeyHelper(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();
   }
@@ -855,10 +841,10 @@ id __50__POSecKeyHelper_createEncryptionKeyForAlgorithm___block_invoke(uint64_t 
 
 + (__SecKey)keyForData:(id)data context:(id)context
 {
-  v20[2] = *MEMORY[0x277D85DE8];
+  v19[2] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   contextCopy = context;
-  v7 = PO_LOG_POSecKeyHelper();
+  v7 = PO_LOG_POSecKeyHelper(contextCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     +[POSecKeyHelper keyForData:context:];
@@ -869,11 +855,11 @@ id __50__POSecKeyHelper_createEncryptionKeyForAlgorithm___block_invoke(uint64_t 
     error = 0;
     v8 = *MEMORY[0x277CDC160];
     v9 = *MEMORY[0x277CDC178];
-    v19[0] = *MEMORY[0x277CDC158];
-    v19[1] = v9;
-    v20[0] = v8;
-    v20[1] = dataCopy;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
+    v18[0] = *MEMORY[0x277CDC158];
+    v18[1] = v9;
+    v19[0] = v8;
+    v19[1] = dataCopy;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
     v11 = [v10 mutableCopy];
 
     if (contextCopy)
@@ -885,12 +871,12 @@ id __50__POSecKeyHelper_createEncryptionKeyForAlgorithm___block_invoke(uint64_t 
     v13 = SecKeyCreateWithData(data, v11, &error);
     if (!v13)
     {
-      v17[0] = MEMORY[0x277D85DD0];
-      v17[1] = 3221225472;
-      v17[2] = __37__POSecKeyHelper_keyForData_context___block_invoke;
-      v17[3] = &__block_descriptor_40_e14___NSError_8__0l;
-      v17[4] = error;
-      v14 = __37__POSecKeyHelper_keyForData_context___block_invoke(v17);
+      v16[0] = MEMORY[0x277D85DD0];
+      v16[1] = 3221225472;
+      v16[2] = __37__POSecKeyHelper_keyForData_context___block_invoke;
+      v16[3] = &__block_descriptor_40_e14___NSError_8__0l;
+      v16[4] = error;
+      v14 = __37__POSecKeyHelper_keyForData_context___block_invoke(v16);
     }
   }
 
@@ -899,7 +885,6 @@ id __50__POSecKeyHelper_createEncryptionKeyForAlgorithm___block_invoke(uint64_t 
     v13 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -908,8 +893,8 @@ id __37__POSecKeyHelper_keyForData_context___block_invoke(uint64_t a1)
   v1 = *(a1 + 32);
   v2 = [POError errorWithCode:-1001 underlyingError:v1 description:@"Error with SecKeyCreateWithData."];
 
-  v3 = PO_LOG_POSecKeyHelper();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = PO_LOG_POSecKeyHelper(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();
   }
@@ -919,10 +904,10 @@ id __37__POSecKeyHelper_keyForData_context___block_invoke(uint64_t a1)
 
 + (__SecKey)systemKeyForData:(id)data context:(id)context
 {
-  v19[3] = *MEMORY[0x277D85DE8];
+  v18[3] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   contextCopy = context;
-  v7 = PO_LOG_POSecKeyHelper();
+  v7 = PO_LOG_POSecKeyHelper(contextCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     +[POSecKeyHelper systemKeyForData:context:];
@@ -932,13 +917,13 @@ id __37__POSecKeyHelper_keyForData_context___block_invoke(uint64_t a1)
   {
     error = 0;
     v8 = *MEMORY[0x277CDC178];
-    v18[0] = *MEMORY[0x277CDC158];
-    v18[1] = v8;
-    v19[0] = *MEMORY[0x277CDC160];
-    v19[1] = dataCopy;
-    v18[2] = *MEMORY[0x277CDC5D8];
-    v19[2] = MEMORY[0x277CBEC38];
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:3];
+    v17[0] = *MEMORY[0x277CDC158];
+    v17[1] = v8;
+    v18[0] = *MEMORY[0x277CDC160];
+    v18[1] = dataCopy;
+    v17[2] = *MEMORY[0x277CDC5D8];
+    v18[2] = MEMORY[0x277CBEC38];
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:3];
     v10 = [v9 mutableCopy];
 
     if (contextCopy)
@@ -951,12 +936,12 @@ id __37__POSecKeyHelper_keyForData_context___block_invoke(uint64_t a1)
     v12 = SecKeyCreateWithData(v11, v10, &error);
     if (!v12)
     {
-      v16[0] = MEMORY[0x277D85DD0];
-      v16[1] = 3221225472;
-      v16[2] = __43__POSecKeyHelper_systemKeyForData_context___block_invoke;
-      v16[3] = &__block_descriptor_40_e14___NSError_8__0l;
-      v16[4] = error;
-      v13 = __43__POSecKeyHelper_systemKeyForData_context___block_invoke(v16);
+      v15[0] = MEMORY[0x277D85DD0];
+      v15[1] = 3221225472;
+      v15[2] = __43__POSecKeyHelper_systemKeyForData_context___block_invoke;
+      v15[3] = &__block_descriptor_40_e14___NSError_8__0l;
+      v15[4] = error;
+      v13 = __43__POSecKeyHelper_systemKeyForData_context___block_invoke(v15);
     }
   }
 
@@ -965,7 +950,6 @@ id __37__POSecKeyHelper_keyForData_context___block_invoke(uint64_t a1)
     v12 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -974,8 +958,8 @@ id __43__POSecKeyHelper_systemKeyForData_context___block_invoke(uint64_t a1)
   v1 = *(a1 + 32);
   v2 = [POError errorWithCode:-1001 underlyingError:v1 description:@"Error with SecKeyCreateWithData for system key."];
 
-  v3 = PO_LOG_POSecKeyHelper();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = PO_LOG_POSecKeyHelper(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();
   }
@@ -985,9 +969,9 @@ id __43__POSecKeyHelper_systemKeyForData_context___block_invoke(uint64_t a1)
 
 + (__SecKey)ephemeralKeyForData:(id)data
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   dataCopy = data;
-  v4 = PO_LOG_POSecKeyHelper();
+  v4 = PO_LOG_POSecKeyHelper(dataCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     +[POSecKeyHelper ephemeralKeyForData:];
@@ -997,21 +981,21 @@ id __43__POSecKeyHelper_systemKeyForData_context___block_invoke(uint64_t a1)
   {
     error = 0;
     v5 = *MEMORY[0x277CDBFE0];
-    v14[0] = *MEMORY[0x277CDC028];
-    v14[1] = v5;
+    v13[0] = *MEMORY[0x277CDC028];
+    v13[1] = v5;
     v6 = *MEMORY[0x277CDBFF0];
-    v15[0] = *MEMORY[0x277CDC040];
-    v15[1] = v6;
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
+    v14[0] = *MEMORY[0x277CDC040];
+    v14[1] = v6;
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
     v8 = SecKeyCreateWithData(dataCopy, v7, &error);
     if (!v8)
     {
-      v12[0] = MEMORY[0x277D85DD0];
-      v12[1] = 3221225472;
-      v12[2] = __38__POSecKeyHelper_ephemeralKeyForData___block_invoke;
-      v12[3] = &__block_descriptor_40_e14___NSError_8__0l;
-      v12[4] = error;
-      v9 = __38__POSecKeyHelper_ephemeralKeyForData___block_invoke(v12);
+      v11[0] = MEMORY[0x277D85DD0];
+      v11[1] = 3221225472;
+      v11[2] = __38__POSecKeyHelper_ephemeralKeyForData___block_invoke;
+      v11[3] = &__block_descriptor_40_e14___NSError_8__0l;
+      v11[4] = error;
+      v9 = __38__POSecKeyHelper_ephemeralKeyForData___block_invoke(v11);
     }
   }
 
@@ -1020,7 +1004,6 @@ id __43__POSecKeyHelper_systemKeyForData_context___block_invoke(uint64_t a1)
     v8 = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -1029,8 +1012,8 @@ id __38__POSecKeyHelper_ephemeralKeyForData___block_invoke(uint64_t a1)
   v1 = *(a1 + 32);
   v2 = [POError errorWithCode:-1001 underlyingError:v1 description:@"Error with SecKeyCreateWithData for ephemeral key."];
 
-  v3 = PO_LOG_POSecKeyHelper();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = PO_LOG_POSecKeyHelper(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();
   }
@@ -1040,9 +1023,9 @@ id __38__POSecKeyHelper_ephemeralKeyForData___block_invoke(uint64_t a1)
 
 + (__SecKey)ephemeralPublicKeyForData:(id)data
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   dataCopy = data;
-  v4 = PO_LOG_POSecKeyHelper();
+  v4 = PO_LOG_POSecKeyHelper(dataCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     +[POSecKeyHelper ephemeralPublicKeyForData:];
@@ -1052,21 +1035,21 @@ id __38__POSecKeyHelper_ephemeralKeyForData___block_invoke(uint64_t a1)
   {
     error = 0;
     v5 = *MEMORY[0x277CDBFE0];
-    v14[0] = *MEMORY[0x277CDC028];
-    v14[1] = v5;
+    v13[0] = *MEMORY[0x277CDC028];
+    v13[1] = v5;
     v6 = *MEMORY[0x277CDC000];
-    v15[0] = *MEMORY[0x277CDC040];
-    v15[1] = v6;
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
+    v14[0] = *MEMORY[0x277CDC040];
+    v14[1] = v6;
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
     v8 = SecKeyCreateWithData(dataCopy, v7, &error);
     if (!v8)
     {
-      v12[0] = MEMORY[0x277D85DD0];
-      v12[1] = 3221225472;
-      v12[2] = __44__POSecKeyHelper_ephemeralPublicKeyForData___block_invoke;
-      v12[3] = &__block_descriptor_40_e14___NSError_8__0l;
-      v12[4] = error;
-      v9 = __44__POSecKeyHelper_ephemeralPublicKeyForData___block_invoke(v12);
+      v11[0] = MEMORY[0x277D85DD0];
+      v11[1] = 3221225472;
+      v11[2] = __44__POSecKeyHelper_ephemeralPublicKeyForData___block_invoke;
+      v11[3] = &__block_descriptor_40_e14___NSError_8__0l;
+      v11[4] = error;
+      v9 = __44__POSecKeyHelper_ephemeralPublicKeyForData___block_invoke(v11);
     }
   }
 
@@ -1075,7 +1058,6 @@ id __38__POSecKeyHelper_ephemeralKeyForData___block_invoke(uint64_t a1)
     v8 = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -1084,8 +1066,8 @@ id __44__POSecKeyHelper_ephemeralPublicKeyForData___block_invoke(uint64_t a1)
   v1 = *(a1 + 32);
   v2 = [POError errorWithCode:-1001 underlyingError:v1 description:@"Error with SecKeyCreateWithData for ephemeral public key."];
 
-  v3 = PO_LOG_POSecKeyHelper();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = PO_LOG_POSecKeyHelper(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();
   }
@@ -1095,9 +1077,9 @@ id __44__POSecKeyHelper_ephemeralPublicKeyForData___block_invoke(uint64_t a1)
 
 + (__SecKey)ephemeralX25529PublicKeyForData:(id)data
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   dataCopy = data;
-  v4 = PO_LOG_POSecKeyHelper();
+  v4 = PO_LOG_POSecKeyHelper(dataCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     +[POSecKeyHelper ephemeralX25529PublicKeyForData:];
@@ -1107,21 +1089,21 @@ id __44__POSecKeyHelper_ephemeralPublicKeyForData___block_invoke(uint64_t a1)
   {
     error = 0;
     v5 = *MEMORY[0x277CDBFE0];
-    v14[0] = *MEMORY[0x277CDC028];
-    v14[1] = v5;
+    v13[0] = *MEMORY[0x277CDC028];
+    v13[1] = v5;
     v6 = *MEMORY[0x277CDC000];
-    v15[0] = *MEMORY[0x277CDC078];
-    v15[1] = v6;
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
+    v14[0] = *MEMORY[0x277CDC078];
+    v14[1] = v6;
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
     v8 = SecKeyCreateWithData(dataCopy, v7, &error);
     if (!v8)
     {
-      v12[0] = MEMORY[0x277D85DD0];
-      v12[1] = 3221225472;
-      v12[2] = __50__POSecKeyHelper_ephemeralX25529PublicKeyForData___block_invoke;
-      v12[3] = &__block_descriptor_40_e14___NSError_8__0l;
-      v12[4] = error;
-      v9 = __50__POSecKeyHelper_ephemeralX25529PublicKeyForData___block_invoke(v12);
+      v11[0] = MEMORY[0x277D85DD0];
+      v11[1] = 3221225472;
+      v11[2] = __50__POSecKeyHelper_ephemeralX25529PublicKeyForData___block_invoke;
+      v11[3] = &__block_descriptor_40_e14___NSError_8__0l;
+      v11[4] = error;
+      v9 = __50__POSecKeyHelper_ephemeralX25529PublicKeyForData___block_invoke(v11);
     }
   }
 
@@ -1130,7 +1112,6 @@ id __44__POSecKeyHelper_ephemeralPublicKeyForData___block_invoke(uint64_t a1)
     v8 = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -1139,8 +1120,8 @@ id __50__POSecKeyHelper_ephemeralX25529PublicKeyForData___block_invoke(uint64_t 
   v1 = *(a1 + 32);
   v2 = [POError errorWithCode:-1001 underlyingError:v1 description:@"Error with SecKeyCreateWithData for ephemeral public key."];
 
-  v3 = PO_LOG_POSecKeyHelper();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = PO_LOG_POSecKeyHelper(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();
   }
@@ -1274,7 +1255,7 @@ LABEL_14:
 id __64__POSecKeyHelper_evaluateTrustForCertificates_rootCertificates___block_invoke(uint64_t a1)
 {
   v2 = [POError errorWithCode:-1001 description:@"Error with SecTrustCreateWithCertificates."];
-  v3 = PO_LOG_POSecKeyHelper();
+  v3 = PO_LOG_POSecKeyHelper(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __56__PODeviceConfiguration_setAccessTokenTerminalIdentity___block_invoke_cold_1(v2, a1);
@@ -1286,7 +1267,7 @@ id __64__POSecKeyHelper_evaluateTrustForCertificates_rootCertificates___block_in
 id __64__POSecKeyHelper_evaluateTrustForCertificates_rootCertificates___block_invoke_70(uint64_t a1)
 {
   v2 = [POError errorWithCode:-1001 description:@"Error with SecTrustSetAnchorCertificates."];
-  v3 = PO_LOG_POSecKeyHelper();
+  v3 = PO_LOG_POSecKeyHelper(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __56__PODeviceConfiguration_setAccessTokenTerminalIdentity___block_invoke_cold_1(v2, a1);
@@ -1298,7 +1279,7 @@ id __64__POSecKeyHelper_evaluateTrustForCertificates_rootCertificates___block_in
 id __64__POSecKeyHelper_evaluateTrustForCertificates_rootCertificates___block_invoke_74(uint64_t a1)
 {
   v2 = [POError errorWithCode:-1001 description:@"Error with SecTrustSetAnchorCertificatesOnly."];
-  v3 = PO_LOG_POSecKeyHelper();
+  v3 = PO_LOG_POSecKeyHelper(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __56__PODeviceConfiguration_setAccessTokenTerminalIdentity___block_invoke_cold_1(v2, a1);
@@ -1312,8 +1293,8 @@ id __64__POSecKeyHelper_evaluateTrustForCertificates_rootCertificates___block_in
   v1 = *(a1 + 32);
   v2 = [POError errorWithCode:-1001 underlyingError:v1 description:@"Error with SecTrustEvaluateWithError."];
 
-  v3 = PO_LOG_POSecKeyHelper();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = PO_LOG_POSecKeyHelper(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();
   }
@@ -1465,48 +1446,49 @@ LABEL_14:
       {
         v12 = MEMORY[0x277CDC2D8];
 LABEL_20:
-        v14 = *v12;
+        v16 = *v12;
         uUID = [MEMORY[0x277CCAD78] UUID];
         uUIDString = [uUID UUIDString];
-        v13 = [uUIDString dataUsingEncoding:4];
+        v14 = [uUIDString dataUsingEncoding:4];
 
         *buf = 0;
-        Signature = SecKeyCreateSignature(keyCopy, v14, v13, buf);
+        Signature = SecKeyCreateSignature(keyCopy, v16, v14, buf);
+        v20 = Signature;
         if (Signature)
         {
-          v18 = PO_LOG_POSecKeyHelper();
+          v21 = PO_LOG_POSecKeyHelper(Signature);
           LOBYTE(keyCopy) = 1;
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
           {
-            *v25 = 0;
-            _os_log_impl(&dword_25E8B1000, v18, OS_LOG_TYPE_INFO, "key is valid", v25, 2u);
+            *v28 = 0;
+            _os_log_impl(&dword_25E8B1000, v21, OS_LOG_TYPE_INFO, "key is valid", v28, 2u);
           }
         }
 
         else
         {
-          v18 = *buf;
+          v21 = *buf;
           code = [*buf code];
           LOBYTE(keyCopy) = code == -1004;
           if (code == -1004)
           {
-            v21 = PO_LOG_POSecKeyHelper();
-            if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+            v24 = PO_LOG_POSecKeyHelper(-1004);
+            if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
             {
-              *v25 = 0;
-              _os_log_impl(&dword_25E8B1000, v21, OS_LOG_TYPE_INFO, "key is valid", v25, 2u);
+              *v28 = 0;
+              _os_log_impl(&dword_25E8B1000, v24, OS_LOG_TYPE_INFO, "key is valid", v28, 2u);
             }
           }
 
           else
           {
-            v23[0] = MEMORY[0x277D85DD0];
-            v23[1] = 3221225472;
-            v23[2] = __28__POSecKeyHelper_verifyKey___block_invoke;
-            v23[3] = &unk_279A3DC48;
-            v24 = v18;
-            v20 = __28__POSecKeyHelper_verifyKey___block_invoke(v23);
-            v21 = v24;
+            v26[0] = MEMORY[0x277D85DD0];
+            v26[1] = 3221225472;
+            v26[2] = __28__POSecKeyHelper_verifyKey___block_invoke;
+            v26[3] = &unk_279A3DC48;
+            v27 = v21;
+            v23 = __28__POSecKeyHelper_verifyKey___block_invoke(v26);
+            v24 = v27;
           }
         }
 
@@ -1522,31 +1504,38 @@ LABEL_30:
 
     if (v10)
     {
-      if (![self _verifyCurve25519SigningKey:keyCopy])
+      v13 = [self _verifyCurve25519SigningKey:keyCopy];
+      if (!v13)
       {
         goto LABEL_18;
       }
 
-      v13 = PO_LOG_POSecKeyHelper();
+      v14 = PO_LOG_POSecKeyHelper(v13);
       LOBYTE(keyCopy) = 1;
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
 LABEL_17:
-        _os_log_impl(&dword_25E8B1000, v13, OS_LOG_TYPE_INFO, "key is valid", buf, 2u);
+        _os_log_impl(&dword_25E8B1000, v14, OS_LOG_TYPE_INFO, "key is valid", buf, 2u);
       }
     }
 
     else
     {
-      if (!v9 || ![self _verifyCurve25519EncryptionKey:keyCopy])
+      if (!v9)
       {
         goto LABEL_18;
       }
 
-      v13 = PO_LOG_POSecKeyHelper();
+      v15 = [self _verifyCurve25519EncryptionKey:keyCopy];
+      if (!v15)
+      {
+        goto LABEL_18;
+      }
+
+      v14 = PO_LOG_POSecKeyHelper(v15);
       LOBYTE(keyCopy) = 1;
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
         goto LABEL_17;
@@ -1564,7 +1553,7 @@ LABEL_29:
 id __28__POSecKeyHelper_verifyKey___block_invoke(uint64_t a1)
 {
   v1 = [POError errorWithCode:-1008 underlyingError:*(a1 + 32) description:@"Failed to validate key"];
-  v2 = PO_LOG_POSecKeyHelper();
+  v2 = PO_LOG_POSecKeyHelper(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();
@@ -1653,42 +1642,37 @@ id __28__POSecKeyHelper_verifyKey___block_invoke(uint64_t a1)
 
 + (void)keyForData:context:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_7_0();
-  OUTLINED_FUNCTION_4_2(&dword_25E8B1000, v0, v1, "%s  on %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_2(&dword_25E8B1000, v0, v1, "%s  on %@", v2, v3, v4, v5, v6);
 }
 
 + (void)systemKeyForData:context:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_7_0();
-  OUTLINED_FUNCTION_4_2(&dword_25E8B1000, v0, v1, "%s  on %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_2(&dword_25E8B1000, v0, v1, "%s  on %@", v2, v3, v4, v5, v6);
 }
 
 + (void)ephemeralKeyForData:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_7_0();
-  OUTLINED_FUNCTION_4_2(&dword_25E8B1000, v0, v1, "%s  on %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_2(&dword_25E8B1000, v0, v1, "%s  on %@", v2, v3, v4, v5, v6);
 }
 
 + (void)ephemeralPublicKeyForData:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_7_0();
-  OUTLINED_FUNCTION_4_2(&dword_25E8B1000, v0, v1, "%s  on %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_2(&dword_25E8B1000, v0, v1, "%s  on %@", v2, v3, v4, v5, v6);
 }
 
 + (void)ephemeralX25529PublicKeyForData:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_7_0();
-  OUTLINED_FUNCTION_4_2(&dword_25E8B1000, v0, v1, "%s  on %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_2(&dword_25E8B1000, v0, v1, "%s  on %@", v2, v3, v4, v5, v6);
 }
 
 @end

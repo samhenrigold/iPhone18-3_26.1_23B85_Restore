@@ -6,9 +6,19 @@
 - (void)invalidateAggregateStatsTimerSource;
 - (void)invalidateWiFiAdviceMonitorTimerSource;
 - (void)reportEvent:(unsigned int)event details:(id)details;
+- (void)reportEvent:(unsigned int)event detailsFormat:(id)format;
 @end
 
 @implementation NRAutoLinkUpgradeMonitor
+
+- (void)reportEvent:(unsigned int)event detailsFormat:(id)format
+{
+  v4 = *&event;
+  formatCopy = format;
+  v7 = [[NSString alloc] initWithFormat:formatCopy arguments:&v8];
+
+  [(NRAutoLinkUpgradeMonitor *)self reportEvent:v4 details:v7];
+}
 
 - (void)reportEvent:(unsigned int)event details:(id)details
 {
@@ -111,33 +121,24 @@
 
 - (void)dealloc
 {
-  if (self)
-  {
-    nrUUID = self->_nrUUID;
-  }
-
-  v4 = _NRCopyLogObjectForNRUUID();
+  v3 = _NRCopyLogObjectForNRUUID();
   IsLevelEnabled = _NRLogIsLevelEnabled();
 
   if (IsLevelEnabled)
   {
     if (self)
     {
-      v6 = self->_nrUUID;
+      nrUUID = self->_nrUUID;
     }
 
     else
     {
-      v6 = 0;
+      nrUUID = 0;
     }
 
-    v7 = v6;
-    v8 = _NRCopyLogObjectForNRUUID();
-    v11 = 397;
-    selfCopy = self;
-    v9 = "";
-    v10 = "[NRAutoLinkUpgradeMonitor dealloc]";
-    _NRLogWithArgs();
+    v6 = nrUUID;
+    v7 = _NRCopyLogObjectForNRUUID();
+    _NRLogWithArgs(v7, 0, "%s%.30s:%-4d %@: dealloc", ", "[NRAutoLinkUpgradeMonitor dealloc]"", 397, self);
   }
 
   if (self && ![(NRAutoLinkUpgradeMonitor *)self cancelled])
@@ -148,9 +149,9 @@
     [(NRAutoLinkUpgradeMonitor *)self reportEvent:30003];
   }
 
-  v13.receiver = self;
-  v13.super_class = NRAutoLinkUpgradeMonitor;
-  [(NRAutoLinkUpgradeMonitor *)&v13 dealloc:v9];
+  v8.receiver = self;
+  v8.super_class = NRAutoLinkUpgradeMonitor;
+  [(NRAutoLinkUpgradeMonitor *)&v8 dealloc];
 }
 
 - (id)description

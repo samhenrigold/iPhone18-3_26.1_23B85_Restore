@@ -4245,7 +4245,7 @@ LABEL_14:
   [transitionCoordinator2 animateAlongsideTransition:0 completion:v31];
 }
 
-uint64_t __48__ICNoteEditorViewController_viewWillDisappear___block_invoke(uint64_t a1, void *a2)
+void *__48__ICNoteEditorViewController_viewWillDisappear___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 isCancelled];
   if ((result & 1) == 0)
@@ -4258,7 +4258,7 @@ uint64_t __48__ICNoteEditorViewController_viewWillDisappear___block_invoke(uint6
   return result;
 }
 
-uint64_t __48__ICNoteEditorViewController_viewWillDisappear___block_invoke_2(uint64_t a1, void *a2)
+void *__48__ICNoteEditorViewController_viewWillDisappear___block_invoke_2(uint64_t a1, void *a2)
 {
   result = [a2 isCancelled];
   if (result)
@@ -6094,7 +6094,7 @@ LABEL_6:
 LABEL_31:
 }
 
-uint64_t __77__ICNoteEditorViewController_updateTextInputAccessoryViewForDidBeginEditing___block_invoke(uint64_t a1)
+void *__77__ICNoteEditorViewController_updateTextInputAccessoryViewForDidBeginEditing___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isEditing];
   if (result)
@@ -7342,16 +7342,16 @@ void __60__ICNoteEditorViewController_setArchivedScrollStateToApply___block_invo
   *(v3 + 40) = v2;
 }
 
-uint64_t __60__ICNoteEditorViewController_setArchivedScrollStateToApply___block_invoke_2(uint64_t result)
+void *__60__ICNoteEditorViewController_setArchivedScrollStateToApply___block_invoke_2(void *result)
 {
-  v2 = *(result + 32);
+  v2 = result[4];
   v3 = *(v2 + 1504);
-  if (v3 == *(result + 40))
+  if (v3 == result[5])
   {
     v4 = result;
     *(v2 + 1504) = 0;
 
-    v5 = *(v4 + 32);
+    v5 = v4[4];
 
     return [v5 setShouldOverscrollScrollState:0];
   }
@@ -7660,28 +7660,28 @@ uint64_t __63__ICNoteEditorViewController_submitNoteViewEventForModernNote___blo
 {
   v5 = a2;
   objc_opt_class();
-  v11 = ICDynamicCast();
+  v12 = ICDynamicCast();
 
-  if (v11)
+  if (v12)
   {
-    v6 = [*(a1 + 32) attachmentViewForTextAttachment:v11 characterIndex:a3];
+    v7 = [*(a1 + 32) attachmentViewForTextAttachment:v12 characterIndex:a3];
     objc_opt_class();
-    v7 = ICClassAndProtocolCast();
+    v8 = ICClassAndProtocolCast();
 
-    if (v7)
+    if (v8)
     {
-      v8 = [v7 paperDocumentEngagementData];
-      if ([v8 hasActivity])
+      v9 = [v8 paperDocumentEngagementData];
+      if ([v9 hasActivity])
       {
-        v9 = [*(a1 + 32) eventReporter];
-        [v9 submitPDFWorkflowEngagementSummary:v8 modernNote:*(a1 + 40)];
+        v10 = [*(a1 + 32) eventReporter];
+        [v10 submitPDFWorkflowEngagementSummary:v9 modernNote:*(a1 + 40)];
       }
 
-      [v7 resetPaperDocumentEngagementData];
+      [v8 resetPaperDocumentEngagementData];
     }
   }
 
-  return MEMORY[0x2821F9730]();
+  return MEMORY[0x2821F9730](v6);
 }
 
 - (void)styleSelector:(id)selector didSelectStyle:(unsigned int)style
@@ -9471,7 +9471,7 @@ LABEL_67:
 LABEL_68:
 }
 
-uint64_t __137__ICNoteEditorViewController_documentCameraPresentingViewController_didFinishWithInfoCollection_imageCache_warnUser_closeViewController___block_invoke(uint64_t a1)
+void *__137__ICNoteEditorViewController_documentCameraPresentingViewController_didFinishWithInfoCollection_imageCache_warnUser_closeViewController___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) cleanupAfterAddImageAttachmentOperation];
   if (*(a1 + 40) == 1)
@@ -9484,7 +9484,7 @@ uint64_t __137__ICNoteEditorViewController_documentCameraPresentingViewControlle
   return result;
 }
 
-uint64_t __137__ICNoteEditorViewController_documentCameraPresentingViewController_didFinishWithInfoCollection_imageCache_warnUser_closeViewController___block_invoke_749(uint64_t a1)
+void *__137__ICNoteEditorViewController_documentCameraPresentingViewController_didFinishWithInfoCollection_imageCache_warnUser_closeViewController___block_invoke_749(uint64_t a1)
 {
   result = [*(a1 + 32) cleanupAfterAddImageAttachmentOperation];
   if (*(a1 + 40) == 1)
@@ -14007,7 +14007,7 @@ uint64_t __53__ICNoteEditorViewController_performDeleteAnimation___block_invoke_
     v5 = *(a1 + 32);
     if (v5)
     {
-      [v5 transform];
+      objc_msgSend_transform(v5);
       v6 = *(a1 + 32);
     }
 
@@ -14286,7 +14286,7 @@ LABEL_6:
   [(ICNoteEditorViewController *)self submitNoteEditEventIfNecessary];
 }
 
-uint64_t __42__ICNoteEditorViewController_doneEditing___block_invoke(uint64_t a1)
+void *__42__ICNoteEditorViewController_doneEditing___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isEditing];
   if (result)
@@ -18732,7 +18732,7 @@ LABEL_25:
   _Block_object_dispose(&v43, 8);
 }
 
-void __89__ICNoteEditorViewController_scrollViewWillEndDragging_withVelocity_targetContentOffset___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, _BYTE *a5)
+void __89__ICNoteEditorViewController_scrollViewWillEndDragging_withVelocity_targetContentOffset___block_invoke(uint64_t a1, void *a2, _BYTE *a3, uint64_t a4, _BYTE *a5)
 {
   v8 = a2;
   objc_opt_class();
@@ -18770,7 +18770,7 @@ void __89__ICNoteEditorViewController_scrollViewWillEndDragging_withVelocity_tar
 
     v30 = [*(a1 + 32) textView];
     v31 = [v30 textStorage];
-    if (a3 == [v31 length] - 1)
+    if (a3 == ([v31 length] - 1))
     {
       v32 = 0;
     }
@@ -19126,37 +19126,38 @@ uint64_t __83__ICNoteEditorViewController_prepareToSnapToPaperDocumentAtStartOfD
 {
   v5 = a2;
   objc_opt_class();
-  v19 = ICDynamicCast();
+  v20 = ICDynamicCast();
 
-  if ([v19 viewportShouldSnapToAttachmentView])
+  v6 = [v20 viewportShouldSnapToAttachmentView];
+  if (v6)
   {
-    v6 = [*(a1 + 32) attachmentViewForTextAttachment:v19 characterIndex:a3];
-    v7 = v6;
-    if (v6)
+    v7 = [*(a1 + 32) attachmentViewForTextAttachment:v20 characterIndex:a3];
+    v8 = v7;
+    if (v7)
     {
-      [v6 bounds];
-      [v7 convertPoint:*(a1 + 40) toView:?];
-      v9 = v8;
-      v11 = v10;
+      [v7 bounds];
+      [v8 convertPoint:*(a1 + 40) toView:?];
+      v10 = v9;
+      v12 = v11;
       [*(a1 + 40) safeAreaInsets];
-      v13 = v11 - v12;
+      v14 = v12 - v13;
       [*(a1 + 40) contentOffset];
-      if (vabdd_f64(v14, v13) > 16.0)
+      if (vabdd_f64(v15, v14) > 16.0)
       {
-        v15 = *(a1 + 48);
-        v16 = [MEMORY[0x277CCAE60] valueWithCGPoint:{v9, v13}];
-        [v15 addObject:v16];
+        v16 = *(a1 + 48);
+        v17 = [MEMORY[0x277CCAE60] valueWithCGPoint:{v10, v14}];
+        [v16 addObject:v17];
       }
 
-      v17 = [*(a1 + 32) firstEmbeddedScrollViewInView:v7];
-      if (v17)
+      v18 = [*(a1 + 32) firstEmbeddedScrollViewInView:v8];
+      if (v18)
       {
-        [*(a1 + 56) addObject:v17];
+        [*(a1 + 56) addObject:v18];
       }
     }
   }
 
-  return MEMORY[0x2821F9730]();
+  return MEMORY[0x2821F9730](v6);
 }
 
 - (id)firstEmbeddedScrollViewInView:(id)view
@@ -21123,7 +21124,7 @@ LABEL_4:
   return note;
 }
 
-uint64_t __57__ICNoteEditorViewController_noteHasAnyPencilKitDrawings__block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, _BYTE *a5)
+void *__57__ICNoteEditorViewController_noteHasAnyPencilKitDrawings__block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 {
   result = [a2 isPencilKitDrawing];
   if (result)

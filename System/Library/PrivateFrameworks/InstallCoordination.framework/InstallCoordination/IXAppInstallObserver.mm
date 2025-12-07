@@ -32,7 +32,7 @@
 
 - (id)_oncePerBootUniqueIdentifierForServiceName:(id)name
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   uTF8String = [name UTF8String];
   v4 = strlen(uTF8String);
   CC_SHA1(uTF8String, v4, md);
@@ -58,25 +58,23 @@
   v10 = [v7 substringToIndex:v9];
   v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"installcood.f.%@", v10];
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return v11;
 }
 
 - (IXAppInstallObserver)initWithMachServiceName:(id)name forClients:(id)clients delegate:(id)delegate
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   clientsCopy = clients;
   delegateCopy = delegate;
-  v24.receiver = self;
-  v24.super_class = IXAppInstallObserver;
-  v11 = [(IXAppInstallObserver *)&v24 init];
+  v23.receiver = self;
+  v23.super_class = IXAppInstallObserver;
+  v11 = [(IXAppInstallObserver *)&v23 init];
   v12 = v11;
   if (v11)
   {
     [(IXAppInstallObserver *)v11 _internalInit];
-    v13 = _SelectorsRespondedToByDelegate();
+    v13 = _SelectorsRespondedToByDelegate(delegateCopy);
     objc_storeWeak(&v12->_delegate, delegateCopy);
     v14 = [objc_alloc(MEMORY[0x1E696B0D8]) initWithMachServiceName:nameCopy];
     [v14 setDelegate:v12];
@@ -87,34 +85,33 @@
     {
       v16 = _IXStringForObserverRespondsToSelectors(v13);
       *buf = 136315906;
-      v26 = "[IXAppInstallObserver initWithMachServiceName:forClients:delegate:]";
-      v27 = 2112;
-      v28 = nameCopy;
-      v29 = 2112;
-      v30 = clientsCopy;
-      v31 = 2112;
-      v32 = v16;
+      v25 = "[IXAppInstallObserver initWithMachServiceName:forClients:delegate:]";
+      v26 = 2112;
+      v27 = nameCopy;
+      v28 = 2112;
+      v29 = clientsCopy;
+      v30 = 2112;
+      v31 = v16;
       _os_log_impl(&dword_1DA47A000, v15, OS_LOG_TYPE_DEFAULT, "%s: Creating IXAppInstallObserver with service name %@ for client IDs %@ responding to selectors %@", buf, 0x2Au);
     }
 
     v17 = [(IXAppInstallObserver *)v12 _oncePerBootUniqueIdentifierForServiceName:nameCopy];
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __68__IXAppInstallObserver_initWithMachServiceName_forClients_delegate___block_invoke;
-    v20[3] = &unk_1E85C52A8;
-    v21 = nameCopy;
-    v22 = clientsCopy;
-    v23 = v13;
-    IXRunOncePerBootWork(v17, v20);
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __68__IXAppInstallObserver_initWithMachServiceName_forClients_delegate___block_invoke;
+    v19[3] = &unk_1E85C52A8;
+    v20 = nameCopy;
+    v21 = clientsCopy;
+    v22 = v13;
+    IXRunOncePerBootWork(v17, v19);
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 void __68__IXAppInstallObserver_initWithMachServiceName_forClients_delegate___block_invoke(void *a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = +[IXServerConnection sharedConnection];
   v3 = [v2 synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_2];
 
@@ -124,36 +121,33 @@ void __68__IXAppInstallObserver_initWithMachServiceName_forClients_delegate___bl
     v5 = a1[4];
     v6 = a1[5];
     v7 = _IXStringForObserverRespondsToSelectors(a1[6]);
-    v9 = 136315906;
-    v10 = "[IXAppInstallObserver initWithMachServiceName:forClients:delegate:]_block_invoke";
-    v11 = 2112;
-    v12 = v5;
-    v13 = 2112;
-    v14 = v6;
-    v15 = 2112;
-    v16 = v7;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Notifying installcoordinationd of observer with service name %@ for client IDs %@ responding to selectors %@", &v9, 0x2Au);
+    v8 = 136315906;
+    v9 = "[IXAppInstallObserver initWithMachServiceName:forClients:delegate:]_block_invoke";
+    v10 = 2112;
+    v11 = v5;
+    v12 = 2112;
+    v13 = v6;
+    v14 = 2112;
+    v15 = v7;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Notifying installcoordinationd of observer with service name %@ for client IDs %@ responding to selectors %@", &v8, 0x2Au);
   }
 
   [v3 _remote_registerObserverMachServiceName:a1[4] forClientIdentifiers:a1[5] respondingToSelectors:a1[6]];
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __68__IXAppInstallObserver_initWithMachServiceName_forClients_delegate___block_invoke_2(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315394;
-    v6 = "[IXAppInstallObserver initWithMachServiceName:forClients:delegate:]_block_invoke_2";
-    v7 = 2112;
-    v8 = v2;
-    _os_log_impl(&dword_1DA47A000, v3, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon to register mach service name: %@", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = "[IXAppInstallObserver initWithMachServiceName:forClients:delegate:]_block_invoke_2";
+    v6 = 2112;
+    v7 = v2;
+    _os_log_impl(&dword_1DA47A000, v3, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon to register mach service name: %@", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (id)initTransientForClients:(id)clients delegate:(id)delegate
@@ -167,7 +161,7 @@ void __68__IXAppInstallObserver_initWithMachServiceName_forClients_delegate___bl
   if (v8)
   {
     [(IXAppInstallObserver *)v8 _internalInit];
-    v10 = _SelectorsRespondedToByDelegate();
+    v10 = _SelectorsRespondedToByDelegate(delegateCopy);
     objc_storeWeak(p_isa + 1, delegateCopy);
     anonymousListener = [MEMORY[0x1E696B0D8] anonymousListener];
     [anonymousListener setDelegate:p_isa];
@@ -185,24 +179,22 @@ void __68__IXAppInstallObserver_initWithMachServiceName_forClients_delegate___bl
 
 void __57__IXAppInstallObserver_initTransientForClients_delegate___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315394;
-    v6 = "[IXAppInstallObserver initTransientForClients:delegate:]_block_invoke";
-    v7 = 2112;
-    v8 = v2;
-    _os_log_impl(&dword_1DA47A000, v3, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon to register endpoint: %@", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = "[IXAppInstallObserver initTransientForClients:delegate:]_block_invoke";
+    v6 = 2112;
+    v7 = v2;
+    _os_log_impl(&dword_1DA47A000, v3, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon to register endpoint: %@", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   listener = [(IXAppInstallObserver *)self listener];
   [listener invalidate];
 
@@ -210,21 +202,20 @@ void __57__IXAppInstallObserver_initTransientForClients_delegate___block_invoke(
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v8 = "[IXAppInstallObserver dealloc]";
-    v9 = 2112;
+    v7 = "[IXAppInstallObserver dealloc]";
+    v8 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Deallocing %@", buf, 0x16u);
   }
 
-  v6.receiver = self;
-  v6.super_class = IXAppInstallObserver;
-  [(IXAppInstallObserver *)&v6 dealloc];
-  v5 = *MEMORY[0x1E69E9840];
+  v5.receiver = self;
+  v5.super_class = IXAppInstallObserver;
+  [(IXAppInstallObserver *)&v5 dealloc];
 }
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   v6 = IXHasTrueValueForEntitlement(connectionCopy, @"com.apple.private.installcoordinationd.daemon");
   if (v6)
@@ -244,23 +235,22 @@ void __57__IXAppInstallObserver_initTransientForClients_delegate___block_invoke(
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = IXCopyClientNameForConnection(connectionCopy);
-      v12 = 136315650;
-      v13 = "[IXAppInstallObserver listener:shouldAcceptNewConnection:]";
-      v14 = 2112;
-      v15 = v9;
-      v16 = 2112;
-      v17 = @"com.apple.private.installcoordinationd.daemon";
-      _os_log_impl(&dword_1DA47A000, v8, OS_LOG_TYPE_DEFAULT, "%s: Process %@ is missing %@ entitlement so rejecting connection attempt.", &v12, 0x20u);
+      v11 = 136315650;
+      v12 = "[IXAppInstallObserver listener:shouldAcceptNewConnection:]";
+      v13 = 2112;
+      v14 = v9;
+      v15 = 2112;
+      v16 = @"com.apple.private.installcoordinationd.daemon";
+      _os_log_impl(&dword_1DA47A000, v8, OS_LOG_TYPE_DEFAULT, "%s: Process %@ is missing %@ entitlement so rejecting connection attempt.", &v11, 0x20u);
     }
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (void)_client_coordinatorShouldPrioritizeWithSeed:(id)seed
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   seedCopy = seed;
   delegate = [(IXAppInstallObserver *)self delegate];
   if (objc_opt_respondsToSelector())
@@ -270,12 +260,12 @@ void __57__IXAppInstallObserver_initTransientForClients_delegate___block_invoke(
     block[1] = 3221225472;
     block[2] = __68__IXAppInstallObserver__client_coordinatorShouldPrioritizeWithSeed___block_invoke;
     block[3] = &unk_1E85C52A8;
-    v11 = seedCopy;
-    v13 = sel_coordinatorShouldPrioritize_;
-    v12 = delegate;
+    v10 = seedCopy;
+    v12 = sel_coordinatorShouldPrioritize_;
+    v11 = delegate;
     dispatch_async(delegateQueue, block);
 
-    v7 = v11;
+    v7 = v10;
   }
 
   else
@@ -285,19 +275,17 @@ void __57__IXAppInstallObserver_initTransientForClients_delegate___block_invoke(
     {
       v8 = NSStringFromSelector(sel_coordinatorShouldPrioritize_);
       *buf = 136315394;
-      v15 = "[IXAppInstallObserver _client_coordinatorShouldPrioritizeWithSeed:]";
-      v16 = 2112;
-      v17 = v8;
+      v14 = "[IXAppInstallObserver _client_coordinatorShouldPrioritizeWithSeed:]";
+      v15 = 2112;
+      v16 = v8;
       _os_log_impl(&dword_1DA47A000, v7, OS_LOG_TYPE_DEFAULT, "%s: Delegate did not respond to %@", buf, 0x16u);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __68__IXAppInstallObserver__client_coordinatorShouldPrioritizeWithSeed___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(+[IXAppInstallCoordinator classForIntent:](IXAppInstallCoordinator classForIntent:{objc_msgSend(*(a1 + 32), "intent"))), "initWithSeed:", *(a1 + 32)}];
   v3 = +[IXServerConnection sharedConnection];
   [v3 registerAppInstallCoordinatorForUpdates:v2 notifyDaemon:1];
@@ -319,23 +307,22 @@ void __68__IXAppInstallObserver__client_coordinatorShouldPrioritizeWithSeed___bl
     }
 
     *buf = 136315906;
-    v11 = "[IXAppInstallObserver _client_coordinatorShouldPrioritizeWithSeed:]_block_invoke";
-    v12 = 2112;
-    v13 = v5;
-    v14 = 2112;
-    v15 = v6;
-    v16 = 2112;
-    v17 = v8;
+    v10 = "[IXAppInstallObserver _client_coordinatorShouldPrioritizeWithSeed:]_block_invoke";
+    v11 = 2112;
+    v12 = v5;
+    v13 = 2112;
+    v14 = v6;
+    v15 = 2112;
+    v16 = v8;
     _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Calling %@ on delegate for coordinator %@ (%@)", buf, 0x2Au);
   }
 
   [*(a1 + 40) coordinatorShouldPrioritize:v2];
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_client_shouldPrioritizeAppWithBundleID:(id)d
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   dCopy = d;
   delegate = [(IXAppInstallObserver *)self delegate];
   if (objc_opt_respondsToSelector())
@@ -345,12 +332,12 @@ void __68__IXAppInstallObserver__client_coordinatorShouldPrioritizeWithSeed___bl
     block[1] = 3221225472;
     block[2] = __64__IXAppInstallObserver__client_shouldPrioritizeAppWithBundleID___block_invoke;
     block[3] = &unk_1E85C52A8;
-    v13 = sel_shouldPrioritizeAppWithBundleID_;
-    v11 = dCopy;
-    v12 = delegate;
+    v12 = sel_shouldPrioritizeAppWithBundleID_;
+    v10 = dCopy;
+    v11 = delegate;
     dispatch_async(delegateQueue, block);
 
-    v7 = v11;
+    v7 = v10;
   }
 
   else
@@ -360,41 +347,37 @@ void __68__IXAppInstallObserver__client_coordinatorShouldPrioritizeWithSeed___bl
     {
       v8 = NSStringFromSelector(sel_shouldPrioritizeAppWithBundleID_);
       *buf = 136315394;
-      v15 = "[IXAppInstallObserver _client_shouldPrioritizeAppWithBundleID:]";
-      v16 = 2112;
-      v17 = v8;
+      v14 = "[IXAppInstallObserver _client_shouldPrioritizeAppWithBundleID:]";
+      v15 = 2112;
+      v16 = v8;
       _os_log_impl(&dword_1DA47A000, v7, OS_LOG_TYPE_DEFAULT, "%s: Delegate did not respond to %@", buf, 0x16u);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __64__IXAppInstallObserver__client_shouldPrioritizeAppWithBundleID___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = NSStringFromSelector(*(a1 + 48));
     v4 = *(a1 + 32);
-    v7 = 136315650;
-    v8 = "[IXAppInstallObserver _client_shouldPrioritizeAppWithBundleID:]_block_invoke";
-    v9 = 2112;
-    v10 = v3;
-    v11 = 2112;
-    v12 = v4;
-    _os_log_impl(&dword_1DA47A000, v2, OS_LOG_TYPE_DEFAULT, "%s: Calling %@ on delegate for bundle ID %@", &v7, 0x20u);
+    v6 = 136315650;
+    v7 = "[IXAppInstallObserver _client_shouldPrioritizeAppWithBundleID:]_block_invoke";
+    v8 = 2112;
+    v9 = v3;
+    v10 = 2112;
+    v11 = v4;
+    _os_log_impl(&dword_1DA47A000, v2, OS_LOG_TYPE_DEFAULT, "%s: Calling %@ on delegate for bundle ID %@", &v6, 0x20u);
   }
 
-  result = [*(a1 + 40) shouldPrioritizeAppWithBundleID:*(a1 + 32)];
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 40) shouldPrioritizeAppWithBundleID:*(a1 + 32)];
 }
 
 - (void)_client_shouldPrioritizeAppWithIdentity:(id)identity
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   identityCopy = identity;
   delegate = [(IXAppInstallObserver *)self delegate];
   if (objc_opt_respondsToSelector())
@@ -404,12 +387,12 @@ uint64_t __64__IXAppInstallObserver__client_shouldPrioritizeAppWithBundleID___bl
     block[1] = 3221225472;
     block[2] = __64__IXAppInstallObserver__client_shouldPrioritizeAppWithIdentity___block_invoke;
     block[3] = &unk_1E85C52A8;
-    v13 = sel_shouldPrioritizeAppWithIdentity_;
-    v11 = identityCopy;
-    v12 = delegate;
+    v12 = sel_shouldPrioritizeAppWithIdentity_;
+    v10 = identityCopy;
+    v11 = delegate;
     dispatch_async(delegateQueue, block);
 
-    v7 = v11;
+    v7 = v10;
   }
 
   else
@@ -419,41 +402,37 @@ uint64_t __64__IXAppInstallObserver__client_shouldPrioritizeAppWithBundleID___bl
     {
       v8 = NSStringFromSelector(sel_shouldPrioritizeAppWithIdentity_);
       *buf = 136315394;
-      v15 = "[IXAppInstallObserver _client_shouldPrioritizeAppWithIdentity:]";
-      v16 = 2112;
-      v17 = v8;
+      v14 = "[IXAppInstallObserver _client_shouldPrioritizeAppWithIdentity:]";
+      v15 = 2112;
+      v16 = v8;
       _os_log_impl(&dword_1DA47A000, v7, OS_LOG_TYPE_DEFAULT, "%s: Delegate did not respond to %@", buf, 0x16u);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __64__IXAppInstallObserver__client_shouldPrioritizeAppWithIdentity___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = NSStringFromSelector(*(a1 + 48));
     v4 = *(a1 + 32);
-    v7 = 136315650;
-    v8 = "[IXAppInstallObserver _client_shouldPrioritizeAppWithIdentity:]_block_invoke";
-    v9 = 2112;
-    v10 = v3;
-    v11 = 2112;
-    v12 = v4;
-    _os_log_impl(&dword_1DA47A000, v2, OS_LOG_TYPE_DEFAULT, "%s: Calling %@ on delegate for identity %@", &v7, 0x20u);
+    v6 = 136315650;
+    v7 = "[IXAppInstallObserver _client_shouldPrioritizeAppWithIdentity:]_block_invoke";
+    v8 = 2112;
+    v9 = v3;
+    v10 = 2112;
+    v11 = v4;
+    _os_log_impl(&dword_1DA47A000, v2, OS_LOG_TYPE_DEFAULT, "%s: Calling %@ on delegate for identity %@", &v6, 0x20u);
   }
 
-  result = [*(a1 + 40) shouldPrioritizeAppWithIdentity:*(a1 + 32)];
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 40) shouldPrioritizeAppWithIdentity:*(a1 + 32)];
 }
 
 - (void)_client_coordinatorShouldResumeWithSeed:(id)seed
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   seedCopy = seed;
   delegate = [(IXAppInstallObserver *)self delegate];
   if (objc_opt_respondsToSelector())
@@ -463,12 +442,12 @@ uint64_t __64__IXAppInstallObserver__client_shouldPrioritizeAppWithIdentity___bl
     block[1] = 3221225472;
     block[2] = __64__IXAppInstallObserver__client_coordinatorShouldResumeWithSeed___block_invoke;
     block[3] = &unk_1E85C52A8;
-    v11 = seedCopy;
-    v13 = sel_coordinatorShouldResume_;
-    v12 = delegate;
+    v10 = seedCopy;
+    v12 = sel_coordinatorShouldResume_;
+    v11 = delegate;
     dispatch_async(delegateQueue, block);
 
-    v7 = v11;
+    v7 = v10;
   }
 
   else
@@ -478,19 +457,17 @@ uint64_t __64__IXAppInstallObserver__client_shouldPrioritizeAppWithIdentity___bl
     {
       v8 = NSStringFromSelector(sel_coordinatorShouldResume_);
       *buf = 136315394;
-      v15 = "[IXAppInstallObserver _client_coordinatorShouldResumeWithSeed:]";
-      v16 = 2112;
-      v17 = v8;
+      v14 = "[IXAppInstallObserver _client_coordinatorShouldResumeWithSeed:]";
+      v15 = 2112;
+      v16 = v8;
       _os_log_impl(&dword_1DA47A000, v7, OS_LOG_TYPE_DEFAULT, "%s: Delegate did not respond to %@", buf, 0x16u);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __64__IXAppInstallObserver__client_coordinatorShouldResumeWithSeed___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(+[IXAppInstallCoordinator classForIntent:](IXAppInstallCoordinator classForIntent:{objc_msgSend(*(a1 + 32), "intent"))), "initWithSeed:", *(a1 + 32)}];
   v3 = +[IXServerConnection sharedConnection];
   [v3 registerAppInstallCoordinatorForUpdates:v2 notifyDaemon:1];
@@ -512,23 +489,22 @@ void __64__IXAppInstallObserver__client_coordinatorShouldResumeWithSeed___block_
     }
 
     *buf = 136315906;
-    v11 = "[IXAppInstallObserver _client_coordinatorShouldResumeWithSeed:]_block_invoke";
-    v12 = 2112;
-    v13 = v5;
-    v14 = 2112;
-    v15 = v6;
-    v16 = 2112;
-    v17 = v8;
+    v10 = "[IXAppInstallObserver _client_coordinatorShouldResumeWithSeed:]_block_invoke";
+    v11 = 2112;
+    v12 = v5;
+    v13 = 2112;
+    v14 = v6;
+    v15 = 2112;
+    v16 = v8;
     _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Calling %@ on delegate for coordinator %@ (%@)", buf, 0x2Au);
   }
 
   [*(a1 + 40) coordinatorShouldResume:v2];
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_client_coordinatorShouldPauseWithSeed:(id)seed
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   seedCopy = seed;
   delegate = [(IXAppInstallObserver *)self delegate];
   if (objc_opt_respondsToSelector())
@@ -538,12 +514,12 @@ void __64__IXAppInstallObserver__client_coordinatorShouldResumeWithSeed___block_
     block[1] = 3221225472;
     block[2] = __63__IXAppInstallObserver__client_coordinatorShouldPauseWithSeed___block_invoke;
     block[3] = &unk_1E85C52A8;
-    v11 = seedCopy;
-    v13 = sel_coordinatorShouldPause_;
-    v12 = delegate;
+    v10 = seedCopy;
+    v12 = sel_coordinatorShouldPause_;
+    v11 = delegate;
     dispatch_async(delegateQueue, block);
 
-    v7 = v11;
+    v7 = v10;
   }
 
   else
@@ -553,19 +529,17 @@ void __64__IXAppInstallObserver__client_coordinatorShouldResumeWithSeed___block_
     {
       v8 = NSStringFromSelector(sel_coordinatorShouldPause_);
       *buf = 136315394;
-      v15 = "[IXAppInstallObserver _client_coordinatorShouldPauseWithSeed:]";
-      v16 = 2112;
-      v17 = v8;
+      v14 = "[IXAppInstallObserver _client_coordinatorShouldPauseWithSeed:]";
+      v15 = 2112;
+      v16 = v8;
       _os_log_impl(&dword_1DA47A000, v7, OS_LOG_TYPE_DEFAULT, "%s: Delegate did not respond to %@", buf, 0x16u);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __63__IXAppInstallObserver__client_coordinatorShouldPauseWithSeed___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(+[IXAppInstallCoordinator classForIntent:](IXAppInstallCoordinator classForIntent:{objc_msgSend(*(a1 + 32), "intent"))), "initWithSeed:", *(a1 + 32)}];
   v3 = +[IXServerConnection sharedConnection];
   [v3 registerAppInstallCoordinatorForUpdates:v2 notifyDaemon:1];
@@ -587,39 +561,38 @@ void __63__IXAppInstallObserver__client_coordinatorShouldPauseWithSeed___block_i
     }
 
     *buf = 136315906;
-    v11 = "[IXAppInstallObserver _client_coordinatorShouldPauseWithSeed:]_block_invoke";
-    v12 = 2112;
-    v13 = v5;
-    v14 = 2112;
-    v15 = v6;
-    v16 = 2112;
-    v17 = v8;
+    v10 = "[IXAppInstallObserver _client_coordinatorShouldPauseWithSeed:]_block_invoke";
+    v11 = 2112;
+    v12 = v5;
+    v13 = 2112;
+    v14 = v6;
+    v15 = 2112;
+    v16 = v8;
     _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Calling %@ on delegate for coordinator %@ (%@)", buf, 0x2Au);
   }
 
   [*(a1 + 40) coordinatorShouldPause:v2];
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_client_coordinatorWithSeed:(id)seed configuredPromiseDidBeginFulfillment:(unint64_t)fulfillment
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   seedCopy = seed;
   delegate = [(IXAppInstallObserver *)self delegate];
   if (objc_opt_respondsToSelector())
   {
     delegateQueue = [(IXAppInstallObserver *)self delegateQueue];
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __89__IXAppInstallObserver__client_coordinatorWithSeed_configuredPromiseDidBeginFulfillment___block_invoke;
-    v12[3] = &unk_1E85C60B8;
-    v13 = seedCopy;
-    v15 = sel_coordinator_configuredPromiseDidBeginFulfillment_;
-    v14 = delegate;
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __89__IXAppInstallObserver__client_coordinatorWithSeed_configuredPromiseDidBeginFulfillment___block_invoke;
+    v11[3] = &unk_1E85C60B8;
+    v12 = seedCopy;
+    v14 = sel_coordinator_configuredPromiseDidBeginFulfillment_;
+    v13 = delegate;
     fulfillmentCopy = fulfillment;
-    dispatch_async(delegateQueue, v12);
+    dispatch_async(delegateQueue, v11);
 
-    v9 = v13;
+    v9 = v12;
   }
 
   else
@@ -629,19 +602,17 @@ void __63__IXAppInstallObserver__client_coordinatorShouldPauseWithSeed___block_i
     {
       v10 = NSStringFromSelector(sel_coordinator_configuredPromiseDidBeginFulfillment_);
       *buf = 136315394;
-      v18 = "[IXAppInstallObserver _client_coordinatorWithSeed:configuredPromiseDidBeginFulfillment:]";
-      v19 = 2112;
-      v20 = v10;
+      v17 = "[IXAppInstallObserver _client_coordinatorWithSeed:configuredPromiseDidBeginFulfillment:]";
+      v18 = 2112;
+      v19 = v10;
       _os_log_impl(&dword_1DA47A000, v9, OS_LOG_TYPE_DEFAULT, "%s: Delegate did not respond to %@", buf, 0x16u);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __89__IXAppInstallObserver__client_coordinatorWithSeed_configuredPromiseDidBeginFulfillment___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(+[IXAppInstallCoordinator classForIntent:](IXAppInstallCoordinator classForIntent:{objc_msgSend(*(a1 + 32), "intent"))), "initWithSeed:", *(a1 + 32)}];
   v3 = +[IXServerConnection sharedConnection];
   [v3 registerAppInstallCoordinatorForUpdates:v2 notifyDaemon:1];
@@ -663,23 +634,22 @@ void __89__IXAppInstallObserver__client_coordinatorWithSeed_configuredPromiseDid
     }
 
     *buf = 136315906;
-    v11 = "[IXAppInstallObserver _client_coordinatorWithSeed:configuredPromiseDidBeginFulfillment:]_block_invoke";
-    v12 = 2112;
-    v13 = v5;
-    v14 = 2112;
-    v15 = v6;
-    v16 = 2112;
-    v17 = v8;
+    v10 = "[IXAppInstallObserver _client_coordinatorWithSeed:configuredPromiseDidBeginFulfillment:]_block_invoke";
+    v11 = 2112;
+    v12 = v5;
+    v13 = 2112;
+    v14 = v6;
+    v15 = 2112;
+    v16 = v8;
     _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Calling %@ on delegate for coordinator %@ (%@)", buf, 0x2Au);
   }
 
   [*(a1 + 40) coordinator:v2 configuredPromiseDidBeginFulfillment:*(a1 + 56)];
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_client_coordinatorShouldBeginRestoringUserDataWithSeed:(id)seed
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   seedCopy = seed;
   delegate = [(IXAppInstallObserver *)self delegate];
   if (objc_opt_respondsToSelector())
@@ -689,12 +659,12 @@ void __89__IXAppInstallObserver__client_coordinatorWithSeed_configuredPromiseDid
     block[1] = 3221225472;
     block[2] = __80__IXAppInstallObserver__client_coordinatorShouldBeginRestoringUserDataWithSeed___block_invoke;
     block[3] = &unk_1E85C52A8;
-    v11 = seedCopy;
-    v13 = sel_coordinatorShouldBeginRestoringUserData_;
-    v12 = delegate;
+    v10 = seedCopy;
+    v12 = sel_coordinatorShouldBeginRestoringUserData_;
+    v11 = delegate;
     dispatch_async(delegateQueue, block);
 
-    v7 = v11;
+    v7 = v10;
   }
 
   else
@@ -704,19 +674,17 @@ void __89__IXAppInstallObserver__client_coordinatorWithSeed_configuredPromiseDid
     {
       v8 = NSStringFromSelector(sel_coordinatorShouldBeginRestoringUserData_);
       *buf = 136315394;
-      v15 = "[IXAppInstallObserver _client_coordinatorShouldBeginRestoringUserDataWithSeed:]";
-      v16 = 2112;
-      v17 = v8;
+      v14 = "[IXAppInstallObserver _client_coordinatorShouldBeginRestoringUserDataWithSeed:]";
+      v15 = 2112;
+      v16 = v8;
       _os_log_impl(&dword_1DA47A000, v7, OS_LOG_TYPE_DEFAULT, "%s: Delegate did not respond to %@", buf, 0x16u);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __80__IXAppInstallObserver__client_coordinatorShouldBeginRestoringUserDataWithSeed___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(+[IXAppInstallCoordinator classForIntent:](IXAppInstallCoordinator classForIntent:{objc_msgSend(*(a1 + 32), "intent"))), "initWithSeed:", *(a1 + 32)}];
   v3 = +[IXServerConnection sharedConnection];
   [v3 registerAppInstallCoordinatorForUpdates:v2 notifyDaemon:1];
@@ -738,23 +706,22 @@ void __80__IXAppInstallObserver__client_coordinatorShouldBeginRestoringUserDataW
     }
 
     *buf = 136315906;
-    v11 = "[IXAppInstallObserver _client_coordinatorShouldBeginRestoringUserDataWithSeed:]_block_invoke";
-    v12 = 2112;
-    v13 = v5;
-    v14 = 2112;
-    v15 = v6;
-    v16 = 2112;
-    v17 = v8;
+    v10 = "[IXAppInstallObserver _client_coordinatorShouldBeginRestoringUserDataWithSeed:]_block_invoke";
+    v11 = 2112;
+    v12 = v5;
+    v13 = 2112;
+    v14 = v6;
+    v15 = 2112;
+    v16 = v8;
     _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Calling %@ on delegate for coordinator %@ (%@)", buf, 0x2Au);
   }
 
   [*(a1 + 40) coordinatorShouldBeginRestoringUserData:v2];
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_client_coordinatorDidInstallPlaceholderWithSeed:(id)seed forRecordPromise:(id)promise
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   seedCopy = seed;
   promiseCopy = promise;
   delegate = [(IXAppInstallObserver *)self delegate];
@@ -791,11 +758,11 @@ LABEL_8:
     block[1] = 3221225472;
     block[2] = __90__IXAppInstallObserver__client_coordinatorDidInstallPlaceholderWithSeed_forRecordPromise___block_invoke;
     block[3] = &unk_1E85C60E0;
-    v20 = seedCopy;
-    v21 = delegate;
-    v23 = sel_coordinatorDidInstallPlaceholder_;
-    v24 = sel_coordinatorDidInstallPlaceholder_forApplicationRecord_;
-    v22 = v12;
+    v19 = seedCopy;
+    v20 = delegate;
+    v22 = sel_coordinatorDidInstallPlaceholder_;
+    v23 = sel_coordinatorDidInstallPlaceholder_forApplicationRecord_;
+    v21 = v12;
     dispatch_async(delegateQueue, block);
   }
 
@@ -807,9 +774,9 @@ LABEL_9:
     {
       v15 = NSStringFromSelector(sel_coordinatorDidInstallPlaceholder_);
       *buf = 136315394;
-      v26 = "[IXAppInstallObserver _client_coordinatorDidInstallPlaceholderWithSeed:forRecordPromise:]";
-      v27 = 2112;
-      v28 = v15;
+      v25 = "[IXAppInstallObserver _client_coordinatorDidInstallPlaceholderWithSeed:forRecordPromise:]";
+      v26 = 2112;
+      v27 = v15;
       _os_log_impl(&dword_1DA47A000, v14, OS_LOG_TYPE_DEFAULT, "%s: Delegate did not respond to %@", buf, 0x16u);
     }
   }
@@ -821,100 +788,92 @@ LABEL_9:
     {
       v17 = NSStringFromSelector(sel_coordinatorDidInstallPlaceholder_forApplicationRecord_);
       *buf = 136315394;
-      v26 = "[IXAppInstallObserver _client_coordinatorDidInstallPlaceholderWithSeed:forRecordPromise:]";
-      v27 = 2112;
-      v28 = v17;
+      v25 = "[IXAppInstallObserver _client_coordinatorDidInstallPlaceholderWithSeed:forRecordPromise:]";
+      v26 = 2112;
+      v27 = v17;
       _os_log_impl(&dword_1DA47A000, v16, OS_LOG_TYPE_DEFAULT, "%s: Delegate did not respond to %@", buf, 0x16u);
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __90__IXAppInstallObserver__client_coordinatorDidInstallPlaceholderWithSeed_forRecordPromise___block_invoke(uint64_t a1)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(+[IXAppInstallCoordinator classForIntent:](IXAppInstallCoordinator classForIntent:{objc_msgSend(*(a1 + 32), "intent"))), "initWithSeed:", *(a1 + 32)}];
   v3 = +[IXServerConnection sharedConnection];
   [v3 registerAppInstallCoordinatorForUpdates:v2 notifyDaemon:1];
 
-  v4 = *(a1 + 40);
-  v5 = *(a1 + 56);
   if (objc_opt_respondsToSelector())
   {
-    v6 = IXGetLoggingHandle(kIXLoggingSubsystem);
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = NSStringFromSelector(*(a1 + 56));
-      v8 = [v2 bundleID];
-      v9 = [*(a1 + 32) intent];
-      if (v9 >= 8)
+      v5 = NSStringFromSelector(*(a1 + 56));
+      v6 = [v2 bundleID];
+      v7 = [*(a1 + 32) intent];
+      if (v7 >= 8)
       {
-        v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unknown intent value %lu", v9];
+        v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unknown intent value %lu", v7];
       }
 
       else
       {
-        v10 = off_1E85C6100[v9];
+        v8 = off_1E85C6100[v7];
       }
 
       *buf = 136315906;
-      v21 = "[IXAppInstallObserver _client_coordinatorDidInstallPlaceholderWithSeed:forRecordPromise:]_block_invoke";
-      v22 = 2112;
-      v23 = v7;
-      v24 = 2112;
-      v25 = v8;
-      v26 = 2112;
-      v27 = v10;
-      _os_log_impl(&dword_1DA47A000, v6, OS_LOG_TYPE_DEFAULT, "%s: Calling %@ on delegate for coordinator %@ (%@)", buf, 0x2Au);
+      v16 = "[IXAppInstallObserver _client_coordinatorDidInstallPlaceholderWithSeed:forRecordPromise:]_block_invoke";
+      v17 = 2112;
+      v18 = v5;
+      v19 = 2112;
+      v20 = v6;
+      v21 = 2112;
+      v22 = v8;
+      _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Calling %@ on delegate for coordinator %@ (%@)", buf, 0x2Au);
     }
 
     [*(a1 + 40) coordinatorDidInstallPlaceholder:v2];
   }
 
-  v11 = *(a1 + 40);
-  v12 = *(a1 + 64);
   if (objc_opt_respondsToSelector())
   {
-    v13 = IXGetLoggingHandle(kIXLoggingSubsystem);
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v9 = IXGetLoggingHandle(kIXLoggingSubsystem);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = NSStringFromSelector(*(a1 + 64));
-      v15 = [v2 bundleID];
-      v16 = [*(a1 + 32) intent];
-      if (v16 >= 8)
+      v10 = NSStringFromSelector(*(a1 + 64));
+      v11 = [v2 bundleID];
+      v12 = [*(a1 + 32) intent];
+      if (v12 >= 8)
       {
-        v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unknown intent value %lu", v16];
+        v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unknown intent value %lu", v12];
       }
 
       else
       {
-        v17 = off_1E85C6100[v16];
+        v13 = off_1E85C6100[v12];
       }
 
-      v18 = *(a1 + 48);
+      v14 = *(a1 + 48);
       *buf = 136316162;
-      v21 = "[IXAppInstallObserver _client_coordinatorDidInstallPlaceholderWithSeed:forRecordPromise:]_block_invoke";
-      v22 = 2112;
-      v23 = v14;
-      v24 = 2112;
-      v25 = v15;
-      v26 = 2112;
-      v27 = v17;
-      v28 = 2112;
-      v29 = v18;
-      _os_log_impl(&dword_1DA47A000, v13, OS_LOG_TYPE_DEFAULT, "%s: Calling %@ on delegate for coordinator %@ (%@) with app record %@", buf, 0x34u);
+      v16 = "[IXAppInstallObserver _client_coordinatorDidInstallPlaceholderWithSeed:forRecordPromise:]_block_invoke";
+      v17 = 2112;
+      v18 = v10;
+      v19 = 2112;
+      v20 = v11;
+      v21 = 2112;
+      v22 = v13;
+      v23 = 2112;
+      v24 = v14;
+      _os_log_impl(&dword_1DA47A000, v9, OS_LOG_TYPE_DEFAULT, "%s: Calling %@ on delegate for coordinator %@ (%@) with app record %@", buf, 0x34u);
     }
 
     [*(a1 + 40) coordinatorDidInstallPlaceholder:v2 forApplicationRecord:*(a1 + 48)];
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_client_coordinatorShouldBeginPostProcessingWithSeed:(id)seed forRecordPromise:(id)promise
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   seedCopy = seed;
   promiseCopy = promise;
   delegate = [(IXAppInstallObserver *)self delegate];
@@ -953,13 +912,13 @@ void __90__IXAppInstallObserver__client_coordinatorDidInstallPlaceholderWithSeed
       }
 
       *buf = 136315906;
-      v22 = "[IXAppInstallObserver _client_coordinatorShouldBeginPostProcessingWithSeed:forRecordPromise:]";
-      v23 = 2112;
-      v24 = v16;
-      v25 = 2112;
-      v26 = bundleID2;
-      v27 = 2112;
-      v28 = v19;
+      v21 = "[IXAppInstallObserver _client_coordinatorShouldBeginPostProcessingWithSeed:forRecordPromise:]";
+      v22 = 2112;
+      v23 = v16;
+      v24 = 2112;
+      v25 = bundleID2;
+      v26 = 2112;
+      v27 = v19;
       _os_log_impl(&dword_1DA47A000, v15, OS_LOG_TYPE_DEFAULT, "%s: Calling %@ on delegate for coordinator %@ (%@)", buf, 0x2Au);
     }
 
@@ -973,19 +932,17 @@ void __90__IXAppInstallObserver__client_coordinatorDidInstallPlaceholderWithSeed
     {
       v12 = NSStringFromSelector(sel_coordinatorShouldBeginPostProcessing_forApplicationRecord_);
       *buf = 136315394;
-      v22 = "[IXAppInstallObserver _client_coordinatorShouldBeginPostProcessingWithSeed:forRecordPromise:]";
-      v23 = 2112;
-      v24 = v12;
+      v21 = "[IXAppInstallObserver _client_coordinatorShouldBeginPostProcessingWithSeed:forRecordPromise:]";
+      v22 = 2112;
+      v23 = v12;
       _os_log_impl(&dword_1DA47A000, v11, OS_LOG_TYPE_DEFAULT, "%s: Delegate did not respond to %@", buf, 0x16u);
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_client_coordinatorDidCompleteSuccessfullyWithSeed:(id)seed forRecordPromise:(id)promise
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   seedCopy = seed;
   promiseCopy = promise;
   delegate = [(IXAppInstallObserver *)self delegate];
@@ -1022,11 +979,11 @@ LABEL_8:
     block[1] = 3221225472;
     block[2] = __92__IXAppInstallObserver__client_coordinatorDidCompleteSuccessfullyWithSeed_forRecordPromise___block_invoke;
     block[3] = &unk_1E85C60E0;
-    v20 = seedCopy;
-    v21 = v12;
-    v22 = delegate;
-    v23 = sel_coordinatorDidCompleteSuccessfully_;
-    v24 = sel_coordinatorDidCompleteSuccessfully_forApplicationRecord_;
+    v19 = seedCopy;
+    v20 = v12;
+    v21 = delegate;
+    v22 = sel_coordinatorDidCompleteSuccessfully_;
+    v23 = sel_coordinatorDidCompleteSuccessfully_forApplicationRecord_;
     dispatch_async(delegateQueue, block);
   }
 
@@ -1038,9 +995,9 @@ LABEL_9:
     {
       v15 = NSStringFromSelector(sel_coordinatorDidCompleteSuccessfully_);
       *buf = 136315394;
-      v26 = "[IXAppInstallObserver _client_coordinatorDidCompleteSuccessfullyWithSeed:forRecordPromise:]";
-      v27 = 2112;
-      v28 = v15;
+      v25 = "[IXAppInstallObserver _client_coordinatorDidCompleteSuccessfullyWithSeed:forRecordPromise:]";
+      v26 = 2112;
+      v27 = v15;
       _os_log_impl(&dword_1DA47A000, v14, OS_LOG_TYPE_DEFAULT, "%s: Delegate did not respond to %@", buf, 0x16u);
     }
   }
@@ -1052,98 +1009,90 @@ LABEL_9:
     {
       v17 = NSStringFromSelector(sel_coordinatorDidCompleteSuccessfully_forApplicationRecord_);
       *buf = 136315394;
-      v26 = "[IXAppInstallObserver _client_coordinatorDidCompleteSuccessfullyWithSeed:forRecordPromise:]";
-      v27 = 2112;
-      v28 = v17;
+      v25 = "[IXAppInstallObserver _client_coordinatorDidCompleteSuccessfullyWithSeed:forRecordPromise:]";
+      v26 = 2112;
+      v27 = v17;
       _os_log_impl(&dword_1DA47A000, v16, OS_LOG_TYPE_DEFAULT, "%s: Delegate did not respond to %@", buf, 0x16u);
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __92__IXAppInstallObserver__client_coordinatorDidCompleteSuccessfullyWithSeed_forRecordPromise___block_invoke(uint64_t a1)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(+[IXAppInstallCoordinator classForIntent:](IXAppInstallCoordinator classForIntent:{objc_msgSend(*(a1 + 32), "intent"))), "initWithSeed:", *(a1 + 32)}];
   [v2 setComplete:1 forApplicationRecord:*(a1 + 40)];
-  v3 = *(a1 + 48);
-  v4 = *(a1 + 56);
   if (objc_opt_respondsToSelector())
   {
-    v5 = IXGetLoggingHandle(kIXLoggingSubsystem);
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v3 = IXGetLoggingHandle(kIXLoggingSubsystem);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = NSStringFromSelector(*(a1 + 56));
-      v7 = [v2 bundleID];
-      v8 = [*(a1 + 32) intent];
-      if (v8 >= 8)
+      v4 = NSStringFromSelector(*(a1 + 56));
+      v5 = [v2 bundleID];
+      v6 = [*(a1 + 32) intent];
+      if (v6 >= 8)
       {
-        v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unknown intent value %lu", v8];
+        v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unknown intent value %lu", v6];
       }
 
       else
       {
-        v9 = off_1E85C6100[v8];
+        v7 = off_1E85C6100[v6];
       }
 
       *buf = 136315906;
-      v20 = "[IXAppInstallObserver _client_coordinatorDidCompleteSuccessfullyWithSeed:forRecordPromise:]_block_invoke";
-      v21 = 2112;
-      v22 = v6;
-      v23 = 2112;
-      v24 = v7;
-      v25 = 2112;
-      v26 = v9;
-      _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: Calling %@ on delegate for coordinator %@ (%@)", buf, 0x2Au);
+      v15 = "[IXAppInstallObserver _client_coordinatorDidCompleteSuccessfullyWithSeed:forRecordPromise:]_block_invoke";
+      v16 = 2112;
+      v17 = v4;
+      v18 = 2112;
+      v19 = v5;
+      v20 = 2112;
+      v21 = v7;
+      _os_log_impl(&dword_1DA47A000, v3, OS_LOG_TYPE_DEFAULT, "%s: Calling %@ on delegate for coordinator %@ (%@)", buf, 0x2Au);
     }
 
     [*(a1 + 48) coordinatorDidCompleteSuccessfully:v2];
   }
 
-  v10 = *(a1 + 48);
-  v11 = *(a1 + 64);
   if (objc_opt_respondsToSelector())
   {
-    v12 = IXGetLoggingHandle(kIXLoggingSubsystem);
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v8 = IXGetLoggingHandle(kIXLoggingSubsystem);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = NSStringFromSelector(*(a1 + 64));
-      v14 = [v2 bundleID];
-      v15 = [*(a1 + 32) intent];
-      if (v15 >= 8)
+      v9 = NSStringFromSelector(*(a1 + 64));
+      v10 = [v2 bundleID];
+      v11 = [*(a1 + 32) intent];
+      if (v11 >= 8)
       {
-        v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unknown intent value %lu", v15];
+        v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unknown intent value %lu", v11];
       }
 
       else
       {
-        v16 = off_1E85C6100[v15];
+        v12 = off_1E85C6100[v11];
       }
 
-      v17 = *(a1 + 40);
+      v13 = *(a1 + 40);
       *buf = 136316162;
-      v20 = "[IXAppInstallObserver _client_coordinatorDidCompleteSuccessfullyWithSeed:forRecordPromise:]_block_invoke";
-      v21 = 2112;
-      v22 = v13;
-      v23 = 2112;
-      v24 = v14;
-      v25 = 2112;
-      v26 = v16;
-      v27 = 2112;
-      v28 = v17;
-      _os_log_impl(&dword_1DA47A000, v12, OS_LOG_TYPE_DEFAULT, "%s: Calling %@ on delegate for coordinator %@ (%@) with app record %@", buf, 0x34u);
+      v15 = "[IXAppInstallObserver _client_coordinatorDidCompleteSuccessfullyWithSeed:forRecordPromise:]_block_invoke";
+      v16 = 2112;
+      v17 = v9;
+      v18 = 2112;
+      v19 = v10;
+      v20 = 2112;
+      v21 = v12;
+      v22 = 2112;
+      v23 = v13;
+      _os_log_impl(&dword_1DA47A000, v8, OS_LOG_TYPE_DEFAULT, "%s: Calling %@ on delegate for coordinator %@ (%@) with app record %@", buf, 0x34u);
     }
 
     [*(a1 + 48) coordinatorDidCompleteSuccessfully:v2 forApplicationRecord:*(a1 + 40)];
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_client_coordinatorWithSeed:(id)seed didCancelWithReason:(id)reason client:(unint64_t)client
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   seedCopy = seed;
   reasonCopy = reason;
   delegate = [(IXAppInstallObserver *)self delegate];
@@ -1154,14 +1103,14 @@ void __92__IXAppInstallObserver__client_coordinatorDidCompleteSuccessfullyWithSe
     block[1] = 3221225472;
     block[2] = __79__IXAppInstallObserver__client_coordinatorWithSeed_didCancelWithReason_client___block_invoke;
     block[3] = &unk_1E85C60E0;
-    v16 = seedCopy;
-    v17 = reasonCopy;
+    v15 = seedCopy;
+    v16 = reasonCopy;
     clientCopy = client;
-    v20 = sel_coordinator_canceledWithReason_client_;
-    v18 = delegate;
+    v19 = sel_coordinator_canceledWithReason_client_;
+    v17 = delegate;
     dispatch_async(delegateQueue, block);
 
-    v12 = v16;
+    v12 = v15;
   }
 
   else
@@ -1171,19 +1120,17 @@ void __92__IXAppInstallObserver__client_coordinatorDidCompleteSuccessfullyWithSe
     {
       v13 = NSStringFromSelector(sel_coordinator_canceledWithReason_client_);
       *buf = 136315394;
-      v22 = "[IXAppInstallObserver _client_coordinatorWithSeed:didCancelWithReason:client:]";
-      v23 = 2112;
-      v24 = v13;
+      v21 = "[IXAppInstallObserver _client_coordinatorWithSeed:didCancelWithReason:client:]";
+      v22 = 2112;
+      v23 = v13;
       _os_log_impl(&dword_1DA47A000, v12, OS_LOG_TYPE_DEFAULT, "%s: Delegate did not respond to %@", buf, 0x16u);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __79__IXAppInstallObserver__client_coordinatorWithSeed_didCancelWithReason_client___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(+[IXAppInstallCoordinator classForIntent:](IXAppInstallCoordinator classForIntent:{objc_msgSend(*(a1 + 32), "intent"))), "initWithSeed:", *(a1 + 32)}];
   [v2 setError:*(a1 + 40)];
   [v2 setErrorSourceIdentifier:*(a1 + 56)];
@@ -1204,23 +1151,22 @@ void __79__IXAppInstallObserver__client_coordinatorWithSeed_didCancelWithReason_
     }
 
     *buf = 136315906;
-    v10 = "[IXAppInstallObserver _client_coordinatorWithSeed:didCancelWithReason:client:]_block_invoke";
-    v11 = 2112;
-    v12 = v4;
-    v13 = 2112;
-    v14 = v5;
-    v15 = 2112;
-    v16 = v7;
+    v9 = "[IXAppInstallObserver _client_coordinatorWithSeed:didCancelWithReason:client:]_block_invoke";
+    v10 = 2112;
+    v11 = v4;
+    v12 = 2112;
+    v13 = v5;
+    v14 = 2112;
+    v15 = v7;
     _os_log_impl(&dword_1DA47A000, v3, OS_LOG_TYPE_DEFAULT, "%s: Calling %@ on delegate for coordinator %@ (%@)", buf, 0x2Au);
   }
 
   [*(a1 + 48) coordinator:v2 canceledWithReason:*(a1 + 40) client:*(a1 + 56)];
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_client_mayUninstallAppWithIdentity:(id)identity
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   identityCopy = identity;
   delegate = [(IXAppInstallObserver *)self delegate];
   if (objc_opt_respondsToSelector())
@@ -1230,12 +1176,12 @@ void __79__IXAppInstallObserver__client_coordinatorWithSeed_didCancelWithReason_
     block[1] = 3221225472;
     block[2] = __60__IXAppInstallObserver__client_mayUninstallAppWithIdentity___block_invoke;
     block[3] = &unk_1E85C52A8;
-    v13 = sel_mayUninstallAppWithIdentity_;
-    v11 = identityCopy;
-    v12 = delegate;
+    v12 = sel_mayUninstallAppWithIdentity_;
+    v10 = identityCopy;
+    v11 = delegate;
     dispatch_async(delegateQueue, block);
 
-    v7 = v11;
+    v7 = v10;
   }
 
   else
@@ -1245,36 +1191,32 @@ void __79__IXAppInstallObserver__client_coordinatorWithSeed_didCancelWithReason_
     {
       v8 = NSStringFromSelector(sel_mayUninstallAppWithIdentity_);
       *buf = 136315394;
-      v15 = "[IXAppInstallObserver _client_mayUninstallAppWithIdentity:]";
-      v16 = 2112;
-      v17 = v8;
+      v14 = "[IXAppInstallObserver _client_mayUninstallAppWithIdentity:]";
+      v15 = 2112;
+      v16 = v8;
       _os_log_impl(&dword_1DA47A000, v7, OS_LOG_TYPE_DEFAULT, "%s: Delegate did not respond to %@", buf, 0x16u);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __60__IXAppInstallObserver__client_mayUninstallAppWithIdentity___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = NSStringFromSelector(*(a1 + 48));
     v4 = *(a1 + 32);
-    v7 = 136315650;
-    v8 = "[IXAppInstallObserver _client_mayUninstallAppWithIdentity:]_block_invoke";
-    v9 = 2112;
-    v10 = v3;
-    v11 = 2112;
-    v12 = v4;
-    _os_log_impl(&dword_1DA47A000, v2, OS_LOG_TYPE_DEFAULT, "%s: Calling %@ on delegate for identity %@", &v7, 0x20u);
+    v6 = 136315650;
+    v7 = "[IXAppInstallObserver _client_mayUninstallAppWithIdentity:]_block_invoke";
+    v8 = 2112;
+    v9 = v3;
+    v10 = 2112;
+    v11 = v4;
+    _os_log_impl(&dword_1DA47A000, v2, OS_LOG_TYPE_DEFAULT, "%s: Calling %@ on delegate for identity %@", &v6, 0x20u);
   }
 
-  result = [*(a1 + 40) mayUninstallAppWithIdentity:*(a1 + 32)];
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 40) mayUninstallAppWithIdentity:*(a1 + 32)];
 }
 
 - (IXAppInstallObserverDelegate)delegate

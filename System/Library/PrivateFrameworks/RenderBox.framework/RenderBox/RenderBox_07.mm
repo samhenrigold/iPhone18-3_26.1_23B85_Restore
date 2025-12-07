@@ -101,9 +101,9 @@ void RB::DisplayList::make_interpolator(RB::DisplayList *this, RB::DisplayList::
   }
 }
 
-void sub_195D45564(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_195D45564(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   RB::DisplayList::EditAdaptor::~EditAdaptor(va);
   _Unwind_Resume(a1);
 }
@@ -383,7 +383,7 @@ LABEL_23:
 
         if (v29 < v25)
         {
-          bzero((*v9 + 4 * v29), 4 * (v25 + ~v29) + 4);
+          bzero(*v9 + 4 * v29, 4 * (v25 + ~v29) + 4);
         }
       }
 
@@ -717,9 +717,9 @@ void RB::DisplayList::EditAdaptor::finalize(RB::DisplayList::EditAdaptor *this, 
   }
 
   v4 = this;
-  v5 = (a2 + 25);
+  v5 = a2 + 25;
   v6 = *(a2 + 60);
-  if (*(a2 + 61) < (v6 + 1))
+  if (*(a2 + 61) < v6 + 1)
   {
     RB::vector<RB::Rect,2ul,unsigned int>::reserve_slow(v5, v6 + 1);
     v6 = *(a2 + 60);
@@ -731,9 +731,9 @@ void RB::DisplayList::EditAdaptor::finalize(RB::DisplayList::EditAdaptor *this, 
     v7 = v5;
   }
 
-  v8 = &v7[v6];
+  v8 = &v7[2 * v6];
   *v8 = 0;
-  *(v8 + 1) = 0;
+  v8[1] = 0;
   v9 = *(a2 + 60);
   v10 = *(a2 + 61);
   v11 = v9 + 1;
@@ -750,9 +750,9 @@ void RB::DisplayList::EditAdaptor::finalize(RB::DisplayList::EditAdaptor *this, 
     v12 = v5;
   }
 
-  v13 = &v12[v11];
+  v13 = &v12[2 * v11];
   *v13 = 0;
-  *(v13 + 1) = 0;
+  v13[1] = 0;
   ++*(a2 + 60);
   if ((*(v4 + 235) & 1) != 0 || (*(v4 + 233) & 8) != 0)
   {
@@ -818,7 +818,7 @@ void RB::DisplayList::EditAdaptor::finalize(RB::DisplayList::EditAdaptor *this, 
             }
 
             v23 = v88;
-            v28[v27] = v88;
+            *&v28[2 * v27] = v88;
             ++*(a2 + 60);
           }
 
@@ -845,7 +845,7 @@ void RB::DisplayList::EditAdaptor::finalize(RB::DisplayList::EditAdaptor *this, 
             }
 
             v23 = v86;
-            v30[v29] = v86;
+            *&v30[2 * v29] = v86;
             ++*(a2 + 60);
           }
 
@@ -963,7 +963,7 @@ LABEL_70:
       }
 
       v17 = v97;
-      v48[1] = v97;
+      *(v48 + 1) = v97;
       v49 = v101;
       if (!v101)
       {
@@ -979,14 +979,14 @@ LABEL_70:
           v52 = a2[22];
           if (!v52)
           {
-            v52 = (a2 + 2);
+            v52 = a2 + 2;
           }
 
           v53 = *(a2 + 46);
           if (v53)
           {
-            v54 = &v52[40 * v51];
-            v55 = v52 + 12;
+            v54 = &v52[5 * v51];
+            v55 = v52 + 3;
             v56 = 5 * v53;
             v57 = *(v54 + 2);
             v58 = *(v54 + 3);
@@ -1026,18 +1026,18 @@ LABEL_70:
 
           if (v51 < v49[1])
           {
-            v73 = 40 * v51;
+            v73 = 5 * v51;
             do
             {
               v74 = a2[22];
               if (!v74)
               {
-                v74 = (a2 + 2);
+                v74 = a2 + 2;
               }
 
-              *&v74[v73] = *&v74[v73] & 0xFFFFFFFF0000000FLL | v72;
+              v74[v73] = (v74[v73] & 0xFFFFFFFF0000000FLL | v72);
               ++v51;
-              v73 += 40;
+              v73 += 5;
             }
 
             while (v51 < v49[1]);
@@ -1099,7 +1099,7 @@ LABEL_70:
 
   else
   {
-    v75 = (a2 + 2);
+    v75 = a2 + 2;
   }
 
   v76 = *(a2 + 46);
@@ -1136,7 +1136,7 @@ LABEL_70:
   }
 
 LABEL_126:
-  std::__stable_sort<std::_ClassicAlgPolicy,RB::DisplayList::EditAdaptor::finalize(RB::DisplayList::Interpolator::Layer &)::$_1 &,RB::DisplayList::Interpolator::Op *>(v75, (v75 + 40 * v76), v76, v81, v78, v17);
+  std::__stable_sort<std::_ClassicAlgPolicy,RB::DisplayList::EditAdaptor::finalize(RB::DisplayList::Interpolator::Layer &)::$_1 &,RB::DisplayList::Interpolator::Op *>(v75, &v75[5 * v76], v76, v81, v78, v17);
   if (v81)
   {
     operator delete(v81);
@@ -1153,19 +1153,19 @@ void sub_195D46764(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-BOOL RB::DisplayList::EditAdaptor::finalize_group(uint64_t a1, RB::DisplayList::Interpolator::Layer *a2, int a3, unsigned int a4, unsigned int a5, uint64_t a6, unsigned int a7, uint64_t a8, __n128 a9, unsigned int a10, int a11, int a12)
+BOOL RB::DisplayList::EditAdaptor::finalize_group(uint64_t a1, RB::DisplayList::Interpolator::Layer *a2, int a3, unsigned int a4, unsigned int a5, uint64_t a6, unsigned int a7, uint64_t a8, __n128 q0_0, unsigned int a9, int a10, int a11)
 {
   v12 = a7;
   v13 = a6;
-  v16 = a10;
-  v415 = *MEMORY[0x1E69E9840];
-  v392 = a8;
-  v393 = a6;
-  v368 = 16 * a5;
-  v17 = a10;
+  v16 = a9;
+  v416 = *MEMORY[0x1E69E9840];
+  v393 = a8;
+  v394 = a6;
+  v369 = 16 * a5;
+  v17 = a9;
   if (a7)
   {
-    a9.n128_u64[1] = 0x100000000;
+    q0_0.n128_u64[1] = 0x100000000;
     do
     {
       v18 = *(*v13 + 46);
@@ -1203,18 +1203,18 @@ BOOL RB::DisplayList::EditAdaptor::finalize_group(uint64_t a1, RB::DisplayList::
       }
 
       v26 = &v25[40 * v24];
-      *v26 = *v26 & 0xFFFFFFFF0000000FLL | v368;
-      *(v26 + 6) = a11;
-      *(v26 + 7) = a12;
+      *v26 = *v26 & 0xFFFFFFFF0000000FLL | v369;
+      *(v26 + 6) = a10;
+      *(v26 + 7) = a11;
       *(a2 + 48) |= 1u;
       RB::DisplayList::Interpolator::Layer::merge_tail(a2);
-      v13 = v393 + 24;
-      v393 += 24;
+      v13 = v394 + 24;
+      v394 += 24;
       --v12;
     }
 
     while (v12);
-    v16 = a10;
+    v16 = a9;
   }
 
   else
@@ -1222,78 +1222,78 @@ BOOL RB::DisplayList::EditAdaptor::finalize_group(uint64_t a1, RB::DisplayList::
     LOBYTE(v19) = 1;
   }
 
-  v374 = *(a2 + 46);
+  v375 = *(a2 + 46);
   __dst = a2 + 16;
-  v391[0] = a1;
-  v391[1] = a2;
-  v377 = a2;
+  v392[0] = a1;
+  v392[1] = a2;
+  v378 = a2;
   if (a3 == 1 && a4)
   {
-    LOBYTE(v389) = 1;
+    LOBYTE(v390) = 1;
     if (v16 && v12)
     {
       v27 = a1;
       while (1)
       {
-        v410[0] = 0;
-        LODWORD(v385) = 0;
-        v390 = 0;
-        v394 = a5;
-        v395 = v410;
-        v396 = &v390 + 4;
-        v397 = v27;
-        v398 = a2;
-        v399 = &v393;
-        v400 = &v392;
-        v401 = &a11;
-        v402 = &a12;
-        v403 = &v389;
-        v404 = &v385;
-        v405 = &v390;
-        LOBYTE(v389) = 0;
-        if (!RB::lcs_diff<RB::DisplayList::EditAdaptor::Element,RB::DisplayList::EditAdaptor::finalize_group(RB::DisplayList::Interpolator::Layer &,RB::Transition::Method,unsigned int,unsigned int,RB::DisplayList::EditAdaptor::Element*,unsigned int,RB::DisplayList::EditAdaptor::Element*,unsigned int,unsigned int,unsigned int)::$_0,RB::DisplayList::EditAdaptor::finalize_group(RB::DisplayList::Interpolator::Layer &,RB::Transition::Method,unsigned int,unsigned int,RB::DisplayList::EditAdaptor::Element*,unsigned int,RB::DisplayList::EditAdaptor::Element*,unsigned int,unsigned int,unsigned int)::$_1>(v12, v393, v17, v392, 2 * a4, v391, &v394))
+        v411[0] = 0;
+        LODWORD(v386) = 0;
+        v391 = 0;
+        v395 = a5;
+        v396 = v411;
+        v397 = &v391 + 4;
+        v398 = v27;
+        v399 = a2;
+        v400 = &v394;
+        v401 = &v393;
+        v402 = &a10;
+        v403 = &a11;
+        v404 = &v390;
+        v405 = &v386;
+        v406 = &v391;
+        LOBYTE(v390) = 0;
+        if (!RB::lcs_diff<RB::DisplayList::EditAdaptor::Element,RB::DisplayList::EditAdaptor::finalize_group(RB::DisplayList::Interpolator::Layer &,RB::Transition::Method,unsigned int,unsigned int,RB::DisplayList::EditAdaptor::Element*,unsigned int,RB::DisplayList::EditAdaptor::Element*,unsigned int,unsigned int,unsigned int)::$_0,RB::DisplayList::EditAdaptor::finalize_group(RB::DisplayList::Interpolator::Layer &,RB::Transition::Method,unsigned int,unsigned int,RB::DisplayList::EditAdaptor::Element*,unsigned int,RB::DisplayList::EditAdaptor::Element*,unsigned int,unsigned int,unsigned int)::$_1>(v12, v394, v17, v393, 2 * a4, v392, &v395))
         {
-          v36 = v374;
+          v36 = v375;
           v37 = a2 + 16;
           LODWORD(v16) = v17;
           goto LABEL_181;
         }
 
-        v28 = v410[0];
-        if (v410[0] < v12)
+        v28 = v411[0];
+        if (v411[0] < v12)
         {
-          v29 = HIDWORD(v390);
+          v29 = HIDWORD(v391);
           do
           {
-            RB::DisplayList::EditAdaptor::mix_elements(a1, a2, a5, v393 + 24 * v28, v392 + 24 * v29, a11, a12);
-            v28 = v410[0] + 1;
-            v410[0] = v28;
-            v29 = ++HIDWORD(v390);
+            RB::DisplayList::EditAdaptor::mix_elements(a1, a2, a5, v394 + 24 * v28, v393 + 24 * v29, a10, a11);
+            v28 = v411[0] + 1;
+            v411[0] = v28;
+            v29 = ++HIDWORD(v391);
           }
 
           while (v28 < v12);
         }
 
-        v12 = v385;
-        if (v389 != 1)
+        v12 = v386;
+        if (v390 != 1)
         {
           break;
         }
 
         v27 = a1;
-        v17 = v390;
-        if (!v390 || !v385)
+        v17 = v391;
+        if (!v391 || !v386)
         {
           goto LABEL_180;
         }
       }
 
-      v17 = v390;
+      v17 = v391;
     }
 
 LABEL_180:
     LODWORD(v16) = v17;
-    v36 = v374;
+    v36 = v375;
     v37 = a2 + 16;
     if (v12 + v17 > a4)
     {
@@ -1305,15 +1305,15 @@ LABEL_181:
     goto LABEL_183;
   }
 
+  v391 = 0;
+  v409 = 0;
+  v410 = 0x8000000000;
   v390 = 0;
-  v408 = 0;
-  v409 = 0x8000000000;
-  v389 = 0;
-  v385 = &v390 + 4;
-  v386 = &v390;
-  v387 = &v394;
-  v388 = &v389;
-  v381 = v12;
+  v386 = &v391 + 4;
+  v387 = &v391;
+  v388 = &v395;
+  v389 = &v390;
+  v382 = v12;
   if (a3 > 4)
   {
     if (a3 == 5)
@@ -1321,7 +1321,7 @@ LABEL_181:
       v65 = 0;
       v30 = 1;
 LABEL_104:
-      RB::prefix_suffix_diff<RB::DisplayList::EditAdaptor::Element,RB::DisplayList::EditAdaptor::finalize_group(RB::DisplayList::Interpolator::Layer &,RB::Transition::Method,unsigned int,unsigned int,RB::DisplayList::EditAdaptor::Element*,unsigned int,RB::DisplayList::EditAdaptor::Element*,unsigned int,unsigned int,unsigned int)::$_0,RB::DisplayList::EditAdaptor::finalize_group(RB::DisplayList::Interpolator::Layer &,RB::Transition::Method,unsigned int,unsigned int,RB::DisplayList::EditAdaptor::Element*,unsigned int,RB::DisplayList::EditAdaptor::Element*,unsigned int,unsigned int,unsigned int)::$_2>(v12, v13, v16, v392, v391, &v385, v30, v65);
+      RB::prefix_suffix_diff<RB::DisplayList::EditAdaptor::Element,RB::DisplayList::EditAdaptor::finalize_group(RB::DisplayList::Interpolator::Layer &,RB::Transition::Method,unsigned int,unsigned int,RB::DisplayList::EditAdaptor::Element*,unsigned int,RB::DisplayList::EditAdaptor::Element*,unsigned int,unsigned int,unsigned int)::$_0,RB::DisplayList::EditAdaptor::finalize_group(RB::DisplayList::Interpolator::Layer &,RB::Transition::Method,unsigned int,unsigned int,RB::DisplayList::EditAdaptor::Element*,unsigned int,RB::DisplayList::EditAdaptor::Element*,unsigned int,unsigned int,unsigned int)::$_2>(v12, v13, v16, v393, v392, &v386, v30, v65);
       goto LABEL_105;
     }
 
@@ -1346,7 +1346,7 @@ LABEL_105:
       }
 
       v31 = v12;
-      v32 = v392;
+      v32 = v393;
       while (1)
       {
         v33 = *(v13 + 16) + *(v32 + 16);
@@ -1373,64 +1373,64 @@ LABEL_105:
 
     if ((v19 & 1) == 0)
     {
-      v116 = HIDWORD(v390);
-      if (HIDWORD(v390))
+      v116 = HIDWORD(v391);
+      if (HIDWORD(v391))
       {
-        v117 = v409;
-        if (!v409)
+        v117 = v410;
+        if (!v410)
         {
           goto LABEL_530;
         }
 
-        v118 = v408;
-        if (!v408)
+        v118 = v409;
+        if (!v409)
         {
-          v118 = &v394;
+          v118 = &v395;
         }
 
-        v119 = &v118[3 * (v409 - 1)];
+        v119 = &v118[3 * (v410 - 1)];
         v120 = v119[2];
-        if (__PAIR64__(v120 + *v119, v119[1] + v120) == v390)
+        if (__PAIR64__(v120 + *v119, v119[1] + v120) == v391)
         {
-          v119[2] = v120 - HIDWORD(v390);
+          v119[2] = v120 - HIDWORD(v391);
         }
 
         else
         {
 LABEL_530:
-          v345 = v409 + 1;
-          if (HIDWORD(v409) < (v409 + 1))
+          v346 = v410 + 1;
+          if (HIDWORD(v410) < (v410 + 1))
           {
-            RB::vector<RB::DisplayList::EditAdaptor::finalize_group(RB::DisplayList::Interpolator::Layer &,RB::Transition::Method,unsigned int,unsigned int,RB::DisplayList::EditAdaptor::Element *,unsigned int,RB::DisplayList::EditAdaptor::Element *,unsigned int,unsigned int,unsigned int)::Mixed,128ul,unsigned int>::reserve_slow(&v394, v345);
-            v117 = v409;
-            v345 = v409 + 1;
+            RB::vector<RB::DisplayList::EditAdaptor::finalize_group(RB::DisplayList::Interpolator::Layer &,RB::Transition::Method,unsigned int,unsigned int,RB::DisplayList::EditAdaptor::Element *,unsigned int,RB::DisplayList::EditAdaptor::Element *,unsigned int,unsigned int,unsigned int)::Mixed,128ul,unsigned int>::reserve_slow(&v395, v346);
+            v117 = v410;
+            v346 = v410 + 1;
           }
 
-          v346 = v408;
-          if (!v408)
+          v347 = v409;
+          if (!v409)
           {
-            v346 = &v394;
+            v347 = &v395;
           }
 
-          v347 = v390;
-          v348 = &v346[3 * v117];
-          *v348 = HIDWORD(v390);
-          v348[1] = v347;
-          v348[2] = -v116;
-          LODWORD(v409) = v345;
+          v348 = v391;
+          v349 = &v347[3 * v117];
+          *v349 = HIDWORD(v391);
+          v349[1] = v348;
+          v349[2] = -v116;
+          LODWORD(v410) = v346;
         }
 
-        v349 = HIDWORD(v390) - v116;
-        LODWORD(v390) = v390 - v116;
-        v389 -= v116;
+        v350 = HIDWORD(v391) - v116;
+        LODWORD(v391) = v391 - v116;
+        v390 -= v116;
       }
 
       else
       {
-        v349 = 0;
+        v350 = 0;
       }
 
-      HIDWORD(v390) = v349 + v12;
+      HIDWORD(v391) = v350 + v12;
     }
 
     if (!v16)
@@ -1438,65 +1438,65 @@ LABEL_530:
       goto LABEL_105;
     }
 
-    v350 = v390;
-    if (v390)
+    v351 = v391;
+    if (v391)
     {
-      v351 = v409;
-      if (!v409)
+      v352 = v410;
+      if (!v410)
       {
         goto LABEL_545;
       }
 
-      v352 = v408;
-      if (!v408)
+      v353 = v409;
+      if (!v409)
       {
-        v352 = &v394;
+        v353 = &v395;
       }
 
-      v353 = &v352[3 * (v409 - 1)];
-      v354 = v353[2];
-      if (__PAIR64__(v354 + *v353, v353[1] + v354) == v390)
+      v354 = &v353[3 * (v410 - 1)];
+      v355 = v354[2];
+      if (__PAIR64__(v355 + *v354, v354[1] + v355) == v391)
       {
-        v353[2] = v354 - v390;
+        v354[2] = v355 - v391;
       }
 
       else
       {
 LABEL_545:
-        v355 = v409 + 1;
-        if (HIDWORD(v409) < (v409 + 1))
+        v356 = v410 + 1;
+        if (HIDWORD(v410) < (v410 + 1))
         {
-          RB::vector<RB::DisplayList::EditAdaptor::finalize_group(RB::DisplayList::Interpolator::Layer &,RB::Transition::Method,unsigned int,unsigned int,RB::DisplayList::EditAdaptor::Element *,unsigned int,RB::DisplayList::EditAdaptor::Element *,unsigned int,unsigned int,unsigned int)::Mixed,128ul,unsigned int>::reserve_slow(&v394, v355);
-          v351 = v409;
-          v355 = v409 + 1;
+          RB::vector<RB::DisplayList::EditAdaptor::finalize_group(RB::DisplayList::Interpolator::Layer &,RB::Transition::Method,unsigned int,unsigned int,RB::DisplayList::EditAdaptor::Element *,unsigned int,RB::DisplayList::EditAdaptor::Element *,unsigned int,unsigned int,unsigned int)::Mixed,128ul,unsigned int>::reserve_slow(&v395, v356);
+          v352 = v410;
+          v356 = v410 + 1;
         }
 
-        v356 = v390;
-        v357 = v408;
-        if (!v408)
+        v357 = v391;
+        v358 = v409;
+        if (!v409)
         {
-          v357 = &v394;
+          v358 = &v395;
         }
 
-        v358 = &v357[3 * v351];
-        *v358 = HIDWORD(v390);
-        v358[1] = v356;
-        v358[2] = -v350;
-        LODWORD(v409) = v355;
+        v359 = &v358[3 * v352];
+        *v359 = HIDWORD(v391);
+        v359[1] = v357;
+        v359[2] = -v351;
+        LODWORD(v410) = v356;
       }
 
-      HIDWORD(v390) -= v350;
-      v359 = v390 - v350;
-      v389 -= v350;
+      HIDWORD(v391) -= v351;
+      v360 = v391 - v351;
+      v390 -= v351;
     }
 
     else
     {
-      v359 = 0;
+      v360 = 0;
     }
 
     v35 = 0;
-    LODWORD(v390) = v359 + v16;
+    LODWORD(v391) = v360 + v16;
   }
 
   else
@@ -1506,13 +1506,13 @@ LABEL_545:
       if (a3 == 3)
       {
         v66 = v12;
-        a9.n128_u64[1] = 0;
-        v413 = 0u;
-        v414 = 128;
+        q0_0.n128_u64[1] = 0;
+        v414 = 0u;
+        v415 = 128;
         if (v16 && v12)
         {
           v67 = 0;
-          v68 = v392 + 24 * v16 - 24;
+          v68 = v393 + 24 * v16 - 24;
           v69 = v13 + 24 * v12 - 24;
           do
           {
@@ -1525,29 +1525,29 @@ LABEL_545:
 
             if (v71 == 1)
             {
-              v72 = *(&v413 + 1);
-              v73 = *(&v413 + 1) + 1;
-              if (v414 < *(&v413 + 1) + 1)
+              v72 = *(&v414 + 1);
+              v73 = *(&v414 + 1) + 1;
+              if (v415 < *(&v414 + 1) + 1)
               {
-                RB::vector<double,128ul,unsigned long>::reserve_slow(v410, v73);
-                v72 = *(&v413 + 1);
-                v73 = *(&v413 + 1) + 1;
+                RB::vector<double,128ul,unsigned long>::reserve_slow(v411, v73);
+                v72 = *(&v414 + 1);
+                v73 = *(&v414 + 1) + 1;
               }
 
-              v74 = v413;
-              if (!v413)
+              v74 = v414;
+              if (!v414)
               {
-                v74 = v410;
+                v74 = v411;
               }
 
               v75 = &v74[2 * v72];
               *v75 = v12 - 1 + v67;
               v75[1] = v16 - 1 + v67;
-              *(&v413 + 1) = v73;
+              *(&v414 + 1) = v73;
             }
 
             v76 = v67 - 1;
-            if (a10 + v67 < 2)
+            if (a9 + v67 < 2)
             {
               break;
             }
@@ -1559,8 +1559,8 @@ LABEL_545:
           }
 
           while (v77 > 1);
-          LODWORD(v16) = a10;
-          v126 = a10 + v76;
+          LODWORD(v16) = a9;
+          v126 = a9 + v76;
           v66 = v12 + v76;
         }
 
@@ -1576,25 +1576,25 @@ LABEL_545:
 
         if (v66)
         {
-          v127 = *(&v385 + (v12 <= v16));
+          v127 = *(&v386 + (v12 <= v16));
           v128 = *v127;
           if (*v127)
           {
-            v129 = v409;
-            if (!v409)
+            v129 = v410;
+            if (!v410)
             {
               goto LABEL_481;
             }
 
-            v130 = v408;
-            if (!v408)
+            v130 = v409;
+            if (!v409)
             {
-              v130 = &v394;
+              v130 = &v395;
             }
 
-            v131 = &v130[3 * (v409 - 1)];
+            v131 = &v130[3 * (v410 - 1)];
             v132 = v131[2];
-            if (__PAIR64__(v132 + *v131, v131[1] + v132) == v390)
+            if (__PAIR64__(v132 + *v131, v131[1] + v132) == v391)
             {
               v131[2] = v132 - v128;
             }
@@ -1602,182 +1602,182 @@ LABEL_545:
             else
             {
 LABEL_481:
-              v313 = v409 + 1;
-              if (HIDWORD(v409) < (v409 + 1))
+              v314 = v410 + 1;
+              if (HIDWORD(v410) < (v410 + 1))
               {
-                RB::vector<RB::DisplayList::EditAdaptor::finalize_group(RB::DisplayList::Interpolator::Layer &,RB::Transition::Method,unsigned int,unsigned int,RB::DisplayList::EditAdaptor::Element *,unsigned int,RB::DisplayList::EditAdaptor::Element *,unsigned int,unsigned int,unsigned int)::Mixed,128ul,unsigned int>::reserve_slow(&v394, v313);
-                v129 = v409;
-                v313 = v409 + 1;
-                v127 = *(&v385 + (v12 <= v16));
-                LODWORD(v16) = a10;
+                RB::vector<RB::DisplayList::EditAdaptor::finalize_group(RB::DisplayList::Interpolator::Layer &,RB::Transition::Method,unsigned int,unsigned int,RB::DisplayList::EditAdaptor::Element *,unsigned int,RB::DisplayList::EditAdaptor::Element *,unsigned int,unsigned int,unsigned int)::Mixed,128ul,unsigned int>::reserve_slow(&v395, v314);
+                v129 = v410;
+                v314 = v410 + 1;
+                v127 = *(&v386 + (v12 <= v16));
+                LODWORD(v16) = a9;
               }
 
-              v314 = v408;
-              if (!v408)
+              v315 = v409;
+              if (!v409)
               {
-                v314 = &v394;
+                v315 = &v395;
               }
 
-              v315 = v390;
-              v316 = &v314[3 * v129];
-              *v316 = HIDWORD(v390);
-              v316[1] = v315;
-              v316[2] = -v128;
-              LODWORD(v409) = v313;
+              v316 = v391;
+              v317 = &v315[3 * v129];
+              *v317 = HIDWORD(v391);
+              v317[1] = v316;
+              v317[2] = -v128;
+              LODWORD(v410) = v314;
             }
 
-            HIDWORD(v390) -= v128;
-            LODWORD(v390) = v390 - v128;
-            v389 -= v128;
-            v317 = *v127;
+            HIDWORD(v391) -= v128;
+            LODWORD(v391) = v391 - v128;
+            v390 -= v128;
+            v318 = *v127;
           }
 
           else
           {
-            v317 = 0;
+            v318 = 0;
           }
 
-          *v127 = v317 + v66;
+          *v127 = v318 + v66;
         }
 
-        if (*(&v413 + 1))
+        if (*(&v414 + 1))
         {
-          v322 = HIDWORD(v390);
-          v323 = *(&v413 + 1) - 1;
+          v323 = HIDWORD(v391);
+          v324 = *(&v414 + 1) - 1;
           do
           {
-            v324 = v413;
-            if (!v413)
+            v325 = v414;
+            if (!v414)
             {
-              v324 = v410;
+              v325 = v411;
             }
 
-            v326 = &v324[2 * v323];
-            v325 = v326[1];
-            v327 = *v326 - v322;
-            if (*v326 == v322)
+            v327 = &v325[2 * v324];
+            v326 = v327[1];
+            v328 = *v327 - v323;
+            if (*v327 == v323)
             {
-              v328 = v390;
+              v329 = v391;
             }
 
             else
             {
-              v329 = v409;
-              if (!v409)
+              v330 = v410;
+              if (!v410)
               {
                 goto LABEL_508;
               }
 
-              v330 = v408;
-              if (!v408)
+              v331 = v409;
+              if (!v409)
               {
-                v330 = &v394;
+                v331 = &v395;
               }
 
-              v331 = &v330[3 * (v409 - 1)];
-              v332 = v331[2];
-              if (v332 + *v331 == v322 && v331[1] + v332 == v390)
+              v332 = &v331[3 * (v410 - 1)];
+              v333 = v332[2];
+              if (v333 + *v332 == v323 && v332[1] + v333 == v391)
               {
-                v331[2] = v332 + v327;
+                v332[2] = v333 + v328;
               }
 
               else
               {
 LABEL_508:
-                v333 = v409 + 1;
-                if (HIDWORD(v409) < (v409 + 1))
+                v334 = v410 + 1;
+                if (HIDWORD(v410) < (v410 + 1))
                 {
-                  RB::vector<RB::DisplayList::EditAdaptor::finalize_group(RB::DisplayList::Interpolator::Layer &,RB::Transition::Method,unsigned int,unsigned int,RB::DisplayList::EditAdaptor::Element *,unsigned int,RB::DisplayList::EditAdaptor::Element *,unsigned int,unsigned int,unsigned int)::Mixed,128ul,unsigned int>::reserve_slow(&v394, v333);
-                  v329 = v409;
-                  v333 = v409 + 1;
-                  v322 = HIDWORD(v390);
+                  RB::vector<RB::DisplayList::EditAdaptor::finalize_group(RB::DisplayList::Interpolator::Layer &,RB::Transition::Method,unsigned int,unsigned int,RB::DisplayList::EditAdaptor::Element *,unsigned int,RB::DisplayList::EditAdaptor::Element *,unsigned int,unsigned int,unsigned int)::Mixed,128ul,unsigned int>::reserve_slow(&v395, v334);
+                  v330 = v410;
+                  v334 = v410 + 1;
+                  v323 = HIDWORD(v391);
                 }
 
-                v334 = v408;
-                if (!v408)
+                v335 = v409;
+                if (!v409)
                 {
-                  v334 = &v394;
+                  v335 = &v395;
                 }
 
-                v335 = v390;
-                v336 = &v334[3 * v329];
-                *v336 = v322;
-                v336[1] = v335;
-                v336[2] = v327;
-                LODWORD(v409) = v333;
+                v336 = v391;
+                v337 = &v335[3 * v330];
+                *v337 = v323;
+                v337[1] = v336;
+                v337[2] = v328;
+                LODWORD(v410) = v334;
               }
 
-              v322 = HIDWORD(v390) + v327;
-              v328 = v390 + v327;
-              v389 += v327;
-              LODWORD(v390) = v390 + v327;
+              v323 = HIDWORD(v391) + v328;
+              v329 = v391 + v328;
+              v390 += v328;
+              LODWORD(v391) = v391 + v328;
             }
 
-            HIDWORD(v390) = ++v322;
-            v337 = v325 - v328;
-            if (v325 != v328)
+            HIDWORD(v391) = ++v323;
+            v338 = v326 - v329;
+            if (v326 != v329)
             {
-              v338 = v409;
-              if (!v409)
+              v339 = v410;
+              if (!v410)
               {
                 goto LABEL_521;
               }
 
-              v339 = v408;
-              if (!v408)
+              v340 = v409;
+              if (!v409)
               {
-                v339 = &v394;
+                v340 = &v395;
               }
 
-              v340 = &v339[3 * (v409 - 1)];
-              v341 = v340[2];
-              if (v341 + *v340 == v322 && v340[1] + v341 == v328)
+              v341 = &v340[3 * (v410 - 1)];
+              v342 = v341[2];
+              if (v342 + *v341 == v323 && v341[1] + v342 == v329)
               {
-                v340[2] = v341 + v337;
+                v341[2] = v342 + v338;
               }
 
               else
               {
 LABEL_521:
-                v342 = v409 + 1;
-                if (HIDWORD(v409) < (v409 + 1))
+                v343 = v410 + 1;
+                if (HIDWORD(v410) < (v410 + 1))
                 {
-                  RB::vector<RB::DisplayList::EditAdaptor::finalize_group(RB::DisplayList::Interpolator::Layer &,RB::Transition::Method,unsigned int,unsigned int,RB::DisplayList::EditAdaptor::Element *,unsigned int,RB::DisplayList::EditAdaptor::Element *,unsigned int,unsigned int,unsigned int)::Mixed,128ul,unsigned int>::reserve_slow(&v394, v342);
-                  v338 = v409;
-                  v342 = v409 + 1;
-                  v328 = v390;
-                  v322 = HIDWORD(v390);
+                  RB::vector<RB::DisplayList::EditAdaptor::finalize_group(RB::DisplayList::Interpolator::Layer &,RB::Transition::Method,unsigned int,unsigned int,RB::DisplayList::EditAdaptor::Element *,unsigned int,RB::DisplayList::EditAdaptor::Element *,unsigned int,unsigned int,unsigned int)::Mixed,128ul,unsigned int>::reserve_slow(&v395, v343);
+                  v339 = v410;
+                  v343 = v410 + 1;
+                  v329 = v391;
+                  v323 = HIDWORD(v391);
                 }
 
-                v343 = v408;
-                if (!v408)
+                v344 = v409;
+                if (!v409)
                 {
-                  v343 = &v394;
+                  v344 = &v395;
                 }
 
-                v344 = &v343[3 * v338];
-                *v344 = v322;
-                v344[1] = v328;
-                v344[2] = v337;
-                LODWORD(v409) = v342;
+                v345 = &v344[3 * v339];
+                *v345 = v323;
+                v345[1] = v329;
+                v345[2] = v338;
+                LODWORD(v410) = v343;
               }
 
-              v322 = HIDWORD(v390) + v337;
-              HIDWORD(v390) += v337;
-              v325 = v390 + v337;
-              v389 += v337;
+              v323 = HIDWORD(v391) + v338;
+              HIDWORD(v391) += v338;
+              v326 = v391 + v338;
+              v390 += v338;
             }
 
-            LODWORD(v390) = v325 + 1;
-            --v323;
+            LODWORD(v391) = v326 + 1;
+            --v324;
           }
 
-          while (v323 != -1);
+          while (v324 != -1);
         }
 
-        if (v413)
+        if (v414)
         {
-          free(v413);
+          free(v414);
         }
 
         goto LABEL_105;
@@ -1794,12 +1794,12 @@ LABEL_103:
 LABEL_83:
       if ((v19 & 1) == 0)
       {
-        HIDWORD(v390) = v12;
+        HIDWORD(v391) = v12;
       }
 
       if (v16)
       {
-        LODWORD(v390) = v16;
+        LODWORD(v391) = v16;
       }
 
       v35 = 1;
@@ -1819,7 +1819,7 @@ LABEL_83:
     if (v38)
     {
       v39 = 0;
-      v40 = v392;
+      v40 = v393;
       do
       {
         v41 = *(v13 + 16) + *(v40 + 16);
@@ -1831,68 +1831,68 @@ LABEL_83:
 
         if (v42 == 1)
         {
-          v43 = HIDWORD(v390);
-          v44 = v39 - HIDWORD(v390);
-          if (v39 == HIDWORD(v390))
+          v43 = HIDWORD(v391);
+          v44 = v39 - HIDWORD(v391);
+          if (v39 == HIDWORD(v391))
           {
-            v45 = v390;
+            v45 = v391;
             v46 = v39;
           }
 
           else
           {
-            v47 = v409;
-            if (!v409)
+            v47 = v410;
+            if (!v410)
             {
               goto LABEL_58;
             }
 
-            v48 = v408;
-            if (!v408)
+            v48 = v409;
+            if (!v409)
             {
-              v48 = &v394;
+              v48 = &v395;
             }
 
-            v49 = &v48[3 * (v409 - 1)];
+            v49 = &v48[3 * (v410 - 1)];
             v50 = v49[2];
-            if (__PAIR64__(v50 + *v49, v49[1] + v50) == v390)
+            if (__PAIR64__(v50 + *v49, v49[1] + v50) == v391)
             {
-              v49[2] = v39 + v50 - HIDWORD(v390);
+              v49[2] = v39 + v50 - HIDWORD(v391);
             }
 
             else
             {
 LABEL_58:
-              v51 = v409 + 1;
-              if (HIDWORD(v409) < (v409 + 1))
+              v51 = v410 + 1;
+              if (HIDWORD(v410) < (v410 + 1))
               {
-                RB::vector<RB::DisplayList::EditAdaptor::finalize_group(RB::DisplayList::Interpolator::Layer &,RB::Transition::Method,unsigned int,unsigned int,RB::DisplayList::EditAdaptor::Element *,unsigned int,RB::DisplayList::EditAdaptor::Element *,unsigned int,unsigned int,unsigned int)::Mixed,128ul,unsigned int>::reserve_slow(&v394, v51);
-                v47 = v409;
-                v51 = v409 + 1;
+                RB::vector<RB::DisplayList::EditAdaptor::finalize_group(RB::DisplayList::Interpolator::Layer &,RB::Transition::Method,unsigned int,unsigned int,RB::DisplayList::EditAdaptor::Element *,unsigned int,RB::DisplayList::EditAdaptor::Element *,unsigned int,unsigned int,unsigned int)::Mixed,128ul,unsigned int>::reserve_slow(&v395, v51);
+                v47 = v410;
+                v51 = v410 + 1;
               }
 
-              v52 = v408;
-              if (!v408)
+              v52 = v409;
+              if (!v409)
               {
-                v52 = &v394;
+                v52 = &v395;
               }
 
-              v53 = v390;
+              v53 = v391;
               v54 = &v52[3 * v47];
-              *v54 = HIDWORD(v390);
+              *v54 = HIDWORD(v391);
               v54[1] = v53;
               v54[2] = v39 - v43;
-              LODWORD(v409) = v51;
+              LODWORD(v410) = v51;
             }
 
-            v46 = HIDWORD(v390) + v44;
-            v45 = v39 + v390 - v43;
-            v389 = v39 + v389 - v43;
-            LODWORD(v390) = v45;
+            v46 = HIDWORD(v391) + v44;
+            v45 = v39 + v391 - v43;
+            v390 = v39 + v390 - v43;
+            LODWORD(v391) = v45;
           }
 
           v55 = v46 + 1;
-          HIDWORD(v390) = v55;
+          HIDWORD(v391) = v55;
           if (v39 == v45)
           {
             v56 = v39;
@@ -1900,19 +1900,19 @@ LABEL_58:
 
           else
           {
-            v57 = v409;
-            if (!v409)
+            v57 = v410;
+            if (!v410)
             {
               goto LABEL_72;
             }
 
-            v58 = v408;
-            if (!v408)
+            v58 = v409;
+            if (!v409)
             {
-              v58 = &v394;
+              v58 = &v395;
             }
 
-            v59 = &v58[3 * (v409 - 1)];
+            v59 = &v58[3 * (v410 - 1)];
             v60 = v59[2];
             if (v60 + *v59 == v55 && v59[1] + v60 == v45)
             {
@@ -1922,14 +1922,14 @@ LABEL_58:
             else
             {
 LABEL_72:
-              v61 = v409 + 1;
-              if (HIDWORD(v409) < (v409 + 1))
+              v61 = v410 + 1;
+              if (HIDWORD(v410) < (v410 + 1))
               {
-                RB::vector<RB::DisplayList::EditAdaptor::finalize_group(RB::DisplayList::Interpolator::Layer &,RB::Transition::Method,unsigned int,unsigned int,RB::DisplayList::EditAdaptor::Element *,unsigned int,RB::DisplayList::EditAdaptor::Element *,unsigned int,unsigned int,unsigned int)::Mixed,128ul,unsigned int>::reserve_slow(&v394, v61);
-                v57 = v409;
-                v61 = v409 + 1;
-                v62 = v390;
-                v55 = HIDWORD(v390);
+                RB::vector<RB::DisplayList::EditAdaptor::finalize_group(RB::DisplayList::Interpolator::Layer &,RB::Transition::Method,unsigned int,unsigned int,RB::DisplayList::EditAdaptor::Element *,unsigned int,RB::DisplayList::EditAdaptor::Element *,unsigned int,unsigned int,unsigned int)::Mixed,128ul,unsigned int>::reserve_slow(&v395, v61);
+                v57 = v410;
+                v61 = v410 + 1;
+                v62 = v391;
+                v55 = HIDWORD(v391);
               }
 
               else
@@ -1937,25 +1937,25 @@ LABEL_72:
                 v62 = v45;
               }
 
-              v63 = v408;
-              if (!v408)
+              v63 = v409;
+              if (!v409)
               {
-                v63 = &v394;
+                v63 = &v395;
               }
 
               v64 = &v63[3 * v57];
               *v64 = v55;
               v64[1] = v62;
               v64[2] = v39 - v45;
-              LODWORD(v409) = v61;
+              LODWORD(v410) = v61;
             }
 
-            HIDWORD(v390) = v39 + HIDWORD(v390) - v45;
-            v56 = v390 + v39 - v45;
-            v389 = v39 + v389 - v45;
+            HIDWORD(v391) = v39 + HIDWORD(v391) - v45;
+            v56 = v391 + v39 - v45;
+            v390 = v39 + v390 - v45;
           }
 
-          LODWORD(v390) = v56 + 1;
+          LODWORD(v391) = v56 + 1;
         }
 
         ++v39;
@@ -1966,11 +1966,11 @@ LABEL_72:
       while (v38 != v39);
     }
 
-    LODWORD(v16) = a10;
+    LODWORD(v16) = a9;
     v108 = v12;
-    if (v12 <= a10)
+    if (v12 <= a9)
     {
-      v108 = a10;
+      v108 = a9;
     }
 
     v109 = v108 - v38;
@@ -1979,25 +1979,25 @@ LABEL_72:
       goto LABEL_105;
     }
 
-    v110 = *(&v385 + (v12 <= a10));
+    v110 = *(&v386 + (v12 <= a9));
     v111 = v38 - *v110;
     if (v38 != *v110)
     {
-      v112 = v409;
-      if (!v409)
+      v112 = v410;
+      if (!v410)
       {
         goto LABEL_487;
       }
 
-      v113 = v408;
-      if (!v408)
+      v113 = v409;
+      if (!v409)
       {
-        v113 = &v394;
+        v113 = &v395;
       }
 
-      v114 = &v113[3 * (v409 - 1)];
+      v114 = &v113[3 * (v410 - 1)];
       v115 = v114[2];
-      if (__PAIR64__(v115 + *v114, v114[1] + v115) == v390)
+      if (__PAIR64__(v115 + *v114, v114[1] + v115) == v391)
       {
         v114[2] = v115 + v111;
       }
@@ -2005,32 +2005,32 @@ LABEL_72:
       else
       {
 LABEL_487:
-        v318 = v409 + 1;
-        if (HIDWORD(v409) < (v409 + 1))
+        v319 = v410 + 1;
+        if (HIDWORD(v410) < (v410 + 1))
         {
-          RB::vector<RB::DisplayList::EditAdaptor::finalize_group(RB::DisplayList::Interpolator::Layer &,RB::Transition::Method,unsigned int,unsigned int,RB::DisplayList::EditAdaptor::Element *,unsigned int,RB::DisplayList::EditAdaptor::Element *,unsigned int,unsigned int,unsigned int)::Mixed,128ul,unsigned int>::reserve_slow(&v394, v318);
-          v112 = v409;
-          v318 = v409 + 1;
-          v110 = *(&v385 + (v12 <= a10));
+          RB::vector<RB::DisplayList::EditAdaptor::finalize_group(RB::DisplayList::Interpolator::Layer &,RB::Transition::Method,unsigned int,unsigned int,RB::DisplayList::EditAdaptor::Element *,unsigned int,RB::DisplayList::EditAdaptor::Element *,unsigned int,unsigned int,unsigned int)::Mixed,128ul,unsigned int>::reserve_slow(&v395, v319);
+          v112 = v410;
+          v319 = v410 + 1;
+          v110 = *(&v386 + (v12 <= a9));
         }
 
-        v319 = v408;
-        if (!v408)
+        v320 = v409;
+        if (!v409)
         {
-          v319 = &v394;
+          v320 = &v395;
         }
 
-        v320 = &v319[3 * v112];
-        v321 = v390;
-        *v320 = HIDWORD(v390);
-        v320[1] = v321;
-        v320[2] = v111;
-        LODWORD(v409) = v318;
+        v321 = &v320[3 * v112];
+        v322 = v391;
+        *v321 = HIDWORD(v391);
+        v321[1] = v322;
+        v321[2] = v111;
+        LODWORD(v410) = v319;
       }
 
-      HIDWORD(v390) += v111;
-      LODWORD(v390) = v390 + v111;
-      v389 += v111;
+      HIDWORD(v391) += v111;
+      LODWORD(v391) = v391 + v111;
+      v390 += v111;
       LODWORD(v38) = *v110;
     }
 
@@ -2039,9 +2039,9 @@ LABEL_487:
   }
 
 LABEL_106:
-  v78 = HIDWORD(v390);
-  v79 = v389 + v12 - HIDWORD(v390);
-  v389 = v79;
+  v78 = HIDWORD(v391);
+  v79 = v390 + v12 - HIDWORD(v391);
+  v390 = v79;
   if (a4 == -1 || (v35 & 1) != 0)
   {
     v37 = a2 + 16;
@@ -2054,7 +2054,7 @@ LABEL_138:
     v78 = v12;
 LABEL_164:
     v125 = a1;
-    v36 = v374;
+    v36 = v375;
     goto LABEL_166;
   }
 
@@ -2068,23 +2068,23 @@ LABEL_164:
   }
 
 LABEL_112:
-  if (v408)
+  if (v409)
   {
-    v83 = v408;
+    v83 = v409;
   }
 
   else
   {
-    v83 = &v394;
+    v83 = &v395;
   }
 
-  if (v409)
+  if (v410)
   {
     v84 = 0;
     v85 = 0;
     v86 = 0;
     v87 = 0;
-    *v379 = &v83[3 * v409];
+    *v380 = &v83[3 * v410];
     do
     {
       v88 = *v83;
@@ -2101,16 +2101,16 @@ LABEL_112:
 
         else
         {
-          v93 = v393;
-          v94 = (v393 + 24 * v84);
+          v93 = v394;
+          v94 = (v394 + 24 * v84);
           v95 = v88 - v84;
           do
           {
             v92 = (v85 + 1);
-            a9 = *v94;
+            q0_0 = *v94;
             v85 = (v93 + 24 * v85);
             v85[1].n128_u64[0] = v94[1].n128_u64[0];
-            *v85 = a9;
+            *v85 = q0_0;
             v94 = (v94 + 24);
             LODWORD(v85) = v92;
             --v95;
@@ -2130,16 +2130,16 @@ LABEL_112:
 
         else
         {
-          v97 = v392;
-          v98 = (v392 + 24 * v86);
+          v97 = v393;
+          v98 = (v393 + 24 * v86);
           v99 = v89 - v86;
           do
           {
             v96 = (v87 + 1);
-            a9 = *v98;
+            q0_0 = *v98;
             v87 = (v97 + 24 * v87);
             v87[1].n128_u64[0] = v98[1].n128_u64[0];
-            *v87 = a9;
+            *v87 = q0_0;
             v98 = (v98 + 24);
             LODWORD(v87) = v96;
             --v99;
@@ -2155,7 +2155,7 @@ LABEL_112:
       {
         do
         {
-          RB::DisplayList::EditAdaptor::mix_elements(a1, v377, a5, v393 + 24 * v90++, v392 + 24 * v101++, a11, a12);
+          RB::DisplayList::EditAdaptor::mix_elements(a1, v378, a5, v394 + 24 * v90++, v393 + 24 * v101++, a10, a11);
           --v100;
         }
 
@@ -2168,33 +2168,33 @@ LABEL_112:
       v85 = v92;
       LODWORD(v16) = v96;
       v87 = v96;
-      a2 = v377;
-      v12 = v381;
+      a2 = v378;
+      v12 = v382;
     }
 
-    while (v83 != *v379);
-    v102 = HIDWORD(v390);
-    v78 = HIDWORD(v390);
-    v36 = v374;
+    while (v83 != *v380);
+    v102 = HIDWORD(v391);
+    v78 = HIDWORD(v391);
+    v36 = v375;
     if (v84 != v92)
     {
-      if (v84 >= HIDWORD(v390))
+      if (v84 >= HIDWORD(v391))
       {
         v78 = v92;
       }
 
       else
       {
-        v103 = v393;
-        v104 = (v393 + 24 * v84);
-        v105 = HIDWORD(v390) - v84;
+        v103 = v394;
+        v104 = (v394 + 24 * v84);
+        v105 = HIDWORD(v391) - v84;
         do
         {
           v78 = v92 + 1;
-          a9 = *v104;
+          q0_0 = *v104;
           v106 = (v103 + 24 * v92);
           v106[1].n128_u64[0] = v104[1].n128_u64[0];
-          *v106 = a9;
+          *v106 = q0_0;
           v104 = (v104 + 24);
           LODWORD(v92) = v92 + 1;
           --v105;
@@ -2204,25 +2204,25 @@ LABEL_112:
       }
     }
 
-    v107 = v390;
+    v107 = v391;
     v37 = __dst;
     if (v86 == v16)
     {
-      LODWORD(v16) = v390;
+      LODWORD(v16) = v391;
     }
 
-    else if (v86 < v390)
+    else if (v86 < v391)
     {
-      v121 = v392;
-      v122 = (v392 + 24 * v86);
-      v123 = v390 - v86;
+      v121 = v393;
+      v122 = (v393 + 24 * v86);
+      v123 = v391 - v86;
       do
       {
-        a9 = *v122;
+        q0_0 = *v122;
         v124 = (v121 + 24 * v16);
         LODWORD(v16) = v16 + 1;
         v124[1].n128_u64[0] = v122[1].n128_u64[0];
-        *v124 = a9;
+        *v124 = q0_0;
         v122 = (v122 + 24);
         --v123;
       }
@@ -2233,21 +2233,21 @@ LABEL_112:
 
   else
   {
-    v107 = v390;
-    v102 = HIDWORD(v390);
-    LODWORD(v16) = v390;
-    v36 = v374;
+    v107 = v391;
+    v102 = HIDWORD(v391);
+    LODWORD(v16) = v391;
+    v36 = v375;
   }
 
   if (v102 < v12)
   {
     do
     {
-      RB::DisplayList::EditAdaptor::mix_elements(a1, a2, a5, v393 + 24 * v102, v392 + 24 * v107, a11, a12);
-      v102 = HIDWORD(v390) + 1;
-      v107 = v390 + 1;
-      LODWORD(v390) = v390 + 1;
-      HIDWORD(v390) = v102;
+      RB::DisplayList::EditAdaptor::mix_elements(a1, a2, a5, v394 + 24 * v102, v393 + 24 * v107, a10, a11);
+      v102 = HIDWORD(v391) + 1;
+      v107 = v391 + 1;
+      LODWORD(v391) = v391 + 1;
+      HIDWORD(v391) = v102;
     }
 
     while (v102 < v12);
@@ -2256,9 +2256,9 @@ LABEL_112:
 
   v125 = a1;
 LABEL_166:
-  if (v408)
+  if (v409)
   {
-    free(v408);
+    free(v409);
 LABEL_183:
     v125 = a1;
   }
@@ -2267,17 +2267,17 @@ LABEL_183:
   if (v133 == v36)
   {
     v125 = a1;
-    v361 = (*(a1 + 233) & 4) == 0;
+    v362 = (*(a1 + 233) & 4) == 0;
   }
 
   else
   {
-    v361 = 0;
+    v362 = 0;
   }
 
   if (v133 <= v36)
   {
-    v360 = 0;
+    v361 = 0;
   }
 
   else
@@ -2318,29 +2318,29 @@ LABEL_183:
       }
 
       while (v140);
-      v360 = 1;
+      v361 = 1;
     }
 
     else
     {
-      v360 = 0;
+      v361 = 0;
     }
 
     v125 = a1;
   }
 
-  v362 = v16;
+  v363 = v16;
   if ((*(v125 + 233) & 0x10) != 0)
   {
     v142 = 0.0;
     v143 = 0.0;
     if (v78)
     {
-      v144 = *(*v393 + 32);
+      v144 = *(*v394 + 32);
       if (v144)
       {
         v145 = RB::DisplayList::Metadata::numeric_value(v144);
-        LODWORD(v36) = v374;
+        LODWORD(v36) = v375;
         v37 = __dst;
         if (v145)
         {
@@ -2351,11 +2351,11 @@ LABEL_183:
 
     if (v16)
     {
-      v146 = *(*v392 + 32);
+      v146 = *(*v393 + 32);
       if (v146)
       {
         v147 = RB::DisplayList::Metadata::numeric_value(v146);
-        LODWORD(v36) = v374;
+        LODWORD(v36) = v375;
         v37 = __dst;
         if (v147)
         {
@@ -2364,22 +2364,22 @@ LABEL_183:
       }
     }
 
-    v380 = v142 < v143;
+    v381 = v142 < v143;
   }
 
   else
   {
-    v380 = 0;
+    v381 = 0;
   }
 
-  v406 = 0;
-  a9.n128_u64[0] = 0x800000000;
-  v407 = 0x800000000;
-  v411 = 0;
-  v412 = 0x800000000;
-  v385 = 0;
+  v407 = 0;
+  q0_0.n128_u64[0] = 0x800000000;
+  v408 = 0x800000000;
+  v412 = 0;
+  v413 = 0x800000000;
   v386 = 0;
-  if (v361)
+  v387 = 0;
+  if (v362)
   {
     v148 = 4;
   }
@@ -2389,9 +2389,9 @@ LABEL_183:
     v148 = 8;
   }
 
-  v382 = v148;
-  v384 = v16 != 0;
-  v365 = v133;
+  v383 = v148;
+  v385 = v16 != 0;
+  v366 = v133;
   if (!v78)
   {
     v204 = 0x400000000;
@@ -2403,30 +2403,30 @@ LABEL_183:
   v150 = v36;
   v151 = 0;
   v152 = 0x100000000;
-  if (!v361)
+  if (!v362)
   {
     v152 = 0;
   }
 
   v153 = 0x200000000;
-  if (!v360)
+  if (!v361)
   {
     v153 = 0;
   }
 
   v154 = 0x800000000;
-  if (!v380)
+  if (!v381)
   {
     v154 = 0;
   }
 
-  v363 = v368 | ((v16 == 0) << 34) | v152 | v153 | v154;
-  v372 = v133 - v150;
+  v364 = v369 | ((v16 == 0) << 34) | v152 | v153 | v154;
+  v373 = v133 - v150;
   v155 = -INFINITY;
-  v370 = v78;
+  v371 = v78;
   do
   {
-    v156 = (v393 + 24 * v149);
+    v156 = (v394 + 24 * v149);
     v157 = RB::DisplayList::AtomizedItems::transition(v156, a2);
     if (RB::Transition::empty_transition(v157, 2))
     {
@@ -2450,7 +2450,7 @@ LABEL_183:
       v161 = *(a2 + 46);
     }
 
-    v366 = v160;
+    v367 = v160;
     v162 = *(a2 + 22);
     if (!v162)
     {
@@ -2461,7 +2461,7 @@ LABEL_183:
     v164 = *(v156 + 1);
     *v163 = 0x1000000000;
     *(v163 + 1) = v164;
-    a9 = xmmword_195E48500;
+    q0_0 = xmmword_195E48500;
     *(v163 + 1) = xmmword_195E48500;
     *(v163 + 4) = 0;
     v165 = *(a2 + 46);
@@ -2473,11 +2473,11 @@ LABEL_183:
     }
 
     v167 = &v166[40 * v165];
-    *v167 = v363 | *v167 & 0xFFFFFFF00000000FLL;
-    *(v167 + 6) = a11;
-    *(v167 + 7) = a12;
+    *v167 = v364 | *v167 & 0xFFFFFFF00000000FLL;
+    *(v167 + 6) = a10;
+    *(v167 + 7) = a11;
     *(a2 + 48) |= 1u;
-    v384 = v384 && (*(*v156 + 46) & 0x3F) == 2;
+    v385 = v385 && (*(*v156 + 46) & 0x3F) == 2;
     if (!*(v157 + 12))
     {
       LOBYTE(v168) = 0;
@@ -2487,7 +2487,7 @@ LABEL_183:
     v168 = 0;
     v169 = 0;
     v170 = 0;
-    v172 = v133 == v374 || *(v157 + 17) - 255 < 0xFFFFFF02;
+    v172 = v133 == v375 || *(v157 + 17) - 255 < 0xFFFFFF02;
     do
     {
       v173 = *(v157 + 5);
@@ -2508,52 +2508,52 @@ LABEL_183:
       }
 
       int_arg = v174->int_arg;
-      if (((v382 | v175 | 2) & (v174->int_arg >> 10)) == 2)
+      if (((v383 | v175 | 2) & (v174->int_arg >> 10)) == 2)
       {
-        v177 = RB::Transition::Effect::anchor_direction(v174, 2u, v380);
+        v177 = RB::Transition::Effect::anchor_direction(v174, 2, v381);
         if ((v177 & 0x100000000) != 0)
         {
-          v182 = *(v377 + 22);
+          v182 = *(v378 + 22);
           if (!v182)
           {
             v182 = __dst;
           }
 
-          RB::DisplayList::EditAdaptor::find_motion_projection(a1, v377, v156, v167, v177, &v182[40 * v374], v372, &v385);
+          RB::DisplayList::EditAdaptor::find_motion_projection(a1, v378, v156, v167, v177, &v182[40 * v375], v373, &v386);
           goto LABEL_285;
         }
 
-        v178 = RB::Transition::Effect::sequence_direction(v174, 2u, v380);
+        v178 = RB::Transition::Effect::sequence_direction(v174, 2, v381);
         v181 = v178;
         if (((v178 & 0x100000000) == 0) | v168 & 1)
         {
           v168 |= (v178 & 0x100000000uLL) >> 32;
 LABEL_285:
           animation = RB::Transition::Effect::custom_duration(v174, 2, v174 + 1, v179, v180);
-          a9.n128_u32[0] = animation;
+          q0_0.n128_u32[0] = animation;
           if (v155 >= *&animation)
           {
-            a9.n128_f32[0] = v155;
+            q0_0.n128_f32[0] = v155;
           }
 
           if ((animation & 0x100000000) != 0)
           {
-            v155 = a9.n128_f32[0];
+            v155 = q0_0.n128_f32[0];
           }
 
           v170 |= (animation & 0x100000000) == 0;
           int_arg = v174->int_arg;
           v201 = (v174->int_arg & 0x3F) == 1 && v172;
-          if (!v384)
+          if (!v385)
           {
             v201 = 0;
           }
 
-          v384 = v201;
+          v385 = v201;
           goto LABEL_292;
         }
 
-        v183 = *(v377 + 46) - 1;
+        v183 = *(v378 + 46) - 1;
         v184 = v174->int_arg;
         v185 = 0.0;
         if ((v174->int_arg & 0x40) != 0)
@@ -2583,7 +2583,7 @@ LABEL_285:
           if ((v178 - 4) < 2)
           {
             v191 = *(*v156 + 32);
-            v192 = *(v377 + 46) - 1;
+            v192 = *(v378 + 46) - 1;
             if (v191)
             {
               v193 = RB::DisplayList::Metadata::text_identity(v191);
@@ -2666,17 +2666,17 @@ LABEL_285:
           }
         }
 
-        v198 = v407;
-        if (HIDWORD(v407) < (v407 + 1))
+        v198 = v408;
+        if (HIDWORD(v408) < (v408 + 1))
         {
-          RB::vector<RB::DisplayList::EditAdaptor::finalize_group(RB::DisplayList::Interpolator::Layer &,RB::Transition::Method,unsigned int,unsigned int,RB::DisplayList::EditAdaptor::Element *,unsigned int,RB::DisplayList::EditAdaptor::Element *,unsigned int,unsigned int,unsigned int)::SequenceElement,8ul,unsigned int>::reserve_slow(&v394, v407 + 1);
-          v198 = v407;
+          RB::vector<RB::DisplayList::EditAdaptor::finalize_group(RB::DisplayList::Interpolator::Layer &,RB::Transition::Method,unsigned int,unsigned int,RB::DisplayList::EditAdaptor::Element *,unsigned int,RB::DisplayList::EditAdaptor::Element *,unsigned int,unsigned int,unsigned int)::SequenceElement,8ul,unsigned int>::reserve_slow(&v395, v408 + 1);
+          v198 = v408;
         }
 
-        v199 = v406;
-        if (!v406)
+        v199 = v407;
+        if (!v407)
         {
-          v199 = &v394;
+          v199 = &v395;
         }
 
         v200 = &v199[4 * v198];
@@ -2684,7 +2684,7 @@ LABEL_285:
         *(v200 + 1) = v185;
         *(v200 + 2) = v186;
         *(v200 + 3) = v188;
-        LODWORD(v407) = v407 + 1;
+        LODWORD(v408) = v408 + 1;
         v168 = 1;
         goto LABEL_285;
       }
@@ -2696,16 +2696,16 @@ LABEL_292:
     while (v169 < *(v157 + 12));
     if (v170)
     {
-      a2 = v377;
-      RB::DisplayList::EditAdaptor::set_animation(animation, v377, v167, v156, v366, v157);
-      LODWORD(v16) = v362;
-      v133 = v365;
+      a2 = v378;
+      RB::DisplayList::EditAdaptor::set_animation(animation, v378, v167, v156, v367, q0_0, v157);
+      LODWORD(v16) = v363;
+      v133 = v366;
       goto LABEL_304;
     }
 
-    a2 = v377;
-    LODWORD(v16) = v362;
-    v133 = v365;
+    a2 = v378;
+    LODWORD(v16) = v363;
+    v133 = v366;
 LABEL_300:
     if (v155 <= 0.0)
     {
@@ -2731,17 +2731,17 @@ LABEL_310:
     ++v149;
   }
 
-  while (v149 != v370);
+  while (v149 != v371);
   v204 = 0x400000000;
   if (v151)
   {
     v204 = 0;
   }
 
-  LODWORD(v36) = v374;
+  LODWORD(v36) = v375;
   v37 = __dst;
 LABEL_315:
-  v364 = *(a2 + 46);
+  v365 = *(a2 + 46);
   if (!v16)
   {
     goto LABEL_410;
@@ -2749,29 +2749,29 @@ LABEL_315:
 
   v205 = 0;
   v206 = 0x100000000;
-  if (!v361)
+  if (!v362)
   {
     v206 = 0;
   }
 
   v207 = 0x200000000;
-  if (!v360)
+  if (!v361)
   {
     v207 = 0;
   }
 
   v208 = 0x800000000;
-  if (!v380)
+  if (!v381)
   {
     v208 = 0;
   }
 
-  v369 = v206 | v368 | v207 | v208 | v204;
-  v373 = v133 - v36;
-  v367 = v16;
+  v370 = v206 | v369 | v207 | v208 | v204;
+  v374 = v133 - v36;
+  v368 = v16;
   while (2)
   {
-    v209 = (v392 + 24 * v205);
+    v209 = (v393 + 24 * v205);
     v210 = RB::DisplayList::AtomizedItems::transition(v209, a2);
     v211 = *(v210 + 17);
     if (RB::Transition::empty_transition(v210, 1))
@@ -2799,10 +2799,10 @@ LABEL_315:
     }
 
     v217 = &v216[40 * v214];
-    a9.n128_u64[0] = *(v209 + 1);
+    q0_0.n128_u64[0] = *(v209 + 1);
     *v217 = v213 | 0x1000000000;
     v217[1] = 0;
-    v217[2] = a9.n128_u64[0];
+    v217[2] = q0_0.n128_u64[0];
     v217[3] = 0x100000000;
     v217[4] = 0;
     v218 = *(a2 + 46);
@@ -2814,11 +2814,11 @@ LABEL_315:
     }
 
     v220 = &v219[40 * v218];
-    *v220 = v369 | *v220 & 0xFFFFFFF00000000FLL;
-    *(v220 + 6) = a11;
-    *(v220 + 7) = a12;
+    *v220 = v370 | *v220 & 0xFFFFFFF00000000FLL;
+    *(v220 + 6) = a10;
+    *(v220 + 7) = a11;
     *(a2 + 48) |= 1 << v213;
-    if (v384)
+    if (v385)
     {
       v215 = (*(*v209 + 46) & 0x3F) == 2;
     }
@@ -2826,16 +2826,16 @@ LABEL_315:
     if (!*(v210 + 12))
     {
       LOBYTE(v223) = 0;
-      v384 = v215;
+      v385 = v215;
       goto LABEL_400;
     }
 
-    v371 = v205;
+    v372 = v205;
     v221 = 0;
     v222 = 0;
     v223 = 0;
-    v225 = v133 == v374 || (v211 - 255) < 0xFFFFFF02;
-    v384 = v215;
+    v225 = v133 == v375 || (v211 - 255) < 0xFFFFFF02;
+    v385 = v215;
     while (2)
     {
       v226 = *(v210 + 5);
@@ -2856,23 +2856,23 @@ LABEL_315:
       }
 
       v229 = v227->int_arg;
-      if (((v382 | v228 | 1) & (v227->int_arg >> 10)) == 1)
+      if (((v383 | v228 | 1) & (v227->int_arg >> 10)) == 1)
       {
-        v230 = RB::Transition::Effect::anchor_direction(v227, 1u, v380);
+        v230 = RB::Transition::Effect::anchor_direction(v227, 1, v381);
         if ((v230 & 0x100000000) != 0)
         {
-          v235 = *(v377 + 22);
+          v235 = *(v378 + 22);
           if (!v235)
           {
             v235 = __dst;
           }
 
-          RB::DisplayList::EditAdaptor::find_motion_projection(a1, v377, v209, v220, v230, &v235[40 * v374], v373, &v385);
+          RB::DisplayList::EditAdaptor::find_motion_projection(a1, v378, v209, v220, v230, &v235[40 * v375], v374, &v386);
         }
 
         else
         {
-          v231 = RB::Transition::Effect::sequence_direction(v227, 1u, v380);
+          v231 = RB::Transition::Effect::sequence_direction(v227, 1, v381);
           v234 = v231;
           if (((v231 & 0x100000000) == 0) | v223 & 1)
           {
@@ -2880,7 +2880,7 @@ LABEL_315:
             goto LABEL_385;
           }
 
-          v236 = *(v377 + 46) - 1;
+          v236 = *(v378 + 46) - 1;
           v237 = v227->int_arg;
           v238 = 0.0;
           if ((v227->int_arg & 0x40) != 0)
@@ -2910,7 +2910,7 @@ LABEL_315:
             if ((v231 - 4) < 2)
             {
               v244 = *(*v209 + 32);
-              v245 = *(v377 + 46) - 1;
+              v245 = *(v378 + 46) - 1;
               if (v244)
               {
                 v246 = RB::DisplayList::Metadata::text_identity(v244);
@@ -2953,17 +2953,17 @@ LABEL_315:
             }
 
 LABEL_379:
-            v251 = v412;
-            if (HIDWORD(v412) < (v412 + 1))
+            v251 = v413;
+            if (HIDWORD(v413) < (v413 + 1))
             {
-              RB::vector<RB::DisplayList::EditAdaptor::finalize_group(RB::DisplayList::Interpolator::Layer &,RB::Transition::Method,unsigned int,unsigned int,RB::DisplayList::EditAdaptor::Element *,unsigned int,RB::DisplayList::EditAdaptor::Element *,unsigned int,unsigned int,unsigned int)::SequenceElement,8ul,unsigned int>::reserve_slow(v410, v412 + 1);
-              v251 = v412;
+              RB::vector<RB::DisplayList::EditAdaptor::finalize_group(RB::DisplayList::Interpolator::Layer &,RB::Transition::Method,unsigned int,unsigned int,RB::DisplayList::EditAdaptor::Element *,unsigned int,RB::DisplayList::EditAdaptor::Element *,unsigned int,unsigned int,unsigned int)::SequenceElement,8ul,unsigned int>::reserve_slow(v411, v413 + 1);
+              v251 = v413;
             }
 
-            v252 = v411;
-            if (!v411)
+            v252 = v412;
+            if (!v412)
             {
-              v252 = v410;
+              v252 = v411;
             }
 
             v253 = &v252[4 * v251];
@@ -2971,7 +2971,7 @@ LABEL_379:
             *(v253 + 1) = v238;
             *(v253 + 2) = v239;
             *(v253 + 3) = v241;
-            LODWORD(v412) = v412 + 1;
+            LODWORD(v413) = v413 + 1;
             v223 = 1;
           }
 
@@ -3019,26 +3019,26 @@ LABEL_379:
 
 LABEL_385:
         v254 = RB::Transition::Effect::custom_duration(v227, 1, v227 + 1, v232, v233);
-        a9.n128_u32[0] = v254;
+        q0_0.n128_u32[0] = v254;
         if (v155 >= *&v254)
         {
-          a9.n128_f32[0] = v155;
+          q0_0.n128_f32[0] = v155;
         }
 
         if ((v254 & 0x100000000) != 0)
         {
-          v155 = a9.n128_f32[0];
+          v155 = q0_0.n128_f32[0];
         }
 
         v222 |= (v254 & 0x100000000) == 0;
         v229 = v227->int_arg;
         v255 = (v227->int_arg & 0x3F) == 1 && v225;
-        if (!v384)
+        if (!v385)
         {
           v255 = 0;
         }
 
-        v384 = v255;
+        v385 = v255;
       }
 
       v221 += RB::Transition::_effect_args[v229 & 0x3F] + 1;
@@ -3050,40 +3050,40 @@ LABEL_385:
       break;
     }
 
-    v205 = v371;
+    v205 = v372;
     if (v222)
     {
       v256 = RB::DisplayList::find_animation(0, *v209, v212);
-      a2 = v377;
-      v133 = v365;
-      RB::DisplayList::EditAdaptor::set_animation(v256, v377, v220, v209, v256, v210);
+      a2 = v378;
+      v133 = v366;
+      RB::DisplayList::EditAdaptor::set_animation(v256, v378, v220, v209, v256, v257, v210);
       goto LABEL_404;
     }
 
-    a2 = v377;
-    v133 = v365;
+    a2 = v378;
+    v133 = v366;
 LABEL_400:
     if (v155 <= 0.0)
     {
-      v257 = -1;
+      v258 = -1;
     }
 
     else
     {
-      v257 = -2;
+      v258 = -2;
     }
 
-    *(v220 + 8) = v257;
+    *(v220 + 8) = v258;
 LABEL_404:
-    v258 = (*(a2 + 251) & 1) != 0 || *(v220 + 8) != *(*a2 + 20);
+    v259 = (*(a2 + 251) & 1) != 0 || *(v220 + 8) != *(*a2 + 20);
     v37 = __dst;
-    *(a2 + 251) = v258;
+    *(a2 + 251) = v259;
     if ((v223 & 1) == 0)
     {
       RB::DisplayList::Interpolator::Layer::merge_tail(a2);
     }
 
-    if (++v205 != v367)
+    if (++v205 != v368)
     {
       continue;
     }
@@ -3094,248 +3094,248 @@ LABEL_404:
 LABEL_410:
   if (v155 > 0.0)
   {
-    a9.n128_u32[0] = *(*a2 + 80);
-    if (a9.n128_f32[0] <= v155)
+    q0_0.n128_u32[0] = *(*a2 + 80);
+    if (q0_0.n128_f32[0] <= v155)
     {
-      a9.n128_f32[0] = v155;
+      q0_0.n128_f32[0] = v155;
     }
 
-    *(*a2 + 80) = a9.n128_u32[0];
+    *(*a2 + 80) = q0_0.n128_u32[0];
   }
 
-  if (v384 && v364 > v133)
+  if (v385 && v365 > v133)
   {
-    v259 = *(a2 + 46);
-    if (v259 > v364)
+    v260 = *(a2 + 46);
+    if (v260 > v365)
     {
-      if (v133 + 1 >= v364)
+      if (v133 + 1 >= v365)
       {
-        v262 = 1;
+        v263 = 1;
       }
 
       else
       {
         if (*(a2 + 22))
         {
-          v260 = *(a2 + 22);
+          v261 = *(a2 + 22);
         }
 
         else
         {
-          v260 = v37;
+          v261 = v37;
         }
 
-        v261 = &v260[40 * v133 + 48];
-        LOBYTE(v262) = 1;
-        v263 = v133;
+        v262 = &v261[40 * v133 + 48];
+        LOBYTE(v263) = 1;
+        v264 = v133;
         do
         {
-          v262 = v262 && *v261 == *&v260[40 * v263++ + 8] + 1;
-          v261 += 40;
+          v263 = v263 && *v262 == *&v261[40 * v264++ + 8] + 1;
+          v262 += 40;
         }
 
-        while (v364 - 1 != v263);
+        while (v365 - 1 != v264);
       }
 
-      if (v364 + 1 < v259)
+      if (v365 + 1 < v260)
       {
-        v264 = *(a2 + 22);
-        if (!v264)
+        v265 = *(a2 + 22);
+        if (!v265)
         {
-          v264 = v37;
+          v265 = v37;
         }
 
-        v265 = &v264[40 * v364 + 56];
-        v266 = v364;
+        v266 = &v265[40 * v365 + 56];
+        v267 = v365;
         do
         {
-          v262 = v262 && *v265 == *&v264[40 * v266++ + 16] + 1;
-          v265 += 40;
+          v263 = v263 && *v266 == *&v265[40 * v267++ + 16] + 1;
+          v266 += 40;
         }
 
-        while (v259 - 1 != v266);
+        while (v260 - 1 != v267);
       }
 
-      if (v262)
+      if (v263)
       {
-        v267 = *(a2 + 22);
-        if (v267)
+        v268 = *(a2 + 22);
+        if (v268)
         {
+          v269 = *(a2 + 22);
+        }
+
+        else
+        {
+          v269 = v37;
+        }
+
+        v270 = &v269[40 * v133];
+        v271 = 40 * v133;
+        v272 = *(v270 + 2);
+        v273 = *&v269[40 * v365 - 32];
+        v274 = *&v269[40 * v365 + 16];
+        v275 = *&v269[40 * v260 - 24];
+        v276 = -858993459 * ((&v269[40 * v260] - (v270 + 40)) >> 3);
+        v277 = v260 - v276;
+        *(a2 + 46) = v277;
+        v278 = v277 - 0xCCCCCCCCCCCCCCCDLL * ((v271 + 40) >> 3);
+        if (v278)
+        {
+          memmove(v270 + 40, &v270[40 * v276 + 40], 40 * v278);
           v268 = *(a2 + 22);
+          LODWORD(v277) = *(a2 + 46);
         }
 
-        else
+        if (!v268)
         {
           v268 = v37;
         }
 
-        v269 = &v268[40 * v133];
-        v270 = 40 * v133;
-        v271 = *(v269 + 2);
-        v272 = *&v268[40 * v364 - 32];
-        v273 = *&v268[40 * v364 + 16];
-        v274 = *&v268[40 * v259 - 24];
-        v275 = -858993459 * ((&v268[40 * v259] - (v269 + 40)) >> 3);
-        v276 = v259 - v275;
-        *(a2 + 46) = v276;
-        v277 = v276 - 0xCCCCCCCCCCCCCCCDLL * ((v270 + 40) >> 3);
-        if (v277)
-        {
-          memmove(v269 + 40, &v269[40 * v275 + 40], 40 * v277);
-          v267 = *(a2 + 22);
-          LODWORD(v276) = *(a2 + 46);
-        }
-
-        if (!v267)
-        {
-          v267 = v37;
-        }
-
-        v278 = &v267[40 * (v276 - 1)];
-        *v278 = *v278 & 0xFFFFFFFFFFFFFFF0 | 9;
+        v279 = &v268[40 * (v277 - 1)];
+        *v279 = *v279 & 0xFFFFFFFFFFFFFFF0 | 9;
         *(a2 + 48) |= 0x200u;
-        *v278 &= 0xFFFFFFFFFuLL;
-        *(v278 + 2) = v271;
-        *(v278 + 3) = v272 - v271 + 1;
-        *(v278 + 4) = v273;
-        *(v278 + 5) = v274 - v273 + 1;
+        *v279 &= 0xFFFFFFFFFuLL;
+        *(v279 + 2) = v272;
+        *(v279 + 3) = v273 - v272 + 1;
+        *(v279 + 4) = v274;
+        *(v279 + 5) = v275 - v274 + 1;
       }
     }
   }
 
-  v279 = a2;
-  if (v407 >= 2)
+  v280 = a2;
+  if (v408 >= 2)
   {
-    v280 = (v406 ? v406 : &v394);
-    a9 = std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,RB::DisplayList::EditAdaptor::finalize_group(RB::DisplayList::Interpolator::Layer &,RB::Transition::Method,unsigned int,unsigned int,RB::DisplayList::EditAdaptor::Element *,unsigned int,RB::DisplayList::EditAdaptor::Element *,unsigned int,unsigned int,unsigned int)::SequenceElement *,false>(v280, &v280[v407], 126 - 2 * __clz(v407), 1, a9);
-    v281 = v407;
-    if (v407)
+    v281 = (v407 ? v407 : &v395);
+    q0_0 = std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,RB::DisplayList::EditAdaptor::finalize_group(RB::DisplayList::Interpolator::Layer &,RB::Transition::Method,unsigned int,unsigned int,RB::DisplayList::EditAdaptor::Element *,unsigned int,RB::DisplayList::EditAdaptor::Element *,unsigned int,unsigned int,unsigned int)::SequenceElement *,false>(v281, &v281[v408], 126 - 2 * __clz(v408), 1, q0_0);
+    v282 = v408;
+    if (v408)
     {
-      v282 = 0;
       v283 = 0;
+      v284 = 0;
       do
       {
-        if (v406)
+        if (v407)
         {
-          v284 = v406;
+          v285 = v407;
         }
 
         else
         {
-          v284 = &v394;
+          v285 = &v395;
         }
 
-        v285 = *(v279 + 22);
-        if (!v285)
+        v286 = *(v280 + 22);
+        if (!v286)
         {
-          v285 = __dst;
+          v286 = __dst;
         }
 
-        v286 = &v285[40 * v284[v282]];
-        a9.n128_f32[0] = RB::DisplayList::Interpolator::Contents::animation_max_duration(*v279, *(v286 + 8));
-        v287 = *&v284[v282 + 2];
-        v288 = *&v284[v282 + 3];
-        if (v288 < 1.0)
+        v287 = &v286[40 * v285[v283]];
+        q0_0.n128_f32[0] = RB::DisplayList::Interpolator::Contents::animation_max_duration(*v280, *(v287 + 8));
+        v288 = *&v285[v283 + 2];
+        v289 = *&v285[v283 + 3];
+        if (v289 < 1.0)
         {
-          v289 = v284[v282 + 3];
-          v290 = vrecpe_f32(LODWORD(v288));
-          v291 = vmul_f32(vrecps_f32(v289, v290), v290);
-          v291.f32[0] = vmul_f32(v291, vrecps_f32(v289, v291)).f32[0];
-          v292 = vrecpe_f32(COERCE_UNSIGNED_INT((v407 - 1)));
-          v293 = vmul_f32(vrecps_f32(COERCE_UNSIGNED_INT((v407 - 1)), v292), v292);
-          v294 = -(a9.n128_f32[0] - (v291.f32[0] * a9.n128_f32[0])) * vmul_f32(v293, vrecps_f32(COERCE_UNSIGNED_INT((v407 - 1)), v293)).f32[0];
-          if (v294 < v287)
+          v290 = v285[v283 + 3];
+          v291 = vrecpe_f32(LODWORD(v289));
+          v292 = vmul_f32(vrecps_f32(v290, v291), v291);
+          v292.f32[0] = vmul_f32(v292, vrecps_f32(v290, v292)).f32[0];
+          v293 = vrecpe_f32(COERCE_UNSIGNED_INT((v408 - 1)));
+          v294 = vmul_f32(vrecps_f32(COERCE_UNSIGNED_INT((v408 - 1)), v293), v293);
+          v295 = -(q0_0.n128_f32[0] - (v292.f32[0] * q0_0.n128_f32[0])) * vmul_f32(v294, vrecps_f32(COERCE_UNSIGNED_INT((v408 - 1)), v294)).f32[0];
+          if (v295 < v288)
           {
-            v287 = v294;
+            v288 = v295;
           }
         }
 
-        a9.n128_f32[0] = *(v286 + 9) + ((a9.n128_f32[0] * v283) * v287);
-        *(v286 + 9) = a9.n128_u32[0];
-        v279 = v377;
-        *(v377 + 251) |= a9.n128_f32[0] != 0.0;
-        ++v283;
-        v282 += 4;
+        q0_0.n128_f32[0] = *(v287 + 9) + ((q0_0.n128_f32[0] * v284) * v288);
+        *(v287 + 9) = q0_0.n128_u32[0];
+        v280 = v378;
+        *(v378 + 251) |= q0_0.n128_f32[0] != 0.0;
+        ++v284;
+        v283 += 4;
       }
 
-      while (v281 != v283);
+      while (v282 != v284);
     }
   }
 
-  if (v412 >= 2)
+  if (v413 >= 2)
   {
-    v295 = (v411 ? v411 : v410);
-    std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,RB::DisplayList::EditAdaptor::finalize_group(RB::DisplayList::Interpolator::Layer &,RB::Transition::Method,unsigned int,unsigned int,RB::DisplayList::EditAdaptor::Element *,unsigned int,RB::DisplayList::EditAdaptor::Element *,unsigned int,unsigned int,unsigned int)::SequenceElement *,false>(v295, &v295[v412], 126 - 2 * __clz(v412), 1, a9);
-    v296 = v412;
-    if (v412)
+    v296 = (v412 ? v412 : v411);
+    std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,RB::DisplayList::EditAdaptor::finalize_group(RB::DisplayList::Interpolator::Layer &,RB::Transition::Method,unsigned int,unsigned int,RB::DisplayList::EditAdaptor::Element *,unsigned int,RB::DisplayList::EditAdaptor::Element *,unsigned int,unsigned int,unsigned int)::SequenceElement *,false>(v296, &v296[v413], 126 - 2 * __clz(v413), 1, q0_0);
+    v297 = v413;
+    if (v413)
     {
-      v297 = 0;
       v298 = 0;
+      v299 = 0;
       do
       {
-        if (v411)
+        if (v412)
         {
-          v299 = v411;
+          v300 = v412;
         }
 
         else
         {
-          v299 = v410;
+          v300 = v411;
         }
 
-        v300 = *(v279 + 22);
-        if (!v300)
+        v301 = *(v280 + 22);
+        if (!v301)
         {
-          v300 = __dst;
+          v301 = __dst;
         }
 
-        v301 = &v300[40 * v299[v297]];
-        v302 = RB::DisplayList::Interpolator::Contents::animation_max_duration(*v279, *(v301 + 8));
-        v303 = *&v299[v297 + 2];
-        v304 = *&v299[v297 + 3];
-        if (v304 < 1.0)
+        v302 = &v301[40 * v300[v298]];
+        v303 = RB::DisplayList::Interpolator::Contents::animation_max_duration(*v280, *(v302 + 8));
+        v304 = *&v300[v298 + 2];
+        v305 = *&v300[v298 + 3];
+        if (v305 < 1.0)
         {
-          v305 = v299[v297 + 3];
-          v306 = vrecpe_f32(LODWORD(v304));
-          v307 = vmul_f32(vrecps_f32(v305, v306), v306);
-          v307.f32[0] = vmul_f32(v307, vrecps_f32(v305, v307)).f32[0];
-          v308 = vrecpe_f32(COERCE_UNSIGNED_INT((v412 - 1)));
-          v309 = vmul_f32(vrecps_f32(COERCE_UNSIGNED_INT((v412 - 1)), v308), v308);
-          v310 = -(v302 - (v307.f32[0] * v302)) * vmul_f32(v309, vrecps_f32(COERCE_UNSIGNED_INT((v412 - 1)), v309)).f32[0];
-          if (v310 < v303)
+          v306 = v300[v298 + 3];
+          v307 = vrecpe_f32(LODWORD(v305));
+          v308 = vmul_f32(vrecps_f32(v306, v307), v307);
+          v308.f32[0] = vmul_f32(v308, vrecps_f32(v306, v308)).f32[0];
+          v309 = vrecpe_f32(COERCE_UNSIGNED_INT((v413 - 1)));
+          v310 = vmul_f32(vrecps_f32(COERCE_UNSIGNED_INT((v413 - 1)), v309), v309);
+          v311 = -(v303 - (v308.f32[0] * v303)) * vmul_f32(v310, vrecps_f32(COERCE_UNSIGNED_INT((v413 - 1)), v310)).f32[0];
+          if (v311 < v304)
           {
-            v303 = v310;
+            v304 = v311;
           }
         }
 
-        v311 = *(v301 + 9) + ((v302 * v298) * v303);
-        *(v301 + 9) = v311;
-        v279 = v377;
-        *(v377 + 251) |= v311 != 0.0;
-        ++v298;
-        v297 += 4;
+        v312 = *(v302 + 9) + ((v303 * v299) * v304);
+        *(v302 + 9) = v312;
+        v280 = v378;
+        *(v378 + 251) |= v312 != 0.0;
+        ++v299;
+        v298 += 4;
       }
 
-      while (v296 != v298);
+      while (v297 != v299);
     }
   }
 
-  if (v385)
+  if (v386)
   {
-    free(v385);
+    free(v386);
   }
 
-  if (v411)
+  if (v412)
   {
-    free(v411);
+    free(v412);
   }
 
-  if (v406)
+  if (v407)
   {
-    free(v406);
+    free(v407);
   }
 
-  return !v361;
+  return !v362;
 }
 
 void sub_195D4886C(_Unwind_Exception *a1)
@@ -3400,11 +3400,11 @@ uint64_t RB::DisplayList::EditAdaptor::make_matrix_value(uint64_t a1, void *a2, 
 
 BOOL RB::lcs_diff<RB::DisplayList::EditAdaptor::Element,RB::DisplayList::EditAdaptor::finalize_group(RB::DisplayList::Interpolator::Layer &,RB::Transition::Method,unsigned int,unsigned int,RB::DisplayList::EditAdaptor::Element*,unsigned int,RB::DisplayList::EditAdaptor::Element*,unsigned int,unsigned int,unsigned int)::$_0,RB::DisplayList::EditAdaptor::finalize_group(RB::DisplayList::Interpolator::Layer &,RB::Transition::Method,unsigned int,unsigned int,RB::DisplayList::EditAdaptor::Element*,unsigned int,RB::DisplayList::EditAdaptor::Element*,unsigned int,unsigned int,unsigned int)::$_1>(uint64_t matrix_value, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t *a6, unsigned int *a7)
 {
-  v93 = a5;
+  v92 = a5;
   v9 = a3;
   v10 = a2;
   v11 = matrix_value;
-  v98 = *MEMORY[0x1E69E9840];
+  v97 = *MEMORY[0x1E69E9840];
   if (matrix_value >= a3)
   {
     v12 = a3;
@@ -3423,7 +3423,7 @@ BOOL RB::lcs_diff<RB::DisplayList::EditAdaptor::Element,RB::DisplayList::EditAda
   else
   {
     v13 = 0;
-    v91 = a2;
+    v90 = a2;
     v14 = a2;
     v15 = a4;
     v16 = a4;
@@ -3454,10 +3454,10 @@ BOOL RB::lcs_diff<RB::DisplayList::EditAdaptor::Element,RB::DisplayList::EditAda
     }
 
     a4 = v15;
-    v10 = v91;
+    v10 = v90;
   }
 
-  v89 = a4;
+  v88 = a4;
   if (v13 < v11 && v13 < v9)
   {
     v19 = 0;
@@ -3493,9 +3493,9 @@ BOOL RB::lcs_diff<RB::DisplayList::EditAdaptor::Element,RB::DisplayList::EditAda
     v9 += v19;
   }
 
-  if (v11 + v9 >= v93)
+  if (v11 + v9 >= v92)
   {
-    v24 = v93;
+    v24 = v92;
   }
 
   else
@@ -3513,7 +3513,7 @@ BOOL RB::lcs_diff<RB::DisplayList::EditAdaptor::Element,RB::DisplayList::EditAda
     v25 = v11 + 1;
   }
 
-  v92 = v25;
+  v91 = v25;
   if (v13 == v11)
   {
     v26 = v11 + 1;
@@ -3552,300 +3552,300 @@ BOOL RB::lcs_diff<RB::DisplayList::EditAdaptor::Element,RB::DisplayList::EditAda
     return v27;
   }
 
-  v77 = v24;
-  v91 = v10;
+  v76 = v24;
+  v90 = v10;
   v31 = 8 * v30;
-  v75 = 8 * v30;
+  v74 = 8 * v30;
   if (8 * v30 <= 0x1000)
   {
-    MEMORY[0x1EEE9AC00](matrix_value, a2);
-    v32 = &v75 - ((v31 + 15) & 0xFFFFFFFFFFFFFFF0);
+    MEMORY[0x1EEE9AC00](matrix_value);
+    v32 = &v74 - ((v31 + 15) & 0xFFFFFFFFFFFFFFF0);
     bzero(v32, v31);
-    MEMORY[0x1EEE9AC00](v33, v34);
-    v90 = v32;
+    MEMORY[0x1EEE9AC00](v33);
+    v89 = v32;
     bzero(v32, v31);
   }
 
   else
   {
     v32 = malloc_type_malloc(8 * v30, 0x100004000313F17uLL);
-    v90 = malloc_type_malloc(v31, 0x2004093837F09uLL);
+    v89 = malloc_type_malloc(v31, 0x2004093837F09uLL);
     if (!v32)
     {
       LOBYTE(v27) = 0;
       goto LABEL_111;
     }
 
-    if (!v90)
+    if (!v89)
     {
       LOBYTE(v27) = 0;
-      v90 = 0;
+      v89 = 0;
 LABEL_111:
-      free(v90);
+      free(v89);
       free(v32);
       return v27;
     }
   }
 
-  v82 = v32;
-  RB::Heap::Heap(v94, v97, 1024, 0);
+  v81 = v32;
+  RB::Heap::Heap(v93, v96, 1024, 0);
   *&v32[8 * v11] = v13;
-  *(v90 + v11) = 0;
-  v85 = (a7 + 4);
-  v86 = (a7 + 2);
-  v80 = (a7 + 20);
-  v81 = (a7 + 22);
-  v76 = -v11;
+  *(v89 + v11) = 0;
+  v84 = a7 + 4;
+  v85 = a7 + 2;
+  v79 = a7 + 20;
+  v80 = a7 + 22;
+  v75 = -v11;
   v27 = 1;
-  v78 = 1;
-  v35 = v92;
-  while (v26 > v35)
+  v77 = 1;
+  v34 = v91;
+  while (v26 > v34)
   {
-    v36 = v26;
+    v35 = v26;
 LABEL_54:
-    v26 = v36 - 1;
-    ++v35;
-    v37 = v78;
-    v27 = v78++ < v77;
-    if (v37 == v77)
+    v26 = v35 - 1;
+    ++v34;
+    v36 = v77;
+    v27 = v77++ < v76;
+    if (v36 == v76)
     {
       goto LABEL_108;
     }
   }
 
-  v84 = v78 + v11;
-  v79 = v78 + v11 - 1;
-  v87 = v27;
-  v88 = v11 - v78;
-  v83 = v11 - v78 + 1;
-  v38 = v76 + v26;
-  v36 = v26;
+  v83 = v77 + v11;
+  v78 = v77 + v11 - 1;
+  v86 = v27;
+  v87 = v11 - v77;
+  v82 = v11 - v77 + 1;
+  v37 = v75 + v26;
+  v35 = v26;
   while (1)
   {
-    v39 = (v95 + 7) & 0xFFFFFFFFFFFFFFF8;
-    if (v39 + 32 > v96)
+    v38 = (v94 + 7) & 0xFFFFFFFFFFFFFFF8;
+    if (v38 + 32 > v95)
     {
-      v39 = RB::Heap::alloc_slow(v94, 0x20uLL, 7);
+      v38 = RB::Heap::alloc_slow(v93, 0x20uLL, 7);
     }
 
     else
     {
-      v95 = v39 + 32;
+      v94 = v38 + 32;
     }
 
-    v93 = v36;
-    if (v26 == v88)
+    v92 = v35;
+    if (v26 == v87)
     {
-      v40 = v83;
-      v41 = *&v32[8 * v83];
+      v39 = v82;
+      v40 = *&v32[8 * v82];
 LABEL_61:
-      v42 = v41 + 1;
-      v43 = 1;
+      v41 = v40 + 1;
+      v42 = 1;
       goto LABEL_66;
     }
 
-    if (v26 == v84)
+    if (v26 == v83)
     {
-      v43 = 0;
-      v40 = v79;
-      v42 = *&v32[8 * v79];
+      v42 = 0;
+      v39 = v78;
+      v41 = *&v32[8 * v78];
     }
 
     else
     {
-      v40 = v26 + 1;
-      v41 = *&v32[8 * v26 + 8];
-      v42 = *&v32[8 * v26 - 8];
-      if (v41 >= v42)
+      v39 = v26 + 1;
+      v40 = *&v32[8 * v26 + 8];
+      v41 = *&v32[8 * v26 - 8];
+      if (v40 >= v41)
       {
         goto LABEL_61;
       }
 
-      v43 = 0;
-      v40 = v26 - 1;
+      v42 = 0;
+      v39 = v26 - 1;
     }
 
 LABEL_66:
-    v44 = v90;
-    *v39 = *(v90 + v40);
-    *(v39 + 8) = v43;
-    v45 = v26 - v11 + v42;
-    *(v39 + 16) = v42 - 1;
-    *(v39 + 24) = v45 - 1;
-    v44[v26] = v39;
-    if (v42 < v11 && v45 < v9)
+    v43 = v89;
+    *v38 = *(v89 + v39);
+    *(v38 + 8) = v42;
+    v44 = v26 - v11 + v41;
+    *(v38 + 16) = v41 - 1;
+    *(v38 + 24) = v44 - 1;
+    v43[v26] = v38;
+    if (v41 < v11 && v44 < v9)
     {
-      v92 = v35;
-      v47 = v89 + 24 * (v42 + v38);
-      v48 = v91 + 24 * v42;
+      v91 = v34;
+      v46 = v88 + 24 * (v41 + v37);
+      v47 = v90 + 24 * v41;
       do
       {
-        v49 = *(v48 + 16) + *(v47 + 16);
-        v50 = (*(*(*a6 + 192) + 4 * (v49 >> 3)) >> (4 * (v49 & 7))) & 0xF;
-        if (!v50)
+        v48 = *(v47 + 16) + *(v46 + 16);
+        v49 = (*(*(*a6 + 192) + 4 * (v48 >> 3)) >> (4 * (v48 & 7))) & 0xF;
+        if (!v49)
         {
-          v50 = RB::DisplayList::EditAdaptor::make_matrix_value(*a6, a6[1], v48, v47);
+          v49 = RB::DisplayList::EditAdaptor::make_matrix_value(*a6, a6[1], v47, v46);
         }
 
-        if (v50 == 1)
-        {
-          break;
-        }
-
-        if (++v42 >= v11)
+        if (v49 == 1)
         {
           break;
         }
 
+        if (++v41 >= v11)
+        {
+          break;
+        }
+
+        v46 += 24;
         v47 += 24;
-        v48 += 24;
       }
 
-      while (v42 + v38 < v9);
-      v45 = v38 + v42;
-      v32 = v82;
-      v35 = v92;
+      while (v41 + v37 < v9);
+      v44 = v37 + v41;
+      v32 = v81;
+      v34 = v91;
     }
 
-    *&v32[8 * v26] = v42;
-    if (v42 == v11 && v45 == v9)
+    *&v32[8 * v26] = v41;
+    if (v41 == v11 && v44 == v9)
     {
       break;
     }
 
-    v51 = v26 + 2;
-    v52 = v42 == v11;
-    v36 = v93;
-    if (v52)
+    v50 = v26 + 2;
+    v51 = v41 == v11;
+    v35 = v92;
+    if (v51)
     {
-      v36 = v26 + 2;
+      v35 = v26 + 2;
     }
 
-    if (v45 == v9)
+    if (v44 == v9)
     {
-      v35 = v26 - 2;
+      v34 = v26 - 2;
     }
 
-    v38 += 2;
+    v37 += 2;
     v26 += 2;
-    if (v51 > v35)
+    if (v50 > v34)
     {
       goto LABEL_54;
     }
   }
 
-  v53 = *(v90 + v26);
-  if (v53)
+  v52 = *(v89 + v26);
+  if (v52)
   {
-    v54 = 0;
+    v53 = 0;
     do
     {
-      v55 = v53;
-      v53 = *v53;
-      *v55 = v54;
-      v54 = v55;
+      v54 = v52;
+      v52 = *v52;
+      *v54 = v53;
+      v53 = v54;
     }
 
-    while (v53);
+    while (v52);
     while (1)
     {
-      v56 = *(v55 + 2);
-      if (v56 == 1)
+      v55 = *(v54 + 2);
+      if (v55 == 1)
       {
-        v57 = 2;
+        v56 = 2;
       }
 
       else
       {
-        v57 = 3;
+        v56 = 3;
       }
 
-      v58 = v55[v57];
-      if (v56 == 1)
+      v57 = v54[v56];
+      if (v55 == 1)
       {
-        v59 = 2;
+        v58 = 2;
       }
 
       else
       {
-        v59 = 4;
+        v58 = 4;
       }
 
-      if (**&a7[v59] < v58)
+      if (**&a7[v58] < v57)
       {
-        v60 = *(a7 + 3);
-        v61 = *v86;
-        v62 = **v85;
+        v59 = *(a7 + 3);
+        v60 = *v85;
+        v61 = **v84;
         do
         {
-          RB::DisplayList::EditAdaptor::mix_elements(v60, *(a7 + 4), *a7, **(a7 + 5) + 24 * *v61, **(a7 + 6) + 24 * v62, **(a7 + 7), **(a7 + 8));
+          RB::DisplayList::EditAdaptor::mix_elements(v59, *(a7 + 4), *a7, **(a7 + 5) + 24 * *v60, **(a7 + 6) + 24 * v61, **(a7 + 7), **(a7 + 8));
           **(a7 + 9) = 1;
-          v61 = *(a7 + 1);
-          v63 = *(a7 + 2);
-          ++*v61;
-          v62 = *v63 + 1;
-          *v63 = v62;
+          v60 = *(a7 + 1);
+          v62 = *(a7 + 2);
+          ++*v60;
+          v61 = *v62 + 1;
+          *v62 = v61;
         }
 
-        while (**&a7[v59] < v58);
+        while (**&a7[v58] < v57);
       }
 
-      if (v56 == 1)
+      if (v55 == 1)
       {
-        v64 = v86;
-        LOBYTE(v27) = v87;
-        v65 = *v86;
-        v66 = **v86;
-        v67 = v80;
-        v68 = *v80;
-        v69 = **v80;
-        if (v66 != v69)
+        v63 = v85;
+        LOBYTE(v27) = v86;
+        v64 = *v85;
+        v65 = **v85;
+        v66 = v79;
+        v67 = *v79;
+        v68 = **v79;
+        if (v65 != v68)
         {
-          v70 = 10;
+          v69 = 10;
 LABEL_104:
-          v71 = **&a7[v70];
-          v72 = (v71 + 24 * v66);
-          v73 = v71 + 24 * v69;
-          v74 = *v72;
-          *(v73 + 16) = *(v72 + 2);
-          *v73 = v74;
-          v65 = *v64;
-          v66 = **v64;
-          v68 = *v67;
+          v70 = **&a7[v69];
+          v71 = (v70 + 24 * v65);
+          v72 = v70 + 24 * v68;
+          v73 = *v71;
+          *(v72 + 16) = *(v71 + 2);
+          *v72 = v73;
+          v64 = *v63;
+          v65 = **v63;
+          v67 = *v66;
         }
       }
 
       else
       {
-        v64 = v85;
-        v65 = *v85;
-        v66 = **v85;
-        v67 = v81;
-        v68 = *v81;
-        v69 = **v81;
-        LOBYTE(v27) = v87;
-        if (v66 != v69)
+        v63 = v84;
+        v64 = *v84;
+        v65 = **v84;
+        v66 = v80;
+        v67 = *v80;
+        v68 = **v80;
+        LOBYTE(v27) = v86;
+        if (v65 != v68)
         {
-          v70 = 12;
+          v69 = 12;
           goto LABEL_104;
         }
       }
 
-      *v65 = v66 + 1;
-      ++*v68;
-      v55 = *v55;
-      if (!v55)
+      *v64 = v65 + 1;
+      ++*v67;
+      v54 = *v54;
+      if (!v54)
       {
-        v32 = v82;
+        v32 = v81;
         goto LABEL_108;
       }
     }
   }
 
-  LOBYTE(v27) = v87;
+  LOBYTE(v27) = v86;
 LABEL_108:
-  RB::Heap::~Heap(v94);
-  if (v75 > 0x1000)
+  RB::Heap::~Heap(v93);
+  if (v74 > 0x1000)
   {
     goto LABEL_111;
   }
@@ -3951,7 +3951,7 @@ uint64_t RB::DisplayList::Item::may_mix(RB::DisplayList::Item *this, RB::Display
   return result;
 }
 
-RB::DisplayList::Item *RB::DisplayList::ColorFilterStyle<RB::ColorStyle::ColorMultiply>::draw(uint64_t a1, RB::DisplayList::Builder *a2, RB::DisplayList::Layer *a3, RB::DisplayList::Item *a4, char a5)
+RB::DisplayList::Builder *RB::DisplayList::ColorFilterStyle<RB::ColorStyle::ColorMultiply>::draw(uint64_t a1, RB::DisplayList::Builder *a2, RB::DisplayList::Layer *a3, const RB::DisplayList::ClipNode **a4, char a5)
 {
   result = RB::ColorStyle::ColorMultiply::test(a1 + 56, 0, *(a1 + 72));
   if ((result & 1) == 0)
@@ -3980,7 +3980,7 @@ RB::DisplayList::Item *RB::DisplayList::ColorFilterStyle<RB::ColorStyle::ColorMu
 
   if (a4)
   {
-    *(a4 + 2) = *(a1 + 32);
+    a4[2] = *(a1 + 32);
 
     return RB::DisplayList::Builder::draw(a2, a4, a3, a5);
   }
@@ -4739,7 +4739,7 @@ uint64_t RB::DisplayList::Layer::can_mix(uint64_t a1, unint64_t a2, uint64_t a3,
     v15 = 0;
     v19[0] = v12;
     v19[1] = 0;
-    std::__hash_table<std::__hash_value_type<std::pair<unsigned int,unsigned int>,std::unique_ptr<RB::DisplayList::Interpolator::Layer>>,std::__unordered_map_hasher<std::pair<unsigned int,unsigned int>,std::__hash_value_type<std::pair<unsigned int,unsigned int>,std::unique_ptr<RB::DisplayList::Interpolator::Layer>>,RB::pair_hash<unsigned int,unsigned int>,std::equal_to<std::pair<unsigned int,unsigned int>>,true>,std::__unordered_map_equal<std::pair<unsigned int,unsigned int>,std::__hash_value_type<std::pair<unsigned int,unsigned int>,std::unique_ptr<RB::DisplayList::Interpolator::Layer>>,std::equal_to<std::pair<unsigned int,unsigned int>>,RB::pair_hash<unsigned int,unsigned int>,true>,std::allocator<std::__hash_value_type<std::pair<unsigned int,unsigned int>,std::unique_ptr<RB::DisplayList::Interpolator::Layer>>>>::__emplace_unique_key_args<std::pair<unsigned int,unsigned int>,std::pair<std::pair<unsigned int,unsigned int>,RB::DisplayList::Interpolator::Layer*>>((a2 + 40), v19);
+    std::__hash_table<std::__hash_value_type<std::pair<unsigned int,unsigned int>,std::unique_ptr<RB::DisplayList::Interpolator::Layer>>,std::__unordered_map_hasher<std::pair<unsigned int,unsigned int>,std::__hash_value_type<std::pair<unsigned int,unsigned int>,std::unique_ptr<RB::DisplayList::Interpolator::Layer>>,RB::pair_hash<unsigned int,unsigned int>,std::equal_to<std::pair<unsigned int,unsigned int>>,true>,std::__unordered_map_equal<std::pair<unsigned int,unsigned int>,std::__hash_value_type<std::pair<unsigned int,unsigned int>,std::unique_ptr<RB::DisplayList::Interpolator::Layer>>,std::equal_to<std::pair<unsigned int,unsigned int>>,RB::pair_hash<unsigned int,unsigned int>,true>,std::allocator<std::__hash_value_type<std::pair<unsigned int,unsigned int>,std::unique_ptr<RB::DisplayList::Interpolator::Layer>>>>::__emplace_unique_key_args<std::pair<unsigned int,unsigned int>,std::pair<std::pair<unsigned int,unsigned int>,RB::DisplayList::Interpolator::Layer*>>((a2 + 40), v19, v19);
     if (v25)
     {
       free(v25);
@@ -4814,10 +4814,10 @@ LABEL_36:
   return v6;
 }
 
-void sub_195D4A0A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_195D4A0A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
-  MEMORY[0x19A8C09E0](v4, 0x1020C40C2C913D3);
+  va_start(va, a7);
+  MEMORY[0x19A8C09E0](v7, 0x1020C40C2C913D3, a3, a4);
   RB::DisplayList::Interpolator::Layer::~Layer(va);
   _Unwind_Resume(a1);
 }
@@ -4994,9 +4994,9 @@ const RB::Transition *RB::DisplayList::Interpolator::Layer::item_transition(RB::
   return a2;
 }
 
-unint64_t *RB::DisplayList::GenericItem1<RB::Coverage::Glyphs,RB::Fill::Color>::prepare_mix(float64x2_t **a1, RB::DisplayList::Interpolator::Contents *a2, const RB::DisplayList::Interpolator::Op *a3, float64x2_t **a4)
+unint64_t *RB::DisplayList::GenericItem1<RB::Coverage::Glyphs,RB::Fill::Color>::prepare_mix(RB **a1, RB::DisplayList::Interpolator::Contents *a2, const RB::DisplayList::Interpolator::Op *a3, const RB::AffineTransform **a4)
 {
-  result = (*&(*a4)[1].f64[0])(a4);
+  result = (*(*a4 + 2))(a4);
   if (result == 4214785)
   {
     result = RB::DisplayList::Item::may_mix(a1, a2, a4, v9);
@@ -5550,7 +5550,7 @@ uint64_t RB::DisplayList::EditAdaptor::mix_elements(uint64_t result, uint64_t a2
     *(v21 + 6) = a6;
     *(v21 + 7) = a7;
     animation = RB::DisplayList::find_animation(*a4, *a5, a3);
-    RB::DisplayList::EditAdaptor::set_animation(animation, a2, v21, a5, animation, 0);
+    RB::DisplayList::EditAdaptor::set_animation(animation, a2, v21, a5, animation, v24, 0);
     *(a2 + 192) |= 1 << (*v21 & 0xF);
 
     return RB::DisplayList::Interpolator::Layer::merge_tail(a2);
@@ -5745,7 +5745,7 @@ LABEL_42:
     v59 = xmmword_195E42770;
     v60 = v41;
     RB::DisplayList::CachedTransform::CachedTransform(v61, a2, &v58, 0, 0);
-    (*(*v25 + 32))(v25, v61, 0);
+    (*(*v25 + 4))(v25, v61, 0);
     RB::UntypedTable::~UntypedTable(v64);
     RB::UntypedTable::~UntypedTable(&v63);
     RB::Heap::~Heap((v61 + 8));
@@ -5769,14 +5769,14 @@ LABEL_42:
   }
 
   *(v25 + 23) = *(v25 + 23) & 0xFFC0 | *(this + 44) & 0x3F;
-  *(v25 + 4) = v17;
+  v25[4] = v17;
   *(v25 + 10) = v18;
   if (!v19)
   {
-    v48 = *(v25 + 3);
-    *(v25 + 2) = *(this + 4);
+    v48 = v25[3];
+    v25[2] = *(this + 4);
     v44 = 0;
-    *(v25 + 3) = RB::DisplayList::Builder::join_clip_lists(a2, v48, *(this + 3));
+    v25[3] = RB::DisplayList::Builder::join_clip_lists(a2, v48, *(this + 3));
     goto LABEL_53;
   }
 
@@ -5844,104 +5844,104 @@ LABEL_56:
   }
 }
 
-void sub_195D4B648(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_195D4B648(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   RB::DisplayList::CachedTransform::~CachedTransform(va);
   _Unwind_Resume(a1);
 }
 
-void RB::DisplayList::EditAdaptor::set_animation(int a1, uint64_t *a2, uint64_t *a3, void *a4, RB::Animation *a5, uint64_t a6)
+void RB::DisplayList::EditAdaptor::set_animation(int a1, uint64_t *a2, uint64_t *a3, void *a4, RB::Animation *a5, __n128 a6, uint64_t a7)
 {
-  v8 = *a3 & 0xF;
-  v9 = v8 > 8;
-  v10 = (1 << v8) & 0x130;
-  v11 = v9 || v10 == 0;
-  if (v11)
+  v9 = *a3 & 0xF;
+  v10 = v9 > 8;
+  v11 = (1 << v9) & 0x130;
+  v12 = v10 || v11 == 0;
+  if (v12)
   {
-    if (a6)
+    if (a7)
     {
-      if (*(a6 + 88))
+      if (*(a7 + 88))
       {
-        v13 = (a6 + 56);
+        v14 = (a7 + 56);
       }
 
       else
       {
-        v13 = 0;
+        v14 = 0;
       }
     }
 
     else
     {
-      v13 = 0;
+      v14 = 0;
     }
 
-    v14 = *a2;
-    if (a5 | v13)
+    v15 = *a2;
+    if (a5 | v14)
     {
-      v15 = RB::DisplayList::Interpolator::Contents::intern_animation(v14, a5, v13);
-      v14 = *a2;
+      v16 = RB::DisplayList::Interpolator::Contents::intern_animation(v15, a5, v14);
+      v15 = *a2;
     }
 
     else
     {
-      v15 = *(v14 + 16);
+      v16 = *(v15 + 16);
     }
 
-    *(a3 + 8) = v15;
-    v16 = *(v14 + 24);
-    if (v16)
+    *(a3 + 8) = v16;
+    v17 = *(v15 + 24);
+    if (v17)
     {
-      v17 = *a3;
-      v18 = *a3 & 0xF;
-      if (v16->i8[4])
+      v18 = *a3;
+      v19 = *a3 & 0xF;
+      if (v17->i8[4])
       {
-        v11 = v18 == 0;
-        v23 = 20;
-        if (v11)
+        v12 = v19 == 0;
+        v24 = 20;
+        if (v12)
         {
-          v23 = 12;
+          v24 = 12;
         }
 
-        *&v24 = (*(**a4 + 64))(*a4, *(a3 + v23), v17 >> 36);
-        v22 = vmla_f32(v24, 0x3F0000003F000000, v25);
-        v17 = *a3;
+        *&v25 = (*(**a4 + 64))(*a4, *(a3 + v24), v18 >> 36);
+        v23 = vmla_f32(v25, 0x3F0000003F000000, v26);
+        v18 = *a3;
       }
 
       else
       {
-        v19 = a2 + 25;
-        v11 = v18 == 0;
-        v20 = 28;
-        if (v11)
+        v20 = a2 + 25;
+        v12 = v19 == 0;
+        v21 = 28;
+        if (v12)
         {
-          v20 = 24;
+          v21 = 24;
         }
 
-        v21 = *(a3 + v20);
+        v22 = *(a3 + v21);
         if (a2[29])
         {
-          v19 = a2[29];
+          v20 = a2[29];
         }
 
-        v22 = vmla_f32(v19[2 * v21], 0x3F0000003F000000, v19[2 * v21 + 1]);
+        v23 = vmla_f32(v20[2 * v22], 0x3F0000003F000000, v20[2 * v22 + 1]);
       }
 
-      if ((v17 & 0xF) != 0)
+      if ((v18 & 0xF) != 0)
       {
-        v26 = (v17 & 0xF) != 1;
+        v27 = (v18 & 0xF) != 1;
       }
 
       else
       {
-        v26 = 2;
+        v27 = 2;
       }
 
-      v27 = RB::AnimationSequencer::eval_delay(v16, v26, *&v22);
-      if (v27 > 0.0)
+      v28 = RB::AnimationSequencer::eval_delay(v17, v27, *&v23);
+      if (v28 > 0.0)
       {
-        *(a3 + 9) = *(a3 + 9) + v27;
+        *(a3 + 9) = *(a3 + 9) + v28;
         *(a2 + 251) = 1;
       }
     }
@@ -5994,7 +5994,7 @@ __n128 RB::DisplayList::GenericItem<RB::Coverage::Primitive,RB::Fill::Color>::co
       v26[0] = *v17;
       v26[1] = v18;
       v26[2] = v19;
-      v20.f64[0] = RB::operator*(v13, v26);
+      *v20.i64 = RB::operator*(v13, v26);
       v31 = v20;
       v32 = v21;
       v33 = v22;
@@ -6044,27 +6044,27 @@ uint64_t RB::DisplayList::Interpolator::Layer::merge_tail(uint64_t this)
   return this;
 }
 
-double std::__stable_sort<std::_ClassicAlgPolicy,RB::DisplayList::EditAdaptor::finalize(RB::DisplayList::Interpolator::Layer &)::$_1 &,RB::DisplayList::Interpolator::Op *>(__int128 *a1, __int128 *a2, unint64_t a3, uint64_t *a4, uint64_t a5, __n128 a6)
+double std::__stable_sort<std::_ClassicAlgPolicy,RB::DisplayList::EditAdaptor::finalize(RB::DisplayList::Interpolator::Layer &)::$_1 &,RB::DisplayList::Interpolator::Op *>(uint64_t result, char *a2, unint64_t a3, __int128 *a4, int64_t a5, __n128 a6)
 {
   if (a3 < 2)
   {
     return a6.n128_f64[0];
   }
 
-  v7 = a1;
+  v7 = result;
   if (a3 == 2)
   {
-    v8 = (a2 - 40);
+    v8 = a2 - 40;
     v9 = *(a2 - 5);
-    v10 = *a1;
-    if (v9 >> 4 == *a1 >> 4)
+    v10 = *result;
+    if (v9 >> 4 == *result >> 4)
     {
-      v11 = *a1 & 0xFLL;
+      v11 = *result & 0xFLL;
       v12 = (v9 & 0xF) == 0 || v11 == 0;
-      if (v12 || (v66 = *(a2 - 6), v67 = *(a1 + 4), v56 = v66 >= v67, v66 == v67) && (v68 = *(a2 - 5), v69 = *(a1 + 5), v56 = v68 >= v69, v68 == v69))
+      if (v12 || (v66 = *(a2 - 6), v67 = *(result + 16), v56 = v66 >= v67, v66 == v67) && (v68 = *(a2 - 5), v69 = *(result + 20), v56 = v68 >= v69, v68 == v69))
       {
         v13 = v9 & 0xF;
-        if (v13 == 1 || v13 == 8 || (v14 = v10 & 0xF, v14 == 1) || v14 == 8 || (v97 = *(a2 - 8), v98 = *(a1 + 2), v56 = v97 >= v98, v97 == v98) && (v99 = *(a2 - 7), v100 = *(a1 + 3), v56 = v99 >= v100, v99 == v100))
+        if (v13 == 1 || v13 == 8 || (v14 = v10 & 0xF, v14 == 1) || v14 == 8 || (v97 = *(a2 - 8), v98 = *(result + 8), v56 = v97 >= v98, v97 == v98) && (v99 = *(a2 - 7), v100 = *(result + 12), v56 = v99 >= v100, v99 == v100))
         {
           if ((*(a2 - 5) & 0xFLL) == 0 || v11)
           {
@@ -6072,14 +6072,14 @@ double std::__stable_sort<std::_ClassicAlgPolicy,RB::DisplayList::EditAdaptor::f
           }
 
 LABEL_80:
-          a6 = *a1;
-          v57 = a1[1];
-          v58 = *(a1 + 4);
+          a6 = *result;
+          v57 = *(result + 16);
+          v58 = *(result + 32);
           v59 = *(a2 - 1);
           v60 = *(a2 - 24);
-          *a1 = *v8;
-          a1[1] = v60;
-          *(a1 + 4) = v59;
+          *result = *v8;
+          *(result + 16) = v60;
+          *(result + 32) = v59;
           *(a2 - 1) = v58;
           *v8 = a6;
           *(a2 - 24) = v57;
@@ -6105,21 +6105,21 @@ LABEL_80:
   {
     v62 = a4;
     v63 = a3 >> 1;
-    v64 = a1 + 5 * (a3 >> 1);
+    v64 = (result + 40 * (a3 >> 1));
     v65 = a3 >> 1;
     if (a3 > a5)
     {
-      std::__stable_sort<std::_ClassicAlgPolicy,RB::DisplayList::EditAdaptor::finalize(RB::DisplayList::Interpolator::Layer &)::$_1 &,RB::DisplayList::Interpolator::Op *>(a1, v64, v65, a4, a5);
+      std::__stable_sort<std::_ClassicAlgPolicy,RB::DisplayList::EditAdaptor::finalize(RB::DisplayList::Interpolator::Layer &)::$_1 &,RB::DisplayList::Interpolator::Op *>(result, v64, v65, a4, a5);
       std::__stable_sort<std::_ClassicAlgPolicy,RB::DisplayList::EditAdaptor::finalize(RB::DisplayList::Interpolator::Layer &)::$_1 &,RB::DisplayList::Interpolator::Op *>(v7 + 40 * (a3 >> 1), a2, a3 - (a3 >> 1), v62, a5);
 
       a6.n128_u64[0] = std::__inplace_merge<std::_ClassicAlgPolicy,RB::DisplayList::EditAdaptor::finalize(RB::DisplayList::Interpolator::Layer &)::$_1 &,RB::DisplayList::Interpolator::Op *>(v7, (v7 + 40 * (a3 >> 1)), a2, a3 >> 1, a3 - (a3 >> 1), v62, a5).n128_u64[0];
       return a6.n128_f64[0];
     }
 
-    v70 = std::__stable_sort_move<std::_ClassicAlgPolicy,RB::DisplayList::EditAdaptor::finalize(RB::DisplayList::Interpolator::Layer &)::$_1 &,RB::DisplayList::Interpolator::Op *>(a1, v64, v65, a4, a6);
-    v71 = (v62 + 40 * v63);
-    a6.n128_u64[0] = std::__stable_sort_move<std::_ClassicAlgPolicy,RB::DisplayList::EditAdaptor::finalize(RB::DisplayList::Interpolator::Layer &)::$_1 &,RB::DisplayList::Interpolator::Op *>(v7 + 5 * (a3 >> 1), a2, a3 - (a3 >> 1), v71, v70).n128_u64[0];
-    v72 = v62 + 40 * a3;
+    v70 = std::__stable_sort_move<std::_ClassicAlgPolicy,RB::DisplayList::EditAdaptor::finalize(RB::DisplayList::Interpolator::Layer &)::$_1 &,RB::DisplayList::Interpolator::Op *>(result, v64, v65, a4, a6);
+    v71 = v62 + 5 * v63;
+    a6.n128_u64[0] = std::__stable_sort_move<std::_ClassicAlgPolicy,RB::DisplayList::EditAdaptor::finalize(RB::DisplayList::Interpolator::Layer &)::$_1 &,RB::DisplayList::Interpolator::Op *>((v7 + 40 * (a3 >> 1)), a2, a3 - (a3 >> 1), v71, v70).n128_u64[0];
+    v72 = v62 + 5 * a3;
     v73 = v71;
     while (1)
     {
@@ -6128,12 +6128,12 @@ LABEL_80:
         while (v62 != v71)
         {
           a6 = *v62;
-          v95 = *(v62 + 16);
-          *(v7 + 4) = *(v62 + 32);
+          v95 = v62[1];
+          *(v7 + 32) = *(v62 + 4);
           *v7 = a6;
-          v7[1] = v95;
-          v62 += 40;
-          v7 = (v7 + 40);
+          *(v7 + 16) = v95;
+          v62 = (v62 + 40);
+          v7 += 40;
         }
 
         return a6.n128_f64[0];
@@ -6151,7 +6151,7 @@ LABEL_80:
       if ((v74 & 0xF) != 0 && v77 != 0)
       {
         v87 = *(v73 + 4);
-        v88 = *(v62 + 16);
+        v88 = *(v62 + 4);
         v85 = v87 >= v88;
         if (v87 != v88)
         {
@@ -6159,7 +6159,7 @@ LABEL_80:
         }
 
         v89 = *(v73 + 5);
-        v90 = *(v62 + 20);
+        v90 = *(v62 + 5);
         v85 = v89 >= v90;
         if (v89 != v90)
         {
@@ -6174,7 +6174,7 @@ LABEL_80:
       if (!v82 && v81 != 8)
       {
         v91 = *(v73 + 2);
-        v92 = *(v62 + 8);
+        v92 = *(v62 + 2);
         v85 = v91 >= v92;
         if (v91 != v92)
         {
@@ -6182,7 +6182,7 @@ LABEL_80:
         }
 
         v93 = *(v73 + 3);
-        v94 = *(v62 + 12);
+        v94 = *(v62 + 3);
         v85 = v93 >= v94;
         if (v93 != v94)
         {
@@ -6194,34 +6194,34 @@ LABEL_80:
       {
 LABEL_113:
         a6 = *v62;
-        v86 = *(v62 + 16);
-        *(v7 + 4) = *(v62 + 32);
+        v86 = v62[1];
+        *(v7 + 32) = *(v62 + 4);
         *v7 = a6;
-        v7[1] = v86;
-        v62 += 40;
+        *(v7 + 16) = v86;
+        v62 = (v62 + 40);
         goto LABEL_114;
       }
 
 LABEL_109:
       a6 = *v73;
       v84 = *(v73 + 1);
-      *(v7 + 4) = v73[4];
+      *(v7 + 32) = v73[4];
       *v7 = a6;
-      v7[1] = v84;
+      *(v7 + 16) = v84;
       v73 += 5;
 LABEL_114:
-      v7 = (v7 + 40);
+      v7 += 40;
       if (v62 == v71)
       {
         while (v73 != v72)
         {
           a6 = *v73;
           v96 = *(v73 + 1);
-          *(v7 + 4) = v73[4];
+          *(v7 + 32) = v73[4];
           *v7 = a6;
-          v7[1] = v96;
+          *(v7 + 16) = v96;
           v73 += 5;
-          v7 = (v7 + 40);
+          v7 += 40;
         }
 
         return a6.n128_f64[0];
@@ -6238,37 +6238,37 @@ LABEL_111:
     goto LABEL_109;
   }
 
-  if (a1 == a2)
+  if (result == a2)
   {
     return a6.n128_f64[0];
   }
 
-  v16 = a1 + 5;
-  if ((a1 + 40) == a2)
+  v16 = result + 40;
+  if ((result + 40) == a2)
   {
     return a6.n128_f64[0];
   }
 
   v17 = 0;
-  v18 = a1;
+  v18 = result;
   do
   {
     v19 = v18;
     v18 = v16;
-    v20 = v19[5];
+    v20 = *(v19 + 40);
     v21 = v20 >> 4;
     v22 = *v19;
     if (v20 >> 4 == *v19 >> 4)
     {
-      v23 = *v19 & 0xF;
+      v23 = *v19 & 0xFLL;
       v24 = (v20 & 0xF) == 0 || v23 == 0;
-      if (v24 || (v48 = *(v19 + 14), v49 = *(v19 + 4), v29 = v48 >= v49, v48 == v49) && (v50 = *(v19 + 15), v51 = *(v19 + 5), v29 = v50 >= v51, v50 == v51))
+      if (v24 || (v48 = *(v19 + 56), v49 = *(v19 + 16), v29 = v48 >= v49, v48 == v49) && (v50 = *(v19 + 60), v51 = *(v19 + 20), v29 = v50 >= v51, v50 == v51))
       {
         v25 = (v20 & 0xF) == 1 || (v20 & 0xF) == 8;
         v26 = v22 & 0xF;
         v27 = v25 || v26 == 1;
         v28 = v27 || v26 == 8;
-        if (v28 || (v52 = *(v19 + 12), v53 = *(v19 + 2), v29 = v52 >= v53, v52 == v53) && (v54 = *(v19 + 13), v55 = *(v19 + 3), v29 = v54 >= v55, v54 == v55))
+        if (v28 || (v52 = *(v19 + 48), v53 = *(v19 + 8), v29 = v52 >= v53, v52 == v53) && (v54 = *(v19 + 52), v55 = *(v19 + 12), v29 = v54 >= v55, v54 == v55))
         {
           if ((v20 & 0xF) == 0 || v23)
           {
@@ -6291,15 +6291,15 @@ LABEL_111:
     }
 
 LABEL_43:
-    v30 = *(v19 + 12);
-    v31 = *(v19 + 13);
-    v32 = *(v19 + 14);
-    v33 = *(v19 + 15);
-    v102 = *(v19 + 4);
-    v18[4] = v19[4];
-    v34 = *(v19 + 1);
+    v30 = *(v19 + 48);
+    v31 = *(v19 + 52);
+    v32 = *(v19 + 56);
+    v33 = *(v19 + 60);
+    v102 = *(v19 + 64);
+    *(v18 + 32) = *(v19 + 32);
+    v34 = *(v19 + 16);
     *v18 = *v19;
-    *(v18 + 1) = v34;
+    *(v18 + 16) = v34;
     v35 = v7;
     if (v19 == v7)
     {
@@ -6367,12 +6367,12 @@ LABEL_61:
 
       if (v31 >= v47)
       {
-        v35 = (v7 + v37);
+        v35 = v7 + v37;
         goto LABEL_72;
       }
 
 LABEL_62:
-      v19 -= 5;
+      v19 -= 40;
       v45 = *(v7 + v37 - 24);
       *v38 = *(v7 + v37 - 40);
       *(v38 + 16) = v45;
@@ -6394,18 +6394,18 @@ LABEL_71:
     v35 = v19;
 LABEL_72:
     *v35 = v20;
-    *(v35 + 2) = v30;
-    *(v35 + 3) = v31;
-    *(v35 + 4) = v32;
-    *(v35 + 5) = v33;
+    *(v35 + 8) = v30;
+    *(v35 + 12) = v31;
+    *(v35 + 16) = v32;
+    *(v35 + 20) = v33;
     a6.n128_u64[0] = v102;
-    *(v35 + 3) = v102;
+    *(v35 + 24) = v102;
 LABEL_73:
-    v16 = v18 + 5;
+    v16 = v18 + 40;
     v17 += 40;
   }
 
-  while (v18 + 5 != a2);
+  while ((v18 + 40) != a2);
   return a6.n128_f64[0];
 }
 
@@ -6816,35 +6816,35 @@ void sub_195D4C758(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<std::pair<unsigned int,unsigned int>,std::unique_ptr<RB::DisplayList::Interpolator::Layer>>,std::__unordered_map_hasher<std::pair<unsigned int,unsigned int>,std::__hash_value_type<std::pair<unsigned int,unsigned int>,std::unique_ptr<RB::DisplayList::Interpolator::Layer>>,RB::pair_hash<unsigned int,unsigned int>,std::equal_to<std::pair<unsigned int,unsigned int>>,true>,std::__unordered_map_equal<std::pair<unsigned int,unsigned int>,std::__hash_value_type<std::pair<unsigned int,unsigned int>,std::unique_ptr<RB::DisplayList::Interpolator::Layer>>,std::equal_to<std::pair<unsigned int,unsigned int>>,RB::pair_hash<unsigned int,unsigned int>,true>,std::allocator<std::__hash_value_type<std::pair<unsigned int,unsigned int>,std::unique_ptr<RB::DisplayList::Interpolator::Layer>>>>::__emplace_unique_key_args<std::pair<unsigned int,unsigned int>,std::pair<std::pair<unsigned int,unsigned int>,RB::DisplayList::Interpolator::Layer*>>(void *a1, unsigned int *a2)
+uint64_t *std::__hash_table<std::__hash_value_type<std::pair<unsigned int,unsigned int>,std::unique_ptr<RB::DisplayList::Interpolator::Layer>>,std::__unordered_map_hasher<std::pair<unsigned int,unsigned int>,std::__hash_value_type<std::pair<unsigned int,unsigned int>,std::unique_ptr<RB::DisplayList::Interpolator::Layer>>,RB::pair_hash<unsigned int,unsigned int>,std::equal_to<std::pair<unsigned int,unsigned int>>,true>,std::__unordered_map_equal<std::pair<unsigned int,unsigned int>,std::__hash_value_type<std::pair<unsigned int,unsigned int>,std::unique_ptr<RB::DisplayList::Interpolator::Layer>>,std::equal_to<std::pair<unsigned int,unsigned int>>,RB::pair_hash<unsigned int,unsigned int>,true>,std::allocator<std::__hash_value_type<std::pair<unsigned int,unsigned int>,std::unique_ptr<RB::DisplayList::Interpolator::Layer>>>>::__emplace_unique_key_args<std::pair<unsigned int,unsigned int>,std::pair<std::pair<unsigned int,unsigned int>,RB::DisplayList::Interpolator::Layer*>>(float *a1, unsigned int *a2, void *a3)
 {
-  v2 = *a2;
-  v3 = a2[1];
-  v4 = 33 * v2 + v3;
-  v5 = a1[1];
-  if (!*&v5)
+  v3 = *a2;
+  v4 = a2[1];
+  v5 = 33 * v3 + v4;
+  v6 = *(a1 + 2);
+  if (!*&v6)
   {
     goto LABEL_22;
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
+  v7 = vcnt_s8(v6);
+  v7.i16[0] = vaddlv_u8(v7);
+  if (v7.u32[0] > 1uLL)
   {
-    v7 = 33 * v2 + v3;
-    if (v4 >= *&v5)
+    v8 = 33 * v3 + v4;
+    if (v5 >= *&v6)
     {
-      v7 = v4 % *&v5;
+      v8 = v5 % *&v6;
     }
   }
 
   else
   {
-    v7 = (*&v5 - 1) & v4;
+    v8 = (*&v6 - 1) & v5;
   }
 
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v9 = *(*a1 + 8 * v8);
+  if (!v9 || (v10 = *v9) == 0)
   {
 LABEL_22:
     operator new();
@@ -6852,44 +6852,44 @@ LABEL_22:
 
   while (1)
   {
-    v10 = v9[1];
-    if (v10 == v4)
+    v11 = v10[1];
+    if (v11 == v5)
     {
       break;
     }
 
-    if (v6.u32[0] > 1uLL)
+    if (v7.u32[0] > 1uLL)
     {
-      if (v10 >= *&v5)
+      if (v11 >= *&v6)
       {
-        v10 %= *&v5;
+        v11 %= *&v6;
       }
     }
 
     else
     {
-      v10 &= *&v5 - 1;
+      v11 &= *&v6 - 1;
     }
 
-    if (v10 != v7)
+    if (v11 != v8)
     {
       goto LABEL_22;
     }
 
 LABEL_21:
-    v9 = *v9;
-    if (!v9)
+    v10 = *v10;
+    if (!v10)
     {
       goto LABEL_22;
     }
   }
 
-  if (*(v9 + 4) != v2 || *(v9 + 5) != v3)
+  if (*(v10 + 4) != v3 || *(v10 + 5) != v4)
   {
     goto LABEL_21;
   }
 
-  return v9;
+  return v10;
 }
 
 __int128 *RB::vector<RB::Rect,2ul,unsigned int>::swap_inline(__int128 *result, __int128 *a2)
@@ -7014,7 +7014,7 @@ __int128 *RB::vector<RB::DisplayList::Interpolator::Op,4ul,unsigned int>::swap_i
   return result;
 }
 
-void std::__hash_table<std::__hash_value_type<unsigned int,RB::Encoder::FontSet::Font>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,RB::Encoder::FontSet::Font>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,RB::Encoder::FontSet::Font>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,RB::Encoder::FontSet::Font>>>::__rehash<true>(uint64_t a1, size_t __n)
+void std::__hash_table<std::__hash_value_type<unsigned int,RB::Encoder::FontSet::Font>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,RB::Encoder::FontSet::Font>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,RB::Encoder::FontSet::Font>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,RB::Encoder::FontSet::Font>>>::__rehash<true>(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -7030,7 +7030,7 @@ void std::__hash_table<std::__hash_value_type<unsigned int,RB::Encoder::FontSet:
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -7038,7 +7038,7 @@ void std::__hash_table<std::__hash_value_type<unsigned int,RB::Encoder::FontSet:
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -7062,7 +7062,7 @@ void std::__hash_table<std::__hash_value_type<unsigned int,RB::Encoder::FontSet:
     {
 LABEL_6:
 
-      std::__hash_table<std::__hash_value_type<unsigned int,RB::Encoder::FontSet::Font>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,RB::Encoder::FontSet::Font>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,RB::Encoder::FontSet::Font>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,RB::Encoder::FontSet::Font>>>::__do_rehash<true>(a1, prime);
+      std::__hash_table<std::__hash_value_type<unsigned int,RB::Encoder::FontSet::Font>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,RB::Encoder::FontSet::Font>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,RB::Encoder::FontSet::Font>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,RB::Encoder::FontSet::Font>>>::__do_rehash<true>(result, prime);
     }
   }
 }
@@ -7256,39 +7256,39 @@ uint64_t std::pair<std::pair<unsigned int,unsigned int> const,std::unique_ptr<RB
   return a1;
 }
 
-float64x2_t RB::ContextDelegate::get_transform@<Q0>(float64x2_t *a1@<X8>)
+float64x2_t RB::ContextDelegate::get_transform@<Q0>(float64x2_t *a2@<X8>)
 {
   Info = CGContextDelegateGetInfo();
-  v3 = *(Info + 512);
-  v4 = vmulq_n_f64(*(Info + 448), v3);
-  v5 = vmulq_n_f64(*(Info + 464), v3);
-  result = vmulq_n_f64(*(Info + 480), v3);
-  *a1 = v4;
-  a1[1] = v5;
-  a1[2] = result;
+  v4 = *(Info + 512);
+  v5 = vmulq_n_f64(*(Info + 448), v4);
+  v6 = vmulq_n_f64(*(Info + 464), v4);
+  result = vmulq_n_f64(*(Info + 480), v4);
+  *a2 = v5;
+  a2[1] = v6;
+  a2[2] = result;
   return result;
 }
 
-uint64_t RB::ContextDelegate::draw_image_(double a1, double a2, double a3, double a4, uint64_t a5, uint64_t a6, const char *a7, CGImage *a8, float64x2_t *a9, int a10)
+uint64_t RB::ContextDelegate::draw_image_(uint64_t a1, uint64_t a2, const char *a3, CGImage *a4, float64x2_t *a5, int a6, double a7, double a8, double a9, double a10)
 {
   Info = CGContextDelegateGetInfo();
-  RB::ContextDelegate::update(Info, a7, a6, 0);
-  [*(Info + 8) setRect:{a1, a2, a3, a4}];
-  if (a9)
+  RB::ContextDelegate::update(Info, a3, a2, 0);
+  [*(Info + 8) setRect:{a7, a8, a9, a10}];
+  if (a5)
   {
-    Width = CGImageGetWidth(a8);
-    Height = CGImageGetHeight(a8);
+    Width = CGImageGetWidth(a4);
+    Height = CGImageGetHeight(a4);
     v23.f32[0] = Width;
     v23.f32[1] = Height;
-    v24.f32[0] = a1;
-    v25 = a2;
-    v26.f32[0] = a3;
-    v27 = a4;
-    v28 = vcvt_f32_f64(a9[1]);
+    v24.f32[0] = a7;
+    v25 = a8;
+    v26.f32[0] = a9;
+    v27 = a10;
+    v28 = vcvt_f32_f64(a5[1]);
     v24.f32[1] = v25 + v27;
     v26.f32[1] = -v27;
     *&v29 = vdiv_f32(vmul_f32(v23, v26), v28);
-    *&v30 = vsub_f32(v24, vdiv_f32(vmul_f32(v26, vcvt_f32_f64(*a9)), v28));
+    *&v30 = vsub_f32(v24, vdiv_f32(vmul_f32(v26, vcvt_f32_f64(*a5)), v28));
     v60 = v30;
     v61 = v29;
     v31 = *(&v29 + 1);
@@ -7297,12 +7297,12 @@ uint64_t RB::ContextDelegate::draw_image_(double a1, double a2, double a3, doubl
 
   else
   {
-    *&v20 = a1;
+    *&v20 = a7;
     v60 = v20;
-    v33 = a2;
-    *&v21 = a3;
+    v33 = a8;
+    *&v21 = a9;
     v61 = v21;
-    v34 = a4;
+    v34 = a10;
     v32 = v33 + v34;
     v31 = -v34;
   }
@@ -7342,7 +7342,7 @@ uint64_t RB::ContextDelegate::draw_image_(double a1, double a2, double a3, doubl
 
   v45 = v32;
   v46 = v31;
-  if (CGImageIsMask(a8))
+  if (CGImageIsMask(a4))
   {
     FillColor = CGGStateGetFillColor();
     if (CGColorGetPattern(FillColor))
@@ -7358,13 +7358,13 @@ uint64_t RB::ContextDelegate::draw_image_(double a1, double a2, double a3, doubl
       LODWORD(v53) = 1065353216;
       LODWORD(v54) = 1065353216;
       LODWORD(v55) = 1065353216;
-      [v56 setImage:a8 transform:&v64 interpolation:v36 tintColor:0 flags:{v52, v53, v54, v55}];
-      if (a10)
+      [v56 setImage:a4 transform:&v64 interpolation:v36 tintColor:0 flags:{v52, v53, v54, v55}];
+      if (a6)
       {
         [*(Info + 16) setHeadroom:0.0];
       }
 
-      RB::ContextDelegate::mask_color_in_shape(Info, FillColor, a7, a6, v44, v63);
+      RB::ContextDelegate::mask_color_in_shape(Info, FillColor, a3, a2, v44, v63);
       return 0;
     }
 
@@ -7392,8 +7392,8 @@ uint64_t RB::ContextDelegate::draw_image_(double a1, double a2, double a3, doubl
   LODWORD(v48) = v38;
   LODWORD(v49) = v39;
   LODWORD(v50) = v40;
-  [v58 setImage:a8 transform:&v64 interpolation:v36 tintColor:v57 flags:{v47, v48, v49, v50, v60, v61}];
-  if (a10)
+  [v58 setImage:a4 transform:&v64 interpolation:v36 tintColor:v57 flags:{v47, v48, v49, v50, v60, v61}];
+  if (a6)
   {
     [*(Info + 16) setHeadroom:0.0];
   }
@@ -7450,16 +7450,16 @@ uint64_t RB::ContextDelegate::draw_rects(uint64_t a1, uint64_t a2, const char *a
   return 0;
 }
 
-unint64_t *RB::DisplayList::GenericItem1<RB::Coverage::Primitive,RB::Fill::Image<RB::ImageTexture>>::prepare_mix(uint64_t a1, RB::DisplayList::Interpolator::Contents *a2, unint64_t *a3, uint64_t a4)
+unint64_t *RB::DisplayList::GenericItem1<RB::Coverage::Primitive,RB::Fill::Image<RB::ImageTexture>>::prepare_mix(float64x2_t **a1, RB::DisplayList::Interpolator::Contents *a2, unint64_t *a3, float64x2_t **a4)
 {
-  result = (*(*a4 + 16))(a4);
+  result = (*&(*a4)[1].f64[0])(a4);
   if (result == 12587009)
   {
     result = RB::DisplayList::Item::may_mix(a1, a2, a4, v9);
     if (result)
     {
       v11 = result;
-      result = RB::can_mix(*(a1 + 48), *(a4 + 48), v10);
+      result = RB::can_mix(a1[6], a4[6], v10);
       if (result < v11)
       {
         v11 = result;
@@ -7467,15 +7467,15 @@ unint64_t *RB::DisplayList::GenericItem1<RB::Coverage::Primitive,RB::Fill::Image
 
       if (result)
       {
-        result = RB::Coverage::Primitive::can_mix(a1 + 64, a3, a4 + 64);
+        result = RB::Coverage::Primitive::can_mix((a1 + 8), a3, (a4 + 8));
         if (result)
         {
           v12 = result;
-          can_mix = RB::ImageTexture::can_mix((a1 + 112), (a4 + 112));
+          can_mix = RB::ImageTexture::can_mix((a1 + 14), (a4 + 14));
           if (can_mix)
           {
             v14 = can_mix;
-            v15 = RB::Fill::ImageData::can_mix((a1 + 128), (a4 + 128));
+            v15 = RB::Fill::ImageData::can_mix(a1 + 16, a4 + 16);
             if (v15 >= v14)
             {
               v16 = v14;
@@ -7668,7 +7668,7 @@ unint64_t *RB::DisplayList::GenericItem1<RB::Coverage::Primitive,RB::Fill::Color
   return result;
 }
 
-unint64_t _ZN2RB4Heap7emplaceINS_11DisplayList11GenericItemINS_8Coverage9PrimitiveENS_4Fill8GradientEEEJRS0_RKS5_RKS7_RKPKNS_15AffineTransformERKDF16_RKNS_9BlendModeERKNSt3__19nullopt_tEEEEPT_DpOT0_(size_t *a1, RB::Heap *a2, __int128 *a3, uint64_t *a4, uint64_t *a5, __int16 *a6, _WORD *a7)
+size_t _ZN2RB4Heap7emplaceINS_11DisplayList11GenericItemINS_8Coverage9PrimitiveENS_4Fill8GradientEEEJRS0_RKS5_RKS7_RKPKNS_15AffineTransformERKDF16_RKNS_9BlendModeERKNSt3__19nullopt_tEEEEPT_DpOT0_(size_t *a1, RB::Heap *a2, __int128 *a3, uint64_t *a4, uint64_t *a5, __int16 *a6, _WORD *a7)
 {
   v13 = (a1[2] + 15) & 0xFFFFFFFFFFFFFFF0;
   if (v13 + 176 > a1[3])
@@ -7704,7 +7704,7 @@ unint64_t _ZN2RB4Heap7emplaceINS_11DisplayList11GenericItemINS_8Coverage9Primiti
 
 void RB::max_cached_glyph_mask_area()
 {
-  if (__cxa_guard_acquire(&qword_1ED6D5490))
+  if (__cxa_guard_acquire(byte_1ED6D5490))
   {
     v1 = RB::debug_float("RB_MAX_GLYPH_MASK_AREA", v0);
     v2 = *&v1;
@@ -7715,7 +7715,7 @@ void RB::max_cached_glyph_mask_area()
 
     qword_1ED6D5488 = *&v2;
 
-    __cxa_guard_release(&qword_1ED6D5490);
+    __cxa_guard_release(byte_1ED6D5490);
   }
 }
 
@@ -7813,29 +7813,30 @@ void *RB::vector<RBDevice *,8ul,unsigned long>::reserve_slow(void *__dst, size_t
 
 void RB::anonymous namespace::shared_surface_queue()
 {
-  if (__cxa_guard_acquire(&qword_1ED6D5590))
+  if (__cxa_guard_acquire(byte_1ED6D5590))
   {
     v0 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_USER_INTERACTIVE, 0);
     _MergedGlobals_10 = dispatch_queue_create("com.apple.RenderBox.SharedSurface", v0);
 
-    __cxa_guard_release(&qword_1ED6D5590);
+    __cxa_guard_release(byte_1ED6D5590);
   }
 }
 
-void RB::DisplayList::GenericClip<RB::Coverage::Path>::render(uint64_t a1, int a2, RB::RenderPass *a3, double a4, unsigned int a5)
+void RB::DisplayList::GenericClip<RB::Coverage::Path>::render(uint64_t a1, int a2, int32x2_t *a3, double a4, uint64_t a5)
 {
+  v5 = a5;
   v16[5] = *MEMORY[0x1E69E9840];
   v6 = *(a1 + 48);
   v7.i64[0] = SLODWORD(a4);
   v7.i64[1] = SHIDWORD(a4);
-  v8 = *(v6 + 16);
-  v9 = vaddq_f64(*(v6 + 32), vcvtq_f64_s64(v7));
+  v8 = v6[1];
+  v9 = vaddq_f64(v6[2], vcvtq_f64_s64(v7));
   v11[0] = *v6;
   v11[1] = v8;
   v11[2] = v9;
   v10 = *(a1 + 88);
-  RB::Path::ImmediateRenderer::ImmediateRenderer(v12, a3, v11, (a1 + 56));
-  RB::Path::Renderer::render_coverage(v16, a5, v10);
+  RB::Path::ImmediateRenderer::ImmediateRenderer(&v12, a3, v11, (a1 + 56));
+  RB::Path::Renderer::render_coverage(v16, v5, v10);
   if (v15 == 1)
   {
     RB::Path::Accumulator::commit_buffer(&v13);
@@ -7879,18 +7880,18 @@ char *RB::Path::Accumulator::push_back(char *this, double a2, double a3)
 LABEL_8:
         if (!v9)
         {
-          v9 = (v5 + 15);
+          v9 = v5 + 120;
         }
 
         v11 = (*(*&v9[32 * v10 - 32] + 56) + *&v9[32 * v10 - 24] + v7);
         v12 = &v11[1];
         if (v6)
         {
-          if (v5[36] != v6)
+          if (*(v5 + 36) != v6)
           {
 LABEL_18:
             *v12 = a3;
-            ++v5[34];
+            ++*(v5 + 34);
             return this;
           }
 
@@ -7908,7 +7909,7 @@ LABEL_18:
 
         *v12 = a2;
         v12 = &v11[v14];
-        v5[34] += v13;
+        *(v5 + 34) += v13;
         goto LABEL_18;
       }
 
@@ -7916,9 +7917,9 @@ LABEL_18:
     }
 
     this = RB::Path::Accumulator::new_buffer(v5);
-    v6 = v5[34];
-    v9 = v5[31];
-    v10 = v5[32];
+    v6 = *(v5 + 34);
+    v9 = *(v5 + 31);
+    v10 = *(v5 + 32);
     v7 = 8 * v6;
     goto LABEL_8;
   }
@@ -7944,7 +7945,7 @@ uint64_t RB::Path::Flattener::lineto(uint64_t result, float64x2_t a2)
     if ((vpmax_u32(v10, v10).u32[0] & 0x80000000) != 0)
     {
 
-      return RB::Path::Flattener::push_cropped(result, v3, v4);
+      return RB::Path::Flattener::push_cropped(result, v3, *&v4);
     }
 
     else
@@ -7957,11 +7958,11 @@ uint64_t RB::Path::Flattener::lineto(uint64_t result, float64x2_t a2)
   return result;
 }
 
-uint64_t RB::Path::Flattener::push_cropped(uint64_t a1, double a2, float32x2_t a3)
+uint64_t RB::Path::Flattener::push_cropped(uint64_t a1, double a2, double a3)
 {
   if (*(a1 + 88) == 1)
   {
-    v6 = vorr_s8(vcgt_f32(*(a1 + 24), vmaxnm_f32(*(a1 + 96), a3)), vcgt_f32(vminnm_f32(*(a1 + 96), a3), *(a1 + 32)));
+    v6 = vorr_s8(vcgt_f32(*(a1 + 24), vmaxnm_f32(*(a1 + 96), *&a3)), vcgt_f32(vminnm_f32(*(a1 + 96), *&a3), *(a1 + 32)));
     if ((vpmax_u32(v6, v6).u32[0] & 0x80000000) != 0)
     {
       if ((*(**(a1 + 8) + 16))(*(a1 + 8)))
@@ -7971,7 +7972,7 @@ uint64_t RB::Path::Flattener::push_cropped(uint64_t a1, double a2, float32x2_t a
     }
   }
 
-  result = (*(**(a1 + 8) + 24))(*(a1 + 8), a2, *&a3);
+  result = (*(**(a1 + 8) + 24))(*(a1 + 8), a2, a3);
   *(a1 + 88) = 1;
   *(a1 + 96) = a2;
   return result;
@@ -8071,7 +8072,7 @@ void sub_195D4E69C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t RB::anonymous namespace::create_plane_dict(RB::_anonymous_namespace_ *this, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, uint64_t a6, unint64_t *a7)
+void *RB::anonymous namespace::create_plane_dict(RB::_anonymous_namespace_ *this, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, uint64_t a6, unint64_t *a7)
 {
   v17[7] = *MEMORY[0x1E69E9840];
   v12 = *MEMORY[0x1E696CFE8];
@@ -8119,7 +8120,7 @@ uint64_t RB::Path::Mapper::elt_quadto(uint64_t a1, float64x2_t *a2, float64x2_t 
 
   *(v5 + 32) = a4;
   *(v5 + 64) = 0;
-  return (*(**(v5 + 16) + 32))();
+  return (*(**(v5 + 16) + 32))(a3);
 }
 
 uint64_t RB::Path::Mapper::quadto(uint64_t a1, float64x2_t a2, float64x2_t a3)
@@ -8194,7 +8195,7 @@ double RB::Path::quadratic_bounds_slow(int8x16_t a1, float32x2_t a2, float32x2_t
   return *a1.i64;
 }
 
-uint64_t RBPathEqualToPath(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+uint64_t RBPathEqualToPath(void *a1, RBPathCallbacks *a2, void *a3, RBPathCallbacks *a4)
 {
   v6 = a2;
   v7 = a1;
@@ -8206,7 +8207,7 @@ uint64_t RBPathEqualToPath(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
       return 1;
     }
 
-    v10 = *(a2 + 32);
+    v10 = *(a2 + 4);
     if (*(a2 + 2))
     {
       if (v10)
@@ -8228,7 +8229,7 @@ LABEL_25:
     v21.var0 = v7;
     v21.var1 = v6;
     RB::Path::Storage::append_path(&v15, v21);
-    v12 = a4[3];
+    v12 = *(a4 + 3);
     if (*(a4 + 2))
     {
       if (!v12)
@@ -8347,7 +8348,7 @@ BOOL RB::Path::Storage::operator==(uint64_t a1, uint64_t a2)
   return memcmp(v7, v9, v8) == 0;
 }
 
-void *RBPathMix@<X0>(RBPath a1@<0:X0, 8:X1>, RBPath a2@<0:X2, 8:X3>, float a3@<S0>, float64x2_t *this@<X4>, float64x2_t *a5@<X5>, float64x2_t *a6@<X6>, void *a7@<X8>)
+void *RBPathMix@<X0>(RBPath a1@<0:X0, 8:X1>, RBPath a2@<0:X2, 8:X3>, float a3@<S0>, float64x2_t *this@<X4>, float64x2_t *a5@<X5>, float64x2_t *a6@<X6>, uint64_t *a7@<X8>)
 {
   var1 = a1.var1;
   var0 = a1.var0;
@@ -8388,13 +8389,13 @@ void *RBPathMix@<X0>(RBPath a1@<0:X0, 8:X1>, RBPath a2@<0:X2, 8:X3>, float a3@<S
       {
         if (v16)
         {
-          (v16)(var0, v18, RBPathMix(RBPath,RBPath,float,RB::AffineTransform const&,RB::AffineTransform const&,RB::AffineTransform const&)::$_0::__invoke<void *,RBPathElement,double const*,void const*>, var1);
+          v16(var0, v18, RBPathMix(RBPath,RBPath,float,RB::AffineTransform const&,RB::AffineTransform const&,RB::AffineTransform const&)::$_0::__invoke<void *,RBPathElement,double const*,void const*>, var1);
         }
       }
 
       else if (v16)
       {
-        v16(var0, v18, RBPathMix(RBPath,RBPath,float,RB::AffineTransform const&,RB::AffineTransform const&,RB::AffineTransform const&)::$_0::__invoke<void *,RBPathElement,double const*,void const*>);
+        (v16)(var0, v18, RBPathMix(RBPath,RBPath,float,RB::AffineTransform const&,RB::AffineTransform const&,RB::AffineTransform const&)::$_0::__invoke<void *,RBPathElement,double const*,void const*>);
       }
 
       operator new();
@@ -8424,34 +8425,34 @@ uint64_t RBPathCopyInterpolatedPath(RBPath a1, RBPath a2, float a3)
   return v4;
 }
 
-uint64_t _ZN2RB4Heap7emplaceINS_11DisplayList17CustomEffectStyleEJRKNS_12CustomShader7ClosureERPNS2_5LayerERKDv2_fSD_RKNS_4RectERKjEEEPT_DpOT0_(size_t *a1, const RB::CustomShader::Closure *a2, uint64_t *a3, double *a4, double *a5, _OWORD *a6, int *a7)
+uint64_t _ZN2RB4Heap7emplaceINS_11DisplayList17CustomEffectStyleEJRKNS_12CustomShader7ClosureERPNS2_5LayerERKDv2_fSD_RKNS_4RectERKjEEEPT_DpOT0_(size_t *a1, const RB::CustomShader::Closure *a2, uint64_t *a3, double *a4, double *a5, _OWORD *a6, unsigned int *a7, __n128 a8, __n128 a9)
 {
-  v13 = (a1[2] + 7) & 0xFFFFFFFFFFFFFFF8;
-  if (v13 + 272 > a1[3])
+  v15 = (a1[2] + 7) & 0xFFFFFFFFFFFFFFF8;
+  if (v15 + 272 > a1[3])
   {
-    v13 = RB::Heap::alloc_slow(a1, 0x110uLL, 7);
+    v15 = RB::Heap::alloc_slow(a1, 0x110uLL, 7);
   }
 
   else
   {
-    a1[2] = v13 + 272;
+    a1[2] = v15 + 272;
   }
 
-  v14 = *a3;
-  v15 = *a4;
-  v16 = *a5;
-  v17 = *a7;
+  v16 = *a3;
+  v17 = *a4;
+  v18 = *a5;
+  v19 = *a7;
 
-  return RB::DisplayList::CustomEffectStyle::CustomEffectStyle(v13, a2, v14, a6, v17, v15, v16);
+  return RB::DisplayList::CustomEffectStyle::CustomEffectStyle(v15, a2, v16, a6, v19, v17, v18);
 }
 
-double RB::DisplayList::State::add_custom_effect(__n128 *a1, RB::DisplayList::Builder *a2, const RB::CustomShader::Closure *a3, uint64_t a4, _OWORD *a5, int a6, double a7, double a8)
+double RB::DisplayList::State::add_custom_effect(__n128 *a1, RB::DisplayList::Builder *a2, const RB::CustomShader::Closure *a3, uint64_t a4, _OWORD *a5, unsigned int a6, __n128 a7, __n128 a8)
 {
   v15 = a4;
-  v13 = a8;
-  v14 = a7;
+  v13 = a8.n128_u64[0];
+  v14 = a7.n128_u64[0];
   v12 = a6;
-  v10 = _ZN2RB4Heap7emplaceINS_11DisplayList17CustomEffectStyleEJRKNS_12CustomShader7ClosureERPNS2_5LayerERKDv2_fSD_RKNS_4RectERKjEEEPT_DpOT0_((*(a2 + 1) + 16), a3, &v15, &v14, &v13, a5, &v12);
+  v10 = _ZN2RB4Heap7emplaceINS_11DisplayList17CustomEffectStyleEJRKNS_12CustomShader7ClosureERPNS2_5LayerERKDv2_fSD_RKNS_4RectERKjEEEPT_DpOT0_((*(a2 + 1) + 16), a3, &v15, &v14, &v13, a5, &v12, a7, a8);
   *&result = RB::DisplayList::State::add_style(a1, a2, v10).n128_u64[0];
   return result;
 }
@@ -8549,7 +8550,7 @@ void RB::DisplayList::CustomEffectStyle::map_roi(RB::DisplayList::CustomEffectSt
   }
 }
 
-unint64_t RB::DisplayList::Contents::decode(RB::DisplayList::Contents *this, RB::Decoder *a2)
+uint64_t RB::DisplayList::Contents::decode(RB::DisplayList::Contents *this, RB::Decoder *a2)
 {
   result = RB::ProtobufDecoder::next_field(a2);
   if (result)
@@ -8661,21 +8662,21 @@ void RB::ProtobufDecoder::uuid_field(char **a1, uint64_t a2, _OWORD *a3)
   *a3 = v6;
 }
 
-void *RB::ProtobufDecoder::begin_message(void *this)
+char **RB::ProtobufDecoder::begin_message(char **this)
 {
   v1 = this;
   v2 = this[5];
-  v3 = v2 + 1;
-  if (this[6] < (v2 + 1))
+  v3 = (v2 + 1);
+  if (this[6] < v2 + 1)
   {
     this = RB::vector<unsigned long,0ul,unsigned long>::reserve_slow((this + 4), v3);
-    v2 = *(v1 + 40);
-    v3 = v2 + 1;
+    v2 = v1[5];
+    v3 = (v2 + 1);
   }
 
-  v4 = *(v1 + 8);
-  *(*(v1 + 32) + 8 * v2) = v4;
-  *(v1 + 40) = v3;
+  v4 = v1[1];
+  *&v1[4][8 * v2] = v4;
+  v1[5] = v3;
   v5 = *v1;
   if (*v1 >= v4)
   {
@@ -8720,13 +8721,13 @@ LABEL_7:
 
   else
   {
-    *(v1 + 8) = v11;
+    v1[1] = v11;
   }
 
   return this;
 }
 
-unint64_t RB::DisplayList::Layer::decode(RB::DisplayList::Layer *this, size_t **a2, RB::DisplayList::Layer::Effect *a3)
+uint64_t RB::DisplayList::Layer::decode(RB::DisplayList::Layer *this, size_t **a2, RB::DisplayList::Layer::Effect *a3)
 {
   result = RB::ProtobufDecoder::next_field(a2);
   if (result)
@@ -8933,35 +8934,35 @@ LABEL_21:
   return result;
 }
 
-uint64_t RB::DisplayList::Item::decode(size_t **this, RB::Decoder *a2)
+uint64_t RB::DisplayList::Item::decode(RB::Heap **this, RB::Decoder *a2)
 {
   v3 = 0;
   v4 = 0;
   v5 = 0;
-  v53 = *MEMORY[0x1E69E9840];
-  memset(v50, 0, sizeof(v50));
+  v55 = *MEMORY[0x1E69E9840];
+  memset(v52, 0, sizeof(v52));
   _S8 = 1.0;
   v7 = 2;
   while (1)
   {
     v8 = v3;
     field = RB::ProtobufDecoder::next_field(this);
-    v10 = field;
+    v11 = field;
     if (!field)
     {
       break;
     }
 
-    v11 = field >> 3;
+    v12 = field >> 3;
     if ((field >> 3) <= 4)
     {
-      if (v11 > 2)
+      if (v12 > 2)
       {
-        if (v11 == 3)
+        if (v12 == 3)
         {
-          RB::Heap::emplace<RB::DisplayList::BackdropColorMatrixItem>(this[8]);
+          RB::Heap::emplace<RB::DisplayList::BackdropColorMatrixItem>(this[8], v10);
           v3 = v25;
-          if ((v10 & 7) == 2)
+          if ((v11 & 7) == 2)
           {
             RB::ProtobufDecoder::begin_message(this);
             RB::DisplayList::BackdropColorMatrixItem::decode(v3, this);
@@ -8981,7 +8982,7 @@ LABEL_43:
 
         else
         {
-          if (v11 != 4)
+          if (v12 != 4)
           {
             goto LABEL_68;
           }
@@ -8990,12 +8991,12 @@ LABEL_43:
         }
       }
 
-      else if (v11 == 1)
+      else if (v12 == 1)
       {
         v15 = RB::AffineTransform::identity(field);
-        v52.type = 0;
-        v51.type = 0;
-        if ((v10 & 7) == 2)
+        v54.type = 0;
+        v53.type = 0;
+        if ((v11 & 7) == 2)
         {
           RB::ProtobufDecoder::begin_message(this);
           for (i = RB::ProtobufDecoder::next_field(this); i; i = RB::ProtobufDecoder::next_field(this))
@@ -9020,7 +9021,7 @@ LABEL_39:
                 }
 
                 RB::ProtobufDecoder::begin_message(this);
-                RBFillData::decode(&v51, this);
+                RBFillData::decode(&v53, this);
               }
 
               else
@@ -9037,7 +9038,7 @@ LABEL_39:
                 }
 
                 RB::ProtobufDecoder::begin_message(this);
-                RBShapeData::decode(&v52, this);
+                RBShapeData::decode(&v54, this);
               }
 
               RB::ProtobufDecoder::end_message(this);
@@ -9053,39 +9054,39 @@ LABEL_39:
           *this = this[1];
         }
 
-        v43[0] = this[8];
-        v43[1] = v15;
-        v43[2] = 0x23F800000;
-        v44 = 0;
-        v45 = 0;
-        v46 = &v51;
+        v45[0] = this[8];
+        v45[1] = v15;
+        v45[2] = 0x23F800000;
+        v46 = 0;
         v47 = 0;
-        v48 = 0;
+        v48 = &v53;
         v49 = 0;
-        RBShapeData::apply<RB::DisplayList::ItemFactory>(&v52, v43, v16, v17, v18, v19, v20, v21);
-        v3 = v49;
+        v50 = 0;
+        v51 = 0;
+        RBShapeData::apply<RB::DisplayList::ItemFactory>(&v54, v45, v16, v17, v18, v19, v20, v21);
+        v3 = v51;
         if (v8)
         {
           (**v8)(v8);
         }
 
-        RBFillData::~RBFillData(&v51);
-        RBShapeData::~RBShapeData(&v52);
+        RBFillData::~RBFillData(&v53);
+        RBShapeData::~RBShapeData(&v54);
       }
 
       else
       {
-        if (v11 != 2)
+        if (v12 != 2)
         {
           goto LABEL_68;
         }
 
-        v52.type = 1;
-        LODWORD(v43[0]) = 2;
-        *&v51.type = 0;
-        RB::Heap::emplace<RB::DisplayList::LayerItem,int,RB::BlendMode,decltype(nullptr)>(this[8], &v52.type, v43);
+        v54.type = 1;
+        LODWORD(v45[0]) = 2;
+        *&v53.type = 0;
+        RB::Heap::emplace<RB::DisplayList::LayerItem,int,RB::BlendMode,decltype(nullptr)>(this[8], &v54.type, v45);
         v3 = v14;
-        if ((v10 & 7) != 2)
+        if ((v11 & 7) != 2)
         {
           goto LABEL_78;
         }
@@ -9101,9 +9102,9 @@ LABEL_42:
       }
     }
 
-    else if (v11 <= 6)
+    else if (v12 <= 6)
     {
-      if (v11 == 5)
+      if (v12 == 5)
       {
         v29 = RB::ProtobufDecoder::uint_field(this, field);
         v7 = rb_blend_mode(v29);
@@ -9111,9 +9112,9 @@ LABEL_42:
 
       else
       {
-        if (v11 == 6)
+        if (v12 == 6)
         {
-          v5 = RB::Decoder::shared_field_f<RB::DisplayList::ClipNode,RB::DisplayList::ClipNode const* RB::Decoder::shared_field<RB::DisplayList::ClipNode>(RB::ProtobufDecoder::Field,RB::Encoder::SharedType)::{lambda(RB::DisplayList::ClipNode&)#1}>(this, field, 4, &v51);
+          v5 = RB::Decoder::shared_field_f<RB::DisplayList::ClipNode,RB::DisplayList::ClipNode const* RB::Decoder::shared_field<RB::DisplayList::ClipNode>(RB::ProtobufDecoder::Field,RB::Encoder::SharedType)::{lambda(RB::DisplayList::ClipNode&)#1}>(this, field, 4, &v53);
           goto LABEL_77;
         }
 
@@ -9124,16 +9125,16 @@ LABEL_68:
 
     else
     {
-      switch(v11)
+      switch(v12)
       {
         case 7:
           v26 = this[9];
           if (v26 && (v27 = (*(*v26 + 32))(v26)) != 0)
           {
-            if ((v10 & 7) == 2)
+            if ((v11 & 7) == 2)
             {
               RB::ProtobufDecoder::begin_message(this);
-              RB::DisplayList::decode_metadata(this, v27, &v50[4], v50, v28);
+              RB::DisplayList::decode_metadata(this, v27, &v52[4], v52, v28);
               RB::ProtobufDecoder::end_message(this);
               v3 = v8;
             }
@@ -9150,7 +9151,7 @@ LABEL_77:
 
           else
           {
-            RB::ProtobufDecoder::skip_field(this, v10);
+            RB::ProtobufDecoder::skip_field(this, v11);
             v3 = v8;
           }
 
@@ -9199,23 +9200,23 @@ LABEL_75:
             }
           }
 
-          *&v51.type = 0;
-          v4 = RB::UntypedTable::lookup((this + 10), (v30 | 0xA000000000000000), &v51);
+          *&v53.type = 0;
+          v4 = RB::UntypedTable::lookup((this + 10), (v30 | 0xA000000000000000), &v53);
           v33 = v41;
-          if ((v30 | 0xA000000000000000) != *&v51.type)
+          if ((v30 | 0xA000000000000000) != *&v53.type)
           {
             if (!v31)
             {
-              RB::Decoder::saved_shared_field(this, 5, v30, &v51, v41);
-              LOBYTE(v31) = v51.data[12];
-              if (!*&v51.data[12])
+              RB::Decoder::saved_shared_field(this, 5, v30, &v53, v41);
+              LOBYTE(v31) = v53.data[12];
+              if (!*&v53.data[12])
               {
 LABEL_65:
                 RB::UntypedTable::insert((this + 10), (v30 | 0xA000000000000000), v4);
                 goto LABEL_66;
               }
 
-              v33 = *&v51.type;
+              v33 = *&v53.type;
             }
 
             v41 = *this;
@@ -9246,12 +9247,14 @@ LABEL_66:
 
           break;
         case 9:
-          v42 = 1;
-          *&v51.type = 0;
-          *&v52.type = 0;
-          v43[0] = RB::AffineTransform::identity(field);
-          v3 = RB::Heap::emplace<RB::DisplayList::DetachedLayerItem,int,RB::BlendMode,decltype(nullptr),decltype(nullptr),RB::AffineTransform const*,int>(this[8], &v42, v12);
-          if ((v10 & 7) == 2)
+          v43 = 2;
+          v44 = 1;
+          *&v53.type = 0;
+          *&v54.type = 0;
+          v45[0] = RB::AffineTransform::identity(field);
+          v42 = 0;
+          v3 = RB::Heap::emplace<RB::DisplayList::DetachedLayerItem,int,RB::BlendMode,decltype(nullptr),decltype(nullptr),RB::AffineTransform const*,int>(this[8], &v44, &v43, &v53, &v54, v45, &v42);
+          if ((v11 & 7) == 2)
           {
             RB::ProtobufDecoder::begin_message(this);
             RB::DisplayList::DetachedLayerItem::decode(v3, this);
@@ -9294,14 +9297,14 @@ LABEL_11:
     *(v3 + 46) = *(v3 + 46) & 0xFFC0 | v7 & 0x3F;
     *(v3 + 16) = v4;
     *(v3 + 24) = v5;
-    *(v3 + 32) = *&v50[4];
-    *(v3 + 40) = *v50;
+    *(v3 + 32) = *&v52[4];
+    *(v3 + 40) = *v52;
   }
 
   return v3;
 }
 
-unint64_t RBShapeData::decode(RBShapeData *this, RB::Decoder *a2)
+uint64_t RBShapeData::decode(RBShapeData *this, size_t **a2)
 {
   result = RB::ProtobufDecoder::next_field(a2);
   if (result)
@@ -9328,7 +9331,7 @@ unint64_t RBShapeData::decode(RBShapeData *this, RB::Decoder *a2)
           {
 LABEL_23:
             *(a2 + 56) = 1;
-            *a2 = *(a2 + 1);
+            *a2 = a2[1];
             goto LABEL_20;
           }
 
@@ -9368,7 +9371,7 @@ LABEL_22:
           case 3:
             *v10 = RBPathEmpty;
             memset(&v10[2], 0, 32);
-            v9 = *(a2 + 8);
+            v9 = a2[8];
             RBShapeData::apply<RB::DestroyAny>(&this->type);
             this->type = 0;
             *&this->data[12] = &unk_1F0A38388;
@@ -9442,7 +9445,7 @@ LABEL_20:
   return result;
 }
 
-unint64_t RB::Coverage::Path::decode(RB::Coverage::Path *this, RB::Decoder *a2)
+uint64_t RB::Coverage::Path::decode(RB::Coverage::Path *this, RB::Decoder *a2)
 {
   result = RB::ProtobufDecoder::next_field(a2);
   if (result)
@@ -9458,7 +9461,7 @@ unint64_t RB::Coverage::Path::decode(RB::Coverage::Path *this, RB::Decoder *a2)
           if ((v5 & 7) == 2)
           {
             RB::ProtobufDecoder::begin_message(a2);
-            RBPathDecode(a2);
+            RBPathDecode();
           }
 
           *(a2 + 56) = 1;
@@ -9522,7 +9525,7 @@ uint64_t RB::ProtobufDecoder::end_message(uint64_t this)
   return this;
 }
 
-uint64_t RB::ProtobufDecoder::uint_field(unint64_t *a1, uint64_t a2)
+uint64_t RB::ProtobufDecoder::uint_field(uint64_t **a1, uint64_t a2)
 {
   if (!a2)
   {
@@ -9563,7 +9566,7 @@ LABEL_16:
   {
     if (v3 == 1)
     {
-      v4 = *a1 + 8;
+      v4 = (*a1 + 1);
       if (v4 <= a1[1])
       {
         result = **a1;
@@ -9595,7 +9598,7 @@ LABEL_15:
   while (1)
   {
     v8 = (v6 + 1);
-    *a1 = v6 + 1;
+    *a1 = (v6 + 1);
     v9 = *v6;
     result |= (v9 & 0x7F) << v7;
     if ((v9 & 0x80) == 0)
@@ -9612,7 +9615,7 @@ LABEL_15:
   }
 }
 
-unint64_t RBFillData::decode(RBFillData *this, RB::Heap **a2)
+uint64_t RBFillData::decode(RBFillData *this, RB::Heap **a2)
 {
   result = RB::ProtobufDecoder::next_field(a2);
   if (result)
@@ -9696,7 +9699,7 @@ LABEL_22:
             }
 
             RB::ProtobufDecoder::begin_message(a2);
-            RB::Fill::ImageData::decode(&this->data[28], a2, &v16);
+            RB::Fill::ImageData::decode(&v16, &this->data[28], a2);
             v14 = v16;
             v15 = v17;
             RB::ImageTexture::decode(&this->data[12], a2, &v14);
@@ -9758,7 +9761,7 @@ LABEL_20:
   return result;
 }
 
-unint64_t RB::Fill::Color::decode(RB::Fill::Color *this, RB::Decoder *a2)
+uint64_t RB::Fill::Color::decode(RB::Fill::Color *this, RB::Decoder *a2)
 {
   if ((*(this + 13) & 1) == 0)
   {

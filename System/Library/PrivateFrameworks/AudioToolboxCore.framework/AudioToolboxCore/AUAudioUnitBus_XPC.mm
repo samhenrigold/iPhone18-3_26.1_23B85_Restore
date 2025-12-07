@@ -8,6 +8,7 @@
 - (void)propertyChanged:(id)changed;
 - (void)removeObserver:(id)observer forKeyPath:(id)path;
 - (void)removeObserver:(id)observer forKeyPath:(id)path context:(void *)context;
+- (void)setEnabled:(BOOL)enabled;
 @end
 
 @implementation AUAudioUnitBus_XPC
@@ -17,6 +18,20 @@
   changedCopy = changed;
   [(AUAudioUnitBus_XPC *)self willChangeValueForKey:changedCopy[1]];
   [(AUAudioUnitBus_XPC *)self didChangeValueForKey:changedCopy[1]];
+}
+
+- (void)setEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  WeakRetained = objc_loadWeakRetained(&self->_audioUnit);
+
+  if (WeakRetained)
+  {
+    v8 = objc_loadWeakRetained(&self->_audioUnit);
+    v6 = [MEMORY[0x1E696AD98] numberWithBool:enabledCopy];
+    v7 = [AUAudioUnitProperty propertyWithKey:@"enabled" scope:self->_scope element:self->_element];
+    [v8 _setValue:v6 forProperty:v7 error:0];
+  }
 }
 
 - (BOOL)isEnabled
@@ -37,7 +52,7 @@
 
 - (BOOL)setFormat:(id)format error:(id *)error
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   formatCopy = format;
   if (self->_format != formatCopy)
   {
@@ -46,18 +61,18 @@
     if (WeakRetained)
     {
       v9 = objc_loadWeakRetained(&self->_remoteAUXPCConnection);
-      caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},NSArray * {__strong}>::sync_message(&v19, v9);
+      caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},NSArray * {__strong}>::sync_message(&v18, v9);
 
-      v10 = caulk::xpc::message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},NSArray * {__strong}>::sync_proxy(&v19);
+      v10 = caulk::xpc::message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},NSArray * {__strong}>::sync_proxy(&v18);
       element = self->_element;
       scope = self->_scope;
-      v13 = caulk::xpc::message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},NSArray * {__strong}>::reply(&v19);
+      v13 = caulk::xpc::message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},NSArray * {__strong}>::reply(&v18);
       [v10 setBusFormat:element scope:scope format:formatCopy reply:v13];
 
-      v14 = v22;
-      WeakRetained = v21;
+      v14 = v21;
+      WeakRetained = v20;
 
-      std::__function::__value_func<void ()(NSError *,std::tuple<NSArray * {__strong}> &&)>::~__value_func[abi:ne200100](&v20);
+      std::__function::__value_func<void ()(NSError *,std::tuple<NSArray * {__strong}> &&)>::~__value_func[abi:ne200100](&v19);
       if (WeakRetained)
       {
         if (error)
@@ -93,17 +108,16 @@ LABEL_11:
   v16 = 1;
 LABEL_12:
 
-  v17 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
 - (void)removeObserver:(id)observer forKeyPath:(id)path
 {
-  v15[4] = *MEMORY[0x1E69E9840];
+  v14[4] = *MEMORY[0x1E69E9840];
   pathCopy = path;
-  v12.receiver = self;
-  v12.super_class = AUAudioUnitBus_XPC;
-  [(AUAudioUnitBus *)&v12 removeObserver:observer forKeyPath:pathCopy];
+  v11.receiver = self;
+  v11.super_class = AUAudioUnitBus_XPC;
+  [(AUAudioUnitBus *)&v11 removeObserver:observer forKeyPath:pathCopy];
   if (!self->_removingObserverWithContext)
   {
     WeakRetained = objc_loadWeakRetained(&self->_audioUnit);
@@ -111,30 +125,28 @@ LABEL_12:
 
     v8 = [AUAudioUnitProperty propertyWithKey:pathCopy scope:self->_scope element:self->_element];
     v9 = objc_loadWeakRetained(&self->_remoteAUXPCConnection);
-    v13[0] = &unk_1F033F978;
-    v13[1] = &__block_literal_global_30;
-    v13[3] = v13;
-    caulk::xpc::message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong}>::message(&v14, v9, v13);
-    _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(v13);
+    v12[0] = &unk_1F033F978;
+    v12[1] = &__block_literal_global_30;
+    v12[3] = v12;
+    caulk::xpc::message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong}>::message(&v13, v9, v12);
+    _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(v12);
 
-    v10 = caulk::xpc::message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong}>::async_proxy(&v14);
+    v10 = caulk::xpc::message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong}>::async_proxy(&v13);
     [v10 removePropertyObserver:v8 context:0 reply:&__block_literal_global_32];
 
-    _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(v15);
+    _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(v14);
     std::recursive_mutex::unlock((WeakRetained + 584));
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeObserver:(id)observer forKeyPath:(id)path context:(void *)context
 {
-  v19[4] = *MEMORY[0x1E69E9840];
+  v18[4] = *MEMORY[0x1E69E9840];
   pathCopy = path;
   self->_removingObserverWithContext = 1;
-  v16.receiver = self;
-  v16.super_class = AUAudioUnitBus_XPC;
-  [(AUAudioUnitBus *)&v16 removeObserver:observer forKeyPath:pathCopy context:context];
+  v15.receiver = self;
+  v15.super_class = AUAudioUnitBus_XPC;
+  [(AUAudioUnitBus *)&v15 removeObserver:observer forKeyPath:pathCopy context:context];
   WeakRetained = objc_loadWeakRetained(&self->_audioUnit);
   v10 = WeakRetained == 0;
 
@@ -145,49 +157,45 @@ LABEL_12:
 
     v12 = [AUAudioUnitProperty propertyWithKey:pathCopy scope:self->_scope element:self->_element];
     v13 = objc_loadWeakRetained(&self->_remoteAUXPCConnection);
-    v17[0] = &unk_1F033F978;
-    v17[1] = &__block_literal_global_24;
-    v17[3] = v17;
-    caulk::xpc::message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong}>::message(&v18, v13, v17);
-    _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(v17);
+    v16[0] = &unk_1F033F978;
+    v16[1] = &__block_literal_global_24;
+    v16[3] = v16;
+    caulk::xpc::message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong}>::message(&v17, v13, v16);
+    _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(v16);
 
-    v14 = caulk::xpc::message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong}>::async_proxy(&v18);
+    v14 = caulk::xpc::message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong}>::async_proxy(&v17);
     [v14 removePropertyObserver:v12 context:context reply:&__block_literal_global_26];
 
-    _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(v19);
+    _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(v18);
     std::recursive_mutex::unlock((v11 + 584));
   }
 
   self->_removingObserverWithContext = 0;
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addObserver:(id)observer forKeyPath:(id)path options:(unint64_t)options context:(void *)context
 {
-  v19[4] = *MEMORY[0x1E69E9840];
+  v18[4] = *MEMORY[0x1E69E9840];
   pathCopy = path;
-  v16.receiver = self;
-  v16.super_class = AUAudioUnitBus_XPC;
-  [(AUAudioUnitBus *)&v16 addObserver:observer forKeyPath:pathCopy options:options context:context];
+  v15.receiver = self;
+  v15.super_class = AUAudioUnitBus_XPC;
+  [(AUAudioUnitBus *)&v15 addObserver:observer forKeyPath:pathCopy options:options context:context];
   WeakRetained = objc_loadWeakRetained(&self->_audioUnit);
   std::recursive_mutex::lock((WeakRetained + 584));
 
   v12 = [AUAudioUnitProperty propertyWithKey:pathCopy scope:self->_scope element:self->_element];
   v13 = objc_loadWeakRetained(&self->_remoteAUXPCConnection);
-  v17[0] = &unk_1F033F978;
-  v17[1] = &__block_literal_global_4303;
-  v17[3] = v17;
-  caulk::xpc::message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong}>::message(&v18, v13, v17);
-  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(v17);
+  v16[0] = &unk_1F033F978;
+  v16[1] = &__block_literal_global_4303;
+  v16[3] = v16;
+  caulk::xpc::message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong}>::message(&v17, v13, v16);
+  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(v16);
 
-  v14 = caulk::xpc::message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong}>::async_proxy(&v18);
+  v14 = caulk::xpc::message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong}>::async_proxy(&v17);
   [v14 addPropertyObserver:v12 context:context reply:&__block_literal_global_20];
 
-  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(v19);
+  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(v18);
   std::recursive_mutex::unlock((WeakRetained + 584));
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc

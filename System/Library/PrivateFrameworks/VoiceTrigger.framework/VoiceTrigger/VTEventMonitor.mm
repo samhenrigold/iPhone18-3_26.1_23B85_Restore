@@ -111,16 +111,16 @@
   dispatch_sync(queue, v7);
 }
 
-uint64_t __33__VTEventMonitor_removeObserver___block_invoke(uint64_t result)
+void *__33__VTEventMonitor_removeObserver___block_invoke(void *result)
 {
-  if (*(result + 32))
+  if (result[4])
   {
     v1 = result;
-    [*(*(result + 40) + 8) removeObject:?];
-    result = [*(*(v1 + 40) + 8) count];
+    [*(result[5] + 8) removeObject:?];
+    result = [*(v1[5] + 8) count];
     if (!result)
     {
-      v2 = *(v1 + 40);
+      v2 = v1[5];
 
       return [v2 _stopMonitoring];
     }
@@ -143,16 +143,16 @@ uint64_t __33__VTEventMonitor_removeObserver___block_invoke(uint64_t result)
   dispatch_sync(queue, v7);
 }
 
-uint64_t __30__VTEventMonitor_addObserver___block_invoke(uint64_t result)
+void *__30__VTEventMonitor_addObserver___block_invoke(void *result)
 {
-  if (*(result + 32))
+  if (result[4])
   {
     v1 = result;
-    [*(*(result + 40) + 8) addObject:?];
-    result = [*(*(v1 + 40) + 8) count];
+    [*(result[5] + 8) addObject:?];
+    result = [*(v1[5] + 8) count];
     if (result == 1)
     {
-      v2 = *(v1 + 40);
+      v2 = v1[5];
       v3 = v2[2];
 
       return [v2 _startMonitoringWithQueue:v3];

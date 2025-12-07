@@ -31,16 +31,18 @@
     dispatch_once(&sharedManager_init_manager_7105, &__block_literal_global_7106);
   }
 
-  v0 = sharedManager_g_manager_7107;
+  v1 = sharedManager_g_manager_7107;
 
-  return v0;
+  return v1;
 }
 
 uint64_t __45__NEHotspotConfigurationHelper_sharedManager__block_invoke()
 {
-  sharedManager_g_manager_7107 = objc_alloc_init(NEHotspotConfigurationHelper);
+  v0 = objc_alloc_init(NEHotspotConfigurationHelper);
+  v1 = sharedManager_g_manager_7107;
+  sharedManager_g_manager_7107 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (id)helper
@@ -131,7 +133,7 @@ LABEL_15:
 
 void __70__NEHotspotConfigurationHelper_sendRequest_requestType_resultHandler___block_invoke(uint64_t a1, char a2, void *a3, void *a4)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v7 = a4;
   v8 = v7;
   if (a3 == 107)
@@ -159,13 +161,13 @@ LABEL_19:
 
           else
           {
-            v16 = ne_log_obj();
-            if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+            v15 = ne_log_obj();
+            if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
             {
-              v24 = 138412290;
-              v25 = objc_opt_class();
-              v23 = v25;
-              _os_log_debug_impl(&dword_1BA83C000, v16, OS_LOG_TYPE_DEBUG, "%@ received an invalid response to query.", &v24, 0xCu);
+              v21 = 138412290;
+              v22 = objc_opt_class();
+              v20 = v22;
+              _os_log_debug_impl(&dword_1BA83C000, v15, OS_LOG_TYPE_DEBUG, "%@ received an invalid response to query.", &v21, 0xCu);
             }
 
             v12 = 0;
@@ -182,12 +184,12 @@ LABEL_19:
 
       else
       {
-        v20 = ne_log_obj();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+        v18 = ne_log_obj();
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
         {
-          v24 = 134217984;
-          v25 = a3;
-          _os_log_debug_impl(&dword_1BA83C000, v20, OS_LOG_TYPE_DEBUG, "query request received nil response with result code = %lld", &v24, 0xCu);
+          v21 = 134217984;
+          v22 = a3;
+          _os_log_debug_impl(&dword_1BA83C000, v18, OS_LOG_TYPE_DEBUG, "query request received nil response with result code = %lld", &v21, 0xCu);
         }
 
         (*(*(a1 + 40) + 16))();
@@ -211,11 +213,10 @@ LABEL_19:
       v13 = ne_log_obj();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        v21 = *(a1 + 32);
-        v24 = 138412290;
-        v25 = objc_opt_class();
-        v22 = v25;
-        _os_log_error_impl(&dword_1BA83C000, v13, OS_LOG_TYPE_ERROR, "%@ received unknown response.", &v24, 0xCu);
+        v21 = 138412290;
+        v22 = objc_opt_class();
+        v19 = v22;
+        _os_log_error_impl(&dword_1BA83C000, v13, OS_LOG_TYPE_ERROR, "%@ received unknown response.", &v21, 0xCu);
       }
 
       (*(*(a1 + 40) + 16))(*(a1 + 40), 108);
@@ -228,20 +229,17 @@ LABEL_16:
     v14 = ne_log_obj();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v17 = *(a1 + 32);
-      v18 = objc_opt_class();
-      v24 = 138412290;
-      v25 = v18;
-      v19 = v18;
-      _os_log_error_impl(&dword_1BA83C000, v14, OS_LOG_TYPE_ERROR, "%@ failed to communicate to helper server.", &v24, 0xCu);
+      v16 = objc_opt_class();
+      v21 = 138412290;
+      v22 = v16;
+      v17 = v16;
+      _os_log_error_impl(&dword_1BA83C000, v14, OS_LOG_TYPE_ERROR, "%@ failed to communicate to helper server.", &v21, 0xCu);
     }
 
     goto LABEL_19;
   }
 
 LABEL_20:
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 @end

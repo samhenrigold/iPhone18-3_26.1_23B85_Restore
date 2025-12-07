@@ -1,7 +1,12 @@
 @interface NSString
 + (NSString)stringWithBytes:(id)bytes hibyte:(unint64_t)hibyte offset:(unint64_t)offset length:(unint64_t)length;
++ (NSString)stringWithBytes:(id)bytes offset:(int)offset length:(int)length charset:(id)charset;
++ (NSString)stringWithBytes:(id)bytes offset:(int)offset length:(int)length charsetName:(id)name;
++ (NSString)stringWithBytes:(id)bytes offset:(int)offset length:(int)length encoding:(unint64_t)encoding;
++ (NSString)stringWithCharacters:(id)characters offset:(int)offset length:(int)length;
 + (NSString)stringWithInts:(id)ints offset:(int)offset length:(int)length;
 + (NSString)stringWithJavaLangStringBuilder:(id)builder;
++ (NSString)stringWithOffset:(int)offset length:(int)length characters:(id)characters;
 + (id)valueOf:(id)of;
 + (id)valueOfBool:(BOOL)bool;
 - (BOOL)contains:(id)contains;
@@ -20,7 +25,10 @@
 - (id)replaceAll:(id)all withReplacement:(id)replacement;
 - (id)replaceFirst:(id)first withReplacement:(id)replacement;
 - (id)split:(id)split;
+- (id)split:(id)split limit:(int)limit;
 - (id)subSequenceFrom:(int)from to:(int)to;
+- (id)substring:(int)substring;
+- (id)substring:(int)substring endIndex:(int)index;
 - (id)trim;
 - (id)uppercaseStringWithJRELocale:(id)locale;
 - (int)compareToIgnoreCase:(id)case;
@@ -31,6 +39,7 @@
 - (int)lastIndexOfString:(id)string fromIndex:(int)index;
 - (unsigned)charAtWithInt:(int)int;
 - (void)getBytesWithSrcBegin:(int)begin withSrcEnd:(int)end withDst:(id)dst withDstBegin:(int)dstBegin;
+- (void)getChars:(int)chars sourceEnd:(int)end destination:(id)destination destinationBegin:(int)begin;
 @end
 
 @implementation NSString
@@ -58,6 +67,94 @@
   else
   {
     return @"false";
+  }
+}
+
+- (void)getChars:(int)chars sourceEnd:(int)end destination:(id)destination destinationBegin:(int)begin
+{
+  v8 = *&end;
+  if (chars < 0)
+  {
+    v11 = [[JavaLangStringIndexOutOfBoundsException alloc] initWithInt:*&chars];
+    v12 = v11;
+  }
+
+  else
+  {
+    v11 = 0;
+  }
+
+  if ([(NSString *)self length]< v8)
+  {
+    v11 = [[JavaLangStringIndexOutOfBoundsException alloc] initWithInt:v8];
+    v13 = v11;
+  }
+
+  v14 = __OFSUB__(v8, chars);
+  v15 = (v8 - chars);
+  if (v15 < 0 != v14)
+  {
+    v11 = [[JavaLangStringIndexOutOfBoundsException alloc] initWithInt:v15];
+    v16 = v11;
+  }
+
+  if (v11 || v15 + begin > *(destination + 2) && (v11 = [[JavaLangStringIndexOutOfBoundsException alloc] initWithInt:(v15 + begin)], v17 = v11, v11))
+  {
+    objc_exception_throw(v11);
+  }
+
+  [(NSString *)self getCharacters:destination + 2 * begin + 12 range:chars, v15];
+}
+
++ (NSString)stringWithCharacters:(id)characters offset:(int)offset length:(int)length
+{
+  v5 = *&length;
+  v6 = *&offset;
+  if ((offset & 0x80000000) == 0)
+  {
+    v9 = 0;
+    if ((length & 0x80000000) == 0)
+    {
+      goto LABEL_4;
+    }
+
+    goto LABEL_3;
+  }
+
+  v9 = [[JavaLangStringIndexOutOfBoundsException alloc] initWithInt:*&offset];
+  v12 = v9;
+  if ((v5 & 0x80000000) != 0)
+  {
+LABEL_3:
+    v9 = [[JavaLangStringIndexOutOfBoundsException alloc] initWithInt:v6];
+    v10 = v9;
+  }
+
+LABEL_4:
+  if (*(characters + 2) - v5 < v6)
+  {
+    v9 = [[JavaLangStringIndexOutOfBoundsException alloc] initWithInt:(v5 + v6)];
+    v11 = v9;
+  }
+
+  if (v9)
+  {
+    objc_exception_throw(v9);
+  }
+
+  return [self stringWithOffset:v6 length:v5 characters:characters];
+}
+
++ (NSString)stringWithOffset:(int)offset length:(int)length characters:(id)characters
+{
+  if (length)
+  {
+    return [NSString stringWithCharacters:characters + 2 * offset + 12 length:length];
+  }
+
+  else
+  {
+    return [NSString string:*&offset];
   }
 }
 
@@ -95,6 +192,47 @@
   }
 
   return [(NSString *)self caseInsensitiveCompare:?];
+}
+
+- (id)substring:(int)substring
+{
+  v3 = *&substring;
+  if (substring < 0 || [(NSString *)self length]< substring)
+  {
+    objc_exception_throw([[JavaLangStringIndexOutOfBoundsException alloc] initWithInt:v3]);
+  }
+
+  return [(NSString *)self substringFromIndex:v3];
+}
+
+- (id)substring:(int)substring endIndex:(int)index
+{
+  v4 = *&substring;
+  if (substring < 0)
+  {
+    v9 = [JavaLangStringIndexOutOfBoundsException alloc];
+    v10 = v4;
+    goto LABEL_10;
+  }
+
+  v5 = *&index;
+  v6 = (index - substring);
+  if (index < substring)
+  {
+    v9 = [JavaLangStringIndexOutOfBoundsException alloc];
+    v10 = v6;
+    goto LABEL_10;
+  }
+
+  if ([(NSString *)self length]< index)
+  {
+    v9 = [JavaLangStringIndexOutOfBoundsException alloc];
+    v10 = v5;
+LABEL_10:
+    objc_exception_throw([(JavaLangStringIndexOutOfBoundsException *)v9 initWithInt:v10]);
+  }
+
+  return [(NSString *)self substringWithRange:v4, v6];
 }
 
 - (int)indexOfString:(id)string
@@ -261,6 +399,30 @@
   return [(NSString *)self stringByReplacingOccurrencesOfString:first withString:replacement options:1024 range:v7, v8];
 }
 
++ (NSString)stringWithBytes:(id)bytes offset:(int)offset length:(int)length charsetName:(id)name
+{
+  v6 = *&length;
+  v7 = *&offset;
+  nsEncoding = [JavaNioCharsetCharset_forNameUEEWithNSString_(name) nsEncoding];
+
+  return [NSString stringWithBytes:bytes offset:v7 length:v6 encoding:nsEncoding];
+}
+
++ (NSString)stringWithBytes:(id)bytes offset:(int)offset length:(int)length charset:(id)charset
+{
+  v7 = *&length;
+  v8 = *&offset;
+  objc_opt_class();
+  if ((objc_opt_isKindOfClass() & 1) == 0)
+  {
+    objc_exception_throw(-[JavaNioCharsetUnsupportedCharsetException initWithNSString:]([JavaNioCharsetUnsupportedCharsetException alloc], "initWithNSString:", [charset description]));
+  }
+
+  nsEncoding = [charset nsEncoding];
+
+  return [NSString stringWithBytes:bytes offset:v8 length:v7 encoding:nsEncoding];
+}
+
 + (NSString)stringWithBytes:(id)bytes hibyte:(unint64_t)hibyte offset:(unint64_t)offset length:(unint64_t)length
 {
   hibyteCopy = hibyte;
@@ -284,6 +446,43 @@
   v16 = [NSString stringWithCharacters:v10 length:length];
   free(v11);
   return v16;
+}
+
++ (NSString)stringWithBytes:(id)bytes offset:(int)offset length:(int)length encoding:(unint64_t)encoding
+{
+  v8 = *&offset;
+  if ((offset & 0x80000000) == 0)
+  {
+    v10 = 0;
+    if ((length & 0x80000000) == 0)
+    {
+      goto LABEL_4;
+    }
+
+    goto LABEL_3;
+  }
+
+  v10 = [[JavaLangStringIndexOutOfBoundsException alloc] initWithInt:*&offset];
+  if (length < 0)
+  {
+LABEL_3:
+    v10 = [[JavaLangStringIndexOutOfBoundsException alloc] initWithInt:v8];
+  }
+
+LABEL_4:
+  if (*(bytes + 2) - length < v8)
+  {
+    v10 = [[JavaLangStringIndexOutOfBoundsException alloc] initWithInt:(length + v8)];
+  }
+
+  if (v10)
+  {
+    objc_exception_throw(v10);
+  }
+
+  v11 = [[NSString alloc] initWithBytes:bytes + v8 + 12 length:length encoding:encoding];
+
+  return v11;
 }
 
 + (NSString)stringWithInts:(id)ints offset:(int)offset length:(int)length
@@ -475,6 +674,21 @@ LABEL_13:
   }
 
   return [NSString split:"split:limit:" limit:?];
+}
+
+- (id)split:(id)split limit:(int)limit
+{
+  if (!split)
+  {
+    v7 = objc_opt_class();
+    Exception = makeException(v7);
+    objc_exception_throw(Exception);
+  }
+
+  v4 = *&limit;
+  v6 = JavaUtilRegexPattern_compileWithNSString_(split);
+
+  return [(JavaUtilRegexPattern *)v6 splitWithJavaLangCharSequence:self withInt:v4];
 }
 
 - (id)lowercaseStringWithJRELocale:(id)locale

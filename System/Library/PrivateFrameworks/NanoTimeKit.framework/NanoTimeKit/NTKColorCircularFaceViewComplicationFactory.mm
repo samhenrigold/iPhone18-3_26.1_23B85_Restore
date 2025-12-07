@@ -60,9 +60,9 @@ void __74__NTKColorCircularFaceViewComplicationFactory_loadLayoutRulesForFaceVie
   [*(a1 + 32) _colorCircularEdgeGapForState:a2];
   v7 = v5 + v6;
   v8 = [*(a1 + 32) device];
-  v9 = NTKCircularSmallComplicationDiameter();
+  v9 = NTKCircularSmallComplicationDiameter(v8);
   v10 = [*(a1 + 32) device];
-  v11 = NTKCircularSmallComplicationDiameter();
+  v11 = NTKCircularSmallComplicationDiameter(v10);
 
   v12 = [*(a1 + 32) device];
   v13 = [NTKComplicationLayoutRule layoutRuleForDevice:v12 withReferenceFrame:3 horizontalLayout:3 verticalLayout:v7 keylinePadding:v7, v9, v11, v5, v5, v5, v5];

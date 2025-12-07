@@ -22,24 +22,28 @@
     v8 = [v6 initWithData:v7];
 
     [v8 open];
-    v20 = 0;
-    if ([v8 safari_readNetworkOrderUInt16:&v20])
+    v28 = 0;
+    v9 = [v8 safari_readNetworkOrderUInt16:&v28];
+    if (v9)
     {
-      if (v20 == 45326)
+      if (v28 == 45326)
       {
-        v19 = 0;
-        if ([v8 safari_readNetworkOrderUInt16:&v19])
+        v27 = 0;
+        v11 = [v8 safari_readNetworkOrderUInt16:&v27];
+        if (v11)
         {
-          if (v19 == 1)
+          if (v27 == 1)
           {
-            v18 = 0;
-            if ([v8 safari_readNetworkOrderUInt32:&v18])
+            v26 = 0;
+            v13 = [v8 safari_readNetworkOrderUInt32:&v26];
+            if (v13)
             {
-              v17 = 0;
-              if ([v8 safari_readNetworkOrderUInt32:&v17])
+              v25 = 0;
+              v15 = [v8 safari_readNetworkOrderUInt32:&v25];
+              if (v15)
               {
-                v9 = [representationCopy subdataWithRange:{12, objc_msgSend(representationCopy, "length") - 12}];
-                self = [(WBSPasswordBreachBloomFilter *)self initWithCapacity:v17 errorDenominator:v18 bucketData:v9];
+                v17 = [representationCopy subdataWithRange:{12, objc_msgSend(representationCopy, "length") - 12}];
+                self = [(WBSPasswordBreachBloomFilter *)self initWithCapacity:v25 errorDenominator:v26 bucketData:v17];
 
                 selfCopy = self;
 LABEL_23:
@@ -47,8 +51,8 @@ LABEL_23:
                 goto LABEL_24;
               }
 
-              v15 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-              if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+              v23 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(v15, v16);
+              if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
               {
                 [WBSPasswordBreachBloomFilter initWithSerializedRepresentation:];
               }
@@ -56,8 +60,8 @@ LABEL_23:
 
             else
             {
-              v14 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-              if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+              v22 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(v13, v14);
+              if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
               {
                 [WBSPasswordBreachBloomFilter initWithSerializedRepresentation:];
               }
@@ -66,18 +70,18 @@ LABEL_23:
 
           else
           {
-            v13 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-            if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+            v21 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(v11, v12);
+            if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
             {
-              [(WBSPasswordBreachBloomFilter *)&v19 initWithSerializedRepresentation:v13];
+              [(WBSPasswordBreachBloomFilter *)&v27 initWithSerializedRepresentation:v21];
             }
           }
         }
 
         else
         {
-          v12 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+          v20 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(v11, v12);
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
           {
             [WBSPasswordBreachBloomFilter initWithSerializedRepresentation:];
           }
@@ -86,18 +90,18 @@ LABEL_23:
 
       else
       {
-        v11 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+        v19 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(v9, v10);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
-          [(WBSPasswordBreachBloomFilter *)&v20 initWithSerializedRepresentation:v11];
+          [(WBSPasswordBreachBloomFilter *)&v28 initWithSerializedRepresentation:v19];
         }
       }
     }
 
     else
     {
-      v10 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v18 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(v9, v10);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         [WBSPasswordBreachBloomFilter initWithSerializedRepresentation:];
       }
@@ -116,21 +120,21 @@ LABEL_24:
 - (WBSPasswordBreachBloomFilter)initWithCapacity:(unsigned int)capacity errorDenominator:(unsigned int)denominator bucketData:(id)data
 {
   dataCopy = data;
-  v23.receiver = self;
-  v23.super_class = WBSPasswordBreachBloomFilter;
-  v9 = [(WBSPasswordBreachBloomFilter *)&v23 init];
-  v10 = v9;
+  v26.receiver = self;
+  v26.super_class = WBSPasswordBreachBloomFilter;
+  v9 = [(WBSPasswordBreachBloomFilter *)&v26 init];
+  v11 = v9;
   if (!v9)
   {
 LABEL_15:
-    v20 = 0;
+    v23 = 0;
     goto LABEL_16;
   }
 
   if (!capacity)
   {
-    v12 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(v9, v10);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [WBSPasswordBreachBloomFilter initWithCapacity:errorDenominator:bucketData:];
     }
@@ -140,8 +144,8 @@ LABEL_15:
 
   if (denominator <= 1)
   {
-    v11 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(v9, v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [WBSPasswordBreachBloomFilter initWithCapacity:errorDenominator:bucketData:];
     }
@@ -151,16 +155,17 @@ LABEL_15:
 
   v9->_capacity = capacity;
   v9->_errorDenominator = denominator;
-  v13 = (log(1.0 / denominator) * capacity / -0.480453014);
-  v10->_hashCount = vcvtpd_u64_f64(v13 / capacity * 0.693147181);
-  v10->_bucketCount = v13;
-  v14 = vcvtpd_u64_f64(vcvtd_n_f64_u32(v13, 3uLL));
+  v14 = (log(1.0 / denominator) * capacity / -0.480453014);
+  v11->_hashCount = vcvtpd_u64_f64(v14 / capacity * 0.693147181);
+  v11->_bucketCount = v14;
+  v15 = vcvtpd_u64_f64(vcvtd_n_f64_u32(v14, 3uLL));
   if (dataCopy)
   {
-    if ([dataCopy length] != v14)
+    v16 = [dataCopy length];
+    if (v16 != v15)
     {
-      v21 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v24 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(v16, v17);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         [WBSPasswordBreachBloomFilter initWithCapacity:errorDenominator:bucketData:];
       }
@@ -168,25 +173,25 @@ LABEL_15:
       goto LABEL_15;
     }
 
-    v15 = [dataCopy copy];
-    bucketData = v10->_bucketData;
-    v10->_bucketData = v15;
+    v18 = [dataCopy copy];
+    bucketData = v11->_bucketData;
+    v11->_bucketData = v18;
   }
 
   else
   {
-    v17 = malloc_type_calloc(v14, 1uLL, 0x100004077774924uLL);
-    v18 = [MEMORY[0x1E695DEF0] dataWithBytes:v17 length:v14];
-    v19 = v10->_bucketData;
-    v10->_bucketData = v18;
+    v20 = malloc_type_calloc(v15, 1uLL, 0x100004077774924uLL);
+    v21 = [MEMORY[0x1E695DEF0] dataWithBytes:v20 length:v15];
+    v22 = v11->_bucketData;
+    v11->_bucketData = v21;
 
-    free(v17);
+    free(v20);
   }
 
-  v20 = v10;
+  v23 = v11;
 LABEL_16:
 
-  return v20;
+  return v23;
 }
 
 - (BOOL)_getBucketAtIndex:(unsigned int)index
@@ -263,7 +268,7 @@ LABEL_16:
   return self;
 }
 
-uint64_t __45__WBSPasswordBreachBloomFilter_containsData___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
+void *__45__WBSPasswordBreachBloomFilter_containsData___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   result = [*(a1 + 32) _getBucketAtIndex:a2];
   if ((result & 1) == 0)
@@ -290,24 +295,29 @@ uint64_t __45__WBSPasswordBreachBloomFilter_containsData___block_invoke(uint64_t
 {
   initToMemory = [objc_alloc(MEMORY[0x1E695DFC0]) initToMemory];
   [initToMemory open];
-  if ([initToMemory safari_writeNetworkOrderUInt16:45326])
+  v4 = [initToMemory safari_writeNetworkOrderUInt16:45326];
+  if (v4)
   {
-    if ([initToMemory safari_writeNetworkOrderUInt16:1])
+    v6 = [initToMemory safari_writeNetworkOrderUInt16:1];
+    if (v6)
     {
-      if ([initToMemory safari_writeNetworkOrderUInt32:self->_errorDenominator])
+      v8 = [initToMemory safari_writeNetworkOrderUInt32:self->_errorDenominator];
+      if (v8)
       {
-        if ([initToMemory safari_writeNetworkOrderUInt32:self->_capacity])
+        v10 = [initToMemory safari_writeNetworkOrderUInt32:self->_capacity];
+        if (v10)
         {
-          v4 = [(NSData *)self->_bucketData length];
-          if ([initToMemory write:-[NSData bytes](self->_bucketData maxLength:{"bytes"), v4}] == v4)
+          v12 = [(NSData *)self->_bucketData length];
+          v13 = [initToMemory write:-[NSData bytes](self->_bucketData maxLength:{"bytes"), v12}];
+          if (v13 == v12)
           {
             [initToMemory close];
-            v5 = [initToMemory propertyForKey:*MEMORY[0x1E695DA30]];
+            v15 = [initToMemory propertyForKey:*MEMORY[0x1E695DA30]];
             goto LABEL_18;
           }
 
-          v10 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-          if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+          v20 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(v13, v14);
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
           {
             [WBSPasswordBreachBloomFilter serializedRepresentation];
           }
@@ -315,8 +325,8 @@ uint64_t __45__WBSPasswordBreachBloomFilter_containsData___block_invoke(uint64_t
 
         else
         {
-          v9 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-          if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+          v19 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(v10, v11);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
           {
             [WBSPasswordBreachBloomFilter serializedRepresentation];
           }
@@ -325,8 +335,8 @@ uint64_t __45__WBSPasswordBreachBloomFilter_containsData___block_invoke(uint64_t
 
       else
       {
-        v8 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+        v18 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(v8, v9);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
           [WBSPasswordBreachBloomFilter serializedRepresentation];
         }
@@ -335,8 +345,8 @@ uint64_t __45__WBSPasswordBreachBloomFilter_containsData___block_invoke(uint64_t
 
     else
     {
-      v7 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v17 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(v6, v7);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         [WBSPasswordBreachBloomFilter serializedRepresentation];
       }
@@ -345,17 +355,17 @@ uint64_t __45__WBSPasswordBreachBloomFilter_containsData___block_invoke(uint64_t
 
   else
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v16 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(v4, v5);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [WBSPasswordBreachBloomFilter serializedRepresentation];
     }
   }
 
-  v5 = 0;
+  v15 = 0;
 LABEL_18:
 
-  return v5;
+  return v15;
 }
 
 - (id)description
@@ -370,22 +380,20 @@ LABEL_18:
 
 - (void)initWithSerializedRepresentation:(unsigned __int16 *)a1 .cold.2(unsigned __int16 *a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v4[0] = 67240192;
-  v4[1] = v2;
-  _os_log_error_impl(&dword_1B8447000, a2, OS_LOG_TYPE_ERROR, "Invalid magic number %{public}d.", v4, 8u);
-  v3 = *MEMORY[0x1E69E9840];
+  v3[0] = 67240192;
+  v3[1] = v2;
+  _os_log_error_impl(&dword_1B8447000, a2, OS_LOG_TYPE_ERROR, "Invalid magic number %{public}d.", v3, 8u);
 }
 
 - (void)initWithSerializedRepresentation:(unsigned __int16 *)a1 .cold.4(unsigned __int16 *a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v4[0] = 67240192;
-  v4[1] = v2;
-  _os_log_error_impl(&dword_1B8447000, a2, OS_LOG_TYPE_ERROR, "Unexpected version number %{public}d.", v4, 8u);
-  v3 = *MEMORY[0x1E69E9840];
+  v3[0] = 67240192;
+  v3[1] = v2;
+  _os_log_error_impl(&dword_1B8447000, a2, OS_LOG_TYPE_ERROR, "Unexpected version number %{public}d.", v3, 8u);
 }
 
 @end

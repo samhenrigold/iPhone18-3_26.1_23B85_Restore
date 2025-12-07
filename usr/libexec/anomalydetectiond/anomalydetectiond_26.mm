@@ -167,53 +167,49 @@ uint64_t CMMsl::GyroScaleEstimate::hash_value(CMMsl::GyroScaleEstimate *this)
     v2 = 0;
   }
 
-  v3 = *(this + 4);
-  v4 = *(this + 5);
-  v5 = PBHashBytes();
-  v6 = *(this + 1);
-  v7 = *(this + 2);
-  v8 = PBHashBytes();
+  v3 = PBHashBytes();
+  v4 = PBHashBytes();
   if ((*(this + 80) & 8) != 0)
   {
-    v9 = *(this + 76);
+    v5 = *(this + 76);
     if ((*(this + 80) & 4) != 0)
     {
 LABEL_8:
-      v10 = *(this + 18);
+      v6 = *(this + 18);
       if (*(this + 80))
       {
         goto LABEL_9;
       }
 
 LABEL_14:
-      v11 = 0.0;
-      return v5 ^ v2 ^ v8 ^ v9 ^ v10 ^ *&v11;
+      v7 = 0.0;
+      return v3 ^ v2 ^ v4 ^ v5 ^ v6 ^ *&v7;
     }
   }
 
   else
   {
-    v9 = 0;
+    v5 = 0;
     if ((*(this + 80) & 4) != 0)
     {
       goto LABEL_8;
     }
   }
 
-  v10 = 0;
+  v6 = 0;
   if ((*(this + 80) & 1) == 0)
   {
     goto LABEL_14;
   }
 
 LABEL_9:
-  v11 = *(this + 7);
-  if (v11 == 0.0)
+  v7 = *(this + 7);
+  if (v7 == 0.0)
   {
-    v11 = 0.0;
+    v7 = 0.0;
   }
 
-  return v5 ^ v2 ^ v8 ^ v9 ^ v10 ^ *&v11;
+  return v3 ^ v2 ^ v4 ^ v5 ^ v6 ^ *&v7;
 }
 
 uint64_t CMMsl::GyroTemperature::GyroTemperature(uint64_t this)
@@ -2785,7 +2781,7 @@ uint64_t CMMsl::HeadToHeadsetAttitudeEstimatorMeasurementUpdate::HeadToHeadsetAt
   return a1;
 }
 
-CMMsl *CMMsl::HeadToHeadsetAttitudeEstimatorMeasurementUpdate::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::HeadToHeadsetAttitudeEstimatorMeasurementUpdate::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -4143,37 +4139,33 @@ LABEL_3:
 
   v3 = 0;
 LABEL_9:
-  v4 = *(this + 10);
-  v5 = *(this + 11);
-  v6 = PBHashBytes();
-  v7 = *(this + 7);
-  v8 = *(this + 8);
-  v9 = PBHashBytes();
-  v10 = *(this + 86);
-  if ((v10 & 2) != 0)
+  v4 = PBHashBytes();
+  v5 = PBHashBytes();
+  v6 = *(this + 86);
+  if ((v6 & 2) != 0)
   {
     if (*(this + 14) == 0.0)
     {
-      v11 = 0;
+      v7 = 0;
     }
 
     else
     {
-      v11 = *(this + 14);
+      v7 = *(this + 14);
     }
 
-    if (v10)
+    if (v6)
     {
       goto LABEL_11;
     }
 
 LABEL_18:
-    v12 = 0;
+    v8 = 0;
     goto LABEL_19;
   }
 
-  v11 = 0;
-  if ((v10 & 1) == 0)
+  v7 = 0;
+  if ((v6 & 1) == 0)
   {
     goto LABEL_18;
   }
@@ -4181,40 +4173,36 @@ LABEL_18:
 LABEL_11:
   if (*(this + 13) == 0.0)
   {
-    v12 = 0;
+    v8 = 0;
   }
 
   else
   {
-    v12 = *(this + 13);
+    v8 = *(this + 13);
   }
 
 LABEL_19:
-  v13 = *(this + 4);
-  v14 = *(this + 5);
-  v15 = PBHashBytes();
-  v16 = *(this + 1);
-  v17 = *(this + 2);
-  v18 = PBHashBytes();
-  v19 = *(this + 86);
-  if ((v19 & 0x80) == 0)
+  v9 = PBHashBytes();
+  v10 = PBHashBytes();
+  v11 = *(this + 86);
+  if ((v11 & 0x80) == 0)
   {
-    v20 = 0.0;
-    if ((v19 & 0x20) != 0)
+    v12 = 0.0;
+    if ((v11 & 0x20) != 0)
     {
       goto LABEL_21;
     }
 
 LABEL_36:
-    v21 = 0.0;
-    if ((v19 & 0x40) != 0)
+    v13 = 0.0;
+    if ((v11 & 0x40) != 0)
     {
       goto LABEL_24;
     }
 
 LABEL_37:
-    v22 = 0.0;
-    if ((v19 & 8) != 0)
+    v14 = 0.0;
+    if ((v11 & 8) != 0)
     {
       goto LABEL_27;
     }
@@ -4222,70 +4210,70 @@ LABEL_37:
     goto LABEL_38;
   }
 
-  v20 = *(this + 20);
-  if (v20 == 0.0)
+  v12 = *(this + 20);
+  if (v12 == 0.0)
   {
-    v20 = 0.0;
+    v12 = 0.0;
   }
 
-  if ((v19 & 0x20) == 0)
+  if ((v11 & 0x20) == 0)
   {
     goto LABEL_36;
   }
 
 LABEL_21:
-  v21 = *(this + 18);
-  if (v21 == 0.0)
+  v13 = *(this + 18);
+  if (v13 == 0.0)
   {
-    v21 = 0.0;
+    v13 = 0.0;
   }
 
-  if ((v19 & 0x40) == 0)
+  if ((v11 & 0x40) == 0)
   {
     goto LABEL_37;
   }
 
 LABEL_24:
-  v22 = *(this + 19);
-  if (v22 == 0.0)
+  v14 = *(this + 19);
+  if (v14 == 0.0)
   {
-    v22 = 0.0;
+    v14 = 0.0;
   }
 
-  if ((v19 & 8) != 0)
+  if ((v11 & 8) != 0)
   {
 LABEL_27:
-    v23 = *(this + 16);
-    if (v23 == 0.0)
+    v15 = *(this + 16);
+    if (v15 == 0.0)
     {
-      v23 = 0.0;
+      v15 = 0.0;
     }
 
-    if ((v19 & 4) != 0)
+    if ((v11 & 4) != 0)
     {
       goto LABEL_30;
     }
 
 LABEL_39:
-    v24 = 0.0;
-    return v3 ^ v2 ^ v6 ^ v9 ^ v11 ^ v12 ^ v15 ^ v18 ^ *&v20 ^ *&v21 ^ *&v22 ^ *&v23 ^ *&v24;
+    v16 = 0.0;
+    return v3 ^ v2 ^ v4 ^ v5 ^ v7 ^ v8 ^ v9 ^ v10 ^ *&v12 ^ *&v13 ^ *&v14 ^ *&v15 ^ *&v16;
   }
 
 LABEL_38:
-  v23 = 0.0;
-  if ((v19 & 4) == 0)
+  v15 = 0.0;
+  if ((v11 & 4) == 0)
   {
     goto LABEL_39;
   }
 
 LABEL_30:
-  v24 = *(this + 15);
-  if (v24 == 0.0)
+  v16 = *(this + 15);
+  if (v16 == 0.0)
   {
-    v24 = 0.0;
+    v16 = 0.0;
   }
 
-  return v3 ^ v2 ^ v6 ^ v9 ^ v11 ^ v12 ^ v15 ^ v18 ^ *&v20 ^ *&v21 ^ *&v22 ^ *&v23 ^ *&v24;
+  return v3 ^ v2 ^ v4 ^ v5 ^ v7 ^ v8 ^ v9 ^ v10 ^ *&v12 ^ *&v13 ^ *&v14 ^ *&v15 ^ *&v16;
 }
 
 double CMMsl::HeadToHeadsetTransformationEstimate::HeadToHeadsetTransformationEstimate(CMMsl::HeadToHeadsetTransformationEstimate *this)
@@ -5117,18 +5105,14 @@ uint64_t CMMsl::HeadToHeadsetTransformationEstimate::hash_value(CMMsl::HeadToHea
     v2 = 0;
   }
 
-  v3 = *(this + 4);
-  v4 = *(this + 5);
-  v5 = PBHashBytes();
-  v6 = *(this + 1);
-  v7 = *(this + 2);
-  v8 = PBHashBytes();
+  v3 = PBHashBytes();
+  v4 = PBHashBytes();
   if ((*(this + 80) & 2) != 0)
   {
-    v9 = *(this + 8);
-    if (v9 == 0.0)
+    v5 = *(this + 8);
+    if (v5 == 0.0)
     {
-      v9 = 0.0;
+      v5 = 0.0;
     }
 
     if (*(this + 80))
@@ -5137,24 +5121,24 @@ uint64_t CMMsl::HeadToHeadsetTransformationEstimate::hash_value(CMMsl::HeadToHea
     }
 
 LABEL_14:
-    v10 = 0.0;
-    return v5 ^ v2 ^ v8 ^ *&v9 ^ *&v10;
+    v6 = 0.0;
+    return v3 ^ v2 ^ v4 ^ *&v5 ^ *&v6;
   }
 
-  v9 = 0.0;
+  v5 = 0.0;
   if ((*(this + 80) & 1) == 0)
   {
     goto LABEL_14;
   }
 
 LABEL_8:
-  v10 = *(this + 7);
-  if (v10 == 0.0)
+  v6 = *(this + 7);
+  if (v6 == 0.0)
   {
-    v10 = 0.0;
+    v6 = 0.0;
   }
 
-  return v5 ^ v2 ^ v8 ^ *&v9 ^ *&v10;
+  return v3 ^ v2 ^ v4 ^ *&v5 ^ *&v6;
 }
 
 void *CMMsl::HeadTrackingBehaviorUpdate::HeadTrackingBehaviorUpdate(void *this)
@@ -6509,18 +6493,18 @@ void CMMsl::HeartRateSourceDevice::~HeartRateSourceDevice(CMMsl::HeartRateSource
   operator delete();
 }
 
-uint64_t CMMsl::HeartRateSourceDevice::HeartRateSourceDevice(uint64_t this, const CMMsl::HeartRateSourceDevice *a2)
+CMMsl::HeartRateSourceDevice *CMMsl::HeartRateSourceDevice::HeartRateSourceDevice(CMMsl::HeartRateSourceDevice *this, const CMMsl::HeartRateSourceDevice *a2)
 {
   *(this + 8) = 0u;
   *(this + 24) = 0u;
   *this = off_10041F068;
-  *(this + 40) = 0;
-  *(this + 60) = 0;
+  *(this + 5) = 0;
+  *(this + 15) = 0;
   if ((*(a2 + 60) & 2) != 0)
   {
     v3 = *(a2 + 14);
     *(this + 60) = 2;
-    *(this + 56) = v3;
+    *(this + 14) = v3;
     v2 = 3;
     if ((*(a2 + 60) & 1) == 0)
     {
@@ -6536,7 +6520,7 @@ uint64_t CMMsl::HeartRateSourceDevice::HeartRateSourceDevice(uint64_t this, cons
 LABEL_5:
     v4 = *(a2 + 6);
     *(this + 60) = v2;
-    *(this + 48) = v4;
+    *(this + 6) = v4;
   }
 
 LABEL_6:
@@ -7049,7 +7033,6 @@ uint64_t CMMsl::HeartRateSourceDevice::writeTo(uint64_t this, PB::Writer *a2)
 
 BOOL CMMsl::HeartRateSourceDevice::operator==(uint64_t a1, uint64_t a2)
 {
-  v4 = *(a2 + 60);
   if ((*(a1 + 60) & 2) != 0)
   {
     if ((*(a2 + 60) & 2) == 0 || *(a1 + 56) != *(a2 + 56))
@@ -7076,106 +7059,106 @@ BOOL CMMsl::HeartRateSourceDevice::operator==(uint64_t a1, uint64_t a2)
     return 0;
   }
 
-  v5 = *(a1 + 24);
-  v6 = *(a2 + 24);
-  if (v5)
+  v4 = *(a1 + 24);
+  v5 = *(a2 + 24);
+  if (v4)
   {
-    if (!v6)
+    if (!v5)
     {
       return 0;
     }
 
-    v7 = *(v5 + 23);
-    if (v7 >= 0)
+    v6 = *(v4 + 23);
+    if (v6 >= 0)
     {
-      v8 = *(v5 + 23);
+      v7 = *(v4 + 23);
     }
 
     else
     {
+      v7 = *(v4 + 8);
+    }
+
+    v8 = *(v5 + 23);
+    v9 = v8;
+    if ((v8 & 0x80u) != 0)
+    {
       v8 = *(v5 + 8);
     }
 
-    v9 = *(v6 + 23);
-    v10 = v9;
-    if ((v9 & 0x80u) != 0)
-    {
-      v9 = *(v6 + 8);
-    }
-
-    if (v8 != v9)
+    if (v7 != v8)
     {
       return 0;
     }
 
-    v11 = v7 >= 0 ? *(a1 + 24) : *v5;
-    v12 = v10 >= 0 ? *(a2 + 24) : *v6;
-    if (memcmp(v11, v12, v8))
+    v10 = v6 >= 0 ? *(a1 + 24) : *v4;
+    v11 = v9 >= 0 ? *(a2 + 24) : *v5;
+    if (memcmp(v10, v11, v7))
     {
       return 0;
     }
   }
 
-  else if (v6)
+  else if (v5)
   {
     return 0;
   }
 
-  v14 = *(a1 + 32);
-  v15 = *(a2 + 32);
-  if (v14)
+  v13 = *(a1 + 32);
+  v14 = *(a2 + 32);
+  if (v13)
   {
-    if (!v15 || !sub_10005FEB4(v14, v15) && *(a1 + 32) | *(a2 + 32))
+    if (!v14 || !sub_10005FEB4(v13, v14) && *(a1 + 32) | *(a2 + 32))
     {
       return 0;
     }
   }
 
-  else if (v15)
+  else if (v14)
   {
     return 0;
   }
 
-  v16 = *(a1 + 16);
-  v17 = *(a2 + 16);
-  if (v16)
+  v15 = *(a1 + 16);
+  v16 = *(a2 + 16);
+  if (v15)
   {
-    if (!v17 || !sub_10005FEB4(v16, v17) && *(a1 + 16) | *(a2 + 16))
+    if (!v16 || !sub_10005FEB4(v15, v16) && *(a1 + 16) | *(a2 + 16))
     {
       return 0;
     }
   }
 
-  else if (v17)
+  else if (v16)
   {
     return 0;
   }
 
-  v18 = *(a1 + 8);
-  v19 = *(a2 + 8);
-  if (v18)
+  v17 = *(a1 + 8);
+  v18 = *(a2 + 8);
+  if (v17)
   {
-    if (!v19 || !sub_10005FEB4(v18, v19) && *(a1 + 8) | *(a2 + 8))
+    if (!v18 || !sub_10005FEB4(v17, v18) && *(a1 + 8) | *(a2 + 8))
     {
       return 0;
     }
   }
 
-  else if (v19)
+  else if (v18)
   {
     return 0;
   }
 
-  v20 = *(a1 + 40);
-  if (v20)
+  v19 = *(a1 + 40);
+  if (v19)
   {
-    v21 = *(a2 + 40);
-    if (!v21)
+    v20 = *(a2 + 40);
+    if (!v20)
     {
       return 0;
     }
 
-    if (sub_10005FEB4(v20, v21))
+    if (sub_10005FEB4(v19, v20))
     {
       return 1;
     }
@@ -7312,11 +7295,11 @@ void CMMsl::HgAccel::~HgAccel(CMMsl::HgAccel *this)
   operator delete();
 }
 
-void *CMMsl::HgAccel::HgAccel(void *this, const CMMsl::HgAccel *a2)
+CMMsl::HgAccel *CMMsl::HgAccel::HgAccel(CMMsl::HgAccel *this, const CMMsl::Accel **a2)
 {
   *this = off_10041F0A0;
-  this[1] = 0;
-  if (*(a2 + 1))
+  *(this + 1) = 0;
+  if (a2[1])
   {
     operator new();
   }
@@ -7324,13 +7307,13 @@ void *CMMsl::HgAccel::HgAccel(void *this, const CMMsl::HgAccel *a2)
   return this;
 }
 
-const CMMsl::HgAccel *CMMsl::HgAccel::operator=(const CMMsl::HgAccel *a1, const CMMsl::HgAccel *a2)
+uint64_t CMMsl::HgAccel::operator=(uint64_t a1, const CMMsl::Accel **a2)
 {
   if (a1 != a2)
   {
     CMMsl::HgAccel::HgAccel(&v5, a2);
-    v3 = *(a1 + 1);
-    *(a1 + 1) = v6;
+    v3 = *(a1 + 8);
+    *(a1 + 8) = v6;
     v6 = v3;
     CMMsl::HgAccel::~HgAccel(&v5);
   }
@@ -7558,9 +7541,9 @@ CMMsl::Accel *CMMsl::HgAccel::hash_value(CMMsl::HgAccel *this)
   return result;
 }
 
-uint64_t CMMsl::HgAccel::makeSuper(uint64_t this)
+void *CMMsl::HgAccel::makeSuper(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }
@@ -9129,7 +9112,7 @@ float CMMsl::ISPPacket::ISPPacket(uint64_t a1, uint64_t a2)
   return result;
 }
 
-CMMsl *CMMsl::ISPPacket::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::ISPPacket::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {

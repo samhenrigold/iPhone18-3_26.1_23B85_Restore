@@ -450,7 +450,8 @@ id __58__HDRFlexRangeParameters_flexRangeParametersFromMetadata___block_invoke(u
 
   else
   {
-    _cg_jpeg_mem_term("+[HDRFlexRangeParameters flexRangeParametersFromMetadata:]_block_invoke", 165, "Failed to get metadata tag: %s", [(__CFString *)v3 UTF8String]);
+    [(__CFString *)v3 UTF8String];
+    _cg_jpeg_mem_term("+[HDRFlexRangeParameters flexRangeParametersFromMetadata:]_block_invoke", 165, "Failed to get metadata tag: %s");
     v6 = 0;
   }
 

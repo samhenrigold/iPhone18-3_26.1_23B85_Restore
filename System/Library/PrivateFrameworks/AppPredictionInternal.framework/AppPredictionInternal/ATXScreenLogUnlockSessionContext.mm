@@ -36,7 +36,7 @@
   v4 = MEMORY[0x277D42620];
   coderCopy = coder;
   v6 = objc_opt_class();
-  v7 = __atxlog_handle_metrics();
+  v7 = __atxlog_handle_metrics(v6);
   v8 = [v4 robustDecodeObjectOfClass:v6 forKey:@"sessionManager" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.duetexpertd.ATXScreenLogUnlockSessionContext" errorCode:-1 logHandle:v7];
 
   if (v8)

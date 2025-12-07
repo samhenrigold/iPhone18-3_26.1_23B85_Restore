@@ -335,7 +335,7 @@ void __38__UIDimmingView_updateBackgroundColor__block_invoke()
 - (void)setDimmingColor:(id)color
 {
   colorCopy = color;
-  if (![(UIColor *)self->_dimmingColor isEqual:?])
+  if ((objc_msgSend_isEqual_(self->_dimmingColor) & 1) == 0)
   {
     objc_storeStrong(&self->_dimmingColor, color);
     [(UIDimmingView *)self updateBackground];
@@ -345,7 +345,7 @@ void __38__UIDimmingView_updateBackgroundColor__block_invoke()
 - (void)setBlurEffect:(id)effect
 {
   effectCopy = effect;
-  if (![(UIBlurEffect *)self->_blurEffect isEqual:?])
+  if ((objc_msgSend_isEqual_(self->_blurEffect) & 1) == 0)
   {
     objc_storeStrong(&self->_blurEffect, effect);
     [(UIDimmingView *)self updateBackground];
@@ -481,11 +481,11 @@ void __25__UIDimmingView_display___block_invoke(uint64_t a1)
   [UIView animateWithDuration:4 delay:v17 options:v15 animations:duration completion:delay];
 }
 
-uint64_t __58__UIDimmingView_display_withAnimationDuration_afterDelay___block_invoke_2(uint64_t result)
+void *__58__UIDimmingView_display_withAnimationDuration_afterDelay___block_invoke_2(void *result)
 {
-  if ((*(result + 40) & 1) == 0)
+  if ((result[5] & 1) == 0)
   {
-    result = *(result + 32);
+    result = result[4];
     if (*(result + 440) == 1)
     {
       return [result dimmingRemovalAnimationDidStop];

@@ -40,11 +40,11 @@
   [(CMISmartStyleProcessor *)self->_smartStyleProcessor resetState];
   if ((BWStillImageProcessingFlagsForSampleBuffer(sampleBuffer) & 0x800000) != 0)
   {
-    v37 = 0;
-    v38 = 0;
+    v42 = 0;
+    v43 = 0;
 LABEL_15:
 
-    v39 = 0;
+    v44 = 0;
     if (!handler)
     {
       return;
@@ -54,27 +54,27 @@ LABEL_15:
   }
 
   AttachedMedia = BWSampleBufferGetAttachedMedia(sampleBuffer, 0x1F21AAFD0);
-  if (AttachedMedia && ((ImageBuffer = CMSampleBufferGetImageBuffer(AttachedMedia), (v17 = BWSampleBufferGetAttachedMedia(sampleBuffer, 0x1F217BF50)) == 0) ? (v18 = 0) : (v18 = CMSampleBufferGetImageBuffer(v17)), (FinalCropRect = FigCaptureMetadataUtilitiesGetFinalCropRect(), v21 = v20, v23 = v22, v25 = v24, v26 = *off_1E798A940, v27 = [v14 objectForKeyedSubscript:*off_1E798A940], v28 = *off_1E798AA00, objc_msgSend(v27, "objectForKeyedSubscript:", *off_1E798AA00)) && (objc_msgSend(objc_msgSend(objc_msgSend(v14, "objectForKeyedSubscript:", v26), "objectForKeyedSubscript:", v28), "doubleValue"), v30 = v29, Width = CVPixelBufferGetWidth(buffer), Height = CVPixelBufferGetHeight(buffer), FigCaptureMetadataUtilitiesComputeDenormalizedStillImageCropRect(Width, Height, FinalCropRect, v21, v23, v25, v30), x = v45.origin.x, y = v45.origin.y, v35 = v45.size.width, v36 = v45.size.height, !CGRectIsNull(v45))))
+  if (AttachedMedia && ((ImageBuffer = CMSampleBufferGetImageBuffer(AttachedMedia), (v17 = BWSampleBufferGetAttachedMedia(sampleBuffer, 0x1F217BF50)) == 0) ? (v18 = 0) : (v18 = CMSampleBufferGetImageBuffer(v17)), (FinalCropRect = FigCaptureMetadataUtilitiesGetFinalCropRect(v14), v21 = v20, v23 = v22, v25 = v24, v26 = *off_1E798A940, v27 = [v14 objectForKeyedSubscript:*off_1E798A940], v28 = *off_1E798AA00, objc_msgSend(v27, "objectForKeyedSubscript:", *off_1E798AA00)) && (objc_msgSend(objc_msgSend(objc_msgSend(v14, "objectForKeyedSubscript:", v26), "objectForKeyedSubscript:", v28), "doubleValue"), v30 = v29, Width = CVPixelBufferGetWidth(buffer), Height = CVPixelBufferGetHeight(buffer), v33.n128_f64[0] = FinalCropRect, v34.n128_u64[0] = v23, v35.n128_u64[0] = v25, v36.n128_u64[0] = v30, FigCaptureMetadataUtilitiesComputeDenormalizedStillImageCropRect(Width, Height, v33, v21, v34, v35, v36, v37), x = v50.origin.x, y = v50.origin.y, v40 = v50.size.width, v41 = v50.size.height, !CGRectIsNull(v50))))
   {
-    v37 = objc_alloc_init(self->_smartStyleProcessorInputOutputClass);
-    if (!v37)
+    v42 = objc_alloc_init(self->_smartStyleProcessorInputOutputClass);
+    if (!v42)
     {
       [BWApplySmartStyleRenderer renderUsingParameters:inputPixelBuffer:inputSampleBuffer:originalPixelBuffer:processedPixelBuffer:completionHandler:];
     }
 
-    [v37 setInputUnstyledPixelBuffer:buffer];
-    [v37 setInputMetadataDict:v14];
-    [v37 setInputUnstyledCropRect:{x, y, v35, v36}];
-    [v37 setInputStyleCoefficientsPixelBuffer:ImageBuffer];
-    [v37 setOutputStyledPixelBuffer:processedPixelBuffer];
-    [v37 setOutputStyledCropRect:{x, y, v35, v36}];
-    [v37 setOutputGainMapPixelBuffer:v18];
-    [v37 setResidualsCalculationDisabled:1];
-    [(CMISmartStyleProcessor *)self->_smartStyleProcessor setInputOutput:v37];
+    [v42 setInputUnstyledPixelBuffer:buffer];
+    [v42 setInputMetadataDict:v14];
+    [v42 setInputUnstyledCropRect:{x, y, v40, v41}];
+    [v42 setInputStyleCoefficientsPixelBuffer:ImageBuffer];
+    [v42 setOutputStyledPixelBuffer:processedPixelBuffer];
+    [v42 setOutputStyledCropRect:{x, y, v40, v41}];
+    [v42 setOutputGainMapPixelBuffer:v18];
+    [v42 setResidualsCalculationDisabled:1];
+    [(CMISmartStyleProcessor *)self->_smartStyleProcessor setInputOutput:v42];
     if ([(CMISmartStyleProcessor *)self->_smartStyleProcessor prepareToProcess:6]|| [(CMISmartStyleProcessor *)self->_smartStyleProcessor process])
     {
-      v44 = 0;
-      v43 = 0;
+      v49 = 0;
+      v48 = 0;
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     }
@@ -83,14 +83,14 @@ LABEL_15:
     {
       if (![(CMISmartStyleProcessor *)self->_smartStyleProcessor finishProcessing])
       {
-        v38 = 2;
+        v43 = 2;
         goto LABEL_15;
       }
 
-      v44 = 0;
-      v43 = 0;
-      v41 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT);
+      v49 = 0;
+      v48 = 0;
+      v46 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT);
     }
 
     fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -99,19 +99,19 @@ LABEL_15:
   else
   {
 LABEL_18:
-    v37 = 0;
+    v42 = 0;
   }
 
-  [BWApplySmartStyleRenderer renderUsingParameters:v37 inputPixelBuffer:v42 inputSampleBuffer:? originalPixelBuffer:? processedPixelBuffer:? completionHandler:?];
-  v38 = 0;
-  v39 = v42[0];
+  [BWApplySmartStyleRenderer renderUsingParameters:v42 inputPixelBuffer:v47 inputSampleBuffer:? originalPixelBuffer:? processedPixelBuffer:? completionHandler:?];
+  v43 = 0;
+  v44 = v47[0];
   if (!handler)
   {
     return;
   }
 
 LABEL_16:
-  (*(handler + 2))(handler, v38, v39);
+  (*(handler + 2))(handler, v43, v44);
 }
 
 - (int)prepareForRenderingWithParameters:(id)parameters inputVideoFormat:(id)format inputMediaPropertiesByAttachedMediaKey:(id)key
@@ -147,7 +147,7 @@ LABEL_16:
   return 0;
 }
 
-- (uint64_t)renderUsingParameters:(void *)a1 inputPixelBuffer:(uint64_t *)a2 inputSampleBuffer:originalPixelBuffer:processedPixelBuffer:completionHandler:.cold.2(void *a1, uint64_t *a2)
+- (void)renderUsingParameters:(void *)a1 inputPixelBuffer:(void *)a2 inputSampleBuffer:originalPixelBuffer:processedPixelBuffer:completionHandler:.cold.2(void *a1, void *a2)
 {
   result = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A768] code:-2 userInfo:0];
   *a2 = result;

@@ -1,5 +1,6 @@
 @interface MOConfigurationManagerBase
 - (BOOL)getBoolDefaultsForKey:(id)key withFallback:(BOOL)fallback;
+- (BOOL)getBoolSettingForKey:(id)key withFallback:(BOOL)fallback;
 - (BOOL)getBoolTrialLevelForKey:(id)key withFallback:(BOOL)fallback;
 - (MOConfigurationManagerBase)init;
 - (MOConfigurationManagerBase)initWithDefaultsManager:(id)manager enableTrialClient:(BOOL)client;
@@ -13,6 +14,7 @@
 - (id)getStringSettingForKey:(id)key withFallback:(id)fallback;
 - (id)getStringTrialLevelForKey:(id)key withFallback:(id)fallback;
 - (int)getIntegerDefaultsForKey:(id)key withFallback:(int)fallback;
+- (int)getIntegerSettingForKey:(id)key withFallback:(int)fallback;
 - (int)getIntegerTrialLevelForKey:(id)key withFallback:(int)fallback;
 - (void)doTrialSetup;
 @end
@@ -441,6 +443,46 @@
   }
 
   return v9;
+}
+
+- (int)getIntegerSettingForKey:(id)key withFallback:(int)fallback
+{
+  v4 = *&fallback;
+  keyCopy = key;
+  v7 = [(MOConfigurationManagerBase *)self getIntegerDefaultsForKey:keyCopy withFallback:[(MOConfigurationManagerBase *)self getIntegerTrialLevelForKey:keyCopy withFallback:v4]];
+  v8 = _mo_log_facility_get_os_log(&MOLogFacilitySettings);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  {
+    v10 = 138412802;
+    v11 = keyCopy;
+    v12 = 1024;
+    v13 = v7;
+    v14 = 1024;
+    v15 = v4;
+    _os_log_debug_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEBUG, "Retrieved setting [%@] with value [i:%i] and fallback [i:%i]", &v10, 0x18u);
+  }
+
+  return v7;
+}
+
+- (BOOL)getBoolSettingForKey:(id)key withFallback:(BOOL)fallback
+{
+  fallbackCopy = fallback;
+  keyCopy = key;
+  v7 = [(MOConfigurationManagerBase *)self getBoolDefaultsForKey:keyCopy withFallback:[(MOConfigurationManagerBase *)self getBoolTrialLevelForKey:keyCopy withFallback:fallbackCopy]];
+  v8 = _mo_log_facility_get_os_log(&MOLogFacilitySettings);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  {
+    v10 = 138412802;
+    v11 = keyCopy;
+    v12 = 1024;
+    v13 = v7;
+    v14 = 1024;
+    v15 = fallbackCopy;
+    _os_log_debug_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEBUG, "Retrieved setting [%@] with value [b:%i] and fallback [b:%i]", &v10, 0x18u);
+  }
+
+  return v7;
 }
 
 - (float)getFloatSettingForKey:(id)key withFallback:(float)fallback

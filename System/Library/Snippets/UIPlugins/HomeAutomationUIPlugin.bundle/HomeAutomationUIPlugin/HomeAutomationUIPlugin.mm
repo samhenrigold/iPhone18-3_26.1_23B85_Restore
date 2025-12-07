@@ -5,7 +5,7 @@ Swift::Int Placeholder.hashValue.getter()
   return sub_BA0();
 }
 
-Swift::Int sub_9B4()
+Swift::Int sub_9B4(uint64_t a1)
 {
   sub_B80();
   Placeholder.hash(into:)();

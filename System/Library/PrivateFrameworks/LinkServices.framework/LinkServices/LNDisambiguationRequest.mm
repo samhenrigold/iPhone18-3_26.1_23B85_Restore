@@ -51,7 +51,7 @@
 
 - (void)respondWithError:(id)error
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   completionHandler = self->_completionHandler;
   if (completionHandler)
@@ -71,19 +71,17 @@
     {
       v10 = objc_opt_class();
       identifier = [(LNDisambiguationRequest *)self identifier];
-      v13 = 138543618;
-      v14 = v10;
-      v15 = 2114;
-      v16 = identifier;
+      v12 = 138543618;
+      v13 = v10;
+      v14 = 2114;
+      v15 = identifier;
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)respondWithUpdates:(id)updates
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   updatesCopy = updates;
   if (self->_completionHandler)
   {
@@ -104,19 +102,17 @@
     {
       v10 = objc_opt_class();
       identifier2 = [(LNDisambiguationRequest *)self identifier];
-      v13 = 138543618;
-      v14 = v10;
-      v15 = 2114;
-      v16 = identifier2;
+      v12 = 138543618;
+      v13 = v10;
+      v14 = 2114;
+      v15 = identifier2;
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)responseWithSelectedIndex:(id)index value:(id)value
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   indexCopy = index;
   valueCopy = value;
   if (self->_completionHandler)
@@ -138,14 +134,12 @@
     {
       v13 = objc_opt_class();
       identifier2 = [(LNDisambiguationRequest *)self identifier];
-      v16 = 138543618;
-      v17 = v13;
-      v18 = 2114;
-      v19 = identifier2;
+      v15 = 138543618;
+      v16 = v13;
+      v17 = 2114;
+      v18 = identifier2;
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)respondWithSelectedIndex:(int64_t)index

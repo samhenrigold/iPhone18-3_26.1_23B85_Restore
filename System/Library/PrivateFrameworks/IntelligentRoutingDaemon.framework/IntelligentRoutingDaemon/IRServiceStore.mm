@@ -37,65 +37,61 @@
 
 - (id)fetchService
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K = %@", @"serviceIdentifier", self->_serviceIdentifier];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  v10[0] = v3;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+  v9[0] = v3;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
   v7 = [(IRStore *)self fetchObjectWithEntityName:v5 byAndPredicates:v6 sortDescriptors:0 andLimit:0];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 - (id)getReplayEventDescriptors
 {
-  v27[1] = *MEMORY[0x277D85DE8];
+  v26[1] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCAC30];
   serviceIdentifier = [(IRServiceStore *)self serviceIdentifier];
   v5 = [v3 predicateWithFormat:@"%K = %@", @"service.serviceIdentifier", serviceIdentifier];
 
   v6 = objc_opt_class();
   v7 = NSStringFromClass(v6);
-  v27[0] = v5;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:1];
+  v26[0] = v5;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:1];
   v9 = [(IRStore *)self fetchManagedObjectWithEntityName:v7 byAndPredicates:v8 sortDescriptors:0 andLimit:0];
 
   if (v9)
   {
-    v20 = 0;
-    v21 = &v20;
-    v22 = 0x3032000000;
-    v23 = __Block_byref_object_copy__2;
-    v24 = __Block_byref_object_dispose__2;
-    v25 = objc_opt_new();
+    v19 = 0;
+    v20 = &v19;
+    v21 = 0x3032000000;
+    v22 = __Block_byref_object_copy__2;
+    v23 = __Block_byref_object_dispose__2;
+    v24 = objc_opt_new();
     managedObjectContext = [(IRStore *)self managedObjectContext];
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __51__IRServiceStore_Replay__getReplayEventDescriptors__block_invoke;
-    v17[3] = &unk_2797E14E8;
-    v18 = v9;
-    v19 = &v20;
-    [managedObjectContext performBlockAndWait:v17];
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __51__IRServiceStore_Replay__getReplayEventDescriptors__block_invoke;
+    v16[3] = &unk_2797E14E8;
+    v17 = v9;
+    v18 = &v19;
+    [managedObjectContext performBlockAndWait:v16];
 
     v11 = [objc_alloc(MEMORY[0x277CCAC98]) initWithKey:@"date" ascending:1];
-    v12 = v21[5];
-    v26 = v11;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v26 count:1];
+    v12 = v20[5];
+    v25 = v11;
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v25 count:1];
     [v12 sortUsingDescriptors:v13];
 
-    v14 = [v21[5] copy];
-    _Block_object_dispose(&v20, 8);
+    v14 = [v20[5] copy];
+    _Block_object_dispose(&v19, 8);
   }
 
   else
   {
     v14 = 0;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -154,7 +150,7 @@ void __51__IRServiceStore_Replay__getReplayEventDescriptors__block_invoke_2(uint
 
 + (id)fetchAllServicesContainingClientIdentifier:(id)identifier persistenceManager:(id)manager
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   identifierCopy = identifier;
   v7 = [[IRStore alloc] initWithPersistenceManager:managerCopy];
@@ -163,33 +159,31 @@ void __51__IRServiceStore_Replay__getReplayEventDescriptors__block_invoke_2(uint
 
   v9 = objc_opt_class();
   v10 = NSStringFromClass(v9);
-  v15[0] = identifierCopy;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+  v14[0] = identifierCopy;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
   v12 = [(IRStore *)v7 fetchObjectsWithEntityName:v10 byAndPredicates:v11 sortDescriptors:0 andLimit:0];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
 
 + (id)generateLogForStringNumEntitiesInDatabaseWithPersistenceManager:(id)manager
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   v4 = [[IRStore alloc] initWithPersistenceManager:managerCopy];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
-  v23 = managerCopy;
+  v22 = managerCopy;
   managedObjectModel = [managerCopy managedObjectModel];
   entities = [managedObjectModel entities];
 
-  v7 = [entities countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v7 = [entities countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v25;
+    v9 = *v24;
     v10 = @"Memory: Entity count in database (for all services): \n";
     do
     {
@@ -197,12 +191,12 @@ void __51__IRServiceStore_Replay__getReplayEventDescriptors__block_invoke_2(uint
       v12 = v10;
       do
       {
-        if (*v25 != v9)
+        if (*v24 != v9)
         {
           objc_enumerationMutation(entities);
         }
 
-        managedObjectClassName = [*(*(&v24 + 1) + 8 * v11) managedObjectClassName];
+        managedObjectClassName = [*(*(&v23 + 1) + 8 * v11) managedObjectClassName];
         v14 = [(IRStore *)v4 countManagedObjectWithEntityName:managedObjectClassName byAndPredicates:0 sortDescriptors:0 andLimit:0];
         v10 = [(__CFString *)v12 stringByAppendingFormat:@"Entity Name: %@, Entity Count:%@\n", managedObjectClassName, v14];
 
@@ -211,7 +205,7 @@ void __51__IRServiceStore_Replay__getReplayEventDescriptors__block_invoke_2(uint
       }
 
       while (v8 != v11);
-      v8 = [entities countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v8 = [entities countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v8);
@@ -223,13 +217,11 @@ void __51__IRServiceStore_Replay__getReplayEventDescriptors__block_invoke_2(uint
   }
 
   v15 = MEMORY[0x277CCABB0];
-  persistenceStore = [v23 persistenceStore];
+  persistenceStore = [v22 persistenceStore];
   v17 = [persistenceStore url];
   path = [v17 path];
   0xF4240uLL = [v15 numberWithUnsignedLongLong:IRGetDiskUsageForPath(path) / 0xF4240uLL];
   v20 = [(__CFString *)v10 stringByAppendingFormat:@"Total Disk Size: %@M\n", 0xF4240uLL];
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
@@ -257,7 +249,7 @@ void __71__IRServiceStore_generateLogForServicesDatabaseWithPersistenceManager__
   v2 = *(a1 + 32);
   v3 = MEMORY[0x277CCACA8];
   v4 = a2;
-  v9 = [v4 clientIdentifier];
+  v9 = objc_msgSend_clientIdentifier(v4);
   v5 = [v4 serviceIdentifier];
   [v4 servicePackage];
   v6 = IRServicePackageString();
@@ -269,30 +261,30 @@ void __71__IRServiceStore_generateLogForServicesDatabaseWithPersistenceManager__
 
 + (void)idendifyAndDeleteDuplicateServicesWithWithPersistenceManager:(id)manager
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   v4 = [IRServiceStore fetchAllServicesWithPersistenceManager:managerCopy];
   v5 = objc_opt_new();
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
   v6 = v4;
-  v7 = [v6 countByEnumeratingWithState:&v41 objects:v48 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v40 objects:v47 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v42;
+    v9 = *v41;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v42 != v9)
+        if (*v41 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v41 + 1) + 8 * i);
+        v11 = *(*(&v40 + 1) + 8 * i);
         serviceIdentifier = [v11 serviceIdentifier];
 
         if (serviceIdentifier)
@@ -302,65 +294,63 @@ void __71__IRServiceStore_generateLogForServicesDatabaseWithPersistenceManager__
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v41 objects:v48 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v40 objects:v47 count:16];
     }
 
     while (v8);
   }
 
-  v28 = v6;
+  v27 = v6;
 
-  v29 = managerCopy;
+  v28 = managerCopy;
   v14 = [[IRStore alloc] initWithPersistenceManager:managerCopy];
-  v32 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"lastSeenDate" ascending:0];
+  v31 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"lastSeenDate" ascending:0];
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
   obj = v5;
-  v15 = [obj countByEnumeratingWithState:&v37 objects:v47 count:16];
+  v15 = [obj countByEnumeratingWithState:&v36 objects:v46 count:16];
   if (v15)
   {
     v16 = v15;
-    v31 = *v38;
+    v30 = *v37;
     do
     {
       for (j = 0; j != v16; ++j)
       {
-        if (*v38 != v31)
+        if (*v37 != v30)
         {
           objc_enumerationMutation(obj);
         }
 
-        v18 = *(*(&v37 + 1) + 8 * j);
+        v18 = *(*(&v36 + 1) + 8 * j);
         v19 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K = %@", @"serviceIdentifier", v18];
         v20 = objc_opt_class();
         v21 = NSStringFromClass(v20);
-        v46 = v19;
-        v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v46 count:1];
-        v45 = v32;
-        v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v45 count:1];
+        v45 = v19;
+        v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v45 count:1];
+        v44 = v31;
+        v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v44 count:1];
         v24 = [(IRStore *)v14 fetchManagedObjectsWithEntityName:v21 byAndPredicates:v22 sortDescriptors:v23 andLimit:0];
 
         managedObjectContext = [(IRStore *)v14 managedObjectContext];
-        v33[0] = MEMORY[0x277D85DD0];
-        v33[1] = 3221225472;
-        v33[2] = __79__IRServiceStore_idendifyAndDeleteDuplicateServicesWithWithPersistenceManager___block_invoke;
-        v33[3] = &unk_2797E1560;
-        v34 = v24;
-        v35 = v18;
-        v36 = v14;
+        v32[0] = MEMORY[0x277D85DD0];
+        v32[1] = 3221225472;
+        v32[2] = __79__IRServiceStore_idendifyAndDeleteDuplicateServicesWithWithPersistenceManager___block_invoke;
+        v32[3] = &unk_2797E1560;
+        v33 = v24;
+        v34 = v18;
+        v35 = v14;
         v26 = v24;
-        [managedObjectContext performBlockAndWait:v33];
+        [managedObjectContext performBlockAndWait:v32];
       }
 
-      v16 = [obj countByEnumeratingWithState:&v37 objects:v47 count:16];
+      v16 = [obj countByEnumeratingWithState:&v36 objects:v46 count:16];
     }
 
     while (v16);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __79__IRServiceStore_idendifyAndDeleteDuplicateServicesWithWithPersistenceManager___block_invoke(uint64_t a1)
@@ -398,95 +388,93 @@ void __79__IRServiceStore_idendifyAndDeleteDuplicateServicesWithWithPersistenceM
 
 + (void)adjustDBToStaticTokens:(id)tokens
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   tokensCopy = tokens;
   v4 = [IRServiceStore fetchAllServicesWithPersistenceManager:tokensCopy];
   v5 = objc_opt_new();
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
   v6 = v4;
-  v7 = [v6 countByEnumeratingWithState:&v38 objects:v45 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v37 objects:v44 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v39;
+    v9 = *v38;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v39 != v9)
+        if (*v38 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v38 + 1) + 8 * i);
-        clientIdentifier = [v11 clientIdentifier];
+        v11 = *(*(&v37 + 1) + 8 * i);
+        v12 = objc_msgSend_clientIdentifier(v11);
 
-        if (clientIdentifier)
+        if (v12)
         {
-          clientIdentifier2 = [v11 clientIdentifier];
-          [v5 addObject:clientIdentifier2];
+          v13 = objc_msgSend_clientIdentifier(v11);
+          [v5 addObject:v13];
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v38 objects:v45 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v37 objects:v44 count:16];
     }
 
     while (v8);
   }
 
-  v27 = v6;
+  v26 = v6;
 
   v14 = [[IRStore alloc] initWithPersistenceManager:tokensCopy];
-  v30 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"lastSeenDate" ascending:0];
+  v29 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"lastSeenDate" ascending:0];
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   obj = v5;
-  v15 = [obj countByEnumeratingWithState:&v34 objects:v44 count:16];
+  v15 = [obj countByEnumeratingWithState:&v33 objects:v43 count:16];
   if (v15)
   {
     v16 = v15;
-    v29 = *v35;
+    v28 = *v34;
     do
     {
       for (j = 0; j != v16; ++j)
       {
-        if (*v35 != v29)
+        if (*v34 != v28)
         {
           objc_enumerationMutation(obj);
         }
 
-        v18 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K = %@", @"clientIdentifier", *(*(&v34 + 1) + 8 * j)];
+        v18 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K = %@", @"clientIdentifier", *(*(&v33 + 1) + 8 * j)];
         v19 = objc_opt_class();
         v20 = NSStringFromClass(v19);
-        v43 = v18;
-        v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v43 count:1];
-        v42 = v30;
-        v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v42 count:1];
+        v42 = v18;
+        v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v42 count:1];
+        v41 = v29;
+        v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v41 count:1];
         v23 = [(IRStore *)v14 fetchManagedObjectsWithEntityName:v20 byAndPredicates:v21 sortDescriptors:v22 andLimit:0];
 
         managedObjectContext = [(IRStore *)v14 managedObjectContext];
-        v31[0] = MEMORY[0x277D85DD0];
-        v31[1] = 3221225472;
-        v31[2] = __41__IRServiceStore_adjustDBToStaticTokens___block_invoke;
-        v31[3] = &unk_2797E15B0;
-        v32 = v23;
-        v33 = v14;
+        v30[0] = MEMORY[0x277D85DD0];
+        v30[1] = 3221225472;
+        v30[2] = __41__IRServiceStore_adjustDBToStaticTokens___block_invoke;
+        v30[3] = &unk_2797E15B0;
+        v31 = v23;
+        v32 = v14;
         v25 = v23;
-        [managedObjectContext performBlockAndWait:v31];
+        [managedObjectContext performBlockAndWait:v30];
       }
 
-      v16 = [obj countByEnumeratingWithState:&v34 objects:v44 count:16];
+      v16 = [obj countByEnumeratingWithState:&v33 objects:v43 count:16];
     }
 
     while (v16);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __41__IRServiceStore_adjustDBToStaticTokens___block_invoke(uint64_t a1)
@@ -514,94 +502,87 @@ void __41__IRServiceStore_adjustDBToStaticTokens___block_invoke_2(uint64_t a1, v
   else
   {
     v6 = a2;
-    v7 = [v6 clientIdentifier];
+    v7 = objc_msgSend_clientIdentifier(v6);
     [v6 setServiceIdentifier:?];
   }
 }
 
 + (void)adjustFirstSeenDateOfCandidates:(id)candidates
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCAC30];
   candidatesCopy = candidates;
   v5 = [v3 predicateWithFormat:@"%K = %@", @"firstSeenDate", 0];
-  v12 = @"firstSeenDate";
+  v11 = @"firstSeenDate";
   v6 = [MEMORY[0x277CBEAA8] now];
-  v13[0] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v12[0] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
 
   v8 = [[IRStore alloc] initWithPersistenceManager:candidatesCopy];
   v9 = objc_opt_class();
   v10 = NSStringFromClass(v9);
   [(IRStore *)v8 batchUpdateObjectsWithEntityName:v10 predicate:v5 propertiesToUpdate:v7];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)fetchCandidatesContainer
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K = %@", @"service.serviceIdentifier", self->_serviceIdentifier];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  v10[0] = v3;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+  v9[0] = v3;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
   v7 = [(IRStore *)self fetchObjectWithEntityName:v5 byAndPredicates:v6 sortDescriptors:0 andLimit:0];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 - (id)fetchReplayEventsContainer
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K = %@", @"service.serviceIdentifier", self->_serviceIdentifier];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  v10[0] = v3;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+  v9[0] = v3;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
   v7 = [(IRStore *)self fetchObjectWithEntityName:v5 byAndPredicates:v6 sortDescriptors:0 andLimit:0];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 - (id)fetchHistoryEventsContainerWithLimit:(unint64_t)limit
 {
-  v28[1] = *MEMORY[0x277D85DE8];
+  v27[1] = *MEMORY[0x277D85DE8];
   v5 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K = %@", @"historyEventsContainer.service.serviceIdentifier", self->_serviceIdentifier];
   v6 = [objc_alloc(MEMORY[0x277CCAC98]) initWithKey:@"date" ascending:0];
   v7 = objc_opt_class();
   v8 = NSStringFromClass(v7);
-  v28[0] = v5;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:1];
-  v27 = v6;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v27 count:1];
+  v27[0] = v5;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:1];
+  v26 = v6;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v26 count:1];
   v11 = [(IRStore *)self fetchManagedObjectsWithEntityName:v8 byAndPredicates:v9 sortDescriptors:v10 andLimit:limit];
 
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x3032000000;
-  v24 = __Block_byref_object_copy__3;
-  v25 = __Block_byref_object_dispose__3;
-  v26 = objc_opt_new();
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy__3;
+  v24 = __Block_byref_object_dispose__3;
+  v25 = objc_opt_new();
   managedObjectContext = [(IRStore *)self managedObjectContext];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __55__IRServiceStore_fetchHistoryEventsContainerWithLimit___block_invoke;
-  v18[3] = &unk_2797E14E8;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __55__IRServiceStore_fetchHistoryEventsContainerWithLimit___block_invoke;
+  v17[3] = &unk_2797E14E8;
   v13 = v11;
-  v19 = v13;
-  v20 = &v21;
-  [managedObjectContext performBlockAndWait:v18];
+  v18 = v13;
+  v19 = &v20;
+  [managedObjectContext performBlockAndWait:v17];
 
   v14 = [IRHistoryEventsContainerDO alloc];
-  v15 = [(IRHistoryEventsContainerDO *)v14 initWithHistoryEvents:v22[5]];
+  v15 = [(IRHistoryEventsContainerDO *)v14 initWithHistoryEvents:v21[5]];
 
-  _Block_object_dispose(&v21, 8);
-  v16 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v20, 8);
 
   return v15;
 }
@@ -630,7 +611,7 @@ void __55__IRServiceStore_fetchHistoryEventsContainerWithLimit___block_invoke(ui
 
 - (id)fetchReplayEventAtDate:(id)date
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CCAC30];
   serviceIdentifier = self->_serviceIdentifier;
   dateCopy = date;
@@ -639,27 +620,23 @@ void __55__IRServiceStore_fetchHistoryEventsContainerWithLimit___block_invoke(ui
 
   v9 = objc_opt_class();
   v10 = NSStringFromClass(v9);
-  v15[0] = serviceIdentifier;
-  v15[1] = dateCopy;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+  v14[0] = serviceIdentifier;
+  v14[1] = dateCopy;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
   v12 = [(IRStore *)self fetchObjectWithEntityName:v10 byAndPredicates:v11 sortDescriptors:0 andLimit:0];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
 
 - (id)fetchStatistics
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K = %@", @"service.serviceIdentifier", self->_serviceIdentifier];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  v10[0] = v3;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+  v9[0] = v3;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
   v7 = [(IRStore *)self fetchObjectWithEntityName:v5 byAndPredicates:v6 sortDescriptors:0 andLimit:0];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -688,7 +665,7 @@ void __55__IRServiceStore_fetchHistoryEventsContainerWithLimit___block_invoke(ui
   return self;
 }
 
-uint64_t __29__IRServiceStore_addService___block_invoke(uint64_t a1)
+void *__29__IRServiceStore_addService___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = [*(a1 + 40) managedObjectContext];
@@ -701,34 +678,34 @@ uint64_t __29__IRServiceStore_addService___block_invoke(uint64_t a1)
 
 - (BOOL)updateService:(id)service
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   v5 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K = %@", @"serviceIdentifier", self->_serviceIdentifier];
   v6 = objc_opt_class();
   v7 = NSStringFromClass(v6);
-  v23[0] = v5;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
+  v22[0] = v5;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
   v9 = [(IRStore *)self fetchManagedObjectWithEntityName:v7 byAndPredicates:v8 sortDescriptors:0 andLimit:0];
 
   if (v9)
   {
-    v19 = 0;
-    v20 = &v19;
-    v21 = 0x2020000000;
-    v22 = 0;
+    v18 = 0;
+    v19 = &v18;
+    v20 = 0x2020000000;
+    v21 = 0;
     managedObjectContext = [(IRStore *)self managedObjectContext];
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __32__IRServiceStore_updateService___block_invoke;
-    v14[3] = &unk_2797E1600;
-    v15 = v9;
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __32__IRServiceStore_updateService___block_invoke;
+    v13[3] = &unk_2797E1600;
+    v14 = v9;
     selfCopy = self;
-    v18 = &v19;
-    v16 = serviceCopy;
-    [managedObjectContext performBlockAndWait:v14];
+    v17 = &v18;
+    v15 = serviceCopy;
+    [managedObjectContext performBlockAndWait:v13];
 
-    v11 = *(v20 + 24);
-    _Block_object_dispose(&v19, 8);
+    v11 = *(v19 + 24);
+    _Block_object_dispose(&v18, 8);
   }
 
   else
@@ -736,11 +713,10 @@ uint64_t __29__IRServiceStore_addService___block_invoke(uint64_t a1)
     v11 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11 & 1;
 }
 
-uint64_t __32__IRServiceStore_updateService___block_invoke(uint64_t a1)
+void *__32__IRServiceStore_updateService___block_invoke(uint64_t a1)
 {
   [IRServiceMO setPropertiesOfServiceMO:*(a1 + 32) withServiceDO:*(a1 + 40)];
   result = [*(a1 + 48) commitChangesToStore];
@@ -750,34 +726,34 @@ uint64_t __32__IRServiceStore_updateService___block_invoke(uint64_t a1)
 
 - (BOOL)addCandidates:(id)candidates
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   candidatesCopy = candidates;
   v5 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K = %@", @"service.serviceIdentifier", self->_serviceIdentifier];
   v6 = objc_opt_class();
   v7 = NSStringFromClass(v6);
-  v23[0] = v5;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
+  v22[0] = v5;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
   v9 = [(IRStore *)self fetchManagedObjectWithEntityName:v7 byAndPredicates:v8 sortDescriptors:0 andLimit:0];
 
   if (v9)
   {
-    v19 = 0;
-    v20 = &v19;
-    v21 = 0x2020000000;
-    v22 = 0;
+    v18 = 0;
+    v19 = &v18;
+    v20 = 0x2020000000;
+    v21 = 0;
     managedObjectContext = [(IRStore *)self managedObjectContext];
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __32__IRServiceStore_addCandidates___block_invoke;
-    v14[3] = &unk_2797E1628;
-    v15 = candidatesCopy;
-    v16 = v9;
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __32__IRServiceStore_addCandidates___block_invoke;
+    v13[3] = &unk_2797E1628;
+    v14 = candidatesCopy;
+    v15 = v9;
     selfCopy = self;
-    v18 = &v19;
-    [managedObjectContext performBlockAndWait:v14];
+    v17 = &v18;
+    [managedObjectContext performBlockAndWait:v13];
 
-    v11 = *(v20 + 24);
-    _Block_object_dispose(&v19, 8);
+    v11 = *(v19 + 24);
+    _Block_object_dispose(&v18, 8);
   }
 
   else
@@ -785,7 +761,6 @@ uint64_t __32__IRServiceStore_updateService___block_invoke(uint64_t a1)
     v11 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11 & 1;
 }
 
@@ -817,41 +792,41 @@ void __32__IRServiceStore_addCandidates___block_invoke_2(uint64_t a1, void *a2)
 
 - (BOOL)addHistoryEvent:(id)event withLimit:(unint64_t)limit
 {
-  v55[1] = *MEMORY[0x277D85DE8];
+  v54[1] = *MEMORY[0x277D85DE8];
   eventCopy = event;
-  v32 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K = %@", @"service.serviceIdentifier", self->_serviceIdentifier];
+  v31 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K = %@", @"service.serviceIdentifier", self->_serviceIdentifier];
   v6 = objc_opt_class();
   v7 = NSStringFromClass(v6);
-  v55[0] = v32;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v55 count:1];
+  v54[0] = v31;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v54 count:1];
   v9 = [(IRStore *)self fetchManagedObjectWithEntityName:v7 byAndPredicates:v8 sortDescriptors:0 andLimit:0];
 
   if (v9)
   {
-    v38 = 0;
-    v39 = &v38;
-    v40 = 0x2020000000;
-    v41 = 0;
+    v37 = 0;
+    v38 = &v37;
+    v39 = 0x2020000000;
+    v40 = 0;
     managedObjectContext = [(IRStore *)self managedObjectContext];
-    v33[0] = MEMORY[0x277D85DD0];
-    v33[1] = 3221225472;
-    v33[2] = __44__IRServiceStore_addHistoryEvent_withLimit___block_invoke;
-    v33[3] = &unk_2797E1628;
-    v34 = v9;
-    v35 = eventCopy;
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __44__IRServiceStore_addHistoryEvent_withLimit___block_invoke;
+    v32[3] = &unk_2797E1628;
+    v33 = v9;
+    v34 = eventCopy;
     selfCopy = self;
-    v37 = &v38;
-    [managedObjectContext performBlockAndWait:v33];
+    v36 = &v37;
+    [managedObjectContext performBlockAndWait:v32];
 
     v11 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K = %@", @"historyEventsContainer.service.serviceIdentifier", self->_serviceIdentifier];
     v12 = objc_opt_class();
     v13 = NSStringFromClass(v12);
-    v54 = v11;
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v54 count:1];
+    v53 = v11;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v53 count:1];
     v15 = [(IRStore *)self countManagedObjectWithEntityName:v13 byAndPredicates:v14 sortDescriptors:0 andLimit:0];
 
     v16 = 0;
-    if (*(v39 + 24) == 1 && v15)
+    if (*(v38 + 24) == 1 && v15)
     {
       v17 = [v15 longLongValue] - limit;
       v18 = v17 & ~(v17 >> 63);
@@ -862,15 +837,15 @@ void __32__IRServiceStore_addCandidates___block_invoke_2(uint64_t a1, void *a2)
         v21 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:limit];
         v22 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v18];
         *buf = 136316162;
-        v45 = "#service-store, ";
-        v46 = 2112;
-        v47 = v19;
-        v48 = 2112;
-        v49 = v15;
-        v50 = 2112;
-        v51 = v21;
-        v52 = 2112;
-        v53 = v22;
+        v44 = "#service-store, ";
+        v45 = 2112;
+        v46 = v19;
+        v47 = 2112;
+        v48 = v15;
+        v49 = 2112;
+        v50 = v21;
+        v51 = 2112;
+        v52 = v22;
         _os_log_impl(&dword_25543D000, v20, OS_LOG_TYPE_INFO, "%s[%@], Commiting history event to DB, numberOfHistoryEvents: %@, limit: %@, removing: %@", buf, 0x34u);
 
         v18 = v17 & ~(v17 >> 63);
@@ -888,17 +863,17 @@ void __32__IRServiceStore_addCandidates___block_invoke_2(uint64_t a1, void *a2)
 
         v25 = objc_opt_class();
         v26 = NSStringFromClass(v25);
-        v43 = v24;
-        v27 = [MEMORY[0x277CBEA60] arrayWithObjects:&v43 count:1];
-        v42 = v23;
-        v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v42 count:1];
+        v42 = v24;
+        v27 = [MEMORY[0x277CBEA60] arrayWithObjects:&v42 count:1];
+        v41 = v23;
+        v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v41 count:1];
         v16 = [(IRStore *)self batchDeleteObjectsWithEntityName:v26 byAndPredicates:v27 sortDescriptors:v28 andLimit:v18];
 
         v11 = v24;
       }
     }
 
-    _Block_object_dispose(&v38, 8);
+    _Block_object_dispose(&v37, 8);
   }
 
   else
@@ -906,11 +881,10 @@ void __32__IRServiceStore_addCandidates___block_invoke_2(uint64_t a1, void *a2)
     v16 = 0;
   }
 
-  v29 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
-uint64_t __44__IRServiceStore_addHistoryEvent_withLimit___block_invoke(uint64_t a1)
+void *__44__IRServiceStore_addHistoryEvent_withLimit___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
@@ -925,7 +899,7 @@ uint64_t __44__IRServiceStore_addHistoryEvent_withLimit___block_invoke(uint64_t 
 
 - (BOOL)updateCandidate:(id)candidate
 {
-  v26[2] = *MEMORY[0x277D85DE8];
+  v25[2] = *MEMORY[0x277D85DE8];
   candidateCopy = candidate;
   v5 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K = %@", @"candidatesContainer.service.serviceIdentifier", self->_serviceIdentifier];
   v6 = MEMORY[0x277CCAC30];
@@ -934,30 +908,30 @@ uint64_t __44__IRServiceStore_addHistoryEvent_withLimit___block_invoke(uint64_t 
 
   v9 = objc_opt_class();
   v10 = NSStringFromClass(v9);
-  v26[0] = v5;
-  v26[1] = v8;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
+  v25[0] = v5;
+  v25[1] = v8;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
   v12 = [(IRStore *)self fetchManagedObjectWithEntityName:v10 byAndPredicates:v11 sortDescriptors:0 andLimit:0];
 
   if (v12)
   {
-    v22 = 0;
-    v23 = &v22;
-    v24 = 0x2020000000;
-    v25 = 0;
+    v21 = 0;
+    v22 = &v21;
+    v23 = 0x2020000000;
+    v24 = 0;
     managedObjectContext = [(IRStore *)self managedObjectContext];
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __34__IRServiceStore_updateCandidate___block_invoke;
-    v17[3] = &unk_2797E1628;
-    v18 = v12;
-    v19 = candidateCopy;
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __34__IRServiceStore_updateCandidate___block_invoke;
+    v16[3] = &unk_2797E1628;
+    v17 = v12;
+    v18 = candidateCopy;
     selfCopy = self;
-    v21 = &v22;
-    [managedObjectContext performBlockAndWait:v17];
+    v20 = &v21;
+    [managedObjectContext performBlockAndWait:v16];
 
-    v14 = *(v23 + 24);
-    _Block_object_dispose(&v22, 8);
+    v14 = *(v22 + 24);
+    _Block_object_dispose(&v21, 8);
   }
 
   else
@@ -965,11 +939,10 @@ uint64_t __44__IRServiceStore_addHistoryEvent_withLimit___block_invoke(uint64_t 
     v14 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v14 & 1;
 }
 
-uint64_t __34__IRServiceStore_updateCandidate___block_invoke(uint64_t a1)
+void *__34__IRServiceStore_updateCandidate___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
@@ -983,41 +956,41 @@ uint64_t __34__IRServiceStore_updateCandidate___block_invoke(uint64_t a1)
 
 - (BOOL)addReplayEvents:(id)events withLimit:(unint64_t)limit
 {
-  v55[1] = *MEMORY[0x277D85DE8];
+  v54[1] = *MEMORY[0x277D85DE8];
   eventsCopy = events;
-  v32 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K = %@", @"service.serviceIdentifier", self->_serviceIdentifier];
+  v31 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K = %@", @"service.serviceIdentifier", self->_serviceIdentifier];
   v6 = objc_opt_class();
   v7 = NSStringFromClass(v6);
-  v55[0] = v32;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v55 count:1];
+  v54[0] = v31;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v54 count:1];
   v9 = [(IRStore *)self fetchManagedObjectWithEntityName:v7 byAndPredicates:v8 sortDescriptors:0 andLimit:0];
 
   if (v9)
   {
-    v38 = 0;
-    v39 = &v38;
-    v40 = 0x2020000000;
-    v41 = 0;
+    v37 = 0;
+    v38 = &v37;
+    v39 = 0x2020000000;
+    v40 = 0;
     managedObjectContext = [(IRStore *)self managedObjectContext];
-    v33[0] = MEMORY[0x277D85DD0];
-    v33[1] = 3221225472;
-    v33[2] = __44__IRServiceStore_addReplayEvents_withLimit___block_invoke;
-    v33[3] = &unk_2797E1628;
-    v34 = eventsCopy;
-    v35 = v9;
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __44__IRServiceStore_addReplayEvents_withLimit___block_invoke;
+    v32[3] = &unk_2797E1628;
+    v33 = eventsCopy;
+    v34 = v9;
     selfCopy = self;
-    v37 = &v38;
-    [managedObjectContext performBlockAndWait:v33];
+    v36 = &v37;
+    [managedObjectContext performBlockAndWait:v32];
 
     v11 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K = %@", @"replayEventsContainer.service.serviceIdentifier", self->_serviceIdentifier];
     v12 = objc_opt_class();
     v13 = NSStringFromClass(v12);
-    v54 = v11;
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v54 count:1];
+    v53 = v11;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v53 count:1];
     v15 = [(IRStore *)self countManagedObjectWithEntityName:v13 byAndPredicates:v14 sortDescriptors:0 andLimit:0];
 
     v16 = 0;
-    if (*(v39 + 24) == 1 && v15)
+    if (*(v38 + 24) == 1 && v15)
     {
       v17 = [v15 longLongValue] - limit;
       v18 = v17 & ~(v17 >> 63);
@@ -1028,15 +1001,15 @@ uint64_t __34__IRServiceStore_updateCandidate___block_invoke(uint64_t a1)
         v21 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:limit];
         v22 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v18];
         *buf = 136316162;
-        v45 = "#service-store, ";
-        v46 = 2112;
-        v47 = v19;
-        v48 = 2112;
-        v49 = v15;
-        v50 = 2112;
-        v51 = v21;
-        v52 = 2112;
-        v53 = v22;
+        v44 = "#service-store, ";
+        v45 = 2112;
+        v46 = v19;
+        v47 = 2112;
+        v48 = v15;
+        v49 = 2112;
+        v50 = v21;
+        v51 = 2112;
+        v52 = v22;
         _os_log_impl(&dword_25543D000, v20, OS_LOG_TYPE_DEBUG, "%s[%@], Commiting replay events to DB, numberOfReplayEvents: %@, limit: %@, removing: %@", buf, 0x34u);
 
         v18 = v17 & ~(v17 >> 63);
@@ -1054,17 +1027,17 @@ uint64_t __34__IRServiceStore_updateCandidate___block_invoke(uint64_t a1)
 
         v25 = objc_opt_class();
         v26 = NSStringFromClass(v25);
-        v43 = v24;
-        v27 = [MEMORY[0x277CBEA60] arrayWithObjects:&v43 count:1];
-        v42 = v23;
-        v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v42 count:1];
+        v42 = v24;
+        v27 = [MEMORY[0x277CBEA60] arrayWithObjects:&v42 count:1];
+        v41 = v23;
+        v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v41 count:1];
         v16 = [(IRStore *)self batchDeleteObjectsWithEntityName:v26 byAndPredicates:v27 sortDescriptors:v28 andLimit:v18];
 
         v11 = v24;
       }
     }
 
-    _Block_object_dispose(&v38, 8);
+    _Block_object_dispose(&v37, 8);
   }
 
   else
@@ -1072,7 +1045,6 @@ uint64_t __34__IRServiceStore_updateCandidate___block_invoke(uint64_t a1)
     v16 = 0;
   }
 
-  v29 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -1109,34 +1081,34 @@ void __44__IRServiceStore_addReplayEvents_withLimit___block_invoke_2(void *a1, v
 
 - (BOOL)updateStatistics:(id)statistics
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   statisticsCopy = statistics;
   v5 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K = %@", @"service.serviceIdentifier", self->_serviceIdentifier];
   v6 = objc_opt_class();
   v7 = NSStringFromClass(v6);
-  v23[0] = v5;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
+  v22[0] = v5;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
   v9 = [(IRStore *)self fetchManagedObjectWithEntityName:v7 byAndPredicates:v8 sortDescriptors:0 andLimit:0];
 
   if (v9)
   {
-    v19 = 0;
-    v20 = &v19;
-    v21 = 0x2020000000;
-    v22 = 0;
+    v18 = 0;
+    v19 = &v18;
+    v20 = 0x2020000000;
+    v21 = 0;
     managedObjectContext = [(IRStore *)self managedObjectContext];
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __35__IRServiceStore_updateStatistics___block_invoke;
-    v14[3] = &unk_2797E1600;
-    v15 = v9;
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __35__IRServiceStore_updateStatistics___block_invoke;
+    v13[3] = &unk_2797E1600;
+    v14 = v9;
     selfCopy = self;
-    v18 = &v19;
-    v16 = statisticsCopy;
-    [managedObjectContext performBlockAndWait:v14];
+    v17 = &v18;
+    v15 = statisticsCopy;
+    [managedObjectContext performBlockAndWait:v13];
 
-    v11 = *(v20 + 24);
-    _Block_object_dispose(&v19, 8);
+    v11 = *(v19 + 24);
+    _Block_object_dispose(&v18, 8);
   }
 
   else
@@ -1144,11 +1116,10 @@ void __44__IRServiceStore_addReplayEvents_withLimit___block_invoke_2(void *a1, v
     v11 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11 & 1;
 }
 
-uint64_t __35__IRServiceStore_updateStatistics___block_invoke(uint64_t a1)
+void *__35__IRServiceStore_updateStatistics___block_invoke(uint64_t a1)
 {
   [IRStatisticsMO setPropertiesOfStatisticsMO:*(a1 + 32) withStatisticsDO:*(a1 + 40)];
   result = [*(a1 + 48) commitChangesToStore];
@@ -1158,12 +1129,12 @@ uint64_t __35__IRServiceStore_updateStatistics___block_invoke(uint64_t a1)
 
 - (BOOL)injectStatisticsRelationship
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K = %@", @"service.serviceIdentifier", self->_serviceIdentifier];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  v25[0] = v3;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
+  v24[0] = v3;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
   v7 = [(IRStore *)self fetchManagedObjectWithEntityName:v5 byAndPredicates:v6 sortDescriptors:0 andLimit:0];
 
   if (v7)
@@ -1177,28 +1148,28 @@ uint64_t __35__IRServiceStore_updateStatistics___block_invoke(uint64_t a1)
 
     v10 = objc_opt_class();
     v11 = NSStringFromClass(v10);
-    v24 = v9;
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v24 count:1];
+    v23 = v9;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v23 count:1];
     v13 = [(IRStore *)self fetchManagedObjectWithEntityName:v11 byAndPredicates:v12 sortDescriptors:0 andLimit:0];
 
     if (v13)
     {
-      v20 = 0;
-      v21 = &v20;
-      v22 = 0x2020000000;
-      v23 = 0;
+      v19 = 0;
+      v20 = &v19;
+      v21 = 0x2020000000;
+      v22 = 0;
       managedObjectContext = [(IRStore *)self managedObjectContext];
-      v17[0] = MEMORY[0x277D85DD0];
-      v17[1] = 3221225472;
-      v17[2] = __46__IRServiceStore_injectStatisticsRelationship__block_invoke;
-      v17[3] = &unk_2797E15D8;
-      v17[4] = self;
-      v18 = v13;
-      v19 = &v20;
-      [managedObjectContext performBlockAndWait:v17];
+      v16[0] = MEMORY[0x277D85DD0];
+      v16[1] = 3221225472;
+      v16[2] = __46__IRServiceStore_injectStatisticsRelationship__block_invoke;
+      v16[3] = &unk_2797E15D8;
+      v16[4] = self;
+      v17 = v13;
+      v18 = &v19;
+      [managedObjectContext performBlockAndWait:v16];
 
-      v8 = *(v21 + 24);
-      _Block_object_dispose(&v20, 8);
+      v8 = *(v20 + 24);
+      _Block_object_dispose(&v19, 8);
     }
 
     else
@@ -1209,7 +1180,6 @@ uint64_t __35__IRServiceStore_updateStatistics___block_invoke(uint64_t a1)
     v3 = v9;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v8 & 1;
 }
 
@@ -1227,22 +1197,21 @@ void __46__IRServiceStore_injectStatisticsRelationship__block_invoke(uint64_t a1
 - (BOOL)deleteService
 {
   selfCopy = self;
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K = %@", @"serviceIdentifier", self->_serviceIdentifier];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  v9[0] = v3;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+  v8[0] = v3;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
   LOBYTE(selfCopy) = [(IRStore *)selfCopy batchDeleteObjectsWithEntityName:v5 byAndPredicates:v6 sortDescriptors:0 andLimit:0];
 
-  v7 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
 - (BOOL)deleteCandidates:(id)candidates
 {
   selfCopy = self;
-  v17[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CCAC30];
   serviceIdentifier = self->_serviceIdentifier;
   candidatesCopy = candidates;
@@ -1255,12 +1224,11 @@ void __46__IRServiceStore_injectStatisticsRelationship__block_invoke(uint64_t a1
 
   v12 = objc_opt_class();
   v13 = NSStringFromClass(v12);
-  v17[0] = serviceIdentifier;
-  v17[1] = v11;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
+  v16[0] = serviceIdentifier;
+  v16[1] = v11;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
   LOBYTE(selfCopy) = [(IRStore *)selfCopy batchDeleteObjectsWithEntityName:v13 byAndPredicates:v14 sortDescriptors:0 andLimit:0];
 
-  v15 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -1276,7 +1244,7 @@ void __46__IRServiceStore_injectStatisticsRelationship__block_invoke(uint64_t a1
 - (BOOL)_cleanupCandidatesWithDate:(id)date
 {
   selfCopy = self;
-  v17[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CCAC30];
   serviceIdentifier = self->_serviceIdentifier;
   dateCopy = date;
@@ -1288,19 +1256,18 @@ void __46__IRServiceStore_injectStatisticsRelationship__block_invoke(uint64_t a1
 
   v12 = objc_opt_class();
   v13 = NSStringFromClass(v12);
-  v17[0] = serviceIdentifier;
-  v17[1] = v11;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
+  v16[0] = serviceIdentifier;
+  v16[1] = v11;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
   LOBYTE(selfCopy) = [(IRStore *)selfCopy batchDeleteObjectsWithEntityName:v13 byAndPredicates:v14 sortDescriptors:0 andLimit:0];
 
-  v15 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
 - (BOOL)_cleanupHistoryEventsWithDate:(id)date
 {
   selfCopy = self;
-  v17[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CCAC30];
   serviceIdentifier = self->_serviceIdentifier;
   dateCopy = date;
@@ -1312,19 +1279,18 @@ void __46__IRServiceStore_injectStatisticsRelationship__block_invoke(uint64_t a1
 
   v12 = objc_opt_class();
   v13 = NSStringFromClass(v12);
-  v17[0] = serviceIdentifier;
-  v17[1] = v11;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
+  v16[0] = serviceIdentifier;
+  v16[1] = v11;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
   LOBYTE(selfCopy) = [(IRStore *)selfCopy batchDeleteObjectsWithEntityName:v13 byAndPredicates:v14 sortDescriptors:0 andLimit:0];
 
-  v15 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
 - (BOOL)_cleanupReplayEventsWithDate:(id)date
 {
   selfCopy = self;
-  v17[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CCAC30];
   serviceIdentifier = self->_serviceIdentifier;
   dateCopy = date;
@@ -1336,29 +1302,27 @@ void __46__IRServiceStore_injectStatisticsRelationship__block_invoke(uint64_t a1
 
   v12 = objc_opt_class();
   v13 = NSStringFromClass(v12);
-  v17[0] = serviceIdentifier;
-  v17[1] = v11;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
+  v16[0] = serviceIdentifier;
+  v16[1] = v11;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
   LOBYTE(selfCopy) = [(IRStore *)selfCopy batchDeleteObjectsWithEntityName:v13 byAndPredicates:v14 sortDescriptors:0 andLimit:0];
 
-  v15 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
 - (BOOL)_cleanupTrashedHistoryEvents
 {
   selfCopy = self;
-  v10[2] = *MEMORY[0x277D85DE8];
+  v9[2] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K = %@", @"historyEventsContainer.service.serviceIdentifier", self->_serviceIdentifier];
   v4 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K = %@", @"candidateIdenfifier", 0];
   v5 = objc_opt_class();
   v6 = NSStringFromClass(v5);
-  v10[0] = v3;
-  v10[1] = v4;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
+  v9[0] = v3;
+  v9[1] = v4;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:2];
   LOBYTE(selfCopy) = [(IRStore *)selfCopy batchDeleteObjectsWithEntityName:v6 byAndPredicates:v7 sortDescriptors:0 andLimit:0];
 
-  v8 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -1383,7 +1347,7 @@ void __46__IRServiceStore_injectStatisticsRelationship__block_invoke(uint64_t a1
 
 - (BOOL)_cleanupPredictionEventsInDateInterval:(id)interval
 {
-  v29[2] = *MEMORY[0x277D85DE8];
+  v28[2] = *MEMORY[0x277D85DE8];
   intervalCopy = interval;
   v5 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K = %@", @"historyEvent.historyEventsContainer.service.serviceIdentifier", self->_serviceIdentifier];
   v6 = MEMORY[0x277CCAC30];
@@ -1393,9 +1357,9 @@ void __46__IRServiceStore_injectStatisticsRelationship__block_invoke(uint64_t a1
 
   v10 = objc_opt_class();
   v11 = NSStringFromClass(v10);
-  v29[0] = v5;
-  v29[1] = v9;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:2];
+  v28[0] = v5;
+  v28[1] = v9;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:2];
   v13 = [(IRStore *)self fetchManagedObjectsWithEntityName:v11 byAndPredicates:v12 sortDescriptors:0 andLimit:0];
 
   v14 = dispatch_get_specific(*MEMORY[0x277D21308]);
@@ -1410,7 +1374,7 @@ void __46__IRServiceStore_injectStatisticsRelationship__block_invoke(uint64_t a1
     *&buf[12] = 2112;
     *&buf[14] = v14;
     *&buf[22] = 2112;
-    v28 = v18;
+    v27 = v18;
     _os_log_impl(&dword_25543D000, v17, OS_LOG_TYPE_INFO, "%s[%@], Found %@ events to mark as discarded events", buf, 0x20u);
   }
 
@@ -1419,16 +1383,16 @@ void __46__IRServiceStore_injectStatisticsRelationship__block_invoke(uint64_t a1
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    LOBYTE(v28) = 0;
+    LOBYTE(v27) = 0;
     managedObjectContext = [(IRStore *)self managedObjectContext];
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __57__IRServiceStore__cleanupPredictionEventsInDateInterval___block_invoke;
-    v23[3] = &unk_2797E1698;
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __57__IRServiceStore__cleanupPredictionEventsInDateInterval___block_invoke;
+    v22[3] = &unk_2797E1698;
     selfCopy = self;
-    v26 = buf;
-    v24 = v13;
-    [managedObjectContext performBlockAndWait:v23];
+    v25 = buf;
+    v23 = v13;
+    [managedObjectContext performBlockAndWait:v22];
 
     v20 = *(*&buf[8] + 24);
     _Block_object_dispose(buf, 8);
@@ -1439,38 +1403,37 @@ void __46__IRServiceStore_injectStatisticsRelationship__block_invoke(uint64_t a1
     v20 = 1;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v20 & 1;
 }
 
-uint64_t __57__IRServiceStore__cleanupPredictionEventsInDateInterval___block_invoke(uint64_t a1)
+void *__57__IRServiceStore__cleanupPredictionEventsInDateInterval___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v10 + 1) + 8 * i);
-        [v7 setLabel:{0, v10}];
+        v7 = *(*(&v9 + 1) + 8 * i);
+        [v7 setLabel:{0, v9}];
         [v7 setPredictionId:0];
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
@@ -1478,25 +1441,22 @@ uint64_t __57__IRServiceStore__cleanupPredictionEventsInDateInterval___block_inv
 
   result = [*(a1 + 40) commitChangesToStore];
   *(*(*(a1 + 48) + 8) + 24) = result;
-  v9 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 void __79__IRServiceStore_idendifyAndDeleteDuplicateServicesWithWithPersistenceManager___block_invoke_cold_1(uint64_t a1, void **a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 40);
   v4 = MEMORY[0x277CCABB0];
   v5 = *a2;
   v6 = a3;
   v7 = [v4 numberWithUnsignedInteger:{objc_msgSend(v5, "count")}];
-  v9 = 138412546;
-  v10 = v3;
-  v11 = 2112;
-  v12 = v7;
-  _os_log_error_impl(&dword_25543D000, v6, OS_LOG_TYPE_ERROR, "#service-store, [ErrorId - Duplicate Services] Identified multiple service with service identifier:%@, num services identified: %@", &v9, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8 = 138412546;
+  v9 = v3;
+  v10 = 2112;
+  v11 = v7;
+  _os_log_error_impl(&dword_25543D000, v6, OS_LOG_TYPE_ERROR, "#service-store, [ErrorId - Duplicate Services] Identified multiple service with service identifier:%@, num services identified: %@", &v8, 0x16u);
 }
 
 @end

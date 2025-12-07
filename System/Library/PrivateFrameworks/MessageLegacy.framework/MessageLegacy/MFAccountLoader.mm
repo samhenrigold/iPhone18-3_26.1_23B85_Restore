@@ -112,10 +112,10 @@ LABEL_6:
 
 + (BOOL)loadBundleForAccountClassString:(id)string error:(id *)error
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (!string)
   {
-    goto LABEL_7;
+    return 0;
   }
 
   v6 = [self _bundlePathForAccountClassString:?];
@@ -125,12 +125,10 @@ LABEL_6:
     {
       v8 = 0;
       *error = [MEMORY[0x277CCA9B8] errorWithDomain:@"MFAccountLoaderErrorDomain" code:3 userInfo:0];
-      goto LABEL_14;
+      return v8;
     }
 
-LABEL_7:
-    v8 = 0;
-    goto LABEL_14;
+    return 0;
   }
 
   v7 = v6;
@@ -150,9 +148,9 @@ LABEL_7:
       v8 = 1;
       if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
-        v13 = 138412290;
-        v14 = v7;
-        _os_log_impl(&dword_258BDA000, v10, OS_LOG_TYPE_INFO, "Loaded bundle at %@", &v13, 0xCu);
+        v12 = 138412290;
+        v13 = v7;
+        _os_log_impl(&dword_258BDA000, v10, OS_LOG_TYPE_INFO, "Loaded bundle at %@", &v12, 0xCu);
       }
     }
 
@@ -163,8 +161,6 @@ LABEL_7:
   }
 
   objc_sync_exit(self);
-LABEL_14:
-  v11 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -195,33 +191,33 @@ LABEL_14:
   return 0;
 }
 
-uint64_t __52__MFAccountLoader__bundlePathForAccountClassString___block_invoke(uint64_t a1)
+void *__52__MFAccountLoader__bundlePathForAccountClassString___block_invoke(uint64_t a1)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v20 = [objc_msgSend(objc_msgSend(MEMORY[0x277CCA8D8] bundleForClass:{*(a1 + 32)), "bundlePath"), "stringByAppendingPathComponent:", @"MailServices"}];
+  v19 = [objc_msgSend(objc_msgSend(MEMORY[0x277CCA8D8] bundleForClass:{*(a1 + 32)), "bundlePath"), "stringByAppendingPathComponent:", @"MailServices"}];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   obj = [objc_msgSend(MEMORY[0x277CCAA00] "defaultManager")];
-  result = [obj countByEnumeratingWithState:&v26 objects:v35 count:16];
-  v21 = result;
+  result = [obj countByEnumeratingWithState:&v25 objects:v34 count:16];
+  v20 = result;
   if (result)
   {
-    v19 = *v27;
+    v18 = *v26;
     do
     {
       v4 = 0;
       do
       {
-        if (*v27 != v19)
+        if (*v26 != v18)
         {
           objc_enumerationMutation(obj);
         }
 
-        v5 = *(*(&v26 + 1) + 8 * v4);
-        v6 = [v20 stringByAppendingPathComponent:v5];
+        v5 = *(*(&v25 + 1) + 8 * v4);
+        v6 = [v19 stringByAppendingPathComponent:v5];
         v7 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:{objc_msgSend(v6, "stringByAppendingPathComponent:", @"Info.plist"}];
         if (v7)
         {
@@ -233,34 +229,34 @@ uint64_t __52__MFAccountLoader__bundlePathForAccountClassString___block_invoke(u
             if (objc_opt_isKindOfClass())
             {
               v10 = [v9 objectForKey:@"InstantiableMailAccountClasses"];
+              v21 = 0u;
               v22 = 0u;
               v23 = 0u;
               v24 = 0u;
-              v25 = 0u;
-              v11 = [v10 countByEnumeratingWithState:&v22 objects:v34 count:16];
+              v11 = [v10 countByEnumeratingWithState:&v21 objects:v33 count:16];
               if (v11)
               {
                 v12 = v11;
-                v13 = *v23;
+                v13 = *v22;
                 do
                 {
                   for (i = 0; i != v12; ++i)
                   {
-                    if (*v23 != v13)
+                    if (*v22 != v13)
                     {
                       objc_enumerationMutation(v10);
                     }
 
-                    v15 = *(*(&v22 + 1) + 8 * i);
+                    v15 = *(*(&v21 + 1) + 8 * i);
                     if ([v2 objectForKey:v15])
                     {
                       v16 = MFLogGeneral();
                       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
                       {
                         *buf = 138412546;
-                        v31 = v5;
-                        v32 = 2112;
-                        v33 = v15;
+                        v30 = v5;
+                        v31 = 2112;
+                        v32 = v15;
                         _os_log_error_impl(&dword_258BDA000, v16, OS_LOG_TYPE_ERROR, "Ignoring MailServices bundle %@ for %@", buf, 0x16u);
                       }
                     }
@@ -271,7 +267,7 @@ uint64_t __52__MFAccountLoader__bundlePathForAccountClassString___block_invoke(u
                     }
                   }
 
-                  v12 = [v10 countByEnumeratingWithState:&v22 objects:v34 count:16];
+                  v12 = [v10 countByEnumeratingWithState:&v21 objects:v33 count:16];
                 }
 
                 while (v12);
@@ -280,41 +276,40 @@ uint64_t __52__MFAccountLoader__bundlePathForAccountClassString___block_invoke(u
           }
         }
 
-        ++v4;
+        v4 = v4 + 1;
       }
 
-      while (v4 != v21);
-      result = [obj countByEnumeratingWithState:&v26 objects:v35 count:16];
-      v21 = result;
+      while (v4 != v20);
+      result = [obj countByEnumeratingWithState:&v25 objects:v34 count:16];
+      v20 = result;
     }
 
     while (result);
   }
 
   _bundlePathForAccountClassString__sAccountClassToBundlePathMap = v2;
-  v17 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 + (id)accountWithAccountTypeIdentifier:(id)identifier error:(id *)error
 {
-  v13[6] = *MEMORY[0x277D85DE8];
+  v12[6] = *MEMORY[0x277D85DE8];
   v6 = *MEMORY[0x277CB8C40];
-  v12[0] = *MEMORY[0x277CB8B98];
-  v12[1] = v6;
-  v13[0] = @"AOLAccount";
-  v13[1] = @"GmailAccount";
+  v11[0] = *MEMORY[0x277CB8B98];
+  v11[1] = v6;
+  v12[0] = @"AOLAccount";
+  v12[1] = @"GmailAccount";
   v7 = *MEMORY[0x277CB8C60];
-  v12[2] = *MEMORY[0x277CB8D38];
-  v12[3] = v7;
-  v13[2] = @"YahooAccount";
-  v13[3] = @"IMAPAccount";
+  v11[2] = *MEMORY[0x277CB8D38];
+  v11[3] = v7;
+  v12[2] = @"YahooAccount";
+  v12[3] = @"IMAPAccount";
   v8 = *MEMORY[0x277CB8CF8];
-  v12[4] = *MEMORY[0x277CB8CD8];
-  v12[5] = v8;
-  v13[4] = @"POPAccount";
-  v13[5] = @"SMTPAccount";
-  v9 = [objc_msgSend(MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:{6), "objectForKeyedSubscript:", identifier}];
+  v11[4] = *MEMORY[0x277CB8CD8];
+  v11[5] = v8;
+  v12[4] = @"POPAccount";
+  v12[5] = @"SMTPAccount";
+  v9 = [objc_msgSend(MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:{6), "objectForKeyedSubscript:", identifier}];
   if (v9)
   {
     v9 = [self _accountClassForString:v9 error:error];
@@ -324,9 +319,7 @@ uint64_t __52__MFAccountLoader__bundlePathForAccountClassString___block_invoke(u
     }
   }
 
-  result = v9;
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return v9;
 }
 
 @end

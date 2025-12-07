@@ -38,7 +38,7 @@
   viewCopy = view;
   collectionCopy = collection;
   selfCopy = self;
-  sub_1908FB448();
+  sub_1908FB448(viewCopy);
 }
 
 - (_TtC7ChatKit23NavbarConversationTitle)initWithFrame:(CGRect)frame

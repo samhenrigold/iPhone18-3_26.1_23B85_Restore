@@ -155,8 +155,8 @@ uint64_t __46__TSDBrushStrokeLoader_p_brushStrokeLoadQueue__block_invoke()
 
 void __44__TSDBrushStrokeLoader_p_loadBrushIfNeeded___block_invoke(uint64_t a1)
 {
-  v72 = *MEMORY[0x277D85DE8];
-  v62 = +[TSDBrushStrokeLoader p_cacheDirectory];
+  v73 = *MEMORY[0x277D85DE8];
+  v63 = +[TSDBrushStrokeLoader p_cacheDirectory];
   v2 = *(a1 + 32);
   if (!*(v2 + 8))
   {
@@ -190,18 +190,18 @@ void __44__TSDBrushStrokeLoader_p_loadBrushIfNeeded___block_invoke(uint64_t a1)
     v20 = *(v19 + 24);
     *(v19 + 24) = v18;
 
-    v21 = [v62 stringByAppendingString:@"/TSDBrushCacheVersion.txt"];
+    v21 = [v63 stringByAppendingString:@"/TSDBrushCacheVersion.txt"];
     v22 = [MEMORY[0x277CCACA8] stringWithContentsOfFile:v21 encoding:4 error:0];
     v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"%ld", 14];
     if (!v22 || ([v22 isEqualToString:v23] & 1) == 0)
     {
-      v58 = v23;
+      v59 = v23;
       v24 = [MEMORY[0x277CCAA00] defaultManager];
-      v68 = 0;
-      v25 = [v24 contentsOfDirectoryAtPath:v62 error:&v68];
-      v26 = v68;
+      v69 = 0;
+      v25 = [v24 contentsOfDirectoryAtPath:v63 error:&v69];
+      v26 = v69;
 
-      v61 = a1;
+      v62 = a1;
       if (!v25)
       {
         v27 = [MEMORY[0x277D6C290] currentHandler];
@@ -211,35 +211,35 @@ void __44__TSDBrushStrokeLoader_p_loadBrushIfNeeded___block_invoke(uint64_t a1)
         [v27 handleFailureInFunction:v28 file:v29 lineNumber:195 description:{@"%@", v30}];
       }
 
-      v59 = v22;
-      v60 = v21;
-      v66 = 0u;
+      v60 = v22;
+      v61 = v21;
       v67 = 0u;
-      v64 = 0u;
+      v68 = 0u;
       v65 = 0u;
+      v66 = 0u;
       v31 = v25;
-      v32 = [v31 countByEnumeratingWithState:&v64 objects:v71 count:16];
+      v32 = [v31 countByEnumeratingWithState:&v65 objects:v72 count:16];
       if (v32)
       {
         v33 = v32;
-        v34 = *v65;
+        v34 = *v66;
         do
         {
           for (i = 0; i != v33; ++i)
           {
-            if (*v65 != v34)
+            if (*v66 != v34)
             {
               objc_enumerationMutation(v31);
             }
 
-            v36 = *(*(&v64 + 1) + 8 * i);
+            v36 = *(*(&v65 + 1) + 8 * i);
             if ([v36 hasPrefix:@"TSDBrush"])
             {
               v37 = [MEMORY[0x277CCAA00] defaultManager];
-              v38 = [v62 stringByAppendingPathComponent:v36];
-              v63 = v26;
-              v39 = [v37 removeItemAtPath:v38 error:&v63];
-              v40 = v63;
+              v38 = [v63 stringByAppendingPathComponent:v36];
+              v64 = v26;
+              v39 = [v37 removeItemAtPath:v38 error:&v64];
+              v40 = v64;
 
               if ((v39 & 1) == 0)
               {
@@ -254,18 +254,18 @@ void __44__TSDBrushStrokeLoader_p_loadBrushIfNeeded___block_invoke(uint64_t a1)
             }
           }
 
-          v33 = [v31 countByEnumeratingWithState:&v64 objects:v71 count:16];
+          v33 = [v31 countByEnumeratingWithState:&v65 objects:v72 count:16];
         }
 
         while (v33);
       }
 
-      v23 = v58;
-      v21 = v60;
-      [v58 writeToFile:v60 atomically:0 encoding:4 error:0];
+      v23 = v59;
+      v21 = v61;
+      [v59 writeToFile:v61 atomically:0 encoding:4 error:0];
 
-      a1 = v61;
-      v22 = v59;
+      a1 = v62;
+      v22 = v60;
     }
 
     v2 = *(a1 + 32);
@@ -276,30 +276,30 @@ void __44__TSDBrushStrokeLoader_p_loadBrushIfNeeded___block_invoke(uint64_t a1)
   if (!v45)
   {
     v46 = [@"TSDBrush_" stringByAppendingString:*(a1 + 40)];
-    v47 = TSDBundle();
-    v48 = [v47 pathForResource:v46 ofType:@"svg"];
+    v48 = TSDBundle(v46, v47);
+    v49 = [v48 pathForResource:v46 ofType:@"svg"];
 
-    v49 = objc_alloc(MEMORY[0x277CBEA90]);
-    v50 = [MEMORY[0x277CBEBC0] tsu_fileURLWithPath:v48];
-    v51 = [v49 initWithContentsOfURL:v50 options:0 error:0];
+    v50 = objc_alloc(MEMORY[0x277CBEA90]);
+    v51 = [MEMORY[0x277CBEBC0] tsu_fileURLWithPath:v49];
+    v52 = [v50 initWithContentsOfURL:v51 options:0 error:0];
 
-    v52 = [v51 length];
-    if (v52 >> 31)
+    v53 = [v52 length];
+    if (v53 >> 31)
     {
       __44__TSDBrushStrokeLoader_p_loadBrushIfNeeded___block_invoke_cold_1();
     }
 
     else
     {
-      Memory = xmlReadMemory([v51 bytes], v52, "", 0, 1);
-      v54 = PerformXPathQuery(Memory, @"//svg:split-at-sharp-angles[1]");
-      v55 = [v54 count] != 0;
+      Memory = xmlReadMemory([v52 bytes], v53, "", 0, 1);
+      v55 = PerformXPathQuery(Memory, @"//svg:split-at-sharp-angles[1]");
+      v56 = [v55 count] != 0;
 
-      v69 = @"split-at-sharp-angles";
-      v56 = [MEMORY[0x277CCABB0] numberWithBool:v55];
-      v70 = v56;
-      v57 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v70 forKeys:&v69 count:1];
-      [*(*(a1 + 32) + 32) setObject:v57 forKeyedSubscript:*(a1 + 40)];
+      v70 = @"split-at-sharp-angles";
+      v57 = [MEMORY[0x277CCABB0] numberWithBool:v56];
+      v71 = v57;
+      v58 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v71 forKeys:&v70 count:1];
+      [*(*(a1 + 32) + 32) setObject:v58 forKeyedSubscript:*(a1 + 40)];
 
       [*(a1 + 32) p_loadLineEndsForBrush:*(a1 + 40) inSVGDoc:Memory];
       [*(a1 + 32) p_loadSectionsForBrush:*(a1 + 40) inSVGDoc:Memory];

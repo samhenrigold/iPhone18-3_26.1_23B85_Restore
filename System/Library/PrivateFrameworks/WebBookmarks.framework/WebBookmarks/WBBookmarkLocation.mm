@@ -2,6 +2,7 @@
 - (BOOL)isEqual:(id)equal;
 - (WBBookmarkLocation)initWithCoder:(id)coder;
 - (WBBookmarkLocation)initWithParentID:(int)d position:(id)position;
+- (WBBookmarkLocation)locationWithParentID:(int)d;
 - (WBBookmarkLocation)locationWithPosition:(id)position;
 - (void)encodeWithCoder:(id)coder;
 @end
@@ -78,6 +79,13 @@
   }
 
   return v9;
+}
+
+- (WBBookmarkLocation)locationWithParentID:(int)d
+{
+  v3 = [objc_alloc(objc_opt_class()) initWithParentID:*&d position:self->_position];
+
+  return v3;
 }
 
 - (WBBookmarkLocation)locationWithPosition:(id)position

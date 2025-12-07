@@ -66,7 +66,7 @@
 
 void __62__FUFlightFactory_loadFlightWithIdentifier_completionHandler___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = v5;
   if (!a3)
@@ -76,30 +76,30 @@ void __62__FUFlightFactory_loadFlightWithIdentifier_completionHandler___block_in
       goto LABEL_25;
     }
 
-    v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
     v39 = 0u;
-    v32 = v6;
+    v40 = 0u;
+    v37 = 0u;
+    v38 = 0u;
+    v31 = v6;
     obj = v6;
-    v36 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
-    if (v36)
+    v35 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
+    if (v35)
     {
-      v34 = *v39;
-      v35 = a1;
+      v33 = *v38;
+      v34 = a1;
       do
       {
         v7 = 0;
         do
         {
-          if (*v39 != v34)
+          if (*v38 != v33)
           {
             objc_enumerationMutation(obj);
           }
 
-          v37 = v7;
-          v8 = *(*(&v38 + 1) + 8 * v7);
-          v9 = [*(a1 + 32) objectAtIndexedSubscript:{3, v32}];
+          v36 = v7;
+          v8 = *(*(&v37 + 1) + 8 * v7);
+          v9 = [*(a1 + 32) objectAtIndexedSubscript:{3, v31}];
           v10 = [*(a1 + 32) objectAtIndexedSubscript:4];
           v11 = [v8 allLegs];
           v12 = [v11 count];
@@ -114,58 +114,42 @@ void __62__FUFlightFactory_loadFlightWithIdentifier_completionHandler___block_in
               v16 = [v15 objectAtIndexedSubscript:v13];
 
               v17 = v14;
-              if (v14 != 0x7FFFFFFFFFFFFFFFLL)
+              if (v14 != 0x7FFFFFFFFFFFFFFFLL || ([v16 departure], v18 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v18, "airport"), v19 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v19, "IATACode"), v20 = objc_claimAutoreleasedReturnValue(), v21 = objc_msgSend(v20, "isEqualToString:", v9), v20, v19, v18, v14 = 0x7FFFFFFFFFFFFFFFLL, v21) && (v17 = v13, v13 != 0x7FFFFFFFFFFFFFFFLL))
               {
-                goto LABEL_14;
-              }
+                v22 = [v16 arrival];
+                v23 = [v22 airport];
+                v24 = [v23 IATACode];
+                v25 = [v24 isEqualToString:v10];
 
-              v18 = [v16 departure];
-              v19 = [v18 airport];
-              v20 = [v19 IATACode];
-              v21 = [v20 isEqualToString:v9];
-
-              v14 = 0x7FFFFFFFFFFFFFFFLL;
-              if (v21)
-              {
-                v17 = v13;
-                if (v13 != 0x7FFFFFFFFFFFFFFFLL)
+                if (v25)
                 {
-LABEL_14:
-                  v22 = [v16 arrival];
-                  v23 = [v22 airport];
-                  v24 = [v23 IATACode];
-                  v25 = [v24 isEqualToString:v10];
 
-                  if (v25)
+                  if (v17 == 0x7FFFFFFFFFFFFFFFLL || v13 == 0x7FFFFFFFFFFFFFFFLL)
                   {
+                    break;
+                  }
 
-                    if (v17 == 0x7FFFFFFFFFFFFFFFLL || v13 == 0x7FFFFFFFFFFFFFFFLL)
-                    {
-                      break;
-                    }
+                  [v8 setDepartureLegIndex:v17 arrivalLegIndex:v13];
+                  v28 = v8;
 
-                    [v8 setDepartureLegIndex:v17 arrivalLegIndex:v13];
-                    v28 = v8;
-
-                    v6 = v32;
-                    a1 = v35;
-                    if (v28)
-                    {
-                      (*(*(v35 + 40) + 16))();
-
-                      goto LABEL_26;
-                    }
-
-LABEL_25:
-                    v29 = *(a1 + 40);
-                    v30 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.FlightUtilities.ParseError" code:1 userInfo:{0, v32}];
-                    (*(v29 + 16))(v29, 0, v30);
+                  v6 = v31;
+                  a1 = v34;
+                  if (v28)
+                  {
+                    (*(*(v34 + 40) + 16))();
 
                     goto LABEL_26;
                   }
 
-                  v14 = v17;
+LABEL_25:
+                  v29 = *(a1 + 40);
+                  v30 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.FlightUtilities.ParseError" code:1 userInfo:{0, v31}];
+                  (*(v29 + 16))(v29, 0, v30);
+
+                  goto LABEL_26;
                 }
+
+                v14 = v17;
               }
 
               ++v13;
@@ -176,25 +160,23 @@ LABEL_25:
             while (v13 < v27);
           }
 
-          v7 = v37 + 1;
-          a1 = v35;
+          v7 = v36 + 1;
+          a1 = v34;
         }
 
-        while (v37 + 1 != v36);
-        v36 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
+        while (v36 + 1 != v35);
+        v35 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
       }
 
-      while (v36);
+      while (v35);
     }
 
-    v6 = v32;
+    v6 = v31;
     goto LABEL_25;
   }
 
   (*(*(a1 + 40) + 16))();
 LABEL_26:
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 + (void)subscribeToUpdatesForFlightsWithNumber:(unint64_t)number airlineCode:(id)code date:(id)date updatesHandler:(id)handler completionHandler:(id)completionHandler
@@ -232,55 +214,52 @@ LABEL_26:
 
 void __112__FUFlightFactory_Parsec_loadFlightsWithNumber_airlineCode_date_dateType_userAgent_sessionID_completionHandler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if (a3)
   {
-    v4 = *(a1 + 40);
-    v5 = *(*(a1 + 40) + 16);
-    v6 = *MEMORY[0x277D85DE8];
+    v4 = *(*(a1 + 40) + 16);
 
-    v5();
+    v4();
   }
 
   else
   {
-    v23 = 0;
-    v7 = [FUUtils convertFlightModel:a2 withError:&v23];
-    v18 = v23;
+    v20 = 0;
+    v5 = [FUUtils convertFlightModel:a2 withError:&v20];
+    v15 = v20;
+    v16 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
-    v21 = 0u;
-    v22 = 0u;
-    v8 = v7;
-    v9 = [v8 countByEnumeratingWithState:&v19 objects:v24 count:16];
-    if (v9)
+    v6 = v5;
+    v7 = [v6 countByEnumeratingWithState:&v16 objects:v21 count:16];
+    if (v7)
     {
-      v10 = v9;
-      v11 = *v20;
+      v8 = v7;
+      v9 = *v17;
       do
       {
-        for (i = 0; i != v10; ++i)
+        for (i = 0; i != v8; ++i)
         {
-          if (*v20 != v11)
+          if (*v17 != v9)
           {
-            objc_enumerationMutation(v8);
+            objc_enumerationMutation(v6);
           }
 
-          v13 = *(*(&v19 + 1) + 8 * i);
-          v14 = *(a1 + 32);
-          v15 = [MEMORY[0x277CBEAF8] localeWithLocaleIdentifier:@"en_US"];
-          v16 = [v14 uppercaseStringWithLocale:v15];
-          [v13 setQueriedAirlineTitle:v16];
+          v11 = *(*(&v16 + 1) + 8 * i);
+          v12 = *(a1 + 32);
+          v13 = [MEMORY[0x277CBEAF8] localeWithLocaleIdentifier:@"en_US"];
+          v14 = [v12 uppercaseStringWithLocale:v13];
+          [v11 setQueriedAirlineTitle:v14];
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v19 objects:v24 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v16 objects:v21 count:16];
       }
 
-      while (v10);
+      while (v8);
     }
 
     (*(*(a1 + 40) + 16))();
-    v17 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -288,26 +267,25 @@ void __96__FUFlightFactory_Parsec_httpQuery_date_bundleIdentifier_userAgent_sess
 {
   if (a4)
   {
-    v5 = *(a1 + 32);
-    v6 = *(*(a1 + 32) + 16);
+    v5 = *(*(a1 + 32) + 16);
 
-    v6();
+    v5();
   }
 
   else
   {
-    v7 = [a3 flightResults];
-    v8 = *(a1 + 32);
-    v10 = v7;
-    if (v7)
+    v6 = [a3 flightResults];
+    v7 = *(a1 + 32);
+    v9 = v6;
+    if (v6)
     {
-      (*(v8 + 16))(v8, v7, 0);
+      (*(v7 + 16))(v7, v6, 0);
     }
 
     else
     {
-      v9 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.FlightUtilities.NetworkError" code:0 userInfo:0];
-      (*(v8 + 16))(v8, 0, v9);
+      v8 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.FlightUtilities.NetworkError" code:0 userInfo:0];
+      (*(v7 + 16))(v7, 0, v8);
     }
   }
 }
@@ -343,17 +321,16 @@ void __68__FUFlightFactory_Parsec_fetchUpdateForChannelId_completionHandler___bl
 {
   if (a3)
   {
-    v4 = *(a1 + 32);
-    v5 = *(*(a1 + 32) + 16);
+    v4 = *(*(a1 + 32) + 16);
 
-    v5();
+    v4();
   }
 
   else
   {
-    v8 = 0;
-    v6 = [FUUtils convertFlightModel:a2 withError:&v8];
-    v7 = v8;
+    v7 = 0;
+    v5 = [FUUtils convertFlightModel:a2 withError:&v7];
+    v6 = v7;
     (*(*(a1 + 32) + 16))();
   }
 }

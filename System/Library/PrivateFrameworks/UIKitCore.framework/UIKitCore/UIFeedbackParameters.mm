@@ -35,7 +35,7 @@ void __33___UIFeedbackParameters_isEqual___block_invoke(uint64_t a1, void *a2, u
   v8 = [v6 valueForKey:v7];
   v9 = [*(a1 + 40) valueForKey:v7];
 
-  LOBYTE(v7) = [v8 isEqual:v9];
+  LOBYTE(v7) = objc_msgSend_isEqual_(v8);
   if ((v7 & 1) == 0)
   {
     *a4 = 1;

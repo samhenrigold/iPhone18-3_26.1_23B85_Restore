@@ -128,37 +128,37 @@ void __66__RadioImageCache_loadImageForRadioArtwork_withCompletionHandler___bloc
   v3 = WeakRetained;
   if (WeakRetained && ![WeakRetained isCancelled])
   {
-    v42 = 0;
-    v43 = &v42;
-    v44 = 0x3032000000;
-    v45 = __Block_byref_object_copy_;
-    v46 = __Block_byref_object_dispose_;
-    v47 = 0;
-    v36 = 0;
-    v37 = &v36;
-    v38 = 0x3032000000;
-    v39 = __Block_byref_object_copy_;
-    v40 = __Block_byref_object_dispose_;
     v41 = 0;
-    v34[0] = 0;
-    v34[1] = v34;
-    v34[2] = 0x3032000000;
-    v34[3] = __Block_byref_object_copy_;
-    v34[4] = __Block_byref_object_dispose_;
+    v42 = &v41;
+    v43 = 0x3032000000;
+    v44 = __Block_byref_object_copy_;
+    v45 = __Block_byref_object_dispose_;
+    v46 = 0;
     v35 = 0;
+    v36 = &v35;
+    v37 = 0x3032000000;
+    v38 = __Block_byref_object_copy_;
+    v39 = __Block_byref_object_dispose_;
+    v40 = 0;
+    v33[0] = 0;
+    v33[1] = v33;
+    v33[2] = 0x3032000000;
+    v33[3] = __Block_byref_object_copy_;
+    v33[4] = __Block_byref_object_dispose_;
+    v34 = 0;
     v7 = dispatch_semaphore_create(0);
     v8 = [MEMORY[0x277CBABB8] sharedSession];
     v9 = *(a1 + 32);
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __66__RadioImageCache_loadImageForRadioArtwork_withCompletionHandler___block_invoke_15;
-    v29[3] = &unk_279AEA778;
-    v31 = &v36;
-    v32 = &v42;
-    v33 = v34;
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __66__RadioImageCache_loadImageForRadioArtwork_withCompletionHandler___block_invoke_15;
+    v28[3] = &unk_279AEA778;
+    v30 = &v35;
+    v31 = &v41;
+    v32 = v33;
     v10 = v7;
-    v30 = v10;
-    v11 = [v8 dataTaskWithRequest:v9 completionHandler:v29];
+    v29 = v10;
+    v11 = [v8 dataTaskWithRequest:v9 completionHandler:v28];
 
     if (v11)
     {
@@ -166,64 +166,63 @@ void __66__RadioImageCache_loadImageForRadioArtwork_withCompletionHandler___bloc
       dispatch_semaphore_wait(v10, 0xFFFFFFFFFFFFFFFFLL);
     }
 
-    if (!v37[5])
+    if (!v36[5])
     {
-      v12 = v43[5];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v13 = v43[5];
-        v14 = [v13 statusCode];
-        v15 = v14;
-        if (v14 > 399 || !v14)
+        v12 = v42[5];
+        v13 = [v12 statusCode];
+        v14 = v13;
+        if (v13 > 399 || !v13)
         {
-          v16 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:2];
-          v17 = [MEMORY[0x277CCABB0] numberWithInteger:v15];
-          [v16 setObject:v17 forKey:@"statusCode"];
+          v15 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:2];
+          v16 = [MEMORY[0x277CCABB0] numberWithInteger:v14];
+          [v15 setObject:v16 forKey:@"statusCode"];
 
-          v18 = [MEMORY[0x277CBAB48] localizedStringForStatusCode:v15];
-          if (v18)
+          v17 = [MEMORY[0x277CBAB48] localizedStringForStatusCode:v14];
+          if (v17)
           {
-            [v16 setObject:v18 forKey:*MEMORY[0x277CCA450]];
+            [v15 setObject:v17 forKey:*MEMORY[0x277CCA450]];
           }
 
-          v19 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA738] code:-1 userInfo:v16];
-          v20 = v37[5];
-          v37[5] = v19;
+          v18 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA738] code:-1 userInfo:v15];
+          v19 = v36[5];
+          v36[5] = v18;
         }
       }
     }
 
-    if (v37[5])
+    if (v36[5])
     {
-      v21 = 0;
+      v20 = 0;
     }
 
     else
     {
-      v21 = [v43[5] MIMEType];
+      v20 = [v42[5] MIMEType];
     }
 
-    v22 = *(a1 + 40);
-    if (v22)
+    v21 = *(a1 + 40);
+    if (v21)
     {
-      v23 = dispatch_get_global_queue(0, 0);
-      v24[0] = MEMORY[0x277D85DD0];
-      v24[1] = 3221225472;
-      v24[2] = __66__RadioImageCache_loadImageForRadioArtwork_withCompletionHandler___block_invoke_2_23;
-      v24[3] = &unk_279AEA7A0;
-      v26 = v22;
-      v27 = v34;
+      v22 = dispatch_get_global_queue(0, 0);
+      v23[0] = MEMORY[0x277D85DD0];
+      v23[1] = 3221225472;
+      v23[2] = __66__RadioImageCache_loadImageForRadioArtwork_withCompletionHandler___block_invoke_2_23;
+      v23[3] = &unk_279AEA7A0;
       v25 = v21;
-      v28 = &v36;
-      dispatch_async(v23, v24);
+      v26 = v33;
+      v24 = v20;
+      v27 = &v35;
+      dispatch_async(v22, v23);
     }
 
-    _Block_object_dispose(v34, 8);
-    _Block_object_dispose(&v36, 8);
+    _Block_object_dispose(v33, 8);
+    _Block_object_dispose(&v35, 8);
 
-    _Block_object_dispose(&v42, 8);
-    v6 = v47;
+    _Block_object_dispose(&v41, 8);
+    v6 = v46;
     goto LABEL_21;
   }
 
@@ -235,10 +234,10 @@ void __66__RadioImageCache_loadImageForRadioArtwork_withCompletionHandler___bloc
     block[1] = 3221225472;
     block[2] = __66__RadioImageCache_loadImageForRadioArtwork_withCompletionHandler___block_invoke_3;
     block[3] = &unk_279AEA750;
-    v49 = v4;
+    v48 = v4;
     dispatch_async(v5, block);
 
-    v6 = v49;
+    v6 = v48;
 LABEL_21:
   }
 }
@@ -392,21 +391,19 @@ void __48__RadioImageCache__newSharedCacheStorageSession__block_invoke()
 
 void __36__RadioImageCache__sharedCFURLCache__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = [objc_opt_class() _newSharedCacheStorageSession];
-  if (v2)
+  v1 = [objc_opt_class() _newSharedCacheStorageSession];
+  if (v1)
   {
-    v3 = v2;
-    v4 = *MEMORY[0x277CBECE8];
-    v5 = _CFURLStorageSessionCopyCache();
-    if (v5)
+    v2 = v1;
+    v3 = _CFURLStorageSessionCopyCache();
+    if (v3)
     {
-      v6 = v5;
+      v4 = v3;
       CFURLCacheSetMemoryCapacity();
-      _sharedCFURLCache__shared = v6;
+      _sharedCFURLCache__shared = v4;
     }
 
-    CFRelease(v3);
+    CFRelease(v2);
   }
 }
 
@@ -429,7 +426,6 @@ void __36__RadioImageCache__sharedCFURLCache__block_invoke(uint64_t a1)
 
 uint64_t __30__RadioImageCache_sharedCache__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   sharedCache___imageCache = [objc_alloc(objc_opt_class()) _init];
 
   return MEMORY[0x2821F96F8]();

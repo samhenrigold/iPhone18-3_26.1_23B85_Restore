@@ -10,22 +10,21 @@ id sub_1000011C0()
 {
   v0 = sub_1000013F8();
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
   __chkstk_darwin();
-  v4 = &v9 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = &v8 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_100001350();
   sub_1000013C8();
   sub_1000013D8();
-  v5 = sub_1000013E8();
-  v6 = sub_100001408();
-  if (os_log_type_enabled(v5, v6))
+  v4 = sub_1000013E8();
+  v5 = sub_100001408();
+  if (os_log_type_enabled(v4, v5))
   {
-    v7 = swift_slowAlloc();
-    *v7 = 0;
-    _os_log_impl(&_mh_execute_header, v5, v6, "Starting knowledgeconstructiond", v7, 2u);
+    v6 = swift_slowAlloc();
+    *v6 = 0;
+    _os_log_impl(&_mh_execute_header, v4, v5, "Starting knowledgeconstructiond", v6, 2u);
   }
 
-  (*(v1 + 8))(v4, v0);
+  (*(v1 + 8))(v3, v0);
   sub_1000013B8();
   return [objc_opt_self() registerForLaunchEvents];
 }

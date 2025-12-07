@@ -67,14 +67,14 @@
       if ((v9 & 1) == 0)
       {
         v10 = +[NSFileManager defaultManager];
-        v14 = 0;
-        v11 = [v10 createDirectoryAtPath:pathCopy withIntermediateDirectories:1 attributes:0 error:&v14];
-        v12 = v14;
+        v15 = 0;
+        v11 = [v10 createDirectoryAtPath:pathCopy withIntermediateDirectories:1 attributes:0 error:&v15];
+        v12 = v15;
 
         if ((v11 & 1) == 0)
         {
-          v13 = BCImageCacheLog();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+          v14 = BCImageCacheLog(v13);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
           {
             sub_1ED354();
           }
@@ -278,14 +278,14 @@
   if (v5)
   {
     v6 = +[NSFileManager defaultManager];
-    v10 = 0;
-    v7 = [v6 removeItemAtPath:pathCopy error:&v10];
-    v8 = v10;
+    v11 = 0;
+    v7 = [v6 removeItemAtPath:pathCopy error:&v11];
+    v8 = v11;
 
     if ((v7 & 1) == 0)
     {
-      v9 = BCImageCacheLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = BCImageCacheLog(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         sub_1ED494();
       }
@@ -427,8 +427,8 @@
 
   if (!v7)
   {
-    v10 = BCImageCacheLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = BCImageCacheLog(v8);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_1ED730();
     }
@@ -436,29 +436,29 @@
     goto LABEL_12;
   }
 
-  v8 = +[NSFileManager defaultManager];
+  v9 = +[NSFileManager defaultManager];
   path2 = [v4 path];
-  v10 = [v8 attributesOfItemAtPath:path2 error:0];
+  v11 = [v9 attributesOfItemAtPath:path2 error:0];
 
-  fileSize = [v10 fileSize];
+  fileSize = [v11 fileSize];
   [BICCacheStats addToCounter:kBICCacheStatsCounterDiskBytesRead[0] amount:fileSize >> 10];
-  v12 = CGImageSourceCreateWithURL(v4, 0);
-  if (!v12)
+  v13 = CGImageSourceCreateWithURL(v4, 0);
+  if (!v13)
   {
-    v16 = BCImageCacheLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = BCImageCacheLog(0);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       sub_1ED800();
     }
 
 LABEL_12:
-    v15 = 0;
+    v16 = 0;
     goto LABEL_17;
   }
 
-  v13 = v12;
-  ImageAtIndex = CGImageSourceCreateImageAtIndex(v12, 0, qword_3461B8);
-  v15 = ImageAtIndex;
+  v14 = v13;
+  ImageAtIndex = CGImageSourceCreateImageAtIndex(v13, 0, qword_3461B8);
+  v16 = ImageAtIndex;
   if (ImageAtIndex)
   {
     CFAutorelease(ImageAtIndex);
@@ -466,24 +466,24 @@ LABEL_12:
 
   else
   {
-    v17 = BCImageCacheLog();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = BCImageCacheLog(0);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       sub_1ED798();
     }
   }
 
-  CFRelease(v13);
+  CFRelease(v14);
 LABEL_17:
 
   kdebug_trace();
-  return v15;
+  return v16;
 }
 
 - (id)_writeCachedImage:(CGImage *)image unprocessed:(BOOL)unprocessed toRelativePath:(id)path
 {
   pathCopy = path;
-  kdebug_trace();
+  v8 = kdebug_trace();
   if (image)
   {
     if (qword_3461F8 != -1)
@@ -495,51 +495,51 @@ LABEL_17:
     if ([pathExtension isEqualToString:@"heic"])
     {
       identifier = qword_3461D0;
-      v10 = qword_3461E8;
+      v11 = qword_3461E8;
     }
 
     else if ([pathExtension isEqualToString:@"astc"])
     {
       identifier = qword_3461C8;
-      v10 = qword_3461E0;
+      v11 = qword_3461E0;
     }
 
     else if ([pathExtension isEqualToString:@"png"])
     {
       identifier = [UTTypePNG identifier];
 
-      v10 = 0;
+      v11 = 0;
     }
 
     else
     {
       identifier = qword_3461D8;
-      v10 = qword_3461F0;
+      v11 = qword_3461F0;
     }
 
     cachePath = [(BICDiskDataStore *)self cachePath];
-    v12 = [cachePath stringByAppendingPathComponent:pathCopy];
+    v13 = [cachePath stringByAppendingPathComponent:pathCopy];
 
-    v13 = [NSURL fileURLWithPath:v12];
-    v14 = CGImageDestinationCreateWithURL(v13, identifier, 1uLL, 0);
-    if (v14)
+    v14 = [NSURL fileURLWithPath:v13];
+    v15 = CGImageDestinationCreateWithURL(v14, identifier, 1uLL, 0);
+    if (v15)
     {
-      v15 = v14;
-      CGImageDestinationAddImage(v14, image, v10);
-      CGImageDestinationFinalize(v15);
-      CFRelease(v15);
-      v16 = +[NSFileManager defaultManager];
-      path = [(__CFURL *)v13 path];
-      v18 = [v16 attributesOfItemAtPath:path error:0];
+      v16 = v15;
+      CGImageDestinationAddImage(v15, image, v11);
+      CGImageDestinationFinalize(v16);
+      CFRelease(v16);
+      v17 = +[NSFileManager defaultManager];
+      path = [(__CFURL *)v14 path];
+      v19 = [v17 attributesOfItemAtPath:path error:0];
 
-      fileSize = [v18 fileSize];
+      fileSize = [v19 fileSize];
       [BICCacheStats addToCounter:kBICCacheStatsCounterDiskBytesWritten[0] amount:fileSize >> 10];
     }
 
     else
     {
-      v20 = BCImageCacheLog();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v21 = BCImageCacheLog(0);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         sub_1ED87C();
       }
@@ -548,7 +548,7 @@ LABEL_17:
 
   else
   {
-    pathExtension = BCImageCacheLog();
+    pathExtension = BCImageCacheLog(v8);
     if (os_log_type_enabled(pathExtension, OS_LOG_TYPE_ERROR))
     {
       sub_1ED8E4();

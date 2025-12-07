@@ -8,22 +8,22 @@
 
 - (id)createControlItemsWithOptions:(id)options
 {
-  v38[1] = *MEMORY[0x277D85DE8];
+  v37[1] = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   controlItemValueSourceForPrimaryService = [(HFServiceItem *)self controlItemValueSourceForPrimaryService];
-  v31 = [HFValueTransformer transformerForValueClass:objc_opt_class() transformBlock:&__block_literal_global_78 reverseTransformBlock:&__block_literal_global_6_1];
-  v37 = @"controlItemPurpose";
-  v38[0] = &unk_282523E50;
-  v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:&v37 count:1];
+  v30 = [HFValueTransformer transformerForValueClass:objc_opt_class() transformBlock:&__block_literal_global_78 reverseTransformBlock:&__block_literal_global_6_1];
+  v36 = @"controlItemPurpose";
+  v37[0] = &unk_282523E50;
+  v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:&v36 count:1];
   v6 = [HFPrimaryStateControlItem alloc];
-  v29 = controlItemValueSourceForPrimaryService;
-  v28 = [(HFPrimaryStateControlItem *)v6 initWithValueSource:controlItemValueSourceForPrimaryService characteristicType:*MEMORY[0x277CCF920] valueTransformer:v31 displayResults:v30];
-  v35[0] = @"title";
+  v28 = controlItemValueSourceForPrimaryService;
+  v27 = [(HFPrimaryStateControlItem *)v6 initWithValueSource:controlItemValueSourceForPrimaryService characteristicType:*MEMORY[0x277CCF920] valueTransformer:v30 displayResults:v29];
+  v34[0] = @"title";
   v7 = HFItemOptionalLocalizedString(@"HFCharacteristicGroupTitleSetDuration", optionsCopy);
-  v35[1] = @"controlItemPurpose";
-  v36[0] = v7;
-  v36[1] = &unk_282523E50;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:v35 count:2];
+  v34[1] = @"controlItemPurpose";
+  v35[0] = v7;
+  v35[1] = &unk_282523E50;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:v34 count:2];
 
   v9 = [HFSimpleIncrementalControlItem alloc];
   v10 = [(HFSimpleIncrementalControlItem *)v9 initWithValueSource:controlItemValueSourceForPrimaryService characteristicType:*MEMORY[0x277CCFA60] displayResults:v8];
@@ -32,30 +32,28 @@
 
   [dictionary setObject:v12 forKeyedSubscript:@"title"];
   [dictionary setObject:&unk_282523E68 forKeyedSubscript:@"controlItemPurpose"];
-  service = [(HFServiceItem *)self service];
-  hf_parentService = [service hf_parentService];
+  v13 = objc_msgSend_service(self);
+  hf_parentService = [v13 hf_parentService];
 
   v15 = MEMORY[0x277CBEB98];
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = __52__HFValveServiceItem_createControlItemsWithOptions___block_invoke_22;
-  v32[3] = &unk_277DF9638;
-  v33 = hf_parentService;
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __52__HFValveServiceItem_createControlItemsWithOptions___block_invoke_22;
+  v31[3] = &unk_277DF9638;
+  v32 = hf_parentService;
   selfCopy = self;
   v16 = hf_parentService;
-  v17 = __52__HFValveServiceItem_createControlItemsWithOptions___block_invoke_22(v32);
+  v17 = __52__HFValveServiceItem_createControlItemsWithOptions___block_invoke_22(v31);
   v18 = [v15 setWithArray:v17];
 
   v19 = [HFSimpleAggregatedCharacteristicValueSource alloc];
   valueSource = [(HFServiceItem *)self valueSource];
-  service2 = [(HFServiceItem *)self service];
-  hf_serviceDescriptor = [service2 hf_serviceDescriptor];
+  v21 = objc_msgSend_service(self);
+  hf_serviceDescriptor = [v21 hf_serviceDescriptor];
   v23 = [(HFSimpleAggregatedCharacteristicValueSource *)v19 initWithValueSource:valueSource services:v18 primaryServiceDescriptor:hf_serviceDescriptor];
 
   v24 = [[HFValveActiveStateControlItem alloc] initWithValueSource:v23 displayResults:dictionary];
-  v25 = [MEMORY[0x277CBEB98] setWithObjects:{v24, v28, v10, 0}];
-
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = [MEMORY[0x277CBEB98] setWithObjects:{v24, v27, v10, 0}];
 
   return v25;
 }
@@ -95,31 +93,29 @@ uint64_t __52__HFValveServiceItem_createControlItemsWithOptions___block_invoke_4
 
 id __52__HFValveServiceItem_createControlItemsWithOptions___block_invoke_22(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2 && ([v2 serviceType], v3 = objc_claimAutoreleasedReturnValue(), v4 = objc_msgSend(v3, "isEqualToString:", *MEMORY[0x277CD0E80]), v3, v4))
   {
-    v5 = [*(a1 + 40) service];
+    v5 = objc_msgSend_service(*(a1 + 40));
     v6 = *(a1 + 32);
-    v14 = v5;
-    v15 = v6;
+    v13 = v5;
+    v14 = v6;
     v7 = MEMORY[0x277CBEA60];
-    v8 = &v14;
+    v8 = &v13;
     v9 = 2;
   }
 
   else
   {
-    v5 = [*(a1 + 40) service];
-    v13 = v5;
+    v5 = objc_msgSend_service(*(a1 + 40));
+    v12 = v5;
     v7 = MEMORY[0x277CBEA60];
-    v8 = &v13;
+    v8 = &v12;
     v9 = 1;
   }
 
-  v10 = [v7 arrayWithObjects:v8 count:{v9, v13, v14, v15, v16}];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = [v7 arrayWithObjects:v8 count:{v9, v12, v13, v14, v15}];
 
   return v10;
 }

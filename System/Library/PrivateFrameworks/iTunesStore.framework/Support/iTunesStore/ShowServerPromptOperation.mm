@@ -41,8 +41,8 @@
 {
   if ([(ShowServerPromptOperation *)self _promptNeedsDisplay])
   {
-    v31 = 0;
-    v3 = [(ShowServerPromptOperation *)self _newStoreURLOperation:&v31];
+    v33 = 0;
+    v3 = [(ShowServerPromptOperation *)self _newStoreURLOperation:&v33];
     v4 = +[SSLogConfig sharedDaemonConfig];
     v5 = v4;
     if (v3)
@@ -55,42 +55,46 @@
       shouldLog = [v5 shouldLog];
       if ([v5 shouldLogToDisk])
       {
-        v7 = shouldLog | 2;
+        LODWORD(v7) = shouldLog | 2;
       }
 
       else
       {
-        v7 = shouldLog;
+        LODWORD(v7) = shouldLog;
       }
 
-      if (!os_log_type_enabled([v5 OSLogObject], OS_LOG_TYPE_INFO))
+      oSLogObject = [v5 OSLogObject];
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+      {
+        v7 = v7;
+      }
+
+      else
       {
         v7 &= 2u;
       }
 
       if (v7)
       {
-        v8 = objc_opt_class();
+        v9 = objc_opt_class();
         promptIdentifier = self->_promptIdentifier;
-        v32 = 138412546;
-        v33 = v8;
-        v34 = 2112;
-        v35 = promptIdentifier;
-        LODWORD(v30) = 22;
-        v29 = &v32;
-        v10 = _os_log_send_and_compose_impl();
-        if (v10)
+        v34 = 138412546;
+        v35 = v9;
+        v36 = 2112;
+        v37 = promptIdentifier;
+        v11 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Showing prompt for prompt identifier: %@", &v34, 22);
+        if (v11)
         {
-          v11 = v10;
-          v12 = [NSString stringWithCString:v10 encoding:4, &v32, v30];
-          free(v11);
-          v29 = v12;
+          v12 = v11;
+          v13 = [NSString stringWithCString:v11 encoding:4];
+          free(v12);
+          v32 = v13;
           SSFileLog();
         }
       }
 
-      v13 = [(ShowServerPromptOperation *)self runSubOperation:v3 returningError:&v31, v29];
-      if (v13)
+      v14 = [(ShowServerPromptOperation *)self runSubOperation:v3 returningError:&v33, v32];
+      if (v14)
       {
         [SSDevice setPromptWithIdentifier:self->_promptIdentifier needsDisplay:0];
       }
@@ -113,93 +117,101 @@
       shouldLog2 = [v5 shouldLog];
       if ([v5 shouldLogToDisk])
       {
-        v23 = shouldLog2 | 2;
+        LODWORD(v25) = shouldLog2 | 2;
       }
 
       else
       {
-        v23 = shouldLog2;
+        LODWORD(v25) = shouldLog2;
       }
 
-      if (!os_log_type_enabled([v5 OSLogObject], OS_LOG_TYPE_DEFAULT))
+      oSLogObject2 = [v5 OSLogObject];
+      if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
       {
-        v23 &= 2u;
+        v25 = v25;
       }
 
-      if (v23)
+      else
       {
-        v24 = objc_opt_class();
-        v25 = self->_promptIdentifier;
-        v32 = 138412546;
-        v33 = v24;
-        v34 = 2112;
-        v35 = v25;
-        LODWORD(v30) = 22;
-        v29 = &v32;
-        v26 = _os_log_send_and_compose_impl();
-        if (v26)
+        v25 &= 2u;
+      }
+
+      if (v25)
+      {
+        v27 = objc_opt_class();
+        v28 = self->_promptIdentifier;
+        v34 = 138412546;
+        v35 = v27;
+        v36 = 2112;
+        v37 = v28;
+        v29 = _os_log_send_and_compose_impl(v25, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%@: No operation for prompt identifier: %@", &v34, 22);
+        if (v29)
         {
-          v27 = v26;
-          v28 = [NSString stringWithCString:v26 encoding:4, &v32, v30];
-          free(v27);
-          v29 = v28;
+          v30 = v29;
+          v31 = [NSString stringWithCString:v29 encoding:4];
+          free(v30);
+          v32 = v31;
           SSFileLog();
         }
       }
 
-      v13 = 0;
+      v14 = 0;
     }
 
-    [(ShowServerPromptOperation *)self setError:v31, v29];
-    [(ShowServerPromptOperation *)self setSuccess:v13];
+    [(ShowServerPromptOperation *)self setError:v33, v32];
+    [(ShowServerPromptOperation *)self setSuccess:v14];
   }
 
   else
   {
-    v14 = +[SSLogConfig sharedDaemonConfig];
-    if (!v14)
+    v15 = +[SSLogConfig sharedDaemonConfig];
+    if (!v15)
     {
-      v14 = +[SSLogConfig sharedConfig];
+      v15 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog3 = [v14 shouldLog];
-    if ([v14 shouldLogToDisk])
+    shouldLog3 = [v15 shouldLog];
+    if ([v15 shouldLogToDisk])
     {
-      v16 = shouldLog3 | 2;
+      LODWORD(v17) = shouldLog3 | 2;
     }
 
     else
     {
-      v16 = shouldLog3;
+      LODWORD(v17) = shouldLog3;
     }
 
-    if (!os_log_type_enabled([v14 OSLogObject], OS_LOG_TYPE_INFO))
+    oSLogObject3 = [v15 OSLogObject];
+    if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_INFO))
     {
-      v16 &= 2u;
+      v17 = v17;
     }
 
-    if (v16)
+    else
     {
-      v17 = objc_opt_class();
-      v18 = self->_promptIdentifier;
-      v32 = 138412546;
-      v33 = v17;
-      v34 = 2112;
-      v35 = v18;
-      LODWORD(v30) = 22;
-      v29 = &v32;
-      v19 = _os_log_send_and_compose_impl();
-      if (v19)
+      v17 &= 2u;
+    }
+
+    if (v17)
+    {
+      v19 = objc_opt_class();
+      v20 = self->_promptIdentifier;
+      v34 = 138412546;
+      v35 = v19;
+      v36 = 2112;
+      v37 = v20;
+      v21 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &_mh_execute_header, oSLogObject3, 1, "%@: Prompt does not need display: %@", &v34, 22);
+      if (v21)
       {
-        v20 = v19;
-        v21 = [NSString stringWithCString:v19 encoding:4, &v32, v30];
-        free(v20);
-        v29 = v21;
+        v22 = v21;
+        v23 = [NSString stringWithCString:v21 encoding:4];
+        free(v22);
+        v32 = v23;
         SSFileLog();
       }
     }
 
-    [(ShowServerPromptOperation *)self setSuccess:1, v29];
+    [(ShowServerPromptOperation *)self setSuccess:1, v32];
     +[SSDevice setLastPromptAttemptDate:forPromptWithIdentifier:](SSDevice, "setLastPromptAttemptDate:forPromptWithIdentifier:", +[NSDate date], self->_promptIdentifier);
     CFPreferencesAppSynchronize(kSSUserDefaultsIdentifier);
   }

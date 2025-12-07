@@ -8,28 +8,27 @@
 + (id)deserializeFromPersistence:(id)persistence
 {
   persistenceCopy = persistence;
-  static ExternalProvider.deserialize(from:)(persistenceCopy, v12);
+  static ExternalProvider.deserialize(from:)(persistenceCopy, v11);
 
-  v4 = v13;
-  if (v13)
+  v4 = v12;
+  if (v12)
   {
-    v5 = __swift_project_boxed_opaque_existential_1Tm_3(v12, v13);
+    v5 = __swift_project_boxed_opaque_existential_1Tm_3(v11, v12);
     v6 = *(v4 - 8);
-    v7 = *(v6 + 64);
-    MEMORY[0x28223BE20](v5);
-    v9 = v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-    (*(v6 + 16))(v9);
-    v10 = _bridgeAnythingToObjectiveC<A>(_:)();
-    (*(v6 + 8))(v9, v4);
-    __swift_destroy_boxed_opaque_existential_1Tm_23(v12);
+    MEMORY[0x28223BE20](v5, v5);
+    v8 = v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+    (*(v6 + 16))(v8);
+    v9 = _bridgeAnythingToObjectiveC<A>(_:)();
+    (*(v6 + 8))(v8, v4);
+    __swift_destroy_boxed_opaque_existential_1Tm_23(v11);
   }
 
   else
   {
-    v10 = 0;
+    v9 = 0;
   }
 
-  return v10;
+  return v9;
 }
 
 - (id)serialize

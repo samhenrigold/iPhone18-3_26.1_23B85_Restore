@@ -1,9 +1,18 @@
 @interface ConfirmViewController
 - (void)proxCardFlowDidDismiss;
 - (void)proxCardFlowWillPresent;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation ConfirmViewController
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = ConfirmViewController;
+  [(ConfirmViewController *)&v4 viewDidAppear:appear];
+  sub_100004674(self);
+}
 
 - (void)proxCardFlowWillPresent
 {

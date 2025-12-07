@@ -30,20 +30,23 @@
 
 - (void)viewDidAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_24E305044(appear, &selRef_viewDidAppear_, sub_24E3063E4);
+  sub_24E305044(appearCopy, &selRef_viewDidAppear_, sub_24E3063E4);
 }
 
 - (void)viewWillDisappear:(BOOL)disappear
 {
+  disappearCopy = disappear;
   selfCopy = self;
-  sub_24E304F8C(disappear);
+  sub_24E304F8C(disappearCopy);
 }
 
 - (void)viewIsAppearing:(BOOL)appearing
 {
+  appearingCopy = appearing;
   selfCopy = self;
-  sub_24E305044(appearing, &selRef_viewIsAppearing_, sub_24E30510C);
+  sub_24E305044(appearingCopy, &selRef_viewIsAppearing_, sub_24E30510C);
 }
 
 - (void)updateThePreferredSheetDetents

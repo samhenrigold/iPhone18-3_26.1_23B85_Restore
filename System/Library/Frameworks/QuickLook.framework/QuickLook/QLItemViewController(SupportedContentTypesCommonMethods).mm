@@ -11,9 +11,9 @@
     +[QLItemViewController(SupportedContentTypesCommonMethods) supportedAudiovisualContentTypes];
   }
 
-  v1 = supportedAudiovisualContentTypes_supportedContentTypes;
+  v2 = supportedAudiovisualContentTypes_supportedContentTypes;
 
-  return v1;
+  return v2;
 }
 
 @end

@@ -1,4 +1,5 @@
 @interface HDCloudSyncPipelineStageWaitForDeviceToDeviceEncryptionAvailability
+- (BOOL)finishWithSuccess:(BOOL)success error:(id)error;
 - (HDCloudSyncPipelineStageWaitForDeviceToDeviceEncryptionAvailability)initWithConfiguration:(id)configuration;
 - (void)_checkForDevicetoDeviceEncryptionAvailabilityAndContinueObserving:(void *)observing;
 - (void)_cloudKitIdentityUpdated:(id)updated;
@@ -22,7 +23,7 @@
 
 - (void)main
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter addObserver:self selector:sel__cloudKitIdentityUpdated_ name:*MEMORY[0x277CBBF90] object:0];
 
@@ -46,22 +47,20 @@
     {
       v9 = v8;
       containerIdentifier2 = [primaryCKContainer containerIdentifier];
-      v12 = 138543618;
+      v11 = 138543618;
       selfCopy = self;
-      v14 = 2114;
-      v15 = containerIdentifier2;
-      _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@: Primary container %{public}@ is not secure; skipping D2DE check.", &v12, 0x16u);
+      v13 = 2114;
+      v14 = containerIdentifier2;
+      _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@: Primary container %{public}@ is not secure; skipping D2DE check.", &v11, 0x16u);
     }
 
     [(HDCloudSyncPipelineStageWaitForDeviceToDeviceEncryptionAvailability *)self finishWithSuccess:1 error:0];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_checkForDevicetoDeviceEncryptionAvailabilityAndContinueObserving:(void *)observing
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (observing)
   {
     _HKInitializeLogging();
@@ -76,21 +75,19 @@
     configuration = [observing configuration];
     repository = [configuration repository];
     primaryCKContainer = [repository primaryCKContainer];
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __137__HDCloudSyncPipelineStageWaitForDeviceToDeviceEncryptionAvailability__checkForDevicetoDeviceEncryptionAvailabilityAndContinueObserving___block_invoke;
-    v9[3] = &unk_27861FBB8;
-    v9[4] = observing;
-    v10 = a2;
-    [primaryCKContainer accountInfoWithCompletionHandler:v9];
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __137__HDCloudSyncPipelineStageWaitForDeviceToDeviceEncryptionAvailability__checkForDevicetoDeviceEncryptionAvailabilityAndContinueObserving___block_invoke;
+    v8[3] = &unk_27861FBB8;
+    v8[4] = observing;
+    v9 = a2;
+    [primaryCKContainer accountInfoWithCompletionHandler:v8];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __137__HDCloudSyncPipelineStageWaitForDeviceToDeviceEncryptionAvailability__checkForDevicetoDeviceEncryptionAvailabilityAndContinueObserving___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v34[1] = *MEMORY[0x277D85DE8];
+  v33[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (!v5)
@@ -136,47 +133,47 @@ LABEL_9:
   if (*(a1 + 40) == 1)
   {
     _HKInitializeLogging();
-    v15 = *MEMORY[0x277CCC328];
+    v14 = *MEMORY[0x277CCC328];
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
     {
-      v16 = *(a1 + 32);
+      v15 = *(a1 + 32);
       *buf = 138543362;
-      *&buf[4] = v16;
-      _os_log_impl(&dword_228986000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@: Device-to-device encryption not currently available; waiting for account update notification.", buf, 0xCu);
+      *&buf[4] = v15;
+      _os_log_impl(&dword_228986000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@: Device-to-device encryption not currently available; waiting for account update notification.", buf, 0xCu);
     }
 
-    v17 = *(a1 + 32);
-    if (v17)
+    v16 = *(a1 + 32);
+    if (v16)
     {
-      if (!*(v17 + 128))
+      if (!*(v16 + 128))
       {
-        v18 = [v17 profile];
-        v19 = [v18 daemon];
-        v20 = [v19 behavior];
-        v21 = [v20 tinkerModeEnabled];
+        v17 = [v16 profile];
+        v18 = [v17 daemon];
+        v19 = [v18 behavior];
+        v20 = [v19 tinkerModeEnabled];
 
-        if ((v21 & 1) == 0)
+        if ((v20 & 1) == 0)
         {
-          v22 = [v17 profile];
-          v23 = [v22 cloudSyncManager];
-          v24 = [v23 queue];
-          v25 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, v24);
-          v26 = *(v17 + 128);
-          *(v17 + 128) = v25;
+          v21 = [v16 profile];
+          v22 = [v21 cloudSyncManager];
+          v23 = [v22 queue];
+          v24 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, v23);
+          v25 = *(v16 + 128);
+          *(v16 + 128) = v24;
 
-          objc_initWeak(&location, v17);
-          v27 = *(v17 + 128);
+          objc_initWeak(&location, v16);
+          v26 = *(v16 + 128);
           *buf = MEMORY[0x277D85DD0];
           *&buf[8] = 3221225472;
           *&buf[16] = __100__HDCloudSyncPipelineStageWaitForDeviceToDeviceEncryptionAvailability__startExpirationTimerIfNeeded__block_invoke;
-          v33 = &unk_278616F38;
-          objc_copyWeak(v34, &location);
-          dispatch_source_set_event_handler(v27, buf);
-          v28 = *(v17 + 128);
-          v29 = dispatch_walltime(0, (*(v17 + 136) * 1000000000.0));
-          dispatch_source_set_timer(v28, v29, 0xFFFFFFFFFFFFFFFFLL, 0);
-          dispatch_resume(*(v17 + 128));
-          objc_destroyWeak(v34);
+          v32 = &unk_278616F38;
+          objc_copyWeak(v33, &location);
+          dispatch_source_set_event_handler(v26, buf);
+          v27 = *(v16 + 128);
+          v28 = dispatch_walltime(0, (*(v16 + 136) * 1000000000.0));
+          dispatch_source_set_timer(v27, v28, 0xFFFFFFFFFFFFFFFFLL, 0);
+          dispatch_resume(*(v16 + 128));
+          objc_destroyWeak(v33);
           objc_destroyWeak(&location);
         }
       }
@@ -185,29 +182,26 @@ LABEL_9:
 
   else
   {
-    v30 = [MEMORY[0x277CCA9B8] hk_error:103 description:@"Timeout waiting for device to device encryption availability"];
-    [*(a1 + 32) finishWithSuccess:0 error:v30];
+    v29 = [MEMORY[0x277CCA9B8] hk_error:103 description:@"Timeout waiting for device to device encryption availability"];
+    [*(a1 + 32) finishWithSuccess:0 error:v29];
   }
 
 LABEL_10:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_cloudKitIdentityUpdated:(id)updated
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC328];
   if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138543362;
+    v5 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: Received CKIdentityUpdateNotification", &v6, 0xCu);
+    _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: Received CKIdentityUpdateNotification", &v5, 0xCu);
   }
 
   [(HDCloudSyncPipelineStageWaitForDeviceToDeviceEncryptionAvailability *)self _checkForDevicetoDeviceEncryptionAvailabilityAndContinueObserving:?];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __100__HDCloudSyncPipelineStageWaitForDeviceToDeviceEncryptionAvailability__startExpirationTimerIfNeeded__block_invoke(uint64_t a1)
@@ -222,6 +216,28 @@ void __100__HDCloudSyncPipelineStageWaitForDeviceToDeviceEncryptionAvailability_
     [(HDCloudSyncPipelineStageWaitForDeviceToDeviceEncryptionAvailability *)v3 _checkForDevicetoDeviceEncryptionAvailabilityAndContinueObserving:?];
     WeakRetained = v3;
   }
+}
+
+- (BOOL)finishWithSuccess:(BOOL)success error:(id)error
+{
+  successCopy = success;
+  errorCopy = error;
+  expirationTimer = self->_expirationTimer;
+  if (expirationTimer)
+  {
+    dispatch_source_cancel(expirationTimer);
+    v8 = self->_expirationTimer;
+    self->_expirationTimer = 0;
+  }
+
+  defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+  [defaultCenter removeObserver:self name:*MEMORY[0x277CBBF90] object:0];
+
+  v12.receiver = self;
+  v12.super_class = HDCloudSyncPipelineStageWaitForDeviceToDeviceEncryptionAvailability;
+  v10 = [(HDCloudSyncOperation *)&v12 finishWithSuccess:successCopy error:errorCopy];
+
+  return v10;
 }
 
 @end

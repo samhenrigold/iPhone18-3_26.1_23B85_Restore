@@ -203,7 +203,7 @@ LABEL_3:
 
 - (unint64_t)readLengthForTermWithPreBuffer:(id)buffer found:(BOOL *)found
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   bufferCopy = buffer;
   if (!self->term)
   {
@@ -221,7 +221,7 @@ LABEL_3:
   bytesDone = self->bytesDone;
   if (bytesDone + availableBytes >= v7)
   {
-    v30 = &foundCopy;
+    v29 = &foundCopy;
     maxLength = self->maxLength;
     v12 = maxLength - bytesDone;
     if (availableBytes < v12)
@@ -248,9 +248,9 @@ LABEL_3:
     mutableBytes = [(NSMutableData *)self->buffer mutableBytes];
     startOffset = self->startOffset;
     v16 = self->bytesDone;
-    v31 = bufferCopy;
+    v30 = bufferCopy;
     readBuffer = [bufferCopy readBuffer];
-    v29 = v9;
+    v28 = v9;
     v18 = v9 - v7 + v13;
     v19 = v18 + 1;
     if (v18 != -1)
@@ -283,13 +283,13 @@ LABEL_3:
         {
           if (!memcmp(v20, bytes, v7))
           {
-            v9 = &v20[v7 - [v31 readBuffer]];
+            v9 = &v20[v7 - [v30 readBuffer]];
 LABEL_29:
             found = foundCopy;
             if (!foundCopy)
             {
 LABEL_25:
-              bufferCopy = v31;
+              bufferCopy = v30;
               goto LABEL_26;
             }
 
@@ -313,7 +313,7 @@ LABEL_24:
 
     v25 = 0;
 LABEL_23:
-    v9 = v29;
+    v9 = v28;
     if (!found)
     {
       goto LABEL_25;
@@ -324,7 +324,6 @@ LABEL_23:
 
 LABEL_26:
 
-  v26 = *MEMORY[0x277D85DE8];
   return v9;
 }
 

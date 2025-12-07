@@ -41,7 +41,7 @@
   {
     if (v4)
     {
-      sub_1004BF754(self);
+      sub_1004BF754();
     }
 
     if (self->_isMonitoringLocation)

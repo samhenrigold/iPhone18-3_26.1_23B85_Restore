@@ -8,6 +8,7 @@
 - (void)_createProcessTap;
 - (void)_createQueueTap;
 - (void)_destroyAudioTap;
+- (void)_destroyProcessTap;
 - (void)_prepareTap:(opaqueMTAudioProcessingTap *)tap maxFrames:(int64_t)frames processingFormat:(const AudioStreamBasicDescription *)format;
 - (void)_resetObservers;
 - (void)configurePlayerItem:(id)item;
@@ -155,6 +156,13 @@
       }
     }
   }
+}
+
+- (void)_destroyProcessTap
+{
+  processAudioTap = self->_processAudioTap;
+  self->_processAudioTap = 0;
+  MEMORY[0x1EEE66BB8](self, processAudioTap);
 }
 
 - (void)_destroyAudioTap

@@ -1,4 +1,4 @@
-uint64_t ParamSetHolderMgr::getParamSetHolder(ParamSetHolderMgr *this, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t ParamSetHolderMgr::getParamSetHolder(ParamSetHolderMgr *this, unsigned int a2)
 {
   if (a2 == -1)
   {
@@ -7,15 +7,15 @@ uint64_t ParamSetHolderMgr::getParamSetHolder(ParamSetHolderMgr *this, unsigned 
 
   if (*(this + 2) <= a2 || (result = *(*this + 8 * a2)) == 0)
   {
-    v10 = a2;
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 2796, "recogctl/psholder", 1, "%u", a7, a8, a2);
-    return *(*this + 8 * v10);
+    v4 = a2;
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 2796, "recogctl/psholder", 1, "%u", a2);
+    return *(*this + 8 * v4);
   }
 
   return result;
 }
 
-uint64_t ParamSetHolder::getParamSet(ParamSetHolder *this, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t ParamSetHolder::getParamSet(ParamSetHolder *this, unsigned int a2)
 {
   if (a2 == -1)
   {
@@ -25,14 +25,14 @@ uint64_t ParamSetHolder::getParamSet(ParamSetHolder *this, unsigned int a2, uint
   result = *(*(this + 1) + 8 * a2);
   if (!result)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 2223, "recogctl/psholder", 9, "%u", a7, a8, a2);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 2223, "recogctl/psholder", 9, "%u", a2);
     return *(*(this + 1) + 8 * a2);
   }
 
   return result;
 }
 
-DgnString *Hash<DgnString,DgnString,DgnStringScope,unsigned int>::add(uint64_t a1, char **a2, _DWORD *a3)
+void Hash<DgnString,DgnString,DgnStringScope,unsigned int>::add(uint64_t a1, char **a2, _DWORD *a3)
 {
   v6 = *(a1 + 12);
   if (*(a1 + 8) >= v6 >> 1)
@@ -90,7 +90,7 @@ DgnString *Hash<DgnString,DgnString,DgnStringScope,unsigned int>::add(uint64_t a
   v17 = (v15 + 8 * v14);
   *(a1 + 32) = *v16;
   *(v16 + 8) = 0;
-  result = DgnString::DgnString((v16 + 16), a2);
+  DgnString::DgnString((v16 + 16), a2);
   *(v16 + 32) = *a3;
   *(v16 + 8) = v9;
   ++*(a1 + 8);
@@ -102,21 +102,20 @@ DgnString *Hash<DgnString,DgnString,DgnStringScope,unsigned int>::add(uint64_t a
   else
   {
     *v16 = 0;
-    v19 = *v17;
+    v18 = *v17;
     if (*v17)
     {
       do
       {
-        v17 = v19;
-        v19 = *v19;
+        v17 = v18;
+        v18 = *v18;
       }
 
-      while (v19);
+      while (v18);
     }
   }
 
   *v17 = v16;
-  return result;
 }
 
 DynamicParamSet *DgnDelete<DynamicParamSet>(DynamicParamSet *result)
@@ -131,67 +130,67 @@ DynamicParamSet *DgnDelete<DynamicParamSet>(DynamicParamSet *result)
   return result;
 }
 
-uint64_t ParamSetHolderMgr::startupParamSetHolderMgr(ParamSetHolderMgr *this)
+unint64_t ParamSetHolderMgr::startupParamSetHolderMgr(ParamSetHolderMgr *this)
 {
-  DgnTextFileWriter::DgnTextFileWriter(v75);
-  v74[0] = 0;
-  v74[1] = 0;
-  v73[0] = 0;
-  v73[1] = 0;
-  v72[0] = 0;
-  v72[1] = 0;
-  v71[0] = 0;
-  v71[1] = 0;
-  v70[0] = 0;
-  v70[1] = 0;
-  v69[0] = 0;
-  v69[1] = 0;
-  v68[0] = 0;
-  v68[1] = 0;
-  v67[0] = 0;
-  v67[1] = 0;
-  v66[0] = 0;
-  v66[1] = 0;
-  v65[0] = 0;
-  v65[1] = 0;
-  v64[0] = 0;
-  v64[1] = 0;
-  v63[0] = 0;
-  v63[1] = 0;
-  DgnTextFile::legalDgnTextFileVersions(v75, sADPT_Versions, v74, v1, v2, v3, v4, v5);
-  DgnTextFile::legalDgnTextFileVersions(v75, sCHPT_Versions, v73, v6, v7, v8, v9, v10);
-  DgnTextFile::legalDgnTextFileVersions(v75, sCOPT_Versions, v72, v11, v12, v13, v14, v15);
-  DgnTextFile::legalDgnTextFileVersions(v75, sLNPT_Versions, v71, v16, v17, v18, v19, v20);
-  DgnTextFile::legalDgnTextFileVersions(v75, sLPPT_Versions, v70, v21, v22, v23, v24, v25);
-  DgnTextFile::legalDgnTextFileVersions(v75, sPBPT_Versions, v69, v26, v27, v28, v29, v30);
-  DgnTextFile::legalDgnTextFileVersions(v75, sPSPT_Versions, v68, v31, v32, v33, v34, v35);
-  DgnTextFile::legalDgnTextFileVersions(v75, sPGPT_Versions, v67, v36, v37, v38, v39, v40);
-  DgnTextFile::legalDgnTextFileVersions(v75, sSAPT_Versions, v66, v41, v42, v43, v44, v45);
-  DgnTextFile::legalDgnTextFileVersions(v75, sSRPT_Versions, v65, v46, v47, v48, v49, v50);
-  DgnTextFile::legalDgnTextFileVersions(v75, sSCPT_Versions, v64, v51, v52, v53, v54, v55);
-  DgnTextFile::legalDgnTextFileVersions(v75, sUDPT_Versions, v63, v56, v57, v58, v59, v60);
-  DgnIArray<Utterance *>::~DgnIArray(v63);
-  DgnIArray<Utterance *>::~DgnIArray(v64);
-  DgnIArray<Utterance *>::~DgnIArray(v65);
-  DgnIArray<Utterance *>::~DgnIArray(v66);
-  DgnIArray<Utterance *>::~DgnIArray(v67);
-  DgnIArray<Utterance *>::~DgnIArray(v68);
-  DgnIArray<Utterance *>::~DgnIArray(v69);
-  DgnIArray<Utterance *>::~DgnIArray(v70);
-  DgnIArray<Utterance *>::~DgnIArray(v71);
-  DgnIArray<Utterance *>::~DgnIArray(v72);
-  DgnIArray<Utterance *>::~DgnIArray(v73);
-  DgnIArray<Utterance *>::~DgnIArray(v74);
-  DgnTextFileWriter::~DgnTextFileWriter(v75);
-  v61 = MemChunkAlloc(0x40uLL, 0);
-  *v61 = 0u;
-  v61[2] = 0x10000001DLL;
-  *(v61 + 6) = 1;
-  v61[5] = 0;
-  v61[6] = 0;
-  v61[4] = 0;
-  *(v61 + 14) = 0;
-  ParamSetHolderMgr::smpParamSetHolderMgr = v61;
+  DgnTextFileWriter::DgnTextFileWriter(v15);
+  v14[0] = 0;
+  v14[1] = 0;
+  v13[0] = 0;
+  v13[1] = 0;
+  v12[0] = 0;
+  v12[1] = 0;
+  v11[0] = 0;
+  v11[1] = 0;
+  v10[0] = 0;
+  v10[1] = 0;
+  v9[0] = 0;
+  v9[1] = 0;
+  v8[0] = 0;
+  v8[1] = 0;
+  v7[0] = 0;
+  v7[1] = 0;
+  v6[0] = 0;
+  v6[1] = 0;
+  v5[0] = 0;
+  v5[1] = 0;
+  v4[0] = 0;
+  v4[1] = 0;
+  v3[0] = 0;
+  v3[1] = 0;
+  DgnTextFile::legalDgnTextFileVersions(v15, sADPT_Versions, v14);
+  DgnTextFile::legalDgnTextFileVersions(v15, sCHPT_Versions, v13);
+  DgnTextFile::legalDgnTextFileVersions(v15, sCOPT_Versions, v12);
+  DgnTextFile::legalDgnTextFileVersions(v15, sLNPT_Versions, v11);
+  DgnTextFile::legalDgnTextFileVersions(v15, sLPPT_Versions, v10);
+  DgnTextFile::legalDgnTextFileVersions(v15, sPBPT_Versions, v9);
+  DgnTextFile::legalDgnTextFileVersions(v15, sPSPT_Versions, v8);
+  DgnTextFile::legalDgnTextFileVersions(v15, sPGPT_Versions, v7);
+  DgnTextFile::legalDgnTextFileVersions(v15, sSAPT_Versions, v6);
+  DgnTextFile::legalDgnTextFileVersions(v15, sSRPT_Versions, v5);
+  DgnTextFile::legalDgnTextFileVersions(v15, sSCPT_Versions, v4);
+  DgnTextFile::legalDgnTextFileVersions(v15, sUDPT_Versions, v3);
+  DgnIArray<Utterance *>::~DgnIArray(v3);
+  DgnIArray<Utterance *>::~DgnIArray(v4);
+  DgnIArray<Utterance *>::~DgnIArray(v5);
+  DgnIArray<Utterance *>::~DgnIArray(v6);
+  DgnIArray<Utterance *>::~DgnIArray(v7);
+  DgnIArray<Utterance *>::~DgnIArray(v8);
+  DgnIArray<Utterance *>::~DgnIArray(v9);
+  DgnIArray<Utterance *>::~DgnIArray(v10);
+  DgnIArray<Utterance *>::~DgnIArray(v11);
+  DgnIArray<Utterance *>::~DgnIArray(v12);
+  DgnIArray<Utterance *>::~DgnIArray(v13);
+  DgnIArray<Utterance *>::~DgnIArray(v14);
+  DgnTextFileWriter::~DgnTextFileWriter(v15);
+  v1 = MemChunkAlloc(0x40uLL, 0);
+  *v1 = 0u;
+  v1[2] = 0x10000001DLL;
+  *(v1 + 6) = 1;
+  v1[5] = 0;
+  v1[6] = 0;
+  v1[4] = 0;
+  *(v1 + 14) = 0;
+  ParamSetHolderMgr::smpParamSetHolderMgr = v1;
   StartupAdapterParamSpecMgr();
   StartupChannelParamSpecMgr();
   StartupConfidenceParamSpecMgr();
@@ -206,8 +205,9 @@ uint64_t ParamSetHolderMgr::startupParamSetHolderMgr(ParamSetHolderMgr *this)
   return StartupUserDeltaParamSpecMgr();
 }
 
-void sub_2625CCF9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, char a12, uint64_t a13, char a14, uint64_t a15, char a16, uint64_t a17, char a18, uint64_t a19, char a20, uint64_t a21, char a22, uint64_t a23, char a24, uint64_t a25, char a26, uint64_t a27, char a28, uint64_t a29, char a30, uint64_t a31, char a32, uint64_t a33, char a34)
+void sub_2625CCF9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, ...)
 {
+  va_start(va, a33);
   DgnIArray<Utterance *>::~DgnIArray(&a10);
   DgnIArray<Utterance *>::~DgnIArray(&a12);
   DgnIArray<Utterance *>::~DgnIArray(&a14);
@@ -220,43 +220,53 @@ void sub_2625CCF9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   DgnIArray<Utterance *>::~DgnIArray(&a28);
   DgnIArray<Utterance *>::~DgnIArray(&a30);
   DgnIArray<Utterance *>::~DgnIArray(&a32);
-  DgnTextFileWriter::~DgnTextFileWriter(&a34);
+  DgnTextFileWriter::~DgnTextFileWriter(va);
   _Unwind_Resume(a1);
 }
 
-void ParamSetHolderMgr::deleteParamSetHolder(ParamSetHolderMgr *this, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void ParamSetHolderMgr::deleteParamSetHolder(ParamSetHolderMgr *this, unsigned int a2)
 {
-  ParamSetHolder = ParamSetHolderMgr::getParamSetHolder(this, a2, a3, a4, a5, a6, a7, a8);
-  v11 = ParamSetHolder;
-  v12 = *(ParamSetHolder + 16);
-  if (v12)
+  ParamSetHolder = ParamSetHolderMgr::getParamSetHolder(this, a2);
+  v5 = ParamSetHolder;
+  v6 = *(ParamSetHolder + 16);
+  if (v6)
   {
-    v13 = 0;
-    for (i = 0; i < v12; ++i)
+    v7 = 0;
+    for (i = 0; i < v6; ++i)
     {
-      v15 = *(*(ParamSetHolder + 8) + 8 * i);
-      if (v15)
+      v9 = *(*(ParamSetHolder + 8) + 8 * i);
+      if (v9)
       {
-        v13 += *(v15 + 36);
+        v7 += *(v9 + 36);
       }
     }
 
-    if (v13)
+    if (v7)
     {
-      ParamSetHolder::getRefDetails(ParamSetHolder, &v18);
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 2820, "recogctl/psholder", 2, "%u %.500s", v16, v17, a2);
-      DgnString::~DgnString(&v18);
+      ParamSetHolder::getRefDetails(ParamSetHolder, &v11);
+      if (v12)
+      {
+        v10 = v11;
+      }
+
+      else
+      {
+        v10 = byte_26286EA0E;
+      }
+
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 2820, "recogctl/psholder", 2, "%u %.500s", a2, v10);
+      DgnString::~DgnString(&v11);
     }
   }
 
-  DgnDelete<ParamSetHolder>(v11);
+  DgnDelete<ParamSetHolder>(v5);
   *(*this + 8 * a2) = 0;
   IdMgr<unsigned int>::recycleId(this + 4, a2);
 }
 
-void sub_2625CD0F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2625CD0F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   DgnString::~DgnString(va);
   _Unwind_Resume(a1);
 }
@@ -273,7 +283,7 @@ EnvMgr **DgnDelete<ParamSetHolder>(EnvMgr **result)
   return result;
 }
 
-uint64_t ParamSetHolderMgr::loadParamSetHolder(ParamSetHolderMgr *this, char **a2)
+uint64_t ParamSetHolderMgr::loadParamSetHolder(ParamSetHolderMgr *this, const char **a2)
 {
   NextId = IdMgr<unsigned int>::getNextId(this + 4);
   for (i = *(this + 2); i <= NextId; *(this + 2) = i)
@@ -299,10 +309,29 @@ void ParamSetHolderMgr::printSize(ParamSetHolderMgr *this, uint64_t a2, uint64_t
   *a4 = 0;
   *a5 = 0;
   *a6 = 0;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 2862, &v71);
-  if (v72)
+  getShipObjectSizeDescription(&v49, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 2862);
+  if (v50)
   {
-    v16 = v71;
+    v13 = v49;
+  }
+
+  else
+  {
+    v13 = byte_26286EA0E;
+  }
+
+  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v12, a3, byte_26286EA0E, a3, byte_26286EA0E, v13);
+  DgnString::~DgnString(&v49);
+  if (a2 != -1)
+  {
+    xlprintf("%d ", v14, a2);
+  }
+
+  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v14, a3, byte_26286EA0E);
+  getShipObjectSizeDescription(&v49, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 2864);
+  if (v50)
+  {
+    v16 = v49;
   }
 
   else
@@ -310,222 +339,193 @@ void ParamSetHolderMgr::printSize(ParamSetHolderMgr *this, uint64_t a2, uint64_t
     v16 = byte_26286EA0E;
   }
 
-  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v12, v13, v14, v15, a3, byte_26286EA0E, a3, byte_26286EA0E, v16);
-  DgnString::~DgnString(&v71);
-  if (a2 != -1)
+  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v15, (a3 + 1), byte_26286EA0E, (a3 + 1), byte_26286EA0E, v16);
+  v46 = a6;
+  DgnString::~DgnString(&v49);
+  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v17, (a3 + 1), byte_26286EA0E);
+  v18 = *(this + 2);
+  if (v18)
   {
-    xlprintf("%d ", v17, v18, v19, v20, a2);
-  }
-
-  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v17, v18, v19, v20, a3, byte_26286EA0E);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 2864, &v71);
-  if (v72)
-  {
-    v25 = v71;
-  }
-
-  else
-  {
-    v25 = byte_26286EA0E;
-  }
-
-  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v21, v22, v23, v24, (a3 + 1), byte_26286EA0E, (a3 + 1), byte_26286EA0E, v25);
-  v68 = a6;
-  DgnString::~DgnString(&v71);
-  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v26, v27, v28, v29, (a3 + 1), byte_26286EA0E);
-  v30 = *(this + 2);
-  if (v30)
-  {
-    v31 = 0;
-    v32 = 0;
-    v33 = 0;
-    v34 = 0;
+    v19 = 0;
+    v20 = 0;
+    v21 = 0;
+    v22 = 0;
     do
     {
-      v35 = *(*this + 8 * v31);
-      if (v35)
+      v23 = *(*this + 8 * v19);
+      if (v23)
       {
-        v70 = 0;
-        v71 = 0;
-        v69 = 0;
-        ParamSetHolder::printSize(v35, v31, (a3 + 2), &v71, &v70, &v69);
-        v32 += v71;
-        v34 += v70;
-        v33 += v69;
-        v30 = *(this + 2);
+        v48 = 0;
+        v49 = 0;
+        v47 = 0;
+        ParamSetHolder::printSize(v23, v19, (a3 + 2), &v49, &v48, &v47);
+        v20 += v49;
+        v22 += v48;
+        v21 += v47;
+        v18 = *(this + 2);
       }
 
-      ++v31;
+      ++v19;
     }
 
-    while (v31 < v30);
+    while (v19 < v18);
   }
 
   else
   {
-    v34 = 0;
-    v33 = 0;
-    v32 = 0;
-    v30 = 0;
+    v22 = 0;
+    v21 = 0;
+    v20 = 0;
+    v18 = 0;
   }
 
-  v36 = 16;
+  v24 = 16;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v36 = 12;
+    v24 = 12;
   }
 
-  v37 = v36 + v32;
-  v38 = v36 + v34;
-  v39 = 2;
+  v25 = v24 + v20;
+  v26 = v24 + v22;
+  v27 = 2;
   if ((gShadowDiagnosticShowIdealizedObjectSizes & 1) == 0)
   {
-    v39 = 3;
+    v27 = 3;
   }
 
-  v40 = v37 + (*(this + 3) << v39);
-  v41 = v38 + (v30 << v39);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 2864, &v71);
-  if (v72)
+  v28 = v25 + (*(this + 3) << v27);
+  v29 = v26 + (v18 << v27);
+  getShipObjectSizeDescription(&v49, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 2864);
+  if (v50)
   {
-    v46 = v71;
+    v31 = v49;
   }
 
   else
   {
-    v46 = byte_26286EA0E;
+    v31 = byte_26286EA0E;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v42, v43, v44, v45, (a3 + 1), byte_26286EA0E, (34 - a3), (34 - a3), v46, v40, v41, v33);
-  DgnString::~DgnString(&v71);
-  *a4 += v40;
-  *a5 += v41;
-  *v68 += v33;
-  v47 = 16;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v30, (a3 + 1), byte_26286EA0E, (34 - a3), (34 - a3), v31, v28, v29, v21);
+  DgnString::~DgnString(&v49);
+  *a4 += v28;
+  *a5 += v29;
+  *v46 += v21;
+  v32 = 16;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v47 = 12;
+    v32 = 12;
   }
 
-  v48 = *(this + 10);
-  v49 = *(this + 11);
-  v50 = v47 + 4 * (v48 - 1) + 4;
-  if (v48 <= 0)
+  v33 = *(this + 10);
+  v34 = *(this + 11);
+  v35 = v32 + 4 * (v33 - 1) + 4;
+  if (v33 <= 0)
   {
-    v50 = v47;
+    v35 = v32;
   }
 
-  v51 = v49 >= v48;
-  v52 = v50 + 4 * (v49 - v48);
-  if (v51)
+  v36 = v34 >= v33;
+  v37 = v35 + 4 * (v34 - v33);
+  if (v36)
   {
-    v47 = v52;
+    v32 = v37;
   }
 
-  v53 = v47 + 24;
-  v54 = DgnPrimQueue<unsigned int,DgnPrimArray<unsigned int>>::sizeObject(this + 8, 1u) + 12;
-  v55 = *(this + 10);
-  if (v55 <= *(this + 11))
+  v38 = v32 + 24;
+  v39 = DgnPrimQueue<unsigned int,DgnPrimArray<unsigned int>>::sizeObject(this + 8, 1u) + 12;
+  v40 = *(this + 10);
+  if (v40 <= *(this + 11))
   {
-    v56 = 0;
+    v41 = 0;
   }
 
   else
   {
-    v56 = 4 * v55;
+    v41 = 4 * v40;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 2866, &v71);
-  if (v72)
+  getShipObjectSizeDescription(&v49, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 2866);
+  if (v50)
   {
-    v61 = v71;
+    v43 = v49;
   }
 
   else
   {
-    v61 = byte_26286EA0E;
+    v43 = byte_26286EA0E;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v57, v58, v59, v60, (a3 + 1), byte_26286EA0E, (34 - a3), (34 - a3), v61, v53, v54, v56);
-  DgnString::~DgnString(&v71);
-  *a4 += v53;
-  *a5 += v54;
-  *v68 += v56;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 2867, &v71);
-  if (v72)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v42, (a3 + 1), byte_26286EA0E, (34 - a3), (34 - a3), v43, v38, v39, v41);
+  DgnString::~DgnString(&v49);
+  *a4 += v38;
+  *a5 += v39;
+  *v46 += v41;
+  getShipObjectSizeDescription(&v49, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 2867);
+  if (v50)
   {
-    v66 = v71;
+    v45 = v49;
   }
 
   else
   {
-    v66 = byte_26286EA0E;
+    v45 = byte_26286EA0E;
   }
 
-  v67 = *a5;
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v62, v63, v64, v65, a3, byte_26286EA0E, (35 - a3), (35 - a3), v66, *a4, *a5, *v68);
-  DgnString::~DgnString(&v71);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v44, a3, byte_26286EA0E, (35 - a3), (35 - a3), v45, *a4, *a5, *v46);
+  DgnString::~DgnString(&v49);
 }
 
-void sub_2625CD584(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_2625CD584(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   DgnString::~DgnString(va);
   _Unwind_Resume(a1);
 }
 
-void *ParamSetHolderMgr::getLatticeNBestParamSet(ParamSetHolderMgr *this, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *ParamSetHolderMgr::getLatticeNBestParamSet(ParamSetHolderMgr *this, unsigned int a2, unsigned int a3)
 {
-  v8 = a3;
-  ParamSetHolder = ParamSetHolderMgr::getParamSetHolder(this, a2, a3, a4, a5, a6, a7, a8);
+  ParamSetHolder = ParamSetHolderMgr::getParamSetHolder(this, a2);
   if (!ParamSetHolder)
   {
     return 0;
   }
 
-  ParamSet = ParamSetHolder::getParamSet(ParamSetHolder, v8, v10, v11, v12, v13, v14, v15);
+  ParamSet = ParamSetHolder::getParamSet(ParamSetHolder, a3);
   if (!ParamSet)
   {
     return 0;
   }
-
-  v17 = **ParamSet;
 }
 
-void *ParamSetHolderMgr::getPronGuessParamSet(ParamSetHolderMgr *this, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *ParamSetHolderMgr::getPronGuessParamSet(ParamSetHolderMgr *this, unsigned int a2, unsigned int a3)
 {
-  v8 = a3;
-  ParamSetHolder = ParamSetHolderMgr::getParamSetHolder(this, a2, a3, a4, a5, a6, a7, a8);
+  ParamSetHolder = ParamSetHolderMgr::getParamSetHolder(this, a2);
   if (!ParamSetHolder)
   {
     return 0;
   }
 
-  ParamSet = ParamSetHolder::getParamSet(ParamSetHolder, v8, v10, v11, v12, v13, v14, v15);
+  ParamSet = ParamSetHolder::getParamSet(ParamSetHolder, a3);
   if (!ParamSet)
   {
     return 0;
   }
-
-  v17 = **ParamSet;
 }
 
-void *ParamSetHolderMgr::getSearchParamSet(ParamSetHolderMgr *this, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *ParamSetHolderMgr::getSearchParamSet(ParamSetHolderMgr *this, unsigned int a2, unsigned int a3)
 {
-  v8 = a3;
-  ParamSetHolder = ParamSetHolderMgr::getParamSetHolder(this, a2, a3, a4, a5, a6, a7, a8);
+  ParamSetHolder = ParamSetHolderMgr::getParamSetHolder(this, a2);
   if (!ParamSetHolder)
   {
     return 0;
   }
 
-  ParamSet = ParamSetHolder::getParamSet(ParamSetHolder, v8, v10, v11, v12, v13, v14, v15);
+  ParamSet = ParamSetHolder::getParamSet(ParamSetHolder, a3);
   if (!ParamSet)
   {
     return 0;
   }
-
-  v17 = **ParamSet;
 }
 
 void *upgrade0002(DgnString *a1, const DgnString *a2, const DynamicParamSet *a3, const DynamicParamSet *a4, const DynamicParamSet *a5, const DynamicParamSet *a6, const DynamicParamSet *a7, const DynamicParamSet *a8, const DynamicParamSet *a9, const DynamicParamSet *a10, const DynamicParamSet *a11, const DynamicParamSet *a12, const DynamicParamSet *a13, const DynamicParamSet *a14, DynamicParamSet *a15, DynamicParamSet *a16, DynamicParamSet *a17, DynamicParamSet *a18, DynamicParamSet *a19, DynamicParamSet *a20, DynamicParamSet *a21, DynamicParamSet *a22, DynamicParamSet *a23, DynamicParamSet *a24, DynamicParamSet *a25, DynamicParamSet *a26)
@@ -566,7 +566,7 @@ void *upgrade0014(DgnString *a1, const DgnString *a2, const DynamicParamSet *a3,
   if (*(a1 + 2) <= 1u)
   {
 
-    return DgnString::stringPrintf(a1, " Removed parameter SearchActiveCountLimitScoreCompareWithBeam added in 1.22.100 fork.", v28, v29, v30);
+    return DgnString::stringPrintf(a1, " Removed parameter SearchActiveCountLimitScoreCompareWithBeam added in 1.22.100 fork.");
   }
 
   return result;
@@ -588,79 +588,79 @@ uint64_t upgrade0016(DgnString *a1, const DgnString *a2, const DynamicParamSet *
   return DynamicParamSet::setBoolParameter(a24, "SearchPelScoreUseBestCompScore", 0);
 }
 
-void upgrade0017(DgnString *a1, char **a2, const DynamicParamSet *a3, const DynamicParamSet *a4, const DynamicParamSet *a5, const DynamicParamSet *a6, const DynamicParamSet *a7, const DynamicParamSet *a8, const DynamicParamSet *a9, const DynamicParamSet *a10, const DynamicParamSet *a11, const DynamicParamSet *a12, const DynamicParamSet *a13, const DynamicParamSet *a14, DynamicParamSet *a15, DynamicParamSet *a16, DynamicParamSet *a17, DynamicParamSet *a18, DynamicParamSet *a19, DynamicParamSet *a20, DynamicParamSet *a21, DynamicParamSet *a22, DynamicParamSet *a23, DynamicParamSet *a24, DynamicParamSet *a25, DynamicParamSet *a26)
+void upgrade0017(DgnString *a1, const char **a2, const DynamicParamSet *a3, const DynamicParamSet *a4, const DynamicParamSet *a5, const DynamicParamSet *a6, const DynamicParamSet *a7, const DynamicParamSet *a8, const DynamicParamSet *a9, const DynamicParamSet *a10, const DynamicParamSet *a11, const DynamicParamSet *a12, const DynamicParamSet *a13, const DynamicParamSet *a14, DynamicParamSet *a15, DynamicParamSet *a16, DynamicParamSet *a17, DynamicParamSet *a18, DynamicParamSet *a19, DynamicParamSet *a20, DynamicParamSet *a21, DynamicParamSet *a22, DynamicParamSet *a23, DynamicParamSet *a24, DynamicParamSet *a25, DynamicParamSet *a26)
 {
   DynamicParamSet::removeParameter(a20, "PrefiltererBuildHierScorerCutoffList");
   DynamicParamSet::removeParameter(a24, "SearchHierScorerCutoffList");
   DynamicParamSet::setStringParameter(a20, "PrefiltererBuildHierScorerCutoffRatioList", byte_26286EA0E, 0);
   DynamicParamSet::setStringParameter(a24, "SearchHierScorerCutoffRatioList", byte_26286EA0E, 0);
-  DgnString::DgnString(v39);
+  DgnString::DgnString(v33);
   IntParameter = DynamicParamSet::getIntParameter(a8, "PrefiltererBuildHierInactiveComponentScore");
   if (IntParameter <= 299)
   {
     DynamicParamSet::setIntParameter(a20, "PrefiltererBuildHierInactiveComponentScore", 400);
     if (*(a1 + 2) <= 1u)
     {
-      if (v40 >= 2)
+      if (v34 >= 2)
       {
-        DgnString::operator+=(v39, ";");
+        DgnString::operator+=(v33, ";");
       }
 
       if (*(a2 + 2))
       {
-        v33 = *a2;
+        v30 = *a2;
       }
 
       else
       {
-        v33 = byte_26286EA0E;
+        v30 = byte_26286EA0E;
       }
 
-      DgnString::printfAppend(v39, " Increased parameter PrefiltererBuildHierInactiveComponentScore from %d to %d in param set '%.500s'", v30, v31, v32, IntParameter, 400, v33);
+      DgnString::printfAppend(v33, " Increased parameter PrefiltererBuildHierInactiveComponentScore from %d to %d in param set '%.500s'", IntParameter, 400, v30);
     }
   }
 
-  v34 = DynamicParamSet::getIntParameter(a12, "SearchHierInactiveComponentScore");
-  if (v34 <= 299)
+  v31 = DynamicParamSet::getIntParameter(a12, "SearchHierInactiveComponentScore");
+  if (v31 <= 299)
   {
     DynamicParamSet::setIntParameter(a24, "SearchHierInactiveComponentScore", 400);
     if (*(a1 + 2) <= 1u)
     {
-      if (v40 >= 2)
+      if (v34 >= 2)
       {
-        DgnString::operator+=(v39, ";");
+        DgnString::operator+=(v33, ";");
       }
 
       if (*(a2 + 2))
       {
-        v38 = *a2;
+        v32 = *a2;
       }
 
       else
       {
-        v38 = byte_26286EA0E;
+        v32 = byte_26286EA0E;
       }
 
-      DgnString::printfAppend(v39, " Increased parameter SearchHierInactiveComponentScore from %d to %d in param set '%.500s'", v35, v36, v37, v34, 400, v38);
+      DgnString::printfAppend(v33, " Increased parameter SearchHierInactiveComponentScore from %d to %d in param set '%.500s'", v31, 400, v32);
     }
   }
 
   if (*(a1 + 2) <= 1u)
   {
-    DgnString::operator=(a1, v39);
+    DgnString::operator=(a1, v33);
   }
 
-  DgnString::~DgnString(v39);
+  DgnString::~DgnString(v33);
 }
 
-void sub_2625CDC78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_2625CDC78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   DgnString::~DgnString(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t upgrade0018(DgnString *a1, char **a2, const DynamicParamSet *a3, const DynamicParamSet *a4, const DynamicParamSet *a5, const DynamicParamSet *a6, const DynamicParamSet *a7, const DynamicParamSet *a8, const DynamicParamSet *a9, const DynamicParamSet *a10, const DynamicParamSet *a11, const DynamicParamSet *a12, const DynamicParamSet *a13, const DynamicParamSet *a14, DynamicParamSet *a15, DynamicParamSet *a16, DynamicParamSet *a17, DynamicParamSet *a18, DynamicParamSet *a19, DynamicParamSet *a20, DynamicParamSet *a21, DynamicParamSet *a22, DynamicParamSet *a23, DynamicParamSet *a24, DynamicParamSet *a25, DynamicParamSet *a26)
+uint64_t upgrade0018(DgnString *a1, const char **a2, const DynamicParamSet *a3, const DynamicParamSet *a4, const DynamicParamSet *a5, const DynamicParamSet *a6, const DynamicParamSet *a7, const DynamicParamSet *a8, const DynamicParamSet *a9, const DynamicParamSet *a10, const DynamicParamSet *a11, const DynamicParamSet *a12, const DynamicParamSet *a13, const DynamicParamSet *a14, DynamicParamSet *a15, DynamicParamSet *a16, DynamicParamSet *a17, DynamicParamSet *a18, DynamicParamSet *a19, DynamicParamSet *a20, DynamicParamSet *a21, DynamicParamSet *a22, DynamicParamSet *a23, DynamicParamSet *a24, DynamicParamSet *a25, DynamicParamSet *a26)
 {
   result = DynamicParamSet::getIntParameter(a8, "PrefiltererBuildHierInactiveComponentScore");
   if (result <= 299)
@@ -671,15 +671,15 @@ uint64_t upgrade0018(DgnString *a1, char **a2, const DynamicParamSet *a3, const 
     {
       if (*(a2 + 2))
       {
-        v33 = *a2;
+        v30 = *a2;
       }
 
       else
       {
-        v33 = byte_26286EA0E;
+        v30 = byte_26286EA0E;
       }
 
-      return DgnString::stringPrintf(a1, " Increased parameter PrefiltererBuildHierInactiveComponentScore from %d to %d in param set '%.500s'", v30, v31, v32, v29, 400, v33);
+      return DgnString::stringPrintf(a1, " Increased parameter PrefiltererBuildHierInactiveComponentScore from %d to %d in param set '%.500s'", v29, 400, v30);
     }
   }
 
@@ -702,240 +702,240 @@ uint64_t upgrade0021(DgnString *a1, const DgnString *a2, const DynamicParamSet *
   return DynamicParamSet::setBoolParameter(a24, "FstCoreUseFwdBwdAlgorithm", 0);
 }
 
-void upgrade0024(DgnString *a1, char **a2, const DynamicParamSet *a3, const DynamicParamSet *a4, const DynamicParamSet *a5, const DynamicParamSet *a6, const DynamicParamSet *a7, const DynamicParamSet *a8, const DynamicParamSet *a9, const DynamicParamSet *a10, const DynamicParamSet *a11, const DynamicParamSet *a12, const DynamicParamSet *a13, const DynamicParamSet *a14, DynamicParamSet *a15, DynamicParamSet *a16, DynamicParamSet *a17, DynamicParamSet *a18, DynamicParamSet *a19, DynamicParamSet *a20, DynamicParamSet *a21, DynamicParamSet *a22, DynamicParamSet *a23, DynamicParamSet *a24, DynamicParamSet *a25, DynamicParamSet *a26)
+void upgrade0024(DgnString *a1, const char **a2, const DynamicParamSet *a3, const DynamicParamSet *a4, const DynamicParamSet *a5, const DynamicParamSet *a6, const DynamicParamSet *a7, const DynamicParamSet *a8, const DynamicParamSet *a9, const DynamicParamSet *a10, const DynamicParamSet *a11, const DynamicParamSet *a12, const DynamicParamSet *a13, const DynamicParamSet *a14, DynamicParamSet *a15, DynamicParamSet *a16, DynamicParamSet *a17, DynamicParamSet *a18, DynamicParamSet *a19, DynamicParamSet *a20, DynamicParamSet *a21, DynamicParamSet *a22, DynamicParamSet *a23, DynamicParamSet *a24, DynamicParamSet *a25, DynamicParamSet *a26)
 {
-  DgnString::DgnString(v77);
+  DgnString::DgnString(v53);
   EnumParameter = DynamicParamSet::getEnumParameter(a9, "PrefiltererAdjustThreshScoreType");
-  v32 = strcmp(EnumParameter, "BestPel");
-  if (!v32)
+  v29 = strcmp(EnumParameter, "BestPel");
+  if (!v29)
   {
     if (*(a1 + 2) <= 1u)
     {
-      if (v78 >= 2)
+      if (v54 >= 2)
       {
-        DgnString::operator+=(v77, ";");
+        DgnString::operator+=(v53, ";");
       }
 
       if (*(a2 + 2))
       {
-        v33 = *a2;
+        v30 = *a2;
       }
 
       else
       {
-        v33 = byte_26286EA0E;
+        v30 = byte_26286EA0E;
       }
 
-      DgnString::printfAppend(v77, " Removed parameter PrefiltererAdjustThreshScoreType='%.500s' in param set '%.500s'", v29, v30, v31, EnumParameter, v33);
+      DgnString::printfAppend(v53, " Removed parameter PrefiltererAdjustThreshScoreType='%.500s' in param set '%.500s'", EnumParameter, v30);
     }
 
     IntParameter = DynamicParamSet::getIntParameter(a9, "PrefiltererMaxSeedScore");
-    v35 = IntParameter;
+    v32 = IntParameter;
     if ((IntParameter & 0x80000000) == 0)
     {
-      v36 = IntParameter <= 0x3D3 ? (IntParameter + 20) : 1000;
-      DynamicParamSet::setIntParameter(a21, "PrefiltererMaxSeedScore", v36);
+      v33 = IntParameter <= 0x3D3 ? IntParameter + 20 : 1000;
+      DynamicParamSet::setIntParameter(a21, "PrefiltererMaxSeedScore", v33);
       if (*(a1 + 2) <= 1u)
       {
-        if (v78 >= 2)
+        if (v54 >= 2)
         {
-          DgnString::operator+=(v77, ";");
+          DgnString::operator+=(v53, ";");
         }
 
         if (*(a2 + 2))
         {
-          v40 = *a2;
+          v34 = *a2;
         }
 
         else
         {
-          v40 = byte_26286EA0E;
+          v34 = byte_26286EA0E;
         }
 
-        DgnString::printfAppend(v77, " Changed parameter PrefiltererMaxSeedScore from %d to %d in param set '%.500s'", v37, v38, v39, v35, v36, v40);
+        DgnString::printfAppend(v53, " Changed parameter PrefiltererMaxSeedScore from %d to %d in param set '%.500s'", v32, v33, v34);
       }
     }
 
-    v41 = DynamicParamSet::getIntParameter(a9, "PrefiltererPelBackoffThreshScoreDecrement");
-    v42 = v41;
-    if ((v41 & 0x80000000) == 0)
+    v35 = DynamicParamSet::getIntParameter(a9, "PrefiltererPelBackoffThreshScoreDecrement");
+    v36 = v35;
+    if ((v35 & 0x80000000) == 0)
     {
-      v43 = v41 <= 0x14 ? 20 : v41;
-      v44 = (v43 - 20);
-      DynamicParamSet::setIntParameter(a21, "PrefiltererPelBackoffThreshScoreDecrement", v43 - 20);
+      v37 = v35 <= 0x14 ? 20 : v35;
+      v38 = v37 - 20;
+      DynamicParamSet::setIntParameter(a21, "PrefiltererPelBackoffThreshScoreDecrement", v37 - 20);
       if (*(a1 + 2) <= 1u)
       {
-        if (v78 >= 2)
+        if (v54 >= 2)
         {
-          DgnString::operator+=(v77, ";");
+          DgnString::operator+=(v53, ";");
         }
 
         if (*(a2 + 2))
         {
-          v48 = *a2;
+          v39 = *a2;
         }
 
         else
         {
-          v48 = byte_26286EA0E;
+          v39 = byte_26286EA0E;
         }
 
-        DgnString::printfAppend(v77, " Changed parameter PrefiltererPelBackoffThreshScoreDecrement from %d to %d in param set '%.500s'", v45, v46, v47, v42, v44, v48);
+        DgnString::printfAppend(v53, " Changed parameter PrefiltererPelBackoffThreshScoreDecrement from %d to %d in param set '%.500s'", v36, v38, v39);
       }
     }
 
-    v49 = DynamicParamSet::getIntParameter(a9, "PrefiltererReturnListThreshScoreDecrement");
-    if (v49 >= 100)
+    v40 = DynamicParamSet::getIntParameter(a9, "PrefiltererReturnListThreshScoreDecrement");
+    if (v40 >= 100)
     {
-      DynamicParamSet::setIntParameter(a21, "PrefiltererReturnListThreshScoreDecrement", v49 - 20);
+      DynamicParamSet::setIntParameter(a21, "PrefiltererReturnListThreshScoreDecrement", v40 - 20);
       if (*(a1 + 2) <= 1u)
       {
-        if (v78 >= 2)
+        if (v54 >= 2)
         {
-          DgnString::operator+=(v77, ";");
+          DgnString::operator+=(v53, ";");
         }
 
         if (*(a2 + 2))
         {
-          v53 = *a2;
+          v41 = *a2;
         }
 
         else
         {
-          v53 = byte_26286EA0E;
+          v41 = byte_26286EA0E;
         }
 
-        DgnString::printfAppend(v77, " Changed parameter PrefiltererReturnListThreshScoreDecrement from %d to %d in param set '%.500s'", v50, v51, v52, v49, (v49 - 20), v53);
+        DgnString::printfAppend(v53, " Changed parameter PrefiltererReturnListThreshScoreDecrement from %d to %d in param set '%.500s'", v40, v40 - 20, v41);
       }
     }
   }
 
-  v54 = DynamicParamSet::getEnumParameter(a12, "SearchAdjustThreshScoreType");
-  if (!strcmp(v54, "BestPelAndSuccessor") || !strcmp(v54, "BestPel"))
+  v42 = DynamicParamSet::getEnumParameter(a12, "SearchAdjustThreshScoreType");
+  if (!strcmp(v42, "BestPelAndSuccessor") || !strcmp(v42, "BestPel"))
   {
     if (*(a1 + 2) <= 1u)
     {
-      if (v78 >= 2)
+      if (v54 >= 2)
       {
-        DgnString::operator+=(v77, ";");
+        DgnString::operator+=(v53, ";");
       }
 
       if (*(a2 + 2))
       {
-        v59 = *a2;
+        v44 = *a2;
       }
 
       else
       {
-        v59 = byte_26286EA0E;
+        v44 = byte_26286EA0E;
       }
 
-      DgnString::printfAppend(v77, " Removed parameter SearchAdjustThreshScoreType='%.500s' in param set '%.500s'", v55, v56, v57, v54, v59);
+      DgnString::printfAppend(v53, " Removed parameter SearchAdjustThreshScoreType='%.500s' in param set '%.500s'", v42, v44);
     }
 
-    v60 = DynamicParamSet::getIntParameter(a12, "SearchWordEndAgainstBestWordEndThreshScoreDecrement");
-    if (v60 <= 99)
+    v45 = DynamicParamSet::getIntParameter(a12, "SearchWordEndAgainstBestWordEndThreshScoreDecrement");
+    if (v45 <= 99)
     {
-      v61 = 190;
+      v46 = 190;
     }
 
     else
     {
-      v61 = 210;
+      v46 = 210;
     }
 
-    DynamicParamSet::setIntParameter(a24, "SearchWordEndAgainstBestWordEndThreshScoreDecrement", v61);
+    DynamicParamSet::setIntParameter(a24, "SearchWordEndAgainstBestWordEndThreshScoreDecrement", v46);
     if (*(a1 + 2) <= 1u)
     {
-      if (v78 >= 2)
+      if (v54 >= 2)
       {
-        DgnString::operator+=(v77, ";");
+        DgnString::operator+=(v53, ";");
       }
 
       if (*(a2 + 2))
       {
-        v65 = *a2;
+        v47 = *a2;
       }
 
       else
       {
-        v65 = byte_26286EA0E;
+        v47 = byte_26286EA0E;
       }
 
-      DgnString::printfAppend(v77, " Changed parameter SearchWordEndAgainstBestWordEndThreshScoreDecrement from %d to %d in param set '%.500s'", v62, v63, v64, v60, v61, v65);
+      DgnString::printfAppend(v53, " Changed parameter SearchWordEndAgainstBestWordEndThreshScoreDecrement from %d to %d in param set '%.500s'", v45, v46, v47);
     }
 
-    v66 = DynamicParamSet::getIntParameter(a12, "SearchWordEndThreshScoreDecrement");
+    v48 = DynamicParamSet::getIntParameter(a12, "SearchWordEndThreshScoreDecrement");
     DynamicParamSet::setIntParameter(a24, "SearchWordEndThreshScoreDecrement", 120);
     if (*(a1 + 2) <= 1u)
     {
-      if (v78 >= 2)
+      if (v54 >= 2)
       {
-        DgnString::operator+=(v77, ";");
+        DgnString::operator+=(v53, ";");
       }
 
       if (*(a2 + 2))
       {
-        v70 = *a2;
+        v49 = *a2;
       }
 
       else
       {
-        v70 = byte_26286EA0E;
+        v49 = byte_26286EA0E;
       }
 
-      DgnString::printfAppend(v77, " Changed parameter SearchWordEndThreshScoreDecrement from %d to %d in param set '%.500s'", v67, v68, v69, v66, 120, v70);
+      DgnString::printfAppend(v53, " Changed parameter SearchWordEndThreshScoreDecrement from %d to %d in param set '%.500s'", v48, 120, v49);
     }
 
-    v58 = 1;
+    v43 = 1;
   }
 
   else
   {
-    v58 = 0;
+    v43 = 0;
   }
 
   DynamicParamSet::removeParameter(a21, "PrefiltererAdjustThreshScoreType");
   DynamicParamSet::removeParameter(a24, "SearchAdjustThreshScoreType");
-  v71 = DynamicParamSet::getIntParameter(a12, "SearchWordEndAgainstPrevBestNodeThreshScore");
+  v50 = DynamicParamSet::getIntParameter(a12, "SearchWordEndAgainstPrevBestNodeThreshScore");
   DynamicParamSet::removeParameter(a24, "SearchWordEndAgainstPrevBestNodeThreshScore");
-  v75 = v58 ^ 1;
-  if (!v32)
+  v51 = v43 ^ 1;
+  if (!v29)
   {
-    v75 = 0;
+    v51 = 0;
   }
 
-  if ((v75 & 1) == 0 && *(a1 + 2) <= 1u)
+  if ((v51 & 1) == 0 && *(a1 + 2) <= 1u)
   {
-    if (v78 >= 2)
+    if (v54 >= 2)
     {
-      DgnString::operator+=(v77, ";");
+      DgnString::operator+=(v53, ";");
     }
 
     if (*(a2 + 2))
     {
-      v76 = *a2;
+      v52 = *a2;
     }
 
     else
     {
-      v76 = byte_26286EA0E;
+      v52 = byte_26286EA0E;
     }
 
-    DgnString::printfAppend(v77, " Removed parameter SearchWordEndAgainstPrevBestNodeThreshScore=%d in param set '%.500s'", v72, v73, v74, v71, v76);
+    DgnString::printfAppend(v53, " Removed parameter SearchWordEndAgainstPrevBestNodeThreshScore=%d in param set '%.500s'", v50, v52);
   }
 
   if (*(a1 + 2) <= 1u)
   {
-    DgnString::operator=(a1, v77);
+    DgnString::operator=(a1, v53);
   }
 
-  DgnString::~DgnString(v77);
+  DgnString::~DgnString(v53);
 }
 
-void sub_2625CE354(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_2625CE354(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   DgnString::~DgnString(va);
   _Unwind_Resume(a1);
 }
@@ -951,7 +951,7 @@ uint64_t upgrade0031(DgnString *a1, const DgnString *a2, const DynamicParamSet *
 {
   if (*(a1 + 2) <= 1u)
   {
-    DgnString::stringPrintf(a1, " Added ParamSetType PARAMSETTYPE_USERDELTA (%d).", a3, a4, a5, a6, a7, a8, *(a26 + 6));
+    DgnString::stringPrintf(a1, " Added ParamSetType PARAMSETTYPE_USERDELTA (%d).", *(a26 + 6));
   }
 
   DynamicParamSet::setEnumParameter(a26, "UserDeltaTyingType", "SingleGenone", 0);
@@ -961,62 +961,62 @@ uint64_t upgrade0031(DgnString *a1, const DgnString *a2, const DynamicParamSet *
   return DynamicParamSet::setIntParameter(a26, "UserDeltaInclusionMinDivergence", 0);
 }
 
-void upgrade0032(DgnString *a1, char **a2, const DynamicParamSet *a3, const DynamicParamSet *a4, const DynamicParamSet *a5, const DynamicParamSet *a6, const DynamicParamSet *a7, const DynamicParamSet *a8, const DynamicParamSet *a9, const DynamicParamSet *a10, const DynamicParamSet *a11, const DynamicParamSet *a12, const DynamicParamSet *a13, const DynamicParamSet *a14, DynamicParamSet *a15, DynamicParamSet *a16, DynamicParamSet *a17, DynamicParamSet *a18, DynamicParamSet *a19, DynamicParamSet *a20, DynamicParamSet *a21, DynamicParamSet *a22, DynamicParamSet *a23, DynamicParamSet *a24, DynamicParamSet *a25, DynamicParamSet *a26)
+void upgrade0032(DgnString *a1, const char **a2, const DynamicParamSet *a3, const DynamicParamSet *a4, const DynamicParamSet *a5, const DynamicParamSet *a6, const DynamicParamSet *a7, const DynamicParamSet *a8, const DynamicParamSet *a9, const DynamicParamSet *a10, const DynamicParamSet *a11, const DynamicParamSet *a12, const DynamicParamSet *a13, const DynamicParamSet *a14, DynamicParamSet *a15, DynamicParamSet *a16, DynamicParamSet *a17, DynamicParamSet *a18, DynamicParamSet *a19, DynamicParamSet *a20, DynamicParamSet *a21, DynamicParamSet *a22, DynamicParamSet *a23, DynamicParamSet *a24, DynamicParamSet *a25, DynamicParamSet *a26)
 {
   DynamicParamSet::removeParameter(a21, "PrefiltererFmpeWindowTruncateUnavailableFrames");
   DynamicParamSet::removeParameter(a24, "SearchFmpeWindowTruncateUnavailableFrames");
-  DgnString::DgnString(v36);
+  DgnString::DgnString(v30);
   if (DynamicParamSet::getBoolParameter(a9, "PrefiltererFmpeWindowTruncateUnavailableFrames") && *(a1 + 2) <= 1u)
   {
-    if (v37 >= 2)
+    if (v31 >= 2)
     {
-      DgnString::operator+=(v36, ";");
+      DgnString::operator+=(v30, ";");
     }
 
     if (*(a2 + 2))
     {
-      v31 = *a2;
+      v28 = *a2;
     }
 
     else
     {
-      v31 = byte_26286EA0E;
+      v28 = byte_26286EA0E;
     }
 
-    DgnString::printfAppend(v36, " Changed behavior away from existing True setting of PrefiltererFmpeWindowTruncateUnavailableFrames in param set '%.500s'", v28, v29, v30, v31);
+    DgnString::printfAppend(v30, " Changed behavior away from existing True setting of PrefiltererFmpeWindowTruncateUnavailableFrames in param set '%.500s'", v28);
   }
 
   if (DynamicParamSet::getBoolParameter(a12, "SearchFmpeWindowTruncateUnavailableFrames") && *(a1 + 2) <= 1u)
   {
-    if (v37 >= 2)
+    if (v31 >= 2)
     {
-      DgnString::operator+=(v36, ";");
+      DgnString::operator+=(v30, ";");
     }
 
     if (*(a2 + 2))
     {
-      v35 = *a2;
+      v29 = *a2;
     }
 
     else
     {
-      v35 = byte_26286EA0E;
+      v29 = byte_26286EA0E;
     }
 
-    DgnString::printfAppend(v36, " Changed behavior away from existing True setting of SearchFmpeWindowTruncateUnavailableFrames in param set '%.500s'", v32, v33, v34, v35);
+    DgnString::printfAppend(v30, " Changed behavior away from existing True setting of SearchFmpeWindowTruncateUnavailableFrames in param set '%.500s'", v29);
   }
 
   if (*(a1 + 2) <= 1u)
   {
-    DgnString::operator=(a1, v36);
+    DgnString::operator=(a1, v30);
   }
 
-  DgnString::~DgnString(v36);
+  DgnString::~DgnString(v30);
 }
 
-void sub_2625CE660(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2625CE660(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   DgnString::~DgnString(va);
   _Unwind_Resume(a1);
 }
@@ -1085,7 +1085,7 @@ uint64_t upgrade0044(DgnString *a1, const DgnString *a2, const DynamicParamSet *
   return DynamicParamSet::setDoubleParameter(a24, "FstCoreLateLatticeArcFingerSuckPenalty", DoubleParameter);
 }
 
-uint64_t upgrade0048(DgnString *a1, const DgnString *a2, const DynamicParamSet *a3, const DynamicParamSet *a4, const DynamicParamSet *a5, const DynamicParamSet *a6, const DynamicParamSet *a7, const DynamicParamSet *a8, const DynamicParamSet *a9, const DynamicParamSet *a10, const DynamicParamSet *a11, const DynamicParamSet *a12, const DynamicParamSet *a13, const DynamicParamSet *a14, DynamicParamSet *a15, DynamicParamSet *a16, DynamicParamSet *a17, DynamicParamSet *a18, DynamicParamSet *a19, DynamicParamSet *a20, DynamicParamSet *a21, DynamicParamSet *a22, DynamicParamSet *a23, DynamicParamSet *a24, DynamicParamSet *a25, DynamicParamSet *a26)
+char *upgrade0048(DgnString *a1, const DgnString *a2, const DynamicParamSet *a3, const DynamicParamSet *a4, const DynamicParamSet *a5, const DynamicParamSet *a6, const DynamicParamSet *a7, const DynamicParamSet *a8, const DynamicParamSet *a9, const DynamicParamSet *a10, const DynamicParamSet *a11, const DynamicParamSet *a12, const DynamicParamSet *a13, const DynamicParamSet *a14, DynamicParamSet *a15, DynamicParamSet *a16, DynamicParamSet *a17, DynamicParamSet *a18, DynamicParamSet *a19, DynamicParamSet *a20, DynamicParamSet *a21, DynamicParamSet *a22, DynamicParamSet *a23, DynamicParamSet *a24, DynamicParamSet *a25, DynamicParamSet *a26)
 {
   DynamicParamSet::removeParameter(a24, "SearchPartialExtendWithPrefilterer");
   if (DynamicParamSet::getBoolParameter(a12, "SearchPartialExtendWithPrefilterer"))
@@ -1255,23 +1255,24 @@ void *DgnIOwnArray<ParamSetBase *>::releaseAll(uint64_t a1)
   return result;
 }
 
-uint64_t DgnCollArray<unsigned int,ParamSetIdCollCmpWithTemp>::sizeObject(uint64_t a1, int a2)
+uint64_t DgnCollArray<unsigned int,ParamSetIdCollCmpWithTemp>::sizeObject(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v4 = sizeObject<unsigned int>(a1 + 8, a2);
-  v5 = sizeObject<DgnPrimArray<unsigned int> *>(a1 + 24, a2);
-  v6 = sizeObject<unsigned short>(a1 + 40, a2);
+  v5 = sizeObject<DgnPrimArray<unsigned int> *>(a1 + 24, v2);
+  v6 = sizeObject<unsigned short>(a1 + 40, v2);
   v7 = 8;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
     v7 = 4;
   }
 
-  if (a2 == 3)
+  if (v2 == 3)
   {
     v7 = 0;
   }
 
-  return ((a2 != 3) | (2 * (a2 != 3))) + 2 * (a2 != 3) + v4 + v5 + v6 + v7 + 2 * v7;
+  return ((v2 != 3) | (2 * (v2 != 3))) + 2 * (v2 != 3) + v4 + v5 + v6 + v7 + 2 * v7;
 }
 
 uint64_t sizeObject<DgnPrimArray<unsigned int> *>(uint64_t a1, int a2)
@@ -1358,7 +1359,7 @@ uint64_t Hash<DgnString,DgnString,DgnStringScope,unsigned int>::Hash(uint64_t a1
   *(a1 + 104) = 0;
   DgnString::DgnString(v11);
   v7 = gShadowDiagnosticShowIdealizedObjectSizes;
-  v8 = sizeObject(v11);
+  v8 = sizeObject(v11, 2);
   if (v7)
   {
     v9 = 4;
@@ -1377,12 +1378,12 @@ uint64_t Hash<DgnString,DgnString,DgnStringScope,unsigned int>::Hash(uint64_t a1
   return a1;
 }
 
-void sub_2625CF004(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2625CF004(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   DgnString::~DgnString(va);
-  DgnPrimFixArray<double>::~DgnPrimFixArray(v5);
-  DgnPool::~DgnPool(v4);
+  DgnPrimFixArray<double>::~DgnPrimFixArray(v8);
+  DgnPool::~DgnPool(v7);
   MrecInitModule_sdpres_sdapi();
   _Unwind_Resume(a1);
 }
@@ -1394,7 +1395,6 @@ void Hash<DgnString,DgnString,DgnStringScope,unsigned int>::~Hash(uint64_t a1)
   JUMPOUT(0x26672B1B0);
 }
 
-uint64_t Hash<DgnString,DgnString,DgnStringScope,unsigned int>::~Hash(uint64_t a1)
 {
   *a1 = &unk_287524040;
   if (*(a1 + 8))
@@ -1405,7 +1405,7 @@ uint64_t Hash<DgnString,DgnString,DgnStringScope,unsigned int>::~Hash(uint64_t a
   DgnPrimFixArray<double>::~DgnPrimFixArray(a1 + 80);
   DgnPool::~DgnPool((a1 + 24));
 
-  return MrecInitModule_sdpres_sdapi();
+  MrecInitModule_sdpres_sdapi();
 }
 
 void Hash<DgnString,DgnString,DgnStringScope,unsigned int>::removeAll(uint64_t a1)
@@ -1556,7 +1556,7 @@ void *DgnArray<ParamValue>::releaseAll(uint64_t a1)
   return result;
 }
 
-uint64_t StartupChannelParamSpecMgr(void)
+unint64_t StartupChannelParamSpecMgr(void)
 {
   v65 = MemChunkAlloc(0x30uLL, 0);
   BoolParamSpec::BoolParamSpec(v65, "ChannelEnablePitchTracking", &byte_262899963, &byte_262899963, &sChannelEnablePitchTrackingBoolHistory);
@@ -1785,7 +1785,7 @@ _DWORD *ChannelParamSet::ChannelParamSet(_DWORD *a1, const char *a2, int a3, int
   a1[8] = a5;
   a1[9] = 0;
   *a1 = &unk_287527CE0;
-  ChannelParamSet::setDefaults(a1, v9, v10, v11, v12, v13, v14, v15);
+  ChannelParamSet::setDefaults(a1);
   return a1;
 }
 
@@ -1853,78 +1853,78 @@ uint64_t ChannelParamSet::ChannelParamSet(uint64_t a1, uint64_t a2, char *a3, in
   return a1;
 }
 
-uint64_t ChannelParamSet::setDefaults(ChannelParamSet *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t ChannelParamSet::setDefaults(ChannelParamSet *this)
 {
-  *(this + 40) = ParamSpecMgr::ParamGetDefault_BOOL(qword_281051F78, 1, 0, 0, a5, a6, a7, a8);
-  *(this + 11) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 2, 0, 0, v9, v10, v11, v12);
-  *(this + 48) = ParamSpecMgr::ParamGetDefault_BOOL(qword_281051F78, 3, 0, 0, v13, v14, v15, v16);
-  *(this + 13) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 4, 0, 0, v17, v18, v19, v20);
-  *(this + 56) = ParamSpecMgr::ParamGetDefault_BOOL(qword_281051F78, 5, 0, 0, v21, v22, v23, v24);
-  *(this + 15) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 6, 0, 0, v25, v26, v27, v28);
-  *(this + 16) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 7, 0, 0, v29, v30, v31, v32);
-  *(this + 68) = ParamSpecMgr::ParamGetDefault_BOOL(qword_281051F78, 8, 0, 0, v33, v34, v35, v36);
-  *(this + 69) = ParamSpecMgr::ParamGetDefault_BOOL(qword_281051F78, 9, 0, 0, v37, v38, v39, v40);
-  *(this + 70) = ParamSpecMgr::ParamGetDefault_BOOL(qword_281051F78, 10, 0, 0, v41, v42, v43, v44);
-  *(this + 71) = ParamSpecMgr::ParamGetDefault_BOOL(qword_281051F78, 11, 0, 0, v45, v46, v47, v48);
-  *(this + 18) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 12, 0, 0, v49, v50, v51, v52);
-  *(this + 19) = ParamSpecMgr::ParamGetDefault_enum(qword_281051F78, 13, v53, v54, v55, v56, v57, v58);
-  *(this + 20) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 14, 0, 0, v59, v60, v61, v62);
-  *(this + 11) = ParamSpecMgr::ParamGetDefault_double(qword_281051F78, 15, 0, 0, v63, v64, v65, v66);
-  *(this + 96) = ParamSpecMgr::ParamGetDefault_BOOL(qword_281051F78, 16, 0, 0, v67, v68, v69, v70);
-  *(this + 25) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 17, 0, 0, v71, v72, v73, v74);
-  *(this + 104) = ParamSpecMgr::ParamGetDefault_BOOL(qword_281051F78, 18, 0, 0, v75, v76, v77, v78);
-  *(this + 27) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 19, 0, 0, v79, v80, v81, v82);
-  *(this + 112) = ParamSpecMgr::ParamGetDefault_BOOL(qword_281051F78, 20, 0, 0, v83, v84, v85, v86);
-  *(this + 29) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 21, 0, 0, v87, v88, v89, v90);
-  *(this + 120) = ParamSpecMgr::ParamGetDefault_BOOL(qword_281051F78, 22, 0, 0, v91, v92, v93, v94);
-  *(this + 31) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 23, 0, 0, v95, v96, v97, v98);
-  *(this + 32) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 24, 0, 0, v99, v100, v101, v102);
-  *(this + 33) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 25, 0, 0, v103, v104, v105, v106);
-  *(this + 34) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 26, 0, 0, v107, v108, v109, v110);
-  *(this + 35) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 27, 0, 0, v111, v112, v113, v114);
-  *(this + 36) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 28, 0, 0, v115, v116, v117, v118);
-  *(this + 37) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 29, 0, 0, v119, v120, v121, v122);
-  *(this + 38) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 30, 0, 0, v123, v124, v125, v126);
-  *(this + 20) = ParamSpecMgr::ParamGetDefault_double(qword_281051F78, 31, 0, 0, v127, v128, v129, v130);
-  *(this + 42) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 32, 0, 0, v131, v132, v133, v134);
-  *(this + 172) = ParamSpecMgr::ParamGetDefault_BOOL(qword_281051F78, 33, 0, 0, v135, v136, v137, v138);
-  *(this + 44) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 34, 0, 0, v139, v140, v141, v142);
-  *(this + 23) = ParamSpecMgr::ParamGetDefault_double(qword_281051F78, 35, 0, 0, v143, v144, v145, v146);
-  *(this + 48) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 36, 0, 0, v147, v148, v149, v150);
-  *(this + 49) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 37, 0, 0, v151, v152, v153, v154);
-  *(this + 25) = ParamSpecMgr::ParamGetDefault_double(qword_281051F78, 38, 0, 0, v155, v156, v157, v158);
-  *(this + 52) = ParamSpecMgr::ParamGetDefault_enum(qword_281051F78, 39, v159, v160, v161, v162, v163, v164);
-  *(this + 53) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 40, 0, 0, v165, v166, v167, v168);
-  *(this + 216) = ParamSpecMgr::ParamGetDefault_BOOL(qword_281051F78, 41, 0, 0, v169, v170, v171, v172);
-  *(this + 55) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 42, 0, 0, v173, v174, v175, v176);
-  *(this + 56) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 43, 0, 0, v177, v178, v179, v180);
-  *(this + 57) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 44, 0, 0, v181, v182, v183, v184);
-  *(this + 58) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 45, 0, 0, v185, v186, v187, v188);
-  *(this + 59) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 46, 0, 0, v189, v190, v191, v192);
-  *(this + 240) = ParamSpecMgr::ParamGetDefault_BOOL(qword_281051F78, 47, 0, 0, v193, v194, v195, v196);
-  *(this + 61) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 48, 0, 0, v197, v198, v199, v200);
-  *(this + 62) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 49, 0, 0, v201, v202, v203, v204);
-  *(this + 63) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 50, 0, 0, v205, v206, v207, v208);
-  *(this + 64) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 51, 0, 0, v209, v210, v211, v212);
-  *(this + 65) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 52, 0, 0, v213, v214, v215, v216);
-  *(this + 66) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 53, 0, 0, v217, v218, v219, v220);
-  *(this + 67) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 54, 0, 0, v221, v222, v223, v224);
-  *(this + 68) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 55, 0, 0, v225, v226, v227, v228);
-  *(this + 69) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 56, 0, 0, v229, v230, v231, v232);
-  *(this + 70) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 57, 0, 0, v233, v234, v235, v236);
-  *(this + 71) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 58, 0, 0, v237, v238, v239, v240);
-  *(this + 72) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 59, 0, 0, v241, v242, v243, v244);
-  *(this + 73) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 60, 0, 0, v245, v246, v247, v248);
-  *(this + 74) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 61, 0, 0, v249, v250, v251, v252);
-  *(this + 75) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 62, 0, 0, v253, v254, v255, v256);
-  *(this + 304) = ParamSpecMgr::ParamGetDefault_BOOL(qword_281051F78, 63, 0, 0, v257, v258, v259, v260);
-  *(this + 77) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 64, 0, 0, v261, v262, v263, v264);
-  *(this + 312) = ParamSpecMgr::ParamGetDefault_BOOL(qword_281051F78, 65, 0, 0, v265, v266, v267, v268);
-  *(this + 79) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 66, 0, 0, v269, v270, v271, v272);
-  *(this + 80) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 67, 0, 0, v273, v274, v275, v276);
-  *(this + 81) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 68, 0, 0, v277, v278, v279, v280);
-  *(this + 82) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 69, 0, 0, v281, v282, v283, v284);
-  result = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 70, 0, 0, v285, v286, v287, v288);
+  *(this + 40) = ParamSpecMgr::ParamGetDefault_BOOL(qword_281051F78, 1, 0, 0);
+  *(this + 11) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 2, 0, 0);
+  *(this + 48) = ParamSpecMgr::ParamGetDefault_BOOL(qword_281051F78, 3, 0, 0);
+  *(this + 13) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 4, 0, 0);
+  *(this + 56) = ParamSpecMgr::ParamGetDefault_BOOL(qword_281051F78, 5, 0, 0);
+  *(this + 15) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 6, 0, 0);
+  *(this + 16) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 7, 0, 0);
+  *(this + 68) = ParamSpecMgr::ParamGetDefault_BOOL(qword_281051F78, 8, 0, 0);
+  *(this + 69) = ParamSpecMgr::ParamGetDefault_BOOL(qword_281051F78, 9, 0, 0);
+  *(this + 70) = ParamSpecMgr::ParamGetDefault_BOOL(qword_281051F78, 10, 0, 0);
+  *(this + 71) = ParamSpecMgr::ParamGetDefault_BOOL(qword_281051F78, 11, 0, 0);
+  *(this + 18) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 12, 0, 0);
+  *(this + 19) = ParamSpecMgr::ParamGetDefault_enum(qword_281051F78, 13);
+  *(this + 20) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 14, 0, 0);
+  *(this + 11) = ParamSpecMgr::ParamGetDefault_double(qword_281051F78, 15, 0, 0);
+  *(this + 96) = ParamSpecMgr::ParamGetDefault_BOOL(qword_281051F78, 16, 0, 0);
+  *(this + 25) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 17, 0, 0);
+  *(this + 104) = ParamSpecMgr::ParamGetDefault_BOOL(qword_281051F78, 18, 0, 0);
+  *(this + 27) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 19, 0, 0);
+  *(this + 112) = ParamSpecMgr::ParamGetDefault_BOOL(qword_281051F78, 20, 0, 0);
+  *(this + 29) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 21, 0, 0);
+  *(this + 120) = ParamSpecMgr::ParamGetDefault_BOOL(qword_281051F78, 22, 0, 0);
+  *(this + 31) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 23, 0, 0);
+  *(this + 32) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 24, 0, 0);
+  *(this + 33) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 25, 0, 0);
+  *(this + 34) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 26, 0, 0);
+  *(this + 35) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 27, 0, 0);
+  *(this + 36) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 28, 0, 0);
+  *(this + 37) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 29, 0, 0);
+  *(this + 38) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 30, 0, 0);
+  *(this + 20) = ParamSpecMgr::ParamGetDefault_double(qword_281051F78, 31, 0, 0);
+  *(this + 42) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 32, 0, 0);
+  *(this + 172) = ParamSpecMgr::ParamGetDefault_BOOL(qword_281051F78, 33, 0, 0);
+  *(this + 44) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 34, 0, 0);
+  *(this + 23) = ParamSpecMgr::ParamGetDefault_double(qword_281051F78, 35, 0, 0);
+  *(this + 48) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 36, 0, 0);
+  *(this + 49) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 37, 0, 0);
+  *(this + 25) = ParamSpecMgr::ParamGetDefault_double(qword_281051F78, 38, 0, 0);
+  *(this + 52) = ParamSpecMgr::ParamGetDefault_enum(qword_281051F78, 39);
+  *(this + 53) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 40, 0, 0);
+  *(this + 216) = ParamSpecMgr::ParamGetDefault_BOOL(qword_281051F78, 41, 0, 0);
+  *(this + 55) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 42, 0, 0);
+  *(this + 56) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 43, 0, 0);
+  *(this + 57) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 44, 0, 0);
+  *(this + 58) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 45, 0, 0);
+  *(this + 59) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 46, 0, 0);
+  *(this + 240) = ParamSpecMgr::ParamGetDefault_BOOL(qword_281051F78, 47, 0, 0);
+  *(this + 61) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 48, 0, 0);
+  *(this + 62) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 49, 0, 0);
+  *(this + 63) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 50, 0, 0);
+  *(this + 64) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 51, 0, 0);
+  *(this + 65) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 52, 0, 0);
+  *(this + 66) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 53, 0, 0);
+  *(this + 67) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 54, 0, 0);
+  *(this + 68) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 55, 0, 0);
+  *(this + 69) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 56, 0, 0);
+  *(this + 70) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 57, 0, 0);
+  *(this + 71) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 58, 0, 0);
+  *(this + 72) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 59, 0, 0);
+  *(this + 73) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 60, 0, 0);
+  *(this + 74) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 61, 0, 0);
+  *(this + 75) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 62, 0, 0);
+  *(this + 304) = ParamSpecMgr::ParamGetDefault_BOOL(qword_281051F78, 63, 0, 0);
+  *(this + 77) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 64, 0, 0);
+  *(this + 312) = ParamSpecMgr::ParamGetDefault_BOOL(qword_281051F78, 65, 0, 0);
+  *(this + 79) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 66, 0, 0);
+  *(this + 80) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 67, 0, 0);
+  *(this + 81) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 68, 0, 0);
+  *(this + 82) = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 69, 0, 0);
+  result = ParamSpecMgr::ParamGetDefault_int(qword_281051F78, 70, 0, 0);
   *(this + 83) = result;
   return result;
 }
@@ -1932,7 +1932,7 @@ uint64_t ChannelParamSet::setDefaults(ChannelParamSet *this, uint64_t a2, uint64
 uint64_t ChannelParamSet::sizeObject(uint64_t a1, int a2)
 {
   v3 = a2 != 3;
-  v4 = sizeObject(a1 + 8);
+  v4 = sizeObject(a1 + 8, a2);
   v5 = 36;
   if (a2 == 3)
   {
@@ -1950,15 +1950,15 @@ uint64_t ChannelParamSet::sizeObject(uint64_t a1, int a2)
   }
 }
 
-uint64_t ChannelParamSet::getBoolParameter(_BYTE *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t ChannelParamSet::getBoolParameter(_BYTE *a1, int a2, uint64_t a3)
 {
   switch(a2)
   {
     case 1:
       if (a3 == 1)
       {
-        v12 = qword_281051F78;
-        v13 = 1;
+        v7 = qword_281051F78;
+        v8 = 1;
         goto LABEL_125;
       }
 
@@ -1967,17 +1967,17 @@ uint64_t ChannelParamSet::getBoolParameter(_BYTE *a1, int a2, uint64_t a3, uint6
         goto LABEL_102;
       }
 
-      v8 = a1[40];
-      return v8 & 1;
+      v3 = a1[40];
+      return v3 & 1;
     case 2:
-      v9 = "int";
-      v10 = 2;
+      v4 = "int";
+      v5 = 2;
       goto LABEL_105;
     case 3:
       if (a3 == 1)
       {
-        v12 = qword_281051F78;
-        v13 = 3;
+        v7 = qword_281051F78;
+        v8 = 3;
         goto LABEL_125;
       }
 
@@ -1986,17 +1986,17 @@ uint64_t ChannelParamSet::getBoolParameter(_BYTE *a1, int a2, uint64_t a3, uint6
         goto LABEL_102;
       }
 
-      v8 = a1[48];
-      return v8 & 1;
+      v3 = a1[48];
+      return v3 & 1;
     case 4:
-      v9 = "int";
-      v10 = 4;
+      v4 = "int";
+      v5 = 4;
       goto LABEL_105;
     case 5:
       if (a3 == 1)
       {
-        v12 = qword_281051F78;
-        v13 = 5;
+        v7 = qword_281051F78;
+        v8 = 5;
         goto LABEL_125;
       }
 
@@ -2005,21 +2005,21 @@ uint64_t ChannelParamSet::getBoolParameter(_BYTE *a1, int a2, uint64_t a3, uint6
         goto LABEL_102;
       }
 
-      v8 = a1[56];
-      return v8 & 1;
+      v3 = a1[56];
+      return v3 & 1;
     case 6:
-      v9 = "int";
-      v10 = 6;
+      v4 = "int";
+      v5 = 6;
       goto LABEL_105;
     case 7:
-      v9 = "int";
-      v10 = 7;
+      v4 = "int";
+      v5 = 7;
       goto LABEL_105;
     case 8:
       if (a3 == 1)
       {
-        v12 = qword_281051F78;
-        v13 = 8;
+        v7 = qword_281051F78;
+        v8 = 8;
         goto LABEL_125;
       }
 
@@ -2028,13 +2028,13 @@ uint64_t ChannelParamSet::getBoolParameter(_BYTE *a1, int a2, uint64_t a3, uint6
         goto LABEL_102;
       }
 
-      v8 = a1[68];
-      return v8 & 1;
+      v3 = a1[68];
+      return v3 & 1;
     case 9:
       if (a3 == 1)
       {
-        v12 = qword_281051F78;
-        v13 = 9;
+        v7 = qword_281051F78;
+        v8 = 9;
         goto LABEL_125;
       }
 
@@ -2043,13 +2043,13 @@ uint64_t ChannelParamSet::getBoolParameter(_BYTE *a1, int a2, uint64_t a3, uint6
         goto LABEL_102;
       }
 
-      v8 = a1[69];
-      return v8 & 1;
+      v3 = a1[69];
+      return v3 & 1;
     case 10:
       if (a3 == 1)
       {
-        v12 = qword_281051F78;
-        v13 = 10;
+        v7 = qword_281051F78;
+        v8 = 10;
         goto LABEL_125;
       }
 
@@ -2058,13 +2058,13 @@ uint64_t ChannelParamSet::getBoolParameter(_BYTE *a1, int a2, uint64_t a3, uint6
         goto LABEL_102;
       }
 
-      v8 = a1[70];
-      return v8 & 1;
+      v3 = a1[70];
+      return v3 & 1;
     case 11:
       if (a3 == 1)
       {
-        v12 = qword_281051F78;
-        v13 = 11;
+        v7 = qword_281051F78;
+        v8 = 11;
         goto LABEL_125;
       }
 
@@ -2073,29 +2073,29 @@ uint64_t ChannelParamSet::getBoolParameter(_BYTE *a1, int a2, uint64_t a3, uint6
         goto LABEL_102;
       }
 
-      v8 = a1[71];
-      return v8 & 1;
+      v3 = a1[71];
+      return v3 & 1;
     case 12:
-      v9 = "int";
-      v10 = 12;
+      v4 = "int";
+      v5 = 12;
       goto LABEL_105;
     case 13:
-      v9 = "enum";
-      v10 = 13;
+      v4 = "enum";
+      v5 = 13;
       goto LABEL_105;
     case 14:
-      v9 = "int";
-      v10 = 14;
+      v4 = "int";
+      v5 = 14;
       goto LABEL_105;
     case 15:
-      v9 = "double";
-      v10 = 15;
+      v4 = "double";
+      v5 = 15;
       goto LABEL_105;
     case 16:
       if (a3 == 1)
       {
-        v12 = qword_281051F78;
-        v13 = 16;
+        v7 = qword_281051F78;
+        v8 = 16;
         goto LABEL_125;
       }
 
@@ -2104,17 +2104,17 @@ uint64_t ChannelParamSet::getBoolParameter(_BYTE *a1, int a2, uint64_t a3, uint6
         goto LABEL_102;
       }
 
-      v8 = a1[96];
-      return v8 & 1;
+      v3 = a1[96];
+      return v3 & 1;
     case 17:
-      v9 = "int";
-      v10 = 17;
+      v4 = "int";
+      v5 = 17;
       goto LABEL_105;
     case 18:
       if (a3 == 1)
       {
-        v12 = qword_281051F78;
-        v13 = 18;
+        v7 = qword_281051F78;
+        v8 = 18;
         goto LABEL_125;
       }
 
@@ -2123,17 +2123,17 @@ uint64_t ChannelParamSet::getBoolParameter(_BYTE *a1, int a2, uint64_t a3, uint6
         goto LABEL_102;
       }
 
-      v8 = a1[104];
-      return v8 & 1;
+      v3 = a1[104];
+      return v3 & 1;
     case 19:
-      v9 = "int";
-      v10 = 19;
+      v4 = "int";
+      v5 = 19;
       goto LABEL_105;
     case 20:
       if (a3 == 1)
       {
-        v12 = qword_281051F78;
-        v13 = 20;
+        v7 = qword_281051F78;
+        v8 = 20;
         goto LABEL_125;
       }
 
@@ -2142,17 +2142,17 @@ uint64_t ChannelParamSet::getBoolParameter(_BYTE *a1, int a2, uint64_t a3, uint6
         goto LABEL_102;
       }
 
-      v8 = a1[112];
-      return v8 & 1;
+      v3 = a1[112];
+      return v3 & 1;
     case 21:
-      v9 = "int";
-      v10 = 21;
+      v4 = "int";
+      v5 = 21;
       goto LABEL_105;
     case 22:
       if (a3 == 1)
       {
-        v12 = qword_281051F78;
-        v13 = 22;
+        v7 = qword_281051F78;
+        v8 = 22;
         goto LABEL_125;
       }
 
@@ -2161,53 +2161,53 @@ uint64_t ChannelParamSet::getBoolParameter(_BYTE *a1, int a2, uint64_t a3, uint6
         goto LABEL_102;
       }
 
-      v8 = a1[120];
-      return v8 & 1;
+      v3 = a1[120];
+      return v3 & 1;
     case 23:
-      v9 = "int";
-      v10 = 23;
+      v4 = "int";
+      v5 = 23;
       goto LABEL_105;
     case 24:
-      v9 = "int";
-      v10 = 24;
+      v4 = "int";
+      v5 = 24;
       goto LABEL_105;
     case 25:
-      v9 = "int";
-      v10 = 25;
+      v4 = "int";
+      v5 = 25;
       goto LABEL_105;
     case 26:
-      v9 = "int";
-      v10 = 26;
+      v4 = "int";
+      v5 = 26;
       goto LABEL_105;
     case 27:
-      v9 = "int";
-      v10 = 27;
+      v4 = "int";
+      v5 = 27;
       goto LABEL_105;
     case 28:
-      v9 = "int";
-      v10 = 28;
+      v4 = "int";
+      v5 = 28;
       goto LABEL_105;
     case 29:
-      v9 = "int";
-      v10 = 29;
+      v4 = "int";
+      v5 = 29;
       goto LABEL_105;
     case 30:
-      v9 = "int";
-      v10 = 30;
+      v4 = "int";
+      v5 = 30;
       goto LABEL_105;
     case 31:
-      v9 = "double";
-      v10 = 31;
+      v4 = "double";
+      v5 = 31;
       goto LABEL_105;
     case 32:
-      v9 = "int";
-      v10 = 32;
+      v4 = "int";
+      v5 = 32;
       goto LABEL_105;
     case 33:
       if (a3 == 1)
       {
-        v12 = qword_281051F78;
-        v13 = 33;
+        v7 = qword_281051F78;
+        v8 = 33;
         goto LABEL_125;
       }
 
@@ -2216,41 +2216,41 @@ uint64_t ChannelParamSet::getBoolParameter(_BYTE *a1, int a2, uint64_t a3, uint6
         goto LABEL_102;
       }
 
-      v8 = a1[172];
-      return v8 & 1;
+      v3 = a1[172];
+      return v3 & 1;
     case 34:
-      v9 = "int";
-      v10 = 34;
+      v4 = "int";
+      v5 = 34;
       goto LABEL_105;
     case 35:
-      v9 = "double";
-      v10 = 35;
+      v4 = "double";
+      v5 = 35;
       goto LABEL_105;
     case 36:
-      v9 = "int";
-      v10 = 36;
+      v4 = "int";
+      v5 = 36;
       goto LABEL_105;
     case 37:
-      v9 = "int";
-      v10 = 37;
+      v4 = "int";
+      v5 = 37;
       goto LABEL_105;
     case 38:
-      v9 = "double";
-      v10 = 38;
+      v4 = "double";
+      v5 = 38;
       goto LABEL_105;
     case 39:
-      v9 = "enum";
-      v10 = 39;
+      v4 = "enum";
+      v5 = 39;
       goto LABEL_105;
     case 40:
-      v9 = "int";
-      v10 = 40;
+      v4 = "int";
+      v5 = 40;
       goto LABEL_105;
     case 41:
       if (a3 == 1)
       {
-        v12 = qword_281051F78;
-        v13 = 41;
+        v7 = qword_281051F78;
+        v8 = 41;
         goto LABEL_125;
       }
 
@@ -2259,33 +2259,33 @@ uint64_t ChannelParamSet::getBoolParameter(_BYTE *a1, int a2, uint64_t a3, uint6
         goto LABEL_102;
       }
 
-      v8 = a1[216];
-      return v8 & 1;
+      v3 = a1[216];
+      return v3 & 1;
     case 42:
-      v9 = "int";
-      v10 = 42;
+      v4 = "int";
+      v5 = 42;
       goto LABEL_105;
     case 43:
-      v9 = "int";
-      v10 = 43;
+      v4 = "int";
+      v5 = 43;
       goto LABEL_105;
     case 44:
-      v9 = "int";
-      v10 = 44;
+      v4 = "int";
+      v5 = 44;
       goto LABEL_105;
     case 45:
-      v9 = "int";
-      v10 = 45;
+      v4 = "int";
+      v5 = 45;
       goto LABEL_105;
     case 46:
-      v9 = "int";
-      v10 = 46;
+      v4 = "int";
+      v5 = 46;
       goto LABEL_105;
     case 47:
       if (a3 == 1)
       {
-        v12 = qword_281051F78;
-        v13 = 47;
+        v7 = qword_281051F78;
+        v8 = 47;
         goto LABEL_125;
       }
 
@@ -2294,73 +2294,73 @@ uint64_t ChannelParamSet::getBoolParameter(_BYTE *a1, int a2, uint64_t a3, uint6
         goto LABEL_102;
       }
 
-      v8 = a1[240];
-      return v8 & 1;
+      v3 = a1[240];
+      return v3 & 1;
     case 48:
-      v9 = "int";
-      v10 = 48;
+      v4 = "int";
+      v5 = 48;
       goto LABEL_105;
     case 49:
-      v9 = "int";
-      v10 = 49;
+      v4 = "int";
+      v5 = 49;
       goto LABEL_105;
     case 50:
-      v9 = "int";
-      v10 = 50;
+      v4 = "int";
+      v5 = 50;
       goto LABEL_105;
     case 51:
-      v9 = "int";
-      v10 = 51;
+      v4 = "int";
+      v5 = 51;
       goto LABEL_105;
     case 52:
-      v9 = "int";
-      v10 = 52;
+      v4 = "int";
+      v5 = 52;
       goto LABEL_105;
     case 53:
-      v9 = "int";
-      v10 = 53;
+      v4 = "int";
+      v5 = 53;
       goto LABEL_105;
     case 54:
-      v9 = "int";
-      v10 = 54;
+      v4 = "int";
+      v5 = 54;
       goto LABEL_105;
     case 55:
-      v9 = "int";
-      v10 = 55;
+      v4 = "int";
+      v5 = 55;
       goto LABEL_105;
     case 56:
-      v9 = "int";
-      v10 = 56;
+      v4 = "int";
+      v5 = 56;
       goto LABEL_105;
     case 57:
-      v9 = "int";
-      v10 = 57;
+      v4 = "int";
+      v5 = 57;
       goto LABEL_105;
     case 58:
-      v9 = "int";
-      v10 = 58;
+      v4 = "int";
+      v5 = 58;
       goto LABEL_105;
     case 59:
-      v9 = "int";
-      v10 = 59;
+      v4 = "int";
+      v5 = 59;
       goto LABEL_105;
     case 60:
-      v9 = "int";
-      v10 = 60;
+      v4 = "int";
+      v5 = 60;
       goto LABEL_105;
     case 61:
-      v9 = "int";
-      v10 = 61;
+      v4 = "int";
+      v5 = 61;
       goto LABEL_105;
     case 62:
-      v9 = "int";
-      v10 = 62;
+      v4 = "int";
+      v5 = 62;
       goto LABEL_105;
     case 63:
       if (a3 == 1)
       {
-        v12 = qword_281051F78;
-        v13 = 63;
+        v7 = qword_281051F78;
+        v8 = 63;
         goto LABEL_125;
       }
 
@@ -2369,73 +2369,72 @@ uint64_t ChannelParamSet::getBoolParameter(_BYTE *a1, int a2, uint64_t a3, uint6
         goto LABEL_102;
       }
 
-      v8 = a1[304];
+      v3 = a1[304];
       break;
     case 64:
-      v9 = "int";
-      v10 = 64;
+      v4 = "int";
+      v5 = 64;
       goto LABEL_105;
     case 65:
       if (a3 == 1)
       {
-        v12 = qword_281051F78;
-        v13 = 65;
+        v7 = qword_281051F78;
+        v8 = 65;
 LABEL_125:
-        ParamByParamId = ParamSpecMgr::getParamByParamId(v12, v13, a3, a4, a5, a6, a7, a8);
-        v15 = **ParamByParamId;
+        ParamByParamId = ParamSpecMgr::getParamByParamId(v7, v8);
       }
 
       else if (a3)
       {
 LABEL_102:
-        throwWrongQueryMode(a3, "BOOL", a3, a4, a5, a6, a7, a8);
+        throwWrongQueryMode(a3, "BOOL");
 LABEL_106:
-        v8 = 0;
+        v3 = 0;
       }
 
       else
       {
-        v8 = a1[312];
+        v3 = a1[312];
       }
 
       break;
     case 66:
-      v9 = "int";
-      v10 = 66;
+      v4 = "int";
+      v5 = 66;
       goto LABEL_105;
     case 67:
-      v9 = "int";
-      v10 = 67;
+      v4 = "int";
+      v5 = 67;
       goto LABEL_105;
     case 68:
-      v9 = "int";
-      v10 = 68;
+      v4 = "int";
+      v5 = 68;
       goto LABEL_105;
     case 69:
-      v9 = "int";
-      v10 = 69;
+      v4 = "int";
+      v5 = 69;
       goto LABEL_105;
     case 70:
-      v9 = "int";
-      v10 = 70;
+      v4 = "int";
+      v5 = 70;
 LABEL_105:
-      throwWrongTypeForParamId(v10, v9, "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(v5, v4, "BOOL");
       goto LABEL_106;
     default:
-      throwWrongParamIdValue(a2, "BOOL", a3, a4, a5, a6, a7, a8);
+      throwWrongParamIdValue(a2, "BOOL");
       goto LABEL_106;
   }
 
-  return v8 & 1;
+  return v3 & 1;
 }
 
-uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3)
 {
   switch(a2)
   {
     case 1:
-      v8 = "BOOL";
-      v9 = 1;
+      v3 = "BOOL";
+      v4 = 1;
       goto LABEL_208;
     case 2:
       if (a3 <= 1)
@@ -2450,15 +2449,15 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
           goto LABEL_364;
         }
 
-        v10 = qword_281051F78;
-        v11 = 2;
+        v5 = qword_281051F78;
+        v6 = 2;
         goto LABEL_217;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051F78;
-        v20 = 2;
+        v12 = qword_281051F78;
+        v13 = 2;
         goto LABEL_462;
       }
 
@@ -2467,12 +2466,12 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
         goto LABEL_364;
       }
 
-      v15 = qword_281051F78;
-      v16 = 2;
+      v9 = qword_281051F78;
+      v10 = 2;
       goto LABEL_363;
     case 3:
-      v8 = "BOOL";
-      v9 = 3;
+      v3 = "BOOL";
+      v4 = 3;
       goto LABEL_208;
     case 4:
       if (a3 <= 1)
@@ -2487,15 +2486,15 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
           goto LABEL_364;
         }
 
-        v10 = qword_281051F78;
-        v11 = 4;
+        v5 = qword_281051F78;
+        v6 = 4;
         goto LABEL_217;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051F78;
-        v20 = 4;
+        v12 = qword_281051F78;
+        v13 = 4;
         goto LABEL_462;
       }
 
@@ -2504,12 +2503,12 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
         goto LABEL_364;
       }
 
-      v15 = qword_281051F78;
-      v16 = 4;
+      v9 = qword_281051F78;
+      v10 = 4;
       goto LABEL_363;
     case 5:
-      v8 = "BOOL";
-      v9 = 5;
+      v3 = "BOOL";
+      v4 = 5;
       goto LABEL_208;
     case 6:
       if (a3 <= 1)
@@ -2524,15 +2523,15 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
           goto LABEL_364;
         }
 
-        v10 = qword_281051F78;
-        v11 = 6;
+        v5 = qword_281051F78;
+        v6 = 6;
         goto LABEL_217;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051F78;
-        v20 = 6;
+        v12 = qword_281051F78;
+        v13 = 6;
         goto LABEL_462;
       }
 
@@ -2541,8 +2540,8 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
         goto LABEL_364;
       }
 
-      v15 = qword_281051F78;
-      v16 = 6;
+      v9 = qword_281051F78;
+      v10 = 6;
       goto LABEL_363;
     case 7:
       if (a3 <= 1)
@@ -2557,15 +2556,15 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
           goto LABEL_364;
         }
 
-        v10 = qword_281051F78;
-        v11 = 7;
+        v5 = qword_281051F78;
+        v6 = 7;
         goto LABEL_217;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051F78;
-        v20 = 7;
+        v12 = qword_281051F78;
+        v13 = 7;
         goto LABEL_462;
       }
 
@@ -2574,24 +2573,24 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
         goto LABEL_364;
       }
 
-      v15 = qword_281051F78;
-      v16 = 7;
+      v9 = qword_281051F78;
+      v10 = 7;
       goto LABEL_363;
     case 8:
-      v8 = "BOOL";
-      v9 = 8;
+      v3 = "BOOL";
+      v4 = 8;
       goto LABEL_208;
     case 9:
-      v8 = "BOOL";
-      v9 = 9;
+      v3 = "BOOL";
+      v4 = 9;
       goto LABEL_208;
     case 10:
-      v8 = "BOOL";
-      v9 = 10;
+      v3 = "BOOL";
+      v4 = 10;
       goto LABEL_208;
     case 11:
-      v8 = "BOOL";
-      v9 = 11;
+      v3 = "BOOL";
+      v4 = 11;
       goto LABEL_208;
     case 12:
       if (a3 <= 1)
@@ -2606,15 +2605,15 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
           goto LABEL_364;
         }
 
-        v10 = qword_281051F78;
-        v11 = 12;
+        v5 = qword_281051F78;
+        v6 = 12;
         goto LABEL_217;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051F78;
-        v20 = 12;
+        v12 = qword_281051F78;
+        v13 = 12;
         goto LABEL_462;
       }
 
@@ -2623,12 +2622,12 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
         goto LABEL_364;
       }
 
-      v15 = qword_281051F78;
-      v16 = 12;
+      v9 = qword_281051F78;
+      v10 = 12;
       goto LABEL_363;
     case 13:
-      v8 = "enum";
-      v9 = 13;
+      v3 = "enum";
+      v4 = 13;
       goto LABEL_208;
     case 14:
       if (a3 <= 1)
@@ -2643,15 +2642,15 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
           goto LABEL_364;
         }
 
-        v10 = qword_281051F78;
-        v11 = 14;
+        v5 = qword_281051F78;
+        v6 = 14;
         goto LABEL_217;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051F78;
-        v20 = 14;
+        v12 = qword_281051F78;
+        v13 = 14;
         goto LABEL_462;
       }
 
@@ -2660,16 +2659,16 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
         goto LABEL_364;
       }
 
-      v15 = qword_281051F78;
-      v16 = 14;
+      v9 = qword_281051F78;
+      v10 = 14;
       goto LABEL_363;
     case 15:
-      v8 = "double";
-      v9 = 15;
+      v3 = "double";
+      v4 = 15;
       goto LABEL_208;
     case 16:
-      v8 = "BOOL";
-      v9 = 16;
+      v3 = "BOOL";
+      v4 = 16;
       goto LABEL_208;
     case 17:
       if (a3 <= 1)
@@ -2684,15 +2683,15 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
           goto LABEL_364;
         }
 
-        v10 = qword_281051F78;
-        v11 = 17;
+        v5 = qword_281051F78;
+        v6 = 17;
         goto LABEL_217;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051F78;
-        v20 = 17;
+        v12 = qword_281051F78;
+        v13 = 17;
         goto LABEL_462;
       }
 
@@ -2701,12 +2700,12 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
         goto LABEL_364;
       }
 
-      v15 = qword_281051F78;
-      v16 = 17;
+      v9 = qword_281051F78;
+      v10 = 17;
       goto LABEL_363;
     case 18:
-      v8 = "BOOL";
-      v9 = 18;
+      v3 = "BOOL";
+      v4 = 18;
       goto LABEL_208;
     case 19:
       if (a3 <= 1)
@@ -2721,15 +2720,15 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
           goto LABEL_364;
         }
 
-        v10 = qword_281051F78;
-        v11 = 19;
+        v5 = qword_281051F78;
+        v6 = 19;
         goto LABEL_217;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051F78;
-        v20 = 19;
+        v12 = qword_281051F78;
+        v13 = 19;
         goto LABEL_462;
       }
 
@@ -2738,12 +2737,12 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
         goto LABEL_364;
       }
 
-      v15 = qword_281051F78;
-      v16 = 19;
+      v9 = qword_281051F78;
+      v10 = 19;
       goto LABEL_363;
     case 20:
-      v8 = "BOOL";
-      v9 = 20;
+      v3 = "BOOL";
+      v4 = 20;
       goto LABEL_208;
     case 21:
       if (a3 <= 1)
@@ -2758,15 +2757,15 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
           goto LABEL_364;
         }
 
-        v10 = qword_281051F78;
-        v11 = 21;
+        v5 = qword_281051F78;
+        v6 = 21;
         goto LABEL_217;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051F78;
-        v20 = 21;
+        v12 = qword_281051F78;
+        v13 = 21;
         goto LABEL_462;
       }
 
@@ -2775,12 +2774,12 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
         goto LABEL_364;
       }
 
-      v15 = qword_281051F78;
-      v16 = 21;
+      v9 = qword_281051F78;
+      v10 = 21;
       goto LABEL_363;
     case 22:
-      v8 = "BOOL";
-      v9 = 22;
+      v3 = "BOOL";
+      v4 = 22;
       goto LABEL_208;
     case 23:
       if (a3 <= 1)
@@ -2795,15 +2794,15 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
           goto LABEL_364;
         }
 
-        v10 = qword_281051F78;
-        v11 = 23;
+        v5 = qword_281051F78;
+        v6 = 23;
         goto LABEL_217;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051F78;
-        v20 = 23;
+        v12 = qword_281051F78;
+        v13 = 23;
         goto LABEL_462;
       }
 
@@ -2812,8 +2811,8 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
         goto LABEL_364;
       }
 
-      v15 = qword_281051F78;
-      v16 = 23;
+      v9 = qword_281051F78;
+      v10 = 23;
       goto LABEL_363;
     case 24:
       if (a3 <= 1)
@@ -2828,15 +2827,15 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
           goto LABEL_364;
         }
 
-        v10 = qword_281051F78;
-        v11 = 24;
+        v5 = qword_281051F78;
+        v6 = 24;
         goto LABEL_217;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051F78;
-        v20 = 24;
+        v12 = qword_281051F78;
+        v13 = 24;
         goto LABEL_462;
       }
 
@@ -2845,8 +2844,8 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
         goto LABEL_364;
       }
 
-      v15 = qword_281051F78;
-      v16 = 24;
+      v9 = qword_281051F78;
+      v10 = 24;
       goto LABEL_363;
     case 25:
       if (a3 <= 1)
@@ -2861,15 +2860,15 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
           goto LABEL_364;
         }
 
-        v10 = qword_281051F78;
-        v11 = 25;
+        v5 = qword_281051F78;
+        v6 = 25;
         goto LABEL_217;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051F78;
-        v20 = 25;
+        v12 = qword_281051F78;
+        v13 = 25;
         goto LABEL_462;
       }
 
@@ -2878,8 +2877,8 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
         goto LABEL_364;
       }
 
-      v15 = qword_281051F78;
-      v16 = 25;
+      v9 = qword_281051F78;
+      v10 = 25;
       goto LABEL_363;
     case 26:
       if (a3 <= 1)
@@ -2894,15 +2893,15 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
           goto LABEL_364;
         }
 
-        v10 = qword_281051F78;
-        v11 = 26;
+        v5 = qword_281051F78;
+        v6 = 26;
         goto LABEL_217;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051F78;
-        v20 = 26;
+        v12 = qword_281051F78;
+        v13 = 26;
         goto LABEL_462;
       }
 
@@ -2911,8 +2910,8 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
         goto LABEL_364;
       }
 
-      v15 = qword_281051F78;
-      v16 = 26;
+      v9 = qword_281051F78;
+      v10 = 26;
       goto LABEL_363;
     case 27:
       if (a3 <= 1)
@@ -2927,15 +2926,15 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
           goto LABEL_364;
         }
 
-        v10 = qword_281051F78;
-        v11 = 27;
+        v5 = qword_281051F78;
+        v6 = 27;
         goto LABEL_217;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051F78;
-        v20 = 27;
+        v12 = qword_281051F78;
+        v13 = 27;
         goto LABEL_462;
       }
 
@@ -2944,8 +2943,8 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
         goto LABEL_364;
       }
 
-      v15 = qword_281051F78;
-      v16 = 27;
+      v9 = qword_281051F78;
+      v10 = 27;
       goto LABEL_363;
     case 28:
       if (a3 <= 1)
@@ -2960,15 +2959,15 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
           goto LABEL_364;
         }
 
-        v10 = qword_281051F78;
-        v11 = 28;
+        v5 = qword_281051F78;
+        v6 = 28;
         goto LABEL_217;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051F78;
-        v20 = 28;
+        v12 = qword_281051F78;
+        v13 = 28;
         goto LABEL_462;
       }
 
@@ -2977,8 +2976,8 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
         goto LABEL_364;
       }
 
-      v15 = qword_281051F78;
-      v16 = 28;
+      v9 = qword_281051F78;
+      v10 = 28;
       goto LABEL_363;
     case 29:
       if (a3 <= 1)
@@ -2993,15 +2992,15 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
           goto LABEL_364;
         }
 
-        v10 = qword_281051F78;
-        v11 = 29;
+        v5 = qword_281051F78;
+        v6 = 29;
         goto LABEL_217;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051F78;
-        v20 = 29;
+        v12 = qword_281051F78;
+        v13 = 29;
         goto LABEL_462;
       }
 
@@ -3010,8 +3009,8 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
         goto LABEL_364;
       }
 
-      v15 = qword_281051F78;
-      v16 = 29;
+      v9 = qword_281051F78;
+      v10 = 29;
       goto LABEL_363;
     case 30:
       if (a3 <= 1)
@@ -3026,15 +3025,15 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
           goto LABEL_364;
         }
 
-        v10 = qword_281051F78;
-        v11 = 30;
+        v5 = qword_281051F78;
+        v6 = 30;
         goto LABEL_217;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051F78;
-        v20 = 30;
+        v12 = qword_281051F78;
+        v13 = 30;
         goto LABEL_462;
       }
 
@@ -3043,12 +3042,12 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
         goto LABEL_364;
       }
 
-      v15 = qword_281051F78;
-      v16 = 30;
+      v9 = qword_281051F78;
+      v10 = 30;
       goto LABEL_363;
     case 31:
-      v8 = "double";
-      v9 = 31;
+      v3 = "double";
+      v4 = 31;
       goto LABEL_208;
     case 32:
       if (a3 <= 1)
@@ -3063,15 +3062,15 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
           goto LABEL_364;
         }
 
-        v10 = qword_281051F78;
-        v11 = 32;
+        v5 = qword_281051F78;
+        v6 = 32;
         goto LABEL_217;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051F78;
-        v20 = 32;
+        v12 = qword_281051F78;
+        v13 = 32;
         goto LABEL_462;
       }
 
@@ -3080,12 +3079,12 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
         goto LABEL_364;
       }
 
-      v15 = qword_281051F78;
-      v16 = 32;
+      v9 = qword_281051F78;
+      v10 = 32;
       goto LABEL_363;
     case 33:
-      v8 = "BOOL";
-      v9 = 33;
+      v3 = "BOOL";
+      v4 = 33;
       goto LABEL_208;
     case 34:
       if (a3 <= 1)
@@ -3100,15 +3099,15 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
           goto LABEL_364;
         }
 
-        v10 = qword_281051F78;
-        v11 = 34;
+        v5 = qword_281051F78;
+        v6 = 34;
         goto LABEL_217;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051F78;
-        v20 = 34;
+        v12 = qword_281051F78;
+        v13 = 34;
         goto LABEL_462;
       }
 
@@ -3117,12 +3116,12 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
         goto LABEL_364;
       }
 
-      v15 = qword_281051F78;
-      v16 = 34;
+      v9 = qword_281051F78;
+      v10 = 34;
       goto LABEL_363;
     case 35:
-      v8 = "double";
-      v9 = 35;
+      v3 = "double";
+      v4 = 35;
       goto LABEL_208;
     case 36:
       if (a3 <= 1)
@@ -3137,15 +3136,15 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
           goto LABEL_364;
         }
 
-        v10 = qword_281051F78;
-        v11 = 36;
+        v5 = qword_281051F78;
+        v6 = 36;
         goto LABEL_217;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051F78;
-        v20 = 36;
+        v12 = qword_281051F78;
+        v13 = 36;
         goto LABEL_462;
       }
 
@@ -3154,8 +3153,8 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
         goto LABEL_364;
       }
 
-      v15 = qword_281051F78;
-      v16 = 36;
+      v9 = qword_281051F78;
+      v10 = 36;
       goto LABEL_363;
     case 37:
       if (a3 <= 1)
@@ -3170,15 +3169,15 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
           goto LABEL_364;
         }
 
-        v10 = qword_281051F78;
-        v11 = 37;
+        v5 = qword_281051F78;
+        v6 = 37;
         goto LABEL_217;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051F78;
-        v20 = 37;
+        v12 = qword_281051F78;
+        v13 = 37;
         goto LABEL_462;
       }
 
@@ -3187,16 +3186,16 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
         goto LABEL_364;
       }
 
-      v15 = qword_281051F78;
-      v16 = 37;
+      v9 = qword_281051F78;
+      v10 = 37;
       goto LABEL_363;
     case 38:
-      v8 = "double";
-      v9 = 38;
+      v3 = "double";
+      v4 = 38;
       goto LABEL_208;
     case 39:
-      v8 = "enum";
-      v9 = 39;
+      v3 = "enum";
+      v4 = 39;
       goto LABEL_208;
     case 40:
       if (a3 <= 1)
@@ -3211,15 +3210,15 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
           goto LABEL_364;
         }
 
-        v10 = qword_281051F78;
-        v11 = 40;
+        v5 = qword_281051F78;
+        v6 = 40;
         goto LABEL_217;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051F78;
-        v20 = 40;
+        v12 = qword_281051F78;
+        v13 = 40;
         goto LABEL_462;
       }
 
@@ -3228,12 +3227,12 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
         goto LABEL_364;
       }
 
-      v15 = qword_281051F78;
-      v16 = 40;
+      v9 = qword_281051F78;
+      v10 = 40;
       goto LABEL_363;
     case 41:
-      v8 = "BOOL";
-      v9 = 41;
+      v3 = "BOOL";
+      v4 = 41;
       goto LABEL_208;
     case 42:
       if (a3 <= 1)
@@ -3248,15 +3247,15 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
           goto LABEL_364;
         }
 
-        v10 = qword_281051F78;
-        v11 = 42;
+        v5 = qword_281051F78;
+        v6 = 42;
         goto LABEL_217;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051F78;
-        v20 = 42;
+        v12 = qword_281051F78;
+        v13 = 42;
         goto LABEL_462;
       }
 
@@ -3265,8 +3264,8 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
         goto LABEL_364;
       }
 
-      v15 = qword_281051F78;
-      v16 = 42;
+      v9 = qword_281051F78;
+      v10 = 42;
       goto LABEL_363;
     case 43:
       if (a3 <= 1)
@@ -3281,15 +3280,15 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
           goto LABEL_364;
         }
 
-        v10 = qword_281051F78;
-        v11 = 43;
+        v5 = qword_281051F78;
+        v6 = 43;
         goto LABEL_217;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051F78;
-        v20 = 43;
+        v12 = qword_281051F78;
+        v13 = 43;
         goto LABEL_462;
       }
 
@@ -3298,8 +3297,8 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
         goto LABEL_364;
       }
 
-      v15 = qword_281051F78;
-      v16 = 43;
+      v9 = qword_281051F78;
+      v10 = 43;
       goto LABEL_363;
     case 44:
       if (a3 <= 1)
@@ -3314,15 +3313,15 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
           goto LABEL_364;
         }
 
-        v10 = qword_281051F78;
-        v11 = 44;
+        v5 = qword_281051F78;
+        v6 = 44;
         goto LABEL_217;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051F78;
-        v20 = 44;
+        v12 = qword_281051F78;
+        v13 = 44;
         goto LABEL_462;
       }
 
@@ -3331,8 +3330,8 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
         goto LABEL_364;
       }
 
-      v15 = qword_281051F78;
-      v16 = 44;
+      v9 = qword_281051F78;
+      v10 = 44;
       goto LABEL_363;
     case 45:
       if (a3 <= 1)
@@ -3347,15 +3346,15 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
           goto LABEL_364;
         }
 
-        v10 = qword_281051F78;
-        v11 = 45;
+        v5 = qword_281051F78;
+        v6 = 45;
         goto LABEL_217;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051F78;
-        v20 = 45;
+        v12 = qword_281051F78;
+        v13 = 45;
         goto LABEL_462;
       }
 
@@ -3364,8 +3363,8 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
         goto LABEL_364;
       }
 
-      v15 = qword_281051F78;
-      v16 = 45;
+      v9 = qword_281051F78;
+      v10 = 45;
       goto LABEL_363;
     case 46:
       if (a3 <= 1)
@@ -3380,15 +3379,15 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
           goto LABEL_364;
         }
 
-        v10 = qword_281051F78;
-        v11 = 46;
+        v5 = qword_281051F78;
+        v6 = 46;
         goto LABEL_217;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051F78;
-        v20 = 46;
+        v12 = qword_281051F78;
+        v13 = 46;
         goto LABEL_462;
       }
 
@@ -3397,12 +3396,12 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
         goto LABEL_364;
       }
 
-      v15 = qword_281051F78;
-      v16 = 46;
+      v9 = qword_281051F78;
+      v10 = 46;
       goto LABEL_363;
     case 47:
-      v8 = "BOOL";
-      v9 = 47;
+      v3 = "BOOL";
+      v4 = 47;
       goto LABEL_208;
     case 48:
       if (a3 <= 1)
@@ -3417,15 +3416,15 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
           goto LABEL_364;
         }
 
-        v10 = qword_281051F78;
-        v11 = 48;
+        v5 = qword_281051F78;
+        v6 = 48;
         goto LABEL_217;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051F78;
-        v20 = 48;
+        v12 = qword_281051F78;
+        v13 = 48;
         goto LABEL_462;
       }
 
@@ -3434,8 +3433,8 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
         goto LABEL_364;
       }
 
-      v15 = qword_281051F78;
-      v16 = 48;
+      v9 = qword_281051F78;
+      v10 = 48;
       goto LABEL_363;
     case 49:
       if (a3 <= 1)
@@ -3450,15 +3449,15 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
           goto LABEL_364;
         }
 
-        v10 = qword_281051F78;
-        v11 = 49;
+        v5 = qword_281051F78;
+        v6 = 49;
         goto LABEL_217;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051F78;
-        v20 = 49;
+        v12 = qword_281051F78;
+        v13 = 49;
         goto LABEL_462;
       }
 
@@ -3467,8 +3466,8 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
         goto LABEL_364;
       }
 
-      v15 = qword_281051F78;
-      v16 = 49;
+      v9 = qword_281051F78;
+      v10 = 49;
       goto LABEL_363;
     case 50:
       if (a3 <= 1)
@@ -3483,15 +3482,15 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
           goto LABEL_364;
         }
 
-        v10 = qword_281051F78;
-        v11 = 50;
+        v5 = qword_281051F78;
+        v6 = 50;
         goto LABEL_217;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051F78;
-        v20 = 50;
+        v12 = qword_281051F78;
+        v13 = 50;
         goto LABEL_462;
       }
 
@@ -3500,8 +3499,8 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
         goto LABEL_364;
       }
 
-      v15 = qword_281051F78;
-      v16 = 50;
+      v9 = qword_281051F78;
+      v10 = 50;
       goto LABEL_363;
     case 51:
       if (a3 <= 1)
@@ -3516,15 +3515,15 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
           goto LABEL_364;
         }
 
-        v10 = qword_281051F78;
-        v11 = 51;
+        v5 = qword_281051F78;
+        v6 = 51;
         goto LABEL_217;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051F78;
-        v20 = 51;
+        v12 = qword_281051F78;
+        v13 = 51;
         goto LABEL_462;
       }
 
@@ -3533,8 +3532,8 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
         goto LABEL_364;
       }
 
-      v15 = qword_281051F78;
-      v16 = 51;
+      v9 = qword_281051F78;
+      v10 = 51;
       goto LABEL_363;
     case 52:
       if (a3 <= 1)
@@ -3549,15 +3548,15 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
           goto LABEL_364;
         }
 
-        v10 = qword_281051F78;
-        v11 = 52;
+        v5 = qword_281051F78;
+        v6 = 52;
         goto LABEL_217;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051F78;
-        v20 = 52;
+        v12 = qword_281051F78;
+        v13 = 52;
         goto LABEL_462;
       }
 
@@ -3566,8 +3565,8 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
         goto LABEL_364;
       }
 
-      v15 = qword_281051F78;
-      v16 = 52;
+      v9 = qword_281051F78;
+      v10 = 52;
       goto LABEL_363;
     case 53:
       if (a3 <= 1)
@@ -3582,15 +3581,15 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
           goto LABEL_364;
         }
 
-        v10 = qword_281051F78;
-        v11 = 53;
+        v5 = qword_281051F78;
+        v6 = 53;
         goto LABEL_217;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051F78;
-        v20 = 53;
+        v12 = qword_281051F78;
+        v13 = 53;
         goto LABEL_462;
       }
 
@@ -3599,8 +3598,8 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
         goto LABEL_364;
       }
 
-      v15 = qword_281051F78;
-      v16 = 53;
+      v9 = qword_281051F78;
+      v10 = 53;
       goto LABEL_363;
     case 54:
       if (a3 <= 1)
@@ -3615,15 +3614,15 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
           goto LABEL_364;
         }
 
-        v10 = qword_281051F78;
-        v11 = 54;
+        v5 = qword_281051F78;
+        v6 = 54;
         goto LABEL_217;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051F78;
-        v20 = 54;
+        v12 = qword_281051F78;
+        v13 = 54;
         goto LABEL_462;
       }
 
@@ -3632,8 +3631,8 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
         goto LABEL_364;
       }
 
-      v15 = qword_281051F78;
-      v16 = 54;
+      v9 = qword_281051F78;
+      v10 = 54;
       goto LABEL_363;
     case 55:
       if (a3 <= 1)
@@ -3648,15 +3647,15 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
           goto LABEL_364;
         }
 
-        v10 = qword_281051F78;
-        v11 = 55;
+        v5 = qword_281051F78;
+        v6 = 55;
         goto LABEL_217;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051F78;
-        v20 = 55;
+        v12 = qword_281051F78;
+        v13 = 55;
         goto LABEL_462;
       }
 
@@ -3665,8 +3664,8 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
         goto LABEL_364;
       }
 
-      v15 = qword_281051F78;
-      v16 = 55;
+      v9 = qword_281051F78;
+      v10 = 55;
       goto LABEL_363;
     case 56:
       if (a3 <= 1)
@@ -3681,15 +3680,15 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
           goto LABEL_364;
         }
 
-        v10 = qword_281051F78;
-        v11 = 56;
+        v5 = qword_281051F78;
+        v6 = 56;
         goto LABEL_217;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051F78;
-        v20 = 56;
+        v12 = qword_281051F78;
+        v13 = 56;
         goto LABEL_462;
       }
 
@@ -3698,8 +3697,8 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
         goto LABEL_364;
       }
 
-      v15 = qword_281051F78;
-      v16 = 56;
+      v9 = qword_281051F78;
+      v10 = 56;
       goto LABEL_363;
     case 57:
       if (a3 <= 1)
@@ -3714,15 +3713,15 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
           goto LABEL_364;
         }
 
-        v10 = qword_281051F78;
-        v11 = 57;
+        v5 = qword_281051F78;
+        v6 = 57;
         goto LABEL_217;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051F78;
-        v20 = 57;
+        v12 = qword_281051F78;
+        v13 = 57;
         goto LABEL_462;
       }
 
@@ -3731,8 +3730,8 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
         goto LABEL_364;
       }
 
-      v15 = qword_281051F78;
-      v16 = 57;
+      v9 = qword_281051F78;
+      v10 = 57;
       goto LABEL_363;
     case 58:
       if (a3 <= 1)
@@ -3747,15 +3746,15 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
           goto LABEL_364;
         }
 
-        v10 = qword_281051F78;
-        v11 = 58;
+        v5 = qword_281051F78;
+        v6 = 58;
         goto LABEL_217;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051F78;
-        v20 = 58;
+        v12 = qword_281051F78;
+        v13 = 58;
         goto LABEL_462;
       }
 
@@ -3764,8 +3763,8 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
         goto LABEL_364;
       }
 
-      v15 = qword_281051F78;
-      v16 = 58;
+      v9 = qword_281051F78;
+      v10 = 58;
       goto LABEL_363;
     case 59:
       if (a3 <= 1)
@@ -3780,15 +3779,15 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
           goto LABEL_364;
         }
 
-        v10 = qword_281051F78;
-        v11 = 59;
+        v5 = qword_281051F78;
+        v6 = 59;
         goto LABEL_217;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051F78;
-        v20 = 59;
+        v12 = qword_281051F78;
+        v13 = 59;
         goto LABEL_462;
       }
 
@@ -3797,8 +3796,8 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
         goto LABEL_364;
       }
 
-      v15 = qword_281051F78;
-      v16 = 59;
+      v9 = qword_281051F78;
+      v10 = 59;
       goto LABEL_363;
     case 60:
       if (a3 <= 1)
@@ -3813,15 +3812,15 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
           goto LABEL_364;
         }
 
-        v10 = qword_281051F78;
-        v11 = 60;
+        v5 = qword_281051F78;
+        v6 = 60;
         goto LABEL_217;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051F78;
-        v20 = 60;
+        v12 = qword_281051F78;
+        v13 = 60;
         goto LABEL_462;
       }
 
@@ -3830,8 +3829,8 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
         goto LABEL_364;
       }
 
-      v15 = qword_281051F78;
-      v16 = 60;
+      v9 = qword_281051F78;
+      v10 = 60;
       goto LABEL_363;
     case 61:
       if (a3 <= 1)
@@ -3846,15 +3845,15 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
           goto LABEL_364;
         }
 
-        v10 = qword_281051F78;
-        v11 = 61;
+        v5 = qword_281051F78;
+        v6 = 61;
         goto LABEL_217;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051F78;
-        v20 = 61;
+        v12 = qword_281051F78;
+        v13 = 61;
         goto LABEL_462;
       }
 
@@ -3863,8 +3862,8 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
         goto LABEL_364;
       }
 
-      v15 = qword_281051F78;
-      v16 = 61;
+      v9 = qword_281051F78;
+      v10 = 61;
       goto LABEL_363;
     case 62:
       if (a3 <= 1)
@@ -3879,15 +3878,15 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
           goto LABEL_364;
         }
 
-        v10 = qword_281051F78;
-        v11 = 62;
+        v5 = qword_281051F78;
+        v6 = 62;
         goto LABEL_217;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051F78;
-        v20 = 62;
+        v12 = qword_281051F78;
+        v13 = 62;
         goto LABEL_462;
       }
 
@@ -3896,12 +3895,12 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
         goto LABEL_364;
       }
 
-      v15 = qword_281051F78;
-      v16 = 62;
+      v9 = qword_281051F78;
+      v10 = 62;
       goto LABEL_363;
     case 63:
-      v8 = "BOOL";
-      v9 = 63;
+      v3 = "BOOL";
+      v4 = 63;
       goto LABEL_208;
     case 64:
       if (a3 <= 1)
@@ -3916,15 +3915,15 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
           goto LABEL_364;
         }
 
-        v10 = qword_281051F78;
-        v11 = 64;
+        v5 = qword_281051F78;
+        v6 = 64;
         goto LABEL_217;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051F78;
-        v20 = 64;
+        v12 = qword_281051F78;
+        v13 = 64;
         goto LABEL_462;
       }
 
@@ -3933,14 +3932,14 @@ uint64_t ChannelParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3,
         goto LABEL_364;
       }
 
-      v15 = qword_281051F78;
-      v16 = 64;
+      v9 = qword_281051F78;
+      v10 = 64;
       goto LABEL_363;
     case 65:
-      v8 = "BOOL";
-      v9 = 65;
+      v3 = "BOOL";
+      v4 = 65;
 LABEL_208:
-      throwWrongTypeForParamId(v9, v8, "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(v4, v3, "int");
       return 0;
     case 66:
       if (a3 <= 1)
@@ -3955,15 +3954,15 @@ LABEL_208:
           goto LABEL_364;
         }
 
-        v10 = qword_281051F78;
-        v11 = 66;
+        v5 = qword_281051F78;
+        v6 = 66;
         goto LABEL_217;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051F78;
-        v20 = 66;
+        v12 = qword_281051F78;
+        v13 = 66;
         goto LABEL_462;
       }
 
@@ -3972,8 +3971,8 @@ LABEL_208:
         goto LABEL_364;
       }
 
-      v15 = qword_281051F78;
-      v16 = 66;
+      v9 = qword_281051F78;
+      v10 = 66;
       goto LABEL_363;
     case 67:
       if (a3 <= 1)
@@ -3988,15 +3987,15 @@ LABEL_208:
           goto LABEL_364;
         }
 
-        v10 = qword_281051F78;
-        v11 = 67;
+        v5 = qword_281051F78;
+        v6 = 67;
         goto LABEL_217;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051F78;
-        v20 = 67;
+        v12 = qword_281051F78;
+        v13 = 67;
         goto LABEL_462;
       }
 
@@ -4005,8 +4004,8 @@ LABEL_208:
         goto LABEL_364;
       }
 
-      v15 = qword_281051F78;
-      v16 = 67;
+      v9 = qword_281051F78;
+      v10 = 67;
       goto LABEL_363;
     case 68:
       if (a3 <= 1)
@@ -4021,15 +4020,15 @@ LABEL_208:
           goto LABEL_364;
         }
 
-        v10 = qword_281051F78;
-        v11 = 68;
+        v5 = qword_281051F78;
+        v6 = 68;
         goto LABEL_217;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051F78;
-        v20 = 68;
+        v12 = qword_281051F78;
+        v13 = 68;
         goto LABEL_462;
       }
 
@@ -4038,8 +4037,8 @@ LABEL_208:
         goto LABEL_364;
       }
 
-      v15 = qword_281051F78;
-      v16 = 68;
+      v9 = qword_281051F78;
+      v10 = 68;
       goto LABEL_363;
     case 69:
       if (a3 <= 1)
@@ -4054,15 +4053,15 @@ LABEL_208:
           goto LABEL_364;
         }
 
-        v10 = qword_281051F78;
-        v11 = 69;
+        v5 = qword_281051F78;
+        v6 = 69;
         goto LABEL_217;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051F78;
-        v20 = 69;
+        v12 = qword_281051F78;
+        v13 = 69;
         goto LABEL_462;
       }
 
@@ -4071,8 +4070,8 @@ LABEL_208:
         goto LABEL_364;
       }
 
-      v15 = qword_281051F78;
-      v16 = 69;
+      v9 = qword_281051F78;
+      v10 = 69;
       goto LABEL_363;
     case 70:
       if (a3 <= 1)
@@ -4084,25 +4083,23 @@ LABEL_208:
 
         if (a3 == 1)
         {
-          v10 = qword_281051F78;
-          v11 = 70;
+          v5 = qword_281051F78;
+          v6 = 70;
 LABEL_217:
-          ParamByParamId = ParamSpecMgr::getParamByParamId(v10, v11, a3, a4, a5, a6, a7, a8);
-          v13 = **ParamByParamId;
+          ParamByParamId = ParamSpecMgr::getParamByParamId(v5, v6);
         }
 
 LABEL_364:
-        throwWrongQueryMode(a3, "int", a3, a4, a5, a6, a7, a8);
+        throwWrongQueryMode(a3, "int");
         return 0;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051F78;
-        v20 = 70;
+        v12 = qword_281051F78;
+        v13 = 70;
 LABEL_462:
-        v21 = ParamSpecMgr::getParamByParamId(v19, v20, a3, a4, a5, a6, a7, a8);
-        v22 = **v21;
+        v14 = ParamSpecMgr::getParamByParamId(v12, v13);
       }
 
       if (a3 != 3)
@@ -4110,76 +4107,75 @@ LABEL_462:
         goto LABEL_364;
       }
 
-      v15 = qword_281051F78;
-      v16 = 70;
+      v9 = qword_281051F78;
+      v10 = 70;
 LABEL_363:
-      v17 = ParamSpecMgr::getParamByParamId(v15, v16, a3, a4, a5, a6, a7, a8);
-      v18 = **v17;
+      v11 = ParamSpecMgr::getParamByParamId(v9, v10);
     default:
-      throwWrongParamIdValue(a2, "int", a3, a4, a5, a6, a7, a8);
+      throwWrongParamIdValue(a2, "int");
       return 0;
   }
 }
 
-double ChannelParamSet::getDoubleParameter(double *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double ChannelParamSet::getDoubleParameter(double *a1, int a2, uint64_t a3)
 {
   switch(a2)
   {
     case 1:
-      v8 = "BOOL";
-      v9 = 1;
+      v3 = "BOOL";
+      v4 = 1;
       goto LABEL_85;
     case 2:
-      v8 = "int";
-      v9 = 2;
+      v3 = "int";
+      v4 = 2;
       goto LABEL_85;
     case 3:
-      v8 = "BOOL";
-      v9 = 3;
+      v3 = "BOOL";
+      v4 = 3;
       goto LABEL_85;
     case 4:
-      v8 = "int";
-      v9 = 4;
+      v3 = "int";
+      v4 = 4;
       goto LABEL_85;
     case 5:
-      v8 = "BOOL";
-      v9 = 5;
+      v3 = "BOOL";
+      v4 = 5;
       goto LABEL_85;
     case 6:
-      v8 = "int";
-      v9 = 6;
+      v3 = "int";
+      v4 = 6;
       goto LABEL_85;
     case 7:
-      v8 = "int";
-      v9 = 7;
+      v3 = "int";
+      v4 = 7;
       goto LABEL_85;
     case 8:
-      v8 = "BOOL";
-      v9 = 8;
+      v3 = "BOOL";
+      v4 = 8;
       goto LABEL_85;
     case 9:
-      v8 = "BOOL";
-      v9 = 9;
+      v3 = "BOOL";
+      v4 = 9;
       goto LABEL_85;
     case 10:
-      v8 = "BOOL";
-      v9 = 10;
+      v3 = "BOOL";
+      v4 = 10;
       goto LABEL_85;
     case 11:
-      v8 = "BOOL";
-      v9 = 11;
+      v3 = "BOOL";
+      v4 = 11;
       goto LABEL_85;
     case 12:
-      v8 = "int";
-      v9 = 12;
+      v3 = "int";
+      v4 = 12;
       goto LABEL_85;
     case 13:
-      v8 = "enum";
-      v9 = 13;
+      v3 = "enum";
+      v4 = 13;
       goto LABEL_85;
     case 14:
-      v8 = "int";
-      v9 = 14;
+      v3 = "int";
+      v4 = 14;
       goto LABEL_85;
     case 15:
       if (a3 <= 1)
@@ -4194,15 +4190,15 @@ double ChannelParamSet::getDoubleParameter(double *a1, int a2, uint64_t a3, uint
           goto LABEL_102;
         }
 
-        v10 = qword_281051F78;
-        v11 = 15;
+        v5 = qword_281051F78;
+        v6 = 15;
         goto LABEL_65;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051F78;
-        v20 = 15;
+        v12 = qword_281051F78;
+        v13 = 15;
         goto LABEL_111;
       }
 
@@ -4211,68 +4207,68 @@ double ChannelParamSet::getDoubleParameter(double *a1, int a2, uint64_t a3, uint
         goto LABEL_102;
       }
 
-      v15 = qword_281051F78;
-      v16 = 15;
+      v9 = qword_281051F78;
+      v10 = 15;
       goto LABEL_101;
     case 16:
-      v8 = "BOOL";
-      v9 = 16;
+      v3 = "BOOL";
+      v4 = 16;
       goto LABEL_85;
     case 17:
-      v8 = "int";
-      v9 = 17;
+      v3 = "int";
+      v4 = 17;
       goto LABEL_85;
     case 18:
-      v8 = "BOOL";
-      v9 = 18;
+      v3 = "BOOL";
+      v4 = 18;
       goto LABEL_85;
     case 19:
-      v8 = "int";
-      v9 = 19;
+      v3 = "int";
+      v4 = 19;
       goto LABEL_85;
     case 20:
-      v8 = "BOOL";
-      v9 = 20;
+      v3 = "BOOL";
+      v4 = 20;
       goto LABEL_85;
     case 21:
-      v8 = "int";
-      v9 = 21;
+      v3 = "int";
+      v4 = 21;
       goto LABEL_85;
     case 22:
-      v8 = "BOOL";
-      v9 = 22;
+      v3 = "BOOL";
+      v4 = 22;
       goto LABEL_85;
     case 23:
-      v8 = "int";
-      v9 = 23;
+      v3 = "int";
+      v4 = 23;
       goto LABEL_85;
     case 24:
-      v8 = "int";
-      v9 = 24;
+      v3 = "int";
+      v4 = 24;
       goto LABEL_85;
     case 25:
-      v8 = "int";
-      v9 = 25;
+      v3 = "int";
+      v4 = 25;
       goto LABEL_85;
     case 26:
-      v8 = "int";
-      v9 = 26;
+      v3 = "int";
+      v4 = 26;
       goto LABEL_85;
     case 27:
-      v8 = "int";
-      v9 = 27;
+      v3 = "int";
+      v4 = 27;
       goto LABEL_85;
     case 28:
-      v8 = "int";
-      v9 = 28;
+      v3 = "int";
+      v4 = 28;
       goto LABEL_85;
     case 29:
-      v8 = "int";
-      v9 = 29;
+      v3 = "int";
+      v4 = 29;
       goto LABEL_85;
     case 30:
-      v8 = "int";
-      v9 = 30;
+      v3 = "int";
+      v4 = 30;
       goto LABEL_85;
     case 31:
       if (a3 <= 1)
@@ -4287,15 +4283,15 @@ double ChannelParamSet::getDoubleParameter(double *a1, int a2, uint64_t a3, uint
           goto LABEL_102;
         }
 
-        v10 = qword_281051F78;
-        v11 = 31;
+        v5 = qword_281051F78;
+        v6 = 31;
         goto LABEL_65;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051F78;
-        v20 = 31;
+        v12 = qword_281051F78;
+        v13 = 31;
         goto LABEL_111;
       }
 
@@ -4304,20 +4300,20 @@ double ChannelParamSet::getDoubleParameter(double *a1, int a2, uint64_t a3, uint
         goto LABEL_102;
       }
 
-      v15 = qword_281051F78;
-      v16 = 31;
+      v9 = qword_281051F78;
+      v10 = 31;
       goto LABEL_101;
     case 32:
-      v8 = "int";
-      v9 = 32;
+      v3 = "int";
+      v4 = 32;
       goto LABEL_85;
     case 33:
-      v8 = "BOOL";
-      v9 = 33;
+      v3 = "BOOL";
+      v4 = 33;
       goto LABEL_85;
     case 34:
-      v8 = "int";
-      v9 = 34;
+      v3 = "int";
+      v4 = 34;
       goto LABEL_85;
     case 35:
       if (a3 <= 1)
@@ -4332,15 +4328,15 @@ double ChannelParamSet::getDoubleParameter(double *a1, int a2, uint64_t a3, uint
           goto LABEL_102;
         }
 
-        v10 = qword_281051F78;
-        v11 = 35;
+        v5 = qword_281051F78;
+        v6 = 35;
         goto LABEL_65;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051F78;
-        v20 = 35;
+        v12 = qword_281051F78;
+        v13 = 35;
         goto LABEL_111;
       }
 
@@ -4349,16 +4345,16 @@ double ChannelParamSet::getDoubleParameter(double *a1, int a2, uint64_t a3, uint
         goto LABEL_102;
       }
 
-      v15 = qword_281051F78;
-      v16 = 35;
+      v9 = qword_281051F78;
+      v10 = 35;
       goto LABEL_101;
     case 36:
-      v8 = "int";
-      v9 = 36;
+      v3 = "int";
+      v4 = 36;
       goto LABEL_85;
     case 37:
-      v8 = "int";
-      v9 = 37;
+      v3 = "int";
+      v4 = 37;
       goto LABEL_85;
     case 38:
       if (a3 <= 1)
@@ -4370,25 +4366,23 @@ double ChannelParamSet::getDoubleParameter(double *a1, int a2, uint64_t a3, uint
 
         if (a3 == 1)
         {
-          v10 = qword_281051F78;
-          v11 = 38;
+          v5 = qword_281051F78;
+          v6 = 38;
 LABEL_65:
-          ParamByParamId = ParamSpecMgr::getParamByParamId(v10, v11, a3, a4, a5, a6, a7, a8);
-          v13 = **ParamByParamId;
+          ParamByParamId = ParamSpecMgr::getParamByParamId(v5, v6);
         }
 
 LABEL_102:
-        throwWrongQueryMode(a3, "double", a3, a4, a5, a6, a7, a8);
+        throwWrongQueryMode(a3, "double");
         return 0.0;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051F78;
-        v20 = 38;
+        v12 = qword_281051F78;
+        v13 = 38;
 LABEL_111:
-        v21 = ParamSpecMgr::getParamByParamId(v19, v20, a3, a4, a5, a6, a7, a8);
-        v22 = **v21;
+        v14 = ParamSpecMgr::getParamByParamId(v12, v13);
       }
 
       if (a3 != 3)
@@ -4396,500 +4390,499 @@ LABEL_111:
         goto LABEL_102;
       }
 
-      v15 = qword_281051F78;
-      v16 = 38;
+      v9 = qword_281051F78;
+      v10 = 38;
 LABEL_101:
-      v17 = ParamSpecMgr::getParamByParamId(v15, v16, a3, a4, a5, a6, a7, a8);
-      v18 = **v17;
+      v11 = ParamSpecMgr::getParamByParamId(v9, v10);
     case 39:
-      v8 = "enum";
-      v9 = 39;
+      v3 = "enum";
+      v4 = 39;
       goto LABEL_85;
     case 40:
-      v8 = "int";
-      v9 = 40;
+      v3 = "int";
+      v4 = 40;
       goto LABEL_85;
     case 41:
-      v8 = "BOOL";
-      v9 = 41;
+      v3 = "BOOL";
+      v4 = 41;
       goto LABEL_85;
     case 42:
-      v8 = "int";
-      v9 = 42;
+      v3 = "int";
+      v4 = 42;
       goto LABEL_85;
     case 43:
-      v8 = "int";
-      v9 = 43;
+      v3 = "int";
+      v4 = 43;
       goto LABEL_85;
     case 44:
-      v8 = "int";
-      v9 = 44;
+      v3 = "int";
+      v4 = 44;
       goto LABEL_85;
     case 45:
-      v8 = "int";
-      v9 = 45;
+      v3 = "int";
+      v4 = 45;
       goto LABEL_85;
     case 46:
-      v8 = "int";
-      v9 = 46;
+      v3 = "int";
+      v4 = 46;
       goto LABEL_85;
     case 47:
-      v8 = "BOOL";
-      v9 = 47;
+      v3 = "BOOL";
+      v4 = 47;
       goto LABEL_85;
     case 48:
-      v8 = "int";
-      v9 = 48;
+      v3 = "int";
+      v4 = 48;
       goto LABEL_85;
     case 49:
-      v8 = "int";
-      v9 = 49;
+      v3 = "int";
+      v4 = 49;
       goto LABEL_85;
     case 50:
-      v8 = "int";
-      v9 = 50;
+      v3 = "int";
+      v4 = 50;
       goto LABEL_85;
     case 51:
-      v8 = "int";
-      v9 = 51;
+      v3 = "int";
+      v4 = 51;
       goto LABEL_85;
     case 52:
-      v8 = "int";
-      v9 = 52;
+      v3 = "int";
+      v4 = 52;
       goto LABEL_85;
     case 53:
-      v8 = "int";
-      v9 = 53;
+      v3 = "int";
+      v4 = 53;
       goto LABEL_85;
     case 54:
-      v8 = "int";
-      v9 = 54;
+      v3 = "int";
+      v4 = 54;
       goto LABEL_85;
     case 55:
-      v8 = "int";
-      v9 = 55;
+      v3 = "int";
+      v4 = 55;
       goto LABEL_85;
     case 56:
-      v8 = "int";
-      v9 = 56;
+      v3 = "int";
+      v4 = 56;
       goto LABEL_85;
     case 57:
-      v8 = "int";
-      v9 = 57;
+      v3 = "int";
+      v4 = 57;
       goto LABEL_85;
     case 58:
-      v8 = "int";
-      v9 = 58;
+      v3 = "int";
+      v4 = 58;
       goto LABEL_85;
     case 59:
-      v8 = "int";
-      v9 = 59;
+      v3 = "int";
+      v4 = 59;
       goto LABEL_85;
     case 60:
-      v8 = "int";
-      v9 = 60;
+      v3 = "int";
+      v4 = 60;
       goto LABEL_85;
     case 61:
-      v8 = "int";
-      v9 = 61;
+      v3 = "int";
+      v4 = 61;
       goto LABEL_85;
     case 62:
-      v8 = "int";
-      v9 = 62;
+      v3 = "int";
+      v4 = 62;
       goto LABEL_85;
     case 63:
-      v8 = "BOOL";
-      v9 = 63;
+      v3 = "BOOL";
+      v4 = 63;
       goto LABEL_85;
     case 64:
-      v8 = "int";
-      v9 = 64;
+      v3 = "int";
+      v4 = 64;
       goto LABEL_85;
     case 65:
-      v8 = "BOOL";
-      v9 = 65;
+      v3 = "BOOL";
+      v4 = 65;
       goto LABEL_85;
     case 66:
-      v8 = "int";
-      v9 = 66;
+      v3 = "int";
+      v4 = 66;
       goto LABEL_85;
     case 67:
-      v8 = "int";
-      v9 = 67;
+      v3 = "int";
+      v4 = 67;
       goto LABEL_85;
     case 68:
-      v8 = "int";
-      v9 = 68;
+      v3 = "int";
+      v4 = 68;
       goto LABEL_85;
     case 69:
-      v8 = "int";
-      v9 = 69;
+      v3 = "int";
+      v4 = 69;
       goto LABEL_85;
     case 70:
-      v8 = "int";
-      v9 = 70;
+      v3 = "int";
+      v4 = 70;
 LABEL_85:
-      throwWrongTypeForParamId(v9, v8, "double", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(v4, v3, "double");
       return 0.0;
     default:
-      throwWrongParamIdValue(a2, "double", a3, a4, a5, a6, a7, a8);
+      throwWrongParamIdValue(a2, "double");
       return 0.0;
   }
 }
 
-uint64_t ChannelParamSet::getStringParameter(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t ChannelParamSet::getStringParameter(uint64_t a1, int a2)
 {
   switch(a2)
   {
     case 1:
-      v8 = "BOOL";
-      v9 = 1;
+      v2 = "BOOL";
+      v3 = 1;
       goto LABEL_72;
     case 2:
-      v8 = "int";
-      v9 = 2;
+      v2 = "int";
+      v3 = 2;
       goto LABEL_72;
     case 3:
-      v8 = "BOOL";
-      v9 = 3;
+      v2 = "BOOL";
+      v3 = 3;
       goto LABEL_72;
     case 4:
-      v8 = "int";
-      v9 = 4;
+      v2 = "int";
+      v3 = 4;
       goto LABEL_72;
     case 5:
-      v8 = "BOOL";
-      v9 = 5;
+      v2 = "BOOL";
+      v3 = 5;
       goto LABEL_72;
     case 6:
-      v8 = "int";
-      v9 = 6;
+      v2 = "int";
+      v3 = 6;
       goto LABEL_72;
     case 7:
-      v8 = "int";
-      v9 = 7;
+      v2 = "int";
+      v3 = 7;
       goto LABEL_72;
     case 8:
-      v8 = "BOOL";
-      v9 = 8;
+      v2 = "BOOL";
+      v3 = 8;
       goto LABEL_72;
     case 9:
-      v8 = "BOOL";
-      v9 = 9;
+      v2 = "BOOL";
+      v3 = 9;
       goto LABEL_72;
     case 10:
-      v8 = "BOOL";
-      v9 = 10;
+      v2 = "BOOL";
+      v3 = 10;
       goto LABEL_72;
     case 11:
-      v8 = "BOOL";
-      v9 = 11;
+      v2 = "BOOL";
+      v3 = 11;
       goto LABEL_72;
     case 12:
-      v8 = "int";
-      v9 = 12;
+      v2 = "int";
+      v3 = 12;
       goto LABEL_72;
     case 13:
-      v8 = "enum";
-      v9 = 13;
+      v2 = "enum";
+      v3 = 13;
       goto LABEL_72;
     case 14:
-      v8 = "int";
-      v9 = 14;
+      v2 = "int";
+      v3 = 14;
       goto LABEL_72;
     case 15:
-      v8 = "double";
-      v9 = 15;
+      v2 = "double";
+      v3 = 15;
       goto LABEL_72;
     case 16:
-      v8 = "BOOL";
-      v9 = 16;
+      v2 = "BOOL";
+      v3 = 16;
       goto LABEL_72;
     case 17:
-      v8 = "int";
-      v9 = 17;
+      v2 = "int";
+      v3 = 17;
       goto LABEL_72;
     case 18:
-      v8 = "BOOL";
-      v9 = 18;
+      v2 = "BOOL";
+      v3 = 18;
       goto LABEL_72;
     case 19:
-      v8 = "int";
-      v9 = 19;
+      v2 = "int";
+      v3 = 19;
       goto LABEL_72;
     case 20:
-      v8 = "BOOL";
-      v9 = 20;
+      v2 = "BOOL";
+      v3 = 20;
       goto LABEL_72;
     case 21:
-      v8 = "int";
-      v9 = 21;
+      v2 = "int";
+      v3 = 21;
       goto LABEL_72;
     case 22:
-      v8 = "BOOL";
-      v9 = 22;
+      v2 = "BOOL";
+      v3 = 22;
       goto LABEL_72;
     case 23:
-      v8 = "int";
-      v9 = 23;
+      v2 = "int";
+      v3 = 23;
       goto LABEL_72;
     case 24:
-      v8 = "int";
-      v9 = 24;
+      v2 = "int";
+      v3 = 24;
       goto LABEL_72;
     case 25:
-      v8 = "int";
-      v9 = 25;
+      v2 = "int";
+      v3 = 25;
       goto LABEL_72;
     case 26:
-      v8 = "int";
-      v9 = 26;
+      v2 = "int";
+      v3 = 26;
       goto LABEL_72;
     case 27:
-      v8 = "int";
-      v9 = 27;
+      v2 = "int";
+      v3 = 27;
       goto LABEL_72;
     case 28:
-      v8 = "int";
-      v9 = 28;
+      v2 = "int";
+      v3 = 28;
       goto LABEL_72;
     case 29:
-      v8 = "int";
-      v9 = 29;
+      v2 = "int";
+      v3 = 29;
       goto LABEL_72;
     case 30:
-      v8 = "int";
-      v9 = 30;
+      v2 = "int";
+      v3 = 30;
       goto LABEL_72;
     case 31:
-      v8 = "double";
-      v9 = 31;
+      v2 = "double";
+      v3 = 31;
       goto LABEL_72;
     case 32:
-      v8 = "int";
-      v9 = 32;
+      v2 = "int";
+      v3 = 32;
       goto LABEL_72;
     case 33:
-      v8 = "BOOL";
-      v9 = 33;
+      v2 = "BOOL";
+      v3 = 33;
       goto LABEL_72;
     case 34:
-      v8 = "int";
-      v9 = 34;
+      v2 = "int";
+      v3 = 34;
       goto LABEL_72;
     case 35:
-      v8 = "double";
-      v9 = 35;
+      v2 = "double";
+      v3 = 35;
       goto LABEL_72;
     case 36:
-      v8 = "int";
-      v9 = 36;
+      v2 = "int";
+      v3 = 36;
       goto LABEL_72;
     case 37:
-      v8 = "int";
-      v9 = 37;
+      v2 = "int";
+      v3 = 37;
       goto LABEL_72;
     case 38:
-      v8 = "double";
-      v9 = 38;
+      v2 = "double";
+      v3 = 38;
       goto LABEL_72;
     case 39:
-      v8 = "enum";
-      v9 = 39;
+      v2 = "enum";
+      v3 = 39;
       goto LABEL_72;
     case 40:
-      v8 = "int";
-      v9 = 40;
+      v2 = "int";
+      v3 = 40;
       goto LABEL_72;
     case 41:
-      v8 = "BOOL";
-      v9 = 41;
+      v2 = "BOOL";
+      v3 = 41;
       goto LABEL_72;
     case 42:
-      v8 = "int";
-      v9 = 42;
+      v2 = "int";
+      v3 = 42;
       goto LABEL_72;
     case 43:
-      v8 = "int";
-      v9 = 43;
+      v2 = "int";
+      v3 = 43;
       goto LABEL_72;
     case 44:
-      v8 = "int";
-      v9 = 44;
+      v2 = "int";
+      v3 = 44;
       goto LABEL_72;
     case 45:
-      v8 = "int";
-      v9 = 45;
+      v2 = "int";
+      v3 = 45;
       goto LABEL_72;
     case 46:
-      v8 = "int";
-      v9 = 46;
+      v2 = "int";
+      v3 = 46;
       goto LABEL_72;
     case 47:
-      v8 = "BOOL";
-      v9 = 47;
+      v2 = "BOOL";
+      v3 = 47;
       goto LABEL_72;
     case 48:
-      v8 = "int";
-      v9 = 48;
+      v2 = "int";
+      v3 = 48;
       goto LABEL_72;
     case 49:
-      v8 = "int";
-      v9 = 49;
+      v2 = "int";
+      v3 = 49;
       goto LABEL_72;
     case 50:
-      v8 = "int";
-      v9 = 50;
+      v2 = "int";
+      v3 = 50;
       goto LABEL_72;
     case 51:
-      v8 = "int";
-      v9 = 51;
+      v2 = "int";
+      v3 = 51;
       goto LABEL_72;
     case 52:
-      v8 = "int";
-      v9 = 52;
+      v2 = "int";
+      v3 = 52;
       goto LABEL_72;
     case 53:
-      v8 = "int";
-      v9 = 53;
+      v2 = "int";
+      v3 = 53;
       goto LABEL_72;
     case 54:
-      v8 = "int";
-      v9 = 54;
+      v2 = "int";
+      v3 = 54;
       goto LABEL_72;
     case 55:
-      v8 = "int";
-      v9 = 55;
+      v2 = "int";
+      v3 = 55;
       goto LABEL_72;
     case 56:
-      v8 = "int";
-      v9 = 56;
+      v2 = "int";
+      v3 = 56;
       goto LABEL_72;
     case 57:
-      v8 = "int";
-      v9 = 57;
+      v2 = "int";
+      v3 = 57;
       goto LABEL_72;
     case 58:
-      v8 = "int";
-      v9 = 58;
+      v2 = "int";
+      v3 = 58;
       goto LABEL_72;
     case 59:
-      v8 = "int";
-      v9 = 59;
+      v2 = "int";
+      v3 = 59;
       goto LABEL_72;
     case 60:
-      v8 = "int";
-      v9 = 60;
+      v2 = "int";
+      v3 = 60;
       goto LABEL_72;
     case 61:
-      v8 = "int";
-      v9 = 61;
+      v2 = "int";
+      v3 = 61;
       goto LABEL_72;
     case 62:
-      v8 = "int";
-      v9 = 62;
+      v2 = "int";
+      v3 = 62;
       goto LABEL_72;
     case 63:
-      v8 = "BOOL";
-      v9 = 63;
+      v2 = "BOOL";
+      v3 = 63;
       goto LABEL_72;
     case 64:
-      v8 = "int";
-      v9 = 64;
+      v2 = "int";
+      v3 = 64;
       goto LABEL_72;
     case 65:
-      v8 = "BOOL";
-      v9 = 65;
+      v2 = "BOOL";
+      v3 = 65;
       goto LABEL_72;
     case 66:
-      v8 = "int";
-      v9 = 66;
+      v2 = "int";
+      v3 = 66;
       goto LABEL_72;
     case 67:
-      v8 = "int";
-      v9 = 67;
+      v2 = "int";
+      v3 = 67;
       goto LABEL_72;
     case 68:
-      v8 = "int";
-      v9 = 68;
+      v2 = "int";
+      v3 = 68;
       goto LABEL_72;
     case 69:
-      v8 = "int";
-      v9 = 69;
+      v2 = "int";
+      v3 = 69;
       goto LABEL_72;
     case 70:
-      v8 = "int";
-      v9 = 70;
+      v2 = "int";
+      v3 = 70;
 LABEL_72:
-      throwWrongTypeForParamId(v9, v8, "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(v3, v2, "string");
       break;
     default:
-      throwWrongParamIdValue(a2, "string", a3, a4, a5, a6, a7, a8);
+      throwWrongParamIdValue(a2, "string");
       break;
   }
 
   return 0;
 }
 
-uint64_t ChannelParamSet::getEnumParameter(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t ChannelParamSet::getEnumParameter(uint64_t a1, int a2, uint64_t a3)
 {
   switch(a2)
   {
     case 1:
-      v8 = "BOOL";
-      v9 = 1;
+      v3 = "BOOL";
+      v4 = 1;
       goto LABEL_84;
     case 2:
-      v8 = "int";
-      v9 = 2;
+      v3 = "int";
+      v4 = 2;
       goto LABEL_84;
     case 3:
-      v8 = "BOOL";
-      v9 = 3;
+      v3 = "BOOL";
+      v4 = 3;
       goto LABEL_84;
     case 4:
-      v8 = "int";
-      v9 = 4;
+      v3 = "int";
+      v4 = 4;
       goto LABEL_84;
     case 5:
-      v8 = "BOOL";
-      v9 = 5;
+      v3 = "BOOL";
+      v4 = 5;
       goto LABEL_84;
     case 6:
-      v8 = "int";
-      v9 = 6;
+      v3 = "int";
+      v4 = 6;
       goto LABEL_84;
     case 7:
-      v8 = "int";
-      v9 = 7;
+      v3 = "int";
+      v4 = 7;
       goto LABEL_84;
     case 8:
-      v8 = "BOOL";
-      v9 = 8;
+      v3 = "BOOL";
+      v4 = 8;
       goto LABEL_84;
     case 9:
-      v8 = "BOOL";
-      v9 = 9;
+      v3 = "BOOL";
+      v4 = 9;
       goto LABEL_84;
     case 10:
-      v8 = "BOOL";
-      v9 = 10;
+      v3 = "BOOL";
+      v4 = 10;
       goto LABEL_84;
     case 11:
-      v8 = "BOOL";
-      v9 = 11;
+      v3 = "BOOL";
+      v4 = 11;
       goto LABEL_84;
     case 12:
-      v8 = "int";
-      v9 = 12;
+      v3 = "int";
+      v4 = 12;
       goto LABEL_84;
     case 13:
       if (a3 > 1)
       {
         if (a3 == 2)
         {
-          v26 = qword_281051F78;
-          v27 = 13;
+          v18 = qword_281051F78;
+          v19 = 13;
           goto LABEL_105;
         }
 
@@ -4898,8 +4891,8 @@ uint64_t ChannelParamSet::getEnumParameter(uint64_t a1, int a2, uint64_t a3, uin
           goto LABEL_100;
         }
 
-        v22 = qword_281051F78;
-        v23 = 13;
+        v15 = qword_281051F78;
+        v16 = 13;
         goto LABEL_95;
       }
 
@@ -4913,158 +4906,155 @@ uint64_t ChannelParamSet::getEnumParameter(uint64_t a1, int a2, uint64_t a3, uin
         goto LABEL_100;
       }
 
-      ParamByParamId = ParamSpecMgr::getParamByParamId(qword_281051F78, 13, a3, a4, a5, a6, a7, a8);
-      v11 = **ParamByParamId;
-      if (**(v12 + 24))
+      ParamByParamId = ParamSpecMgr::getParamByParamId(qword_281051F78, 13);
+      if (**(v6 + 24))
       {
-        v13 = v12 + 16;
-        v14 = 1;
-        v15 = v13;
+        v7 = v6 + 16;
+        v8 = 1;
+        v9 = v7;
         do
         {
-          if (*v15 == 1)
+          if (*v9 == 1)
           {
-            return *(v15 + 16);
+            return *(v9 + 16);
           }
 
           result = 0;
-          v15 = v13 + 32 * v14++;
+          v9 = v7 + 32 * v8++;
         }
 
-        while (**(v15 + 8));
+        while (**(v9 + 8));
         return result;
       }
 
       return 0;
     case 14:
-      v8 = "int";
-      v9 = 14;
+      v3 = "int";
+      v4 = 14;
       goto LABEL_84;
     case 15:
-      v8 = "double";
-      v9 = 15;
+      v3 = "double";
+      v4 = 15;
       goto LABEL_84;
     case 16:
-      v8 = "BOOL";
-      v9 = 16;
+      v3 = "BOOL";
+      v4 = 16;
       goto LABEL_84;
     case 17:
-      v8 = "int";
-      v9 = 17;
+      v3 = "int";
+      v4 = 17;
       goto LABEL_84;
     case 18:
-      v8 = "BOOL";
-      v9 = 18;
+      v3 = "BOOL";
+      v4 = 18;
       goto LABEL_84;
     case 19:
-      v8 = "int";
-      v9 = 19;
+      v3 = "int";
+      v4 = 19;
       goto LABEL_84;
     case 20:
-      v8 = "BOOL";
-      v9 = 20;
+      v3 = "BOOL";
+      v4 = 20;
       goto LABEL_84;
     case 21:
-      v8 = "int";
-      v9 = 21;
+      v3 = "int";
+      v4 = 21;
       goto LABEL_84;
     case 22:
-      v8 = "BOOL";
-      v9 = 22;
+      v3 = "BOOL";
+      v4 = 22;
       goto LABEL_84;
     case 23:
-      v8 = "int";
-      v9 = 23;
+      v3 = "int";
+      v4 = 23;
       goto LABEL_84;
     case 24:
-      v8 = "int";
-      v9 = 24;
+      v3 = "int";
+      v4 = 24;
       goto LABEL_84;
     case 25:
-      v8 = "int";
-      v9 = 25;
+      v3 = "int";
+      v4 = 25;
       goto LABEL_84;
     case 26:
-      v8 = "int";
-      v9 = 26;
+      v3 = "int";
+      v4 = 26;
       goto LABEL_84;
     case 27:
-      v8 = "int";
-      v9 = 27;
+      v3 = "int";
+      v4 = 27;
       goto LABEL_84;
     case 28:
-      v8 = "int";
-      v9 = 28;
+      v3 = "int";
+      v4 = 28;
       goto LABEL_84;
     case 29:
-      v8 = "int";
-      v9 = 29;
+      v3 = "int";
+      v4 = 29;
       goto LABEL_84;
     case 30:
-      v8 = "int";
-      v9 = 30;
+      v3 = "int";
+      v4 = 30;
       goto LABEL_84;
     case 31:
-      v8 = "double";
-      v9 = 31;
+      v3 = "double";
+      v4 = 31;
       goto LABEL_84;
     case 32:
-      v8 = "int";
-      v9 = 32;
+      v3 = "int";
+      v4 = 32;
       goto LABEL_84;
     case 33:
-      v8 = "BOOL";
-      v9 = 33;
+      v3 = "BOOL";
+      v4 = 33;
       goto LABEL_84;
     case 34:
-      v8 = "int";
-      v9 = 34;
+      v3 = "int";
+      v4 = 34;
       goto LABEL_84;
     case 35:
-      v8 = "double";
-      v9 = 35;
+      v3 = "double";
+      v4 = 35;
       goto LABEL_84;
     case 36:
-      v8 = "int";
-      v9 = 36;
+      v3 = "int";
+      v4 = 36;
       goto LABEL_84;
     case 37:
-      v8 = "int";
-      v9 = 37;
+      v3 = "int";
+      v4 = 37;
       goto LABEL_84;
     case 38:
-      v8 = "double";
-      v9 = 38;
+      v3 = "double";
+      v4 = 38;
       goto LABEL_84;
     case 39:
       if (a3 > 1)
       {
         if (a3 == 2)
         {
-          v26 = qword_281051F78;
-          v27 = 39;
+          v18 = qword_281051F78;
+          v19 = 39;
 LABEL_105:
-          v28 = ParamSpecMgr::getParamByParamId(v26, v27, a3, a4, a5, a6, a7, a8);
-          if (v28)
+          v20 = ParamSpecMgr::getParamByParamId(v18, v19);
+          if (v20)
           {
-            v29 = **v28;
           }
 
-          return EnumParamSpec::getMinVal(v28);
+          return EnumParamSpec::getMinVal(v20);
         }
 
         if (a3 == 3)
         {
-          v22 = qword_281051F78;
-          v23 = 39;
+          v15 = qword_281051F78;
+          v16 = 39;
 LABEL_95:
-          v24 = ParamSpecMgr::getParamByParamId(v22, v23, a3, a4, a5, a6, a7, a8);
-          if (v24)
+          v17 = ParamSpecMgr::getParamByParamId(v15, v16);
+          if (v17)
           {
-            v25 = **v24;
           }
 
-          return EnumParamSpec::getMaxVal(v24);
+          return EnumParamSpec::getMaxVal(v17);
         }
 
         goto LABEL_100;
@@ -5078,1620 +5068,1562 @@ LABEL_95:
       if (a3 != 1)
       {
 LABEL_100:
-        throwWrongQueryMode(a3, "enum", a3, a4, a5, a6, a7, a8);
+        throwWrongQueryMode(a3, "enum");
         return 0;
       }
 
-      v17 = ParamSpecMgr::getParamByParamId(qword_281051F78, 39, a3, a4, a5, a6, a7, a8);
-      v18 = **v17;
-      if (!**(v19 + 24))
+      v11 = ParamSpecMgr::getParamByParamId(qword_281051F78, 39);
+      if (!**(v12 + 24))
       {
         return 0;
       }
 
-      v20 = v19 + 16;
-      v21 = 1;
-      v15 = v20;
-      while (*v15 != 1)
+      v13 = v12 + 16;
+      v14 = 1;
+      v9 = v13;
+      while (*v9 != 1)
       {
         result = 0;
-        v15 = v20 + 32 * v21++;
-        if (!**(v15 + 8))
+        v9 = v13 + 32 * v14++;
+        if (!**(v9 + 8))
         {
           return result;
         }
       }
 
-      return *(v15 + 16);
+      return *(v9 + 16);
     case 40:
-      v8 = "int";
-      v9 = 40;
+      v3 = "int";
+      v4 = 40;
       goto LABEL_84;
     case 41:
-      v8 = "BOOL";
-      v9 = 41;
+      v3 = "BOOL";
+      v4 = 41;
       goto LABEL_84;
     case 42:
-      v8 = "int";
-      v9 = 42;
+      v3 = "int";
+      v4 = 42;
       goto LABEL_84;
     case 43:
-      v8 = "int";
-      v9 = 43;
+      v3 = "int";
+      v4 = 43;
       goto LABEL_84;
     case 44:
-      v8 = "int";
-      v9 = 44;
+      v3 = "int";
+      v4 = 44;
       goto LABEL_84;
     case 45:
-      v8 = "int";
-      v9 = 45;
+      v3 = "int";
+      v4 = 45;
       goto LABEL_84;
     case 46:
-      v8 = "int";
-      v9 = 46;
+      v3 = "int";
+      v4 = 46;
       goto LABEL_84;
     case 47:
-      v8 = "BOOL";
-      v9 = 47;
+      v3 = "BOOL";
+      v4 = 47;
       goto LABEL_84;
     case 48:
-      v8 = "int";
-      v9 = 48;
+      v3 = "int";
+      v4 = 48;
       goto LABEL_84;
     case 49:
-      v8 = "int";
-      v9 = 49;
+      v3 = "int";
+      v4 = 49;
       goto LABEL_84;
     case 50:
-      v8 = "int";
-      v9 = 50;
+      v3 = "int";
+      v4 = 50;
       goto LABEL_84;
     case 51:
-      v8 = "int";
-      v9 = 51;
+      v3 = "int";
+      v4 = 51;
       goto LABEL_84;
     case 52:
-      v8 = "int";
-      v9 = 52;
+      v3 = "int";
+      v4 = 52;
       goto LABEL_84;
     case 53:
-      v8 = "int";
-      v9 = 53;
+      v3 = "int";
+      v4 = 53;
       goto LABEL_84;
     case 54:
-      v8 = "int";
-      v9 = 54;
+      v3 = "int";
+      v4 = 54;
       goto LABEL_84;
     case 55:
-      v8 = "int";
-      v9 = 55;
+      v3 = "int";
+      v4 = 55;
       goto LABEL_84;
     case 56:
-      v8 = "int";
-      v9 = 56;
+      v3 = "int";
+      v4 = 56;
       goto LABEL_84;
     case 57:
-      v8 = "int";
-      v9 = 57;
+      v3 = "int";
+      v4 = 57;
       goto LABEL_84;
     case 58:
-      v8 = "int";
-      v9 = 58;
+      v3 = "int";
+      v4 = 58;
       goto LABEL_84;
     case 59:
-      v8 = "int";
-      v9 = 59;
+      v3 = "int";
+      v4 = 59;
       goto LABEL_84;
     case 60:
-      v8 = "int";
-      v9 = 60;
+      v3 = "int";
+      v4 = 60;
       goto LABEL_84;
     case 61:
-      v8 = "int";
-      v9 = 61;
+      v3 = "int";
+      v4 = 61;
       goto LABEL_84;
     case 62:
-      v8 = "int";
-      v9 = 62;
+      v3 = "int";
+      v4 = 62;
       goto LABEL_84;
     case 63:
-      v8 = "BOOL";
-      v9 = 63;
+      v3 = "BOOL";
+      v4 = 63;
       goto LABEL_84;
     case 64:
-      v8 = "int";
-      v9 = 64;
+      v3 = "int";
+      v4 = 64;
       goto LABEL_84;
     case 65:
-      v8 = "BOOL";
-      v9 = 65;
+      v3 = "BOOL";
+      v4 = 65;
       goto LABEL_84;
     case 66:
-      v8 = "int";
-      v9 = 66;
+      v3 = "int";
+      v4 = 66;
       goto LABEL_84;
     case 67:
-      v8 = "int";
-      v9 = 67;
+      v3 = "int";
+      v4 = 67;
       goto LABEL_84;
     case 68:
-      v8 = "int";
-      v9 = 68;
+      v3 = "int";
+      v4 = 68;
       goto LABEL_84;
     case 69:
-      v8 = "int";
-      v9 = 69;
+      v3 = "int";
+      v4 = 69;
       goto LABEL_84;
     case 70:
-      v8 = "int";
-      v9 = 70;
+      v3 = "int";
+      v4 = 70;
 LABEL_84:
-      throwWrongTypeForParamId(v9, v8, "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(v4, v3, "BOOL");
       return 0;
     default:
-      throwWrongParamIdValue(a2, "enum", a3, a4, a5, a6, a7, a8);
+      throwWrongParamIdValue(a2, "enum");
       return 0;
   }
 }
 
-void ChannelParamSet::setBoolParameter(ChannelParamSet *this, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void ChannelParamSet::setBoolParameter(uint64_t this, int a2, char a3)
 {
-  v8 = a2;
-  v9 = a3;
   switch(a2)
   {
     case 1:
-      if (*(this + 9))
+      if (*(this + 36))
       {
-        v11 = "ChannelAdaptationCDFAdaptFastInitially";
+        v6 = "ChannelAdaptationCDFAdaptFastInitially";
         goto LABEL_96;
       }
 
       *(this + 40) = a3;
       return;
     case 2:
-      throwWrongTypeForParamId(2, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(2, "int", "BOOL");
       goto LABEL_31;
     case 3:
 LABEL_31:
-      if (*(this + 9))
+      if (*(this + 36))
       {
-        v11 = "ChannelAdaptationCDFUseSilenceTracker";
+        v6 = "ChannelAdaptationCDFUseSilenceTracker";
         goto LABEL_96;
       }
 
-      *(this + 48) = v9;
+      *(this + 48) = a3;
       return;
     case 4:
-      throwWrongTypeForParamId(4, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(4, "int", "BOOL");
       goto LABEL_13;
     case 5:
 LABEL_13:
-      if (*(this + 9))
+      if (*(this + 36))
       {
-        v11 = "ChannelAdaptationDelayApplyTillUttEnd";
+        v6 = "ChannelAdaptationDelayApplyTillUttEnd";
         goto LABEL_96;
       }
 
-      *(this + 56) = v9;
+      *(this + 56) = a3;
       return;
     case 6:
-      throwWrongTypeForParamId(6, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(6, "int", "BOOL");
       goto LABEL_41;
     case 7:
 LABEL_41:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_42;
     case 8:
 LABEL_42:
-      if (*(this + 9))
+      if (*(this + 36))
       {
-        v11 = "ChannelAdaptationMeansAdaptFastInitially";
+        v6 = "ChannelAdaptationMeansAdaptFastInitially";
         goto LABEL_96;
       }
 
-      *(this + 68) = v9;
+      *(this + 68) = a3;
       return;
     case 9:
-      if (*(this + 9))
+      if (*(this + 36))
       {
-        v11 = "ChannelAdaptationMeansApplySynchronous";
+        v6 = "ChannelAdaptationMeansApplySynchronous";
         goto LABEL_96;
       }
 
       *(this + 69) = a3;
       return;
     case 10:
-      if (*(this + 9))
+      if (*(this + 36))
       {
-        v11 = "ChannelAdaptationMeansC0UseSilenceTracker";
+        v6 = "ChannelAdaptationMeansC0UseSilenceTracker";
         goto LABEL_96;
       }
 
       *(this + 70) = a3;
       return;
     case 11:
-      if (*(this + 9))
+      if (*(this + 36))
       {
-        v11 = "ChannelAdaptationMeansDelayApplyInitially";
+        v6 = "ChannelAdaptationMeansDelayApplyInitially";
         goto LABEL_96;
       }
 
       *(this + 71) = a3;
       return;
     case 12:
-      throwWrongTypeForParamId(12, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(12, "int", "BOOL");
       goto LABEL_34;
     case 13:
 LABEL_34:
-      throwWrongTypeForParamId(v8, "enum", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "enum", "BOOL");
       goto LABEL_35;
     case 14:
 LABEL_35:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_36;
     case 15:
 LABEL_36:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_37;
     case 16:
 LABEL_37:
-      if (*(this + 9))
+      if (*(this + 36))
       {
-        v11 = "ChannelAdaptationMeansUseSilenceTracker";
+        v6 = "ChannelAdaptationMeansUseSilenceTracker";
         goto LABEL_96;
       }
 
-      *(this + 96) = v9;
+      *(this + 96) = a3;
       return;
     case 17:
-      throwWrongTypeForParamId(17, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(17, "int", "BOOL");
       goto LABEL_46;
     case 18:
 LABEL_46:
-      if (*(this + 9))
+      if (*(this + 36))
       {
-        v11 = "ChannelAdaptationVarianceAdaptFastInitially";
+        v6 = "ChannelAdaptationVarianceAdaptFastInitially";
         goto LABEL_96;
       }
 
-      *(this + 104) = v9;
+      *(this + 104) = a3;
       return;
     case 19:
-      throwWrongTypeForParamId(19, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(19, "int", "BOOL");
       goto LABEL_87;
     case 20:
 LABEL_87:
-      if (*(this + 9))
+      if (*(this + 36))
       {
-        v11 = "ChannelAdaptationVarianceUseSilenceTracker";
+        v6 = "ChannelAdaptationVarianceUseSilenceTracker";
         goto LABEL_96;
       }
 
-      *(this + 112) = v9;
+      *(this + 112) = a3;
       return;
     case 21:
-      throwWrongTypeForParamId(21, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(21, "int", "BOOL");
       goto LABEL_67;
     case 22:
 LABEL_67:
-      if (*(this + 9))
+      if (*(this + 36))
       {
-        v11 = "ChannelEnablePitchTracking";
+        v6 = "ChannelEnablePitchTracking";
         goto LABEL_96;
       }
 
-      *(this + 120) = v9;
+      *(this + 120) = a3;
       return;
     case 23:
-      throwWrongTypeForParamId(23, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(23, "int", "BOOL");
       goto LABEL_74;
     case 24:
 LABEL_74:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_75;
     case 25:
 LABEL_75:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_76;
     case 26:
 LABEL_76:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_77;
     case 27:
 LABEL_77:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_78;
     case 28:
 LABEL_78:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_79;
     case 29:
 LABEL_79:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_80;
     case 30:
 LABEL_80:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_81;
     case 31:
 LABEL_81:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_82;
     case 32:
 LABEL_82:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_83;
     case 33:
 LABEL_83:
-      if (*(this + 9))
+      if (*(this + 36))
       {
-        v11 = "ChannelSpectralSubtractionDisableAtTargetSNR";
+        v6 = "ChannelSpectralSubtractionDisableAtTargetSNR";
         goto LABEL_96;
       }
 
-      *(this + 172) = v9;
+      *(this + 172) = a3;
       return;
     case 34:
-      throwWrongTypeForParamId(34, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(34, "int", "BOOL");
       goto LABEL_16;
     case 35:
 LABEL_16:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_17;
     case 36:
 LABEL_17:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_18;
     case 37:
 LABEL_18:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_19;
     case 38:
 LABEL_19:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_20;
     case 39:
 LABEL_20:
-      throwWrongTypeForParamId(v8, "enum", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "enum", "BOOL");
       goto LABEL_21;
     case 40:
 LABEL_21:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_22;
     case 41:
 LABEL_22:
-      if (*(this + 9))
+      if (*(this + 36))
       {
-        v11 = "ChannelWaveInputEnableSpectralWarping";
+        v6 = "ChannelWaveInputEnableSpectralWarping";
         goto LABEL_96;
       }
 
-      *(this + 216) = v9;
+      *(this + 216) = a3;
       return;
     case 42:
-      throwWrongTypeForParamId(42, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(42, "int", "BOOL");
       goto LABEL_90;
     case 43:
 LABEL_90:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_91;
     case 44:
 LABEL_91:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_92;
     case 45:
 LABEL_92:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_93;
     case 46:
 LABEL_93:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_94;
     case 47:
 LABEL_94:
-      if (*(this + 9))
+      if (*(this + 36))
       {
-        v11 = "ChannelMaxNormEnergyUseOnline";
+        v6 = "ChannelMaxNormEnergyUseOnline";
         goto LABEL_96;
       }
 
-      *(this + 240) = v9;
+      *(this + 240) = a3;
       return;
     case 48:
-      throwWrongTypeForParamId(48, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(48, "int", "BOOL");
       goto LABEL_49;
     case 49:
 LABEL_49:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_50;
     case 50:
 LABEL_50:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_51;
     case 51:
 LABEL_51:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_52;
     case 52:
 LABEL_52:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_53;
     case 53:
 LABEL_53:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_54;
     case 54:
 LABEL_54:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_55;
     case 55:
 LABEL_55:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_56;
     case 56:
 LABEL_56:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_57;
     case 57:
 LABEL_57:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_58;
     case 58:
 LABEL_58:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_59;
     case 59:
 LABEL_59:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_60;
     case 60:
 LABEL_60:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_61;
     case 61:
 LABEL_61:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_62;
     case 62:
 LABEL_62:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_63;
     case 63:
 LABEL_63:
-      if (*(this + 9))
+      if (*(this + 36))
       {
-        v11 = "UttDetLimitFrameEnergy";
+        v6 = "UttDetLimitFrameEnergy";
         goto LABEL_96;
       }
 
-      *(this + 304) = v9;
+      *(this + 304) = a3;
       break;
     case 64:
-      throwWrongTypeForParamId(64, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(64, "int", "BOOL");
       goto LABEL_26;
     case 65:
 LABEL_26:
-      if (*(this + 9))
+      if (*(this + 36))
       {
-        v11 = "UttDetResetFileChannelStateAfterSection";
+        v6 = "UttDetResetFileChannelStateAfterSection";
 LABEL_96:
 
-        throwParamSetSetFailed(v11, "BOOL", a3, a4, a5, a6, a7, a8);
+        throwParamSetSetFailed(v6, "BOOL");
       }
 
       else
       {
-        *(this + 312) = v9;
+        *(this + 312) = a3;
       }
 
       break;
     case 66:
-      throwWrongTypeForParamId(66, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(66, "int", "BOOL");
       goto LABEL_5;
     case 67:
 LABEL_5:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_6;
     case 68:
 LABEL_6:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_7;
     case 69:
 LABEL_7:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_8;
     case 70:
 LABEL_8:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_9;
     default:
 LABEL_9:
 
-      throwWrongParamIdValue(v8, "BOOL", a3, a4, a5, a6, a7, a8);
+      throwWrongParamIdValue(a2, "BOOL");
       return;
   }
 }
 
-void ChannelParamSet::setIntParameter(ChannelParamSet *this, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void ChannelParamSet::setIntParameter(ChannelParamSet *this, int a2, int a3)
 {
-  v8 = a2;
-  v9 = a3;
   switch(a2)
   {
     case 1:
-      throwWrongTypeForParamId(1, "BOOL", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(1, "BOOL", "int");
       goto LABEL_3;
     case 2:
 LABEL_3:
-      ParamByParamId = ParamSpecMgr::getParamByParamId(qword_281051F78, 2, a3, a4, a5, a6, a7, a8);
+      ParamByParamId = ParamSpecMgr::getParamByParamId(qword_281051F78, 2);
       if (ParamByParamId)
       {
-        v16 = **ParamByParamId;
       }
 
-      IntParamSpec::validateValue(ParamByParamId, v9, 0, 0, v12, v13, v14, v15);
+      IntParamSpec::validateValue(ParamByParamId, a3, 0, 0);
       if (*(this + 9))
       {
-        v23 = "ChannelAdaptationCDFRelevance";
+        v7 = "ChannelAdaptationCDFRelevance";
         goto LABEL_219;
       }
 
-      *(this + 11) = v9;
+      *(this + 11) = a3;
       return;
     case 3:
-      throwWrongTypeForParamId(3, "BOOL", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(3, "BOOL", "int");
       goto LABEL_108;
     case 4:
 LABEL_108:
-      v156 = ParamSpecMgr::getParamByParamId(qword_281051F78, 4, a3, a4, a5, a6, a7, a8);
-      if (v156)
+      v30 = ParamSpecMgr::getParamByParamId(qword_281051F78, 4);
+      if (v30)
       {
-        v161 = **v156;
       }
 
-      IntParamSpec::validateValue(v156, v9, 0, 0, v157, v158, v159, v160);
+      IntParamSpec::validateValue(v30, a3, 0, 0);
       if (*(this + 9))
       {
-        v23 = "ChannelAdaptationCDFWindowMicroseconds";
+        v7 = "ChannelAdaptationCDFWindowMicroseconds";
         goto LABEL_219;
       }
 
-      *(this + 13) = v9;
+      *(this + 13) = a3;
       return;
     case 5:
-      throwWrongTypeForParamId(5, "BOOL", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(5, "BOOL", "int");
       goto LABEL_132;
     case 6:
 LABEL_132:
-      v186 = ParamSpecMgr::getParamByParamId(qword_281051F78, 6, a3, a4, a5, a6, a7, a8);
-      if (v186)
+      v35 = ParamSpecMgr::getParamByParamId(qword_281051F78, 6);
+      if (v35)
       {
-        v191 = **v186;
       }
 
-      IntParamSpec::validateValue(v186, v9, 0, 0, v187, v188, v189, v190);
+      IntParamSpec::validateValue(v35, a3, 0, 0);
       if (*(this + 9))
       {
-        v23 = "ChannelAdaptationInterpolatedCDFMaxPercentMassPerBin";
+        v7 = "ChannelAdaptationInterpolatedCDFMaxPercentMassPerBin";
         goto LABEL_219;
       }
 
-      *(this + 15) = v9;
+      *(this + 15) = a3;
       return;
     case 7:
-      v204 = ParamSpecMgr::getParamByParamId(qword_281051F78, 7, a3, a4, a5, a6, a7, a8);
-      if (v204)
+      v38 = ParamSpecMgr::getParamByParamId(qword_281051F78, 7);
+      if (v38)
       {
-        v209 = **v204;
       }
 
-      IntParamSpec::validateValue(v204, v9, 0, 0, v205, v206, v207, v208);
+      IntParamSpec::validateValue(v38, a3, 0, 0);
       if (*(this + 9))
       {
-        v23 = "ChannelAdaptationMeansAccumSmoothingWindowMicroseconds";
+        v7 = "ChannelAdaptationMeansAccumSmoothingWindowMicroseconds";
         goto LABEL_219;
       }
 
-      *(this + 16) = v9;
+      *(this + 16) = a3;
       return;
     case 8:
-      throwWrongTypeForParamId(8, "BOOL", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(8, "BOOL", "int");
       goto LABEL_78;
     case 9:
 LABEL_78:
-      throwWrongTypeForParamId(v8, "BOOL", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "BOOL", "int");
       goto LABEL_79;
     case 10:
 LABEL_79:
-      throwWrongTypeForParamId(v8, "BOOL", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "BOOL", "int");
       goto LABEL_80;
     case 11:
 LABEL_80:
-      throwWrongTypeForParamId(v8, "BOOL", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "BOOL", "int");
       goto LABEL_81;
     case 12:
 LABEL_81:
-      v120 = ParamSpecMgr::getParamByParamId(qword_281051F78, 12, a3, a4, a5, a6, a7, a8);
-      if (v120)
+      v24 = ParamSpecMgr::getParamByParamId(qword_281051F78, 12);
+      if (v24)
       {
-        v125 = **v120;
       }
 
-      IntParamSpec::validateValue(v120, v9, 0, 0, v121, v122, v123, v124);
+      IntParamSpec::validateValue(v24, a3, 0, 0);
       if (*(this + 9))
       {
-        v23 = "ChannelAdaptationMeansInitialWindowMicroseconds";
+        v7 = "ChannelAdaptationMeansInitialWindowMicroseconds";
         goto LABEL_219;
       }
 
-      *(this + 18) = v9;
+      *(this + 18) = a3;
       return;
     case 13:
-      throwWrongTypeForParamId(13, "enum", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(13, "enum", "int");
       goto LABEL_142;
     case 14:
 LABEL_142:
-      v198 = ParamSpecMgr::getParamByParamId(qword_281051F78, 14, a3, a4, a5, a6, a7, a8);
-      if (v198)
+      v37 = ParamSpecMgr::getParamByParamId(qword_281051F78, 14);
+      if (v37)
       {
-        v203 = **v198;
       }
 
-      IntParamSpec::validateValue(v198, v9, 0, 0, v199, v200, v201, v202);
+      IntParamSpec::validateValue(v37, a3, 0, 0);
       if (*(this + 9))
       {
-        v23 = "ChannelAdaptationMeansRelevance";
+        v7 = "ChannelAdaptationMeansRelevance";
         goto LABEL_219;
       }
 
-      *(this + 20) = v9;
+      *(this + 20) = a3;
       return;
     case 15:
-      throwWrongTypeForParamId(15, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(15, "double", "int");
       goto LABEL_50;
     case 16:
 LABEL_50:
-      throwWrongTypeForParamId(v8, "BOOL", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "BOOL", "int");
       goto LABEL_51;
     case 17:
 LABEL_51:
-      v84 = ParamSpecMgr::getParamByParamId(qword_281051F78, 17, a3, a4, a5, a6, a7, a8);
-      if (v84)
+      v18 = ParamSpecMgr::getParamByParamId(qword_281051F78, 17);
+      if (v18)
       {
-        v89 = **v84;
       }
 
-      IntParamSpec::validateValue(v84, v9, 0, 0, v85, v86, v87, v88);
+      IntParamSpec::validateValue(v18, a3, 0, 0);
       if (*(this + 9))
       {
-        v23 = "ChannelAdaptationMeansWindowMicroseconds";
+        v7 = "ChannelAdaptationMeansWindowMicroseconds";
         goto LABEL_219;
       }
 
-      *(this + 25) = v9;
+      *(this + 25) = a3;
       return;
     case 18:
-      throwWrongTypeForParamId(18, "BOOL", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(18, "BOOL", "int");
       goto LABEL_151;
     case 19:
 LABEL_151:
-      v210 = ParamSpecMgr::getParamByParamId(qword_281051F78, 19, a3, a4, a5, a6, a7, a8);
-      if (v210)
+      v39 = ParamSpecMgr::getParamByParamId(qword_281051F78, 19);
+      if (v39)
       {
-        v215 = **v210;
       }
 
-      IntParamSpec::validateValue(v210, v9, 0, 0, v211, v212, v213, v214);
+      IntParamSpec::validateValue(v39, a3, 0, 0);
       if (*(this + 9))
       {
-        v23 = "ChannelAdaptationVarianceRelevance";
+        v7 = "ChannelAdaptationVarianceRelevance";
         goto LABEL_219;
       }
 
-      *(this + 27) = v9;
+      *(this + 27) = a3;
       return;
     case 20:
-      throwWrongTypeForParamId(20, "BOOL", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(20, "BOOL", "int");
       goto LABEL_123;
     case 21:
 LABEL_123:
-      v174 = ParamSpecMgr::getParamByParamId(qword_281051F78, 21, a3, a4, a5, a6, a7, a8);
-      if (v174)
+      v33 = ParamSpecMgr::getParamByParamId(qword_281051F78, 21);
+      if (v33)
       {
-        v179 = **v174;
       }
 
-      IntParamSpec::validateValue(v174, v9, 0, 0, v175, v176, v177, v178);
+      IntParamSpec::validateValue(v33, a3, 0, 0);
       if (*(this + 9))
       {
-        v23 = "ChannelAdaptationVarianceWindowMicroseconds";
+        v7 = "ChannelAdaptationVarianceWindowMicroseconds";
         goto LABEL_219;
       }
 
-      *(this + 29) = v9;
+      *(this + 29) = a3;
       return;
     case 22:
-      throwWrongTypeForParamId(22, "BOOL", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(22, "BOOL", "int");
       goto LABEL_160;
     case 23:
 LABEL_160:
-      v222 = ParamSpecMgr::getParamByParamId(qword_281051F78, 23, a3, a4, a5, a6, a7, a8);
-      if (v222)
+      v41 = ParamSpecMgr::getParamByParamId(qword_281051F78, 23);
+      if (v41)
       {
-        v227 = **v222;
       }
 
-      IntParamSpec::validateValue(v222, v9, 0, 0, v223, v224, v225, v226);
+      IntParamSpec::validateValue(v41, a3, 0, 0);
       if (*(this + 9))
       {
-        v23 = "ChannelSilenceTrackerBackgroundThresh";
+        v7 = "ChannelSilenceTrackerBackgroundThresh";
         goto LABEL_219;
       }
 
-      *(this + 31) = v9;
+      *(this + 31) = a3;
       return;
     case 24:
-      v252 = ParamSpecMgr::getParamByParamId(qword_281051F78, 24, a3, a4, a5, a6, a7, a8);
-      if (v252)
+      v46 = ParamSpecMgr::getParamByParamId(qword_281051F78, 24);
+      if (v46)
       {
-        v257 = **v252;
       }
 
-      IntParamSpec::validateValue(v252, v9, 0, 0, v253, v254, v255, v256);
+      IntParamSpec::validateValue(v46, a3, 0, 0);
       if (*(this + 9))
       {
-        v23 = "ChannelSilenceTrackerDecrementPerSecond";
+        v7 = "ChannelSilenceTrackerDecrementPerSecond";
         goto LABEL_219;
       }
 
-      *(this + 32) = v9;
+      *(this + 32) = a3;
       return;
     case 25:
-      v144 = ParamSpecMgr::getParamByParamId(qword_281051F78, 25, a3, a4, a5, a6, a7, a8);
-      if (v144)
+      v28 = ParamSpecMgr::getParamByParamId(qword_281051F78, 25);
+      if (v28)
       {
-        v149 = **v144;
       }
 
-      IntParamSpec::validateValue(v144, v9, 0, 0, v145, v146, v147, v148);
+      IntParamSpec::validateValue(v28, a3, 0, 0);
       if (*(this + 9))
       {
-        v23 = "ChannelSilenceTrackerIncrementPerSecond";
+        v7 = "ChannelSilenceTrackerIncrementPerSecond";
         goto LABEL_219;
       }
 
-      *(this + 33) = v9;
+      *(this + 33) = a3;
       return;
     case 26:
-      v138 = ParamSpecMgr::getParamByParamId(qword_281051F78, 26, a3, a4, a5, a6, a7, a8);
-      if (v138)
+      v27 = ParamSpecMgr::getParamByParamId(qword_281051F78, 26);
+      if (v27)
       {
-        v143 = **v138;
       }
 
-      IntParamSpec::validateValue(v138, v9, 0, 0, v139, v140, v141, v142);
+      IntParamSpec::validateValue(v27, a3, 0, 0);
       if (*(this + 9))
       {
-        v23 = "ChannelSilenceTrackerInitialLevel";
+        v7 = "ChannelSilenceTrackerInitialLevel";
         goto LABEL_219;
       }
 
-      *(this + 34) = v9;
+      *(this + 34) = a3;
       return;
     case 27:
-      v270 = ParamSpecMgr::getParamByParamId(qword_281051F78, 27, a3, a4, a5, a6, a7, a8);
-      if (v270)
+      v49 = ParamSpecMgr::getParamByParamId(qword_281051F78, 27);
+      if (v49)
       {
-        v275 = **v270;
       }
 
-      IntParamSpec::validateValue(v270, v9, 0, 0, v271, v272, v273, v274);
+      IntParamSpec::validateValue(v49, a3, 0, 0);
       if (*(this + 9))
       {
-        v23 = "ChannelSilenceTrackerOutlierMinTriggerPercent";
+        v7 = "ChannelSilenceTrackerOutlierMinTriggerPercent";
         goto LABEL_219;
       }
 
-      *(this + 35) = v9;
+      *(this + 35) = a3;
       return;
     case 28:
-      v78 = ParamSpecMgr::getParamByParamId(qword_281051F78, 28, a3, a4, a5, a6, a7, a8);
-      if (v78)
+      v17 = ParamSpecMgr::getParamByParamId(qword_281051F78, 28);
+      if (v17)
       {
-        v83 = **v78;
       }
 
-      IntParamSpec::validateValue(v78, v9, 0, 0, v79, v80, v81, v82);
+      IntParamSpec::validateValue(v17, a3, 0, 0);
       if (*(this + 9))
       {
-        v23 = "ChannelSilenceTrackerOutlierWindowMicroseconds";
+        v7 = "ChannelSilenceTrackerOutlierWindowMicroseconds";
         goto LABEL_219;
       }
 
-      *(this + 36) = v9;
+      *(this + 36) = a3;
       return;
     case 29:
-      v258 = ParamSpecMgr::getParamByParamId(qword_281051F78, 29, a3, a4, a5, a6, a7, a8);
-      if (v258)
+      v47 = ParamSpecMgr::getParamByParamId(qword_281051F78, 29);
+      if (v47)
       {
-        v263 = **v258;
       }
 
-      IntParamSpec::validateValue(v258, v9, 0, 0, v259, v260, v261, v262);
+      IntParamSpec::validateValue(v47, a3, 0, 0);
       if (*(this + 9))
       {
-        v23 = "ChannelSilenceTrackerSpeechThresh";
+        v7 = "ChannelSilenceTrackerSpeechThresh";
         goto LABEL_219;
       }
 
-      *(this + 37) = v9;
+      *(this + 37) = a3;
       return;
     case 30:
-      v264 = ParamSpecMgr::getParamByParamId(qword_281051F78, 30, a3, a4, a5, a6, a7, a8);
-      if (v264)
+      v48 = ParamSpecMgr::getParamByParamId(qword_281051F78, 30);
+      if (v48)
       {
-        v269 = **v264;
       }
 
-      IntParamSpec::validateValue(v264, v9, 0, 0, v265, v266, v267, v268);
+      IntParamSpec::validateValue(v48, a3, 0, 0);
       if (*(this + 9))
       {
-        v23 = "ChannelSilenceTrackerRelevance";
+        v7 = "ChannelSilenceTrackerRelevance";
         goto LABEL_219;
       }
 
-      *(this + 38) = v9;
+      *(this + 38) = a3;
       return;
     case 31:
-      throwWrongTypeForParamId(31, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(31, "double", "int");
       goto LABEL_113;
     case 32:
 LABEL_113:
-      v162 = ParamSpecMgr::getParamByParamId(qword_281051F78, 32, a3, a4, a5, a6, a7, a8);
-      if (v162)
+      v31 = ParamSpecMgr::getParamByParamId(qword_281051F78, 32);
+      if (v31)
       {
-        v167 = **v162;
       }
 
-      IntParamSpec::validateValue(v162, v9, 0, 0, v163, v164, v165, v166);
+      IntParamSpec::validateValue(v31, a3, 0, 0);
       if (*(this + 9))
       {
-        v23 = "ChannelSpectralSubtractionDelayMicroseconds";
+        v7 = "ChannelSpectralSubtractionDelayMicroseconds";
         goto LABEL_219;
       }
 
-      *(this + 42) = v9;
+      *(this + 42) = a3;
       return;
     case 33:
-      throwWrongTypeForParamId(33, "BOOL", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(33, "BOOL", "int");
       goto LABEL_65;
     case 34:
 LABEL_65:
-      v102 = ParamSpecMgr::getParamByParamId(qword_281051F78, 34, a3, a4, a5, a6, a7, a8);
-      if (v102)
+      v21 = ParamSpecMgr::getParamByParamId(qword_281051F78, 34);
+      if (v21)
       {
-        v107 = **v102;
       }
 
-      IntParamSpec::validateValue(v102, v9, 0, 0, v103, v104, v105, v106);
+      IntParamSpec::validateValue(v21, a3, 0, 0);
       if (*(this + 9))
       {
-        v23 = "ChannelSpectralSubtractionInitialWindowMicroseconds";
+        v7 = "ChannelSpectralSubtractionInitialWindowMicroseconds";
         goto LABEL_219;
       }
 
-      *(this + 44) = v9;
+      *(this + 44) = a3;
       return;
     case 35:
-      throwWrongTypeForParamId(35, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(35, "double", "int");
       goto LABEL_33;
     case 36:
 LABEL_33:
-      v60 = ParamSpecMgr::getParamByParamId(qword_281051F78, 36, a3, a4, a5, a6, a7, a8);
-      if (v60)
+      v14 = ParamSpecMgr::getParamByParamId(qword_281051F78, 36);
+      if (v14)
       {
-        v65 = **v60;
       }
 
-      IntParamSpec::validateValue(v60, v9, 0, 0, v61, v62, v63, v64);
+      IntParamSpec::validateValue(v14, a3, 0, 0);
       if (*(this + 9))
       {
-        v23 = "ChannelSpectralSubtractionMinSNRMicroseconds";
+        v7 = "ChannelSpectralSubtractionMinSNRMicroseconds";
         goto LABEL_219;
       }
 
-      *(this + 48) = v9;
+      *(this + 48) = a3;
       return;
     case 37:
-      v66 = ParamSpecMgr::getParamByParamId(qword_281051F78, 37, a3, a4, a5, a6, a7, a8);
-      if (v66)
+      v15 = ParamSpecMgr::getParamByParamId(qword_281051F78, 37);
+      if (v15)
       {
-        v71 = **v66;
       }
 
-      IntParamSpec::validateValue(v66, v9, 0, 0, v67, v68, v69, v70);
+      IntParamSpec::validateValue(v15, a3, 0, 0);
       if (*(this + 9))
       {
-        v23 = "ChannelSpectralSubtractionStartDecimationMicroseconds";
+        v7 = "ChannelSpectralSubtractionStartDecimationMicroseconds";
         goto LABEL_219;
       }
 
-      *(this + 49) = v9;
+      *(this + 49) = a3;
       return;
     case 38:
-      throwWrongTypeForParamId(38, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(38, "double", "int");
       goto LABEL_165;
     case 39:
 LABEL_165:
-      throwWrongTypeForParamId(v8, "enum", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "enum", "int");
       goto LABEL_166;
     case 40:
 LABEL_166:
-      v228 = ParamSpecMgr::getParamByParamId(qword_281051F78, 40, a3, a4, a5, a6, a7, a8);
-      if (v228)
+      v42 = ParamSpecMgr::getParamByParamId(qword_281051F78, 40);
+      if (v42)
       {
-        v233 = **v228;
       }
 
-      IntParamSpec::validateValue(v228, v9, 0, 0, v229, v230, v231, v232);
+      IntParamSpec::validateValue(v42, a3, 0, 0);
       if (*(this + 9))
       {
-        v23 = "ChannelWaveInputClippingThreshold";
+        v7 = "ChannelWaveInputClippingThreshold";
         goto LABEL_219;
       }
 
-      *(this + 53) = v9;
+      *(this + 53) = a3;
       return;
     case 41:
-      throwWrongTypeForParamId(41, "BOOL", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(41, "BOOL", "int");
       goto LABEL_118;
     case 42:
 LABEL_118:
-      v168 = ParamSpecMgr::getParamByParamId(qword_281051F78, 42, a3, a4, a5, a6, a7, a8);
-      if (v168)
+      v32 = ParamSpecMgr::getParamByParamId(qword_281051F78, 42);
+      if (v32)
       {
-        v173 = **v168;
       }
 
-      IntParamSpec::validateValue(v168, v9, 0, 0, v169, v170, v171, v172);
+      IntParamSpec::validateValue(v32, a3, 0, 0);
       if (*(this + 9))
       {
-        v23 = "ChannelWavePacketLossDetectionPacketSize";
+        v7 = "ChannelWavePacketLossDetectionPacketSize";
         goto LABEL_219;
       }
 
-      *(this + 55) = v9;
+      *(this + 55) = a3;
       return;
     case 43:
-      v240 = ParamSpecMgr::getParamByParamId(qword_281051F78, 43, a3, a4, a5, a6, a7, a8);
-      if (v240)
+      v44 = ParamSpecMgr::getParamByParamId(qword_281051F78, 43);
+      if (v44)
       {
-        v245 = **v240;
       }
 
-      IntParamSpec::validateValue(v240, v9, 0, 0, v241, v242, v243, v244);
+      IntParamSpec::validateValue(v44, a3, 0, 0);
       if (*(this + 9))
       {
-        v23 = "ChannelWavePacketLossDetectionSlopeCountPercent";
+        v7 = "ChannelWavePacketLossDetectionSlopeCountPercent";
         goto LABEL_219;
       }
 
-      *(this + 56) = v9;
+      *(this + 56) = a3;
       return;
     case 44:
-      v30 = ParamSpecMgr::getParamByParamId(qword_281051F78, 44, a3, a4, a5, a6, a7, a8);
-      if (v30)
+      v9 = ParamSpecMgr::getParamByParamId(qword_281051F78, 44);
+      if (v9)
       {
-        v35 = **v30;
       }
 
-      IntParamSpec::validateValue(v30, v9, 0, 0, v31, v32, v33, v34);
+      IntParamSpec::validateValue(v9, a3, 0, 0);
       if (*(this + 9))
       {
-        v23 = "ChannelWavePacketLossDetectionSlopeThresh";
+        v7 = "ChannelWavePacketLossDetectionSlopeThresh";
         goto LABEL_219;
       }
 
-      *(this + 57) = v9;
+      *(this + 57) = a3;
       return;
     case 45:
-      v96 = ParamSpecMgr::getParamByParamId(qword_281051F78, 45, a3, a4, a5, a6, a7, a8);
-      if (v96)
+      v20 = ParamSpecMgr::getParamByParamId(qword_281051F78, 45);
+      if (v20)
       {
-        v101 = **v96;
       }
 
-      IntParamSpec::validateValue(v96, v9, 0, 0, v97, v98, v99, v100);
+      IntParamSpec::validateValue(v20, a3, 0, 0);
       if (*(this + 9))
       {
-        v23 = "ChannelWavePacketLossDetectionWindowSize";
+        v7 = "ChannelWavePacketLossDetectionWindowSize";
         goto LABEL_219;
       }
 
-      *(this + 58) = v9;
+      *(this + 58) = a3;
       return;
     case 46:
-      v216 = ParamSpecMgr::getParamByParamId(qword_281051F78, 46, a3, a4, a5, a6, a7, a8);
-      if (v216)
+      v40 = ParamSpecMgr::getParamByParamId(qword_281051F78, 46);
+      if (v40)
       {
-        v221 = **v216;
       }
 
-      IntParamSpec::validateValue(v216, v9, 0, 0, v217, v218, v219, v220);
+      IntParamSpec::validateValue(v40, a3, 0, 0);
       if (*(this + 9))
       {
-        v23 = "ChannelWaveStereoInputSelectSource";
+        v7 = "ChannelWaveStereoInputSelectSource";
         goto LABEL_219;
       }
 
-      *(this + 59) = v9;
+      *(this + 59) = a3;
       return;
     case 47:
-      throwWrongTypeForParamId(47, "BOOL", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(47, "BOOL", "int");
       goto LABEL_24;
     case 48:
 LABEL_24:
-      v48 = ParamSpecMgr::getParamByParamId(qword_281051F78, 48, a3, a4, a5, a6, a7, a8);
-      if (v48)
+      v12 = ParamSpecMgr::getParamByParamId(qword_281051F78, 48);
+      if (v12)
       {
-        v53 = **v48;
       }
 
-      IntParamSpec::validateValue(v48, v9, 0, 0, v49, v50, v51, v52);
+      IntParamSpec::validateValue(v12, a3, 0, 0);
       if (*(this + 9))
       {
-        v23 = "ChannelOnlineMaxNormEnergyInitialWindowFrames";
+        v7 = "ChannelOnlineMaxNormEnergyInitialWindowFrames";
         goto LABEL_219;
       }
 
-      *(this + 61) = v9;
+      *(this + 61) = a3;
       return;
     case 49:
-      v108 = ParamSpecMgr::getParamByParamId(qword_281051F78, 49, a3, a4, a5, a6, a7, a8);
-      if (v108)
+      v22 = ParamSpecMgr::getParamByParamId(qword_281051F78, 49);
+      if (v22)
       {
-        v113 = **v108;
       }
 
-      IntParamSpec::validateValue(v108, v9, 0, 0, v109, v110, v111, v112);
+      IntParamSpec::validateValue(v22, a3, 0, 0);
       if (*(this + 9))
       {
-        v23 = "ChannelOnlineMaxNormEnergyGeneralRampFactor";
+        v7 = "ChannelOnlineMaxNormEnergyGeneralRampFactor";
         goto LABEL_219;
       }
 
-      *(this + 62) = v9;
+      *(this + 62) = a3;
       return;
     case 50:
-      v126 = ParamSpecMgr::getParamByParamId(qword_281051F78, 50, a3, a4, a5, a6, a7, a8);
-      if (v126)
+      v25 = ParamSpecMgr::getParamByParamId(qword_281051F78, 50);
+      if (v25)
       {
-        v131 = **v126;
       }
 
-      IntParamSpec::validateValue(v126, v9, 0, 0, v127, v128, v129, v130);
+      IntParamSpec::validateValue(v25, a3, 0, 0);
       if (*(this + 9))
       {
-        v23 = "ChannelOnlineMaxNormEnergyGeneralDecayValue";
+        v7 = "ChannelOnlineMaxNormEnergyGeneralDecayValue";
         goto LABEL_219;
       }
 
-      *(this + 63) = v9;
+      *(this + 63) = a3;
       return;
     case 51:
-      v24 = ParamSpecMgr::getParamByParamId(qword_281051F78, 51, a3, a4, a5, a6, a7, a8);
-      if (v24)
+      v8 = ParamSpecMgr::getParamByParamId(qword_281051F78, 51);
+      if (v8)
       {
-        v29 = **v24;
       }
 
-      IntParamSpec::validateValue(v24, v9, 0, 0, v25, v26, v27, v28);
+      IntParamSpec::validateValue(v8, a3, 0, 0);
       if (*(this + 9))
       {
-        v23 = "UttDetBackgroundFloorDecreasePerSecond";
+        v7 = "UttDetBackgroundFloorDecreasePerSecond";
         goto LABEL_219;
       }
 
-      *(this + 64) = v9;
+      *(this + 64) = a3;
       return;
     case 52:
-      v294 = ParamSpecMgr::getParamByParamId(qword_281051F78, 52, a3, a4, a5, a6, a7, a8);
-      if (v294)
+      v53 = ParamSpecMgr::getParamByParamId(qword_281051F78, 52);
+      if (v53)
       {
-        v299 = **v294;
       }
 
-      IntParamSpec::validateValue(v294, v9, 0, 0, v295, v296, v297, v298);
+      IntParamSpec::validateValue(v53, a3, 0, 0);
       if (*(this + 9))
       {
-        v23 = "UttDetBackgroundFloorIncreasePerSecond";
+        v7 = "UttDetBackgroundFloorIncreasePerSecond";
         goto LABEL_219;
       }
 
-      *(this + 65) = v9;
+      *(this + 65) = a3;
       return;
     case 53:
-      v288 = ParamSpecMgr::getParamByParamId(qword_281051F78, 53, a3, a4, a5, a6, a7, a8);
-      if (v288)
+      v52 = ParamSpecMgr::getParamByParamId(qword_281051F78, 53);
+      if (v52)
       {
-        v293 = **v288;
       }
 
-      IntParamSpec::validateValue(v288, v9, 0, 0, v289, v290, v291, v292);
+      IntParamSpec::validateValue(v52, a3, 0, 0);
       if (*(this + 9))
       {
-        v23 = "UttDetBackgroundFloorOutlierMinTriggerPercent";
+        v7 = "UttDetBackgroundFloorOutlierMinTriggerPercent";
         goto LABEL_219;
       }
 
-      *(this + 66) = v9;
+      *(this + 66) = a3;
       return;
     case 54:
-      v42 = ParamSpecMgr::getParamByParamId(qword_281051F78, 54, a3, a4, a5, a6, a7, a8);
-      if (v42)
+      v11 = ParamSpecMgr::getParamByParamId(qword_281051F78, 54);
+      if (v11)
       {
-        v47 = **v42;
       }
 
-      IntParamSpec::validateValue(v42, v9, 0, 0, v43, v44, v45, v46);
+      IntParamSpec::validateValue(v11, a3, 0, 0);
       if (*(this + 9))
       {
-        v23 = "UttDetBackgroundFloorOutlierWindowMicroseconds";
+        v7 = "UttDetBackgroundFloorOutlierWindowMicroseconds";
         goto LABEL_219;
       }
 
-      *(this + 67) = v9;
+      *(this + 67) = a3;
       return;
     case 55:
-      v276 = ParamSpecMgr::getParamByParamId(qword_281051F78, 55, a3, a4, a5, a6, a7, a8);
-      if (v276)
+      v50 = ParamSpecMgr::getParamByParamId(qword_281051F78, 55);
+      if (v50)
       {
-        v281 = **v276;
       }
 
-      IntParamSpec::validateValue(v276, v9, 0, 0, v277, v278, v279, v280);
+      IntParamSpec::validateValue(v50, a3, 0, 0);
       if (*(this + 9))
       {
-        v23 = "UttDetBackgroundThreshPercent";
+        v7 = "UttDetBackgroundThreshPercent";
         goto LABEL_219;
       }
 
-      *(this + 68) = v9;
+      *(this + 68) = a3;
       return;
     case 56:
-      v282 = ParamSpecMgr::getParamByParamId(qword_281051F78, 56, a3, a4, a5, a6, a7, a8);
-      if (v282)
+      v51 = ParamSpecMgr::getParamByParamId(qword_281051F78, 56);
+      if (v51)
       {
-        v287 = **v282;
       }
 
-      IntParamSpec::validateValue(v282, v9, 0, 0, v283, v284, v285, v286);
+      IntParamSpec::validateValue(v51, a3, 0, 0);
       if (*(this + 9))
       {
-        v23 = "UttDetBeginUttMinTriggerPercent";
+        v7 = "UttDetBeginUttMinTriggerPercent";
         goto LABEL_219;
       }
 
-      *(this + 69) = v9;
+      *(this + 69) = a3;
       return;
     case 57:
-      v54 = ParamSpecMgr::getParamByParamId(qword_281051F78, 57, a3, a4, a5, a6, a7, a8);
-      if (v54)
+      v13 = ParamSpecMgr::getParamByParamId(qword_281051F78, 57);
+      if (v13)
       {
-        v59 = **v54;
       }
 
-      IntParamSpec::validateValue(v54, v9, 0, 0, v55, v56, v57, v58);
+      IntParamSpec::validateValue(v13, a3, 0, 0);
       if (*(this + 9))
       {
-        v23 = "UttDetBeginUttWindowMicroseconds";
+        v7 = "UttDetBeginUttWindowMicroseconds";
         goto LABEL_219;
       }
 
-      *(this + 70) = v9;
+      *(this + 70) = a3;
       return;
     case 58:
-      v234 = ParamSpecMgr::getParamByParamId(qword_281051F78, 58, a3, a4, a5, a6, a7, a8);
-      if (v234)
+      v43 = ParamSpecMgr::getParamByParamId(qword_281051F78, 58);
+      if (v43)
       {
-        v239 = **v234;
       }
 
-      IntParamSpec::validateValue(v234, v9, 0, 0, v235, v236, v237, v238);
+      IntParamSpec::validateValue(v43, a3, 0, 0);
       if (*(this + 9))
       {
-        v23 = "UttDetEndUttMinTriggerPercent";
+        v7 = "UttDetEndUttMinTriggerPercent";
         goto LABEL_219;
       }
 
-      *(this + 71) = v9;
+      *(this + 71) = a3;
       return;
     case 59:
-      v114 = ParamSpecMgr::getParamByParamId(qword_281051F78, 59, a3, a4, a5, a6, a7, a8);
-      if (v114)
+      v23 = ParamSpecMgr::getParamByParamId(qword_281051F78, 59);
+      if (v23)
       {
-        v119 = **v114;
       }
 
-      IntParamSpec::validateValue(v114, v9, 0, 0, v115, v116, v117, v118);
+      IntParamSpec::validateValue(v23, a3, 0, 0);
       if (*(this + 9))
       {
-        v23 = "UttDetEndUttWindowMicroseconds";
+        v7 = "UttDetEndUttWindowMicroseconds";
         goto LABEL_219;
       }
 
-      *(this + 72) = v9;
+      *(this + 72) = a3;
       return;
     case 60:
-      v246 = ParamSpecMgr::getParamByParamId(qword_281051F78, 60, a3, a4, a5, a6, a7, a8);
-      if (v246)
+      v45 = ParamSpecMgr::getParamByParamId(qword_281051F78, 60);
+      if (v45)
       {
-        v251 = **v246;
       }
 
-      IntParamSpec::validateValue(v246, v9, 0, 0, v247, v248, v249, v250);
+      IntParamSpec::validateValue(v45, a3, 0, 0);
       if (*(this + 9))
       {
-        v23 = "UttDetInitialBackgroundLevelMin";
+        v7 = "UttDetInitialBackgroundLevelMin";
         goto LABEL_219;
       }
 
-      *(this + 73) = v9;
+      *(this + 73) = a3;
       return;
     case 61:
-      v132 = ParamSpecMgr::getParamByParamId(qword_281051F78, 61, a3, a4, a5, a6, a7, a8);
-      if (v132)
+      v26 = ParamSpecMgr::getParamByParamId(qword_281051F78, 61);
+      if (v26)
       {
-        v137 = **v132;
       }
 
-      IntParamSpec::validateValue(v132, v9, 0, 0, v133, v134, v135, v136);
+      IntParamSpec::validateValue(v26, a3, 0, 0);
       if (*(this + 9))
       {
-        v23 = "UttDetInitialBackgroundLevelRange";
+        v7 = "UttDetInitialBackgroundLevelRange";
         goto LABEL_219;
       }
 
-      *(this + 74) = v9;
+      *(this + 74) = a3;
       return;
     case 62:
-      v180 = ParamSpecMgr::getParamByParamId(qword_281051F78, 62, a3, a4, a5, a6, a7, a8);
-      if (v180)
+      v34 = ParamSpecMgr::getParamByParamId(qword_281051F78, 62);
+      if (v34)
       {
-        v185 = **v180;
       }
 
-      IntParamSpec::validateValue(v180, v9, 0, 0, v181, v182, v183, v184);
+      IntParamSpec::validateValue(v34, a3, 0, 0);
       if (*(this + 9))
       {
-        v23 = "UttDetInitializeWindowMicroseconds";
+        v7 = "UttDetInitializeWindowMicroseconds";
         goto LABEL_219;
       }
 
-      *(this + 75) = v9;
+      *(this + 75) = a3;
       return;
     case 63:
-      throwWrongTypeForParamId(63, "BOOL", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(63, "BOOL", "int");
       goto LABEL_103;
     case 64:
 LABEL_103:
-      v150 = ParamSpecMgr::getParamByParamId(qword_281051F78, 64, a3, a4, a5, a6, a7, a8);
-      if (v150)
+      v29 = ParamSpecMgr::getParamByParamId(qword_281051F78, 64);
+      if (v29)
       {
-        v155 = **v150;
       }
 
-      IntParamSpec::validateValue(v150, v9, 0, 0, v151, v152, v153, v154);
+      IntParamSpec::validateValue(v29, a3, 0, 0);
       if (*(this + 9))
       {
-        v23 = "UttDetMaxNonSpeechUttSeconds";
+        v7 = "UttDetMaxNonSpeechUttSeconds";
         goto LABEL_219;
       }
 
-      *(this + 77) = v9;
+      *(this + 77) = a3;
       return;
     case 65:
-      throwWrongTypeForParamId(65, "BOOL", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(65, "BOOL", "int");
       goto LABEL_137;
     case 66:
 LABEL_137:
-      v192 = ParamSpecMgr::getParamByParamId(qword_281051F78, 66, a3, a4, a5, a6, a7, a8);
-      if (v192)
-      {
-        v197 = **v192;
-      }
-
-      IntParamSpec::validateValue(v192, v9, 0, 0, v193, v194, v195, v196);
-      if (*(this + 9))
-      {
-        v23 = "UttDetSpeechOffsetMin";
-        goto LABEL_219;
-      }
-
-      *(this + 79) = v9;
-      return;
-    case 67:
-      v36 = ParamSpecMgr::getParamByParamId(qword_281051F78, 67, a3, a4, a5, a6, a7, a8);
+      v36 = ParamSpecMgr::getParamByParamId(qword_281051F78, 66);
       if (v36)
       {
-        v41 = **v36;
       }
 
-      IntParamSpec::validateValue(v36, v9, 0, 0, v37, v38, v39, v40);
+      IntParamSpec::validateValue(v36, a3, 0, 0);
       if (*(this + 9))
       {
-        v23 = "UttDetSpeechOffsetRange";
+        v7 = "UttDetSpeechOffsetMin";
         goto LABEL_219;
       }
 
-      *(this + 80) = v9;
+      *(this + 79) = a3;
+      return;
+    case 67:
+      v10 = ParamSpecMgr::getParamByParamId(qword_281051F78, 67);
+      if (v10)
+      {
+      }
+
+      IntParamSpec::validateValue(v10, a3, 0, 0);
+      if (*(this + 9))
+      {
+        v7 = "UttDetSpeechOffsetRange";
+        goto LABEL_219;
+      }
+
+      *(this + 80) = a3;
       return;
     case 68:
-      v90 = ParamSpecMgr::getParamByParamId(qword_281051F78, 68, a3, a4, a5, a6, a7, a8);
-      if (v90)
+      v19 = ParamSpecMgr::getParamByParamId(qword_281051F78, 68);
+      if (v19)
       {
-        v95 = **v90;
       }
 
-      IntParamSpec::validateValue(v90, v9, 0, 0, v91, v92, v93, v94);
+      IntParamSpec::validateValue(v19, a3, 0, 0);
       if (*(this + 9))
       {
-        v23 = "UttDetSpeechThreshOffsetPercent";
+        v7 = "UttDetSpeechThreshOffsetPercent";
         goto LABEL_219;
       }
 
-      *(this + 81) = v9;
+      *(this + 81) = a3;
       return;
     case 69:
-      v300 = ParamSpecMgr::getParamByParamId(qword_281051F78, 69, a3, a4, a5, a6, a7, a8);
-      if (v300)
+      v54 = ParamSpecMgr::getParamByParamId(qword_281051F78, 69);
+      if (v54)
       {
-        v305 = **v300;
       }
 
-      IntParamSpec::validateValue(v300, v9, 0, 0, v301, v302, v303, v304);
+      IntParamSpec::validateValue(v54, a3, 0, 0);
       if (*(this + 9))
       {
-        v23 = "UttDetSpeechUttSecondsMin";
+        v7 = "UttDetSpeechUttSecondsMin";
         goto LABEL_219;
       }
 
-      *(this + 82) = v9;
+      *(this + 82) = a3;
       break;
     case 70:
-      v72 = ParamSpecMgr::getParamByParamId(qword_281051F78, 70, a3, a4, a5, a6, a7, a8);
-      if (v72)
+      v16 = ParamSpecMgr::getParamByParamId(qword_281051F78, 70);
+      if (v16)
       {
-        v77 = **v72;
       }
 
-      IntParamSpec::validateValue(v72, v9, 0, 0, v73, v74, v75, v76);
+      IntParamSpec::validateValue(v16, a3, 0, 0);
       if (*(this + 9))
       {
-        v23 = "UttDetSpeechUttSecondsRange";
+        v7 = "UttDetSpeechUttSecondsRange";
 LABEL_219:
 
-        throwParamSetSetFailed(v23, "int", v17, v18, v19, v20, v21, v22);
+        throwParamSetSetFailed(v7, "int");
       }
 
       else
       {
-        *(this + 83) = v9;
+        *(this + 83) = a3;
       }
 
       break;
     default:
 
-      throwWrongParamIdValue(a2, "int", a3, a4, a5, a6, a7, a8);
+      throwWrongParamIdValue(a2, "int");
       return;
   }
 }
 
-void ChannelParamSet::setDoubleParameter(ChannelParamSet *this, int a2, double a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+void ChannelParamSet::setDoubleParameter(ChannelParamSet *this, int a2, double a3)
 {
-  v9 = a2;
   switch(a2)
   {
     case 1:
-      throwWrongTypeForParamId(1, "BOOL", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(1, "BOOL", "double");
       goto LABEL_3;
     case 2:
 LABEL_3:
-      throwWrongTypeForParamId(v9, "int", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "int", "double");
       goto LABEL_4;
     case 3:
 LABEL_4:
-      throwWrongTypeForParamId(v9, "BOOL", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "BOOL", "double");
       goto LABEL_5;
     case 4:
 LABEL_5:
-      throwWrongTypeForParamId(v9, "int", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "int", "double");
       goto LABEL_6;
     case 5:
 LABEL_6:
-      throwWrongTypeForParamId(v9, "BOOL", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "BOOL", "double");
       goto LABEL_7;
     case 6:
 LABEL_7:
-      throwWrongTypeForParamId(v9, "int", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "int", "double");
       goto LABEL_8;
     case 7:
 LABEL_8:
-      throwWrongTypeForParamId(v9, "int", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "int", "double");
       goto LABEL_9;
     case 8:
 LABEL_9:
-      throwWrongTypeForParamId(v9, "BOOL", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "BOOL", "double");
       goto LABEL_10;
     case 9:
 LABEL_10:
-      throwWrongTypeForParamId(v9, "BOOL", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "BOOL", "double");
       goto LABEL_11;
     case 10:
 LABEL_11:
-      throwWrongTypeForParamId(v9, "BOOL", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "BOOL", "double");
       goto LABEL_12;
     case 11:
 LABEL_12:
-      throwWrongTypeForParamId(v9, "BOOL", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "BOOL", "double");
       goto LABEL_13;
     case 12:
 LABEL_13:
-      throwWrongTypeForParamId(v9, "int", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "int", "double");
       goto LABEL_14;
     case 13:
 LABEL_14:
-      throwWrongTypeForParamId(v9, "enum", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "enum", "double");
       goto LABEL_15;
     case 14:
 LABEL_15:
-      throwWrongTypeForParamId(v9, "int", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "int", "double");
       goto LABEL_16;
     case 15:
 LABEL_16:
-      ParamByParamId = ParamSpecMgr::getParamByParamId(qword_281051F78, 15, a4, a5, a6, a7, a8, a9);
+      ParamByParamId = ParamSpecMgr::getParamByParamId(qword_281051F78, 15);
       if (ParamByParamId)
       {
-        v18 = **ParamByParamId;
       }
 
-      DoubleParamSpec::validateValue(ParamByParamId, a3, 0, 0, v13, v14, v15, v16, v17);
+      DoubleParamSpec::validateValue(ParamByParamId, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ChannelAdaptationMeansRelevanceScale";
+        v7 = "ChannelAdaptationMeansRelevanceScale";
         goto LABEL_90;
       }
 
       *(this + 11) = a3;
       return;
     case 16:
-      throwWrongTypeForParamId(16, "BOOL", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(16, "BOOL", "double");
       goto LABEL_72;
     case 17:
 LABEL_72:
-      throwWrongTypeForParamId(v9, "int", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "int", "double");
       goto LABEL_73;
     case 18:
 LABEL_73:
-      throwWrongTypeForParamId(v9, "BOOL", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "BOOL", "double");
       goto LABEL_74;
     case 19:
 LABEL_74:
-      throwWrongTypeForParamId(v9, "int", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "int", "double");
       goto LABEL_75;
     case 20:
 LABEL_75:
-      throwWrongTypeForParamId(v9, "BOOL", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "BOOL", "double");
       goto LABEL_76;
     case 21:
 LABEL_76:
-      throwWrongTypeForParamId(v9, "int", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "int", "double");
       goto LABEL_77;
     case 22:
 LABEL_77:
-      throwWrongTypeForParamId(v9, "BOOL", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "BOOL", "double");
       goto LABEL_78;
     case 23:
 LABEL_78:
-      throwWrongTypeForParamId(v9, "int", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "int", "double");
       goto LABEL_79;
     case 24:
 LABEL_79:
-      throwWrongTypeForParamId(v9, "int", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "int", "double");
       goto LABEL_80;
     case 25:
 LABEL_80:
-      throwWrongTypeForParamId(v9, "int", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "int", "double");
       goto LABEL_81;
     case 26:
 LABEL_81:
-      throwWrongTypeForParamId(v9, "int", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "int", "double");
       goto LABEL_82;
     case 27:
 LABEL_82:
-      throwWrongTypeForParamId(v9, "int", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "int", "double");
       goto LABEL_83;
     case 28:
 LABEL_83:
-      throwWrongTypeForParamId(v9, "int", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "int", "double");
       goto LABEL_84;
     case 29:
 LABEL_84:
-      throwWrongTypeForParamId(v9, "int", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "int", "double");
       goto LABEL_85;
     case 30:
 LABEL_85:
-      throwWrongTypeForParamId(v9, "int", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "int", "double");
       goto LABEL_86;
     case 31:
 LABEL_86:
-      v40 = ParamSpecMgr::getParamByParamId(qword_281051F78, 31, a4, a5, a6, a7, a8, a9);
-      if (v40)
+      v10 = ParamSpecMgr::getParamByParamId(qword_281051F78, 31);
+      if (v10)
       {
-        v46 = **v40;
       }
 
-      DoubleParamSpec::validateValue(v40, a3, 0, 0, v41, v42, v43, v44, v45);
+      DoubleParamSpec::validateValue(v10, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ChannelSpectralSubtractionDecayRate";
+        v7 = "ChannelSpectralSubtractionDecayRate";
         goto LABEL_90;
       }
 
       *(this + 20) = a3;
       return;
     case 32:
-      throwWrongTypeForParamId(32, "int", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(32, "int", "double");
       goto LABEL_64;
     case 33:
 LABEL_64:
-      throwWrongTypeForParamId(v9, "BOOL", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "BOOL", "double");
       goto LABEL_65;
     case 34:
 LABEL_65:
-      throwWrongTypeForParamId(v9, "int", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "int", "double");
       goto LABEL_66;
     case 35:
 LABEL_66:
-      v33 = ParamSpecMgr::getParamByParamId(qword_281051F78, 35, a4, a5, a6, a7, a8, a9);
-      if (v33)
+      v9 = ParamSpecMgr::getParamByParamId(qword_281051F78, 35);
+      if (v9)
       {
-        v39 = **v33;
       }
 
-      DoubleParamSpec::validateValue(v33, a3, 0, 0, v34, v35, v36, v37, v38);
+      DoubleParamSpec::validateValue(v9, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ChannelSpectralSubtractionMaxNoiseScaleChange";
+        v7 = "ChannelSpectralSubtractionMaxNoiseScaleChange";
         goto LABEL_90;
       }
 
       *(this + 23) = a3;
       break;
     case 36:
-      throwWrongTypeForParamId(36, "int", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(36, "int", "double");
       goto LABEL_22;
     case 37:
 LABEL_22:
-      throwWrongTypeForParamId(v9, "int", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "int", "double");
       goto LABEL_23;
     case 38:
 LABEL_23:
-      v26 = ParamSpecMgr::getParamByParamId(qword_281051F78, 38, a4, a5, a6, a7, a8, a9);
-      if (v26)
+      v8 = ParamSpecMgr::getParamByParamId(qword_281051F78, 38);
+      if (v8)
       {
-        v32 = **v26;
       }
 
-      DoubleParamSpec::validateValue(v26, a3, 0, 0, v27, v28, v29, v30, v31);
+      DoubleParamSpec::validateValue(v8, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ChannelSpectralSubtractionTargetSNR";
+        v7 = "ChannelSpectralSubtractionTargetSNR";
 LABEL_90:
 
-        throwParamSetSetFailed(v25, "double", v19, v20, v21, v22, v23, v24);
+        throwParamSetSetFailed(v7, "double");
       }
 
       else
@@ -6701,750 +6633,745 @@ LABEL_90:
 
       break;
     case 39:
-      throwWrongTypeForParamId(39, "enum", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(39, "enum", "double");
       goto LABEL_29;
     case 40:
 LABEL_29:
-      throwWrongTypeForParamId(v9, "int", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "int", "double");
       goto LABEL_30;
     case 41:
 LABEL_30:
-      throwWrongTypeForParamId(v9, "BOOL", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "BOOL", "double");
       goto LABEL_31;
     case 42:
 LABEL_31:
-      throwWrongTypeForParamId(v9, "int", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "int", "double");
       goto LABEL_32;
     case 43:
 LABEL_32:
-      throwWrongTypeForParamId(v9, "int", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "int", "double");
       goto LABEL_33;
     case 44:
 LABEL_33:
-      throwWrongTypeForParamId(v9, "int", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "int", "double");
       goto LABEL_34;
     case 45:
 LABEL_34:
-      throwWrongTypeForParamId(v9, "int", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "int", "double");
       goto LABEL_35;
     case 46:
 LABEL_35:
-      throwWrongTypeForParamId(v9, "int", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "int", "double");
       goto LABEL_36;
     case 47:
 LABEL_36:
-      throwWrongTypeForParamId(v9, "BOOL", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "BOOL", "double");
       goto LABEL_37;
     case 48:
 LABEL_37:
-      throwWrongTypeForParamId(v9, "int", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "int", "double");
       goto LABEL_38;
     case 49:
 LABEL_38:
-      throwWrongTypeForParamId(v9, "int", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "int", "double");
       goto LABEL_39;
     case 50:
 LABEL_39:
-      throwWrongTypeForParamId(v9, "int", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "int", "double");
       goto LABEL_40;
     case 51:
 LABEL_40:
-      throwWrongTypeForParamId(v9, "int", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "int", "double");
       goto LABEL_41;
     case 52:
 LABEL_41:
-      throwWrongTypeForParamId(v9, "int", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "int", "double");
       goto LABEL_42;
     case 53:
 LABEL_42:
-      throwWrongTypeForParamId(v9, "int", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "int", "double");
       goto LABEL_43;
     case 54:
 LABEL_43:
-      throwWrongTypeForParamId(v9, "int", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "int", "double");
       goto LABEL_44;
     case 55:
 LABEL_44:
-      throwWrongTypeForParamId(v9, "int", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "int", "double");
       goto LABEL_45;
     case 56:
 LABEL_45:
-      throwWrongTypeForParamId(v9, "int", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "int", "double");
       goto LABEL_46;
     case 57:
 LABEL_46:
-      throwWrongTypeForParamId(v9, "int", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "int", "double");
       goto LABEL_47;
     case 58:
 LABEL_47:
-      throwWrongTypeForParamId(v9, "int", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "int", "double");
       goto LABEL_48;
     case 59:
 LABEL_48:
-      throwWrongTypeForParamId(v9, "int", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "int", "double");
       goto LABEL_49;
     case 60:
 LABEL_49:
-      throwWrongTypeForParamId(v9, "int", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "int", "double");
       goto LABEL_50;
     case 61:
 LABEL_50:
-      throwWrongTypeForParamId(v9, "int", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "int", "double");
       goto LABEL_51;
     case 62:
 LABEL_51:
-      throwWrongTypeForParamId(v9, "int", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "int", "double");
       goto LABEL_52;
     case 63:
 LABEL_52:
-      throwWrongTypeForParamId(v9, "BOOL", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "BOOL", "double");
       goto LABEL_53;
     case 64:
 LABEL_53:
-      throwWrongTypeForParamId(v9, "int", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "int", "double");
       goto LABEL_54;
     case 65:
 LABEL_54:
-      throwWrongTypeForParamId(v9, "BOOL", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "BOOL", "double");
       goto LABEL_55;
     case 66:
 LABEL_55:
-      throwWrongTypeForParamId(v9, "int", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "int", "double");
       goto LABEL_56;
     case 67:
 LABEL_56:
-      throwWrongTypeForParamId(v9, "int", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "int", "double");
       goto LABEL_57;
     case 68:
 LABEL_57:
-      throwWrongTypeForParamId(v9, "int", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "int", "double");
       goto LABEL_58;
     case 69:
 LABEL_58:
-      throwWrongTypeForParamId(v9, "int", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "int", "double");
       goto LABEL_59;
     case 70:
 LABEL_59:
-      throwWrongTypeForParamId(v9, "int", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "int", "double");
       goto LABEL_60;
     default:
 LABEL_60:
 
-      throwWrongParamIdValue(v9, "double", a4, a5, a6, a7, a8, a9);
+      throwWrongParamIdValue(a2, "double");
       return;
   }
 }
 
-void ChannelParamSet::setStringParameter(ChannelParamSet *this, int a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double ChannelParamSet::setStringParameter(ChannelParamSet *this, int a2, const char *a3)
 {
-  v8 = a2;
   switch(a2)
   {
     case 1:
-      throwWrongTypeForParamId(1, "BOOL", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(1, "BOOL", "string");
       goto LABEL_3;
     case 2:
 LABEL_3:
-      throwWrongTypeForParamId(v8, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "string");
       goto LABEL_4;
     case 3:
 LABEL_4:
-      throwWrongTypeForParamId(v8, "BOOL", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "BOOL", "string");
       goto LABEL_5;
     case 4:
 LABEL_5:
-      throwWrongTypeForParamId(v8, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "string");
       goto LABEL_6;
     case 5:
 LABEL_6:
-      throwWrongTypeForParamId(v8, "BOOL", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "BOOL", "string");
       goto LABEL_7;
     case 6:
 LABEL_7:
-      throwWrongTypeForParamId(v8, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "string");
       goto LABEL_8;
     case 7:
 LABEL_8:
-      throwWrongTypeForParamId(v8, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "string");
       goto LABEL_9;
     case 8:
 LABEL_9:
-      throwWrongTypeForParamId(v8, "BOOL", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "BOOL", "string");
       goto LABEL_10;
     case 9:
 LABEL_10:
-      throwWrongTypeForParamId(v8, "BOOL", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "BOOL", "string");
       goto LABEL_11;
     case 10:
 LABEL_11:
-      throwWrongTypeForParamId(v8, "BOOL", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "BOOL", "string");
       goto LABEL_12;
     case 11:
 LABEL_12:
-      throwWrongTypeForParamId(v8, "BOOL", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "BOOL", "string");
       goto LABEL_13;
     case 12:
 LABEL_13:
-      throwWrongTypeForParamId(v8, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "string");
       goto LABEL_14;
     case 13:
 LABEL_14:
-      throwWrongTypeForParamId(v8, "enum", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "enum", "string");
       goto LABEL_15;
     case 14:
 LABEL_15:
-      throwWrongTypeForParamId(v8, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "string");
       goto LABEL_16;
     case 15:
 LABEL_16:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_17;
     case 16:
 LABEL_17:
-      throwWrongTypeForParamId(v8, "BOOL", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "BOOL", "string");
       goto LABEL_18;
     case 17:
 LABEL_18:
-      throwWrongTypeForParamId(v8, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "string");
       goto LABEL_19;
     case 18:
 LABEL_19:
-      throwWrongTypeForParamId(v8, "BOOL", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "BOOL", "string");
       goto LABEL_20;
     case 19:
 LABEL_20:
-      throwWrongTypeForParamId(v8, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "string");
       goto LABEL_21;
     case 20:
 LABEL_21:
-      throwWrongTypeForParamId(v8, "BOOL", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "BOOL", "string");
       goto LABEL_22;
     case 21:
 LABEL_22:
-      throwWrongTypeForParamId(v8, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "string");
       goto LABEL_23;
     case 22:
 LABEL_23:
-      throwWrongTypeForParamId(v8, "BOOL", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "BOOL", "string");
       goto LABEL_24;
     case 23:
 LABEL_24:
-      throwWrongTypeForParamId(v8, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "string");
       goto LABEL_25;
     case 24:
 LABEL_25:
-      throwWrongTypeForParamId(v8, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "string");
       goto LABEL_26;
     case 25:
 LABEL_26:
-      throwWrongTypeForParamId(v8, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "string");
       goto LABEL_27;
     case 26:
 LABEL_27:
-      throwWrongTypeForParamId(v8, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "string");
       goto LABEL_28;
     case 27:
 LABEL_28:
-      throwWrongTypeForParamId(v8, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "string");
       goto LABEL_29;
     case 28:
 LABEL_29:
-      throwWrongTypeForParamId(v8, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "string");
       goto LABEL_30;
     case 29:
 LABEL_30:
-      throwWrongTypeForParamId(v8, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "string");
       goto LABEL_31;
     case 30:
 LABEL_31:
-      throwWrongTypeForParamId(v8, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "string");
       goto LABEL_32;
     case 31:
 LABEL_32:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_33;
     case 32:
 LABEL_33:
-      throwWrongTypeForParamId(v8, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "string");
       goto LABEL_34;
     case 33:
 LABEL_34:
-      throwWrongTypeForParamId(v8, "BOOL", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "BOOL", "string");
       goto LABEL_35;
     case 34:
 LABEL_35:
-      throwWrongTypeForParamId(v8, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "string");
       goto LABEL_36;
     case 35:
 LABEL_36:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_37;
     case 36:
 LABEL_37:
-      throwWrongTypeForParamId(v8, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "string");
       goto LABEL_38;
     case 37:
 LABEL_38:
-      throwWrongTypeForParamId(v8, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "string");
       goto LABEL_39;
     case 38:
 LABEL_39:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_40;
     case 39:
 LABEL_40:
-      throwWrongTypeForParamId(v8, "enum", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "enum", "string");
       goto LABEL_41;
     case 40:
 LABEL_41:
-      throwWrongTypeForParamId(v8, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "string");
       goto LABEL_42;
     case 41:
 LABEL_42:
-      throwWrongTypeForParamId(v8, "BOOL", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "BOOL", "string");
       goto LABEL_43;
     case 42:
 LABEL_43:
-      throwWrongTypeForParamId(v8, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "string");
       goto LABEL_44;
     case 43:
 LABEL_44:
-      throwWrongTypeForParamId(v8, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "string");
       goto LABEL_45;
     case 44:
 LABEL_45:
-      throwWrongTypeForParamId(v8, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "string");
       goto LABEL_46;
     case 45:
 LABEL_46:
-      throwWrongTypeForParamId(v8, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "string");
       goto LABEL_47;
     case 46:
 LABEL_47:
-      throwWrongTypeForParamId(v8, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "string");
       goto LABEL_48;
     case 47:
 LABEL_48:
-      throwWrongTypeForParamId(v8, "BOOL", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "BOOL", "string");
       goto LABEL_49;
     case 48:
 LABEL_49:
-      throwWrongTypeForParamId(v8, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "string");
       goto LABEL_50;
     case 49:
 LABEL_50:
-      throwWrongTypeForParamId(v8, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "string");
       goto LABEL_51;
     case 50:
 LABEL_51:
-      throwWrongTypeForParamId(v8, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "string");
       goto LABEL_52;
     case 51:
 LABEL_52:
-      throwWrongTypeForParamId(v8, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "string");
       goto LABEL_53;
     case 52:
 LABEL_53:
-      throwWrongTypeForParamId(v8, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "string");
       goto LABEL_54;
     case 53:
 LABEL_54:
-      throwWrongTypeForParamId(v8, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "string");
       goto LABEL_55;
     case 54:
 LABEL_55:
-      throwWrongTypeForParamId(v8, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "string");
       goto LABEL_56;
     case 55:
 LABEL_56:
-      throwWrongTypeForParamId(v8, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "string");
       goto LABEL_57;
     case 56:
 LABEL_57:
-      throwWrongTypeForParamId(v8, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "string");
       goto LABEL_58;
     case 57:
 LABEL_58:
-      throwWrongTypeForParamId(v8, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "string");
       goto LABEL_59;
     case 58:
 LABEL_59:
-      throwWrongTypeForParamId(v8, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "string");
       goto LABEL_60;
     case 59:
 LABEL_60:
-      throwWrongTypeForParamId(v8, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "string");
       goto LABEL_61;
     case 60:
 LABEL_61:
-      throwWrongTypeForParamId(v8, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "string");
       goto LABEL_62;
     case 61:
 LABEL_62:
-      throwWrongTypeForParamId(v8, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "string");
       goto LABEL_63;
     case 62:
 LABEL_63:
-      throwWrongTypeForParamId(v8, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "string");
       goto LABEL_64;
     case 63:
 LABEL_64:
-      throwWrongTypeForParamId(v8, "BOOL", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "BOOL", "string");
       goto LABEL_65;
     case 64:
 LABEL_65:
-      throwWrongTypeForParamId(v8, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "string");
       goto LABEL_66;
     case 65:
 LABEL_66:
-      throwWrongTypeForParamId(v8, "BOOL", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "BOOL", "string");
       goto LABEL_67;
     case 66:
 LABEL_67:
-      throwWrongTypeForParamId(v8, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "string");
       goto LABEL_68;
     case 67:
 LABEL_68:
-      throwWrongTypeForParamId(v8, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "string");
       goto LABEL_69;
     case 68:
 LABEL_69:
-      throwWrongTypeForParamId(v8, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "string");
       goto LABEL_70;
     case 69:
 LABEL_70:
-      throwWrongTypeForParamId(v8, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "string");
       goto LABEL_71;
     case 70:
 LABEL_71:
-      throwWrongTypeForParamId(v8, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "string");
       break;
     default:
       break;
   }
 
-  throwWrongParamIdValue(v8, "string", a3, a4, a5, a6, a7, a8);
+  return throwWrongParamIdValue(a2, "string");
 }
 
-void ChannelParamSet::setEnumParameter(ChannelParamSet *this, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void ChannelParamSet::setEnumParameter(ChannelParamSet *this, int a2, int a3)
 {
-  v8 = a2;
-  v9 = a3;
   switch(a2)
   {
     case 1:
-      throwWrongTypeForParamId(1, "BOOL", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(1, "BOOL", "BOOL");
       goto LABEL_3;
     case 2:
 LABEL_3:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_4;
     case 3:
 LABEL_4:
-      throwWrongTypeForParamId(v8, "BOOL", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "BOOL", "BOOL");
       goto LABEL_5;
     case 4:
 LABEL_5:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_6;
     case 5:
 LABEL_6:
-      throwWrongTypeForParamId(v8, "BOOL", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "BOOL", "BOOL");
       goto LABEL_7;
     case 6:
 LABEL_7:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_8;
     case 7:
 LABEL_8:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_9;
     case 8:
 LABEL_9:
-      throwWrongTypeForParamId(v8, "BOOL", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "BOOL", "BOOL");
       goto LABEL_10;
     case 9:
 LABEL_10:
-      throwWrongTypeForParamId(v8, "BOOL", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "BOOL", "BOOL");
       goto LABEL_11;
     case 10:
 LABEL_11:
-      throwWrongTypeForParamId(v8, "BOOL", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "BOOL", "BOOL");
       goto LABEL_12;
     case 11:
 LABEL_12:
-      throwWrongTypeForParamId(v8, "BOOL", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "BOOL", "BOOL");
       goto LABEL_13;
     case 12:
 LABEL_13:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_14;
     case 13:
 LABEL_14:
-      ParamByParamId = ParamSpecMgr::getParamByParamId(qword_281051F78, 13, a3, a4, a5, a6, a7, a8);
+      ParamByParamId = ParamSpecMgr::getParamByParamId(qword_281051F78, 13);
       if (ParamByParamId)
       {
-        v18 = **ParamByParamId;
       }
 
-      EnumParamSpec::validateValue(ParamByParamId, v9, v12, v13, v14, v15, v16, v17);
+      EnumParamSpec::validateValue(ParamByParamId, a3);
       if (*(this + 9))
       {
-        v25 = "ChannelAdaptationMeansReestimationType";
+        v7 = "ChannelAdaptationMeansReestimationType";
         goto LABEL_82;
       }
 
-      *(this + 19) = v9;
+      *(this + 19) = a3;
       break;
     case 14:
-      throwWrongTypeForParamId(14, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(14, "int", "BOOL");
       goto LABEL_54;
     case 15:
 LABEL_54:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_55;
     case 16:
 LABEL_55:
-      throwWrongTypeForParamId(v8, "BOOL", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "BOOL", "BOOL");
       goto LABEL_56;
     case 17:
 LABEL_56:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_57;
     case 18:
 LABEL_57:
-      throwWrongTypeForParamId(v8, "BOOL", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "BOOL", "BOOL");
       goto LABEL_58;
     case 19:
 LABEL_58:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_59;
     case 20:
 LABEL_59:
-      throwWrongTypeForParamId(v8, "BOOL", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "BOOL", "BOOL");
       goto LABEL_60;
     case 21:
 LABEL_60:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_61;
     case 22:
 LABEL_61:
-      throwWrongTypeForParamId(v8, "BOOL", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "BOOL", "BOOL");
       goto LABEL_62;
     case 23:
 LABEL_62:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_63;
     case 24:
 LABEL_63:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_64;
     case 25:
 LABEL_64:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_65;
     case 26:
 LABEL_65:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_66;
     case 27:
 LABEL_66:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_67;
     case 28:
 LABEL_67:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_68;
     case 29:
 LABEL_68:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_69;
     case 30:
 LABEL_69:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_70;
     case 31:
 LABEL_70:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_71;
     case 32:
 LABEL_71:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_72;
     case 33:
 LABEL_72:
-      throwWrongTypeForParamId(v8, "BOOL", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "BOOL", "BOOL");
       goto LABEL_73;
     case 34:
 LABEL_73:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_74;
     case 35:
 LABEL_74:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_75;
     case 36:
 LABEL_75:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_76;
     case 37:
 LABEL_76:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_77;
     case 38:
 LABEL_77:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_78;
     case 39:
 LABEL_78:
-      v26 = ParamSpecMgr::getParamByParamId(qword_281051F78, 39, a3, a4, a5, a6, a7, a8);
-      if (v26)
+      v8 = ParamSpecMgr::getParamByParamId(qword_281051F78, 39);
+      if (v8)
       {
-        v33 = **v26;
       }
 
-      EnumParamSpec::validateValue(v26, v9, v27, v28, v29, v30, v31, v32);
+      EnumParamSpec::validateValue(v8, a3);
       if (*(this + 9))
       {
-        v25 = "ChannelThreadingType";
+        v7 = "ChannelThreadingType";
 LABEL_82:
 
-        throwParamSetSetFailed(v25, "enum", v19, v20, v21, v22, v23, v24);
+        throwParamSetSetFailed(v7, "enum");
       }
 
       else
       {
-        *(this + 52) = v9;
+        *(this + 52) = a3;
       }
 
       break;
     case 40:
-      throwWrongTypeForParamId(40, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(40, "int", "BOOL");
       goto LABEL_20;
     case 41:
 LABEL_20:
-      throwWrongTypeForParamId(v8, "BOOL", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "BOOL", "BOOL");
       goto LABEL_21;
     case 42:
 LABEL_21:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_22;
     case 43:
 LABEL_22:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_23;
     case 44:
 LABEL_23:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_24;
     case 45:
 LABEL_24:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_25;
     case 46:
 LABEL_25:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_26;
     case 47:
 LABEL_26:
-      throwWrongTypeForParamId(v8, "BOOL", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "BOOL", "BOOL");
       goto LABEL_27;
     case 48:
 LABEL_27:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_28;
     case 49:
 LABEL_28:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_29;
     case 50:
 LABEL_29:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_30;
     case 51:
 LABEL_30:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_31;
     case 52:
 LABEL_31:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_32;
     case 53:
 LABEL_32:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_33;
     case 54:
 LABEL_33:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_34;
     case 55:
 LABEL_34:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_35;
     case 56:
 LABEL_35:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_36;
     case 57:
 LABEL_36:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_37;
     case 58:
 LABEL_37:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_38;
     case 59:
 LABEL_38:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_39;
     case 60:
 LABEL_39:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_40;
     case 61:
 LABEL_40:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_41;
     case 62:
 LABEL_41:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_42;
     case 63:
 LABEL_42:
-      throwWrongTypeForParamId(v8, "BOOL", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "BOOL", "BOOL");
       goto LABEL_43;
     case 64:
 LABEL_43:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_44;
     case 65:
 LABEL_44:
-      throwWrongTypeForParamId(v8, "BOOL", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "BOOL", "BOOL");
       goto LABEL_45;
     case 66:
 LABEL_45:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_46;
     case 67:
 LABEL_46:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_47;
     case 68:
 LABEL_47:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_48;
     case 69:
 LABEL_48:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_49;
     case 70:
 LABEL_49:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_50;
     default:
 LABEL_50:
 
-      throwWrongParamIdValue(v8, "enum", a3, a4, a5, a6, a7, a8);
+      throwWrongParamIdValue(a2, "enum");
       return;
   }
 }
@@ -7452,12 +7379,12 @@ LABEL_50:
 void ChannelParamSet::~ChannelParamSet(ChannelParamSet *this)
 {
   *this = &unk_287528C00;
-  DgnString::~DgnString((this + 8));
+  DgnString::~DgnString(this + 8);
 }
 
 {
   *this = &unk_287528C00;
-  DgnString::~DgnString((this + 8));
+  DgnString::~DgnString(this + 8);
 
   JUMPOUT(0x26672B1B0);
 }
@@ -7476,276 +7403,304 @@ void MrecInitModule_dtxtfile_dfutil(void)
   }
 }
 
-uint64_t DgnTextFile::atoui(DgnTextFile *this, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t DgnTextFile::atoui(DgnTextFile *this, const char *a2)
 {
-  v8 = a2;
-  v10 = MEMORY[0x277D85DE0];
+  v2 = a2;
+  v4 = MEMORY[0x277D85DE0];
   if (*a2 < 1)
   {
-    v13 = 0;
+    v7 = 0;
   }
 
   else
   {
-    v11 = *a2;
+    v5 = *a2;
     do
     {
-      if ((*(MEMORY[0x277D85DE0] + 4 * v11 + 60) & 0x4000) == 0)
+      if ((*(MEMORY[0x277D85DE0] + 4 * v5 + 60) & 0x4000) == 0)
       {
         break;
       }
 
-      v12 = *++v8;
-      v11 = v12;
+      v6 = *++v2;
+      v5 = v6;
     }
 
-    while (v12 > 0);
-    v13 = v11 == 43;
+    while (v6 > 0);
+    v7 = v5 == 43;
   }
 
-  v14 = v8[v13];
-  if (!v14)
+  v8 = v2[v7];
+  if (!v8)
   {
     return 0;
   }
 
-  v15 = 0;
-  v16 = &v8[v13 + 1];
+  v9 = 0;
+  v10 = &v2[v7 + 1];
   do
   {
-    if ((v14 & 0x80) != 0)
+    if ((v8 & 0x80) != 0)
     {
-      goto LABEL_25;
+      goto LABEL_27;
     }
 
-    v17 = *(v10 + 4 * v14 + 60);
-    if ((v17 & 0x4000) != 0)
+    v11 = *(v4 + 4 * v8 + 60);
+    if ((v11 & 0x4000) != 0)
     {
-      return v15;
+      return v9;
     }
 
-    if ((v17 & 0x400) == 0)
+    if ((v11 & 0x400) == 0)
     {
-LABEL_25:
+LABEL_27:
       if (*(this + 10))
       {
-        v18 = *(this + 4);
+        v12 = *(this + 4);
       }
 
-      v24 = *(this + 25);
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 273, "dfutil/dtxtfile", 15, "%02x %c %.500s %u", a7, a8, v14);
-      v14 = *(v16 - 1);
+      else
+      {
+        v12 = &byte_262899963;
+      }
+
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 273, "dfutil/dtxtfile", 15, "%02x %c %.500s %u", v8, v8, v12, *(this + 25));
+      v8 = *(v10 - 1);
     }
 
-    v19 = v14 - 48;
-    if ((~(v14 - 48) | 0xFFFFFF01) / 0xA < v15)
+    v13 = v8 - 48;
+    if ((~(v8 - 48) | 0xFFFFFF01) / 0xA < v9)
     {
       if (*(this + 10))
       {
-        v20 = *(this + 4);
+        v14 = *(this + 4);
       }
 
-      v23 = *(this + 25);
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 279, "dfutil/dtxtfile", 16, "%.500s %.500s %u", a7, a8, v8);
+      else
+      {
+        v14 = &byte_262899963;
+      }
+
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 279, "dfutil/dtxtfile", 16, "%.500s %.500s %u", v2, v14, *(this + 25));
     }
 
-    v15 = (v19 + 10 * v15);
-    v21 = *v16++;
-    v14 = v21;
+    v9 = (v13 + 10 * v9);
+    v15 = *v10++;
+    v8 = v15;
   }
 
-  while (v21);
-  return v15;
+  while (v15);
+  return v9;
 }
 
-unint64_t DgnTextFile::atou64(DgnTextFile *this, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+unint64_t DgnTextFile::atou64(DgnTextFile *this, const char *a2)
 {
-  v8 = a2;
-  v10 = MEMORY[0x277D85DE0];
+  v2 = a2;
+  v4 = MEMORY[0x277D85DE0];
   if (*a2 < 1)
   {
-    v13 = 0;
+    v7 = 0;
   }
 
   else
   {
-    v11 = *a2;
+    v5 = *a2;
     do
     {
-      if ((*(MEMORY[0x277D85DE0] + 4 * v11 + 60) & 0x4000) == 0)
+      if ((*(MEMORY[0x277D85DE0] + 4 * v5 + 60) & 0x4000) == 0)
       {
         break;
       }
 
-      v12 = *++v8;
-      v11 = v12;
+      v6 = *++v2;
+      v5 = v6;
     }
 
-    while (v12 > 0);
-    v13 = v11 == 43;
+    while (v6 > 0);
+    v7 = v5 == 43;
   }
 
-  v14 = v8[v13];
-  if (!v14)
+  v8 = v2[v7];
+  if (!v8)
   {
     return 0;
   }
 
-  v15 = 0;
-  v16 = &v8[v13 + 1];
+  v9 = 0;
+  v10 = &v2[v7 + 1];
   do
   {
-    if ((v14 & 0x80) != 0)
+    if ((v8 & 0x80) != 0)
     {
-      goto LABEL_25;
+      goto LABEL_27;
     }
 
-    v17 = *(v10 + 4 * v14 + 60);
-    if ((v17 & 0x4000) != 0)
+    v11 = *(v4 + 4 * v8 + 60);
+    if ((v11 & 0x4000) != 0)
     {
-      return v15;
+      return v9;
     }
 
-    if ((v17 & 0x400) == 0)
+    if ((v11 & 0x400) == 0)
     {
-LABEL_25:
+LABEL_27:
       if (*(this + 10))
       {
-        v18 = *(this + 4);
+        v12 = *(this + 4);
       }
 
-      v24 = *(this + 25);
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 304, "dfutil/dtxtfile", 15, "%02x %c %.500s %u", a7, a8, v14);
-      v14 = *(v16 - 1);
+      else
+      {
+        v12 = &byte_262899963;
+      }
+
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 304, "dfutil/dtxtfile", 15, "%02x %c %.500s %u", v8, v8, v12, *(this + 25));
+      v8 = *(v10 - 1);
     }
 
-    v19 = v14 - 48;
-    if (v15 > (~(v14 - 48) | 0xFFFFFF01) / 0xAuLL)
+    v13 = v8 - 48;
+    if (v9 > (~(v8 - 48) | 0xFFFFFF01) / 0xAuLL)
     {
       if (*(this + 10))
       {
-        v20 = *(this + 4);
+        v14 = *(this + 4);
       }
 
-      v23 = *(this + 25);
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 310, "dfutil/dtxtfile", 16, "%.500s %.500s %u", a7, a8, v8);
+      else
+      {
+        v14 = &byte_262899963;
+      }
+
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 310, "dfutil/dtxtfile", 16, "%.500s %.500s %u", v2, v14, *(this + 25));
     }
 
-    v15 = 10 * v15 + v19;
-    v21 = *v16++;
-    v14 = v21;
+    v9 = 10 * v9 + v13;
+    v15 = *v10++;
+    v8 = v15;
   }
 
-  while (v21);
-  return v15;
+  while (v15);
+  return v9;
 }
 
-uint64_t DgnTextFile::atosi(DgnTextFile *this, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t DgnTextFile::atosi(DgnTextFile *this, const char *a2)
 {
-  v8 = a2;
-  v10 = *a2;
-  v11 = MEMORY[0x277D85DE0];
-  if (v10 >= 1)
+  v2 = a2;
+  v4 = *a2;
+  v5 = MEMORY[0x277D85DE0];
+  if (v4 >= 1)
   {
     do
     {
-      if ((*(MEMORY[0x277D85DE0] + 4 * v10 + 60) & 0x4000) == 0)
+      if ((*(MEMORY[0x277D85DE0] + 4 * v4 + 60) & 0x4000) == 0)
       {
         break;
       }
 
-      v12 = *++v8;
-      LOBYTE(v10) = v12;
+      v6 = *++v2;
+      LOBYTE(v4) = v6;
     }
 
-    while (v12 > 0);
+    while (v6 > 0);
   }
 
-  if (v10 == 45 || v10 == 43)
+  if (v4 == 45 || v4 == 43)
   {
-    v13 = v10 == 45;
-    v14 = v8 + 1;
-    LOBYTE(v10) = v8[1];
+    v7 = v4 == 45;
+    v8 = v2 + 1;
+    LOBYTE(v4) = v2[1];
   }
 
   else
   {
-    v13 = 0;
-    v14 = v8;
+    v7 = 0;
+    v8 = v2;
   }
 
-  if (!v10)
+  if (!v4)
   {
     return 0;
   }
 
-  v15 = 0;
-  v16 = (v14 + 1);
+  v9 = 0;
+  v10 = (v8 + 1);
   do
   {
-    if ((v10 & 0x80) != 0)
+    if ((v4 & 0x80) != 0)
     {
-      goto LABEL_33;
+      goto LABEL_36;
     }
 
-    v17 = *(v11 + 4 * v10 + 60);
-    if ((v17 & 0x4000) != 0)
+    v11 = *(v5 + 4 * v4 + 60);
+    if ((v11 & 0x4000) != 0)
     {
-      return v15;
+      return v9;
     }
 
-    if ((v17 & 0x400) == 0)
+    if ((v11 & 0x400) == 0)
     {
-LABEL_33:
+LABEL_36:
       if (*(this + 10))
       {
-        v18 = *(this + 4);
+        v12 = *(this + 4);
       }
 
-      v26 = *(this + 25);
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 337, "dfutil/dtxtfile", 15, "%02x %c %.500s %u", a7, a8, v10);
-      LOBYTE(v10) = *(v16 - 1);
+      else
+      {
+        v12 = &byte_262899963;
+      }
+
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 337, "dfutil/dtxtfile", 15, "%02x %c %.500s %u", v4, v4, v12, *(this + 25));
+      LOBYTE(v4) = *(v10 - 1);
     }
 
-    v19 = v10 - 48;
-    if (v13)
+    v13 = v4 - 48;
+    if (v7)
     {
-      if ((v10 + 2147483600) / 10 > v15)
+      if ((v4 + 2147483600) / 10 > v9)
       {
         if (*(this + 10))
         {
-          v20 = *(this + 4);
+          v14 = *(this + 4);
         }
 
-        v24 = *(this + 25);
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 345, "dfutil/dtxtfile", 16, "%.500s %.500s %u", a7, a8, v8);
+        else
+        {
+          v14 = &byte_262899963;
+        }
+
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 345, "dfutil/dtxtfile", 16, "%.500s %.500s %u", v2, v14, *(this + 25));
       }
 
-      v15 = (10 * v15 - v19);
+      v9 = (10 * v9 - v13);
     }
 
     else
     {
-      if (((-2147483601 - v10) / 0xA) < v15)
+      if (((-2147483601 - v4) / 0xA) < v9)
       {
         if (*(this + 10))
         {
-          v21 = *(this + 4);
+          v15 = *(this + 4);
         }
 
-        v25 = *(this + 25);
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 354, "dfutil/dtxtfile", 16, "%.500s %.500s %u", a7, a8, v8);
+        else
+        {
+          v15 = &byte_262899963;
+        }
+
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 354, "dfutil/dtxtfile", 16, "%.500s %.500s %u", v2, v15, *(this + 25));
       }
 
-      v15 = (v19 + 10 * v15);
+      v9 = (v13 + 10 * v9);
     }
 
-    v22 = *v16++;
-    LOBYTE(v10) = v22;
+    v16 = *v10++;
+    LOBYTE(v4) = v16;
   }
 
-  while (v22);
-  return v15;
+  while (v16);
+  return v9;
 }
 
 void DgnTextFile::DgnTextFile(DgnTextFile *this)
@@ -7772,9 +7727,9 @@ void DgnTextFile::DgnTextFile(DgnTextFile *this)
 
 void sub_2625D874C(_Unwind_Exception *a1)
 {
-  DgnString::~DgnString((v1 + 48));
+  DgnString::~DgnString(v1 + 48);
   DgnString::~DgnString(v2);
-  DgnString::~DgnString((v1 + 16));
+  DgnString::~DgnString(v1 + 16);
   _Unwind_Resume(a1);
 }
 
@@ -7788,10 +7743,10 @@ void DgnTextFile::~DgnTextFile(DgnTextFile *this)
   DgnArray<DgnString>::releaseAll(this + 144);
   DgnArray<DgnString>::releaseAll(this + 128);
   DgnPrimArray<unsigned int>::~DgnPrimArray(this + 112);
-  DgnString::~DgnString((this + 80));
-  DgnString::~DgnString((this + 48));
-  DgnString::~DgnString((this + 32));
-  DgnString::~DgnString((this + 16));
+  DgnString::~DgnString(this + 80);
+  DgnString::~DgnString(this + 48);
+  DgnString::~DgnString(this + 32);
+  DgnString::~DgnString(this + 16);
 }
 
 {
@@ -7819,7 +7774,7 @@ void DgnTextFile::closeDgnTextFile(DgnTextFile *this)
     v3 = 16 * v2 - 16;
     do
     {
-      DgnString::~DgnString((*(this + 16) + v3));
+      DgnString::~DgnString(*(this + 16) + v3);
       v3 -= 16;
     }
 
@@ -7833,7 +7788,7 @@ void DgnTextFile::closeDgnTextFile(DgnTextFile *this)
     v5 = 16 * v4 - 16;
     do
     {
-      DgnString::~DgnString((*(this + 18) + v5));
+      DgnString::~DgnString(*(this + 18) + v5);
       v5 -= 16;
     }
 
@@ -7847,7 +7802,7 @@ void DgnTextFile::closeDgnTextFile(DgnTextFile *this)
     v7 = 16 * v6 - 16;
     do
     {
-      DgnString::~DgnString((*(this + 20) + v7));
+      DgnString::~DgnString(*(this + 20) + v7);
       v7 -= 16;
     }
 
@@ -7861,7 +7816,7 @@ void DgnTextFile::closeDgnTextFile(DgnTextFile *this)
     v9 = 16 * v8 - 16;
     do
     {
-      DgnString::~DgnString((*(this + 22) + v9));
+      DgnString::~DgnString(*(this + 22) + v9);
       v9 -= 16;
     }
 
@@ -7873,164 +7828,214 @@ void DgnTextFile::closeDgnTextFile(DgnTextFile *this)
   *(this + 208) = 0;
 }
 
-void DgnTextFile::legalDgnTextFileVersions(uint64_t a1, unsigned int *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void DgnTextFile::legalDgnTextFileVersions(unint64_t result, unsigned int *a2, uint64_t a3)
 {
-  v11 = *a2;
+  v6 = *a2;
   if (*a2 == -1)
   {
-    if (*(a1 + 104) == 1 && *(a1 + 24))
+    if (*(result + 104) == 1 && *(result + 24))
     {
-      v12 = *(a1 + 16);
+      v7 = *(result + 16);
     }
 
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 416, "dfutil/dtxtfile", 38, "%.500s %u %.500s", a7, a8, "major");
-    v11 = *a2;
+    else
+    {
+      v7 = &byte_262899963;
+    }
+
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 416, "dfutil/dtxtfile", 38, "%.500s %u %.500s", "major", 0, v7);
+    v6 = *a2;
   }
 
-  if (v11 != 1 && v11 <= 0x12)
+  if (v6 != 1 && v6 <= 0x12)
   {
-    if (*(a1 + 104) == 1 && *(a1 + 24))
+    if (*(result + 104) == 1 && *(result + 24))
     {
-      v14 = *(a1 + 16);
+      v9 = *(result + 16);
     }
 
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 420, "dfutil/dtxtfile", 38, "%.500s %u %.500s", a7, a8, "major");
+    else
+    {
+      v9 = &byte_262899963;
+    }
+
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 420, "dfutil/dtxtfile", 38, "%.500s %u %.500s", "major", 0, v9);
   }
 
   if (a2[1] == -1)
   {
-    if (*(a1 + 104) == 1 && *(a1 + 24))
+    if (*(result + 104) == 1 && *(result + 24))
     {
-      v15 = *(a1 + 16);
+      v10 = *(result + 16);
     }
 
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 423, "dfutil/dtxtfile", 38, "%.500s %u %.500s", a7, a8, "minor");
+    else
+    {
+      v10 = &byte_262899963;
+    }
+
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 423, "dfutil/dtxtfile", 38, "%.500s %u %.500s", "minor", 0, v10);
   }
 
   if (*a2 == 1 && a2[1])
   {
-    if (*(a1 + 104) == 1 && *(a1 + 24))
+    if (*(result + 104) == 1 && *(result + 24))
     {
-      v16 = *(a1 + 16);
+      v11 = *(result + 16);
     }
 
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 427, "dfutil/dtxtfile", 38, "%.500s %u %.500s", a7, a8, "minor");
+    else
+    {
+      v11 = &byte_262899963;
+    }
+
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 427, "dfutil/dtxtfile", 38, "%.500s %u %.500s", "minor", 0, v11);
   }
 
   *(a3 + 8) = 0;
   if (*(a3 + 12))
   {
-    v17 = 0;
+    v12 = 0;
   }
 
   else
   {
     DgnPrimArray<unsigned long long>::reallocElts(a3, 1, 1);
-    v17 = *(a3 + 8);
+    v12 = *(a3 + 8);
   }
 
-  v18 = 0;
-  *(*a3 + 8 * v17) = *a2;
+  v13 = 0;
+  *(*a3 + 8 * v12) = *a2;
   ++*(a3 + 8);
   while (1)
   {
-    v19 = &a2[2 * (v18 + 1)];
-    v20 = *v19;
-    if (*v19 != 1)
+    v14 = &a2[2 * (v13 + 1)];
+    v15 = *v14;
+    if (*v14 != 1)
     {
       break;
     }
 
-    if (*(a1 + 104) == 1 && *(a1 + 24))
+    if (*(result + 104) == 1 && *(result + 24))
     {
-      v21 = *(a1 + 16);
+      v16 = *(result + 16);
     }
 
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 435, "dfutil/dtxtfile", 38, "%.500s %u %.500s", a7, a8, "major");
-    v20 = *v19;
-LABEL_36:
-    v22 = &a2[2 * v18];
-    if (v20 < *v22)
+    else
     {
-      if (*(a1 + 104) == 1 && *(a1 + 24))
+      v16 = &byte_262899963;
+    }
+
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 435, "dfutil/dtxtfile", 38, "%.500s %u %.500s", "major", v13 + 1, v16);
+    v15 = *v14;
+LABEL_41:
+    v17 = &a2[2 * v13];
+    if (v15 < *v17)
+    {
+      if (*(result + 104) == 1 && *(result + 24))
       {
-        v23 = *(a1 + 16);
+        v18 = *(result + 16);
       }
 
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 438, "dfutil/dtxtfile", 38, "%.500s %u %.500s", a7, a8, "major");
-    }
-
-    v24 = v19[1];
-    if (v24 != -1)
-    {
-      if (v24)
+      else
       {
-        goto LABEL_52;
+        v18 = &byte_262899963;
       }
 
-LABEL_48:
-      if (*(a1 + 104) == 1 && *(a1 + 24))
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 438, "dfutil/dtxtfile", 38, "%.500s %u %.500s", "major", v13 + 1, v18);
+    }
+
+    v19 = v14[1];
+    if (v19 != -1)
+    {
+      if (v19)
       {
-        v26 = *(a1 + 16);
+        goto LABEL_60;
       }
 
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 445, "dfutil/dtxtfile", 38, "%.500s %u %.500s", a7, a8, "minor");
-      goto LABEL_52;
-    }
-
-    if (*(a1 + 104) == 1 && *(a1 + 24))
-    {
-      v25 = *(a1 + 16);
-    }
-
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 442, "dfutil/dtxtfile", 38, "%.500s %u %.500s", a7, a8, "minor");
-    if (!v19[1])
-    {
-      goto LABEL_48;
-    }
-
-LABEL_52:
-    v27 = *v22;
-    if (*v22 == 1)
-    {
-      v27 = v19[1];
-      if (v27 != 1)
+LABEL_55:
+      if (*(result + 104) == 1 && *(result + 24))
       {
-        if (*(a1 + 104) == 1 && *(a1 + 24))
+        v21 = *(result + 16);
+      }
+
+      else
+      {
+        v21 = &byte_262899963;
+      }
+
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 445, "dfutil/dtxtfile", 38, "%.500s %u %.500s", "minor", v13 + 1, v21);
+      goto LABEL_60;
+    }
+
+    if (*(result + 104) == 1 && *(result + 24))
+    {
+      v20 = *(result + 16);
+    }
+
+    else
+    {
+      v20 = &byte_262899963;
+    }
+
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 442, "dfutil/dtxtfile", 38, "%.500s %u %.500s", "minor", v13 + 1, v20);
+    if (!v14[1])
+    {
+      goto LABEL_55;
+    }
+
+LABEL_60:
+    v22 = *v17;
+    if (*v17 == 1)
+    {
+      v22 = v14[1];
+      if (v22 != 1)
+      {
+        if (*(result + 104) == 1 && *(result + 24))
         {
-          v28 = *(a1 + 16);
+          v23 = *(result + 16);
         }
 
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 449, "dfutil/dtxtfile", 38, "%.500s %u %.500s", a7, a8, "minor");
-        v27 = *v22;
+        else
+        {
+          v23 = &byte_262899963;
+        }
+
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 449, "dfutil/dtxtfile", 38, "%.500s %u %.500s", "minor", v13 + 1, v23);
+        v22 = *v17;
       }
     }
 
-    if (*v19 == v27 && v19[1] != v22[1] + 1)
+    if (*v14 == v22 && v14[1] != v17[1] + 1)
     {
-      if (*(a1 + 104) == 1 && *(a1 + 24))
+      if (*(result + 104) == 1 && *(result + 24))
       {
-        v29 = *(a1 + 16);
+        v24 = *(result + 16);
       }
 
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 453, "dfutil/dtxtfile", 38, "%.500s %u %.500s", a7, a8, "minor");
+      else
+      {
+        v24 = &byte_262899963;
+      }
+
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 453, "dfutil/dtxtfile", 38, "%.500s %u %.500s", "minor", v13 + 1, v24);
     }
 
-    v30 = *(a3 + 8);
-    if (v30 == *(a3 + 12))
+    v25 = *(a3 + 8);
+    if (v25 == *(a3 + 12))
     {
       DgnPrimArray<unsigned long long>::reallocElts(a3, 1, 1);
-      v30 = *(a3 + 8);
+      v25 = *(a3 + 8);
     }
 
-    *(*a3 + 8 * v30) = *v19;
+    *(*a3 + 8 * v25) = *v14;
     ++*(a3 + 8);
-    ++v18;
+    ++v13;
   }
 
-  if (v20 != -1)
+  if (v15 != -1)
   {
-    goto LABEL_36;
+    goto LABEL_41;
   }
 }
 
@@ -8049,25 +8054,34 @@ uint64_t DgnTextFile::getFileVersion(DgnTextFile *this)
 
 BOOL DgnTextFile::getHeaderField(DgnTextFile *this, const char *a2, DgnString *a3, int a4)
 {
-  v6 = a2;
-  DgnString::DgnString(v16, a2);
-  v8 = DgnArray<DgnString>::find(this + 40, v16);
-  v11 = v8;
+  DgnString::DgnString(v14, a2);
+  v8 = DgnArray<DgnString>::find(this + 40, v14);
+  v9 = v8;
   if (v8 == -1)
   {
     if (a4)
     {
       if (*(this + 6))
       {
-        v13 = *(this + 2);
+        v11 = *(this + 2);
+      }
+
+      else
+      {
+        v11 = &byte_262899963;
       }
 
       if (*(this + 10))
       {
-        v14 = *(this + 4);
+        v12 = *(this + 4);
       }
 
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 478, "dfutil/dtxtfile", 29, "%.500s %.500s %.500s", v9, v10, v6);
+      else
+      {
+        v12 = &byte_262899963;
+      }
+
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 478, "dfutil/dtxtfile", 29, "%.500s %.500s %.500s", a2, v11, v12);
     }
 
     if (a3)
@@ -8083,55 +8097,65 @@ BOOL DgnTextFile::getHeaderField(DgnTextFile *this, const char *a2, DgnString *a
       DgnString::operator=(a3, (*(this + 22) + 16 * v8));
     }
 
-    v12 = *(this + 24);
-    if ((*(v12 + v11) & 1) == 0)
+    v10 = *(this + 24);
+    if ((*(v10 + v9) & 1) == 0)
     {
-      *(v12 + v11) = 1;
+      *(v10 + v9) = 1;
     }
   }
 
-  DgnString::~DgnString(v16);
-  return v11 != -1;
+  DgnString::~DgnString(v14);
+  return v9 != -1;
 }
 
-void sub_2625D8FA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_2625D8FA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   DgnString::~DgnString(va);
   _Unwind_Resume(a1);
 }
 
-BOOL DgnTextFile::getHeaderFieldUnsigned(DgnTextFile *this, const char *a2, unsigned int *a3, int a4, unsigned int a5, unsigned int a6)
+BOOL DgnTextFile::getHeaderFieldUnsigned(const char **this, const char *a2, unsigned int *a3, int a4, unsigned int a5, unsigned int a6)
 {
-  DgnString::DgnString(&v27);
-  HeaderField = DgnTextFile::getHeaderField(this, a2, &v27, a4);
+  DgnString::DgnString(&v19);
+  HeaderField = DgnTextFile::getHeaderField(this, a2, &v19, a4);
   if (HeaderField)
   {
-    if (v28)
+    if (v20)
     {
-      v19 = v27;
+      v13 = v19;
     }
 
     else
     {
-      v19 = &byte_262899963;
+      v13 = &byte_262899963;
     }
 
-    v20 = DgnTextFile::atoui(this, v19, v12, v13, v14, v15, v16, v17);
-    *a3 = v20;
-    if (v20 < a5 || v20 > a6)
+    v14 = DgnTextFile::atoui(this, v13);
+    *a3 = v14;
+    if (v14 < a5 || v14 > a6)
     {
       if (*(this + 6))
       {
-        v24 = *(this + 2);
+        v16 = this[2];
+      }
+
+      else
+      {
+        v16 = &byte_262899963;
       }
 
       if (*(this + 10))
       {
-        v25 = *(this + 4);
+        v17 = this[4];
       }
 
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 525, "dfutil/dtxtfile", 32, "%.500s %.500s %.500s %u %u %u", v21, v22, a2);
+      else
+      {
+        v17 = &byte_262899963;
+      }
+
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 525, "dfutil/dtxtfile", 32, "%.500s %.500s %.500s %u %u %u", a2, v16, v17, v14, a5, a6);
     }
   }
 
@@ -8140,13 +8164,13 @@ BOOL DgnTextFile::getHeaderFieldUnsigned(DgnTextFile *this, const char *a2, unsi
     *a3 = 0;
   }
 
-  DgnString::~DgnString(&v27);
+  DgnString::~DgnString(&v19);
   return HeaderField;
 }
 
-void sub_2625D90D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2625D90D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   DgnString::~DgnString(va);
   _Unwind_Resume(a1);
 }
@@ -8264,37 +8288,47 @@ LABEL_9:
   return result;
 }
 
-BOOL DgnTextFile::getHeaderFieldUnsigned64(DgnTextFile *this, const char *a2, unint64_t *a3, int a4, unint64_t a5, unint64_t a6)
+BOOL DgnTextFile::getHeaderFieldUnsigned64(const char **this, const char *a2, unint64_t *a3, int a4, unint64_t a5, unint64_t a6)
 {
-  DgnString::DgnString(&v27);
-  HeaderField = DgnTextFile::getHeaderField(this, a2, &v27, a4);
+  DgnString::DgnString(&v19);
+  HeaderField = DgnTextFile::getHeaderField(this, a2, &v19, a4);
   if (HeaderField)
   {
-    if (v28)
+    if (v20)
     {
-      v19 = v27;
+      v13 = v19;
     }
 
     else
     {
-      v19 = &byte_262899963;
+      v13 = &byte_262899963;
     }
 
-    v20 = DgnTextFile::atou64(this, v19, v12, v13, v14, v15, v16, v17);
-    *a3 = v20;
-    if (v20 < a5 || v20 > a6)
+    v14 = DgnTextFile::atou64(this, v13);
+    *a3 = v14;
+    if (v14 < a5 || v14 > a6)
     {
       if (*(this + 6))
       {
-        v24 = *(this + 2);
+        v16 = this[2];
+      }
+
+      else
+      {
+        v16 = &byte_262899963;
       }
 
       if (*(this + 10))
       {
-        v25 = *(this + 4);
+        v17 = this[4];
       }
 
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 549, "dfutil/dtxtfile", 36, "%.500s %.500s %.500s %llu %llu %llu", v21, v22, a2);
+      else
+      {
+        v17 = &byte_262899963;
+      }
+
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 549, "dfutil/dtxtfile", 36, "%.500s %.500s %.500s %llu %llu %llu", a2, v16, v17, v14, a5, a6);
     }
   }
 
@@ -8303,18 +8337,18 @@ BOOL DgnTextFile::getHeaderFieldUnsigned64(DgnTextFile *this, const char *a2, un
     *a3 = 0;
   }
 
-  DgnString::~DgnString(&v27);
+  DgnString::~DgnString(&v19);
   return HeaderField;
 }
 
-void sub_2625D92F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2625D92F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   DgnString::~DgnString(va);
   _Unwind_Resume(a1);
 }
 
-BOOL DgnTextFile::getHeaderFieldBool(DgnTextFile *this, const char *a2, BOOL *a3, int a4)
+BOOL DgnTextFile::getHeaderFieldBool(const char **this, const char *a2, BOOL *a3, int a4)
 {
   v7 = 0;
   result = DgnTextFile::getHeaderFieldUnsigned(this, a2, &v7, a4, 0, 1u);
@@ -8323,37 +8357,47 @@ BOOL DgnTextFile::getHeaderFieldBool(DgnTextFile *this, const char *a2, BOOL *a3
   return result;
 }
 
-BOOL DgnTextFile::getHeaderFieldInteger(DgnTextFile *this, const char *a2, int *a3, int a4, int a5, int a6)
+BOOL DgnTextFile::getHeaderFieldInteger(const char **this, const char *a2, int *a3, int a4, int a5, int a6)
 {
-  DgnString::DgnString(&v27);
-  HeaderField = DgnTextFile::getHeaderField(this, a2, &v27, a4);
+  DgnString::DgnString(&v19);
+  HeaderField = DgnTextFile::getHeaderField(this, a2, &v19, a4);
   if (HeaderField)
   {
-    if (v28)
+    if (v20)
     {
-      v19 = v27;
+      v13 = v19;
     }
 
     else
     {
-      v19 = &byte_262899963;
+      v13 = &byte_262899963;
     }
 
-    v20 = DgnTextFile::atosi(this, v19, v12, v13, v14, v15, v16, v17);
-    *a3 = v20;
-    if (v20 < a5 || v20 > a6)
+    v14 = DgnTextFile::atosi(this, v13);
+    *a3 = v14;
+    if (v14 < a5 || v14 > a6)
     {
       if (*(this + 6))
       {
-        v24 = *(this + 2);
+        v16 = this[2];
+      }
+
+      else
+      {
+        v16 = &byte_262899963;
       }
 
       if (*(this + 10))
       {
-        v25 = *(this + 4);
+        v17 = this[4];
       }
 
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 590, "dfutil/dtxtfile", 33, "%.500s %.500s %.500s %d %d %d", v21, v22, a2);
+      else
+      {
+        v17 = &byte_262899963;
+      }
+
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 590, "dfutil/dtxtfile", 33, "%.500s %.500s %.500s %d %d %d", a2, v16, v17, v14, a5, a6);
     }
   }
 
@@ -8362,26 +8406,26 @@ BOOL DgnTextFile::getHeaderFieldInteger(DgnTextFile *this, const char *a2, int *
     *a3 = 0;
   }
 
-  DgnString::~DgnString(&v27);
+  DgnString::~DgnString(&v19);
   return HeaderField;
 }
 
-void sub_2625D946C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2625D946C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   DgnString::~DgnString(va);
   _Unwind_Resume(a1);
 }
 
-BOOL DgnTextFile::getHeaderFieldReal(DgnTextFile *this, const char *a2, double *a3, int a4, double a5, double a6)
+BOOL DgnTextFile::getHeaderFieldReal(const char **this, const char *a2, double *a3, int a4, double a5, double a6)
 {
-  DgnString::DgnString(&v22);
-  HeaderField = DgnTextFile::getHeaderField(this, a2, &v22, a4);
+  DgnString::DgnString(&v20);
+  HeaderField = DgnTextFile::getHeaderField(this, a2, &v20, a4);
   if (HeaderField)
   {
-    if (v23)
+    if (v21)
     {
-      v13 = v22;
+      v13 = v20;
     }
 
     else
@@ -8390,21 +8434,31 @@ BOOL DgnTextFile::getHeaderFieldReal(DgnTextFile *this, const char *a2, double *
     }
 
     v14 = atof(v13);
-    v17 = eround(v14, 14);
-    *a3 = v17;
-    if (v17 < a5 || v17 > a6)
+    v15 = eround(v14, 14);
+    *a3 = v15;
+    if (v15 < a5 || v15 > a6)
     {
       if (*(this + 6))
       {
-        v19 = *(this + 2);
+        v17 = this[2];
+      }
+
+      else
+      {
+        v17 = &byte_262899963;
       }
 
       if (*(this + 10))
       {
-        v20 = *(this + 4);
+        v18 = this[4];
       }
 
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 615, "dfutil/dtxtfile", 34, "%.500s %.500s %.500s %g %g %g", v15, v16, a2);
+      else
+      {
+        v18 = &byte_262899963;
+      }
+
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 615, "dfutil/dtxtfile", 34, "%.500s %.500s %.500s %g %g %g", a2, v17, v18, v15, a5, a6);
     }
   }
 
@@ -8413,13 +8467,13 @@ BOOL DgnTextFile::getHeaderFieldReal(DgnTextFile *this, const char *a2, double *
     *a3 = 0.0;
   }
 
-  DgnString::~DgnString(&v22);
+  DgnString::~DgnString(&v20);
   return HeaderField;
 }
 
-void sub_2625D95A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2625D95A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   DgnString::~DgnString(va);
   _Unwind_Resume(a1);
 }
@@ -8496,134 +8550,137 @@ DgnString *DgnTextFile::convertToDTFFormat(DgnTextFile *this, const DgnString *a
 
 uint64_t DgnTextFile::convertFromDTFFormat(DgnTextFile *this, const DgnString *a2, DgnString *a3, const char *a4)
 {
-  v4 = a2;
+  v4 = a4;
+  v6 = a2;
   *(a2 + 2) = 0;
-  v6 = *(this + 2);
-  v7 = *this;
-  if (v6)
+  v8 = *(this + 2);
+  if (v8)
   {
-    v8 = *this;
+    v9 = *this;
   }
 
   else
   {
-    v8 = &byte_262899963;
+    v9 = &byte_262899963;
   }
 
-  result = strcmp(v8, "^");
+  result = strcmp(v9, "^");
   if (result)
   {
-    v10 = v6 ? v6 - 1 : 0;
-    result = DgnString::preAllocate(v4, v10);
-    v13 = *(this + 2);
-    if (v13 >= 2)
+    v11 = v8 ? v8 - 1 : 0;
+    result = DgnString::preAllocate(v6, v11);
+    v12 = *(this + 2);
+    if (v12 >= 2)
     {
-      v14 = 0;
-      v15 = v13 - 1;
-      v16 = 1;
-      v17 = MEMORY[0x277D85DE0];
-      v32 = v4;
+      v13 = 0;
+      v14 = v12 - 1;
+      v15 = 1;
+      v16 = MEMORY[0x277D85DE0];
+      v31 = v6;
       while (1)
       {
-        v18 = *(*this + v14);
-        if (v18 == 94)
+        v17 = *(*this + v13);
+        if (v17 == 94)
         {
           break;
         }
 
-        if ((v18 & 0x80) != 0 || (*(v17 + 4 * *(*this + v14) + 60) & 0x44000) != 0x40000)
+        if ((v17 & 0x80) != 0 || (*(v16 + 4 * *(*this + v13) + 60) & 0x44000) != 0x40000)
         {
-          if (v16)
+          v18 = v15 == 0;
+          v30 = &byte_262899963;
+          if (!v18)
           {
-            v31 = *this;
+            v30 = *this;
           }
 
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 700, "dfutil/dtxtfile", 19, "%02x %u %.500s %.500s %u", v11, v12, v18);
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 700, "dfutil/dtxtfile", 19, "%02x %u %.500s %.500s %u", v17, v13, v30, a3, v4);
         }
 
-        result = DgnString::appendCharWithGrow(v4, v18);
+        result = DgnString::appendCharWithGrow(v6, v17);
 LABEL_39:
-        ++v14;
-        v16 = *(this + 2);
-        v15 = v16 - 1;
-        if (!v16)
+        ++v13;
+        v15 = *(this + 2);
+        v14 = v15 - 1;
+        if (!v15)
         {
-          v15 = 0;
+          v14 = 0;
         }
 
-        if (v14 >= v15)
+        if (v13 >= v14)
         {
           return result;
         }
       }
 
-      if (v14 + 2 >= v15)
+      if (v13 + 2 >= v14)
       {
-        v19 = v16 == 0;
-        v20 = &byte_262899963;
-        if (!v19)
+        v18 = v15 == 0;
+        v19 = &byte_262899963;
+        if (!v18)
         {
-          v20 = *this;
+          v19 = *this;
         }
 
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 707, "dfutil/dtxtfile", 35, "%.500s %u %.500s %u", v11, v12, v20);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 707, "dfutil/dtxtfile", 35, "%.500s %u %.500s %u", v19, v13, a3, v4);
       }
 
-      v21 = 0;
-      v22 = 1;
+      v20 = 0;
+      v21 = 1;
       while (1)
       {
-        v23 = v22;
-        v24 = *(*this + ++v14);
-        v25 = *(*this + v14);
-        v26 = 16 * v21;
-        if (v24 < 0 || (v27 = *(v17 + 4 * v24 + 60), (v27 & 0x10000) == 0))
+        v22 = v21;
+        v23 = *(*this + ++v13);
+        v24 = *(*this + v13);
+        v25 = 16 * v20;
+        if (v23 < 0 || (v26 = *(v16 + 4 * v23 + 60), (v26 & 0x10000) == 0))
         {
+          v27 = &byte_262899963;
           if (*(this + 2))
           {
-            v28 = *this;
+            v27 = *this;
           }
 
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 715, "dfutil/dtxtfile", 20, "%c %u %.500s %.500s %u", v11, v12, v25);
-          if ((v24 & 0x80000000) != 0)
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 715, "dfutil/dtxtfile", 20, "%c %u %.500s %.500s %u", v24, v13, v27, a3, v4);
+          if ((v23 & 0x80000000) != 0)
           {
             goto LABEL_25;
           }
 
-          v27 = *(v17 + 4 * v25 + 60);
+          v26 = *(v16 + 4 * v24 + 60);
         }
 
-        if ((v27 & 0x400) != 0)
+        if ((v26 & 0x400) != 0)
         {
-          v29 = v25 - 48;
+          v28 = v24 - 48;
           goto LABEL_27;
         }
 
-        if ((v27 & 0x1000) != 0)
+        if ((v26 & 0x1000) != 0)
         {
-          v25 = __toupper(v25);
+          LODWORD(v24) = __toupper(v24);
         }
 
 LABEL_25:
-        v29 = v25 - 55;
+        v28 = v24 - 55;
 LABEL_27:
-        v22 = 0;
-        v21 = v29 + v26;
-        if ((v23 & 1) == 0)
+        v21 = 0;
+        v20 = v28 + v25;
+        if ((v22 & 1) == 0)
         {
-          if (!v21)
+          if (!v20)
           {
-            v30 = &byte_262899963;
+            v29 = &byte_262899963;
             if (*(this + 2))
             {
-              v30 = *this;
+              v29 = *this;
             }
 
-            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 736, "dfutil/dtxtfile", 21, "%.500s %.500s %u", v11, v12, v30);
+            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 736, "dfutil/dtxtfile", 21, "%.500s %.500s %u", v29, a3, v4);
           }
 
-          v4 = v32;
-          result = DgnString::operator+=(v32, v21);
+          v6 = v31;
+          result = DgnString::operator+=(v31, v20);
           goto LABEL_39;
         }
       }
@@ -8633,7 +8690,7 @@ LABEL_27:
   return result;
 }
 
-uint64_t DgnTextFile::convertToEnvValueFormat(uint64_t a1, DgnString *this)
+void *DgnTextFile::convertToEnvValueFormat(uint64_t a1, DgnString *this)
 {
   *(this + 2) = 0;
   v4 = *(a1 + 8);
@@ -8674,99 +8731,100 @@ uint64_t DgnTextFile::convertToEnvValueFormat(uint64_t a1, DgnString *this)
   return result;
 }
 
-uint64_t DgnTextFile::convertFromEnvValueFormat(uint64_t a1, uint64_t **a2)
+uint64_t DgnTextFile::convertFromEnvValueFormat(uint64_t a1, void **a2, const char *a3, int a4)
 {
-  v2 = a2;
+  v6 = a2;
   if (*a2)
   {
     MemChunkFree(*a2, 0);
-    *v2 = 0;
+    *v6 = 0;
   }
 
-  *(v2 + 2) = 0;
-  v30 = 0;
-  v31 = 0;
-  v4 = *(a1 + 8);
-  if (v4 < 2 || (v32 = 0, HIDWORD(v31) = realloc_array(0, &v32, v4 - 1, 0, 0, 1), v30 = v32, v7 = *(a1 + 8), v8 = v7 - 1, v7 <= 1))
+  *(v6 + 2) = 0;
+  v32 = 0;
+  v33 = 0;
+  v8 = *(a1 + 8);
+  if (v8 < 2 || (v34 = 0, HIDWORD(v33) = realloc_array(0, &v34, v8 - 1, 0, 0, 1), v32 = v34, v9 = *(a1 + 8), v10 = v9 - 1, v9 <= 1))
   {
-    v9 = v31;
+    v11 = v33;
     goto LABEL_40;
   }
 
-  v29 = v2;
-  v10 = 0;
-  v11 = MEMORY[0x277D85DE0];
-  v12 = 1;
+  v31 = v6;
+  v12 = 0;
+  v13 = MEMORY[0x277D85DE0];
+  v14 = 1;
   do
   {
-    v13 = *(*a1 + v10);
-    if (v13 == 96)
+    v15 = *(*a1 + v12);
+    if (v15 == 96)
     {
-      if (v10 + 2 >= v8)
+      if (v12 + 2 >= v10)
       {
-        v14 = v12 == 0;
-        v15 = &byte_262899963;
-        if (!v14)
+        v16 = v14 == 0;
+        v17 = &byte_262899963;
+        if (!v16)
         {
-          v15 = *a1;
+          v17 = *a1;
         }
 
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 799, "dfutil/dtxtfile", 35, "%.500s %u %.500s %u", v5, v6, v15);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 799, "dfutil/dtxtfile", 35, "%.500s %u %.500s %u", v17, v12, a3, a4);
       }
 
-      v16 = 0;
-      v17 = 1;
+      v18 = 0;
+      v19 = 1;
       while (1)
       {
-        v18 = v17;
-        v19 = *(*a1 + ++v10);
-        v20 = *(*a1 + v10);
-        if ((v19 & 0x8000000000000000) == 0 && (v21 = *(v11 + 4 * v19 + 60), (v21 & 0x10000) != 0))
+        v20 = v19;
+        v21 = *(*a1 + ++v12);
+        v22 = *(*a1 + v12);
+        if ((v21 & 0x8000000000000000) == 0 && (v23 = *(v13 + 4 * v21 + 60), (v23 & 0x10000) != 0))
         {
-          v23 = 16 * v16;
-          if ((v21 & 0x400) != 0)
+          v25 = 16 * v18;
+          if ((v23 & 0x400) != 0)
           {
 LABEL_23:
-            v24 = v20 - 48;
+            v26 = v22 - 48;
             goto LABEL_24;
           }
         }
 
         else
         {
+          v24 = &byte_262899963;
           if (*(a1 + 8))
           {
-            v22 = *a1;
+            v24 = *a1;
           }
 
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 807, "dfutil/dtxtfile", 20, "%c %u %.500s %.500s %u", v5, v6, v20);
-          v23 = 16 * v16;
-          if ((v19 & 0x80000000) != 0)
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 807, "dfutil/dtxtfile", 20, "%c %u %.500s %.500s %u", v22, v12, v24, a3, a4);
+          v25 = 16 * v18;
+          if ((v21 & 0x80000000) != 0)
           {
             goto LABEL_21;
           }
 
-          v21 = *(v11 + 4 * v20 + 60);
-          if ((v21 & 0x400) != 0)
+          v23 = *(v13 + 4 * v22 + 60);
+          if ((v23 & 0x400) != 0)
           {
             goto LABEL_23;
           }
         }
 
-        if ((v21 & 0x1000) != 0)
+        if ((v23 & 0x1000) != 0)
         {
-          v20 = __toupper(v20);
+          LODWORD(v22) = __toupper(v22);
         }
 
 LABEL_21:
-        v24 = v20 - 55;
+        v26 = v22 - 55;
 LABEL_24:
-        v17 = 0;
-        v16 = v24 + v23;
-        if ((v18 & 1) == 0)
+        v19 = 0;
+        v18 = v26 + v25;
+        if ((v20 & 1) == 0)
         {
-          v25 = v31;
-          if (v31 == HIDWORD(v31))
+          v27 = v33;
+          if (v33 == HIDWORD(v33))
           {
             goto LABEL_33;
           }
@@ -8776,66 +8834,68 @@ LABEL_24:
       }
     }
 
-    LOBYTE(v16) = *(*a1 + v10);
-    if (v13 < 0 || (*(v11 + 4 * v13 + 60) & 0x44000) != 0x40000)
+    LOBYTE(v18) = *(*a1 + v12);
+    if (v15 < 0 || (*(v13 + 4 * v15 + 60) & 0x44000) != 0x40000)
     {
-      if (v12)
+      v16 = v14 == 0;
+      v28 = &byte_262899963;
+      if (!v16)
       {
-        v26 = *a1;
+        v28 = *a1;
       }
 
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 792, "dfutil/dtxtfile", 19, "%02x %u %.500s %.500s %u", v5, v6, v13);
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 792, "dfutil/dtxtfile", 19, "%02x %u %.500s %.500s %u", v15, v12, v28, a3, a4);
     }
 
-    v25 = v31;
-    if (v31 == HIDWORD(v31))
+    v27 = v33;
+    if (v33 == HIDWORD(v33))
     {
 LABEL_33:
-      DgnPrimArray<char>::reallocElts(&v30, 1, 1);
-      v25 = v31;
+      DgnPrimArray<char>::reallocElts(&v32, 1, 1);
+      v27 = v33;
     }
 
 LABEL_34:
-    v30[v25] = v16;
-    v9 = v31 + 1;
-    LODWORD(v31) = v31 + 1;
-    ++v10;
-    v12 = *(a1 + 8);
-    v8 = v12 - 1;
-    if (!v12)
+    v32[v27] = v18;
+    v11 = v33 + 1;
+    LODWORD(v33) = v33 + 1;
+    ++v12;
+    v14 = *(a1 + 8);
+    v10 = v14 - 1;
+    if (!v14)
     {
-      v8 = 0;
+      v10 = 0;
     }
   }
 
-  while (v10 < v8);
-  v2 = v29;
-  if (v9 && !*(v29 + 2))
+  while (v12 < v10);
+  v6 = v31;
+  if (v11 && !*(v31 + 2))
   {
-    *v29 = MemChunkAlloc(v9, 0);
-    *(v29 + 2) = v9;
-    v9 = v31;
+    *v31 = MemChunkAlloc(v11, 0);
+    *(v31 + 2) = v11;
+    v11 = v33;
   }
 
 LABEL_40:
-  if (v9)
+  if (v11)
   {
-    v27 = 0;
+    v29 = 0;
     do
     {
-      *(*v2 + v27) = v30[v27];
-      ++v27;
+      *(*v6 + v29) = v32[v29];
+      ++v29;
     }
 
-    while (v27 < v31);
+    while (v29 < v33);
   }
 
-  return DgnPrimArray<unsigned int>::~DgnPrimArray(&v30);
+  return DgnPrimArray<unsigned int>::~DgnPrimArray(&v32);
 }
 
-void sub_2625D9E08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_2625D9E08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   _Unwind_Resume(a1);
 }
@@ -8967,14 +9027,14 @@ void DgnTextFileParser::DgnTextFileParser(DgnTextFileParser *this)
 void DgnTextFileParser::~DgnTextFileParser(DgnTextFileParser *this)
 {
   *this = &unk_287527248;
-  DgnString::~DgnString((this + 216));
+  DgnString::~DgnString(this + 216);
 
   DgnTextFile::~DgnTextFile(this);
 }
 
 {
   *this = &unk_287527248;
-  DgnString::~DgnString((this + 216));
+  DgnString::~DgnString(this + 216);
   DgnTextFile::~DgnTextFile(this);
 
   JUMPOUT(0x26672B1B0);
@@ -8982,104 +9042,84 @@ void DgnTextFileParser::~DgnTextFileParser(DgnTextFileParser *this)
 
 void DgnTextFileParser::verifyMatchingFileType(DgnTextFileParser *this, const char *a2)
 {
-  DgnString::DgnString(&v8);
-  if (*(this + 104) == 1)
+  DgnString::DgnString(&v6);
+  if (*(this + 104) != 1)
   {
-    DgnString::operator=(&v8, (this + 16));
-    if (v9)
+    v7 = 0;
+LABEL_8:
+    if (*(this + 10))
     {
-      v6 = v8;
+      v5 = *(this + 4);
     }
 
     else
     {
-      v6 = &byte_262899963;
+      v5 = &byte_262899963;
     }
 
-    if (!strcmp(v6, a2))
-    {
-      goto LABEL_11;
-    }
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 1073, "dfutil/dtxtfile", 27, "%.500s %.500s", a2, v5);
+    goto LABEL_12;
+  }
+
+  DgnString::operator=(&v6, (this + 16));
+  if (v7)
+  {
+    v4 = v6;
   }
 
   else
   {
-    v9 = 0;
+    v4 = &byte_262899963;
   }
 
-  if (*(this + 10))
+  if (strcmp(v4, a2))
   {
-    v7 = *(this + 4);
+    goto LABEL_8;
   }
 
-  errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 1073, "dfutil/dtxtfile", 27, "%.500s %.500s", v4, v5, a2);
-LABEL_11:
-  DgnString::~DgnString(&v8);
+LABEL_12:
+  DgnString::~DgnString(&v6);
 }
 
-void sub_2625DA138(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2625DA138(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   DgnString::~DgnString(va);
   _Unwind_Resume(a1);
 }
 
-void DgnTextFileParser::verifyFileVersionInRange(uint64_t a1, unsigned int *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double DgnTextFileParser::verifyFileVersionInRange(uint64_t result, unsigned int *a2)
 {
-  v8 = a2[2];
-  if (!v8)
+  v2 = *(result + 72);
+  v3 = a2[2];
+  if (!v3)
   {
-    goto LABEL_15;
+    goto LABEL_16;
   }
 
-  v9 = (*a2 + 4);
-  v10 = 1;
-  v11 = a2[2];
-  v12 = 1;
+  v4 = (*a2 + 4);
+  v5 = 1;
+  v6 = a2[2];
+  v7 = 1;
   do
   {
-    if (*(v9 - 1) == *(a1 + 68) && *v9 == *(a1 + 72))
+    if (*(v4 - 1) == *(result + 68) && *v4 == v2)
     {
       break;
     }
 
-    v12 = v10++ < v8;
-    v9 += 2;
-    --v11;
+    v7 = v5++ < v3;
+    v4 += 2;
+    --v6;
   }
 
-  while (v11);
-  if (!v12)
+  while (v6);
+  if (!v7)
   {
-LABEL_15:
-    if (*(a1 + 24))
+LABEL_16:
+    if (*(result + 24))
     {
-      v13 = *(a1 + 16);
-    }
-
-    else
-    {
-      v13 = &byte_262899963;
-    }
-
-    if (*(a1 + 40))
-    {
-      v14 = *(a1 + 32);
-    }
-
-    v15 = *(a1 + 68);
-    v16 = *(a1 + 72);
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 1082, "dfutil/dtxtfile", 28, "%.500s %.500s %u %u", a7, a8, v13);
-  }
-}
-
-void DgnTextFileParser::verifyMatchingNumFieldSpecs(DgnTextFileParser *this, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  if (*(this + 34) != a2)
-  {
-    if (*(this + 6))
-    {
-      v8 = *(this + 2);
+      v8 = *(result + 16);
     }
 
     else
@@ -9087,23 +9127,40 @@ void DgnTextFileParser::verifyMatchingNumFieldSpecs(DgnTextFileParser *this, int
       v8 = &byte_262899963;
     }
 
-    if (*(this + 10))
+    if (*(result + 40))
     {
-      v9 = *(this + 4);
+      v9 = *(result + 32);
     }
 
-    v10 = *(this + 34);
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 1091, "dfutil/dtxtfile", 30, "%.500s %.500s %d %d", a7, a8, v8);
+    else
+    {
+      v9 = &byte_262899963;
+    }
+
+    return errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 1082, "dfutil/dtxtfile", 28, "%.500s %.500s %u %u", v8, v9, *(result + 68), v2);
   }
+
+  return v10;
 }
 
-void DgnTextFileParser::verifyNoBodyLines(DgnTextFileParser *this)
+double DgnTextFileParser::verifyMatchingNumFieldSpecs(uint64_t this, int a2)
 {
-  if (DgnTextFileParser::parseNextLine(this))
+  v2 = *(this + 136);
+  if (v2 != a2)
   {
-    if (*(this + 6))
+    if (*(this + 24))
     {
-      v4 = *(this + 2);
+      v3 = *(this + 16);
+    }
+
+    else
+    {
+      v3 = &byte_262899963;
+    }
+
+    if (*(this + 40))
+    {
+      v4 = *(this + 32);
     }
 
     else
@@ -9111,13 +9168,40 @@ void DgnTextFileParser::verifyNoBodyLines(DgnTextFileParser *this)
       v4 = &byte_262899963;
     }
 
-    if (*(this + 10))
+    return errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 1091, "dfutil/dtxtfile", 30, "%.500s %.500s %d %d", v3, v4, v2, a2);
+  }
+
+  return result;
+}
+
+double DgnTextFileParser::verifyNoBodyLines(const char **this)
+{
+  if (DgnTextFileParser::parseNextLine(this))
+  {
+    if (*(this + 6))
     {
-      v5 = *(this + 4);
+      v3 = this[2];
     }
 
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 1098, "dfutil/dtxtfile", 31, "%.500s %.500s", v2, v3, v4);
+    else
+    {
+      v3 = &byte_262899963;
+    }
+
+    if (*(this + 10))
+    {
+      v4 = this[4];
+    }
+
+    else
+    {
+      v4 = &byte_262899963;
+    }
+
+    return errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 1098, "dfutil/dtxtfile", 31, "%.500s %.500s", v3, v4);
   }
+
+  return result;
 }
 
 uint64_t DgnTextFileParser::parseNextLine(DgnTextFileParser *this)
@@ -9154,7 +9238,7 @@ uint64_t DgnTextFileParser::parseNextLine(DgnTextFileParser *this)
     do
     {
       --v5;
-      DgnString::~DgnString((*(this + 18) + v6));
+      DgnString::~DgnString(*(this + 18) + v6);
       v6 -= 16;
     }
 
@@ -9176,83 +9260,90 @@ uint64_t DgnTextFileParser::parseNextLine(DgnTextFileParser *this)
       v11 = &byte_262899963;
     }
 
-    v44 = Line;
-    DgnString::preAllocate(this + 216, 256);
+    v36 = Line;
+    DgnString::preAllocate(this + 27, 256);
     if (v2)
     {
-      v16 = 0;
-      v17 = MEMORY[0x277D85DE0];
-      v18 = v11;
+      v14 = 0;
+      v15 = MEMORY[0x277D85DE0];
+      v16 = v11;
       while (1)
       {
-        v19 = *(*(this + 14) + 4 * v16);
-        if ((v19 - 1) < 3)
+        v17 = *(*(this + 14) + 4 * v14);
+        if ((v17 - 1) < 3)
         {
           break;
         }
 
-        if (!v19)
+        if (!v17)
         {
-          v23 = *v18;
-          if (*v18 < 1)
+          v21 = *v16;
+          if (*v16 < 1)
           {
 LABEL_32:
-            if (v23)
+            if (v21)
             {
-              goto LABEL_42;
+              goto LABEL_44;
             }
 
-            if (*(this + 10))
+            v23 = *(this + 10) ? *(this + 4) : &byte_262899963;
+            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 1596, "dfutil/dtxtfile", 17, "%d %.500s %.500s %u", v14, v11, v23, *(this + 25));
+            v21 = *v16;
+            v24 = v16;
+            if (*v16)
             {
-              v25 = *(this + 4);
-            }
-
-            v41 = *(this + 25);
-            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 1596, "dfutil/dtxtfile", 17, "%d %.500s %.500s %u", v14, v15, v16);
-            v23 = *v18;
-            v26 = v18;
-            if (*v18)
-            {
-              goto LABEL_42;
+              goto LABEL_44;
             }
           }
 
           else
           {
-            while ((*(v17 + 4 * v23 + 60) & 0x4000) != 0)
+            while ((*(v15 + 4 * v21 + 60) & 0x4000) != 0)
             {
-              v24 = *++v18;
-              v23 = v24;
-              if (v24 <= 0)
+              v22 = *++v16;
+              v21 = v22;
+              if (v22 <= 0)
               {
                 goto LABEL_32;
               }
             }
 
-LABEL_42:
-            v26 = v18;
+LABEL_44:
+            v24 = v16;
             do
             {
-              if ((v23 & 0x80) == 0 && (*(v17 + 4 * v23 + 60) & 0x4000) != 0)
+              if ((v21 & 0x80) == 0 && (*(v15 + 4 * v21 + 60) & 0x4000) != 0)
               {
                 break;
               }
 
-              v28 = *++v18;
-              v23 = v28;
+              v26 = *++v16;
+              v21 = v26;
             }
 
-            while (v28);
+            while (v26);
           }
 
-          goto LABEL_46;
+LABEL_48:
+          DgnString::set((this + 216), v24, v16 - v24);
         }
 
-LABEL_47:
-        DgnString::preAllocate(*(this + 18) + 16 * v16, 256);
+        DgnString::preAllocate((*(this + 18) + 16 * v14), 256);
         if (*(this + 10))
         {
-          v29 = *(this + 4);
+          v27 = *(this + 4);
+        }
+
+        else
+        {
+          v27 = &byte_262899963;
+        }
+
+        DgnTextFile::convertFromDTFFormat((this + 216), (*(this + 18) + 16 * v14), v27, *(this + 25));
+        v28 = *(this + 18) + 16 * v14;
+        if (*(v28 + 8))
+        {
+          v29 = *v28;
         }
 
         else
@@ -9260,132 +9351,121 @@ LABEL_47:
           v29 = &byte_262899963;
         }
 
-        DgnTextFile::convertFromDTFFormat((this + 216), (*(this + 18) + 16 * v16), v29, *(this + 25));
-        v30 = *(this + 18) + 16 * v16;
-        if (*(v30 + 8))
-        {
-          v31 = *v30;
-        }
-
-        else
-        {
-          v31 = &byte_262899963;
-        }
-
-        if ((DgnTextFile::checkAgainstFormat(v31, v19) & 1) == 0)
+        if ((DgnTextFile::checkAgainstFormat(v29, v17) & 1) == 0)
         {
           if (*(this + 10))
           {
-            v32 = *(this + 4);
+            v30 = *(this + 4);
           }
 
-          v42 = *(this + 25);
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 1629, "dfutil/dtxtfile", 17, "%d %.500s %.500s %u", v14, v15, v16);
+          else
+          {
+            v30 = &byte_262899963;
+          }
+
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 1629, "dfutil/dtxtfile", 17, "%d %.500s %.500s %u", v14, v11, v30, *(this + 25));
         }
 
-        if (++v16 == v2)
+        if (++v14 == v2)
         {
-          goto LABEL_60;
+          goto LABEL_63;
         }
       }
 
-      v20 = *v18;
-      if (*v18 < 1)
+      v18 = *v16;
+      if (*v16 < 1)
       {
 LABEL_25:
-        if (!v20)
+        if (!v18)
         {
-          if (*(this + 10))
+          v20 = *(this + 10) ? *(this + 4) : &byte_262899963;
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 1578, "dfutil/dtxtfile", 17, "%d %.500s %.500s %u", v14, v11, v20, *(this + 25));
+          v18 = *v16;
+          v24 = v16;
+          if (!*v16)
           {
-            v22 = *(this + 4);
-          }
-
-          v40 = *(this + 25);
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 1578, "dfutil/dtxtfile", 17, "%d %.500s %.500s %u", v14, v15, v16);
-          v20 = *v18;
-          v26 = v18;
-          if (!*v18)
-          {
-            goto LABEL_46;
+            goto LABEL_48;
           }
         }
       }
 
       else
       {
-        while ((*(v17 + 4 * v20 + 60) & 0x4000) != 0)
+        while ((*(v15 + 4 * v18 + 60) & 0x4000) != 0)
         {
-          v21 = *++v18;
-          v20 = v21;
-          if (v21 <= 0)
+          v19 = *++v16;
+          v18 = v19;
+          if (v19 <= 0)
           {
             goto LABEL_25;
           }
         }
       }
 
-      v26 = v18;
+      v24 = v16;
       do
       {
-        if ((v20 & 0x80) == 0 && (*(v17 + 4 * v20 + 60) & 0x4000) != 0)
+        if ((v18 & 0x80) == 0 && (*(v15 + 4 * v18 + 60) & 0x4000) != 0)
         {
           break;
         }
 
-        v27 = *++v18;
-        v20 = v27;
+        v25 = *++v16;
+        v18 = v25;
       }
 
-      while (v27);
-LABEL_46:
-      DgnString::set(this + 54, v26, v18 - v26);
-      goto LABEL_47;
+      while (v25);
+      goto LABEL_48;
     }
 
-    v18 = v11;
-LABEL_60:
-    if (*v18 < 1)
+    v16 = v11;
+LABEL_63:
+    if (*v16 < 1)
     {
-      v10 = v44;
+      v10 = v36;
     }
 
     else
     {
-      v33 = *v18;
-      v10 = v44;
+      v31 = *v16;
+      v10 = v36;
       do
       {
-        if ((*(MEMORY[0x277D85DE0] + 4 * v33 + 60) & 0x4000) == 0)
+        if ((*(MEMORY[0x277D85DE0] + 4 * v31 + 60) & 0x4000) == 0)
         {
           break;
         }
 
-        v34 = *++v18;
-        v33 = v34;
+        v32 = *++v16;
+        v31 = v32;
       }
 
-      while (v34 > 0);
+      while (v32 > 0);
     }
 
-    if (strlen(v18))
+    if (strlen(v16))
     {
       if (*(this + 22))
       {
-        v37 = *(this + 10);
+        v33 = *(this + 10);
       }
 
       else
       {
-        v37 = &byte_262899963;
+        v33 = &byte_262899963;
       }
 
       if (*(this + 10))
       {
-        v38 = *(this + 4);
+        v34 = *(this + 4);
       }
 
-      v43 = *(this + 25);
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 1648, "dfutil/dtxtfile", 18, "%.500s %d %.500s %.500s %u", v35, v36, v37);
+      else
+      {
+        v34 = &byte_262899963;
+      }
+
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 1648, "dfutil/dtxtfile", 18, "%.500s %d %.500s %.500s %u", v33, v2, v16, v34, *(this + 25));
     }
   }
 
@@ -9397,7 +9477,7 @@ LABEL_60:
       v13 = 16 * v12 - 16;
       do
       {
-        DgnString::~DgnString((*(this + 18) + v13));
+        DgnString::~DgnString(*(this + 18) + v13);
         v13 -= 16;
       }
 
@@ -9410,60 +9490,71 @@ LABEL_60:
   return v10;
 }
 
-void DgnTextFileParser::verifyNoUnknownHeaderFields(DgnTextFileParser *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void DgnTextFileParser::verifyNoUnknownHeaderFields(uint64_t this)
 {
-  v8 = *(this + 50);
-  if (v8)
+  v1 = *(this + 200);
+  if (v1)
   {
-    v10 = 0;
-    for (i = 0; i < v8; ++i)
+    v3 = 0;
+    for (i = 0; i < v1; ++i)
     {
-      if ((*(*(this + 24) + i) & 1) == 0)
+      if ((*(*(this + 192) + i) & 1) == 0)
       {
-        v12 = *(this + 20) + v10;
-        if (*(v12 + 8))
+        v5 = *(this + 160) + v3;
+        if (*(v5 + 8))
         {
-          v13 = *v12;
+          v6 = *v5;
         }
 
         else
         {
-          v13 = &byte_262899963;
+          v6 = &byte_262899963;
         }
 
-        if (*(this + 6))
+        if (*(this + 24))
         {
-          v14 = *(this + 2);
+          v7 = *(this + 16);
         }
 
-        if (*(this + 10))
+        else
         {
-          v15 = *(this + 4);
+          v7 = &byte_262899963;
         }
 
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 1108, "dfutil/dtxtfile", 37, "%.500s %.500s %.500s", a7, a8, v13);
-        v8 = *(this + 50);
+        if (*(this + 40))
+        {
+          v8 = *(this + 32);
+        }
+
+        else
+        {
+          v8 = &byte_262899963;
+        }
+
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 1108, "dfutil/dtxtfile", 37, "%.500s %.500s %.500s", v6, v7, v8);
+        v1 = *(this + 200);
       }
 
-      v10 += 16;
+      v3 += 16;
     }
   }
 }
 
-void DgnTextFileParser::openDgnTextFileParser(uint64_t a1, uint64_t a2, unsigned int a3, int a4)
+void DgnTextFileParser::openDgnTextFileParser(uint64_t *a1, FileSpec **a2, uint64_t a3, int a4)
 {
+  v5 = a3;
   SubFileExtensionString = GetSubFileExtensionString(a3);
   DgnString::DgnString(v15);
   CurrentSubDirComponents = DFile::getCurrentSubDirComponents(a2);
   DFile::makeSubFileName(CurrentSubDirComponents, SubFileExtensionString, v15);
-  DgnString::preAllocate(a1 + 32, 192);
-  DgnString::operator=((a1 + 32), v15);
-  DgnString::operator+=((a1 + 32), " subfile of ");
-  DgnString::preAllocate(a1 + 48, 192);
-  DgnString::operator=((a1 + 48), (a1 + 32));
-  if (*(a2 + 24))
+  DgnString::preAllocate(a1 + 4, 192);
+  DgnString::operator=((a1 + 4), v15);
+  DgnString::operator+=((a1 + 4), " subfile of ");
+  DgnString::preAllocate(a1 + 6, 192);
+  DgnString::operator=((a1 + 6), (a1 + 4));
+  if (*(a2 + 6))
   {
-    v10 = *(a2 + 16);
+    v10 = a2[2];
   }
 
   else
@@ -9471,10 +9562,10 @@ void DgnTextFileParser::openDgnTextFileParser(uint64_t a1, uint64_t a2, unsigned
     v10 = &byte_262899963;
   }
 
-  DgnString::operator+=((a1 + 32), v10);
+  DgnString::operator+=((a1 + 4), v10);
   DgnString::DgnString(v14);
-  FileSpec::getDiagnosticMaskedName((a2 + 16), v14, v11);
-  DgnString::operator+=((a1 + 48), v14);
+  FileSpec::getDiagnosticMaskedName(a2 + 2, v14, v11);
+  DgnString::operator+=((a1 + 6), v14);
   if (a4)
   {
     v12 = 3;
@@ -9485,15 +9576,15 @@ void DgnTextFileParser::openDgnTextFileParser(uint64_t a1, uint64_t a2, unsigned
     v12 = 0;
   }
 
-  v13 = DFile::openSubFile(a2, a3, v12, 1);
+  v13 = DFile::openSubFile(a2, v5, v12, 1);
   DgnTextFileParser::openDgnTextFileParser(a1, v13);
   DgnString::~DgnString(v14);
   DgnString::~DgnString(v15);
 }
 
-void sub_2625DA984(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2625DA984(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   DgnString::~DgnString(va);
   _Unwind_Resume(a1);
 }
@@ -9502,46 +9593,87 @@ void DgnTextFileParser::openDgnTextFileParser(DgnTextFileParser *this, DgnStream
 {
   *(this + 1) = a2;
   *(this + 25) = 0;
-  DgnString::DgnString(&v67);
-  DgnString::DgnString(&v65);
-  if (!DgnTextFileParser::getNextHeaderField(this, &v67, &v65, 1) || ((v5 = v68, v6 = v67, v68) ? (v7 = v67) : (v7 = &byte_262899963), strncmp(v7, "DGNTEXTFILE_VERSION", 0x13uLL)))
+  DgnString::DgnString(&v39);
+  DgnString::DgnString(&v37);
+  if (!DgnTextFileParser::getNextHeaderField(this, &v39, &v37, 1) || ((v3 = v40, v4 = v39, v40) ? (v5 = v39) : (v5 = &byte_262899963), strncmp(v5, "DGNTEXTFILE_VERSION", 0x13uLL)))
   {
     if (*(this + 22))
     {
-      v8 = *(this + 10);
+      v6 = *(this + 10);
     }
 
     else
     {
-      v8 = &byte_262899963;
+      v6 = &byte_262899963;
     }
 
     if (*(this + 10))
     {
-      v9 = *(this + 4);
+      v7 = *(this + 4);
     }
 
-    v53 = *(this + 25);
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 1169, "dfutil/dtxtfile", 1, "%.500s %.500s %u", v3, v4, v8);
-    v5 = v68;
-    v6 = v67;
+    else
+    {
+      v7 = &byte_262899963;
+    }
+
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 1169, "dfutil/dtxtfile", 1, "%.500s %.500s %u", v6, v7, *(this + 25));
+    v3 = v40;
+    v4 = v39;
   }
 
-  if (v5)
+  if (v3)
   {
-    v10 = v6;
+    v8 = v4;
   }
 
   else
   {
-    v10 = &byte_262899963;
+    v8 = &byte_262899963;
   }
 
-  if (strcmp(v10, "DGNTEXTFILE_VERSION"))
+  if (strcmp(v8, "DGNTEXTFILE_VERSION"))
   {
     if (*(this + 22))
     {
-      v13 = *(this + 10);
+      v9 = *(this + 10);
+    }
+
+    else
+    {
+      v9 = &byte_262899963;
+    }
+
+    if (*(this + 10))
+    {
+      v10 = *(this + 4);
+    }
+
+    else
+    {
+      v10 = &byte_262899963;
+    }
+
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 1173, "dfutil/dtxtfile", 2, "%.500s %.500s %u", v9, v10, *(this + 25));
+  }
+
+  if (v38)
+  {
+    v11 = v37;
+  }
+
+  else
+  {
+    v11 = &byte_262899963;
+  }
+
+  v36 = 0;
+  v35 = 0;
+  if (sscanf(v11, "%d%c", &v36, &v35) != 1 || (v12 = v36, v36 < 0))
+  {
+    if (*(this + 10))
+    {
+      v13 = *(this + 4);
     }
 
     else
@@ -9549,220 +9681,153 @@ void DgnTextFileParser::openDgnTextFileParser(DgnTextFileParser *this, DgnStream
       v13 = &byte_262899963;
     }
 
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 1181, "dfutil/dtxtfile", 12, "%.500s %.500s %u", v11, v13, *(this + 25));
+    v12 = v36;
+  }
+
+  if (v12 != 5)
+  {
     if (*(this + 10))
     {
       v14 = *(this + 4);
     }
 
-    v54 = *(this + 25);
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 1173, "dfutil/dtxtfile", 2, "%.500s %.500s %u", v11, v12, v13);
-  }
-
-  if (v66)
-  {
-    v15 = v65;
-  }
-
-  else
-  {
-    v15 = &byte_262899963;
-  }
-
-  v64 = 0;
-  v63 = 0;
-  if (sscanf(v15, "%d%c", &v64, &v63) != 1 || (v18 = v64, v64 < 0))
-  {
-    if (*(this + 10))
+    else
     {
-      v19 = *(this + 4);
+      v14 = &byte_262899963;
     }
 
-    v55 = *(this + 25);
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 1181, "dfutil/dtxtfile", 12, "%.500s %.500s %u", v16, v17, v15);
-    v18 = v64;
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 1184, "dfutil/dtxtfile", 12, "%.500s %.500s %u", v11, v14, *(this + 25));
+    v12 = v36;
   }
 
-  if (v18 != 5)
-  {
-    if (*(this + 10))
-    {
-      v20 = *(this + 4);
-    }
-
-    v56 = *(this + 25);
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 1184, "dfutil/dtxtfile", 12, "%.500s %.500s %u", v16, v17, v15);
-    v18 = v64;
-  }
-
-  v21 = 0;
-  *(this + 16) = v18;
+  v15 = 0;
+  *(this + 16) = v12;
   do
   {
-    DgnTextFileParser::getNextHeaderField(this, &v67, &v65, 0);
-    if (v68)
+    DgnTextFileParser::getNextHeaderField(this, &v39, &v37, 0);
+    if (v40)
     {
-      v22 = v67;
+      v16 = v39;
     }
 
     else
     {
-      v22 = &byte_262899963;
+      v16 = &byte_262899963;
     }
 
-    if (v21 == 2)
+    if (v15 == 2)
     {
-      if (strcmp(v22, "DGNTEXTFILE_FILEVERSION_MINOR"))
+      if (strcmp(v16, "DGNTEXTFILE_FILEVERSION_MINOR"))
       {
         if (*(this + 22))
         {
-          v33 = *(this + 10);
+          v21 = *(this + 10);
         }
 
         else
         {
-          v33 = &byte_262899963;
+          v21 = &byte_262899963;
         }
 
         if (*(this + 10))
         {
-          v44 = *(this + 4);
+          v28 = *(this + 4);
         }
 
-        v59 = *(this + 25);
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 1240, "dfutil/dtxtfile", 3, "%.500s %.500s %u", v31, v32, v33);
+        else
+        {
+          v28 = &byte_262899963;
+        }
+
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 1240, "dfutil/dtxtfile", 3, "%.500s %.500s %u", v21, v28, *(this + 25));
       }
 
-      if (v66)
+      if (v38)
       {
-        v45 = v65;
+        v29 = v37;
       }
 
       else
       {
-        v45 = &byte_262899963;
+        v29 = &byte_262899963;
       }
 
-      v64 = 0;
-      v63 = 0;
-      if (sscanf(v45, "%d%c", &v64, &v63) != 1 || (v48 = v64, v64 < 0))
+      v36 = 0;
+      v35 = 0;
+      if (sscanf(v29, "%d%c", &v36, &v35) != 1 || (v30 = v36, v36 < 0))
       {
         if (*(this + 6))
         {
-          v49 = *(this + 2);
+          v31 = *(this + 2);
         }
 
         else
         {
-          v49 = &byte_262899963;
+          v31 = &byte_262899963;
         }
 
         if (*(this + 10))
         {
-          v52 = *(this + 4);
+          v34 = *(this + 4);
         }
 
-        v62 = *(this + 25);
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 1250, "dfutil/dtxtfile", 13, "%.500s %.500s %.500s %u", v46, v47, v49);
-        v48 = v64;
+        else
+        {
+          v34 = &byte_262899963;
+        }
+
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 1250, "dfutil/dtxtfile", 13, "%.500s %.500s %.500s %u", v31, v29, v34, *(this + 25));
+        v30 = v36;
       }
 
-      *(this + 18) = v48;
+      *(this + 18) = v30;
     }
 
-    else if (v21 == 1)
+    else if (v15 == 1)
     {
-      if (strcmp(v22, "DGNTEXTFILE_FILEVERSION_MAJOR"))
+      if (strcmp(v16, "DGNTEXTFILE_FILEVERSION_MAJOR"))
       {
         if (*(this + 22))
         {
-          v30 = *(this + 10);
+          v20 = *(this + 10);
         }
 
         else
         {
-          v30 = &byte_262899963;
+          v20 = &byte_262899963;
         }
 
         if (*(this + 10))
         {
-          v38 = *(this + 4);
+          v24 = *(this + 4);
         }
 
-        v58 = *(this + 25);
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 1218, "dfutil/dtxtfile", 3, "%.500s %.500s %u", v28, v29, v30);
+        else
+        {
+          v24 = &byte_262899963;
+        }
+
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 1218, "dfutil/dtxtfile", 3, "%.500s %.500s %u", v20, v24, *(this + 25));
       }
 
-      if (v66)
+      if (v38)
       {
-        v39 = v65;
+        v25 = v37;
       }
 
       else
       {
-        v39 = &byte_262899963;
+        v25 = &byte_262899963;
       }
 
-      v64 = 0;
-      v63 = 0;
-      if (sscanf(v39, "%d%c", &v64, &v63) != 1 || (v42 = v64, v64 < 0))
+      v36 = 0;
+      v35 = 0;
+      if (sscanf(v25, "%d%c", &v36, &v35) != 1 || (v26 = v36, v36 < 0))
       {
         if (*(this + 6))
         {
-          v43 = *(this + 2);
-        }
-
-        else
-        {
-          v43 = &byte_262899963;
-        }
-
-        if (*(this + 10))
-        {
-          v51 = *(this + 4);
-        }
-
-        v61 = *(this + 25);
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 1228, "dfutil/dtxtfile", 13, "%.500s %.500s %.500s %u", v40, v41, v43);
-        v42 = v64;
-      }
-
-      *(this + 17) = v42;
-    }
-
-    else if (v21)
-    {
-      if (strcmp(v22, "DGNTEXTFILE_FIELDS"))
-      {
-        if (*(this + 22))
-        {
-          v36 = *(this + 10);
-        }
-
-        else
-        {
-          v36 = &byte_262899963;
-        }
-
-        if (*(this + 10))
-        {
-          v50 = *(this + 4);
-        }
-
-        v60 = *(this + 25);
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 1262, "dfutil/dtxtfile", 14, "%.500s %.500s %u", v34, v35, v36);
-      }
-
-      DgnTextFileParser::scanValueForLineFieldFormats(this, &v65);
-    }
-
-    else
-    {
-      v26 = !strcmp(v22, "DGNTEXTFILE_TYPE") && v66 >= 2;
-      if (!v26 || (DgnTextFile::checkSafe(v65, v23) & 1) == 0)
-      {
-        if (*(this + 22))
-        {
-          v27 = *(this + 10);
+          v27 = *(this + 2);
         }
 
         else
@@ -9772,252 +9837,100 @@ void DgnTextFileParser::openDgnTextFileParser(DgnTextFileParser *this, DgnStream
 
         if (*(this + 10))
         {
-          v37 = *(this + 4);
+          v33 = *(this + 4);
         }
 
-        v57 = *(this + 25);
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 1205, "dfutil/dtxtfile", 1, "%.500s %.500s %u", v24, v25, v27);
-      }
-
-      DgnString::operator=((this + 16), &v65);
-    }
-
-    ++v21;
-  }
-
-  while (v21 != 4);
-  *(this + 208) = 1;
-  *(this + 104) = 1;
-  DgnTextFileParser::readHeader(this);
-  DgnString::~DgnString(&v65);
-  DgnString::~DgnString(&v67);
-}
-
-void sub_2625DAFA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  DgnString::~DgnString(va);
-  DgnString::~DgnString(va1);
-  _Unwind_Resume(a1);
-}
-
-void DgnTextFileParser::openDgnTextFileParser(DgnTextFileParser *this, char **a2)
-{
-  DgnString::preAllocate(this + 32, 96);
-  if (*(a2 + 2))
-  {
-    v4 = *a2;
-  }
-
-  else
-  {
-    v4 = &byte_262899963;
-  }
-
-  DgnString::operator=((this + 32), v4);
-  DgnString::preAllocate(this + 48, 96);
-  FileSpec::getDiagnosticMaskedName(a2, (this + 48), v5);
-  v6 = MemChunkAlloc(0x68uLL, 0);
-  DgnFileStream::DgnFileStream(v6, 0, 1, a2);
-
-  DgnTextFileParser::openDgnTextFileParser(this, v6);
-}
-
-uint64_t DgnTextFileParser::getNextHeaderField(DgnTextFileParser *this, const char **a2, DgnString *a3, int a4)
-{
-  if (*(this + 24))
-  {
-    return 0;
-  }
-
-  DgnTextFileParser::getLine(this);
-  v11 = *(this + 22);
-  if (v11)
-  {
-    v12 = *(this + 10);
-  }
-
-  else
-  {
-    v12 = &byte_262899963;
-  }
-
-  v13 = *v12;
-  v14 = MEMORY[0x277D85DE0];
-  if (a4)
-  {
-    if (!*v12)
-    {
-      return 0;
-    }
-
-    if ((v13 & 0x80) != 0)
-    {
-      goto LABEL_20;
-    }
-
-    if ((*(MEMORY[0x277D85DE0] + 4 * v13 + 60) & 0x4000) != 0)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (!*v12)
-    {
-      goto LABEL_14;
-    }
-
-    if ((v13 & 0x80) != 0)
-    {
-LABEL_20:
-      v17 = v12;
-      do
-      {
-        if ((v13 & 0x80) == 0 && (*(v14 + 4 * v13 + 60) & 0x4000) != 0)
+        else
         {
-          break;
+          v33 = &byte_262899963;
         }
 
-        v18 = *++v17;
-        LODWORD(v13) = v18;
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 1228, "dfutil/dtxtfile", 13, "%.500s %.500s %.500s %u", v27, v25, v33, *(this + 25));
+        v26 = v36;
       }
 
-      while (v18);
-      goto LABEL_24;
+      *(this + 17) = v26;
     }
-  }
 
-  if ((*(MEMORY[0x277D85DE0] + 4 * v13 + 60) & 0x4000) == 0)
-  {
-    goto LABEL_20;
-  }
-
-LABEL_14:
-  if (v11)
-  {
-    v15 = *(this + 10);
-  }
-
-  else
-  {
-    v15 = &byte_262899963;
-  }
-
-  if (*(this + 10))
-  {
-    v16 = *(this + 4);
-  }
-
-  v31 = *(this + 25);
-  errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 1303, "dfutil/dtxtfile", 4, "%.500s %.500s %u", v9, v10, v15);
-  LODWORD(v13) = *v12;
-  v17 = v12;
-  if (*v12)
-  {
-    goto LABEL_20;
-  }
-
-LABEL_24:
-  DgnString::set(a2, v12, v17 - v12);
-  v19 = *v17;
-  if (*v17 < 1)
-  {
-LABEL_27:
-    if (!v19)
+    else if (v15)
     {
-      *(a3 + 2) = 0;
-      goto LABEL_34;
-    }
-  }
-
-  else
-  {
-    while ((*(v14 + 4 * v19 + 60) & 0x4000) != 0)
-    {
-      v20 = *++v17;
-      v19 = v20;
-      if (v20 <= 0)
+      if (strcmp(v16, "DGNTEXTFILE_FIELDS"))
       {
-        goto LABEL_27;
+        if (*(this + 22))
+        {
+          v22 = *(this + 10);
+        }
+
+        else
+        {
+          v22 = &byte_262899963;
+        }
+
+        if (*(this + 10))
+        {
+          v32 = *(this + 4);
+        }
+
+        else
+        {
+          v32 = &byte_262899963;
+        }
+
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 1262, "dfutil/dtxtfile", 14, "%.500s %.500s %u", v22, v32, *(this + 25));
       }
-    }
-  }
 
-  v21 = strlen(v17);
-  v22 = &v17[v21 - 1];
-  do
-  {
-    v23 = v21;
-    if (v22 <= v17)
-    {
-      break;
-    }
-
-    v24 = *v22;
-    if (v24 < 0)
-    {
-      break;
-    }
-
-    --v21;
-    --v22;
-  }
-
-  while ((*(v14 + 4 * v24 + 60) & 0x4000) != 0);
-  DgnString::set(a3, v17, v23);
-LABEL_34:
-  if (*(a2 + 2))
-  {
-    v25 = *a2;
-  }
-
-  else
-  {
-    v25 = &byte_262899963;
-  }
-
-  if (strcmp(v25, "DGNTEXTFILE_ENDHEAD"))
-  {
-    return 1;
-  }
-
-  if (*(a3 + 2))
-  {
-    v28 = *a3;
-  }
-
-  else
-  {
-    v28 = &byte_262899963;
-  }
-
-  if (*v28)
-  {
-    if (*(this + 22))
-    {
-      v29 = *(this + 10);
+      DgnTextFileParser::scanValueForLineFieldFormats(this, &v37);
     }
 
     else
     {
-      v29 = &byte_262899963;
+      v18 = !strcmp(v16, "DGNTEXTFILE_TYPE") && v38 >= 2;
+      if (!v18 || (DgnTextFile::checkSafe(v37, v17) & 1) == 0)
+      {
+        if (*(this + 22))
+        {
+          v19 = *(this + 10);
+        }
+
+        else
+        {
+          v19 = &byte_262899963;
+        }
+
+        if (*(this + 10))
+        {
+          v23 = *(this + 4);
+        }
+
+        else
+        {
+          v23 = &byte_262899963;
+        }
+
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 1205, "dfutil/dtxtfile", 1, "%.500s %.500s %u", v19, v23, *(this + 25));
+      }
+
+      DgnString::operator=((this + 16), &v37);
     }
 
-    if (*(this + 10))
-    {
-      v30 = *(this + 4);
-    }
-
-    v32 = *(this + 25);
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dtxtfile.cpp", 1345, "dfutil/dtxtfile", 5, "%.500s %.500s %u", v26, v27, v29);
+    ++v15;
   }
 
-  result = 0;
-  *(this + 24) = *(this + 25);
-  return result;
+  while (v15 != 4);
+  *(this + 208) = 1;
+  *(this + 104) = 1;
+  DgnTextFileParser::readHeader(this);
+  DgnString::~DgnString(&v37);
+  DgnString::~DgnString(&v39);
+}
+
+void sub_2625DAFA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va1, a13);
+  va_start(va, a13);
+  v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  DgnString::~DgnString(va);
+  DgnString::~DgnString(va1);
+  _Unwind_Resume(a1);
 }

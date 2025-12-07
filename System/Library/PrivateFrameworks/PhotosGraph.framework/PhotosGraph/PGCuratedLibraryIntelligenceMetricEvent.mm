@@ -146,42 +146,42 @@
 - (id)_assetsStatisticsInHighlights:(id)highlights photoLibrary:(id)library includeUtility:(BOOL)utility progressReporter:(id)reporter
 {
   utilityCopy = utility;
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   highlightsCopy = highlights;
   libraryCopy = library;
   reporterCopy = reporter;
   if (![reporterCopy isCancelledWithProgress:0.0])
   {
-    v33 = libraryCopy;
-    v32 = objc_autoreleasePoolPush();
+    v32 = libraryCopy;
+    v31 = objc_autoreleasePoolPush();
+    v34 = 0u;
     v35 = 0u;
     v36 = 0u;
     v37 = 0u;
-    v38 = 0u;
-    v34 = highlightsCopy;
+    v33 = highlightsCopy;
     v14 = highlightsCopy;
-    v15 = [v14 countByEnumeratingWithState:&v35 objects:v41 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v34 objects:v40 count:16];
     if (v15)
     {
       v16 = v15;
       v17 = 0;
       v18 = 0;
-      v19 = *v36;
+      v19 = *v35;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v36 != v19)
+          if (*v35 != v19)
           {
             objc_enumerationMutation(v14);
           }
 
-          v21 = *(*(&v35 + 1) + 8 * i);
+          v21 = *(*(&v34 + 1) + 8 * i);
           v17 += [v21 estimatedAssetCount];
           v18 += [v21 extendedCount];
         }
 
-        v16 = [v14 countByEnumeratingWithState:&v35 objects:v41 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v34 objects:v40 count:16];
       }
 
       while (v16);
@@ -195,8 +195,8 @@
 
     if (utilityCopy)
     {
-      libraryCopy = v33;
-      librarySpecificFetchOptions = [v33 librarySpecificFetchOptions];
+      libraryCopy = v32;
+      librarySpecificFetchOptions = [v32 librarySpecificFetchOptions];
       [librarySpecificFetchOptions setShouldPrefetchCount:1];
       utilityPredicate = [(PGCuratedLibraryIntelligenceMetricEvent *)self utilityPredicate];
       [librarySpecificFetchOptions setInternalPredicate:utilityPredicate];
@@ -204,19 +204,19 @@
       [librarySpecificFetchOptions setIncludeGuestAssets:1];
       v24 = [MEMORY[0x277CD97A8] fetchAssetsInAssetCollections:v14 options:librarySpecificFetchOptions];
       v25 = [v24 count];
-      v26 = v32;
+      v26 = v31;
       if ([reporterCopy isCancelledWithProgress:0.8])
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
         {
           *buf = 67109378;
-          v43 = 787;
-          v44 = 2080;
-          v45 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
+          v42 = 787;
+          v43 = 2080;
+          v44 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
           _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
         }
 
-        objc_autoreleasePoolPop(v32);
+        objc_autoreleasePoolPop(v31);
         goto LABEL_24;
       }
     }
@@ -224,23 +224,23 @@
     else
     {
       v25 = 0;
-      v26 = v32;
-      libraryCopy = v33;
+      v26 = v31;
+      libraryCopy = v32;
     }
 
     objc_autoreleasePoolPop(v26);
     if (![reporterCopy isCancelledWithProgress:1.0])
     {
-      v39[0] = @"total";
+      v38[0] = @"total";
       v27 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v17];
-      v40[0] = v27;
-      v39[1] = @"curated";
+      v39[0] = v27;
+      v38[1] = @"curated";
       v28 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v18];
-      v40[1] = v28;
-      v39[2] = @"utility";
+      v39[1] = v28;
+      v38[2] = @"utility";
       v29 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v25];
-      v40[2] = v29;
-      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:v39 count:3];
+      v39[2] = v29;
+      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:3];
 
       goto LABEL_26;
     }
@@ -248,32 +248,30 @@
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       *buf = 67109378;
-      v43 = 790;
-      v44 = 2080;
-      v45 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
+      v42 = 790;
+      v43 = 2080;
+      v44 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
       _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
     }
 
 LABEL_24:
     v13 = MEMORY[0x277CBEC10];
 LABEL_26:
-    highlightsCopy = v34;
+    highlightsCopy = v33;
     goto LABEL_27;
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 67109378;
-    v43 = 764;
-    v44 = 2080;
-    v45 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
+    v42 = 764;
+    v43 = 2080;
+    v44 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
     _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
   }
 
   v13 = MEMORY[0x277CBEC10];
 LABEL_27:
-
-  v30 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -378,7 +376,7 @@ LABEL_27:
 
 - (void)_fillProcessingLevelStatisticsWithGraph:(id)graph progressReporter:(id)reporter
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   reporterCopy = reporter;
   v8 = objc_autoreleasePoolPush();
@@ -397,10 +395,10 @@ LABEL_11:
         goto LABEL_12;
       }
 
-      v13 = 67109378;
-      v14 = 619;
-      v15 = 2080;
-      v16 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
+      v12 = 67109378;
+      v13 = 619;
+      v14 = 2080;
+      v15 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
       v11 = MEMORY[0x277D86220];
     }
 
@@ -413,30 +411,29 @@ LABEL_11:
         goto LABEL_11;
       }
 
-      v13 = 67109378;
-      v14 = 621;
-      v15 = 2080;
-      v16 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
+      v12 = 67109378;
+      v13 = 621;
+      v14 = 2080;
+      v15 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
       v11 = MEMORY[0x277D86220];
     }
 
-    _os_log_impl(&dword_22F0FC000, v11, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", &v13, 0x12u);
+    _os_log_impl(&dword_22F0FC000, v11, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", &v12, 0x12u);
     goto LABEL_11;
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
-    v13 = 67109378;
-    v14 = 614;
-    v15 = 2080;
-    v16 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
-    _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", &v13, 0x12u);
+    v12 = 67109378;
+    v13 = 614;
+    v14 = 2080;
+    v15 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
+    _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", &v12, 0x12u);
   }
 
 LABEL_12:
 
   objc_autoreleasePoolPop(v8);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_fillMomentsStatisticsWithGraph:(id)graph
@@ -449,28 +446,28 @@ LABEL_12:
 
 - (void)_fillKeyAssetsStatisticsWithGraph:(id)graph progressReporter:(id)reporter
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   reporterCopy = reporter;
   v8 = objc_autoreleasePoolPush();
   v9 = reporterCopy;
-  v45 = 0;
-  v46 = &v45;
-  v47 = 0x2020000000;
-  v48 = 0;
+  v44 = 0;
+  v45 = &v44;
+  v46 = 0x2020000000;
+  v47 = 0;
   v10 = [v9 isCancelledWithProgress:0.0];
-  *(v46 + 24) = v10;
+  *(v45 + 24) = v10;
   if (!v10)
   {
     _dayHighlights = [(PGCuratedLibraryIntelligenceMetricEvent *)self _dayHighlights];
-    if (v46[3])
+    if (v45[3])
     {
-      *(v46 + 24) = 1;
+      *(v45 + 24) = 1;
       goto LABEL_7;
     }
 
     v12 = [v9 isCancelledWithProgress:0.2];
-    *(v46 + 24) = v12;
+    *(v45 + 24) = v12;
     if (v12)
     {
 LABEL_7:
@@ -478,8 +475,8 @@ LABEL_7:
       {
         *buf = 67109378;
         *&buf[4] = 562;
-        LOWORD(v54) = 2080;
-        *(&v54 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
+        LOWORD(v53) = 2080;
+        *(&v53 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
         _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
       }
 
@@ -487,87 +484,87 @@ LABEL_7:
     }
 
     *buf = 0;
-    *&v54 = buf;
-    *(&v54 + 1) = 0x2020000000;
-    v55 = 0;
-    v41 = 0;
-    v42 = &v41;
-    v43 = 0x2020000000;
-    v44 = 0;
-    v37 = 0;
-    v38 = &v37;
-    v39 = 0x2020000000;
+    *&v53 = buf;
+    *(&v53 + 1) = 0x2020000000;
+    v54 = 0;
     v40 = 0;
-    v33 = 0;
-    v34 = &v33;
-    v35 = 0x2020000000;
+    v41 = &v40;
+    v42 = 0x2020000000;
+    v43 = 0;
     v36 = 0;
+    v37 = &v36;
+    v38 = 0x2020000000;
+    v39 = 0;
+    v32 = 0;
+    v33 = &v32;
+    v34 = 0x2020000000;
+    v35 = 0;
     photoLibrary = [(PGManager *)self->_manager photoLibrary];
     librarySpecificFetchOptions = [photoLibrary librarySpecificFetchOptions];
 
     v15 = [MEMORY[0x277CD97A8] fetchKeyAssetByHighlightUUIDForHighlights:_dayHighlights options:librarySpecificFetchOptions];
-    if (v46[3])
+    if (v45[3])
     {
-      *(v46 + 24) = 1;
+      *(v45 + 24) = 1;
       goto LABEL_12;
     }
 
     v16 = [v9 isCancelledWithProgress:0.5];
-    *(v46 + 24) = v16;
+    *(v45 + 24) = v16;
     if (v16)
     {
 LABEL_12:
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
-        *v49 = 67109378;
-        v50 = 572;
-        v51 = 2080;
-        v52 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
-        _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v49, 0x12u);
+        *v48 = 67109378;
+        v49 = 572;
+        v50 = 2080;
+        v51 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
+        _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v48, 0x12u);
       }
 
       goto LABEL_20;
     }
 
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __94__PGCuratedLibraryIntelligenceMetricEvent__fillKeyAssetsStatisticsWithGraph_progressReporter___block_invoke;
-    v26[3] = &unk_278880030;
-    v28 = buf;
-    v29 = &v37;
-    v30 = &v41;
-    v31 = &v33;
-    v32 = &v45;
-    v25 = v9;
-    v27 = v25;
-    [v15 enumerateKeysAndObjectsUsingBlock:v26];
-    v17 = *(v54 + 24);
-    v18 = v42[3];
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __94__PGCuratedLibraryIntelligenceMetricEvent__fillKeyAssetsStatisticsWithGraph_progressReporter___block_invoke;
+    v25[3] = &unk_278880030;
+    v27 = buf;
+    v28 = &v36;
+    v29 = &v40;
+    v30 = &v32;
+    v31 = &v44;
+    v24 = v9;
+    v26 = v24;
+    [v15 enumerateKeysAndObjectsUsingBlock:v25];
+    v17 = *(v53 + 24);
+    v18 = v41[3];
     [(PGCuratedLibraryIntelligenceMetricEvent *)self _ratioFromNumerator:v17 denominator:v18 + v17];
     self->_ratioOfPhotoKeyAssets = v19;
-    [(PGCuratedLibraryIntelligenceMetricEvent *)self _ratioFromNumerator:v38[3] denominator:v18 + v17];
+    [(PGCuratedLibraryIntelligenceMetricEvent *)self _ratioFromNumerator:v37[3] denominator:v18 + v17];
     self->_ratioOfAutoplayedPhotoKeyAssets = v20;
-    [(PGCuratedLibraryIntelligenceMetricEvent *)self _ratioFromNumerator:v42[3] denominator:v18 + v17];
+    [(PGCuratedLibraryIntelligenceMetricEvent *)self _ratioFromNumerator:v41[3] denominator:v18 + v17];
     self->_ratioOfVideoKeyAssets = v21;
-    [(PGCuratedLibraryIntelligenceMetricEvent *)self _ratioFromNumerator:v34[3] denominator:v18 + v17];
+    [(PGCuratedLibraryIntelligenceMetricEvent *)self _ratioFromNumerator:v33[3] denominator:v18 + v17];
     self->_ratioOfAutoplayedVideoKeyAssets = v22;
-    if (v46[3])
+    if (v45[3])
     {
-      *(v46 + 24) = 1;
+      *(v45 + 24) = 1;
     }
 
     else
     {
-      v23 = [v25 isCancelledWithProgress:1.0];
-      *(v46 + 24) = v23;
+      v23 = [v24 isCancelledWithProgress:1.0];
+      *(v45 + 24) = v23;
       if ((v23 & 1) == 0)
       {
 LABEL_19:
 
 LABEL_20:
-        _Block_object_dispose(&v33, 8);
-        _Block_object_dispose(&v37, 8);
-        _Block_object_dispose(&v41, 8);
+        _Block_object_dispose(&v32, 8);
+        _Block_object_dispose(&v36, 8);
+        _Block_object_dispose(&v40, 8);
         _Block_object_dispose(buf, 8);
 LABEL_21:
 
@@ -577,11 +574,11 @@ LABEL_21:
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
-      *v49 = 67109378;
-      v50 = 600;
-      v51 = 2080;
-      v52 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
-      _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v49, 0x12u);
+      *v48 = 67109378;
+      v49 = 600;
+      v50 = 2080;
+      v51 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
+      _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v48, 0x12u);
     }
 
     goto LABEL_19;
@@ -591,16 +588,15 @@ LABEL_21:
   {
     *buf = 67109378;
     *&buf[4] = 559;
-    LOWORD(v54) = 2080;
-    *(&v54 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
+    LOWORD(v53) = 2080;
+    *(&v53 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
     _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
   }
 
 LABEL_22:
-  _Block_object_dispose(&v45, 8);
+  _Block_object_dispose(&v44, 8);
 
   objc_autoreleasePoolPop(v8);
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __94__PGCuratedLibraryIntelligenceMetricEvent__fillKeyAssetsStatisticsWithGraph_progressReporter___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -654,7 +650,7 @@ LABEL_8:
 
 - (void)_fillOnesiesHighlightStatisticsWithGraph:(id)graph progressReporter:(id)reporter
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   reporterCopy = reporter;
   v8 = objc_autoreleasePoolPush();
@@ -678,41 +674,41 @@ LABEL_30:
       }
 
       *buf = 67109378;
-      v40 = 530;
-      v41 = 2080;
-      v42 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
+      v39 = 530;
+      v40 = 2080;
+      v41 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
       v14 = MEMORY[0x277D86220];
     }
 
     else
     {
-      v31 = librarySpecificFetchOptions;
-      v32 = v8;
-      v33 = graphCopy;
-      v29 = [v13 count];
-      v30 = v13;
+      v30 = librarySpecificFetchOptions;
+      v31 = v8;
+      v32 = graphCopy;
+      v28 = [v13 count];
+      v29 = v13;
+      v33 = 0u;
       v34 = 0u;
       v35 = 0u;
       v36 = 0u;
-      v37 = 0u;
       v15 = v13;
-      v16 = [v15 countByEnumeratingWithState:&v34 objects:v38 count:16];
+      v16 = [v15 countByEnumeratingWithState:&v33 objects:v37 count:16];
       if (v16)
       {
         v17 = v16;
         v18 = 0;
         v19 = 0;
-        v20 = *v35;
+        v20 = *v34;
         while (2)
         {
           for (i = 0; i != v17; ++i)
           {
-            if (*v35 != v20)
+            if (*v34 != v20)
             {
               objc_enumerationMutation(v15);
             }
 
-            v22 = *(*(&v34 + 1) + 8 * i);
+            v22 = *(*(&v33 + 1) + 8 * i);
             v23 = objc_autoreleasePoolPush();
             extendedCount = [v22 extendedCount];
             if (extendedCount == 1)
@@ -740,25 +736,25 @@ LABEL_30:
               if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
               {
                 *buf = 67109378;
-                v40 = 547;
-                v41 = 2080;
-                v42 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
+                v39 = 547;
+                v40 = 2080;
+                v41 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
                 _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
               }
 
               objc_autoreleasePoolPop(v23);
 
-              v8 = v32;
-              graphCopy = v33;
-              v13 = v30;
-              librarySpecificFetchOptions = v31;
+              v8 = v31;
+              graphCopy = v32;
+              v13 = v29;
+              librarySpecificFetchOptions = v30;
               goto LABEL_30;
             }
 
             objc_autoreleasePoolPop(v23);
           }
 
-          v17 = [v15 countByEnumeratingWithState:&v34 objects:v38 count:16];
+          v17 = [v15 countByEnumeratingWithState:&v33 objects:v37 count:16];
           if (v17)
           {
             continue;
@@ -774,23 +770,23 @@ LABEL_30:
         v19 = 0;
       }
 
-      [(PGCuratedLibraryIntelligenceMetricEvent *)self _ratioFromNumerator:v19 denominator:v29];
+      [(PGCuratedLibraryIntelligenceMetricEvent *)self _ratioFromNumerator:v19 denominator:v28];
       self->_ratioOfCurated1siesAmongVisibleHighlights = v26;
-      [(PGCuratedLibraryIntelligenceMetricEvent *)self _ratioFromNumerator:v18 denominator:v29];
+      [(PGCuratedLibraryIntelligenceMetricEvent *)self _ratioFromNumerator:v18 denominator:v28];
       self->_ratioOfCurated2siesAmongVisibleHighlights = v27;
-      v8 = v32;
-      graphCopy = v33;
-      v13 = v30;
-      librarySpecificFetchOptions = v31;
+      v8 = v31;
+      graphCopy = v32;
+      v13 = v29;
+      librarySpecificFetchOptions = v30;
       if (![v9 isCancelledWithProgress:1.0] || !os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         goto LABEL_30;
       }
 
       *buf = 67109378;
-      v40 = 552;
-      v41 = 2080;
-      v42 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
+      v39 = 552;
+      v40 = 2080;
+      v41 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
       v14 = MEMORY[0x277D86220];
     }
 
@@ -801,16 +797,15 @@ LABEL_30:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 67109378;
-    v40 = 525;
-    v41 = 2080;
-    v42 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
+    v39 = 525;
+    v40 = 2080;
+    v41 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
     _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
   }
 
 LABEL_31:
 
   objc_autoreleasePoolPop(v8);
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_fillHiddenHighlightsStatisticsWithGraph:(id)graph
@@ -845,20 +840,20 @@ LABEL_31:
 
 - (void)_fillMonthHighlightsStatisticsWithGraph:(id)graph progressReporter:(id)reporter
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   reporterCopy = reporter;
   v8 = objc_autoreleasePoolPush();
   v9 = reporterCopy;
-  v49 = v9;
+  v48 = v9;
   if ([v9 isCancelledWithProgress:0.0])
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       *buf = 67109378;
-      v61 = 445;
-      v62 = 2080;
-      v63 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
+      v60 = 445;
+      v61 = 2080;
+      v62 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
       _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
     }
   }
@@ -874,9 +869,9 @@ LABEL_31:
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         *buf = 67109378;
-        v61 = 452;
-        v62 = 2080;
-        v63 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
+        v60 = 452;
+        v61 = 2080;
+        v62 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
         _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
       }
     }
@@ -886,40 +881,40 @@ LABEL_31:
       currentLocalDate = [MEMORY[0x277D27690] currentLocalDate];
       librarySpecificFetchOptions2 = [photoLibrary librarySpecificFetchOptions];
       v14 = [MEMORY[0x277CCAC30] predicateWithFormat:@"visibilityState == %d || visibilityState == %d", 3, 2];
-      v47 = librarySpecificFetchOptions2;
+      v46 = librarySpecificFetchOptions2;
       [librarySpecificFetchOptions2 setInternalPredicate:v14];
 
-      v56 = 0u;
-      v57 = 0u;
-      v54 = 0u;
       v55 = 0u;
+      v56 = 0u;
+      v53 = 0u;
+      v54 = 0u;
       obj = v12;
-      v46 = [obj countByEnumeratingWithState:&v54 objects:v59 count:16];
+      v45 = [obj countByEnumeratingWithState:&v53 objects:v58 count:16];
       v15 = 0;
       v16 = 0;
       v17 = 0;
       v18 = 0;
-      if (v46)
+      if (v45)
       {
-        v45 = *v55;
-        v42 = v8;
-        v43 = graphCopy;
-        v40 = librarySpecificFetchOptions;
-        v41 = photoLibrary;
-        v39 = v12;
+        v44 = *v54;
+        v41 = v8;
+        v42 = graphCopy;
+        v39 = librarySpecificFetchOptions;
+        v40 = photoLibrary;
+        v38 = v12;
         selfCopy = self;
         while (2)
         {
           v19 = 0;
-          v20 = v49;
+          v20 = v48;
           do
           {
-            if (*v55 != v45)
+            if (*v54 != v44)
             {
               objc_enumerationMutation(obj);
             }
 
-            v21 = *(*(&v54 + 1) + 8 * v19);
+            v21 = *(*(&v53 + 1) + 8 * v19);
             v22 = objc_autoreleasePoolPush();
             startDate = [v21 startDate];
             [startDate timeIntervalSinceDate:currentLocalDate];
@@ -935,47 +930,47 @@ LABEL_31:
               ++v15;
             }
 
-            v26 = [MEMORY[0x277CD9958] fetchChildHighlightsForHighlight:v21 options:v47];
+            v26 = [MEMORY[0x277CD9958] fetchChildHighlightsForHighlight:v21 options:v46];
             if ([v20 isCancelledWithProgress:0.5])
             {
               if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
               {
                 *buf = 67109378;
-                v61 = 476;
-                v62 = 2080;
-                v63 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
+                v60 = 476;
+                v61 = 2080;
+                v62 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
                 _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
               }
 
               objc_autoreleasePoolPop(v22);
-              v8 = v42;
-              graphCopy = v43;
-              librarySpecificFetchOptions = v40;
-              photoLibrary = v41;
-              v12 = v39;
+              v8 = v41;
+              graphCopy = v42;
+              librarySpecificFetchOptions = v39;
+              photoLibrary = v40;
+              v12 = v38;
               goto LABEL_38;
             }
 
-            v52 = 0u;
-            v53 = 0u;
-            v50 = 0u;
             v51 = 0u;
+            v52 = 0u;
+            v49 = 0u;
+            v50 = 0u;
             v27 = v26;
-            v28 = [v27 countByEnumeratingWithState:&v50 objects:v58 count:16];
+            v28 = [v27 countByEnumeratingWithState:&v49 objects:v57 count:16];
             if (v28)
             {
               v29 = v28;
-              v30 = *v51;
+              v30 = *v50;
               do
               {
                 for (i = 0; i != v29; ++i)
                 {
-                  if (*v51 != v30)
+                  if (*v50 != v30)
                   {
                     objc_enumerationMutation(v27);
                   }
 
-                  v17 += [*(*(&v50 + 1) + 8 * i) extendedCount];
+                  v17 += [*(*(&v49 + 1) + 8 * i) extendedCount];
                 }
 
                 if (v25 >= 31536000.0)
@@ -990,27 +985,27 @@ LABEL_31:
 
                 v18 += v29;
                 v16 += v32;
-                v29 = [v27 countByEnumeratingWithState:&v50 objects:v58 count:16];
+                v29 = [v27 countByEnumeratingWithState:&v49 objects:v57 count:16];
               }
 
               while (v29);
             }
 
             objc_autoreleasePoolPop(v22);
-            v20 = v49;
-            if ([v49 isCancelledWithProgress:0.5])
+            v20 = v48;
+            if ([v48 isCancelledWithProgress:0.5])
             {
-              v8 = v42;
-              graphCopy = v43;
-              librarySpecificFetchOptions = v40;
-              photoLibrary = v41;
-              v12 = v39;
+              v8 = v41;
+              graphCopy = v42;
+              librarySpecificFetchOptions = v39;
+              photoLibrary = v40;
+              v12 = v38;
               if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
               {
                 *buf = 67109378;
-                v61 = 487;
-                v62 = 2080;
-                v63 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
+                v60 = 487;
+                v61 = 2080;
+                v62 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
                 _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
               }
 
@@ -1022,15 +1017,15 @@ LABEL_38:
             ++v19;
           }
 
-          while (v19 != v46);
-          v8 = v42;
-          graphCopy = v43;
-          librarySpecificFetchOptions = v40;
-          photoLibrary = v41;
-          v12 = v39;
+          while (v19 != v45);
+          v8 = v41;
+          graphCopy = v42;
+          librarySpecificFetchOptions = v39;
+          photoLibrary = v40;
+          v12 = v38;
           self = selfCopy;
-          v46 = [obj countByEnumeratingWithState:&v54 objects:v59 count:16];
-          if (v46)
+          v45 = [obj countByEnumeratingWithState:&v53 objects:v58 count:16];
+          if (v45)
           {
             continue;
           }
@@ -1047,12 +1042,12 @@ LABEL_38:
       self->_averageNumberOfCuratedAssetsPerMonth = v35;
       [(PGCuratedLibraryIntelligenceMetricEvent *)self _ratioFromNumerator:v17 denominator:self->_numberOfCuratedAssets];
       self->_ratioOfCuratedAssetsCoveredInMonth = v36;
-      if ([v49 isCancelledWithProgress:1.0] && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
+      if ([v48 isCancelledWithProgress:1.0] && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         *buf = 67109378;
-        v61 = 494;
-        v62 = 2080;
-        v63 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
+        v60 = 494;
+        v61 = 2080;
+        v62 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
         _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
       }
 
@@ -1061,21 +1056,20 @@ LABEL_39:
   }
 
   objc_autoreleasePoolPop(v8);
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_fillContentScoreStatisticsWithGraph:(id)graph progressReporter:(id)reporter
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if ([reporter isCancelledWithProgress:{graph, 0.0}])
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
-      v8[0] = 67109378;
-      v8[1] = 375;
-      v9 = 2080;
-      v10 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
-      _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v8, 0x12u);
+      v7[0] = 67109378;
+      v7[1] = 375;
+      v8 = 2080;
+      v9 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
+      _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v7, 0x12u);
     }
   }
 
@@ -1088,13 +1082,11 @@ LABEL_39:
     *&self->_ratioOfAssetsWithImprovedCurationScore = PGMetricsUnavailableDoubleValue;
     self->_ratioOfAssetsWithBetterCurationScore = v6;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_fillDayHighlightsStatisticsWithGraph:(id)graph progressReporter:(id)reporter
 {
-  v112 = *MEMORY[0x277D85DE8];
+  v110 = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   reporterCopy = reporter;
   if ([reporterCopy isCancelledWithProgress:0.0])
@@ -1102,16 +1094,16 @@ LABEL_39:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       *buf = 67109378;
-      *v111 = 269;
-      *&v111[4] = 2080;
-      *&v111[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
+      *v109 = 269;
+      *&v109[4] = 2080;
+      *&v109[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
       _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
     }
   }
 
   else
   {
-    v106 = graphCopy;
+    v104 = graphCopy;
     photoLibrary = [(PGManager *)self->_manager photoLibrary];
     enrichmentLoggingConnection = [(PGManager *)self->_manager enrichmentLoggingConnection];
     v10 = objc_autoreleasePoolPush();
@@ -1130,12 +1122,12 @@ LABEL_39:
 
     info = 0;
     mach_timebase_info(&info);
-    v102 = mach_absolute_time();
+    v100 = mach_absolute_time();
     _defaultHighlights = [(PGCuratedLibraryIntelligenceMetricEvent *)self _defaultHighlights];
     self->_numberOfDefaultDayHighlights = [_defaultHighlights count];
-    v108 = reporterCopy;
+    v106 = reporterCopy;
     v16 = [reporterCopy childProgressReporterFromStart:0.01 toEnd:0.09];
-    v107 = photoLibrary;
+    v105 = photoLibrary;
     v17 = [(PGCuratedLibraryIntelligenceMetricEvent *)self _assetsStatisticsInHighlights:_defaultHighlights photoLibrary:photoLibrary includeUtility:0 progressReporter:v16];
     v18 = [v17 objectForKeyedSubscript:@"total"];
     unsignedIntegerValue = [v18 unsignedIntegerValue];
@@ -1147,7 +1139,7 @@ LABEL_39:
     self->_averageNumberOfAssetsInDefaultHighlights = v22;
     [(PGCuratedLibraryIntelligenceMetricEvent *)self _ratioFromNumerator:unsignedIntegerValue denominator:self->_librarySize];
     self->_ratioOfAssetsInDefaultHighlights = v23;
-    v99 = unsignedIntegerValue2;
+    v97 = unsignedIntegerValue2;
     [(PGCuratedLibraryIntelligenceMetricEvent *)self _ratioFromNumerator:unsignedIntegerValue2 denominator:unsignedIntegerValue];
     self->_ratioOfCuratedAssetsInDefaultHighlights = v24;
     [(PGCuratedLibraryIntelligenceMetricEvent *)self _ratioFromNumerator:self->_numberOfDefaultDayHighlights denominator:self->_numberOfDayHighlights];
@@ -1165,26 +1157,26 @@ LABEL_39:
     if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      *v111 = "DayDefaultStatistics";
-      *&v111[8] = 2048;
-      *&v111[10] = ((((v26 - v102) * v27.numer) / v27.denom) / 1000000.0);
+      *v109 = "DayDefaultStatistics";
+      *&v109[8] = 2048;
+      *&v109[10] = ((((v26 - v100) * v27.numer) / v27.denom) / 1000000.0);
       _os_log_impl(&dword_22F0FC000, v29, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
     }
 
-    reporterCopy = v108;
-    if ([v108 isCancelledWithProgress:0.1])
+    reporterCopy = v106;
+    if ([v106 isCancelledWithProgress:0.1])
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         *buf = 67109378;
-        *v111 = 300;
-        *&v111[4] = 2080;
-        *&v111[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
+        *v109 = 300;
+        *&v109[4] = 2080;
+        *&v109[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
         _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
       }
 
       objc_autoreleasePoolPop(context);
-      v30 = v107;
+      v30 = v105;
     }
 
     else
@@ -1206,55 +1198,55 @@ LABEL_39:
       mach_timebase_info(&info);
       v36 = mach_absolute_time();
       _daysWithinAggregations = [(PGCuratedLibraryIntelligenceMetricEvent *)self _daysWithinAggregations];
-      if ([v108 isCancelledWithProgress:0.2])
+      if ([v106 isCancelledWithProgress:0.2])
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
         {
           *buf = 67109378;
-          *v111 = 308;
-          *&v111[4] = 2080;
-          *&v111[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
+          *v109 = 308;
+          *&v109[4] = 2080;
+          *&v109[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
           _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
         }
 
         objc_autoreleasePoolPop(v31);
-        v30 = v107;
-        reporterCopy = v108;
+        v30 = v105;
+        reporterCopy = v106;
       }
 
       else
       {
         _aggregationGroups = [(PGCuratedLibraryIntelligenceMetricEvent *)self _aggregationGroups];
-        if ([v108 isCancelledWithProgress:0.3])
+        if ([v106 isCancelledWithProgress:0.3])
         {
           LOBYTE(v39) = 1;
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
           {
             *buf = 67109378;
-            *v111 = 311;
-            *&v111[4] = 2080;
-            *&v111[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
+            *v109 = 311;
+            *&v109[4] = 2080;
+            *&v109[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
             _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
           }
 
           contexta = 0;
           v40 = 0;
-          v30 = v107;
-          reporterCopy = v108;
+          v30 = v105;
+          reporterCopy = v106;
         }
 
         else
         {
-          v97 = _aggregationGroups;
+          v95 = _aggregationGroups;
           self->_numberOfAggregations = [_aggregationGroups count];
           self->_numberOfDaysInAggregations = [_daysWithinAggregations count];
-          [v108 childProgressReporterFromStart:0.31 toEnd:0.39];
-          v95 = spid = _daysWithinAggregations;
-          v41 = [(PGCuratedLibraryIntelligenceMetricEvent *)self _assetsStatisticsInHighlights:_daysWithinAggregations photoLibrary:v107 includeUtility:0 progressReporter:?];
+          [v106 childProgressReporterFromStart:0.31 toEnd:0.39];
+          v93 = spid = _daysWithinAggregations;
+          v41 = [(PGCuratedLibraryIntelligenceMetricEvent *)self _assetsStatisticsInHighlights:_daysWithinAggregations photoLibrary:v105 includeUtility:0 progressReporter:?];
           v42 = [v41 objectForKeyedSubscript:@"total"];
           unsignedIntegerValue3 = [v42 unsignedIntegerValue];
 
-          v93 = v41;
+          v91 = v41;
           v44 = [v41 objectForKeyedSubscript:@"curated"];
           unsignedIntegerValue4 = [v44 unsignedIntegerValue];
 
@@ -1281,22 +1273,22 @@ LABEL_39:
           if (os_log_type_enabled(v54, OS_LOG_TYPE_INFO))
           {
             *buf = 136315394;
-            *v111 = "DayAggregationsStatistics";
-            *&v111[8] = 2048;
-            *&v111[10] = ((((v50 - v36) * numer) / denom) / 1000000.0);
+            *v109 = "DayAggregationsStatistics";
+            *&v109[8] = 2048;
+            *&v109[10] = ((((v50 - v36) * numer) / denom) / 1000000.0);
             _os_log_impl(&dword_22F0FC000, v54, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
           }
 
-          reporterCopy = v108;
-          v39 = [v108 isCancelledWithProgress:0.4];
-          v30 = v107;
-          _aggregationGroups = v97;
+          reporterCopy = v106;
+          v39 = [v106 isCancelledWithProgress:0.4];
+          v30 = v105;
+          _aggregationGroups = v95;
           if (v39 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
           {
             *buf = 67109378;
-            *v111 = 327;
-            *&v111[4] = 2080;
-            *&v111[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
+            *v109 = 327;
+            *&v109[4] = 2080;
+            *&v109[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
             _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
           }
 
@@ -1323,153 +1315,152 @@ LABEL_39:
           mach_timebase_info(&info);
           v60 = mach_absolute_time();
           _daysWithinTrips = [(PGCuratedLibraryIntelligenceMetricEvent *)self _daysWithinTrips];
-          if ((v39 & 1) != 0 || [v108 isCancelledWithProgress:0.5])
+          if ((v39 & 1) != 0 || [v106 isCancelledWithProgress:0.5])
           {
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
             {
               *buf = 67109378;
-              *v111 = 335;
-              *&v111[4] = 2080;
-              *&v111[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
+              *v109 = 335;
+              *&v109[4] = 2080;
+              *&v109[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
               _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
             }
 
             objc_autoreleasePoolPop(v55);
-            reporterCopy = v108;
+            reporterCopy = v106;
           }
 
           else
           {
-            v98 = v60;
+            v96 = v60;
             _shortTripDayGroups = [(PGCuratedLibraryIntelligenceMetricEvent *)self _shortTripDayGroups];
-            v103 = _shortTripDayGroups;
-            if ([v108 isCancelledWithProgress:0.6])
+            v101 = _shortTripDayGroups;
+            if ([v106 isCancelledWithProgress:0.6])
             {
-              LOBYTE(v64) = 1;
+              LOBYTE(v63) = 1;
               if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
               {
                 *buf = 67109378;
-                *v111 = 338;
-                *&v111[4] = 2080;
-                *&v111[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
+                *v109 = 338;
+                *&v109[4] = 2080;
+                *&v109[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
                 _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
               }
 
+              v64 = 0;
               v65 = 0;
-              v66 = 0;
-              reporterCopy = v108;
+              reporterCopy = v106;
             }
 
             else
             {
               spida = _daysWithinTrips;
               _longTripDayGroups = [(PGCuratedLibraryIntelligenceMetricEvent *)self _longTripDayGroups];
-              if ([v108 isCancelledWithProgress:0.7])
+              if ([v106 isCancelledWithProgress:0.7])
               {
-                LOBYTE(v64) = 1;
+                LOBYTE(v63) = 1;
                 if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
                 {
                   *buf = 67109378;
-                  *v111 = 341;
-                  *&v111[4] = 2080;
-                  *&v111[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
+                  *v109 = 341;
+                  *&v109[4] = 2080;
+                  *&v109[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
                   _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
                 }
 
+                v64 = 0;
                 v65 = 0;
-                v66 = 0;
-                reporterCopy = v108;
+                reporterCopy = v106;
               }
 
               else
               {
-                v96 = v55;
+                v94 = v55;
                 self->_numberOfShortTrips = [_shortTripDayGroups count];
-                v94 = _longTripDayGroups;
-                v68 = [_longTripDayGroups count];
-                self->_numberOfLongTrips = v68;
+                v92 = _longTripDayGroups;
+                v67 = [_longTripDayGroups count];
+                self->_numberOfLongTrips = v67;
                 numberOfShortTrips = self->_numberOfShortTrips;
                 self->_numberOfDaysInTrips = [spida count];
-                v92 = [v108 childProgressReporterFromStart:0.71 toEnd:0.79];
-                v70 = [(PGCuratedLibraryIntelligenceMetricEvent *)self _assetsStatisticsInHighlights:spida photoLibrary:v30 includeUtility:0 progressReporter:v92];
-                v71 = [v70 objectForKeyedSubscript:@"total"];
-                unsignedIntegerValue5 = [v71 unsignedIntegerValue];
+                v90 = [v106 childProgressReporterFromStart:0.71 toEnd:0.79];
+                v69 = [(PGCuratedLibraryIntelligenceMetricEvent *)self _assetsStatisticsInHighlights:spida photoLibrary:v30 includeUtility:0 progressReporter:v90];
+                v70 = [v69 objectForKeyedSubscript:@"total"];
+                unsignedIntegerValue5 = [v70 unsignedIntegerValue];
 
-                [(PGCuratedLibraryIntelligenceMetricEvent *)self _ratioFromNumerator:unsignedIntegerValue5 denominator:numberOfShortTrips + v68];
-                self->_averageNumberOfAssetsInTripHighlights = v73;
+                [(PGCuratedLibraryIntelligenceMetricEvent *)self _ratioFromNumerator:unsignedIntegerValue5 denominator:numberOfShortTrips + v67];
+                self->_averageNumberOfAssetsInTripHighlights = v72;
                 [(PGCuratedLibraryIntelligenceMetricEvent *)self _ratioFromNumerator:unsignedIntegerValue5 denominator:self->_librarySize];
-                self->_ratioOfAssetsInTripHighlights = v74;
-                v75 = [v70 objectForKeyedSubscript:@"curated"];
-                unsignedIntegerValue6 = [v75 unsignedIntegerValue];
+                self->_ratioOfAssetsInTripHighlights = v73;
+                v74 = [v69 objectForKeyedSubscript:@"curated"];
+                unsignedIntegerValue6 = [v74 unsignedIntegerValue];
 
                 [(PGCuratedLibraryIntelligenceMetricEvent *)self _ratioFromNumerator:unsignedIntegerValue6 denominator:unsignedIntegerValue5];
-                self->_ratioOfCuratedAssetsInTrips = v77;
-                v91 = v70;
-                v78 = [v70 objectForKeyedSubscript:@"utility"];
-                unsignedIntegerValue7 = [v78 unsignedIntegerValue];
+                self->_ratioOfCuratedAssetsInTrips = v76;
+                v89 = v69;
+                v77 = [v69 objectForKeyedSubscript:@"utility"];
+                unsignedIntegerValue7 = [v77 unsignedIntegerValue];
 
                 [(PGCuratedLibraryIntelligenceMetricEvent *)self _ratioFromNumerator:unsignedIntegerValue7 denominator:unsignedIntegerValue5];
-                self->_ratioOfUtilityAssetsInTrips = v80;
-                v81 = unsignedIntegerValue6;
+                self->_ratioOfUtilityAssetsInTrips = v79;
+                v80 = unsignedIntegerValue6;
                 [(PGCuratedLibraryIntelligenceMetricEvent *)self _ratioFromNumerator:unsignedIntegerValue5 - (unsignedIntegerValue6 + unsignedIntegerValue7) denominator:unsignedIntegerValue5];
-                self->_ratioOfDedupedAssetsInTrips = v82;
+                self->_ratioOfDedupedAssetsInTrips = v81;
                 [(PGCuratedLibraryIntelligenceMetricEvent *)self _ratioFromNumerator:self->_numberOfDaysInTrips denominator:self->_numberOfDayHighlights];
-                self->_ratioOfDaysInTrips = v83;
-                v84 = mach_absolute_time();
-                v86 = info.numer;
-                v85 = info.denom;
-                v87 = v59;
-                v88 = v87;
-                if (v57 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v87))
+                self->_ratioOfDaysInTrips = v82;
+                v83 = mach_absolute_time();
+                v85 = info.numer;
+                v84 = info.denom;
+                v86 = v59;
+                v87 = v86;
+                if (v57 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v86))
                 {
                   *buf = 0;
-                  _os_signpost_emit_with_name_impl(&dword_22F0FC000, v88, OS_SIGNPOST_INTERVAL_END, v57, "TripsStatistics", "", buf, 2u);
+                  _os_signpost_emit_with_name_impl(&dword_22F0FC000, v87, OS_SIGNPOST_INTERVAL_END, v57, "TripsStatistics", "", buf, 2u);
                 }
 
-                v55 = v96;
-                if (os_log_type_enabled(v88, OS_LOG_TYPE_INFO))
+                v55 = v94;
+                if (os_log_type_enabled(v87, OS_LOG_TYPE_INFO))
                 {
                   *buf = 136315394;
-                  *v111 = "TripsStatistics";
-                  *&v111[8] = 2048;
-                  *&v111[10] = ((((v84 - v98) * v86) / v85) / 1000000.0);
-                  _os_log_impl(&dword_22F0FC000, v88, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
+                  *v109 = "TripsStatistics";
+                  *&v109[8] = 2048;
+                  *&v109[10] = ((((v83 - v96) * v85) / v84) / 1000000.0);
+                  _os_log_impl(&dword_22F0FC000, v87, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
                 }
 
-                reporterCopy = v108;
-                v64 = [v108 isCancelledWithProgress:0.8];
-                v30 = v107;
-                v65 = v81;
-                if (v64 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
+                reporterCopy = v106;
+                v63 = [v106 isCancelledWithProgress:0.8];
+                v30 = v105;
+                v64 = v80;
+                if (v63 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
                 {
                   *buf = 67109378;
-                  *v111 = 363;
-                  *&v111[4] = 2080;
-                  *&v111[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
+                  *v109 = 363;
+                  *&v109[4] = 2080;
+                  *&v109[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
                   _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
                 }
 
-                v66 = v64 ^ 1;
+                v65 = v63 ^ 1;
 
-                _longTripDayGroups = v94;
+                _longTripDayGroups = v92;
               }
 
               _daysWithinTrips = spida;
             }
 
             objc_autoreleasePoolPop(v55);
-            if (v66)
+            if (v65)
             {
-              self->_numberOfCuratedAssets = contexta + v99 + v65;
-              librarySize = self->_librarySize;
+              self->_numberOfCuratedAssets = contexta + v97 + v64;
               [PGCuratedLibraryIntelligenceMetricEvent _ratioFromNumerator:"_ratioFromNumerator:denominator:" denominator:?];
-              self->_ratioOfCuratedAssets = v90;
-              if (((v64 & 1) != 0 || [reporterCopy isCancelledWithProgress:1.0]) && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
+              self->_ratioOfCuratedAssets = v88;
+              if (((v63 & 1) != 0 || [reporterCopy isCancelledWithProgress:1.0]) && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
               {
                 *buf = 67109378;
-                *v111 = 370;
-                *&v111[4] = 2080;
-                *&v111[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
+                *v109 = 370;
+                *&v109[4] = 2080;
+                *&v109[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
                 _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
               }
             }
@@ -1478,10 +1469,8 @@ LABEL_39:
       }
     }
 
-    graphCopy = v106;
+    graphCopy = v104;
   }
-
-  v62 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_fillGenericStatisticsWithGraph:(id)graph
@@ -1528,7 +1517,7 @@ LABEL_39:
 
 void __74__PGCuratedLibraryIntelligenceMetricEvent_gatherMetricsWithProgressBlock___block_invoke(uint64_t a1, void *a2)
 {
-  v185 = *MEMORY[0x277D85DE8];
+  v184 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (*(a1 + 48))
   {
@@ -1547,9 +1536,9 @@ void __74__PGCuratedLibraryIntelligenceMetricEvent_gatherMetricsWithProgressBloc
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       *buf = 67109378;
-      *v184 = 163;
-      *&v184[4] = 2080;
-      *&v184[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
+      *v183 = 163;
+      *&v183[4] = 2080;
+      *&v183[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
       _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
     }
   }
@@ -1561,7 +1550,7 @@ void __74__PGCuratedLibraryIntelligenceMetricEvent_gatherMetricsWithProgressBloc
     v8 = os_signpost_id_generate(v7);
     v9 = v7;
     v10 = v9;
-    v170 = v8 - 1;
+    v169 = v8 - 1;
     if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
     {
       *buf = 0;
@@ -1572,7 +1561,7 @@ void __74__PGCuratedLibraryIntelligenceMetricEvent_gatherMetricsWithProgressBloc
 
     info = 0;
     mach_timebase_info(&info);
-    v169 = mach_absolute_time();
+    v168 = mach_absolute_time();
     v11 = +[PGLogging sharedLogging];
     v12 = [v11 loggingConnection];
 
@@ -1582,7 +1571,7 @@ void __74__PGCuratedLibraryIntelligenceMetricEvent_gatherMetricsWithProgressBloc
       _os_log_impl(&dword_22F0FC000, v12, OS_LOG_TYPE_INFO, "CuratedLibraryIntelligenceMetricsGeneric", buf, 2u);
     }
 
-    v171 = v10;
+    v170 = v10;
 
     v13 = *(a1 + 32);
     v14 = os_signpost_id_generate(v13);
@@ -1594,12 +1583,12 @@ void __74__PGCuratedLibraryIntelligenceMetricEvent_gatherMetricsWithProgressBloc
       _os_signpost_emit_with_name_impl(&dword_22F0FC000, v16, OS_SIGNPOST_INTERVAL_BEGIN, v14, "CuratedLibraryIntelligenceMetricsGeneric", "", buf, 2u);
     }
 
-    v181 = 0;
-    mach_timebase_info(&v181);
+    v180 = 0;
+    mach_timebase_info(&v180);
     v17 = mach_absolute_time();
     [*(a1 + 40) _fillGenericStatisticsWithGraph:v6];
     v18 = mach_absolute_time();
-    v19 = v181;
+    v19 = v180;
     v20 = v16;
     v21 = v20;
     if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
@@ -1612,9 +1601,9 @@ void __74__PGCuratedLibraryIntelligenceMetricEvent_gatherMetricsWithProgressBloc
     if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      *v184 = "CuratedLibraryIntelligenceMetricsGeneric";
-      *&v184[8] = 2048;
-      *&v184[10] = ((((v18 - v17) * v19.numer) / v19.denom) / 1000000.0);
+      *v183 = "CuratedLibraryIntelligenceMetricsGeneric";
+      *&v183[8] = 2048;
+      *&v183[10] = ((((v18 - v17) * v19.numer) / v19.denom) / 1000000.0);
       _os_log_impl(&dword_22F0FC000, v22, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
     }
 
@@ -1623,9 +1612,9 @@ void __74__PGCuratedLibraryIntelligenceMetricEvent_gatherMetricsWithProgressBloc
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         *buf = 67109378;
-        *v184 = 173;
-        *&v184[4] = 2080;
-        *&v184[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
+        *v183 = 173;
+        *&v183[4] = 2080;
+        *&v183[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
         _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
       }
     }
@@ -1651,8 +1640,8 @@ void __74__PGCuratedLibraryIntelligenceMetricEvent_gatherMetricsWithProgressBloc
         _os_signpost_emit_with_name_impl(&dword_22F0FC000, v28, OS_SIGNPOST_INTERVAL_BEGIN, v26, "CuratedLibraryIntelligenceMetricsProcessingLevels", "", buf, 2u);
       }
 
-      v180 = 0;
-      mach_timebase_info(&v180);
+      v179 = 0;
+      mach_timebase_info(&v179);
       v29 = mach_absolute_time();
       v30 = [v5 childProgressReporterFromStart:0.11 toEnd:0.19];
       [*(a1 + 40) _fillProcessingLevelStatisticsWithGraph:v6 progressReporter:v30];
@@ -1661,20 +1650,20 @@ void __74__PGCuratedLibraryIntelligenceMetricEvent_gatherMetricsWithProgressBloc
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
         {
           *buf = 67109378;
-          *v184 = 180;
-          *&v184[4] = 2080;
-          *&v184[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
+          *v183 = 180;
+          *&v183[4] = 2080;
+          *&v183[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
           _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
         }
       }
 
       else
       {
-        v166 = v30;
+        v165 = v30;
         v31 = mach_absolute_time();
-        numer = v180.numer;
-        denom = v180.denom;
-        v167 = v28;
+        numer = v179.numer;
+        denom = v179.denom;
+        v166 = v28;
         v34 = v28;
         v35 = v34;
         if (v26 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v34))
@@ -1687,16 +1676,16 @@ void __74__PGCuratedLibraryIntelligenceMetricEvent_gatherMetricsWithProgressBloc
         if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
         {
           *buf = 136315394;
-          *v184 = "CuratedLibraryIntelligenceMetricsProcessingLevels";
-          *&v184[8] = 2048;
-          *&v184[10] = ((((v31 - v29) * numer) / denom) / 1000000.0);
+          *v183 = "CuratedLibraryIntelligenceMetricsProcessingLevels";
+          *&v183[8] = 2048;
+          *&v183[10] = ((((v31 - v29) * numer) / denom) / 1000000.0);
           _os_log_impl(&dword_22F0FC000, v36, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
         }
 
         v37 = +[PGLogging sharedLogging];
         v38 = [v37 loggingConnection];
 
-        v28 = v167;
+        v28 = v166;
         if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
@@ -1713,31 +1702,31 @@ void __74__PGCuratedLibraryIntelligenceMetricEvent_gatherMetricsWithProgressBloc
           _os_signpost_emit_with_name_impl(&dword_22F0FC000, v42, OS_SIGNPOST_INTERVAL_BEGIN, v40, "CuratedLibraryIntelligenceMetricsDayHighlights", "", buf, 2u);
         }
 
-        v179 = 0;
-        mach_timebase_info(&v179);
+        v178 = 0;
+        mach_timebase_info(&v178);
         v43 = mach_absolute_time();
-        v164 = [v5 childProgressReporterFromStart:0.21 toEnd:0.29];
+        v163 = [v5 childProgressReporterFromStart:0.21 toEnd:0.29];
         [*(a1 + 40) _fillDayHighlightsStatisticsWithGraph:v6 progressReporter:?];
-        v165 = v42;
+        v164 = v42;
         if ([v5 isCancelledWithProgress:0.3])
         {
-          v30 = v166;
+          v30 = v165;
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
           {
             *buf = 67109378;
-            *v184 = 188;
-            *&v184[4] = 2080;
-            *&v184[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
+            *v183 = 188;
+            *&v183[4] = 2080;
+            *&v183[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
             _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
           }
         }
 
         else
         {
-          v163 = v6;
+          v162 = v6;
           v44 = mach_absolute_time();
-          v46 = v179.numer;
-          v45 = v179.denom;
+          v46 = v178.numer;
+          v45 = v178.denom;
           v47 = v42;
           v48 = v47;
           if (v40 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v47))
@@ -1750,16 +1739,16 @@ void __74__PGCuratedLibraryIntelligenceMetricEvent_gatherMetricsWithProgressBloc
           if (os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
           {
             *buf = 136315394;
-            *v184 = "CuratedLibraryIntelligenceMetricsDayHighlights";
-            *&v184[8] = 2048;
-            *&v184[10] = ((((v44 - v43) * v46) / v45) / 1000000.0);
+            *v183 = "CuratedLibraryIntelligenceMetricsDayHighlights";
+            *&v183[8] = 2048;
+            *&v183[10] = ((((v44 - v43) * v46) / v45) / 1000000.0);
             _os_log_impl(&dword_22F0FC000, v49, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
           }
 
           v50 = +[PGLogging sharedLogging];
           v51 = [v50 loggingConnection];
 
-          v28 = v167;
+          v28 = v166;
           if (os_log_type_enabled(v51, OS_LOG_TYPE_INFO))
           {
             *buf = 0;
@@ -1770,37 +1759,37 @@ void __74__PGCuratedLibraryIntelligenceMetricEvent_gatherMetricsWithProgressBloc
           v53 = os_signpost_id_generate(v52);
           v54 = v52;
           v55 = v54;
-          v6 = v163;
+          v6 = v162;
           if (v53 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v54))
           {
             *buf = 0;
             _os_signpost_emit_with_name_impl(&dword_22F0FC000, v55, OS_SIGNPOST_INTERVAL_BEGIN, v53, "CuratedLibraryIntelligenceMetricsContentScore", "", buf, 2u);
           }
 
-          v178 = 0;
-          mach_timebase_info(&v178);
+          v177 = 0;
+          mach_timebase_info(&v177);
           v56 = mach_absolute_time();
-          v161 = [v5 childProgressReporterFromStart:0.31 toEnd:0.39];
-          [*(a1 + 40) _fillContentScoreStatisticsWithGraph:v163 progressReporter:?];
-          v162 = v55;
+          v160 = [v5 childProgressReporterFromStart:0.31 toEnd:0.39];
+          [*(a1 + 40) _fillContentScoreStatisticsWithGraph:v162 progressReporter:?];
+          v161 = v55;
           if ([v5 isCancelledWithProgress:0.4])
           {
-            v30 = v166;
+            v30 = v165;
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
             {
               *buf = 67109378;
-              *v184 = 196;
-              *&v184[4] = 2080;
-              *&v184[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
+              *v183 = 196;
+              *&v183[4] = 2080;
+              *&v183[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
               _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
             }
           }
 
           else
           {
-            v159 = mach_absolute_time();
-            v58 = v178.numer;
-            v57 = v178.denom;
+            v158 = mach_absolute_time();
+            v58 = v177.numer;
+            v57 = v177.denom;
             v59 = v55;
             v60 = v59;
             if (v53 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v59))
@@ -1813,9 +1802,9 @@ void __74__PGCuratedLibraryIntelligenceMetricEvent_gatherMetricsWithProgressBloc
             if (os_log_type_enabled(v61, OS_LOG_TYPE_INFO))
             {
               *buf = 136315394;
-              *v184 = "CuratedLibraryIntelligenceMetricsContentScore";
-              *&v184[8] = 2048;
-              *&v184[10] = ((((v159 - v56) * v58) / v57) / 1000000.0);
+              *v183 = "CuratedLibraryIntelligenceMetricsContentScore";
+              *&v183[8] = 2048;
+              *&v183[10] = ((((v158 - v56) * v58) / v57) / 1000000.0);
               _os_log_impl(&dword_22F0FC000, v61, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
             }
 
@@ -1838,22 +1827,22 @@ void __74__PGCuratedLibraryIntelligenceMetricEvent_gatherMetricsWithProgressBloc
               _os_signpost_emit_with_name_impl(&dword_22F0FC000, v67, OS_SIGNPOST_INTERVAL_BEGIN, v65, "CuratedLibraryIntelligenceMetricsMonthHighlights", "", buf, 2u);
             }
 
-            v177 = 0;
-            mach_timebase_info(&v177);
+            v176 = 0;
+            mach_timebase_info(&v176);
             v68 = mach_absolute_time();
-            v158 = [v5 childProgressReporterFromStart:0.51 toEnd:0.59];
-            [*(a1 + 40) _fillMonthHighlightsStatisticsWithGraph:v163 progressReporter:?];
-            v160 = v67;
+            v157 = [v5 childProgressReporterFromStart:0.51 toEnd:0.59];
+            [*(a1 + 40) _fillMonthHighlightsStatisticsWithGraph:v162 progressReporter:?];
+            v159 = v67;
             if ([v5 isCancelledWithProgress:0.6])
             {
-              v30 = v166;
-              v28 = v167;
+              v30 = v165;
+              v28 = v166;
               if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
               {
                 *buf = 67109378;
-                *v184 = 204;
-                *&v184[4] = 2080;
-                *&v184[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
+                *v183 = 204;
+                *&v183[4] = 2080;
+                *&v183[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
                 _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
               }
             }
@@ -1861,8 +1850,8 @@ void __74__PGCuratedLibraryIntelligenceMetricEvent_gatherMetricsWithProgressBloc
             else
             {
               v69 = mach_absolute_time();
-              v71 = v177.numer;
-              v70 = v177.denom;
+              v71 = v176.numer;
+              v70 = v176.denom;
               v72 = v67;
               v73 = v72;
               if (v65 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v72))
@@ -1875,16 +1864,16 @@ void __74__PGCuratedLibraryIntelligenceMetricEvent_gatherMetricsWithProgressBloc
               if (os_log_type_enabled(v74, OS_LOG_TYPE_INFO))
               {
                 *buf = 136315394;
-                *v184 = "CuratedLibraryIntelligenceMetricsMonthHighlights";
-                *&v184[8] = 2048;
-                *&v184[10] = ((((v69 - v68) * v71) / v70) / 1000000.0);
+                *v183 = "CuratedLibraryIntelligenceMetricsMonthHighlights";
+                *&v183[8] = 2048;
+                *&v183[10] = ((((v69 - v68) * v71) / v70) / 1000000.0);
                 _os_log_impl(&dword_22F0FC000, v74, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
               }
 
               v75 = +[PGLogging sharedLogging];
               v76 = [v75 loggingConnection];
 
-              v28 = v167;
+              v28 = v166;
               if (os_log_type_enabled(v76, OS_LOG_TYPE_INFO))
               {
                 *buf = 0;
@@ -1901,31 +1890,31 @@ void __74__PGCuratedLibraryIntelligenceMetricEvent_gatherMetricsWithProgressBloc
                 _os_signpost_emit_with_name_impl(&dword_22F0FC000, v80, OS_SIGNPOST_INTERVAL_BEGIN, v78, "CuratedLibraryIntelligenceMetricsYearHighlights", "", buf, 2u);
               }
 
-              v176 = 0;
-              mach_timebase_info(&v176);
+              v175 = 0;
+              mach_timebase_info(&v175);
               v81 = mach_absolute_time();
-              [*(a1 + 40) _fillYearHighlightsStatisticsWithGraph:v163];
-              v157 = v80;
+              [*(a1 + 40) _fillYearHighlightsStatisticsWithGraph:v162];
+              v156 = v80;
               if ([v5 isCancelledWithProgress:0.7])
               {
                 v82 = MEMORY[0x277D86220];
                 v83 = MEMORY[0x277D86220];
-                v30 = v166;
+                v30 = v165;
                 if (os_log_type_enabled(v82, OS_LOG_TYPE_INFO))
                 {
                   *buf = 67109378;
-                  *v184 = 211;
-                  *&v184[4] = 2080;
-                  *&v184[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
+                  *v183 = 211;
+                  *&v183[4] = 2080;
+                  *&v183[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
                   _os_log_impl(&dword_22F0FC000, v82, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
                 }
               }
 
               else
               {
-                v155 = mach_absolute_time();
-                v85 = v176.numer;
-                v84 = v176.denom;
+                v154 = mach_absolute_time();
+                v85 = v175.numer;
+                v84 = v175.denom;
                 v86 = v80;
                 v87 = v86;
                 if (v78 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v86))
@@ -1938,9 +1927,9 @@ void __74__PGCuratedLibraryIntelligenceMetricEvent_gatherMetricsWithProgressBloc
                 if (os_log_type_enabled(v88, OS_LOG_TYPE_INFO))
                 {
                   *buf = 136315394;
-                  *v184 = "CuratedLibraryIntelligenceMetricsYearHighlights";
-                  *&v184[8] = 2048;
-                  *&v184[10] = ((((v155 - v81) * v85) / v84) / 1000000.0);
+                  *v183 = "CuratedLibraryIntelligenceMetricsYearHighlights";
+                  *&v183[8] = 2048;
+                  *&v183[10] = ((((v154 - v81) * v85) / v84) / 1000000.0);
                   _os_log_impl(&dword_22F0FC000, v88, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
                 }
 
@@ -1963,12 +1952,12 @@ void __74__PGCuratedLibraryIntelligenceMetricEvent_gatherMetricsWithProgressBloc
                   _os_signpost_emit_with_name_impl(&dword_22F0FC000, v94, OS_SIGNPOST_INTERVAL_BEGIN, v92, "CuratedLibraryIntelligenceMetricsHiddenHighlights", "", buf, 2u);
                 }
 
-                v175 = 0;
-                mach_timebase_info(&v175);
+                v174 = 0;
+                mach_timebase_info(&v174);
                 v95 = mach_absolute_time();
-                [*(a1 + 40) _fillHiddenHighlightsStatisticsWithGraph:v163];
+                [*(a1 + 40) _fillHiddenHighlightsStatisticsWithGraph:v162];
                 v96 = mach_absolute_time();
-                v97 = v175;
+                v97 = v174;
                 v98 = v94;
                 v99 = v98;
                 if (v92 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v98))
@@ -1981,13 +1970,13 @@ void __74__PGCuratedLibraryIntelligenceMetricEvent_gatherMetricsWithProgressBloc
                 if (os_log_type_enabled(v100, OS_LOG_TYPE_INFO))
                 {
                   *buf = 136315394;
-                  *v184 = "CuratedLibraryIntelligenceMetricsHiddenHighlights";
-                  *&v184[8] = 2048;
-                  *&v184[10] = ((((v96 - v95) * v97.numer) / v97.denom) / 1000000.0);
+                  *v183 = "CuratedLibraryIntelligenceMetricsHiddenHighlights";
+                  *&v183[8] = 2048;
+                  *&v183[10] = ((((v96 - v95) * v97.numer) / v97.denom) / 1000000.0);
                   _os_log_impl(&dword_22F0FC000, v100, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
                 }
 
-                v156 = v100;
+                v155 = v100;
 
                 v101 = +[PGLogging sharedLogging];
                 v102 = [v101 loggingConnection];
@@ -2008,26 +1997,26 @@ void __74__PGCuratedLibraryIntelligenceMetricEvent_gatherMetricsWithProgressBloc
                   _os_signpost_emit_with_name_impl(&dword_22F0FC000, v106, OS_SIGNPOST_INTERVAL_BEGIN, v104, "CuratedLibraryIntelligenceMetricsOnesieHighlights", "", buf, 2u);
                 }
 
-                v174 = 0;
-                mach_timebase_info(&v174);
+                v173 = 0;
+                mach_timebase_info(&v173);
                 v107 = mach_absolute_time();
-                v153 = [v5 childProgressReporterFromStart:0.71 toEnd:0.79];
-                [*(a1 + 40) _fillOnesiesHighlightStatisticsWithGraph:v163 progressReporter:?];
-                v154 = v106;
+                v152 = [v5 childProgressReporterFromStart:0.71 toEnd:0.79];
+                [*(a1 + 40) _fillOnesiesHighlightStatisticsWithGraph:v162 progressReporter:?];
+                v153 = v106;
                 if ([v5 isCancelledWithProgress:0.8])
                 {
                   v108 = MEMORY[0x277D86220];
                   v109 = MEMORY[0x277D86220];
-                  v10 = v171;
-                  v30 = v166;
-                  v28 = v167;
-                  v82 = v156;
+                  v10 = v170;
+                  v30 = v165;
+                  v28 = v166;
+                  v82 = v155;
                   if (os_log_type_enabled(v108, OS_LOG_TYPE_INFO))
                   {
                     *buf = 67109378;
-                    *v184 = 225;
-                    *&v184[4] = 2080;
-                    *&v184[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
+                    *v183 = 225;
+                    *&v183[4] = 2080;
+                    *&v183[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
                     _os_log_impl(&dword_22F0FC000, v108, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
                   }
                 }
@@ -2035,8 +2024,8 @@ void __74__PGCuratedLibraryIntelligenceMetricEvent_gatherMetricsWithProgressBloc
                 else
                 {
                   v110 = mach_absolute_time();
-                  v112 = v174.numer;
-                  v111 = v174.denom;
+                  v112 = v173.numer;
+                  v111 = v173.denom;
                   v113 = v106;
                   v114 = v113;
                   if (v104 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v113))
@@ -2049,16 +2038,16 @@ void __74__PGCuratedLibraryIntelligenceMetricEvent_gatherMetricsWithProgressBloc
                   if (os_log_type_enabled(v115, OS_LOG_TYPE_INFO))
                   {
                     *buf = 136315394;
-                    *v184 = "CuratedLibraryIntelligenceMetricsOnesieHighlights";
-                    *&v184[8] = 2048;
-                    *&v184[10] = ((((v110 - v107) * v112) / v111) / 1000000.0);
+                    *v183 = "CuratedLibraryIntelligenceMetricsOnesieHighlights";
+                    *&v183[8] = 2048;
+                    *&v183[10] = ((((v110 - v107) * v112) / v111) / 1000000.0);
                     _os_log_impl(&dword_22F0FC000, v115, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
                   }
 
                   v116 = +[PGLogging sharedLogging];
                   v117 = [v116 loggingConnection];
 
-                  v28 = v167;
+                  v28 = v166;
                   if (os_log_type_enabled(v117, OS_LOG_TYPE_INFO))
                   {
                     *buf = 0;
@@ -2075,33 +2064,33 @@ void __74__PGCuratedLibraryIntelligenceMetricEvent_gatherMetricsWithProgressBloc
                     _os_signpost_emit_with_name_impl(&dword_22F0FC000, v121, OS_SIGNPOST_INTERVAL_BEGIN, v119, "CuratedLibraryIntelligenceMetricsMoments", "", buf, 2u);
                   }
 
-                  v173 = 0;
-                  mach_timebase_info(&v173);
+                  v172 = 0;
+                  mach_timebase_info(&v172);
                   v122 = mach_absolute_time();
-                  [*(a1 + 40) _fillMomentsStatisticsWithGraph:v163];
-                  v152 = v121;
+                  [*(a1 + 40) _fillMomentsStatisticsWithGraph:v162];
+                  v151 = v121;
                   if ([v5 isCancelledWithProgress:0.9])
                   {
                     v123 = MEMORY[0x277D86220];
                     v124 = MEMORY[0x277D86220];
-                    v10 = v171;
-                    v30 = v166;
-                    v82 = v156;
+                    v10 = v170;
+                    v30 = v165;
+                    v82 = v155;
                     if (os_log_type_enabled(v123, OS_LOG_TYPE_INFO))
                     {
                       *buf = 67109378;
-                      *v184 = 232;
-                      *&v184[4] = 2080;
-                      *&v184[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
+                      *v183 = 232;
+                      *&v183[4] = 2080;
+                      *&v183[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
                       _os_log_impl(&dword_22F0FC000, v123, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
                     }
                   }
 
                   else
                   {
-                    v150 = mach_absolute_time();
-                    v126 = v173.numer;
-                    v125 = v173.denom;
+                    v149 = mach_absolute_time();
+                    v126 = v172.numer;
+                    v125 = v172.denom;
                     v127 = v121;
                     v128 = v127;
                     if (v119 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v127))
@@ -2114,16 +2103,16 @@ void __74__PGCuratedLibraryIntelligenceMetricEvent_gatherMetricsWithProgressBloc
                     if (os_log_type_enabled(v129, OS_LOG_TYPE_INFO))
                     {
                       *buf = 136315394;
-                      *v184 = "CuratedLibraryIntelligenceMetricsMoments";
-                      *&v184[8] = 2048;
-                      *&v184[10] = ((((v150 - v122) * v126) / v125) / 1000000.0);
+                      *v183 = "CuratedLibraryIntelligenceMetricsMoments";
+                      *&v183[8] = 2048;
+                      *&v183[10] = ((((v149 - v122) * v126) / v125) / 1000000.0);
                       _os_log_impl(&dword_22F0FC000, v129, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
                     }
 
                     v130 = +[PGLogging sharedLogging];
                     v131 = [v130 loggingConnection];
 
-                    v28 = v167;
+                    v28 = v166;
                     if (os_log_type_enabled(v131, OS_LOG_TYPE_INFO))
                     {
                       *buf = 0;
@@ -2140,13 +2129,13 @@ void __74__PGCuratedLibraryIntelligenceMetricEvent_gatherMetricsWithProgressBloc
                       _os_signpost_emit_with_name_impl(&dword_22F0FC000, v135, OS_SIGNPOST_INTERVAL_BEGIN, v133, "CuratedLibraryIntelligenceMetricsKeyAssets", "", buf, 2u);
                     }
 
-                    v172 = 0;
-                    mach_timebase_info(&v172);
-                    v149 = mach_absolute_time();
-                    v151 = [v5 childProgressReporterFromStart:0.91 toEnd:0.99];
-                    [*(a1 + 40) _fillKeyAssetsStatisticsWithGraph:v163 progressReporter:?];
+                    v171 = 0;
+                    mach_timebase_info(&v171);
+                    v148 = mach_absolute_time();
+                    v150 = [v5 childProgressReporterFromStart:0.91 toEnd:0.99];
+                    [*(a1 + 40) _fillKeyAssetsStatisticsWithGraph:v162 progressReporter:?];
                     v136 = mach_absolute_time();
-                    v137 = v172;
+                    v137 = v171;
                     v138 = v135;
                     v139 = v138;
                     if (v133 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v138))
@@ -2159,19 +2148,19 @@ void __74__PGCuratedLibraryIntelligenceMetricEvent_gatherMetricsWithProgressBloc
                     if (os_log_type_enabled(v123, OS_LOG_TYPE_INFO))
                     {
                       *buf = 136315394;
-                      *v184 = "CuratedLibraryIntelligenceMetricsKeyAssets";
-                      *&v184[8] = 2048;
-                      *&v184[10] = ((((v136 - v149) * v137.numer) / v137.denom) / 1000000.0);
+                      *v183 = "CuratedLibraryIntelligenceMetricsKeyAssets";
+                      *&v183[8] = 2048;
+                      *&v183[10] = ((((v136 - v148) * v137.numer) / v137.denom) / 1000000.0);
                       _os_log_impl(&dword_22F0FC000, v123, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
                     }
 
                     v140 = mach_absolute_time();
                     v142 = info.numer;
                     v141 = info.denom;
-                    v10 = v171;
-                    v143 = v171;
+                    v10 = v170;
+                    v143 = v170;
                     v144 = v143;
-                    if (v170 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v143))
+                    if (v169 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v143))
                     {
                       *buf = 0;
                       _os_signpost_emit_with_name_impl(&dword_22F0FC000, v144, OS_SIGNPOST_INTERVAL_END, spid, "CuratedLibraryIntelligenceMetrics", "", buf, 2u);
@@ -2181,13 +2170,13 @@ void __74__PGCuratedLibraryIntelligenceMetricEvent_gatherMetricsWithProgressBloc
                     if (os_log_type_enabled(v145, OS_LOG_TYPE_INFO))
                     {
                       *buf = 136315394;
-                      *v184 = "CuratedLibraryIntelligenceMetrics";
-                      *&v184[8] = 2048;
-                      *&v184[10] = ((((v140 - v169) * v142) / v141) / 1000000.0);
+                      *v183 = "CuratedLibraryIntelligenceMetrics";
+                      *&v183[8] = 2048;
+                      *&v183[10] = ((((v140 - v168) * v142) / v141) / 1000000.0);
                       _os_log_impl(&dword_22F0FC000, v145, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
                     }
 
-                    v82 = v156;
+                    v82 = v155;
                     if ([v5 isCancelledWithProgress:1.0])
                     {
                       v146 = MEMORY[0x277D86220];
@@ -2195,17 +2184,17 @@ void __74__PGCuratedLibraryIntelligenceMetricEvent_gatherMetricsWithProgressBloc
                       if (os_log_type_enabled(v146, OS_LOG_TYPE_INFO))
                       {
                         *buf = 67109378;
-                        *v184 = 243;
-                        *&v184[4] = 2080;
-                        *&v184[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
+                        *v183 = 243;
+                        *&v183[4] = 2080;
+                        *&v183[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGCuratedLibraryIntelligenceMetricEvent.m";
                         _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
                       }
                     }
 
-                    v30 = v166;
+                    v30 = v165;
                   }
 
-                  v108 = v152;
+                  v108 = v151;
                 }
               }
             }
@@ -2214,8 +2203,6 @@ void __74__PGCuratedLibraryIntelligenceMetricEvent_gatherMetricsWithProgressBloc
       }
     }
   }
-
-  v148 = *MEMORY[0x277D85DE8];
 }
 
 - (PGCuratedLibraryIntelligenceMetricEvent)initWithGraphManager:(id)manager

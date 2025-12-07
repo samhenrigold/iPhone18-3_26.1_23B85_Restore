@@ -35,7 +35,7 @@
 
 - (id)modelPathForComputeDevice:()VNInternalAdditions error:
 {
-  v5 = [self URLForComputeDevice:? error:?];
+  v5 = [self URLForComputeDevice:a3 error:?];
   v6 = v5;
   if (v5)
   {

@@ -436,7 +436,7 @@ LABEL_32:
   {
     if (asset)
     {
-      [asset photoIrisVideoDuration];
+      objc_msgSend_photoIrisVideoDuration(asset);
     }
 
     else
@@ -451,7 +451,7 @@ LABEL_32:
   v4 = 0.0;
   if ([asset mediaType] == 2)
   {
-    [asset duration];
+    objc_msgSend_duration(asset);
 LABEL_8:
     v4 = Seconds;
   }

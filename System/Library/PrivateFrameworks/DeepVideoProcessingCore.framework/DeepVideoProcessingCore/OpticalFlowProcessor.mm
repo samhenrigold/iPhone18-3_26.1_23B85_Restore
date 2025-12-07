@@ -180,7 +180,7 @@ LABEL_39:
   v19 = sourceFrame5;
   if (sourceFrame5)
   {
-    [sourceFrame5 presentationTimeStamp];
+    objc_msgSend_presentationTimeStamp(sourceFrame5);
   }
 
   else
@@ -215,7 +215,7 @@ LABEL_39:
   v25 = nextFrame2;
   if (nextFrame2)
   {
-    [nextFrame2 presentationTimeStamp];
+    objc_msgSend_presentationTimeStamp(nextFrame2);
   }
 
   else
@@ -471,9 +471,9 @@ LABEL_17:
     }
 
     v9->_rotation = [(OpticalFlowProcessor *)v9 getFrameRotation:UsageFromSize];
-    usage = v9->_usage;
-    v9->_usage = usage & 0xFFF;
-    getAlignedInputFrameSizeForUsage(usage & 0xFFF, &v9->_width, &v9->_height);
+    v15 = v9->_usage & 0xFFF;
+    v9->_usage = v15;
+    getAlignedInputFrameSizeForUsage(v15, &v9->_width, &v9->_height);
     v16 = [[GenericFlow alloc] initWithOpticalFlow:v9->_opticalFlow usage:v9->_usage rotation:v9->_rotation];
     genericFlow = v9->_genericFlow;
     v9->_genericFlow = v16;

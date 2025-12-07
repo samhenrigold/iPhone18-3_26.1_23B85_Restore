@@ -93,47 +93,47 @@
   appsCopy = apps;
   v5 = +[RBSProcessStateDescriptor descriptor];
   v6 = +[RBSProcessPredicate predicateMatchingProcessTypeApplication];
-  v30 = [NSMutableArray arrayWithCapacity:0];
+  v31 = [NSMutableArray arrayWithCapacity:0];
   [v5 setValues:1];
   v7 = FBSSceneVisibilityEndowmentNamespace;
-  v39 = FBSSceneVisibilityEndowmentNamespace;
-  v8 = [NSArray arrayWithObjects:&v39 count:1];
+  v40 = FBSSceneVisibilityEndowmentNamespace;
+  v8 = [NSArray arrayWithObjects:&v40 count:1];
   [v5 setEndowmentNamespaces:v8];
 
-  v36 = 0;
-  v9 = [RBSProcessState statesForPredicate:v6 withDescriptor:v5 error:&v36];
-  v10 = v36;
+  v37 = 0;
+  v9 = [RBSProcessState statesForPredicate:v6 withDescriptor:v5 error:&v37];
+  v10 = v37;
   v11 = v10;
   if (v9)
   {
-    v26 = v10;
-    v28 = v6;
-    v29 = v5;
+    v27 = v10;
+    v29 = v6;
+    v30 = v5;
     visibleApps = [(MSDAppHelper *)self visibleApps];
-    v32 = 0u;
     v33 = 0u;
     v34 = 0u;
     v35 = 0u;
-    v27 = v9;
+    v36 = 0u;
+    v28 = v9;
     v12 = v9;
-    v13 = [v12 countByEnumeratingWithState:&v32 objects:v38 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v33 objects:v39 count:16];
     if (!v13)
     {
       goto LABEL_22;
     }
 
     v14 = v13;
-    v15 = *v33;
+    v15 = *v34;
     while (1)
     {
       for (i = 0; i != v14; i = i + 1)
       {
-        if (*v33 != v15)
+        if (*v34 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v32 + 1) + 8 * i);
+        v17 = *(*(&v33 + 1) + 8 * i);
         taskState = [v17 taskState];
         if (appsCopy)
         {
@@ -162,12 +162,12 @@
 
         if (!identifier)
         {
-          v24 = sub_100063A54();
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+          v25 = sub_100063A54(v24);
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543362;
             *&buf[4] = v17;
-            _os_log_error_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "Failed to extract app bundle ID from process state: %{public}@", buf, 0xCu);
+            _os_log_error_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "Failed to extract app bundle ID from process state: %{public}@", buf, 0xCu);
           }
 
 LABEL_19:
@@ -177,21 +177,21 @@ LABEL_19:
 
         if ([visibleApps containsObject:identifier])
         {
-          [v30 addObject:identifier];
+          [v31 addObject:identifier];
         }
 
 LABEL_20:
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v32 objects:v38 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v33 objects:v39 count:16];
       if (!v14)
       {
 LABEL_22:
 
-        v6 = v28;
-        v5 = v29;
-        v11 = v26;
-        v9 = v27;
+        v6 = v29;
+        v5 = v30;
+        v11 = v27;
+        v9 = v28;
 
         goto LABEL_23;
       }
@@ -202,7 +202,7 @@ LABEL_22:
 
 LABEL_23:
 
-  return v30;
+  return v31;
 }
 
 - (id)runningApps
@@ -211,44 +211,44 @@ LABEL_23:
   v4 = +[RBSProcessPredicate predicateMatchingProcessTypeApplication];
   v5 = [NSMutableArray arrayWithCapacity:0];
   [v3 setValues:1];
-  v33 = FBSSceneVisibilityEndowmentNamespace;
-  v6 = [NSArray arrayWithObjects:&v33 count:1];
+  v34 = FBSSceneVisibilityEndowmentNamespace;
+  v6 = [NSArray arrayWithObjects:&v34 count:1];
   [v3 setEndowmentNamespaces:v6];
 
-  v30 = 0;
-  v7 = [RBSProcessState statesForPredicate:v4 withDescriptor:v3 error:&v30];
-  v8 = v30;
+  v31 = 0;
+  v7 = [RBSProcessState statesForPredicate:v4 withDescriptor:v3 error:&v31];
+  v8 = v31;
   v9 = v8;
   if (v7)
   {
-    v22 = v8;
-    v24 = v4;
-    v25 = v3;
+    v23 = v8;
+    v25 = v4;
+    v26 = v3;
     visibleApps = [(MSDAppHelper *)self visibleApps];
-    v26 = 0u;
     v27 = 0u;
     v28 = 0u;
     v29 = 0u;
-    v23 = v7;
+    v30 = 0u;
+    v24 = v7;
     v11 = v7;
-    v12 = [v11 countByEnumeratingWithState:&v26 objects:v32 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v27 objects:v33 count:16];
     if (!v12)
     {
       goto LABEL_17;
     }
 
     v13 = v12;
-    v14 = *v27;
+    v14 = *v28;
     while (1)
     {
       for (i = 0; i != v13; i = i + 1)
       {
-        if (*v27 != v14)
+        if (*v28 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v26 + 1) + 8 * i);
+        v16 = *(*(&v27 + 1) + 8 * i);
         [v16 taskState];
         if (!RBSTaskStateIsRunning())
         {
@@ -261,12 +261,12 @@ LABEL_23:
 
         if (!identifier)
         {
-          v20 = sub_100063A54();
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+          v21 = sub_100063A54(v20);
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543362;
             *&buf[4] = v16;
-            _os_log_error_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "Failed to extract app bundle ID from process state: %{public}@", buf, 0xCu);
+            _os_log_error_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "Failed to extract app bundle ID from process state: %{public}@", buf, 0xCu);
           }
 
 LABEL_14:
@@ -282,15 +282,15 @@ LABEL_14:
 LABEL_15:
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v26 objects:v32 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v27 objects:v33 count:16];
       if (!v13)
       {
 LABEL_17:
 
-        v4 = v24;
-        v3 = v25;
-        v9 = v22;
-        v7 = v23;
+        v4 = v25;
+        v3 = v26;
+        v9 = v23;
+        v7 = v24;
         goto LABEL_18;
       }
     }
@@ -356,47 +356,49 @@ LABEL_18:
   v7 = +[NSDistributedNotificationCenter defaultCenter];
   v8 = [NSDate dateWithTimeIntervalSinceNow:timeout];
   v9 = objc_alloc_init(NSCondition);
-  v10 = sub_100063A54();
+  v10 = sub_100063A54(v9);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v22 = installCopy;
+    v25 = installCopy;
     _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Wait for app to install: %{public}@", buf, 0xCu);
   }
 
   v11 = +[NSOperationQueue mainQueue];
-  v19[0] = _NSConcreteStackBlock;
-  v19[1] = 3221225472;
-  v19[2] = sub_10006F3A0;
-  v19[3] = &unk_100169CE8;
+  v22[0] = _NSConcreteStackBlock;
+  v22[1] = 3221225472;
+  v22[2] = sub_10006F3A0;
+  v22[3] = &unk_100169CE8;
   v12 = v9;
-  v20 = v12;
-  v13 = [v7 addObserverForName:@"com.apple.LaunchServices.applicationRegistered" object:0 queue:v11 usingBlock:v19];
+  v23 = v12;
+  v13 = [v7 addObserverForName:@"com.apple.LaunchServices.applicationRegistered" object:0 queue:v11 usingBlock:v22];
 
   if (v13)
   {
     [v12 lock];
     while (1)
     {
-      v14 = [(MSDAppHelper *)self isInstalledApp:installCopy];
-      if (v14)
+      v15 = [(MSDAppHelper *)self isInstalledApp:installCopy];
+      v16 = v15;
+      if (v15)
       {
         break;
       }
 
-      v15 = sub_100063A54();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v17 = sub_100063A54(v15);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "App is not yet installed.", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "App is not yet installed.", buf, 2u);
       }
 
-      if (([v12 waitUntilDate:v8] & 1) == 0)
+      v18 = [v12 waitUntilDate:v8];
+      if ((v18 & 1) == 0)
       {
-        v16 = sub_100063A54();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        v19 = sub_100063A54(v18);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
-          sub_1000D9098(v16);
+          sub_1000D9098(v19);
         }
 
         break;
@@ -409,42 +411,42 @@ LABEL_18:
 
   else
   {
-    v17 = sub_100063A54();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v20 = sub_100063A54(v14);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      sub_1000D90DC(v17);
+      sub_1000D90DC(v20);
     }
 
-    v14 = 0;
+    v16 = 0;
   }
 
-  return v14;
+  return v16;
 }
 
 - (BOOL)stopAllAppsExcept:(id)except
 {
   exceptCopy = except;
-  v18 = +[LSApplicationWorkspace defaultWorkspace];
-  allApplications = [v18 allApplications];
-  v19 = 0u;
+  v19 = +[LSApplicationWorkspace defaultWorkspace];
+  allApplications = [v19 allApplications];
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v6 = [allApplications countByEnumeratingWithState:&v19 objects:v25 count:16];
+  v23 = 0u;
+  v6 = [allApplications countByEnumeratingWithState:&v20 objects:v26 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v20;
+    v8 = *v21;
     do
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v20 != v8)
+        if (*v21 != v8)
         {
           objc_enumerationMutation(allApplications);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * i);
+        v10 = *(*(&v20 + 1) + 8 * i);
         applicationIdentifier = [v10 applicationIdentifier];
         v12 = [exceptCopy containsObject:applicationIdentifier];
 
@@ -461,19 +463,19 @@ LABEL_18:
 
           else
           {
-            applicationIdentifier3 = sub_100063A54();
+            applicationIdentifier3 = sub_100063A54(v15);
             if (os_log_type_enabled(applicationIdentifier3, OS_LOG_TYPE_DEFAULT))
             {
               applicationIdentifier4 = [v10 applicationIdentifier];
               *buf = 138543362;
-              v24 = applicationIdentifier4;
+              v25 = applicationIdentifier4;
               _os_log_impl(&_mh_execute_header, applicationIdentifier3, OS_LOG_TYPE_DEFAULT, "ERROR - Failed to acquire termination assertion for app:  %{public}@", buf, 0xCu);
             }
           }
         }
       }
 
-      v7 = [allApplications countByEnumeratingWithState:&v19 objects:v25 count:16];
+      v7 = [allApplications countByEnumeratingWithState:&v20 objects:v26 count:16];
     }
 
     while (v7);
@@ -485,7 +487,7 @@ LABEL_18:
 - (id)acquireAppTerminationAssertionForApp:(id)app
 {
   appCopy = app;
-  v4 = sub_100063A54();
+  v4 = sub_100063A54(appCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     sub_1000D9120();
@@ -504,7 +506,7 @@ LABEL_18:
     v16 = 0;
     v11 = [v9 acquireWithError:&v16];
     v12 = v16;
-    v13 = sub_100063A54();
+    v13 = sub_100063A54(v12);
     v14 = v13;
     if (v11)
     {
@@ -527,7 +529,7 @@ LABEL_18:
 
   else
   {
-    sub_1000D928C();
+    sub_1000D928C(appCopy);
     v12 = 0;
   }
 
@@ -538,7 +540,7 @@ LABEL_18:
 {
   assertionCopy = assertion;
   appCopy = app;
-  v7 = sub_100063A54();
+  v7 = sub_100063A54(appCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     sub_1000D932C();
@@ -552,7 +554,7 @@ LABEL_18:
       v12 = 0;
       v8 = [assertionCopy invalidateWithError:&v12];
       v9 = v12;
-      v10 = sub_100063A54();
+      v10 = sub_100063A54(v9);
       v11 = v10;
       if (v8)
       {

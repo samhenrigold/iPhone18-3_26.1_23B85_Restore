@@ -12,7 +12,7 @@
   layerCopy = layer;
   v5 = v8.receiver;
   [(FMAccessoryPairingWithYouIndicator *)&v8 layoutSublayersOfLayer:layerCopy];
-  sub_10000905C(0, &qword_1006B4980);
+  sub_10000905C(0, &qword_1006B4980, NSObject_ptr);
   layer = [v5 layer];
   v7 = static NSObject.== infix(_:_:)();
 

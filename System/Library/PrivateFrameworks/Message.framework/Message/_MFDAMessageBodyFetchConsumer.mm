@@ -8,7 +8,6 @@
 
 - (void)handleResponse:(id)response error:(id)error
 {
-  v15 = *MEMORY[0x1E69E9840];
   responseCopy = response;
   errorCopy = error;
   if (errorCopy)
@@ -43,8 +42,6 @@
   }
 
   [(_MFDAMessageBodyFetchConsumer *)self setHasLocalCopyOfData:v10 != 0];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)succeeded

@@ -42,7 +42,7 @@
 
 - (id)objectWithNSNulls:()BLTNSNullRemoval
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v4 = a3;
   selfCopy = self;
   if ([v4 count])
@@ -51,54 +51,54 @@
 
     allKeys = [v4 allKeys];
     array = [MEMORY[0x277CBEB18] array];
+    v31 = 0u;
     v32 = 0u;
     v33 = 0u;
     v34 = 0u;
-    v35 = 0u;
     obj = allKeys;
-    v9 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
+    v9 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v33;
+      v11 = *v32;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v33 != v11)
+          if (*v32 != v11)
           {
             objc_enumerationMutation(obj);
           }
 
-          [array insertObject:*(*(&v32 + 1) + 8 * i) atIndex:{objc_msgSend(array, "indexOfObject:inSortedRange:options:usingComparator:", *(*(&v32 + 1) + 8 * i), 0, objc_msgSend(array, "count"), 1024, &__block_literal_global_18)}];
+          [array insertObject:*(*(&v31 + 1) + 8 * i) atIndex:{objc_msgSend(array, "indexOfObject:inSortedRange:options:usingComparator:", *(*(&v31 + 1) + 8 * i), 0, objc_msgSend(array, "count"), 1024, &__block_literal_global_18)}];
         }
 
-        v10 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
+        v10 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
       }
 
       while (v10);
     }
 
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
-    v26 = array;
-    v13 = [v26 countByEnumeratingWithState:&v28 objects:v36 count:16];
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
+    v25 = array;
+    v13 = [v25 countByEnumeratingWithState:&v27 objects:v35 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v29;
+      v15 = *v28;
       do
       {
         for (j = 0; j != v14; ++j)
         {
-          if (*v29 != v15)
+          if (*v28 != v15)
           {
-            objc_enumerationMutation(v26);
+            objc_enumerationMutation(v25);
           }
 
-          v17 = *(*(&v28 + 1) + 8 * j);
+          v17 = *(*(&v27 + 1) + 8 * j);
           v18 = [v4 objectForKeyedSubscript:v17];
           integerValue = [v17 integerValue];
           objectSentinelNull = [v18 objectSentinelNull];
@@ -118,7 +118,7 @@
           }
         }
 
-        v14 = [v26 countByEnumeratingWithState:&v28 objects:v36 count:16];
+        v14 = [v25 countByEnumeratingWithState:&v27 objects:v35 count:16];
       }
 
       while (v14);
@@ -129,8 +129,6 @@
   {
     v6 = selfCopy;
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

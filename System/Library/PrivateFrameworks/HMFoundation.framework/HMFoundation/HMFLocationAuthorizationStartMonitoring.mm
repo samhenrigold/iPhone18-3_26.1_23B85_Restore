@@ -31,7 +31,7 @@ uint64_t ____HMFLocationAuthorizationStartMonitoring_block_invoke(uint64_t a1)
   v8 = *(v7 + 88);
   *(v7 + 88) = v3;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v3, v8);
 }
 
 @end

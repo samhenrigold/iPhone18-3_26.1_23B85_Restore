@@ -6,7 +6,7 @@
 
 - (id)hm_shortDescription
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   string = [MEMORY[0x1E696AD60] string];
   v3 = *MEMORY[0x1E69C7D78];
   filter = [self filter];
@@ -17,31 +17,31 @@
   v7 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(self, "executionOrder")}];
   [string appendFormat:@"\n\t\t\t%@: %@", v6, v7];
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   actions = [self actions];
-  v9 = [actions countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v9 = [actions countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v9)
   {
     v10 = v9;
     v11 = 0;
-    v12 = *v21;
+    v12 = *v20;
     v13 = *MEMORY[0x1E69C7CF0];
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v21 != v12)
+        if (*v20 != v12)
         {
           objc_enumerationMutation(actions);
         }
 
-        v15 = *(*(&v20 + 1) + 8 * i);
+        v15 = *(*(&v19 + 1) + 8 * i);
         if (v11)
         {
-          [string appendFormat:@"\n\t\t\t\t [%tu]", v11, v19];
+          [string appendFormat:@"\n\t\t\t\t [%tu]", v11, v18];
         }
 
         else
@@ -55,13 +55,11 @@
         ++v11;
       }
 
-      v10 = [actions countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v10 = [actions countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v10);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return string;
 }

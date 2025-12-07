@@ -41,7 +41,7 @@
   shadeCopy = shade;
   v22 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v11 = sharedBluetoothSettingsLogComponent();
+  v11 = sharedBluetoothSettingsLogComponent(completionCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109888;

@@ -1475,7 +1475,7 @@ void __82__AVCatalystGlassPlaybackControlsController__startObservingForPlaybackV
 
   [self minimumTime];
   [self minimumTime];
-  if (fabs(v26) == INFINITY || ([self maximumTime], objc_msgSend(self, "maximumTime"), fabs(v27) == INFINITY) || (objc_msgSend(self, "currentTime"), objc_msgSend(self, "currentTime"), fabs(v28) == INFINITY) || (objc_msgSend(self, "maximumTime"), v30 = v29, objc_msgSend(self, "minimumTime"), v30 <= v31) || (objc_msgSend(self, "currentTime"), v33 = v32, objc_msgSend(self, "minimumTime"), v33 < v34) && (objc_msgSend(self, "currentTime"), v36 = v35, objc_msgSend(self, "maximumTime"), v36 > v37))
+  if (fabs(v26) == INFINITY || ([self maximumTime], objc_msgSend(self, "maximumTime"), fabs(v27) == INFINITY) || (objc_msgSend_currentTime(self), objc_msgSend_currentTime(self), fabs(v28) == INFINITY) || (objc_msgSend(self, "maximumTime"), v30 = v29, objc_msgSend(self, "minimumTime"), v30 <= v31) || (objc_msgSend_currentTime(self), v33 = v32, objc_msgSend(self, "minimumTime"), v33 < v34) && (objc_msgSend_currentTime(self), v36 = v35, objc_msgSend(self, "maximumTime"), v36 > v37))
   {
 LABEL_19:
     elapsedTimeFormatter4 = [self elapsedTimeFormatter];
@@ -1926,12 +1926,12 @@ LABEL_23:
   }
 }
 
-uint64_t __70__AVCatalystGlassPlaybackControlsController__updateContainerInclusion__block_invoke(uint64_t result)
+void *__70__AVCatalystGlassPlaybackControlsController__updateContainerInclusion__block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = *(result + 4);
   if (v1)
   {
-    [v1 _updateVolumeButtonInclusionAndPrefersVolumeSliderExpandedWithPreferredExpansion:-[AVCatalystGlassPlaybackControlsController _prefersVolumeSliderExpandedAutomatically](*(result + 32))];
+    [v1 _updateVolumeButtonInclusionAndPrefersVolumeSliderExpandedWithPreferredExpansion:-[AVCatalystGlassPlaybackControlsController _prefersVolumeSliderExpandedAutomatically](*(result + 4))];
 
     return [v1 _showOrHideDisplayModeControls];
   }
@@ -2068,7 +2068,7 @@ void __80__AVCatalystGlassPlaybackControlsController__updateOrCreateTimeResolver
 
   else
   {
-    [(AVCatalystGlassPlaybackControlsController *)self currentTime];
+    objc_msgSend_currentTime(self);
     [playerController2 seekToTime:v11 + interval];
   }
 }
@@ -3642,7 +3642,7 @@ LABEL_22:
   v6 = playerViewController;
   if (playerViewController)
   {
-    [playerViewController overrideTransformForProminentPlayButton];
+    objc_msgSend_overrideTransformForProminentPlayButton(playerViewController);
   }
 
   else
@@ -3897,7 +3897,7 @@ LABEL_22:
   v90 = playerViewController8;
   if (playerViewController8)
   {
-    [playerViewController8 overrideTransformForProminentPlayButton];
+    objc_msgSend_overrideTransformForProminentPlayButton(playerViewController8);
   }
 
   else
@@ -4279,12 +4279,12 @@ LABEL_19:
   }
 }
 
-uint64_t __67__AVCatalystGlassPlaybackControlsController_setCustomControlItems___block_invoke(uint64_t result)
+void *__67__AVCatalystGlassPlaybackControlsController_setCustomControlItems___block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = *(result + 4);
   if (v1)
   {
-    [v1 _updateVolumeButtonInclusionAndPrefersVolumeSliderExpandedWithPreferredExpansion:-[AVCatalystGlassPlaybackControlsController _prefersVolumeSliderExpandedAutomatically](*(result + 32))];
+    [v1 _updateVolumeButtonInclusionAndPrefersVolumeSliderExpandedWithPreferredExpansion:-[AVCatalystGlassPlaybackControlsController _prefersVolumeSliderExpandedAutomatically](*(result + 4))];
 
     return [v1 _showOrHideDisplayModeControls];
   }
@@ -4506,12 +4506,12 @@ LABEL_5:
   if (externalPlaybackType == 1)
   {
     playbackControlsView2 = [(AVCatalystGlassPlaybackControlsController *)self timeResolver];
-    [playbackControlsView2 currentTime];
+    objc_msgSend_currentTime(playbackControlsView2);
     v9 = v12;
     goto LABEL_5;
   }
 
-  [(AVCatalystGlassPlaybackControlsController *)self currentTime];
+  objc_msgSend_currentTime(self);
   return result;
 }
 

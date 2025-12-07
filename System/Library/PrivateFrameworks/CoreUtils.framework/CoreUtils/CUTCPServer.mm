@@ -40,7 +40,7 @@
     if (ucat->var0 != -1)
     {
 LABEL_3:
-      LogPrintF(ucat, "[CUTCPServer _handleConnectionInvalidated:addr:]", 0x1Eu, "Connection ended from %##a\n", v7, v8, v9, v10, addr);
+      LogPrintF(ucat, "[CUTCPServer _handleConnectionInvalidated:addr:]", 30, "Connection ended from %##a\n", v7, v8, v9, v10, addr);
       invalidatedCopy = v14;
       goto LABEL_5;
     }
@@ -97,7 +97,7 @@ LABEL_5:
         ucat = self->_ucat;
       }
 
-      LogPrintF(ucat, "[CUTCPServer _handleConnectionAccept:]", 0x1Eu, "### accept() failed: %#m\n", v4, v5, v6, v7, v9);
+      LogPrintF(ucat, "[CUTCPServer _handleConnectionAccept:]", 30, "### accept() failed: %#m\n", v4, v5, v6, v7, v9);
     }
 
 LABEL_31:
@@ -119,7 +119,7 @@ LABEL_4:
       v10 = self->_ucat;
     }
 
-    LogPrintF(v10, "[CUTCPServer _handleConnectionAccept:]", 0x1Eu, "Connection started from %##a\n", v4, v5, v6, v7, v37);
+    LogPrintF(v10, "[CUTCPServer _handleConnectionAccept:]", 30, "Connection started from %##a\n", v4, v5, v6, v7, v37);
   }
 
 LABEL_8:
@@ -181,7 +181,7 @@ LABEL_8:
           v31 = self->_ucat;
         }
 
-        LogPrintF(v31, "[CUTCPServer _handleConnectionAccept:]", 0x1Eu, "### Activate accepted connection failed: %{error}\n", v16, v17, v18, v19, v20);
+        LogPrintF(v31, "[CUTCPServer _handleConnectionAccept:]", 30, "### Activate accepted connection failed: %{error}\n", v16, v17, v18, v19, v20);
       }
 
 LABEL_33:
@@ -230,7 +230,7 @@ LABEL_32:
     }
 
     [(NSMutableSet *)self->_connections count];
-    LogPrintF(v26, "[CUTCPServer _handleConnectionAccept:]", 0x3Cu, "### Rejecting connection from %##a when at limit of %d\n", v27, v28, v29, v30, v37);
+    LogPrintF(v26, "[CUTCPServer _handleConnectionAccept:]", 60, "### Rejecting connection from %##a when at limit of %d\n", v27, v28, v29, v30, v37);
   }
 
 LABEL_43:
@@ -257,7 +257,7 @@ LABEL_43:
       if (ucat->var0 != -1)
       {
 LABEL_5:
-        LogPrintF(ucat, "[CUTCPServer _invalidated]", 0x3Cu, "### Unexpectedly invalidated\n", v3, v4, v5, v6, v19);
+        LogPrintF(ucat, "[CUTCPServer _invalidated]", 60, "### Unexpectedly invalidated\n", v3, v4, v5, v6, v19);
         goto LABEL_7;
       }
 
@@ -307,7 +307,7 @@ LABEL_7:
         v18 = self->_ucat;
       }
 
-      LogPrintF(v18, "[CUTCPServer _invalidated]", 0x1Eu, "Invalidated\n", v14, v15, v16, v17, v21);
+      LogPrintF(v18, "[CUTCPServer _invalidated]", 30, "Invalidated\n", v14, v15, v16, v17, v21);
     }
   }
 }
@@ -323,10 +323,10 @@ LABEL_7:
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __25__CUTCPServer_invalidate__block_invoke(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *__25__CUTCPServer_invalidate__block_invoke(void *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v28 = *MEMORY[0x1E69E9840];
-  v8 = *(result + 32);
+  v8 = result[4];
   if (*(v8 + 16))
   {
     return result;
@@ -334,14 +334,14 @@ uint64_t __25__CUTCPServer_invalidate__block_invoke(uint64_t result, uint64_t a2
 
   v9 = result;
   *(v8 + 16) = 1;
-  v10 = *(result + 32);
+  v10 = result[4];
   v11 = *(v10 + 40);
   if (*v11 <= 30)
   {
     if (*v11 == -1)
     {
       v12 = _LogCategory_Initialize(v11, 0x1Eu);
-      v10 = *(v9 + 32);
+      v10 = v9[4];
       if (!v12)
       {
         goto LABEL_6;
@@ -350,29 +350,29 @@ uint64_t __25__CUTCPServer_invalidate__block_invoke(uint64_t result, uint64_t a2
       v11 = *(v10 + 40);
     }
 
-    LogPrintF(v11, "[CUTCPServer invalidate]_block_invoke", 0x1Eu, "Invalidating\n", a5, a6, a7, a8, v23);
-    v10 = *(v9 + 32);
+    LogPrintF(v11, "[CUTCPServer invalidate]_block_invoke", 30, "Invalidating\n", a5, a6, a7, a8, v23);
+    v10 = v9[4];
   }
 
 LABEL_6:
   [*(v10 + 64) invalidate];
-  v13 = *(v9 + 32);
+  v13 = v9[4];
   v14 = *(v13 + 64);
   *(v13 + 64) = 0;
 
-  v15 = *(v9 + 32);
+  v15 = v9[4];
   v16 = *(v15 + 24);
   if (v16)
   {
     dispatch_source_cancel(v16);
-    v15 = *(v9 + 32);
+    v15 = v9[4];
   }
 
   v17 = *(v15 + 32);
   if (v17)
   {
     dispatch_source_cancel(v17);
-    v15 = *(v9 + 32);
+    v15 = v9[4];
   }
 
   v25 = 0u;
@@ -403,8 +403,8 @@ LABEL_6:
     while (v20);
   }
 
-  [*(*(v9 + 32) + 8) removeAllObjects];
-  return [*(v9 + 32) _invalidated];
+  [*(v9[4] + 8) removeAllObjects];
+  return [v9[4] _invalidated];
 }
 
 - (BOOL)activateDirectAndReturnError:(id *)error
@@ -418,7 +418,7 @@ LABEL_6:
     if (ucat->var0 != -1)
     {
 LABEL_3:
-      LogPrintF(ucat, "[CUTCPServer activateDirectAndReturnError:]", 0x1Eu, "Activate\n", v5, v6, v7, v8, v46);
+      LogPrintF(ucat, "[CUTCPServer activateDirectAndReturnError:]", 30, "Activate\n", v5, v6, v7, v8, v46);
       goto LABEL_5;
     }
 
@@ -558,7 +558,7 @@ LABEL_22:
       v32 = self->_ucat;
     }
 
-    LogPrintF(v32, "[CUTCPServer activateDirectAndReturnError:]", 0x1Eu, "Activated on port %d\n", v17, v18, v19, v20, self->_tcpListeningPort);
+    LogPrintF(v32, "[CUTCPServer activateDirectAndReturnError:]", 30, "Activated on port %d\n", v17, v18, v19, v20, self->_tcpListeningPort);
   }
 
 LABEL_26:
@@ -634,7 +634,7 @@ LABEL_46:
       v36 = self->_ucat;
     }
 
-    LogPrintF(v36, "[CUTCPServer activateDirectAndReturnError:]", 0x3Cu, "### Activate failed: %{error}\n", v17, v18, v19, v20, v35);
+    LogPrintF(v36, "[CUTCPServer activateDirectAndReturnError:]", 60, "### Activate failed: %{error}\n", v17, v18, v19, v20, v35);
     goto LABEL_46;
   }
 

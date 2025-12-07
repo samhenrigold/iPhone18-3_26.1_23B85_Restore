@@ -129,7 +129,7 @@
 
   else
   {
-    v19 = -12782;
+    v19 = 4294954514;
     if (!outError)
     {
       return v22;

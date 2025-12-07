@@ -78,7 +78,7 @@
   v33 = 0u;
   v30 = 0u;
   v31 = 0u;
-  [(TabDocumentView *)self currentGeometry];
+  objc_msgSend_currentGeometry(self);
   webView = self->_webView;
   if (webView)
   {
@@ -181,7 +181,7 @@
     retstr->var2.left = v11;
     retstr->var2.bottom = v12;
     retstr->var2.right = v13;
-    [WeakRetained scrollIndicatorInsetsForTabDocumentView:self];
+    objc_msgSend_scrollIndicatorInsetsForTabDocumentView_(WeakRetained);
     *&retstr->var3.var0.top = v26;
     *&retstr->var3.var0.bottom = v27;
     *&retstr->var3.var1.top = v28;
@@ -636,7 +636,7 @@ uint64_t __58__TabDocumentView__performReaderTransitionWithCompletion___block_in
 - (void)applyGeometryToWebView:(id)view
 {
   viewCopy = view;
-  [(TabDocumentView *)self currentGeometry];
+  objc_msgSend_currentGeometry(self);
   [(TabDocumentView *)self applyGeometry:&v5 toWebView:viewCopy];
 }
 
@@ -684,7 +684,7 @@ uint64_t __58__TabDocumentView__performReaderTransitionWithCompletion___block_in
 
 - (void)applyGeometry:(id *)geometry toWebView:(id)view
 {
-  v110 = *MEMORY[0x277D85DE8];
+  v116 = *MEMORY[0x277D85DE8];
   viewCopy = view;
   if (viewCopy)
   {
@@ -701,220 +701,231 @@ uint64_t __58__TabDocumentView__performReaderTransitionWithCompletion___block_in
     _sf_effectiveViewToLayOut = [viewCopy _sf_effectiveViewToLayOut];
     [_sf_effectiveViewToLayOut setFrame:{x, y, width, height}];
 
-    if (geometry->var8 || (objc_opt_respondsToSelector() & 1) != 0 && ([WeakRetained shouldModifyWebViewGeometryForTabDocumentView:self] & 1) == 0)
+    if (geometry->var8)
     {
       goto LABEL_27;
     }
 
-    v13 = WBS_LOG_CHANNEL_PREFIXLayout();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    v13 = objc_opt_respondsToSelector();
+    if (v13)
     {
-      v14 = objc_getAssociatedObject(viewCopy, &[TabDocumentView applyGeometry:toWebView:]::lastAppliedGeometryKey);
-      v15 = *&geometry->var7.top;
-      v94[12] = geometry->var6;
-      v94[13] = v15;
-      v16 = *&geometry->var8;
-      v94[14] = *&geometry->var7.bottom;
-      v94[15] = v16;
-      v17 = *&geometry->var3.var1.bottom;
-      v94[8] = *&geometry->var3.var1.top;
-      v94[9] = v17;
-      var5 = geometry->var5;
-      v94[10] = geometry->var4;
-      v94[11] = var5;
-      v19 = *&geometry->var2.bottom;
-      v94[4] = *&geometry->var2.top;
-      v94[5] = v19;
-      v20 = *&geometry->var3.var0.bottom;
-      v94[6] = *&geometry->var3.var0.top;
-      v94[7] = v20;
-      size = geometry->var0.size;
-      v94[0] = geometry->var0.origin;
-      v94[1] = size;
-      v22 = *&geometry->var1.bottom;
-      v94[2] = *&geometry->var1.top;
-      v94[3] = v22;
-      v23 = [MEMORY[0x277CCAE60] valueWithBytes:v94 objCType:"{?={CGRect={CGPoint=dd}{CGSize=dd}}{UIEdgeInsets=dddd}{UIEdgeInsets=dddd}{SFScrollIndicatorInsets={UIEdgeInsets=dddd}{UIEdgeInsets=dddd}}{CGSize=dd}{CGSize=dd}{CGSize=dd}{UIEdgeInsets=dddd}Bd}"];
-      objc_setAssociatedObject(viewCopy, &[TabDocumentView applyGeometry:toWebView:]::lastAppliedGeometryKey, v23, 0x301);
-
-      if (v14)
+      v13 = [WeakRetained shouldModifyWebViewGeometryForTabDocumentView:self];
+      if ((v13 & 1) == 0)
       {
-        [v14 getValue:&origin size:256];
-        v77 = 0;
-        v106 = var6;
-        v107 = v91;
+        goto LABEL_27;
+      }
+    }
+
+    v15 = WBS_LOG_CHANNEL_PREFIXLayout(v13, v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    {
+      v16 = objc_getAssociatedObject(viewCopy, &[TabDocumentView applyGeometry:toWebView:]::lastAppliedGeometryKey);
+      v17 = *&geometry->var7.top;
+      v100[12] = geometry->var6;
+      v100[13] = v17;
+      v18 = *&geometry->var8;
+      v100[14] = *&geometry->var7.bottom;
+      v100[15] = v18;
+      v19 = *&geometry->var3.var1.bottom;
+      v100[8] = *&geometry->var3.var1.top;
+      v100[9] = v19;
+      var5 = geometry->var5;
+      v100[10] = geometry->var4;
+      v100[11] = var5;
+      v21 = *&geometry->var2.bottom;
+      v100[4] = *&geometry->var2.top;
+      v100[5] = v21;
+      v22 = *&geometry->var3.var0.bottom;
+      v100[6] = *&geometry->var3.var0.top;
+      v100[7] = v22;
+      size = geometry->var0.size;
+      v100[0] = geometry->var0.origin;
+      v100[1] = size;
+      v24 = *&geometry->var1.bottom;
+      v100[2] = *&geometry->var1.top;
+      v100[3] = v24;
+      v25 = [MEMORY[0x277CCAE60] valueWithBytes:v100 objCType:"{?={CGRect={CGPoint=dd}{CGSize=dd}}{UIEdgeInsets=dddd}{UIEdgeInsets=dddd}{SFScrollIndicatorInsets={UIEdgeInsets=dddd}{UIEdgeInsets=dddd}}{CGSize=dd}{CGSize=dd}{CGSize=dd}{UIEdgeInsets=dddd}Bd}"];
+      objc_setAssociatedObject(viewCopy, &[TabDocumentView applyGeometry:toWebView:]::lastAppliedGeometryKey, v25, 0x301);
+
+      if (v16)
+      {
+        [v16 getValue:&origin size:256];
+        v83 = 0;
+        v112 = var6;
+        v113 = v97;
+        v114 = v98;
+        v115 = v99;
         v108 = v92;
         v109 = v93;
+        v110 = var4;
+        v111 = v95;
+        v104 = v88;
+        v105 = v89;
+        v106 = v90;
+        v107 = v91;
+        *buf = origin;
+        *&buf[16] = v85;
         v102 = v86;
         v103 = v87;
-        v104 = var4;
-        v105 = v89;
-        v98 = v82;
-        v99 = v83;
-        v100 = v84;
-        v101 = v85;
-        *buf = origin;
-        *&buf[16] = v79;
-        v96 = v80;
-        v97 = v81;
-        v24 = *&geometry->var7.top;
-        v76[12] = geometry->var6;
-        v76[13] = v24;
-        v25 = *&geometry->var8;
-        v76[14] = *&geometry->var7.bottom;
-        v76[15] = v25;
-        v26 = *&geometry->var3.var1.bottom;
-        v76[8] = *&geometry->var3.var1.top;
-        v76[9] = v26;
-        v27 = geometry->var5;
-        v76[10] = geometry->var4;
-        v76[11] = v27;
-        v28 = *&geometry->var2.bottom;
-        v76[4] = *&geometry->var2.top;
-        v76[5] = v28;
-        v29 = *&geometry->var3.var0.bottom;
-        v76[6] = *&geometry->var3.var0.top;
-        v76[7] = v29;
-        v30 = geometry->var0.size;
-        v76[0] = geometry->var0.origin;
-        v76[1] = v30;
-        v31 = *&geometry->var1.bottom;
-        v76[2] = *&geometry->var1.top;
-        v76[3] = v31;
-        v32 = WebViewGeometryDescriptionOfDifferenceFromGeometry(buf, v76, &v77);
-        if (!v77)
+        v28 = *&geometry->var7.top;
+        v82[12] = geometry->var6;
+        v82[13] = v28;
+        v29 = *&geometry->var8;
+        v82[14] = *&geometry->var7.bottom;
+        v82[15] = v29;
+        v30 = *&geometry->var3.var1.bottom;
+        v82[8] = *&geometry->var3.var1.top;
+        v82[9] = v30;
+        v31 = geometry->var5;
+        v82[10] = geometry->var4;
+        v82[11] = v31;
+        v32 = *&geometry->var2.bottom;
+        v82[4] = *&geometry->var2.top;
+        v82[5] = v32;
+        v33 = *&geometry->var3.var0.bottom;
+        v82[6] = *&geometry->var3.var0.top;
+        v82[7] = v33;
+        v34 = geometry->var0.size;
+        v82[0] = geometry->var0.origin;
+        v82[1] = v34;
+        v35 = *&geometry->var1.bottom;
+        v82[2] = *&geometry->var1.top;
+        v82[3] = v35;
+        v36 = WebViewGeometryDescriptionOfDifferenceFromGeometry(buf, v82, &v83);
+        v38 = v36;
+        if (!v83)
         {
-          v33 = WBS_LOG_CHANNEL_PREFIXLayout();
-          if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
+          v39 = WBS_LOG_CHANNEL_PREFIXLayout(v36, v37);
+          if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
           {
-            v75 = objc_opt_class();
+            v81 = objc_opt_class();
             *buf = 138543874;
-            *&buf[4] = v75;
+            *&buf[4] = v81;
             *&buf[12] = 2048;
             *&buf[14] = viewCopy;
             *&buf[22] = 2114;
-            *&buf[24] = v32;
-            _os_log_debug_impl(&dword_215819000, v33, OS_LOG_TYPE_DEBUG, "Updating <%{public}@: %p> geometry with %{public}@", buf, 0x20u);
+            *&buf[24] = v38;
+            _os_log_debug_impl(&dword_215819000, v39, OS_LOG_TYPE_DEBUG, "Updating <%{public}@: %p> geometry with %{public}@", buf, 0x20u);
           }
         }
       }
 
       else
       {
-        v34 = WBS_LOG_CHANNEL_PREFIXLayout();
-        if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
+        v40 = WBS_LOG_CHANNEL_PREFIXLayout(v26, v27);
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
         {
-          v65 = objc_opt_class();
-          v66 = *&geometry->var7.top;
+          v71 = objc_opt_class();
+          v72 = *&geometry->var7.top;
           var6 = geometry->var6;
-          v91 = v66;
-          v67 = *&geometry->var8;
-          v92 = *&geometry->var7.bottom;
-          v93 = v67;
-          v68 = *&geometry->var3.var1.bottom;
-          v86 = *&geometry->var3.var1.top;
-          v87 = v68;
-          v69 = geometry->var5;
+          v97 = v72;
+          v73 = *&geometry->var8;
+          v98 = *&geometry->var7.bottom;
+          v99 = v73;
+          v74 = *&geometry->var3.var1.bottom;
+          v92 = *&geometry->var3.var1.top;
+          v93 = v74;
+          v75 = geometry->var5;
           var4 = geometry->var4;
-          v89 = v69;
-          v70 = *&geometry->var2.bottom;
-          v82 = *&geometry->var2.top;
-          v83 = v70;
-          v71 = *&geometry->var3.var0.bottom;
-          v84 = *&geometry->var3.var0.top;
-          v85 = v71;
-          v72 = geometry->var0.size;
+          v95 = v75;
+          v76 = *&geometry->var2.bottom;
+          v88 = *&geometry->var2.top;
+          v89 = v76;
+          v77 = *&geometry->var3.var0.bottom;
+          v90 = *&geometry->var3.var0.top;
+          v91 = v77;
+          v78 = geometry->var0.size;
           origin = geometry->var0.origin;
-          v79 = v72;
-          v73 = *&geometry->var1.bottom;
-          v80 = *&geometry->var1.top;
-          v81 = v73;
-          v74 = WebViewGeometryDescription(&origin);
+          v85 = v78;
+          v79 = *&geometry->var1.bottom;
+          v86 = *&geometry->var1.top;
+          v87 = v79;
+          v80 = WebViewGeometryDescription(&origin);
           *buf = 138543874;
-          *&buf[4] = v65;
+          *&buf[4] = v71;
           *&buf[12] = 2048;
           *&buf[14] = viewCopy;
           *&buf[22] = 2114;
-          *&buf[24] = v74;
-          _os_log_debug_impl(&dword_215819000, v34, OS_LOG_TYPE_DEBUG, "Setting initial geometry of <%{public}@: %p> with %{public}@", buf, 0x20u);
+          *&buf[24] = v80;
+          _os_log_debug_impl(&dword_215819000, v40, OS_LOG_TYPE_DEBUG, "Setting initial geometry of <%{public}@: %p> with %{public}@", buf, 0x20u);
         }
       }
     }
 
-    v35 = *&geometry->var7.top;
+    v41 = *&geometry->var7.top;
     var6 = geometry->var6;
-    v91 = v35;
-    v36 = *&geometry->var8;
-    v92 = *&geometry->var7.bottom;
-    v93 = v36;
-    v37 = *&geometry->var3.var1.bottom;
-    v86 = *&geometry->var3.var1.top;
-    v87 = v37;
-    v38 = geometry->var5;
+    v97 = v41;
+    v42 = *&geometry->var8;
+    v98 = *&geometry->var7.bottom;
+    v99 = v42;
+    v43 = *&geometry->var3.var1.bottom;
+    v92 = *&geometry->var3.var1.top;
+    v93 = v43;
+    v44 = geometry->var5;
     var4 = geometry->var4;
-    v89 = v38;
-    v39 = *&geometry->var2.bottom;
-    v82 = *&geometry->var2.top;
-    v83 = v39;
-    v40 = *&geometry->var3.var0.bottom;
-    v84 = *&geometry->var3.var0.top;
-    v85 = v40;
-    v41 = geometry->var0.size;
+    v95 = v44;
+    v45 = *&geometry->var2.bottom;
+    v88 = *&geometry->var2.top;
+    v89 = v45;
+    v46 = *&geometry->var3.var0.bottom;
+    v90 = *&geometry->var3.var0.top;
+    v91 = v46;
+    v47 = geometry->var0.size;
     origin = geometry->var0.origin;
-    v79 = v41;
-    v42 = *&geometry->var1.bottom;
-    v80 = *&geometry->var1.top;
-    v81 = v42;
+    v85 = v47;
+    v48 = *&geometry->var1.bottom;
+    v86 = *&geometry->var1.top;
+    v87 = v48;
     [viewCopy sf_setDisplayedWebViewGeometry:&origin];
     [viewCopy _setObscuredInsets:{geometry->var2.top, geometry->var2.left, geometry->var2.bottom, geometry->var2.right}];
     [viewCopy _setUnobscuredSafeAreaInsets:{geometry->var1.top, geometry->var1.left, geometry->var1.bottom, geometry->var1.right}];
     [viewCopy _setMinimumEffectiveDeviceWidth:geometry->var9];
-    v43 = objc_opt_respondsToSelector();
-    v44 = geometry->var4.width;
-    v45 = geometry->var4.height;
-    if (v43)
+    v49 = objc_opt_respondsToSelector();
+    v50 = geometry->var4.width;
+    v51 = geometry->var4.height;
+    if (v49)
     {
-      [viewCopy _overrideLayoutParametersWithMinimumLayoutSize:v44 minimumUnobscuredSizeOverride:v45 maximumUnobscuredSizeOverride:{geometry->var5.width, geometry->var5.height, geometry->var6.width, geometry->var6.height}];
+      [viewCopy _overrideLayoutParametersWithMinimumLayoutSize:v50 minimumUnobscuredSizeOverride:v51 maximumUnobscuredSizeOverride:{geometry->var5.width, geometry->var5.height, geometry->var6.width, geometry->var6.height}];
     }
 
     else
     {
-      [viewCopy _overrideLayoutParametersWithMinimumLayoutSize:v44 maximumUnobscuredSizeOverride:{v45, geometry->var6.width, geometry->var6.height}];
+      [viewCopy _overrideLayoutParametersWithMinimumLayoutSize:v50 maximumUnobscuredSizeOverride:{v51, geometry->var6.width, geometry->var6.height}];
     }
 
     scrollView = [viewCopy scrollView];
-    v47 = *&geometry->var3.var0.bottom;
+    v53 = *&geometry->var3.var0.bottom;
     origin = *&geometry->var3.var0.top;
-    v79 = v47;
-    v48 = *&geometry->var3.var1.bottom;
-    v80 = *&geometry->var3.var1.top;
-    v81 = v48;
+    v85 = v53;
+    v54 = *&geometry->var3.var1.bottom;
+    v86 = *&geometry->var3.var1.top;
+    v87 = v54;
     [scrollView _sf_setScrollIndicatorInsets:&origin];
     [scrollView contentInset];
-    v50 = v49;
-    v52 = v51;
-    v54 = v53;
     v56 = v55;
+    v58 = v57;
+    v60 = v59;
+    v62 = v61;
     [scrollView _sf_setContentInsetAdjustments:{geometry->var7.top, geometry->var7.left, geometry->var7.bottom, geometry->var7.right}];
     if (objc_opt_respondsToSelector())
     {
-      v57 = [WeakRetained tabDocumentView:self contentOffsetAdjustmentEdgeWithPreviousContentInset:{v50, v52, v54, v56}];
+      v63 = [WeakRetained tabDocumentView:self contentOffsetAdjustmentEdgeWithPreviousContentInset:{v56, v58, v60, v62}];
       [scrollView contentOffset];
-      v59 = v58;
-      v61 = v60;
-      if (v57)
+      v65 = v64;
+      v67 = v66;
+      if (v63)
       {
         [scrollView contentInset];
-        v63 = v61 - (v64 - v50);
+        v69 = v67 - (v70 - v56);
         goto LABEL_25;
       }
 
-      if ((v57 & 4) != 0)
+      if ((v63 & 4) != 0)
       {
         [scrollView contentInset];
-        v63 = v61 + v62 - v54;
+        v69 = v67 + v68 - v60;
 LABEL_25:
-        [scrollView _setContentOffsetPinned:{v59, v63}];
+        [scrollView _setContentOffsetPinned:{v65, v69}];
       }
     }
 

@@ -21,10 +21,11 @@
 
 - (void)localeService:(id)service didUpdateLanguageIdentifier:(id)identifier
 {
-  static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v6 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v8 = v7;
   serviceCopy = service;
   selfCopy = self;
-  CAFLocaleObservable.localeService(_:didUpdateLanguageIdentifier:)();
+  CAFLocaleObservable.localeService(_:didUpdateLanguageIdentifier:)(selfCopy, v6, v8);
 }
 
 - (void)serviceDidUpdate:(id)update characteristic:(id)characteristic fromGroupUpdate:(BOOL)groupUpdate

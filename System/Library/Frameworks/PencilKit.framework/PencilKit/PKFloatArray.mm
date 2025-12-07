@@ -35,7 +35,7 @@
   {
     if (*(result + 32) <= a2)
     {
-      v5 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"index is out of bounds" userInfo:{0, v3, v4}];
+      v5 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"index is out of bounds" userInfo:{0, float, v3, v4}];
       objc_exception_throw(v5);
     }
 

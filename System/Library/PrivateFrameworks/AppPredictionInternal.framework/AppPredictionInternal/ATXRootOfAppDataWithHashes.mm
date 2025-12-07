@@ -29,18 +29,18 @@
 - (ATXRootOfAppDataWithHashes)initWithSerialized:(id)serialized
 {
   serializedCopy = serialized;
-  v14.receiver = self;
-  v14.super_class = ATXRootOfAppDataWithHashes;
-  initInternal = [(ATXRootOfAppData *)&v14 initInternal];
+  v15.receiver = self;
+  v15.super_class = ATXRootOfAppDataWithHashes;
+  initInternal = [(ATXRootOfAppData *)&v15 initInternal];
   if (!initInternal)
   {
     goto LABEL_4;
   }
 
   v6 = objc_autoreleasePoolPush();
-  v13 = 0;
-  v7 = [MEMORY[0x277CCAC58] propertyListWithData:serializedCopy options:2 format:0 error:&v13];
-  v8 = v13;
+  v14 = 0;
+  v7 = [MEMORY[0x277CCAC58] propertyListWithData:serializedCopy options:2 format:0 error:&v14];
+  v8 = v14;
   objc_autoreleasePoolPop(v6);
   v9 = initInternal[1];
   initInternal[1] = v7;
@@ -49,20 +49,20 @@
   {
 
 LABEL_4:
-    v10 = initInternal;
+    v11 = initInternal;
     goto LABEL_8;
   }
 
-  v11 = __atxlog_handle_default();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+  v12 = __atxlog_handle_default(v10);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
-    [(ATXRootOfAppDataWithHashes *)v8 initWithSerialized:v11];
+    [(ATXRootOfAppDataWithHashes *)v8 initWithSerialized:v12];
   }
 
-  v10 = 0;
+  v11 = 0;
 LABEL_8:
 
-  return v10;
+  return v11;
 }
 
 - (unint64_t)sessionCountForBundleId:(id)id
@@ -143,32 +143,32 @@ LABEL_8:
 
 - (id)description
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCAB68];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
   v6 = [v3 stringWithFormat:@"<%@", v5];
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   obj = self->_dataForBundleId;
-  v7 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v7 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v21;
+    v9 = *v20;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v21 != v9)
+        if (*v20 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v20 + 1) + 8 * i);
+        v11 = *(*(&v19 + 1) + 8 * i);
         v12 = [(NSMutableDictionary *)self->_dataForBundleId objectForKeyedSubscript:v11];
         bytes = [v12 bytes];
         [v6 appendFormat:@"\n  %@ (%u): ", v11, *bytes];
@@ -188,14 +188,13 @@ LABEL_8:
         }
       }
 
-      v8 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v8 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v8);
   }
 
   [v6 appendString:@"\n>"];
-  v17 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -215,11 +214,10 @@ LABEL_8:
 
 - (void)initWithSerialized:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "Could not load root of app data: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "Could not load root of app data: %@", &v2, 0xCu);
 }
 
 - (void)serialize

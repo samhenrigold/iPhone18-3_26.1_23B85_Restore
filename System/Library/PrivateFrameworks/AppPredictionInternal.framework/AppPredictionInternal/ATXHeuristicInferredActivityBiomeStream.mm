@@ -3,6 +3,7 @@
 - (id)initFromInferredModeStream:(id)stream;
 - (id)sessionPublisherFromStartTime:(double)time;
 - (id)transitionPublisherFromStartTime:(double)time;
+- (id)transitionPublisherFromStartTime:(id)time endTime:(id)endTime maxEvents:(id)events lastN:(id)n reversed:(BOOL)reversed;
 @end
 
 @implementation ATXHeuristicInferredActivityBiomeStream
@@ -71,6 +72,14 @@ id __89__ATXHeuristicInferredActivityBiomeStream__transitionPublisherFromInferre
   v7 = [(ATXHeuristicInferredActivityBiomeStream *)self _transitionPublisherFromInferredModePublisher:v6];
 
   return v7;
+}
+
+- (id)transitionPublisherFromStartTime:(id)time endTime:(id)endTime maxEvents:(id)events lastN:(id)n reversed:(BOOL)reversed
+{
+  v8 = [(BMStream *)self->_heuristicEventBiomeStream atx_publisherWithStartTime:time endTime:endTime maxEvents:events lastN:n reversed:reversed];
+  v9 = [(ATXHeuristicInferredActivityBiomeStream *)self _transitionPublisherFromInferredModePublisher:v8];
+
+  return v9;
 }
 
 @end

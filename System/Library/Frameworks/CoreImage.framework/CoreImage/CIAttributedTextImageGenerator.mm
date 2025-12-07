@@ -50,16 +50,17 @@
 
 - (id)outputImage
 {
-  v16[3] = *MEMORY[0x1E69E9840];
+  v18[3] = *MEMORY[0x1E69E9840];
   if (self->inputText)
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    isKindOfClass = objc_opt_isKindOfClass();
+    if ((isKindOfClass & 1) == 0)
     {
-      v13 = ci_logger_api();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v15 = ci_logger_api(isKindOfClass, v4);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        [(CIAttributedTextImageGenerator *)v13 outputImage];
+        [(CIAttributedTextImageGenerator *)v15 outputImage];
       }
 
       return 0;
@@ -79,27 +80,27 @@
   }
 
   [(NSNumber *)self->inputScaleFactor floatValue];
-  if (v4 <= 0.0)
+  if (v6 <= 0.0)
   {
     return 0;
   }
 
-  v5 = v4;
-  [(NSNumber *)self->inputPadding floatValue];
   v7 = v6;
-  v8 = CGColorSpaceCreateWithName(*MEMORY[0x1E695F0B8]);
-  v9 = self->inputText;
-  v15[0] = @"kCIImageTextScaleFactor";
-  *&v10 = v5;
-  v16[0] = [MEMORY[0x1E696AD98] numberWithFloat:v10];
-  v16[1] = v8;
-  v15[1] = @"CIImageColorSpace";
-  v15[2] = @"kCIImageTextPadding";
-  LODWORD(v11) = v7;
-  v16[2] = [MEMORY[0x1E696AD98] numberWithFloat:v11];
-  v12 = +[CIImage imageWithAttributedString:format:options:](CIImage, "imageWithAttributedString:format:options:", v9, 264, [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:3]);
-  CGColorSpaceRelease(v8);
-  return v12;
+  [(NSNumber *)self->inputPadding floatValue];
+  v9 = v8;
+  v10 = CGColorSpaceCreateWithName(*MEMORY[0x1E695F0B8]);
+  v11 = self->inputText;
+  v17[0] = @"kCIImageTextScaleFactor";
+  *&v12 = v7;
+  v18[0] = [MEMORY[0x1E696AD98] numberWithFloat:v12];
+  v18[1] = v10;
+  v17[1] = @"CIImageColorSpace";
+  v17[2] = @"kCIImageTextPadding";
+  LODWORD(v13) = v9;
+  v18[2] = [MEMORY[0x1E696AD98] numberWithFloat:v13];
+  v14 = +[CIImage imageWithAttributedString:format:options:](CIImage, "imageWithAttributedString:format:options:", v11, 264, [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:3]);
+  CGColorSpaceRelease(v10);
+  return v14;
 }
 
 - (void)outputImage

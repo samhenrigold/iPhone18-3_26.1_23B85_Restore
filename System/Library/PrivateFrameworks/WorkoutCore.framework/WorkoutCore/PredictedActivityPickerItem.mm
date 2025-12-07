@@ -29,9 +29,9 @@
 - (int64_t)hash
 {
   selfCopy = self;
-  v3 = PredictedActivityPickerItem.hash.getter();
+  v4 = PredictedActivityPickerItem.hash.getter(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 - (BOOL)isEqual:(id)equal

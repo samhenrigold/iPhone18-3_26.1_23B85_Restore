@@ -65,7 +65,6 @@
 - (void)unregisterCardViewController:(id)controller
 {
   controllerCopy = controller;
-  cardViewControllerProvider = self->_cardViewControllerProvider;
   if (objc_opt_respondsToSelector())
   {
     [(SUICKPCardViewControllerProvider *)self->_cardViewControllerProvider unregisterCardViewController:controllerCopy];
@@ -77,7 +76,6 @@
   presentationCopy = presentation;
   sourceCopy = source;
   controllerCopy = controller;
-  cardViewControllerProvider = self->_cardViewControllerProvider;
   if (objc_opt_respondsToSelector())
   {
     [(SUICKPCardViewControllerProvider *)self->_cardViewControllerProvider presentation:presentationCopy didApplyCardSectionViewSource:sourceCopy toCardViewController:controllerCopy];
@@ -135,32 +133,32 @@ void __83__SUICKPEntryPoint_requestIdentifiedCardSectionViewProviderForCard_dele
 
 - (void)mutateResponseSections:(id)sections completion:(id)completion
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   sectionsCopy = sections;
   completionCopy = completion;
   group = dispatch_group_create();
   queue = dispatch_queue_create("com.apple.siri.cardKit.visualCatExecution", MEMORY[0x277D85CD8]);
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   v7 = sectionsCopy;
-  v8 = [v7 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v27;
+    v10 = *v26;
     do
     {
       v11 = 0;
       do
       {
-        if (*v27 != v10)
+        if (*v26 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v26 + 1) + 8 * v11);
+        v12 = *(*(&v25 + 1) + 8 * v11);
         if (objc_opt_respondsToSelector())
         {
           backingCardSection = [v12 backingCardSection];
@@ -179,31 +177,29 @@ void __83__SUICKPEntryPoint_requestIdentifiedCardSectionViewProviderForCard_dele
           block[1] = 3221225472;
           block[2] = __54__SUICKPEntryPoint_mutateResponseSections_completion___block_invoke;
           block[3] = &unk_279B8EFE0;
-          v23 = group;
+          v22 = group;
           selfCopy = self;
-          v25 = v14;
-          dispatch_group_async(v23, queue, block);
+          v24 = v14;
+          dispatch_group_async(v22, queue, block);
         }
 
         ++v11;
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v9);
   }
 
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __54__SUICKPEntryPoint_mutateResponseSections_completion___block_invoke_21;
-  v20[3] = &unk_279B8F008;
-  v21 = completionCopy;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __54__SUICKPEntryPoint_mutateResponseSections_completion___block_invoke_21;
+  v19[3] = &unk_279B8F008;
+  v20 = completionCopy;
   v15 = completionCopy;
-  dispatch_group_notify(group, MEMORY[0x277D85CD0], v20);
-
-  v16 = *MEMORY[0x277D85DE8];
+  dispatch_group_notify(group, MEMORY[0x277D85CD0], v19);
 }
 
 void __54__SUICKPEntryPoint_mutateResponseSections_completion___block_invoke(uint64_t a1)
@@ -247,19 +243,17 @@ void __54__SUICKPEntryPoint_mutateResponseSections_completion___block_invoke_2(u
 
 void __54__SUICKPEntryPoint_mutateResponseSections_completion___block_invoke_2_cold_1(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 32);
   v5 = a2;
   v6 = [v4 catModel];
   v7 = [v6 catIdentifier];
   v8 = [a3 localizedDescription];
-  v10 = 138412546;
-  v11 = v7;
-  v12 = 2112;
-  v13 = v8;
-  _os_log_error_impl(&dword_264EDF000, v5, OS_LOG_TYPE_ERROR, "Error loading VisualCAT with id: %@. Failed with error: %@", &v10, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  v9 = 138412546;
+  v10 = v7;
+  v11 = 2112;
+  v12 = v8;
+  _os_log_error_impl(&dword_264EDF000, v5, OS_LOG_TYPE_ERROR, "Error loading VisualCAT with id: %@. Failed with error: %@", &v9, 0x16u);
 }
 
 @end

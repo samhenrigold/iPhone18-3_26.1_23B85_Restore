@@ -29,21 +29,20 @@
     if (v7)
     {
       v8 = [v7 tag];
-      v9 = *&selfCopy->model[OBJC_IVAR____TtC8Business24QuickReplyToMeBubbleView_onItemSelected];
       (*(&selfCopy->super.super.super.isa + OBJC_IVAR____TtC8Business24QuickReplyToMeBubbleView_onItemSelected))(*(&selfCopy->super.super.super.isa + OBJC_IVAR____TtC8Business24QuickReplyToMeBubbleView_model), *&selfCopy->model[OBJC_IVAR____TtC8Business24QuickReplyToMeBubbleView_model], selfCopy->model[OBJC_IVAR____TtC8Business24QuickReplyToMeBubbleView_model + 8], v8);
-      v10 = v6;
+      v9 = v6;
     }
 
     else
     {
-      v10 = recognizedCopy;
+      v9 = recognizedCopy;
       recognizedCopy = v6;
     }
 
-    v11 = recognizedCopy;
+    v10 = recognizedCopy;
 
     recognizedCopy = selfCopy;
-    selfCopy = v11;
+    selfCopy = v10;
   }
 }
 

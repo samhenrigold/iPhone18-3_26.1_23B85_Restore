@@ -14,7 +14,7 @@
   v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_219BDE214();
   (*(v5 + 32))(self + OBJC_IVAR___TSAlertArticleUnavailable_alert, v7, v4);
-  v8 = type metadata accessor for BridgedAlertArticleUnavailable();
+  v8 = type metadata accessor for BridgedAlertArticleUnavailable(0);
   v10.receiver = self;
   v10.super_class = v8;
   return [(TSAlertArticleUnavailable *)&v10 init];
@@ -31,7 +31,7 @@ LABEL_5:
     v7 = sub_219BDE254();
     (*(*(v7 - 8) + 104))(self + v5, v6, v7);
     v9.receiver = self;
-    v9.super_class = type metadata accessor for BridgedAlertArticleUnavailable();
+    v9.super_class = type metadata accessor for BridgedAlertArticleUnavailable(0);
     return [(TSAlertArticleUnavailable *)&v9 init];
   }
 

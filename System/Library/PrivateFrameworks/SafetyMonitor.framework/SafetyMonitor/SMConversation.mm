@@ -16,13 +16,13 @@
 
 - (SMConversation)initWithReceiverHandles:(id)handles identifier:(id)identifier displayName:(id)name
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   handlesCopy = handles;
   identifierCopy = identifier;
   nameCopy = name;
-  v29.receiver = self;
-  v29.super_class = SMConversation;
-  v12 = [(SMConversation *)&v29 init];
+  v28.receiver = self;
+  v28.super_class = SMConversation;
+  v12 = [(SMConversation *)&v28 init];
   if (v12)
   {
     if (!handlesCopy || ![handlesCopy count])
@@ -35,34 +35,34 @@
     objc_storeStrong(&v12->_identifier, identifier);
     objc_storeStrong(&v12->_displayName, name);
     v13 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(handlesCopy, "count")}];
+    v24 = 0u;
     v25 = 0u;
     v26 = 0u;
     v27 = 0u;
-    v28 = 0u;
     v14 = handlesCopy;
-    v15 = [v14 countByEnumeratingWithState:&v25 objects:v30 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v24 objects:v29 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v26;
+      v17 = *v25;
       do
       {
         v18 = 0;
         do
         {
-          if (*v26 != v17)
+          if (*v25 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          primaryHandle = [*(*(&v25 + 1) + 8 * v18) primaryHandle];
+          primaryHandle = [*(*(&v24 + 1) + 8 * v18) primaryHandle];
           [v13 addObject:primaryHandle];
 
           ++v18;
         }
 
         while (v16 != v18);
-        v16 = [v14 countByEnumeratingWithState:&v25 objects:v30 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v24 objects:v29 count:16];
       }
 
       while (v16);
@@ -78,7 +78,6 @@
   v22 = v12;
 LABEL_14:
 
-  v23 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
@@ -105,33 +104,33 @@ LABEL_14:
 
 - (SMConversation)initWithDictionary:(id)dictionary
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v5 = [dictionaryCopy valueForKey:@"__kSMReceiverHandlesKey"];
   v6 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v5, "count")}];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v7 = v5;
-  v8 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v23;
+    v10 = *v22;
     do
     {
       v11 = 0;
       do
       {
-        if (*v23 != v10)
+        if (*v22 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v22 + 1) + 8 * v11);
+        v12 = *(*(&v21 + 1) + 8 * v11);
         v13 = [SMHandle alloc];
-        v14 = [(SMHandle *)v13 initWithDictionary:v12, v22];
+        v14 = [(SMHandle *)v13 initWithDictionary:v12, v21];
         if (v14)
         {
           [v6 addObject:v14];
@@ -141,7 +140,7 @@ LABEL_14:
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v9);
@@ -153,42 +152,41 @@ LABEL_14:
   v18 = [v6 copy];
   v19 = [(SMConversation *)v17 initWithReceiverHandles:v18 identifier:v15 displayName:v16];
 
-  v20 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
 - (id)outputToDictionary
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   v4 = objc_alloc(MEMORY[0x277CBEB18]);
   receiverHandles = [(SMConversation *)self receiverHandles];
   v6 = [v4 initWithCapacity:{objc_msgSend(receiverHandles, "count")}];
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   receiverHandles2 = [(SMConversation *)self receiverHandles];
-  v8 = [receiverHandles2 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v8 = [receiverHandles2 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v22;
+    v10 = *v21;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v22 != v10)
+        if (*v21 != v10)
         {
           objc_enumerationMutation(receiverHandles2);
         }
 
-        outputToDictionary = [*(*(&v21 + 1) + 8 * i) outputToDictionary];
+        outputToDictionary = [*(*(&v20 + 1) + 8 * i) outputToDictionary];
         [v6 addObject:outputToDictionary];
       }
 
-      v9 = [receiverHandles2 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v9 = [receiverHandles2 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v9);
@@ -214,8 +212,6 @@ LABEL_14:
   }
 
   v18 = [v3 copy];
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }

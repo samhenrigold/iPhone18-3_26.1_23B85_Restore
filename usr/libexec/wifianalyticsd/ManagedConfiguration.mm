@@ -4,6 +4,7 @@
 - (void)MCSettingsDidChange:(id)change;
 - (void)dealloc;
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context;
+- (void)profileChangedCallback:(int)callback;
 - (void)scheduleWithQueue:(id)queue;
 - (void)startMonitoring;
 - (void)stopMonitoring;
@@ -418,6 +419,17 @@ LABEL_28:
 
   [(ManagedConfiguration *)self setMonitoring:v11 != 0];
   objc_autoreleasePoolPop(v6);
+}
+
+- (void)profileChangedCallback:(int)callback
+{
+  queue = [(ManagedConfiguration *)self queue];
+  block[0] = _NSConcreteStackBlock;
+  block[1] = 3221225472;
+  block[2] = sub_100045850;
+  block[3] = &unk_1000ED880;
+  block[4] = self;
+  dispatch_async(queue, block);
 }
 
 - (void)stopMonitoring

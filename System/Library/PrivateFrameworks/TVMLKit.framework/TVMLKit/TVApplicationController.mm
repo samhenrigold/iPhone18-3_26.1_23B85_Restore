@@ -674,7 +674,7 @@ LABEL_11:
       delegate2 = [(TVApplicationController *)self delegate];
       [delegate2 appController:self didFinishLaunchingWithOptions:optionsCopy];
 
-      _TVMLMetricsLogPublicAPIUsage(sel_appController_didFinishLaunchingWithOptions_);
+      _TVMLMetricsLogPublicAPIUsage();
     }
   }
 
@@ -732,7 +732,7 @@ LABEL_11:
       v12 = [MEMORY[0x277CCA9B8] errorWithDomain:@"TVMLKitErrorDomain" code:3 userInfo:0];
       [delegate2 appController:self didFailWithError:v12];
 
-      _TVMLMetricsLogPublicAPIUsage(sel_appController_didFailWithError_);
+      _TVMLMetricsLogPublicAPIUsage();
     }
   }
 }
@@ -751,7 +751,7 @@ LABEL_11:
       delegate2 = [(TVApplicationController *)self delegate];
       [delegate2 appController:self didStopWithOptions:optionsCopy];
 
-      _TVMLMetricsLogPublicAPIUsage(sel_appController_didStopWithOptions_);
+      _TVMLMetricsLogPublicAPIUsage();
     }
 
     appContext = self->_appContext;
@@ -785,7 +785,7 @@ LABEL_11:
   delegate2 = [(TVApplicationController *)self delegate];
   [delegate2 appController:self evaluateAppJavaScriptInContext:inContextCopy];
 
-  _TVMLMetricsLogPublicAPIUsage(sel_appController_evaluateAppJavaScriptInContext_);
+  _TVMLMetricsLogPublicAPIUsage();
   if (v11)
   {
     v13 = [inContextCopy objectForKeyedSubscript:@"itms"];

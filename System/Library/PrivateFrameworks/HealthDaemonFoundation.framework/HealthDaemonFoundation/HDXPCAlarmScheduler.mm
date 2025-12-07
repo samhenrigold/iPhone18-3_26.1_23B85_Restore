@@ -76,7 +76,7 @@ void __27__HDXPCAlarmScheduler_init__block_invoke(uint64_t a1, void *a2)
 
 - (void)_queue_handleXPCEvent:(id)event
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   dispatch_assert_queue_V2(self->_queue);
   string = xpc_dictionary_get_string(eventCopy, *MEMORY[0x277D86430]);
@@ -89,13 +89,13 @@ void __27__HDXPCAlarmScheduler_init__block_invoke(uint64_t a1, void *a2)
     v8 = objc_opt_class();
     v9 = v8;
     [date timeIntervalSince1970];
-    v14 = 138543874;
-    v15 = v8;
-    v16 = 2082;
-    v17 = string;
-    v18 = 2048;
-    v19 = v10;
-    _os_log_impl(&dword_25156C000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Received XPC alarm event with name: %{public}s date: %{time_t}ld", &v14, 0x20u);
+    v13 = 138543874;
+    v14 = v8;
+    v15 = 2082;
+    v16 = string;
+    v17 = 2048;
+    v18 = v10;
+    _os_log_impl(&dword_25156C000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Received XPC alarm event with name: %{public}s date: %{time_t}ld", &v13, 0x20u);
   }
 
   if (string)
@@ -114,8 +114,6 @@ void __27__HDXPCAlarmScheduler_init__block_invoke(uint64_t a1, void *a2)
       [(HDXPCAlarmScheduler *)self _queue_handleXPCEvent:v11];
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_scheduleEvent:(id)event
@@ -173,31 +171,31 @@ void __27__HDXPCAlarmScheduler_init__block_invoke(uint64_t a1, void *a2)
 
 - (void)_queue_notifyAlarmsOfPendingEvents
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
-  v22 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v21 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v3 = self->_pendingEvents;
-  v4 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v23 objects:v33 count:16];
+  v4 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v22 objects:v32 count:16];
   if (v4)
   {
     v6 = v4;
-    v7 = *v24;
+    v7 = *v23;
     *&v5 = 138543618;
-    v21 = v5;
+    v20 = v5;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v24 != v7)
+        if (*v23 != v7)
         {
           objc_enumerationMutation(v3);
         }
 
-        v9 = *(*(&v23 + 1) + 8 * i);
+        v9 = *(*(&v22 + 1) + 8 * i);
         alarms = self->_alarms;
         name = [v9 name];
         v12 = [(NSMapTable *)alarms objectForKey:name];
@@ -211,11 +209,11 @@ void __27__HDXPCAlarmScheduler_init__block_invoke(uint64_t a1, void *a2)
           {
             v15 = objc_opt_class();
             *buf = 138543874;
-            v28 = v15;
-            v29 = 2114;
-            v30 = v12;
-            v31 = 2114;
-            v32 = v9;
+            v27 = v15;
+            v28 = 2114;
+            v29 = v12;
+            v30 = 2114;
+            v31 = v9;
             v16 = v15;
             _os_log_impl(&dword_25156C000, v13, OS_LOG_TYPE_DEFAULT, "[%{public}@] notifying alarm %{public}@ of event: %{public}@", buf, 0x20u);
           }
@@ -228,28 +226,26 @@ void __27__HDXPCAlarmScheduler_init__block_invoke(uint64_t a1, void *a2)
           if (v14)
           {
             v17 = objc_opt_class();
-            *buf = v21;
-            v28 = v17;
-            v29 = 2114;
-            v30 = v9;
+            *buf = v20;
+            v27 = v17;
+            v28 = 2114;
+            v29 = v9;
             v18 = v17;
             _os_log_impl(&dword_25156C000, v13, OS_LOG_TYPE_DEFAULT, "[%{public}@] no registered alarm for event: %{public}@", buf, 0x16u);
           }
 
-          [(NSMutableSet *)v22 addObject:v9];
+          [(NSMutableSet *)v21 addObject:v9];
         }
       }
 
-      v6 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v23 objects:v33 count:16];
+      v6 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v22 objects:v32 count:16];
     }
 
     while (v6);
   }
 
   pendingEvents = self->_pendingEvents;
-  self->_pendingEvents = v22;
-
-  v20 = *MEMORY[0x277D85DE8];
+  self->_pendingEvents = v21;
 }
 
 - (void)addAlarm:(id)alarm
@@ -268,30 +264,27 @@ void __27__HDXPCAlarmScheduler_init__block_invoke(uint64_t a1, void *a2)
 
 uint64_t __32__HDXPCAlarmScheduler_addAlarm___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v2 = HKLogInfrastructure();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = objc_opt_class();
-    v5 = *(a1 + 40);
-    v12 = 138543618;
+    v3 = objc_opt_class();
+    v4 = *(a1 + 40);
+    v10 = 138543618;
+    v11 = v3;
+    v12 = 2114;
     v13 = v4;
-    v14 = 2114;
-    v15 = v5;
-    v6 = v4;
-    _os_log_impl(&dword_25156C000, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@] adding alarm %{public}@", &v12, 0x16u);
+    v5 = v3;
+    _os_log_impl(&dword_25156C000, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@] adding alarm %{public}@", &v10, 0x16u);
   }
 
-  v7 = *(a1 + 40);
-  v8 = *(*(a1 + 32) + 8);
-  v9 = [v7 eventName];
-  [v8 setObject:v7 forKey:v9];
+  v6 = *(a1 + 40);
+  v7 = *(*(a1 + 32) + 8);
+  v8 = [v6 eventName];
+  [v7 setObject:v6 forKey:v8];
 
-  result = [*(a1 + 32) _queue_notifyAlarmsOfPendingEvents];
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _queue_notifyAlarmsOfPendingEvents];
 }
 
 - (void)removeAlarm:(id)alarm
@@ -310,28 +303,25 @@ uint64_t __32__HDXPCAlarmScheduler_addAlarm___block_invoke(uint64_t a1)
 
 void __35__HDXPCAlarmScheduler_removeAlarm___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v2 = HKLogInfrastructure();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = objc_opt_class();
-    v5 = *(a1 + 40);
-    v11 = 138543618;
+    v3 = objc_opt_class();
+    v4 = *(a1 + 40);
+    v9 = 138543618;
+    v10 = v3;
+    v11 = 2114;
     v12 = v4;
-    v13 = 2114;
-    v14 = v5;
-    v6 = v4;
-    _os_log_impl(&dword_25156C000, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@] removing alarm %{public}@", &v11, 0x16u);
+    v5 = v3;
+    _os_log_impl(&dword_25156C000, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@] removing alarm %{public}@", &v9, 0x16u);
   }
 
-  v7 = *(a1 + 40);
-  v8 = *(*(a1 + 32) + 8);
-  v9 = [v7 eventName];
-  [v8 removeObjectForKey:v9];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v6 = *(a1 + 40);
+  v7 = *(*(a1 + 32) + 8);
+  v8 = [v6 eventName];
+  [v7 removeObjectForKey:v8];
 }
 
 - (void)scheduleEvent:(id)event
@@ -350,25 +340,22 @@ void __35__HDXPCAlarmScheduler_removeAlarm___block_invoke(uint64_t a1)
 
 uint64_t __37__HDXPCAlarmScheduler_scheduleEvent___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v2 = HKLogInfrastructure();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = objc_opt_class();
-    v5 = *(a1 + 40);
-    v9 = 138543618;
+    v3 = objc_opt_class();
+    v4 = *(a1 + 40);
+    v7 = 138543618;
+    v8 = v3;
+    v9 = 2114;
     v10 = v4;
-    v11 = 2114;
-    v12 = v5;
-    v6 = v4;
-    _os_log_impl(&dword_25156C000, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@] scheduling event: %{public}@", &v9, 0x16u);
+    v5 = v3;
+    _os_log_impl(&dword_25156C000, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@] scheduling event: %{public}@", &v7, 0x16u);
   }
 
-  result = [*(a1 + 32) _queue_scheduleEvent:*(a1 + 40)];
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _queue_scheduleEvent:*(a1 + 40)];
 }
 
 - (void)unscheduleEventWithName:(id)name
@@ -387,25 +374,22 @@ uint64_t __37__HDXPCAlarmScheduler_scheduleEvent___block_invoke(uint64_t a1)
 
 uint64_t __47__HDXPCAlarmScheduler_unscheduleEventWithName___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v2 = HKLogInfrastructure();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = objc_opt_class();
-    v5 = *(a1 + 40);
-    v9 = 138543618;
+    v3 = objc_opt_class();
+    v4 = *(a1 + 40);
+    v7 = 138543618;
+    v8 = v3;
+    v9 = 2114;
     v10 = v4;
-    v11 = 2114;
-    v12 = v5;
-    v6 = v4;
-    _os_log_impl(&dword_25156C000, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@] unscheduling event: %{public}@", &v9, 0x16u);
+    v5 = v3;
+    _os_log_impl(&dword_25156C000, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@] unscheduling event: %{public}@", &v7, 0x16u);
   }
 
-  result = [*(a1 + 32) _queue_unscheduleEventWithName:*(a1 + 40)];
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _queue_unscheduleEventWithName:*(a1 + 40)];
 }
 
 - (id)diagnosticDescription
@@ -431,31 +415,31 @@ uint64_t __47__HDXPCAlarmScheduler_unscheduleEventWithName___block_invoke(uint64
 
 void __44__HDXPCAlarmScheduler_diagnosticDescription__block_invoke(uint64_t a1)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) addObject:@"\tAlarms"];
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v2 = *(*(a1 + 40) + 8);
-  v3 = [v2 countByEnumeratingWithState:&v23 objects:v28 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v22 objects:v27 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v24;
+    v5 = *v23;
     do
     {
       v6 = 0;
       do
       {
-        if (*v24 != v5)
+        if (*v23 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
         v7 = MEMORY[0x277CCACA8];
         v8 = *(a1 + 32);
-        v9 = [*(*(a1 + 40) + 8) objectForKey:*(*(&v23 + 1) + 8 * v6)];
+        v9 = [*(*(a1 + 40) + 8) objectForKey:*(*(&v22 + 1) + 8 * v6)];
         v10 = [v7 stringWithFormat:@"\t\t%@", v9];
         [v8 addObject:v10];
 
@@ -463,59 +447,55 @@ void __44__HDXPCAlarmScheduler_diagnosticDescription__block_invoke(uint64_t a1)
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v22 objects:v27 count:16];
     }
 
     while (v4);
   }
 
   [*(a1 + 32) addObject:@"\tPending Events"];
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v11 = *(*(a1 + 40) + 16);
-  v12 = [v11 countByEnumeratingWithState:&v19 objects:v27 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v18 objects:v26 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v20;
+    v14 = *v19;
     do
     {
       v15 = 0;
       do
       {
-        if (*v20 != v14)
+        if (*v19 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
         v16 = *(a1 + 32);
-        v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"\t\t%@", *(*(&v19 + 1) + 8 * v15)];
+        v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"\t\t%@", *(*(&v18 + 1) + 8 * v15)];
         [v16 addObject:v17];
 
         ++v15;
       }
 
       while (v13 != v15);
-      v13 = [v11 countByEnumeratingWithState:&v19 objects:v27 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v18 objects:v26 count:16];
     }
 
     while (v13);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_handleXPCEvent:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v5 = 138543362;
-  v6 = objc_opt_class();
-  v3 = v6;
-  _os_log_error_impl(&dword_25156C000, a2, OS_LOG_TYPE_ERROR, "[%{public}@] Ignoring XPC alarm event with NULL event name", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v4 = 138543362;
+  v5 = objc_opt_class();
+  v3 = v5;
+  _os_log_error_impl(&dword_25156C000, a2, OS_LOG_TYPE_ERROR, "[%{public}@] Ignoring XPC alarm event with NULL event name", &v4, 0xCu);
 }
 
 @end

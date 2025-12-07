@@ -70,7 +70,7 @@
 - (void)tintColorDidChange
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for MenuCell();
+  v3.super_class = type metadata accessor for MenuCell(0);
   v2 = v3.receiver;
   [(MenuCell *)&v3 tintColorDidChange];
   sub_4EFF38();
@@ -86,7 +86,7 @@
 - (void)prepareForReuse
 {
   v4.receiver = self;
-  v4.super_class = type metadata accessor for MenuCell();
+  v4.super_class = type metadata accessor for MenuCell(0);
   v2 = v4.receiver;
   [(HorizontalLockupCollectionViewCell *)&v4 prepareForReuse];
   sub_4EFF38();
@@ -98,7 +98,7 @@
 - (void)setSelected:(BOOL)selected
 {
   selectedCopy = selected;
-  v5 = type metadata accessor for MenuCell();
+  v5 = type metadata accessor for MenuCell(0);
   v9.receiver = self;
   v9.super_class = v5;
   selfCopy = self;
@@ -115,13 +115,13 @@
 - (int64_t)accessoryType
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for MenuCell();
+  v3.super_class = type metadata accessor for MenuCell(0);
   return [(MenuCell *)&v3 accessoryType];
 }
 
 - (void)setAccessoryType:(int64_t)type
 {
-  v5 = type metadata accessor for MenuCell();
+  v5 = type metadata accessor for MenuCell(0);
   v9.receiver = self;
   v9.super_class = v5;
   selfCopy = self;

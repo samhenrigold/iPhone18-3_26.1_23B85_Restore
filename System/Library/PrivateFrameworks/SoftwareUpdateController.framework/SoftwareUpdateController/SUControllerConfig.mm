@@ -756,55 +756,7 @@ LABEL_46:
 {
   equalCopy = equal;
   useSUCore = [(SUControllerConfig *)self useSUCore];
-  if (useSUCore != [equalCopy useSUCore])
-  {
-    goto LABEL_16;
-  }
-
-  vpnOnDemandAsInternal = [(SUControllerConfig *)self vpnOnDemandAsInternal];
-  if (vpnOnDemandAsInternal != [equalCopy vpnOnDemandAsInternal])
-  {
-    goto LABEL_16;
-  }
-
-  performAutoScan = [(SUControllerConfig *)self performAutoScan];
-  if (performAutoScan != [equalCopy performAutoScan])
-  {
-    goto LABEL_16;
-  }
-
-  performAutoDownloadAndPrepare = [(SUControllerConfig *)self performAutoDownloadAndPrepare];
-  if (performAutoDownloadAndPrepare != [equalCopy performAutoDownloadAndPrepare])
-  {
-    goto LABEL_16;
-  }
-
-  performAutoInstall = [(SUControllerConfig *)self performAutoInstall];
-  if (performAutoInstall != [equalCopy performAutoInstall])
-  {
-    goto LABEL_16;
-  }
-
-  autoAcceptTermsAndConditions = [(SUControllerConfig *)self autoAcceptTermsAndConditions];
-  if (autoAcceptTermsAndConditions != [equalCopy autoAcceptTermsAndConditions])
-  {
-    goto LABEL_16;
-  }
-
-  autoActivityCheckPeriod = [(SUControllerConfig *)self autoActivityCheckPeriod];
-  if (autoActivityCheckPeriod != [equalCopy autoActivityCheckPeriod])
-  {
-    goto LABEL_16;
-  }
-
-  autoInstallForceMaxWait = [(SUControllerConfig *)self autoInstallForceMaxWait];
-  if (autoInstallForceMaxWait != [equalCopy autoInstallForceMaxWait])
-  {
-    goto LABEL_16;
-  }
-
-  autoInstallWindowBeginHour = [(SUControllerConfig *)self autoInstallWindowBeginHour];
-  if (autoInstallWindowBeginHour == [equalCopy autoInstallWindowBeginHour] && (v14 = -[SUControllerConfig autoInstallWindowBeginMinute](self, "autoInstallWindowBeginMinute"), v14 == objc_msgSend(equalCopy, "autoInstallWindowBeginMinute")) && (v15 = -[SUControllerConfig autoInstallWindowEndHour](self, "autoInstallWindowEndHour"), v15 == objc_msgSend(equalCopy, "autoInstallWindowEndHour")) && (v16 = -[SUControllerConfig autoInstallWindowEndMinute](self, "autoInstallWindowEndMinute"), v16 == objc_msgSend(equalCopy, "autoInstallWindowEndMinute")) && (v17 = -[SUControllerConfig downloadDocAsset](self, "downloadDocAsset"), v17 == objc_msgSend(equalCopy, "downloadDocAsset")) && (v18 = -[SUControllerConfig ignoreRamping](self, "ignoreRamping"), v18 == objc_msgSend(equalCopy, "ignoreRamping")) && (v19 = -[SUControllerConfig supervisedMDM](self, "supervisedMDM"), v19 == objc_msgSend(equalCopy, "supervisedMDM")))
+  if (useSUCore == [equalCopy useSUCore] && (v6 = -[SUControllerConfig vpnOnDemandAsInternal](self, "vpnOnDemandAsInternal"), v6 == objc_msgSend(equalCopy, "vpnOnDemandAsInternal")) && (v7 = -[SUControllerConfig performAutoScan](self, "performAutoScan"), v7 == objc_msgSend(equalCopy, "performAutoScan")) && (v8 = -[SUControllerConfig performAutoDownloadAndPrepare](self, "performAutoDownloadAndPrepare"), v8 == objc_msgSend(equalCopy, "performAutoDownloadAndPrepare")) && (v9 = -[SUControllerConfig performAutoInstall](self, "performAutoInstall"), v9 == objc_msgSend(equalCopy, "performAutoInstall")) && (v10 = -[SUControllerConfig autoAcceptTermsAndConditions](self, "autoAcceptTermsAndConditions"), v10 == objc_msgSend(equalCopy, "autoAcceptTermsAndConditions")) && (v11 = -[SUControllerConfig autoActivityCheckPeriod](self, "autoActivityCheckPeriod"), v11 == objc_msgSend(equalCopy, "autoActivityCheckPeriod")) && (v12 = -[SUControllerConfig autoInstallForceMaxWait](self, "autoInstallForceMaxWait"), v12 == objc_msgSend(equalCopy, "autoInstallForceMaxWait")) && (v13 = -[SUControllerConfig autoInstallWindowBeginHour](self, "autoInstallWindowBeginHour"), v13 == objc_msgSend(equalCopy, "autoInstallWindowBeginHour")) && (v14 = -[SUControllerConfig autoInstallWindowBeginMinute](self, "autoInstallWindowBeginMinute"), v14 == objc_msgSend(equalCopy, "autoInstallWindowBeginMinute")) && (v15 = -[SUControllerConfig autoInstallWindowEndHour](self, "autoInstallWindowEndHour"), v15 == objc_msgSend(equalCopy, "autoInstallWindowEndHour")) && (v16 = -[SUControllerConfig autoInstallWindowEndMinute](self, "autoInstallWindowEndMinute"), v16 == objc_msgSend(equalCopy, "autoInstallWindowEndMinute")) && (v17 = -[SUControllerConfig downloadDocAsset](self, "downloadDocAsset"), v17 == objc_msgSend(equalCopy, "downloadDocAsset")) && (v18 = -[SUControllerConfig ignoreRamping](self, "ignoreRamping"), v18 == objc_msgSend(equalCopy, "ignoreRamping")) && (v19 = -[SUControllerConfig supervisedMDM](self, "supervisedMDM"), v19 == objc_msgSend(equalCopy, "supervisedMDM")))
   {
     requestedPMV = [(SUControllerConfig *)self requestedPMV];
     requestedPMV2 = [equalCopy requestedPMV];
@@ -812,25 +764,7 @@ LABEL_46:
     {
       installPhaseOSBackgroundImagePath = [(SUControllerConfig *)self installPhaseOSBackgroundImagePath];
       installPhaseOSBackgroundImagePath2 = [equalCopy installPhaseOSBackgroundImagePath];
-      if (!doStringsMatch(installPhaseOSBackgroundImagePath, installPhaseOSBackgroundImagePath2))
-      {
-        goto LABEL_36;
-      }
-
-      restrictToFullReplacement = [(SUControllerConfig *)self restrictToFullReplacement];
-      if (restrictToFullReplacement != [equalCopy restrictToFullReplacement])
-      {
-        goto LABEL_36;
-      }
-
-      allowSameVersionUpdates = [(SUControllerConfig *)self allowSameVersionUpdates];
-      if (allowSameVersionUpdates != [equalCopy allowSameVersionUpdates])
-      {
-        goto LABEL_36;
-      }
-
-      useSpecifiedInstallWindow = [(SUControllerConfig *)self useSpecifiedInstallWindow];
-      if (useSpecifiedInstallWindow == [equalCopy useSpecifiedInstallWindow] && (v30 = -[SUControllerConfig expiredSpecifiedAsExpired](self, "expiredSpecifiedAsExpired"), v30 == objc_msgSend(equalCopy, "expiredSpecifiedAsExpired")) && (v31 = -[SUControllerConfig hideIndicationMayReboot](self, "hideIndicationMayReboot"), v31 == objc_msgSend(equalCopy, "hideIndicationMayReboot")) && (v32 = -[SUControllerConfig internalDefaultsAsExternal](self, "internalDefaultsAsExternal"), v32 == objc_msgSend(equalCopy, "internalDefaultsAsExternal")) && (v33 = -[SUControllerConfig requirePrepareSize](self, "requirePrepareSize"), v33 == objc_msgSend(equalCopy, "requirePrepareSize")) && (v34 = -[SUControllerConfig installWindowAsDeltas](self, "installWindowAsDeltas"), v34 == objc_msgSend(equalCopy, "installWindowAsDeltas")) && (v35 = -[SUControllerConfig maxOptionalPSUSDownloadSize](self, "maxOptionalPSUSDownloadSize"), v35 == objc_msgSend(equalCopy, "maxOptionalPSUSDownloadSize")))
+      if (doStringsMatch(installPhaseOSBackgroundImagePath, installPhaseOSBackgroundImagePath2) && (v27 = -[SUControllerConfig restrictToFullReplacement](self, "restrictToFullReplacement"), v27 == [equalCopy restrictToFullReplacement]) && (v28 = -[SUControllerConfig allowSameVersionUpdates](self, "allowSameVersionUpdates"), v28 == objc_msgSend(equalCopy, "allowSameVersionUpdates")) && (v29 = -[SUControllerConfig useSpecifiedInstallWindow](self, "useSpecifiedInstallWindow"), v29 == objc_msgSend(equalCopy, "useSpecifiedInstallWindow")) && (v30 = -[SUControllerConfig expiredSpecifiedAsExpired](self, "expiredSpecifiedAsExpired"), v30 == objc_msgSend(equalCopy, "expiredSpecifiedAsExpired")) && (v31 = -[SUControllerConfig hideIndicationMayReboot](self, "hideIndicationMayReboot"), v31 == objc_msgSend(equalCopy, "hideIndicationMayReboot")) && (v32 = -[SUControllerConfig internalDefaultsAsExternal](self, "internalDefaultsAsExternal"), v32 == objc_msgSend(equalCopy, "internalDefaultsAsExternal")) && (v33 = -[SUControllerConfig requirePrepareSize](self, "requirePrepareSize"), v33 == objc_msgSend(equalCopy, "requirePrepareSize")) && (v34 = -[SUControllerConfig installWindowAsDeltas](self, "installWindowAsDeltas"), v34 == objc_msgSend(equalCopy, "installWindowAsDeltas")) && (v35 = -[SUControllerConfig maxOptionalPSUSDownloadSize](self, "maxOptionalPSUSDownloadSize"), v35 == objc_msgSend(equalCopy, "maxOptionalPSUSDownloadSize")))
       {
         updateMetricContext = [(SUControllerConfig *)self updateMetricContext];
         updateMetricContext2 = [equalCopy updateMetricContext];
@@ -882,7 +816,6 @@ LABEL_46:
 
       else
       {
-LABEL_36:
         v20 = 0;
       }
     }
@@ -895,7 +828,6 @@ LABEL_36:
 
   else
   {
-LABEL_16:
     v20 = 0;
   }
 

@@ -24,10 +24,7 @@
 
 uint64_t __49__MSVAsyncBlockOperation_setCancellationHandler___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 40) copy];
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 280);
-  *(v3 + 280) = v2;
+  *(*(a1 + 32) + 280) = [*(a1 + 40) copy];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -56,10 +53,7 @@ uint64_t __49__MSVAsyncBlockOperation_setCancellationHandler___block_invoke(uint
 
 uint64_t __45__MSVAsyncBlockOperation_cancellationHandler__block_invoke(uint64_t a1)
 {
-  v2 = MEMORY[0x1B26EC6C0](*(*(a1 + 32) + 280));
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = MEMORY[0x1B26EC6C0](*(*(a1 + 32) + 280));
 
   return MEMORY[0x1EEE66BB8]();
 }

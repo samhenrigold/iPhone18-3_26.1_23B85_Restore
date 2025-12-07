@@ -200,7 +200,7 @@ LABEL_6:
     v6 = layout;
     if (layout)
     {
-      [layout transformInRoot];
+      objc_msgSend_transformInRoot(layout);
     }
 
     else

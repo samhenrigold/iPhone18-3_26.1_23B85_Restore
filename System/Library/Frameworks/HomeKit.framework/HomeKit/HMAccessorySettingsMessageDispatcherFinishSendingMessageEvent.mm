@@ -7,25 +7,24 @@
 
 - (id)eventPayload
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   v3 = [HMCoreAnalyticsStringFieldData alloc];
   messageName = [(HMAccessorySettingsMessageDispatcherFinishSendingMessageEvent *)self messageName];
   v5 = [(HMCoreAnalyticsStringFieldData *)v3 initWithName:@"messageName" stringValue:messageName];
 
-  v14.receiver = self;
-  v14.super_class = HMAccessorySettingsMessageDispatcherFinishSendingMessageEvent;
-  eventPayload = [(HMCoreAnalyticsTimedMetricEvent *)&v14 eventPayload];
+  v13.receiver = self;
+  v13.super_class = HMAccessorySettingsMessageDispatcherFinishSendingMessageEvent;
+  eventPayload = [(HMCoreAnalyticsTimedMetricEvent *)&v13 eventPayload];
   v7 = [eventPayload mutableCopy];
 
   name = [(HMCoreAnalyticsFieldData *)v5 name];
-  v15 = name;
+  v14 = name;
   value = [(HMCoreAnalyticsFieldData *)v5 value];
-  v16[0] = value;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+  v15[0] = value;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
   [v7 setValuesForKeysWithDictionary:v10];
 
   v11 = [v7 copy];
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }

@@ -80,10 +80,10 @@
     v12 = 0;
   }
 
-  v13 = _AAUILogSystem();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+  v14 = _AAUILogSystem(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
-    [AAUIAccountMigrationHook processElement:v12 attributes:v13 objectModel:? completion:?];
+    [AAUIAccountMigrationHook processElement:v12 attributes:v14 objectModel:? completion:?];
   }
 
   [(AAUIAccountMigrationHook *)self _invokeShieldMigrationFlowWithPendingDOB:v12 completion:completionCopy];
@@ -107,23 +107,23 @@
     v10 = 0;
   }
 
-  v11 = _AAUILogSystem();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  v12 = _AAUILogSystem(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
-    [AAUIAccountMigrationHook processElement:v10 attributes:v11 objectModel:? completion:?];
+    [AAUIAccountMigrationHook processElement:v10 attributes:v12 objectModel:? completion:?];
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __58__AAUIAccountMigrationHook_processObjectModel_completion___block_invoke;
-  v15[3] = &unk_1E820B708;
-  v15[4] = self;
-  v16 = v10;
-  v17 = completionCopy;
-  v13 = completionCopy;
-  v14 = v10;
-  [WeakRetained dismissObjectModelsAnimated:1 completion:v15];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __58__AAUIAccountMigrationHook_processObjectModel_completion___block_invoke;
+  v16[3] = &unk_1E820B708;
+  v16[4] = self;
+  v17 = v10;
+  v18 = completionCopy;
+  v14 = completionCopy;
+  v15 = v10;
+  [WeakRetained dismissObjectModelsAnimated:1 completion:v16];
 }
 
 - (void)_invokeShieldMigrationFlowWithPendingDOB:(id)b completion:(id)completion
@@ -134,41 +134,41 @@
 
   if (appleAccount)
   {
-    v9 = objc_alloc_init(MEMORY[0x1E698DE80]);
-    [v9 setAuthenticationType:2];
-    [v9 setIsUsernameEditable:0];
-    [v9 setAltDSID:self->_altDSID];
-    v10 = objc_alloc_init(MEMORY[0x1E696AB78]);
-    [v10 setDateFormat:@"yyyy-MM-dd"];
-    v11 = [v10 dateFromString:bCopy];
-    if (v11)
+    v10 = objc_alloc_init(MEMORY[0x1E698DE80]);
+    [v10 setAuthenticationType:2];
+    [v10 setIsUsernameEditable:0];
+    [v10 setAltDSID:self->_altDSID];
+    v11 = objc_alloc_init(MEMORY[0x1E696AB78]);
+    [v11 setDateFormat:@"yyyy-MM-dd"];
+    v12 = [v11 dateFromString:bCopy];
+    if (v12)
     {
-      v12 = [objc_alloc(MEMORY[0x1E698DC88]) initWithPendingDOB:v11];
-      [v9 setAccountMigrationContext:v12];
-      v19 = 0;
-      v20 = &v19;
-      v21 = 0x3032000000;
-      v22 = __Block_byref_object_copy_;
-      v23 = __Block_byref_object_dispose_;
+      v13 = [objc_alloc(MEMORY[0x1E698DC88]) initWithPendingDOB:v12];
+      [v10 setAccountMigrationContext:v13];
+      v20 = 0;
+      v21 = &v20;
+      v22 = 0x3032000000;
+      v23 = __Block_byref_object_copy_;
+      v24 = __Block_byref_object_dispose_;
       authController = [(AAUIAccountMigrationHook *)self authController];
-      v13 = v20[5];
-      v16[0] = MEMORY[0x1E69E9820];
-      v16[1] = 3221225472;
-      v16[2] = __80__AAUIAccountMigrationHook__invokeShieldMigrationFlowWithPendingDOB_completion___block_invoke;
-      v16[3] = &unk_1E820B730;
-      v18 = &v19;
-      v17 = completionCopy;
-      [v13 authenticateWithContext:v9 completion:v16];
+      v14 = v21[5];
+      v17[0] = MEMORY[0x1E69E9820];
+      v17[1] = 3221225472;
+      v17[2] = __80__AAUIAccountMigrationHook__invokeShieldMigrationFlowWithPendingDOB_completion___block_invoke;
+      v17[3] = &unk_1E820B730;
+      v19 = &v20;
+      v18 = completionCopy;
+      [v14 authenticateWithContext:v10 completion:v17];
 
-      _Block_object_dispose(&v19, 8);
+      _Block_object_dispose(&v20, 8);
     }
 
     else
     {
-      v15 = _AAUILogSystem();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v16 = _AAUILogSystem(0);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        [AAUIAccountMigrationHook _invokeShieldMigrationFlowWithPendingDOB:bCopy completion:v15];
+        [AAUIAccountMigrationHook _invokeShieldMigrationFlowWithPendingDOB:bCopy completion:v16];
       }
 
       if (completionCopy)
@@ -180,10 +180,10 @@
 
   else
   {
-    v14 = _AAUILogSystem();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = _AAUILogSystem(v9);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      [AAUIAccountMigrationHook _invokeShieldMigrationFlowWithPendingDOB:v14 completion:?];
+      [AAUIAccountMigrationHook _invokeShieldMigrationFlowWithPendingDOB:v15 completion:?];
     }
 
     if (completionCopy)
@@ -201,16 +201,16 @@ void __80__AAUIAccountMigrationHook__invokeShieldMigrationFlowWithPendingDOB_com
   v8 = *(v7 + 40);
   *(v7 + 40) = 0;
 
-  v9 = _AAUILogSystem();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v10 = _AAUILogSystem(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    __80__AAUIAccountMigrationHook__invokeShieldMigrationFlowWithPendingDOB_completion___block_invoke_cold_1(v5 != 0, v6, v9);
+    __80__AAUIAccountMigrationHook__invokeShieldMigrationFlowWithPendingDOB_completion___block_invoke_cold_1(v5 != 0, v6, v10);
   }
 
-  v10 = *(a1 + 32);
-  if (v10)
+  v11 = *(a1 + 32);
+  if (v11)
   {
-    (*(v10 + 16))(v10, v5 != 0, v6);
+    (*(v11 + 16))(v11, v5 != 0, v6);
   }
 }
 

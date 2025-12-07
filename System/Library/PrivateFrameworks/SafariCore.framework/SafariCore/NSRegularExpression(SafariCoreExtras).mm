@@ -19,7 +19,7 @@
       v12 = [v5 mutableCopy];
       do
       {
-        [v12 insertString:@"\\"" atIndex:v10];
+        [v12 insertString:@"\" atIndex:v10];
         v13 = v10 + v11;
         if (v13 + 1 >= [v12 length])
         {

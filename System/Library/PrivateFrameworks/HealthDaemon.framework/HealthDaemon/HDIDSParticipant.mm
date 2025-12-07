@@ -47,11 +47,11 @@
   v5 = [(HDIDSParticipant *)&v11 init];
   if (v5)
   {
-    v6 = [identifierCopy copy];
+    v6 = objc_msgSend_copy(identifierCopy);
     destinationIdentifier = v5->_destinationIdentifier;
     v5->_destinationIdentifier = v6;
 
-    v8 = [identifierCopy copy];
+    v8 = objc_msgSend_copy(identifierCopy);
     deviceIdentifier = v5->_deviceIdentifier;
     v5->_deviceIdentifier = v8;
   }
